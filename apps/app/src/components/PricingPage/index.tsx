@@ -1,5 +1,3 @@
-'use client';
-
 import type { GetPricingResult } from '@intlayer/backend';
 import { H1 } from '@intlayer/design-system/headers';
 import { SwitchSelector } from '@intlayer/design-system/switch-selector';

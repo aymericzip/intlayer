@@ -1,14 +1,12 @@
-'use client';
-
 import { Button } from '@intlayer/design-system/button';
 import { useUser } from '@intlayer/design-system/hooks';
 import { App_Auth_ChangePassword_Path } from '@intlayer/design-system/routes';
-import { useNavigate } from '@tanstack/react-router';
 import type { FC } from 'react';
+import { useLocalizedNavigate } from '#hooks/useLocalizedNavigate.ts';
 
 export const ProfilePanel: FC = () => {
   const { isUnauthenticated, user, logout } = useUser();
-  const navigate = useNavigate();
+  const navigate = useLocalizedNavigate();
 
   const handleLogOut = () => {
     logout()
@@ -31,7 +29,7 @@ export const ProfilePanel: FC = () => {
       <Button
         variant="link"
         color="text"
-        onClick={() => navigate({ to: App_Auth_ChangePassword_Path as any })}
+        onClick={() => navigate({ to: App_Auth_ChangePassword_Path })}
         label="Replace your password with a new one."
       >
         Change password

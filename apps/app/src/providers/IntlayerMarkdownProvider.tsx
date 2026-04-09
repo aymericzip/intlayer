@@ -1,5 +1,3 @@
-'use client';
-
 import { getIntlayerMarkdownOptions } from '@intlayer/design-system/mark-down-render';
 import type { FC, PropsWithChildren } from 'react';
 import { MarkdownProvider } from 'react-intlayer/markdown';

@@ -5,19 +5,21 @@ import {
   App_Dashboard_Organization_Path,
   App_Dashboard_Projects_Path,
 } from '@intlayer/design-system/routes';
-import { createFileRoute, redirect, useNavigate } from '@tanstack/react-router';
+import {
+  createFileRoute,
+  useNavigate,
+  useParams,
+} from '@tanstack/react-router';
 import { getLocalizedUrl } from 'intlayer';
-import { useIntlayer, useLocale } from 'react-intlayer';
 import { useEffect } from 'react';
 
 export const Route = createFileRoute('/{-$locale}/_dashboard/')({
-  component: DashboardIndex,
+  component: DashboardIndexPage,
 });
 
-function DashboardIndex() {
+function DashboardIndexPage() {
   const navigate = useNavigate();
-  const { locale } = useLocale();
-
+  const { locale } = useParams({ strict: false });
   const { session, revalidateSession } = useSession();
 
   useEffect(() => {
@@ -25,23 +27,23 @@ function DashboardIndex() {
     if (!isProjectAdmin) {
       revalidateSession();
     }
-  }, []);
+  }, [session?.roles, revalidateSession]);
 
   useEffect(() => {
     if (session?.organization && session?.project) {
-      void navigate({
+      navigate({
         to: getLocalizedUrl(App_Dashboard_Dictionaries_Path, locale),
       });
     } else if (session?.organization) {
-      void navigate({
+      navigate({
         to: getLocalizedUrl(App_Dashboard_Projects_Path, locale),
       });
     } else {
-      void navigate({
+      navigate({
         to: getLocalizedUrl(App_Dashboard_Organization_Path, locale),
       });
     }
-  }, [session]);
+  }, [session, navigate, locale]);
 
   return <Loader />;
 }

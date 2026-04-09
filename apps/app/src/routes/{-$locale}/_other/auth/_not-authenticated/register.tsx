@@ -1,8 +1,8 @@
 import { Container } from '@intlayer/design-system/container';
 import { Loader } from '@intlayer/design-system/loader';
 import { createFileRoute } from '@tanstack/react-router';
-import { Suspense } from 'react';
 import { getIntlayer } from 'intlayer';
+import { Suspense } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { SignUpForm } from '#components/Auth/SignUp';
 

@@ -4,7 +4,7 @@ import { cn } from '@utils/cn';
 import { ArrowLeft, ArrowRight, RotateCw } from 'lucide-react';
 import {
   type CSSProperties,
-  type FormEvent,
+  type SubmitEvent,
   type HTMLAttributes,
   type RefObject,
   useEffect,
@@ -176,7 +176,7 @@ export const Browser = ({
     }
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     setSubmitted(true);
     handleNavigateTo(inputUrl);

@@ -17,7 +17,7 @@ export const addNewAccessKey = async (
   request: FastifyRequest<{ Body: AddNewAccessKeyBody }>,
   reply: FastifyReply
 ): Promise<void> => {
-  const { user, project, roles, permissions } = request.locals || {};
+  const { user, project, roles, permissions } = request.session || {};
   const { grants, name, expiresAt } = request.body;
 
   if (!project) {
@@ -36,7 +36,7 @@ export const addNewAccessKey = async (
       roles || [],
       'project:write'
     )({
-      ...request.locals,
+      ...request.session,
       targetProjectIds: [project.id],
     })
   ) {
@@ -97,7 +97,7 @@ export const deleteAccessKey = async (
   request: FastifyRequest<{ Body: DeleteAccessKeyBody }>,
   reply: FastifyReply
 ): Promise<void> => {
-  const { user, project, roles } = request.locals || {};
+  const { user, project, roles } = request.session || {};
   const { clientId } = request.body;
 
   if (!project) {
@@ -123,7 +123,7 @@ export const deleteAccessKey = async (
       roles || [],
       'project:write'
     )({
-      ...request.locals,
+      ...request.session,
       targetProjectIds: [project.id],
     })
   ) {
@@ -177,7 +177,7 @@ export const refreshAccessKey = async (
   request: FastifyRequest<{ Body: RefreshAccessKeyBody }>,
   reply: FastifyReply
 ): Promise<void> => {
-  const { user, project, roles } = request.locals || {};
+  const { user, project, roles } = request.session || {};
   const { clientId } = request.body;
 
   if (!project) {
@@ -203,7 +203,7 @@ export const refreshAccessKey = async (
       roles || [],
       'project:write'
     )({
-      ...request.locals,
+      ...request.session,
       targetProjectIds: [project?.id],
     })
   ) {

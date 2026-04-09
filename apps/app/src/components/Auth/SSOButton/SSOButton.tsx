@@ -1,5 +1,3 @@
-'use client';
-
 import { Button } from '@intlayer/design-system/button';
 import { usePersistedStore, useSignInSSO } from '@intlayer/design-system/hooks';
 import { Input } from '@intlayer/design-system/input';

@@ -1,13 +1,11 @@
-'use client';
-
 import type { TagAPI } from '@intlayer/backend';
 import { Form } from '@intlayer/design-system/form';
 import { useDeleteTag } from '@intlayer/design-system/hooks';
 import { Modal } from '@intlayer/design-system/modal';
 import { App_Dashboard_Tags } from '@intlayer/design-system/routes';
-import { useNavigate } from '@tanstack/react-router';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
+import { useLocalizedNavigate } from '#hooks/useLocalizedNavigate.ts';
 
 type DeleteTagModalProps = {
   tag: TagAPI;
@@ -25,7 +23,7 @@ export const DeleteTagModal: FC<DeleteTagModalProps> = ({
   const { mutate: deleteTag, isPending: isDeleting } = useDeleteTag();
   const { confirmButton, cancelButton, description, title } =
     useIntlayer('delete-tag-modal');
-  const navigate = useNavigate();
+  const navigate = useLocalizedNavigate();
 
   const handleDelete = () => {
     deleteTag(tag.id, {

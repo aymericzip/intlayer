@@ -1,5 +1,3 @@
-'use client';
-
 import type { ProjectAPI } from '@intlayer/backend';
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';

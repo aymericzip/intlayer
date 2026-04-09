@@ -59,7 +59,7 @@ export const customQuery = async (
   reply: FastifyReply
 ): Promise<void> => {
   const { aiOptions, tagsKeys, ...rest } = request.body;
-  const { user, project } = request.locals || {};
+  const { user, project } = request.session || {};
 
   const projectAIOptions = project?.configuration?.ai
     ? (project.configuration.ai as AIOptions)
@@ -114,7 +114,7 @@ export const translateJSON = async (
   request: FastifyRequest<{ Body: TranslateJSONBody }>,
   reply: FastifyReply
 ): Promise<void> => {
-  const { project, user } = request.locals || {};
+  const { project, user } = request.session || {};
   const { aiOptions, tagsKeys, ...rest } = request.body;
 
   const projectAIOptions = project?.configuration?.ai
@@ -184,7 +184,7 @@ export const auditContentDeclaration = async (
   request: FastifyRequest<{ Body: AuditContentDeclarationBody }>,
   reply: FastifyReply
 ): Promise<void> => {
-  const { project, user } = request.locals || {};
+  const { project, user } = request.session || {};
   const { fileContent, filePath, aiOptions, locales, defaultLocale, tagsKeys } =
     request.body;
 
@@ -257,7 +257,7 @@ export const auditContentDeclarationField = async (
   request: FastifyRequest<{ Body: AuditContentDeclarationFieldBody }>,
   reply: FastifyReply
 ): Promise<void> => {
-  const { project, user } = request.locals || {};
+  const { project, user } = request.session || {};
   const { fileContent, aiOptions, locales, tagsKeys, keyPath } = request.body;
 
   const projectAIOptions = project?.configuration?.ai
@@ -328,7 +328,7 @@ export const auditContentDeclarationMetadata = async (
   request: FastifyRequest<{ Body: AuditContentDeclarationMetadataBody }>,
   reply: FastifyReply
 ): Promise<void> => {
-  const { organization, user } = request.locals || {};
+  const { organization, user } = request.session || {};
   const { fileContent, aiOptions } = request.body;
 
   let aiConfig: AIConfig;
@@ -390,7 +390,7 @@ export const auditTag = async (
   request: FastifyRequest<{ Body: AuditTagBody }>,
   reply: FastifyReply
 ): Promise<void> => {
-  const { project, user } = request.locals || {};
+  const { project, user } = request.session || {};
   const { aiOptions, tag } = request.body;
 
   const projectAIOptions = project?.configuration?.ai
@@ -451,7 +451,7 @@ export const askDocQuestion = async (
   reply: FastifyReply
 ): Promise<void> => {
   const { messages = [], discussionId } = request.body;
-  const { user, project, organization } = request.locals || {};
+  const { user, project, organization } = request.session || {};
 
   // Hijack response
   reply.hijack();
@@ -623,7 +623,7 @@ export const autocomplete = async (
   request: FastifyRequest<{ Body: AutocompleteBody }>,
   reply: FastifyReply
 ): Promise<void> => {
-  const { user, project } = request.locals || {};
+  const { user, project } = request.session || {};
 
   const projectAIOptions = project?.configuration?.ai
     ? (project.configuration.ai as AIOptions)
@@ -689,7 +689,7 @@ export const getDiscussions = async (
   request: FastifyRequest<{ Querystring: GetDiscussionsParams }>,
   reply: FastifyReply
 ): Promise<void> => {
-  const { user, roles } = request.locals || {};
+  const { user, roles } = request.session || {};
   const { filters, sortOptions, pageSize, skip, page, getNumberOfPages } =
     getDiscussionFiltersAndPagination(request);
   const includeMessagesParam = (request.query as any)?.includeMessages as

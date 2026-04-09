@@ -1,5 +1,3 @@
-'use client';
-
 import type { OAuth2AccessAPI } from '@intlayer/backend';
 import { Container } from '@intlayer/design-system/container';
 import { CopyToClipboard } from '@intlayer/design-system/copy-to-clipboard';

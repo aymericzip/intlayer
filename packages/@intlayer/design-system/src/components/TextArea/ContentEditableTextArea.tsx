@@ -6,8 +6,8 @@ import {
   type ClipboardEvent,
   type DragEvent,
   type FC,
-  type FormEvent,
   type HTMLAttributes,
+  type InputEvent,
   type KeyboardEvent,
   type MutableRefObject,
   type Ref,
@@ -427,7 +427,7 @@ export const useContentEditable = ({
 
     e.preventDefault();
     const selInfo = getSelectionOffsets();
-    if (!selInfo || !selInfo.hasSelection) return;
+    if (!selInfo?.hasSelection) return;
 
     const currentText = linesRef.current.join('\n');
     const selectedText = currentText.slice(selInfo.start, selInfo.end);
@@ -462,7 +462,7 @@ export const useContentEditable = ({
     applyTextChange(newText, selInfo.start + pastedText.length);
   };
 
-  const handleBeforeInput = (e: FormEvent<HTMLDivElement>) => {
+  const handleBeforeInput = (e: InputEvent<HTMLDivElement>) => {
     if (disabled) return;
 
     const inputEvent = e.nativeEvent as InputEvent;

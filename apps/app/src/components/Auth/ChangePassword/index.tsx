@@ -1,12 +1,10 @@
-'use client';
-
 import { Button } from '@intlayer/design-system/button';
 import { useChangePassword, useUser } from '@intlayer/design-system/hooks';
 import { App_Home_Path } from '@intlayer/design-system/routes';
-import { useNavigate } from '@tanstack/react-router';
 import { Check } from 'lucide-react';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
+import { useLocalizedNavigate } from '#hooks/useLocalizedNavigate.ts';
 import { ChangePasswordForm as ChangePasswordFormUI } from './ChangePasswordForm';
 
 type ChangePasswordFormProps = {
@@ -16,7 +14,7 @@ type ChangePasswordFormProps = {
 export const ChangePasswordForm: FC<ChangePasswordFormProps> = ({
   callbackUrl = App_Home_Path,
 }) => {
-  const navigate = useNavigate();
+  const navigate = useLocalizedNavigate();
   const { user } = useUser();
   const { mutate: changePassword, isSuccess } = useChangePassword();
   const { goToLoginButton } = useIntlayer('change-password-form');

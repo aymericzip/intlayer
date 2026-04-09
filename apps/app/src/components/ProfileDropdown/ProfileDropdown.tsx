@@ -1,5 +1,3 @@
-'use client';
-
 import { Avatar } from '@intlayer/design-system/avatar';
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
@@ -41,7 +39,7 @@ export const ProfileDropDown: FC = () => {
         <Container
           className="min-w-[100px] border border-text/10 p-6"
           transparency="xs"
-          roundedSize="xl"
+          roundedSize="2xl"
         >
           <div className="flex flex-col gap-5">
             {user?.name && (

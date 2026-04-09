@@ -1,5 +1,3 @@
-'use client';
-
 import { Form } from '@intlayer/design-system/form';
 import {
   useDeleteOrganization,
@@ -7,9 +5,9 @@ import {
 } from '@intlayer/design-system/hooks';
 import { Modal } from '@intlayer/design-system/modal';
 import { App_Dashboard_Organization_Path } from '@intlayer/design-system/routes';
-import { useNavigate } from '@tanstack/react-router';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
+import { useLocalizedNavigate } from '#hooks/useLocalizedNavigate.ts';
 
 type DeleteOrganizationModalProps = {
   isOpen: boolean;
@@ -31,7 +29,7 @@ export const DeleteOrganizationModal: FC<DeleteOrganizationModalProps> = ({
   const { confirmButton, cancelButton, description, title } = useIntlayer(
     'delete-organization-modal'
   );
-  const navigate = useNavigate();
+  const navigate = useLocalizedNavigate();
 
   const handleDelete = () => {
     deleteOrganization(undefined, {
@@ -41,7 +39,7 @@ export const DeleteOrganizationModal: FC<DeleteOrganizationModalProps> = ({
 
           onDelete?.();
           onClose?.();
-          navigate({ to: App_Dashboard_Organization_Path as any });
+          navigate({ to: App_Dashboard_Organization_Path });
         }
       },
     });

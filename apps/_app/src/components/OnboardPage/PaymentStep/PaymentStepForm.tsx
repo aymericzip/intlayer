@@ -17,7 +17,7 @@ import { Check, ShoppingCart } from 'lucide-react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
 import { useTheme } from 'next-themes';
-import { type FC, type FormEvent, useState } from 'react';
+import { type FC, type SubmitEvent, useState } from 'react';
 import type Stripe from 'stripe';
 import { retrievePriceId } from '../retrievePriceId';
 import { StepLayout } from '../StepLayout';
@@ -117,7 +117,7 @@ export const PaymentStepContent: FC<PaymentDetailsProps> = ({
     planData?.type.toUpperCase() === plan.toUpperCase() &&
     planData.status === 'active';
 
-  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (isPlanValid) {

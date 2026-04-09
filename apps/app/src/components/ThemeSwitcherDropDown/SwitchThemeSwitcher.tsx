@@ -1,13 +1,11 @@
-'use client';
-
 import {
   SwitchSelector,
   type SwitchSelectorChoices,
 } from '@intlayer/design-system/switch-selector';
 import { Modes } from '@intlayer/design-system/theme-switcher-drop-down';
 import { MoonIcon, SunIcon } from 'lucide-react';
-import { useTheme } from '#/providers/ThemeProvider';
 import type { FC } from 'react';
+import { useTheme } from '#/providers/ThemeProvider';
 
 export const SwitchThemeSwitcher: FC = () => {
   const { resolvedTheme, setTheme } = useTheme();

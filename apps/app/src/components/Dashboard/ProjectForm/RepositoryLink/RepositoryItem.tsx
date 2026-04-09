@@ -1,5 +1,3 @@
-'use client';
-
 import { Button } from '@intlayer/design-system/button';
 import { TechLogos } from '@intlayer/design-system/tech-logo';
 import { GitBranch, GitCommit } from 'lucide-react';

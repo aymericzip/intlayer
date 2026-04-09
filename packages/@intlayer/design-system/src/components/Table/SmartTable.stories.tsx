@@ -1,36 +1,52 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, within } from '@storybook/test';
 import { useState } from 'react';
-import { Table } from './Table';
+import { SmartTable } from './SmartTable';
 
 /**
  * ## Table Component
  *
- * The Table component provides a basic table structure with customizable styling
- * and interactive row support.
+ * The Table component provides an enhanced table experience with modal expansion
+ * and collapsible content capabilities. Perfect for displaying tabular data with
+ * responsive behavior and enhanced user experience.
  *
  * ### Key Features
- * - **Interactive Rows**: Enable `isInteractive` for hover states and cursor changes
+ * - **Modal Expansion**: Click the diagonal arrow to view tables in full-screen modal
+ * - **Collapsible Content**: Use `isRollable` prop for space-saving collapsed tables
+ * - **Responsive Design**: Handles large tables gracefully with proper overflow
+ * - **Accessibility**: Maintains proper table semantics and keyboard navigation
  * - **Flexible Styling**: Supports all HTML table attributes and custom CSS classes
- * - **Accessibility**: maintains proper table semantics and structure
+ *
+ * ### Accessibility Features
+ * - Proper table semantics with thead, tbody structure
+ * - Supports scope attributes for column headers
+ * - Keyboard navigation for modal controls
+ * - Screen reader compatibility with table structure
+ *
+ * ### Best Practices
+ * - Use semantic HTML table structure (thead, tbody, tfoot)
+ * - Provide clear column headers with scope attributes
+ * - Consider pagination for very large datasets
+ * - Use consistent styling patterns across similar tables
+ * - Enable `isRollable` for tables that might need space management
  */
-const meta: Meta<typeof Table> = {
-  title: 'Components/Table/Table',
-  component: Table,
+const meta: Meta<typeof SmartTable> = {
+  title: 'Components/Table/SmartTable',
+  component: SmartTable,
   parameters: {
     layout: 'padded',
     docs: {
       description: {
         component:
-          'A simple table component for displaying tabular data with customizable styling and hover effects.',
+          'A comprehensive table component with modal expansion and collapsible content capabilities for displaying tabular data effectively.',
       },
     },
   },
   tags: ['autodocs'],
   argTypes: {
-    isInteractive: {
+    isRollable: {
       control: 'boolean',
-      description: 'Enables hover states and cursor changes for interactive rows',
+      description: 'Whether the table content can be collapsed/expanded',
       table: {
         type: { summary: 'boolean' },
         defaultValue: { summary: 'false' },
@@ -51,10 +67,10 @@ const meta: Meta<typeof Table> = {
       },
     },
   },
-} satisfies Meta<typeof Table>;
+} satisfies Meta<typeof SmartTable>;
 
 export default meta;
-type Story = StoryObj<typeof Table>;
+type Story = StoryObj<typeof SmartTable>;
 
 /**
  * ## Basic Examples
@@ -70,7 +86,7 @@ type Story = StoryObj<typeof Table>;
 export const Default: Story = {
   render: () => (
     <div className="max-w-4xl">
-      <Table isInteractive>
+      <SmartTable displayModal>
         <thead>
           <tr className="border-gray-200 border-b bg-gray-50">
             <th
@@ -149,7 +165,7 @@ export const Default: Story = {
             </td>
           </tr>
         </tbody>
-      </Table>
+      </SmartTable>
     </div>
   ),
   play: async ({ canvasElement }) => {
@@ -299,7 +315,7 @@ export const ProductInventory: Story = {
           </div>
         </div>
 
-        <Table className="overflow-hidden rounded-lg border border-gray-200">
+        <SmartTable className="overflow-hidden rounded-lg border border-gray-200">
           <thead className="bg-gray-50">
             <tr>
               <th
@@ -432,7 +448,7 @@ export const ProductInventory: Story = {
               );
             })}
           </tbody>
-        </Table>
+        </SmartTable>
       </div>
     );
   },
@@ -513,7 +529,7 @@ export const FinancialReport: Story = {
           <div className="text-gray-500 text-sm">Fiscal Year 2024</div>
         </div>
 
-        <Table className="overflow-hidden rounded-lg border border-gray-300 shadow-sm">
+        <SmartTable className="overflow-hidden rounded-lg border border-gray-300 shadow-sm">
           <thead>
             <tr className="bg-gradient-to-r from-gray-50 to-gray-100">
               <th
@@ -634,7 +650,7 @@ export const FinancialReport: Story = {
               </td>
             </tr>
           </tfoot>
-        </Table>
+        </SmartTable>
 
         <div className="flex items-center gap-6 text-gray-600 text-sm">
           <div className="flex items-center gap-2">
@@ -702,7 +718,7 @@ export const CollapsibleLargeTable: Story = {
           </div>
         </div>
 
-        <Table className="rounded-lg border border-gray-200">
+        <SmartTable isRollable className="rounded-lg border border-gray-200">
           <thead className="bg-gray-50">
             <tr>
               <th
@@ -789,7 +805,7 @@ export const CollapsibleLargeTable: Story = {
               </tr>
             ))}
           </tbody>
-        </Table>
+        </SmartTable>
       </div>
     );
   },
@@ -814,7 +830,7 @@ export const CollapsibleLargeTable: Story = {
 export const EmptyState: Story = {
   render: () => (
     <div className="max-w-4xl">
-      <Table className="rounded-lg border border-gray-200">
+      <SmartTable className="rounded-lg border border-gray-200">
         <thead className="bg-gray-50">
           <tr>
             <th
@@ -862,7 +878,7 @@ export const EmptyState: Story = {
             </td>
           </tr>
         </tbody>
-      </Table>
+      </SmartTable>
     </div>
   ),
   play: async ({ canvasElement }) => {

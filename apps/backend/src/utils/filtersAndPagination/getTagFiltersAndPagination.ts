@@ -1,8 +1,6 @@
-import type { ResponseWithSession } from '@middlewares/sessionAuth.middleware';
 import { ensureArrayQueryFilter } from '@utils/ensureArrayQueryFilter';
-import type { Request } from 'express';
 import type { FastifyRequest } from 'fastify';
-import type { RootFilterQuery } from 'mongoose';
+import type { QueryFilter } from 'mongoose';
 import type { Tag } from '@/types/tag.types';
 import {
   type FiltersAndPagination,
@@ -20,25 +18,20 @@ export type TagFiltersParams = {
    */
   fetchAll?: 'true' | 'false';
 };
-export type TagFilters = RootFilterQuery<Tag>;
+export type TagFilters = QueryFilter<Tag>;
 
 /**
  * Extracts filters and pagination information from the request body.
- * @param req - Express or Fastify request object.
- * @param res - Express or Fastify response object (optional, for Express compatibility).
+ * @param req - Fastify request object.
  * @returns Object containing filters, page, pageSize, and getNumberOfPages functions.
  */
 export const getTagFiltersAndPagination = (
-  req:
-    | Request<FiltersAndPagination<TagFiltersParams>>
-    | FastifyRequest<{ Querystring: FiltersAndPagination<TagFiltersParams> }>,
-  res?: ResponseWithSession
+  req: FastifyRequest<{ Querystring: FiltersAndPagination<TagFiltersParams> }>
 ) => {
   const { filters: filtersRequest, ...pagination } =
-    getFiltersAndPaginationFromBody<TagFiltersParams>(req as any);
-  // Support both Express (res.locals) and Fastify (req.locals)
-  const locals = (res as any)?.locals || (req as FastifyRequest).locals || {};
-  const { roles, organization } = locals;
+    getFiltersAndPaginationFromBody<TagFiltersParams>(req);
+  const roles = req.session?.roles;
+  const organization = req.session?.organization;
 
   let filters: TagFilters = {};
   const sortOptions: Record<string, 1 | -1> = { updatedAt: -1 };
@@ -75,7 +68,7 @@ export const getTagFiltersAndPagination = (
     filters = { ...filters, organizationId };
   }
 
-  if (!(roles.includes('admin') && fetchAll === 'true')) {
+  if (!(roles?.includes('admin') && fetchAll === 'true')) {
     filters = { ...filters, organizationId: organization?.id };
   }
 

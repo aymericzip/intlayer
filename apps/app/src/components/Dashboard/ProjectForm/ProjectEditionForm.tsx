@@ -1,5 +1,3 @@
-'use client';
-
 import { Form, useForm } from '@intlayer/design-system/form';
 import { H3 } from '@intlayer/design-system/headers';
 import { useSession, useUpdateProject } from '@intlayer/design-system/hooks';

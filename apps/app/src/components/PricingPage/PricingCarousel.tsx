@@ -1,7 +1,6 @@
-'use client';
-
 import type { GetPricingResult } from '@intlayer/backend';
 import { useGetPricing, useUser } from '@intlayer/design-system/hooks';
+import { cn } from '@intlayer/design-system/utils';
 import { useSearch } from '@tanstack/react-router';
 import React, {
   type FC,
@@ -294,10 +293,10 @@ export const PricingCarousel: FC<PricingCarouselProps> = ({
       {plans.map((plan, index) => (
         <button
           type="button"
-          className={`absolute left-1/2 -translate-x-1/2 transition duration-300 ease-in-out${setColumnStyle(
-            index,
-            displayedPlanIndex
-          )}`}
+          className={cn(
+            `absolute left-1/2 -translate-x-1/2 transition duration-300 ease-in-out`,
+            setColumnStyle(index, displayedPlanIndex)
+          )}
           ref={columnRef}
           onKeyDown={(e) => {
             if (e.key === 'Enter' || e.key === ' ') {

@@ -23,7 +23,7 @@ export const subscribeToNewsletter = async (
   request: FastifyRequest<{ Body: NewsletterSubscriptionBody }>,
   reply: FastifyReply
 ): Promise<void> => {
-  const { roles } = request.locals || {};
+  const { roles } = request.session || {};
   const { email, emailList } = request.body;
 
   if (!email) {
@@ -57,7 +57,7 @@ export const subscribeToNewsletter = async (
           roles || [],
           'user:write'
         )({
-          ...request.locals,
+          ...request.session,
           targetUsers: [user],
         })
       ) {
@@ -111,7 +111,7 @@ export const unsubscribeFromNewsletter = async (
   reply: FastifyReply
 ): Promise<void> => {
   const { userId, emailList } = request.body;
-  const { roles } = request.locals || {};
+  const { roles } = request.session || {};
 
   if (!userId) {
     return ErrorHandler.handleGenericErrorResponse(
@@ -133,7 +133,7 @@ export const unsubscribeFromNewsletter = async (
         roles || [],
         'user:write'
       )({
-        ...request.locals,
+        ...request.session,
         targetUsers: [user],
       })
     ) {
@@ -186,8 +186,8 @@ export const getNewsletterStatus = async (
   _request: FastifyRequest,
   reply: FastifyReply
 ): Promise<void> => {
-  const email = _request.locals?.user?.email;
-  const { roles } = _request.locals || {};
+  const email = _request.session?.user?.email;
+  const { roles } = _request.session || {};
 
   if (!email) {
     return ErrorHandler.handleGenericErrorResponse(
@@ -208,7 +208,7 @@ export const getNewsletterStatus = async (
         roles || [],
         'user:read'
       )({
-        ..._request.locals,
+        ..._request.session,
         targetUsers: [user],
       })
     ) {

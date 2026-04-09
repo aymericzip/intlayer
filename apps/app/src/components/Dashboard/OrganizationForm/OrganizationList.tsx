@@ -14,10 +14,10 @@ import {
   ShowingResultsNumberItems,
 } from '@intlayer/design-system/pagination';
 import { App_Dashboard_Projects_Path } from '@intlayer/design-system/routes';
-import { useNavigate } from '@tanstack/react-router';
 import { Plus } from 'lucide-react';
 import { type FC, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
+import { useLocalizedNavigate } from '#hooks/useLocalizedNavigate.ts';
 import { NoOrganizationView } from './NoOrganizationView';
 import { OrganizationCreationForm } from './OrganizationCreationForm';
 
@@ -56,7 +56,7 @@ export const OrganizationList: FC<OrganizationListProps> = ({
   const { searchPlaceholder, noOrganizationFound } =
     useIntlayer('organization-list');
   const [isCreationModalOpen, setIsCreationModalOpen] = useState(false);
-  const navigate = useNavigate();
+  const navigate = useLocalizedNavigate();
 
   const handleSelectOrganization = (organizationId: OrganizationAPI['id']) => {
     if (onSelectOrganization) {
@@ -74,7 +74,7 @@ export const OrganizationList: FC<OrganizationListProps> = ({
 
     selectOrganization(organizationId, {
       onSuccess: () => {
-        navigate({ to: App_Dashboard_Projects_Path as any });
+        navigate({ to: App_Dashboard_Projects_Path });
       },
     });
   };

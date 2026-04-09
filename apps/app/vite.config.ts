@@ -281,5 +281,13 @@ export default defineConfig(({ mode }) => {
         external: ['wasi_snapshot_preview1', 'esbuild', 'env'],
       },
     },
+    resolve: {
+      // Forces Vite to resolve these dependencies from the root node_modules
+      dedupe: ['react', 'react-dom'],
+    },
+    optimizeDeps: {
+      // Ensures Vite pre-bundles them together
+      include: ['react', 'react-dom'],
+    },
   };
 });

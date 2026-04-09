@@ -1,7 +1,7 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import type { FC, FormEvent, HTMLProps } from 'react';
+import type { FC, SubmitEvent, HTMLProps } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { z } from 'zod/v4';
 
@@ -26,7 +26,7 @@ export const FormElementWrapper: FC<FormElementWrapperProps> = (props) => {
 
   const onSubmitForm = (
     values: z.infer<typeof objectFormSchema>,
-    event: FormEvent<HTMLFormElement>
+    event: SubmitEvent<HTMLFormElement>
   ) => {
     const parsedValues = objectFormSchema.safeParse(values);
     if (parsedValues.success) {

@@ -44,7 +44,7 @@ export const getOrganizations = async (
   request: FastifyRequest<{ Querystring: GetOrganizationsParams }>,
   reply: FastifyReply
 ) => {
-  const { user, roles } = request.locals || {};
+  const { user, roles } = request.session || {};
   const { filters, sortOptions, pageSize, skip, page, getNumberOfPages } =
     getOrganizationFiltersAndPagination(request);
 
@@ -65,7 +65,7 @@ export const getOrganizations = async (
         roles || [],
         'organization:read'
       )({
-        ...request.locals,
+        ...request.session,
         targetOrganizations: organizations,
       })
     ) {
@@ -101,7 +101,7 @@ export const getOrganization = async (
   request: FastifyRequest<{ Params: GetOrganizationParam }>,
   reply: FastifyReply
 ): Promise<void> => {
-  const { roles } = request.locals || {};
+  const { roles } = request.session || {};
   const { organizationId } = request.params;
 
   if (!organizationId) {
@@ -120,7 +120,7 @@ export const getOrganization = async (
         roles || [],
         'organization:read'
       )({
-        ...request.locals,
+        ...request.session,
         targetOrganizations: [organization],
       })
     ) {
@@ -150,7 +150,7 @@ export const addOrganization = async (
   request: FastifyRequest<{ Body: AddOrganizationBody }>,
   reply: FastifyReply
 ): Promise<void> => {
-  const { user } = request.locals || {};
+  const { user } = request.session || {};
   const organization = request.body;
 
   if (!organization) {
@@ -200,7 +200,7 @@ export const updateOrganization = async (
   request: FastifyRequest<{ Body: UpdateOrganizationBody }>,
   reply: FastifyReply
 ): Promise<void> => {
-  const { organization, roles } = request.locals || {};
+  const { organization, roles } = request.session || {};
   const organizationFields = request.body;
 
   if (!organizationFields) {
@@ -222,7 +222,7 @@ export const updateOrganization = async (
       roles || [],
       'organization:write'
     )({
-      ...request.locals,
+      ...request.session,
       targetOrganizations: [organization],
     })
   ) {
@@ -268,7 +268,7 @@ export const addOrganizationMember = async (
   request: FastifyRequest<{ Body: AddOrganizationMemberBody }>,
   reply: FastifyReply
 ): Promise<void> => {
-  const { organization, user, roles } = request.locals || {};
+  const { organization, user, roles } = request.session || {};
   const { userEmail } = request.body;
 
   if (!organization) {
@@ -287,7 +287,7 @@ export const addOrganizationMember = async (
       roles || [],
       'organization:admin'
     )({
-      ...request.locals,
+      ...request.session,
       targetOrganizations: [organization],
     })
   ) {
@@ -379,7 +379,7 @@ export const updateOrganizationMembers = async (
   request: FastifyRequest<{ Body: UpdateOrganizationMembersBody }>,
   reply: FastifyReply
 ): Promise<void> => {
-  const { organization, roles } = request.locals || {};
+  const { organization, roles } = request.session || {};
   const { membersIds, adminsIds } = request.body;
 
   if (!organization) {
@@ -394,7 +394,7 @@ export const updateOrganizationMembers = async (
       roles || [],
       'organization:admin'
     )({
-      ...request.locals,
+      ...request.session,
       targetOrganizations: [organization],
     })
   ) {
@@ -478,7 +478,7 @@ export const updateOrganizationMembersById = async (
   }>,
   reply: FastifyReply
 ): Promise<void> => {
-  const { user } = request.locals || {};
+  const { user } = request.session || {};
   const { organizationId } = request.params;
   const { membersIds, adminsIds } = request.body;
 
@@ -572,7 +572,7 @@ export const deleteOrganization = async (
   reply: FastifyReply
 ): Promise<void> => {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
-  const { organization, session, roles } = _request.locals || {};
+  const { organization, session, roles } = _request.session || {};
 
   if (!organization) {
     return ErrorHandler.handleGenericErrorResponse(
@@ -596,7 +596,7 @@ export const deleteOrganization = async (
       roles || [],
       'organization:admin'
     )({
-      ..._request.locals,
+      ..._request.session,
       targetOrganizations: [organization],
     })
   ) {
@@ -676,7 +676,7 @@ export const selectOrganization = async (
   reply: FastifyReply
 ): Promise<void> => {
   const { organizationId } = request.params;
-  const { session } = request.locals || {};
+  const { session } = request.session || {};
 
   if (!organizationId) {
     return ErrorHandler.handleGenericErrorResponse(
@@ -737,7 +737,7 @@ export const unselectOrganization = async (
   _request: FastifyRequest,
   reply: FastifyReply
 ): Promise<void> => {
-  const { session } = _request.locals || {};
+  const { session } = _request.session || {};
   try {
     // Update session to clear activeOrganizationId and activeProjectId
 

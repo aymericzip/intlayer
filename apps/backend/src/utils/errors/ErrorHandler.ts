@@ -3,16 +3,13 @@
 import * as Locales from '@intlayer/types/locales';
 import type { StrictModeLocaleMap } from '@intlayer/types/module_augmentation';
 import { logger } from '@logger';
-import { formatPaginatedResponse, formatResponse } from '@utils/responseData';
-import type { Response } from 'express';
+import { formatResponse } from '@utils/responseData';
 import type { FastifyReply } from 'fastify';
 import { t } from 'fastify-intlayer';
 import type { UserAPI } from '@/types/user.types';
 import { HttpStatusCodes } from '@/utils/httpStatusCodes';
 import type { AppError } from './ErrorsClass';
 import { type ErrorCodes, errorData } from './errorCodes';
-
-type ResponseLike = Response | FastifyReply;
 
 /**
  * Handles generic error responses by formatting and sending a JSON response.
@@ -22,24 +19,22 @@ type ResponseLike = Response | FastifyReply;
  * @param isPaginatedResponse - Flag to determine if the response should be paginated.
  */
 export const handleGenericErrorResponse = (
-  res: ResponseLike,
+  reply: FastifyReply,
   errorKey: ErrorCodes,
   errorDetails?: object,
-  statusCode?: HttpStatusCodes,
-  isPaginatedResponse: boolean = false
+  statusCode?: HttpStatusCodes
 ) => {
   const error = errorData[errorKey];
   const status = statusCode ?? error.statusCode; // Use the provided status code or default to the one in errorData.
 
   // Delegate to a more customizable error response handler.
   handleCustomErrorResponse(
-    res,
+    reply,
     errorKey,
     error.title,
     error.message,
     errorDetails,
-    status,
-    isPaginatedResponse
+    status
   );
 };
 
@@ -51,20 +46,18 @@ export const handleGenericErrorResponse = (
  * @param isPaginatedResponse - (Optional) Flag to determine if the response should be paginated.
  */
 export const handleAppErrorResponse = (
-  res: ResponseLike,
+  reply: FastifyReply,
   error: AppError,
-  messageDetails?: object,
-  isPaginatedResponse: boolean = false
+  messageDetails?: object
 ) => {
   if (!error.isAppError) {
     handleCustomErrorResponse(
-      res,
+      reply,
       error.errorKey ?? 'UNKNOWN_ERROR',
       'Error',
       error.message ?? JSON.stringify(error),
       undefined,
-      error.httpStatusCode ?? HttpStatusCodes.INTERNAL_SERVER_ERROR_500,
-      isPaginatedResponse
+      error.httpStatusCode ?? HttpStatusCodes.INTERNAL_SERVER_ERROR_500
     );
     return;
   }
@@ -72,13 +65,12 @@ export const handleAppErrorResponse = (
   const isMultilingual = error.isMultilingual ?? false;
   // Delegate to a more customizable error response handler.
   handleCustomErrorResponse(
-    res,
+    reply,
     error.errorKey,
     isMultilingual ? error.multilingualTitle : error.title,
     isMultilingual ? error.multilingualMessage : error.message,
     error.messageDetails ?? messageDetails,
-    error.httpStatusCode,
-    isPaginatedResponse
+    error.httpStatusCode
   );
 };
 
@@ -92,14 +84,13 @@ export const handleAppErrorResponse = (
  * @param statusCode - (Optional) HTTP status code, defaults to 500 if not specified.
  * @param isPaginatedResponse - Determines if the error should be part of a paginated response.
  */
-export const handleCustomErrorResponse = <T>(
-  res: ResponseLike,
+export const handleCustomErrorResponse = (
+  reply: FastifyReply,
   errorKey: ErrorCodes | string,
   title: StrictModeLocaleMap<string> | string,
   message: StrictModeLocaleMap<string> | string,
   messageDetails?: object,
-  statusCode?: HttpStatusCodes,
-  isPaginatedResponse: boolean = false
+  statusCode?: HttpStatusCodes
 ) => {
   const errorTitle = t(title as StrictModeLocaleMap<string>, Locales.ENGLISH);
   const errorMessage = t(
@@ -108,25 +99,6 @@ export const handleCustomErrorResponse = <T>(
   );
   logger.error(errorMessage, messageDetails); // Log the English version of the error message.
   const status = statusCode ?? HttpStatusCodes.INTERNAL_SERVER_ERROR_500; // Default to 500 if no status code is provided.
-
-  if (isPaginatedResponse) {
-    // Format the response as a paginated error response if requested.
-    const responseData = formatPaginatedResponse<T>({
-      error: {
-        code: errorKey,
-        title: errorTitle,
-        message: errorMessage,
-      },
-      status,
-    });
-    // Support both Express and Fastify
-    if ('status' in res && 'json' in res) {
-      (res as Response).status(status).json(responseData);
-    } else {
-      (res as FastifyReply).code(status).send(responseData);
-    }
-    return;
-  }
 
   // Format the response as a standard non-paginated error response.
   const responseData = formatResponse<UserAPI>({
@@ -139,12 +111,7 @@ export const handleCustomErrorResponse = <T>(
     status,
   });
 
-  // Support both Express and Fastify
-  if ('status' in res && 'json' in res) {
-    (res as Response).status(status).json(responseData);
-  } else {
-    (res as FastifyReply).code(status).send(responseData);
-  }
+  return reply.code(status).send(responseData);
 };
 
 /**

@@ -1,8 +1,6 @@
-import type { ResponseWithSession } from '@middlewares/sessionAuth.middleware';
 import { ensureArrayQueryFilter } from '@utils/ensureArrayQueryFilter';
-import type { Request } from 'express';
 import type { FastifyRequest } from 'fastify';
-import type { RootFilterQuery } from 'mongoose';
+import type { QueryFilter } from 'mongoose';
 import type { Organization } from '@/types/organization.types';
 import {
   type FiltersAndPagination,
@@ -29,27 +27,22 @@ export type OrganizationFiltersParams = {
    */
   fetchAll?: 'true' | 'false';
 };
-export type OrganizationFilters = RootFilterQuery<Organization>;
+export type OrganizationFilters = QueryFilter<Organization>;
 
 /**
  * Extracts filters and pagination information from the request body.
- * @param req - Express or Fastify request object.
- * @param res - Express or Fastify response object (optional, for Express compatibility).
+ * @param req - Fastify request object.
  * @returns Object containing filters, page, pageSize, and getNumberOfPages functions.
  */
 export const getOrganizationFiltersAndPagination = (
-  req:
-    | Request<FiltersAndPagination<OrganizationFiltersParams>>
-    | FastifyRequest<{
-        Querystring: FiltersAndPagination<OrganizationFiltersParams>;
-      }>,
-  res?: ResponseWithSession
+  req: FastifyRequest<{
+    Querystring: FiltersAndPagination<OrganizationFiltersParams>;
+  }>
 ) => {
   const { filters: filtersRequest, ...pagination } =
-    getFiltersAndPaginationFromBody<OrganizationFiltersParams>(req as any);
-  // Support both Express (res.locals) and Fastify (req.locals)
-  const locals = (res as any)?.locals || (req as FastifyRequest).locals || {};
-  const { roles, user } = locals;
+    getFiltersAndPaginationFromBody<OrganizationFiltersParams>(req);
+  const roles = req.session?.roles;
+  const user = req.session?.user;
 
   let filters: OrganizationFilters = {};
   let sortOptions: Record<string, 1 | -1> = { updatedAt: -1 };
@@ -62,7 +55,7 @@ export const getOrganizationFiltersAndPagination = (
   }
 
   // Non-admins can only see organizations they are members of
-  if (!(roles.includes('admin') && fetchAll === 'true')) {
+  if (!(roles?.includes('admin') && fetchAll === 'true')) {
     filters = { ...filters, membersIds: { $in: [user?.id] } };
   }
 

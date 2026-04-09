@@ -24,10 +24,8 @@ import { z } from 'zod';
 import type { ShowcaseProjectAPI } from '@/types/showcaseProject.types';
 
 const getUserId = (request: FastifyRequest): string | undefined =>
-  request.locals?.user
-    ? String(
-        (request.locals.user as any).id ?? (request.locals.user as any)._id
-      )
+  request.session?.user
+    ? String(request.session.user.id ?? (request.session.user as any)._id)
     : undefined;
 
 const urlSchema = z

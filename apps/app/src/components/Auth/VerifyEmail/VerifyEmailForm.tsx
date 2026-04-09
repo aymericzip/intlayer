@@ -1,5 +1,3 @@
-'use client';
-
 import { getIntlayerAPI } from '@intlayer/api';
 import { Button } from '@intlayer/design-system/button';
 import { Form, useForm } from '@intlayer/design-system/form';

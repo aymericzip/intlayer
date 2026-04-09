@@ -1,11 +1,10 @@
-'use client';
-
 import { Form, useForm } from '@intlayer/design-system/form';
 import { useVerifyBackupCode } from '@intlayer/design-system/hooks';
-import { useNavigate, useSearch } from '@tanstack/react-router';
+import { useSearch } from '@tanstack/react-router';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import z from 'zod';
+import { useLocalizedNavigate } from '#hooks/useLocalizedNavigate.ts';
 
 const backupCodeSchema = z.object({
   code: z.string().min(1),
@@ -14,7 +13,7 @@ const backupCodeSchema = z.object({
 type BackupCodeFormData = z.infer<typeof backupCodeSchema>;
 
 export const BackupCodeTab: FC = () => {
-  const navigate = useNavigate();
+  const navigate = useLocalizedNavigate();
   const search = useSearch({ strict: false }) as any;
   const { codeLabel, codePlaceholder, verifyButton } =
     useIntlayer('backup-code-tab');

@@ -5,7 +5,7 @@
 
 @layer base {
   html {
-    font-size: 14px; /* Reduced base font size to match previous Next.js app scaling */
+    font-size: 12px; /* Reduced base font size to match previous Next.js app scaling */
   }
 
   /* 1. Standard Scale (Landing Page) */

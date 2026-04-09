@@ -1,9 +1,7 @@
-'use client';
-
 import { Container } from '@intlayer/design-system/container';
 import { MarkdownRenderer } from '@intlayer/design-system/mark-down-render';
-import { useTheme } from '#/providers/ThemeProvider';
 import type { FC } from 'react';
+import { useTheme } from '#/providers/ThemeProvider';
 
 type CodeRenderProps = {
   content: string;

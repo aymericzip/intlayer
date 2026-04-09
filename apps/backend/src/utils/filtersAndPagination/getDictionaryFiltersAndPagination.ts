@@ -1,9 +1,5 @@
-import type { ResponseWithSession } from '@middlewares/sessionAuth.middleware';
 import { ensureArrayQueryFilter } from '@utils/ensureArrayQueryFilter';
-import type { Request } from 'express';
 import type { FastifyRequest } from 'fastify';
-import type { RootFilterQuery } from 'mongoose';
-import type { Dictionary } from '@/types/dictionary.types';
 import {
   type FiltersAndPagination,
   getFiltersAndPaginationFromBody,
@@ -35,27 +31,22 @@ export type DictionaryFiltersParams = {
    */
   fetchAll?: 'true' | 'false';
 };
-export type DictionaryFilters = RootFilterQuery<Dictionary>;
+export type DictionaryFilters = any; // mongoose.QueryFilter<Dictionary>;
 
 /**
  * Extracts filters and pagination information from the request body.
- * @param req - Express or Fastify request object.
- * @param res - Express or Fastify response object (optional, for Express compatibility).
+ * @param req - Fastify request object.
  * @returns Object containing filters, page, pageSize, and getNumberOfPages functions.
  */
 export const getDictionaryFiltersAndPagination = (
-  req:
-    | Request<FiltersAndPagination<DictionaryFiltersParams>>
-    | FastifyRequest<{
-        Querystring: FiltersAndPagination<DictionaryFiltersParams>;
-      }>,
-  res?: ResponseWithSession
+  req: FastifyRequest<{
+    Querystring: FiltersAndPagination<DictionaryFiltersParams>;
+  }>
 ) => {
   const { filters: filtersRequest, ...pagination } =
-    getFiltersAndPaginationFromBody<DictionaryFiltersParams>(req as any);
-  // Support both Express (res.locals) and Fastify (req.locals)
-  const locals = (res as any)?.locals || (req as FastifyRequest).locals || {};
-  const { roles, project } = locals;
+    getFiltersAndPaginationFromBody<DictionaryFiltersParams>(req);
+  const roles = req.session?.roles;
+  const project = req.session?.project;
 
   let filters: DictionaryFilters = {};
   let sortOptions: Record<string, 1 | -1> = { updatedAt: -1 };
@@ -97,7 +88,7 @@ export const getDictionaryFiltersAndPagination = (
     };
   }
 
-  if (!(roles.includes('admin') && fetchAll === 'true')) {
+  if (!(roles?.includes('admin') && fetchAll === 'true')) {
     filters = { ...filters, projectIds: { $in: project?.id } };
   }
 

@@ -1,18 +1,14 @@
-'use client';
-
 import { useLogin } from '@intlayer/design-system/hooks';
-import {
-  App_Auth_AskResetPassword_Path,
-  App_Auth_SignUp_Path,
-} from '@intlayer/design-system/routes';
-import { useNavigate, useSearch } from '@tanstack/react-router';
+import { App_Auth_AskResetPassword_Path } from '@intlayer/design-system/routes';
+import { useSearch } from '@tanstack/react-router';
 import { type FC, useEffect, useRef } from 'react';
+import { useLocalizedNavigate } from '#hooks/useLocalizedNavigate.ts';
 import { type SignIn, SignInForm as SignInFormUI } from './SignInForm/index';
 
 export const SignInForm: FC<{
   callbackUrl?: string;
 }> = ({ callbackUrl }) => {
-  const navigate = useNavigate();
+  const navigate = useLocalizedNavigate();
   const { mutate: login, isPending } = useLogin();
   const search = useSearch({ strict: false }) as any;
   const email = search.email;
@@ -53,10 +49,13 @@ export const SignInForm: FC<{
 
     if (email) {
       navigate({
-        to: `${App_Auth_AskResetPassword_Path}?email=${email}` as any,
+        to: '/auth/password/ask-reset',
+        search: {
+          email,
+        },
       });
     } else {
-      navigate({ to: App_Auth_AskResetPassword_Path as any });
+      navigate({ to: App_Auth_AskResetPassword_Path });
     }
   };
 
@@ -64,9 +63,9 @@ export const SignInForm: FC<{
     const email = getEmailContext();
 
     if (email) {
-      navigate({ to: `${App_Auth_SignUp_Path}?email=${email}` as any });
+      navigate({ to: '/auth/register', search: { email } });
     } else {
-      navigate({ to: App_Auth_SignUp_Path as any });
+      navigate({ to: '/auth/register' });
     }
   };
 

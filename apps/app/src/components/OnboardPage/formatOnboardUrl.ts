@@ -6,9 +6,10 @@ type Args = {
   plan?: Plans;
   step?: Steps;
   period?: Period;
-  origin?: string;
-  otherParams?: Record<string, string>;
+  origin?: string | string[];
+  otherParams?: Record<string, any>;
 };
+
 export const formatOnboardUrl = ({
   plan = Plans.Free,
   step = Steps.Registration,
@@ -16,29 +17,40 @@ export const formatOnboardUrl = ({
   origin = typeof window !== 'undefined' ? window.location.href : '',
   otherParams = {},
 }: Args = {}) => {
-  let url = getAppOnboardingFlowRoute(step!, plan!, period || undefined);
+  // Generate ONLY the base path with the step (e.g., /onboarding/setup-organization)
+  // You will need to update getAppOnboardingFlowRoute to stop appending plan/period
+  const url = getAppOnboardingFlowRoute(step!);
 
-  // Create an array to hold query parameter strings
-  const queryParams: string[] = [];
+  const searchParams = new URLSearchParams();
 
-  // Add the origin if available
-  if (origin) {
-    queryParams.push(`origin=${encodeURIComponent(origin)}`);
+  // Explicitly set plan and period as search parameters
+  if (plan) searchParams.set('plan', plan);
+  if (period) searchParams.set('period', period);
+
+  const originStr = Array.isArray(origin) ? origin[0] : origin;
+
+  if (typeof originStr === 'string' && originStr) {
+    const cleanOrigin = originStr.split('?')[0];
+    searchParams.set('origin', cleanOrigin);
   }
 
-  // Loop through the additional params and add them
-  for (const key in otherParams) {
-    if (Object.hasOwn(otherParams, key)) {
-      queryParams.push(
-        `${encodeURIComponent(key)}=${encodeURIComponent(otherParams[key])}`
-      );
+  const reservedKeys = ['origin', 'step', 'plan', 'period'];
+
+  for (const [key, value] of Object.entries(otherParams)) {
+    if (
+      !reservedKeys.includes(key) &&
+      value !== undefined &&
+      value !== null &&
+      value !== 'undefined'
+    ) {
+      const normalizedValue = Array.isArray(value) ? value[0] : value;
+      searchParams.set(key, String(normalizedValue));
     }
   }
 
-  // Append query parameters to the URL if any exist
-  if (queryParams.length > 0) {
-    url += `?${queryParams.join('&')}`;
-  }
+  const queryString = searchParams.toString();
 
-  return url;
+  const finalUrl = queryString ? `${url}?${queryString}` : url;
+
+  return finalUrl;
 };

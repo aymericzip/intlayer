@@ -53,7 +53,7 @@ export const unauthenticatedChatBotLimiter: RateLimitOptions = {
   enableDraftSpec: true,
   // Skip rate limiting if user is authenticated (allowList returns true to skip)
   allowList: (request: FastifyRequest) => {
-    return Boolean((request as any).locals?.user);
+    return Boolean(request.session?.user);
   },
   // Use a custom key generator that handles proxy headers securely
   keyGenerator: (request: FastifyRequest) => {

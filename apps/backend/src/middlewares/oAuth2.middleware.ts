@@ -43,11 +43,7 @@ export const oAuth2Middleware = async (
   request: FastifyRequest,
   reply: FastifyReply
 ): Promise<void> => {
-  if (!request.locals) {
-    request.locals = {} as any;
-  }
-
-  if (typeof request.locals?.authType !== 'undefined') {
+  if (request.session?.authType) {
     // Skip if user is already authenticated (ex: session)
     return;
   }
@@ -81,15 +77,10 @@ export const oAuth2Middleware = async (
     const result = await getOAuth2AccessTokenContext(validatedToken);
 
     const formattedSession = formatSession(result);
-    const locals = request.locals;
-    if (locals) {
-      locals.authType = 'session';
-
-      // Attach the session to the request locals
-      for (const [key, value] of Object.entries(formattedSession)) {
-        (locals as any)[key] = value;
-      }
-    }
+    request.session = {
+      ...formattedSession,
+      authType: 'oauth2',
+    };
 
     logger.info(
       'OAuth2 bearer token authenticated',

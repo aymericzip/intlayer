@@ -1,5 +1,3 @@
-'use client';
-
 import { useSession } from '@intlayer/design-system/hooks';
 import { Loader } from '@intlayer/design-system/loader';
 import { App_Home_Path } from '@intlayer/design-system/routes';

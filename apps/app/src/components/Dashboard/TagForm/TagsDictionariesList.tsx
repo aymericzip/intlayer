@@ -1,14 +1,15 @@
-'use client';
-
 import { Button } from '@intlayer/design-system/button';
 import { useGetDictionaries } from '@intlayer/design-system/hooks';
 import { Loader } from '@intlayer/design-system/loader';
-import { App_Dashboard_Dictionaries } from '@intlayer/design-system/routes';
+import {
+  App_Dashboard_Dictionaries,
+  App_Dashboard_Dictionaries_Path,
+} from '@intlayer/design-system/routes';
 import { useFocusUnmergedDictionary } from '@intlayer/editor-react';
-import { useNavigate } from '@tanstack/react-router';
 import { ChevronRight } from 'lucide-react';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
+import { useLocalizedNavigate } from '#hooks/useLocalizedNavigate.ts';
 
 type TagsDictionariesListProps = {
   tagKey: string;
@@ -28,7 +29,7 @@ const NoDictionaryView: FC = () => {
 export const TagsDictionariesList: FC<TagsDictionariesListProps> = ({
   tagKey,
 }) => {
-  const navigate = useNavigate();
+  const navigate = useLocalizedNavigate();
   const { setFocusedContent } = useFocusUnmergedDictionary();
   const { dictionaryLinkLabel } = useIntlayer('tags-dictionaries-list');
   const { data, isFetching } = useGetDictionaries({
@@ -40,7 +41,7 @@ export const TagsDictionariesList: FC<TagsDictionariesListProps> = ({
       <Loader isLoading={!data && isFetching}>
         {data?.data?.map((dictionary: any) => (
           <Button
-            key={String(dictionary.key)}
+            key={dictionary.key}
             label={dictionaryLinkLabel.value}
             variant="hoverable"
             color="text"
@@ -52,7 +53,13 @@ export const TagsDictionariesList: FC<TagsDictionariesListProps> = ({
                 keyPath: [],
               });
               navigate({
-                to: `${App_Dashboard_Dictionaries}/${dictionary.key}` as any,
+                to: '/dictionary/$dictionaryKey',
+                params: {
+                  dictionaryKey: dictionary.key,
+                },
+                search: {
+                  dictionaryLocalId: dictionary.localId,
+                },
               });
             }}
           >

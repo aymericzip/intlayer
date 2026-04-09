@@ -1,5 +1,3 @@
-'use client';
-
 import {
   Button,
   ButtonColor,
@@ -9,11 +7,10 @@ import { Container } from '@intlayer/design-system/container';
 import { H2 } from '@intlayer/design-system/headers';
 import { useGetTags } from '@intlayer/design-system/hooks';
 import { Loader } from '@intlayer/design-system/loader';
-import { App_Dashboard_Tags } from '@intlayer/design-system/routes';
-import { useNavigate } from '@tanstack/react-router';
 import { ArrowLeft } from 'lucide-react';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
+import { useLocalizedNavigate } from '#hooks/useLocalizedNavigate.ts';
 import { TagEditionForm } from './TagEditionForm';
 import { TagsDictionariesList } from './TagsDictionariesList';
 
@@ -33,15 +30,15 @@ export const TagDetailsContent: FC<TagDetailsProps> = ({ tagKey }) => {
   return (
     <>
       <Container
-        className="m-auto flex size-full max-w-3xl justify-center gap-10 p-6"
-        roundedSize="xl"
+        className="m-auto flex size-full max-w-3xl justify-start gap-10 p-6"
+        roundedSize="3xl"
       >
         <H2>{detailsTitle}</H2>
         {tag && <TagEditionForm tag={tag} />}
       </Container>
       <Container
-        className="m-auto flex size-full max-w-3xl justify-center gap-10 p-6"
-        roundedSize="xl"
+        className="m-auto flex size-full max-w-3xl justify-start gap-10 p-6"
+        roundedSize="3xl"
       >
         <H2>{dictionariesListTitle}</H2>
         {tag && <TagsDictionariesList tagKey={tag.key} />}
@@ -51,14 +48,14 @@ export const TagDetailsContent: FC<TagDetailsProps> = ({ tagKey }) => {
 };
 
 export const TagDetails: FC<TagDetailsProps> = ({ tagKey }) => {
-  const navigate = useNavigate();
+  const navigate = useLocalizedNavigate();
   const { returnToTagList } = useIntlayer('tag-details');
 
   return (
     <div className="flex size-full flex-1 flex-col gap-10">
       <div className="flex items-center gap-2">
         <Button
-          onClick={() => navigate({ to: App_Dashboard_Tags as any })}
+          onClick={() => navigate({ to: '/tags' })}
           variant={ButtonVariant.HOVERABLE}
           className="z-10 mr-auto ml-5"
           color={ButtonColor.TEXT}

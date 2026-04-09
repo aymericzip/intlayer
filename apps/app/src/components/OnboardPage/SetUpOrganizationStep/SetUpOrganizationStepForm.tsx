@@ -1,5 +1,3 @@
-'use client';
-
 import type { OrganizationAPI } from '@intlayer/backend';
 import { Form, useForm } from '@intlayer/design-system/form';
 import { H2 } from '@intlayer/design-system/headers';
@@ -11,12 +9,13 @@ import {
 import { Loader } from '@intlayer/design-system/loader';
 import { Modal } from '@intlayer/design-system/modal';
 import { App_Pricing_Path } from '@intlayer/design-system/routes';
-import { useNavigate, useSearch } from '@tanstack/react-router';
+import { useSearch } from '@tanstack/react-router';
 import { type FC, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { NoOrganizationView } from '#components/Dashboard/OrganizationForm/NoOrganizationView';
 import { OrganizationCreationForm } from '#components/Dashboard/OrganizationForm/OrganizationCreationForm';
 import { OrganizationList } from '#components/Dashboard/OrganizationForm/OrganizationList';
+import { useLocalizedNavigate } from '#hooks/useLocalizedNavigate.ts';
 import { StepLayout } from '../StepLayout';
 import { Steps } from '../steps';
 import { useStep } from '../useStep';
@@ -67,7 +66,7 @@ const OrganizationFormContent: FC<{
 export const SetupOrganizationStepForm: FC = () => {
   const SetUpOrganizationSchema = useSetUpOrganizationSchema();
   const { session } = useSession();
-  const navigate = useNavigate();
+  const navigate = useLocalizedNavigate();
   const search = useSearch({ strict: false });
 
   const { mutate: selectOrganization } = useSelectOrganization();

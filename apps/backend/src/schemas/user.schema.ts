@@ -48,7 +48,7 @@ export const userSchema = new Schema<UserSchema>(
     },
     lastLoginMethod: {
       type: String,
-      enum: ['email', 'google', 'github'],
+      enum: ['email', 'google', 'github', 'passkey'],
       required: false,
     },
     lang: {

@@ -1,5 +1,3 @@
-'use client';
-
 import { Button } from '@intlayer/design-system/button';
 import { useSession, useSignInPasskey } from '@intlayer/design-system/hooks';
 import { Key } from 'lucide-react';

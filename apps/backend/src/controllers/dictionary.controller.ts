@@ -64,7 +64,7 @@ export const getDictionaries = async (
   request: FastifyRequest<{ Querystring: GetDictionariesParams }>,
   reply: FastifyReply
 ): Promise<void> => {
-  const { user, project, roles } = request.locals || {};
+  const { user, project, roles } = request.session || {};
   const { filters, sortOptions, pageSize, skip, page, getNumberOfPages } =
     getDictionaryFiltersAndPagination(request);
 
@@ -95,7 +95,7 @@ export const getDictionaries = async (
         roles || [],
         'dictionary:read'
       )({
-        ...request.locals,
+        ...request.session,
         targetDictionaries: dictionaries,
       })
     ) {
@@ -132,7 +132,7 @@ export const getDictionariesKeys = async (
   _request: FastifyRequest,
   reply: FastifyReply
 ) => {
-  const { project, roles } = _request.locals || {};
+  const { project, roles } = _request.session || {};
 
   if (!project) {
     return ErrorHandler.handleGenericErrorResponse(
@@ -151,7 +151,7 @@ export const getDictionariesKeys = async (
         roles || [],
         'dictionary:read'
       )({
-        ..._request.locals,
+        ..._request.session,
         targetDictionaries: dictionaries,
       })
     ) {
@@ -184,7 +184,7 @@ export const getDictionariesUpdateTimestamp = async (
   _request: FastifyRequest,
   reply: FastifyReply
 ) => {
-  const { project, roles } = _request.locals || {};
+  const { project, roles } = _request.session || {};
 
   if (!project) {
     return ErrorHandler.handleGenericErrorResponse(
@@ -203,7 +203,7 @@ export const getDictionariesUpdateTimestamp = async (
         roles || [],
         'dictionary:read'
       )({
-        ..._request.locals,
+        ..._request.session,
         targetDictionaries: dictionaries,
       })
     ) {
@@ -250,7 +250,7 @@ export const getDictionaryByKey = async (
   }>,
   reply: FastifyReply
 ): Promise<void> => {
-  const { project, user, roles } = request.locals || {};
+  const { project, user, roles } = request.session || {};
   const { dictionaryKey } = request.params;
   const version = request.query.version;
 
@@ -275,7 +275,7 @@ export const getDictionaryByKey = async (
         roles || [],
         'dictionary:read'
       )({
-        ...request.locals,
+        ...request.session,
         targetDictionaries: [dictionary],
       })
     ) {
@@ -314,7 +314,7 @@ export const addDictionary = async (
   request: FastifyRequest<{ Body: AddDictionaryBody }>,
   reply: FastifyReply
 ): Promise<void> => {
-  const { project, user, roles } = request.locals || {};
+  const { project, user, roles } = request.session || {};
   const dictionaryData = request.body.dictionary;
 
   if (!dictionaryData) {
@@ -359,7 +359,7 @@ export const addDictionary = async (
     projectIds: dictionaryData.projectIds ?? [String(project.id)],
   };
 
-  if (!hasPermission(roles || [], 'dictionary:write')(request.locals)) {
+  if (!hasPermission(roles || [], 'dictionary:write')(request.session)) {
     return ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
   }
 
@@ -439,7 +439,7 @@ export const pushDictionaries = async (
   request: FastifyRequest<{ Body: PushDictionariesBody }>,
   reply: FastifyReply
 ): Promise<void> => {
-  const { project, user, roles } = request.locals || {};
+  const { project, user, roles } = request.session || {};
 
   // Normalize the input: handle both { dictionaries: [...] } and { dictionaries: { dictionaries: [...] } }
   // The latter can happen due to client-side double-wrapping issues
@@ -484,7 +484,7 @@ export const pushDictionaries = async (
     return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
   }
 
-  if (!hasPermission(roles || [], 'dictionary:write')(request.locals)) {
+  if (!hasPermission(roles || [], 'dictionary:write')(request.session)) {
     return ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
   }
 
@@ -674,7 +674,7 @@ export const updateDictionary = async (
   reply: FastifyReply
 ): Promise<void> => {
   const { dictionaryId } = request.params;
-  const { project, roles } = request.locals || {};
+  const { project, roles } = request.session || {};
   const dictionaryData = request.body;
 
   if (!dictionaryData) {
@@ -705,7 +705,7 @@ export const updateDictionary = async (
     );
   }
 
-  if (!hasPermission(roles || [], 'dictionary:write')(request.locals)) {
+  if (!hasPermission(roles || [], 'dictionary:write')(request.session)) {
     return ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
   }
 
@@ -768,7 +768,7 @@ export const deleteDictionary = async (
   request: FastifyRequest<{ Params: DeleteDictionaryParam }>,
   reply: FastifyReply
 ): Promise<void> => {
-  const { project, roles } = request.locals || {};
+  const { project, roles } = request.session || {};
   const { dictionaryId } = request.params;
 
   if (!dictionaryId) {
@@ -785,7 +785,7 @@ export const deleteDictionary = async (
     );
   }
 
-  if (!hasPermission(roles || [], 'dictionary:admin')(request.locals)) {
+  if (!hasPermission(roles || [], 'dictionary:admin')(request.session)) {
     return ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
   }
 

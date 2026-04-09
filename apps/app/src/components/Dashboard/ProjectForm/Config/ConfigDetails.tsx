@@ -1,5 +1,3 @@
-'use client';
-
 import type { ProjectConfiguration } from '@intlayer/backend';
 import { Button } from '@intlayer/design-system/button';
 import { H3, H4, H5 } from '@intlayer/design-system/headers';

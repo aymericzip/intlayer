@@ -39,13 +39,13 @@ export const PricingColumn: FC<PricingColumnProps> = ({
   ...props
 }) => (
   <Container
-    roundedSize="xl"
+    roundedSize="3xl"
     className={cn(
       'min-w-80 max-w-lg flex-1 flex-col gap-8 p-4 transition-all duration-300',
       className
     )}
     itemScope
-    transparency="lg"
+    transparency="md"
     itemType="http://schema.org/Offer"
     {...props}
   >

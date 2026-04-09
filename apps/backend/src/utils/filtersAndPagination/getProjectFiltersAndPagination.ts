@@ -1,8 +1,6 @@
-import type { ResponseWithSession } from '@middlewares/sessionAuth.middleware';
 import { ensureArrayQueryFilter } from '@utils/ensureArrayQueryFilter';
-import type { Request } from 'express';
 import type { FastifyRequest } from 'fastify';
-import type { RootFilterQuery } from 'mongoose';
+import type { QueryFilter } from 'mongoose';
 import type { Project } from '@/types/project.types';
 import {
   type FiltersAndPagination,
@@ -22,27 +20,22 @@ export type ProjectFiltersParams = {
    */
   fetchAll?: 'true' | 'false';
 };
-export type ProjectFilters = RootFilterQuery<Project>;
+export type ProjectFilters = QueryFilter<Project>;
 
 /**
  * Extracts filters and pagination information from the request body.
- * @param req - Express or Fastify request object.
- * @param res - Express or Fastify response object (optional, for Express compatibility).
+ * @param req - Fastify request object.
  * @returns Object containing filters, page, pageSize, and getNumberOfPages functions.
  */
 export const getProjectFiltersAndPagination = (
-  req:
-    | Request<FiltersAndPagination<ProjectFiltersParams>>
-    | FastifyRequest<{
-        Querystring: FiltersAndPagination<ProjectFiltersParams>;
-      }>,
-  res?: ResponseWithSession
+  req: FastifyRequest<{
+    Querystring: FiltersAndPagination<ProjectFiltersParams>;
+  }>
 ) => {
   const { filters: filtersRequest, ...pagination } =
-    getFiltersAndPaginationFromBody<ProjectFiltersParams>(req as any);
-  // Support both Express (res.locals) and Fastify (req.locals)
-  const locals = (res as any)?.locals || (req as FastifyRequest).locals || {};
-  const { roles, organization } = locals;
+    getFiltersAndPaginationFromBody<ProjectFiltersParams>(req);
+  const roles = req.session?.roles;
+  const organization = req.session?.organization;
 
   let filters: ProjectFilters = {};
   let sortOptions: Record<string, 1 | -1> = { updatedAt: -1 };
@@ -89,7 +82,7 @@ export const getProjectFiltersAndPagination = (
     sortOptions = { [sortBy]: sortOrder === 'asc' ? 1 : -1 };
   }
 
-  if (!(roles.includes('admin') && fetchAll === 'true')) {
+  if (!(roles?.includes('admin') && fetchAll === 'true')) {
     filters = { ...filters, organizationId: organization?.id };
   }
 

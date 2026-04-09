@@ -1,5 +1,3 @@
-'use client';
-
 import type { ProjectConfiguration } from '@intlayer/backend';
 import { Form, useForm } from '@intlayer/design-system/form';
 import { H4 } from '@intlayer/design-system/headers';

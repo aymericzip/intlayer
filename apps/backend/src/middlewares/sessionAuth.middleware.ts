@@ -3,45 +3,29 @@ import { fromNodeHeaders } from 'better-auth/node';
 import type { FastifyReply, FastifyRequest } from 'fastify';
 import type { Session } from '@/types/session.types';
 
-// Extend FastifyRequest to include locals
+// Extend FastifyRequest with a typed session property (registered via decorateRequest in index.ts)
 declare module 'fastify' {
   interface FastifyRequest {
-    locals?: {
-      authType?: string;
-      [key: string]: any;
-    } & Session;
+    session: (Session & { authType?: string }) | null;
   }
 }
 
-export type ResponseWithSession<
-  ResBody = any,
-  Locals extends Record<string, any> = Record<string, any> & Session,
-> = FastifyReply & {
-  locals: Locals;
-};
-
 export const authMiddleware =
-  (auth: Auth) => async (request: FastifyRequest, reply: FastifyReply) => {
-    if (!request.locals) {
-      request.locals = {};
-    }
-
-    if (typeof request.locals.authType !== 'undefined') {
+  (auth: Auth) =>
+  async (request: FastifyRequest, _reply: FastifyReply) => {
+    if (request.session?.authType) {
       // Skip if user is already authenticated (ex: oAuth2)
       return;
     }
 
-    const session = await auth.api.getSession({
+    const sessionData = await auth.api.getSession({
       headers: fromNodeHeaders(request.headers),
     });
 
-    if (session) {
-      const formattedSession = formatSession(session);
-      request.locals.authType = 'session';
-
-      // Attach the session to the request locals
-      Object.entries(formattedSession).forEach(([key, value]) => {
-        (request.locals as any)[key] = value;
-      });
+    if (sessionData) {
+      request.session = {
+        ...formatSession(sessionData),
+        authType: 'session',
+      };
     }
   };

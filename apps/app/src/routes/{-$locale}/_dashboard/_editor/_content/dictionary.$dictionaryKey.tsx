@@ -2,9 +2,7 @@ import { createFileRoute } from '@tanstack/react-router';
 import { BackgroundLayout } from '#components/BackgroundLayout';
 import { ContentDashboard } from '#components/Dashboard/ContentDashboard';
 
-export const Route = createFileRoute(
-  '/{-$locale}/_dashboard/_editor/_content/dictionary/$dictionaryKey'
-)({
+export const Route = createFileRoute('/{-$locale}/_dashboard/_editor/_content/dictionary/$dictionaryKey')({
   component: DictionaryDetailPage,
 });
 

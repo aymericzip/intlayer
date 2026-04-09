@@ -1,5 +1,3 @@
-'use client';
-
 import { Form, useForm } from '@intlayer/design-system/form';
 import {
   type FC,

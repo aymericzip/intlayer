@@ -1,5 +1,3 @@
-'use client';
-
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
 import {
@@ -15,19 +13,17 @@ import {
   Pagination,
   ShowingResultsNumberItems,
 } from '@intlayer/design-system/pagination';
-import { App_Dashboard_Tags } from '@intlayer/design-system/routes';
-import { useNavigate } from '@tanstack/react-router';
 import { ChevronRight, Plus } from 'lucide-react';
 import {
   type ComponentProps,
   type FC,
   Suspense,
   useEffect,
-  useMemo,
   useRef,
   useState,
 } from 'react';
 import { useIntlayer } from 'react-intlayer';
+import { useLocalizedNavigate } from '#hooks/useLocalizedNavigate.ts';
 import { useSearchParamState } from '#hooks/useSearchParamState';
 import { TagCreationForm } from './TagCreationForm';
 
@@ -59,7 +55,7 @@ export const TagList: FC = () => {
     ...params,
     search: search || undefined,
   });
-  const navigate = useNavigate();
+  const navigate = useLocalizedNavigate();
 
   const tags = (tagResponse as any)?.data ?? [];
   const totalPages: number = (tagResponse as any)?.total_pages ?? 1;
@@ -127,7 +123,10 @@ export const TagList: FC = () => {
                   color="text"
                   onClick={() => {
                     navigate({
-                      to: `${App_Dashboard_Tags}/${tag.key}` as any,
+                      to: '/tags/$tagKey',
+                      params: {
+                        tagKey: tag.key,
+                      },
                     });
                   }}
                   ref={(el) => {

@@ -77,7 +77,7 @@ export const getUsers = async (
   request: FastifyRequest<{ Querystring: GetUsersParams }>,
   reply: FastifyReply
 ): Promise<void> => {
-  const { user, roles } = request.locals || {};
+  const { user, roles } = request.session || {};
 
   if (!user) {
     return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
@@ -94,12 +94,15 @@ export const getUsers = async (
       sortOptions
     );
 
+    // Skip permission check when there are no users to protect.
+    // An empty result is safe to return without checking roles.
     if (
+      users.length > 0 &&
       !hasPermission(
         roles || [],
         'user:read'
       )({
-        ...request.locals,
+        ...request.session,
         targetUsers: users,
       })
     ) {
@@ -160,7 +163,7 @@ export const getUserByEmail = async (
   reply: FastifyReply
 ): Promise<void> => {
   const { email } = request.params;
-  const { roles } = request.locals || {};
+  const { roles } = request.session || {};
 
   try {
     const user = await userService.getUserByEmail(email);
@@ -174,7 +177,7 @@ export const getUserByEmail = async (
         roles || [],
         'user:read'
       )({
-        ...request.locals,
+        ...request.session,
         targetUsers: [user],
       })
     ) {
@@ -204,7 +207,7 @@ export const updateUser = async (
   reply: FastifyReply
 ): Promise<void> => {
   const userData = request.body;
-  const { user, roles } = request.locals || {};
+  const { user, roles } = request.session || {};
 
   if (!user) {
     return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
@@ -235,7 +238,7 @@ export const updateUser = async (
       roles || [],
       'user:write'
     )({
-      ...request.locals,
+      ...request.session,
       targetUsers: [userDB],
     })
   ) {
@@ -281,7 +284,7 @@ export const deleteUser = async (
   reply: FastifyReply
 ): Promise<void> => {
   const { userId } = request.params;
-  const { roles } = request.locals || {};
+  const { roles } = request.session || {};
 
   try {
     const user = await userService.getUserById(userId);
@@ -295,7 +298,7 @@ export const deleteUser = async (
         roles || [],
         'user:admin'
       )({
-        ...request.locals,
+        ...request.session,
         targetUsers: [user],
       })
     ) {

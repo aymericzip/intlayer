@@ -8,16 +8,16 @@ import { BackgroundLayout } from '#components/BackgroundLayout';
 import { PricingPage as PricingPageContent } from '#components/PricingPage';
 
 const priceIds = [
-  import.meta.env.VITE_STRIPE_PREMIUM_YEARLY_PRICE_ID,
-  import.meta.env.VITE_STRIPE_PREMIUM_MONTHLY_PRICE_ID,
-  import.meta.env.VITE_STRIPE_ENTERPRISE_YEARLY_PRICE_ID,
-  import.meta.env.VITE_STRIPE_ENTERPRISE_MONTHLY_PRICE_ID,
+  process.env.VITE_STRIPE_PREMIUM_YEARLY_PRICE_ID,
+  process.env.VITE_STRIPE_PREMIUM_MONTHLY_PRICE_ID,
+  process.env.VITE_STRIPE_ENTERPRISE_YEARLY_PRICE_ID,
+  process.env.VITE_STRIPE_ENTERPRISE_MONTHLY_PRICE_ID,
 ].filter(Boolean) as string[];
 
 const getPricingData = createServerFn().handler(async () => {
   if (
-    !import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY ||
-    import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY.length === 0
+    !process.env.VITE_STRIPE_PUBLISHABLE_KEY ||
+    process.env.VITE_STRIPE_PUBLISHABLE_KEY.length === 0
   ) {
     return null;
   }

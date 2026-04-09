@@ -1,5 +1,3 @@
-'use client';
-
 import { useGetDiscussions } from '@intlayer/design-system/hooks';
 import type { FC } from 'react';
 import { useEffect } from 'react';

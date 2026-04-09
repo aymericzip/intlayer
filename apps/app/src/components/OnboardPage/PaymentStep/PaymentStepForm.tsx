@@ -12,13 +12,14 @@ import {
   useStripe,
 } from '@stripe/react-stripe-js';
 import { type Appearance, loadStripe } from '@stripe/stripe-js';
-import { useNavigate, useSearch } from '@tanstack/react-router';
+import { useSearch } from '@tanstack/react-router';
 import { Check, ShoppingCart } from 'lucide-react';
-import { type FC, type FormEvent, useState } from 'react';
+import { type FC, type SubmitEvent, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import type Stripe from 'stripe';
 import { useTheme } from '#/providers/ThemeProvider';
 import type { Period, Plans } from '#components/PricingPage/data.content';
+import { useLocalizedNavigate } from '#hooks/useLocalizedNavigate.ts';
 import { retrievePriceId } from '../retrievePriceId';
 import { StepLayout } from '../StepLayout';
 import { Steps } from '../steps';
@@ -100,11 +101,14 @@ export const PaymentStepContent: FC<PaymentDetailsProps> = ({
   const { goNextStep, goPreviousStep, setState, nextUrl } = useStep(
     Steps.Payment
   );
-  const { youReOrganizationIsAlreadySubscribed, pickANewProductButton } =
-    useIntlayer('payment-step');
+  const {
+    youReOrganizationIsAlreadySubscribed,
+    pickANewProductButton,
+    paymentDetails,
+  } = useIntlayer('payment-step');
   const [isLoading, setIsLoading] = useState(false);
   const [isPaymentElementReady, setIsPaymentElementReady] = useState(false);
-  const navigate = useNavigate();
+  const navigate = useLocalizedNavigate();
   const { session } = useSession();
 
   const stripe = useStripe();
@@ -117,7 +121,7 @@ export const PaymentStepContent: FC<PaymentDetailsProps> = ({
     planData?.type.toUpperCase() === plan.toUpperCase() &&
     planData.status === 'active';
 
-  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (isPlanValid) {
@@ -176,7 +180,7 @@ export const PaymentStepContent: FC<PaymentDetailsProps> = ({
         isLoading={isLoading}
         disabled={isSubmitDisabled}
       >
-        <Label>Payment details</Label>
+        <Label>{paymentDetails.title}</Label>
         <Container
           border={true}
           padding="xl"
@@ -199,7 +203,7 @@ export const PaymentStepContent: FC<PaymentDetailsProps> = ({
               label={pickANewProductButton.label.value}
               color="text"
               Icon={ShoppingCart}
-              onClick={() => navigate({ to: App_Pricing_Path as any })}
+              onClick={() => navigate({ to: App_Pricing_Path })}
             >
               {pickANewProductButton.text}
             </Button>
@@ -228,10 +232,11 @@ export const PaymentStepForm: FC<PaymentStepContentProps> = ({
     incorrectProductMessage,
     invalidPaymentRequestMessage,
     pickANewProductButton,
+    error,
   } = useIntlayer('payment-step');
 
   const { resolvedTheme } = useTheme();
-  const navigate = useNavigate();
+  const navigate = useLocalizedNavigate();
   const search = useSearch({ strict: false }) as any;
   const promoCode = search.promoCode ?? undefined;
   const priceId = retrievePriceId(plan, period);
@@ -242,7 +247,7 @@ export const PaymentStepForm: FC<PaymentStepContentProps> = ({
   });
 
   if (!priceId) {
-    return <>Error</>;
+    return <>{error}</>;
   }
 
   const invoice = data?.data?.subscription?.latest_invoice as Stripe.Invoice & {
@@ -281,7 +286,7 @@ export const PaymentStepForm: FC<PaymentStepContentProps> = ({
               label={pickANewProductButton.label.value}
               color="text"
               Icon={ShoppingCart}
-              onClick={() => navigate({ to: App_Pricing_Path as any })}
+              onClick={() => navigate({ to: App_Pricing_Path })}
             >
               {pickANewProductButton.text}
             </Button>
@@ -298,14 +303,31 @@ const appearanceLight: Appearance = {
     fontFamily: 'Inter, sans-serif',
     fontSizeBase: '1rem',
     borderRadius: '0.75rem',
-    colorBackground: 'rgba(255, 255, 255, 1)',
+
+    colorBackground: 'transparent',
     colorText: 'rgba(18, 18, 18, 1)',
-    colorDanger: 'rgba(181, 24, 13, 1)', // Invalid border color
+    colorDanger: 'rgba(181, 24, 13, 1)',
   },
   rules: {
+    '.AccordionItem': {
+      backgroundColor: 'transparent',
+      color: 'rgba(18, 18, 18, 1)',
+      border: '1px solid rgba(18, 18, 18, 1)',
+    },
+    '.AccordionItem--selected': {
+      backgroundColor: 'transparent',
+      color: 'rgba(18, 18, 18, 1)',
+    },
+    '.TabIcon': {
+      fill: 'rgba(18, 18, 18, 1)',
+    },
+
+    '.Block': {
+      backgroundColor: 'transparent',
+    },
     '.Input': {
-      border: '2px solid rgba(246, 246, 246, 1)',
-      backgroundColor: 'rgba(255, 255, 255, 1)',
+      border: 'none',
+      backgroundColor: 'rgba(249, 249, 249, 1)',
       color: 'rgba(18, 18, 18, 1)',
       borderRadius: '0.75rem',
       padding: '0.5rem 1rem',
@@ -316,22 +338,26 @@ const appearanceLight: Appearance = {
       marginBottom: '0.5rem',
     },
     '.Input:hover': {
-      borderColor: 'rgba(231, 231, 231, 1)',
+      boxShadow: '0 0 0 3px rgba(18, 18, 18, 0.2)',
     },
     '.Input:focus': {
-      borderColor: 'rgba(209, 209, 209, 1)',
-      boxShadow: 'none',
-      outline: 'none',
+      boxShadow: '0 0 0 4px rgba(18, 18, 18, 0.2)',
     },
+    '.Input:focus-visible': {
+      outline: 'none',
+      boxShadow: '0 0 0 4px rgba(18, 18, 18, 0.2)',
+    },
+
     '.Input:disabled': {
       opacity: '0.5',
       cursor: 'not-allowed',
     },
     '.Label': {
-      fontSize: '1rem', // text-sm
-      fontWeight: '700', // font-medium
-      lineHeight: '1', // leading-none
-      color: 'rgba(18, 18, 18, 1)', // Match input text color
+      fontSize: '1rem',
+      fontWeight: '700',
+      lineHeight: '1',
+      color: 'rgba(18, 18, 18, 1)',
+      margin: '1rem 0',
     },
     '.Label--disabled': {
       cursor: 'not-allowed',
@@ -346,13 +372,28 @@ const appearanceDark: Appearance = {
     fontFamily: 'Inter, sans-serif',
     fontSizeBase: '1rem',
     borderRadius: '0.75rem',
-    colorBackground: 'rgba(61, 61, 61, 1)',
+    colorBackground: 'transparent',
     colorText: 'rgba(246, 246, 246, 1)',
-    colorDanger: 'rgba(255, 88, 77, 1)', // Invalid border color
+    colorDanger: 'rgba(255, 88, 77, 1)',
   },
   rules: {
+    '.AccordionItem': {
+      backgroundColor: 'transparent',
+      color: 'rgba(93, 93, 93, 1)',
+    },
+    '.AccordionItem--selected': {
+      backgroundColor: 'transparent',
+      color: 'rgba(246, 246, 246, 1)',
+    },
+    '.TabIcon': {
+      fill: 'rgba(246, 246, 246, 1)',
+    },
+
+    '.Block': {
+      backgroundColor: 'transparent',
+    },
     '.Input': {
-      border: '2px solid rgba(79, 79, 79, 1)',
+      border: 'none',
       backgroundColor: 'rgba(61, 61, 61, 1)',
       color: 'rgba(246, 246, 246, 1)',
       borderRadius: '0.75rem',
@@ -363,13 +404,19 @@ const appearanceDark: Appearance = {
       marginTop: '0.5rem',
       marginBottom: '0.5rem',
     },
+
     '.Input:hover': {
-      borderColor: 'rgba(93, 93, 93, 1)',
+      // Matches hover:ring-3 ring-text/20
+      boxShadow: '0 0 0 3px rgba(255, 245, 237, 0.2)',
     },
     '.Input:focus': {
-      borderColor: 'rgba(176, 176, 176, 1)',
-      boxShadow: 'none',
+      // Matches focus-within:ring-4 ring-text/20
+      boxShadow: '0 0 0 4px rgba(255, 245, 237, 0.2)',
+    },
+    '.Input:focus-visible': {
+      // Catches browsers that apply default blue rings
       outline: 'none',
+      boxShadow: '0 0 0 4px rgba(255, 245, 237, 0.2)',
     },
 
     '.Input:disabled': {
@@ -381,6 +428,7 @@ const appearanceDark: Appearance = {
       fontWeight: '700', // font-medium
       lineHeight: '1', // leading-none
       color: 'rgba(255, 245, 237, 1)', // Match input text color
+      margin: '1rem 0',
     },
     '.Label--disabled': {
       cursor: 'not-allowed',

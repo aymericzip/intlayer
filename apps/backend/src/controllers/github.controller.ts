@@ -82,7 +82,7 @@ export const listRepos = async (
   reply: FastifyReply
 ): Promise<void> => {
   const { token } = request.query;
-  const userId = request.locals?.user?.id;
+  const userId = request.session?.user?.id;
 
   try {
     let accessToken: string | undefined = token;
@@ -128,7 +128,7 @@ export const checkConfig = async (
   reply: FastifyReply
 ): Promise<void> => {
   const { token, owner, repository, branch = 'main' } = request.body;
-  const userId = request.locals?.user?.id;
+  const userId = request.session?.user?.id;
 
   try {
     let accessToken: string | undefined = token;
@@ -191,7 +191,7 @@ export const getConfigFile = async (
     branch = 'main',
     path = 'intlayer.config.ts',
   } = request.body;
-  const userId = request.locals?.user?.id;
+  const userId = request.session?.user?.id;
 
   try {
     let accessToken: string | undefined = token;

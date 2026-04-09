@@ -1,5 +1,3 @@
-'use client';
-
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
 import { useDevice, useSession } from '@intlayer/design-system/hooks';
@@ -17,6 +15,7 @@ import { TabSelector } from '@intlayer/design-system/tab-selector';
 import { cn } from '@intlayer/design-system/utils';
 import { useLocation } from '@tanstack/react-router';
 import { AnimatePresence, m, useReducedMotion } from 'framer-motion';
+import { getPathWithoutLocale } from 'intlayer';
 import {
   ArrowLeftToLine,
   Book,
@@ -34,7 +33,7 @@ import { type FC, useState } from 'react';
 import { Link } from '#components/Link/Link';
 
 // Map icon names to components - must be done in client component
-const iconMap: Record<string, LucideIcon> = {
+export const iconMap: Record<string, LucideIcon> = {
   PenTool,
   Book,
   FileText,
@@ -46,19 +45,19 @@ const iconMap: Record<string, LucideIcon> = {
   Globe,
 };
 
-const shouldHaveOrganizationRoutes = [
+export const shouldHaveOrganizationRoutes = [
   App_Dashboard_Projects_Path,
   App_Dashboard_Tags_Path,
 ] as string[];
 
-const shouldHaveProjectRoutes = [
+export const shouldHaveProjectRoutes = [
   App_Dashboard_Editor_Path,
   App_Dashboard_Translate_Path,
   App_Dashboard_Dictionaries_Path,
   App_Dashboard_Tags_Path,
 ] as string[];
 
-const shouldHaveAdminRoutes = [App_Admin_Users_Path] as string[];
+export const shouldHaveAdminRoutes = [App_Admin_Users_Path] as string[];
 
 export type SidebarNavigationItem = {
   key: string;
@@ -75,7 +74,7 @@ export type DashboardSidebarProps = {
   collapseButtonLabel: string;
 };
 
-const getCleanPath = (path: string): string => {
+export const getCleanPath = (path: string): string => {
   // Remove leading "/" if present
   const cleanPath = path.startsWith('/') ? path.substring(1) : path;
 
@@ -96,12 +95,12 @@ const getCleanPath = (path: string): string => {
   return cleanPath;
 };
 
-type FlatSidebarItem = SidebarNavigationItem & {
+export type FlatSidebarItem = SidebarNavigationItem & {
   level: number;
   isLastChild?: boolean;
 };
 
-const filterItems = (
+export const filterItems = (
   nodes: SidebarNavigationItem[],
   context: {
     hasOrganization: boolean;
@@ -143,7 +142,7 @@ const filterItems = (
   );
 };
 
-const flattenItems = (
+export const flattenItems = (
   nodes: SidebarNavigationItem[],
   level = 0
 ): FlatSidebarItem[] => {
@@ -170,7 +169,7 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
 }) => {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const { isMobile } = useDevice();
-  const { pathname: pathWithoutLocale } = useLocation();
+  const { pathname } = useLocation();
   const { session } = useSession();
   const shouldReduceMotion = useReducedMotion();
 
@@ -187,7 +186,7 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
 
   const flatNavItems = flattenItems(filteredNavItems);
 
-  const cleanPath = getCleanPath(pathWithoutLocale);
+  const cleanPath = getCleanPath(getPathWithoutLocale(pathname));
   let activeKey = cleanPath;
   let maxLevel = -1;
 
@@ -202,36 +201,7 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
   }
 
   if (isMobile) {
-    return (
-      <nav className="fixed inset-x-0 bottom-0 z-50 border-neutral-200 border-t bg-card/80 px-2 py-2 backdrop-blur-sm dark:border-neutral-800">
-        <TabSelector
-          selectedChoice={activeKey}
-          tabs={flatNavItems.map((item) => {
-            const IconComponent = item.icon
-              ? (iconMap[item.icon] ?? null)
-              : null;
-
-            return (
-              <Link
-                key={item.key}
-                href={item.href ?? '#'}
-                label={item.label}
-                color="text"
-                variant="invisible-link"
-                className="flex flex-col items-center gap-1 px-2 py-1.5"
-                aria-current={activeKey === item.key ? 'page' : undefined}
-              >
-                {IconComponent && <IconComponent className="size-5" />}
-                <span className="text-[10px]">{item.title}</span>
-              </Link>
-            );
-          })}
-          hoverable
-          color="text"
-          className="justify-around"
-        />
-      </nav>
-    );
+    return null;
   }
 
   // Desktop: render sidebar

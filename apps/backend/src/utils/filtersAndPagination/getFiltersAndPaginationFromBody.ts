@@ -1,6 +1,4 @@
-import type { Request } from 'express';
-import type { FastifyRequest } from 'fastify';
-import type { ObjectId } from 'mongoose';
+import type { FastifyRequest } from 'fastify';import type { ObjectId } from 'mongoose';
 
 const DEFAULT_PAGE_SIZE = 1000;
 const DEFAULT_PAGE = 1;
@@ -22,17 +20,13 @@ export type FiltersAndPaginationResult<T extends Filters> = {
   getNumberOfPages: (totalItems: number) => number;
 };
 
-type RequestLike<T extends Filters> =
-  | Request<FiltersAndPagination<T>>
-  | FastifyRequest<{ Querystring: FiltersAndPagination<T> }>;
-
 /**
  * Extracts filters and pagination information from the request body.
- * @param req - Express or Fastify request object.
+ * @param req - Fastify request object.
  * @returns Object containing filters, page, pageSize, and getNumberOfPages functions.
  */
 export const getFiltersAndPaginationFromBody = <T extends Filters>(
-  req: RequestLike<T>
+  req: FastifyRequest<{ Querystring: FiltersAndPagination<T> }>
 ): FiltersAndPaginationResult<T> => {
   let filters = {} as T;
   let pageSize = DEFAULT_PAGE_SIZE;

@@ -1,5 +1,3 @@
-'use client';
-
 import {
   Breadcrumb,
   type BreadcrumbLink,

@@ -1,5 +1,3 @@
-'use client';
-
 import { Browser } from '@intlayer/design-system/browser';
 import { Container } from '@intlayer/design-system/container';
 import { Loader } from '@intlayer/design-system/loader';

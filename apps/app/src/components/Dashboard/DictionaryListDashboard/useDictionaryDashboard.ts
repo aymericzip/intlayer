@@ -3,7 +3,6 @@ import {
   useGetDictionaries,
   usePersistedStore,
 } from '@intlayer/design-system/hooks';
-import { useNavigate } from '@tanstack/react-router';
 import type { RowSelectionState, VisibilityState } from '@tanstack/react-table';
 import { useCallback, useState } from 'react';
 import { useSearchParamState } from '#hooks/useSearchParamState';
@@ -19,8 +18,6 @@ const searchParams = {
 } as const;
 
 export const useDictionaryDashboard = () => {
-  const navigate = useNavigate();
-
   // Search & Pagination Params
   const { params, setParam, setParams } = useSearchParamState(searchParams);
 
@@ -97,6 +94,6 @@ export const useDictionaryDashboard = () => {
       totalPages: data?.total_pages ?? 1,
       isPending,
     },
-    actions: { refetch, onConfirmDelete, navigate },
+    actions: { refetch, onConfirmDelete },
   };
 };

@@ -1,5 +1,3 @@
-'use client';
-
 import { useSearch } from '@intlayer/design-system/hooks';
 import { SearchInput } from '@intlayer/design-system/input';
 import Fuse from 'fuse.js';

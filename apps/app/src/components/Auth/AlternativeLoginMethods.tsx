@@ -1,5 +1,3 @@
-'use client';
-
 import { Button } from '@intlayer/design-system/button';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';

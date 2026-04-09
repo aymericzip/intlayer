@@ -1,5 +1,3 @@
-'use client';
-
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
 import { DropDown } from '@intlayer/design-system/drop-down';
@@ -75,7 +73,7 @@ export const ProjectDropdown: FC<ProjectDropdownProps> = (props) => {
           <Container
             padding="lg"
             transparency="none"
-            roundedSize="xl"
+            roundedSize="2xl"
             className="gap-2 border border-text/10"
           >
             <div className="flex flex-col gap-3">

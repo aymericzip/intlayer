@@ -1,9 +1,8 @@
-'use client';
-
 import { useAskResetPassword } from '@intlayer/design-system/hooks';
 import { App_Auth_SignIn_Path } from '@intlayer/design-system/routes';
-import { useNavigate, useSearch } from '@tanstack/react-router';
+import { useSearch } from '@tanstack/react-router';
 import { type FC, useRef } from 'react';
+import { useLocalizedNavigate } from '#hooks/useLocalizedNavigate.ts';
 import {
   type AskResetPassword,
   AskResetPasswordForm as ResetPasswordFormUI,
@@ -18,7 +17,7 @@ export const AskResetPasswordForm: FC<AskResetPasswordFormProps> = ({
   email,
   callbackUrl = App_Auth_SignIn_Path,
 }) => {
-  const navigate = useNavigate();
+  const navigate = useLocalizedNavigate();
   const { mutate: askResetPassword } = useAskResetPassword();
   const search = useSearch({ strict: false }) as any;
   const emailFromParams = search.email;
@@ -27,7 +26,7 @@ export const AskResetPasswordForm: FC<AskResetPasswordFormProps> = ({
   const onSubmitSuccess = ({ email }: AskResetPassword) => {
     askResetPassword({
       email,
-      redirectTo: `${import.meta.env.VITE_URL}/${callbackUrl}`,
+      redirectTo: `${import.meta.env.VITE_URL}${callbackUrl}`,
     });
   };
 

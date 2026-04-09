@@ -1,5 +1,3 @@
-'use client';
-
 import { Button } from '@intlayer/design-system/button';
 import { useForm } from '@intlayer/design-system/form';
 import { H3 } from '@intlayer/design-system/headers';

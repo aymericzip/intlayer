@@ -1,6 +1,6 @@
 import { logger } from '@logger';
 
-import type { NextFunction, Request, Response } from 'express';
+import type { FastifyReply, FastifyRequest } from 'fastify';
 import { HttpStatusCodes } from './httpStatusCodes';
 
 export enum AccessRule {
@@ -15,15 +15,17 @@ export enum AccessRule {
 }
 
 export const accessControl = <R extends AccessRule | AccessRule[]>(
-  res: Response,
+  req: FastifyRequest,
   accessRule: R
 ) => {
   const accessRuleArray: AccessRule[] = Array.isArray(accessRule)
     ? accessRule
     : [accessRule];
 
-  const localsAuthInformation = res.locals;
-  const { user, organization, project, authType } = localsAuthInformation;
+  const user = req.session?.user;
+  const organization = req.session?.organization;
+  const project = req.session?.project;
+  const authType = req.session?.authType;
 
   // If 'none' access rule is present, immediately return success
   if (accessRuleArray.includes(AccessRule.none)) {
@@ -139,7 +141,7 @@ export const accessControl = <R extends AccessRule | AccessRule[]>(
  */
 export const accessControlMiddleWare =
   (...accessRules: (AccessRule | AccessRule[])[]) =>
-  (_req: Request<unknown>, res: Response, next: NextFunction): void => {
+  async (req: FastifyRequest, reply: FastifyReply): Promise<void> => {
     let hasAccess = false;
 
     // Iterate over each access rule group (either single AccessRule or an array of AccessRules)
@@ -147,12 +149,12 @@ export const accessControlMiddleWare =
       if (Array.isArray(ruleGroup)) {
         // If ruleGroup is an array, check if all rules in the group are satisfied
         const accessResults = ruleGroup.map(
-          (rule) => accessControl(res, rule).success
+          (rule) => accessControl(req, rule).success
         );
         hasAccess = accessResults.every((result) => result); // All rules must be satisfied in this case
       } else {
         // Single rule: just check this one
-        const accessResult = accessControl(res, ruleGroup);
+        const accessResult = accessControl(req, ruleGroup);
         if (accessResult.success) {
           hasAccess = true;
         }
@@ -169,9 +171,7 @@ export const accessControlMiddleWare =
       logger.error('Access denied');
 
       const errorStatusCode = HttpStatusCodes.FORBIDDEN_403;
-      res.sendStatus(errorStatusCode);
+      reply.status(errorStatusCode).send('Access denied');
       return;
     }
-
-    next();
   };

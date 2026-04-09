@@ -1,5 +1,3 @@
-'use client';
-
 import { CHINESE } from '@intlayer/types/locales';
 import { useLocation } from '@tanstack/react-router';
 import { useEffect } from 'react';

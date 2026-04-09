@@ -1,12 +1,14 @@
 import { Container } from '@intlayer/design-system/container';
 import { Loader } from '@intlayer/design-system/loader';
 import { createFileRoute } from '@tanstack/react-router';
-import { Suspense } from 'react';
 import { getIntlayer } from 'intlayer';
+import { Suspense } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { AskResetPasswordForm } from '#components/Auth/AskResetPassword';
 
-export const Route = createFileRoute('/{-$locale}/_other/auth/password/ask-reset')({
+export const Route = createFileRoute(
+  '/{-$locale}/_other/auth/password/ask-reset'
+)({
   component: AskResetPasswordPage,
   head: ({ params }) => {
     const { locale } = params;
@@ -35,7 +37,7 @@ function AskResetPasswordPage() {
         <Container
           className="w-full max-w-md justify-center gap-16 p-10 text-2xl"
           padding="xl"
-          roundedSize="xl"
+          roundedSize="2xl"
           transparency="xs"
         >
           <div className="flex flex-col gap-3 text-center">

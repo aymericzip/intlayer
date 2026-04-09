@@ -90,6 +90,10 @@ type NavbarProps<T extends TabSelectorItemProps> = {
  * @param props - Navbar component props
  * @returns Responsive navbar JSX element
  */
+export { Burger } from './Burger';
+export { DesktopNavbar } from './DesktopNavbar';
+export { MobileNavbar } from './MobileNavbar';
+
 export const Navbar = <T extends TabSelectorItemProps>({
   logo,
   mobileTopChildren,

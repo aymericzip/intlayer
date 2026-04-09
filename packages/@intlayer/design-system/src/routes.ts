@@ -45,14 +45,8 @@ export const getAppAdminOrganizationRoute = (id: string) =>
   `${App_Admin_Organizations_Path}/${id}` as const;
 export const getAppAdminProjectRoute = (id: string) =>
   `${App_Admin_Projects_Path}/${id}` as const;
-export const getAppOnboardingFlowRoute = (
-  step: string,
-  plan: string,
-  period?: string
-) =>
-  period
-    ? `${App_Onboarding_Path}/${step}/${plan}/${period}`
-    : (`${App_Onboarding_Path}/${step}/${plan}` as const);
+export const getAppOnboardingFlowRoute = (step: string) =>
+  `${App_Onboarding_Path}/${step}` as const;
 
 // ============================================================
 // App absolute URLs — https://app.intlayer.org

@@ -1,6 +1,5 @@
-'use client';
-
 import { Form, useForm } from '@intlayer/design-system/form';
+import { usePersistedStore } from '@intlayer/design-system/hooks';
 import type { FC, RefObject } from 'react';
 import { useEffect, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
@@ -45,7 +44,10 @@ export const SignInForm: FC<SignInFormProps> = ({
       email: defaultEmail,
     },
   });
-  const [email, setEmail] = useState<string | undefined>(defaultEmail);
+  const [email, setEmail] = usePersistedStore<string | undefined>(
+    'email',
+    defaultEmail
+  );
   const [showAll, setShowAll] = useState(false);
   const {
     emailInput,

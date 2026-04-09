@@ -15,6 +15,7 @@ import {
   useInfiniteGetDictionaries,
   usePersistedStore,
   useSearch,
+  useSession,
 } from '@intlayer/design-system/hooks';
 import { SearchInput } from '@intlayer/design-system/input';
 import { KeyboardShortcut } from '@intlayer/design-system/keyboard-shortcut';
@@ -346,6 +347,15 @@ const TranslateDashboardList: FC = () => {
               color="text"
               size="icon-xl"
               Icon={ArrowUp}
+              onClick={() => {
+                setCurrentTopIndex(0);
+
+                virtuosoRef.current?.scrollToIndex({
+                  index: 0,
+                  align: 'start',
+                  behavior: 'smooth',
+                });
+              }}
             />
             <PopoverStatic.Detail identifier="scroll-to-top">
               <span className="flex gap-4 text-nowrap py-2 pr-2 pl-4 text-neutral">
@@ -440,8 +450,11 @@ const TranslateDashboardList: FC = () => {
 };
 
 export const TranslateDashboard: FC = () => {
-  const configuration = useConfiguration();
-  const availableLocales = configuration?.internationalization.locales;
+  const { session } = useSession();
+
+  const configuration = session?.project?.configuration;
+
+  const availableLocales = configuration?.internationalization?.locales;
 
   return (
     <Suspense fallback={<Loader />}>

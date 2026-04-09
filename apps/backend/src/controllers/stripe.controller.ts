@@ -62,8 +62,7 @@ export const getSubscription = async (
     const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
     // Extract organization and user from request locals (set by authentication middleware)
-    const { organization, user } = request.locals || {};
-    // Get the price ID (Stripe Price ID) from the request body
+    const { organization, user } = request.session || {};
     const { priceId, promoCode } = request.body;
 
     // Validate that the organization exists
@@ -106,7 +105,7 @@ export const getSubscription = async (
           organizationId: String(organization.id),
           userId: String(user.id),
           // Include the locale for potential localization
-          locale: (request.locals as unknown as { locale: Locale }).locale,
+          locale: (request.session as unknown as { locale: Locale }).locale,
         },
       });
       customerId = customer.id;
@@ -193,7 +192,7 @@ export const cancelSubscription = async (
   try {
     // Extract the organization and user from the request locals
     // These are typically set by authentication middleware earlier in the request pipeline
-    const { organization, user } = _request.locals || {};
+    const { organization, user } = _request.session || {};
 
     // Validate that the organization exists
     if (!organization) {
@@ -208,20 +207,17 @@ export const cancelSubscription = async (
       return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_FOUND');
     }
 
-    // Check if the organization has an active subscription to cancel
-    if (!organization.plan?.subscriptionId) {
-      return ErrorHandler.handleGenericErrorResponse(
-        reply,
-        'ORGANIZATION_PLAN_NOT_FOUND'
-      );
-    }
+    // Try to get the subscription ID from the organization's plan
+    const subscriptionId = organization.plan?.subscriptionId;
 
-    // Cancel the subscription on Stripe immediately using the subscription ID
-    await stripe.subscriptions.cancel(organization.plan.subscriptionId);
+    if (subscriptionId) {
+      // Cancel the subscription on Stripe immediately using the subscription ID
+      await stripe.subscriptions.cancel(subscriptionId);
+    }
 
     // Update the organization's plan in the database to reflect the cancellation
     const plan = await subscriptionService.cancelSubscription(
-      organization.plan.subscriptionId,
+      subscriptionId,
       String(organization.id)
     );
 

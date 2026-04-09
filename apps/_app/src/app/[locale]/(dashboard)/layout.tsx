@@ -21,7 +21,7 @@ import {
   dehydrate,
   QueryClient,
 } from '@tanstack/react-query';
-import type { LocalesValues } from 'intlayer';
+import { defaultLocale, type LocalesValues } from 'intlayer';
 import type { NextLayoutIntlayer } from 'next-intlayer';
 import { useIntlayer } from 'next-intlayer/server';
 import { type FC, Suspense } from 'react';
@@ -211,11 +211,14 @@ const DashboardLayout: NextLayoutIntlayer = async ({ children, params }) => {
 
   return (
     <Suspense>
-      <DashboardLayoutContent locale={locale} dehydratedState={dehydratedState}>
+      <DashboardLayoutContent
+        locale={locale ?? defaultLocale}
+        dehydratedState={dehydratedState}
+      >
         <AuthenticationBarrier
           accessRule="authenticated"
           session={sessionToPass}
-          locale={locale}
+          locale={locale ?? defaultLocale}
         >
           {children}
         </AuthenticationBarrier>

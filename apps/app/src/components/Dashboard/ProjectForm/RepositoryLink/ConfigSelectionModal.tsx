@@ -1,5 +1,3 @@
-'use client';
-
 import { Button } from '@intlayer/design-system/button';
 import { Modal } from '@intlayer/design-system/modal';
 import { FileJson, FolderOpen } from 'lucide-react';

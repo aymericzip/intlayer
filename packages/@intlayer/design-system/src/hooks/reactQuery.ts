@@ -183,9 +183,6 @@ export const useRegister = () => {
     mutationKey: ['register'],
     mutationFn: (args: Parameters<AuthAPI['signUpEmail']>[0]) =>
       intlayerAuth.signUpEmail(args),
-    meta: {
-      resetQueries: [['session']],
-    },
   });
 };
 
@@ -976,7 +973,6 @@ export const useGetTags = (
     // placeholderData: keepPreviousData,
     requireUser: true,
     requireOrganization: true,
-    requireProject: true,
     ...options,
   });
 };

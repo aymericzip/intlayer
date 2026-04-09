@@ -10,7 +10,7 @@ export const Route = createFileRoute('/{-$locale}/_other')({
 function OtherLayout() {
   const { locale } = useLocale();
 
-  const { footerLinks } = useIntlayer('dashboard-navbar-content');
+  const { footerLinks } = useIntlayer('dashboard-footer-content');
 
   const formattedFooterLinks = footerLinks.map(
     (el: {

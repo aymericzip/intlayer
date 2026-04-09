@@ -111,27 +111,26 @@ const startServer = async () => {
   processAuditJobs().catch((err) => logger.error(err));
 
   // Stripe webhook (needs raw body)
-  // Register a content type parser for raw body
+  // Register as an async plugin to prevent Fastify load errors
   await app.register(async (stripeScope) => {
     stripeScope.addContentTypeParser(
       'application/json',
       { parseAs: 'buffer' },
-      (_req, body, done) => {
-        done(null, body);
+      (request, body, done) => {
+        // 1. Attach the raw buffer to the Fastify request for Stripe
+        (request as any).rawBody = body;
+
+        // 2. Parse the body to JSON so request.body behaves normally
+        try {
+          done(null, JSON.parse(body.toString()));
+        } catch (err) {
+          done(err as Error, undefined);
+        }
       }
     );
 
     stripeScope.post('/webhook/stripe', async (request, reply) => {
-      // For Stripe webhooks, we need the raw body as a Buffer
-      // Fastify will parse it as buffer when content-type parser is set
-      const rawBody = request.body as Buffer;
-      // Create a mock request object for the webhook handler
-      const mockReq = {
-        ...request.raw,
-        body: rawBody,
-        headers: request.headers,
-      } as any;
-      await stripeWebhook(mockReq, reply as any);
+      await stripeWebhook(request, reply);
     });
   });
 
@@ -195,6 +194,9 @@ const startServer = async () => {
     },
   });
 
+  // Register session decorator so Fastify can pre-shape the request object (V8 optimisation)
+  app.decorateRequest('session', null);
+
   // Register auth middleware as a hook
   app.addHook('onRequest', authMiddleware(auth));
 
@@ -211,7 +213,7 @@ const startServer = async () => {
         params: request.params,
         query: request.query,
         body: request.body,
-        locals: request.locals,
+        locals: request.session,
       };
 
       logger.info(

@@ -1,5 +1,3 @@
-'use client';
-
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
 import { CopyToClipboard } from '@intlayer/design-system/copy-to-clipboard';
@@ -11,7 +9,6 @@ import {
   ShowingResultsNumberItems,
 } from '@intlayer/design-system/pagination';
 import { PopoverStatic } from '@intlayer/design-system/popover';
-import { App_Dashboard_Dictionaries_Path } from '@intlayer/design-system/routes';
 import { Tag } from '@intlayer/design-system/tag';
 import { useFocusUnmergedDictionary } from '@intlayer/editor-react';
 import type { Dictionary } from '@intlayer/types/dictionary';
@@ -31,6 +28,7 @@ import {
 import { type FC, Suspense, useMemo } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { useDate } from 'react-intlayer/format';
+import { useLocalizedNavigate } from '#hooks/useLocalizedNavigate.ts';
 import { DictionaryModals } from './DictionaryModals';
 import { DictionaryTable } from './DictionaryTable';
 import { DictionaryToolbar } from './DictionaryToolbar';
@@ -41,6 +39,7 @@ export const DictionaryListDashboardContent: FC = () => {
   const { setFocusedContent } = useFocusUnmergedDictionary();
   const formatDate = useDate();
   const content = useIntlayer('dictionary-list');
+  const navigate = useLocalizedNavigate();
 
   const handleSort = (columnId: string) => {
     const isAsc =
@@ -311,12 +310,15 @@ export const DictionaryListDashboardContent: FC = () => {
                     keyPath: [],
                   });
 
-                  dashboard.actions.router.push(
-                    `${App_Dashboard_Dictionaries_Path}/${row.original.key}`
-                  );
+                  navigate({
+                    to: `/dictionary/$dictionaryKey`,
+                    params: {
+                      dictionaryKey: row.original.key,
+                    },
+                  });
                 }}
                 Icon={ArrowRight}
-                label={content.viewButton?.label?.value ?? 'View'}
+                label={content.viewButton.label.value}
               />
               <PopoverStatic.Detail
                 xAlign="end"
@@ -353,7 +355,7 @@ export const DictionaryListDashboardContent: FC = () => {
   });
 
   return (
-    <div className="flex w-full flex-1 flex-col gap-6 py-6 text-sm">
+    <div className="flex w-full flex-1 flex-col gap-6 py-6 text-sm text-text/80">
       <DictionaryToolbar dashboard={dashboard} table={table} />
 
       <DictionaryTable

@@ -1,12 +1,9 @@
-'use client';
-
 import { DictionaryFieldEditor } from '@intlayer/design-system/dictionary-field-editor';
 import { useGetDictionary } from '@intlayer/design-system/hooks';
 import { Loader } from '@intlayer/design-system/loader';
 import { Modal } from '@intlayer/design-system/modal';
-import { useTheme } from '#/providers/ThemeProvider';
 import type { FC } from 'react';
-import { EditorConfigurationProvider } from '../ContentDashboard/ConfigurationProvider';
+import { useTheme } from '#/providers/ThemeProvider';
 
 type DictionaryDetailModalProps = {
   isOpen: boolean;
@@ -35,19 +32,17 @@ export const DictionaryDetailModal: FC<DictionaryDetailModalProps> = ({
       className="h-full"
     >
       <Loader isLoading={!dictionary || isPending}>
-        <EditorConfigurationProvider>
-          <div className="flex h-full min-h-0 w-full flex-1 flex-col">
-            {dictionary && (
-              <DictionaryFieldEditor
-                dictionary={dictionary}
-                isDarkMode={resolvedTheme === 'dark'}
-                mode={['remote']}
-                onDelete={onClose}
-                showReturnButton={false}
-              />
-            )}
-          </div>
-        </EditorConfigurationProvider>
+        <div className="flex h-full min-h-0 w-full flex-1 flex-col">
+          {dictionary && (
+            <DictionaryFieldEditor
+              dictionary={dictionary}
+              isDarkMode={resolvedTheme === 'dark'}
+              mode={['remote']}
+              onDelete={onClose}
+              showReturnButton={false}
+            />
+          )}
+        </div>
       </Loader>
     </Modal>
   );

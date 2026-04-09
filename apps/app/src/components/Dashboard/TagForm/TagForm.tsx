@@ -1,5 +1,3 @@
-'use client';
-
 import type { GetTagsResult, TagAPI } from '@intlayer/backend';
 import { Container } from '@intlayer/design-system/container';
 import { useGetTags } from '@intlayer/design-system/hooks';

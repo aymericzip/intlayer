@@ -1,13 +1,11 @@
-'use client';
-
 import { Form, useForm } from '@intlayer/design-system/form';
 import { H2 } from '@intlayer/design-system/headers';
 import { useUser } from '@intlayer/design-system/hooks';
 import { App_Auth_SignIn_Path } from '@intlayer/design-system/routes';
-import { useNavigate } from '@tanstack/react-router';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { ExternalsLoginButtons } from '#components/Auth/ExternalsLoginButtons';
+import { useLocalizedNavigate } from '#hooks/useLocalizedNavigate.ts';
 import { StepLayout } from '../StepLayout';
 import { Steps } from '../steps';
 import { useStep } from '../useStep';
@@ -26,7 +24,7 @@ export const RegisterStepForm: FC = () => {
   const { form, isSubmitting } = useForm(RegisterSchema, {
     defaultValues,
   });
-  const navigate = useNavigate();
+  const navigate = useLocalizedNavigate();
 
   const onClickToSignIn = () =>
     navigate({

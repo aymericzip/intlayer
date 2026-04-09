@@ -1,5 +1,3 @@
-'use client';
-
 import type { Webhook } from '@intlayer/backend';
 import { Button } from '@intlayer/design-system/button';
 import { Form, useForm } from '@intlayer/design-system/form';

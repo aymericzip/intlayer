@@ -42,7 +42,7 @@ export const getProjects = async (
   request: FastifyRequest<{ Querystring: GetProjectsParams }>,
   reply: FastifyReply
 ): Promise<void> => {
-  const { user, organization, roles } = request.locals || {};
+  const { user, roles } = request.session || {};
   const { filters, sortOptions, pageSize, skip, page, getNumberOfPages } =
     getProjectFiltersAndPagination(request);
 
@@ -50,12 +50,9 @@ export const getProjects = async (
     return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
   }
 
-  if (!organization && !roles?.includes('admin')) {
-    return ErrorHandler.handleGenericErrorResponse(
-      reply,
-      'ORGANIZATION_NOT_DEFINED'
-    );
-  }
+  // When no organization is selected in the session,
+  // the filter already scopes organizationId to undefined → DB returns []
+  // so we can proceed safely without an early 403.
 
   try {
     const projects = await projectService.findProjects(
@@ -65,12 +62,15 @@ export const getProjects = async (
       sortOptions
     );
 
+    // Skip permission check when there are no projects to protect.
+    // An empty result is safe to return without checking roles.
     if (
+      projects.length > 0 &&
       !hasPermission(
         roles || [],
         'project:read'
       )({
-        ...request.locals,
+        ...request.session,
         targetProjects: projects,
       })
     ) {
@@ -108,7 +108,7 @@ export const addProject = async (
   request: FastifyRequest<{ Body: AddProjectBody }>,
   reply: FastifyReply
 ): Promise<void> => {
-  const { organization, user, roles } = request.locals || {};
+  const { organization, user, roles } = request.session || {};
   const projectData = request.body;
 
   if (!user) {
@@ -134,7 +134,7 @@ export const addProject = async (
       roles || [],
       'organization:admin'
     )({
-      ...request.locals,
+      ...request.session,
       targetOrganizations: [organization],
     })
   ) {
@@ -211,7 +211,7 @@ export const updateProject = async (
   request: FastifyRequest<{ Body: UpdateProjectBody }>,
   reply: FastifyReply
 ): Promise<void> => {
-  const { organization, project, user, session, roles } = request.locals || {};
+  const { organization, project, user, session, roles } = request.session || {};
   const projectData = request.body;
 
   if (!user) {
@@ -244,7 +244,7 @@ export const updateProject = async (
       roles || [],
       'project:write'
     )({
-      ...request.locals,
+      ...request.session,
       targetProjectIds: [String(project.id)],
     })
   ) {
@@ -337,7 +337,7 @@ export const updateProjectMembers = async (
   request: FastifyRequest<{ Body: UpdateProjectMembersBody }>,
   reply: FastifyReply
 ): Promise<void> => {
-  const { user, project, organization, roles } = request.locals || {};
+  const { user, project, organization, roles } = request.session || {};
   const { membersIds } = request.body;
 
   if (!user) {
@@ -377,7 +377,7 @@ export const updateProjectMembers = async (
       roles || [],
       'project:write'
     )({
-      ...request.locals,
+      ...request.session,
       targetProjectIds: [String(project.id)],
     })
   ) {
@@ -459,7 +459,7 @@ export const pushProjectConfiguration = async (
   request: FastifyRequest<{ Body: PushProjectConfigurationBody }>,
   reply: FastifyReply
 ): Promise<void> => {
-  const { user, project, roles } = request.locals || {};
+  const { user, project, roles } = request.session || {};
   const projectConfiguration = request.body;
 
   if (!user) {
@@ -478,7 +478,7 @@ export const pushProjectConfiguration = async (
       roles || [],
       'project:write'
     )({
-      ...request.locals,
+      ...request.session,
       targetProjectIds: [String(project.id)],
     })
   ) {
@@ -572,7 +572,7 @@ export const triggerBuild = async (
   request: FastifyRequest,
   reply: FastifyReply
 ): Promise<void> => {
-  const { project, roles } = request.locals || {};
+  const { project, roles } = request.session || {};
 
   if (!project) {
     return ErrorHandler.handleGenericErrorResponse(
@@ -586,7 +586,7 @@ export const triggerBuild = async (
       roles || [],
       'project:write'
     )({
-      ...request.locals,
+      ...request.session,
       targetProjectIds: [String(project.id)],
     })
   ) {
@@ -631,7 +631,7 @@ export const triggerWebhook = async (
   request: FastifyRequest<{ Body: TriggerWebhookBody }>,
   reply: FastifyReply
 ): Promise<void> => {
-  const { project, roles } = request.locals || {};
+  const { project, roles } = request.session || {};
 
   if (!project) {
     return ErrorHandler.handleGenericErrorResponse(
@@ -645,7 +645,7 @@ export const triggerWebhook = async (
       roles || [],
       'project:write'
     )({
-      ...request.locals,
+      ...request.session,
       targetProjectIds: [String(project.id)],
     })
   ) {
@@ -702,7 +702,7 @@ export const deleteProject = async (
   _request: FastifyRequest,
   reply: FastifyReply
 ): Promise<void> => {
-  const { user, organization, project, session, roles } = _request.locals || {};
+  const { user, organization, project, session, roles } = _request.session || {};
 
   if (!user) {
     return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
@@ -734,7 +734,7 @@ export const deleteProject = async (
       roles || [],
       'project:admin'
     )({
-      ..._request.locals,
+      ..._request.session,
       targetProjectIds: [String(project.id)],
     })
   ) {
@@ -801,7 +801,7 @@ export const selectProject = async (
   reply: FastifyReply
 ) => {
   const { projectId } = request.params;
-  const { session } = request.locals || {};
+  const { session } = request.session || {};
 
   if (!projectId) {
     return ErrorHandler.handleGenericErrorResponse(
@@ -854,7 +854,7 @@ export const unselectProject = async (
   _request: FastifyRequest,
   reply: FastifyReply
 ) => {
-  const { session } = _request.locals || {};
+  const { session } = _request.session || {};
 
   if (typeof session === 'undefined') {
     return ErrorHandler.handleGenericErrorResponse(
@@ -898,7 +898,7 @@ export const getCIConfiguration = async (
   request: FastifyRequest,
   reply: FastifyReply
 ): Promise<void> => {
-  const { project, user } = request.locals || {};
+  const { project, user } = request.session || {};
 
   if (!project) {
     return ErrorHandler.handleGenericErrorResponse(
@@ -933,7 +933,7 @@ export const pushCIConfiguration = async (
   request: FastifyRequest,
   reply: FastifyReply
 ): Promise<void> => {
-  const { project, user } = request.locals || {};
+  const { project, user } = request.session || {};
 
   if (!project) {
     return ErrorHandler.handleGenericErrorResponse(

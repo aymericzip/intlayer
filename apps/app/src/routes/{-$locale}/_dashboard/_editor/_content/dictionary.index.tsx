@@ -3,7 +3,7 @@ import { getIntlayer } from 'intlayer';
 import { DictionaryListDashboard } from '#components/Dashboard/DictionaryListDashboard';
 
 export const Route = createFileRoute(
-  '/{-$locale}/_dashboard/_editor/_content/dictionary'
+  '/{-$locale}/_dashboard/_editor/_content/dictionary/'
 )({
   component: DictionaryPage,
   head: ({ params }) => {

@@ -24,7 +24,7 @@ import type {
 } from 'react';
 import { useLocale } from 'react-intlayer';
 
-export const LOCALE_ROUTE = '$locale' as const;
+export const LOCALE_ROUTE = '{-$locale}' as const;
 
 export type RemoveLocaleParam<T> = T extends string
   ? RemoveLocaleFromString<T>

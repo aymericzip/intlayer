@@ -1,5 +1,3 @@
-'use client';
-
 import type { ProjectConfigCI, Webhook } from '@intlayer/backend';
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';

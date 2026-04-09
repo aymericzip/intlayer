@@ -1,20 +1,60 @@
-'use client';
-
+import { Burger, MaxHeightSmoother } from '@intlayer/design-system';
 import { Container } from '@intlayer/design-system/container';
-import { useSession } from '@intlayer/design-system/hooks';
+import { useDevice, useSession } from '@intlayer/design-system/hooks';
 import { Logo } from '@intlayer/design-system/logo';
 import { App_Home_Path } from '@intlayer/design-system/routes';
-import type { FC } from 'react';
+import { cn } from '@intlayer/design-system/utils';
+import { useLocation } from '@tanstack/react-router';
+import { getPathWithoutLocale } from 'intlayer';
+import { type FC, useState } from 'react';
 import { Link } from '#components/Link/Link';
 import { LocaleSwitcher } from '#components/LocaleSwitcher/LocaleSwitcher';
 import { ProfileDropDown } from '#components/ProfileDropdown/ProfileDropdown';
 import { TranslationStatusAside } from '#components/TranslationStatusAside';
+import {
+  filterItems,
+  flattenItems,
+  getCleanPath,
+  iconMap,
+  type SidebarNavigationItem,
+} from '../DashboardSidebar/DashboardSidebar';
 import { OrganizationDropdown } from './OrganizationDropdown';
 import { ProjectDropdown } from './ProjectDropdown';
 
-export const DashboardNavbar: FC = () => {
+export type DashboardNavbarProps = {
+  items?: SidebarNavigationItem[];
+};
+
+export const DashboardNavbar: FC<DashboardNavbarProps> = ({ items = [] }) => {
   const { session } = useSession();
-  const { organization, project } = session ?? {};
+  const { organization, project, roles } = session ?? {};
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { isMobile } = useDevice();
+  const { pathname } = useLocation();
+
+  const isSuperAdmin =
+    roles?.some((role: string) => role.toLowerCase() === 'admin') ?? false;
+
+  const filteredNavItems = filterItems(items, {
+    hasOrganization: !!organization,
+    hasProject: !!project,
+    isSuperAdmin,
+  });
+
+  const flatNavItems = flattenItems(filteredNavItems);
+
+  const cleanPath = getCleanPath(getPathWithoutLocale(pathname));
+  let activeKey = cleanPath;
+  let maxLevel = -1;
+
+  for (const item of flatNavItems) {
+    if (item.href && getCleanPath(item.href) === cleanPath) {
+      if (item.level > maxLevel) {
+        maxLevel = item.level;
+        activeKey = item.key;
+      }
+    }
+  }
 
   return (
     <Container
@@ -22,7 +62,7 @@ export const DashboardNavbar: FC = () => {
       roundedSize="none"
     >
       <div className="flex justify-between">
-        <div className="flex w-auto items-center gap-4">
+        <div className="flex w-auto items-center gap-2 md:gap-4">
           <Link href={App_Home_Path} label="Dashboard" color="text">
             <Logo className="size-6" />
           </Link>
@@ -46,8 +86,56 @@ export const DashboardNavbar: FC = () => {
           {project && <TranslationStatusAside />}
           <LocaleSwitcher />
           <ProfileDropDown />
+          {isMobile && (
+            <Burger
+              isActive={isMenuOpen}
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="mr-0"
+            />
+          )}
         </div>
       </div>
+
+      {isMobile && (
+        <nav className="fixed top-12 left-0 mt-4 flex w-full flex-col gap-2">
+          <MaxHeightSmoother isHidden={!isMenuOpen}>
+            <Container
+              className="h-screen w-full px-10 pt-10"
+              roundedSize="none"
+              transparency="xs"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              {flatNavItems.map((item) => {
+                const IconComponent = item.icon
+                  ? (iconMap[item.icon] ?? null)
+                  : null;
+                const isChild = item.level > 0;
+
+                return (
+                  <Link
+                    key={item.key}
+                    href={item.href ?? '#'}
+                    label={item.label}
+                    color="text"
+                    variant="invisible-link"
+                    className={cn(
+                      'flex items-center gap-3 rounded-lg px-4 py-3 hover:bg-text/5',
+                      activeKey === item.key && 'bg-text/10 font-bold',
+                      isChild && 'pl-10'
+                    )}
+                    aria-current={activeKey === item.key ? 'page' : undefined}
+                  >
+                    {IconComponent && (
+                      <IconComponent className="size-5 shrink-0" />
+                    )}
+                    <span>{item.title}</span>
+                  </Link>
+                );
+              })}
+            </Container>
+          </MaxHeightSmoother>
+        </nav>
+      )}
     </Container>
   );
 };

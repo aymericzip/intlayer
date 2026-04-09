@@ -1,5 +1,3 @@
-'use client';
-
 import type { UserAPI } from '@intlayer/backend';
 import { Form, useForm } from '@intlayer/design-system/form';
 import {

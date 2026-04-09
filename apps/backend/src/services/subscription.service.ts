@@ -35,7 +35,6 @@ export const addOrUpdateSubscription = async (
   const subscriptions = await stripe.subscriptions.list({
     customer: customerId,
     status: 'active',
-    limit: 1,
   });
 
   if (subscriptions.data.length >= 1) {
@@ -73,26 +72,24 @@ export const addOrUpdateSubscription = async (
 };
 
 export const cancelSubscription = async (
-  subscriptionId: string | Organization['id'],
+  subscriptionId: string | undefined, // Changed to optional
   organizationId: Organization['id'] | string
 ): Promise<Plan | null> => {
   const organization = await getOrganizationById(organizationId);
 
   if (!organization) {
     throw new GenericError('ORGANIZATION_NOT_FOUND', {
-      subscriptionId,
+      organizationId,
     });
   }
 
-  if (!subscriptionId) {
-    throw new GenericError('NO_SUBSCRIPTION_ID_PROVIDED');
-  }
-
+  // If there is no plan, we consider it already "canceled" or free.
+  // We can return a default free plan or just null.
   if (!organization.plan) {
-    throw new GenericError('ORGANIZATION_PLAN_NOT_FOUND', {
-      subscriptionId,
-      organizationId: organization.id,
-    });
+    return {
+      type: 'FREE',
+      status: 'active',
+    } as Plan;
   }
 
   const updatedOrganization = await updatePlan(organization, {
@@ -106,7 +103,7 @@ export const cancelSubscription = async (
   }
 
   logger.info(
-    `Cancelled plan for organization ${updatedOrganization.id} - ${updatedOrganization.plan?.type} - ${updatedOrganization.plan?.period}`
+    `Cancelled plan for organization ${updatedOrganization.id} - ${updatedOrganization.plan?.type} - ${updatedOrganization.plan?.period}${subscriptionId ? ` (Subscription ID: ${subscriptionId})` : ''}`
   );
 
   return updatedOrganization.plan ?? null;

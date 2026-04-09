@@ -1,13 +1,11 @@
-'use client';
-
 import { Button } from '@intlayer/design-system/button';
 import { CodeBlock } from '@intlayer/design-system/ide';
 import { Loader } from '@intlayer/design-system/loader';
 import { Modal } from '@intlayer/design-system/modal';
 import { XCircle } from 'lucide-react';
-import { useTheme } from '#/providers/ThemeProvider';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
+import { useTheme } from '#/providers/ThemeProvider';
 import type { ConfigPreviewState } from './types';
 
 type ConfigPreviewModalProps = {

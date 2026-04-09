@@ -1,5 +1,4 @@
-'use client';
-
+import { MaxHeightSmoother } from '@intlayer/design-system';
 import { Container } from '@intlayer/design-system/container';
 import { Form, useForm } from '@intlayer/design-system/form';
 import { H3 } from '@intlayer/design-system/headers';
@@ -11,7 +10,7 @@ import {
 } from '@intlayer/design-system/hooks';
 import { Loader } from '@intlayer/design-system/loader';
 import { useToast } from '@intlayer/design-system/toaster';
-import { type FC, useEffect } from 'react';
+import { type FC, useEffect, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { z } from 'zod/v4';
 import { CurrentProviderInfo } from './CurrentProviderInfo';
@@ -32,25 +31,37 @@ type SSOProvider = {
 
 // Define SSO config schema for registration
 const useSSOConfigSchema = () => {
-  return z.object({
-    enabled: z.boolean(),
-    providerType: z.enum(['saml', 'oidc']),
-    domain: z.string().min(1, 'Domain is required'),
-    samlConfig: z
-      .object({
-        issuer: z.string().min(1),
-        entryPoint: z.url(),
-        cert: z.string().min(1),
-      })
-      .optional(),
-    oidcConfig: z
-      .object({
-        issuer: z.url(),
-        clientId: z.string().min(1),
-        clientSecret: z.string().min(1),
-      })
-      .optional(),
-  });
+  // Use a union to handle different states
+  return z.discriminatedUnion('enabled', [
+    // State: SSO is Enabled (Fields are required)
+    z.object({
+      enabled: z.literal(true),
+      providerType: z.enum(['saml', 'oidc']),
+      domain: z.string().min(1, 'Domain is required'),
+      samlConfig: z
+        .object({
+          issuer: z.string().min(1),
+          entryPoint: z.url(),
+          cert: z.string().min(1),
+        })
+        .optional(),
+      oidcConfig: z
+        .object({
+          issuer: z.url(),
+          clientId: z.string().min(1),
+          clientSecret: z.string().min(1),
+        })
+        .optional(),
+    }),
+    // State: SSO is Disabled (Fields are not required)
+    z.object({
+      enabled: z.literal(false),
+      providerType: z.enum(['saml', 'oidc']).optional(),
+      domain: z.string().optional(),
+      samlConfig: z.any().optional(),
+      oidcConfig: z.any().optional(),
+    }),
+  ]);
 };
 
 type SSOFormData = z.infer<ReturnType<typeof useSSOConfigSchema>>;
@@ -78,7 +89,7 @@ export const SSOSettings: FC = () => {
   const { data: ssoProvidersData, isLoading: isLoadingProviders } =
     useListSSOProviders();
 
-  const { form, isSubmitting } = useForm(SSOConfigSchema, {
+  const { form, isSubmitting } = useForm(SSOConfigSchema as any, {
     defaultValues: defaultSSOValues,
   });
 
@@ -104,7 +115,8 @@ export const SSOSettings: FC = () => {
 
   // Derive state from form values instead of using effects
   const formValues = form.watch();
-  const ssoEnabled = Boolean(formValues.enabled);
+  const [isSsoEnabled, setIsSsoEnabled] = useState(Boolean(formValues.enabled));
+
   const providerType = (formValues.providerType as 'saml' | 'oidc') || 'oidc';
 
   // Set enabled to true if there's an existing provider (only once on mount)
@@ -131,7 +143,7 @@ export const SSOSettings: FC = () => {
     // Prepare registration data
     const registrationData: any = {
       providerId,
-      domain: data.domain.toLowerCase().trim(),
+      domain: data.domain?.toLowerCase().trim(),
       organizationId: organization.id,
     };
 
@@ -240,7 +252,7 @@ export const SSOSettings: FC = () => {
       </div>
 
       <Form
-        schema={SSOConfigSchema}
+        schema={SSOConfigSchema as any}
         onSubmitSuccess={onSubmitSuccess}
         className="size-full"
         {...form}
@@ -251,76 +263,74 @@ export const SSOSettings: FC = () => {
             name="enabled"
             inputLabel={enabledLabel}
             disabled={!isOrganizationAdmin}
+            onChange={() => {
+              setIsSsoEnabled((prev) => !prev);
+            }}
           />
         </Container>
+        <MaxHeightSmoother isHidden={!isSsoEnabled}>
+          {/* Show existing provider info */}
+          {existingProvider && (
+            <CurrentProviderInfo
+              existingProvider={existingProvider}
+              existingProviderType={existingProviderType}
+              isOrganizationAdmin={isOrganizationAdmin}
+              handleDeleteProvider={handleDeleteProvider}
+              isPendingDelete={isPendingDelete}
+              removeSSOProvider={removeSSOProvider}
+            />
+          )}
 
-        {ssoEnabled && (
-          <>
-            {/* Show existing provider info */}
-            {existingProvider && (
-              <CurrentProviderInfo
-                existingProvider={existingProvider}
-                existingProviderType={existingProviderType}
-                isOrganizationAdmin={isOrganizationAdmin}
-                handleDeleteProvider={handleDeleteProvider}
-                isPendingDelete={isPendingDelete}
-                removeSSOProvider={removeSSOProvider}
-              />
-            )}
+          {/* Show registration form only if no existing provider */}
+          {!existingProvider && (
+            <>
+              {/* Provider Type */}
+              <div className="mt-4">
+                <span className="font-medium text-sm">{providerTypeLabel}</span>
+                <Form.SwitchSelector
+                  name="providerType"
+                  className="mt-2"
+                  size="sm"
+                  color="text"
+                  disabled={!isOrganizationAdmin}
+                  choices={[
+                    { value: 'oidc', content: providerTypeOptions.oidc },
+                    { value: 'saml', content: providerTypeOptions.saml },
+                  ]}
+                />
+              </div>
 
-            {/* Show registration form only if no existing provider */}
-            {!existingProvider && (
-              <>
-                {/* Provider Type */}
-                <div className="mt-4">
-                  <span className="font-medium text-sm">
-                    {providerTypeLabel}
-                  </span>
-                  <Form.SwitchSelector
-                    name="providerType"
-                    className="mt-2"
-                    size="sm"
-                    color="text"
-                    disabled={!isOrganizationAdmin}
-                    choices={[
-                      { value: 'oidc', content: providerTypeOptions.oidc },
-                      { value: 'saml', content: providerTypeOptions.saml },
-                    ]}
-                  />
-                </div>
+              {/* Domain */}
+              <div className="mt-4">
+                <Form.Input
+                  name="domain"
+                  label={domainsLabel}
+                  placeholder={domainsPlaceholder.value}
+                  disabled={!isOrganizationAdmin}
+                />
+                <p className="mt-1 text-neutral text-xs dark:text-neutral-dark">
+                  {domainsDescription}
+                </p>
+              </div>
 
-                {/* Domain */}
-                <div className="mt-4">
-                  <Form.Input
-                    name="domain"
-                    label={domainsLabel}
-                    placeholder={domainsPlaceholder.value}
-                    disabled={!isOrganizationAdmin}
-                  />
-                  <p className="mt-1 text-neutral text-xs dark:text-neutral-dark">
-                    {domainsDescription}
-                  </p>
-                </div>
+              {/* SAML Configuration */}
+              {providerType === 'saml' && (
+                <SAMLConfigForm
+                  samlConfigContent={samlConfigContent}
+                  isOrganizationAdmin={isOrganizationAdmin}
+                />
+              )}
 
-                {/* SAML Configuration */}
-                {providerType === 'saml' && (
-                  <SAMLConfigForm
-                    samlConfigContent={samlConfigContent}
-                    isOrganizationAdmin={isOrganizationAdmin}
-                  />
-                )}
-
-                {/* OIDC Configuration */}
-                {providerType === 'oidc' && (
-                  <OIDCConfigForm
-                    oidcConfigContent={oidcConfigContent}
-                    isOrganizationAdmin={isOrganizationAdmin}
-                  />
-                )}
-              </>
-            )}
-          </>
-        )}
+              {/* OIDC Configuration */}
+              {providerType === 'oidc' && (
+                <OIDCConfigForm
+                  oidcConfigContent={oidcConfigContent}
+                  isOrganizationAdmin={isOrganizationAdmin}
+                />
+              )}
+            </>
+          )}
+        </MaxHeightSmoother>
 
         <Form.Button
           className="mt-6 w-full"

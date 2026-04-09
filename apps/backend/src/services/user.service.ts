@@ -136,8 +136,10 @@ export const updateUserById = async (
   userId: string | Types.ObjectId,
   updates: Partial<UserAPI>
 ): Promise<UserDocument> => {
-  const keyToValidate = Object.keys(updates) as UserFields;
-  const errors = validateUser(updates, keyToValidate);
+  const { id, ...updatesWithoutId } = updates;
+
+  const keyToValidate = Object.keys(updatesWithoutId) as UserFields;
+  const errors = validateUser(updatesWithoutId, keyToValidate);
 
   if (Object.keys(errors).length > 0) {
     throw new GenericError('USER_INVALID_FIELDS', {
@@ -146,7 +148,10 @@ export const updateUserById = async (
     });
   }
 
-  const result = await UserModel.updateOne({ _id: userId }, { $set: updates });
+  const result = await UserModel.updateOne(
+    { _id: userId },
+    { $set: updatesWithoutId }
+  );
 
   if (result.matchedCount === 0) {
     throw new GenericError('USER_UPDATE_FAILED', { userId });

@@ -1,9 +1,5 @@
-import type { ResponseWithSession } from '@middlewares/sessionAuth.middleware';
 import { ensureArrayQueryFilter } from '@utils/ensureArrayQueryFilter';
-import type { Request } from 'express';
 import type { FastifyRequest } from 'fastify';
-import type { RootFilterQuery } from 'mongoose';
-import type { Discussion } from '@/types/discussion.types';
 import {
   type FiltersAndPagination,
   getFiltersAndPaginationFromBody,
@@ -23,25 +19,23 @@ export type DiscussionFiltersParams = {
    */
   fetchAll?: 'true' | 'false';
 };
-export type DiscussionFilters = RootFilterQuery<Discussion>;
+export type DiscussionFilters = any;
 
 /**
  * Extracts filters and pagination information for discussions.
  * Enforces that non-admin users can only see their own discussions.
+ * @param req - Fastify request object.
+ * @returns Object containing filters, page, pageSize, and getNumberOfPages functions.
  */
 export const getDiscussionFiltersAndPagination = (
-  req:
-    | Request<FiltersAndPagination<DiscussionFiltersParams>>
-    | FastifyRequest<{
-        Querystring: FiltersAndPagination<DiscussionFiltersParams>;
-      }>,
-  res?: ResponseWithSession
+  req: FastifyRequest<{
+    Querystring: FiltersAndPagination<DiscussionFiltersParams>;
+  }>
 ) => {
   const { filters: filtersRequest, ...pagination } =
-    getFiltersAndPaginationFromBody<DiscussionFiltersParams>(req as any);
-  // Support both Express (res.locals) and Fastify (req.locals)
-  const locals = (res as any)?.locals || (req as FastifyRequest).locals || {};
-  const { roles, user } = locals;
+    getFiltersAndPaginationFromBody<DiscussionFiltersParams>(req);
+  const roles = req.session?.roles;
+  const user = req.session?.user;
 
   let filters: DiscussionFilters = {};
   let sortOptions: Record<string, 1 | -1> = { updatedAt: -1 };
@@ -96,7 +90,7 @@ export const getDiscussionFiltersAndPagination = (
   }
 
   // Enforce user scope for non-admins
-  const isAdmin = roles.includes('admin');
+  const isAdmin = roles?.includes('admin');
   if (!isAdmin && user?.id) {
     filters = { ...filters, userId: user.id };
   } else if (isAdmin && fetchAll !== 'true' && user?.id) {

@@ -18,7 +18,7 @@ export const translateDictionaries = async (
   request: FastifyRequest<{ Body: TranslateDictionariesBody }>,
   reply: FastifyReply
 ): Promise<void> => {
-  const { project, user } = request.locals || {};
+  const { project, user } = request.session || {};
   const { dictionaryIds, targetLocales } = request.body;
 
   if (!project) {
@@ -54,7 +54,7 @@ export const getTranslationStatus = async (
   request: FastifyRequest,
   reply: FastifyReply
 ): Promise<void> => {
-  const { project, user } = request.locals || {};
+  const { project, user } = request.session || {};
 
   if (!user) {
     reply.raw.statusCode = 401;

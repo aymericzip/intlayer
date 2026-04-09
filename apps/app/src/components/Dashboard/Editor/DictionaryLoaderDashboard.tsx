@@ -1,5 +1,3 @@
-'use client';
-
 import { useGetDictionaries } from '@intlayer/design-system/hooks';
 import { useDictionariesRecord } from '@intlayer/editor-react';
 import type { Dictionary, LocalDictionaryId } from '@intlayer/types/dictionary';

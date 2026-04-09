@@ -94,7 +94,7 @@ export const listProjects = async (
   reply: FastifyReply
 ): Promise<void> => {
   const { token, instanceUrl } = request.query;
-  const userId = request.locals?.user?.id;
+  const userId = request.session?.user?.id;
 
   try {
     let accessToken: string | undefined = token;
@@ -143,7 +143,7 @@ export const checkConfig = async (
   reply: FastifyReply
 ): Promise<void> => {
   const { token, projectId, branch = 'main', instanceUrl } = request.body;
-  const userId = request.locals?.user?.id;
+  const userId = request.session?.user?.id;
 
   try {
     let accessToken: string | undefined = token;
@@ -205,7 +205,7 @@ export const getConfigFile = async (
     path = 'intlayer.config.ts',
     instanceUrl,
   } = request.body;
-  const userId = request.locals?.user?.id;
+  const userId = request.session?.user?.id;
 
   try {
     let accessToken: string | undefined = token;

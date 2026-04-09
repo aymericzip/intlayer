@@ -1,5 +1,3 @@
-'use client';
-
 import { useDevice } from '@intlayer/design-system/hooks';
 import { Logo } from '@intlayer/design-system/logo';
 import { TechLogos } from '@intlayer/design-system/tech-logo';
@@ -32,8 +30,8 @@ export const DashboardFooter: FC<DashboardFooterProps> = ({ links }) => {
   const { isMobile } = useDevice('sm');
 
   return (
-    <footer className="flex-none flex flex-wrap items-center gap-4 px-6 py-1 max-md:mt-4 max-md:pb-2 md:flex-row">
-      <div className="flex flex-row flex-wrap items-center justify-center gap-x-4 gap-y-2 max-md:max-w-1/4">
+    <footer className="flex flex-none flex-wrap items-center gap-4 px-6 py-1 max-md:pb-2 md:flex-row">
+      <div className="flex flex-row items-center justify-center gap-x-4 gap-y-2 max-md:max-w-1/4">
         <Link href={logo.url.value} label={logo.label.value} color="text">
           <Logo width={80} height={80} className="size-6" />
         </Link>
@@ -49,7 +47,7 @@ export const DashboardFooter: FC<DashboardFooterProps> = ({ links }) => {
         )}
       </div>
 
-      <div className="m-auto flex flex-row flex-wrap justify-around gap-4 max-md:max-w-2/3 md:gap-x-8">
+      <div className="m-auto flex w-auto flex-row flex-nowrap justify-around gap-4 gap-y-1 overflow-x-scroll max-md:max-w-2/3">
         {links?.map((link) => (
           <Link
             key={link.href}
@@ -58,6 +56,7 @@ export const DashboardFooter: FC<DashboardFooterProps> = ({ links }) => {
             variant="invisible-link"
             color="neutral"
             className="text-sm"
+            isExternalLink={false}
           >
             {link.text}
           </Link>

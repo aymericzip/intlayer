@@ -1,5 +1,3 @@
-'use client';
-
 import type { GetUsersResult, ProjectAPI } from '@intlayer/backend';
 import { Avatar } from '@intlayer/design-system/avatar';
 import { Button } from '@intlayer/design-system/button';

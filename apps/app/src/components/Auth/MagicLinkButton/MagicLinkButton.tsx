@@ -1,5 +1,3 @@
-'use client';
-
 import { Button } from '@intlayer/design-system/button';
 import { Form, useForm } from '@intlayer/design-system/form';
 import { useSignInMagicLink } from '@intlayer/design-system/hooks';

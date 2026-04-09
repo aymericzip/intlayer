@@ -1,5 +1,3 @@
-'use client';
-
 import type { RepositoryProvider } from '@intlayer/backend';
 import { Button } from '@intlayer/design-system/button';
 import { useCopyToClipboard } from '@intlayer/design-system/copy-to-clipboard';
@@ -8,9 +6,9 @@ import { CodeBlock } from '@intlayer/design-system/ide';
 import { Loader } from '@intlayer/design-system/loader';
 import { Modal } from '@intlayer/design-system/modal';
 import { Copy, CopyCheck, GitCommit, XCircle } from 'lucide-react';
-import { useTheme } from '#/providers/ThemeProvider';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
+import { useTheme } from '#/providers/ThemeProvider';
 import { Link } from '#components/Link/Link';
 
 type CIWorkflowModalProps = {

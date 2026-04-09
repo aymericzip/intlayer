@@ -34,7 +34,7 @@ export const getTags = async (
   request: FastifyRequest<{ Querystring: GetTagsParams }>,
   reply: FastifyReply
 ): Promise<void> => {
-  const { user, organization, roles } = request.locals || {};
+  const { user, organization, roles } = request.session || {};
   const { filters, sortOptions, pageSize, skip, page, getNumberOfPages } =
     getTagFiltersAndPagination(request);
 
@@ -62,7 +62,7 @@ export const getTags = async (
         roles || [],
         'tag:read'
       )({
-        ...request.locals,
+        ...request.session,
         targetTags: tags,
       })
     ) {
@@ -100,7 +100,7 @@ export const addTag = async (
   request: FastifyRequest<{ Body: AddTagBody }>,
   reply: FastifyReply
 ): Promise<void> => {
-  const { organization, project, user, roles } = request.locals || {};
+  const { organization, project, user, roles } = request.session || {};
   const tagData = request.body;
 
   if (!user) {
@@ -140,7 +140,7 @@ export const addTag = async (
       roles || [],
       'tag:admin'
     )({
-      ...request.locals,
+      ...request.session,
       targetTags: [tag as Tag],
     })
   ) {
@@ -184,7 +184,7 @@ export const updateTag = async (
   reply: FastifyReply
 ): Promise<void> => {
   const { tagId } = request.params;
-  const { organization, user, roles } = request.locals || {};
+  const { organization, user, roles } = request.session || {};
 
   if (!user) {
     return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
@@ -213,7 +213,7 @@ export const updateTag = async (
         roles || [],
         'tag:write'
       )({
-        ...request.locals,
+        ...request.session,
         targetTags: [tagToDelete],
       })
     ) {
@@ -264,7 +264,7 @@ export const deleteTag = async (
   request: FastifyRequest<{ Params: DeleteTagParams }>,
   reply: FastifyReply
 ): Promise<void> => {
-  const { user, organization, roles } = request.locals || {};
+  const { user, organization, roles } = request.session || {};
   const { tagId } = request.params;
 
   if (!user) {
@@ -290,7 +290,7 @@ export const deleteTag = async (
         roles || [],
         'tag:admin'
       )({
-        ...request.locals,
+        ...request.session,
         targetTags: [tagToDelete],
       })
     ) {

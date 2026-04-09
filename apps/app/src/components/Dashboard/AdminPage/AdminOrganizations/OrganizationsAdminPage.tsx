@@ -1,5 +1,3 @@
-'use client';
-
 import type {
   GetOrganizationsResult,
   OrganizationAPI,
@@ -16,7 +14,6 @@ import {
 import { getAppAdminOrganizationRoute } from '@intlayer/design-system/routes';
 import { Table } from '@intlayer/design-system/table';
 import { cn } from '@intlayer/design-system/utils';
-import { useNavigate } from '@tanstack/react-router';
 import {
   type ColumnDef,
   flexRender,
@@ -27,6 +24,7 @@ import {
 import { ChevronDown, ChevronUp, Search } from 'lucide-react';
 import { type FC, useEffect } from 'react';
 import { useIntlayer } from 'react-intlayer';
+import { useLocalizedNavigate } from '#hooks/useLocalizedNavigate.ts';
 import { useSearchParamState } from '#hooks/useSearchParamState';
 
 export const OrganizationsAdminPageContent: FC = () => {
@@ -40,7 +38,7 @@ export const OrganizationsAdminPageContent: FC = () => {
     sortOrder: { type: 'string', fallbackValue: 'asc' },
   });
 
-  const navigate = useNavigate();
+  const navigate = useLocalizedNavigate();
   const { setSearch, search } = useSearch({});
 
   const organizationsQuery = useGetOrganizations({

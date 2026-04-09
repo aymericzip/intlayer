@@ -1,5 +1,3 @@
-'use client';
-
 import type { GetProjectsResult, ProjectAPI } from '@intlayer/backend';
 import { CopyToClipboard } from '@intlayer/design-system/copy-to-clipboard';
 import { useGetProjects, useSearch } from '@intlayer/design-system/hooks';
@@ -13,7 +11,6 @@ import {
 import { getAppAdminProjectRoute } from '@intlayer/design-system/routes';
 import { Table } from '@intlayer/design-system/table';
 import { cn } from '@intlayer/design-system/utils';
-import { useNavigate } from '@tanstack/react-router';
 import {
   type ColumnDef,
   flexRender,
@@ -24,6 +21,7 @@ import {
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { type FC, useEffect } from 'react';
 import { useIntlayer } from 'react-intlayer';
+import { useLocalizedNavigate } from '#hooks/useLocalizedNavigate.ts';
 import { useSearchParamState } from '#hooks/useSearchParamState';
 
 type SortOrder = 'asc' | 'desc';
@@ -38,7 +36,7 @@ export const ProjectsAdminPageContent: FC = () => {
   });
 
   const { setSearch, search } = useSearch({});
-  const navigate = useNavigate();
+  const navigate = useLocalizedNavigate();
 
   const projectsQuery = useGetProjects(
     {

@@ -1,12 +1,11 @@
-'use client';
-
 import { usePersistedStore } from '@intlayer/design-system/hooks';
 import { useNavigate, useParams, useSearch } from '@tanstack/react-router';
+import type { Period, Plans } from '#components/PricingPage/data.content';
 import { formatOnboardUrl } from './formatOnboardUrl';
-import { getPlanDetails } from './getPlanDetails';
 import {
   type OnboardingStepIds,
   onboardingSteps,
+  type Steps,
   sessionStorageIndex,
 } from './steps';
 
@@ -14,29 +13,38 @@ export const useStep = <T extends OnboardingStepIds>(stepId: T) => {
   type Step = (typeof onboardingSteps)[T];
 
   const navigate = useNavigate();
-  const step = onboardingSteps[stepId] as Step;
+  const stepConfig = onboardingSteps[stepId] as Step;
 
-  const { details } = useParams({ strict: false }) as { details: string[] };
-  const pageDetails = getPlanDetails(details);
+  // 1. Extract step from path
+  const { step } = useParams({ strict: false }) as { step: string };
 
+  // 2. Extract plan, period, origin, and other params from search query
   const search = useSearch({ strict: false }) as Record<string, string>;
-  const { origin, ...otherParams } = search;
+  const { origin, plan, period, ...otherParams } = search;
+
+  // 3. Construct pageDetails manually using the correct sources
+  const pageDetails = {
+    step: step as Steps,
+    plan: plan as Plans,
+    period: period as Period,
+  };
+
   const [dynamicsContent, setDynamicsContent] = usePersistedStore<Pick<
     Step,
     'state' | 'formData'
   > | null>(`${sessionStorageIndex}${stepId}`, {
-    state: step.state,
-    formData: step.formData,
+    state: stepConfig.state,
+    formData: stepConfig.formData,
   });
 
   type NextUrlType = Step['getNextStep'] extends undefined ? undefined : string;
 
   const nextUrl: NextUrlType = (
-    step.getNextStep
+    stepConfig.getNextStep
       ? formatOnboardUrl({
           ...pageDetails,
           origin,
-          step: step.getNextStep(pageDetails),
+          step: stepConfig.getNextStep(pageDetails),
           otherParams,
         })
       : undefined
@@ -47,11 +55,11 @@ export const useStep = <T extends OnboardingStepIds>(stepId: T) => {
     : string;
 
   const previousUrl: PreviousUrlType = (
-    step.getPreviousStep
+    stepConfig.getPreviousStep
       ? formatOnboardUrl({
           ...pageDetails,
           origin,
-          step: step.getPreviousStep(pageDetails),
+          step: stepConfig.getPreviousStep(pageDetails),
           otherParams,
         })
       : undefined
@@ -106,7 +114,7 @@ export const useStep = <T extends OnboardingStepIds>(stepId: T) => {
     }));
 
   return {
-    ...step,
+    ...stepConfig,
     ...dynamicsContent,
     nextUrl,
     previousUrl,

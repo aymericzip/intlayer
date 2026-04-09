@@ -8,7 +8,7 @@ import {
 import { type Dictionary, t } from 'intlayer';
 
 const dashboardNavbarContent = {
-  key: 'dashboard-navbar-content',
+  key: 'dashboard-footer-content',
   content: {
     footerLinks: [
       {

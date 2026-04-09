@@ -1,5 +1,3 @@
-'use client';
-
 import { useSession } from '@intlayer/design-system/hooks';
 import { ConfigurationProvider } from '@intlayer/editor-react';
 import type { IntlayerConfig } from '@intlayer/types/config';

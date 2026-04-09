@@ -4,6 +4,7 @@ import type { NextLayoutIntlayer } from 'next-intlayer';
 
 import '@/monaco.css';
 import { App_Dashboard_Projects_Path } from '@intlayer/design-system/routes';
+import { defaultLocale } from 'intlayer';
 
 const DashboardContentLayout: NextLayoutIntlayer = async ({
   children,
@@ -21,7 +22,7 @@ const DashboardContentLayout: NextLayoutIntlayer = async ({
       ]}
       redirectionRoute={App_Dashboard_Projects_Path}
       session={session}
-      locale={locale}
+      locale={locale ?? defaultLocale}
     >
       {children}
     </AuthenticationBarrier>

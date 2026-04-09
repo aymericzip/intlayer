@@ -6,9 +6,9 @@ import { DictionaryDetailModal } from './DictionaryDetailModal';
 import { FiltersModal } from './FiltersModal';
 import type { useDictionaryDashboard } from './useDictionaryDashboard';
 
-interface DictionaryModalsProps {
+type DictionaryModalsProps = {
   dashboard: ReturnType<typeof useDictionaryDashboard>;
-}
+};
 
 export const DictionaryModals: FC<DictionaryModalsProps> = ({ dashboard }) => {
   const { state, actions, params, setParam, setParams } = dashboard;

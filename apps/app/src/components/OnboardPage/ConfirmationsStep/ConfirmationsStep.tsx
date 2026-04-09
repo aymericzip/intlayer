@@ -2,17 +2,17 @@ import { Button } from '@intlayer/design-system/button';
 import { H2 } from '@intlayer/design-system/headers';
 import { useUser } from '@intlayer/design-system/hooks';
 import { App_Home_Path } from '@intlayer/design-system/routes';
-import { useNavigate } from '@tanstack/react-router';
 import { Check } from 'lucide-react';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
+import { useLocalizedNavigate } from '#hooks/useLocalizedNavigate.ts';
 import { StepLayout } from '../StepLayout';
 import { Steps } from '../steps';
 import { useStep } from '../useStep';
 
 export const ConfirmationsStep: FC = () => {
   const { user } = useUser();
-  const navigate = useNavigate();
+  const navigate = useLocalizedNavigate();
   const { goPreviousStep } = useStep(Steps.Confirmation);
   const { confirmation, goToDashboardButton } =
     useIntlayer('confirmation-step');
@@ -40,7 +40,7 @@ export const ConfirmationsStep: FC = () => {
         label={goToDashboardButton.label.value}
         color="text"
         Icon={Check}
-        onClick={() => navigate({ to: App_Home_Path as any })}
+        onClick={() => navigate({ to: App_Home_Path })}
         isFullWidth
       >
         {goToDashboardButton.text}

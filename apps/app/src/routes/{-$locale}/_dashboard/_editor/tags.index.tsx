@@ -5,7 +5,7 @@ import { BackgroundLayout } from '#components/BackgroundLayout';
 import { DashboardContentLayout } from '#components/Dashboard/DashboardContentLayout';
 import { TagList } from '#components/Dashboard/TagForm/TagList';
 
-export const Route = createFileRoute('/{-$locale}/_dashboard/_editor/tags')({
+export const Route = createFileRoute('/{-$locale}/_dashboard/_editor/tags/')({
   component: TagsPage,
   head: ({ params }) => {
     const { locale } = params;

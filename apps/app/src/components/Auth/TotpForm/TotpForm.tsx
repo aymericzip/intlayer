@@ -1,11 +1,10 @@
-'use client';
-
 import { Form, useForm } from '@intlayer/design-system/form';
 import { useSession, useVerifyTotp } from '@intlayer/design-system/hooks';
-import { useNavigate, useSearch } from '@tanstack/react-router';
+import { useSearch } from '@tanstack/react-router';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import z from 'zod';
+import { useLocalizedNavigate } from '#hooks/useLocalizedNavigate.ts';
 
 const totpSchema = z.object({
   code: z.string().length(6),
@@ -15,7 +14,7 @@ type TotpFormData = z.infer<typeof totpSchema>;
 
 export const TotpForm: FC = () => {
   const { codeLabel, codePlaceholder, verifyButton } = useIntlayer('totp-form');
-  const navigate = useNavigate();
+  const navigate = useLocalizedNavigate();
   const search = useSearch({ strict: false }) as any;
 
   const { revalidateSession } = useSession();

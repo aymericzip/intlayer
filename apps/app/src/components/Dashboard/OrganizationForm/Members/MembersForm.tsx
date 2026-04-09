@@ -1,5 +1,3 @@
-'use client';
-
 import type { AddOrganizationMemberBody, UserAPI } from '@intlayer/backend';
 import { Container } from '@intlayer/design-system/container';
 import { Form, useForm } from '@intlayer/design-system/form';

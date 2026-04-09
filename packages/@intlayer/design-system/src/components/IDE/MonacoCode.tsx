@@ -126,6 +126,7 @@ export const MonacoCode: FC<CodeCompProps> = ({
             onMount={handleMountIde}
             onChange={onChange}
             options={{
+              contextmenu: false,
               readOnly: isReadOnly,
               cursorStyle: 'line',
               minimap: { enabled: false },

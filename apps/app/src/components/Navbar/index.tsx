@@ -1,5 +1,3 @@
-'use client';
-
 import { Avatar } from '@intlayer/design-system/avatar';
 import { Button } from '@intlayer/design-system/button';
 import { useUser } from '@intlayer/design-system/hooks';

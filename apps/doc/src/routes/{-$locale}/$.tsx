@@ -27,8 +27,6 @@ export const Route = createFileRoute('/{-$locale}/$')({
     const splat = (params as { _splat: string })._splat ?? '';
     const slugs = ['doc', ...(splat ? splat.split('/').filter(Boolean) : [])];
 
-    console.log({ slugs });
-
     const docsData = await getDocMetadataBySlug(slugs, locale as any);
     const filteredDocsData = docsData.filter(
       (doc) => doc.slugs.length === slugs.length + 1

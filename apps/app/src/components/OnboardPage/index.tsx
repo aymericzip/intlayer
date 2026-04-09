@@ -1,5 +1,3 @@
-'use client';
-
 import { Loader } from '@intlayer/design-system/loader';
 import { type FC, Suspense } from 'react';
 import type { Period, Plans } from '#components/PricingPage/data.content';

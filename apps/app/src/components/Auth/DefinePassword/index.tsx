@@ -1,13 +1,12 @@
-'use client';
-
 import { Button } from '@intlayer/design-system/button';
 import { useResetPassword } from '@intlayer/design-system/hooks';
 import { App_Home_Path } from '@intlayer/design-system/routes';
 import { useToast } from '@intlayer/design-system/toaster';
-import { useNavigate, useSearch } from '@tanstack/react-router';
+import { useSearch } from '@tanstack/react-router';
 import { Check } from 'lucide-react';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
+import { useLocalizedNavigate } from '#hooks/useLocalizedNavigate.ts';
 import { DefinePasswordForm as DefinePasswordFormUI } from './DefinePasswordForm';
 import type { DefinePassword } from './DefinePasswordForm/useDefinePasswordSchema';
 
@@ -18,7 +17,7 @@ type DefinePasswordFormProps = {
 export const DefinePasswordForm: FC<DefinePasswordFormProps> = ({
   callbackUrl = App_Home_Path,
 }) => {
-  const navigate = useNavigate();
+  const navigate = useLocalizedNavigate();
   const { toast } = useToast();
   const { mutate: resetPassword, isSuccess } = useResetPassword();
   const { goToLoginButton } = useIntlayer('define-password-form');

@@ -258,10 +258,12 @@ export const getAuthAPI = (intlayerConfig?: IntlayerConfig): AuthAPI => {
 
   const listSSOProviders = async () => {
     // Not implemented yet
+    return [];
   };
 
   const deleteSSOProvider = async (_args: { providerId: string }) => {
     // Not implemented yet
+    return { success: true };
   };
 
   return {

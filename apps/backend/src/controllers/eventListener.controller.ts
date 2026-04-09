@@ -53,7 +53,7 @@ export const listenChangeSSE = async (
   request: FastifyRequest<{ Params: CheckDictionaryChangeSSEParams }>,
   reply: FastifyReply
 ) => {
-  const { project } = request.locals || {};
+  const { project } = request.session || {};
 
   if (clients.length >= MAX_SSE_CONNECTIONS) {
     return ErrorHandler.handleGenericErrorResponse(

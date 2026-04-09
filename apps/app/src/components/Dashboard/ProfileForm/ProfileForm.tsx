@@ -1,5 +1,3 @@
-'use client';
-
 import { Container } from '@intlayer/design-system/container';
 import { Form, useForm } from '@intlayer/design-system/form';
 import { H3 } from '@intlayer/design-system/headers';
@@ -63,8 +61,8 @@ export const ProfileForm: FC = () => {
       >
         <div
           className={cn(
-            'm-auto flex size-full w-full max-w-xl flex-col gap-10',
-            hasPasswordColumn && 'm-auto max-w-xl'
+            'm-auto flex size-full w-full flex-col gap-10 md:max-w-xl',
+            hasPasswordColumn && 'm-auto'
           )}
         >
           <Container roundedSize="3xl" padding="md">
@@ -110,28 +108,16 @@ export const ProfileForm: FC = () => {
           </Container>
         </div>
         {hasPasswordColumn && (
-          <div className="flex w-full flex-col gap-10">
-            <Container
-              roundedSize="3xl"
-              padding="md"
-              className="m-auto w-full max-w-xl"
-            >
+          <div className="flex w-full flex-col gap-10 md:max-w-xl">
+            <Container roundedSize="3xl" padding="md" className="m-auto w-full">
               <H3 className="mb-8">{changePasswordTitle}</H3>
               <ChangePasswordForm />
             </Container>
-            <Container
-              roundedSize="3xl"
-              padding="md"
-              className="m-auto w-full max-w-xl"
-            >
+            <Container roundedSize="3xl" padding="md" className="m-auto w-full">
               <H3 className="mb-8">{twoFactorTitle}</H3>
               <TwoFactorAuth />
             </Container>
-            <Container
-              roundedSize="3xl"
-              padding="md"
-              className="m-auto w-full max-w-xl"
-            >
+            <Container roundedSize="3xl" padding="md" className="m-auto w-full">
               <H3 className="mb-8">{passkeyTitle}</H3>
               <PasskeyManagement
                 passkeys={passkeys}

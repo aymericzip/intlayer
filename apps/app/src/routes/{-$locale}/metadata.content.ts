@@ -1,6 +1,5 @@
 import { type Dictionary, t } from 'intlayer';
 
-
 const metadataContent = {
   key: 'locale-metadata',
   content: {

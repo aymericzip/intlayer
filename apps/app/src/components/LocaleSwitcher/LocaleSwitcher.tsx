@@ -1,5 +1,3 @@
-'use client';
-
 import { getHTMLTextDir, getLocaleName } from '@intlayer/core/localization';
 import { Container } from '@intlayer/design-system/container';
 import { DropDown, type PanelProps } from '@intlayer/design-system/drop-down';
@@ -83,7 +81,7 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
           <Container
             className="max-h-[80vh] min-w-28 border border-text/5"
             separator="y"
-            roundedSize="xl"
+            roundedSize="2xl"
             transparency="xs"
           >
             <div className="p-3">

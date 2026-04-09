@@ -1,5 +1,3 @@
-'use client';
-
 import { Form, useForm } from '@intlayer/design-system/form';
 import { Modal } from '@intlayer/design-system/modal';
 import type { FC } from 'react';
@@ -45,7 +43,7 @@ export const AddPasskeyModal: FC<AddPasskeyModalProps> = ({
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={handleClose}>
+    <Modal isOpen={isOpen} onClose={handleClose} padding="md">
       <div className="space-y-4">
         <div className="space-y-2">
           <h2 className="font-semibold text-xl">{modalTitle}</h2>

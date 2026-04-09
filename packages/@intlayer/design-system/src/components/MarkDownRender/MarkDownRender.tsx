@@ -13,7 +13,7 @@ import { CodeProvider } from '../IDE/CodeContext';
 import { Link } from '../Link';
 import { Tab } from '../Tab';
 import { TabProvider } from '../Tab/TabContext';
-import { Table } from '../Table';
+import { SmartTable } from '../Table';
 
 // Extracted, stable component renderers
 const H1Renderer = (props: ComponentProps<'h1'>) => (
@@ -149,8 +149,8 @@ const createLinkRenderer = (locale?: LocalesValues) => {
 };
 
 const PreRenderer = (props: ComponentProps<'pre'>) => <>{props.children}</>;
-const TableRenderer = (props: ComponentProps<typeof Table>) => (
-  <Table isRollable displayModal {...props} />
+const TableRenderer = (props: ComponentProps<typeof SmartTable>) => (
+  <SmartTable isRollable displayModal {...props} />
 );
 const ThRenderer = ({ className, ...props }: ComponentProps<'th'>) => (
   <th

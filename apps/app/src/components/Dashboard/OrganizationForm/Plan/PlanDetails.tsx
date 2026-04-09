@@ -9,10 +9,10 @@ import {
 import { Modal } from '@intlayer/design-system/modal';
 import { App_Pricing_Path } from '@intlayer/design-system/routes';
 import { Tag } from '@intlayer/design-system/tag';
-import { useNavigate } from '@tanstack/react-router';
 import { ChevronsUp, CircleX, RotateCcw } from 'lucide-react';
 import { type FC, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
+import { useLocalizedNavigate } from '#hooks/useLocalizedNavigate.ts';
 
 type PlanDetailsProps = {};
 
@@ -48,7 +48,7 @@ export const PlanDetails: FC<PlanDetailsProps> = () => {
   const { mutate: cancelSubscription, isPending: isDeleting } =
     useCancelSubscription();
   const plan = session?.organization?.plan;
-  const navigate = useNavigate();
+  const navigate = useLocalizedNavigate();
   const [isCancellationModalOpen, setIsCancellationModalOpen] = useState(false);
 
   const handleCancelSubscription = () => {
@@ -66,23 +66,22 @@ export const PlanDetails: FC<PlanDetailsProps> = () => {
         onClose={() => setIsCancellationModalOpen(false)}
         size="lg"
         transparency="xs"
+        padding="lg"
         title={cancelModal.title.value}
         hasCloseButton
       >
-        <div className="p-3">
-          <p className="text-neutral text-sm">{cancelModal.message}</p>
-          <Form.Button
-            variant="outline"
-            label={cancelModal.buttonLabel.value}
-            color="error"
-            isFullWidth={true}
-            className="mt-10 w-auto"
-            isLoading={isDeleting}
-            onClick={() => handleCancelSubscription()}
-          >
-            {cancelModal.confirmText}
-          </Form.Button>
-        </div>
+        <p className="text-neutral text-sm">{cancelModal.message}</p>
+        <Form.Button
+          variant="outline"
+          label={cancelModal.buttonLabel.value}
+          color="error"
+          isFullWidth={true}
+          className="mt-10 w-auto"
+          isLoading={isDeleting}
+          onClick={() => handleCancelSubscription()}
+        >
+          {cancelModal.confirmText}
+        </Form.Button>
       </Modal>
       <div className="relative flex flex-col gap-2">
         <H3 className="mb-5">{title}</H3>
@@ -108,7 +107,7 @@ export const PlanDetails: FC<PlanDetailsProps> = () => {
             label={upgradeButton.label.value}
             color="text"
             Icon={ChevronsUp}
-            onClick={() => navigate({ to: App_Pricing_Path as any })}
+            onClick={() => navigate({ to: App_Pricing_Path })}
           >
             {upgradeButton.text}
           </Button>
@@ -118,7 +117,7 @@ export const PlanDetails: FC<PlanDetailsProps> = () => {
             label={renewButton.label.value}
             color="text"
             Icon={RotateCcw}
-            onClick={() => navigate({ to: App_Pricing_Path as any })}
+            onClick={() => navigate({ to: App_Pricing_Path })}
           >
             {renewButton.text}
           </Button>

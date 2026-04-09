@@ -9,7 +9,7 @@ import {
 } from '@services/subscription.service';
 import { getUserById } from '@services/user.service';
 import { GenericError } from '@utils/errors';
-import type { Request, Response } from 'express';
+import type { FastifyReply, FastifyRequest } from 'fastify';
 import { Stripe } from 'stripe';
 import type { Plan } from '@/types/plan.types';
 
@@ -21,31 +21,67 @@ type SubscriptionMetadata = {
 
 /**
  * Stripe webhook handler for processing subscription and invoice events.
- * @param req - Express request object.
- * @param res - Express response object.
+ * @param req - Fastify request object.
+ * @param reply - Fastify response object.
  */
-export const stripeWebhook = async (req: Request, res: Response) => {
+export const stripeWebhook = async (
+  req: FastifyRequest,
+  reply: FastifyReply
+) => {
   // Initialize the Stripe client with the secret key
+  if (!process.env.STRIPE_SECRET_KEY) {
+    logger.error('STRIPE_SECRET_KEY is missing');
+    reply.status(500).send('Configuration Error');
+    return;
+  }
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
-  const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET!; // Webhook secret for verifying event signatures
-  const sig = req.headers['stripe-signature']!; // Retrieve the signature from the webhook request headers
+  const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET; // Webhook secret for verifying event signatures
+  const sig = req.headers['stripe-signature'] as string; // Retrieve the signature from the webhook request headers
+
+  if (!endpointSecret) {
+    logger.error('STRIPE_WEBHOOK_SECRET is missing');
+    reply.status(500).send('Configuration Error');
+    return;
+  }
+
+  if (!sig) {
+    logger.error('Stripe signature is missing');
+    reply.status(400).send('Webhook Error: Missing signature');
+    return;
+  }
 
   let event: Stripe.Event;
 
   // Verify the webhook signature to ensure the request is authentic
   try {
-    event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
+    // Pass the raw buffer attached by the custom parser, not request.body
+    const rawBody = (req as any).rawBody;
+
+    if (!rawBody) {
+      throw new Error('Raw body is missing from request');
+    }
+
+    event = await stripe.webhooks.constructEventAsync(
+      rawBody as string | Buffer,
+      sig,
+      endpointSecret
+    );
   } catch (err) {
+    logger.error(
+      `Webhook signature verification failed: ${(err as Error).message}`
+    );
     // Respond with a 400 status code if the signature verification fails
-    res.status(400).send(`Webhook Error: ${(err as Error).message}`);
+    reply.status(400).send(`Webhook Error: ${(err as Error).message}`);
     return;
   }
 
   // Utility function to extract metadata from a Stripe customer
   const extractMetadata = async (customerId: string) => {
     const customer = await stripe.customers.retrieve(customerId); // Retrieve customer details from Stripe
-    return (customer as Stripe.Customer).metadata as SubscriptionMetadata; // Return the metadata object
+    const metadata = (customer as Stripe.Customer)
+      .metadata as SubscriptionMetadata; // Return the metadata object
+    return metadata;
   };
 
   // Handles subscription-related events (creation, update, deletion)
@@ -64,9 +100,9 @@ export const stripeWebhook = async (req: Request, res: Response) => {
     const { locale, userId, organizationId } =
       await extractMetadata(customerId); // Extract metadata from the customer
 
-    // Set localization in response locals if available
-    if (locale) {
-      res.locals.locales = locale;
+    // Set localization in request locals if available
+    if (locale && req.intlayer) {
+      req.intlayer.locale = locale;
     }
 
     const organization = await getOrganizationById(organizationId); // Fetch organization details by ID
@@ -129,36 +165,45 @@ export const stripeWebhook = async (req: Request, res: Response) => {
     const subscriptionId =
       typeof (invoice as any).subscription === 'string'
         ? (invoice as any).subscription
-        : (invoice as any).subscription?.id; // Extract the subscription ID from the invoice
+        : (invoice as any).subscription?.id;
+
     if (!subscriptionId) {
       logger.warn('Subscription ID is undefined in invoice.');
       return;
     }
 
-    // Retrieve the subscription details from Stripe
-    const subscription = await stripe.subscriptions.retrieve(subscriptionId);
-    const organization = await getOrganizationById(
-      subscription.metadata.organizationId
-    );
+    const customerId = invoice.customer as string;
 
-    // Prevent duplicate subscriptions by canceling conflicting subscriptions
+    // 1. Extract metadata first to guarantee we have the correct organizationId
+    const { locale, userId, organizationId } =
+      await extractMetadata(customerId);
+
+    if (locale && req.intlayer) {
+      req.intlayer.locale = locale;
+    }
+
+    const organization = await getOrganizationById(organizationId);
+
+    if (!organization) {
+      throw new GenericError('ORGANIZATION_NOT_FOUND');
+    }
+
+    // 2. Prevent duplicate subscriptions by canceling the OLD subscription, not the new one
     if (
       organization.plan?.subscriptionId &&
       organization.plan.subscriptionId !== subscriptionId
     ) {
-      await stripe.subscriptions.cancel(subscriptionId);
+      try {
+        await stripe.subscriptions.cancel(organization.plan.subscriptionId);
+      } catch (err) {
+        // Suppress errors if the old subscription is already canceled
+        logger.info(
+          `Old subscription ${organization.plan.subscriptionId} could not be canceled or is already canceled. ${err}`
+        );
+      }
     }
 
-    const customerId = invoice.customer as string;
-    const { locale, userId, organizationId } =
-      await extractMetadata(customerId);
-
-    // Set localization in response locals if available
-    if (locale) {
-      res.locals.locales = locale;
-    }
-
-    // Update the subscription status in the database
+    // 3. Update the database to reflect the new subscription status
     await changeSubscriptionStatus(
       subscriptionId,
       status,
@@ -192,9 +237,9 @@ export const stripeWebhook = async (req: Request, res: Response) => {
         const customerId = subscription.customer as string;
         const { locale, organizationId } = await extractMetadata(customerId);
 
-        // Set localization in response locals if available
-        if (locale) {
-          res.locals.locales = locale;
+        // Set localization in request locals if available
+        if (locale && req.intlayer) {
+          req.intlayer.locale = locale;
         }
 
         // Handle subscription deletion by canceling it in the database
@@ -222,12 +267,12 @@ export const stripeWebhook = async (req: Request, res: Response) => {
     }
 
     // Respond to Stripe to confirm the event was processed successfully
-    res.send();
+    reply.send();
   } catch (error) {
     // Log errors for debugging and respond with a 500 status code
     logger.error(
-      `Error handling event ${event.type}: ${(error as Error).message}`
+      `Error handling event ${event?.type ?? 'unknown'}: ${(error as Error).message}`
     );
-    res.status(500).send('Server Error');
+    reply.status(500).send('Server Error');
   }
 };

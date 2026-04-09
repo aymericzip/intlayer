@@ -1,5 +1,3 @@
-'use client';
-
 import type { TagAPI } from '@intlayer/backend';
 import { Form, useForm } from '@intlayer/design-system/form';
 import { useAuditTag, useUpdateTag } from '@intlayer/design-system/hooks';

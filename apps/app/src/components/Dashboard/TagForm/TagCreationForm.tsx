@@ -1,5 +1,3 @@
-'use client';
-
 import { Form, useForm } from '@intlayer/design-system/form';
 import { useAddTag } from '@intlayer/design-system/hooks';
 import type { FC } from 'react';

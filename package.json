@@ -75,6 +75,10 @@
     "test:pick": "bun ./scripts/script-pick.mjs --command test",
     "typecheck": "bun turbo typecheck --filter=./packages/** --filter=./docs --filter=./apps/backend --filter=./plugins/** --concurrency=1"
   },
+  "resolutions": {
+    "react": "19.2.5",
+    "react-dom": "19.2.5"
+  },
   "devDependencies": {
     "@biomejs/biome": "2.4.10",
     "@commitlint/cli": "20.5.0",
