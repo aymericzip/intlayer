@@ -118,6 +118,9 @@ export const SSOSettings: FC = () => {
   const [isSsoEnabled, setIsSsoEnabled] = useState(Boolean(formValues.enabled));
 
   const providerType = (formValues.providerType as 'saml' | 'oidc') || 'oidc';
+  const [existingProviderType, setExistingProviderType] = useState(
+    providerType === 'saml' ? 'saml' : 'oidc'
+  );
 
   // Set enabled to true if there's an existing provider (only once on mount)
   useEffect(() => {
@@ -231,9 +234,6 @@ export const SSOSettings: FC = () => {
     );
   };
 
-  // Determine provider type from existing provider
-  const existingProviderType = existingProvider?.samlConfig ? 'saml' : 'oidc';
-
   if (isLoadingProviders) {
     return (
       <div className="flex items-center justify-center py-12">
@@ -297,6 +297,9 @@ export const SSOSettings: FC = () => {
                     { value: 'oidc', content: providerTypeOptions.oidc },
                     { value: 'saml', content: providerTypeOptions.saml },
                   ]}
+                  onChange={(value: 'oidc' | 'saml') => {
+                    setExistingProviderType(value);
+                  }}
                 />
               </div>
 
@@ -314,7 +317,7 @@ export const SSOSettings: FC = () => {
               </div>
 
               {/* SAML Configuration */}
-              {providerType === 'saml' && (
+              {existingProviderType === 'saml' && (
                 <SAMLConfigForm
                   samlConfigContent={samlConfigContent}
                   isOrganizationAdmin={isOrganizationAdmin}
@@ -322,7 +325,7 @@ export const SSOSettings: FC = () => {
               )}
 
               {/* OIDC Configuration */}
-              {providerType === 'oidc' && (
+              {existingProviderType === 'oidc' && (
                 <OIDCConfigForm
                   oidcConfigContent={oidcConfigContent}
                   isOrganizationAdmin={isOrganizationAdmin}

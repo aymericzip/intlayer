@@ -50,9 +50,9 @@ const config: CustomIntlayerConfig = {
     importMode: 'dynamic',
   },
   build: {
-    purge: true,
-    minify: true,
-    checkTypes: true,
+    // purge: true,
+    // minify: true,
+    // checkTypes: true,
   },
   compiler: {
     enabled: false,
