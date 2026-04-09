@@ -48,6 +48,8 @@ export const Route = createFileRoute('/{-$locale}/_other/pricing')({
   },
 });
 
+import { PricingSkeleton } from '#components/PricingPage/PricingSkeleton';
+
 function PricingPage() {
   const { pricingData } = Route.useLoaderData();
 
@@ -55,7 +57,7 @@ function PricingPage() {
 
   return (
     <BackgroundLayout>
-      <Suspense>
+      <Suspense fallback={<PricingSkeleton />}>
         <PricingPageContent
           pricings={pricingData as GetPricingResult['data']}
         />

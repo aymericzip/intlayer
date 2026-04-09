@@ -44,9 +44,7 @@ function SignInPage() {
             <h2 className="font-extrabold">{title2}</h2>
             <span className="text-neutral text-xs">{description}</span>
           </div>
-          <Suspense fallback={<Loader />}>
-            <SignInForm />
-          </Suspense>
+          <SignInForm />
         </Container>
       </div>
     </>

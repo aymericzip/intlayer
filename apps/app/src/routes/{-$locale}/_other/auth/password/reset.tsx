@@ -1,8 +1,6 @@
 import { Container } from '@intlayer/design-system/container';
-import { Loader } from '@intlayer/design-system/loader';
 import { createFileRoute } from '@tanstack/react-router';
 import { getIntlayer } from 'intlayer';
-import { Suspense } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { DefinePasswordForm } from '#components/Auth/DefinePassword';
 
@@ -42,9 +40,7 @@ function ResetPasswordPage() {
             <h2 className="font-extrabold">{title2}</h2>
             <span className="text-neutral text-xs">{description}</span>
           </div>
-          <Suspense fallback={<Loader />}>
-            <DefinePasswordForm />
-          </Suspense>
+          <DefinePasswordForm />
         </Container>
       </div>
     </>

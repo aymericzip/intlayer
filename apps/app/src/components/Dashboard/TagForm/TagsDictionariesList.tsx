@@ -1,10 +1,6 @@
 import { Button } from '@intlayer/design-system/button';
 import { useGetDictionaries } from '@intlayer/design-system/hooks';
 import { Loader } from '@intlayer/design-system/loader';
-import {
-  App_Dashboard_Dictionaries,
-  App_Dashboard_Dictionaries_Path,
-} from '@intlayer/design-system/routes';
 import { useFocusUnmergedDictionary } from '@intlayer/editor-react';
 import { ChevronRight } from 'lucide-react';
 import type { FC } from 'react';

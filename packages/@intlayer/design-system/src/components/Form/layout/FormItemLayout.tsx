@@ -1,3 +1,4 @@
+import { cn } from '@utils/cn';
 import type { FC, ReactNode } from 'react';
 import { Form } from '../Form';
 import { FormLabelLayout, type FormLabelLayoutProps } from './FormLabelLayout';
@@ -7,6 +8,7 @@ export type FormItemLayoutProps = Omit<FormLabelLayoutProps, 'children'> & {
   description?: ReactNode;
   children: ReactNode;
   showErrorMessage?: boolean;
+  className?: string;
 };
 
 export const FormItemLayout: FC<FormItemLayoutProps> = ({
@@ -17,8 +19,11 @@ export const FormItemLayout: FC<FormItemLayoutProps> = ({
   children,
   showErrorMessage = true,
   htmlFor,
+  className,
 }) => (
-  <Form.Item className="flex w-full flex-col flex-wrap gap-2 px-1 py-2">
+  <Form.Item
+    className={cn('flex w-full flex-col flex-wrap gap-2 px-1 py-2', className)}
+  >
     {(description || label) && (
       <div className="flex flex-col gap-1 p-1 leading-none">
         {label && (

@@ -23,9 +23,11 @@ import {
   useState,
 } from 'react';
 import { useIntlayer } from 'react-intlayer';
+import { Skeleton } from '#components/Skeleton';
 import { useLocalizedNavigate } from '#hooks/useLocalizedNavigate.ts';
 import { useSearchParamState } from '#hooks/useSearchParamState';
 import { TagCreationForm } from './TagCreationForm';
+import { TagListSkeleton } from './TagListSkeleton';
 
 const InputIndicator: FC<ComponentProps<'div'>> = (props) => (
   <div
@@ -99,12 +101,22 @@ export const TagList: FC = () => {
         onChange={(e) => setSearch(e.target.value)}
         className="max-w-md"
       />
-      <div className="flex-1">
+      <div className="flex flex-1 justify-center">
         <Container
           roundedSize="4xl"
-          className="m-auto flex min-h-60 w-full max-w-[400px] flex-col justify-center gap-2 p-6"
+          className="m-auto mt-[15%] flex min-h-60 w-full max-w-[400px] flex-col justify-center gap-2 p-6"
         >
-          <Loader isLoading={isPending}>
+          {isPending ? (
+            <div className="flex flex-1 flex-col gap-4">
+              {[1, 2, 3].map((i) => (
+                <div key={i} className="flex flex-col gap-2 p-2">
+                  <Skeleton className="h-4 w-1/2" />
+                  <Skeleton className="h-3 w-1/3" />
+                  <Skeleton className="h-10 w-full" />
+                </div>
+              ))}
+            </div>
+          ) : (
             <div className="relative flex flex-1 flex-col gap-2">
               {tags.length === 0 && (
                 <span className="m-auto text-neutral text-sm">
@@ -149,7 +161,7 @@ export const TagList: FC = () => {
                 </Button>
               ))}
             </div>
-          </Loader>
+          )}
           <Button
             label={createTagButton.ariaLabel.value}
             IconRight={Plus}
@@ -194,7 +206,7 @@ export const TagList: FC = () => {
 };
 
 export const TagListDashboard: FC = () => (
-  <Suspense fallback={<Loader />}>
+  <Suspense fallback={<TagListSkeleton />}>
     <TagList />
   </Suspense>
 );

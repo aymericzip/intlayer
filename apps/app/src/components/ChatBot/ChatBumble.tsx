@@ -1,7 +1,7 @@
 import { MarkdownRenderer } from '@intlayer/design-system/mark-down-render';
 import { cn } from '@intlayer/design-system/utils';
-import { useTheme } from '#/providers/ThemeProvider';
 import type { FC, HTMLAttributes } from 'react';
+import { useTheme } from '#/providers/ThemeProvider';
 
 export enum ChatBumbleType {
   QUESTION = 'question',

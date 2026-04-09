@@ -1,9 +1,9 @@
 import type { LocalesValues } from 'intlayer';
-import { ThemeProvider } from '#/providers/ThemeProvider';
 import type { FC, HTMLProps } from 'react';
 import type { IntlayerProviderProps } from 'react-intlayer';
 import { IntlayerProvider } from 'react-intlayer';
 import { IntlayerMarkdownProvider } from '#/providers/IntlayerMarkdownProvider';
+import { ThemeProvider } from '#/providers/ThemeProvider';
 import {
   PageContentLayout,
   type PageContentLayoutProps,

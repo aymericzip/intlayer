@@ -6,8 +6,20 @@ import { AuthenticationBarrier } from '#components/Auth/AuthenticationBarrier/Au
 import { BackgroundLayout } from '#components/BackgroundLayout';
 import { DashboardContentLayout } from '#components/Dashboard/DashboardContentLayout';
 import { ProjectForm } from '#components/Dashboard/ProjectForm';
+import { validateAuth } from '#utils/auth';
 
 export const Route = createFileRoute('/{-$locale}/_dashboard/projects')({
+  beforeLoad: async ({ context, location, params }) => {
+    const { locale } = params;
+    await validateAuth({
+      queryClient: context.queryClient,
+      pathname: location.pathname,
+      search: location.search as Record<string, unknown>,
+      locale: locale as any,
+      accessRule: ['authenticated', 'organization-required'],
+      redirectionRoute: App_Dashboard_Organization_Path,
+    });
+  },
   component: ProjectsPage,
   head: ({ params }) => {
     const { locale } = params;

@@ -265,6 +265,7 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
                   label={item.label}
                   color="text"
                   variant="invisible-link"
+                  preload="viewport"
                   className={cn(
                     'relative flex w-full items-center justify-center rounded-lg px-2 py-2',
                     !isCollapsed && 'justify-start gap-3 px-4',

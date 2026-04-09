@@ -18,9 +18,22 @@ import {
   DashboardSidebar,
   type SidebarNavigationItem,
 } from '#components/Dashboard/DashboardSidebar';
+import { DashboardSkeleton } from '#components/Dashboard/DashboardSkeleton';
 import { WarmupClient } from '#components/Dashboard/WarmupClient';
+import { validateAuth } from '#utils/auth';
 
 export const Route = createFileRoute('/{-$locale}/_dashboard')({
+  beforeLoad: async ({ context, location, params }) => {
+    const { locale } = params;
+    await validateAuth({
+      queryClient: context.queryClient,
+      pathname: location.pathname,
+      search: location.search as Record<string, unknown>,
+      locale: locale as any,
+      accessRule: 'authenticated',
+    });
+  },
+  pendingComponent: DashboardSkeleton,
   component: DashboardLayout,
   head: ({ params }) => {
     const { locale } = params;

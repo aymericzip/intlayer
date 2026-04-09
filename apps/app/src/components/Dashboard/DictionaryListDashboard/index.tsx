@@ -29,6 +29,7 @@ import { type FC, Suspense, useMemo } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { useDate } from 'react-intlayer/format';
 import { useLocalizedNavigate } from '#hooks/useLocalizedNavigate.ts';
+import { DictionaryListSkeleton } from './DictionaryListSkeleton';
 import { DictionaryModals } from './DictionaryModals';
 import { DictionaryTable } from './DictionaryTable';
 import { DictionaryToolbar } from './DictionaryToolbar';
@@ -395,7 +396,7 @@ export const DictionaryListDashboardContent: FC = () => {
 };
 
 export const DictionaryListDashboard: FC = () => (
-  <Suspense fallback={<Loader />}>
+  <Suspense fallback={<DictionaryListSkeleton />}>
     <DictionaryListDashboardContent />
   </Suspense>
 );

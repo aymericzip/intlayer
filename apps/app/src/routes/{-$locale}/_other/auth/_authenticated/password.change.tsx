@@ -1,7 +1,5 @@
 import { Container } from '@intlayer/design-system/container';
-import { Loader } from '@intlayer/design-system/loader';
 import { createFileRoute } from '@tanstack/react-router';
-import { Suspense } from 'react';
 import { getIntlayer } from 'intlayer';
 import { useIntlayer } from 'react-intlayer';
 import { ChangePasswordForm } from '#components/Auth/ChangePassword';
@@ -44,9 +42,7 @@ function ChangePasswordPage() {
             <h2 className="font-extrabold">{title2}</h2>
             <span className="text-neutral text-xs">{description}</span>
           </div>
-          <Suspense fallback={<Loader />}>
-            <ChangePasswordForm />
-          </Suspense>
+          <ChangePasswordForm />
         </Container>
       </div>
     </>

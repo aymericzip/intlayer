@@ -12,6 +12,7 @@ import { NoOrganizationView } from './NoOrganizationView';
 import { OrganizationCreationForm } from './OrganizationCreationForm';
 import { OrganizationEditionForm } from './OrganizationEditionForm';
 import { OrganizationList } from './OrganizationList';
+import { OrganizationSkeleton } from './OrganizationSkeleton';
 import { PlanDetails } from './Plan/PlanDetails';
 import { SSOSettings } from './SSO';
 
@@ -111,11 +112,15 @@ const OrganizationFormContent: FC = () => {
     );
   }
 
-  return <Loader />;
+  return (
+    <div className="flex w-full items-center justify-center py-20">
+      <Loader />
+    </div>
+  );
 };
 
 export const OrganizationForm: FC = () => (
-  <Suspense fallback={<Loader />}>
+  <Suspense fallback={<OrganizationSkeleton />}>
     <OrganizationFormContent />
   </Suspense>
 );

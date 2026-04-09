@@ -118,6 +118,7 @@ export const DashboardNavbar: FC<DashboardNavbarProps> = ({ items = [] }) => {
                     label={item.label}
                     color="text"
                     variant="invisible-link"
+                    preload="viewport"
                     className={cn(
                       'flex items-center gap-3 rounded-lg px-4 py-3 hover:bg-text/5',
                       activeKey === item.key && 'bg-text/10 font-bold',

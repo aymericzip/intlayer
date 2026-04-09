@@ -4,10 +4,8 @@ import { NotFoundComponent } from '#components/NotFoundComponent';
 
 export const Route = createFileRoute('/{-$locale}')({
   beforeLoad: ({ params }) => {
-    const localeParam = (params as { locale?: string }).locale;
-
     // Validate the locale prefix
-    const { isValid, localePrefix } = validatePrefix(localeParam);
+    const { isValid, localePrefix } = validatePrefix(params.locale);
 
     if (!isValid) {
       throw redirect({

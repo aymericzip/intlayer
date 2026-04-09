@@ -9,7 +9,6 @@ import { InfoIcon } from 'lucide-react';
 import { type FC, type ReactNode, useEffect, useRef, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { Link } from '#components/Link/Link';
-import { FileReference } from './FileReference';
 import { FormSection } from './FormSection';
 import {
   type ChatCompletionRequestMessage,
@@ -226,9 +225,6 @@ export const ChatBot: FC<ChatBotProps> = ({
         </div>
       </div>
       <div className="w-full flex-1">
-        {isLarge && (
-          <FileReference relatedFiles={discussion?.relatedFiles ?? []} />
-        )}
         {hasReachedRateLimit && (
           <Container
             className="mx-auto mt-3 flex max-w-md flex-col gap-4 text-center text-sm"

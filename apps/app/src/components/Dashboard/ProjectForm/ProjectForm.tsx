@@ -1,7 +1,6 @@
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
 import { useSession } from '@intlayer/design-system/hooks';
-import { Loader } from '@intlayer/design-system/loader';
 import { Trash } from 'lucide-react';
 import { type FC, Suspense, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
@@ -10,6 +9,7 @@ import { BuildSettings } from './BuildSettings/BuildSettings';
 import { ConfigDetails } from './Config/ConfigDetails';
 import { DeleteProjectModal } from './DeleteProjectModal';
 import { MembersForm } from './Members/MembersKeyForm';
+import { ProjectDetailsSkeleton } from './ProjectDetailsSkeleton';
 import { ProjectEditionForm } from './ProjectEditionForm';
 import { ProjectList } from './ProjectList';
 import { RepositoryLink } from './RepositoryLink';
@@ -115,7 +115,7 @@ export const ProjectFormContent: FC = () => {
 };
 
 export const ProjectForm: FC = () => (
-  <Suspense fallback={<Loader />}>
+  <Suspense fallback={<ProjectDetailsSkeleton />}>
     <ProjectFormContent />
   </Suspense>
 );

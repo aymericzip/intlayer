@@ -37,6 +37,15 @@ export const ChangePasswordForm: FC<ChangePasswordFormProps> = ({
       {...form}
     >
       <div className="flex flex-col gap-y-6">
+        <Form.Input
+          id="change-password-email"
+          name="email"
+          value={user?.email ?? ''}
+          autoComplete="email"
+          disabled
+          hidden
+          layoutClassName="hidden"
+        />
         <Form.InputPassword
           name="currentPassword"
           label={currentPasswordInput.label.value}

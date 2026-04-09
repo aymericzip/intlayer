@@ -1,49 +1,35 @@
-import { useSession } from '@intlayer/design-system/hooks';
-import { Loader } from '@intlayer/design-system/loader';
 import {
   App_Dashboard_Dictionaries_Path,
   App_Dashboard_Organization_Path,
   App_Dashboard_Projects_Path,
 } from '@intlayer/design-system/routes';
-import {
-  createFileRoute,
-  useNavigate,
-  useParams,
-} from '@tanstack/react-router';
+import { createFileRoute, redirect } from '@tanstack/react-router';
 import { getLocalizedUrl } from 'intlayer';
-import { useEffect } from 'react';
+import { sessionQueryOptions } from '#utils/auth.tsx';
 
 export const Route = createFileRoute('/{-$locale}/_dashboard/')({
+  beforeLoad: async ({ context, params }) => {
+    const { locale } = params;
+    const session =
+      await context.queryClient.ensureQueryData(sessionQueryOptions);
+
+    if (session?.organization && session?.project) {
+      throw redirect({
+        to: getLocalizedUrl(App_Dashboard_Dictionaries_Path, locale) as any,
+      });
+    } else if (session?.organization) {
+      throw redirect({
+        to: getLocalizedUrl(App_Dashboard_Projects_Path, locale) as any,
+      });
+    } else {
+      throw redirect({
+        to: getLocalizedUrl(App_Dashboard_Organization_Path, locale) as any,
+      });
+    }
+  },
   component: DashboardIndexPage,
 });
 
 function DashboardIndexPage() {
-  const navigate = useNavigate();
-  const { locale } = useParams({ strict: false });
-  const { session, revalidateSession } = useSession();
-
-  useEffect(() => {
-    const isProjectAdmin = session?.roles?.includes('project_admin');
-    if (!isProjectAdmin) {
-      revalidateSession();
-    }
-  }, [session?.roles, revalidateSession]);
-
-  useEffect(() => {
-    if (session?.organization && session?.project) {
-      navigate({
-        to: getLocalizedUrl(App_Dashboard_Dictionaries_Path, locale),
-      });
-    } else if (session?.organization) {
-      navigate({
-        to: getLocalizedUrl(App_Dashboard_Projects_Path, locale),
-      });
-    } else {
-      navigate({
-        to: getLocalizedUrl(App_Dashboard_Organization_Path, locale),
-      });
-    }
-  }, [session, navigate, locale]);
-
-  return <Loader />;
+  return null;
 }

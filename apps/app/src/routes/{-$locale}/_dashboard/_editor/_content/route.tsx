@@ -15,10 +15,26 @@ import { AuthenticationBarrier } from '#components/Auth/AuthenticationBarrier/Au
 import { EditorConfigurationProvider } from '#components/Dashboard/ContentDashboard/ConfigurationProvider.tsx';
 import { DashboardContentLayout } from '#components/Dashboard/DashboardContentLayout';
 import { useLocalizedNavigate } from '#hooks/useLocalizedNavigate.ts';
+import { validateAuth } from '#utils/auth';
 
 // Fix: Updated the route ID to match the new file location
 export const Route = createFileRoute('/{-$locale}/_dashboard/_editor/_content')(
   {
+    beforeLoad: async ({ context, location, params }) => {
+      const { locale } = params;
+      await validateAuth({
+        queryClient: context.queryClient,
+        pathname: location.pathname,
+        search: location.search as Record<string, unknown>,
+        locale: locale as any,
+        accessRule: [
+          'authenticated',
+          'organization-required',
+          'project-required',
+        ],
+        redirectionRoute: App_Dashboard_Projects_Path,
+      });
+    },
     component: EditorLayout,
   }
 );

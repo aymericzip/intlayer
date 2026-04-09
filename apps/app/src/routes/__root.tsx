@@ -1,3 +1,4 @@
+import { Loader } from '@intlayer/design-system/loader';
 import { ReactQueryProvider } from '@intlayer/design-system/providers';
 import { Toaster } from '@intlayer/design-system/toaster';
 import type { QueryClient } from '@tanstack/react-query';
@@ -7,6 +8,7 @@ import {
   Scripts,
 } from '@tanstack/react-router';
 import { defaultLocale, getHTMLTextDir } from 'intlayer';
+import { Suspense } from 'react';
 import { IntlayerProvider } from 'react-intlayer';
 import { AnimatePresenceProvider } from '#/providers/AnimatePresenceProvider';
 import { IntlayerMarkdownProvider } from '#/providers/IntlayerMarkdownProvider';
@@ -15,6 +17,7 @@ import appCss from '#/styles.css?url';
 import { BaiduAutoPushSubscriber } from '#components/BaiduAutoPush/BaiduAutoPushSubscriber';
 import { ErrorComponent } from '#components/ErrorComponent';
 import { ServiceWorkerSubscriber } from '#components/ServiceWorker/ServiceWorkerSubscriber';
+import { sessionQueryOptions } from '#utils/auth.tsx';
 import { Route as LocaleRoute } from './{-$locale}/route';
 
 interface MyRouterContext {
@@ -25,6 +28,9 @@ const THEME_INIT_SCRIPT = `(function(){try{var stored=window.localStorage.getIte
 
 export const Route = createRootRouteWithContext<MyRouterContext>()({
   errorComponent: ErrorComponent,
+  loader: async ({ context: { queryClient } }) => {
+    await queryClient.ensureQueryData(sessionQueryOptions);
+  },
   head: () => ({
     title: 'Intlayer',
     meta: [
@@ -88,7 +94,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
                   <Toaster />
                   <ServiceWorkerSubscriber />
                   <BaiduAutoPushSubscriber />
-                  {children}
+                  <Suspense fallback={<Loader />}>{children}</Suspense>
                 </ReactQueryProvider>
               </IntlayerMarkdownProvider>
             </ThemeProvider>

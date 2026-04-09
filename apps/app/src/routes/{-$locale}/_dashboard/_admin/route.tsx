@@ -2,8 +2,20 @@ import { createFileRoute, Outlet } from '@tanstack/react-router';
 import { AdminBreadcrumb } from '#components/AdminBreadcrumb';
 import { AdminTabBar } from '#components/AdminTabBar';
 import { AuthenticationBarrier } from '#components/Auth/AuthenticationBarrier/AuthenticationBarrier';
+import { validateAuth } from '#utils/auth.tsx';
 
 export const Route = createFileRoute('/{-$locale}/_dashboard/_admin')({
+  beforeLoad: async ({ context, location, params }) => {
+    const { locale } = params;
+    await validateAuth({
+      queryClient: context.queryClient,
+      pathname: location.pathname,
+
+      search: location.search as Record<string, unknown>,
+      locale,
+      accessRule: 'admin',
+    });
+  },
   component: AdminLayout,
 });
 

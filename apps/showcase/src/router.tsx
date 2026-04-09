@@ -1,3 +1,4 @@
+import { Loader } from '@intlayer/design-system/loader';
 import { getQueryClient } from '@intlayer/design-system/providers';
 import { createRouter as createTanStackRouter } from '@tanstack/react-router';
 import { ErrorComponent } from './components/ErrorComponent';
@@ -17,6 +18,8 @@ export function getRouter() {
     defaultPreloadStaleTime: 0,
     defaultErrorComponent: ErrorComponent,
     defaultNotFoundComponent: NotFoundComponent,
+    defaultPendingComponent: Loader,
+
     // Redirect to many times
     // rewrite: {
     //   input: ({ url }) => getPathWithoutLocale(url.toString()),

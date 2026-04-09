@@ -40,6 +40,7 @@ import {
   flattenDictionary,
 } from './flattenDictionary';
 import { SaveAllButton } from './SaveAllButton';
+import { TranslateSkeleton } from './TranslateSkeleton';
 
 const TranslateRow: FC<{
   nodes: FlattenedDictionaryNode[];
@@ -452,7 +453,7 @@ export const TranslateDashboard: FC = () => {
   const availableLocales = configuration?.internationalization?.locales;
 
   return (
-    <Suspense fallback={<Loader />}>
+    <Suspense fallback={<TranslateSkeleton />}>
       <LocaleSwitcherContentProvider availableLocales={availableLocales ?? []}>
         <TranslateDashboardList />
       </LocaleSwitcherContentProvider>

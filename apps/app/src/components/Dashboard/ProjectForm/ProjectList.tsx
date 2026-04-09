@@ -18,6 +18,7 @@ import { type FC, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { NoProjectView } from './NoProjectView';
 import { ProjectCard } from './ProjectCard';
+import { ProjectCardSkeleton } from './ProjectCardSkeleton';
 import { ProjectCreationForm } from './ProjectCreationForm';
 
 export const ProjectList: FC = () => {
@@ -61,42 +62,50 @@ export const ProjectList: FC = () => {
         className="max-w-md"
       />
 
-      <Loader isLoading={isPending}>
-        {projects.length > 0 ? (
-          <div className="flex w-full flex-1 flex-col p-10">
-            <ul className="flex w-full flex-wrap gap-3">
-              {projects.map((project: ProjectAPI) => (
-                <li
-                  className="flex w-full max-w-sm flex-col gap-3 rounded-lg"
-                  key={String(project.id)}
-                >
-                  <ProjectCard
-                    project={project}
-                    onSelect={handleSelectProject}
-                    selectButtonLabel={selectButton.label.value}
-                    selectButtonText={selectButton.text}
-                  />
-                </li>
-              ))}
-            </ul>
-          </div>
-        ) : (
-          <Container
-            roundedSize="3xl"
-            className="m-auto flex justify-center p-6"
-          >
-            {search ? (
-              <span className="m-auto text-neutral text-sm">
-                {noProjectFound}
-              </span>
-            ) : (
-              <NoProjectView
-                onClickCreateProject={() => setIsCreationModalOpen(true)}
-              />
-            )}
-          </Container>
-        )}
-      </Loader>
+      {isPending ? (
+        <div className="flex w-full flex-1 flex-col p-10">
+          <ul className="flex w-full flex-wrap gap-3">
+            {[1, 2, 3].map((i) => (
+              <li
+                className="flex w-full max-w-sm flex-col gap-3 rounded-lg"
+                key={i}
+              >
+                <ProjectCardSkeleton />
+              </li>
+            ))}
+          </ul>
+        </div>
+      ) : projects.length > 0 ? (
+        <div className="flex w-full flex-1 flex-col p-10">
+          <ul className="flex w-full flex-wrap gap-3">
+            {projects.map((project: ProjectAPI) => (
+              <li
+                className="flex w-full max-w-sm flex-col gap-3 rounded-lg"
+                key={String(project.id)}
+              >
+                <ProjectCard
+                  project={project}
+                  onSelect={handleSelectProject}
+                  selectButtonLabel={selectButton.label.value}
+                  selectButtonText={selectButton.text}
+                />
+              </li>
+            ))}
+          </ul>
+        </div>
+      ) : (
+        <Container roundedSize="3xl" className="m-auto flex justify-center p-6">
+          {search ? (
+            <span className="m-auto text-neutral text-sm">
+              {noProjectFound}
+            </span>
+          ) : (
+            <NoProjectView
+              onClickCreateProject={() => setIsCreationModalOpen(true)}
+            />
+          )}
+        </Container>
+      )}
       <Button
         type="submit"
         color="text"
