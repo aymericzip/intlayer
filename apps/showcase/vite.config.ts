@@ -216,7 +216,8 @@ export default defineConfig(({ mode }) => {
             '.content.(ts|tsx|js|mjs|cjs|jsx|json|jsonc|json5)$',
         },
         sitemap: {
-          enabled: false,
+          enabled: true,
+          host: 'https://showcase.intlayer.org',
         },
         prerender: {
           enabled: true,

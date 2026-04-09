@@ -260,6 +260,7 @@ export default defineConfig(({ mode }) => {
         },
         sitemap: {
           enabled: true,
+          host: 'https://app.intlayer.org',
         },
         prerender: {
           enabled: true,
