@@ -118,39 +118,28 @@ export const FiltersModal: FC<FiltersModalProps> = ({
             border
             borderColor="card"
             roundedSize="xl"
+            padding="md"
             className="flex flex-col gap-4"
           >
-            <div className="flex items-center gap-4 px-2 py-1">
-              <Checkbox
-                id="location-remote"
-                name="location-remote"
-                size="sm"
-                checked={activeLocations.includes('remote')}
-                onChange={() => handleLocationToggle('remote')}
-              />
-              <label
-                htmlFor="location-remote"
-                className="block w-full cursor-pointer text-sm"
-              >
-                {locationOptions.remote}
-              </label>
-            </div>
+            <Checkbox
+              id="filter-location-remote"
+              name="filter-location-remote"
+              size="sm"
+              checked={activeLocations.includes('remote')}
+              onChange={() => handleLocationToggle('remote')}
+              label={locationOptions.remote}
+              labelClassName="font-normal px-2 py-1"
+            />
 
-            <div className="flex items-center gap-4 px-2 py-1">
-              <Checkbox
-                id="location-local"
-                name="location-local"
-                size="sm"
-                checked={activeLocations.includes('local')}
-                onChange={() => handleLocationToggle('local')}
-              />
-              <label
-                htmlFor="location-local"
-                className="block w-full cursor-pointer text-sm"
-              >
-                {locationOptions.local}
-              </label>
-            </div>
+            <Checkbox
+              id="filter-location-local"
+              name="filter-location-local"
+              size="sm"
+              checked={activeLocations.includes('local')}
+              onChange={() => handleLocationToggle('local')}
+              label={locationOptions.local}
+              labelClassName="font-normal px-2 py-1"
+            />
           </Container>
         </div>
 
@@ -167,27 +156,20 @@ export const FiltersModal: FC<FiltersModalProps> = ({
               border
               borderColor="card"
               roundedSize="xl"
+              padding="md"
               className="flex max-h-40 flex-col gap-4 overflow-y-auto"
             >
               {filteredTags.map((tag) => (
-                <div
+                <Checkbox
                   key={tag.key}
-                  className="flex items-center gap-4 px-2 py-1"
-                >
-                  <Checkbox
-                    id={`tag-${tag.key}`}
-                    name={`tag-${tag.key}`}
-                    size="sm"
-                    checked={activeTags.includes(tag.key)}
-                    onChange={() => handleTagToggle(tag.key)}
-                  />
-                  <label
-                    htmlFor={`tag-${tag.key}`}
-                    className="block w-full cursor-pointer text-sm"
-                  >
-                    {tag.name || tag.key}
-                  </label>
-                </div>
+                  id={`tag-${tag.key}`}
+                  name={`tag-${tag.key}`}
+                  size="sm"
+                  checked={activeTags.includes(tag.key)}
+                  onChange={() => handleTagToggle(tag.key)}
+                  label={tag.name || tag.key}
+                  labelClassName="font-normal px-2 py-1"
+                />
               ))}
               {filteredTags.length === 0 && (
                 <span className="py-2 text-center text-neutral-500 text-sm">

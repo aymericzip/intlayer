@@ -27,12 +27,11 @@ export const DashboardSkeleton: FC = () => (
 
     <div className="flex min-h-0 w-full flex-1">
       {/* Sidebar Skeleton */}
-      <div className="hidden w-64 flex-col gap-2 p-4 md:flex">
-        {[1, 2, 3, 4, 5].map((i) => (
-          <Skeleton key={i} className="h-10 w-full rounded-lg" />
+      <div className="mt-16 hidden w-56 flex-col gap-3 p-4 md:flex">
+        {[1, 2, 3, 4, 5, 6, 7].map((i) => (
+          <Skeleton key={i} className="h-8 w-full rounded-lg" />
         ))}
       </div>
-
       {/* Content Skeleton */}
       <div className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-2xl bg-background p-10">
         <div className="flex flex-col gap-6">

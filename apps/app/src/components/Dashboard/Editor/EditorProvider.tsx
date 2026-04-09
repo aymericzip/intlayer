@@ -60,7 +60,12 @@ export const EditorProvider: FC<PropsWithChildren<EditorProviderProps>> = ({
 
   // Show application not running view if the application is not responding
   if (!isApplicationRunning) {
-    return <ApplicationNotRunningView />;
+    return (
+      <ApplicationNotRunningView
+        applicationUrl={applicationURL}
+        editorUrl={intlayerConfig.editor.cmsURL}
+      />
+    );
   }
 
   return (

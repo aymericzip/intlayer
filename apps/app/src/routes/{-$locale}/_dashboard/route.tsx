@@ -28,8 +28,8 @@ export const Route = createFileRoute('/{-$locale}/_dashboard')({
     await validateAuth({
       queryClient: context.queryClient,
       pathname: location.pathname,
-      search: location.search as Record<string, unknown>,
-      locale: locale as any,
+      search: location.search,
+      locale,
       accessRule: 'authenticated',
     });
   },

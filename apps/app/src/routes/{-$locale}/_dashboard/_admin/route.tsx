@@ -2,6 +2,7 @@ import { createFileRoute, Outlet } from '@tanstack/react-router';
 import { AdminBreadcrumb } from '#components/AdminBreadcrumb';
 import { AdminTabBar } from '#components/AdminTabBar';
 import { AuthenticationBarrier } from '#components/Auth/AuthenticationBarrier/AuthenticationBarrier';
+import { useSessionRouterListener } from '#hooks/useSessionRouterListener.ts';
 import { validateAuth } from '#utils/auth.tsx';
 
 export const Route = createFileRoute('/{-$locale}/_dashboard/_admin')({
@@ -11,7 +12,7 @@ export const Route = createFileRoute('/{-$locale}/_dashboard/_admin')({
       queryClient: context.queryClient,
       pathname: location.pathname,
 
-      search: location.search as Record<string, unknown>,
+      search: location.search,
       locale,
       accessRule: 'admin',
     });
@@ -21,6 +22,8 @@ export const Route = createFileRoute('/{-$locale}/_dashboard/_admin')({
 
 function AdminLayout() {
   const { locale } = Route.useParams();
+
+  useSessionRouterListener();
 
   return (
     <AuthenticationBarrier accessRule="admin" locale={locale}>

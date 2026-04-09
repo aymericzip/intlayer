@@ -24,7 +24,11 @@ export const DictionaryCreationForm: FC<DictionaryCreationFormProps> = ({
   const { mutate: addDictionary, isPending } = useAddDictionary();
   const { data: projectsData } = useGetProjects();
   const DictionarySchema = useDictionarySchema(String(project?.id));
-  const { form, isSubmitting } = useForm(DictionarySchema);
+  const { form, isSubmitting } = useForm(DictionarySchema, {
+    defaultValues: {
+      projectIds: [project?.id],
+    },
+  });
   const { keyInput, createDictionaryButton, projectInput } =
     useIntlayer('dictionary-form');
 

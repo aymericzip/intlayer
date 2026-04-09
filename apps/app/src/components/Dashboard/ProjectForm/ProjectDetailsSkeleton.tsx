@@ -3,7 +3,7 @@ import type { FC } from 'react';
 import { Skeleton } from '#components/Skeleton';
 
 export const ProjectDetailsSkeleton: FC = () => (
-  <div className="flex max-w-5xl flex-col items-center justify-center gap-4">
+  <div className="flex w-full max-w-5xl flex-col items-center justify-center gap-4">
     <div className="grid w-full justify-evenly gap-x-5 gap-y-4 max-md:grid-cols-1 md:grid-cols-2 lg:gap-x-16">
       <div className="mb-auto flex flex-col gap-4">
         {[1, 2, 3, 4].map((i) => (

@@ -7,7 +7,6 @@ import {
   useSelectProject,
 } from '@intlayer/design-system/hooks';
 import { SearchInput } from '@intlayer/design-system/input';
-import { Loader } from '@intlayer/design-system/loader';
 import { Modal } from '@intlayer/design-system/modal';
 import {
   Pagination,

@@ -204,7 +204,6 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
     return null;
   }
 
-  // Desktop: render sidebar
   return (
     <aside
       className={cn(

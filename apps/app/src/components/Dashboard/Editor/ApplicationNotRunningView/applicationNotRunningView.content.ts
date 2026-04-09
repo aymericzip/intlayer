@@ -1,4 +1,4 @@
-import { type Dictionary, t } from 'intlayer';
+import { type Dictionary, insert, t } from 'intlayer';
 
 const applicationNotRunningViewContent = {
   key: 'application-not-running-view',
@@ -44,98 +44,160 @@ const applicationNotRunningViewContent = {
       vi: 'Để sử dụng CMS, bạn cần đảm bảo ứng dụng đang chạy.',
       uk: 'Щоб використовувати CMS, переконайтеся, що додаток працює.',
     }),
-    tips: t({
-      ar: [
-        'إذا كانت التطبيق يعمل بشكل محلي (مثال: http://localhost:3000)، قم بتشغيل التطبيق وتأكد من أن حقل التكوين `editor.cmsUrl` معين على `https://app.intlayer.org`.',
-        'إذا كانت التطبيق يعمل على خادم مركزي (مثال: https://my-app.com)، تأكد من أن حقل التكوين `editor.cmsUrl` معين على `https://app.intlayer.org`.',
-        "في كل الحالات، تأكد من أن عنوان الموقع المصدر ('Content-Security-Policy') لا يحجب iframe المحرر.",
-      ],
-      de: [
-        'Wenn Ihre Anwendung lokal ausgeführt wird (Beispiel: http://localhost:3000), starten Sie die Anwendung und stellen Sie sicher, dass das Konfigurationsfeld `editor.cmsUrl` auf `https://app.intlayer.org` gesetzt ist.',
-        'Wenn Ihre Anwendung auf einem Remote-Server ausgeführt wird (Beispiel: https://my-app.com), stellen Sie sicher, dass das Konfigurationsfeld `editor.cmsUrl` auf `https://app.intlayer.org` gesetzt ist.',
-        "In allen Fällen, stellen Sie sicher, dass der CSP ('Content-Security-Policy') Header das iframe des Editors nicht blockiert.",
-      ],
-      en: [
-        'If your application is running locally (example: http://localhost:3000), start the application and ensure the `editor.cmsUrl` configuration field is set to `https://app.intlayer.org`.',
-        'If your application is running on a remote server (example: https://my-app.com), ensure the `editor.cmsUrl` configuration field is set to `https://app.intlayer.org`.',
-        "In all cases, ensure the CSP ('Content-Security-Policy') header does not block the editor's iframe.",
-      ],
-      'en-GB': [
-        'If your application is running locally (example: http://localhost:3000), start the application and ensure the `editor.cmsUrl` configuration field is set to `https://app.intlayer.org`.',
-        'If your application is running on a remote server (example: https://my-app.com), ensure the `editor.cmsUrl` configuration field is set to `https://app.intlayer.org`.',
-        "In all cases, ensure the CSP ('Content-Security-Policy') header does not block the editor's iframe.",
-      ],
-      es: [
-        'Si tu aplicación está funcionando localmente (ejemplo: http://localhost:3000), inicia la aplicación y asegúrate de que el campo de configuración `editor.cmsUrl` esté configurado en `https://app.intlayer.org`.',
-        'Si tu aplicación está funcionando en un servidor remoto (ejemplo: https://my-app.com), asegúrate de que el campo de configuración `editor.cmsUrl` esté configurado en `https://app.intlayer.org`.',
-        "En todos los casos, asegúrate de que el encabezado CSP ('Content-Security-Policy') no bloquee el iframe del editor.",
-      ],
-      fr: [
-        'Si votre application est en cours d’exécution localement (exemple: http://localhost:3000), démarrez l’application et assurez-vous que le champ de configuration `editor.cmsUrl` est défini sur `https://app.intlayer.org`.',
-        'Si votre application est en cours d’exécution sur un serveur distant (exemple: https://my-app.com), assurez-vous que le champ de configuration `editor.cmsUrl` est défini sur `https://app.intlayer.org`.',
-        "Dans tous les cas, assurez-vous que l'en-tête CSP ('Content-Security-Policy') ne bloque pas l'iframe de l'éditeur.",
-      ],
-      hi: [
-        'यदि आपका एप्लिकेशन स्थानीय रूप से चल रहा है (उदाहरण: http://localhost:3000) एप्लिकेशन शुरू करें और सुनिश्चित करें कि `editor.cmsUrl` कॉन्फ़िगरेशन फ़ील्ड को `https://app.intlayer.org` पर सेट किया गया है।',
-        'यदि आपका एप्लिकेशन रिमोट सर्वर पर चल रहा है (उदाहरण: https://my-app.com) सुनिश्चित करें कि `editor.cmsUrl` कॉन्फ़िगरेशन फ़ील्ड को `https://app.intlayer.org` पर सेट किया गया है।',
-        "सभी मामलों में, सुनिश्चित करें कि CSP ('Content-Security-Policy') हेडर एडिटर के iframe को ब्लॉक नहीं करता है।",
-      ],
-      it: [
-        'Se la tua applicazione è in esecuzione localmente (esempio: http://localhost:3000), avvia l’applicazione e assicurati che il campo di configurazione `editor.cmsUrl` sia impostato su `https://app.intlayer.org`.',
-        'Se la tua applicazione è in esecuzione su un server remoto (esempio: https://my-app.com), assicurati che il campo di configurazione `editor.cmsUrl` sia impostato su `https://app.intlayer.org`.',
-        "In tutti i casi, assicurati che l'header CSP ('Content-Security-Policy') non blocchi l'iframe dell'editor.",
-      ],
-      ja: [
-        'アプリケーションがローカルで実行されている場合（例: http://localhost:3000）、アプリケーションを起動し、`editor.cmsUrl` 設定フィールドが `https://app.intlayer.org` に設定されていることを確認してください。',
-        'アプリケーションがリモートサーバーで実行されている場合（例: https://my-app.com）、`editor.cmsUrl` 設定フィールドが `https://app.intlayer.org` に設定されていることを確認してください。',
-        "すべての場合において、CSP ('Content-Security-Policy') ヘッダーがエディターの iframe をブロックしないことを確認してください。",
-      ],
-      ko: [
-        '앱이 로컬에서 실행되고 있는 경우 (예: http://localhost:3000) 앱을 시작하고 `editor.cmsUrl` 설정 필드가 `https://app.intlayer.org`로 설정되어 있는지 확인하십시오.',
-        '앱이 리모트 서버에서 실행되고 있는 경우 (예: https://my-app.com) `editor.cmsUrl` 설정 필드가 `https://app.intlayer.org`로 설정되어 있는지 확인하십시오.',
-        "모든 경우에 대해 CSP ('Content-Security-Policy') 헤더가 에디터의 iframe을 차단하지 않는지 확인하십시오.",
-      ],
-      pt: [
-        'Se sua aplicação estiver em execução localmente (exemplo: http://localhost:3000), inicie a aplicação e certifique-se de que o campo de configuração `editor.cmsUrl` está definido como `https://app.intlayer.org`.',
-        'Se sua aplicação estiver em execução em um servidor remoto (exemplo: https://my-app.com), certifique-se de que o campo de configuração `editor.cmsUrl` está definido como `https://app.intlayer.org`.',
-        "Em todos os casos, certifique-se de que o cabeçalho CSP ('Content-Security-Policy') não bloqueie o iframe do editor.",
-      ],
-      ru: [
-        'Если ваше приложение работает локально (например: http://localhost:3000), запустите приложение и убедитесь, что поле конфигурации `editor.cmsUrl` установлено на `https://app.intlayer.org`.',
-        'Если ваше приложение работает на удаленном сервере (например: https://my-app.com), убедитесь, что поле конфигурации `editor.cmsUrl` установлено на `https://app.intlayer.org`.',
-        "В любом случае, убедитесь, что заголовок CSP ('Content-Security-Policy') не блокирует iframe редактора.",
-      ],
-      tr: [
-        'Uygulamanız yerel olarak çalışıyorsa (örnek: http://localhost:3000), uygulamayı başlatın ve `editor.cmsUrl` yapılandırma alanının `https://app.intlayer.org` olarak ayarlandığından emin olun.',
-        'Uygulamanız uzak bir sunucuda çalışıyorsa (örnek: https://my-app.com), `editor.cmsUrl` yapılandırma alanının `https://app.intlayer.org` olarak ayarlandığından emin olun.',
-        "Her durumda, CSP ('Content-Security-Policy') başlığının editörün iframe'ini engellemediğinden emin olun.",
-      ],
-      zh: [
-        '如果您的应用程序在本地运行（例如：http://localhost:3000），请启动应用程序并确保 `editor.cmsUrl` 配置字段设置为 `https://app.intlayer.org`。',
-        '如果您的应用程序在远程服务器上运行（例如：https://my-app.com），请确保 `editor.cmsUrl` 配置字段设置为 `https://app.intlayer.org`。',
-        "在所有情况下，确保 CSP ('Content-Security-Policy') 头不阻止编辑器的 iframe。",
-      ],
-      pl: [
-        'Jeśli twoja aplikacja działa lokalnie (np.: http://localhost:3000), uruchom aplikację i upewnij się, że pole konfiguracji `editor.cmsUrl` jest ustawione na `https://app.intlayer.org`.',
-        'Jeśli twoja aplikacja działa na zdalnym serwerze (np.: https://my-app.com), upewnij się, że pole konfiguracji `editor.cmsUrl` jest ustawione na `https://app.intlayer.org`.',
-        "W każdym przypadku upewnij się, że nagłówek CSP ('Content-Security-Policy') nie blokuje iframe edytora.",
-      ],
-      id: [
-        'Jika aplikasi Anda berjalan secara lokal (contoh: http://localhost:3000), jalankan aplikasinya dan pastikan field konfigurasi `editor.cmsUrl` diatur ke `https://app.intlayer.org`.',
-        'Jika aplikasi Anda berjalan di server jarak jauh (contoh: https://my-app.com), pastikan field konfigurasi `editor.cmsUrl` diatur ke `https://app.intlayer.org`.',
-        "Dalam semua kasus, pastikan header CSP ('Content-Security-Policy') tidak memblokir iframe editor.",
-      ],
-      vi: [
-        'Nếu ứng dụng của bạn đang chạy cục bộ (ví dụ: http://localhost:3000), hãy khởi động ứng dụng và đảm bảo trường cấu hình `editor.cmsUrl` được đặt thành `https://app.intlayer.org`.',
-        'Nếu ứng dụng của bạn đang chạy trên máy chủ từ xa (ví dụ: https://my-app.com), đảm bảo trường cấu hình `editor.cmsUrl` được đặt thành `https://app.intlayer.org`.',
-        "Trong mọi trường hợp, đảm bảo header CSP ('Content-Security-Policy') không chặn iframe của editor.",
-      ],
-      uk: [
-        'Якщо ваш додаток працює локально (наприклад: http://localhost:3000), запустіть додаток і переконайтеся, що поле конфігурації `editor.cmsUrl` встановлено на `https://app.intlayer.org`.',
-        'Якщо ваш додаток запущено на віддаленому сервері (наприклад: https://my-app.com), переконайтеся, що поле конфігурації `editor.cmsUrl` встановлено на `https://app.intlayer.org`.',
-        "У всіх випадках переконайтеся, що заголовок CSP ('Content-Security-Policy') не блокує iframe редактора.",
-      ],
+    urlLabel: t({
+      ar: 'رابط تطبيق العميل:',
+      de: 'URL der Client-Anwendung:',
+      en: 'Client Application URL:',
+      'en-GB': 'Client Application URL:',
+      es: 'URL de la aplicación cliente:',
+      fr: 'URL de l’application client :',
+      hi: 'क्लाइंट एप्लिकेशन यूआरएल:',
+      it: 'URL dell’applicazione client:',
+      ja: 'クライアントアプリケーションのURL:',
+      ko: '클라이언트 애플리케이션 URL:',
+      pt: 'URL da aplicação cliente:',
+      ru: 'URL клиентского приложения:',
+      tr: 'İstemci Uygulama URL’si:',
+      zh: '客户端应用程序 URL:',
+      pl: 'URL aplikacji klienckiej:',
+      id: 'URL aplikasi klien:',
+      vi: 'URL ứng dụng khách:',
+      uk: 'URL клієнтського додатка:',
     }),
+    urlLinkLabel: t({
+      ar: 'رابط التطبيق',
+      de: 'Anwendungs-URL',
+      en: 'Application URL',
+      'en-GB': 'Application URL',
+      es: 'URL de la aplicación',
+      fr: "URL de l'application",
+      hi: 'एप्लिकेशन यूआरएल',
+      it: "URL dell'applicazione",
+      ja: 'アプリケーションURL',
+      ko: '애플리케이션 URL',
+      pt: 'URL da aplicação',
+      ru: 'URL приложения',
+      tr: "Uygulama URL'si",
+      zh: '应用程序 URL',
+      pl: 'URL aplikacji',
+      id: 'URL aplikasi',
+      vi: 'URL ứng dụng',
+      uk: 'URL додатка',
+    }),
+    tipsTitle: t({
+      ar: 'نصائح:',
+      de: 'Tipps:',
+      en: 'Tips:',
+      'en-GB': 'Tips:',
+      es: 'Consejos:',
+      fr: 'Conseils :',
+      hi: 'सुझाव:',
+      it: 'Suggerimenti:',
+      ja: 'ヒント:',
+      ko: '팁:',
+      pt: 'Dicas:',
+      ru: 'Советы:',
+      tr: 'İpuçları:',
+      zh: '提示:',
+      pl: 'Wskazówki:',
+      id: 'Tips:',
+      vi: 'Gợi ý:',
+      uk: 'Поради:',
+    }),
+    tips: insert(
+      t({
+        ar: [
+          'إذا كانت التطبيق يعمل بشكل محلي (مثال: http://localhost:3000)، قم بتشغيل التطبيق وتأكد من أن حقل التكوين `editor.cmsUrl` معين على `{{editorUrl}}`.',
+          'إذا كانت التطبيق يعمل على خادم مركزي (مثال: https://my-app.com)، تأكد من أن حقل التكوين `editor.cmsUrl` معين على `{{editorUrl}}`.',
+          "في كل الحالات، تأكد من أن عنوان الموقع المصدر ('Content-Security-Policy') لا يحجب iframe المحرر.",
+        ],
+        de: [
+          'Wenn Ihre Anwendung lokal ausgeführt wird (Beispiel: http://localhost:3000), starten Sie die Anwendung und stellen Sie sicher, dass das Konfigurationsfeld `editor.cmsUrl` auf `{{editorUrl}}` gesetzt ist.',
+          'Wenn Ihre Anwendung auf einem Remote-Server ausgeführt wird (Beispiel: https://my-app.com), stellen Sie sicher, dass das Konfigurationsfeld `editor.cmsUrl` auf `{{editorUrl}}` gesetzt ist.',
+          "In allen Fällen, stellen Sie sicher, dass der CSP ('Content-Security-Policy') Header das iframe des Editors nicht blockiert.",
+        ],
+        en: [
+          'If your application is running locally (example: http://localhost:3000), start the application and ensure the `editor.cmsUrl` configuration field is set to `{{editorUrl}}`.',
+          'If your application is running on a remote server (example: https://my-app.com), ensure the `editor.cmsUrl` configuration field is set to `{{editorUrl}}`.',
+          "In all cases, ensure the CSP ('Content-Security-Policy') header does not block the editor's iframe.",
+        ],
+        'en-GB': [
+          'If your application is running locally (example: http://localhost:3000), start the application and ensure the `editor.cmsUrl` configuration field is set to `{{editorUrl}}`.',
+          'If your application is running on a remote server (example: https://my-app.com), ensure the `editor.cmsUrl` configuration field is set to `{{editorUrl}}`.',
+          "In all cases, ensure the CSP ('Content-Security-Policy') header does not block the editor's iframe.",
+        ],
+        es: [
+          'Si tu aplicación está funcionando localmente (ejemplo: http://localhost:3000), inicia la aplicación y asegúrate de que el campo de configuración `editor.cmsUrl` esté configurado en `{{editorUrl}}`.',
+          'Si tu aplicación está funcionando en un servidor remoto (ejemplo: https://my-app.com), asegúrate de que el campo de configuración `editor.cmsUrl` esté configurado en `{{editorUrl}}`.',
+          "En todos los casos, asegúrate de que el encabezado CSP ('Content-Security-Policy') no bloquee el iframe del editor.",
+        ],
+        fr: [
+          'Si votre application est en cours d’exécution localement (exemple: http://localhost:3000), démarrez l’application et assurez-vous que le champ de configuration `editor.cmsUrl` est défini sur `{{editorUrl}}`.',
+          'Si votre application est en cours d’exécution sur un serveur distant (exemple: https://my-app.com), assurez-vous que le champ de configuration `editor.cmsUrl` est défini sur `{{editorUrl}}`.',
+          "Dans tous les cas, assurez-vous que l'en-tête CSP ('Content-Security-Policy') ne bloque pas l'iframe de l'éditeur.",
+        ],
+        hi: [
+          'यदि आपका एप्लिकेशन स्थानीय रूप से चल रहा है (उदाहरण: http://localhost:3000) एप्लिकेशन शुरू करें और सुनिश्चित करें कि `editor.cmsUrl` कॉन्फ़िगरेशन फ़ील्ड को `{{editorUrl}}` पर सेट किया गया है।',
+          'यदि आपका एप्लिकेशन रिमोट सर्वर पर चल रहा है (उदाहरण: https://my-app.com) सुनिश्चित करें कि `editor.cmsUrl` कॉन्फ़िगरेशन फ़ील्ड को `{{editorUrl}}` पर सेट किया गया है।',
+          "सभी मामलों में, सुनिश्चित करें कि CSP ('Content-Security-Policy') हेडर एडिटर के iframe को ब्लॉक नहीं करता है।",
+        ],
+        it: [
+          'Se la tua applicazione è in esecuzione localmente (esempio: http://localhost:3000), avvia l’applicazione e assicurati che il campo di configurazione `editor.cmsUrl` sia impostato su `{{editorUrl}}`.',
+          'Se la tua applicazione è in esecuzione su un server remoto (esempio: https://my-app.com), assicurati che il campo di configurazione `editor.cmsUrl` sia impostato su `{{editorUrl}}`.',
+          "In tutti i casi, assicurati che l'header CSP ('Content-Security-Policy') non blocchi l'iframe dell'editor.",
+        ],
+        ja: [
+          'アプリケーションがローカルで実行されている場合（例: http://localhost:3000）、アプリケーションを起動し、`editor.cmsUrl` 設定フィールドが `{{editorUrl}}` に設定されていることを確認してください。',
+          'アプリケーションがリモートサーバーで実行されている場合（例: https://my-app.com）、`editor.cmsUrl` 設定フィールドが `{{editorUrl}}` に設定されていることを確認してください。',
+          "すべての場合において、CSP ('Content-Security-Policy') ヘッダーがエディターの iframe をブロックしないことを確認してください。",
+        ],
+        ko: [
+          '앱이 로컬에서 실행되고 있는 경우 (예: http://localhost:3000) 앱을 시작하고 `editor.cmsUrl` 설정 필드가 `{{editorUrl}}`로 설정되어 있는지 확인하십시오.',
+          '앱이 리모트 서버에서 실행되고 있는 경우 (예: https://my-app.com) `editor.cmsUrl` 설정 필드가 `{{editorUrl}}`로 설정되어 있는지 확인하십시오.',
+          "모든 경우에 대해 CSP ('Content-Security-Policy') 헤더가 에디터의 iframe을 차단하지 않는지 확인하십시오.",
+        ],
+        pt: [
+          'Se sua aplicação estiver em execução localmente (exemplo: http://localhost:3000), inicie a aplicação e certifique-se de que o campo de configuração `editor.cmsUrl` está definido como `{{editorUrl}}`.',
+          'Se sua aplicação estiver em execução em um servidor remoto (exemplo: https://my-app.com), certifique-se de que o campo de configuração `editor.cmsUrl` está definido como `{{editorUrl}}`.',
+          "Em todos os casos, certifique-se de que o cabeçalho CSP ('Content-Security-Policy') não bloqueie o iframe do editor.",
+        ],
+        ru: [
+          'Если ваше приложение работает локально (например: http://localhost:3000), запустите приложение и убедитесь, что поле конфигурации `editor.cmsUrl` установлено на `{{editorUrl}}`.',
+          'Если ваше приложение работает на удаленном сервере (например: https://my-app.com), убедитесь, что поле конфигурации `editor.cmsUrl` установлено на `{{editorUrl}}`.',
+          "В любом случае, убедитесь, что заголовок CSP ('Content-Security-Policy') не блокирует iframe редактора.",
+        ],
+        tr: [
+          'Uygulamanız yerel olarak çalışıyorsa (örnek: http://localhost:3000), uygulamayı başlatın ve `editor.cmsUrl` yapılandırma alanının `{{editorUrl}}` olarak ayarlandığından emin olun.',
+          'Uygulamanız uzak bir sunucuda çalışıyorsa (örnek: https://my-app.com), `editor.cmsUrl` yapılandırma alanının `{{editorUrl}}` olarak ayarlandığından emin olun.',
+          "Her durumda, CSP ('Content-Security-Policy') başlığının editörün iframe'ini engellemediğinden emin olun.",
+        ],
+        zh: [
+          '如果您的应用程序在本地运行（例如：http://localhost:3000），请启动应用程序并确保 `editor.cmsUrl` 配置字段设置为 `{{editorUrl}}`。',
+          '如果您的应用程序在远程服务器上运行（例如：https://my-app.com），请确保 `editor.cmsUrl` 配置字段设置为 `{{editorUrl}}`。',
+          "在所有情况下，确保 CSP ('Content-Security-Policy') 头不阻止编辑器的 iframe。",
+        ],
+        pl: [
+          'Jeśli twoja aplikacja działa lokalnie (np.: http://localhost:3000), uruchom aplikację i upewnij się, że pole konfiguracji `editor.cmsUrl` jest ustawione na `{{editorUrl}}`.',
+          'Jeśli twoja aplikacja działa na zdalnym serwerze (np.: https://my-app.com), upewnij się, że pole konfiguracji `editor.cmsUrl` jest ustawione na `{{editorUrl}}`.',
+          "W każdym przypadku upewnij się, że nagłówek CSP ('Content-Security-Policy') nie blokuje iframe edytora.",
+        ],
+        id: [
+          'Jika aplikasi Anda berjalan secara lokal (contoh: http://localhost:3000), jalankan aplikasinya dan pastikan field konfigurasi `editor.cmsUrl` diatur ke `{{editorUrl}}`.',
+          'Jika aplikasi Anda berjalan di server jarak jauh (contoh: https://my-app.com), pastikan field konfigurasi `editor.cmsUrl` diatur ke `{{editorUrl}}`.',
+          "Dalam semua kasus, pastikan header CSP ('Content-Security-Policy') tidak memblokir iframe editor.",
+        ],
+        vi: [
+          'Nếu ứng dụng của bạn đang chạy cục bộ (ví dụ: http://localhost:3000), hãy khởi động ứng dụng và đảm bảo trường cấu hình `editor.cmsUrl` được đặt thành `{{editorUrl}}`.',
+          'Nếu ứng dụng của bạn đang chạy trên máy chủ từ xa (ví dụ: https://my-app.com), đảm bảo trường cấu hình `editor.cmsUrl` được đặt thành `{{editorUrl}}`.',
+          "Trong mọi trường hợp, đảm bảo header CSP ('Content-Security-Policy') không chặn iframe của editor.",
+        ],
+        uk: [
+          'Якщо ваш додаток працює локально (наприклад: http://localhost:3000), запустіть додаток і переконайтеся, що поле конфігурації `editor.cmsUrl` встановлено на `{{editorUrl}}`.',
+          'Якщо ваш додаток запущено на віддаленому сервері (наприклад: https://my-app.com), переконайтеся, що поле конфігурації `editor.cmsUrl` встановлено на `{{editorUrl}}`.',
+          "У всіх випадках переконайтеся, що заголовок CSP ('Content-Security-Policy') не блокує iframe редактора.",
+        ],
+      })
+    ),
     documentationLink: {
       label: t({
         en: 'Click to go to the CMS documentation',

@@ -11,11 +11,12 @@ import { validateAuth } from '#utils/auth';
 export const Route = createFileRoute('/{-$locale}/_dashboard/projects')({
   beforeLoad: async ({ context, location, params }) => {
     const { locale } = params;
+
     await validateAuth({
       queryClient: context.queryClient,
       pathname: location.pathname,
-      search: location.search as Record<string, unknown>,
-      locale: locale as any,
+      search: location.search,
+      locale,
       accessRule: ['authenticated', 'organization-required'],
       redirectionRoute: App_Dashboard_Organization_Path,
     });

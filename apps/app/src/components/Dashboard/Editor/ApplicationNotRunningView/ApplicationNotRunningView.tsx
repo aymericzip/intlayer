@@ -5,27 +5,62 @@ import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { Link } from '#components/Link/Link';
 
-export const ApplicationNotRunningView: FC = () => {
-  const { title, description, tips, documentationLink } = useIntlayer(
-    'application-not-running-view'
-  );
+type ApplicationNotRunningViewProps = {
+  applicationUrl: string | undefined;
+  editorUrl: string | undefined;
+};
+
+export const ApplicationNotRunningView: FC<ApplicationNotRunningViewProps> = ({
+  applicationUrl,
+  editorUrl,
+}) => {
+  const {
+    title,
+    description,
+    urlLabel,
+    urlLinkLabel,
+    tipsTitle,
+    tips,
+    documentationLink,
+  } = useIntlayer('application-not-running-view');
 
   return (
     <div className="flex flex-1 items-center justify-center">
       <Container
-        className="flex max-w-xl flex-col gap-2 text-sm"
+        className="mb-[20%] flex max-w-xl flex-col gap-2 text-sm"
         padding="xl"
-        roundedSize="2xl"
+        roundedSize="3xl"
       >
         <H3 className="mb-4 text-lg">{title}</H3>
+        <span className="font-semibold">
+          {urlLabel}
+          {applicationUrl ? (
+            <Link
+              href={applicationUrl}
+              className="ml-4 font-bold"
+              label={urlLinkLabel.value}
+              color="neutral"
+            >
+              {applicationUrl}
+            </Link>
+          ) : (
+            <span className="ml-4 font-bold">-</span>
+          )}
+        </span>
         <p className="mb-4 block text-neutral">{description}</p>
 
         <div className="mb-4">
-          <h4 className="mb-2 font-semibold">Tips:</h4>
+          <h4 className="mb-2 font-semibold">{tipsTitle}</h4>
           <ul className="list-inside list-disc space-y-2 pl-3">
             {tips.map((tip, index) => (
               <li key={index} className="text-neutral">
-                {tip}
+                {tip({
+                  editorUrl: (
+                    <span className="font-bold">
+                      {editorUrl ?? import.meta.env.VITE_URL}
+                    </span>
+                  ),
+                })}
               </li>
             ))}
           </ul>

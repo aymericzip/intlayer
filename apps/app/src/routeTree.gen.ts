@@ -30,7 +30,6 @@ import { Route as Char123LocaleChar125DashboardOrganizationRouteImport } from '.
 import { Route as Char123LocaleChar125DashboardProfileRouteImport } from './routes/{-$locale}/_dashboard/profile';
 import { Route as Char123LocaleChar125DashboardProjectsRouteImport } from './routes/{-$locale}/_dashboard/projects';
 import { Route as Char123LocaleChar125DashboardRouteRouteImport } from './routes/{-$locale}/_dashboard/route';
-import { Route as Char123LocaleChar125OtherRouteImport } from './routes/{-$locale}/_other';
 import { Route as Char123LocaleChar125OtherAuthAuthenticatedPasswordChangeRouteImport } from './routes/{-$locale}/_other/auth/_authenticated/password.change';
 import { Route as Char123LocaleChar125OtherAuthAuthenticatedRouteRouteImport } from './routes/{-$locale}/_other/auth/_authenticated/route';
 import { Route as Char123LocaleChar125OtherAuthNotAuthenticated2faRouteImport } from './routes/{-$locale}/_other/auth/_not-authenticated/2fa';
@@ -43,6 +42,7 @@ import { Route as Char123LocaleChar125OtherAuthPasswordAskResetRouteImport } fro
 import { Route as Char123LocaleChar125OtherAuthPasswordResetRouteImport } from './routes/{-$locale}/_other/auth/password/reset';
 import { Route as Char123LocaleChar125OtherOnboardingStepRouteImport } from './routes/{-$locale}/_other/onboarding.$step';
 import { Route as Char123LocaleChar125OtherPricingRouteImport } from './routes/{-$locale}/_other/pricing';
+import { Route as Char123LocaleChar125OtherRouteRouteImport } from './routes/{-$locale}/_other/route';
 import { Route as Char123LocaleChar125SplatRouteImport } from './routes/{-$locale}/$';
 import { Route as Char123LocaleChar125404RouteImport } from './routes/{-$locale}/404';
 import { Route as Char123LocaleChar125RouteRouteImport } from './routes/{-$locale}/route';
@@ -59,11 +59,6 @@ const Char123LocaleChar125RouteRoute =
     path: '/{-$locale}',
     getParentRoute: () => rootRouteImport,
   } as any);
-const Char123LocaleChar125OtherRoute =
-  Char123LocaleChar125OtherRouteImport.update({
-    id: '/_other',
-    getParentRoute: () => Char123LocaleChar125RouteRoute,
-  } as any);
 const Char123LocaleChar125404Route = Char123LocaleChar125404RouteImport.update({
   id: '/404',
   path: '/404',
@@ -73,6 +68,11 @@ const Char123LocaleChar125SplatRoute =
   Char123LocaleChar125SplatRouteImport.update({
     id: '/$',
     path: '/$',
+    getParentRoute: () => Char123LocaleChar125RouteRoute,
+  } as any);
+const Char123LocaleChar125OtherRouteRoute =
+  Char123LocaleChar125OtherRouteRouteImport.update({
+    id: '/_other',
     getParentRoute: () => Char123LocaleChar125RouteRoute,
   } as any);
 const Char123LocaleChar125DashboardRouteRoute =
@@ -90,7 +90,7 @@ const Char123LocaleChar125OtherPricingRoute =
   Char123LocaleChar125OtherPricingRouteImport.update({
     id: '/pricing',
     path: '/pricing',
-    getParentRoute: () => Char123LocaleChar125OtherRoute,
+    getParentRoute: () => Char123LocaleChar125OtherRouteRoute,
   } as any);
 const Char123LocaleChar125DashboardProjectsRoute =
   Char123LocaleChar125DashboardProjectsRouteImport.update({
@@ -119,13 +119,13 @@ const Char123LocaleChar125OtherOnboardingStepRoute =
   Char123LocaleChar125OtherOnboardingStepRouteImport.update({
     id: '/onboarding/$step',
     path: '/onboarding/$step',
-    getParentRoute: () => Char123LocaleChar125OtherRoute,
+    getParentRoute: () => Char123LocaleChar125OtherRouteRoute,
   } as any);
 const Char123LocaleChar125OtherAuthCliLoginRoute =
   Char123LocaleChar125OtherAuthCliLoginRouteImport.update({
     id: '/auth/cli-login',
     path: '/auth/cli-login',
-    getParentRoute: () => Char123LocaleChar125OtherRoute,
+    getParentRoute: () => Char123LocaleChar125OtherRouteRoute,
   } as any);
 const Char123LocaleChar125DashboardAdminAdminRoute =
   Char123LocaleChar125DashboardAdminAdminRouteImport.update({
@@ -137,13 +137,13 @@ const Char123LocaleChar125OtherAuthNotAuthenticatedRouteRoute =
   Char123LocaleChar125OtherAuthNotAuthenticatedRouteRouteImport.update({
     id: '/auth/_not-authenticated',
     path: '/auth',
-    getParentRoute: () => Char123LocaleChar125OtherRoute,
+    getParentRoute: () => Char123LocaleChar125OtherRouteRoute,
   } as any);
 const Char123LocaleChar125OtherAuthAuthenticatedRouteRoute =
   Char123LocaleChar125OtherAuthAuthenticatedRouteRouteImport.update({
     id: '/auth/_authenticated',
     path: '/auth',
-    getParentRoute: () => Char123LocaleChar125OtherRoute,
+    getParentRoute: () => Char123LocaleChar125OtherRouteRoute,
   } as any);
 const Char123LocaleChar125DashboardEditorContentRouteRoute =
   Char123LocaleChar125DashboardEditorContentRouteRouteImport.update({
@@ -160,19 +160,19 @@ const Char123LocaleChar125OtherAuthPasswordResetRoute =
   Char123LocaleChar125OtherAuthPasswordResetRouteImport.update({
     id: '/auth/password/reset',
     path: '/auth/password/reset',
-    getParentRoute: () => Char123LocaleChar125OtherRoute,
+    getParentRoute: () => Char123LocaleChar125OtherRouteRoute,
   } as any);
 const Char123LocaleChar125OtherAuthPasswordAskResetRoute =
   Char123LocaleChar125OtherAuthPasswordAskResetRouteImport.update({
     id: '/auth/password/ask-reset',
     path: '/auth/password/ask-reset',
-    getParentRoute: () => Char123LocaleChar125OtherRoute,
+    getParentRoute: () => Char123LocaleChar125OtherRouteRoute,
   } as any);
 const Char123LocaleChar125OtherAuthPasswordLayoutRoute =
   Char123LocaleChar125OtherAuthPasswordLayoutRouteImport.update({
     id: '/auth/password/_layout',
     path: '/auth/password',
-    getParentRoute: () => Char123LocaleChar125OtherRoute,
+    getParentRoute: () => Char123LocaleChar125OtherRouteRoute,
   } as any);
 const Char123LocaleChar125OtherAuthNotAuthenticatedRegisterRoute =
   Char123LocaleChar125OtherAuthNotAuthenticatedRegisterRouteImport.update({
@@ -352,9 +352,9 @@ export interface FileRoutesById {
   '/{-$locale}': typeof Char123LocaleChar125RouteRouteWithChildren;
   '/sitemap.xml': typeof SitemapDotxmlRoute;
   '/{-$locale}/_dashboard': typeof Char123LocaleChar125DashboardRouteRouteWithChildren;
+  '/{-$locale}/_other': typeof Char123LocaleChar125OtherRouteRouteWithChildren;
   '/{-$locale}/$': typeof Char123LocaleChar125SplatRoute;
   '/{-$locale}/404': typeof Char123LocaleChar125404Route;
-  '/{-$locale}/_other': typeof Char123LocaleChar125OtherRouteWithChildren;
   '/{-$locale}/_dashboard/_admin': typeof Char123LocaleChar125DashboardAdminRouteRouteWithChildren;
   '/{-$locale}/_dashboard/organization': typeof Char123LocaleChar125DashboardOrganizationRoute;
   '/{-$locale}/_dashboard/profile': typeof Char123LocaleChar125DashboardProfileRoute;
@@ -463,9 +463,9 @@ export interface FileRouteTypes {
     | '/{-$locale}'
     | '/sitemap.xml'
     | '/{-$locale}/_dashboard'
+    | '/{-$locale}/_other'
     | '/{-$locale}/$'
     | '/{-$locale}/404'
-    | '/{-$locale}/_other'
     | '/{-$locale}/_dashboard/_admin'
     | '/{-$locale}/_dashboard/organization'
     | '/{-$locale}/_dashboard/profile'
@@ -521,13 +521,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char123LocaleChar125RouteRouteImport;
       parentRoute: typeof rootRouteImport;
     };
-    '/{-$locale}/_other': {
-      id: '/{-$locale}/_other';
-      path: '';
-      fullPath: '/{-$locale}';
-      preLoaderRoute: typeof Char123LocaleChar125OtherRouteImport;
-      parentRoute: typeof Char123LocaleChar125RouteRoute;
-    };
     '/{-$locale}/404': {
       id: '/{-$locale}/404';
       path: '/404';
@@ -540,6 +533,13 @@ declare module '@tanstack/react-router' {
       path: '/$';
       fullPath: '/{-$locale}/$';
       preLoaderRoute: typeof Char123LocaleChar125SplatRouteImport;
+      parentRoute: typeof Char123LocaleChar125RouteRoute;
+    };
+    '/{-$locale}/_other': {
+      id: '/{-$locale}/_other';
+      path: '';
+      fullPath: '/{-$locale}';
+      preLoaderRoute: typeof Char123LocaleChar125OtherRouteRouteImport;
       parentRoute: typeof Char123LocaleChar125RouteRoute;
     };
     '/{-$locale}/_dashboard': {
@@ -561,7 +561,7 @@ declare module '@tanstack/react-router' {
       path: '/pricing';
       fullPath: '/{-$locale}/pricing';
       preLoaderRoute: typeof Char123LocaleChar125OtherPricingRouteImport;
-      parentRoute: typeof Char123LocaleChar125OtherRoute;
+      parentRoute: typeof Char123LocaleChar125OtherRouteRoute;
     };
     '/{-$locale}/_dashboard/projects': {
       id: '/{-$locale}/_dashboard/projects';
@@ -596,14 +596,14 @@ declare module '@tanstack/react-router' {
       path: '/onboarding/$step';
       fullPath: '/{-$locale}/onboarding/$step';
       preLoaderRoute: typeof Char123LocaleChar125OtherOnboardingStepRouteImport;
-      parentRoute: typeof Char123LocaleChar125OtherRoute;
+      parentRoute: typeof Char123LocaleChar125OtherRouteRoute;
     };
     '/{-$locale}/_other/auth/cli-login': {
       id: '/{-$locale}/_other/auth/cli-login';
       path: '/auth/cli-login';
       fullPath: '/{-$locale}/auth/cli-login';
       preLoaderRoute: typeof Char123LocaleChar125OtherAuthCliLoginRouteImport;
-      parentRoute: typeof Char123LocaleChar125OtherRoute;
+      parentRoute: typeof Char123LocaleChar125OtherRouteRoute;
     };
     '/{-$locale}/_dashboard/_admin/admin': {
       id: '/{-$locale}/_dashboard/_admin/admin';
@@ -617,14 +617,14 @@ declare module '@tanstack/react-router' {
       path: '/auth';
       fullPath: '/{-$locale}/auth';
       preLoaderRoute: typeof Char123LocaleChar125OtherAuthNotAuthenticatedRouteRouteImport;
-      parentRoute: typeof Char123LocaleChar125OtherRoute;
+      parentRoute: typeof Char123LocaleChar125OtherRouteRoute;
     };
     '/{-$locale}/_other/auth/_authenticated': {
       id: '/{-$locale}/_other/auth/_authenticated';
       path: '/auth';
       fullPath: '/{-$locale}/auth';
       preLoaderRoute: typeof Char123LocaleChar125OtherAuthAuthenticatedRouteRouteImport;
-      parentRoute: typeof Char123LocaleChar125OtherRoute;
+      parentRoute: typeof Char123LocaleChar125OtherRouteRoute;
     };
     '/{-$locale}/_dashboard/_editor/_content': {
       id: '/{-$locale}/_dashboard/_editor/_content';
@@ -645,21 +645,21 @@ declare module '@tanstack/react-router' {
       path: '/auth/password/reset';
       fullPath: '/{-$locale}/auth/password/reset';
       preLoaderRoute: typeof Char123LocaleChar125OtherAuthPasswordResetRouteImport;
-      parentRoute: typeof Char123LocaleChar125OtherRoute;
+      parentRoute: typeof Char123LocaleChar125OtherRouteRoute;
     };
     '/{-$locale}/_other/auth/password/ask-reset': {
       id: '/{-$locale}/_other/auth/password/ask-reset';
       path: '/auth/password/ask-reset';
       fullPath: '/{-$locale}/auth/password/ask-reset';
       preLoaderRoute: typeof Char123LocaleChar125OtherAuthPasswordAskResetRouteImport;
-      parentRoute: typeof Char123LocaleChar125OtherRoute;
+      parentRoute: typeof Char123LocaleChar125OtherRouteRoute;
     };
     '/{-$locale}/_other/auth/password/_layout': {
       id: '/{-$locale}/_other/auth/password/_layout';
       path: '/auth/password';
       fullPath: '/{-$locale}/auth/password';
       preLoaderRoute: typeof Char123LocaleChar125OtherAuthPasswordLayoutRouteImport;
-      parentRoute: typeof Char123LocaleChar125OtherRoute;
+      parentRoute: typeof Char123LocaleChar125OtherRouteRoute;
     };
     '/{-$locale}/_other/auth/_not-authenticated/register': {
       id: '/{-$locale}/_other/auth/_not-authenticated/register';
@@ -956,7 +956,7 @@ const Char123LocaleChar125OtherAuthNotAuthenticatedRouteRouteWithChildren =
     Char123LocaleChar125OtherAuthNotAuthenticatedRouteRouteChildren
   );
 
-interface Char123LocaleChar125OtherRouteChildren {
+interface Char123LocaleChar125OtherRouteRouteChildren {
   Char123LocaleChar125OtherPricingRoute: typeof Char123LocaleChar125OtherPricingRoute;
   Char123LocaleChar125OtherAuthAuthenticatedRouteRoute: typeof Char123LocaleChar125OtherAuthAuthenticatedRouteRouteWithChildren;
   Char123LocaleChar125OtherAuthNotAuthenticatedRouteRoute: typeof Char123LocaleChar125OtherAuthNotAuthenticatedRouteRouteWithChildren;
@@ -967,7 +967,7 @@ interface Char123LocaleChar125OtherRouteChildren {
   Char123LocaleChar125OtherAuthPasswordResetRoute: typeof Char123LocaleChar125OtherAuthPasswordResetRoute;
 }
 
-const Char123LocaleChar125OtherRouteChildren: Char123LocaleChar125OtherRouteChildren =
+const Char123LocaleChar125OtherRouteRouteChildren: Char123LocaleChar125OtherRouteRouteChildren =
   {
     Char123LocaleChar125OtherPricingRoute:
       Char123LocaleChar125OtherPricingRoute,
@@ -987,25 +987,26 @@ const Char123LocaleChar125OtherRouteChildren: Char123LocaleChar125OtherRouteChil
       Char123LocaleChar125OtherAuthPasswordResetRoute,
   };
 
-const Char123LocaleChar125OtherRouteWithChildren =
-  Char123LocaleChar125OtherRoute._addFileChildren(
-    Char123LocaleChar125OtherRouteChildren
+const Char123LocaleChar125OtherRouteRouteWithChildren =
+  Char123LocaleChar125OtherRouteRoute._addFileChildren(
+    Char123LocaleChar125OtherRouteRouteChildren
   );
 
 interface Char123LocaleChar125RouteRouteChildren {
   Char123LocaleChar125DashboardRouteRoute: typeof Char123LocaleChar125DashboardRouteRouteWithChildren;
+  Char123LocaleChar125OtherRouteRoute: typeof Char123LocaleChar125OtherRouteRouteWithChildren;
   Char123LocaleChar125SplatRoute: typeof Char123LocaleChar125SplatRoute;
   Char123LocaleChar125404Route: typeof Char123LocaleChar125404Route;
-  Char123LocaleChar125OtherRoute: typeof Char123LocaleChar125OtherRouteWithChildren;
 }
 
 const Char123LocaleChar125RouteRouteChildren: Char123LocaleChar125RouteRouteChildren =
   {
     Char123LocaleChar125DashboardRouteRoute:
       Char123LocaleChar125DashboardRouteRouteWithChildren,
+    Char123LocaleChar125OtherRouteRoute:
+      Char123LocaleChar125OtherRouteRouteWithChildren,
     Char123LocaleChar125SplatRoute: Char123LocaleChar125SplatRoute,
     Char123LocaleChar125404Route: Char123LocaleChar125404Route,
-    Char123LocaleChar125OtherRoute: Char123LocaleChar125OtherRouteWithChildren,
   };
 
 const Char123LocaleChar125RouteRouteWithChildren =

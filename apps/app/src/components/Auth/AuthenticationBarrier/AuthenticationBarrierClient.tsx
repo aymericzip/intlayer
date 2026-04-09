@@ -14,6 +14,11 @@ type AuthenticationBarrierPropsClient = Omit<
 > & {
   redirectionRoute?: string;
   originUrl?: string;
+  /**
+   * If false, render the loader before redirecting if access is not allowed.
+   * If true, render the children before redirecting if access is not allowed.
+   */
+  isPermissive?: boolean;
 };
 
 export const AuthenticationBarrierClient: FC<
@@ -25,6 +30,7 @@ export const AuthenticationBarrierClient: FC<
   accessRule,
   isEnabled,
   originUrl,
+  isPermissive = true,
 }) => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
@@ -60,6 +66,10 @@ export const AuthenticationBarrierClient: FC<
     originUrl,
     navigate,
   ]);
+
+  if (isPermissive) {
+    return children;
+  }
 
   return <Loader isLoading={isLoading}>{children}</Loader>;
 };

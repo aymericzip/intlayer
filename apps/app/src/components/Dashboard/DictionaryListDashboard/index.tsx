@@ -2,7 +2,6 @@ import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
 import { CopyToClipboard } from '@intlayer/design-system/copy-to-clipboard';
 import { Checkbox } from '@intlayer/design-system/input';
-import { Loader } from '@intlayer/design-system/loader';
 import {
   NumberItemsSelector,
   Pagination,
