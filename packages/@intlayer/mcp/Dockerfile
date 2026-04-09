@@ -53,8 +53,7 @@ COPY \
     --exclude=apps/website \
     --exclude=apps/showcase \
     --exclude=apps/app \
-    --exclude=apps/_app \
-    --exclude=apps/doc \
+        --exclude=apps/doc \
     --exclude=**/*.stories.* \
     . .
 

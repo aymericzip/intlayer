@@ -1,1 +1,0 @@
-export { SSOButton } from './SSOButton';

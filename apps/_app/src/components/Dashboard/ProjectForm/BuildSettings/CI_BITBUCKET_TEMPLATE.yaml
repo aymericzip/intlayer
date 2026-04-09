@@ -1,9 +1,0 @@
-# bitbucket-pipelines.yml
-pipelines:
-  custom:
-    intlayer-cms-update:
-      - step:
-          name: Build
-          script:
-            - npm ci
-            - npm run build

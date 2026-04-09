@@ -1,1 +1,0 @@
-export { SSOSettings } from './SSOSettings';

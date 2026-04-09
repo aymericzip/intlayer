@@ -41,8 +41,7 @@ COPY \
   --exclude=docs/frequent_questions \
   --exclude=docs/legal \
   --exclude=apps/website \
-  --exclude=apps/_app \
-  --exclude=apps/app \
+    --exclude=apps/app \
   --exclude=apps/doc \
   --exclude=apps/showcase \
   --exclude=plugins \

@@ -42,7 +42,6 @@ COPY \
     --exclude=apps/website \
     --exclude=apps/showcase \
     --exclude=apps/doc \
-    --exclude=apps/_app \
     --exclude=plugins \
     --exclude=docs/assets \
     --exclude=examples \

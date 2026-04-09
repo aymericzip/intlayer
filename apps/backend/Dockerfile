@@ -65,8 +65,7 @@ COPY \
     --exclude=examples \
     --exclude=apps/website \
     --exclude=apps/showcase \
-    --exclude=apps/_app \
-    --exclude=apps/app \
+        --exclude=apps/app \
     --exclude=apps/doc \
     --exclude=**/*.stories.* \
     . .

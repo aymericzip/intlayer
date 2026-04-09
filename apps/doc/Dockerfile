@@ -40,7 +40,6 @@ COPY \
     --exclude=packages/hono-intlayer \
     --exclude=packages/adonis-intlayer \
     --exclude=apps/website \
-    --exclude=apps/_app \
     --exclude=apps/app \
     --exclude=apps/showcase \
     --exclude=plugins \
