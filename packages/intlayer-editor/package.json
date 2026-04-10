@@ -106,7 +106,7 @@
     "@intlayer/types": "workspace:*",
     "@rolldown/plugin-babel": "^0.2.2",
     "@tailwindcss/vite": "4.2.2",
-    "@tanstack/react-query": "5.96.2",
+    "@tanstack/react-query": "5.97.0",
     "@types/node": "25.5.2",
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
@@ -118,7 +118,7 @@
     "fuse.js": "7.3.0",
     "globals": "17.4.0",
     "intlayer": "workspace:*",
-    "lucide-react": "1.7.0",
+    "lucide-react": "1.8.0",
     "react": "19.2.5",
     "react-dom": "19.2.5",
     "react-intlayer": "workspace:*",
@@ -126,9 +126,9 @@
     "tailwindcss": "4.2.2",
     "tsdown": "0.21.7",
     "typescript": "6.0.2",
-    "vite": "8.0.7",
+    "vite": "8.0.8",
     "vite-intlayer": "workspace:*",
-    "vitest": "4.1.3"
+    "vitest": "4.1.4"
   },
   "engines": {
     "node": ">=18.0.0"
