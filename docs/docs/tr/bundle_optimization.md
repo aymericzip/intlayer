@@ -239,7 +239,10 @@ bun add -d @intlayer/babel
 ```
 
 ```typescript fileName="babel.config.js"
-const { getOptimizePluginOptions } = require("@intlayer/babel");
+const {
+  getOptimizePluginOptions,
+  intlayerOptimizeBabelPlugin,
+} = require("@intlayer/babel");
 
 module.exports = {
   plugins: [[intlayerOptimizeBabelPlugin, getOptimizePluginOptions()]],

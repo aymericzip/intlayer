@@ -239,7 +239,10 @@ bun add -d @intlayer/babel
 ```
 
 ```typescript fileName="babel.config.js"
-const { getOptimizePluginOptions } = require("@intlayer/babel");
+const {
+  getOptimizePluginOptions,
+  intlayerOptimizeBabelPlugin,
+} = require("@intlayer/babel");
 
 module.exports = {
   plugins: [[intlayerOptimizeBabelPlugin, getOptimizePluginOptions()]],
@@ -337,7 +340,9 @@ export default config;
 
 ### Import Mode
 
-For large applications, including several pages and locales, your JSON can represent a significant part of your bundle size. Intlayer allows you to control how dictionaries are loaded.
+For large applications, including several pages and locales, your JSON can represent a significant part of your bundle size. Intlayer allows you to control how dictionaries are loaded using the `importMode` option.
+
+### Global definition
 
 The import mode can be defined by default globally in your `intlayer.config.ts` file.
 
@@ -345,13 +350,15 @@ The import mode can be defined by default globally in your `intlayer.config.ts` 
 import type { IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
-  build: {
-    minify: true,
+  dictionary: {
+    importMode: "dynamic", // Default is 'static'
   },
 };
 
 export default config;
 ```
+
+### Per dictionary fine-grained definition
 
 As well as for each dictionaries in your `.content.{{ts|tsx|js|jsx|mjs|cjs|json|jsonc|json5}}` files.
 
@@ -390,7 +397,8 @@ In static mode, Intlayer replaces `useIntlayer` with `useDictionary` and injects
 // Your code
 const content = useIntlayer("my-key");
 
-// Optimized code (Static)
+// Optimized code illustration after transformation (Static)
+// This is only for illustration purposes, the actual code will be different for optimization reasons
 const content = useDictionary({
   key: "my-key",
   content: {
@@ -417,7 +425,8 @@ In dynamic mode, Intlayer replaces `useIntlayer` with `useDictionaryAsync`. This
 // Your code
 const content = useIntlayer("my-key");
 
-// Optimized code (Dynamic)
+// Optimized code illustration after transformation (Dynamic)
+// This is only for illustration purposes, the actual code will be different for optimization reasons
 const content = useDictionaryAsync({
   en: () =>
     import(".intlayer/dynamic_dictionary/my-key/en.json").then(
@@ -430,11 +439,30 @@ const content = useDictionaryAsync({
 });
 ```
 
-> When using `importMode: 'dynamic'`, if you have 100 components using `useIntlayer` on a single page, the browser will attempt 100 separate fetches. To avoid this "waterfall" of requests, group content into fewer `.content` files (e.g., one dictionary per page section) rather than one per atom component.
+> When using `importMode: 'dynamic'`, if you have 100 components using `useIntlayer` on a single page, the browser will attempt 100 separate fetches. To avoid this "waterfall" of requests, group content into fewer `.content` files (e.g., one dictionary per page section) rather than one per atom component. You can also use multiple `.content` files using the same key. Intlayer will merge them into a single dictionary.
 
 ### 3. Fetch Mode
 
 Behaves similarly to Dynamic mode but attempts to fetch dictionaries from the Intlayer Live Sync API first. If the API call fails or the content is not marked for live updates, it falls back to the dynamic import.
+
+**Transformed Code Example:**
+
+```tsx
+// Your code
+const content = useIntlayer("my-key");
+
+// Optimized code illustration (Fetch)
+const content = useDictionaryAsync({
+  en: () =>
+    fetch("https://intlayer.my-domain.com/dictionary/my-key/en").then((res) =>
+      res.json()
+    ),
+  fr: () =>
+    fetch("https://intlayer.my-domain.com/dictionary/my-key/fr").then((res) =>
+      res.json()
+    ),
+});
+```
 
 > See CMS documentation for more details: [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)
 
@@ -446,6 +474,6 @@ Behaves similarly to Dynamic mode but attempts to fetch dictionaries from the In
 | :------------------- | :-------------------------------------------- | :----------------------------------- |
 | **JS Bundle Size**   | Larger (includes all langs for the component) | Smallest (only code, no content)     |
 | **Initial Load**     | Instant (Content is in bundle)                | Slight delay (Fetches JSON)          |
-| **Network Requests** | 0 extra requests                              | 1 request per dictionary             |
+| **Network Requests** | 0 extra requests                              | 1 request per dictionary key         |
 | **Tree Shaking**     | Component-level                               | Component-level + Locale-level       |
 | **Best Use Case**    | UI Components, Small Apps                     | Pages with much text, Many Languages |
