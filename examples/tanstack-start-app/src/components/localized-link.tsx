@@ -6,35 +6,19 @@ import { useLocale } from 'react-intlayer';
 
 export const LOCALE_ROUTE = '{-$locale}' as const;
 
-// Renamed 'T' to 'TVal' to be explicit, though 'T' is usually allowed.
-// Renamed 'S' to 'TString' to satisfy the linter.
-export type RemoveLocaleParam<TVal> = TVal extends string
-  ? RemoveLocaleFromString<TVal>
-  : TVal;
+export type To = StripLocalePrefix<LinkComponentProps['to']>;
 
-export type To = RemoveLocaleParam<LinkComponentProps['to']>;
-
-// 'TString' replaces 'S', 'THead' replaces 'H', 'TTail' replaces 'T'
-type CollapseDoubleSlashes<TString extends string> =
-  TString extends `${infer THead}//${infer TTail}`
-    ? CollapseDoubleSlashes<`${THead}/${TTail}`>
-    : TString;
+export type StripLocalePrefix<T extends string | undefined> = T extends
+  | `/${typeof LOCALE_ROUTE}/`
+  | `/${typeof LOCALE_ROUTE}`
+  ? '/'
+  : T extends `/${typeof LOCALE_ROUTE}/${infer Rest}`
+    ? `/${Rest}`
+    : T;
 
 type LocalizedLinkProps = {
   to?: To;
 } & Omit<LinkComponentProps, 'to'>;
-
-// 'TString' replaces 'S', 'TSub' replaces 'Sub'
-type RemoveAll<
-  TString extends string,
-  TSub extends string,
-> = TString extends `${infer THead}${TSub}${infer TTail}`
-  ? RemoveAll<`${THead}${TTail}`, TSub>
-  : TString;
-
-type RemoveLocaleFromString<TString extends string> = CollapseDoubleSlashes<
-  RemoveAll<TString, typeof LOCALE_ROUTE>
->;
 
 export const LocalizedLink: FC<LocalizedLinkProps> = (props) => {
   const { locale } = useLocale();

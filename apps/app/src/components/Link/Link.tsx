@@ -15,7 +15,7 @@ import { ExternalLink, MoveRight } from 'lucide-react';
 import type { FC } from 'react';
 import { useLocale } from 'react-intlayer';
 
-export const LOCALE_ROUTE = '{-$locale}';
+export const LOCALE_ROUTE = '{-$locale}' as const;
 
 export type StripLocalePrefix<T extends string | undefined> = T extends
   | `/${typeof LOCALE_ROUTE}/`

@@ -1,6 +1,7 @@
 import { usePersistedStore } from '@intlayer/design-system/hooks';
-import { useNavigate, useParams, useSearch } from '@tanstack/react-router';
+import { useParams, useSearch } from '@tanstack/react-router';
 import type { Period, Plans } from '#components/PricingPage/data.content';
+import { useLocalizedNavigate } from '#hooks/useLocalizedNavigate';
 import { formatOnboardUrl } from './formatOnboardUrl';
 import {
   type OnboardingStepIds,
@@ -12,7 +13,7 @@ import {
 export const useStep = <T extends OnboardingStepIds>(stepId: T) => {
   type Step = (typeof onboardingSteps)[T];
 
-  const navigate = useNavigate();
+  const navigate = useLocalizedNavigate();
   const stepConfig = onboardingSteps[stepId] as Step;
 
   // 1. Extract step from path
@@ -108,7 +109,7 @@ export const useStep = <T extends OnboardingStepIds>(stepId: T) => {
     setDynamicsContent((prev) => ({
       ...prev,
       formData: {
-        ...(prev?.formData as Step['formData']),
+        ...(typeof prev?.formData === 'object' ? prev?.formData : {}),
         ...data,
       },
     }));

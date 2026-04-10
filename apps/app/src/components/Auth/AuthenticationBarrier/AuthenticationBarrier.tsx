@@ -37,8 +37,9 @@ export const AuthenticationBarrier: FC<AuthenticationBarrierProps> = ({
     redirectUrl ??
     `${App_Auth_SignIn_Path}?redirect_url=${encodeURIComponent(effectivePathname)}`;
 
-  const localizedRedirectionURL =
-    locale ? getLocalizedUrl(redirectURL, locale) : redirectURL;
+  const localizedRedirectionURL = locale
+    ? getLocalizedUrl(redirectURL, locale)
+    : redirectURL;
 
   return (
     <AuthenticationBarrierClient

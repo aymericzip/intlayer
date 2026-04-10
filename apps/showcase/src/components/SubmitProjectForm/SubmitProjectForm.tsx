@@ -3,11 +3,11 @@ import { Form, useForm } from '@intlayer/design-system/form';
 import { useSession } from '@intlayer/design-system/hooks';
 import { Loader } from '@intlayer/design-system/loader';
 import { App_Auth_SignIn } from '@intlayer/design-system/routes';
-import { useNavigate } from '@tanstack/react-router';
 import { ArrowLeft } from 'lucide-react';
 import { type FC, type FocusEvent, useEffect, useState } from 'react';
-import { useIntlayer, useLocale } from 'react-intlayer';
+import { useIntlayer } from 'react-intlayer';
 import { Link } from '#components/Link/Link';
+import { useLocalizedNavigate } from '#hooks/useLocalizedNavigate';
 import { ModalStatus } from './ModalStatus';
 import { ProjectFormFields } from './ProjectFormFields';
 import { useProjectSubmit } from './useProjectSubmit';
@@ -15,8 +15,7 @@ import { useSubmitProjectFormSchema } from './useSubmitProjectFormSchema';
 
 export const SubmitProjectForm: FC = () => {
   const [isHydrated, setIsHydrated] = useState(false);
-  const navigate = useNavigate();
-  const { locale } = useLocale();
+  const navigate = useLocalizedNavigate();
   const { session, revalidateSession } = useSession();
   const schema = useSubmitProjectFormSchema();
 
@@ -153,10 +152,10 @@ export const SubmitProjectForm: FC = () => {
           onSuccess={() =>
             submittedProject
               ? navigate({
-                  to: '/{-$locale}/project/$projectId',
-                  params: { locale, projectId: submittedProject.id },
+                  to: '/project/$projectId',
+                  params: { projectId: submittedProject.id },
                 })
-              : navigate({ to: '/{-$locale}', params: { locale } })
+              : navigate('/')
           }
         />
       </Container>

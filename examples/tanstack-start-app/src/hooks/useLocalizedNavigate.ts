@@ -1,36 +1,35 @@
 import { useNavigate } from '@tanstack/react-router';
 import { getPrefix } from 'intlayer';
 import { useLocale } from 'react-intlayer';
-import { LOCALE_ROUTE } from '#/components/localized-link';
+import {
+  LOCALE_ROUTE,
+  type StripLocalePrefix,
+} from '#/components/localized-link';
 import type { FileRouteTypes } from '#/routeTree.gen';
+
+type NavigateFn = ReturnType<typeof useNavigate>;
+type BaseNavigateOptions = Parameters<NavigateFn>[0];
+
+type LocalizedTo = StripLocalePrefix<FileRouteTypes['to']>;
+
+export type LocalizedNavigateOptions = Omit<
+  BaseNavigateOptions,
+  'to' | 'params'
+> & {
+  to: LocalizedTo;
+  params?: Omit<NonNullable<BaseNavigateOptions['params']>, 'locale'>;
+};
+
+type LocalizedNavigate = (
+  options: LocalizedNavigateOptions
+) => ReturnType<NavigateFn>;
 
 export const useLocalizedNavigate = () => {
   const navigate = useNavigate();
 
   const { locale } = useLocale();
 
-  type StripLocalePrefix<T extends string> = T extends
-    | `/${typeof LOCALE_ROUTE}/`
-    | `/${typeof LOCALE_ROUTE}`
-    ? '/'
-    : T extends `/${typeof LOCALE_ROUTE}/${infer Rest}`
-      ? `/${Rest}`
-      : never;
-
-  type LocalizedTo = StripLocalePrefix<FileRouteTypes['to']>;
-
-  type LocalizedNavigate = (
-    args: ({ to: LocalizedTo } & Record<string, unknown>) | LocalizedTo
-  ) => ReturnType<typeof navigate>;
-
   const localizedNavigate: LocalizedNavigate = (args) => {
-    if (typeof args === 'string') {
-      return navigate({
-        params: { locale: getPrefix(locale).localePrefix },
-        to: `/${LOCALE_ROUTE}${args}`,
-      });
-    }
-
     const { params: existingParams, to, ...rest } = args;
 
     const localizedTo = `/${LOCALE_ROUTE}${to}`;
@@ -38,9 +37,9 @@ export const useLocalizedNavigate = () => {
     return navigate({
       ...rest,
       params: {
-        locale: getPrefix(locale).localePrefix,
         ...(existingParams ?? {}),
-      },
+        locale: getPrefix(locale).localePrefix,
+      } as any,
       to: localizedTo,
     });
   };
