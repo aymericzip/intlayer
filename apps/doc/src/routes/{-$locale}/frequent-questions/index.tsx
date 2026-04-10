@@ -10,7 +10,7 @@ import {
 } from 'intlayer';
 import { ArrowRight } from 'lucide-react';
 import { useIntlayer } from 'react-intlayer';
-import { Link } from '#/components/Link';
+import { Link } from '#components/Link/Link';
 
 export const Route = createFileRoute('/{-$locale}/frequent-questions/')({
   loader: async ({ params }) => {
@@ -70,7 +70,7 @@ function FrequentQuestionsPage() {
         {frequentQuestions.map((frequentQuestion) => (
           <Link
             key={frequentQuestion.docKey}
-            href={frequentQuestion.url}
+            to={frequentQuestion.url}
             label={frequentQuestion.title}
             variant="hoverable"
             color="neutral"

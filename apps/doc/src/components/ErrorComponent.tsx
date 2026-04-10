@@ -3,7 +3,7 @@ import { Container } from '@intlayer/design-system/container';
 import { Showcase_Root_Path } from '@intlayer/design-system/routes';
 import type { ErrorComponentProps } from '@tanstack/react-router';
 import { useIntlayer } from 'react-intlayer';
-import { Link } from '#components/Link';
+import { Link } from '#components/Link/Link';
 
 export const ErrorComponent = ({ error, reset }: ErrorComponentProps) => {
   const content = useIntlayer('error-component', 'en');

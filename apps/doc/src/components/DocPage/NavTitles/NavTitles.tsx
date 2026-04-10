@@ -5,7 +5,7 @@ import { useLocation } from '@tanstack/react-router';
 import { getPathWithoutLocale } from 'intlayer';
 import { type FC, useRef } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { Link } from '#/components/Link';
+import { Link } from '#components/Link/Link';
 import { useActiveSection } from '../useActiveSection';
 import { useTitlesTree } from '../useTitlesTree';
 
@@ -28,7 +28,7 @@ const NavTitles2: FC<NavTitles2Props> = ({ title2, activeSectionsId }) => {
         return (
           <li key={id}>
             <Link
-              href={`${pathWithoutLocale}#${id}`}
+              to={`${pathWithoutLocale}#${id}`}
               label={`${linkLabel}: ${h3.innerText}`}
               aria-current={isActive ? 'location' : undefined}
               color="text"
@@ -79,7 +79,7 @@ export const NavTitles: FC = () => {
             <li key={id}>
               <Link
                 label={`${linkLabel.value}: ${h2.innerText}`}
-                href={`${pathWithoutLocale}#${id}`}
+                to={`${pathWithoutLocale}#${id}`}
                 color="text"
                 roundedSize="lg"
                 variant="hoverable"

@@ -18,7 +18,7 @@ export const ApplicationTemplateMessage: FC<
   return (
     <PopoverStatic identifier="mcp">
       <Link
-        href={applicationTemplateUrl}
+        to={applicationTemplateUrl}
         label={label.value}
         color="text"
         className="flex p-2"

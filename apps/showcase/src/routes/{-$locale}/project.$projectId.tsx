@@ -11,11 +11,11 @@ import {
   localeMap,
 } from 'intlayer';
 import { useIntlayer } from 'react-intlayer';
-import { Link } from '#/components/Link';
 import { ProjectFocus } from '#/components/ProjectFocus/ProjectFocus';
 import { ShowcaseHeader } from '#/components/ShowcaseHeader';
 import { BreadcrumbsHeader } from '#/structuredData/BreadcrumbsHeader';
 import type { ShowcaseProject } from '#/utils/projectActions/types';
+import { Link } from '#components/Link/Link';
 
 export const Route = createFileRoute('/{-$locale}/project/$projectId')({
   loader: async ({ params }) => {

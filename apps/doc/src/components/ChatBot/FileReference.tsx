@@ -1,8 +1,8 @@
-import { Link } from '@intlayer/design-system/link';
 import { Tag } from '@intlayer/design-system/tag';
 import { File } from 'lucide-react';
 import type { FC } from 'react';
 import { type IntlayerNode, useIntlayer } from 'react-intlayer';
+import { Link } from '#components/Link/Link';
 
 const FileReferenceTag: FC<{
   fileTitle: IntlayerNode | string;
@@ -12,7 +12,7 @@ const FileReferenceTag: FC<{
     <Link
       label="See the documentation"
       className="flex flex-row flex-nowrap items-center gap-2 text-nowrap"
-      href={fileUrl}
+      to={fileUrl}
       color="text"
       target="_blank"
     >

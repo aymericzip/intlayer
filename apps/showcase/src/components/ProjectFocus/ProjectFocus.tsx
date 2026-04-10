@@ -1,12 +1,11 @@
 import { Container } from '@intlayer/design-system/container';
-import { Link as DSLink } from '@intlayer/design-system/link';
 import { Showcase_Root_Path } from '@intlayer/design-system/routes';
 import { useParams } from '@tanstack/react-router';
 import { defaultLocale } from 'intlayer';
 import { ArrowLeft, Code } from 'lucide-react';
 import { useIntlayer } from 'react-intlayer';
-import { Link } from '#/components/Link';
 import type { ShowcaseProject } from '#/utils/projectActions/types';
+import { Link as DSLink, Link } from '#components/Link/Link';
 import { MoreProjects } from './MoreProjects';
 import { ProjectReadme } from './ProjectReadme';
 import { ProjectScanDetails } from './ProjectScanDetails';
@@ -84,7 +83,7 @@ export const ProjectFocus = ({ project }: ProjectFocusProps) => {
                   className="group h-full flex-1 shadow-sm transition-all"
                 >
                   <DSLink
-                    href={project.githubUrl}
+                    to={project.githubUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     variant="button-outlined"
@@ -100,7 +99,7 @@ export const ProjectFocus = ({ project }: ProjectFocusProps) => {
                 </Container>
               )}
               <DSLink
-                href={project.websiteUrl}
+                to={project.websiteUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 color="text"

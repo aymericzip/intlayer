@@ -2,7 +2,7 @@ import { getIntlayerMarkdownOptions } from '@intlayer/design-system/mark-down-re
 import type { ComponentProps, FC, PropsWithChildren } from 'react';
 import { useEffect, useState } from 'react';
 import { MarkdownProvider } from 'react-intlayer/markdown';
-import { Link } from '#/components/Link';
+import { Link } from '#components/Link/Link';
 
 const useIsDark = () => {
   const [isDark, setIsDark] = useState(

@@ -1,7 +1,7 @@
 import { getIntlayerMarkdownOptions } from '@intlayer/design-system/mark-down-render';
 import type { FC, PropsWithChildren } from 'react';
 import { MarkdownProvider } from 'react-intlayer/markdown';
-import { Link } from '#/components/Link';
+import { Link } from '#components/Link/Link';
 import { useTheme } from './ThemeProvider';
 
 export const IntlayerMarkdownProvider: FC<PropsWithChildren> = ({
@@ -19,7 +19,7 @@ export const IntlayerMarkdownProvider: FC<PropsWithChildren> = ({
         ...markdownOptions.components,
         a: (props) => (
           <Link
-            href=""
+            to=""
             label=""
             underlined={true}
             {...(props as any)}

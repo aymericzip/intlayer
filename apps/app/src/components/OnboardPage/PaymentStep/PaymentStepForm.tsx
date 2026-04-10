@@ -174,7 +174,12 @@ export const PaymentStepContent: FC<PaymentDetailsProps> = ({
     isLoading || (!isPlanValid && !isPaymentElementReady);
 
   return (
-    <form onSubmit={onSubmit} autoComplete="on" className="flex flex-col gap-6">
+    <form
+      onSubmit={onSubmit}
+      autoComplete="on"
+      className="flex flex-col gap-6"
+      method="post"
+    >
       <StepLayout
         onGoToPreviousStep={goPreviousStep}
         isLoading={isLoading}

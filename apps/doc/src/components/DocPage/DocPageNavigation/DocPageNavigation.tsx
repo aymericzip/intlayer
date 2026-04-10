@@ -1,8 +1,8 @@
 import { Container } from '@intlayer/design-system/container';
-import { Link } from '@intlayer/design-system/link';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
+import { Link } from '#components/Link/Link';
 
 export type DocPageNavigationProps = {
   nextDoc?: {
@@ -26,7 +26,7 @@ export const DocPageNavigation: FC<DocPageNavigationProps> = ({
       {prevDoc && (
         <Container className="max-w-1/2 flex-1">
           <Link
-            href={prevDoc?.url}
+            to={prevDoc?.url}
             label={goToPreviousSection.label.value}
             color="neutral"
             variant="button-outlined"
@@ -40,7 +40,7 @@ export const DocPageNavigation: FC<DocPageNavigationProps> = ({
       {nextDoc && (
         <Container className="ml-auto max-w-1/2 flex-1">
           <Link
-            href={nextDoc?.url}
+            to={nextDoc?.url}
             label={goToNextSection.label.value}
             variant="button-outlined"
             color="neutral"

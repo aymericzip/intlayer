@@ -18,8 +18,8 @@ import { ArrowLeftToLine, Bot } from 'lucide-react';
 import { type ComponentProps, type FC, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { SearchTrigger } from '#/components/DocPage/Search/SearchTrigger';
-import { Link, type To } from '#/components/Link';
 import { useScrollPositionPersistence } from '#/hooks/useScrollPositionPersistence';
+import { Link, type To } from '#components/Link/Link';
 import {
   FrameworkFilter,
   FrameworkLogo,

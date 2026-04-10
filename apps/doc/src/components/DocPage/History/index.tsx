@@ -8,7 +8,7 @@ import { Clock } from 'lucide-react';
 import type { FC } from 'react';
 import { useIntlayer, useLocale } from 'react-intlayer';
 import { useDate } from 'react-intlayer/format';
-import { Link } from '#/components/Link';
+import { Link } from '#components/Link/Link';
 
 type HistoryProps = {
   pageUrl: string;
@@ -65,7 +65,7 @@ export const History: FC<HistoryProps> = ({
               {message.after}
             </p>
             <Link
-              href={localizedUrl}
+              to={localizedUrl}
               locale={defaultLocale}
               label={link.label.value}
               color="text"

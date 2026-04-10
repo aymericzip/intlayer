@@ -1,4 +1,3 @@
-import { Link } from '@intlayer/design-system/link';
 import { LogoWithText } from '@intlayer/design-system/logo';
 import { Navbar as UINavBar } from '@intlayer/design-system/navbar';
 import { DiscordLogo } from '@intlayer/design-system/social-networks';
@@ -7,6 +6,7 @@ import { useLocation, useRouter } from '@tanstack/react-router';
 import { StarIcon } from 'lucide-react';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
+import { Link } from '#components/Link/Link';
 import { LocaleSwitcher } from '../LocaleSwitcher/LocaleSwitcher';
 import { ProfileDropDown } from '../ProfileDropdown/ProfileDropdown';
 import { SwitchThemeSwitcher } from '../SwitchThemeSwitcher';
@@ -56,7 +56,7 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
     <UINavBar
       logo={
         <Link
-          href={logo.url.value}
+          to={logo.url.value}
           label={logo.label.value}
           isExternalLink={false}
           color="text"
@@ -71,7 +71,7 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
           <Link
             id={id?.value}
             key={id?.value}
-            href={url.value}
+            to={url.value}
             label={label.value}
             isExternalLink={false}
             aria-current={
@@ -90,7 +90,7 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
           <Link
             id={id?.value}
             key={id?.value}
-            href={url.value}
+            to={url.value}
             isExternalLink={false}
             isActive={selectedChoice === getCleanChoice(url.value)}
             label={label.value}
@@ -106,7 +106,7 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
         <div className="flex w-full flex-col gap-4">
           <Link
             label={github.label.value}
-            href={github.url.value}
+            to={github.url.value}
             variant="button-outlined"
             color="text"
             className="group/github rounded-2xl! leading-6"
@@ -131,7 +131,7 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
           ) : (
             <Link
               label={login.label.value}
-              href={login.url.value}
+              to={login.url.value}
               variant="button"
               color="text"
             >
@@ -153,7 +153,7 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
           <SwitchThemeSwitcher />
           <Link
             label={discord.label.value}
-            href={discord.url.value}
+            to={discord.url.value}
             target="_blank"
             color="text"
             variant="button-outlined"
@@ -166,7 +166,7 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
 
           <Link
             label={github.label.value}
-            href={github.url.value}
+            to={github.url.value}
             color="text"
             variant="button"
             roundedSize="full"

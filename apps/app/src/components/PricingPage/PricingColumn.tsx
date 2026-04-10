@@ -122,6 +122,6 @@ export const PricingColumn: FC<PricingColumnProps> = ({
         </li>
       ))}
     </ul>
-    <link itemProp="availability" href="http://schema.org/InStock" />
+    <link itemProp="availability" to="http://schema.org/InStock" />
   </Container>
 );

@@ -2,7 +2,7 @@ import { PopoverStatic } from '@intlayer/design-system/popover';
 import { YoutubeLogo } from '@intlayer/design-system/social-networks';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { Link } from '#/components/Link';
+import { Link } from '#components/Link/Link';
 
 type YoutubeVideoMessageProps = {
   youtubeVideoUrl: string;
@@ -16,7 +16,7 @@ export const YoutubeVideoMessage: FC<YoutubeVideoMessageProps> = ({
   return (
     <PopoverStatic identifier="mcp">
       <Link
-        href={youtubeVideoUrl}
+        to={youtubeVideoUrl}
         label={label.value}
         color="text"
         className="flex p-2"

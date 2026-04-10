@@ -22,7 +22,7 @@ import {
   useState,
 } from 'react';
 import { useIntlayer, useLocale } from 'react-intlayer';
-import { Link } from '#/components/Link';
+import { Link } from '#components/Link/Link';
 
 // Fuse.js options
 const fuseOptions: IFuseOptions<DocMetadata> = {
@@ -92,7 +92,7 @@ const SearchResultItem: FC<{
       variant="hoverable"
       color="text"
       id={doc.url}
-      href={doc.url.replace(import.meta.env.VITE_SITE_URL ?? '', '')}
+      to={doc.url.replace(import.meta.env.VITE_SITE_URL ?? '', '')}
       className="w-full max-w-full"
       isActive={isSelected}
       onClick={onClickLink}

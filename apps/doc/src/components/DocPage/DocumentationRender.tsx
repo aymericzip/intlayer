@@ -4,8 +4,8 @@ import { MarkdownRenderer } from '@intlayer/design-system/mark-down-render';
 import { useTheme } from 'next-themes';
 import type { ComponentProps, FC } from 'react';
 import { useLocale } from 'react-intlayer';
-import { Link } from '#/components/Link';
 import { TableOfContents } from '#/components/TableOfContents';
+import { Link } from '#components/Link/Link';
 import { SectionScroller } from './SectionScroller';
 
 type DocumentationRenderProps = {
@@ -38,7 +38,7 @@ export const DocumentationRender: FC<DocumentationRenderProps> = ({
               locale={locale}
               {...props}
               label=""
-              href={props.href ?? ''}
+              to={props.href ?? ''}
             />
           ),
           TOC: (props: ComponentProps<typeof TableOfContents>) => (

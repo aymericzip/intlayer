@@ -9,7 +9,7 @@ import { getPathWithoutLocale } from 'intlayer';
 import { MoveVertical } from 'lucide-react';
 import { type FC, useRef } from 'react';
 import { useIntlayer, useLocale } from 'react-intlayer';
-import { Link } from '#/components/Link';
+import { Link } from '#components/Link/Link';
 import { useLocaleSearch } from './useLocaleSearch';
 
 export type LocaleSwitcherProps = {
@@ -106,7 +106,7 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
                   <li className="py-1 pr-3" key={localeItem}>
                     <Link
                       label={switchTo({ locale: localeItem }).value}
-                      href={pathWithoutLocale}
+                      to={pathWithoutLocale}
                       locale={localeItem}
                       isActive={locale === localeItem} // Add aria-current="page" for accessibility
                       variant="hoverable"

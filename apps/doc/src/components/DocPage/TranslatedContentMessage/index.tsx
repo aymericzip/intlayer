@@ -5,7 +5,7 @@ import { getLocalizedUrl } from 'intlayer';
 import { Languages } from 'lucide-react';
 import type { FC } from 'react';
 import { useIntlayer, useLocale, useLocaleCookie } from 'react-intlayer';
-import { Link } from '#/components/Link';
+import { Link } from '#components/Link/Link';
 
 type TranslatedContentMessageProps = {
   pageUrl: string;
@@ -33,7 +33,7 @@ export const TranslatedContentMessage: FC<TranslatedContentMessageProps> = ({
       >
         <p>{message}</p>
         <Link
-          href={localizedUrl}
+          to={localizedUrl}
           locale={defaultLocale}
           label={link.label.value}
           color="text"

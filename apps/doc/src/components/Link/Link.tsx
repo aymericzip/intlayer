@@ -15,10 +15,20 @@ import { ExternalLink, MoveRight } from 'lucide-react';
 import type { FC } from 'react';
 import { useLocale } from 'react-intlayer';
 
+export const LOCALE_ROUTE = '{-$locale}';
+
+export type StripLocalePrefix<T extends string | undefined> = T extends
+  | `/${typeof LOCALE_ROUTE}/`
+  | `/${typeof LOCALE_ROUTE}`
+  ? '/'
+  : T extends `/${typeof LOCALE_ROUTE}/${infer Rest}`
+    ? `/${Rest}`
+    : T;
+
 export type LinkProps = Omit<LinkUIProps, 'href'> &
   Omit<TansStackLinkProps, 'to'> & {
     locale?: string;
-    to: TansStackLinkProps['to'] | (string & {});
+    to: StripLocalePrefix<TansStackLinkProps['to']> | (string & {});
   };
 
 const URL = import.meta.env.VITE_SITE_URL;
@@ -35,7 +45,6 @@ export const Link: FC<LinkProps> = ({
   locale: localeProp,
   isExternalLink: isExternalLinkProp,
   isPageSection: isPageSectionProp,
-  href: hrefProp,
   roundedSize,
   size,
   ...otherProps
@@ -44,9 +53,9 @@ export const Link: FC<LinkProps> = ({
   const locale = localeProp ?? currentLocale;
 
   // Normalize internal links: convert https://intlayer.org/xxx to /xxx
-  let normalizedHref = hrefProp;
-  if (typeof hrefProp === 'string' && URL && hrefProp.startsWith(URL)) {
-    normalizedHref = hrefProp.replace(URL, '') || '/';
+  let normalizedHref = to;
+  if (typeof to === 'string' && URL && to.startsWith(URL)) {
+    normalizedHref = to.replace(URL, '') || '/';
   }
 
   // Check if external link using normalized href
@@ -115,6 +124,10 @@ export const Link: FC<LinkProps> = ({
         })
       )}
       {...otherProps}
+      params={{
+        locale,
+        ...(typeof otherProps?.params === 'object' ? otherProps.params : {}),
+      }}
     >
       {isButton && isChildrenString ? <span>{children}</span> : children}
     </TanStackLink>

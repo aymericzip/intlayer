@@ -1,11 +1,11 @@
 'use client';
 
 import { usePersistedStore } from '@intlayer/design-system/hooks';
-import { Link } from '@intlayer/design-system/link';
 import { Popover } from '@intlayer/design-system/popover';
 import { TechLogo, TechLogoName } from '@intlayer/design-system/tech-logo';
 import type { FC, ReactNode } from 'react';
 import { useIntlayer } from 'react-intlayer';
+import { Link } from '#components/Link/Link';
 
 type SummarizeAIProps = {
   url: string;
@@ -83,7 +83,7 @@ export const SummarizeAI: FC<SummarizeAIProps> = ({ url }) => {
   return (
     <Popover identifier="summarize">
       <Link
-        href={displayedProvider.url}
+        to={displayedProvider.url}
         label={summarizeLabel({ provider: displayedProvider.name }).value}
         variant="hoverable"
         color="text"
@@ -100,7 +100,7 @@ export const SummarizeAI: FC<SummarizeAIProps> = ({ url }) => {
         {providers.map((provider) => (
           <Link
             key={provider.name}
-            href={provider.url}
+            to={provider.url}
             label={summarizeLabel({ provider: provider.name }).value}
             variant="hoverable"
             color="text"

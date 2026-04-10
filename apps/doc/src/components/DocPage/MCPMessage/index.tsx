@@ -5,7 +5,7 @@ import { Doc_MCP_Path, Doc_Path } from '@intlayer/design-system/routes';
 import { useRouterState } from '@tanstack/react-router';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { Link } from '#/components/Link';
+import { Link } from '#components/Link/Link';
 import { McpLogo } from './McpLogo';
 
 export const MCPMessage: FC = () => {
@@ -17,7 +17,7 @@ export const MCPMessage: FC = () => {
   return (
     <PopoverStatic identifier="mcp">
       <Link
-        href={Doc_MCP_Path}
+        to={Doc_MCP_Path}
         label={link.label.value}
         color="text"
         className="flex p-2"
@@ -32,7 +32,7 @@ export const MCPMessage: FC = () => {
         <strong>{title}</strong>
         <p className="text-neutral">{description}</p>
         <Link
-          href={Doc_MCP_Path}
+          to={Doc_MCP_Path}
           label={link.label.value}
           color="text"
           className="flex flex-row items-center gap-2 p-3"

@@ -1,5 +1,4 @@
 import { Container } from '@intlayer/design-system/container';
-import { Loader } from '@intlayer/design-system/loader';
 import { App_Auth_SignIn_Path } from '@intlayer/design-system/routes';
 import { createFileRoute } from '@tanstack/react-router';
 import {
@@ -8,7 +7,6 @@ import {
   getLocalizedUrl,
   localeMap,
 } from 'intlayer';
-import { Suspense } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { SignInForm } from '#components/Auth/SignIn';
 

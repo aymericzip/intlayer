@@ -97,7 +97,7 @@ export const ProjectCard = ({ project, ...props }: ProjectCardProps) => {
 
       <div className="absolute top-3 right-3 flex gap-2">
         <a
-          href={project.websiteUrl}
+          to={project.websiteUrl}
           target="_blank"
           rel="noopener noreferrer"
           className="rounded-full bg-background/90 p-2 shadow-sm transition-colors hover:bg-card"

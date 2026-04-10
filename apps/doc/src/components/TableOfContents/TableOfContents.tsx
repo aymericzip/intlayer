@@ -1,9 +1,9 @@
 'use client';
 
-import { Link } from '@intlayer/design-system/link';
 import { cn } from '@intlayer/design-system/utils';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
+import { Link } from '#components/Link/Link';
 import { useTitlesTree } from '../DocPage/useTitlesTree';
 
 type TableOfContentsProps = {
@@ -58,7 +58,7 @@ const NavTitlesChildren: FC<NavTitlesChildrenProps> = ({
         return (
           <li key={`${id}-${index}`} className={cn('list-none')}>
             <Link
-              href={`#${id}`}
+              to={`#${id}`}
               label={`${linkLabel.value}: ${heading.innerText}`}
               color="text"
               variant="hoverable"
@@ -118,7 +118,7 @@ export const TableOfContents: FC<TableOfContentsProps> = ({
           return (
             <li key={id} className="list-none">
               <Link
-                href={`#${id}`}
+                to={`#${id}`}
                 label={`${linkLabel.value}: ${heading.innerText}`}
                 color="text"
                 isPageSection
