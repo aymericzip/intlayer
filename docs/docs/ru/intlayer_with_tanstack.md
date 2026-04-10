@@ -225,9 +225,7 @@ function RootDocument({ children }: { children: ReactNode }) {
         <HeadContent />
       </head>
       <body>
-        <IntlayerProvider locale={locale}>
-          {children}
-        </IntlayerProvider>
+        <IntlayerProvider locale={locale}>{children}</IntlayerProvider>
         <Scripts />
       </body>
     </html>
@@ -444,38 +442,6 @@ import { useLocalizedNavigate } from "@/hooks/useLocalizedNavigate";
 
 export const Route = createFileRoute("/{-$locale}/")({
   component: RouteComponent,
-  head: ({ params }) => {
-    const { locale } = params;
-    const path = "/"; // The path for this route
-
-    const metaContent = getIntlayer("app", locale);
-
-    return {
-      links: [
-        // Canonical link: Points to the current localized page
-        { rel: "canonical", href: getLocalizedUrl(path, locale) },
-
-        // Hreflang: Tell Google about all localized versions
-        ...localeMap(({ locale: mapLocale }) => ({
-          rel: "alternate",
-          hrefLang: mapLocale,
-          href: getLocalizedUrl(path, mapLocale),
-        })),
-
-        // x-default: For users in unmatched languages
-        // Define the default fallback locale (usually your primary language)
-        {
-          rel: "alternate",
-          hrefLang: "x-default",
-          href: getLocalizedUrl(path, defaultLocale),
-        },
-      ],
-      meta: [
-        { title: metaContent.title },
-        { name: "description", content: metaContent.meta.description },
-      ],
-    };
-  },
 });
 
 function RouteComponent() {
@@ -630,12 +596,33 @@ export const Route = createFileRoute("/{-$locale}/")({
   component: RouteComponent,
   head: ({ params }) => {
     const { locale } = params;
-    const metaContent = getIntlayer("page-metadata", locale);
+    const path = "/"; // The path for this route
+
+    const metaContent = getIntlayer("app", locale);
 
     return {
+      links: [
+        // Canonical link: Points to the current localized page
+        { rel: "canonical", href: getLocalizedUrl(path, locale) },
+
+        // Hreflang: Tell Google about all localized versions
+        ...localeMap(({ locale: mapLocale }) => ({
+          rel: "alternate",
+          hrefLang: mapLocale,
+          href: getLocalizedUrl(path, mapLocale),
+        })),
+
+        // x-default: For users in unmatched languages
+        // Define the default fallback locale (usually your primary language)
+        {
+          rel: "alternate",
+          hrefLang: "x-default",
+          href: getLocalizedUrl(path, defaultLocale),
+        },
+      ],
       meta: [
         { title: metaContent.title },
-        { content: metaContent.description, name: "description" },
+        { name: "description", content: metaContent.meta.description },
       ],
     };
   },
