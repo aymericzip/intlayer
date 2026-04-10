@@ -6,8 +6,7 @@ import {
   defaultLocale,
   getIntlayer,
   getLocalizedUrl,
-  getMultilingualUrls,
-  Locales,
+  localeMap,
 } from 'intlayer';
 import { ArrowRight } from 'lucide-react';
 import { useIntlayer } from 'react-intlayer';
@@ -17,40 +16,43 @@ export const Route = createFileRoute('/{-$locale}/frequent-questions/')({
   loader: async ({ params }) => {
     const locale = ((params as { locale?: string }).locale ??
       defaultLocale) as string;
-    const frequentQuestions = await getFrequentQuestionMetadataRecord(
-      locale as any
-    );
+    const frequentQuestions = await getFrequentQuestionMetadataRecord(locale);
     return { frequentQuestions: Object.values(frequentQuestions), locale };
   },
   head: ({ params }) => {
-    const locale = ((params as { locale?: string }).locale ??
-      defaultLocale) as any;
-    const content = getIntlayer('frequent-questions-page', locale);
+    const { locale } = params;
     const path = Website_FrequentQuestions;
+    const content = getIntlayer('frequent-questions-page', locale);
 
     return {
-      meta: [
-        { title: `${content.title} | Intlayer` },
-        { name: 'description', content: content.description as string },
-        {
-          name: 'keywords',
-          content: (content.keywords as string[]).join(', '),
-        },
-        { property: 'og:title', content: `${content.title} | Intlayer` },
-        { property: 'og:description', content: content.description as string },
-      ],
       links: [
+        // Canonical link: Points to the current localized page
         { rel: 'canonical', href: getLocalizedUrl(path, locale) },
-        ...Object.entries(getMultilingualUrls(path)).map(([lang, url]) => ({
+
+        // Hreflang: Tell Google about all localized versions
+        ...localeMap(({ locale: mapLocale }) => ({
           rel: 'alternate',
-          hrefLang: lang,
-          href: url as string,
+          hrefLang: mapLocale,
+          href: getLocalizedUrl(path, mapLocale),
         })),
+
+        // x-default: For users in unmatched languages
+        // Define the default fallback locale (usually your primary language)
         {
           rel: 'alternate',
           hrefLang: 'x-default',
-          href: getLocalizedUrl(path, Locales.ENGLISH),
+          href: getLocalizedUrl(path, defaultLocale),
         },
+      ],
+      meta: [
+        { title: `${content.title} | Intlayer` },
+        { name: 'description', content: content.description },
+        {
+          name: 'keywords',
+          content: content.keywords.join(', '),
+        },
+        { property: 'og:title', content: `${content.title} | Intlayer` },
+        { property: 'og:description', content: content.description },
       ],
     };
   },

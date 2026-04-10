@@ -547,7 +547,7 @@ export default function LocaleLayout({
   params: { locale: string };
 }) {
   const locale: Locale = (locales as readonly string[]).includes(params.locale)
-    ? (params.locale as any)
+    ? params.locale
     : defaultLocale;
 
   const dir = isRtl(locale) ? "rtl" : "ltr";
@@ -605,7 +605,7 @@ const locales = ["en", "fr", "es"];
 
 export default getRequestConfig(async ({ locale }) => {
   // Validar que el parámetro `locale` entrante sea válido
-  if (!locales.includes(locale as any)) notFound();
+  if (!locales.includes(locale)) notFound();
 
   return {
     messages: (await import(`../messages/${locale}.json`)).default,

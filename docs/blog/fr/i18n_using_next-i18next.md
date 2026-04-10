@@ -412,7 +412,7 @@ export default function LocaleLayout({
   // Valider la locale à partir des paramètres de l'URL
   // Si une locale invalide est fournie, revenir à la locale par défaut
   const locale: Locale = (locales as readonly string[]).includes(params.locale)
-    ? (params.locale as any)
+    ? params.locale
     : defaultLocale;
 
   // Déterminer la direction du texte en fonction de la locale

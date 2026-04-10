@@ -46,6 +46,10 @@ export const Route = createFileRoute('/{-$locale}/_dashboard')({
           name: 'description',
           content: content.metadata.description,
         },
+        {
+          name: 'keywords',
+          content: content.metadata.keywords.join(', '),
+        },
       ],
     };
   },

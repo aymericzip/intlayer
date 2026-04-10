@@ -503,7 +503,7 @@ const locales = ["en", "fr", "es"];
 
 export default getRequestConfig(async ({ locale }) => {
   // Valida se o parâmetro `locale` recebido é válido
-  if (!locales.includes(locale as any)) notFound();
+  if (!locales.includes(locale)) notFound();
 
   return {
     messages: (await import(`../messages/${locale}.json`)).default,

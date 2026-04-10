@@ -21,7 +21,7 @@ export const Route = createFileRoute('/{-$locale}/frequent-questions/raw/$')({
 
           const matches = await getFrequentQuestionMetadataBySlug(
             normalizedSlugs,
-            locale as any,
+            locale,
             true
           );
 
@@ -31,7 +31,7 @@ export const Route = createFileRoute('/{-$locale}/frequent-questions/raw/$')({
 
           const file = await getFrequentQuestion(
             matches[0].docKey as any,
-            locale as any
+            locale
           );
 
           const url = new URL(request.url);

@@ -256,7 +256,7 @@ export default function LocaleLayout({
   params: { locale: string };
 }) {
   const locale: Locale = (locales as readonly string[]).includes(params.locale)
-    ? (params.locale as any)
+    ? params.locale
     : defaultLocale;
 
   const dir = isRtl(locale) ? "rtl" : "ltr";

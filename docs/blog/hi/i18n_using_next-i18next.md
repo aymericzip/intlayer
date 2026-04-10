@@ -412,7 +412,7 @@ export default function LocaleLayout({
   /// URL पैरामीटर से locale को मान्य करें
   // यदि अमान्य locale प्रदान किया गया है, तो डिफ़ॉल्ट locale पर वापस जाएं
   const locale: Locale = (locales as readonly string[]).includes(params.locale)
-    ? (params.locale as any)
+    ? params.locale
     : defaultLocale;
 
   // locale के आधार पर टेक्स्ट दिशा निर्धारित करें

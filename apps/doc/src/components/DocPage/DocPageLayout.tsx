@@ -21,7 +21,7 @@ export const DocPageLayout: FC<DocPageLayoutProps> = ({
   displayBreadCrumb = true,
 }) => {
   const { locale } = useLocale();
-  const docData: Section = getIntlayer('doc-data', locale as any);
+  const docData: Section = getIntlayer('doc-data', locale);
 
   return (
     <Suspense fallback={<></>}>
@@ -40,7 +40,7 @@ export const DocPageLayout: FC<DocPageLayoutProps> = ({
                   className="mt-12 ml-10"
                   activeSections={activeSlugs}
                   docData={docData}
-                  locale={locale as any}
+                  locale={locale}
                 />
               )}
               {children}

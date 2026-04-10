@@ -1,18 +1,7 @@
-import {
-  Website_Home,
-  Website_Doc,
-} from '@intlayer/design-system/routes';
+import { Website_Doc, Website_Home } from '@intlayer/design-system/routes';
 import type { DocKey } from '@intlayer/docs';
 import { createFileRoute, redirect } from '@tanstack/react-router';
-import {
-  defaultLocale,
-  getLocalizedUrl,
-  getMultilingualUrls,
-  getPrefix,
-  Locales,
-} from 'intlayer';
-import { BreadcrumbsHeader } from '#/structuredData/BreadcrumbsHeader';
-import { CreativeWorkHeader } from '#/structuredData/CreativeWorkHeader';
+import { defaultLocale, getLocalizedUrl, getPrefix, localeMap } from 'intlayer';
 import { DocHeader } from '#/components/DocPage/DocHeader/DocHeader';
 import { DocPageLayout } from '#/components/DocPage/DocPageLayout';
 import {
@@ -21,6 +10,8 @@ import {
 } from '#/components/DocPage/DocPageNavigation/DocPageNavigation';
 import { DocumentationRender } from '#/components/DocPage/DocumentationRender';
 import { getPreviousNextDocMetadata } from '#/components/DocPage/docData';
+import { BreadcrumbsHeader } from '#/structuredData/BreadcrumbsHeader';
+import { CreativeWorkHeader } from '#/structuredData/CreativeWorkHeader';
 import { urlRenamer } from '#/utils/markdown';
 
 export const Route = createFileRoute('/{-$locale}/$')({
@@ -33,7 +24,7 @@ export const Route = createFileRoute('/{-$locale}/$')({
     const splat = (params as { _splat: string })._splat ?? '';
     const slugs = ['doc', ...(splat ? splat.split('/').filter(Boolean) : [])];
 
-    const docsData = await getDocMetadataBySlug(slugs, locale as any);
+    const docsData = await getDocMetadataBySlug(slugs, locale);
     const filteredDocsData = docsData.filter(
       (doc) => doc.slugs.length === slugs.length + 1
     );
@@ -57,13 +48,13 @@ export const Route = createFileRoute('/{-$locale}/$')({
     const prevDoc: DocPageNavigationProps['prevDoc'] = prevDocData?.docs
       ? {
           title: prevDocData.title,
-          url: getLocalizedUrl(prevDocData.docs.relativeUrl, locale as any),
+          url: getLocalizedUrl(prevDocData.docs.relativeUrl, locale),
         }
       : undefined;
     const nextDoc: DocPageNavigationProps['nextDoc'] = nextDocData?.docs
       ? {
           title: nextDocData.title,
-          url: getLocalizedUrl(nextDocData.docs.relativeUrl, locale as any),
+          url: getLocalizedUrl(nextDocData.docs.relativeUrl, locale),
         }
       : undefined;
 
@@ -80,9 +71,28 @@ export const Route = createFileRoute('/{-$locale}/$')({
   head: ({ loaderData }) => {
     if (!loaderData) return {};
     const { docData, locale } = loaderData;
-    const relativeUrl = docData.relativeUrl;
+    const path = docData.relativeUrl;
 
     return {
+      links: [
+        // Canonical link: Points to the current localized page
+        { rel: 'canonical', href: getLocalizedUrl(path, locale) },
+
+        // Hreflang: Tell Google about all localized versions
+        ...localeMap(({ locale: mapLocale }) => ({
+          rel: 'alternate',
+          hrefLang: mapLocale,
+          href: getLocalizedUrl(path, mapLocale),
+        })),
+
+        // x-default: For users in unmatched languages
+        // Define the default fallback locale (usually your primary language)
+        {
+          rel: 'alternate',
+          hrefLang: 'x-default',
+          href: getLocalizedUrl(path, defaultLocale),
+        },
+      ],
       meta: [
         { title: `${docData.title} | Intlayer` },
         { name: 'description', content: docData.description },
@@ -95,24 +105,6 @@ export const Route = createFileRoute('/{-$locale}/$')({
         { property: 'og:url', content: docData.url },
         { name: 'twitter:title', content: docData.title },
         { name: 'twitter:description', content: docData.description },
-      ],
-      links: [
-        {
-          rel: 'canonical',
-          href: getLocalizedUrl(relativeUrl, locale as any),
-        },
-        ...Object.entries(getMultilingualUrls(relativeUrl)).map(
-          ([lang, url]) => ({
-            rel: 'alternate',
-            hrefLang: lang,
-            href: url as string,
-          })
-        ),
-        {
-          rel: 'alternate',
-          hrefLang: 'x-default',
-          href: getLocalizedUrl(relativeUrl, Locales.ENGLISH),
-        },
       ],
       scripts: [
         {
@@ -144,15 +136,15 @@ function DocPage() {
         breadcrumbs={[
           {
             name: 'Intlayer',
-            url: getLocalizedUrl(Website_Home, locale as any),
+            url: getLocalizedUrl(Website_Home, locale),
           },
           {
             name: 'Docs',
-            url: getLocalizedUrl(Website_Doc, locale as any),
+            url: getLocalizedUrl(Website_Doc, locale),
           },
           {
             name: docData.title,
-            url: getLocalizedUrl(docData.relativeUrl, locale as any),
+            url: getLocalizedUrl(docData.relativeUrl, locale),
           },
         ]}
       />
@@ -161,7 +153,7 @@ function DocPage() {
         creativeWorkDescription={docData.description}
         creativeWorkContent={docContent}
         keywords={docData.keywords.join(', ')}
-        url={getLocalizedUrl(docData.relativeUrl, locale as any)}
+        url={getLocalizedUrl(docData.relativeUrl, locale)}
         dateModified={new Date(docData.updatedAt)}
         datePublished={new Date(docData.createdAt)}
       />

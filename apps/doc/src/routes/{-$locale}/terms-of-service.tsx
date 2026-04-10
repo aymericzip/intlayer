@@ -1,12 +1,7 @@
 import { Website_TermsOfService } from '@intlayer/design-system/routes';
 import { getLegal, getLegalMetadata } from '@intlayer/docs';
 import { createFileRoute } from '@tanstack/react-router';
-import {
-  defaultLocale,
-  getLocalizedUrl,
-  getMultilingualUrls,
-  Locales,
-} from 'intlayer';
+import { defaultLocale, getLocalizedUrl, localeMap } from 'intlayer';
 import { DocumentationRender } from '#/components/DocPage/DocumentationRender';
 
 const TERMS_KEY = './legal/en/terms_of_service.md' as const;
@@ -15,12 +10,11 @@ export const Route = createFileRoute('/{-$locale}/terms-of-service')({
   loader: async ({ params }) => {
     const locale = ((params as { locale?: string }).locale ??
       defaultLocale) as string;
-    const file = await getLegal(TERMS_KEY, locale as any);
+    const file = await getLegal(TERMS_KEY, locale);
     return { file, locale };
   },
   head: async ({ params }) => {
-    const locale = ((params as { locale?: string }).locale ??
-      defaultLocale) as any;
+    const { locale } = params;
     const { title, description, keywords } = await getLegalMetadata(
       TERMS_KEY,
       locale
@@ -28,23 +22,29 @@ export const Route = createFileRoute('/{-$locale}/terms-of-service')({
     const path = Website_TermsOfService;
 
     return {
-      meta: [
-        { title: `${title} | Intlayer` },
-        { name: 'description', content: description as string },
-        { name: 'keywords', content: (keywords as string[]).join(', ') },
-      ],
       links: [
+        // Canonical link: Points to the current localized page
         { rel: 'canonical', href: getLocalizedUrl(path, locale) },
-        ...Object.entries(getMultilingualUrls(path)).map(([lang, url]) => ({
+
+        // Hreflang: Tell Google about all localized versions
+        ...localeMap(({ locale: mapLocale }) => ({
           rel: 'alternate',
-          hrefLang: lang,
-          href: url as string,
+          hrefLang: mapLocale,
+          href: getLocalizedUrl(path, mapLocale),
         })),
+
+        // x-default: For users in unmatched languages
+        // Define the default fallback locale (usually your primary language)
         {
           rel: 'alternate',
           hrefLang: 'x-default',
-          href: getLocalizedUrl(path, Locales.ENGLISH),
+          href: getLocalizedUrl(path, defaultLocale),
         },
+      ],
+      meta: [
+        { title: `${title} | Intlayer` },
+        { name: 'description', content: description },
+        { name: 'keywords', content: keywords.join(', ') },
       ],
     };
   },

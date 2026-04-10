@@ -9,7 +9,10 @@ import {
   Pagination,
   ShowingResultsNumberItems,
 } from '@intlayer/design-system/pagination';
-import { Showcase_Root_Path, Website_Home } from '@intlayer/design-system/routes';
+import {
+  Showcase_Root_Path,
+  Website_Home,
+} from '@intlayer/design-system/routes';
 import { createFileRoute } from '@tanstack/react-router';
 import {
   defaultLocale,
@@ -19,12 +22,12 @@ import {
 } from 'intlayer';
 import { useEffect } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { BreadcrumbsHeader } from '#/structuredData/BreadcrumbsHeader';
 import { FiltersBar } from '#/components/FiltersBar';
 import { ProjectCard } from '#/components/ProjectCard';
 import { ProjectCardSkeleton } from '#/components/ProjectCardSkeleton';
 import { ShowcaseHeader } from '#/components/ShowcaseHeader';
 import { useSearchParamState } from '#/hooks/useSearchParamState';
+import { BreadcrumbsHeader } from '#/structuredData/BreadcrumbsHeader';
 import type { ShowcaseProject } from '#/utils/projectActions/types';
 
 type ProjectSearchParams = {
@@ -205,11 +208,11 @@ function App() {
         breadcrumbs={[
           {
             name: 'Intlayer',
-            url: getLocalizedUrl(Website_Home, locale as any),
+            url: getLocalizedUrl(Website_Home, locale),
           },
           {
             name: 'Showcase',
-            url: getLocalizedUrl(Showcase_Root_Path, locale as any),
+            url: getLocalizedUrl(Showcase_Root_Path, locale),
           },
         ]}
       />

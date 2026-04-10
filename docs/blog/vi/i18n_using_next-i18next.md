@@ -412,7 +412,7 @@ export default function LocaleLayout({
   // Xác thực locale từ tham số URL
   // Nếu locale không hợp lệ được cung cấp, sử dụng locale mặc định
   const locale: Locale = (locales as readonly string[]).includes(params.locale)
-    ? (params.locale as any)
+    ? params.locale
     : defaultLocale;
 
   // Xác định hướng văn bản dựa trên locale

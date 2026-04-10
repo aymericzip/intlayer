@@ -412,7 +412,7 @@ export default function LocaleLayout({
   // URLパラメータからロケールを検証
   // 無効なロケールが提供された場合はデフォルトロケールにフォールバック
   const locale: Locale = (locales as readonly string[]).includes(params.locale)
-    ? (params.locale as any)
+    ? params.locale
     : defaultLocale;
 
   // ロケールに基づいてテキストの方向を決定

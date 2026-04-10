@@ -12,11 +12,11 @@ async function findFrequentQuestionMetadata(
   locale: string
 ) {
   const normalizedSlugs = ['blog', ...(Array.isArray(slugs) ? slugs : [slugs])];
-  return await getBlogMetadataBySlug(normalizedSlugs, locale as any, true);
+  return await getBlogMetadataBySlug(normalizedSlugs, locale, true);
 }
 
 async function getCachedFrequentQuestion(docKey: string, locale: string) {
-  return await getBlog(docKey as any, locale as any);
+  return await getBlog(docKey as any, locale);
 }
 
 export async function GET(request: Request, context: RouteContext) {

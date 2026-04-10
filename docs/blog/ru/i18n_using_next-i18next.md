@@ -412,7 +412,7 @@ export default function LocaleLayout({
   // Проверка локали из параметров URL
   // Если указана недопустимая локаль, используется локаль по умолчанию
   const locale: Locale = (locales as readonly string[]).includes(params.locale)
-    ? (params.locale as any)
+    ? params.locale
     : defaultLocale;
 
   // Определение направления текста на основе локали

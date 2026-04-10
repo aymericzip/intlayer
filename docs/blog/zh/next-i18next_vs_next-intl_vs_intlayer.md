@@ -509,7 +509,7 @@ const locales = ["en", "fr", "es"];
 
 export default getRequestConfig(async ({ locale }) => {
   // 验证传入的 `locale` 参数是否有效
-  if (!locales.includes(locale as any)) notFound();
+  if (!locales.includes(locale)) notFound();
 
   return {
     messages: (await import(`../messages/${locale}.json`)).default,

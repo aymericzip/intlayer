@@ -1,12 +1,7 @@
 import { Website_FrequentQuestions } from '@intlayer/design-system/routes';
 import type { FrequentQuestionKey } from '@intlayer/docs';
 import { createFileRoute, redirect } from '@tanstack/react-router';
-import {
-  defaultLocale,
-  getLocalizedUrl,
-  getMultilingualUrls,
-  Locales,
-} from 'intlayer';
+import { defaultLocale, getLocalizedUrl, localeMap } from 'intlayer';
 import { DocumentationRender } from '#/components/DocPage/DocumentationRender';
 import { urlRenamer } from '#/utils/markdown';
 
@@ -21,7 +16,7 @@ export const Route = createFileRoute('/{-$locale}/frequent-questions/$')({
 
     const questionsData = await getFrequentQuestionMetadataBySlug(
       slugs,
-      locale as any
+      locale
     );
     const filteredData = questionsData.filter(
       (q) => q.slugs.length === slugs.length + 1
@@ -34,42 +29,43 @@ export const Route = createFileRoute('/{-$locale}/frequent-questions/$')({
     const questionData = filteredData[0];
     const file = await getFrequentQuestion(
       questionData.docKey as FrequentQuestionKey,
-      locale as any
+      locale
     );
-    const content = urlRenamer(file, locale as any);
+    const content = urlRenamer(file, locale);
 
     return { questionData, content, locale };
   },
   head: ({ loaderData }) => {
     if (!loaderData) return {};
-    const { questionData } = loaderData;
-    const relativeUrl = questionData.relativeUrl;
+    const { questionData, locale } = loaderData;
+    const path = questionData.relativeUrl;
 
     return {
+      links: [
+        // Canonical link: Points to the current localized page
+        { rel: 'canonical', href: getLocalizedUrl(path, locale) },
+
+        // Hreflang: Tell Google about all localized versions
+        ...localeMap(({ locale: mapLocale }) => ({
+          rel: 'alternate',
+          hrefLang: mapLocale,
+          href: getLocalizedUrl(path, mapLocale),
+        })),
+
+        // x-default: For users in unmatched languages
+        // Define the default fallback locale (usually your primary language)
+        {
+          rel: 'alternate',
+          hrefLang: 'x-default',
+          href: getLocalizedUrl(path, defaultLocale),
+        },
+      ],
       meta: [
         { title: `${questionData.title} | Intlayer` },
         { name: 'description', content: questionData.description },
         { name: 'keywords', content: questionData.keywords.join(', ') },
         { property: 'og:title', content: `${questionData.title} | Intlayer` },
         { property: 'og:description', content: questionData.description },
-      ],
-      links: [
-        {
-          rel: 'canonical',
-          href: getLocalizedUrl(relativeUrl, Locales.ENGLISH),
-        },
-        ...Object.entries(getMultilingualUrls(relativeUrl)).map(
-          ([lang, url]) => ({
-            rel: 'alternate',
-            hrefLang: lang,
-            href: url as string,
-          })
-        ),
-        {
-          rel: 'alternate',
-          hrefLang: 'x-default',
-          href: getLocalizedUrl(relativeUrl, Locales.ENGLISH),
-        },
       ],
     };
   },

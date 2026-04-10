@@ -532,7 +532,7 @@ export default function LocaleLayout({
   params: { locale: string };
 }) {
   const locale: Locale = (locales as readonly string[]).includes(params.locale)
-    ? (params.locale as any)
+    ? params.locale
     : defaultLocale;
 
   const dir = isRtl(locale) ? "rtl" : "ltr";
@@ -599,7 +599,7 @@ async function loadMessages(locale: string) {
 }
 
 export default getRequestConfig(async ({ locale }) => {
-  if (!locales.includes(locale as any)) notFound();
+  if (!locales.includes(locale)) notFound();
 
   return {
     messages: await loadMessages(locale),

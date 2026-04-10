@@ -1,4 +1,5 @@
 import { createFileRoute, Outlet } from '@tanstack/react-router';
+import { getIntlayer } from 'intlayer';
 import { AdminBreadcrumb } from '#components/AdminBreadcrumb';
 import { AdminTabBar } from '#components/AdminTabBar';
 import { AuthenticationBarrier } from '#components/Auth/AuthenticationBarrier/AuthenticationBarrier';
@@ -16,6 +17,24 @@ export const Route = createFileRoute('/{-$locale}/_dashboard/_admin')({
       locale,
       accessRule: 'admin',
     });
+  },
+  head: ({ params }) => {
+    const { locale } = params;
+    const content = getIntlayer('admin-metadata', locale);
+
+    return {
+      title: content.metadata.title,
+      meta: [
+        {
+          name: 'description',
+          content: content.metadata.description,
+        },
+        {
+          name: 'keywords',
+          content: content.metadata.keywords.join(', '),
+        },
+      ],
+    };
   },
   component: AdminLayout,
 });

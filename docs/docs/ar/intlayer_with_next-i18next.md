@@ -258,7 +258,7 @@ export default function LocaleLayout({
 }) {
   // تحديد اللغة بناءً على المعلمات أو استخدام اللغة الافتراضية
   const locale: Locale = (locales as readonly string[]).includes(params.locale)
-    ? (params.locale as any)
+    ? params.locale
     : defaultLocale;
 
   // تحديد اتجاه النص بناءً على اللغة (يمين إلى يسار أو يسار إلى يمين)

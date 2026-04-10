@@ -103,7 +103,7 @@ async function loadMessages(locale: string) {
 }
 
 export default getRequestConfig(async ({ locale }) => {
-  if (!locales.includes(locale as any)) notFound();
+  if (!locales.includes(locale)) notFound();
 
   return {
     messages: await loadMessages(locale),

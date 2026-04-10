@@ -86,7 +86,7 @@ export class IntlayerEditedContentElement extends LitElement {
           dictionaryKey: this.dictionaryKey,
           keyPath,
         },
-        getBasePlugins(locale as any)
+        getBasePlugins(locale)
       );
       if (typeof transformed === 'string' || typeof transformed === 'number') {
         this._editedText = String(transformed);

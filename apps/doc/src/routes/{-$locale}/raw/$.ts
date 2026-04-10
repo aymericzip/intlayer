@@ -11,11 +11,7 @@ async function findDocMetadata(
   );
   const normalizedSlugs = ['doc', ...slugs];
   try {
-    const matches = await getDocMetadataBySlug(
-      normalizedSlugs,
-      locale as any,
-      true
-    );
+    const matches = await getDocMetadataBySlug(normalizedSlugs, locale, true);
     if (matches && matches.length > 0) {
       return matches[0];
     }
@@ -28,7 +24,7 @@ async function findDocMetadata(
   const docsKeys = getDocsKeys();
 
   if (docsKeys.includes(potentialDocKey as any)) {
-    return await getDocMetadata(potentialDocKey as any, locale as any);
+    return await getDocMetadata(potentialDocKey as any, locale);
   }
 
   const lowerPotentialKey = potentialDocKey.toLowerCase();
@@ -36,7 +32,7 @@ async function findDocMetadata(
     (key) => key.toLowerCase() === lowerPotentialKey
   );
   if (matchedKey) {
-    return await getDocMetadata(matchedKey as any, locale as any);
+    return await getDocMetadata(matchedKey, locale);
   }
 
   return undefined;
@@ -64,7 +60,7 @@ export const Route = createFileRoute('/{-$locale}/raw/$')({
           }
 
           const { getDoc } = await import('@intlayer/docs');
-          const file = await getDoc(fileMetadata.docKey as any, locale as any);
+          const file = await getDoc(fileMetadata.docKey as any, locale);
 
           const url = new URL(request.url);
           const format = (url.searchParams.get('format') || '').toLowerCase();

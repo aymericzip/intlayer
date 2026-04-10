@@ -415,7 +415,7 @@ export default function LocaleLayout({
   // التحقق من صحة اللغة من معلمات URL
   // إذا تم توفير لغة غير صالحة، يتم الرجوع إلى اللغة الافتراضية
   const locale: Locale = (locales as readonly string[]).includes(params.locale)
-    ? (params.locale as any)
+    ? params.locale
     : defaultLocale;
 
   // تحديد اتجاه النص بناءً على اللغة

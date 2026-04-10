@@ -412,7 +412,7 @@ export default function LocaleLayout({
   /// URL 매개변수에서 로케일 유효성 검사
   /// 잘못된 로케일이 제공되면 기본 로케일로 대체
   const locale: Locale = (locales as readonly string[]).includes(params.locale)
-    ? (params.locale as any)
+    ? params.locale
     : defaultLocale;
 
   /// 로케일에 따라 텍스트 방향 결정

@@ -413,7 +413,7 @@ export default function LocaleLayout({
   // Перевіряємо locale з параметрів URL
   // Якщо вказано недійсну locale, використовуємо defaultLocale
   const locale: Locale = (locales as readonly string[]).includes(params.locale)
-    ? (params.locale as any)
+    ? params.locale
     : defaultLocale;
 
   // Визначаємо напрямок тексту залежно від locale

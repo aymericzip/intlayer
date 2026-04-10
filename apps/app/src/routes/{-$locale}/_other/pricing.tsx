@@ -1,9 +1,18 @@
 import { getStripeAPI } from '@intlayer/api';
 import type { GetPricingResult } from '@intlayer/backend';
-import { App_Pricing, Website_Home } from '@intlayer/design-system/routes';
+import {
+  App_Pricing,
+  App_Pricing_Path,
+  Website_Home,
+} from '@intlayer/design-system/routes';
 import { createFileRoute } from '@tanstack/react-router';
 import { createServerFn } from '@tanstack/react-start';
-import { getIntlayer, getLocalizedUrl } from 'intlayer';
+import {
+  defaultLocale,
+  getIntlayer,
+  getLocalizedUrl,
+  localeMap,
+} from 'intlayer';
 import { Suspense } from 'react';
 import { BreadcrumbsHeader } from '#/structuredData/BreadcrumbsHeader';
 import { ProductHeader } from '#/structuredData/ProductHeader';
@@ -38,11 +47,31 @@ export const Route = createFileRoute('/{-$locale}/_other/pricing')({
   component: PricingPage,
   head: ({ params }) => {
     const { locale } = params;
+    const path = App_Pricing_Path;
     const content = getIntlayer('pricing-page', locale);
 
     return {
-      title: content.metadata.title,
+      links: [
+        // Canonical link: Points to the current localized page
+        { rel: 'canonical', href: getLocalizedUrl(path, locale) },
+
+        // Hreflang: Tell Google about all localized versions
+        ...localeMap(({ locale: mapLocale }) => ({
+          rel: 'alternate',
+          hrefLang: mapLocale,
+          href: getLocalizedUrl(path, mapLocale),
+        })),
+
+        // x-default: For users in unmatched languages
+        // Define the default fallback locale (usually your primary language)
+        {
+          rel: 'alternate',
+          hrefLang: 'x-default',
+          href: getLocalizedUrl(path, defaultLocale),
+        },
+      ],
       meta: [
+        { title: content.metadata.title },
         {
           name: 'description',
           content: content.metadata.description,

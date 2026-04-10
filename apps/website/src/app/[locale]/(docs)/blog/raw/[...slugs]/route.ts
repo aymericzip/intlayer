@@ -9,11 +9,11 @@ type RouteContext = {
 
 async function findBlogMetadata(slugs: string | string[], locale: string) {
   const normalizedSlugs = ['blog', ...(Array.isArray(slugs) ? slugs : [slugs])];
-  return await getBlogMetadataBySlug(normalizedSlugs, locale as any, true);
+  return await getBlogMetadataBySlug(normalizedSlugs, locale, true);
 }
 
 async function getCachedBlog(docKey: string, locale: string) {
-  return await getBlog(docKey as any, locale as any);
+  return await getBlog(docKey as any, locale);
 }
 
 export async function GET(request: Request, context: RouteContext) {

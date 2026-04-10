@@ -1,8 +1,8 @@
-import {
-  Website_Home,
-  Showcase_Root_Path,
-} from '@intlayer/design-system/routes';
 import { getIntlayerAPI } from '@intlayer/api';
+import {
+  Showcase_Root_Path,
+  Website_Home,
+} from '@intlayer/design-system/routes';
 import { createFileRoute } from '@tanstack/react-router';
 import {
   defaultLocale,
@@ -11,10 +11,10 @@ import {
   localeMap,
 } from 'intlayer';
 import { useIntlayer } from 'react-intlayer';
-import { BreadcrumbsHeader } from '#/structuredData/BreadcrumbsHeader';
 import { Link } from '#/components/Link';
 import { ProjectFocus } from '#/components/ProjectFocus/ProjectFocus';
 import { ShowcaseHeader } from '#/components/ShowcaseHeader';
+import { BreadcrumbsHeader } from '#/structuredData/BreadcrumbsHeader';
 import type { ShowcaseProject } from '#/utils/projectActions/types';
 
 export const Route = createFileRoute('/{-$locale}/project/$projectId')({
@@ -94,7 +94,6 @@ export const Route = createFileRoute('/{-$locale}/project/$projectId')({
         : [],
     };
   },
-  component: ProjectPage,
 });
 
 function ProjectPage() {
@@ -109,15 +108,15 @@ function ProjectPage() {
           breadcrumbs={[
             {
               name: 'Intlayer',
-              url: getLocalizedUrl(Website_Home, locale as any),
+              url: getLocalizedUrl(Website_Home, locale),
             },
             {
               name: 'Showcase',
-              url: getLocalizedUrl(Showcase_Root_Path, locale as any),
+              url: getLocalizedUrl(Showcase_Root_Path, locale),
             },
             {
               name: content.projectNotFound.title.value,
-              url: getLocalizedUrl(`/project/${project?._id}`, locale as any),
+              url: getLocalizedUrl(`/project/${(project as any)?.id}`, locale),
             },
           ]}
         />
@@ -133,7 +132,7 @@ function ProjectPage() {
             to="/"
             color="text"
             variant="button"
-            aria-label={content.projectNotFound.backToGallery.value}
+            label={content.projectNotFound.backToGallery.value}
           >
             {content.projectNotFound.backToGallery}
           </Link>
@@ -148,15 +147,15 @@ function ProjectPage() {
         breadcrumbs={[
           {
             name: 'Intlayer',
-            url: getLocalizedUrl(Website_Home, locale as any),
+            url: getLocalizedUrl(Website_Home, locale),
           },
           {
             name: 'Showcase',
-            url: getLocalizedUrl(Showcase_Root_Path, locale as any),
+            url: getLocalizedUrl(Showcase_Root_Path, locale),
           },
           {
             name: project.title,
-            url: getLocalizedUrl(`/project/${project._id}`, locale as any),
+            url: getLocalizedUrl(`/project/${project.id}`, locale),
           },
         ]}
       />

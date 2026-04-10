@@ -7,8 +7,7 @@ import {
   defaultLocale,
   getIntlayer,
   getLocalizedUrl,
-  getMultilingualUrls,
-  Locales,
+  localeMap,
 } from 'intlayer';
 import { Suspense } from 'react';
 import { useIntlayer } from 'react-intlayer';
@@ -17,32 +16,33 @@ import { SearchView } from '#/components/DocPage/Search/SearchView';
 
 export const Route = createFileRoute('/{-$locale}/search')({
   head: ({ params }) => {
-    const locale = ((params as { locale?: string }).locale ??
-      defaultLocale) as any;
+    const { locale } = params;
+    const path = Doc_Search_Path;
     const content = getIntlayer('doc-search-page', locale);
 
     return {
-      meta: [
-        { title: `${content.title} | Intlayer` },
-        { name: 'description', content: content.title as string },
-      ],
       links: [
-        {
-          rel: 'canonical',
-          href: getLocalizedUrl(Doc_Search_Path, locale),
-        },
-        ...Object.entries(getMultilingualUrls(Doc_Search_Path)).map(
-          ([lang, url]) => ({
-            rel: 'alternate',
-            hrefLang: lang,
-            href: url as string,
-          })
-        ),
+        // Canonical link: Points to the current localized page
+        { rel: 'canonical', href: getLocalizedUrl(path, locale) },
+
+        // Hreflang: Tell Google about all localized versions
+        ...localeMap(({ locale: mapLocale }) => ({
+          rel: 'alternate',
+          hrefLang: mapLocale,
+          href: getLocalizedUrl(path, mapLocale),
+        })),
+
+        // x-default: For users in unmatched languages
+        // Define the default fallback locale (usually your primary language)
         {
           rel: 'alternate',
           hrefLang: 'x-default',
-          href: getLocalizedUrl(Doc_Search_Path, Locales.ENGLISH),
+          href: getLocalizedUrl(path, defaultLocale),
         },
+      ],
+      meta: [
+        { title: `${content.title} | Intlayer` },
+        { name: 'description', content: content.description },
       ],
     };
   },

@@ -412,7 +412,7 @@ export default function LocaleLayout({
   /// URL parametrelerinden locale doğrulaması yapın
   /// Geçersiz bir locale sağlanırsa, varsayılan locale geri dönülür
   const locale: Locale = (locales as readonly string[]).includes(params.locale)
-    ? (params.locale as any)
+    ? params.locale
     : defaultLocale;
 
   /// Locale'a göre metin yönünü belirleyin

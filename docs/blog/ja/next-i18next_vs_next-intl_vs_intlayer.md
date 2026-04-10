@@ -509,7 +509,7 @@ const locales = ["en", "fr", "es"];
 
 export default getRequestConfig(async ({ locale }) => {
   // 受け取った `locale` パラメータが有効か検証します
-  if (!locales.includes(locale as any)) notFound();
+  if (!locales.includes(locale)) notFound();
 
   return {
     messages: (await import(`../messages/${locale}.json`)).default,

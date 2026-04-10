@@ -1,6 +1,12 @@
 import { Container } from '@intlayer/design-system/container';
+import { App_Onboarding_Path } from '@intlayer/design-system/routes';
 import { createFileRoute } from '@tanstack/react-router';
-import { getIntlayer } from 'intlayer';
+import {
+  defaultLocale,
+  getIntlayer,
+  getLocalizedUrl,
+  localeMap,
+} from 'intlayer';
 import { useIntlayer } from 'react-intlayer';
 import { BackgroundLayout } from '#components/BackgroundLayout';
 import { OnboardFlow } from '#components/OnboardPage';
@@ -20,12 +26,32 @@ export const Route = createFileRoute('/{-$locale}/_other/onboarding/$step')({
   }),
   component: OnboardingPage,
   head: ({ params }) => {
-    const { locale } = params;
+    const { locale, step } = params;
+    const path = `${App_Onboarding_Path}/${step}`;
     const content = getIntlayer('onboard-page', locale);
 
     return {
-      title: content.metadata.title,
+      links: [
+        // Canonical link: Points to the current localized page
+        { rel: 'canonical', href: getLocalizedUrl(path, locale) },
+
+        // Hreflang: Tell Google about all localized versions
+        ...localeMap(({ locale: mapLocale }) => ({
+          rel: 'alternate',
+          hrefLang: mapLocale,
+          href: getLocalizedUrl(path, mapLocale),
+        })),
+
+        // x-default: For users in unmatched languages
+        // Define the default fallback locale (usually your primary language)
+        {
+          rel: 'alternate',
+          hrefLang: 'x-default',
+          href: getLocalizedUrl(path, defaultLocale),
+        },
+      ],
       meta: [
+        { title: content.metadata.title },
         {
           name: 'description',
           content: content.metadata.description,

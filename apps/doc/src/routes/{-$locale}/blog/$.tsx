@@ -1,17 +1,7 @@
-import {
-  Website_Home,
-  Website_Blog,
-} from '@intlayer/design-system/routes';
+import { Website_Blog, Website_Home } from '@intlayer/design-system/routes';
 import type { BlogKey } from '@intlayer/docs';
 import { createFileRoute, redirect } from '@tanstack/react-router';
-import {
-  defaultLocale,
-  getLocalizedUrl,
-  getMultilingualUrls,
-  Locales,
-} from 'intlayer';
-import { BreadcrumbsHeader } from '#/structuredData/BreadcrumbsHeader';
-import { CreativeWorkHeader } from '#/structuredData/CreativeWorkHeader';
+import { defaultLocale, getLocalizedUrl, localeMap } from 'intlayer';
 import { BlogPageLayout } from '#/components/BlogPage/BlogPageLayout';
 import { getPreviousNextBlogData } from '#/components/BlogPage/blogData';
 import { DocHeader } from '#/components/DocPage/DocHeader/DocHeader';
@@ -20,6 +10,8 @@ import {
   type DocPageNavigationProps,
 } from '#/components/DocPage/DocPageNavigation/DocPageNavigation';
 import { DocumentationRender } from '#/components/DocPage/DocumentationRender';
+import { BreadcrumbsHeader } from '#/structuredData/BreadcrumbsHeader';
+import { CreativeWorkHeader } from '#/structuredData/CreativeWorkHeader';
 import { urlRenamer } from '#/utils/markdown';
 
 export const Route = createFileRoute('/{-$locale}/blog/$')({
@@ -30,7 +22,7 @@ export const Route = createFileRoute('/{-$locale}/blog/$')({
     const splat = (params as { _splat: string })._splat ?? '';
     const slugs = splat ? splat.split('/').filter(Boolean) : [];
 
-    const blogsData = await getBlogMetadataBySlug(slugs, locale as any);
+    const blogsData = await getBlogMetadataBySlug(slugs, locale);
     const filteredBlogsData = blogsData.filter(
       (blog) => blog.slugs.length === slugs.length + 1
     );
@@ -42,21 +34,21 @@ export const Route = createFileRoute('/{-$locale}/blog/$')({
     const blogData = filteredBlogsData[0];
     const { prevBlogData, nextBlogData } = getPreviousNextBlogData(
       blogData.docKey as BlogKey,
-      locale as any
+      locale
     );
-    const file = await getBlog(blogData.docKey as BlogKey, locale as any);
-    const blogContent = urlRenamer(file, locale as any);
+    const file = await getBlog(blogData.docKey as BlogKey, locale);
+    const blogContent = urlRenamer(file, locale);
 
     const prevBlog: DocPageNavigationProps['prevDoc'] = prevBlogData?.blogs
       ? {
           title: prevBlogData.title,
-          url: getLocalizedUrl(prevBlogData.blogs.relativeUrl, locale as any),
+          url: getLocalizedUrl(prevBlogData.blogs.relativeUrl, locale),
         }
       : undefined;
     const nextBlog: DocPageNavigationProps['nextDoc'] = nextBlogData?.blogs
       ? {
           title: nextBlogData.title,
-          url: getLocalizedUrl(nextBlogData.blogs.relativeUrl, locale as any),
+          url: getLocalizedUrl(nextBlogData.blogs.relativeUrl, locale),
         }
       : undefined;
 
@@ -71,10 +63,29 @@ export const Route = createFileRoute('/{-$locale}/blog/$')({
   },
   head: ({ loaderData }) => {
     if (!loaderData) return {};
-    const { blogData } = loaderData;
-    const relativeUrl = blogData.relativeUrl;
+    const { blogData, locale } = loaderData;
+    const path = blogData.relativeUrl;
 
     return {
+      links: [
+        // Canonical link: Points to the current localized page
+        { rel: 'canonical', href: getLocalizedUrl(path, locale) },
+
+        // Hreflang: Tell Google about all localized versions
+        ...localeMap(({ locale: mapLocale }) => ({
+          rel: 'alternate',
+          hrefLang: mapLocale,
+          href: getLocalizedUrl(path, mapLocale),
+        })),
+
+        // x-default: For users in unmatched languages
+        // Define the default fallback locale (usually your primary language)
+        {
+          rel: 'alternate',
+          hrefLang: 'x-default',
+          href: getLocalizedUrl(path, defaultLocale),
+        },
+      ],
       meta: [
         { title: `${blogData.title} | Intlayer` },
         { name: 'description', content: blogData.description },
@@ -84,24 +95,6 @@ export const Route = createFileRoute('/{-$locale}/blog/$')({
         { property: 'og:url', content: blogData.url },
         { name: 'twitter:title', content: blogData.title },
         { name: 'twitter:description', content: blogData.description },
-      ],
-      links: [
-        {
-          rel: 'canonical',
-          href: getLocalizedUrl(relativeUrl, Locales.ENGLISH),
-        },
-        ...Object.entries(getMultilingualUrls(relativeUrl)).map(
-          ([lang, url]) => ({
-            rel: 'alternate',
-            hrefLang: lang,
-            href: url as string,
-          })
-        ),
-        {
-          rel: 'alternate',
-          hrefLang: 'x-default',
-          href: getLocalizedUrl(relativeUrl, Locales.ENGLISH),
-        },
       ],
       scripts: [
         {
@@ -134,15 +127,15 @@ function BlogPage() {
         breadcrumbs={[
           {
             name: 'Intlayer',
-            url: getLocalizedUrl(Website_Home, locale as any),
+            url: getLocalizedUrl(Website_Home, locale),
           },
           {
             name: 'Blog',
-            url: getLocalizedUrl(Website_Blog, locale as any),
+            url: getLocalizedUrl(Website_Blog, locale),
           },
           {
             name: blogData.title,
-            url: getLocalizedUrl(blogData.relativeUrl, locale as any),
+            url: getLocalizedUrl(blogData.relativeUrl, locale),
           },
         ]}
       />
@@ -151,7 +144,7 @@ function BlogPage() {
         creativeWorkDescription={blogData.description}
         creativeWorkContent={blogContent}
         keywords={blogData.keywords.join(', ')}
-        url={getLocalizedUrl(blogData.relativeUrl, locale as any)}
+        url={getLocalizedUrl(blogData.relativeUrl, locale)}
         dateModified={new Date(blogData.updatedAt)}
         datePublished={new Date(blogData.createdAt)}
       />

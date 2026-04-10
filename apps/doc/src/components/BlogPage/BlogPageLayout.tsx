@@ -17,7 +17,7 @@ export const BlogPageLayout: FC<BlogPageLayoutProps> = ({
   displayAsideNavigation = true,
 }) => {
   const { locale } = useLocale();
-  const blogData = getBlogData(locale as any);
+  const blogData = getBlogData(locale);
 
   return (
     <Suspense fallback={<></>}>
@@ -38,7 +38,7 @@ export const BlogPageLayout: FC<BlogPageLayoutProps> = ({
                 className="mt-12 ml-10"
                 activeSections={activeSlugs}
                 blogData={blogData}
-                locale={locale as any}
+                locale={locale}
               />
               {children}
             </div>

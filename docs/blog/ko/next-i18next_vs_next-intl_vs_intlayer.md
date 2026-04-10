@@ -501,7 +501,7 @@ const locales = ["en", "fr", "es"];
 
 export default getRequestConfig(async ({ locale }) => {
   // 들어오는 `locale` 매개변수가 유효한지 검증합니다
-  if (!locales.includes(locale as any)) notFound();
+  if (!locales.includes(locale)) notFound();
 
   return {
     messages: (await import(`../messages/${locale}.json`)).default,

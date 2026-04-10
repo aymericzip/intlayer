@@ -412,7 +412,7 @@ export default function LocaleLayout({
   // 验证来自 URL 参数的 locale
   // 如果提供了无效的 locale，则回退到默认 locale
   const locale: Locale = (locales as readonly string[]).includes(params.locale)
-    ? (params.locale as any)
+    ? params.locale
     : defaultLocale;
 
   // 根据 locale 确定文本方向

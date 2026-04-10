@@ -414,7 +414,7 @@ export default function LocaleLayout({
   // Überprüfen Sie die Locale aus den URL-Parametern
   // Wenn eine ungültige Locale angegeben wird, wird auf die Standard-Locale zurückgegriffen
   const locale: Locale = (locales as readonly string[]).includes(params.locale)
-    ? (params.locale as any)
+    ? params.locale
     : defaultLocale;
 
   // Bestimmen Sie die Schreibrichtung basierend auf der Locale

@@ -259,7 +259,7 @@ export default function LocaleLayout({
 }) {
   // यदि params.locale locales में है तो उसे उपयोग करें, अन्यथा defaultLocale का उपयोग करें
   const locale: Locale = (locales as readonly string[]).includes(params.locale)
-    ? (params.locale as any)
+    ? params.locale
     : defaultLocale;
 
   // दिशा निर्धारित करें: यदि भाषा RTL है तो "rtl", अन्यथा "ltr"

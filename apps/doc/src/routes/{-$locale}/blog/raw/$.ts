@@ -22,7 +22,7 @@ export const Route = createFileRoute('/{-$locale}/blog/raw/$')({
 
           const matches = await getBlogMetadataBySlug(
             normalizedSlugs,
-            locale as any,
+            locale,
             true
           );
 
@@ -30,7 +30,7 @@ export const Route = createFileRoute('/{-$locale}/blog/raw/$')({
             return new Response('Not found', { status: 404 });
           }
 
-          const file = await getBlog(matches[0].docKey as any, locale as any);
+          const file = await getBlog(matches[0].docKey as any, locale);
 
           const url = new URL(request.url);
           const format = (url.searchParams.get('format') || '').toLowerCase();
@@ -99,7 +99,7 @@ export const Route = createFileRoute('/{-$locale}/blog/raw/$')({
           const slugs = splat ? splat.split('/').filter(Boolean) : [];
           const matches = await getBlogMetadataBySlug(
             ['blog', ...slugs],
-            locale as any,
+            locale,
             true
           );
           if (!matches || matches.length === 0)

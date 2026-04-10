@@ -412,7 +412,7 @@ export default function LocaleLayout({
   // Validasi locale dari parameter URL
   // Jika locale yang diberikan tidak valid, gunakan locale default
   const locale: Locale = (locales as readonly string[]).includes(params.locale)
-    ? (params.locale as any)
+    ? params.locale
     : defaultLocale;
 
   // Tentukan arah teks berdasarkan locale
