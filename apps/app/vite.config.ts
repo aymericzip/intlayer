@@ -81,6 +81,7 @@ export default defineConfig(({ mode }) => {
       "'self'",
       "'unsafe-inline'",
       "'report-sample'",
+      'intlayer.org',
       '*.intlayer.org',
       'static.cloudflareinsights.com',
       'fonts.googleapis.com',
@@ -89,6 +90,7 @@ export default defineConfig(({ mode }) => {
     'style-src-elem': [
       "'self'",
       "'report-sample'",
+      'intlayer.org',
       '*.intlayer.org',
       'static.cloudflareinsights.com',
       'fonts.googleapis.com',
@@ -96,20 +98,15 @@ export default defineConfig(({ mode }) => {
       "'unsafe-inline'",
       `*.${domain}`,
     ],
-    'script-src': [
-      "'self'",
-      "'unsafe-eval'",
-      "'unsafe-inline'",
-      '*.youtube.com',
-    ],
+    'script-src': ["'self'", "'unsafe-eval'", "'unsafe-inline'"],
     'script-src-elem': [
       "'self'",
       'data:',
       "'report-sample'",
       "'unsafe-inline'",
       'blob:',
+      'intlayer.org',
       '*.intlayer.org',
-      '*.facebook.net',
       'static.cloudflareinsights.com',
       '*.google-analytics.com',
       '*.googletagmanager.com',
@@ -117,39 +114,9 @@ export default defineConfig(({ mode }) => {
       '*.stripe.com',
       'cdn.jsdelivr.net',
       '*.ahrefs.com',
-      '*.youtube.com',
       'zz.bdstatic.com',
       'push.zhanzhang.baidu.com',
       `blob: *.${domain}`,
-    ],
-    'connect-src': [
-      "'self'",
-      'data:',
-      '*.intlayer.org',
-      backendUrl,
-      'fonts.googleapis.com',
-      'static.cloudflareinsights.com',
-      '*.facebook.net',
-      '*.facebook.com',
-      '*.google-analytics.com',
-      '*.googletagmanager.com',
-      '*.posthog.com',
-      'github.com',
-      'api.github.com',
-      'raw.githubusercontent.com',
-      '*.openai.com',
-      '*.stripe.com',
-      '*.producthunt.com',
-      'cdn.jsdelivr.net',
-      '*.ahrefs.com',
-      '*.star-history.com',
-      '*.vercel.app',
-      'img.shields.io',
-      '*.googleusercontent.com',
-      '*.githubusercontent.com',
-      'zz.bdstatic.com',
-      'push.zhanzhang.baidu.com',
-      `*.${domain}`,
     ],
     'img-src': [
       "'self'",
@@ -160,8 +127,6 @@ export default defineConfig(({ mode }) => {
       'avatars.githubusercontent.com',
       '*.googleusercontent.com',
       '*.githubusercontent.com',
-      'zz.bdstatic.com',
-      'push.zhanzhang.baidu.com',
       backendUrl,
     ],
     'worker-src': [
@@ -169,6 +134,7 @@ export default defineConfig(({ mode }) => {
       appUrl,
       'blob:',
       `blob: *.${domain}`,
+      'intlayer.org',
       '*.intlayer.org',
     ],
     'media-src': ["'self'"],
@@ -183,18 +149,11 @@ export default defineConfig(({ mode }) => {
       "'self'",
       'data:',
       'blob:',
+      'intlayer.org',
       '*.intlayer.org',
       `blob: *.${domain}`,
     ],
-    'frame-src': [
-      "'self'",
-      '*.youtube.com',
-      'github.dev',
-      'github.com',
-      '*.github.com',
-      '*.stripe.com',
-      'stackblitz.com',
-    ],
+
     'frame-ancestors': [
       "'self'",
       'intlayer.org',
@@ -203,15 +162,9 @@ export default defineConfig(({ mode }) => {
     ],
     'manifest-src': ["'self'"],
     'child-src': ["'self'", '*.googletagmanager.com'],
+    'connect-src': ['*', 'data:', 'blob:'],
+    'frame-src': ['*', 'data:', 'blob:'],
   };
-
-  const editorCspDirectives = {
-    ...cspDirectives,
-    // Allow the editor to connect to and frame any origin (or define a broader list here)
-    'connect-src': ['*'],
-    'frame-src': ['*'],
-    'script-src': ["'self'", "'unsafe-eval'", "'unsafe-inline'", '*'],
-  } as const;
 
   const cspString = Object.entries(cspDirectives)
     .map(([key, values]) => `${key} ${[...new Set(values)].join(' ')}`)
@@ -222,7 +175,6 @@ export default defineConfig(({ mode }) => {
     'Cache-Control':
       'public, max-age=86400, s-maxage=86400, stale-while-revalidate=172800',
     'Cross-Origin-Opener-Policy': 'same-origin',
-    'Cross-Origin-Embedder-Policy': 'same-origin',
     'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload',
     'X-Frame-Options': 'SAMEORIGIN',
     'X-XSS-Protection': '0',
@@ -232,42 +184,25 @@ export default defineConfig(({ mode }) => {
     'Access-Control-Allow-Headers':
       'X-Requested-With, Content-Type, Authorization',
     'Referrer-Policy': 'same-origin',
-  } as const;
-
-  const editorCspString = Object.entries(editorCspDirectives)
-    .map(([key, values]) => `${key} ${[...new Set(values)].join(' ')}`)
-    .join('; ');
-
-  const editorHeaders = {
-    ...headers,
-    'Content-Security-Policy': editorCspString,
-    // COEP must be unsafe-none to allow embedding cross-origin iframes
     'Cross-Origin-Embedder-Policy': 'unsafe-none',
-  };
+  } as const;
 
   return {
     server: {
-      headers: mode === 'development' ? editorHeaders : headers,
+      headers: mode === 'development' ? {} : headers,
     },
+    // Note: If you test using `vite preview`, it applies these globally.
+    // It will not use Nitro's routeRules dynamically in simple preview mode.
     preview: {
       headers,
     },
     plugins: [
-      // devtools(),
-      // intlayerProxy(),
       nitro({
         preset: 'bun',
         routeRules: {
           '/**': { headers },
-          '/editor/**': { headers: editorHeaders },
-          '/*/editor/**': { headers: editorHeaders },
-          '/translate/**': { headers: editorHeaders },
-          '/*/translate/**': { headers: editorHeaders },
-          '/dictionary/**': { headers: editorHeaders },
-          '/*/dictionary/**': { headers: editorHeaders },
         },
         rollupConfig: {
-          // Add onwarn to Nitro's Rollup config to catch server-build warnings
           onwarn(warning, warn) {
             if (warning.code === 'MODULE_LEVEL_DIRECTIVE') return;
             warn(warning);
@@ -295,10 +230,6 @@ export default defineConfig(({ mode }) => {
       react(),
       babel({ presets: [reactCompilerPreset()] }),
       wasm(),
-      // visualizer({
-      //   emitFile: true,
-      //   filename: 'stats.html',
-      // }),
     ],
     build: {
       rolldownOptions: {
@@ -306,11 +237,9 @@ export default defineConfig(({ mode }) => {
       },
     },
     resolve: {
-      // Forces Vite to resolve these dependencies from the root node_modules
       dedupe: ['react', 'react-dom'],
     },
     optimizeDeps: {
-      // Ensures Vite pre-bundles them together
       include: ['react', 'react-dom'],
     },
   };
