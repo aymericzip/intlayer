@@ -12,7 +12,7 @@ export const WebsiteHeader = () => {
     name: 'Intlayer',
     potentialAction: {
       '@type': 'SearchAction',
-      target: `${import.meta.env.VITE_URL}/doc/search?search={search_term_string}`,
+      target: `${import.meta.env.VITE_SITE_URL}/doc/search?search={search_term_string}`,
       'query-input': 'required name=search_term_string',
     },
     inLanguage: internationalization.locales,

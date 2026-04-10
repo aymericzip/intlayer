@@ -26,7 +26,7 @@ export const AskResetPasswordForm: FC<AskResetPasswordFormProps> = ({
   const onSubmitSuccess = ({ email }: AskResetPassword) => {
     askResetPassword({
       email,
-      redirectTo: `${import.meta.env.VITE_URL}${callbackUrl}`,
+      redirectTo: `${import.meta.env.VITE_SITE_URL}${callbackUrl}`,
     });
   };
 

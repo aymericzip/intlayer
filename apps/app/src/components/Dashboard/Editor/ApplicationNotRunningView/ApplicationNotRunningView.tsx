@@ -57,7 +57,7 @@ export const ApplicationNotRunningView: FC<ApplicationNotRunningViewProps> = ({
                 {tip({
                   editorUrl: (
                     <span className="font-bold">
-                      {editorUrl ?? import.meta.env.VITE_URL}
+                      {editorUrl ?? import.meta.env.VITE_SITE_URL}
                     </span>
                   ),
                 })}

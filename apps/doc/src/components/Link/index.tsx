@@ -21,7 +21,7 @@ export type LinkProps = Omit<LinkUIProps, 'href'> &
     to: TansStackLinkProps['to'] | (string & {});
   };
 
-const URL = import.meta.env.VITE_URL;
+const URL = import.meta.env.VITE_SITE_URL;
 
 export const Link: FC<LinkProps> = ({
   variant = 'default',

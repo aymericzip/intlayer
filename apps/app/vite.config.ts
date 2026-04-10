@@ -72,7 +72,7 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
 
   const domain = new URL(env.VITE_SITE_URL).hostname;
-  const appUrl = env.VITE_APP_URL;
+  const appUrl = env.VITE_SITE_URL;
   const backendUrl = env.VITE_BACKEND_URL;
 
   const cspDirectives = {
