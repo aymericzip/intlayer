@@ -8,6 +8,8 @@ import {
 } from '@tanstack/react-router';
 import { defaultLocale, getHTMLTextDir } from 'intlayer';
 import { IntlayerProvider } from 'react-intlayer';
+import { SoftwareApplicationHeader } from '#/structuredData/SoftwareApplication';
+import { WebsiteHeader } from '#/structuredData/WebsiteHeader';
 import { BackgroundLayout } from '#/components/BackgroundLayout';
 import { BaiduAutoPushSubscriber } from '#/components/BaiduAutoPush/BaiduAutoPushSubscriber';
 import { ErrorComponent } from '#/components/ErrorComponent';
@@ -100,6 +102,8 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       </head>
       <body className="relative flex min-h-screen flex-col overflow-x-clip scroll-smooth bg-background text-text leading-8 transition md:flex">
         <IntlayerProvider locale={locale}>
+          <WebsiteHeader />
+          <SoftwareApplicationHeader />
           <Toaster />
           <ThemeProvider>
             <IntlayerMarkdownProvider>

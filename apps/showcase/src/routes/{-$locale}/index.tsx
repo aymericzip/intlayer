@@ -9,7 +9,7 @@ import {
   Pagination,
   ShowingResultsNumberItems,
 } from '@intlayer/design-system/pagination';
-import { Showcase_Root_Path } from '@intlayer/design-system/routes';
+import { Showcase_Root_Path, Website_Home } from '@intlayer/design-system/routes';
 import { createFileRoute } from '@tanstack/react-router';
 import {
   defaultLocale,
@@ -19,6 +19,7 @@ import {
 } from 'intlayer';
 import { useEffect } from 'react';
 import { useIntlayer } from 'react-intlayer';
+import { BreadcrumbsHeader } from '#/structuredData/BreadcrumbsHeader';
 import { FiltersBar } from '#/components/FiltersBar';
 import { ProjectCard } from '#/components/ProjectCard';
 import { ProjectCardSkeleton } from '#/components/ProjectCardSkeleton';
@@ -154,6 +155,7 @@ export const Route = createFileRoute('/{-$locale}/')({
 });
 
 function App() {
+  const { locale } = Route.useParams();
   const content = useIntlayer('showcase-index');
   const { params, setParam, setParams } = useSearchParamState({
     page: { type: 'number', fallbackValue: 1 },
@@ -199,6 +201,18 @@ function App() {
 
   return (
     <div className="flex w-full flex-1 flex-col px-6">
+      <BreadcrumbsHeader
+        breadcrumbs={[
+          {
+            name: 'Intlayer',
+            url: getLocalizedUrl(Website_Home, locale as any),
+          },
+          {
+            name: 'Showcase',
+            url: getLocalizedUrl(Showcase_Root_Path, locale as any),
+          },
+        ]}
+      />
       <ShowcaseHeader />
 
       <FiltersBar

@@ -1,3 +1,7 @@
+import {
+  Website_Home,
+  Website_Doc,
+} from '@intlayer/design-system/routes';
 import type { DocKey } from '@intlayer/docs';
 import { createFileRoute, redirect } from '@tanstack/react-router';
 import {
@@ -7,6 +11,8 @@ import {
   getPrefix,
   Locales,
 } from 'intlayer';
+import { BreadcrumbsHeader } from '#/structuredData/BreadcrumbsHeader';
+import { CreativeWorkHeader } from '#/structuredData/CreativeWorkHeader';
 import { DocHeader } from '#/components/DocPage/DocHeader/DocHeader';
 import { DocPageLayout } from '#/components/DocPage/DocPageLayout';
 import {
@@ -134,6 +140,31 @@ function DocPage() {
 
   return (
     <DocPageLayout activeSlugs={slugs}>
+      <BreadcrumbsHeader
+        breadcrumbs={[
+          {
+            name: 'Intlayer',
+            url: getLocalizedUrl(Website_Home, locale as any),
+          },
+          {
+            name: 'Docs',
+            url: getLocalizedUrl(Website_Doc, locale as any),
+          },
+          {
+            name: docData.title,
+            url: getLocalizedUrl(docData.relativeUrl, locale as any),
+          },
+        ]}
+      />
+      <CreativeWorkHeader
+        creativeWorkName={docData.title}
+        creativeWorkDescription={docData.description}
+        creativeWorkContent={docContent}
+        keywords={docData.keywords.join(', ')}
+        url={getLocalizedUrl(docData.relativeUrl, locale as any)}
+        dateModified={new Date(docData.updatedAt)}
+        datePublished={new Date(docData.createdAt)}
+      />
       <DocHeader
         {...docData}
         markdownContent={docContent}

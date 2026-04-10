@@ -1,3 +1,7 @@
+import {
+  Website_Home,
+  Showcase_Root_Path,
+} from '@intlayer/design-system/routes';
 import { getIntlayerAPI } from '@intlayer/api';
 import { createFileRoute } from '@tanstack/react-router';
 import {
@@ -7,6 +11,7 @@ import {
   localeMap,
 } from 'intlayer';
 import { useIntlayer } from 'react-intlayer';
+import { BreadcrumbsHeader } from '#/structuredData/BreadcrumbsHeader';
 import { Link } from '#/components/Link';
 import { ProjectFocus } from '#/components/ProjectFocus/ProjectFocus';
 import { ShowcaseHeader } from '#/components/ShowcaseHeader';
@@ -89,15 +94,33 @@ export const Route = createFileRoute('/{-$locale}/project/$projectId')({
         : [],
     };
   },
+  component: ProjectPage,
 });
 
 function ProjectPage() {
   const { project } = Route.useLoaderData();
   const content = useIntlayer('project-focus');
+  const { locale } = Route.useParams();
 
   if (!project) {
     return (
       <div className="flex min-h-screen flex-col px-10">
+        <BreadcrumbsHeader
+          breadcrumbs={[
+            {
+              name: 'Intlayer',
+              url: getLocalizedUrl(Website_Home, locale as any),
+            },
+            {
+              name: 'Showcase',
+              url: getLocalizedUrl(Showcase_Root_Path, locale as any),
+            },
+            {
+              name: content.projectNotFound.title.value,
+              url: getLocalizedUrl(`/project/${project?._id}`, locale as any),
+            },
+          ]}
+        />
         <ShowcaseHeader />
         <div className="flex flex-1 flex-col items-center justify-center p-8 text-center">
           <h2 className="mb-4 font-bold text-2xl">
@@ -121,6 +144,22 @@ function ProjectPage() {
 
   return (
     <div className="flex min-h-screen flex-col px-10">
+      <BreadcrumbsHeader
+        breadcrumbs={[
+          {
+            name: 'Intlayer',
+            url: getLocalizedUrl(Website_Home, locale as any),
+          },
+          {
+            name: 'Showcase',
+            url: getLocalizedUrl(Showcase_Root_Path, locale as any),
+          },
+          {
+            name: project.title,
+            url: getLocalizedUrl(`/project/${project._id}`, locale as any),
+          },
+        ]}
+      />
       <ShowcaseHeader />
       <ProjectFocus project={project} />
     </div>

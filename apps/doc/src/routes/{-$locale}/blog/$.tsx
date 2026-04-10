@@ -1,4 +1,7 @@
-import { Website_Blog } from '@intlayer/design-system/routes';
+import {
+  Website_Home,
+  Website_Blog,
+} from '@intlayer/design-system/routes';
 import type { BlogKey } from '@intlayer/docs';
 import { createFileRoute, redirect } from '@tanstack/react-router';
 import {
@@ -7,6 +10,8 @@ import {
   getMultilingualUrls,
   Locales,
 } from 'intlayer';
+import { BreadcrumbsHeader } from '#/structuredData/BreadcrumbsHeader';
+import { CreativeWorkHeader } from '#/structuredData/CreativeWorkHeader';
 import { BlogPageLayout } from '#/components/BlogPage/BlogPageLayout';
 import { getPreviousNextBlogData } from '#/components/BlogPage/blogData';
 import { DocHeader } from '#/components/DocPage/DocHeader/DocHeader';
@@ -121,9 +126,35 @@ export const Route = createFileRoute('/{-$locale}/blog/$')({
 function BlogPage() {
   const { blogData, blogContent, slugs, prevBlog, nextBlog } =
     Route.useLoaderData();
+  const { locale } = Route.useParams();
 
   return (
     <BlogPageLayout activeSlugs={slugs}>
+      <BreadcrumbsHeader
+        breadcrumbs={[
+          {
+            name: 'Intlayer',
+            url: getLocalizedUrl(Website_Home, locale as any),
+          },
+          {
+            name: 'Blog',
+            url: getLocalizedUrl(Website_Blog, locale as any),
+          },
+          {
+            name: blogData.title,
+            url: getLocalizedUrl(blogData.relativeUrl, locale as any),
+          },
+        ]}
+      />
+      <CreativeWorkHeader
+        creativeWorkName={blogData.title}
+        creativeWorkDescription={blogData.description}
+        creativeWorkContent={blogContent}
+        keywords={blogData.keywords.join(', ')}
+        url={getLocalizedUrl(blogData.relativeUrl, locale as any)}
+        dateModified={new Date(blogData.updatedAt)}
+        datePublished={new Date(blogData.createdAt)}
+      />
       <DocHeader {...blogData} markdownContent={blogContent} />
       <DocumentationRender>{blogContent}</DocumentationRender>
       <DocPageNavigation nextDoc={nextBlog} prevDoc={prevBlog} />
