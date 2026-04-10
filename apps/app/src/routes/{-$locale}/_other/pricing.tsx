@@ -1,11 +1,15 @@
 import { getStripeAPI } from '@intlayer/api';
 import type { GetPricingResult } from '@intlayer/backend';
+import { App_Pricing, Website_Home } from '@intlayer/design-system/routes';
 import { createFileRoute } from '@tanstack/react-router';
 import { createServerFn } from '@tanstack/react-start';
-import { getIntlayer } from 'intlayer';
+import { getIntlayer, getLocalizedUrl } from 'intlayer';
 import { Suspense } from 'react';
+import { BreadcrumbsHeader } from '#/structuredData/BreadcrumbsHeader';
+import { ProductHeader } from '#/structuredData/ProductHeader';
 import { BackgroundLayout } from '#components/BackgroundLayout';
 import { PricingPage as PricingPageContent } from '#components/PricingPage';
+import { PricingSkeleton } from '#components/PricingPage/PricingSkeleton';
 
 const priceIds = [
   process.env.VITE_STRIPE_PREMIUM_YEARLY_PRICE_ID,
@@ -48,15 +52,27 @@ export const Route = createFileRoute('/{-$locale}/_other/pricing')({
   },
 });
 
-import { PricingSkeleton } from '#components/PricingPage/PricingSkeleton';
-
 function PricingPage() {
   const { pricingData } = Route.useLoaderData();
+  const { locale } = Route.useParams();
 
   if (!pricingData) return null;
 
   return (
     <BackgroundLayout>
+      <BreadcrumbsHeader
+        breadcrumbs={[
+          {
+            name: 'Intlayer',
+            url: getLocalizedUrl(Website_Home, locale),
+          },
+          {
+            name: 'Pricing',
+            url: getLocalizedUrl(App_Pricing, locale),
+          },
+        ]}
+      />
+      <ProductHeader />
       <Suspense fallback={<PricingSkeleton />}>
         <PricingPageContent
           pricings={pricingData as GetPricingResult['data']}

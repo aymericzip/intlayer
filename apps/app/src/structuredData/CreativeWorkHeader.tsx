@@ -1,3 +1,4 @@
+/** biome-ignore-all lint/security/noDangerouslySetInnerHtml: No choice */
 
 import { useIntlayer } from 'react-intlayer';
 
@@ -59,7 +60,7 @@ export const CreativeWorkHeader = ({
   };
 
   return (
-    <Script
+    <script
       type="application/ld+json"
       dangerouslySetInnerHTML={{
         __html: JSON.stringify(creativeWork),

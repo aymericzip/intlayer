@@ -1,3 +1,6 @@
+/** biome-ignore-all lint/security/noDangerouslySetInnerHtml: No choice */
+
+import { External_Github, Website_Home } from '@intlayer/design-system/routes';
 import Script from 'next/script';
 import { useIntlayer } from 'next-intlayer/server';
 import type { FC } from 'react';
@@ -12,7 +15,7 @@ export const SoftwareApplicationHeader: FC = () => {
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',
     name: 'Intlayer',
-    url: 'https://intlayer.org',
+    url: Website_Home,
     description: description.value,
     softwareVersion: packageJson.version,
     license:
@@ -20,15 +23,15 @@ export const SoftwareApplicationHeader: FC = () => {
     author: {
       '@type': 'Organization',
       name: 'Intlayer',
-      url: 'https://intlayer.org',
-      logo: 'https://intlayer.org/assets/logo.png',
-      sameAs: ['https://github.com/aymericzip'],
+      url: Website_Home,
+      logo: `${Website_Home}/assets/logo.png`,
+      sameAs: [External_Github],
     },
     publisher: {
       '@type': 'Organization',
       name: 'Intlayer',
-      url: 'https://intlayer.org',
-      logo: 'https://intlayer.org/assets/logo.png',
+      url: Website_Home,
+      logo: `${Website_Home}/assets/logo.png`,
     },
     keywords: keywords.map((keyword) => keyword.value),
     creator: {
@@ -38,7 +41,7 @@ export const SoftwareApplicationHeader: FC = () => {
     },
     applicationCategory: 'BusinessApplication',
     applicationSubCategory: 'Developer Tools',
-    image: 'https://intlayer.org/cover.png',
+    image: `${Website_Home}/cover.png`,
     operatingSystem: 'Web, iOS, Android',
     platform: 'Web, React, nextjs, Vite',
     datePublished: '2024-08-26',
@@ -46,7 +49,7 @@ export const SoftwareApplicationHeader: FC = () => {
       '@type': 'Audience',
       audienceType: audienceType.value,
     },
-    mainEntityOfPage: 'https://intlayer.org',
+    mainEntityOfPage: Website_Home,
   };
 
   return (

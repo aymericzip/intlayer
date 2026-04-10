@@ -75,6 +75,9 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
   shellComponent: RootDocument,
 });
 
+import { SoftwareApplicationHeader } from '#/structuredData/SoftwareApplication';
+import { WebsiteHeader } from '#/structuredData/WebsiteHeader';
+
 function RootDocument({ children }: { children: React.ReactNode }) {
   const { locale = defaultLocale } = LocaleRoute.useParams();
 
@@ -92,6 +95,8 @@ function RootDocument({ children }: { children: React.ReactNode }) {
               <IntlayerMarkdownProvider>
                 <ReactQueryProvider>
                   <Toaster />
+                  <WebsiteHeader />
+                  <SoftwareApplicationHeader />
                   <ServiceWorkerSubscriber />
                   <BaiduAutoPushSubscriber />
                   <Suspense fallback={<Loader />}>{children}</Suspense>

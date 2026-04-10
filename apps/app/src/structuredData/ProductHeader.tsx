@@ -1,4 +1,10 @@
+/** biome-ignore-all lint/security/noDangerouslySetInnerHtml: No choice */
 
+import {
+  App_Dashboard,
+  App_Pricing,
+  Website_Home,
+} from '@intlayer/design-system/routes';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
 
@@ -7,7 +13,7 @@ export const ProductHeader: FC = () => {
   const product = {
     '@context': 'https://schema.org',
     '@type': 'Product',
-    url: 'https://app.intlayer.org/',
+    url: App_Dashboard,
     name: 'Intlayer CMS',
     description: description.value,
     image:
@@ -21,7 +27,7 @@ export const ProductHeader: FC = () => {
       // Free Pricing Offer
       {
         '@type': 'Offer',
-        url: 'https://intlayer.org/pricing',
+        url: App_Pricing,
         priceCurrency: 'USD',
         price: '0.00',
         // priceValidUntil: '2024-08-26',
@@ -30,14 +36,14 @@ export const ProductHeader: FC = () => {
         seller: {
           '@type': 'Organization',
           name: 'Intlayer',
-          url: 'https://intlayer.org',
+          url: Website_Home,
         },
         category: 'Free Plan', // Indicating it's a Free plan
       },
       // Monthly Pricing Offer
       {
         '@type': 'Offer',
-        url: 'https://app.intlayer.org/',
+        url: App_Dashboard,
         priceCurrency: 'USD',
         price: '18.99', // Monthly price for premium
         // priceValidUntil: '2024-12-31',
@@ -50,13 +56,13 @@ export const ProductHeader: FC = () => {
         seller: {
           '@type': 'Organization',
           name: 'Intlayer Inc.',
-          url: 'https://intlayer.org',
+          url: Website_Home,
         },
         category: 'Premium Monthly Plan', // Indicating it's a Premium plan
       },
       {
         '@type': 'Offer',
-        url: 'https://app.intlayer.org/',
+        url: App_Dashboard,
         priceCurrency: 'USD',
         price: '34.99', // Monthly price for enterprise
         // priceValidUntil: '2024-12-31',
@@ -69,14 +75,14 @@ export const ProductHeader: FC = () => {
         seller: {
           '@type': 'Organization',
           name: 'Intlayer Inc.',
-          url: 'https://intlayer.org',
+          url: Website_Home,
         },
         category: 'Enterprise Monthly Plan', // Indicating it's an Enterprise plan
       },
       // Yearly Pricing Offer
       {
         '@type': 'Offer',
-        url: 'https://app.intlayer.org/',
+        url: App_Dashboard,
         priceCurrency: 'USD',
         price: '178.88', // Yearly price for premium (7.99 * 12)
         // priceValidUntil: '2024-12-31',
@@ -89,13 +95,13 @@ export const ProductHeader: FC = () => {
         seller: {
           '@type': 'Organization',
           name: 'Intlayer Inc.',
-          url: 'https://intlayer.org',
+          url: Website_Home,
         },
         category: 'Premium Yearly Plan', // Indicating it's a Premium plan
       },
       {
         '@type': 'Offer',
-        url: 'https://app.intlayer.org/',
+        url: App_Dashboard,
         priceCurrency: 'USD',
         price: '359.88', // Yearly price for enterprise (16.99 * 12)
         // priceValidUntil: '2024-12-31',
@@ -108,7 +114,7 @@ export const ProductHeader: FC = () => {
         seller: {
           '@type': 'Organization',
           name: 'Intlayer Inc.',
-          url: 'https://intlayer.org',
+          url: Website_Home,
         },
         category: 'Enterprise Yearly Plan', // Indicating it's an Enterprise plan
       },
@@ -116,7 +122,7 @@ export const ProductHeader: FC = () => {
   };
 
   return (
-    <Script
+    <script
       type="application/ld+json"
       dangerouslySetInnerHTML={{
         __html: JSON.stringify(product),

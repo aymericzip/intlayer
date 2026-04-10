@@ -1,3 +1,4 @@
+/** biome-ignore-all lint/security/noDangerouslySetInnerHtml: No choice */
 
 import type { FC } from 'react';
 
@@ -13,7 +14,7 @@ type BreadcrumbsHeaderProps = {
 export const BreadcrumbsHeader: FC<BreadcrumbsHeaderProps> = ({
   breadcrumbs,
 }) => (
-  <Script
+  <script
     type="application/ld+json"
     dangerouslySetInnerHTML={{
       __html: JSON.stringify({
