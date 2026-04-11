@@ -5,6 +5,7 @@ import { defaultLocale, getLocalizedUrl } from 'intlayer';
 export const Route = createFileRoute('/{-$locale}/blog/')({
   beforeLoad: ({ params }) => {
     const locale = (params as { locale?: string }).locale ?? defaultLocale;
+
     throw redirect({
       href: getLocalizedUrl(Website_Blog_Search, locale),
     });

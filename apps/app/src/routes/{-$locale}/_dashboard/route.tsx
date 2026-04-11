@@ -23,16 +23,16 @@ import { WarmupClient } from '#components/Dashboard/WarmupClient';
 import { validateAuth } from '#utils/auth';
 
 export const Route = createFileRoute('/{-$locale}/_dashboard')({
-  beforeLoad: async ({ context, location, params }) => {
-    const { locale } = params;
-    await validateAuth({
-      queryClient: context.queryClient,
-      pathname: location.pathname,
-      search: location.search,
-      locale,
-      accessRule: 'authenticated',
-    });
-  },
+  // beforeLoad: async ({ context, location, params }) => {
+  //   const { locale } = params;
+  //   await validateAuth({
+  //     queryClient: context.queryClient,
+  //     pathname: location.pathname,
+  //     search: location.search,
+  //     locale,
+  //     accessRule: 'authenticated',
+  //   });
+  // },
   pendingComponent: DashboardSkeleton,
   component: DashboardLayout,
   head: ({ params }) => {

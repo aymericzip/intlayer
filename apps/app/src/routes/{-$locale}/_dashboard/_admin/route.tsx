@@ -7,17 +7,17 @@ import { useSessionRouterListener } from '#hooks/useSessionRouterListener.ts';
 import { validateAuth } from '#utils/auth.tsx';
 
 export const Route = createFileRoute('/{-$locale}/_dashboard/_admin')({
-  beforeLoad: async ({ context, location, params }) => {
-    const { locale } = params;
-    await validateAuth({
-      queryClient: context.queryClient,
-      pathname: location.pathname,
+  // beforeLoad: async ({ context, location, params }) => {
+  //   const { locale } = params;
+  //   await validateAuth({
+  //     queryClient: context.queryClient,
+  //     pathname: location.pathname,
 
-      search: location.search,
-      locale,
-      accessRule: 'admin',
-    });
-  },
+  //     search: location.search,
+  //     locale,
+  //     accessRule: 'admin',
+  //   });
+  // },
   head: ({ params }) => {
     const { locale } = params;
     const content = getIntlayer('admin-metadata', locale);
