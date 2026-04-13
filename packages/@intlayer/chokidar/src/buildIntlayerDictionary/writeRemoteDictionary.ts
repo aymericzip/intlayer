@@ -66,10 +66,7 @@ export const writeRemoteDictionary = async (
 
       const formattedDictionaries = formatDistantDictionaries(dictionaries);
 
-      const orderedDictionaries = orderDictionaries(
-        formattedDictionaries,
-        configuration
-      );
+      const orderedDictionaries = orderDictionaries(formattedDictionaries);
 
       const outputFileName = `${key}.json`;
       const unmergedFilePath = resolve(remoteDictionariesDir, outputFileName);

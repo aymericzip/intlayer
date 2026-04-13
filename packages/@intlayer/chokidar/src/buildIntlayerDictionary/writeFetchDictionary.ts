@@ -8,30 +8,21 @@ import { parallelize } from '../utils/parallelize';
 import { writeFileIfChanged } from '../writeFileIfChanged';
 import type { LocalizedDictionaryOutput } from './writeDynamicDictionary';
 
-const LOAD_CONTENT_MODULE = '_loadjson';
-
-/**
- * Generates the content of the shared `loadContent` module for fetch dictionaries.
- * - `configuration` is imported at runtime from "intlayer" (liveSyncURL not baked in).
- * - Fallback delegates to the dynamic dictionary's `_loadjson` module.
- * - Locales are baked in so each entry is a static function referencing one locale.
- */
-export const generateFetchLoadContentModule = (
-  format: 'cjs' | 'esm',
+export const generateDictionaryEntryPoint = (
+  key: string,
+  locales: string[],
   relativePrefix: string,
-  locales: string[]
+  format: 'cjs' | 'esm' = 'esm'
 ): string => {
-  const sortedLocales = [...locales].sort((a, b) =>
-    String(a).localeCompare(String(b))
-  );
   const extension = format === 'cjs' ? 'cjs' : 'mjs';
 
-  const localeEntries = sortedLocales
+  const localeEntries = locales
+    .sort((a, b) => String(a).localeCompare(String(b)))
     .map(
       (locale) =>
         `  '${locale}': async () => {\n` +
         `    try {\n` +
-        `      const res = await fetch(\`\${editor.liveSyncURL}/dictionaries/\${key}/${locale}\`);\n` +
+        `      const res = await fetch(\`\${editor.liveSyncURL}/dictionaries/${key}/${locale}\`);\n` +
         `      return await res.json();\n` +
         `    } catch {\n` +
         `      return dynContent['${locale}']();\n` +
@@ -40,44 +31,18 @@ export const generateFetchLoadContentModule = (
     )
     .join(',\n');
 
-  const body =
-    `const loadContent = (key) => {\n` +
-    `  const dynContent = loadContentDyn(key);\n` +
-    `  return {\n${localeEntries}\n  };\n` +
-    `};\n`;
-
   if (format === 'esm') {
     return (
       `import { editor } from 'intlayer';\n` +
-      `import { loadContent as loadContentDyn } from '${relativePrefix}/${LOAD_CONTENT_MODULE}.${extension}';\n\n` +
-      `${body}\nexport { loadContent };\n`
-    );
-  }
-  return (
-    `const { editor } = require('intlayer');\n` +
-    `const { loadContent: loadContentDyn } = require('${relativePrefix}/${LOAD_CONTENT_MODULE}.${extension}');\n\n` +
-    `${body}\nmodule.exports = { loadContent };\n`
-  );
-};
-
-/**
- * Generates the content of a fetch dictionary entry point file.
- */
-export const generateDictionaryEntryPoint = (
-  key: string,
-  format: 'cjs' | 'esm' = 'esm'
-): string => {
-  const extension = format === 'cjs' ? 'cjs' : 'mjs';
-  if (format === 'esm') {
-    return (
-      `import { loadContent } from './${LOAD_CONTENT_MODULE}.${extension}';\n\n` +
-      `const content = loadContent('${key}');\n\n` +
+      `import dynContent from '${relativePrefix}/${key}.${extension}';\n\n` +
+      `const content = {\n${localeEntries}\n};\n\n` +
       `export default content;\n`
     );
   }
   return (
-    `const { loadContent } = require('./${LOAD_CONTENT_MODULE}.${extension}');\n\n` +
-    `module.exports = loadContent('${key}');\n`
+    `const { editor } = require('intlayer');\n` +
+    `const dynContent = require('${relativePrefix}/${key}.${extension}');\n\n` +
+    `module.exports = {\n${localeEntries}\n};\n`
   );
 };
 
@@ -105,7 +70,7 @@ export const writeFetchDictionary = async (
   const { fetchDictionariesDir, dynamicDictionariesDir } = configuration.system;
   const { locales } = configuration.internationalization;
 
-  // Compute relative path from fetch dir (where _loadjson lives) to dynamic dir
+  // Compute relative path from fetch dir to dynamic dir
   let relativePrefix = normalizePath(
     relative(fetchDictionariesDir, dynamicDictionariesDir)
   );
@@ -115,20 +80,6 @@ export const writeFetchDictionary = async (
 
   await mkdir(resolve(fetchDictionariesDir), { recursive: true });
 
-  // Write the shared loadContent module once per format
-  await parallelize(formats, async (format) => {
-    const extension = format === 'cjs' ? 'cjs' : 'mjs';
-    await writeFileIfChanged(
-      resolve(fetchDictionariesDir, `${LOAD_CONTENT_MODULE}.${extension}`),
-      generateFetchLoadContentModule(format, relativePrefix, locales)
-    ).catch((err) => {
-      console.error(
-        `Error creating fetch ${colorizePath(resolve(fetchDictionariesDir, `${LOAD_CONTENT_MODULE}.${extension}`))}:`,
-        err
-      );
-    });
-  });
-
   const resultDictionariesPaths: LocalizedDictionaryOutput = {};
 
   // Write entry points for each dictionary in parallel
@@ -137,7 +88,12 @@ export const writeFetchDictionary = async (
 
     await parallelize(formats, async (format) => {
       const extension = format === 'cjs' ? 'cjs' : 'mjs';
-      const content = generateDictionaryEntryPoint(key, format);
+      const content = generateDictionaryEntryPoint(
+        key,
+        locales,
+        relativePrefix,
+        format
+      );
 
       await writeFileIfChanged(
         resolve(fetchDictionariesDir, `${key}.${extension}`),

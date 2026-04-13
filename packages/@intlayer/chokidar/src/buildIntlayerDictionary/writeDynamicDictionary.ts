@@ -26,42 +26,14 @@ export type LocalizedDictionaryOutput = Record<
 >;
 
 const DICTIONARIES_SUBDIR = 'json'; // Necessary to add a static first dir for Turbopack
-const LOAD_CONTENT_MODULE = '_loadjson';
 
 /**
- * Assembles the entry point file content from a pre-built preamble (import/require line),
- * the locale→path record, the dictionary key, and the output format.
- * Shared by all dictionary entry point generators.
+ * Generates the content of a dictionary entry point file.
  */
-export const buildEntryPointContent = (
-  preamble: string,
-  localizedDictionariesPathsRecord: LocalizedDictionaryResult,
+export const generateDictionaryEntryPoint = (
   key: string,
+  locales: string[],
   format: 'cjs' | 'esm' = 'esm'
-): string => {
-  const formattedDictionaryMap: string = Object.keys(
-    localizedDictionariesPathsRecord
-  )
-    .sort((a, b) => String(a).localeCompare(String(b)))
-    .map((locale) => `  '${locale}': () => loadContent('${key}', '${locale}')`)
-    .join(',\n');
-
-  let content = preamble;
-  content += `const content = {\n${formattedDictionaryMap}\n};\n\n`;
-  if (format === 'esm') content += `export default content;\n`;
-  if (format === 'cjs') content += `module.exports = content;\n`;
-
-  return content;
-};
-
-/**
- * Generates the content of the shared `loadContent` module written once per
- * output directory. Locales are baked in so each dynamic import has only one
- * variable (`key`), making it statically analyzable by Vite/Rollup.
- */
-export const generateDynamicLoadContentModule = (
-  format: 'cjs' | 'esm',
-  locales: string[]
 ): string => {
   const sortedLocales = [...locales].sort((a, b) =>
     String(a).localeCompare(String(b))
@@ -70,37 +42,18 @@ export const generateDynamicLoadContentModule = (
   const localeEntries = sortedLocales
     .map((locale) =>
       format === 'esm'
-        ? `  '${locale}': () => import(\`./${DICTIONARIES_SUBDIR}/\${key}/${locale}.json\`).then(m => m.default)`
-        : `  '${locale}': () => Promise.resolve(require(\`./${DICTIONARIES_SUBDIR}/\${key}/${locale}.json\`))`
+        ? `  '${locale}': () => import('./${DICTIONARIES_SUBDIR}/${key}/${locale}.json').then(m => m.default)`
+        : `  '${locale}': () => Promise.resolve(require('./${DICTIONARIES_SUBDIR}/${key}/${locale}.json'))`
     )
     .join(',\n');
 
-  const body = `const loadContent = (key) => ({\n${localeEntries}\n});\n`;
-
-  if (format === 'esm') return `${body}\nexport { loadContent };\n`;
-  return `${body}\nmodule.exports = { loadContent };\n`;
-};
-
-/**
- * Generates the content of a dictionary entry point file.
- * `loadContent` is imported from the shared module and called with the key.
- */
-export const generateDictionaryEntryPoint = (
-  key: string,
-  format: 'cjs' | 'esm' = 'esm'
-): string => {
-  const extension = format === 'cjs' ? 'cjs' : 'mjs';
   if (format === 'esm') {
     return (
-      `import { loadContent } from './${LOAD_CONTENT_MODULE}.${extension}';\n\n` +
-      `const content = loadContent('${key}');\n\n` +
+      `const content = {\n${localeEntries}\n};\n\n` +
       `export default content;\n`
     );
   }
-  return (
-    `const { loadContent } = require('./${LOAD_CONTENT_MODULE}.${extension}');\n\n` +
-    `module.exports = loadContent('${key}');\n`
-  );
+  return `module.exports = {\n${localeEntries}\n};\n`;
 };
 
 /**
@@ -129,18 +82,6 @@ export const writeDynamicDictionary = async (
 
   const dictDir = resolve(dynamicDictionariesDir, DICTIONARIES_SUBDIR);
   await mkdir(dictDir, { recursive: true });
-  await parallelize(formats, async (format) => {
-    const extension = format === 'cjs' ? 'cjs' : 'mjs';
-    await writeFileIfChanged(
-      resolve(dynamicDictionariesDir, `${LOAD_CONTENT_MODULE}.${extension}`),
-      generateDynamicLoadContentModule(format, locales)
-    ).catch((err) => {
-      console.error(
-        `Error creating dynamic ${colorizePath(resolve(dynamicDictionariesDir, `${LOAD_CONTENT_MODULE}.${extension}`))}:`,
-        err
-      );
-    });
-  });
 
   const resultDictionariesPaths: LocalizedDictionaryOutput = {};
 
@@ -186,7 +127,7 @@ export const writeDynamicDictionary = async (
 
       await parallelize(formats, async (format) => {
         const extension = format === 'cjs' ? 'cjs' : 'mjs';
-        const content = generateDictionaryEntryPoint(key, format);
+        const content = generateDictionaryEntryPoint(key, locales, format);
 
         await writeFileIfChanged(
           resolve(dynamicDictionariesDir, `${key}.${extension}`),

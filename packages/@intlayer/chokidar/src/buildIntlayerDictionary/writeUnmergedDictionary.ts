@@ -82,10 +82,7 @@ export const writeUnmergedDictionaries = async (
         ];
       }
 
-      const orderedDictionaries = orderDictionaries(
-        dictionaries,
-        configuration
-      );
+      const orderedDictionaries = orderDictionaries(dictionaries);
 
       const outputFileName = `${key}.json`;
       const unmergedFilePath = resolve(unmergedDictionariesDir, outputFileName);
