@@ -67,4 +67,17 @@ describe('shouldExtract', () => {
     expect(shouldExtract('12345')).toBe(false);
     expect(shouldExtract('id-123')).toBe(false);
   });
+
+  it('should return true for text with parentheses', () => {
+    expect(shouldExtract('Example of (text) under parentisis')).toBe(true);
+    expect(shouldExtract('(Optional) field')).toBe(true);
+  });
+
+  it('should extract strings with many special characters correctly', () => {
+    expect(
+      shouldExtract(
+        'This is a string including \'"!@#$%^&*()_+-=[]{} special characters:'
+      )
+    ).toBe(true);
+  });
 });

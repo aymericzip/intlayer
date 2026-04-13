@@ -18,13 +18,38 @@ export const shouldExtract = (text: string): boolean => {
   // Ignore dynamic content patterns
   if (trimmed.startsWith('{') || trimmed.startsWith('v-')) return false;
 
+  // Ignore explicit code patterns (markers)
+  if (
+    trimmed.includes('=>') ||
+    trimmed.includes(');') ||
+    trimmed.includes('(){') ||
+    trimmed.includes('==') ||
+    trimmed.includes('window.') ||
+    trimmed.startsWith('(function') ||
+    trimmed.startsWith('function(')
+  ) {
+    return false;
+  }
+
+  // Heuristic: check for characters that are common in code but rare in natural text.
+  // Whitelist: letters, numbers, spaces, and frequent text symbols (including punctuation, braces, and technical symbols)
+  const nonTextualRegex =
+    /[^\p{L}\p{N}\s.,!?;:'"()[\]{}–—/«»„“\p{Sc}%&*+#@^_+=<>/~]/gu;
+  const nonTextualMatches = trimmed.match(nonTextualRegex) || [];
+
+  // If a string contains a high density of truly exceptional symbols (like |, \, etc.),
+  // it is highly likely to be code or complex technical data.
+  if (nonTextualMatches.length > 5) return false;
+
   const wordCount = trimmed.split(/\s+/).length;
-  const isCapitalized = /^[A-Z]/.test(trimmed);
+
+  // Check if starts with a capital letter (including after an opening parenthesis/quote)
+  const isCapitalized = /^['"([]*\p{Lu}/u.test(trimmed);
 
   // Ignore technical identifiers (one word strings with camelCase, kebab-case, snake_case etc.)
   if (wordCount === 1) {
     // CamelCase or internal capitals (like camelCaseProperty or CamelCaseProperty)
-    if (/[a-z][A-Z]/.test(trimmed)) return false;
+    if (/[a-z]\p{Lu}/u.test(trimmed)) return false;
     // kebab-case or snake_case
     if (trimmed.includes('-') || trimmed.includes('_')) return false;
   }
