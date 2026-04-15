@@ -330,6 +330,48 @@ describe('makeFieldRenameBabelPlugin', () => {
       expect(output).not.toMatch(/\.items\b/);
     });
 
+    it('renames fields inside secondary destructuring of a destructured variable', () => {
+      // Mirrors the real-world WebhookModal.tsx pattern:
+      //   const { webhooksSection } = useIntlayer('build-settings');
+      //   const { modal, validationErrors } = webhooksSection;
+      //   validationErrors.invalidUrl.value
+      const fieldRenameMap = buildNestedRenameMapFromContent({
+        // top-level sorted: webhooksSection → 'a'
+        webhooksSection: {
+          // sorted inside: modal → 'a', validationErrors → 'b'
+          modal: { titleAdd: 'Add', titleEdit: 'Edit' },
+          validationErrors: {
+            // sorted inside: invalidUrl → 'a', nameRequired → 'b'
+            invalidUrl: 'Invalid URL',
+            nameRequired: 'Name is required',
+          },
+        },
+      });
+      const ctx = makeContext(
+        'build-settings',
+        new Map([['build-settings', fieldRenameMap]])
+      );
+      const code = `
+        import { useIntlayer } from 'react-intlayer';
+        const { webhooksSection } = useIntlayer('build-settings');
+        const { modal, validationErrors } = webhooksSection;
+        console.log(validationErrors.invalidUrl.value);
+        console.log(modal.titleAdd.value);
+      `;
+      const output = rename(code, ctx);
+      // Top level: webhooksSection → 'a'
+      expect(output).toContain('a: webhooksSection');
+      // Secondary destructuring keys renamed
+      expect(output).toContain('a: modal');
+      expect(output).toContain('b: validationErrors');
+      // Member accesses on secondary-destructured vars renamed
+      expect(output).toContain('validationErrors.a'); // invalidUrl → 'a'
+      expect(output).toContain('modal.a'); // titleAdd → 'a'
+      // Original field names must not appear as property accesses
+      expect(output).not.toMatch(/validationErrors\.invalidUrl\b/);
+      expect(output).not.toMatch(/modal\.titleAdd\b/);
+    });
+
     it('two components consuming the same dictionary both rename consistently', () => {
       // Simulate two separate transform calls (component files) with the same
       // shared pruneContext.  Both must see consistent renames.

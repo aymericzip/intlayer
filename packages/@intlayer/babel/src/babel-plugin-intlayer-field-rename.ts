@@ -186,6 +186,82 @@ const walkRenameChain = (
 };
 
 /**
+ * Walks an object-destructuring assignment whose right-hand side is `refPath`,
+ * renaming each destructured key that is found in `renameMap`.
+ *
+ * Handles the "secondary destructuring" pattern that `walkRenameChain` cannot
+ * reach because the reference is not a MemberExpression:
+ *
+ *   const { webhooksSection } = useIntlayer('build-settings');
+ *   const { modal, validationErrors } = webhooksSection;
+ *     → const { a: modal, b: validationErrors } = webhooksSection;
+ *
+ * After renaming each key the function recursively walks references to the
+ * newly-bound local variable, calling both `walkRenameChain` (for subsequent
+ * member-access chains like `validationErrors.invalidUrl`) and itself (for
+ * further levels of secondary destructuring).
+ */
+const walkObjectDestructuring = (
+  babelTypes: typeof BabelTypes,
+  refPath: NodePath<BabelTypes.Node>,
+  renameMap: NestedRenameMap
+): void => {
+  if (renameMap.size === 0) return;
+
+  const parentNode = refPath.parent;
+
+  // Only handle:  const { a, b } = refVar
+  if (
+    !babelTypes.isVariableDeclarator(parentNode) ||
+    !babelTypes.isObjectPattern(parentNode.id) ||
+    parentNode.init !== refPath.node
+  ) {
+    return;
+  }
+
+  for (const property of (parentNode.id as BabelTypes.ObjectPattern)
+    .properties) {
+    if (!babelTypes.isObjectProperty(property)) continue;
+
+    const keyName = babelTypes.isIdentifier(property.key)
+      ? property.key.name
+      : babelTypes.isStringLiteral(property.key)
+        ? property.key.value
+        : null;
+    if (!keyName) continue;
+
+    const renameEntry = renameMap.get(keyName);
+    if (!renameEntry) continue;
+
+    // { fieldA } → { shortA: fieldA }
+    // { fieldA: localVar } → { shortA: localVar }
+    if (property.shorthand) {
+      property.shorthand = false;
+    }
+    property.key = babelTypes.identifier(renameEntry.shortName);
+
+    // Recursively walk references to the local variable bound by this key.
+    if (
+      renameEntry.children.size > 0 &&
+      babelTypes.isIdentifier(property.value)
+    ) {
+      const localVarName = (property.value as BabelTypes.Identifier).name;
+      const localVarBinding = refPath.scope.getBinding(localVarName);
+      if (localVarBinding) {
+        for (const nestedRefPath of localVarBinding.referencePaths) {
+          walkRenameChain(babelTypes, nestedRefPath, renameEntry.children);
+          walkObjectDestructuring(
+            babelTypes,
+            nestedRefPath,
+            renameEntry.children
+          );
+        }
+      }
+    }
+  }
+};
+
+/**
  * Creates a Babel plugin that rewrites dictionary content field accesses in
  * source files to their short aliases defined in
  * `pruneContext.dictionaryKeyToFieldRenameMap`.
@@ -200,6 +276,11 @@ const walkRenameChain = (
  *
  *   const result = useIntlayer('key');  result.fieldA
  *     → const result = useIntlayer('key');  result.shortA
+ *
+ *   const { fieldA } = useIntlayer('key');
+ *   const { nested } = fieldA;          // secondary destructuring
+ *     → const { shortA: fieldA } = useIntlayer('key');
+ *       const { shortN: nested } = fieldA;
  *
  * This plugin must run in a separate `transformAsync` pass **before**
  * `intlayerOptimizeBabelPlugin`, because the latter replaces `useIntlayer`
@@ -320,7 +401,8 @@ export const makeFieldRenameBabelPlugin =
                     property.key = babelTypes.identifier(renameEntry.shortName);
                   }
 
-                  // Walk nested member accesses on the local variable
+                  // Walk nested member accesses and secondary destructurings
+                  // on the local variable.
                   if (
                     renameEntry.children.size > 0 &&
                     babelTypes.isIdentifier(property.value)
@@ -331,6 +413,11 @@ export const makeFieldRenameBabelPlugin =
                     if (localVarBinding) {
                       for (const refPath of localVarBinding.referencePaths) {
                         walkRenameChain(
+                          babelTypes,
+                          refPath,
+                          renameEntry.children
+                        );
+                        walkObjectDestructuring(
                           babelTypes,
                           refPath,
                           renameEntry.children
@@ -365,6 +452,11 @@ export const makeFieldRenameBabelPlugin =
 
                 for (const variableReferencePath of variableBinding.referencePaths) {
                   walkRenameChain(
+                    babelTypes,
+                    variableReferencePath,
+                    fieldRenameMap
+                  );
+                  walkObjectDestructuring(
                     babelTypes,
                     variableReferencePath,
                     fieldRenameMap
