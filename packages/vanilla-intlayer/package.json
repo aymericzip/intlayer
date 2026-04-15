@@ -1,6 +1,6 @@
 {
   "name": "vanilla-intlayer",
-  "version": "8.7.1-canary-1",
+  "version": "8.7.1",
   "private": false,
   "description": "Easily internationalize i18n your Vanilla JS, HTML, and PHP applications with type-safe multilingual content management.",
   "keywords": [
