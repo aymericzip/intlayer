@@ -66,16 +66,20 @@ describe('buildNestedRenameMapFromContent', () => {
     expect(map.get('title')?.shortName).toBe('b');
   });
 
-  it('filters by usedFieldFilter', () => {
+  it('includes ALL fields — not just a filtered subset', () => {
+    // Previously a usedFieldFilter parameter allowed filtering to a subset.
+    // Now ALL fields are always included so the JSON rename and source-code
+    // rename stay consistent regardless of which fields are consumed or pruned.
     const content = { title: 'Hello', description: 'World', unused: 'X' };
-    const map = buildNestedRenameMapFromContent(
-      content,
-      new Set(['title', 'description'])
-    );
+    const map = buildNestedRenameMapFromContent(content);
 
+    // All three keys appear (sorted): description → 'a', title → 'b', unused → 'c'
     expect(map.has('title')).toBe(true);
     expect(map.has('description')).toBe(true);
-    expect(map.has('unused')).toBe(false);
+    expect(map.has('unused')).toBe(true);
+    expect(map.get('description')?.shortName).toBe('a');
+    expect(map.get('title')?.shortName).toBe('b');
+    expect(map.get('unused')?.shortName).toBe('c');
   });
 
   it('descends into translation nodes', () => {
@@ -100,7 +104,30 @@ describe('buildNestedRenameMapFromContent', () => {
   });
 
   it('returns an empty map for arrays', () => {
+    // Arrays are treated as leaves.  Element fields are not traversed because
+    // they may be accessed via .map()/.filter() callbacks which the
+    // source-code rename walk cannot enter — renaming them in the JSON without
+    // also renaming the callback parameter would cause runtime mismatches.
     expect(buildNestedRenameMapFromContent([1, 2, 3])).toEqual(new Map());
+    expect(buildNestedRenameMapFromContent([{ sub: 'x' }])).toEqual(new Map());
+  });
+
+  it('array fields at object level get a rename entry with empty children', () => {
+    // An array that is a VALUE of a plain-object key gets a short name for the
+    // key itself, but the children map (element structure) stays empty.
+    const content = {
+      items: [{ label: 'A', value: 'B' }],
+      title: 'Hello',
+    };
+    const map = buildNestedRenameMapFromContent(content);
+
+    // Sorted top-level keys: items → 'a', title → 'b'
+    expect(map.get('items')?.shortName).toBe('a');
+    expect(map.get('title')?.shortName).toBe('b');
+
+    // items children are empty — element fields are NOT traversed
+    const itemsChildren = map.get('items')!.children;
+    expect(itemsChildren.size).toBe(0);
   });
 
   it('returns an empty map for non-translation runtime nodes', () => {
@@ -228,6 +255,109 @@ describe('makeFieldRenameBabelPlugin', () => {
       `;
       const output = rename(code, ctx);
       expect(output).toContain('b: title');
+    });
+  });
+
+  describe('deep / nested rename', () => {
+    it('renames two levels deep via plain variable binding', () => {
+      // content.header.subField — header has nested children
+      const fieldRenameMap = buildNestedRenameMapFromContent({
+        // sorted: footer → 'a', header → 'b'
+        footer: 'leaf',
+        header: { subField: 'value' },
+      });
+      // header.children: subField → 'a'
+      const ctx = makeContext('page', new Map([['page', fieldRenameMap]]));
+      const code = `
+        import { useIntlayer } from 'react-intlayer';
+        const content = useIntlayer('page');
+        console.log(content.header.subField);
+      `;
+      const output = rename(code, ctx);
+      // header → 'b', subField inside header → 'a'
+      expect(output).toContain('content.b.a');
+      expect(output).not.toMatch(/content\.header\b/);
+      expect(output).not.toMatch(/\.subField\b/);
+    });
+
+    it('passes through array index; field names after the index are unchanged (empty children)', () => {
+      // content.items[0].label — items is an array; its element fields are NOT
+      // in the children map (arrays are treated as leaves), so the array key
+      // itself gets renamed but sub-fields stay as-is.  This is intentional: if
+      // element fields were renamed in the JSON they must also be renamed in
+      // every callback that receives an element, which the rename walk cannot do.
+      const fieldRenameMap = buildNestedRenameMapFromContent({
+        // sorted: items → 'a', title → 'b'
+        items: [{ label: 'A', value: 'B' }],
+        title: 'Hello',
+      });
+      const ctx = makeContext('list', new Map([['list', fieldRenameMap]]));
+      const code = `
+        import { useIntlayer } from 'react-intlayer';
+        const content = useIntlayer('list');
+        const x = content.items[0].label;
+        const y = content.items[1].value;
+      `;
+      const output = rename(code, ctx);
+      // items → 'a' (the key is renamed)
+      expect(output).not.toMatch(/\.items\b/);
+      // [0]/[1] pass-through; element fields stay unchanged (children map is empty)
+      expect(output).toContain('content.a[0].label');
+      expect(output).toContain('content.a[1].value');
+    });
+
+    it('renames fields inside a nested object up to (but not inside) an array', () => {
+      // header.items[0].subField — header and items are renamed; subField is
+      // inside an array element and therefore left unchanged.
+      const fieldRenameMap = buildNestedRenameMapFromContent({
+        // sorted: header → 'a'
+        header: {
+          // sorted inside header: items → 'a', title → 'b'
+          items: [{ subField: 'x' }],
+          title: 'T',
+        },
+      });
+      const ctx = makeContext('deep', new Map([['deep', fieldRenameMap]]));
+      const code = `
+        import { useIntlayer } from 'react-intlayer';
+        const content = useIntlayer('deep');
+        const x = content.header.items[0].subField;
+      `;
+      const output = rename(code, ctx);
+      // header → 'a', items → 'a'; [0] transparent; subField unchanged
+      expect(output).toContain('content.a.a[0].subField');
+      expect(output).not.toMatch(/\.header\b/);
+      expect(output).not.toMatch(/\.items\b/);
+    });
+
+    it('two components consuming the same dictionary both rename consistently', () => {
+      // Simulate two separate transform calls (component files) with the same
+      // shared pruneContext.  Both must see consistent renames.
+      const fieldRenameMap = buildNestedRenameMapFromContent({
+        // sorted: footer → 'a', header → 'b'
+        footer: 'F',
+        header: 'H',
+      });
+      const ctx = makeContext('shared', new Map([['shared', fieldRenameMap]]));
+
+      const codeA = `
+        import { useIntlayer } from 'react-intlayer';
+        const { header } = useIntlayer('shared');
+      `;
+      const codeB = `
+        import { useIntlayer } from 'react-intlayer';
+        const content = useIntlayer('shared');
+        console.log(content.footer);
+      `;
+
+      const outputA = rename(codeA, ctx);
+      const outputB = rename(codeB, ctx);
+
+      // Component A: header → 'b'
+      expect(outputA).toContain('b: header');
+      // Component B: footer → 'a'
+      expect(outputB).toContain('content.a');
+      expect(outputB).not.toMatch(/content\.footer\b/);
     });
   });
 });

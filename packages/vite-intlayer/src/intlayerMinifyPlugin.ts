@@ -13,19 +13,29 @@ import type { PluginOption } from 'vite';
  * using the provided `NestedRenameMap`.
  *
  * Traversal rules (mirrors `buildNestedRenameMapFromContent`):
+ *  - Arrays → each element is recursed into with the same rename map.
+ *    This mirrors the array pass-through in the source-code rename walk,
+ *    where numeric indices (e.g. [0]) are transparent.
  *  - Object with `nodeType: 'translation'` → intlayer translation node.
  *    Keys at this level (`nodeType`, `translation`) are NOT renamed.
  *    Recurse into each per-locale value with the same rename map.
  *  - Object without `nodeType` → user-defined record.
  *    Rename its keys using the current rename map level, then recurse into
  *    each value with that entry's `children` map.
- *  - Primitive / array → returned as-is.
+ *  - Primitives → returned as-is.
  */
 const renameContentRecursively = (
   value: unknown,
   renameMap: NestedRenameMap
 ): unknown => {
-  if (!value || typeof value !== 'object' || Array.isArray(value)) return value;
+  // Arrays: each element is renamed with the same map (indices are transparent).
+  if (Array.isArray(value)) {
+    return (value as unknown[]).map((element) =>
+      renameContentRecursively(element, renameMap)
+    );
+  }
+
+  if (!value || typeof value !== 'object') return value;
 
   const record = value as Record<string, unknown>;
 

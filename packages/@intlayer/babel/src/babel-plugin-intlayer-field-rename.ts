@@ -38,18 +38,26 @@ export const generateShortFieldName = (index: number): string => {
  *    inside `translation[locale]`. Recurse into the first locale's value.
  *  - All other intlayer runtime nodes (enumeration, condition, gender, …) are
  *    treated as leaves — their internal keys must never be renamed.
- *  - Plain objects are user-defined records: rename their keys (filtered by
- *    `usedFieldFilter` at the top level) and recurse into each value.
- *  - Primitives and arrays produce an empty map (no further renaming).
+ *  - Arrays produce an empty children map.  Array elements are not traversed
+ *    because consumers may access them via `.map()` / `.filter()` callbacks,
+ *    which the source-code rename walk cannot enter.  Renaming element fields
+ *    in the JSON without the matching source-code rename would produce
+ *    mismatched key names and runtime crashes.
+ *    The `[0]` pass-through in `walkRenameChain` is preserved so that direct
+ *    indexed access (`field[0].sub`) silently terminates at the empty children
+ *    map without breaking anything.
+ *  - Plain objects are user-defined records: ALL non-reserved keys are renamed
+ *    with short alphabetic aliases (a, b, c, …) and each value is recursed into.
+ *  - Primitives produce an empty map (no further renaming).
  *
- * @param contentValue    - The dictionary content value to analyse.
- * @param usedFieldFilter - When provided, only keys in this set are included
- *                          at the current level (matches the usage-analysis
- *                          results so we don't rename purged fields).
+ * The rename map is built from ALL user-defined fields (not just consumed ones).
+ * Both the JSON rename and the source-code rename use the same map, so the
+ * short names are always consistent regardless of which fields are pruned.
+ *
+ * @param contentValue - The dictionary content value to analyse.
  */
 export const buildNestedRenameMapFromContent = (
-  contentValue: unknown,
-  usedFieldFilter?: Set<string>
+  contentValue: unknown
 ): NestedRenameMap => {
   if (
     !contentValue ||
@@ -72,28 +80,24 @@ export const buildNestedRenameMapFromContent = (
       const firstLocaleValue = Object.values(
         record.translation as Record<string, unknown>
       )[0];
-      return buildNestedRenameMapFromContent(firstLocaleValue, usedFieldFilter);
+      return buildNestedRenameMapFromContent(firstLocaleValue);
     }
     // All other intlayer nodes have runtime-managed internal structure — return
     // an empty map so they are treated as leaves.
     return new Map();
   }
 
-  // User-defined record: collect non-reserved keys
-  const allKeys = Object.keys(record).filter(
-    (key) => !RESERVED_CONTENT_FIELD_NAMES.has(key)
-  );
+  // User-defined record: rename ALL non-reserved keys with stable alphabetic
+  // aliases sorted alphabetically so the mapping is deterministic.
+  const sortedKeys = Object.keys(record)
+    .filter((key) => !RESERVED_CONTENT_FIELD_NAMES.has(key))
+    .sort();
 
-  const keysToRename = usedFieldFilter
-    ? allKeys.filter((key) => usedFieldFilter.has(key))
-    : allKeys;
-
-  const sortedKeys = [...keysToRename].sort();
   const renameMap: NestedRenameMap = new Map();
 
   for (let i = 0; i < sortedKeys.length; i++) {
     const key = sortedKeys[i];
-    const children = buildNestedRenameMapFromContent(record[key]); // no filter for nested
+    const children = buildNestedRenameMapFromContent(record[key]);
     renameMap.set(key, { shortName: generateShortFieldName(i), children });
   }
 
@@ -105,6 +109,11 @@ export const buildNestedRenameMapFromContent = (
 /**
  * Walks a MemberExpression chain starting from `startPath`, renaming each
  * property found in `currentRenameMap` at the corresponding nesting level.
+ *
+ * Numeric computed accesses (array indices such as `[0]`, `[1]`) are treated
+ * as transparent pass-throughs: the rename map is kept unchanged and the walk
+ * continues past the index.  This means `content.field[0].sub` is handled
+ * correctly — `field` and `sub` are both renamed while `[0]` is left intact.
  */
 const walkRenameChain = (
   babelTypes: typeof BabelTypes,
@@ -114,7 +123,8 @@ const walkRenameChain = (
   let refPath: NodePath<BabelTypes.Node> = startPath;
   let renameMap = currentRenameMap;
 
-  while (renameMap.size > 0) {
+  // eslint-disable-next-line no-constant-condition
+  while (true) {
     const parentPath = refPath.parentPath;
     if (!parentPath) break;
 
@@ -129,6 +139,21 @@ const walkRenameChain = (
     }
 
     const memberNode = parentNode as BabelTypes.MemberExpression;
+
+    // Numeric index access ([0], [1], …): advance past the array accessor
+    // without touching the rename map.  The next iteration will attempt to
+    // rename the property that follows the index.
+    if (
+      memberNode.computed &&
+      babelTypes.isNumericLiteral(memberNode.property)
+    ) {
+      refPath = parentPath;
+      continue;
+    }
+
+    // Nothing left to rename at this level — stop.
+    if (renameMap.size === 0) break;
+
     let fieldName: string | undefined;
 
     if (!memberNode.computed && babelTypes.isIdentifier(memberNode.property)) {
@@ -139,7 +164,7 @@ const walkRenameChain = (
     ) {
       fieldName = memberNode.property.value;
     } else {
-      break; // dynamic key – stop
+      break; // dynamic computed key – stop
     }
 
     const renameEntry = renameMap.get(fieldName);

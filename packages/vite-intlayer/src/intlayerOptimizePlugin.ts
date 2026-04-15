@@ -397,10 +397,18 @@ export const intlayerOptimize = async (
 
               if (!dictionaryContent) continue;
 
-              const nestedRenameMap = buildNestedRenameMapFromContent(
-                dictionaryContent,
-                fieldUsage
-              );
+              // Build the rename map from ALL user-defined fields in the
+              // dictionary — not just the ones statically consumed by source
+              // files.  Using the full set ensures that:
+              //   1. Every field in the compiled JSON is renamed (even if
+              //      pruned-out fields still appear when purge is disabled).
+              //   2. The short-name assignment is stable: the alphabetical
+              //      order of all fields determines each short name, so adding
+              //      or removing a consumer never changes names for others.
+              //   3. There is no source ↔ JSON mismatch: both sides use the
+              //      identical map regardless of which subset is consumed.
+              const nestedRenameMap =
+                buildNestedRenameMapFromContent(dictionaryContent);
 
               // Skip dictionaries whose opaque fields have nested user-defined
               // structure – renaming those sub-keys would silently break child
