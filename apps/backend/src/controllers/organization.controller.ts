@@ -25,7 +25,7 @@ import {
 import type { FastifyReply, FastifyRequest } from 'fastify';
 import { t } from 'fastify-intlayer';
 import type { Types } from 'mongoose';
-import { Stripe } from 'stripe';
+import Stripe from 'stripe';
 import type {
   Organization,
   OrganizationAPI,

@@ -10,7 +10,7 @@ import {
 import { getUserById } from '@services/user.service';
 import { GenericError } from '@utils/errors';
 import type { FastifyReply, FastifyRequest } from 'fastify';
-import { Stripe } from 'stripe';
+import Stripe from 'stripe';
 import type { Plan } from '@/types/plan.types';
 
 type SubscriptionMetadata = {

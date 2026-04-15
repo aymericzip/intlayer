@@ -9,7 +9,7 @@ FROM node:22-alpine AS builder
 
 # RUN apk add --no-cache wget
 
-RUN npm install -g bun@1.3.11
+RUN npm install -g bun@1.3.12
 
 ARG INTLAYER_CLIENT_ID
 ARG INTLAYER_CLIENT_SECRET

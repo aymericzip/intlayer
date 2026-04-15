@@ -177,7 +177,7 @@ export default defineConfig(({ mode }) => {
     },
     plugins: [
       // devtools(),
-      // intlayerProxy(),
+      intlayerProxy(),
       nitro({
         preset: 'bun',
         routeRules: {

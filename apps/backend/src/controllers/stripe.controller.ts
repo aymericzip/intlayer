@@ -6,7 +6,7 @@ import { retrievePlanInformation } from '@utils/plan';
 import { formatResponse, type ResponseData } from '@utils/responseData';
 import type { FastifyReply, FastifyRequest } from 'fastify';
 import { t } from 'fastify-intlayer';
-import { Stripe } from 'stripe';
+import Stripe from 'stripe';
 import type { Organization } from '@/types/organization.types';
 
 export type GetPricingBody = {

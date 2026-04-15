@@ -69,6 +69,8 @@ const config: IntlayerConfig = {
   },
   build: {
     optimize: true,
+    minify: true,
+    purge: true,
   },
   log: {
     mode: 'verbose',
