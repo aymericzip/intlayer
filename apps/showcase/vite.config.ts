@@ -222,5 +222,11 @@ export default defineConfig(({ mode }) => {
         external: ['wasi_snapshot_preview1', 'esbuild', 'env'],
       },
     },
+    resolve: {
+      dedupe: ['react', 'react-dom'],
+    },
+    optimizeDeps: {
+      include: ['react', 'react-dom'],
+    },
   };
 });
