@@ -69,22 +69,38 @@ const TREE_SHAKE_INSERTION =
  */
 const TREE_SHAKE_EDITOR = process.env['INTLAYER_EDITOR_ENABLED'] === 'false';
 
-// preact lazy for heavy renderer components — creates separate code-split chunks
-const LazyMarkdownMetadataRenderer = lazy(() =>
-  import('./markdown/MarkdownRendererPlugin').then((m) => ({
-    default: m.MarkdownMetadataRenderer,
-  }))
-);
+// Preact lazy for heavy renderer components — creates separate code-split chunks.
+// Guarded by tree-shake constants so bundlers can eliminate the dynamic import()
+// entirely when the feature is disabled at build time.
+// The `!` (non-null assertion) strips `null` from the union for JSX compat and
+// has zero runtime cost — when the guard is `true` the variable is never read.
+const LazyMarkdownMetadataRenderer = (
+  TREE_SHAKE_MARKDOWN
+    ? null
+    : lazy(() =>
+        import('./markdown/MarkdownRendererPlugin').then((m) => ({
+          default: m.MarkdownMetadataRenderer,
+        }))
+      )
+)!;
 
-const LazyMarkdownRendererPlugin = lazy(() =>
-  import('./markdown/MarkdownRendererPlugin').then((m) => ({
-    default: m.MarkdownRendererPlugin,
-  }))
-);
+const LazyMarkdownRendererPlugin = (
+  TREE_SHAKE_MARKDOWN
+    ? null
+    : lazy(() =>
+        import('./markdown/MarkdownRendererPlugin').then((m) => ({
+          default: m.MarkdownRendererPlugin,
+        }))
+      )
+)!;
 
-const LazyHTMLRenderer = lazy(() =>
-  import('./html/HTMLRenderer').then((m) => ({ default: m.HTMLRenderer }))
-);
+const LazyHTMLRenderer = (
+  TREE_SHAKE_HTML
+    ? null
+    : lazy(() =>
+        import('./html/HTMLRenderer').then((m) => ({ default: m.HTMLRenderer }))
+      )
+)!;
 
 /** ---------------------------------------------
  * INTLAYER NODE PLUGIN

@@ -1,4 +1,4 @@
-import { internationalization, editor } from '@intlayer/config/built';
+import { editor, internationalization } from '@intlayer/config/built';
 import {
   conditionPlugin,
   type DeepTransformContent as DeepTransformContentCore,
@@ -60,9 +60,11 @@ let _markdownInstall: {
   htmlRuntime: any;
   useMarkdown: () => { renderMarkdown: (s: string, components?: any) => any };
 } | null = null;
-void import('./markdown/installIntlayerMarkdown').then((m) => {
-  _markdownInstall = m as any;
-});
+if (!TREE_SHAKE_MARKDOWN || !TREE_SHAKE_HTML) {
+  void import('./markdown/installIntlayerMarkdown').then((m) => {
+    _markdownInstall = m as any;
+  });
+}
 
 /** ---------------------------------------------
  *  UTILS

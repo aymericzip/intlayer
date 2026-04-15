@@ -77,18 +77,28 @@ const TREE_SHAKE_INSERTION =
 const TREE_SHAKE_EDITOR = process.env['INTLAYER_EDITOR_ENABLED'] === 'false';
 
 // React.lazy for heavy renderer components — creates separate code-split chunks
-// and properly suspends until the module is loaded
-const LazyMarkdownRendererPlugin = lazy(() =>
-  import('./markdown/MarkdownRendererPlugin').then((m) => ({
-    default: m.MarkdownRendererPlugin,
-  }))
-);
+// and properly suspends until the module is loaded.
+// Guarded by tree-shake constants so bundlers can eliminate the dynamic import()
+// entirely when the feature is disabled at build time.
+const LazyMarkdownRendererPlugin = (
+  TREE_SHAKE_MARKDOWN
+    ? null
+    : lazy(() =>
+        import('./markdown/MarkdownRendererPlugin').then((m) => ({
+          default: m.MarkdownRendererPlugin,
+        }))
+      )
+)!;
 
-const LazyHTMLRendererPlugin = lazy(() =>
-  import('./html/HTMLRendererPlugin').then((m) => ({
-    default: m.HTMLRendererPlugin,
-  }))
-);
+const LazyHTMLRendererPlugin = (
+  TREE_SHAKE_HTML
+    ? null
+    : lazy(() =>
+        import('./html/HTMLRendererPlugin').then((m) => ({
+          default: m.HTMLRendererPlugin,
+        }))
+      )
+)!;
 
 /** ---------------------------------------------
  *  INTLAYER NODE PLUGIN

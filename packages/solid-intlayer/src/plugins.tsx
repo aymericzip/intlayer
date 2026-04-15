@@ -69,18 +69,36 @@ const TREE_SHAKE_INSERTION =
  */
 const TREE_SHAKE_EDITOR = process.env['INTLAYER_EDITOR_ENABLED'] === 'false';
 
-// solid-js lazy for heavy renderer components — creates separate code-split chunks
-const LazyMarkdownMetadataRenderer = lazy(() =>
-  import('./markdown/MarkdownRenderer').then((m) => ({
-    default: m.MarkdownMetadataRenderer,
-  }))
-);
+// solid-js lazy for heavy renderer components — creates separate code-split chunks.
+// Guarded by tree-shake constants so bundlers can eliminate the dynamic import()
+// entirely when the feature is disabled at build time.
+const LazyMarkdownMetadataRenderer = (
+  TREE_SHAKE_MARKDOWN
+    ? null
+    : lazy(() =>
+        import('./markdown/MarkdownRenderer').then((m) => ({
+          default: m.MarkdownMetadataRenderer,
+        }))
+      )
+)!;
 
-const LazyMarkdownRenderer = lazy(() =>
-  import('./markdown/MarkdownRenderer').then((m) => ({
-    default: m.MarkdownRenderer,
-  }))
-);
+const LazyMarkdownRenderer = (
+  TREE_SHAKE_MARKDOWN
+    ? null
+    : lazy(() =>
+        import('./markdown/MarkdownRenderer').then((m) => ({
+          default: m.MarkdownRenderer,
+        }))
+      )
+)!;
+
+const LazyHTMLRenderer = (
+  TREE_SHAKE_HTML
+    ? null
+    : lazy(() =>
+        import('./html/HTMLRenderer').then((m) => ({ default: m.HTMLRenderer }))
+      )
+)!;
 
 /** ---------------------------------------------
  *  INTLAYER NODE PLUGIN
@@ -412,10 +430,6 @@ export const markdownPlugin: Plugins = TREE_SHAKE_MARKDOWN
         });
       },
     };
-
-const LazyHTMLRenderer = lazy(() =>
-  import('./html/HTMLRenderer').then((m) => ({ default: m.HTMLRenderer }))
-);
 
 /** ---------------------------------------------
  *  HTML PLUGIN

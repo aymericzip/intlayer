@@ -60,40 +60,47 @@ const TREE_SHAKE_INSERTION =
  */
 const TREE_SHAKE_EDITOR = process.env['INTLAYER_EDITOR_ENABLED'] === 'false';
 
-// Lazy pre-load heavy modules — creates separate code-split chunks
+// Lazy pre-load heavy modules — creates separate code-split chunks.
+// Guarded by tree-shake constants so bundlers can eliminate the dynamic import()
+// entirely when the feature is disabled at build time.
 let _getMarkdownMetadata: ((s: string) => any) | null = null;
 let _compile: ((s: string, opts: any, ctx?: any) => any) | null = null;
-void import('@intlayer/core/markdown').then((m) => {
-  _getMarkdownMetadata = m.getMarkdownMetadata;
-  _compile = m.compile;
-});
-
 let _MarkdownMetadataRenderer: any = null;
 let _MarkdownMetadataWithSelector: any = null;
 let _MarkdownRenderer: any = null;
 let _MarkdownWithSelector: any = null;
 let _svelteHtmlRuntime: any = null;
 let _HTMLWithSelector: any = null;
-void Promise.all([
-  import('./markdown/MarkdownMetadataRenderer.svelte').then(
-    (m) => (_MarkdownMetadataRenderer = m.default)
-  ),
-  import('./markdown/MarkdownMetadataWithSelector.svelte').then(
-    (m) => (_MarkdownMetadataWithSelector = m.default)
-  ),
-  import('./markdown/MarkdownRenderer.svelte').then(
-    (m) => (_MarkdownRenderer = m.default)
-  ),
-  import('./markdown/MarkdownWithSelector.svelte').then(
-    (m) => (_MarkdownWithSelector = m.default)
-  ),
-  import('./html/HTMLWithSelector.svelte').then(
+
+if (!TREE_SHAKE_MARKDOWN) {
+  void import('@intlayer/core/markdown').then((m) => {
+    _getMarkdownMetadata = m.getMarkdownMetadata;
+    _compile = m.compile;
+  });
+  void Promise.all([
+    import('./markdown/MarkdownMetadataRenderer.svelte').then(
+      (m) => (_MarkdownMetadataRenderer = m.default)
+    ),
+    import('./markdown/MarkdownMetadataWithSelector.svelte').then(
+      (m) => (_MarkdownMetadataWithSelector = m.default)
+    ),
+    import('./markdown/MarkdownRenderer.svelte').then(
+      (m) => (_MarkdownRenderer = m.default)
+    ),
+    import('./markdown/MarkdownWithSelector.svelte').then(
+      (m) => (_MarkdownWithSelector = m.default)
+    ),
+    import('./markdown/runtime').then(
+      (m) => (_svelteHtmlRuntime = m.svelteHtmlRuntime)
+    ),
+  ]);
+}
+
+if (!TREE_SHAKE_HTML) {
+  void import('./html/HTMLWithSelector.svelte').then(
     (m) => (_HTMLWithSelector = m.default)
-  ),
-  import('./markdown/runtime').then(
-    (m) => (_svelteHtmlRuntime = m.svelteHtmlRuntime)
-  ),
-]);
+  );
+}
 
 /**
  * Interface for Svelte-specific plugin functionality
