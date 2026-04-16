@@ -11,7 +11,10 @@ const mockConfig = vi.hoisted(() => ({
   internationalization: { defaultLocale: 'en', locales: ['en'] },
 }));
 
-vi.mock('@intlayer/config/built', () => ({ default: mockConfig }));
+vi.mock('@intlayer/config/built', () => ({
+  ...mockConfig,
+  default: mockConfig,
+}));
 
 vi.mock('./editor', () => ({
   ContentSelector: ({ children }: any) => children,

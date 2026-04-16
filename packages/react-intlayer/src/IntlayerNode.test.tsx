@@ -16,7 +16,10 @@ const mockConfig = vi.hoisted(() => ({
 // between test cases.
 const mockIsEnabled = vi.hoisted(() => ({ value: false }));
 
-vi.mock('@intlayer/config/built', () => ({ default: mockConfig }));
+vi.mock('@intlayer/config/built', () => ({
+  ...mockConfig,
+  default: mockConfig,
+}));
 
 // Make isEnabled a live getter so beforeEach can flip it.
 vi.mock('@intlayer/editor/isEnabled', () => ({
