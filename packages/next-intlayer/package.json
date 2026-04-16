@@ -1,6 +1,6 @@
 {
   "name": "next-intlayer",
-  "version": "8.7.1",
+  "version": "8.7.3",
   "private": false,
   "description": "Simplify internationalization i18n in Next.js with context providers, hooks, locale detection, and multilingual content integration.",
   "keywords": [
@@ -61,13 +61,12 @@
       "import": "./dist/esm/markdown/index.mjs"
     },
     "./server": {
+      "types": "./dist/types/server/index.d.ts",
       "browser": {
-        "types": "./dist/types/index.d.ts",
         "import": "./dist/esm/index.mjs",
         "require": "./dist/cjs/index.cjs"
       },
       "default": {
-        "types": "./dist/types/server/index.d.ts",
         "import": "./dist/esm/server/index.mjs",
         "require": "./dist/cjs/server/index.cjs"
       }
