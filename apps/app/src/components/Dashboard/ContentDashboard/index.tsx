@@ -2,6 +2,7 @@ import { DictionaryFieldEditor } from '@intlayer/design-system/dictionary-field-
 import { useGetDictionary } from '@intlayer/design-system/hooks';
 import { Loader } from '@intlayer/design-system/loader';
 import { App_Dashboard_Dictionaries_Path } from '@intlayer/design-system/routes';
+import { useQueryClient } from '@tanstack/react-query';
 import { type FC, Suspense } from 'react';
 import { useTheme } from '#/providers/ThemeProvider';
 import { useLocalizedNavigate } from '#hooks/useLocalizedNavigate.ts';
@@ -15,9 +16,17 @@ export const ContentDashboard: FC<ContentDashboardContentProps> = ({
 }) => {
   const { resolvedTheme } = useTheme();
   const { data: dictionaryResult, isPending } = useGetDictionary(dictionaryKey);
+  const queryClient = useQueryClient();
 
   const navigate = useLocalizedNavigate();
   const dictionary = dictionaryResult?.data;
+
+  const handleSave = () => {
+    // usePushDictionaries only invalidates ['dictionaries'] / ['dictionariesKeys'],
+    // not the single-dictionary query — refresh it explicitly so the UI
+    // shows the saved content.
+    queryClient.invalidateQueries({ queryKey: ['dictionary', dictionaryKey] });
+  };
 
   return (
     <Suspense fallback={<Loader />}>
@@ -34,6 +43,7 @@ export const ContentDashboard: FC<ContentDashboardContentProps> = ({
               onDelete={() => {
                 navigate({ to: App_Dashboard_Dictionaries_Path });
               }}
+              onSave={handleSave}
             />
           )}
         </div>
