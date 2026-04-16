@@ -108,4 +108,4 @@ HEALTHCHECK CMD true
 #     wget -qO- http://localhost:3000/doc/environment/nextjs > /dev/null || exit 1
 
 # Start the website
-CMD ["bun", "run", "--bun", "next", "start"] 
+CMD ["bun", "run", "--bun", ".next/standalone/server.js"] 
