@@ -75,6 +75,11 @@
       "require": "./dist/cjs/nodeType.cjs",
       "import": "./dist/esm/nodeType.mjs"
     },
+    "./filePathPattern": {
+      "types": "./dist/types/filePathPattern.d.ts",
+      "require": "./dist/cjs/filePathPattern.cjs",
+      "import": "./dist/esm/filePathPattern.mjs"
+    },
     "./package.json": "./package.json"
   },
   "main": "./dist/cjs/index.cjs",
@@ -105,6 +110,9 @@
       ],
       "allLocales": [
         "./dist/types/allLocales.d.ts"
+      ],
+      "filePathPattern": [
+        "./dist/types/filePathPattern.d.ts"
       ],
       "package.json": [
         "./package.json"
