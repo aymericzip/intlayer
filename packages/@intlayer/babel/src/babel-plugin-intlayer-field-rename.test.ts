@@ -14,7 +14,6 @@ import { BABEL_PARSER_OPTIONS } from './transformers';
 // ── Helpers ────────────────────────────────────────────────────────────────────
 
 const makeContext = (
-  dictionaryKey: string,
   fieldRenameMap: PruneContext['dictionaryKeyToFieldRenameMap']
 ): PruneContext => {
   const ctx = createPruneContext();
@@ -162,7 +161,7 @@ describe('makeFieldRenameBabelPlugin', () => {
 
   describe('destructuring pattern', () => {
     it('renames shorthand destructuring { title } → { b: title }', () => {
-      const ctx = makeContext('homepage', buildSimpleRenameMap());
+      const ctx = makeContext(buildSimpleRenameMap());
       const code = `
         import { useIntlayer } from 'react-intlayer';
         const { title, description } = useIntlayer('homepage');
@@ -176,7 +175,7 @@ describe('makeFieldRenameBabelPlugin', () => {
     });
 
     it('renames keyed destructuring { title: t } → { b: t }', () => {
-      const ctx = makeContext('homepage', buildSimpleRenameMap());
+      const ctx = makeContext(buildSimpleRenameMap());
       const code = `
         import { useIntlayer } from 'react-intlayer';
         const { title: t } = useIntlayer('homepage');
@@ -188,7 +187,7 @@ describe('makeFieldRenameBabelPlugin', () => {
 
   describe('direct member access', () => {
     it('renames useIntlayer().title → useIntlayer().b', () => {
-      const ctx = makeContext('homepage', buildSimpleRenameMap());
+      const ctx = makeContext(buildSimpleRenameMap());
       const code = `
         import { useIntlayer } from 'react-intlayer';
         const t = useIntlayer('homepage').title;
@@ -199,7 +198,7 @@ describe('makeFieldRenameBabelPlugin', () => {
     });
 
     it('renames optional chaining useIntlayer()?.title → useIntlayer()?.b', () => {
-      const ctx = makeContext('homepage', buildSimpleRenameMap());
+      const ctx = makeContext(buildSimpleRenameMap());
       const code = `
         import { useIntlayer } from 'react-intlayer';
         const t = useIntlayer('homepage')?.title;
@@ -211,7 +210,7 @@ describe('makeFieldRenameBabelPlugin', () => {
 
   describe('plain variable binding', () => {
     it('renames member accesses on the bound variable', () => {
-      const ctx = makeContext('homepage', buildSimpleRenameMap());
+      const ctx = makeContext(buildSimpleRenameMap());
       const code = `
         import { useIntlayer } from 'react-intlayer';
         const content = useIntlayer('homepage');
@@ -225,7 +224,7 @@ describe('makeFieldRenameBabelPlugin', () => {
 
   describe('no-op cases', () => {
     it('leaves code unchanged when no rename map entry exists for the key', () => {
-      const ctx = makeContext('homepage', buildSimpleRenameMap());
+      const ctx = makeContext(buildSimpleRenameMap());
       const code = `
         import { useIntlayer } from 'react-intlayer';
         const { title } = useIntlayer('other-key');
@@ -248,7 +247,7 @@ describe('makeFieldRenameBabelPlugin', () => {
 
   describe('aliased imports', () => {
     it('renames fields accessed via aliased caller', () => {
-      const ctx = makeContext('homepage', buildSimpleRenameMap());
+      const ctx = makeContext(buildSimpleRenameMap());
       const code = `
         import { useIntlayer as t } from 'react-intlayer';
         const { title } = t('homepage');
@@ -267,7 +266,7 @@ describe('makeFieldRenameBabelPlugin', () => {
         header: { subField: 'value' },
       });
       // header.children: subField → 'a'
-      const ctx = makeContext('page', new Map([['page', fieldRenameMap]]));
+      const ctx = makeContext(new Map([['page', fieldRenameMap]]));
       const code = `
         import { useIntlayer } from 'react-intlayer';
         const content = useIntlayer('page');
@@ -291,7 +290,7 @@ describe('makeFieldRenameBabelPlugin', () => {
         items: [{ label: 'A', value: 'B' }],
         title: 'Hello',
       });
-      const ctx = makeContext('list', new Map([['list', fieldRenameMap]]));
+      const ctx = makeContext(new Map([['list', fieldRenameMap]]));
       const code = `
         import { useIntlayer } from 'react-intlayer';
         const content = useIntlayer('list');
@@ -317,7 +316,7 @@ describe('makeFieldRenameBabelPlugin', () => {
           title: 'T',
         },
       });
-      const ctx = makeContext('deep', new Map([['deep', fieldRenameMap]]));
+      const ctx = makeContext(new Map([['deep', fieldRenameMap]]));
       const code = `
         import { useIntlayer } from 'react-intlayer';
         const content = useIntlayer('deep');
@@ -347,10 +346,7 @@ describe('makeFieldRenameBabelPlugin', () => {
           },
         },
       });
-      const ctx = makeContext(
-        'build-settings',
-        new Map([['build-settings', fieldRenameMap]])
-      );
+      const ctx = makeContext(new Map([['build-settings', fieldRenameMap]]));
       const code = `
         import { useIntlayer } from 'react-intlayer';
         const { webhooksSection } = useIntlayer('build-settings');
@@ -380,7 +376,7 @@ describe('makeFieldRenameBabelPlugin', () => {
         footer: 'F',
         header: 'H',
       });
-      const ctx = makeContext('shared', new Map([['shared', fieldRenameMap]]));
+      const ctx = makeContext(new Map([['shared', fieldRenameMap]]));
 
       const codeA = `
         import { useIntlayer } from 'react-intlayer';

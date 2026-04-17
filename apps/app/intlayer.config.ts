@@ -51,7 +51,7 @@ const config: CustomIntlayerConfig = {
   },
   build: {
     purge: true,
-    minify: false,
+    minify: true,
     // checkTypes: true,
   },
   compiler: {

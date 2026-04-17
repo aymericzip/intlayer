@@ -429,20 +429,27 @@ export const intlayerOptimize = async (
                     [
                       `Dictionary`,
                       colorizeKey(dictionaryKey),
-                      `cannot be minified.`,
+                      `partially minified.`,
                       ...dangerousEntries.flatMap(([fieldName, locations]) => [
-                        `\n    Reason: field`,
+                        `\n    Opaque field:`,
                         colorize(`'${fieldName}'`, ANSIColors.BLUE),
-                        `is passed opaquely to a child component: nested keys cannot be safely renamed.`,
+                        `(nested keys preserved for stability).`,
                         ...locations.map(
                           (loc) => `\n      at ${formatPath(loc)}`
                         ),
-                        `Fix: import useIntlayer directly in the component where it is used.`,
                       ]),
                     ],
                     { level: 'warn' }
                   );
-                  continue;
+
+                  // Disable renaming for the children of opaque fields to prevent
+                  // breaking components that receive the field as a prop.
+                  for (const [fieldName] of dangerousEntries) {
+                    const entry = nestedRenameMap.get(fieldName);
+                    if (entry) {
+                      entry.children = new Map();
+                    }
+                  }
                 }
               }
 

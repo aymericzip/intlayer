@@ -226,6 +226,49 @@ const analyzeCallExpressionUsage = (
     pruneContext.pendingFrameworkAnalysis.set(currentSourceFilePath, existing);
   };
 
+  /**
+   * Analyses usage of a variable or member access to detect opaque
+   * consumption (passing a dictionary field as-is to a prop or function).
+   *
+   * If a direct, non-chained consumption is found, it calls `markOpaqueField`.
+   * Chained accesses (e.g. `field.sub`) are NOT considered opaque for `field`
+   * because the renamer can safely track and update them.
+   */
+  const analyzeOpaqueUsage = (
+    refPath: NodePath<BabelTypes.Node>,
+    fieldName: string
+  ): void => {
+    const parentNode = refPath.parent;
+
+    // 1. Chained member access (e.g. field.sub or field?.sub)
+    if (
+      (babelTypes.isMemberExpression(parentNode) ||
+        babelTypes.isOptionalMemberExpression(parentNode)) &&
+      (parentNode as BabelTypes.MemberExpression).object === refPath.node
+    ) {
+      // Chained access is safe: the renamer correctly updates it.
+      return;
+    }
+
+    // 2. Destructuring (e.g. const { sub } = field)
+    if (
+      babelTypes.isVariableDeclarator(parentNode) &&
+      babelTypes.isObjectPattern(parentNode.id) &&
+      parentNode.init === refPath.node
+    ) {
+      // Destructuring is analogous to member access: safe.
+      return;
+    }
+
+    // 3. Ignored patterns (e.g. array literals [content])
+    if (babelTypes.isArrayExpression(parentNode)) {
+      return;
+    }
+
+    // 4. Opaque consumption (passed to prop, function, etc.)
+    markOpaqueField(fieldName, refPath.node.loc?.start.line);
+  };
+
   // ── Pattern 1: const { fieldA, fieldB } = useIntlayer('key') ──────────────
   if (
     babelTypes.isVariableDeclarator(parentNode) &&
@@ -242,16 +285,37 @@ const analyzeCallExpressionUsage = (
 
     const accessedFieldNames = new Set<string>();
     for (const property of parentNode.id.properties) {
+      let fieldName: string | undefined;
+
       if (
         babelTypes.isObjectProperty(property) &&
         babelTypes.isIdentifier(property.key)
       ) {
-        accessedFieldNames.add(property.key.name);
+        fieldName = property.key.name;
       } else if (
         babelTypes.isObjectProperty(property) &&
         babelTypes.isStringLiteral(property.key)
       ) {
-        accessedFieldNames.add(property.key.value);
+        fieldName = property.key.value;
+      }
+
+      if (fieldName) {
+        accessedFieldNames.add(fieldName);
+
+        // Check usage of the bound variable to look for opaque consumption
+        if (
+          babelTypes.isObjectProperty(property) &&
+          babelTypes.isIdentifier(property.value)
+        ) {
+          const variableBinding = callExpressionPath.scope.getBinding(
+            property.value.name
+          );
+          if (variableBinding) {
+            for (const refPath of variableBinding.referencePaths) {
+              analyzeOpaqueUsage(refPath, fieldName);
+            }
+          }
+        }
       }
     }
 
@@ -266,21 +330,25 @@ const analyzeCallExpressionUsage = (
     (parentNode as BabelTypes.MemberExpression).object ===
       callExpressionPath.node
   ) {
+    let fieldName: string | undefined;
+
     if (!parentNode.computed && babelTypes.isIdentifier(parentNode.property)) {
-      recordFieldUsage(
-        pruneContext,
-        dictionaryKey,
-        new Set([parentNode.property.name])
-      );
+      fieldName = parentNode.property.name;
     } else if (
       parentNode.computed &&
       babelTypes.isStringLiteral(parentNode.property)
     ) {
-      recordFieldUsage(
-        pruneContext,
-        dictionaryKey,
-        new Set([parentNode.property.value])
-      );
+      fieldName = parentNode.property.value;
+    }
+
+    if (fieldName) {
+      recordFieldUsage(pruneContext, dictionaryKey, new Set([fieldName]));
+
+      // Check for opaque usage (e.g. passed directly to a prop)
+      const memberExprPath = callExpressionPath.parentPath;
+      if (memberExprPath) {
+        analyzeOpaqueUsage(memberExprPath, fieldName);
+      }
     } else {
       markUntrackedBinding();
     }
@@ -314,43 +382,27 @@ const analyzeCallExpressionUsage = (
       ) {
         const memberExpressionNode =
           referenceParentNode as BabelTypes.MemberExpression;
+        let fieldName: string | undefined;
 
         if (
           !memberExpressionNode.computed &&
           babelTypes.isIdentifier(memberExpressionNode.property)
         ) {
-          const fieldName = memberExpressionNode.property.name;
-          accessedTopLevelFieldNames.add(fieldName);
-
-          // Check if the field value is consumed opaquely (not chained further)
-          const memberExprPath = variableReferencePath.parentPath;
-          const grandParentNode = memberExprPath?.parent;
-          const isChainedFurther =
-            (babelTypes.isMemberExpression(grandParentNode) ||
-              babelTypes.isOptionalMemberExpression(grandParentNode)) &&
-            (grandParentNode as BabelTypes.MemberExpression).object ===
-              memberExprPath?.node;
-
-          if (!isChainedFurther) {
-            markOpaqueField(fieldName, memberExprPath?.node.loc?.start.line);
-          }
+          fieldName = memberExpressionNode.property.name;
         } else if (
           memberExpressionNode.computed &&
           babelTypes.isStringLiteral(memberExpressionNode.property)
         ) {
-          const fieldName = memberExpressionNode.property.value;
+          fieldName = memberExpressionNode.property.value;
+        }
+
+        if (fieldName) {
           accessedTopLevelFieldNames.add(fieldName);
 
+          // Check usage of the field to look for opaque consumption
           const memberExprPath = variableReferencePath.parentPath;
-          const grandParentNode = memberExprPath?.parent;
-          const isChainedFurther =
-            (babelTypes.isMemberExpression(grandParentNode) ||
-              babelTypes.isOptionalMemberExpression(grandParentNode)) &&
-            (grandParentNode as BabelTypes.MemberExpression).object ===
-              memberExprPath?.node;
-
-          if (!isChainedFurther) {
-            markOpaqueField(fieldName, memberExprPath?.node.loc?.start.line);
+          if (memberExprPath) {
+            analyzeOpaqueUsage(memberExprPath, fieldName);
           }
         } else {
           // Dynamic computed access – cannot resolve statically

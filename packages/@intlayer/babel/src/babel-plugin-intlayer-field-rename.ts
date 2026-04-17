@@ -73,6 +73,7 @@ export const buildNestedRenameMapFromContent = (
   if (typeof record.nodeType === 'string') {
     // Translation node: user-defined fields live inside translation[locale].
     if (
+      record.nodeType === 'translation' &&
       record.translation &&
       typeof record.translation === 'object' &&
       !Array.isArray(record.translation)
@@ -82,8 +83,34 @@ export const buildNestedRenameMapFromContent = (
       )[0];
       return buildNestedRenameMapFromContent(firstLocaleValue);
     }
-    // All other intlayer nodes have runtime-managed internal structure — return
-    // an empty map so they are treated as leaves.
+
+    // Enumeration node: user-defined keys live inside enumeration.
+    if (
+      record.nodeType === 'enumeration' &&
+      record.enumeration &&
+      typeof record.enumeration === 'object' &&
+      !Array.isArray(record.enumeration)
+    ) {
+      const values = Object.values(
+        record.enumeration as Record<string, unknown>
+      );
+      if (values.length > 0) {
+        return buildNestedRenameMapFromContent(values[0]);
+      }
+    }
+
+    // All other intlayer nodes (pluralization, conditions, etc.) resolve to a
+    // single value at runtime – return an empty map so they are treated
+    // as leaves unless they contain nested user records.
+    return new Map();
+  }
+
+  // Exclude React elements from being treated as user-defined records.
+  // JSX elements in the compiled JSON have a $$typeof property (usually Symbol(react.element)).
+  if (
+    record.$$typeof ||
+    (record.type && record.props && Object.hasOwn(record, 'ref'))
+  ) {
     return new Map();
   }
 
