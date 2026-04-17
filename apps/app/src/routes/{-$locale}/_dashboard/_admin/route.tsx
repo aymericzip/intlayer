@@ -1,10 +1,11 @@
-import { createFileRoute, Outlet } from '@tanstack/react-router';
+import { createFileRoute, Outlet, useLocation } from '@tanstack/react-router';
 import { getIntlayer } from 'intlayer';
+import { useEffect } from 'react';
 import { AdminBreadcrumb } from '#components/AdminBreadcrumb';
 import { AdminTabBar } from '#components/AdminTabBar';
 import { AuthenticationBarrier } from '#components/Auth/AuthenticationBarrier/AuthenticationBarrier';
+import { useLocalizedNavigate } from '#hooks/useLocalizedNavigate.ts';
 import { useSessionRouterListener } from '#hooks/useSessionRouterListener.ts';
-import { validateAuth } from '#utils/auth.tsx';
 
 export const Route = createFileRoute('/{-$locale}/_dashboard/_admin')({
   // beforeLoad: async ({ context, location, params }) => {
@@ -43,6 +44,15 @@ function AdminLayout() {
   const { locale } = Route.useParams();
 
   useSessionRouterListener();
+
+  const navigate = useLocalizedNavigate();
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    if (pathname.endsWith('/admin')) {
+      void navigate({ to: '/admin/users' });
+    }
+  }, [pathname, navigate]);
 
   return (
     <AuthenticationBarrier accessRule="admin" locale={locale}>
