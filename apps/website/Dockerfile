@@ -106,8 +106,8 @@ RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 
 # Copy only the standalone output and necessary static files from builder
 COPY --from=builder --chown=appuser:appgroup /workspace/apps/website/.next/standalone ./
-COPY --from=builder --chown=appuser:appgroup /workspace/apps/website/public ./apps/website/public
-COPY --from=builder --chown=appuser:appgroup /workspace/apps/website/.next/static ./apps/website/.next/static
+COPY --from=builder --chown=appuser:appgroup /workspace/apps/website/public ./public
+COPY --from=builder --chown=appuser:appgroup /workspace/apps/website/.next/static ./.next/static
 
 USER appuser
 

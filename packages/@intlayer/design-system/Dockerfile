@@ -1,13 +1,9 @@
 # syntax=docker/dockerfile:1.23.0
 
-########################
-# 1) Build stage
-########################
+# Builder stage
 FROM node:22-alpine AS builder
 
 RUN npm install -g bun@1.3.12
-
-# RUN apk add --no-cache nodejs npm wget
 
 # Put the repo in /workspace
 WORKDIR /workspace
@@ -41,7 +37,7 @@ COPY \
   --exclude=docs/frequent_questions \
   --exclude=docs/legal \
   --exclude=apps/website \
-    --exclude=apps/app \
+  --exclude=apps/app \
   --exclude=apps/doc \
   --exclude=apps/showcase \
   --exclude=plugins \
@@ -63,24 +59,16 @@ WORKDIR /workspace/packages/@intlayer/design-system
 # Build the intlayer dictionaries (optional if turbo already did what you need)
 RUN bun x intlayer build
 
-HEALTHCHECK CMD true
-# HEALTHCHECK --interval=30s --timeout=5s --start-period=60s --retries=3 \
-#   CMD \
-#     wget -qO- http://localhost:6006/ > /dev/null || exit 1
-
-
-
-# Build Storybook to a deterministic path to simplify the copy in the next stage
 ENV STORYBOOK_TELEMETRY=false
 ENV STORYBOOK_STATIC=true
 RUN bun x storybook build --disable-telemetry
 
-########################
-# 2) Runtime
-########################
-FROM node:22-alpine
+# Runner — plain node + serve; no bun needed for static file serving
+FROM node:22-alpine AS runner
 
 RUN npm install -g bun@1.3.12
+
+RUN npm install -g serve && apk add --no-cache wget
 
 WORKDIR /www
 
@@ -90,10 +78,8 @@ COPY --from=builder /workspace/packages/@intlayer/design-system/storybook-static
 
 EXPOSE 6006
 
-HEALTHCHECK CMD true
-# HEALTHCHECK --interval=30s --timeout=5s --start-period=60s --retries=3 \
-#   CMD \
-#     wget -qO- http://localhost:6006/ > /dev/null || exit 1
+HEALTHCHECK --interval=30s --timeout=5s --start-period=60s --retries=3 \
+  CMD wget -qO- http://localhost:6006/ > /dev/null || exit 1
 
 # -f foreground, -p port, -h doc root
 CMD ["bun", "x", "serve", ".", "-l", "6006"]

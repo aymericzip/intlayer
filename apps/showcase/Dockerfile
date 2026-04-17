@@ -63,20 +63,32 @@ ENV NODE_ENV=production
 # Build the showcase app
 RUN bun run build
 
-# Create and use a non-root user for security
-RUN addgroup -S app && adduser -S app -G app && chown -R app:app ./.output
 
-USER app
+# Runner
+FROM node:22-alpine AS runner
 
-# Expose the API port (defaults to 3100 via .env, can be overridden)
+# Install bun in the runner stage as well
+RUN npm install -g bun@1.3.12
+
+WORKDIR /app
+
+ENV NODE_ENV=production
+
+# Create a non-root user for security
+RUN addgroup -S appgroup && adduser -S appuser -G appgroup
+
+# Copy ONLY the built output from the builder stage
+COPY --from=builder --chown=appuser:appgroup /workspace/apps/showcase/.output ./.output
+
+USER appuser
+
 EXPOSE 3000
 
-HEALTHCHECK CMD true
+HEALTHCHECK --interval=30s --timeout=5s --start-period=60s --retries=3 \
+  CMD \
+    wget -qO- http://localhost:3000/ > /dev/null || exit 1 && \
+    wget -qO- http://localhost:3000/doc/environment/nextjs > /dev/null || exit 1
 
-# HEALTHCHECK --interval=30s --timeout=5s --start-period=60s --retries=3 \
-#   CMD \
-#     wget -qO- http://localhost:3000/ > /dev/null || exit 1 && \
-#     wget -qO- http://localhost:3000/doc/environment/nextjs > /dev/null || exit 1
 
 # Start the showcase server
 CMD ["bun", "run", ".output/server/index.mjs"]

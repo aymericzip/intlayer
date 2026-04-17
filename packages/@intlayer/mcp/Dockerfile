@@ -1,6 +1,5 @@
 # syntax=docker/dockerfile:1.23.0
 
-
 # FROM oven/bun:1.3.2-alpine AS builder
 # Use node because of bun issue blocking at `Creating an optimized production build ...`
 # https://github.com/oven-sh/bun/issues/17136
@@ -9,13 +8,8 @@ FROM node:22-alpine AS builder
 
 RUN npm install -g bun@1.3.12
 
-# Create app directory
 WORKDIR /workspace
 
-# RUN apk add --no-cache wget
-
-# Copy the rest of the source code
-# Remove directories to keep the image slim
 COPY \
     --exclude=packages/@intlayer/vue-compiler \
     --exclude=packages/@intlayer/svelte-compiler \
@@ -53,7 +47,7 @@ COPY \
     --exclude=apps/website \
     --exclude=apps/showcase \
     --exclude=apps/app \
-        --exclude=apps/doc \
+    --exclude=apps/doc \
     --exclude=**/*.stories.* \
     . .
 
@@ -69,35 +63,33 @@ RUN bun install
 # Build every package in the workspace (uses the root "build" script)
 RUN bun x turbo run build:ci --filter=./packages/@intlayer/mcp
 
-# Remove all dev dependencies
-# RUN CI=true bun pm prune --production
-
-# Remove .ts, .tsx and .map files only within src/** directories, ignoring node_modules, so configuration files like intlayer.config.ts are kept
+# Strip source files to reduce image size
 RUN find . -path "*/src/*" -type f \( -name "*.ts" -o -name "*.tsx" -o -name "*.map" \) -not -path "*/node_modules/*" -delete
 
+# Runner — use oven/bun base image to avoid npm install overhead
+FROM node:22-alpine AS runner
+
+RUN npm install -g bun@1.3.12
+
+
+WORKDIR /app
 
 ENV NODE_ENV=production
 
-# Create and use a non-root user for security
 RUN addgroup -S app && adduser -S app -G app
 
-RUN chown -R app:app /workspace/packages/@intlayer/mcp
-
-WORKDIR /workspace/packages/@intlayer/mcp
+COPY --from=builder --chown=app:app /workspace/packages/@intlayer/mcp/dist ./dist
+COPY --from=builder --chown=app:app /workspace/packages/@intlayer/mcp/package.json ./package.json
+COPY --from=builder --chown=app:app /workspace/node_modules ./node_modules
 
 USER app
 
 # Expose the API port 
 EXPOSE 3000
 
+HEALTHCHECK --interval=30s --timeout=5s --start-period=60s --retries=3 \
+  CMD wget -qO- http://localhost:3000/health > /dev/null || exit 1
 
-HEALTHCHECK CMD true
-# HEALTHCHECK --interval=30s --timeout=5s --start-period=60s --retries=3 \
-#   CMD \
-#     wget -qO- http://localhost:3000/health > /dev/null || exit 1
-
-# Option 1: Use mcp-proxy (recommended - simpler)
 CMD ["bun", "run", "start:sse"]
-
 # Option 2: Use stdio transport (alternative)
 # CMD ["bun", "run", "start:stdio"]

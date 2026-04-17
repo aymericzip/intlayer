@@ -1,6 +1,7 @@
 # syntax=docker/dockerfile:1.23.0
 
-FROM node:22-alpine AS builder
+# Base stage: system deps shared between builder and runner
+FROM node:22-alpine AS base
 
 RUN npm install -g bun@1.3.12
 
@@ -23,7 +24,9 @@ ENV PUPPETEER_SKIP_DOWNLOAD=true
 ENV PUPPETEER_CACHE_DIR=/home/app/.cache/puppeteer
 ENV TMPDIR=/workspace/apps/backend/tmp
 
-# Create app directory
+# Builder stage
+FROM base AS builder
+
 WORKDIR /workspace
 
 # Copy the monorepo, excluding packages not needed by the backend
@@ -65,7 +68,7 @@ COPY \
     --exclude=examples \
     --exclude=apps/website \
     --exclude=apps/showcase \
-        --exclude=apps/app \
+    --exclude=apps/app \
     --exclude=apps/doc \
     --exclude=**/*.stories.* \
     . .
@@ -75,22 +78,24 @@ COPY docs/blog/en/                 docs/blog/en/
 COPY docs/frequent_questions/en/   docs/frequent_questions/en/
 COPY docs/legal/en/                docs/legal/en/
 
-# Install all dependencies (dev + prod) for the backend filter
 RUN bun install --ignore-scripts --filter=./apps/backend
 
-# Build every package needed by the backend
 RUN bun x turbo run build:ci --filter=./apps/backend
 
-# Strip source files to keep the image slim
+# Strip source files to reduce image size
 RUN find . -path "*/src/*" -type f \( -name "*.ts" -o -name "*.tsx" -o -name "*.map" \) -not -path "*/node_modules/*" -delete
+
+# Runner stage — inherits system deps (chromium etc.) from base
+FROM base AS runner
 
 ENV NODE_ENV=production
 
-# Create a non-root user for security
 RUN addgroup -S app && adduser -S app -G app
 
 RUN mkdir -p /workspace/apps/backend/tmp /home/app/.cache/puppeteer && \
-    chown -R app:app /workspace/apps/backend /home/app/.cache
+    chown -R app:app /workspace /home/app/.cache
+
+COPY --from=builder --chown=app:app /workspace /workspace
 
 WORKDIR /workspace/apps/backend
 
@@ -99,8 +104,7 @@ USER app
 # Expose the API port
 EXPOSE 3100
 
-HEALTHCHECK CMD true
-# HEALTHCHECK --interval=10s --timeout=5s --start-period=120s --retries=5 \
-#   CMD wget --no-verbose --tries=1 --spider http://localhost:3100/health || exit 1
+HEALTHCHECK --interval=10s --timeout=5s --start-period=120s --retries=5 \
+  CMD wget --no-verbose --tries=1 --spider http://localhost:3100/health || exit 1
 
 CMD ["bun", "dist/esm/index.mjs"]

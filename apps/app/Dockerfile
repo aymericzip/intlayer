@@ -1,6 +1,5 @@
 # syntax=docker/dockerfile:1.23.0
 
-
 # FROM oven/bun:1.3.2-alpine AS builder
 # Use node because of bun issue blocking at `Creating an optimized production build ...`
 # https://github.com/oven-sh/bun/issues/17136
@@ -63,20 +62,25 @@ ENV NODE_ENV=production
 # Build the app
 RUN bun run build && bun scripts/generate-sw.ts
 
-# Create and use a non-root user for security
-RUN addgroup -S app && adduser -S app -G app && chown -R app:app ./.output
+# Runner — use oven/bun base image to avoid npm install overhead
+FROM oven/bun:1.3.12-alpine AS runner
+
+RUN apk add --no-cache wget
+
+WORKDIR /app
+
+ENV NODE_ENV=production
+
+RUN addgroup -S app && adduser -S app -G app
+
+COPY --from=builder --chown=app:app /workspace/apps/app/.output ./.output
 
 USER app
 
 # Expose the API port (defaults to 3100 via .env, can be overridden)
 EXPOSE 3000
 
-HEALTHCHECK CMD true
+HEALTHCHECK --interval=30s --timeout=5s --start-period=60s --retries=3 \
+  CMD wget -qO- http://localhost:3000/ > /dev/null || exit 1
 
-# HEALTHCHECK --interval=30s --timeout=5s --start-period=60s --retries=3 \
-#   CMD \
-#     wget -qO- http://localhost:3000/ > /dev/null || exit 1 && \
-#     wget -qO- http://localhost:3000/doc/environment/nextjs > /dev/null || exit 1
-
-# Start the app server
 CMD ["bun", "run", ".output/server/index.mjs"]
