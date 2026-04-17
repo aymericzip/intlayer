@@ -539,7 +539,7 @@ export const withIntlayerSync = <T extends Partial<NextConfig>>(
  * > Using the promise allows to prepare the intlayer dictionaries before the build starts.
  *
  */
-export const withIntlayer = async <T extends Partial<NextConfig>>(
+export const withIntlayer = async <T extends NextConfig | Partial<NextConfig>>(
   nextConfig: T | Promise<T> = {} as T,
   configOptions?: WithIntlayerOptions
 ): Promise<NextConfig & T> => {

@@ -1,3 +1,5 @@
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import {
   App_Admin,
   App_Auth_ChangePassword,
@@ -214,6 +216,7 @@ const nextConfig: NextConfig = {
   experimental: {
     optimizePackageImports: ['@intlayer/design-system'],
   },
+  outputFileTracingRoot: join(process.cwd(), '../../'),
   reactCompiler: true,
   productionBrowserSourceMaps: true,
   images: {
