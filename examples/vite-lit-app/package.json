@@ -16,7 +16,7 @@
   },
   "devDependencies": {
     "intlayer-editor": "workspace:*",
-    "typescript": "6.0.2",
+    "typescript": "6.0.3",
     "vite": "8.0.8",
     "vite-intlayer": "workspace:*"
   }

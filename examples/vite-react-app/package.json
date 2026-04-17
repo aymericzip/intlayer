@@ -16,7 +16,7 @@
     "react": "19.2.5",
     "react-dom": "19.2.5",
     "react-intlayer": "workspace:*",
-    "react-router-dom": "7.14.0",
+    "react-router-dom": "7.14.1",
     "zod": "4.3.6"
   },
   "devDependencies": {
@@ -26,10 +26,10 @@
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
     "@vitejs/plugin-react": "6.0.1",
-    "autoprefixer": "10.4.27",
+    "autoprefixer": "10.5.0",
     "intlayer-editor": "workspace:*",
     "tailwindcss": "4.2.2",
-    "typescript": "6.0.2",
+    "typescript": "6.0.3",
     "vite": "8.0.8",
     "vite-intlayer": "workspace:*"
   }

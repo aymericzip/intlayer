@@ -71,7 +71,7 @@
     "next-intlayer": "workspace:*",
     "next-secure-headers": "2.2.0",
     "next-themes": "0.4.6",
-    "posthog-js": "1.369.0",
+    "posthog-js": "1.369.2",
     "react": "19.2.5",
     "react-dom": "19.2.5",
     "rss": "^1.2.2",
@@ -81,7 +81,7 @@
   "devDependencies": {
     "@intlayer/swc": "workspace:*",
     "@tailwindcss/postcss": "4.2.2",
-    "@types/node": "25.5.2",
+    "@types/node": "25.6.0",
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
     "@types/rss": "^0.0.32",
@@ -92,7 +92,7 @@
     "pwa-asset-generator": "8.1.4",
     "raw-loader": "4.0.2",
     "tailwindcss": "4.2.2",
-    "typescript": "6.0.2",
+    "typescript": "6.0.3",
     "workbox-build": "7.4.0"
   },
   "peerDependencies": {
