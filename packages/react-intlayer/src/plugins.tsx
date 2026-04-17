@@ -184,14 +184,16 @@ export const reactNodePlugins: Plugins = TREE_SHAKE_REACT_NODE
 
 export type InsertionCond<T> = T extends {
   nodeType: NodeType | string;
-  [NodeTypes.INSERTION]: string;
+  [NodeTypes.INSERTION]: infer I;
   fields: readonly string[];
 }
   ? <V extends { [K in T['fields'][number]]: ReactNode }>(
       values: V
-    ) => V[keyof V] extends string | number
-      ? IntlayerNode<string>
-      : IntlayerNode<ReactNode>
+    ) => I extends string
+      ? V[keyof V] extends string | number
+        ? IntlayerNode<string>
+        : IntlayerNode<ReactNode>
+      : DeepTransformContent<I>
   : never;
 
 /**

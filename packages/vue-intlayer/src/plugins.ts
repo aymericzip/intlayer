@@ -142,16 +142,18 @@ export const intlayerNodePlugins: Plugins = TREE_SHAKE_INTLAYER_NODE
  * INSERTION PLUGIN
  * --------------------------------------------- */
 
-export type InsertionCond<T, _S, _L> = T extends {
+export type InsertionCond<T, _S, L extends LocalesValues> = T extends {
   nodeType: NodeType | string;
-  [NodeTypes.INSERTION]: string;
+  [NodeTypes.INSERTION]: infer I;
   fields: readonly string[];
 }
   ? <V extends { [K in T['fields'][number]]: VNode }>(
       values: V
-    ) => V[keyof V] extends string | number
-      ? IntlayerNode<string>
-      : IntlayerNode<VNode | VNode[]>
+    ) => I extends string
+      ? V[keyof V] extends string | number
+        ? IntlayerNode<string>
+        : IntlayerNode<VNode | VNode[]>
+      : DeepTransformContent<I, L>
   : never;
 
 /**

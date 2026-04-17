@@ -283,14 +283,16 @@ export const conditionPlugin: Plugins = TREE_SHAKE_CONDITION
 
 export type InsertionCond<T, S, _L> = T extends {
   nodeType: NodeType | string;
-  [NodeTypes.INSERTION]: string;
+  [NodeTypes.INSERTION]: infer I;
   fields: readonly string[];
 }
   ? (
       values: {
         [K in T['fields'][number]]: string | number;
       }
-    ) => DeepTransformContent<string, S>
+    ) => I extends string
+      ? DeepTransformContent<string, S>
+      : DeepTransformContent<I, S>
   : never;
 
 /** Insertion plugin. Replaces node with a function that takes quantity => string. */

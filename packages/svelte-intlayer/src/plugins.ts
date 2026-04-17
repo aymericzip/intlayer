@@ -156,16 +156,18 @@ export const svelteNodePlugins: Plugins = intlayerNodePlugins;
  * INSERTION PLUGIN
  * --------------------------------------------- */
 
-export type InsertionCond<T, _S, _L> = T extends {
+export type InsertionCond<T, _S, L extends LocalesValues> = T extends {
   nodeType: NodeType | string;
-  [NodeTypes.INSERTION]: string;
+  [NodeTypes.INSERTION]: infer I;
   fields: readonly string[];
 }
   ? <V extends { [K in T['fields'][number]]: any }>(
       values: V
-    ) => V[keyof V] extends string | number
-      ? IntlayerNode<string>
-      : IntlayerNode<any>
+    ) => I extends string
+      ? V[keyof V] extends string | number
+        ? IntlayerNode<string>
+        : IntlayerNode<any>
+      : DeepTransformContent<I, L>
   : never;
 
 /**
