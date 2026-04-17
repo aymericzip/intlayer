@@ -4,7 +4,7 @@ import {
   type BreadcrumbProps,
 } from '@intlayer/design-system/breadcrumb';
 import {
-  Website_Blog,
+  Website_Blog_Path,
   Website_Blog_Root,
 } from '@intlayer/design-system/routes';
 import { getLocalizedUrl, type LocalesValues } from 'intlayer';
@@ -28,7 +28,7 @@ export const BlogBreadCrumb: FC<BlogBreadCrumbProps> = ({
     () => [
       {
         text: 'Blog',
-        href: getLocalizedUrl(Website_Blog, locale),
+        href: getLocalizedUrl(Website_Blog_Path, locale),
       },
       ...activeSections
         .filter((el) => el !== 'index')

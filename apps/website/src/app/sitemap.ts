@@ -4,7 +4,7 @@ import {
   Website_Contributors_Path,
   Website_Demo_Path,
   Website_Doc_Path,
-  Website_Doc_Search,
+  Website_Doc_Search_Path,
   Website_FrequentQuestions_Path,
   Website_Home_Path,
   Website_NotFound_Path,
@@ -229,16 +229,16 @@ const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
       },
     },
     {
-      url: `${process.env.NEXT_PUBLIC_URL}${Website_Doc_Search}`,
+      url: `${process.env.NEXT_PUBLIC_URL}${Website_Doc_Search_Path}`,
       lastModified: new Date(),
       changeFrequency: 'never',
       priority: 0.1,
       alternates: {
         languages: {
           ...getMultilingualUrls(
-            `${process.env.NEXT_PUBLIC_URL}${Website_Doc_Search}`
+            `${process.env.NEXT_PUBLIC_URL}${Website_Doc_Search_Path}`
           ),
-          'x-default': `${process.env.NEXT_PUBLIC_URL}${Website_Doc_Search}`,
+          'x-default': `${process.env.NEXT_PUBLIC_URL}${Website_Doc_Search_Path}`,
         },
       },
     },
