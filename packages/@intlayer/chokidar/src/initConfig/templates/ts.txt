@@ -109,11 +109,15 @@ const config: IntlayerConfig = {
   },
   build: {
     /**
+     * (Experimental feature)
+     * 
      * Minify the dictionaries to reduce the bundle size.
      */
     minify: true,
 
     /**
+     * (Experimental feature)
+     * 
      * Purge the unused keys in a dictionaries
      */
     purge: true,
