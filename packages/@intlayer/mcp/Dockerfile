@@ -67,9 +67,7 @@ RUN bun x turbo run build:ci --filter=./packages/@intlayer/mcp
 RUN find . -path "*/src/*" -type f \( -name "*.ts" -o -name "*.tsx" -o -name "*.map" \) -not -path "*/node_modules/*" -delete
 
 # Runner — use oven/bun base image to avoid npm install overhead
-FROM node:22-alpine AS runner
-
-RUN npm install -g bun@1.3.12 
+FROM oven/bun:1.3.12-alpine AS runner
 
 RUN apk add --no-cache wget
 

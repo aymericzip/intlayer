@@ -93,9 +93,7 @@ ENV NODE_ENV=production
 RUN bun run --bun next build && bun scripts/generate-sw.ts
 
 # Runner
-FROM node:22-alpine AS runner
-
-RUN npm install -g bun@1.3.12 
+FROM oven/bun:1.3.12-alpine AS runner
 
 RUN apk add --no-cache wget
 
