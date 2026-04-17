@@ -95,7 +95,9 @@ RUN bun run --bun next build && bun scripts/generate-sw.ts
 # Runner
 FROM node:22-alpine AS runner
 
-RUN npm install -g bun@1.3.12
+RUN npm install -g bun@1.3.12 
+
+RUN apk add --no-cache wget
 
 WORKDIR /app
 

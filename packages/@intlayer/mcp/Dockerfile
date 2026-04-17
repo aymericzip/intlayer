@@ -69,8 +69,9 @@ RUN find . -path "*/src/*" -type f \( -name "*.ts" -o -name "*.tsx" -o -name "*.
 # Runner — use oven/bun base image to avoid npm install overhead
 FROM node:22-alpine AS runner
 
-RUN npm install -g bun@1.3.12
+RUN npm install -g bun@1.3.12 
 
+RUN apk add --no-cache wget
 
 WORKDIR /app
 

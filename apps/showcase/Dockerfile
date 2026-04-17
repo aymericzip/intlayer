@@ -67,8 +67,9 @@ RUN bun run build
 # Runner
 FROM node:22-alpine AS runner
 
-# Install bun in the runner stage as well
-RUN npm install -g bun@1.3.12
+RUN npm install -g bun@1.3.12 
+
+RUN apk add --no-cache wget
 
 WORKDIR /app
 
