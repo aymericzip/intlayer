@@ -64,15 +64,23 @@ export const multipleProxies =
     // Merge headers
     proxyHeader.forEach((header) => {
       for (const [key, value] of header.entries()) {
-        mergedHeaders.append(key, value);
+        // Prevent routing headers from concatenating and forming invalid URLs
+        if (
+          key === 'x-middleware-rewrite' ||
+          key === 'x-middleware-request-redirect'
+        ) {
+          mergedHeaders.set(key, value);
+        } else {
+          mergedHeaders.append(key, value);
+        }
 
         // check if it's a custom header added by one of the proxies
         if (key.startsWith('x-middleware-request-')) {
           // remove the prefix to get the original key
           const fixedKey = key.replace('x-middleware-request-', '');
 
-          // add the original key to the transmitted headers
-          transmittedHeaders.append(fixedKey, value);
+          // add the original key to the transmitted headers using set() to prevent duplication
+          transmittedHeaders.set(fixedKey, value);
         }
       }
     });
