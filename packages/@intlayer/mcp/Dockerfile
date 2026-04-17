@@ -77,9 +77,9 @@ ENV NODE_ENV=production
 
 RUN addgroup -S app && adduser -S app -G app
 
-COPY --from=builder --chown=app:app /workspace/packages/@intlayer/mcp/dist ./dist
-COPY --from=builder --chown=app:app /workspace/packages/@intlayer/mcp/package.json ./package.json
-COPY --from=builder --chown=app:app /workspace/node_modules ./node_modules
+RUN chown -R app:app /workspace/packages/@intlayer/mcp
+
+WORKDIR /workspace/packages/@intlayer/mcp
 
 USER app
 
