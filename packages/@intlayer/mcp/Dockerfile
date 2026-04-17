@@ -71,13 +71,13 @@ FROM oven/bun:1.3.12-alpine AS runner
 
 RUN apk add --no-cache wget
 
-WORKDIR /app
-
 ENV NODE_ENV=production
 
 RUN addgroup -S app && adduser -S app -G app
 
-RUN chown -R app:app /workspace/packages/@intlayer/mcp
+# Copy workspace structure from builder to preserve monorepo node_modules symlinks
+COPY --from=builder --chown=app:app /workspace/node_modules /workspace/node_modules
+COPY --from=builder --chown=app:app /workspace/packages/@intlayer /workspace/packages/@intlayer
 
 WORKDIR /workspace/packages/@intlayer/mcp
 

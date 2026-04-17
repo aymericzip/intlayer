@@ -145,6 +145,11 @@ const startServer = async () => {
     );
   });
 
+  // Health check endpoint
+  app.get('/health', async (_request, reply) => {
+    return reply.status(200).send({ status: 'ok' });
+  });
+
   // Session Auth
   const auth = getAuth(dbClient as any);
 
