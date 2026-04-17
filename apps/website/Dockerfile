@@ -92,25 +92,30 @@ ENV NODE_ENV=production
 # Build the Next.js website
 RUN bun run --bun next build && bun scripts/generate-sw.ts
 
-# Copy static assets to standalone directory
-RUN mkdir -p .next/standalone/apps/website/.next/static && \
-    cp -r .next/static/* .next/standalone/apps/website/.next/static/ && \
-    cp -r public .next/standalone/apps/website/public
+# Runner
+FROM node:22-alpine AS runner
 
-# Create and use a non-root user for security
-RUN addgroup -S app && adduser -S app -G app && chown -R app:app ./.next
+RUN npm install -g bun@1.3.12
 
-USER app
+WORKDIR /app
 
-# Expose the API port (defaults to 3100 via .env, can be overridden)
+ENV NODE_ENV=production
+
+# Create non-root user
+RUN addgroup -S appgroup && adduser -S appuser -G appgroup
+
+# Copy only the standalone output and necessary static files from builder
+COPY --from=builder --chown=appuser:appgroup /workspace/apps/website/.next/standalone ./
+COPY --from=builder --chown=appuser:appgroup /workspace/apps/website/public ./apps/website/public
+COPY --from=builder --chown=appuser:appgroup /workspace/apps/website/.next/static ./apps/website/.next/static
+
+USER appuser
+
 EXPOSE 3000
 
+# Functional healthcheck
+HEALTHCHECK --interval=30s --timeout=5s --start-period=30s --retries=3 \
+  CMD wget -qO- http://localhost:3000/ || exit 1
 
-HEALTHCHECK CMD true
-# HEALTHCHECK --interval=30s --timeout=5s --start-period=60s --retries=3 \
-#   CMD \
-#     wget -qO- http://localhost:3000/ > /dev/null || exit 1 && \
-#     wget -qO- http://localhost:3000/doc/environment/nextjs > /dev/null || exit 1
-
-# Start the website
-CMD ["bun", ".next/standalone/apps/website/server.js"]
+# Execute the standalone server
+CMD ["bun", "apps/website/server.js"]
