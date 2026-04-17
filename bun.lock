@@ -224,6 +224,7 @@
       "dependencies": {
         "@intlayer/api": "workspace:*",
         "@intlayer/config": "workspace:*",
+        "@intlayer/core": "workspace:*",
         "@intlayer/design-system": "workspace:*",
         "@posthog/react": "1.9.0",
         "@rolldown/plugin-babel": "^0.2.2",
