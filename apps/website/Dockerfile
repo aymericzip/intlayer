@@ -92,6 +92,11 @@ ENV NODE_ENV=production
 # Build the Next.js website
 RUN bun run --bun next build && bun scripts/generate-sw.ts
 
+# Copy static assets to standalone directory
+RUN mkdir -p .next/standalone/apps/website/.next/static && \
+    cp -r .next/static/* .next/standalone/apps/website/.next/static/ && \
+    cp -r public .next/standalone/apps/website/public
+
 # Create and use a non-root user for security
 RUN addgroup -S app && adduser -S app -G app && chown -R app:app ./.next
 
