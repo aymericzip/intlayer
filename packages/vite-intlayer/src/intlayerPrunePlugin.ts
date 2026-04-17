@@ -225,7 +225,12 @@ export const intlayerPrune = (
    * transforms concurrently — JavaScript's single-threaded event loop ensures
    * the `.has` / `.add` pair is always atomic.
    */
-  const prunedAndLoggedDictionaryKeys = new Set<string>();
+  const loggedPrunedDictionaryKeys = new Set<string>();
+
+  /**
+   * Accumulated statistics for the build summary.
+   */
+  const prunedFieldsCountPerDictionary = new Map<string, number>();
 
   const isDictionaryJsonFile = (absoluteFilePath: string): boolean =>
     absoluteFilePath.endsWith('.json') &&
@@ -394,23 +399,57 @@ export const intlayerPrune = (
         (fieldName) => !fieldUsage.has(fieldName)
       );
 
-      if (
-        removedFieldNames.length > 0 &&
-        !prunedAndLoggedDictionaryKeys.has(dictionaryKey)
-      ) {
-        prunedAndLoggedDictionaryKeys.add(dictionaryKey);
-        logger([
-          `Pruned`,
-          colorizeNumber(removedFieldNames.length),
-          `unused field${removedFieldNames.length === 1 ? '' : 's'} from`,
-          `${colorizeKey(dictionaryKey)}:`,
-          removedFieldNames
-            .map((fieldName) => colorize(fieldName, ANSIColors.GREY_LIGHT))
-            .join(', '),
-        ]);
+      if (removedFieldNames.length > 0) {
+        prunedFieldsCountPerDictionary.set(
+          dictionaryKey,
+          removedFieldNames.length
+        );
+
+        if (!loggedPrunedDictionaryKeys.has(dictionaryKey)) {
+          loggedPrunedDictionaryKeys.add(dictionaryKey);
+          logger(
+            [
+              `Pruned`,
+              colorizeNumber(removedFieldNames.length),
+              `unused field${removedFieldNames.length === 1 ? '' : 's'} from`,
+              `${colorizeKey(dictionaryKey)}:`,
+              removedFieldNames
+                .map((fieldName) => colorize(fieldName, ANSIColors.GREY_LIGHT))
+                .join(', '),
+            ],
+            { isVerbose: true }
+          );
+        }
       }
 
       return { code: JSON.stringify(prunedDictionary), map: null };
+    },
+
+    /**
+     * Log a summary of all fields removed during this build.
+     */
+    buildEnd: () => {
+      runOnce(
+        join(baseDir, '.intlayer', 'cache', 'intlayer-prune-summary.lock'),
+        () => {
+          const totalPrunedFieldsCount = [
+            ...prunedFieldsCountPerDictionary.values(),
+          ].reduce((a, b) => a + b, 0);
+          const totalPrunedDictionariesCount =
+            prunedFieldsCountPerDictionary.size;
+
+          if (totalPrunedFieldsCount > 0) {
+            logger([
+              `Pruned`,
+              colorizeNumber(totalPrunedFieldsCount),
+              `unused field${totalPrunedFieldsCount === 1 ? '' : 's'} across`,
+              colorizeNumber(totalPrunedDictionariesCount),
+              `dictionar${totalPrunedDictionariesCount === 1 ? 'y' : 'ies'}.`,
+            ]);
+          }
+        },
+        { cacheTimeoutMs: 1000 * 5 }
+      );
     },
   };
 

@@ -111,6 +111,8 @@ export const intlayerOptimize = async (
       (!!purge || !!minify) &&
       isBuildOptimizeEnabled(_config, env);
 
+    let partiallyMinifiedDictionariesCount = 0;
+
     return [
       intlayerVueAsyncPlugin(intlayerConfig, transformableFilesList),
 
@@ -423,8 +425,9 @@ export const intlayerOptimize = async (
                   ([fieldName]) =>
                     (nestedRenameMap.get(fieldName)?.children.size ?? 0) > 0
                 );
-
                 if (dangerousEntries.length > 0) {
+                  partiallyMinifiedDictionariesCount += 1;
+
                   logger(
                     [
                       `Dictionary`,
@@ -439,7 +442,7 @@ export const intlayerOptimize = async (
                         ),
                       ]),
                     ],
-                    { level: 'warn' }
+                    { level: 'warn', isVerbose: true }
                   );
 
                   // Disable renaming for the children of opaque fields to prevent
@@ -459,6 +462,26 @@ export const intlayerOptimize = async (
                   nestedRenameMap
                 );
               }
+            }
+
+            if (partiallyMinifiedDictionariesCount > 0) {
+              runOnce(
+                join(
+                  baseDir,
+                  '.intlayer',
+                  'cache',
+                  'intlayer-partial-minify-summary.lock'
+                ),
+                () => {
+                  logger([
+                    `Partially minified`,
+                    colorizeNumber(partiallyMinifiedDictionariesCount),
+                    `dictionar${partiallyMinifiedDictionariesCount === 1 ? 'y' : 'ies'}`,
+                    `(preserved nested keys for opaque fields).`,
+                  ]);
+                },
+                { cacheTimeoutMs: 1000 * 5 }
+              );
             }
           }
         },

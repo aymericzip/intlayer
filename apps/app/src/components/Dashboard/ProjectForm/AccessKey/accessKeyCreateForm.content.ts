@@ -3,26 +3,6 @@ import { type Dictionary, t } from 'intlayer';
 const accessKeyFormContent = {
   key: 'access-key-creation-form',
   content: {
-    title: t({
-      ar: 'مفتاح الوصول',
-      de: 'Zugriffsschlüssel',
-      en: 'Access key',
-      'en-GB': 'Access key',
-      es: 'Clave de acceso',
-      fr: "Clé d'accès",
-      hi: 'एक्सेस कुंजी',
-      it: 'Chiave di accesso',
-      ja: 'アクセスキー',
-      ko: '액세스 키',
-      pt: 'Chave de acesso',
-      ru: 'Ключ доступа',
-      tr: 'Erişim anahtarı',
-      zh: '访问密钥',
-      pl: 'Klucz dostępu',
-      id: 'Kunci akses',
-      vi: 'Khóa truy cập',
-      uk: 'Ключ доступу',
-    }),
     nameInput: {
       label: t({
         en: 'Name of your access key',

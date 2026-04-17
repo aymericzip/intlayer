@@ -11,6 +11,7 @@ import {
   useEffect,
   useRef,
 } from 'react';
+import { useIntlayer } from 'react-intlayer';
 import { Button, ButtonColor, ButtonSize, ButtonVariant } from '../Button';
 
 export const paginationVariants = cva(
@@ -148,6 +149,8 @@ export const Pagination: FC<PaginationProps> = ({
   className,
   ...props
 }) => {
+  const { goToNextPage, goToPreviousPage } = useIntlayer('pagination');
+
   const pageNumbers = generatePageNumbers(
     currentPage,
     totalPages,
@@ -201,7 +204,7 @@ export const Pagination: FC<PaginationProps> = ({
             color={ButtonColor.TEXT}
             onClick={() => handlePageChange(currentPage - 1)}
             disabled={disabled || isFirstPage}
-            label="Go to previous page"
+            label={goToPreviousPage.value}
             Icon={ChevronLeft}
             ref={(el) => {
               if (el) optionsRefs.current[0] = el;
@@ -265,7 +268,7 @@ export const Pagination: FC<PaginationProps> = ({
             color={ButtonColor.TEXT}
             onClick={() => handlePageChange(currentPage + 1)}
             disabled={disabled || isLastPage}
-            label="Go to next page"
+            label={goToNextPage.value}
             Icon={ChevronRight}
             ref={(el) => {
               const lastRefIndex =

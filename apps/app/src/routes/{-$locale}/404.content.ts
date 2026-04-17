@@ -45,26 +45,6 @@ const routeContent = {
       vi: 'Trang bạn đang tìm kiếm không tồn tại hoặc đã được chuyển.',
     }),
 
-    backToHome: t({
-      en: 'Back to home',
-      'en-GB': 'Back to home',
-      fr: "Retour à l'accueil",
-      es: 'Volver al inicio',
-      de: 'Zurück zur Startseite',
-      ja: 'ホームに戻る',
-      ko: '홈으로 돌아가기',
-      zh: '返回首页',
-      it: 'Torna alla home',
-      pt: 'Voltar ao início',
-      hi: 'घर वापस जाएं',
-      ar: 'العودة إلى الرئيسية',
-      ru: 'Вернуться на главную',
-      tr: 'Ana sayfaya dön',
-      pl: 'Wróć do strony głównej',
-      id: 'Kembali ke beranda',
-      uk: 'Повернутися на головну',
-      vi: 'Quay về trang chủ',
-    }),
     metadata: {
       title: t({
         en: 'Page Not Found – Intlayer Showcase',
