@@ -78,6 +78,7 @@ RUN addgroup -S app && adduser -S app -G app
 # Copy workspace structure from builder to preserve monorepo node_modules symlinks
 COPY --from=builder --chown=app:app /workspace/node_modules /workspace/node_modules
 COPY --from=builder --chown=app:app /workspace/packages/@intlayer /workspace/packages/@intlayer
+COPY --from=builder --chown=app:app /workspace/docs /workspace/docs
 
 WORKDIR /workspace/packages/@intlayer/mcp
 
