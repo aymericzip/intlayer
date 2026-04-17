@@ -26,7 +26,7 @@ export const SaveAllButton: FC<SaveAllButtonProps> = ({ dictionaries }) => {
     saveDictionaryButton,
     restoreDictionaryButton,
     modifiedCount,
-  } = useIntlayer('dictionary-list');
+  } = useIntlayer('translate-dashboard');
   const { editedContent, restoreEditedContent } = useEditedContent();
   const { setLocaleDictionary } = useDictionariesRecordActions();
   const { isAuthenticated } = useAuth();
@@ -129,9 +129,11 @@ export const SaveAllButton: FC<SaveAllButtonProps> = ({ dictionaries }) => {
           isLoading={isGlobalSaving}
           onClick={handleSaveAll}
         >
-          {saveAllButton?.text}
-          <span className="flex size-6 items-center justify-center rounded-full bg-white/20 text-xs">
-            {modifiedDictionaries.length}
+          <span className="flex items-center gap-2">
+            {saveAllButton?.text}
+            <span className="flex size-6 items-center justify-center rounded-full bg-white/20 text-xs">
+              {modifiedDictionaries.length}
+            </span>
           </span>
         </DropDown.Trigger>
         <DropDown.Panel
