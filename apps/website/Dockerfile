@@ -95,27 +95,28 @@ RUN bun run --bun next build && bun scripts/generate-sw.ts
 # Runner
 FROM oven/bun:1.3.12-alpine AS runner
 
-RUN apk add --no-cache wget
-
 WORKDIR /app
 
 ENV NODE_ENV=production
+ENV HOSTNAME=0.0.0.0
 
 # Create non-root user
 RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 
-# Copy only the standalone output and necessary static files from builder
+# Copy only the standalone output and necessary static files from builder.
+# In a monorepo standalone build, static/public files live under apps/website/
+# to match where server.js (running from __dirname) expects them.
 COPY --from=builder --chown=appuser:appgroup /workspace/apps/website/.next/standalone ./
-COPY --from=builder --chown=appuser:appgroup /workspace/apps/website/public ./public
-COPY --from=builder --chown=appuser:appgroup /workspace/apps/website/.next/static ./.next/static
+COPY --from=builder --chown=appuser:appgroup /workspace/apps/website/public ./apps/website/public
+COPY --from=builder --chown=appuser:appgroup /workspace/apps/website/.next/static ./apps/website/.next/static
 
 USER appuser
 
 EXPOSE 3000
 
-# Functional healthcheck
-HEALTHCHECK --interval=30s --timeout=5s --start-period=30s --retries=3 \
-  CMD wget -qO- http://localhost:3000/api/health || exit 1
+# Use bun (always present) to make the HTTP request — avoids BusyBox wget edge cases.
+HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
+  CMD bun -e "const r = await fetch('http://localhost:3000/api/health'); process.exit(r.ok ? 0 : 1)"
 
 # Execute the standalone server
 CMD ["bun", "apps/website/server.js"]
