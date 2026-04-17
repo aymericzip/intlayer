@@ -178,7 +178,7 @@ export const UserEditForm: FC<{ userId: string }> = ({ userId }) => {
       <Loader isLoading={isLoading}>
         {user ? (
           <div className="space-y-6">
-            <UserHeader user={user} statusLabels={statusLabels} />
+            <UserHeader user={user} />
 
             <div className="rounded-lg border border-neutral-200 bg-card p-6 dark:border-neutral-700">
               <h3 className="mb-6 font-semibold text-lg text-neutral-900 dark:text-neutral-100">
@@ -191,13 +191,12 @@ export const UserEditForm: FC<{ userId: string }> = ({ userId }) => {
                 {...form}
               >
                 <UserFormFields
-                  formLabels={formLabels}
                   organizations={organizations}
                   isLastMemberInOrg={isLastMemberInOrg}
                   getOrganizationName={getOrganizationName}
                 />
 
-                <UserDates user={user} formLabels={formLabels} />
+                <UserDates user={user} />
 
                 <Form.Button
                   type="submit"

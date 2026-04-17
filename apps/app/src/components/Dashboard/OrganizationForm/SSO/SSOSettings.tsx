@@ -102,10 +102,7 @@ export const SSOSettings: FC = () => {
     domainsLabel,
     domainsPlaceholder,
     domainsDescription,
-    samlConfig: samlConfigContent,
-    oidcConfig: oidcConfigContent,
     saveButton,
-    removeSSOProvider,
   } = useIntlayer('sso-settings');
 
   // Get existing SSO provider for this organization
@@ -277,7 +274,6 @@ export const SSOSettings: FC = () => {
               isOrganizationAdmin={isOrganizationAdmin}
               handleDeleteProvider={handleDeleteProvider}
               isPendingDelete={isPendingDelete}
-              removeSSOProvider={removeSSOProvider}
             />
           )}
 
@@ -318,18 +314,12 @@ export const SSOSettings: FC = () => {
 
               {/* SAML Configuration */}
               {existingProviderType === 'saml' && (
-                <SAMLConfigForm
-                  samlConfigContent={samlConfigContent}
-                  isOrganizationAdmin={isOrganizationAdmin}
-                />
+                <SAMLConfigForm isOrganizationAdmin={isOrganizationAdmin} />
               )}
 
               {/* OIDC Configuration */}
               {existingProviderType === 'oidc' && (
-                <OIDCConfigForm
-                  oidcConfigContent={oidcConfigContent}
-                  isOrganizationAdmin={isOrganizationAdmin}
-                />
+                <OIDCConfigForm isOrganizationAdmin={isOrganizationAdmin} />
               )}
             </>
           )}
