@@ -103,12 +103,27 @@ ENV HOSTNAME=0.0.0.0
 # Create non-root user
 RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 
+# Turbopack SSR resolves module paths with a /ROOT/ prefix that maps to the
+# standalone root. Symlinking /ROOT -> /app lets find-up locate package.json
+# when searching up from /ROOT/docs/dist/esm/generated.
+RUN ln -s /app /ROOT
+
 # Copy only the standalone output and necessary static files from builder.
 # In a monorepo standalone build, static/public files live under apps/website/
 # to match where server.js (running from __dirname) expects them.
 COPY --from=builder --chown=appuser:appgroup /workspace/apps/website/.next/standalone ./
 COPY --from=builder --chown=appuser:appgroup /workspace/apps/website/public ./apps/website/public
 COPY --from=builder --chown=appuser:appgroup /workspace/apps/website/.next/static ./apps/website/.next/static
+
+# The Turbopack SSR runtime resolves /ROOT/ to the standalone root (/app/).
+# @intlayer/docs is a serverExternalPackage loaded at /ROOT/docs/... at runtime,
+# so its dist, package.json, and markdown content must live at /app/docs/.
+COPY --from=builder --chown=appuser:appgroup /workspace/docs/dist ./docs/dist
+COPY --from=builder --chown=appuser:appgroup /workspace/docs/package.json ./docs/package.json
+COPY --from=builder --chown=appuser:appgroup /workspace/docs/blog ./docs/blog
+COPY --from=builder --chown=appuser:appgroup /workspace/docs/docs ./docs/docs
+COPY --from=builder --chown=appuser:appgroup /workspace/docs/frequent_questions ./docs/frequent_questions
+COPY --from=builder --chown=appuser:appgroup /workspace/docs/legal ./docs/legal
 
 USER appuser
 
