@@ -412,6 +412,18 @@ export const initIntlayer = async (rootDir: string, options?: InitOptions) => {
     }
   }
 
+  const backendConfigPackages = [
+    'express',
+    'fastify',
+    '@adonisjs/core',
+    'hono',
+    ...backendIntlayerPackages,
+  ];
+
+  if (backendConfigPackages.some((pkg) => allDeps[pkg])) {
+    hasAliasConfiguration = true;
+  }
+
   if (!hasAliasConfiguration) {
     const configuration = getConfiguration({ baseDir: rootDir });
     const aliases = getAlias({ configuration });
