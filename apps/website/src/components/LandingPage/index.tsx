@@ -39,6 +39,13 @@ const DynamicFeaturesSection = dynamic(
   }
 );
 
+const DynamicI18nBenchmark = dynamic(
+  () => import('@components/i18nBenchmark').then((mod) => mod.I18nBenchmark),
+  {
+    loading: () => <Loader />,
+  }
+);
+
 const DynamicAuditSection = dynamic(
   () => import('./AuditSection').then((mod) => mod.AuditSection),
   {
@@ -81,10 +88,28 @@ export const LandingPage: FC = () => (
         <LandingSection />
         <DynamicFeaturesSection />
       </BackgroundLayout>
+      <a
+        href="https://builders.to/projects/intlayer?utm_source=badge"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="scale-10 opacity-10"
+      >
+        <img
+          src="https://builders.to/badges/featured-on-builders-small.svg"
+          alt="intlayer - Featured on Builders.to"
+          width="130"
+          height="40"
+        />
+      </a>
+
       <DynamicWhyToChoseIntlayerSection />
-      <div className="relative w-full overflow-hidden bg-neutral/5 py-16 dark:bg-neutral-900/10">
-        <DynamicAuditSection />
+
+      <div className="relative flex w-full flex-col gap-24 overflow-hidden bg-neutral/5 py-16 dark:bg-neutral-900/10">
+        <DynamicI18nBenchmark />
+
         <DynamicLanguageSection />
+
+        <DynamicAuditSection />
         <div className="pointer-events-none absolute inset-x-0 top-0 h-4 bg-background [clip-path:polygon(0_0,100%_0,0_100%)]" />
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-4 bg-background [clip-path:polygon(100%_0,100%_100%,0_100%)]" />
       </div>
