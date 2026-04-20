@@ -73,7 +73,7 @@ const config: CustomIntlayerConfig = {
       vi: 'intlayer.org',
       uk: 'intlayer.org',
       ar: 'intlayer.org',
-      zh: 'intlayer.zh',
+      zh: 'intlayer.cn',
     },
   },
   content: {

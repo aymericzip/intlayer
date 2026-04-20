@@ -64,7 +64,7 @@ const config: IntlayerConfig = {
       vi: 'showcase.intlayer.org',
       uk: 'showcase.intlayer.org',
       ar: 'showcase.intlayer.org',
-      zh: 'showcase.intlayer.zh',
+      zh: 'showcase.intlayer.cn',
     },
   },
   build: {
