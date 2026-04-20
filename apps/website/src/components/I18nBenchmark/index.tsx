@@ -33,8 +33,8 @@ import { LibCard } from './LibCard';
 import { LibLogo } from './LibLogo';
 import { useBenchmarkMetrics } from './useBenchmarkMetrics';
 
-export const getDisplayName = (id: string): string => {
-  if (id === 'base') return 'Base App';
+export const getDisplayName = (id: string, baseAppLabel?: string): string => {
+  if (id === 'base') return baseAppLabel ?? 'Base App';
   return id
     .replace(/-app-nextjs$/, '')
     .replace(/-app-tanstack$/, '')
@@ -119,7 +119,7 @@ export type { FrameworkKey };
 
 export const I18nBenchmark = ({
   initialFramework,
-  vertical,
+  vertical = true,
 }: {
   initialFramework?: FrameworkKey;
   vertical?: boolean;
@@ -146,6 +146,9 @@ export const I18nBenchmark = ({
     value,
     range,
     version,
+    baseApp,
+    nextjs: nextjsLabel,
+    tanstack: tanstackLabel,
   } = useIntlayer('i18n-benchmark');
 
   const { resolvedTheme } = useTheme();
@@ -186,10 +189,10 @@ export const I18nBenchmark = ({
     if (!currentFrameworkData?.libs) return [];
     return Object.keys(currentFrameworkData.libs).map((id) => ({
       id,
-      name: getDisplayName(id),
+      name: getDisplayName(id, baseApp.value),
       version: currentFrameworkData.libs[id].global?.version ?? null,
     }));
-  }, [currentFrameworkData]);
+  }, [currentFrameworkData, baseApp]);
 
   useEffect(() => {
     setActiveLibs(Object.fromEntries(allLibs.map((lib) => [lib.id, true])));
@@ -250,7 +253,7 @@ export const I18nBenchmark = ({
                             name={TechLogoName.Nextjs}
                             className="size-3.5"
                           />
-                          Next.js
+                          {nextjsLabel}
                         </span>
                       ) as any,
                       value: 'nextjs',
@@ -262,7 +265,7 @@ export const I18nBenchmark = ({
                             name={TechLogoName.Tanstack}
                             className="size-3.5"
                           />
-                          TanStack
+                          {tanstackLabel}
                         </span>
                       ) as any,
                       value: 'tanstack',
