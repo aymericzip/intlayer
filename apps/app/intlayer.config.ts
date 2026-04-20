@@ -34,6 +34,26 @@ const config: CustomIntlayerConfig = {
 
   routing: {
     mode: 'prefix-no-default',
+
+    domains: {
+      'en-GB': 'app.intlayer.org',
+      fr: 'app.intlayer.org',
+      es: 'app.intlayer.org',
+      de: 'app.intlayer.org',
+      it: 'app.intlayer.org',
+      ru: 'app.intlayer.org',
+      ja: 'app.intlayer.org',
+      ko: 'app.intlayer.org',
+      pt: 'app.intlayer.org',
+      hi: 'app.intlayer.org',
+      tr: 'app.intlayer.org',
+      pl: 'app.intlayer.org',
+      id: 'app.intlayer.org',
+      vi: 'app.intlayer.org',
+      uk: 'app.intlayer.org',
+      ar: 'app.intlayer.org',
+      zh: 'app.intlayer.zh',
+    },
   },
   content: {
     contentDir: ['./src', '@intlayer/design-system'],

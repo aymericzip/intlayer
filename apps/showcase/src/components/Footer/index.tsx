@@ -2,10 +2,12 @@ import {
   type LinkGroup,
   Footer as UIFooter,
 } from '@intlayer/design-system/footer';
+import { CHINESE } from '@intlayer/types/locales';
 import type { FC } from 'react';
-import { useIntlayer } from 'react-intlayer';
+import { useIntlayer, useLocale } from 'react-intlayer';
 
 export const Footer: FC = () => {
+  const { locale } = useLocale();
   const { content } = useIntlayer('footer');
 
   const links: LinkGroup[] = content.map((section: (typeof content)[0]) => ({
@@ -19,5 +21,12 @@ export const Footer: FC = () => {
     }),
   }));
 
-  return <UIFooter links={links} />;
+  const isChinese = locale === CHINESE;
+
+  return (
+    <UIFooter
+      links={links}
+      footerText={isChinese ? '沪ICP备2026000734号-2' : undefined}
+    />
+  );
 };
