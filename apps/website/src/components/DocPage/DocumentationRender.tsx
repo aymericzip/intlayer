@@ -1,6 +1,6 @@
 'use client';
 
-import type { FrameworkKey } from '@components/i18nBenchmark';
+import type { FrameworkKey } from '@components/I18nBenchmark';
 import { Link } from '@components/Link/Link';
 import { TableOfContents } from '@components/TableOfContents';
 import { MarkdownRenderer } from '@intlayer/design-system/mark-down-render';
@@ -11,7 +11,7 @@ import type { ComponentProps, FC } from 'react';
 import { SectionScroller } from './SectionScroller';
 
 const I18nBenchmark = dynamic(
-  () => import('@components/i18nBenchmark').then((mod) => mod.I18nBenchmark),
+  () => import('@components/I18nBenchmark').then((mod) => mod.I18nBenchmark),
   { ssr: false }
 );
 
@@ -48,7 +48,7 @@ export const DocumentationRender: FC<DocumentationRenderProps> = ({
               href={props.href ?? ''}
             />
           ),
-          TOC: (props: ComponentProps<typeof TableOfContents>) => (
+          Toc: (props: ComponentProps<typeof TableOfContents>) => (
             <TableOfContents
               {...props}
               levels={props.levels ?? tocLevels}

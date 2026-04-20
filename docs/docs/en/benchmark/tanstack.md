@@ -22,19 +22,21 @@ history:
 
 # Top i18n solution for TanStack Start in 2026. Benchmark Report
 
+_Generated: 2026-04-20 · 10 libraries · 4 loading strategies_
+
 A detailed reference for understanding what Benchmark Bloom measures, how results are structured, and how to interpret the data.
 
 ---
 
 ## Table of Contents
 
-<TOC/>
+<Toc/>
 
 ---
 
 ## Overview
 
-<I18nBenchmark framework="tanstack"/>
+<I18nBenchmark framework="tanstack" vertical/>
 
 Benchmark Bloom is a performance benchmarking suite that measures the real-world impact of i18n (internationalization) libraries across multiple React frameworks and loading strategies. It tests every major dimension of i18n cost:
 

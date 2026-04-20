@@ -1,5 +1,6 @@
 'use client';
 
+import { useQuery } from '@tanstack/react-query';
 import {
   BarController,
   BarElement,
@@ -10,7 +11,7 @@ import {
   type Plugin,
   Tooltip,
 } from 'chart.js';
-import { type FC, useEffect, useRef, useState } from 'react';
+import { type FC, useEffect, useRef } from 'react';
 import type { ChartItem, StaticImport } from './constants';
 import { LIB_LOGOS } from './constants';
 
@@ -24,41 +25,34 @@ Chart.register(
 );
 
 export const useLogoImages = () => {
-  const logoImagesRef = useRef<Map<string, HTMLImageElement>>(new Map());
-  const [logoImagesReady, setLogoImagesReady] = useState<
-    Map<string, HTMLImageElement>
-  >(new Map());
-
-  useEffect(() => {
-    const entries: Array<[string, string]> = Object.entries(LIB_LOGOS).flatMap(
-      ([id, logo]) => {
+  return useQuery({
+    queryKey: ['logoImages'],
+    queryFn: async () => {
+      const entries: Array<[string, string]> = Object.entries(
+        LIB_LOGOS
+      ).flatMap(([id, logo]) => {
         if (!logo) return [[id, '/logo.svg']] as [string, string][];
         const src = (logo as StaticImport).src;
         return src ? ([[id, src]] as [string, string][]) : [];
-      }
-    );
+      });
 
-    let loaded = 0;
-    const total = entries.length;
-    if (total === 0) return;
-
-    entries.forEach(([id, src]) => {
-      if (logoImagesRef.current.has(id)) {
-        if (++loaded === total)
-          setLogoImagesReady(new Map(logoImagesRef.current));
-        return;
-      }
-      const img = new window.Image();
-      img.onload = img.onerror = () => {
-        logoImagesRef.current.set(id, img);
-        if (++loaded === total)
-          setLogoImagesReady(new Map(logoImagesRef.current));
-      };
-      img.src = src;
-    });
-  }, []);
-
-  return logoImagesReady;
+      const map = new Map<string, HTMLImageElement>();
+      await Promise.all(
+        entries.map(([id, src]) => {
+          return new Promise<void>((resolve) => {
+            const img = new window.Image();
+            img.onload = img.onerror = () => {
+              map.set(id, img);
+              resolve();
+            };
+            img.src = src;
+          });
+        })
+      );
+      return map;
+    },
+    staleTime: Infinity,
+  });
 };
 
 export const ChartComponent: FC<{

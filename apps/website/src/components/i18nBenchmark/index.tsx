@@ -1,11 +1,7 @@
 'use client';
 
 import { Link } from '@components/Link/Link';
-import {
-  Button,
-  ButtonColor,
-  ButtonSize,
-} from '@intlayer/design-system/button';
+import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
 import { H2, H3, H4 } from '@intlayer/design-system/headers';
 import { CodeBlock } from '@intlayer/design-system/ide';
@@ -16,12 +12,13 @@ import {
 import { SwitchSelector } from '@intlayer/design-system/switch-selector';
 import { SmartTable } from '@intlayer/design-system/table';
 import { TechLogo, TechLogoName } from '@intlayer/design-system/tech-logo';
+import { cn } from '@intlayer/design-system/utils';
+import { useQuery } from '@tanstack/react-query';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ChevronRight } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import { useTheme } from 'next-themes';
 import { useEffect, useMemo, useState } from 'react';
-
 import { fetchBenchmarkData } from './benchmarkData';
 import { ChartComponent, useLogoImages } from './ChartComponent';
 import {
@@ -121,8 +118,10 @@ export type { FrameworkKey };
 
 export const I18nBenchmark = ({
   initialFramework,
+  vertical,
 }: {
   initialFramework?: FrameworkKey;
+  vertical?: boolean;
 }) => {
   const {
     title,
@@ -170,26 +169,16 @@ export const I18nBenchmark = ({
     return ['static'];
   }, [dynamicEnabled, scopedEnabled]);
 
-  const [currentFrameworkData, setCurrentFrameworkData] = useState<any>(null);
-
-  useEffect(() => {
-    let isMounted = true;
-    const loadData = async () => {
-      const category = activeCategories[0];
-      try {
-        const data = await fetchBenchmarkData(framework, category);
-        if (isMounted) setCurrentFrameworkData(data);
-      } catch (err) {
-        console.error('Error loading benchmark data', err);
-        if (isMounted) setCurrentFrameworkData(null);
-      }
-    };
-
-    loadData();
-    return () => {
-      isMounted = false;
-    };
-  }, [framework, activeCategories]);
+  const category = activeCategories[0];
+  const {
+    data: currentFrameworkData,
+    isLoading: isBenchmarkLoading,
+    isError,
+  } = useQuery({
+    queryKey: ['benchmarkData', framework, category],
+    queryFn: () => fetchBenchmarkData(framework, category),
+    staleTime: 1000 * 60 * 60, // 1 hour
+  });
 
   const allLibs = useMemo<LibInfo[]>(() => {
     if (!currentFrameworkData?.libs) return [];
@@ -207,7 +196,11 @@ export const I18nBenchmark = ({
   const toggleLib = (id: string) =>
     setActiveLibs((prev) => ({ ...prev, [id]: !prev[id] }));
 
-  const logoImagesReady = useLogoImages();
+  const { data: logoImagesReady = new Map(), isLoading: isLogosLoading } =
+    useLogoImages();
+
+  const isLoading = isBenchmarkLoading || isLogosLoading;
+
   const selectedMetric = METRICS[selectedMetricIndex];
 
   const chartData = useMemo<ChartItem[]>(
@@ -228,14 +221,14 @@ export const I18nBenchmark = ({
     ]
   );
 
-  const chartHeight = useMemo(
-    () => Math.max(280, chartData.length * 38 + 48),
-    [chartData.length]
-  );
-
   return (
     <>
-      <div className="flex flex-col gap-8 px-10 lg:flex-row">
+      <div
+        className={cn(
+          'flex flex-col gap-8',
+          vertical ? 'flex-col' : 'lg:flex-row'
+        )}
+      >
         {/* ── Left Sidebar ── */}
         <div className="flex h-auto flex-1 flex-col justify-between gap-10 lg:max-w-64">
           <div className="w-full shrink-0 space-y-6">
@@ -248,7 +241,7 @@ export const I18nBenchmark = ({
                   choices={[
                     {
                       content: (
-                        <span className="flex items-center gap-1.5 px-1">
+                        <span className="flex items-center justify-center gap-1.5 px-1">
                           <TechLogo
                             name={TechLogoName.Nextjs}
                             className="size-3.5"
@@ -260,7 +253,7 @@ export const I18nBenchmark = ({
                     },
                     {
                       content: (
-                        <span className="flex items-center gap-1.5 px-1">
+                        <span className="flex items-center justify-center gap-1.5 px-1">
                           <TechLogo
                             name={TechLogoName.Tanstack}
                             className="size-3.5"
@@ -315,29 +308,31 @@ export const I18nBenchmark = ({
               ))}
             </div>
           </div>
-          <div className="flex flex-col gap-2">
-            <Link
-              label={seeBenchmark.value}
-              variant="button-outlined"
-              color={ButtonColor.TEXT}
-              size={ButtonSize.SM}
-              href={External_Github_i18n_benchmark}
-            >
-              {seeBenchmark}
-            </Link>
-            <Link
-              label={readFullReport.value}
-              variant="button"
-              color="text"
-              size="sm"
-              href={Website_Benchmark_Path}
-            >
-              <span className="flex items-center gap-1">
-                {readFullReport}
-                <ChevronRight />
-              </span>
-            </Link>
-          </div>
+          {!vertical && (
+            <div className="flex flex-col gap-2">
+              <Link
+                label={seeBenchmark.value}
+                variant="button-outlined"
+                color="text"
+                size="sm"
+                href={External_Github_i18n_benchmark}
+              >
+                {seeBenchmark}
+              </Link>
+              <Link
+                label={readFullReport.value}
+                variant="button"
+                color="text"
+                size="sm"
+                href={Website_Benchmark_Path}
+              >
+                <span className="flex items-center gap-1">
+                  {readFullReport}
+                  <ChevronRight />
+                </span>
+              </Link>
+            </div>
+          )}
         </div>
 
         {/* ── Main Content ── */}
@@ -370,144 +365,161 @@ export const I18nBenchmark = ({
             background="none"
             border
             borderColor="neutral"
+            className={cn(
+              'flex',
+              vertical ? 'flex-col' : 'flex-col md:flex-row'
+            )}
           >
-            <div className="flex flex-col gap-8 md:flex-row">
-              {/* Chart */}
-              <div className="min-w-0 flex-1" style={{ height: chartHeight }}>
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={`${framework}-${selectedMetricIndex}-${activeCategories.join(',')}`}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.12 }}
-                    className="h-full w-full"
-                  >
-                    {chartData.length === 0 ? (
-                      <div className="flex h-full items-center justify-center text-neutral text-sm">
-                        {noData}
-                      </div>
-                    ) : renderMode === 'graph' ? (
-                      <ChartComponent
-                        data={chartData}
-                        unit={selectedMetric?.unit}
-                        logoImages={logoImagesReady}
-                      />
-                    ) : renderMode === 'table' ? (
-                      <div className="h-full w-full overflow-auto text-sm">
-                        <SmartTable isInteractive displayModal>
-                          <thead>
-                            <tr>
-                              <th className="px-4 py-2 font-semibold">
-                                {library.value}
-                              </th>
-                              <th className="px-4 py-2 text-right font-semibold">
-                                {value.value} ({selectedMetric?.unit})
-                              </th>
-                              <th className="px-4 py-2 text-right font-semibold">
-                                {range.value}
-                              </th>
-                              <th className="px-4 py-2 font-semibold">
-                                {version.value}
-                              </th>
+            {/* Chart */}
+            <div className="min-w-0 flex-1">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={`${framework}-${selectedMetricIndex}-${activeCategories.join(',')}`}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.12 }}
+                  className="h-full w-full"
+                >
+                  {isLoading ? (
+                    <div className="flex h-full items-center justify-center">
+                      <div className="h-8 w-8 animate-spin rounded-full border-4 border-neutral border-t-transparent" />
+                    </div>
+                  ) : isError ? (
+                    <div className="flex h-full items-center justify-center text-red-500 text-sm">
+                      Error loading benchmark data. Please try again later.
+                    </div>
+                  ) : chartData.length === 0 ? (
+                    <div className="flex h-full items-center justify-center text-neutral text-sm">
+                      {noData}
+                    </div>
+                  ) : renderMode === 'graph' ? (
+                    <ChartComponent
+                      data={chartData}
+                      unit={selectedMetric?.unit}
+                      logoImages={logoImagesReady}
+                    />
+                  ) : renderMode === 'table' ? (
+                    <div className="h-full w-full overflow-auto text-sm">
+                      <SmartTable isInteractive displayModal>
+                        <thead>
+                          <tr>
+                            <th className="px-4 py-2 font-semibold">
+                              {library.value}
+                            </th>
+                            <th className="px-4 py-2 text-right font-semibold">
+                              {value.value} ({selectedMetric?.unit})
+                            </th>
+                            <th className="px-4 py-2 text-right font-semibold">
+                              {range.value}
+                            </th>
+                            <th className="px-4 py-2 font-semibold">
+                              {version.value}
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {chartData.map((data) => (
+                            <tr key={data.libId}>
+                              <td className="flex items-center gap-2 px-4 py-2">
+                                <LibLogo
+                                  id={data.libId}
+                                  className="h-4 w-auto max-w-[60px]"
+                                />
+                                <span className="font-medium text-neutral-800 dark:text-neutral-200">
+                                  {data.label}
+                                </span>
+                              </td>
+                              <td className="px-4 py-2 text-right text-neutral-800 dark:text-neutral-200">
+                                {data.value.toFixed(1)}
+                              </td>
+                              <td className="px-4 py-2 text-right text-neutral-800 dark:text-neutral-200">
+                                {data.min !== data.max
+                                  ? `${data.min.toFixed(1)} - ${data.max.toFixed(1)}`
+                                  : '-'}
+                              </td>
+                              <td className="px-4 py-2 text-neutral text-xs">
+                                {data.version ? `v${data.version}` : '-'}
+                              </td>
                             </tr>
-                          </thead>
-                          <tbody>
-                            {chartData.map((d) => (
-                              <tr key={d.libId}>
-                                <td className="flex items-center gap-2 px-4 py-2">
-                                  <LibLogo
-                                    id={d.libId}
-                                    className="h-4 w-auto max-w-[60px]"
-                                  />
-                                  <span className="font-medium text-neutral-800 dark:text-neutral-200">
-                                    {d.label}
-                                  </span>
-                                </td>
-                                <td className="px-4 py-2 text-right text-neutral-800 dark:text-neutral-200">
-                                  {d.value.toFixed(1)}
-                                </td>
-                                <td className="px-4 py-2 text-right text-neutral-800 dark:text-neutral-200">
-                                  {d.min !== d.max
-                                    ? `${d.min.toFixed(1)} - ${d.max.toFixed(1)}`
-                                    : '-'}
-                                </td>
-                                <td className="px-4 py-2 text-neutral text-xs">
-                                  {d.version ? `v${d.version}` : '-'}
-                                </td>
-                              </tr>
-                            ))}
-                          </tbody>
-                        </SmartTable>
-                      </div>
-                    ) : (
-                      <div className="h-full w-full overflow-auto">
-                        <CodeBlock
-                          lang="json"
-                          isDarkMode={isDarkMode}
-                          className="h-full text-xs"
-                        >
-                          {JSON.stringify(chartData, null, 2)}
-                        </CodeBlock>
-                      </div>
-                    )}
-                  </motion.div>
-                </AnimatePresence>
-              </div>
-
-              {/* Insight panel */}
-              <div className="relative flex w-full flex-col gap-3 border-background pt-10 md:w-56 md:shrink-0 md:border-l md:pl-6">
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={selectedMetricIndex}
-                    initial={{ opacity: 0, x: 10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -10 }}
-                    transition={{ duration: 0.18 }}
-                    className="flex h-full flex-col justify-between"
-                  >
-                    <div className="flex flex-col gap-6">
-                      <div className="flex flex-col gap-2">
-                        <H4>{whatIsThisMetric}</H4>
-                        <p className="text-neutral-500 text-xs leading-relaxed dark:text-neutral">
-                          {selectedMetric?.whatIsIt}
-                        </p>
-                      </div>
-
-                      <div className="flex flex-col gap-2">
-                        <H4>{whyItsImportant}</H4>
-                        <p className="text-neutral-500 text-xs leading-relaxed dark:text-neutral">
-                          {selectedMetric?.whyItsImportant}
-                        </p>
-                      </div>
+                          ))}
+                        </tbody>
+                      </SmartTable>
                     </div>
-                    <div className="flex flex-col gap-2 border-neutral/20 border-t pt-2 dark:border-neutral/10">
-                      <H4 className="font-semibold text-sm">
-                        {renderLabel.value}
-                      </H4>
-                      <SwitchSelector
-                        size="sm"
-                        choices={[
-                          { content: renderGraph.value, value: 'graph' },
-                          { content: renderTable.value, value: 'table' },
-                          { content: renderJson.value, value: 'json' },
-                        ]}
-                        value={renderMode}
-                        onChange={(value) => setRenderMode(value as any)}
-                        className="w-full"
-                        color="text"
-                      />
+                  ) : (
+                    <div className="h-full w-full overflow-auto">
+                      <CodeBlock
+                        lang="json"
+                        isDarkMode={isDarkMode}
+                        className="h-full text-xs"
+                      >
+                        {JSON.stringify(chartData, null, 2)}
+                      </CodeBlock>
                     </div>
-                  </motion.div>
-                </AnimatePresence>
-              </div>
+                  )}
+                </motion.div>
+              </AnimatePresence>
+            </div>
+
+            {/* Insight panel */}
+            <div
+              className={cn(
+                'relative flex w-full flex-col gap-3 border-neutral/10 pt-10',
+                vertical
+                  ? 'md:w-full'
+                  : 'md:w-56 md:shrink-0 md:border-l md:pl-6'
+              )}
+            >
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={selectedMetricIndex}
+                  initial={{ opacity: 0, x: 10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -10 }}
+                  transition={{ duration: 0.18 }}
+                  className="flex h-full flex-col justify-between"
+                >
+                  <div className="flex flex-col gap-6">
+                    <div className="flex flex-col gap-2">
+                      <H4>{whatIsThisMetric}</H4>
+                      <p className="text-neutral-500 text-xs leading-relaxed dark:text-neutral">
+                        {selectedMetric?.whatIsIt}
+                      </p>
+                    </div>
+
+                    <div className="flex flex-col gap-2">
+                      <H4>{whyItsImportant}</H4>
+                      <p className="text-neutral-500 text-xs leading-relaxed dark:text-neutral">
+                        {selectedMetric?.whyItsImportant}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="mt-6 flex flex-col gap-2 border-neutral/20 border-t pt-2 dark:border-neutral/10">
+                    <H4 className="font-semibold text-sm">
+                      {renderLabel.value}
+                    </H4>
+                    <SwitchSelector
+                      size="sm"
+                      choices={[
+                        { content: renderGraph.value, value: 'graph' },
+                        { content: renderTable.value, value: 'table' },
+                        { content: renderJson.value, value: 'json' },
+                      ]}
+                      value={renderMode}
+                      onChange={(value) => setRenderMode(value as any)}
+                      className="w-full"
+                      color="text"
+                    />
+                  </div>
+                </motion.div>
+              </AnimatePresence>
             </div>
           </Container>
         </div>
       </div>
 
       {/* Library selector — 2-row scrollable grid */}
-      <div className="grid grid-cols-4 gap-2 px-20">
+      <div className={cn('grid grid-cols-4 gap-2', vertical && 'grid-cols-2')}>
         {allLibs.map((lib) => (
           <LibCard
             key={lib.id}

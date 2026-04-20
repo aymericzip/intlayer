@@ -9,7 +9,7 @@ import { Link } from '#components/Link/Link';
 import { SectionScroller } from './SectionScroller';
 
 const I18nBenchmark = lazy(() =>
-  import('#components/i18nBenchmark').then((mod) => ({
+  import('#components/I18nBenchmark').then((mod) => ({
     default: mod.I18nBenchmark,
   }))
 );
@@ -47,7 +47,7 @@ export const DocumentationRender: FC<DocumentationRenderProps> = ({
               to={props.href ?? ''}
             />
           ),
-          TOC: (props: ComponentProps<typeof TableOfContents>) => (
+          Toc: (props: ComponentProps<typeof TableOfContents>) => (
             <TableOfContents
               {...props}
               levels={props.levels ?? tocLevels}

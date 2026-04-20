@@ -30,13 +30,13 @@ This report benchmarks every major i18n library for Next.js across four real-wor
 
 ## Table of Contents
 
-<TOC/>
+<Toc/>
 
 ---
 
 ## Interactive Benchmark
 
-<I18nBenchmark framework="nextjs"/>
+<I18nBenchmark framework="nextjs" vertical/>
 
 ---
 

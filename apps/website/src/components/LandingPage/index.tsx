@@ -39,8 +39,9 @@ const DynamicFeaturesSection = dynamic(
   }
 );
 
-const DynamicI18nBenchmark = dynamic(
-  () => import('@components/i18nBenchmark').then((mod) => mod.I18nBenchmark),
+const DynamicI18nBenchmarkSection = dynamic(
+  () =>
+    import('./I18nBenchmarkSection').then((mod) => mod.I18nBenchmarkSection),
   {
     loading: () => <Loader />,
   }
@@ -92,7 +93,7 @@ export const LandingPage: FC = () => (
       <DynamicWhyToChoseIntlayerSection />
 
       <div className="relative flex w-full flex-col gap-24 overflow-hidden bg-neutral/5 py-16 dark:bg-neutral-900/10">
-        <DynamicI18nBenchmark />
+        <DynamicI18nBenchmarkSection />
 
         <DynamicLanguageSection />
 

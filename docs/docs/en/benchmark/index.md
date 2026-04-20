@@ -25,8 +25,8 @@ Benchmark Bloom is a performance benchmarking suite that measures the real-world
 
 Find the detailed reports and technical documentation for each framework below:
 
-- [**Next.js Benchmark Report**](https://intlayer.org/docs/benchmark/nextjs)
-- [**TanStack Start Benchmark Report**](https://intlayer.org/docs/benchmark/tanstack)
+- [**Next.js Benchmark Report**](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/nextjs.md)
+- [**TanStack Start Benchmark Report**](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/tanstack.md)
 
 ---
 

@@ -65,10 +65,10 @@ chart.update();
 
 ---
 
-apps/website/src/components/i18nBenchmark/index.tsx
+apps/website/src/components/I18nBenchmark/index.tsx
 
-apps/website/src/components/i18nBenchmark/summarize-nextjs.json
-apps/website/src/components/i18nBenchmark/summarize-tanstack.json
+apps/website/src/components/I18nBenchmark/summarize-nextjs.json
+apps/website/src/components/I18nBenchmark/summarize-tanstack.json
 
 i want to display several graphs to higlights some metrics of the benchmark
 

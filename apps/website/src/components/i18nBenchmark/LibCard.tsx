@@ -17,7 +17,7 @@ export const LibCard: FC<{
     variant="hoverable"
     onClick={onToggle}
     isActive={isActive}
-    className="relative shrink-0 overflow-hidden text-left"
+    className="relative min-w-40 shrink-0 overflow-hidden text-left"
   >
     <div className="flex flex-row items-center gap-4 px-3 py-1.5">
       {LIB_COLORS[lib.id] && (
@@ -28,7 +28,7 @@ export const LibCard: FC<{
       )}
 
       {/* Logo container */}
-      <div className="items-left flex h-5 w-20 shrink-0 justify-center">
+      <div className="items-left flex h-5 w-20 min-w-20 shrink-0 justify-center">
         <LibLogo
           id={lib.id}
           className="h-5 w-auto max-w-[120px] rounded-sm object-contain"
