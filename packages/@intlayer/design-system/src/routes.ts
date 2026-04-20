@@ -126,7 +126,6 @@ export const Website_Playground_Path = '/playground' as const;
 export const Website_NotFound_Path = '/404' as const;
 export const Website_Changelog_Path = '/changelog' as const;
 export const Website_Scanner_Path = '/i18n-seo-scanner' as const;
-export const Website_Benchmark_Path = '/benchmark' as const;
 
 export const Website_Doc_Root_Path = '/doc' as const;
 export const Website_Doc_Path = '/doc/get-started' as const;
@@ -196,6 +195,8 @@ export const Website_Doc_CLI_Translate_Path =
   '/doc/concept/cli/doc-translate' as const;
 export const Website_Doc_CLI_Review_Path =
   '/doc/concept/cli/doc-review' as const;
+
+export const Website_Benchmark_Path = '/doc/benchmark' as const;
 export const Website_Benchmark_NextJS_Path = '/doc/benchmark/nextjs' as const;
 export const Website_Benchmark_Tanstack_Path =
   '/doc/benchmark/tanstack' as const;
