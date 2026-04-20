@@ -564,6 +564,8 @@ export type DeepTransformContent<
   L extends LocalesValues = DeclaredLocales,
 > = DeepTransformContentCore<T, IInterpreterPluginState, L>;
 
+const pluginsCache = new Map<string, Plugins[]>();
+
 /**
  * Get the plugins array for React content transformation.
  * This function is used by both getIntlayer and getDictionary to ensure consistent plugin configuration.
@@ -571,8 +573,15 @@ export type DeepTransformContent<
 export const getPlugins = (
   locale?: LocalesValues,
   fallback: boolean = true
-): Plugins[] =>
-  [
+): Plugins[] => {
+  const currentLocale = locale ?? internationalization.defaultLocale;
+  const cacheKey = `${currentLocale}_${fallback}`;
+
+  if (pluginsCache.has(cacheKey)) {
+    return pluginsCache.get(cacheKey)!;
+  }
+
+  const plugins = [
     // Env var allows the bundler to to remove the plugin if not used to make the bundle smaller
     translationPlugin(
       locale ?? internationalization.defaultLocale,
@@ -590,4 +599,9 @@ export const getPlugins = (
     insertionPlugin,
     markdownPlugin,
     htmlPlugin,
-  ].filter(Boolean) as Plugins[];
+  ] as Plugins[];
+
+  pluginsCache.set(cacheKey, plugins);
+
+  return plugins;
+};

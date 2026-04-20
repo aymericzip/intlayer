@@ -49,6 +49,8 @@ const createSafeFallback = (path = ''): any => {
   );
 };
 
+const dictionaryCache = new Map<string, any>();
+
 export const getIntlayer = <
   T extends DictionaryKeys,
   L extends LocalesValues = DeclaredLocales,
@@ -84,9 +86,19 @@ export const getIntlayer = <
     return createSafeFallback(key as string);
   }
 
-  return getDictionary<DictionaryRegistryElement<T>, L>(
+  const cacheKey = `${key}_${locale ?? 'default'}_${plugins ? 'custom_plugins' : 'default_plugins'}`;
+
+  if (dictionaryCache.has(cacheKey)) {
+    return dictionaryCache.get(cacheKey);
+  }
+
+  const result = getDictionary<DictionaryRegistryElement<T>, L>(
     dictionary,
     locale,
     plugins
   );
+
+  dictionaryCache.set(cacheKey, result);
+
+  return result;
 };

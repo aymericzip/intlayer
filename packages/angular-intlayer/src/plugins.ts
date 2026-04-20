@@ -498,6 +498,8 @@ export type DeepTransformContent<
   L extends LocalesValues = DeclaredLocales,
 > = DeepTransformContentCore<T, IInterpreterPluginState, L>;
 
+const pluginsCache = new Map<string, Plugins[]>();
+
 /**
  * Get the plugins array for Angular content transformation.
  * This function is used by both getIntlayer and getDictionary to ensure consistent plugin configuration.
@@ -505,8 +507,15 @@ export type DeepTransformContent<
 export const getPlugins = (
   locale?: LocalesValues,
   fallback: boolean = true
-): Plugins[] =>
-  [
+): Plugins[] => {
+  const currentLocale = locale ?? internationalization.defaultLocale;
+  const cacheKey = `${currentLocale}_${fallback}`;
+
+  if (pluginsCache.has(cacheKey)) {
+    return pluginsCache.get(cacheKey)!;
+  }
+
+  const plugins = [
     translationPlugin(
       locale ?? internationalization.defaultLocale,
       fallback ? internationalization.defaultLocale : undefined
@@ -520,4 +529,9 @@ export const getPlugins = (
     markdownPlugin,
     htmlPlugin,
     insertionPlugin,
-  ].filter(Boolean) as Plugins[];
+  ] as Plugins[];
+
+  pluginsCache.set(cacheKey, plugins);
+
+  return plugins;
+};

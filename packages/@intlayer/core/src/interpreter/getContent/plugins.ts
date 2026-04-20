@@ -144,21 +144,20 @@ export const translationPlugin = (
         canHandle: (node) =>
           typeof node === 'object' && node?.nodeType === NodeTypes.TRANSLATION,
         transform: (node: TranslationContent, props, deepTransformNode) => {
-          const result = {
-            ...(node[NodeTypes.TRANSLATION] ?? {}),
-          };
+          const original = node[NodeTypes.TRANSLATION] ?? {};
+          const result: Record<string, any> = {};
 
-          for (const key in result) {
+          for (const key in original) {
             const childProps = {
               ...props,
-              children: result[key as keyof typeof result],
+              children: original[key as keyof typeof original],
               keyPath: [
                 ...props.keyPath,
                 { type: NodeTypes.TRANSLATION, key } as KeyPath,
               ],
             };
-            result[key as keyof typeof result] = deepTransformNode(
-              result[key as keyof typeof result],
+            result[key] = deepTransformNode(
+              original[key as keyof typeof original],
               childProps
             );
           }
@@ -191,10 +190,11 @@ export const enumerationPlugin: Plugins = TREE_SHAKE_ENUMERATION
       canHandle: (node) =>
         typeof node === 'object' && node?.nodeType === NodeTypes.ENUMERATION,
       transform: (node: EnumerationContent, props, deepTransformNode) => {
-        const result = { ...node[NodeTypes.ENUMERATION] };
+        const original = node[NodeTypes.ENUMERATION];
+        const result: Record<string, any> = {};
 
-        for (const key in result) {
-          const child = result[key as unknown as keyof typeof result];
+        for (const key in original) {
+          const child = original[key as unknown as keyof typeof original];
           const childProps = {
             ...props,
             children: child,
@@ -203,10 +203,7 @@ export const enumerationPlugin: Plugins = TREE_SHAKE_ENUMERATION
               { type: NodeTypes.ENUMERATION, key } as KeyPath,
             ],
           };
-          result[key as unknown as keyof typeof result] = deepTransformNode(
-            child,
-            childProps
-          );
+          result[key] = deepTransformNode(child, childProps);
         }
 
         return (arg: number | { count: number }) => {
@@ -246,10 +243,11 @@ export const conditionPlugin: Plugins = TREE_SHAKE_CONDITION
       canHandle: (node) =>
         typeof node === 'object' && node?.nodeType === NodeTypes.CONDITION,
       transform: (node: ConditionContent, props, deepTransformNode) => {
-        const result = { ...node[NodeTypes.CONDITION] };
+        const original = node[NodeTypes.CONDITION];
+        const result: Record<string, any> = {};
 
-        for (const key in result) {
-          const child = result[key as keyof typeof result];
+        for (const key in original) {
+          const child = original[key as keyof typeof original];
           const childProps = {
             ...props,
             children: child,
@@ -258,15 +256,12 @@ export const conditionPlugin: Plugins = TREE_SHAKE_CONDITION
               { type: NodeTypes.CONDITION, key } as KeyPath,
             ],
           };
-          result[key as unknown as keyof typeof result] = deepTransformNode(
-            child,
-            childProps
-          );
+          result[key] = deepTransformNode(child, childProps);
         }
 
         return (arg: boolean | { value: boolean }) => {
           const value = typeof arg === 'boolean' ? arg : arg.value;
-          const subResult = getCondition(result, value);
+          const subResult = getCondition(result as any, value);
 
           if (typeof subResult === 'function' && typeof arg === 'object') {
             return subResult(arg);
@@ -376,10 +371,11 @@ export const genderPlugin: Plugins = TREE_SHAKE_GENDER
       canHandle: (node) =>
         typeof node === 'object' && node?.nodeType === NodeTypes.GENDER,
       transform: (node: GenderContent, props, deepTransformNode) => {
-        const result = { ...node[NodeTypes.GENDER] };
+        const original = node[NodeTypes.GENDER];
+        const result: Record<string, any> = {};
 
-        for (const key in result) {
-          const child = result[key as keyof typeof result];
+        for (const key in original) {
+          const child = original[key as keyof typeof original];
           const childProps = {
             ...props,
             children: child,
@@ -388,13 +384,10 @@ export const genderPlugin: Plugins = TREE_SHAKE_GENDER
               { type: NodeTypes.GENDER, key } as KeyPath,
             ],
           };
-          result[key as keyof typeof result] = deepTransformNode(
-            child,
-            childProps
-          );
+          result[key] = deepTransformNode(child, childProps);
         }
 
-        return (value: Gender) => getGender(result, value);
+        return (value: Gender) => getGender(result as any, value);
       },
     };
 

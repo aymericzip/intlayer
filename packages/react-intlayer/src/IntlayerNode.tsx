@@ -38,18 +38,13 @@ export const renderIntlayerNode = <
   // but also has a .value getter.
   return new Proxy(element as ReactElement, {
     get(target, prop, receiver) {
-      if (prop === 'value') {
-        return value;
-      }
+      if (prop === 'value') return value;
 
-      if (
-        additionalProps &&
-        Object.keys(additionalProps).includes(prop as string)
-      ) {
+      if (additionalProps && prop in additionalProps) {
         return additionalProps[prop as keyof typeof additionalProps];
       }
 
       return Reflect.get(target, prop, receiver);
     },
-  }) as IntlayerNode<T>;
+  }) as unknown as IntlayerNode<T>;
 };

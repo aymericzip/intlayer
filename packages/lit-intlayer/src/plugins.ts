@@ -1,4 +1,4 @@
-import { internationalization, editor } from '@intlayer/config/built';
+import { editor, internationalization } from '@intlayer/config/built';
 import {
   conditionPlugin,
   type DeepTransformContent as DeepTransformContentCore,
@@ -458,6 +458,8 @@ export type DeepTransformContent<
   L extends LocalesValues = DeclaredLocales,
 > = DeepTransformContentCore<T, IInterpreterPluginState, L>;
 
+const pluginsCache = new Map<string, Plugins[]>();
+
 export const getPlugins = (
   locale?: LocalesValues,
   fallback = true
@@ -468,8 +470,13 @@ export const getPlugins = (
       | LocalesValues
       | undefined) ??
     internationalization.defaultLocale;
+  const cacheKey = `${currentLocale}_${fallback}`;
 
-  return [
+  if (pluginsCache.has(cacheKey)) {
+    return pluginsCache.get(cacheKey)!;
+  }
+
+  const plugins = [
     translationPlugin(
       locale ?? internationalization.defaultLocale,
       fallback ? internationalization.defaultLocale : undefined
@@ -483,5 +490,9 @@ export const getPlugins = (
     insertionPlugin,
     markdownPlugin,
     htmlPlugin,
-  ].filter(Boolean) as Plugins[];
+  ] as Plugins[];
+
+  pluginsCache.set(cacheKey, plugins);
+
+  return plugins;
 };

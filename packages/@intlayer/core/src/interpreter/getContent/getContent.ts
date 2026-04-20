@@ -34,7 +34,7 @@ export const getBasePlugins = (
     nestedPlugin(locale ?? internationalization.defaultLocale),
     filePlugin,
     genderPlugin,
-  ].filter(Boolean) as Plugins[];
+  ] as Plugins[];
 
 /**
  * Transforms a node in a single pass, applying each plugin as needed.
