@@ -37,9 +37,9 @@ export type ChartItem = {
 
 export type LibInfo = { id: string; name: string; version: string | null };
 
-export const LIB_COLORS: Record<string, string> = {
-  intlayer: '#ffffff',
-  'next-intlayer': '#ffffff',
+export const getLibColors = (isDarkMode: boolean): Record<string, string> => ({
+  intlayer: isDarkMode ? '#c4c4c4ff' : '#1e1e1eff',
+  'next-intlayer': isDarkMode ? '#c4c4c4ff' : '#1e1e1eff',
   'next-intl': '#64b5dc',
   'use-intl': '#64b5dc',
   'next-i18next': '#0b786e',
@@ -60,7 +60,7 @@ export const LIB_COLORS: Record<string, string> = {
   'base-app-tanstack': '#334155',
   'base-app-vite-react': '#334155',
   base: '#334155',
-};
+});
 
 export const LIB_LOGOS: Record<string, StaticImport | null> = {
   intlayer: null,

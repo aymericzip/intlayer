@@ -24,7 +24,7 @@ import { ChartComponent, useLogoImages } from './ChartComponent';
 import {
   type ChartItem,
   type FrameworkKey,
-  LIB_COLORS,
+  getLibColors,
   type LibInfo,
   type MetricData,
   type MetricDef,
@@ -85,7 +85,8 @@ const buildChartData = (
   currentFrameworkData: any,
   allLibs: LibInfo[],
   activeLibs: Record<string, boolean>,
-  activeCategories: string[]
+  activeCategories: string[],
+  isDarkMode: boolean
 ): ChartItem[] => {
   if (!selectedMetric || !currentFrameworkData?.libs) return [];
 
@@ -106,7 +107,7 @@ const buildChartData = (
         value: selectedMetric.transform(rawMetric.avg),
         min: selectedMetric.transform(rawMetric.min),
         max: selectedMetric.transform(rawMetric.max),
-        color: LIB_COLORS[lib.id] || '#94a3b8',
+        color: getLibColors(isDarkMode)[lib.id] || '#94a3b8',
         version: lib.version,
       };
     })
@@ -210,7 +211,8 @@ export const I18nBenchmark = ({
         currentFrameworkData,
         allLibs,
         activeLibs,
-        activeCategories
+        activeCategories,
+        isDarkMode
       ),
     [
       allLibs,
@@ -218,6 +220,7 @@ export const I18nBenchmark = ({
       selectedMetric,
       currentFrameworkData,
       activeCategories,
+      isDarkMode,
     ]
   );
 
