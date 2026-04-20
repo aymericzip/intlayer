@@ -526,7 +526,12 @@ export const I18nBenchmark = ({
       </div>
 
       {/* Library selector — 2-row scrollable grid */}
-      <div className={cn('grid grid-cols-4 gap-2', vertical && 'grid-cols-2')}>
+      <div
+        className={cn(
+          'grid grid-cols-2 gap-2 md:grid-cols-4',
+          vertical && 'grid-cols-2'
+        )}
+      >
         {allLibs.map((lib) => (
           <LibCard
             key={lib.id}
