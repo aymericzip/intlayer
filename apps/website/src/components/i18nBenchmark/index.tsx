@@ -13,10 +13,7 @@ import {
   External_Examples,
   Website_Benchmark_Path,
 } from '@intlayer/design-system/routes';
-import {
-  SwitchSelector,
-  SwitchSelectorColor,
-} from '@intlayer/design-system/switch-selector';
+import { SwitchSelector } from '@intlayer/design-system/switch-selector';
 import { SmartTable } from '@intlayer/design-system/table';
 import { TechLogo, TechLogoName } from '@intlayer/design-system/tech-logo';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -277,7 +274,7 @@ export const I18nBenchmark = ({
                   value={framework}
                   onChange={(value) => setFramework(value as FrameworkKey)}
                   className="w-full"
-                  color={SwitchSelectorColor.LIGHT}
+                  color="text"
                 />
               </div>
             )}
@@ -312,7 +309,7 @@ export const I18nBenchmark = ({
                     size="sm"
                     value={value}
                     onChange={onChange}
-                    color={SwitchSelectorColor.LIGHT}
+                    color="text"
                   />
                 </div>
               ))}
@@ -498,7 +495,7 @@ export const I18nBenchmark = ({
                         value={renderMode}
                         onChange={(value) => setRenderMode(value as any)}
                         className="w-full"
-                        color={SwitchSelectorColor.LIGHT}
+                        color="text"
                       />
                     </div>
                   </motion.div>
