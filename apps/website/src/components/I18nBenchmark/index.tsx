@@ -137,6 +137,7 @@ export const I18nBenchmark = ({
     renderJson,
     metrics: metricsContent,
     noData,
+    errorLoadingData,
     dynamicLoading,
     dynamicLoadingDesc,
     scopedNamespacing,
@@ -390,7 +391,7 @@ export const I18nBenchmark = ({
                     </div>
                   ) : isError ? (
                     <div className="flex h-full items-center justify-center text-red-500 text-sm">
-                      Error loading benchmark data. Please try again later.
+                      {errorLoadingData}
                     </div>
                   ) : chartData.length === 0 ? (
                     <div className="flex h-full items-center justify-center text-neutral text-sm">
