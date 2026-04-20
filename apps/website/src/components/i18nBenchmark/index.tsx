@@ -10,7 +10,7 @@ import { Container } from '@intlayer/design-system/container';
 import { H2, H3, H4 } from '@intlayer/design-system/headers';
 import { CodeBlock } from '@intlayer/design-system/ide';
 import {
-  External_Examples,
+  External_Github_i18n_benchmark,
   Website_Benchmark_Path,
 } from '@intlayer/design-system/routes';
 import { SwitchSelector } from '@intlayer/design-system/switch-selector';
@@ -321,7 +321,7 @@ export const I18nBenchmark = ({
               variant="button-outlined"
               color={ButtonColor.TEXT}
               size={ButtonSize.SM}
-              href={External_Examples}
+              href={External_Github_i18n_benchmark}
             >
               {seeBenchmark}
             </Link>

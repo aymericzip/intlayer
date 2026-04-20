@@ -433,6 +433,10 @@ export const Showcase_Submit =
 // ============================================================
 export const External_Github =
   'https://github.com/aymericzip/intlayer' as const;
+
+export const External_Github_i18n_benchmark =
+  'https://github.com/intlayer-org/benchmark-i18n' as const;
+
 export const External_Discord = 'https://discord.gg/7uxamYVeCk' as const;
 export const External_LinkedIn =
   'https://www.linkedin.com/company/intlayerorg/' as const;

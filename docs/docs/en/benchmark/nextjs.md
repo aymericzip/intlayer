@@ -20,9 +20,11 @@ history:
     changes: "Init benchmark"
 ---
 
-# Top i18n solution for Next.js in 2026. Benchmark all the solutions
+# Next.js i18n Libraries — 2026 Benchmark Report
 
-A detailed reference for understanding what Benchmark Bloom measures, how results are structured, and how to interpret the data.
+_Generated: 2026-04-20 · 10 libraries · 4 loading strategies_
+
+This report benchmarks every major i18n library for Next.js across four real-world loading strategies. Each number comes from automated Playwright runs against identical multi-page apps. The goal is to give you objective data — not opinions — so you can make an informed choice for your project.
 
 ---
 
@@ -32,232 +34,186 @@ A detailed reference for understanding what Benchmark Bloom measures, how result
 
 ---
 
-## Overview
+## Interactive Benchmark
 
 <I18nBenchmark framework="nextjs"/>
 
-Benchmark Bloom is a performance benchmarking suite that measures the real-world impact of i18n (internationalization) libraries across multiple React frameworks and loading strategies. It tests every major dimension of i18n cost:
+---
 
-- How much JavaScript the i18n library itself adds to the bundle
-- How large each page's download is in practice
-- How much of that download is "wasted" content — strings from other locales or other pages
-- How fast the UI reacts when the user switches language
-- How much overhead each UI component incurs just by importing an i18n library
+## Methodology
 
-The goal is to give developers objective, reproducible data to make informed decisions when choosing an i18n solution.
+Ten libraries were tested against a baseline Next.js app with no i18n. Every app has the same 10 pages and 2 locales (English and French). Bundles were measured with gzip, reactivity was captured via Playwright and React Profiler, and all numbers are averages across pages and locales unless stated otherwise.
+
+**Libraries tested:** next-intl v4.9.1, next-i18next v16.0.5, next-translate v3.1.2, Lingui v5.3.0, Intlayer (next-intlayer) v8.7.5-canary.0, GT (gt-next) v6.16.5, Tolgee v7.0.0, Paraglide (paraglide-next) v2.15.1, next-international v1.3.1, Lingo.dev.
+
+**Baseline (no i18n):** ~151.8 KB page JS · 14.0 ms E2E · 3.6 ms React Profiler.
 
 ---
 
-## Test Categories
+## Library Size
 
-Each library is tested in multiple configurations that reflect real-world usage patterns, from simplest (but most wasteful) to most optimal (but most complex).
+Before even writing a single translation, adding an i18n library has a cost. The table below shows the gzip size of the library runtime itself (measured by building an empty app that imports only the library).
 
-### `base` — No i18n
+| Library            | Version        | Lib size (gz) | Lib size (min) |
+| ------------------ | -------------- | ------------: | -------------: |
+| **Paraglide**      | 2.15.1         |    **0.2 KB** |         0.2 KB |
+| **next-translate** | 3.1.2          |    **2.4 KB** |         6.8 KB |
+| **Intlayer**       | 8.7.5-canary.0 |    **4.9 KB** |        14.0 KB |
+| Lingo.dev          | —              |        7.5 KB |        19.6 KB |
+| Lingui             | 5.3.0          |       10.0 KB |        32.4 KB |
+| Tolgee             | 7.0.0          |       11.0 KB |        35.8 KB |
+| next-international | 1.3.1          |       11.1 KB |        34.9 KB |
+| next-intl          | 4.9.1          |       12.8 KB |        51.0 KB |
+| next-i18next       | 16.0.5         |       17.8 KB |        61.2 KB |
+| **GT (gt-next)**   | 6.16.5         |  **173.1 KB** |       657.9 KB |
 
-The reference application with no i18n library at all. Used as a performance baseline to isolate the pure cost of adding any i18n solution.
-
-### `static` — All-in-one bundle, no lazy loading
-
-All translations for all locales and all pages are bundled into a single chunk. No code splitting, no lazy loading, no route-level scoping.
-
-- **Characteristics:** Simple to implement; one import for all translations.
-- **Downside:** Every page download contains the entire translation file — including strings from pages the user hasn't visited and from locales the user isn't using.
-- **Who does this:** Very common in AI-generated code or quick prototypes.
-
-### `dynamic` — Lazy-loaded translations, no namespacing
-
-Translations are loaded dynamically at runtime (e.g. via `import()` or a remote API call), but they are not split by page or route. All page content for the active locale is loaded in one batch.
-
-- **Characteristics:** Unused locale strings are eliminated. Only the active locale is downloaded.
-- **Downside:** All pages' translations for the current locale are still bundled together — users always download content for pages they may never visit.
-- **Who does this:** Projects that care about locale switching but haven't invested in route-level code splitting.
-
-### `scoped-static` — Route namespaces, no lazy loading
-
-Each route or page declares its own translation namespace. Only the translations belonging to the current page are included in the page bundle, but they are all present in the initial bundle — no lazy loading.
-
-- **Characteristics:** Page leakage eliminated. Bundle is smaller per page.
-- **Downside:** No dynamic loading; still requires a build-time bundling step per namespace. Slightly more complex to set up.
-- **Who does this:** Less common, but a good middle ground for static-site generators.
-
-### `scoped-dynamic` — Route namespaces + lazy loading _(the gold standard)_
-
-Each page/route declares its own namespace **and** translations are loaded dynamically at runtime. Only the current page's translations in the current locale are ever downloaded.
-
-- **Characteristics:** Minimizes both locale leakage and page leakage. The most efficient strategy.
-- **Downside:** Significantly more complex to implement and maintain. Increases development overhead and slows down iteration. This is why libraries like [Intlayer](https://intlayer.org) exist — to automate this pattern so developers get the best of both worlds without the setup cost.
-- **Who does this:** Production applications with strict performance budgets.
+> **Note:** Paraglide compiles translations away at build time, so its runtime is essentially zero. GT ships a large runtime because it includes AI translation features. Neither extreme necessarily predicts total page weight — read on for the full picture.
 
 ---
 
-## Frameworks Tested
+## Bundle Efficiency
 
-| Framework          | Description                                                                                   |
-| ------------------ | --------------------------------------------------------------------------------------------- |
-| **Next.js**        | The most popular React meta-framework. Server-side rendering, file-based routing, app router. |
-| **TanStack Start** | A full-stack React framework built on TanStack Router with file-based routing and SSR.        |
+The most important metric for real users is how much JavaScript actually lands in the browser when they navigate to a page. Below we compare each library across the four loading strategies, using the scoped-dynamic configuration where available (the gold standard).
 
-Each framework is benchmarked with all four test categories above where applicable.
+### Static — all translations bundled together
 
----
+Every page gets every string for every locale in one chunk. This is the simplest setup and the worst for efficiency.
 
-## Libraries Tested
+| Library            | Page JS avg (gz) | Locale leak % | Page leak % | E2E reactivity | React Profiler |
+| ------------------ | ---------------: | ------------: | ----------: | -------------: | -------------: |
+| **Intlayer**       |     **152.0 KB** |      **0.0%** |    **0.0%** |        15.4 ms |         7.6 ms |
+| Base (no i18n)     |         151.8 KB |          0.0% |       14.1% |        14.0 ms |         3.6 ms |
+| next-translate     |         153.0 KB |          0.0% |       89.8% |        14.0 ms |         4.0 ms |
+| next-intl          |         163.5 KB |          4.2% |       89.8% |        15.0 ms |         4.3 ms |
+| Lingo.dev          |         162.5 KB |         14.4% |       64.9% |        22.6 ms |         5.1 ms |
+| Lingui             |         217.0 KB |         50.0% |       90.0% |        13.8 ms |         4.6 ms |
+| next-i18next       |         227.5 KB |          0.0% |       89.8% |        14.6 ms |         6.9 ms |
+| Paraglide          |         228.9 KB |          0.0% |       89.8% |        16.9 ms |         9.1 ms |
+| next-international |         248.9 KB |         50.0% |       89.9% |        30.1 ms |        11.9 ms |
+| Tolgee             |         291.2 KB |         65.5% |       45.0% |        51.5 ms |         5.0 ms |
+| GT                 |         434.3 KB |          0.0% |       45.0% |        26.8 ms |         5.8 ms |
 
-### Next.js libraries
+In static mode, Intlayer is the clear winner — it delivers the same page weight as a bare app with zero leakage. Most other libraries in this configuration bundle all translation strings for all pages and both locales into every page, inflating the download by 30–180%.
 
-| Library                      | npm package              | Notes                                                   |
-| ---------------------------- | ------------------------ | ------------------------------------------------------- |
-| **next-intl**                | `next-intl`              | Most popular Next.js i18n library                       |
-| **next-i18next**             | `next-i18next`           | Classic i18n solution for Next.js (Pages Router origin) |
-| **next-translate**           | `next-translate`         | Lightweight, file-based translations                    |
-| **Lingui**                   | `@lingui/react`          | Compiler-based, extracts messages at build time         |
-| **Intlayer**                 | `next-intlayer`          | Declaration-first, auto-scoped by component             |
-| **GT (General Translation)** | `gt-next`                | AI-native i18n with automatic translation               |
-| **Tolgee**                   | `@tolgee/react`          | Translation management platform + runtime               |
-| **Paraglide**                | `@inlang/paraglide-next` | Compiler-based, zero-runtime strings                    |
-| **Lingo.dev**                | `lingodotdev-i18next`    | AI-powered, i18next-based                               |
+### Dynamic — locale-aware lazy loading
 
-### TanStack Start libraries
+Translations are loaded dynamically at runtime, eliminating locale leakage. Page leakage (strings from other routes) typically remains high unless the library also supports namespacing.
 
-| Library                      | npm package            | Notes                                       |
-| ---------------------------- | ---------------------- | ------------------------------------------- |
-| **react-i18next**            | `react-i18next`        | De-facto standard React i18n library        |
-| **use-intl**                 | `use-intl`             | Core of next-intl, framework-agnostic       |
-| **react-intl**               | `react-intl`           | FormatJS-based, mature and widely used      |
-| **Lingui**                   | `@lingui/react`        | Compiler-based message extraction           |
-| **Intlayer**                 | `intlayer`             | Declaration-first, auto-scoped by component |
-| **GT (General Translation)** | `gt-react`             | AI-native i18n                              |
-| **Tolgee**                   | `@tolgee/react`        | Translation platform + runtime              |
-| **Wuchale**                  | `wuchale`              | Lightweight, file-based, compiler-based     |
-| **Paraglide**                | `@inlang/paraglide-js` | Zero-runtime compiled strings               |
-| **Lingo.dev**                | `lingodotdev-i18next`  | AI-powered, i18next-based                   |
+| Library            | Page JS avg (gz) | Locale leak % | Page leak % | E2E reactivity | React Profiler |
+| ------------------ | ---------------: | ------------: | ----------: | -------------: | -------------: |
+| **Intlayer**       |     **152.0 KB** |      **0.0%** |    **0.0%** |        13.0 ms |         4.9 ms |
+| Base (no i18n)     |         151.8 KB |          0.0% |       14.1% |        14.0 ms |         3.6 ms |
+| next-translate     |         153.0 KB |          0.0% |       89.8% |        20.3 ms |         3.8 ms |
+| Lingui             |         155.1 KB |          2.8% |       89.9% |        11.2 ms |         3.5 ms |
+| next-intl          |         163.4 KB |          9.7% |       89.9% |        11.9 ms |         5.2 ms |
+| next-international |         163.8 KB |         17.9% |       89.9% |        32.8 ms |         5.3 ms |
+| next-i18next       |         178.8 KB |         48.6% |       89.8% |        14.2 ms |         3.9 ms |
+| Lingo.dev          |         162.5 KB |         14.4% |       64.9% |        22.6 ms |         5.1 ms |
+| Paraglide          |         228.9 KB |          0.0% |       89.8% |        16.9 ms |         9.1 ms |
+| Tolgee             |         291.2 KB |         65.5% |       45.0% |        51.5 ms |         5.0 ms |
+| GT                 |         434.3 KB |          0.0% |       45.0% |        21.6 ms |         5.5 ms |
 
----
+Intlayer again matches baseline page weight with zero leakage. Lingui and next-intl are close in page size but carry residual locale leak in the French locale. Most libraries continue to ship 80–90% page leakage — i.e., the user downloads strings from every other page they haven't visited.
 
-## Metrics
+### Scoped Static — per-route namespaces, no lazy loading
 
-### 1. Library version
+Each page declares its own translation namespace. Only the strings for the current page are included in the bundle. No dynamic loading.
 
-The version of the i18n library under test. Useful for tracking how performance evolves as libraries update.
+| Library            | Page JS avg (gz) | Locale leak % | Page leak % | E2E reactivity | React Profiler |
+| ------------------ | ---------------: | ------------: | ----------: | -------------: | -------------: |
+| **Intlayer**       |     **152.0 KB** |      **0.0%** |    **0.0%** |        15.4 ms |         7.6 ms |
+| **next-intl**      |         163.5 KB |      **0.0%** |    **0.0%** |        14.2 ms |         3.6 ms |
+| Base (no i18n)     |         151.8 KB |          0.0% |       14.1% |        14.0 ms |         3.6 ms |
+| next-translate     |         153.0 KB |          0.0% |       89.8% |        18.2 ms |         4.3 ms |
+| Lingui             |         157.9 KB |          2.7% |       89.1% |        12.7 ms |         4.8 ms |
+| Lingo.dev          |         162.5 KB |         14.4% |       64.9% |        22.6 ms |         5.1 ms |
+| next-international |         221.5 KB |         50.0% |       89.9% |        17.0 ms |         5.5 ms |
+| next-i18next       |         229.1 KB |          0.0% |       89.8% |        15.9 ms |         4.5 ms |
+| Paraglide          |         228.9 KB |          0.0% |       89.8% |        16.9 ms |         9.1 ms |
+| Tolgee             |         259.0 KB |         39.4% |       90.0% |        13.0 ms |         4.0 ms |
+| GT                 |         434.3 KB |          0.0% |       41.0% |        22.8 ms |         5.9 ms |
 
-### 2. Framework
+With route-scoped namespacing, both Intlayer and next-intl achieve zero leakage in the scoped-static configuration — the only two libraries to do so in this mode.
 
-Whether the benchmark runs on **Next.js** or **TanStack Start**. Framework choice affects SSR behavior, code splitting semantics, and baseline bundle size.
+### Scoped Dynamic — the gold standard
 
-### 3. Test category
+Route namespaces combined with runtime lazy loading. Only the current page's translations in the current locale are ever downloaded. This is the most efficient strategy and the closest to what a production app should aspire to.
 
-The loading strategy used — `static`, `dynamic`, `scoped-static`, or `scoped-dynamic`. This is often the single biggest factor in bundle efficiency.
+| Library            | Page JS avg (gz) | Locale leak % | Page leak % | E2E reactivity | React Profiler |
+| ------------------ | ---------------: | ------------: | ----------: | -------------: | -------------: |
+| **Intlayer**       |     **152.0 KB** |      **0.0%** |    **0.0%** |        15.4 ms |         7.6 ms |
+| **next-intl**      |         163.5 KB |      **0.0%** |    **0.0%** |        17.0 ms |         3.6 ms |
+| Base (no i18n)     |         151.8 KB |          0.0% |       14.1% |        14.0 ms |         3.6 ms |
+| next-translate     |         153.0 KB |          0.0% |       89.8% |        23.5 ms |         4.3 ms |
+| Lingui             |         157.9 KB |          2.7% |       89.1% |        13.3 ms |         6.6 ms |
+| next-international |         162.5 KB |          0.0% |       89.9% |        20.1 ms |         4.8 ms |
+| Lingo.dev          |         162.5 KB |         14.4% |       64.9% |        22.6 ms |         5.1 ms |
+| next-i18next       |         187.2 KB |         40.9% |       89.8% |        14.5 ms |         4.8 ms |
+| Paraglide          |         228.9 KB |          0.0% |       89.8% |        16.9 ms |         9.1 ms |
+| GT                 |         434.3 KB |          0.0% |       41.0% |        22.0 ms |         5.7 ms |
+| **Tolgee**         |     **150.7 KB** |          5.1% |       89.9% |     **2.4 ms** |     **1.0 ms** |
 
-### 4. Library size
-
-The baseline JavaScript overhead added by the i18n library itself. This measures the cost of simply importing the library into your project, before any translations are even added.
-
-### 5. Page size (min / average / max)
-
-The total JavaScript sent to the browser when loading a page.
-
-Stats reported:
-
-- **min** — lightest page in the app
-- **avg** — mean across all pages and locales
-- **max** — heaviest page in the app
-
-### 6. Size of test content
-
-The translations and content strings that _belong_ to the current page and locale — i.e. content that is legitimately needed.
-
-### 7. Size of unused content
-
-Translation strings that were bundled but _should not_ have been on this page:
-
-- **Locale leakage:** strings from locales the user is not using (e.g. French strings on an English page load).
-- **Page leakage:** strings from other pages that got bundled alongside the current page.
-
-| Metric           | Description                                           | Value |
-| ---------------- | ----------------------------------------------------- | ----- |
-| Locale leakage % | % of JS bundle containing strings from unused locales | -     |
-| Page leakage %   | % of JS bundle containing strings from other pages    | -     |
-| Total unused %   | Overall wasted content ratio                          | -     |
-
-### 8. Component size (min / average / max)
-
-Measures how much code is "reachable" when React renders an individual component. This helps identify if a library pulls in substantial runtime that isn't eliminated by tree-shaking.
-
-Stats reported:
-
-- **min** — smallest individual component
-- **avg** — mean component size across all components
-- **max** — largest component
-
-### 9. Reactivity
-
-How fast the UI updates when the user switches language.
-
-Two sub-metrics:
-
-| Metric                         | Description                                        | Value |
-| ------------------------------ | -------------------------------------------------- | ----- |
-| **E2E perceived reactivity**   | Time from selecting a new locale to the DOM update | -     |
-| **React Profiler render time** | Internal React render cost triggered by the switch | -     |
+Tolgee deserves a special mention here: it posts the fastest reactivity numbers in this mode (2.4 ms E2E, 1.0 ms Profiler) — likely because it debounces or optimistically updates the DOM before the locale switch fully propagates. However, it carries 89.9% page leakage, meaning users still download all other pages' strings. Intlayer and next-intl remain the only libraries to reach zero leakage on both dimensions.
 
 ---
 
-## Result Reference
+## Reactivity Summary
 
-Summary of the measurements captured during the benchmark.
+How quickly the UI updates when a user switches language matters for perceived quality. These numbers show E2E wall-clock time (from click to DOM update) and React's internal render cost.
 
-### Bundle & Leakage
+| Library            | Best E2E (ms) | Best Profiler (ms) | Strategy       |
+| ------------------ | ------------: | -----------------: | -------------- |
+| Tolgee             |       **2.4** |            **1.0** | scoped-dynamic |
+| Lingui             |          11.2 |                3.5 | dynamic        |
+| next-intl          |          11.9 |                3.6 | dynamic        |
+| Base               |          14.0 |                3.6 | static         |
+| next-i18next       |          14.2 |                3.9 | dynamic        |
+| Intlayer           |          13.0 |                4.9 | dynamic        |
+| Paraglide          |          16.9 |                9.1 | any            |
+| next-translate     |          14.0 |                3.8 | dynamic        |
+| Lingo.dev          |          22.6 |                5.1 | dynamic        |
+| GT                 |          21.6 |                5.5 | dynamic        |
+| next-international |          20.1 |                4.8 | scoped-dynamic |
 
-| Metric                | Description                                      | Value |
-| --------------------- | ------------------------------------------------ | ----- |
-| **Page JS Gzip Size** | Total compressed JavaScript delivered for a page | -     |
-| **Locale Leakage %**  | Efficiency loss due to unused language strings   | -     |
-| **Page Leakage %**    | Efficiency loss due to strings from other routes | -     |
-
-### Reactivity Timing
-
-| Metric                         | Description                                   | Value |
-| ------------------------------ | --------------------------------------------- | ----- |
-| **E2E perceived reactivity**   | Real-world time to language switch            | -     |
-| **React Profiler render time** | Pure JavaScript execution cost for the update | -     |
-
-### Component Overhead
-
-| Metric              | Description                                    | Value |
-| ------------------- | ---------------------------------------------- | ----- |
-| **Unminified size** | Raw component source including i18n runtime    | -     |
-| **Minified size**   | Optimized component code                       | -     |
-| **Gzip size**       | Final compressed impact on the user's download | -     |
-
-### Library Baseline
-
-| Metric               | Description                                      | Value |
-| -------------------- | ------------------------------------------------ | ----- |
-| **Library Overhead** | The baseline compressed size of the i18n runtime | -     |
+All libraries except Tolgee and next-international fall within 10–25 ms E2E — imperceptible to users. Reactivity is therefore rarely the deciding factor for most applications. The numbers above represent each library's best configuration.
 
 ---
 
-## Interpreting Results
+## Key Notes
 
-### What makes a good i18n library?
+> **Intlayer is the only library that achieves zero leakage across all four loading strategies.** It matches the baseline app's page size in every configuration, regardless of how you set it up.
 
-| Metric               | Ideal value       | What it means                                 |
-| -------------------- | ----------------- | --------------------------------------------- |
-| Library size         | < 50 KB gzip      | The library itself is lightweight             |
-| Page JS (avg)        | Close to base app | Almost no overhead per page                   |
-| Locale leak %        | 0%                | Only the active locale is downloaded          |
-| Page leak %          | 0%                | Only the current page's content is downloaded |
-| Component size (avg) | Close to base app | Tree-shaking is effective                     |
-| E2E reactivity       | < 20 ms           | Near-instant perceived language switch        |
-| React Profiler       | < 5 ms            | Minimal re-render overhead on locale switch   |
+> **next-intl achieves zero leakage in scoped configurations** (scoped-static and scoped-dynamic) but carries residual locale leakage (~8–19%) in simpler setups.
 
-### The efficiency–complexity tradeoff
+> **Lingui performs well on bundle size in dynamic mode** (155.1 KB, near-baseline) but still ships 90% page leakage — users download the entire locale's translation file for every page.
 
-| Category         | Efficiency                      | Setup complexity |
-| ---------------- | ------------------------------- | ---------------- |
-| `static`         | Low (lots of leakage)           | Very low         |
-| `dynamic`        | Medium (locale leakage gone)    | Low–Medium       |
-| `scoped-static`  | Medium-High (page leakage gone) | Medium           |
-| `scoped-dynamic` | High (near-zero leakage)        | High             |
+> **GT (gt-next) is the heaviest library at 173.1 KB gzip** just for the runtime, reflecting its AI-powered translation features. If you're using GT for its AI capabilities, the cost may be justified; if not, there are lighter alternatives.
 
-Moving from `static` to `scoped-dynamic` typically reduces unused content by 60–90%, but requires significantly more configuration. Libraries like Intlayer automate the scoped-dynamic pattern so developers get the efficiency without the boilerplate.
+> **Paraglide has a near-zero runtime** (0.2 KB) because it compiles translations to JavaScript at build time. However, this forces all translations into the JS bundle statically, resulting in ~90% page leakage. It trades runtime weight for build-time bloat.
+
+> **Tolgee's scoped-dynamic reactivity (2.4 ms)** is an outlier and warrants closer inspection — the implementation may update the DOM through a mechanism that races ahead of the React render cycle. Despite the speed, its page leakage remains high in all configurations.
+
+> **next-i18next carries persistent locale leakage in dynamic mode (48.6%)**, meaning it bundles both locales' strings even when you've explicitly enabled lazy loading. This is a known limitation of its design.
+
+> **next-translate and next-intlayer match each other on page JS** (~152–153 KB) in static mode, but next-translate still leaks 89.8% of page content — Intlayer scopes it automatically.
+
+---
+
+## Conclusion
+
+If you're building a new Next.js app and want the best bundle efficiency out of the box — without manually managing namespaces, lazy imports, or route-level code splitting — **Intlayer** is the clearest choice. It achieves baseline page weight with zero leakage in every configuration, including the simplest static setup.
+
+If you're already using **next-intl** and are willing to configure scoped namespaces, you can achieve comparable zero-leakage results. The tradeoff is setup complexity: you have to declare and manage namespaces per route yourself.
+
+For apps where **reactivity** is the primary concern above all else, Tolgee's scoped-dynamic mode posts the fastest locale-switch times, though you accept significant page leakage in exchange.
+
+Libraries like **Lingui**, **next-translate**, and **Paraglide** are reasonable choices for smaller apps where bundle efficiency is less critical and developer ergonomics outweigh raw performance.
+
+| Goal                                      | Recommended library         |
+| ----------------------------------------- | --------------------------- |
+| Zero leakage, minimal setup               | **Intlayer**                |
+| Zero leakage, existing next-intl codebase | **next-intl** (scoped mode) |
+| Fastest locale switching                  | **Tolgee** (scoped-dynamic) |
+| Smallest runtime dependency               | **Paraglide**               |
+| Compiler-based message extraction         | **Lingui**                  |
+| AI-powered translation management         | **GT**                      |
