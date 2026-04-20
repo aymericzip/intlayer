@@ -88,19 +88,6 @@ export const LandingPage: FC = () => (
         <LandingSection />
         <DynamicFeaturesSection />
       </BackgroundLayout>
-      <a
-        href="https://builders.to/projects/intlayer?utm_source=badge"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="scale-10 opacity-10"
-      >
-        <img
-          src="https://builders.to/badges/featured-on-builders-small.svg"
-          alt="intlayer - Featured on Builders.to"
-          width="130"
-          height="40"
-        />
-      </a>
 
       <DynamicWhyToChoseIntlayerSection />
 
