@@ -1,12 +1,19 @@
 'use client';
 
+import type { FrameworkKey } from '@components/i18nBenchmark';
 import { Link } from '@components/Link/Link';
 import { TableOfContents } from '@components/TableOfContents';
 import { MarkdownRenderer } from '@intlayer/design-system/mark-down-render';
+import dynamic from 'next/dynamic';
 import { useLocale } from 'next-intlayer';
 import { useTheme } from 'next-themes';
 import type { ComponentProps, FC } from 'react';
 import { SectionScroller } from './SectionScroller';
+
+const I18nBenchmark = dynamic(
+  () => import('@components/i18nBenchmark').then((mod) => mod.I18nBenchmark),
+  { ssr: false }
+);
 
 type DocumentationRenderProps = {
   children: string;
@@ -47,6 +54,9 @@ export const DocumentationRender: FC<DocumentationRenderProps> = ({
               levels={props.levels ?? tocLevels}
               maxDepth={props.maxDepth ?? tocMaxDepth}
             />
+          ),
+          I18nBenchmark: (props: { framework?: FrameworkKey }) => (
+            <I18nBenchmark initialFramework={props.framework} />
           ),
         }}
         wrapper={(props) => (

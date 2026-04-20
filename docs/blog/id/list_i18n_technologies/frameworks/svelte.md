@@ -116,8 +116,6 @@ Repository: [https://github.com/cibernox/svelte-intl-precompile](https://github.
 
 ---
 
----
-
 ### 4. i18next dengan Svelte / SvelteKit
 
 Website: [https://www.i18next.com/](https://www.i18next.com/)

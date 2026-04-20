@@ -196,6 +196,9 @@ export const Website_Doc_CLI_Translate_Path =
   '/doc/concept/cli/doc-translate' as const;
 export const Website_Doc_CLI_Review_Path =
   '/doc/concept/cli/doc-review' as const;
+export const Website_Benchmark_NextJS_Path = '/doc/benchmark/nextjs' as const;
+export const Website_Benchmark_Tanstack_Path =
+  '/doc/benchmark/tanstack' as const;
 
 export const Website_Doc_MCP_Path = '/doc/mcp-server' as const;
 
@@ -233,6 +236,10 @@ export const Website_Scanner =
   `https://${Website_Domain}${Website_Scanner_Path}` as const;
 export const Website_Benchmark =
   `https://${Website_Domain}${Website_Benchmark_Path}` as const;
+export const Website_Benchmark_NextJS =
+  `https://${Website_Domain}${Website_Benchmark_NextJS_Path}` as const;
+export const Website_Benchmark_Tanstack =
+  `https://${Website_Domain}${Website_Benchmark_Tanstack_Path}` as const;
 
 export const Website_Doc_Root =
   `https://${Website_Domain}${Website_Doc_Root_Path}` as const;

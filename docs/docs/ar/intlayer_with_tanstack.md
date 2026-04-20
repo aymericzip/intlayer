@@ -751,8 +751,6 @@ export const Route = createFileRoute("/{-$locale}/$")({
 
 ---
 
----
-
 ### تكوين Git
 
 يوصى بتجاهل الملفات الناتجة عن Intlayer. يتيح لك هذا تجنب الالتزام بها في مستودع Git الخاص بك.

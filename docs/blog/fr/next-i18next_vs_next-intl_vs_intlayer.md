@@ -1177,8 +1177,6 @@ export default robots;
 
 ---
 
----
-
 ## Et le gagnant est…
 
 Ce n’est pas simple. Chaque option a ses compromis. Voici comment je le vois :

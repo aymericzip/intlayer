@@ -116,8 +116,6 @@ Kho lưu trữ: [https://github.com/cibernox/svelte-intl-precompile](https://git
 
 ---
 
----
-
 ### 4. i18next với Svelte / SvelteKit
 
 Website: [https://www.i18next.com/](https://www.i18next.com/)

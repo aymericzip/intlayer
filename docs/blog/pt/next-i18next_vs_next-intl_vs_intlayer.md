@@ -1177,8 +1177,6 @@ export default robots;
 
 ---
 
----
-
 ## E o vencedor é…
 
 Não é simples. Cada opção tem seus prós e contras. Aqui está como eu vejo:

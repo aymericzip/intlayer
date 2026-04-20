@@ -1334,6 +1334,41 @@ const docDataContent: Dictionary = {
         },
       },
     },
+    benchmark: {
+      title: t({
+        en: 'Benchmark',
+        'en-GB': 'Benchmark',
+        fr: 'Benchmark',
+        es: 'Benchmark',
+        de: 'Benchmark',
+        it: 'Benchmark',
+        ja: 'ベンチマーク',
+        ko: '벤치마크',
+        zh: '基准测试',
+        pt: 'Benchmark',
+        hi: 'बेंचमार्क',
+        ar: 'مؤشر أداء',
+        uk: 'Бенчмарк',
+        ru: 'Бенчмарк',
+        tr: 'Karşılaştırma',
+        pl: 'Benchmark',
+        id: 'Benchmark',
+        vi: 'Benchmark',
+      }),
+      default: getDocMetadata('./docs/en/benchmark/index.md'),
+      subSections: {
+        nextjs: {
+          title: 'Next.js',
+          default: getDocMetadata('./docs/en/benchmark/nextjs.md'),
+          frameworks: ['nextjs', 'react'],
+        },
+        tanstack: {
+          title: 'TanStack',
+          default: getDocMetadata('./docs/en/benchmark/tanstack.md'),
+          frameworks: ['tanstack', 'react'],
+        },
+      },
+    },
   },
 } satisfies Dictionary;
 

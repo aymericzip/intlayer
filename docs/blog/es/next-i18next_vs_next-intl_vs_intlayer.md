@@ -1280,8 +1280,6 @@ export default robots;
 
 ---
 
----
-
 ## Y el ganador es…
 
 No es sencillo. Cada opción tiene sus ventajas y desventajas. Así es como lo veo:

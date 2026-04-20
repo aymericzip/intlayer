@@ -2,11 +2,17 @@
 
 import { MarkdownRenderer } from '@intlayer/design-system/mark-down-render';
 import { useTheme } from 'next-themes';
-import type { ComponentProps, FC } from 'react';
+import { type ComponentProps, type FC, lazy, Suspense } from 'react';
 import { useLocale } from 'react-intlayer';
 import { TableOfContents } from '#/components/TableOfContents';
 import { Link } from '#components/Link/Link';
 import { SectionScroller } from './SectionScroller';
+
+const I18nBenchmark = lazy(() =>
+  import('#components/i18nBenchmark').then((mod) => ({
+    default: mod.I18nBenchmark,
+  }))
+);
 
 type DocumentationRenderProps = {
   children: string;
@@ -47,6 +53,11 @@ export const DocumentationRender: FC<DocumentationRenderProps> = ({
               levels={props.levels ?? tocLevels}
               maxDepth={props.maxDepth ?? tocMaxDepth}
             />
+          ),
+          I18nBenchmark: (props: { framework?: any }) => (
+            <Suspense fallback={<div>Loading benchmark...</div>}>
+              <I18nBenchmark {...props} initialFramework={props.framework} />
+            </Suspense>
           ),
         }}
         wrapper={(props) => (

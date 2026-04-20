@@ -43,6 +43,7 @@
     "@tanstack/react-start": "1.167.41",
     "@tanstack/react-table": "8.21.3",
     "@tanstack/router-plugin": "1.167.22",
+    "chart.js": "^4.5.1",
     "framer-motion": "12.38.0",
     "fuse.js": "7.3.0",
     "intlayer": "workspace:*",

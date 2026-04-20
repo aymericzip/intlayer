@@ -1181,8 +1181,6 @@ export default robots;
 
 ---
 
----
-
 ## E il vincitore è…
 
 Non è semplice. Ogni opzione ha dei compromessi. Ecco come la vedo:

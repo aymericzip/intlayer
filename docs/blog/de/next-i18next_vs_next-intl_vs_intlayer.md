@@ -1326,8 +1326,6 @@ export default robots;
 
 ---
 
----
-
 ## Und der Gewinner ist…
 
 Es ist nicht einfach. Jede Option hat ihre Vor- und Nachteile. So sehe ich das:
