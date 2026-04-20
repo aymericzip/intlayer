@@ -1,7 +1,7 @@
 import type { FrameworkKey } from './constants';
 
 const GITHUB_RAW_BASE_URL =
-  'https://raw.githubusercontent.com/intlayer-org/benchmark-bloom/main/report/scripts';
+  'https://raw.githubusercontent.com/intlayer-org/benchmark-i18n/main/report/scripts';
 
 export const fetchBenchmarkData = async (
   framework: FrameworkKey,
