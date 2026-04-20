@@ -9,7 +9,7 @@ import NextTranslateLogo from './logo/next-translate.svg';
 import ParaglideLogo from './logo/paraglide.svg';
 import TolgeeLogo from './logo/tolgee.svg';
 import WuchaleLogo from './logo/wuchale.png';
-export type FrameworkKey = 'nextjs' | 'tanstack';
+export type FrameworkKey = 'nextjs' | 'tanstack' | 'vite-react';
 
 export type StaticImport = { src: string; height: number; width: number };
 
