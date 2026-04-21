@@ -23,7 +23,7 @@ export const LibCard: FC<{
       variant="hoverable"
       onClick={onToggle}
       isActive={isActive}
-      className="relative min-w-40 shrink-0 overflow-hidden text-left"
+      className="relative min-w-32 shrink-0 overflow-hidden text-left"
     >
       <div className="flex flex-row items-center gap-4 px-3 py-1.5">
         {colors[lib.id] && (
