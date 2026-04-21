@@ -121,6 +121,7 @@ export const Website_Home_Path = '/' as const;
 export const Website_CMS_Path = '/cms' as const;
 export const Website_TMS_Path = '/tms' as const;
 export const Website_Translate_Path = '/translate' as const;
+export const Website_Markdown_Preview_Path = '/markdown' as const;
 export const Website_Demo_Path = '/demo' as const;
 export const Website_Playground_Path = '/playground' as const;
 export const Website_NotFound_Path = '/404' as const;
@@ -225,6 +226,8 @@ export const Website_TMS =
   `https://${Website_Domain}${Website_TMS_Path}` as const;
 export const Website_Translate =
   `https://${Website_Domain}${Website_Translate_Path}` as const;
+export const Website_Markdown_Preview =
+  `https://${Website_Domain}${Website_Markdown_Preview_Path}` as const;
 export const Website_Demo =
   `https://${Website_Domain}${Website_Demo_Path}` as const;
 export const Website_Playground =

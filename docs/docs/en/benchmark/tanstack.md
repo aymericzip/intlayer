@@ -22,7 +22,7 @@ history:
     changes: "Init benchmark"
 ---
 
-# TanStack Start i18n Libraries — 2026 Benchmark Report
+# TanStack Start i18n Libraries - 2026 Benchmark Report
 
 This page is a benchmark report for i18n solutions on TanStack Start.
 
@@ -37,13 +37,13 @@ This page is a benchmark report for i18n solutions on TanStack Start.
 ## Results reference:
 
 <iframe 
-  src="https://github.com/intlayer-org/benchmark-i18n/blob/main/report/scripts/summarize-tanstack.md" 
+  src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-tanstack.md" 
   width="100%" 
   height="600px"
   style="border:none;">
 </iframe>
 
-> https://github.com/intlayer-org/benchmark-i18n/blob/main/report/scripts/summarize-tanstack.md
+> https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-tanstack.md
 
 See complete benchmark repository [here](https://github.com/intlayer-org/benchmark-i18n/tree/main).
 
@@ -92,7 +92,7 @@ For this benchmark, we compared the following libraries:
 - `use-intl` (v4.9.1)
 - `@lingui/core` (v5.3.0)
 - `@inlang/paraglide-js` (v2.15.1)
-- `tolgee` (v7.0.0)
+- `@tolgee/react` (v7.0.0)
 - `react-intl` (v10.1.1)
 - `wuchale` (v0.22.11)
 - `gt-react` (vlatest)
@@ -138,7 +138,7 @@ I ran the same multilingual app in a real browser for every stack, then wrote do
 
 ## Results in detail
 
-### 1 — Solutions to avoid
+### 1 - Solutions to avoid
 
 Some solutions, such as `gt-react` or `lingo.dev`, are clearly ones to steer clear of. They combine vendor lock-in with polluting your codebase. Worse: despite many hours trying to implement them, I never got them working properly on TanStack Start (similar to Next.js with `gt-next`).
 
@@ -160,13 +160,13 @@ Issues encountered:
 - At build, it totally erased the generated JSONs when there was new content added. As a result, you could end up with only a few keys erasing hundreds of existing keys.
 - I met reactivity issues with the library on TanStack Start: on locale change I had to force rerendering of the provider to make it work.
 
-### 2 — Experimental solutions
+### 2 - Experimental solutions
 
 **(Wuchale)** (`wuchale@0.22.11`):
 
 The idea behind `Wuchale` is interesting but not yet a viable solution. I hit reactivity issues with the library and had to force rerendering of the provider to get the app working on TanStack Start. The documentation is also fairly unclear, which makes onboarding harder.
 
-### 3 — Acceptable solutions
+### 3 - Acceptable solutions
 
 **(Paraglide)** (`@inlang/paraglide-js@2.15.1`):
 
@@ -174,7 +174,7 @@ The idea behind `Wuchale` is interesting but not yet a viable solution. I hit re
 Personally I dislike having to regenerate JS files before every push, which creates constant merge conflict risk via PRs. The tool also seems more focused on Vite than on Next.js.
 Finally, in comparison of other solutions, Paraglide does not use store (e.g. React context) to retrieve the current locale to render the content. For each node parsed, it will request the locale from the localeStorage / cookie etc. It leads to execution of unnecessary logic that impact the component reactivity.
 
-**(Tolgee)** (`tolgee@7.0.0`):
+**(Tolgee)** (`@tolgee/react@7.0.0`):
 
 `Tolgee` addresses many of the issues mentioned earlier. I found it harder to get started with than other tools with similar approaches. It does not provide type safety, which also makes catching missing keys at compile time much harder. I had to wrap Tolgee’s APIs with my own to add missing-key detection.
 
@@ -202,7 +202,7 @@ Message formats also diverge: `use-intl` uses ICU MessageFormat, while `i18next`
 
 `react-intl` is a performant implementation from the Format.js team. The DX stays verbose: `const intl = useIntl()` + `intl.formatMessage({ id: "xx.xx" })` adds complexity, extra JavaScript work, and ties the global i18n instance to many nodes in the React tree.
 
-### 4 — Recommendations
+### 4 - Recommendations
 
 This TanStack Start benchmark has no direct equivalent to `next-translate` (Next.js plugin + `getStaticProps`). For teams that really want a `t()` API with a mature ecosystem, `use-intl` remain “reasonable” choices—but expect to invest a lot of time optimizing to avoid leakage.
 

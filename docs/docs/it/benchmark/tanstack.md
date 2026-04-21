@@ -37,13 +37,13 @@ Questa pagina è un rapporto benchmark per le soluzioni i18n su TanStack Start.
 ## Riferimento risultati:
 
 <iframe 
-  src="https://github.com/intlayer-org/benchmark-i18n/blob/main/report/scripts/summarize-tanstack.md" 
+  src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-tanstack.md" 
   width="100%" 
   height="600px"
   style="border:none;">
 </iframe>
 
-> https://github.com/intlayer-org/benchmark-i18n/blob/main/report/scripts/summarize-tanstack.md
+> https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-tanstack.md
 
 Vedi il repository completo del benchmark [qui](https://github.com/intlayer-org/benchmark-i18n/tree/main).
 

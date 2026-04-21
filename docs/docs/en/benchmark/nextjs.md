@@ -22,7 +22,7 @@ history:
     changes: "Init benchmark"
 ---
 
-# Next.js i18n Libraries — 2026 Benchmark Report
+# Next.js i18n Libraries - 2026 Benchmark Report
 
 This page is a benchmark report for i18n solutions on Next.js.
 
@@ -37,13 +37,13 @@ This page is a benchmark report for i18n solutions on Next.js.
 ## Results reference:
 
 <iframe 
-  src="https://github.com/intlayer-org/benchmark-i18n/blob/main/report/scripts/summarize-nextjs.md" 
+  src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md" 
   width="100%" 
   height="600px"
   style="border:none;">
 </iframe>
 
-> https://github.com/intlayer-org/benchmark-i18n/blob/main/report/scripts/summarize-nextjs.md
+> https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md
 
 See complete benchmark repository [here](https://github.com/intlayer-org/benchmark-i18n).
 
@@ -106,7 +106,7 @@ For this benchmark, we compared the following libraries:
 - `next-translate` (v3.1.2)
 - `next-international` (v1.3.1)
 - `@inlang/paraglide-js` (v2.15.1)
-- `tolgee` (v7.0.0)
+- `@tolgee/react` (v7.0.0)
 - `@lingo.dev/compiler` (v0.4.0)
 - `wuchale` (v0.22.11)
 - `gt-next` (v6.16.5)
@@ -153,7 +153,7 @@ I ran the same multilingual app in a real browser for every stack, then wrote do
 
 ## Results in detail
 
-### 1 — Solutions to avoid
+### 1 - Solutions to avoid
 
 Some solutions, such as `gt-next` or `lingo.dev`, are clearly best avoided. They combine vendor lock-in with polluting your codebase. Despite many hours trying to implement them, I never got them working—neither on TanStack Start nor on Next.js.
 
@@ -174,7 +174,7 @@ Issues encountered:
 - Their CLI is buggy and used to reset the config file for no reason.
 - At build, it totally erased the generated JSONs when new content was added. As a result, a handful of keys could wipe out more than 300 existing keys.
 
-### 2 — Experimental solutions
+### 2 - Experimental solutions
 
 **(Wuchale)** (`wuchale@0.22.11`):
 
@@ -186,9 +186,9 @@ The idea behind `Wuchale` is interesting but not yet viable. I hit reactivity is
 Personally I dislike having to regenerate JS files before every push, which creates constant merge conflict risk via PRs. The tool also seems more focused on Vite than on Next.js.
 Finally, in comparison of other solutions, Paraglide does not use store (e.g. React context) to retrieve the current locale to render the content. For each node parsed, it will request the locale from the localeStorage / cookie etc. It leads to execution of unnecessary logic that impact the component reactivity.
 
-### 3 — Acceptable solutions
+### 3 - Acceptable solutions
 
-**(Tolgee)** (`tolgee@7.0.0`):
+**(Tolgee)** (`@tolgee/react@7.0.0`):
 
 `Tolgee` addresses many of the issues mentioned earlier. I found it harder to adopt than similar tools. It does not provide type safety, which also makes catching missing keys at compile time harder. I had to wrap Tolgee’s functions with my own to add missing-key detection.
 
@@ -210,7 +210,7 @@ Message formats also differ: `next-intl` uses ICU MessageFormat, while `i18next`
 
 `Lingui` is often praised. Personally I found the `lingui extract` / `lingui compile` workflow more complex than alternatives, without a clear upside. I also noticed inconsistent syntaxes that confuse AIs (e.g. `t()`, `t''`, `i18n.t()`, `<Trans>`).
 
-### 4 — Recommendations
+### 4 - Recommendations
 
 **(Next Translate)** (`next-translate@3.1.2`):
 
