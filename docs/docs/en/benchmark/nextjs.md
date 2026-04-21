@@ -155,7 +155,7 @@ I ran the same multilingual app in a real browser for every stack, then wrote do
 
 ### 1 - Solutions to avoid
 
-Some solutions, such as `gt-next` or `lingo.dev`, are clearly best avoided. They combine vendor lock-in with polluting your codebase. Despite many hours trying to implement them, I never got them working—neither on TanStack Start nor on Next.js.
+Some solutions, such as `gt-next` or `lingo.dev`, are clearly best avoided. They combine vendor lock-in with polluting your codebase. Despite many hours trying to implement them, I never got them working, neither on TanStack Start nor on Next.js.
 
 Issues encountered:
 
