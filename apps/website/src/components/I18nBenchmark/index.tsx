@@ -525,12 +525,7 @@ export const I18nBenchmark = ({
       </div>
 
       {/* Library selector — flex, wraps by breakpoint */}
-      <div
-        className={cn(
-          'flex flex-wrap gap-2 *:grow-0 *:basis-full *:sm:basis-1/2',
-          !vertical && 'md:*:basis-1/4'
-        )}
-      >
+      <div className={cn('flex flex-wrap items-center justify-center gap-2')}>
         {allLibs.map((lib) => (
           <LibCard
             key={lib.id}
