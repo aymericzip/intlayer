@@ -1,3 +1,4 @@
+import { Container } from '@components/Container';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import { cn } from '@utils/cn';
 import type { ComponentProps, ComponentPropsWithoutRef, FC } from 'react';
@@ -192,10 +193,14 @@ const ColumnRenderer = ({
 );
 
 const Iframe = (props: ComponentProps<'iframe'>) => (
-  <iframe
-    {...props}
-    className="overflow-hidden rounded-xl border border-neutral [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-2xl"
-  />
+  <Container
+    padding="sm"
+    roundedSize="2xl"
+    color="neutral"
+    className="overflow-hidden"
+  >
+    <iframe {...props} />
+  </Container>
 );
 
 // Static configuration object for static renderers
