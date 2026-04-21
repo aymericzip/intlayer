@@ -194,9 +194,10 @@ const ColumnRenderer = ({
 
 const Iframe = (props: ComponentProps<'iframe'>) => (
   <Container
-    padding="sm"
     roundedSize="2xl"
-    color="neutral"
+    border
+    background="none"
+    borderColor="neutral"
     className="overflow-hidden"
   >
     <iframe {...props} />
