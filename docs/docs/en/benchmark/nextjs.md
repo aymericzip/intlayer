@@ -169,7 +169,7 @@ Issues encountered:
 
 **(Lingo.dev)** (`@lingo.dev/compiler@0.4.0`):
 
-- AI quota exceeded, blocking the build entirely—so you cannot ship to production without paying.
+- AI quota exceeded, blocking the build entirely, so you cannot ship to production without paying.
 - The compiler was missing almost 40% of the translated content. I had to rewrite all `.map` into flat component blocks to make it work.
 - Their CLI is buggy and used to reset the config file for no reason.
 - At build, it totally erased the generated JSONs when new content was added. As a result, a handful of keys could wipe out more than 300 existing keys.
