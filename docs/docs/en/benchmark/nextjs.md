@@ -133,7 +133,7 @@ I compared **four loading strategies**:
 
 I ran the same multilingual app in a real browser for every stack, then wrote down what actually showed up on the wire and how long things took. Sizes are reported **after normal web compression**, because that is closer to what people download than raw source counts.
 
-- **Internationalization library size**: After bundling, tree-shaking and minification, the size of the i18n library is the size of the providers (e.g. `NextIntlClientProvider`) + hooks (e.g. `useTranslations`) code in an empty component. It does not includes the loading of translation files. It answers how expensive the library is before your content enters the picture.
+- **Internationalization library size**: After bundling, tree-shaking and minification, the size of the i18n library is the size of the providers (e.g. `NextIntlClientProvider`) + hooks (e.g. `useTranslations`) code in an empty component. It does not include the loading of translation files. It answers how expensive the library is before your content enters the picture.
 
 - **JavaScript per page**: For each benchmark route, how much script the browser pulls in for that visit, averaged across the pages in the suite (and across locales where the report rolls them up). Heavy pages are slow pages.
 
@@ -141,7 +141,7 @@ I ran the same multilingual app in a real browser for every stack, then wrote do
 
 - **Leakage from other routes**: The same idea for **other screens** in the app: whether their copy is riding along when you only opened one page. (e.g. `/en/about` page content in `/en/contact` page bundle). A high score hints at weak splitting or over-broad bundles.
 
-- **Average component bundle size**: Common UI pieces are measured **one at a time** instead of hiding inside one giant app number. It shows whether internationalization quietly inflates everyday components. For instance, if your component rerender, it will load all that data from memory. Attaching a giant JSON to any component, is like connecting a big store of unused data that will slow down your components performance.
+- **Average component bundle size**: Common UI pieces are measured **one at a time** instead of hiding inside one giant app number. It shows whether internationalization quietly inflates everyday components. For instance, if your component rerenders, it will load all that data from memory. Attaching a giant JSON to any component is like connecting a big store of unused data that will slow down your components’ performance.
 
 - **Language switch responsiveness**: I flip the language using the app’s own control and time how long it takes until the page has clearly switched—what a visitor would notice, not a lab micro-step.
 
@@ -155,16 +155,16 @@ I ran the same multilingual app in a real browser for every stack, then wrote do
 
 ### 1 - Solutions to avoid
 
-Some solutions, such as `gt-next` or `lingo.dev`, are clearly best avoided. They combine vendor lock-in with polluting your codebase. Despite many hours trying to implement them, I never got them working, neither on TanStack Start nor on Next.js.
+Some solutions, such as `gt-next` or `lingo.dev`, are clearly best avoided. They combine vendor lock-in with polluting your codebase. Despite many hours trying to implement them, I never got them working on TanStack Start or Next.js.
 
 Issues encountered:
 
 **(General Translation)** (`gt-next@6.16.5`):
 
-- For a 110kb app, `gt-react` adds more than 440kb extra.
+- For a 110kb app, `gt-next` adds more than 440kb extra.
 - `Quota Exceeded, please upgrade your plan` on the very first build with General Translation.
 - Translations are not rendered; I get the error `Error: <T> used on the client-side outside of <GTProvider>`, which seems to be a bug in the library.
-- While implementing **gt-tanstack-start-react**, I also came across an [issue](https://github.com/generaltranslation/gt/issues/1210#event-24510646961) with the library: `does not provide an export named 'printAST' - @formatjs/icu-messageformat-parser`, which was making the application break. After reporting this issue, the maintainer fixed it within 24 hours.
+- While implementing **gt-next**, I also came across an [issue](https://github.com/generaltranslation/gt/issues/1210#event-24510646961) with the library: `does not provide an export named 'printAST' - @formatjs/icu-messageformat-parser`, which was making the application break. After reporting this issue, the maintainer fixed it within 24 hours.
 - The library blocks static rendering of Next.js pages.
 
 **(Lingo.dev)** (`@lingo.dev/compiler@0.4.0`):
@@ -184,8 +184,8 @@ The idea behind `Wuchale` is interesting but not yet viable. I hit reactivity is
 
 `Paraglide` offers an innovative, well-thought-out approach. Even so, in this benchmark the advertised tree-shaking did not work for my Next.js or TanStack Start setups. The workflow and DX are more complex than other options.
 Personally I dislike having to regenerate JS files before every push, which creates constant merge conflict risk via PRs. The tool also seems more focused on Vite than on Next.js.
-Even if in theory the tree-shaking strategy works, it does includes all locales in the bundle anyway. Paraglide offers not way to lazy-load the content. That says your page size will grow up correlated to the number of locales you have.
-Finally, in comparison of other solutions, Paraglide does not use store (e.g. React context) to retrieve the current locale to render the content. For each node parsed, it will request the locale from the localeStorage / cookie etc. It leads to execution of unnecessary logic that impact the component reactivity.
+Even if in theory the tree-shaking strategy works, it does include all locales in the bundle anyway. Paraglide offers no way to lazy-load the content. That means your page size grows in line with the number of locales you have.
+Finally, in comparison with other solutions, Paraglide does not use a store (e.g. React context) to retrieve the current locale to render the content. For each node parsed, it will request the locale from the localStorage / cookie etc. It leads to execution of unnecessary logic that impacts the component reactivity.
 
 ### 3 - Acceptable solutions
 

@@ -143,7 +143,7 @@ I ran the same multilingual app in a real browser for every stack, then wrote do
 
 - **Average component bundle size**: Common UI pieces are measured **one at a time** instead of hiding inside one giant app number. It shows whether internationalisation quietly inflates everyday components. For instance, if your component rerender, it will load all that data from memory. Attaching a giant JSON to any component, is like connecting a big store of unused data that will slow down your components performance.
 
-- **Language switch responsiveness**: I flip the language using the app’s own control and time how long it takes until the page has clearly switched—what a visitor would notice, not a lab micro-step.
+- **Language switch responsiveness**: I flip the language using the app’s own control and time how long it takes until the page has clearly switched, what a visitor would notice, not a lab micro-step.
 
 - **Rendering work after a language change**: A narrower follow-up: how much effort the interface took to repaint for the new language once the switch is in flight. Useful when the “felt” time and the framework cost diverge.
 

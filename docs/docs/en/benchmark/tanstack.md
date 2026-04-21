@@ -118,7 +118,7 @@ We compared **four loading strategies**:
 
 I ran the same multilingual app in a real browser for every stack, then wrote down what actually showed up on the wire and how long things took. Sizes are reported **after normal web compression**, because that is closer to what people download than raw source counts.
 
-- **Internationalization library size**: After bundling, tree-shaking and minification, the size of the i18n library is the size of the providers (e.g. `NextIntlClientProvider`) + hooks (e.g. `useTranslations`) code in an empty component. It does not includes the loading of translation files. It answers how expensive the library is before your content enters the picture.
+- **Internationalization library size**: After bundling, tree-shaking and minification, the size of the i18n library is the size of the providers (e.g. `NextIntlClientProvider`) + hooks (e.g. `useTranslations`) code in an empty component. It does not include the loading of translation files. It answers how expensive the library is before your content enters the picture.
 
 - **JavaScript per page**: For each benchmark route, how much script the browser pulls in for that visit, averaged across the pages in the suite (and across locales where the report rolls them up). Heavy pages are slow pages.
 
@@ -126,7 +126,7 @@ I ran the same multilingual app in a real browser for every stack, then wrote do
 
 - **Leakage from other routes**: The same idea for **other screens** in the app: whether their copy is riding along when you only opened one page. (e.g. `/en/about` page content in `/en/contact` page bundle). A high score hints at weak splitting or over-broad bundles.
 
-- **Average component bundle size**: Common UI pieces are measured **one at a time** instead of hiding inside one giant app number. It shows whether internationalization quietly inflates everyday components. For instance, if your component rerender, it will load all that data from memory. Attaching a giant JSON to any component, is like connecting a big store of unused data that will slow down your components performance.
+- **Average component bundle size**: Common UI pieces are measured **one at a time** instead of hiding inside one giant app number. It shows whether internationalization quietly inflates everyday components. For instance, if your component rerenders, it will load all that data from memory. Attaching a giant JSON to any component is like connecting a big store of unused data that will slow down your components’ performance.
 
 - **Language switch responsiveness**: I flip the language using the app’s own control and time how long it takes until the page has clearly switched—what a visitor would notice, not a lab micro-step.
 
@@ -172,7 +172,7 @@ The idea behind `Wuchale` is interesting but not yet a viable solution. I hit re
 
 `Paraglide` offers an innovative, well-thought-out approach. Even so, in this benchmark the tree-shaking their company advertises did not work for my Next.js implementation or for TanStack Start. The workflow and DX are also more complex than other options.
 Personally I dislike having to regenerate JS files before every push, which creates constant merge conflict risk via PRs. The tool also seems more focused on Vite than on Next.js.
-Finally, in comparison of other solutions, Paraglide does not use store (e.g. React context) to retrieve the current locale to render the content. For each node parsed, it will request the locale from the localeStorage / cookie etc. It leads to execution of unnecessary logic that impact the component reactivity.
+Finally, in comparison with other solutions, Paraglide does not use a store (e.g. React context) to retrieve the current locale to render the content. For each node parsed, it will request the locale from the localStorage / cookie etc. It leads to execution of unnecessary logic that impacts the component reactivity.
 
 **(Tolgee)** (`@tolgee/react@7.0.0`):
 
@@ -192,7 +192,7 @@ On TanStack Start you avoid Next.js-specific traps (`setRequestLocale`, static r
 
 Still, it shares the same major downsides as stacks built on `t('a.b.c')`: optimizations are possible but very time-consuming, and large projects risk bad practices (namespaces + dynamic loading + types).
 
-Message formats also diverge: `use-intl` uses ICU MessageFormat, while `i18next` uses its own format—which complicates tooling or migrations if you mix them.
+Message formats also diverge: `use-intl` uses ICU MessageFormat, while `i18next` uses its own format, which complicates tooling or migrations if you mix them.
 
 **(Lingui)** (`@lingui/core@5.3.0`):
 
@@ -204,7 +204,7 @@ Message formats also diverge: `use-intl` uses ICU MessageFormat, while `i18next`
 
 ### 4 - Recommendations
 
-This TanStack Start benchmark has no direct equivalent to `next-translate` (Next.js plugin + `getStaticProps`). For teams that really want a `t()` API with a mature ecosystem, `use-intl` remain “reasonable” choices, but expect to invest a lot of time optimizing to avoid leakage.
+This TanStack Start benchmark has no direct equivalent to `next-translate` (Next.js plugin + `getStaticProps`). For teams that really want a `t()` API with a mature ecosystem, `react-i18next` and `use-intl` remain “reasonable” choices, but expect to invest a lot of time optimizing to avoid leakage.
 
 **(Intlayer)** (`react-intlayer@8.7.5-canary.0`):
 
