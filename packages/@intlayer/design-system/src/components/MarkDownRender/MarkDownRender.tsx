@@ -191,6 +191,13 @@ const ColumnRenderer = ({
   <div className={cn('flex-1', className)} {...props} />
 );
 
+const Iframe = (props: ComponentProps<'iframe'>) => (
+  <iframe
+    {...props}
+    className="overflow-hidden rounded-xl border border-neutral [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-2xl"
+  />
+);
+
 // Static configuration object for static renderers
 const staticMarkdownComponents = {
   h1: H1Renderer,
@@ -214,6 +221,7 @@ const staticMarkdownComponents = {
   Tab: Tab.Item,
   Columns: ColumnsRenderer,
   Column: ColumnRenderer,
+  iframe: Iframe,
 };
 
 // Factory function to create components with dynamic props
