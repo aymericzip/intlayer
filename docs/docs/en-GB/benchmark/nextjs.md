@@ -184,6 +184,7 @@ The idea behind `Wuchale` is interesting but not yet viable. I hit reactivity is
 
 `Paraglide` offers an innovative, well-thought-out approach. Even so, in this benchmark the advertised tree-shaking did not work for my Next.js or TanStack Start setups. The workflow and DX are more complex than other options.
 Personally I dislike having to regenerate JS files before every push, which creates constant merge conflict risk via PRs. The tool also seems more focused on Vite than on Next.js.
+Even if in theory the tree-shaking strategy works, it does includes all locales in the bundle anyway. Paraglide offers not way to lazy-load the content. That says your page size will grow up correlated to the number of locales you have.
 Finally, in comparison of other solutions, Paraglide does not use store (e.g. React context) to retrieve the current locale to render the content. For each node parsed, it will request the locale from the localeStorage / cookie etc. It leads to execution of unnecessary logic that impact the component reactivity.
 
 ### 3 — Acceptable solutions
