@@ -2,7 +2,7 @@
 createdAt: 2026-04-20
 updatedAt: 2026-04-21
 title: Best i18n solution for Next.js in 2026 - Benchmark Report
-description: Compare Next.js internationalization (i18n) libraries like next-intl, next-i18next, and Intlayer. Detailed performance report on bundle size, leakage, and reactivity.
+description: Compare Next.js internationalisation (i18n) libraries like next-intl, next-i18next, and Intlayer. Detailed performance report on bundle size, leakage, and reactivity.
 keywords:
   - benchmark
   - i18n
@@ -49,17 +49,17 @@ See complete benchmark repository [here](https://github.com/intlayer-org/benchma
 
 ## Introduction
 
-Internationalization libraries have a heavy impact on your application. The main risk is loading content for every page and every language when the user only visits one page.
+Internationalisation libraries have a heavy impact on your application. The main risk is loading content for every page and every language when the user only visits one page.
 
 As your app grows, bundle size can grow exponentially, which can noticeably hurt performance.
 
-As an example, for the worst offenders, once internationalized your page can end up nearly 4× larger.
+As an example, for the worst offenders, once internationalised your page can end up nearly 4× larger.
 
 Another impact of i18n libraries is slower development. Turning components into multilingual content across languages is time-consuming.
 
 Because the problem is hard, many solutions exist—some focused on DX, others on performance or scalability, and so on.
 
-Intlayer tries to optimize across these dimensions.
+Intlayer tries to optimise across these dimensions.
 
 ## Test your app
 
@@ -92,7 +92,7 @@ To mitigate this, some libraries ask you to declare per page which namespaces to
 
 By contrast, `Paraglide` adds an extra step before build to turn JSON into flat symbols like `const en_my_var = () => 'my value'`. In theory that enables tree-shaking unused content on the page. As we will see, that method still has trade-offs.
 
-Finally, `Intlayer` applies a build-time optimization so `useIntlayer('my-key')` is replaced with the corresponding content directly.
+Finally, `Intlayer` applies a build-time optimisation so `useIntlayer('my-key')` is replaced with the corresponding content directly.
 
 ## Methodology
 
@@ -126,14 +126,14 @@ I compared **four loading strategies**:
 
 - **Static**: Simple; no network latency after the initial load. Downside: large bundle size.
 - **Dynamic**: Reduces initial weight (lazy-loading). Ideal when you have many locales.
-- **Scoped static**: Keeps code organized (logical separation) without complex extra network requests.
-- **Scoped dynamic**: Best approach for _code splitting_ and performance. Minimizes memory by loading only what the current view and active locale need.
+- **Scoped static**: Keeps code organised (logical separation) without complex extra network requests.
+- **Scoped dynamic**: Best approach for _code splitting_ and performance. Minimises memory by loading only what the current view and active locale need.
 
 ### What I measured:
 
 I ran the same multilingual app in a real browser for every stack, then wrote down what actually showed up on the wire and how long things took. Sizes are reported **after normal web compression**, because that is closer to what people download than raw source counts.
 
-- **Internationalization library size**: After bundling, tree-shaking and minification, the size of the i18n library is the size of the providers (e.g. `NextIntlClientProvider`) + hooks (e.g. `useTranslations`) code in an empty component. It does not includes the loading of translation files. It answers how expensive the library is before your content enters the picture.
+- **Internationalisation library size**: After bundling, tree-shaking and minification, the size of the i18n library is the size of the providers (e.g. `NextIntlClientProvider`) + hooks (e.g. `useTranslations`) code in an empty component. It does not includes the loading of translation files. It answers how expensive the library is before your content enters the picture.
 
 - **JavaScript per page**: For each benchmark route, how much script the browser pulls in for that visit, averaged across the pages in the suite (and across locales where the report rolls them up). Heavy pages are slow pages.
 
@@ -141,7 +141,7 @@ I ran the same multilingual app in a real browser for every stack, then wrote do
 
 - **Leakage from other routes**: The same idea for **other screens** in the app: whether their copy is riding along when you only opened one page. (e.g. `/en/about` page content in `/en/contact` page bundle). A high score hints at weak splitting or over-broad bundles.
 
-- **Average component bundle size**: Common UI pieces are measured **one at a time** instead of hiding inside one giant app number. It shows whether internationalization quietly inflates everyday components. For instance, if your component rerender, it will load all that data from memory. Attaching a giant JSON to any component, is like connecting a big store of unused data that will slow down your components performance.
+- **Average component bundle size**: Common UI pieces are measured **one at a time** instead of hiding inside one giant app number. It shows whether internationalisation quietly inflates everyday components. For instance, if your component rerender, it will load all that data from memory. Attaching a giant JSON to any component, is like connecting a big store of unused data that will slow down your components performance.
 
 - **Language switch responsiveness**: I flip the language using the app’s own control and time how long it takes until the page has clearly switched—what a visitor would notice, not a lab micro-step.
 
@@ -194,7 +194,7 @@ Finally, in comparison of other solutions, Paraglide does not use store (e.g. Re
 
 **(Next Intl)** (`next-intl@4.9.1`):
 
-`next-intl` is the trendiest option and the one AI agents push most—but in my view wrongly so. Getting started is easy. In practice, optimizing to limit leakage is complex. Combining dynamic loading + namespacing + TypeScript types slows development a lot. The package is also fairly heavy (~13kb for `NextIntlClientProvider` + `useTranslations`, which is more than 2× `next-intlayer`). **next-intl** used to block static rendering of Next.js pages. It provides a helper named `setRequestLocale()`. That seems partially addressed for centralized files like `en.json` / `fr.json`, but static rendering still breaks when content is split into namespaces such as `en/shared.json` / `fr/shared.json` / `es/shared.json`.
+`next-intl` is the trendiest option and the one AI agents push most—but in my view wrongly so. Getting started is easy. In practice, optimising to limit leakage is complex. Combining dynamic loading + namespacing + TypeScript types slows development a lot. The package is also fairly heavy (~13kb for `NextIntlClientProvider` + `useTranslations`, which is more than 2× `next-intlayer`). **next-intl** used to block static rendering of Next.js pages. It provides a helper named `setRequestLocale()`. That seems partially addressed for centralised files like `en.json` / `fr.json`, but static rendering still breaks when content is split into namespaces such as `en/shared.json` / `fr/shared.json` / `es/shared.json`.
 
 **(Next I18next)** (`next-i18next@16.0.5`):
 

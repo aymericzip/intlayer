@@ -2,7 +2,7 @@
 createdAt: 2026-04-20
 updatedAt: 2026-04-21
 title: Best i18n solution for TanStack Start in 2026 - Benchmark Report
-description: Compare TanStack Start internationalization libraries like react-i18next, use-intl, and Intlayer. Detailed performance report on bundle size, leakage, and reactivity.
+description: Compare TanStack Start internationalisation libraries like react-i18next, use-intl, and Intlayer. Detailed performance report on bundle size, leakage, and reactivity.
 keywords:
   - benchmark
   - i18n
@@ -49,13 +49,13 @@ See complete benchmark repository [here](https://github.com/intlayer-org/benchma
 
 ## Introduction
 
-Internationalization solutions are among the heaviest dependencies in a React app. On TanStack Start, the main risk is shipping unnecessary content: translations for other pages and other locales in a single route’s bundle.
+Internationalisation solutions are among the heaviest dependencies in a React app. On TanStack Start, the main risk is shipping unnecessary content: translations for other pages and other locales in a single route’s bundle.
 
 As your app grows, that problem can quickly blow up the JavaScript sent to the client and slow down navigation.
 
-In practice, for the least optimized implementations, an internationalized page can end up several times heavier than the version without i18n.
+In practice, for the least optimised implementations, an internationalised page can end up several times heavier than the version without i18n.
 
-The other impact is on developer experience: how you declare content, types, namespace organization, dynamic loading, and reactivity when the locale changes.
+The other impact is on developer experience: how you declare content, types, namespace organisation, dynamic loading, and reactivity when the locale changes.
 
 ## Test your app
 
@@ -111,30 +111,8 @@ We compared **four loading strategies**:
 
 - **Static**: Simple; no network latency after the initial load. Downside: large bundle size.
 - **Dynamic**: Reduces initial weight (lazy-loading). Ideal when you have many locales.
-- **Scoped static**: Keeps code organized (logical separation) without complex extra network requests.
-- **Scoped dynamic**: Best approach for _code splitting_ and performance. Minimizes memory by loading only what the current view and active locale need.
-
-### What I measured:
-
-I ran the same multilingual app in a real browser for every stack, then wrote down what actually showed up on the wire and how long things took. Sizes are reported **after normal web compression**, because that is closer to what people download than raw source counts.
-
-- **Internationalization library size**: After bundling, tree-shaking and minification, the size of the i18n library is the size of the providers (e.g. `NextIntlClientProvider`) + hooks (e.g. `useTranslations`) code in an empty component. It does not includes the loading of translation files. It answers how expensive the library is before your content enters the picture.
-
-- **JavaScript per page**: For each benchmark route, how much script the browser pulls in for that visit, averaged across the pages in the suite (and across locales where the report rolls them up). Heavy pages are slow pages.
-
-- **Leakage from other locales**: It's the content of the same page but in another language that would be loaded by mistake in the audited page. This content is unnecessary and should be avoided. (e.g. `/fr/about` page content in `/en/about` page bundle)
-
-- **Leakage from other routes**: The same idea for **other screens** in the app: whether their copy is riding along when you only opened one page. (e.g. `/en/about` page content in `/en/contact` page bundle). A high score hints at weak splitting or over-broad bundles.
-
-- **Average component bundle size**: Common UI pieces are measured **one at a time** instead of hiding inside one giant app number. It shows whether internationalization quietly inflates everyday components. For instance, if your component rerender, it will load all that data from memory. Attaching a giant JSON to any component, is like connecting a big store of unused data that will slow down your components performance.
-
-- **Language switch responsiveness**: I flip the language using the app’s own control and time how long it takes until the page has clearly switched—what a visitor would notice, not a lab micro-step.
-
-- **Rendering work after a language change**: A narrower follow-up: how much effort the interface took to repaint for the new language once the switch is in flight. Useful when the “felt” time and the framework cost diverge.
-
-- **Initial page load time**: From navigation to the browser considering the page fully loaded for the scenarios I tested. Good for comparing cold starts.
-
-- **Hydration time**: When the app exposes it, how long the client spends turning server HTML into something you can actually click. A dash in the tables means that implementation did not provide a reliable hydration figure in this benchmark.
+- **Scoped static**: Keeps code organised (logical separation) without complex extra network requests.
+- **Scoped dynamic**: Best approach for _code splitting_ and performance. Minimises memory by loading only what the current view and active locale need.
 
 ## Results in detail
 
@@ -170,9 +148,7 @@ The idea behind `Wuchale` is interesting but not yet a viable solution. I hit re
 
 **(Paraglide)** (`@inlang/paraglide-js@2.15.1`):
 
-`Paraglide` offers an innovative, well-thought-out approach. Even so, in this benchmark the tree-shaking their company advertises did not work for my Next.js implementation or for TanStack Start. The workflow and DX are also more complex than other options.
-Personally I dislike having to regenerate JS files before every push, which creates constant merge conflict risk via PRs. The tool also seems more focused on Vite than on Next.js.
-Finally, in comparison of other solutions, Paraglide does not use store (e.g. React context) to retrieve the current locale to render the content. For each node parsed, it will request the locale from the localeStorage / cookie etc. It leads to execution of unnecessary logic that impact the component reactivity.
+`Paraglide` offers an innovative, well-thought-out approach. Even so, in this benchmark the tree-shaking their company advertises did not work for my Next.js implementation or for TanStack Start. The workflow and DX are also more complex than other options. Personally I am not a fan of having to regenerate JS files before every push, which creates constant merge conflict risk for developers via PRs.
 
 **(Tolgee)** (`tolgee@7.0.0`):
 
@@ -182,7 +158,7 @@ On TanStack Start I also had reactivity problems: on locale change I had to forc
 
 **(use-intl)** (`use-intl@4.9.1`):
 
-`use-intl` is the most fashionable “intl” piece in the React ecosystem (same family as `next-intl`) and is often pushed by AI agents—but in my view wrongly so in a performance-first setting. Getting started is fairly simple. In practice, the process to optimize and limit leakage is quite complex. Likewise, combining dynamic loading + namespacing + TypeScript types slows development a lot.
+`use-intl` is the most fashionable “intl” piece in the React ecosystem (same family as `next-intl`) and is often pushed by AI agents—but in my view wrongly so in a performance-first setting. Getting started is fairly simple. In practice, the process to optimise and limit leakage is quite complex. Likewise, combining dynamic loading + namespacing + TypeScript types slows development a lot.
 
 On TanStack Start you avoid Next.js-specific traps (`setRequestLocale`, static rendering), but the core issue is the same: without strict discipline, the bundle quickly carries too many messages and per-route namespace maintenance becomes painful.
 
@@ -190,7 +166,7 @@ On TanStack Start you avoid Next.js-specific traps (`setRequestLocale`, static r
 
 `react-i18next` is probably the most popular option because it was among the first to serve JavaScript app i18n needs. It also has a wide set of community plugins for specific problems.
 
-Still, it shares the same major downsides as stacks built on `t('a.b.c')`: optimizations are possible but very time-consuming, and large projects risk bad practices (namespaces + dynamic loading + types).
+Still, it shares the same major downsides as stacks built on `t('a.b.c')`: optimisations are possible but very time-consuming, and large projects risk bad practices (namespaces + dynamic loading + types).
 
 Message formats also diverge: `use-intl` uses ICU MessageFormat, while `i18next` uses its own format—which complicates tooling or migrations if you mix them.
 
@@ -204,7 +180,7 @@ Message formats also diverge: `use-intl` uses ICU MessageFormat, while `i18next`
 
 ### 4 — Recommendations
 
-This TanStack Start benchmark has no direct equivalent to `next-translate` (Next.js plugin + `getStaticProps`). For teams that really want a `t()` API with a mature ecosystem, `use-intl` remain “reasonable” choices—but expect to invest a lot of time optimizing to avoid leakage.
+This TanStack Start benchmark has no direct equivalent to `next-translate` (Next.js plugin + `getStaticProps`). For teams that really want a `t()` API with a mature ecosystem, `react-i18next` and `use-intl` remain “reasonable” choices—but expect to invest a lot of time optimising to avoid leakage.
 
 **(Intlayer)** (`react-intlayer@8.7.5-canary.0`):
 
