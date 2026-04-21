@@ -115,6 +115,7 @@ const secureHeaders = {
         "'self'",
         '*.youtube.com',
         'github.dev',
+        'htmlpreview.github.io',
         'github.com',
         '*.github.com',
         'stackblitz.com',
