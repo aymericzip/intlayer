@@ -524,11 +524,11 @@ export const I18nBenchmark = ({
         </div>
       </div>
 
-      {/* Library selector — 2-row scrollable grid */}
+      {/* Library selector — flex, wraps by breakpoint */}
       <div
         className={cn(
-          'grid grid-cols-2 gap-2 md:grid-cols-4',
-          vertical && 'grid-cols-2'
+          'flex flex-wrap gap-2 *:grow-0 *:basis-full *:sm:basis-1/2',
+          !vertical && 'md:*:basis-1/4'
         )}
       >
         {allLibs.map((lib) => (
