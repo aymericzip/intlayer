@@ -88,7 +88,7 @@ What happens at build time is that Next.js emits one JS bundle per locale (e.g. 
 
 If you use syntax like `const t = useTranslation()` + `t('my-object.my-sub-object.my-key')`, the entire JSON usually has to be in the bundle so the library can parse it and resolve the key. Much of that content then ships even when it is unused on the page.
 
-To mitigate this, some libraries ask you to declare per page which namespaces to load—e.g. `next-i18next`, `next-intl`, `lingui`, `next-translate`, `next-international`.
+To mitigate this, some libraries ask you to declare per page which namespaces to load, e.g. `next-i18next`, `next-intl`, `lingui`, `next-translate`, `next-international`.
 
 By contrast, `Paraglide` adds an extra step before build to turn JSON into flat symbols like `const en_my_var = () => 'my value'`. In theory that enables tree-shaking unused content on the page. As we will see, that method still has trade-offs.
 
