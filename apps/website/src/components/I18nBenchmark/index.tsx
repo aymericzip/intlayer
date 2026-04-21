@@ -5,6 +5,7 @@ import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
 import { H2, H3, H4 } from '@intlayer/design-system/headers';
 import { CodeBlock } from '@intlayer/design-system/ide';
+import { Loader } from '@intlayer/design-system/loader';
 import {
   External_Github_i18n_benchmark,
   Website_Benchmark_Path,
@@ -389,9 +390,7 @@ export const I18nBenchmark = ({
                   className="h-full w-full"
                 >
                   {isLoading ? (
-                    <div className="flex h-full items-center justify-center">
-                      <div className="h-8 w-8 animate-spin rounded-full border-4 border-neutral border-t-transparent" />
-                    </div>
+                    <Loader className="h-full min-h-40" />
                   ) : isError ? (
                     <div className="flex h-full items-center justify-center text-red-500 text-sm">
                       {errorLoadingData}
