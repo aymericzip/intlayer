@@ -70,7 +70,9 @@ const MarkdownPreviewPage = async ({
 
   return (
     <IntlayerServerProvider locale={locale}>
-      <DocumentationRender>{markdown}</DocumentationRender>
+      <div className="mx-auto max-w-2xl px-10">
+        <DocumentationRender>{markdown}</DocumentationRender>
+      </div>
     </IntlayerServerProvider>
   );
 };
