@@ -194,7 +194,7 @@ Intlayer 尝试在这些维度上进行优化。
 
 **(Next Intl)** (`next-intl@4.9.1`):
 
-`next-intl` 是目前最热门的选项，也是 AI Agent 推荐最多的——但在我看来这是错误的。入门很容易，但在实践中，减少泄漏的优化非常复杂。结合动态加载 + 命名空间 + TypeScript 类型会极大降低开发速度。包体积也相当大（`NextIntlClientProvider` + `useTranslations` 约为 13kb，是 `next-intlayer` 的两倍多）。**next-intl** 曾会阻塞 Next.js 页面的静态渲染。它提供了一个名为 `setRequestLocale()` 的辅助工具。对于 `en.json` / `fr.json` 这样的集中式文件，这似乎得到了部分解决，但当内容拆分为 `en/shared.json` / `fr/shared.json` / `es/shared.json` 等命名空间时，静态渲染仍然会失效。
+`next-intl` 是目前最热门的选项，也是 AI Agent 推荐最多的，但在我看来这是错误的。入门很容易，但在实践中，减少泄漏的优化非常复杂。结合动态加载 + 命名空间 + TypeScript 类型会极大降低开发速度。包体积也相当大（`NextIntlClientProvider` + `useTranslations` 约为 13kb，是 `next-intlayer` 的两倍多）。**next-intl** 曾会阻塞 Next.js 页面的静态渲染。它提供了一个名为 `setRequestLocale()` 的辅助工具。对于 `en.json` / `fr.json` 这样的集中式文件，这似乎得到了部分解决，但当内容拆分为 `en/shared.json` / `fr/shared.json` / `es/shared.json` 等命名空间时，静态渲染仍然会失效。
 
 **(Next I18next)** (`next-i18next@16.0.5`):
 

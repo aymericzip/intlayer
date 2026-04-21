@@ -194,7 +194,7 @@ Cuối cùng, so với các giải pháp khác, Paraglide không sử dụng sto
 
 **(Next Intl)** (`next-intl@4.9.1`):
 
-`next-intl` là tùy chọn hợp thời nhất và là tùy chọn mà các trợ lý AI thúc đẩy nhiều nhất — nhưng theo quan điểm của tôi thì điều đó là sai lầm. Bắt đầu rất dễ dàng. Trong thực tế, việc tối ưu hóa để hạn chế rò rỉ rất phức tạp. Việc kết hợp tải động + tạo namespace + các kiểu dữ liệu TypeScript làm chậm quá trình phát triển rất nhiều. Gói bundle cũng khá nặng (~13kb cho `NextIntlClientProvider` + `useTranslations`, tức là gấp hơn 2 lần `next-intlayer`). **next-intl** từng ngăn cản việc render tĩnh các trang Next.js. Nó cung cấp một trình hỗ trợ mang tên `setRequestLocale()`. Điều đó dường như đã được giải quyết một phần cho các tệp tập trung như `en.json` / `fr.json`, nhưng việc render tĩnh vẫn thất bại khi nội dung được chia thành các namespace như `en/shared.json` / `fr/shared.json` / `es/shared.json`.
+`next-intl` là tùy chọn hợp thời nhất và là tùy chọn mà các trợ lý AI thúc đẩy nhiều nhất, nhưng theo quan điểm của tôi thì điều đó là sai lầm. Bắt đầu rất dễ dàng. Trong thực tế, việc tối ưu hóa để hạn chế rò rỉ rất phức tạp. Việc kết hợp tải động + tạo namespace + các kiểu dữ liệu TypeScript làm chậm quá trình phát triển rất nhiều. Gói bundle cũng khá nặng (~13kb cho `NextIntlClientProvider` + `useTranslations`, tức là gấp hơn 2 lần `next-intlayer`). **next-intl** từng ngăn cản việc render tĩnh các trang Next.js. Nó cung cấp một trình hỗ trợ mang tên `setRequestLocale()`. Điều đó dường như đã được giải quyết một phần cho các tệp tập trung như `en.json` / `fr.json`, nhưng việc render tĩnh vẫn thất bại khi nội dung được chia thành các namespace như `en/shared.json` / `fr/shared.json` / `es/shared.json`.
 
 **(Next I18next)** (`next-i18next@16.0.5`):
 
@@ -204,7 +204,7 @@ Các định dạng thông báo cũng khác nhau: `next-intl` sử dụng ICU Me
 
 **(Next International)** (`next-international@1.3.1`):
 
-`next-international` cũng giải quyết các vấn đề trên nhưng không khác nhiều so với `next-intl` hay `next-i18next`. Nó bao gồm `scopedT()` cho các bản dịch cụ thể theo namespace — nhưng việc sử dụng nó về cơ bản không ảnh hưởng đến kích thước gói bundle.
+`next-international` cũng giải quyết các vấn đề trên nhưng không khác nhiều so với `next-intl` hay `next-i18next`. Nó bao gồm `scopedT()` cho các bản dịch cụ thể theo namespace, nhưng việc sử dụng nó về cơ bản không ảnh hưởng đến kích thước gói bundle.
 
 **(Lingui)** (`@lingui/core@5.3.0`):
 

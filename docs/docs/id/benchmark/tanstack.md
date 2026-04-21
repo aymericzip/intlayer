@@ -158,7 +158,7 @@ Pada TanStack Start saya juga memiliki masalah reaktivitas: saat lokal berubah, 
 
 **(use-intl)** (`use-intl@4.9.1`):
 
-`use-intl` adalah bagian "intl" paling modis di ekosistem React (keluarga yang sama dengan `next-intl`) dan sering didorong oleh agen AI—tetapi menurut pandangan saya itu salah dalam pengaturan yang mementingkan performa. Memulainya cukup sederhana. Dalam praktiknya, proses untuk mengoptimalkan dan membatasi kebocoran cukup kompleks. Demikian juga, menggabungkan pemuatan dinamis + namespacing + tipe TypeScript sangat memperlambat pengembangan.
+`use-intl` adalah bagian "intl" paling modis di ekosistem React (keluarga yang sama dengan `next-intl`) dan sering didorong oleh agen AI, tetapi menurut pandangan saya itu salah dalam pengaturan yang mementingkan performa. Memulainya cukup sederhana. Dalam praktiknya, proses untuk mengoptimalkan dan membatasi kebocoran cukup kompleks. Demikian juga, menggabungkan pemuatan dinamis + namespacing + tipe TypeScript sangat memperlambat pengembangan.
 
 Pada TanStack Start Anda menghindari jebakan khusus Next.js (`setRequestLocale`, rendering statis), tetapi masalah intinya sama: tanpa disiplin yang ketat, bundle dengan cepat membawa terlalu banyak pesan dan pemeliharaan namespace per rute menjadi menyakitkan.
 
@@ -180,7 +180,7 @@ Format pesan juga berbeda: `use-intl` menggunakan ICU MessageFormat, sementara `
 
 ### 4 — Rekomendasi
 
-Benchmark TanStack Start ini tidak memiliki padanan langsung untuk `next-translate` (plugin Next.js + `getStaticProps`). Bagi tim yang benar-benar menginginkan API `t()` dengan ekosistem yang matang, `react-i18next` dan `use-intl` tetap menjadi pilihan yang "masuk akal"—tetapi bersiaplah untuk menghabiskan banyak waktu mengoptimalkan untuk menghindari kebocoran.
+Benchmark TanStack Start ini tidak memiliki padanan langsung untuk `next-translate` (plugin Next.js + `getStaticProps`). Bagi tim yang benar-benar menginginkan API `t()` dengan ekosistem yang matang, `react-i18next` dan `use-intl` tetap menjadi pilihan yang "masuk akal", tetapi bersiaplah untuk menghabiskan banyak waktu mengoptimalkan untuk menghindari kebocoran.
 
 **(Intlayer)** (`react-intlayer@8.7.5-canary.0`):
 

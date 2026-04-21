@@ -180,7 +180,7 @@ Mesaj formatları da farklıdır: `use-intl` ICU MessageFormat kullanırken, `i1
 
 ### 4 — Öneriler
 
-Bu TanStack Start benchmark'ının `next-translate` (Next.js eklentisi + `getStaticProps`) için doğrudan bir karşılığı yoktur. Gerçekten olgun bir ekosisteme sahip bir `t()` API'si isteyen ekipler için `react-i18next` ve `use-intl` "makul" seçenekler olmaya devam ediyor — ancak sızıntıyı önlemek için optimizasyon yapmaya çok zaman ayırmaya hazırlıklı olun.
+Bu TanStack Start benchmark'ının `next-translate` (Next.js eklentisi + `getStaticProps`) için doğrudan bir karşılığı yoktur. Gerçekten olgun bir ekosisteme sahip bir `t()` API'si isteyen ekipler için `react-i18next` ve `use-intl` "makul" seçenekler olmaya devam ediyor, ancak sızıntıyı önlemek için optimizasyon yapmaya çok zaman ayırmaya hazırlıklı olun.
 
 **(Intlayer)** (`react-intlayer@8.7.5-canary.0`):
 

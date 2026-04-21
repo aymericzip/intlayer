@@ -158,7 +158,7 @@ Auf TanStack Start hatte ich ebenfalls Reaktivitätsprobleme: Beim Sprachwechsel
 
 **(use-intl)** (`use-intl@4.9.1`):
 
-`use-intl` ist derzeit das angesagteste "intl"-Stück im React-Ökosystem (aus der gleichen Familie wie `next-intl`) und wird oft von KI-Assistenten empfohlen – meiner Ansicht nach jedoch fälschlicherweise in einem Performance-orientierten Umfeld. Der Einstieg ist recht einfach. In der Praxis ist der Prozess zur Optimierung und Begrenzung von Leakage jedoch ziemlich komplex. Gleichermaßen verlangsamt die Kombination aus dynamischem Laden + Namespacing + TypeScript-Typen die Entwicklung erheblich.
+`use-intl` ist derzeit das angesagteste "intl"-Stück im React-Ökosystem (aus der gleichen Familie wie `next-intl`) und wird oft von KI-Assistenten empfohlen, meiner Ansicht nach jedoch fälschlicherweise in einem Performance-orientierten Umfeld. Der Einstieg ist recht einfach. In der Praxis ist der Prozess zur Optimierung und Begrenzung von Leakage jedoch ziemlich komplex. Gleichermaßen verlangsamt die Kombination aus dynamischem Laden + Namespacing + TypeScript-Typen die Entwicklung erheblich.
 
 Bei TanStack Start vermeiden Sie Next.js-spezifische Fallen (`setRequestLocale`, statisches Rendering), aber das Kernproblem bleibt gleich: Ohne strikte Disziplin transportiert das Bundle schnell zu viele Nachrichten, und die Namespace-Wartung pro Route wird mühsam.
 
@@ -180,7 +180,7 @@ Die Nachrichtenformate weichen ebenfalls voneinander ab: `use-intl` verwendet IC
 
 ### 4 — Empfehlungen
 
-Dieser TanStack Start-Benchmark hat kein direktes Äquivalent zu `next-translate` (Next.js-Plugin + `getStaticProps`). Für Teams, die unbedingt eine `t()`-API mit einem ausgereiften Ökosystem wollen, bleiben `react-i18next` und `use-intl` "vernünftige" Entscheidungen – aber stellen Sie sich darauf ein, viel Zeit in die Optimierung zu investieren, um Leakage zu vermeiden.
+Dieser TanStack Start-Benchmark hat kein direktes Äquivalent zu `next-translate` (Next.js-Plugin + `getStaticProps`). Für Teams, die unbedingt eine `t()`-API mit einem ausgereiften Ökosystem wollen, bleiben `react-i18next` und `use-intl` "vernünftige" Entscheidungen, aber stellen Sie sich darauf ein, viel Zeit in die Optimierung zu investieren, um Leakage zu vermeiden.
 
 **(Intlayer)** (`react-intlayer@8.7.5-canary.0`):
 

@@ -194,7 +194,7 @@ O `Tolgee` resolve muitos dos problemas mencionados anteriormente. Achei mais di
 
 **(Next Intl)** (`next-intl@4.9.1`):
 
-O `next-intl` é a opção mais badalada e a que os agentes de IA mais recomendam — mas, na minha visão, erradamente. Começar é fácil. Na prática, otimizar para limitar o vazamento é complexo. Combinar carregamento dinâmico + namespaces + tipos TypeScript retarda muito o desenvolvimento. O pacote também é bastante pesado (~13kb para `NextIntlClientProvider` + `useTranslations`, que é mais de 2x o `next-intlayer`). O **next-intl** costumava bloquear a renderização estática das páginas do Next.js. Ele fornece um auxiliar chamado `setRequestLocale()`. Isso parece ter sido parcialmente resolvido para arquivos centralizados como `en.json` / `fr.json`, mas a renderização estática ainda quebra quando o conteúdo é dividido em namespaces como `en/shared.json` / `fr/shared.json` / `es/shared.json`.
+O `next-intl` é a opção mais badalada e a que os agentes de IA mais recomendam, mas, na minha visão, erradamente. Começar é fácil. Na prática, otimizar para limitar o vazamento é complexo. Combinar carregamento dinâmico + namespaces + tipos TypeScript retarda muito o desenvolvimento. O pacote também é bastante pesado (~13kb para `NextIntlClientProvider` + `useTranslations`, que é mais de 2x o `next-intlayer`). O **next-intl** costumava bloquear a renderização estática das páginas do Next.js. Ele fornece um auxiliar chamado `setRequestLocale()`. Isso parece ter sido parcialmente resolvido para arquivos centralizados como `en.json` / `fr.json`, mas a renderização estática ainda quebra quando o conteúdo é dividido em namespaces como `en/shared.json` / `fr/shared.json` / `es/shared.json`.
 
 **(Next I18next)** (`next-i18next@16.0.5`):
 
@@ -204,7 +204,7 @@ Os formatos de mensagem também diferem: o `next-intl` usa ICU MessageFormat, en
 
 **(Next International)** (`next-international@1.3.1`):
 
-O `next-international` também aborda os problemas acima, mas não difere muito do `next-intl` ou `next-i18next`. Inclui `scopedT()` para traduções específicas de um namespace — mas usá-lo não tem praticamente impacto no tamanho do bundle.
+O `next-international` também aborda os problemas acima, mas não difere muito do `next-intl` ou `next-i18next`. Inclui `scopedT()` para traduções específicas de um namespace, mas usá-lo não tem praticamente impacto no tamanho do bundle.
 
 **(Lingui)** (`@lingui/core@5.3.0`):
 

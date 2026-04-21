@@ -182,7 +182,7 @@ On TanStack Start I also had reactivity problems: on locale change I had to forc
 
 **(use-intl)** (`use-intl@4.9.1`):
 
-`use-intl` is the most fashionable “intl” piece in the React ecosystem (same family as `next-intl`) and is often pushed by AI agents—but in my view wrongly so in a performance-first setting. Getting started is fairly simple. In practice, the process to optimize and limit leakage is quite complex. Likewise, combining dynamic loading + namespacing + TypeScript types slows development a lot.
+`use-intl` is the most fashionable “intl” piece in the React ecosystem (same family as `next-intl`) and is often pushed by AI agents, but in my view wrongly so in a performance-first setting. Getting started is fairly simple. In practice, the process to optimize and limit leakage is quite complex. Likewise, combining dynamic loading + namespacing + TypeScript types slows development a lot.
 
 On TanStack Start you avoid Next.js-specific traps (`setRequestLocale`, static rendering), but the core issue is the same: without strict discipline, the bundle quickly carries too many messages and per-route namespace maintenance becomes painful.
 
@@ -204,7 +204,7 @@ Message formats also diverge: `use-intl` uses ICU MessageFormat, while `i18next`
 
 ### 4 - Recommendations
 
-This TanStack Start benchmark has no direct equivalent to `next-translate` (Next.js plugin + `getStaticProps`). For teams that really want a `t()` API with a mature ecosystem, `use-intl` remain “reasonable” choices—but expect to invest a lot of time optimizing to avoid leakage.
+This TanStack Start benchmark has no direct equivalent to `next-translate` (Next.js plugin + `getStaticProps`). For teams that really want a `t()` API with a mature ecosystem, `use-intl` remain “reasonable” choices, but expect to invest a lot of time optimizing to avoid leakage.
 
 **(Intlayer)** (`react-intlayer@8.7.5-canary.0`):
 

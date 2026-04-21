@@ -158,7 +158,7 @@ history:
 
 **(use-intl)** (`use-intl@4.9.1`):
 
-`use-intl` 是 React 生态中最时髦的“intl”成员（与 `next-intl` 同系），常被 AI Agent 推荐——但在我看来，在性能优先的环境下这是错误的。入门相对简单，但在实践中，优化和限制泄漏的过程相当复杂。同样，结合动态加载 + 命名空间 + TypeScript 类型会极大降低开发速度。
+`use-intl` 是 React 生态中最时髦的“intl”成员（与 `next-intl` 同系），常被 AI Agent 推荐，但在我看来，在性能优先的环境下这是错误的。入门相对简单，但在实践中，优化和限制泄漏的过程相当复杂。同样，结合动态加载 + 命名空间 + TypeScript 类型会极大降低开发速度。
 
 在 TanStack Start 上你可以避开 Next.js 特有的陷阱（`setRequestLocale`、静态渲染），但核心问题是一样的：如果没有严格的规范，打包包很快会承载过多消息，而且维护每条路由的命名空间会变得非常痛苦。
 
@@ -180,7 +180,7 @@ history:
 
 ### 4 — 推荐方案
 
-在本次 TanStack Start 基准测试中，没有与 `next-translate`（Next.js 插件 + `getStaticProps`）直接对应的方案。对于那些确实想要 `t()` API 且拥有成熟生态的团队，`react-i18next` 和 `use-intl` 仍是“合理”的选择——但要做好投入大量时间进行优化以避免泄漏的准备。
+在本次 TanStack Start 基准测试中，没有与 `next-translate`（Next.js 插件 + `getStaticProps`）直接对应的方案。对于那些确实想要 `t()` API 且拥有成熟生态的团队，`react-i18next` 和 `use-intl` 仍是“合理”的选择，但要做好投入大量时间进行优化以避免泄漏的准备。
 
 **(Intlayer)** (`react-intlayer@8.7.5-canary.0`):
 

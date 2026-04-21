@@ -158,7 +158,7 @@ No TanStack Start também tive problemas de reatividade: na mudança de localida
 
 **(use-intl)** (`use-intl@4.9.1`):
 
-O `use-intl` é a peça "intl" mais badalada no ecossistema React (mesma família do `next-intl`) e é frequentemente recomendada por agentes de IA — mas, na minha visão, erroneamente em um ambiente focado em desempenho. Começar é bastante simples. Na prática, o processo para otimizar e limitar o vazamento é bastante complexo. Da mesma forma, combinar carregamento dinâmico + namespaces + tipos TypeScript retarda muito o desenvolvimento.
+O `use-intl` é a peça "intl" mais badalada no ecossistema React (mesma família do `next-intl`) e é frequentemente recomendada por agentes de IA, mas, na minha visão, erroneamente em um ambiente focado em desempenho. Começar é bastante simples. Na prática, o processo para otimizar e limitar o vazamento é bastante complexo. Da mesma forma, combinar carregamento dinâmico + namespaces + tipos TypeScript retarda muito o desenvolvimento.
 
 No TanStack Start, você evita as armadilhas específicas do Next.js (`setRequestLocale`, renderização estática), mas o problema principal é o mesmo: sem uma disciplina rigorosa, o bundle rapidamente carrega muitas mensagens e a manutenção de namespaces por rota torna-se penosa.
 
@@ -180,7 +180,7 @@ O `react-intl` é uma implementação de alto desempenho da equipe do Format.js.
 
 ### 4 — Recomendações
 
-Este benchmark do TanStack Start não possui um equivalente direto do `next-translate` (plugin Next.js + `getStaticProps`). Para as equipes que realmente desejam uma API `t()` com um ecossistema maduro, o `react-i18next` e o `use-intl` continuam sendo escolhas "razoáveis" — mas espere investir muito tempo otimizando para evitar vazamentos.
+Este benchmark do TanStack Start não possui um equivalente direto do `next-translate` (plugin Next.js + `getStaticProps`). Para as equipes que realmente desejam uma API `t()` com um ecossistema maduro, o `react-i18next` e o `use-intl` continuam sendo escolhas "razoáveis", mas espere investir muito tempo otimizando para evitar vazamentos.
 
 **(Intlayer)** (`react-intlayer@8.7.5-canary.0`):
 

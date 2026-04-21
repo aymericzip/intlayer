@@ -204,7 +204,7 @@ Mesaj formatları da farklıdır: `next-intl` ICU MessageFormat kullanırken, `i
 
 **(Next International)** (`next-international@1.3.1`):
 
-`next-international` da yukarıdaki sorunları ele alıyor ancak `next-intl` veya `next-i18next`ten çok da farklı değil. Ad alanına özel çeviriler için `scopedT()` içeriyor — ancak bunu kullanmanın paket boyutu üzerinde neredeyse hiç etkisi yok.
+`next-international` da yukarıdaki sorunları ele alıyor ancak `next-intl` veya `next-i18next`ten çok da farklı değil. Ad alanına özel çeviriler için `scopedT()` içeriyor, ancak bunu kullanmanın paket boyutu üzerinde neredeyse hiç etkisi yok.
 
 **(Lingui)** (`@lingui/core@5.3.0`):
 

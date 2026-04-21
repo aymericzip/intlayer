@@ -158,7 +158,7 @@ Trên TanStack Start, tôi cũng gặp vấn đề về tính phản ứng: khi 
 
 **(use-intl)** (`use-intl@4.9.1`):
 
-`use-intl` là phần "intl" hợp thời nhất trong hệ sinh thái React (cùng họ với `next-intl`) và thường được các trợ lý AI thúc đẩy — nhưng theo quan điểm của tôi thì điều đó là sai lầm trong một thiết lập ưu tiên hiệu năng. Bắt đầu khá đơn giản. Trong thực tế, quá trình tối ưu hóa và hạn chế rò rỉ khá phức tạp. Tương tự, việc kết hợp tải động + tạo namespace + các kiểu dữ liệu TypeScript làm chậm quá trình phát triển rất nhiều.
+`use-intl` là phần "intl" hợp thời nhất trong hệ sinh thái React (cùng họ với `next-intl`) và thường được các trợ lý AI thúc đẩy, nhưng theo quan điểm của tôi thì điều đó là sai lầm trong một thiết lập ưu tiên hiệu năng. Bắt đầu khá đơn giản. Trong thực tế, quá trình tối ưu hóa và hạn chế rò rỉ khá phức tạp. Tương tự, việc kết hợp tải động + tạo namespace + các kiểu dữ liệu TypeScript làm chậm quá trình phát triển rất nhiều.
 
 Trên TanStack Start, bạn tránh được các cạm bẫy đặc thù của Next.js (`setRequestLocale`, render tĩnh), nhưng vấn đề cốt lõi là như nhau: nếu không có kỷ luật nghiêm ngặt, gói bundle sẽ nhanh chóng mang theo quá nhiều thông điệp và việc bảo trì namespace cho từng route trở nên mệt mỏi.
 
@@ -180,7 +180,7 @@ Các định dạng thông báo cũng khác nhau: `use-intl` sử dụng ICU Mes
 
 ### 4 — Các khuyến nghị
 
-Benchmark TanStack Start này không có đối trọng trực tiếp cho `next-translate` (Next.js plugin + `getStaticProps`). Đối với các nhóm thực sự muốn một API `t()` với một hệ sinh thái chín muồi, `react-i18next` và `use-intl` vẫn là những lựa chọn "hợp lý" — nhưng hãy chuẩn bị đầu tư nhiều thời gian tối ưu hóa để tránh rò rỉ.
+Benchmark TanStack Start này không có đối trọng trực tiếp cho `next-translate` (Next.js plugin + `getStaticProps`). Đối với các nhóm thực sự muốn một API `t()` với một hệ sinh thái chín muồi, `react-i18next` và `use-intl` vẫn là những lựa chọn "hợp lý", nhưng hãy chuẩn bị đầu tư nhiều thời gian tối ưu hóa để tránh rò rỉ.
 
 **(Intlayer)** (`react-intlayer@8.7.5-canary.0`):
 

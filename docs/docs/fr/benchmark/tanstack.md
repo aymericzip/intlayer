@@ -158,7 +158,7 @@ Sur TanStack Start, j'ai également eu des problèmes de réactivité : au chang
 
 **(use-intl)** (`use-intl@4.9.1`) :
 
-`use-intl` est la pièce "intl" la plus à la mode dans l'écosystème React (même famille que `next-intl`) et est souvent poussée par les agents IA — mais à mon avis à tort dans un contexte privilégiant la performance. La mise en route est assez simple. En pratique, le processus pour optimiser et limiter les fuites est assez complexe. De même, combiner chargement dynamique + namespacing + types TypeScript ralentit beaucoup le développement.
+`use-intl` est la pièce "intl" la plus à la mode dans l'écosystème React (même famille que `next-intl`) et est souvent poussée par les agents IA, mais à mon avis à tort dans un contexte privilégiant la performance. La mise en route est assez simple. En pratique, le processus pour optimiser et limiter les fuites est assez complexe. De même, combiner chargement dynamique + namespacing + types TypeScript ralentit beaucoup le développement.
 
 Sur TanStack Start, vous évitez les pièges spécifiques à Next.js (`setRequestLocale`, rendu statique), mais le problème de fond est le même : sans une discipline stricte, le bundle transporte rapidement trop de messages et la maintenance des namespaces par route devient pénible.
 
@@ -180,7 +180,7 @@ Les formats de messages divergent également : `use-intl` utilise ICU MessageFor
 
 ### 4 — Recommandations
 
-Ce benchmark TanStack Start n'a pas d'équivalent direct à `next-translate` (plugin Next.js + `getStaticProps`). Pour les équipes qui veulent vraiment une API `t()` avec un écosystème mature, `react-i18next` et `use-intl` restent des choix "raisonnables" — mais attendez-vous à investir beaucoup de temps dans l'optimisation pour éviter les fuites.
+Ce benchmark TanStack Start n'a pas d'équivalent direct à `next-translate` (plugin Next.js + `getStaticProps`). Pour les équipes qui veulent vraiment une API `t()` avec un écosystème mature, `react-i18next` et `use-intl` restent des choix "raisonnables", mais attendez-vous à investir beaucoup de temps dans l'optimisation pour éviter les fuites.
 
 **(Intlayer)** (`react-intlayer@8.7.5-canary.0`) :
 

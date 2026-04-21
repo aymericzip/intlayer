@@ -158,7 +158,7 @@ W TanStack Start miałem również problemy z reaktywnością: przy zmianie loka
 
 **(use-intl)** (`use-intl@4.9.1`):
 
-`use-intl` jest obecnie najmodniejszym elementem „intl” w ekosystemie React (z tej samej rodziny co `next-intl`) i jest często forsowany przez agentów AI — moim zdaniem jednak niesłusznie w środowisku, w którym liczy się wydajność. Rozpoczęcie pracy jest dość proste. W praktyce proces optymalizacji i ograniczania wycieków jest dość złożony. Podobnie połączenie dynamicznego ładowania + przestrzeni nazw + typów TypeScript bardzo spowalnia rozwój.
+`use-intl` jest obecnie najmodniejszym elementem „intl” w ekosystemie React (z tej samej rodziny co `next-intl`) i jest często forsowany przez agentów AI, ale moim zdaniem niesłusznie w środowisku, w którym liczy się wydajność. Rozpoczęcie pracy jest dość proste. W praktyce proces optymalizacji i ograniczania wycieków jest dość złożony. Podobnie połączenie dynamicznego ładowania + przestrzeni nazw + typów TypeScript bardzo spowalnia rozwój.
 
 W TanStack Start unikasz pułapek specyficznych dla Next.js (`setRequestLocale`, statyczne renderowanie), ale główny problem pozostaje ten sam: bez ścisłej dyscypliny pakiet szybko przenosi zbyt wiele komunikatów, a utrzymanie przestrzeni nazw dla każdej trasy staje się uciążliwe.
 
@@ -180,7 +180,7 @@ Różnią się również formaty komunikatów: `use-intl` używa ICU MessageForm
 
 ### 4 — Rekomendacje
 
-Ten benchmark TanStack Start nie ma bezpośredniego odpowiednika `next-translate` (wtyczka Next.js + `getStaticProps`). Dla zespołów, które naprawdę chcą API `t()` z dojrzałym ekosystemem, `react-i18next` i `use-intl` pozostają „rozsądnymi” wyborami — ale przygotuj się na zainwestowanie dużej ilości czasu w optymalizację, aby uniknąć wycieków.
+Ten benchmark TanStack Start nie ma bezpośredniego odpowiednika `next-translate` (wtyczka Next.js + `getStaticProps`). Dla zespołów, które naprawdę chcą API `t()` z dojrzałym ekosystemem, `react-i18next` i `use-intl` pozostają „rozsądnymi” wyborami, ale przygotuj się na zainwestowanie dużej ilości czasu w optymalizację, aby uniknąć wycieków.
 
 **(Intlayer)** (`react-intlayer@8.7.5-canary.0`):
 
