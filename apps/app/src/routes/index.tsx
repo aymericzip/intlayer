@@ -4,15 +4,11 @@ import {
   App_Dashboard_Projects_Path,
 } from '@intlayer/design-system/routes';
 import { createFileRoute, redirect } from '@tanstack/react-router';
-import { getLocalizedUrl, validatePrefix } from 'intlayer';
-import { NotFoundComponent } from '#components/NotFoundComponent';
+import { defaultLocale, getLocalizedUrl } from 'intlayer';
 import { sessionQueryOptions } from '#utils/auth.tsx';
 
-// Catch-all route: matches any path that doesn't match other routes
-// e.g. /en/some/deeply/nested/invalid/path
-export const Route = createFileRoute('/{-$locale}/$')({
-  beforeLoad: async ({ params, context }) => {
-    const { localePrefix } = validatePrefix(params.locale);
+export const Route = createFileRoute('/')({
+  beforeLoad: async ({ context }) => {
     const session =
       await context.queryClient.ensureQueryData(sessionQueryOptions);
 
@@ -21,27 +17,29 @@ export const Route = createFileRoute('/{-$locale}/$')({
         throw redirect({
           to: getLocalizedUrl(
             App_Dashboard_Dictionaries_Path,
-            localePrefix
+            defaultLocale
           ) as any,
         });
       } else if (session.organization) {
         throw redirect({
-          to: getLocalizedUrl(App_Dashboard_Projects_Path, localePrefix) as any,
+          to: getLocalizedUrl(
+            App_Dashboard_Projects_Path,
+            defaultLocale
+          ) as any,
         });
       } else {
         throw redirect({
           to: getLocalizedUrl(
             App_Dashboard_Organization_Path,
-            localePrefix
+            defaultLocale
           ) as any,
         });
       }
     }
 
     throw redirect({
-      to: `/{-$locale}${App_Dashboard_Organization_Path}`,
-      params: { locale: localePrefix },
+      to: '/{-$locale}',
+      params: { locale: defaultLocale },
     });
   },
-  component: NotFoundComponent,
 });

@@ -1,4 +1,4 @@
-import { createFileRoute, Outlet, redirect } from '@tanstack/react-router';
+import { createFileRoute, redirect } from '@tanstack/react-router';
 import { validatePrefix } from 'intlayer';
 import { NotFoundComponent } from '#components/NotFoundComponent';
 
@@ -13,7 +13,12 @@ export const Route = createFileRoute('/{-$locale}/page')({
         params: { locale: localePrefix },
       });
     }
+
+    throw redirect({
+      to: '/{-$locale}',
+      params: { locale: localePrefix },
+    });
   },
-  component: Outlet,
+  component: null,
   notFoundComponent: NotFoundComponent,
 });

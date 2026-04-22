@@ -8,25 +8,27 @@ import { getLocalizedUrl } from 'intlayer';
 import { sessionQueryOptions } from '#utils/auth.tsx';
 
 export const Route = createFileRoute('/{-$locale}/_dashboard/')({
-  // beforeLoad: async ({ context, params }) => {
-  //   const { locale } = params;
-  //   const session =
-  //     await context.queryClient.ensureQueryData(sessionQueryOptions);
+  beforeLoad: async ({ context, params }) => {
+    const { locale } = params;
+    const session =
+      await context.queryClient.ensureQueryData(sessionQueryOptions);
 
-  //   if (session?.organization && session?.project) {
-  //     throw redirect({
-  //       to: getLocalizedUrl(App_Dashboard_Dictionaries_Path, locale) as any,
-  //     });
-  //   } else if (session?.organization) {
-  //     throw redirect({
-  //       to: getLocalizedUrl(App_Dashboard_Projects_Path, locale) as any,
-  //     });
-  //   } else {
-  //     throw redirect({
-  //       to: getLocalizedUrl(App_Dashboard_Organization_Path, locale) as any,
-  //     });
-  //   }
-  // },
+    if (session) {
+      if (session.organization && session.project) {
+        throw redirect({
+          to: getLocalizedUrl(App_Dashboard_Dictionaries_Path, locale),
+        });
+      } else if (session.organization) {
+        throw redirect({
+          to: getLocalizedUrl(App_Dashboard_Projects_Path, locale),
+        });
+      } else {
+        throw redirect({
+          to: getLocalizedUrl(App_Dashboard_Organization_Path, locale),
+        });
+      }
+    }
+  },
   component: DashboardIndexPage,
 });
 
