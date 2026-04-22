@@ -6,6 +6,7 @@ import {
   createRootRouteWithContext,
   HeadContent,
   Scripts,
+  useParams,
 } from '@tanstack/react-router';
 import { defaultLocale, getHTMLTextDir } from 'intlayer';
 import { Suspense } from 'react';
@@ -18,7 +19,6 @@ import { BaiduAutoPushSubscriber } from '#components/BaiduAutoPush/BaiduAutoPush
 import { ErrorComponent } from '#components/ErrorComponent';
 import { ServiceWorkerSubscriber } from '#components/ServiceWorker/ServiceWorkerSubscriber';
 import { sessionQueryOptions } from '#utils/auth.tsx';
-import { Route as LocaleRoute } from './{-$locale}/route';
 
 interface MyRouterContext {
   queryClient: QueryClient;
@@ -79,7 +79,7 @@ import { SoftwareApplicationHeader } from '#/structuredData/SoftwareApplication'
 import { WebsiteHeader } from '#/structuredData/WebsiteHeader';
 
 function RootDocument({ children }: { children: React.ReactNode }) {
-  const { locale = defaultLocale } = LocaleRoute.useParams();
+  const { locale = defaultLocale } = useParams({ strict: false }) as any;
 
   return (
     <html dir={getHTMLTextDir(locale)} lang={locale} suppressHydrationWarning>

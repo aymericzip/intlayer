@@ -2,7 +2,7 @@ import { createFileRoute, Outlet, redirect } from '@tanstack/react-router';
 import { validatePrefix } from 'intlayer';
 import { NotFoundComponent } from '#components/NotFoundComponent';
 
-export const Route = createFileRoute('/{-$locale}')({
+export const Route = createFileRoute('/{-$locale}/page')({
   beforeLoad: ({ params }) => {
     // Validate the locale prefix
     const { isValid, localePrefix } = validatePrefix(params.locale);
