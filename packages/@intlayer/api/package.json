@@ -74,7 +74,7 @@
   "dependencies": {
     "@intlayer/config": "workspace:*",
     "@intlayer/types": "workspace:*",
-    "defu": "6.1.4"
+    "defu": "6.1.7"
   },
   "devDependencies": {
     "@types/node": "25.6.0",

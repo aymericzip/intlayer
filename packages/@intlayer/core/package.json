@@ -173,7 +173,7 @@
     "@intlayer/dictionaries-entry": "workspace:*",
     "@intlayer/types": "workspace:*",
     "@intlayer/unmerged-dictionaries-entry": "workspace:*",
-    "defu": "6.1.4"
+    "defu": "6.1.7"
   },
   "devDependencies": {
     "@types/node": "25.6.0",
