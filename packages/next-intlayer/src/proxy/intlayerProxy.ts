@@ -132,7 +132,7 @@ const normalizeDomainHostname = (domain: string): string => {
 const getLocaleFromDomain = (hostname: string): Locale | undefined => {
   if (!domains) return undefined;
   const matching = Object.entries(domains).filter(
-    ([, domain]) => normalizeDomainHostname(domain) === hostname
+    ([, domain]) => normalizeDomainHostname(domain!) === hostname
   );
   return matching.length === 1 ? (matching[0][0] as Locale) : undefined;
 };
@@ -529,8 +529,13 @@ const handleExistingPathLocale = (
     : canonicalPath;
 
   // Only handle redirect if we are strictly managing default locale prefixing
+  // Fix: pass `canonicalPath` (the path *without* the locale prefix, e.g. /pricing)
+  // instead of `pathname` (the full path including prefix, e.g. /en/pricing).
+  // Previously this caused an infinite redirect loop in prefix-no-default mode
+  // because handleDefaultLocaleRedirect built the redirect target from its third
+  // argument, which reproduced the same URL on every response.
   if (!prefixDefault && pathLocale === defaultLocale) {
-    return handleDefaultLocaleRedirect(request, pathLocale, pathname);
+    return handleDefaultLocaleRedirect(request, pathLocale, canonicalPath);
   }
 
   const search = request.nextUrl.search;
