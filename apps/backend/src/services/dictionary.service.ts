@@ -295,6 +295,11 @@ export const updateDictionaryByKey = async (
   // Apply updated fields onto the existing doc
   Object.assign(existing, dictionaryToUpdate);
 
+  // Mongoose cannot track deep Map mutations done via Object.assign, so we
+  // must explicitly mark 'content' as modified, otherwise the new versioned
+  // content is silently dropped and the document is saved unchanged.
+  existing.markModified('content');
+
   // Save – this will trigger timestamps on parent + subdocs
   await existing.save();
 
