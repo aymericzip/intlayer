@@ -73,6 +73,12 @@ export const validatePrefix = (
     return { isValid: true, localePrefix: undefined };
   }
 
+  // A segment that doesn't match a locale code pattern (e.g. 'concept', 'compiler')
+  // is a content slug from a default-locale URL, not an invalid locale attempt.
+  if (locale && !/^[a-z]{2,3}(-[a-zA-Z]{2,4})?$/.test(locale)) {
+    return { isValid: true, localePrefix: undefined };
+  }
+
   const isValid = locales.some((localeEl) => localeEl === locale);
 
   return { isValid, localePrefix };

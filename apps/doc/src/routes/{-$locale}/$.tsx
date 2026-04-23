@@ -19,9 +19,10 @@ export const Route = createFileRoute('/{-$locale}/$')({
     const { getDoc, getDocMetadata, getDocMetadataBySlug } = await import(
       '@intlayer/docs'
     );
-    const locale = ((params as { locale?: string }).locale ??
-      defaultLocale) as string;
-    const splat = (params as { _splat: string })._splat ?? '';
+    const locale = params.locale ?? defaultLocale;
+
+    const splat = params._splat ?? '';
+
     const slugs = ['doc', ...(splat ? splat.split('/').filter(Boolean) : [])];
 
     const docsData = await getDocMetadataBySlug(slugs, locale);
@@ -31,9 +32,9 @@ export const Route = createFileRoute('/{-$locale}/$')({
 
     if (!filteredDocsData || filteredDocsData.length === 0) {
       throw redirect({
-        to: '/{-$locale}/get-started' as any,
-        params: { locale: getPrefix(locale).prefix } as any,
-      });
+        to: '/{-$locale}/get-started',
+        params: { locale: getPrefix(locale).localePrefix },
+      } as any);
     }
 
     const docData = filteredDocsData[0];
@@ -129,6 +130,7 @@ export const Route = createFileRoute('/{-$locale}/$')({
 function DocPage() {
   const { docData, defaultDocData, docContent, slugs, prevDoc, nextDoc } =
     Route.useLoaderData();
+  const { locale } = Route.useParams();
 
   return (
     <DocPageLayout activeSlugs={slugs}>

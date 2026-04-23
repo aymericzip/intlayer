@@ -7,9 +7,9 @@ import {
 } from '@tanstack/react-router';
 import { defaultLocale, getHTMLTextDir } from 'intlayer';
 import { IntlayerProvider } from 'react-intlayer';
+import { BackgroundLayout } from '#/components/BackgroundLayout';
 import { SoftwareApplicationHeader } from '#/structuredData/SoftwareApplication';
 import { WebsiteHeader } from '#/structuredData/WebsiteHeader';
-import { BackgroundLayout } from '#/components/BackgroundLayout';
 import { ServiceWorkerSubscriber } from '#components/ServiceWorker/ServiceWorkerSubscriber.tsx';
 import { BaiduAutoPushSubscriber } from '../components/BaiduAutoPush/BaiduAutoPushSubscriber';
 import { IntlayerMarkdownProvider } from '../components/IntlayerMarkdownProvider';

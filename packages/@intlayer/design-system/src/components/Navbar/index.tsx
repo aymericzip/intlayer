@@ -107,9 +107,6 @@ export const Navbar = <T extends TabSelectorItemProps>({
   mobileRollable = true,
 }: NavbarProps<T>) => {
   const { isMobile } = useDevice('lg');
-  const isMoUnted = useIsMounted();
-
-  if (!isMoUnted) return <></>;
 
   return isMobile ? (
     <MobileNavbar
