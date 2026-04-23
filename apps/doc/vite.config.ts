@@ -170,20 +170,6 @@ export default defineConfig(({ mode }) => {
       headers,
     },
     plugins: [
-      // Fix: TanStack Start's prerender calls vite.preview() internally, then fetch()s pages
-      // using HTTP keep-alive. When previewServer.close() is called, Node waits for those
-      // keep-alive connections to drain — causing the build to hang. Force-close them first.
-      {
-        name: 'fix-prerender-hang',
-        apply: (_config, env) => !!env.isPreview,
-        configurePreviewServer(server) {
-          const originalClose = server.close.bind(server);
-          server.close = async () => {
-            server.httpServer?.close?.();
-            return originalClose();
-          };
-        },
-      } as import('vite').Plugin,
       devtools(),
       // intlayerProxy(),
       nitro({
