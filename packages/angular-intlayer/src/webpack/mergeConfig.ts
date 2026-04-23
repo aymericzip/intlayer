@@ -3,9 +3,10 @@ import { getConfiguration } from '@intlayer/config/node';
 import { getAlias } from '@intlayer/config/utils';
 import { IntlayerPlugin } from '@intlayer/webpack'; // adjust path if needed
 import { defu } from 'defu';
-import type { Configuration as WebpackConfig } from 'webpack';
 
-export const mergeConfig = (baseConfig: WebpackConfig): WebpackConfig => {
+export const mergeConfig = (
+  baseConfig: import('webpack').Configuration
+): import('webpack').Configuration => {
   const intlayerConfig = getConfiguration();
 
   const config = {
@@ -53,5 +54,5 @@ export const mergeConfig = (baseConfig: WebpackConfig): WebpackConfig => {
     plugins: [new IntlayerPlugin(intlayerConfig)],
   };
 
-  return defu(config, baseConfig) as WebpackConfig;
+  return defu(config, baseConfig) as import('webpack').Configuration;
 };
