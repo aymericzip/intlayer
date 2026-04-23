@@ -2,22 +2,29 @@ import { Table } from '@intlayer/design-system/table';
 import type { FC } from 'react';
 import { Skeleton } from '#components/Skeleton';
 
-export const DictionaryListSkeleton: FC = () => (
+type DictionaryListSkeletonProps = {
+  showToolBar?: boolean;
+};
+
+export const DictionaryListSkeleton: FC<DictionaryListSkeletonProps> = ({
+  showToolBar = true,
+}) => (
   <div className="flex w-full flex-1 flex-col gap-6 py-6 text-sm text-text/80">
     {/* Toolbar Skeleton */}
-    <div className="flex w-full items-center justify-between gap-4 px-10 pb-2">
-      <div className="flex max-w-md flex-1 items-center gap-4">
-        <Skeleton className="h-10 w-full rounded-xl" />
-        <div className="flex items-center gap-1">
-          <Skeleton className="h-10 w-10 rounded-xl" />
-          <Skeleton className="h-10 w-10 rounded-xl" />
+    {showToolBar && (
+      <div className="flex w-full items-center justify-between gap-4 px-10 pb-2">
+        <div className="flex max-w-md flex-1 items-center gap-4">
+          <Skeleton className="h-10 w-full rounded-xl" />
+          <div className="flex items-center gap-1">
+            <Skeleton className="h-10 w-10 rounded-xl" />
+            <Skeleton className="h-10 w-10 rounded-xl" />
+          </div>
+        </div>
+        <div className="flex items-center gap-2">
+          <Skeleton className="h-10 w-40 rounded-xl" />
         </div>
       </div>
-      <div className="flex items-center gap-2">
-        <Skeleton className="h-10 w-40 rounded-xl" />
-      </div>
-    </div>
-
+    )}
     {/* Table Skeleton */}
     <div className="flex w-full flex-1 flex-col overflow-x-auto overflow-y-hidden">
       <Table className="w-full border-separate border-spacing-0 px-10">

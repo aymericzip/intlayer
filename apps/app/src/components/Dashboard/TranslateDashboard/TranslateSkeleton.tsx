@@ -1,19 +1,29 @@
 import type { FC } from 'react';
 import { Skeleton } from '#components/Skeleton';
 
-export const TranslateSkeleton: FC = () => (
+type TranslateSkeletonProps = {
+  showToolBar?: boolean;
+};
+
+export const TranslateSkeleton: FC<TranslateSkeletonProps> = ({
+  showToolBar = true,
+}) => (
   <div className="relative flex size-full flex-1 flex-col gap-2 overflow-hidden">
     {/* SaveAllButton replacement */}
-    <div className="flex w-full items-center justify-between gap-4 px-10 pt-6">
-      <Skeleton className="h-10 w-full max-w-md rounded-lg" />
-      <Skeleton className="h-10 w-32 rounded-lg" />
-    </div>
+    {showToolBar && (
+      <div className="flex w-full items-center justify-between gap-4 px-10 pt-6">
+        <Skeleton className="h-10 w-full max-w-md rounded-lg" />
+        <Skeleton className="h-10 w-32 rounded-lg" />
+      </div>
+    )}
 
     {/* Header Skeleton */}
-    <div className="flex w-full items-center gap-6 border-card border-b px-10 py-2">
-      <Skeleton className="h-10 w-10 rounded-xl" />
-      <Skeleton className="h-6 w-48" />
-    </div>
+    {showToolBar && (
+      <div className="flex w-full items-center gap-6 border-card border-b px-10 py-2">
+        <Skeleton className="h-10 w-10 rounded-xl" />
+        <Skeleton className="h-6 w-48" />
+      </div>
+    )}
 
     {/* Column Headers Skeleton */}
     <div className="flex w-full shrink-0 items-center overflow-x-hidden bg-background px-10 py-2">

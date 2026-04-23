@@ -1,9 +1,9 @@
 import { DictionaryFieldEditor } from '@intlayer/design-system/dictionary-field-editor';
 import { useGetDictionary } from '@intlayer/design-system/hooks';
-import { Loader } from '@intlayer/design-system/loader';
 import { Modal } from '@intlayer/design-system/modal';
 import type { FC } from 'react';
 import { useTheme } from '#/providers/ThemeProvider';
+import { Skeleton } from '#components/Skeleton';
 
 type DictionaryDetailModalProps = {
   isOpen: boolean;
@@ -31,7 +31,16 @@ export const DictionaryDetailModal: FC<DictionaryDetailModalProps> = ({
       size="lg"
       className="h-full"
     >
-      <Loader isLoading={!dictionary || isPending}>
+      {!dictionary || isPending ? (
+        <div className="flex h-full min-h-0 w-full flex-1 flex-col gap-6 p-6">
+          {[...Array(6)].map((_, i) => (
+            <div key={i} className="flex flex-col gap-2">
+              <Skeleton className="h-4 w-32" />
+              <Skeleton className="h-10 w-full rounded-lg" />
+            </div>
+          ))}
+        </div>
+      ) : (
         <div className="flex h-full min-h-0 w-full flex-1 flex-col">
           {dictionary && (
             <DictionaryFieldEditor
@@ -43,7 +52,7 @@ export const DictionaryDetailModal: FC<DictionaryDetailModalProps> = ({
             />
           )}
         </div>
-      </Loader>
+      )}
     </Modal>
   );
 };

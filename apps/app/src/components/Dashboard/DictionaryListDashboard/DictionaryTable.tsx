@@ -1,4 +1,3 @@
-import { Loader } from '@intlayer/design-system/loader';
 import { Table } from '@intlayer/design-system/table';
 import { cn } from '@intlayer/design-system/utils';
 import type { Dictionary } from '@intlayer/types/dictionary';
@@ -8,6 +7,7 @@ import {
   type Row,
 } from '@tanstack/react-table';
 import { type FC, memo } from 'react';
+import { DictionaryListSkeleton } from './DictionaryListSkeleton';
 
 interface DictionaryTableProps {
   table: ReactTableType<Dictionary>;
@@ -17,9 +17,11 @@ interface DictionaryTableProps {
 }
 
 export const DictionaryTable: FC<DictionaryTableProps> = memo(
-  ({ table, isPending, noDictionaryFound, onRowClick }) => (
-    <div className="flex w-full max-w-screen flex-1 flex-col overflow-x-auto overflow-y-hidden">
-      <Loader isLoading={isPending}>
+  ({ table, isPending, noDictionaryFound, onRowClick }) =>
+    isPending ? (
+      <DictionaryListSkeleton showToolBar={false} />
+    ) : (
+      <div className="flex w-full max-w-screen flex-1 flex-col overflow-x-auto overflow-y-hidden">
         {table.getRowModel().rows.length === 0 ? (
           <div className="flex min-h-60 items-center justify-center">
             <span className="text-neutral">{noDictionaryFound}</span>
@@ -118,7 +120,6 @@ export const DictionaryTable: FC<DictionaryTableProps> = memo(
             </tbody>
           </Table>
         )}
-      </Loader>
-    </div>
-  )
+      </div>
+    )
 );

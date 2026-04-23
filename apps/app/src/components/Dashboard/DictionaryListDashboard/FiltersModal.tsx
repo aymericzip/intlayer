@@ -2,10 +2,10 @@ import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
 import { useGetTags } from '@intlayer/design-system/hooks';
 import { Checkbox, SearchInput } from '@intlayer/design-system/input';
-import { Loader } from '@intlayer/design-system/loader';
 import { Modal } from '@intlayer/design-system/modal';
 import { type FC, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
+import { Skeleton } from '#components/Skeleton';
 
 type TagAPI = {
   key: string;
@@ -150,7 +150,23 @@ export const FiltersModal: FC<FiltersModalProps> = ({
             value={tagSearch}
             onChange={(e) => setTagSearch(e.target.value)}
           />
-          <Loader isLoading={isLoadingTags}>
+          {isLoadingTags ? (
+            <Container
+              background="none"
+              border
+              borderColor="card"
+              roundedSize="xl"
+              padding="md"
+              className="flex max-h-40 flex-col gap-4 overflow-y-auto"
+            >
+              {[...Array(5)].map((_, i) => (
+                <div key={i} className="flex items-center gap-2">
+                  <Skeleton className="h-4 w-4 rounded" />
+                  <Skeleton className="h-4 w-24" />
+                </div>
+              ))}
+            </Container>
+          ) : (
             <Container
               background="none"
               border
@@ -177,7 +193,7 @@ export const FiltersModal: FC<FiltersModalProps> = ({
                 </span>
               )}
             </Container>
-          </Loader>
+          )}
         </div>
 
         <div className="mt-4 flex justify-end gap-4">

@@ -16,7 +16,6 @@ import {
 } from '@intlayer/design-system/hooks';
 import { SearchInput } from '@intlayer/design-system/input';
 import { KeyboardShortcut } from '@intlayer/design-system/keyboard-shortcut';
-import { Loader } from '@intlayer/design-system/loader';
 import {
   LocaleSwitcherContent,
   LocaleSwitcherContentProvider,
@@ -35,6 +34,7 @@ import { ArrowUp, Plus } from 'lucide-react';
 import { type FC, Suspense, useEffect, useMemo, useRef, useState } from 'react';
 import { useIntlayer, useLocale } from 'react-intlayer';
 import { GroupedVirtuoso, type GroupedVirtuosoHandle } from 'react-virtuoso';
+import { Skeleton } from '#components/Skeleton';
 import {
   type FlattenedDictionaryNode,
   flattenDictionary,
@@ -394,54 +394,65 @@ const TranslateDashboardList: FC = () => {
             ))}
           </div>
         </div>
-        <Loader isLoading={isPending}>
-          {mergedNodes.length > 0 ? (
-            <GroupedVirtuoso
-              ref={virtuosoRef}
-              groupCounts={groupCounts}
-              initialTopMostItemIndex={initialTopIndex}
-              onScroll={(e) => {
-                if (headerRef.current) {
-                  headerRef.current.scrollLeft = (
-                    e.target as HTMLElement
-                  ).scrollLeft;
-                }
-              }}
-              rangeChanged={({ startIndex }) => {
-                if (startIndex !== currentTopIndex) {
-                  setCurrentTopIndex(startIndex);
-                }
-              }}
-              groupContent={() => <div className="my-4 border-card border-b" />}
-              itemContent={(index) => (
-                <TranslateRow
-                  nodes={mergedNodes[index]}
-                  selectedLocales={selectedLocales}
-                />
-              )}
-              overscan={500}
-              endReached={() => {
-                if (hasNextPage && !isFetchingNextPage) {
-                  fetchNextPage();
-                }
-              }}
-              components={{
-                Footer: () =>
-                  isFetchingNextPage ? (
-                    <div className="flex justify-center p-4">
-                      <Loader />
-                    </div>
-                  ) : (
-                    <div className="h-4" />
-                  ),
-              }}
-            />
-          ) : (
-            <div className="flex h-full items-center justify-center px-10">
-              <p className="text-center text-neutral">{noDictionaries}</p>
-            </div>
-          )}
-        </Loader>
+        {isPending ? (
+          <TranslateSkeleton showToolBar={false} />
+        ) : mergedNodes.length > 0 ? (
+          <GroupedVirtuoso
+            ref={virtuosoRef}
+            groupCounts={groupCounts}
+            initialTopMostItemIndex={initialTopIndex}
+            onScroll={(e) => {
+              if (headerRef.current) {
+                headerRef.current.scrollLeft = (
+                  e.target as HTMLElement
+                ).scrollLeft;
+              }
+            }}
+            rangeChanged={({ startIndex }) => {
+              if (startIndex !== currentTopIndex) {
+                setCurrentTopIndex(startIndex);
+              }
+            }}
+            groupContent={() => <div className="my-4 border-card border-b" />}
+            itemContent={(index) => (
+              <TranslateRow
+                nodes={mergedNodes[index]}
+                selectedLocales={selectedLocales}
+              />
+            )}
+            overscan={500}
+            endReached={() => {
+              if (hasNextPage && !isFetchingNextPage) {
+                fetchNextPage();
+              }
+            }}
+            components={{
+              Footer: () =>
+                isFetchingNextPage ? (
+                  <div className="flex flex-col gap-4 overflow-hidden px-10 py-6">
+                    {[...Array(2)].map((_, i) => (
+                      <div
+                        key={i}
+                        className="flex flex-col gap-4 border-card/50 border-b py-6"
+                      >
+                        <Skeleton className="h-4 w-64" />
+                        <div className="flex w-full gap-2">
+                          <Skeleton className="h-32 flex-1 rounded-lg" />
+                          <Skeleton className="h-32 flex-1 rounded-lg" />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="h-4" />
+                ),
+            }}
+          />
+        ) : (
+          <div className="flex h-full items-center justify-center px-10">
+            <p className="text-center text-neutral">{noDictionaries}</p>
+          </div>
+        )}
       </div>
     </div>
   );
