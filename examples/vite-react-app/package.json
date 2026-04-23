@@ -22,7 +22,7 @@
   "devDependencies": {
     "@intlayer/ai": "workspace:*",
     "@intlayer/sync-json-plugin": "workspace:*",
-    "@tailwindcss/vite": "4.2.2",
+    "@tailwindcss/vite": "4.2.4",
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
     "@vitejs/plugin-react": "6.0.1",
@@ -30,7 +30,7 @@
     "intlayer-editor": "workspace:*",
     "tailwindcss": "4.2.4",
     "typescript": "6.0.3",
-    "vite": "8.0.8",
+    "vite": "8.0.10",
     "vite-intlayer": "workspace:*"
   }
 }

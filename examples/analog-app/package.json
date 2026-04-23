@@ -24,7 +24,7 @@
     "@angular/platform-browser": "21.2.4",
     "@angular/platform-server": "21.2.4",
     "@angular/router": "21.2.4",
-    "@tailwindcss/vite": "4.2.2",
+    "@tailwindcss/vite": "4.2.4",
     "angular-intlayer": "workspace:*",
     "front-matter": "4.0.2",
     "h3": "1.15.0",
@@ -49,7 +49,7 @@
     "intlayer-editor": "workspace:*",
     "jsdom": "29.0.2",
     "typescript": "6.0.3",
-    "vite": "8.0.8",
+    "vite": "8.0.10",
     "vite-intlayer": "workspace:*",
     "vitest": "4.1.5"
   },

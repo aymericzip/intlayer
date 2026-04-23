@@ -17,11 +17,11 @@
   },
   "devDependencies": {
     "@preact/preset-vite": "2.10.4",
-    "@tailwindcss/vite": "4.2.2",
+    "@tailwindcss/vite": "4.2.4",
     "intlayer-editor": "workspace:*",
     "tailwindcss": "4.2.4",
     "typescript": "6.0.3",
-    "vite": "8.0.8",
+    "vite": "8.0.10",
     "vite-intlayer": "workspace:*"
   }
 }
