@@ -8,248 +8,248 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { Route as rootRouteImport } from './routes/__root';
-import { Route as Char123LocaleChar125DashboardAdminAdminDiscussionsRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin.discussions';
-import { Route as Char123LocaleChar125DashboardAdminAdminOrganizationsRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin.organizations';
-import { Route as Char123LocaleChar125DashboardAdminAdminOrganizationsIdRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin.organizations.$id';
-import { Route as Char123LocaleChar125DashboardAdminAdminProjectsRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin.projects';
-import { Route as Char123LocaleChar125DashboardAdminAdminProjectsIdRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin.projects.$id';
-import { Route as Char123LocaleChar125DashboardAdminAdminUsersRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin.users';
-import { Route as Char123LocaleChar125DashboardAdminAdminUsersIdRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin.users.$id';
-import { Route as Char123LocaleChar125DashboardAdminRouteRouteImport } from './routes/{-$locale}/_dashboard/_admin/route';
-import { Route as Char123LocaleChar125DashboardEditorContentDictionaryDictionaryKeyRouteImport } from './routes/{-$locale}/_dashboard/_editor/_content/dictionary.$dictionaryKey';
-import { Route as Char123LocaleChar125DashboardEditorContentDictionaryIndexRouteImport } from './routes/{-$locale}/_dashboard/_editor/_content/dictionary.index';
-import { Route as Char123LocaleChar125DashboardEditorContentEditorRouteImport } from './routes/{-$locale}/_dashboard/_editor/_content/editor';
-import { Route as Char123LocaleChar125DashboardEditorContentRouteRouteImport } from './routes/{-$locale}/_dashboard/_editor/_content/route';
-import { Route as Char123LocaleChar125DashboardEditorContentTranslateRouteImport } from './routes/{-$locale}/_dashboard/_editor/_content/translate';
-import { Route as Char123LocaleChar125DashboardEditorTagsTagKeyRouteImport } from './routes/{-$locale}/_dashboard/_editor/tags.$tagKey';
-import { Route as Char123LocaleChar125DashboardEditorTagsIndexRouteImport } from './routes/{-$locale}/_dashboard/_editor/tags.index';
-import { Route as Char123LocaleChar125DashboardIndexRouteImport } from './routes/{-$locale}/_dashboard/index';
-import { Route as Char123LocaleChar125DashboardOrganizationRouteImport } from './routes/{-$locale}/_dashboard/organization';
-import { Route as Char123LocaleChar125DashboardProfileRouteImport } from './routes/{-$locale}/_dashboard/profile';
-import { Route as Char123LocaleChar125DashboardProjectsRouteImport } from './routes/{-$locale}/_dashboard/projects';
-import { Route as Char123LocaleChar125DashboardRouteRouteImport } from './routes/{-$locale}/_dashboard/route';
-import { Route as Char123LocaleChar125OtherAuthAuthenticatedPasswordChangeRouteImport } from './routes/{-$locale}/_other/auth/_authenticated/password.change';
-import { Route as Char123LocaleChar125OtherAuthAuthenticatedRouteRouteImport } from './routes/{-$locale}/_other/auth/_authenticated/route';
-import { Route as Char123LocaleChar125OtherAuthNotAuthenticated2faRouteImport } from './routes/{-$locale}/_other/auth/_not-authenticated/2fa';
-import { Route as Char123LocaleChar125OtherAuthNotAuthenticatedLoginRouteImport } from './routes/{-$locale}/_other/auth/_not-authenticated/login';
-import { Route as Char123LocaleChar125OtherAuthNotAuthenticatedRegisterRouteImport } from './routes/{-$locale}/_other/auth/_not-authenticated/register';
-import { Route as Char123LocaleChar125OtherAuthNotAuthenticatedRouteRouteImport } from './routes/{-$locale}/_other/auth/_not-authenticated/route';
-import { Route as Char123LocaleChar125OtherAuthCliLoginRouteImport } from './routes/{-$locale}/_other/auth/cli-login';
-import { Route as Char123LocaleChar125OtherAuthPasswordLayoutRouteImport } from './routes/{-$locale}/_other/auth/password/_layout';
-import { Route as Char123LocaleChar125OtherAuthPasswordAskResetRouteImport } from './routes/{-$locale}/_other/auth/password/ask-reset';
-import { Route as Char123LocaleChar125OtherAuthPasswordResetRouteImport } from './routes/{-$locale}/_other/auth/password/reset';
-import { Route as Char123LocaleChar125OtherOnboardingStepRouteImport } from './routes/{-$locale}/_other/onboarding.$step';
-import { Route as Char123LocaleChar125OtherPricingRouteImport } from './routes/{-$locale}/_other/pricing';
-import { Route as Char123LocaleChar125OtherRouteRouteImport } from './routes/{-$locale}/_other/route';
-import { Route as Char123LocaleChar125SplatRouteImport } from './routes/{-$locale}/$';
-import { Route as Char123LocaleChar125404RouteImport } from './routes/{-$locale}/404';
-import { Route as Char123LocaleChar125PageRouteImport } from './routes/{-$locale}/page';
-import { Route as IndexRouteImport } from './routes/index';
-import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml';
+import { Route as rootRouteImport } from './routes/__root'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as IndexRouteImport } from './routes/index'
+import { Route as Char123LocaleChar125PageRouteImport } from './routes/{-$locale}/page'
+import { Route as Char123LocaleChar125404RouteImport } from './routes/{-$locale}/404'
+import { Route as Char123LocaleChar125SplatRouteImport } from './routes/{-$locale}/$'
+import { Route as Char123LocaleChar125OtherRouteRouteImport } from './routes/{-$locale}/_other/route'
+import { Route as Char123LocaleChar125DashboardRouteRouteImport } from './routes/{-$locale}/_dashboard/route'
+import { Route as Char123LocaleChar125DashboardIndexRouteImport } from './routes/{-$locale}/_dashboard/index'
+import { Route as Char123LocaleChar125OtherPricingRouteImport } from './routes/{-$locale}/_other/pricing'
+import { Route as Char123LocaleChar125DashboardProjectsRouteImport } from './routes/{-$locale}/_dashboard/projects'
+import { Route as Char123LocaleChar125DashboardProfileRouteImport } from './routes/{-$locale}/_dashboard/profile'
+import { Route as Char123LocaleChar125DashboardOrganizationRouteImport } from './routes/{-$locale}/_dashboard/organization'
+import { Route as Char123LocaleChar125DashboardAdminRouteRouteImport } from './routes/{-$locale}/_dashboard/_admin/route'
+import { Route as Char123LocaleChar125OtherOnboardingStepRouteImport } from './routes/{-$locale}/_other/onboarding.$step'
+import { Route as Char123LocaleChar125OtherAuthCliLoginRouteImport } from './routes/{-$locale}/_other/auth/cli-login'
+import { Route as Char123LocaleChar125OtherAuthNotAuthenticatedRouteRouteImport } from './routes/{-$locale}/_other/auth/_not-authenticated/route'
+import { Route as Char123LocaleChar125OtherAuthAuthenticatedRouteRouteImport } from './routes/{-$locale}/_other/auth/_authenticated/route'
+import { Route as Char123LocaleChar125DashboardEditorContentRouteRouteImport } from './routes/{-$locale}/_dashboard/_editor/_content/route'
+import { Route as Char123LocaleChar125DashboardEditorTagsIndexRouteImport } from './routes/{-$locale}/_dashboard/_editor/tags.index'
+import { Route as Char123LocaleChar125OtherAuthPasswordResetRouteImport } from './routes/{-$locale}/_other/auth/password/reset'
+import { Route as Char123LocaleChar125OtherAuthPasswordAskResetRouteImport } from './routes/{-$locale}/_other/auth/password/ask-reset'
+import { Route as Char123LocaleChar125OtherAuthPasswordLayoutRouteImport } from './routes/{-$locale}/_other/auth/password/_layout'
+import { Route as Char123LocaleChar125OtherAuthNotAuthenticatedRegisterRouteImport } from './routes/{-$locale}/_other/auth/_not-authenticated/register'
+import { Route as Char123LocaleChar125OtherAuthNotAuthenticatedLoginRouteImport } from './routes/{-$locale}/_other/auth/_not-authenticated/login'
+import { Route as Char123LocaleChar125OtherAuthNotAuthenticated2faRouteImport } from './routes/{-$locale}/_other/auth/_not-authenticated/2fa'
+import { Route as Char123LocaleChar125DashboardEditorTagsTagKeyRouteImport } from './routes/{-$locale}/_dashboard/_editor/tags.$tagKey'
+import { Route as Char123LocaleChar125DashboardEditorContentTranslateRouteImport } from './routes/{-$locale}/_dashboard/_editor/_content/translate'
+import { Route as Char123LocaleChar125DashboardEditorContentEditorRouteImport } from './routes/{-$locale}/_dashboard/_editor/_content/editor'
+import { Route as Char123LocaleChar125DashboardAdminAdminUsersRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin.users'
+import { Route as Char123LocaleChar125DashboardAdminAdminProjectsRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin.projects'
+import { Route as Char123LocaleChar125DashboardAdminAdminOrganizationsRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin.organizations'
+import { Route as Char123LocaleChar125DashboardAdminAdminDiscussionsRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin.discussions'
+import { Route as Char123LocaleChar125DashboardEditorContentDictionaryIndexRouteImport } from './routes/{-$locale}/_dashboard/_editor/_content/dictionary.index'
+import { Route as Char123LocaleChar125OtherAuthAuthenticatedPasswordChangeRouteImport } from './routes/{-$locale}/_other/auth/_authenticated/password.change'
+import { Route as Char123LocaleChar125DashboardEditorContentDictionaryDictionaryKeyRouteImport } from './routes/{-$locale}/_dashboard/_editor/_content/dictionary.$dictionaryKey'
+import { Route as Char123LocaleChar125DashboardAdminAdminUsersIdRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin.users.$id'
+import { Route as Char123LocaleChar125DashboardAdminAdminProjectsIdRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin.projects.$id'
+import { Route as Char123LocaleChar125DashboardAdminAdminOrganizationsIdRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin.organizations.$id'
 
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
 const Char123LocaleChar125PageRoute =
   Char123LocaleChar125PageRouteImport.update({
     id: '/{-$locale}/page',
     path: '/{-$locale}/page',
     getParentRoute: () => rootRouteImport,
-  } as any);
+  } as any)
 const Char123LocaleChar125404Route = Char123LocaleChar125404RouteImport.update({
   id: '/{-$locale}/404',
   path: '/{-$locale}/404',
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
 const Char123LocaleChar125SplatRoute =
   Char123LocaleChar125SplatRouteImport.update({
     id: '/{-$locale}/$',
     path: '/{-$locale}/$',
     getParentRoute: () => rootRouteImport,
-  } as any);
+  } as any)
 const Char123LocaleChar125OtherRouteRoute =
   Char123LocaleChar125OtherRouteRouteImport.update({
     id: '/{-$locale}/_other',
     path: '/{-$locale}',
     getParentRoute: () => rootRouteImport,
-  } as any);
+  } as any)
 const Char123LocaleChar125DashboardRouteRoute =
   Char123LocaleChar125DashboardRouteRouteImport.update({
     id: '/{-$locale}/_dashboard',
     path: '/{-$locale}',
     getParentRoute: () => rootRouteImport,
-  } as any);
+  } as any)
 const Char123LocaleChar125DashboardIndexRoute =
   Char123LocaleChar125DashboardIndexRouteImport.update({
     id: '/',
     path: '/',
     getParentRoute: () => Char123LocaleChar125DashboardRouteRoute,
-  } as any);
+  } as any)
 const Char123LocaleChar125OtherPricingRoute =
   Char123LocaleChar125OtherPricingRouteImport.update({
     id: '/pricing',
     path: '/pricing',
     getParentRoute: () => Char123LocaleChar125OtherRouteRoute,
-  } as any);
+  } as any)
 const Char123LocaleChar125DashboardProjectsRoute =
   Char123LocaleChar125DashboardProjectsRouteImport.update({
     id: '/projects',
     path: '/projects',
     getParentRoute: () => Char123LocaleChar125DashboardRouteRoute,
-  } as any);
+  } as any)
 const Char123LocaleChar125DashboardProfileRoute =
   Char123LocaleChar125DashboardProfileRouteImport.update({
     id: '/profile',
     path: '/profile',
     getParentRoute: () => Char123LocaleChar125DashboardRouteRoute,
-  } as any);
+  } as any)
 const Char123LocaleChar125DashboardOrganizationRoute =
   Char123LocaleChar125DashboardOrganizationRouteImport.update({
     id: '/organization',
     path: '/organization',
     getParentRoute: () => Char123LocaleChar125DashboardRouteRoute,
-  } as any);
+  } as any)
 const Char123LocaleChar125DashboardAdminRouteRoute =
   Char123LocaleChar125DashboardAdminRouteRouteImport.update({
     id: '/_admin',
     getParentRoute: () => Char123LocaleChar125DashboardRouteRoute,
-  } as any);
+  } as any)
 const Char123LocaleChar125OtherOnboardingStepRoute =
   Char123LocaleChar125OtherOnboardingStepRouteImport.update({
     id: '/onboarding/$step',
     path: '/onboarding/$step',
     getParentRoute: () => Char123LocaleChar125OtherRouteRoute,
-  } as any);
+  } as any)
 const Char123LocaleChar125OtherAuthCliLoginRoute =
   Char123LocaleChar125OtherAuthCliLoginRouteImport.update({
     id: '/auth/cli-login',
     path: '/auth/cli-login',
     getParentRoute: () => Char123LocaleChar125OtherRouteRoute,
-  } as any);
+  } as any)
 const Char123LocaleChar125OtherAuthNotAuthenticatedRouteRoute =
   Char123LocaleChar125OtherAuthNotAuthenticatedRouteRouteImport.update({
     id: '/auth/_not-authenticated',
     path: '/auth',
     getParentRoute: () => Char123LocaleChar125OtherRouteRoute,
-  } as any);
+  } as any)
 const Char123LocaleChar125OtherAuthAuthenticatedRouteRoute =
   Char123LocaleChar125OtherAuthAuthenticatedRouteRouteImport.update({
     id: '/auth/_authenticated',
     path: '/auth',
     getParentRoute: () => Char123LocaleChar125OtherRouteRoute,
-  } as any);
+  } as any)
 const Char123LocaleChar125DashboardEditorContentRouteRoute =
   Char123LocaleChar125DashboardEditorContentRouteRouteImport.update({
     id: '/_editor/_content',
     getParentRoute: () => Char123LocaleChar125DashboardRouteRoute,
-  } as any);
+  } as any)
 const Char123LocaleChar125DashboardEditorTagsIndexRoute =
   Char123LocaleChar125DashboardEditorTagsIndexRouteImport.update({
     id: '/_editor/tags/',
     path: '/tags/',
     getParentRoute: () => Char123LocaleChar125DashboardRouteRoute,
-  } as any);
+  } as any)
 const Char123LocaleChar125OtherAuthPasswordResetRoute =
   Char123LocaleChar125OtherAuthPasswordResetRouteImport.update({
     id: '/auth/password/reset',
     path: '/auth/password/reset',
     getParentRoute: () => Char123LocaleChar125OtherRouteRoute,
-  } as any);
+  } as any)
 const Char123LocaleChar125OtherAuthPasswordAskResetRoute =
   Char123LocaleChar125OtherAuthPasswordAskResetRouteImport.update({
     id: '/auth/password/ask-reset',
     path: '/auth/password/ask-reset',
     getParentRoute: () => Char123LocaleChar125OtherRouteRoute,
-  } as any);
+  } as any)
 const Char123LocaleChar125OtherAuthPasswordLayoutRoute =
   Char123LocaleChar125OtherAuthPasswordLayoutRouteImport.update({
     id: '/auth/password/_layout',
     path: '/auth/password',
     getParentRoute: () => Char123LocaleChar125OtherRouteRoute,
-  } as any);
+  } as any)
 const Char123LocaleChar125OtherAuthNotAuthenticatedRegisterRoute =
   Char123LocaleChar125OtherAuthNotAuthenticatedRegisterRouteImport.update({
     id: '/register',
     path: '/register',
     getParentRoute: () =>
       Char123LocaleChar125OtherAuthNotAuthenticatedRouteRoute,
-  } as any);
+  } as any)
 const Char123LocaleChar125OtherAuthNotAuthenticatedLoginRoute =
   Char123LocaleChar125OtherAuthNotAuthenticatedLoginRouteImport.update({
     id: '/login',
     path: '/login',
     getParentRoute: () =>
       Char123LocaleChar125OtherAuthNotAuthenticatedRouteRoute,
-  } as any);
+  } as any)
 const Char123LocaleChar125OtherAuthNotAuthenticated2faRoute =
   Char123LocaleChar125OtherAuthNotAuthenticated2faRouteImport.update({
     id: '/2fa',
     path: '/2fa',
     getParentRoute: () =>
       Char123LocaleChar125OtherAuthNotAuthenticatedRouteRoute,
-  } as any);
+  } as any)
 const Char123LocaleChar125DashboardEditorTagsTagKeyRoute =
   Char123LocaleChar125DashboardEditorTagsTagKeyRouteImport.update({
     id: '/_editor/tags/$tagKey',
     path: '/tags/$tagKey',
     getParentRoute: () => Char123LocaleChar125DashboardRouteRoute,
-  } as any);
+  } as any)
 const Char123LocaleChar125DashboardEditorContentTranslateRoute =
   Char123LocaleChar125DashboardEditorContentTranslateRouteImport.update({
     id: '/translate',
     path: '/translate',
     getParentRoute: () => Char123LocaleChar125DashboardEditorContentRouteRoute,
-  } as any);
+  } as any)
 const Char123LocaleChar125DashboardEditorContentEditorRoute =
   Char123LocaleChar125DashboardEditorContentEditorRouteImport.update({
     id: '/editor',
     path: '/editor',
     getParentRoute: () => Char123LocaleChar125DashboardEditorContentRouteRoute,
-  } as any);
+  } as any)
 const Char123LocaleChar125DashboardAdminAdminUsersRoute =
   Char123LocaleChar125DashboardAdminAdminUsersRouteImport.update({
     id: '/admin/users',
     path: '/admin/users',
     getParentRoute: () => Char123LocaleChar125DashboardAdminRouteRoute,
-  } as any);
+  } as any)
 const Char123LocaleChar125DashboardAdminAdminProjectsRoute =
   Char123LocaleChar125DashboardAdminAdminProjectsRouteImport.update({
     id: '/admin/projects',
     path: '/admin/projects',
     getParentRoute: () => Char123LocaleChar125DashboardAdminRouteRoute,
-  } as any);
+  } as any)
 const Char123LocaleChar125DashboardAdminAdminOrganizationsRoute =
   Char123LocaleChar125DashboardAdminAdminOrganizationsRouteImport.update({
     id: '/admin/organizations',
     path: '/admin/organizations',
     getParentRoute: () => Char123LocaleChar125DashboardAdminRouteRoute,
-  } as any);
+  } as any)
 const Char123LocaleChar125DashboardAdminAdminDiscussionsRoute =
   Char123LocaleChar125DashboardAdminAdminDiscussionsRouteImport.update({
     id: '/admin/discussions',
     path: '/admin/discussions',
     getParentRoute: () => Char123LocaleChar125DashboardAdminRouteRoute,
-  } as any);
+  } as any)
 const Char123LocaleChar125DashboardEditorContentDictionaryIndexRoute =
   Char123LocaleChar125DashboardEditorContentDictionaryIndexRouteImport.update({
     id: '/dictionary/',
     path: '/dictionary/',
     getParentRoute: () => Char123LocaleChar125DashboardEditorContentRouteRoute,
-  } as any);
+  } as any)
 const Char123LocaleChar125OtherAuthAuthenticatedPasswordChangeRoute =
   Char123LocaleChar125OtherAuthAuthenticatedPasswordChangeRouteImport.update({
     id: '/password/change',
     path: '/password/change',
     getParentRoute: () => Char123LocaleChar125OtherAuthAuthenticatedRouteRoute,
-  } as any);
+  } as any)
 const Char123LocaleChar125DashboardEditorContentDictionaryDictionaryKeyRoute =
   Char123LocaleChar125DashboardEditorContentDictionaryDictionaryKeyRouteImport.update(
     {
@@ -257,142 +257,142 @@ const Char123LocaleChar125DashboardEditorContentDictionaryDictionaryKeyRoute =
       path: '/dictionary/$dictionaryKey',
       getParentRoute: () =>
         Char123LocaleChar125DashboardEditorContentRouteRoute,
-    } as any
-  );
+    } as any,
+  )
 const Char123LocaleChar125DashboardAdminAdminUsersIdRoute =
   Char123LocaleChar125DashboardAdminAdminUsersIdRouteImport.update({
     id: '/$id',
     path: '/$id',
     getParentRoute: () => Char123LocaleChar125DashboardAdminAdminUsersRoute,
-  } as any);
+  } as any)
 const Char123LocaleChar125DashboardAdminAdminProjectsIdRoute =
   Char123LocaleChar125DashboardAdminAdminProjectsIdRouteImport.update({
     id: '/$id',
     path: '/$id',
     getParentRoute: () => Char123LocaleChar125DashboardAdminAdminProjectsRoute,
-  } as any);
+  } as any)
 const Char123LocaleChar125DashboardAdminAdminOrganizationsIdRoute =
   Char123LocaleChar125DashboardAdminAdminOrganizationsIdRouteImport.update({
     id: '/$id',
     path: '/$id',
     getParentRoute: () =>
       Char123LocaleChar125DashboardAdminAdminOrganizationsRoute,
-  } as any);
+  } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute;
-  '/sitemap.xml': typeof SitemapDotxmlRoute;
-  '/{-$locale}': typeof Char123LocaleChar125DashboardEditorContentRouteRouteWithChildren;
-  '/{-$locale}/$': typeof Char123LocaleChar125SplatRoute;
-  '/{-$locale}/404': typeof Char123LocaleChar125404Route;
-  '/{-$locale}/page': typeof Char123LocaleChar125PageRoute;
-  '/{-$locale}/organization': typeof Char123LocaleChar125DashboardOrganizationRoute;
-  '/{-$locale}/profile': typeof Char123LocaleChar125DashboardProfileRoute;
-  '/{-$locale}/projects': typeof Char123LocaleChar125DashboardProjectsRoute;
-  '/{-$locale}/pricing': typeof Char123LocaleChar125OtherPricingRoute;
-  '/{-$locale}/': typeof Char123LocaleChar125DashboardIndexRoute;
-  '/{-$locale}/auth': typeof Char123LocaleChar125OtherAuthNotAuthenticatedRouteRouteWithChildren;
-  '/{-$locale}/auth/cli-login': typeof Char123LocaleChar125OtherAuthCliLoginRoute;
-  '/{-$locale}/onboarding/$step': typeof Char123LocaleChar125OtherOnboardingStepRoute;
-  '/{-$locale}/admin/discussions': typeof Char123LocaleChar125DashboardAdminAdminDiscussionsRoute;
-  '/{-$locale}/admin/organizations': typeof Char123LocaleChar125DashboardAdminAdminOrganizationsRouteWithChildren;
-  '/{-$locale}/admin/projects': typeof Char123LocaleChar125DashboardAdminAdminProjectsRouteWithChildren;
-  '/{-$locale}/admin/users': typeof Char123LocaleChar125DashboardAdminAdminUsersRouteWithChildren;
-  '/{-$locale}/editor': typeof Char123LocaleChar125DashboardEditorContentEditorRoute;
-  '/{-$locale}/translate': typeof Char123LocaleChar125DashboardEditorContentTranslateRoute;
-  '/{-$locale}/tags/$tagKey': typeof Char123LocaleChar125DashboardEditorTagsTagKeyRoute;
-  '/{-$locale}/auth/2fa': typeof Char123LocaleChar125OtherAuthNotAuthenticated2faRoute;
-  '/{-$locale}/auth/login': typeof Char123LocaleChar125OtherAuthNotAuthenticatedLoginRoute;
-  '/{-$locale}/auth/register': typeof Char123LocaleChar125OtherAuthNotAuthenticatedRegisterRoute;
-  '/{-$locale}/auth/password': typeof Char123LocaleChar125OtherAuthPasswordLayoutRoute;
-  '/{-$locale}/auth/password/ask-reset': typeof Char123LocaleChar125OtherAuthPasswordAskResetRoute;
-  '/{-$locale}/auth/password/reset': typeof Char123LocaleChar125OtherAuthPasswordResetRoute;
-  '/{-$locale}/tags/': typeof Char123LocaleChar125DashboardEditorTagsIndexRoute;
-  '/{-$locale}/admin/organizations/$id': typeof Char123LocaleChar125DashboardAdminAdminOrganizationsIdRoute;
-  '/{-$locale}/admin/projects/$id': typeof Char123LocaleChar125DashboardAdminAdminProjectsIdRoute;
-  '/{-$locale}/admin/users/$id': typeof Char123LocaleChar125DashboardAdminAdminUsersIdRoute;
-  '/{-$locale}/dictionary/$dictionaryKey': typeof Char123LocaleChar125DashboardEditorContentDictionaryDictionaryKeyRoute;
-  '/{-$locale}/auth/password/change': typeof Char123LocaleChar125OtherAuthAuthenticatedPasswordChangeRoute;
-  '/{-$locale}/dictionary/': typeof Char123LocaleChar125DashboardEditorContentDictionaryIndexRoute;
+  '/': typeof IndexRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/{-$locale}': typeof Char123LocaleChar125DashboardEditorContentRouteRouteWithChildren
+  '/{-$locale}/$': typeof Char123LocaleChar125SplatRoute
+  '/{-$locale}/404': typeof Char123LocaleChar125404Route
+  '/{-$locale}/page': typeof Char123LocaleChar125PageRoute
+  '/{-$locale}/organization': typeof Char123LocaleChar125DashboardOrganizationRoute
+  '/{-$locale}/profile': typeof Char123LocaleChar125DashboardProfileRoute
+  '/{-$locale}/projects': typeof Char123LocaleChar125DashboardProjectsRoute
+  '/{-$locale}/pricing': typeof Char123LocaleChar125OtherPricingRoute
+  '/{-$locale}/': typeof Char123LocaleChar125DashboardIndexRoute
+  '/{-$locale}/auth': typeof Char123LocaleChar125OtherAuthNotAuthenticatedRouteRouteWithChildren
+  '/{-$locale}/auth/cli-login': typeof Char123LocaleChar125OtherAuthCliLoginRoute
+  '/{-$locale}/onboarding/$step': typeof Char123LocaleChar125OtherOnboardingStepRoute
+  '/{-$locale}/admin/discussions': typeof Char123LocaleChar125DashboardAdminAdminDiscussionsRoute
+  '/{-$locale}/admin/organizations': typeof Char123LocaleChar125DashboardAdminAdminOrganizationsRouteWithChildren
+  '/{-$locale}/admin/projects': typeof Char123LocaleChar125DashboardAdminAdminProjectsRouteWithChildren
+  '/{-$locale}/admin/users': typeof Char123LocaleChar125DashboardAdminAdminUsersRouteWithChildren
+  '/{-$locale}/editor': typeof Char123LocaleChar125DashboardEditorContentEditorRoute
+  '/{-$locale}/translate': typeof Char123LocaleChar125DashboardEditorContentTranslateRoute
+  '/{-$locale}/tags/$tagKey': typeof Char123LocaleChar125DashboardEditorTagsTagKeyRoute
+  '/{-$locale}/auth/2fa': typeof Char123LocaleChar125OtherAuthNotAuthenticated2faRoute
+  '/{-$locale}/auth/login': typeof Char123LocaleChar125OtherAuthNotAuthenticatedLoginRoute
+  '/{-$locale}/auth/register': typeof Char123LocaleChar125OtherAuthNotAuthenticatedRegisterRoute
+  '/{-$locale}/auth/password': typeof Char123LocaleChar125OtherAuthPasswordLayoutRoute
+  '/{-$locale}/auth/password/ask-reset': typeof Char123LocaleChar125OtherAuthPasswordAskResetRoute
+  '/{-$locale}/auth/password/reset': typeof Char123LocaleChar125OtherAuthPasswordResetRoute
+  '/{-$locale}/tags/': typeof Char123LocaleChar125DashboardEditorTagsIndexRoute
+  '/{-$locale}/admin/organizations/$id': typeof Char123LocaleChar125DashboardAdminAdminOrganizationsIdRoute
+  '/{-$locale}/admin/projects/$id': typeof Char123LocaleChar125DashboardAdminAdminProjectsIdRoute
+  '/{-$locale}/admin/users/$id': typeof Char123LocaleChar125DashboardAdminAdminUsersIdRoute
+  '/{-$locale}/dictionary/$dictionaryKey': typeof Char123LocaleChar125DashboardEditorContentDictionaryDictionaryKeyRoute
+  '/{-$locale}/auth/password/change': typeof Char123LocaleChar125OtherAuthAuthenticatedPasswordChangeRoute
+  '/{-$locale}/dictionary/': typeof Char123LocaleChar125DashboardEditorContentDictionaryIndexRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute;
-  '/sitemap.xml': typeof SitemapDotxmlRoute;
-  '/{-$locale}': typeof Char123LocaleChar125DashboardEditorContentRouteRouteWithChildren;
-  '/{-$locale}/$': typeof Char123LocaleChar125SplatRoute;
-  '/{-$locale}/404': typeof Char123LocaleChar125404Route;
-  '/{-$locale}/page': typeof Char123LocaleChar125PageRoute;
-  '/{-$locale}/organization': typeof Char123LocaleChar125DashboardOrganizationRoute;
-  '/{-$locale}/profile': typeof Char123LocaleChar125DashboardProfileRoute;
-  '/{-$locale}/projects': typeof Char123LocaleChar125DashboardProjectsRoute;
-  '/{-$locale}/pricing': typeof Char123LocaleChar125OtherPricingRoute;
-  '/{-$locale}/auth': typeof Char123LocaleChar125OtherAuthNotAuthenticatedRouteRouteWithChildren;
-  '/{-$locale}/auth/cli-login': typeof Char123LocaleChar125OtherAuthCliLoginRoute;
-  '/{-$locale}/onboarding/$step': typeof Char123LocaleChar125OtherOnboardingStepRoute;
-  '/{-$locale}/admin/discussions': typeof Char123LocaleChar125DashboardAdminAdminDiscussionsRoute;
-  '/{-$locale}/admin/organizations': typeof Char123LocaleChar125DashboardAdminAdminOrganizationsRouteWithChildren;
-  '/{-$locale}/admin/projects': typeof Char123LocaleChar125DashboardAdminAdminProjectsRouteWithChildren;
-  '/{-$locale}/admin/users': typeof Char123LocaleChar125DashboardAdminAdminUsersRouteWithChildren;
-  '/{-$locale}/editor': typeof Char123LocaleChar125DashboardEditorContentEditorRoute;
-  '/{-$locale}/translate': typeof Char123LocaleChar125DashboardEditorContentTranslateRoute;
-  '/{-$locale}/tags/$tagKey': typeof Char123LocaleChar125DashboardEditorTagsTagKeyRoute;
-  '/{-$locale}/auth/2fa': typeof Char123LocaleChar125OtherAuthNotAuthenticated2faRoute;
-  '/{-$locale}/auth/login': typeof Char123LocaleChar125OtherAuthNotAuthenticatedLoginRoute;
-  '/{-$locale}/auth/register': typeof Char123LocaleChar125OtherAuthNotAuthenticatedRegisterRoute;
-  '/{-$locale}/auth/password': typeof Char123LocaleChar125OtherAuthPasswordLayoutRoute;
-  '/{-$locale}/auth/password/ask-reset': typeof Char123LocaleChar125OtherAuthPasswordAskResetRoute;
-  '/{-$locale}/auth/password/reset': typeof Char123LocaleChar125OtherAuthPasswordResetRoute;
-  '/{-$locale}/tags': typeof Char123LocaleChar125DashboardEditorTagsIndexRoute;
-  '/{-$locale}/admin/organizations/$id': typeof Char123LocaleChar125DashboardAdminAdminOrganizationsIdRoute;
-  '/{-$locale}/admin/projects/$id': typeof Char123LocaleChar125DashboardAdminAdminProjectsIdRoute;
-  '/{-$locale}/admin/users/$id': typeof Char123LocaleChar125DashboardAdminAdminUsersIdRoute;
-  '/{-$locale}/dictionary/$dictionaryKey': typeof Char123LocaleChar125DashboardEditorContentDictionaryDictionaryKeyRoute;
-  '/{-$locale}/auth/password/change': typeof Char123LocaleChar125OtherAuthAuthenticatedPasswordChangeRoute;
-  '/{-$locale}/dictionary': typeof Char123LocaleChar125DashboardEditorContentDictionaryIndexRoute;
+  '/': typeof IndexRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/{-$locale}': typeof Char123LocaleChar125DashboardEditorContentRouteRouteWithChildren
+  '/{-$locale}/$': typeof Char123LocaleChar125SplatRoute
+  '/{-$locale}/404': typeof Char123LocaleChar125404Route
+  '/{-$locale}/page': typeof Char123LocaleChar125PageRoute
+  '/{-$locale}/organization': typeof Char123LocaleChar125DashboardOrganizationRoute
+  '/{-$locale}/profile': typeof Char123LocaleChar125DashboardProfileRoute
+  '/{-$locale}/projects': typeof Char123LocaleChar125DashboardProjectsRoute
+  '/{-$locale}/pricing': typeof Char123LocaleChar125OtherPricingRoute
+  '/{-$locale}/auth': typeof Char123LocaleChar125OtherAuthNotAuthenticatedRouteRouteWithChildren
+  '/{-$locale}/auth/cli-login': typeof Char123LocaleChar125OtherAuthCliLoginRoute
+  '/{-$locale}/onboarding/$step': typeof Char123LocaleChar125OtherOnboardingStepRoute
+  '/{-$locale}/admin/discussions': typeof Char123LocaleChar125DashboardAdminAdminDiscussionsRoute
+  '/{-$locale}/admin/organizations': typeof Char123LocaleChar125DashboardAdminAdminOrganizationsRouteWithChildren
+  '/{-$locale}/admin/projects': typeof Char123LocaleChar125DashboardAdminAdminProjectsRouteWithChildren
+  '/{-$locale}/admin/users': typeof Char123LocaleChar125DashboardAdminAdminUsersRouteWithChildren
+  '/{-$locale}/editor': typeof Char123LocaleChar125DashboardEditorContentEditorRoute
+  '/{-$locale}/translate': typeof Char123LocaleChar125DashboardEditorContentTranslateRoute
+  '/{-$locale}/tags/$tagKey': typeof Char123LocaleChar125DashboardEditorTagsTagKeyRoute
+  '/{-$locale}/auth/2fa': typeof Char123LocaleChar125OtherAuthNotAuthenticated2faRoute
+  '/{-$locale}/auth/login': typeof Char123LocaleChar125OtherAuthNotAuthenticatedLoginRoute
+  '/{-$locale}/auth/register': typeof Char123LocaleChar125OtherAuthNotAuthenticatedRegisterRoute
+  '/{-$locale}/auth/password': typeof Char123LocaleChar125OtherAuthPasswordLayoutRoute
+  '/{-$locale}/auth/password/ask-reset': typeof Char123LocaleChar125OtherAuthPasswordAskResetRoute
+  '/{-$locale}/auth/password/reset': typeof Char123LocaleChar125OtherAuthPasswordResetRoute
+  '/{-$locale}/tags': typeof Char123LocaleChar125DashboardEditorTagsIndexRoute
+  '/{-$locale}/admin/organizations/$id': typeof Char123LocaleChar125DashboardAdminAdminOrganizationsIdRoute
+  '/{-$locale}/admin/projects/$id': typeof Char123LocaleChar125DashboardAdminAdminProjectsIdRoute
+  '/{-$locale}/admin/users/$id': typeof Char123LocaleChar125DashboardAdminAdminUsersIdRoute
+  '/{-$locale}/dictionary/$dictionaryKey': typeof Char123LocaleChar125DashboardEditorContentDictionaryDictionaryKeyRoute
+  '/{-$locale}/auth/password/change': typeof Char123LocaleChar125OtherAuthAuthenticatedPasswordChangeRoute
+  '/{-$locale}/dictionary': typeof Char123LocaleChar125DashboardEditorContentDictionaryIndexRoute
 }
 export interface FileRoutesById {
-  __root__: typeof rootRouteImport;
-  '/': typeof IndexRoute;
-  '/sitemap.xml': typeof SitemapDotxmlRoute;
-  '/{-$locale}/_dashboard': typeof Char123LocaleChar125DashboardRouteRouteWithChildren;
-  '/{-$locale}/_other': typeof Char123LocaleChar125OtherRouteRouteWithChildren;
-  '/{-$locale}/$': typeof Char123LocaleChar125SplatRoute;
-  '/{-$locale}/404': typeof Char123LocaleChar125404Route;
-  '/{-$locale}/page': typeof Char123LocaleChar125PageRoute;
-  '/{-$locale}/_dashboard/_admin': typeof Char123LocaleChar125DashboardAdminRouteRouteWithChildren;
-  '/{-$locale}/_dashboard/organization': typeof Char123LocaleChar125DashboardOrganizationRoute;
-  '/{-$locale}/_dashboard/profile': typeof Char123LocaleChar125DashboardProfileRoute;
-  '/{-$locale}/_dashboard/projects': typeof Char123LocaleChar125DashboardProjectsRoute;
-  '/{-$locale}/_other/pricing': typeof Char123LocaleChar125OtherPricingRoute;
-  '/{-$locale}/_dashboard/': typeof Char123LocaleChar125DashboardIndexRoute;
-  '/{-$locale}/_dashboard/_editor/_content': typeof Char123LocaleChar125DashboardEditorContentRouteRouteWithChildren;
-  '/{-$locale}/_other/auth/_authenticated': typeof Char123LocaleChar125OtherAuthAuthenticatedRouteRouteWithChildren;
-  '/{-$locale}/_other/auth/_not-authenticated': typeof Char123LocaleChar125OtherAuthNotAuthenticatedRouteRouteWithChildren;
-  '/{-$locale}/_other/auth/cli-login': typeof Char123LocaleChar125OtherAuthCliLoginRoute;
-  '/{-$locale}/_other/onboarding/$step': typeof Char123LocaleChar125OtherOnboardingStepRoute;
-  '/{-$locale}/_dashboard/_admin/admin/discussions': typeof Char123LocaleChar125DashboardAdminAdminDiscussionsRoute;
-  '/{-$locale}/_dashboard/_admin/admin/organizations': typeof Char123LocaleChar125DashboardAdminAdminOrganizationsRouteWithChildren;
-  '/{-$locale}/_dashboard/_admin/admin/projects': typeof Char123LocaleChar125DashboardAdminAdminProjectsRouteWithChildren;
-  '/{-$locale}/_dashboard/_admin/admin/users': typeof Char123LocaleChar125DashboardAdminAdminUsersRouteWithChildren;
-  '/{-$locale}/_dashboard/_editor/_content/editor': typeof Char123LocaleChar125DashboardEditorContentEditorRoute;
-  '/{-$locale}/_dashboard/_editor/_content/translate': typeof Char123LocaleChar125DashboardEditorContentTranslateRoute;
-  '/{-$locale}/_dashboard/_editor/tags/$tagKey': typeof Char123LocaleChar125DashboardEditorTagsTagKeyRoute;
-  '/{-$locale}/_other/auth/_not-authenticated/2fa': typeof Char123LocaleChar125OtherAuthNotAuthenticated2faRoute;
-  '/{-$locale}/_other/auth/_not-authenticated/login': typeof Char123LocaleChar125OtherAuthNotAuthenticatedLoginRoute;
-  '/{-$locale}/_other/auth/_not-authenticated/register': typeof Char123LocaleChar125OtherAuthNotAuthenticatedRegisterRoute;
-  '/{-$locale}/_other/auth/password/_layout': typeof Char123LocaleChar125OtherAuthPasswordLayoutRoute;
-  '/{-$locale}/_other/auth/password/ask-reset': typeof Char123LocaleChar125OtherAuthPasswordAskResetRoute;
-  '/{-$locale}/_other/auth/password/reset': typeof Char123LocaleChar125OtherAuthPasswordResetRoute;
-  '/{-$locale}/_dashboard/_editor/tags/': typeof Char123LocaleChar125DashboardEditorTagsIndexRoute;
-  '/{-$locale}/_dashboard/_admin/admin/organizations/$id': typeof Char123LocaleChar125DashboardAdminAdminOrganizationsIdRoute;
-  '/{-$locale}/_dashboard/_admin/admin/projects/$id': typeof Char123LocaleChar125DashboardAdminAdminProjectsIdRoute;
-  '/{-$locale}/_dashboard/_admin/admin/users/$id': typeof Char123LocaleChar125DashboardAdminAdminUsersIdRoute;
-  '/{-$locale}/_dashboard/_editor/_content/dictionary/$dictionaryKey': typeof Char123LocaleChar125DashboardEditorContentDictionaryDictionaryKeyRoute;
-  '/{-$locale}/_other/auth/_authenticated/password/change': typeof Char123LocaleChar125OtherAuthAuthenticatedPasswordChangeRoute;
-  '/{-$locale}/_dashboard/_editor/_content/dictionary/': typeof Char123LocaleChar125DashboardEditorContentDictionaryIndexRoute;
+  __root__: typeof rootRouteImport
+  '/': typeof IndexRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/{-$locale}/_dashboard': typeof Char123LocaleChar125DashboardRouteRouteWithChildren
+  '/{-$locale}/_other': typeof Char123LocaleChar125OtherRouteRouteWithChildren
+  '/{-$locale}/$': typeof Char123LocaleChar125SplatRoute
+  '/{-$locale}/404': typeof Char123LocaleChar125404Route
+  '/{-$locale}/page': typeof Char123LocaleChar125PageRoute
+  '/{-$locale}/_dashboard/_admin': typeof Char123LocaleChar125DashboardAdminRouteRouteWithChildren
+  '/{-$locale}/_dashboard/organization': typeof Char123LocaleChar125DashboardOrganizationRoute
+  '/{-$locale}/_dashboard/profile': typeof Char123LocaleChar125DashboardProfileRoute
+  '/{-$locale}/_dashboard/projects': typeof Char123LocaleChar125DashboardProjectsRoute
+  '/{-$locale}/_other/pricing': typeof Char123LocaleChar125OtherPricingRoute
+  '/{-$locale}/_dashboard/': typeof Char123LocaleChar125DashboardIndexRoute
+  '/{-$locale}/_dashboard/_editor/_content': typeof Char123LocaleChar125DashboardEditorContentRouteRouteWithChildren
+  '/{-$locale}/_other/auth/_authenticated': typeof Char123LocaleChar125OtherAuthAuthenticatedRouteRouteWithChildren
+  '/{-$locale}/_other/auth/_not-authenticated': typeof Char123LocaleChar125OtherAuthNotAuthenticatedRouteRouteWithChildren
+  '/{-$locale}/_other/auth/cli-login': typeof Char123LocaleChar125OtherAuthCliLoginRoute
+  '/{-$locale}/_other/onboarding/$step': typeof Char123LocaleChar125OtherOnboardingStepRoute
+  '/{-$locale}/_dashboard/_admin/admin/discussions': typeof Char123LocaleChar125DashboardAdminAdminDiscussionsRoute
+  '/{-$locale}/_dashboard/_admin/admin/organizations': typeof Char123LocaleChar125DashboardAdminAdminOrganizationsRouteWithChildren
+  '/{-$locale}/_dashboard/_admin/admin/projects': typeof Char123LocaleChar125DashboardAdminAdminProjectsRouteWithChildren
+  '/{-$locale}/_dashboard/_admin/admin/users': typeof Char123LocaleChar125DashboardAdminAdminUsersRouteWithChildren
+  '/{-$locale}/_dashboard/_editor/_content/editor': typeof Char123LocaleChar125DashboardEditorContentEditorRoute
+  '/{-$locale}/_dashboard/_editor/_content/translate': typeof Char123LocaleChar125DashboardEditorContentTranslateRoute
+  '/{-$locale}/_dashboard/_editor/tags/$tagKey': typeof Char123LocaleChar125DashboardEditorTagsTagKeyRoute
+  '/{-$locale}/_other/auth/_not-authenticated/2fa': typeof Char123LocaleChar125OtherAuthNotAuthenticated2faRoute
+  '/{-$locale}/_other/auth/_not-authenticated/login': typeof Char123LocaleChar125OtherAuthNotAuthenticatedLoginRoute
+  '/{-$locale}/_other/auth/_not-authenticated/register': typeof Char123LocaleChar125OtherAuthNotAuthenticatedRegisterRoute
+  '/{-$locale}/_other/auth/password/_layout': typeof Char123LocaleChar125OtherAuthPasswordLayoutRoute
+  '/{-$locale}/_other/auth/password/ask-reset': typeof Char123LocaleChar125OtherAuthPasswordAskResetRoute
+  '/{-$locale}/_other/auth/password/reset': typeof Char123LocaleChar125OtherAuthPasswordResetRoute
+  '/{-$locale}/_dashboard/_editor/tags/': typeof Char123LocaleChar125DashboardEditorTagsIndexRoute
+  '/{-$locale}/_dashboard/_admin/admin/organizations/$id': typeof Char123LocaleChar125DashboardAdminAdminOrganizationsIdRoute
+  '/{-$locale}/_dashboard/_admin/admin/projects/$id': typeof Char123LocaleChar125DashboardAdminAdminProjectsIdRoute
+  '/{-$locale}/_dashboard/_admin/admin/users/$id': typeof Char123LocaleChar125DashboardAdminAdminUsersIdRoute
+  '/{-$locale}/_dashboard/_editor/_content/dictionary/$dictionaryKey': typeof Char123LocaleChar125DashboardEditorContentDictionaryDictionaryKeyRoute
+  '/{-$locale}/_other/auth/_authenticated/password/change': typeof Char123LocaleChar125OtherAuthAuthenticatedPasswordChangeRoute
+  '/{-$locale}/_dashboard/_editor/_content/dictionary/': typeof Char123LocaleChar125DashboardEditorContentDictionaryIndexRoute
 }
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath;
+  fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/sitemap.xml'
@@ -427,8 +427,8 @@ export interface FileRouteTypes {
     | '/{-$locale}/admin/users/$id'
     | '/{-$locale}/dictionary/$dictionaryKey'
     | '/{-$locale}/auth/password/change'
-    | '/{-$locale}/dictionary/';
-  fileRoutesByTo: FileRoutesByTo;
+    | '/{-$locale}/dictionary/'
+  fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/sitemap.xml'
@@ -462,7 +462,7 @@ export interface FileRouteTypes {
     | '/{-$locale}/admin/users/$id'
     | '/{-$locale}/dictionary/$dictionaryKey'
     | '/{-$locale}/auth/password/change'
-    | '/{-$locale}/dictionary';
+    | '/{-$locale}/dictionary'
   id:
     | '__root__'
     | '/'
@@ -502,340 +502,340 @@ export interface FileRouteTypes {
     | '/{-$locale}/_dashboard/_admin/admin/users/$id'
     | '/{-$locale}/_dashboard/_editor/_content/dictionary/$dictionaryKey'
     | '/{-$locale}/_other/auth/_authenticated/password/change'
-    | '/{-$locale}/_dashboard/_editor/_content/dictionary/';
-  fileRoutesById: FileRoutesById;
+    | '/{-$locale}/_dashboard/_editor/_content/dictionary/'
+  fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute;
-  SitemapDotxmlRoute: typeof SitemapDotxmlRoute;
-  Char123LocaleChar125DashboardRouteRoute: typeof Char123LocaleChar125DashboardRouteRouteWithChildren;
-  Char123LocaleChar125OtherRouteRoute: typeof Char123LocaleChar125OtherRouteRouteWithChildren;
-  Char123LocaleChar125SplatRoute: typeof Char123LocaleChar125SplatRoute;
-  Char123LocaleChar125404Route: typeof Char123LocaleChar125404Route;
-  Char123LocaleChar125PageRoute: typeof Char123LocaleChar125PageRoute;
+  IndexRoute: typeof IndexRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  Char123LocaleChar125DashboardRouteRoute: typeof Char123LocaleChar125DashboardRouteRouteWithChildren
+  Char123LocaleChar125OtherRouteRoute: typeof Char123LocaleChar125OtherRouteRouteWithChildren
+  Char123LocaleChar125SplatRoute: typeof Char123LocaleChar125SplatRoute
+  Char123LocaleChar125404Route: typeof Char123LocaleChar125404Route
+  Char123LocaleChar125PageRoute: typeof Char123LocaleChar125PageRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
     '/sitemap.xml': {
-      id: '/sitemap.xml';
-      path: '/sitemap.xml';
-      fullPath: '/sitemap.xml';
-      preLoaderRoute: typeof SitemapDotxmlRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
-      id: '/';
-      path: '/';
-      fullPath: '/';
-      preLoaderRoute: typeof IndexRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/{-$locale}/page': {
-      id: '/{-$locale}/page';
-      path: '/{-$locale}/page';
-      fullPath: '/{-$locale}/page';
-      preLoaderRoute: typeof Char123LocaleChar125PageRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
+      id: '/{-$locale}/page'
+      path: '/{-$locale}/page'
+      fullPath: '/{-$locale}/page'
+      preLoaderRoute: typeof Char123LocaleChar125PageRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/{-$locale}/404': {
-      id: '/{-$locale}/404';
-      path: '/{-$locale}/404';
-      fullPath: '/{-$locale}/404';
-      preLoaderRoute: typeof Char123LocaleChar125404RouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
+      id: '/{-$locale}/404'
+      path: '/{-$locale}/404'
+      fullPath: '/{-$locale}/404'
+      preLoaderRoute: typeof Char123LocaleChar125404RouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/{-$locale}/$': {
-      id: '/{-$locale}/$';
-      path: '/{-$locale}/$';
-      fullPath: '/{-$locale}/$';
-      preLoaderRoute: typeof Char123LocaleChar125SplatRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
+      id: '/{-$locale}/$'
+      path: '/{-$locale}/$'
+      fullPath: '/{-$locale}/$'
+      preLoaderRoute: typeof Char123LocaleChar125SplatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/{-$locale}/_other': {
-      id: '/{-$locale}/_other';
-      path: '/{-$locale}';
-      fullPath: '/{-$locale}';
-      preLoaderRoute: typeof Char123LocaleChar125OtherRouteRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
+      id: '/{-$locale}/_other'
+      path: '/{-$locale}'
+      fullPath: '/{-$locale}'
+      preLoaderRoute: typeof Char123LocaleChar125OtherRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/{-$locale}/_dashboard': {
-      id: '/{-$locale}/_dashboard';
-      path: '/{-$locale}';
-      fullPath: '/{-$locale}';
-      preLoaderRoute: typeof Char123LocaleChar125DashboardRouteRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
+      id: '/{-$locale}/_dashboard'
+      path: '/{-$locale}'
+      fullPath: '/{-$locale}'
+      preLoaderRoute: typeof Char123LocaleChar125DashboardRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/{-$locale}/_dashboard/': {
-      id: '/{-$locale}/_dashboard/';
-      path: '/';
-      fullPath: '/{-$locale}/';
-      preLoaderRoute: typeof Char123LocaleChar125DashboardIndexRouteImport;
-      parentRoute: typeof Char123LocaleChar125DashboardRouteRoute;
-    };
+      id: '/{-$locale}/_dashboard/'
+      path: '/'
+      fullPath: '/{-$locale}/'
+      preLoaderRoute: typeof Char123LocaleChar125DashboardIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125DashboardRouteRoute
+    }
     '/{-$locale}/_other/pricing': {
-      id: '/{-$locale}/_other/pricing';
-      path: '/pricing';
-      fullPath: '/{-$locale}/pricing';
-      preLoaderRoute: typeof Char123LocaleChar125OtherPricingRouteImport;
-      parentRoute: typeof Char123LocaleChar125OtherRouteRoute;
-    };
+      id: '/{-$locale}/_other/pricing'
+      path: '/pricing'
+      fullPath: '/{-$locale}/pricing'
+      preLoaderRoute: typeof Char123LocaleChar125OtherPricingRouteImport
+      parentRoute: typeof Char123LocaleChar125OtherRouteRoute
+    }
     '/{-$locale}/_dashboard/projects': {
-      id: '/{-$locale}/_dashboard/projects';
-      path: '/projects';
-      fullPath: '/{-$locale}/projects';
-      preLoaderRoute: typeof Char123LocaleChar125DashboardProjectsRouteImport;
-      parentRoute: typeof Char123LocaleChar125DashboardRouteRoute;
-    };
+      id: '/{-$locale}/_dashboard/projects'
+      path: '/projects'
+      fullPath: '/{-$locale}/projects'
+      preLoaderRoute: typeof Char123LocaleChar125DashboardProjectsRouteImport
+      parentRoute: typeof Char123LocaleChar125DashboardRouteRoute
+    }
     '/{-$locale}/_dashboard/profile': {
-      id: '/{-$locale}/_dashboard/profile';
-      path: '/profile';
-      fullPath: '/{-$locale}/profile';
-      preLoaderRoute: typeof Char123LocaleChar125DashboardProfileRouteImport;
-      parentRoute: typeof Char123LocaleChar125DashboardRouteRoute;
-    };
+      id: '/{-$locale}/_dashboard/profile'
+      path: '/profile'
+      fullPath: '/{-$locale}/profile'
+      preLoaderRoute: typeof Char123LocaleChar125DashboardProfileRouteImport
+      parentRoute: typeof Char123LocaleChar125DashboardRouteRoute
+    }
     '/{-$locale}/_dashboard/organization': {
-      id: '/{-$locale}/_dashboard/organization';
-      path: '/organization';
-      fullPath: '/{-$locale}/organization';
-      preLoaderRoute: typeof Char123LocaleChar125DashboardOrganizationRouteImport;
-      parentRoute: typeof Char123LocaleChar125DashboardRouteRoute;
-    };
+      id: '/{-$locale}/_dashboard/organization'
+      path: '/organization'
+      fullPath: '/{-$locale}/organization'
+      preLoaderRoute: typeof Char123LocaleChar125DashboardOrganizationRouteImport
+      parentRoute: typeof Char123LocaleChar125DashboardRouteRoute
+    }
     '/{-$locale}/_dashboard/_admin': {
-      id: '/{-$locale}/_dashboard/_admin';
-      path: '';
-      fullPath: '/{-$locale}';
-      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminRouteRouteImport;
-      parentRoute: typeof Char123LocaleChar125DashboardRouteRoute;
-    };
+      id: '/{-$locale}/_dashboard/_admin'
+      path: ''
+      fullPath: '/{-$locale}'
+      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminRouteRouteImport
+      parentRoute: typeof Char123LocaleChar125DashboardRouteRoute
+    }
     '/{-$locale}/_other/onboarding/$step': {
-      id: '/{-$locale}/_other/onboarding/$step';
-      path: '/onboarding/$step';
-      fullPath: '/{-$locale}/onboarding/$step';
-      preLoaderRoute: typeof Char123LocaleChar125OtherOnboardingStepRouteImport;
-      parentRoute: typeof Char123LocaleChar125OtherRouteRoute;
-    };
+      id: '/{-$locale}/_other/onboarding/$step'
+      path: '/onboarding/$step'
+      fullPath: '/{-$locale}/onboarding/$step'
+      preLoaderRoute: typeof Char123LocaleChar125OtherOnboardingStepRouteImport
+      parentRoute: typeof Char123LocaleChar125OtherRouteRoute
+    }
     '/{-$locale}/_other/auth/cli-login': {
-      id: '/{-$locale}/_other/auth/cli-login';
-      path: '/auth/cli-login';
-      fullPath: '/{-$locale}/auth/cli-login';
-      preLoaderRoute: typeof Char123LocaleChar125OtherAuthCliLoginRouteImport;
-      parentRoute: typeof Char123LocaleChar125OtherRouteRoute;
-    };
+      id: '/{-$locale}/_other/auth/cli-login'
+      path: '/auth/cli-login'
+      fullPath: '/{-$locale}/auth/cli-login'
+      preLoaderRoute: typeof Char123LocaleChar125OtherAuthCliLoginRouteImport
+      parentRoute: typeof Char123LocaleChar125OtherRouteRoute
+    }
     '/{-$locale}/_other/auth/_not-authenticated': {
-      id: '/{-$locale}/_other/auth/_not-authenticated';
-      path: '/auth';
-      fullPath: '/{-$locale}/auth';
-      preLoaderRoute: typeof Char123LocaleChar125OtherAuthNotAuthenticatedRouteRouteImport;
-      parentRoute: typeof Char123LocaleChar125OtherRouteRoute;
-    };
+      id: '/{-$locale}/_other/auth/_not-authenticated'
+      path: '/auth'
+      fullPath: '/{-$locale}/auth'
+      preLoaderRoute: typeof Char123LocaleChar125OtherAuthNotAuthenticatedRouteRouteImport
+      parentRoute: typeof Char123LocaleChar125OtherRouteRoute
+    }
     '/{-$locale}/_other/auth/_authenticated': {
-      id: '/{-$locale}/_other/auth/_authenticated';
-      path: '/auth';
-      fullPath: '/{-$locale}/auth';
-      preLoaderRoute: typeof Char123LocaleChar125OtherAuthAuthenticatedRouteRouteImport;
-      parentRoute: typeof Char123LocaleChar125OtherRouteRoute;
-    };
+      id: '/{-$locale}/_other/auth/_authenticated'
+      path: '/auth'
+      fullPath: '/{-$locale}/auth'
+      preLoaderRoute: typeof Char123LocaleChar125OtherAuthAuthenticatedRouteRouteImport
+      parentRoute: typeof Char123LocaleChar125OtherRouteRoute
+    }
     '/{-$locale}/_dashboard/_editor/_content': {
-      id: '/{-$locale}/_dashboard/_editor/_content';
-      path: '';
-      fullPath: '/{-$locale}';
-      preLoaderRoute: typeof Char123LocaleChar125DashboardEditorContentRouteRouteImport;
-      parentRoute: typeof Char123LocaleChar125DashboardRouteRoute;
-    };
+      id: '/{-$locale}/_dashboard/_editor/_content'
+      path: ''
+      fullPath: '/{-$locale}'
+      preLoaderRoute: typeof Char123LocaleChar125DashboardEditorContentRouteRouteImport
+      parentRoute: typeof Char123LocaleChar125DashboardRouteRoute
+    }
     '/{-$locale}/_dashboard/_editor/tags/': {
-      id: '/{-$locale}/_dashboard/_editor/tags/';
-      path: '/tags';
-      fullPath: '/{-$locale}/tags/';
-      preLoaderRoute: typeof Char123LocaleChar125DashboardEditorTagsIndexRouteImport;
-      parentRoute: typeof Char123LocaleChar125DashboardRouteRoute;
-    };
+      id: '/{-$locale}/_dashboard/_editor/tags/'
+      path: '/tags'
+      fullPath: '/{-$locale}/tags/'
+      preLoaderRoute: typeof Char123LocaleChar125DashboardEditorTagsIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125DashboardRouteRoute
+    }
     '/{-$locale}/_other/auth/password/reset': {
-      id: '/{-$locale}/_other/auth/password/reset';
-      path: '/auth/password/reset';
-      fullPath: '/{-$locale}/auth/password/reset';
-      preLoaderRoute: typeof Char123LocaleChar125OtherAuthPasswordResetRouteImport;
-      parentRoute: typeof Char123LocaleChar125OtherRouteRoute;
-    };
+      id: '/{-$locale}/_other/auth/password/reset'
+      path: '/auth/password/reset'
+      fullPath: '/{-$locale}/auth/password/reset'
+      preLoaderRoute: typeof Char123LocaleChar125OtherAuthPasswordResetRouteImport
+      parentRoute: typeof Char123LocaleChar125OtherRouteRoute
+    }
     '/{-$locale}/_other/auth/password/ask-reset': {
-      id: '/{-$locale}/_other/auth/password/ask-reset';
-      path: '/auth/password/ask-reset';
-      fullPath: '/{-$locale}/auth/password/ask-reset';
-      preLoaderRoute: typeof Char123LocaleChar125OtherAuthPasswordAskResetRouteImport;
-      parentRoute: typeof Char123LocaleChar125OtherRouteRoute;
-    };
+      id: '/{-$locale}/_other/auth/password/ask-reset'
+      path: '/auth/password/ask-reset'
+      fullPath: '/{-$locale}/auth/password/ask-reset'
+      preLoaderRoute: typeof Char123LocaleChar125OtherAuthPasswordAskResetRouteImport
+      parentRoute: typeof Char123LocaleChar125OtherRouteRoute
+    }
     '/{-$locale}/_other/auth/password/_layout': {
-      id: '/{-$locale}/_other/auth/password/_layout';
-      path: '/auth/password';
-      fullPath: '/{-$locale}/auth/password';
-      preLoaderRoute: typeof Char123LocaleChar125OtherAuthPasswordLayoutRouteImport;
-      parentRoute: typeof Char123LocaleChar125OtherRouteRoute;
-    };
+      id: '/{-$locale}/_other/auth/password/_layout'
+      path: '/auth/password'
+      fullPath: '/{-$locale}/auth/password'
+      preLoaderRoute: typeof Char123LocaleChar125OtherAuthPasswordLayoutRouteImport
+      parentRoute: typeof Char123LocaleChar125OtherRouteRoute
+    }
     '/{-$locale}/_other/auth/_not-authenticated/register': {
-      id: '/{-$locale}/_other/auth/_not-authenticated/register';
-      path: '/register';
-      fullPath: '/{-$locale}/auth/register';
-      preLoaderRoute: typeof Char123LocaleChar125OtherAuthNotAuthenticatedRegisterRouteImport;
-      parentRoute: typeof Char123LocaleChar125OtherAuthNotAuthenticatedRouteRoute;
-    };
+      id: '/{-$locale}/_other/auth/_not-authenticated/register'
+      path: '/register'
+      fullPath: '/{-$locale}/auth/register'
+      preLoaderRoute: typeof Char123LocaleChar125OtherAuthNotAuthenticatedRegisterRouteImport
+      parentRoute: typeof Char123LocaleChar125OtherAuthNotAuthenticatedRouteRoute
+    }
     '/{-$locale}/_other/auth/_not-authenticated/login': {
-      id: '/{-$locale}/_other/auth/_not-authenticated/login';
-      path: '/login';
-      fullPath: '/{-$locale}/auth/login';
-      preLoaderRoute: typeof Char123LocaleChar125OtherAuthNotAuthenticatedLoginRouteImport;
-      parentRoute: typeof Char123LocaleChar125OtherAuthNotAuthenticatedRouteRoute;
-    };
+      id: '/{-$locale}/_other/auth/_not-authenticated/login'
+      path: '/login'
+      fullPath: '/{-$locale}/auth/login'
+      preLoaderRoute: typeof Char123LocaleChar125OtherAuthNotAuthenticatedLoginRouteImport
+      parentRoute: typeof Char123LocaleChar125OtherAuthNotAuthenticatedRouteRoute
+    }
     '/{-$locale}/_other/auth/_not-authenticated/2fa': {
-      id: '/{-$locale}/_other/auth/_not-authenticated/2fa';
-      path: '/2fa';
-      fullPath: '/{-$locale}/auth/2fa';
-      preLoaderRoute: typeof Char123LocaleChar125OtherAuthNotAuthenticated2faRouteImport;
-      parentRoute: typeof Char123LocaleChar125OtherAuthNotAuthenticatedRouteRoute;
-    };
+      id: '/{-$locale}/_other/auth/_not-authenticated/2fa'
+      path: '/2fa'
+      fullPath: '/{-$locale}/auth/2fa'
+      preLoaderRoute: typeof Char123LocaleChar125OtherAuthNotAuthenticated2faRouteImport
+      parentRoute: typeof Char123LocaleChar125OtherAuthNotAuthenticatedRouteRoute
+    }
     '/{-$locale}/_dashboard/_editor/tags/$tagKey': {
-      id: '/{-$locale}/_dashboard/_editor/tags/$tagKey';
-      path: '/tags/$tagKey';
-      fullPath: '/{-$locale}/tags/$tagKey';
-      preLoaderRoute: typeof Char123LocaleChar125DashboardEditorTagsTagKeyRouteImport;
-      parentRoute: typeof Char123LocaleChar125DashboardRouteRoute;
-    };
+      id: '/{-$locale}/_dashboard/_editor/tags/$tagKey'
+      path: '/tags/$tagKey'
+      fullPath: '/{-$locale}/tags/$tagKey'
+      preLoaderRoute: typeof Char123LocaleChar125DashboardEditorTagsTagKeyRouteImport
+      parentRoute: typeof Char123LocaleChar125DashboardRouteRoute
+    }
     '/{-$locale}/_dashboard/_editor/_content/translate': {
-      id: '/{-$locale}/_dashboard/_editor/_content/translate';
-      path: '/translate';
-      fullPath: '/{-$locale}/translate';
-      preLoaderRoute: typeof Char123LocaleChar125DashboardEditorContentTranslateRouteImport;
-      parentRoute: typeof Char123LocaleChar125DashboardEditorContentRouteRoute;
-    };
+      id: '/{-$locale}/_dashboard/_editor/_content/translate'
+      path: '/translate'
+      fullPath: '/{-$locale}/translate'
+      preLoaderRoute: typeof Char123LocaleChar125DashboardEditorContentTranslateRouteImport
+      parentRoute: typeof Char123LocaleChar125DashboardEditorContentRouteRoute
+    }
     '/{-$locale}/_dashboard/_editor/_content/editor': {
-      id: '/{-$locale}/_dashboard/_editor/_content/editor';
-      path: '/editor';
-      fullPath: '/{-$locale}/editor';
-      preLoaderRoute: typeof Char123LocaleChar125DashboardEditorContentEditorRouteImport;
-      parentRoute: typeof Char123LocaleChar125DashboardEditorContentRouteRoute;
-    };
+      id: '/{-$locale}/_dashboard/_editor/_content/editor'
+      path: '/editor'
+      fullPath: '/{-$locale}/editor'
+      preLoaderRoute: typeof Char123LocaleChar125DashboardEditorContentEditorRouteImport
+      parentRoute: typeof Char123LocaleChar125DashboardEditorContentRouteRoute
+    }
     '/{-$locale}/_dashboard/_admin/admin/users': {
-      id: '/{-$locale}/_dashboard/_admin/admin/users';
-      path: '/admin/users';
-      fullPath: '/{-$locale}/admin/users';
-      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminUsersRouteImport;
-      parentRoute: typeof Char123LocaleChar125DashboardAdminRouteRoute;
-    };
+      id: '/{-$locale}/_dashboard/_admin/admin/users'
+      path: '/admin/users'
+      fullPath: '/{-$locale}/admin/users'
+      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminUsersRouteImport
+      parentRoute: typeof Char123LocaleChar125DashboardAdminRouteRoute
+    }
     '/{-$locale}/_dashboard/_admin/admin/projects': {
-      id: '/{-$locale}/_dashboard/_admin/admin/projects';
-      path: '/admin/projects';
-      fullPath: '/{-$locale}/admin/projects';
-      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminProjectsRouteImport;
-      parentRoute: typeof Char123LocaleChar125DashboardAdminRouteRoute;
-    };
+      id: '/{-$locale}/_dashboard/_admin/admin/projects'
+      path: '/admin/projects'
+      fullPath: '/{-$locale}/admin/projects'
+      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminProjectsRouteImport
+      parentRoute: typeof Char123LocaleChar125DashboardAdminRouteRoute
+    }
     '/{-$locale}/_dashboard/_admin/admin/organizations': {
-      id: '/{-$locale}/_dashboard/_admin/admin/organizations';
-      path: '/admin/organizations';
-      fullPath: '/{-$locale}/admin/organizations';
-      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminOrganizationsRouteImport;
-      parentRoute: typeof Char123LocaleChar125DashboardAdminRouteRoute;
-    };
+      id: '/{-$locale}/_dashboard/_admin/admin/organizations'
+      path: '/admin/organizations'
+      fullPath: '/{-$locale}/admin/organizations'
+      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminOrganizationsRouteImport
+      parentRoute: typeof Char123LocaleChar125DashboardAdminRouteRoute
+    }
     '/{-$locale}/_dashboard/_admin/admin/discussions': {
-      id: '/{-$locale}/_dashboard/_admin/admin/discussions';
-      path: '/admin/discussions';
-      fullPath: '/{-$locale}/admin/discussions';
-      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminDiscussionsRouteImport;
-      parentRoute: typeof Char123LocaleChar125DashboardAdminRouteRoute;
-    };
+      id: '/{-$locale}/_dashboard/_admin/admin/discussions'
+      path: '/admin/discussions'
+      fullPath: '/{-$locale}/admin/discussions'
+      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminDiscussionsRouteImport
+      parentRoute: typeof Char123LocaleChar125DashboardAdminRouteRoute
+    }
     '/{-$locale}/_dashboard/_editor/_content/dictionary/': {
-      id: '/{-$locale}/_dashboard/_editor/_content/dictionary/';
-      path: '/dictionary';
-      fullPath: '/{-$locale}/dictionary/';
-      preLoaderRoute: typeof Char123LocaleChar125DashboardEditorContentDictionaryIndexRouteImport;
-      parentRoute: typeof Char123LocaleChar125DashboardEditorContentRouteRoute;
-    };
+      id: '/{-$locale}/_dashboard/_editor/_content/dictionary/'
+      path: '/dictionary'
+      fullPath: '/{-$locale}/dictionary/'
+      preLoaderRoute: typeof Char123LocaleChar125DashboardEditorContentDictionaryIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125DashboardEditorContentRouteRoute
+    }
     '/{-$locale}/_other/auth/_authenticated/password/change': {
-      id: '/{-$locale}/_other/auth/_authenticated/password/change';
-      path: '/password/change';
-      fullPath: '/{-$locale}/auth/password/change';
-      preLoaderRoute: typeof Char123LocaleChar125OtherAuthAuthenticatedPasswordChangeRouteImport;
-      parentRoute: typeof Char123LocaleChar125OtherAuthAuthenticatedRouteRoute;
-    };
+      id: '/{-$locale}/_other/auth/_authenticated/password/change'
+      path: '/password/change'
+      fullPath: '/{-$locale}/auth/password/change'
+      preLoaderRoute: typeof Char123LocaleChar125OtherAuthAuthenticatedPasswordChangeRouteImport
+      parentRoute: typeof Char123LocaleChar125OtherAuthAuthenticatedRouteRoute
+    }
     '/{-$locale}/_dashboard/_editor/_content/dictionary/$dictionaryKey': {
-      id: '/{-$locale}/_dashboard/_editor/_content/dictionary/$dictionaryKey';
-      path: '/dictionary/$dictionaryKey';
-      fullPath: '/{-$locale}/dictionary/$dictionaryKey';
-      preLoaderRoute: typeof Char123LocaleChar125DashboardEditorContentDictionaryDictionaryKeyRouteImport;
-      parentRoute: typeof Char123LocaleChar125DashboardEditorContentRouteRoute;
-    };
+      id: '/{-$locale}/_dashboard/_editor/_content/dictionary/$dictionaryKey'
+      path: '/dictionary/$dictionaryKey'
+      fullPath: '/{-$locale}/dictionary/$dictionaryKey'
+      preLoaderRoute: typeof Char123LocaleChar125DashboardEditorContentDictionaryDictionaryKeyRouteImport
+      parentRoute: typeof Char123LocaleChar125DashboardEditorContentRouteRoute
+    }
     '/{-$locale}/_dashboard/_admin/admin/users/$id': {
-      id: '/{-$locale}/_dashboard/_admin/admin/users/$id';
-      path: '/$id';
-      fullPath: '/{-$locale}/admin/users/$id';
-      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminUsersIdRouteImport;
-      parentRoute: typeof Char123LocaleChar125DashboardAdminAdminUsersRoute;
-    };
+      id: '/{-$locale}/_dashboard/_admin/admin/users/$id'
+      path: '/$id'
+      fullPath: '/{-$locale}/admin/users/$id'
+      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminUsersIdRouteImport
+      parentRoute: typeof Char123LocaleChar125DashboardAdminAdminUsersRoute
+    }
     '/{-$locale}/_dashboard/_admin/admin/projects/$id': {
-      id: '/{-$locale}/_dashboard/_admin/admin/projects/$id';
-      path: '/$id';
-      fullPath: '/{-$locale}/admin/projects/$id';
-      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminProjectsIdRouteImport;
-      parentRoute: typeof Char123LocaleChar125DashboardAdminAdminProjectsRoute;
-    };
+      id: '/{-$locale}/_dashboard/_admin/admin/projects/$id'
+      path: '/$id'
+      fullPath: '/{-$locale}/admin/projects/$id'
+      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminProjectsIdRouteImport
+      parentRoute: typeof Char123LocaleChar125DashboardAdminAdminProjectsRoute
+    }
     '/{-$locale}/_dashboard/_admin/admin/organizations/$id': {
-      id: '/{-$locale}/_dashboard/_admin/admin/organizations/$id';
-      path: '/$id';
-      fullPath: '/{-$locale}/admin/organizations/$id';
-      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminOrganizationsIdRouteImport;
-      parentRoute: typeof Char123LocaleChar125DashboardAdminAdminOrganizationsRoute;
-    };
+      id: '/{-$locale}/_dashboard/_admin/admin/organizations/$id'
+      path: '/$id'
+      fullPath: '/{-$locale}/admin/organizations/$id'
+      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminOrganizationsIdRouteImport
+      parentRoute: typeof Char123LocaleChar125DashboardAdminAdminOrganizationsRoute
+    }
   }
 }
 
 interface Char123LocaleChar125DashboardAdminAdminOrganizationsRouteChildren {
-  Char123LocaleChar125DashboardAdminAdminOrganizationsIdRoute: typeof Char123LocaleChar125DashboardAdminAdminOrganizationsIdRoute;
+  Char123LocaleChar125DashboardAdminAdminOrganizationsIdRoute: typeof Char123LocaleChar125DashboardAdminAdminOrganizationsIdRoute
 }
 
 const Char123LocaleChar125DashboardAdminAdminOrganizationsRouteChildren: Char123LocaleChar125DashboardAdminAdminOrganizationsRouteChildren =
   {
     Char123LocaleChar125DashboardAdminAdminOrganizationsIdRoute:
       Char123LocaleChar125DashboardAdminAdminOrganizationsIdRoute,
-  };
+  }
 
 const Char123LocaleChar125DashboardAdminAdminOrganizationsRouteWithChildren =
   Char123LocaleChar125DashboardAdminAdminOrganizationsRoute._addFileChildren(
-    Char123LocaleChar125DashboardAdminAdminOrganizationsRouteChildren
-  );
+    Char123LocaleChar125DashboardAdminAdminOrganizationsRouteChildren,
+  )
 
 interface Char123LocaleChar125DashboardAdminAdminProjectsRouteChildren {
-  Char123LocaleChar125DashboardAdminAdminProjectsIdRoute: typeof Char123LocaleChar125DashboardAdminAdminProjectsIdRoute;
+  Char123LocaleChar125DashboardAdminAdminProjectsIdRoute: typeof Char123LocaleChar125DashboardAdminAdminProjectsIdRoute
 }
 
 const Char123LocaleChar125DashboardAdminAdminProjectsRouteChildren: Char123LocaleChar125DashboardAdminAdminProjectsRouteChildren =
   {
     Char123LocaleChar125DashboardAdminAdminProjectsIdRoute:
       Char123LocaleChar125DashboardAdminAdminProjectsIdRoute,
-  };
+  }
 
 const Char123LocaleChar125DashboardAdminAdminProjectsRouteWithChildren =
   Char123LocaleChar125DashboardAdminAdminProjectsRoute._addFileChildren(
-    Char123LocaleChar125DashboardAdminAdminProjectsRouteChildren
-  );
+    Char123LocaleChar125DashboardAdminAdminProjectsRouteChildren,
+  )
 
 interface Char123LocaleChar125DashboardAdminAdminUsersRouteChildren {
-  Char123LocaleChar125DashboardAdminAdminUsersIdRoute: typeof Char123LocaleChar125DashboardAdminAdminUsersIdRoute;
+  Char123LocaleChar125DashboardAdminAdminUsersIdRoute: typeof Char123LocaleChar125DashboardAdminAdminUsersIdRoute
 }
 
 const Char123LocaleChar125DashboardAdminAdminUsersRouteChildren: Char123LocaleChar125DashboardAdminAdminUsersRouteChildren =
   {
     Char123LocaleChar125DashboardAdminAdminUsersIdRoute:
       Char123LocaleChar125DashboardAdminAdminUsersIdRoute,
-  };
+  }
 
 const Char123LocaleChar125DashboardAdminAdminUsersRouteWithChildren =
   Char123LocaleChar125DashboardAdminAdminUsersRoute._addFileChildren(
-    Char123LocaleChar125DashboardAdminAdminUsersRouteChildren
-  );
+    Char123LocaleChar125DashboardAdminAdminUsersRouteChildren,
+  )
 
 interface Char123LocaleChar125DashboardAdminRouteRouteChildren {
-  Char123LocaleChar125DashboardAdminAdminDiscussionsRoute: typeof Char123LocaleChar125DashboardAdminAdminDiscussionsRoute;
-  Char123LocaleChar125DashboardAdminAdminOrganizationsRoute: typeof Char123LocaleChar125DashboardAdminAdminOrganizationsRouteWithChildren;
-  Char123LocaleChar125DashboardAdminAdminProjectsRoute: typeof Char123LocaleChar125DashboardAdminAdminProjectsRouteWithChildren;
-  Char123LocaleChar125DashboardAdminAdminUsersRoute: typeof Char123LocaleChar125DashboardAdminAdminUsersRouteWithChildren;
+  Char123LocaleChar125DashboardAdminAdminDiscussionsRoute: typeof Char123LocaleChar125DashboardAdminAdminDiscussionsRoute
+  Char123LocaleChar125DashboardAdminAdminOrganizationsRoute: typeof Char123LocaleChar125DashboardAdminAdminOrganizationsRouteWithChildren
+  Char123LocaleChar125DashboardAdminAdminProjectsRoute: typeof Char123LocaleChar125DashboardAdminAdminProjectsRouteWithChildren
+  Char123LocaleChar125DashboardAdminAdminUsersRoute: typeof Char123LocaleChar125DashboardAdminAdminUsersRouteWithChildren
 }
 
 const Char123LocaleChar125DashboardAdminRouteRouteChildren: Char123LocaleChar125DashboardAdminRouteRouteChildren =
@@ -848,18 +848,18 @@ const Char123LocaleChar125DashboardAdminRouteRouteChildren: Char123LocaleChar125
       Char123LocaleChar125DashboardAdminAdminProjectsRouteWithChildren,
     Char123LocaleChar125DashboardAdminAdminUsersRoute:
       Char123LocaleChar125DashboardAdminAdminUsersRouteWithChildren,
-  };
+  }
 
 const Char123LocaleChar125DashboardAdminRouteRouteWithChildren =
   Char123LocaleChar125DashboardAdminRouteRoute._addFileChildren(
-    Char123LocaleChar125DashboardAdminRouteRouteChildren
-  );
+    Char123LocaleChar125DashboardAdminRouteRouteChildren,
+  )
 
 interface Char123LocaleChar125DashboardEditorContentRouteRouteChildren {
-  Char123LocaleChar125DashboardEditorContentEditorRoute: typeof Char123LocaleChar125DashboardEditorContentEditorRoute;
-  Char123LocaleChar125DashboardEditorContentTranslateRoute: typeof Char123LocaleChar125DashboardEditorContentTranslateRoute;
-  Char123LocaleChar125DashboardEditorContentDictionaryDictionaryKeyRoute: typeof Char123LocaleChar125DashboardEditorContentDictionaryDictionaryKeyRoute;
-  Char123LocaleChar125DashboardEditorContentDictionaryIndexRoute: typeof Char123LocaleChar125DashboardEditorContentDictionaryIndexRoute;
+  Char123LocaleChar125DashboardEditorContentEditorRoute: typeof Char123LocaleChar125DashboardEditorContentEditorRoute
+  Char123LocaleChar125DashboardEditorContentTranslateRoute: typeof Char123LocaleChar125DashboardEditorContentTranslateRoute
+  Char123LocaleChar125DashboardEditorContentDictionaryDictionaryKeyRoute: typeof Char123LocaleChar125DashboardEditorContentDictionaryDictionaryKeyRoute
+  Char123LocaleChar125DashboardEditorContentDictionaryIndexRoute: typeof Char123LocaleChar125DashboardEditorContentDictionaryIndexRoute
 }
 
 const Char123LocaleChar125DashboardEditorContentRouteRouteChildren: Char123LocaleChar125DashboardEditorContentRouteRouteChildren =
@@ -872,22 +872,22 @@ const Char123LocaleChar125DashboardEditorContentRouteRouteChildren: Char123Local
       Char123LocaleChar125DashboardEditorContentDictionaryDictionaryKeyRoute,
     Char123LocaleChar125DashboardEditorContentDictionaryIndexRoute:
       Char123LocaleChar125DashboardEditorContentDictionaryIndexRoute,
-  };
+  }
 
 const Char123LocaleChar125DashboardEditorContentRouteRouteWithChildren =
   Char123LocaleChar125DashboardEditorContentRouteRoute._addFileChildren(
-    Char123LocaleChar125DashboardEditorContentRouteRouteChildren
-  );
+    Char123LocaleChar125DashboardEditorContentRouteRouteChildren,
+  )
 
 interface Char123LocaleChar125DashboardRouteRouteChildren {
-  Char123LocaleChar125DashboardAdminRouteRoute: typeof Char123LocaleChar125DashboardAdminRouteRouteWithChildren;
-  Char123LocaleChar125DashboardOrganizationRoute: typeof Char123LocaleChar125DashboardOrganizationRoute;
-  Char123LocaleChar125DashboardProfileRoute: typeof Char123LocaleChar125DashboardProfileRoute;
-  Char123LocaleChar125DashboardProjectsRoute: typeof Char123LocaleChar125DashboardProjectsRoute;
-  Char123LocaleChar125DashboardIndexRoute: typeof Char123LocaleChar125DashboardIndexRoute;
-  Char123LocaleChar125DashboardEditorContentRouteRoute: typeof Char123LocaleChar125DashboardEditorContentRouteRouteWithChildren;
-  Char123LocaleChar125DashboardEditorTagsTagKeyRoute: typeof Char123LocaleChar125DashboardEditorTagsTagKeyRoute;
-  Char123LocaleChar125DashboardEditorTagsIndexRoute: typeof Char123LocaleChar125DashboardEditorTagsIndexRoute;
+  Char123LocaleChar125DashboardAdminRouteRoute: typeof Char123LocaleChar125DashboardAdminRouteRouteWithChildren
+  Char123LocaleChar125DashboardOrganizationRoute: typeof Char123LocaleChar125DashboardOrganizationRoute
+  Char123LocaleChar125DashboardProfileRoute: typeof Char123LocaleChar125DashboardProfileRoute
+  Char123LocaleChar125DashboardProjectsRoute: typeof Char123LocaleChar125DashboardProjectsRoute
+  Char123LocaleChar125DashboardIndexRoute: typeof Char123LocaleChar125DashboardIndexRoute
+  Char123LocaleChar125DashboardEditorContentRouteRoute: typeof Char123LocaleChar125DashboardEditorContentRouteRouteWithChildren
+  Char123LocaleChar125DashboardEditorTagsTagKeyRoute: typeof Char123LocaleChar125DashboardEditorTagsTagKeyRoute
+  Char123LocaleChar125DashboardEditorTagsIndexRoute: typeof Char123LocaleChar125DashboardEditorTagsIndexRoute
 }
 
 const Char123LocaleChar125DashboardRouteRouteChildren: Char123LocaleChar125DashboardRouteRouteChildren =
@@ -908,32 +908,32 @@ const Char123LocaleChar125DashboardRouteRouteChildren: Char123LocaleChar125Dashb
       Char123LocaleChar125DashboardEditorTagsTagKeyRoute,
     Char123LocaleChar125DashboardEditorTagsIndexRoute:
       Char123LocaleChar125DashboardEditorTagsIndexRoute,
-  };
+  }
 
 const Char123LocaleChar125DashboardRouteRouteWithChildren =
   Char123LocaleChar125DashboardRouteRoute._addFileChildren(
-    Char123LocaleChar125DashboardRouteRouteChildren
-  );
+    Char123LocaleChar125DashboardRouteRouteChildren,
+  )
 
 interface Char123LocaleChar125OtherAuthAuthenticatedRouteRouteChildren {
-  Char123LocaleChar125OtherAuthAuthenticatedPasswordChangeRoute: typeof Char123LocaleChar125OtherAuthAuthenticatedPasswordChangeRoute;
+  Char123LocaleChar125OtherAuthAuthenticatedPasswordChangeRoute: typeof Char123LocaleChar125OtherAuthAuthenticatedPasswordChangeRoute
 }
 
 const Char123LocaleChar125OtherAuthAuthenticatedRouteRouteChildren: Char123LocaleChar125OtherAuthAuthenticatedRouteRouteChildren =
   {
     Char123LocaleChar125OtherAuthAuthenticatedPasswordChangeRoute:
       Char123LocaleChar125OtherAuthAuthenticatedPasswordChangeRoute,
-  };
+  }
 
 const Char123LocaleChar125OtherAuthAuthenticatedRouteRouteWithChildren =
   Char123LocaleChar125OtherAuthAuthenticatedRouteRoute._addFileChildren(
-    Char123LocaleChar125OtherAuthAuthenticatedRouteRouteChildren
-  );
+    Char123LocaleChar125OtherAuthAuthenticatedRouteRouteChildren,
+  )
 
 interface Char123LocaleChar125OtherAuthNotAuthenticatedRouteRouteChildren {
-  Char123LocaleChar125OtherAuthNotAuthenticated2faRoute: typeof Char123LocaleChar125OtherAuthNotAuthenticated2faRoute;
-  Char123LocaleChar125OtherAuthNotAuthenticatedLoginRoute: typeof Char123LocaleChar125OtherAuthNotAuthenticatedLoginRoute;
-  Char123LocaleChar125OtherAuthNotAuthenticatedRegisterRoute: typeof Char123LocaleChar125OtherAuthNotAuthenticatedRegisterRoute;
+  Char123LocaleChar125OtherAuthNotAuthenticated2faRoute: typeof Char123LocaleChar125OtherAuthNotAuthenticated2faRoute
+  Char123LocaleChar125OtherAuthNotAuthenticatedLoginRoute: typeof Char123LocaleChar125OtherAuthNotAuthenticatedLoginRoute
+  Char123LocaleChar125OtherAuthNotAuthenticatedRegisterRoute: typeof Char123LocaleChar125OtherAuthNotAuthenticatedRegisterRoute
 }
 
 const Char123LocaleChar125OtherAuthNotAuthenticatedRouteRouteChildren: Char123LocaleChar125OtherAuthNotAuthenticatedRouteRouteChildren =
@@ -944,22 +944,22 @@ const Char123LocaleChar125OtherAuthNotAuthenticatedRouteRouteChildren: Char123Lo
       Char123LocaleChar125OtherAuthNotAuthenticatedLoginRoute,
     Char123LocaleChar125OtherAuthNotAuthenticatedRegisterRoute:
       Char123LocaleChar125OtherAuthNotAuthenticatedRegisterRoute,
-  };
+  }
 
 const Char123LocaleChar125OtherAuthNotAuthenticatedRouteRouteWithChildren =
   Char123LocaleChar125OtherAuthNotAuthenticatedRouteRoute._addFileChildren(
-    Char123LocaleChar125OtherAuthNotAuthenticatedRouteRouteChildren
-  );
+    Char123LocaleChar125OtherAuthNotAuthenticatedRouteRouteChildren,
+  )
 
 interface Char123LocaleChar125OtherRouteRouteChildren {
-  Char123LocaleChar125OtherPricingRoute: typeof Char123LocaleChar125OtherPricingRoute;
-  Char123LocaleChar125OtherAuthAuthenticatedRouteRoute: typeof Char123LocaleChar125OtherAuthAuthenticatedRouteRouteWithChildren;
-  Char123LocaleChar125OtherAuthNotAuthenticatedRouteRoute: typeof Char123LocaleChar125OtherAuthNotAuthenticatedRouteRouteWithChildren;
-  Char123LocaleChar125OtherAuthCliLoginRoute: typeof Char123LocaleChar125OtherAuthCliLoginRoute;
-  Char123LocaleChar125OtherOnboardingStepRoute: typeof Char123LocaleChar125OtherOnboardingStepRoute;
-  Char123LocaleChar125OtherAuthPasswordLayoutRoute: typeof Char123LocaleChar125OtherAuthPasswordLayoutRoute;
-  Char123LocaleChar125OtherAuthPasswordAskResetRoute: typeof Char123LocaleChar125OtherAuthPasswordAskResetRoute;
-  Char123LocaleChar125OtherAuthPasswordResetRoute: typeof Char123LocaleChar125OtherAuthPasswordResetRoute;
+  Char123LocaleChar125OtherPricingRoute: typeof Char123LocaleChar125OtherPricingRoute
+  Char123LocaleChar125OtherAuthAuthenticatedRouteRoute: typeof Char123LocaleChar125OtherAuthAuthenticatedRouteRouteWithChildren
+  Char123LocaleChar125OtherAuthNotAuthenticatedRouteRoute: typeof Char123LocaleChar125OtherAuthNotAuthenticatedRouteRouteWithChildren
+  Char123LocaleChar125OtherAuthCliLoginRoute: typeof Char123LocaleChar125OtherAuthCliLoginRoute
+  Char123LocaleChar125OtherOnboardingStepRoute: typeof Char123LocaleChar125OtherOnboardingStepRoute
+  Char123LocaleChar125OtherAuthPasswordLayoutRoute: typeof Char123LocaleChar125OtherAuthPasswordLayoutRoute
+  Char123LocaleChar125OtherAuthPasswordAskResetRoute: typeof Char123LocaleChar125OtherAuthPasswordAskResetRoute
+  Char123LocaleChar125OtherAuthPasswordResetRoute: typeof Char123LocaleChar125OtherAuthPasswordResetRoute
 }
 
 const Char123LocaleChar125OtherRouteRouteChildren: Char123LocaleChar125OtherRouteRouteChildren =
@@ -980,12 +980,12 @@ const Char123LocaleChar125OtherRouteRouteChildren: Char123LocaleChar125OtherRout
       Char123LocaleChar125OtherAuthPasswordAskResetRoute,
     Char123LocaleChar125OtherAuthPasswordResetRoute:
       Char123LocaleChar125OtherAuthPasswordResetRoute,
-  };
+  }
 
 const Char123LocaleChar125OtherRouteRouteWithChildren =
   Char123LocaleChar125OtherRouteRoute._addFileChildren(
-    Char123LocaleChar125OtherRouteRouteChildren
-  );
+    Char123LocaleChar125OtherRouteRouteChildren,
+  )
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
@@ -997,17 +997,16 @@ const rootRouteChildren: RootRouteChildren = {
   Char123LocaleChar125SplatRoute: Char123LocaleChar125SplatRoute,
   Char123LocaleChar125404Route: Char123LocaleChar125404Route,
   Char123LocaleChar125PageRoute: Char123LocaleChar125PageRoute,
-};
+}
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>();
+  ._addFileTypes<FileRouteTypes>()
 
-import type { createStart } from '@tanstack/react-start';
-import type { getRouter } from './router.tsx';
-
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
 declare module '@tanstack/react-start' {
   interface Register {
-    ssr: true;
-    router: Awaited<ReturnType<typeof getRouter>>;
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
   }
 }
