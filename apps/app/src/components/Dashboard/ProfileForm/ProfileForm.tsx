@@ -7,18 +7,19 @@ import {
   useUpdateUser,
 } from '@intlayer/design-system/hooks';
 import { cn } from '@intlayer/design-system/utils';
-import { type FC, useEffect } from 'react';
+import { type FC, Suspense, useEffect } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { ChangePasswordForm } from '#components/Auth/ChangePassword';
 import { DeleteUser } from '#components/Auth/DeleteUser';
 import { PasskeyManagement } from '#components/Auth/PasskeyManagement';
 import { TwoFactorAuth } from '#components/Auth/TwoFactorAuth';
+import { ProfileSkeleton } from './ProfileSkeleton';
 import {
   type ProfileFormData,
   useProfileFormSchema,
 } from './useProfileFormSchema';
 
-export const ProfileForm: FC = () => {
+const ProfileFormContent: FC = () => {
   const { session } = useSession();
   const { user } = session ?? {};
   const ProfileFormSchema = useProfileFormSchema();
@@ -131,3 +132,9 @@ export const ProfileForm: FC = () => {
     </div>
   );
 };
+
+export const ProfileForm: FC = () => (
+  <Suspense fallback={<ProfileSkeleton />}>
+    <ProfileFormContent />
+  </Suspense>
+);
