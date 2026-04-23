@@ -15,31 +15,21 @@ export const Route = createFileRoute('/')({
     if (session) {
       if (session.organization && session.project) {
         throw redirect({
-          to: getLocalizedUrl(
-            App_Dashboard_Dictionaries_Path,
-            defaultLocale
-          ) as any,
+          to: getLocalizedUrl(App_Dashboard_Dictionaries_Path, defaultLocale),
         });
       } else if (session.organization) {
         throw redirect({
-          to: getLocalizedUrl(
-            App_Dashboard_Projects_Path,
-            defaultLocale
-          ) as any,
+          to: getLocalizedUrl(App_Dashboard_Projects_Path, defaultLocale),
         });
       } else {
         throw redirect({
-          to: getLocalizedUrl(
-            App_Dashboard_Organization_Path,
-            defaultLocale
-          ) as any,
+          to: getLocalizedUrl(App_Dashboard_Organization_Path, defaultLocale),
         });
       }
     }
 
     throw redirect({
-      to: '/{-$locale}',
-      params: { locale: defaultLocale },
+      to: getLocalizedUrl(App_Dashboard_Organization_Path, defaultLocale),
     });
   },
 });

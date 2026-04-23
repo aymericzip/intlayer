@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from '@tanstack/react-router';
 import { useEffect, useRef } from 'react';
 import { sessionQueryOptions } from '#utils/auth.tsx';
@@ -8,6 +8,7 @@ import { sessionQueryOptions } from '#utils/auth.tsx';
  */
 export const useSessionRouterListener = () => {
   const router = useRouter();
+  const queryClient = useQueryClient();
 
   // Subscribe to the session query
   const { data: session } = useQuery(sessionQueryOptions);
@@ -26,10 +27,14 @@ export const useSessionRouterListener = () => {
 
     // 2. Invalidate router only if a critical entity changed
     if (isUserChanged || isOrgChanged || isProjectChanged) {
-      router.invalidate();
+      // First, mark the session cache stale so beforeLoad's ensureQueryData
+      // re-fetches fresh data instead of returning the 60s-cached value.
+      void queryClient
+        .invalidateQueries({ queryKey: sessionQueryOptions.queryKey })
+        .then(() => router.invalidate());
     }
 
     // 3. Update the ref for the next render cycle
     prevSession.current = curr;
-  }, [session, router]);
+  }, [session, router, queryClient]);
 };

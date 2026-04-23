@@ -19,6 +19,6 @@ export const Route = createFileRoute('/{-$locale}/page')({
       params: { locale: localePrefix },
     });
   },
-  component: null,
+  component: () => <></>,
   notFoundComponent: NotFoundComponent,
 });

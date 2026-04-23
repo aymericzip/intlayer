@@ -19,21 +19,15 @@ export const Route = createFileRoute('/{-$locale}/$')({
     if (session) {
       if (session.organization && session.project) {
         throw redirect({
-          to: getLocalizedUrl(
-            App_Dashboard_Dictionaries_Path,
-            localePrefix
-          ) as any,
+          to: getLocalizedUrl(App_Dashboard_Dictionaries_Path, localePrefix),
         });
       } else if (session.organization) {
         throw redirect({
-          to: getLocalizedUrl(App_Dashboard_Projects_Path, localePrefix) as any,
+          to: getLocalizedUrl(App_Dashboard_Projects_Path, localePrefix),
         });
       } else {
         throw redirect({
-          to: getLocalizedUrl(
-            App_Dashboard_Organization_Path,
-            localePrefix
-          ) as any,
+          to: getLocalizedUrl(App_Dashboard_Organization_Path, localePrefix),
         });
       }
     }

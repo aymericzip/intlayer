@@ -20,19 +20,9 @@ import {
 } from '#components/Dashboard/DashboardSidebar';
 import { DashboardSkeleton } from '#components/Dashboard/DashboardSkeleton';
 import { WarmupClient } from '#components/Dashboard/WarmupClient';
-import { validateAuth } from '#utils/auth';
+import { useSessionRouterListener } from '#hooks/useSessionRouterListener.ts';
 
 export const Route = createFileRoute('/{-$locale}/_dashboard')({
-  // beforeLoad: async ({ context, location, params }) => {
-  //   const { locale } = params;
-  //   await validateAuth({
-  //     queryClient: context.queryClient,
-  //     pathname: location.pathname,
-  //     search: location.search,
-  //     locale,
-  //     accessRule: 'authenticated',
-  //   });
-  // },
   pendingComponent: DashboardSkeleton,
   component: DashboardLayout,
   head: ({ params }) => {
@@ -57,6 +47,10 @@ export const Route = createFileRoute('/{-$locale}/_dashboard')({
 
 function DashboardLayout() {
   const { locale } = useLocale();
+
+  // Invalidate router whenever org/project/user changes so beforeLoad
+  // redirects to the correct section without requiring a full page refresh.
+  useSessionRouterListener();
 
   const { collapseButton, navigation } = useIntlayer('dashboard-sidebar');
   const { footerLinks } = useIntlayer('dashboard-footer-content');
