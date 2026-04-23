@@ -66,10 +66,8 @@ RUN bun run build && bun scripts/generate-sw.ts
 # there, so the files must live at .output/server/legal/{locale}/*.md
 RUN cp -r /workspace/docs/docs /workspace/docs/legal /workspace/docs/blog /workspace/docs/frequent_questions /workspace/apps/doc/.output/server/
 
-# Runner — use oven/bun base image to avoid npm install overhead
-FROM node:22-alpine AS runner
-
-RUN npm install -g bun@1.3.13
+# Runner — use official bun image (same as apps/app which works correctly)
+FROM oven/bun:1.3.13-alpine AS runner
 
 RUN apk add --no-cache wget
 
@@ -85,7 +83,7 @@ USER app
 
 EXPOSE 3000
 
-
+# Use 127.0.0.1 to avoid IPv6/IPv4 mismatch on Alpine (localhost may resolve to ::1)
 HEALTHCHECK --interval=30s --timeout=5s --start-period=60s --retries=3 \
   CMD wget -qO- http://localhost:3000/ > /dev/null || exit 1
 
