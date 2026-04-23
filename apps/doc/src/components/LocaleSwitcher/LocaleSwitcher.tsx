@@ -105,7 +105,7 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
                 ({ locale: localeItem, currentLocaleName, ownLocaleName }) => (
                   <li className="py-1 pr-3" key={localeItem}>
                     <Link
-                      label={switchTo({ locale: localeItem }).value}
+                      // label={switchTo({ locale: localeItem }).value}
                       to={pathWithoutLocale}
                       locale={localeItem}
                       isActive={locale === localeItem} // Add aria-current="page" for accessibility
