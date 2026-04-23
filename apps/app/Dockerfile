@@ -8,7 +8,7 @@ FROM node:22-alpine AS builder
 
 # RUN apk add --no-cache wget
 
-RUN npm install -g bun@1.3.12
+RUN npm install -g bun@1.3.13
 
 
 # Create app directory
@@ -63,7 +63,7 @@ ENV NODE_ENV=production
 RUN bun run build && bun scripts/generate-sw.ts
 
 # Runner — use oven/bun base image to avoid npm install overhead
-FROM oven/bun:1.3.12-alpine AS runner
+FROM oven/bun:1.3.13-alpine AS runner
 
 RUN apk add --no-cache wget
 

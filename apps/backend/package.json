@@ -71,10 +71,10 @@
     "typecheck": "tsc --noEmit --project tsconfig.types.json"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.1030.0",
-    "@better-auth/core": "1.6.5",
-    "@better-auth/passkey": "1.6.5",
-    "@better-auth/sso": "1.6.5",
+    "@aws-sdk/client-s3": "^3.1035.0",
+    "@better-auth/core": "1.6.8",
+    "@better-auth/passkey": "1.6.8",
+    "@better-auth/sso": "1.6.8",
     "@fastify/compress": "8.3.1",
     "@fastify/cookie": "11.0.2",
     "@fastify/cors": "11.2.0",
@@ -86,7 +86,7 @@
     "@intlayer/core": "workspace:*",
     "@octokit/rest": "22.0.1",
     "@react-email/components": "1.0.12",
-    "better-auth": "1.6.5",
+    "better-auth": "1.6.8",
     "bullmq": "^5.74.1",
     "cheerio": "^1.2.0",
     "cross-env": "10.1.0",
@@ -95,14 +95,14 @@
     "fastify": "5.8.5",
     "fastify-intlayer": "workspace:*",
     "ioredis": "5.10.1",
-    "mongodb": "7.1.1",
-    "mongoose": "9.4.1",
+    "mongodb": "7.2.0",
+    "mongoose": "9.5.0",
     "oauth2-server": "3.1.1",
     "openai": "6.34.0",
-    "puppeteer": "24.41.0",
+    "puppeteer": "24.42.0",
     "react": "19.2.5",
     "react-email": "6.0.0",
-    "resend": "6.12.0",
+    "resend": "6.12.2",
     "stripe": "22.0.2",
     "validator": "13.15.35",
     "winston": "3.19.0",
@@ -121,8 +121,8 @@
     "@utils/tsdown-config": "workspace:*",
     "intlayer": "workspace:*",
     "rimraf": "6.1.3",
-    "tsdown": "0.21.9",
+    "tsdown": "0.21.10",
     "typescript": "6.0.3",
-    "vitest": "4.1.4"
+    "vitest": "4.1.5"
   }
 }

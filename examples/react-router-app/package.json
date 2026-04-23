@@ -27,7 +27,7 @@
     "@types/node": "20",
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
-    "tailwindcss": "4.2.2",
+    "tailwindcss": "4.2.4",
     "typescript": "6.0.3",
     "vite": "8.0.8",
     "vite-intlayer": "workspace:*"

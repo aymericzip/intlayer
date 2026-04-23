@@ -31,7 +31,7 @@
     "test": "bun --bun vitest run"
   },
   "dependencies": {
-    "@better-auth/sso": "1.6.5",
+    "@better-auth/sso": "1.6.8",
     "@intlayer/api": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
@@ -48,7 +48,7 @@
     "@tailwindcss/vite": "4.2.2",
     "@tanstack/match-sorter-utils": "8.19.4",
     "@tanstack/react-devtools": "0.10.2",
-    "@tanstack/react-query": "5.99.0",
+    "@tanstack/react-query": "5.99.2",
     "@tanstack/react-query-devtools": "5.99.0",
     "@tanstack/react-router": "1.168.22",
     "@tanstack/react-router-devtools": "1.166.13",
@@ -60,9 +60,9 @@
     "framer-motion": "12.38.0",
     "fuse.js": "7.3.0",
     "intlayer": "workspace:*",
-    "lucide-react": "1.8.0",
+    "lucide-react": "1.9.0",
     "nitro": "latest",
-    "posthog-js": "1.369.2",
+    "posthog-js": "1.371.2",
     "react": "19.2.5",
     "react-dom": "19.2.5",
     "react-hook-form": "7.72.1",
@@ -72,7 +72,7 @@
     "react-virtuoso": "4.18.4",
     "server-only": "0.0.1",
     "stripe": "^22.0.1",
-    "tailwindcss": "4.2.2",
+    "tailwindcss": "4.2.4",
     "zod": "4.3.6"
   },
   "devDependencies": {
@@ -92,7 +92,7 @@
     "vite": "8.0.8",
     "vite-intlayer": "workspace:*",
     "vite-plugin-wasm": "^3.6.0",
-    "vitest": "4.1.4",
+    "vitest": "4.1.5",
     "workbox-build": "7.4.0"
   }
 }

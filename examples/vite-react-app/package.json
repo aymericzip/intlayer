@@ -28,7 +28,7 @@
     "@vitejs/plugin-react": "6.0.1",
     "autoprefixer": "10.5.0",
     "intlayer-editor": "workspace:*",
-    "tailwindcss": "4.2.2",
+    "tailwindcss": "4.2.4",
     "typescript": "6.0.3",
     "vite": "8.0.8",
     "vite-intlayer": "workspace:*"

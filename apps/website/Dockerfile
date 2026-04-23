@@ -9,7 +9,7 @@ FROM node:22-alpine AS builder
 
 # RUN apk add --no-cache wget
 
-RUN npm install -g bun@1.3.12
+RUN npm install -g bun@1.3.13
 
 ARG INTLAYER_CLIENT_ID
 ARG INTLAYER_CLIENT_SECRET
@@ -93,7 +93,7 @@ ENV NODE_ENV=production
 RUN bun run --bun next build && bun scripts/generate-sw.ts
 
 # Runner
-FROM oven/bun:1.3.12-alpine AS runner
+FROM oven/bun:1.3.13-alpine AS runner
 
 WORKDIR /app
 

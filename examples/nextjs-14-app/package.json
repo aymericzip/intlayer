@@ -22,13 +22,13 @@
     "react-dom": "18.3.1"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "4.2.2",
+    "@tailwindcss/postcss": "4.2.4",
     "@types/react": "18.3.1",
     "@types/react-dom": "18.3.1",
     "autoprefixer": "10.5.0",
     "intlayer-editor": "workspace:*",
     "postcss": "8.5.10",
-    "tailwindcss": "4.2.2",
+    "tailwindcss": "4.2.4",
     "typescript": "5.9.3"
   }
 }

@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "@tailwindcss/vite": "4.2.2",
-    "@tanstack/react-query": "5.99.0",
+    "@tanstack/react-query": "5.99.2",
     "@tanstack/react-router": "1.168.22",
     "@tanstack/react-router-devtools": "1.166.13",
     "@tanstack/react-router-ssr-query": "1.166.11",
@@ -40,7 +40,7 @@
     "typescript": "6.0.3",
     "vite": "8.0.8",
     "vite-intlayer": "workspace:*",
-    "vitest": "4.1.4",
+    "vitest": "4.1.5",
     "web-vitals": "5.1.0"
   }
 }
