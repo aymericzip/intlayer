@@ -61,6 +61,11 @@ ENV NODE_ENV=production
 # Build the doc app
 RUN bun run build && bun scripts/generate-sw.ts
 
+# @intlayer/docs reads legal markdown files from the filesystem at runtime.
+# Nitro resolves baseDir to .output/server/ via the package.json it generates
+# there, so the files must live at .output/server/legal/{locale}/*.md
+RUN cp -r /workspace/docs/docs /workspace/docs/legal /workspace/docs/blog /workspace/docs/frequent_questions /workspace/apps/doc/.output/server/
+
 # Runner — use oven/bun base image to avoid npm install overhead
 FROM node:22-alpine AS runner
 
@@ -80,8 +85,8 @@ USER app
 
 EXPOSE 3000
 
+
 HEALTHCHECK --interval=30s --timeout=5s --start-period=60s --retries=3 \
-  CMD \
-    wget -qO- http://localhost:3000/ > /dev/null || exit 1
+  CMD wget -qO- http://localhost:3000/ > /dev/null || exit 1
 
 CMD ["bun", "run", ".output/server/index.mjs"]
