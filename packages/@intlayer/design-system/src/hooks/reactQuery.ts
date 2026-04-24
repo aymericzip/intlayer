@@ -45,6 +45,7 @@ import type {
   SelectProjectParam,
   ShowcaseProjectsQuery,
   SubmitShowcaseProjectBody,
+  TranslateDictionariesBody,
   TranslateJSONBody,
   UpdateDictionaryBody,
   UpdateOrganizationBody,
@@ -636,13 +637,24 @@ export const useAddProject = () => {
 
 export const useUpdateProject = () => {
   const intlayerOAuth = useIntlayerOAuth();
+  const queryClient = useQueryClient();
 
   return useMutation({
     mutationKey: ['projects'],
     mutationFn: (args: UpdateProjectBody) =>
       intlayerOAuth.project.updateProject(args),
     meta: {
-      invalidateQueries: [['projects'], ['session']],
+      invalidateQueries: [['projects']],
+    },
+    onSuccess: (data) => {
+      const session = queryClient.getQueryData(['session']);
+
+      if (session && data.data) {
+        queryClient.setQueryData(['session'], {
+          ...session,
+          project: data.data,
+        });
+      }
     },
   });
 };
@@ -1609,5 +1621,59 @@ export const useUpdateShowcaseProject = (props?: UseIntlayerAuthProps) => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['showcase'] });
     },
+  });
+};
+
+/**
+ * Translation
+ */
+
+export const useFillAllTranslations = () => {
+  const intlayerOAuth = useIntlayerOAuth();
+
+  return useMutation({
+    mutationKey: ['fill-all-translations'],
+    mutationFn: async (
+      args: Pick<TranslateDictionariesBody, 'targetLocales'>
+    ) => {
+      const result = await intlayerOAuth.dictionary.getDictionaries({
+        pageSize: 1000,
+      });
+      const dictionaryIds = (result?.data ?? []).map((d) => d.id);
+      return intlayerOAuth.translate.translateDictionaries({
+        dictionaryIds,
+        targetLocales: args.targetLocales,
+      });
+    },
+  });
+};
+
+export const useStopTranslationJob = () => {
+  const intlayerOAuth = useIntlayerOAuth();
+
+  return useMutation({
+    mutationKey: ['stop-translation-job'],
+    mutationFn: (jobId: string) =>
+      intlayerOAuth.translate.stopTranslationJob(jobId),
+  });
+};
+
+export const usePauseTranslationJob = () => {
+  const intlayerOAuth = useIntlayerOAuth();
+
+  return useMutation({
+    mutationKey: ['pause-translation-job'],
+    mutationFn: (jobId: string) =>
+      intlayerOAuth.translate.pauseTranslationJob(jobId),
+  });
+};
+
+export const useResumeTranslationJob = () => {
+  const intlayerOAuth = useIntlayerOAuth();
+
+  return useMutation({
+    mutationKey: ['resume-translation-job'],
+    mutationFn: (jobId: string) =>
+      intlayerOAuth.translate.resumeTranslationJob(jobId),
   });
 };

@@ -17,6 +17,7 @@ import { getSearchAPI } from './search';
 import { getShowcaseProjectAPI } from './showcaseProject';
 import { getStripeAPI } from './stripe';
 import { getTagAPI } from './tag';
+import { getTranslateAPI } from './translate';
 import { getUserAPI } from './user';
 
 interface IntlayerAPIReturn {
@@ -36,6 +37,7 @@ interface IntlayerAPIReturn {
   gitlab: ReturnType<typeof getGitlabAPI>;
   bitbucket: ReturnType<typeof getBitbucketAPI>;
   showcaseProject: ReturnType<typeof getShowcaseProjectAPI>;
+  translate: ReturnType<typeof getTranslateAPI>;
 }
 
 export const getIntlayerAPI = (
@@ -64,6 +66,7 @@ export const getIntlayerAPI = (
     gitlab: getGitlabAPI(authAPIOptions, resolvedConfig),
     bitbucket: getBitbucketAPI(authAPIOptions, resolvedConfig),
     showcaseProject: getShowcaseProjectAPI(authAPIOptions, resolvedConfig),
+    translate: getTranslateAPI(authAPIOptions, resolvedConfig),
   };
 };
 

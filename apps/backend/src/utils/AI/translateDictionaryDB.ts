@@ -30,6 +30,13 @@ const retry = async <T>(
   }
 };
 
+export class AbortError extends Error {
+  constructor() {
+    super('Aborted');
+    this.name = 'AbortError';
+  }
+}
+
 export type TranslateDictionaryDBOptions = {
   content: JSONObject | JSONArray;
   sourceLocale: Locale;
@@ -38,6 +45,14 @@ export type TranslateDictionaryDBOptions = {
   mode?: 'complete' | 'review';
   dictionaryDescription?: string;
   applicationContext?: string;
+  /** Called between chunks. Return true to abort the translation. */
+  shouldStop?: () => Promise<boolean> | boolean;
+  /** Called just before each chunk starts translating. */
+  onChunkStart?: (params: {
+    locale: Locale;
+    chunkIndex: number;
+    totalChunks: number;
+  }) => Promise<void> | void;
 };
 
 type JSONValue = string | number | boolean | null | JSONObject | JSONArray;
@@ -52,6 +67,8 @@ export const translateDictionaryDB = async ({
   mode = 'complete',
   dictionaryDescription,
   applicationContext,
+  shouldStop,
+  onChunkStart,
 }: TranslateDictionaryDBOptions): Promise<
   Record<Locale, JSONObject | JSONArray>
 > => {
@@ -67,8 +84,23 @@ export const translateDictionaryDB = async ({
     const chunkResults: any[] = [];
 
     // Process chunks sequentially to avoid rate limits per dictionary
-    // (Optimization: could be parallelized with rate limiting)
-    for (const chunk of chunks) {
+    for (let chunkIndex = 0; chunkIndex < chunks.length; chunkIndex++) {
+      const chunk = chunks[chunkIndex];
+
+      // Notify caller of chunk start (for progress reporting)
+      if (onChunkStart) {
+        await onChunkStart({
+          locale: targetLocale,
+          chunkIndex,
+          totalChunks: chunks.length,
+        });
+      }
+
+      // Check for pause / cancel between every chunk
+      if (shouldStop && (await shouldStop())) {
+        throw new AbortError();
+      }
+
       const chunkContent = reconstructFromSingleChunk(chunk);
       // Helper: if chunkContent is string/number/null, wrap it?
       // chunkJSON guarantees root is object/array.

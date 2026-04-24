@@ -36,8 +36,28 @@ export const getTranslationQueueEvents = () => {
   return translationQueueEventsInstance;
 };
 
+export const translationPauseKey = (jobId: string) =>
+  `translate:pause:${jobId}`;
+export const translationCancelKey = (jobId: string) =>
+  `translate:cancel:${jobId}`;
+
+export const isTranslationJobPaused = async (
+  jobId: string
+): Promise<boolean> => {
+  const redis = getRedisClient();
+  return !!(await redis.get(translationPauseKey(jobId)));
+};
+
+export const isTranslationJobCancelled = async (
+  jobId: string
+): Promise<boolean> => {
+  const redis = getRedisClient();
+  return !!(await redis.get(translationCancelKey(jobId)));
+};
+
 export const addTranslationJob = async (data: {
   dictionaryIds: string[];
+  dictionaryKeys: string[];
   targetLocales: string[];
   projectId: string;
   userId: string;

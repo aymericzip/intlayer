@@ -107,40 +107,37 @@ export const filterItems = (
     hasProject: boolean;
     isSuperAdmin: boolean;
   }
-): SidebarNavigationItem[] => {
-  return (
-    nodes
-      .filter((el) => {
-        const href = el.href as string;
-        // Check permissions if href is restricted
-        if (href) {
-          if (
-            shouldHaveOrganizationRoutes.includes(href) &&
-            !context.hasOrganization
-          )
-            return false;
-          if (shouldHaveProjectRoutes.includes(href) && !context.hasProject)
-            return false;
-          if (shouldHaveAdminRoutes.includes(href) && !context.isSuperAdmin)
-            return false;
-        }
+): SidebarNavigationItem[] =>
+  nodes
+    .filter((el) => {
+      const href = el.href as string;
+      // Check permissions if href is restricted
+      if (href) {
+        if (
+          shouldHaveOrganizationRoutes.includes(href) &&
+          !context.hasOrganization
+        )
+          return false;
+        if (shouldHaveProjectRoutes.includes(href) && !context.hasProject)
+          return false;
+        if (shouldHaveAdminRoutes.includes(href) && !context.isSuperAdmin)
+          return false;
+      }
 
-        return true;
-      })
-      .map((item) => ({
-        ...item,
-        items: item.items ? filterItems(item.items, context) : undefined,
-      }))
-      // Keep item if it has passed filter OR if it has children
-      .filter((item) => {
-        // If it has children, keep it.
-        if (item.items && item.items.length > 0) return true;
-        // If it has no children but had an href and passed the permission check, keep it.
-        if (item.href) return true;
-        return false;
-      })
-  );
-};
+      return true;
+    })
+    .map((item) => ({
+      ...item,
+      items: item.items ? filterItems(item.items, context) : undefined,
+    }))
+    // Keep item if it has passed filter OR if it has children
+    .filter((item) => {
+      // If it has children, keep it.
+      if (item.items && item.items.length > 0) return true;
+      // If it has no children but had an href and passed the permission check, keep it.
+      if (item.href) return true;
+      return false;
+    });
 
 export const flattenItems = (
   nodes: SidebarNavigationItem[],
@@ -251,6 +248,7 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
         <nav className="flex-1 overflow-y-auto">
           <TabSelector
             selectedChoice={activeKey}
+            key={flatNavItems.length}
             tabs={flatNavItems.map((item) => {
               const IconComponent = item.icon
                 ? (iconMap[item.icon] ?? null)

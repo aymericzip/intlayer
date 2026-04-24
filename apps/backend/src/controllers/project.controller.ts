@@ -276,7 +276,7 @@ export const updateProject = async (
       {
         $set: {
           activeOrganizationId: String(organization.id),
-          activeProjectId: null,
+          activeProjectId: String(project.id),
         },
       }
     );
@@ -702,7 +702,8 @@ export const deleteProject = async (
   _request: FastifyRequest,
   reply: FastifyReply
 ): Promise<void> => {
-  const { user, organization, project, session, roles } = _request.session || {};
+  const { user, organization, project, session, roles } =
+    _request.session || {};
 
   if (!user) {
     return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');

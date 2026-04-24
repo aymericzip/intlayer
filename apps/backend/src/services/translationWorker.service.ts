@@ -7,18 +7,44 @@ import { logger } from '@logger';
 import * as dictionaryService from '@services/dictionary.service';
 import * as projectService from '@services/project.service';
 import * as userService from '@services/user.service';
-import { translateDictionaryDB } from '@utils/AI/translateDictionaryDB';
+import {
+  AbortError,
+  translateDictionaryDB,
+} from '@utils/AI/translateDictionaryDB';
 import { mapDictionaryToAPI } from '@utils/mapper/dictionary';
 import { getRedisClient } from '@utils/redis/connectRedis';
 import { type Job, Worker } from 'bullmq';
 import { defu } from 'defu';
-import { translationQueueName } from './translationQueue.service';
+import {
+  isTranslationJobCancelled,
+  isTranslationJobPaused,
+  translationQueueName,
+} from './translationQueue.service';
 
 type TranslationJobData = {
   dictionaryIds: string[];
+  dictionaryKeys: string[];
   targetLocales: Locale[];
   projectId: string;
   userId: string;
+};
+
+export type TranslationJobProgress = {
+  percentage: number;
+  completedKeys: string[];
+  failedKeys: string[];
+  currentKey: string | null;
+  /** Fine-grained chunk info emitted by translateDictionaryDB */
+  currentLocale: string | null;
+  currentChunk: number | null;
+  totalChunks: number | null;
+};
+
+const emitProgress = async (
+  job: Job<TranslationJobData>,
+  progress: TranslationJobProgress
+) => {
+  await job.updateProgress(progress as unknown as number);
 };
 
 const processTranslationJob = async (job: Job<TranslationJobData>) => {
@@ -35,53 +61,67 @@ const processTranslationJob = async (job: Job<TranslationJobData>) => {
 
   const projectAIOptions = project.configuration?.ai as AIOptions | undefined;
 
-  // Configure AI
   const aiConfig = await getAIConfig(
     {
-      userOptions: {}, // We could pass user-specific options if needed
+      userOptions: {},
       projectOptions: projectAIOptions,
       accessType: ['registered_user', 'apiKey'],
     },
-    true // isAuth
+    true
   );
 
   const totalDictionaries = dictionaryIds.length;
   let processedCount = 0;
+  const completedKeys: string[] = [];
+  const failedKeys: string[] = [];
 
   for (const dictionaryId of dictionaryIds) {
+    // Respect pause: spin-wait until resumed or cancelled
+    while (await isTranslationJobPaused(job.id!)) {
+      if (await isTranslationJobCancelled(job.id!)) break;
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+    }
+
+    // Stop gracefully if cancelled
+    if (await isTranslationJobCancelled(job.id!)) {
+      throw new Error('Cancelled by user');
+    }
+
+    /** Checked between every AI chunk – aborts the current dictionary cleanly */
+    const shouldStop = async () => {
+      if (await isTranslationJobCancelled(job.id!)) return true;
+      if (await isTranslationJobPaused(job.id!)) return true;
+      return false;
+    };
+    let dictionaryKey = dictionaryId;
     try {
       const dictionary =
         await dictionaryService.getDictionaryById(dictionaryId);
+      dictionaryKey = dictionary.key;
 
-      // Get content from the latest version or default
+      await emitProgress(job, {
+        percentage: (processedCount / totalDictionaries) * 100,
+        completedKeys,
+        failedKeys,
+        currentKey: dictionaryKey,
+        currentLocale: null,
+        currentChunk: null,
+        totalChunks: null,
+      });
+
       const versionList = [...(dictionary.content.keys() ?? [])];
       const lastVersion = versionList[versionList.length - 1] || 'v1';
       const dictionaryContentNode = dictionary.content.get(lastVersion);
 
       if (!dictionaryContentNode) {
         logger.warn(`No content found for dictionary ${dictionary.key}`);
+        failedKeys.push(dictionaryKey);
+        processedCount++;
         continue;
       }
 
-      const sourceContent = dictionaryContentNode.content; // recursive content
+      const sourceContent = dictionaryContentNode.content;
 
-      // We assume source content is the reference.
-      // Ideally we should pick the source locale content from it?
-      // But dictionary structure in DB might be multilingual already.
-      // translateDictionaryDB expects content to be translated.
-      // If `sourceContent` is `{ en: "Hello", fr: "Bonjour" }`, and we want to translate to `es`.
-      // We should pass `{ en: "Hello" }` if source is `en`.
-      // Or pass the whole thing and let logic handle it?
-      // translateDictionaryDB expects `content` and `sourceLocale`.
-      // It chunks `content`.
-      // If `content` is multilingual, `translateJSON` prompt might get confused or handle it.
-      // Usually `translateJSON` expects source content.
-      // Let's assume we extract source locale content if possible, or pass whole object.
-      // But `translateJSON` prompt says "translate from sourceLocale to targetLocale".
-      // If input is multilingual, it might be fine.
-
-      // Let's use project default locale as source if not specified?
-      // The job doesn't specify source locale. We should probably add it to job data or assume project default.
       const sourceLocale =
         project.configuration?.internationalization?.defaultLocale ||
         DEFAULT_LOCALE;
@@ -92,71 +132,40 @@ const processTranslationJob = async (job: Job<TranslationJobData>) => {
         targetLocales,
         aiConfig,
         dictionaryDescription: dictionary.description,
+        shouldStop,
+        onChunkStart: async ({ locale, chunkIndex, totalChunks }) => {
+          await emitProgress(job, {
+            percentage: (processedCount / totalDictionaries) * 100,
+            completedKeys,
+            failedKeys,
+            currentKey: dictionaryKey,
+            currentLocale: locale,
+            currentChunk: chunkIndex + 1,
+            totalChunks,
+          });
+        },
       });
 
-      // Merge results back into dictionary
-      // We need to update the dictionary content with new translations
-      // We can deep merge the result into the existing content
-
-      // For simplicity, we fetch the dictionary again to avoid race conditions (basic) or just update.
-      // We'll use a deep merge utility or just object spread if simple.
-      // But `dictionaryService.updateDictionaryById` replaces content?
-      // No, `updateDictionaryById` usually takes Partial<Dictionary>.
-      // We should probably read the current content, merge, and save.
-
-      // Re-fetch to be safe
       const currentDictionary =
         await dictionaryService.getDictionaryById(dictionaryId);
       const currentContentNode = currentDictionary.content.get(lastVersion)!;
       let newContent = currentContentNode.content;
 
-      // Deep merge logic needed here?
-      // `translateDictionaryDB` returns { [locale]: content }.
-      // If `sourceContent` was multilingual, `newContent` should be too.
-      // If `translationResult` is { es: { ... } }, we merge it into `newContent`.
-
-      // Simple merge for now (assuming top-level keys or deep merge if available)
-      // We'll use a simple recursive merge.
-
       for (const locale of targetLocales) {
         if (translationResult[locale]) {
-          // If the dictionary content is structured as { key: { en: "Val", fr: "Val" } } (multilingual fields)
-          // Or { en: { key: "Val" }, fr: { key: "Val" } } (nested locales? No, usually not recommended)
-          // Intlayer standard: { key: t({ en: '...', fr: '...' }) } -> { key: { nodeType: 'translation', translation: { en: '...', fr: '...' } } } ??
-          // Wait, `ensureMongoDocumentToObject` returns plain object.
-          // If using `t()`, the content stored in DB is structured.
-
-          // Actually, `translateDictionaryDB` translates the *structure*.
-          // If input `sourceContent` matches `sourceLocale`, output matches `targetLocale`.
-          // If `sourceContent` is already multilingual (e.g. `t` nodes), `translateJSON` might need to know how to handle it.
-          // BUT `chunkJSON` splits it.
-
-          // If `content` is ` { title: { en: 'Hello' } } ` (as stored in DB for t-nodes usually?)
-          // We need to know the DB structure.
-
-          // Assuming `translateJSON` returns the translated structure.
-          // We merge it.
-
-          // For now, let's just merge.
           newContent = defu(translationResult[locale], newContent);
         }
       }
 
-      // Increment version or update current?
-      // Let's update current version for simplicity or create new version.
-      // Creating new version is safer.
       const newVersion = dictionaryService.incrementVersion(currentDictionary);
       const updatedContentMap = new Map(currentDictionary.content);
-      updatedContentMap.set(newVersion, { content: newContent as any }); // Simplified
+      updatedContentMap.set(newVersion, { content: newContent as any });
 
       const updatedDictionary = await dictionaryService.updateDictionaryById(
         dictionaryId,
-        {
-          content: updatedContentMap,
-        }
+        { content: updatedContentMap }
       );
 
-      // Notify update
       eventListener.sendDictionaryUpdate([
         {
           dictionary: mapDictionaryToAPI(updatedDictionary),
@@ -164,12 +173,29 @@ const processTranslationJob = async (job: Job<TranslationJobData>) => {
         },
       ]);
 
-      processedCount++;
-      await job.updateProgress((processedCount / totalDictionaries) * 100);
+      completedKeys.push(dictionaryKey);
     } catch (error) {
+      if (error instanceof AbortError) {
+        // Paused or cancelled mid-chunk – stop the loop without marking as failed
+        logger.info(
+          `Translation job ${job.id} aborted mid-chunk (pause/cancel)`
+        );
+        break;
+      }
       logger.error(`Error translating dictionary ${dictionaryId}:`, error);
-      // We continue with other dictionaries
+      failedKeys.push(dictionaryKey);
     }
+
+    processedCount++;
+    await emitProgress(job, {
+      percentage: (processedCount / totalDictionaries) * 100,
+      completedKeys,
+      failedKeys,
+      currentKey: null,
+      currentLocale: null,
+      currentChunk: null,
+      totalChunks: null,
+    });
   }
 };
 

@@ -1,12 +1,19 @@
 import type { Locale } from '@intlayer/types/allLocales';
 import { logger } from '@logger';
+import * as dictionaryService from '@services/dictionary.service';
 import {
   addTranslationJob,
   getTranslationQueue,
+  isTranslationJobCancelled,
+  isTranslationJobPaused,
+  translationCancelKey,
+  translationPauseKey,
 } from '@services/translationQueue.service';
 import { type AppError, ErrorHandler } from '@utils/errors';
+import { getRedisClient } from '@utils/redis/connectRedis';
 import { formatResponse, type ResponseData } from '@utils/responseData';
 import type { FastifyReply, FastifyRequest } from 'fastify';
+import { Types } from 'mongoose';
 
 export type TranslateDictionariesBody = {
   dictionaryIds: string[];
@@ -32,22 +39,125 @@ export const translateDictionaries = async (
   }
 
   try {
+    let dictionaryKeys: string[] = [];
+    if (dictionaryIds.length > 0) {
+      const validIds = dictionaryIds.filter((id) => Types.ObjectId.isValid(id));
+      const dictionaries = await dictionaryService.findDictionaries(
+        { _id: { $in: validIds.map((id) => new Types.ObjectId(id)) } },
+        0,
+        validIds.length,
+        undefined,
+        false
+      );
+      dictionaryKeys = dictionaries.map((d) => d.key);
+    }
+
     const job = await addTranslationJob({
       dictionaryIds,
+      dictionaryKeys,
       targetLocales,
       projectId: String(project.id),
       userId: String(user.id),
     });
 
-    const responseData = formatResponse<{ jobId: string }>({
-      data: { jobId: job.id! },
-      message: 'Translation started',
-    });
-
-    return reply.send(responseData);
+    return reply.send(
+      formatResponse<{ jobId: string }>({
+        data: { jobId: job.id! },
+        message: 'Translation started',
+      })
+    );
   } catch (error) {
     return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }
+};
+
+export const pauseTranslationJob = async (
+  request: FastifyRequest<{ Params: { jobId: string } }>,
+  reply: FastifyReply
+): Promise<void> => {
+  const { user } = request.session || {};
+  if (!user) {
+    return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
+  }
+  const { jobId } = request.params;
+  const redis = getRedisClient();
+  await redis.set(translationPauseKey(jobId), '1', 'EX', 86400);
+  return reply.send(formatResponse({ data: { jobId }, message: 'Paused' }));
+};
+
+export const resumeTranslationJob = async (
+  request: FastifyRequest<{ Params: { jobId: string } }>,
+  reply: FastifyReply
+): Promise<void> => {
+  const { user } = request.session || {};
+  if (!user) {
+    return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
+  }
+  const { jobId } = request.params;
+  const redis = getRedisClient();
+  await redis.del(translationPauseKey(jobId));
+  return reply.send(formatResponse({ data: { jobId }, message: 'Resumed' }));
+};
+
+export const stopTranslationJob = async (
+  request: FastifyRequest<{ Params: { jobId: string } }>,
+  reply: FastifyReply
+): Promise<void> => {
+  const { user } = request.session || {};
+  if (!user) {
+    return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
+  }
+  const { jobId } = request.params;
+  const redis = getRedisClient();
+  await redis.set(translationCancelKey(jobId), '1', 'EX', 86400);
+  await redis.del(translationPauseKey(jobId));
+
+  const queue = getTranslationQueue();
+  const job = await queue.getJob(jobId);
+  if (job) {
+    const state = await job.getState();
+    if (state === 'waiting' || state === 'delayed') {
+      await job.remove();
+    }
+  }
+  return reply.send(formatResponse({ data: { jobId }, message: 'Stopped' }));
+};
+
+export const retryTranslationJob = async (
+  request: FastifyRequest<{ Params: { jobId: string } }>,
+  reply: FastifyReply
+): Promise<void> => {
+  const { user } = request.session || {};
+  if (!user) {
+    return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
+  }
+  const { jobId } = request.params;
+  const queue = getTranslationQueue();
+  const job = await queue.getJob(jobId);
+  if (!job) return reply.status(404).send({ error: 'Job not found' });
+  const redis = getRedisClient();
+  await redis.del(translationCancelKey(jobId));
+  await redis.del(translationPauseKey(jobId));
+  await job.retry();
+  return reply.send(formatResponse({ data: { jobId }, message: 'Retrying' }));
+};
+
+export const restartTranslationJob = async (
+  request: FastifyRequest<{ Params: { jobId: string } }>,
+  reply: FastifyReply
+): Promise<void> => {
+  const { user } = request.session || {};
+  if (!user) {
+    return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
+  }
+  const { jobId } = request.params;
+  const queue = getTranslationQueue();
+  const job = await queue.getJob(jobId);
+  if (!job) return reply.status(404).send({ error: 'Job not found' });
+  const newJob = await addTranslationJob(job.data);
+  return reply.send(
+    formatResponse({ data: { jobId: newJob.id! }, message: 'Restarted' })
+  );
 };
 
 export const getTranslationStatus = async (
@@ -83,13 +193,32 @@ export const getTranslationStatus = async (
   });
   reply.raw.flushHeaders?.();
 
-  // Send initial data to ensure the connection is open
   reply.raw.write(': connected\n\n');
 
   const send = (data: any) => {
     if (!reply.raw.writableEnded && !reply.raw.destroyed) {
       reply.raw.write(`data: ${JSON.stringify(data)}\n\n`);
     }
+  };
+
+  const projectId = project ? String(project.id) : null;
+  const userId = String(user.id);
+
+  const matchesSession = (job: any) =>
+    projectId
+      ? String(job.data.projectId) === projectId
+      : String(job.data.userId) === userId;
+
+  const sendJob = async (job: any) => {
+    const state = await job.getState();
+    const isPaused = await isTranslationJobPaused(job.id);
+    send({
+      jobId: job.id,
+      state,
+      isPaused,
+      progress: job.progress,
+      data: job.data,
+    });
   };
 
   try {
@@ -103,36 +232,26 @@ export const getTranslationStatus = async (
         'completed',
         'failed',
       ]);
-
-      if (project) {
-        return jobs.filter((job) => job.data.projectId === project.id);
-      }
-      return jobs.filter((job) => job.data.userId === user.id);
+      return jobs.filter(matchesSession);
     };
 
-    // Send initial state
     const jobs = await getRelevantJobs();
     for (const job of jobs) {
-      const state = await job.getState();
-      send({ jobId: job.id, state, progress: job.progress, data: job.data });
+      await sendJob(job);
     }
 
-    // Polling interval for updates
     const interval = setInterval(async () => {
       try {
         const currentJobs = await translationQueue.getJobs([
           'active',
           'waiting',
           'delayed',
+          'completed',
+          'failed',
         ]);
-
-        const relevantJobs = project
-          ? currentJobs.filter((job) => job.data.projectId === project.id)
-          : currentJobs.filter((job) => job.data.userId === user.id);
-
+        const relevantJobs = currentJobs.filter(matchesSession);
         for (const job of relevantJobs) {
-          const state = await job.getState();
-          send({ jobId: job.id, state, progress: job.progress });
+          await sendJob(job);
         }
       } catch (error) {
         logger.error('Error polling translation status', error);
