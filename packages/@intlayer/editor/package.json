@@ -78,8 +78,7 @@
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
     "@intlayer/types": "workspace:*",
-    "@intlayer/unmerged-dictionaries-entry": "workspace:*",
-    "lit": "^3.3.2"
+    "@intlayer/unmerged-dictionaries-entry": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "25.6.0",

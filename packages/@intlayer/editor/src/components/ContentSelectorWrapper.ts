@@ -3,8 +3,6 @@ import type { ContentNode } from '@intlayer/types/dictionary';
 import type { KeyPath } from '@intlayer/types/keyPath';
 import type { TypedNodeModel } from '@intlayer/types/nodeType';
 import * as NodeTypes from '@intlayer/types/nodeType';
-import { css, html, LitElement } from 'lit';
-import { property, state } from 'lit/decorators.js';
 import type {
   EditorStateManager,
   FileContent,
@@ -15,10 +13,12 @@ import {
 } from '../core/globalManager';
 import { MessageKey } from '../messageKey';
 
+type RenderState = 'simple' | 'wrapped-slot' | 'wrapped-text';
+
 /**
  * <intlayer-content-selector-wrapper>
  *
- * Framework-agnostic Lit element that wraps content with the Intlayer editor
+ * Framework-agnostic web component that wraps content with the Intlayer editor
  * selection UI. It replaces the per-framework ContentSelectorWrapper components
  * (Vue, Svelte, Solid, Preact).
  *
@@ -29,47 +29,78 @@ import { MessageKey } from '../messageKey';
  * @attr {string} key-path        - JSON-serialized KeyPath[] for this content node
  * @attr {string} dictionary-key  - The dictionary key owning this content node
  */
-export class IntlayerContentSelectorWrapperElement extends LitElement {
-  static styles = css`
-    :host {
-      display: contents;
-    }
-  `;
+export class IntlayerContentSelectorWrapperElement extends HTMLElement {
+  private _keyPathJson = '[]';
+  private _dictionaryKey = '';
+  private _editorEnabled = false;
+  private _isInIframe = false;
+  private _isSelected = false;
+  private _editedValue: ContentNode | undefined = undefined;
 
-  @property({ type: String, attribute: 'key-path' }) keyPathJson = '[]';
-  @property({ type: String, attribute: 'dictionary-key' }) dictionaryKey = '';
-
-  @state() private _editorEnabled = false;
-  @state() private _isInIframe = false;
-  @state() private _isSelected = false;
-  @state() private _editedValue: ContentNode | undefined = undefined;
+  private _renderState: RenderState | null = null;
+  private _selector: HTMLElement | null = null;
 
   private _unsubManager: (() => void) | null = null;
   private _unsubEnabled: (() => void) | null = null;
   private _unsubFocused: (() => void) | null = null;
   private _unsubEditedContent: (() => void) | null = null;
 
+  static get observedAttributes(): string[] {
+    return ['key-path', 'dictionary-key'];
+  }
+
+  get keyPathJson(): string {
+    return this._keyPathJson;
+  }
+  set keyPathJson(v: string) {
+    this._keyPathJson = v;
+    const manager = getGlobalEditorManager();
+    if (manager) this._updateEditedValue(manager);
+  }
+
+  get dictionaryKey(): string {
+    return this._dictionaryKey;
+  }
+  set dictionaryKey(v: string) {
+    this._dictionaryKey = v;
+    const manager = getGlobalEditorManager();
+    if (manager) this._updateEditedValue(manager);
+  }
+
+  constructor() {
+    super();
+    const shadow = this.attachShadow({ mode: 'open' });
+    const style = document.createElement('style');
+    style.textContent = ':host { display: contents; }';
+    shadow.appendChild(style);
+  }
+
+  attributeChangedCallback(
+    name: string,
+    _oldVal: string | null,
+    newVal: string | null
+  ): void {
+    if (name === 'key-path') {
+      this._keyPathJson = newVal ?? '[]';
+      const manager = getGlobalEditorManager();
+      if (manager) this._updateEditedValue(manager);
+    } else if (name === 'dictionary-key') {
+      this._dictionaryKey = newVal ?? '';
+      const manager = getGlobalEditorManager();
+      if (manager) this._updateEditedValue(manager);
+    }
+  }
+
   connectedCallback(): void {
-    super.connectedCallback();
     if (typeof window !== 'undefined') {
       this._isInIframe = window.self !== window.top;
     }
     this._subscribeToManager();
+    this._render();
   }
 
   disconnectedCallback(): void {
-    super.disconnectedCallback();
     this._teardown();
-  }
-
-  updated(changedProperties: Map<string, unknown>): void {
-    if (
-      changedProperties.has('keyPathJson') ||
-      changedProperties.has('dictionaryKey')
-    ) {
-      const manager = getGlobalEditorManager();
-      if (manager) this._updateEditedValue(manager);
-    }
   }
 
   private _teardown(): void {
@@ -81,6 +112,95 @@ export class IntlayerContentSelectorWrapperElement extends LitElement {
     this._unsubEnabled = null;
     this._unsubFocused = null;
     this._unsubEditedContent = null;
+  }
+
+  private _getRawKeyPath(): KeyPath[] {
+    try {
+      return JSON.parse(this._keyPathJson) as KeyPath[];
+    } catch {
+      return [];
+    }
+  }
+
+  private _getFilteredKeyPath(): KeyPath[] {
+    return this._getRawKeyPath().filter(
+      (k) => k.type !== NodeTypes.TRANSLATION
+    );
+  }
+
+  private _updateEditedValue(manager: EditorStateManager): void {
+    const filteredKeyPath = this._getFilteredKeyPath();
+    if (!this._dictionaryKey || filteredKeyPath.length === 0) {
+      this._editedValue = undefined;
+      this._render();
+      return;
+    }
+
+    // Node types whose display requires framework-level rendering (markdown,
+    // HTML, insertion, file): do not override the slot — the framework handles
+    // those. Only plain / translated strings can be substituted here.
+    const rawKeyPath = this._getRawKeyPath();
+    const lastStepType = rawKeyPath[rawKeyPath.length - 1]?.type;
+    if (
+      lastStepType === NodeTypes.MARKDOWN ||
+      lastStepType === NodeTypes.HTML ||
+      lastStepType === NodeTypes.INSERTION ||
+      lastStepType === NodeTypes.FILE
+    ) {
+      this._editedValue = undefined;
+      this._render();
+      return;
+    }
+
+    let value = manager.getContentValue(this._dictionaryKey, filteredKeyPath);
+
+    // getContentNodeByKeyPath resolves translation nodes only at intermediate
+    // steps, not the final leaf. Resolve manually when the returned value is
+    // still a translation object (happens when Translation steps are filtered
+    // out and the leaf IS the translation object).
+    if (
+      value !== null &&
+      value !== undefined &&
+      typeof value === 'object' &&
+      (value as { nodeType?: unknown }).nodeType === NodeTypes.TRANSLATION
+    ) {
+      const locale = manager.currentLocale.value as string | undefined;
+      // TypedNodeModel<Translation, …> structurally satisfies TypedNode<BaseNode>
+      // (both have nodeType), so this narrowing cast is sound.
+      const node = value as TypedNodeModel<
+        typeof NodeTypes.TRANSLATION,
+        Record<string, ContentNode>
+      >;
+      value = locale ? node[NodeTypes.TRANSLATION][locale] : undefined;
+    }
+
+    this._editedValue = value;
+    this._render();
+  }
+
+  private _updateIsSelected(
+    focusedContent: FileContent | null | undefined
+  ): void {
+    if (!focusedContent) {
+      this._isSelected = false;
+      this._updateSelectorAttr();
+      return;
+    }
+    const keyPath = this._getFilteredKeyPath();
+    this._isSelected =
+      focusedContent.dictionaryKey === this._dictionaryKey &&
+      (focusedContent.keyPath?.length ?? 0) > 0 &&
+      isSameKeyPath(focusedContent.keyPath ?? [], keyPath);
+    this._updateSelectorAttr();
+  }
+
+  private _updateSelectorAttr(): void {
+    if (!this._selector) return;
+    if (this._isSelected) {
+      this._selector.setAttribute('is-selecting', '');
+    } else {
+      this._selector.removeAttribute('is-selecting');
+    }
   }
 
   private _subscribeToManager(): void {
@@ -102,6 +222,7 @@ export class IntlayerContentSelectorWrapperElement extends LitElement {
         this._editorEnabled = false;
         this._isSelected = false;
         this._editedValue = undefined;
+        this._render();
       }
     });
   }
@@ -113,6 +234,7 @@ export class IntlayerContentSelectorWrapperElement extends LitElement {
 
     const handleEnabledChange = (e: Event) => {
       this._editorEnabled = (e as CustomEvent<boolean>).detail;
+      this._render();
     };
     const handleFocusedChange = (e: Event) => {
       this._updateIsSelected((e as CustomEvent<FileContent | null>).detail);
@@ -136,88 +258,13 @@ export class IntlayerContentSelectorWrapperElement extends LitElement {
       );
   }
 
-  private _getRawKeyPath(): KeyPath[] {
-    try {
-      return JSON.parse(this.keyPathJson) as KeyPath[];
-    } catch {
-      return [];
-    }
-  }
-
-  private _getFilteredKeyPath(): KeyPath[] {
-    return this._getRawKeyPath().filter(
-      (k) => k.type !== NodeTypes.TRANSLATION
-    );
-  }
-
-  private _updateEditedValue(manager: EditorStateManager): void {
-    const filteredKeyPath = this._getFilteredKeyPath();
-    if (!this.dictionaryKey || filteredKeyPath.length === 0) {
-      this._editedValue = undefined;
-      return;
-    }
-
-    // Node types whose display requires framework-level rendering (markdown,
-    // HTML, insertion, file): do not override the slot — the framework handles
-    // those. Only plain / translated strings can be substituted here.
-    const rawKeyPath = this._getRawKeyPath();
-    const lastStepType = rawKeyPath[rawKeyPath.length - 1]?.type;
-    if (
-      lastStepType === NodeTypes.MARKDOWN ||
-      lastStepType === NodeTypes.HTML ||
-      lastStepType === NodeTypes.INSERTION ||
-      lastStepType === NodeTypes.FILE
-    ) {
-      this._editedValue = undefined;
-      return;
-    }
-
-    let value = manager.getContentValue(this.dictionaryKey, filteredKeyPath);
-
-    // getContentNodeByKeyPath resolves translation nodes only at intermediate
-    // steps, not the final leaf. Resolve manually when the returned value is
-    // still a translation object (happens when Translation steps are filtered
-    // out and the leaf IS the translation object).
-    if (
-      value !== null &&
-      value !== undefined &&
-      typeof value === 'object' &&
-      value.nodeType === NodeTypes.TRANSLATION
-    ) {
-      const locale = manager.currentLocale.value as string | undefined;
-      // TypedNodeModel<Translation, …> structurally satisfies TypedNode<BaseNode>
-      // (both have nodeType), so this narrowing cast is sound.
-      const node = value as TypedNodeModel<
-        typeof NodeTypes.TRANSLATION,
-        Record<string, ContentNode>
-      >;
-      value = locale ? node[NodeTypes.TRANSLATION][locale] : undefined;
-    }
-
-    this._editedValue = value;
-  }
-
-  private _updateIsSelected(
-    focusedContent: FileContent | null | undefined
-  ): void {
-    if (!focusedContent) {
-      this._isSelected = false;
-      return;
-    }
-    const keyPath = this._getFilteredKeyPath();
-    this._isSelected =
-      focusedContent.dictionaryKey === this.dictionaryKey &&
-      (focusedContent.keyPath?.length ?? 0) > 0 &&
-      isSameKeyPath(focusedContent.keyPath ?? [], keyPath);
-  }
-
   private _handlePress(e: Event): void {
     // Stop propagation so nested wrappers don't also fire (composed + bubbles)
     e.stopPropagation();
     const manager = getGlobalEditorManager();
     if (!manager) return;
     manager.focusedContent.set({
-      dictionaryKey: this.dictionaryKey,
+      dictionaryKey: this._dictionaryKey,
       keyPath: this._getFilteredKeyPath(),
     });
   }
@@ -226,7 +273,10 @@ export class IntlayerContentSelectorWrapperElement extends LitElement {
     e.stopPropagation();
     getGlobalEditorManager()?.messenger.send(
       `${MessageKey.INTLAYER_HOVERED_CONTENT_CHANGED}/post`,
-      { dictionaryKey: this.dictionaryKey, keyPath: this._getFilteredKeyPath() }
+      {
+        dictionaryKey: this._dictionaryKey,
+        keyPath: this._getFilteredKeyPath(),
+      }
     );
   }
 
@@ -238,29 +288,68 @@ export class IntlayerContentSelectorWrapperElement extends LitElement {
     );
   }
 
-  render() {
-    if (!this._isInIframe || !this._editorEnabled) {
-      return html`<slot></slot>`;
-    }
-
+  private _render(): void {
+    const useWrapper = this._isInIframe && this._editorEnabled;
     const editedValue = this._editedValue;
-    const displayedContent =
+    const isSimpleValue =
       typeof editedValue === 'string' ||
       typeof editedValue === 'number' ||
-      typeof editedValue === 'boolean'
-        ? editedValue
-        : html`<slot></slot>`;
+      typeof editedValue === 'boolean';
 
-    return html`
-      <intlayer-content-selector
-        ?is-selecting=${this._isSelected}
-        @intlayer:press=${this._handlePress}
-        @intlayer:hover=${this._handleHover}
-        @intlayer:unhover=${this._handleUnhover}
-      >
-        ${displayedContent}
-      </intlayer-content-selector>
-    `;
+    const newState: RenderState = !useWrapper
+      ? 'simple'
+      : isSimpleValue
+        ? 'wrapped-text'
+        : 'wrapped-slot';
+
+    if (this._renderState !== newState) {
+      this._rebuildContent(newState);
+      return;
+    }
+
+    // Structure unchanged — update only dynamic parts
+    if (newState !== 'simple' && this._selector) {
+      this._updateSelectorAttr();
+      if (
+        newState === 'wrapped-text' &&
+        this._selector.firstChild?.nodeType === Node.TEXT_NODE
+      ) {
+        (this._selector.firstChild as Text).data = String(editedValue);
+      }
+    }
+  }
+
+  private _rebuildContent(state: RenderState): void {
+    const shadow = this.shadowRoot!;
+    // Remove all nodes except the style element (first child)
+    while (shadow.childNodes.length > 1) {
+      shadow.removeChild(shadow.lastChild!);
+    }
+    this._selector = null;
+
+    if (state === 'simple') {
+      shadow.appendChild(document.createElement('slot'));
+    } else {
+      const selector = document.createElement('intlayer-content-selector');
+      this._selector = selector;
+      if (this._isSelected) selector.setAttribute('is-selecting', '');
+      selector.addEventListener('intlayer:press', (e) => this._handlePress(e));
+      selector.addEventListener('intlayer:hover', (e) => this._handleHover(e));
+      selector.addEventListener('intlayer:unhover', (e) =>
+        this._handleUnhover(e)
+      );
+
+      if (state === 'wrapped-text') {
+        selector.appendChild(
+          document.createTextNode(String(this._editedValue))
+        );
+      } else {
+        selector.appendChild(document.createElement('slot'));
+      }
+      shadow.appendChild(selector);
+    }
+
+    this._renderState = state;
   }
 }
 

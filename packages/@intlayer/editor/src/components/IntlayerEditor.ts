@@ -1,7 +1,5 @@
 import type { Locale } from '@intlayer/types/allLocales';
 import type { IntlayerConfig } from '@intlayer/types/config';
-import { LitElement } from 'lit';
-import { property } from 'lit/decorators.js';
 import {
   getGlobalEditorManager,
   onGlobalEditorManagerChange,
@@ -11,13 +9,13 @@ import { initEditorClient, stopEditorClient } from '../core/initEditorClient';
 /**
  * <intlayer-editor>
  *
- * A framework-agnostic Lit element that manages the Intlayer editor singleton
+ * A framework-agnostic web component that manages the Intlayer editor singleton
  * lifecycle and keeps the current locale in sync with the EditorStateManager.
  *
  * Drop this element once at the root of your application to activate the editor.
- * It renders no UI (display: contents, empty shadow root).
+ * It renders no UI.
  *
- * @prop {IntlayerConfig} configuration  - The Intlayer config (required; set as property, not attribute)
+ * @prop {IntlayerConfig} configuration  - The Intlayer config (required; set as JS property, not attribute)
  * @prop {string}         locale         - The active application locale (attribute/property)
  *
  * @example
@@ -27,72 +25,75 @@ import { initEditorClient, stopEditorClient } from '../core/initEditorClient';
  * // Vue
  * <intlayer-editor :configuration="config" :locale="currentLocale" />
  */
-export class IntlayerEditorElement extends LitElement {
-  /** No visible UI — render nothing into the shadow root */
-  createRenderRoot(): this {
-    return this;
-  }
-
-  @property({ attribute: false }) configuration?: IntlayerConfig;
-
-  @property({ type: String }) locale?: string;
-
+export class IntlayerEditorElement extends HTMLElement {
+  private _configuration: IntlayerConfig | undefined = undefined;
+  private _locale: string | undefined = undefined;
   private _initialized = false;
   private _unsubManager: (() => void) | null = null;
 
+  static get observedAttributes(): string[] {
+    return ['locale'];
+  }
+
+  get configuration(): IntlayerConfig | undefined {
+    return this._configuration;
+  }
+  set configuration(v: IntlayerConfig | undefined) {
+    this._configuration = v;
+    if (!this._initialized) this._init();
+  }
+
+  get locale(): string | undefined {
+    return this._locale;
+  }
+  set locale(v: string | undefined) {
+    this._locale = v;
+    if (v && this._initialized) this._syncLocale(v);
+  }
+
+  attributeChangedCallback(
+    name: string,
+    _oldVal: string | null,
+    newVal: string | null
+  ): void {
+    if (name === 'locale' && newVal !== null) {
+      this._locale = newVal;
+      if (this._initialized) this._syncLocale(newVal);
+    }
+  }
+
   connectedCallback(): void {
-    super.connectedCallback();
     this._init();
   }
 
   disconnectedCallback(): void {
-    super.disconnectedCallback();
     this._unsubManager?.();
     this._unsubManager = null;
-
     if (this._initialized) {
       stopEditorClient();
       this._initialized = false;
     }
   }
 
-  updated(changedProperties: Map<string | symbol, unknown>): void {
-    if (changedProperties.has('configuration') && !this._initialized) {
-      this._init();
-    }
-
-    if (changedProperties.has('locale') && this.locale) {
-      this._syncLocale(this.locale);
-    }
-  }
-
   private _init(): void {
     if (this._initialized) return;
-
     initEditorClient();
-
     this._initialized = true;
-
-    // Sync locale immediately after init if it is already set
-    if (this.locale) {
-      this._syncLocale(this.locale);
-    }
+    if (this._locale) this._syncLocale(this._locale);
   }
 
   private _syncLocale(locale: string): void {
     const manager = getGlobalEditorManager();
-
     if (manager) {
       manager.currentLocale.set(locale as Locale);
     } else {
       // Manager may not be ready yet — wait for it
       this._unsubManager?.();
-      this._unsubManager = onGlobalEditorManagerChange((manager) => {
-        if (manager) {
+      this._unsubManager = onGlobalEditorManagerChange((m) => {
+        if (m) {
           this._unsubManager?.();
           this._unsubManager = null;
-
-          manager.currentLocale.set(locale as Locale);
+          m.currentLocale.set(locale as Locale);
         }
       });
     }
@@ -101,7 +102,6 @@ export class IntlayerEditorElement extends LitElement {
 
 export const defineIntlayerEditorElement = (): void => {
   if (typeof customElements === 'undefined') return;
-
   if (!customElements.get('intlayer-editor')) {
     customElements.define('intlayer-editor', IntlayerEditorElement);
   }
