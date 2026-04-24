@@ -8,7 +8,7 @@ export const Route = createFileRoute('/{-$locale}/404')({
   component: NotFoundComponent,
   head: ({ params }) => {
     const { locale } = params;
-    const content = getIntlayer('app', locale);
+    const content = getIntlayer('404', locale);
 
     return {
       meta: [

@@ -192,15 +192,15 @@ export default defineConfig(({ mode }) => {
           routeFileIgnorePattern:
             '.content.(ts|tsx|js|mjs|cjs|jsx|json|jsonc|json5)$',
         },
-        sitemap: {
-          enabled: true,
-          host: 'https://docs.intlayer.org',
-        },
-        prerender: {
-          enabled: true,
-          crawlLinks: true,
-          concurrency: 10,
-        },
+        // sitemap: {
+        //   enabled: true,
+        //   host: 'https://docs.intlayer.org',
+        // },
+        // prerender: {
+        //   enabled: true,
+        //   crawlLinks: true,
+        //   concurrency: 10,
+        // },
       }),
       react(),
       babel({ presets: [reactCompilerPreset()] }),
