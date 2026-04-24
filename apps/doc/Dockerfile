@@ -59,7 +59,7 @@ WORKDIR /workspace/apps/doc
 ENV NODE_ENV=production
 
 # Build the doc app
-RUN bun run build && bun scripts/generate-sw.ts
+RUN bun run build && bun scripts/generate-sw.ts && bun scripts/baidu-push.ts
 
 # @intlayer/docs reads legal markdown files from the filesystem at runtime.
 # Nitro resolves baseDir to .output/server/ via the package.json it generates

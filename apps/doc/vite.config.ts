@@ -14,8 +14,8 @@ export default defineConfig(({ mode }) => {
   const domain = env.VITE_SITE_URL
     ? new URL(env.VITE_SITE_URL).hostname
     : 'localhost';
-  const appUrl = env.VITE_APP_URL || 'http://localhost:3000';
-  const backendUrl = env.VITE_BACKEND_URL || 'http://localhost:3100';
+  const appUrl = env.VITE_APP_URL;
+  const backendUrl = env.VITE_BACKEND_URL;
 
   const cspDirectives = {
     'default-src': ["'self'"],
