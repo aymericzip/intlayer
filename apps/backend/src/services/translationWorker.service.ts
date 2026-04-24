@@ -22,9 +22,10 @@ import {
 } from './translationQueue.service';
 
 type TranslationJobData = {
-  dictionaryIds: string[];
-  dictionaryKeys: string[];
-  targetLocales: Locale[];
+  dictionaryIds?: string[];
+  dictionaryKeys?: string[];
+  targetLocales?: Locale[];
+  dictionaryTargets?: { dictionaryId: string; locales: Locale[] }[];
   projectId: string;
   userId: string;
 };
@@ -48,7 +49,17 @@ const emitProgress = async (
 };
 
 const processTranslationJob = async (job: Job<TranslationJobData>) => {
-  const { dictionaryIds, targetLocales, projectId, userId } = job.data;
+  const { dictionaryTargets, dictionaryIds, targetLocales, projectId, userId } =
+    job.data;
+
+  // Migration / compatibility: if dictionaryTargets is missing, rebuild it from flat list
+  const targets: { dictionaryId: string; locales: Locale[] }[] =
+    dictionaryTargets ||
+    (dictionaryIds as string[])?.map((id) => ({
+      dictionaryId: id,
+      locales: targetLocales as Locale[],
+    })) ||
+    [];
 
   logger.info(`Processing translation job ${job.id} for project ${projectId}`);
 
@@ -70,12 +81,14 @@ const processTranslationJob = async (job: Job<TranslationJobData>) => {
     true
   );
 
-  const totalDictionaries = dictionaryIds.length;
+  const totalDictionaries = targets.length;
   let processedCount = 0;
   const completedKeys: string[] = [];
   const failedKeys: string[] = [];
 
-  for (const dictionaryId of dictionaryIds) {
+  for (const target of targets) {
+    const { dictionaryId, locales: taskTargetLocales } = target;
+
     // Respect pause: spin-wait until resumed or cancelled
     while (await isTranslationJobPaused(job.id!)) {
       if (await isTranslationJobCancelled(job.id!)) break;
@@ -129,7 +142,7 @@ const processTranslationJob = async (job: Job<TranslationJobData>) => {
       const translationResult = await translateDictionaryDB({
         content: sourceContent as any,
         sourceLocale: sourceLocale as Locale,
-        targetLocales,
+        targetLocales: taskTargetLocales,
         aiConfig,
         dictionaryDescription: dictionary.description,
         shouldStop,

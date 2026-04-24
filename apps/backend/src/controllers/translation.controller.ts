@@ -1,10 +1,10 @@
+import { getMissingLocalesContentFromDictionary } from '@intlayer/core/plugins';
 import type { Locale } from '@intlayer/types/allLocales';
 import { logger } from '@logger';
 import * as dictionaryService from '@services/dictionary.service';
 import {
   addTranslationJob,
   getTranslationQueue,
-  isTranslationJobCancelled,
   isTranslationJobPaused,
   translationCancelKey,
   translationPauseKey,
@@ -39,23 +39,60 @@ export const translateDictionaries = async (
   }
 
   try {
-    let dictionaryKeys: string[] = [];
-    if (dictionaryIds.length > 0) {
-      const validIds = dictionaryIds.filter((id) => Types.ObjectId.isValid(id));
-      const dictionaries = await dictionaryService.findDictionaries(
-        { _id: { $in: validIds.map((id) => new Types.ObjectId(id)) } },
-        0,
-        validIds.length,
-        undefined,
-        false
+    const validIds = dictionaryIds.filter((id) => Types.ObjectId.isValid(id));
+    const dictionaries = await dictionaryService.findDictionaries(
+      { _id: { $in: validIds.map((id) => new Types.ObjectId(id)) } },
+      0,
+      validIds.length,
+      undefined,
+      false
+    );
+
+    const dictionaryTargets: { dictionaryId: string; locales: Locale[] }[] = [];
+
+    const projectLocales =
+      project.configuration?.internationalization?.locales ?? [];
+
+    for (const dictionary of dictionaries) {
+      const versionList = Array.from(dictionary.content.keys());
+      const lastVersion = versionList[versionList.length - 1] || 'v1';
+      const node = dictionary.content.get(lastVersion);
+
+      if (!node) continue;
+
+      // Use core logic to find missing locales
+      const missingLocales = getMissingLocalesContentFromDictionary(
+        {
+          key: dictionary.key,
+          content: node.content,
+        },
+        projectLocales
       );
-      dictionaryKeys = dictionaries.map((d) => d.key);
+
+      // Only translate requested locales that are actually missing
+      const requestedMissingLocales = targetLocales.filter((locale) =>
+        missingLocales.includes(locale)
+      );
+
+      if (requestedMissingLocales.length > 0) {
+        dictionaryTargets.push({
+          dictionaryId: String(dictionary._id),
+          locales: requestedMissingLocales,
+        });
+      }
+    }
+
+    if (dictionaryTargets.length === 0) {
+      return reply.send(
+        formatResponse({
+          data: null,
+          message: 'All dictionaries are already translated',
+        })
+      );
     }
 
     const job = await addTranslationJob({
-      dictionaryIds,
-      dictionaryKeys,
-      targetLocales,
+      dictionaryTargets,
       projectId: String(project.id),
       userId: String(user.id),
     });

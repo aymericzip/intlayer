@@ -1,4 +1,5 @@
 import type { ConnectionOptions } from 'node:tls';
+import type { Locale } from '@intlayer/types/allLocales';
 import { logger } from '@logger';
 import { getRedisClient } from '@utils/redis/connectRedis';
 import { Queue, QueueEvents } from 'bullmq';
@@ -56,9 +57,7 @@ export const isTranslationJobCancelled = async (
 };
 
 export const addTranslationJob = async (data: {
-  dictionaryIds: string[];
-  dictionaryKeys: string[];
-  targetLocales: string[];
+  dictionaryTargets: { dictionaryId: string; locales: Locale[] }[];
   projectId: string;
   userId: string;
 }) => {
