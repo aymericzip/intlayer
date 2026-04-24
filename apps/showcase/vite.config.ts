@@ -74,8 +74,6 @@ export default defineConfig(({ mode }) => {
       '*.posthog.com',
       'cdn.jsdelivr.net',
       '*.ahrefs.com',
-      'zz.bdstatic.com',
-      'push.zhanzhang.baidu.com',
       `blob: *.${domain}`,
     ],
     'connect-src': [
@@ -97,8 +95,6 @@ export default defineConfig(({ mode }) => {
       'img.shields.io',
       '*.googleusercontent.com',
       '*.githubusercontent.com',
-      'zz.bdstatic.com',
-      'push.zhanzhang.baidu.com',
       `*.${domain}`,
     ],
     'img-src': [
@@ -110,8 +106,6 @@ export default defineConfig(({ mode }) => {
       'avatars.githubusercontent.com',
       '*.googleusercontent.com',
       '*.githubusercontent.com',
-      'zz.bdstatic.com',
-      'push.zhanzhang.baidu.com',
       backendUrl,
     ],
     'worker-src': [

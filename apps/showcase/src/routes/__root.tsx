@@ -8,10 +8,7 @@ import {
 } from '@tanstack/react-router';
 import { defaultLocale, getHTMLTextDir } from 'intlayer';
 import { IntlayerProvider } from 'react-intlayer';
-import { SoftwareApplicationHeader } from '#/structuredData/SoftwareApplication';
-import { WebsiteHeader } from '#/structuredData/WebsiteHeader';
 import { BackgroundLayout } from '#/components/BackgroundLayout';
-import { BaiduAutoPushSubscriber } from '#/components/BaiduAutoPush/BaiduAutoPushSubscriber';
 import { ErrorComponent } from '#/components/ErrorComponent';
 import { Footer } from '#/components/Footer';
 import Header from '#/components/Header';
@@ -19,6 +16,8 @@ import { IntlayerMarkdownProvider } from '#/components/IntlayerMarkdownProvider'
 import { ThemeProvider } from '#/components/ThemeProvider';
 import PostHogProvider from '#/integrations/posthog/provider';
 import { SITE_DESCRIPTION, SITE_TITLE, SITE_URL } from '#/lib/site';
+import { SoftwareApplicationHeader } from '#/structuredData/SoftwareApplication';
+import { WebsiteHeader } from '#/structuredData/WebsiteHeader';
 import appCss from '#/styles.css?url';
 import { Route as LocaleRoute } from './{-$locale}/route';
 
@@ -109,7 +108,6 @@ function RootDocument({ children }: { children: React.ReactNode }) {
             <IntlayerMarkdownProvider>
               <PostHogProvider>
                 <ReactQueryProvider>
-                  <BaiduAutoPushSubscriber />
                   <BackgroundLayout>
                     <Header />
                     {children}

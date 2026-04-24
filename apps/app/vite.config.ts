@@ -114,8 +114,6 @@ export default defineConfig(({ mode }) => {
       '*.stripe.com',
       'cdn.jsdelivr.net',
       '*.ahrefs.com',
-      'zz.bdstatic.com',
-      'push.zhanzhang.baidu.com',
       `blob: *.${domain}`,
     ],
     'img-src': [

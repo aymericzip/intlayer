@@ -11,7 +11,6 @@ import { BackgroundLayout } from '#/components/BackgroundLayout';
 import { SoftwareApplicationHeader } from '#/structuredData/SoftwareApplication';
 import { WebsiteHeader } from '#/structuredData/WebsiteHeader';
 import { ServiceWorkerSubscriber } from '#components/ServiceWorker/ServiceWorkerSubscriber.tsx';
-import { BaiduAutoPushSubscriber } from '../components/BaiduAutoPush/BaiduAutoPushSubscriber';
 import { IntlayerMarkdownProvider } from '../components/IntlayerMarkdownProvider';
 import { Navbar } from '../components/Navbar';
 import PostHogProvider from '../integrations/posthog/provider';
@@ -102,7 +101,6 @@ function RootDocument({ children }: { children: React.ReactNode }) {
             <PostHogProvider>
               <ReactQueryProvider>
                 <ServiceWorkerSubscriber />
-                <BaiduAutoPushSubscriber />
                 <BackgroundLayout>
                   <Navbar />
                   {children}

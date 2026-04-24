@@ -90,7 +90,7 @@ WORKDIR /workspace/apps/website
 ENV NODE_ENV=production
 
 # Build the Next.js website
-RUN bun run --bun next build && bun scripts/generate-sw.ts
+RUN bun run --bun next build && bun scripts/generate-sw.ts && bun scripts/baidu-push.ts
 
 # Runner
 FROM oven/bun:1.3.13-alpine AS runner

@@ -15,7 +15,6 @@ import { AnimatePresenceProvider } from '#/providers/AnimatePresenceProvider';
 import { IntlayerMarkdownProvider } from '#/providers/IntlayerMarkdownProvider';
 import { ThemeProvider } from '#/providers/ThemeProvider';
 import appCss from '#/styles.css?url';
-import { BaiduAutoPushSubscriber } from '#components/BaiduAutoPush/BaiduAutoPushSubscriber';
 import { ErrorComponent } from '#components/ErrorComponent';
 import { ServiceWorkerSubscriber } from '#components/ServiceWorker/ServiceWorkerSubscriber';
 import { sessionQueryOptions } from '#utils/auth.tsx';
@@ -98,7 +97,6 @@ function RootDocument({ children }: { children: React.ReactNode }) {
                   <WebsiteHeader />
                   <SoftwareApplicationHeader />
                   <ServiceWorkerSubscriber />
-                  <BaiduAutoPushSubscriber />
                   <Suspense fallback={<Loader />}>{children}</Suspense>
                 </ReactQueryProvider>
               </IntlayerMarkdownProvider>
