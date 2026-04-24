@@ -1,12 +1,6 @@
 import type { FastifyCorsOptions } from '@fastify/cors';
 import { logger } from '@logger';
 
-const whitelist = [
-  process.env.WEBSITE_URL!,
-  process.env.APP_URL!,
-  process.env.SHOWCASE_URL!,
-];
-
 export const corsOptions: FastifyCorsOptions = {
   origin: (origin, callback) => {
     // Allow requests with no origin (like mobile apps or curl requests)
@@ -14,6 +8,13 @@ export const corsOptions: FastifyCorsOptions = {
       callback(null, true);
       return;
     }
+
+    // Evaluated lazily so dotenv has already loaded when this runs
+    const whitelist = [
+      process.env.WEBSITE_URL,
+      process.env.APP_URL,
+      process.env.SHOWCASE_URL,
+    ].filter(Boolean);
 
     if (whitelist.includes(origin)) {
       callback(null, true);
