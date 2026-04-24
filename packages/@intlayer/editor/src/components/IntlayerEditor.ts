@@ -6,6 +6,11 @@ import {
 } from '../core/globalManager';
 import { initEditorClient, stopEditorClient } from '../core/initEditorClient';
 
+const _HTMLElement =
+  typeof HTMLElement !== 'undefined'
+    ? HTMLElement
+    : (class {} as unknown as typeof HTMLElement);
+
 /**
  * <intlayer-editor>
  *
@@ -25,7 +30,7 @@ import { initEditorClient, stopEditorClient } from '../core/initEditorClient';
  * // Vue
  * <intlayer-editor :configuration="config" :locale="currentLocale" />
  */
-export class IntlayerEditorElement extends HTMLElement {
+export class IntlayerEditorElement extends _HTMLElement {
   private _configuration: IntlayerConfig | undefined = undefined;
   private _locale: string | undefined = undefined;
   private _initialized = false;

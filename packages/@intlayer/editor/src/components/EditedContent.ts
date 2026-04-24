@@ -6,6 +6,11 @@ import {
   onGlobalEditorManagerChange,
 } from '../core/globalManager';
 
+const _HTMLElement =
+  typeof HTMLElement !== 'undefined'
+    ? HTMLElement
+    : (class {} as unknown as typeof HTMLElement);
+
 /**
  * <intlayer-edited-content>
  *
@@ -20,7 +25,7 @@ import {
  * @attr {string} key-path        - JSON-serialized KeyPath[] for this content node
  * @attr {string} locale          - The current locale string
  */
-export class IntlayerEditedContentElement extends HTMLElement {
+export class IntlayerEditedContentElement extends _HTMLElement {
   private _dictionaryKey = '';
   private _keyPathJson = '[]';
   private _locale = '';

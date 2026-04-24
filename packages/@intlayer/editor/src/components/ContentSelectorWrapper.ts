@@ -1,4 +1,5 @@
 import { isSameKeyPath } from '@intlayer/core/utils';
+
 import type { ContentNode } from '@intlayer/types/dictionary';
 import type { KeyPath } from '@intlayer/types/keyPath';
 import type { TypedNodeModel } from '@intlayer/types/nodeType';
@@ -15,6 +16,11 @@ import { MessageKey } from '../messageKey';
 
 type RenderState = 'simple' | 'wrapped-slot' | 'wrapped-text';
 
+const _HTMLElement =
+  typeof HTMLElement !== 'undefined'
+    ? HTMLElement
+    : (class {} as unknown as typeof HTMLElement);
+
 /**
  * <intlayer-content-selector-wrapper>
  *
@@ -29,7 +35,7 @@ type RenderState = 'simple' | 'wrapped-slot' | 'wrapped-text';
  * @attr {string} key-path        - JSON-serialized KeyPath[] for this content node
  * @attr {string} dictionary-key  - The dictionary key owning this content node
  */
-export class IntlayerContentSelectorWrapperElement extends HTMLElement {
+export class IntlayerContentSelectorWrapperElement extends _HTMLElement {
   private _keyPathJson = '[]';
   private _dictionaryKey = '';
   private _editorEnabled = false;

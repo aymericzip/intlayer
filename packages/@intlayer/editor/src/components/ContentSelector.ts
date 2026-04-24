@@ -26,6 +26,11 @@ const STYLES = `
   }
 `;
 
+const _HTMLElement =
+  typeof HTMLElement !== 'undefined'
+    ? HTMLElement
+    : (class {} as unknown as typeof HTMLElement);
+
 /**
  * <intlayer-content-selector>
  *
@@ -40,7 +45,7 @@ const STYLES = `
  * @prop {boolean} isSelecting   - Whether this element is currently selected (external state)
  * @prop {number}  pressDuration - Long-press threshold in ms. Default: 250
  */
-export class IntlayerContentSelectorElement extends HTMLElement {
+export class IntlayerContentSelectorElement extends _HTMLElement {
   private _isSelecting = false;
   private _pressDuration = DEFAULT_PRESS_DURATION;
   private _isHovered = false;
