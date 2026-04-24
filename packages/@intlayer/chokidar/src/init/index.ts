@@ -11,7 +11,10 @@ import {
   findTsConfigFiles,
   parseJSONWithComments,
   readFileFromRoot,
+  updateAstroConfig,
   updateNextConfig,
+  updateNuxtConfig,
+  updateSvelteConfig,
   updateViteConfig,
   writeFileToRoot,
 } from './utils';
@@ -336,6 +339,69 @@ export const initIntlayer = async (rootDir: string, options?: InitOptions) => {
         const updatedContent = updateNextConfig(content, extension);
         await writeFileToRoot(rootDir, file, updatedContent);
         logger(`${v} Updated ${colorizePath(file)} to include Intlayer plugin`);
+      }
+      break;
+    }
+  }
+
+  // CHECK OTHER FRAMEWORKS CONFIG
+  const astroConfigs = [
+    'astro.config.mjs',
+    'astro.config.js',
+    'astro.config.ts',
+    'astro.config.cjs',
+  ];
+
+  for (const file of astroConfigs) {
+    if (await exists(rootDir, file)) {
+      hasAliasConfiguration = true;
+
+      if (file.startsWith('astro.config.')) {
+        const content = await readFileFromRoot(rootDir, file);
+
+        if (!content.includes('astro-intlayer')) {
+          const extension = file.split('.').pop()!;
+          const updatedContent = updateAstroConfig(content, extension);
+          await writeFileToRoot(rootDir, file, updatedContent);
+          logger(
+            `${v} Updated ${colorizePath(file)} to include Intlayer integration`
+          );
+        }
+      }
+      break;
+    }
+  }
+
+  const nuxtConfigs = ['nuxt.config.js', 'nuxt.config.ts'];
+  for (const file of nuxtConfigs) {
+    if (await exists(rootDir, file)) {
+      hasAliasConfiguration = true;
+
+      const content = await readFileFromRoot(rootDir, file);
+
+      if (!content.includes('nuxt-intlayer')) {
+        const extension = file.split('.').pop()!;
+        const updatedContent = updateNuxtConfig(content, extension);
+        await writeFileToRoot(rootDir, file, updatedContent);
+        logger(`${v} Updated ${colorizePath(file)} to include Intlayer module`);
+      }
+      break;
+    }
+  }
+
+  const svelteConfigs = ['svelte.config.js', 'svelte.config.ts'];
+
+  for (const file of svelteConfigs) {
+    if (await exists(rootDir, file)) {
+      hasAliasConfiguration = true;
+
+      const content = await readFileFromRoot(rootDir, file);
+
+      if (!content.includes('@ts-check')) {
+        const extension = file.split('.').pop()!;
+        const updatedContent = updateSvelteConfig(content, extension);
+        await writeFileToRoot(rootDir, file, updatedContent);
+        logger(`${v} Updated ${colorizePath(file)} to include Intlayer typing`);
       }
       break;
     }

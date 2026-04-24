@@ -1,59 +1,48 @@
 import * as recast from 'recast';
 
-const b = recast.types.builders;
-const n = recast.types.namedTypes;
+const { builders: b, namedTypes: n } = recast.types;
 
-/**
- * Checks if a module is already imported or required.
- */
-const isModuleImported = (ast: any, moduleName: string): boolean => {
-  let found = false;
-  recast.visit(ast, {
-    visitImportDeclaration(path) {
-      if (path.node.source.value === moduleName) {
-        found = true;
-      }
-      return false;
-    },
-    visitCallExpression(path) {
-      const { callee, arguments: args } = path.node;
-
-      if (
-        n.Identifier.check(callee) &&
-        callee.name === 'require' &&
-        args[0] &&
-        n.StringLiteral.check(args[0]) &&
-        args[0].value === moduleName
-      ) {
-        found = true;
-      }
-      return false;
-    },
-  });
-  return found;
-};
-
-/**
- * Injects import/require at the top of the file.
- */
 const injectImport = (
   ast: any,
   isCJS: boolean,
   importName: string,
   source: string
 ) => {
-  if (isModuleImported(ast, source)) return;
+  const body = ast.program.body;
+  const hasImport = body.some((stmt: any) => {
+    if (isCJS) {
+      return (
+        n.VariableDeclaration.check(stmt) &&
+        stmt.declarations.some(
+          (decl: any) =>
+            n.VariableDeclarator.check(decl) &&
+            n.CallExpression.check(decl.init) &&
+            n.Identifier.check(decl.init.callee) &&
+            decl.init.callee.name === 'require' &&
+            n.StringLiteral.check(decl.init.arguments[0]) &&
+            decl.init.arguments[0].value === source
+        )
+      );
+    }
+    return (
+      n.ImportDeclaration.check(stmt) &&
+      (stmt.source.value === source ||
+        stmt.specifiers.some(
+          (spec: any) =>
+            (n.ImportSpecifier.check(spec) &&
+              spec.imported.name === importName) ||
+            (n.ImportDefaultSpecifier.check(spec) &&
+              spec.local?.name === importName)
+        ))
+    );
+  });
+
+  if (hasImport) return;
 
   const declaration = isCJS
     ? b.variableDeclaration('const', [
         b.variableDeclarator(
-          b.objectPattern([
-            b.objectProperty.from({
-              key: b.identifier(importName),
-              value: b.identifier(importName),
-              shorthand: true,
-            }),
-          ]),
+          b.identifier(`{ ${importName} }`),
           b.callExpression(b.identifier('require'), [b.stringLiteral(source)])
         ),
       ])
@@ -65,65 +54,66 @@ const injectImport = (
   ast.program.body.unshift(declaration);
 };
 
-export const updateViteConfig = (
-  content: string,
-  extension: string
-): string => {
-  const ast = recast.parse(content, {
-    parser: require('recast/parsers/typescript'),
-  });
-  const isCJSFile =
-    extension === 'cjs' ||
-    (content.includes('module.exports') && !content.includes('import '));
+const ensureTsCheck = (ast: any, content: string, extension: string) => {
+  if (
+    ['js', 'mjs', 'cjs'].includes(extension) &&
+    !content.includes('@ts-check')
+  ) {
+    ast.program.body.unshift(b.commentLine(' @ts-check', true, false) as any);
+  }
+};
 
-  injectImport(ast, isCJSFile, 'intlayer', 'vite-intlayer');
+const updatePluginArray = (
+  objExpr: any,
+  propertyName: string,
+  pluginName: string
+) => {
+  if (
+    !objExpr ||
+    (objExpr.type !== 'ObjectExpression' && !n.ObjectExpression.check(objExpr))
+  )
+    return;
 
-  const updateConfigObject = (objExpr: any) => {
-    if (
-      !objExpr ||
-      (objExpr.type !== 'ObjectExpression' &&
-        !n.ObjectExpression.check(objExpr))
-    )
-      return;
+  let prop = objExpr.properties.find((p: any) => {
+    if (!p?.key) return false;
+    const keyName = p.key.name || p.key.value;
+    return keyName === propertyName;
+  }) as any;
 
-    let pluginsProp = objExpr.properties.find((p: any) => {
-      if (!p || !p.key) return false;
-      const keyName = p.key.name || p.key.value;
-      return keyName === 'plugins';
-    }) as any;
+  if (!prop) {
+    prop = b.property(
+      'init',
+      b.identifier(propertyName),
+      b.arrayExpression([])
+    );
+    objExpr.properties.push(prop);
+  }
 
-    if (!pluginsProp) {
-      pluginsProp = b.property(
-        'init',
-        b.identifier('plugins'),
-        b.arrayExpression([])
-      );
-      objExpr.properties.push(pluginsProp);
+  const arrayValue = prop.value;
+
+  if (
+    arrayValue &&
+    (arrayValue.type === 'ArrayExpression' ||
+      n.ArrayExpression.check(arrayValue))
+  ) {
+    const hasPlugin = arrayValue.elements.some((el: any) => {
+      const callee = el?.callee;
+      if (!callee) return false;
+      const name = callee.name || callee.id?.name;
+      return name === pluginName || name === 'il';
+    });
+
+    if (!hasPlugin) {
+      arrayValue.elements.push(b.callExpression(b.identifier(pluginName), []));
     }
+  }
+};
 
-    const pluginsValue = pluginsProp.value;
-
-    if (
-      pluginsValue &&
-      (pluginsValue.type === 'ArrayExpression' ||
-        n.ArrayExpression.check(pluginsValue))
-    ) {
-      const hasPlugin = pluginsValue.elements.some((el: any) => {
-        const callee = el?.callee;
-
-        if (!callee) return false;
-        const name = callee.name || callee.id?.name;
-        return name === 'intlayer' || name === 'il';
-      });
-
-      if (!hasPlugin) {
-        pluginsValue.elements.push(
-          b.callExpression(b.identifier('intlayer'), [])
-        );
-      }
-    }
-  };
-
+const genericRecastVisit = (
+  ast: any,
+  updateConfigObject: (obj: any) => void,
+  callNames: string[] = ['defineConfig']
+) => {
   recast.visit(ast, {
     visitExportDefaultDeclaration(path) {
       const decl = path.node.declaration;
@@ -133,7 +123,7 @@ export const updateViteConfig = (
       } else if (
         n.CallExpression.check(decl) &&
         n.Identifier.check(decl.callee) &&
-        decl.callee.name === 'defineConfig'
+        callNames.includes(decl.callee.name)
       ) {
         if (n.ObjectExpression.check(decl.arguments[0])) {
           updateConfigObject(decl.arguments[0]);
@@ -169,7 +159,7 @@ export const updateViteConfig = (
         } else if (
           n.CallExpression.check(right) &&
           n.Identifier.check(right.callee) &&
-          right.callee.name === 'defineConfig'
+          callNames.includes(right.callee.name)
         ) {
           if (n.ObjectExpression.check(right.arguments[0])) {
             updateConfigObject(right.arguments[0]);
@@ -179,6 +169,50 @@ export const updateViteConfig = (
       return false;
     },
   });
+};
+
+export const updateViteConfig = (
+  content: string,
+  extension: string
+): string => {
+  const ast = recast.parse(content, {
+    parser: require('recast/parsers/typescript'),
+  });
+
+  ensureTsCheck(ast, content, extension);
+
+  const isCJSFile =
+    extension === 'cjs' ||
+    (content.includes('module.exports') && !content.includes('import '));
+
+  injectImport(ast, isCJSFile, 'intlayer', 'vite-intlayer');
+
+  genericRecastVisit(ast, (obj) =>
+    updatePluginArray(obj, 'plugins', 'intlayer')
+  );
+
+  return recast.print(ast).code;
+};
+
+export const updateAstroConfig = (
+  content: string,
+  extension: string
+): string => {
+  const ast = recast.parse(content, {
+    parser: require('recast/parsers/typescript'),
+  });
+
+  ensureTsCheck(ast, content, extension);
+
+  const isCJSFile =
+    extension === 'cjs' ||
+    (content.includes('module.exports') && !content.includes('import '));
+
+  injectImport(ast, isCJSFile, 'intlayer', 'astro-intlayer');
+
+  genericRecastVisit(ast, (obj) =>
+    updatePluginArray(obj, 'integrations', 'intlayer')
+  );
 
   return recast.print(ast).code;
 };
@@ -190,6 +224,9 @@ export const updateNextConfig = (
   const ast = recast.parse(content, {
     parser: require('recast/parsers/typescript'),
   });
+
+  ensureTsCheck(ast, content, extension);
+
   const isCJSFile = extension === 'cjs' || content.includes('module.exports');
 
   injectImport(ast, isCJSFile, 'withIntlayer', 'next-intlayer/server');
@@ -233,5 +270,81 @@ export const updateNextConfig = (
     },
   });
 
+  return recast.print(ast).code;
+};
+
+export const updateNuxtConfig = (
+  content: string,
+  extension: string
+): string => {
+  const ast = recast.parse(content, {
+    parser: require('recast/parsers/typescript'),
+  });
+
+  ensureTsCheck(ast, content, extension);
+
+  const updateConfigObject = (objExpr: any) => {
+    if (
+      !objExpr ||
+      (objExpr.type !== 'ObjectExpression' &&
+        !n.ObjectExpression.check(objExpr))
+    )
+      return;
+
+    let modulesProp = objExpr.properties.find((p: any) => {
+      if (!p?.key) return false;
+      const keyName = p.key.name || p.key.value;
+      return keyName === 'modules';
+    }) as any;
+
+    if (!modulesProp) {
+      modulesProp = b.property(
+        'init',
+        b.identifier('modules'),
+        b.arrayExpression([])
+      );
+      objExpr.properties.push(modulesProp);
+    }
+
+    const modulesValue = modulesProp.value;
+
+    if (
+      modulesValue &&
+      (modulesValue.type === 'ArrayExpression' ||
+        n.ArrayExpression.check(modulesValue))
+    ) {
+      const hasModule = modulesValue.elements.some((el: any) => {
+        if (
+          n.StringLiteral.check(el) ||
+          el.type === 'StringLiteral' ||
+          el.type === 'Literal'
+        ) {
+          return (el.value || el.extra?.rawValue) === 'nuxt-intlayer';
+        }
+        return false;
+      });
+
+      if (!hasModule) {
+        modulesValue.elements.push(b.stringLiteral('nuxt-intlayer'));
+      }
+    }
+  };
+
+  genericRecastVisit(ast, updateConfigObject, ['defineNuxtConfig']);
+
+  return recast.print(ast).code;
+};
+
+export const updateSvelteConfig = (
+  content: string,
+  extension: string
+): string => {
+  const ast = recast.parse(content, {
+    parser: require('recast/parsers/typescript'),
+  });
+
+  ensureTsCheck(ast, content, extension);
+
+  // Svelte config usually doesn't need Intlayer injection, just typing
   return recast.print(ast).code;
 };
