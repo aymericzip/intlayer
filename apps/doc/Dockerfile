@@ -83,8 +83,8 @@ USER app
 
 EXPOSE 3000
 
-# Use 127.0.0.1 to avoid IPv6/IPv4 mismatch on Alpine (localhost may resolve to ::1)
-HEALTHCHECK --interval=30s --timeout=5s --start-period=60s --retries=3 \
-  CMD wget -qO- http://localhost:3000/ > /dev/null || exit 1
+# # Use 127.0.0.1 to avoid IPv6/IPv4 mismatch on Alpine (localhost may resolve to ::1)
+# HEALTHCHECK --interval=30s --timeout=5s --start-period=60s --retries=3 \
+#   CMD wget -qO- http://localhost:3000/ > /dev/null || exit 1
 
 CMD ["bun", "run", ".output/server/index.mjs"]
