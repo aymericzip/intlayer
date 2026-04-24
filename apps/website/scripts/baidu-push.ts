@@ -21,9 +21,14 @@ const pushToBaidu = async () => {
     new Set(rawUrls.map((url) => getLocalizedUrl(url, Locales.CHINESE)))
   );
 
-  const baiduApiUrl = `http://data.zz.baidu.com/urls?site=${site}&token=${token}`;
+  const dailyQuotaLimit = 10;
 
-  const plainTextUrls = urlsToPush.join('\n');
+  // Randomize the array so different pages get pushed on different builds
+  const shuffledUrls = urlsToPush.sort(() => 0.5 - Math.random());
+
+  const plainTextUrls = shuffledUrls.slice(0, dailyQuotaLimit).join('\n');
+
+  const baiduApiUrl = `http://data.zz.baidu.com/urls?site=${site}&token=${token}`;
 
   try {
     const response = await fetch(baiduApiUrl, {
