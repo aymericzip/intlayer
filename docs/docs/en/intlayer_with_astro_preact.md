@@ -1,31 +1,29 @@
 ---
-createdAt: 2024-03-07
-updatedAt: 2025-12-30
-title: Astro i18n - How to translate an Astro app in 2026
-description: Learn how to add internationalization (i18n) to your Astro website using Intlayer. Follow this guide to make your site multilingual.
+createdAt: 2026-04-24
+updatedAt: 2026-04-24
+title: Astro + Preact i18n - How to translate an Astro + Preact app in 2026
+description: Learn how to add internationalization (i18n) to your Astro + Preact website using Intlayer. Follow this guide to make your site multilingual.
 keywords:
   - Internationalization
   - Documentation
   - Intlayer
-  - Vite
-  - React
+  - Astro
+  - Preact
   - i18n
   - JavaScript
 slugs:
   - doc
   - environment
   - astro
+  - preact
 applicationTemplate: https://github.com/aymericzip/intlayer-astro-template
 history:
-  - version: 7.5.9
-    date: 2025-12-30
-    changes: "Add init command"
-  - version: 6.2.0
-    date: 2025-10-03
-    changes: "Refresh for Astro integration, config, usage"
+  - version: 8.7.7
+    date: 2026-04-24
+    changes: "Initial documentation for Astro + Preact"
 ---
 
-# Translate your Astro website using Intlayer | Internationalization (i18n)
+# Translate your Astro + Preact website using Intlayer | Internationalization (i18n)
 
 ## What is Intlayer?
 
@@ -40,7 +38,7 @@ With Intlayer, you can:
 
 ---
 
-## Step-by-Step Guide to Set Up Intlayer in Astro
+## Step-by-Step Guide to Set Up Intlayer in Astro + Preact
 
 <iframe
   src="https://stackblitz.com/github/aymericzip/intlayer-astro-template?embed=1&ctl=1&file=intlayer.config.ts"
@@ -57,25 +55,25 @@ See [Application Template](https://github.com/aymericzip/intlayer-astro-template
 Install the necessary packages using your package manager:
 
 ```bash packageManager="npm"
-npm install intlayer astro-intlayer
+npm install intlayer astro-intlayer preact preact-intlayer @astrojs/preact
 
 npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
-pnpm add intlayer astro-intlayer
+pnpm add intlayer astro-intlayer preact preact-intlayer @astrojs/preact
 
 pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
-yarn add intlayer astro-intlayer
+yarn add intlayer astro-intlayer preact preact-intlayer @astrojs/preact
 
 yarn intlayer init
 ```
 
 ```bash packageManager="bun"
-bun add intlayer astro-intlayer
+bun add intlayer astro-intlayer preact preact-intlayer @astrojs/preact
 
 bun x intlayer init
 ```
@@ -85,6 +83,15 @@ bun x intlayer init
 
 - **astro-intlayer**
   Includes the Astro integration plugin for integrating Intlayer with the [Vite bundler](https://vite.dev/guide/why.html#why-bundle-for-production), as well as middleware for detecting the user's preferred locale, managing cookies, and handling URL redirection.
+
+- **preact**
+  The core Preact package — a fast, lightweight alternative to React.
+
+- **preact-intlayer**
+  The package that integrates Intlayer with Preact applications. It provides `IntlayerProvider`, `useIntlayer`, and `useLocale` hooks for Preact internationalization.
+
+- **@astrojs/preact**
+  The official Astro integration that enables Preact component islands.
 
 ### Step 2: Configuration of your project
 
@@ -112,21 +119,24 @@ export default config;
 
 ### Step 3: Integrate Intlayer in Your Astro Configuration
 
-Add the intlayer plugin into your configuration.
+Add the intlayer plugin and the Preact integration into your configuration.
 
 ```typescript fileName="astro.config.ts"
 // @ts-check
 
 import { intlayer } from "astro-intlayer";
+import preact from "@astrojs/preact";
 import { defineConfig } from "astro/config";
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [intlayer()],
+  integrations: [intlayer(), preact()],
 });
 ```
 
 > The `intlayer()` Astro integration plugin is used to integrate Intlayer with Astro. It ensures the building of content declaration files and monitors them in development mode. It defines Intlayer environment variables within the Astro application. Additionally, it provides aliases to optimize performance.
+
+> The `preact()` integration enables Preact component islands via `client:only="preact"`.
 
 ### Step 4: Declare Your Content
 
@@ -134,7 +144,7 @@ Create and manage your content declarations to store translations:
 
 ```tsx fileName="src/app.content.tsx"
 import { t, type Dictionary } from "intlayer";
-import type { ReactNode } from "react";
+import type { ComponentChildren } from "preact";
 
 const appContent = {
   key: "app",
@@ -154,26 +164,32 @@ export default appContent;
 
 > For more details, refer to the [content declaration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md).
 
+> If your content file includes TSX code, you might need to import `import { h } from "preact";` or ensure your JSX pragma is correctly configured for Preact.
+
 ### Step 5: Use your content in Astro
 
-You can consume dictionaries directly in `.astro` files using the core helpers exported by `intlayer`. You should also add SEO metadata like hreflang and canonical links to each page and include a locale switcher to allow users to change languages.
+You can consume dictionaries directly in `.astro` files using the core helpers exported by `intlayer`. You should also add SEO metadata like hreflang and canonical links to each page, and embed the Preact island for interactive client-side content.
 
-```astro fileName="src/pages/index.astro"
+```astro fileName="src/pages/[...locale]/index.astro"
 ---
 import {
   getIntlayer,
   getLocaleFromPath,
   getLocalizedUrl,
-  defaultLocale,
+  getPrefix,
   localeMap,
+  defaultLocale,
   type LocalesValues,
 } from "intlayer";
-import LocaleSwitcher from "../components/LocaleSwitcher.astro";
+import { PreactIsland } from "../../components/preact/PreactIsland";
 
-// Get the current locale from the URL (e.g. /es/about -> 'es')
+export const getStaticPaths = () => {
+  return localeMap(({ locale }) => ({
+    params: { locale: getPrefix(locale).localePrefix },
+  }));
+};
+
 const locale = getLocaleFromPath(Astro.url.pathname) as LocalesValues;
-
-// Get the content for the 'app' dictionary
 const { title } = getIntlayer("app", locale);
 ---
 
@@ -216,81 +232,8 @@ const { title } = getIntlayer("app", locale);
     />
   </head>
   <body>
-    <header>
-      <LocaleSwitcher />
-    </header>
-    <main>
-      <h1>{title}</h1>
-    </main>
-  </body>
-</html>
-```
-
-### Step 6: Localized routing
-
-Create a dynamic route segment to serve localized pages. To handle both the default locale (without prefix) and all other locales, use a rest parameter `[...locale]` in your page structure, for example `src/pages/[...locale]/index.astro`:
-
-```astro fileName="src/pages/[...locale]/index.astro"
----
-import {
-  getIntlayer,
-  getLocaleFromPath,
-  getLocalizedUrl,
-  getPrefix,
-  localeMap,
-  defaultLocale,
-  type LocalesValues,
-} from "intlayer";
-import LocaleSwitcher from "../../components/LocaleSwitcher.astro";
-
-export const getStaticPaths = () => {
-  return localeMap(({ locale }) => ({
-    params: { locale: getPrefix(locale).localePrefix },
-  }));
-};
-
-const locale = getLocaleFromPath(Astro.url.pathname) as LocalesValues;
-const { title } = getIntlayer("app", locale);
----
-
-<!doctype html>
-<html lang={locale}>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <title>{title}</title>
-
-    <link
-      rel="canonical"
-      href={new URL(getLocalizedUrl(Astro.url.pathname, locale), Astro.site)}
-    />
-
-    {
-      localeMap(({ locale: mapLocale }) => (
-        <link
-          rel="alternate"
-          hreflang={mapLocale}
-          href={new URL(
-            getLocalizedUrl(Astro.url.pathname, mapLocale),
-            Astro.site
-          )}
-        />
-      ))
-    }
-
-    <link
-      rel="alternate"
-      hreflang="x-default"
-      href={new URL(
-        getLocalizedUrl(Astro.url.pathname, defaultLocale),
-        Astro.site
-      )}
-    />
-  </head>
-  <body>
-    <LocaleSwitcher />
-    <h1>{title}</h1>
+    <!-- The Preact island renders all interactive content, including the locale switcher -->
+    <PreactIsland locale={locale} client:only="preact" />
   </body>
 </html>
 ```
@@ -302,68 +245,90 @@ const { title } = getIntlayer("app", locale);
 > - **`prefix-all`:** All URLs are prefixed with the locale. You can use standard `[locale]` if you don't need to handle the root separately.
 > - **`search-param` or `no-prefix`:** No locale folder is needed. The locale is handled via search parameters or cookies.
 
+### Step 6: Create the Preact Island component
+
+Create the island component that wraps your Preact app and receives the server-detected locale:
+
+```tsx fileName="src/components/preact/PreactIsland.tsx"
+/** @jsxImportSource preact */
+import { IntlayerProvider, useIntlayer } from "preact-intlayer";
+import { type LocalesValues } from "intlayer";
+import type { FunctionalComponent } from "preact";
+import { LocaleSwitcher } from "./LocaleSwitcher";
+
+const App: FunctionalComponent = () => {
+  const { title } = useIntlayer("app");
+
+  return (
+    <div>
+      <h1>{title}</h1>
+      <LocaleSwitcher />
+    </div>
+  );
+};
+
+export const PreactIsland: FunctionalComponent<{ locale: LocalesValues }> = ({
+  locale,
+}) => (
+  <IntlayerProvider locale={locale}>
+    <App />
+  </IntlayerProvider>
+);
+```
+
+> The `locale` prop is passed from the Astro page (server-detected) into `IntlayerProvider`, which makes it the initial locale for all Preact hooks in the tree.
+
+> Note: In Preact, use `class` instead of `className` for HTML attributes.
+
 ### Step 7: Add a Locale Switcher
 
-To allow users to switch between languages, you can create a `LocaleSwitcher` component. This component should display a list of all supported locales and link to the same page in each language.
+Create a `LocaleSwitcher` Preact component that reads the available locales and navigates to the localized URL when the user picks a new language:
 
-```astro fileName="src/components/LocaleSwitcher.astro"
----
-import {
-  locales,
-  getLocaleName,
-  getLocalizedUrl,
-  getLocaleFromPath,
-  getPathWithoutLocale,
-  type LocalesValues,
-} from "intlayer";
+```tsx fileName="src/components/preact/LocaleSwitcher.tsx"
+/** @jsxImportSource preact */
+import { useLocale } from "preact-intlayer";
+import { getLocalizedUrl, getLocaleName, type LocalesValues } from "intlayer";
+import type { FunctionalComponent } from "preact";
 
-const locale = getLocaleFromPath(Astro.url.pathname) as LocalesValues;
-const pathWithoutLocale = getPathWithoutLocale(Astro.url.pathname);
----
-
-<nav>
-  {
-    locales.map((localeItem) => (
-      <a
-        href={getLocalizedUrl(pathWithoutLocale, localeItem)}
-        data-locale={localeItem}
-        aria-current={localeItem === locale ? "page" : undefined}
-      >
-        {getLocaleName(localeItem)}
-      </a>
-    ))
-  }
-</nav>
-
-<script>
-  import { setLocaleInStorageClient, getLocalizedUrl, type LocalesValues } from "intlayer";
-
-  const localeLinks = document.querySelectorAll("[data-locale]");
-
-  localeLinks.forEach((link) => {
-    link.addEventListener("click", (e) => {
-      const locale = link.getAttribute("data-locale") as LocalesValues;
-
-      // Update the locale cookie
-      setLocaleInStorageClient(locale);
-    });
+export const LocaleSwitcher: FunctionalComponent = () => {
+  const { locale, availableLocales, setLocale } = useLocale({
+    onLocaleChange: (newLocale: LocalesValues) => {
+      // Navigate to the localized URL on locale change
+      window.location.href = getLocalizedUrl(
+        window.location.pathname,
+        newLocale
+      );
+    },
   });
-</script>
 
-<style>
-  nav {
-    display: flex;
-    gap: 1rem;
-  }
-  a[aria-current="page"] {
-    font-weight: bold;
-    text-decoration: underline;
-  }
-</style>
+  return (
+    <div class="locale-switcher">
+      <span class="switcher-label">Switch locale:</span>
+      <div class="locale-buttons">
+        {availableLocales.map((localeItem) => (
+          <button
+            key={localeItem}
+            onClick={() => setLocale(localeItem)}
+            class={`locale-btn ${localeItem === locale ? "active" : ""}`}
+            disabled={localeItem === locale}
+          >
+            <span class="ls-own-name">{getLocaleName(localeItem)}</span>
+            <span class="ls-current-name">
+              {getLocaleName(localeItem, locale)}
+            </span>
+            <span class="ls-code">{localeItem.toUpperCase()}</span>
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+};
 ```
 
 > **Note on Persistence:**
-> Using `setLocaleInStorageClient` in the client-side script ensures that the user's language preference is saved in a cookie. This allows the Intlayer middleware to remember the choice and automatically redirect the user to their preferred language on future visits.
+> Using `onLocaleChange` to redirect via `window.location.href` ensures that the new locale URL is visited, allowing Intlayer middleware to set the locale cookie and remember the user's preference on future visits.
+
+> The `LocaleSwitcher` must be rendered inside `IntlayerProvider` — use it inside your island component (as shown in Step 6).
 
 ### Step 8: Sitemap and Robots.txt
 
@@ -423,18 +388,6 @@ export const GET: APIRoute = ({ site }) => {
 };
 ```
 
-### Step 9: Continue using your favorite framework
-
-Continue using your favorite framework to build your application.
-
-- Intlayer + React: [Intlayer with React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_astro_react.md)
-- Intlayer + Vue: [Intlayer with Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_astro_vue.md)
-- Intlayer + Svelte: [Intlayer with Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_astro_svelte.md)
-- Intlayer + Solid: [Intlayer with Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_astro_solid.md)
-- Intlayer + Preact: [Intlayer with Preact](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_astro_preact.md)
-- Intlayer + Lit: [Intlayer with Lit](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_astro_lit.md)
-- Intlayer + Vanilla JS: [Intlayer with Vanilla JS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_astro_vanilla.md)
-
 ### Configure TypeScript
 
 Intlayer use module augmentation to get benefits of TypeScript and make your codebase stronger.
@@ -443,11 +396,15 @@ Intlayer use module augmentation to get benefits of TypeScript and make your cod
 
 ![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
 
-Ensure your TypeScript configuration includes the autogenerated types.
+Ensure your TypeScript configuration includes the autogenerated types and is set up for Preact:
 
 ```json5 fileName="tsconfig.json"
 {
-  // ... Your existing TypeScript configurations
+  compilerOptions: {
+    // ...
+    jsx: "react-jsx",
+    jsxImportSource: "preact", // Recommended for Preact 10+
+  },
   include: [
     // ... Your existing TypeScript configurations
     ".intlayer/**/*.ts", // Include the auto-generated types

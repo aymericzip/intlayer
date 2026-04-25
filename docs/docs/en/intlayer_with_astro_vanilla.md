@@ -1,31 +1,29 @@
 ---
-createdAt: 2024-03-07
-updatedAt: 2025-12-30
-title: Astro i18n - How to translate an Astro app in 2026
-description: Learn how to add internationalization (i18n) to your Astro website using Intlayer. Follow this guide to make your site multilingual.
+createdAt: 2026-04-24
+updatedAt: 2026-04-24
+title: Astro + Vanilla JS i18n - How to translate an Astro + Vanilla JS app in 2026
+description: Learn how to add internationalization (i18n) to your Astro + Vanilla JS website using Intlayer. Follow this guide to make your site multilingual.
 keywords:
   - Internationalization
   - Documentation
   - Intlayer
-  - Vite
-  - React
-  - i18n
+  - Astro
+  - Vanilla JS
   - JavaScript
+  - TypeScript
 slugs:
   - doc
   - environment
   - astro
+  - vanilla
 applicationTemplate: https://github.com/aymericzip/intlayer-astro-template
 history:
-  - version: 7.5.9
-    date: 2025-12-30
-    changes: "Add init command"
-  - version: 6.2.0
-    date: 2025-10-03
-    changes: "Refresh for Astro integration, config, usage"
+  - version: 8.7.7
+    date: 2026-04-24
+    changes: "Initial documentation for Astro + Vanilla JS"
 ---
 
-# Translate your Astro website using Intlayer | Internationalization (i18n)
+# Translate your Astro + Vanilla JS website using Intlayer | Internationalization (i18n)
 
 ## What is Intlayer?
 
@@ -40,7 +38,7 @@ With Intlayer, you can:
 
 ---
 
-## Step-by-Step Guide to Set Up Intlayer in Astro
+## Step-by-Step Guide to Set Up Intlayer in Astro + Vanilla JS
 
 <iframe
   src="https://stackblitz.com/github/aymericzip/intlayer-astro-template?embed=1&ctl=1&file=intlayer.config.ts"
@@ -57,25 +55,25 @@ See [Application Template](https://github.com/aymericzip/intlayer-astro-template
 Install the necessary packages using your package manager:
 
 ```bash packageManager="npm"
-npm install intlayer astro-intlayer
+npm install intlayer astro-intlayer vanilla-intlayer
 
 npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
-pnpm add intlayer astro-intlayer
+pnpm add intlayer astro-intlayer vanilla-intlayer
 
 pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
-yarn add intlayer astro-intlayer
+yarn add intlayer astro-intlayer vanilla-intlayer
 
 yarn intlayer init
 ```
 
 ```bash packageManager="bun"
-bun add intlayer astro-intlayer
+bun add intlayer astro-intlayer vanilla-intlayer
 
 bun x intlayer init
 ```
@@ -85,6 +83,9 @@ bun x intlayer init
 
 - **astro-intlayer**
   Includes the Astro integration plugin for integrating Intlayer with the [Vite bundler](https://vite.dev/guide/why.html#why-bundle-for-production), as well as middleware for detecting the user's preferred locale, managing cookies, and handling URL redirection.
+
+- **vanilla-intlayer**
+  The package that integrates Intlayer with plain JavaScript / TypeScript applications. It provides a pub/sub singleton (`IntlayerClient`) and callback-based helpers (`useIntlayer`, `useLocale`, etc.) so any part of your Astro `<script>` blocks can react to locale changes without a UI framework.
 
 ### Step 2: Configuration of your project
 
@@ -112,7 +113,7 @@ export default config;
 
 ### Step 3: Integrate Intlayer in Your Astro Configuration
 
-Add the intlayer plugin into your configuration.
+Add the intlayer plugin into your configuration. No extra UI-framework integration is needed for Vanilla JS.
 
 ```typescript fileName="astro.config.ts"
 // @ts-check
@@ -132,17 +133,26 @@ export default defineConfig({
 
 Create and manage your content declarations to store translations:
 
-```tsx fileName="src/app.content.tsx"
+```typescript fileName="src/app.content.ts"
 import { t, type Dictionary } from "intlayer";
-import type { ReactNode } from "react";
 
 const appContent = {
   key: "app",
   content: {
-    title: t({
+    greeting: t({
       en: "Hello World",
       fr: "Bonjour le monde",
       es: "Hola mundo",
+    }),
+    description: t({
+      en: "Welcome to my multilingual Astro site.",
+      fr: "Bienvenue sur mon site Astro multilingue.",
+      es: "Bienvenido a mi sitio Astro multilingüe.",
+    }),
+    switchLocale: t({
+      en: "Switch language:",
+      fr: "Changer de langue :",
+      es: "Cambiar idioma:",
     }),
   },
 } satisfies Dictionary;
@@ -156,79 +166,7 @@ export default appContent;
 
 ### Step 5: Use your content in Astro
 
-You can consume dictionaries directly in `.astro` files using the core helpers exported by `intlayer`. You should also add SEO metadata like hreflang and canonical links to each page and include a locale switcher to allow users to change languages.
-
-```astro fileName="src/pages/index.astro"
----
-import {
-  getIntlayer,
-  getLocaleFromPath,
-  getLocalizedUrl,
-  defaultLocale,
-  localeMap,
-  type LocalesValues,
-} from "intlayer";
-import LocaleSwitcher from "../components/LocaleSwitcher.astro";
-
-// Get the current locale from the URL (e.g. /es/about -> 'es')
-const locale = getLocaleFromPath(Astro.url.pathname) as LocalesValues;
-
-// Get the content for the 'app' dictionary
-const { title } = getIntlayer("app", locale);
----
-
-<!doctype html>
-<html lang={locale}>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <title>{title}</title>
-
-    <!-- Canonical link: Tells search engines which is the primary version of this page -->
-    <link
-      rel="canonical"
-      href={new URL(getLocalizedUrl(Astro.url.pathname, locale), Astro.site)}
-    />
-
-    <!-- Hreflang: Tell Google about all localized versions -->
-    {
-      localeMap(({ locale: mapLocale }) => (
-        <link
-          rel="alternate"
-          hreflang={mapLocale}
-          href={new URL(
-            getLocalizedUrl(Astro.url.pathname, mapLocale),
-            Astro.site
-          )}
-        />
-      ))
-    }
-
-    <!-- x-default: Fallback for users in unmatched languages -->
-    <link
-      rel="alternate"
-      hreflang="x-default"
-      href={new URL(
-        getLocalizedUrl(Astro.url.pathname, defaultLocale),
-        Astro.site
-      )}
-    />
-  </head>
-  <body>
-    <header>
-      <LocaleSwitcher />
-    </header>
-    <main>
-      <h1>{title}</h1>
-    </main>
-  </body>
-</html>
-```
-
-### Step 6: Localized routing
-
-Create a dynamic route segment to serve localized pages. To handle both the default locale (without prefix) and all other locales, use a rest parameter `[...locale]` in your page structure, for example `src/pages/[...locale]/index.astro`:
+With Vanilla JS, all rendering is done directly in the `.astro` file using `getIntlayer` for the initial server render. A `<script>` block then bootstraps `vanilla-intlayer` on the client side for locale switching.
 
 ```astro fileName="src/pages/[...locale]/index.astro"
 ---
@@ -237,11 +175,13 @@ import {
   getLocaleFromPath,
   getLocalizedUrl,
   getPrefix,
+  getLocaleName,
   localeMap,
+  locales,
   defaultLocale,
+  getPathWithoutLocale,
   type LocalesValues,
 } from "intlayer";
-import LocaleSwitcher from "../../components/LocaleSwitcher.astro";
 
 export const getStaticPaths = () => {
   return localeMap(({ locale }) => ({
@@ -250,7 +190,8 @@ export const getStaticPaths = () => {
 };
 
 const locale = getLocaleFromPath(Astro.url.pathname) as LocalesValues;
-const { title } = getIntlayer("app", locale);
+const pathWithoutLocale = getPathWithoutLocale(Astro.url.pathname);
+const { greeting, description, switchLocale } = getIntlayer("app", locale);
 ---
 
 <!doctype html>
@@ -259,13 +200,15 @@ const { title } = getIntlayer("app", locale);
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <title>{title}</title>
+    <title>{greeting}</title>
 
+    <!-- Canonical link -->
     <link
       rel="canonical"
       href={new URL(getLocalizedUrl(Astro.url.pathname, locale), Astro.site)}
     />
 
+    <!-- Hreflang links -->
     {
       localeMap(({ locale: mapLocale }) => (
         <link
@@ -289,8 +232,28 @@ const { title } = getIntlayer("app", locale);
     />
   </head>
   <body>
-    <LocaleSwitcher />
-    <h1>{title}</h1>
+    <main>
+      <h1 id="greeting">{greeting}</h1>
+      <p id="description">{description}</p>
+
+      <div class="locale-switcher">
+        <span class="switcher-label">{switchLocale}</span>
+        <div class="locale-buttons">
+          {
+            locales.map((localeItem) => (
+              <a
+                href={localeItem === locale ? undefined : getLocalizedUrl(pathWithoutLocale, localeItem)}
+                class={`locale-btn ${localeItem === locale ? "active" : ""}`}
+                data-locale={localeItem}
+                aria-disabled={localeItem === locale}
+              >
+                {getLocaleName(localeItem)}
+              </a>
+            ))
+          }
+        </div>
+      </div>
+    </main>
   </body>
 </html>
 ```
@@ -302,70 +265,48 @@ const { title } = getIntlayer("app", locale);
 > - **`prefix-all`:** All URLs are prefixed with the locale. You can use standard `[locale]` if you don't need to handle the root separately.
 > - **`search-param` or `no-prefix`:** No locale folder is needed. The locale is handled via search parameters or cookies.
 
-### Step 7: Add a Locale Switcher
+### Step 6: Add a Locale Switcher
 
-To allow users to switch between languages, you can create a `LocaleSwitcher` component. This component should display a list of all supported locales and link to the same page in each language.
+With Vanilla JS in Astro, the locale switcher is rendered server-side as anchor links and hydrated on the client via a `<script>` block. When the user clicks a locale link, `vanilla-intlayer` sets the locale cookie via `setLocale` before navigating to the localized URL.
 
-```astro fileName="src/components/LocaleSwitcher.astro"
----
-import {
-  locales,
-  getLocaleName,
-  getLocalizedUrl,
-  getLocaleFromPath,
-  getPathWithoutLocale,
-  type LocalesValues,
-} from "intlayer";
-
-const locale = getLocaleFromPath(Astro.url.pathname) as LocalesValues;
-const pathWithoutLocale = getPathWithoutLocale(Astro.url.pathname);
----
-
-<nav>
-  {
-    locales.map((localeItem) => (
-      <a
-        href={getLocalizedUrl(pathWithoutLocale, localeItem)}
-        data-locale={localeItem}
-        aria-current={localeItem === locale ? "page" : undefined}
-      >
-        {getLocaleName(localeItem)}
-      </a>
-    ))
-  }
-</nav>
+```astro fileName="src/pages/[...locale]/index.astro"
+<!-- server-side markup shown in Step 5 above -->
 
 <script>
-  import { setLocaleInStorageClient, getLocalizedUrl, type LocalesValues } from "intlayer";
+  import { installIntlayer, useLocale } from "vanilla-intlayer";
+  import { getLocaleFromPath, getLocalizedUrl, type LocalesValues } from "intlayer";
 
+  // Bootstrap Intlayer on the client using the current URL's locale
+  const locale = getLocaleFromPath(window.location.pathname);
+  installIntlayer({ locale: locale as LocalesValues });
+
+  const { setLocale } = useLocale({
+    onLocaleChange: (newLocale: LocalesValues) => {
+      window.location.href = getLocalizedUrl(window.location.pathname, newLocale);
+    },
+  });
+
+  // Attach click handlers to locale anchor links
   const localeLinks = document.querySelectorAll("[data-locale]");
-
   localeLinks.forEach((link) => {
     link.addEventListener("click", (e) => {
-      const locale = link.getAttribute("data-locale") as LocalesValues;
-
-      // Update the locale cookie
-      setLocaleInStorageClient(locale);
+      const localeValue = link.getAttribute("data-locale") as LocalesValues;
+      if (localeValue && localeValue !== locale) {
+        e.preventDefault();
+        setLocale(localeValue);
+      }
     });
   });
 </script>
-
-<style>
-  nav {
-    display: flex;
-    gap: 1rem;
-  }
-  a[aria-current="page"] {
-    font-weight: bold;
-    text-decoration: underline;
-  }
-</style>
 ```
 
 > **Note on Persistence:**
-> Using `setLocaleInStorageClient` in the client-side script ensures that the user's language preference is saved in a cookie. This allows the Intlayer middleware to remember the choice and automatically redirect the user to their preferred language on future visits.
+> `installIntlayer` bootstraps the Intlayer singleton with the server-detected locale. `useLocale` with `onLocaleChange` then sets the locale cookie via the middleware before navigating, so the user's preference is remembered on future visits.
 
-### Step 8: Sitemap and Robots.txt
+> **Note on Progressive Enhancement:**
+> The locale links work as standard `<a>` tags even without JavaScript. When JS is available, the `setLocale` call updates the cookie before the navigation so the middleware can redirect correctly.
+
+### Step 7: Sitemap and Robots.txt
 
 Intlayer provides utilities to generate localized sitemaps and robots.txt files dynamically.
 
@@ -422,18 +363,6 @@ export const GET: APIRoute = ({ site }) => {
   });
 };
 ```
-
-### Step 9: Continue using your favorite framework
-
-Continue using your favorite framework to build your application.
-
-- Intlayer + React: [Intlayer with React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_astro_react.md)
-- Intlayer + Vue: [Intlayer with Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_astro_vue.md)
-- Intlayer + Svelte: [Intlayer with Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_astro_svelte.md)
-- Intlayer + Solid: [Intlayer with Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_astro_solid.md)
-- Intlayer + Preact: [Intlayer with Preact](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_astro_preact.md)
-- Intlayer + Lit: [Intlayer with Lit](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_astro_lit.md)
-- Intlayer + Vanilla JS: [Intlayer with Vanilla JS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_astro_vanilla.md)
 
 ### Configure TypeScript
 
