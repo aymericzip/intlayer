@@ -2,6 +2,7 @@ import { internationalization, routing } from '@intlayer/config/built';
 import type { Locale } from '@intlayer/types/allLocales';
 import type { CookiesAttributes } from '@intlayer/types/config';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
+import { localeStorageOptions } from '../localization';
 import { getCookie } from './getCookie';
 
 // ── Tree-shake constants ──────────────────────────────────────────────────────
@@ -94,7 +95,7 @@ export type LocaleStorageClientOptions = {
  * Does not read from headers — use `getLocaleFromStorageServer` for that.
  */
 export const getLocaleFromStorageClient = (
-  options: LocaleStorageClientOptions
+  options: LocaleStorageClientOptions = localeStorageOptions
 ): Locale | undefined => {
   const { locales } = internationalization;
 
