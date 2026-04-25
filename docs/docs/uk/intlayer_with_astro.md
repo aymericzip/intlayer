@@ -252,6 +252,104 @@ Intlayer використовує розширення модулів (module au
 
 ---
 
+### (Необов'язково) Крок 1 : Витягніть вміст ваших компонентів
+
+Якщо у вас є існуюча кодова база, перетворення тисяч файлів може зайняти багато часу.
+
+Щоб спростити цей процес, Intlayer пропонує [компілятор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compiler.md) / [екстрактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/extract.md) для перетворення ваших компонентів і витягування вмісту.
+
+Щоб налаштувати його, ви можете додати розділ `compiler` у свій файл `intlayer.config.ts`:
+
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import { type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  // ... Інша частина вашої конфігурації
+  compiler: {
+    /**
+     * Вказує, чи повинен бути включений компілятор.
+     */
+    enabled: true,
+
+    /**
+     * Визначає шлях до вихідних файлів
+     */
+    output: ({ fileName, extension }) => `./${fileName}${extension}`,
+
+    /**
+     * Вказує, чи повинні компоненти зберігатися після перетворення. Таким чином, компілятор можна запустити лише один раз для перетворення програми, а потім видалити.
+     */
+    saveComponents: false,
+
+    /**
+     * Префікс ключа словника
+     */
+    dictionaryKeyPrefix: "",
+  },
+};
+
+export default config;
+```
+
+<Tabs>
+ <Tab value='Команда витягування'>
+
+Запустіть екстрактор для перетворення компонентів і витягування вмісту
+
+```bash packageManager="npm"
+npx intlayer extract
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer extract
+```
+
+```bash packageManager="yarn"
+yarn intlayer extract
+```
+
+```bash packageManager="bun"
+bun x intlayer extract
+```
+
+ </Tab>
+ <Tab value='Компілятор Babel'>
+
+Оновіть свій `vite.config.ts`, щоб включити плагін `intlayerCompiler`:
+
+```ts fileName="vite.config.ts"
+import { defineConfig } from "vite";
+import { intlayer, intlayerCompiler } from "vite-intlayer";
+
+export default defineConfig({
+  plugins: [
+    intlayer(),
+    intlayerCompiler(), // Додає плагін компілятора
+  ],
+});
+```
+
+```bash packageManager="npm"
+npm run build # Або npm run dev
+```
+
+```bash packageManager="pnpm"
+pnpm run build # Or pnpm run dev
+```
+
+```bash packageManager="yarn"
+yarn build # Or yarn dev
+```
+
+```bash packageManager="bun"
+bun run build # Or bun run dev
+```
+
+ </Tab>
+</Tabs>
+
+---
+
 ### Поглиблюйте свої знання
 
 Якщо ви хочете дізнатися більше, ви також можете впровадити [Візуальний редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md) або використовувати [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md), щоб винести ваш вміст назовні.

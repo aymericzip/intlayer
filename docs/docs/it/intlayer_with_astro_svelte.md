@@ -343,6 +343,10 @@ Intlayer offre utilità per creare dinamicamente la tua sitemap localizzata e i 
 
 #### Sitemap
 
+Intlayer include un generatore di sitemap integrato per aiutarti a creare facilmente una sitemap per la tua applicazione. Gestisce i percorsi localizzati e aggiunge i metadati necessari per i motori di ricerca.
+
+> La sitemap generata da Intlayer supporta lo spazio dei nomi `xhtml:link` (Hreflang XML Extensions). A differenza dei generatori di sitemap predefiniti che elencano solo URL grezzi, Intlayer crea automaticamente i collegamenti bidirezionali richiesti tra tutte le versioni linguistiche di una pagina (ad esempio, `/about`, `/about?lang=fr` e `/about?lang=es`). Ciò garantisce che i motori di ricerca indicizzino e servano correttamente la versione linguistica corretta al pubblico giusto.
+
 Crea `src/pages/sitemap.xml.ts` per generare una sitemap che includa tutti i tuoi percorsi localizzati.
 
 ```typescript fileName="src/pages/sitemap.xml.ts"
@@ -438,6 +442,104 @@ Questa estensione fornisce:
 - **Azioni rapide** per creare e aggiornare facilmente le traduzioni.
 
 Per maggiori informazioni sull'utilizzo dell'estensione, consulta la [documentazione dell'estensione VS Code](https://intlayer.org/doc/vs-code-extension).
+
+---
+
+### (Opzionale) Passaggio 15: Estrarre il contenuto dei tuoi componenti
+
+Se hai una base di codice esistente, trasformare migliaia di file può richiedere molto tempo.
+
+Per facilitare questo processo, Intlayer propone un [compilatore](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/compiler.md) / [estrattore](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/cli/extract.md) per trasformare i tuoi componenti ed estrarre il contenuto.
+
+Per configurarlo, puoi aggiungere una sezione `compiler` nel tuo file `intlayer.config.ts`:
+
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import { type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  // ... Resto della tua configurazione
+  compiler: {
+    /**
+     * Indica se il compilatore deve essere abilitato.
+     */
+    enabled: true,
+
+    /**
+     * Definisce il percorso dei file di output
+     */
+    output: ({ fileName, extension }) => `./${fileName}${extension}`,
+
+    /**
+     * Indica se i componenti devono essere salvati dopo essere stati trasformati. In questo modo, il compilatore può essere eseguito solo una volta per trasformare l'app e poi rimosso.
+     */
+    saveComponents: false,
+
+    /**
+     * Prefisso chiave dizionario
+     */
+    dictionaryKeyPrefix: "",
+  },
+};
+
+export default config;
+```
+
+<Tabs>
+ <Tab value='Comando di estrazione'>
+
+Esegui l'estrattore per trasformare i tuoi componenti ed estrarre il contenuto
+
+```bash packageManager="npm"
+npx intlayer extract
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer extract
+```
+
+```bash packageManager="yarn"
+yarn intlayer extract
+```
+
+```bash packageManager="bun"
+bun x intlayer extract
+```
+
+ </Tab>
+ <Tab value='Compilatore Babel'>
+
+Aggiorna il tuo `vite.config.ts` per includere il plugin `intlayerCompiler`:
+
+```ts fileName="vite.config.ts"
+import { defineConfig } from "vite";
+import { intlayer, intlayerCompiler } from "vite-intlayer";
+
+export default defineConfig({
+  plugins: [
+    intlayer(),
+    intlayerCompiler(), // Aggiunge il plugin del compilatore
+  ],
+});
+```
+
+```bash packageManager="npm"
+npm run build # Oppure npm run dev
+```
+
+```bash packageManager="pnpm"
+pnpm run build # O pnpm run dev
+```
+
+```bash packageManager="yarn"
+yarn build # O yarn dev
+```
+
+```bash packageManager="bun"
+bun run build # Or bun run dev
+```
+
+ </Tab>
+</Tabs>
 
 ---
 

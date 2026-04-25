@@ -253,6 +253,88 @@ Intlayer 使用模块扩展来利用 TypeScript，使您的代码库更加健壮
 
 ---
 
+### 第十五步：提取组件中的内容（可选）
+
+如果您有现有的代码库，转换数千个文件可能会非常耗时。
+
+为了简化此过程，Intlayer 提供了 [编译器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md) / [提取器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/extract.md) 来转换您的组件并提取内容。
+
+要进行设置，您可以在 `intlayer.config.ts` 文件中添加 `compiler` 部分：
+
+```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+import { type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  // ... 您的其他配置
+  compiler: {
+    /**
+     * 指示是否应启用编译器。
+     */
+    enabled: true,
+
+    /**
+     * 定义输出文件路径
+     */
+    output: ({ fileName, extension }) => `./${fileName}${extension}`,
+
+    /**
+     * 指示在转换后是否应保存组件。这样，编译器只需运行一次即可转换应用程序，然后即可将其删除。
+     */
+    saveComponents: false,
+
+    /**
+     * 字典键前缀
+     */
+    dictionaryKeyPrefix: "",
+  },
+};
+
+export default config;
+```
+
+<Tabs>
+ <Tab value='提取命令'>
+
+运行提取器以转换组件并提取内容
+
+```bash packageManager="npm"
+npx intlayer extract
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer extract
+```
+
+```bash packageManager="yarn"
+yarn intlayer extract
+```
+
+```bash packageManager="bun"
+bun x intlayer extract
+```
+
+ </Tab>
+ <Tab value='Babel 编译器'>
+
+更新您的 `vite.config.ts` 以包含 `intlayerCompiler` 插件：
+
+```ts fileName="vite.config.ts"
+import { defineConfig } from "vite";
+import { intlayer, intlayerCompiler } from "vite-intlayer";
+
+export default defineConfig({
+  plugins: [
+    intlayer(),
+    intlayerCompiler(), // 添加编译器插件
+  ],
+});
+```
+
+ </Tab>
+</Tabs>
+
+---
+
 ### 深入了解
 
 如果您想了解更多，还可以实现[可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)或使用 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md) 将您的内容外部化。

@@ -338,6 +338,10 @@ Intlayer 提供了实用工具来动态创建您的本地化站点地图和 robo
 
 #### 站点地图
 
+Intlayer 附带一个内置的站点地图生成器，可帮助您轻松为应用程序创建站点地图。它能够处理本地化路由，并为搜索引擎添加必要的元数据。
+
+> Intlayer 生成的站点地图支持 `xhtml:link` 命名空间（Hreflang XML 扩展）。与仅列出原始 URL 的默认站点地图生成器不同，Intlayer 会自动在页面的所有语言版本（例如 `/about`、`/about?lang=fr` 和 `/about?lang=es`）之间创建所需的双向链接。这确保了搜索引擎能够正确索引并向合适的受众提供正确的语言版本。
+
 创建 `src/pages/sitemap.xml.ts` 以生成包含所有本地化路由的站点地图。
 
 ```typescript fileName="src/pages/sitemap.xml.ts"
@@ -433,6 +437,88 @@ Intlayer 使用模块扩展来利用 TypeScript，使您的代码库更加健壮
 - 轻松创建和更新翻译的**快速操作**。
 
 有关使用该扩展的更多信息，请参阅 [Intlayer VS Code 扩展文档](https://intlayer.org/doc/vs-code-extension)。
+
+---
+
+### 第十五步：提取组件中的内容（可选）
+
+如果您有现有的代码库，转换数千个文件可能会非常耗时。
+
+为了简化此过程，Intlayer 提供了 [编译器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md) / [提取器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/extract.md) 来转换您的组件并提取内容。
+
+要进行设置，您可以在 `intlayer.config.ts` 文件中添加 `compiler` 部分：
+
+```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+import { type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  // ... 您的其他配置
+  compiler: {
+    /**
+     * 指示是否应启用编译器。
+     */
+    enabled: true,
+
+    /**
+     * 定义输出文件路径
+     */
+    output: ({ fileName, extension }) => `./${fileName}${extension}`,
+
+    /**
+     * 指示在转换后是否应保存组件。这样，编译器只需运行一次即可转换应用程序，然后即可将其删除。
+     */
+    saveComponents: false,
+
+    /**
+     * 字典键前缀
+     */
+    dictionaryKeyPrefix: "",
+  },
+};
+
+export default config;
+```
+
+<Tabs>
+ <Tab value='提取命令'>
+
+运行提取器以转换组件并提取内容
+
+```bash packageManager="npm"
+npx intlayer extract
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer extract
+```
+
+```bash packageManager="yarn"
+yarn intlayer extract
+```
+
+```bash packageManager="bun"
+bun x intlayer extract
+```
+
+ </Tab>
+ <Tab value='Babel 编译器'>
+
+更新您的 `vite.config.ts` 以包含 `intlayerCompiler` 插件：
+
+```ts fileName="vite.config.ts"
+import { defineConfig } from "vite";
+import { intlayer, intlayerCompiler } from "vite-intlayer";
+
+export default defineConfig({
+  plugins: [
+    intlayer(),
+    intlayerCompiler(), // 添加编译器插件
+  ],
+});
+```
+
+ </Tab>
+</Tabs>
 
 ---
 
