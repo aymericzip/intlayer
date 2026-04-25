@@ -488,6 +488,80 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
+### (Volitelné) Sitemap a robots.txt (generování při buildu)
+
+Intlayer poskytuje `generateSitemap` a `getMultilingualUrls` — nástroje pro formátování vícejazyčných souborů `sitemap.xml` a `robots.txt` pro crawlery a jejich automatický zápis do `public/`. Obvykle se spouští malý Node skript **před** Vitem (např. npm hooky `predev` / `prebuild`).
+
+#### Sitemap
+
+Generátor sitemap respektuje locale a přidává metadata pro crawlery.
+
+> Sitemap podporuje jmenný prostor `xhtml:link` (hreflang). Místo plochého seznamu URL Intlayer obousměrně propojuje všechny jazykové verze stránky (např. `/about`, `/fr/about` nebo `/about?lang=fr` podle režimu routování).
+
+#### Robots.txt
+
+Použijte `getMultilingualUrls`, aby pravidla `Disallow` pokrývala všechny lokalizované varianty citlivých cest.
+
+#### 1. Soubor `generate-seo.mjs` v kořeni projektu
+
+```javascript fileName="generate-seo.mjs"
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
+import { generateSitemap, getMultilingualUrls } from "intlayer";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+const SITE_URL = (process.env.SITE_URL || "http://localhost:5173").replace(
+  /\/$/,
+  ""
+);
+
+const pathList = [
+  { path: "/", changefreq: "daily", priority: 1.0 },
+  { path: "/about", changefreq: "monthly", priority: 0.7 },
+];
+
+const sitemapXml = generateSitemap(pathList, { siteUrl: SITE_URL });
+fs.writeFileSync(path.join(__dirname, "public", "sitemap.xml"), sitemapXml);
+
+const getAllMultilingualUrls = (urls) =>
+  urls.flatMap((url) => Object.values(getMultilingualUrls(url)));
+
+const disallowedPaths = getAllMultilingualUrls(["/admin", "/private"]);
+
+const robotsTxt = [
+  "User-agent: *",
+  "Allow: /",
+  ...disallowedPaths.map((path) => `Disallow: ${path}`),
+  "",
+  `Sitemap: ${SITE_URL}/sitemap.xml`,
+].join("\n");
+
+fs.writeFileSync(path.join(__dirname, "public", "robots.txt"), robotsTxt);
+
+console.log("SEO files generated successfully.");
+```
+
+Balíček `intlayer` musí být nainstalován. V produkci nastavte `SITE_URL` v prostředí (např. v CI).
+
+> Pro Node ESM preferujte `generate-seo.mjs`. U `generate-seo.js` nastavte v `package.json` `"type": "module"` nebo ESM jinak.
+
+#### 2. Spusťte skript před Vite
+
+```json fileName="package.json"
+{
+  "scripts": {
+    "dev": "vite",
+    "prebuild": "node generate-seo.mjs",
+    "build": "vite build",
+    "preview": "vite preview"
+  }
+}
+```
+
+Upravte příkazy pro pnpm nebo yarn. Skript lze volat i z CI.
+
 ### Konfigurace TypeScriptu
 
 Ujistěte se, že vaše konfigurace TypeScriptu zahrnuje automaticky generované typy.

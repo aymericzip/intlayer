@@ -526,6 +526,80 @@ bun run build # Of bun run dev
  </Tab>
 </Tabs>
 
+### (Optioneel) Sitemap en robots.txt (buildtijdgeneratie)
+
+Intlayer biedt `generateSitemap` en `getMultilingualUrls` om meertalige `sitemap.xml` en `robots.txt` voor crawlers te formatteren en automatisch naar `public/` te schrijven. Meestal draait u een klein Node-script **vóór** Vite (bijv. npm-hooks `predev` / `prebuild`).
+
+#### Sitemap
+
+De sitemapgenerator houdt rekening met je locales en voegt metadata voor crawlers toe.
+
+> De sitemap ondersteunt de `xhtml:link`-naamruimte (hreflang). In plaats van platte URL-lijsten koppelt Intlayer alle taalversies van elke pagina bidirectioneel (bijv. `/about`, `/fr/about` of `/about?lang=fr` afhankelijk van je routing).
+
+#### Robots.txt
+
+Gebruik `getMultilingualUrls` zodat `Disallow`-regels alle gelokaliseerde varianten van gevoelige paden dekken.
+
+#### 1. Voeg `generate-seo.mjs` toe in de projectroot
+
+```javascript fileName="generate-seo.mjs"
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
+import { generateSitemap, getMultilingualUrls } from "intlayer";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+const SITE_URL = (process.env.SITE_URL || "http://localhost:5173").replace(
+  /\/$/,
+  ""
+);
+
+const pathList = [
+  { path: "/", changefreq: "daily", priority: 1.0 },
+  { path: "/about", changefreq: "monthly", priority: 0.7 },
+];
+
+const sitemapXml = generateSitemap(pathList, { siteUrl: SITE_URL });
+fs.writeFileSync(path.join(__dirname, "public", "sitemap.xml"), sitemapXml);
+
+const getAllMultilingualUrls = (urls) =>
+  urls.flatMap((url) => Object.values(getMultilingualUrls(url)));
+
+const disallowedPaths = getAllMultilingualUrls(["/admin", "/private"]);
+
+const robotsTxt = [
+  "User-agent: *",
+  "Allow: /",
+  ...disallowedPaths.map((path) => `Disallow: ${path}`),
+  "",
+  `Sitemap: ${SITE_URL}/sitemap.xml`,
+].join("\n");
+
+fs.writeFileSync(path.join(__dirname, "public", "robots.txt"), robotsTxt);
+
+console.log("SEO files generated successfully.");
+```
+
+Het pakket `intlayer` moet geïnstalleerd zijn. Stel `SITE_URL` in voor productie (bijv. in CI).
+
+> Gebruik bij voorkeur `generate-seo.mjs` voor Node ESM. Bij `generate-seo.js`: zet `"type": "module"` in `package.json` of schakel ESM anders in.
+
+#### 2. Voer het script uit vóór Vite
+
+```json fileName="package.json"
+{
+  "scripts": {
+    "dev": "vite",
+    "prebuild": "node generate-seo.mjs",
+    "build": "vite build",
+    "preview": "vite preview"
+  }
+}
+```
+
+Pas aan voor pnpm of yarn. Ook aanroepen vanuit CI is mogelijk.
+
 ### TypeScript configureren
 
 Zorg ervoor dat uw TypeScript-configuratie de automatisch gegenereerde typen bevat.

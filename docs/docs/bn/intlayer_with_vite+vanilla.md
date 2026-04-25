@@ -526,6 +526,80 @@ bun run build # অথবা bun run dev
  </Tab>
 </Tabs>
 
+### (ঐচ্ছিক) সাইটম্যাপ ও robots.txt (বিল্ড-টাইমে জেনারেশন)
+
+Intlayer `generateSitemap` ও `getMultilingualUrls` দেয়, যাতে আপনি ক্রলার-প্রস্তুত বহুভাষিক `sitemap.xml` ও `robots.txt` বানিয়ে `public/`-এ স্বয়ংক্রিয়ভাবে লিখতে পারেন। সাধারণত Vite চালানোর **আগে** ছোট Node স্ক্রিপ্ট চালান (যেমন npm `predev` / `prebuild`)।
+
+#### সাইটম্যাপ
+
+Intlayer-এর সাইটম্যাপ জেনারেটর আপনার লোকেল কনফিগারেশন মেনে চলে এবং ক্রলারের জন্য মেটাডেটা যোগ করে।
+
+> জেনারেটেড সাইটম্যাপ `xhtml:link` (hreflang) নেমস্পেস সমর্থন করে। শুধু সমতল URL তালিকার বদলে Intlayer প্রতিটি পৃষ্ঠার সব ভাষার সংস্করণ দ্বিমুখীভাবে যুক্ত করে (যেমন `/about`, `/fr/about`, বা `/about?lang=fr` — রাউটিং মোড অনুযায়ী)।
+
+#### Robots.txt
+
+`getMultilingualUrls` ব্যবহার করুন যেন `Disallow` নিয়ম সংবেদনশীল পথের সব স্থানীয়কৃত রূপ কভার করে।
+
+#### 1. প্রোজেক্ট রুটে `generate-seo.mjs` যোগ করুন
+
+```javascript fileName="generate-seo.mjs"
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
+import { generateSitemap, getMultilingualUrls } from "intlayer";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+const SITE_URL = (process.env.SITE_URL || "http://localhost:5173").replace(
+  /\/$/,
+  ""
+);
+
+const pathList = [
+  { path: "/", changefreq: "daily", priority: 1.0 },
+  { path: "/about", changefreq: "monthly", priority: 0.7 },
+];
+
+const sitemapXml = generateSitemap(pathList, { siteUrl: SITE_URL });
+fs.writeFileSync(path.join(__dirname, "public", "sitemap.xml"), sitemapXml);
+
+const getAllMultilingualUrls = (urls) =>
+  urls.flatMap((url) => Object.values(getMultilingualUrls(url)));
+
+const disallowedPaths = getAllMultilingualUrls(["/admin", "/private"]);
+
+const robotsTxt = [
+  "User-agent: *",
+  "Allow: /",
+  ...disallowedPaths.map((path) => `Disallow: ${path}`),
+  "",
+  `Sitemap: ${SITE_URL}/sitemap.xml`,
+].join("\n");
+
+fs.writeFileSync(path.join(__dirname, "public", "robots.txt"), robotsTxt);
+
+console.log("SEO files generated successfully.");
+```
+
+`intlayer` প্যাকেজ ইনস্টল থাকতে হবে। প্রোডাকশনে `SITE_URL` সেট করুন (যেমন CI-তে)।
+
+> Node ESM-এর জন্য `generate-seo.mjs` পছন্দনীয়। `generate-seo.js` হলে `package.json`-এ `"type": "module"` বা অন্য ESM সেটআপ করুন।
+
+#### 2. Vite-এর আগে স্ক্রিপ্ট চালান
+
+```json fileName="package.json"
+{
+  "scripts": {
+    "dev": "vite",
+    "prebuild": "node generate-seo.mjs",
+    "build": "vite build",
+    "preview": "vite preview"
+  }
+}
+```
+
+pnpm বা yarn হলে কমান্ড সামঞ্জস্য করুন। CI থেকেও চালানো যায়।
+
 ### TypeScript কনফিগার করুন
 
 নিশ্চিত করুন যে আপনার TypeScript কনফিগারেশনে স্বয়ংক্রিয়ভাবে তৈরি টাইপগুলো অন্তর্ভুক্ত আছে।
