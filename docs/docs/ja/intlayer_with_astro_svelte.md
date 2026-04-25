@@ -17,6 +17,7 @@ slugs:
   - astro
   - svelte
 applicationTemplate: https://github.com/aymericzip/intlayer-astro-template
+applicationShowcase: https://intlayer-astro-template.vercel.app
 history:
   - version: 8.7.7
     date: 2026-04-24

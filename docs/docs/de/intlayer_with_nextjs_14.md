@@ -16,6 +16,7 @@ slugs:
   - nextjs
   - 14
 applicationTemplate: https://github.com/aymericzip/intlayer-next-14-template
+applicationShowcase: https://intlayer-next-14-template.vercel.app
 ---
 
 # Übersetzen Sie Ihre Next.js 14 and App Router mit Intlayer | Internationalisierung (i18n)

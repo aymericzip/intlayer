@@ -16,6 +16,8 @@ slugs:
   - environment
   - nextjs
   - next-with-page-router
+applicationTemplate: https://github.com/aymericzip/intlayer-next-14-template
+applicationShowcase: https://intlayer-next-14-template.vercel.app
 history:
   - version: 7.5.9
     date: 2025-12-30
@@ -189,7 +191,7 @@ const App = ({ Component, pageProps }) => (
 );
 
 module.exports = App;
-        ```
+```
 
 3.  **Set Up `getStaticPaths` and `getStaticProps`:**
 
@@ -301,13 +303,13 @@ const homeContent = {
   key: "home",
   content: {
     title: t({
-      'en-GB': "Welcome to My Website",
+      "en-GB": "Welcome to My Website",
       en: "Welcome to My Website",
       fr: "Bienvenue sur mon site Web",
       es: "Bienvenido a mi sitio web",
     }),
     description: t({
-      'en-GB': "Get started by editing this page.",
+      "en-GB": "Get started by editing this page.",
       en: "Get started by editing this page.",
       fr: "Commencez par éditer cette page.",
       es: "Comience por editar esta página.",

@@ -15,6 +15,7 @@ slugs:
   - environment
   - nextjs
 applicationTemplate: https://github.com/aymericzip/intlayer-next-16-template
+applicationShowcase: https://intlayer-next-16-template.vercel.app
 youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 history:
   - version: 7.5.9

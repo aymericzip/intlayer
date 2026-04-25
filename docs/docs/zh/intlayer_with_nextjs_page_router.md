@@ -16,6 +16,8 @@ slugs:
   - environment
   - nextjs
   - next-with-page-router
+applicationTemplate: https://github.com/aymericzip/intlayer-next-14-template
+applicationShowcase: https://intlayer-next-14-template.vercel.app
 history:
   - version: 7.5.9
     date: 2025-12-30
@@ -189,13 +191,13 @@ const App = ({ Component, pageProps }) => (
 );
 
 module.exports = App;
-        ```
+```
 
 3.  **设置 `getStaticPaths` 和 `getStaticProps`:**
 
 在你的 `[locale]/index.tsx` 文件中，定义路径和属性以处理不同的语言环境。
 
-```tsx fileName="src/pages/[locale]/index.tsx" codeFormat="typescript"
+````tsx fileName="src/pages/[locale]/index.tsx" codeFormat="typescript"
 import type { FC } from "react";
 import type { GetStaticPaths, GetStaticProps } from "next";
 import { type Locales, getConfiguration } from "intlayer";
@@ -314,7 +316,7 @@ const homeContent = {
 } satisfies Dictionary;
 
 export default homeContent;
-```
+````
 
 ```json fileName="src/pages/[locale]/home.content.json" contentDeclarationFormat="json"
 {

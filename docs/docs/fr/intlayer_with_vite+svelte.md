@@ -15,6 +15,7 @@ slugs:
   - environment
   - vite-and-svelte
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-svelte-template
+applicationShowcase: https://intlayer-vite-svelte-template.vercel.app
 history:
   - version: 7.5.9
     date: 2025-12-30

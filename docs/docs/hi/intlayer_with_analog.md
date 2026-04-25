@@ -15,6 +15,7 @@ slugs:
   - environment
   - analog
 applicationTemplate: https://github.com/aymericzip/intlayer-analog-template
+applicationShowcase: https://intlayer-analog-template.vercel.app
 history:
   - version: 8.0.4
     date: 2026-01-26

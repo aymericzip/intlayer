@@ -18,6 +18,7 @@ slugs:
   - tanstack-start
   - solid
 applicationTemplate: https://github.com/aymericzip/intlayer-tanstack-start-solid-template
+applicationShowcase: https://intlayer-tanstack-start-solid.vercel.app
 youtubeVideo: https://www.youtube.com/watch?v=_XTdKVWaeqg
 history:
   - version: 8.5.1

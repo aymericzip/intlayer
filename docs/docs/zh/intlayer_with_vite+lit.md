@@ -16,6 +16,7 @@ slugs:
   - environment
   - vite-and-lit
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-lit-template
+applicationShowcase: https://intlayer-vite-lit-template.vercel.app
 history:
   - version: 8.4.10
     date: 2026-03-23

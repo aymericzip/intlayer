@@ -17,6 +17,7 @@ slugs:
   - environment
   - vite-and-vanilla
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-vanilla-template
+applicationShowcase: https://intlayer-vite-vanilla.vercel.app
 history:
   - version: 8.4.10
     date: 2026-03-23

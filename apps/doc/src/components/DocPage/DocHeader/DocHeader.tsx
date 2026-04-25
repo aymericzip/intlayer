@@ -2,6 +2,7 @@ import { Container } from '@intlayer/design-system/container';
 import type { DocMetadata } from '@intlayer/docs';
 import type { FC } from 'react';
 import { useIntlayer, useLocale } from 'react-intlayer';
+import { ApplicationShowcaseMessage } from '../ApplicationShowcaseMessage';
 import { ApplicationTemplateMessage } from '../ApplicationTemplateMessage';
 import { ContributionMessage } from '../ContributionMessage';
 import { CopyMarkdownMessage } from '../CopyMarkdownMessage';
@@ -32,6 +33,7 @@ export const DocHeader: FC<DocHeaderProps> = ({
   githubUrl,
   youtubeVideo,
   applicationTemplate,
+  applicationShowcase,
   baseUpdatedAt,
   history,
 }) => {
@@ -71,6 +73,12 @@ export const DocHeader: FC<DocHeaderProps> = ({
                   'github.com',
                   'github.dev'
                 )}
+              />
+            )}
+
+            {applicationShowcase && (
+              <ApplicationShowcaseMessage
+                applicationShowcaseUrl={applicationShowcase}
               />
             )}
 

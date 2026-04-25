@@ -16,6 +16,7 @@ slugs:
   - nextjs
   - 15
 applicationTemplate: https://github.com/aymericzip/intlayer-next-15-template
+applicationShowcase: https://next-15-intlayer-template-xt83.vercel.app
 youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 history:
   - version: 7.5.9

@@ -1,8 +1,8 @@
 import { join } from 'node:path';
 import { getLocalizedUrl } from '@intlayer/core/localization';
 import { getMarkdownMetadata } from '@intlayer/core/transpiler';
-import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import * as Locales from '@intlayer/types/locales';
+import type { LocalesValues } from '@intlayer/types/module_augmentation';
 
 export const defaultLocale = Locales.ENGLISH;
 
@@ -70,6 +70,7 @@ export type FileMetadata = {
   author?: string;
   youtubeVideo?: string;
   applicationTemplate?: string;
+  applicationShowcase?: string;
   history?: {
     version: string;
     date: string;

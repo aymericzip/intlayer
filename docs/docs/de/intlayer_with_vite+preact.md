@@ -15,6 +15,7 @@ slugs:
   - environment
   - vite-and-preact
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-preact-template
+applicationShowcase: https://intlayer-vite-preact-template.vercel.app
 history:
   - version: 7.5.9
     date: 2025-12-30

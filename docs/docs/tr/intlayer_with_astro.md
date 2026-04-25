@@ -16,6 +16,7 @@ slugs:
   - environment
   - astro
 applicationTemplate: https://github.com/aymericzip/intlayer-astro-template
+applicationShowcase: https://intlayer-astro-template.vercel.app
 history:
   - version: 7.5.9
     date: 2025-12-30

@@ -16,6 +16,7 @@ slugs:
   - environment
   - vanilla
 applicationTemplate: https://github.com/aymericzip/intlayer-vanilla-template
+applicationShowcase: https://intlayer-vanilla-template.vercel.app
 history:
   - version: 8.4.10
     date: 2026-03-31

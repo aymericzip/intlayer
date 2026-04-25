@@ -14,6 +14,7 @@ slugs:
   - environment
   - angular
 applicationTemplate: https://github.com/aymericzip/intlayer-angular-template
+applicationShowcase: https://intlayer-angular-template.vercel.app
 history:
   - version: 8.0.0
     date: 2026-01-26
