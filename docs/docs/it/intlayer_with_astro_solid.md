@@ -369,20 +369,18 @@ Crea `src/pages/robots.txt.ts` per controllare la scansione dei motori di ricerc
 import type { APIRoute } from "astro";
 import { getMultilingualUrls } from "intlayer";
 
-const isProd = import.meta.env.PROD;
-
 const getAllMultilingualUrls = (urls: string[]) =>
   urls.flatMap((url) => Object.values(getMultilingualUrls(url)) as string[]);
 
-export const GET: APIRoute = ({ site }) => {
-  const disallowedPaths = getAllMultilingualUrls(["/admin", "/private"]);
+const disallowedPaths = getAllMultilingualUrls(["/admin", "/private"]);
 
+export const GET: APIRoute = ({ site }) => {
   const robotsTxt = [
     "User-agent: *",
-    isProd ? "Allow: /" : "Disallow: /",
+    "Allow: /",
     ...disallowedPaths.map((path) => `Disallow: ${path}`),
     "",
-    site ? `Sitemap: ${new URL("/sitemap.xml", site).href}` : "",
+    `Sitemap: ${new URL("/sitemap.xml", site).href}`,
   ].join("\n");
 
   return new Response(robotsTxt, {
