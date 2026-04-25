@@ -102,7 +102,7 @@ bun x intlayer init
 
 Crie um arquivo de configuração para configurar os idiomas da sua aplicação:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -118,44 +118,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      // Suas outras localidades
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      // Suas outras localidades
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-module.exports = config;
 ```
 
 > Através deste arquivo de configuração, você pode configurar URLs localizadas, redirecionamento de middleware, nomes de cookies, a localização e extensão das suas declarações de conteúdo, desativar os logs do Intlayer no console e muito mais. Para uma lista completa de parâmetros disponíveis, consulte a [documentação de configuração](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md).
@@ -207,7 +169,7 @@ export default mergeConfig({});
 
 Crie e gerencie suas declarações de conteúdo para armazenar traduções:
 
-```tsx fileName="src/app/app.content.ts" contentDeclarationFormat="typescript"
+```tsx fileName="src/app/app.content.ts" contentDeclarationFormat=["typescript", "esm", "cjs"]
 import { t, type Dictionary } from "intlayer";
 
 const appContent = {

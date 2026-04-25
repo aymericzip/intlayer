@@ -64,38 +64,8 @@ history:
 
 ### 상대 URL
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getMultilingualUrls, Locales } from "intlayer";
-
-getMultilingualUrls(
-  "/dashboard",
-  [Locales.ENGLISH, Locales.FRENCH],
-  Locales.ENGLISH,
-  false
-);
-// 출력: {
-//   en: "/dashboard",
-//   fr: "/fr/dashboard"
-// }
-```
-
-```javascript codeFormat="esm"
-import { getMultilingualUrls, Locales } from "intlayer";
-
-getMultilingualUrls(
-  "/dashboard",
-  [Locales.ENGLISH, Locales.FRENCH],
-  Locales.ENGLISH,
-  false
-);
-// 출력: {
-//   en: "/dashboard",
-//   fr: "/fr/dashboard"
-// }
-```
-
-```javascript codeFormat="commonjs"
-const { getMultilingualUrls, Locales } = require("intlayer");
 
 getMultilingualUrls(
   "/dashboard",
@@ -143,7 +113,7 @@ getMultilingualUrls(
 
 다국어 애플리케이션에서는 `locales`와 `defaultLocale`로 국제화 설정을 구성하는 것이 올바른 언어가 표시되도록 하는 데 중요합니다. 아래는 `getMultilingualUrls`가 애플리케이션 설정에서 어떻게 사용될 수 있는지에 대한 예시입니다:
 
-```tsx codeFormat="typescript"
+```tsx codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 // 지원되는 로케일과 기본 로케일에 대한 설정
@@ -155,38 +125,6 @@ export default {
 } satisfies IntlayerConfig;
 
 export default config;
-```
-
-```javascript codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-// 국제화 설정: 지원되는 로케일과 기본 로케일을 정의합니다.
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-```javascript codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-// 국제화 설정: 지원되는 로케일과 기본 로케일을 정의합니다.
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-module.exports = config;
-
-module.exports = config;
 ```
 
 위의 구성은 애플리케이션이 `ENGLISH`, `FRENCH`, `SPANISH`를 지원 언어로 인식하고, `ENGLISH`를 기본 언어로 사용하도록 보장합니다.

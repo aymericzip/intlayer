@@ -64,48 +64,11 @@ t<T extends string>(content: Record<LocalesValues, T>, locale?: Locales): string
 
 ### Базовое использование `t` в компоненте
 
-```tsx fileName="src/components/ComponentExample.tsx" codeFormat="typescript"
+```tsx fileName="src/components/ComponentExample.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { t } from "react-intlayer";
 
 export const ComponentExample: FC = () => {
-  return (
-    <div>
-      <p>
-        {t({
-          en: "This is an example of a component",
-          fr: "Ceci est un exemple de composant",
-          es: "Este es un ejemplo de componente",
-        })}
-      </p>
-    </div>
-  );
-};
-```
-
-```jsx fileName="src/components/ComponentExample.mjx" codeFormat="esm"
-import { t } from "react-intlayer";
-
-const ComponentExample = () => {
-  return (
-    <div>
-      <p>
-        {t({
-          en: "This is an example of a component",
-          fr: "Ceci est un exemple de composant",
-          es: "Este es un ejemplo de componente",
-        })}
-      </p>
-    </div>
-  );
-};
-```
-
-```jsx fileName="src/components/ComponentExample.csx" codeFormat="commonjs"
-const { t } = require("react-intlayer");
-
-// Пример компонента с использованием функции t для локализации
-const ComponentExample = () => {
   return (
     <div>
       <p>
@@ -156,37 +119,10 @@ const ComponentExample = () => {
 
 Функция `t` является типобезопасной при использовании с TypeScript, что гарантирует предоставление всех необходимых локалей.
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { t, type IConfigLocales } from "react-intlayer";
 
 const translations: IConfigLocales<string> = {
-  en: "Welcome",
-  fr: "Bienvenue",
-  es: "Bienvenido",
-};
-
-const greeting = t(translations);
-```
-
-```javascript codeFormat="esm"
-import { t, type IConfigLocales } from "react-intlayer";
-
-/** @type {import('react-intlayer').IConfigLocales<string>} */
-const translations = {
-  en: "Welcome",
-  fr: "Bienvenue",
-  es: "Bienvenido",
-};
-
-const greeting = t(translations);
-```
-
-```javascript codeFormat="commonjs"
-const { t, type IConfigLocales } = require("react-intlayer");
-
-/** @type {import('react-intlayer').IConfigLocales<string>} */
-// Определение переводов с типами для локалей
-const translations = {
   en: "Welcome",
   fr: "Bienvenue",
   es: "Bienvenido",
@@ -201,32 +137,12 @@ const greeting = t(translations);
 
 #### Пример:
 
-```tsx fileName="src/app.tsx" codeFormat="typescript"
+```tsx fileName="src/app.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import type { Locales } from "intlayer";
 import { IntlayerProvider } from "react-intlayer";
 
 const App: FC<{ locale: Locales }> = ({ locale }) => (
-  <IntlayerProvider locale={locale}>
-    {/* Ваши компоненты здесь */}
-  </IntlayerProvider>
-);
-```
-
-```jsx fileName="src/app.mjx" codeFormat="esm"
-import { IntlayerProvider } from "react-intlayer";
-
-const App = ({ locale }) => (
-  <IntlayerProvider locale={locale}>
-    {/* Ваши компоненты здесь */}
-  </IntlayerProvider>
-);
-```
-
-```jsx fileName="src/app.csx" codeFormat="commonjs"
-const { IntlayerProvider } = require("react-intlayer");
-
-const App = ({ locale }) => (
   <IntlayerProvider locale={locale}>
     {/* Ваши компоненты здесь */}
   </IntlayerProvider>
@@ -249,32 +165,9 @@ const App = ({ locale }) => (
 - **Причина**: Объект переводов не соответствует требуемым локалям, что приводит к ошибкам TypeScript.
 - **Решение**: Используйте тип `IConfigLocales` для обеспечения полноты ваших переводов.
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 const translations: IConfigLocales<string> = {
   en: "Text",
-  fr: "Texte",
-  // es: 'Texto', // Отсутствие 'es' вызовет ошибку TypeScript
-};
-
-const text = t(translations);
-```
-
-```javascript codeFormat="esm"
-const translations = {
-  en: "Текст",
-  fr: "Texte",
-  // es: 'Texto', // Отсутствие 'es' вызовет ошибку TypeScript
-};
-
-const text = t(translations);
-```
-
-```javascript codeFormat="commonjs"
-const { t, type IConfigLocales } = require("react-intlayer");
-
-/** @type {import('react-intlayer').IConfigLocales<string>} */
-const translations = {
-  en: "Текст",
   fr: "Texte",
   // es: 'Texto', // Отсутствие 'es' вызовет ошибку TypeScript
 };

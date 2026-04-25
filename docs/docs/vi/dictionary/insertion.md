@@ -41,7 +41,7 @@ Khi tích hợp với React Intlayer hoặc Next Intlayer, bạn chỉ cần cun
   <Tab label="Bọc thủ công" value="manual-wrapping">
     Sử dụng hàm `insert` để khai báo nội dung chèn một cách rõ ràng.
 
-    ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+    ```typescript fileName="**/*.content.ts" contentDeclarationFormat=["typescript", "esm", "cjs"]
     import { insert, type Dictionary } from "intlayer";
 
     const myInsertionContent = {
@@ -99,7 +99,7 @@ Khi tích hợp với React Intlayer hoặc Next Intlayer, bạn chỉ cần cun
   <Tab label="Phát hiện tự động" value="automatic-detection">
     Nếu chuỗi chứa các chỉ báo chèn phổ biến (như `{{name}}`), Intlayer sẽ tự động chuyển đổi nó.
 
-    ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+    ```typescript fileName="**/*.content.ts" contentDeclarationFormat=["typescript", "esm", "cjs"]
     import { type Dictionary } from "intlayer";
 
     const myInsertionContent = {
@@ -202,7 +202,7 @@ module.exports = myInsertionContent;
 
 Để sử dụng nội dung chèn trong một component React, hãy import và sử dụng hook `useIntlayer` từ package `react-intlayer`. Hook này lấy nội dung theo key được chỉ định và cho phép bạn truyền vào một đối tượng ánh xạ mỗi placeholder trong nội dung với giá trị bạn muốn hiển thị.
 
-```tsx fileName="**/*.tsx" codeFormat="typescript"
+```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useIntlayer } from "react-intlayer";
 
@@ -228,60 +228,6 @@ const InsertionComponent: FC = () => {
 };
 
 export default InsertionComponent;
-```
-
-```javascript fileName="**/*.mjx" codeFormat="esm"
-import { useIntlayer } from "react-intlayer";
-
-const InsertionComponent = () => {
-  const { myInsertion } = useIntlayer("my_key");
-
-  return (
-    <div>
-      <p>
-        {
-          /* Kết quả: "Xin chào, tôi tên là John và tôi 30 tuổi!" */
-          myInsertion({ name: "John", age: "30" })
-        }
-      </p>
-      <p>
-        {
-          /* Bạn có thể tái sử dụng cùng một nội dung chèn với các giá trị khác nhau */
-          myInsertion({ name: "Alice", age: "25" })
-        }
-      </p>
-    </div>
-  );
-};
-
-export default InsertionComponent;
-```
-
-```javascript fileName="**/*.cjs" codeFormat="commonjs"
-const { useIntlayer } = require("react-intlayer");
-
-const InsertionComponent = () => {
-  const { myInsertion } = useIntlayer("my_key");
-
-  return (
-    <div>
-      <p>
-        {
-          /* Kết quả: "Xin chào, tôi tên là John và tôi 30 tuổi!" */
-          myInsertion({ name: "John", age: "30" })
-        }
-      </p>
-      <p>
-        {
-          /* Bạn có thể tái sử dụng cùng một nội dung chèn với các giá trị khác nhau */
-          myInsertion({ name: "Alice", age: "25" })
-        }
-      </p>
-    </div>
-  );
-};
-
-module.exports = InsertionComponent;
 ```
 
 ## Tài Nguyên Bổ Sung

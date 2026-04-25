@@ -93,7 +93,7 @@ bun x intlayer init
 
 Crea un archivo de configuración para configurar los idiomas de tu aplicación:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -111,76 +111,18 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      // Tus otros idiomas
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      // Tus otros idiomas
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-module.exports = config;
-```
-
 > A través de este archivo de configuración, puedes configurar URLs localizadas, redirección de middleware, nombres de cookies, la ubicación y extensión de tus declaraciones de contenido, desactivar los registros de Intlayer en la consola y más. Para obtener una lista completa de los parámetros disponibles, consulta la [documentación de configuración](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/configuration.md).
 
 ### Paso 3: Integrar Intlayer en tu configuración de Vite
 
 Agrega el complemento intlayer en tu configuración.
 
-```typescript fileName="vite.config.ts" codeFormat="typescript"
+```typescript fileName="vite.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { defineConfig } from "vite";
 import { intlayer } from "vite-intlayer";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [intlayer()],
-});
-```
-
-```javascript fileName="vite.config.mjs" codeFormat="esm"
-import { defineConfig } from "vite";
-import { intlayer } from "vite-intlayer";
-
-// https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [intlayer()],
-});
-```
-
-```javascript fileName="vite.config.cjs" codeFormat="commonjs"
-const { defineConfig } = require("vite");
-const { intlayer } = require("vite-intlayer");
-
-// https://vitejs.dev/config/
-module.exports = defineConfig({
   plugins: [intlayer()],
 });
 ```
@@ -216,7 +158,7 @@ import "./my-element.js";
 
 Crea y gestiona tus declaraciones de contenido para almacenar traducciones:
 
-```typescript fileName="src/app.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="src/app.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, type Dictionary } from "intlayer";
 
 const appContent = {
@@ -250,80 +192,6 @@ const appContent = {
 } satisfies Dictionary;
 
 export default appContent;
-```
-
-```javascript fileName="src/app.content.mjs" contentDeclarationFormat="esm"
-import { t } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const appContent = {
-  key: "app",
-  content: {
-    title: "Vite + Lit",
-
-    viteLogo: t({
-      en: "Vite logo",
-      fr: "Logo Vite",
-      es: "Logo Vite",
-    }),
-    litLogo: t({
-      en: "Lit logo",
-      fr: "Logo Lit",
-      es: "Logo Lit",
-    }),
-
-    count: t({
-      en: "count is {{count}}",
-      fr: "le compte est {{count}}",
-      es: "el recuento es {{count}}",
-    }),
-
-    readTheDocs: t({
-      en: "Click on the Vite and Lit logos to learn more",
-      fr: "Cliquez sur les logos Vite et Lit pour en savoir plus",
-      es: "Haga clic en los logotipos de Vite y Lit para obtener más información",
-    }),
-  },
-};
-
-export default appContent;
-```
-
-```javascript fileName="src/app.content.cjs" contentDeclarationFormat="commonjs"
-const { t } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const appContent = {
-  key: "app",
-  content: {
-    title: "Vite + Lit",
-
-    viteLogo: t({
-      en: "Vite logo",
-      fr: "Logo Vite",
-      es: "Logo Vite",
-    }),
-    litLogo: t({
-      en: "Lit logo",
-      fr: "Logo Lit",
-      es: "Logo Lit",
-    }),
-
-    count: t({
-      en: "count is {{count}}",
-      fr: "le compte est {{count}}",
-      es: "el recuento es {{count}}",
-    }),
-
-    readTheDocs: t({
-      en: "Click on the Vite and Lit logos to learn more",
-      fr: "Cliquez sur les logos Vite et Lit para obtener más información",
-      es: "Haga clic en los logotipos de Vite y Lit para obtener más información",
-    }),
-  },
-};
-
-module.exports = appContent;
 ```
 
 ```json fileName="src/app.content.json" contentDeclarationFormat="json"
@@ -454,7 +322,7 @@ export class LocaleSwitcher extends LitElement {
 
 Intlayer admite declaraciones de contenido `md()` y `html()`. En Lit, la salida compilada se inyecta como HTML sin procesar a través de la directiva `unsafeHTML`.
 
-```typescript fileName="src/app.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="src/app.content.ts" contentDeclarationFormat=["typescript", "esm", "cjs"]
 import { md, t, type Dictionary } from "intlayer";
 
 const appContent = {
@@ -508,35 +376,11 @@ Primero, agrega `intlayerProxy` a tu configuración de Vite:
 
 > Ten en cuenta que para usar `intlayerProxy` en producción, debes mover `vite-intlayer` de `devDependencies` a `dependencies`.
 
-```typescript {3,7} fileName="vite.config.ts" codeFormat="typescript"
+```typescript {3,7} fileName="vite.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { defineConfig } from "vite";
 import { intlayer, intlayerProxy } from "vite-intlayer";
 
 export default defineConfig({
-  plugins: [
-    intlayerProxy(), // should be placed first
-    intlayer(),
-  ],
-});
-```
-
-```javascript {3,7} fileName="vite.config.mjs" codeFormat="esm"
-import { defineConfig } from "vite";
-import { intlayer, intlayerProxy } from "vite-intlayer";
-
-export default defineConfig({
-  plugins: [
-    intlayerProxy(), // should be placed first
-    intlayer(),
-  ],
-});
-```
-
-```javascript {3,7} fileName="vite.config.cjs" codeFormat="commonjs"
-const { defineConfig } = require("vite");
-const { intlayer, intlayerProxy } = require("vite-intlayer");
-
-module.exports = defineConfig({
   plugins: [
     intlayerProxy(), // should be placed first
     intlayer(),

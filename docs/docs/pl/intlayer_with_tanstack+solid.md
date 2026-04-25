@@ -657,7 +657,7 @@ Aby ułatwić ten proces, Intlayer proponuje [kompilator](https://github.com/aym
 
 Aby go skonfigurować, możesz dodać sekcję `compiler` w pliku `intlayer.config.ts`:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -690,74 +690,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... Reszta Twojej konfiguracji
-  compiler: {
-    /**
-     * Wskazuje, czy kompilator powinien być włączony.
-     */
-    enabled: true,
-
-    /**
-     * Definiuje ścieżkę plików wyjściowych
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * Wskazuje, czy komponenty powinny zostać zapisane po transformacji.
-     *
-     * - Jeśli `true`, kompilator nadpisze plik komponentu na dysku. W ten sposób transformacja będzie trwała, a kompilator pominie transformację przy następnym procesie. W ten sposób kompilator może przetransformować aplikację, a następnie można go usunąć.
-     *
-     * - Jeśli `false`, kompilator wstrzyknie wywołanie funkcji `useIntlayer()` do kodu tylko w danych wyjściowych buildu, zachowując bazową bazę kodu nienaruszoną. Transformacja zostanie wykonana tylko w pamięci.
-     */
-    saveComponents: false,
-
-    /**
-     * Prefiks klucza słownika
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... Reszta Twojej konfiguracji
-  compiler: {
-    /**
-     * Wskazuje, czy kompilator powinien być włączony.
-     */
-    enabled: true,
-
-    /**
-     * Definiuje ścieżkę plików wyjściowych
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * Wskazuje, czy komponenty powinny zostać zapisane po transformacji.
-     *
-     * - Jeśli `true`, kompilator nadpisze plik komponentu na dysku. W ten sposób transformacja będzie trwała, a kompilator pominie transformację przy następnym procesie. W ten sposób kompilator może przetransformować aplikację, a następnie można go usunąć.
-     *
-     * - Jeśli `false`, kompilator wstrzyknie wywołanie funkcji `useIntlayer()` do kodu tylko w danych wyjściowych buildu, zachowując bazową bazę kodu nienaruszoną. Transformacja zostanie wykonana tylko w pamięci.
-     */
-    saveComponents: false,
-
-    /**
-     * Prefiks klucza słownika
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-module.exports = config;
 ```
 
 <Tabs>

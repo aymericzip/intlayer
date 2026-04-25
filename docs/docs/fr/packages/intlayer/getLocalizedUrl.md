@@ -68,22 +68,7 @@ La fonction `getLocalizedUrl` génère une URL localisée en préfixant l'URL do
 
 ### URLs relatives
 
-```typescript codeFormat="typescript"
-import { getLocalizedUrl, Locales } from "intlayer";
-
-getLocalizedUrl(
-  "/about",
-  Locales.FRENCH,
-  [Locales.ENGLISH, Locales.FRENCH],
-  Locales.ENGLISH,
-  false
-);
-
-// Résultat : "/fr/about" pour la locale française
-// Résultat : "/about" pour la locale par défaut (anglais)
-```
-
-```javascript codeFormat="esm"
+```typescript codeFormat={["typescript", "esm"]}
 import { getLocalizedUrl, Locales } from "intlayer";
 
 getLocalizedUrl(
@@ -186,7 +171,7 @@ getLocalizedUrl(
 
 Dans une application multilingue, configurer les paramètres d'internationalisation avec `locales` et `defaultLocale` est essentiel pour garantir que la langue correcte soit affichée. Voici un exemple de la manière dont `getLocalizedUrl` peut être utilisé dans la configuration d'une application :
 
-```tsx codeFormat="typescript"
+```tsx codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 // Configuration des locales supportées et de la locale par défaut
@@ -198,34 +183,6 @@ export default {
 } satisfies IntlayerConfig;
 
 export default config;
-```
-
-```javascript codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-```javascript codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-module.exports = config;
 ```
 
 La configuration ci-dessus garantit que l'application reconnaît `ENGLISH`, `FRENCH` et `SPANISH` comme langues supportées et utilise `ENGLISH` comme langue de repli.

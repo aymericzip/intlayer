@@ -41,7 +41,7 @@ Untuk menyiapkan konten penyisipan dalam proyek Intlayer Anda, buat modul konten
   <Tab label="Pembungkusan Manual" value="manual-wrapping">
     Gunakan fungsi `insert` untuk mendeklarasikan konten penyisipan secara eksplisit.
 
-    ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+    ```typescript fileName="**/*.content.ts" contentDeclarationFormat=["typescript", "esm", "cjs"]
     import { insert, type Dictionary } from "intlayer";
 
     const myInsertionContent = {
@@ -105,7 +105,7 @@ Untuk menyiapkan konten penyisipan dalam proyek Intlayer Anda, buat modul konten
   <Tab label="Deteksi Otomatis" value="automatic-detection">
     Jika string mengandung indikator penyisipan umum (seperti `{{name}}`), Intlayer akan secara otomatis mengubahnya.
 
-    ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+    ```typescript fileName="**/*.content.ts" contentDeclarationFormat=["typescript", "esm", "cjs"]
     import { type Dictionary } from "intlayer";
 
     const myInsertionContent = {
@@ -208,7 +208,7 @@ module.exports = myInsertionContent;
 
 Untuk memanfaatkan konten insertion dalam sebuah komponen React, impor dan gunakan hook `useIntlayer` dari paket `react-intlayer`. Hook ini mengambil konten untuk kunci yang ditentukan dan memungkinkan Anda untuk mengirimkan sebuah objek yang memetakan setiap placeholder dalam konten Anda ke nilai yang ingin Anda tampilkan.
 
-```tsx fileName="**/*.tsx" codeFormat="typescript"
+```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useIntlayer } from "react-intlayer";
 
@@ -234,60 +234,6 @@ const InsertionComponent: FC = () => {
 };
 
 export default InsertionComponent;
-```
-
-```javascript fileName="**/*.mjx" codeFormat="esm"
-import { useIntlayer } from "react-intlayer";
-
-const InsertionComponent = () => {
-  const { myInsertion } = useIntlayer("my_key");
-
-  return (
-    <div>
-      <p>
-        {
-          /* Output: "Halo, nama saya John dan saya berumur 30 tahun!" */
-          myInsertion({ name: "John", age: "30" })
-        }
-      </p>
-      <p>
-        {
-          /* Anda dapat menggunakan kembali insertion yang sama dengan nilai berbeda */
-          myInsertion({ name: "Alice", age: "25" })
-        }
-      </p>
-    </div>
-  );
-};
-
-export default InsertionComponent;
-```
-
-```javascript fileName="**/*.cjs" codeFormat="commonjs"
-const { useIntlayer } = require("react-intlayer");
-
-const InsertionComponent = () => {
-  const { myInsertion } = useIntlayer("my_key");
-
-  return (
-    <div>
-      <p>
-        {
-          /* Output: "Halo, nama saya John dan saya berumur 30 tahun!" */
-          myInsertion({ name: "John", age: "30" })
-        }
-      </p>
-      <p>
-        {
-          /* Anda dapat menggunakan kembali insertion yang sama dengan nilai yang berbeda */
-          myInsertion({ name: "Alice", age: "25" })
-        }
-      </p>
-    </div>
-  );
-};
-
-module.exports = InsertionComponent;
 ```
 
 ## Sumber Daya Tambahan

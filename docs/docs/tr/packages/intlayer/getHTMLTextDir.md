@@ -48,24 +48,8 @@ history:
 
 ### Metin Yönünü Belirleme
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getHTMLTextDir } from "intlayer";
-
-getHTMLTextDir(Locales.ENGLISH); // Çıktı: "ltr"
-getHTMLTextDir(Locales.FRENCH); // Çıktı: "ltr"
-getHTMLTextDir(Locales.ARABIC); // Çıktı: "rtl"
-```
-
-```javascript codeFormat="esm"
-import { getHTMLTextDir } from "intlayer";
-
-getHTMLTextDir(Locales.ENGLISH); // Çıktı: "ltr"
-getHTMLTextDir(Locales.FRENCH); // Çıktı: "ltr"
-getHTMLTextDir(Locales.ARABIC); // Çıktı: "rtl"
-```
-
-```javascript codeFormat="commonjs"
-const { getHTMLTextDir } = require("intlayer");
 
 getHTMLTextDir(Locales.ENGLISH); // Çıktı: "ltr"
 getHTMLTextDir(Locales.FRENCH); // Çıktı: "ltr"
@@ -84,7 +68,7 @@ getHTMLTextDir(Locales.ARABIC); // Çıktı: "rtl"
 
 `getHTMLTextDir` fonksiyonu, yerel ayara göre HTML belgesinde `dir` özelliğini dinamik olarak ayarlamak için kullanılabilir.
 
-```tsx codeFormat="typescript"
+```tsx codeFormat={["typescript", "esm", "commonjs"]}
 import type { FC } from "react";
 import { getHTMLTextDir, type Locales } from "intlayer";
 
@@ -92,26 +76,6 @@ export const HTMLLayout: FC<PropsWithChildren<{ locale: Locales }>> = ({
   children,
   locale,
 }) => (
-  <html dir={getHTMLTextDir(locale)} locale={locale}>
-    <body>{children}</body>
-  </html>
-);
-```
-
-```jsx codeFormat="esm"
-import { getHTMLTextDir } from "intlayer";
-
-const HTMLLayout = ({ children, locale }) => (
-  <html dir={getHTMLTextDir(locale)} locale={locale}>
-    <body>{children}</body>
-  </html>
-);
-```
-
-```jsx codeFormat="commonjs"
-const { getHTMLTextDir } = require("intlayer");
-
-const HTMLLayout = ({ children, locale }) => (
   <html dir={getHTMLTextDir(locale)} locale={locale}>
     <body>{children}</body>
   </html>

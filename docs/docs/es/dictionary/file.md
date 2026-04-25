@@ -32,7 +32,7 @@ En Intlayer, la función `file` permite incrustar contenido de archivos externos
 
 Para incrustar contenido de archivo en tu proyecto Intlayer, utiliza la función `file` en un módulo de contenido. A continuación, se muestran ejemplos que demuestran diferentes implementaciones.
 
-```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="**/*.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { file, type Dictionary } from "intlayer";
 
 const myFileContent = {
@@ -43,34 +43,6 @@ const myFileContent = {
 } satisfies Dictionary;
 
 export default myFileContent;
-```
-
-```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-import { file } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const myFileContent = {
-  key: "my_key",
-  content: {
-    myFile: file("./path/to/file.txt"),
-  },
-};
-
-export default myFileContent;
-```
-
-```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-const { file } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const myFileContent = {
-  key: "my_key",
-  content: {
-    myFile: file("./path/to/file.txt"),
-  },
-};
-
-module.exports = myFileContent;
 ```
 
 ```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
@@ -90,7 +62,7 @@ module.exports = myFileContent;
 
 Para usar contenido de archivo incrustado en un componente React, importa y utiliza el hook `useIntlayer` del paquete `react-intlayer`. Esto recupera el contenido de la clave especificada y permite mostrarlo dinámicamente.
 
-```tsx fileName="**/*.tsx" codeFormat="typescript"
+```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useIntlayer } from "react-intlayer";
 
@@ -107,43 +79,11 @@ const FileComponent: FC = () => {
 export default FileComponent;
 ```
 
-```javascript fileName="**/*.mjx" codeFormat="esm"
-import { useIntlayer } from "react-intlayer";
-
-const FileComponent = () => {
-  const { myFile } = useIntlayer("my_key");
-
-  return (
-    <div>
-      <pre>{myFile}</pre>
-    </div>
-  );
-};
-
-export default FileComponent;
-```
-
-```javascript fileName="**/*.cjs" codeFormat="commonjs"
-const { useIntlayer } = require("react-intlayer");
-
-const FileComponent = () => {
-  const { myFile } = useIntlayer("my_key");
-
-  return (
-    <div>
-      <pre>{myFile}</pre>
-    </div>
-  );
-};
-
-module.exports = FileComponent;
-```
-
 ## Ejemplo de Markdown Multilingüe
 
 Para soportar archivos Markdown editables multilingües, puedes usar `file` en combinación con `t()` y `md()` para definir diferentes versiones en distintos idiomas de un archivo de contenido Markdown.
 
-```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="**/*.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { file, t, md, type Dictionary } from "intlayer";
 
 const myMultilingualContent = {
@@ -160,43 +100,6 @@ const myMultilingualContent = {
 } satisfies Dictionary;
 
 export default myMultilingualContent;
-```
-
-```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-import { file, t, md } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const myMultilingualContent = {
-  key: "mi_clave_multilingue",
-  content: {
-    myContent: md(
-      t({
-        en: file("src/components/test.en.md"),
-        fr: file("src/components/test.fr.md"),
-        es: file("src/components/test.es.md"),
-      })
-    ),
-  },
-};
-
-export default myMultilingualContent;
-```
-
-```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-const { file, t, md } = require("intlayer");
-
-const myMultilingualContent = {
-  key: "my_multilingual_key",
-  content: {
-    myContent: md(
-      t({
-        en: file("src/components/test.en.md"),
-        fr: file("src/components/test.fr.md"),
-        es: file("src/components/test.es.md"),
-      })
-    ),
-  },
-};
 ```
 
 Esta configuración permite que el contenido se recupere dinámicamente según la preferencia de idioma del usuario. Cuando se utiliza en el Editor Visual de Intlayer o en el CMS, el sistema reconocerá que el contenido proviene de los archivos Markdown especificados y garantizará que permanezcan editables.

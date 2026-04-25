@@ -84,7 +84,7 @@ bun x intlayer init
 
 قم بتكوين إعدادات التدويل عن طريق إنشاء ملف `intlayer.config.ts` في جذر مشروعك:
 
-```typescript fileName="intlayer.config.ts"  codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -102,49 +102,11 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH_MEXICO,
-      Locales.SPANISH_SPAIN,
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH_MEXICO,
-      Locales.SPANISH_SPAIN,
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-module.exports = config;
-```
-
 ### إعلان المحتوى الخاص بك
 
 قم بإنشاء وإدارة إعلانات المحتوى الخاصة بك لتخزين الترجمات:
 
-```typescript fileName="src/index.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="src/index.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, type Dictionary } from "intlayer";
 
 const indexContent = {
@@ -160,46 +122,6 @@ const indexContent = {
 } satisfies Dictionary;
 
 export default indexContent;
-```
-
-```javascript fileName="src/index.content.mjs" contentDeclarationFormat="esm"
-import { t } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const indexContent = {
-  key: "index",
-  content: {
-    exampleOfContent: t({
-      ar: "مثال على المحتوى المُعاد باللغة العربية",
-      en: "Example of returned content in English",
-      fr: "Exemple de contenu renvoyé en français",
-      "es-ES": "Ejemplo de contenido devuelto en español (España)",
-      "es-MX": "Ejemplo de contenido devuelto en español (México)",
-    }),
-  },
-};
-
-export default indexContent;
-```
-
-```javascript fileName="src/index.content.cjs" contentDeclarationFormat="commonjs"
-const { t } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const indexContent = {
-  key: "index",
-  content: {
-    exampleOfContent: t({
-      ar: "مثال على المحتوى المُعاد باللغة العربية",
-      en: "Example of returned content in English",
-      fr: "Exemple de contenu renvoyé en français",
-      "es-ES": "Ejemplo de contenido devuelto en español (España)",
-      "es-MX": "Ejemplo de contenido devuelto en español (México)",
-    }),
-  },
-};
-
-module.exports = indexContent;
 ```
 
 ```json fileName="src/index.content.json" contentDeclarationFormat="json"
@@ -229,7 +151,7 @@ module.exports = indexContent;
 
 قم بإعداد تطبيق Express الخاص بك لاستخدام `express-intlayer`:
 
-```typescript fileName="src/index.ts" codeFormat="typescript"
+```typescript fileName="src/index.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import express, { type Express } from "express";
 import { intlayer, t, getDictionary, getIntlayer } from "express-intlayer";
 import dictionaryExample from "./index.content";
@@ -264,77 +186,6 @@ app.get("/getDictionary_example", (_req, res) => {
 app.listen(3000, () => console.log(`Listening on port 3000`));
 ```
 
-```javascript fileName="src/index.mjs" codeFormat="esm"
-import express from "express";
-import { intlayer, t, getDictionary, getIntlayer } from "express-intlayer";
-import dictionaryExample from "./index.content";
-
-const app = express();
-
-// تحميل معالج طلبات التدويل
-app.use(intlayer());
-
-// المسارات
-app.get("/t_example", (_req, res) => {
-  res.send(
-    t({
-      ar: "مثال على المحتوى المعاد باللغة الإنجليزية",
-      en: "Example of returned content in English",
-      fr: "Exemple de contenu renvoyé en français",
-      "es-ES": "Ejemplo de contenido devuelto en español (España)",
-      "es-MX": "Ejemplo de contenido devuelto en español (México)",
-    })
-  );
-});
-
-app.get("/getIntlayer_example", (_req, res) => {
-  res.send(getIntlayer("index").exampleOfContent);
-});
-
-app.get("/getDictionary_example", (_req, res) => {
-  res.send(getDictionary(dictionaryExample).exampleOfContent);
-});
-
-// Start server
-app.listen(3000, () => console.log(`Listening on port 3000`));
-```
-
-```javascript fileName="src/index.cjs" codeFormat="commonjs"
-const express = require("express");
-const { intlayer, t, getDictionary, getIntlayer } = require("express-intlayer");
-const dictionaryExample = require("./index.content");
-
-const app = express();
-
-// تحميل معالج طلبات التدويل
-app.use(intlayer());
-
-// المسارات
-app.get("/t_example", (_req, res) => {
-  res.send(
-    t({
-      ar: "مثال على المحتوى المعاد باللغة الإنجليزية",
-      en: "Example of returned content in English",
-      fr: "Exemple de contenu renvoyé en français",
-      "es-ES": "Ejemplo de contenido devuelto en español (España)",
-      "es-MX": "Ejemplo de contenido devuelto en español (México)",
-    })
-  );
-});
-});
-
-app.get("/getIntlayer_example", (_req, res) => {
-  res.send(getIntlayer("index").exampleOfContent);
-});
-
-app.get("/getDictionary_example", (_req, res) => {
-  res.send(getDictionary(dictionaryExample).exampleOfContent);
-});
-
-// بدء الخادم
-app.listen(3000, () => console.log(`يتم الاستماع على المنفذ 3000`));
-```
-
 ### التوافق
 
 `express-intlayer` متوافق تمامًا مع:
@@ -344,7 +195,7 @@ app.listen(3000, () => console.log(`يتم الاستماع على المنفذ 
 - [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/vite-intlayer/index.md) لتطبيقات Vite
   يعمل أيضًا بسلاسة مع أي حل للتدويل عبر بيئات مختلفة، بما في ذلك المتصفحات وطلبات API. يمكنك تخصيص الوسيط لاكتشاف اللغة من خلال الرؤوس أو ملفات تعريف الارتباط:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -356,29 +207,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... خيارات تكوين أخرى
-  middleware: {
-    headerName: "my-locale-header",
-javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... خيارات التهيئة الأخرى
-  middleware: {
-    headerName: "my-locale-header",
-    cookieName: "my-locale-cookie",
-  },
-};
-
-module.exports = config;
 ```
 
 بشكل افتراضي، سيقوم `express-intlayer` بتفسير رأس `Accept-Language` لتحديد اللغة المفضلة للعميل.

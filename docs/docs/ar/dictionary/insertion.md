@@ -41,7 +41,7 @@ history:
   <Tab label="التغليف اليدوي" value="manual-wrapping">
     استخدم دالة `insert` لإعلان محتوى الإدراج بشكل صريح.
 
-    ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+    ```typescript fileName="**/*.content.ts" contentDeclarationFormat=["typescript", "esm", "cjs"]
     import { insert, type Dictionary } from "intlayer";
 
     const myInsertionContent = {
@@ -99,7 +99,7 @@ history:
   <Tab label="الكشف التلقائي" value="automatic-detection">
     إذا كان النص يحتوي على مؤشرات إدراج شائعة (مثل `{{name}}`)، سيقوم Intlayer بتحويله تلقائيًا.
 
-    ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+    ```typescript fileName="**/*.content.ts" contentDeclarationFormat=["typescript", "esm", "cjs"]
     import { type Dictionary } from "intlayer";
 
     const myInsertionContent = {
@@ -153,7 +153,7 @@ history:
 
 لاستخدام محتوى الإدراج داخل مكون React، قم باستيراد واستخدام الخطاف `useIntlayer` من حزمة `react-intlayer`. يقوم هذا الخطاف باسترجاع المحتوى للمفتاح المحدد ويسمح لك بتمرير كائن يربط كل عنصر نائب في المحتوى بالقيمة التي ترغب في عرضها.
 
-```tsx fileName="**/*.tsx" codeFormat="typescript"
+```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useIntlayer } from "react-intlayer";
 
@@ -179,60 +179,6 @@ const InsertionComponent: FC = () => {
 };
 
 export default InsertionComponent;
-```
-
-```javascript fileName="**/*.mjx" codeFormat="esm"
-import { useIntlayer } from "react-intlayer";
-
-const InsertionComponent = () => {
-  const { myInsertion } = useIntlayer("my_key");
-
-  return (
-    <div>
-      <p>
-        {
-          /* الإخراج: "مرحبًا، اسمي جون وعمري 30 سنة!" */
-          myInsertion({ name: "John", age: "30" })
-        }
-      </p>
-      <p>
-        {
-          /* يمكنك إعادة استخدام نفس الإدراج بقيم مختلفة */
-          myInsertion({ name: "Alice", age: "25" })
-        }
-      </p>
-    </div>
-  );
-};
-
-export default InsertionComponent;
-```
-
-```javascript fileName="**/*.cjs" codeFormat="commonjs"
-const { useIntlayer } = require("react-intlayer");
-
-const InsertionComponent = () => {
-  const { myInsertion } = useIntlayer("my_key");
-
-  return (
-    <div>
-      <p>
-        {
-          /* الإخراج: "مرحبًا، اسمي جون وعمري 30 سنة!" */
-          myInsertion({ name: "John", age: "30" })
-        }
-      </p>
-      <p>
-        {
-          /* يمكنك إعادة استخدام نفس الإدراج بقيم مختلفة */
-          myInsertion({ name: "Alice", age: "25" })
-        }
-      </p>
-    </div>
-  );
-};
-
-module.exports = InsertionComponent;
 ```
 
 ## الموارد الإضافية

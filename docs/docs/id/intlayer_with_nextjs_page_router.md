@@ -87,7 +87,7 @@ bun x intlayer init
 
 Buat file konfigurasi untuk mendefinisikan bahasa yang didukung oleh aplikasi Anda:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -103,44 +103,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      // Tambahkan locale lain Anda di sini
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      // Tambahkan locale lain Anda di sini
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-module.exports = config;
 ```
 
 > Melalui file konfigurasi ini, Anda dapat mengatur URL yang dilokalkan, pengalihan middleware, nama cookie, lokasi dan ekstensi deklarasi konten Anda, menonaktifkan log Intlayer di konsol, dan lainnya. Untuk daftar lengkap parameter yang tersedia, lihat [dokumentasi konfigurasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md).
@@ -175,33 +137,13 @@ export default withIntlayer(nextConfig);
 
 Siapkan middleware untuk secara otomatis mendeteksi dan menangani locale yang dipilih pengguna:
 
-```typescript fileName="src/middleware.ts" codeFormat="typescript"
+```typescript fileName="src/middleware.ts" codeFormat={["typescript", "esm", "commonjs"]}
 export { intlayerProxy as middleware } from "next-intlayer/middleware";
 
 export const config = {
   matcher:
     "/((?!api|static|assets|robots|sitemap|sw|service-worker|manifest|.*\\..*|_next).*)",
 };
-```
-
-```javascript fileName="src/middleware.mjs" codeFormat="esm"
-export { intlayerProxy as middleware } from "next-intlayer/middleware";
-
-export const config = {
-  matcher:
-    "/((?!api|static|assets|robots|sitemap|sw|service-worker|manifest|.*\\..*|_next).*)",
-};
-```
-
-```javascript fileName="src/middleware.cjs" codeFormat="commonjs"
-const { intlayerProxy } = require("next-intlayer/middleware");
-
-const config = {
-  matcher:
-    "/((?!api|static|assets|robots|sitemap|sw|service-worker|manifest|.*\\..*|_next).*)",
-};
-
-module.exports = { middleware: intlayerProxy, config };
 ```
 
 > Sesuaikan parameter `matcher` untuk mencocokkan rute aplikasi Anda. Untuk informasi lebih lanjut, lihat [dokumentasi Next.js tentang konfigurasi matcher](https://nextjs.org/docs/app/building-your-application/routing/middleware).
@@ -336,7 +278,7 @@ module.exports = {
 
 Buat dan kelola deklarasi konten Anda untuk menyimpan terjemahan.
 
-```tsx fileName="src/pages/[locale]/home.content.ts" contentDeclarationFormat="typescript"
+```tsx fileName="src/pages/[locale]/home.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, type Dictionary } from "intlayer";
 
 const homeContent = {
@@ -356,48 +298,6 @@ const homeContent = {
 } satisfies Dictionary;
 
 export default homeContent;
-```
-
-```javascript fileName="src/pages/[locale]/home.content.mjs" contentDeclarationFormat="esm"
-import { t } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const homeContent = {
-  key: "home",
-  content: {
-    getStarted: {
-      main: t({
-        en: "Mulailah dengan mengedit halaman ini.",
-        fr: "Commencez par éditer cette page.",
-        es: "Comience por editar esta página.",
-      }),
-      pageLink: "src/app/page.tsx",
-    },
-  },
-};
-
-export default homeContent;
-```
-
-```javascript fileName="src/pages/[locale]/home.content.cjs" contentDeclarationFormat="commonjs"
-const { t } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const homeContent = {
-  key: "home",
-  content: {
-    getStarted: {
-      main: t({
-        en: "Mulailah dengan mengedit halaman ini.",
-        fr: "Commencez par éditer cette page.",
-        es: "Comience por editar esta página.",
-      }),
-      pageLink: "src/app/page.tsx",
-    },
-  },
-};
-
-module.exports = homeContent;
 ```
 
 ```json fileName="src/pages/[locale]/home.content.json" contentDeclarationFormat="json"
@@ -433,7 +333,7 @@ Untuk informasi lebih lanjut tentang deklarasi konten, lihat [panduan deklarasi 
 
 Akses kamus konten Anda di seluruh aplikasi untuk menampilkan konten yang diterjemahkan.
 
-```tsx {2,6} fileName="src/pages/[locale]/index.tsx" codeFormat="typescript"
+```tsx {2,6} fileName="src/pages/[locale]/index.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useIntlayer } from "next-intlayer";
 import { ComponentExample } from "@components/ComponentExample";
@@ -456,85 +356,11 @@ const HomePage: FC = () => {
 export default HomePage;
 ```
 
-```jsx {1,5} fileName="src/pages/[locale]/index.mjx" codeFormat="esm"
-import { useIntlayer } from "next-intlayer";
-import { ComponentExample } from "@components/ComponentExample";
-
-const HomePage = () => {
-  const content = useIntlayer("home");
-
-  return (
-    <div>
-      <h1>{content.getStarted.main}</h1>
-      <code>{content.getStarted.pageLink}</code>
-
-      <ComponentExample />
-      {/* Komponen tambahan */}
-    </div>
-  );
-};
-
-// ... Sisa kode, termasuk getStaticPaths dan getStaticProps
-
-export default HomePage;
-```
-
-```jsx {1,5} fileName="src/pages/[locale]/index.csx" codeFormat="commonjs"
-const { useIntlayer } = require("next-intlayer");
-const { ComponentExample } = require("@components/ComponentExample");
-
-const HomePage = () => {
-  const content = useIntlayer("home");
-
-  return (
-    <div>
-      <h1>{content.getStarted.main}</h1>
-      <code>{content.getStarted.pageLink}</code>
-
-      <ComponentExample />
-      {/* Komponen tambahan */}
-    </div>
-  );
-};
-
-// ... Sisa kode, termasuk getStaticPaths dan getStaticProps
-```
-
-```tsx fileName="src/components/ComponentExample.tsx" codeFormat="typescript"
+```tsx fileName="src/components/ComponentExample.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useIntlayer } from "next-intlayer";
 
 export const ComponentExample: FC = () => {
-  const content = useIntlayer("component-example"); // Pastikan Anda memiliki deklarasi konten yang sesuai
-
-  return (
-    <div>
-      <h2>{content.title}</h2>
-      <p>{content.content}</p>
-    </div>
-  );
-};
-```
-
-```jsx fileName="src/components/ComponentExample.mjx" codeFormat="esm"
-import { useIntlayer } from "next-intlayer";
-
-const ComponentExample = () => {
-  const content = useIntlayer("component-example"); // Pastikan Anda memiliki deklarasi konten yang sesuai
-
-  return (
-    <div>
-      <h2>{content.title}</h2>
-      <p>{content.content}</p>
-    </div>
-  );
-};
-```
-
-```jsx fileName="src/components/ComponentExample.csx" codeFormat="commonjs"
-const { useIntlayer } = require("next-intlayer");
-
-const ComponentExample = () => {
   const content = useIntlayer("component-example"); // Pastikan Anda memiliki deklarasi konten yang sesuai
 
   return (
@@ -560,7 +386,7 @@ const ComponentExample = () => {
 
 Jika Anda ingin menginternasionalisasi metadata Anda, seperti judul halaman Anda, Anda dapat menggunakan fungsi `getStaticProps` yang disediakan oleh Next.js Page Router. Di dalamnya, Anda dapat mengambil konten dari fungsi `getIntlayer` untuk menerjemahkan metadata Anda.
 
-```typescript fileName="src/pages/[locale]/metadata.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="src/pages/[locale]/metadata.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { type Dictionary, t } from "intlayer";
 import { type Metadata } from "next";
 
@@ -581,52 +407,6 @@ const metadataContent = {
 } satisfies Dictionary<Metadata>;
 
 export default metadataContent;
-```
-
-```javascript fileName="src/pages/[locale]/metadata.content.mjs" contentDeclarationFormat="esm"
-import { t } from "intlayer";
-
-/** @type {import('intlayer').Dictionary<import('next').Metadata>} */
-const metadataContent = {
-  key: "page-metadata",
-  content: {
-    title: t({
-      en: "Create Next App",
-      fr: "Créer une application Next.js",
-      es: "Crear una aplicación Next.js",
-    }),
-    description: t({
-      en: "Dihasilkan oleh create next app",
-      fr: "Généré par create next app",
-      es: "Generado por create next app",
-    }),
-  },
-};
-
-export default metadataContent;
-```
-
-```javascript fileName="src/pages/[locale]/metadata.content.cjs" contentDeclarationFormat="commonjs"
-const { t } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary<import('next').Metadata>} */
-const metadataContent = {
-  key: "page-metadata",
-  content: {
-    title: t({
-      en: "Create Next App",
-      fr: "Créer une application Next.js",
-      es: "Crear una aplicación Next.js",
-    }),
-    description: t({
-      en: "Generated by create next app",
-      fr: "Généré par create next app",
-      es: "Generado por create next app",
-    }),
-  },
-};
-
-module.exports = metadataContent;
 ```
 
 ```json fileName="src/pages/[locale]/metadata.content.json" contentDeclarationFormat="json"
@@ -655,7 +435,7 @@ module.exports = metadataContent;
 };
 ```
 
-````tsx fileName="src/pages/[locale]/index.tsx" codeFormat="typescript"
+````tsx fileName="src/pages/[locale]/index.tsx" codeFormat={["typescript", "esm"]}
 import { GetStaticPaths, GetStaticProps } from "next";
 import { getIntlayer, getMultilingualUrls } from "intlayer";
 import { useIntlayer } from "next-intlayer";
@@ -734,139 +514,11 @@ export default HomePage;
 // ... Sisa kode termasuk getStaticPaths
 ````
 
-````jsx fileName="src/pages/[locale]/index.mjx" codeFormat="esm"
-import { getIntlayer, getMultilingualUrls } from "intlayer";
-import { useIntlayer } from "next-intlayer";
-import Head from "next/head";
-
-const HomePage = ({ metadata, multilingualUrls, locale }) => {
-  const content = useIntlayer("page");
-
-  return (
-    <div>
-      <Head>
-        <title>{metadata.title}</title>
-        <meta name="description" content={metadata.description} />
-        {/* Menghasilkan tag hreflang untuk SEO */}
-        {Object.entries(multilingualUrls).map(([lang, url]) => (
-          <link key={lang} rel="alternate" hrefLang={lang} href={url} />
-        ))}
-        <link rel="canonical" href={multilingualUrls[locale]} />
-      </Head>
-
-      {/* Konten halaman */}
-      <main>{/* Konten halaman Anda di sini */}</main>
-    </div>
-  );
-};
-
-export const getStaticProps = async ({ params }) => {
-  const locale = params?.locale;
-
-  const metadata = getIntlayer("page-metadata", locale);
-
-  /**
-   * Menghasilkan objek yang berisi semua url untuk setiap locale.
-   *
-   * Contoh:
-   * ```ts
-   *  getMultilingualUrls('/about');
-   *
-   *  // Mengembalikan
-   *  // {
-   *  //   en: '/about',
-   *  //   fr: '/fr/about',
-   *  //   es: '/es/about',
-   *  // }
-   * ```
-   */
-  const multilingualUrls = getMultilingualUrls("/");
-
-  return {
-    props: {
-      locale,
-      metadata,
-      multilingualUrls,
-    },
-  };
-};
-
-export default HomePage;
-
-// ... Sisa kode termasuk getStaticPaths
-````
-
-````jsx fileName="src/pages/[locale]/index.csx" codeFormat="commonjs"
-const { getIntlayer, getMultilingualUrls } = require("intlayer");
-const { useIntlayer } = require("next-intlayer");
-const Head = require("next/head");
-
-const HomePage = ({ metadata, multilingualUrls, locale }) => {
-  const content = useIntlayer("page");
-
-  return (
-    <div>
-      <Head>
-        <title>{metadata.title}</title>
-        <meta name="description" content={metadata.description} />
-        {/* Menghasilkan tag hreflang untuk SEO */}
-        {Object.entries(multilingualUrls).map(([lang, url]) => (
-          <link key={lang} rel="alternate" hrefLang={lang} href={url} />
-        ))}
-        <link rel="canonical" href={multilingualUrls[locale]} />
-      </Head>
-
-      {/* Konten halaman */}
-      <main>{/* Konten halaman Anda di sini */}</main>
-    </div>
-  );
-};
-
-const getStaticProps = async ({ params }) => {
-  const locale = params?.locale;
-
-  const metadata = getIntlayer("page-metadata", locale);
-
-  /**
-   * Menghasilkan objek yang berisi semua url untuk setiap locale.
-   *
-   * Contoh:
-   * ```ts
-   *  getMultilingualUrls('/about');
-   *
-   *  // Mengembalikan
-   *  // {
-   *  //   en: '/about',
-   *  //   fr: '/fr/about',
-   *  //   es: '/es/about',
-   *  // }
-   * ```
-   */
-  const multilingualUrls = getMultilingualUrls("/");
-
-  return {
-    props: {
-      locale,
-      metadata,
-      multilingualUrls,
-    },
-  };
-};
-
-module.exports = {
-  getStaticProps,
-  getStaticPaths,
-  default: HomePage,
-};
-
-// ... Sisa kode termasuk getStaticPaths
-````
-
 > Perlu dicatat bahwa fungsi `getIntlayer` yang diimpor dari `next-intlayer` mengembalikan konten Anda yang dibungkus dalam `IntlayerNode`, memungkinkan integrasi dengan visual editor. Sebaliknya, fungsi `getIntlayer` yang diimpor dari `intlayer` mengembalikan konten Anda secara langsung tanpa properti tambahan.
 
 Sebagai alternatif, Anda dapat menggunakan fungsi `getTranslation` untuk mendeklarasikan metadata Anda. Namun, menggunakan file deklarasi konten direkomendasikan untuk mengotomatisasi terjemahan metadata Anda dan mengeksternalisasi konten pada suatu titik.
 
-```tsx fileName="src/pages/[locale]/index.tsx" codeFormat="typescript"
+```tsx fileName="src/pages/[locale]/index.tsx" codeFormat={["typescript", "esm"]}
 import { GetStaticPaths, GetStaticProps } from "next";
 import {
   type IConfigLocales,
@@ -949,135 +601,13 @@ export default HomePage;
 // ... Sisa kode termasuk getStaticPaths
 ```
 
-```jsx fileName="src/pages/[locale]/index.mjx" codeFormat="esm"
-import { getTranslation, getMultilingualUrls } from "intlayer";
-import { useIntlayer } from "next-intlayer";
-import Head from "next/head";
-
-const HomePage = ({ metadata, multilingualUrls, locale }) => {
-  const content = useIntlayer("page");
-
-  return (
-    <div>
-      <Head>
-        <title>{metadata.title}</title>
-        <meta name="description" content={metadata.description} />
-        {/* Menghasilkan tag hreflang untuk SEO */}
-        {Object.entries(multilingualUrls).map(([lang, url]) => (
-          <link key={lang} rel="alternate" hrefLang={lang} href={url} />
-        ))}
-        <link rel="canonical" href={multilingualUrls[locale]} />
-      </Head>
-
-      {/* Konten halaman */}
-      <main>{/* Konten halaman Anda di sini */}</main>
-    </div>
-  );
-};
-
-export const getStaticProps = async ({ params }) => {
-  const locale = params?.locale;
-  const t = (content) => getTranslation(content, locale);
-
-  const metadata = {
-    title: t({
-      en: "My title",
-      fr: "Mon titre",
-      es: "Mi título",
-    }),
-    description: t({
-      en: "My description",
-      fr: "Ma description",
-      es: "Mi descripción",
-    }),
-  };
-
-  const multilingualUrls = getMultilingualUrls("/");
-
-  return {
-    props: {
-      locale,
-      metadata,
-      multilingualUrls,
-    },
-  };
-};
-
-export default HomePage;
-
-// ... Sisa kode termasuk getStaticPaths
-```
-
-```jsx fileName="src/pages/[locale]/index.csx" codeFormat="commonjs"
-const { getTranslation, getMultilingualUrls } = require("intlayer");
-const { useIntlayer } = require("next-intlayer");
-const Head = require("next/head");
-
-const HomePage = ({ metadata, multilingualUrls, locale }) => {
-  const content = useIntlayer("page");
-
-  return (
-    <div>
-      <Head>
-        <title>{metadata.title}</title>
-        <meta name="description" content={metadata.description} />
-        {/* Menghasilkan tag hreflang untuk SEO */}
-        {Object.entries(multilingualUrls).map(([lang, url]) => (
-          <link key={lang} rel="alternate" hrefLang={lang} href={url} />
-        ))}
-        <link rel="canonical" href={multilingualUrls[locale]} />
-      </Head>
-
-      {/* Konten halaman */}
-      <main>{/* Konten halaman Anda di sini */}</main>
-    </div>
-  );
-};
-
-const getStaticProps = async ({ params }) => {
-  const locale = params?.locale;
-  const t = (content) => getTranslation(content, locale);
-
-  const metadata = {
-    title: t({
-      en: "My title",
-      fr: "Mon titre",
-      es: "Mi título",
-    }),
-    description: t({
-      en: "My description",
-      fr: "Ma description",
-      es: "Mi descripción",
-    }),
-  };
-
-  const multilingualUrls = getMultilingualUrls("/");
-
-  return {
-    props: {
-      locale,
-      metadata,
-      multilingualUrls,
-    },
-  };
-};
-
-module.exports = {
-  getStaticProps,
-  getStaticPaths,
-  default: HomePage,
-};
-
-// ... Sisa kode termasuk getStaticPaths
-```
-
 > Pelajari lebih lanjut tentang optimasi metadata [di dokumentasi resmi Next.js](https://nextjs.org/docs/pages/building-your-application/optimizing/metadata).
 
 ### (Opsional) Langkah 9: Ubah bahasa konten Anda
 
 Untuk mengubah bahasa konten Anda di Next.js, cara yang direkomendasikan adalah menggunakan komponen `Link` untuk mengarahkan pengguna ke halaman lokal yang sesuai. Komponen `Link` memungkinkan prefetching halaman, yang membantu menghindari pemuatan ulang halaman secara penuh.
 
-```tsx fileName="src/components/LanguageSwitcher.tsx" codeFormat="typescript"
+```tsx fileName="src/components/LanguageSwitcher.tsx" codeFormat={["typescript", "esm"]}
 import {
   Locales,
   getHTMLTextDir,
@@ -1123,102 +653,6 @@ const LocaleSwitcher: FC = () => {
         ))}
       </div>
     </div>
-  );
-};
-```
-
-```jsx fileName="src/components/LanguageSwitcher.msx" codeFormat="esm"
-import {
-  Locales,
-  getHTMLTextDir,
-  getLocaleName,
-  getLocalizedUrl,
-} from "intlayer";
-import { useLocalePageRouter } from "next-intlayer";
-import Link from "next/link";
-
-const LocaleSwitcher = () => {
-  const { locale, pathWithoutLocale, availableLocales } = useLocalePageRouter();
-
-  return (
-    <div>
-      <button popoverTarget="localePopover">{getLocaleName(locale)}</button>
-      <div id="localePopover" popover="auto">
-        {availableLocales.map((localeItem) => (
-          <Link
-            href={getLocalizedUrl(pathWithoutLocale, localeItem)}
-            hrefLang={localeItem}
-            key={localeItem}
-            aria-current={locale === localeItem ? "page" : undefined}
-            onClick={() => setLocale(localeItem)}
-          >
-            <span>
-              {/* Locale - misal FR */}
-              {localeItem}
-            </span>
-            <span>
-              {/* Bahasa dalam Locale-nya sendiri - misalnya Français */}
-              {getLocaleName(localeItem, locale)}
-            </span>
-            <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
-              {/* Bahasa dalam Locale saat ini - misalnya Francés dengan locale saat ini disetel ke Locales.SPANISH */}
-              {getLocaleName(localeItem)}
-            </span>
-            <span dir="ltr" lang={Locales.ENGLISH}>
-              {/* Bahasa dalam Bahasa Inggris - misalnya French */}
-              {getLocaleName(localeItem, Locales.ENGLISH)}
-            </span>
-          </Link>
-        ))}
-      </div>
-    </div>
-  );
-};
-```
-
-```jsx fileName="src/components/LanguageSwitcher.msx" codeFormat="commonjs"
-const {
-  Locales,
-  getHTMLTextDir,
-  getLocaleName,
-  getLocalizedUrl,
-} = require("intlayer");
-const { useLocalePageRouter } = require("next-intlayer");
-const Link = require("next/link");
-
-const LocaleSwitcher = () => {
-  const { locale, pathWithoutLocale, availableLocales } = useLocalePageRouter();
-
-  return (
-    <select>
-      {availableLocales.map((localeItem) => (
-        <option value={localeItem} key={localeItem}>
-          <Link
-            href={getLocalizedUrl(pathWithoutLocale, localeItem)}
-            hrefLang={localeItem}
-            aria-current={locale === localeItem ? "page" : undefined}
-            onClick={() => setLocale(localeItem)}
-          >
-            <span>
-              {/* Locale - misal FR */}
-              {localeItem}
-            </span>
-            <span>
-              {/* Bahasa dalam Locale-nya sendiri - misalnya Français */}
-              {getLocaleName(localeItem, locale)}
-            </span>
-            <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
-              {/* Bahasa dalam Locale saat ini - misalnya Francés dengan locale saat ini disetel ke Locales.SPANISH */}
-              {getLocaleName(localeItem)}
-            </span>
-            <span dir="ltr" lang={Locales.ENGLISH}>
-              {/* Bahasa dalam bahasa Inggris - misalnya French */}
-              {getLocaleName(localeItem, Locales.ENGLISH)}
-            </span>
-          </Link>
-        </option>
-      ))}
-    </select>
   );
 };
 ```
@@ -1274,7 +708,7 @@ Perilaku ini berguna untuk beberapa alasan:
 
 Berikut adalah implementasi komponen `Link` yang dilokalkan dalam TypeScript:
 
-```tsx fileName="src/components/Link.tsx" codeFormat="typescript"
+```tsx fileName="src/components/Link.tsx" codeFormat={["typescript", "esm"]}
 "use client";
 
 import { getLocalizedUrl } from "intlayer";
@@ -1313,78 +747,6 @@ export const Link = forwardRef<
 });
 
 Link.displayName = "Link";
-```
-
-```jsx fileName="src/components/Link.mjx" codeFormat="esm"
-'use client';
-
-import { getLocalizedUrl } from 'intlayer';
-import NextLink, { type LinkProps as NextLinkProps } from 'next/link';
-import { useLocale } from "next-intlayer";
-import { forwardRef, PropsWithChildren, type ForwardedRef } from 'react';
-
-/**
- * Fungsi utilitas untuk memeriksa apakah URL yang diberikan bersifat eksternal.
- * Jika URL dimulai dengan http:// atau https://, maka dianggap eksternal.
- */
-export const checkIsExternalLink = (href) =>
-  /^https?:\/\//.test(href ?? '');
-
-/**
- * Komponen Link kustom yang menyesuaikan atribut href berdasarkan locale saat ini.
- * Untuk tautan internal, menggunakan `getLocalizedUrl` untuk menambahkan prefix locale pada URL (misalnya, /fr/about).
- * Ini memastikan navigasi tetap dalam konteks locale yang sama.
- */
-export const Link = forwardRef(({ href, children, ...props }, ref) => {
-  const { locale } = useLocale();
-  const isExternalLink = checkIsExternalLink(href.toString());
-
-  // Jika tautan bersifat internal dan href yang valid diberikan, dapatkan URL yang sudah dilokalkan.
-  const hrefI18n =
-    href && !isExternalLink ? getLocalizedUrl(href.toString(), locale) : href;
-
-  return (
-    <NextLink href={hrefI18n} ref={ref} {...props}>
-      {children}
-    </NextLink>
-  );
-});
-
-Link.displayName = 'Link';
-```
-
-```jsx fileName="src/components/Link.csx" codeFormat="commonjs"
-'use client';
-
-const { getLocalizedUrl } = require("intlayer");
-const NextLink = require("next/link");
-const { useLocale } = require("next-intlayer");
-const { forwardRef } = require("react");
-
-/**
- * Fungsi utilitas untuk memeriksa apakah URL yang diberikan bersifat eksternal.
- * Jika URL dimulai dengan http:// atau https://, maka dianggap eksternal.
- */
-const checkIsExternalLink = (href) =>
-  /^https?:\/\//.test(href ?? '');
-
-
-const Link = forwardRef(({ href, children, ...props }, ref) => {
-  const { locale } = useLocale();
-  const isExternalLink = checkIsExternalLink(href.toString());
-
-  // Jika tautan bersifat internal dan href yang valid disediakan, dapatkan URL yang sudah dilokalkan.
-  const hrefI18n: NextLinkProps['href'] =
-    href && !isExternalLink ? getLocalizedUrl(href.toString(), locale) : href;
-
-  return (
-    <NextLink href={hrefI18n} ref={ref} {...props}>
-      {children}
-    </NextLink>
-  );
-});
-
-Link.displayName = 'Link';
 ```
 
 #### Cara Kerjanya

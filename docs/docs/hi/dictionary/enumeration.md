@@ -32,7 +32,7 @@ Intlayer में, एनेमरेशन `enu` फ़ंक्शन के 
 
 अपने Intlayer प्रोजेक्ट में एनेमरेशन सेटअप करने के लिए, आपको एक कंटेंट मॉड्यूल बनाना होगा जिसमें एनेमरेशन परिभाषाएँ शामिल हों। यहाँ कारों की संख्या के लिए एक सरल एनेमरेशन का उदाहरण दिया गया है:
 
-```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="**/*.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { enu, type Dictionary } from "intlayer";
 
 const carEnumeration = {
@@ -51,50 +51,6 @@ const carEnumeration = {
 } satisfies Dictionary;
 
 export default carEnumeration;
-```
-
-```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-import { enu } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const carEnumeration = {
-  key: "car_count",
-  content: {
-    numberOfCar: enu({
-      "<-1": "माइनस एक कार से कम",
-      "-1": "माइनस एक कार",
-      "0": "कोई कार नहीं",
-      "1": "एक कार",
-      ">5": "कुछ कारें",
-      ">19": "कई कारें",
-      "fallback": "फॉलबैक मान", // वैकल्पिक
-    }),
-  },
-};
-
-export default carEnumeration;
-```
-
-```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-const { enu } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const carEnumeration = {
-  key: "car_count",
-  content: {
-    numberOfCar: enu({
-      "<-1": "माइनस एक कार से कम",
-      "-1": "माइनस एक कार",
-      "0": "कोई कार नहीं",
-      "1": "एक कार",
-      ">5": "कुछ कारें",
-      ">19": "कई कारें",
-      "fallback": "फॉलबैक मान", // वैकल्पिक
-    }),
-  },
-};
-
-module.exports = carEnumeration;
 ```
 
 ```json fileName="**/*.content.json" contentDeclarationFormat="json"
@@ -128,7 +84,7 @@ module.exports = carEnumeration;
 
 React घटक में एनेमरेशन का उपयोग करने के लिए, आप `react-intlayer` पैकेज से `useIntlayer` हुक का उपयोग कर सकते हैं। यह हुक निर्दिष्ट ID के आधार पर सही सामग्री प्राप्त करता है। इसका उपयोग करने का एक उदाहरण यहां दिया गया है:
 
-```tsx fileName="**/*.tsx" codeFormat="typescript"
+```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useIntlayer } from "react-intlayer";
 
@@ -160,76 +116,6 @@ const CarComponent: FC = () => {
     </div>
   );
 };
-```
-
-```javascript fileName="**/*.mjx" codeFormat="esm"
-import { useIntlayer } from "react-intlayer";
-
-const CarComponent = () => {
-  const { numberOfCar } = useIntlayer("car_count");
-
-  return (
-    <div>
-      <p>
-        {
-          numberOfCar(0) // आउटपुट: कोई कार नहीं
-        }
-      </p>
-      <p>
-        {
-          numberOfCar(6) // आउटपुट: कुछ कारें
-        }
-      </p>
-      <p>
-        {
-          numberOfCar(20) // आउटपुट: कई कारें
-        }
-      </p>
-      <p>
-        {
-          numberOfCar(0.01) // आउटपुट: फॉलबैक मान
-        }
-      </p>
-    </div>
-  );
-};
-
-export default CarComponent;
-```
-
-```javascript fileName="**/*.cjs" codeFormat="commonjs"
-const { useIntlayer } = require("react-intlayer");
-
-const CarComponent = () => {
-  const { numberOfCar } = useIntlayer("car_count");
-
-  return (
-    <div>
-      <p>
-        {
-          numberOfCar(0) // आउटपुट: कोई कार नहीं
-        }
-      </p>
-      <p>
-        {
-          numberOfCar(6) // आउटपुट: कुछ कारें
-        }
-      </p>
-      <p>
-        {
-          numberOfCar(20) // आउटपुट: कई कारें
-        }
-      </p>
-      <p>
-        {
-          numberOfCar(0.01) // आउटपुट: फॉलबैक मान
-        }
-      </p>
-    </div>
-  );
-};
-
-module.exports = CarComponent;
 ```
 
 इस उदाहरण में, घटक गतिशील रूप से कारों की संख्या के आधार पर अपने आउटपुट को समायोजित करता है। निर्दिष्ट सीमा के अनुसार सही सामग्री स्वचालित रूप से चुनी जाती है।

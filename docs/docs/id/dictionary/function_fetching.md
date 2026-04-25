@@ -32,7 +32,7 @@ Intlayer memungkinkan Anda untuk mendeklarasikan fungsi konten dalam modul konte
 
 Berikut adalah contoh pengambilan konten fungsi sinkron sederhana:
 
-```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="**/*.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import type { Dictionary } from "intlayer";
 
 const functionContent = {
@@ -43,30 +43,6 @@ const functionContent = {
 } satisfies Dictionary;
 
 export default functionContent;
-```
-
-```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-/** @type {import('intlayer').Dictionary} */
-const functionContent = {
-  key: "function_content",
-  content: {
-    text: () => "Ini adalah konten yang dirender oleh sebuah fungsi",
-  },
-};
-
-export default functionContent;
-```
-
-```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-/** @type {import('intlayer').Dictionary} */
-const functionContent = {
-  key: "function_content",
-  content: {
-    text: () => "Ini adalah konten yang dirender oleh sebuah fungsi",
-  },
-};
-
-module.exports = functionContent;
 ```
 
 ```json fileName="**/*.content.json" contentDeclarationFormat="json"
@@ -87,7 +63,7 @@ Selain fungsi sinkron, Intlayer mendukung fungsi asinkron, memungkinkan Anda unt
 
 Berikut adalah contoh fungsi asinkron yang mensimulasikan pengambilan dari server:
 
-```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="**/*.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { setTimeout } from "node:timers/promises";
 import type { Dictionary } from "intlayer";
 
@@ -106,42 +82,6 @@ const asyncFunctionContent = {
 export default asyncFunctionContent;
 ```
 
-```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-import { setTimeout } from "node:timers/promises";
-
-/** @type {import('intlayer').Dictionary} */
-const fakeFetch = async () => {
-  // Tunggu selama 200ms untuk mensimulasikan pengambilan dari server
-  await setTimeout(200);
-  return "Ini adalah konten yang diambil dari server";
-};
-
-const asyncFunctionContent = {
-  key: "async_function",
-  content: { text: fakeFetch },
-};
-
-export default asyncFunctionContent;
-```
-
-```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-const { setTimeout } = require("node:timers/promises");
-
-/** @type {import('intlayer').Dictionary} */
-const fakeFetch = async () => {
-  // Tunggu selama 200ms untuk mensimulasikan pengambilan dari server
-  await setTimeout(200);
-  return "Ini adalah konten yang diambil dari server";
-};
-
-const asyncFunctionContent = {
-  key: "async_function",
-  content: { text: fakeFetch },
-};
-
-module.exports = asyncFunctionContent;
-```
-
 ```plaintext fileName="**/*.content.json" contentDeclarationFormat="json"
 Tidak ada cara untuk mengambil konten dari file JSON, gunakan file .ts atau .js sebagai gantinya
 ```
@@ -152,7 +92,7 @@ Dalam kasus ini, fungsi `fakeFetch` meniru penundaan untuk mensimulasikan waktu 
 
 Untuk menggunakan konten berbasis fungsi dalam komponen React, Anda perlu mengimpor `useIntlayer` dari `react-intlayer` dan memanggilnya dengan ID konten untuk mengambil konten tersebut. Berikut adalah contohnya:
 
-```typescript fileName="**/*.jsx" codeFormat="typescript"
+```typescript fileName="**/*.jsx" codeFormat={["typescript", "esm", "commonjs"]}
 import type { FC } from "react";
 import { useIntlayer } from "react-intlayer";
 
@@ -171,44 +111,4 @@ const MyComponent: FC = () => {
 };
 
 export default MyComponent;
-```
-
-```javascript fileName="**/*.mjx" codeFormat="esm"
-import { useIntlayer } from "react-intlayer";
-
-const MyComponent = () => {
-  const functionContent = useIntlayer("function_content");
-  const asyncFunctionContent = useIntlayer("async_function_content");
-
-  return (
-    <div>
-      <p>{functionContent.text}</p>
-      {/* Output: Ini adalah konten yang dirender oleh sebuah fungsi */}
-      <p>{asyncFunctionContent.text}</p>
-      {/* Output: Ini adalah konten yang diambil dari server */}
-    </div>
-  );
-};
-
-export default MyComponent;
-```
-
-```javascript fileName="**/*.cjs" codeFormat="commonjs"
-const { useIntlayer } = require("react-intlayer");
-
-const MyComponent = () => {
-  const functionContent = useIntlayer("function_content");
-  const asyncFunctionContent = useIntlayer("async_function_content");
-
-  return (
-    <div>
-      <p>{functionContent.text}</p>
-      {/* Output: Ini adalah konten yang dirender oleh sebuah fungsi */}
-      <p>{asyncFunctionContent.text}</p>
-      {/* Output: Ini adalah konten yang diambil dari server */}
-    </div>
-  );
-};
-
-module.exports = MyComponent;
 ```

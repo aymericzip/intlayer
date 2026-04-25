@@ -85,7 +85,7 @@ bun x intlayer init
 
 Buat file konfigurasi untuk mengatur bahasa aplikasi Anda:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -103,76 +103,18 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      // Lokal lainnya
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      // Lokal lainnya
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-module.exports = config;
-```
-
 > Melalui file konfigurasi ini, Anda dapat mengatur URL yang dilokalkan, pengalihan middleware, nama cookie, lokasi dan ekstensi deklarasi konten Anda, menonaktifkan log Intlayer di konsol, dan banyak lagi. Untuk daftar lengkap parameter yang tersedia, lihat [dokumentasi konfigurasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md).
 
 ### Langkah 3: Integrasikan Intlayer ke dalam Konfigurasi Vite Anda
 
 Tambahkan plugin intlayer ke konfigurasi Anda.
 
-```typescript fileName="vite.config.ts" codeFormat="typescript"
+```typescript fileName="vite.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { defineConfig } from "vite";
 import { intlayer } from "vite-intlayer";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [intlayer()],
-});
-```
-
-```javascript fileName="vite.config.mjs" codeFormat="esm"
-import { defineConfig } from "vite";
-import { intlayer } from "vite-intlayer";
-
-// https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [intlayer()],
-});
-```
-
-```javascript fileName="vite.config.cjs" codeFormat="commonjs"
-const { defineConfig } = require("vite");
-const { intlayer } = require("vite-intlayer");
-
-// https://vitejs.dev/config/
-module.exports = defineConfig({
   plugins: [intlayer()],
 });
 ```
@@ -208,7 +150,7 @@ import "./app.js";
 
 Buat dan kelola deklarasi konten Anda untuk menyimpan terjemahan:
 
-```typescript fileName="src/app.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="src/app.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { insert, t, type Dictionary } from "intlayer";
 
 const appContent = {
@@ -239,74 +181,6 @@ const appContent = {
 } satisfies Dictionary;
 
 export default appContent;
-```
-
-```javascript fileName="src/app.content.mjs" contentDeclarationFormat="esm"
-import { insert, t } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const appContent = {
-  key: "app",
-  content: {
-    title: "Vite + Vanilla",
-
-    viteLogoLabel: t({
-      en: "Vite Logo",
-      fr: "Logo Vite",
-      es: "Logo Vite",
-    }),
-
-    count: insert(
-      t({
-        en: "count is {{count}}",
-        fr: "le compte est {{count}}",
-        es: "el recuento es {{count}}",
-      })
-    ),
-
-    readTheDocs: t({
-      en: "Click on the Vite logo to learn more",
-      fr: "Cliquez sur le logo Vite pour en savoir plus",
-      es: "Klik pada logo Vite untuk mempelajari lebih lanjut",
-    }),
-  },
-};
-
-export default appContent;
-```
-
-```javascript fileName="src/app.content.cjs" contentDeclarationFormat="commonjs"
-const { insert, t } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const appContent = {
-  key: "app",
-  content: {
-    title: "Vite + Vanilla",
-
-    viteLogoLabel: t({
-      en: "Vite Logo",
-      fr: "Logo Vite",
-      es: "Logo Vite",
-    }),
-
-    count: insert(
-      t({
-        en: "count is {{count}}",
-        fr: "le compte est {{count}}",
-        es: "el recuento es {{count}}",
-      })
-    ),
-
-    readTheDocs: t({
-      en: "Click on the Vite logo to learn more",
-      fr: "Cliquez sur le logo Vite pour en savoir plus",
-      es: "Klik pada logo Vite untuk mempelajari lebih lanjut",
-    }),
-  },
-};
-
-module.exports = appContent;
 ```
 
 ```json fileName="src/app.content.json" contentDeclarationFormat="json"
@@ -425,7 +299,7 @@ export function setupLocaleSwitcher(container: HTMLElement): () => void {
 
 Intlayer mendukung deklarasi konten `md()` dan `html()`. Dalam Vanilla JS, output yang dikompilasi dimasukkan sebagai HTML mentah melalui `innerHTML`.
 
-```typescript fileName="src/app.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="src/app.content.ts" contentDeclarationFormat=["typescript", "esm", "cjs"]
 import { md, t, type Dictionary } from "intlayer";
 
 const appContent = {
@@ -488,35 +362,11 @@ Pertama, tambahkan `intlayerProxy` ke konfigurasi Vite Anda:
 
 > Perhatikan bahwa untuk menggunakan `intlayerProxy` di produksi, Anda perlu memindahkan `vite-intlayer` dari `devDependencies` ke `dependencies`.
 
-```typescript {3,7} fileName="vite.config.ts" codeFormat="typescript"
+```typescript {3,7} fileName="vite.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { defineConfig } from "vite";
 import { intlayer, intlayerProxy } from "vite-intlayer";
 
 export default defineConfig({
-  plugins: [
-    intlayerProxy(), // sebaiknya diletakkan pertama
-    intlayer(),
-  ],
-});
-```
-
-```javascript {3,7} fileName="vite.config.mjs" codeFormat="esm"
-import { defineConfig } from "vite";
-import { intlayer, intlayerProxy } from "vite-intlayer";
-
-export default defineConfig({
-  plugins: [
-    intlayerProxy(), // sebaiknya diletakkan pertama
-    intlayer(),
-  ],
-});
-```
-
-```javascript {3,7} fileName="vite.config.cjs" codeFormat="commonjs"
-const { defineConfig } = require("vite");
-const { intlayer, intlayerProxy } = require("vite-intlayer");
-
-module.exports = defineConfig({
   plugins: [
     intlayerProxy(), // sebaiknya diletakkan pertama
     intlayer(),

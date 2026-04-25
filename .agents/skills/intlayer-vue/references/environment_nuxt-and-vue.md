@@ -192,7 +192,7 @@ export default defineNuxtConfig({
 
 Create and manage your content declarations to store translations:
 
-```tsx fileName="content/home-page.content.ts" contentDeclarationFormat="typescript"
+```tsx fileName="content/home-page.content.ts" contentDeclarationFormat=["typescript", "esm", "cjs"]
 import { type Dictionary, t } from "intlayer";
 
 const content = {
@@ -542,7 +542,7 @@ useHead({
 
 Create the corresponding content declaration:
 
-```ts fileName="pages/about-page.content.ts" contentDeclarationFormat="typescript"
+```ts fileName="pages/about-page.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, type Dictionary } from "intlayer";
 
 const aboutPageContent = {
@@ -567,62 +567,6 @@ const aboutPageContent = {
 } satisfies Dictionary;
 
 export default aboutPageContent;
-```
-
-```javascript fileName="pages/about-page.content.mjs" contentDeclarationFormat="esm"
-import { t } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const aboutPageContent = {
-  key: "about-page",
-  content: {
-    metaTitle: t({
-      en: "About Us - My Company",
-      fr: "À Propos - Ma Société",
-      es: "Acerca de Nosotros - Mi Empresa",
-    }),
-    metaDescription: t({
-      en: "Learn more about our company and our mission",
-      fr: "En savoir plus sur notre société et notre mission",
-      es: "Conozca más sobre nuestra empresa y nuestra misión",
-    }),
-    title: t({
-      en: "About Us",
-      fr: "À Propos",
-      es: "Acerca de Nosotros",
-    }),
-  },
-};
-
-export default aboutPageContent;
-```
-
-```javascript fileName="pages/about-page.content.cjs" contentDeclarationFormat="commonjs"
-const { t } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const aboutPageContent = {
-  key: "about-page",
-  content: {
-    metaTitle: t({
-      en: "About Us - My Company",
-      fr: "À Propos - Ma Société",
-      es: "Acerca de Nosotros - Mi Empresa",
-    }),
-    metaDescription: t({
-      en: "Learn more about our company and our mission",
-      fr: "En savoir plus sur notre société et notre mission",
-      es: "Conozca más sobre nuestra empresa y nuestra misión",
-    }),
-    title: t({
-      en: "About Us",
-      fr: "À Propos",
-      es: "Acerca de Nosotros",
-    }),
-  },
-};
-
-module.exports = aboutPageContent;
 ```
 
 ```json fileName="pages/about-page.content.json" contentDeclarationFormat="json"

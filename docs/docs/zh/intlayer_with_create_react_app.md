@@ -82,7 +82,7 @@ bun x intlayer init
 
 创建一个配置文件来配置您的应用程序语言：
 
-```typescript fileName="intlayer.config.ts"  codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -98,44 +98,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      // 您的其他语言
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      // 您的其他语言
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-module.exports = config;
 ```
 
 > 通过此配置文件，您可以设置本地化 URL、中间件重定向、Cookie 名称、内容声明的位置和扩展名、禁用控制台中的 Intlayer 日志等。有关可用参数的完整列表，请参阅 [配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)。
@@ -164,7 +126,7 @@ module.exports = config;
 
 创建并管理您的内容声明以存储翻译：
 
-```tsx fileName="src/app.content.tsx" codeFormat="typescript"
+```tsx fileName="src/app.content.tsx" codeFormat={["typescript", "esm"]}
 import { t, type Dictionary } from "intlayer";
 import React, { type ReactNode } from "react";
 
@@ -200,58 +162,6 @@ const appContent = {
 } satisfies Dictionary;
 
 export default appContent;
-```
-
-```jsx fileName="src/app.content.mjx" codeFormat="esm"
-import { t } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const appContent = {
-  key: "app",
-  content: {
-    getStarted: t({
-      en: "Get started by editing",
-      fr: "Commencez par éditer",
-      es: "Comience por editar",
-    }),
-    reactLink: {
-      href: "https://reactjs.org",
-      content: t({
-        en: "Learn React",
-        fr: "Apprendre React",
-        es: "Aprender React",
-      }),
-    },
-  },
-};
-
-export default appContent;
-```
-
-```jsx fileName="src/app.content.csx" codeFormat="commonjs"
-const { t } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const appContent = {
-  key: "app",
-  content: {
-    getStarted: t({
-      en: "Get started by editing",
-      fr: "Commencez par éditer",
-      es: "Comience por editar",
-    }),
-    reactLink: {
-      href: "https://reactjs.org",
-      content: t({
-        en: "Learn React",
-        fr: "Apprendre React",
-        es: "Aprender React",
-      }),
-    },
-  },
-};
-
-module.exports = appContent;
 ```
 
 ```jsx fileName="src/app.content.csx" codeFormat="commonjs"
@@ -292,7 +202,7 @@ module.exports = appContent;
 
 在整个应用程序中访问您的内容字典：
 
-```tsx {4,7} fileName="src/App.tsx"  codeFormat="typescript"
+```tsx {4,7} fileName="src/App.tsx" codeFormat={["typescript", "esm"]}
 import logo from "./logo.svg";
 import "./App.css";
 import type { FC } from "react";
@@ -327,70 +237,6 @@ const App: FC = () => (
 export default App;
 ```
 
-```jsx {3,6} fileName="src/App.mjx" codeFormat="esm"
-import "./App.css";
-import logo from "./logo.svg";
-import { IntlayerProvider, useIntlayer } from "react-intlayer";
-
-const AppContent = () => {
-  const content = useIntlayer("app");
-
-  return (
-    <div className="App">
-      <img src={logo} className="App-logo" alt="logo" />
-
-      {content.getStarted}
-      <a
-        className="App-link"
-        href={content.reactLink.href.value}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        {content.reactLink.content}
-      </a>
-    </div>
-  );
-};
-
-const App = () => (
-  <IntlayerProvider>
-    <AppContent />
-  </IntlayerProvider>
-);
-```
-
-```jsx {3,6} fileName="src/App.csx" codeFormat="commonjs"
-require("./App.css");
-const logo = require("./logo.svg");
-const { IntlayerProvider, useIntlayer } = require("react-intlayer");
-
-const AppContent = () => {
-  const content = useIntlayer("app");
-
-  return (
-    <div className="App">
-      <img src={logo} className="App-logo" alt="logo" />
-
-      {content.getStarted}
-      <a
-        className="App-link"
-        href={content.reactLink.href.value}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        {content.reactLink.content}
-      </a>
-    </div>
-  );
-};
-
-const App = () => (
-  <IntlayerProvider>
-    <AppContent />
-  </IntlayerProvider>
-);
-```
-
 > 注意：如果您想在 `string` 属性中使用您的内容，例如 `alt`、`title`、`href`、`aria-label` 等，您必须调用函数的值，例如：
 
 > ```jsx
@@ -403,35 +249,9 @@ const App = () => (
 
 要更改内容的语言，您可以使用 `useLocale` 钩子提供的 `setLocale` 函数。此函数允许您设置应用程序的语言环境并相应地更新内容。
 
-```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
+```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat={["typescript", "esm"]}
 import { Locales } from "intlayer";
 import { useLocale } from "react-intlayer";
-
-const LocaleSwitcher = () => {
-  const { setLocale } = useLocale();
-
-  return (
-    <button onClick={() => setLocale(Locales.English)}>切换语言到英语</button>
-  );
-};
-```
-
-```jsx fileName="src/components/LocaleSwitcher.mjx" codeFormat="esm"
-import { Locales } from "intlayer";
-import { useLocale } from "react-intlayer";
-
-const LocaleSwitcher = () => {
-  const { setLocale } = useLocale();
-
-  return (
-    <button onClick={() => setLocale(Locales.English)}>切换语言到英语</button>
-  );
-};
-```
-
-```jsx fileName="src/components/LocaleSwitcher.csx" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-const { useLocale } = require("react-intlayer");
 
 const LocaleSwitcher = () => {
   const { setLocale } = useLocale();
@@ -459,7 +279,7 @@ const LocaleSwitcher = () => {
 
 要为您的应用添加本地化路由，您可以创建一个 `LocaleRouter` 组件，该组件包装您的应用路由并处理基于语言环境的路由。以下是使用 [React Router](https://reactrouter.com/home) 的示例：
 
-```tsx fileName="src/components/LocaleRouter.tsx"  codeFormat="typescript"
+```tsx fileName="src/components/LocaleRouter.tsx" codeFormat={["typescript", "esm"]}
 // 导入必要的依赖项和函数
 import { type Locales, configuration, getPathWithoutLocale } from "intlayer"; // 来自 'intlayer' 的实用函数和类型
 import type { FC, PropsWithChildren } from "react"; // React 的函数组件和 props 类型
@@ -573,229 +393,9 @@ export const LocaleRouter: FC<PropsWithChildren> = ({ children }) => (
 );
 ```
 
-```jsx fileName="src/components/LocaleRouter.mjx" codeFormat="esm"
-// 导入必要的依赖项和函数
-import { configuration, getPathWithoutLocale } from "intlayer"; // 来自 'intlayer' 的实用函数和类型
-import { IntlayerProvider } from "react-intlayer"; // 国际化上下文的提供者
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  Navigate,
-  useLocation,
-} from "react-router-dom"; // 用于管理导航的路由组件
-
-// 从 Intlayer 解构配置
-const { internationalization, middleware } = configuration;
-const { locales, defaultLocale } = internationalization;
-
-/**
- * 一个处理本地化的组件，并使用适当的语言环境上下文包装子组件。
- * 它管理基于 URL 的语言环境检测和验证。
- */
-const AppLocalized = ({ children, locale }) => {
-  const { pathname, search } = useLocation(); // 获取当前 URL 路径
-
-  // 确定当前语言环境，如果未提供则回退到默认语言环境
-  const currentLocale = locale ?? defaultLocale;
-
-  // 从路径中移除语言环境前缀以构造基本路径
-  const pathWithoutLocale = getPathWithoutLocale(
-    pathname // 当前 URL 路径
-  );
-
-  /**
-   * 如果 middleware.prefixDefault 为 true，则默认语言环境应始终添加前缀。
-   */
-  if (middleware.prefixDefault) {
-    // 验证语言环境
-    if (!locale || !locales.includes(locale)) {
-      // 重定向到默认语言环境并更新路径
-      return (
-        <Navigate
-          to={`/${defaultLocale}/${pathWithoutLocale}${search}`}
-          replace // 用新路径替换当前历史记录条目
-        />
-      );
-    }
-
-    // 使用 IntlayerProvider 包装子组件并设置当前语言环境
-    return (
-      <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
-    );
-  } else {
-    /**
-     * 当 middleware.prefixDefault 为 false 时，默认语言环境不会添加前缀。
-     * 确保当前语言环境有效且不是默认语言环境。
-     */
-    if (
-      currentLocale.toString() !== defaultLocale.toString() &&
-      !locales
-        .filter(
-          (locale) => locale.toString() !== defaultLocale.toString() // 排除默认语言环境
-        )
-        .includes(currentLocale) // 检查当前语言环境是否在有效语言环境列表中
-    ) {
-      // 重定向到没有语言环境前缀的路径
-      return <Navigate to={`${pathWithoutLocale}${search}`} replace />;
-    }
-
-    // 使用 IntlayerProvider 包装子组件并设置当前语言环境
-    return (
-      <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
-    );
-  }
-};
-
-/**
- * 一个设置语言环境特定路由的路由组件。
- * 它使用 React Router 管理导航并渲染本地化组件。
- */
-export const LocaleRouter = ({ children }) => (
-  <BrowserRouter>
-    <Routes>
-      {locales
-        .filter(
-          (locale) => middleware.prefixDefault || locale !== defaultLocale
-        )
-        .map((locale) => (
-          <Route
-            // 路由模式以捕获语言环境（例如 /en/、/fr/）并匹配所有后续路径
-            path={`/${locale}/*`}
-            key={locale}
-            element={<AppLocalized locale={locale}>{children}</AppLocalized>} // 使用语言环境管理包装子组件
-          />
-        ))}
-
-      {
-        // 如果禁用了默认语言环境的前缀，则直接在根路径渲染子组件
-        !middleware.prefixDefault && (
-          <Route
-            path="*"
-            element={
-              <AppLocalized locale={defaultLocale}>{children}</AppLocalized>
-            } // 使用语言环境管理包装子组件
-          />
-        )
-      }
-    </Routes>
-  </BrowserRouter>
-);
-```
-
-```jsx fileName="src/components/LocaleRouter.cjx" codeFormat="commonjs"
-// 导入必要的依赖项和函数
-const { configuration, getPathWithoutLocale } = require("intlayer"); // 来自 'intlayer' 的实用函数和类型
-const { IntlayerProvider, useLocale } = require("react-intlayer"); // 国际化上下文的提供者
-const {
-  BrowserRouter,
-  Routes,
-  Route,
-  Navigate,
-  useLocation,
-} = require("react-router-dom"); // 用于管理导航的路由组件
-
-// 从 Intlayer 解构配置
-const { internationalization, middleware } = configuration;
-const { locales, defaultLocale } = internationalization;
-
-/**
- * 一个处理本地化的组件，并使用适当的语言环境上下文包装子组件。
- * 它管理基于 URL 的语言环境检测和验证。
- */
-const AppLocalized = ({ children, locale }) => {
-  const { pathname, search } = useLocation(); // 获取当前 URL 路径
-
-  // 确定当前语言环境，如果未提供则回退到默认语言环境
-  const currentLocale = locale ?? defaultLocale;
-
-  // 从路径中移除语言环境前缀以构造基本路径
-  const pathWithoutLocale = getPathWithoutLocale(
-    pathname // 当前 URL 路径
-  );
-
-  /**
-   * 如果 middleware.prefixDefault 为 true，则默认语言环境应始终添加前缀。
-   */
-  if (middleware.prefixDefault) {
-    // 验证语言环境
-    if (!locale || !locales.includes(locale)) {
-      // 重定向到默认语言环境并更新路径
-      return (
-        <Navigate
-          to={`/${defaultLocale}/${pathWithoutLocale}${search}`}
-          replace // 用新路径替换当前历史记录条目
-        />
-      );
-    }
-
-    // 使用 IntlayerProvider 包装子组件并设置当前语言环境
-    return (
-      <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
-    );
-  } else {
-    /**
-     * 当 middleware.prefixDefault 为 false 时，默认语言环境不会添加前缀。
-     * 确保当前语言环境有效且不是默认语言环境。
-     */
-    if (
-      currentLocale.toString() !== defaultLocale.toString() &&
-      !locales
-        .filter(
-          (locale) => locale.toString() !== defaultLocale.toString() // 排除默认语言环境
-        )
-        .includes(currentLocale) // 检查当前语言环境是否在有效语言环境列表中
-    ) {
-      // 重定向到没有语言环境前缀的路径
-      return <Navigate to={`${pathWithoutLocale}${search}`} replace />;
-    }
-
-    // 使用 IntlayerProvider 包装子组件并设置当前语言环境
-    return (
-      <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
-    );
-  }
-};
-
-/**
- * 一个设置语言环境特定路由的路由组件。
- * 它使用 React Router 管理导航并渲染本地化组件。
- */
-const LocaleRouter = ({ children }) => (
-  <BrowserRouter>
-    <Routes>
-      {locales
-        .filter(
-          (locale) => middleware.prefixDefault || locale !== defaultLocale
-        )
-        .map((locale) => (
-          <Route
-            // 路由模式以捕获语言环境（例如 /en/、/fr/）并匹配所有后续路径
-            path={`/${locale}/*`}
-            key={locale}
-            element={<AppLocalized locale={locale}>{children}</AppLocalized>} // 使用语言环境管理包装子组件
-          />
-        ))}
-
-      {
-        // 如果禁用了默认语言环境的前缀，则直接在根路径渲染子组件
-        !middleware.prefixDefault && (
-          <Route
-            path="*"
-            element={
-              <AppLocalized locale={defaultLocale}>{children}</AppLocalized>
-            } // 使用语言环境管理包装子组件
-          />
-        )
-      }
-    </Routes>
-  </BrowserRouter>
-);
-```
-
 然后，您可以在应用中使用 `LocaleRouter` 组件：
 
-```tsx fileName="src/App.tsx" codeFormat="typescript"
+```tsx fileName="src/App.tsx" codeFormat={["typescript", "esm"]}
 import { LocaleRouter } from "./components/LocaleRouter";
 import type { FC } from "react";
 
@@ -808,35 +408,11 @@ const App: FC = () => (
 );
 ```
 
-```jsx fileName="src/App.mjx" codeFormat="esm"
-import { LocaleRouter } from "./components/LocaleRouter";
-
-// ... 您的 AppContent 组件
-
-const App = () => (
-  <LocaleRouter>
-    <AppContent />
-  </LocaleRouter>
-);
-```
-
-```jsx fileName="src/App.cjx" codeFormat="commonjs"
-const { LocaleRouter } = require("./components/LocaleRouter");
-
-// ... 您的 AppContent 组件
-
-const App = () => (
-  <LocaleRouter>
-    <AppContent />
-  </LocaleRouter>
-);
-```
-
 ### （可选）第八步：在语言环境更改时更改 URL
 
 要在语言环境更改时更改 URL，您可以使用 `useLocale` 钩子提供的 `onLocaleChange` 属性。同时，您可以使用 `react-router-dom` 的 `useLocation` 和 `useNavigate` 钩子来更新 URL 路径。
 
-```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
+```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat={["typescript", "esm"]}
 import { useLocation, useNavigate } from "react-router-dom";
 import {
   Locales,
@@ -848,134 +424,6 @@ import { useLocale } from "react-intlayer";
 import { type FC } from "react";
 
 const LocaleSwitcher: FC = () => {
-  const { pathname, search } = useLocation(); // 获取当前 URL 路径。例如：/fr/about?foo=bar
-  const navigate = useNavigate();
-
-  const { locale, availableLocales, setLocale } = useLocale({
-    onLocaleChange: (locale) => {
-      // 使用更新的语言环境构造 URL
-      // 示例：/es/about?foo=bar
-      const pathWithLocale = getLocalizedUrl(`${pathname}${search}`, locale);
-
-      // 更新 URL 路径
-      navigate(pathWithLocale);
-    },
-  });
-
-  return (
-    <div>
-      <button popoverTarget="localePopover">{getLocaleName(locale)}</button>
-      <div id="localePopover" popover="auto">
-        {availableLocales.map((localeItem) => (
-          <a
-            href={getLocalizedUrl(location.pathname, localeItem)}
-            hrefLang={localeItem}
-            aria-current={locale === localeItem ? "page" : undefined}
-            onClick={(e) => {
-              e.preventDefault();
-              setLocale(localeItem);
-            }}
-            key={localeItem}
-          >
-            <span>
-              {/* 语言环境 - 例如 FR */}
-              {localeItem}
-            </span>
-            <span>
-              {/* 语言名称（自身语言环境） - 例如 Français */}
-              {getLocaleName(localeItem, locale)}
-            </span>
-            <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
-              {/* 当前语言环境下的语言名称 - 例如 Francés（当前语言环境为 Locales.SPANISH） */}
-              {getLocaleName(localeItem)}
-            </span>
-            <span dir="ltr" lang={Locales.ENGLISH}>
-              {/* 英文中的语言名称 - 例如 French */}
-              {getLocaleName(localeItem, Locales.ENGLISH)}
-            </span>
-          </a>
-        ))}
-      </div>
-    </div>
-  );
-};
-```
-
-```jsx fileName="src/components/LocaleSwitcher.msx" codeFormat="esm"
-import { useLocation, useNavigate } from "react-router-dom";
-import {
-  Locales,
-  getHTMLTextDir,
-  getLocaleName,
-  getLocalizedUrl,
-} from "intlayer";
-import { useLocale } from "react-intlayer";
-
-const LocaleSwitcher = () => {
-  const { pathname, search } = useLocation(); // 获取当前 URL 路径。例如：/fr/about?foo=bar
-  const navigate = useNavigate();
-
-  const { locale, availableLocales, setLocale } = useLocale({
-    onLocaleChange: (locale) => {
-      // 使用更新的语言环境构造 URL
-      // 示例：/es/about?foo=bar
-      const pathWithLocale = getLocalizedUrl(`${pathname}${search}`, locale);
-
-      // 更新 URL 路径
-      navigate(pathWithLocale);
-    },
-  });
-
-  return (
-    <div>
-      <button popoverTarget="localePopover">{getLocaleName(locale)}</button>
-      <div id="localePopover" popover="auto">
-        {availableLocales.map((localeItem) => (
-          <a
-            href={getLocalizedUrl(location.pathname, localeItem)}
-            hrefLang={localeItem}
-            aria-current={locale === localeItem ? "page" : undefined}
-            onClick={(e) => {
-              e.preventDefault();
-              setLocale(localeItem);
-            }}
-            key={localeItem}
-          >
-            <span>
-              {/* 语言环境 - 例如 FR */}
-              {localeItem}
-            </span>
-            <span>
-              {/* 语言名称（自身语言环境） - 例如 Français */}
-              {getLocaleName(localeItem, locale)}
-            </span>
-            <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
-              {/* 当前语言环境下的语言名称 - 例如 Francés（当前语言环境为 Locales.SPANISH） */}
-              {getLocaleName(localeItem)}
-            </span>
-            <span dir="ltr" lang={Locales.ENGLISH}>
-              {/* 英文中的语言名称 - 例如 French */}
-              {getLocaleName(localeItem, Locales.ENGLISH)}
-            </span>
-          </a>
-        ))}
-      </div>
-    </div>
-  );
-};
-```
-
-```jsx fileName="src/components/LocaleSwitcher.csx" codeFormat="commonjs"
-const { useLocation, useNavigate } = require("react-router-dom");
-const {
-  Locales,
-  getHTMLTextDir,
-  getLocaleName,
-  getLocalizedUrl,
-} = require("intlayer");
-const { useLocale } = require("react-intlayer");
-
-const LocaleSwitcher = () => {
   const { pathname, search } = useLocation(); // 获取当前 URL 路径。例如：/fr/about?foo=bar
   const navigate = useNavigate();
 
@@ -1054,7 +502,7 @@ const LocaleSwitcher = () => {
 
 创建一个自定义钩子来管理 HTML 属性。该钩子监听语言环境更改并相应地更新属性：
 
-```tsx fileName="src/hooks/useI18nHTMLAttributes.tsx" codeFormat="typescript"
+```tsx fileName="src/hooks/useI18nHTMLAttributes.tsx" codeFormat={["typescript", "esm"]}
 import { useEffect } from "react";
 import { useLocale } from "react-intlayer";
 import { getHTMLTextDir } from "intlayer";
@@ -1077,65 +525,13 @@ export const useI18nHTMLAttributes = () => {
     document.documentElement.dir = getHTMLTextDir(locale);
   }, [locale]);
 };
-```
-
-```jsx fileName="src/hooks/useI18nHTMLAttributes.msx" codeFormat="esm"
-import { useEffect } from "react";
-import { useLocale } from "react-intlayer";
-import { getHTMLTextDir } from "intlayer";
-
-/**
- * 根据当前语言环境更新 HTML <html> 元素的 `lang` 和 `dir` 属性。
- * - `lang`：通知浏览器和搜索引擎页面的语言。
- * - `dir`：确保正确的阅读顺序（例如，英语为 'ltr'，阿拉伯语为 'rtl'）。
- *
- * 此动态更新对于正确的文本渲染、可访问性和 SEO 至关重要。
- */
-export const useI18nHTMLAttributes = () => {
-  const { locale } = useLocale();
-
-  useEffect(() => {
-    // 将语言属性更新为当前语言环境。
-    document.documentElement.lang = locale;
-
-    // 根据当前语言环境设置文本方向。
-    document.documentElement.dir = getHTMLTextDir(locale);
-  }, [locale]);
-};
-```
-
-```jsx fileName="src/hooks/useI18nHTMLAttributes.csx" codeFormat="commonjs"
-const { useEffect } = require("react");
-const { useLocale } = require("react-intlayer");
-const { getHTMLTextDir } = require("intlayer");
-
-/**
- * 根据当前语言环境更新 HTML <html> 元素的 `lang` 和 `dir` 属性。
- * - `lang`：通知浏览器和搜索引擎页面的语言。
- * - `dir`：确保正确的阅读顺序（例如，英语为 'ltr'，阿拉伯语为 'rtl'）。
- *
- * 此动态更新对于正确的文本渲染、可访问性和 SEO 至关重要。
- */
-const useI18nHTMLAttributes = () => {
-  const { locale } = useLocale();
-
-  useEffect(() => {
-    // 将语言属性更新为当前语言环境。
-    document.documentElement.lang = locale;
-
-    // 根据当前语言环境设置文本方向。
-    document.documentElement.dir = getHTMLTextDir(locale);
-  }, [locale]);
-};
-
-module.exports = { useI18nHTMLAttributes };
 ```
 
 #### 在您的应用中使用钩子
 
 将钩子集成到您的主组件中，以便在语言环境更改时更新 HTML 属性：
 
-```tsx fileName="src/App.tsx" codeFormat="typescript"
+```tsx fileName="src/App.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { IntlayerProvider, useIntlayer } from "react-intlayer";
 import { useI18nHTMLAttributes } from "./hooks/useI18nHTMLAttributes";
@@ -1155,49 +551,6 @@ const App: FC = () => (
 );
 
 export default App;
-```
-
-```jsx fileName="src/App.msx" codeFormat="esm"
-import { IntlayerProvider, useIntlayer } from "react-intlayer";
-import { useI18nHTMLAttributes } from "./hooks/useI18nHTMLAttributes";
-import "./App.css";
-
-const AppContent = () => {
-  // 应用钩子以根据语言环境更新 <html> 标签的 lang 和 dir 属性。
-  useI18nHTMLAttributes();
-
-  // ... 组件的其他部分
-};
-
-const App = () => (
-  <IntlayerProvider>
-    <AppContent />
-  </IntlayerProvider>
-);
-
-export default App;
-```
-
-```jsx fileName="src/App.csx" codeFormat="commonjs"
-const { FC } = require("react");
-const { IntlayerProvider, useIntlayer } = require("react-intlayer");
-const { useI18nHTMLAttributes } = require("./hooks/useI18nHTMLAttributes");
-require("./App.css");
-
-const AppContent = () => {
-  // 应用钩子以根据语言环境更新 <html> 标签的 lang 和 dir 属性。
-  useI18nHTMLAttributes();
-
-  // ... 组件的其他部分
-};
-
-const App = () => (
-  <IntlayerProvider>
-    <AppContent />
-  </IntlayerProvider>
-);
-
-module.exports = App;
 ```
 
 通过应用这些更改，您的应用将：

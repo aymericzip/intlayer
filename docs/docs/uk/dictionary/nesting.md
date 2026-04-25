@@ -36,7 +36,7 @@ history:
 
 Нижче наведено приклад базового словника, який можна вкладати в інший словник:
 
-```typescript fileName="firstDictionary.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="firstDictionary.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { type Dictionary } from "intlayer";
 
 const firstDictionary = {
@@ -51,38 +51,6 @@ const firstDictionary = {
 } satisfies Dictionary;
 
 export default firstDictionary;
-```
-
-```javascript fileName="firstDictionary.content.mjs" contentDeclarationFormat="esm"
-/** @type {import('intlayer').Dictionary} */
-const firstDictionary = {
-  key: "key_of_my_first_dictionary",
-  content: {
-    content: "content",
-    subContent: {
-      contentNumber: 0,
-      contentString: "string",
-    },
-  },
-};
-
-export default firstDictionary;
-```
-
-```javascript fileName="firstDictionary.content.cjs" contentDeclarationFormat="commonjs"
-/** @type {import('intlayer').Dictionary} */
-const firstDictionary = {
-  key: "key_of_my_first_dictionary",
-  content: {
-    content: "content",
-    subContent: {
-      contentNumber: 0,
-      contentString: "string",
-    },
-  },
-};
-
-module.exports = firstDictionary;
 ```
 
 ```json fileName="firstDictionary.content.json" contentDeclarationFormat="json"
@@ -103,7 +71,7 @@ module.exports = firstDictionary;
 
 Тепер створіть інший модуль вмісту, який використовує функцію `nest` для посилання на наведений вище вміст. Ви можете посилатися на весь вміст або на конкретне вкладене значення:
 
-```typescript fileName="secondDictionary.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="secondDictionary.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { nest, type Dictionary } from "intlayer";
 
 const myNestingContent = {
@@ -120,42 +88,6 @@ const myNestingContent = {
 } satisfies Dictionary;
 
 export default myNestingContent;
-```
-
-```javascript fileName="secondDictionary.content.mjs" contentDeclarationFormat="esm"
-import { nest } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const myNestingContent = {
-  key: "key_of_my_second_dictionary",
-  content: {
-    fullNestedContent: nest("key_of_my_first_dictionary"),
-    partialNestedContent: nest(
-      "key_of_my_first_dictionary",
-      "subContent.contentNumber"
-    ),
-  },
-};
-
-export default myNestingContent;
-```
-
-```javascript fileName="secondDictionary.content.cjs" contentDeclarationFormat="commonjs"
-const { nest } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const myNestingContent = {
-  key: "key_of_my_second_dictionary",
-  content: {
-    fullNestedContent: nest("key_of_my_first_dictionary"),
-    partialNestedContent: nest(
-      "key_of_my_first_dictionary",
-      "subContent.contentNumber"
-    ),
-  },
-};
-
-module.exports = myNestingContent;
 ```
 
 ```json fileName="secondDictionary.content.json" contentDeclarationFormat="json"
@@ -186,7 +118,7 @@ module.exports = myNestingContent;
 
 Щоб використовувати вкладений вміст у React-компоненті, скористайтеся хуком `useIntlayer` з пакету `react-intlayer`. Цей хук отримує відповідний вміст на основі вказаного ключа. Ось приклад того, як його використовувати:
 
-```tsx fileName="**/*.tsx" codeFormat="typescript"
+```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useIntlayer } from "react-intlayer";
 
@@ -210,56 +142,6 @@ const NestComponent: FC = () => {
 };
 
 export default NestComponent;
-```
-
-```javascript fileName="**/*.mjx" codeFormat="esm"
-import { useIntlayer } from "react-intlayer";
-
-const NestComponent = () => {
-  const { fullNestedContent, partialNestedContent } = useIntlayer(
-    "key_of_my_second_dictionary"
-  );
-
-  return (
-    <div>
-      <p>
-        Повний вкладений вміст: {JSON.stringify(fullNestedContent)}
-        {/* Вивід: {"content": "content", "subContent": {"contentNumber": 0, "contentString": "string"}} */}
-      </p>
-      <p>
-        Часткове вкладене значення: {partialNestedContent}
-        {/* Вивід: 0 */}
-      </p>
-    </div>
-  );
-};
-
-export default NestComponent;
-```
-
-```javascript fileName="**/*.cjx" codeFormat="commonjs"
-const { useIntlayer } = require("react-intlayer");
-
-const NestComponent = () => {
-  const { fullNestedContent, partialNestedContent } = useIntlayer(
-    "key_of_my_second_dictionary"
-  );
-
-  return (
-    <div>
-      <p>
-        Full Nested Content: {JSON.stringify(fullNestedContent)}
-        {/* Вивід: {"content": "content", "subContent": {"contentNumber": 0, "contentString": "string"}} */}
-      </p>
-      <p>
-        Partial Nested Value: {partialNestedContent}
-        {/* Вивід: 0 */}
-      </p>
-    </div>
-  );
-};
-
-module.exports = NestComponent;
 ```
 
 ## Додаткові ресурси

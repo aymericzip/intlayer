@@ -657,7 +657,7 @@ export const Route = createFileRoute("/{-$locale}/$")({
 
 इसे सेटअप करने के लिए, आप अपने `intlayer.config.ts` फ़ाइल में एक `compiler` अनुभाग जोड़ सकते हैं:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -690,74 +690,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... आपकी कॉन्फ़िगरेशन का शेष भाग
-  compiler: {
-    /**
-     * इंगित करता है कि क्या कंपाइलर सक्षम होना चाहिए।
-     */
-    enabled: true,
-
-    /**
-     * आउटपुट फ़ाइलों का पथ परिभाषित करता है
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * इंगित करता है कि क्या घटकों को बदलने के बाद सहेजा जाना चाहिए।
-     *
-     * - यदि `true` है, तो कंपाइलर डिस्क पर घटक फ़ाइल को फिर से लिखेगा। इस प्रकार, परिवर्तन स्थायी होगा, और कंपाइलर अगली प्रक्रिया के लिए परिवर्तन को छोड़ देगा। इस तरह, कंपाइलर ऐप को बदल सकता है और फिर इसे हटाया जा सकता है।
-     *
-     * - यदि `false` है, तो कंपाइलर कोड में `useIntlayer()` फ़ंक्शन कॉल को केवल बिल्ड आउटपुट में इंजेक्ट करेगा, जिससे मूल कोडबेस बरकरार रहेगा। परिवर्तन केवल मेमोरी में किया जाएगा।
-     */
-    saveComponents: false,
-
-    /**
-     * डिक्शनरी की प्रिफिक्स
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... आपकी कॉन्फ़िगरेशन का शेष भाग
-  compiler: {
-    /**
-     * इंगित करता है कि क्या कंपाइलर सक्षम होना चाहिए।
-     */
-    enabled: true,
-
-    /**
-     * आउटपुट फ़ाइलों का पथ परिभाषित करता है
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * इंगित करता है कि क्या घटकों को बदलने के बाद सहेजा जाना चाहिए।
-     *
-     * - यदि `true` है, तो कंपाइलर डिस्क पर घटक फ़ाइल को फिर से लिखेगा। इस प्रकार, परिवर्तन स्थायी होगा, और कंपाइलर अगली प्रक्रिया के लिए परिवर्तन को छोड़ देगा। इस तरह, कंपाइलर ऐप को बदल सकता है और फिर इसे हटाया जा सकता है।
-     *
-     * - यदि `false` है, तो कंपाइलर कोड में `useIntlayer()` फ़ंक्शन कॉल को केवल बिल्ड आउटपुट में इंजेक्ट करेगा, जिससे मूल कोडबेस बरकरार रहेगा। परिवर्तन केवल मेमोरी में किया जाएगा।
-     */
-    saveComponents: false,
-
-    /**
-     * डिक्शनरी की प्रिफिक्स
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-module.exports = config;
 ```
 
 <Tabs>

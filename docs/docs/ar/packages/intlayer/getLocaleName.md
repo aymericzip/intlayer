@@ -50,50 +50,8 @@ history:
 
 ## مثال على الاستخدام
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, getLocaleName } from "intlayer";
-
-getLocaleName(Locales.ENGLISH); // الناتج: "English"
-getLocaleName(Locales.ENGLISH, Locales.FRENCH); // الناتج: "Anglais"
-getLocaleName(Locales.ENGLISH, Locales.ESPANOL); // الناتج: "Inglés"
-getLocaleName(Locales.ENGLISH, Locales.ENGLISH); // الناتج: "English"
-
-getLocaleName(Locales.FRENCH); // الناتج: "Français"
-getLocaleName(Locales.FRENCH, Locales.FRENCH); // الناتج: "Français"
-getLocaleName(Locales.FRENCH, Locales.ESPANOL); // الناتج: "Francés"
-getLocaleName(Locales.FRENCH, Locales.ENGLISH); // الناتج: "French"
-
-getLocaleName(Locales.CHINESE); // الناتج: "中文"
-getLocaleName(Locales.CHINESE, Locales.FRENCH); // الناتج: "Chinois"
-getLocaleName(Locales.CHINESE, Locales.ESPANOL); // الناتج: "Chino"
-getLocaleName(Locales.CHINESE, Locales.ENGLISH); // الناتج: "Chinese"
-
-getLocaleName("unknown-locale"); // الناتج: "Unknown locale"
-```
-
-```javascript codeFormat="esm"
-import { Locales, getLocaleName } from "intlayer";
-
-getLocaleName(Locales.ENGLISH); // الناتج: "English"
-getLocaleName(Locales.ENGLISH, Locales.FRENCH); // الناتج: "Anglais"
-getLocaleName(Locales.ENGLISH, Locales.ESPANOL); // الناتج: "Inglés"
-getLocaleName(Locales.ENGLISH, Locales.ENGLISH); // الناتج: "English"
-
-getLocaleName(Locales.FRENCH); // الناتج: "Français"
-getLocaleName(Locales.FRENCH, Locales.FRENCH); // الناتج: "Français"
-getLocaleName(Locales.FRENCH, Locales.ESPANOL); // الناتج: "Francés"
-getLocaleName(Locales.FRENCH, Locales.ENGLISH); // الناتج: "French"
-
-getLocaleName(Locales.CHINESE); // الناتج: "中文"
-getLocaleName(Locales.CHINESE, Locales.FRENCH); // الناتج: "Chinois"
-getLocaleName(Locales.CHINESE, Locales.ESPANOL); // الناتج: "Chino"
-getLocaleName(Locales.CHINESE, Locales.ENGLISH); // الناتج: "Chinese"
-
-getLocaleName("unknown-locale"); // الناتج: "Unknown locale"
-```
-
-```javascript codeFormat="commonjs"
-const { Locales, getLocaleName } = require("intlayer");
 
 getLocaleName(Locales.ENGLISH); // الناتج: "English"
 getLocaleName(Locales.ENGLISH, Locales.FRENCH); // الناتج: "Anglais"

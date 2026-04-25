@@ -64,38 +64,8 @@ La funzione `getMultilingualUrls` genera una mappatura di URL multilingue aggiun
 
 ### URL relativi
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getMultilingualUrls, Locales } from "intlayer";
-
-getMultilingualUrls(
-  "/dashboard",
-  [Locales.ENGLISH, Locales.FRENCH],
-  Locales.ENGLISH,
-  false
-);
-// Output: {
-//   en: "/dashboard",
-//   fr: "/fr/dashboard"
-// }
-```
-
-```javascript codeFormat="esm"
-import { getMultilingualUrls, Locales } from "intlayer";
-
-getMultilingualUrls(
-  "/dashboard",
-  [Locales.ENGLISH, Locales.FRENCH],
-  Locales.ENGLISH,
-  false
-);
-// Output: {
-//   en: "/dashboard",
-//   fr: "/fr/dashboard"
-// }
-```
-
-```javascript codeFormat="commonjs"
-const { getMultilingualUrls, Locales } = require("intlayer");
 
 getMultilingualUrls(
   "/dashboard",
@@ -143,7 +113,7 @@ getMultilingualUrls(
 
 In un'applicazione multilingue, configurare le impostazioni di internazionalizzazione con `locales` e `defaultLocale` è fondamentale per garantire la visualizzazione della lingua corretta. Di seguito un esempio di come `getMultilingualUrls` può essere utilizzato nella configurazione di un'applicazione:
 
-```tsx codeFormat="typescript"
+```tsx codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 // Configurazione per le localizzazioni supportate e la localizzazione predefinita
@@ -155,36 +125,6 @@ export default {
 } satisfies IntlayerConfig;
 
 export default config;
-```
-
-```javascript codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-// Configurazione per le localizzazioni supportate e la localizzazione predefinita
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-```javascript codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-// Configurazione per le localizzazioni supportate e la localizzazione predefinita
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-module.exports = config;
 ```
 
 La configurazione sopra garantisce che l'applicazione riconosca `ENGLISH`, `FRENCH` e `SPANISH` come lingue supportate e utilizzi `ENGLISH` come lingua di fallback.

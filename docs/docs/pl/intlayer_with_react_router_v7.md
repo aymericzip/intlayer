@@ -133,7 +133,7 @@ See [Application Template](https://github.com/aymericzip/intlayer-react-router-v
 
 Utwórz plik konfiguracyjny, aby skonfigurować języki swojej aplikacji:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { type IntlayerConfig, Locales } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -144,36 +144,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-// Konfiguracja międzynarodowa
-const config = {
-  internationalization: {
-    defaultLocale: Locales.ENGLISH, // Domyślny język
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH], // Obsługiwane języki
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-// Konfiguracja międzynarodowa
-const config = {
-  internationalization: {
-    defaultLocale: Locales.ENGLISH, // Domyślny język
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH], // Obsługiwane języki
-  },
-};
-
-module.exports = config;
 ```
 
 > Za pomocą tego pliku konfiguracyjnego możesz ustawić lokalizowane adresy URL, przekierowania w middleware, nazwy ciasteczek, lokalizację i rozszerzenie deklaracji zawartości, wyłączyć logi Intlayer w konsoli i wiele więcej. Pełną listę dostępnych parametrów znajdziesz w [dokumentacji konfiguracyjnej](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/configuration.md).
@@ -503,7 +473,7 @@ Aby ułatwić ten proces, Intlayer proponuje [kompilator](https://github.com/aym
 
 Aby go skonfigurować, możesz dodać sekcję `compiler` w pliku `intlayer.config.ts`:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -532,66 +502,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... Reszta Twojej konfiguracji
-  compiler: {
-    /**
-     * Wskazuje, czy kompilator powinien być włączony.
-     */
-    enabled: true,
-
-    /**
-     * Definiuje ścieżkę plików wyjściowych
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * Wskazuje, czy komponenty powinny zostać zapisane po transformacji. W ten sposób kompilator można uruchomić tylko raz, aby przetransformować aplikację, a następnie go usunąć.
-     */
-    saveComponents: false,
-
-    /**
-     * Prefiks klucza słownika
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... Reszta Twojej konfiguracji
-  compiler: {
-    /**
-     * Wskazuje, czy kompilator powinien być włączony.
-     */
-    enabled: true,
-
-    /**
-     * Definiuje ścieżkę plików wyjściowych
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * Wskazuje, czy komponenty powinny zostać zapisane po transformacji. W ten sposób kompilator można uruchomić tylko raz, aby przetransformować aplikację, a następnie go usunąć.
-     */
-    saveComponents: false,
-
-    /**
-     * Prefiks klucza słownika
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-module.exports = config;
 ```
 
 <Tabs>

@@ -32,7 +32,7 @@ history:
 
 لتضمين محتوى ملف في مشروع Intlayer الخاص بك، استخدم دالة `file` في وحدة المحتوى. فيما يلي أمثلة توضح تطبيقات مختلفة.
 
-```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="**/*.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { file, type Dictionary } from "intlayer";
 
 const myFileContent = {
@@ -43,34 +43,6 @@ const myFileContent = {
 } satisfies Dictionary;
 
 export default myFileContent;
-```
-
-```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-import { file } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const myFileContent = {
-  key: "my_key",
-  content: {
-    myFile: file("./path/to/file.txt"),
-  },
-};
-
-export default myFileContent;
-```
-
-```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-const { file } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const myFileContent = {
-  key: "my_key",
-  content: {
-    myFile: file("./path/to/file.txt"),
-  },
-};
-
-module.exports = myFileContent;
 ```
 
 ```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
@@ -90,7 +62,7 @@ module.exports = myFileContent;
 
 لاستخدام محتوى ملف مضمن في مكون React، قم باستيراد واستخدام الخطاف `useIntlayer` من حزمة `react-intlayer`. هذا يسترجع المحتوى من المفتاح المحدد ويسمح بعرضه بشكل ديناميكي.
 
-```tsx fileName="**/*.tsx" codeFormat="typescript"
+```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useIntlayer } from "react-intlayer";
 
@@ -107,45 +79,11 @@ const FileComponent: FC = () => {
 export default FileComponent;
 ```
 
-```javascript fileName="**/*.mjx" codeFormat="esm"
-import { useIntlayer } from "react-intlayer";
-
-// مكون لعرض محتوى الملف باستخدام React و esm
-const FileComponent = () => {
-  const { myFile } = useIntlayer("my_key");
-
-  return (
-    <div>
-      <pre>{myFile}</pre>
-    </div>
-  );
-};
-
-export default FileComponent;
-```
-
-```javascript fileName="**/*.cjs" codeFormat="commonjs"
-const { useIntlayer } = require("react-intlayer");
-
-// مكون لعرض محتوى الملف باستخدام React و commonjs
-const FileComponent = () => {
-  const { myFile } = useIntlayer("my_key");
-
-  return (
-    <div>
-      <pre>{myFile}</pre>
-    </div>
-  );
-};
-
-module.exports = FileComponent;
-```
-
 ## مثال على ملفات Markdown متعددة اللغات
 
 لدعم ملفات Markdown القابلة للتحرير متعددة اللغات، يمكنك استخدام `file` مع `t()` و `md()` لتعريف نسخ مختلفة من ملف محتوى Markdown بلغات متعددة.
 
-```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="**/*.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { file, t, md, type Dictionary } from "intlayer";
 
 const myMultilingualContent = {
@@ -163,44 +101,6 @@ const myMultilingualContent = {
 } satisfies Dictionary;
 
 export default myMultilingualContent;
-```
-
-```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-import { file, t, md } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const myMultilingualContent = {
-  key: "my_multilingual_key",
-  content: {
-    myContent: md(
-      t({
-        ar: file("src/components/test.ar.md"),
-        en: file("src/components/test.en.md"),
-        fr: file("src/components/test.fr.md"),
-        es: file("src/components/test.es.md"),
-      })
-    ),
-  },
-};
-
-export default myMultilingualContent;
-```
-
-```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-const { file, t, md } = require("intlayer");
-
-const myMultilingualContent = {
-  key: "my_multilingual_key",
-  content: {
-    myContent: md(
-      t({
-        en: file("src/components/test.en.md"),
-        fr: file("src/components/test.fr.md"),
-        es: file("src/components/test.es.md"),
-      })
-    ),
-  },
-};
 ```
 
 يتيح هذا الإعداد استرجاع المحتوى بشكل ديناميكي بناءً على تفضيل لغة المستخدم. عند استخدامه في محرر Intlayer المرئي أو نظام إدارة المحتوى (CMS)، سيتعرف النظام على أن المحتوى يأتي من ملفات Markdown المحددة ويضمن بقاؤها قابلة للتحرير.

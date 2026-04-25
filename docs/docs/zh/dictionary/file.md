@@ -32,7 +32,7 @@ history:
 
 要在您的 Intlayer 项目中嵌入文件内容，请在内容模块中使用 `file` 函数。以下示例展示了不同的实现方式。
 
-```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="**/*.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { file, type Dictionary } from "intlayer";
 
 const myFileContent = {
@@ -43,34 +43,6 @@ const myFileContent = {
 } satisfies Dictionary;
 
 export default myFileContent;
-```
-
-```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-import { file } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const myFileContent = {
-  key: "my_key",
-  content: {
-    myFile: file("./path/to/file.txt"),
-  },
-};
-
-export default myFileContent;
-```
-
-```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-const { file } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const myFileContent = {
-  key: "my_key",
-  content: {
-    myFile: file("./path/to/file.txt"),
-  },
-};
-
-module.exports = myFileContent;
 ```
 
 ```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
@@ -90,7 +62,7 @@ module.exports = myFileContent;
 
 要在 React 组件中使用嵌入的文件内容，请从 `react-intlayer` 包中导入并使用 `useIntlayer` 钩子。该钩子会从指定的 key 中获取内容，并允许动态显示。
 
-```tsx fileName="**/*.tsx" codeFormat="typescript"
+```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useIntlayer } from "react-intlayer";
 
@@ -107,43 +79,11 @@ const FileComponent: FC = () => {
 export default FileComponent;
 ```
 
-```javascript fileName="**/*.mjx" codeFormat="esm"
-import { useIntlayer } from "react-intlayer";
-
-const FileComponent = () => {
-  const { myFile } = useIntlayer("my_key");
-
-  return (
-    <div>
-      <pre>{myFile}</pre>
-    </div>
-  );
-};
-
-export default FileComponent;
-```
-
-```javascript fileName="**/*.cjs" codeFormat="commonjs"
-const { useIntlayer } = require("react-intlayer");
-
-const FileComponent = () => {
-  const { myFile } = useIntlayer("my_key");
-
-  return (
-    <div>
-      <pre>{myFile}</pre>
-    </div>
-  );
-};
-
-module.exports = FileComponent;
-```
-
 ## 多语言 Markdown 示例
 
 为了支持多语言可编辑的 Markdown 文件，您可以结合使用 `file`、`t()` 和 `md()` 来定义 Markdown 内容文件的不同语言版本。
 
-```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="**/*.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { file, t, md, type Dictionary } from "intlayer";
 
 const myMultilingualContent = {
@@ -161,44 +101,6 @@ const myMultilingualContent = {
 } satisfies Dictionary;
 
 export default myMultilingualContent;
-```
-
-```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-import { file, t, md } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const myMultilingualContent = {
-  key: "my_multilingual_key",
-  content: {
-    myContent: md(
-      t({
-        zh: file("src/components/test.zh.md"),
-        en: file("src/components/test.en.md"),
-        fr: file("src/components/test.fr.md"),
-        es: file("src/components/test.es.md"),
-      })
-    ),
-  },
-};
-
-export default myMultilingualContent;
-```
-
-```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-const { file, t, md } = require("intlayer");
-
-const myMultilingualContent = {
-  key: "my_multilingual_key",
-  content: {
-    myContent: md(
-      t({
-        en: file("src/components/test.en.md"),
-        fr: file("src/components/test.fr.md"),
-        es: file("src/components/test.es.md"),
-      })
-    ),
-  },
-};
 ```
 
 此设置允许根据用户的语言偏好动态检索内容。当在 Intlayer 可视化编辑器或 CMS 中使用时，系统将识别内容来自指定的 Markdown 文件，并确保它们保持可编辑状态。

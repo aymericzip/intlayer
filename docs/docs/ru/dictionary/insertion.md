@@ -41,7 +41,7 @@ history:
   <Tab label="Ручная обертка" value="manual-wrapping">
     Используйте функцию `insert` для явного объявления контента для вставки.
 
-    ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+    ```typescript fileName="**/*.content.ts" contentDeclarationFormat=["typescript", "esm", "cjs"]
     import { insert, type Dictionary } from "intlayer";
 
     const myInsertionContent = {
@@ -99,7 +99,7 @@ history:
   <Tab label="Автоматическое обнаружение" value="automatic-detection">
     Если строка содержит общие индикаторы вставки (например, `{{name}}`), Intlayer автоматически преобразует ее.
 
-    ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+    ```typescript fileName="**/*.content.ts" contentDeclarationFormat=["typescript", "esm", "cjs"]
     import { type Dictionary } from "intlayer";
 
     const myInsertionContent = {
@@ -153,7 +153,7 @@ history:
 
 Для использования вставочного контента внутри React-компонента импортируйте и используйте хук `useIntlayer` из пакета `react-intlayer`. Этот хук получает контент по указанному ключу и позволяет передать объект, который сопоставляет каждый заполнитель в вашем контенте со значением, которое вы хотите отобразить.
 
-```tsx fileName="**/*.tsx" codeFormat="typescript"
+```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useIntlayer } from "react-intlayer";
 
@@ -179,60 +179,6 @@ const InsertionComponent: FC = () => {
 };
 
 export default InsertionComponent;
-```
-
-```javascript fileName="**/*.mjx" codeFormat="esm"
-import { useIntlayer } from "react-intlayer";
-
-const InsertionComponent = () => {
-  const { myInsertion } = useIntlayer("my_key");
-
-  return (
-    <div>
-      <p>
-        {
-          /* Вывод: "Привет, меня зовут John и мне 30 лет!" */
-          myInsertion({ name: "John", age: "30" })
-        }
-      </p>
-      <p>
-        {
-          /* Вы можете повторно использовать ту же вставку с разными значениями */
-          myInsertion({ name: "Alice", age: "25" })
-        }
-      </p>
-    </div>
-  );
-};
-
-export default InsertionComponent;
-```
-
-```javascript fileName="**/*.cjs" codeFormat="commonjs"
-const { useIntlayer } = require("react-intlayer");
-
-const InsertionComponent = () => {
-  const { myInsertion } = useIntlayer("my_key");
-
-  return (
-    <div>
-      <p>
-        {
-          /* Вывод: "Привет, меня зовут John и мне 30 лет!" */
-          myInsertion({ name: "John", age: "30" })
-        }
-      </p>
-      <p>
-        {
-          /* Вы можете повторно использовать ту же вставку с разными значениями */
-          myInsertion({ name: "Alice", age: "25" })
-        }
-      </p>
-    </div>
-  );
-};
-
-module.exports = InsertionComponent;
 ```
 
 ## Дополнительные ресурсы

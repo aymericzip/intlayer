@@ -85,7 +85,7 @@ bun x intlayer init
 
 애플리케이션의 언어를 구성하기 위해 설정 파일을 생성합니다:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -103,76 +103,18 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      // 기타 로케일
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      // 기타 로케일
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-module.exports = config;
-```
-
 > 이 구성 파일을 통해 로컬라이즈된 URL, 미들웨어 리디렉션, 쿠키 이름, 콘텐츠 선언의 위치 및 확장자, 콘솔에서 Intlayer 로그 비활성화 등을 설정할 수 있습니다. 사용 가능한 파라미터의 전체 목록은 [구성 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)를 참조하세요.
 
 ### 3단계: Vite 구성에 Intlayer 통합
 
 구성 파일에 intlayer 플러그인을 추가합니다.
 
-```typescript fileName="vite.config.ts" codeFormat="typescript"
+```typescript fileName="vite.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { defineConfig } from "vite";
 import { intlayer } from "vite-intlayer";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [intlayer()],
-});
-```
-
-```javascript fileName="vite.config.mjs" codeFormat="esm"
-import { defineConfig } from "vite";
-import { intlayer } from "vite-intlayer";
-
-// https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [intlayer()],
-});
-```
-
-```javascript fileName="vite.config.cjs" codeFormat="commonjs"
-const { defineConfig } = require("vite");
-const { intlayer } = require("vite-intlayer");
-
-// https://vitejs.dev/config/
-module.exports = defineConfig({
   plugins: [intlayer()],
 });
 ```
@@ -208,7 +150,7 @@ import "./app.js";
 
 번역을 저장하기 위해 콘텐츠 선언을 생성하고 관리합니다:
 
-```typescript fileName="src/app.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="src/app.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { insert, t, type Dictionary } from "intlayer";
 
 const appContent = {
@@ -239,74 +181,6 @@ const appContent = {
 } satisfies Dictionary;
 
 export default appContent;
-```
-
-```javascript fileName="src/app.content.mjs" contentDeclarationFormat="esm"
-import { insert, t } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const appContent = {
-  key: "app",
-  content: {
-    title: "Vite + Vanilla",
-
-    viteLogoLabel: t({
-      en: "Vite Logo",
-      fr: "Logo Vite",
-      es: "Logo Vite",
-    }),
-
-    count: insert(
-      t({
-        en: "count is {{count}}",
-        fr: "le compte est {{count}}",
-        es: "el recuento es {{count}}",
-      })
-    ),
-
-    readTheDocs: t({
-      en: "Click on the Vite logo to learn more",
-      fr: "Cliquez sur le logo Vite pour en savoir plus",
-      es: "Vite 로고를 클릭하여 더 자세히 알아보세요",
-    }),
-  },
-};
-
-export default appContent;
-```
-
-```javascript fileName="src/app.content.cjs" contentDeclarationFormat="commonjs"
-const { insert, t } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const appContent = {
-  key: "app",
-  content: {
-    title: "Vite + Vanilla",
-
-    viteLogoLabel: t({
-      en: "Vite Logo",
-      fr: "Logo Vite",
-      es: "Logo Vite",
-    }),
-
-    count: insert(
-      t({
-        en: "count is {{count}}",
-        fr: "le compte est {{count}}",
-        es: "el recuento es {{count}}",
-      })
-    ),
-
-    readTheDocs: t({
-      en: "Click on the Vite logo to learn more",
-      fr: "Cliquez sur le logo Vite pour en savoir plus",
-      es: "Vite 로고를 클릭하여 더 자세히 알아보세요",
-    }),
-  },
-};
-
-module.exports = appContent;
 ```
 
 ```json fileName="src/app.content.json" contentDeclarationFormat="json"
@@ -425,7 +299,7 @@ export function setupLocaleSwitcher(container: HTMLElement): () => void {
 
 Intlayer는 `md()` 및 `html()` 콘텐츠 선언을 지원합니다. Vanilla JS에서 컴파일된 출력은 `innerHTML`을 통해 원시 HTML로 삽입됩니다.
 
-```typescript fileName="src/app.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="src/app.content.ts" contentDeclarationFormat=["typescript", "esm", "cjs"]
 import { md, t, type Dictionary } from "intlayer";
 
 const appContent = {
@@ -488,35 +362,11 @@ document.querySelector<HTMLDivElement>(".edit-note")!.innerHTML =
 
 > 프로덕션에서 `intlayerProxy`를 사용하려면 `vite-intlayer`를 `devDependencies`에서 `dependencies`로 이동해야 한다는 점에 유의하세요.
 
-```typescript {3,7} fileName="vite.config.ts" codeFormat="typescript"
+```typescript {3,7} fileName="vite.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { defineConfig } from "vite";
 import { intlayer, intlayerProxy } from "vite-intlayer";
 
 export default defineConfig({
-  plugins: [
-    intlayerProxy(), // 가장 먼저 위치해야 합니다
-    intlayer(),
-  ],
-});
-```
-
-```javascript {3,7} fileName="vite.config.mjs" codeFormat="esm"
-import { defineConfig } from "vite";
-import { intlayer, intlayerProxy } from "vite-intlayer";
-
-export default defineConfig({
-  plugins: [
-    intlayerProxy(), // 가장 먼저 위치해야 합니다
-    intlayer(),
-  ],
-});
-```
-
-```javascript {3,7} fileName="vite.config.cjs" codeFormat="commonjs"
-const { defineConfig } = require("vite");
-const { intlayer, intlayerProxy } = require("vite-intlayer");
-
-module.exports = defineConfig({
   plugins: [
     intlayerProxy(), // 가장 먼저 위치해야 합니다
     intlayer(),

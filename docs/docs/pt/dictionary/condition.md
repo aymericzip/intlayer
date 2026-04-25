@@ -28,7 +28,7 @@ No Intlayer, o conteúdo condicional é alcançado através da função `cond`, 
 
 Para configurar conteúdo condicional no seu projeto Intlayer, crie um módulo de conteúdo que inclua suas definições condicionais. Abaixo estão exemplos em vários formatos.
 
-```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="**/*.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { cond, type Dictionary } from "intlayer";
 
 const myConditionalContent = {
@@ -43,42 +43,6 @@ const myConditionalContent = {
 } satisfies Dictionary;
 
 export default myConditionalContent;
-```
-
-```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-import { cond } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const myConditionalContent = {
-  key: "my_key",
-  content: {
-    myCondition: cond({
-      true: "meu conteúdo quando é verdadeiro",
-      false: "meu conteúdo quando é falso",
-      fallback: "meu conteúdo quando a condição falha", // Opcional
-    }),
-  },
-};
-
-export default myConditionalContent;
-```
-
-```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-const { cond } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const myConditionalContent = {
-  key: "my_key",
-  content: {
-    myCondition: cond({
-      true: "meu conteúdo quando é verdadeiro",
-      false: "meu conteúdo quando é falso",
-      fallback: "meu conteúdo quando a condição falha", // Opcional
-    }),
-  },
-};
-
-module.exports = myConditionalContent;
 ```
 
 ```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
@@ -104,7 +68,7 @@ module.exports = myConditionalContent;
 
 Para utilizar conteúdo condicional dentro de um componente React, importe e use o hook `useIntlayer` do pacote `react-intlayer`. Este hook busca o conteúdo para a chave especificada e permite que você passe uma condição para selecionar a saída apropriada.
 
-```tsx fileName="**/*.tsx" codeFormat="typescript"
+```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useIntlayer } from "react-intlayer";
 
@@ -142,84 +106,6 @@ const ConditionalComponent: FC = () => {
 };
 
 export default ConditionalComponent;
-```
-
-```javascript fileName="**/*.mjx" codeFormat="esm"
-import { useIntlayer } from "react-intlayer";
-
-const ConditionalComponent = () => {
-  const { myCondition } = useIntlayer("my_key");
-
-  return (
-    <div>
-      <p>
-        {
-          /* Saída: meu conteúdo quando é verdadeiro */
-          myCondition(true)
-        }
-      </p>
-      <p>
-        {
-          /* Saída: meu conteúdo quando é falso */
-          myCondition(false)
-        }
-      </p>
-      <p>
-        {
-          /* Saída: meu conteúdo quando a condição falha */
-          myCondition("")
-        }
-      </p>
-      <p>
-        {
-          /* Saída: meu conteúdo quando a condição falha */
-          myCondition(undefined)
-        }
-      </p>
-    </div>
-  );
-};
-
-export default ConditionalComponent;
-```
-
-```javascript fileName="**/*.cjs" codeFormat="commonjs"
-const { useIntlayer } = require("react-intlayer");
-
-const ConditionalComponent = () => {
-  const { myCondition } = useIntlayer("my_key");
-
-  return (
-    <div>
-      <p>
-        {
-          /* Saída: meu conteúdo quando é verdadeiro */
-          myCondition(true)
-        }
-      </p>
-      <p>
-        {
-          /* Saída: meu conteúdo quando é falso */
-          myCondition(false)
-        }
-      </p>
-      <p>
-        {
-          /* Saída: meu conteúdo quando a condição falha */
-          myCondition("")
-        }
-      </p>
-      <p>
-        {
-          /* Saída: meu conteúdo quando a condição falha */
-          myCondition(undefined)
-        }
-      </p>
-    </div>
-  );
-};
-
-module.exports = ConditionalComponent;
 ```
 
 ## Recursos Adicionais

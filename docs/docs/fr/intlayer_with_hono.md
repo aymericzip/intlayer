@@ -82,7 +82,7 @@ bun x intlayer init
 
 Configurez les paramètres d'internationalisation en créant un fichier `intlayer.config.ts` à la racine de votre projet :
 
-```typescript fileName="intlayer.config.ts"  codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -100,49 +100,11 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH_MEXICO,
-      Locales.SPANISH_SPAIN,
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH_MEXICO,
-      Locales.SPANISH_SPAIN,
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-module.exports = config;
-```
-
 ### Déclarez Votre Contenu
 
 Créez et gérez vos déclarations de contenu pour stocker les traductions :
 
-```typescript fileName="src/index.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="src/index.content.ts" contentDeclarationFormat={["typescript", "esm"]}
 import { t, type Dictionary } from "intlayer";
 
 const indexContent = {
@@ -156,25 +118,6 @@ const indexContent = {
     }),
   },
 } satisfies Dictionary;
-
-export default indexContent;
-```
-
-```javascript fileName="src/index.content.mjs" contentDeclarationFormat="esm"
-import { t } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const indexContent = {
-  key: "index",
-  content: {
-    exampleOfContent: t({
-      en: "Example of returned content in English",
-      fr: "Exemple de contenu renvoyé en français",
-      "es-ES": "Ejemplo de contenu devuelto en español (España)",
-      "es-MX": "Ejemplo de contenu devuelto en español (México)",
-    }),
-  },
-};
 
 export default indexContent;
 ```
@@ -224,7 +167,7 @@ module.exports = indexContent;
 
 Configurez votre application Hono pour utiliser `hono-intlayer` :
 
-```typescript fileName="src/index.ts" codeFormat="typescript"
+```typescript fileName="src/index.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Hono } from "hono";
 import { intlayer, t, getDictionary, getIntlayer } from "hono-intlayer";
 import dictionaryExample from "./index.content";
@@ -255,72 +198,6 @@ app.get("/getDictionary_example", (c) => {
 });
 
 export default app;
-```
-
-```javascript fileName="src/index.mjs" codeFormat="esm"
-import { Hono } from "hono";
-import { intlayer, t, getDictionary, getIntlayer } from "hono-intlayer";
-import dictionaryExample from "./index.content";
-
-const app = new Hono();
-
-// Charger le gestionnaire de requêtes d'internationalisation
-app.use("*", intlayer());
-
-// Routes
-app.get("/t_example", (c) => {
-  return c.text(
-    t({
-      en: "Example of returned content in English",
-      fr: "Exemple de contenu renvoyé en français",
-      "es-ES": "Ejemplo de contenu devuelto en español (España)",
-      "es-MX": "Ejemplo de contenu devuelto en español (México)",
-    })
-  );
-});
-
-app.get("/getIntlayer_example", (c) => {
-  return c.json(getIntlayer("index").exampleOfContent);
-});
-
-app.get("/getDictionary_example", (c) => {
-  return c.json(getDictionary(dictionaryExample).exampleOfContent);
-});
-
-export default app;
-```
-
-```javascript fileName="src/index.cjs" codeFormat="commonjs"
-const { Hono } = require("hono");
-const { intlayer, t, getDictionary, getIntlayer } = require("hono-intlayer");
-const dictionaryExample = require("./index.content");
-
-const app = new Hono();
-
-// Charger le gestionnaire de requêtes d'internationalisation
-app.use("*", intlayer());
-
-// Routes
-app.get("/t_example", (c) => {
-  return c.text(
-    t({
-      en: "Example of returned content in English",
-      fr: "Exemple de contenu renvoyé en français",
-      "es-ES": "Ejemplo de contenu devuelto en español (España)",
-      "es-MX": "Ejemplo de contenu devuelto en español (México)",
-    })
-  );
-});
-
-app.get("/getIntlayer_example", (c) => {
-  return c.json(getIntlayer("index").exampleOfContent);
-});
-
-app.get("/getDictionary_example", (c) => {
-  return c.json(getDictionary(dictionaryExample).exampleOfContent);
-});
-
-module.exports = app;
 ```
 
 ### Compatibilité
@@ -333,7 +210,7 @@ module.exports = app;
 
 Il fonctionne également sans problème avec n'importe quelle solution d'internationalisation dans divers environnements, y compris les navigateurs et les requêtes API. Vous pouvez personnaliser le middleware pour détecter la langue via les en-têtes ou les cookies :
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -345,36 +222,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... Autres options de configuration
-  middleware: {
-    headerName: "my-locale-header",
-    cookieName: "my-locale-cookie",
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... Autres options de configuration
-  middleware: {
-    headerName: "my-locale-header",
-    cookieName: "my-locale-cookie",
-  },
-};
-
-module.exports = config;
 ```
 
 Par défaut, `hono-intlayer` interprétera l'en-tête `Accept-Language` pour déterminer la langue préférée du client.

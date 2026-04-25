@@ -70,7 +70,7 @@ history:
 
 सभी शब्दकोश ऑब्जेक्ट्स को संरचित सामग्री फ़ाइलों में घोषित किया जाना चाहिए ताकि टाइप सुरक्षा सुनिश्चित हो सके और रनटाइम त्रुटियों को रोका जा सके। आप [सेटअप निर्देश यहाँ पा सकते हैं](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/content_file.md)। यहाँ सामग्री घोषणा का एक उदाहरण है:
 
-```typescript fileName="./component.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="./component.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, type Dictionary } from "intlayer";
 
 const componentContent = {
@@ -90,54 +90,6 @@ const componentContent = {
 } satisfies Dictionary;
 
 export default componentContent;
-```
-
-```javascript fileName="./component.content.mjs" contentDeclarationFormat="esm"
-import { t } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-// यह एक शब्दकोश प्रकार का ऑब्जेक्ट है जो एक क्लाइंट कंपोनेंट उदाहरण की सामग्री को परिभाषित करता है
-const componentContent = {
-  key: "component-example",
-  content: {
-    title: t({
-      en: "Client Component Example",
-      fr: "Exemple de composant client",
-      es: "Ejemplo de componente cliente",
-    }),
-    content: t({
-      en: "This is the content of a client component example",
-      fr: "Ceci est le contenu d'un exemple de composant client",
-      es: "Este es el contenido de un ejemplo de componente cliente",
-    }),
-  },
-};
-
-export default componentContent;
-```
-
-```javascript fileName="./component.content.cjs" contentDeclarationFormat="commonjs"
-const { t } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-// यह एक शब्दकोश प्रकार का ऑब्जेक्ट है जो एक क्लाइंट कंपोनेंट उदाहरण की सामग्री को परिभाषित करता है
-const componentContent = {
-  key: "component-example",
-  content: {
-    title: t({
-      en: "Client Component Example",
-      fr: "Exemple de composant client",
-      es: "Ejemplo de componente cliente",
-    }),
-    content: t({
-      en: "This is the content of a client component example",
-      fr: "Ceci est le contenu d'un exemple de composant client",
-      es: "Este es el contenido de un ejemplo de componente cliente",
-    }),
-  },
-};
-
-module.exports = componentContent;
 ```
 
 ```json fileName="./component.content.json" contentDeclarationFormat="json"
@@ -169,7 +121,7 @@ module.exports = componentContent;
 
 नीचे एक उदाहरण दिया गया है कि कैसे `useDictionary` हुक को एक React कंपोनेंट में उपयोग किया जाए:
 
-```tsx fileName="./ComponentExample.tsx" codeFormat="typescript"
+```tsx fileName="./ComponentExample.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useDictionary } from "react-intlayer";
 import componentContent from "./component.content";
@@ -186,81 +138,17 @@ const ComponentExample: FC = () => {
 };
 ```
 
-```jsx fileName="./ComponentExample.mjx" codeFormat="esm"
-import { useDictionary } from "react-intlayer";
-import componentContent from "./component.content";
-
-const ComponentExample = () => {
-  const { title, content } = useDictionary(componentContent);
-
-  return (
-    <div>
-      <h1>{title}</h1>
-      <p>{content}</p>
-    </div>
-  );
-};
-```
-
-```jsx fileName="./ComponentExample.csx" codeFormat="commonjs"
-const { useDictionary } = require("react-intlayer");
-const componentContent = require("./component.content");
-
-const ComponentExample = () => {
-  const { title, content } = useDictionary(componentContent);
-
-  return (
-    <div>
-      <h1>{title}</h1>
-      <p>{content}</p>
-    </div>
-  );
-};
-```
-
 ## सर्वर एकीकरण
 
 यदि आप `IntlayerProvider` के बाहर `useDictionary` हुक का उपयोग कर रहे हैं, तो कंपोनेंट को रेंडर करते समय लोकल को स्पष्ट रूप से एक पैरामीटर के रूप में प्रदान करना आवश्यक है:
 
-```tsx fileName="./ServerComponentExample.tsx" codeFormat="typescript"
+```tsx fileName="./ServerComponentExample.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useDictionary } from "react-intlayer/server";
 import clientComponentExampleContent from "./component.content";
 
 const ServerComponentExample: FC<{ locale: string }> = ({ locale }) => {
   const { content } = useDictionary(clientComponentExampleContent, locale);
-
-  return (
-    <div>
-      <h1>{content.title}</h1>
-      <p>{content.content}</p>
-    </div>
-  );
-};
-```
-
-```jsx fileName="./ServerComponentExample.mjx" codeFormat="esm"
-import { useDictionary } from "react-intlayer/server";
-import componentContent from "./component.content";
-
-const ServerComponentExample = ({ locale }) => {
-  const { content } = useDictionary(componentContent, locale);
-
-  return (
-    <div>
-      <h1>{content.title}</h1>
-      <p>{content.content}</p>
-    </div>
-  );
-};
-```
-
-```jsx fileName="./ServerComponentExample.csx" codeFormat="commonjs"
-const { useDictionary } = require("react-intlayer/server");
-const componentContent = require("./component.content");
-
-const ServerComponentExample = ({ locale }) => {
-  const { content } = useDictionary(componentContent, locale);
 
   return (
     <div>

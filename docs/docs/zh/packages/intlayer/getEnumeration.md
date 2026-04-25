@@ -50,7 +50,7 @@ history:
 
 ### 基本用法
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getEnumeration } from "intlayer";
 
 const content = getEnumeration(
@@ -66,39 +66,9 @@ const content = getEnumeration(
 console.log(content); // 输出: "你拥有两个"
 ```
 
-```javascript codeFormat="esm"
-import { getEnumeration } from "intlayer";
-
-const content = getEnumeration(
-  {
-    "<1": "你拥有的数量少于 1",
-    "2": "你拥有两个",
-    ">=3": "你拥有三个或更多",
-  },
-  2
-);
-
-console.log(content); // 输出: "你拥有两个"
-```
-
-```javascript codeFormat="commonjs"
-const { getEnumeration } = require("intlayer");
-
-const content = getEnumeration(
-  {
-    "<1": "你拥有的数量少于 1",
-    "2": "你拥有两个",
-    ">=3": "你拥有三个或更多",
-  },
-  2
-);
-
-console.log(content); // 输出: "你拥有两个"
-```
-
 ### 条件优先级
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getEnumeration } from "intlayer";
 
 const content = getEnumeration(
@@ -110,34 +80,6 @@ const content = getEnumeration(
 );
 
 console.log(content); // 输出: "你拥有的数量少于 4"
-```
-
-```javascript codeFormat="esm"
-import { getEnumeration } from "intlayer";
-
-const content = getEnumeration(
-  {
-    "<4": "你拥有的数量少于 4",
-    "2": "你拥有两个",
-  },
-  2
-);
-
-console.log(content); // 输出: "你有少于四个"
-```
-
-```javascript codeFormat="commonjs"
-const { getEnumeration } = require("intlayer");
-
-const content = getEnumeration(
-  {
-    "<4": "你有少于四个",
-    "2": "你有两个",
-  },
-  2
-);
-
-console.log(content); // 输出: "你有少于四个"
 ```
 
 ## 边界情况

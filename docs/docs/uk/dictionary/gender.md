@@ -32,7 +32,7 @@ history:
 
 Щоб налаштувати контент залежно від гендера у вашому проекті Intlayer, створіть модуль контенту, який містить ваші визначення для конкретних гендерів. Нижче наведені приклади в різних форматах.
 
-```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="**/*.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { gender, type Dictionary } from "intlayer";
 
 const myGenderContent = {
@@ -47,42 +47,6 @@ const myGenderContent = {
 } satisfies Dictionary;
 
 export default myGenderContent;
-```
-
-```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-import { gender } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const myGenderContent = {
-  key: "my_key",
-  content: {
-    myGender: gender({
-      male: "мій контент для чоловіків",
-      female: "мій контент для жінок",
-      fallback: "мій контент, коли стать не вказана", // Необов'язково
-    }),
-  },
-};
-
-export default myGenderContent;
-```
-
-```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-const { gender } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const myGenderContent = {
-  key: "my_key",
-  content: {
-    myGender: gender({
-      male: "мій контент для чоловіків",
-      female: "мій контент для жінок",
-      fallback: "мій контент, коли стать не вказана", // Необов'язково
-    }),
-  },
-};
-
-module.exports = myGenderContent;
 ```
 
 ```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
@@ -108,7 +72,7 @@ module.exports = myGenderContent;
 
 Щоб використовувати контент, залежний від гендеру, у React-компоненті, імпортуйте й застосуйте хук `useIntlayer` з пакету `react-intlayer`. Цей хук отримує контент за вказаним ключем і дозволяє передати гендер, щоб обрати відповідний варіант виводу.
 
-```tsx fileName="**/*.tsx" codeFormat="typescript"
+```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useIntlayer } from "react-intlayer";
 
@@ -158,108 +122,6 @@ const GenderComponent: FC = () => {
 };
 
 export default GenderComponent;
-```
-
-```javascript fileName="**/*.mjx" codeFormat="esm"
-import { useIntlayer } from "react-intlayer";
-
-const GenderComponent = () => {
-  const { myGender } = useIntlayer("my_key");
-
-  return (
-    <div>
-      <p>
-        {
-          /* Вивід: мій контент для чоловіків */
-          myGender("male")
-        }
-      </p>
-      <p>
-        {
-          /* Вивід: мій контент для жінок */
-          myGender("female")
-        }
-      </p>
-      <p>
-        {
-          /* Вивід: мій контент для чоловіків */
-          myGender("m")
-        }
-      </p>
-      <p>
-        {
-          /* Вивід: мій контент для жінок */
-          myGender("f")
-        }
-      </p>
-      <p>
-        {
-          /* Вивід: мій контент, коли стать не вказана */
-          myGender("")
-        }
-      </p>
-      <p>
-        {
-          /* Вивід: мій контент, коли стать не вказана */
-          myGender(undefined)
-        }
-      </p>
-    </div>
-  );
-};
-
-export default GenderComponent;
-```
-
-```javascript fileName="**/*.cjs" codeFormat="commonjs"
-const { useIntlayer } = require("react-intlayer");
-
-const GenderComponent = () => {
-  const { myGender } = useIntlayer("my_key");
-
-  return (
-    <div>
-      <p>
-        {
-          /* Вивід: мій контент для чоловічих користувачів */
-          myGender("male")
-        }
-      </p>
-      <p>
-        {
-          /* Вивід: мій контент для жіночих користувачів */
-          myGender("female")
-        }
-      </p>
-      <p>
-        {
-          /* Вивід: мій контент для чоловічих користувачів */
-          myGender("m")
-        }
-      </p>
-      <p>
-        {
-          /* Вивід: мій контент для жіночих користувачів */
-          myGender("f")
-        }
-      </p>
-      <p>
-        {
-          /* Вивід: мій контент, коли gender не вказано */
-          myGender("")
-        }
-      </p>
-      <p>
-        {
-          /* Вивід: мій контент, коли gender не вказано */
-          myGender(undefined)
-        }
-      </p>
-    </div>
-  );
-};
-
-module.exports = GenderComponent;
 ```
 
 ## Додаткові ресурси

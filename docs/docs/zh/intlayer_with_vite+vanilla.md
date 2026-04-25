@@ -85,7 +85,7 @@ bun x intlayer init
 
 创建一个配置文件来配置应用程序的语言：
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -103,76 +103,18 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      // 您的其他语言
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      // 您的其他语言
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-module.exports = config;
-```
-
 > 通过此配置文件，您可以设置本地化 URL、中间件重定向、Cookie 名称、内容声明的位置和扩展名、在控制台中禁用 Intlayer 日志等。有关可用参数的完整列表，请参阅 [配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)。
 
 ### 第 3 步：在 Vite 配置中集成 Intlayer
 
 在您的配置中添加 intlayer 插件。
 
-```typescript fileName="vite.config.ts" codeFormat="typescript"
+```typescript fileName="vite.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { defineConfig } from "vite";
 import { intlayer } from "vite-intlayer";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [intlayer()],
-});
-```
-
-```javascript fileName="vite.config.mjs" codeFormat="esm"
-import { defineConfig } from "vite";
-import { intlayer } from "vite-intlayer";
-
-// https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [intlayer()],
-});
-```
-
-```javascript fileName="vite.config.cjs" codeFormat="commonjs"
-const { defineConfig } = require("vite");
-const { intlayer } = require("vite-intlayer");
-
-// https://vitejs.dev/config/
-module.exports = defineConfig({
   plugins: [intlayer()],
 });
 ```
@@ -208,7 +150,7 @@ import "./app.js";
 
 创建并管理您的内容声明以存储翻译：
 
-```typescript fileName="src/app.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="src/app.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { insert, t, type Dictionary } from "intlayer";
 
 const appContent = {
@@ -239,74 +181,6 @@ const appContent = {
 } satisfies Dictionary;
 
 export default appContent;
-```
-
-```javascript fileName="src/app.content.mjs" contentDeclarationFormat="esm"
-import { insert, t } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const appContent = {
-  key: "app",
-  content: {
-    title: "Vite + Vanilla",
-
-    viteLogoLabel: t({
-      en: "Vite Logo",
-      fr: "Logo Vite",
-      es: "Logo Vite",
-    }),
-
-    count: insert(
-      t({
-        en: "count is {{count}}",
-        fr: "le compte est {{count}}",
-        es: "el recuento es {{count}}",
-      })
-    ),
-
-    readTheDocs: t({
-      en: "Click on the Vite logo to learn more",
-      fr: "Cliquez sur le logo Vite pour en savoir plus",
-      es: "点击 Vite 标志了解更多信息",
-    }),
-  },
-};
-
-export default appContent;
-```
-
-```javascript fileName="src/app.content.cjs" contentDeclarationFormat="commonjs"
-const { insert, t } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const appContent = {
-  key: "app",
-  content: {
-    title: "Vite + Vanilla",
-
-    viteLogoLabel: t({
-      en: "Vite Logo",
-      fr: "Logo Vite",
-      es: "Logo Vite",
-    }),
-
-    count: insert(
-      t({
-        en: "count is {{count}}",
-        fr: "le compte est {{count}}",
-        es: "el recuento es {{count}}",
-      })
-    ),
-
-    readTheDocs: t({
-      en: "Click on the Vite logo to learn more",
-      fr: "Cliquez sur le logo Vite pour en savoir plus",
-      es: "点击 Vite 标志了解更多信息",
-    }),
-  },
-};
-
-module.exports = appContent;
 ```
 
 ```json fileName="src/app.content.json" contentDeclarationFormat="json"
@@ -425,7 +299,7 @@ export function setupLocaleSwitcher(container: HTMLElement): () => void {
 
 Intlayer 支持 `md()` 和 `html()` 内容声明。在纯 JS 中，编译后的输出通过 `innerHTML` 作为原始 HTML 插入。
 
-```typescript fileName="src/app.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="src/app.content.ts" contentDeclarationFormat=["typescript", "esm", "cjs"]
 import { md, t, type Dictionary } from "intlayer";
 
 const appContent = {
@@ -488,35 +362,11 @@ document.querySelector<HTMLDivElement>(".edit-note")!.innerHTML =
 
 > 请注意，要在生产环境中使用 `intlayerProxy`，您需要将 `vite-intlayer` 从 `devDependencies` 移动到 `dependencies`。
 
-```typescript {3,7} fileName="vite.config.ts" codeFormat="typescript"
+```typescript {3,7} fileName="vite.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { defineConfig } from "vite";
 import { intlayer, intlayerProxy } from "vite-intlayer";
 
 export default defineConfig({
-  plugins: [
-    intlayerProxy(), // 应该放在第一位
-    intlayer(),
-  ],
-});
-```
-
-```javascript {3,7} fileName="vite.config.mjs" codeFormat="esm"
-import { defineConfig } from "vite";
-import { intlayer, intlayerProxy } from "vite-intlayer";
-
-export default defineConfig({
-  plugins: [
-    intlayerProxy(), // 应该放在第一位
-    intlayer(),
-  ],
-});
-```
-
-```javascript {3,7} fileName="vite.config.cjs" codeFormat="commonjs"
-const { defineConfig } = require("vite");
-const { intlayer, intlayerProxy } = require("vite-intlayer");
-
-module.exports = defineConfig({
   plugins: [
     intlayerProxy(), // 应该放在第一位
     intlayer(),

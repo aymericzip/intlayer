@@ -32,7 +32,7 @@ Di Intlayer, konten berdasarkan gender dicapai melalui fungsi `gender`, yang mem
 
 Untuk menyiapkan konten berdasarkan gender dalam proyek Intlayer Anda, buat modul konten yang mencakup definisi spesifik gender Anda. Berikut adalah contoh dalam berbagai format.
 
-```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="**/*.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { gender, type Dictionary } from "intlayer";
 
 const myGenderContent = {
@@ -47,42 +47,6 @@ const myGenderContent = {
 } satisfies Dictionary;
 
 export default myGenderContent;
-```
-
-```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-import { gender } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const myGenderContent = {
-  key: "my_key",
-  content: {
-    myGender: gender({
-      male: "konten saya untuk pengguna laki-laki",
-      female: "konten saya untuk pengguna perempuan",
-      fallback: "konten saya ketika gender tidak ditentukan", // Opsional
-    }),
-  },
-};
-
-export default myGenderContent;
-```
-
-```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-const { gender } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const myGenderContent = {
-  key: "my_key",
-  content: {
-    myGender: gender({
-      male: "konten saya untuk pengguna laki-laki",
-      female: "konten saya untuk pengguna perempuan",
-      fallback: "konten saya ketika gender tidak ditentukan", // Opsional
-    }),
-  },
-};
-
-module.exports = myGenderContent;
 ```
 
 ```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
@@ -108,7 +72,7 @@ module.exports = myGenderContent;
 
 Untuk memanfaatkan konten berbasis gender dalam sebuah komponen React, impor dan gunakan hook `useIntlayer` dari paket `react-intlayer`. Hook ini mengambil konten untuk kunci yang ditentukan dan memungkinkan Anda untuk memasukkan gender guna memilih output yang sesuai.
 
-```tsx fileName="**/*.tsx" codeFormat="typescript"
+```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useIntlayer } from "react-intlayer";
 
@@ -158,108 +122,6 @@ const GenderComponent: FC = () => {
 };
 
 export default GenderComponent;
-```
-
-```javascript fileName="**/*.mjx" codeFormat="esm"
-import { useIntlayer } from "react-intlayer";
-
-const GenderComponent = () => {
-  const { myGender } = useIntlayer("my_key");
-
-  return (
-    <div>
-      <p>
-        {
-          /* Output: konten saya untuk pengguna laki-laki */
-          myGender("male")
-        }
-      </p>
-      <p>
-        {
-          /* Output: konten saya untuk pengguna perempuan */
-          myGender("female")
-        }
-      </p>
-      <p>
-        {
-          /* Output: konten saya untuk pengguna laki-laki */
-          myGender("m")
-        }
-      </p>
-      <p>
-        {
-          /* Output: konten saya untuk pengguna perempuan */
-          myGender("f")
-        }
-      </p>
-      <p>
-        {
-          /* Output: konten saya ketika gender tidak ditentukan */
-          myGender("")
-        }
-      </p>
-      <p>
-        {
-          /* Output: konten saya ketika gender tidak ditentukan */
-          myGender(undefined)
-        }
-      </p>
-    </div>
-  );
-};
-
-export default GenderComponent;
-```
-
-```javascript fileName="**/*.cjs" codeFormat="commonjs"
-const { useIntlayer } = require("react-intlayer");
-
-const GenderComponent = () => {
-  const { myGender } = useIntlayer("my_key");
-
-  return (
-    <div>
-      <p>
-        {
-          /* Output: konten saya untuk pengguna laki-laki */
-          myGender("male")
-        }
-      </p>
-      <p>
-        {
-          /* Output: konten saya untuk pengguna perempuan */
-          myGender("female")
-        }
-      </p>
-      <p>
-        {
-          /* Output: konten saya untuk pengguna laki-laki */
-          myGender("m")
-        }
-      </p>
-      <p>
-        {
-          /* Output: konten saya untuk pengguna perempuan */
-          myGender("f")
-        }
-      </p>
-      <p>
-        {
-          /* Output: konten saya ketika gender tidak ditentukan */
-          myGender("")
-        }
-      </p>
-      <p>
-        {
-          /* Output: konten saya ketika gender tidak ditentukan */
-          myGender(undefined)
-        }
-      </p>
-    </div>
-  );
-};
-
-module.exports = GenderComponent;
 ```
 
 ## Sumber Daya Tambahan

@@ -32,7 +32,7 @@ In Intlayer, l'enumerazione viene realizzata tramite la funzione `enu`, che asso
 
 Per configurare l'enumerazione nel tuo progetto Intlayer, devi creare un modulo di contenuto che includa le definizioni di enumerazione. Ecco un esempio di una semplice enumerazione per il numero di automobili:
 
-```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="**/*.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { enu, type Dictionary } from "intlayer";
 
 const carEnumeration = {
@@ -51,50 +51,6 @@ const carEnumeration = {
 } satisfies Dictionary;
 
 export default carEnumeration;
-```
-
-```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-import { enu } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const carEnumeration = {
-  key: "car_count",
-  content: {
-    numberOfCar: enu({
-      "<-1": "Meno di meno una macchina",
-      "-1": "Meno una macchina",
-      "0": "Nessuna macchina",
-      "1": "Una macchina",
-      ">5": "Alcune macchine",
-      ">19": "Molte macchine",
-      "fallback": "Valore di riserva", // Opzionale
-    }),
-  },
-};
-
-export default carEnumeration;
-```
-
-```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-const { enu } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const carEnumeration = {
-  key: "car_count",
-  content: {
-    numberOfCar: enu({
-      "<-1": "Meno di meno una macchina",
-      "-1": "Meno una macchina",
-      "0": "Nessuna macchina",
-      "1": "Una macchina",
-      ">5": "Alcune macchine",
-      ">19": "Molte macchine",
-      "fallback": "Valore di riserva", // Opzionale
-    }),
-  },
-};
-
-module.exports = carEnumeration;
 ```
 
 ```json fileName="**/*.content.json" contentDeclarationFormat="json"
@@ -128,7 +84,7 @@ In questo esempio, `enu` associa varie condizioni a contenuti specifici. Quando 
 
 Per utilizzare l'enumerazione in un componente React, puoi sfruttare il hook `useIntlayer` dal pacchetto `react-intlayer`. Questo hook recupera il contenuto corretto basato sull'ID specificato. Ecco un esempio di come usarlo:
 
-```tsx fileName="**/*.tsx" codeFormat="typescript"
+```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useIntlayer } from "react-intlayer";
 
@@ -160,76 +116,6 @@ const CarComponent: FC = () => {
     </div>
   );
 };
-```
-
-```javascript fileName="**/*.mjx" codeFormat="esm"
-import { useIntlayer } from "react-intlayer";
-
-const CarComponent = () => {
-  const { numberOfCar } = useIntlayer("car_count");
-
-  return (
-    <div>
-      <p>
-        {
-          numberOfCar(0) // Output: Nessuna auto
-        }
-      </p>
-      <p>
-        {
-          numberOfCar(6) // Output: Alcune auto
-        }
-      </p>
-      <p>
-        {
-          numberOfCar(20) // Output: Molte auto
-        }
-      </p>
-      <p>
-        {
-          numberOfCar(0.01) // Output: Valore di riserva
-        }
-      </p>
-    </div>
-  );
-};
-
-export default CarComponent;
-```
-
-```javascript fileName="**/*.cjs" codeFormat="commonjs"
-const { useIntlayer } = require("react-intlayer");
-
-const CarComponent = () => {
-  const { numberOfCar } = useIntlayer("car_count");
-
-  return (
-    <div>
-      <p>
-        {
-          numberOfCar(0) // Output: Nessuna auto
-        }
-      </p>
-      <p>
-        {
-          numberOfCar(6) // Output: Alcune auto
-        }
-      </p>
-      <p>
-        {
-          numberOfCar(20) // Output: Molte auto
-        }
-      </p>
-      <p>
-        {
-          numberOfCar(0.01) // Output: Valore di riserva
-        }
-      </p>
-    </div>
-  );
-};
-
-module.exports = CarComponent;
 ```
 
 In questo esempio, il componente adatta dinamicamente il suo output in base al numero di auto. Il contenuto corretto viene scelto automaticamente, a seconda dell'intervallo specificato.

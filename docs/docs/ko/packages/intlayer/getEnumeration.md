@@ -50,7 +50,7 @@ history:
 
 ### 기본 사용법
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getEnumeration } from "intlayer";
 
 const content = getEnumeration(
@@ -66,68 +66,10 @@ const content = getEnumeration(
 console.log(content); // 출력: "2입니다"
 ```
 
-```javascript codeFormat="esm"
-import { getEnumeration } from "intlayer";
-
-const content = getEnumeration(
-  {
-    "<1": "1보다 작습니다",
-    "2": "2입니다",
-    ">=3": "3 이상입니다",
-  },
-  2
-);
-
-console.log(content); // 출력: "2입니다"
-```
-
-```javascript codeFormat="commonjs"
-const { getEnumeration } = require("intlayer");
-
-const content = getEnumeration(
-  {
-    "<1": "1보다 작습니다",
-    "2": "2입니다",
-    ">=3": "3 이상입니다",
-  },
-  2
-);
-
-console.log(content); // 출력: "2입니다"
-```
-
 ### 조건의 우선순위
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getEnumeration } from "intlayer";
-
-const content = getEnumeration(
-  {
-    "<4": "4보다 작습니다",
-    "2": "2입니다",
-  },
-  2
-);
-
-console.log(content); // 출력: "4보다 작습니다"
-```
-
-```javascript codeFormat="esm"
-import { getEnumeration } from "intlayer";
-
-const content = getEnumeration(
-  {
-    "<4": "4보다 작습니다",
-    "2": "2입니다",
-  },
-  2
-);
-
-console.log(content); // 출력: "4보다 작습니다"
-```
-
-```javascript codeFormat="commonjs"
-const { getEnumeration } = require("intlayer");
 
 const content = getEnumeration(
   {

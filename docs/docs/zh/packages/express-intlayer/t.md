@@ -66,7 +66,7 @@ t(translations: Record<string, string>): string;
 
 请将 `app.use(intlayer())` 中间件放置在应用程序的**所有路由之前**，以确保所有路由都能受益于国际化：
 
-```typescript {7} fileName="src/index.ts" codeFormat="typescript"
+```typescript {7} fileName="src/index.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import express, { type Express } from "express";
 import { intlayer } from "express-intlayer";
 
@@ -76,48 +76,6 @@ const app: Express = express();
 app.use(intlayer());
 
 // 在加载中间件后定义路由
-app.get("/", (_req, res) => {
-  res.send(
-    t({
-      en: "Hello, World!",
-      fr: "Bonjour le monde!",
-      es: "¡Hola, Mundo!",
-    })
-  );
-});
-```
-
-```javascript {7} fileName="src/index.mjs" codeFormat="esm"
-import express from "express";
-import { intlayer } from "express-intlayer";
-
-const app = express();
-
-// 加载国际化请求处理程序
-app.use(intlayer());
-
-// 在加载中间件后定义路由
-app.get("/", (_req, res) => {
-  res.send(
-    t({
-      en: "Hello, World!",
-      fr: "Bonjour le monde!",
-      es: "¡Hola, Mundo!",
-    })
-  );
-});
-```
-
-```javascript {7} fileName="src/index.cjs" codeFormat="commonjs"
-const express = require("express");
-const { intlayer } = require("express-intlayer");
-
-const app = express();
-
-// 加载国际化请求处理程序
-app.use(intlayer());
-
-/// 在加载中间件后定义您的路由
 app.get("/", (_req, res) => {
   res.send(
     t({
@@ -143,31 +101,7 @@ app.get("/", (_req, res) => {
 
 提供不同语言的本地化内容：
 
-```typescript fileName="src/index.ts" codeFormat="typescript"
-app.get("/", (_req, res) => {
-  res.send(
-    t({
-      en: "Welcome!",
-      fr: "Bienvenue!",
-      es: "¡Bienvenido!",
-    })
-  );
-});
-```
-
-```javascript fileName="src/index.mjs" codeFormat="esm"
-app.get("/", (_req, res) => {
-  res.send(
-    t({
-      en: "Welcome!",
-      fr: "Bienvenue!",
-      es: "¡Bienvenido!",
-    })
-  );
-});
-```
-
-```javascript fileName="src/index.cjs" codeFormat="commonjs"
+```typescript fileName="src/index.ts" codeFormat={["typescript", "esm", "commonjs"]}
 app.get("/", (_req, res) => {
   res.send(
     t({
@@ -189,35 +123,11 @@ app.get("/", (_req, res) => {
 
 提供多语言的错误信息：
 
-```typescript fileName="src/index.ts" codeFormat="typescript"
+```typescript fileName="src/index.ts" codeFormat={["typescript", "esm", "commonjs"]}
 app.get("/error", (_req, res) => {
   res.status(500).send(
     t({
       en: "An unexpected error occurred.",
-      fr: "Une erreur inattendue s'est produite.",
-      es: "Ocurrió un error inesperado.",
-    })
-  );
-});
-```
-
-```javascript fileName="src/index.mjs" codeFormat="esm"
-app.get("/error", (_req, res) => {
-  res.status(500).send(
-    t({
-      en: "An unexpected error occurred.",
-      fr: "Une erreur inattendue s'est produite.",
-      es: "Ocurrió un error inesperado.",
-    })
-  );
-});
-```
-
-```javascript fileName="src/index.cjs" codeFormat="commonjs"
-app.get("/error", (_req, res) => {
-  res.status(500).send(
-    t({
-      en: "发生了意外错误。",
       fr: "Une erreur inattendue s'est produite.",
       es: "Ocurrió un error inesperado.",
     })
@@ -281,7 +191,7 @@ app.get("/greet", (_req, res) => {
 
 如果首选语言不可用，`t` 函数将回退到配置中定义的默认语言：
 
-```typescript {5-6} fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript {5-6} fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config = {
@@ -292,34 +202,6 @@ const config = {
 } satisfies IntlayerConfig;
 
 export default config;
-```
-
-```javascript {5-6} fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-```javascript {5-6} fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-module.exports = config;
 ```
 
 例如：
@@ -341,7 +223,7 @@ module.exports = config;
 
 配置示例：
 
-```typescript {7} fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript {7} fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { type IntlayerConfig } from "intlayer";
 
 const config = {
@@ -355,75 +237,16 @@ const config = {
 export default config;
 ```
 
-```javascript {7} fileName="intlayer.config.mjs" codeFormat="esm"
-import { type IntlayerConfig } from "intlayer";
-
-const config = {
-  // ... 您现有的配置
-  internationalization: {
-    // ... 你现有的国际化配置
-    strictMode: "strict", // 强制启用严格模式
-  },
-};
-
-export default config;
-```
-
-```javascript {7} fileName="intlayer.config.cjs" codeFormat="commonjs"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... 你现有的配置
-  internationalization: {
-    // ... 你现有的国际化配置
-    strictMode: "strict", // 强制启用严格模式
-  },
-};
-
-module.exports = config;
-```
-
 ---
 
 ### TypeScript 集成
 
 当与 TypeScript 一起使用时，`t` 函数是类型安全的。定义一个类型安全的翻译对象：
 
-```typescript fileName="src/index.ts" codeFormat="typescript"
+```typescript fileName="src/index.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { type LanguageContent } from "express-intlayer";
 
 const translations: LanguageContent<string> = {
-  en: "Good morning!",
-  fr: "Bonjour!",
-  es: "¡Buenos días!",
-};
-
-app.get("/morning", (_req, res) => {
-  res.send(t(translations));
-});
-```
-
-```javascript fileName="src/index.mjs" codeFormat="esm"
-import { type LanguageContent } from "express-intlayer";
-
-/** @type {import('express-intlayer').LanguageContent<string>} */
-// 定义类型安全的翻译内容
-const translations = {
-  en: "Good morning!",
-  fr: "Bonjour!",
-  es: "¡Buenos días!",
-};
-
-app.get("/morning", (_req, res) => {
-  res.send(t(translations));
-});
-```
-
-```javascript fileName="src/index.cjs" codeFormat="commonjs"
-const { type LanguageContent } = require("express-intlayer");
-
-/** @type {import('express-intlayer').LanguageContent<string>} */
-// 定义类型安全的翻译内容
-const translations = {
   en: "Good morning!",
   fr: "Bonjour!",
   es: "¡Buenos días!",

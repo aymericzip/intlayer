@@ -67,7 +67,7 @@ t<T extends string>(content: Record<LocalesValues, T>, locale?: Locales): string
 
 Переконайтесь, що у верхній частині файлу компонента зазначено директиву `'use client';` при використанні `t` у клієнтському компоненті.
 
-```tsx codeFormat="typescript"
+```tsx codeFormat={["typescript", "esm", "commonjs"]}
 "use client";
 
 import type { FC } from "react";
@@ -86,73 +86,13 @@ export const ClientComponentExample: FC = () => (
 );
 ```
 
-```javascript codeFormat="esm"
-import { t } from "next-intlayer";
-
-const ClientComponentExample = () => (
-  <p>
-    {t({
-      uk: "Це вміст прикладу клієнтського компонента",
-      en: "This is the content of a client component example",
-      fr: "Ceci est le contenu d'un exemple de composant client",
-      es: "Este es el contenido d un ejemplo de componente cliente",
-    })}
-  </p>
-);
-```
-
-```javascript codeFormat="commonjs"
-const { t } = require("next-intlayer");
-
-const ClientComponentExample = () => (
-  <p>
-    {t({
-      uk: "Це вміст прикладу клієнтського компонента",
-      en: "This is the content of a client component example",
-      fr: "Ceci est le contenu d'un exemple de composant client",
-      es: "Este es le contenido d un ejemplo de componente cliente",
-    })}
-  </p>
-);
-```
-
 ### Використання `t` у серверному компоненті
 
-```tsx codeFormat="typescript"
+```tsx codeFormat={["typescript", "esm", "commonjs"]}
 import type { FC } from "react";
 import { t } from "next-intlayer/server";
 
 export const ServerComponentExample: FC = () => (
-  <p>
-    {t({
-      uk: "Це вміст прикладу серверного компонента",
-      en: "This is the content of a server component example",
-      fr: "Ceci est le contenu d'un exemple de composant serveur",
-      es: "Este es el contenido de un ejemplo de componente servidor",
-    })}
-  </p>
-);
-```
-
-```javascript codeFormat="esm"
-import { t } from "next-intlayer/server";
-
-const ServerComponentExample = () => (
-  <p>
-    {t({
-      uk: "Це вміст прикладу серверного компонента",
-      en: "This is the content of a server component example",
-      fr: "Ceci est le contenu d'un exemple de composant serveur",
-      es: "Este es el contenido de un ejemplo de componente servidor",
-    })}
-  </p>
-);
-```
-
-```javascript codeFormat="commonjs"
-const { t } = require("next-intlayer/server");
-
-const ServerComponentExample = () => (
   <p>
     {t({
       uk: "Це вміст прикладу серверного компонента",
@@ -204,39 +144,12 @@ const ServerComponentExample = () => (
 
 Функція `t` є типобезпечною при використанні з TypeScript і гарантує, що всі необхідні локалі вказані.
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import type { IConfigLocales } from "intlayer";
 import { t } from "next-intlayer";
 
 const translations: IConfigLocales<string> = {
   uk: "Ласкаво просимо",
-  en: "Welcome",
-  fr: "Bienvenue",
-  es: "Bienvenido",
-};
-
-const greeting = t(translations);
-```
-
-```javascript codeFormat="esm"
-import type { IConfigLocales } from "intlayer";
-import { t } from "next-intlayer";
-
-/** @type {import('next-intlayer').IConfigLocales<string>} */
-const translations = {
-  en: "Welcome",
-  fr: "Bienvenue",
-  es: "Bienvenido",
-};
-
-const greeting = t(translations);
-```
-
-```javascript codeFormat="commonjs"
-const { t } = require("next-intlayer");
-
-/** @type {import('next-intlayer').IConfigLocales<string>} */
-const translations = {
   en: "Welcome",
   fr: "Bienvenue",
   es: "Bienvenido",
@@ -251,7 +164,7 @@ const greeting = t(translations);
 
 #### Приклад:
 
-```tsx codeFormat="typescript"
+```tsx codeFormat={["typescript", "esm", "commonjs"]}
 import type { FC } from "react";
 import type { Locales } from "intlayer";
 import { IntlayerClientProvider } from "next-intlayer";
@@ -261,32 +174,6 @@ const Page: FC<{ locale: Locales }> = ({ locale }) => (
   <IntlayerServerProvider locale={locale}>
     <IntlayerClientProvider locale={locale}>
       {/* Тут ваші компоненти */}
-    </IntlayerClientProvider>
-  </IntlayerServerProvider>
-);
-```
-
-```javascript codeFormat="esm"
-import { IntlayerClientProvider } from "next-intlayer";
-import { IntlayerServerProvider } from "next-intlayer/server";
-
-const Page = ({ locale }) => (
-  <IntlayerServerProvider locale={locale}>
-    <IntlayerClientProvider locale={locale}>
-      {/* Тут ваші компоненти */}
-    </IntlayerClientProvider>
-  </IntlayerServerProvider>
-);
-```
-
-```javascript codeFormat="commonjs"
-const { IntlayerClientProvider } = require("next-intlayer");
-const { IntlayerServerProvider } = require("next-intlayer/server");
-
-const Page = ({ locale }) => (
-  <IntlayerServerProvider locale={locale}>
-    <IntlayerClientProvider locale={locale}>
-      {/* Ваші компоненти тут */}
     </IntlayerClientProvider>
   </IntlayerServerProvider>
 );
@@ -308,34 +195,11 @@ const Page = ({ locale }) => (
 - **Причина**: Об'єкт translations не відповідає вимогам щодо локалей, що призводить до помилок TypeScript.
 - **Рішення**: Використовуйте тип `IConfigLocales`, щоб забезпечити повноту ваших перекладів.
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 const translations: IConfigLocales<string> = {
   en: "Text",
   fr: "Texte",
   // Відсутній 'es' спричинить помилку TypeScript [!code error]
-};
-
-const text = t(translations);
-```
-
-```javascript codeFormat="esm"
-const translations = {
-  en: "Text",
-  fr: "Texte",
-  // Відсутній 'es' спричинить помилку TypeScript [!code error]
-};
-
-const text = t(translations);
-```
-
-```javascript codeFormat="commonjs"
-const { t } = require("next-intlayer");
-
-/** @type {import('next-intlayer').IConfigLocales<string>} */
-const translations = {
-  en: "Text",
-  fr: "Texte",
-  // es: 'Texto', // Відсутній 'es' спричинить помилку TypeScript [!code error]
 };
 
 const text = t(translations);

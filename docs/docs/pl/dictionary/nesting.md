@@ -36,7 +36,7 @@ Aby skonfigurować zagnieżdżanie w swoim projekcie Intlayer, najpierw definiuj
 
 Poniżej znajduje się przykład bazowego słownika do zagnieżdżenia w innym słowniku:
 
-```typescript fileName="firstDictionary.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="firstDictionary.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { type Dictionary } from "intlayer";
 
 const firstDictionary = {
@@ -51,38 +51,6 @@ const firstDictionary = {
 } satisfies Dictionary;
 
 export default firstDictionary;
-```
-
-```javascript fileName="firstDictionary.content.mjs" contentDeclarationFormat="esm"
-/** @type {import('intlayer').Dictionary} */
-const firstDictionary = {
-  key: "key_of_my_first_dictionary",
-  content: {
-    content: "content",
-    subContent: {
-      contentNumber: 0,
-      contentString: "string",
-    },
-  },
-};
-
-export default firstDictionary;
-```
-
-```javascript fileName="firstDictionary.content.cjs" contentDeclarationFormat="commonjs"
-/** @type {import('intlayer').Dictionary} */
-const firstDictionary = {
-  key: "key_of_my_first_dictionary",
-  content: {
-    content: "content",
-    subContent: {
-      contentNumber: 0,
-      contentString: "string",
-    },
-  },
-};
-
-module.exports = firstDictionary;
 ```
 
 ```json fileName="firstDictionary.content.json" contentDeclarationFormat="json"
@@ -103,7 +71,7 @@ module.exports = firstDictionary;
 
 Teraz utwórz inny moduł zawartości, który używa funkcji `nest` do odwołania się do powyższej zawartości. Możesz odwołać się do całej zawartości lub do konkretnej zagnieżdżonej wartości:
 
-```typescript fileName="secondDictionary.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="secondDictionary.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { nest, type Dictionary } from "intlayer";
 
 const myNestingContent = {
@@ -120,42 +88,6 @@ const myNestingContent = {
 } satisfies Dictionary;
 
 export default myNestingContent;
-```
-
-```javascript fileName="secondDictionary.content.mjs" contentDeclarationFormat="esm"
-import { nest } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const myNestingContent = {
-  key: "key_of_my_second_dictionary",
-  content: {
-    fullNestedContent: nest("key_of_my_first_dictionary"),
-    partialNestedContent: nest(
-      "key_of_my_first_dictionary",
-      "subContent.contentNumber"
-    ),
-  },
-};
-
-export default myNestingContent;
-```
-
-```javascript fileName="secondDictionary.content.cjs" contentDeclarationFormat="commonjs"
-const { nest } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const myNestingContent = {
-  key: "key_of_my_second_dictionary",
-  content: {
-    fullNestedContent: nest("key_of_my_first_dictionary"),
-    partialNestedContent: nest(
-      "key_of_my_first_dictionary",
-      "subContent.contentNumber"
-    ),
-  },
-};
-
-module.exports = myNestingContent;
 ```
 
 ```json fileName="secondDictionary.content.json" contentDeclarationFormat="json"
@@ -186,7 +118,7 @@ Jako drugi parametr możesz określić ścieżkę do zagnieżdżonej wartości w
 
 Aby użyć zagnieżdżonej zawartości w komponencie React, skorzystaj z hooka `useIntlayer` z pakietu `react-intlayer`. Ten hook pobiera odpowiednią zawartość na podstawie podanego klucza. Oto przykład, jak go użyć:
 
-```tsx fileName="**/*.tsx" codeFormat="typescript"
+```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useIntlayer } from "react-intlayer";
 
@@ -210,56 +142,6 @@ const NestComponent: FC = () => {
 };
 
 export default NestComponent;
-```
-
-```javascript fileName="**/*.mjx" codeFormat="esm"
-import { useIntlayer } from "react-intlayer";
-
-const NestComponent = () => {
-  const { fullNestedContent, partialNestedContent } = useIntlayer(
-    "key_of_my_second_dictionary"
-  );
-
-  return (
-    <div>
-      <p>
-        Pełna zawartość zagnieżdżona: {JSON.stringify(fullNestedContent)}
-        {/* Wynik: {"content": "content", "subContent": {"contentNumber": 0, "contentString": "string"}} */}
-      </p>
-      <p>
-        Częściowa wartość zagnieżdżona: {partialNestedContent}
-        {/* Wynik: 0 */}
-      </p>
-    </div>
-  );
-};
-
-export default NestComponent;
-```
-
-```javascript fileName="**/*.cjx" codeFormat="commonjs"
-const { useIntlayer } = require("react-intlayer");
-
-const NestComponent = () => {
-  const { fullNestedContent, partialNestedContent } = useIntlayer(
-    "key_of_my_second_dictionary"
-  );
-
-  return (
-    <div>
-      <p>
-        Pełna zawartość zagnieżdżona: {JSON.stringify(fullNestedContent)}
-        {/* Wynik: {"content": "content", "subContent": {"contentNumber": 0, "contentString": "string"}} */}
-      </p>
-      <p>
-        Częściowa wartość zagnieżdżona: {partialNestedContent}
-        {/* Wynik: 0 */}
-      </p>
-    </div>
-  );
-};
-
-module.exports = NestComponent;
 ```
 
 ## Dodatkowe zasoby

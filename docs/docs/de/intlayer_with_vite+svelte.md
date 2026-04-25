@@ -142,7 +142,7 @@ export default defineConfig({
 
 Erstellen und verwalten Sie Ihre Inhaltsdeklarationen, um Übersetzungen zu speichern:
 
-```tsx fileName="src/app.content.tsx" contentDeclarationFormat="typescript"
+```tsx fileName="src/app.content.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, type Dictionary } from "intlayer";
 
 const appContent = {
@@ -157,44 +157,6 @@ const appContent = {
 } satisfies Dictionary;
 
 export default appContent;
-```
-
-```javascript fileName="src/app.content.mjs" contentDeclarationFormat="esm"
-import { t } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-// Inhalt der App deklarieren
-const appContent = {
-  key: "app",
-  content: {
-    title: t({
-      en: "Hello World",
-      fr: "Bonjour le monde",
-      es: "Hola mundo",
-    }),
-  },
-};
-
-export default appContent;
-```
-
-```javascript fileName="src/app.content.cjs" contentDeclarationFormat="commonjs"
-const { t } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-// Inhalt der App deklarieren
-const appContent = {
-  key: "app",
-  content: {
-    title: t({
-      en: "Hello World",
-      fr: "Bonjour le monde",
-      es: "Hola mundo",
-    }),
-  },
-};
-
-module.exports = appContent;
 ```
 
 ```json fileName="src/app.content.json" contentDeclarationFormat="json"
@@ -395,42 +357,12 @@ Parallel dazu können Sie auch den `intlayerProxy` verwenden, um serverseitiges 
 
 > Hinweis: Um den `intlayerProxy` in der Produktion zu verwenden, müssen Sie das Paket `vite-intlayer` von `devDependencies` zu `dependencies` verschieben.
 
-```typescript {3,7} fileName="vite.config.ts" codeFormat="typescript"
+```typescript {3,7} fileName="vite.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { defineConfig } from "vite";
 import { svelte } from "@sveltejs/vite-plugin-svelte";
 import { intlayer, intlayerProxy } from "vite-intlayer";
 
 export default defineConfig({
-  plugins: [
-    intlayerProxy(), // should be placed first
-    svelte(),
-    intlayer(),
-  ],
-});
-```
-
-```javascript {3,7} fileName="vite.config.mjs" codeFormat="esm"
-import { defineConfig } from "vite";
-import { svelte } from "@sveltejs/vite-plugin-svelte";
-import { intlayer, intlayerProxy } from "vite-intlayer";
-
-// https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [
-    intlayerProxy(), // should be placed first
-    svelte(),
-    intlayer(),
-  ],
-});
-```
-
-```javascript {3,7} fileName="vite.config.cjs" codeFormat="commonjs"
-const { defineConfig } = require("vite");
-const { svelte } = require("@sveltejs/vite-plugin-svelte");
-const { intlayer, intlayerProxy } = require("vite-intlayer");
-
-// https://vitejs.dev/config/
-module.exports = defineConfig({
   plugins: [
     intlayerProxy(), // should be placed first
     svelte(),
@@ -533,7 +465,7 @@ Um diesen Prozess zu erleichtern, bietet Intlayer einen [Compiler](https://githu
 
 Um es einzurichten, können Sie einen `compiler`-Abschnitt in Ihrer `intlayer.config.ts`-Datei hinzufügen:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -562,66 +494,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... Rest Ihrer Konfiguration
-  compiler: {
-    /**
-     * Gibt an, ob der Compiler aktiviert sein soll.
-     */
-    enabled: true,
-
-    /**
-     * Definiert den Pfad der Ausgabedateien
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * Gibt an, ob die Komponenten nach der Transformation gespeichert werden sollen. Auf diese Weise kann der Compiler nur einmal ausgeführt werden, um die App zu transformieren, und dann entfernt werden.
-     */
-    saveComponents: false,
-
-    /**
-     * Präfix für Wörterbuchschlüssel
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... Rest Ihrer Konfiguration
-  compiler: {
-    /**
-     * Gibt an, ob der Compiler aktiviert sein soll.
-     */
-    enabled: true,
-
-    /**
-     * Definiert den Pfad der Ausgabedateien
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * Gibt an, ob die Komponenten nach der Transformation gespeichert werden sollen. Auf diese Weise kann der Compiler nur einmal ausgeführt werden, um die App zu transformieren, und dann entfernt werden.
-     */
-    saveComponents: false,
-
-    /**
-     * Präfix für Wörterbuchschlüssel
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-module.exports = config;
 ```
 
 <Tabs>

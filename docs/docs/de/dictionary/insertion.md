@@ -41,7 +41,7 @@ Um Einfügeinhalt in Ihrem Intlayer-Projekt einzurichten, erstellen Sie ein Inha
   <Tab label="Manuelles Wrapping" value="manual-wrapping">
     Verwenden Sie die Funktion `insert`, um Einfügeinhalt explizit zu deklarieren.
 
-    ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+    ```typescript fileName="**/*.content.ts" contentDeclarationFormat=["typescript", "esm", "cjs"]
     import { insert, type Dictionary } from "intlayer";
 
     const myInsertionContent = {
@@ -105,7 +105,7 @@ Um Einfügeinhalt in Ihrem Intlayer-Projekt einzurichten, erstellen Sie ein Inha
   <Tab label="Automatische Erkennung" value="automatic-detection">
     Wenn der String gängige Einfügeindikatoren (wie `{{name}}`) enthält, wird Intlayer ihn automatisch transformieren.
 
-    ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+    ```typescript fileName="**/*.content.ts" contentDeclarationFormat=["typescript", "esm", "cjs"]
     import { type Dictionary } from "intlayer";
 
     const myInsertionContent = {
@@ -213,7 +213,7 @@ markdown
 
 Um Einfügeinhalte innerhalb einer React-Komponente zu verwenden, importieren Sie den `useIntlayer`-Hook aus dem `react-intlayer`-Paket und verwenden ihn. Dieser Hook ruft den Inhalt für den angegebenen Schlüssel ab und ermöglicht es Ihnen, ein Objekt zu übergeben, das jeden Platzhalter in Ihrem Inhalt auf den Wert abbildet, den Sie anzeigen möchten.
 
-```tsx fileName="**/*.tsx" codeFormat="typescript"
+```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useIntlayer } from "react-intlayer";
 
@@ -239,60 +239,6 @@ const InsertionComponent: FC = () => {
 };
 
 export default InsertionComponent;
-```
-
-```javascript fileName="**/*.mjx" codeFormat="esm"
-import { useIntlayer } from "react-intlayer";
-
-const InsertionComponent = () => {
-  const { myInsertion } = useIntlayer("my_key");
-
-  return (
-    <div>
-      <p>
-        {
-          /* Ausgabe: "Hallo, mein Name ist John und ich bin 30 Jahre alt!" */
-          myInsertion({ name: "John", age: "30" })
-        }
-      </p>
-      <p>
-        {
-          /* Sie können dieselbe Einfügung mit unterschiedlichen Werten wiederverwenden */
-          myInsertion({ name: "Alice", age: "25" })
-        }
-      </p>
-    </div>
-  );
-};
-
-export default InsertionComponent;
-```
-
-```javascript fileName="**/*.cjs" codeFormat="commonjs"
-const { useIntlayer } = require("react-intlayer");
-
-const InsertionComponent = () => {
-  const { myInsertion } = useIntlayer("my_key");
-
-  return (
-    <div>
-      <p>
-        {
-          /* Ausgabe: "Hallo, mein Name ist John und ich bin 30 Jahre alt!" */
-          myInsertion({ name: "John", age: "30" })
-        }
-      </p>
-      <p>
-        {
-          /* Sie können denselben Einfügeinhalt mit unterschiedlichen Werten wiederverwenden */
-          myInsertion({ name: "Alice", age: "25" })
-        }
-      </p>
-    </div>
-  );
-};
-
-module.exports = InsertionComponent;
 ```
 
 ## Zusätzliche Ressourcen

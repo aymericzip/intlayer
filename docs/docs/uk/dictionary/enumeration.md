@@ -32,7 +32,7 @@ history:
 
 Щоб налаштувати перерахування у вашому проєкті Intlayer, потрібно створити модуль контенту, який містить визначення перерахувань. Ось приклад простого перерахування для кількості автомобілів:
 
-```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="**/*.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { enu, type Dictionary } from "intlayer";
 
 const carEnumeration = {
@@ -51,50 +51,6 @@ const carEnumeration = {
 } satisfies Dictionary;
 
 export default carEnumeration;
-```
-
-```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-import { enu } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const carEnumeration = {
-  key: "car_count",
-  content: {
-    numberOfCar: enu({
-      "<-1": "Менше ніж -1 автомобіля",
-      "-1": "Мінус один автомобіль",
-      "0": "Жодних автомобілів",
-      "1": "Один автомобіль",
-      ">5": "Кілька автомобілів",
-      ">19": "Багато автомобілів",
-      "fallback": "Значення за замовчуванням", // Необов'язково
-    }),
-  },
-};
-
-export default carEnumeration;
-```
-
-```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-const { enu } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const carEnumeration = {
-  key: "car_count",
-  content: {
-    numberOfCar: enu({
-      "<-1": "Менше ніж мінус одна машина",
-      "-1": "Мінус одна машина",
-      "0": "Немає машин",
-      "1": "Одна машина",
-      ">5": "Декілька машин",
-      ">19": "Багато машин",
-      "fallback": "Значення за замовчуванням", // Необов'язково
-    }),
-  },
-};
-
-module.exports = carEnumeration;
 ```
 
 ```json fileName="**/*.content.json" contentDeclarationFormat="json"
@@ -128,7 +84,7 @@ module.exports = carEnumeration;
 
 Щоб використовувати enumeration в React-компоненті, ви можете скористатися хуком `useIntlayer` з пакета `react-intlayer`. Цей хук повертає правильний контент на основі вказаного ID. Ось приклад використання:
 
-```tsx fileName="**/*.tsx" codeFormat="typescript"
+```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useIntlayer } from "react-intlayer";
 
@@ -160,76 +116,6 @@ const CarComponent: FC = () => {
     </div>
   );
 };
-```
-
-```javascript fileName="**/*.mjx" codeFormat="esm"
-import { useIntlayer } from "react-intlayer";
-
-const CarComponent = () => {
-  const { numberOfCar } = useIntlayer("car_count");
-
-  return (
-    <div>
-      <p>
-        {
-          numberOfCar(0) // Вивід: Немає автомобілів
-        }
-      </p>
-      <p>
-        {
-          numberOfCar(6) // Вивід: Кілька автомобілів
-        }
-      </p>
-      <p>
-        {
-          numberOfCar(20) // Вивід: Багато автомобілів
-        }
-      </p>
-      <p>
-        {
-          numberOfCar(0.01) // Вивід: Резервне значення
-        }
-      </p>
-    </div>
-  );
-};
-
-export default CarComponent;
-```
-
-```javascript fileName="**/*.cjs" codeFormat="commonjs"
-const { useIntlayer } = require("react-intlayer");
-
-const CarComponent = () => {
-  const { numberOfCar } = useIntlayer("car_count");
-
-  return (
-    <div>
-      <p>
-        {
-          numberOfCar(0) // Вивід: Немає автомобілів
-        }
-      </p>
-      <p>
-        {
-          numberOfCar(6) // Вивід: Декілька автомобілів
-        }
-      </p>
-      <p>
-        {
-          numberOfCar(20) // Вивід: Багато автомобілів
-        }
-      </p>
-      <p>
-        {
-          numberOfCar(0.01) // Вивід: Значення за замовчуванням
-        }
-      </p>
-    </div>
-  );
-};
-
-module.exports = CarComponent;
 ```
 
 У цьому прикладі компонент динамічно підлаштовує свій вивід залежно від кількості автомобілів. Правильний вміст вибирається автоматично залежно від заданого діапазону.

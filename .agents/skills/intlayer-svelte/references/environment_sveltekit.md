@@ -164,7 +164,7 @@ export default defineConfig({
 
 Create your content declaration files anywhere in your `src` folder (e.g., `src/lib/content` or alongside your components). These files define the translatable content for your application using the `t()` function for each locale.
 
-```ts fileName="src/features/hero/hero.content.ts" contentDeclarationFormat="typescript"
+```ts fileName="src/features/hero/hero.content.ts" contentDeclarationFormat=["typescript", "esm", "cjs"]
 import { t, type Dictionary } from "intlayer";
 
 const heroContent = {

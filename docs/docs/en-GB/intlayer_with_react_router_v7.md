@@ -123,7 +123,7 @@ See [Application Template](https://github.com/aymericzip/intlayer-react-router-v
 
 Create a config file to configure the languages of your application:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { type IntlayerConfig, Locales } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -134,34 +134,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    defaultLocale: Locales.ENGLISH,
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    defaultLocale: Locales.ENGLISH,
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-  },
-};
-
-module.exports = config;
 ```
 
 > Through this configuration file, you can set up localised URLs, middleware redirection, cookie names, the location and extension of your content declarations, disable Intlayer logs in the console, and more. For a complete list of available parameters, refer to the [configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/configuration.md).

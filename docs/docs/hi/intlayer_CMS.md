@@ -93,7 +93,7 @@ bun x intlayer login
 
 अपने Intlayer कॉन्फ़िगरेशन फ़ाइल में, आप CMS सेटिंग्स को अनुकूलित कर सकते हैं:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import type { IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -142,106 +142,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... अन्य कॉन्फ़िगरेशन सेटिंग्स
-  editor: {
-    /**
-     * आवश्यक
-     *
-     * एप्लिकेशन का URL।
-     * यह वह URL है जिसे विज़ुअल एडिटर लक्षित करता है।
-     */
-    applicationURL: process.env.INTLAYER_APPLICATION_URL,
-
-    /**
-     * आवश्यक
-     *
-     * एडिटर को सक्षम करने के लिए क्लाइंट ID और क्लाइंट सीक्रेट आवश्यक हैं।
-     * ये उपयोगकर्ता की पहचान करने की अनुमति देते हैं जो सामग्री संपादित कर रहा है।
-     * इन्हें Intlayer डैशबोर्ड - प्रोजेक्ट्स (https://app.intlayer.org/projects) में नया क्लाइंट बनाकर प्राप्त किया जा सकता है।
-     * clientId: process.env.INTLAYER_CLIENT_ID,
-     * clientSecret: process.env.INTLAYER_CLIENT_SECRET,
-     */
-    clientId: process.env.INTLAYER_CLIENT_ID,
-    clientSecret: process.env.INTLAYER_CLIENT_SECRET,
-
-    /**
-     * वैकल्पिक
-     *
-     * यदि आप Intlayer CMS को स्वयं होस्ट कर रहे हैं, तो आप CMS का URL सेट कर सकते हैं।
-     *
-     * Intlayer CMS का URL।
-     * डिफ़ॉल्ट रूप से, यह https://intlayer.org पर सेट होता है।
-     */
-    cmsURL: process.env.INTLAYER_CMS_URL,
-
-    /**
-     * वैकल्पिक
-     *
-     * यदि आप Intlayer CMS को स्वयं होस्ट कर रहे हैं, तो आप बैकएंड का URL सेट कर सकते हैं।
-     *
-     * Intlayer CMS का URL।
-     * डिफ़ॉल्ट रूप से, यह https://back.intlayer.org पर सेट होता है।
-     */
-    backendURL: process.env.INTLAYER_BACKEND_URL,
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... अन्य कॉन्फ़िगरेशन सेटिंग्स
-  editor: {
-    /**
-     * आवश्यक
-     *
-     * एप्लिकेशन का URL।
-     * यह वह URL है जिसे विज़ुअल एडिटर लक्षित करता है।
-     */
-    applicationURL: process.env.INTLAYER_APPLICATION_URL,
-
-    /**
-     * आवश्यक
-     *
-     * एडिटर को सक्षम करने के लिए क्लाइंट ID और क्लाइंट सीक्रेट आवश्यक हैं।
-     * ये उपयोगकर्ता की पहचान करने की अनुमति देते हैं जो सामग्री संपादित कर रहा है।
-     * इन्हें Intlayer डैशबोर्ड - प्रोजेक्ट्स (https://app.intlayer.org/projects) में नया क्लाइंट बनाकर प्राप्त किया जा सकता है।
-     * clientId: process.env.INTLAYER_CLIENT_ID,
-     * clientSecret: process.env.INTLAYER_CLIENT_SECRET,
-     */
-    clientId: process.env.INTLAYER_CLIENT_ID,
-    clientSecret: process.env.INTLAYER_CLIENT_SECRET,
-
-    /**
-     * वैकल्पिक
-     *
-     * यदि आप Intlayer CMS को स्वयं होस्ट कर रहे हैं, तो आप CMS का URL सेट कर सकते हैं।
-     *
-     * Intlayer CMS का URL।
-     * डिफ़ॉल्ट रूप से, यह https://intlayer.org पर सेट होता है।
-     */
-    cmsURL: process.env.INTLAYER_CMS_URL,
-
-    /**
-     * वैकल्पिक
-     *
-     * यदि आप Intlayer CMS को स्वयं होस्ट कर रहे हैं, तो आप बैकएंड का URL सेट कर सकते हैं।
-     *
-     * Intlayer CMS का URL।
-     * डिफ़ॉल्ट रूप से, यह https://back.intlayer.org पर सेट होता है।
-     */
-    backendURL: process.env.INTLAYER_BACKEND_URL,
-  },
-};
-
-module.exports = config;
 ```
 
 > यदि आपके पास क्लाइंट ID और क्लाइंट सीक्रेट नहीं है, तो आप इन्हें [Intlayer डैशबोर्ड - प्रोजेक्ट्स](https://app.intlayer.org/projects) में नया क्लाइंट बनाकर प्राप्त कर सकते हैं।
@@ -294,7 +194,7 @@ npx intlayer dictionary push -d my-first-dictionary-key --env production
 
 अपने Intlayer कॉन्फ़िगरेशन को अपडेट करके लाइव सिंक सक्षम करें:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import type { IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -329,92 +229,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... अन्य कॉन्फ़िगरेशन सेटिंग्स
-  editor: {
-    /**
-     * जब परिवर्तन पता चलते हैं तो लोकल कॉन्फ़िगरेशन के हॉट रीलोडिंग को सक्षम करता है।
-     * उदाहरण के लिए, जब कोई शब्दकोश जोड़ा या अपडेट किया जाता है, तो एप्लिकेशन
-     * पृष्ठ पर प्रदर्शित सामग्री को अपडेट करता है।
-     *
-     * क्योंकि हॉट रीलोडिंग के लिए सर्वर से निरंतर कनेक्शन आवश्यक होता है,
-     * यह केवल `enterprise` योजना के क्लाइंट्स के लिए उपलब्ध है।
-     *
-     * डिफ़ॉल्ट: false
-     */
-    liveSync: true,
-  },
-  dictionary: {
-    /**
-     * नियंत्रित करता है कि शब्दकोश कैसे आयात किए जाते हैं:
-     *
-     * - "live": शब्दकोश लाइव सिंक API का उपयोग करके गतिशील रूप से प्राप्त किए जाते हैं।
-     *   useIntlayer को useDictionaryDynamic से प्रतिस्थापित करता है।
-     *
-     * नोट: लाइव मोड शब्दकोश प्राप्त करने के लिए लाइव सिंक API का उपयोग करता है। यदि API कॉल
-     * विफल हो जाती है, तो शब्दकोश गतिशील रूप से आयात किए जाते हैं।
-     * नोट: केवल वे शब्दकोश जिनमें रिमोट सामग्री और "live" फ्लैग होते हैं, लाइव मोड का उपयोग करते हैं।
-     * अन्य प्रदर्शन के लिए डायनेमिक मोड का उपयोग करते हैं।
-     */
-    importMode: "fetch",
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... अन्य कॉन्फ़िगरेशन सेटिंग्स
-  editor: {
-    /**
-     * जब परिवर्तन पता चलते हैं तो लोकल कॉन्फ़िगरेशन के हॉट रीलोडिंग को सक्षम करता है।
-     * उदाहरण के लिए, जब कोई शब्दकोश जोड़ा या अपडेट किया जाता है, तो एप्लिकेशन
-     * पृष्ठ पर प्रदर्शित सामग्री को अपडेट करता है।
-     *
-     * क्योंकि हॉट रीलोडिंग के लिए सर्वर से निरंतर कनेक्शन आवश्यक होता है,
-     * यह केवल `enterprise` योजना के क्लाइंट्स के लिए उपलब्ध है।
-     *
-     * डिफ़ॉल्ट: false
-     */
-    liveSync: true,
-
-    /**
-     * लाइव सिंक सर्वर का पोर्ट।
-     *
-     * डिफ़ॉल्ट: 4000
-     */
-    liveSyncPort: 4000,
-
-    /**
-     * लाइव सिंक सर्वर का URL।
-     *
-     * डिफ़ॉल्ट: http://localhost:{liveSyncPort}
-     */
-    liveSyncURL: "https://live.example.com",
-  },
-  dictionary: {
-    /**
-     * नियंत्रित करता है कि शब्दकोश कैसे आयात किए जाते हैं:
-     *
-     * - "live": शब्दकोश लाइव सिंक API का उपयोग करके डायनेमिक रूप से प्राप्त किए जाते हैं।
-     *   useIntlayer को useDictionaryDynamic से बदलता है।
-     *
-     * नोट: लाइव मोड शब्दकोश प्राप्त करने के लिए लाइव सिंक API का उपयोग करता है। यदि API कॉल विफल हो जाती है,
-     * तो शब्दकोश डायनेमिक रूप से आयात किए जाते हैं।
-     * नोट: केवल वे शब्दकोश जिनमें रिमोट सामग्री और "live" फ्लैग होते हैं, लाइव मोड का उपयोग करते हैं।
-     * अन्य प्रदर्शन के लिए डायनेमिक मोड का उपयोग करते हैं।
-     */
-    importMode: "fetch",
-  },
-};
-
-module.exports = config;
 ```
 
 अपने एप्लिकेशन को रैप करने के लिए लाइव सिंक सर्वर शुरू करें:
@@ -474,7 +288,7 @@ CMS से परिवर्तन सूचनाएँ प्राप्त 
 
 विकास के दौरान Intlayer लाइव इम्पोर्ट ट्रांसफ़ॉर्मेशन लागू करने के लिए ऑप्टिमाइज़ेशन सक्षम करें:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import type { IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -492,44 +306,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  editor: {
-    applicationURL: "http://localhost:5173",
-    liveSyncURL: "http://localhost:4000",
-    liveSync: true,
-  },
-  dictionary: {
-    importMode: "fetch",
-  },
-  build: {
-    optimize: true,
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  editor: {
-    applicationURL: "http://localhost:5173",
-    liveSyncURL: "http://localhost:4000",
-    liveSync: true,
-  },
-  dictionary: {
-    importMode: "fetch",
-  },
-  build: {
-    optimize: true,
-  },
-};
-
-module.exports = config;
 ```
 
 यह सेटअप आपके डेवलपमेंट सर्वर को लाइव सिंक सर्वर के साथ लपेटता है, स्टार्टअप पर रिमोट डिक्शनरीज़ को प्राप्त करता है, और CMS से SSE के माध्यम से अपडेट्स को स्ट्रीम करता है। परिवर्तनों को देखने के लिए पेज को रिफ्रेश करें।

@@ -84,7 +84,7 @@ bun x intlayer init
 
 프로젝트 루트에 `intlayer.config.ts`를 생성하여 국제화 설정을 구성하십시오:
 
-```typescript fileName="intlayer.config.ts"  codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -102,49 +102,11 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH_MEXICO,
-      Locales.SPANISH_SPAIN,
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH_MEXICO,
-      Locales.SPANISH_SPAIN,
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-module.exports = config;
-```
-
 ### 콘텐츠 선언하기
 
 번역을 저장하기 위해 콘텐츠 선언을 생성하고 관리하세요:
 
-```typescript fileName="src/index.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="src/index.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, type Dictionary } from "intlayer";
 
 const indexContent = {
@@ -160,46 +122,6 @@ const indexContent = {
 } satisfies Dictionary;
 
 export default indexContent;
-```
-
-```javascript fileName="src/index.content.mjs" contentDeclarationFormat="esm"
-import { t } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const indexContent = {
-  key: "index",
-  content: {
-    exampleOfContent: t({
-      ko: "영어로 반환된 콘텐츠 예시",
-      en: "Example of returned content in English",
-      fr: "Exemple de contenu renvoyé en français",
-      "es-ES": "Ejemplo de contenido devuelto en español (España)",
-      "es-MX": "Ejemplo de contenido devuelto en español (México)",
-    }),
-  },
-};
-
-export default indexContent;
-```
-
-```javascript fileName="src/index.content.cjs" contentDeclarationFormat="commonjs"
-const { t } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const indexContent = {
-  key: "index",
-  content: {
-    exampleOfContent: t({
-      ko: "영어로 반환된 콘텐츠 예시",
-      en: "Example of returned content in English",
-      fr: "Exemple de contenu renvoyé en français",
-      "es-ES": "Ejemplo de contenido devuelto en español (España)",
-      "es-MX": "Ejemplo de contenido devuelto en español (México)",
-    }),
-  },
-};
-
-module.exports = indexContent;
 ```
 
 ```json fileName="src/index.content.json" contentDeclarationFormat="json"
@@ -229,7 +151,7 @@ module.exports = indexContent;
 
 `express-intlayer`를 사용하도록 Express 애플리케이션을 설정하세요:
 
-```typescript fileName="src/index.ts" codeFormat="typescript"
+```typescript fileName="src/index.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import express, { type Express } from "express";
 import { intlayer, t, getDictionary, getIntlayer } from "express-intlayer";
 import dictionaryExample from "./index.content";
@@ -264,75 +186,6 @@ app.get("/getDictionary_example", (_req, res) => {
 app.listen(3000, () => console.log(`Listening on port 3000`));
 ```
 
-```javascript fileName="src/index.mjs" codeFormat="esm"
-import express from "express";
-import { intlayer, t, getDictionary, getIntlayer } from "express-intlayer";
-import dictionaryExample from "./index.content";
-
-const app = express();
-
-// 국제화 요청 핸들러 로드
-app.use(intlayer());
-
-// 라우트
-app.get("/t_example", (_req, res) => {
-  res.send(
-    t({
-      ko: "영어로 반환된 콘텐츠 예시",
-      en: "Example of returned content in English",
-      fr: "Exemple de contenu renvoyé en français",
-      "es-ES": "Ejemplo de contenido devuelto en español (España)",
-      "es-MX": "Ejemplo de contenido devuelto en español (México)",
-    })
-  );
-});
-
-app.get("/getIntlayer_example", (_req, res) => {
-  res.send(getIntlayer("index").exampleOfContent);
-});
-
-app.get("/getDictionary_example", (_req, res) => {
-  res.send(getDictionary(dictionaryExample).exampleOfContent);
-});
-
-// 서버 시작
-app.listen(3000, () => console.log(`포트 3000에서 대기 중`));
-```
-
-```javascript fileName="src/index.cjs" codeFormat="commonjs"
-const express = require("express");
-const { intlayer, t, getDictionary, getIntlayer } = require("express-intlayer");
-const dictionaryExample = require("./index.content");
-
-const app = express();
-
-// 국제화 요청 핸들러 로드
-app.use(intlayer());
-
-// 라우트
-app.get("/t_example", (_req, res) => {
-  res.send(
-    t({
-      en: "Example of returned content in English",
-      fr: "Exemple de contenu renvoyé en français",
-      "es-ES": "Ejemplo de contenido devuelto en español (España)",
-      "es-MX": "Ejemplo de contenido devuelto en español (México)",
-    })
-  );
-});
-
-app.get("/getIntlayer_example", (_req, res) => {
-  res.send(getIntlayer("index").exampleOfContent);
-});
-
-app.get("/getDictionary_example", (_req, res) => {
-  res.send(getDictionary(dictionaryExample).exampleOfContent);
-});
-
-// 서버 시작
-app.listen(3000, () => console.log(`포트 3000에서 대기 중`));
-```
-
 ### 호환성
 
 `express-intlayer`는 다음과 완벽하게 호환됩니다:
@@ -342,7 +195,7 @@ app.listen(3000, () => console.log(`포트 3000에서 대기 중`));
 - Vite 애플리케이션용 [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/vite-intlayer/index.md)
   다양한 환경(브라우저 및 API 요청 포함)에서 모든 국제화 솔루션과 원활하게 작동합니다. 미들웨어를 사용자 정의하여 헤더나 쿠키를 통해 로케일을 감지할 수 있습니다:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -354,36 +207,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... 기타 구성 옵션
-  middleware: {
-    headerName: "my-locale-header",
-    cookieName: "my-locale-cookie",
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... 기타 구성 옵션
-  middleware: {
-    headerName: "my-locale-header",
-    cookieName: "my-locale-cookie",
-  },
-};
-
-module.exports = config;
 ```
 
 기본적으로 `express-intlayer`는 `Accept-Language` 헤더를 해석하여 클라이언트가 선호하는 언어를 결정합니다.

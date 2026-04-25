@@ -47,26 +47,8 @@ Entfernt das Locale-Segment aus der angegebenen URL oder dem Pfadnamen, falls vo
 
 ## Beispielhafte Verwendung
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getPathWithoutLocale } from "intlayer";
-
-console.log(getPathWithoutLocale("/dashboard")); // Ausgabe: "/dashboard"
-console.log(getPathWithoutLocale("/en/dashboard")); // Ausgabe: "/dashboard"
-console.log(getPathWithoutLocale("/fr/dashboard")); // Ausgabe: "/dashboard"
-console.log(getPathWithoutLocale("https://example.com/en/dashboard")); // Ausgabe: "https://example.com/dashboard"
-```
-
-```javascript codeFormat="esm"
-import { getPathWithoutLocale } from "intlayer";
-
-console.log(getPathWithoutLocale("/dashboard")); // Ausgabe: "/dashboard"
-console.log(getPathWithoutLocale("/en/dashboard")); // Ausgabe: "/dashboard"
-console.log(getPathWithoutLocale("/fr/dashboard")); // Ausgabe: "/dashboard"
-console.log(getPathWithoutLocale("https://example.com/en/dashboard")); // Ausgabe: "https://example.com/dashboard"
-```
-
-```javascript codeFormat="commonjs"
-const { getPathWithoutLocale } = require("intlayer");
 
 console.log(getPathWithoutLocale("/dashboard")); // Ausgabe: "/dashboard"
 console.log(getPathWithoutLocale("/en/dashboard")); // Ausgabe: "/dashboard"

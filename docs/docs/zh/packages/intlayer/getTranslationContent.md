@@ -49,36 +49,8 @@ history:
 
 ### 基本用法
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getTranslation, Locales } from "intlayer";
-
-const content = getTranslation(
-  {
-    en: "Hello",
-    fr: "Bonjour",
-  },
-  Locales.ENGLISH
-);
-
-console.log(content); // 输出: "Bonjour"
-```
-
-```javascript codeFormat="esm"
-import { getTranslation, Locales } from "intlayer";
-
-const content = getTranslation(
-  {
-    en: "Hello",
-    fr: "Bonjour",
-  },
-  Locales.ENGLISH
-);
-
-console.log(content); // 输出: "Bonjour"
-```
-
-```javascript codeFormat="commonjs"
-const { getTranslation, Locales } = require("intlayer");
 
 const content = getTranslation(
   {
@@ -93,7 +65,7 @@ console.log(content); // 输出: "Bonjour"
 
 ### 缺失的语言环境：
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getTranslation, Locales } from "intlayer";
 
 const content = getTranslation(
@@ -105,68 +77,12 @@ const content = getTranslation(
 );
 
 console.log(content); // 输出: "Hello"（默认语言环境内容）
-```
-
-```javascript codeFormat="esm"
-import { getTranslation, Locales } from "intlayer";
-
-const content = getTranslation(
-  {
-    en: "Hello",
-    fr: "Bonjour",
-  },
-  Locales.SPANISH
-);
-
-console.log(content); // 输出: "Hello"（默认语言环境内容）
-```
-
-```javascript codeFormat="commonjs"
-const { getTranslation, Locales } = require("intlayer");
-
-const content = getTranslation(
-  {
-    en: "Hello",
-    fr: "Bonjour",
-  },
-  Locales.SPANISH
-);
-
-console.log(content); // 输出: "Hello"（默认语言内容）
 ```
 
 ### 使用自定义内容类型：
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getTranslation, Locales } from "intlayer";
-
-const customContent = getTranslation<Record<string, string>>(
-  {
-    en: { greeting: "Hello" },
-    fr: { greeting: "Bonjour" },
-  },
-  Locales.FRENCH
-);
-
-console.log(customContent.greeting); // 输出: "Bonjour"
-```
-
-```javascript codeFormat="esm"
-import { getTranslation, Locales } from "intlayer";
-
-const customContent = getTranslation<Record<string, string>>(
-  {
-    en: { greeting: "Hello" },
-    fr: { greeting: "Bonjour" },
-  },
-  Locales.FRENCH
-);
-
-console.log(customContent.greeting); // 输出: "Bonjour"
-```
-
-```javascript codeFormat="commonjs"
-const { getTranslation, Locales } = require("intlayer");
 
 const customContent = getTranslation<Record<string, string>>(
   {

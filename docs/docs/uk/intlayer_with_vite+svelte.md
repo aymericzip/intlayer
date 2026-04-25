@@ -141,7 +141,7 @@ export default defineConfig({
 
 Створюйте та керуйте деклараціями контенту для зберігання перекладів:
 
-```tsx fileName="src/app.content.tsx" contentDeclarationFormat="typescript"
+```tsx fileName="src/app.content.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, type Dictionary } from "intlayer";
 
 const appContent = {
@@ -157,44 +157,6 @@ const appContent = {
 } satisfies Dictionary;
 
 export default appContent;
-```
-
-```javascript fileName="src/app.content.mjs" contentDeclarationFormat="esm"
-import { t } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */ // Тип: Dictionary з intlayer
-const appContent = {
-  key: "app",
-  content: {
-    title: t({
-      uk: "Привіт, світ",
-      en: "Hello World",
-      fr: "Bonjour le monde",
-      es: "Hola mundo",
-    }),
-  },
-};
-
-export default appContent;
-```
-
-```javascript fileName="src/app.content.cjs" contentDeclarationFormat="commonjs"
-const { t } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */ // Тип: Dictionary з intlayer
-const appContent = {
-  key: "app",
-  content: {
-    title: t({
-      uk: "Привіт, світ",
-      en: "Hello World",
-      fr: "Bonjour le monde",
-      es: "Hola mundo",
-    }),
-  },
-};
-
-module.exports = appContent;
 ```
 
 ```json fileName="src/app.content.json" contentDeclarationFormat="json"
@@ -391,43 +353,13 @@ $: content = useIntlayer('app', locale);
 
 > Зауважте, що для використання `intlayerProxy` в production потрібно перемістити пакет `vite-intlayer` з `devDependencies` до `dependencies`.
 
-```typescript {3,7} fileName="vite.config.ts" codeFormat="typescript"
+```typescript {3,7} fileName="vite.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { defineConfig } from "vite";
 import { svelte } from "@sveltejs/vite-plugin-svelte";
 import { intlayer, intlayerProxy } from "vite-intlayer";
 
 // https://vitejs.dev/config/ - конфігурація Vite
 export default defineConfig({
-  plugins: [
-    intlayerProxy(), // should be placed first
-    svelte(),
-    intlayer(),
-  ],
-});
-```
-
-```javascript {3,7} fileName="vite.config.mjs" codeFormat="esm"
-import { defineConfig } from "vite";
-import { svelte } from "@sveltejs/vite-plugin-svelte";
-import { intlayer, intlayerProxy } from "vite-intlayer";
-
-// https://vitejs.dev/config/ - конфігурація Vite
-export default defineConfig({
-  plugins: [
-    intlayerProxy(), // should be placed first
-    svelte(),
-    intlayer(),
-  ],
-});
-```
-
-```javascript {3,7} fileName="vite.config.cjs" codeFormat="commonjs"
-const { defineConfig } = require("vite");
-const { svelte } = require("@sveltejs/vite-plugin-svelte");
-const { intlayer, intlayerProxy } = require("vite-intlayer");
-
-// https://vitejs.dev/config/ - конфігурація Vite
-module.exports = defineConfig({
   plugins: [
     intlayerProxy(), // should be placed first
     svelte(),
@@ -529,7 +461,7 @@ const changeLocale = (event: Event) => {
 
 Щоб налаштувати його, ви можете додати розділ `compiler` у свій файл `intlayer.config.ts`:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -558,66 +490,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... Інша частина вашої конфігурації
-  compiler: {
-    /**
-     * Вказує, чи повинен бути включений компілятор.
-     */
-    enabled: true,
-
-    /**
-     * Визначає шлях до вихідних файлів
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * Вказує, чи повинні компоненти зберігатися після перетворення. Таким чином, компілятор можна запустити лише один раз для перетворення програми, а потім видалити.
-     */
-    saveComponents: false,
-
-    /**
-     * Префікс ключа словника
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... Інша частина вашої конфігурації
-  compiler: {
-    /**
-     * Вказує, чи повинен бути включений компілятор.
-     */
-    enabled: true,
-
-    /**
-     * Визначає шлях до вихідних файлів
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * Вказує, чи повинні компоненти зберігатися після перетворення. Таким чином, компілятор можна запустити лише один раз для перетворення програми, а потім видалити.
-     */
-    saveComponents: false,
-
-    /**
-     * Префікс ключа словника
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-module.exports = config;
 ```
 
 <Tabs>

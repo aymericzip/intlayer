@@ -28,7 +28,7 @@ In Intlayer wird bedingter Inhalt durch die `cond`-Funktion erreicht, die spezif
 
 Um bedingten Inhalt in Ihrem Intlayer-Projekt einzurichten, erstellen Sie ein Inhaltsmodul, das Ihre bedingten Definitionen enthält. Nachfolgend finden Sie Beispiele in verschiedenen Formaten.
 
-```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="**/*.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { cond, type Dictionary } from "intlayer";
 
 const myConditionalContent = {
@@ -43,42 +43,6 @@ const myConditionalContent = {
 } satisfies Dictionary;
 
 export default myConditionalContent;
-```
-
-```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-import { cond } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const myConditionalContent = {
-  key: "my_key",
-  content: {
-    myCondition: cond({
-      true: "mein Inhalt, wenn es wahr ist",
-      false: "mein Inhalt, wenn es falsch ist",
-      fallback: "mein Inhalt, wenn die Bedingung fehlschlägt", // Optional
-    }),
-  },
-};
-
-export default myConditionalContent;
-```
-
-```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-const { cond } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const myConditionalContent = {
-  key: "my_key",
-  content: {
-    myCondition: cond({
-      true: "mein Inhalt, wenn es wahr ist",
-      false: "mein Inhalt, wenn es falsch ist",
-      fallback: "mein Inhalt, wenn die Bedingung fehlschlägt", // Optional
-    }),
-  },
-};
-
-module.exports = myConditionalContent;
 ```
 
 ```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
@@ -104,7 +68,7 @@ module.exports = myConditionalContent;
 
 Um bedingten Inhalt innerhalb einer React-Komponente zu verwenden, importieren und nutzen Sie den `useIntlayer`-Hook aus dem `react-intlayer`-Paket. Dieser Hook ruft den Inhalt für den angegebenen Schlüssel ab und ermöglicht es Ihnen, eine Bedingung zu übergeben, um die entsprechende Ausgabe auszuwählen.
 
-```tsx fileName="**/*.tsx" codeFormat="typescript"
+```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useIntlayer } from "react-intlayer";
 
@@ -142,84 +106,6 @@ const ConditionalComponent: FC = () => {
 };
 
 export default ConditionalComponent;
-```
-
-```javascript fileName="**/*.mjx" codeFormat="esm"
-import { useIntlayer } from "react-intlayer";
-
-const ConditionalComponent = () => {
-  const { myCondition } = useIntlayer("my_key");
-
-  return (
-    <div>
-      <p>
-        {
-          /* Ausgabe: mein Inhalt, wenn es wahr ist */
-          myCondition(true)
-        }
-      </p>
-      <p>
-        {
-          /* Ausgabe: mein Inhalt, wenn es falsch ist */
-          myCondition(false)
-        }
-      </p>
-      <p>
-        {
-          /* Ausgabe: mein Inhalt, wenn die Bedingung fehlschlägt */
-          myCondition("")
-        }
-      </p>
-      <p>
-        {
-          /* Ausgabe: mein Inhalt, wenn die Bedingung fehlschlägt */
-          myCondition(undefined)
-        }
-      </p>
-    </div>
-  );
-};
-
-export default ConditionalComponent;
-```
-
-```javascript fileName="**/*.cjs" codeFormat="commonjs"
-const { useIntlayer } = require("react-intlayer");
-
-const ConditionalComponent = () => {
-  const { myCondition } = useIntlayer("my_key");
-
-  return (
-    <div>
-      <p>
-        {
-          /* Ausgabe: mein Inhalt, wenn es wahr ist */
-          myCondition(true)
-        }
-      </p>
-      <p>
-        {
-          /* Ausgabe: mein Inhalt, wenn es falsch ist */
-          myCondition(false)
-        }
-      </p>
-      <p>
-        {
-          /* Ausgabe: mein Inhalt, wenn die Bedingung fehlschlägt */
-          myCondition("")
-        }
-      </p>
-      <p>
-        {
-          /* Ausgabe: mein Inhalt, wenn die Bedingung fehlschlägt */
-          myCondition(undefined)
-        }
-      </p>
-    </div>
-  );
-};
-
-module.exports = ConditionalComponent;
 ```
 
 ## Zusätzliche Ressourcen

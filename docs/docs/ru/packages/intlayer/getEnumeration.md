@@ -50,7 +50,7 @@ history:
 
 ### Базовое использование
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getEnumeration } from "intlayer";
 
 const content = getEnumeration(
@@ -66,68 +66,10 @@ const content = getEnumeration(
 console.log(content); // Вывод: "У вас два"
 ```
 
-```javascript codeFormat="esm"
-import { getEnumeration } from "intlayer";
-
-const content = getEnumeration(
-  {
-    "<1": "У вас меньше чем один",
-    "2": "У вас два",
-    ">=3": "У вас три или больше",
-  },
-  2
-);
-
-console.log(content); // Вывод: "У вас два"
-```
-
-```javascript codeFormat="commonjs"
-const { getEnumeration } = require("intlayer");
-
-const content = getEnumeration(
-  {
-    "<1": "У вас меньше чем один",
-    "2": "У вас два",
-    ">=3": "У вас три или больше",
-  },
-  2
-);
-
-console.log(content); // Вывод: "У вас два"
-```
-
 ### Приоритет условий
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getEnumeration } from "intlayer";
-
-const content = getEnumeration(
-  {
-    "<4": "У вас меньше чем четыре",
-    "2": "У вас два",
-  },
-  2
-);
-
-console.log(content); // Вывод: "У вас меньше чем четыре"
-```
-
-```javascript codeFormat="esm"
-import { getEnumeration } from "intlayer";
-
-const content = getEnumeration(
-  {
-    "<4": "У вас меньше чем четыре",
-    "2": "У вас два",
-  },
-  2
-);
-
-console.log(content); // Вывод: "У вас меньше чем четыре"
-```
-
-```javascript codeFormat="commonjs"
-const { getEnumeration } = require("intlayer");
 
 const content = getEnumeration(
   {

@@ -42,7 +42,7 @@ Intlayer 支持两种声明多语言内容的方式：
 
 这是大多数使用场景推荐的方法。它将翻译集中管理，便于迭代和与 CMS 集成。
 
-```tsx fileName="hello-world.content.ts" contentDeclarationFormat="typescript"
+```tsx fileName="hello-world.content.ts" contentDeclarationFormat={["typescript", "esm"]}
 import { t, type Dictionary } from "intlayer";
 
 const helloWorldContent = {
@@ -54,24 +54,6 @@ const helloWorldContent = {
     }),
   },
 } satisfies Dictionary;
-
-export default helloWorldContent;
-```
-
-```js fileName="hello-world.content.mjs" contentDeclarationFormat="esm"
-import { t } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-// 定义包含多语言内容的字典对象
-const helloWorldContent = {
-  key: "hello-world",
-  content: {
-    multilingualContent: t({
-      en: "Title of my component",
-      es: "Título de mi componente",
-    }),
-  },
-};
 
 export default helloWorldContent;
 ```
@@ -139,7 +121,7 @@ export default config;
 
 您还可以通过指定 locale 字段，将翻译拆分到单独的语言区域文件中：
 
-```tsx fileName="hello-world.en.content.ts" contentDeclarationFormat="typescript"
+```tsx fileName="hello-world.en.content.ts" contentDeclarationFormat=["typescript", "esm", "cjs"]
 import { t, Locales, type Dictionary } from "intlayer";
 
 const helloWorldContent = {
@@ -151,7 +133,7 @@ const helloWorldContent = {
 export default helloWorldContent;
 ```
 
-```tsx fileName="hello-world.es.content.ts" contentDeclarationFormat="typescript"
+```tsx fileName="hello-world.es.content.ts" contentDeclarationFormat={["typescript", "esm"]}
 import { t, Locales, type Dictionary } from "intlayer";
 
 const helloWorldContent = {
@@ -159,20 +141,6 @@ const helloWorldContent = {
   locale: Locales.SPANISH, // 重要
   content: { multilingualContent: "Título de mi componente" },
 } satisfies Dictionary;
-
-export default helloWorldContent;
-```
-
-```js fileName="hello-world.en.content.mjs" contentDeclarationFormat="esm"
-import { t, Locales } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-// 定义一个字典类型的内容对象
-const helloWorldContent = {
-  key: "hello-world",
-  locale: Locales.ENGLISH, // 重要
-  content: { multilingualContent: "我的组件标题" },
-};
 
 export default helloWorldContent;
 ```

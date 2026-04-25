@@ -84,7 +84,7 @@ bun x intlayer init
 
 Konfigurasikan pengaturan internasionalisasi dengan membuat `intlayer.config.ts` di akar proyek Anda:
 
-```typescript fileName="intlayer.config.ts"  codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -102,49 +102,11 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH_MEXICO,
-      Locales.SPANISH_SPAIN,
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH_MEXICO,
-      Locales.SPANISH_SPAIN,
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-module.exports = config;
-```
-
 ### Deklarasikan Konten Anda
 
 Buat dan kelola deklarasi konten Anda untuk menyimpan terjemahan:
 
-```typescript fileName="src/index.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="src/index.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, type Dictionary } from "intlayer";
 
 const indexContent = {
@@ -160,44 +122,6 @@ const indexContent = {
 } satisfies Dictionary;
 
 export default indexContent;
-```
-
-```javascript fileName="src/index.content.mjs" contentDeclarationFormat="esm"
-import { t } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const indexContent = {
-  key: "index",
-  content: {
-    exampleOfContent: t({
-      en: "Example of returned content in English",
-      fr: "Exemple de contenu renvoyé en français",
-      "es-ES": "Ejemplo de contenido devuelto en español (España)",
-      "es-MX": "Ejemplo de contenido devuelto en español (México)",
-    }),
-  },
-};
-
-export default indexContent;
-```
-
-```javascript fileName="src/index.content.cjs" contentDeclarationFormat="commonjs"
-const { t } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const indexContent = {
-  key: "index",
-  content: {
-    exampleOfContent: t({
-      en: "Example of returned content in English",
-      fr: "Exemple de contenu renvoyé en français",
-      "es-ES": "Ejemplo de contenido devuelto en español (España)",
-      "es-MX": "Ejemplo de contenido devuelto en español (México)",
-    }),
-  },
-};
-
-module.exports = indexContent;
 ```
 
 ```json fileName="src/index.content.json" contentDeclarationFormat="json"
@@ -226,7 +150,7 @@ module.exports = indexContent;
 
 Siapkan aplikasi Fastify Anda untuk menggunakan `fastify-intlayer`:
 
-```typescript fileName="src/index.ts" codeFormat="typescript"
+```typescript fileName="src/index.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import Fastify from "fastify";
 import { intlayer, t, getDictionary, getIntlayer } from "fastify-intlayer";
 import dictionaryExample from "./index.content";
@@ -257,88 +181,6 @@ fastify.get("/getDictionary_example", async (_req, reply) => {
 // Mulai server
 const start = async () => {
   try {
-    await fastify.listen({ port: 3000 });
-  } catch (err) {
-    fastify.log.error(err);
-    process.exit(1);
-  }
-};
-
-start();
-```
-
-```javascript fileName="src/index.mjs" codeFormat="esm"
-import Fastify from "fastify";
-import { intlayer, t, getDictionary, getIntlayer } from "fastify-intlayer";
-import dictionaryExample from "./index.content";
-
-const fastify = Fastify({ logger: true });
-
-// Muat plugin internasionalisasi
-await fastify.register(intlayer);
-
-// Rute
-fastify.get("/t_example", async (_req, reply) => {
-  return t({
-    en: "Example of returned content in English",
-    fr: "Exemple de contenu renvoyé en français",
-    "es-ES": "Ejemplo de contenido devuelto en español (España)",
-    "es-MX": "Ejemplo de contenido devuelto en español (México)",
-  });
-});
-
-fastify.get("/getIntlayer_example", async (_req, reply) => {
-  return getIntlayer("index").exampleOfContent;
-});
-
-fastify.get("/getDictionary_example", async (_req, reply) => {
-  return getDictionary(dictionaryExample).exampleOfContent;
-});
-
-// Mulai server
-const start = async () => {
-  try {
-    await fastify.listen({ port: 3000 });
-  } catch (err) {
-    fastify.log.error(err);
-    process.exit(1);
-  }
-};
-
-start();
-```
-
-```javascript fileName="src/index.cjs" codeFormat="commonjs"
-const Fastify = require("fastify");
-const { intlayer, t, getDictionary, getIntlayer } = require("fastify-intlayer");
-const dictionaryExample = require("./index.content");
-
-const fastify = Fastify({ logger: true });
-
-// Pembungkus mulai server untuk async/await
-const start = async () => {
-  try {
-    // Muat plugin internasionalisasi
-    await fastify.register(intlayer);
-
-    // Rute
-    fastify.get("/t_example", async (_req, reply) => {
-      return t({
-        en: "Example of returned content in English",
-        fr: "Exemple de contenu renvoyé en français",
-        "es-ES": "Ejemplo de contenido devuelto en español (España)",
-        "es-MX": "Ejemplo de contenido devuelto en español (México)",
-      });
-    });
-
-    fastify.get("/getIntlayer_example", async (_req, reply) => {
-      return getIntlayer("index").exampleOfContent;
-    });
-
-    fastify.get("/getDictionary_example", async (_req, reply) => {
-      return getDictionary(dictionaryExample).exampleOfContent;
-    });
-
     await fastify.listen({ port: 3000 });
   } catch (err) {
     fastify.log.error(err);
@@ -359,7 +201,7 @@ start();
 
 Ini juga bekerja secara mulus dengan solusi internasionalisasi apa pun di berbagai lingkungan, termasuk browser dan permintaan API. Anda dapat menyesuaikan middleware untuk mendeteksi locale melalui header atau cookie:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -371,36 +213,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... Opsi konfigurasi lainnya
-  middleware: {
-    headerName: "my-locale-header",
-    cookieName: "my-locale-cookie",
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... Opsi konfigurasi lainnya
-  middleware: {
-    headerName: "my-locale-header",
-    cookieName: "my-locale-cookie",
-  },
-};
-
-module.exports = config;
 ```
 
 Secara default, `fastify-intlayer` akan menginterpretasikan header `Accept-Language` untuk menentukan bahasa yang disukai klien.

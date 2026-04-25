@@ -61,7 +61,7 @@ history:
 
 مثال على ملف المحتوى:
 
-```tsx fileName="src/example.content.tsx" contentDeclarationFormat="typescript"
+```tsx fileName="src/example.content.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { type ReactNode } from "react";
 import {
   t,
@@ -141,108 +141,6 @@ export default {
     jsxContent: <h1>عنواني</h1>,
   },
 } satisfies Dictionary<Content>; // [اختياري] القاموس عام ويسمح لك بتقوية تنسيق قاموسك
-```
-
-```javascript fileName="src/example.content.mjx" contentDeclarationFormat="esm"
-import { t, enu, cond, nest, md, insert, file } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-export default {
-  key: "page",
-  content: {
-    imbricatedContent: {
-      imbricatedContent2: {
-        stringContent: "Hello World",
-        numberContent: 123,
-        booleanContent: true,
-        javaScriptContent: `${process.env.NODE_ENV}`,
-      },
-      imbricatedArray: [1, 2, 3],
-    },
-    multilingualContent: t({
-      ar: "محتوى باللغة العربية",
-      en: "English content",
-      "en-GB": "English content (UK)",
-      fr: "French content",
-      es: "Spanish content",
-    }),
-    quantityContent: enu({
-      "<-1": "أقل من ناقص سيارة واحدة",
-      "-1": "ناقص سيارة واحدة",
-      "0": "لا سيارات",
-      "1": "سيارة واحدة",
-      ">5": "بعض السيارات",
-      ">19": "العديد من السيارات",
-    }),
-    conditionalContent: cond({
-      true: "التحقق مفعّل",
-      false: "التحقق معطّل",
-    }),
-    insertionContent: insert("مرحبًا {{name}}!"),
-    nestedContent: nest(
-      "navbar", // مفتاح القاموس للتضمين
-      "login.button" // [اختياري] المسار إلى المحتوى للتضمين
-    ),
-    markdownContent: md("# مثال على ماركداون"),
-    htmlContent: html("<p>Hello <strong>World</strong></p>"),
-    fileContent: file("./path/to/file.txt"),
-    externalContent: fetch("https://example.com").then((res) => res.json())
-
-    // متاح فقط باستخدام `react-intlayer` أو `next-intlayer`
-    jsxContent: <h1>عنواني</h1>,
-  },
-};
-```
-
-```javascript fileName="src/example.content.cjx" contentDeclarationFormat="commonjs"
-const { t, enu, cond, nest, md, insert, file } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-module.exports = {
-  key: "page",
-  content: {
-    imbricatedContent: {
-      imbricatedContent2: {
-        stringContent: "مرحبًا بالعالم",
-        numberContent: 123,
-        booleanContent: true,
-        javaScriptContent: `${process.env.NODE_ENV}`,
-      },
-      imbricatedArray: [1, 2, 3],
-    },
-    multilingualContent: t({
-      ar: "محتوى باللغة العربية",
-      en: "English content",
-      "en-GB": "English content (UK)",
-      fr: "French content",
-      es: "Spanish content",
-    }),
-    quantityContent: enu({
-      "<-1": "أقل من ناقص سيارة واحدة",
-      "-1": "ناقص سيارة واحدة",
-      "0": "لا سيارات",
-      "1": "سيارة واحدة",
-      ">5": "بعض السيارات",
-      ">19": "العديد من السيارات",
-    }),
-    conditionalContent: cond({
-      true: "تم تفعيل التحقق",
-      false: "تم تعطيل التحقق",
-    }),
-    insertionContent: insert("مرحبًا {{name}}!"),
-    nestedContent: nest(
-      "navbar", // مفتاح القاموس للتضمين
-      "login.button" // [اختياري] مسار المحتوى للتضمين
-    ),
-    markdownContent: md("# مثال على ماركداون"),
-    htmlContent: html("<p>Hello <strong>World</strong></p>"),
-    fileContent: file("./path/to/file.txt"),
-    externalContent: fetch("https://example.com").then((res) => res.json())
-
-    // متاح فقط باستخدام `react-intlayer` أو `next-intlayer`
-    jsxContent: <h1>عنواني</h1>,
-  },
-};
 ```
 
 ```json5 fileName="src/example.content.json"  contentDeclarationFormat="json"
@@ -944,7 +842,7 @@ export default {
 
 مثال:
 
-```javascript fileName="src/example.content.tsx" contentDeclarationFormat="typescript"
+```javascript fileName="src/example.content.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, enu, cond, nest, md, type Dictionary } from "intlayer";
 
 const getName = async () => "John Doe";
@@ -990,104 +888,6 @@ export default {
     }),
   },
 } satisfies Dictionary;
-```
-
-```javascript fileName="src/example.content.mjx" contentDeclarationFormat="esm"
-import { t, enu, cond, nest, md } from "intlayer";
-
-const getName = async () => "جون دو";
-
-/** @type {import('intlayer').Dictionary} */
-export default {
-  key: "page",
-  content: {
-    // `getIntlayer('page','en').hiMessage` يعيد `['Hi', ' ', 'John Doe']`
-    hiMessage: [
-      t({
-        en: "Hi",
-        fr: "Salut",
-        es: "Hola",
-      }),
-      " ",
-      getName(),
-    ],
-    // محتوى مركب يدمج الشرط، التعداد، والمحتوى متعدد اللغات
-    // `getIntlayer('page','en').advancedContent(true)(10)` يعيد 'Multiple items found'
-    advancedContent: cond({
-      true: enu({
-        "0": t({
-          en: "No items found",
-          fr: "Aucun article trouvé",
-          es: "No se encontraron artículos",
-        }),
-        "1": t({
-          en: "One item found",
-          fr: "Un article trouvé",
-          es: "Se encontró un artículo",
-        }),
-        ">1": t({
-          en: "تم العثور على عدة عناصر",
-          fr: "Plusieurs articles trouvés",
-          es: "Se encontraron múltiples artículos",
-        }),
-      }),
-      false: t({
-        en: "لا توجد بيانات صالحة متاحة",
-        fr: "Aucune donnée valide disponible",
-        es: "No hay datos válidos disponibles",
-      }),
-    }),
-  },
-};
-```
-
-```javascript fileName="src/example.content.cjx" contentDeclarationFormat="commonjs"
-const { t, enu, cond, nest, md } = require("intlayer");
-
-const getName = async () => "جون دو";
-
-/** @type {import('intlayer').Dictionary} */
-module.exports = {
-  key: "page",
-  content: {
-    // `getIntlayer('page','en').hiMessage` returns `['Hi', ' ', 'John Doe']`
-    hiMessage: [
-      t({
-        en: "مرحبًا",
-        fr: "Salut",
-        es: "Hola",
-      }),
-      " ",
-      getName(),
-    ],
-    // محتوى مركب يدمج الشرط، التعداد، والمحتوى متعدد اللغات
-    // `getIntlayer('page','en').advancedContent(true)(10)` يعيد 'تم العثور على عناصر متعددة'
-    advancedContent: cond({
-      true: enu({
-        "0": t({
-          en: "No items found",
-          fr: "Aucun article trouvé",
-          es: "No se encontraron artículos",
-        }),
-        "1": t({
-          en: "One item found",
-          fr: "Un article trouvé",
-          es: "Se encontró un artículo",
-        }),
-        ">1": t({
-          en: "Multiple items found",
-          fr: "Plusieurs articles trouvés",
-          es: "Se encontraron múltiples artículos",
-        }),
-      }),
-      false: t({
-        en: "No valid data available",
-        fr: "Aucune donnée valide disponible",
-        es: "No hay datos válidos disponibles",
-      }),
-    }),
-  },
-};
 ```
 
 ```json5 fileName="src/example.content.json"  contentDeclarationFormat="json"

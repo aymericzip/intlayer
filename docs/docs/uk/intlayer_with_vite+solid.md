@@ -114,7 +114,7 @@ bun x intlayer init
 
 Створіть файл конфігурації, щоб налаштувати мови вашого застосунку:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -132,79 +132,19 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      // Ваші інші локалі
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      // Ваші інші локалі
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-module.exports = config;
-```
-
 > За допомогою цього файлу конфігурації ви можете налаштувати локалізовані URL-адреси, перенаправлення в middleware, імена cookie, розташування та розширення ваших декларацій контенту, вимкнути логи Intlayer у консолі та інше. Для повного списку доступних параметрів зверніться до [документації з конфігурації](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/configuration.md).
 
 ### Крок 3: Інтеграція Intlayer у вашу конфігурацію Vite
 
 Додайте плагін intlayer у вашу конфігурацію.
 
-```typescript fileName="vite.config.ts" codeFormat="typescript"
+```typescript fileName="vite.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import { intlayer } from "vite-intlayer";
 
 // Документація: https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), intlayer()],
-});
-```
-
-```javascript fileName="vite.config.mjs" codeFormat="esm"
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react-swc";
-import { intlayer } from "vite-intlayer";
-
-// Документація: https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [react(), intlayer()],
-});
-```
-
-```javascript fileName="vite.config.cjs" codeFormat="commonjs"
-const { defineConfig } = require("vite");
-const react = require("@vitejs/plugin-react-swc");
-const { intlayer } = require("vite-intlayer");
-
-// Документація Vite: https://vitejs.dev/config/
-module.exports = defineConfig({
   plugins: [react(), intlayer()],
 });
 ```
@@ -215,7 +155,7 @@ module.exports = defineConfig({
 
 Створіть і керуйте деклараціями вмісту, щоб зберігати переклади:
 
-```tsx fileName="src/app.content.tsx" contentDeclarationFormat="typescript"
+```tsx fileName="src/app.content.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, type Dictionary } from "intlayer";
 
 const appContent = {
@@ -224,32 +164,6 @@ const appContent = {
 } satisfies Dictionary;
 
 export default appContent;
-```
-
-```javascript fileName="src/app.content.mjs" contentDeclarationFormat="esm"
-import { t } from "intlayer";
-
-// Тип: інтерфейс Dictionary з пакету intlayer
-/** @type {import('intlayer').Dictionary} */
-const appContent = {
-  key: "app",
-  content: {},
-};
-
-export default appContent;
-```
-
-```javascript fileName="src/app.content.cjs" contentDeclarationFormat="commonjs"
-const { t } = require("intlayer");
-
-// Тип: інтерфейс Dictionary з пакету intlayer
-/** @type {import('intlayer').Dictionary} */
-const appContent = {
-  key: "app",
-  content: {},
-};
-
-module.exports = appContent;
 ```
 
 ```json fileName="src/app.content.json" contentDeclarationFormat="json"
@@ -584,7 +498,7 @@ const MyComponent = () => {
 
 Щоб налаштувати його, ви можете додати розділ `compiler` у свій файл `intlayer.config.ts`:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -613,66 +527,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... Інша частина вашої конфігурації
-  compiler: {
-    /**
-     * Вказує, чи повинен бути включений компілятор.
-     */
-    enabled: true,
-
-    /**
-     * Визначає шлях до вихідних файлів
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * Вказує, чи повинні компоненти зберігатися після перетворення. Таким чином, компілятор можна запустити лише один раз для перетворення програми, а потім видалити.
-     */
-    saveComponents: false,
-
-    /**
-     * Префікс ключа словника
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... Інша частина вашої конфігурації
-  compiler: {
-    /**
-     * Вказує, чи повинен бути включений компілятор.
-     */
-    enabled: true,
-
-    /**
-     * Визначає шлях до вихідних файлів
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * Вказує, чи повинні компоненти зберігатися після перетворення. Таким чином, компілятор можна запустити лише один раз для перетворення програми, а потім видалити.
-     */
-    saveComponents: false,
-
-    /**
-     * Префікс ключа словника
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-module.exports = config;
 ```
 
 <Tabs>

@@ -105,7 +105,7 @@ export default config;
 
 Twórz i zarządzaj deklaracjami treści, aby przechowywać tłumaczenia:
 
-```typescript fileName="src/index.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="src/index.content.ts" contentDeclarationFormat=["typescript", "esm", "cjs"]
 import { t, type Dictionary } from "intlayer";
 
 const indexContent = {

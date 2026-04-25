@@ -32,7 +32,7 @@ Intlayerでは、コンテンツモジュール内で同期または非同期の
 
 以下は、単純な同期関数でコンテンツをフェッチする例です。
 
-```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="**/*.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import type { Dictionary } from "intlayer";
 
 const functionContent = {
@@ -43,30 +43,6 @@ const functionContent = {
 } satisfies Dictionary;
 
 export default functionContent;
-```
-
-```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-/** @type {import('intlayer').Dictionary} */
-const functionContent = {
-  key: "function_content",
-  content: {
-    text: () => "これは関数によってレンダリングされたコンテンツです",
-  },
-};
-
-export default functionContent;
-```
-
-```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-/** @type {import('intlayer').Dictionary} */
-const functionContent = {
-  key: "function_content",
-  content: {
-    text: () => "これは関数によってレンダリングされたコンテンツです",
-  },
-};
-
-module.exports = functionContent;
 ```
 
 ```json fileName="**/*.content.json" contentDeclarationFormat="json"
@@ -87,7 +63,7 @@ module.exports = functionContent;
 
 以下は、サーバーフェッチをシミュレートする非同期関数の例です：
 
-```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="**/*.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { setTimeout } from "node:timers/promises";
 import type { Dictionary } from "intlayer";
 
@@ -104,42 +80,6 @@ const asyncFunctionContent = {
 } satisfies Dictionary;
 
 export default asyncFunctionContent;
-```
-
-```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-import { setTimeout } from "node:timers/promises";
-
-/** @type {import('intlayer').Dictionary} */
-const fakeFetch = async () => {
-  // サーバーからのフェッチをシミュレートするために200ms待機
-  await setTimeout(200);
-  return "これはサーバーから取得したコンテンツです";
-};
-
-const asyncFunctionContent = {
-  key: "async_function",
-  content: { text: fakeFetch },
-};
-
-export default asyncFunctionContent;
-```
-
-```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-const { setTimeout } = require("node:timers/promises");
-
-/** @type {import('intlayer').Dictionary} */
-const fakeFetch = async () => {
-  // サーバーからのフェッチをシミュレートするために200ms待機
-  await setTimeout(200);
-  return "これはサーバーから取得したコンテンツです";
-};
-
-const asyncFunctionContent = {
-  key: "async_function",
-  content: { text: fakeFetch },
-};
-
-module.exports = asyncFunctionContent;
 ```
 
 ```plaintext fileName="**/*.content.json" contentDeclarationFormat="json"
@@ -179,7 +119,7 @@ export default MyComponent;
 
 Reactコンポーネントで関数ベースのコンテンツを使用するには、`react-intlayer`から`useIntlayer`をインポートし、コンテンツIDを渡してコンテンツを取得します。以下は例です：
 
-```typescript fileName="**/*.jsx" codeFormat="typescript"
+```typescript fileName="**/*.jsx" codeFormat={["typescript", "esm", "commonjs"]}
 import type { FC } from "react";
 import { useIntlayer } from "react-intlayer";
 
@@ -198,44 +138,4 @@ const MyComponent: FC = () => {
 };
 
 export default MyComponent;
-```
-
-```javascript fileName="**/*.mjx" codeFormat="esm"
-import { useIntlayer } from "react-intlayer";
-
-const MyComponent = () => {
-  const functionContent = useIntlayer("function_content");
-  const asyncFunctionContent = useIntlayer("async_function_content");
-
-  return (
-    <div>
-      <p>{functionContent.text}</p>
-      {/* 出力: これは関数によってレンダリングされたコンテンツです */}
-      <p>{asyncFunctionContent.text}</p>
-      {/* 出力: これはサーバーから取得されたコンテンツです */}
-    </div>
-  );
-};
-
-export default MyComponent;
-```
-
-```javascript fileName="**/*.cjs" codeFormat="commonjs"
-const { useIntlayer } = require("react-intlayer");
-
-const MyComponent = () => {
-  const functionContent = useIntlayer("function_content");
-  const asyncFunctionContent = useIntlayer("async_function_content");
-
-  return (
-    <div>
-      <p>{functionContent.text}</p>
-      {/* 出力: これは関数によってレンダリングされたコンテンツです */}
-      <p>{asyncFunctionContent.text}</p>
-      {/* 出力: これはサーバーから取得されたコンテンツです */}
-    </div>
-  );
-};
-
-module.exports = MyComponent;
 ```

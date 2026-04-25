@@ -107,7 +107,7 @@ Với cờ `--with`, bạn có thể khởi động trình chỉnh sửa song so
 
 Trong tệp cấu hình Intlayer của bạn, bạn có thể tùy chỉnh các thiết lập của trình chỉnh sửa:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import type { IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -142,77 +142,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... các thiết lập cấu hình khác
-  editor: {
-    /**
-     * Bắt buộc
-     * URL của ứng dụng.
-     * Đây là URL mà trình chỉnh sửa trực quan hướng tới.
-     * Ví dụ: 'http://localhost:3000'
-     */
-    applicationURL: process.env.INTLAYER_APPLICATION_URL,
-    /**
-     * Tùy chọn
-     * Mặc định là `true`. Nếu là `false`, trình chỉnh sửa sẽ không hoạt động và không thể truy cập được.
-     * Có thể được sử dụng để vô hiệu hóa trình chỉnh sửa cho các môi trường cụ thể vì lý do bảo mật, chẳng hạn như môi trường production.
-     */
-    enabled: process.env.INTLAYER_ENABLED,
-    /**
-     * Tùy chọn
-     * Mặc định là `8000`.
-     * Cổng được sử dụng bởi máy chủ trình chỉnh sửa trực quan.
-     */
-    port: process.env.INTLAYER_PORT,
-    /**
-     * Tùy chọn
-     * Mặc định là "http://localhost:8000"
-     * URL của máy chủ trình chỉnh sửa để truy cập từ ứng dụng. Được sử dụng để giới hạn các nguồn có thể tương tác với ứng dụng vì lý do bảo mật. Nếu được đặt là `'*'`, trình chỉnh sửa có thể truy cập từ bất kỳ nguồn nào. Nên được thiết lập nếu cổng bị thay đổi, hoặc nếu trình chỉnh sửa được lưu trữ trên một miền khác.
-     */
-    editorURL: process.env.INTLAYER_EDITOR_URL,
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... các thiết lập cấu hình khác
-  editor: {
-    /**
-     * Bắt buộc
-     * URL của ứng dụng.
-     * Đây là URL mà trình chỉnh sửa trực quan hướng tới.
-     */
-    applicationURL: process.env.INTLAYER_APPLICATION_URL,
-    /**
-     * Tùy chọn
-     * Mặc định là `8000`.
-     * Cổng của máy chủ trình chỉnh sửa.
-     */
-    port: process.env.INTLAYER_PORT,
-    /**
-     * Tùy chọn
-     * Mặc định là "http://localhost:8000"
-     * URL của máy chủ trình chỉnh sửa.
-     */
-    editorURL: process.env.INTLAYER_EDITOR_URL,
-    /**
-     * Tùy chọn
-     * Mặc định là `true`. Nếu là `false`, trình chỉnh sửa sẽ không hoạt động và không thể truy cập.
-     * Có thể dùng để tắt trình chỉnh sửa cho các môi trường cụ thể vì lý do bảo mật, như môi trường production.
-     */
-    enabled: process.env.INTLAYER_ENABLED,
-  },
-};
-
-module.exports = config;
 ```
 
 > Để xem tất cả các tham số có sẵn, tham khảo [tài liệu cấu hình](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md).

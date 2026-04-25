@@ -47,26 +47,8 @@ history:
 
 ## 사용 예시
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getPathWithoutLocale } from "intlayer";
-
-console.log(getPathWithoutLocale("/dashboard")); // 출력: "/dashboard"
-console.log(getPathWithoutLocale("/en/dashboard")); // 출력: "/dashboard"
-console.log(getPathWithoutLocale("/fr/dashboard")); // 출력: "/dashboard"
-console.log(getPathWithoutLocale("https://example.com/en/dashboard")); // 출력: "https://example.com/dashboard"
-```
-
-```javascript codeFormat="esm"
-import { getPathWithoutLocale } from "intlayer";
-
-console.log(getPathWithoutLocale("/dashboard")); // 출력: "/dashboard"
-console.log(getPathWithoutLocale("/en/dashboard")); // 출력: "/dashboard"
-console.log(getPathWithoutLocale("/fr/dashboard")); // 출력: "/dashboard"
-console.log(getPathWithoutLocale("https://example.com/en/dashboard")); // 출력: "https://example.com/dashboard"
-```
-
-```javascript codeFormat="commonjs"
-const { getPathWithoutLocale } = require("intlayer");
 
 console.log(getPathWithoutLocale("/dashboard")); // 출력: "/dashboard"
 console.log(getPathWithoutLocale("/en/dashboard")); // 출력: "/dashboard"

@@ -71,22 +71,7 @@ history:
 
 ### 상대 URL
 
-```typescript codeFormat="typescript"
-import { getLocalizedUrl, Locales } from "intlayer";
-
-getLocalizedUrl(
-  "/about",
-  Locales.FRENCH,
-  [Locales.ENGLISH, Locales.FRENCH],
-  Locales.ENGLISH,
-  false
-);
-
-// 출력: 프랑스어 로케일의 경우 "/fr/about"
-// 출력: 기본(영어) 로케일의 경우 "/about"
-```
-
-```javascript codeFormat="esm"
+```typescript codeFormat={["typescript", "esm"]}
 import { getLocalizedUrl, Locales } from "intlayer";
 
 getLocalizedUrl(
@@ -189,7 +174,7 @@ getLocalizedUrl(
 
 다국어 애플리케이션에서 `locales`와 `defaultLocale`로 국제화 설정을 구성하는 것은 올바른 언어가 표시되도록 하는 데 매우 중요합니다. 아래는 애플리케이션 설정에서 `getLocalizedUrl`을 사용하는 예시입니다:
 
-```tsx codeFormat="typescript"
+```tsx codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 // 지원되는 로케일과 기본 로케일 설정
@@ -201,34 +186,6 @@ export default {
 } satisfies IntlayerConfig;
 
 export default config;
-```
-
-```javascript codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-```javascript codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-module.exports = config;
 ```
 
 위 설정은 애플리케이션이 `ENGLISH`, `FRENCH`, `SPANISH`를 지원 언어로 인식하고, `ENGLISH`를 기본 언어로 사용하도록 보장합니다.

@@ -47,29 +47,11 @@ Loại bỏ đoạn locale khỏi URL hoặc pathname được cung cấp nếu 
 
 ## Ví dụ sử dụng
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getPathWithoutLocale } from "intlayer";
 
 console.log(getPathWithoutLocale("/dashboard")); // Output: "/dashboard"
 console.log(getPathWithoutLocale("/en/dashboard")); // Output: "/dashboard"
 console.log(getPathWithoutLocale("/fr/dashboard")); // Output: "/dashboard"
-console.log(getPathWithoutLocale("https://example.com/en/dashboard")); // Kết quả: "https://example.com/dashboard"
-```
-
-```javascript codeFormat="esm"
-import { getPathWithoutLocale } from "intlayer";
-
-console.log(getPathWithoutLocale("/dashboard")); // Kết quả: "/dashboard"
-console.log(getPathWithoutLocale("/en/dashboard")); // Kết quả: "/dashboard"
-console.log(getPathWithoutLocale("/fr/dashboard")); // Kết quả: "/dashboard"
-console.log(getPathWithoutLocale("https://example.com/en/dashboard")); // Kết quả: "https://example.com/dashboard"
-```
-
-```javascript codeFormat="commonjs"
-const { getPathWithoutLocale } = require("intlayer");
-
-console.log(getPathWithoutLocale("/dashboard")); // Kết quả: "/dashboard"
-console.log(getPathWithoutLocale("/en/dashboard")); // Kết quả: "/dashboard"
-console.log(getPathWithoutLocale("/fr/dashboard")); // Kết quả: "/dashboard"
 console.log(getPathWithoutLocale("https://example.com/en/dashboard")); // Kết quả: "https://example.com/dashboard"
 ```

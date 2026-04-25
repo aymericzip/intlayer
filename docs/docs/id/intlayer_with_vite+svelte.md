@@ -141,7 +141,7 @@ export default defineConfig({
 
 Buat dan kelola deklarasi konten Anda untuk menyimpan terjemahan:
 
-```tsx fileName="src/app.content.tsx" contentDeclarationFormat="typescript"
+```tsx fileName="src/app.content.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, type Dictionary } from "intlayer";
 
 const appContent = {
@@ -156,44 +156,6 @@ const appContent = {
 } satisfies Dictionary;
 
 export default appContent;
-```
-
-```javascript fileName="src/app.content.mjs" contentDeclarationFormat="esm"
-import { t } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-// Mendefinisikan konten aplikasi dengan terjemahan untuk beberapa bahasa
-const appContent = {
-  key: "app",
-  content: {
-    title: t({
-      en: "Hello World",
-      fr: "Bonjour le monde",
-      es: "Hola mundo",
-    }),
-  },
-};
-
-export default appContent;
-```
-
-```javascript fileName="src/app.content.cjs" contentDeclarationFormat="commonjs"
-const { t } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-// Mendefinisikan konten aplikasi dengan terjemahan untuk beberapa bahasa
-const appContent = {
-  key: "app",
-  content: {
-    title: t({
-      en: "Hello World",
-      fr: "Bonjour le monde",
-      es: "Hola mundo",
-    }),
-  },
-};
-
-module.exports = appContent;
 ```
 
 ```json fileName="src/app.content.json" contentDeclarationFormat="json"
@@ -389,7 +351,7 @@ Secara paralel, Anda juga dapat menggunakan `intlayerProxy` untuk menambahkan ro
 
 > Perlu diperhatikan bahwa untuk menggunakan `intlayerProxy` di produksi, Anda perlu memindahkan paket `vite-intlayer` dari `devDependencies` ke `dependencies`.
 
-```typescript {3,7} fileName="vite.config.ts" codeFormat="typescript"
+```typescript {3,7} fileName="vite.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { defineConfig } from "vite";
 import { svelte } from "@sveltejs/vite-plugin-svelte";
 import { intlayer, intlayerProxy } from "vite-intlayer";
@@ -401,36 +363,6 @@ import { intlayer, intlayerProxy } from "vite-intlayer";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [intlayerProxy(), // should be placed first
- svelte(), intlayer()],
-});
-```
-
-```javascript {3,7} fileName="vite.config.mjs" codeFormat="esm"
-import { defineConfig } from "vite";
-import { svelte } from "@sveltejs/vite-plugin-svelte";
-import { intlayer, intlayerProxy } from "vite-intlayer";
-
-// https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [
-    intlayerProxy(), // should be placed first
-    svelte(),
-    intlayer(),
-  ],
-});
-```
-
-```javascript {3,7} fileName="vite.config.cjs" codeFormat="commonjs"
-const { defineConfig } = require("vite");
-const { svelte } = require("@sveltejs/vite-plugin-svelte");
-const { intlayer, intlayerProxy } = require("vite-intlayer");
-
-// https://vitejs.dev/config/
-module.exports = defineConfig({
-  plugins: [intlayerProxy(), // should be placed first
- svelte(), intlayer()],
-});
   plugins: [intlayerProxy(), // should be placed first
  svelte(), intlayer()],
 });
@@ -508,7 +440,7 @@ Untuk memudahkan proses ini, Intlayer mengusulkan [compiler](https://github.com/
 
 Untuk mengaturnya, Anda dapat menambahkan bagian `compiler` di file `intlayer.config.ts` Anda:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -537,66 +469,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... Sisa konfigurasi Anda
-  compiler: {
-    /**
-     * Menunjukkan apakah compiler harus diaktifkan.
-     */
-    enabled: true,
-
-    /**
-     * Menentukan jalur file output
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * Menunjukkan apakah komponen harus disimpan setelah diubah. Dengan begitu, compiler dapat dijalankan satu kali saja untuk mengubah aplikasi, lalu dapat dihapus.
-     */
-    saveComponents: false,
-
-    /**
-     * Prefiks kunci kamus
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... Sisa konfigurasi Anda
-  compiler: {
-    /**
-     * Menunjukkan apakah compiler harus diaktifkan.
-     */
-    enabled: true,
-
-    /**
-     * Menentukan jalur file output
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * Menunjukkan apakah komponen harus disimpan setelah diubah. Dengan begitu, compiler dapat dijalankan satu kali saja untuk mengubah aplikasi, lalu dapat dihapus.
-     */
-    saveComponents: false,
-
-    /**
-     * Prefiks kunci kamus
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-module.exports = config;
 ```
 
 <Tabs>

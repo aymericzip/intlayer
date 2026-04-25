@@ -139,7 +139,7 @@ bun x intlayer init
 
 Створіть файл конфігурації для налаштування мов вашого додатка:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -157,51 +157,13 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      // Ваші інші локалі
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      // Ваші інші локалі
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-module.exports = config;
-```
-
 > Через цей файл конфігурації ви можете налаштувати локалізовані URL-адреси, перенаправлення через проксі, назви файлів cookie, розташування та розширення декларацій вашого контенту, вимкнути логи Intlayer у консолі та багато іншого. Повний список доступних параметрів можна знайти в [документації з конфігурації](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/configuration.md).
 
 ### Крок 3: Інтегруйте Intlayer у конфігурацію Next.js
 
 Налаштуйте Next.js для використання Intlayer:
 
-```typescript fileName="next.config.ts" codeFormat="typescript"
+```typescript fileName="next.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import type { NextConfig } from "next";
 import { withIntlayer } from "next-intlayer/server";
 
@@ -210,28 +172,6 @@ const nextConfig: NextConfig = {
 };
 
 export default withIntlayer(nextConfig);
-```
-
-```typescript fileName="next.config.mjs" codeFormat="esm"
-import { withIntlayer } from "next-intlayer/server";
-
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  /* параметри конфігурації тут */
-};
-
-export default withIntlayer(nextConfig);
-```
-
-```typescript fileName="next.config.cjs" codeFormat="commonjs"
-const { withIntlayer } = require("next-intlayer/server");
-
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  /* параметри конфігурації тут */
-};
-
-module.exports = withIntlayer(nextConfig);
 ```
 
 > Плагін Next.js `withIntlayer()` використовується для інтеграції Intlayer з Next.js. Він забезпечує створення файлів декларації контенту та відстежує їх у режимі розробки. Він визначає змінні оточення Intlayer у середовищах [Webpack](https://webpack.js.org/) або [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack). Крім того, він надає аліаси для оптимізації продуктивності та забезпечує сумісність із серверними компонентами.
@@ -266,7 +206,7 @@ module.exports = withIntlayer(nextConfig);
 
 Видаліть усе з `RootLayout` і замініть його наступним кодом:
 
-```tsx {3} fileName="src/app/layout.tsx" codeFormat="typescript"
+```tsx {3} fileName="src/app/layout.tsx" codeFormat={["typescript", "esm"]}
 import type { PropsWithChildren, FC } from "react";
 import "./globals.css";
 
@@ -278,36 +218,11 @@ const RootLayout: FC<PropsWithChildren> = ({ children }) => (
 export default RootLayout;
 ```
 
-```jsx {3} fileName="src/app/layout.mjx" codeFormat="esm"
-import "./globals.css";
-
-const RootLayout = ({ children }) => (
-  // Ви все ще можете обгорнути дочірні елементи іншими провайдерами, наприклад `next-themes`, `react-query`, `framer-motion` тощо.
-  <>{children}</>
-);
-
-export default RootLayout;
-```
-
-```jsx {1,8} fileName="src/app/layout.csx" codeFormat="commonjs"
-require("./globals.css");
-
-const RootLayout = ({ children }) => (
-  // Ви все ще можете обгорнути дочірні елементи іншими провайдерами, наприклад `next-themes`, `react-query`, `framer-motion` тощо.
-  <>{children}</>
-);
-
-module.exports = {
-  default: RootLayout,
-  generateStaticParams,
-};
-```
-
 > Залишення компонента `RootLayout` порожнім дозволяє встановити атрибути [`lang`](https://developer.mozilla.org/fr/docs/Web/HTML/Global_attributes/lang) та [`dir`](https://developer.mozilla.org/fr/docs/Web/HTML/Global_attributes/dir) для тегу `<html>`.
 
 Щоб реалізувати динамічну маршрутизацію, вкажіть шлях для локалі, додавши новий макет у вашу директорію `[locale]`:
 
-```tsx fileName="src/app/[locale]/layout.tsx" codeFormat="typescript"
+```tsx fileName="src/app/[locale]/layout.tsx" codeFormat={["typescript", "esm"]}
 import { type NextLayoutIntlayer, IntlayerClientProvider } from "next-intlayer";
 import { Inter } from "next/font/google";
 import { getHTMLTextDir } from "intlayer";
@@ -330,58 +245,13 @@ const LocaleLayout: NextLayoutIntlayer = async ({ children, params }) => {
 export default LocaleLayout;
 ```
 
-```jsx fileName="src/app/[locale]/layout.mjx" codeFormat="esm"
-import { IntlayerClientProvider } from "next-intlayer";
-import { getHTMLTextDir } from "intlayer";
-
-const inter = Inter({ subsets: ["latin"] });
-
-const LocaleLayout = async ({ children, params: { locale } }) => {
-  const { locale } = await params;
-  return (
-    <html lang={locale} dir={getHTMLTextDir(locale)}>
-      <body className={inter.className}>
-        <IntlayerClientProvider locale={locale}>
-          {children}
-        </IntlayerClientProvider>
-      </body>
-    </html>
-  );
-};
-
-export default LocaleLayout;
-```
-
-```jsx fileName="src/app/[locale]/layout.csx" codeFormat="commonjs"
-const { Inter } = require("next/font/google");
-const { IntlayerClientProvider } = require("next-intlayer");
-const { getHTMLTextDir } = require("intlayer");
-
-const inter = Inter({ subsets: ["latin"] });
-
-const LocaleLayout = async ({ children, params: { locale } }) => {
-  const { locale } = await params;
-  return (
-    <html lang={locale} dir={getHTMLTextDir(locale)}>
-      <body className={inter.className}>
-        <IntlayerClientProvider locale={locale}>
-          {children}
-        </IntlayerClientProvider>
-      </body>
-    </html>
-  );
-};
-
-module.exports = LocaleLayout;
-```
-
 > Сегмент шляху `[locale]` використовується для визначення локалі. Приклад: `/en-US/about` посилатиметься на `en-US`, а `/fr/about`, на `fr`.
 
 > На цьому етапі ви зіткнетеся з помилкою: `Error: Missing <html> and <body> tags in the root layout.`. Це очікувано, оскільки файл `/app/page.tsx` більше не використовується і його можна видалити. Замість цього сегмент шляху `[locale]` активує сторінку `/app/[locale]/page.tsx`. Отже, сторінки будуть доступні за такими шляхами, як `/en`, `/fr`, `/es` у вашому браузері. Щоб встановити локаль за замовчуванням як кореневу сторінку, зверніться до налаштування `proxy` на кроці 7.
 
 Потім реалізуйте функцію `generateStaticParams` у макеті вашого додатка.
 
-```tsx {1} fileName="src/app/[locale]/layout.tsx" codeFormat="typescript"
+```tsx {1} fileName="src/app/[locale]/layout.tsx" codeFormat={["typescript", "esm"]}
 export { generateStaticParams } from "next-intlayer"; // Рядок для вставки
 
 const LocaleLayout: NextLayoutIntlayer = async ({ children, params }) => {
@@ -389,26 +259,6 @@ const LocaleLayout: NextLayoutIntlayer = async ({ children, params }) => {
 };
 
 export default LocaleLayout;
-```
-
-```jsx {1} fileName="src/app/[locale]/layout.mjx" codeFormat="esm"
-export { generateStaticParams } from "next-intlayer"; // Рядок для вставки
-
-const LocaleLayout = async ({ children, params: { locale } }) => {
-  /*... Решта коду*/
-};
-
-// ... Решта коду
-```
-
-```jsx {1,7} fileName="src/app/[locale]/layout.csx" codeFormat="commonjs"
-const { generateStaticParams } = require("next-intlayer"); // Рядок для вставки
-
-const LocaleLayout = async ({ children, params: { locale } }) => {
-  /*... Решта коду*/
-};
-
-module.exports = { default: LocaleLayout, generateStaticParams };
 ```
 
 > `generateStaticParams` гарантує, що ваш додаток попередньо збирає необхідні сторінки для всіх локалей, зменшуючи обчислення під час виконання та покращуючи взаємодію з користувачем. Для отримання додаткової інформації зверніться до [документації Next.js щодо generateStaticParams](https://nextjs.org/docs/app/building-your-application/rendering/static-and-dynamic-rendering#generate-static-params).
@@ -419,7 +269,7 @@ module.exports = { default: LocaleLayout, generateStaticParams };
 
 Створюйте декларації контенту та керуйте ними для зберігання перекладів:
 
-```tsx fileName="src/app/[locale]/page.content.ts" contentDeclarationFormat="typescript"
+```tsx fileName="src/app/[locale]/page.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, type Dictionary } from "intlayer";
 
 const pageContent = {
@@ -437,48 +287,6 @@ const pageContent = {
 } satisfies Dictionary;
 
 export default pageContent;
-```
-
-```javascript fileName="src/app/[locale]/page.content.mjs" contentDeclarationFormat="esm"
-import { t } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const pageContent = {
-  key: "page",
-  content: {
-    getStarted: {
-      main: t({
-        en: "Get started by editing",
-        fr: "Commencez par éditer",
-        es: "Comience por editar",
-      }),
-      pageLink: "src/app/page.tsx",
-    },
-  },
-};
-
-export default pageContent;
-```
-
-```javascript fileName="src/app/[locale]/page.content.cjs" contentDeclarationFormat="commonjs"
-const { t } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const pageContent = {
-  key: "page",
-  content: {
-    getStarted: {
-      main: t({
-        en: "Get started by editing",
-        fr: "Commencez par éditer",
-        es: "Comience por editar",
-      }),
-      pageLink: "src/app/page.tsx",
-    },
-  },
-};
-
-module.exports = pageContent;
 ```
 
 ```json fileName="src/app/[locale]/page.content.json" contentDeclarationFormat="json"
@@ -507,7 +315,7 @@ module.exports = pageContent;
 
 Отримуйте доступ до ваших словників контенту по всьому додатку:
 
-```tsx fileName="src/app/[locale]/page.tsx" codeFormat="typescript"
+```tsx fileName="src/app/[locale]/page.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { ClientComponentExample } from "@components/ClientComponentExample";
 import { ServerComponentExample } from "@components/ServerComponentExample";
@@ -541,74 +349,12 @@ const Page: NextPageIntlayer = async ({ params }) => {
 export default Page;
 ```
 
-```jsx fileName="src/app/[locale]/page.mjx" codeFormat="esm"
-import { ClientComponentExample } from "@components/ClientComponentExample";
-import { ServerComponentExample } from "@components/ServerComponentExample";
-import { IntlayerServerProvider, useIntlayer } from "next-intlayer/server";
-
-const PageContent = () => {
-  const content = useIntlayer("page");
-
-  return (
-    <>
-      <p>{content.getStarted.main}</p>
-      <code>{content.getStarted.pageLink}</code>
-    </>
-  );
-};
-
-const Page = async ({ params }) => {
-  const { locale } = await params;
-
-  return (
-    <IntlayerServerProvider locale={locale}>
-      <PageContent />
-      <ServerComponentExample />
-
-      <ClientComponentExample />
-    </IntlayerServerProvider>
-  );
-};
-
-export default Page;
-```
-
-```jsx fileName="src/app/[locale]/page.csx" codeFormat="commonjs"
-import { ClientComponentExample } from "@components/ClientComponentExample";
-import { ServerComponentExample } from "@components/ServerComponentExample";
-import { IntlayerServerProvider, useIntlayer } from "next-intlayer/server";
-
-const PageContent = () => {
-  const content = useIntlayer("page");
-
-  return (
-    <>
-      <p>{content.getStarted.main}</p>
-      <code>{content.getStarted.pageLink}</code>
-    </>
-  );
-};
-
-const Page = async ({ params }) => {
-  const { locale } = await params;
-
-  return (
-    <IntlayerServerProvider locale={locale}>
-      <PageContent />
-      <ServerComponentExample />
-
-      <ClientComponentExample />
-    </IntlayerServerProvider>
-  );
-};
-```
-
 - **`IntlayerClientProvider`** використовується для надання локалі клієнтським компонентам. Його можна розмістити в будь-якому батьківському компоненті, включаючи макет. Однак рекомендується розміщувати його в макеті, оскільки Next.js спільно використовує код макета між сторінками, що робить його ефективнішим. Використовуючи `IntlayerClientProvider` у макеті, ви уникаєте повторної ініціалізації для кожної сторінки, підвищуючи продуктивність і підтримуючи послідовний контекст локалізації у всьому додатку.
 - **`IntlayerServerProvider`** використовується для надання локалі серверним дочірнім компонентам. Його не можна встановити в макеті.
 
   > Макет і сторінка не можуть ділити загальний серверний контекст, оскільки система серверного контексту базується на сховищі даних для кожного запиту (через механізм [кешування React](https://react.dev/reference/react/cache)), що призводить до повторного створення кожного "контексту" для різних сегментів додатка. Розміщення провайдера в спільному макеті порушить цю ізоляцію, запобігаючи правильному поширенню значень серверного контексту до ваших серверних компонентів.
 
-```tsx {4,7} fileName="src/components/ClientComponentExample.tsx" codeFormat="typescript"
+```tsx {4,7} fileName="src/components/ClientComponentExample.tsx" codeFormat={["typescript", "esm"]}
 "use client";
 
 import type { FC } from "react";
@@ -626,75 +372,11 @@ export const ClientComponentExample: FC = () => {
 };
 ```
 
-```jsx {3,6} fileName="src/components/ClientComponentExample.mjx" codeFormat="esm"
-"use client";
-
-import { useIntlayer } from "next-intlayer";
-
-const ClientComponentExample = () => {
-  const content = useIntlayer("client-component-example"); // Створіть відповідну декларацію контенту
-
-  return (
-    <div>
-      <h2>{content.title}</h2>
-      <p>{content.content}</p>
-    </div>
-  );
-};
-```
-
-```jsx {3,6} fileName="src/components/ClientComponentExample.csx" codeFormat="commonjs"
-"use client";
-
-const { useIntlayer } = require("next-intlayer");
-
-const ClientComponentExample = () => {
-  const content = useIntlayer("client-component-example"); // Створіть відповідну декларацію контенту
-
-  return (
-    <div>
-      <h2>{content.title}</h2>
-      <p>{content.content}</p>
-    </div>
-  );
-};
-```
-
-```tsx {2} fileName="src/components/ServerComponentExample.tsx"  codeFormat="typescript"
+```tsx {2} fileName="src/components/ServerComponentExample.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useIntlayer } from "next-intlayer/server";
 
 export const ServerComponentExample: FC = () => {
-  const content = useIntlayer("server-component-example"); // Створіть відповідну декларацію контенту
-
-  return (
-    <div>
-      <h2>{content.title}</h2>
-      <p>{content.content}</p>
-    </div>
-  );
-};
-```
-
-```jsx {1} fileName="src/components/ServerComponentExample.mjx" codeFormat="esm"
-import { useIntlayer } from "next-intlayer/server";
-
-const ServerComponentExample = () => {
-  const content = useIntlayer("server-component-example"); // Створіть відповідну декларацію контенту
-
-  return (
-    <div>
-      <h2>{content.title}</h2>
-      <p>{content.content}</p>
-    </div>
-  );
-};
-```
-
-```jsx {1} fileName="src/components/ServerComponentExample.csx" codeFormat="commonjs"
-const { useIntlayer } = require("next-intlayer/server");
-
-const ServerComponentExample = () => {
   const content = useIntlayer("server-component-example"); // Створіть відповідну декларацію контенту
 
   return (
@@ -720,33 +402,13 @@ const ServerComponentExample = () => {
 
 Налаштуйте проксі для виявлення бажаної локалі користувача:
 
-```typescript fileName="src/proxy.ts" codeFormat="typescript"
+```typescript fileName="src/proxy.ts" codeFormat={["typescript", "esm", "commonjs"]}
 export { intlayerProxy as proxy } from "next-intlayer/proxy";
 
 export const config = {
   matcher:
     "/((?!api|static|assets|robots|sitemap|sw|service-worker|manifest|.*\\..*|_next).*)",
 };
-```
-
-```javascript fileName="src/proxy.mjs" codeFormat="esm"
-export { intlayerProxy as proxy } from "next-intlayer/proxy";
-
-export const config = {
-  matcher:
-    "/((?!api|static|assets|robots|sitemap|sw|service-worker|manifest|.*\\..*|_next).*)",
-};
-```
-
-```javascript fileName="src/proxy.cjs" codeFormat="commonjs"
-const { intlayerProxy } = require("next-intlayer/proxy");
-
-const config = {
-  matcher:
-    "/((?!api|static|assets|robots|sitemap|sw|service-worker|manifest|.*\\..*|_next).*)",
-};
-
-module.exports = { proxy: intlayerProxy, config };
 ```
 
 > `intlayerProxy` використовується для виявлення бажаної локалі користувача та перенаправлення його на відповідний URL, як зазначено в [конфігурації](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/configuration.md). Крім того, він дозволяє зберігати бажану локаль користувача у файлі cookie.
@@ -764,7 +426,7 @@ export const proxy = multipleProxies([intlayerProxy, customProxy]);
 
 У випадку, якщо ви хочете інтернаціоналізувати свої метадані, наприклад заголовок вашої сторінки, ви можете скористатися функцією `generateMetadata`, наданою Next.js. Всередині ви можете отримати контент за допомогою функції `getIntlayer`, щоб перекласти ваші метадані.
 
-```typescript fileName="src/app/[locale]/metadata.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="src/app/[locale]/metadata.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { type Dictionary, t } from "intlayer";
 import { Metadata } from "next";
 
@@ -785,52 +447,6 @@ const metadataContent = {
 } satisfies Dictionary<Metadata>;
 
 export default metadataContent;
-```
-
-```javascript fileName="src/app/[locale]/metadata.content.mjs" contentDeclarationFormat="esm"
-import { t } from "intlayer";
-
-/** @type {import('intlayer').Dictionary<import('next').Metadata>} */
-const metadataContent = {
-  key: "page-metadata",
-  content: {
-    title: t({
-      en: "Create Next App",
-      fr: "Créer une application Next.js",
-      es: "Crear una aplicación Next.js",
-    }),
-    description: t({
-      en: "Generated by create next app",
-      fr: "Généré par create next app",
-      es: "Generado por create next app",
-    }),
-  },
-};
-
-export default metadataContent;
-```
-
-```javascript fileName="src/app/[locale]/metadata.content.cjs" contentDeclarationFormat="commonjs"
-const { t } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary<import('next').Metadata>} */
-const metadataContent = {
-  key: "page-metadata",
-  content: {
-    title: t({
-      en: "Create Next App",
-      fr: "Créer une application Next.js",
-      es: "Crear una aplicación Next.js",
-    }),
-    description: t({
-      en: "Generated by create next app",
-      fr: "Généré par create next app",
-      es: "Generado por create next app",
-    }),
-  },
-};
-
-module.exports = metadataContent;
 ```
 
 ```json fileName="src/app/[locale]/metadata.content.json" contentDeclarationFormat="json"
@@ -857,7 +473,7 @@ module.exports = metadataContent;
 }
 ```
 
-````typescript fileName="src/app/[locale]/layout.tsx or src/app/[locale]/page.tsx" codeFormat="typescript"
+````typescript fileName="src/app/[locale]/layout.tsx or src/app/[locale]/page.tsx" codeFormat={["typescript", "esm"]}
 import { getIntlayer, getMultilingualUrls } from "intlayer";
 import type { Metadata } from "next";
 import type { LocalPromiseParams } from "next-intlayer";
@@ -903,95 +519,11 @@ export const generateMetadata = async ({
 // ... Решта коду
 ````
 
-````javascript fileName="src/app/[locale]/layout.mjs or src/app/[locale]/page.mjs" codeFormat="esm"
-import { getIntlayer, getMultilingualUrls } from "intlayer";
-
-export const generateMetadata = async ({ params }) => {
-  const { locale } = await params;
-
-  const metadata = getIntlayer("page-metadata", locale);
-
-  /**
-   * Генерує об'єкт, що містить усі URL-адреси для кожної локалі.
-   *
-   * Приклад:
-   * ```ts
-   *  getMultilingualUrls('/about');
-   *
-   *  // Повертає
-   *  // {
-   *  //   en: '/about',
-   *  //   fr: '/fr/about',
-   *  //   es: '/es/about'
-   *  // }
-   * ```
-   */
-  const multilingualUrls = getMultilingualUrls("/");
-  const localizedUrl = multilingualUrls[locale];
-
-  return {
-    ...metadata,
-    alternates: {
-      canonical: localizedUrl,
-      languages: { ...multilingualUrls, "x-default": "/" },
-    },
-    openGraph: {
-      url: localizedUrl,
-    },
-  };
-};
-
-// ... Решта коду
-````
-
-````javascript fileName="src/app/[locale]/layout.cjs or src/app/[locale]/page.cjs" codeFormat="commonjs"
-const { getIntlayer, getMultilingualUrls } = require("intlayer");
-
-const generateMetadata = async ({ params }) => {
-  const { locale } = await params;
-
-  const metadata = getIntlayer("page-metadata", locale);
-
-  /**
-   * Генерує об'єкт, що містить усі URL-адреси для кожної локалі.
-   *
-   * Приклад:
-   * ```ts
-   *  getMultilingualUrls('/about');
-   *
-   *  // Повертає
-   *  // {
-   *  //   en: '/about',
-   *  //   fr: '/fr/about',
-   *  //   es: '/es/about'
-   *  // }
-   * ```
-   */
-  const multilingualUrls = getMultilingualUrls("/");
-  const localizedUrl = multilingualUrls[locale];
-
-  return {
-    ...metadata,
-    alternates: {
-      canonical: localizedUrl,
-      languages: { ...multilingualUrls, "x-default": "/" },
-    },
-    openGraph: {
-      url: localizedUrl,
-    },
-  };
-};
-
-module.exports = { generateMetadata };
-
-// ... Решта коду
-````
-
 > Зверніть увагу, що функція `getIntlayer`, імпортована з `next-intlayer`, повертає ваш контент, загорнутий в `IntlayerNode`, що дозволяє інтеграцію з візуальним редактором. На відміну від неї, функція `getIntlayer`, імпортована з `intlayer`, повертає ваш контент безпосередньо без додаткових властивостей.
 
 Як варіант, ви можете скористатися функцією `getTranslation` для оголошення своїх метаданих. Однак для автоматизації перекладу метаданих та подальшої екстерналізації контенту рекомендується використовувати файли декларації контенту.
 
-```typescript fileName="src/app/[locale]/layout.tsx or src/app/[locale]/page.tsx" codeFormat="typescript"
+```typescript fileName="src/app/[locale]/layout.tsx or src/app/[locale]/page.tsx" codeFormat={["typescript", "esm"]}
 import {
   type IConfigLocales,
   getTranslation,
@@ -1023,64 +555,13 @@ export const generateMetadata = async ({
 // ... Решта коду
 ```
 
-```javascript fileName="src/app/[locale]/layout.mjs or src/app/[locale]/page.mjs" codeFormat="esm"
-import { getTranslation, getMultilingualUrls } from "intlayer";
-
-export const generateMetadata = async ({ params }) => {
-  const { locale } = await params;
-  const t = (content) => getTranslation(content, locale);
-
-  return {
-    title: t({
-      en: "My title",
-      fr: "Mon titre",
-      es: "Mi título",
-    }),
-    description: t({
-      en: "My description",
-      fr: "Ma description",
-      es: "Mi descripción",
-    }),
-  };
-};
-
-// ... Решта коду
-```
-
-```javascript fileName="src/app/[locale]/layout.cjs or src/app/[locale]/page.cjs" codeFormat="commonjs"
-const { getTranslation, getMultilingualUrls } = require("intlayer");
-
-const generateMetadata = async ({ params }) => {
-  const { locale } = await params;
-
-  const t = (content) => getTranslation(content, locale);
-
-  return {
-    title: t({
-      en: "My title",
-      fr: "Mon titre",
-      es: "Mi título",
-    }),
-    description: t({
-      en: "My description",
-      fr: "Ma description",
-      es: "Mi descripción",
-    }),
-  };
-};
-
-module.exports = { generateMetadata };
-
-// ... Решта коду
-```
-
 > Дізнайтеся більше про оптимізацію метаданих [в офіційній документації Next.js](https://nextjs.org/docs/app/building-your-application/optimizing/metadata).
 
 ### (Опціонально) Крок 9: Інтернаціоналізація ваших sitemap.xml та robots.txt
 
 Щоб інтернаціоналізувати ваші `sitemap.xml` та `robots.txt`, ви можете скористатися функцією `getMultilingualUrls`, наданою Intlayer. Ця функція дозволяє генерувати багатомовні URL-адреси для вашої карти сайту.
 
-```tsx fileName="src/app/sitemap.ts" codeFormat="typescript"
+```tsx fileName="src/app/sitemap.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { getMultilingualUrls } from "intlayer";
 import type { MetadataRoute } from "next";
 
@@ -1117,79 +598,7 @@ const sitemap = (): MetadataRoute.Sitemap => [
 export default sitemap;
 ```
 
-```jsx fileName="src/app/sitemap.mjx" codeFormat="esm"
-import { getMultilingualUrls } from "intlayer";
-
-const sitemap = () => [
-  {
-    url: "https://example.com",
-    alternates: {
-      languages: {
-        ...getMultilingualUrls("https://example.com"),
-        "x-default": "https://example.com",
-      },
-    },
-  },
-  {
-    url: "https://example.com/login",
-    alternates: {
-      languages: {
-        ...getMultilingualUrls("https://example.com/login"),
-        "x-default": "https://example.com/login",
-      },
-    },
-  },
-  {
-    url: "https://example.com/register",
-    alternates: {
-      languages: {
-        ...getMultilingualUrls("https://example.com/register"),
-        "x-default": "https://example.com/register",
-      },
-    },
-  },
-];
-
-export default sitemap;
-```
-
-```jsx fileName="src/app/sitemap.csx" codeFormat="commonjs"
-const { getMultilingualUrls } = require("intlayer");
-
-const sitemap = () => [
-  {
-    url: "https://example.com",
-    alternates: {
-      languages: {
-        ...getMultilingualUrls("https://example.com"),
-        "x-default": "https://example.com",
-      },
-    },
-  },
-  {
-    url: "https://example.com/login",
-    alternates: {
-      languages: {
-        ...getMultilingualUrls("https://example.com/login"),
-        "x-default": "https://example.com/login",
-      },
-    },
-  },
-  {
-    url: "https://example.com/register",
-    alternates: {
-      languages: {
-        ...getMultilingualUrls("https://example.com/register"),
-        "x-default": "https://example.com/register",
-      },
-    },
-  },
-];
-
-module.exports = sitemap;
-```
-
-```tsx fileName="src/app/robots.ts" codeFormat="typescript"
+```tsx fileName="src/app/robots.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import type { MetadataRoute } from "next";
 import { getMultilingualUrls } from "intlayer";
 
@@ -1209,51 +618,13 @@ const robots = (): MetadataRoute.Robots => ({
 export default robots;
 ```
 
-```jsx fileName="src/app/robots.mjx" codeFormat="esm"
-import { getMultilingualUrls } from "intlayer";
-
-const getAllMultilingualUrls = (urls) =>
-  urls.flatMap((url) => Object.values(getMultilingualUrls(url)));
-
-const robots = () => ({
-  rules: {
-    userAgent: "*",
-    allow: ["/"],
-    disallow: getAllMultilingualUrls(["/login", "/register"]),
-  },
-  host: "https://example.com",
-  sitemap: `https://example.com/sitemap.xml`,
-});
-
-export default robots;
-```
-
-```jsx fileName="src/app/robots.csx" codeFormat="commonjs"
-const { getMultilingualUrls } = require("intlayer");
-
-const getAllMultilingualUrls = (urls) =>
-  urls.flatMap((url) => Object.values(getMultilingualUrls(url)));
-
-const robots = () => ({
-  rules: {
-    userAgent: "*",
-    allow: ["/"],
-    disallow: getAllMultilingualUrls(["/login", "/register"]),
-  },
-  host: "https://example.com",
-  sitemap: `https://example.com/sitemap.xml`,
-});
-
-module.exports = robots;
-```
-
 > Дізнайтеся більше про оптимізацію карти сайту [в офіційній документації Next.js](https://nextjs.org/docs/app/api-reference/file-conventions/metadata/sitemap). Дізнайтеся більше про оптимізацію robots.txt [в офіційній документації Next.js](https://nextjs.org/docs/app/api-reference/file-conventions/metadata/robots).
 
 ### (Опціонально) Крок 10: Зміна мови вашого контенту
 
 Щоб змінити мову вашого контенту в Next.js, рекомендованим способом є використання компонента `Link` для перенаправлення користувачів на відповідну локалізовану сторінку. Компонент `Link` дозволяє попередньо завантажувати сторінку, що допомагає уникнути повного перезавантаження сторінки.
 
-```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
+```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat={["typescript", "esm"]}
 "use client";
 
 import type { FC } from "react";
@@ -1267,110 +638,6 @@ import { useLocale } from "next-intlayer";
 import Link from "next/link";
 
 export const LocaleSwitcher: FC = () => {
-  const { locale, pathWithoutLocale, availableLocales, setLocale } =
-    useLocale();
-
-  return (
-    <div>
-      <button popoverTarget="localePopover">{getLocaleName(locale)}</button>
-      <div id="localePopover" popover="auto">
-        {availableLocales.map((localeItem) => (
-          <Link
-            href={getLocalizedUrl(pathWithoutLocale, localeItem)}
-            key={localeItem}
-            aria-current={locale === localeItem ? "page" : undefined}
-            onClick={() => setLocale(localeItem)}
-            replace // Це гарантує, що кнопка "назад" у браузері перенаправлятиме на попередню сторінку
-          >
-            <span>
-              {/* Локаль - наприклад, FR */}
-              {localeItem}
-            </span>
-            <span>
-              {/* Мова у її власній локалі - наприклад, Français */}
-              {getLocaleName(localeItem, locale)}
-            </span>
-            <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
-              {/* Мова у поточній локалі - наприклад, Francés, якщо поточна локаль встановлена як Locales.SPANISH */}
-              {getLocaleName(localeItem)}
-            </span>
-            <span dir="ltr" lang={Locales.ENGLISH}>
-              {/* Мова англійською - наприклад, French */}
-              {getLocaleName(localeItem, Locales.ENGLISH)}
-            </span>
-          </Link>
-        ))}
-      </div>
-    </div>
-  );
-};
-```
-
-```jsx fileName="src/components/LocaleSwitcher.msx" codeFormat="esm"
-"use client";
-
-import {
-  Locales,
-  getHTMLTextDir,
-  getLocaleName,
-  getLocalizedUrl,
-} from "intlayer";
-import { useLocale } from "next-intlayer";
-import Link from "next/link";
-
-export const LocaleSwitcher = () => {
-  const { locale, pathWithoutLocale, availableLocales, setLocale } =
-    useLocale();
-
-  return (
-    <div>
-      <button popoverTarget="localePopover">{getLocaleName(locale)}</button>
-      <div id="localePopover" popover="auto">
-        {availableLocales.map((localeItem) => (
-          <Link
-            href={getLocalizedUrl(pathWithoutLocale, localeItem)}
-            key={localeItem}
-            aria-current={locale === localeItem ? "page" : undefined}
-            onClick={() => setLocale(localeItem)}
-            replace // Це гарантує, що кнопка "назад" у браузері перенаправлятиме на попередню сторінку
-          >
-            <span>
-              {/* Локаль - наприклад, FR */}
-              {localeItem}
-            </span>
-            <span>
-              {/* Мова у її власній локалі - наприклад, Français */}
-              {getLocaleName(localeItem, locale)}
-            </span>
-            <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
-              {/* Мова у поточній локалі - наприклад, Francés, якщо поточна локаль встановлена як Locales.SPANISH */}
-              {getLocaleName(localeItem)}
-            </span>
-            <span dir="ltr" lang={Locales.ENGLISH}>
-              {/* Мова англійською - наприклад, French */}
-              {getLocaleName(localeItem, Locales.ENGLISH)}
-            </span>
-          </Link>
-        ))}
-      </div>
-    </div>
-  );
-};
-```
-
-```jsx fileName="src/components/LocaleSwitcher.csx" codeFormat="commonjs"
-"use client";
-
-const {
-  Locales,
-  getHTMLTextDir,
-  getLocaleName,
-  getLocalizedUrl,
-} = require("intlayer");
-const { useLocale } = require("next-intlayer");
-const Link = require("next/link");
-
-export const LocaleSwitcher = () => {
   const { locale, pathWithoutLocale, availableLocales, setLocale } =
     useLocale();
 
@@ -1460,7 +727,7 @@ return (
 
 Нижче наведено реалізацію локалізованого компонента `Link` на TypeScript:
 
-```tsx fileName="src/components/Link.tsx" codeFormat="typescript"
+```tsx fileName="src/components/Link.tsx" codeFormat={["typescript", "esm"]}
 "use client";
 
 import { getLocalizedUrl } from "intlayer";
@@ -1490,74 +757,6 @@ export const Link: FC<PropsWithChildren<NextLinkProps>> = ({
 
   // Якщо посилання внутрішнє і вказано валідний href, отримуємо локалізований URL.
   const hrefI18n: NextLinkProps["href"] =
-    href && !isExternalLink ? getLocalizedUrl(href.toString(), locale) : href;
-
-  return (
-    <NextLink href={hrefI18n} {...props}>
-      {children}
-    </NextLink>
-  );
-};
-```
-
-```jsx fileName="src/components/Link.mjx" codeFormat="esm"
-"use client";
-
-import { getLocalizedUrl } from "intlayer";
-import NextLink from "next/link";
-import { useLocale } from "next-intlayer";
-
-/**
- * Допоміжна функція для перевірки, чи є дана URL-адреса зовнішньою.
- * Якщо URL-адреса починається з http:// або https://, вона вважається зовнішньою.
- */
-export const checkIsExternalLink = (href) => /^https?:\/\//.test(href ?? "");
-
-/**
- * Кастомний компонент Link, який адаптує атрибут href залежно від поточної локалі.
- * Для внутрішніх посилань він використовує `getLocalizedUrl`, щоб додати префікс локалі до URL (наприклад, /fr/about).
- * Це гарантує, що навігація залишається в контексті тієї ж локалі.
- */
-export const Link = ({ href, children, ...props }) => {
-  const { locale } = useLocale();
-  const isExternalLink = checkIsExternalLink(href.toString());
-
-  // Якщо посилання внутрішнє і вказано валідний href, отримуємо локалізований URL.
-  const hrefI18n =
-    href && !isExternalLink ? getLocalizedUrl(href.toString(), locale) : href;
-
-  return (
-    <NextLink href={hrefI18n} {...props}>
-      {children}
-    </NextLink>
-  );
-};
-```
-
-```jsx fileName="src/components/Link.csx" codeFormat="commonjs"
-"use client";
-
-const { getLocalizedUrl } = require("intlayer");
-const NextLink = require("next/link");
-const { useLocale } = require("next-intlayer");
-
-/**
- * Допоміжна функція для перевірки, чи є дана URL-адреса зовнішньою.
- * Якщо URL-адреса починається з http:// або https://, вона вважається зовнішньою.
- */
-const checkIsExternalLink = (href) => /^https?:\/\//.test(href ?? "");
-
-/**
- * Кастомний компонент Link, який адаптує атрибут href залежно від поточної локалі.
- * Для внутрішніх посилань він використовує `getLocalizedUrl`, щоб додати префікс локалі до URL (наприклад, /fr/about).
- * Це гарантує, що навігація залишається в контексті тієї ж локалі.
- */
-const Link = ({ href, children, ...props }) => {
-  const { locale } = useLocale();
-  const isExternalLink = checkIsExternalLink(href.toString());
-
-  // Якщо посилання внутрішнє і вказано валідний href, отримуємо локалізований URL.
-  const hrefI18n =
     href && !isExternalLink ? getLocalizedUrl(href.toString(), locale) : href;
 
   return (
@@ -1709,7 +908,7 @@ Intlayer використовує розширення модулів (module au
 
 Щоб налаштувати його, ви можете додати розділ `compiler` у свій файл `intlayer.config.ts`:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -1738,66 +937,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... Інша частина вашої конфігурації
-  compiler: {
-    /**
-     * Вказує, чи повинен бути включений компілятор.
-     */
-    enabled: true,
-
-    /**
-     * Визначає шлях до вихідних файлів
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * Вказує, чи повинні компоненти зберігатися після перетворення. Таким чином, компілятор можна запустити лише один раз для перетворення програми, а потім видалити.
-     */
-    saveComponents: false,
-
-    /**
-     * Префікс ключа словника
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... Інша частина вашої конфігурації
-  compiler: {
-    /**
-     * Вказує, чи повинен бути включений компілятор.
-     */
-    enabled: true,
-
-    /**
-     * Визначає шлях до вихідних файлів
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * Вказує, чи повинні компоненти зберігатися після перетворення. Таким чином, компілятор можна запустити лише один раз для перетворення програми, а потім видалити.
-     */
-    saveComponents: false,
-
-    /**
-     * Префікс ключа словника
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-module.exports = config;
 ```
 
 <Tabs>

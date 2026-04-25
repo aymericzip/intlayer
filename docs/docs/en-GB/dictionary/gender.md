@@ -32,7 +32,7 @@ In Intlayer, gender-based content is achieved through the `gender` function, whi
 
 To set up gender-based content in your Intlayer project, create a content module that includes your gender-specific definitions. Below are examples in various formats.
 
-```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="**/*.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { gender, type Dictionary } from "intlayer";
 
 const myGenderContent = {
@@ -47,42 +47,6 @@ const myGenderContent = {
 } satisfies Dictionary;
 
 export default myGenderContent;
-```
-
-```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-import { gender } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const myGenderContent = {
-  key: "my_key",
-  content: {
-    myGender: gender({
-      male: "my content for male users",
-      female: "my content for female users",
-      fallback: "my content when gender is not specified", // Optional
-    }),
-  },
-};
-
-export default myGenderContent;
-```
-
-```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-const { gender } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const myGenderContent = {
-  key: "my_key",
-  content: {
-    myGender: gender({
-      male: "my content for male users",
-      female: "my content for female users",
-      fallback: "my content when gender is not specified", // Optional
-    }),
-  },
-};
-
-module.exports = myGenderContent;
 ```
 
 ```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
@@ -108,7 +72,7 @@ module.exports = myGenderContent;
 
 To utilise gender-based content within a React component, import and use the `useIntlayer` hook from the `react-intlayer` package. This hook fetches the content for the specified key and allows you to pass in a gender to select the appropriate output.
 
-```tsx fileName="**/*.tsx" codeFormat="typescript"
+```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useIntlayer } from "react-intlayer";
 
@@ -158,108 +122,6 @@ const GenderComponent: FC = () => {
 };
 
 export default GenderComponent;
-```
-
-```javascript fileName="**/*.mjx" codeFormat="esm"
-import { useIntlayer } from "react-intlayer";
-
-const GenderComponent = () => {
-  const { myGender } = useIntlayer("my_key");
-
-  return (
-    <div>
-      <p>
-        {
-          /* Output: my content for male users */
-          myGender("male")
-        }
-      </p>
-      <p>
-        {
-          /* Output: my content for female users */
-          myGender("female")
-        }
-      </p>
-      <p>
-        {
-          /* Output: my content for male users */
-          myGender("m")
-        }
-      </p>
-      <p>
-        {
-          /* Output: my content for female users */
-          myGender("f")
-        }
-      </p>
-      <p>
-        {
-          /* Output: my content when gender is not specified */
-          myGender("")
-        }
-      </p>
-      <p>
-        {
-          /* Output: my content when gender is not specified */
-          myGender(undefined)
-        }
-      </p>
-    </div>
-  );
-};
-
-export default GenderComponent;
-```
-
-```javascript fileName="**/*.cjs" codeFormat="commonjs"
-const { useIntlayer } = require("react-intlayer");
-
-const GenderComponent = () => {
-  const { myGender } = useIntlayer("my_key");
-
-  return (
-    <div>
-      <p>
-        {
-          /* Output: my content for male users */
-          myGender("male")
-        }
-      </p>
-      <p>
-        {
-          /* Output: my content for female users */
-          myGender("female")
-        }
-      </p>
-      <p>
-        {
-          /* Output: my content for male users */
-          myGender("m")
-        }
-      </p>
-      <p>
-        {
-          /* Output: my content for female users */
-          myGender("f")
-        }
-      </p>
-      <p>
-        {
-          /* Output: my content when gender is not specified */
-          myGender("")
-        }
-      </p>
-      <p>
-        {
-          /* Output: my content when gender is not specified */
-          myGender(undefined)
-        }
-      </p>
-    </div>
-  );
-};
-
-module.exports = GenderComponent;
 ```
 
 ## Additional Resources

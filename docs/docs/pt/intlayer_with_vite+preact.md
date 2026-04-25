@@ -108,7 +108,7 @@ bun x intlayer init
 
 Crie um arquivo de configuração para configurar os idiomas da sua aplicação:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -130,87 +130,19 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      // Seus outros idiomas
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-  routing: {
-    mode: "prefix-no-default", // Padrão: prefixar todos os locais exceto o padrão
-    storage: ["cookie", "header"], // Padrão: armazenar locale no cookie e detectar pelo header
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      // Seus outros idiomas
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-  routing: {
-    mode: "prefix-no-default", // Padrão: prefixar todos os locais exceto o padrão
-    storage: ["cookie", "header"], // Padrão: armazenar locale no cookie e detectar pelo header
-  },
-};
-
-module.exports = config;
-```
-
 > Através deste arquivo de configuração, você pode configurar URLs localizadas, modos de roteamento, opções de armazenamento, nomes de cookies, a localização e extensão das suas declarações de conteúdo, desabilitar logs do Intlayer no console e muito mais. Para uma lista completa dos parâmetros disponíveis, consulte a [documentação de configuração](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/configuration.md).
 
 ### Passo 3: Integre o Intlayer na Sua Configuração do Vite
 
 Adicione o plugin intlayer na sua configuração.
 
-```typescript fileName="vite.config.ts" codeFormat="typescript"
+```typescript fileName="vite.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { defineConfig } from "vite";
 import preact from "@preact/preset-vite";
 import { intlayer } from "vite-intlayer";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [preact(), intlayer()],
-});
-```
-
-```javascript fileName="vite.config.mjs" codeFormat="esm"
-import { defineConfig } from "vite";
-import preact from "@preact/preset-vite";
-import { intlayer } from "vite-intlayer";
-
-// https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [preact(), intlayer()],
-});
-```
-
-```javascript fileName="vite.config.cjs" codeFormat="commonjs"
-const { defineConfig } = require("vite");
-const preact = require("@preact/preset-vite");
-const { intlayer } = require("vite-intlayer");
-
-// https://vitejs.dev/config/
-module.exports = defineConfig({
   plugins: [preact(), intlayer()],
 });
 ```
@@ -221,7 +153,7 @@ module.exports = defineConfig({
 
 Crie e gerencie suas declarações de conteúdo para armazenar traduções:
 
-```tsx fileName="src/app.content.tsx" contentDeclarationFormat="typescript"
+```tsx fileName="src/app.content.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, type Dictionary } from "intlayer";
 import type { ComponentChildren } from "preact";
 
@@ -274,94 +206,6 @@ const appContent = {
 } satisfies Dictionary;
 
 export default appContent;
-```
-
-```javascript fileName="src/app.content.mjs" contentDeclarationFormat="esm"
-import { t } from "intlayer";
-// import { h } from 'preact'; // Necessário se usar JSX diretamente em .mjs
-
-/** @type {import('intlayer').Dictionary} */
-const appContent = {
-  key: "app",
-  content: {
-    viteLogo: t({
-      en: "Vite logo",
-      fr: "Logo Vite",
-      es: "Logo Vite",
-    }),
-    preactLogo: t({
-      en: "Preact logo",
-      fr: "Logo Preact",
-      es: "Logo Preact",
-    }),
-
-    title: "Vite + Preact",
-
-    count: t({
-      en: "count is ",
-      fr: "le compte est ",
-      es: "el recuento es ",
-    }),
-
-    edit: t({
-      en: "Edit src/app.jsx and save to test HMR",
-      fr: "Éditez src/app.jsx et enregistrez pour tester HMR",
-      es: "Edita src/app.jsx y guarda para probar HMR",
-    }),
-
-    readTheDocs: t({
-      en: "Click on the Vite and Preact logos to learn more",
-      fr: "Cliquez sur les logos Vite et Preact pour en savoir plus",
-      es: "Haga clic en los logotipos de Vite y Preact para obtener mais informações",
-    }),
-  },
-};
-
-export default appContent;
-```
-
-```javascript fileName="src/app.content.cjs" contentDeclarationFormat="commonjs"
-const { t } = require("intlayer");
-// const { h } = require('preact'); // Necessário se usar JSX diretamente em .cjs
-
-/** @type {import('intlayer').Dictionary} */
-const appContent = {
-  key: "app",
-  content: {
-    viteLogo: t({
-      en: "Vite logo",
-      fr: "Logo Vite",
-      es: "Logo Vite",
-    }),
-    preactLogo: t({
-      en: "Preact logo",
-      fr: "Logo Preact",
-      es: "Logo Preact",
-    }),
-
-    title: "Vite + Preact",
-
-    count: t({
-      en: "count is ",
-      fr: "le compte est ",
-      es: "el recuento es ",
-    }),
-
-    edit: t({
-      en: "Edit src/app.tsx and save to test HMR",
-      fr: "Éditez src/app.tsx et enregistrez pour tester HMR",
-      es: "Edita src/app.tsx y guarda para probar HMR",
-    }),
-
-    readTheDocs: t({
-      en: "Click on the Vite and Preact logos to learn more",
-      fr: "Cliquez sur les logos Vite et Preact pour en savoir plus",
-      es: "Haga clic en los logotipos de Vite e Preact para saber mais",
-    }),
-  },
-};
-
-module.exports = appContent;
 ```
 
 ```json fileName="src/app.content.json" contentDeclarationFormat="json"
@@ -431,7 +275,7 @@ module.exports = appContent;
 
 Acesse seus dicionários de conteúdo em toda a sua aplicação:
 
-```tsx {6,10} fileName="src/app.tsx" codeFormat="typescript"
+```tsx {6,10} fileName="src/app.tsx" codeFormat={["typescript", "esm"]}
 import { useState } from "preact/hooks";
 import type { FunctionalComponent } from "preact";
 import preactLogo from "./assets/preact.svg"; // Supondo que você tenha um preact.svg
@@ -485,100 +329,6 @@ const App: FunctionalComponent = () => (
 export default App;
 ```
 
-```jsx {5,9} fileName="src/app.jsx" codeFormat="esm"
-import { useState } from "preact/hooks";
-import preactLogo from "./assets/preact.svg";
-import viteLogo from "/vite.svg";
-import "./app.css";
-import { IntlayerProvider, useIntlayer } from "preact-intlayer";
-
-const AppContent = () => {
-  const [count, setCount] = useState(0);
-  const content = useIntlayer("app");
-
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} class="logo" alt={content.viteLogo.value} />
-        </a>
-        <a href="https://preactjs.com" target="_blank">
-          <img
-            src={preactLogo}
-            class="logo preact"
-            alt={content.preactLogo.value}
-          />
-        </a>
-      </div>
-      <h1>{content.title}</h1>
-      <div class="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          {content.count}
-          {count}
-        </button>
-        <p>{content.edit}</p>
-      </div>
-      <p class="read-the-docs">{content.readTheDocs}</p>
-    </>
-  );
-};
-
-const App = () => (
-  <IntlayerProvider>
-    <AppContent />
-  </IntlayerProvider>
-);
-
-export default App;
-```
-
-```jsx {5,9} fileName="src/app.cjsx" codeFormat="commonjs"
-const { useState } = require("preact/hooks");
-const preactLogo = require("./assets/preact.svg");
-const viteLogo = require("/vite.svg");
-require("./app.css");
-const { IntlayerProvider, useIntlayer } = require("preact-intlayer");
-
-const AppContent = () => {
-  const [count, setCount] = useState(0);
-  const content = useIntlayer("app");
-
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} class="logo" alt={content.viteLogo.value} />
-        </a>
-        <a href="https://preactjs.com" target="_blank">
-          <img
-            src={preactLogo}
-            class="logo preact"
-            alt={content.preactLogo.value}
-          />
-        </a>
-      </div>
-      <h1>{content.title}</h1>
-      <div class="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          {content.count}
-          {count}
-        </button>
-        <p>{content.edit}</p>
-      </div>
-      <p class="read-the-docs">{content.readTheDocs}</p>
-    </>
-  );
-};
-
-const App = () => (
-  <IntlayerProvider>
-    <AppContent />
-  </IntlayerProvider>
-);
-
-module.exports = App;
-```
-
 > Se você quiser usar seu conteúdo em um atributo `string`, como `alt`, `title`, `href`, `aria-label`, etc., você deve chamar o valor da função, assim:
 
 > ```jsx
@@ -595,7 +345,7 @@ module.exports = App;
 
 Para alterar o idioma do seu conteúdo, você pode usar a função `setLocale` fornecida pelo hook `useLocale`. Essa função permite definir o locale da aplicação e atualizar o conteúdo de acordo.
 
-```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
+```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat={["typescript", "esm"]}
 import type { FunctionalComponent } from "preact";
 import { Locales } from "intlayer";
 import { useLocale } from "preact-intlayer";
@@ -611,40 +361,6 @@ const LocaleSwitcher: FunctionalComponent = () => {
 };
 
 export default LocaleSwitcher;
-```
-
-```jsx fileName="src/components/LocaleSwitcher.jsx" codeFormat="esm"
-import { Locales } from "intlayer";
-import { useLocale } from "preact-intlayer";
-
-const LocaleSwitcher = () => {
-  const { setLocale } = useLocale();
-
-  return (
-    <button onClick={() => setLocale(Locales.ENGLISH)}>
-      Alterar idioma para Inglês
-    </button>
-  );
-};
-
-export default LocaleSwitcher;
-```
-
-```jsx fileName="src/components/LocaleSwitcher.cjsx" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-const { useLocale } = require("preact-intlayer");
-
-const LocaleSwitcher = () => {
-  const { setLocale } = useLocale();
-
-  return (
-    <button onClick={() => setLocale(Locales.ENGLISH)}>
-      Alterar idioma para Inglês
-    </button>
-  );
-};
-
-module.exports = LocaleSwitcher;
 ```
 
 > Para saber mais sobre o hook `useLocale`, consulte a [documentação](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/react-intlayer/useLocale.md) (A API é semelhante para `preact-intlayer`).
@@ -664,7 +380,7 @@ Exemplo:
 
 Para adicionar roteamento localizado à sua aplicação, você pode criar um componente `LocaleRouter` que envolva as rotas da sua aplicação e gerencie o roteamento baseado no idioma. Aqui está um exemplo usando [preact-iso](https://github.com/preactjs/preact-iso) :
 
-```tsx fileName="src/components/LocaleRouter.tsx"  codeFormat="typescript"
+```tsx fileName="src/components/LocaleRouter.tsx" codeFormat={["typescript", "esm"]}
 import { localeMap } from "intlayer";
 import { IntlayerProvider } from "preact-intlayer";
 import { LocationProvider, Router, Route } from "preact-iso";
@@ -695,68 +411,9 @@ export const LocaleRouter: FunctionalComponent<{
 );
 ```
 
-```jsx fileName="src/components/LocaleRouter.jsx" codeFormat="esm"
-import { localeMap } from "intlayer";
-import { IntlayerProvider } from "preact-intlayer";
-import { LocationProvider, Router, Route } from "preact-iso";
-
-/**
- * Um componente de roteador que configura rotas específicas para cada locale.
- * Ele usa preact-iso para gerenciar a navegação e renderizar componentes localizados.
- */
-export const LocaleRouter = ({ children }) => (
-  <LocationProvider>
-    <Router>
-      {localeMap(({ locale, urlPrefix }) => ({ locale, urlPrefix }))
-        .sort((a, b) => b.urlPrefix.length - a.urlPrefix.length)
-        .map(({ locale, urlPrefix }) => (
-          <Route
-            key={locale}
-            path={`${urlPrefix}/:rest*`}
-            component={() => (
-              <IntlayerProvider locale={locale}>{children}</IntlayerProvider>
-            )}
-          />
-        ))}
-    </Router>
-  </LocationProvider>
-);
-```
-
-```jsx fileName="src/components/LocaleRouter.cjsx" codeFormat="commonjs"
-const { localeMap } = require("intlayer");
-const { IntlayerProvider } = require("preact-intlayer");
-const { LocationProvider, Router, Route } = require("preact-iso");
-
-/**
- * Um componente de roteador que configura rotas específicas para cada locale.
- * Ele usa preact-iso para gerenciar a navegação e renderizar componentes localizados.
- */
-const LocaleRouter = ({ children }) =>
-  h(
-    LocationProvider,
-    {},
-    h(
-      Router,
-      {},
-      localeMap(({ locale, urlPrefix }) => ({ locale, urlPrefix }))
-        .sort((a, b) => b.urlPrefix.length - a.urlPrefix.length)
-        .map(({ locale, urlPrefix }) =>
-          h(Route, {
-            key: locale,
-            path: `${urlPrefix}/:rest*`,
-            component: () => h(IntlayerProvider, { locale }, children),
-          })
-        )
-    )
-  );
-
-module.exports = { LocaleRouter };
-```
-
 Em seguida, você pode usar o componente `LocaleRouter` na sua aplicação:
 
-```tsx fileName="src/app.tsx" codeFormat="typescript"
+```tsx fileName="src/app.tsx" codeFormat={["typescript", "esm"]}
 import { LocaleRouter } from "./components/LocaleRouter";
 import type { FunctionalComponent } from "preact";
 
@@ -771,39 +428,11 @@ const App: FunctionalComponent = () => (
 export default App;
 ```
 
-```jsx fileName="src/app.jsx" codeFormat="esm"
-import { LocaleRouter } from "./components/LocaleRouter";
-
-// ... Seu componente AppContent
-
-const App = () => (
-  <LocaleRouter>
-    <AppContent />
-  </LocaleRouter>
-);
-
-export default App;
-```
-
-```jsx fileName="src/app.cjsx" codeFormat="commonjs"
-const { LocaleRouter } = require("./components/LocaleRouter");
-
-// ... Seu componente AppContent
-
-const App = () => (
-  <LocaleRouter>
-    <AppContent />
-  </LocaleRouter>
-);
-
-module.exports = App;
-```
-
 ### (Opcional) Passo 8: Alterar a URL quando o idioma mudar
 
 Para alterar a URL quando o locale mudar, você pode usar a prop `onLocaleChange` fornecida pelo hook `useLocale`. Em paralelo, você pode usar o método `route` do `useLocation` do `preact-iso` para atualizar o caminho da URL.
 
-```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
+```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat={["typescript", "esm"]}
 import { useLocation } from "preact-iso";
 import {
   Locales,
@@ -869,118 +498,6 @@ const LocaleSwitcher: FunctionalComponent = () => {
 export default LocaleSwitcher;
 ```
 
-```jsx fileName="src/components/LocaleSwitcher.jsx" codeFormat="esm"
-import { useLocation } from "preact-iso";
-import {
-  Locales,
-  getHTMLTextDir,
-  getLocaleName,
-  getLocalizedUrl,
-} from "intlayer";
-import { useLocale } from "preact-intlayer";
-
-const LocaleSwitcher = () => {
-  const { url, route } = useLocation();
-  const { locale, availableLocales, setLocale } = useLocale({
-    onLocaleChange: (newLocale) => {
-      const pathWithLocale = getLocalizedUrl(url, newLocale);
-      route(pathWithLocale, true);
-    },
-  });
-
-  return (
-    <div>
-      <button popovertarget="localePopover">{getLocaleName(locale)}</button>
-      <div id="localePopover" popover="auto">
-        {availableLocales.map((localeItem) => (
-          <a
-            href={getLocalizedUrl(url, localeItem)}
-            hreflang={localeItem}
-            aria-current={locale === localeItem ? "page" : undefined}
-            onClick={(e) => {
-              e.preventDefault();
-              setLocale(localeItem);
-            }}
-            key={localeItem}
-          >
-            <span>{localeItem}</span>
-            <span>{getLocaleName(localeItem, localeItem)}</span>
-            <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
-              {getLocaleName(localeItem, locale)}
-            </span>
-            <span dir="ltr" lang={Locales.ENGLISH}>
-              {getLocaleName(localeItem, Locales.ENGLISH)}
-            </span>
-          </a>
-        ))}
-      </div>
-    </div>
-  );
-};
-
-export default LocaleSwitcher;
-```
-
-```jsx fileName="src/components/LocaleSwitcher.cjsx" codeFormat="commonjs"
-const { useLocation } = require("preact-iso");
-const {
-  Locales,
-  getHTMLTextDir,
-  getLocaleName,
-  getLocalizedUrl,
-} = require("intlayer");
-const { useLocale } = require("preact-intlayer");
-
-const LocaleSwitcher = () => {
-  const { url, route } = useLocation();
-  const { locale, availableLocales, setLocale } = useLocale({
-    onLocaleChange: (newLocale) => {
-      const pathWithLocale = getLocalizedUrl(url, newLocale);
-      route(pathWithLocale, true);
-    },
-  });
-
-  return h(
-    "div",
-    {},
-    h("button", { popovertarget: "localePopover" }, getLocaleName(locale)),
-    h(
-      "div",
-      { id: "localePopover", popover: "auto" },
-      availableLocales.map((localeItem) =>
-        h(
-          "a",
-          {
-            href: getLocalizedUrl(url, localeItem),
-            hreflang: localeItem,
-            "aria-current": locale === localeItem ? "page" : undefined,
-            onClick: (e) => {
-              e.preventDefault();
-              setLocale(localeItem);
-            },
-            key: localeItem,
-          },
-          h("span", {}, localeItem),
-          h("span", {}, getLocaleName(localeItem, localeItem)),
-          h(
-            "span",
-            { dir: getHTMLTextDir(localeItem), lang: localeItem },
-            getLocaleName(localeItem, locale)
-          ),
-          h(
-            "span",
-            { dir: "ltr", lang: Locales.ENGLISH },
-            getLocaleName(localeItem, Locales.ENGLISH)
-          )
-        )
-      )
-    )
-  );
-};
-
-module.exports = LocaleSwitcher;
-```
-
 > Referências da documentação:
 >
 > > - [Hook `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/react-intlayer/useLocale.md) (API é semelhante para `preact-intlayer`)> - [Hook `getLocaleName`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/intlayer/getLocaleName.md)> - [Hook `getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/intlayer/getLocalizedUrl.md)> - [Hook `getHTMLTextDir`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/intlayer/getHTMLTextDir.md)> - [Atributo `hreflang`](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=fr)> - [Atributo `lang`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang)> - [Atributo `dir`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir)> - [Atributo `aria-current`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)> - [API Popover](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API)
@@ -999,7 +516,7 @@ Ao atualizar esses atributos dinamicamente quando o locale muda, você garante u
 
 Crie um hook personalizado para gerenciar os atributos HTML. O hook escuta as mudanças de locale e atualiza os atributos conforme necessário:
 
-```tsx fileName="src/hooks/useI18nHTMLAttributes.tsx" codeFormat="typescript"
+```tsx fileName="src/hooks/useI18nHTMLAttributes.tsx" codeFormat={["typescript", "esm"]}
 import { useEffect } from "preact/hooks";
 import { useLocale } from "preact-intlayer";
 import { getHTMLTextDir } from "intlayer";
@@ -1024,49 +541,11 @@ export const useI18nHTMLAttributes = () => {
 };
 ```
 
-```jsx fileName="src/hooks/useI18nHTMLAttributes.jsx" codeFormat="esm"
-import { useEffect } from "preact/hooks";
-import { useLocale } from "preact-intlayer";
-import { getHTMLTextDir } from "intlayer";
-
-/**
- * Atualiza os atributos `lang` e `dir` do elemento HTML <html> com base no locale atual.
- */
-export const useI18nHTMLAttributes = () => {
-  const { locale } = useLocale();
-
-  useEffect(() => {
-    document.documentElement.lang = locale;
-    document.documentElement.dir = getHTMLTextDir(locale);
-  }, [locale]);
-};
-```
-
-```jsx fileName="src/hooks/useI18nHTMLAttributes.cjsx" codeFormat="commonjs"
-const { useEffect } = require("preact/hooks");
-const { useLocale } = require("preact-intlayer");
-const { getHTMLTextDir } = require("intlayer");
-
-/**
- * Atualiza os atributos `lang` e `dir` do elemento HTML <html> com base no locale atual.
- */
-const useI18nHTMLAttributes = () => {
-  const { locale } = useLocale();
-
-  useEffect(() => {
-    document.documentElement.lang = locale;
-    document.documentElement.dir = getHTMLTextDir(locale);
-  }, [locale]);
-};
-
-module.exports = { useI18nHTMLAttributes };
-```
-
 #### Usando o Hook na Sua Aplicação
 
 Integre o hook no seu componente principal para que os atributos HTML sejam atualizados sempre que o locale mudar:
 
-```tsx fileName="src/app.tsx" codeFormat="typescript"
+```tsx fileName="src/app.tsx" codeFormat={["typescript", "esm"]}
 import type { FunctionalComponent } from "preact";
 import { IntlayerProvider } from "preact-intlayer"; // useIntlayer já importado se AppContent precisar
 import { useI18nHTMLAttributes } from "./hooks/useI18nHTMLAttributes";
@@ -1090,46 +569,6 @@ const App: FunctionalComponent = () => (
 export default App;
 ```
 
-```jsx fileName="src/app.jsx" codeFormat="esm"
-import { IntlayerProvider } from "preact-intlayer";
-import { useI18nHTMLAttributes } from "./hooks/useI18nHTMLAttributes";
-import "./app.css";
-// Definição do AppContent do Passo 5
-
-const AppWithHooks = () => {
-  useI18nHTMLAttributes();
-  return <AppContent />;
-};
-
-const App = () => (
-  <IntlayerProvider>
-    <AppWithHooks />
-  </IntlayerProvider>
-);
-
-export default App;
-```
-
-```jsx fileName="src/app.cjsx" codeFormat="commonjs"
-const { IntlayerProvider } = require("preact-intlayer");
-const { useI18nHTMLAttributes } = require("./hooks/useI18nHTMLAttributes");
-require("./app.css");
-// Definição do AppContent do Passo 5
-
-const AppWithHooks = () => {
-  useI18nHTMLAttributes();
-  return <AppContent />;
-};
-
-const App = () => (
-  <IntlayerProvider>
-    <AppWithHooks />
-  </IntlayerProvider>
-);
-
-module.exports = App;
-```
-
 ### (Opcional) Passo 10: Criando um componente de link localizado
 
 Para garantir que a navegação da sua aplicação respeite o locale atual, você pode criar um componente `Link` personalizado. Este componente prefixa automaticamente as URLs internas com o idioma atual.
@@ -1142,7 +581,7 @@ Este comportamento é útil por vários motivos:
 
 Abaixo está a implementação de um componente `Link` localizado em Preact:
 
-```tsx fileName="src/components/Link.tsx" codeFormat="typescript"
+```tsx fileName="src/components/Link.tsx" codeFormat={["typescript", "esm"]}
 import { getLocalizedUrl } from "intlayer";
 import { useLocale } from "preact-intlayer";
 import { forwardRef } from "preact/compat";
@@ -1182,80 +621,6 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
 );
 
 Link.displayName = "Link";
-```
-
-```jsx fileName="src/components/Link.jsx" codeFormat="esm"
-import { getLocalizedUrl } from "intlayer";
-import { useLocale } from "preact-intlayer";
-import { forwardRef } from "preact/compat";
-
-/**
- * Função utilitária para verificar se uma URL dada é externa.
- * Se a URL começar com http:// ou https://, ela é considerada externa.
- */
-export const checkIsExternalLink = (href) => /^https?:\/\//.test(href ?? "");
-
-/**
- * Um componente Link personalizado que adapta o atributo href com base no locale atual.
- * Para links internos, ele usa `getLocalizedUrl` para prefixar a URL com o locale (ex: /fr/about).
- * Isso garante que a navegação permaneça dentro do mesmo contexto de locale.
- */
-export const Link = forwardRef(({ href, children, ...props }, ref) => {
-  const { locale } = useLocale();
-  const isExternalLink = checkIsExternalLink(href);
-
-  // Se o link for interno e um href válido for fornecido, obtenha a URL localizada.
-  const hrefI18n =
-    href && !isExternalLink ? getLocalizedUrl(href, locale) : href;
-
-  return (
-    <a href={hrefI18n} ref={ref} {...props}>
-      {children}
-    </a>
-  );
-});
-
-Link.displayName = "Link";
-```
-
-```jsx fileName="src/components/Link.cjsx" codeFormat="commonjs"
-const { getLocalizedUrl } = require("intlayer");
-const { useLocale } = require("preact-intlayer");
-const { forwardRef } = require("preact/compat");
-
-/**
- * Função utilitária para verificar se uma URL dada é externa.
- * Se a URL começar com http:// ou https://, ela é considerada externa.
- */
-const checkIsExternalLink = (href) => /^https?:\/\//.test(href ?? "");
-
-/**
- * Um componente Link personalizado que adapta o atributo href com base no locale atual.
- * Para links internos, ele usa `getLocalizedUrl` para prefixar a URL com o locale (ex: /fr/about).
- * Isso garante que a navegação permaneça dentro do mesmo contexto de locale.
- */
-const Link = forwardRef(({ href, children, ...props }, ref) => {
-  const { locale } = useLocale();
-  const isExternalLink = checkIsExternalLink(href);
-
-  // Se o link for interno e um href válido for fornecido, obtenha a URL localizada.
-  const hrefI18n =
-    href && !isExternalLink ? getLocalizedUrl(href, locale) : href;
-
-  return h(
-    "a",
-    {
-      href: hrefI18n,
-      ref: ref,
-      ...props,
-    },
-    children
-  );
-});
-
-Link.displayName = "Link";
-
-module.exports = { Link, checkIsExternalLink };
 ```
 
 #### Como Funciona
@@ -1311,7 +676,7 @@ Para facilitar esse processo, o Intlayer propõe um [compilador](https://github.
 
 Para configurá-lo, você pode adicionar uma seção `compiler` no seu arquivo `intlayer.config.ts`:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -1340,66 +705,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... Resto da sua configuração
-  compiler: {
-    /**
-     * Indica se o compilador deve ser ativado.
-     */
-    enabled: true,
-
-    /**
-     * Define o caminho dos arquivos de saída
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * Indica se os componentes devem ser salvos após serem transformados. Dessa forma, o compilador pode ser executado apenas uma vez para transformar o aplicativo e depois removido.
-     */
-    saveComponents: false,
-
-    /**
-     * Prefixo da chave do dicionário
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... Resto da sua configuração
-  compiler: {
-    /**
-     * Indica se o compilador deve ser ativado.
-     */
-    enabled: true,
-
-    /**
-     * Define o caminho dos arquivos de saída
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * Indica se os componentes devem ser salvos após serem transformados. Dessa forma, o compilador pode ser executado apenas uma vez para transformar o aplicativo e depois removido.
-     */
-    saveComponents: false,
-
-    /**
-     * Prefixo da chave do dicionário
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-module.exports = config;
 ```
 
 <Tabs>

@@ -82,7 +82,7 @@ bun x intlayer init
 
 Cấu hình các thiết lập quốc tế hóa bằng cách tạo một file `intlayer.config.ts` trong thư mục gốc dự án của bạn:
 
-```typescript fileName="intlayer.config.ts"  codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -100,49 +100,11 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH_MEXICO,
-      Locales.SPANISH_SPAIN,
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH_MEXICO,
-      Locales.SPANISH_SPAIN,
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-module.exports = config;
-```
-
 ### Khai báo Nội dung của Bạn
 
 Tạo và quản lý các khai báo nội dung để lưu trữ các bản dịch:
 
-```typescript fileName="src/index.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="src/index.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, type Dictionary } from "intlayer";
 
 const indexContent = {
@@ -158,44 +120,6 @@ const indexContent = {
 } satisfies Dictionary;
 
 export default indexContent;
-```
-
-```javascript fileName="src/index.content.mjs" contentDeclarationFormat="esm"
-import { t } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const indexContent = {
-  key: "index",
-  content: {
-    exampleOfContent: t({
-      en: "Example of returned content in English",
-      fr: "Exemple de contenu renvoyé en français",
-      "es-ES": "Ejemplo de contenido devuelto en español (España)",
-      "es-MX": "Ejemplo de contenido devuelto en español (México)",
-    }),
-  },
-};
-
-export default indexContent;
-```
-
-```javascript fileName="src/index.content.cjs" contentDeclarationFormat="commonjs"
-const { t } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const indexContent = {
-  key: "index",
-  content: {
-    exampleOfContent: t({
-      en: "Example of returned content in English",
-      fr: "Exemple de contenu renvoyé en français",
-      "es-ES": "Ejemplo de contenido devuelto en español (España)",
-      "es-MX": "Ejemplo de contenido devuelto en español (México)",
-    }),
-  },
-};
-
-module.exports = indexContent;
 ```
 
 ```json fileName="src/index.content.json" contentDeclarationFormat="json"
@@ -224,7 +148,7 @@ module.exports = indexContent;
 
 Cài đặt ứng dụng Express của bạn để sử dụng `express-intlayer`:
 
-```typescript fileName="src/index.ts" codeFormat="typescript"
+```typescript fileName="src/index.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import express, { type Express } from "express";
 import { intlayer, t, getDictionary, getIntlayer } from "express-intlayer";
 import dictionaryExample from "./index.content";
@@ -258,74 +182,6 @@ app.get("/getDictionary_example", (_req, res) => {
 app.listen(3000, () => console.log(`Lắng nghe trên cổng 3000`));
 ```
 
-```javascript fileName="src/index.mjs" codeFormat="esm"
-import express from "express";
-import { intlayer, t, getDictionary, getIntlayer } from "express-intlayer";
-import dictionaryExample from "./index.content";
-
-const app = express();
-
-// Tải trình xử lý yêu cầu quốc tế hóa
-app.use(intlayer());
-
-// Các tuyến đường
-app.get("/t_example", (_req, res) => {
-  res.send(
-    t({
-      en: "Example of returned content in English",
-      fr: "Exemple de contenu renvoyé en français",
-      "es-ES": "Ejemplo de contenido devuelto en español (España)",
-      "es-MX": "Ejemplo de contenido devuelto en español (México)",
-    })
-  );
-});
-
-app.get("/getIntlayer_example", (_req, res) => {
-  res.send(getIntlayer("index").exampleOfContent);
-});
-
-app.get("/getDictionary_example", (_req, res) => {
-  res.send(getDictionary(dictionaryExample).exampleOfContent);
-});
-
-// Khởi động server
-app.listen(3000, () => console.log(`Lắng nghe trên cổng 3000`));
-```
-
-```javascript fileName="src/index.cjs" codeFormat="commonjs"
-const express = require("express");
-const { intlayer, t, getDictionary, getIntlayer } = require("express-intlayer");
-const dictionaryExample = require("./index.content");
-
-const app = express();
-
-// Tải trình xử lý yêu cầu quốc tế hóa
-app.use(intlayer());
-
-// Các tuyến đường
-app.get("/t_example", (_req, res) => {
-  res.send(
-    t({
-      en: "Example of returned content in English",
-      fr: "Exemple de contenu renvoyé en français",
-      "es-ES": "Ejemplo de contenido devuelto en español (España)",
-      "es-MX": "Ví dụ về nội dung trả về bằng tiếng Tây Ban Nha (Mexico)",
-    })
-  );
-});
-
-app.get("/getIntlayer_example", (_req, res) => {
-  res.send(getIntlayer("index").exampleOfContent);
-});
-
-app.get("/getDictionary_example", (_req, res) => {
-  res.send(getDictionary(dictionaryExample).exampleOfContent);
-});
-
-// Khởi động server
-app.listen(3000, () => console.log(`Lắng nghe trên cổng 3000`));
-```
-
 ### Tương thích
 
 `express-intlayer` hoàn toàn tương thích với:
@@ -336,7 +192,7 @@ app.listen(3000, () => console.log(`Lắng nghe trên cổng 3000`));
 
 Nó cũng hoạt động mượt mà với bất kỳ giải pháp quốc tế hóa nào trên nhiều môi trường khác nhau, bao gồm trình duyệt và các yêu cầu API. Bạn có thể tùy chỉnh middleware để phát hiện locale thông qua header hoặc cookie:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -348,36 +204,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... Các tùy chọn cấu hình khác
-  middleware: {
-    headerName: "my-locale-header", // tên header để phát hiện locale
-    cookieName: "my-locale-cookie", // tên cookie để phát hiện locale
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... Các tùy chọn cấu hình khác
-  middleware: {
-    headerName: "my-locale-header", // tên header để phát hiện locale
-    cookieName: "my-locale-cookie", // tên cookie để phát hiện locale
-  },
-};
-
-module.exports = config;
 ```
 
 Mặc định, `express-intlayer` sẽ giải thích header `Accept-Language` để xác định ngôn ngữ ưu tiên của client.

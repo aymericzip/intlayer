@@ -50,7 +50,7 @@ Funkcja `getLocaleName` zwraca zlokalizowaną nazwę podanego locale (`targetLoc
 
 ## Przykład użycia
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, getLocaleName } from "intlayer";
 
 getLocaleName(Locales.ENGLISH); // Output: "English"
@@ -69,48 +69,6 @@ getLocaleName(Locales.CHINESE, Locales.ESPANOL); // Output: "Chino"
 getLocaleName(Locales.CHINESE, Locales.ENGLISH); // Output: "Chinese"
 
 getLocaleName("unknown-locale"); // Output: "Unknown locale"
-```
-
-```javascript codeFormat="esm"
-import { Locales, getLocaleName } from "intlayer";
-
-getLocaleName(Locales.ENGLISH); // Wynik: "English"
-getLocaleName(Locales.ENGLISH, Locales.FRENCH); // Wynik: "Anglais"
-getLocaleName(Locales.ENGLISH, Locales.ESPANOL); // Wynik: "Inglés"
-getLocaleName(Locales.ENGLISH, Locales.ENGLISH); // Wynik: "English"
-
-getLocaleName(Locales.FRENCH); // Wynik: "Français"
-getLocaleName(Locales.FRENCH, Locales.FRENCH); // Wynik: "Français"
-getLocaleName(Locales.FRENCH, Locales.ESPANOL); // Wynik: "Francés"
-getLocaleName(Locales.FRENCH, Locales.ENGLISH); // Wynik: "French"
-
-getLocaleName(Locales.CHINESE); // Wynik: "中文"
-getLocaleName(Locales.CHINESE, Locales.FRENCH); // Wynik: "Chinois"
-getLocaleName(Locales.CHINESE, Locales.ESPANOL); // Wynik: "Chino"
-getLocaleName(Locales.CHINESE, Locales.ENGLISH); // Wynik: "Chinese"
-
-getLocaleName("unknown-locale"); // Wynik: "Unknown locale"
-```
-
-```javascript codeFormat="commonjs"
-const { Locales, getLocaleName } = require("intlayer");
-
-getLocaleName(Locales.ENGLISH); // Wynik: "English"
-getLocaleName(Locales.ENGLISH, Locales.FRENCH); // Wynik: "Anglais"
-getLocaleName(Locales.ENGLISH, Locales.ESPANOL); // Wynik: "Inglés"
-getLocaleName(Locales.ENGLISH, Locales.ENGLISH); // Wynik: "English"
-
-getLocaleName(Locales.FRENCH); // Wynik: "Français"
-getLocaleName(Locales.FRENCH, Locales.FRENCH); // Wynik: "Français"
-getLocaleName(Locales.FRENCH, Locales.ESPANOL); // Wynik: "Francés"
-getLocaleName(Locales.FRENCH, Locales.ENGLISH); // Wynik: "French"
-
-getLocaleName(Locales.CHINESE); // Wynik: "中文"
-getLocaleName(Locales.CHINESE, Locales.FRENCH); // Wynik: "Chinois"
-getLocaleName(Locales.CHINESE, Locales.ESPANOL); // Wynik: "Chino"
-getLocaleName(Locales.CHINESE, Locales.ENGLISH); // Wynik: "Chinese"
-
-getLocaleName("unknown-locale"); // Wynik: "Unknown locale"
 ```
 
 ## Przypadki brzegowe

@@ -82,7 +82,7 @@ bun x intlayer init
 
 Skonfiguruj ustawienia internacjonalizacji, tworząc plik `intlayer.config.ts` w katalogu głównym projektu:
 
-```typescript fileName="intlayer.config.ts"  codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -100,49 +100,11 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH_MEXICO,
-      Locales.SPANISH_SPAIN,
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH_MEXICO,
-      Locales.SPANISH_SPAIN,
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-module.exports = config;
-```
-
 ### Zadeklaruj swoją zawartość
 
 Twórz i zarządzaj deklaracjami zawartości, aby przechowywać tłumaczenia:
 
-```typescript fileName="src/index.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="src/index.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, type Dictionary } from "intlayer";
 
 const indexContent = {
@@ -158,45 +120,6 @@ const indexContent = {
 } satisfies Dictionary;
 
 export default indexContent;
-```
-
-```javascript fileName="src/index.content.mjs" contentDeclarationFormat="esm"
-import { t } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const indexContent = {
-  key: "index",
-  content: {
-    exampleOfContent: t({
-      en: "Example of returned content in English",
-      fr: "Exemple de contenu renvoyé en français",
-      "es-ES": "Ejemplo de contenido devuelto en español (España)",
-      "es-MX": "Ejemplo de contenido devuelto en español (México)",
-    }),
-  },
-};
-
-export default indexContent;
-```
-
-```javascript fileName="src/index.content.cjs" contentDeclarationFormat="commonjs"
-const { t } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const indexContent = {
-  key: "index",
-  content: {
-    exampleOfContent: t({
-      en: "Example of returned content in English",
-      pl: "Przykład zwróconej zawartości w języku angielskim",
-      fr: "Exemple de contenu renvoyé en français",
-      "es-ES": "Ejemplo de contenido devuelto en español (España)",
-      "es-MX": "Ejemplo de contenido devuelto en español (México)",
-    }),
-  },
-};
-
-module.exports = indexContent;
 ```
 
 ```json fileName="src/index.content.json" contentDeclarationFormat="json"
@@ -226,80 +149,12 @@ module.exports = indexContent;
 
 Skonfiguruj swoją aplikację Express, aby korzystała z `express-intlayer`:
 
-```typescript fileName="src/index.ts" codeFormat="typescript"
+```typescript fileName="src/index.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import express, { type Express } from "express";
 import { intlayer, t, getDictionary, getIntlayer } from "express-intlayer";
 import dictionaryExample from "./index.content";
 
 const app: Express = express();
-
-// Załaduj handler żądań internacjonalizacji
-app.use(intlayer());
-
-// Trasy
-app.get("/t_example", (_req, res) => {
-  res.send(
-    t({
-      en: "Example of returned content in English",
-      fr: "Exemple de contenu renvoyé en français",
-      "es-ES": "Ejemplo de contenido devuelto en español (España)",
-      "es-MX": "Ejemplo de contenido devuelto en español (México)",
-    })
-  );
-});
-
-app.get("/getIntlayer_example", (_req, res) => {
-  res.send(getIntlayer("index").exampleOfContent);
-});
-
-app.get("/getDictionary_example", (_req, res) => {
-  res.send(getDictionary(dictionaryExample).exampleOfContent);
-});
-
-// Uruchom serwer
-app.listen(3000, () => console.log(`Nasłuchiwanie na porcie 3000`));
-```
-
-```javascript fileName="src/index.mjs" codeFormat="esm"
-import express from "express";
-import { intlayer, t, getDictionary, getIntlayer } from "express-intlayer";
-import dictionaryExample from "./index.content";
-
-const app = express();
-
-// Załaduj handler żądań internacjonalizacji
-app.use(intlayer());
-
-// Trasy
-app.get("/t_example", (_req, res) => {
-  res.send(
-    t({
-      en: "Example of returned content in English",
-      fr: "Exemple de contenu renvoyé en français",
-      "es-ES": "Ejemplo de contenido devuelto en español (España)",
-      "es-MX": "Ejemplo de contenido devuelto en español (México)",
-    })
-  );
-});
-
-app.get("/getIntlayer_example", (_req, res) => {
-  res.send(getIntlayer("index").exampleOfContent);
-});
-
-app.get("/getDictionary_example", (_req, res) => {
-  res.send(getDictionary(dictionaryExample).exampleOfContent);
-});
-
-// Uruchom serwer
-app.listen(3000, () => console.log(`Nasłuchiwanie na porcie 3000`));
-```
-
-```javascript fileName="src/index.cjs" codeFormat="commonjs"
-const express = require("express");
-const { intlayer, t, getDictionary, getIntlayer } = require("express-intlayer");
-const dictionaryExample = require("./index.content");
-
-const app = express();
 
 // Załaduj handler żądań internacjonalizacji
 app.use(intlayer());
@@ -338,7 +193,7 @@ app.listen(3000, () => console.log(`Nasłuchiwanie na porcie 3000`));
 
 Działa również bezproblemowo z dowolnym rozwiązaniem do internacjonalizacji w różnych środowiskach, w tym w przeglądarkach i zapytaniach API. Możesz dostosować middleware, aby wykrywać lokalizację za pomocą nagłówków lub ciasteczek:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -350,36 +205,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... Inne opcje konfiguracji
-  middleware: {
-    headerName: "my-locale-header",
-    cookieName: "my-locale-cookie",
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... Inne opcje konfiguracji
-  middleware: {
-    headerName: "my-locale-header",
-    cookieName: "my-locale-cookie",
-  },
-};
-
-module.exports = config;
 ```
 
 Domyślnie `express-intlayer` będzie interpretować nagłówek `Accept-Language`, aby określić preferowany język klienta.

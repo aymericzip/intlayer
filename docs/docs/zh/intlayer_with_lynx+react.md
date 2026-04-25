@@ -83,7 +83,7 @@ bun x intlayer init
 
 在项目根目录（或任何方便的位置）创建一个 **Intlayer 配置** 文件。它可能如下所示：
 
-```ts fileName="intlayer.config.ts" codeFormat="typescript"
+```ts fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -99,39 +99,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```js fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      // ... 添加您需要的其他语言
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-```js fileName="intlayer.config.js" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-module.exports = config;
 ```
 
 在此配置中，您可以：
@@ -200,7 +167,7 @@ if (import.meta.webpackHot) {
 
 示例：
 
-```tsx fileName="src/app.content.ts" contentDeclarationFormat="typescript"
+```tsx fileName="src/app.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, type Dictionary } from "intlayer";
 
 const appContent = {
@@ -237,87 +204,6 @@ const appContent = {
 } satisfies Dictionary;
 
 export default appContent;
-```
-
-```jsx fileName="src/app.content.mjx" contentDeclarationFormat="esm"
-import { t } from "intlayer";
-
-const appContent = {
-  key: "app",
-  content: {
-    title: "React",
-    subtitle: t({
-      zh: "在 Lynx 上",
-      en: "on Lynx",
-      fr: "sur Lynx",
-      es: "en Lynx",
-    }),
-    description: t({
-      zh: "点击标志并享受乐趣！",
-      en: "Tap the logo and have fun!",
-      fr: "Appuyez sur le logo et amusez-vous!",
-      es: "¡Toca el logo y diviértete!",
-    }),
-    hint: [
-      t({
-        zh: "编辑",
-        en: "Edit",
-        fr: "Modifier",
-        es: "Editar",
-      }),
-      " src/App.tsx ",
-      t({
-        zh: "以查看更新！",
-        en: "to see updates!",
-        fr: "pour voir les mises à jour!",
-        es: "para ver actualizaciones!",
-      }),
-    ],
-  },
-};
-
-export default appContent;
-```
-
-```jsx fileName="src/app.content.csx" contentDeclarationFormat="commonjs"
-const { t } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const appContent = {
-  key: "app",
-  content: {
-    title: "React",
-    subtitle: t({
-      zh: "在 Lynx 上",
-      en: "on Lynx",
-      fr: "sur Lynx",
-      es: "en Lynx",
-    }),
-    description: t({
-      en: "Tap the logo and have fun!",
-      zh: "点击标志并享受乐趣！",
-      fr: "Appuyez sur le logo et amusez-vous!",
-      es: "¡Toca el logo y diviértete!",
-    }),
-    hint: [
-      t({
-        en: "Edit",
-        zh: "编辑",
-        fr: "Modifier",
-        es: "Editar",
-      }),
-      " src/App.tsx ",
-      t({
-        en: "to see updates!",
-        zh: "以查看更新！",
-        fr: "pour voir les mises à jour!",
-        es: "para ver actualizaciones!",
-      }),
-    ],
-  },
-};
-
-module.exports = appContent;
 ```
 
 ```json fileName="src/app.content.json" contentDeclarationFormat="json"

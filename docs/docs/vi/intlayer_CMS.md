@@ -99,7 +99,7 @@ bun x intlayer login
 
 Trong file cấu hình Intlayer của bạn, bạn có thể tùy chỉnh các thiết lập CMS:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import type { IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -150,106 +150,6 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... các thiết lập cấu hình khác
-  editor: {
-    /**
-     * Bắt buộc
-     *
-     * URL của ứng dụng.
-     * Đây là URL mà trình chỉnh sửa trực quan hướng tới.
-     */
-    applicationURL: process.env.INTLAYER_APPLICATION_URL,
-
-    /**
-     * Bắt buộc
-     *
-     * Client ID và client secret là bắt buộc để kích hoạt trình chỉnh sửa.
-     * Chúng cho phép xác định người dùng đang chỉnh sửa nội dung.
-     * Chúng có thể được lấy bằng cách tạo một client mới trong Intlayer Dashboard - Projects (https://app.intlayer.org/projects).
-     * clientId: process.env.INTLAYER_CLIENT_ID,
-     * clientSecret: process.env.INTLAYER_CLIENT_SECRET,
-     */
-    clientId: process.env.INTLAYER_CLIENT_ID,
-    clientSecret: process.env.INTLAYER_CLIENT_SECRET,
-
-    /**
-     * Tùy chọn
-     *
-     * Trong trường hợp bạn tự lưu trữ Intlayer CMS, bạn có thể thiết lập URL của CMS.
-     *
-     * URL của Intlayer CMS.
-     * Mặc định, nó được đặt là https://intlayer.org
-     */
-    cmsURL: process.env.INTLAYER_CMS_URL,
-
-    /**
-     * Tùy chọn
-     *
-     * Trong trường hợp bạn tự lưu trữ Intlayer CMS, bạn có thể thiết lập URL của backend.
-     *
-     * URL của Intlayer CMS.
-     * Mặc định, nó được đặt là https://back.intlayer.org
-     */
-    backendURL: process.env.INTLAYER_BACKEND_URL,
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... các thiết lập cấu hình khác
-  editor: {
-    /**
-     * Bắt buộc
-     *
-     * URL của ứng dụng.
-     * Đây là URL mà trình chỉnh sửa trực quan hướng tới.
-     */
-    applicationURL: process.env.INTLAYER_APPLICATION_URL,
-
-    /**
-     * Bắt buộc
-     *
-     * Client ID và client secret là bắt buộc để kích hoạt trình chỉnh sửa.
-     * Chúng cho phép xác định người dùng đang chỉnh sửa nội dung.
-     * Bạn có thể lấy chúng bằng cách tạo một client mới trong Intlayer Dashboard - Projects (https://app.intlayer.org/projects).
-     * clientId: process.env.INTLAYER_CLIENT_ID,
-     * clientSecret: process.env.INTLAYER_CLIENT_SECRET,
-     */
-    clientId: process.env.INTLAYER_CLIENT_ID,
-    clientSecret: process.env.INTLAYER_CLIENT_SECRET,
-
-    /**
-     * Tùy chọn
-     *
-     * Trong trường hợp bạn tự lưu trữ Intlayer CMS, bạn có thể thiết lập URL của CMS.
-     *
-     * URL của Intlayer CMS.
-     * Mặc định, nó được đặt là https://intlayer.org
-     */
-    cmsURL: process.env.INTLAYER_CMS_URL,
-
-    /**
-     * Tùy chọn
-     *
-     * Trong trường hợp bạn tự lưu trữ Intlayer CMS, bạn có thể thiết lập URL của backend.
-     *
-     * URL của Intlayer CMS.
-     * Mặc định, nó được đặt là https://back.intlayer.org
-     */
-    backendURL: process.env.INTLAYER_BACKEND_URL,
-  },
-};
-
-module.exports = config;
-```
-
 > Nếu bạn chưa có client ID và client secret, bạn có thể lấy chúng bằng cách tạo một client mới trong [Intlayer Dashboard - Projects](https://app.intlayer.org/projects).
 
 > Để xem tất cả các tham số có sẵn, hãy tham khảo [tài liệu cấu hình](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md).
@@ -298,7 +198,7 @@ Live Sync cho phép ứng dụng của bạn phản ánh các thay đổi nội 
 
 Bật Live Sync bằng cách cập nhật cấu hình Intlayer của bạn:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import type { IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -333,92 +233,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... các thiết lập cấu hình khác
-  editor: {
-    /**
-     * Bật tính năng tải lại nóng (hot reloading) cấu hình locale khi phát hiện thay đổi.
-     * Ví dụ, khi một từ điển được thêm hoặc cập nhật, ứng dụng sẽ cập nhật
-     * nội dung hiển thị trên trang.
-     *
-     * Vì tính năng tải lại nóng yêu cầu kết nối liên tục với máy chủ, nên
-     * chỉ có sẵn cho khách hàng của gói `enterprise`.
-     *
-     * Mặc định: false
-     */
-    liveSync: true,
-  },
-  dictionary: {
-    /**
-     * Điều khiển cách nhập khẩu các từ điển:
-     *
-     * - "live": Các từ điển được lấy động bằng cách sử dụng Live Sync API.
-     *   Thay thế useIntlayer bằng useDictionaryDynamic.
-     *
-     * Lưu ý: Chế độ live sử dụng Live Sync API để lấy từ điển. Nếu cuộc gọi API
-     * thất bại, các từ điển sẽ được nhập khẩu động.
-     * Lưu ý: Chỉ các từ điển có nội dung từ xa và cờ "live" mới sử dụng chế độ live.
-     * Những từ điển khác sử dụng chế độ động để tăng hiệu suất.
-     */
-    importMode: "fetch",
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... các thiết lập cấu hình khác
-  editor: {
-    /**
-     * Bật tính năng tải lại nóng cấu hình locale khi phát hiện có thay đổi.
-     * Ví dụ, khi một từ điển được thêm hoặc cập nhật, ứng dụng sẽ cập nhật
-     * nội dung hiển thị trên trang.
-     *
-     * Vì tính năng tải lại nóng yêu cầu kết nối liên tục với máy chủ, nên
-     * chỉ có sẵn cho khách hàng của gói `enterprise`.
-     *
-     * Mặc định: false
-     */
-    liveSync: true,
-
-    /**
-     * Cổng của máy chủ Live Sync.
-     *
-     * Mặc định: 4000
-     */
-    liveSyncPort: 4000,
-
-    /**
-     * URL của máy chủ Live Sync.
-     *
-     * Mặc định: http://localhost:{liveSyncPort}
-     */
-    liveSyncURL: "https://live.example.com",
-  },
-  dictionary: {
-    /**
-     * Điều khiển cách nhập khẩu các từ điển:
-     *
-     * - "live": Các từ điển được lấy động bằng cách sử dụng API Live Sync.
-     *   Thay thế useIntlayer bằng useDictionaryDynamic.
-     *
-     * Lưu ý: Chế độ live sử dụng API Live Sync để lấy từ điển. Nếu cuộc gọi API
-     * thất bại, các từ điển sẽ được nhập động.
-     * Lưu ý: Chỉ các từ điển có nội dung từ xa và cờ "live" mới sử dụng chế độ live.
-     * Các từ điển khác sử dụng chế độ động để tối ưu hiệu suất.
-     */
-    importMode: "fetch",
-  },
-};
-
-module.exports = config;
 ```
 
 Khởi động server Live Sync để bao bọc ứng dụng của bạn:
@@ -491,7 +305,7 @@ Cách hoạt động:
 
 Bật tối ưu hóa để Intlayer áp dụng các biến đổi nhập khẩu Live trong quá trình phát triển:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import type { IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -509,44 +323,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  editor: {
-    applicationURL: "http://localhost:5173",
-    liveSyncURL: "http://localhost:4000",
-    liveSync: true,
-  },
-  dictionary: {
-    importMode: "fetch",
-  },
-  build: {
-    optimize: true,
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  editor: {
-    applicationURL: "http://localhost:5173",
-    liveSyncURL: "http://localhost:4000",
-    liveSync: true,
-  },
-  dictionary: {
-    importMode: "fetch",
-  },
-  build: {
-    optimize: true,
-  },
-};
-
-module.exports = config;
 ```
 
 Cấu hình này bao bọc server phát triển của bạn với server Live Sync, lấy các từ điển từ xa khi khởi động, và truyền các cập nhật từ CMS qua SSE. Tải lại trang để xem các thay đổi.

@@ -61,7 +61,7 @@ history:
 
 Пример файла контента:
 
-```tsx fileName="src/example.content.tsx" contentDeclarationFormat="typescript"
+```tsx fileName="src/example.content.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { type ReactNode } from "react";
 import {
   t,
@@ -141,107 +141,6 @@ export default {
     jsxContent: <h1>Мой заголовок</h1>,
   },
 } satisfies Dictionary<Content>; // [необязательно] Dictionary является универсальным и позволяет усилить форматирование вашего словаря
-```
-
-```javascript fileName="src/example.content.mjx" contentDeclarationFormat="esm"
-import { t, enu, cond, nest, md, insert, file } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-export default {
-  key: "page",
-  content: {
-    imbricatedContent: {
-      imbricatedContent2: {
-        stringContent: "Hello World",
-        numberContent: 123,
-        booleanContent: true,
-        javaScriptContent: `${process.env.NODE_ENV}`,
-      },
-      imbricatedArray: [1, 2, 3],
-    },
-    multilingualContent: t({
-      en: "English content",
-      "en-GB": "English content (UK)",
-      fr: "French content",
-      es: "Spanish content",
-    }),
-    quantityContent: enu({
-      "<-1": "Меньше чем минус одна машина",
-      "-1": "Минус одна машина",
-      "0": "Нет машин",
-      "1": "Одна машина",
-      ">5": "Некоторые машины",
-      ">19": "Много машин",
-    }),
-    conditionalContent: cond({
-      true: "Валидация включена",
-      false: "Валидация отключена",
-    }),
-    insertionContent: insert("Привет, {{name}}!"),
-    nestedContent: nest(
-      "navbar", // Ключ словаря для вложения
-      "login.button" // [Необязательно] Путь к содержимому для вложения
-    ),
-    markdownContent: md("# Пример Markdown"),
-    htmlContent: html("<p>Hello <strong>World</strong></p>"),
-    fileContent: file("./path/to/file.txt"),
-    externalContent: fetch("https://example.com").then((res) => res.json())
-
-    // Доступно только при использовании `react-intlayer` или `next-intlayer`
-    jsxContent: <h1>Мой заголовок</h1>,
-  },
-};
-```
-
-```javascript fileName="src/example.content.cjx" contentDeclarationFormat="commonjs"
-const { t, enu, cond, nest, md, insert, file } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-module.exports = {
-  key: "page",
-  content: {
-    imbricatedContent: {
-      imbricatedContent2: {
-        stringContent: "Hello World",
-        numberContent: 123,
-        booleanContent: true,
-        javaScriptContent: `${process.env.NODE_ENV}`,
-      },
-      imbricatedArray: [1, 2, 3],
-    },
-    multilingualContent: t({
-      ru: "Содержимое на русском",
-      en: "English content",
-      "en-GB": "English content (UK)",
-      fr: "French content",
-      es: "Spanish content",
-    }),
-    quantityContent: enu({
-      "<-1": "Меньше чем минус одна машина",
-      "-1": "Минус одна машина",
-      "0": "Нет машин",
-      "1": "Одна машина",
-      ">5": "Несколько машин",
-      ">19": "Много машин",
-    }),
-    conditionalContent: cond({
-      true: "Валидация включена",
-      false: "Валидация отключена",
-    }),
-    insertionContent: insert("Привет, {{name}}!"),
-    nestedContent: nest(
-      "navbar", // Ключ словаря для вложения
-      "login.button" // [Необязательно] Путь к содержимому для вложения
-    ),
-    markdownContent: md("# Пример Markdown"),
-    htmlContent: html("<p>Hello <strong>World</strong></p>"),
-    fileContent: file("./path/to/file.txt"),
-    externalContent: fetch("https://example.com").then((res) => res.json())
-
-    // Доступно только при использовании `react-intlayer` или `next-intlayer`
-    jsxContent: <h1>Мой заголовок</h1>,
-  },
-};
 ```
 
 ```json5 fileName="src/example.content.json"  contentDeclarationFormat="json"
@@ -966,7 +865,7 @@ export default {
 
 Пример:
 
-```javascript fileName="src/example.content.tsx" contentDeclarationFormat="typescript"
+```javascript fileName="src/example.content.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, enu, cond, nest, md, type Dictionary } from "intlayer";
 
 const getName = async () => "John Doe";
@@ -1012,107 +911,6 @@ export default {
     }),
   },
 } satisfies Dictionary;
-```
-
-```javascript fileName="src/example.content.mjx" contentDeclarationFormat="esm"
-import { t, enu, cond, nest, md } from "intlayer";
-
-const getName = async () => "John Doe"; // асинхронная функция для получения имени
-
-/** @type {import('intlayer').Dictionary} */
-export default {
-  key: "page",
-  content: {
-    // `getIntlayer('page','en').hiMessage` возвращает `['Hi', ' ', 'John Doe']`
-    hiMessage: [
-      t({
-        en: "Hi",
-        fr: "Salut",
-        es: "Hola",
-      }),
-      " ",
-      getName(),
-    ],
-    // Композитный контент, включающий условие, перечисление и многоязычный контент
-    // `getIntlayer('page','en').advancedContent(true)(10)` возвращает 'Multiple items found'
-    advancedContent: cond({
-      true: enu({
-        "0": t({
-          en: "No items found",
-          fr: "Aucun article trouvé",
-          es: "No se encontraron artículos",
-        }),
-        "1": t({
-          en: "One item found",
-          fr: "Un article trouvé",
-          es: "Se encontró un artículo",
-        }),
-        ">1": t({
-          en: "Multiple items found",
-          fr: "Plusieurs articles trouvés",
-          es: "Se encontraron múltiples artículos",
-          ru: "Найдено несколько элементов",
-        }),
-      }),
-      false: t({
-        en: "No valid data available",
-        fr: "Aucune donnée valide disponible",
-        es: "No hay datos válidos disponibles",
-        ru: "Нет доступных действительных данных",
-      }),
-    }),
-  },
-};
-```
-
-```javascript fileName="src/example.content.cjx" contentDeclarationFormat="commonjs"
-const { t, enu, cond, nest, md } = require("intlayer");
-
-const getName = async () => "John Doe";
-
-/** @type {import('intlayer').Dictionary} */
-module.exports = {
-  key: "page",
-  content: {
-    // `getIntlayer('page','en').hiMessage` возвращает `['Hi', ' ', 'John Doe']`
-    hiMessage: [
-      t({
-        en: "Hi",
-        fr: "Salut",
-        ru: "Привет",
-        es: "Hola",
-      }),
-      " ",
-      getName(),
-    ],
-    // Композитный контент, включающий условие, перечисление и многоязычный контент
-    // `getIntlayer('page','en').advancedContent(true)(10)` возвращает 'Multiple items found'
-    advancedContent: cond({
-      true: enu({
-        "0": t({
-          en: "No items found",
-          fr: "Aucun article trouvé",
-          es: "No se encontraron artículos",
-        }),
-        "1": t({
-          en: "One item found",
-          fr: "Un article trouvé",
-          es: "Se encontró un artículo",
-        }),
-        ">1": t({
-          en: "Multiple items found",
-          fr: "Plusieurs articles trouvés",
-          es: "Se encontraron múltiples artículos",
-        }),
-      }),
-      false: t({
-        en: "No valid data available",
-        fr: "Aucune donnée valide disponible",
-        es: "No hay datos válidos disponibles",
-      }),
-    }),
-  },
-};
 ```
 
 ```json5 fileName="src/example.content.json"  contentDeclarationFormat="json"

@@ -50,7 +50,7 @@ history:
 
 ## 示例用法
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, getLocaleName } from "intlayer";
 
 getLocaleName(Locales.ENGLISH); // 输出: "English"
@@ -69,48 +69,6 @@ getLocaleName(Locales.CHINESE, Locales.ESPANOL); // 输出: "Chino"
 getLocaleName(Locales.CHINESE, Locales.ENGLISH); // 输出: "Chinese"
 
 getLocaleName("unknown-locale"); // 输出: "未知语言"
-```
-
-```javascript codeFormat="esm"
-import { Locales, getLocaleName } from "intlayer";
-
-getLocaleName(Locales.ENGLISH); // 输出: "English"
-getLocaleName(Locales.ENGLISH, Locales.FRENCH); // 输出: "Anglais"
-getLocaleName(Locales.ENGLISH, Locales.ESPANOL); // 输出: "Inglés"
-getLocaleName(Locales.ENGLISH, Locales.ENGLISH); // 输出: "English"
-
-getLocaleName(Locales.FRENCH); // 输出: "Français"
-getLocaleName(Locales.FRENCH, Locales.FRENCH); // 输出: "Français"
-getLocaleName(Locales.FRENCH, Locales.ESPANOL); // 输出: "Francés"
-getLocaleName(Locales.FRENCH, Locales.ENGLISH); // 输出: "French"
-
-getLocaleName(Locales.CHINESE); // 输出: "中文"
-getLocaleName(Locales.CHINESE, Locales.FRENCH); // 输出: "Chinois"
-getLocaleName(Locales.CHINESE, Locales.ESPANOL); // 输出: "Chino"
-getLocaleName(Locales.CHINESE, Locales.ENGLISH); // 输出: "Chinese"
-
-getLocaleName("unknown-locale"); // 输出: "未知语言"
-```
-
-```javascript codeFormat="commonjs"
-const { Locales, getLocaleName } = require("intlayer");
-
-getLocaleName(Locales.ENGLISH); // 输出: "English"
-getLocaleName(Locales.ENGLISH, Locales.FRENCH); // 输出: "Anglais"
-getLocaleName(Locales.ENGLISH, Locales.ESPANOL); // 输出: "Inglés"
-getLocaleName(Locales.ENGLISH, Locales.ENGLISH); // 输出: "English"
-
-getLocaleName(Locales.FRENCH); // 输出: "Français"
-getLocaleName(Locales.FRENCH, Locales.FRENCH); // 输出: "Français"
-getLocaleName(Locales.FRENCH, Locales.ESPANOL); // 输出: "Francés"
-getLocaleName(Locales.FRENCH, Locales.ENGLISH); // 输出: "French"
-
-getLocaleName(Locales.CHINESE); // 输出: "中文"
-getLocaleName(Locales.CHINESE, Locales.FRENCH); // 输出: "Chinois"
-getLocaleName(Locales.CHINESE, Locales.ESPANOL); // 输出: "Chino"
-getLocaleName(Locales.CHINESE, Locales.ENGLISH); // 输出: "Chinese"
-
-getLocaleName("unknown-locale"); // 输出: "Unknown locale"
 ```
 
 ## 边界情况

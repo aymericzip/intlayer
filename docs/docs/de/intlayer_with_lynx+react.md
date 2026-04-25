@@ -83,7 +83,7 @@ bun x intlayer init
 
 Erstellen Sie in Ihrem Projektstammverzeichnis (oder an einem beliebigen bequemen Ort) eine **Intlayer-Konfigurationsdatei**. Sie könnte so aussehen:
 
-```ts fileName="intlayer.config.ts" codeFormat="typescript"
+```ts fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -99,39 +99,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```js fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      // ... Fügen Sie alle weiteren benötigten Locales hinzu
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-```js fileName="intlayer.config.js" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-module.exports = config;
 ```
 
 Innerhalb dieser Konfiguration können Sie:
@@ -200,7 +167,7 @@ Erstellen Sie **Inhaltsdeklarationsdateien** an beliebiger Stelle in Ihrem Proje
 
 Beispiel:
 
-```tsx fileName="src/app.content.ts" contentDeclarationFormat="typescript"
+```tsx fileName="src/app.content.ts" contentDeclarationFormat={["typescript", "esm"]}
 import { t, type Dictionary } from "intlayer";
 
 const appContent = {
@@ -235,46 +202,6 @@ const appContent = {
     ],
   },
 } satisfies Dictionary;
-
-export default appContent;
-```
-
-```jsx fileName="src/app.content.mjx" contentDeclarationFormat="esm"
-import { t } from "intlayer";
-
-const appContent = {
-  key: "app",
-  content: {
-    title: "React",
-    subtitle: t({
-      de: "auf Lynx",
-      en: "on Lynx",
-      fr: "sur Lynx",
-      es: "en Lynx",
-    }),
-    description: t({
-      de: "Tippen Sie auf das Logo und haben Sie Spaß!",
-      en: "Tap the logo and have fun!",
-      fr: "Appuyez sur le logo et amusez-vous!",
-      es: "¡Toca el logo y diviértete!",
-    }),
-    hint: [
-      t({
-        de: "Bearbeiten",
-        en: "Edit",
-        fr: "Modifier",
-        es: "Editar",
-      }),
-      " src/App.tsx ",
-      t({
-        de: "um Aktualisierungen zu sehen!",
-        en: "to see updates!",
-        fr: "pour voir les mises à jour!",
-        es: "para ver actualizaciones!",
-      }),
-    ],
-  },
-};
 
 export default appContent;
 ```

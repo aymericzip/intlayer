@@ -30,7 +30,7 @@ A função `t` em `intlayer` permite que você declare conteúdo em múltiplos i
 
 Aqui está um exemplo de como declarar conteúdo com traduções.
 
-```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="**/*.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, type Dictionary } from "intlayer";
 
 interface Content {
@@ -47,36 +47,6 @@ export default {
     }),
   },
 } satisfies Dictionary<Content>;
-```
-
-```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-import { t } from "intlayer";
-
-export default {
-  key: "multi_lang",
-  content: {
-    welcomeMessage: t({
-      en: "Welcome to our application",
-      fr: "Bienvenue dans notre application",
-      es: "Bienvenido a nuestra aplicación",
-    }),
-  },
-};
-```
-
-```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-const { t } = require("intlayer");
-
-module.exports = {
-  key: "multi_lang",
-  content: {
-    welcomeMessage: t({
-      en: "Welcome to our application",
-      fr: "Bienvenue dans notre application",
-      es: "Bienvenido a nuestra aplicación",
-    }),
-  },
-};
 ```
 
 ```json fileName="**/*.content.json" contentDeclarationFormat="json"
@@ -100,7 +70,7 @@ module.exports = {
 
 Para garantir o manuseio adequado das traduções, você pode configurar os locales aceitos em `intlayer.config.ts`. Essa configuração permite definir os idiomas que sua aplicação suporta:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -112,37 +82,11 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-  },
-};
-
-module.exports = config;
-```
-
 ## Usando Traduções em Componentes React
 
 Com `react-intlayer`, você pode usar traduções em componentes React. Aqui está um exemplo:
 
-```jsx fileName="**/*.tsx" codeFormat="typescript"
+```jsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useIntlayer } from "react-intlayer";
 
@@ -159,45 +103,13 @@ const MyComponent: FC = () => {
 export default MyComponent;
 ```
 
-```javascript fileName="**/*.mjx" codeFormat="esm"
-import { useIntlayer } from "react-intlayer";
-
-const MyComponent = () => {
-  const content = useIntlayer("multi_lang");
-
-  return (
-    <div>
-      <p>{content.welcomeMessage}</p>
-    </div>
-  );
-};
-
-export default MyComponent;
-```
-
-```javascript fileName="**/*.cjs" codeFormat="commonjs"
-const { useIntlayer } = require("react-intlayer");
-
-const MyComponent = () => {
-  const content = useIntlayer("multi_lang");
-
-  return (
-    <div>
-      <p>{content.welcomeMessage}</p>
-    </div>
-  );
-};
-
-module.exports = MyComponent;
-```
-
 Este componente busca a tradução correspondente com base no idioma atual definido em sua aplicação.
 
 ## Objetos de Conteúdo Personalizados
 
 `intlayer` suporta objetos de conteúdo personalizados para tradução, permitindo que você defina estruturas mais complexas enquanto garante a segurança de tipos. Aqui está um exemplo com um objeto personalizado:
 
-```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="**/*.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, type Dictionary } from "intlayer";
 
 interface ICustomContent {
@@ -226,60 +138,6 @@ const customContent = {
 } satisfies Dictionary;
 
 export default customContent;
-```
-
-```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-import { t } from "intlayer";
-
-export default {
-  key: "custom_content",
-  content: {
-    profileText:
-      t <
-      ICustomContent >
-      {
-        en: {
-          title: "Título da Página",
-          content: "Conteúdo da Página",
-        },
-        fr: {
-          title: "Titre de la Page",
-          content: "Contenu de la Page",
-        },
-        es: {
-          title: "Título da Página",
-          content: "Conteúdo da Página",
-        },
-      },
-  },
-};
-```
-
-```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-const { t } = require("intlayer");
-
-module.exports = {
-  key: "custom_content",
-  content: {
-    profileText:
-      t <
-      ICustomContent >
-      {
-        en: {
-          title: "Título da Página",
-          content: "Conteúdo da Página",
-        },
-        fr: {
-          title: "Titre de la Page",
-          content: "Contenu de la Page",
-        },
-        es: {
-          title: "Título da Página",
-          content: "Conteúdo da Página",
-        },
-      },
-  },
-};
 ```
 
 ```json fileName="**/*.content.json" contentDeclarationFormat="json"

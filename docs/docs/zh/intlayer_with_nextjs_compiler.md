@@ -509,7 +509,7 @@ Intlayer 使用模块扩展 (module augmentation) 来利用 TypeScript 的优势
 
 要进行设置，您可以在 `intlayer.config.ts` 文件中添加 `compiler` 部分：
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -538,66 +538,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... 您的其他配置
-  compiler: {
-    /**
-     * 指示是否应启用编译器。
-     */
-    enabled: true,
-
-    /**
-     * 定义输出文件路径
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * 指示在转换后是否应保存组件。这样，编译器只需运行一次即可转换应用程序，然后即可将其删除。
-     */
-    saveComponents: false,
-
-    /**
-     * 字典键前缀
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... 您的其他配置
-  compiler: {
-    /**
-     * 指示是否应启用编译器。
-     */
-    enabled: true,
-
-    /**
-     * 定义输出文件路径
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * 指示在转换后是否应保存组件。这样，编译器只需运行一次即可转换应用程序，然后即可将其删除。
-     */
-    saveComponents: false,
-
-    /**
-     * 字典键前缀
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-module.exports = config;
 ```
 
 <Tabs>

@@ -82,7 +82,7 @@ bun x intlayer init
 
 قم بإنشاء ملف تكوين لتحديد لغات تطبيقك:
 
-```typescript fileName="intlayer.config.ts"  codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -98,44 +98,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      // لغاتك الأخرى
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      // لغاتك الأخرى
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-module.exports = config;
 ```
 
 > من خلال ملف التكوين هذا، يمكنك إعداد عناوين URL المحلية، إعادة التوجيه عبر الوسيط، أسماء ملفات تعريف الارتباط، موقع وامتداد إعلانات المحتوى الخاصة بك، تعطيل سجلات Intlayer في وحدة التحكم، والمزيد. للحصول على قائمة كاملة بالمعلمات المتاحة، راجع [وثائق التكوين](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md).
@@ -158,7 +120,7 @@ module.exports = config;
 
 قم بإنشاء وإدارة إعلانات المحتوى الخاصة بك لتخزين الترجمات:
 
-```tsx fileName="src/app.content.tsx" codeFormat="typescript"
+```tsx fileName="src/app.content.tsx" codeFormat={["typescript", "esm"]}
 import { t, type Dictionary } from "intlayer";
 import React, { type ReactNode } from "react";
 
@@ -197,62 +159,6 @@ const appContent = {
 export default appContent;
 ```
 
-```jsx fileName="src/app.content.mjx" codeFormat="esm"
-import { t } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const appContent = {
-  key: "app",
-  content: {
-    getStarted: t({
-      ar: "ابدأ بتحرير",
-      en: "Get started by editing",
-      fr: "Commencez par éditer",
-      es: "Comience por editar",
-    }),
-    reactLink: {
-      href: "https://reactjs.org",
-      content: t({
-        ar: "تعلم React",
-        en: "Learn React",
-        fr: "Apprendre React",
-        es: "Aprender React",
-      }),
-    },
-  },
-};
-
-export default appContent;
-```
-
-```jsx fileName="src/app.content.csx" codeFormat="commonjs"
-const { t } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const appContent = {
-  key: "app",
-  content: {
-    getStarted: t({
-      ar: "ابدأ بتحرير",
-      en: "Get started by editing",
-      fr: "Commencez par éditer",
-      es: "Comience por editar",
-    }),
-    reactLink: {
-      href: "https://reactjs.org",
-      content: t({
-        ar: "تعلم React",
-        en: "Learn React",
-        fr: "Apprendre React",
-        es: "Aprender React",
-      }),
-    },
-  },
-};
-
-module.exports = appContent;
-```
-
 > يمكن تعريف إعلانات المحتوى الخاصة بك في أي مكان في تطبيقك طالما تم تضمينها في دليل `contentDir` (افتراضيًا، `./src`). ويجب أن تطابق امتداد ملف إعلان المحتوى (افتراضيًا، `.content.{json,ts,tsx,js,jsx,mjs,cjs}`).
 
 > لمزيد من التفاصيل، راجع [وثائق إعلان المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/content_file.md).
@@ -263,7 +169,7 @@ module.exports = appContent;
 
 الوصول إلى قواميس المحتوى الخاصة بك في جميع أنحاء تطبيقك:
 
-```tsx {4,7} fileName="src/App.tsx"  codeFormat="typescript"
+```tsx {4,7} fileName="src/App.tsx" codeFormat={["typescript", "esm"]}
 import logo from "./logo.svg";
 import "./App.css";
 import type { FC } from "react";
@@ -298,37 +204,6 @@ const App: FC = () => (
 export default App;
 ```
 
-```jsx {3,6} fileName="src/App.mjx" codeFormat="esm"
-import "./App.css";
-import logo from "./logo.svg";
-import { IntlayerProvider, useIntlayer } from "react-intlayer";
-const AppContent = () => {
-  const content = useIntlayer("app");
-
-  return (
-    <div className="App">
-      <img src={logo} className="App-logo" alt="الشعار" />
-
-      {content.getStarted}
-      <a
-        className="App-link"
-        href={content.reactLink.href.value}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        {content.reactLink.content}
-      </a>
-    </div>
-  );
-};
-
-const App = () => (
-  <IntlayerProvider>
-    <AppContent />
-  </IntlayerProvider>
-);
-```
-
 ```jsx fileName="src/App.msx" codeFormat="esm"
 const App = () => (
   <IntlayerProvider>
@@ -349,39 +224,9 @@ const App = () => (
 
 لتغيير لغة المحتوى الخاص بك، يمكنك استخدام وظيفة `setLocale` المقدمة من الخطاف `useLocale`. تتيح لك هذه الوظيفة تعيين اللغة للتطبيق وتحديث المحتوى وفقًا لذلك.
 
-```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
+```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat={["typescript", "esm"]}
 import { Locales } from "intlayer";
 import { useLocale } from "react-intlayer";
-
-const LocaleSwitcher = () => {
-  const { setLocale } = useLocale();
-
-  return (
-    <button onClick={() => setLocale(Locales.English)}>
-      تغيير اللغة إلى الإنجليزية
-    </button>
-  );
-};
-```
-
-```jsx fileName="src/components/LocaleSwitcher.mjx" codeFormat="esm"
-import { Locales } from "intlayer";
-import { useLocale } from "react-intlayer";
-
-const LocaleSwitcher = () => {
-  const { setLocale } = useLocale();
-
-  return (
-    <button onClick={() => setLocale(Locales.English)}>
-      تغيير اللغة إلى الإنجليزية
-    </button>
-  );
-};
-```
-
-```jsx fileName="src/components/LocaleSwitcher.csx" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-const { useLocale } = require("react-intlayer");
 
 const LocaleSwitcher = () => {
   const { setLocale } = useLocale();
@@ -640,7 +485,7 @@ export const LocaleRouter = ({ children }) => (
 
 ثم يمكنك استخدام مكون `LocaleRouter` في تطبيقك:
 
-```tsx fileName="src/App.tsx" codeFormat="typescript"
+```tsx fileName="src/App.tsx" codeFormat={["typescript", "esm"]}
 import { LocaleRouter } from "./components/LocaleRouter";
 import type { FC } from "react";
 
@@ -653,35 +498,11 @@ const App: FC = () => (
 );
 ```
 
-```jsx fileName="src/App.mjx" codeFormat="esm"
-import { LocaleRouter } from "./components/LocaleRouter";
-
-// ... مكون AppContent الخاص بك
-
-const App = () => (
-  <LocaleRouter>
-    <AppContent />
-  </LocaleRouter>
-);
-```
-
-```jsx fileName="src/App.cjx" codeFormat="commonjs"
-const { LocaleRouter } = require("./components/LocaleRouter");
-
-// ... مكون AppContent الخاص بك
-
-const App = () => (
-  <LocaleRouter>
-    <AppContent />
-  </LocaleRouter>
-);
-```
-
 ### (اختياري) الخطوة 8: تغيير عنوان URL عند تغيير اللغة
 
 لتغيير عنوان URL عند تغيير اللغة، يمكنك استخدام الخاصية `onLocaleChange` التي يوفرها الخطاف `useLocale`. وبالتوازي، يمكنك استخدام الخطافين `useLocation` و `useNavigate` من مكتبة `react-router-dom` لتحديث مسار URL.
 
-```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
+```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat={["typescript", "esm"]}
 import { useLocation, useNavigate } from "react-router-dom";
 import {
   Locales,
@@ -693,134 +514,6 @@ import { useLocale } from "react-intlayer";
 import { type FC } from "react";
 
 const LocaleSwitcher: FC = () => {
-  const { pathname, search } = useLocation(); // الحصول على مسار URL الحالي. مثال: /fr/about?foo=bar
-  const navigate = useNavigate();
-
-  const { locale, availableLocales, setLocale } = useLocale({
-    onLocaleChange: (locale) => {
-      // إنشاء عنوان URL مع اللغة المحلية المحدثة
-      // مثال: /es/about?foo=bar
-      const pathWithLocale = getLocalizedUrl(`${pathname}${search}`, locale);
-
-      // تحديث مسار URL
-      navigate(pathWithLocale);
-    },
-  });
-
-  return (
-    <div>
-      <button popoverTarget="localePopover">{getLocaleName(locale)}</button>
-      <div id="localePopover" popover="auto">
-        {availableLocales.map((localeItem) => (
-          <a
-            href={getLocalizedUrl(location.pathname, localeItem)}
-            hrefLang={localeItem}
-            aria-current={locale === localeItem ? "page" : undefined}
-            onClick={(e) => {
-              e.preventDefault();
-              setLocale(localeItem);
-            }}
-            key={localeItem}
-          >
-            <span>
-              {/* اللغة المحلية - مثال: FR */}
-              {localeItem}
-            </span>
-            <span>
-              {/* اللغة في لغتها المحلية - مثال: Français */}
-              {getLocaleName(localeItem, locale)}
-            </span>
-            <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
-              {/* اللغة في اللغة الحالية - مثال: Francés مع اللغة الحالية المحددة إلى Locales.SPANISH */}
-              {getLocaleName(localeItem)}
-            </span>
-            <span dir="ltr" lang={Locales.ENGLISH}>
-              {/* اللغة بالإنجليزية - مثال: French */}
-              {getLocaleName(localeItem, Locales.ENGLISH)}
-            </span>
-          </a>
-        ))}
-      </div>
-    </div>
-  );
-};
-```
-
-```jsx fileName="src/components/LocaleSwitcher.msx" codeFormat="esm"
-import { useLocation, useNavigate } from "react-router-dom";
-import {
-  Locales,
-  getHTMLTextDir,
-  getLocaleName,
-  getLocalizedUrl,
-} from "intlayer";
-import { useLocale } from "react-intlayer";
-
-const LocaleSwitcher = () => {
-  const { pathname, search } = useLocation(); // الحصول على مسار URL الحالي. مثال: /fr/about?foo=bar
-  const navigate = useNavigate();
-
-  const { locale, availableLocales, setLocale } = useLocale({
-    onLocaleChange: (locale) => {
-      // إنشاء عنوان URL مع اللغة المحلية المحدثة
-      // مثال: /es/about?foo=bar
-      const pathWithLocale = getLocalizedUrl(`${pathname}${search}`, locale);
-
-      // تحديث مسار URL
-      navigate(pathWithLocale);
-    },
-  });
-
-  return (
-    <div>
-      <button popoverTarget="localePopover">{getLocaleName(locale)}</button>
-      <div id="localePopover" popover="auto">
-        {availableLocales.map((localeItem) => (
-          <a
-            href={getLocalizedUrl(location.pathname, localeItem)}
-            hrefLang={localeItem}
-            aria-current={locale === localeItem ? "page" : undefined}
-            onClick={(e) => {
-              e.preventDefault();
-              setLocale(localeItem);
-            }}
-            key={localeItem}
-          >
-            <span>
-              {/* اللغة المحلية - مثال: FR */}
-              {localeItem}
-            </span>
-            <span>
-              {/* اللغة في لغتها المحلية - مثال: Français */}
-              {getLocaleName(localeItem, locale)}
-            </span>
-            <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
-              {/* اللغة في اللغة الحالية - مثال: Francés مع اللغة الحالية المحددة إلى Locales.SPANISH */}
-              {getLocaleName(localeItem)}
-            </span>
-            <span dir="ltr" lang={Locales.ENGLISH}>
-              {/* اللغة بالإنجليزية - مثال: French */}
-              {getLocaleName(localeItem, Locales.ENGLISH)}
-            </span>
-          </a>
-        ))}
-      </div>
-    </div>
-  );
-};
-```
-
-```jsx fileName="src/components/LocaleSwitcher.csx" codeFormat="commonjs"
-const { useLocation, useNavigate } = require("react-router-dom");
-const {
-  Locales,
-  getHTMLTextDir,
-  getLocaleName,
-  getLocalizedUrl,
-} = require("intlayer");
-const { useLocale } = require("react-intlayer");
-
-const LocaleSwitcher = () => {
   const { pathname, search } = useLocation(); // الحصول على مسار URL الحالي. مثال: /fr/about?foo=bar
   const navigate = useNavigate();
 
@@ -899,7 +592,7 @@ const LocaleSwitcher = () => {
 
 قم بإنشاء خطاف مخصص لإدارة سمات HTML. يستمع الخطاف لتغييرات اللغة ويقوم بتحديث السمات وفقًا لذلك:
 
-```tsx fileName="src/hooks/useI18nHTMLAttributes.tsx" codeFormat="typescript"
+```tsx fileName="src/hooks/useI18nHTMLAttributes.tsx" codeFormat={["typescript", "esm"]}
 import { useEffect } from "react";
 import { useLocale } from "react.intlayer";
 import { getHTMLTextDir } from "intlayer";
@@ -924,63 +617,11 @@ export const useI18nHTMLAttributes = () => {
 };
 ```
 
-```jsx fileName="src/hooks/useI18nHTMLAttributes.msx" codeFormat="esm"
-import { useEffect } from "react";
-import { useLocale } from "react-intlayer";
-import { getHTMLTextDir } from "intlayer";
-
-/**
- * يقوم بتحديث سمات `lang` و `dir` لعنصر HTML <html> بناءً على اللغة الحالية.
- * - `lang`: يُعلم المتصفحات ومحركات البحث بلغة الصفحة.
- * - `dir`: يضمن ترتيب القراءة الصحيح (مثل 'ltr' للإنجليزية، 'rtl' للعربية).
- *
- * هذا التحديث الديناميكي ضروري لعرض النصوص بشكل صحيح، وسهولة الوصول، وتحسين محركات البحث.
- */
-export const useI18nHTMLAttributes = () => {
-  const { locale } = useLocale();
-
-  useEffect(() => {
-    // تحديث سمة اللغة إلى اللغة الحالية.
-    document.documentElement.lang = locale;
-
-    // تعيين اتجاه النص بناءً على اللغة الحالية.
-    document.documentElement.dir = getHTMLTextDir(locale);
-  }, [locale]);
-};
-```
-
-```jsx fileName="src/hooks/useI18nHTMLAttributes.csx" codeFormat="commonjs"
-const { useEffect } = require("react");
-const { useLocale } = require("react-intlayer");
-const { getHTMLTextDir } = require("intlayer");
-
-/**
- * يقوم بتحديث سمات `lang` و `dir` لعنصر HTML <html> بناءً على اللغة الحالية.
- * - `lang`: يُعلم المتصفحات ومحركات البحث بلغة الصفحة.
- * - `dir`: يضمن ترتيب القراءة الصحيح (مثل 'ltr' للإنجليزية، 'rtl' للعربية).
- *
- * هذا التحديث الديناميكي ضروري لعرض النصوص بشكل صحيح، وسهولة الوصول، وتحسين محركات البحث.
- */
-const useI18nHTMLAttributes = () => {
-  const { locale } = useLocale();
-
-  useEffect(() => {
-    // تحديث سمة اللغة إلى اللغة الحالية.
-    document.documentElement.lang = locale;
-
-    // تعيين اتجاه النص بناءً على اللغة الحالية.
-    document.documentElement.dir = getHTMLTextDir(locale);
-  }, [locale]);
-};
-
-module.exports = { useI18nHTMLAttributes };
-```
-
 #### استخدام الخطاف في تطبيقك
 
 قم بدمج الخطاف في المكون الرئيسي الخاص بك بحيث يتم تحديث سمات HTML كلما تغيرت اللغة:
 
-```tsx fileName="src/App.tsx" codeFormat="typescript"
+```tsx fileName="src/App.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { IntlayerProvider, useIntlayer } from "react-intlayer";
 import { useI18nHTMLAttributes } from "./hooks/useI18nHTMLAttributes";
@@ -1000,27 +641,6 @@ const App: FC = () => (
 );
 
 export default App;
-```
-
-```jsx fileName="src/App.msx" codeFormat="esm"
-import { IntlayerProvider, useIntlayer } from "react-intlayer";
-import { useI18nHTMLAttributes } from "./hooks/useI18nHTMLAttributes";
-import "./App.css";
-
-const AppContent = () => {
-  // تطبيق الخطاف لتحديث سمات lang و dir لعلامة <html> بناءً على اللغة.
-  useI18nHTMLAttributes();
-
-  // ... بقية المكون الخاص بك
-};
-
-const App = () => (
-  <IntlayerProvider>
-    <AppContent />
-  </IntlayerProvider>
-);
-
-module.exports = App;
 ```
 
 من خلال تطبيق هذه التغييرات، سيقوم تطبيقك بـ:

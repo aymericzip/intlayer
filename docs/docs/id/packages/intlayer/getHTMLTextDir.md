@@ -48,26 +48,9 @@ Fungsi `getHTMLTextDir` menentukan arah teks (`ltr`, `rtl`, atau `auto`) berdasa
 
 ### Menentukan Arah Teks
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getHTMLTextDir } from "intlayer";
 
-getHTMLTextDir(Locales.ENGLISH); // Output: "ltr"
-getHTMLTextDir(Locales.FRENCH); // Output: "ltr"
-getHTMLTextDir(Locales.ARABIC); // Output: "rtl"
-```
-
-```javascript codeFormat="esm"
-import { getHTMLTextDir } from "intlayer";
-
-getHTMLTextDir(Locales.ENGLISH); // Output: "ltr"
-getHTMLTextDir(Locales.FRENCH); // Output: "ltr"
-getHTMLTextDir(Locales.ARABIC); // Output: "rtl"
-```
-
-```javascript codeFormat="commonjs"
-const { getHTMLTextDir } = require("intlayer");
-
-// Mendapatkan arah teks berdasarkan locale
 getHTMLTextDir(Locales.ENGLISH); // Output: "ltr"
 getHTMLTextDir(Locales.FRENCH); // Output: "ltr"
 getHTMLTextDir(Locales.ARABIC); // Output: "rtl"
@@ -85,7 +68,7 @@ getHTMLTextDir(Locales.ARABIC); // Output: "rtl"
 
 Fungsi `getHTMLTextDir` dapat digunakan untuk mengatur atribut `dir` secara dinamis dalam dokumen HTML agar teks dapat dirender dengan benar berdasarkan locale.
 
-```tsx codeFormat="typescript"
+```tsx codeFormat={["typescript", "esm", "commonjs"]}
 import type { FC } from "react";
 import { getHTMLTextDir, type Locales } from "intlayer";
 
@@ -93,26 +76,6 @@ export const HTMLLayout: FC<PropsWithChildren<{ locale: Locales }>> = ({
   children,
   locale,
 }) => (
-  <html dir={getHTMLTextDir(locale)} locale={locale}>
-    <body>{children}</body>
-  </html>
-);
-```
-
-```jsx codeFormat="esm"
-import { getHTMLTextDir } from "intlayer";
-
-const HTMLLayout = ({ children, locale }) => (
-  <html dir={getHTMLTextDir(locale)} locale={locale}>
-    <body>{children}</body>
-  </html>
-);
-```
-
-```jsx codeFormat="commonjs"
-const { getHTMLTextDir } = require("intlayer");
-
-const HTMLLayout = ({ children, locale }) => (
   <html dir={getHTMLTextDir(locale)} locale={locale}>
     <body>{children}</body>
   </html>

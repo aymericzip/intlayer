@@ -58,7 +58,7 @@ Sözlük, anahtarlar tarafından organize edilmiş yapılandırılmış bir içe
 
 İçerik dosyası örneği:
 
-```tsx fileName="src/example.content.tsx" contentDeclarationFormat="typescript"
+```tsx fileName="src/example.content.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { type ReactNode } from "react";
 import {
   t,
@@ -137,107 +137,6 @@ export default {
     jsxContent: <h1>Başlığım</h1>,
   },
 } satisfies Dictionary<Content>; // [isteğe bağlı] Dictionary generiktir ve sözlüğünüzün biçimlendirmesini güçlendirmenize olanak tanır
-```
-
-```javascript fileName="src/example.content.mjx" contentDeclarationFormat="esm"
-import { t, enu, cond, nest, md, insert, file } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-export default {
-  key: "page",
-  content: {
-    imbricatedContent: {
-      imbricatedContent2: {
-        stringContent: "Hello World",
-        numberContent: 123,
-        booleanContent: true,
-        javaScriptContent: `${process.env.NODE_ENV}`,
-      },
-      imbricatedArray: [1, 2, 3],
-    },
-    multilingualContent: t({
-      en: "İngilizce içerik",
-      "en-GB": "İngilizce içerik (İngiltere)",
-      fr: "Fransızca içerik",
-      es: "İspanyolca içerik",
-    }),
-    quantityContent: enu({
-      "<-1": "Eksi birden az araba",
-      "-1": "Eksi bir araba",
-      "0": "Araba yok",
-      "1": "Bir araba",
-      ">5": "Birkaç araba",
-      ">19": "Birçok araba",
-    }),
-    conditionalContent: cond({
-      true: "Doğrulama etkin",
-      false: "Doğrulama devre dışı",
-    }),
-    insertionContent: insert("Merhaba {{name}}!"),
-    nestedContent: nest(
-      "navbar", // İç içe yerleştirilecek sözlüğün anahtarı
-      "login.button" // [İsteğe bağlı] İç içe yerleştirilecek içeriğin yolu
-    ),
-    markdownContent: md("# Markdown Örneği"),
-    htmlContent: html("<p>Hello <strong>World</strong></p>"),
-    fileContent: file("./path/to/file.txt"),
-    externalContent: fetch("https://example.com").then((res) => res.json())
-
-    // Sadece `react-intlayer` veya `next-intlayer` kullanılırken mevcuttur
-    jsxContent: <h1>Başlığım</h1>,
-  },
-};
-```
-
-```javascript fileName="src/example.content.cjx" contentDeclarationFormat="commonjs"
-const { t, enu, cond, nest, md, insert, file } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-module.exports = {
-  key: "page",
-  content: {
-    imbricatedContent: {
-      imbricatedContent2: {
-        stringContent: "Merhaba Dünya",
-        numberContent: 123,
-        booleanContent: true,
-        javaScriptContent: `${process.env.NODE_ENV}`,
-      },
-      imbricatedArray: [1, 2, 3],
-    },
-    multilingualContent: t({
-      tr: "Türkçe içerik",
-      en: "English content",
-      "en-GB": "English content (UK)",
-      fr: "French content",
-      es: "Spanish content",
-    }),
-    quantityContent: enu({
-      "<-1": "Eksi birden az araba",
-      "-1": "Eksi bir araba",
-      "0": "Araba yok",
-      "1": "Bir araba",
-      ">5": "Birkaç araba",
-      ">19": "Birçok araba",
-    }),
-    conditionalContent: cond({
-      true: "Doğrulama etkin",
-      false: "Doğrulama devre dışı",
-    }),
-    insertionContent: insert("Merhaba {{name}}!"),
-    nestedContent: nest(
-      "navbar", // İç içe yerleştirilecek sözlüğün anahtarı
-      "login.button" // [İsteğe bağlı] İç içe yerleştirilecek içeriğin yolu
-    ),
-    markdownContent: md("# Markdown Örneği"),
-    htmlContent: html("<p>Hello <strong>World</strong></p>"),
-    fileContent: file("./path/to/file.txt"),
-    externalContent: fetch("https://example.com").then((res) => res.json())
-
-    // Sadece `react-intlayer` veya `next-intlayer` kullanılırken mevcuttur
-    jsxContent: <h1>Başlığım</h1>,
-  },
-};
 ```
 
 ```json5 fileName="src/example.content.json"  contentDeclarationFormat="json"
@@ -960,7 +859,7 @@ Fonksiyonları sorunsuzca birbirinin içine yerleştirebilirsiniz.
 
 Örnek:
 
-```javascript fileName="src/example.content.tsx" contentDeclarationFormat="typescript"
+```javascript fileName="src/example.content.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, enu, cond, nest, md, type Dictionary } from "intlayer";
 
 const getName = async () => "John Doe";
@@ -1006,104 +905,6 @@ export default {
     }),
   },
 } satisfies Dictionary;
-```
-
-```javascript fileName="src/example.content.mjx" contentDeclarationFormat="esm"
-import { t, enu, cond, nest, md } from "intlayer";
-
-const getName = async () => "John Doe";
-
-/** @type {import('intlayer').Dictionary} */
-export default {
-  key: "page",
-  content: {
-    // `getIntlayer('page','en').hiMessage` `['Hi', ' ', 'John Doe']` döner
-    hiMessage: [
-      t({
-        en: "Hi",
-        fr: "Salut",
-        es: "Hola",
-      }),
-      " ",
-      getName(),
-    ],
-    // Koşul, numaralandırma ve çok dilli içeriği iç içe geçen bileşik içerik
-    // `getIntlayer('page','en').advancedContent(true)(10)` 'Multiple items found' döner
-    advancedContent: cond({
-      true: enu({
-        "0": t({
-          en: "No items found",
-          fr: "Aucun article trouvé",
-          es: "No se encontraron artículos",
-        }),
-        "1": t({
-          en: "One item found",
-          fr: "Un article trouvé",
-          es: "Se encontró un artículo",
-        }),
-        ">1": t({
-          en: "Birden fazla öğe bulundu",
-          fr: "Plusieurs articles trouvés",
-          es: "Se encontraron múltiples artículos",
-        }),
-      }),
-      false: t({
-        en: "Geçerli veri yok",
-        fr: "Aucune donnée valide disponible",
-        es: "No hay datos válidos disponibles",
-      }),
-    }),
-  },
-};
-```
-
-```javascript fileName="src/example.content.cjx" contentDeclarationFormat="commonjs"
-const { t, enu, cond, nest, md } = require("intlayer");
-
-const getName = async () => "John Doe";
-
-/** @type {import('intlayer').Dictionary} */
-module.exports = {
-  key: "page",
-  content: {
-    // `getIntlayer('page','en').hiMessage` `['Hi', ' ', 'John Doe']` döner
-    hiMessage: [
-      t({
-        en: "Hi",
-        fr: "Salut",
-        es: "Hola",
-      }),
-      " ",
-      getName(),
-    ],
-    // Koşul, numaralandırma ve çok dilli içeriği iç içe geçiren bileşik içerik
-    // `getIntlayer('page','en').advancedContent(true)(10)` 'Birden fazla öğe bulundu' döner
-    advancedContent: cond({
-      true: enu({
-        "0": t({
-          en: "Öğe bulunamadı",
-          fr: "Aucun article trouvé",
-          es: "No se encontraron artículos",
-        }),
-        "1": t({
-          en: "Bir öğe bulundu",
-          fr: "Un article trouvé",
-          es: "Se encontró un artículo",
-        }),
-        ">1": t({
-          en: "Birden fazla öğe bulundu",
-          fr: "Plusieurs articles trouvés",
-          es: "Se encontraron múltiples artículos",
-        }),
-      }),
-      false: t({
-        en: "Geçerli veri yok",
-        fr: "Aucune donnée valide disponible",
-        es: "No hay datos válidos disponibles",
-      }),
-    }),
-  },
-};
 ```
 
 ```json5 fileName="src/example.content.json"  contentDeclarationFormat="json"

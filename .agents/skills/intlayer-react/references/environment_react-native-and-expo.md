@@ -266,7 +266,7 @@ Create **content declaration** files anywhere in your project (commonly within `
 
 Example (TypeScript with TSX nodes for React Native):
 
-```tsx fileName="src/app.content.tsx" contentDeclarationFormat="typescript"
+```tsx fileName="src/app.content.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, type Dictionary } from "intlayer";
 import type { ReactNode } from "react";
 
@@ -287,43 +287,6 @@ const homeScreenContent = {
 } satisfies Dictionary;
 
 export default homeScreenContent;
-```
-
-```jsx fileName="src/app.content.mjx" contentDeclarationFormat="esm"
-import { t } from "intlayer";
-import { ReactNode } from "react";
-
-/** @type {import('intlayer').Dictionary} */
-const appContent = {
-  key: "home-screen",
-  content: {
-    title: t({
-      en: "Welcome!",
-      fr: "Bienvenue!",
-      es: "¡Bienvenido!",
-    }),
-  },
-};
-
-export default appContent;
-```
-
-```jsx fileName="src/app.content.csx" contentDeclarationFormat="commonjs"
-const { t } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const appContent = {
-  key: "home-screen",
-  content: {
-    title: t({
-      en: "Welcome!",
-      fr: "Bienvenue!",
-      es: "¡Bienvenido!",
-    }),
-  },
-};
-
-module.exports = appContent;
 ```
 
 ```json fileName="src/app.content.json" contentDeclarationFormat="json"

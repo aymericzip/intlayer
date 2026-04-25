@@ -132,7 +132,7 @@ Voici la structure finale que nous allons créer :
 
 Créez un fichier de configuration pour définir les langues de votre application :
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -153,57 +153,13 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      // Vos autres locales
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-  routing: {
-    mode: "search-params", // ou `no-prefix` - Utile pour la détection par le middleware
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      // Vos autres locales
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-  routing: {
-    mode: "search-params", // ou `no-prefix` - Utile pour la détection par le middleware
-  },
-};
-
-module.exports = config;
-```
-
 > Grâce à ce fichier de configuration, vous pouvez configurer les URL localisées, la redirection proxy, les noms des cookies, l'emplacement et l'extension de vos déclarations de contenu, désactiver les logs d'Intlayer dans la console, et plus encore. Pour la liste complète des paramètres disponibles, consultez la [documentation de configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/configuration.md).
 
 ### Étape 3 : Intégrer Intlayer dans votre configuration Next.js
 
 Configurez votre setup Next.js pour utiliser Intlayer :
 
-```typescript fileName="next.config.ts" codeFormat="typescript"
+```typescript fileName="next.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import type { NextConfig } from "next";
 import { withIntlayer } from "next-intlayer/server";
 
@@ -212,28 +168,6 @@ const nextConfig: NextConfig = {
 };
 
 export default withIntlayer(nextConfig);
-```
-
-```typescript fileName="next.config.mjs" codeFormat="esm"
-import { withIntlayer } from "next-intlayer/server";
-
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  /* options de configuration ici */
-};
-
-export default withIntlayer(nextConfig);
-```
-
-```typescript fileName="next.config.cjs" codeFormat="commonjs"
-const { withIntlayer } = require("next-intlayer/server");
-
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  /* options de configuration ici */
-};
-
-module.exports = withIntlayer(nextConfig);
 ```
 
 > Le plugin Next.js `withIntlayer()` est utilisé pour intégrer Intlayer à Next.js. Il assure la génération des fichiers de déclaration de contenu et les surveille en mode développement. Il définit les variables d'environnement d'Intlayer dans les environnements [Webpack](https://webpack.js.org/) ou [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack). De plus, il fournit des alias pour optimiser les performances et garantit la compatibilité avec les server components.
@@ -268,7 +202,7 @@ module.exports = withIntlayer(nextConfig);
 
 Retirez tout le contenu de `RootLayout` et remplacez-le par le code suivant :
 
-```tsx {3} fileName="src/app/layout.tsx" codeFormat="typescript"
+```tsx {3} fileName="src/app/layout.tsx" codeFormat={["typescript", "esm"]}
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import "./globals.css";
@@ -307,92 +241,11 @@ const RootLayout = async ({
 export default RootLayout;
 ```
 
-```jsx {3} fileName="src/app/layout.mjx" codeFormat="esm"
-import "./globals.css";
-import { IntlayerClientProvider } from "next-intlayer";
-import { getHTMLTextDir, getIntlayer } from "intlayer";
-import { getLocale } from "next-intlayer/server";
-export { generateStaticParams } from "next-intlayer";
-
-export const generateMetadata = async ({ params }) => {
-  const locale = await getLocale();
-  const { title, description, keywords } = getIntlayer("metadata", locale);
-
-  return {
-    title,
-    description,
-    keywords,
-  };
-};
-
-const RootLayout = async ({ children }) => {
-  const locale = await getLocale();
-
-  return (
-    <html lang={locale} dir={getHTMLTextDir(locale)}>
-      <IntlayerClientProvider defaultLocale={locale}>
-        <body>{children}</body>
-      </IntlayerClientProvider>
-    </html>
-  );
-};
-
-export default RootLayout;
-```
-
-```jsx {1,8} fileName="src/app/layout.csx" codeFormat="commonjs"
-require("./globals.css");
-const { IntlayerClientProvider } = require("next-intlayer");
-const { getHTMLTextDir, getIntlayer } = require("intlayer");
-const { getLocale } = require("next-intlayer/server");
-const { generateStaticParams } = require("next-intlayer");
-
-const generateMetadata = async ({ params }) => {
-  const locale = await getLocale();
-  const { title, description, keywords } = getIntlayer("metadata", locale);
-
-  return {
-    title,
-    description,
-    keywords,
-  };
-};
-
-const RootLayout = async ({ children }) => {
-  // Attendre les headers et les cookies dans Next.js 15+
-  const headerList = await headers();
-  const cookieList = await cookies();
-
-  const locale = await getLocale({
-    // Vérifier d'abord le cookie intlayer (par défaut : 'INTLAYER_LOCALE')
-    getCookie: (name) => cookieList.get(name)?.value,
-
-    // Ensuite vérifier l'en-tête intlayer (par défaut : 'x-intlayer-locale')
-    // Et enfin vérifier l'en-tête accept-language ('accept-language')
-    getHeader: (name) => headerList.get(name),
-  });
-
-  return (
-    <html lang={locale} dir={getHTMLTextDir(locale)}>
-      <IntlayerClientProvider defaultLocale={locale}>
-        <body>{children}</body>
-      </IntlayerClientProvider>
-    </html>
-  );
-};
-
-module.exports = {
-  default: RootLayout,
-  generateStaticParams,
-  generateMetadata,
-};
-```
-
 ### Étape 5 : Déclarez votre contenu
 
 Créez et gérez vos déclarations de contenu pour stocker les traductions :
 
-```tsx fileName="src/app/metadata.content.ts" contentDeclarationFormat="typescript"
+```tsx fileName="src/app/metadata.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, type Dictionary } from "intlayer";
 import { Metadata } from "next";
 
@@ -420,66 +273,6 @@ const metadataContent = {
 } as Dictionary<Metadata>;
 
 export default metadataContent;
-```
-
-```tsx fileName="src/app/metadata.content.mjs" contentDeclarationFormat="esm"
-import { t, type Dictionary } from "intlayer";
-
-/** @type {import('intlayer').Dictionary<import('next').Metadata>} */
-const metadataContent = {
-  key: "metadata",
-  content: {
-    title: t({
-      fr: "Le Titre de mon Projet",
-      en: "My Project Title",
-      es: "El Título de mi Proyecto",
-    }),
-
-    description: t({
-      fr: "Découvrez notre plateforme innovante conçue pour simplifier votre flux de travail et booster votre productivité.",
-      en: "Discover our innovative platform designed to streamline your workflow and boost productivity.",
-      es: "Descubra nuestra plataforma innovadora diseñada para simplificar su flujo de trabajo y aumentar su productividad.",
-    }),
-
-    keywords: t({
-      fr: ["innovation", "productivité", "flux de travail", "SaaS"],
-      en: ["innovation", "productivity", "workflow", "SaaS"],
-      es: ["innovación", "productividad", "flujo de trabajo", "SaaS"],
-    }),
-  },
-};
-
-export default metadataContent;
-```
-
-```javascript fileName="src/app/metadata.content.cjs" contentDeclarationFormat="commonjs"
-const { t } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary<import('next').Metadata>} */
-const metadataContent = {
-  key: "metadata",
-  content: {
-    title: t({
-      fr: "Le Titre de mon Projet",
-      en: "My Project Title",
-      es: "El Título de mi Proyecto",
-    }),
-
-    description: t({
-      fr: "Découvrez notre plateforme innovante conçue pour simplifier votre flux de travail et booster votre productivité.",
-      en: "Discover our innovative platform designed to streamline your workflow and boost productivity.",
-      es: "Descubra nuestra plataforma innovadora diseñada para simplificar su flujo de trabajo y aumentar su productividad.",
-    }),
-
-    keywords: t({
-      fr: ["innovation", "productivité", "flux de travail", "SaaS"],
-      en: ["innovation", "productivity", "workflow", "SaaS"],
-      es: ["innovación", "productividad", "flujo de trabajo", "SaaS"],
-    }),
-  },
-};
-
-module.exports = metadataContent;
 ```
 
 ```json fileName="src/app/metadata.content.json" contentDeclarationFormat="json"
@@ -514,7 +307,7 @@ module.exports = metadataContent;
 }
 ```
 
-```tsx fileName="src/app/page.content.ts" contentDeclarationFormat="typescript"
+```tsx fileName="src/app/page.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, type Dictionary } from "intlayer";
 
 const pageContent = {
@@ -532,48 +325,6 @@ const pageContent = {
 } satisfies Dictionary;
 
 export default pageContent;
-```
-
-```javascript fileName="src/app/page.content.mjs" contentDeclarationFormat="esm"
-import { t } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const pageContent = {
-  key: "page",
-  content: {
-    getStarted: {
-      main: t({
-        fr: "Commencez par éditer",
-        en: "Get started by editing",
-        es: "Comience por editar",
-      }),
-      pageLink: "src/app/page.tsx",
-    },
-  },
-};
-
-export default pageContent;
-```
-
-```javascript fileName="src/app/page.content.cjs" contentDeclarationFormat="commonjs"
-const { t } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const pageContent = {
-  key: "page",
-  content: {
-    getStarted: {
-      main: t({
-        fr: "Commencez par éditer",
-        en: "Get started by editing",
-        es: "Comience por editar",
-      }),
-      pageLink: "src/app/page.tsx",
-    },
-  },
-};
-
-module.exports = pageContent;
 ```
 
 ```json fileName="src/app/page.content.json" contentDeclarationFormat="json"
@@ -602,7 +353,7 @@ module.exports = pageContent;
 
 Accédez à vos dictionnaires de contenu partout dans votre application :
 
-```tsx fileName="src/app/page.tsx" codeFormat="typescript"
+```tsx fileName="src/app/page.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { ClientComponentExample } from "@components/clientComponentExample/ClientComponentExample";
 import { ServerComponentExample } from "@components/serverComponentExample/ServerComponentExample";
@@ -648,101 +399,12 @@ const Page: NextPage = async () => {
 export default Page;
 ```
 
-```jsx fileName="src/app/page.mjx" codeFormat="esm"
-import { ClientComponentExample } from "@components/clientComponentExample/ClientComponentExample";
-import { ServerComponentExample } from "@components/serverComponentExample/ServerComponentExample";
-import { IntlayerServerProvider, useIntlayer } from "next-intlayer/server";
-import { getLocale } from "intlayer";
-import { headers, cookies } from "next/headers";
-import { NextPage } from "next";
-
-const Page: NextPage = async () => {
-  const content = useIntlayer("page");
-
-  return (
-    <>
-      <p>{content.getStarted.main}</p>
-      <code>{content.getStarted.pageLink}</code>
-    </>
-  );
-};
-
-const Page = async () => {
-
-  // Attendre les en-têtes et les cookies dans Next.js 15+
-  const headerList = await headers();
-  const cookieList = await cookies();
-
-  const locale = await getLocale({
-    // Vérifier d'abord le cookie intlayer (par défaut : 'INTLAYER_LOCALE')
-    getCookie: (name) => cookieList.get(name)?.value,
-
-    // Puis vérifier l'en-tête intlayer (par défaut : 'x-intlayer-locale')
-    // Et enfin vérifier l'en-tête accept-language ('accept-language')
-    getHeader: (name) => headerList.get(name),
-  });
-
-  return (
-    <IntlayerServerProvider locale={locale}>
-      <PageContent />
-      <ServerComponentExample />
-      <ClientComponentExample />
-    </IntlayerServerProvider>
-  );
-};
-
-export default Page;
-```
-
-```jsx fileName="src/app/page.csx" codeFormat="commonjs"
-import { ClientComponentExample } from "@components/clientComponentExample/ClientComponentExample";
-import { ServerComponentExample } from "@components/serverComponentExample/ServerComponentExample";
-import { IntlayerServerProvider, useIntlayer } from "next-intlayer/server";
-import { NextPage } from "next";
-import { getLocale } from "intlayer";
-import { headers, cookies } from "next/headers";
-
-const Page: NextPage = async () => {
-  const content = useIntlayer("page");
-
-  return (
-    <>
-      <p>{content.getStarted.main}</p>
-      <code>{content.getStarted.pageLink}</code>
-    </>
-  );
-};
-
-const Page: NextPage = async () => {
-  // Attendre les en-têtes et cookies dans Next.js 15+
-  const headerList = await headers();
-  const cookieList = await cookies();
-
-  const locale = await getLocale({
-    // Vérifie d'abord le cookie intlayer (par défaut : 'INTLAYER_LOCALE')
-    getCookie: (name) => cookieList.get(name)?.value,
-
-    // Ensuite vérifie l'en-tête intlayer (par défaut : 'x-intlayer-locale')
-    // Et enfin vérifie l'en-tête accept-language ('accept-language')
-    getHeader: (name) => headerList.get(name),
-  });
-
-  return (
-    <IntlayerServerProvider locale={locale}>
-      <PageContent />
-      <ServerComponentExample />
-      <ClientComponentExample />
-    </IntlayerServerProvider>
-  );
-};
-```
-
 - **`IntlayerClientProvider`** est utilisé pour fournir la locale aux composants côté client. Il peut être placé dans n'importe quel composant parent, y compris le layout. Cependant, il est recommandé de le placer dans un layout car Next.js partage le code des layouts entre les pages, ce qui le rend plus efficace. En utilisant `IntlayerClientProvider` dans le layout, vous évitez de le réinitialiser pour chaque page, améliorez les performances et maintenez un contexte de localisation cohérent dans toute votre application.
 - **`IntlayerServerProvider`** est utilisé pour fournir la locale aux enfants côté serveur. Il ne peut pas être défini dans le layout.
 
 > Le layout et la page ne peuvent pas partager un même contexte serveur, car le système de contextes serveur est basé sur un magasin de données par requête (via le mécanisme [le cache de React](https://react.dev/reference/react/cache)), ce qui fait que chaque "contexte" est recréé pour différents segments de l'application. Placer le provider dans un layout partagé briserait cette isolation, empêchant la bonne propagation des valeurs du contexte serveur vers vos composants serveur.
 
-```tsx {4,7} fileName="src/components/clientComponentExample/ClientComponentExample.tsx" codeFormat="typescript"
+```tsx {4,7} fileName="src/components/clientComponentExample/ClientComponentExample.tsx" codeFormat={["typescript", "esm"]}
 "use client";
 
 import type { FC } from "react";
@@ -760,76 +422,12 @@ export const ClientComponentExample: FC = () => {
 };
 ```
 
-```jsx {3,6} fileName="src/components/clientComponentExample/ClientComponentExample.mjx" codeFormat="esm"
-"use client";
-
-import { useIntlayer } from "next-intlayer";
-
-const ClientComponentExample = () => {
-  const content = useIntlayer("client-component-example"); // Créer la déclaration de contenu associée
-
-  return (
-    <div>
-      <h2>{content.title}</h2>
-      <p>{content.content}</p>
-    </div>
-  );
-};
-```
-
-```jsx {3,6} fileName="src/components/clientComponentExample/ClientComponentExample.csx" codeFormat="commonjs"
-"use client";
-
-const { useIntlayer } = require("next-intlayer");
-
-const ClientComponentExample = () => {
-  const content = useIntlayer("client-component-example"); // Crée la déclaration de contenu associée
-
-  return (
-    <div>
-      <h2>{content.title}</h2>
-      <p>{content.content}</p>
-    </div>
-  );
-};
-```
-
-```tsx {2} fileName="src/components/serverComponentExample/ServerComponentExample.tsx"  codeFormat="typescript"
+```tsx {2} fileName="src/components/serverComponentExample/ServerComponentExample.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useIntlayer } from "next-intlayer/server";
 
 export const ServerComponentExample: FC = () => {
   const content = useIntlayer("server-component-example"); // Crée la déclaration de contenu associée
-
-  return (
-    <div>
-      <h2>{content.title}</h2>
-      <p>{content.content}</p>
-    </div>
-  );
-};
-```
-
-```jsx {1} fileName="src/components/serverComponentExample/ServerComponentExample.mjx" codeFormat="esm"
-import { useIntlayer } from "next-intlayer/server";
-
-const ServerComponentExample = () => {
-  const content = useIntlayer("server-component-example"); // Créer la déclaration de contenu associée
-
-  return (
-    <div>
-      <h2>{content.title}</h2>
-      <p>{content.content}</p>
-    </div>
-  );
-};
-```
-
-```jsx {1} fileName="src/components/serverComponentExample/ServerComponentExample.csx" codeFormat="commonjs"
-const { useIntlayer } = require("next-intlayer/server");
-
-const ServerComponentExample = () => {
-  const content = useIntlayer("server-component-example"); // Créer la déclaration de contenu associée
 
   return (
     <div>
@@ -852,33 +450,13 @@ const ServerComponentExample = () => {
 
 Configurez le proxy pour détecter la locale préférée de l'utilisateur :
 
-```typescript fileName="src/proxy.ts" codeFormat="typescript"
+```typescript fileName="src/proxy.ts" codeFormat={["typescript", "esm", "commonjs"]}
 export { intlayerProxy as proxy } from "next-intlayer/proxy";
 
 export const config = {
   matcher:
     "/((?!api|static|assets|robots|sitemap|sw|service-worker|manifest|.*\\..*|_next).*)",
 };
-```
-
-```javascript fileName="src/proxy.mjs" codeFormat="esm"
-export { intlayerProxy as proxy } from "next-intlayer/proxy";
-
-export const config = {
-  matcher:
-    "/((?!api|static|assets|robots|sitemap|sw|service-worker|manifest|.*\\..*|_next).*)",
-};
-```
-
-```javascript fileName="src/proxy.cjs" codeFormat="commonjs"
-const { intlayerProxy } = require("next-intlayer/proxy");
-
-const config = {
-  matcher:
-    "/((?!api|static|assets|robots|sitemap|sw|service-worker|manifest|.*\\..*|_next).*)",
-};
-
-module.exports = { proxy: intlayerProxy, config };
 ```
 
 > Le `intlayerProxy` sert à détecter la locale préférée de l'utilisateur et à le rediriger vers l'URL appropriée, comme indiqué dans la [configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/configuration.md). De plus, il permet d'enregistrer la locale préférée de l'utilisateur dans un cookie.
@@ -896,7 +474,7 @@ export const proxy = multipleProxies([intlayerProxy, customProxy]);
 
 Pour changer la langue de votre contenu dans Next.js, la méthode recommandée est d'utiliser le composant `Link` pour rediriger les utilisateurs vers la page localisée appropriée. Le composant `Link` permet le préchargement (prefetch) de la page, ce qui aide à éviter un rechargement complet de la page.
 
-```tsx fileName="src/components/localeSwitcher/LocaleSwitcher.tsx" codeFormat="typescript"
+```tsx fileName="src/components/localeSwitcher/LocaleSwitcher.tsx" codeFormat={["typescript", "esm"]}
 "use client";
 
 import type { FC } from "react";
@@ -930,95 +508,6 @@ export const LocaleSwitcher: FC = () => {
             </span>
             <span dir="ltr" lang={Locales.ENGLISH}>
               {/* Langue en anglais - p.ex. French */}
-              {getLocaleName(localeItem, Locales.ENGLISH)}
-            </span>
-          </button>
-        ))}
-      </div>
-    </div>
-  );
-};
-```
-
-```jsx fileName="src/components/localeSwitcher/LocaleSwitcher.msx" codeFormat="esm"
-"use client";
-
-import { Locales, getHTMLTextDir, getLocaleName } from "intlayer";
-import { useLocale } from "next-intlayer";
-
-export const LocaleSwitcher = () => {
-  const { locale, availableLocales, setLocale } = useLocale();
-
-  return (
-    <div>
-      <button popoverTarget="localePopover">{getLocaleName(locale)}</button>
-      <div id="localePopover" popover="auto">
-        {availableLocales.map((localeItem) => (
-          <button
-            key={localeItem}
-            aria-current={locale === localeItem ? "page" : undefined}
-            onClick={() => setLocale(localeItem)}
-          >
-            <span>
-              {/* Locale - ex. FR */}
-              {localeItem}
-            </span>
-            <span>
-              {/* Langue dans sa propre locale - ex. Français */}
-              {getLocaleName(localeItem, locale)}
-            </span>
-            <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
-              {/* Langue dans la locale actuelle - ex. "Francés" lorsque la locale actuelle est Locales.SPANISH */}
-              {getLocaleName(localeItem)}
-            </span>
-            <span dir="ltr" lang={Locales.ENGLISH}>
-              {/* Langue en anglais - ex. French */}
-              {getLocaleName(localeItem, Locales.ENGLISH)}
-            </span>
-          </button>
-        ))}
-      </div>
-    </div>
-  );
-};
-```
-
-```jsx fileName="src/components/localeSwitcher/LocaleSwitcher.csx" codeFormat="commonjs"
-"use client";
-
-const { Locales, getHTMLTextDir, getLocaleName } = require("intlayer");
-const { useLocale } = require("next-intlayer");
-
-export const LocaleSwitcher = () => {
-  const path
-  const { locale availableLocales, setLocale } = useLocale({
-       onChange: ()=> window.location.reload(),
-  });
-
-  return (
-    <div>
-      <button popoverTarget="localePopover">{getLocaleName(locale)}</button>
-      <div id="localePopover" popover="auto">
-        {availableLocales.map((localeItem) => (
-          <button
-            key={localeItem}
-            aria-current={locale === localeItem ? "page" : undefined}
-            onClick={() => setLocale(localeItem)}
-          >
-            <span>
-              {/* Langue - ex. FR */}
-              {localeItem}
-            </span>
-            <span>
-              {/* Langue dans sa propre locale - ex. Français */}
-              {getLocaleName(localeItem, locale)}
-            </span>
-            <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
-              {/* Langue dans la locale actuelle - ex. "Francés" lorsque la locale actuelle est Locales.SPANISH */}
-              {getLocaleName(localeItem)}
-            </span>
-            <span dir="ltr" lang={Locales.ENGLISH}>
-              {/* Langue en anglais - ex. French */}
               {getLocaleName(localeItem, Locales.ENGLISH)}
             </span>
           </button>

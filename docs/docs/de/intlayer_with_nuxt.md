@@ -109,7 +109,7 @@ bun x intlayer init
 
 Erstellen Sie eine Konfigurationsdatei, um die Sprachen Ihrer Anwendung zu konfigurieren:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -125,44 +125,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      // Ihre weiteren Sprachen
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      // Ihre weiteren Sprachen
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-module.exports = config;
 ```
 
 > Durch diese Konfigurationsdatei können Sie lokalisierte URLs, Middleware-Weiterleitungen, Cookie-Namen, den Speicherort und die Erweiterung Ihrer Inhaltsdeklarationen einrichten, Intlayer-Logs in der Konsole deaktivieren und vieles mehr. Für eine vollständige Liste der verfügbaren Parameter konsultieren Sie bitte die [Konfigurationsdokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/configuration.md).
@@ -186,7 +148,7 @@ export default defineNuxtConfig({
 
 Erstellen und verwalten Sie Ihre Inhaltsdeklarationen, um Übersetzungen zu speichern:
 
-```tsx fileName="content/home-page.content.ts" contentDeclarationFormat="typescript"
+```tsx fileName="content/home-page.content.ts" contentDeclarationFormat=["typescript", "esm", "cjs"]
 import { type Dictionary, t } from "intlayer";
 
 const content = {
@@ -536,7 +498,7 @@ useHead({
 
 Erstellen Sie die entsprechende Inhaltsdeklaration:
 
-```ts fileName="pages/about-page.content.ts" contentDeclarationFormat="typescript"
+```ts fileName="pages/about-page.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, type Dictionary } from "intlayer";
 
 const aboutPageContent = {
@@ -561,62 +523,6 @@ const aboutPageContent = {
 } satisfies Dictionary;
 
 export default aboutPageContent;
-```
-
-```javascript fileName="pages/about-page.content.mjs" contentDeclarationFormat="esm"
-import { t } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const aboutPageContent = {
-  key: "about-page",
-  content: {
-    metaTitle: t({
-      en: "About Us - My Company",
-      fr: "À Propos - Ma Société",
-      es: "Acerca de Nosotros - Mi Empresa",
-    }),
-    metaDescription: t({
-      en: "Erfahren Sie mehr über unser Unternehmen und unsere Mission",
-      fr: "En savoir plus sur notre société et notre mission",
-      es: "Conozca más sobre nuestra empresa y nuestra misión",
-    }),
-    title: t({
-      en: "Über uns",
-      fr: "À Propos",
-      es: "Acerca de Nosotros",
-    }),
-  },
-};
-
-export default aboutPageContent;
-```
-
-```javascript fileName="pages/about-page.content.cjs" contentDeclarationFormat="commonjs"
-const { t } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const aboutPageContent = {
-  key: "about-page",
-  content: {
-    metaTitle: t({
-      en: "Über uns - Mein Unternehmen",
-      fr: "À Propos - Ma Société",
-      es: "Acerca de Nosotros - Mi Empresa",
-    }),
-    metaDescription: t({
-      en: "Learn more about our company and our mission",
-      fr: "En savoir plus sur notre société et notre mission",
-      es: "Conozca más sobre nuestra empresa y nuestra misión",
-    }),
-    title: t({
-      en: "Über uns",
-      fr: "À Propos",
-      es: "Acerca de Nosotros",
-    }),
-  },
-};
-
-module.exports = aboutPageContent;
 ```
 
 ```json fileName="pages/about-page.content.json" contentDeclarationFormat="json"

@@ -109,7 +109,7 @@ bun x intlayer init
 
 Tạo một file cấu hình để cấu hình các ngôn ngữ của ứng dụng của bạn:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -125,44 +125,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      // Các locale khác của bạn
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      // Các locale khác của bạn
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-module.exports = config;
 ```
 
 > Thông qua tệp cấu hình này, bạn có thể thiết lập các URL địa phương hóa, chuyển hướng middleware, tên cookie, vị trí và phần mở rộng của các khai báo nội dung của bạn, tắt các log của Intlayer trên console, và nhiều hơn nữa. Để xem danh sách đầy đủ các tham số có sẵn, hãy tham khảo [tài liệu cấu hình](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md).
@@ -186,7 +148,7 @@ export default defineNuxtConfig({
 
 Tạo và quản lý các khai báo nội dung để lưu trữ bản dịch:
 
-```tsx fileName="content/home-page.content.ts" contentDeclarationFormat="typescript"
+```tsx fileName="content/home-page.content.ts" contentDeclarationFormat=["typescript", "esm", "cjs"]
 import { type Dictionary, t } from "intlayer";
 
 const content = {
@@ -536,7 +498,7 @@ useHead({
 
 Tạo khai báo nội dung tương ứng:
 
-```ts fileName="pages/about-page.content.ts" contentDeclarationFormat="typescript"
+```ts fileName="pages/about-page.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, type Dictionary } from "intlayer";
 
 const aboutPageContent = {
@@ -561,62 +523,6 @@ const aboutPageContent = {
 } satisfies Dictionary;
 
 export default aboutPageContent;
-```
-
-```javascript fileName="pages/about-page.content.mjs" contentDeclarationFormat="esm"
-import { t } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const aboutPageContent = {
-  key: "about-page",
-  content: {
-    metaTitle: t({
-      en: "Về Chúng Tôi - Công Ty Tôi",
-      fr: "À Propos - Ma Société",
-      es: "Acerca de Nosotros - Mi Empresa",
-    }),
-    metaDescription: t({
-      en: "Tìm hiểu thêm về công ty và sứ mệnh của chúng tôi",
-      fr: "En savoir plus sur notre société et notre mission",
-      es: "Conozca más sobre nuestra empresa y nuestra misión",
-    }),
-    title: t({
-      en: "Về Chúng Tôi",
-      fr: "À Propos",
-      es: "Acerca de Nosotros",
-    }),
-  },
-};
-
-export default aboutPageContent;
-```
-
-```javascript fileName="pages/about-page.content.cjs" contentDeclarationFormat="commonjs"
-const { t } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const aboutPageContent = {
-  key: "about-page",
-  content: {
-    metaTitle: t({
-      en: "Về Chúng Tôi - Công Ty Tôi",
-      fr: "À Propos - Ma Société",
-      es: "Acerca de Nosotros - Mi Empresa",
-    }),
-    metaDescription: t({
-      en: "Tìm hiểu thêm về công ty và sứ mệnh của chúng tôi",
-      fr: "En savoir plus sur notre société et notre mission",
-      es: "Conozca más sobre nuestra empresa y nuestra misión",
-    }),
-    title: t({
-      en: "Về Chúng Tôi",
-      fr: "À Propos",
-      es: "Acerca de Nosotros",
-    }),
-  },
-};
-
-module.exports = aboutPageContent;
 ```
 
 ```json fileName="pages/about-page.content.json" contentDeclarationFormat="json"

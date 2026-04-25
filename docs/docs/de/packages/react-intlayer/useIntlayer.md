@@ -75,7 +75,7 @@ Alle Wörterbuchschlüssel müssen in Inhaltsdeklarationsdateien deklariert werd
 
 Demonstration des `useIntlayer` Hooks innerhalb einer React-Komponente:
 
-```tsx fileName="src/app.tsx" codeFormat="typescript"
+```tsx fileName="src/app.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { ClientComponentExample, ServerComponentExample } from "@components";
 import { IntlayerProvider } from "react-intlayer";
@@ -99,58 +99,7 @@ const App: FC<{ locale: Locales }> = ({ locale }) => {
 };
 ```
 
-```jsx fileName="src/app.mjx" codeFormat="esm"
-import { ClientComponentExample, ServerComponentExample } from "@components";
-import { IntlayerProvider } from "react-intlayer";
-import { IntlayerServerProvider, useIntlayer } from "react-intlayer/server";
-
-const App = ({ locale }) => {
-  const content = useIntlayer("homepage", locale);
-
-  return (
-    <>
-      <p>{content.introduction}</p>
-      <IntlayerProvider locale={locale}>
-        <ClientComponentExample />
-      </IntlayerProvider>
-      <IntlayerServerProvider locale={locale}>
-        <ServerComponentExample />
-      </IntlayerServerProvider>
-    </>
-  );
-};
-```
-
-```jsx fileName="src/app.csx" codeFormat="commonjs"
-const { IntlayerProvider } = require("react-intlayer");
-const {
-  IntlayerServerProvider,
-  useIntlayer,
-jsx fileName="src/app.csx" codeFormat="commonjs"
-const { IntlayerProvider } = require("react-intlayer");
-const {
-  IntlayerServerProvider,
-  useIntlayer,
-} = require("react-intlayer/server");
-
-const App = ({ locale }) => {
-  const content = useIntlayer("homepage", locale);
-
-  return (
-    <>
-      <p>{content.introduction}</p>
-      <IntlayerProvider locale={locale}>
-        <ClientComponentExample />
-      </IntlayerProvider>
-      <IntlayerServerProvider locale={locale}>
-        <ServerComponentExample />
-      </IntlayerServerProvider>
-    </>
-  );
-};
-```
-
-```tsx fileName="src/components/ComponentExample.tsx" codeFormat="typescript"
+```tsx fileName="src/components/ComponentExample.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useIntlayer } from "react-intlayer";
 
@@ -166,37 +115,7 @@ const ComponentExample: FC = () => {
 };
 ```
 
-```jsx fileName="src/components/ComponentExample.mjx" codeFormat="esm"
-import { useIntlayer } from "react-intlayer";
-
-const ComponentExample = () => {
-  const content = useIntlayer("component-example");
-
-  return (
-    <div>
-      <h1>{content.title}</h1>
-      <p>{content.description}</p>
-    </div>
-  );
-};
-```
-
-```jsx fileName="src/components/ComponentExample.csx" codeFormat="commonjs"
-const { useIntlayer } = require("react-intlayer");
-
-const ComponentExample = () => {
-  const content = useIntlayer("component-example");
-
-  return (
-    <div>
-      <h1>{content.title}</h1>
-      <p>{content.description}</p>
-    </div>
-  );
-};
-```
-
-```tsx fileName="src/components/ServerComponentExample.tsx" codeFormat="typescript"
+```tsx fileName="src/components/ServerComponentExample.tsx" codeFormat={["typescript", "esm"]}
 import { useIntlayer } from "react-intlayer/server";
 
 const ServerComponentExample = () => {
@@ -209,36 +128,6 @@ const ServerComponentExample = () => {
     </div>
   );
 };
-
-const ServerComponentExample = () => {
-  const content = useIntlayer("server-component");
-
-  return (
-    <div>
-      <h1>{content.title}</h1>
-      <p>{content.description}</p>
-    </div>
-  );
-};
-```
-
-```jsx fileName="src/components/ServerComponentExample.mjx" codeFormat="esm"
-import { useIntlayer } from "react-intlayer/server";
-
-const ServerComponentExample = () => {
-  const content = useIntlayer("server-component");
-
-  return (
-    <div>
-      <h1>{content.title}</h1>
-      <p>{content.description}</p>
-    </div>
-  );
-};
-```
-
-```jsx fileName="src/components/ServerComponentExample.csx" codeFormat="commonjs"
-const { useIntlayer } = require("react-intlayer/server");
 
 const ServerComponentExample = () => {
   const content = useIntlayer("server-component");

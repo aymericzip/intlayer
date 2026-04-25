@@ -99,7 +99,7 @@ type GetPrefixResult = {
 
 ### Uso Básico
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getPrefix, Locales } from "intlayer";
 
 // Verifica o prefixo para o locale inglês
@@ -115,24 +115,6 @@ getPrefix(Locales.FRENCH, {
   mode: "prefix-no-default",
 });
 // Retorna: { prefix: 'fr/', localePrefix: 'fr' }
-```
-
-```javascript codeFormat="esm"
-import { getPrefix, Locales } from "intlayer";
-
-getPrefix(Locales.ENGLISH, { mode: "prefix-all" });
-javascript codeFormat="esm"
-import { getPrefix, Locales } from "intlayer";
-
-getPrefix(Locales.ENGLISH, { mode: "prefix-all" });
-// Retorna: { prefix: '', localePrefix: undefined }
-```
-
-```javascript codeFormat="commonjs"
-const { getPrefix, Locales } = require("intlayer");
-
-getPrefix(Locales.ENGLISH, { mode: "prefix-all" });
-// Retorna: { prefix: '', localePrefix: undefined }
 ```
 
 ### Modos Diferentes de Roteamento

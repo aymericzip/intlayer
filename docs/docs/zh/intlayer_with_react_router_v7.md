@@ -123,7 +123,7 @@ See [Application Template](https://github.com/aymericzip/intlayer-react-router-v
 
 创建一个配置文件来配置您的应用程序语言：
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { type IntlayerConfig, Locales } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -134,35 +134,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    defaultLocale: Locales.ENGLISH, // 默认语言
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH], // 支持的语言列表
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-// 配置对象，定义国际化设置
-const config = {
-  internationalization: {
-    defaultLocale: Locales.ENGLISH, // 默认语言
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH], // 支持的语言列表
-  },
-};
-
-module.exports = config;
 ```
 
 > 通过此配置文件，您可以设置本地化的 URL、中间件重定向、cookie 名称、内容声明的位置和扩展名，禁用控制台中的 Intlayer 日志等。有关可用参数的完整列表，请参阅[配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)。
@@ -512,7 +483,7 @@ export default function RootLayout() {
 
 要进行设置，您可以在 `intlayer.config.ts` 文件中添加 `compiler` 部分：
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -541,66 +512,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... 您的其他配置
-  compiler: {
-    /**
-     * 指示是否应启用编译器。
-     */
-    enabled: true,
-
-    /**
-     * 定义输出文件路径
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * 指示在转换后是否应保存组件。这样，编译器只需运行一次即可转换应用程序，然后即可将其删除。
-     */
-    saveComponents: false,
-
-    /**
-     * 字典键前缀
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... 您的其他配置
-  compiler: {
-    /**
-     * 指示是否应启用编译器。
-     */
-    enabled: true,
-
-    /**
-     * 定义输出文件路径
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * 指示在转换后是否应保存组件。这样，编译器只需运行一次即可转换应用程序，然后即可将其删除。
-     */
-    saveComponents: false,
-
-    /**
-     * 字典键前缀
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-module.exports = config;
 ```
 
 <Tabs>

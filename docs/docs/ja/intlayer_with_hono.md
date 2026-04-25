@@ -105,7 +105,7 @@ export default config;
 
 翻訳を保存するためのコンテンツ宣言を作成および管理します。
 
-```typescript fileName="src/index.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="src/index.content.ts" contentDeclarationFormat=["typescript", "esm", "cjs"]
 import { t, type Dictionary } from "intlayer";
 
 const indexContent = {

@@ -154,7 +154,7 @@ export default defineConfig({
 
 セットアップするには、`intlayer.config.ts` ファイルに `compiler` セクションを追加します。
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -183,66 +183,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... 他の構成
-  compiler: {
-    /**
-     * コンパイラを有効にするかどうかを指定します。
-     */
-    enabled: true,
-
-    /**
-     * 出力ファイルのパスを定義します。
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * 変換後にコンポーネントを保存するかどうかを指定します。これにより、コンパイラを一度だけ実行してアプリを変換し、その後削除することができます。
-     */
-    saveComponents: false,
-
-    /**
-     * 辞書キーの接頭辞
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... 他の構成
-  compiler: {
-    /**
-     * コンパイラを有効にするかどうかを指定します。
-     */
-    enabled: true,
-
-    /**
-     * 出力ファイルのパスを定義します。
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * 変換後にコンポーネントを保存するかどうかを指定します。これにより、コンパイラを一度だけ実行してアプリを変換し、その後削除することができます。
-     */
-    saveComponents: false,
-
-    /**
-     * 辞書キーの接頭辞
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-module.exports = config;
 ```
 
 <Tabs>

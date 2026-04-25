@@ -28,7 +28,7 @@ Intlayer에서 조건부 콘텐츠는 특정 조건(일반적으로 boolean 값)
 
 Intlayer 프로젝트에서 조건부 콘텐츠를 설정하려면 조건 정의를 포함하는 콘텐츠 모듈을 생성하십시오. 아래는 다양한 형식의 예제입니다.
 
-```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="**/*.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { cond, type Dictionary } from "intlayer";
 
 const myConditionalContent = {
@@ -43,42 +43,6 @@ const myConditionalContent = {
 } satisfies Dictionary;
 
 export default myConditionalContent;
-```
-
-```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-import { cond } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const myConditionalContent = {
-  key: "my_key",
-  content: {
-    myCondition: cond({
-      true: "조건이 참일 때의 콘텐츠",
-      false: "조건이 거짓일 때의 콘텐츠",
-      fallback: "조건이 실패했을 때의 콘텐츠", // 선택 사항
-    }),
-  },
-};
-
-export default myConditionalContent;
-```
-
-```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-const { cond } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const myConditionalContent = {
-  key: "my_key",
-  content: {
-    myCondition: cond({
-      true: "조건이 참일 때의 콘텐츠",
-      false: "조건이 거짓일 때의 콘텐츠",
-      fallback: "조건이 실패했을 때의 콘텐츠", // 선택 사항
-    }),
-  },
-};
-
-module.exports = myConditionalContent;
 ```
 
 ```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
@@ -104,7 +68,7 @@ module.exports = myConditionalContent;
 
 React 컴포넌트 내에서 조건부 콘텐츠를 사용하려면 `react-intlayer` 패키지에서 `useIntlayer` 훅을 가져와 사용하십시오. 이 훅은 지정된 키에 대한 콘텐츠를 가져오며, 조건을 전달하여 적절한 출력을 선택할 수 있습니다.
 
-```tsx fileName="**/*.tsx" codeFormat="typescript"
+```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useIntlayer } from "react-intlayer";
 
@@ -142,84 +106,6 @@ const ConditionalComponent: FC = () => {
 };
 
 export default ConditionalComponent;
-```
-
-```javascript fileName="**/*.mjx" codeFormat="esm"
-import { useIntlayer } from "react-intlayer";
-
-const ConditionalComponent = () => {
-  const { myCondition } = useIntlayer("my_key");
-
-  return (
-    <div>
-      <p>
-        {
-          /* 출력: 조건이 참일 때의 콘텐츠 */
-          myCondition(true)
-        }
-      </p>
-      <p>
-        {
-          /* 출력: 조건이 거짓일 때의 콘텐츠 */
-          myCondition(false)
-        }
-      </p>
-      <p>
-        {
-          /* 출력: 조건이 실패했을 때의 콘텐츠 */
-          myCondition("")
-        }
-      </p>
-      <p>
-        {
-          /* 출력: 조건이 실패했을 때의 콘텐츠 */
-          myCondition(undefined)
-        }
-      </p>
-    </div>
-  );
-};
-
-export default ConditionalComponent;
-```
-
-```javascript fileName="**/*.cjs" codeFormat="commonjs"
-const { useIntlayer } = require("react-intlayer");
-
-const ConditionalComponent = () => {
-  const { myCondition } = useIntlayer("my_key");
-
-  return (
-    <div>
-      <p>
-        {
-          /* 출력: 조건이 참일 때의 콘텐츠 */
-          myCondition(true)
-        }
-      </p>
-      <p>
-        {
-          /* 출력: 조건이 거짓일 때의 콘텐츠 */
-          myCondition(false)
-        }
-      </p>
-      <p>
-        {
-          /* 출력: 조건이 실패했을 때의 콘텐츠 */
-          myCondition("")
-        }
-      </p>
-      <p>
-        {
-          /* 출력: 조건이 실패했을 때의 콘텐츠 */
-          myCondition(undefined)
-        }
-      </p>
-    </div>
-  );
-};
-
-module.exports = ConditionalComponent;
 ```
 
 ## 추가 리소스

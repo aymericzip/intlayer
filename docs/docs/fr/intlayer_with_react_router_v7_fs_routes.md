@@ -118,7 +118,7 @@ bun x intlayer init
 
 Créez un fichier de configuration pour configurer les langues de votre application :
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { type IntlayerConfig, Locales } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -129,35 +129,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    defaultLocale: Locales.ENGLISH,
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-// Configuration pour l'internationalisation
-const config = {
-  internationalization: {
-    defaultLocale: Locales.ENGLISH, // Langue par défaut
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH], // Langues supportées
-  },
-};
-
-module.exports = config;
 ```
 
 > Grâce à ce fichier de configuration, vous pouvez configurer les URLs localisées, la redirection via middleware, les noms des cookies, l'emplacement et l'extension de vos déclarations de contenu, désactiver les logs Intlayer dans la console, et bien plus encore. Pour une liste complète des paramètres disponibles, consultez la [documentation de configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/configuration.md).
@@ -583,7 +554,7 @@ Pour faciliter ce processus, Intlayer propose un [compilateur](https://github.co
 
 Pour le configurer, vous pouvez ajouter une section `compiler` dans votre fichier `intlayer.config.ts` :
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -613,68 +584,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... Reste de votre configuration
-  compiler: {
-    /**
-     * Indique si le compilateur doit être activé.
-     */
-    enabled: true,
-
-    /**
-     * Définit le chemin des fichiers de sortie
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * Indique si les composants doivent être sauvegardés après avoir été transformés.
-     * De cette façon, le compilateur peut être exécuté une seule fois pour transformer l'application, puis il peut être supprimé.
-     */
-    saveComponents: false,
-
-    /**
-     * Préfixe de clé de dictionnaire
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... Reste de votre configuration
-  compiler: {
-    /**
-     * Indique si le compilateur doit être activé.
-     */
-    enabled: true,
-
-    /**
-     * Définit le chemin des fichiers de sortie
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * Indique si les composants doivent être sauvegardés après avoir été transformés.
-     * De cette façon, le compilateur peut être exécuté une seule fois pour transformer l'application, puis il peut être supprimé.
-     */
-    saveComponents: false,
-
-    /**
-     * Préfixe de clé de dictionnaire
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-module.exports = config;
 ```
 
 <Tabs>

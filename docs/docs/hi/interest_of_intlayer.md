@@ -115,7 +115,7 @@ Intlayer को एक सामान्य समस्या को हल �
         └── index.tsx
 ```
 
-```tsx fileName="./components/MyComponent/index.content.ts" codeFormat="typescript"
+```tsx fileName="./components/MyComponent/index.content.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { t, type Dictionary } from "intlayer";
 
 const componentExampleContent = {
@@ -132,66 +132,10 @@ const componentExampleContent = {
 export default componentExampleContent;
 ```
 
-```jsx fileName="./components/MyComponent/index.mjx" codeFormat="esm"
-import { t } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const componentExampleContent = {
-  key: "component-example",
-  content: {
-    myTranslatedContent: t({
-      en: "Hello World",
-      es: "Hola Mundo",
-      fr: "Bonjour le monde",
-    }),
-  },
-};
-
-export default componentExampleContent;
-```
-
-```jsx fileName="./components/MyComponent/index.csx" codeFormat="commonjs"
-const { t } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const componentExampleContent = {
-  key: "component-example",
-  content: {
-    myTranslatedContent: t({
-      en: "Hello World",
-      es: "Hola Mundo",
-      fr: "Bonjour le monde",
-    }),
-  },
-};
-
-module.exports = componentExampleContent;
-```
-
-```tsx fileName="./components/MyComponent/index.tsx" codeFormat="typescript"
+```tsx fileName="./components/MyComponent/index.tsx" codeFormat={["typescript", "esm"]}
 import { useIntlayer } from "react-intlayer";
 
 export const ComponentExample = () => {
-  const { myTranslatedContent } = useIntlayer("component-example");
-
-  return <span>{myTranslatedContent}</span>;
-};
-```
-
-```jsx fileName="./components/MyComponent/index.mjx" codeFormat="esm"
-import { useIntlayer } from "react-intlayer";
-
-const ComponentExample = () => {
-  const { myTranslatedContent } = useIntlayer("component-example");
-
-  return <span>{myTranslatedContent}</span>;
-};
-```
-
-```jsx fileName="./components/MyComponent/index.csx" codeFormat="commonjs"
-const { useIntlayer } = require("react-intlayer");
-
-const ComponentExample = () => {
   const { myTranslatedContent } = useIntlayer("component-example");
 
   return <span>{myTranslatedContent}</span>;

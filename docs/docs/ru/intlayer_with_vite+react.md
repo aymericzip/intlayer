@@ -109,7 +109,7 @@ bun x intlayer init
 
 Создайте файл конфигурации для настройки языков вашего приложения:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -127,79 +127,19 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      // Ваши другие локали
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      // Ваши другие локали
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-module.exports = config;
-```
-
 > Через этот файл конфигурации вы можете настроить локализованные URL-адреса, перенаправление в middleware, имена cookie, расположение и расширение ваших деклараций контента, отключить логи Intlayer в консоли и многое другое. Для полного списка доступных параметров обратитесь к [документации по конфигурации](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/configuration.md).
 
 ### Шаг 3: Интеграция Intlayer в вашу конфигурацию Vite
 
 Добавьте плагин intlayer в вашу конфигурацию.
 
-```typescript fileName="vite.config.ts" codeFormat="typescript"
+```typescript fileName="vite.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import { intlayer } from "vite-intlayer";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), intlayer()],
-});
-```
-
-```javascript fileName="vite.config.mjs" codeFormat="esm"
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react-swc";
-import { intlayer } from "vite-intlayer";
-
-// https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [react(), intlayer()],
-});
-```
-
-```javascript fileName="vite.config.cjs" codeFormat="commonjs"
-const { defineConfig } = require("vite");
-const react = require("@vitejs/plugin-react-swc");
-const { intlayer } = require("vite-intlayer");
-
-// https://vitejs.dev/config/
-module.exports = defineConfig({
   plugins: [react(), intlayer()],
 });
 ```
@@ -210,7 +150,7 @@ module.exports = defineConfig({
 
 Создайте и управляйте декларациями контента для хранения переводов:
 
-```tsx fileName="src/app.content.tsx" contentDeclarationFormat="typescript"
+```tsx fileName="src/app.content.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, type Dictionary } from "intlayer";
 import type { ReactNode } from "react";
 
@@ -263,135 +203,6 @@ const appContent = {
 } соответствует Dictionary;
 
 export default appContent;
-```
-
-```javascript fileName="src/app.content.mjs" contentDeclarationFormat="esm"
-import { t } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const appContent = {
-  key: "app",
-  content: {
-    viteLogo: t({
-      ru: "Логотип Vite",
-      en: "Vite logo",
-      fr: "Logo Vite",
-      es: "Logo Vite",
-    }),
-    reactLogo: t({
-      ru: "Логотип React",
-      en: "React logo",
-      fr: "Logo React",
-      es: "Logo React",
-    }),
-
-    title: "Vite + React",
-
-    count: t({
-      ru: "счет: ",
-      en: "count is ",
-      fr: "le compte est ",
-      es: "el recuento es ",
-    }),
-
-    edit:
-      t <
-      ReactNode >
-      {
-        // Не забудьте импортировать React, если используете React-узел в вашем контенте
-        ru: (
-          <>
-            Редактируйте <code>src/App.tsx</code> и сохраните, чтобы проверить
-            HMR
-          </>
-        ),
-        en: (
-          <>
-            Edit <code>src/App.tsx</code> and save to test HMR
-          </>
-        ),
-        fr: (
-          <>
-            Éditez <code>src/App.tsx</code> et enregistrez pour tester HMR
-          </>
-        ),
-        es: (
-          <>
-            Edita <code>src/App.tsx</code> y guarda para probar HMR
-          </>
-        ),
-      },
-
-    readTheDocs: t({
-      ru: "Нажмите на логотипы Vite и React, чтобы узнать больше",
-      en: "Click on the Vite and React logos to learn more",
-      fr: "Cliquez sur les logos Vite et React pour en savoir plus",
-      es: "Haga clic en los logotipos de Vite y React para obtener más información",
-    }),
-  },
-};
-
-export default appContent;
-```
-
-```javascript fileName="src/app.content.cjs" contentDeclarationFormat="commonjs"
-const { t } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const appContent = {
-  key: "app",
-  content: {
-    viteLogo: t({
-      en: "Vite logo",
-      fr: "Logo Vite",
-      es: "Logo Vite",
-    }),
-    reactLogo: t({
-      en: "React logo",
-      fr: "Logo React",
-      es: "Logo React",
-    }),
-
-    title: "Vite + React",
-
-    count: t({
-      en: "count is ",
-      fr: "le compte est ",
-      es: "el recuento es ",
-    }),
-
-    edit:
-      t <
-      ReactNode >
-      {
-        // Не забудьте импортировать React, если вы используете React node в вашем контенте
-        en: (
-          <>
-            Edit <code>src/App.tsx</code> and save to test HMR
-          </>
-        ),
-        fr: (
-          <>
-            Éditez <code>src/App.tsx</code> et enregistrez pour tester HMR
-          </>
-        ),
-        es: (
-          <>
-            Edita <code>src/App.tsx</code> y guarda para probar HMR
-          </>
-        ),
-      },
-
-    readTheDocs: t({
-      en: "Click on the Vite and React logos to learn more",
-      fr: "Cliquez sur les logos Vite et React pour en savoir plus",
-      es: "Haga clic en los logotipos de Vite y React para obtener más información",
-      ru: "Нажмите на логотипы Vite и React, чтобы узнать больше",
-    }),
-  },
-};
-
-module.exports = appContent;
 ```
 
 ```json fileName="src/app.content.json" contentDeclarationFormat="json"
@@ -464,7 +275,7 @@ module.exports = appContent;
 
 Получайте доступ к вашим словарям контента по всему приложению:
 
-```tsx {5,9} fileName="src/App.tsx" codeFormat="typescript"
+```tsx {5,9} fileName="src/App.tsx" codeFormat={["typescript", "esm"]}
 import { useState, type FC } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
@@ -511,101 +322,6 @@ const App: FC = () => (
 export default App;
 ```
 
-```tsx {5,9} fileName="src/App.msx" codeFormat="esm"
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import "./App.css";
-import { IntlayerProvider, useIntlayer } from "react-intlayer";
-
-const AppContent = () => {
-  const [count, setCount] = useState(0);
-  const content = useIntlayer("app");
-
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt={content.viteLogo.value} />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img
-            src={reactLogo}
-            className="logo react"
-            alt={content.reactLogo.value}
-          />
-        </a>
-      </div>
-      <h1>{content.title}</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          {content.count}
-          {count}
-        </button>
-        <p>{content.edit}</p>
-      </div>
-      <p className="read-the-docs">{content.readTheDocs}</p>
-    </>
-  );
-};
-
-const App = () => (
-  <IntlayerProvider>
-    <AppContent />
-  </IntlayerProvider>
-);
-
-export default App;
-```
-
-```tsx {5,9} fileName="src/App.csx" codeFormat="commonjs"
-const { useState } = require("react");
-const reactLogo = require("./assets/react.svg");
-const viteLogo = require("/vite.svg");
-require("./App.css");
-const { IntlayerProvider, useIntlayer } = require("react-intlayer");
-
-const AppContent = () => {
-  const [count, setCount] = useState(0);
-  const content = useIntlayer("app");
-
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt={content.viteLogo.value} />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img
-            src={reactLogo}
-            className="logo react"
-            alt={content.reactLogo.value} // альтернативный текст для логотипа React
-            alt={content.reactLogo.value}
-          />
-        </a>
-      </div>
-      <h1>{content.title}</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          {content.count}
-          {count}
-        </button>
-        <p>{content.edit}</p>
-      </div>
-      <p className="read-the-docs">{content.readTheDocs}</p>
-    </>
-  );
-};
-
-const App = () => (
-  <IntlayerProvider>
-    <AppContent />
-  </IntlayerProvider>
-);
-
-module.exports = App;
-```
-
 > Если вы хотите использовать ваш контент в атрибуте типа `string`, таком как `alt`, `title`, `href`, `aria-label` и т.д., вы должны вызвать значение функции, например:
 
 > ```jsx
@@ -620,7 +336,7 @@ module.exports = App;
 
 Чтобы изменить язык вашего контента, вы можете использовать функцию `setLocale`, предоставляемую хуком `useLocale`. Эта функция позволяет установить локаль приложения и обновить контент соответственно.
 
-```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
+```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { Locales } from "intlayer";
 import { useLocale } from "react-intlayer";
@@ -631,36 +347,6 @@ const LocaleSwitcher: FC = () => {
   return (
     <button onClick={() => setLocale(Locales.English)}>
       Change Language to English
-    </button>
-  );
-};
-```
-
-```jsx fileName="src/components/LocaleSwitcher.msx" codeFormat="esm"
-import { Locales } from "intlayer";
-import { useLocale } from "react-intlayer";
-
-const LocaleSwitcher = () => {
-  const { setLocale } = useLocale();
-
-  return (
-    <button onClick={() => setLocale(Locales.English)}>
-      Изменить язык на английский
-    </button>
-  );
-};
-```
-
-```jsx fileName="src/components/LocaleSwitcher.csx" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-const { useLocale } = require("react-intlayer");
-
-const LocaleSwitcher = () => {
-  const { setLocale } = useLocale();
-
-  return (
-    <button onClick={() => setLocale(Locales.English)}>
-      Изменить язык на английский
     </button>
   );
 };
@@ -683,7 +369,7 @@ const LocaleSwitcher = () => {
 
 Чтобы добавить локализованную маршрутизацию в ваше приложение, вы можете создать компонент `LocaleRouter`, который оборачивает маршруты вашего приложения и обрабатывает маршрутизацию на основе локали. Вот пример с использованием [React Router](https://reactrouter.com/home):
 
-```tsx fileName="src/components/LocaleRouter.tsx"  codeFormat="typescript"
+```tsx fileName="src/components/LocaleRouter.tsx" codeFormat={["typescript", "esm"]}
 import { localeMap } from "intlayer"; // Утилиты и типы из 'intlayer'
 import type { FC, PropsWithChildren } from "react"; // Типы React для функциональных компонентов и пропсов
 import { IntlayerProvider } from "react-intlayer"; // Провайдер для контекста интернационализации
@@ -711,69 +397,11 @@ export const LocaleRouter: FC<PropsWithChildren> = ({ children }) => (
 );
 ```
 
-```jsx fileName="src/components/LocaleRouter.mjx" codeFormat="esm"
-import { localeMap } from 'intlayer'; // Утилиты и типы из 'intlayer'
-import type { FC, PropsWithChildren } from 'react'; // Типы React для функциональных компонентов и пропсов
-import { IntlayerProvider } from "react-intlayer"; // Провайдер для контекста интернационализации
-import { BrowserRouter, Route, Routes } from 'react-router-dom'; // Компоненты роутера для управления навигацией
-
-/**
- * Компонент маршрутизатора, который настраивает маршруты для конкретных локалей.
- * Использует React Router для управления навигацией и рендеринга локализованных компонентов.
- */
-export const LocaleRouter: FC<PropsWithChildren> = ({ children }) => (
-  <BrowserRouter>
-    <Routes>
-      {localeMap(({ locale, urlPrefix }) => (
-        <Route
-          // Шаблон маршрута для захвата локали (например, /en/, /fr/) и сопоставления всех последующих путей
-          path={`${urlPrefix}/*`}
-          key={locale}
-          element={
-            <IntlayerProvider locale={locale}>{children}</IntlayerProvider>
-          } // Оборачивает дочерние элементы с управлением локалью
-        />
-      ))}
-    </Routes>
-  </BrowserRouter>
-);
-```
-
-```jsx fileName="src/components/LocaleRouter.cjx" codeFormat="commonjs"
-const { localeMap } = require("intlayer"); // Утилиты и типы из 'intlayer'
-const React = require("react"); // Импорт React
-const { IntlayerProvider } = require("react-intlayer"); // Провайдер для контекста интернационализации
-const { BrowserRouter, Route, Routes } = require("react-router-dom"); // Компоненты роутера для управления навигацией
-
-/**
- * Компонент роутера, который настраивает маршруты для конкретных локалей.
- * Использует React Router для управления навигацией и отображения локализованных компонентов.
- */
-const LocaleRouter = ({ children }) =>
-  React.createElement(
-    BrowserRouter,
-    {},
-    React.createElement(
-      Routes,
-      {},
-      localeMap(({ locale, urlPrefix }) =>
-        React.createElement(Route, {
-          path: `${urlPrefix}/*`,
-          key: locale,
-          element: React.createElement(IntlayerProvider, { locale }, children),
-        })
-      )
-    )
-  );
-
-exports.LocaleRouter = LocaleRouter;
-```
-
 > Примечание: если вы используете `routing.mode: 'no-prefix' | 'search-params'`, скорее всего, вам не нужно использовать функцию `localeMap`.
 
 Затем вы можете использовать компонент `LocaleRouter` в вашем приложении:
 
-```tsx fileName="src/App.tsx" codeFormat="typescript"
+```tsx fileName="src/App.tsx" codeFormat={["typescript", "esm"]}
 import { LocaleRouter } from "./components/LocaleRouter";
 import type { FC } from "react";
 
@@ -786,71 +414,17 @@ const App: FC = () => (
 );
 ```
 
-```jsx fileName="src/App.mjx" codeFormat="esm"
-import { LocaleRouter } from "./components/LocaleRouter";
-
-// ... Ваш компонент AppContent
-
-const App = () => (
-  <LocaleRouter>
-    <AppContent />
-  </LocaleRouter>
-);
-```
-
-```jsx fileName="src/App.cjx" codeFormat="commonjs"
-const { LocaleRouter } = require("./components/LocaleRouter");
-
-// ... Ваш компонент AppContent
-
-const App = () => (
-  <LocaleRouter>
-    <AppContent />
-  </LocaleRouter>
-);
-```
-
 Параллельно вы также можете использовать `intlayerProxy` для добавления маршрутизации на стороне сервера в ваше приложение. Этот плагин автоматически определит текущую локаль на основе URL и установит соответствующее cookie с локалью. Если локаль не указана, плагин определит наиболее подходящую локаль на основе языковых предпочтений браузера пользователя. Если локаль не будет обнаружена, произойдет перенаправление на локаль по умолчанию.
 
 Обратите внимание, что для использования `intlayerProxy` в продакшене необходимо переместить пакет `vite-intlayer` из `devDependencies` в `dependencies`.
 
-```typescript {3,7} fileName="vite.config.ts" codeFormat="typescript"
+```typescript {3,7} fileName="vite.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import { intlayer, intlayerProxy } from "vite-intlayer";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [
-    intlayerProxy(), // should be placed first
-    react(),
-    intlayer(),
-  ],
-});
-```
-
-```javascript {3,7} fileName="vite.config.mjs" codeFormat="esm"
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react-swc";
-import { intlayer, intlayerProxy } from "vite-intlayer";
-
-// https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [
-    intlayerProxy(), // should be placed first
-    react(),
-    intlayer(),
-  ],
-});
-```
-
-```javascript {3,7} fileName="vite.config.cjs" codeFormat="commonjs"
-const { defineConfig } = require("vite");
-const react = require("@vitejs/plugin-react-swc");
-const { intlayer, intlayerProxy } = require("vite-intlayer");
-
-// https://vitejs.dev/config/
-module.exports = defineConfig({
   plugins: [
     intlayerProxy(), // should be placed first
     react(),
@@ -863,7 +437,7 @@ module.exports = defineConfig({
 
 Чтобы изменить URL при смене локали, вы можете использовать проп `onLocaleChange`, предоставляемый хуком `useLocale`. Параллельно можно использовать хуки `useLocation` и `useNavigate` из `react-router-dom` для обновления пути URL.
 
-```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
+```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat={["typescript", "esm"]}
 import { useLocation, useNavigate } from "react-router-dom";
 import {
   Locales,
@@ -928,134 +502,6 @@ const LocaleSwitcher: FC = () => {
 };
 ```
 
-```jsx fileName="src/components/LocaleSwitcher.msx" codeFormat="esm"
-import { useLocation, useNavigate } from "react-router-dom";
-import {
-  Locales,
-  getHTMLTextDir,
-  getLocaleName,
-  getLocalizedUrl,
-} from "intlayer";
-import { useLocale } from "react-intlayer";
-
-const LocaleSwitcher = () => {
-  const { pathname, search } = useLocation(); // Получить текущий путь URL. Пример: /fr/about?foo=bar
-  const navigate = useNavigate();
-
-  const { locale, availableLocales, setLocale } = useLocale({
-    onLocaleChange: (locale) => {
-      // Сформировать URL с обновленной локалью
-      // Пример: /es/about?foo=bar
-      const pathWithLocale = getLocalizedUrl(`${pathname}${search}`, locale);
-
-      // Обновить путь URL
-      navigate(pathWithLocale);
-    },
-  });
-
-  return (
-    <div>
-      <button popoverTarget="localePopover">{getLocaleName(locale)}</button>
-      <div id="localePopover" popover="auto">
-        {availableLocales.map((localeItem) => (
-          <a
-            href={getLocalizedUrl(location.pathname, localeItem)}
-            hrefLang={localeItem}
-            aria-current={locale === localeItem ? "page" : undefined}
-            onClick={(e) => {
-              e.preventDefault();
-              setLocale(localeItem);
-            }}
-            key={localeItem}
-          >
-            <span>
-              {/* Локаль - например, FR */}
-              {localeItem}
-            </span>
-            <span>
-              {/* Язык на его собственной локали - например, Français */}
-              {getLocaleName(localeItem, locale)}
-            </span>
-            <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
-              {/* Язык на текущем локале - например, Francés при установленном локале Locales.SPANISH */}
-              {getLocaleName(localeItem)}
-            </span>
-            <span dir="ltr" lang={Locales.ENGLISH}>
-              {/* Язык на английском - например, French */}
-              {getLocaleName(localeItem, Locales.ENGLISH)}
-            </span>
-          </a>
-        ))}
-      </div>
-    </div>
-  );
-};
-```
-
-```jsx fileName="src/components/LocaleSwitcher.csx" codeFormat="commonjs"
-const { useLocation, useNavigate } = require("react-router-dom");
-const {
-  Locales,
-  getHTMLTextDir,
-  getLocaleName,
-  getLocalizedUrl,
-} = require("intlayer");
-const { useLocale } = require("react-intlayer");
-
-const LocaleSwitcher = () => {
-  const { pathname, search } = useLocation(); // Получить текущий путь URL. Пример: /fr/about?foo=bar
-  const navigate = useNavigate();
-
-  const { locale, availableLocales, setLocale } = useLocale({
-    onLocaleChange: (locale) => {
-      // Сформировать URL с обновленной локалью
-      // Пример: /es/about?foo=bar
-      const pathWithLocale = getLocalizedUrl(`${pathname}${search}`, locale);
-
-      // Обновить путь URL
-      navigate(pathWithLocale);
-    },
-  });
-
-  return (
-    <div>
-      <button popoverTarget="localePopover">{getLocaleName(locale)}</button>
-      <div id="localePopover" popover="auto">
-        {availableLocales.map((localeItem) => (
-          <a
-            href={getLocalizedUrl(location.pathname, localeItem)}
-            hrefLang={localeItem}
-            aria-current={locale === localeItem ? "page" : undefined}
-            onClick={(e) => {
-              e.preventDefault();
-              setLocale(localeItem);
-            }}
-            key={localeItem}
-          >
-            <span>
-              {/* Локаль - например, FR */}
-              {localeItem}
-            </span>
-            <span>
-              {/* Язык на его собственной локали - например, Français */}
-              {getLocaleName(localeItem, locale)}
-            </span>
-            <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
-              {/* Язык на текущей локали - например, Francés при установленной локали Locales.SPANISH */}
-              {getLocaleName(localeItem)}
-            </span>
-            <span dir="ltr" lang={Locales.ENGLISH}>
-              {/* Язык на английском - например, French */}
-              {getLocaleName(localeItem, Locales.ENGLISH)}
-            </span>
-          </a>
-        ))}
-      </div>
-    </div>
-  );
-};
-```
-
 > Ссылки на документацию:
 >
 > - [`useLocale` хук](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/react-intlayer/useLocale.md)
@@ -1085,7 +531,7 @@ const LocaleSwitcher = () => {
 
 Создайте пользовательский хук для управления атрибутами HTML. Хук отслеживает изменения локали и обновляет атрибуты соответствующим образом:
 
-```tsx fileName="src/hooks/useI18nHTMLAttributes.tsx" codeFormat="typescript"
+```tsx fileName="src/hooks/useI18nHTMLAttributes.tsx" codeFormat={["typescript", "esm"]}
 import { useEffect } from "react";
 import { useLocale } from "react-intlayer";
 import { getHTMLTextDir } from "intlayer";
@@ -1110,63 +556,11 @@ export const useI18nHTMLAttributes = () => {
 };
 ```
 
-```jsx fileName="src/hooks/useI18nHTMLAttributes.msx" codeFormat="esm"
-import { useEffect } from "react";
-import { useLocale } from "react-intlayer";
-import { getHTMLTextDir } from "intlayer";
-
-/**
- * Обновляет атрибуты `lang` и `dir` элемента HTML <html> в зависимости от текущей локали.
- * - `lang`: Информирует браузеры и поисковые системы о языке страницы.
- * - `dir`: Обеспечивает правильный порядок чтения (например, 'ltr' для английского, 'rtl' для арабского).
- *
- * Это динамическое обновление необходимо для правильного отображения текста, доступности и SEO.
- */
-export const useI18nHTMLAttributes = () => {
-  const { locale } = useLocale();
-
-  useEffect(() => {
-    // Обновить атрибут языка на текущую локаль.
-    document.documentElement.lang = locale;
-
-    // Установить направление текста в зависимости от текущей локали.
-    document.documentElement.dir = getHTMLTextDir(locale);
-  }, [locale]);
-};
-```
-
-```jsx fileName="src/hooks/useI18nHTMLAttributes.csx" codeFormat="commonjs"
-const { useEffect } = require("react");
-const { useLocale } = require("react-intlayer");
-const { getHTMLTextDir } = require("intlayer");
-
-/**
- * Обновляет атрибуты `lang` и `dir` элемента HTML <html> в зависимости от текущей локали.
- * - `lang`: Информирует браузеры и поисковые системы о языке страницы.
- * - `dir`: Обеспечивает правильный порядок чтения (например, 'ltr' для английского, 'rtl' для арабского).
- *
- * Это динамическое обновление необходимо для корректного отображения текста, доступности и SEO.
- */
-const useI18nHTMLAttributes = () => {
-  const { locale } = useLocale();
-
-  useEffect(() => {
-    // Обновляем атрибут языка на текущую локаль.
-    document.documentElement.lang = locale;
-
-    // Устанавливаем направление текста в зависимости от текущей локали.
-    document.documentElement.dir = getHTMLTextDir(locale);
-  }, [locale]);
-};
-
-module.exports = { useI18nHTMLAttributes };
-```
-
 #### Использование хука в вашем приложении
 
 Интегрируйте хук в ваш главный компонент, чтобы атрибуты HTML обновлялись при каждом изменении локали:
 
-```tsx fileName="src/App.tsx" codeFormat="typescript"
+```tsx fileName="src/App.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { IntlayerProvider, useIntlayer } from "react-intlayer";
 import { useI18nHTMLAttributes } from "./hooks/useI18nHTMLAttributes";
@@ -1188,49 +582,6 @@ const App: FC = () => (
 export default App;
 ```
 
-```jsx fileName="src/App.msx" codeFormat="esm"
-import { IntlayerProvider, useIntlayer } from "react-intlayer";
-import { useI18nHTMLAttributes } from "./hooks/useI18nHTMLAttributes";
-import "./App.css";
-
-const AppContent = () => {
-  // Применяем хук для обновления атрибутов lang и dir тега <html> в зависимости от локали.
-  useI18nHTMLAttributes();
-
-  // ... Остальная часть вашего компонента
-};
-
-const App = () => (
-  <IntlayerProvider>
-    <AppContent />
-  </IntlayerProvider>
-);
-
-export default App;
-```
-
-```jsx fileName="src/App.csx" codeFormat="commonjs"
-const { FC } = require("react");
-const { IntlayerProvider, useIntlayer } = require("react-intlayer");
-const { useI18nHTMLAttributes } = require("./hooks/useI18nHTMLAttributes");
-require("./App.css");
-
-const AppContent = () => {
-  // Применяем хук для обновления атрибутов lang и dir тега <html> в зависимости от локали.
-  useI18nHTMLAttributes();
-
-  // ... Остальная часть вашего компонента
-};
-
-const App = () => (
-  <IntlayerProvider>
-    <AppContent />
-  </IntlayerProvider>
-);
-
-module.exports = App;
-```
-
 Применяя эти изменения, ваше приложение будет:
 
 - Обеспечивать корректное отражение текущей локали в атрибуте **language** (`lang`), что важно для SEO и поведения браузера.
@@ -1249,7 +600,7 @@ module.exports = App;
 
 Ниже приведена реализация локализованного компонента `Link` на TypeScript:
 
-```tsx fileName="src/components/Link.tsx" codeFormat="typescript"
+```tsx fileName="src/components/Link.tsx" codeFormat={["typescript", "esm"]}
 import { getLocalizedUrl } from "intlayer";
 import {
   forwardRef,
@@ -1291,79 +642,6 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
     );
   }
 );
-
-Link.displayName = "Link";
-```
-
-```jsx fileName="src/components/Link.mjx" codeFormat="esm"
-import { getLocalizedUrl } from "intlayer";
-import { useLocale } from "react-intlayer";
-import { forwardRef } from "react";
-
-/**
- * Утилита для проверки, является ли данный URL внешним.
- * Если URL начинается с http:// или https://, он считается внешним.
- */
-export const checkIsExternalLink = (href?: string): boolean =>
-  /^https?:\/\//.test(href ?? "");
-
-/**
- * Кастомный компонент Link, который адаптирует атрибут href в зависимости от текущей локали.
- * Для внутренних ссылок используется `getLocalizedUrl`, чтобы добавить префикс локали к URL (например, /fr/about).
- * Это гарантирует, что навигация остается в контексте одной локали.
- */
-export const Link = forwardRef(({ href, children, ...props }, ref) => {
-  const { locale } = useLocale();
-  const isExternalLink = checkIsExternalLink(href);
-
-  // Если ссылка внутренняя и предоставлен действительный href, получить локализованный URL.
-  const hrefI18n =
-    href && !isExternalLink ? getLocalizedUrl(href, locale) : href;
-
-  return (
-    <a href={hrefI18n} ref={ref} {...props}>
-      {children}
-    </a>
-  );
-});
-
-Link.displayName = "Link";
-```
-
-```jsx fileName="src/components/Link.csx" codeFormat="commonjs"
-const { getLocalizedUrl } = require("intlayer");
-const { useLocale } = require("react-intlayer");
-const { forwardRef } = require("react");
-
-/**
- * Вспомогательная функция для проверки, является ли данный URL внешним.
- * Если URL начинается с http:// или https://, он считается внешним.
- */
-const checkIsExternalLink = (href) => /^https?:\/\//.test(href ?? "");
-
-/**
- * Пользовательский компонент Link, который адаптирует атрибут href в зависимости от текущей локали.
- * Для внутренних ссылок используется `getLocalizedUrl`, чтобы добавить префикс локали к URL (например, /fr/about).
- * Это гарантирует, что навигация останется в контексте той же локали.
- */
-const Link = forwardRef(({ href, children, ...props }, ref) => {
-  const { locale } = useLocale();
-  const isExternalLink = checkIsExternalLink(href);
-
-  // Если ссылка внутренняя и задан корректный href, получить локализованный URL.
-  const localizedHref = isExternalLink ? href : getLocalizedUrl(href, locale);
-
-  return (
-    <a
-      href={localizedHref}
-      ref={ref}
-      {...props}
-      aria-current={isExternalLink ? "external" : undefined}
-    >
-      {children}
-    </a>
-  );
-});
 
 Link.displayName = "Link";
 ```
@@ -1439,7 +717,7 @@ Intlayer использует расширение модулей (module augmen
 
 Чтобы настроить его, вы можете добавить раздел `compiler` в ваш файл `intlayer.config.ts`:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -1468,66 +746,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... Остальная часть вашей конфигурации
-  compiler: {
-    /**
-     * Указывает, должен ли быть включен компилятор.
-     */
-    enabled: true,
-
-    /**
-     * Определяет путь к выходным файлам
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * Указывает, должны ли компоненты сохраняться после преобразования. Таким образом, компилятор можно запустить только один раз для преобразования приложения, а затем удалить.
-     */
-    saveComponents: false,
-
-    /**
-     * Префикс ключа словаря
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... Остальная часть вашей конфигурации
-  compiler: {
-    /**
-     * Указывает, должен ли быть включен компилятор.
-     */
-    enabled: true,
-
-    /**
-     * Определяет путь к выходным файлам
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * Указывает, должны ли компоненты сохраняться после преобразования. Таким образом, компилятор можно запустить только один раз для преобразования приложения, а затем удалить.
-     */
-    saveComponents: false,
-
-    /**
-     * Префикс ключа словаря
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-module.exports = config;
 ```
 
 <Tabs>

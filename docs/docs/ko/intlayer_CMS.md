@@ -93,7 +93,7 @@ bun x intlayer login
 
 Intlayer 구성 파일에서 CMS 설정을 사용자 정의할 수 있습니다:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import type { IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -142,106 +142,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... 기타 구성 설정
-  editor: {
-    /**
-     * 필수
-     *
-     * 애플리케이션의 URL입니다.
-     * 이 URL은 시각적 편집기가 대상으로 하는 URL입니다.
-     */
-    applicationURL: process.env.INTLAYER_APPLICATION_URL,
-
-    /**
-     * 필수
-     *
-     * 편집기를 활성화하려면 클라이언트 ID와 클라이언트 시크릿이 필요합니다.
-     * 이를 통해 콘텐츠를 편집하는 사용자를 식별할 수 있습니다.
-     * Intlayer 대시보드 - 프로젝트(https://app.intlayer.org/projects)에서 새 클라이언트를 생성하여 얻을 수 있습니다.
-     * clientId: process.env.INTLAYER_CLIENT_ID,
-     * clientSecret: process.env.INTLAYER_CLIENT_SECRET,
-     */
-    clientId: process.env.INTLAYER_CLIENT_ID,
-    clientSecret: process.env.INTLAYER_CLIENT_SECRET,
-
-    /**
-     * 선택 사항
-     *
-     * Intlayer CMS를 자체 호스팅하는 경우 CMS의 URL을 설정할 수 있습니다.
-     *
-     * Intlayer CMS의 URL입니다.
-     * 기본값은 https://intlayer.org 로 설정되어 있습니다.
-     */
-    cmsURL: process.env.INTLAYER_CMS_URL,
-
-    /**
-     * 선택 사항
-     *
-     * Intlayer CMS를 자체 호스팅하는 경우 백엔드의 URL을 설정할 수 있습니다.
-     *
-     * Intlayer CMS의 URL입니다.
-     * 기본값은 https://back.intlayer.org 로 설정되어 있습니다.
-     */
-    backendURL: process.env.INTLAYER_BACKEND_URL,
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... 기타 구성 설정
-  editor: {
-    /**
-     * 필수
-     *
-     * 애플리케이션의 URL입니다.
-     * 시각적 편집기가 대상으로 하는 URL입니다.
-     */
-    applicationURL: process.env.INTLAYER_APPLICATION_URL,
-
-    /**
-     * 필수
-     *
-     * 에디터를 활성화하려면 클라이언트 ID와 클라이언트 시크릿이 필요합니다.
-     * 이를 통해 콘텐츠를 편집하는 사용자를 식별할 수 있습니다.
-     * Intlayer 대시보드 - 프로젝트(https://app.intlayer.org/projects)에서 새 클라이언트를 생성하여 얻을 수 있습니다.
-     * clientId: process.env.INTLAYER_CLIENT_ID,
-     * clientSecret: process.env.INTLAYER_CLIENT_SECRET,
-     */
-    clientId: process.env.INTLAYER_CLIENT_ID,
-    clientSecret: process.env.INTLAYER_CLIENT_SECRET,
-
-    /**
-     * 선택 사항
-     *
-     * Intlayer CMS를 자체 호스팅하는 경우 CMS의 URL을 설정할 수 있습니다.
-     *
-     * Intlayer CMS의 URL입니다.
-     * 기본값은 https://intlayer.org 로 설정되어 있습니다.
-     */
-    cmsURL: process.env.INTLAYER_CMS_URL,
-
-    /**
-     * 선택 사항
-     *
-     * Intlayer CMS를 자체 호스팅하는 경우 백엔드 URL을 설정할 수 있습니다.
-     *
-     * Intlayer CMS의 URL입니다.
-     * 기본값은 https://back.intlayer.org 로 설정되어 있습니다.
-     */
-    backendURL: process.env.INTLAYER_BACKEND_URL,
-  },
-};
-
-module.exports = config;
 ```
 
 > 클라이언트 ID와 클라이언트 시크릿이 없는 경우, [Intlayer 대시보드 - 프로젝트](https://app.intlayer.org/projects)에서 새 클라이언트를 생성하여 얻을 수 있습니다.
@@ -294,7 +194,7 @@ npx intlayer dictionary push -d my-first-dictionary-key --env production
 
 Intlayer 구성을 업데이트하여 Live Sync를 활성화하세요:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import type { IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -329,92 +229,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... 기타 구성 설정
-  editor: {
-    /**
-     * 변경 사항이 감지되면 로케일 구성을 핫 리로딩할 수 있도록 활성화합니다.
-     * 예를 들어, 사전이 추가되거나 업데이트되면 애플리케이션이 페이지에 표시되는
-     * 콘텐츠를 업데이트합니다.
-     *
-     * 핫 리로딩은 서버와의 지속적인 연결이 필요하므로,
-     * `enterprise` 플랜 클라이언트에서만 사용할 수 있습니다.
-     *
-     * 기본값: false
-     */
-    liveSync: true,
-  },
-  dictionary: {
-    /**
-     * 사전이 어떻게 가져와지는지 제어합니다:
-     *
-     * - "live": 사전이 Live Sync API를 사용하여 동적으로 가져와집니다.
-     *   useIntlayer를 useDictionaryDynamic으로 대체합니다.
-     *
-     * 참고: 라이브 모드는 Live Sync API를 사용하여 사전을 가져옵니다. API 호출이
-     * 실패하면 사전은 동적으로 가져와집니다.
-     * 참고: 원격 콘텐츠가 있고 "live" 플래그가 설정된 사전만 라이브 모드를 사용합니다.
-     * 나머지는 성능을 위해 동적 모드를 사용합니다.
-     */
-    importMode: "fetch",
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... 기타 구성 설정
-  editor: {
-    /**
-     * 변경 사항이 감지되면 로케일 구성을 핫 리로딩할 수 있습니다.
-     * 예를 들어, 사전이 추가되거나 업데이트되면 애플리케이션이
-     * 페이지에 표시되는 내용을 업데이트합니다.
-     *
-     * 핫 리로딩은 서버와의 지속적인 연결이 필요하기 때문에,
-     * `enterprise` 플랜 클라이언트에서만 사용할 수 있습니다.
-     *
-     * 기본값: false
-     */
-    liveSync: true,
-
-    /**
-     * Live Sync 서버의 포트입니다.
-     *
-     * 기본값: 4000
-     */
-    liveSyncPort: 4000,
-
-    /**
-     * Live Sync 서버의 URL입니다.
-     *
-     * 기본값: http://localhost:{liveSyncPort}
-     */
-    liveSyncURL: "https://live.example.com",
-  },
-  dictionary: {
-    /**
-     * 사전이 어떻게 임포트되는지 제어합니다:
-     *
-     * - "live": 사전은 Live Sync API를 사용하여 동적으로 가져옵니다.
-     *   useIntlayer를 useDictionaryDynamic으로 대체합니다.
-     *
-     * 참고: 라이브 모드는 Live Sync API를 사용하여 사전을 가져옵니다. API 호출이 실패하면
-     * 사전은 동적으로 임포트됩니다.
-     * 참고: 원격 콘텐츠와 "live" 플래그가 있는 사전만 라이브 모드를 사용합니다.
-     * 다른 사전은 성능을 위해 동적 모드를 사용합니다.
-     */
-    importMode: "fetch",
-  },
-};
-
-module.exports = config;
 ```
 
 애플리케이션을 감싸기 위해 Live Sync 서버를 시작하세요:
@@ -474,7 +288,7 @@ CMS로부터 변경 알림을 받기 위해, Live Sync 서버는 백엔드와 SS
 
 개발 중에 Intlayer가 Live import 변환을 적용하도록 최적화를 활성화하세요:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import type { IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -492,44 +306,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  editor: {
-    applicationURL: "http://localhost:5173",
-    liveSyncURL: "http://localhost:4000",
-    liveSync: true,
-  },
-  dictionary: {
-    importMode: "fetch",
-  },
-  build: {
-    optimize: true,
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  editor: {
-    applicationURL: "http://localhost:5173",
-    liveSyncURL: "http://localhost:4000",
-    liveSync: true,
-  },
-  dictionary: {
-    importMode: "fetch",
-  },
-  build: {
-    optimize: true,
-  },
-};
-
-module.exports = config;
 ```
 
 이 설정은 개발 서버를 Live Sync 서버와 래핑하고, 시작 시 원격 사전을 가져오며, CMS에서 SSE를 통해 업데이트를 스트리밍합니다. 변경 사항을 보려면 페이지를 새로 고치세요.

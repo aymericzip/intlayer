@@ -107,7 +107,7 @@ bun add intlayer-editor --dev
 
 У файлі конфігурації Intlayer ви можете налаштувати параметри редактора:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import type { IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -142,77 +142,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... інші налаштування конфігурації
-  editor: {
-    /**
-     * Обов'язково
-     * URL застосунку.
-     * Це URL, на який спрямований візуальний редактор.
-     * Приклад: 'http://localhost:3000'
-     */
-    applicationURL: process.env.INTLAYER_APPLICATION_URL,
-    /**
-     * Необов'язково
-     * Значення за замовчуванням, `true`. Якщо `false`, редактор неактивний і до нього неможливо отримати доступ.
-     * Може використовуватися для відключення редактора в певних оточеннях з міркувань безпеки, наприклад у production.
-     */
-    enabled: process.env.INTLAYER_ENABLED,
-    /**
-     * Необов'язково
-     * Значення за замовчуванням, `8000`.
-     * Порт, який використовує сервер візуального редактора.
-     */
-    port: process.env.INTLAYER_PORT,
-    /**
-     * Необов'язково
-     * Значення за замовчуванням, "http://localhost:8000"
-     * URL сервера редактора, до якого звертається застосунок. Використовується для обмеження origin-ів, які можуть взаємодіяти із застосунком з міркувань безпеки. Якщо встановлено `'*'`, редактор доступний з будь-якого origin. Має бути задано, якщо змінено порт або якщо редактор розміщений на іншому домені.
-     */
-    editorURL: process.env.INTLAYER_EDITOR_URL,
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... other configuration settings
-  editor: {
-    /**
-     * Обов'язково
-     * URL застосунку.
-     * Це URL, на який спрямований візуальний редактор.
-     */
-    applicationURL: process.env.INTLAYER_APPLICATION_URL,
-    /**
-     * Необов'язковий
-     * За замовчуванням `8000`.
-     * Порт сервера редактора.
-     */
-    port: process.env.INTLAYER_PORT,
-    /**
-     * Необов'язково
-     * За замовчуванням "http://localhost:8000"
-     * URL сервера редактора.
-     */
-    editorURL: process.env.INTLAYER_EDITOR_URL,
-    /**
-     * Необов'язково
-     * За замовчуванням `true`. Якщо `false`, редактор неактивний і до нього неможливо отримати доступ.
-     * Можна використати для вимкнення редактора в певних середовищах з міркувань безпеки, наприклад у production.
-     */
-    enabled: process.env.INTLAYER_ENABLED,
-  },
-};
-
-module.exports = config;
 ```
 
 > Щоб переглянути всі доступні параметри, зверніться до [документації з конфігурації](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/configuration.md).

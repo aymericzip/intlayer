@@ -741,7 +741,7 @@ Para facilitar esse processo, o Intlayer propõe um [compilador](https://github.
 
 Para configurá-lo, você pode adicionar uma seção `compiler` no seu arquivo `intlayer.config.ts`:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -770,66 +770,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... Resto da sua configuração
-  compiler: {
-    /**
-     * Indica se o compilador deve ser ativado.
-     */
-    enabled: true,
-
-    /**
-     * Define o caminho dos arquivos de saída
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * Indica se os componentes devem ser salvos após serem transformados. Dessa forma, o compilador pode ser executado apenas uma vez para transformar o aplicativo e depois removido.
-     */
-    saveComponents: false,
-
-    /**
-     * Prefixo da chave do dicionário
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... Resto da sua configuração
-  compiler: {
-    /**
-     * Indica se o compilador deve ser ativado.
-     */
-    enabled: true,
-
-    /**
-     * Define o caminho dos arquivos de saída
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * Indica se os componentes devem ser salvos após serem transformados. Dessa forma, o compilador pode ser executado apenas uma vez para transformar o aplicativo e depois removido.
-     */
-    saveComponents: false,
-
-    /**
-     * Prefixo da chave do dicionário
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-module.exports = config;
 ```
 
 <Tabs>

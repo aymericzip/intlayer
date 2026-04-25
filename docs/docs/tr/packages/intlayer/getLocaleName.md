@@ -50,50 +50,8 @@ history:
 
 ## Kullanım Örneği
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, getLocaleName } from "intlayer";
-
-getLocaleName(Locales.ENGLISH); // Çıktı: "English"
-getLocaleName(Locales.ENGLISH, Locales.FRENCH); // Çıktı: "Anglais"
-getLocaleName(Locales.ENGLISH, Locales.ESPANOL); // Çıktı: "Inglés"
-getLocaleName(Locales.ENGLISH, Locales.ENGLISH); // Çıktı: "English"
-
-getLocaleName(Locales.FRENCH); // Çıktı: "Français"
-getLocaleName(Locales.FRENCH, Locales.FRENCH); // Çıktı: "Français"
-getLocaleName(Locales.FRENCH, Locales.ESPANOL); // Çıktı: "Francés"
-getLocaleName(Locales.FRENCH, Locales.ENGLISH); // Çıktı: "French"
-
-getLocaleName(Locales.CHINESE); // Çıktı: "中文"
-getLocaleName(Locales.CHINESE, Locales.FRENCH); // Çıktı: "Chinois"
-getLocaleName(Locales.CHINESE, Locales.ESPANOL); // Çıktı: "Chino"
-getLocaleName(Locales.CHINESE, Locales.ENGLISH); // Çıktı: "Chinese"
-
-getLocaleName("unknown-locale"); // Çıktı: "Unknown locale"
-```
-
-```javascript codeFormat="esm"
-import { Locales, getLocaleName } from "intlayer";
-
-getLocaleName(Locales.ENGLISH); // Çıktı: "English"
-getLocaleName(Locales.ENGLISH, Locales.FRENCH); // Çıktı: "Anglais"
-getLocaleName(Locales.ENGLISH, Locales.ESPANOL); // Çıktı: "Inglés"
-getLocaleName(Locales.ENGLISH, Locales.ENGLISH); // Çıktı: "English"
-
-getLocaleName(Locales.FRENCH); // Çıktı: "Français"
-getLocaleName(Locales.FRENCH, Locales.FRENCH); // Çıktı: "Français"
-getLocaleName(Locales.FRENCH, Locales.ESPANOL); // Çıktı: "Francés"
-getLocaleName(Locales.FRENCH, Locales.ENGLISH); // Çıktı: "French"
-
-getLocaleName(Locales.CHINESE); // Çıktı: "中文"
-getLocaleName(Locales.CHINESE, Locales.FRENCH); // Çıktı: "Chinois"
-getLocaleName(Locales.CHINESE, Locales.ESPANOL); // Çıktı: "Chino"
-getLocaleName(Locales.CHINESE, Locales.ENGLISH); // Çıktı: "Chinese"
-
-getLocaleName("unknown-locale"); // Çıktı: "Unknown locale"
-```
-
-```javascript codeFormat="commonjs"
-const { Locales, getLocaleName } = require("intlayer");
 
 getLocaleName(Locales.ENGLISH); // Çıktı: "English"
 getLocaleName(Locales.ENGLISH, Locales.FRENCH); // Çıktı: "Anglais"

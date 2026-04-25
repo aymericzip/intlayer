@@ -64,38 +64,8 @@ history:
 
 ### Относительные URL
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getMultilingualUrls, Locales } from "intlayer";
-
-getMultilingualUrls(
-  "/dashboard",
-  [Locales.ENGLISH, Locales.FRENCH],
-  Locales.ENGLISH,
-  false
-);
-// Вывод: {
-//   en: "/dashboard",
-//   fr: "/fr/dashboard"
-// }
-```
-
-```javascript codeFormat="esm"
-import { getMultilingualUrls, Locales } from "intlayer";
-
-getMultilingualUrls(
-  "/dashboard",
-  [Locales.ENGLISH, Locales.FRENCH],
-  Locales.ENGLISH,
-  false
-);
-// Вывод: {
-//   en: "/dashboard",
-//   fr: "/fr/dashboard"
-// }
-```
-
-```javascript codeFormat="commonjs"
-const { getMultilingualUrls, Locales } = require("intlayer");
 
 getMultilingualUrls(
   "/dashboard",
@@ -143,7 +113,7 @@ getMultilingualUrls(
 
 В многоязычном приложении настройка параметров интернационализации с помощью `locales` и `defaultLocale` имеет решающее значение для отображения правильного языка. Ниже приведён пример того, как `getMultilingualUrls` может использоваться в настройках приложения:
 
-```tsx codeFormat="typescript"
+```tsx codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 // Конфигурация поддерживаемых локалей и локали по умолчанию
@@ -155,36 +125,6 @@ export default {
 } satisfies IntlayerConfig;
 
 export default config;
-```
-
-```javascript codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-// Конфигурация для поддержки локалей и локали по умолчанию
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-```javascript codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-// Конфигурация для поддержки локалей и локали по умолчанию
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-module.exports = config;
 ```
 
 Данная конфигурация гарантирует, что приложение распознает `ENGLISH`, `FRENCH` и `SPANISH` как поддерживаемые языки и использует `ENGLISH` в качестве языка по умолчанию.

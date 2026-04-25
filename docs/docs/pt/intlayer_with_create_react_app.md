@@ -82,7 +82,7 @@ Inclui os comandos e plugins `react-scripts-intlayer` para integrar o Intlayer c
 
 Crie um arquivo de configuração para configurar os idiomas da sua aplicação:
 
-```typescript fileName="intlayer.config.ts"  codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -98,44 +98,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      // Seus outros idiomas
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      // Seus outros idiomas
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-module.exports = config;
 ```
 
 > Por meio deste arquivo de configuração, você pode configurar URLs localizadas, redirecionamento de middleware, nomes de cookies, a localização e extensão de suas declarações de conteúdo, desativar logs do Intlayer no console e muito mais. Para uma lista completa de parâmetros disponíveis, consulte a [documentação de configuração](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/configuration.md).
@@ -164,7 +126,7 @@ Crie e gerencie suas declarações de conteúdo para armazenar traduções:
 
 Crie e gerencie suas declarações de conteúdo para armazenar traduções:
 
-```tsx fileName="src/app.content.tsx" codeFormat="typescript"
+```tsx fileName="src/app.content.tsx" codeFormat={["typescript", "esm"]}
 import { t, type Dictionary } from "intlayer";
 import React, { type ReactNode } from "react";
 
@@ -202,61 +164,6 @@ const appContent = {
 export default appContent;
 ```
 
-```jsx fileName="src/app.content.mjx" codeFormat="esm"
-import { t } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const appContent = {
-  key: "app",
-  content: {
-    getStarted: t({
-      en: "Get started by editing",
-      fr: "Commencez par éditer",
-      es: "Comience por editar",
-    }),
-    reactLink: {
-      href: "https://reactjs.org",
-      content: t({
-        en: "Learn React",
-        fr: "Apprendre React",
-        es: "Aprender React",
-        pt: "Aprenda React",
-      }),
-    },
-  },
-};
-
-export default appContent;
-```
-
-```jsx fileName="src/app.content.csx" codeFormat="commonjs"
-const { t } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const appContent = {
-  key: "app",
-  content: {
-    getStarted: t({
-      en: "Get started by editing",
-      fr: "Commencez par éditer",
-      es: "Comience por editar",
-      pt: "Comece editando",
-    }),
-    reactLink: {
-      href: "https://reactjs.org",
-      content: t({
-        en: "Learn React",
-        fr: "Apprendre React",
-        es: "Aprender React",
-        pt: "Aprenda React",
-      }),
-    },
-  },
-};
-
-module.exports = appContent;
-```
-
 > Suas declarações de conteúdo podem ser definidas em qualquer lugar da sua aplicação, desde que estejam incluídas no diretório `contentDir` (por padrão, `./src`). E correspondam à extensão do arquivo de declaração de conteúdo (por padrão, `.content.{json,ts,tsx,js,jsx,mjs,cjs}`).
 
 > Para mais detalhes, consulte a [documentação de declaração de conteúdo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/content_file.md).
@@ -267,7 +174,7 @@ module.exports = appContent;
 
 Acesse seus dicionários de conteúdo em toda a sua aplicação:
 
-```tsx {4,7} fileName="src/App.tsx"  codeFormat="typescript"
+```tsx {4,7} fileName="src/App.tsx" codeFormat={["typescript", "esm"]}
 import logo from "./logo.svg";
 import "./App.css";
 import type { FC } from "react";
@@ -302,69 +209,6 @@ const App: FC = () => (
 export default App;
 ```
 
-```jsx {3,6} fileName="src/App.mjx" codeFormat="esm"
-import "./App.css";
-import logo from "./logo.svg";
-import { IntlayerProvider, useIntlayer } from "react-intlayer";
-const AppContent = () => {
-  const content = useIntlayer("app");
-
-  return (
-    <div className="App">
-      <img src={logo} className="App-logo" alt="logo" />
-
-      {content.getStarted}
-      <a
-        className="App-link"
-        href={content.reactLink.href.value}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        {content.reactLink.content}
-      </a>
-    </div>
-  );
-};
-
-const App = () => (
-  <IntlayerProvider>
-    <AppContent />
-  </IntlayerProvider>
-);
-```
-
-```jsx {3,6} fileName="src/App.csx" codeFormat="commonjs"
-require("./App.css");
-const logo = require("./logo.svg");
-const { IntlayerProvider, useIntlayer } = require("react-intlayer");
-
-const AppContent = () => {
-  const content = useIntlayer("app");
-
-  return (
-    <div className="App">
-      <img src={logo} className="App-logo" alt="logo" />
-
-      {content.getStarted}
-      <a
-        className="App-link"
-        href={content.reactLink.href.value}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        {content.reactLink.content}
-      </a>
-    </div>
-  );
-};
-
-const App = () => (
-  <IntlayerProvider>
-    <AppContent />
-  </IntlayerProvider>
-);
-```
-
 > Nota: Se você quiser usar seu conteúdo em um atributo `string`, como `alt`, `title`, `href`, `aria-label`, etc., você deve chamar o valor da função, como:
 
 > ```jsx
@@ -377,7 +221,7 @@ const App = () => (
 
 Para alterar o idioma do seu conteúdo, você pode usar a função `setLocale` fornecida pelo hook `useLocale`. Essa função permite definir o idioma da aplicação e atualizar o conteúdo de acordo.
 
-```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
+```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat={["typescript", "esm"]}
 import { Locales } from "intlayer";
 import { useLocale } from "react-intlayer";
 
@@ -387,36 +231,6 @@ const LocaleSwitcher = () => {
   return (
     <button onClick={() => setLocale(Locales.English)}>
       Change Language to English
-    </button>
-  );
-};
-```
-
-```jsx fileName="src/components/LocaleSwitcher.mjx" codeFormat="esm"
-import { Locales } from "intlayer";
-import { useLocale } from "react-intlayer";
-
-const LocaleSwitcher = () => {
-  const { setLocale } = useLocale();
-
-  return (
-    <button onClick={() => setLocale(Locales.English)}>
-      Alterar idioma para Inglês
-    </button>
-  );
-};
-```
-
-```jsx fileName="src/components/LocaleSwitcher.csx" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-const { useLocale } = require("react-intlayer");
-
-const LocaleSwitcher = () => {
-  const { setLocale } = useLocale();
-
-  return (
-    <button onClick={() => setLocale(Locales.English)}>
-      Alterar idioma para Inglês
     </button>
   );
 };
@@ -439,7 +253,7 @@ Exemplo:
 
 Para adicionar rotas localizadas à sua aplicação, você pode criar um componente `LocaleRouter` que encapsula as rotas da sua aplicação e gerencia o roteamento baseado no idioma. Aqui está um exemplo usando o [React Router](https://reactrouter.com/home):
 
-```tsx fileName="src/components/LocaleRouter.tsx"  codeFormat="typescript"
+```tsx fileName="src/components/LocaleRouter.tsx" codeFormat={["typescript", "esm"]}
 // Importação de dependências e funções necessárias
 import { type Locales, configuration, getPathWithoutLocale } from "intlayer"; // Funções utilitárias e tipos do 'intlayer'
 // Funções utilitárias e tipos do 'intlayer'
@@ -554,229 +368,9 @@ export const LocaleRouter: FC<PropsWithChildren> = ({ children }) => (
 );
 ```
 
-```jsx fileName="src/components/LocaleRouter.mjx" codeFormat="esm"
-// Importação de dependências e funções necessárias
-import { configuration, getPathWithoutLocale } from "intlayer"; // Funções utilitárias e tipos do 'intlayer'
-import { IntlayerProvider } from "react-intlayer"; // Provedor para contexto de internacionalização
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  Navigate,
-  useLocation,
-} from "react-router-dom"; // Componentes de roteamento para gerenciar navegação
-
-// Desestruturação da configuração do Intlayer
-const { internationalization, middleware } = configuration;
-const { locales, defaultLocale } = internationalization;
-
-/**
- * Um componente que gerencia a localização e encapsula os filhos com o contexto de idioma apropriado.
- * Ele gerencia a detecção e validação de idioma baseada na URL.
- */
-const AppLocalized = ({ children, locale }) => {
-  const { pathname, search } = useLocation(); // Obtém o caminho atual da URL
-
-  // Determina o idioma atual, retornando ao padrão se não for fornecido
-  const currentLocale = locale ?? defaultLocale;
-
-  // Remove o prefixo de idioma do caminho para construir um caminho base
-  const pathWithoutLocale = getPathWithoutLocale(
-    pathname // Caminho atual da URL
-  );
-
-  /**
-   * Se middleware.prefixDefault for verdadeiro, o idioma padrão deve sempre ser prefixado.
-   */
-  if (middleware.prefixDefault) {
-    // Valida o idioma
-    if (!locale || !locales.includes(locale)) {
-      // Redireciona para o idioma padrão com o caminho atualizado
-      return (
-        <Navigate
-          to={`/${defaultLocale}/${pathWithoutLocale}${search}`}
-          replace // Substitui a entrada atual do histórico pela nova
-        />
-      );
-    }
-
-    // Encapsula os filhos com o IntlayerProvider e define o idioma atual
-    return (
-      <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
-    );
-  } else {
-    /**
-     * Quando middleware.prefixDefault é falso, o idioma padrão não é prefixado.
-     * Garante que o idioma atual seja válido e não o idioma padrão.
-     */
-    if (
-      currentLocale.toString() !== defaultLocale.toString() &&
-      !locales
-        .filter(
-          (locale) => locale.toString() !== defaultLocale.toString() // Exclui o idioma padrão
-        )
-        .includes(currentLocale) // Verifica se o idioma atual está na lista de idiomas válidos
-    ) {
-      // Redireciona para o caminho sem prefixo de idioma
-      return <Navigate to={`${pathWithoutLocale}${search}`} replace />;
-    }
-
-    // Encapsula os filhos com o IntlayerProvider e define o idioma atual
-    return (
-      <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
-    );
-  }
-};
-
-/**
- * Um componente de roteador que configura rotas específicas para idiomas.
- * Ele usa o React Router para gerenciar a navegação e renderizar componentes localizados.
- */
-export const LocaleRouter = ({ children }) => (
-  <BrowserRouter>
-    <Routes>
-      {locales
-        .filter(
-          (locale) => middleware.prefixDefault || locale !== defaultLocale
-        )
-        .map((locale) => (
-          <Route
-            // Padrão de rota para capturar o idioma (por exemplo, /en/, /fr/) e corresponder a todos os caminhos subsequentes
-            path={`/${locale}/*`}
-            key={locale}
-            element={<AppLocalized locale={locale}>{children}</AppLocalized>} // Encapsula os filhos com gerenciamento de idioma
-          />
-        ))}
-
-      {
-        // Se o prefixo do idioma padrão estiver desativado, renderiza os filhos diretamente no caminho raiz
-        !middleware.prefixDefault && (
-          <Route
-            path="*"
-            element={
-              <AppLocalized locale={defaultLocale}>{children}</AppLocalized>
-            } // Encapsula os filhos com gerenciamento de idioma
-          />
-        )
-      }
-    </Routes>
-  </BrowserRouter>
-);
-```
-
-```jsx fileName="src/components/LocaleRouter.cjx" codeFormat="commonjs"
-// Importação de dependências e funções necessárias
-const { configuration, getPathWithoutLocale } = require("intlayer"); // Funções utilitárias e tipos do 'intlayer'
-const { IntlayerProvider, useLocale } = require("react-intlayer"); // Provedor para contexto de internacionalização
-const {
-  BrowserRouter,
-  Routes,
-  Route,
-  Navigate,
-  useLocation,
-} = require("react-router-dom"); // Componentes de roteamento para gerenciar navegação
-
-// Desestruturação da configuração do Intlayer
-const { internationalization, middleware } = configuration;
-const { locales, defaultLocale } = internationalization;
-
-/**
- * Um componente que gerencia a localização e encapsula os filhos com o contexto de idioma apropriado.
- * Ele gerencia a detecção e validação de idioma baseada em URL.
- */
-const AppLocalized = ({ children, locale }) => {
-  const { pathname, search } = useLocation(); // Obtém o caminho atual da URL
-
-  // Determina o idioma atual, retornando ao padrão se não for fornecido
-  const currentLocale = locale ?? defaultLocale;
-
-  // Remove o prefixo de idioma do caminho para construir um caminho base
-  const pathWithoutLocale = getPathWithoutLocale(
-    pathname // Caminho atual da URL
-  );
-
-  /**
-   * Se middleware.prefixDefault for verdadeiro, o idioma padrão deve sempre ser prefixado.
-   */
-  if (middleware.prefixDefault) {
-    // Valida o idioma
-    if (!locale || !locales.includes(locale)) {
-      // Redireciona para o idioma padrão com o caminho atualizado
-      return (
-        <Navigate
-          to={`/${defaultLocale}/${pathWithoutLocale}${search}`}
-          replace // Substitui a entrada atual do histórico pela nova
-        />
-      );
-    }
-
-    // Encapsula os filhos com o IntlayerProvider e define o idioma atual
-    return (
-      <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
-    );
-  } else {
-    /**
-     * Quando middleware.prefixDefault é falso, o idioma padrão não é prefixado.
-     * Garante que o idioma atual seja válido e não o idioma padrão.
-     */
-    if (
-      currentLocale.toString() !== defaultLocale.toString() &&
-      !locales
-        .filter(
-          (locale) => locale.toString() !== defaultLocale.toString() // Exclui o idioma padrão
-        )
-        .includes(currentLocale) // Verifica se o idioma atual está na lista de idiomas válidos
-    ) {
-      // Redireciona para o caminho sem prefixo de idioma
-      return <Navigate to={`${pathWithoutLocale}${search}`} replace />;
-    }
-
-    // Encapsula os filhos com o IntlayerProvider e define o idioma atual
-    return (
-      <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
-    );
-  }
-};
-
-/**
- * Um componente de roteador que configura rotas específicas para idiomas.
- * Ele usa o React Router para gerenciar a navegação e renderizar componentes localizados.
- */
-const LocaleRouter = ({ children }) => (
-  <BrowserRouter>
-    <Routes>
-      {locales
-        .filter(
-          (locale) => middleware.prefixDefault || locale !== defaultLocale
-        )
-        .map((locale) => (
-          <Route
-            // Padrão de rota para capturar o idioma (por exemplo, /en/, /fr/) e corresponder a todos os caminhos subsequentes
-            path={`/${locale}/*`}
-            key={locale}
-            element={<AppLocalized locale={locale}>{children}</AppLocalized>} // Encapsula os filhos com gerenciamento de idioma
-          />
-        ))}
-
-      {
-        // Se o prefixo do idioma padrão estiver desativado, renderiza os filhos diretamente no caminho raiz
-        !middleware.prefixDefault && (
-          <Route
-            path="*"
-            element={
-              <AppLocalized locale={defaultLocale}>{children}</AppLocalized>
-            } // Encapsula os filhos com gerenciamento de idioma
-          />
-        )
-      }
-    </Routes>
-  </BrowserRouter>
-);
-```
-
 Em seguida, você pode usar o componente `LocaleRouter` na sua aplicação:
 
-```tsx fileName="src/App.tsx" codeFormat="typescript"
+```tsx fileName="src/App.tsx" codeFormat={["typescript", "esm"]}
 import { LocaleRouter } from "./components/LocaleRouter";
 import type { FC } from "react";
 
@@ -789,35 +383,11 @@ const App: FC = () => (
 );
 ```
 
-```jsx fileName="src/App.mjx" codeFormat="esm"
-import { LocaleRouter } from "./components/LocaleRouter";
-
-// ... Seu componente AppContent
-
-const App = () => (
-  <LocaleRouter>
-    <AppContent />
-  </LocaleRouter>
-);
-```
-
-```jsx fileName="src/App.cjx" codeFormat="commonjs"
-const { LocaleRouter } = require("./components/LocaleRouter");
-
-// ... Seu componente AppContent
-
-const App = () => (
-  <LocaleRouter>
-    <AppContent />
-  </LocaleRouter>
-);
-```
-
 ### (Opcional) Passo 8: Alterar a URL quando o idioma muda
 
 Para alterar a URL quando o idioma muda, você pode usar a prop `onLocaleChange` fornecida pelo hook `useLocale`. Paralelamente, você pode usar os hooks `useLocation` e `useNavigate` do `react-router-dom` para atualizar o caminho da URL.
 
-```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
+```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat={["typescript", "esm"]}
 import { useLocation, useNavigate } from "react-router-dom";
 import {
   Locales,
@@ -829,134 +399,6 @@ import { useLocale } from "react-intlayer";
 import { type FC } from "react";
 
 const LocaleSwitcher: FC = () => {
-  const { pathname, search } = useLocation(); // Obtém o caminho atual da URL. Exemplo: /fr/about?foo=bar
-  const navigate = useNavigate();
-
-  const { locale, availableLocales, setLocale } = useLocale({
-    onLocaleChange: (locale) => {
-      // Constrói a URL com o idioma atualizado
-      // Exemplo: /es/about?foo=bar
-      const pathWithLocale = getLocalizedUrl(`${pathname}${search}`, locale);
-
-      // Atualiza o caminho da URL
-      navigate(pathWithLocale);
-    },
-  });
-
-  return (
-    <div>
-      <button popoverTarget="localePopover">{getLocaleName(locale)}</button>
-      <div id="localePopover" popover="auto">
-        {availableLocales.map((localeItem) => (
-          <a
-            href={getLocalizedUrl(location.pathname, localeItem)}
-            hrefLang={localeItem}
-            aria-current={locale === localeItem ? "page" : undefined}
-            onClick={(e) => {
-              e.preventDefault();
-              setLocale(localeItem);
-            }}
-            key={localeItem}
-          >
-            <span>
-              {/* Idioma - ex: FR */}
-              {localeItem}
-            </span>
-            <span>
-              {/* Idioma no próprio idioma - ex: Français */}
-              {getLocaleName(localeItem, locale)}
-            </span>
-            <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
-              {/* Idioma no idioma atual - ex: Francés com idioma atual definido como Locales.SPANISH */}
-              {getLocaleName(localeItem)}
-            </span>
-            <span dir="ltr" lang={Locales.ENGLISH}>
-              {/* Idioma em inglês - ex: French */}
-              {getLocaleName(localeItem, Locales.ENGLISH)}
-            </span>
-          </a>
-        ))}
-      </div>
-    </div>
-  );
-};
-```
-
-```jsx fileName="src/components/LocaleSwitcher.msx" codeFormat="esm"
-import { useLocation, useNavigate } from "react-router-dom";
-import {
-  Locales,
-  getHTMLTextDir,
-  getLocaleName,
-  getLocalizedUrl,
-} from "intlayer";
-import { useLocale } from "react-intlayer";
-
-const LocaleSwitcher = () => {
-  const { pathname, search } = useLocation(); // Obtém o caminho atual da URL. Exemplo: /fr/about?foo=bar
-  const navigate = useNavigate();
-
-  const { locale, availableLocales, setLocale } = useLocale({
-    onLocaleChange: (locale) => {
-      // Constrói a URL com o idioma atualizado
-      // Exemplo: /es/about?foo=bar
-      const pathWithLocale = getLocalizedUrl(`${pathname}${search}`, locale);
-
-      // Atualiza o caminho da URL
-      navigate(pathWithLocale);
-    },
-  });
-
-  return (
-    <div>
-      <button popoverTarget="localePopover">{getLocaleName(locale)}</button>
-      <div id="localePopover" popover="auto">
-        {availableLocales.map((localeItem) => (
-          <a
-            href={getLocalizedUrl(location.pathname, localeItem)}
-            hrefLang={localeItem}
-            aria-current={locale === localeItem ? "page" : undefined}
-            onClick={(e) => {
-              e.preventDefault();
-              setLocale(localeItem);
-            }}
-            key={localeItem}
-          >
-            <span>
-              {/* Idioma - ex: FR */}
-              {localeItem}
-            </span>
-            <span>
-              {/* Idioma no próprio idioma - ex: Français */}
-              {getLocaleName(localeItem, locale)}
-            </span>
-            <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
-              {/* Idioma no idioma atual - ex: Francés com idioma atual definido como Locales.SPANISH */}
-              {getLocaleName(localeItem)}
-            </span>
-            <span dir="ltr" lang={Locales.ENGLISH}>
-              {/* Idioma em inglês - ex: French */}
-              {getLocaleName(localeItem, Locales.ENGLISH)}
-            </span>
-          </a>
-        ))}
-      </div>
-    </div>
-  );
-};
-```
-
-```jsx fileName="src/components/LocaleSwitcher.csx" codeFormat="commonjs"
-const { useLocation, useNavigate } = require("react-router-dom");
-const {
-  Locales,
-  getHTMLTextDir,
-  getLocaleName,
-  getLocalizedUrl,
-} = require("intlayer");
-const { useLocale } = require("react-intlayer");
-
-const LocaleSwitcher = () => {
   const { pathname, search } = useLocation(); // Obtém o caminho atual da URL. Exemplo: /fr/about?foo=bar
   const navigate = useNavigate();
 
@@ -1087,7 +529,7 @@ module.exports = { useI18nHTMLAttributes };
 
 Integre o hook no seu componente principal para que os atributos HTML sejam atualizados sempre que o idioma mudar:
 
-```tsx fileName="src/App.tsx" codeFormat="typescript"
+```tsx fileName="src/App.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { IntlayerProvider, useIntlayer } from "react-intlayer";
 import { useI18nHTMLAttributes } from "./hooks/useI18nHTMLAttributes";
@@ -1107,49 +549,6 @@ const App: FC = () => (
 );
 
 export default App;
-```
-
-```jsx fileName="src/App.msx" codeFormat="esm"
-import { IntlayerProvider, useIntlayer } from "react-intlayer";
-import { useI18nHTMLAttributes } from "./hooks/useI18nHTMLAttributes";
-import "./App.css";
-
-const AppContent = () => {
-  // Aplica o hook para atualizar os atributos lang e dir da tag <html> com base no idioma.
-  useI18nHTMLAttributes();
-
-  // ... Resto do seu componente
-};
-
-const App = () => (
-  <IntlayerProvider>
-    <AppContent />
-  </IntlayerProvider>
-);
-
-export default App;
-```
-
-```jsx fileName="src/App.csx" codeFormat="commonjs"
-const { FC } = require("react");
-const { IntlayerProvider, useIntlayer } = require("react-intlayer");
-const { useI18nHTMLAttributes } = require("./hooks/useI18nHTMLAttributes");
-require("./App.css");
-
-const AppContent = () => {
-  // Aplica o hook para atualizar os atributos lang e dir da tag <html> com base no idioma.
-  useI18nHTMLAttributes();
-
-  // ... Resto do seu componente
-};
-
-const App = () => (
-  <IntlayerProvider>
-    <AppContent />
-  </IntlayerProvider>
-);
-
-module.exports = App;
 ```
 
 Ao aplicar essas alterações, sua aplicação irá:

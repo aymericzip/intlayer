@@ -66,53 +66,11 @@ Per garantire che la funzionalità di internazionalizzazione fornita da `express
 
 Posiziona il middleware `app.use(intlayer())` **prima di qualsiasi route** nella tua applicazione per garantire che tutte le route beneficino dell'internazionalizzazione:
 
-```typescript {7} fileName="src/index.ts" codeFormat="typescript"
+```typescript {7} fileName="src/index.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import express, { type Express } from "express";
 import { intlayer } from "express-intlayer";
 
 const app: Express = express();
-
-// Carica il gestore delle richieste di internazionalizzazione
-app.use(intlayer());
-
-// Definisci le tue route dopo aver caricato il middleware
-app.get("/", (_req, res) => {
-  res.send(
-    t({
-      en: "Hello, World!",
-      fr: "Bonjour le monde!",
-      es: "¡Hola, Mundo!",
-    })
-  );
-});
-```
-
-```javascript {7} fileName="src/index.mjs" codeFormat="esm"
-import express from "express";
-import { intlayer } from "express-intlayer";
-
-const app = express();
-
-// Carica il gestore delle richieste di internazionalizzazione
-app.use(intlayer());
-
-// Definisci le tue route dopo aver caricato il middleware
-app.get("/", (_req, res) => {
-  res.send(
-    t({
-      en: "Hello, World!",
-      fr: "Bonjour le monde!",
-      es: "¡Hola, Mundo!",
-    })
-  );
-});
-```
-
-```javascript {7} fileName="src/index.cjs" codeFormat="commonjs"
-const express = require("express");
-const { intlayer } = require("express-intlayer");
-
-const app = express();
 
 // Carica il gestore delle richieste di internazionalizzazione
 app.use(intlayer());
@@ -143,31 +101,7 @@ app.get("/", (_req, res) => {
 
 Servi contenuti localizzati in diverse lingue:
 
-```typescript fileName="src/index.ts" codeFormat="typescript"
-app.get("/", (_req, res) => {
-  res.send(
-    t({
-      en: "Welcome!",
-      fr: "Bienvenue!",
-      es: "¡Bienvenido!",
-    })
-  );
-});
-```
-
-```javascript fileName="src/index.mjs" codeFormat="esm"
-app.get("/", (_req, res) => {
-  res.send(
-    t({
-      en: "Welcome!",
-      fr: "Bienvenue!",
-      es: "¡Bienvenido!",
-    })
-  );
-});
-```
-
-```javascript fileName="src/index.cjs" codeFormat="commonjs"
+```typescript fileName="src/index.ts" codeFormat={["typescript", "esm", "commonjs"]}
 app.get("/", (_req, res) => {
   res.send(
     t({
@@ -189,31 +123,7 @@ app.get("/", (_req, res) => {
 
 Fornire messaggi di errore in più lingue:
 
-```typescript fileName="src/index.ts" codeFormat="typescript"
-app.get("/error", (_req, res) => {
-  res.status(500).send(
-    t({
-      en: "An unexpected error occurred.",
-      fr: "Une erreur inattendue s'est produite.",
-      es: "Ocurrió un error inesperado.",
-    })
-  );
-});
-```
-
-```javascript fileName="src/index.mjs" codeFormat="esm"
-app.get("/error", (_req, res) => {
-  res.status(500).send(
-    t({
-      en: "An unexpected error occurred.",
-      fr: "Une erreur inattendue s'est produite.",
-      es: "Ocurrió un error inesperado.",
-    })
-  );
-});
-```
-
-```javascript fileName="src/index.cjs" codeFormat="commonjs"
+```typescript fileName="src/index.ts" codeFormat={["typescript", "esm", "commonjs"]}
 app.get("/error", (_req, res) => {
   res.status(500).send(
     t({
@@ -281,7 +191,7 @@ app.get("/greet", (_req, res) => {
 
 Se un locale preferito non è disponibile, la funzione `t` utilizzerà come fallback il locale predefinito definito nella configurazione:
 
-```typescript {5-6} fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript {5-6} fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config = {
@@ -292,34 +202,6 @@ const config = {
 } satisfies IntlayerConfig;
 
 export default config;
-```
-
-```javascript {5-6} fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-```javascript {5-6} fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-module.exports = config;
 ```
 
 Per esempio:
@@ -341,7 +223,7 @@ Configura la funzione `t` per far rispettare rigorosamente le localizzazioni dic
 
 Esempio di configurazione:
 
-```typescript {7} fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript {7} fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { type IntlayerConfig } from "intlayer";
 
 const config = {
@@ -355,73 +237,16 @@ const config = {
 export default config;
 ```
 
-```javascript {7} fileName="intlayer.config.mjs" codeFormat="esm"
-import { type IntlayerConfig } from "intlayer";
-
-const config = {
-  // ... La tua configurazione esistente
-  internationalization: {
-    // ... La tua configurazione di internazionalizzazione esistente
-    strictMode: "strict", // Applica la modalità rigorosa
-  },
-};
-
-export default config;
-```
-
-```javascript {7} fileName="intlayer.config.cjs" codeFormat="commonjs"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... La tua configurazione esistente
-  internationalization: {
-    // ... La tua configurazione di internazionalizzazione esistente
-    strictMode: "strict", // Applica la modalità rigorosa
-  },
-};
-
-module.exports = config;
-```
-
 ---
 
 ### Integrazione con TypeScript
 
 La funzione `t` è type-safe quando usata con TypeScript. Definisci un oggetto di traduzioni type-safe:
 
-```typescript fileName="src/index.ts" codeFormat="typescript"
+```typescript fileName="src/index.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { type LanguageContent } from "express-intlayer";
 
 const translations: LanguageContent<string> = {
-  en: "Good morning!",
-  fr: "Bonjour!",
-  es: "¡Buenos días!",
-};
-
-app.get("/morning", (_req, res) => {
-  res.send(t(translations));
-});
-```
-
-```javascript fileName="src/index.mjs" codeFormat="esm"
-import { type LanguageContent } from "express-intlayer";
-
-/** @type {import('express-intlayer').LanguageContent<string>} */
-const translations = {
-  en: "Good morning!",
-  fr: "Bonjour!",
-  es: "¡Buenos días!",
-};
-
-app.get("/morning", (_req, res) => {
-  res.send(t(translations));
-});
-```
-
-```javascript fileName="src/index.cjs" codeFormat="commonjs"
-const { type LanguageContent } = require("express-intlayer");
-
-/** @type {import('express-intlayer').LanguageContent<string>} */
-const translations = {
   en: "Good morning!",
   fr: "Bonjour!",
   es: "¡Buenos días!",

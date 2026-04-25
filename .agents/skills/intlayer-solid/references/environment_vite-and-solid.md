@@ -211,7 +211,7 @@ module.exports = defineConfig({
 
 Create and manage your content declarations to store translations:
 
-```tsx fileName="src/app.content.tsx" contentDeclarationFormat="typescript"
+```tsx fileName="src/app.content.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, type Dictionary } from "intlayer";
 
 const appContent = {
@@ -247,84 +247,6 @@ const appContent = {
 } satisfies Dictionary;
 
 export default appContent;
-```
-
-```javascript fileName="src/app.content.mjs" contentDeclarationFormat="esm"
-import { t } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const appContent = {
-  key: "app",
-  content: {
-    viteLogo: t({
-      en: "Vite logo",
-      fr: "Logo Vite",
-      es: "Logo Vite",
-    }),
-    solidLogo: t({
-      en: "Solid logo",
-      fr: "Logo Solid",
-      es: "Logo Solid",
-    }),
-    title: "Vite + Solid",
-    count: t({
-      en: "count is {{count}}",
-      fr: "le compte est {{count}}",
-      es: "el recuento es {{count}}",
-    }),
-    edit: t({
-      en: "Edit src/App.tsx and save to test HMR",
-      fr: "Éditez src/App.tsx et enregistrez pour tester HMR",
-      es: "Edita src/App.tsx y guarda para probar HMR",
-    }),
-    readTheDocs: t({
-      en: "Click on the Vite and Solid logos to learn more",
-      fr: "Cliquez sur les logos Vite and Solid pour en savoir plus",
-      es: "Haga clic en los logotipos de Vite and Solid para obtener más información",
-    }),
-  },
-};
-
-export default appContent;
-```
-
-```javascript fileName="src/app.content.cjs" contentDeclarationFormat="commonjs"
-const { t } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const appContent = {
-  key: "app",
-  content: {
-    viteLogo: t({
-      en: "Vite logo",
-      fr: "Logo Vite",
-      es: "Logo Vite",
-    }),
-    solidLogo: t({
-      en: "Solid logo",
-      fr: "Logo Solid",
-      es: "Logo Solid",
-    }),
-    title: "Vite + Solid",
-    count: t({
-      en: "count is {{count}}",
-      fr: "le compte est {{count}}",
-      es: "el recuento es {{count}}",
-    }),
-    edit: t({
-      en: "Edit src/App.tsx and save to test HMR",
-      fr: "Éditez src/App.tsx et enregistrez pour tester HMR",
-      es: "Edita src/App.tsx y guarda para probar HMR",
-    }),
-    readTheDocs: t({
-      en: "Click on the Vite and Solid logos to learn more",
-      fr: "Cliquez sur les logos Vite and Solid pour en savoir plus",
-      es: "Haga clic en los logotipos de Vite and Solid para obtener más información",
-    }),
-  },
-};
-
-module.exports = appContent;
 ```
 
 ```json fileName="src/app.content.json" contentDeclarationFormat="json"

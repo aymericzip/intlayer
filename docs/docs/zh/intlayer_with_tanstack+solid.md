@@ -658,7 +658,7 @@ export const Route = createFileRoute("/{-$locale}/$")({
 
 要设置它，您可以在 `intlayer.config.ts` 文件中添加一个 `compiler` 部分：
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -691,74 +691,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... 其余配置
-  compiler: {
-    /**
-     * 指示是否启用编译器。
-     */
-    enabled: true,
-
-    /**
-     * 定义输出文件路径
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * 指示转换后是否应保存组件。
-     *
-     * - 如果为 `true`，编译器将重写磁盘上的组件文件。因此，转换将是永久性的，且编译器在下次运行时将跳过该转换。这样，编译器转换应用后便可以将其删除。
-     *
-     * - 如果为 `false`，编译器仅在构建输出代码中注入 `useIntlayer()` 函数调用，而保持基础代码库完好无损。转换仅在内存中进行。
-     */
-    saveComponents: false,
-
-    /**
-     * 字典键前缀
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... 其余配置
-  compiler: {
-    /**
-     * 指示是否启用编译器。
-     */
-    enabled: true,
-
-    /**
-     * 定义输出文件路径
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * 指示转换后是否应保存组件。
-     *
-     * - 如果为 `true`，编译器将重写磁盘上的组件文件。因此，转换将是永久性的，且编译器在下次运行时将跳过该转换。这样，编译器转换应用后便可以将其删除。
-     *
-     * - 如果为 `false`，编译器仅在构建输出代码中注入 `useIntlayer()` 函数调用，而保持基础代码库完好无损。转换仅在内存中进行。
-     */
-    saveComponents: false,
-
-    /**
-     * 字典键前缀
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-module.exports = config;
 ```
 
 <Tabs>

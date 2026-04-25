@@ -100,7 +100,7 @@ getLocalizedUrl(
 
 Khi bạn đã cấu hình dự án với các thiết lập quốc tế hóa, bạn có thể sử dụng hàm chỉ với các tham số bắt buộc:
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getLocalizedUrl, Locales } from "intlayer";
 
 // Sử dụng cấu hình dự án của bạn cho locales, defaultLocale và prefixDefault
@@ -109,35 +109,6 @@ getLocalizedUrl("/about", Locales.FRENCH);
 
 getLocalizedUrl("/about", Locales.ENGLISH);
 // Kết quả: "/about" hoặc "/en/about" (tùy thuộc vào thiết lập prefixDefault của bạn)
-```
-
-```javascript codeFormat="esm"
-import { getLocalizedUrl, Locales } from "intlayer";
-
-// Sử dụng cấu hình dự án của bạn
-getLocalizedUrl("/about", Locales.FRENCH);
-// Kết quả: "/fr/about"
-```
-
-```javascript codeFormat="commonjs"
-const { getLocalizedUrl, Locales } = require("intlayer");
-
-// Sử dụng cấu hình dự án của bạn
-getLocalizedUrl("/about", Locales.FRENCH);
-typescript codeFormat="typescript"
-import { getLocalizedUrl, Locales } from "intlayer";
-
-// Cung cấp rõ ràng tất cả các tham số tùy chọn
-getLocalizedUrl(
-  "/about",
-  Locales.FRENCH,
-  [Locales.ENGLISH, Locales.FRENCH], // locales
-  Locales.ENGLISH, // defaultLocale
-  false // prefixDefault
-);
-
-// Kết quả: "/fr/about" cho locale tiếng Pháp
-// Kết quả: "/about" cho locale mặc định (tiếng Anh)
 ```
 
 ```javascript codeFormat="esm"
@@ -254,7 +225,7 @@ getLocalizedUrl(
 
 Trong một ứng dụng đa ngôn ngữ, việc cấu hình các thiết lập quốc tế hóa với `locales` và `defaultLocale` là rất quan trọng để đảm bảo ngôn ngữ hiển thị chính xác. Dưới đây là một ví dụ về cách `getLocalizedUrl` có thể được sử dụng trong cấu hình ứng dụng:
 
-```tsx codeFormat="typescript"
+```tsx codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 // Cấu hình cho các locale được hỗ trợ và locale mặc định
@@ -266,34 +237,6 @@ export default {
 } satisfies IntlayerConfig;
 
 export default config;
-```
-
-```javascript codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-```javascript codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-module.exports = config;
 ```
 
 Cấu hình trên đảm bảo rằng ứng dụng nhận diện `ENGLISH`, `FRENCH`, và `SPANISH` là các ngôn ngữ được hỗ trợ và sử dụng `ENGLISH` làm ngôn ngữ dự phòng.

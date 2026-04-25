@@ -162,7 +162,7 @@ export default defineConfig({
 
 Buat file deklarasi konten Anda di mana saja dalam folder `src` Anda (misalnya, `src/lib/content` atau di samping komponen Anda). File-file ini mendefinisikan konten yang dapat diterjemahkan untuk aplikasi Anda menggunakan fungsi `t()` untuk setiap locale.
 
-```ts fileName="src/features/hero/hero.content.ts" contentDeclarationFormat="typescript"
+```ts fileName="src/features/hero/hero.content.ts" contentDeclarationFormat=["typescript", "esm", "cjs"]
 import { t, type Dictionary } from "intlayer";
 
 const heroContent = {
@@ -338,7 +338,7 @@ export default defineConfig({
 
 Buat file deklarasi konten Anda di mana saja dalam folder `src` Anda (misalnya, `src/lib/content` atau di samping komponen Anda). File-file ini mendefinisikan konten yang dapat diterjemahkan untuk aplikasi Anda menggunakan fungsi `t()` untuk setiap locale.
 
-```ts fileName="src/features/hero/hero.content.ts" contentDeclarationFormat="typescript"
+```ts fileName="src/features/hero/hero.content.ts" contentDeclarationFormat=["typescript", "esm", "cjs"]
 import { t, type Dictionary } from "intlayer";
 
 const heroContent = {
@@ -749,7 +749,7 @@ Untuk memudahkan proses ini, Intlayer mengusulkan [compiler](https://github.com/
 
 Untuk mengaturnya, Anda dapat menambahkan bagian `compiler` di file `intlayer.config.ts` Anda:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -778,66 +778,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... Sisa konfigurasi Anda
-  compiler: {
-    /**
-     * Menunjukkan apakah compiler harus diaktifkan.
-     */
-    enabled: true,
-
-    /**
-     * Menentukan jalur file output
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * Menunjukkan apakah komponen harus disimpan setelah diubah. Dengan begitu, compiler dapat dijalankan satu kali saja untuk mengubah aplikasi, lalu dapat dihapus.
-     */
-    saveComponents: false,
-
-    /**
-     * Prefiks kunci kamus
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... Sisa konfigurasi Anda
-  compiler: {
-    /**
-     * Menunjukkan apakah compiler harus diaktifkan.
-     */
-    enabled: true,
-
-    /**
-     * Menentukan jalur file output
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * Menunjukkan apakah komponen harus disimpan setelah diubah. Dengan begitu, compiler dapat dijalankan satu kali saja untuk mengubah aplikasi, lalu dapat dihapus.
-     */
-    saveComponents: false,
-
-    /**
-     * Prefiks kunci kamus
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-module.exports = config;
 ```
 
 <Tabs>

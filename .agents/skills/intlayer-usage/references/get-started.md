@@ -40,7 +40,7 @@ Intlayer also provides an optional visual editor that allows you to easily edit 
         └── index.tsx
 ```
 
-```tsx fileName="src/components/MyComponent/index.content.ts" contentDeclarationFormat="typescript"
+```tsx fileName="src/components/MyComponent/index.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, type Dictionary } from "intlayer";
 
 const componentContent = {
@@ -55,42 +55,6 @@ const componentContent = {
 } satisfies Dictionary;
 
 export default componentContent;
-```
-
-```javascript fileName="src/components/MyComponent/index.content.mjs" contentDeclarationFormat="esm"
-import { t } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const componentContent = {
-  key: "component-key",
-  content: {
-    myTranslatedContent: t({
-      en: "Hello World",
-      es: "Hola Mundo",
-      fr: "Bonjour le monde",
-    }),
-  },
-};
-
-export default componentContent;
-```
-
-```javascript fileName="src/components/MyComponent/index.content.cjs" contentDeclarationFormat="commonjs"
-const { t } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const componentContent = {
-  key: "component-key",
-  content: {
-    myTranslatedContent: t({
-      en: "Hello World",
-      es: "Hola Mundo",
-      fr: "Bonjour le monde",
-    }),
-  },
-};
-
-module.exports = componentContent;
 ```
 
 ```json fileName="src/components/MyComponent/index.content.json" contentDeclarationFormat="json"

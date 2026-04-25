@@ -32,7 +32,7 @@ history:
 
 Щоб налаштувати умовний контент у вашому проекті Intlayer, створіть модуль контенту, який містить ваші умовні визначення. Нижче наведено приклади в різних форматах.
 
-```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="**/*.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { cond, type Dictionary } from "intlayer";
 
 const myConditionalContent = {
@@ -47,42 +47,6 @@ const myConditionalContent = {
 } satisfies Dictionary;
 
 export default myConditionalContent;
-```
-
-```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-import { cond } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const myConditionalContent = {
-  key: "my_key",
-  content: {
-    myCondition: cond({
-      true: "мій контент, коли це true",
-      false: "мій контент, коли це false",
-      fallback: "мій контент, коли перевірка умови не спрацювала", // Необов'язково
-    }),
-  },
-};
-
-export default myConditionalContent;
-```
-
-```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-const { cond } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const myConditionalContent = {
-  key: "my_key",
-  content: {
-    myCondition: cond({
-      true: "мій контент, коли це true",
-      false: "мій контент, коли це false",
-      fallback: "мій контент, коли умова не виконується", // Необов'язково
-    }),
-  },
-};
-
-module.exports = myConditionalContent;
 ```
 
 ```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
@@ -108,7 +72,7 @@ module.exports = myConditionalContent;
 
 Щоб використовувати умовний контент у React-компоненті, імпортуйте та використовуйте хук `useIntlayer` з пакета `react-intlayer`. Цей хук отримує контент для зазначеного ключа і дозволяє передати умову для вибору відповідного виводу.
 
-```tsx fileName="**/*.tsx" codeFormat="typescript"
+```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useIntlayer } from "react-intlayer";
 
@@ -146,84 +110,6 @@ const ConditionalComponent: FC = () => {
 };
 
 export default ConditionalComponent;
-```
-
-```javascript fileName="**/*.mjx" codeFormat="esm"
-import { useIntlayer } from "react-intlayer";
-
-const ConditionalComponent = () => {
-  const { myCondition } = useIntlayer("my_key");
-
-  return (
-    <div>
-      <p>
-        {
-          /* Вивід: мій контент, коли це true */
-          myCondition(true)
-        }
-      </p>
-      <p>
-        {
-          /* Вивід: мій вміст, коли це false */
-          myCondition(false)
-        }
-      </p>
-      <p>
-        {
-          /* Вивід: мій вміст, коли умова не виконується */
-          myCondition("")
-        }
-      </p>
-      <p>
-        {
-          /* Вивід: мій вміст, коли умова не виконується */
-          myCondition(undefined)
-        }
-      </p>
-    </div>
-  );
-};
-
-export default ConditionalComponent;
-```
-
-```javascript fileName="**/*.cjs" codeFormat="commonjs"
-const { useIntlayer } = require("react-intlayer");
-
-const ConditionalComponent = () => {
-  const { myCondition } = useIntlayer("my_key");
-
-  return (
-    <div>
-      <p>
-        {
-          /* Вивід: мій вміст, коли це true */
-          myCondition(true)
-        }
-      </p>
-      <p>
-        {
-          /* Вивід: мій контент, коли це false */
-          myCondition(false)
-        }
-      </p>
-      <p>
-        {
-          /* Вивід: мій контент, коли умова не виконується */
-          myCondition("")
-        }
-      </p>
-      <p>
-        {
-          /* Вивід: мій контент, коли умова не виконується */
-          myCondition(undefined)
-        }
-      </p>
-    </div>
-  );
-};
-
-module.exports = ConditionalComponent;
 ```
 
 ## Додаткові ресурси

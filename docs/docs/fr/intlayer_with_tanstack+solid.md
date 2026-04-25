@@ -658,7 +658,7 @@ Pour faciliter ce processus, Intlayer propose un [compilateur](https://github.co
 
 Pour le configurer, vous pouvez ajouter une section `compiler` dans votre fichier `intlayer.config.ts` :
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -691,74 +691,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... Reste de votre config
-  compiler: {
-    /**
-     * Indique si le compilateur doit être activé.
-     */
-    enabled: true,
-
-    /**
-     * Définit le chemin des fichiers de sortie
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * Indique si les composants doivent être enregistrés après avoir été transformés.
-     *
-     * - Si `true`, le compilateur réécrira le fichier du composant sur le disque. Ainsi, la transformation sera permanente, et le compilateur ignorera la transformation pour le prochain processus. De cette façon, le compilateur peut transformer l'application, puis il peut être supprimé.
-     *
-     * - Si `false`, le compilateur injectera l'appel de fonction `useIntlayer()` dans le code de la sortie de construction uniquement, et gardera la base de code intacte. La transformation se fera uniquement en mémoire.
-     */
-    saveComponents: false,
-
-    /**
-     * Préfixe de clé de dictionnaire
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... Reste de votre config
-  compiler: {
-    /**
-     * Indique si le compilateur doit être activé.
-     */
-    enabled: true,
-
-    /**
-     * Définit le chemin des fichiers de sortie
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * Indique si les composants doivent être enregistrés après avoir été transformés.
-     *
-     * - Si `true`, le compilateur réécrira le fichier du composant sur le disque. Ainsi, la transformation sera permanente, et le compilateur ignorera la transformation pour le prochain processus. De cette façon, le compilateur peut transformer l'application, puis il peut être supprimé.
-     *
-     * - Si `false`, le compilateur injectera l'appel de fonction `useIntlayer()` dans le code de la sortie de construction uniquement, et gardera la base de code intacte. La transformation se fera uniquement en mémoire.
-     */
-    saveComponents: false,
-
-    /**
-     * Préfixe de clé de dictionnaire
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-module.exports = config;
 ```
 
 <Tabs>

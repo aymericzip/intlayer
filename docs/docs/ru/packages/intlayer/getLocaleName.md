@@ -50,50 +50,8 @@ history:
 
 ## Пример использования
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, getLocaleName } from "intlayer";
-
-getLocaleName(Locales.ENGLISH); // Вывод: "English"
-getLocaleName(Locales.ENGLISH, Locales.FRENCH); // Вывод: "Anglais"
-getLocaleName(Locales.ENGLISH, Locales.ESPANOL); // Вывод: "Inglés"
-getLocaleName(Locales.ENGLISH, Locales.ENGLISH); // Вывод: "English"
-
-getLocaleName(Locales.FRENCH); // Вывод: "Français"
-getLocaleName(Locales.FRENCH, Locales.FRENCH); // Вывод: "Français"
-getLocaleName(Locales.FRENCH, Locales.ESPANOL); // Вывод: "Francés"
-getLocaleName(Locales.FRENCH, Locales.ENGLISH); // Вывод: "French"
-
-getLocaleName(Locales.CHINESE); // Вывод: "中文"
-getLocaleName(Locales.CHINESE, Locales.FRENCH); // Вывод: "Chinois"
-getLocaleName(Locales.CHINESE, Locales.ESPANOL); // Вывод: "Chino"
-getLocaleName(Locales.CHINESE, Locales.ENGLISH); // Вывод: "Chinese"
-
-getLocaleName("unknown-locale"); // Вывод: "Unknown locale"
-```
-
-```javascript codeFormat="esm"
-import { Locales, getLocaleName } from "intlayer";
-
-getLocaleName(Locales.ENGLISH); // Вывод: "English"
-getLocaleName(Locales.ENGLISH, Locales.FRENCH); // Вывод: "Anglais"
-getLocaleName(Locales.ENGLISH, Locales.ESPANOL); // Вывод: "Inglés"
-getLocaleName(Locales.ENGLISH, Locales.ENGLISH); // Вывод: "English"
-
-getLocaleName(Locales.FRENCH); // Вывод: "Français"
-getLocaleName(Locales.FRENCH, Locales.FRENCH); // Вывод: "Français"
-getLocaleName(Locales.FRENCH, Locales.ESPANOL); // Вывод: "Francés"
-getLocaleName(Locales.FRENCH, Locales.ENGLISH); // Вывод: "French"
-
-getLocaleName(Locales.CHINESE); // Вывод: "中文"
-getLocaleName(Locales.CHINESE, Locales.FRENCH); // Вывод: "Chinois"
-getLocaleName(Locales.CHINESE, Locales.ESPANOL); // Вывод: "Chino"
-getLocaleName(Locales.CHINESE, Locales.ENGLISH); // Вывод: "Chinese"
-
-getLocaleName("unknown-locale"); // Вывод: "Unknown locale"
-```
-
-```javascript codeFormat="commonjs"
-const { Locales, getLocaleName } = require("intlayer");
 
 getLocaleName(Locales.ENGLISH); // Вывод: "English"
 getLocaleName(Locales.ENGLISH, Locales.FRENCH); // Вывод: "Anglais"

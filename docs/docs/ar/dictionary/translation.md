@@ -30,7 +30,7 @@ history:
 
 إليك مثالًا على كيفية إعلان المحتوى مع الترجمات.
 
-```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="**/*.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, type Dictionary } from "intlayer";
 
 interface Content {
@@ -47,36 +47,6 @@ export default {
     }),
   },
 } satisfies Dictionary<Content>;
-```
-
-```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-import { t } from "intlayer";
-
-export default {
-  key: "multi_lang",
-  content: {
-    welcomeMessage: t({
-      en: "Welcome to our application",
-      fr: "Bienvenue dans notre application",
-      es: "Bienvenido a nuestra aplicación",
-    }),
-  },
-};
-```
-
-```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-const { t } = require("intlayer");
-
-module.exports = {
-  key: "multi_lang",
-  content: {
-    welcomeMessage: t({
-      en: "Welcome to our application",
-      fr: "Bienvenue dans notre application",
-      es: "Bienvenido a nuestra aplicación",
-    }),
-  },
-};
 ```
 
 ```json fileName="**/*.content.json" contentDeclarationFormat="json"
@@ -109,7 +79,7 @@ module.exports = {
 
 لضمان التعامل الصحيح مع الترجمات، يمكنك تكوين اللغات المقبولة في `intlayer.config.ts`. يتيح لك هذا التكوين تحديد اللغات التي يدعمها تطبيقك:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -121,37 +91,11 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-  },
-};
-
-module.exports = config;
-```
-
 ## استخدام الترجمات في مكونات React
 
 مع `react-intlayer`، يمكنك استخدام الترجمات في مكونات React. إليك مثالاً:
 
-```jsx fileName="**/*.tsx" codeFormat="typescript"
+```jsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useIntlayer } from "react-intlayer";
 
@@ -168,45 +112,13 @@ const MyComponent: FC = () => {
 export default MyComponent;
 ```
 
-```javascript fileName="**/*.mjx" codeFormat="esm"
-import { useIntlayer } from "react-intlayer";
-
-const MyComponent = () => {
-  const content = useIntlayer("multi_lang");
-
-  return (
-    <div>
-      <p>{content.welcomeMessage}</p>
-    </div>
-  );
-};
-
-export default MyComponent;
-```
-
-```javascript fileName="**/*.cjs" codeFormat="commonjs"
-const { useIntlayer } = require("react-intlayer");
-
-const MyComponent = () => {
-  const content = useIntlayer("multi_lang");
-
-  return (
-    <div>
-      <p>{content.welcomeMessage}</p>
-    </div>
-  );
-};
-
-module.exports = MyComponent;
-```
-
 يقوم هذا المكون بجلب الترجمة المقابلة بناءً على اللغة الحالية المحددة في تطبيقك.
 
 ## كائنات المحتوى المخصصة
 
 يدعم `intlayer` كائنات المحتوى المخصصة للترجمة، مما يتيح لك تعريف هياكل أكثر تعقيدًا مع ضمان سلامة الأنواع. إليك مثالًا مع كائن مخصص:
 
-```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="**/*.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, type Dictionary } from "intlayer";
 
 interface ICustomContent {
@@ -235,60 +147,6 @@ const customContent = {
 } satisfies Dictionary;
 
 export default customContent;
-```
-
-```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-import { t } from "intlayer";
-
-export default {
-  key: "custom_content",
-  content: {
-    profileText:
-      t <
-      ICustomContent >
-      {
-        en: {
-          title: "عنوان الصفحة",
-          content: "محتوى الصفحة",
-        },
-        fr: {
-          title: "عنوان الصفحة",
-          content: "محتوى الصفحة",
-        },
-        es: {
-          title: "عنوان الصفحة",
-          content: "محتوى الصفحة",
-        },
-      },
-  },
-};
-```
-
-```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-const { t } = require("intlayer");
-
-module.exports = {
-  key: "custom_content",
-  content: {
-    profileText:
-      t <
-      ICustomContent >
-      {
-        en: {
-          title: "عنوان الصفحة",
-          content: "محتوى الصفحة",
-        },
-        fr: {
-          title: "عنوان الصفحة",
-          content: "محتوى الصفحة",
-        },
-        es: {
-          title: "عنوان الصفحة",
-          content: "محتوى الصفحة",
-        },
-      },
-  },
-};
 ```
 
 ```json fileName="**/*.content.json" contentDeclarationFormat="json"

@@ -32,7 +32,7 @@ Intlayer'da `file` fonksiyonu, harici dosya içeriğini bir sözlüğe gömmeyi 
 
 Intlayer projenizde dosya içeriğini gömmek için, bir içerik modülünde `file` fonksiyonunu kullanın. Aşağıda farklı uygulamaları gösteren örnekler verilmiştir.
 
-```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="**/*.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { file, type Dictionary } from "intlayer";
 
 const myFileContent = {
@@ -43,34 +43,6 @@ const myFileContent = {
 } satisfies Dictionary;
 
 export default myFileContent;
-```
-
-```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-import { file } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const myFileContent = {
-  key: "my_key",
-  content: {
-    myFile: file("./path/to/file.txt"),
-  },
-};
-
-export default myFileContent;
-```
-
-```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-const { file } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const myFileContent = {
-  key: "my_key",
-  content: {
-    myFile: file("./path/to/file.txt"),
-  },
-};
-
-module.exports = myFileContent;
 ```
 
 ```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
@@ -90,7 +62,7 @@ module.exports = myFileContent;
 
 Bir React bileşeninde gömülü dosya içeriğini kullanmak için, `react-intlayer` paketinden `useIntlayer` hook'unu içe aktarın ve kullanın. Bu, belirtilen anahtardan içeriği alır ve dinamik olarak görüntülenmesine izin verir.
 
-```tsx fileName="**/*.tsx" codeFormat="typescript"
+```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useIntlayer } from "react-intlayer";
 
@@ -107,43 +79,11 @@ const FileComponent: FC = () => {
 export default FileComponent;
 ```
 
-```javascript fileName="**/*.mjx" codeFormat="esm"
-import { useIntlayer } from "react-intlayer";
-
-const FileComponent = () => {
-  const { myFile } = useIntlayer("my_key");
-
-  return (
-    <div>
-      <pre>{myFile}</pre>
-    </div>
-  );
-};
-
-export default FileComponent;
-```
-
-```javascript fileName="**/*.cjs" codeFormat="commonjs"
-const { useIntlayer } = require("react-intlayer");
-
-const FileComponent = () => {
-  const { myFile } = useIntlayer("my_key");
-
-  return (
-    <div>
-      <pre>{myFile}</pre>
-    </div>
-  );
-};
-
-module.exports = FileComponent;
-```
-
 ## Çok Dilli Markdown Örneği
 
 Düzenlenebilir çok dilli Markdown dosyalarını desteklemek için, farklı dil sürümlerindeki bir Markdown içerik dosyasını tanımlamak üzere `file`'ı `t()` ve `md()` ile birlikte kullanabilirsiniz.
 
-```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="**/*.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { file, t, md, type Dictionary } from "intlayer";
 
 const myMultilingualContent = {
@@ -160,43 +100,6 @@ const myMultilingualContent = {
 } satisfies Dictionary;
 
 export default myMultilingualContent;
-```
-
-```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-import { file, t, md } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const myMultilingualContent = {
-  key: "my_multilingual_key",
-  content: {
-    myContent: md(
-      t({
-        en: file("src/components/test.en.md"),
-        fr: file("src/components/test.fr.md"),
-        es: file("src/components/test.es.md"),
-      })
-    ),
-  },
-};
-
-export default myMultilingualContent;
-```
-
-```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-const { file, t, md } = require("intlayer");
-
-const myMultilingualContent = {
-  key: "my_multilingual_key",
-  content: {
-    myContent: md(
-      t({
-        en: file("src/components/test.en.md"),
-        fr: file("src/components/test.fr.md"),
-        es: file("src/components/test.es.md"),
-      })
-    ),
-  },
-};
 ```
 
 Bu kurulum, içeriğin kullanıcının dil tercihine göre dinamik olarak alınmasına izin verir. Intlayer Görsel Düzenleyici veya CMS'de kullanıldığında, sistem içeriğin belirtilen Markdown dosyalarından geldiğini tanır ve düzenlenebilir kalmasını sağlar.

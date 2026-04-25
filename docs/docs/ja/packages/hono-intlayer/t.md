@@ -65,53 +65,9 @@ t(translations: Record<string, string>): string;
 
 アプリケーションの**すべてのルートの前に** `app.use("*", intlayer())` ミドルウェアを配置し、すべてのルートが国際化の恩恵を受けられるようにしてください。
 
-```typescript {6} fileName="src/index.ts" codeFormat="typescript"
+```typescript {6} fileName="src/index.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Hono } from "hono";
 import { intlayer } from "hono-intlayer";
-
-const app = new Hono();
-
-// 国際化リクエスト ハンドラをロード
-app.use("*", intlayer());
-
-// ミドルウェアのロード後にルートを定義
-app.get("/", (c) => {
-  return c.text(
-    t({
-      en: "Hello, World!",
-      fr: "Bonjour le monde!",
-      es: "¡Hola, Mundo!",
-      ja: "こんにちは、世界！",
-    })
-  );
-});
-```
-
-```javascript {6} fileName="src/index.mjs" codeFormat="esm"
-import { Hono } from "hono";
-import { intlayer } from "hono-intlayer";
-
-const app = new Hono();
-
-// 国際化リクエスト ハンドラをロード
-app.use("*", intlayer());
-
-// ミドルウェアのロード後にルートを定義
-app.get("/", (c) => {
-  return c.text(
-    t({
-      en: "Hello, World!",
-      fr: "Bonjour le monde!",
-      es: "¡Hola, Mundo!",
-      ja: "こんにちは、世界！",
-    })
-  );
-});
-```
-
-```javascript {6} fileName="src/index.cjs" codeFormat="commonjs"
-const { Hono } = require("hono");
-const { intlayer, t } = require("hono-intlayer");
 
 const app = new Hono();
 

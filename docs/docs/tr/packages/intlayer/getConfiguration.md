@@ -53,36 +53,8 @@ Daha fazla detay için [Intlayer yapılandırma dokümantasyonuna](https://githu
 
 ### Tam Yapılandırmayı Alma
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getConfiguration } from "intlayer";
-
-const config = getConfiguration();
-console.log(config);
-// Çıktı:
-// {
-//   internationalization: { ... },
-//   middleware: { ... },
-//   content: { ... },
-//   editor: { ... }
-// }
-```
-
-```javascript codeFormat="esm"
-import { getConfiguration } from "intlayer";
-
-const config = getConfiguration();
-console.log(config);
-// Çıktı:
-// {
-//   internationalization: { ... },
-//   middleware: { ... },
-//   content: { ... },
-//   editor: { ... }
-// }
-```
-
-```javascript codeFormat="commonjs"
-const { getConfiguration } = require("intlayer");
 
 const config = getConfiguration();
 console.log(config);
@@ -99,32 +71,8 @@ console.log(config);
 
 Yapılandırmanın `internationalization` bölümü, `locales` (kullanılabilir yerel ayarlar) ve `defaultLocale` (varsayılan dil) gibi yerel ayarlarla ilgili ayarları sağlar.
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getConfiguration } from "intlayer";
-
-const { internationalization, middleware } = getConfiguration();
-const { locales: availableLocales, defaultLocale } = internationalization;
-const { cookieName } = middleware;
-
-console.log(availableLocales); // Çıktı örneği: ["en", "fr", "es"]
-console.log(defaultLocale); // Çıktı örneği: "en"
-console.log(cookieName); // Çıktı: "INTLAYER_LOCALE"
-```
-
-```javascript codeFormat="esm"
-import { getConfiguration } from "intlayer";
-
-const { internationalization, middleware } = getConfiguration();
-const { locales: availableLocales, defaultLocale } = internationalization;
-const { cookieName } = middleware;
-
-console.log(availableLocales); // Çıktı örneği: ["en", "fr", "es"]
-console.log(defaultLocale); // Çıktı örneği: "en"
-console.log(cookieName); // Çıktı: "INTLAYER_LOCALE"
-```
-
-```javascript codeFormat="commonjs"
-const { getConfiguration } = require("intlayer");
 
 const { internationalization, middleware } = getConfiguration();
 const { locales: availableLocales, defaultLocale } = internationalization;

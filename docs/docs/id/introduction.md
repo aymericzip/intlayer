@@ -40,7 +40,7 @@ Intlayer juga menyediakan editor visual opsional yang memungkinkan Anda dengan m
         └── index.tsx
 ```
 
-```tsx fileName="src/components/MyComponent/index.content.ts" contentDeclarationFormat="typescript"
+```tsx fileName="src/components/MyComponent/index.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, type Dictionary } from "intlayer";
 
 const componentContent = {
@@ -56,44 +56,6 @@ const componentContent = {
 
 // Ekspor konten komponen sebagai default
 export default componentContent;
-```
-
-```javascript fileName="src/components/MyComponent/index.content.mjs" contentDeclarationFormat="esm"
-import { t } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const componentContent = {
-  key: "component-key",
-  content: {
-    myTranslatedContent: t({
-      en: "Hello World",
-      es: "Hola Mundo",
-      fr: "Bonjour le monde",
-    }),
-  },
-};
-
-// Ekspor konten komponen sebagai default
-export default componentContent;
-```
-
-```javascript fileName="src/components/MyComponent/index.content.cjs" contentDeclarationFormat="commonjs"
-const { t } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const componentContent = {
-  key: "component-key",
-  content: {
-    myTranslatedContent: t({
-      en: "Hello World",
-      es: "Hola Mundo",
-      fr: "Bonjour le monde",
-    }),
-  },
-};
-
-// Ekspor konten komponen menggunakan CommonJS
-module.exports = componentContent;
 ```
 
 ```json fileName="src/components/MyComponent/index.content.json" contentDeclarationFormat="json"
@@ -113,31 +75,11 @@ module.exports = componentContent;
 }
 ```
 
-```tsx fileName="src/components/MyComponent/index.tsx" codeFormat="typescript"
+```tsx fileName="src/components/MyComponent/index.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useIntlayer } from "react-intlayer";
 
 export const MyComponent: FC = () => {
-  const { myTranslatedContent } = useIntlayer("component-key");
-
-  return <span>{myTranslatedContent}</span>;
-};
-```
-
-```jsx fileName="src/components/MyComponent/index.mjx" codeFormat="esm"
-import { useIntlayer } from "react-intlayer";
-
-const MyComponent = () => {
-  const { myTranslatedContent } = useIntlayer("component-key");
-
-  return <span>{myTranslatedContent}</span>;
-};
-```
-
-```jsx fileName="src/components/MyComponent/index.csx" codeFormat="commonjs"
-const { useIntlayer } = require("react-intlayer");
-
-const MyComponent = () => {
   const { myTranslatedContent } = useIntlayer("component-key");
 
   return <span>{myTranslatedContent}</span>;

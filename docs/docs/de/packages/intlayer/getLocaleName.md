@@ -50,50 +50,8 @@ Die Funktion `getLocaleName` gibt den lokalisierten Namen einer gegebenen Locale
 
 ## Beispielhafte Verwendung
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, getLocaleName } from "intlayer";
-
-getLocaleName(Locales.ENGLISH); // Ausgabe: "English"
-getLocaleName(Locales.ENGLISH, Locales.FRENCH); // Ausgabe: "Anglais"
-getLocaleName(Locales.ENGLISH, Locales.ESPANOL); // Ausgabe: "Inglés"
-getLocaleName(Locales.ENGLISH, Locales.ENGLISH); // Ausgabe: "English"
-
-getLocaleName(Locales.FRENCH); // Ausgabe: "Français"
-getLocaleName(Locales.FRENCH, Locales.FRENCH); // Ausgabe: "Français"
-getLocaleName(Locales.FRENCH, Locales.ESPANOL); // Ausgabe: "Francés"
-getLocaleName(Locales.FRENCH, Locales.ENGLISH); // Ausgabe: "French"
-
-getLocaleName(Locales.CHINESE); // Ausgabe: "中文"
-getLocaleName(Locales.CHINESE, Locales.FRENCH); // Ausgabe: "Chinois"
-getLocaleName(Locales.CHINESE, Locales.ESPANOL); // Ausgabe: "Chino"
-getLocaleName(Locales.CHINESE, Locales.ENGLISH); // Ausgabe: "Chinese"
-
-getLocaleName("unknown-locale"); // Ausgabe: "Unbekannte Locale"
-```
-
-```javascript codeFormat="esm"
-import { Locales, getLocaleName } from "intlayer";
-
-getLocaleName(Locales.ENGLISH); // Ausgabe: "English"
-getLocaleName(Locales.ENGLISH, Locales.FRENCH); // Ausgabe: "Anglais"
-getLocaleName(Locales.ENGLISH, Locales.ESPANOL); // Ausgabe: "Inglés"
-getLocaleName(Locales.ENGLISH, Locales.ENGLISH); // Ausgabe: "English"
-
-getLocaleName(Locales.FRENCH); // Ausgabe: "Français"
-getLocaleName(Locales.FRENCH, Locales.FRENCH); // Ausgabe: "Français"
-getLocaleName(Locales.FRENCH, Locales.ESPANOL); // Ausgabe: "Francés"
-getLocaleName(Locales.FRENCH, Locales.ENGLISH); // Ausgabe: "French"
-
-getLocaleName(Locales.CHINESE); // Ausgabe: "中文"
-getLocaleName(Locales.CHINESE, Locales.FRENCH); // Ausgabe: "Chinois"
-getLocaleName(Locales.CHINESE, Locales.ESPANOL); // Ausgabe: "Chino"
-getLocaleName(Locales.CHINESE, Locales.ENGLISH); // Ausgabe: "Chinese"
-
-getLocaleName("unknown-locale"); // Ausgabe: "Unbekannte Locale"
-```
-
-```javascript codeFormat="commonjs"
-const { Locales, getLocaleName } = require("intlayer");
 
 getLocaleName(Locales.ENGLISH); // Ausgabe: "English"
 getLocaleName(Locales.ENGLISH, Locales.FRENCH); // Ausgabe: "Anglais"

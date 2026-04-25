@@ -47,26 +47,8 @@ Supprime le segment de locale de l’URL ou du chemin donné s’il est présent
 
 ## Exemple d’utilisation
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getPathWithoutLocale } from "intlayer";
-
-console.log(getPathWithoutLocale("/dashboard")); // Résultat : "/dashboard"
-console.log(getPathWithoutLocale("/en/dashboard")); // Résultat : "/dashboard"
-console.log(getPathWithoutLocale("/fr/dashboard")); // Résultat : "/dashboard"
-console.log(getPathWithoutLocale("https://example.com/en/dashboard")); // Résultat : "https://example.com/dashboard"
-```
-
-```javascript codeFormat="esm"
-import { getPathWithoutLocale } from "intlayer";
-
-console.log(getPathWithoutLocale("/dashboard")); // Résultat : "/dashboard"
-console.log(getPathWithoutLocale("/en/dashboard")); // Résultat : "/dashboard"
-console.log(getPathWithoutLocale("/fr/dashboard")); // Résultat : "/dashboard"
-console.log(getPathWithoutLocale("https://example.com/en/dashboard")); // Résultat : "https://example.com/dashboard"
-```
-
-```javascript codeFormat="commonjs"
-const { getPathWithoutLocale } = require("intlayer");
 
 console.log(getPathWithoutLocale("/dashboard")); // Résultat : "/dashboard"
 console.log(getPathWithoutLocale("/en/dashboard")); // Résultat : "/dashboard"

@@ -336,7 +336,7 @@ export default preview;
 
 Tạo tệp `*.content.ts` bên cạnh mỗi thành phần. Intlayer sẽ tự động nhận diện nó trong quá trình biên dịch.
 
-```typescript fileName="src/components/CopyButton/CopyButton.content.ts" codeFormat="typescript"
+```typescript fileName="src/components/CopyButton/CopyButton.content.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { type Dictionary, t } from "intlayer";
 
 const copyButtonContent = {
@@ -351,42 +351,6 @@ const copyButtonContent = {
 } satisfies Dictionary;
 
 export default copyButtonContent;
-```
-
-```javascript fileName="src/components/CopyButton/CopyButton.content.mjs" codeFormat="esm"
-import { t } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const copyButtonContent = {
-  key: "copy-button",
-  content: {
-    label: t({
-      en: "Copy content",
-      fr: "Copier le contenu",
-      es: "Copiar contenido",
-    }),
-  },
-};
-
-export default copyButtonContent;
-```
-
-```javascript fileName="src/components/CopyButton/CopyButton.content.cjs" codeFormat="commonjs"
-const { t } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const copyButtonContent = {
-  key: "copy-button",
-  content: {
-    label: t({
-      en: "Copy content",
-      fr: "Copier le contenu",
-      es: "Copiar contenido",
-    }),
-  },
-};
-
-module.exports = copyButtonContent;
 ```
 
 > Để biết thêm các định dạng khai báo nội dung và tính năng khác, hãy xem [tài liệu khai báo nội dung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/content_file.md).

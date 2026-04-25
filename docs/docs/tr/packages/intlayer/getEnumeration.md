@@ -50,7 +50,7 @@ history:
 
 ### Temel Kullanım
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getEnumeration } from "intlayer";
 
 const content = getEnumeration(
@@ -66,68 +66,10 @@ const content = getEnumeration(
 console.log(content); // Çıktı: "İkiniz var"
 ```
 
-```javascript codeFormat="esm"
-import { getEnumeration } from "intlayer";
-
-const content = getEnumeration(
-  {
-    "<1": "Şundan azınız var: bir",
-    "2": "İkiniz var",
-    ">=3": "Üç veya daha fazlasınız var",
-  },
-  2
-);
-
-console.log(content); // Çıktı: "İkiniz var"
-```
-
-```javascript codeFormat="commonjs"
-const { getEnumeration } = require("intlayer");
-
-const content = getEnumeration(
-  {
-    "<1": "Şundan azınız var: bir",
-    "2": "İkiniz var",
-    ">=3": "Üç veya daha fazlasınız var",
-  },
-  2
-);
-
-console.log(content); // Çıktı: "İkiniz var"
-```
-
 ### Koşulların Önceliği
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getEnumeration } from "intlayer";
-
-const content = getEnumeration(
-  {
-    "<4": "Dörtten azınız var",
-    "2": "İkiniz var",
-  },
-  2
-);
-
-console.log(content); // Çıktı: "Dörtten azınız var"
-```
-
-```javascript codeFormat="esm"
-import { getEnumeration } from "intlayer";
-
-const content = getEnumeration(
-  {
-    "<4": "Dörtten azınız var",
-    "2": "İkiniz var",
-  },
-  2
-);
-
-console.log(content); // Çıktı: "Dörtten azınız var"
-```
-
-```javascript codeFormat="commonjs"
-const { getEnumeration } = require("intlayer");
 
 const content = getEnumeration(
   {

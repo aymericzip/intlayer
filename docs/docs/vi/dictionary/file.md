@@ -34,7 +34,7 @@ Khác với các phương pháp đọc tệp như `import`, `require` hoặc `fs
 
 Để nhúng nội dung tệp vào dự án Intlayer của bạn, hãy sử dụng hàm `file` trong một module nội dung. Dưới đây là các ví dụ minh họa các cách triển khai khác nhau.
 
-```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="**/*.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { file, type Dictionary } from "intlayer";
 
 const myFileContent = {
@@ -45,36 +45,6 @@ const myFileContent = {
 } satisfies Dictionary;
 
 export default myFileContent;
-```
-
-```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-import { file } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-// Định nghĩa nội dung tệp với kiểu Dictionary của Intlayer
-const myFileContent = {
-  key: "my_key",
-  content: {
-    myFile: file("./path/to/file.txt"), // Đường dẫn tới tệp được nhúng
-  },
-};
-
-export default myFileContent;
-```
-
-```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-const { file } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-// Định nghĩa nội dung tệp với kiểu Dictionary của Intlayer
-const myFileContent = {
-  key: "my_key",
-  content: {
-    myFile: file("./path/to/file.txt"), // Đường dẫn tới tệp được nhúng
-  },
-};
-
-module.exports = myFileContent;
 ```
 
 ```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
@@ -94,7 +64,7 @@ module.exports = myFileContent;
 
 Để sử dụng nội dung tệp được nhúng trong một component React, hãy import và sử dụng hook `useIntlayer` từ package `react-intlayer`. Hook này lấy nội dung từ key được chỉ định và cho phép hiển thị nội dung đó một cách động.
 
-```tsx fileName="**/*.tsx" codeFormat="typescript"
+```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useIntlayer } from "react-intlayer";
 
@@ -111,43 +81,11 @@ const FileComponent: FC = () => {
 export default FileComponent;
 ```
 
-```javascript fileName="**/*.mjx" codeFormat="esm"
-import { useIntlayer } from "react-intlayer";
-
-const FileComponent = () => {
-  const { myFile } = useIntlayer("my_key");
-
-  return (
-    <div>
-      <pre>{myFile}</pre>
-    </div>
-  );
-};
-
-export default FileComponent;
-```
-
-```javascript fileName="**/*.cjs" codeFormat="commonjs"
-const { useIntlayer } = require("react-intlayer");
-
-const FileComponent = () => {
-  const { myFile } = useIntlayer("my_key");
-
-  return (
-    <div>
-      <pre>{myFile}</pre>
-    </div>
-  );
-};
-
-module.exports = FileComponent;
-```
-
 ## Ví dụ Markdown Đa ngôn ngữ
 
 Để hỗ trợ các tệp Markdown có thể chỉnh sửa đa ngôn ngữ, bạn có thể sử dụng `file` kết hợp với `t()` và `md()` để định nghĩa các phiên bản ngôn ngữ khác nhau của một tệp nội dung Markdown.
 
-```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="**/*.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { file, t, md, type Dictionary } from "intlayer";
 
 const myMultilingualContent = {
@@ -164,43 +102,6 @@ const myMultilingualContent = {
 } satisfies Dictionary;
 
 export default myMultilingualContent;
-```
-
-```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-import { file, t, md } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const myMultilingualContent = {
-  key: "my_multilingual_key",
-  content: {
-    myContent: md(
-      t({
-        en: file("src/components/test.en.md"),
-        fr: file("src/components/test.fr.md"),
-        es: file("src/components/test.es.md"),
-      })
-    ),
-  },
-};
-
-export default myMultilingualContent;
-```
-
-```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-const { file, t, md } = require("intlayer");
-
-const myMultilingualContent = {
-  key: "my_multilingual_key",
-  content: {
-    myContent: md(
-      t({
-        en: file("src/components/test.en.md"),
-        fr: file("src/components/test.fr.md"),
-        es: file("src/components/test.es.md"),
-      })
-    ),
-  },
-};
 ```
 
 Cấu hình này cho phép nội dung được truy xuất động dựa trên ngôn ngữ ưu tiên của người dùng. Khi được sử dụng trong Intlayer Visual Editor hoặc CMS, hệ thống sẽ nhận biết rằng nội dung đến từ các tệp Markdown được chỉ định và đảm bảo chúng vẫn có thể chỉnh sửa được.

@@ -509,7 +509,7 @@ Intlayer використовує розширення модулів (module au
 
 Щоб налаштувати його, ви можете додати розділ `compiler` у свій файл `intlayer.config.ts`:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -538,66 +538,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... Інша частина вашої конфігурації
-  compiler: {
-    /**
-     * Вказує, чи повинен бути включений компілятор.
-     */
-    enabled: true,
-
-    /**
-     * Визначає шлях до вихідних файлів
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * Вказує, чи повинні компоненти зберігатися після перетворення. Таким чином, компілятор можна запустити лише один раз для перетворення програми, а потім видалити.
-     */
-    saveComponents: false,
-
-    /**
-     * Префікс ключа словника
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... Інша частина вашої конфігурації
-  compiler: {
-    /**
-     * Вказує, чи повинен бути включений компілятор.
-     */
-    enabled: true,
-
-    /**
-     * Визначає шлях до вихідних файлів
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * Вказує, чи повинні компоненти зберігатися після перетворення. Таким чином, компілятор можна запустити лише один раз для перетворення програми, а потім видалити.
-     */
-    saveComponents: false,
-
-    /**
-     * Префікс ключа словника
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-module.exports = config;
 ```
 
 <Tabs>

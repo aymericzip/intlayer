@@ -41,7 +41,7 @@ To set up insertion content in your Intlayer project, create a content module th
   <Tab label="Manual Wrapping" value="manual-wrapping">
     Use the `insert` function to explicitly declare insertion content.
 
-    ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+    ```typescript fileName="**/*.content.ts" contentDeclarationFormat=["typescript", "esm", "cjs"]
     import { insert, type Dictionary } from "intlayer";
 
     const myInsertionContent = {
@@ -105,7 +105,7 @@ To set up insertion content in your Intlayer project, create a content module th
   <Tab label="Automatic Detection" value="automatic-detection">
     If the string contains common insertion indicators (like `{{name}}`), Intlayer will automatically transform it.
 
-    ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+    ```typescript fileName="**/*.content.ts" contentDeclarationFormat=["typescript", "esm", "cjs"]
     import { type Dictionary } from "intlayer";
 
     const myInsertionContent = {

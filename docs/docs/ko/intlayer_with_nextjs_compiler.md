@@ -503,7 +503,7 @@ Intlayer를 사용한 개발 환경을 개선하기 위해 **공식 Intlayer VS 
 
 설정하려면 `intlayer.config.ts` 파일에 `compiler` 섹션을 추가할 수 있습니다.
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -532,66 +532,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... 나머지 구성
-  compiler: {
-    /**
-     * 컴파일러 활성화 여부를 나타냅니다.
-     */
-    enabled: true,
-
-    /**
-     * 출력 파일 경로를 정의합니다.
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * 변환 후 컴포넌트를 저장할지 여부를 나타냅니다. 그렇게 하면 컴파일러를 한 번만 실행하여 앱을 변환한 다음 제거할 수 있습니다.
-     */
-    saveComponents: false,
-
-    /**
-     * 사전 키 접두사
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... 나머지 구성
-  compiler: {
-    /**
-     * 컴파일러 활성화 여부를 나타냅니다.
-     */
-    enabled: true,
-
-    /**
-     * 출력 파일 경로를 정의합니다.
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * 변환 후 컴포넌트를 저장할지 여부를 나타냅니다. 그렇게 하면 컴파일러를 한 번만 실행하여 앱을 변환한 다음 제거할 수 있습니다.
-     */
-    saveComponents: false,
-
-    /**
-     * 사전 키 접두사
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-module.exports = config;
 ```
 
 <Tabs>

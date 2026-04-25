@@ -53,36 +53,8 @@ history:
 
 ### 获取完整配置
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getConfiguration } from "intlayer";
-
-const config = getConfiguration();
-console.log(config);
-// 输出：
-// {
-//   internationalization: { ... },
-//   middleware: { ... },
-//   content: { ... },
-//   editor: { ... }
-// }
-```
-
-```javascript codeFormat="esm"
-import { getConfiguration } from "intlayer";
-
-const config = getConfiguration();
-console.log(config);
-// 输出：
-// {
-//   internationalization: { ... },
-//   middleware: { ... },
-//   content: { ... },
-//   editor: { ... }
-// }
-```
-
-```javascript codeFormat="commonjs"
-const { getConfiguration } = require("intlayer");
 
 const config = getConfiguration();
 console.log(config);
@@ -99,32 +71,8 @@ console.log(config);
 
 配置中的 `internationalization` 部分提供了与语言环境相关的设置，例如 `locales`（可用语言环境）和 `defaultLocale`（默认语言）。
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getConfiguration } from "intlayer";
-
-const { internationalization, middleware } = getConfiguration();
-const { locales: availableLocales, defaultLocale } = internationalization;
-const { cookieName } = middleware;
-
-console.log(availableLocales); // 输出示例: ["en", "fr", "es"]
-console.log(defaultLocale); // 输出示例: "en"
-console.log(cookieName); // 输出: "INTLAYER_LOCALE"
-```
-
-```javascript codeFormat="esm"
-import { getConfiguration } from "intlayer";
-
-const { internationalization, middleware } = getConfiguration();
-const { locales: availableLocales, defaultLocale } = internationalization;
-const { cookieName } = middleware;
-
-console.log(availableLocales); // 输出示例: ["en", "fr", "es"]
-console.log(defaultLocale); // 输出示例: "en"
-console.log(cookieName); // 输出: "INTLAYER_LOCALE"
-```
-
-```javascript codeFormat="commonjs"
-const { getConfiguration } = require("intlayer");
 
 const { internationalization, middleware } = getConfiguration();
 const { locales: availableLocales, defaultLocale } = internationalization;

@@ -658,7 +658,7 @@ export const Route = createFileRoute("/{-$locale}/$")({
 
 セットアップするには、`intlayer.config.ts` ファイルに `compiler` セクションを追加します：
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -691,74 +691,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ...構成の残り
-  compiler: {
-    /**
-     * コンパイラを有効にするかどうかを示します。
-     */
-    enabled: true,
-
-    /**
-     * 出力ファイルパスを定義します
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * 変換後にコンポーネントを保存するかどうかを示します。
-     *
-     * - `true` の場合、コンパイラはディスク上のコンポーネントファイルを書き換えます。そのため、変換は永続的になり、コンパイラは次のプロセスでの変換をスキップします。これにより、コンパイラはアプリを変換した後、削除できます。
-     *
-     * - `false` の場合、コンパイラはビルド出力のコードにのみ `useIntlayer()` 関数呼び出しを注入し、基本コードベースはそのまま維持します。変換はメモリ内でのみ行われます。
-     */
-    saveComponents: false,
-
-    /**
-     * 辞書キーのプレフィックス
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ...構成の残り
-  compiler: {
-    /**
-     * コンパイラを有効にするかどうかを示します。
-     */
-    enabled: true,
-
-    /**
-     * 出力ファイルパスを定義します
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * 変換後にコンポーネントを保存するかどうかを示します。
-     *
-     * - `true` の場合、コンパイラはディスク上のコンポーネントファイルを書き換えます。そのため、変換は永続的になり、コンパイラは次のプロセスでの変換をスキップします。これにより、コンパイラはアプリを変換した後、削除できます。
-     *
-     * - `false` の場合、コンパイラはビルド出力のコードにのみ `useIntlayer()` 関数呼び出しを注入し、基本コードベースはそのまま維持します。変換はメモリ内でのみ行われます。
-     */
-    saveComponents: false,
-
-    /**
-     * 辞書キーのプレフィックス
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-module.exports = config;
 ```
 
 <Tabs>

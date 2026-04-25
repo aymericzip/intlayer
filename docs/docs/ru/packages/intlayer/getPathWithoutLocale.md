@@ -47,26 +47,8 @@ history:
 
 ## Пример использования
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getPathWithoutLocale } from "intlayer";
-
-console.log(getPathWithoutLocale("/dashboard")); // Вывод: "/dashboard"
-console.log(getPathWithoutLocale("/en/dashboard")); // Вывод: "/dashboard"
-console.log(getPathWithoutLocale("/fr/dashboard")); // Вывод: "/dashboard"
-console.log(getPathWithoutLocale("https://example.com/en/dashboard")); // Вывод: "https://example.com/dashboard"
-```
-
-```javascript codeFormat="esm"
-import { getPathWithoutLocale } from "intlayer";
-
-console.log(getPathWithoutLocale("/dashboard")); // Вывод: "/dashboard"
-console.log(getPathWithoutLocale("/en/dashboard")); // Вывод: "/dashboard"
-console.log(getPathWithoutLocale("/fr/dashboard")); // Вывод: "/dashboard"
-console.log(getPathWithoutLocale("https://example.com/en/dashboard")); // Вывод: "https://example.com/dashboard"
-```
-
-```javascript codeFormat="commonjs"
-const { getPathWithoutLocale } = require("intlayer");
 
 console.log(getPathWithoutLocale("/dashboard")); // Вывод: "/dashboard"
 console.log(getPathWithoutLocale("/en/dashboard")); // Вывод: "/dashboard"

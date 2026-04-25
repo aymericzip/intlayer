@@ -64,38 +64,8 @@ Die Funktion `getMultilingualUrls` erzeugt eine Zuordnung mehrsprachiger URLs, i
 
 ### Relative URLs
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getMultilingualUrls, Locales } from "intlayer";
-
-getMultilingualUrls(
-  "/dashboard",
-  [Locales.ENGLISH, Locales.FRENCH],
-  Locales.ENGLISH,
-  false
-);
-// Ausgabe: {
-//   en: "/dashboard",
-//   fr: "/fr/dashboard"
-// }
-```
-
-```javascript codeFormat="esm"
-import { getMultilingualUrls, Locales } from "intlayer";
-
-getMultilingualUrls(
-  "/dashboard",
-  [Locales.ENGLISH, Locales.FRENCH],
-  Locales.ENGLISH,
-  false
-);
-// Ausgabe: {
-//   en: "/dashboard",
-//   fr: "/fr/dashboard"
-// }
-```
-
-```javascript codeFormat="commonjs"
-const { getMultilingualUrls, Locales } = require("intlayer");
 
 getMultilingualUrls(
   "/dashboard",
@@ -143,7 +113,7 @@ getMultilingualUrls(
 
 In einer mehrsprachigen Anwendung ist die Konfiguration der Internationalisierungseinstellungen mit `locales` und `defaultLocale` entscheidend, um sicherzustellen, dass die richtige Sprache angezeigt wird. Nachfolgend ein Beispiel, wie `getMultilingualUrls` in einer Anwendungs-Konfiguration verwendet werden kann:
 
-```tsx codeFormat="typescript"
+```tsx codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 // Konfiguration für unterstützte Sprachen und Standardsprache
@@ -155,34 +125,6 @@ export default {
 } satisfies IntlayerConfig;
 
 export default config;
-```
-
-```javascript codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-```javascript codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-module.exports = config;
 ```
 
 Die obige Konfiguration stellt sicher, dass die Anwendung `ENGLISCH`, `FRANZÖSISCH` und `SPANISCH` als unterstützte Sprachen erkennt und `ENGLISCH` als Fallback-Sprache verwendet.

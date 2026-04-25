@@ -50,50 +50,8 @@ history:
 
 ## Приклад використання
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, getLocaleName } from "intlayer";
-
-getLocaleName(Locales.ENGLISH); // Вивід: "English"
-getLocaleName(Locales.ENGLISH, Locales.FRENCH); // Вивід: "Anglais"
-getLocaleName(Locales.ENGLISH, Locales.ESPANOL); // Вивід: "Inglés"
-getLocaleName(Locales.ENGLISH, Locales.ENGLISH); // Вивід: "English"
-
-getLocaleName(Locales.FRENCH); // Вивід: "Français"
-getLocaleName(Locales.FRENCH, Locales.FRENCH); // Вивід: "Français"
-getLocaleName(Locales.FRENCH, Locales.ESPANOL); // Вивід: "Francés"
-getLocaleName(Locales.FRENCH, Locales.ENGLISH); // Вивід: "French"
-
-getLocaleName(Locales.CHINESE); // Вивід: "中文"
-getLocaleName(Locales.CHINESE, Locales.FRENCH); // Вивід: "Chinois"
-getLocaleName(Locales.CHINESE, Locales.ESPANOL); // Вивід: "Chino"
-getLocaleName(Locales.CHINESE, Locales.ENGLISH); // Вивід: "Chinese"
-
-getLocaleName("unknown-locale"); // Вивід: "Unknown locale"
-```
-
-```javascript codeFormat="esm"
-import { Locales, getLocaleName } from "intlayer";
-
-getLocaleName(Locales.ENGLISH); // Вивід: "English"
-getLocaleName(Locales.ENGLISH, Locales.FRENCH); // Вивід: "Anglais"
-getLocaleName(Locales.ENGLISH, Locales.ESPANOL); // Вивід: "Inglés"
-getLocaleName(Locales.ENGLISH, Locales.ENGLISH); // Вивід: "English"
-
-getLocaleName(Locales.FRENCH); // Вивід: "Français"
-getLocaleName(Locales.FRENCH, Locales.FRENCH); // Вивід: "Français"
-getLocaleName(Locales.FRENCH, Locales.ESPANOL); // Вивід: "Francés"
-getLocaleName(Locales.FRENCH, Locales.ENGLISH); // Вивід: "French"
-
-getLocaleName(Locales.CHINESE); // Вивід: "中文"
-getLocaleName(Locales.CHINESE, Locales.FRENCH); // Вивід: "Chinois"
-getLocaleName(Locales.CHINESE, Locales.ESPANOL); // Вивід: "Chino"
-getLocaleName(Locales.CHINESE, Locales.ENGLISH); // Вивід: "Chinese"
-
-getLocaleName("unknown-locale"); // Вивід: "Unknown locale"
-```
-
-```javascript codeFormat="commonjs"
-const { Locales, getLocaleName } = require("intlayer");
 
 getLocaleName(Locales.ENGLISH); // Вивід: "English"
 getLocaleName(Locales.ENGLISH, Locales.FRENCH); // Вивід: "Anglais"

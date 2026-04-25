@@ -48,24 +48,8 @@ Hàm `getHTMLTextDir` xác định hướng văn bản (`ltr`, `rtl`, hoặc `au
 
 ### Xác định hướng văn bản
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getHTMLTextDir } from "intlayer";
-
-getHTMLTextDir(Locales.ENGLISH); // Kết quả: "ltr"
-getHTMLTextDir(Locales.FRENCH); // Kết quả: "ltr"
-getHTMLTextDir(Locales.ARABIC); // Kết quả: "rtl"
-```
-
-```javascript codeFormat="esm"
-import { getHTMLTextDir } from "intlayer";
-
-getHTMLTextDir(Locales.ENGLISH); // Kết quả: "ltr"
-getHTMLTextDir(Locales.FRENCH); // Kết quả: "ltr"
-getHTMLTextDir(Locales.ARABIC); // Kết quả: "rtl"
-```
-
-```javascript codeFormat="commonjs"
-const { getHTMLTextDir } = require("intlayer");
 
 getHTMLTextDir(Locales.ENGLISH); // Kết quả: "ltr"
 getHTMLTextDir(Locales.FRENCH); // Kết quả: "ltr"
@@ -84,7 +68,7 @@ getHTMLTextDir(Locales.ARABIC); // Kết quả: "rtl"
 
 Hàm `getHTMLTextDir` có thể được sử dụng để thiết lập thuộc tính `dir` trong tài liệu HTML một cách động nhằm hiển thị văn bản đúng hướng dựa trên locale.
 
-```tsx codeFormat="typescript"
+```tsx codeFormat={["typescript", "esm", "commonjs"]}
 import type { FC } from "react";
 import { getHTMLTextDir, type Locales } from "intlayer";
 
@@ -92,26 +76,6 @@ export const HTMLLayout: FC<PropsWithChildren<{ locale: Locales }>> = ({
   children,
   locale,
 }) => (
-  <html dir={getHTMLTextDir(locale)} locale={locale}>
-    <body>{children}</body>
-  </html>
-);
-```
-
-```jsx codeFormat="esm"
-import { getHTMLTextDir } from "intlayer";
-
-const HTMLLayout = ({ children, locale }) => (
-  <html dir={getHTMLTextDir(locale)} locale={locale}>
-    <body>{children}</body>
-  </html>
-);
-```
-
-```jsx codeFormat="commonjs"
-const { getHTMLTextDir } = require("intlayer");
-
-const HTMLLayout = ({ children, locale }) => (
   <html dir={getHTMLTextDir(locale)} locale={locale}>
     <body>{children}</body>
   </html>

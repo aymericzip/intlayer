@@ -47,29 +47,11 @@ history:
 
 ## Приклад використання
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getPathWithoutLocale } from "intlayer";
 
 console.log(getPathWithoutLocale("/dashboard")); // Виведе: "/dashboard"
 console.log(getPathWithoutLocale("/en/dashboard")); // Виведе: "/dashboard"
 console.log(getPathWithoutLocale("/fr/dashboard")); // Виведе: "/dashboard"
-console.log(getPathWithoutLocale("https://example.com/en/dashboard")); // Вивід: "https://example.com/dashboard"
-```
-
-```javascript codeFormat="esm"
-import { getPathWithoutLocale } from "intlayer";
-
-console.log(getPathWithoutLocale("/dashboard")); // Вивід: "/dashboard"
-console.log(getPathWithoutLocale("/en/dashboard")); // Вивід: "/dashboard"
-console.log(getPathWithoutLocale("/fr/dashboard")); // Вивід: "/dashboard"
-console.log(getPathWithoutLocale("https://example.com/en/dashboard")); // Вивід: "https://example.com/dashboard"
-```
-
-```javascript codeFormat="commonjs"
-const { getPathWithoutLocale } = require("intlayer");
-
-console.log(getPathWithoutLocale("/dashboard")); // Вивід: "/dashboard"
-console.log(getPathWithoutLocale("/en/dashboard")); // Вивід: "/dashboard"
-console.log(getPathWithoutLocale("/fr/dashboard")); // Вивід: "/dashboard"
 console.log(getPathWithoutLocale("https://example.com/en/dashboard")); // Вивід: "https://example.com/dashboard"
 ```

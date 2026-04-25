@@ -71,7 +71,7 @@ Le hook accepte deux paramètres :
 
 Tous les objets dictionnaires doivent être déclarés dans des fichiers de contenu structurés afin d'assurer la sécurité des types et d'éviter les erreurs d'exécution. Vous pouvez trouver les [instructions d'installation ici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/content_file.md). Voici un exemple de déclaration de contenu :
 
-```typescript fileName="component.content.ts" codeFormat="typescript"
+```typescript fileName="component.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, type Dictionary } from "intlayer";
 
 const exampleContent = {
@@ -93,57 +93,11 @@ const exampleContent = {
 export default exampleContent;
 ```
 
-```javascript fileName="component.content.mjs" contentDeclarationFormat="esm"
-import { t } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const exampleContent = {
-  key: "component-example",
-  content: {
-    title: t({
-      en: "Client Component Example",
-      fr: "Exemple de composant client",
-      es: "Ejemplo de componente cliente",
-    }),
-    content: t({
-      en: "This is the content of a client component example",
-      fr: "Ceci est le contenu d'un exemple de composant client",
-      es: "Este es el contenido de un ejemplo de componente cliente",
-    }),
-  },
-};
-
-export default exampleContent;
-```
-
-```javascript fileName="component.content.cjs" contentDeclarationFormat="commonjs"
-const { t } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const exampleContent = {
-  key: "component-example",
-  content: {
-    title: t({
-      en: "Client Component Example",
-      fr: "Exemple de composant client",
-      es: "Ejemplo de componente cliente",
-    }),
-    content: t({
-      en: "This is the content of a client component example",
-      fr: "Ceci est le contenu d'un exemple de composant client",
-      es: "Este es el contenido de un ejemplo de componente cliente",
-    }),
-  },
-};
-
-module.exports = exampleContent;
-```
-
 ## Exemple d'utilisation dans un composant client React
 
 Voici un exemple de la manière d'utiliser le hook `useDictionary` dans un composant React :
 
-```tsx fileName="ClientComponentExample.tsx" codeFormat="typescript"
+```tsx fileName="ClientComponentExample.tsx" codeFormat={["typescript", "esm"]}
 "use client";
 
 import type { FC } from "react";
@@ -162,85 +116,16 @@ const ClientComponentExample: FC = () => {
 };
 ```
 
-```javascript fileName="ClientComponentExample.mjs" codeFormat="esm"
-"use client";
-
-import type { FC } from "react";
-import { useDictionary } from "next-intlayer";
-import exampleContent from "./component.content";
-
-const ClientComponentExample: FC = () => {
-  const { title, content } = useDictionary(exampleContent);
-
-  return (
-    <div>
-      <h1>{title}</h1>
-      <p>{content}</p>
-    </div>
-  );
-};
-```
-
-```javascript fileName="ClientComponentExample.cjs" codeFormat="commonjs"
-"use client";
-
-const { useDictionary } = require("next-intlayer");
-const exampleContent = require("./component.content");
-
-const ClientComponentExample = () => {
-  const { title, content } = useDictionary(exampleContent);
-
-  return (
-    <div>
-      <h1>{title}</h1>
-      <p>{content}</p>
-    </div>
-  );
-};
-```
-
 ## Exemple d'utilisation dans un composant serveur React
 
 Si vous utilisez le hook `useDictionary` en dehors du `IntlayerServerProvider`, la locale doit être explicitement fournie en paramètre lors du rendu du composant :
 
-```tsx fileName="ServerComponentExample.tsx" codeFormat="typescript"
+```tsx fileName="ServerComponentExample.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useDictionary } from "next-intlayer/server";
 import clientComponentExampleContent from "./component.content";
 
 const ServerComponentExample: FC = () => {
-  const { content } = useDictionary(clientComponentExampleContent);
-
-  return (
-    <div>
-      <h1>{content.title}</h1>
-      <p>{content.content}</p>
-    </div>
-  );
-};
-```
-
-```javascript fileName="ServerComponentExample.mjs" codeFormat="esm"
-import { useDictionary } from "next-intlayer/server";
-import clientComponentExampleContent from "./component.content";
-
-const ServerComponentExample = () => {
-  const { content } = useDictionary(clientComponentExampleContent);
-
-  return (
-    <div>
-      <h1>{content.title}</h1>
-      <p>{content.content}</p>
-    </div>
-  );
-};
-```
-
-```javascript fileName="ServerComponentExample.cjs" codeFormat="commonjs"
-import { useDictionary } from "next-intlayer/server";
-import clientComponentExampleContent from "./component.content";
-
-const ServerComponentExample = () => {
   const { content } = useDictionary(clientComponentExampleContent);
 
   return (

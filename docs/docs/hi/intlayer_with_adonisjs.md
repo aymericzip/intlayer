@@ -79,7 +79,7 @@ bun x intlayer init
 
 अपने प्रोजेक्ट रूट में `intlayer.config.ts` बनाकर अंतर्राष्ट्रीयकरण सेटिंग्स कॉन्फ़िगर करें:
 
-```typescript fileName="intlayer.config.ts"  codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -111,77 +111,11 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.RUSSIAN,
-      Locales.JAPANESE,
-      Locales.FRENCH,
-      Locales.KOREAN,
-      Locales.CHINESE,
-      Locales.SPANISH,
-      Locales.GERMAN,
-      Locales.ARABIC,
-      Locales.ITALIAN,
-      Locales.ENGLISH_UNITED_KINGDOM,
-      Locales.PORTUGUESE,
-      Locales.HINDI,
-      Locales.TURKISH,
-      Locales.POLISH,
-      Locales.INDONESIAN,
-      Locales.VIETNAMESE,
-      Locales.UKRAINIAN,
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.RUSSIAN,
-      Locales.JAPANESE,
-      Locales.FRENCH,
-      Locales.KOREAN,
-      Locales.CHINESE,
-      Locales.SPANISH,
-      Locales.GERMAN,
-      Locales.ARABIC,
-      Locales.ITALIAN,
-      Locales.ENGLISH_UNITED_KINGDOM,
-      Locales.PORTUGUESE,
-      Locales.HINDI,
-      Locales.TURKISH,
-      Locales.POLISH,
-      Locales.INDONESIAN,
-      Locales.VIETNAMESE,
-      Locales.UKRAINIAN,
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-module.exports = config;
-```
-
 ### अपनी सामग्री घोषित करें
 
 अनुवादों को संग्रहीत करने के लिए अपनी सामग्री घोषणाएं बनाएं और प्रबंधित करें:
 
-```typescript fileName="app/index.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="app/index.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, type Dictionary } from "intlayer";
 
 const indexContent = {
@@ -198,46 +132,6 @@ const indexContent = {
 } satisfies Dictionary;
 
 export default indexContent;
-```
-
-```javascript fileName="app/index.content.mjs" contentDeclarationFormat="esm"
-import { t } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const indexContent = {
-  key: "index",
-  content: {
-    exampleOfContent: t({
-      en: "Example of returned content in English",
-      fr: "Exemple de contenu renvoyé en français",
-      hi: "हिंदी में लौटाई गई सामग्री का उदाहरण",
-      "es-ES": "Ejemplo de contenido devuelto en español (España)",
-      "es-MX": "Ejemplo de contenido devuelto en español (México)",
-    }),
-  },
-};
-
-export default indexContent;
-```
-
-```javascript fileName="app/index.content.cjs" contentDeclarationFormat="commonjs"
-const { t } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const indexContent = {
-  key: "index",
-  content: {
-    exampleOfContent: t({
-      en: "Example of returned content in English",
-      fr: "Exemple de contenu renvoyé en français",
-      hi: "हिंदी में लौटाई गई सामग्री का उदाहरण",
-      "es-ES": "Ejemplo de contenido devuelto en español (España)",
-      "es-MX": "Ejemplo de contenido devuelto en español (México)",
-    }),
-  },
-};
-
-module.exports = indexContent;
 ```
 
 ```json fileName="app/index.content.json" contentDeclarationFormat="json"

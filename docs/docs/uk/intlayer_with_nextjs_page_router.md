@@ -87,7 +87,7 @@ bun x intlayer init
 
 Створіть файл конфігурації, щоб визначити мови, які підтримує ваш застосунок:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -104,44 +104,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      // Додайте тут інші локалі
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      // Додайте тут інші локалі
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-module.exports = config;
 ```
 
 > Через цей конфігураційний файл ви можете налаштувати локалізовані URL-адреси, перенаправлення в middleware, імена cookie, розташування та розширення файлів декларацій вмісту, вимкнути логи Intlayer у консолі тощо. Для повного переліку доступних параметрів зверніться до [документації з конфігурації](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/configuration.md).
@@ -176,33 +138,13 @@ export default withIntlayer(nextConfig);
 
 Налаштуйте middleware для автоматичного визначення та обробки бажаної користувачем локалі:
 
-```typescript fileName="src/middleware.ts" codeFormat="typescript"
+```typescript fileName="src/middleware.ts" codeFormat={["typescript", "esm", "commonjs"]}
 export { intlayerProxy as middleware } from "next-intlayer/middleware";
 
 export const config = {
   matcher:
     "/((?!api|static|assets|robots|sitemap|sw|service-worker|manifest|.*\\..*|_next).*)",
 };
-```
-
-```javascript fileName="src/middleware.mjs" codeFormat="esm"
-export { intlayerProxy as middleware } from "next-intlayer/middleware";
-
-export const config = {
-  matcher:
-    "/((?!api|static|assets|robots|sitemap|sw|service-worker|manifest|.*\\..*|_next).*)",
-};
-```
-
-```javascript fileName="src/middleware.cjs" codeFormat="commonjs"
-const { intlayerProxy } = require("next-intlayer/middleware");
-
-const config = {
-  matcher:
-    "/((?!api|static|assets|robots|sitemap|sw|service-worker|manifest|.*\\..*|_next).*)",
-};
-
-module.exports = { middleware: intlayerProxy, config };
 ```
 
 > Налаштуйте параметр `matcher`, щоб відповідати маршрутам вашого застосунку. Для детальнішої інформації див. [документацію Next.js щодо конфігурації matcher](https://nextjs.org/docs/app/building-your-application/routing/middleware).
@@ -368,7 +310,7 @@ module.exports = { middleware: intlayerProxy, config };
 
 Створіть та керуйте деклараціями контенту для зберігання перекладів.
 
-```tsx fileName="src/pages/[locale]/home.content.ts" contentDeclarationFormat="typescript"
+```tsx fileName="src/pages/[locale]/home.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, type Dictionary } from "intlayer";
 
 const homeContent = {
@@ -390,50 +332,6 @@ const homeContent = {
 } satisfies Dictionary;
 
 export default homeContent;
-```
-
-```javascript fileName="src/pages/[locale]/home.content.mjs" contentDeclarationFormat="esm"
-import { t } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const homeContent = {
-  key: "home",
-  content: {
-    getStarted: {
-      main: t({
-        uk: "Почніть, редагуючи цю сторінку.",
-        en: "Get started by editing this page.",
-        fr: "Commencez par éditer cette page.",
-        es: "Comience por editar esta página.",
-      }),
-      pageLink: "src/app/page.tsx",
-    },
-  },
-};
-
-export default homeContent;
-```
-
-```javascript fileName="src/pages/[locale]/home.content.cjs" contentDeclarationFormat="commonjs"
-const { t } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const homeContent = {
-  key: "home",
-  content: {
-    getStarted: {
-      main: t({
-        uk: "Почніть з редагування цієї сторінки.",
-        en: "Get started by editing this page.",
-        fr: "Commencez par éditer cette page.",
-        es: "Comience por editar esta página.",
-      }),
-      pageLink: "src/app/page.tsx",
-    },
-  },
-};
-
-module.exports = homeContent;
 ```
 
 ```json fileName="src/pages/[locale]/home.content.json" contentDeclarationFormat="json"
@@ -469,7 +367,7 @@ module.exports = homeContent;
 
 Отримуйте доступ до словників контенту у всьому застосунку, щоб відображати перекладений вміст.
 
-```tsx {2,6} fileName="src/pages/[locale]/index.tsx" codeFormat="typescript"
+```tsx {2,6} fileName="src/pages/[locale]/index.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useIntlayer } from "next-intlayer";
 import { ComponentExample } from "@components/ComponentExample";
@@ -492,86 +390,12 @@ const HomePage: FC = () => {
 export default HomePage;
 ```
 
-```jsx {1,5} fileName="src/pages/[locale]/index.mjx" codeFormat="esm"
-import { useIntlayer } from "next-intlayer";
-import { ComponentExample } from "@components/ComponentExample";
-
-const HomePage = () => {
-  const content = useIntlayer("home");
-
-  return (
-    <div>
-      <h1>{content.getStarted.main}</h1>
-      <code>{content.getStarted.pageLink}</code>
-
-      <ComponentExample />
-      {/* Додаткові компоненти */}
-    </div>
-  );
-};
-
-// ... Решта коду, включаючи getStaticPaths та getStaticProps
-
-export default HomePage;
-```
-
-```jsx {1,5} fileName="src/pages/[locale]/index.csx" codeFormat="commonjs"
-const { useIntlayer } = require("next-intlayer");
-const { ComponentExample } = require("@components/ComponentExample");
-
-const HomePage = () => {
-  const content = useIntlayer("home");
-
-  return (
-    <div>
-      <h1>{content.getStarted.main}</h1>
-      <code>{content.getStarted.pageLink}</code>
-
-      <ComponentExample />
-      {/* Додаткові компоненти */}
-    </div>
-  );
-};
-
-// ... Решта коду, включаючи getStaticPaths та getStaticProps
-```
-
-```tsx fileName="src/components/ComponentExample.tsx" codeFormat="typescript"
+```tsx fileName="src/components/ComponentExample.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useIntlayer } from "next-intlayer";
 
 export const ComponentExample: FC = () => {
   const content = useIntlayer("component-example"); // Переконайтесь, що у вас є відповідна декларація вмісту
-
-  return (
-    <div>
-      <h2>{content.title}</h2>
-      <p>{content.content}</p>
-    </div>
-  );
-};
-```
-
-```jsx fileName="src/components/ComponentExample.mjx" codeFormat="esm"
-import { useIntlayer } from "next-intlayer";
-
-const ComponentExample = () => {
-  const content = useIntlayer("component-example"); // Переконайтесь, що у вас є відповідна декларація вмісту
-
-  return (
-    <div>
-      <h2>{content.title}</h2>
-      <p>{content.content}</p>
-    </div>
-  );
-};
-```
-
-```jsx fileName="src/components/ComponentExample.csx" codeFormat="commonjs"
-const { useIntlayer } = require("next-intlayer");
-
-const ComponentExample = () => {
-  const content = useIntlayer("component-example"); // Переконайтеся, що у вас є відповідна декларація вмісту
 
   return (
     <div>
@@ -596,7 +420,7 @@ const ComponentExample = () => {
 
 Якщо ви хочете інтернаціоналізувати метадані, наприклад заголовок вашої сторінки, ви можете використовувати функцію `getStaticProps`, яку надає Next.js Page Router. Всередині ви можете отримати контент за допомогою функції `getIntlayer`, щоб перекласти ваші метадані.
 
-```typescript fileName="src/pages/[locale]/metadata.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="src/pages/[locale]/metadata.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { type Dictionary, t } from "intlayer";
 import { type Metadata } from "next";
 
@@ -620,57 +444,6 @@ const metadataContent = {
 } satisfies Dictionary<Metadata>;
 
 export default metadataContent;
-```
-
-```javascript fileName="src/pages/[locale]/metadata.content.mjs" contentDeclarationFormat="esm"
-import { t } from "intlayer";
-
-/** @type {import('intlayer').Dictionary<import('next').Metadata>} */
-const metadataContent = {
-  key: "page-metadata",
-  content: {
-    title: t({
-      uk: "Створити додаток Next.js",
-      en: "Create Next App",
-      fr: "Créer une application Next.js",
-      es: "Crear una aplicación Next.js",
-    }),
-    description: t({
-      uk: "Згенеровано за допомогою create next app",
-      en: "Generated by create next app",
-      uk: "Згенеровано за допомогою create next app",
-      fr: "Généré par create next app",
-      es: "Generado por create next app",
-    }),
-  },
-};
-
-export default metadataContent;
-```
-
-```javascript fileName="src/pages/[locale]/metadata.content.cjs" contentDeclarationFormat="commonjs"
-const { t } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary<import('next').Metadata>} */
-const metadataContent = {
-  key: "page-metadata",
-  content: {
-    title: t({
-      uk: "Створити додаток Next.js",
-      en: "Create Next App",
-      fr: "Créer une application Next.js",
-      es: "Crear una aplicación Next.js",
-    }),
-    description: t({
-      uk: "Згенеровано за допомогою create next app",
-      en: "Generated by create next app",
-      fr: "Généré par create next app",
-      es: "Generado por create next app",
-    }),
-  },
-};
-
-module.exports = metadataContent;
 ```
 
 ```json fileName="src/pages/[locale]/metadata.content.json" contentDeclarationFormat="json"
@@ -699,7 +472,7 @@ module.exports = metadataContent;
 };
 ```
 
-````tsx fileName="src/pages/[locale]/index.tsx" codeFormat="typescript"
+````tsx fileName="src/pages/[locale]/index.tsx" codeFormat={["typescript", "esm"]}
 import { GetStaticPaths, GetStaticProps } from "next";
 import { getIntlayer, getMultilingualUrls } from "intlayer";
 import { useIntlayer } from "next-intlayer";
@@ -779,139 +552,11 @@ export default HomePage;
 // ... Решта коду, включаючи getStaticPaths
 ````
 
-````jsx fileName="src/pages/[locale]/index.mjx" codeFormat="esm"
-import { getIntlayer, getMultilingualUrls } from "intlayer";
-import { useIntlayer } from "next-intlayer";
-import Head from "next/head";
-
-const HomePage = ({ metadata, multilingualUrls, locale }) => {
-  const content = useIntlayer("page");
-
-  return (
-    <div>
-      <Head>
-        <title>{metadata.title}</title>
-        <meta name="description" content={metadata.description} />
-        {/* Генерує теги hreflang для SEO */}
-        {Object.entries(multilingualUrls).map(([lang, url]) => (
-          <link key={lang} rel="alternate" hrefLang={lang} href={url} />
-        ))}
-        <link rel="canonical" href={multilingualUrls[locale]} />
-      </Head>
-
-      {/* Вміст сторінки */}
-      <main>{/* Ваш вміст сторінки тут */}</main>
-    </div>
-  );
-};
-
-export const getStaticProps = async ({ params }) => {
-  const locale = params?.locale;
-
-  const metadata = getIntlayer("page-metadata", locale);
-
-  /**
-   * Генерує об'єкт, що містить усі URL для кожної локалі.
-   *
-   * Приклад:
-   * ```ts
-   *  getMultilingualUrls('/about');
-   *
-   *  // Повертає
-   *  // {
-   *  //   en: '/about',
-   *  //   fr: '/fr/about',
-   *  //   es: '/es/about',
-   *  // }
-   * ```
-   */
-  const multilingualUrls = getMultilingualUrls("/");
-
-  return {
-    props: {
-      locale,
-      metadata,
-      multilingualUrls,
-    },
-  };
-};
-
-export default HomePage;
-
-// ... Решта коду, включаючи getStaticPaths
-````
-
-````jsx fileName="src/pages/[locale]/index.csx" codeFormat="commonjs"
-const { getIntlayer, getMultilingualUrls } = require("intlayer");
-const { useIntlayer } = require("next-intlayer");
-const Head = require("next/head");
-
-const HomePage = ({ metadata, multilingualUrls, locale }) => {
-  const content = useIntlayer("page");
-
-  return (
-    <div>
-      <Head>
-        <title>{metadata.title}</title>
-        <meta name="description" content={metadata.description} />
-        {/* Генерує теги hreflang для SEO */}
-        {Object.entries(multilingualUrls).map(([lang, url]) => (
-          <link key={lang} rel="alternate" hrefLang={lang} href={url} />
-        ))}
-        <link rel="canonical" href={multilingualUrls[locale]} />
-      </Head>
-
-      {/* Вміст сторінки */}
-      <main>{/* Тут розмістіть контент сторінки */}</main>
-    </div>
-  );
-};
-
-const getStaticProps = async ({ params }) => {
-  const locale = params?.locale;
-
-  const metadata = getIntlayer("page-metadata", locale);
-
-  /**
-   * Генерує об'єкт, що містить всі URL для кожної локалі.
-   *
-   * Приклад:
-   * ```ts
-   *  getMultilingualUrls('/about');
-   *
-   *  // Повертає
-   *  // {
-   *  //   en: '/about',
-   *  //   fr: '/fr/about',
-   *  //   es: '/es/about',
-   *  // }
-   * ```
-   */
-  const multilingualUrls = getMultilingualUrls("/");
-
-  return {
-    props: {
-      locale,
-      metadata,
-      multilingualUrls,
-    },
-  };
-};
-
-module.exports = {
-  getStaticProps,
-  getStaticPaths,
-  default: HomePage,
-};
-
-// ... Інші частини коду, включаючи getStaticPaths
-````
-
 > Зверніть увагу, що функція `getIntlayer`, імпортована з `next-intlayer`, повертає ваш контент, обгорнутий у `IntlayerNode`, що дозволяє інтеграцію з візуальним редактором. Натомість функція `getIntlayer`, імпортована з `intlayer`, повертає контент напряму без додаткових властивостей.
 
 Альтернативно, ви можете використовувати функцію `getTranslation` для декларації ваших метаданих. Проте рекомендовано використовувати файли декларації контенту, щоб автоматизувати переклад метаданих та винести контент у зовнішні файли.
 
-```tsx fileName="src/pages/[locale]/index.tsx" codeFormat="typescript"
+```tsx fileName="src/pages/[locale]/index.tsx" codeFormat={["typescript", "esm"]}
 import { GetStaticPaths, GetStaticProps } from "next";
 import {
   type IConfigLocales,
@@ -996,139 +641,13 @@ export default HomePage;
 // ... Rest of the code including getStaticPaths
 ```
 
-```jsx fileName="src/pages/[locale]/index.mjx" codeFormat="esm"
-import { getTranslation, getMultilingualUrls } from "intlayer";
-import { useIntlayer } from "next-intlayer";
-import Head from "next/head";
-
-const HomePage = ({ metadata, multilingualUrls, locale }) => {
-  const content = useIntlayer("page");
-
-  return (
-    <div>
-      <Head>
-        <title>{metadata.title}</title>
-        <meta name="description" content={metadata.description} />
-        {/* Генеруємо hreflang-теги для SEO */}
-        {Object.entries(multilingualUrls).map(([lang, url]) => (
-          <link key={lang} rel="alternate" hrefLang={lang} href={url} />
-        ))}
-        <link rel="canonical" href={multilingualUrls[locale]} />
-      </Head>
-
-      {/* Контент сторінки */}
-      <main>{/* Вставте тут контент вашої сторінки */}</main>
-    </div>
-  );
-};
-
-export const getStaticProps = async ({ params }) => {
-  const locale = params?.locale;
-  const t = (content) => getTranslation(content, locale);
-
-  const metadata = {
-    title: t({
-      uk: "Мій заголовок",
-      en: "My title",
-      fr: "Mon titre",
-      es: "Mi título",
-    }),
-    description: t({
-      uk: "Мій опис",
-      en: "My description",
-      fr: "Ma description",
-      es: "Mi descripción",
-    }),
-  };
-
-  const multilingualUrls = getMultilingualUrls("/");
-
-  return {
-    props: {
-      locale,
-      metadata,
-      multilingualUrls,
-    },
-  };
-};
-
-export default HomePage;
-
-// ... Решта коду, включно з getStaticPaths
-```
-
-```jsx fileName="src/pages/[locale]/index.csx" codeFormat="commonjs"
-const { getTranslation, getMultilingualUrls } = require("intlayer");
-const { useIntlayer } = require("next-intlayer");
-const Head = require("next/head");
-
-const HomePage = ({ metadata, multilingualUrls, locale }) => {
-  const content = useIntlayer("page");
-
-  return (
-    <div>
-      <Head>
-        <title>{metadata.title}</title>
-        <meta name="description" content={metadata.description} />
-        {/* Генерує теги hreflang для SEO */}
-        {Object.entries(multilingualUrls).map(([lang, url]) => (
-          <link key={lang} rel="alternate" hrefLang={lang} href={url} />
-        ))}
-        <link rel="canonical" href={multilingualUrls[locale]} />
-      </Head>
-
-      {/* Вміст сторінки */}
-      <main>{/* Тут розмістіть вміст сторінки */}</main>
-    </div>
-  );
-};
-
-const getStaticProps = async ({ params }) => {
-  const locale = params?.locale;
-  const t = (content) => getTranslation(content, locale);
-
-  const metadata = {
-    title: t({
-      uk: "Мій заголовок",
-      en: "My title",
-      fr: "Mon titre",
-      es: "Mi título",
-    }),
-    description: t({
-      uk: "Мій опис",
-      en: "My description",
-      fr: "Ma description",
-      es: "Mi descripción",
-    }),
-  };
-
-  const multilingualUrls = getMultilingualUrls("/");
-
-  return {
-    props: {
-      locale,
-      metadata,
-      multilingualUrls,
-    },
-  };
-};
-
-module.exports = {
-  getStaticProps,
-  getStaticPaths,
-  default: HomePage,
-};
-
-// ... Решта коду, включно з getStaticPaths
-```
-
 > Дізнайтеся більше про оптимізацію метаданих [в офіційній документації Next.js](https://nextjs.org/docs/pages/building-your-application/optimizing/metadata).
 
 ### (Необов'язково) Крок 9: Змініть мову вашого вмісту
 
 Щоб змінити мову вашого вмісту в Next.js, рекомендовано використовувати компонент `Link` для перенаправлення користувачів на відповідну локалізовану сторінку. Компонент `Link` дає змогу передзавантажувати (prefetch) сторінку, що допомагає уникнути повного перезавантаження сторінки.
 
-```tsx fileName="src/components/LanguageSwitcher.tsx" codeFormat="typescript"
+```tsx fileName="src/components/LanguageSwitcher.tsx" codeFormat={["typescript", "esm"]}
 import {
   Locales,
   getHTMLTextDir,
@@ -1174,102 +693,6 @@ const LocaleSwitcher: FC = () => {
         ))}
       </div>
     </div>
-  );
-};
-```
-
-```jsx fileName="src/components/LanguageSwitcher.msx" codeFormat="esm"
-import {
-  Locales,
-  getHTMLTextDir,
-  getLocaleName,
-  getLocalizedUrl,
-} from "intlayer";
-import { useLocalePageRouter } from "next-intlayer";
-import Link from "next/link";
-
-const LocaleSwitcher = () => {
-  const { locale, pathWithoutLocale, availableLocales } = useLocalePageRouter();
-
-  return (
-    <div>
-      <button popoverTarget="localePopover">{getLocaleName(locale)}</button>
-      <div id="localePopover" popover="auto">
-        {availableLocales.map((localeItem) => (
-          <Link
-            href={getLocalizedUrl(pathWithoutLocale, localeItem)}
-            hrefLang={localeItem}
-            key={localeItem}
-            aria-current={locale === localeItem ? "page" : undefined}
-            onClick={() => setLocale(localeItem)}
-          >
-            <span>
-              {/* Локаль - наприклад FR */}
-              {localeItem}
-            </span>
-            <span>
-              {/* Мова в власній локалі - наприклад Français */}
-              {getLocaleName(localeItem, locale)}
-            </span>
-            <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
-              {/* Мова в поточній локалі, наприклад, Francés при поточній локалі Locales.SPANISH */}
-              {getLocaleName(localeItem)}
-            </span>
-            <span dir="ltr" lang={Locales.ENGLISH}>
-              {/* Мова англійською, наприклад, French */}
-              {getLocaleName(localeItem, Locales.ENGLISH)}
-            </span>
-          </Link>
-        ))}
-      </div>
-    </div>
-  );
-};
-```
-
-```jsx fileName="src/components/LanguageSwitcher.msx" codeFormat="commonjs"
-const {
-  Locales,
-  getHTMLTextDir,
-  getLocaleName,
-  getLocalizedUrl,
-} = require("intlayer");
-const { useLocalePageRouter } = require("next-intlayer");
-const Link = require("next/link");
-
-const LocaleSwitcher = () => {
-  const { locale, pathWithoutLocale, availableLocales } = useLocalePageRouter();
-
-  return (
-    <select>
-      {availableLocales.map((localeItem) => (
-        <option value={localeItem} key={localeItem}>
-          <Link
-            href={getLocalizedUrl(pathWithoutLocale, localeItem)}
-            hrefLang={localeItem}
-            aria-current={locale === localeItem ? "page" : undefined}
-            onClick={() => setLocale(localeItem)}
-          >
-            <span>
-              {/* Локаль - наприклад FR */}
-              {localeItem}
-            </span>
-            <span>
-              {/* Мова у власній локалі - наприклад Français */}
-              {getLocaleName(localeItem, locale)}
-            </span>
-            <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
-              {/* Мова у поточній локалі - наприклад Francés коли поточна локаль встановлена на Locales.SPANISH */}
-              {getLocaleName(localeItem)}
-            </span>
-            <span dir="ltr" lang={Locales.ENGLISH}>
-              {/* Мова англійською - наприклад French */}
-              {getLocaleName(localeItem, Locales.ENGLISH)}
-            </span>
-          </Link>
-        </option>
-      ))}
-    </select>
   );
 };
 ```
@@ -1323,7 +746,7 @@ return (
 
 Нижче наведено реалізацію локалізованого компонента `Link` на TypeScript:
 
-```tsx fileName="src/components/Link.tsx" codeFormat="typescript"
+```tsx fileName="src/components/Link.tsx" codeFormat={["typescript", "esm"]}
 "use client";
 
 import { getLocalizedUrl } from "intlayer";
@@ -1362,78 +785,6 @@ export const Link = forwardRef<
 });
 
 Link.displayName = "Link";
-```
-
-```jsx fileName="src/components/Link.mjx" codeFormat="esm"
-'use client';
-
-import { getLocalizedUrl } from 'intlayer';
-import NextLink, { type LinkProps as NextLinkProps } from 'next/link';
-import { useLocale } from "next-intlayer";
-import { forwardRef, PropsWithChildren, type ForwardedRef } from 'react';
-
-/**
- * Утилітна функція для перевірки, чи є заданий URL зовнішнім.
- * Якщо URL починається з http:// або https://, він вважається зовнішнім.
- */
-export const checkIsExternalLink = (href) =>
-  /^https?:\/\//.test(href ?? '');
-
-/**
- * Користувацький компонент Link, який адаптує атрибут href залежно від поточної локалі.
- * Для внутрішніх посилань він використовує `getLocalizedUrl`, щоб додати префікс локалі до URL (наприклад, /fr/about).
- * Це забезпечує, що навігація відбувається в межах тієї самої локалі.
- */
-export const Link = forwardRef(({ href, children, ...props }, ref) => {
-  const { locale } = useLocale();
-  const isExternalLink = checkIsExternalLink(href.toString());
-
-  // Якщо посилання внутрішнє і надано валідний href, отримати локалізований URL.
-  const hrefI18n =
-    href && !isExternalLink ? getLocalizedUrl(href.toString(), locale) : href;
-
-  return (
-    <NextLink href={hrefI18n} ref={ref} {...props}>
-      {children}
-    </NextLink>
-  );
-});
-
-Link.displayName = 'Link';
-```
-
-```jsx fileName="src/components/Link.csx" codeFormat="commonjs"
-'use client';
-
-const { getLocalizedUrl } = require("intlayer");
-const NextLink = require("next/link");
-const { useLocale } = require("next-intlayer");
-const { forwardRef } = require("react");
-
-/**
- * Утилітна функція для перевірки, чи є заданий URL зовнішнім.
- * Якщо URL починається з http:// або https://, він вважається зовнішнім.
- */
-const checkIsExternalLink = (href) =>
-  /^https?:\/\//.test(href ?? '');
-
-
-const Link = forwardRef(({ href, children, ...props }, ref) => {
-  const { locale } = useLocale();
-  const isExternalLink = checkIsExternalLink(href.toString());
-
-  // Якщо посилання внутрішнє і вказано дійсний href, отримаємо локалізований URL.
-  const hrefI18n: NextLinkProps['href'] =
-    href && !isExternalLink ? getLocalizedUrl(href.toString(), locale) : href;
-
-  return (
-    <NextLink href={hrefI18n} ref={ref} {...props}>
-      {children}
-    </NextLink>
-  );
-});
-
-Link.displayName = 'Link';
 ```
 
 #### Як це працює

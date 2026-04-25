@@ -68,22 +68,7 @@ Die Funktion `getLocalizedUrl` erzeugt eine lokalisierte URL, indem sie die ange
 
 ### Relative URLs
 
-```typescript codeFormat="typescript"
-import { getLocalizedUrl, Locales } from "intlayer";
-
-getLocalizedUrl(
-  "/about",
-  Locales.FRENCH,
-  [Locales.ENGLISH, Locales.FRENCH],
-  Locales.ENGLISH,
-  false
-);
-
-// Ausgabe: "/fr/about" für das französische Locale
-// Ausgabe: "/about" für das Standard-Locale (Englisch)
-```
-
-```javascript codeFormat="esm"
+```typescript codeFormat={["typescript", "esm"]}
 import { getLocalizedUrl, Locales } from "intlayer";
 
 getLocalizedUrl(
@@ -186,7 +171,7 @@ getLocalizedUrl(
 
 In einer mehrsprachigen Anwendung ist die Konfiguration der Internationalisierungseinstellungen mit `locales` und `defaultLocale` entscheidend, um sicherzustellen, dass die richtige Sprache angezeigt wird. Nachfolgend ein Beispiel, wie `getLocalizedUrl` in einer Anwendungs-Konfiguration verwendet werden kann:
 
-```tsx codeFormat="typescript"
+```tsx codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 // Konfiguration für unterstützte Locales und Standard-Locale
@@ -198,34 +183,6 @@ export default {
 } satisfies IntlayerConfig;
 
 export default config;
-```
-
-```javascript codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-```javascript codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-module.exports = config;
 ```
 
 Die obige Konfiguration stellt sicher, dass die Anwendung `ENGLISCH`, `FRANZÖSISCH` und `SPANISCH` als unterstützte Sprachen erkennt und `ENGLISCH` als Fallback-Sprache verwendet.

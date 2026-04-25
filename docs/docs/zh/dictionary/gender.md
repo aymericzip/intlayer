@@ -32,7 +32,7 @@ history:
 
 要在您的 Intlayer 项目中设置基于性别的内容，请创建一个包含性别特定定义的内容模块。以下是各种格式的示例。
 
-```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="**/*.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { gender, type Dictionary } from "intlayer";
 
 const myGenderContent = {
@@ -47,42 +47,6 @@ const myGenderContent = {
 } satisfies Dictionary;
 
 export default myGenderContent;
-```
-
-```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-import { gender } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const myGenderContent = {
-  key: "my_key",
-  content: {
-    myGender: gender({
-      male: "针对男性用户的内容",
-      female: "针对女性用户的内容",
-      fallback: "未指定性别时的内容", // 可选
-    }),
-  },
-};
-
-export default myGenderContent;
-```
-
-```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-const { gender } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const myGenderContent = {
-  key: "my_key",
-  content: {
-    myGender: gender({
-      male: "针对男性用户的内容",
-      female: "针对女性用户的内容",
-      fallback: "未指定性别时的内容", // 可选
-    }),
-  },
-};
-
-module.exports = myGenderContent;
 ```
 
 ```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
@@ -108,7 +72,7 @@ module.exports = myGenderContent;
 
 要在 React 组件中使用基于性别的内容，请从 `react-intlayer` 包中导入并使用 `useIntlayer` 钩子。该钩子会获取指定键的内容，并允许你传入性别以选择合适的输出。
 
-```tsx fileName="**/*.tsx" codeFormat="typescript"
+```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useIntlayer } from "react-intlayer";
 
@@ -158,108 +122,6 @@ const GenderComponent: FC = () => {
 };
 
 export default GenderComponent;
-```
-
-```javascript fileName="**/*.mjx" codeFormat="esm"
-import { useIntlayer } from "react-intlayer";
-
-const GenderComponent = () => {
-  const { myGender } = useIntlayer("my_key");
-
-  return (
-    <div>
-      <p>
-        {
-          /* 输出：男性用户的内容 */
-          myGender("male")
-        }
-      </p>
-      <p>
-        {
-          /* 输出：女性用户的内容 */
-          myGender("female")
-        }
-      </p>
-      <p>
-        {
-          /* 输出：男性用户的内容 */
-          myGender("m")
-        }
-      </p>
-      <p>
-        {
-          /* 输出：女性用户的内容 */
-          myGender("f")
-        }
-      </p>
-      <p>
-        {
-          /* 输出：未指定性别时的内容 */
-          myGender("")
-        }
-      </p>
-      <p>
-        {
-          /* 输出：未指定性别时的内容 */
-          myGender(undefined)
-        }
-      </p>
-    </div>
-  );
-};
-
-export default GenderComponent;
-```
-
-```javascript fileName="**/*.cjs" codeFormat="commonjs"
-const { useIntlayer } = require("react-intlayer");
-
-const GenderComponent = () => {
-  const { myGender } = useIntlayer("my_key");
-
-  return (
-    <div>
-      <p>
-        {
-          /* 输出：针对男性用户的内容 */
-          myGender("male")
-        }
-      </p>
-      <p>
-        {
-          /* 输出：针对女性用户的内容 */
-          myGender("female")
-        }
-      </p>
-      <p>
-        {
-          /* 输出：针对男性用户的内容 */
-          myGender("m")
-        }
-      </p>
-      <p>
-        {
-          /* 输出：针对女性用户的内容 */
-          myGender("f")
-        }
-      </p>
-      <p>
-        {
-          /* 输出：当性别未指定时的内容 */
-          myGender("")
-        }
-      </p>
-      <p>
-        {
-          /* 输出：当性别未指定时的内容 */
-          myGender(undefined)
-        }
-      </p>
-    </div>
-  );
-};
-
-module.exports = GenderComponent;
 ```
 
 ## 附加资源

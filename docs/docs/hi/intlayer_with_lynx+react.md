@@ -83,7 +83,7 @@ bun x intlayer init
 
 अपने प्रोजेक्ट रूट (या कहीं भी सुविधाजनक) में, एक **इंटलेयर कॉन्फ़िग** फ़ाइल बनाएं। यह इस प्रकार दिख सकती है:
 
-```ts fileName="intlayer.config.ts" codeFormat="typescript"
+```ts fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -99,39 +99,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```js fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      // ... अन्य लोकेल्स जोड़ें
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-```js fileName="intlayer.config.js" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-module.exports = config;
 ```
 
 इस कॉन्फ़िग में, आप कर सकते हैं:
@@ -201,7 +168,7 @@ if (import.meta.webpackHot) {
 
 उदाहरण:
 
-```tsx fileName="src/app.content.ts" contentDeclarationFormat="typescript"
+```tsx fileName="src/app.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, type Dictionary } from "intlayer";
 
 const appContent = {
@@ -239,87 +206,6 @@ const appContent = {
 } satisfies Dictionary;
 
 export default appContent;
-```
-
-```jsx fileName="src/app.content.mjx" contentDeclarationFormat="esm"
-import { t } from "intlayer";
-
-const appContent = {
-  key: "app",
-  content: {
-    title: "React",
-    subtitle: t({
-      hi: "लिनक्स पर",
-      en: "on Lynx",
-      fr: "sur Lynx",
-      es: "en Lynx",
-    }),
-    description: t({
-      hi: "लोगो पर टैप करें और मज़े करें!",
-      en: "Tap the logo and have fun!",
-      fr: "Appuyez sur le logo et amusez-vous!",
-      es: "¡Toca el logo y diviértete!",
-    }),
-    hint: [
-      t({
-        hi: "संपादित करें",
-        en: "Edit",
-        fr: "Modifier",
-        es: "Editar",
-      }),
-      " src/App.tsx ",
-      t({
-        hi: "अपडेट देखने के लिए!",
-        en: "to see updates!",
-        fr: "pour voir les mises à jour!",
-        es: "para ver actualizaciones!",
-      }),
-    ],
-  },
-};
-
-export default appContent;
-```
-
-```jsx fileName="src/app.content.csx" contentDeclarationFormat="commonjs"
-const { t } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const appContent = {
-  key: "app",
-  content: {
-    title: "React",
-    subtitle: t({
-      hi: "लिनक्स पर",
-      en: "on Lynx",
-      fr: "sur Lynx",
-      es: "en Lynx",
-    }),
-    description: t({
-      hi: "लोगो पर टैप करें और मज़े करें!",
-      en: "Tap the logo and have fun!",
-      fr: "Appuyez sur le logo et amusez-vous!",
-      es: "¡Toca el logo y diviértete!",
-    }),
-    hint: [
-      t({
-        hi: "संपादित करें",
-        en: "Edit",
-        fr: "Modifier",
-        es: "Editar",
-      }),
-      " src/App.tsx ",
-      t({
-        hi: "अपडेट देखने के लिए!",
-        en: "to see updates!",
-        fr: "pour voir les mises à jour!",
-        es: "para ver actualizaciones!",
-      }),
-    ],
-  },
-};
-
-module.exports = appContent;
 ```
 
 ```json fileName="src/app.content.json" contentDeclarationFormat="json"

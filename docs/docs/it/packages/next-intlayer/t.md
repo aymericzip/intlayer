@@ -67,7 +67,7 @@ t<T extends string>(content: Record<LocalesValues, T>, locale?: Locales): string
 
 Assicurati di includere la direttiva `'use client';` all'inizio del file del componente quando usi `t` in un componente lato client.
 
-```tsx codeFormat="typescript"
+```tsx codeFormat={["typescript", "esm", "commonjs"]}
 "use client";
 
 import type { FC } from "react";
@@ -84,37 +84,9 @@ export const ClientComponentExample: FC = () => (
 );
 ```
 
-```javascript codeFormat="esm"
-import { t } from "next-intlayer";
-
-const ClientComponentExample = () => (
-  <p>
-    {t({
-      en: "This is the content of a client component example",
-      fr: "Ceci est le contenu d'un exemple de composant client",
-      es: "Este es el contenido d un ejemplo de componente cliente",
-    })}
-  </p>
-);
-```
-
-```javascript codeFormat="commonjs"
-const { t } = require("next-intlayer");
-
-const ClientComponentExample = () => (
-  <p>
-    {t({
-      en: "This is the content of a client component example",
-      fr: "Ceci est le contenu d'un exemple de composant client",
-      es: "Este es le contenido d un ejemplo de componente cliente",
-    })}
-  </p>
-);
-```
-
 ### Uso di `t` in un Componente Server
 
-```tsx codeFormat="typescript"
+```tsx codeFormat={["typescript", "esm", "commonjs"]}
 import type { FC } from "react";
 import { t } from "next-intlayer/server";
 
@@ -122,34 +94,6 @@ export const ServerComponentExample: FC = () => (
   <p>
     {t({
       en: "This is the content of a server component example",
-      fr: "Ceci est le contenu d'un exemple de composant serveur",
-      es: "Este es el contenido de un ejemplo de componente servidor",
-    })}
-  </p>
-);
-```
-
-```javascript codeFormat="esm"
-import { t } from "next-intlayer/server";
-
-const ServerComponentExample = () => (
-  <p>
-    {t({
-      en: "Questo è il contenuto di un esempio di componente server",
-      fr: "Ceci est le contenu d'un exemple de composant serveur",
-      es: "Este es el contenido de un ejemplo de componente servidor",
-    })}
-  </p>
-);
-```
-
-```javascript codeFormat="commonjs"
-const { t } = require("next-intlayer/server");
-
-const ServerComponentExample = () => (
-  <p>
-    {t({
-      en: "Questo è il contenuto di un esempio di componente server",
       fr: "Ceci est le contenu d'un exemple de composant serveur",
       es: "Este es el contenido de un ejemplo de componente servidor",
     })}
@@ -194,7 +138,7 @@ Quando si localizzano attributi come `alt`, `title`, `href` o `aria-label`, è p
 
 La funzione `t` è type-safe quando utilizzata con TypeScript, garantendo che tutte le localizzazioni richieste siano fornite.
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import type { IConfigLocales } from "intlayer";
 import { t } from "next-intlayer";
 
@@ -207,76 +151,19 @@ const translations: IConfigLocales<string> = {
 const greeting = t(translations);
 ```
 
-```javascript codeFormat="esm"
-import type { IConfigLocales } from "intlayer";
-import { t } from "next-intlayer";
-
-/** @type {import('next-intlayer').IConfigLocales<string>} */
-// Definizione delle traduzioni per le diverse lingue
-const translations = {
-  en: "Welcome",
-  fr: "Bienvenue",
-  es: "Bienvenido",
-};
-
-// Uso della funzione t per ottenere la traduzione corretta
-const greeting = t(translations);
-```
-
-```javascript codeFormat="commonjs"
-const { t } = require("next-intlayer");
-
-/** @type {import('next-intlayer').IConfigLocales<string>} */
-// Definizione delle traduzioni per le diverse lingue
-const translations = {
-  en: "Welcome",
-  fr: "Bienvenue",
-  es: "Bienvenido",
-};
-
-// Uso della funzione t per ottenere la traduzione corretta
-const greeting = t(translations);
-```
-
 ### Rilevamento della Locale e Contesto
 
 In `next-intlayer`, la locale corrente è gestita tramite provider di contesto: `IntlayerClientProvider` e `IntlayerServerProvider`. Assicurati che questi provider avvolgano i tuoi componenti e che la proprietà `locale` sia passata correttamente.
 
 #### Esempio:
 
-```tsx codeFormat="typescript"
+```tsx codeFormat={["typescript", "esm", "commonjs"]}
 import type { FC } from "react";
 import type { Locales } from "intlayer";
 import { IntlayerClientProvider } from "next-intlayer";
 import { IntlayerServerProvider } from "next-intlayer/server";
 
 const Page: FC<{ locale: Locales }> = ({ locale }) => (
-  <IntlayerServerProvider locale={locale}>
-    <IntlayerClientProvider locale={locale}>
-      {/* I tuoi componenti qui */}
-    </IntlayerClientProvider>
-  </IntlayerServerProvider>
-);
-```
-
-```javascript codeFormat="esm"
-import { IntlayerClientProvider } from "next-intlayer";
-import { IntlayerServerProvider } from "next-intlayer/server";
-
-const Page = ({ locale }) => (
-  <IntlayerServerProvider locale={locale}>
-    <IntlayerClientProvider locale={locale}>
-      {/* I tuoi componenti qui */}
-    </IntlayerClientProvider>
-  </IntlayerServerProvider>
-);
-```
-
-```javascript codeFormat="commonjs"
-const { IntlayerClientProvider } = require("next-intlayer");
-const { IntlayerServerProvider } = require("next-intlayer/server");
-
-const Page = ({ locale }) => (
   <IntlayerServerProvider locale={locale}>
     <IntlayerClientProvider locale={locale}>
       {/* I tuoi componenti qui */}
@@ -301,31 +188,8 @@ const Page = ({ locale }) => (
 - **Causa**: L'oggetto delle traduzioni non soddisfa le locale richieste, causando errori in TypeScript.
 - **Soluzione**: Usa il tipo `IConfigLocales` per garantire la completezza delle tue traduzioni.
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 const translations: IConfigLocales<string> = {
-  en: "Text",
-  fr: "Texte",
-  // es: 'Texto', // La mancanza di 'es' causerà un errore TypeScript [!code error]
-};
-
-const text = t(translations);
-```
-
-```javascript codeFormat="esm"
-const translations = {
-  en: "Text",
-  fr: "Texte",
-  // es: 'Texto', // La mancanza di 'es' causerà un errore TypeScript [!code error]
-};
-
-const text = t(translations);
-```
-
-```javascript codeFormat="commonjs"
-const { t } = require("next-intlayer");
-
-/** @type {import('next-intlayer').IConfigLocales<string>} */
-const translations = {
   en: "Text",
   fr: "Texte",
   // es: 'Texto', // La mancanza di 'es' causerà un errore TypeScript [!code error]

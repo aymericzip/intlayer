@@ -84,7 +84,7 @@ bun x intlayer init
 
 Configura le impostazioni di internazionalizzazione creando un file `intlayer.config.ts` nella root del tuo progetto:
 
-```typescript fileName="intlayer.config.ts"  codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -102,49 +102,11 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH_MEXICO,
-      Locales.SPANISH_SPAIN,
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH_MEXICO,
-      Locales.SPANISH_SPAIN,
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-module.exports = config;
-```
-
 ### Dichiara i tuoi contenuti
 
 Crea e gestisci le tue dichiarazioni di contenuto per memorizzare le traduzioni:
 
-```typescript fileName="src/index.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="src/index.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, type Dictionary } from "intlayer";
 
 const indexContent = {
@@ -160,44 +122,6 @@ const indexContent = {
 } satisfies Dictionary;
 
 export default indexContent;
-```
-
-```javascript fileName="src/index.content.mjs" contentDeclarationFormat="esm"
-import { t } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const indexContent = {
-  key: "index",
-  content: {
-    exampleOfContent: t({
-      en: "Example of returned content in English",
-      fr: "Exemple de contenu renvoyé en français",
-      "es-ES": "Ejemplo de contenuto devuelto en español (España)",
-      "es-MX": "Ejemplo de contenuto devuelto en español (México)",
-    }),
-  },
-};
-
-export default indexContent;
-```
-
-```javascript fileName="src/index.content.cjs" contentDeclarationFormat="commonjs"
-const { t } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const indexContent = {
-  key: "index",
-  content: {
-    exampleOfContent: t({
-      en: "Example of returned content in English",
-      fr: "Exemple de contenu renvoyé en français",
-      "es-ES": "Ejemplo de contenuto devuelto en español (España)",
-      "es-MX": "Ejemplo de contenuto devuelto en español (México)",
-    }),
-  },
-};
-
-module.exports = indexContent;
 ```
 
 ```json fileName="src/index.content.json" contentDeclarationFormat="json"
@@ -226,7 +150,7 @@ module.exports = indexContent;
 
 Configura la tua applicazione Fastify per usare `fastify-intlayer`:
 
-```typescript fileName="src/index.ts" codeFormat="typescript"
+```typescript fileName="src/index.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import Fastify from "fastify";
 import { intlayer, t, getDictionary, getIntlayer } from "fastify-intlayer";
 import dictionaryExample from "./index.content";
@@ -257,88 +181,6 @@ fastify.get("/getDictionary_example", async (_req, reply) => {
 // Avvia il server
 const start = async () => {
   try {
-    await fastify.listen({ port: 3000 });
-  } catch (err) {
-    fastify.log.error(err);
-    process.exit(1);
-  }
-};
-
-start();
-```
-
-```javascript fileName="src/index.mjs" codeFormat="esm"
-import Fastify from "fastify";
-import { intlayer, t, getDictionary, getIntlayer } from "fastify-intlayer";
-import dictionaryExample from "./index.content";
-
-const fastify = Fastify({ logger: true });
-
-// Carica il plugin di internazionalizzazione
-await fastify.register(intlayer);
-
-// Rotte
-fastify.get("/t_example", async (_req, reply) => {
-  return t({
-    en: "Example of returned content in English",
-    fr: "Exemple de contenuto renvoyé en français",
-    "es-ES": "Ejemplo de contenuto devuelto en español (España)",
-    "es-MX": "Ejemplo de contenuto devuelto en español (México)",
-  });
-});
-
-fastify.get("/getIntlayer_example", async (_req, reply) => {
-  return getIntlayer("index").exampleOfContent;
-});
-
-fastify.get("/getDictionary_example", async (_req, reply) => {
-  return getDictionary(dictionaryExample).exampleOfContent;
-});
-
-// Avvia il server
-const start = async () => {
-  try {
-    await fastify.listen({ port: 3000 });
-  } catch (err) {
-    fastify.log.error(err);
-    process.exit(1);
-  }
-};
-
-start();
-```
-
-```javascript fileName="src/index.cjs" codeFormat="commonjs"
-const Fastify = require("fastify");
-const { intlayer, t, getDictionary, getIntlayer } = require("fastify-intlayer");
-const dictionaryExample = require("./index.content");
-
-const fastify = Fastify({ logger: true });
-
-// Wrapper per l'avvio del server per async/await
-const start = async () => {
-  try {
-    // Carica il plugin di internazionalizzazione
-    await fastify.register(intlayer);
-
-    // Rotte
-    fastify.get("/t_example", async (_req, reply) => {
-      return t({
-        en: "Example of returned content in English",
-        fr: "Exemple de contenuto renvoyé en français",
-        "es-ES": "Ejemplo de contenuto devuelto en español (España)",
-        "es-MX": "Ejemplo de contenuto devuelto en español (México)",
-      });
-    });
-
-    fastify.get("/getIntlayer_example", async (_req, reply) => {
-      return getIntlayer("index").exampleOfContent;
-    });
-
-    fastify.get("/getDictionary_example", async (_req, reply) => {
-      return getDictionary(dictionaryExample).exampleOfContent;
-    });
-
     await fastify.listen({ port: 3000 });
   } catch (err) {
     fastify.log.error(err);
@@ -359,7 +201,7 @@ start();
 
 Funziona perfettamente anche con qualsiasi soluzione di internazionalizzazione in vari ambienti, inclusi browser e richieste API. Puoi personalizzare il middleware per rilevare la locale tramite header o cookie:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -371,36 +213,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... Altre opzioni di configurazione
-  middleware: {
-    headerName: "my-locale-header",
-    cookieName: "my-locale-cookie",
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... Altre opzioni di configurazione
-  middleware: {
-    headerName: "my-locale-header",
-    cookieName: "my-locale-cookie",
-  },
-};
-
-module.exports = config;
 ```
 
 Per impostazione predefinita, `fastify-intlayer` interpreterà l'header `Accept-Language` per determinare la lingua preferita del client.

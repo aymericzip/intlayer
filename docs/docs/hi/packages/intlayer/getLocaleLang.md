@@ -45,28 +45,10 @@ history:
 
 ### भाषा कोड निकालना:
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getLocaleLang, Locales } from "intlayer";
 
 getLocaleLang(Locales.ENGLISH_UNITED_STATES); // Output: "en"
-getLocaleLang(Locales.ENGLISH); // आउटपुट: "en"
-getLocaleLang(Locales.FRENCH_CANADA); // आउटपुट: "fr"
-getLocaleLang(Locales.FRENCH); // आउटपुट: "fr"
-```
-
-```javascript codeFormat="esm"
-import { getLocaleLang } from "intlayer";
-
-getLocaleLang(Locales.ENGLISH_UNITED_STATES); // आउटपुट: "en"
-getLocaleLang(Locales.ENGLISH); // आउटपुट: "en"
-getLocaleLang(Locales.FRENCH_CANADA); // आउटपुट: "fr"
-getLocaleLang(Locales.FRENCH); // आउटपुट: "fr"
-```
-
-```javascript codeFormat="commonjs"
-const { getLocaleLang } = require("intlayer");
-
-getLocaleLang(Locales.ENGLISH_UNITED_STATES); // आउटपुट: "en"
 getLocaleLang(Locales.ENGLISH); // आउटपुट: "en"
 getLocaleLang(Locales.FRENCH_CANADA); // आउटपुट: "fr"
 getLocaleLang(Locales.FRENCH); // आउटपुट: "fr"

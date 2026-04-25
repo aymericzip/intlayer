@@ -32,16 +32,8 @@ Esta seção fornece detalhes abrangentes sobre o hook `useLocale` da biblioteca
 
 Para integrar o hook `useLocale` na sua aplicação React, importe-o do respectivo pacote:
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { useLocale } from "react-intlayer"; // Usado em componentes React para gerenciamento de localidade
-```
-
-```javascript codeFormat="esm"
-import { useLocale } from "react-intlayer"; // Usado em componentes React para gerenciamento de localidade
-```
-
-```javascript codeFormat="commonjs"
-const { useLocale } = require("react-intlayer"); // Usado em componentes React para gerenciamento de localidade
 ```
 
 ## Visão Geral
@@ -52,59 +44,11 @@ O hook `useLocale` oferece uma maneira fácil de acessar e manipular as configur
 
 Aqui está como você pode usar o hook `useLocale` dentro de um componente React:
 
-```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
+```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useLocale } from "react-intlayer";
 
 const LocaleSwitcher: FC = () => {
-  const { locale, defaultLocale, availableLocales, setLocale } = useLocale();
-
-  return (
-    <div>
-      <h1>Localidade Atual: {locale}</h1>
-      <p>Localidade Padrão: {defaultLocale}</p>
-      <select value={locale} onChange={(e) => setLocale(e.target.value)}>
-        {availableLocales.map((loc) => (
-          <option key={loc} value={loc}>
-            {loc}
-          </option>
-        ))}
-      </select>
-    </div>
-  );
-};
-
-export default LocaleSwitcher;
-```
-
-```jsx fileName="src/components/LocaleSwitcher.mjx" codeFormat="esm"
-import { useLocale } from "react.intlayer";
-
-const LocaleSwitcher = () => {
-  const { locale, defaultLocale, availableLocales, setLocale } = useLocale();
-
-  return (
-    <div>
-      <h1>Localidade Atual: {locale}</h1>
-      <p>Localidade Padrão: {defaultLocale}</p>
-      <select value={locale} onChange={(e) => setLocale(e.target.value)}>
-        {availableLocales.map((loc) => (
-          <option key={loc} value={loc}>
-            {loc}
-          </option>
-        ))}
-      </select>
-    </div>
-  );
-};
-
-export default LocaleSwitcher;
-```
-
-```jsx fileName="src/components/LocaleSwitcher.csx" codeFormat="commonjs"
-const { useLocale } = require("react-intlayer");
-
-const LocaleSwitcher = () => {
   const { locale, defaultLocale, availableLocales, setLocale } = useLocale();
 
   return (
@@ -138,55 +82,11 @@ Quando você invoca o hook `useLocale`, ele retorna um objeto contendo as seguin
 
 Este exemplo mostra um componente que utiliza o hook `useLocale` para renderizar um seletor de localidade, permitindo que os usuários alterem dinamicamente a localidade da aplicação:
 
-```tsx fileName="src/components/LocaleSelector.tsx" codeFormat="typescript"
+```tsx fileName="src/components/LocaleSelector.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useLocale } from "react-intlayer";
 
 const LocaleSelector: FC = () => {
-  const { locale, setLocale, availableLocales } = useLocale();
-
-  const handleLocaleChange = (newLocale) => {
-    setLocale(newLocale);
-  };
-
-  return (
-    <select value={locale} onChange={(e) => handleLocaleChange(e.target.value)}>
-      {availableLocales.map((locale) => (
-        <option key={locale} value={locale}>
-          {locale}
-        </option>
-      ))}
-    </select>
-  );
-};
-```
-
-```jsx fileName="src/components/LocaleSelector.mjx" codeFormat="esm"
-import { useLocale } from "react-intlayer";
-
-const LocaleSelector = () => {
-  const { locale, setLocale, availableLocales } = useLocale();
-
-  const handleLocaleChange = (newLocale) => {
-    setLocale(newLocale);
-  };
-
-  return (
-    <select value={locale} onChange={(e) => handleLocaleChange(e.target.value)}>
-      {availableLocales.map((locale) => (
-        <option key={locale} value={locale}>
-          {locale}
-        </option>
-      ))}
-    </select>
-  );
-};
-```
-
-```jsx fileName="src/components/LocaleSelector.csx" codeFormat="commonjs"
-const { useLocale } = require("react-intlayer");
-
-const LocaleSelector = () => {
   const { locale, setLocale, availableLocales } = useLocale();
 
   const handleLocaleChange = (newLocale) => {

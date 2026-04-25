@@ -99,7 +99,7 @@ Spowoduje to otwarcie domyślnej przeglądarki w celu ukończenia procesu uwierz
 
 W pliku konfiguracyjnym Intlayer możesz dostosować ustawienia CMS:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import type { IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -150,106 +150,6 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... inne ustawienia konfiguracyjne
-  editor: {
-    /**
-     * Wymagane
-     *
-     * URL aplikacji.
-     * To jest URL, na który kierowany jest wizualny edytor.
-     */
-    applicationURL: process.env.INTLAYER_APPLICATION_URL,
-
-    /**
-     * Wymagane
-     *
-     * Client ID oraz client secret są wymagane do włączenia edytora.
-     * Pozwalają one na identyfikację użytkownika edytującego zawartość.
-     * Można je uzyskać tworząc nowego klienta w Intlayer Dashboard - Projects (https://app.intlayer.org/projects).
-     * clientId: process.env.INTLAYER_CLIENT_ID,
-     * clientSecret: process.env.INTLAYER_CLIENT_SECRET,
-     */
-    clientId: process.env.INTLAYER_CLIENT_ID,
-    clientSecret: process.env.INTLAYER_CLIENT_SECRET,
-
-    /**
-     * Opcjonalne
-     *
-     * W przypadku, gdy hostujesz Intlayer CMS samodzielnie, możesz ustawić URL CMS.
-     *
-     * URL Intlayer CMS.
-     * Domyślnie ustawiony na https://intlayer.org
-     */
-    cmsURL: process.env.INTLAYER_CMS_URL,
-
-    /**
-     * Opcjonalne
-     *
-     * W przypadku samodzielnego hostowania Intlayer CMS, możesz ustawić URL backendu.
-     *
-     * URL backendu Intlayer CMS.
-     * Domyślnie ustawiony na https://back.intlayer.org
-     */
-    backendURL: process.env.INTLAYER_BACKEND_URL,
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... inne ustawienia konfiguracyjne
-  editor: {
-    /**
-     * Wymagane
-     *
-     * URL aplikacji.
-     * To jest URL, na który kierowany jest wizualny edytor.
-     */
-    applicationURL: process.env.INTLAYER_APPLICATION_URL,
-
-    /**
-     * Wymagane
-     *
-     * Client ID oraz client secret są wymagane do włączenia edytora.
-     * Pozwalają one na identyfikację użytkownika, który edytuje zawartość.
-     * Można je uzyskać, tworząc nowego klienta w Intlayer Dashboard - Projects (https://app.intlayer.org/projects).
-     * clientId: process.env.INTLAYER_CLIENT_ID,
-     * clientSecret: process.env.INTLAYER_CLIENT_SECRET,
-     */
-    clientId: process.env.INTLAYER_CLIENT_ID,
-    clientSecret: process.env.INTLAYER_CLIENT_SECRET,
-
-    /**
-     * Opcjonalne
-     *
-     * W przypadku samodzielnego hostowania Intlayer CMS, możesz ustawić URL CMS.
-     *
-     * URL Intlayer CMS.
-     * Domyślnie ustawiony na https://intlayer.org
-     */
-    cmsURL: process.env.INTLAYER_CMS_URL,
-
-    /**
-     * Opcjonalne
-     *
-     * W przypadku samodzielnego hostowania Intlayer CMS, możesz ustawić URL backendu.
-     *
-     * URL backendu Intlayer CMS.
-     * Domyślnie ustawiony na https://back.intlayer.org
-     */
-    backendURL: process.env.INTLAYER_BACKEND_URL,
-  },
-};
-
-module.exports = config;
-```
-
 > Jeśli nie masz client ID i client secret, możesz je uzyskać, tworząc nowego klienta w [Intlayer Dashboard - Projects](https://app.intlayer.org/projects).
 
 > Aby zobaczyć wszystkie dostępne parametry, zapoznaj się z [dokumentacją konfiguracji](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/configuration.md).
@@ -298,7 +198,7 @@ Synchronizacja na żywo pozwala Twojej aplikacji odzwierciedlać zmiany treści 
 
 Włącz synchronizację na żywo, aktualizując konfigurację Intlayer:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import type { IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -333,92 +233,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... inne ustawienia konfiguracyjne
-  editor: {
-    /**
-     * Włącza hot reloading konfiguracji lokalizacji, gdy wykryte zostaną zmiany.
-     * Na przykład, gdy słownik zostanie dodany lub zaktualizowany, aplikacja aktualizuje
-     * zawartość wyświetlaną na stronie.
-     *
-     * Ponieważ hot reloading wymaga ciągłego połączenia z serwerem, jest on
-     * dostępny tylko dla klientów planu `enterprise`.
-     *
-     * Domyślnie: false
-     */
-    liveSync: true,
-  },
-  dictionary: {
-    /**
-     * Kontroluje sposób importowania słowników:
-     *
-     * - "live": Słowniki są pobierane dynamicznie za pomocą API Live Sync.
-     *   Zastępuje useIntlayer funkcją useDictionaryDynamic.
-     *
-     * Uwaga: Tryb live korzysta z API Live Sync do pobierania słowników. Jeśli wywołanie API
-     * zakończy się niepowodzeniem, słowniki są importowane dynamicznie.
-     * Uwaga: Tryb live jest używany tylko dla słowników zdalnych i oznaczonych flagą "live".
-     * Inne używają trybu dynamicznego dla wydajności.
-     */
-    importMode: "fetch",
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... inne ustawienia konfiguracyjne
-  editor: {
-    /**
-     * Włącza hot reloading konfiguracji lokalizacji, gdy wykryte zostaną zmiany.
-     * Na przykład, gdy słownik zostanie dodany lub zaktualizowany, aplikacja aktualizuje
-     * zawartość wyświetlaną na stronie.
-     *
-     * Ponieważ hot reloading wymaga ciągłego połączenia z serwerem, jest on
-     * dostępny tylko dla klientów planu `enterprise`.
-     *
-     * Domyślnie: false
-     */
-    liveSync: true,
-
-    /**
-     * Port serwera Live Sync.
-     *
-     * Domyślnie: 4000
-     */
-    liveSyncPort: 4000,
-
-    /**
-     * URL serwera Live Sync.
-     *
-     * Domyślnie: http://localhost:{liveSyncPort}
-     */
-    liveSyncURL: "https://live.example.com",
-  },
-  dictionary: {
-    /**
-     * Kontroluje sposób importowania słowników:
-     *
-     * - "live": Słowniki są pobierane dynamicznie za pomocą API Live Sync.
-     *   Zastępuje useIntlayer funkcją useDictionaryDynamic.
-     *
-     * Uwaga: Tryb live korzysta z API Live Sync do pobierania słowników. Jeśli wywołanie API
-     * się nie powiedzie, słowniki są importowane dynamicznie.
-     * Uwaga: Tryb live jest używany tylko dla słowników zdalnych i oznaczonych flagą "live".
-     * Pozostałe używają trybu dynamicznego dla wydajności.
-     */
-    importMode: "fetch",
-  },
-};
-
-module.exports = config;
 ```
 
 Uruchom serwer Live Sync, aby otoczyć swoją aplikację:
@@ -491,7 +305,7 @@ Jak to działa:
 
 Włącz optymalizację, aby Intlayer stosował transformacje importu Live podczas developmentu:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import type { IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -509,44 +323,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  editor: {
-    applicationURL: "http://localhost:5173",
-    liveSyncURL: "http://localhost:4000",
-    liveSync: true,
-  },
-  dictionary: {
-    importMode: "fetch",
-  },
-  build: {
-    optimize: true,
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  editor: {
-    applicationURL: "http://localhost:5173",
-    liveSyncURL: "http://localhost:4000",
-    liveSync: true,
-  },
-  dictionary: {
-    importMode: "fetch",
-  },
-  build: {
-    optimize: true,
-  },
-};
-
-module.exports = config;
 ```
 
 To ustawienie owija Twój serwer deweloperski serwerem Live Sync, pobiera zdalne słowniki podczas uruchamiania i przesyła aktualizacje z CMS za pomocą SSE. Odśwież stronę, aby zobaczyć zmiany.

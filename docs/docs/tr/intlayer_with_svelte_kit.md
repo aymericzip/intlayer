@@ -162,7 +162,7 @@ export default defineConfig({
 
 `src` klasörünüzde istediğiniz herhangi bir yerde içerik bildirim dosyalarınızı oluşturun (örneğin, `src/lib/content` veya bileşenlerinizin yanında). Bu dosyalar, uygulamanız için çevrilebilir içeriği her locale için `t()` fonksiyonunu kullanarak tanımlar.
 
-```ts fileName="src/features/hero/hero.content.ts" contentDeclarationFormat="typescript"
+```ts fileName="src/features/hero/hero.content.ts" contentDeclarationFormat=["typescript", "esm", "cjs"]
 import { t, type Dictionary } from "intlayer";
 
 const heroContent = {
@@ -338,7 +338,7 @@ export default defineConfig({
 
 `src` klasörünüzde istediğiniz herhangi bir yerde içerik bildirim dosyalarınızı oluşturun (örneğin, `src/lib/content` veya bileşenlerinizin yanında). Bu dosyalar, uygulamanız için çevrilebilir içeriği her locale için `t()` fonksiyonunu kullanarak tanımlar.
 
-```ts fileName="src/features/hero/hero.content.ts" contentDeclarationFormat="typescript"
+```ts fileName="src/features/hero/hero.content.ts" contentDeclarationFormat=["typescript", "esm", "cjs"]
 import { t, type Dictionary } from "intlayer";
 
 const heroContent = {
@@ -749,7 +749,7 @@ Bu süreci kolaylaştırmak için Intlayer, bileşenlerinizi dönüştürmek ve 
 
 Kurulum için `intlayer.config.ts` dosyanıza bir `compiler` bölümü ekleyebilirsiniz:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -778,66 +778,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... Yapılandırmanızın geri kalanı
-  compiler: {
-    /**
-     * Derleyicinin etkinleştirilip etkinleştirilmeyeceğini belirtir.
-     */
-    enabled: true,
-
-    /**
-     * Çıktı dosyalarının yolunu tanımlar
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * Bileşenlerin dönüştürüldükten sonra kaydedilip kaydedilmeyeceğini belirtir. Bu sayede derleyici, uygulamayı dönüştürmek için yalnızca bir kez çalıştırılabilir ve ardından kaldırılabilir.
-     */
-    saveComponents: false,
-
-    /**
-     * Sözlük anahtarı öneki
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... Yapılandırmanızın geri kalanı
-  compiler: {
-    /**
-     * Derleyicinin etkinleştirilip etkinleştirilmeyeceğini belirtir.
-     */
-    enabled: true,
-
-    /**
-     * Çıktı dosyalarının yolunu tanımlar
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * Bileşenlerin dönüştürüldükten sonra kaydedilip kaydedilmeyeceğini belirtir. Bu sayede derleyici, uygulamayı dönüştürmek için yalnızca bir kez çalıştırılabilir ve ardından kaldırılabilir.
-     */
-    saveComponents: false,
-
-    /**
-     * Sözlük anahtarı öneki
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-module.exports = config;
 ```
 
 <Tabs>

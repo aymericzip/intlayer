@@ -50,7 +50,7 @@ history:
 
 ### बुनियादी उपयोग
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getEnumeration } from "intlayer";
 
 const content = getEnumeration(
@@ -66,68 +66,10 @@ const content = getEnumeration(
 console.log(content); // आउटपुट: "आपके पास दो हैं"
 ```
 
-```javascript codeFormat="esm"
-import { getEnumeration } from "intlayer";
-
-const content = getEnumeration(
-  {
-    "<1": "आपके पास एक से कम है",
-    "2": "आपके पास दो हैं",
-    ">=3": "आपके पास तीन या अधिक हैं",
-  },
-  2
-);
-
-console.log(content); // आउटपुट: "आपके पास दो हैं"
-```
-
-```javascript codeFormat="commonjs"
-const { getEnumeration } = require("intlayer");
-
-const content = getEnumeration(
-  {
-    "<1": "आपके पास एक से कम है",
-    "2": "आपके पास दो हैं",
-    ">=3": "आपके पास तीन या अधिक हैं",
-  },
-  2
-);
-
-console.log(content); // आउटपुट: "आपके पास दो हैं"
-```
-
 ### शर्तों की प्राथमिकता
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getEnumeration } from "intlayer";
-
-const content = getEnumeration(
-  {
-    "<4": "आपके पास चार से कम है",
-    "2": "आपके पास दो हैं",
-  },
-  2
-);
-
-console.log(content); // आउटपुट: "आपके पास चार से कम है"
-```
-
-```javascript codeFormat="esm"
-import { getEnumeration } from "intlayer";
-
-const content = getEnumeration(
-  {
-    "<4": "आपके पास चार से कम है",
-    "2": "आपके पास दो हैं",
-  },
-  2
-);
-
-console.log(content); // आउटपुट: "आपके पास चार से कम है"
-```
-
-```javascript codeFormat="commonjs"
-const { getEnumeration } = require("intlayer");
 
 const content = getEnumeration(
   {

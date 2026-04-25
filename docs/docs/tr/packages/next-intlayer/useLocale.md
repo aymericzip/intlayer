@@ -43,7 +43,7 @@ import { useLocale } from "next-intlayer"; // Next.js'te yerel ayarları ve yön
 
 İşte `useLocale` hook'unu bir Next.js bileşeninde nasıl uygulayabileceğiniz:
 
-```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
+```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat={["typescript", "esm"]}
 "use client";
 
 import type { FC } from "react";
@@ -51,56 +51,6 @@ import { Locales } from "intlayer";
 import { useLocale } from "next-intlayer";
 
 const LocaleSwitcher: FC = () => {
-  const { locale, defaultLocale, availableLocales, setLocale } = useLocale();
-
-  return (
-    <div>
-      <h1>Mevcut Yerel Ayar: {locale}</h1>
-      <p>Varsayılan Yerel Ayar: {defaultLocale}</p>
-      <select value={locale} onChange={(e) => setLocale(e.target.value)}>
-        {availableLocales.map((loc) => (
-          <option key={loc} value={loc}>
-            {loc}
-          </option>
-        ))}
-      </select>
-    </div>
-  );
-};
-```
-
-```jsx fileName="src/components/LocaleSwitcher.mjx" codeFormat="esm"
-"use client";
-
-import { Locales } from "intlayer";
-import { useLocale } from "next-intlayer";
-
-const LocaleSwitcher = () => {
-  const { locale, defaultLocale, availableLocales, setLocale } = useLocale();
-
-  return (
-    <div>
-      <h1>Mevcut Yerel Ayar: {locale}</h1>
-      <p>Varsayılan Yerel Ayar: {defaultLocale}</p>
-      <select value={locale} onChange={(e) => setLocale(e.target.value)}>
-        {availableLocales.map((loc) => (
-          <option key={loc} value={loc}>
-            {loc}
-          </option>
-        ))}
-      </select>
-    </div>
-  );
-};
-```
-
-```jsx fileName="src/components/LocaleSwitcher.csx" codeFormat="commonjs"
-"use client";
-
-const { Locales } = require("intlayer");
-const { useLocale } = require("next-intlayer");
-
-const LocaleSwitcher = () => {
   const { locale, defaultLocale, availableLocales, setLocale } = useLocale();
 
   return (

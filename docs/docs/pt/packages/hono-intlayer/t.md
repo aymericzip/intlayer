@@ -65,53 +65,9 @@ Para garantir que a funcionalidade de internacionalização fornecida pelo `hono
 
 Coloque o middleware `app.use("*", intlayer())` **antes de quaisquer rotas** na sua aplicação para garantir que todas as rotas se beneficiem da internacionalização:
 
-```typescript {6} fileName="src/index.ts" codeFormat="typescript"
+```typescript {6} fileName="src/index.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Hono } from "hono";
 import { intlayer } from "hono-intlayer";
-
-const app = new Hono();
-
-// Carregar manipulador de solicitação de internacionalização
-app.use("*", intlayer());
-
-// Defina suas rotas após carregar o middleware
-app.get("/", (c) => {
-  return c.text(
-    t({
-      en: "Hello, World!",
-      fr: "Bonjour le monde!",
-      es: "¡Hola, Mundo!",
-      pt: "Olá, Mundo!",
-    })
-  );
-});
-```
-
-```javascript {6} fileName="src/index.mjs" codeFormat="esm"
-import { Hono } from "hono";
-import { intlayer } from "hono-intlayer";
-
-const app = new Hono();
-
-// Carregar manipulador de solicitação de internacionalização
-app.use("*", intlayer());
-
-// Defina suas rotas após carregar o middleware
-app.get("/", (c) => {
-  return c.text(
-    t({
-      en: "Hello, World!",
-      fr: "Bonjour le monde!",
-      es: "¡Hola, Mundo!",
-      pt: "Olá, Mundo!",
-    })
-  );
-});
-```
-
-```javascript {6} fileName="src/index.cjs" codeFormat="commonjs"
-const { Hono } = require("hono");
-const { intlayer, t } = require("hono-intlayer");
 
 const app = new Hono();
 

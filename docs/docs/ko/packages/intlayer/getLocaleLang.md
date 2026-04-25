@@ -45,26 +45,8 @@ history:
 
 ### 언어 코드 추출:
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getLocaleLang, Locales } from "intlayer";
-
-getLocaleLang(Locales.ENGLISH_UNITED_STATES); // 출력: "en"
-getLocaleLang(Locales.ENGLISH); // 출력: "en"
-getLocaleLang(Locales.FRENCH_CANADA); // 출력: "fr"
-getLocaleLang(Locales.FRENCH); // 출력: "fr"
-```
-
-```javascript codeFormat="esm"
-import { getLocaleLang } from "intlayer";
-
-getLocaleLang(Locales.ENGLISH_UNITED_STATES); // 출력: "en"
-getLocaleLang(Locales.ENGLISH); // 출력: "en"
-getLocaleLang(Locales.FRENCH_CANADA); // 출력: "fr"
-getLocaleLang(Locales.FRENCH); // 출력: "fr"
-```
-
-```javascript codeFormat="commonjs"
-const { getLocaleLang } = require("intlayer");
 
 getLocaleLang(Locales.ENGLISH_UNITED_STATES); // 출력: "en"
 getLocaleLang(Locales.ENGLISH); // 출력: "en"

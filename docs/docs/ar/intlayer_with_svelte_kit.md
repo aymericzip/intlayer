@@ -162,7 +162,7 @@ export default defineConfig({
 
 قم بإنشاء ملفات إعلان المحتوى في أي مكان داخل مجلد `src` الخاص بك (مثلًا، `src/lib/content` أو بجانب مكوناتك). تقوم هذه الملفات بتعريف المحتوى القابل للترجمة لتطبيقك باستخدام دالة `t()` لكل لغة.
 
-```ts fileName="src/features/hero/hero.content.ts" contentDeclarationFormat="typescript"
+```ts fileName="src/features/hero/hero.content.ts" contentDeclarationFormat=["typescript", "esm", "cjs"]
 import { t, type Dictionary } from "intlayer";
 
 const heroContent = {
@@ -338,7 +338,7 @@ export default defineConfig({
 
 قم بإنشاء ملفات إعلان المحتوى في أي مكان داخل مجلد `src` الخاص بك (مثلًا، `src/lib/content` أو بجانب مكوناتك). تقوم هذه الملفات بتعريف المحتوى القابل للترجمة لتطبيقك باستخدام دالة `t()` لكل لغة.
 
-```ts fileName="src/features/hero/hero.content.ts" contentDeclarationFormat="typescript"
+```ts fileName="src/features/hero/hero.content.ts" contentDeclarationFormat=["typescript", "esm", "cjs"]
 import { t, type Dictionary } from "intlayer";
 
 const heroContent = {
@@ -747,7 +747,7 @@ export default defineConfig({
 
 لإعداده، يمكنك إضافة قسم `compiler` في ملف `intlayer.config.ts` الخاص بك:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -776,66 +776,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... بقية التكوين الخاص بك
-  compiler: {
-    /**
-     * يشير إلى ما إذا كان يجب تمكين المترجم.
-     */
-    enabled: true,
-
-    /**
-     * يحدد مسار ملفات المخرجات
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * يشير إلى ما إذا كان يجب حفظ المكونات بعد تحويلها. بهذه الطريقة، يمكن تشغيل المترجم مرة واحدة فقط لتحويل التطبيق، ثم يمكن إزالته.
-     */
-    saveComponents: false,
-
-    /**
-     * بادئة مفتاح القاموس
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... بقية التكوين الخاص بك
-  compiler: {
-    /**
-     * يشير إلى ما إذا كان يجب تمكين المترجم.
-     */
-    enabled: true,
-
-    /**
-     * يحدد مسار ملفات المخرجات
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * يشير إلى ما إذا كان يجب حفظ المكونات بعد تحويلها. بهذه الطريقة، يمكن تشغيل المترجم مرة واحدة فقط لتحويل التطبيق، ثم يمكن إزالته.
-     */
-    saveComponents: false,
-
-    /**
-     * بادئة مفتاح القاموس
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-module.exports = config;
 ```
 
 <Tabs>

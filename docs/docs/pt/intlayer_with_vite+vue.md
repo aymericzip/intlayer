@@ -105,7 +105,7 @@ bun x intlayer init
 
 Crie um arquivo de configuração para configurar os idiomas da sua aplicação:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -123,81 +123,19 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-// Configuração para internacionalização
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      // Seus outros idiomas
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-// Configuração para internacionalização
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      // Seus outros idiomas
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-module.exports = config;
-```
-
 > Através deste arquivo de configuração, você pode configurar URLs localizadas, redirecionamento de middleware, nomes de cookies, a localização e extensão das suas declarações de conteúdo, desabilitar logs do Intlayer no console, e muito mais. Para uma lista completa dos parâmetros disponíveis, consulte a [documentação de configuração](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/configuration.md).
 
 ### Passo 3: Integre o Intlayer na Sua Configuração do Vite
 
 Adicione o plugin intlayer na sua configuração.
 
-```typescript fileName="vite.config.ts" codeFormat="typescript"
+```typescript fileName="vite.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import { intlayer } from "vite-intlayer";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue(), intlayer()],
-});
-```
-
-```javascript fileName="vite.config.mjs" codeFormat="esm"
-import { defineConfig } from "vite";
-import vue from "@vitejs/plugin-vue";
-import { intlayer } from "vite-intlayer";
-
-// https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [vue(), intlayer()],
-});
-```
-
-```javascript fileName="vite.config.cjs" codeFormat="commonjs"
-const { defineConfig } = require("vite");
-const vue = require("@vitejs/plugin-vue");
-const { intlayer } = require("vite-intlayer");
-
-// https://vitejs.dev/config/
-module.exports = defineConfig({
   plugins: [vue(), intlayer()],
 });
 ```
@@ -208,7 +146,7 @@ module.exports = defineConfig({
 
 Crie e gerencie suas declarações de conteúdo para armazenar traduções:
 
-```tsx fileName="src/helloWorld.content.ts" contentDeclarationFormat="typescript"
+```tsx fileName="src/helloWorld.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, type Dictionary } from "intlayer";
 
 const helloWorldContent = {
@@ -246,99 +184,6 @@ const helloWorldContent = {
 } satisfies Dictionary;
 
 export default helloWorldContent;
-```
-
-```javascript fileName="src/helloWorld.content.mjs" contentDeclarationFormat="esm"
-import { t } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const helloWorldContent = {
-  key: "helloworld",
-  content: {
-    count: t({ en: "count is ", fr: "le compte est ", es: "el recuento es ", pt: "a contagem é " }),
-    edit: t({
-      en: "Edit <code>components/HelloWorld.vue</code> and save to test HMR",
-      fr: "Éditez <code>components/HelloWorld.vue</code> et enregistrez pour tester HMR",
-      es: "Edita <code>components/HelloWorld.vue</code> y guarda para probar HMR",
-      pt: "Edite <code>components/HelloWorld.vue</code> e salve para testar HMR",
-    }),
-      es: "Edita <code>components/HelloWorld.vue</code> y guarda para probar HMR",
-    }),
-    checkOut: t({ en: "Check out ", fr: "Vérifiez ", es: "Compruebe ", pt: "Confira " }),
-    officialStarter: t({
-      en: "the official Vue + Vite starter",
-      fr: "le starter officiel Vue + Vite",
-      es: "el starter oficial Vue + Vite",
-      pt: "o starter oficial Vue + Vite",
-    }),
-    learnMore: t({
-      en: "Learn more about IDE Support for Vue in the ",
-      fr: "En savoir plus sur le support IDE pour Vue dans le ",
-      es: "Aprenda más sobre el soporte IDE para Vue en el ",
-      pt: "Saiba mais sobre o Suporte IDE para Vue em ",
-    }),
-    vueDocs: t({
-      en: "Vue Docs Scaling up Guide",
-      fr: "Vue Docs Scaling up Guide",
-      es: "Vue Docs Scaling up Guide",
-      pt: "Guia de Escalonamento da Documentação Vue",
-    }),
-    readTheDocs: t({
-      en: "Click on the Vite and Vue logos to learn more",
-      fr: "Cliquez sur les logos Vite et Vue pour en savoir plus",
-      es: "Haga clic en los logotipos de Vite y Vue para obtener más información",
-      pt: "Clique nos logotipos do Vite e Vue para saber mais",
-    }),
-  },
-};
-
-export default helloWorldContent;
-```
-
-```javascript fileName="src/helloWorld.content.cjs" contentDeclarationFormat="commonjs"
-const { t } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const appContent = {
-  key: "helloworld",
-  content: {
-    count: t({ en: "count is ", fr: "le compte est ", es: "el recuento es ", pt: "a contagem é " }),
-    edit: t({
-      en: "Edit <code>components/HelloWorld.vue</code> and save to test HMR",
-      fr: "Éditez <code>components/HelloWorld.vue</code> et enregistrez pour tester HMR",
-      es: "Edita <code>components/HelloWorld.vue</code> y guarda para probar HMR",
-      pt: "Edite <code>components/HelloWorld.vue</code> e salve para testar HMR",
-    }),
-    checkOut: t({ pt: "Confira ", en: "Check out ", fr: "Vérifiez ", es: "Compruebe " }),
-    officialStarter: t({
-      pt: "o starter oficial Vue + Vite",
-      en: "the official Vue + Vite starter",
-      fr: "le starter officiel Vue + Vite",
-      es: "el starter oficial Vue + Vite",
-    }),
-    learnMore: t({
-      pt: "Saiba mais sobre o Suporte IDE para Vue em ",
-      en: "Learn more about IDE Support for Vue in the ",
-      fr: "En savoir plus sur le support IDE pour Vue dans le ",
-      es: "Aprenda más sobre el soporte IDE para Vue en el ",
-    }),
-    vueDocs: t({
-      pt: "Guia de Escalonamento da Documentação Vue",
-      en: "Vue Docs Scaling up Guide",
-      fr: "Vue Docs Scaling up Guide",
-      es: "Vue Docs Scaling up Guide",
-    }),
-    readTheDocs: t({
-      pt: "Clique nos logos do Vite e Vue para saber mais",
-      en: "Click on the Vite and Vue logos to learn more",
-      fr: "Cliquez sur les logos Vite et Vue pour en savoir plus",
-/      es: "Haga clic en los logotipos de Vite y Vue para obtener más información",
-    pt: "Clique nos logotipos do Vite e Vue para saber mais",
-  }),
-},
-};
-
-module.exports = appContent;
 ```
 
 ```json fileName="src/helloWorld.content.json" contentDeclarationFormat="json"
@@ -695,55 +540,13 @@ import LocaleSwitcher from "@components/LocaleSwitcher.vue";
 
 Paralelamente, você também pode usar o `intlayerProxy` para adicionar roteamento no lado do servidor à sua aplicação. Este plugin detectará automaticamente o idioma atual com base na URL e definirá o cookie de idioma apropriado. Se nenhum idioma for especificado, o plugin determinará o idioma mais adequado com base nas preferências de idioma do navegador do usuário. Se nenhum idioma for detectado, ele redirecionará para o idioma padrão.
 
-```typescript {3,7} fileName="vite.config.ts" codeFormat="typescript"
+```typescript {3,7} fileName="vite.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import { intlayer, intlayerProxy } from "vite-intlayer";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [
-    intlayerProxy(), // should be placed first
-    vue(),
-    intlayer(),
-  ],
-});
-```
-
-```javascript {3,7} fileName="vite.config.mjs" codeFormat="esm"
-import { defineConfig } from "vite";
-import vue from "@vitejs/plugin-vue";
-import { intlayer, intlayerProxy } from "vite-intlayer";
-
-// https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [
-    intlayerProxy(), // should be placed first
-    vue(),
-    intlayer(),
-  ],
-});
-```
-
-```javascript {3,7} fileName="vite.config.cjs" codeFormat="commonjs"
-const { defineConfig } = require("vite");
-const vue = require("@vitejs/plugin-vue");
-const { intlayer, intlayerProxy } = require("vite-intlayer");
-
-// https://vitejs.dev/config/
-module.exports = defineConfig({
-  plugins: [
-    intlayerProxy(), // should be placed first
-    vue(),
-    intlayer(),
-  ],
-});
-const { defineConfig } = require("vite");
-const vue = require("@vitejs/plugin-vue");
-const { intlayer, intlayerProxy } = require("vite-intlayer");
-
-// https://vitejs.dev/config/
-module.exports = defineConfig({
   plugins: [
     intlayerProxy(), // should be placed first
     vue(),
@@ -1061,7 +864,7 @@ Para facilitar esse processo, o Intlayer propõe um [compilador](https://github.
 
 Para configurá-lo, você pode adicionar uma seção `compiler` no seu arquivo `intlayer.config.ts`:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -1090,66 +893,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... Resto da sua configuração
-  compiler: {
-    /**
-     * Indica se o compilador deve ser ativado.
-     */
-    enabled: true,
-
-    /**
-     * Define o caminho dos arquivos de saída
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * Indica se os componentes devem ser salvos após serem transformados. Dessa forma, o compilador pode ser executado apenas uma vez para transformar o aplicativo e depois removido.
-     */
-    saveComponents: false,
-
-    /**
-     * Prefixo da chave do dicionário
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... Resto da sua configuração
-  compiler: {
-    /**
-     * Indica se o compilador deve ser ativado.
-     */
-    enabled: true,
-
-    /**
-     * Define o caminho dos arquivos de saída
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * Indica se os componentes devem ser salvos após serem transformados. Dessa forma, o compilador pode ser executado apenas uma vez para transformar o aplicativo e depois removido.
-     */
-    saveComponents: false,
-
-    /**
-     * Prefixo da chave do dicionário
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-module.exports = config;
 ```
 
 <Tabs>

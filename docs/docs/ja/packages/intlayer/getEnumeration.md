@@ -50,7 +50,7 @@ history:
 
 ### 基本的な使用例
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getEnumeration } from "intlayer";
 
 const content = getEnumeration(
@@ -66,68 +66,10 @@ const content = getEnumeration(
 console.log(content); // 出力: "あなたの値は2です"
 ```
 
-```javascript codeFormat="esm"
-import { getEnumeration } from "intlayer";
-
-const content = getEnumeration(
-  {
-    "<1": "あなたの値は1未満です",
-    "2": "あなたの値は2です",
-    ">=3": "あなたの値は3以上です",
-  },
-  2
-);
-
-console.log(content); // 出力: "あなたの値は2です"
-```
-
-```javascript codeFormat="commonjs"
-const { getEnumeration } = require("intlayer");
-
-const content = getEnumeration(
-  {
-    "<1": "あなたの値は1未満です",
-    "2": "あなたの値は2です",
-    ">=3": "あなたの値は3以上です",
-  },
-  2
-);
-
-console.log(content); // 出力: "あなたの値は2です"
-```
-
 ### 条件の優先順位
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getEnumeration } from "intlayer";
-
-const content = getEnumeration(
-  {
-    "<4": "あなたの値は4未満です",
-    "2": "あなたの値は2です",
-  },
-  2
-);
-
-console.log(content); // 出力: "あなたの値は4未満です"
-```
-
-```javascript codeFormat="esm"
-import { getEnumeration } from "intlayer";
-
-const content = getEnumeration(
-  {
-    "<4": "あなたの値は4未満です",
-    "2": "あなたの値は2です",
-  },
-  2
-);
-
-console.log(content); // 出力: "あなたの値は4未満です"
-```
-
-```javascript codeFormat="commonjs"
-const { getEnumeration } = require("intlayer");
 
 const content = getEnumeration(
   {

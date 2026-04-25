@@ -67,7 +67,7 @@ t<T extends string>(content: Record<LocalesValues, T>, locale?: Locales): string
 
 `'use client';` 지시문을 클라이언트 측 컴포넌트에서 `t`를 사용할 때 컴포넌트 파일 상단에 반드시 포함하세요.
 
-```tsx codeFormat="typescript"
+```tsx codeFormat={["typescript", "esm", "commonjs"]}
 "use client";
 
 import type { FC } from "react";
@@ -84,69 +84,13 @@ export const ClientComponentExample: FC = () => (
 );
 ```
 
-```javascript codeFormat="esm"
-import { t } from "next-intlayer";
-
-const ClientComponentExample = () => (
-  <p>
-    {t({
-      en: "This is the content of a client component example",
-      fr: "Ceci est le contenu d'un exemple de composant client",
-      es: "Este es el contenido d un ejemplo de componente cliente",
-    })}
-  </p>
-);
-```
-
-```javascript codeFormat="commonjs"
-const { t } = require("next-intlayer");
-
-const ClientComponentExample = () => (
-  <p>
-    {t({
-      en: "This is the content of a client component example",
-      fr: "Ceci est le contenu d'un exemple de composant client",
-      es: "Este es le contenido d un ejemplo de componente cliente",
-    })}
-  </p>
-);
-```
-
 ### 서버 컴포넌트에서 `t` 사용하기
 
-```tsx codeFormat="typescript"
+```tsx codeFormat={["typescript", "esm", "commonjs"]}
 import type { FC } from "react";
 import { t } from "next-intlayer/server";
 
 export const ServerComponentExample: FC = () => (
-  <p>
-    {t({
-      en: "This is the content of a server component example",
-      fr: "Ceci est le contenu d'un exemple de composant serveur",
-      es: "Este es el contenido de un ejemplo de componente servidor",
-    })}
-  </p>
-);
-```
-
-```javascript codeFormat="esm"
-import { t } from "next-intlayer/server";
-
-const ServerComponentExample = () => (
-  <p>
-    {t({
-      en: "This is the content of a server component example",
-      fr: "Ceci est le contenu d'un exemple de composant serveur",
-      es: "Este es el contenido de un ejemplo de componente servidor",
-    })}
-  </p>
-);
-```
-
-```javascript codeFormat="commonjs"
-const { t } = require("next-intlayer/server");
-
-const ServerComponentExample = () => (
   <p>
     {t({
       en: "This is the content of a server component example",
@@ -194,40 +138,11 @@ const ServerComponentExample = () => (
 
 `t` 함수는 TypeScript와 함께 사용할 때 타입 안전성을 제공하며, 필요한 모든 로케일이 제공되었는지 보장합니다.
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import type { IConfigLocales } from "intlayer";
 import { t } from "next-intlayer";
 
 const translations: IConfigLocales<string> = {
-  en: "Welcome",
-  fr: "Bienvenue",
-  es: "Bienvenido",
-};
-
-const greeting = t(translations);
-```
-
-```javascript codeFormat="esm"
-import type { IConfigLocales } from "intlayer";
-import { t } from "next-intlayer";
-
-/** @type {import('next-intlayer').IConfigLocales<string>} */
-// 번역 문자열 정의
-const translations = {
-  en: "Welcome",
-  fr: "Bienvenue",
-  es: "Bienvenido",
-};
-
-const greeting = t(translations);
-```
-
-```javascript codeFormat="commonjs"
-const { t } = require("next-intlayer");
-
-/** @type {import('next-intlayer').IConfigLocales<string>} */
-// 번역 문자열 정의
-const translations = {
   en: "Welcome",
   fr: "Bienvenue",
   es: "Bienvenido",
@@ -242,7 +157,7 @@ const greeting = t(translations);
 
 #### 예시:
 
-```tsx codeFormat="typescript"
+```tsx codeFormat={["typescript", "esm", "commonjs"]}
 import type { FC } from "react";
 import type { Locales } from "intlayer";
 import { IntlayerClientProvider } from "next-intlayer";
@@ -252,32 +167,6 @@ const Page: FC<{ locale: Locales }> = ({ locale }) => (
   <IntlayerServerProvider locale={locale}>
     <IntlayerClientProvider locale={locale}>
       {/* 여기에 컴포넌트 작성 */}
-    </IntlayerClientProvider>
-  </IntlayerServerProvider>
-);
-```
-
-```javascript codeFormat="esm"
-import { IntlayerClientProvider } from "next-intlayer";
-import { IntlayerServerProvider } from "next-intlayer/server";
-
-const Page = ({ locale }) => (
-  <IntlayerServerProvider locale={locale}>
-    <IntlayerClientProvider locale={locale}>
-      {/* 여기에 컴포넌트를 작성하세요 */}
-    </IntlayerClientProvider>
-  </IntlayerServerProvider>
-);
-```
-
-```javascript codeFormat="commonjs"
-const { IntlayerClientProvider } = require("next-intlayer");
-const { IntlayerServerProvider } = require("next-intlayer/server");
-
-const Page = ({ locale }) => (
-  <IntlayerServerProvider locale={locale}>
-    <IntlayerClientProvider locale={locale}>
-      {/* 여기에 컴포넌트를 작성하세요 */}
     </IntlayerClientProvider>
   </IntlayerServerProvider>
 );
@@ -299,31 +188,8 @@ const Page = ({ locale }) => (
 - **원인**: 번역 객체가 요구되는 모든 로케일을 충족하지 않아 TypeScript 오류가 발생하는 경우입니다.
 - **해결 방법**: `IConfigLocales` 타입을 사용하여 번역의 완전성을 강제하세요.
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 const translations: IConfigLocales<string> = {
-  en: "Text",
-  fr: "Texte",
-  // es: 'Texto', // 'es'가 없으면 TypeScript 오류가 발생합니다 [!code error]
-};
-
-const text = t(translations);
-```
-
-```javascript codeFormat="esm"
-const translations = {
-  en: "Text",
-  fr: "Texte",
-  // es: 'Texto', // 'es'가 없으면 TypeScript 오류가 발생합니다 [!code error]
-};
-
-const text = t(translations);
-```
-
-```javascript codeFormat="commonjs"
-const { t } = require("next-intlayer");
-
-/** @type {import('next-intlayer').IConfigLocales<string>} */
-const translations = {
   en: "Text",
   fr: "Texte",
   // es: 'Texto', // 'es'가 없으면 TypeScript 오류가 발생합니다 [!code error]

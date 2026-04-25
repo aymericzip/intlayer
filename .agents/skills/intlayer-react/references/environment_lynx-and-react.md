@@ -208,7 +208,7 @@ Create **content declaration** files anywhere in your project (commonly within `
 
 Example:
 
-```tsx fileName="src/app.content.ts" contentDeclarationFormat="typescript"
+```tsx fileName="src/app.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, type Dictionary } from "intlayer";
 
 const appContent = {
@@ -242,79 +242,6 @@ const appContent = {
 } satisfies Dictionary;
 
 export default appContent;
-```
-
-```jsx fileName="src/app.content.mjx" contentDeclarationFormat="esm"
-import { t } from "intlayer";
-
-const appContent = {
-  key: "app",
-  content: {
-    title: "React",
-    subtitle: t({
-      en: "on Lynx",
-      fr: "sur Lynx",
-      es: "en Lynx",
-    }),
-    description: t({
-      en: "Tap the logo and have fun!",
-      fr: "Appuyez sur le logo et amusez-vous!",
-      es: "¡Toca el logo y diviértete!",
-    }),
-    hint: [
-      t({
-        en: "Edit",
-        fr: "Modifier",
-        es: "Editar",
-      }),
-      " src/App.tsx ",
-      t({
-        en: "to see updates!",
-        fr: "pour voir les mises à jour!",
-        es: "para ver actualizaciones!",
-      }),
-    ],
-  },
-};
-
-export default appContent;
-```
-
-```jsx fileName="src/app.content.csx" contentDeclarationFormat="commonjs"
-const { t } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const appContent = {
-  key: "app",
-  content: {
-    title: "React",
-    subtitle: t({
-      en: "on Lynx",
-      fr: "sur Lynx",
-      es: "en Lynx",
-    }),
-    description: t({
-      en: "Tap the logo and have fun!",
-      fr: "Appuyez sur le logo et amusez-vous!",
-      es: "¡Toca el logo y diviértete!",
-    }),
-    hint: [
-      t({
-        en: "Edit",
-        fr: "Modifier",
-        es: "Editar",
-      }),
-      " src/App.tsx ",
-      t({
-        en: "to see updates!",
-        fr: "pour voir les mises à jour!",
-        es: "para ver actualizaciones!",
-      }),
-    ],
-  },
-};
-
-module.exports = appContent;
 ```
 
 ```json fileName="src/app.content.json" contentDeclarationFormat="json"

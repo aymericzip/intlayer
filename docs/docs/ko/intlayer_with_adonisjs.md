@@ -79,7 +79,7 @@ bun x intlayer init
 
 프로젝트 루트에 `intlayer.config.ts`를 생성하여 국제화 설정을 구성합니다.
 
-```typescript fileName="intlayer.config.ts"  codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -111,77 +111,11 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.RUSSIAN,
-      Locales.JAPANESE,
-      Locales.FRENCH,
-      Locales.KOREAN,
-      Locales.CHINESE,
-      Locales.SPANISH,
-      Locales.GERMAN,
-      Locales.ARABIC,
-      Locales.ITALIAN,
-      Locales.ENGLISH_UNITED_KINGDOM,
-      Locales.PORTUGUESE,
-      Locales.HINDI,
-      Locales.TURKISH,
-      Locales.POLISH,
-      Locales.INDONESIAN,
-      Locales.VIETNAMESE,
-      Locales.UKRAINIAN,
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.RUSSIAN,
-      Locales.JAPANESE,
-      Locales.FRENCH,
-      Locales.KOREAN,
-      Locales.CHINESE,
-      Locales.SPANISH,
-      Locales.GERMAN,
-      Locales.ARABIC,
-      Locales.ITALIAN,
-      Locales.ENGLISH_UNITED_KINGDOM,
-      Locales.PORTUGUESE,
-      Locales.HINDI,
-      Locales.TURKISH,
-      Locales.POLISH,
-      Locales.INDONESIAN,
-      Locales.VIETNAMESE,
-      Locales.UKRAINIAN,
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-module.exports = config;
-```
-
 ### 콘텐츠 선언
 
 번역을 저장하기 위해 콘텐츠 선언을 생성하고 관리합니다.
 
-```typescript fileName="app/index.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="app/index.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, type Dictionary } from "intlayer";
 
 const indexContent = {
@@ -198,46 +132,6 @@ const indexContent = {
 } satisfies Dictionary;
 
 export default indexContent;
-```
-
-```javascript fileName="app/index.content.mjs" contentDeclarationFormat="esm"
-import { t } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const indexContent = {
-  key: "index",
-  content: {
-    exampleOfContent: t({
-      en: "Example of returned content in English",
-      fr: "Exemple de contenu renvoyé en français",
-      ko: "한국어로 반환된 콘텐츠 예시",
-      "es-ES": "Ejemplo de contenido devuelto en español (España)",
-      "es-MX": "Ejemplo de contenido devuelto en español (México)",
-    }),
-  },
-};
-
-export default indexContent;
-```
-
-```javascript fileName="app/index.content.cjs" contentDeclarationFormat="commonjs"
-const { t } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const indexContent = {
-  key: "index",
-  content: {
-    exampleOfContent: t({
-      en: "Example of returned content in English",
-      fr: "Exemple de contenu renvoyé en français",
-      ko: "한국어로 반환된 콘텐츠 예시",
-      "es-ES": "Ejemplo de contenido devuelto en español (España)",
-      "es-MX": "Ejemplo de contenido devuelto en español (México)",
-    }),
-  },
-};
-
-module.exports = indexContent;
 ```
 
 ```json fileName="app/index.content.json" contentDeclarationFormat="json"

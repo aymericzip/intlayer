@@ -58,7 +58,7 @@ Intlayerにおけるコンテンツファイルとは、辞書定義を含むフ
 
 コンテンツファイルの例：
 
-```tsx fileName="src/example.content.tsx" contentDeclarationFormat="typescript"
+```tsx fileName="src/example.content.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { type ReactNode } from "react";
 import {
   t,
@@ -138,108 +138,6 @@ export default {
     jsxContent: <h1>私のタイトル</h1>,
   },
 } satisfies Dictionary<Content>; // [オプション] Dictionary はジェネリックで、辞書のフォーマットを強化できます
-```
-
-```javascript fileName="src/example.content.mjx" contentDeclarationFormat="esm"
-import { t, enu, cond, nest, md, insert, file } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-export default {
-  key: "page",
-  content: {
-    imbricatedContent: {
-      imbricatedContent2: {
-        stringContent: "Hello World",
-        numberContent: 123,
-        booleanContent: true,
-        javaScriptContent: `${process.env.NODE_ENV}`,
-      },
-      imbricatedArray: [1, 2, 3],
-    },
-    multilingualContent: t({
-      ja: "日本語のコンテンツ",
-      en: "English content",
-      "en-GB": "English content (UK)",
-      fr: "French content",
-      es: "Spanish content",
-    }),
-    quantityContent: enu({
-      "<-1": "マイナス1台未満の車",
-      "-1": "マイナス1台の車",
-      "0": "車はありません",
-      "1": "1台の車",
-      ">5": "いくつかの車",
-      ">19": "多くの車",
-    }),
-    conditionalContent: cond({
-      true: "検証が有効です",
-      false: "検証が無効です",
-    }),
-    insertionContent: insert("こんにちは {{name}}!"),
-    nestedContent: nest(
-      "navbar", // ネストする辞書のキー
-      "login.button" // [オプション] ネストするコンテンツのパス
-    ),
-    markdownContent: md("# Markdownの例"),
-    htmlContent: html("<p>Hello <strong>World</strong></p>"),
-    fileContent: file("./path/to/file.txt"),
-    externalContent: fetch("https://example.com").then((res) => res.json())
-
-    // `react-intlayer` または `next-intlayer` を使用する場合のみ利用可能
-    jsxContent: <h1>My title</h1>,
-  },
-};
-```
-
-```javascript fileName="src/example.content.cjx" contentDeclarationFormat="commonjs"
-const { t, enu, cond, nest, md, insert, file } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-module.exports = {
-  key: "page",
-  content: {
-    imbricatedContent: {
-      imbricatedContent2: {
-        stringContent: "Hello World",
-        numberContent: 123,
-        booleanContent: true,
-        javaScriptContent: `${process.env.NODE_ENV}`,
-      },
-      imbricatedArray: [1, 2, 3],
-    },
-    multilingualContent: t({
-      ja: "日本語のコンテンツ",
-      en: "English content",
-      "en-GB": "English content (UK)",
-      fr: "French content",
-      es: "Spanish content",
-    }),
-    quantityContent: enu({
-      "<-1": "マイナス1台未満の車",
-      "-1": "マイナス1台の車",
-      "0": "車はありません",
-      "1": "1台の車",
-      ">5": "いくつかの車",
-      ">19": "多くの車",
-    }),
-    conditionalContent: cond({
-      true: "検証が有効です",
-      false: "検証が無効です",
-    }),
-    insertionContent: insert("こんにちは {{name}}!"),
-    nestedContent: nest(
-      "navbar", // ネストする辞書のキー
-      "login.button" // [オプション] ネストするコンテンツのパス
-    ),
-    markdownContent: md("# マークダウンの例"),
-    htmlContent: html("<p>Hello <strong>World</strong></p>"),
-    fileContent: file("./path/to/file.txt"),
-    externalContent: fetch("https://example.com").then((res) => res.json())
-
-    // `react-intlayer` または `next-intlayer` を使用する場合のみ利用可能
-    jsxContent: <h1>My title</h1>,
-  },
-};
 ```
 
 ```json5 fileName="src/example.content.json"  contentDeclarationFormat="json"
@@ -944,7 +842,7 @@ export default {
 
 例：
 
-```javascript fileName="src/example.content.tsx" contentDeclarationFormat="typescript"
+```javascript fileName="src/example.content.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, enu, cond, nest, md, type Dictionary } from "intlayer";
 
 const getName = async () => "John Doe";
@@ -990,106 +888,6 @@ export default {
     }),
   },
 } satisfies Dictionary;
-```
-
-```javascript fileName="src/example.content.mjx" contentDeclarationFormat="esm"
-import { t, enu, cond, nest, md } from "intlayer";
-
-const getName = async () => "John Doe";
-
-/** @type {import('intlayer').Dictionary} */
-export default {
-  key: "page",
-  content: {
-    // `getIntlayer('page','en').hiMessage` は `['Hi', ' ', 'John Doe']` を返します
-    hiMessage: [
-      t({
-        en: "Hi",
-        fr: "Salut",
-        es: "Hola",
-      }),
-      " ",
-      getName(),
-    ],
-    // 条件、列挙、多言語コンテンツを組み合わせた複合コンテンツ
-    // `getIntlayer('page','en').advancedContent(true)(10)` は 'Multiple items found' を返します
-    advancedContent: cond({
-      true: enu({
-        "0": t({
-          en: "No items found",
-          fr: "Aucun article trouvé",
-          es: "No se encontraron artículos",
-        }),
-        "1": t({
-          en: "One item found",
-          fr: "Un article trouvé",
-          es: "Se encontró un artículo",
-        }),
-        ">1": t({
-          en: "Multiple items found",
-          fr: "Plusieurs articles trouvés",
-          es: "Se encontraron múltiples artículos",
-          ja: "複数のアイテムが見つかりました",
-        }),
-      }),
-      false: t({
-        en: "No valid data available",
-        fr: "Aucune donnée valide disponible",
-        es: "No hay datos válidos disponibles",
-        ja: "有効なデータがありません",
-      }),
-    }),
-  },
-};
-```
-
-```javascript fileName="src/example.content.cjx" contentDeclarationFormat="commonjs"
-const { t, enu, cond, nest, md } = require("intlayer");
-
-const getName = async () => "John Doe";
-
-/** @type {import('intlayer').Dictionary} */
-module.exports = {
-  key: "page",
-  content: {
-    // `getIntlayer('page','en').hiMessage` は `['Hi', ' ', 'John Doe']` を返します
-    hiMessage: [
-      t({
-        en: "Hi",
-        fr: "Salut",
-        es: "Hola",
-      }),
-      " ",
-      getName(),
-    ],
-    // 条件、列挙、多言語コンテンツを組み合わせた複合コンテンツ
-    // `getIntlayer('page','en').advancedContent(true)(10)` は 'Multiple items found' を返します
-    advancedContent: cond({
-      true: enu({
-        "0": t({
-          en: "No items found",
-          fr: "Aucun article trouvé",
-          es: "No se encontraron artículos",
-        }),
-        "1": t({
-          en: "One item found",
-          fr: "Un article trouvé",
-          es: "Se encontró un artículo",
-        }),
-        ">1": t({
-          en: "Multiple items found",
-          fr: "Plusieurs articles trouvés",
-          es: "Se encontraron múltiples artículos",
-        }),
-      }),
-      false: t({
-        en: "No valid data available",
-        fr: "Aucune donnée valide disponible",
-        es: "No hay datos válidos disponibles",
-      }),
-    }),
-  },
-};
 ```
 
 ```json5 fileName="src/example.content.json"  contentDeclarationFormat="json"

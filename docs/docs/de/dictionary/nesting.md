@@ -32,7 +32,7 @@ Um die Verschachtelung in Ihrem Intlayer-Projekt einzurichten, definieren Sie zu
 
 Nachfolgend ein Beispiel für ein Basis-Wörterbuch, das in einem anderen Wörterbuch verschachtelt wird:
 
-```typescript fileName="firstDictionary.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="firstDictionary.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { type Dictionary } from "intlayer";
 
 const firstDictionary = {
@@ -47,38 +47,6 @@ const firstDictionary = {
 } satisfies Dictionary;
 
 export default firstDictionary;
-```
-
-```javascript fileName="firstDictionary.content.mjs" contentDeclarationFormat="esm"
-/** @type {import('intlayer').Dictionary} */
-const firstDictionary = {
-  key: "key_of_my_first_dictionary",
-  content: {
-    content: "content",
-    subContent: {
-      contentNumber: 0,
-      contentString: "string",
-    },
-  },
-};
-
-export default firstDictionary;
-```
-
-```javascript fileName="firstDictionary.content.cjs" contentDeclarationFormat="commonjs"
-/** @type {import('intlayer').Dictionary} */
-const firstDictionary = {
-  key: "key_of_my_first_dictionary",
-  content: {
-    content: "content",
-    subContent: {
-      contentNumber: 0,
-      contentString: "string",
-    },
-  },
-};
-
-module.exports = firstDictionary;
 ```
 
 ```json fileName="firstDictionary.content.json" contentDeclarationFormat="json"
@@ -99,7 +67,7 @@ module.exports = firstDictionary;
 
 Erstellen Sie nun ein weiteres Inhaltsmodul, das die Funktion `nest` verwendet, um auf die oben genannten Inhalte zu verweisen. Sie können auf den gesamten Inhalt oder einen spezifischen verschachtelten Wert verweisen:
 
-```typescript fileName="secondDictionary.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="secondDictionary.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { nest, type Dictionary } from "intlayer";
 
 const myNestingContent = {
@@ -116,42 +84,6 @@ const myNestingContent = {
 } satisfies Dictionary;
 
 export default myNestingContent;
-```
-
-```javascript fileName="secondDictionary.content.mjs" contentDeclarationFormat="esm"
-import { nest } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const myNestingContent = {
-  key: "key_of_my_second_dictionary",
-  content: {
-    fullNestedContent: nest("key_of_my_first_dictionary"),
-    partialNestedContent: nest(
-      "key_of_my_first_dictionary",
-      "subContent.contentNumber"
-    ),
-  },
-};
-
-export default myNestingContent;
-```
-
-```javascript fileName="secondDictionary.content.cjs" contentDeclarationFormat="commonjs"
-const { nest } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const myNestingContent = {
-  key: "key_of_my_second_dictionary",
-  content: {
-    fullNestedContent: nest("key_of_my_first_dictionary"),
-    partialNestedContent: nest(
-      "key_of_my_first_dictionary",
-      "subContent.contentNumber"
-    ),
-  },
-};
-
-module.exports = myNestingContent;
 ```
 
 ```json fileName="secondDictionary.content.json" contentDeclarationFormat="json"
@@ -182,7 +114,7 @@ Als zweiten Parameter können Sie einen Pfad zu einem verschachtelten Wert inner
 
 Um verschachtelte Inhalte in einer React-Komponente zu verwenden, nutzen Sie den `useIntlayer`-Hook aus dem Paket `react-intlayer`. Dieser Hook ruft den richtigen Inhalt basierend auf dem angegebenen Schlüssel ab. Hier ist ein Beispiel, wie Sie ihn verwenden können:
 
-```tsx fileName="**/*.tsx" codeFormat="typescript"
+```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useIntlayer } from "react-intlayer";
 
@@ -207,58 +139,6 @@ const NestComponent: FC = () => {
 };
 
 export default NestComponent;
-```
-
-```javascript fileName="**/*.mjx" codeFormat="esm"
-import { useIntlayer } from "react-intlayer";
-
-const NestComponent = () => {
-  const { fullNestedContent, partialNestedContent } = useIntlayer(
-    "key_of_my_second_dictionary"
-  );
-
-  return (
-    <div>
-      <p>
-        Vollständiger verschachtelter Inhalt:{" "}
-        {JSON.stringify(fullNestedContent)}
-        {/* Ausgabe: {"content": "content", "subContent": {"contentNumber": 0, "contentString": "string"}} */}
-      </p>
-      <p>
-        Teilweise verschachtelter Wert: {partialNestedContent}
-        {/* Ausgabe: 0 */}
-      </p>
-    </div>
-  );
-};
-
-export default NestComponent;
-```
-
-```javascript fileName="**/*.cjx" codeFormat="commonjs"
-const { useIntlayer } = require("react-intlayer");
-
-const NestComponent = () => {
-  const { fullNestedContent, partialNestedContent } = useIntlayer(
-    "key_of_my_second_dictionary"
-  );
-
-  return (
-    <div>
-      <p>
-        Vollständiger verschachtelter Inhalt:{" "}
-        {JSON.stringify(fullNestedContent)}
-        {/* Ausgabe: {"content": "content", "subContent": {"contentNumber": 0, "contentString": "string"}} */}
-      </p>
-      <p>
-        Teilweise verschachtelter Wert: {partialNestedContent}
-        {/* Ausgabe: 0 */}
-      </p>
-    </div>
-  );
-};
-
-module.exports = NestComponent;
 ```
 
 ## Zusätzliche Ressourcen

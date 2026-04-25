@@ -336,7 +336,7 @@ export default preview;
 
 প্রতিটি কম্পোনেন্টের পাশে একটি `*.content.ts` ফাইল তৈরি করুন। কম্পাইলেশনের সময় Intlayer স্বয়ংক্রিয়ভাবে এটি সংগ্রহ করবে।
 
-```typescript fileName="src/components/CopyButton/CopyButton.content.ts" codeFormat="typescript"
+```typescript fileName="src/components/CopyButton/CopyButton.content.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { type Dictionary, t } from "intlayer";
 
 const copyButtonContent = {
@@ -351,42 +351,6 @@ const copyButtonContent = {
 } satisfies Dictionary;
 
 export default copyButtonContent;
-```
-
-```javascript fileName="src/components/CopyButton/CopyButton.content.mjs" codeFormat="esm"
-import { t } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const copyButtonContent = {
-  key: "copy-button",
-  content: {
-    label: t({
-      en: "Copy content",
-      fr: "Copier le contenu",
-      es: "Copiar contenido",
-    }),
-  },
-};
-
-export default copyButtonContent;
-```
-
-```javascript fileName="src/components/CopyButton/CopyButton.content.cjs" codeFormat="commonjs"
-const { t } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const copyButtonContent = {
-  key: "copy-button",
-  content: {
-    label: t({
-      en: "Copy content",
-      fr: "Copier le contenu",
-      es: "Copiar contenido",
-    }),
-  },
-};
-
-module.exports = copyButtonContent;
 ```
 
 > আরও কন্টেন্ট ডিক্লারেশন ফরম্যাট এবং ফিচারের জন্য [কন্টেন্ট ডিক্লারেশন ডকুমেন্টেশন](https://github.com/aymericzip/intlayer/blob/main/docs/docs/bn/dictionary/content_file.md) দেখুন।

@@ -76,7 +76,7 @@ history:
 
 React 컴포넌트 내에서 `useI18n` 훅을 사용하는 예시:
 
-```tsx fileName="src/App.tsx" codeFormat="typescript"
+```tsx fileName="src/App.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { ClientComponentExample, ServerComponentExample } from "@components";
 import { IntlayerProvider } from "react-intlayer";
@@ -100,50 +100,7 @@ const App: FC<{ locale: Locales }> = ({ locale }) => {
 };
 ```
 
-```jsx fileName="src/app.jsx" codeFormat="esm"
-import { ClientComponentExample, ServerComponentExample } from "@components";
-import { IntlayerProvider } from "react-intlayer";
-import { IntlayerServerProvider, useI18n } from "react-intlayer/server";
-
-const App = ({ locale }) => {
-  const t = useI18n("home-page", locale);
-
-  return (
-    <>
-      <p>{t("introduction")}</p>
-      <IntlayerProvider locale={locale}>
-        <ClientComponentExample />
-      </IntlayerProvider>
-      <IntlayerServerProvider locale={locale}>
-        <ServerComponentExample />
-      </IntlayerServerProvider>
-    </>
-  );
-};
-```
-
-```jsx fileName="src/app.cjs" codeFormat="commonjs"
-const { IntlayerProvider } = require("react-intlayer");
-const { IntlayerServerProvider, useI18n } = require("react-intlayer/server");
-
-const App = ({ locale }) => {
-  const t = useI18n("home-page", locale);
-
-  return (
-    <>
-      <p>{t("introduction")}</p>
-      <IntlayerProvider locale={locale}>
-        <ClientComponentExample />
-      </IntlayerProvider>
-      <IntlayerServerProvider locale={locale}>
-        <ServerComponentExample />
-      </IntlayerServerProvider>
-    </>
-  );
-};
-```
-
-```tsx fileName="src/components/ComponentExample.tsx" codeFormat="typescript"
+```tsx fileName="src/components/ComponentExample.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useI18n } from "react-intlayer";
 
@@ -159,37 +116,7 @@ const ComponentExample: FC = () => {
 };
 ```
 
-```jsx fileName="src/components/ComponentExample.jsx" codeFormat="esm"
-import { useI18n } from "react-intlayer";
-
-const ComponentExample = () => {
-  const t = useI18n("component-example");
-
-  return (
-    <div>
-      <h1>{t("title")}</h1> {/* 제목을 표시합니다 */}
-      <p>{t("description")}</p> {/* 설명을 표시합니다 */}
-    </div>
-  );
-};
-```
-
-```jsx fileName="src/components/ComponentExample.cjs" codeFormat="commonjs"
-const { useI18n } = require("react-intlayer");
-
-const ComponentExample = () => {
-  const t = useI18n("component-example");
-
-  return (
-    <div>
-      <h1>{t("title")}</h1> {/* 제목을 표시합니다 */}
-      <p>{t("description")}</p> {/* 설명을 표시합니다 */}
-    </div>
-  );
-};
-```
-
-```tsx fileName="src/components/ServerComponentExample.tsx" codeFormat="typescript"
+```tsx fileName="src/components/ServerComponentExample.tsx" codeFormat={["typescript", "esm"]}
 import { useI18n } from "react-intlayer/server";
 
 const ServerComponentExample = () => {
@@ -199,36 +126,6 @@ const ServerComponentExample = () => {
     <div>
       <h1>{t("title")}</h1> {/* 제목을 표시합니다 */}
       <p>{t("description")}</p> {/* 설명을 표시합니다 */}
-    </div>
-  );
-};
-```
-
-```jsx fileName="src/components/ServerComponentExample.jsx" codeFormat="esm"
-import { useI18n } from "react-intlayer/server";
-
-const ServerComponentExample = () => {
-  const t = useI18n("server-component");
-
-  return (
-    <div>
-      <h1>{t("title")}</h1> {/* 제목을 표시합니다 */}
-      <p>{t("description")}</p> {/* 설명을 표시합니다 */}
-    </div>
-  );
-};
-```
-
-```jsx fileName="src/components/ServerComponentExample.cjs" codeFormat="commonjs"
-const { useI18n } = require("react-intlayer/server");
-
-const ServerComponentExample = () => {
-  const t = useI18n("server-component");
-
-  return (
-    <div>
-      <h1>{t("title")}</h1>
-      <p>{t("description")}</p>
     </div>
   );
 };
@@ -238,7 +135,7 @@ const ServerComponentExample = () => {
 
 속성을 현지화할 때는 번역 값을 적절히 접근해야 합니다:
 
-```jsx
+```html
 <!-- 접근성 속성(예: aria-label)의 경우, 순수 문자열이 필요하므로 .value를 사용하세요 -->
 <button aria-label={t("button.ariaLabel").value}>{t("button.text")}</button>
 ```

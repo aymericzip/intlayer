@@ -99,7 +99,7 @@ type GetPrefixResult = {
 
 ### Базовое использование
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getPrefix, Locales } from "intlayer";
 
 // Проверка префикса для английской локали
@@ -115,20 +115,6 @@ getPrefix(Locales.FRENCH, {
   mode: "prefix-no-default",
 });
 // Возвращает: { prefix: 'fr/', localePrefix: 'fr' }
-```
-
-```javascript codeFormat="esm"
-import { getPrefix, Locales } from "intlayer";
-
-getPrefix(Locales.ENGLISH, { mode: "prefix-all" });
-// Возвращает: { prefix: '', localePrefix: undefined }
-```
-
-```javascript codeFormat="commonjs"
-const { getPrefix, Locales } = require("intlayer");
-
-getPrefix(Locales.ENGLISH, { mode: "prefix-all" });
-// Возвращает: { prefix: '', localePrefix: undefined }
 ```
 
 ### Различные режимы маршрутизации

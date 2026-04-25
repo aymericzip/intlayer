@@ -105,7 +105,7 @@ export default config;
 
 번역을 저장할 콘텐츠 선언을 생성하고 관리합니다.
 
-```typescript fileName="src/index.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="src/index.content.ts" contentDeclarationFormat=["typescript", "esm", "cjs"]
 import { t, type Dictionary } from "intlayer";
 
 const indexContent = {

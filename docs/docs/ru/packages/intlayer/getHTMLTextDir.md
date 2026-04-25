@@ -48,24 +48,8 @@ history:
 
 ### Определение направления текста
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getHTMLTextDir } from "intlayer";
-
-getHTMLTextDir(Locales.ENGLISH); // Вывод: "ltr"
-getHTMLTextDir(Locales.FRENCH); // Вывод: "ltr"
-getHTMLTextDir(Locales.ARABIC); // Вывод: "rtl"
-```
-
-```javascript codeFormat="esm"
-import { getHTMLTextDir } from "intlayer";
-
-getHTMLTextDir(Locales.ENGLISH); // Вывод: "ltr"
-getHTMLTextDir(Locales.FRENCH); // Вывод: "ltr"
-getHTMLTextDir(Locales.ARABIC); // Вывод: "rtl"
-```
-
-```javascript codeFormat="commonjs"
-const { getHTMLTextDir } = require("intlayer");
 
 getHTMLTextDir(Locales.ENGLISH); // Вывод: "ltr"
 getHTMLTextDir(Locales.FRENCH); // Вывод: "ltr"
@@ -84,7 +68,7 @@ getHTMLTextDir(Locales.ARABIC); // Вывод: "rtl"
 
 Функция `getHTMLTextDir` может использоваться для динамической установки атрибута `dir` в HTML-документе для правильного отображения текста в зависимости от локали.
 
-```tsx codeFormat="typescript"
+```tsx codeFormat={["typescript", "esm", "commonjs"]}
 import type { FC } from "react";
 import { getHTMLTextDir, type Locales } from "intlayer";
 
@@ -92,26 +76,6 @@ export const HTMLLayout: FC<PropsWithChildren<{ locale: Locales }>> = ({
   children,
   locale,
 }) => (
-  <html dir={getHTMLTextDir(locale)} locale={locale}>
-    <body>{children}</body>
-  </html>
-);
-```
-
-```jsx codeFormat="esm"
-import { getHTMLTextDir } from "intlayer";
-
-const HTMLLayout = ({ children, locale }) => (
-  <html dir={getHTMLTextDir(locale)} locale={locale}>
-    <body>{children}</body>
-  </html>
-);
-```
-
-```jsx codeFormat="commonjs"
-const { getHTMLTextDir } = require("intlayer");
-
-const HTMLLayout = ({ children, locale }) => (
   <html dir={getHTMLTextDir(locale)} locale={locale}>
     <body>{children}</body>
   </html>

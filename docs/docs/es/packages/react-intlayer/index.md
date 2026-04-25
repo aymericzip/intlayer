@@ -66,7 +66,7 @@ Por defecto, Intlayer escanea archivos con la extensión `.content.{json,ts,tsx,
 
 > Puedes modificar la extensión por defecto configurando la propiedad `contentDir` en el [archivo de configuración](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/configuration.md).
 
-```bash codeFormat="typescript"
+```bash codeFormat={["typescript", "esm", "commonjs"]}
 .
 ├── intlayer.config.ts
 └── src
@@ -77,32 +77,6 @@ Por defecto, Intlayer escanea archivos con la extensión `.content.{json,ts,tsx,
         └── Component2
             ├── index.content.ts
             └── index.tsx
-```
-
-```bash codeFormat="esm"
-.
-├── intlayer.config.mjs
-└── src
-    └── components
-        ├── Component1
-        │   ├── index.content.mjs
-        │   └── index.mjx
-        └── Component2
-            ├── index.content.mjs
-            └── index.mjx
-```
-
-```bash codeFormat="commonjs"
-.
-├── intlayer.config.cjs
-└── src
-    └── components
-        ├── Component1
-        │   ├── index.content.cjs
-        │   └── index.cjx
-        └── Component2
-            ├── index.content.cjs
-            └── index.cjx
 ```
 
 ### Declara tu contenido
@@ -219,45 +193,13 @@ module.exports = component1Content;
 
 Una vez que hayas declarado tu contenido, puedes usarlo en tu código. Aquí tienes un ejemplo de cómo usar el contenido en un componente React:
 
-```tsx {4,7} fileName="src/components/Component1Example.tsx" codeFormat="typescript"
+```tsx {4,7} fileName="src/components/Component1Example.tsx" codeFormat={["typescript", "esm"]}
 "use client";
 
 import type { FC } from "react";
 import { useIntlayer } from "react-intlayer";
 
 export const Component1Example: FC = () => {
-  const { myTranslatedContent } = useIntlayer("component-1"); // Crear declaración de contenido relacionado
-
-  return (
-    <div>
-      <p>{myTranslatedContent}</p>
-    </div>
-  );
-};
-```
-
-```jsx {3,6} fileName="src/components/Component1Example.mjx" codeFormat="esm"
-"use client";
-
-import { useIntlayer } from "react-intlayer";
-
-const Component1Example = () => {
-  const { myTranslatedContent } = useIntlayer("component-1"); // Crear declaración de contenido relacionado
-
-  return (
-    <div>
-      <p>{myTranslatedContent}</p>
-    </div>
-  );
-};
-```
-
-```jsx {3,6} fileName="src/components/Component1Example.csx" codeFormat="commonjs"
-"use client";
-
-const { useIntlayer } = require("react-intlayer");
-
-const Component1Example = () => {
   const { myTranslatedContent } = useIntlayer("component-1"); // Crear declaración de contenido relacionado
 
   return (

@@ -99,7 +99,7 @@ type GetPrefixResult = {
 
 ### बुनियादी उपयोग
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getPrefix, Locales } from "intlayer";
 
 // अंग्रेज़ी locale के लिए प्रीफिक्स जांचें
@@ -115,24 +115,6 @@ getPrefix(Locales.FRENCH, {
   mode: "prefix-no-default",
 });
 // लौटाता है: { prefix: 'fr/', localePrefix: 'fr' }
-```
-
-```javascript codeFormat="esm"
-import { getPrefix, Locales } from "intlayer";
-
-getPrefix(Locales.ENGLISH, { mode: "prefix-all" });
-javascript codeFormat="esm"
-import { getPrefix, Locales } from "intlayer";
-
-getPrefix(Locales.ENGLISH, { mode: "prefix-all" });
-// लौटाता है: { prefix: '', localePrefix: undefined }
-```
-
-```javascript codeFormat="commonjs"
-const { getPrefix, Locales } = require("intlayer");
-
-getPrefix(Locales.ENGLISH, { mode: "prefix-all" });
-// लौटाता है: { prefix: '', localePrefix: undefined }
 ```
 
 ### विभिन्न रूटिंग मोड्स

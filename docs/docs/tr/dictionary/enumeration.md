@@ -32,7 +32,7 @@ Intlayer'da numaralandırma, `enu` fonksiyonu aracılığıyla gerçekleştirili
 
 Intlayer projenizde numaralandırmayı ayarlamak için, numaralandırma tanımlarını içeren bir içerik modülü oluşturmanız gerekir. İşte araba sayısı için basit bir numaralandırma örneği:
 
-```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="**/*.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { enu, type Dictionary } from "intlayer";
 
 const carEnumeration = {
@@ -51,50 +51,6 @@ const carEnumeration = {
 } satisfies Dictionary;
 
 export default carEnumeration;
-```
-
-```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-import { enu } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const carEnumeration = {
-  key: "car_count",
-  content: {
-    numberOfCar: enu({
-      "<-1": "Eksi bir arabadan az",
-      "-1": "Eksi bir araba",
-      "0": "Araba yok",
-      "1": "Bir araba",
-      ">5": "Bazı arabalar",
-      ">19": "Çok araba",
-      "fallback": "Fallback değeri", // İsteğe bağlı
-    }),
-  },
-};
-
-export default carEnumeration;
-```
-
-```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-const { enu } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const carEnumeration = {
-  key: "car_count",
-  content: {
-    numberOfCar: enu({
-      "<-1": "Eksi bir arabadan az",
-      "-1": "Eksi bir araba",
-      "0": "Araba yok",
-      "1": "Bir araba",
-      ">5": "Bazı arabalar",
-      ">19": "Çok araba",
-      "fallback": "Fallback değeri", // İsteğe bağlı
-    }),
-  },
-};
-
-module.exports = carEnumeration;
 ```
 
 ```json fileName="**/*.content.json" contentDeclarationFormat="json"
@@ -128,7 +84,7 @@ Bu örnekte, `enu` çeşitli koşulları belirli içeriklere eşler. Bir React b
 
 Bir React bileşeninde numaralandırmayı kullanmak için, `react-intlayer` paketinden `useIntlayer` hook'unu kullanabilirsiniz. Bu hook, belirtilen ID'ye göre doğru içeriği alır. İşte nasıl kullanılacağına dair bir örnek:
 
-```tsx fileName="**/*.tsx" codeFormat="typescript"
+```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useIntlayer } from "react-intlayer";
 
@@ -160,76 +116,6 @@ const CarComponent: FC = () => {
     </div>
   );
 };
-```
-
-```javascript fileName="**/*.mjx" codeFormat="esm"
-import { useIntlayer } from "react-intlayer";
-
-const CarComponent = () => {
-  const { numberOfCar } = useIntlayer("car_count");
-
-  return (
-    <div>
-      <p>
-        {
-          numberOfCar(0) // Çıktı: Araba yok
-        }
-      </p>
-      <p>
-        {
-          numberOfCar(6) // Çıktı: Bazı arabalar
-        }
-      </p>
-      <p>
-        {
-          numberOfCar(20) // Çıktı: Çok araba
-        }
-      </p>
-      <p>
-        {
-          numberOfCar(0.01) // Çıktı: Fallback değeri
-        }
-      </p>
-    </div>
-  );
-};
-
-export default CarComponent;
-```
-
-```javascript fileName="**/*.cjs" codeFormat="commonjs"
-const { useIntlayer } = require("react-intlayer");
-
-const CarComponent = () => {
-  const { numberOfCar } = useIntlayer("car_count");
-
-  return (
-    <div>
-      <p>
-        {
-          numberOfCar(0) // Çıktı: Araba yok
-        }
-      </p>
-      <p>
-        {
-          numberOfCar(6) // Çıktı: Bazı arabalar
-        }
-      </p>
-      <p>
-        {
-          numberOfCar(20) // Çıktı: Çok araba
-        }
-      </p>
-      <p>
-        {
-          numberOfCar(0.01) // Çıktı: Fallback değeri
-        }
-      </p>
-    </div>
-  );
-};
-
-module.exports = CarComponent;
 ```
 
 Bu örnekte, bileşen araba sayısına göre çıktısını dinamik olarak ayarlar. Doğru içerik, belirtilen aralığa göre otomatik olarak seçilir.

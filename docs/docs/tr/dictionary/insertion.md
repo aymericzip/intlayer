@@ -41,7 +41,7 @@ Intlayer projenizde ekleme içeriğini ayarlamak için, ekleme tanımlarınızı
   <Tab label="Elle Sarma" value="manual-wrapping">
     Ekleme içeriğini açıkça bildirmek için `insert` fonksiyonunu kullanın.
 
-    ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+    ```typescript fileName="**/*.content.ts" contentDeclarationFormat=["typescript", "esm", "cjs"]
     import { insert, type Dictionary } from "intlayer";
 
     const myInsertionContent = {
@@ -99,7 +99,7 @@ Intlayer projenizde ekleme içeriğini ayarlamak için, ekleme tanımlarınızı
   <Tab label="Otomatik Algılama" value="automatic-detection">
     Dize yaygın ekleme göstergeleri (örneğin `{{name}}`) içeriyorsa, Intlayer bunu otomatik olarak dönüştürecektir.
 
-    ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+    ```typescript fileName="**/*.content.ts" contentDeclarationFormat=["typescript", "esm", "cjs"]
     import { type Dictionary } from "intlayer";
 
     const myInsertionContent = {
@@ -153,7 +153,7 @@ Intlayer projenizde ekleme içeriğini ayarlamak için, ekleme tanımlarınızı
 
 Bir React bileşeninde ekleme içeriğini kullanmak için, `react-intlayer` paketinden `useIntlayer` hook'unu içe aktarın ve kullanın. Bu hook, belirtilen anahtar için içeriği alır ve içeriğinizdeki her yer tutucuyu görüntülemek istediğiniz değere eşleyen bir nesne geçmenizi sağlar.
 
-```tsx fileName="**/*.tsx" codeFormat="typescript"
+```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useIntlayer } from "react-intlayer";
 
@@ -179,60 +179,6 @@ const InsertionComponent: FC = () => {
 };
 
 export default InsertionComponent;
-```
-
-```javascript fileName="**/*.mjx" codeFormat="esm"
-import { useIntlayer } from "react-intlayer";
-
-const InsertionComponent = () => {
-  const { myInsertion } = useIntlayer("my_key");
-
-  return (
-    <div>
-      <p>
-        {
-          /* Çıktı: "Merhaba, adım John ve 30 yaşındayım!" */
-          myInsertion({ name: "John", age: "30" })
-        }
-      </p>
-      <p>
-        {
-          /* Aynı eklemeyi farklı değerlerle yeniden kullanabilirsiniz */
-          myInsertion({ name: "Alice", age: "25" })
-        }
-      </p>
-    </div>
-  );
-};
-
-export default InsertionComponent;
-```
-
-```javascript fileName="**/*.cjs" codeFormat="commonjs"
-const { useIntlayer } = require("react-intlayer");
-
-const InsertionComponent = () => {
-  const { myInsertion } = useIntlayer("my_key");
-
-  return (
-    <div>
-      <p>
-        {
-          /* Çıktı: "Merhaba, adım John ve 30 yaşındayım!" */
-          myInsertion({ name: "John", age: "30" })
-        }
-      </p>
-      <p>
-        {
-          /* Aynı eklemeyi farklı değerlerle yeniden kullanabilirsiniz */
-          myInsertion({ name: "Alice", age: "25" })
-        }
-      </p>
-    </div>
-  );
-};
-
-module.exports = InsertionComponent;
 ```
 
 ## Ek Kaynaklar

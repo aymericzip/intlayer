@@ -110,7 +110,7 @@ bun x intlayer init
 
 Create a config file to configure the languages of your application:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -128,79 +128,19 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      // Your other locales
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      // Your other locales
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-module.exports = config;
-```
-
 > Through this configuration file, you can set up localized URLs, middleware redirection, cookie names, the location and extension of your content declarations, disable Intlayer logs in the console, and more. For a complete list of available parameters, refer to the [configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md).
 
 ### Step 3: Integrate Intlayer in Your Vite Configuration
 
 Add the intlayer plugin into your configuration.
 
-```typescript fileName="vite.config.ts" codeFormat="typescript"
+```typescript fileName="vite.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { defineConfig } from "vite";
 import solid from "vite-plugin-solid";
 import { intlayer } from "vite-intlayer";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [solid(), intlayer()],
-});
-```
-
-```javascript fileName="vite.config.mjs" codeFormat="esm"
-import { defineConfig } from "vite";
-import solid from "vite-plugin-solid";
-import { intlayer } from "vite-intlayer";
-
-// https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [solid(), intlayer()],
-});
-```
-
-```javascript fileName="vite.config.cjs" codeFormat="commonjs"
-const { defineConfig } = require("vite");
-const solid = require("vite-plugin-solid");
-const { intlayer } = require("vite-intlayer");
-
-// https://vitejs.dev/config/
-module.exports = defineConfig({
   plugins: [solid(), intlayer()],
 });
 ```
@@ -211,7 +151,7 @@ module.exports = defineConfig({
 
 Create and manage your content declarations to store translations:
 
-```tsx fileName="src/app.content.tsx" contentDeclarationFormat="typescript"
+```tsx fileName="src/app.content.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, type Dictionary } from "intlayer";
 
 const appContent = {
@@ -247,84 +187,6 @@ const appContent = {
 } satisfies Dictionary;
 
 export default appContent;
-```
-
-```javascript fileName="src/app.content.mjs" contentDeclarationFormat="esm"
-import { t } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const appContent = {
-  key: "app",
-  content: {
-    viteLogo: t({
-      en: "Vite logo",
-      fr: "Logo Vite",
-      es: "Logo Vite",
-    }),
-    solidLogo: t({
-      en: "Solid logo",
-      fr: "Logo Solid",
-      es: "Logo Solid",
-    }),
-    title: "Vite + Solid",
-    count: t({
-      en: "count is {{count}}",
-      fr: "le compte est {{count}}",
-      es: "el recuento es {{count}}",
-    }),
-    edit: t({
-      en: "Edit src/App.tsx and save to test HMR",
-      fr: "Éditez src/App.tsx et enregistrez pour tester HMR",
-      es: "Edita src/App.tsx y guarda para probar HMR",
-    }),
-    readTheDocs: t({
-      en: "Click on the Vite and Solid logos to learn more",
-      fr: "Cliquez sur les logos Vite and Solid pour en savoir plus",
-      es: "Haga clic en los logotipos de Vite and Solid para obtener más información",
-    }),
-  },
-};
-
-export default appContent;
-```
-
-```javascript fileName="src/app.content.cjs" contentDeclarationFormat="commonjs"
-const { t } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const appContent = {
-  key: "app",
-  content: {
-    viteLogo: t({
-      en: "Vite logo",
-      fr: "Logo Vite",
-      es: "Logo Vite",
-    }),
-    solidLogo: t({
-      en: "Solid logo",
-      fr: "Logo Solid",
-      es: "Logo Solid",
-    }),
-    title: "Vite + Solid",
-    count: t({
-      en: "count is {{count}}",
-      fr: "le compte est {{count}}",
-      es: "el recuento es {{count}}",
-    }),
-    edit: t({
-      en: "Edit src/App.tsx and save to test HMR",
-      fr: "Éditez src/App.tsx et enregistrez pour tester HMR",
-      es: "Edita src/App.tsx y guarda para probar HMR",
-    }),
-    readTheDocs: t({
-      en: "Click on the Vite and Solid logos to learn more",
-      fr: "Cliquez sur les logos Vite and Solid pour en savoir plus",
-      es: "Haga clic en los logotipos de Vite and Solid para obtener más información",
-    }),
-  },
-};
-
-module.exports = appContent;
 ```
 
 ```json fileName="src/app.content.json" contentDeclarationFormat="json"
@@ -648,7 +510,7 @@ To ease this process, Intlayer propose a [compiler](https://github.com/aymericzi
 
 To set it up, you can add a `compiler` section in your `intlayer.config.ts` file:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -681,74 +543,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... Rest of your config
-  compiler: {
-    /**
-     * Indicates if the compiler should be enabled.
-     */
-    enabled: true,
-
-    /**
-     * Defines the output files path
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * Indicates if the components should be saved after being transformed.
-     *
-     * - If `true`, the compiler will rewrite the component file in the disk. So the transformation will be permanent, and the compiler will skip the transformation for the next process. That way, the compiler can transform the app, and then it can be removed.
-     *
-     * - If `false`, the compiler will inject the `useIntlayer()` function call into the code in the build output only, and keep the base codebase intact. The transformation will be done only in memory.
-     */
-    saveComponents: false,
-
-    /**
-     * Dictionary key prefix
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... Rest of your config
-  compiler: {
-    /**
-     * Indicates if the compiler should be enabled.
-     */
-    enabled: true,
-
-    /**
-     * Defines the output files path
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * Indicates if the components should be saved after being transformed.
-     *
-     * - If `true`, the compiler will rewrite the component file in the disk. So the transformation will be permanent, and the compiler will skip the transformation for the next process. That way, the compiler can transform the app, and then it can be removed.
-     *
-     * - If `false`, the compiler will inject the `useIntlayer()` function call into the code in the build output only, and keep the base codebase intact. The transformation will be done only in memory.
-     */
-    saveComponents: false,
-
-    /**
-     * Dictionary key prefix
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-module.exports = config;
 ```
 
 <Tabs>

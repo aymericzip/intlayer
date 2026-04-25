@@ -82,7 +82,7 @@ bun x intlayer init
 
 通过在项目根目录中创建 `intlayer.config.ts` 来配置国际化设置：
 
-```typescript fileName="intlayer.config.ts"  codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -100,49 +100,11 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH_MEXICO,
-      Locales.SPANISH_SPAIN,
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH_MEXICO,
-      Locales.SPANISH_SPAIN,
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-module.exports = config;
-```
-
 ### 声明您的内容
 
 创建并管理您的内容声明以存储翻译：
 
-```typescript fileName="src/index.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="src/index.content.ts" contentDeclarationFormat={["typescript", "esm"]}
 import { t, type Dictionary } from "intlayer";
 
 const indexContent = {
@@ -156,25 +118,6 @@ const indexContent = {
     }),
   },
 } satisfies Dictionary;
-
-export default indexContent;
-```
-
-```javascript fileName="src/index.content.mjs" contentDeclarationFormat="esm"
-import { t } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const indexContent = {
-  key: "index",
-  content: {
-    exampleOfContent: t({
-      en: "Example of returned content in English",
-      fr: "Exemple de contenu renvoyé en français",
-      "es-ES": "Ejemplo de contenido devuelto en español (España)",
-      "es-MX": "Ejemplo de contenido devuelto en español (México)",
-    }),
-  },
-};
 
 export default indexContent;
 ```
@@ -224,7 +167,7 @@ module.exports = indexContent;
 
 设置您的 Hono 应用程序以使用 `hono-intlayer`：
 
-```typescript fileName="src/index.ts" codeFormat="typescript"
+```typescript fileName="src/index.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Hono } from "hono";
 import { intlayer, t, getDictionary, getIntlayer } from "hono-intlayer";
 import dictionaryExample from "./index.content";
@@ -255,72 +198,6 @@ app.get("/getDictionary_example", (c) => {
 });
 
 export default app;
-```
-
-```javascript fileName="src/index.mjs" codeFormat="esm"
-import { Hono } from "hono";
-import { intlayer, t, getDictionary, getIntlayer } from "hono-intlayer";
-import dictionaryExample from "./index.content";
-
-const app = new Hono();
-
-// 加载国际化请求处理器
-app.use("*", intlayer());
-
-// 路由
-app.get("/t_example", (c) => {
-  return c.text(
-    t({
-      en: "Example of returned content in English",
-      fr: "Exemple de contenu renvoyé en français",
-      "es-ES": "Ejemplo de contenido devuelto en español (España)",
-      "es-MX": "Ejemplo de contenido devuelto en español (México)",
-    })
-  );
-});
-
-app.get("/getIntlayer_example", (c) => {
-  return c.json(getIntlayer("index").exampleOfContent);
-});
-
-app.get("/getDictionary_example", (c) => {
-  return c.json(getDictionary(dictionaryExample).exampleOfContent);
-});
-
-export default app;
-```
-
-```javascript fileName="src/index.cjs" codeFormat="commonjs"
-const { Hono } = require("hono");
-const { intlayer, t, getDictionary, getIntlayer } = require("hono-intlayer");
-const dictionaryExample = require("./index.content");
-
-const app = new Hono();
-
-// 加载国际化请求处理器
-app.use("*", intlayer());
-
-// 路由
-app.get("/t_example", (c) => {
-  return c.text(
-    t({
-      en: "Example of returned content in English",
-      fr: "Exemple de contenu renvoyé en français",
-      "es-ES": "Ejemplo de contenido devuelto en español (España)",
-      "es-MX": "Ejemplo de contenido devuelto en español (México)",
-    })
-  );
-});
-
-app.get("/getIntlayer_example", (c) => {
-  return c.json(getIntlayer("index").exampleOfContent);
-});
-
-app.get("/getDictionary_example", (c) => {
-  return c.json(getDictionary(dictionaryExample).exampleOfContent);
-});
-
-module.exports = app;
 ```
 
 ### 兼容性
@@ -333,7 +210,7 @@ module.exports = app;
 
 它还可以与各种环境中的任何国际化解决方案无缝协作，包括浏览器和 API 请求。您可以自定义中间件以通过标头或 cookie 检测语言：
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -345,36 +222,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... 其他配置选项
-  middleware: {
-    headerName: "my-locale-header",
-    cookieName: "my-locale-cookie",
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... 其他配置选项
-  middleware: {
-    headerName: "my-locale-header",
-    cookieName: "my-locale-cookie",
-  },
-};
-
-module.exports = config;
 ```
 
 默认情况下，`hono-intlayer` 将解释 `Accept-Language` 标头以确定客户端的首选语言。

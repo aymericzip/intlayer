@@ -100,7 +100,7 @@ getLocalizedUrl(
 
 Ketika Anda telah mengonfigurasi proyek Anda dengan pengaturan internasionalisasi, Anda dapat menggunakan fungsi ini hanya dengan parameter yang wajib:
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getLocalizedUrl, Locales } from "intlayer";
 
 // Menggunakan konfigurasi proyek Anda untuk locales, defaultLocale, dan prefixDefault
@@ -109,35 +109,6 @@ getLocalizedUrl("/about", Locales.FRENCH);
 
 getLocalizedUrl("/about", Locales.ENGLISH);
 // Output: "/about" atau "/en/about" (tergantung pada pengaturan prefixDefault Anda)
-```
-
-```javascript codeFormat="esm"
-import { getLocalizedUrl, Locales } from "intlayer";
-
-// Menggunakan konfigurasi proyek Anda
-getLocalizedUrl("/about", Locales.FRENCH);
-// Output: "/fr/about"
-```
-
-```javascript codeFormat="commonjs"
-const { getLocalizedUrl, Locales } = require("intlayer");
-
-// Menggunakan konfigurasi proyek Anda
-getLocalizedUrl("/about", Locales.FRENCH);
-typescript codeFormat="typescript"
-import { getLocalizedUrl, Locales } from "intlayer";
-
-// Secara eksplisit memberikan semua parameter opsional
-getLocalizedUrl(
-  "/about",
-  Locales.FRENCH,
-  [Locales.ENGLISH, Locales.FRENCH], // locales
-  Locales.ENGLISH, // defaultLocale
-  false // prefixDefault
-);
-
-// Output: "/fr/about" untuk locale Bahasa Perancis
-// Output: "/about" untuk locale default (Bahasa Inggris)
 ```
 
 ```javascript codeFormat="esm"
@@ -254,7 +225,7 @@ getLocalizedUrl(
 
 Dalam aplikasi multibahasa, mengonfigurasi pengaturan internasionalisasi dengan `locales` dan `defaultLocale` sangat penting untuk memastikan bahasa yang benar ditampilkan. Berikut adalah contoh bagaimana `getLocalizedUrl` dapat digunakan dalam pengaturan aplikasi:
 
-```tsx codeFormat="typescript"
+```tsx codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 // Konfigurasi untuk locale yang didukung dan locale default
@@ -266,34 +237,6 @@ export default {
 } satisfies IntlayerConfig;
 
 export default config;
-```
-
-```javascript codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-```javascript codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-module.exports = config;
 ```
 
 Konfigurasi di atas memastikan bahwa aplikasi mengenali `ENGLISH`, `FRENCH`, dan `SPANISH` sebagai bahasa yang didukung dan menggunakan `ENGLISH` sebagai bahasa cadangan.

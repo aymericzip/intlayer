@@ -658,7 +658,7 @@ Para facilitar este processo, o Intlayer propõe um [compilador](https://github.
 
 Para configurá-lo, você pode adicionar uma seção `compiler` no seu arquivo `intlayer.config.ts`:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -691,74 +691,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... Resto da sua configuração
-  compiler: {
-    /**
-     * Indica se o compilador deve ser habilitado.
-     */
-    enabled: true,
-
-    /**
-     * Define o caminho dos arquivos de saída
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * Indica se os componentes devem ser salvos após serem transformados.
-     *
-     * - Se `true`, o compilador reescreverá o arquivo do componente no disco. Assim, a transformação será permanente, e o compilador pulará a transformação para o próximo processo. Dessa forma, o compilador pode transformar a aplicação e depois pode ser removido.
-     *
-     * - Se `false`, o compilador injetará a chamada de função `useIntlayer()` no código apenas no output da build, mantendo a base de código intacta. A transformação será feita apenas em memória.
-     */
-    saveComponents: false,
-
-    /**
-     * Prefixo da chave do dicionário
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... Resto da sua configuração
-  compiler: {
-    /**
-     * Indica se o compilador deve ser habilitado.
-     */
-    enabled: true,
-
-    /**
-     * Define o caminho dos arquivos de saída
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * Indica se os componentes devem ser salvos após serem transformados.
-     *
-     * - Se `true`, o compilador reescreverá o arquivo do componente no disco. Assim, a transformação será permanente, e o compilador pulará a transformação para o próximo processo. Dessa forma, o compilador pode transformar a aplicação e depois pode ser removido.
-     *
-     * - Se `false`, o compilador injetará a chamada de função `useIntlayer()` no código apenas no output da build, mantendo a base de código intacta. A transformação será feita apenas em memória.
-     */
-    saveComponents: false,
-
-    /**
-     * Prefixo da chave do dicionário
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-module.exports = config;
 ```
 
 <Tabs>

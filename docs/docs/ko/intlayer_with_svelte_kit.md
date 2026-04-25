@@ -162,7 +162,7 @@ export default defineConfig({
 
 `src` 폴더 내 어디에서든 콘텐츠 선언 파일을 생성하세요 (예: `src/lib/content` 또는 컴포넌트와 함께). 이 파일들은 각 로케일별로 `t()` 함수를 사용하여 애플리케이션의 번역 가능한 콘텐츠를 정의합니다.
 
-```ts fileName="src/features/hero/hero.content.ts" contentDeclarationFormat="typescript"
+```ts fileName="src/features/hero/hero.content.ts" contentDeclarationFormat=["typescript", "esm", "cjs"]
 import { t, type Dictionary } from "intlayer";
 
 const heroContent = {
@@ -338,7 +338,7 @@ export default defineConfig({
 
 `src` 폴더 내 어디에서든 콘텐츠 선언 파일을 생성하세요 (예: `src/lib/content` 또는 컴포넌트와 함께). 이 파일들은 각 로케일별로 `t()` 함수를 사용하여 애플리케이션의 번역 가능한 콘텐츠를 정의합니다.
 
-```ts fileName="src/features/hero/hero.content.ts" contentDeclarationFormat="typescript"
+```ts fileName="src/features/hero/hero.content.ts" contentDeclarationFormat=["typescript", "esm", "cjs"]
 import { t, type Dictionary } from "intlayer";
 
 const heroContent = {
@@ -749,7 +749,7 @@ Intlayer가 생성한 파일은 무시하는 것이 권장됩니다.
 
 설정하려면 `intlayer.config.ts` 파일에 `compiler` 섹션을 추가할 수 있습니다.
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -778,66 +778,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... 나머지 구성
-  compiler: {
-    /**
-     * 컴파일러 활성화 여부를 나타냅니다.
-     */
-    enabled: true,
-
-    /**
-     * 출력 파일 경로를 정의합니다.
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * 변환 후 컴포넌트를 저장할지 여부를 나타냅니다. 그렇게 하면 컴파일러를 한 번만 실행하여 앱을 변환한 다음 제거할 수 있습니다.
-     */
-    saveComponents: false,
-
-    /**
-     * 사전 키 접두사
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... 나머지 구성
-  compiler: {
-    /**
-     * 컴파일러 활성화 여부를 나타냅니다.
-     */
-    enabled: true,
-
-    /**
-     * 출력 파일 경로를 정의합니다.
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * 변환 후 컴포넌트를 저장할지 여부를 나타냅니다. 그렇게 하면 컴파일러를 한 번만 실행하여 앱을 변환한 다음 제거할 수 있습니다.
-     */
-    saveComponents: false,
-
-    /**
-     * 사전 키 접두사
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-module.exports = config;
 ```
 
 <Tabs>

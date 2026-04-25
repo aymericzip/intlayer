@@ -41,7 +41,7 @@ Pour configurer le contenu d'insertion dans votre projet Intlayer, créez un mod
   <Tab label="Enveloppement Manuel" value="manual-wrapping">
     Utilisez la fonction `insert` pour déclarer explicitement du contenu d'insertion.
 
-    ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+    ```typescript fileName="**/*.content.ts" contentDeclarationFormat=["typescript", "esm", "cjs"]
     import { insert, type Dictionary } from "intlayer";
 
     const myInsertionContent = {
@@ -99,7 +99,7 @@ Pour configurer le contenu d'insertion dans votre projet Intlayer, créez un mod
   <Tab label="Détection Automatique" value="automatic-detection">
     Si la chaîne contient des indicateurs d'insertion courants (comme `{{name}}`), Intlayer la transformera automatiquement.
 
-    ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+    ```typescript fileName="**/*.content.ts" contentDeclarationFormat=["typescript", "esm", "cjs"]
     import { type Dictionary } from "intlayer";
 
     const myInsertionContent = {
@@ -153,7 +153,7 @@ Pour configurer le contenu d'insertion dans votre projet Intlayer, créez un mod
 
 Pour utiliser un contenu d'insertion dans un composant React, importez et utilisez le hook `useIntlayer` depuis le paquet `react-intlayer`. Ce hook récupère le contenu pour la clé spécifiée et vous permet de passer un objet qui associe chaque espace réservé dans votre contenu à la valeur que vous souhaitez afficher.
 
-```tsx fileName="**/*.tsx" codeFormat="typescript"
+```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useIntlayer } from "react-intlayer";
 
@@ -179,60 +179,6 @@ const InsertionComponent: FC = () => {
 };
 
 export default InsertionComponent;
-```
-
-```javascript fileName="**/*.mjx" codeFormat="esm"
-import { useIntlayer } from "react-intlayer";
-
-const InsertionComponent = () => {
-  const { myInsertion } = useIntlayer("my_key");
-
-  return (
-    <div>
-      <p>
-        {
-          /* Résultat : "Hello, my name is John and I am 30 years old!" */
-          myInsertion({ name: "John", age: "30" })
-        }
-      </p>
-      <p>
-        {
-          /* Vous pouvez réutiliser la même insertion avec des valeurs différentes */
-          myInsertion({ name: "Alice", age: "25" })
-        }
-      </p>
-    </div>
-  );
-};
-
-export default InsertionComponent;
-```
-
-```javascript fileName="**/*.cjs" codeFormat="commonjs"
-const { useIntlayer } = require("react-intlayer");
-
-const InsertionComponent = () => {
-  const { myInsertion } = useIntlayer("my_key");
-
-  return (
-    <div>
-      <p>
-        {
-          /* Résultat : "Hello, my name is John and I am 30 years old!" */
-          myInsertion({ name: "John", age: "30" })
-        }
-      </p>
-      <p>
-        {
-          /* Vous pouvez réutiliser la même insertion avec des valeurs différentes */
-          myInsertion({ name: "Alice", age: "25" })
-        }
-      </p>
-    </div>
-  );
-};
-
-module.exports = InsertionComponent;
 ```
 
 ## Ressources supplémentaires

@@ -42,7 +42,7 @@ history:
 
 هذه هي الطريقة الموصى بها لمعظم حالات الاستخدام. فهو يركز الترجمات في مكان واحد، مما يسهل التكرار والتكامل مع نظام إدارة المحتوى.
 
-```tsx fileName="hello-world.content.ts" contentDeclarationFormat="typescript"
+```tsx fileName="hello-world.content.ts" contentDeclarationFormat={["typescript", "esm"]}
 import { t, type Dictionary } from "intlayer";
 
 const helloWorldContent = {
@@ -54,24 +54,6 @@ const helloWorldContent = {
     }),
   },
 } satisfies Dictionary;
-
-export default helloWorldContent;
-```
-
-```js fileName="hello-world.content.mjs" contentDeclarationFormat="esm"
-import { t } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-// محتوى مرحب بالعالم
-const helloWorldContent = {
-  key: "hello-world",
-  content: {
-    multilingualContent: t({
-      en: "Title of my component",
-      es: "Título de mi componente",
-    }),
-  },
-};
 
 export default helloWorldContent;
 ```
@@ -139,7 +121,7 @@ export default config;
 
 يمكنك أيضًا تقسيم الترجمات إلى ملفات لغة فردية عن طريق تحديد حقل اللغة:
 
-```tsx fileName="hello-world.en.content.ts" contentDeclarationFormat="typescript"
+```tsx fileName="hello-world.en.content.ts" contentDeclarationFormat=["typescript", "esm", "cjs"]
 import { t, Locales, type Dictionary } from "intlayer";
 
 const helloWorldContent = {
@@ -151,7 +133,7 @@ const helloWorldContent = {
 export default helloWorldContent;
 ```
 
-```tsx fileName="hello-world.es.content.ts" contentDeclarationFormat="typescript"
+```tsx fileName="hello-world.es.content.ts" contentDeclarationFormat={["typescript", "esm"]}
 import { t, Locales, type Dictionary } from "intlayer";
 
 const helloWorldContent = {
@@ -159,20 +141,6 @@ const helloWorldContent = {
   locale: Locales.SPANISH, // مهم
   content: { multilingualContent: "Título de mi componente" },
 } satisfies Dictionary;
-
-export default helloWorldContent;
-```
-
-```js fileName="hello-world.en.content.mjs" contentDeclarationFormat="esm"
-import { t, Locales } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-// محتوى "مرحبا بالعالم" للغة الإنجليزية
-const helloWorldContent = {
-  key: "hello-world",
-  locale: Locales.ENGLISH, // مهم
-  content: { multilingualContent: "عنوان المكون الخاص بي" },
-};
 
 export default helloWorldContent;
 ```

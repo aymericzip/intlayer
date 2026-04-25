@@ -46,7 +46,7 @@ import { useLocale } from "next-intlayer"; // Використовується �
 
 Ось як реалізувати хук `useLocale` у компоненті Next.js:
 
-```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
+```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat={["typescript", "esm"]}
 "use client";
 
 import type { FC } from "react";
@@ -60,56 +60,6 @@ const LocaleSwitcher: FC = () => {
     <div>
       <h1>Поточна локаль: {locale}</h1>
       <p>Локаль за замовчуванням: {defaultLocale}</p>
-      <select value={locale} onChange={(e) => setLocale(e.target.value)}>
-        {availableLocales.map((loc) => (
-          <option key={loc} value={loc}>
-            {loc}
-          </option>
-        ))}
-      </select>
-    </div>
-  );
-};
-```
-
-```jsx fileName="src/components/LocaleSwitcher.mjx" codeFormat="esm"
-"use client";
-
-import { Locales } from "intlayer";
-import { useLocale } from "next-intlayer";
-
-const LocaleSwitcher = () => {
-  const { locale, defaultLocale, availableLocales, setLocale } = useLocale();
-
-  return (
-    <div>
-      <h1>Поточна локаль: {locale}</h1>
-      <p>Мова за замовчуванням: {defaultLocale}</p>
-      <select value={locale} onChange={(e) => setLocale(e.target.value)}>
-        {availableLocales.map((loc) => (
-          <option key={loc} value={loc}>
-            {loc}
-          </option>
-        ))}
-      </select>
-    </div>
-  );
-};
-```
-
-```jsx fileName="src/components/LocaleSwitcher.csx" codeFormat="commonjs"
-"use client";
-
-const { Locales } = require("intlayer");
-const { useLocale } = require("next-intlayer");
-
-const LocaleSwitcher = () => {
-  const { locale, defaultLocale, availableLocales, setLocale } = useLocale();
-
-  return (
-    <div>
-      <h1>Поточна локаль: {locale}</h1>
-      <p>Мова за замовчуванням: {defaultLocale}</p>
       <select value={locale} onChange={(e) => setLocale(e.target.value)}>
         {availableLocales.map((loc) => (
           <option key={loc} value={loc}>

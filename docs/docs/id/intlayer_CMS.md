@@ -99,7 +99,7 @@ Ini akan membuka browser default Anda untuk menyelesaikan proses autentikasi dan
 
 Dalam file konfigurasi Intlayer Anda, Anda dapat menyesuaikan pengaturan CMS:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import type { IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -150,106 +150,6 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... pengaturan konfigurasi lainnya
-  editor: {
-    /**
-     * Wajib
-     *
-     * URL dari aplikasi.
-     * Ini adalah URL yang ditargetkan oleh visual editor.
-     */
-    applicationURL: process.env.INTLAYER_APPLICATION_URL,
-
-    /**
-     * Wajib
-     *
-     * Client ID dan client secret diperlukan untuk mengaktifkan editor.
-     * Mereka memungkinkan identifikasi pengguna yang sedang mengedit konten.
-     * Mereka dapat diperoleh dengan membuat client baru di Intlayer Dashboard - Projects (https://app.intlayer.org/projects).
-     * clientId: process.env.INTLAYER_CLIENT_ID,
-     * clientSecret: process.env.INTLAYER_CLIENT_SECRET,
-     */
-    clientId: process.env.INTLAYER_CLIENT_ID,
-    clientSecret: process.env.INTLAYER_CLIENT_SECRET,
-
-    /**
-     * Opsi
-     *
-     * Jika Anda meng-host sendiri Intlayer CMS, Anda dapat mengatur URL CMS.
-     *
-     * URL dari Intlayer CMS.
-     * Secara default, diatur ke https://intlayer.org
-     */
-    cmsURL: process.env.INTLAYER_CMS_URL,
-
-    /**
-     * Opsi
-     *
-     * Jika Anda meng-host sendiri Intlayer CMS, Anda dapat mengatur URL backend.
-     *
-     * URL dari Intlayer CMS.
-     * Secara default, diatur ke https://back.intlayer.org
-     */
-    backendURL: process.env.INTLAYER_BACKEND_URL,
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... pengaturan konfigurasi lainnya
-  editor: {
-    /**
-     * Wajib
-     *
-     * URL dari aplikasi.
-     * Ini adalah URL yang ditargetkan oleh visual editor.
-     */
-    applicationURL: process.env.INTLAYER_APPLICATION_URL,
-
-    /**
-     * Wajib
-     *
-     * Client ID dan client secret diperlukan untuk mengaktifkan editor.
-     * Mereka memungkinkan identifikasi pengguna yang sedang mengedit konten.
-     * Mereka dapat diperoleh dengan membuat client baru di Intlayer Dashboard - Projects (https://app.intlayer.org/projects).
-     * clientId: process.env.INTLAYER_CLIENT_ID,
-     * clientSecret: process.env.INTLAYER_CLIENT_SECRET,
-     */
-    clientId: process.env.INTLAYER_CLIENT_ID,
-    clientSecret: process.env.INTLAYER_CLIENT_SECRET,
-
-    /**
-     * Opsi
-     *
-     * Jika Anda meng-host sendiri Intlayer CMS, Anda dapat mengatur URL CMS.
-     *
-     * URL dari Intlayer CMS.
-     * Secara default, diatur ke https://intlayer.org
-     */
-    cmsURL: process.env.INTLAYER_CMS_URL,
-
-    /**
-     * Opsional
-     *
-     * Jika Anda meng-host sendiri Intlayer CMS, Anda dapat mengatur URL backend.
-     *
-     * URL dari Intlayer CMS.
-     * Secara default, diatur ke https://back.intlayer.org
-     */
-    backendURL: process.env.INTLAYER_BACKEND_URL,
-  },
-};
-
-module.exports = config;
-```
-
 > Jika Anda belum memiliki client ID dan client secret, Anda dapat memperolehnya dengan membuat client baru di [Intlayer Dashboard - Projects](https://app.intlayer.org/projects).
 
 > Untuk melihat semua parameter yang tersedia, lihat [dokumentasi konfigurasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md).
@@ -298,7 +198,7 @@ Sinkronisasi Langsung memungkinkan aplikasi Anda mencerminkan perubahan konten C
 
 Aktifkan Sinkronisasi Langsung dengan memperbarui konfigurasi Intlayer Anda:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import type { IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -333,92 +233,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... pengaturan konfigurasi lainnya
-  editor: {
-    /**
-     * Mengaktifkan hot reloading konfigurasi locale saat perubahan terdeteksi.
-     * Misalnya, ketika sebuah kamus ditambahkan atau diperbarui, aplikasi akan memperbarui
-     * konten yang ditampilkan di halaman.
-     *
-     * Karena hot reloading memerlukan koneksi yang terus-menerus ke server, fitur ini
-     * hanya tersedia untuk klien dengan paket `enterprise`.
-     *
-     * Default: false
-     */
-    liveSync: true,
-  },
-  dictionary: {
-    /**
-     * Mengontrol bagaimana kamus diimpor:
-     *
-     * - "live": Kamus diambil secara dinamis menggunakan Live Sync API.
-     *   Menggantikan useIntlayer dengan useDictionaryDynamic.
-     *
-     * Catatan: Mode live menggunakan Live Sync API untuk mengambil kamus. Jika panggilan API
-     * gagal, kamus diimpor secara dinamis.
-     * Catatan: Hanya kamus dengan konten jarak jauh dan flag "live" yang menggunakan mode live.
-     * Lainnya menggunakan mode dinamis untuk performa.
-     */
-    importMode: "fetch",
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... pengaturan konfigurasi lainnya
-  editor: {
-    /**
-     * Mengaktifkan hot reloading konfigurasi locale saat perubahan terdeteksi.
-     * Misalnya, ketika sebuah kamus ditambahkan atau diperbarui, aplikasi akan memperbarui
-     * konten yang ditampilkan di halaman.
-     *
-     * Karena hot reloading memerlukan koneksi yang terus-menerus ke server, fitur ini
-     * hanya tersedia untuk klien dengan paket `enterprise`.
-     *
-     * Default: false
-     */
-    liveSync: true,
-
-    /**
-     * Port dari server Live Sync.
-     *
-     * Default: 4000
-     */
-    liveSyncPort: 4000,
-
-    /**
-     * URL dari server Live Sync.
-     *
-     * Default: http://localhost:{liveSyncPort}
-     */
-    liveSyncURL: "https://live.example.com",
-  },
-  dictionary: {
-    /**
-     * Mengontrol bagaimana kamus diimpor:
-     *
-     * - "live": Kamus diambil secara dinamis menggunakan Live Sync API.
-     *   Menggantikan useIntlayer dengan useDictionaryDynamic.
-     *
-     * Catatan: Mode live menggunakan Live Sync API untuk mengambil kamus. Jika panggilan API
-     * gagal, kamus diimpor secara dinamis.
-     * Catatan: Hanya kamus dengan konten jarak jauh dan flag "live" yang menggunakan mode live.
-     * Lainnya menggunakan mode dinamis untuk performa.
-     */
-    importMode: "fetch",
-  },
-};
-
-module.exports = config;
 ```
 
 Mulai server Live Sync untuk membungkus aplikasi Anda:
@@ -491,7 +305,7 @@ Cara kerjanya:
 
 Aktifkan optimasi agar Intlayer menerapkan transformasi impor Live selama pengembangan:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import type { IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -509,44 +323,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  editor: {
-    applicationURL: "http://localhost:5173",
-    liveSyncURL: "http://localhost:4000",
-    liveSync: true,
-  },
-  dictionary: {
-    importMode: "fetch",
-  },
-  build: {
-    optimize: true,
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  editor: {
-    applicationURL: "http://localhost:5173",
-    liveSyncURL: "http://localhost:4000",
-    liveSync: true,
-  },
-  dictionary: {
-    importMode: "fetch",
-  },
-  build: {
-    optimize: true,
-  },
-};
-
-module.exports = config;
 ```
 
 Pengaturan ini membungkus server dev Anda dengan server Live Sync, mengambil kamus jarak jauh saat startup, dan mengalirkan pembaruan dari CMS melalui SSE. Segarkan halaman untuk melihat perubahan.

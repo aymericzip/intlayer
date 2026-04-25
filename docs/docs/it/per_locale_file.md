@@ -42,7 +42,7 @@ Questo formato è ideale per:
 
 Questo è l'approccio consigliato per la maggior parte dei casi d'uso. Centralizza le traduzioni, rendendo facile iterare e integrare con il CMS.
 
-```tsx fileName="hello-world.content.ts" contentDeclarationFormat="typescript"
+```tsx fileName="hello-world.content.ts" contentDeclarationFormat={["typescript", "esm"]}
 import { t, type Dictionary } from "intlayer";
 
 const helloWorldContent = {
@@ -54,24 +54,6 @@ const helloWorldContent = {
     }),
   },
 } satisfies Dictionary;
-
-export default helloWorldContent;
-```
-
-```js fileName="hello-world.content.mjs" contentDeclarationFormat="esm"
-import { t } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-// Contenuto per "hello-world" con traduzioni multiple
-const helloWorldContent = {
-  key: "hello-world",
-  content: {
-    multilingualContent: t({
-      en: "Title of my component",
-      es: "Título de mi componente",
-    }),
-  },
-};
 
 export default helloWorldContent;
 ```
@@ -139,7 +121,7 @@ Questo formato è utile quando:
 
 Puoi anche suddividere le traduzioni in file di locale individuali specificando il campo locale:
 
-```tsx fileName="hello-world.en.content.ts" contentDeclarationFormat="typescript"
+```tsx fileName="hello-world.en.content.ts" contentDeclarationFormat=["typescript", "esm", "cjs"]
 import { t, Locales, type Dictionary } from "intlayer";
 
 const helloWorldContent = {
@@ -151,7 +133,7 @@ const helloWorldContent = {
 export default helloWorldContent;
 ```
 
-```tsx fileName="hello-world.es.content.ts" contentDeclarationFormat="typescript"
+```tsx fileName="hello-world.es.content.ts" contentDeclarationFormat={["typescript", "esm"]}
 import { t, Locales, type Dictionary } from "intlayer";
 
 const helloWorldContent = {
@@ -159,20 +141,6 @@ const helloWorldContent = {
   locale: Locales.SPANISH, // Importante
   content: { multilingualContent: "Título de mi componente" },
 } satisfies Dictionary;
-
-export default helloWorldContent;
-```
-
-```js fileName="hello-world.en.content.mjs" contentDeclarationFormat="esm"
-import { t, Locales } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-// Dizionario contenuti per "hello-world" in inglese
-const helloWorldContent = {
-  key: "hello-world",
-  locale: Locales.ENGLISH, // Importante
-  content: { multilingualContent: "Titolo del mio componente" },
-};
 
 export default helloWorldContent;
 ```

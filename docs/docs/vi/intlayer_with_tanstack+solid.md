@@ -657,7 +657,7 @@ Nếu bạn có một codebase hiện tại, việc chuyển đổi hàng nghìn
 
 Để thiết lập, bạn có thể thêm phần `compiler` trong tệp `intlayer.config.ts` của mình:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -690,74 +690,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... Phần cấu hình còn lại của bạn
-  compiler: {
-    /**
-     * Cho biết compiler có được bật hay không.
-     */
-    enabled: true,
-
-    /**
-     * Định nghĩa đường dẫn các tệp đầu ra
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * Cho biết các component có nên được lưu sau khi được chuyển đổi hay không.
-     *
-     * - Nếu `true`, compiler sẽ ghi đè tệp component trên đĩa. Do đó, quá trình chuyển đổi sẽ là vĩnh viễn và compiler sẽ bỏ qua chuyển đổi cho quá trình tiếp theo. Bằng cách này, compiler có thể chuyển đổi ứng dụng và sau đó nó có thể được gỡ bỏ.
-     *
-     * - Nếu `false`, compiler sẽ chỉ chèn lệnh gọi hàm `useIntlayer()` vào code trong output build, giữ nguyên codebase gốc. Quá trình chuyển đổi sẽ chỉ được thực hiện trong bộ nhớ.
-     */
-    saveComponents: false,
-
-    /**
-     * Tiền tố phím từ điển
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... Phần cấu hình còn lại của bạn
-  compiler: {
-    /**
-     * Cho biết compiler có được bật hay không.
-     */
-    enabled: true,
-
-    /**
-     * Định nghĩa đường dẫn các tệp đầu ra
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * Cho biết các component có nên được lưu sau khi được chuyển đổi hay không.
-     *
-     * - Nếu `true`, compiler sẽ ghi đè tệp component trên đĩa. Do đó, quá trình chuyển đổi sẽ là vĩnh viễn và compiler sẽ bỏ qua chuyển đổi cho quá trình tiếp theo. Bằng cách này, compiler có thể chuyển đổi ứng dụng và sau đó nó có thể được gỡ bỏ.
-     *
-     * - Nếu `false`, compiler sẽ chỉ chèn lệnh gọi hàm `useIntlayer()` vào code trong output build, giữ nguyên codebase gốc. Quá trình chuyển đổi sẽ chỉ được thực hiện trong bộ nhớ.
-     */
-    saveComponents: false,
-
-    /**
-     * Tiền tố phím từ điển
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-module.exports = config;
 ```
 
 <Tabs>

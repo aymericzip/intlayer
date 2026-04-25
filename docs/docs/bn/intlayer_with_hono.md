@@ -82,7 +82,7 @@ bun x intlayer init
 
 আপনার প্রজেক্ট রুটে একটি `intlayer.config.ts` তৈরি করে আন্তর্জাতিকীকরণ সেটিংস কনফিগার করুন:
 
-```typescript fileName="intlayer.config.ts"  codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -100,49 +100,11 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH_MEXICO,
-      Locales.SPANISH_SPAIN,
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH_MEXICO,
-      Locales.SPANISH_SPAIN,
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-module.exports = config;
-```
-
 ### আপনার কন্টেন্ট ডিক্লেয়ার করুন (Declare Your Content)
 
 অনুবাদ সংরক্ষণের জন্য আপনার কন্টেন্ট ডিক্লারেশন তৈরি এবং পরিচালনা করুন:
 
-```typescript fileName="src/index.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="src/index.content.ts" contentDeclarationFormat={["typescript", "esm"]}
 import { t, type Dictionary } from "intlayer";
 
 const indexContent = {
@@ -156,25 +118,6 @@ const indexContent = {
     }),
   },
 } satisfies Dictionary;
-
-export default indexContent;
-```
-
-```javascript fileName="src/index.content.mjs" contentDeclarationFormat="esm"
-import { t } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const indexContent = {
-  key: "index",
-  content: {
-    exampleOfContent: t({
-      en: "Example of returned content in English",
-      fr: "Exemple de contenu renvoyé en français",
-      "es-ES": "Ejemplo de contenido devuelto en español (España)",
-      "es-MX": "Ejemplo de contenido devuelto en español (México)",
-    }),
-  },
-};
 
 export default indexContent;
 ```
@@ -224,7 +167,7 @@ module.exports = indexContent;
 
 `hono-intlayer` ব্যবহার করতে আপনার Hono অ্যাপ্লিকেশন সেটআপ করুন:
 
-```typescript fileName="src/index.ts" codeFormat="typescript"
+```typescript fileName="src/index.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Hono } from "hono";
 import { intlayer, t, getDictionary, getIntlayer } from "hono-intlayer";
 import dictionaryExample from "./index.content";
@@ -255,72 +198,6 @@ app.get("/getDictionary_example", (c) => {
 });
 
 export default app;
-```
-
-```javascript fileName="src/index.mjs" codeFormat="esm"
-import { Hono } from "hono";
-import { intlayer, t, getDictionary, getIntlayer } from "hono-intlayer";
-import dictionaryExample from "./index.content";
-
-const app = new Hono();
-
-// আন্তর্জাতিকীকরণ রিকোয়েস্ট হ্যান্ডলার লোড করুন
-app.use("*", intlayer());
-
-// Routes
-app.get("/t_example", (c) => {
-  return c.text(
-    t({
-      en: "Example of returned content in English",
-      fr: "Exemple de contenu renvoyé en français",
-      "es-ES": "Ejemplo de contenido devuelto en español (España)",
-      "es-MX": "Ejemplo de contenido devuelto en español (México)",
-    })
-  );
-});
-
-app.get("/getIntlayer_example", (c) => {
-  return c.json(getIntlayer("index").exampleOfContent);
-});
-
-app.get("/getDictionary_example", (c) => {
-  return c.json(getDictionary(dictionaryExample).exampleOfContent);
-});
-
-export default app;
-```
-
-```javascript fileName="src/index.cjs" codeFormat="commonjs"
-const { Hono } = require("hono");
-const { intlayer, t, getDictionary, getIntlayer } = require("hono-intlayer");
-const dictionaryExample = require("./index.content");
-
-const app = new Hono();
-
-// আন্তর্জাতিকীকরণ রিকোয়েস্ট হ্যান্ডলার লোড করুন
-app.use("*", intlayer());
-
-// Routes
-app.get("/t_example", (c) => {
-  return c.text(
-    t({
-      en: "Example of returned content in English",
-      fr: "Exemple de contenu renvoyé en français",
-      "es-ES": "Ejemplo de contenido devuelto en español (España)",
-      "es-MX": "Ejemplo de contenido devuelto en español (México)",
-    })
-  );
-});
-
-app.get("/getIntlayer_example", (c) => {
-  return c.json(getIntlayer("index").exampleOfContent);
-});
-
-app.get("/getDictionary_example", (c) => {
-  return c.json(getDictionary(dictionaryExample).exampleOfContent);
-});
-
-module.exports = app;
 ```
 
 ### সামঞ্জস্যতা (Compatibility)
@@ -333,7 +210,7 @@ module.exports = app;
 
 এটি ব্রাউজার এবং API রিকোয়েস্টসহ বিভিন্ন পরিবেশে যেকোনো আন্তর্জাতিকীকরণ সল্যুশনের সাথে নিরবিচ্ছিন্নভাবে কাজ করে। আপনি হেডার বা কুকির মাধ্যমে লোকাল শনাক্ত করতে মিডলওয়্যার কাস্টমাইজ করতে পারেন:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -345,36 +222,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... অন্যান্য কনফিগারেশন অপশন
-  middleware: {
-    headerName: "my-locale-header",
-    cookieName: "my-locale-cookie",
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... অন্যান্য কনফিগারেশন অপশন
-  middleware: {
-    headerName: "my-locale-header",
-    cookieName: "my-locale-cookie",
-  },
-};
-
-module.exports = config;
 ```
 
 ডিফল্টভাবে, `hono-intlayer` ক্লায়েন্টের পছন্দের ভাষা নির্ধারণ করতে `Accept-Language` হেডার ব্যাখ্যা করবে।

@@ -68,22 +68,7 @@ history:
 
 ### عناوين URL النسبية
 
-```typescript codeFormat="typescript"
-import { getLocalizedUrl, Locales } from "intlayer";
-
-getLocalizedUrl(
-  "/about",
-  Locales.FRENCH,
-  [Locales.ENGLISH, Locales.FRENCH],
-  Locales.ENGLISH,
-  false
-);
-
-// الناتج: "/fr/about" للغة الفرنسية
-// الناتج: "/about" للغة الافتراضية (الإنجليزية)
-```
-
-```javascript codeFormat="esm"
+```typescript codeFormat={["typescript", "esm"]}
 import { getLocalizedUrl, Locales } from "intlayer";
 
 getLocalizedUrl(
@@ -186,7 +171,7 @@ getLocalizedUrl(
 
 في تطبيق متعدد اللغات، يعد تكوين إعدادات التدويل باستخدام `locales` و `defaultLocale` أمرًا حيويًا لضمان عرض اللغة الصحيحة. فيما يلي مثال على كيفية استخدام `getLocalizedUrl` في إعداد التطبيق:
 
-```tsx codeFormat="typescript"
+```tsx codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 // تكوين اللغات المدعومة واللغة الافتراضية
@@ -198,34 +183,6 @@ export default {
 } satisfies IntlayerConfig;
 
 export default config;
-```
-
-```javascript codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-```javascript codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-module.exports = config;
 ```
 
 يضمن التكوين أعلاه أن يتعرف التطبيق على اللغات `ENGLISH` و `FRENCH` و `SPANISH` كلغات مدعومة ويستخدم `ENGLISH` كلغة احتياطية.

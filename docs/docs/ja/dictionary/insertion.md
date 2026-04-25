@@ -41,7 +41,7 @@ Intlayerプロジェクトで挿入コンテンツを設定するには、挿入
   <Tab label="手動ラッピング" value="manual-wrapping">
     挿入コンテンツを明示的に宣言するには、`insert` 関数を使用します。
 
-    ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+    ```typescript fileName="**/*.content.ts" contentDeclarationFormat=["typescript", "esm", "cjs"]
     import { insert, type Dictionary } from "intlayer";
 
     const myInsertionContent = {
@@ -105,7 +105,7 @@ Intlayerプロジェクトで挿入コンテンツを設定するには、挿入
   <Tab label="自動検出" value="automatic-detection">
     文字列に一般的な挿入インジケーター（`{{name}}` など）が含まれている場合、Intlayer はそれを自動的に変換します。
 
-    ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+    ```typescript fileName="**/*.content.ts" contentDeclarationFormat=["typescript", "esm", "cjs"]
     import { type Dictionary } from "intlayer";
 
     const myInsertionContent = {
@@ -159,7 +159,7 @@ Intlayerプロジェクトで挿入コンテンツを設定するには、挿入
 
 Reactコンポーネント内で挿入コンテンツを利用するには、`react-intlayer`パッケージから`useIntlayer`フックをインポートして使用します。このフックは指定したキーのコンテンツを取得し、コンテンツ内の各プレースホルダーに対応する値をマッピングしたオブジェクトを渡すことができます。
 
-```tsx fileName="**/*.tsx" codeFormat="typescript"
+```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useIntlayer } from "react-intlayer";
 
@@ -185,60 +185,6 @@ const InsertionComponent: FC = () => {
 };
 
 export default InsertionComponent;
-```
-
-```javascript fileName="**/*.mjx" codeFormat="esm"
-import { useIntlayer } from "react-intlayer";
-
-const InsertionComponent = () => {
-  const { myInsertion } = useIntlayer("my_key");
-
-  return (
-    <div>
-      <p>
-        {
-          /* 出力: "こんにちは、私の名前はジョンで、30歳です！" */
-          myInsertion({ name: "John", age: "30" })
-        }
-      </p>
-      <p>
-        {
-          /* 同じ挿入を異なる値で再利用できます */
-          myInsertion({ name: "Alice", age: "25" })
-        }
-      </p>
-    </div>
-  );
-};
-
-export default InsertionComponent;
-```
-
-```javascript fileName="**/*.cjs" codeFormat="commonjs"
-const { useIntlayer } = require("react-intlayer");
-
-const InsertionComponent = () => {
-  const { myInsertion } = useIntlayer("my_key");
-
-  return (
-    <div>
-      <p>
-        {
-          /* 出力: "Hello, my name is John and I am 30 years old!" */
-          myInsertion({ name: "John", age: "30" })
-        }
-      </p>
-      <p>
-        {
-          /* 同じ挿入を異なる値で再利用できます */
-          myInsertion({ name: "Alice", age: "25" })
-        }
-      </p>
-    </div>
-  );
-};
-
-module.exports = InsertionComponent;
 ```
 
 ## 追加リソース

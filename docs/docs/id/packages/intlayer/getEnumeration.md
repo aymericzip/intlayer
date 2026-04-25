@@ -50,7 +50,7 @@ Fungsi `getEnumeration` mengambil konten yang sesuai dengan kuantitas tertentu b
 
 ### Penggunaan Dasar
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getEnumeration } from "intlayer";
 
 const content = getEnumeration(
@@ -66,68 +66,10 @@ const content = getEnumeration(
 console.log(content); // Output: "Anda memiliki dua"
 ```
 
-```javascript codeFormat="esm"
-import { getEnumeration } from "intlayer";
-
-const content = getEnumeration(
-  {
-    "<1": "Anda memiliki kurang dari satu",
-    "2": "Anda memiliki dua",
-    ">=3": "Anda memiliki tiga atau lebih",
-  },
-  2
-);
-
-console.log(content); // Output: "Anda memiliki dua"
-```
-
-```javascript codeFormat="commonjs"
-const { getEnumeration } = require("intlayer");
-
-const content = getEnumeration(
-  {
-    "<1": "Anda memiliki kurang dari satu",
-    "2": "Anda memiliki dua",
-    ">=3": "Anda memiliki tiga atau lebih",
-  },
-  2
-);
-
-console.log(content); // Output: "Anda memiliki dua"
-```
-
 ### Prioritas Kondisi
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getEnumeration } from "intlayer";
-
-const content = getEnumeration(
-  {
-    "<4": "Anda memiliki kurang dari empat",
-    "2": "Anda memiliki dua",
-  },
-  2
-);
-
-console.log(content); // Output: "Anda memiliki kurang dari empat"
-```
-
-```javascript codeFormat="esm"
-import { getEnumeration } from "intlayer";
-
-const content = getEnumeration(
-  {
-    "<4": "Anda memiliki kurang dari empat",
-    "2": "Anda memiliki dua",
-  },
-  2
-);
-
-console.log(content); // Output: "Anda memiliki kurang dari empat"
-```
-
-```javascript codeFormat="commonjs"
-const { getEnumeration } = require("intlayer");
 
 const content = getEnumeration(
   {

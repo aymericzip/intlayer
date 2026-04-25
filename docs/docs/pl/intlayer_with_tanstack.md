@@ -759,7 +759,7 @@ Aby ułatwić ten proces, Intlayer proponuje [kompilator](https://github.com/aym
 
 Aby go skonfigurować, możesz dodać sekcję `compiler` w pliku `intlayer.config.ts`:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -788,66 +788,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... Reszta Twojej konfiguracji
-  compiler: {
-    /**
-     * Wskazuje, czy kompilator powinien być włączony.
-     */
-    enabled: true,
-
-    /**
-     * Definiuje ścieżkę plików wyjściowych
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * Wskazuje, czy komponenty powinny zostać zapisane po transformacji. W ten sposób kompilator można uruchomić tylko raz, aby przetransformować aplikację, a następnie go usunąć.
-     */
-    saveComponents: false,
-
-    /**
-     * Prefiks klucza słownika
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... Reszta Twojej konfiguracji
-  compiler: {
-    /**
-     * Wskazuje, czy kompilator powinien być włączony.
-     */
-    enabled: true,
-
-    /**
-     * Definiuje ścieżkę plików wyjściowych
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * Wskazuje, czy komponenty powinny zostać zapisane po transformacji. W ten sposób kompilator można uruchomić tylko raz, aby przetransformować aplikację, a następnie go usunąć.
-     */
-    saveComponents: false,
-
-    /**
-     * Prefiks klucza słownika
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-module.exports = config;
 ```
 
 <Tabs>

@@ -99,7 +99,7 @@ type GetPrefixResult = {
 
 ### Uso Básico
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getPrefix, Locales } from "intlayer";
 
 // Verificar prefijo para el locale inglés
@@ -115,20 +115,6 @@ getPrefix(Locales.FRENCH, {
   mode: "prefix-no-default",
 });
 // Devuelve: { prefix: 'fr/', localePrefix: 'fr' }
-```
-
-```javascript codeFormat="esm"
-import { getPrefix, Locales } from "intlayer";
-
-getPrefix(Locales.ENGLISH, { mode: "prefix-all" });
-// Devuelve: { prefix: '', localePrefix: undefined }
-```
-
-```javascript codeFormat="commonjs"
-const { getPrefix, Locales } = require("intlayer");
-
-getPrefix(Locales.ENGLISH, { mode: "prefix-all" });
-// Devuelve: { prefix: '', localePrefix: undefined }
 ```
 
 ### Modos Diferentes de Enrutamiento

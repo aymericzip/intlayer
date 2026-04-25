@@ -657,7 +657,7 @@ export const Route = createFileRoute("/{-$locale}/$")({
 
 لإعداده ، يمكنك إضافة قسم `compiler` في ملف `intlayer.config.ts` الخاص بك:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -690,74 +690,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... بقية إعداداتك
-  compiler: {
-    /**
-     * يشير إلى ما إذا كان يجب تمكين المترجم.
-     */
-    enabled: true,
-
-    /**
-     * يحدد مسار ملفات المخرجات
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * يشير إلى ما إذا كان يجب حفظ المكونات بعد تحويلها.
-     *
-     * - إذا كان `true` ، فسيقوم المترجم بإعادة كتابة ملف المكون على القرص. وبالتالي ، سيكون التحويل دائمًا ، وسيقوم المترجم بتجاوز التحويل للعملية التالية. بهذه الطريقة ، يمكن للمترجم تحويل التطبيق ومن ثم يمكن إزالته.
-     *
-     * - إذا كان `false` ، فسيقوم المترجم بحقن استدعاء وظيفة `useIntlayer()` في الكود فقط في مخرجات البناء ، مع الحفاظ على قاعدة الأكواد الأساسية كما هي. سيتم إجراء التحويل في الذاكرة فقط.
-     */
-    saveComponents: false,
-
-    /**
-     * بادئة مفتاح القاموس
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... بقية إعداداتك
-  compiler: {
-    /**
-     * يشير إلى ما إذا كان يجب تمكين المترجم.
-     */
-    enabled: true,
-
-    /**
-     * يحدد مسار ملفات المخرجات
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * يشير إلى ما إذا كان يجب حفظ المكونات بعد تحويلها.
-     *
-     * - إذا كان `true` ، فسيقوم المترجم بإعادة كتابة ملف المكون على القرص. وبالتالي ، سيكون التحويل دائمًا ، وسيقوم المترجم بتجاوز التحويل للعملية التالية. بهذه الطريقة ، يمكن للمترجم تحويل التطبيق ومن ثم يمكن إزالته.
-     *
-     * - إذا كان `false` ، فسيقوم المترجم بحقن استدعاء وظيفة `useIntlayer()` في الكود فقط في مخرجات البناء ، مع الحفاظ على قاعدة الأكواد الأساسية كما هي. سيتم إجراء التحويل في الذاكرة فقط.
-     */
-    saveComponents: false,
-
-    /**
-     * بادئة مفتاح القاموس
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-module.exports = config;
 ```
 
 <Tabs>

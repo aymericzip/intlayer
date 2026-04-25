@@ -162,7 +162,7 @@ export default defineConfig({
 
 Erstellen Sie Ihre Inhaltsdeklarationsdateien irgendwo in Ihrem `src`-Ordner (z. B. `src/lib/content` oder neben Ihren Komponenten). Diese Dateien definieren den übersetzbaren Inhalt für Ihre Anwendung mithilfe der Funktion `t()` für jede Locale.
 
-```ts fileName="src/features/hero/hero.content.ts" contentDeclarationFormat="typescript"
+```ts fileName="src/features/hero/hero.content.ts" contentDeclarationFormat=["typescript", "esm", "cjs"]
 import { t, type Dictionary } from "intlayer";
 
 const heroContent = {
@@ -338,7 +338,7 @@ export default defineConfig({
 
 Erstellen Sie Ihre Inhaltsdeklarationsdateien irgendwo in Ihrem `src`-Ordner (z. B. `src/lib/content` oder neben Ihren Komponenten). Diese Dateien definieren den übersetzbaren Inhalt für Ihre Anwendung mithilfe der Funktion `t()` für jede Locale.
 
-```ts fileName="src/features/hero/hero.content.ts" contentDeclarationFormat="typescript"
+```ts fileName="src/features/hero/hero.content.ts" contentDeclarationFormat=["typescript", "esm", "cjs"]
 import { t, type Dictionary } from "intlayer";
 
 const heroContent = {
@@ -749,7 +749,7 @@ Um diesen Prozess zu erleichtern, bietet Intlayer einen [Compiler](https://githu
 
 Um es einzurichten, können Sie einen `compiler`-Abschnitt in Ihrer `intlayer.config.ts`-Datei hinzufügen:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -778,66 +778,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... Rest Ihrer Konfiguration
-  compiler: {
-    /**
-     * Gibt an, ob der Compiler aktiviert sein soll.
-     */
-    enabled: true,
-
-    /**
-     * Definiert den Pfad der Ausgabedateien
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * Gibt an, ob die Komponenten nach der Transformation gespeichert werden sollen. Auf diese Weise kann der Compiler nur einmal ausgeführt werden, um die App zu transformieren, und dann entfernt werden.
-     */
-    saveComponents: false,
-
-    /**
-     * Präfix für Wörterbuchschlüssel
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... Rest Ihrer Konfiguration
-  compiler: {
-    /**
-     * Gibt an, ob der Compiler aktiviert sein soll.
-     */
-    enabled: true,
-
-    /**
-     * Definiert den Pfad der Ausgabedateien
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * Gibt an, ob die Komponenten nach der Transformation gespeichert werden sollen. Auf diese Weise kann der Compiler nur einmal ausgeführt werden, um die App zu transformieren, und dann entfernt werden.
-     */
-    saveComponents: false,
-
-    /**
-     * Präfix für Wörterbuchschlüssel
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-module.exports = config;
 ```
 
 <Tabs>

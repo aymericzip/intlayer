@@ -84,7 +84,7 @@ bun x intlayer init
 
 আপনার প্রজেক্টের রুট ডিরেক্টরিতে একটি `intlayer.config.ts` ফাইল তৈরি করে আন্তর্জাতিকীকরণ সেটিংস কনফিগার করুন:
 
-```typescript fileName="intlayer.config.ts"  codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -102,49 +102,11 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH_MEXICO,
-      Locales.SPANISH_SPAIN,
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH_MEXICO,
-      Locales.SPANISH_SPAIN,
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-module.exports = config;
-```
-
 ### আপনার কন্টেন্ট ঘোষণা করুন
 
 অনুবাদ জমা করার জন্য আপনার কন্টেন্ট ডিক্লারেশন তৈরি করুন এবং ম্যানেজ করুন:
 
-```typescript fileName="src/index.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="src/index.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, type Dictionary } from "intlayer";
 
 const indexContent = {
@@ -160,44 +122,6 @@ const indexContent = {
 } satisfies Dictionary;
 
 export default indexContent;
-```
-
-```javascript fileName="src/index.content.mjs" contentDeclarationFormat="esm"
-import { t } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const indexContent = {
-  key: "index",
-  content: {
-    exampleOfContent: t({
-      en: "Example of returned content in English",
-      fr: "Exemple de contenu renvoyé en français",
-      "es-ES": "Ejemplo de contenido devuelto en español (España)",
-      "es-MX": "Ejemplo de কন্টেন্ট devuelto en español (México)",
-    }),
-  },
-};
-
-export default indexContent;
-```
-
-```javascript fileName="src/index.content.cjs" contentDeclarationFormat="commonjs"
-const { t } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const indexContent = {
-  key: "index",
-  content: {
-    exampleOfContent: t({
-      en: "Example of returned content in English",
-      fr: "Exemple de contenu renvoyé en français",
-      "es-ES": "Ejemplo de কন্টেন্ট devuelto en español (España)",
-      "es-MX": "Ejemplo de কন্টেন্ট devuelto en español (México)",
-    }),
-  },
-};
-
-module.exports = indexContent;
 ```
 
 ```json fileName="src/index.content.json" contentDeclarationFormat="json"
@@ -226,7 +150,7 @@ module.exports = indexContent;
 
 `fastify-intlayer` ব্যবহার করতে আপনার Fastify অ্যাপ্লিকেশনটি সেটআপ করুন:
 
-```typescript fileName="src/index.ts" codeFormat="typescript"
+```typescript fileName="src/index.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import Fastify from "fastify";
 import { intlayer, t, getDictionary, getIntlayer } from "fastify-intlayer";
 import dictionaryExample from "./index.content";
@@ -267,88 +191,6 @@ const start = async () => {
 start();
 ```
 
-```javascript fileName="src/index.mjs" codeFormat="esm"
-import Fastify from "fastify";
-import { intlayer, t, getDictionary, getIntlayer } from "fastify-intlayer";
-import dictionaryExample from "./index.content";
-
-const fastify = Fastify({ logger: true });
-
-// আন্তর্জাতিকীকরণ প্লাগইন লোড করুন
-await fastify.register(intlayer);
-
-// রাউটস
-fastify.get("/t_example", async (_req, reply) => {
-  return t({
-    en: "Example of returned content in English",
-    fr: "Exemple de কন্টেন্ট renvoyé en français",
-    "es-ES": "Ejemplo de কন্টেন্ট devuelto en español (España)",
-    "es-MX": "Ejemplo de কন্টেন্ট devuelto en español (México)",
-  });
-});
-
-fastify.get("/getIntlayer_example", async (_req, reply) => {
-  return getIntlayer("index").exampleOfContent;
-});
-
-fastify.get("/getDictionary_example", async (_req, reply) => {
-  return getDictionary(dictionaryExample).exampleOfContent;
-});
-
-// সার্ভার স্টার্ট করুন
-const start = async () => {
-  try {
-    await fastify.listen({ port: 3000 });
-  } catch (err) {
-    fastify.log.error(err);
-    process.exit(1);
-  }
-};
-
-start();
-```
-
-```javascript fileName="src/index.cjs" codeFormat="commonjs"
-const Fastify = require("fastify");
-const { intlayer, t, getDictionary, getIntlayer } = require("fastify-intlayer");
-const dictionaryExample = require("./index.content");
-
-const fastify = Fastify({ logger: true });
-
-// async/await-এর জন্য সার্ভার স্টার্ট র‍্যাপার
-const start = async () => {
-  try {
-    // আন্তর্জাতিকীকরণ প্লাগইন লোড করুন
-    await fastify.register(intlayer);
-
-    // রাউটস
-    fastify.get("/t_example", async (_req, reply) => {
-      return t({
-        en: "Example of returned content in English",
-        fr: "Exemple de কন্টেন্ট renvoyé en français",
-        "es-ES": "Ejemplo de কন্টেন্ট devuelto en español (España)",
-        "es-MX": "Ejemplo de কন্টেন্ট devuelto en español (México)",
-      });
-    });
-
-    fastify.get("/getIntlayer_example", async (_req, reply) => {
-      return getIntlayer("index").exampleOfContent;
-    });
-
-    fastify.get("/getDictionary_example", async (_req, reply) => {
-      return getDictionary(dictionaryExample).exampleOfContent;
-    });
-
-    await fastify.listen({ port: 3000 });
-  } catch (err) {
-    fastify.log.error(err);
-    process.exit(1);
-  }
-};
-
-start();
-```
-
 ### সামঞ্জস্যতা
 
 `fastify-intlayer` নিচের গুলোর সাথে সম্পূর্ণ সামঞ্জস্যপূর্ণ:
@@ -359,7 +201,7 @@ start();
 
 এটি ব্রাউজার এবং এপিআই রিকোয়েস্ট সহ বিভিন্ন পরিবেশে যেকোনো আন্তর্জাতিকীকরণ সলিউশনের সাথে নির্বিঘ্নে কাজ করে। আপনি হেডার বা কুকির মাধ্যমে লোকেল শনাক্ত করতে মিডলওয়্যারটি কাস্টমাইজ করতে পারেন:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -371,36 +213,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... অন্যান্য কনফিগারেশন অপশন
-  middleware: {
-    headerName: "my-locale-header",
-    cookieName: "my-locale-cookie",
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... অন্যান্য কনফিগারেশন অপশন
-  middleware: {
-    headerName: "my-locale-header",
-    cookieName: "my-locale-cookie",
-  },
-};
-
-module.exports = config;
 ```
 
 ডিফল্টভাবে, `fastify-intlayer` ক্লায়েন্টের পছন্দের ভাষা নির্ধারণ করতে `Accept-Language` হেডার ব্যাখ্যা করবে।

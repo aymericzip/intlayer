@@ -32,7 +32,7 @@ Intlayer에서 열거형은 특정 키를 해당 콘텐츠에 매핑하는 `enu`
 
 Intlayer 프로젝트에서 열거형을 설정하려면, 열거형 정의를 포함하는 콘텐츠 모듈을 생성해야 합니다. 다음은 자동차 수에 대한 간단한 열거형 예시입니다:
 
-```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="**/*.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { enu, type Dictionary } from "intlayer";
 
 const carEnumeration = {
@@ -51,50 +51,6 @@ const carEnumeration = {
 } satisfies Dictionary;
 
 export default carEnumeration;
-```
-
-```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-import { enu } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const carEnumeration = {
-  key: "car_count",
-  content: {
-    numberOfCar: enu({
-      "<-1": "마이너스 1대 미만의 자동차",
-      "-1": "마이너스 1대의 자동차",
-      "0": "자동차 없음",
-      "1": "자동차 1대",
-      ">5": "몇 대의 자동차",
-      ">19": "많은 자동차",
-      "fallback": "대체 값", // 선택 사항
-    }),
-  },
-};
-
-export default carEnumeration;
-```
-
-```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-const { enu } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const carEnumeration = {
-  key: "car_count",
-  content: {
-    numberOfCar: enu({
-      "<-1": "마이너스 1대 미만의 자동차",
-      "-1": "마이너스 1대의 자동차",
-      "0": "자동차 없음",
-      "1": "자동차 1대",
-      ">5": "몇 대의 자동차",
-      ">19": "많은 자동차",
-      "fallback": "대체 값", // 선택 사항
-    }),
-  },
-};
-
-module.exports = carEnumeration;
 ```
 
 ```json fileName="**/*.content.json" contentDeclarationFormat="json"
@@ -128,7 +84,7 @@ module.exports = carEnumeration;
 
 React 컴포넌트에서 열거형을 사용하려면 `react-intlayer` 패키지의 `useIntlayer` 훅을 활용할 수 있습니다. 이 훅은 지정된 ID를 기반으로 올바른 콘텐츠를 가져옵니다. 사용 예시는 다음과 같습니다:
 
-```tsx fileName="**/*.tsx" codeFormat="typescript"
+```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useIntlayer } from "react-intlayer";
 
@@ -160,76 +116,6 @@ const CarComponent: FC = () => {
     </div>
   );
 };
-```
-
-```javascript fileName="**/*.mjx" codeFormat="esm"
-import { useIntlayer } from "react-intlayer";
-
-const CarComponent = () => {
-  const { numberOfCar } = useIntlayer("car_count");
-
-  return (
-    <div>
-      <p>
-        {
-          numberOfCar(0) // 출력: 자동차 없음
-        }
-      </p>
-      <p>
-        {
-          numberOfCar(6) // 출력: 몇 대의 자동차
-        }
-      </p>
-      <p>
-        {
-          numberOfCar(20) // 출력: 많은 자동차
-        }
-      </p>
-      <p>
-        {
-          numberOfCar(0.01) // 출력: 대체 값
-        }
-      </p>
-    </div>
-  );
-};
-
-export default CarComponent;
-```
-
-```javascript fileName="**/*.cjs" codeFormat="commonjs"
-const { useIntlayer } = require("react-intlayer");
-
-const CarComponent = () => {
-  const { numberOfCar } = useIntlayer("car_count");
-
-  return (
-    <div>
-      <p>
-        {
-          numberOfCar(0) // 출력: 자동차 없음
-        }
-      </p>
-      <p>
-        {
-          numberOfCar(6) // 출력: 몇 대의 자동차
-        }
-      </p>
-      <p>
-        {
-          numberOfCar(20) // 출력: 많은 자동차
-        }
-      </p>
-      <p>
-        {
-          numberOfCar(0.01) // 출력: 대체 값
-        }
-      </p>
-    </div>
-  );
-};
-
-module.exports = CarComponent;
 ```
 
 이 예제에서 컴포넌트는 자동차 수에 따라 동적으로 출력을 조정합니다. 지정된 범위에 따라 올바른 내용이 자동으로 선택됩니다.

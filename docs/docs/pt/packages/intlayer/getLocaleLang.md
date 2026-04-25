@@ -45,28 +45,10 @@ A função `getLocaleLang` extrai o código do idioma a partir de uma string de 
 
 ### Extraindo Códigos de Idioma:
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getLocaleLang, Locales } from "intlayer";
 
 getLocaleLang(Locales.ENGLISH_UNITED_STATES); // Output: "en"
-getLocaleLang(Locales.ENGLISH); // Saída: "en"
-getLocaleLang(Locales.FRENCH_CANADA); // Saída: "fr"
-getLocaleLang(Locales.FRENCH); // Saída: "fr"
-```
-
-```javascript codeFormat="esm"
-import { getLocaleLang } from "intlayer";
-
-getLocaleLang(Locales.ENGLISH_UNITED_STATES); // Saída: "en"
-getLocaleLang(Locales.ENGLISH); // Saída: "en"
-getLocaleLang(Locales.FRENCH_CANADA); // Saída: "fr"
-getLocaleLang(Locales.FRENCH); // Saída: "fr"
-```
-
-```javascript codeFormat="commonjs"
-const { getLocaleLang } = require("intlayer");
-
-getLocaleLang(Locales.ENGLISH_UNITED_STATES); // Saída: "en"
 getLocaleLang(Locales.ENGLISH); // Saída: "en"
 getLocaleLang(Locales.FRENCH_CANADA); // Saída: "fr"
 getLocaleLang(Locales.FRENCH); // Saída: "fr"

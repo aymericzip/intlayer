@@ -88,7 +88,7 @@ bun add intlayer-editor --dev
 
 अपने Intlayer कॉन्फ़िगरेशन फ़ाइल में, आप एडिटर सेटिंग्स को अनुकूलित कर सकते हैं:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import type { IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -123,77 +123,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... अन्य कॉन्फ़िगरेशन सेटिंग्स
-  editor: {
-    /**
-     * आवश्यक
-     * एप्लिकेशन का URL।
-     * यह वह URL है जिसे विजुअल एडिटर लक्षित करता है।
-     * उदाहरण: 'http://localhost:3000'
-     */
-    applicationURL: process.env.INTLAYER_APPLICATION_URL,
-    /**
-     * वैकल्पिक
-     * डिफ़ॉल्ट रूप से `true`। यदि `false`, तो एडिटर निष्क्रिय है और इसे एक्सेस नहीं किया जा सकता।
-     * इसे सुरक्षा कारणों से, जैसे उत्पादन के लिए, विशिष्ट वातावरण के लिए एडिटर को अक्षम करने के लिए उपयोग किया जा सकता है।
-     */
-    enabled: process.env.INTLAYER_ENABLED,
-    /**
-     * वैकल्पिक
-     * डिफ़ॉल्ट रूप से `8000`।
-     * विजुअल एडिटर सर्वर द्वारा उपयोग किया जाने वाला पोर्ट।
-     */
-    port: process.env.INTLAYER_PORT,
-    /**
-     * वैकल्पिक
-     * डिफ़ॉल्ट रूप से "http://localhost:8000"
-     * एप्लिकेशन से पहुंचने के लिए एडिटर सर्वर का URL। सुरक्षा कारणों से एप्लिकेशन के साथ इंटरैक्ट करने वाले मूल को प्रतिबंधित करने के लिए उपयोग किया जाता है। यदि `'*'` पर सेट किया गया है, तो एडिटर किसी भी मूल से सुलभ है। इसे सेट किया जाना चाहिए यदि पोर्ट बदला गया है, या यदि एडिटर किसी अन्य डोमेन पर होस्ट किया गया है।
-     */
-    editorURL: process.env.INTLAYER_EDITOR_URL,
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... अन्य कॉन्फ़िगरेशन सेटिंग्स
-  editor: {
-    /**
-     * आवश्यक
-     * एप्लिकेशन का URL।
-     * यह वह URL है जिसे विजुअल एडिटर लक्षित करता है।
-     */
-    applicationURL: process.env.INTLAYER_APPLICATION_URL,
-    /**
-     * वैकल्पिक
-     * डिफ़ॉल्ट रूप से `8000`।
-     * एडिटर सर्वर का पोर्ट।
-     */
-    port: process.env.INTLAYER_PORT,
-    /**
-     * वैकल्पिक
-     * डिफ़ॉल्ट रूप से "http://localhost:8000"
-     * एडिटर सर्वर का URL।
-     */
-    editorURL: process.env.INTLAYER_EDITOR_URL,
-    /**
-     * वैकल्पिक
-     * डिफ़ॉल्ट रूप से `true`। यदि `false`, तो एडिटर निष्क्रिय है और इसे एक्सेस नहीं किया जा सकता।
-     * इसे सुरक्षा कारणों से, जैसे उत्पादन के लिए, विशिष्ट वातावरण के लिए एडिटर को अक्षम करने के लिए उपयोग किया जा सकता है।
-     */
-    enabled: process.env.INTLAYER_ENABLED,
-  },
-};
-
-module.exports = config;
 ```
 
 > सभी उपलब्ध पैरामीटर देखने के लिए, [कॉन्फ़िगरेशन दस्तावेज़ीकरण](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md) देखें।

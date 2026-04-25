@@ -123,7 +123,7 @@ See [Application Template](https://github.com/aymericzip/intlayer-react-router-v
 
 Создайте файл конфигурации для настройки языков вашего приложения:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { type IntlayerConfig, Locales } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -134,34 +134,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    defaultLocale: Locales.ENGLISH, // Язык по умолчанию
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH], // Поддерживаемые языки
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    defaultLocale: Locales.ENGLISH, // Язык по умолчанию
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH], // Поддерживаемые языки
-  },
-};
-
-module.exports = config;
 ```
 
 > С помощью этого файла конфигурации вы можете настроить локализованные URL-адреса, перенаправления в middleware, имена cookie, расположение и расширение ваших деклараций контента, отключить логи Intlayer в консоли и многое другое. Для полного списка доступных параметров обратитесь к [документации по конфигурации](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/configuration.md).
@@ -513,7 +485,7 @@ export default function RootLayout() {
 
 Чтобы настроить его, вы можете добавить раздел `compiler` в ваш файл `intlayer.config.ts`:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -542,66 +514,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... Остальная часть вашей конфигурации
-  compiler: {
-    /**
-     * Указывает, должен ли быть включен компилятор.
-     */
-    enabled: true,
-
-    /**
-     * Определяет путь к выходным файлам
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * Указывает, должны ли компоненты сохраняться после преобразования. Таким образом, компилятор можно запустить только один раз для преобразования приложения, а затем удалить.
-     */
-    saveComponents: false,
-
-    /**
-     * Префикс ключа словаря
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... Остальная часть вашей конфигурации
-  compiler: {
-    /**
-     * Указывает, должен ли быть включен компилятор.
-     */
-    enabled: true,
-
-    /**
-     * Определяет путь к выходным файлам
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * Указывает, должны ли компоненты сохраняться после преобразования. Таким образом, компилятор можно запустить только один раз для преобразования приложения, а затем удалить.
-     */
-    saveComponents: false,
-
-    /**
-     * Префикс ключа словаря
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-module.exports = config;
 ```
 
 <Tabs>

@@ -28,7 +28,7 @@ In Intlayer, il contenuto condizionale viene realizzato tramite la funzione `con
 
 Per configurare il contenuto condizionale nel tuo progetto Intlayer, crea un modulo di contenuto che includa le tue definizioni condizionali. Di seguito sono riportati esempi in vari formati.
 
-```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="**/*.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { cond, type Dictionary } from "intlayer";
 
 const myConditionalContent = {
@@ -43,42 +43,6 @@ const myConditionalContent = {
 } satisfies Dictionary;
 
 export default myConditionalContent;
-```
-
-```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-import { cond } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const myConditionalContent = {
-  key: "my_key",
-  content: {
-    myCondition: cond({
-      true: "il mio contenuto quando è vero",
-      false: "il mio contenuto quando è falso",
-      fallback: "il mio contenuto quando la condizione fallisce", // Opzionale
-    }),
-  },
-};
-
-export default myConditionalContent;
-```
-
-```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-const { cond } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const myConditionalContent = {
-  key: "my_key",
-  content: {
-    myCondition: cond({
-      true: "il mio contenuto quando è vero",
-      false: "il mio contenuto quando è falso",
-      fallback: "il mio contenuto quando la condizione fallisce", // Opzionale
-    }),
-  },
-};
-
-module.exports = myConditionalContent;
 ```
 
 ```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
@@ -104,7 +68,7 @@ module.exports = myConditionalContent;
 
 Per utilizzare il contenuto condizionale all'interno di un componente React, importa e utilizza il hook `useIntlayer` dal pacchetto `react-intlayer`. Questo hook recupera il contenuto per la chiave specificata e consente di passare una condizione per selezionare l'output appropriato.
 
-```tsx fileName="**/*.tsx" codeFormat="typescript"
+```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useIntlayer } from "react-intlayer";
 
@@ -142,84 +106,6 @@ const ConditionalComponent: FC = () => {
 };
 
 export default ConditionalComponent;
-```
-
-```javascript fileName="**/*.mjx" codeFormat="esm"
-import { useIntlayer } from "react-intlayer";
-
-const ConditionalComponent = () => {
-  const { myCondition } = useIntlayer("my_key");
-
-  return (
-    <div>
-      <p>
-        {
-          /* Output: il mio contenuto quando è vero */
-          myCondition(true)
-        }
-      </p>
-      <p>
-        {
-          /* Output: il mio contenuto quando è falso */
-          myCondition(false)
-        }
-      </p>
-      <p>
-        {
-          /* Output: il mio contenuto quando la condizione fallisce */
-          myCondition("")
-        }
-      </p>
-      <p>
-        {
-          /* Output: il mio contenuto quando la condizione fallisce */
-          myCondition(undefined)
-        }
-      </p>
-    </div>
-  );
-};
-
-export default ConditionalComponent;
-```
-
-```javascript fileName="**/*.cjs" codeFormat="commonjs"
-const { useIntlayer } = require("react-intlayer");
-
-const ConditionalComponent = () => {
-  const { myCondition } = useIntlayer("my_key");
-
-  return (
-    <div>
-      <p>
-        {
-          /* Output: il mio contenuto quando è vero */
-          myCondition(true)
-        }
-      </p>
-      <p>
-        {
-          /* Output: il mio contenuto quando è falso */
-          myCondition(false)
-        }
-      </p>
-      <p>
-        {
-          /* Output: il mio contenuto quando la condizione fallisce */
-          myCondition("")
-        }
-      </p>
-      <p>
-        {
-          /* Output: il mio contenuto quando la condizione fallisce */
-          myCondition(undefined)
-        }
-      </p>
-    </div>
-  );
-};
-
-module.exports = ConditionalComponent;
 ```
 
 ## Risorse Aggiuntive

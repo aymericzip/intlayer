@@ -66,53 +66,11 @@ Untuk memastikan bahwa fungsi internasionalisasi yang disediakan oleh `express-i
 
 Tempatkan middleware `app.use(intlayer())` **sebelum rute apa pun** dalam aplikasi Anda untuk memastikan bahwa semua rute mendapatkan manfaat dari internasionalisasi:
 
-```typescript {7} fileName="src/index.ts" codeFormat="typescript"
+```typescript {7} fileName="src/index.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import express, { type Express } from "express";
 import { intlayer } from "express-intlayer";
 
 const app: Express = express();
-
-// Memuat handler permintaan internasionalisasi
-app.use(intlayer());
-
-// Definisikan rute Anda setelah memuat middleware
-app.get("/", (_req, res) => {
-  res.send(
-    t({
-      en: "Hello, World!",
-      fr: "Bonjour le monde!",
-      es: "¡Hola, Mundo!",
-    })
-  );
-});
-```
-
-```javascript {7} fileName="src/index.mjs" codeFormat="esm"
-import express from "express";
-import { intlayer } from "express-intlayer";
-
-const app = express();
-
-// Memuat handler permintaan internasionalisasi
-app.use(intlayer());
-
-// Definisikan rute Anda setelah memuat middleware
-app.get("/", (_req, res) => {
-  res.send(
-    t({
-      en: "Hello, World!",
-      fr: "Bonjour le monde!",
-      es: "¡Hola, Mundo!",
-    })
-  );
-});
-```
-
-```javascript {7} fileName="src/index.cjs" codeFormat="commonjs"
-const express = require("express");
-const { intlayer } = require("express-intlayer");
-
-const app = express();
 
 // Memuat handler permintaan internasionalisasi
 app.use(intlayer());
@@ -143,31 +101,7 @@ app.get("/", (_req, res) => {
 
 Melayani konten yang dilokalkan dalam berbagai bahasa:
 
-```typescript fileName="src/index.ts" codeFormat="typescript"
-app.get("/", (_req, res) => {
-  res.send(
-    t({
-      en: "Welcome!",
-      fr: "Bienvenue!",
-      es: "¡Bienvenido!",
-    })
-  );
-});
-```
-
-```javascript fileName="src/index.mjs" codeFormat="esm"
-app.get("/", (_req, res) => {
-  res.send(
-    t({
-      en: "Welcome!",
-      fr: "Bienvenue!",
-      es: "¡Bienvenido!",
-    })
-  );
-});
-```
-
-```javascript fileName="src/index.cjs" codeFormat="commonjs"
+```typescript fileName="src/index.ts" codeFormat={["typescript", "esm", "commonjs"]}
 app.get("/", (_req, res) => {
   res.send(
     t({
@@ -189,32 +123,8 @@ app.get("/", (_req, res) => {
 
 Berikan pesan error dalam berbagai bahasa:
 
-```typescript fileName="src/index.ts" codeFormat="typescript"
+```typescript fileName="src/index.ts" codeFormat={["typescript", "esm", "commonjs"]}
 javascript fileName="src/index.ts" codeFormat="typescript"
-app.get("/error", (_req, res) => {
-  res.status(500).send(
-    t({
-      en: "An unexpected error occurred.",
-      fr: "Une erreur inattendue s'est produite.",
-      es: "Ocurrió un error inesperado.",
-    })
-  );
-});
-```
-
-```javascript fileName="src/index.mjs" codeFormat="esm"
-app.get("/error", (_req, res) => {
-  res.status(500).send(
-    t({
-      en: "An unexpected error occurred.",
-      fr: "Une erreur inattendue s'est produite.",
-      es: "Ocurrió un error inesperado.",
-    })
-  );
-});
-```
-
-```javascript fileName="src/index.cjs" codeFormat="commonjs"
 app.get("/error", (_req, res) => {
   res.status(500).send(
     t({
@@ -282,7 +192,7 @@ app.get("/greet", (_req, res) => {
 
 Jika locale yang diinginkan tidak tersedia, fungsi `t` akan kembali menggunakan locale default yang didefinisikan dalam konfigurasi:
 
-```typescript {5-6} fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript {5-6} fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config = {
@@ -293,34 +203,6 @@ const config = {
 } satisfies IntlayerConfig;
 
 export default config;
-```
-
-```javascript {5-6} fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-```javascript {5-6} fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-module.exports = config;
 ```
 
 Sebagai contoh:
@@ -342,7 +224,7 @@ Konfigurasikan fungsi `t` untuk menegakkan kepatuhan ketat terhadap locale yang 
 
 Contoh Konfigurasi:
 
-```typescript {7} fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript {7} fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { type IntlayerConfig } from "intlayer";
 
 const config = {
@@ -356,73 +238,16 @@ const config = {
 export default config;
 ```
 
-```javascript {7} fileName="intlayer.config.mjs" codeFormat="esm"
-import { type IntlayerConfig } from "intlayer";
-
-const config = {
-  // ... Konfigurasi Anda yang sudah ada
-  internationalization: {
-    // ... Konfigurasi internationalization Anda yang sudah ada
-    strictMode: "strict", // Terapkan mode ketat
-  },
-};
-
-export default config;
-```
-
-```javascript {7} fileName="intlayer.config.cjs" codeFormat="commonjs"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... Konfigurasi Anda yang sudah ada
-  internationalization: {
-    // ... Konfigurasi internationalization Anda yang sudah ada
-    strictMode: "strict", // Terapkan mode ketat
-  },
-};
-
-module.exports = config;
-```
-
 ---
 
 ### Integrasi TypeScript
 
 Fungsi `t` aman tipe saat digunakan dengan TypeScript. Definisikan objek terjemahan yang aman tipe:
 
-```typescript fileName="src/index.ts" codeFormat="typescript"
+```typescript fileName="src/index.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { type LanguageContent } from "express-intlayer";
 
 const translations: LanguageContent<string> = {
-  en: "Selamat pagi!",
-  fr: "Bonjour!",
-  es: "¡Buenos días!",
-};
-
-app.get("/morning", (_req, res) => {
-  res.send(t(translations));
-});
-```
-
-```javascript fileName="src/index.mjs" codeFormat="esm"
-import { type LanguageContent } from "express-intlayer";
-
-/** @type {import('express-intlayer').LanguageContent<string>} */
-const translations = {
-  en: "Selamat pagi!",
-  fr: "Bonjour!",
-  es: "¡Buenos días!",
-};
-
-app.get("/morning", (_req, res) => {
-  res.send(t(translations));
-});
-```
-
-```javascript fileName="src/index.cjs" codeFormat="commonjs"
-const { type LanguageContent } = require("express-intlayer");
-
-/** @type {import('express-intlayer').LanguageContent<string>} */
-const translations = {
   en: "Selamat pagi!",
   fr: "Bonjour!",
   es: "¡Buenos días!",

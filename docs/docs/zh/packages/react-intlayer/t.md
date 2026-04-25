@@ -64,48 +64,11 @@ t<T extends string>(content: Record<LocalesValues, T>, locale?: Locales): string
 
 ### 组件中 `t` 的基本用法
 
-```tsx fileName="src/components/ComponentExample.tsx" codeFormat="typescript"
+```tsx fileName="src/components/ComponentExample.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { t } from "react.intlayer";
 
 export const ComponentExample: FC = () => {
-  return (
-    <div>
-      <p>
-        {t({
-          en: "This is an example of a component",
-          fr: "Ceci est un exemple de composant",
-          es: "Este es un ejemplo de componente",
-        })}
-      </p>
-    </div>
-  );
-};
-```
-
-```jsx fileName="src/components/ComponentExample.mjx" codeFormat="esm"
-import { t } from "react-intlayer";
-
-const ComponentExample = () => {
-  return (
-    <div>
-      <p>
-        {t({
-          en: "This is an example of a component",
-          fr: "Ceci est un exemple de composant",
-          es: "Este es un ejemplo de componente",
-        })}
-      </p>
-    </div>
-  );
-};
-```
-
-```jsx fileName="src/components/ComponentExample.csx" codeFormat="commonjs"
-const { t } = require("react-intlayer");
-
-// 组件示例
-const ComponentExample = () => {
   return (
     <div>
       <p>
@@ -156,38 +119,11 @@ const ComponentExample = () => {
 
 当与 TypeScript 一起使用时，`t` 函数是类型安全的，确保提供所有必需的语言环境。
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { t, type IConfigLocales } from "react-intlayer";
 
 const translations: IConfigLocales<string> = {
   en: "欢迎",
-  fr: "Bienvenue",
-  es: "Bienvenido",
-};
-
-const greeting = t(translations);
-```
-
-```javascript codeFormat="esm"
-import { t, type IConfigLocales } from "react-intlayer";
-
-/** @type {import('react-intlayer').IConfigLocales<string>} */
-const translations = {
-  en: "欢迎",
-  fr: "Bienvenue",
-  es: "Bienvenido",
-};
-
-const greeting = t(translations);
-```
-
-```javascript codeFormat="commonjs"
-const { t, type IConfigLocales } = require("react-intlayer");
-
-/** @type {import('react-intlayer').IConfigLocales<string>} */
-// 定义翻译内容，键为语言代码，值为对应的翻译字符串
-const translations = {
-  en: "Welcome",
   fr: "Bienvenue",
   es: "Bienvenido",
 };
@@ -201,28 +137,12 @@ const greeting = t(translations);
 
 #### 示例：
 
-```tsx fileName="src/app.tsx" codeFormat="typescript"
+```tsx fileName="src/app.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import type { Locales } from "intlayer";
 import { IntlayerProvider } from "react-intlayer";
 
 const App: FC<{ locale: Locales }> = ({ locale }) => (
-  <IntlayerProvider locale={locale}>{/* 你的组件放这里 */}</IntlayerProvider>
-);
-```
-
-```jsx fileName="src/app.mjx" codeFormat="esm"
-import { IntlayerProvider } from "react-intlayer";
-
-const App = ({ locale }) => (
-  <IntlayerProvider locale={locale}>{/* 你的组件放这里 */}</IntlayerProvider>
-);
-```
-
-```jsx fileName="src/app.csx" codeFormat="commonjs"
-const { IntlayerProvider } = require("react-intlayer");
-
-const App = ({ locale }) => (
   <IntlayerProvider locale={locale}>{/* 你的组件放这里 */}</IntlayerProvider>
 );
 ```
@@ -243,31 +163,8 @@ const App = ({ locale }) => (
 - **原因**：翻译对象未满足所需的语言环境，导致 TypeScript 报错。
 - **解决方案**：使用 `IConfigLocales` 类型来强制确保翻译的完整性。
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 const translations: IConfigLocales<string> = {
-  en: "Text",
-  fr: "Texte",
-  // es: 'Texto', // 缺少 'es' 会导致 TypeScript 报错
-};
-
-const text = t(translations);
-```
-
-```javascript codeFormat="esm"
-const translations = {
-  en: "Text",
-  fr: "Texte",
-  // es: 'Texto', // 缺少 'es' 会导致 TypeScript 报错
-};
-
-const text = t(translations);
-```
-
-```javascript codeFormat="commonjs"
-const { t, type IConfigLocales } = require("react-intlayer");
-
-/** @type {import('react-intlayer').IConfigLocales<string>} */
-const translations = {
   en: "Text",
   fr: "Texte",
   // es: 'Texto', // 缺少 'es' 会导致 TypeScript 报错

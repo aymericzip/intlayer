@@ -82,7 +82,7 @@ bun x intlayer init
 
 اپنے پروجیکٹ کی جڑ (root) میں ایک `intlayer.config.ts` بنا کر بین الاقوامی بنانے کی ترتیبات کو کنفیگر کریں:
 
-```typescript fileName="intlayer.config.ts"  codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -100,49 +100,11 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH_MEXICO,
-      Locales.SPANISH_SPAIN,
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH_MEXICO,
-      Locales.SPANISH_SPAIN,
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-module.exports = config;
-```
-
 ### اپنے مواد کا اعلان کریں (Declare Your Content)
 
 ترجموں کو محفوظ کرنے کے لیے اپنے مواد کے اعلانات بنائیں اور ان کا انتظام کریں:
 
-```typescript fileName="src/index.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="src/index.content.ts" contentDeclarationFormat={["typescript", "esm"]}
 import { t, type Dictionary } from "intlayer";
 
 const indexContent = {
@@ -156,25 +118,6 @@ const indexContent = {
     }),
   },
 } satisfies Dictionary;
-
-export default indexContent;
-```
-
-```javascript fileName="src/index.content.mjs" contentDeclarationFormat="esm"
-import { t } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const indexContent = {
-  key: "index",
-  content: {
-    exampleOfContent: t({
-      en: "Example of returned content in English",
-      fr: "Exemple de contenu renvoyé en français",
-      "es-ES": "Ejemplo de contenido devuelto en español (España)",
-      "es-MX": "Ejemplo de contenido devuelto en español (México)",
-    }),
-  },
-};
 
 export default indexContent;
 ```
@@ -224,7 +167,7 @@ module.exports = indexContent;
 
 `hono-intlayer` استعمال کرنے کے لیے اپنی Hono ایپلی کیشن سیٹ اپ کریں:
 
-```typescript fileName="src/index.ts" codeFormat="typescript"
+```typescript fileName="src/index.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Hono } from "hono";
 import { intlayer, t, getDictionary, getIntlayer } from "hono-intlayer";
 import dictionaryExample from "./index.content";
@@ -255,72 +198,6 @@ app.get("/getDictionary_example", (c) => {
 });
 
 export default app;
-```
-
-```javascript fileName="src/index.mjs" codeFormat="esm"
-import { Hono } from "hono";
-import { intlayer, t, getDictionary, getIntlayer } from "hono-intlayer";
-import dictionaryExample from "./index.content";
-
-const app = new Hono();
-
-// بین الاقوامی بنانے کے لیے درخواست کا ہینڈلر لوڈ کریں
-app.use("*", intlayer());
-
-// Routes
-app.get("/t_example", (c) => {
-  return c.text(
-    t({
-      en: "Example of returned content in English",
-      fr: "Exemple de contenu renvoyé en français",
-      "es-ES": "Ejemplo de contenido devuelto en español (España)",
-      "es-MX": "Ejemplo de contenido devuelto en español (México)",
-    })
-  );
-});
-
-app.get("/getIntlayer_example", (c) => {
-  return c.json(getIntlayer("index").exampleOfContent);
-});
-
-app.get("/getDictionary_example", (c) => {
-  return c.json(getDictionary(dictionaryExample).exampleOfContent);
-});
-
-export default app;
-```
-
-```javascript fileName="src/index.cjs" codeFormat="commonjs"
-const { Hono } = require("hono");
-const { intlayer, t, getDictionary, getIntlayer } = require("hono-intlayer");
-const dictionaryExample = require("./index.content");
-
-const app = new Hono();
-
-// بین الاقوامی بنانے کے لیے درخواست کا ہینڈلر لوڈ کریں
-app.use("*", intlayer());
-
-// Routes
-app.get("/t_example", (c) => {
-  return c.text(
-    t({
-      en: "Example of returned content in English",
-      fr: "Exemple de contenu renvoyé en français",
-      "es-ES": "Ejemplo de contenido devuelto en español (España)",
-      "es-MX": "Ejemplo de contenido devuelto en español (México)",
-    })
-  );
-});
-
-app.get("/getIntlayer_example", (c) => {
-  return c.json(getIntlayer("index").exampleOfContent);
-});
-
-app.get("/getDictionary_example", (c) => {
-  return c.json(getDictionary(dictionaryExample).exampleOfContent);
-});
-
-module.exports = app;
 ```
 
 ### مطابقت (Compatibility)
@@ -333,7 +210,7 @@ module.exports = app;
 
 یہ براؤزر اور API درخواستوں سمیت مختلف ماحولوں میں کسی بھی بین الاقوامی حل کے ساتھ بغیر کسی رکاوٹ کے کام کرتا ہے۔ آپ ہیڈر یا کوکیز کے ذریعے مقام (locale) کا پتہ لگانے کے لیے مڈل ویئر کو اپنی مرضی کے مطابق بنا سکتے ہیں:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -345,36 +222,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... دیگر کنفیگریشن کے اختیارات
-  middleware: {
-    headerName: "my-locale-header",
-    cookieName: "my-locale-cookie",
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... دیگر کنفیگریشن کے اختیارات
-  middleware: {
-    headerName: "my-locale-header",
-    cookieName: "my-locale-cookie",
-  },
-};
-
-module.exports = config;
 ```
 
 بطور ڈیفالٹ، `hono-intlayer` کلائنٹ کی پسندیدہ زبان کا تعین کرنے کے لیے `Accept-Language` ہیڈر کی ترجمانی کرے گا۔

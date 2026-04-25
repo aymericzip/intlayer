@@ -43,26 +43,8 @@ slugs:
 
 ## مثال على الاستخدام
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getPathWithoutLocale } from "intlayer";
-
-console.log(getPathWithoutLocale("/dashboard")); // الناتج: "/dashboard"
-console.log(getPathWithoutLocale("/en/dashboard")); // الناتج: "/dashboard"
-console.log(getPathWithoutLocale("/fr/dashboard")); // الناتج: "/dashboard"
-console.log(getPathWithoutLocale("https://example.com/en/dashboard")); // الناتج: "https://example.com/dashboard"
-```
-
-```javascript codeFormat="esm"
-import { getPathWithoutLocale } from "intlayer";
-
-console.log(getPathWithoutLocale("/dashboard")); // الناتج: "/dashboard"
-console.log(getPathWithoutLocale("/en/dashboard")); // الناتج: "/dashboard"
-console.log(getPathWithoutLocale("/fr/dashboard")); // الناتج: "/dashboard"
-console.log(getPathWithoutLocale("https://example.com/en/dashboard")); // الناتج: "https://example.com/dashboard"
-```
-
-```javascript codeFormat="commonjs"
-const { getPathWithoutLocale } = require("intlayer");
 
 console.log(getPathWithoutLocale("/dashboard")); // الناتج: "/dashboard"
 console.log(getPathWithoutLocale("/en/dashboard")); // الناتج: "/dashboard"

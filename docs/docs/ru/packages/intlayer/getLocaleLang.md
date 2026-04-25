@@ -45,26 +45,8 @@ history:
 
 ### Извлечение кодов языков:
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getLocaleLang, Locales } from "intlayer";
-
-getLocaleLang(Locales.ENGLISH_UNITED_STATES); // Вывод: "en"
-getLocaleLang(Locales.ENGLISH); // Вывод: "en"
-getLocaleLang(Locales.FRENCH_CANADA); // Вывод: "fr"
-getLocaleLang(Locales.FRENCH); // Вывод: "fr"
-```
-
-```javascript codeFormat="esm"
-import { getLocaleLang } from "intlayer";
-
-getLocaleLang(Locales.ENGLISH_UNITED_STATES); // Вывод: "en"
-getLocaleLang(Locales.ENGLISH); // Вывод: "en"
-getLocaleLang(Locales.FRENCH_CANADA); // Вывод: "fr"
-getLocaleLang(Locales.FRENCH); // Вывод: "фр"
-```
-
-```javascript codeFormat="commonjs"
-const { getLocaleLang } = require("intlayer");
 
 getLocaleLang(Locales.ENGLISH_UNITED_STATES); // Вывод: "en"
 getLocaleLang(Locales.ENGLISH); // Вывод: "en"

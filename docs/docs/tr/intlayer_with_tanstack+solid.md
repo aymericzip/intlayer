@@ -658,7 +658,7 @@ Bu süreci kolaylaştırmak için Intlayer, bileşenlerinizi dönüştürmek ve 
 
 Kurulumu yapmak için `intlayer.config.ts` dosyanıza bir `compiler` bölümü ekleyebilirsiniz:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -691,74 +691,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... Yapılandırmanızın geri kalanı
-  compiler: {
-    /**
-     * Derleyicinin etkinleştirilip etkinleştirilmeyeceğini belirtir.
-     */
-    enabled: true,
-
-    /**
-     * Çıkış dosyaları yolunu tanımlar
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * Dönüştürüldükten after after components recorded indicate whether.
-     *
-     * - `true` ise, derleyici diskteki bileşen dosyasını yeniden yazacaktır. Böylece dönüşüm kalıcı olacak ve derleyici bir sonraki işlem için dönüşümü atlayacaktır. Bu şekilde, derleyici uygulamayı dönüştürebilir ve ardından kaldırılabilir.
-     *
-     * - `false` ise, derleyici `useIntlayer()` fonksiyon çağrısını yalnızca derleme çıktısındaki koda enjekte ederek temel kod tabanını olduğu gibi tutacaktır. Dönüşüm yalnızca bellekte yapılacaktır.
-     */
-    saveComponents: false,
-
-    /**
-     * Sözlük anahtarı öneki
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... Yapılandırmanızın geri kalanı
-  compiler: {
-    /**
-     * Derleyicinin etkinleştirilip etkinleştirilmeyeceğini belirtir.
-     */
-    enabled: true,
-
-    /**
-     * Çıkış dosyaları yolunu tanımlar
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * Dönüştürüldükten after after components recorded indicate whether.
-     *
-     * - `true` ise, derleyici diskteki bileşen dosyasını yeniden yazacaktır. Böylece dönüşüm kalıcı olacak ve derleyici bir sonraki işlem için dönüşümü atlayacaktır. Bu şekilde, derleyici uygulamayı dönüştürebilir ve ardından kaldırılabilir.
-     *
-     * - `false` ise, derleyici `useIntlayer()` fonksiyon çağrısını yalnızca derleme çıktısındaki koda enjekte ederek temel kod tabanını olduğu gibi tutacaktır. Dönüşüm yalnızca bellekte yapılacaktır.
-     */
-    saveComponents: false,
-
-    /**
-     * Sözlük anahtarı öneki
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-module.exports = config;
 ```
 
 <Tabs>

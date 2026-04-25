@@ -92,7 +92,7 @@ bun x intlayer init
 
 Di root proyek Anda (atau di mana saja yang nyaman), buat file **konfigurasi Intlayer**. Contohnya bisa seperti ini:
 
-```ts fileName="intlayer.config.ts" codeFormat="typescript"
+```ts fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -108,39 +108,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```js fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      // ... Tambahkan locale lain yang Anda butuhkan
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-```js fileName="intlayer.config.js" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-module.exports = config;
 ```
 
 Dalam konfigurasi ini, Anda dapat:
@@ -209,7 +176,7 @@ Buat file **deklarasi konten** di mana saja dalam proyek Anda (biasanya di dalam
 
 Contoh:
 
-```tsx fileName="src/app.content.ts" contentDeclarationFormat="typescript"
+```tsx fileName="src/app.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, type Dictionary } from "intlayer";
 
 const appContent = {
@@ -243,79 +210,6 @@ const appContent = {
 } satisfies Dictionary;
 
 export default appContent;
-```
-
-```jsx fileName="src/app.content.mjx" contentDeclarationFormat="esm"
-import { t } from "intlayer";
-
-const appContent = {
-  key: "app",
-  content: {
-    title: "React",
-    subtitle: t({
-      en: "on Lynx",
-      fr: "sur Lynx",
-      es: "en Lynx",
-    }),
-    description: t({
-      en: "Ketuk logo dan bersenang-senang!",
-      fr: "Appuyez sur le logo et amusez-vous!",
-      es: "¡Toca el logo y diviértete!",
-    }),
-    hint: [
-      t({
-        en: "Edit",
-        fr: "Modifier",
-        es: "Editar",
-      }),
-      " src/App.tsx ",
-      t({
-        en: "untuk melihat pembaruan!",
-        fr: "pour voir les mises à jour!",
-        es: "para ver actualizaciones!",
-      }),
-    ],
-  },
-};
-
-export default appContent;
-```
-
-```jsx fileName="src/app.content.csx" contentDeclarationFormat="commonjs"
-const { t } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const appContent = {
-  key: "app",
-  content: {
-    title: "React",
-    subtitle: t({
-      en: "on Lynx",
-      fr: "sur Lynx",
-      es: "en Lynx",
-    }),
-    description: t({
-      en: "Ketuk logo dan bersenang-senang!",
-      fr: "Appuyez sur le logo et amusez-vous!",
-      es: "¡Toca el logo y diviértete!",
-    }),
-    hint: [
-      t({
-        en: "Edit",
-        fr: "Modifier",
-        es: "Editar",
-      }),
-      " src/App.tsx ",
-      t({
-        en: "untuk melihat pembaruan!",
-        fr: "pour voir les mises à jour!",
-        es: "para ver actualizaciones!",
-      }),
-    ],
-  },
-};
-
-module.exports = appContent;
 ```
 
 ```json fileName="src/app.content.json" contentDeclarationFormat="json"

@@ -48,24 +48,8 @@ history:
 
 ### 确定文本方向
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getHTMLTextDir } from "intlayer";
-
-getHTMLTextDir(Locales.ENGLISH); // 输出: "ltr"
-getHTMLTextDir(Locales.FRENCH); // 输出: "ltr"
-getHTMLTextDir(Locales.ARABIC); // 输出: "rtl"
-```
-
-```javascript codeFormat="esm"
-import { getHTMLTextDir } from "intlayer";
-
-getHTMLTextDir(Locales.ENGLISH); // 输出: "ltr"
-getHTMLTextDir(Locales.FRENCH); // 输出: "ltr"
-getHTMLTextDir(Locales.ARABIC); // 输出: "rtl"
-```
-
-```javascript codeFormat="commonjs"
-const { getHTMLTextDir } = require("intlayer");
 
 getHTMLTextDir(Locales.ENGLISH); // 输出: "ltr"
 getHTMLTextDir(Locales.FRENCH); // 输出: "ltr"
@@ -84,7 +68,7 @@ getHTMLTextDir(Locales.ARABIC); // 输出: "rtl"
 
 `getHTMLTextDir` 函数可用于根据语言环境动态设置 HTML 文档中的 `dir` 属性，以实现正确的文本渲染。
 
-```tsx codeFormat="typescript"
+```tsx codeFormat={["typescript", "esm", "commonjs"]}
 import type { FC } from "react";
 import { getHTMLTextDir, type Locales } from "intlayer";
 
@@ -92,27 +76,6 @@ export const HTMLLayout: FC<PropsWithChildren<{ locale: Locales }>> = ({
   children,
   locale,
 }) => (
-  <html dir={getHTMLTextDir(locale)} locale={locale}>
-    <body>{children}</body>
-  </html>
-);
-```
-
-```jsx codeFormat="esm"
-import { getHTMLTextDir } from "intlayer";
-
-const HTMLLayout = ({ children, locale }) => (
-  <html dir={getHTMLTextDir(locale)} locale={locale}>
-    <body>{children}</body>
-  </html>
-);
-```
-
-```jsx codeFormat="commonjs"
-const { getHTMLTextDir } = require("intlayer");
-
-// 根据 locale 动态设置 dir 属性的 HTML 布局组件
-const HTMLLayout = ({ children, locale }) => (
   <html dir={getHTMLTextDir(locale)} locale={locale}>
     <body>{children}</body>
   </html>

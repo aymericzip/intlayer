@@ -50,50 +50,8 @@ history:
 
 ## 使用例
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, getLocaleName } from "intlayer";
-
-getLocaleName(Locales.ENGLISH); // 出力: "English"
-getLocaleName(Locales.ENGLISH, Locales.FRENCH); // 出力: "Anglais"
-getLocaleName(Locales.ENGLISH, Locales.ESPANOL); // 出力: "Inglés"
-getLocaleName(Locales.ENGLISH, Locales.ENGLISH); // 出力: "English"
-
-getLocaleName(Locales.FRENCH); // 出力: "Français"
-getLocaleName(Locales.FRENCH, Locales.FRENCH); // 出力: "Français"
-getLocaleName(Locales.FRENCH, Locales.ESPANOL); // 出力: "Francés"
-getLocaleName(Locales.FRENCH, Locales.ENGLISH); // 出力: "French"
-
-getLocaleName(Locales.CHINESE); // 出力: "中文"
-getLocaleName(Locales.CHINESE, Locales.FRENCH); // 出力: "Chinois"
-getLocaleName(Locales.CHINESE, Locales.ESPANOL); // 出力: "Chino"
-getLocaleName(Locales.CHINESE, Locales.ENGLISH); // 出力: "Chinese"
-
-getLocaleName("unknown-locale"); // 出力: "Unknown locale"
-```
-
-```javascript codeFormat="esm"
-import { Locales, getLocaleName } from "intlayer";
-
-getLocaleName(Locales.ENGLISH); // 出力: "English"
-getLocaleName(Locales.ENGLISH, Locales.FRENCH); // 出力: "Anglais"
-getLocaleName(Locales.ENGLISH, Locales.ESPANOL); // 出力: "Inglés"
-getLocaleName(Locales.ENGLISH, Locales.ENGLISH); // 出力: "English"
-
-getLocaleName(Locales.FRENCH); // 出力: "Français"
-getLocaleName(Locales.FRENCH, Locales.FRENCH); // 出力: "Français"
-getLocaleName(Locales.FRENCH, Locales.ESPANOL); // 出力: "Francés"
-getLocaleName(Locales.FRENCH, Locales.ENGLISH); // 出力: "French"
-
-getLocaleName(Locales.CHINESE); // 出力: "中文"
-getLocaleName(Locales.CHINESE, Locales.FRENCH); // 出力: "Chinois"
-getLocaleName(Locales.CHINESE, Locales.ESPANOL); // 出力: "Chino"
-getLocaleName(Locales.CHINESE, Locales.ENGLISH); // 出力: "Chinese"
-
-getLocaleName("unknown-locale"); // 出力: "Unknown locale"
-```
-
-```javascript codeFormat="commonjs"
-const { Locales, getLocaleName } = require("intlayer");
 
 getLocaleName(Locales.ENGLISH); // 出力: "English"
 getLocaleName(Locales.ENGLISH, Locales.FRENCH); // 出力: "Anglais"

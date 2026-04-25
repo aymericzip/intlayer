@@ -50,7 +50,7 @@ history:
 
 ## 사용 예시
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, getLocaleName } from "intlayer";
 
 getLocaleName(Locales.ENGLISH); // 출력: "English"
@@ -69,48 +69,6 @@ getLocaleName(Locales.CHINESE, Locales.ESPANOL); // 출력: "Chino"
 getLocaleName(Locales.CHINESE, Locales.ENGLISH); // 출력: "Chinese"
 
 getLocaleName("unknown-locale"); // 출력: "알 수 없는 로케일"
-```
-
-```javascript codeFormat="esm"
-import { Locales, getLocaleName } from "intlayer";
-
-getLocaleName(Locales.ENGLISH); // 출력: "English"
-getLocaleName(Locales.ENGLISH, Locales.FRENCH); // 출력: "Anglais"
-getLocaleName(Locales.ENGLISH, Locales.ESPANOL); // 출력: "Inglés"
-getLocaleName(Locales.ENGLISH, Locales.ENGLISH); // 출력: "English"
-
-getLocaleName(Locales.FRENCH); // 출력: "Français"
-getLocaleName(Locales.FRENCH, Locales.FRENCH); // 출력: "Français"
-getLocaleName(Locales.FRENCH, Locales.ESPANOL); // 출력: "Francés"
-getLocaleName(Locales.FRENCH, Locales.ENGLISH); // 출력: "French"
-
-getLocaleName(Locales.CHINESE); // 출력: "中文"
-getLocaleName(Locales.CHINESE, Locales.FRENCH); // 출력: "Chinois"
-getLocaleName(Locales.CHINESE, Locales.ESPANOL); // 출력: "Chino"
-getLocaleName(Locales.CHINESE, Locales.ENGLISH); // 출력: "Chinese"
-
-getLocaleName("unknown-locale"); // 출력: "Unknown locale"
-```
-
-```javascript codeFormat="commonjs"
-const { Locales, getLocaleName } = require("intlayer");
-
-getLocaleName(Locales.ENGLISH); // 출력: "English"
-getLocaleName(Locales.ENGLISH, Locales.FRENCH); // 출력: "Anglais"
-getLocaleName(Locales.ENGLISH, Locales.ESPANOL); // 출력: "Inglés"
-getLocaleName(Locales.ENGLISH, Locales.ENGLISH); // 출력: "English"
-
-getLocaleName(Locales.FRENCH); // 출력: "Français"
-getLocaleName(Locales.FRENCH, Locales.FRENCH); // 출력: "Français"
-getLocaleName(Locales.FRENCH, Locales.ESPANOL); // 출력: "Francés"
-getLocaleName(Locales.FRENCH, Locales.ENGLISH); // 출력: "French"
-
-getLocaleName(Locales.CHINESE); // 출력: "中文"
-getLocaleName(Locales.CHINESE, Locales.FRENCH); // 출력: "Chinois"
-getLocaleName(Locales.CHINESE, Locales.ESPANOL); // 출력: "Chino"
-getLocaleName(Locales.CHINESE, Locales.ENGLISH); // 출력: "Chinese"
-
-getLocaleName("unknown-locale"); // 출력: "Unknown locale"
 ```
 
 ## 예외 상황

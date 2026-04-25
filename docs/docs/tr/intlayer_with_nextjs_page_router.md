@@ -83,7 +83,7 @@ bun x intlayer init
 
 Uygulamanızın desteklediği dilleri tanımlamak için bir yapılandırma dosyası oluşturun:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -99,44 +99,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      // Diğer yerel ayarlarınızı buraya ekleyin
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      // Diğer yerel ayarlarınızı buraya ekleyin
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-module.exports = config;
 ```
 
 > Bu yapılandırma dosyası aracılığıyla, yerelleştirilmiş URL'ler, middleware yönlendirmesi, çerez adları, içerik bildirimlerinizin konumu ve uzantısı, Intlayer günlüklerinin konsolda devre dışı bırakılması ve daha fazlasını ayarlayabilirsiniz. Kullanılabilir parametrelerin tam listesi için [yapılandırma dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md) bakın.
@@ -163,33 +125,13 @@ export default withIntlayer(nextConfig);
 
 Kullanıcının tercih ettiği yerel ayarı otomatik olarak algılamak ve işlemek için middleware kurun:
 
-```typescript fileName="src/middleware.ts" codeFormat="typescript"
+```typescript fileName="src/middleware.ts" codeFormat={["typescript", "esm", "commonjs"]}
 export { intlayerProxy as middleware } from "next-intlayer/middleware";
 
 export const config = {
   matcher:
     "/((?!api|static|assets|robots|sitemap|sw|service-worker|manifest|.*\\..*|_next).*)",
 };
-```
-
-```javascript fileName="src/middleware.mjs" codeFormat="esm"
-export { intlayerProxy as middleware } from "next-intlayer/middleware";
-
-export const config = {
-  matcher:
-    "/((?!api|static|assets|robots|sitemap|sw|service-worker|manifest|.*\\..*|_next).*)",
-};
-```
-
-```javascript fileName="src/middleware.cjs" codeFormat="commonjs"
-const { intlayerProxy } = require("next-intlayer/middleware");
-
-const config = {
-  matcher:
-    "/((?!api|static|assets|robots|sitemap|sw|service-worker|manifest|.*\\..*|_next).*)",
-};
-
-module.exports = { middleware: intlayerProxy, config };
 ```
 
 > Eşleştirici parametresini uygulamanızın rotalarına uyacak şekilde uyarlayın. Daha fazla detay için [Next.js dokümantasyonunda eşleştiriciyi yapılandırma](https://nextjs.org/docs/app/building-your-application/routing/middleware) bölümüne bakın.
@@ -355,7 +297,7 @@ Kullanıcının yerel ayarına göre yerelleştirilmiş içerik sunmak için din
 
 Çevirileri depolamak için içerik bildirimlerinizi oluşturun ve yönetin.
 
-```tsx fileName="src/pages/[locale]/home.content.ts" contentDeclarationFormat="typescript"
+```tsx fileName="src/pages/[locale]/home.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, type Dictionary } from "intlayer";
 
 const homeContent = {
@@ -375,46 +317,6 @@ const homeContent = {
 } satisfies Dictionary;
 
 export default homeContent;
-```
-
-```javascript fileName="src/pages/[locale]/home.content.mjs" contentDeclarationFormat="esm"
-import { t } from "intlayer";
-
-const homeContent = {
-  key: "home",
-  content: {
-    getStarted: {
-      main: t({
-        en: "Get started by editing this page.",
-        fr: "Commencez par éditer cette page.",
-        es: "Comience por editar esta página.",
-      }),
-      pageLink: "src/app/page.tsx",
-    },
-  },
-};
-
-export default homeContent;
-```
-
-```javascript fileName="src/pages/[locale]/home.content.cjs" contentDeclarationFormat="commonjs"
-const { t } = require("intlayer");
-
-const homeContent = {
-  key: "home",
-  content: {
-    getStarted: {
-      main: t({
-        en: "Get started by editing this page.",
-        fr: "Commencez par éditer cette page.",
-        es: "Comience por editar esta página.",
-      }),
-      pageLink: "src/app/page.tsx",
-    },
-  },
-};
-
-module.exports = homeContent;
 ```
 
 ```json fileName="src/pages/[locale]/home.content.json" contentDeclarationFormat="json"
@@ -448,7 +350,7 @@ module.exports = homeContent;
 
 Çevirilmiş içerik görüntülemek için uygulamanız boyunca içerik sözlüklerinize erişin.
 
-```tsx {2,6} fileName="src/pages/[locale]/index.tsx" codeFormat="typescript"
+```tsx {2,6} fileName="src/pages/[locale]/index.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useIntlayer } from "next-intlayer";
 import { ComponentExample } from "@components/ComponentExample";
@@ -471,85 +373,11 @@ const HomePage: FC = () => {
 export default HomePage;
 ```
 
-```jsx {1,5} fileName="src/pages/[locale]/index.mjx" codeFormat="esm"
-import { useIntlayer } from "next-intlayer";
-import { ComponentExample } from "@components/ComponentExample";
-
-const HomePage = () => {
-  const content = useIntlayer("home");
-
-  return (
-    <div>
-      <h1>{content.getStarted.main}</h1>
-      <code>{content.getStarted.pageLink}</code>
-
-      <ComponentExample />
-      {/* Ek bileşenler */}
-    </div>
-  );
-};
-
-// ... getStaticPaths ve getStaticProps dahil geri kalan kod
-
-export default HomePage;
-```
-
-```jsx {1,5} fileName="src/pages/[locale]/index.csx" codeFormat="commonjs"
-const { useIntlayer } = require("next-intlayer");
-const { ComponentExample } = require("@components/ComponentExample");
-
-const HomePage = () => {
-  const content = useIntlayer("home");
-
-  return (
-    <div>
-      <h1>{content.getStarted.main}</h1>
-      <code>{content.getStarted.pageLink}</code>
-
-      <ComponentExample />
-      {/* Ek bileşenler */}
-    </div>
-  );
-};
-
-// ... getStaticPaths ve getStaticProps dahil geri kalan kod
-```
-
-```tsx fileName="src/components/ComponentExample.tsx" codeFormat="typescript"
+```tsx fileName="src/components/ComponentExample.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useIntlayer } from "next-intlayer";
 
 export const ComponentExample: FC = () => {
-  const content = useIntlayer("component-example"); // İlgili içerik bildirimi oluşturduğunuzdan emin olun
-
-  return (
-    <div>
-      <h2>{content.title}</h2>
-      <p>{content.content}</p>
-    </div>
-  );
-};
-```
-
-```jsx fileName="src/components/ComponentExample.mjx" codeFormat="esm"
-import { useIntlayer } from "next-intlayer";
-
-const ComponentExample = () => {
-  const content = useIntlayer("component-example"); // İlgili içerik bildirimi oluşturduğunuzdan emin olun
-
-  return (
-    <div>
-      <h2>{content.title}</h2>
-      <p>{content.content}</p>
-    </div>
-  );
-};
-```
-
-```jsx fileName="src/components/ComponentExample.csx" codeFormat="commonjs"
-const { useIntlayer } = require("next-intlayer");
-
-const ComponentExample = () => {
   const content = useIntlayer("component-example"); // İlgili içerik bildirimi oluşturduğunuzdan emin olun
 
   return (
@@ -573,7 +401,7 @@ const ComponentExample = () => {
 
 Sayfanızın başlığı gibi meta verilerinizi uluslararasılaştırmak istiyorsanız, Next.js Sayfa Yönlendirici tarafından sağlanan `getStaticProps` fonksiyonunu kullanabilirsiniz. İçinde, meta verilerinizi çevirmek için `getIntlayer` fonksiyonundan içeriği alabilirsiniz.
 
-```typescript fileName="src/pages/[locale]/metadata.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="src/pages/[locale]/metadata.content.ts" contentDeclarationFormat={["typescript", "esm"]}
 import { type Dictionary, t } from "intlayer";
 import { type Metadata } from "next";
 
@@ -592,29 +420,6 @@ const metadataContent = {
     }),
   },
 } satisfies Dictionary<Metadata>;
-
-export default metadataContent;
-```
-
-```javascript fileName="src/pages/[locale]/metadata.content.mjs" contentDeclarationFormat="esm"
-import { t } from "intlayer";
-
-/** @type {import('intlayer').Dictionary<import('next').Metadata>} */
-const metadataContent = {
-  key: "page-metadata",
-  content: {
-    title: t({
-      en: "Create Next App",
-      fr: "Créer une application Next.js",
-      es: "Crear una aplicación Next.js",
-    }),
-    description: t({
-      en: "Generated by create next app",
-      fr: "Généré par create next app",
-      es: "Generado por create next app",
-    }),
-  },
-};
 
 export default metadataContent;
 ```
@@ -666,7 +471,7 @@ module.exports = metadataContent;
 };
 ```
 
-````tsx fileName="src/pages/[locale]/index.tsx" codeFormat="typescript"
+````tsx fileName="src/pages/[locale]/index.tsx" codeFormat={["typescript", "esm"]}
 import { GetStaticPaths, GetStaticProps } from "next";
 import { getIntlayer, getMultilingualUrls } from "intlayer";
 import { useIntlayer } from "next-intlayer";
@@ -745,139 +550,11 @@ export default HomePage;
 // ... getStaticPaths dahil geri kalan kod
 ````
 
-````jsx fileName="src/pages/[locale]/index.mjx" codeFormat="esm"
-import { getIntlayer, getMultilingualUrls } from "intlayer";
-import { useIntlayer } from "next-intlayer";
-import Head from "next/head";
-
-const HomePage = ({ metadata, multilingualUrls, locale }) => {
-  const content = useIntlayer("page");
-
-  return (
-    <div>
-      <Head>
-        <title>{metadata.title}</title>
-        <meta name="description" content={metadata.description} />
-        {/* SEO için hreflang etiketleri oluşturun */}
-        {Object.entries(multilingualUrls).map(([lang, url]) => (
-          <link key={lang} rel="alternate" hrefLang={lang} href={url} />
-        ))}
-        <link rel="canonical" href={multilingualUrls[locale]} />
-      </Head>
-
-      {/* Sayfa içeriği */}
-      <main>{/* Sayfa içeriğiniz burada */}</main>
-    </div>
-  );
-};
-
-export const getStaticProps = async ({ params }) => {
-  const locale = params?.locale;
-
-  const metadata = getIntlayer("page-metadata", locale);
-
-  /**
-   * Her yerel ayar için tüm URL'leri içeren bir nesne oluşturur.
-   *
-   * Örnek:
-   * ```ts
-   *  getMultilingualUrls('/about');
-   *
-   *  // Döndürür
-   *  // {
-   *  //   en: '/about',
-   *  //   fr: '/fr/about',
-   *  //   es: '/es/about',
-   *  // }
-   * ```
-   */
-  const multilingualUrls = getMultilingualUrls("/");
-
-  return {
-    props: {
-      locale,
-      metadata,
-      multilingualUrls,
-    },
-  };
-};
-
-export default HomePage;
-
-// ... getStaticPaths dahil geri kalan kod
-````
-
-````jsx fileName="src/pages/[locale]/index.csx" codeFormat="commonjs"
-const { getIntlayer, getMultilingualUrls } = require("intlayer");
-const { useIntlayer } = require("next-intlayer");
-const Head = require("next/head");
-
-const HomePage = ({ metadata, multilingualUrls, locale }) => {
-  const content = useIntlayer("page");
-
-  return (
-    <div>
-      <Head>
-        <title>{metadata.title}</title>
-        <meta name="description" content={metadata.description} />
-        {/* SEO için hreflang etiketleri oluşturun */}
-        {Object.entries(multilingualUrls).map(([lang, url]) => (
-          <link key={lang} rel="alternate" hrefLang={lang} href={url} />
-        ))}
-        <link rel="canonical" href={multilingualUrls[locale]} />
-      </Head>
-
-      {/* Sayfa içeriği */}
-      <main>{/* Sayfa içeriğiniz burada */}</main>
-    </div>
-  );
-};
-
-const getStaticProps = async ({ params }) => {
-  const locale = params?.locale;
-
-  const metadata = getIntlayer("page-metadata", locale);
-
-  /**
-   * Her yerel ayar için tüm URL'leri içeren bir nesne oluşturur.
-   *
-   * Example:
-   * ```ts
-   *  getMultilingualUrls('/about');
-   *
-   *  // Returns
-   *  // {
-   *  //   en: '/about',
-   *  //   fr: '/fr/about',
-   *  //   es: '/es/about'
-   *  // }
-   * ```
-   */
-  const multilingualUrls = getMultilingualUrls("/");
-
-  return {
-    props: {
-      locale,
-      metadata,
-      multilingualUrls,
-    },
-  };
-};
-
-module.exports = {
-  getStaticProps,
-  getStaticPaths,
-  default: HomePage,
-};
-
-// ... getStaticPaths dahil geri kalan kod
-````
-
 > Not: `next-intlayer`'dan içe aktarılan `getIntlayer` fonksiyonu, içeriğinizi görsel düzenleyici ile entegrasyon için `IntlayerNode`'a sarılmış olarak döndürür. Aksine, `intlayer`'dan içe aktarılan `getIntlayer` fonksiyonu içeriğinizi doğrudan ek özellikler olmadan döndürür.
 
 Alternatif olarak, meta verilerinizi bildirmek için `getTranslation` fonksiyonunu kullanabilirsiniz. Ancak, içerik bildirim dosyalarını kullanmak, meta verilerinizin çevirisini otomatikleştirmek ve içeriği bir noktada harici hale getirmek için önerilir.
 
-```tsx fileName="src/pages/[locale]/index.tsx" codeFormat="typescript"
+```tsx fileName="src/pages/[locale]/index.tsx" codeFormat={["typescript", "esm"]}
 import { GetStaticPaths, GetStaticProps } from "next";
 import {
   type IConfigLocales,
@@ -960,136 +637,13 @@ export default HomePage;
 // ... getStaticPaths dahil geri kalan kod
 ```
 
-```jsx fileName="src/pages/[locale]/index.mjx" codeFormat="esm"
-import { getTranslation, getMultilingualUrls } from "intlayer";
-import { useIntlayer } from "next-intlayer";
-import Head from "next/head";
-
-const HomePage = ({ metadata, multilingualUrls, locale }) => {
-  const content = useIntlayer("page");
-
-  return (
-    <div>
-      <Head>
-        <title>{metadata.title}</title>
-        <meta name="description" content={metadata.description} />
-        {/* SEO için hreflang etiketleri oluşturun */}
-        {Object.entries(multilingualUrls).map(([lang, url]) => (
-          <link key={lang} rel="alternate" hrefLang={lang} href={url} />
-        ))}
-        <link rel="canonical" href={multilingualUrls[locale]} />
-      </Head>
-
-      {/* Sayfa içeriği */}
-      <main>{/* Sayfa içeriğiniz burada */}</main>
-    </div>
-  );
-};
-
-export const getStaticProps = async ({ params }) => {
-  const locale = params?.locale;
-  const t = (content) => getTranslation(content, locale);
-
-  const metadata = {
-    title: t({
-      en: "My title",
-      fr: "Mon titre",
-      es: "Mi título",
-    }),
-    description: t({
-      en: "My description",
-      fr: "Ma description",
-      es: "Mi descripción",
-    }),
-  };
-
-  const multilingualUrls = getMultilingualUrls("/");
-
-  return {
-    props: {
-      locale,
-      metadata,
-      multilingualUrls,
-    },
-  };
-};
-
-export default HomePage;
-
-// ... getStaticPaths dahil geri kalan kod
-```
-
-```jsx fileName="src/pages/[locale]/index.csx" codeFormat="commonjs"
-const { getTranslation, getMultilingualUrls } = require("intlayer");
-const { useIntlayer } = require("next-intlayer";
-const Head = require("next/head";
-
-const HomePage = ({ metadata, multilingualUrls, locale }) => {
-  const content = useIntlayer("page");
-
-  return (
-    <div>
-      <Head>
-        <title>{metadata.title}</title>
-        <meta name="description" content={metadata.description} />
-        {/* SEO için hreflang etiketleri oluşturun */}
-        {Object.entries(multilingualUrls).map(([lang, url]) => (
-          <link key={lang} rel="alternate" hrefLang={lang} href={url} />
-        ))}
-        <link rel="canonical" href={multilingualUrls[locale]} />
-      </Head>
-
-      {/* Sayfa içeriği */}
-      <main>{/* Sayfa içeriğiniz burada */}</main>
-    </div>
-  );
-};
-
-const getStaticProps = async ({ params }) => {
-  const locale = params?.locale;
-
-  const t = (content) => getTranslation(content, locale);
-
-  const metadata = {
-    title: t({
-      en: "My title",
-      fr: "Mon titre",
-      es: "Mi título",
-    }),
-    description: t({
-      en: "My description",
-      fr: "Ma description",
-      es: "Mi descripción",
-    }),
-  };
-
-  const multilingualUrls = getMultilingualUrls("/");
-
-  return {
-    props: {
-      locale,
-      metadata,
-      multilingualUrls,
-    },
-  };
-};
-
-module.exports = {
-  getStaticProps,
-  getStaticPaths,
-  default: HomePage,
-};
-
-// ... getStaticPaths dahil geri kalan kod
-```
-
 > Meta veri optimizasyonu hakkında daha fazla bilgi edinmek için resmi [Next.js dokümantasyonuna](https://nextjs.org/docs/pages/building-your-application/optimizing/metadata) bakın.
 
 ### (İsteğe Bağlı) Adım 9: İçeriğinizin dilini değiştirme
 
 Next.js'te içeriğinizin dilini değiştirmek için, kullanıcıları uygun yerelleştirilmiş sayfaya yönlendirmek için `Link` bileşenini kullanmak önerilen yoldur. `Link` bileşeni, sayfa ön yüklemesini etkinleştirir, bu da tam sayfa yeniden yüklemeden kaçınmaya yardımcı olur.
 
-```tsx fileName="src/components/LanguageSwitcher.tsx" codeFormat="typescript"
+```tsx fileName="src/components/LanguageSwitcher.tsx" codeFormat={["typescript", "esm"]}
 import {
   Locales,
   getHTMLTextDir,
@@ -1135,102 +689,6 @@ const LocaleSwitcher: FC = () => {
         ))}
       </div>
     </div>
-  );
-};
-```
-
-```jsx fileName="src/components/LanguageSwitcher.msx" codeFormat="esm"
-import {
-  Locales,
-  getHTMLTextDir,
-  getLocaleName,
-  getLocalizedUrl,
-} from "intlayer";
-import { useLocalePageRouter } from "next-intlayer";
-import Link from "next/link";
-
-const LocaleSwitcher = () => {
-  const { locale, pathWithoutLocale, availableLocales } = useLocalePageRouter();
-
-  return (
-    <div>
-      <button popoverTarget="localePopover">{getLocaleName(locale)}</button>
-      <div id="localePopover" popover="auto">
-        {availableLocales.map((localeItem) => (
-          <Link
-            href={getLocalizedUrl(pathWithoutLocale, localeItem)}
-            hrefLang={localeItem}
-            key={localeItem}
-            aria-current={locale === localeItem ? "page" : undefined}
-            onClick={() => setLocale(localeItem)}
-          >
-            <span>
-              {/* Yerel ayar - örn. FR */}
-              {localeItem}
-            </span>
-            <span>
-              {/* Kendi yerel ayarındaki dil - örn. Français */}
-              {getLocaleName(localeItem, locale)}
-            </span>
-            <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
-              {/* Geçerli yerel ayar set edildiğinde dil - örn. Locales.SPANISH set edildiğinde Francés */}
-              {getLocaleName(localeItem)}
-            </span>
-            <span dir="ltr" lang={Locales.ENGLISH}>
-              {/* İngilizce'deki dil - örn. French */}
-              {getLocaleName(localeItem, Locales.ENGLISH)}
-            </span>
-          </Link>
-        ))}
-      </div>
-    </div>
-  );
-};
-```
-
-```jsx fileName="src/components/LanguageSwitcher.msx" codeFormat="commonjs"
-const {
-  Locales,
-  getHTMLTextDir,
-  getLocaleName,
-  getLocalizedUrl,
-} = require("intlayer");
-const { useLocalePageRouter } = require("next-intlayer");
-const Link = require("next/link");
-
-const LocaleSwitcher = () => {
-  const { locale, pathWithoutLocale, availableLocales } = useLocalePageRouter();
-
-  return (
-    <select>
-      {availableLocales.map((localeItem) => (
-        <option value={localeItem} key={localeItem}>
-          <Link
-            href={getLocalizedUrl(pathWithoutLocale, localeItem)}
-            hrefLang={localeItem}
-            aria-current={locale === localeItem ? "page" : undefined}
-            onClick={() => setLocale(localeItem)}
-          >
-            <span>
-              {/* Yerel ayar - örn. FR */}
-              {localeItem}
-            </span>
-            <span>
-              {/* Kendi yerel ayarındaki dil - örn. Français */}
-              {getLocaleName(localeItem, locale)}
-            </span>
-            <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
-              {/* Geçerli yerel ayar set edildiğinde dil - örn. Locales.SPANISH set edildiğinde Francés */}
-              {getLocaleName(localeItem)}
-            </span>
-            <span dir="ltr" lang={Locales.ENGLISH}>
-              {/* İngilizce'deki dil - örn. French */}
-              {getLocaleName(localeItem, Locales.ENGLISH)}
-            </span>
-          </Link>
-        </option>
-      ))}
-    </select>
   );
 };
 ```
@@ -1284,7 +742,7 @@ Bu davranış birkaç nedenden dolayı kullanışlıdır:
 
 Aşağıda, TypeScript'te yerelleştirilmiş bir `Link` bileşeninin uygulanması bulunmaktadır:
 
-```tsx fileName="src/components/Link.tsx" codeFormat="typescript"
+```tsx fileName="src/components/Link.tsx" codeFormat={["typescript", "esm"]}
 "use client";
 
 import { getLocalizedUrl } from "intlayer";
@@ -1323,76 +781,6 @@ export const Link = forwardRef<
 });
 
 Link.displayName = "Link";
-```
-
-```jsx fileName="src/components/Link.mjx" codeFormat="esm"
-'use client';
-
-import { getLocalizedUrl } from 'intlayer';
-import NextLink, { type LinkProps as NextLinkProps } from 'next/link';
-import { useLocale } from "next-intlayer";
-import { forwardRef, PropsWithChildren, type ForwardedRef } from 'react';
-
-/**
- * Verilen bir URL'nin harici olup olmadığını kontrol eden yardımcı fonksiyon.
- * URL http:// veya https:// ile başlıyorsa, harici olarak kabul edilir.
- */
-export const checkIsExternalLink = (href) => /^https?:\/\//.test(href ?? '');
-
-/**
- * Href özelliğini mevcut yerel ayar temelinde uyarlayan özel bir Link bileşeni.
- * Dahili bağlantılar için, `getLocalizedUrl` kullanarak URL'yi yerel ayar ile önekler (örneğin, /fr/hakkinda).
- * Bu, navigasyonun aynı yerel ayar bağlamında kalmasını sağlar.
- */
-export const Link = forwardRef(({ href, children, ...props }, ref) => {
-  const { locale } = useLocale();
-  const isExternalLink = checkIsExternalLink(href.toString());
-
-  // Bağlantı dahili ise ve geçerli bir href sağlanmışsa, yerelleştirilmiş URL'yi alın.
-  const hrefI18n =
-    href && !isExternalLink ? getLocalizedUrl(href.toString(), locale) : href;
-
-  return (
-    <NextLink href={hrefI18n} ref={ref} {...props}>
-      {children}
-    </NextLink>
-  );
-});
-
-Link.displayName = 'Link';
-```
-
-```jsx fileName="src/components/Link.csx" codeFormat="commonjs"
-'use client';
-
-const { getLocalizedUrl } = require("intlayer");
-const NextLink = require("next/link");
-const { useLocale } = require("next-intlayer");
-const { forwardRef } = require("react");
-
-/**
- * Verilen bir URL'nin harici olup olmadığını kontrol eden yardımcı fonksiyon.
- * URL http:// veya https:// ile başlıyorsa, harici olarak kabul edilir.
- */
-const checkIsExternalLink = (href) => /^https?:\/\//.test(href ?? '');
-
-
-const Link = forwardRef(({ href, children, ...props }, ref) => {
-  const { locale } = useLocale();
-  const isExternalLink = checkIsExternalLink(href.toString());
-
-  // Bağlantı dahili ise ve geçerli bir href sağlanmışsa, yerelleştirilmiş URL'yi alın.
-  const hrefI18n: NextLinkProps['href'] =
-    href && !isExternalLink ? getLocalizedUrl(href.toString(), locale) : href;
-
-  return (
-    <NextLink href={hrefI18n} ref={ref} {...props}>
-      {children}
-    </NextLink>
-  );
-});
-
-Link.displayName = 'Link';
 ```
 
 #### Nasıl Çalışır

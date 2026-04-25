@@ -65,53 +65,9 @@ t(translations: Record<string, string>): string;
 
 Разместите промежуточное ПО `app.use("*", intlayer())` **перед любыми маршрутами** в вашем приложении, чтобы все маршруты могли использовать преимущества интернационализации:
 
-```typescript {6} fileName="src/index.ts" codeFormat="typescript"
+```typescript {6} fileName="src/index.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Hono } from "hono";
 import { intlayer } from "hono-intlayer";
-
-const app = new Hono();
-
-// Загрузка обработчика запросов интернационализации
-app.use("*", intlayer());
-
-// Определяйте свои маршруты после загрузки промежуточного ПО
-app.get("/", (c) => {
-  return c.text(
-    t({
-      en: "Hello, World!",
-      fr: "Bonjour le monde!",
-      es: "¡Hola, Mundo!",
-      ru: "Привет, мир!",
-    })
-  );
-});
-```
-
-```javascript {6} fileName="src/index.mjs" codeFormat="esm"
-import { Hono } from "hono";
-import { intlayer } from "hono-intlayer";
-
-const app = new Hono();
-
-// Загрузка обработчика запросов интернационализации
-app.use("*", intlayer());
-
-// Определяйте свои маршруты после загрузки промежуточного ПО
-app.get("/", (c) => {
-  return c.text(
-    t({
-      en: "Hello, World!",
-      fr: "Bonjour le monde!",
-      es: "¡Hola, Mundo!",
-      ru: "Привет, мир!",
-    })
-  );
-});
-```
-
-```javascript {6} fileName="src/index.cjs" codeFormat="commonjs"
-const { Hono } = require("hono");
-const { intlayer, t } = require("hono-intlayer");
 
 const app = new Hono();
 

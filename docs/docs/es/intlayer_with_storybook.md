@@ -336,7 +336,7 @@ export default preview;
 
 Crea un archivo `*.content.ts` al lado de cada componente. Intlayer lo detecta automáticamente durante la compilación.
 
-```typescript fileName="src/components/CopyButton/CopyButton.content.ts" codeFormat="typescript"
+```typescript fileName="src/components/CopyButton/CopyButton.content.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { type Dictionary, t } from "intlayer";
 
 const copyButtonContent = {
@@ -351,42 +351,6 @@ const copyButtonContent = {
 } satisfies Dictionary;
 
 export default copyButtonContent;
-```
-
-```javascript fileName="src/components/CopyButton/CopyButton.content.mjs" codeFormat="esm"
-import { t } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const copyButtonContent = {
-  key: "copy-button",
-  content: {
-    label: t({
-      en: "Copy content",
-      fr: "Copier le contenu",
-      es: "Copiar contenido",
-    }),
-  },
-};
-
-export default copyButtonContent;
-```
-
-```javascript fileName="src/components/CopyButton/CopyButton.content.cjs" codeFormat="commonjs"
-const { t } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const copyButtonContent = {
-  key: "copy-button",
-  content: {
-    label: t({
-      en: "Copy content",
-      fr: "Copier le contenu",
-      es: "Copiar contenido",
-    }),
-  },
-};
-
-module.exports = copyButtonContent;
 ```
 
 > Para obtener más formatos y funciones de declaración de contenido, consulta la [documentación de declaración de contenido](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/content_file.md).

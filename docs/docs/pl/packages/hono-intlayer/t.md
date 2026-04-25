@@ -65,53 +65,9 @@ Aby zapewnić poprawne działanie funkcji internacjonalizacji dostarczanych prze
 
 Umieść oprogramowanie pośredniczące `app.use("*", intlayer())` **przed jakimikolwiek trasami** w swojej aplikacji, aby upewnić się, że wszystkie trasy korzystają z internacjonalizacji:
 
-```typescript {6} fileName="src/index.ts" codeFormat="typescript"
+```typescript {6} fileName="src/index.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Hono } from "hono";
 import { intlayer } from "hono-intlayer";
-
-const app = new Hono();
-
-// Załaduj obsługę żądań internacjonalizacji
-app.use("*", intlayer());
-
-// Zdefiniuj trasy po załadowaniu oprogramowania pośredniczącego
-app.get("/", (c) => {
-  return c.text(
-    t({
-      en: "Hello, World!",
-      fr: "Bonjour le monde!",
-      es: "¡Hola, Mundo!",
-      pl: "Witaj świecie!",
-    })
-  );
-});
-```
-
-```javascript {6} fileName="src/index.mjs" codeFormat="esm"
-import { Hono } from "hono";
-import { intlayer } from "hono-intlayer";
-
-const app = new Hono();
-
-// Załaduj obsługę żądań internacjonalizacji
-app.use("*", intlayer());
-
-// Zdefiniuj trasy po załadowaniu oprogramowania pośredniczącego
-app.get("/", (c) => {
-  return c.text(
-    t({
-      en: "Hello, World!",
-      fr: "Bonjour le monde!",
-      es: "¡Hola, Mundo!",
-      pl: "Witaj świecie!",
-    })
-  );
-});
-```
-
-```javascript {6} fileName="src/index.cjs" codeFormat="commonjs"
-const { Hono } = require("hono");
-const { intlayer, t } = require("hono-intlayer");
 
 const app = new Hono();
 

@@ -61,7 +61,7 @@ Un diccionario es una colección estructurada de contenido organizada por claves
 
 Ejemplo de archivo de contenido:
 
-```tsx fileName="src/example.content.tsx" contentDeclarationFormat="typescript"
+```tsx fileName="src/example.content.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { type ReactNode } from "react";
 import {
   t,
@@ -140,106 +140,6 @@ export default {
     jsxContent: <h1>Mi título</h1>,
   },
 } satisfies Dictionary<Content>; // [opcional] Dictionary es genérico y te permite reforzar el formato de tu diccionario
-```
-
-```javascript fileName="src/example.content.mjx" contentDeclarationFormat="esm"
-import { t, enu, cond, nest, md, insert, file } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-export default {
-  key: "page",
-  content: {
-    imbricatedContent: {
-      imbricatedContent2: {
-        stringContent: "Hello World",
-        numberContent: 123,
-        booleanContent: true,
-        javaScriptContent: `${process.env.NODE_ENV}`,
-      },
-      imbricatedArray: [1, 2, 3],
-    },
-    multilingualContent: t({
-      en: "English content",
-      "en-GB": "English content (UK)",
-      fr: "Contenido en francés",
-      es: "Contenido en español",
-    }),
-    quantityContent: enu({
-      "<-1": "Menos de menos un coche",
-      "-1": "Menos un coche",
-      "0": "Sin coches",
-      "1": "Un coche",
-      ">5": "Algunos coches",
-      ">19": "Muchos coches",
-    }),
-    conditionalContent: cond({
-      true: "La validación está habilitada",
-      false: "La validación está deshabilitada",
-    }),
-    insertionContent: insert("¡Hola {{name}}!"),
-    nestedContent: nest(
-      "navbar", // La clave del diccionario para anidar
-      "login.button" // [Opcional] La ruta al contenido para anidar
-    ),
-    markdownContent: md("# Ejemplo de Markdown"),
-    htmlContent: html("<p>Hello <strong>World</strong></p>"),
-    fileContent: file("./path/to/file.txt"),
-    externalContent: fetch("https://example.com").then((res) => res.json())
-
-    // Solo disponible usando `react-intlayer` o `next-intlayer`
-    jsxContent: <h1>Mi título</h1>,
-  },
-};
-```
-
-```javascript fileName="src/example.content.cjx" contentDeclarationFormat="commonjs"
-const { t, enu, cond, nest, md, insert, file } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-module.exports = {
-  key: "page",
-  content: {
-    imbricatedContent: {
-      imbricatedContent2: {
-        stringContent: "Hola Mundo",
-        numberContent: 123,
-        booleanContent: true,
-        javaScriptContent: `${process.env.NODE_ENV}`,
-      },
-      imbricatedArray: [1, 2, 3],
-    },
-    multilingualContent: t({
-      es: "Contenido en español",
-      en: "English content",
-      "en-GB": "English content (UK)",
-      fr: "French content",
-    }),
-    quantityContent: enu({
-      "<-1": "Menos de menos un coche",
-      "-1": "Menos un coche",
-      "0": "Ningún coche",
-      "1": "Un coche",
-      ">5": "Algunos coches",
-      ">19": "Muchos coches",
-    }),
-    conditionalContent: cond({
-      true: "La validación está habilitada",
-      false: "La validación está deshabilitada",
-    }),
-    insertionContent: insert("¡Hola {{name}}!"),
-    nestedContent: nest(
-      "navbar", // La clave del diccionario para anidar
-      "login.button" // [Opcional] La ruta al contenido para anidar
-    ),
-    markdownContent: md("# Ejemplo de Markdown"),
-    htmlContent: html("<p>Hello <strong>World</strong></p>"),
-    fileContent: file("./path/to/file.txt"),
-    externalContent: fetch("https://example.com").then((res) => res.json())
-
-    // Solo disponible usando `react-intlayer` o `next-intlayer`
-    jsxContent: <h1>Mi título</h1>,
-  },
-};
 ```
 
 ```json5 fileName="src/example.content.json"  contentDeclarationFormat="json"
@@ -935,7 +835,7 @@ Puedes sin problema imbricar funciones dentro de otras.
 
 Ejemplo:
 
-```javascript fileName="src/example.content.tsx" contentDeclarationFormat="typescript"
+```javascript fileName="src/example.content.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, enu, cond, nest, md, type Dictionary } from "intlayer";
 
 const getName = async () => "John Doe";
@@ -981,137 +881,6 @@ export default {
     }),
   },
 } satisfies Dictionary;
-```
-
-```javascript fileName="src/example.content.mjx" contentDeclarationFormat="esm"
-import { t, enu, cond, nest, md } from "intlayer";
-
-const getName = async () => "John Doe";
-
-/** @type {import('intlayer').Dictionary} */
-export default {
-  key: "page",
-  content: {
-    // `getIntlayer('page','en').hiMessage` devuelve `['Hola', ' ', 'John Doe']`
-    hiMessage: [
-      t({
-        en: "Hi",
-        fr: "Salut",
-        es: "Hola",
-      }),
-      " ",
-      getName(),
-    ],
-    // Contenido compuesto que imbrica condición, enumeración y contenido multilingüe
-    // `getIntlayer('page','en').advancedContent(true)(10)` devuelve 'Se encontraron múltiples artículos'
-    advancedContent: cond({
-      true: enu({
-        "0": t({
-          en: "No items found",
-          fr: "Aucun article trouvé",
-          es: "No se encontraron artículos",
-        }),
-        "1": t({
-          en: "One item found",
-          fr: "Un article trouvé",
-          es: "Se encontró un artículo",
-        }),
-        ">1": t({
-          en: "Multiple items found",
-          fr: "Plusieurs articles trouvés",
-          es: "Se encontraron múltiples artículos",
-        }),
-      }),
-      false: t({
-        en: "No valid data available",
-        fr: "Aucune donnée valide disponible",
-        es: "No hay datos válidos disponibles",
-      }),
-    }),
-  },
-};
-```
-
-```javascript fileName="src/example.content.cjx" contentDeclarationFormat="commonjs"
-const { t, enu, cond, nest, md } = require("intlayer");
-
-const getName = async () => "John Doe";
-
-/** @type {import('intlayer').Dictionary} */
-module.exports = {
-  key: "page",
-  content: {
-    // `getIntlayer('page','en').hiMessage` devuelve `['Hola', ' ', 'John Doe']`
-    hiMessage: [
-      t({
-        en: "Hi",
-        fr: "Salut",
-        es: "Hola",
-      }),
-      " ",
-      getName(),
-    ],
-    // Contenido compuesto que imbrica condición, enumeración y contenido multilingüe
-    // `getIntlayer('page','en').advancedContent(true)(10)` devuelve 'Se encontraron múltiples artículos'
-    advancedContent: cond({
-      true: enu({
-        "0": t({
-          en: "No items found",
-          fr: "Aucun article trouvé",
-          es: "No se encontraron artículos",
-        }),
-        "1": t({
-          en: "One item found",
-          fr: "Un article trouvé",
-          es: "Se encontró un artículo",
-        }),
-        ">1": t({
-          en: "Multiple items found",
-          fr: "Plusieurs articles trouvés",
-          es: "Se encontraron múltiples artículos",
-        }),
-      }),
-      false: t({
-        en: "No valid data available",
-        fr: "Aucune donnée valide disponible",
-        es: "No hay datos válidos disponibles",
-      }),
-    }),
-  },
-};
-        es: "Hola",
-      }),
-      " ",
-      getName(),
-    ],
-    // Contenido compuesto que imbrica condición, enumeración y contenido multilingüe
-    // `getIntlayer('page','en').advancedContent(true)(10) devuelve 'Se encontraron múltiples artículos'`
-    advancedContent: cond({
-      true: enu({
-        "0": t({
-          en: "No items found",
-          fr: "Aucun article trouvé",
-          es: "No se encontraron artículos",
-        }),
-        "1": t({
-          en: "One item found",
-          fr: "Un article trouvé",
-          es: "Se encontró un artículo",
-        }),
-        ">1": t({
-          en: "Multiple items found",
-          fr: "Plusieurs articles trouvés",
-          es: "Se encontraron múltiples artículos",
-        }),
-      }),
-      false: t({
-        en: "No valid data available",
-        fr: "Aucune donnée valide disponible",
-        es: "No hay datos válidos disponibles",
-      }),
-    }),
-  },
-};
 ```
 
 ```json5 fileName="src/example.content.json"  contentDeclarationFormat="json"

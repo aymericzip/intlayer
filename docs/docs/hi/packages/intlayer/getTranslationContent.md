@@ -49,40 +49,13 @@ history:
 
 ### बुनियादी उपयोग
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getTranslation, Locales } from "intlayer";
 
 const content = getTranslation(
   {
     en: "Hello",
     fr: "Bonjour",
-  },
-  Locales.ENGLISH
-);
-
-console.log(content); // आउटपुट: "Bonjour"
-```
-
-```javascript codeFormat="esm"
-import { getTranslation, Locales } from "intlayer";
-
-const content = getTranslation(
-  {
-    en: "Hello",
-    fr: "Bonjour",
-  },
-  Locales.ENGLISH
-);
-
-console.log(content); // आउटपुट: "Bonjour"
-```
-
-```javascript codeFormat="commonjs"
-const { getTranslation, Locales } = require("intlayer");
-
-const content = getTranslation(
-  {
-    en: "Hello",
   },
   Locales.ENGLISH
 );
@@ -92,36 +65,8 @@ console.log(content); // आउटपुट: "Bonjour"
 
 ### गायब लोकल:
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getTranslation, Locales } from "intlayer";
-
-const content = getTranslation(
-  {
-    en: "Hello",
-    fr: "Bonjour",
-  },
-  Locales.SPANISH
-);
-
-console.log(content); // आउटपुट: "Hello" (डिफ़ॉल्ट लोकल सामग्री)
-```
-
-```javascript codeFormat="esm"
-import { getTranslation, Locales } from "intlayer";
-
-const content = getTranslation(
-  {
-    en: "Hello",
-    fr: "Bonjour",
-  },
-  Locales.SPANISH
-);
-
-console.log(content); // आउटपुट: "Hello" (डिफ़ॉल्ट लोकल सामग्री)
-```
-
-```javascript codeFormat="commonjs"
-const { getTranslation, Locales } = require("intlayer");
 
 const content = getTranslation(
   {
@@ -136,36 +81,8 @@ console.log(content); // आउटपुट: "Hello" (डिफ़ॉल्ट �
 
 ### कस्टम कंटेंट प्रकारों का उपयोग:
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getTranslation, Locales } from "intlayer";
-
-const customContent = getTranslation<Record<string, string>>(
-  {
-    en: { greeting: "Hello" },
-    fr: { greeting: "Bonjour" },
-  },
-  Locales.FRENCH
-);
-
-console.log(customContent.greeting); // आउटपुट: "Bonjour"
-```
-
-```javascript codeFormat="esm"
-import { getTranslation, Locales } from "intlayer";
-
-const customContent = getTranslation<Record<string, string>>(
-  {
-    en: { greeting: "Hello" },
-    fr: { greeting: "Bonjour" },
-  },
-  Locales.FRENCH
-);
-
-console.log(customContent.greeting); // आउटपुट: "Bonjour"
-```
-
-```javascript codeFormat="commonjs"
-const { getTranslation, Locales } = require("intlayer");
 
 const customContent = getTranslation<Record<string, string>>(
   {

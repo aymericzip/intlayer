@@ -90,7 +90,7 @@ bun add intlayer-editor --dev
 
 Intlayer 구성 파일에서 편집기 설정을 사용자 정의할 수 있습니다:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import type { IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -125,77 +125,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... 기타 구성 설정
-  editor: {
-    /**
-     * 필수
-     * 애플리케이션의 URL.
-     * 시각적 편집기가 대상으로 하는 URL입니다.
-     * 예: 'http://localhost:3000'
-     */
-    applicationURL: process.env.INTLAYER_APPLICATION_URL,
-    /**
-     * 선택 사항
-     * 기본값은 `true`입니다. `false`로 설정하면 편집기가 비활성화되어 접근할 수 없습니다.
-     * 보안상의 이유로 특정 환경(예: 프로덕션)에서 편집기를 비활성화하는 데 사용할 수 있습니다.
-     */
-    enabled: process.env.INTLAYER_ENABLED,
-    /**
-     * 선택 사항
-     * 기본값은 `8000`입니다.
-     * 시각적 편집기 서버가 사용하는 포트입니다.
-     */
-    port: process.env.INTLAYER_PORT,
-    /**
-     * 선택 사항
-     * 기본값은 "http://localhost:8000"입니다.
-     * 애플리케이션에서 접근할 수 있는 편집기 서버의 URL입니다. 보안상의 이유로 애플리케이션과 상호작용할 수 있는 출처를 제한하는 데 사용됩니다. `'*'`로 설정하면 모든 출처에서 편집기에 접근할 수 있습니다. 포트가 변경되거나 편집기가 다른 도메인에 호스팅되는 경우 설정해야 합니다.
-     */
-    editorURL: process.env.INTLAYER_EDITOR_URL,
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... 기타 구성 설정
-  editor: {
-    /**
-     * 필수
-     * 애플리케이션의 URL.
-     * 시각적 편집기가 대상으로 하는 URL입니다.
-     */
-    applicationURL: process.env.INTLAYER_APPLICATION_URL,
-    /**
-     * 선택 사항
-     * 기본값은 `8000`입니다.
-     * 편집기 서버의 포트입니다.
-     */
-    port: process.env.INTLAYER_PORT,
-    /**
-     * 선택 사항
-     * 기본값은 "http://localhost:8000"입니다.
-     * 편집기 서버의 URL입니다.
-     */
-    editorURL: process.env.INTLAYER_EDITOR_URL,
-    /**
-     * 선택 사항
-     * 기본값은 `true`입니다. `false`로 설정하면 편집기가 비활성화되어 접근할 수 없습니다.
-     * 보안상의 이유로 특정 환경(예: 프로덕션)에서 편집기를 비활성화하는 데 사용할 수 있습니다.
-     */
-    enabled: process.env.INTLAYER_ENABLED,
-  },
-};
-
-module.exports = config;
 ```
 
 > 사용 가능한 모든 매개변수를 보려면 [구성 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)를 참조하세요.

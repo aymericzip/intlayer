@@ -657,7 +657,7 @@ export const Route = createFileRoute("/{-$locale}/$")({
 
 Щоб налаштувати його, ви можете додати розділ `compiler` у свій файл `intlayer.config.ts`:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -690,74 +690,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... Решта вашої конфігурації
-  compiler: {
-    /**
-     * Вказує, чи слід увімкнути компілятор.
-     */
-    enabled: true,
-
-    /**
-     * Визначає шлях до вихідних файлів
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * Вказує, чи слід зберігати компоненти після їх трансформації.
-     *
-     * - Якщо `true`, компілятор перезапише файл компонента на диску. Таким чином, трансформація буде постійною, і компілятор пропустить трансформацію для наступного процесу. У такий спосіб компілятор може трансформувати додаток, після чого його можна буде видалити.
-     *
-     * - Якщо `false`, компілятор вставить виклик функції `useIntlayer()` у код лише у вихідних даних збірки, зберігши базову кодову базу недоторканою. Трансформація проводитиметься лише в пам'яті.
-     */
-    saveComponents: false,
-
-    /**
-     * Префікс ключа словника
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... Решта вашої конфігурації
-  compiler: {
-    /**
-     * Вказує, чи слід увімкнути компілятор.
-     */
-    enabled: true,
-
-    /**
-     * Визначає шлях до вихідних файлів
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * Вказує, чи слід зберігати компоненти після їх трансформації.
-     *
-     * - Якщо `true`, компілятор перезапише файл компонента на диску. Таким чином, трансформація буде постійною, і компілятор пропустить трансформацію для наступного процесу. У такий спосіб компілятор може трансформувати додаток, після чого його можна буде видалити.
-     *
-     * - Якщо `false`, компілятор вставить виклик функції `useIntlayer()` у код лише у вихідних даних збірки, зберігши базову кодову базу недоторканою. Трансформація проводитиметься лише в пам'яті.
-     */
-    saveComponents: false,
-
-    /**
-     * Префікс ключа словника
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-module.exports = config;
 ```
 
 <Tabs>

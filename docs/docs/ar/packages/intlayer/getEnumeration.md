@@ -50,7 +50,7 @@ history:
 
 ### الاستخدام الأساسي
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getEnumeration } from "intlayer";
 
 const content = getEnumeration(
@@ -66,68 +66,10 @@ const content = getEnumeration(
 console.log(content); // الناتج: "لديك اثنان"
 ```
 
-```javascript codeFormat="esm"
-import { getEnumeration } from "intlayer";
-
-const content = getEnumeration(
-  {
-    "<1": "لديك أقل من واحد",
-    "2": "لديك اثنان",
-    ">=3": "لديك ثلاثة أو أكثر",
-  },
-  2
-);
-
-console.log(content); // الناتج: "لديك اثنان"
-```
-
-```javascript codeFormat="commonjs"
-const { getEnumeration } = require("intlayer");
-
-const content = getEnumeration(
-  {
-    "<1": "لديك أقل من واحد",
-    "2": "لديك اثنان",
-    ">=3": "لديك ثلاثة أو أكثر",
-  },
-  2
-);
-
-console.log(content); // الناتج: "لديك اثنان"
-```
-
 ### أولوية الشروط
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getEnumeration } from "intlayer";
-
-const content = getEnumeration(
-  {
-    "<4": "لديك أقل من أربعة",
-    "2": "لديك اثنان",
-  },
-  2
-);
-
-console.log(content); // الناتج: "لديك أقل من أربعة"
-```
-
-```javascript codeFormat="esm"
-import { getEnumeration } from "intlayer";
-
-const content = getEnumeration(
-  {
-    "<4": "لديك أقل من أربعة",
-    "2": "لديك اثنان",
-  },
-  2
-);
-
-console.log(content); // الناتج: "لديك أقل من أربعة"
-```
-
-```javascript codeFormat="commonjs"
-const { getEnumeration } = require("intlayer");
 
 const content = getEnumeration(
   {

@@ -66,7 +66,7 @@ t(translations: Record<string, string>): string;
 
 애플리케이션 내 모든 라우트가 국제화의 혜택을 받을 수 있도록 `app.use(intlayer())` 미들웨어를 **모든 라우트보다 먼저** 배치하세요:
 
-````typescript {7} fileName="src/index.ts" codeFormat="typescript"
+````typescript {7} fileName="src/index.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import express, { type Express } from "express";
 import { intlayer } from "express-intlayer";
 
@@ -102,48 +102,6 @@ app.get("/", (_req, res) => {
   );
 });
 ````
-
-```javascript {7} fileName="src/index.mjs" codeFormat="esm"
-import express from "express";
-import { intlayer } from "express-intlayer";
-
-const app = express();
-
-// 국제화 요청 핸들러 로드
-app.use(intlayer());
-
-// 미들웨어 로드 후 라우트 정의
-app.get("/", (_req, res) => {
-  res.send(
-    t({
-      en: "Hello, World!",
-      fr: "Bonjour le monde!",
-      es: "¡Hola, Mundo!",
-    })
-  );
-});
-```
-
-```javascript {7} fileName="src/index.cjs" codeFormat="commonjs"
-const express = require("express");
-const { intlayer } = require("express-intlayer");
-
-const app = express();
-
-// 국제화 요청 핸들러 로드
-app.use(intlayer());
-
-// 미들웨어 로드 후 라우트 정의
-app.get("/", (_req, res) => {
-  res.send(
-    t({
-      en: "Hello, World!",
-      fr: "Bonjour le monde!",
-      es: "¡Hola, Mundo!",
-    })
-  );
-});
-```
 
 ### 이 작업이 필요한 이유
 
@@ -230,35 +188,11 @@ app.get("/", (_req, res) => {
 
 여러 언어로 오류 메시지를 제공합니다:
 
-```typescript fileName="src/index.ts" codeFormat="typescript"
+```typescript fileName="src/index.ts" codeFormat={["typescript", "esm", "commonjs"]}
 app.get("/error", (_req, res) => {
   res.status(500).send(
     t({
       en: "An unexpected error occurred.",
-      fr: "Une erreur inattendue s'est produite.",
-      es: "Ocurrió un error inesperado.",
-    })
-  );
-});
-```
-
-```javascript fileName="src/index.mjs" codeFormat="esm"
-app.get("/error", (_req, res) => {
-  res.status(500).send(
-    t({
-      en: "An unexpected error occurred.",
-      fr: "Une erreur inattendue s'est produite.",
-      es: "Ocurrió un error inesperado.",
-    })
-  );
-});
-```
-
-```javascript fileName="src/index.cjs" codeFormat="commonjs"
-app.get("/error", (_req, res) => {
-  res.status(500).send(
-    t({
-      en: "예기치 않은 오류가 발생했습니다.",
       fr: "Une erreur inattendue s'est produite.",
       es: "Ocurrió un error inesperado.",
     })
@@ -322,7 +256,7 @@ app.get("/greet", (_req, res) => {
 
 선호하는 로케일을 사용할 수 없는 경우, `t` 함수는 구성에서 정의된 기본 로케일로 폴백합니다:
 
-```typescript {5-6} fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript {5-6} fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config = {
@@ -333,34 +267,6 @@ const config = {
 } satisfies IntlayerConfig;
 
 export default config;
-```
-
-```javascript {5-6} fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-```javascript {5-6} fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-module.exports = config;
 ```
 
 예를 들어:
@@ -382,7 +288,7 @@ module.exports = config;
 
 구성 예시:
 
-```typescript {7} fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript {7} fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { type IntlayerConfig } from "intlayer";
 
 const config = {
@@ -396,75 +302,16 @@ const config = {
 export default config;
 ```
 
-```javascript {7} fileName="intlayer.config.mjs" codeFormat="esm"
-import { type IntlayerConfig } from "intlayer";
-
-const config = {
-  // ... 기존 구성 유지
-  internationalization: {
-    // ... 기존 국제화 설정
-    strictMode: "strict", // 엄격 모드 적용
-  },
-};
-
-export default config;
-```
-
-```javascript {7} fileName="intlayer.config.cjs" codeFormat="commonjs"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... 기존 설정
-  internationalization: {
-    // ... 기존 국제화 설정
-    strictMode: "strict", // 엄격 모드 적용
-  },
-};
-
-module.exports = config;
-```
-
 ---
 
 ### TypeScript 통합
 
 ` t` 함수는 TypeScript와 함께 사용할 때 타입 안전성을 제공합니다. 타입 안전한 번역 객체를 정의하세요:
 
-```typescript fileName="src/index.ts" codeFormat="typescript"
+```typescript fileName="src/index.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { type LanguageContent } from "express-intlayer";
 
 const translations: LanguageContent<string> = {
-  en: "Good morning!",
-  fr: "Bonjour!",
-  es: "¡Buenos días!",
-};
-
-app.get("/morning", (_req, res) => {
-  res.send(t(translations));
-});
-```
-
-```javascript fileName="src/index.mjs" codeFormat="esm"
-import { type LanguageContent } from "express-intlayer";
-
-/** @type {import('express-intlayer').LanguageContent<string>} */
-// 다국어 번역 객체 정의
-const translations = {
-  en: "Good morning!",
-  fr: "Bonjour!",
-  es: "¡Buenos días!",
-};
-
-app.get("/morning", (_req, res) => {
-  res.send(t(translations));
-});
-```
-
-```javascript fileName="src/index.cjs" codeFormat="commonjs"
-const { type LanguageContent } = require("express-intlayer");
-
-/** @type {import('express-intlayer').LanguageContent<string>} */
-// 다국어 번역 객체 정의
-const translations = {
   en: "Good morning!",
   fr: "Bonjour!",
   es: "¡Buenos días!",

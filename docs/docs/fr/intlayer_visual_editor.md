@@ -88,7 +88,7 @@ bun add intlayer-editor --dev
 
 Dans votre fichier de configuration Intlayer, vous pouvez personnaliser les paramètres de l'éditeur :
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import type { IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -123,77 +123,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... autres paramètres de configuration
-  editor: {
-    /**
-     * Obligatoire
-     * L'URL de l'application.
-     * C'est l'URL ciblée par l'éditeur visuel.
-     * Exemple : 'http://localhost:3000'
-     */
-    applicationURL: process.env.INTLAYER_APPLICATION_URL,
-    /**
-     * Optionnel
-     * Par défaut à `true`. Si `false`, l'éditeur est inactif et ne peut pas être accessible.
-     * Peut être utilisé pour désactiver l'éditeur pour des environnements spécifiques pour des raisons de sécurité, comme la production.
-     */
-    enabled: process.env.INTLAYER_ENABLED,
-    /**
-     * Optionnel
-     * Par défaut à `8000`.
-     * Le port utilisé par le serveur de l'éditeur visuel.
-     */
-    port: process.env.INTLAYER_PORT,
-    /**
-     * Optionnel
-     * Par défaut à "http://localhost:8000"
-     * L'URL du serveur de l'éditeur pour accéder depuis l'application. Utilisé pour restreindre les origines pouvant interagir avec l'application pour des raisons de sécurité. Si défini à `'*'`, l'éditeur est accessible depuis n'importe quelle origine. Doit être défini si le port est modifié ou si l'éditeur est hébergé sur un domaine différent.
-     */
-    editorURL: process.env.INTLAYER_EDITOR_URL,
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... autres paramètres de configuration
-  editor: {
-    /**
-     * Obligatoire
-     * L'URL de l'application.
-     * C'est l'URL ciblée par l'éditeur visuel.
-     */
-    applicationURL: process.env.INTLAYER_APPLICATION_URL,
-    /**
-     * Optionnel
-     * Par défaut à `8000`.
-     * Le port du serveur de l'éditeur.
-     */
-    port: process.env.INTLAYER_PORT,
-    /**
-     * Optionnel
-     * Par défaut à "http://localhost:8000"
-     * L'URL du serveur de l'éditeur.
-     */
-    editorURL: process.env.INTLAYER_EDITOR_URL,
-    /**
-     * Optionnel
-     * Par défaut à `true`. Si `false`, l'éditeur est inactif et ne peut pas être accessible.
-     * Peut être utilisé pour désactiver l'éditeur pour des environnements spécifiques pour des raisons de sécurité, comme la production.
-     */
-    enabled: process.env.INTLAYER_ENABLED,
-  },
-};
-
-module.exports = config;
 ```
 
 > Pour voir tous les paramètres disponibles, consultez la [documentation de configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/configuration.md).

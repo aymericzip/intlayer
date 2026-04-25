@@ -32,7 +32,7 @@ Intlayer allows you to declare content functions in your content modules, which 
 
 Here's an example of a simple synchronous function fetching content:
 
-```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="**/*.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import type { Dictionary } from "intlayer";
 
 const functionContent = {
@@ -43,30 +43,6 @@ const functionContent = {
 } satisfies Dictionary;
 
 export default functionContent;
-```
-
-```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-/** @type {import('intlayer').Dictionary} */
-const functionContent = {
-  key: "function_content",
-  content: {
-    text: () => "This is the content rendered by a function",
-  },
-};
-
-export default functionContent;
-```
-
-```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-/** @type {import('intlayer').Dictionary} */
-const functionContent = {
-  key: "function_content",
-  content: {
-    text: () => "This is the content rendered by a function",
-  },
-};
-
-module.exports = functionContent;
 ```
 
 ```json fileName="**/*.content.json" contentDeclarationFormat="json"
@@ -87,7 +63,7 @@ In addition to synchronous functions, Intlayer supports asynchronous functions, 
 
 Below is an example of an asynchronous function that simulates a server fetch:
 
-```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="**/*.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { setTimeout } from "node:timers/promises";
 import type { Dictionary } from "intlayer";
 
@@ -104,42 +80,6 @@ const asyncFunctionContent = {
 } satisfies Dictionary;
 
 export default asyncFunctionContent;
-```
-
-```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-import { setTimeout } from "node:timers/promises";
-
-/** @type {import('intlayer').Dictionary} */
-const fakeFetch = async () => {
-  // Wait for 200ms to simulate a fetch from the server
-  await setTimeout(200);
-  return "This is the content fetched from the server";
-};
-
-const asyncFunctionContent = {
-  key: "async_function",
-  content: { text: fakeFetch },
-};
-
-export default asyncFunctionContent;
-```
-
-```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-const { setTimeout } = require("node:timers/promises");
-
-/** @type {import('intlayer').Dictionary} */
-const fakeFetch = async () => {
-  // Wait for 200ms to simulate a fetch from the server
-  await setTimeout(200);
-  return "This is the content fetched from the server";
-};
-
-const asyncFunctionContent = {
-  key: "async_function",
-  content: { text: fakeFetch },
-};
-
-module.exports = asyncFunctionContent;
 ```
 
 ```plaintext fileName="**/*.content.json" contentDeclarationFormat="json"

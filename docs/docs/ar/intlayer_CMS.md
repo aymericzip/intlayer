@@ -93,7 +93,7 @@ bun x intlayer login
 
 في ملف تهيئة Intlayer الخاص بك، يمكنك تخصيص إعدادات نظام إدارة المحتوى:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import type { IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -142,106 +142,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... إعدادات التكوين الأخرى
-  editor: {
-    /**
-     * مطلوب
-     *
-     * عنوان URL الخاص بالتطبيق.
-     * هذا هو عنوان URL المستهدف من قبل المحرر المرئي.
-     */
-    applicationURL: process.env.INTLAYER_APPLICATION_URL,
-
-    /**
-     * مطلوب
-     *
-     * معرف العميل والسر السري للعميل مطلوبان لتمكين المحرر.
-     * يسمحان بتحديد هوية المستخدم الذي يقوم بتحرير المحتوى.
-     * يمكن الحصول عليهما عن طريق إنشاء عميل جديد في لوحة تحكم Intlayer - المشاريع (https://app.intlayer.org/projects).
-     * clientId: process.env.INTLAYER_CLIENT_ID,
-     * clientSecret: process.env.INTLAYER_CLIENT_SECRET,
-     */
-    clientId: process.env.INTLAYER_CLIENT_ID,
-    clientSecret: process.env.INTLAYER_CLIENT_SECRET,
-
-    /**
-     * اختياري
-     *
-     * في حال كنت تستضيف نظام إدارة المحتوى Intlayer بنفسك، يمكنك تعيين عنوان URL الخاص بنظام إدارة المحتوى.
-     *
-     * عنوان URL الخاص بنظام إدارة محتوى Intlayer.
-     * بشكل افتراضي، يتم تعيينه إلى https://intlayer.org
-     */
-    cmsURL: process.env.INTLAYER_CMS_URL,
-
-    /**
-     * اختياري
-     *
-     * في حال كنت تستضيف نظام إدارة محتوى Intlayer بنفسك، يمكنك تعيين عنوان URL الخاص بالواجهة الخلفية.
-     *
-     * عنوان URL الخاص بنظام إدارة محتوى Intlayer.
-     * بشكل افتراضي، يتم تعيينه إلى https://back.intlayer.org
-     */
-    backendURL: process.env.INTLAYER_BACKEND_URL,
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... إعدادات التكوين الأخرى
-  editor: {
-    /**
-     * مطلوب
-     *
-     * عنوان URL الخاص بالتطبيق.
-     * هذا هو العنوان الذي يستهدفه المحرر المرئي.
-     */
-    applicationURL: process.env.INTLAYER_APPLICATION_URL,
-
-    /**
-     * مطلوب
-     *
-     * معرف العميل والسر السري للعميل مطلوبان لتمكين المحرر.
-     * يسمحان بتحديد هوية المستخدم الذي يقوم بتحرير المحتوى.
-     * يمكن الحصول عليهما عن طريق إنشاء عميل جديد في لوحة تحكم Intlayer - المشاريع (https://app.intlayer.org/projects).
-     * clientId: process.env.INTLAYER_CLIENT_ID,
-     * clientSecret: process.env.INTLAYER_CLIENT_SECRET,
-     */
-    clientId: process.env.INTLAYER_CLIENT_ID,
-    clientSecret: process.env.INTLAYER_CLIENT_SECRET,
-
-    /**
-     * اختياري
-     *
-     * في حال كنت تستضيف نظام إدارة محتوى Intlayer بنفسك، يمكنك تعيين عنوان URL الخاص بنظام إدارة المحتوى.
-     *
-     * عنوان URL الخاص بنظام إدارة محتوى Intlayer.
-     * بشكل افتراضي، يتم تعيينه إلى https://intlayer.org
-     */
-    cmsURL: process.env.INTLAYER_CMS_URL,
-
-    /**
-     * اختياري
-     *
-     * في حال كنت تستضيف نظام إدارة محتوى Intlayer بنفسك، يمكنك تعيين عنوان URL الخاص بالخادم الخلفي.
-     *
-     * عنوان URL الخاص بنظام إدارة محتوى Intlayer.
-     * بشكل افتراضي، يتم تعيينه إلى https://back.intlayer.org
-     */
-    backendURL: process.env.INTLAYER_BACKEND_URL,
-  },
-};
-
-module.exports = config;
 ```
 
 > إذا لم يكن لديك معرف عميل وسر عميل، يمكنك الحصول عليهما بإنشاء عميل جديد في [لوحة تحكم Intlayer - المشاريع](https://app.intlayer.org/projects).
@@ -294,7 +194,7 @@ npx intlayer dictionary push -d my-first-dictionary-key --env production
 
 قم بتمكين التزامن الحي عن طريق تحديث تكوين Intlayer الخاص بك:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import type { IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -329,91 +229,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... إعدادات التكوين الأخرى
-  editor: {
-    /**
-     * يُمكّن إعادة التحميل السريع لتكوينات اللغة عند اكتشاف تغييرات.
-     * على سبيل المثال، عند إضافة قاموس أو تحديثه، يقوم التطبيق بتحديث
-     * المحتوى المعروض على الصفحة.
-     *
-     * نظرًا لأن إعادة التحميل السريع تتطلب اتصالًا مستمرًا بالخادم، فهي
-     * متاحة فقط لعملاء خطة `enterprise`.
-     *
-     * الافتراضي: false
-     */
-    liveSync: true,
-  },
-  dictionary: {
-    /**
-     * يتحكم في كيفية استيراد القواميس:
-     *
-     * - "live": يتم جلب القواميس ديناميكيًا باستخدام واجهة برمجة تطبيقات المزامنة الحية (Live Sync API).
-     *   يستبدل useIntlayer بـ useDictionaryDynamic.
-     *
-     * ملاحظة: يستخدم الوضع الحي واجهة برمجة تطبيقات المزامنة الحية لجلب القواميس. إذا فشل استدعاء الواجهة
-     * ملاحظة: فقط القواميس التي تحتوي على محتوى عن بُعد وعلامات "live" تستخدم الوضع الحي.
-     * يستخدم الآخرون الوضع الديناميكي من أجل الأداء.
-     */
-    importMode: "fetch",
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... إعدادات التكوين الأخرى
-  editor: {
-    /**
-     * يُمكّن إعادة التحميل السريع لتكوينات اللغة عند اكتشاف تغييرات.
-     * على سبيل المثال، عند إضافة قاموس أو تحديثه، يقوم التطبيق بتحديث
-     * المحتوى المعروض على الصفحة.
-     *
-     * نظرًا لأن إعادة التحميل السريع تتطلب اتصالًا مستمرًا بالخادم، فهي
-     * متاحة فقط لعملاء خطة `enterprise`.
-     *
-     * الافتراضي: false
-     */
-    liveSync: true,
-
-    /**
-     * منفذ خادم المزامنة الحية.
-     *
-     * الافتراضي: 4000
-     */
-    liveSyncPort: 4000,
-
-    /**
-     * عنوان URL الخاص بخادم المزامنة الحية.
-     *
-     * الافتراضي: http://localhost:{liveSyncPort}
-     */
-    liveSyncURL: "https://live.example.com",
-  },
-  dictionary: {
-    /**
-     * يتحكم في كيفية استيراد القواميس:
-     *
-     * - "live": يتم جلب القواميس ديناميكيًا باستخدام واجهة برمجة تطبيقات المزامنة الحية.
-     *   يستبدل useIntlayer بـ useDictionaryDynamic.
-     *
-     * ملاحظة: يستخدم الوضع الحي واجهة برمجة تطبيقات المزامنة الحية لجلب القواميس. إذا فشل استدعاء API،
-     * يتم استيراد القواميس ديناميكيًا.
-     * ملاحظة: فقط القواميس التي تحتوي على محتوى عن بُعد وعلامات "live" تستخدم الوضع الحي.
-     * القواميس الأخرى تستخدم الوضع الديناميكي لأداء أفضل.
-     */
-    importMode: "fetch",
-  },
-};
-
-module.exports = config;
 ```
 
 ابدأ خادم المزامنة الحية لتغليف تطبيقك:
@@ -473,7 +288,7 @@ module.exports = config;
 
 قم بتمكين التحسين حتى يطبق Intlayer تحولات الاستيراد الحي أثناء التطوير:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import type { IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -491,46 +306,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-/** @type {import('intlayer').IntlayerConfig} */
-// تكوين Intlayer مع إعدادات المزامنة الحية
-const config = {
-  editor: {
-    applicationURL: "http://localhost:5173",
-    liveSyncURL: "http://localhost:4000",
-    liveSync: true,
-  },
-  dictionary: {
-    importMode: "fetch",
-  },
-  build: {
-    optimize: true,
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-/** @type {import('intlayer').IntlayerConfig} */
-// تكوين Intlayer مع إعدادات المزامنة الحية
-const config = {
-  editor: {
-    applicationURL: "http://localhost:5173",
-    liveSyncURL: "http://localhost:4000",
-    liveSync: true,
-  },
-  dictionary: {
-    importMode: "fetch",
-  },
-  build: {
-    optimize: true,
-  },
-};
-
-module.exports = config;
 ```
 
 يقوم هذا الإعداد بتغليف خادم التطوير الخاص بك مع خادم المزامنة الحية، ويجلب القواميس البعيدة عند بدء التشغيل، ويقوم ببث التحديثات من نظام إدارة المحتوى عبر SSE. قم بتحديث الصفحة لرؤية التغييرات.

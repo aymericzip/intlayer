@@ -28,7 +28,7 @@ slugs:
 
 لإعداد المحتوى الشرطي في مشروع Intlayer الخاص بك، قم بإنشاء وحدة محتوى تتضمن تعريفاتك الشرطية. فيما يلي أمثلة بتنسيقات مختلفة.
 
-```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="**/*.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { cond, type Dictionary } from "intlayer";
 
 const myConditionalContent = {
@@ -43,42 +43,6 @@ const myConditionalContent = {
 } satisfies Dictionary;
 
 export default myConditionalContent;
-```
-
-```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-import { cond } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const myConditionalContent = {
-  key: "my_key",
-  content: {
-    myCondition: cond({
-      true: "المحتوى الخاص بي عندما يكون الشرط صحيحًا",
-      false: "المحتوى الخاص بي عندما يكون الشرط خاطئًا",
-      fallback: "المحتوى الخاص بي عندما يفشل الشرط", // اختياري
-    }),
-  },
-};
-
-export default myConditionalContent;
-```
-
-```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-const { cond } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const myConditionalContent = {
-  key: "my_key",
-  content: {
-    myCondition: cond({
-      true: "المحتوى الخاص بي عندما يكون الشرط صحيحًا",
-      false: "المحتوى الخاص بي عندما يكون الشرط خاطئًا",
-      fallback: "المحتوى الخاص بي عندما يفشل الشرط", // اختياري
-    }),
-  },
-};
-
-module.exports = myConditionalContent;
 ```
 
 ```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
@@ -104,7 +68,7 @@ module.exports = myConditionalContent;
 
 لاستخدام المحتوى الشرطي داخل مكون React، قم باستيراد واستخدام الخطاف `useIntlayer` من حزمة `react-intlayer`. يقوم هذا الخطاف بجلب المحتوى للمفتاح المحدد ويسمح لك بتمرير شرط لاختيار الإخراج المناسب.
 
-```tsx fileName="**/*.tsx" codeFormat="typescript"
+```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useIntlayer } from "react-intlayer";
 
@@ -142,84 +106,6 @@ const ConditionalComponent: FC = () => {
 };
 
 export default ConditionalComponent;
-```
-
-```javascript fileName="**/*.mjx" codeFormat="esm"
-import { useIntlayer } from "react-intlayer";
-
-const ConditionalComponent = () => {
-  const { myCondition } = useIntlayer("my_key");
-
-  return (
-    <div>
-      <p>
-        {
-          /* الإخراج: المحتوى الخاص بي عندما يكون الشرط صحيحًا */
-          myCondition(true)
-        }
-      </p>
-      <p>
-        {
-          /* الإخراج: المحتوى الخاص بي عندما يكون الشرط خاطئًا */
-          myCondition(false)
-        }
-      </p>
-      <p>
-        {
-          /* الإخراج: المحتوى الخاص بي عندما يفشل الشرط */
-          myCondition("")
-        }
-      </p>
-      <p>
-        {
-          /* الإخراج: المحتوى الخاص بي عندما يفشل الشرط */
-          myCondition(undefined)
-        }
-      </p>
-    </div>
-  );
-};
-
-export default ConditionalComponent;
-```
-
-```javascript fileName="**/*.cjs" codeFormat="commonjs"
-const { useIntlayer } = require("react-intlayer");
-
-const ConditionalComponent = () => {
-  const { myCondition } = useIntlayer("my_key");
-
-  return (
-    <div>
-      <p>
-        {
-          /* الإخراج: المحتوى الخاص بي عندما يكون الشرط صحيحًا */
-          myCondition(true)
-        }
-      </p>
-      <p>
-        {
-          /* الإخراج: المحتوى الخاص بي عندما يكون الشرط خاطئًا */
-          myCondition(false)
-        }
-      </p>
-      <p>
-        {
-          /* الإخراج: المحتوى الخاص بي عندما يفشل الشرط */
-          myCondition("")
-        }
-      </p>
-      <p>
-        {
-          /* الإخراج: المحتوى الخاص بي عندما يفشل الشرط */
-          myCondition(undefined)
-        }
-      </p>
-    </div>
-  );
-};
-
-module.exports = ConditionalComponent;
 ```
 
 ## موارد إضافية

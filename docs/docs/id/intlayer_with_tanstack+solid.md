@@ -657,7 +657,7 @@ Untuk mempermudah proses ini, Intlayer mengusulkan sebuah [konpiler](https://git
 
 Untuk mengaturnya, Anda dapat menambahkan bagian `compiler` di file `intlayer.config.ts` Anda:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -690,74 +690,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... Sisa konfigurasi Anda
-  compiler: {
-    /**
-     * Menandakan apakah kompiler harus diaktifkan.
-     */
-    enabled: true,
-
-    /**
-     * Mendefinisikan jalur file keluaran
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * Menandakan apakah komponen harus disimpan setelah ditransformasikan.
-     *
-     * - Jika `true`, kompiler akan menulis ulang file komponen di disk. Dengan demikian, transformasi akan permanen, dan kompiler akan melewati transformasi untuk proses selanjutnya. Dengan cara ini, kompiler dapat mentransformasi aplikasi dan kemudian dapat dihapus.
-     *
-     * - Jika `false`, kompiler hanya akan menyuntikkan pemanggilan fungsi `useIntlayer()` dalam kode hanya di output build, menjaga basis kode asli tetap utuh. Transformasi hanya akan dilakukan di memori.
-     */
-    saveComponents: false,
-
-    /**
-     * Prefiks kunci kamus
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... Sisa konfigurasi Anda
-  compiler: {
-    /**
-     * Menandakan apakah kompiler harus diaktifkan.
-     */
-    enabled: true,
-
-    /**
-     * Mendefinisikan jalur file keluaran
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * Menandakan apakah komponen harus disimpan setelah ditransformasikan.
-     *
-     * - Jika `true`, kompiler akan menulis ulang file komponen di disk. Dengan demikian, transformasi akan permanen, dan kompiler akan melewati transformasi untuk proses selanjutnya. Dengan cara ini, kompiler dapat mentransformasi aplikasi dan kemudian dapat dihapus.
-     *
-     * - Jika `false`, kompiler hanya akan menyuntikkan pemanggilan fungsi `useIntlayer()` dalam kode hanya di output build, menjaga basis kode asli tetap utuh. Transformasi hanya akan dilakukan di memori.
-     */
-    saveComponents: false,
-
-    /**
-     * Prefiks kunci kamus
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-module.exports = config;
 ```
 
 <Tabs>

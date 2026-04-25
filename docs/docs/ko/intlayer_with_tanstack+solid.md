@@ -658,7 +658,7 @@ export const Route = createFileRoute("/{-$locale}/$")({
 
 이를 설정하려면 `intlayer.config.ts` 파일에 `compiler` 섹션을 추가하면 됩니다.
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -691,74 +691,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... 나머지 구성
-  compiler: {
-    /**
-     * 컴파일러 사용 여부를 나타냅니다.
-     */
-    enabled: true,
-
-    /**
-     * 출력 파일 경로를 정의합니다.
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * 변환된 후 컴포넌트를 저장할지 여부를 나타냅니다.
-     *
-     * - `true`인 경우 컴파일러는 디스크의 컴포넌트 파일을 다시 씁니다. 따라서 변환은 영구적이 되고 컴파일러는 다음 프로세스에서 변환을 건너뜁니다. 이렇게 하면 컴파일러가 앱을 변환한 다음 제거할 수 있습니다.
-     *
-     * - `false`인 경우 컴파일러는 빌드 출력 코드에만 `useIntlayer()` 함수 호출을 주입하고 기본 코드베이스는 그대로 유지합니다. 변환은 메모리에서만 수행됩니다.
-     */
-    saveComponents: false,
-
-    /**
-     * 딕셔너리 키 접두사
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... 나머지 구성
-  compiler: {
-    /**
-     * 컴파일러 사용 여부를 나타냅니다.
-     */
-    enabled: true,
-
-    /**
-     * 출력 파일 경로를 정의합니다.
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * 변환된 후 컴포넌트를 저장할지 여부를 나타냅니다.
-     *
-     * - `true`인 경우 컴파일러는 디스크의 컴포넌트 파일을 다시 씁니다. 따라서 변환은 영구적이 되고 컴파일러는 다음 프로세스에서 변환을 건너뜁니다. 이렇게 하면 컴파일러가 앱을 변환한 다음 제거할 수 있습니다.
-     *
-     * - `false`인 경우 컴파일러는 빌드 출력 코드에만 `useIntlayer()` 함수 호출을 주입하고 기본 코드베이스는 그대로 유지합니다. 변환은 메모리에서만 수행됩니다.
-     */
-    saveComponents: false,
-
-    /**
-     * 딕셔너리 키 접두사
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-module.exports = config;
 ```
 
 <Tabs>

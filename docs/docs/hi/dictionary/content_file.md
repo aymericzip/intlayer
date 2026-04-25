@@ -58,7 +58,7 @@ Intlayer में एक कंटेंट फ़ाइल वह फ़ाइ
 
 कंटेंट फ़ाइल का उदाहरण:
 
-```tsx fileName="src/example.content.tsx" contentDeclarationFormat="typescript"
+```tsx fileName="src/example.content.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { type ReactNode } from "react";
 import {
   t,
@@ -139,107 +139,6 @@ export default {
     jsxContent: <h1>मेरा शीर्षक</h1>,
   },
 } satisfies Dictionary<Content>; // [वैकल्पिक] Dictionary सामान्य है और आपको अपने शब्दकोश के स्वरूपण को मजबूत करने की अनुमति देता है
-```
-
-```javascript fileName="src/example.content.mjx" contentDeclarationFormat="esm"
-import { t, enu, cond, nest, md, html, insert, file } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-export default {
-  key: "page",
-  content: {
-    imbricatedContent: {
-      imbricatedContent2: {
-        stringContent: "Hello World",
-        numberContent: 123,
-        booleanContent: true,
-        javaScriptContent: `${process.env.NODE_ENV}`,
-      },
-      imbricatedArray: [1, 2, 3],
-    },
-    multilingualContent: t({
-      en: "English content",
-      "en-GB": "English content (UK)",
-      fr: "French content",
-      es: "Spanish content",
-    }),
-    quantityContent: enu({
-      "<-1": "माइनस एक से कम कार",
-      "-1": "माइनस एक कार",
-      "0": "कोई कार नहीं",
-      "1": "एक कार",
-      ">5": "कुछ कारें",
-      ">19": "कई कारें",
-    }),
-    conditionalContent: cond({
-      true: "मान्यता सक्षम है",
-      false: "मान्यता अक्षम है",
-    }),
-    insertionContent: insert("नमस्ते {{name}}!"),
-    nestedContent: nest(
-      "navbar", // नेस्ट करने के लिए शब्दकोश की कुंजी
-      "login.button" // [वैकल्पिक] नेस्ट करने के लिए सामग्री का पथ
-    ),
-    markdownContent: md("# मार्कडाउन उदाहरण"),
-    htmlContent: html("<p>Hello <strong>World</strong></p>"),
-    fileContent: file("./path/to/file.txt"),
-    externalContent: fetch("https://example.com").then((res) => res.json())
-
-    // केवल `react-intlayer` या `next-intlayer` का उपयोग करते समय उपलब्ध
-    jsxContent: <h1>मेरा शीर्षक</h1>,
-  },
-};
-```
-
-```javascript fileName="src/example.content.cjx" contentDeclarationFormat="commonjs"
-const { t, enu, cond, nest, md, html, insert, file } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-module.exports = {
-  key: "page",
-  content: {
-    imbricatedContent: {
-      imbricatedContent2: {
-        stringContent: "Hello World",
-        numberContent: 123,
-        booleanContent: true,
-        javaScriptContent: `${process.env.NODE_ENV}`,
-      },
-      imbricatedArray: [1, 2, 3],
-    },
-    multilingualContent: t({
-      hi: "अंग्रेज़ी सामग्री",
-      en: "English content",
-      "en-GB": "English content (UK)",
-      fr: "French content",
-      es: "Spanish content",
-    }),
-    quantityContent: enu({
-      "<-1": "माइनस एक से कम कार",
-      "-1": "माइनस एक कार",
-      "0": "कोई कार नहीं",
-      "1": "एक कार",
-      ">5": "कुछ कारें",
-      ">19": "कई कारें",
-    }),
-    conditionalContent: cond({
-      true: "सत्यापन सक्षम है",
-      false: "सत्यापन अक्षम है",
-    }),
-    insertionContent: insert("नमस्ते {{name}}!"),
-    nestedContent: nest(
-      "navbar", // नेस्ट करने के लिए शब्दकोश की कुंजी
-      "login.button" // [वैकल्पिक] नेस्ट करने के लिए सामग्री का पथ
-    ),
-    markdownContent: md("# मार्कडाउन उदाहरण"),
-    htmlContent: html("<p>Hello <strong>World</strong></p>"),
-    fileContent: file("./path/to/file.txt"),
-    externalContent: fetch("https://example.com").then((res) => res.json())
-
-    // केवल `react-intlayer` या `next-intlayer` का उपयोग करते समय उपलब्ध
-    jsxContent: <h1>मेरा शीर्षक</h1>,
-  },
-};
 ```
 
 ```json5 fileName="src/example.content.json"  contentDeclarationFormat="json"
@@ -942,7 +841,7 @@ export default {
 
 उदाहरण :
 
-```javascript fileName="src/example.content.tsx" contentDeclarationFormat="typescript"
+```javascript fileName="src/example.content.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, enu, cond, nest, md, type Dictionary } from "intlayer";
 
 const getName = async () => "John Doe";
@@ -988,104 +887,6 @@ export default {
     }),
   },
 } satisfies Dictionary;
-```
-
-```javascript fileName="src/example.content.mjx" contentDeclarationFormat="esm"
-import { t, enu, cond, nest, md } from "intlayer";
-
-const getName = async () => "John Doe";
-
-/** @type {import('intlayer').Dictionary} */
-export default {
-  key: "page",
-  content: {
-    // `getIntlayer('page','en').hiMessage` लौटाता है `['Hi', ' ', 'John Doe']`
-    hiMessage: [
-      t({
-        en: "Hi",
-        fr: "Salut",
-        es: "Hola",
-      }),
-      " ",
-      getName(),
-    ],
-    // संयोजित सामग्री जिसमें शर्त, गणना, और बहुभाषी सामग्री शामिल है
-    // `getIntlayer('page','en').advancedContent(true)(10)` लौटाता है 'कई आइटम मिले'
-    advancedContent: cond({
-      true: enu({
-        "0": t({
-          en: "No items found",
-          fr: "Aucun article trouvé",
-          es: "No se encontraron artículos",
-        }),
-        "1": t({
-          en: "One item found",
-          fr: "Un article trouvé",
-          es: "Se encontró un artículo",
-        }),
-        ">1": t({
-          en: "Multiple items found",
-          fr: "Plusieurs articles trouvés",
-          es: "Se encontraron múltiples artículos",
-        }),
-      }),
-      false: t({
-        en: "No valid data available",
-        fr: "Aucune donnée valide disponible",
-        es: "No hay datos válidos disponibles",
-      }),
-    }),
-  },
-};
-```
-
-```javascript fileName="src/example.content.cjx" contentDeclarationFormat="commonjs"
-const { t, enu, cond, nest, md } = require("intlayer");
-
-const getName = async () => "John Doe";
-
-/** @type {import('intlayer').Dictionary} */
-module.exports = {
-  key: "page",
-  content: {
-    // `getIntlayer('page','en').hiMessage` लौटाता है `['Hi', ' ', 'John Doe']`
-    hiMessage: [
-      t({
-        en: "Hi",
-        fr: "Salut",
-        es: "Hola",
-      }),
-      " ",
-      getName(),
-    ],
-    // संयोजित सामग्री जो शर्त, गणना, और बहुभाषी सामग्री को जोड़ती है
-    // `getIntlayer('page','en').advancedContent(true)(10)` लौटाता है 'Multiple items found'
-    advancedContent: cond({
-      true: enu({
-        "0": t({
-          en: "No items found",
-          fr: "Aucun article trouvé",
-          es: "No se encontraron artículos",
-        }),
-        "1": t({
-          en: "One item found",
-          fr: "Un article trouvé",
-          es: "Se encontró un artículo",
-        }),
-        ">1": t({
-          en: "Multiple items found",
-          fr: "Plusieurs articles trouvés",
-          es: "Se encontraron múltiples artículos",
-        }),
-      }),
-      false: t({
-        en: "No valid data available",
-        fr: "Aucune donnée valide disponible",
-        es: "No hay datos válidos disponibles",
-      }),
-    }),
-  },
-};
 ```
 
 ```json5 fileName="src/example.content.json"  contentDeclarationFormat="json"

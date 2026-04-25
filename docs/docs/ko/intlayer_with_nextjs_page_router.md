@@ -80,35 +80,7 @@ bun x intlayer init
 
 애플리케이션에서 지원하는 언어를 정의하기 위해 구성 파일을 만드세요:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
-import { Locales, type IntlayerConfig } from "intlayer";
-
-const config: IntlayerConfig = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      // 여기에 다른 로케일을 추가하세요
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -187,33 +159,13 @@ export default withIntlayer(nextConfig);
 
 사용자의 선호 로케일을 자동으로 감지하고 처리하기 위해 미들웨어를 설정합니다:
 
-```typescript fileName="src/middleware.ts" codeFormat="typescript"
+```typescript fileName="src/middleware.ts" codeFormat={["typescript", "esm", "commonjs"]}
 export { intlayerProxy as middleware } from "next-intlayer/middleware";
 
 export const config = {
   matcher:
     "/((?!api|static|assets|robots|sitemap|sw|service-worker|manifest|.*\\..*|_next).*)",
 };
-```
-
-```javascript fileName="src/middleware.mjs" codeFormat="esm"
-export { intlayerProxy as middleware } from "next-intlayer/middleware";
-
-export const config = {
-  matcher:
-    "/((?!api|static|assets|robots|sitemap|sw|service-worker|manifest|.*\\..*|_next).*)",
-};
-```
-
-```javascript fileName="src/middleware.cjs" codeFormat="commonjs"
-const { intlayerProxy } = require("next-intlayer/middleware");
-
-const config = {
-  matcher:
-    "/((?!api|static|assets|robots|sitemap|sw|service-worker|manifest|.*\\..*|_next).*)",
-};
-
-module.exports = { middleware: intlayerProxy, config };
 ```
 
 > `matcher` 매개변수를 애플리케이션의 경로에 맞게 조정하세요. 자세한 내용은 [Next.js의 matcher 구성 문서](https://nextjs.org/docs/app/building-your-application/routing/middleware)를 참조하세요.
@@ -236,47 +188,45 @@ module.exports = { middleware: intlayerProxy, config };
 
         ```tsx fileName="src/pages/_app.tsx" codeFormat="typescript"
         import type { FC } from "react";
+        import type { AppProps } from "next/app";
+        import { IntlayerClientProvider } from "next-intlayer";
 
-    import type { AppProps } from "next/app";
-    import { IntlayerClientProvider } from "next-intlayer";
+        const App: FC<AppProps> = ({ Component, pageProps }) => {
+          const { locale } = pageProps;
 
-const App = FC<AppProps>({ Component, pageProps }) => {
-const { locale } = pageProps;
+          return (
+            <IntlayerClientProvider locale={locale}>
+              <Component {...pageProps} />
+            </IntlayerClientProvider>
+          );
+        };
 
-return (
-<IntlayerClientProvider locale={locale}>
-<Component {...pageProps} />
-</IntlayerClientProvider>
-);
-}
+        export default App;
+        ```
 
-export default MyApp;
+        ```jsx fileName="src/pages/_app.mjx" codeFormat="esm"
+        import { IntlayerClientProvider } from "next-intlayer";
 
-````
+        const App = ({ Component, pageProps }) => (
+          <IntlayerClientProvider locale={locale}>
+            <Component {...pageProps} />
+          </IntlayerClientProvider>
+        );
 
-```jsx fileName="src/pages/_app.mjx" codeFormat="esm"
-import { IntlayerClientProvider } from "next-intlayer";
+        export default App;
+        ```
 
-const App = ({ Component, pageProps }) => (
-  <IntlayerClientProvider locale={locale}>
-    <Component {...pageProps} />
-  </IntlayerClientProvider>
-);
+        ```jsx fileName="src/pages/_app.csx" codeFormat="commonjs"
+        const { IntlayerClientProvider } = require("next-intlayer");
 
-export default App;
-````
+        const App = ({ Component, pageProps }) => (
+          <IntlayerClientProvider locale={locale}>
+            <Component {...pageProps} />
+          </IntlayerClientProvider>
+        );
 
-````jsx fileName="src/pages/_app.csx" codeFormat="commonjs"
-    const { IntlayerClientProvider } = require("next-intlayer");
-
-    const App = ({ Component, pageProps }) => (
-      <IntlayerClientProvider locale={locale}>
-        <Component {...pageProps} />
-      </IntlayerClientProvider>
-    );
-
-    module.exports = App;
-    ```
+        module.exports = App;
+        ```
 
 3.  **`getStaticPaths` 및 `getStaticProps` 설정:**
 
@@ -381,7 +331,7 @@ export default App;
 
 번역을 저장하기 위해 콘텐츠 선언을 생성하고 관리하세요.
 
-```tsx fileName="src/pages/[locale]/home.content.ts" contentDeclarationFormat="typescript"
+```tsx fileName="src/pages/[locale]/home.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, type Dictionary } from "intlayer";
 
 const homeContent = {
@@ -401,48 +351,6 @@ const homeContent = {
 } satisfies Dictionary;
 
 export default homeContent;
-````
-
-```javascript fileName="src/pages/[locale]/home.content.mjs" contentDeclarationFormat="esm"
-import { t } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const homeContent = {
-  key: "home",
-  content: {
-    getStarted: {
-      main: t({
-        en: "이 페이지를 편집하여 시작하세요.",
-        fr: "Commencez par éditer cette page.",
-        es: "Comience por editar esta página.",
-      }),
-      pageLink: "src/app/page.tsx",
-    },
-  },
-};
-
-export default homeContent;
-```
-
-```javascript fileName="src/pages/[locale]/home.content.cjs" contentDeclarationFormat="commonjs"
-const { t } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const homeContent = {
-  key: "home",
-  content: {
-    getStarted: {
-      main: t({
-        en: "Get started by editing this page.",
-        fr: "Commencez par éditer cette page.",
-        es: "Comience por editar esta página.",
-      }),
-      pageLink: "src/app/page.tsx",
-    },
-  },
-};
-
-module.exports = homeContent;
 ```
 
 ```json fileName="src/pages/[locale]/home.content.json" contentDeclarationFormat="json"
@@ -478,7 +386,7 @@ module.exports = homeContent;
 
 애플리케이션 전반에서 콘텐츠 사전을 접근하여 번역된 콘텐츠를 표시하세요.
 
-```tsx {2,6} fileName="src/pages/[locale]/index.tsx" codeFormat="typescript"
+```tsx {2,6} fileName="src/pages/[locale]/index.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useIntlayer } from "next-intlayer";
 import { ComponentExample } from "@components/ComponentExample";
@@ -499,63 +407,6 @@ const HomePage: FC = () => {
 // ... getStaticPaths 및 getStaticProps를 포함한 나머지 코드
 
 export default HomePage;
-```
-
-```jsx {1,5} fileName="src/pages/[locale]/index.mjx" codeFormat="esm"
-import { useIntlayer } from "next-intlayer";
-import { ComponentExample } from "@components/ComponentExample";
-
-const HomePage = () => {
-  const content = useIntlayer("home");
-
-  return (
-    <div>
-      <h1>{content.getStarted.main}</h1>
-      <code>{content.getStarted.pageLink}</code>
-
-      <ComponentExample />
-      {/* 추가 컴포넌트들 */}
-    </div>
-  );
-};
-
-// ... getStaticPaths와 getStaticProps를 포함한 나머지 코드
-
-export default HomePage;
-```
-
-```jsx {1,5} fileName="src/pages/[locale]/index.csx" codeFormat="commonjs"
-const { useIntlayer } = require("next-intlayer");
-const { ComponentExample } = require("@components/ComponentExample");
-
-const HomePage = () => {
-  const content = useIntlayer("home");
-
-  return (
-    <div>
-      <h1>{content.getStarted.main}</h1>
-      <code>{content.getStarted.pageLink}</code>
-
-      <ComponentExample />
-      {/* 추가 컴포넌트들 */}
-    </div>
-  );
-};
-
-tsx fileName="src/components/ComponentExample.tsx" codeFormat="typescript"
-import type { FC } from "react";
-import { useIntlayer } from "next-intlayer";
-
-export const ComponentExample: FC = () => {
-  const content = useIntlayer("component-example"); // 해당하는 콘텐츠 선언이 있는지 확인하세요
-
-  return (
-    <div>
-      <h2>{content.title}</h2>
-      <p>{content.content}</p>
-    </div>
-  );
-};
 ```
 
 ```jsx fileName="src/components/ComponentExample.mjx" codeFormat="esm"
@@ -600,7 +451,7 @@ const ComponentExample = () => {
 
 페이지 제목과 같은 메타데이터를 국제화하려는 경우, Next.js 페이지 라우터에서 제공하는 `getStaticProps` 함수를 사용할 수 있습니다. 이 함수 내에서 `getIntlayer` 함수를 통해 콘텐츠를 가져와 메타데이터를 번역할 수 있습니다.
 
-```typescript fileName="src/pages/[locale]/metadata.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="src/pages/[locale]/metadata.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { type Dictionary, t } from "intlayer";
 import { type Metadata } from "next";
 
@@ -621,52 +472,6 @@ const metadataContent = {
 } satisfies Dictionary<Metadata>;
 
 export default metadataContent;
-```
-
-```javascript fileName="src/pages/[locale]/metadata.content.mjs" contentDeclarationFormat="esm"
-import { t } from "intlayer";
-
-/** @type {import('intlayer').Dictionary<import('next').Metadata>} */
-const metadataContent = {
-  key: "page-metadata",
-  content: {
-    title: t({
-      en: "Create Next App",
-      fr: "Créer une application Next.js",
-      es: "Crear una aplicación Next.js",
-    }),
-    description: t({
-      en: "Generated by create next app",
-      fr: "Généré par create next app",
-      es: "Generado por create next app",
-    }),
-  },
-};
-
-export default metadataContent;
-```
-
-```javascript fileName="src/pages/[locale]/metadata.content.cjs" contentDeclarationFormat="commonjs"
-const { t } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary<import('next').Metadata>} */
-const metadataContent = {
-  key: "page-metadata",
-  content: {
-    title: t({
-      en: "Create Next App",
-      fr: "Créer une application Next.js",
-      es: "Crear una aplicación Next.js",
-    }),
-    description: t({
-      en: "Generated by create next app",
-      fr: "Généré par create next app",
-      es: "Generado por create next app",
-    }),
-  },
-};
-
-module.exports = metadataContent;
 ```
 
 ```json fileName="src/pages/[locale]/metadata.content.json" contentDeclarationFormat="json"
@@ -695,7 +500,7 @@ module.exports = metadataContent;
 }
 ```
 
-````tsx fileName="src/pages/[locale]/index.tsx" codeFormat="typescript"
+````tsx fileName="src/pages/[locale]/index.tsx" codeFormat={["typescript", "esm"]}
 import { GetStaticPaths, GetStaticProps } from "next";
 import { getIntlayer, getMultilingualUrls } from "intlayer";
 import { useIntlayer } from "next-intlayer";
@@ -774,139 +579,11 @@ export default HomePage;
 // ... getStaticPaths를 포함한 나머지 코드
 ````
 
-````jsx fileName="src/pages/[locale]/index.mjx" codeFormat="esm"
-import { getIntlayer, getMultilingualUrls } from "intlayer";
-import { useIntlayer } from "next-intlayer";
-import Head from "next/head";
-
-const HomePage = ({ metadata, multilingualUrls, locale }) => {
-  const content = useIntlayer("page");
-
-  return (
-    <div>
-      <Head>
-        <title>{metadata.title}</title>
-        <meta name="description" content={metadata.description} />
-        {/* SEO를 위한 hreflang 태그 생성 */}
-        {Object.entries(multilingualUrls).map(([lang, url]) => (
-          <link key={lang} rel="alternate" hrefLang={lang} href={url} />
-        ))}
-        <link rel="canonical" href={multilingualUrls[locale]} />
-      </Head>
-
-      {/* 페이지 콘텐츠 */}
-      <main>{/* 여기에 페이지 콘텐츠를 작성하세요 */}</main>
-    </div>
-  );
-};
-
-export const getStaticProps = async ({ params }) => {
-  const locale = params?.locale;
-
-  const metadata = getIntlayer("page-metadata", locale);
-
-  /**
-   * 각 로케일에 대한 모든 URL을 포함하는 객체를 생성합니다.
-   *
-   * 예시:
-   * ```ts
-   *  getMultilingualUrls('/about');
-   *
-   *  // 반환값
-   *  // {
-   *  //   en: '/about',
-   *  //   fr: '/fr/about',
-   *  //   es: '/es/about',
-   *  // }
-   * ```
-   */
-  const multilingualUrls = getMultilingualUrls("/");
-
-  return {
-    props: {
-      locale,
-      metadata,
-      multilingualUrls,
-    },
-  };
-};
-
-export default HomePage;
-
-// ... getStaticPaths를 포함한 나머지 코드
-````
-
-````jsx fileName="src/pages/[locale]/index.csx" codeFormat="commonjs"
-const { getIntlayer, getMultilingualUrls } = require("intlayer");
-const { useIntlayer } = require("next-intlayer");
-const Head = require("next/head");
-
-const HomePage = ({ metadata, multilingualUrls, locale }) => {
-  const content = useIntlayer("page");
-
-  return (
-    <div>
-      <Head>
-        <title>{metadata.title}</title>
-        <meta name="description" content={metadata.description} />
-        {/* SEO를 위한 hreflang 태그 생성 */}
-        {Object.entries(multilingualUrls).map(([lang, url]) => (
-          <link key={lang} rel="alternate" hrefLang={lang} href={url} />
-        ))}
-        <link rel="canonical" href={multilingualUrls[locale]} />
-      </Head>
-
-      {/* 페이지 콘텐츠 */}
-      <main>{/* 여기에 페이지 콘텐츠를 작성하세요 */}</main>
-    </div>
-  );
-};
-
-const getStaticProps = async ({ params }) => {
-  const locale = params?.locale;
-
-  const metadata = getIntlayer("page-metadata", locale);
-
-  /**
-   * 각 로케일에 대한 모든 URL을 포함하는 객체를 생성합니다.
-   *
-   * 예시:
-   * ```ts
-   *  getMultilingualUrls('/about');
-   *
-   *  // 반환값
-   *  // {
-   *  //   en: '/about',
-   *  //   fr: '/fr/about',
-   *  //   es: '/es/about',
-   *  // }
-   * ```
-   */
-  const multilingualUrls = getMultilingualUrls("/");
-
-  return {
-    props: {
-      locale,
-      metadata,
-      multilingualUrls,
-    },
-  };
-};
-
-module.exports = {
-  getStaticProps,
-  getStaticPaths,
-  default: HomePage,
-};
-
-// ... getStaticPaths를 포함한 나머지 코드
-````
-
 `next-intlayer`에서 가져온 `getIntlayer` 함수는 콘텐츠를 `IntlayerNode`로 감싸서 반환하므로 시각적 편집기와의 통합이 가능합니다. 반면, `intlayer`에서 가져온 `getIntlayer` 함수는 추가 속성 없이 콘텐츠를 직접 반환합니다.
 
 또는 `getTranslation` 함수를 사용하여 메타데이터를 선언할 수 있습니다. 하지만 메타데이터의 번역을 자동화하고 콘텐츠를 외부화하기 위해서는 콘텐츠 선언 파일을 사용하는 것이 권장됩니다.
 
-```tsx fileName="src/pages/[locale]/index.tsx" codeFormat="typescript"
+```tsx fileName="src/pages/[locale]/index.tsx" codeFormat={["typescript", "esm"]}
 import { GetStaticPaths, GetStaticProps } from "next";
 import {
   type IConfigLocales,
@@ -989,135 +666,13 @@ export default HomePage;
 // ... getStaticPaths를 포함한 나머지 코드
 ```
 
-```jsx fileName="src/pages/[locale]/index.mjx" codeFormat="esm"
-import { getTranslation, getMultilingualUrls } from "intlayer";
-import { useIntlayer } from "next-intlayer";
-import Head from "next/head";
-
-const HomePage = ({ metadata, multilingualUrls, locale }) => {
-  const content = useIntlayer("page");
-
-  return (
-    <div>
-      <Head>
-        <title>{metadata.title}</title>
-        <meta name="description" content={metadata.description} />
-        {/* SEO를 위한 hreflang 태그 생성 */}
-        {Object.entries(multilingualUrls).map(([lang, url]) => (
-          <link key={lang} rel="alternate" hrefLang={lang} href={url} />
-        ))}
-        <link rel="canonical" href={multilingualUrls[locale]} />
-      </Head>
-
-      {/* 페이지 내용 */}
-      <main>{/* 여기에 페이지 내용을 작성하세요 */}</main>
-    </div>
-  );
-};
-
-export const getStaticProps = async ({ params }) => {
-  const locale = params?.locale;
-  const t = (content) => getTranslation(content, locale);
-
-  const metadata = {
-    title: t({
-      en: "My title",
-      fr: "Mon titre",
-      es: "Mi título",
-    }),
-    description: t({
-      en: "My description",
-      fr: "Ma description",
-      es: "Mi descripción",
-    }),
-  };
-
-  const multilingualUrls = getMultilingualUrls("/");
-
-  return {
-    props: {
-      locale,
-      metadata,
-      multilingualUrls,
-    },
-  };
-};
-
-export default HomePage;
-
-// ... getStaticPaths를 포함한 나머지 코드
-```
-
-```jsx fileName="src/pages/[locale]/index.csx" codeFormat="commonjs"
-const { getTranslation, getMultilingualUrls } = require("intlayer");
-const { useIntlayer } = require("next-intlayer");
-const Head = require("next/head");
-
-const HomePage = ({ metadata, multilingualUrls, locale }) => {
-  const content = useIntlayer("page");
-
-  return (
-    <div>
-      <Head>
-        <title>{metadata.title}</title>
-        <meta name="description" content={metadata.description} />
-        {/* SEO를 위한 hreflang 태그 생성 */}
-        {Object.entries(multilingualUrls).map(([lang, url]) => (
-          <link key={lang} rel="alternate" hrefLang={lang} href={url} />
-        ))}
-        <link rel="canonical" href={multilingualUrls[locale]} />
-      </Head>
-
-      {/* 페이지 콘텐츠 */}
-      <main>{/* 여기에 페이지 콘텐츠를 작성하세요 */}</main>
-    </div>
-  );
-};
-
-const getStaticProps = async ({ params }) => {
-  const locale = params?.locale;
-  const t = (content) => getTranslation(content, locale);
-
-  const metadata = {
-    title: t({
-      en: "My title",
-      fr: "Mon titre",
-      es: "Mi título",
-    }),
-    description: t({
-      en: "My description",
-      fr: "Ma description",
-      es: "Mi descripción",
-    }),
-  };
-
-  const multilingualUrls = getMultilingualUrls("/");
-
-  return {
-    props: {
-      locale,
-      metadata,
-      multilingualUrls,
-    },
-  };
-};
-
-module.exports = {
-  getStaticProps,
-  getStaticPaths,
-  default: HomePage,
-};
-
-// ... getStaticPaths를 포함한 나머지 코드
-```
-
 > 메타데이터 최적화에 대해 더 알아보려면 [공식 Next.js 문서](https://nextjs.org/docs/pages/building-your-application/optimizing/metadata)를 참고하세요.
 
 ### (선택 사항) 9단계: 콘텐츠의 언어 변경하기
 
 Next.js에서 콘텐츠의 언어를 변경하려면, 권장되는 방법은 `Link` 컴포넌트를 사용하여 사용자를 적절한 현지화된 페이지로 리디렉션하는 것입니다. `Link` 컴포넌트는 페이지의 사전 로딩(prefetching)을 가능하게 하여 전체 페이지 리로드를 방지하는 데 도움이 됩니다.
 
-```tsx fileName="src/components/LanguageSwitcher.tsx" codeFormat="typescript"
+```tsx fileName="src/components/LanguageSwitcher.tsx" codeFormat={["typescript", "esm"]}
 import {
   Locales,
   getHTMLTextDir,
@@ -1163,102 +718,6 @@ const LocaleSwitcher: FC = () => {
         ))}
       </div>
     </div>
-  );
-};
-```
-
-```jsx fileName="src/components/LanguageSwitcher.msx" codeFormat="esm"
-import {
-  Locales,
-  getHTMLTextDir,
-  getLocaleName,
-  getLocalizedUrl,
-} from "intlayer";
-import { useLocalePageRouter } from "next-intlayer";
-import Link from "next/link";
-
-const LocaleSwitcher = () => {
-  const { locale, pathWithoutLocale, availableLocales } = useLocalePageRouter();
-
-  return (
-    <div>
-      <button popoverTarget="localePopover">{getLocaleName(locale)}</button>
-      <div id="localePopover" popover="auto">
-        {availableLocales.map((localeItem) => (
-          <Link
-            href={getLocalizedUrl(pathWithoutLocale, localeItem)}
-            hrefLang={localeItem}
-            key={localeItem}
-            aria-current={locale === localeItem ? "page" : undefined}
-            onClick={() => setLocale(localeItem)}
-          >
-            <span>
-              {/* 로케일 - 예: FR */}
-              {localeItem}
-            </span>
-            <span>
-              {/* 자신의 로케일에서의 언어 - 예: Français */}
-              {getLocaleName(localeItem, locale)}
-            </span>
-            <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
-              {/* 현재 로케일에서의 언어 - 예: Locales.SPANISH로 설정된 현재 로케일에서 Francés */}
-              {getLocaleName(localeItem)}
-            </span>
-            <span dir="ltr" lang={Locales.ENGLISH}>
-              {/* 영어로 된 언어 - 예: French */}
-              {getLocaleName(localeItem, Locales.ENGLISH)}
-            </span>
-          </Link>
-        ))}
-      </div>
-    </div>
-  );
-};
-```
-
-```jsx fileName="src/components/LanguageSwitcher.msx" codeFormat="commonjs"
-const {
-  Locales,
-  getHTMLTextDir,
-  getLocaleName,
-  getLocalizedUrl,
-} = require("intlayer");
-const { useLocalePageRouter } = require("next-intlayer");
-const Link = require("next/link");
-
-const LocaleSwitcher = () => {
-  const { locale, pathWithoutLocale, availableLocales } = useLocalePageRouter();
-
-  return (
-    <select>
-      {availableLocales.map((localeItem) => (
-        <option value={localeItem} key={localeItem}>
-          <Link
-            href={getLocalizedUrl(pathWithoutLocale, localeItem)}
-            hrefLang={localeItem}
-            aria-current={locale === localeItem ? "page" : undefined}
-            onClick={() => setLocale(localeItem)}
-          >
-            <span>
-              {/* 로케일 - 예: FR */}
-              {localeItem}
-            </span>
-            <span>
-              {/* 해당 로케일에서의 언어 - 예: Français */}
-              {getLocaleName(localeItem, locale)}
-            </span>
-            <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
-              {/* 현재 로케일에서의 언어 - 예: 현재 로케일이 Locales.SPANISH일 때 Francés */}
-              {getLocaleName(localeItem)}
-            </span>
-            <span dir="ltr" lang={Locales.ENGLISH}>
-              {/* 영어로 된 언어명 - 예: French */}
-              {getLocaleName(localeItem, Locales.ENGLISH)}
-            </span>
-          </Link>
-        </option>
-      ))}
-    </select>
   );
 };
 ```
@@ -1312,7 +771,7 @@ return (
 
 아래는 TypeScript로 구현된 지역화된 `Link` 컴포넌트 예시입니다:
 
-```tsx fileName="src/components/Link.tsx" codeFormat="typescript"
+```tsx fileName="src/components/Link.tsx" codeFormat={["typescript", "esm"]}
 "use client";
 
 import { getLocalizedUrl } from "intlayer";
@@ -1351,78 +810,6 @@ export const Link = forwardRef<
 });
 
 Link.displayName = "Link";
-```
-
-```jsx fileName="src/components/Link.mjx" codeFormat="esm"
-'use client';
-
-import { getLocalizedUrl } from 'intlayer';
-import NextLink, { type LinkProps as NextLinkProps } from 'next/link';
-import { useLocale } from "next-intlayer";
-import { forwardRef, PropsWithChildren, type ForwardedRef } from 'react';
-
-/**
- * 주어진 URL이 외부 링크인지 확인하는 유틸리티 함수입니다.
- * URL이 http:// 또는 https://로 시작하면 외부 링크로 간주합니다.
- */
-export const checkIsExternalLink = (href) =>
-  /^https?:\/\//.test(href ?? '');
-
-/**
- * 현재 로케일에 따라 href 속성을 조정하는 커스텀 Link 컴포넌트입니다.
- * 내부 링크의 경우 `getLocalizedUrl`을 사용하여 URL 앞에 로케일을 붙입니다 (예: /fr/about).
- * 이를 통해 내비게이션이 동일한 로케일 컨텍스트 내에서 유지되도록 합니다.
- */
-export const Link = forwardRef(({ href, children, ...props }, ref) => {
-  const { locale } = useLocale();
-  const isExternalLink = checkIsExternalLink(href.toString());
-
-  // 링크가 내부 링크이고 유효한 href가 제공된 경우, 현지화된 URL을 가져옵니다.
-  const hrefI18n =
-    href && !isExternalLink ? getLocalizedUrl(href.toString(), locale) : href;
-
-  return (
-    <NextLink href={hrefI18n} ref={ref} {...props}>
-      {children}
-    </NextLink>
-  );
-});
-
-Link.displayName = 'Link';
-```
-
-```jsx fileName="src/components/Link.csx" codeFormat="commonjs"
-'use client';
-
-const { getLocalizedUrl } = require("intlayer");
-const NextLink = require("next/link");
-const { useLocale } = require("next-intlayer");
-const { forwardRef } = require("react");
-
-/**
- * 주어진 URL이 외부 링크인지 확인하는 유틸리티 함수입니다.
- * URL이 http:// 또는 https://로 시작하면 외부 링크로 간주합니다.
- */
-const checkIsExternalLink = (href) =>
-  /^https?:\/\//.test(href ?? '');
-
-
-const Link = forwardRef(({ href, children, ...props }, ref) => {
-  const { locale } = useLocale();
-  const isExternalLink = checkIsExternalLink(href.toString());
-
-  // 링크가 내부 링크이고 유효한 href가 제공된 경우, 현지화된 URL을 가져옵니다.
-  const hrefI18n: NextLinkProps['href'] =
-    href && !isExternalLink ? getLocalizedUrl(href.toString(), locale) : href;
-
-  return (
-    <NextLink href={hrefI18n} ref={ref} {...props}>
-      {children}
-    </NextLink>
-  );
-});
-
-Link.displayName = 'Link';
 ```
 
 #### 작동 방식

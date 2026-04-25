@@ -100,7 +100,7 @@ getLocalizedUrl(
 
 Projenizi uluslararasılaştırma ayarları ile yapılandırdığınızda, fonksiyonu sadece gerekli parametrelerle kullanabilirsiniz:
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getLocalizedUrl, Locales } from "intlayer";
 
 // Yerel ayarlar, defaultLocale ve prefixDefault için proje yapılandırmanızı kullanır
@@ -111,62 +111,14 @@ getLocalizedUrl("/about", Locales.ENGLISH);
 // Çıktı: "/about" veya "/en/about" (prefixDefault ayarınıza bağlı olarak)
 ```
 
-```javascript codeFormat="esm"
-import { getLocalizedUrl, Locales } from "intlayer";
-
-// Proje yapılandırmanızı kullanır
-getLocalizedUrl("/about", Locales.FRENCH);
-// Çıktı: "/fr/about"
-```
-
-```javascript codeFormat="commonjs"
-const { getLocalizedUrl, Locales } = require("intlayer");
-
-// Proje yapılandırmanızı kullanır
-getLocalizedUrl("/about", Locales.FRENCH);
-// Çıktı: "/fr/about"
-```
-
 ### Gelişmiş Kullanım (İsteğe Bağlı Parametrelerle)
 
 İsteğe bağlı parametreler sağlayarak varsayılan yapılandırmayı geçersiz kılabilirsiniz:
 
 ### Göreli URL'ler (Tüm Parametreler Belirtilmiş)
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getLocalizedUrl, Locales } from "intlayer";
-
-// Tüm isteğe bağlı parametreleri açıkça sağlayarak
-getLocalizedUrl(
-  "/about",
-  Locales.FRENCH,
-  [Locales.ENGLISH, Locales.FRENCH], // yerel ayarlar
-  Locales.ENGLISH, // defaultLocale
-  false // prefixDefault
-);
-
-// Fransızca yerel ayar için çıktı: "/fr/about"
-// Varsayılan (İngilizce) yerel ayar için çıktı: "/about"
-```
-
-```javascript codeFormat="esm"
-import { getLocalizedUrl, Locales } from "intlayer";
-
-// Tüm isteğe bağlı parametreleri açıkça sağlayarak
-getLocalizedUrl(
-  "/about",
-  Locales.FRENCH,
-  [Locales.ENGLISH, Locales.FRENCH], // yerel ayarlar
-  Locales.ENGLISH, // defaultLocale
-  false // prefixDefault
-);
-
-// Fransızca yerel ayar için çıktı: "/fr/about"
-// Varsayılan (İngilizce) yerel ayar için çıktı: "/about"
-```
-
-```javascript codeFormat="commonjs"
-const { getLocalizedUrl, Locales } = require("intlayer";
 
 // Tüm isteğe bağlı parametreleri açıkça sağlayarak
 getLocalizedUrl(
@@ -263,7 +215,7 @@ getLocalizedUrl(
 
 Çok dilli bir uygulamada, doğru dilin görüntülenmesini sağlamak için uluslararasılaştırma ayarlarını `locales` ve `defaultLocale` ile yapılandırmak kritiktir. Aşağıda `getLocalizedUrl`'un uygulama kurulumunda nasıl kullanılabileceğine dair bir örnek verilmiştir:
 
-```tsx codeFormat="typescript"
+```tsx codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 // Desteklenen yerel ayarlar ve varsayılan yerel ayar için yapılandırma
@@ -275,34 +227,6 @@ export default {
 } satisfies IntlayerConfig;
 
 export default config;
-```
-
-```javascript codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-```javascript codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-module.exports = config;
 ```
 
 Yukarıdaki yapılandırma, uygulamanın `ENGLISH`, `FRENCH` ve `SPANISH`'i desteklenen diller olarak tanımasını ve `ENGLISH`'i geri dönüş dili olarak kullanmasını sağlar.

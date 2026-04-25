@@ -50,7 +50,7 @@ Hàm `getEnumeration` lấy nội dung tương ứng với một số lượng c
 
 ### Sử dụng cơ bản
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getEnumeration } from "intlayer";
 
 // Lấy nội dung dựa trên số lượng và điều kiện trong enumerationContent
@@ -67,70 +67,10 @@ const content = getEnumeration(
 console.log(content); // Kết quả: "Bạn có hai"
 ```
 
-```javascript codeFormat="esm"
-import { getEnumeration } from "intlayer";
-
-// Lấy nội dung dựa trên số lượng và điều kiện trong enumerationContent
-const content = getEnumeration(
-  {
-    "<1": "Bạn có ít hơn một",
-    "2": "Bạn có hai",
-    ">=3": "Bạn có ba hoặc nhiều hơn",
-  },
-  2
-);
-
-console.log(content); // Kết quả: "Bạn có hai"
-```
-
-```javascript codeFormat="commonjs"
-const { getEnumeration } = require("intlayer");
-
-// Lấy nội dung dựa trên số lượng và điều kiện trong enumerationContent
-const content = getEnumeration(
-  {
-    "<1": "Bạn có ít hơn một",
-    "2": "Bạn có hai",
-    ">=3": "Bạn có ba hoặc nhiều hơn",
-  },
-  2
-);
-
-console.log(content); // Kết quả: "Bạn có hai"
-```
-
 ### Ưu tiên của các điều kiện
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getEnumeration } from "intlayer";
-
-const content = getEnumeration(
-  {
-    "<4": "Bạn có ít hơn bốn",
-    "2": "Bạn có hai",
-  },
-  2
-);
-
-console.log(content); // Kết quả: "Bạn có ít hơn bốn"
-```
-
-```javascript codeFormat="esm"
-import { getEnumeration } from "intlayer";
-
-const content = getEnumeration(
-  {
-    "<4": "Bạn có ít hơn bốn",
-    "2": "Bạn có hai",
-  },
-  2
-);
-
-console.log(content); // Kết quả: "Bạn có ít hơn bốn"
-```
-
-```javascript codeFormat="commonjs"
-const { getEnumeration } = require("intlayer");
 
 const content = getEnumeration(
   {

@@ -45,31 +45,13 @@ history:
 
 ### Отримання кодів мов:
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getLocaleLang, Locales } from "intlayer";
 
 getLocaleLang(Locales.ENGLISH_UNITED_STATES); // Output: "en"
 getLocaleLang(Locales.ENGLISH); // Output: "en"
 getLocaleLang(Locales.FRENCH_CANADA); // Output: "fr"
 getLocaleLang(Locales.FRENCH); // Output: "fr"
-```
-
-```javascript codeFormat="esm"
-import { getLocaleLang } from "intlayer";
-
-getLocaleLang(Locales.ENGLISH_UNITED_STATES); // Вивід: "en"
-getLocaleLang(Locales.ENGLISH); // Вивід: "en"
-getLocaleLang(Locales.FRENCH_CANADA); // Вивід: "fr"
-getLocaleLang(Locales.FRENCH); // Вивід: "fr"
-```
-
-```javascript codeFormat="commonjs"
-const { getLocaleLang } = require("intlayer");
-
-getLocaleLang(Locales.ENGLISH_UNITED_STATES); // Вивід: "en"
-getLocaleLang(Locales.ENGLISH); // Вивід: "en"
-getLocaleLang(Locales.FRENCH_CANADA); // Вивід: "fr"
-getLocaleLang(Locales.FRENCH); // Вивід: "fr"
 ```
 
 ## Крайові випадки

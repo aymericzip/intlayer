@@ -32,7 +32,7 @@ Intlayer cho phép bạn khai báo các hàm nội dung trong các module nội 
 
 Dưới đây là ví dụ về một hàm đồng bộ đơn giản lấy nội dung:
 
-```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="**/*.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import type { Dictionary } from "intlayer";
 
 const functionContent = {
@@ -43,30 +43,6 @@ const functionContent = {
 } satisfies Dictionary;
 
 export default functionContent;
-```
-
-```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-/** @type {import('intlayer').Dictionary} */
-const functionContent = {
-  key: "function_content",
-  content: {
-    text: () => "Đây là nội dung được hiển thị bởi một hàm",
-  },
-};
-
-export default functionContent;
-```
-
-```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-/** @type {import('intlayer').Dictionary} */
-const functionContent = {
-  key: "function_content",
-  content: {
-    text: () => "Đây là nội dung được hiển thị bởi một hàm",
-  },
-};
-
-module.exports = functionContent;
 ```
 
 ```json fileName="**/*.content.json" contentDeclarationFormat="json"
@@ -87,7 +63,7 @@ Ngoài các hàm đồng bộ, Intlayer còn hỗ trợ các hàm bất đồng 
 
 Dưới đây là một ví dụ về hàm bất đồng bộ mô phỏng việc lấy dữ liệu từ server:
 
-```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="**/*.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { setTimeout } from "node:timers/promises";
 import type { Dictionary } from "intlayer";
 
@@ -104,42 +80,6 @@ const asyncFunctionContent = {
 export default asyncFunctionContent;
 ```
 
-```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-import { setTimeout } from "node:timers/promises";
-
-/** @type {import('intlayer').Dictionary} */
-const fakeFetch = async () => {
-  // Chờ 200ms để mô phỏng việc lấy dữ liệu từ server
-  await setTimeout(200);
-  return "Đây là nội dung được lấy từ server";
-};
-
-const asyncFunctionContent = {
-  key: "async_function",
-  content: { text: fakeFetch },
-};
-
-export default asyncFunctionContent;
-```
-
-```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-const { setTimeout } = require("node:timers/promises");
-
-/** @type {import('intlayer').Dictionary} */
-const fakeFetch = async () => {
-  // Chờ 200ms để mô phỏng việc lấy dữ liệu từ server
-  await setTimeout(200);
-  return "Đây là nội dung được lấy từ server";
-};
-
-const asyncFunctionContent = {
-  key: "async_function",
-  content: { text: fakeFetch },
-};
-
-module.exports = asyncFunctionContent;
-```
-
 ```plaintext fileName="**/*.content.json" contentDeclarationFormat="json"
 Không thể lấy nội dung từ file JSON, hãy sử dụng file .ts hoặc .js thay thế
 ```
@@ -150,7 +90,7 @@ Trong trường hợp này, hàm `fakeFetch` mô phỏng một độ trễ để
 
 Để sử dụng nội dung dựa trên hàm trong một thành phần React, bạn cần import `useIntlayer` từ `react-intlayer` và gọi nó với ID nội dung để lấy nội dung. Dưới đây là một ví dụ:
 
-```typescript fileName="**/*.jsx" codeFormat="typescript"
+```typescript fileName="**/*.jsx" codeFormat={["typescript", "esm", "commonjs"]}
 import type { FC } from "react";
 import { useIntlayer } from "react-intlayer";
 
@@ -169,44 +109,4 @@ const MyComponent: FC = () => {
 };
 
 export default MyComponent;
-```
-
-```javascript fileName="**/*.mjx" codeFormat="esm"
-import { useIntlayer } from "react-intlayer";
-
-const MyComponent = () => {
-  const functionContent = useIntlayer("function_content");
-  const asyncFunctionContent = useIntlayer("async_function_content");
-
-  return (
-    <div>
-      <p>{functionContent.text}</p>
-      {/* Đầu ra: Đây là nội dung được hiển thị bởi một hàm */}
-      <p>{asyncFunctionContent.text}</p>
-      {/* Đầu ra: Đây là nội dung được lấy từ server */}
-    </div>
-  );
-};
-
-export default MyComponent;
-```
-
-```javascript fileName="**/*.cjs" codeFormat="commonjs"
-const { useIntlayer } = require("react-intlayer");
-
-const MyComponent = () => {
-  const functionContent = useIntlayer("function_content");
-  const asyncFunctionContent = useIntlayer("async_function_content");
-
-  return (
-    <div>
-      <p>{functionContent.text}</p>
-      {/* Đầu ra: Đây là nội dung được hiển thị bởi một hàm */}
-      <p>{asyncFunctionContent.text}</p>
-      {/* Đầu ra: Đây là nội dung được lấy từ server */}
-    </div>
-  );
-};
-
-module.exports = MyComponent;
 ```

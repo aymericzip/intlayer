@@ -105,7 +105,7 @@ getMultilingualUrls(
 
 ### Базове використання (використовує конфігурацію проєкту)
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getMultilingualUrls, Locales } from "intlayer";
 
 // Використовує конфігурацію вашого проєкту для locales, defaultLocale і mode
@@ -117,58 +117,10 @@ getMultilingualUrls("/dashboard");
 // }
 ```
 
-```javascript codeFormat="esm"
-import { getMultilingualUrls, Locales } from "intlayer";
-
-getMultilingualUrls("/dashboard");
-// Вивід: {
-//   en: "/dashboard",
-//   fr: "/fr/dashboard"
-// }
-```
-
-```javascript codeFormat="commonjs"
-const { getMultilingualUrls, Locales } = require("intlayer");
-
-getMultilingualUrls("/dashboard");
-// Вивід: {
-//   en: "/dashboard",
-//   fr: "/fr/dashboard"
-// }
-```
-
 ### Відносні URL з опціями
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getMultilingualUrls, Locales } from "intlayer";
-
-getMultilingualUrls("/dashboard", {
-  locales: [Locales.ENGLISH, Locales.FRENCH],
-  defaultLocale: Locales.ENGLISH,
-  mode: "prefix-no-default",
-});
-// Вивід: {
-//   en: "/dashboard",
-//   fr: "/fr/dashboard"
-// }
-```
-
-```javascript codeFormat="esm"
-import { getMultilingualUrls, Locales } from "intlayer";
-
-getMultilingualUrls("/dashboard", {
-  locales: [Locales.ENGLISH, Locales.FRENCH],
-  defaultLocale: Locales.ENGLISH,
-  mode: "prefix-no-default",
-});
-// Вивід: {
-//   en: "/dashboard",
-//   fr: "/fr/dashboard"
-// }
-```
-
-```javascript codeFormat="commonjs"
-const { getMultilingualUrls, Locales } = require("intlayer");
 
 getMultilingualUrls("/dashboard", {
   locales: [Locales.ENGLISH, Locales.FRENCH],
@@ -273,7 +225,7 @@ getMultilingualUrls("/dashboard", {
 
 У багатомовному застосунку налаштування параметрів інтернаціоналізації через `locales` та `defaultLocale` є критично важливим для забезпечення відображення правильної мови. Нижче наведено приклад того, як `getMultilingualUrls` може бути використана в конфігурації застосунку:
 
-```tsx codeFormat="typescript"
+```tsx codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 // Конфігурація підтримуваних локалей та локалі за замовчуванням
@@ -285,34 +237,6 @@ export default {
 } satisfies IntlayerConfig;
 
 export default config;
-```
-
-```javascript codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-```javascript codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-module.exports = config;
 ```
 
 Показана вище конфігурація гарантує, що додаток розпізнає `ENGLISH`, `FRENCH` і `SPANISH` як підтримувані мови та використовує `ENGLISH` як мову за замовчуванням.

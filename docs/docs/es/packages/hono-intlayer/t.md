@@ -65,51 +65,9 @@ Para asegurar que la funcionalidad de internacionalización proporcionada por `h
 
 Coloque el middleware `app.use("*", intlayer())` **antes de cualquier ruta** en su aplicación para asegurar que todas las rutas se beneficien de la internacionalización:
 
-```typescript {6} fileName="src/index.ts" codeFormat="typescript"
+```typescript {6} fileName="src/index.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Hono } from "hono";
 import { intlayer } from "hono-intlayer";
-
-const app = new Hono();
-
-// Cargar el controlador de solicitudes de internacionalización
-app.use("*", intlayer());
-
-// Defina sus rutas después de cargar el middleware
-app.get("/", (c) => {
-  return c.text(
-    t({
-      en: "Hello, World!",
-      fr: "Bonjour le monde!",
-      es: "¡Hola, Mundo!",
-    })
-  );
-});
-```
-
-```javascript {6} fileName="src/index.mjs" codeFormat="esm"
-import { Hono } from "hono";
-import { intlayer } from "hono-intlayer";
-
-const app = new Hono();
-
-// Cargar el controlador de solicitudes de internacionalización
-app.use("*", intlayer());
-
-// Defina sus rutas después de cargar el middleware
-app.get("/", (c) => {
-  return c.text(
-    t({
-      en: "Hello, World!",
-      fr: "Bonjour le monde!",
-      es: "¡Hola, Mundo!",
-    })
-  );
-});
-```
-
-```javascript {6} fileName="src/index.cjs" codeFormat="commonjs"
-const { Hono } = require("hono");
-const { intlayer, t } = require("hono-intlayer");
 
 const app = new Hono();
 
@@ -142,31 +100,7 @@ app.get("/", (c) => {
 
 Servir contenido localizado en diferentes idiomas:
 
-```typescript fileName="src/index.ts" codeFormat="typescript"
-app.get("/", (c) => {
-  return c.text(
-    t({
-      en: "Welcome!",
-      fr: "Bienvenue!",
-      es: "¡Bienvenido!",
-    })
-  );
-});
-```
-
-```javascript fileName="src/index.mjs" codeFormat="esm"
-app.get("/", (c) => {
-  return c.text(
-    t({
-      en: "Welcome!",
-      fr: "Bienvenue!",
-      es: "¡Bienvenido!",
-    })
-  );
-});
-```
-
-```javascript fileName="src/index.cjs" codeFormat="commonjs"
+```typescript fileName="src/index.ts" codeFormat={["typescript", "esm", "commonjs"]}
 app.get("/", (c) => {
   return c.text(
     t({
@@ -188,33 +122,7 @@ app.get("/", (c) => {
 
 Proporcionar mensajes de error en varios idiomas:
 
-```typescript fileName="src/index.ts" codeFormat="typescript"
-app.get("/error", (c) => {
-  return c.text(
-    t({
-      en: "An unexpected error occurred.",
-      fr: "Une erreur inattendue s'est produite.",
-      es: "Ocurrió un error inesperado.",
-    }),
-    500
-  );
-});
-```
-
-```javascript fileName="src/index.mjs" codeFormat="esm"
-app.get("/error", (c) => {
-  return c.text(
-    t({
-      en: "An unexpected error occurred.",
-      fr: "Une erreur inattendue s'est produite.",
-      es: "Ocurrió un error inesperado.",
-    }),
-    500
-  );
-});
-```
-
-```javascript fileName="src/index.cjs" codeFormat="commonjs"
+```typescript fileName="src/index.ts" codeFormat={["typescript", "esm", "commonjs"]}
 app.get("/error", (c) => {
   return c.text(
     t({

@@ -34,7 +34,7 @@ Berbeda dengan metode pembacaan file seperti `import`, `require`, atau `fs`, men
 
 Untuk menyematkan konten file dalam proyek Intlayer Anda, gunakan fungsi `file` dalam modul konten. Berikut adalah contoh yang menunjukkan berbagai implementasi.
 
-```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="**/*.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { file, type Dictionary } from "intlayer";
 
 const myFileContent = {
@@ -45,36 +45,6 @@ const myFileContent = {
 } satisfies Dictionary;
 
 export default myFileContent;
-```
-
-```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-import { file } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-// Mendefinisikan konten file dengan tipe Dictionary dari Intlayer
-const myFileContent = {
-  key: "my_key",
-  content: {
-    myFile: file("./path/to/file.txt"), // Menggunakan fungsi file untuk mengasosiasikan file
-  },
-};
-
-export default myFileContent;
-```
-
-```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-const { file } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-// Mendefinisikan konten file dengan tipe Dictionary dari Intlayer
-const myFileContent = {
-  key: "my_key",
-  content: {
-    myFile: file("./path/to/file.txt"), // Menggunakan fungsi file untuk mengasosiasikan file
-  },
-};
-
-module.exports = myFileContent;
 ```
 
 ```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
@@ -94,7 +64,7 @@ module.exports = myFileContent;
 
 Untuk menggunakan konten file yang disematkan dalam komponen React, impor dan gunakan hook `useIntlayer` dari paket `react-intlayer`. Ini mengambil konten dari kunci yang ditentukan dan memungkinkan konten tersebut ditampilkan secara dinamis.
 
-```tsx fileName="**/*.tsx" codeFormat="typescript"
+```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useIntlayer } from "react-intlayer";
 
@@ -111,43 +81,11 @@ const FileComponent: FC = () => {
 export default FileComponent;
 ```
 
-```javascript fileName="**/*.mjx" codeFormat="esm"
-import { useIntlayer } from "react-intlayer";
-
-const FileComponent = () => {
-  const { myFile } = useIntlayer("my_key");
-
-  return (
-    <div>
-      <pre>{myFile}</pre>
-    </div>
-  );
-};
-
-export default FileComponent;
-```
-
-```javascript fileName="**/*.cjs" codeFormat="commonjs"
-const { useIntlayer } = require("react-intlayer");
-
-const FileComponent = () => {
-  const { myFile } = useIntlayer("my_key");
-
-  return (
-    <div>
-      <pre>{myFile}</pre>
-    </div>
-  );
-};
-
-module.exports = FileComponent;
-```
-
 ## Contoh Markdown Multibahasa
 
 Untuk mendukung file Markdown yang dapat diedit dalam berbagai bahasa, Anda dapat menggunakan `file` bersama dengan `t()` dan `md()` untuk mendefinisikan versi bahasa yang berbeda dari sebuah file konten Markdown.
 
-```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="**/*.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { file, t, md, type Dictionary } from "intlayer";
 
 const myMultilingualContent = {
@@ -164,46 +102,6 @@ const myMultilingualContent = {
 } satisfies Dictionary;
 
 export default myMultilingualContent;
-```
-
-```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-import { file, t, md } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-// Mendefinisikan konten multibahasa dengan kunci dan isi yang berbeda berdasarkan bahasa
-const myMultilingualContent = {
-  key: "my_multilingual_key",
-  content: {
-    myContent: md(
-      t({
-        en: file("src/components/test.en.md"),
-        fr: file("src/components/test.fr.md"),
-        es: file("src/components/test.es.md"),
-      })
-    ),
-  },
-};
-
-export default myMultilingualContent;
-
-export default myMultilingualContent;
-```
-
-```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-const { file, t, md } = require("intlayer");
-
-const myMultilingualContent = {
-  key: "my_multilingual_key",
-  content: {
-    myContent: md(
-      t({
-        en: file("src/components/test.en.md"),
-        fr: file("src/components/test.fr.md"),
-        es: file("src/components/test.es.md"),
-      })
-    ),
-  },
-};
 ```
 
 Pengaturan ini memungkinkan konten diambil secara dinamis berdasarkan preferensi bahasa pengguna. Saat digunakan di Intlayer Visual Editor atau CMS, sistem akan mengenali bahwa konten berasal dari file Markdown yang ditentukan dan memastikan konten tersebut tetap dapat diedit.

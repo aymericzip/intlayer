@@ -64,38 +64,8 @@ Fungsi `getMultilingualUrls` menghasilkan pemetaan URL multibahasa dengan menamb
 
 ### URL Relatif
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getMultilingualUrls, Locales } from "intlayer";
-
-getMultilingualUrls(
-  "/dashboard",
-  [Locales.ENGLISH, Locales.FRENCH],
-  Locales.ENGLISH,
-  false
-);
-// Output: {
-//   en: "/dashboard",
-//   fr: "/fr/dashboard"
-// }
-```
-
-```javascript codeFormat="esm"
-import { getMultilingualUrls, Locales } from "intlayer";
-
-getMultilingualUrls(
-  "/dashboard",
-  [Locales.ENGLISH, Locales.FRENCH],
-  Locales.ENGLISH,
-  false
-);
-// Output: {
-//   en: "/dashboard",
-//   fr: "/fr/dashboard"
-// }
-```
-
-```javascript codeFormat="commonjs"
-const { getMultilingualUrls, Locales } = require("intlayer");
 
 getMultilingualUrls(
   "/dashboard",
@@ -143,7 +113,7 @@ getMultilingualUrls(
 
 Dalam aplikasi multibahasa, mengonfigurasi pengaturan internasionalisasi dengan `locales` dan `defaultLocale` sangat penting untuk memastikan bahasa yang benar ditampilkan. Berikut adalah contoh bagaimana `getMultilingualUrls` dapat digunakan dalam pengaturan aplikasi:
 
-```tsx codeFormat="typescript"
+```tsx codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 // Konfigurasi untuk locale yang didukung dan locale default
@@ -155,38 +125,6 @@ export default {
 } satisfies IntlayerConfig;
 
 export default config;
-```
-
-```javascript codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-// Konfigurasi untuk locale yang didukung dan locale default
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-```javascript codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-// Konfigurasi untuk locale yang didukung dan locale default
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-module.exports = config;
-
-module.exports = config;
 ```
 
 Konfigurasi di atas memastikan bahwa aplikasi mengenali `ENGLISH`, `FRENCH`, dan `SPANISH` sebagai bahasa yang didukung dan menggunakan `ENGLISH` sebagai bahasa fallback.

@@ -509,7 +509,7 @@ Intlayer использует расширение модулей (module augmen
 
 Чтобы настроить его, вы можете добавить раздел `compiler` в ваш файл `intlayer.config.ts`:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -538,66 +538,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... Остальная часть вашей конфигурации
-  compiler: {
-    /**
-     * Указывает, должен ли быть включен компилятор.
-     */
-    enabled: true,
-
-    /**
-     * Определяет путь к выходным файлам
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * Указывает, должны ли компоненты сохраняться после преобразования. Таким образом, компилятор можно запустить только один раз для преобразования приложения, а затем удалить.
-     */
-    saveComponents: false,
-
-    /**
-     * Префикс ключа словаря
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... Остальная часть вашей конфигурации
-  compiler: {
-    /**
-     * Указывает, должен ли быть включен компилятор.
-     */
-    enabled: true,
-
-    /**
-     * Определяет путь к выходным файлам
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * Указывает, должны ли компоненты сохраняться после преобразования. Таким образом, компилятор можно запустить только один раз для преобразования приложения, а затем удалить.
-     */
-    saveComponents: false,
-
-    /**
-     * Префикс ключа словаря
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-module.exports = config;
 ```
 
 <Tabs>

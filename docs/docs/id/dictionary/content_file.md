@@ -61,7 +61,7 @@ Sebuah kamus adalah kumpulan konten yang terstruktur dan diorganisir berdasarkan
 
 Contoh berkas konten:
 
-```tsx fileName="src/example.content.tsx" contentDeclarationFormat="typescript"
+```tsx fileName="src/example.content.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { type ReactNode } from "react";
 import {
   t,
@@ -140,106 +140,6 @@ export default {
     jsxContent: <h1>Judul saya</h1>,
   },
 } satisfies Dictionary<Content>; // [opsional] Dictionary adalah generic dan memungkinkan Anda memperkuat format kamus Anda
-```
-
-```javascript fileName="src/example.content.mjx" contentDeclarationFormat="esm"
-import { t, enu, cond, nest, md, insert, file } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-export default {
-  key: "page",
-  content: {
-    imbricatedContent: {
-      imbricatedContent2: {
-        stringContent: "Halo Dunia",
-        numberContent: 123,
-        booleanContent: true,
-        javaScriptContent: `${process.env.NODE_ENV}`, // Lingkungan Node.js saat ini
-      },
-      imbricatedArray: [1, 2, 3],
-    },
-    multilingualContent: t({
-      en: "English content",
-      "en-GB": "English content (UK)",
-      fr: "French content",
-      es: "Spanish content",
-    }),
-    quantityContent: enu({
-      "<-1": "Kurang dari minus satu mobil",
-      "-1": "Minus satu mobil",
-      "0": "Tidak ada mobil",
-      "1": "Satu mobil",
-      ">5": "Beberapa mobil",
-      ">19": "Banyak mobil",
-    }),
-    conditionalContent: cond({
-      true: "Validasi diaktifkan",
-      false: "Validasi dinonaktifkan",
-    }),
-    insertionContent: insert("Halo {{name}}!"),
-    nestedContent: nest(
-      "navbar", // Kunci dari kamus yang akan disisipkan
-      "login.button" // [Opsional] Jalur ke konten yang akan disisipkan
-    ),
-    markdownContent: md("# Contoh Markdown"),
-    htmlContent: html("<p>Hello <strong>World</strong></p>"),
-    fileContent: file("./path/to/file.txt"),
-    externalContent: fetch("https://example.com").then((res) => res.json())
-
-    // Hanya tersedia menggunakan `react-intlayer` atau `next-intlayer`
-    jsxContent: <h1>Judul saya</h1>,
-  },
-};
-```
-
-```javascript fileName="src/example.content.cjx" contentDeclarationFormat="commonjs"
-const { t, enu, cond, nest, md, insert, file } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-module.exports = {
-  key: "page",
-  content: {
-    imbricatedContent: {
-      imbricatedContent2: {
-        stringContent: "Halo Dunia",
-        numberContent: 123,
-        booleanContent: true,
-        javaScriptContent: `${process.env.NODE_ENV}`, // Konten JavaScript dari variabel lingkungan
-      },
-      imbricatedArray: [1, 2, 3],
-    },
-    multilingualContent: t({
-      en: "English content",
-      "en-GB": "English content (UK)",
-      fr: "French content",
-      es: "Spanish content",
-    }),
-    quantityContent: enu({
-      "<-1": "Kurang dari minus satu mobil",
-      "-1": "Minus satu mobil",
-      "0": "Tidak ada mobil",
-      "1": "Satu mobil",
-      ">5": "Beberapa mobil",
-      ">19": "Banyak mobil",
-    }),
-    conditionalContent: cond({
-      true: "Validasi diaktifkan",
-      false: "Validasi dinonaktifkan",
-    }),
-    insertionContent: insert("Halo {{name}}!"),
-    nestedContent: nest(
-      "navbar", // Kunci dari kamus yang akan disisipkan
-      "login.button" // [Opsional] Jalur ke konten yang akan disisipkan
-    ),
-    markdownContent: md("# Contoh Markdown"),
-    htmlContent: html("<p>Hello <strong>World</strong></p>"),
-    fileContent: file("./path/to/file.txt"),
-    externalContent: fetch("https://example.com").then((res) => res.json())
-
-    // Hanya tersedia menggunakan `react-intlayer` atau `next-intlayer`
-    jsxContent: <h1>Judul Saya</h1>,
-  },
-};
 ```
 
 ```json5 fileName="src/example.content.json"  contentDeclarationFormat="json"
@@ -977,7 +877,7 @@ Anda dapat dengan mudah mengimbrikasikan fungsi ke dalam fungsi lain.
 
 Contoh:
 
-```javascript fileName="src/example.content.tsx" contentDeclarationFormat="typescript"
+```javascript fileName="src/example.content.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, enu, cond, nest, md, type Dictionary } from "intlayer";
 
 const getName = async () => "John Doe";
@@ -1023,104 +923,6 @@ export default {
     }),
   },
 } satisfies Dictionary;
-```
-
-```javascript fileName="src/example.content.mjx" contentDeclarationFormat="esm"
-import { t, enu, cond, nest, md } from "intlayer";
-
-const getName = async () => "John Doe";
-
-/** @type {import('intlayer').Dictionary} */
-export default {
-  key: "page",
-  content: {
-    // `getIntlayer('page','en').hiMessage` mengembalikan `['Hi', ' ', 'John Doe']`
-    hiMessage: [
-      t({
-        en: "Hi",
-        fr: "Salut",
-        es: "Hola",
-      }),
-      " ",
-      getName(),
-    ],
-    // Konten komposit yang menggabungkan kondisi, enumerasi, dan konten multibahasa
-    // `getIntlayer('page','en').advancedContent(true)(10)` mengembalikan 'Multiple items found'
-    advancedContent: cond({
-      true: enu({
-        "0": t({
-          en: "No items found",
-          fr: "Aucun article trouvé",
-          es: "Tidak ada item yang ditemukan",
-        }),
-        "1": t({
-          en: "One item found",
-          fr: "Un article trouvé",
-          es: "Satu item ditemukan",
-        }),
-        ">1": t({
-          en: "Multiple items found",
-          fr: "Plusieurs articles trouvés",
-          es: "Beberapa item ditemukan",
-        }),
-      }),
-      false: t({
-        en: "No valid data available",
-        fr: "Aucune donnée valide disponible",
-        es: "Tidak ada data valid yang tersedia",
-      }),
-    }),
-  },
-};
-```
-
-```javascript fileName="src/example.content.cjx" contentDeclarationFormat="commonjs"
-const { t, enu, cond, nest, md } = require("intlayer");
-
-const getName = async () => "John Doe";
-
-/** @type {import('intlayer').Dictionary} */
-module.exports = {
-  key: "page",
-  content: {
-    // `getIntlayer('page','en').hiMessage` mengembalikan `['Hi', ' ', 'John Doe']`
-    hiMessage: [
-      t({
-        en: "Hi",
-        fr: "Salut",
-        es: "Hola",
-      }),
-      " ",
-      getName(),
-    ],
-    // Konten komposit yang menggabungkan kondisi, enumerasi, dan konten multibahasa
-    // `getIntlayer('page','en').advancedContent(true)(10)` mengembalikan 'Multiple items found'
-    advancedContent: cond({
-      true: enu({
-        "0": t({
-          en: "No items found",
-          fr: "Aucun article trouvé",
-          es: "No se encontraron artículos",
-        }),
-        "1": t({
-          en: "One item found",
-          fr: "Un article trouvé",
-          es: "Se encontró un artículo",
-        }),
-        ">1": t({
-          en: "Multiple items found",
-          fr: "Plusieurs articles trouvés",
-          es: "Beberapa item ditemukan",
-        }),
-      }),
-      false: t({
-        en: "No valid data available",
-        fr: "Aucune donnée valide disponible",
-        es: "Tidak ada data valid yang tersedia",
-      }),
-    }),
-  },
-};
 ```
 
 ```json5 fileName="src/example.content.json"  contentDeclarationFormat="json"

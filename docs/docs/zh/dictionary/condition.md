@@ -28,7 +28,7 @@ slugs:
 
 要在您的 Intlayer 项目中设置条件内容，请创建一个包含条件定义的内容模块。以下是各种格式的示例。
 
-```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="**/*.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { cond, type Dictionary } from "intlayer";
 
 const myConditionalContent = {
@@ -43,42 +43,6 @@ const myConditionalContent = {
 } satisfies Dictionary;
 
 export default myConditionalContent;
-```
-
-```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-import { cond } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const myConditionalContent = {
-  key: "my_key",
-  content: {
-    myCondition: cond({
-      true: "当条件为真时的内容",
-      false: "当条件为假时的内容",
-      fallback: "当条件不满足时的内容", // 可选
-    }),
-  },
-};
-
-export default myConditionalContent;
-```
-
-```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-const { cond } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const myConditionalContent = {
-  key: "my_key",
-  content: {
-    myCondition: cond({
-      true: "当条件为真时的内容",
-      false: "当条件为假时的内容",
-      fallback: "当条件不满足时的内容", // 可选
-    }),
-  },
-};
-
-module.exports = myConditionalContent;
 ```
 
 ```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
@@ -104,7 +68,7 @@ module.exports = myConditionalContent;
 
 要在 React 组件中使用条件内容，请从 `react-intlayer` 包中导入并使用 `useIntlayer` 钩子。此钩子会获取指定键的内容，并允许您传入条件以选择适当的输出。
 
-```tsx fileName="**/*.tsx" codeFormat="typescript"
+```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useIntlayer } from "react-intlayer";
 
@@ -142,84 +106,6 @@ const ConditionalComponent: FC = () => {
 };
 
 export default ConditionalComponent;
-```
-
-```javascript fileName="**/*.mjx" codeFormat="esm"
-import { useIntlayer } from "react-intlayer";
-
-const ConditionalComponent = () => {
-  const { myCondition } = useIntlayer("my_key");
-
-  return (
-    <div>
-      <p>
-        {
-          /* 输出: 当条件为真时的内容 */
-          myCondition(true)
-        }
-      </p>
-      <p>
-        {
-          /* 输出: 当条件为假时的内容 */
-          myCondition(false)
-        }
-      </p>
-      <p>
-        {
-          /* 输出: 当条件不满足时的内容 */
-          myCondition("")
-        }
-      </p>
-      <p>
-        {
-          /* 输出: 当条件不满足时的内容 */
-          myCondition(undefined)
-        }
-      </p>
-    </div>
-  );
-};
-
-export default ConditionalComponent;
-```
-
-```javascript fileName="**/*.cjs" codeFormat="commonjs"
-const { useIntlayer } = require("react-intlayer");
-
-const ConditionalComponent = () => {
-  const { myCondition } = useIntlayer("my_key");
-
-  return (
-    <div>
-      <p>
-        {
-          /* 输出: 当条件为真时的内容 */
-          myCondition(true)
-        }
-      </p>
-      <p>
-        {
-          /* 输出: 当条件为假时的内容 */
-          myCondition(false)
-        }
-      </p>
-      <p>
-        {
-          /* 输出: 当条件不满足时的内容 */
-          myCondition("")
-        }
-      </p>
-      <p>
-        {
-          /* 输出: 当条件不满足时的内容 */
-          myCondition(undefined)
-        }
-      </p>
-    </div>
-  );
-};
-
-module.exports = ConditionalComponent;
 ```
 
 ## 其他资源

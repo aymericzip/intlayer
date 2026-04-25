@@ -65,53 +65,9 @@ t(translations: Record<string, string>): string;
 
 애플리케이션의 **모든 라우트 앞**에 `app.use("*", intlayer())` 미들웨어를 배치하여 모든 라우트가 국제화의 이점을 누릴 수 있도록 하세요.
 
-```typescript {6} fileName="src/index.ts" codeFormat="typescript"
+```typescript {6} fileName="src/index.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Hono } from "hono";
 import { intlayer } from "hono-intlayer";
-
-const app = new Hono();
-
-// 국제화 요청 핸들러 로드
-app.use("*", intlayer());
-
-// 미들웨어 로드 후 라우트 정의
-app.get("/", (c) => {
-  return c.text(
-    t({
-      en: "Hello, World!",
-      fr: "Bonjour le monde!",
-      es: "¡Hola, Mundo!",
-      ko: "안녕하세요, 세상!",
-    })
-  );
-});
-```
-
-```javascript {6} fileName="src/index.mjs" codeFormat="esm"
-import { Hono } from "hono";
-import { intlayer } from "hono-intlayer";
-
-const app = new Hono();
-
-// 국제화 요청 핸들러 로드
-app.use("*", intlayer());
-
-// 미들웨어 로드 후 라우트 정의
-app.get("/", (c) => {
-  return c.text(
-    t({
-      en: "Hello, World!",
-      fr: "Bonjour le monde!",
-      es: "¡Hola, Mundo!",
-      ko: "안녕하세요, 세상!",
-    })
-  );
-});
-```
-
-```javascript {6} fileName="src/index.cjs" codeFormat="commonjs"
-const { Hono } = require("hono");
-const { intlayer, t } = require("hono-intlayer");
 
 const app = new Hono();
 

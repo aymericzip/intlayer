@@ -32,7 +32,7 @@ In Intlayer, enumeration is achieved through the `enu` function, which maps spec
 
 To set up enumeration in your Intlayer project, you need to create a content module that includes enumeration definitions. Here's an example of a simple enumeration for the number of cars:
 
-```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="**/*.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { enu, type Dictionary } from "intlayer";
 
 const carEnumeration = {
@@ -51,50 +51,6 @@ const carEnumeration = {
 } satisfies Dictionary;
 
 export default carEnumeration;
-```
-
-```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-import { enu } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const carEnumeration = {
-  key: "car_count",
-  content: {
-    numberOfCar: enu({
-      "<-1": "Less than minus one car",
-      "-1": "Minus one car",
-      "0": "No cars",
-      "1": "One car",
-      ">5": "Some cars",
-      ">19": "Many cars",
-      "fallback": "Fallback value", // Optional
-    }),
-  },
-};
-
-export default carEnumeration;
-```
-
-```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-const { enu } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const carEnumeration = {
-  key: "car_count",
-  content: {
-    numberOfCar: enu({
-      "<-1": "Less than minus one car",
-      "-1": "Minus one car",
-      "0": "No cars",
-      "1": "One car",
-      ">5": "Some cars",
-      ">19": "Many cars",
-      "fallback": "Fallback value", // Optional
-    }),
-  },
-};
-
-module.exports = carEnumeration;
 ```
 
 ```json fileName="**/*.content.json" contentDeclarationFormat="json"
@@ -238,7 +194,7 @@ In this example, the component dynamically adjusts its output based on the numbe
 
 A common use case is displaying ordinal numbers (1st, 2nd, 3rd, etc.). You can combine `enu` with `insert` to create dynamic ordinal content:
 
-```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="**/*.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { enu, insert, type Dictionary } from "intlayer";
 
 const rankingContent = {
@@ -254,44 +210,6 @@ const rankingContent = {
 } satisfies Dictionary;
 
 export default rankingContent;
-```
-
-```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-import { enu, insert } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const rankingContent = {
-  key: "ranking_component",
-  content: {
-    ordinal: enu({
-      1: insert("{{count}}st place"),
-      2: insert("{{count}}nd place"),
-      3: insert("{{count}}rd place"),
-      fallback: insert("{{count}}th place"),
-    }),
-  },
-};
-
-export default rankingContent;
-```
-
-```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-const { enu, insert } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const rankingContent = {
-  key: "ranking_component",
-  content: {
-    ordinal: enu({
-      1: insert("{{count}}st place"),
-      2: insert("{{count}}nd place"),
-      3: insert("{{count}}rd place"),
-      fallback: insert("{{count}}th place"),
-    }),
-  },
-};
-
-module.exports = rankingContent;
 ```
 
 ```json fileName="**/*.content.json" contentDeclarationFormat="json"

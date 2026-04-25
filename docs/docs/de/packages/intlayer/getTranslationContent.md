@@ -49,36 +49,8 @@ Die Funktion `getTranslation` ruft den Inhalt ab, der einer bestimmten Sprache a
 
 ### Grundlegende Verwendung
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getTranslation, Locales } from "intlayer";
-
-const content = getTranslation(
-  {
-    en: "Hello",
-    fr: "Bonjour",
-  },
-  Locales.ENGLISH
-);
-
-console.log(content); // Ausgabe: "Bonjour"
-```
-
-```javascript codeFormat="esm"
-import { getTranslation, Locales } from "intlayer";
-
-const content = getTranslation(
-  {
-    en: "Hello",
-    fr: "Bonjour",
-  },
-  Locales.ENGLISH
-);
-
-console.log(content); // Ausgabe: "Bonjour"
-```
-
-```javascript codeFormat="commonjs"
-const { getTranslation, Locales } = require("intlayer");
 
 const content = getTranslation(
   {
@@ -93,36 +65,8 @@ console.log(content); // Ausgabe: "Bonjour"
 
 ### Fehlende Sprache:
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getTranslation, Locales } from "intlayer";
-
-const content = getTranslation(
-  {
-    en: "Hello",
-    fr: "Bonjour",
-  },
-  Locales.SPANISH
-);
-
-console.log(content); // Ausgabe: "Hello" (Inhalt der Standardsprache)
-```
-
-```javascript codeFormat="esm"
-import { getTranslation, Locales } from "intlayer";
-
-const content = getTranslation(
-  {
-    en: "Hello",
-    fr: "Bonjour",
-  },
-  Locales.SPANISH
-);
-
-console.log(content); // Ausgabe: "Hello" (Inhalt der Standardsprache)
-```
-
-```javascript codeFormat="commonjs"
-const { getTranslation, Locales } = require("intlayer");
 
 const content = getTranslation(
   {
@@ -137,36 +81,8 @@ console.log(content); // Ausgabe: "Hello" (Inhalt der Standardsprache)
 
 ### Verwendung benutzerdefinierter Inhaltstypen:
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getTranslation, Locales } from "intlayer";
-
-const customContent = getTranslation<Record<string, string>>(
-  {
-    en: { greeting: "Hello" },
-    fr: { greeting: "Bonjour" },
-  },
-  Locales.FRENCH
-);
-
-console.log(customContent.greeting); // Ausgabe: "Bonjour"
-```
-
-```javascript codeFormat="esm"
-import { getTranslation, Locales } from "intlayer";
-
-const customContent = getTranslation<Record<string, string>>(
-  {
-    en: { greeting: "Hello" },
-    fr: { greeting: "Bonjour" },
-  },
-  Locales.FRENCH
-);
-
-console.log(customContent.greeting); // Ausgabe: "Bonjour"
-```
-
-```javascript codeFormat="commonjs"
-const { getTranslation, Locales } = require("intlayer");
 
 const customContent = getTranslation<Record<string, string>>(
   {

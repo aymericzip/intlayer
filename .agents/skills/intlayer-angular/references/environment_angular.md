@@ -210,7 +210,7 @@ export default mergeConfig({});
 
 Create and manage your content declarations to store translations:
 
-```tsx fileName="src/app/app.content.ts" contentDeclarationFormat="typescript"
+```tsx fileName="src/app/app.content.ts" contentDeclarationFormat=["typescript","esm","commonjs"]
 import { t, type Dictionary } from "intlayer";
 
 const appContent = {

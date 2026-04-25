@@ -65,53 +65,9 @@ t(translations: Record<string, string>): string;
 
 `app.use("*", intlayer())` मिडलवेयर को अपने एप्लिकेशन में **किसी भी रूट से पहले** रखें ताकि यह सुनिश्चित हो सके कि सभी रूट अंतर्राष्ट्रीयकरण से लाभान्वित हों:
 
-```typescript {6} fileName="src/index.ts" codeFormat="typescript"
+```typescript {6} fileName="src/index.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Hono } from "hono";
 import { intlayer } from "hono-intlayer";
-
-const app = new Hono();
-
-// अंतर्राष्ट्रीयकरण अनुरोध हैंडलर लोड करें
-app.use("*", intlayer());
-
-// मिडलवेयर लोड करने के बाद अपने रूट परिभाषित करें
-app.get("/", (c) => {
-  return c.text(
-    t({
-      en: "Hello, World!",
-      fr: "Bonjour le monde!",
-      es: "¡Hola, Mundo!",
-      hi: "नमस्ते दुनिया!",
-    })
-  );
-});
-```
-
-```javascript {6} fileName="src/index.mjs" codeFormat="esm"
-import { Hono } from "hono";
-import { intlayer } from "hono-intlayer";
-
-const app = new Hono();
-
-// अंतर्राष्ट्रीयकरण अनुरोध हैंडलर लोड करें
-app.use("*", intlayer());
-
-// मिडलवेयर लोड करने के बाद अपने रूट परिभाषित करें
-app.get("/", (c) => {
-  return c.text(
-    t({
-      en: "Hello, World!",
-      fr: "Bonjour le monde!",
-      es: "¡Hola, Mundo!",
-      hi: "नमस्ते दुनिया!",
-    })
-  );
-});
-```
-
-```javascript {6} fileName="src/index.cjs" codeFormat="commonjs"
-const { Hono } = require("hono");
-const { intlayer, t } = require("hono-intlayer");
 
 const app = new Hono();
 

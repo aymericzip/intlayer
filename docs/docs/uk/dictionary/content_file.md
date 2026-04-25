@@ -64,7 +64,7 @@ history:
 
 Приклад файлу контенту:
 
-```tsx fileName="src/example.content.tsx" contentDeclarationFormat="typescript"
+```tsx fileName="src/example.content.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { type ReactNode } from "react";
 import {
   t,
@@ -145,107 +145,6 @@ export default {
     jsxContent: <h1>Мій заголовок</h1>,
   },
 } satisfies Dictionary<Content>; // [необов'язково] Dictionary, generic тип, який дозволяє уточнити форматування вашого словника
-```
-
-```javascript fileName="src/example.content.mjx" contentDeclarationFormat="esm"
-import { t, enu, cond, nest, md, html, insert, file } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-export default {
-  key: "page",
-  content: {
-    imbricatedContent: {
-      imbricatedContent2: {
-        stringContent: "Привіт, світ",
-        numberContent: 123,
-        booleanContent: true,
-        javaScriptContent: `${process.env.NODE_ENV}`,
-      },
-      imbricatedArray: [1, 2, 3],
-    },
-    multilingualContent: t({
-      uk: "Контент українською",
-      en: "English content",
-      "en-GB": "English content (UK)",
-      fr: "French content",
-      es: "Spanish content",
-    }),
-    quantityContent: enu({
-      "<-1": "Менше ніж мінус одна машина",
-      "-1": "Мінус одна машина",
-      "0": "Немає машин",
-      "1": "Одна машина",
-      ">5": "Кілька автомобілів",
-      ">19": "Багато автомобілів",
-    }),
-    conditionalContent: cond({
-      true: "Валідація увімкнена",
-      false: "Валідація вимкнена",
-    }),
-    insertionContent: insert("Привіт {{name}}!"),
-    nestedContent: nest(
-      "navbar", // Ключ словника для вкладення
-      "login.button" // [Необов'язково] Шлях до вмісту для вкладення
-    ),
-    markdownContent: md("# Приклад Markdown"),
-    htmlContent: html("<p>Hello <strong>World</strong></p>"),
-    fileContent: file("./path/to/file.txt"),
-    externalContent: fetch("https://example.com").then((res) => res.json())
-
-    // Доступно лише при використанні `react-intlayer` або `next-intlayer`
-    jsxContent: <h1>Мій заголовок</h1>,
-  },
-};
-```
-
-```javascript fileName="src/example.content.cjx" contentDeclarationFormat="commonjs"
-const { t, enu, cond, nest, md, html, insert, file } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-module.exports = {
-  key: "page",
-  content: {
-    imbricatedContent: {
-      imbricatedContent2: {
-        stringContent: "Привіт, світ",
-        numberContent: 123,
-        booleanContent: true,
-        javaScriptContent: `${process.env.NODE_ENV}`,
-      },
-      imbricatedArray: [1, 2, 3],
-    },
-    multilingualContent: t({
-      uk: "Вміст українською",
-      en: "English content",
-      "en-GB": "English content (UK)",
-      fr: "French content",
-      es: "Spanish content",
-    }),
-    quantityContent: enu({
-      "<-1": "Менше ніж мінус одна машина",
-      "-1": "Мінус одна машина",
-      "0": "Жодної машини",
-      "1": "Одна машина",
-      ">5": "Декілька машин",
-      ">19": "Багато машин",
-    }),
-    conditionalContent: cond({
-      true: "Валідація увімкнена",
-      false: "Валідація вимкнена",
-    }),
-    insertionContent: insert("Привіт {{name}}!"),
-    nestedContent: nest(
-      "navbar", // Ключ словника для вкладення
-      "login.button" // [Опційно] Шлях до контенту для вкладення
-    ),
-    markdownContent: md("# Приклад Markdown"),
-    fileContent: file("./path/to/file.txt"),
-    externalContent: fetch("https://example.com").then((res) => res.json())
-
-    // Доступно лише при використанні `react-intlayer` або `next-intlayer`
-    jsxContent: <h1>Мій заголовок</h1>,
-  },
-};
 ```
 
 ```json5 fileName="src/example.content.json"  contentDeclarationFormat="json"
@@ -963,7 +862,7 @@ export default {
 
 Приклад:
 
-```javascript fileName="src/example.content.tsx" contentDeclarationFormat="typescript"
+```javascript fileName="src/example.content.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, enu, cond, nest, md, type Dictionary } from "intlayer";
 
 const getName = async () => "John Doe";
@@ -1018,121 +917,6 @@ export default {
     }),
   },
 } satisfies Dictionary;
-```
-
-```javascript fileName="src/example.content.mjx" contentDeclarationFormat="esm"
-import { t, enu, cond, nest, md } from "intlayer";
-
-const getName = async () => "John Doe";
-
-/** @type {import('intlayer').Dictionary} */
-export default {
-  key: "page",
-  content: {
-    // `getIntlayer('page','en').hiMessage` повертає `['Hi', ' ', 'John Doe']`
-    hiMessage: [
-      t({
-        uk: "Привіт",
-        en: "Hi",
-        fr: "Salut",
-        es: "Hola",
-      }),
-      " ",
-      getName(),
-    ],
-    // Складений контент, що вкладає cond, enu та багатомовний вміст
-    // `getIntlayer('page','en').advancedContent(true)(10)` повертає 'Multiple items found'
-    advancedContent: cond({
-      true: enu({
-        "0": t({
-          uk: "Елементів не знайдено",
-          en: "No items found",
-          fr: "Aucun article trouvé",
-          es: "No se encontraron artículos",
-        }),
-        "1": t({
-          uk: "Знайдено один елемент",
-          en: "One item found",
-          fr: "Un article trouvé",
-          es: "Se encontró un artículo",
-        }),
-        ">1": t({
-          uk: "Знайдено кілька елементів",
-          en: "Multiple items found",
-          fr: "Plusieurs articles trouvés",
-          es: "Se encontraron múltiples artículos",
-        }),
-      }),
-      false: t({
-        uk: "Немає дійсних даних",
-        en: "No valid data available",
-        fr: "Aucune donnée valide disponible",
-        es: "No hay datos válidos disponibles",
-      }),
-    }),
-  },
-};
-```
-
-```javascript fileName="src/example.content.cjx" contentDeclarationFormat="commonjs"
-const { t, enu, cond, nest, md } = require("intlayer");
-
-const getName = async () => "John Doe";
-
-/** @type {import('intlayer').Dictionary} */
-module.exports = {
-  key: "page",
-  content: {
-    // `getIntlayer('page','en').hiMessage` повертає `['Hi', ' ', 'John Doe']`
-    hiMessage: [
-      t({
-        uk: "Привіт",
-        en: "Hi",
-        fr: "Salut",
-        es: "Hola",
-      }),
-      " ",
-      getName(),
-    ],
-    // Складовий контент, що вкладає умову, перелік та багатомовний контент
-    // `getIntlayer('page','en').advancedContent(true)(10) повертає 'Multiple items found'`
-    advancedContent: cond({
-      true: enu({
-        "0": t({
-          uk: "Елементів не знайдено",
-          en: "No items found",
-          fr: "Aucun article trouvé",
-          es: "No se encontraron artículos",
-        }),
-        "1": t({
-          uk: "Знайдено один елемент",
-          en: "One item found",
-          fr: "Un article trouvé",
-          es: "Se encontró un artículo",
-        }),
-        ">1": t({
-          uk: "Знайдено кілька елементів",
-          en: "Multiple items found",
-          fr: "Plusieurs articles trouvés",
-          es: "Se encontraron múltiples artículos",
-        }),
-      }),
-      false: t({
-        uk: "Немає дійсних даних",
-        en: "No valid data available",
-        fr: "Aucune donnée valide disponible",
-        es: "No hay datos válidos disponibles",
-      }),
-    }),
-  },
-};
-        uk: "Немає дійсних даних",
-        fr: "Aucune donnée valide disponible",
-        es: "No hay datos válidos disponibles",
-      }),
-    }),
-  },
-};
 ```
 
 ```json5 fileName="src/example.content.json"  contentDeclarationFormat="json"

@@ -88,7 +88,7 @@ bun add intlayer-editor --dev
 
 在您的 Intlayer 配置文件中，您可以自定义编辑器设置：
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import type { IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -123,77 +123,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... 其他配置设置
-  editor: {
-    /**
-     * 必需
-     * 应用程序的 URL。
-     * 这是可视化编辑器的目标 URL。
-     * 示例：'http://localhost:3000'
-     */
-    applicationURL: process.env.INTLAYER_APPLICATION_URL,
-    /**
-     * 可选
-     * 默认值为 `true`。如果为 `false`，编辑器将处于非活动状态且无法访问。
-     * 可用于出于安全原因在特定环境（如生产环境）中禁用编辑器。
-     */
-    enabled: process.env.INTLAYER_ENABLED,
-    /**
-     * 可选
-     * 默认值为 `8000`。
-     * 可视化编辑器服务器使用的端口。
-     */
-    port: process.env.INTLAYER_PORT,
-    /**
-     * 可选
-     * 默认值为 "http://localhost:8000"
-     * 应用程序可访问的编辑器服务器 URL。用于限制可以与应用程序交互的来源以提高安全性。如果设置为 `'*'`，编辑器可以从任何来源访问。如果更改了端口，或者编辑器托管在不同的域上，则应设置此项。
-     */
-    editorURL: process.env.INTLAYER_EDITOR_URL,
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... 其他配置设置
-  editor: {
-    /**
-     * 必需
-     * 应用程序的 URL。
-     * 这是可视化编辑器的目标 URL。
-     */
-    applicationURL: process.env.INTLAYER_APPLICATION_URL,
-    /**
-     * 可选
-     * 默认值为 `8000`。
-     * 编辑器服务器的端口。
-     */
-    port: process.env.INTLAYER_PORT,
-    /**
-     * 可选
-     * 默认值为 "http://localhost:8000"
-     * 编辑器服务器的 URL。
-     */
-    editorURL: process.env.INTLAYER_EDITOR_URL,
-    /**
-     * 可选
-     * 默认值为 `true`。如果为 `false`，编辑器将处于非活动状态且无法访问。
-     * 可用于出于安全原因在特定环境（如生产环境）中禁用编辑器。
-     */
-    enabled: process.env.INTLAYER_ENABLED,
-  },
-};
-
-module.exports = config;
 ```
 
 > 要查看所有可用参数，请参阅[配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)。

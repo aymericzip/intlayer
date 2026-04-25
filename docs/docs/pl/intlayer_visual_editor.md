@@ -107,7 +107,7 @@ Dzięki flagowi `--with` możesz uruchomić edytor równolegle z innym polecenie
 
 W pliku konfiguracyjnym Intlayer możesz dostosować ustawienia edytora:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import type { IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -142,77 +142,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... inne ustawienia konfiguracyjne
-  editor: {
-    /**
-     * Wymagane
-     * URL aplikacji.
-     * To jest URL, na który skierowany jest wizualny edytor.
-     * Przykład: 'http://localhost:3000'
-     */
-    applicationURL: process.env.INTLAYER_APPLICATION_URL,
-    /**
-     * Opcjonalne
-     * Domyślnie `true`. Jeśli `false`, edytor jest nieaktywny i nie można uzyskać do niego dostępu.
-     * Może być używane do wyłączenia edytora w określonych środowiskach ze względów bezpieczeństwa, takich jak produkcja.
-     */
-    enabled: process.env.INTLAYER_ENABLED,
-    /**
-     * Opcjonalne
-     * Domyślnie `8000`.
-     * Port używany przez serwer wizualnego edytora.
-     */
-    port: process.env.INTLAYER_PORT,
-    /**
-     * Opcjonalne
-     * Domyślnie "http://localhost:8000"
-     * URL serwera edytora, do którego można dotrzeć z aplikacji. Używany do ograniczenia źródeł, które mogą wchodzić w interakcję z aplikacją ze względów bezpieczeństwa. Jeśli ustawione na `'*'`, edytor jest dostępny z dowolnego źródła. Powinno być ustawione, jeśli zmieniono port lub jeśli edytor jest hostowany na innej domenie.
-     */
-    editorURL: process.env.INTLAYER_EDITOR_URL,
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... inne ustawienia konfiguracyjne
-  editor: {
-    /**
-     * Wymagane
-     * URL aplikacji.
-     * To jest URL, na który skierowany jest wizualny edytor.
-     */
-    applicationURL: process.env.INTLAYER_APPLICATION_URL,
-    /**
-     * Opcjonalne
-     * Domyślnie `8000`.
-     * Port serwera edytora.
-     */
-    port: process.env.INTLAYER_PORT,
-    /**
-     * Opcjonalne
-     * Domyślnie "http://localhost:8000"
-     * URL serwera edytora.
-     */
-    editorURL: process.env.INTLAYER_EDITOR_URL,
-    /**
-     * Opcjonalne
-     * Domyślnie `true`. Jeśli `false`, edytor jest nieaktywny i nie można go używać.
-     * Może być używane do wyłączenia edytora w określonych środowiskach ze względów bezpieczeństwa, takich jak produkcja.
-     */
-    enabled: process.env.INTLAYER_ENABLED,
-  },
-};
-
-module.exports = config;
 ```
 
 > Aby zobaczyć wszystkie dostępne parametry, zapoznaj się z [dokumentacją konfiguracji](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/configuration.md).

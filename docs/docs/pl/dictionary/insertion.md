@@ -41,7 +41,7 @@ Aby skonfigurować treść wstawiania w swoim projekcie Intlayer, utwórz moduł
   <Tab label="Ręczne opakowanie" value="manual-wrapping">
     Użyj funkcji `insert`, aby jawnie zadeklarować treść wstawiania.
 
-    ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+    ```typescript fileName="**/*.content.ts" contentDeclarationFormat=["typescript", "esm", "cjs"]
     import { insert, type Dictionary } from "intlayer";
 
     const myInsertionContent = {
@@ -99,7 +99,7 @@ Aby skonfigurować treść wstawiania w swoim projekcie Intlayer, utwórz moduł
   <Tab label="Automatyczne wykrywanie" value="automatic-detection">
     Jeśli ciąg znaków zawiera typowe wskaźniki wstawiania (takie jak `{{name}}`), Intlayer automatycznie go przekształci.
 
-    ```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+    ```typescript fileName="**/*.content.ts" contentDeclarationFormat=["typescript", "esm", "cjs"]
     import { type Dictionary } from "intlayer";
 
     const myInsertionContent = {
@@ -200,7 +200,7 @@ module.exports = myInsertionContent;
 
 Aby wykorzystać zawartość wstawki w komponencie React, zaimportuj i użyj hooka `useIntlayer` z pakietu `react-intlayer`. Ten hook pobiera zawartość dla określonego klucza i pozwala przekazać obiekt, który mapuje każde miejsce na wartość, którą chcesz wyświetlić.
 
-```tsx fileName="**/*.tsx" codeFormat="typescript"
+```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useIntlayer } from "react-intlayer";
 
@@ -226,60 +226,6 @@ const InsertionComponent: FC = () => {
 };
 
 export default InsertionComponent;
-```
-
-```javascript fileName="**/*.mjx" codeFormat="esm"
-import { useIntlayer } from "react-intlayer";
-
-const InsertionComponent = () => {
-  const { myInsertion } = useIntlayer("my_key");
-
-  return (
-    <div>
-      <p>
-        {
-          /* Wynik: "Cześć, mam na imię John i mam 30 lat!" */
-          myInsertion({ name: "John", age: "30" })
-        }
-      </p>
-      <p>
-        {
-          /* Możesz ponownie użyć tej samej wstawki z różnymi wartościami */
-          myInsertion({ name: "Alice", age: "25" })
-        }
-      </p>
-    </div>
-  );
-};
-
-export default InsertionComponent;
-```
-
-```javascript fileName="**/*.cjs" codeFormat="commonjs"
-const { useIntlayer } = require("react-intlayer");
-
-const InsertionComponent = () => {
-  const { myInsertion } = useIntlayer("my_key");
-
-  return (
-    <div>
-      <p>
-        {
-          /* Wynik: "Cześć, mam na imię John i mam 30 lat!" */
-          myInsertion({ name: "John", age: "30" })
-        }
-      </p>
-      <p>
-        {
-          /* Możesz ponownie użyć tej samej wstawki z różnymi wartościami */
-          myInsertion({ name: "Alice", age: "25" })
-        }
-      </p>
-    </div>
-  );
-};
-
-module.exports = InsertionComponent;
 ```
 
 ## Dodatkowe zasoby

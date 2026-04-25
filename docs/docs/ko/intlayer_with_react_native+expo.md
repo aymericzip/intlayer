@@ -86,7 +86,7 @@ bun x intlayer init
 
 프로젝트 루트(또는 편리한 위치)에 **Intlayer 구성** 파일을 생성하세요. 다음과 같이 보일 수 있습니다:
 
-```ts fileName="intlayer.config.ts" codeFormat="typescript"
+```ts fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 /**
  * Locales 타입을 사용할 수 없는 경우, tsconfig.json에서 moduleResolution을 "bundler"로 설정해 보세요.
  */
@@ -105,39 +105,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```js fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      // ... 필요한 다른 로케일을 추가하세요
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-```js fileName="intlayer.config.js" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-module.exports = config;
 ```
 
 이 구성 내에서 다음을 할 수 있습니다:
@@ -168,12 +135,11 @@ module.exports = (async () => {
 
 > `react-intlayer` 대신 `react-native-intlayer`의 프로바이더를 사용해야 합니다. `react-native-intlayer`의 내보내기에는 웹 API용 폴리필이 포함되어 있습니다.
 
-````tsx fileName="app/_layout.tsx" codeFormat="typescript"
+````tsx fileName="app/_layout.tsx" codeFormat={["typescript", "esm"]}
 import { Stack } from "expo-router";
 import { getLocales } from "expo-localization";
 import { IntlayerProvider } from "react-native-intlayer";
 import { type FC } from "react";
-
 
 
 const getDeviceLocale = () => getLocales()[0]?.languageTag;
@@ -193,7 +159,6 @@ import { IntlayerProvider } from "react-native-intlayer";
 import { type FC } from "react";
 
 
-
 const getDeviceLocale = () => getLocales()[0]?.languageTag;
 
 const RootLayout: FC = () => {
@@ -209,46 +174,6 @@ const RootLayout: FC = () => {
 export default RootLayout;
 ````
 
-```jsx fileName="app/_layout.mjx" codeFormat="esm"
-import { Stack } from "expo-router";
-import { getLocales } from "expo-localization";
-import { IntlayerProvider } from "react-native-intlayer";
-
-const getDeviceLocale = () => getLocales()[0]?.languageTag;
-
-const RootLayout = () => {
-  return (
-    <IntlayerProvider defaultLocale={getDeviceLocale()}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-      </Stack>
-    </IntlayerProvider>
-  );
-};
-
-export default RootLayout;
-```
-
-```jsx fileName="app/_layout.cjx" codeFormat="commonjs"
-const { Stack } = require("expo-router");
-const { getLocales } = require("expo-localization");
-const { IntlayerProvider } = require("react-native-intlayer");
-
-const getDeviceLocale = () => getLocales()[0]?.languageTag;
-
-const RootLayout = () => {
-  return (
-    <IntlayerProvider defaultLocale={getDeviceLocale()}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-      </Stack>
-    </IntlayerProvider>
-  );
-};
-
-module.exports = RootLayout;
-```
-
 ## 5단계: 콘텐츠 선언하기
 
 ````
@@ -257,7 +182,6 @@ module.exports = RootLayout;
 const { Stack } = require("expo-router");
 const { getLocales } = require("expo-localization");
 const { IntlayerProvider } = require("react-native-intlayer");
-
 
 
 const getDeviceLocale = () => getLocales()[0]?.languageTag;
@@ -292,7 +216,7 @@ module.exports = RootLayout;
 
 예시 (React Native용 TSX 노드를 포함한 TypeScript):
 
-```tsx fileName="src/app.content.tsx" contentDeclarationFormat="typescript"
+```tsx fileName="src/app.content.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, type Dictionary } from "intlayer";
 import type { ReactNode } from "react";
 
@@ -313,43 +237,6 @@ const homeScreenContent = {
 } satisfies Dictionary;
 
 export default homeScreenContent;
-```
-
-```jsx fileName="src/app.content.mjx" contentDeclarationFormat="esm"
-import { t } from "intlayer";
-import { ReactNode } from "react";
-
-/** @type {import('intlayer').Dictionary} */
-const appContent = {
-  key: "home-screen",
-  content: {
-    title: t({
-      en: "Welcome!",
-      fr: "Bienvenue!",
-      es: "¡Bienvenido!",
-    }),
-  },
-};
-
-export default appContent;
-```
-
-```jsx fileName="src/app.content.csx" contentDeclarationFormat="commonjs"
-const { t } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const appContent = {
-  key: "home-screen",
-  content: {
-    title: t({
-      en: "Welcome!",
-      fr: "Bienvenue!",
-      es: "¡Bienvenido!",
-    }),
-  },
-};
-
-module.exports = appContent;
 ```
 
 ```json fileName="src/app.content.json" contentDeclarationFormat="json"
@@ -379,7 +266,7 @@ module.exports = appContent;
 
 ### 예제
 
-```tsx fileName="app/(tabs)/index.tsx" codeFormat="typescript"
+```tsx fileName="app/(tabs)/index.tsx" codeFormat={["typescript", "esm"]}
 import { Image, StyleSheet, Platform } from "react-native";
 import { useIntlayer } from "react-intlayer";
 import { HelloWave } from "@/components/HelloWave";
@@ -420,86 +307,6 @@ const styles = StyleSheet.create({
 export default HomeScreen;
 ```
 
-```jsx fileName="app/(tabs)/index.content.msx" codeFormat="esm"
-import { Image, StyleSheet, Platform } from "react-native";
-import { useIntlayer } from "react-intlayer";
-import { HelloWave } from "@/components/HelloWave";
-import ParallaxScrollView from "@/components/ParallaxScrollView";
-import { ThemedText } from "@/components/ThemedText";
-import { ThemedView } from "@/components/ThemedView";
-
-const HomeScreen = () => {
-  const { title, steps } = useIntlayer("home-screen");
-
-  return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: "#A1CEDC", dark: "#1D3D47" }}
-      headerImage={
-        <Image
-          source={require("@/assets/images/partial-react-logo.png")}
-          style={styles.reactLogo}
-        />
-      }
-    >
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">{title}</ThemedText>
-        <HelloWave />
-      </ThemedView>
-    </ParallaxScrollView>
-  );
-};
-
-const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 8,
-  },
-});
-
-export default HomeScreen;
-```
-
-```jsx fileName="app/(tabs)/index.content.csx" codeFormat="commonjs"
-const { Image, StyleSheet, Platform } = require("react-native");
-const { useIntlayer } = require("intlayer");
-const { HelloWave } = require("@/components/HelloWave");
-const ParallaxScrollView = require("@/components/ParallaxScrollView");
-const { ThemedText } = require("@/components/ThemedText");
-const { ThemedView } = require("@/components/ThemedView");
-
-const HomeScreen = () => {
-  const { title, steps } = useIntlayer("home-screen");
-
-  return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: "#A1CEDC", dark: "#1D3D47" }}
-      headerImage={
-        <Image
-          source={require("@/assets/images/partial-react-logo.png")}
-          style={styles.reactLogo}
-        />
-      }
-    >
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">{title}</ThemedText>
-        <HelloWave />
-      </ThemedView>
-    </ParallaxScrollView>
-  );
-};
-
-const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 8,
-  },
-});
-
-module.exports = HomeScreen;
-```
-
 > 문자열 기반 props(예: 버튼의 `title` 또는 `Text` 컴포넌트의 `children`)에서 `content.someKey`를 사용할 때는, 실제 문자열을 얻기 위해 **`content.someKey.value`를 호출하세요**.
 
 ---
@@ -508,101 +315,13 @@ module.exports = HomeScreen;
 
 컴포넌트 내에서 로케일을 전환하려면, `useLocale` 훅의 `setLocale` 메서드를 사용할 수 있습니다:
 
-```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
+```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat={["typescript", "esm"]}
 import { type FC } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { getLocaleName } from "intlayer";
 import { useLocale } from "react-intlayer";
 
 export const LocaleSwitcher: FC = () => {
-  const { setLocale, availableLocales } = useLocale();
-
-  return (
-    <View style={styles.container}>
-      {availableLocales.map((locale) => (
-        <TouchableOpacity
-          key={locale}
-          style={styles.button}
-          onPress={() => setLocale(locale)}
-        >
-          <Text style={styles.text}>{getLocaleName(locale)}</Text>
-        </TouchableOpacity>
-      ))}
-    </View>
-  );
-};
-
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    gap: 8,
-  },
-  button: {
-    paddingVertical: 6,
-    paddingHorizontal: 12,
-    borderRadius: 6,
-    backgroundColor: "#ddd",
-  },
-  text: {
-    fontSize: 14,
-    fontWeight: "500",
-    color: "#333",
-  },
-});
-```
-
-```jsx fileName="src/components/LocaleSwitcher.msx" codeFormat="esm"
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
-import { getLocaleName } from "intlayer";
-import { useLocale } from "react-intlayer";
-
-export const LocaleSwitcher = () => {
-  const { setLocale, availableLocales } = useLocale();
-
-  return (
-    <View style={styles.container}>
-      {availableLocales.map((locale) => (
-        <TouchableOpacity
-          key={locale}
-          style={styles.button}
-          onPress={() => setLocale(locale)}
-        >
-          <Text style={styles.text}>{getLocaleName(locale)}</Text>
-        </TouchableOpacity>
-      ))}
-    </View>
-  );
-};
-
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    gap: 8,
-  },
-  button: {
-    paddingVertical: 6,
-    paddingHorizontal: 12,
-    borderRadius: 6,
-    backgroundColor: "#ddd",
-  },
-  text: {
-    fontSize: 14,
-    fontWeight: "500",
-    color: "#333",
-  },
-});
-```
-
-```jsx fileName="src/components/LocaleSwitcher.csx" codeFormat="commonjs"
-const { View, Text, TouchableOpacity, StyleSheet } = require("react-native");
-const { getLocaleName } = require("intlayer");
-const { useLocale } = require("react-intlayer");
-
-const LocaleSwitcher = () => {
   const { setLocale, availableLocales } = useLocale();
 
   return (

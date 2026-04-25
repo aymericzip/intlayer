@@ -93,7 +93,7 @@ bun x intlayer login
 
 В вашем конфигурационном файле Intlayer вы можете настроить параметры CMS:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import type { IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -142,106 +142,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... другие настройки конфигурации
-  editor: {
-    /**
-     * Обязательно
-     *
-     * URL приложения.
-     * Это URL, на который нацелен визуальный редактор.
-     */
-    applicationURL: process.env.INTLAYER_APPLICATION_URL,
-
-    /**
-     * Обязательно
-     *
-     * Для включения редактора требуются client ID и client secret.
-     * Они позволяют идентифицировать пользователя, который редактирует контент.
-     * Их можно получить, создав нового клиента в Intlayer Dashboard - Projects (https://app.intlayer.org/projects).
-     * clientId: process.env.INTLAYER_CLIENT_ID,
-     * clientSecret: process.env.INTLAYER_CLIENT_SECRET,
-     */
-    clientId: process.env.INTLAYER_CLIENT_ID,
-    clientSecret: process.env.INTLAYER_CLIENT_SECRET,
-
-    /**
-     * Необязательно
-     *
-     * В случае самостоятельного размещения Intlayer CMS, вы можете указать URL CMS.
-     *
-     * URL Intlayer CMS.
-     * По умолчанию установлен на https://intlayer.org
-     */
-    cmsURL: process.env.INTLAYER_CMS_URL,
-
-    /**
-     * Необязательно
-     *
-     * В случае самостоятельного хостинга Intlayer CMS, вы можете указать URL бэкенда.
-     *
-     * URL Intlayer CMS.
-     * По умолчанию установлен на https://back.intlayer.org
-     */
-    backendURL: process.env.INTLAYER_BACKEND_URL,
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... другие настройки конфигурации
-  editor: {
-    /**
-     * Обязательно
-     *
-     * URL приложения.
-     * Это URL, на который нацелен визуальный редактор.
-     */
-    applicationURL: process.env.INTLAYER_APPLICATION_URL,
-
-    /**
-     * Обязательно
-     *
-     * Для включения редактора требуются client ID и client secret.
-     * Они позволяют идентифицировать пользователя, который редактирует контент.
-     * Их можно получить, создав нового клиента в Intlayer Dashboard - Projects (https://app.intlayer.org/projects).
-     * clientId: process.env.INTLAYER_CLIENT_ID,
-     * clientSecret: process.env.INTLAYER_CLIENT_SECRET,
-     */
-    clientId: process.env.INTLAYER_CLIENT_ID,
-    clientSecret: process.env.INTLAYER_CLIENT_SECRET,
-
-    /**
-     * Необязательно
-     *
-     * В случае самостоятельного хостинга Intlayer CMS, вы можете указать URL CMS.
-     *
-     * URL Intlayer CMS.
-     * По умолчанию установлен на https://intlayer.org
-     */
-    cmsURL: process.env.INTLAYER_CMS_URL,
-
-    /**
-     * Необязательно
-     *
-     * В случае самостоятельного хостинга Intlayer CMS, вы можете указать URL бэкенда.
-     *
-     * URL бэкенда Intlayer CMS.
-     * По умолчанию установлен https://back.intlayer.org
-     */
-    backendURL: process.env.INTLAYER_BACKEND_URL,
-  },
-};
-
-module.exports = config;
 ```
 
 > Если у вас нет client ID и client secret, вы можете получить их, создав нового клиента в [Intlayer Dashboard - Projects](https://app.intlayer.org/projects).
@@ -294,7 +194,7 @@ npx intlayer dictionary push -d my-first-dictionary-key --env production
 
 Включите живую синхронизацию, обновив конфигурацию Intlayer:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import type { IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -329,92 +229,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... другие настройки конфигурации
-  editor: {
-    /**
-     * Включает горячую перезагрузку конфигураций локалей при обнаружении изменений.
-     * Например, когда словарь добавляется или обновляется, приложение обновляет
-     * отображаемое на странице содержимое.
-     *
-     * Поскольку горячая перезагрузка требует постоянного соединения с сервером, она
-     * доступна только для клиентов с планом `enterprise`.
-     *
-     * По умолчанию: false
-     */
-    liveSync: true,
-  },
-  dictionary: {
-    /**
-     * Управляет способом импорта словарей:
-     *
-     * - "live": словари загружаются динамически с использованием Live Sync API.
-     *   Заменяет useIntlayer на useDictionaryDynamic.
-     *
-     * Примечание: Режим live использует Live Sync API для загрузки словарей. Если вызов API
-     * не удаётся, словари загружаются динамически.
-     * Примечание: только словари с удалённым содержимым и флагом "live" используют режим live.
-     * Другие используют динамический режим для повышения производительности.
-     */
-    importMode: "fetch",
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... другие настройки конфигурации
-  editor: {
-    /**
-     * Включает горячую перезагрузку конфигураций локалей при обнаружении изменений.
-     * Например, когда словарь добавляется или обновляется, приложение обновляет
-     * отображаемое на странице содержимое.
-     *
-     * Поскольку горячая перезагрузка требует постоянного соединения с сервером, она
-     * доступна только для клиентов с планом `enterprise`.
-     *
-     * По умолчанию: false
-     */
-    liveSync: true,
-
-    /**
-     * Порт сервера Live Sync.
-     *
-     * По умолчанию: 4000
-     */
-    liveSyncPort: 4000,
-
-    /**
-     * URL сервера Live Sync.
-     *
-     * По умолчанию: http://localhost:{liveSyncPort}
-     */
-    liveSyncURL: "https://live.example.com",
-  },
-  dictionary: {
-    /**
-     * Управляет способом импорта словарей:
-     *
-     * - "live": словари загружаются динамически с использованием Live Sync API.
-     *   Заменяет useIntlayer на useDictionaryDynamic.
-     *
-     * Примечание: режим live использует Live Sync API для загрузки словарей. Если вызов API
-     * не удаётся, словари импортируются динамически.
-     * Примечание: только словари с удалённым содержимым и флагом "live" используют режим live.
-     * Другие используют динамический режим для повышения производительности.
-     */
-    importMode: "fetch",
-  },
-};
-
-module.exports = config;
 ```
 
 Запустите сервер Live Sync, чтобы обернуть ваше приложение:
@@ -474,7 +288,7 @@ module.exports = config;
 
 Включите оптимизацию, чтобы Intlayer применял трансформации Live импорта во время разработки:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import type { IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -492,42 +306,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-/** @type {import('intlayer').IntlayerConfig} */
-// Конфигурация Intlayer для режима Live Sync
-const config = {
-  editor: {
-    applicationURL: "http://localhost:5173", // URL приложения
-    liveSyncURL: "http://localhost:4000", // URL сервера Live Sync
-    liveSync: true, // Включение Live Sync
-  },
-  build: {
-    optimize: true, // Включение оптимизации
-    importMode: "fetch", // Режим импорта "live"
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-/** @type {import('intlayer').IntlayerConfig} */
-// Конфигурация Intlayer для режима Live Sync
-const config = {
-  editor: {
-    applicationURL: "http://localhost:5173", // URL приложения
-    liveSyncURL: "http://localhost:4000", // URL сервера Live Sync
-    liveSync: true, // Включение Live Sync
-  },
-  build: {
-    optimize: true, // Включение оптимизации
-    importMode: "fetch", // Режим импорта "live"
-  },
-};
-
-module.exports = config;
 ```
 
 Эта настройка оборачивает ваш dev-сервер сервером Live Sync, загружает удалённые словари при запуске и транслирует обновления из CMS через SSE. Обновите страницу, чтобы увидеть изменения.

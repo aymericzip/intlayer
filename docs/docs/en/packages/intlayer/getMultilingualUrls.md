@@ -105,7 +105,7 @@ getMultilingualUrls(
 
 ### Basic Usage (Uses Project Configuration)
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getMultilingualUrls, Locales } from "intlayer";
 
 // Uses your project's configuration for locales, defaultLocale, and mode
@@ -117,58 +117,10 @@ getMultilingualUrls("/dashboard");
 // }
 ```
 
-```javascript codeFormat="esm"
-import { getMultilingualUrls, Locales } from "intlayer";
-
-getMultilingualUrls("/dashboard");
-// Output: {
-//   en: "/dashboard",
-//   fr: "/fr/dashboard"
-// }
-```
-
-```javascript codeFormat="commonjs"
-const { getMultilingualUrls, Locales } = require("intlayer");
-
-getMultilingualUrls("/dashboard");
-// Output: {
-//   en: "/dashboard",
-//   fr: "/fr/dashboard"
-// }
-```
-
 ### Relative URLs with Options
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getMultilingualUrls, Locales } from "intlayer";
-
-getMultilingualUrls("/dashboard", {
-  locales: [Locales.ENGLISH, Locales.FRENCH],
-  defaultLocale: Locales.ENGLISH,
-  mode: "prefix-no-default",
-});
-// Output: {
-//   en: "/dashboard",
-//   fr: "/fr/dashboard"
-// }
-```
-
-```javascript codeFormat="esm"
-import { getMultilingualUrls, Locales } from "intlayer";
-
-getMultilingualUrls("/dashboard", {
-  locales: [Locales.ENGLISH, Locales.FRENCH],
-  defaultLocale: Locales.ENGLISH,
-  mode: "prefix-no-default",
-});
-// Output: {
-//   en: "/dashboard",
-//   fr: "/fr/dashboard"
-// }
-```
-
-```javascript codeFormat="commonjs"
-const { getMultilingualUrls, Locales } = require("intlayer");
 
 getMultilingualUrls("/dashboard", {
   locales: [Locales.ENGLISH, Locales.FRENCH],
@@ -273,7 +225,7 @@ getMultilingualUrls("/dashboard", {
 
 In a multilingual application, configuring the internationalization settings with `locales` and `defaultLocale` is critical for ensuring the correct language is displayed. Below is an example of how `getMultilingualUrls` can be used in an application setup:
 
-```tsx codeFormat="typescript"
+```tsx codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 // Configuration for supported locales and default locale
@@ -285,34 +237,6 @@ export default {
 } satisfies IntlayerConfig;
 
 export default config;
-```
-
-```javascript codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-```javascript codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-module.exports = config;
 ```
 
 The above configuration ensures that the application recognizes `ENGLISH`, `FRENCH`, and `SPANISH` as supported languages and uses `ENGLISH` as the fallback language.

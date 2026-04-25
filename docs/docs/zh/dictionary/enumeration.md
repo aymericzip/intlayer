@@ -32,7 +32,7 @@ history:
 
 要在您的 Intlayer 项目中设置枚举，您需要创建一个包含枚举定义的内容模块。以下是一个关于汽车数量的简单枚举示例：
 
-```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="**/*.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { enu, type Dictionary } from "intlayer";
 
 const carEnumeration = {
@@ -51,50 +51,6 @@ const carEnumeration = {
 } satisfies Dictionary;
 
 export default carEnumeration;
-```
-
-```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-import { enu } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const carEnumeration = {
-  key: "car_count",
-  content: {
-    numberOfCar: enu({
-      "<-1": "少于负一辆车",
-      "-1": "负一辆车",
-      "0": "没有车",
-      "1": "一辆车",
-      ">5": "几辆车",
-      ">19": "许多车",
-      "fallback": "备用值", // 可选
-    }),
-  },
-};
-
-export default carEnumeration;
-```
-
-```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-const { enu } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const carEnumeration = {
-  key: "car_count",
-  content: {
-    numberOfCar: enu({
-      "<-1": "少于负一辆车",
-      "-1": "负一辆车",
-      "0": "没有车",
-      "1": "一辆车",
-      ">5": "几辆车",
-      ">19": "许多车",
-      "fallback": "备用值", // 可选
-    }),
-  },
-};
-
-module.exports = carEnumeration;
 ```
 
 ```json fileName="**/*.content.json" contentDeclarationFormat="json"
@@ -128,7 +84,7 @@ module.exports = carEnumeration;
 
 要在 React 组件中使用枚举，您可以利用 `react-intlayer` 包中的 `useIntlayer` 钩子。该钩子根据指定的 ID 获取正确的内容。以下是如何使用它的示例：
 
-```tsx fileName="**/*.tsx" codeFormat="typescript"
+```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useIntlayer } from "react-intlayer";
 
@@ -160,76 +116,6 @@ const CarComponent: FC = () => {
     </div>
   );
 };
-```
-
-```javascript fileName="**/*.mjx" codeFormat="esm"
-import { useIntlayer } from "react-intlayer";
-
-const CarComponent = () => {
-  const { numberOfCar } = useIntlayer("car_count");
-
-  return (
-    <div>
-      <p>
-        {
-          numberOfCar(0) // 输出：没有汽车
-        }
-      </p>
-      <p>
-        {
-          numberOfCar(6) // 输出：一些汽车
-        }
-      </p>
-      <p>
-        {
-          numberOfCar(20) // 输出：许多汽车
-        }
-      </p>
-      <p>
-        {
-          numberOfCar(0.01) // 输出：回退值
-        }
-      </p>
-    </div>
-  );
-};
-
-export default CarComponent;
-```
-
-```javascript fileName="**/*.cjs" codeFormat="commonjs"
-const { useIntlayer } = require("react-intlayer");
-
-const CarComponent = () => {
-  const { numberOfCar } = useIntlayer("car_count");
-
-  return (
-    <div>
-      <p>
-        {
-          numberOfCar(0) // 输出：没有汽车
-        }
-      </p>
-      <p>
-        {
-          numberOfCar(6) // 输出：一些汽车
-        }
-      </p>
-      <p>
-        {
-          numberOfCar(20) // 输出：许多汽车
-        }
-      </p>
-      <p>
-        {
-          numberOfCar(0.01) // 输出：回退值
-        }
-      </p>
-    </div>
-  );
-};
-
-module.exports = CarComponent;
 ```
 
 在此示例中，组件会根据汽车数量动态调整其输出。正确的内容会根据指定的范围自动选择。

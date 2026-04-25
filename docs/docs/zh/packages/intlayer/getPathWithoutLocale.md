@@ -47,26 +47,8 @@ history:
 
 ## 示例用法
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getPathWithoutLocale } from "intlayer";
-
-console.log(getPathWithoutLocale("/dashboard")); // 输出: "/dashboard"
-console.log(getPathWithoutLocale("/en/dashboard")); // 输出: "/dashboard"
-console.log(getPathWithoutLocale("/fr/dashboard")); // 输出: "/dashboard"
-console.log(getPathWithoutLocale("https://example.com/en/dashboard")); // 输出: "https://example.com/dashboard"
-```
-
-```javascript codeFormat="esm"
-import { getPathWithoutLocale } from "intlayer";
-
-console.log(getPathWithoutLocale("/dashboard")); // 输出: "/dashboard"
-console.log(getPathWithoutLocale("/en/dashboard")); // 输出: "/dashboard"
-console.log(getPathWithoutLocale("/fr/dashboard")); // 输出: "/dashboard"
-console.log(getPathWithoutLocale("https://example.com/en/dashboard")); // 输出: "https://example.com/dashboard"
-```
-
-```javascript codeFormat="commonjs"
-const { getPathWithoutLocale } = require("intlayer");
 
 console.log(getPathWithoutLocale("/dashboard")); // 输出: "/dashboard"
 console.log(getPathWithoutLocale("/en/dashboard")); // 输出: "/dashboard"

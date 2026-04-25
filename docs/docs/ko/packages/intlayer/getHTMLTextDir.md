@@ -48,24 +48,8 @@ history:
 
 ### 텍스트 방향 결정
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getHTMLTextDir } from "intlayer";
-
-getHTMLTextDir(Locales.ENGLISH); // 출력: "ltr"
-getHTMLTextDir(Locales.FRENCH); // 출력: "ltr"
-getHTMLTextDir(Locales.ARABIC); // 출력: "rtl"
-```
-
-```javascript codeFormat="esm"
-import { getHTMLTextDir } from "intlayer";
-
-getHTMLTextDir(Locales.ENGLISH); // 출력: "ltr"
-getHTMLTextDir(Locales.FRENCH); // 출력: "ltr"
-getHTMLTextDir(Locales.ARABIC); // 출력: "rtl"
-```
-
-```javascript codeFormat="commonjs"
-const { getHTMLTextDir } = require("intlayer");
 
 getHTMLTextDir(Locales.ENGLISH); // 출력: "ltr"
 getHTMLTextDir(Locales.FRENCH); // 출력: "ltr"
@@ -84,7 +68,7 @@ getHTMLTextDir(Locales.ARABIC); // 출력: "rtl"
 
 `getHTMLTextDir` 함수는 로케일에 따라 올바른 텍스트 렌더링을 위해 HTML 문서의 `dir` 속성을 동적으로 설정하는 데 사용할 수 있습니다.
 
-```tsx codeFormat="typescript"
+```tsx codeFormat={["typescript", "esm", "commonjs"]}
 import type { FC } from "react";
 import { getHTMLTextDir, type Locales } from "intlayer";
 
@@ -92,26 +76,6 @@ export const HTMLLayout: FC<PropsWithChildren<{ locale: Locales }>> = ({
   children,
   locale,
 }) => (
-  <html dir={getHTMLTextDir(locale)} locale={locale}>
-    <body>{children}</body>
-  </html>
-);
-```
-
-```jsx codeFormat="esm"
-import { getHTMLTextDir } from "intlayer";
-
-const HTMLLayout = ({ children, locale }) => (
-  <html dir={getHTMLTextDir(locale)} locale={locale}>
-    <body>{children}</body>
-  </html>
-);
-```
-
-```jsx codeFormat="commonjs"
-const { getHTMLTextDir } = require("intlayer");
-
-const HTMLLayout = ({ children, locale }) => (
   <html dir={getHTMLTextDir(locale)} locale={locale}>
     <body>{children}</body>
   </html>

@@ -105,7 +105,7 @@ export default config;
 
 Crie e gerencie suas declarações de conteúdo para armazenar traduções:
 
-```typescript fileName="src/index.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="src/index.content.ts" contentDeclarationFormat=["typescript", "esm", "cjs"]
 import { t, type Dictionary } from "intlayer";
 
 const indexContent = {

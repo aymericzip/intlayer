@@ -45,28 +45,10 @@ history:
 
 ### استخراج رموز اللغة:
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getLocaleLang, Locales } from "intlayer";
 
 getLocaleLang(Locales.ENGLISH_UNITED_STATES); // Output: "en"
-getLocaleLang(Locales.ENGLISH); // الناتج: "en"
-getLocaleLang(Locales.FRENCH_CANADA); // الناتج: "fr"
-getLocaleLang(Locales.FRENCH); // الناتج: "fr"
-```
-
-```javascript codeFormat="esm"
-import { getLocaleLang } from "intlayer";
-
-getLocaleLang(Locales.ENGLISH_UNITED_STATES); // الناتج: "en"
-getLocaleLang(Locales.ENGLISH); // الناتج: "en"
-getLocaleLang(Locales.FRENCH_CANADA); // الناتج: "fr"
-getLocaleLang(Locales.FRENCH); // الناتج: "fr"
-```
-
-```javascript codeFormat="commonjs"
-const { getLocaleLang } = require("intlayer");
-
-getLocaleLang(Locales.ENGLISH_UNITED_STATES); // الناتج: "en"
 getLocaleLang(Locales.ENGLISH); // الناتج: "en"
 getLocaleLang(Locales.FRENCH_CANADA); // الناتج: "fr"
 getLocaleLang(Locales.FRENCH); // الناتج: "fr"

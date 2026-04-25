@@ -32,7 +32,7 @@ Intlayer में, `file` फ़ंक्शन बाहरी फ़ाइल
 
 अपने Intlayer प्रोजेक्ट में फ़ाइल सामग्री एम्बेड करने के लिए, सामग्री मॉड्यूल में `file` फ़ंक्शन का उपयोग करें। नीचे विभिन्न कार्यान्वयन दिखाने वाले उदाहरण दिए गए हैं।
 
-```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="**/*.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { file, type Dictionary } from "intlayer";
 
 const myFileContent = {
@@ -43,34 +43,6 @@ const myFileContent = {
 } satisfies Dictionary;
 
 export default myFileContent;
-```
-
-```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-import { file } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const myFileContent = {
-  key: "my_key",
-  content: {
-    myFile: file("./path/to/file.txt"),
-  },
-};
-
-export default myFileContent;
-```
-
-```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-const { file } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const myFileContent = {
-  key: "my_key",
-  content: {
-    myFile: file("./path/to/file.txt"),
-  },
-};
-
-module.exports = myFileContent;
 ```
 
 ```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
@@ -90,7 +62,7 @@ module.exports = myFileContent;
 
 React कंपोनेंट में एम्बेडेड फ़ाइल सामग्री का उपयोग करने के लिए, `react-intlayer` पैकेज से `useIntlayer` हुक को इम्पोर्ट करें और उपयोग करें। यह निर्दिष्ट कुंजी से सामग्री प्राप्त करता है और इसे गतिशील रूप से प्रदर्शित करने की अनुमति देता है।
 
-```tsx fileName="**/*.tsx" codeFormat="typescript"
+```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useIntlayer } from "react-intlayer";
 
@@ -107,43 +79,11 @@ const FileComponent: FC = () => {
 export default FileComponent;
 ```
 
-```javascript fileName="**/*.mjx" codeFormat="esm"
-import { useIntlayer } from "react-intlayer";
-
-const FileComponent = () => {
-  const { myFile } = useIntlayer("my_key");
-
-  return (
-    <div>
-      <pre>{myFile}</pre>
-    </div>
-  );
-};
-
-export default FileComponent;
-```
-
-```javascript fileName="**/*.cjs" codeFormat="commonjs"
-const { useIntlayer } = require("react-intlayer");
-
-const FileComponent = () => {
-  const { myFile } = useIntlayer("my_key");
-
-  return (
-    <div>
-      <pre>{myFile}</pre>
-    </div>
-  );
-};
-
-module.exports = FileComponent;
-```
-
 ## बहुभाषी मार्कडाउन उदाहरण
 
 बहुभाषी संपादन योग्य मार्कडाउन फ़ाइलों का समर्थन करने के लिए, आप `file` को `t()` और `md()` के संयोजन में उपयोग कर सकते हैं ताकि मार्कडाउन सामग्री फ़ाइल के विभिन्न भाषा संस्करणों को परिभाषित किया जा सके।
 
-```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="**/*.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { file, t, md, type Dictionary } from "intlayer";
 
 const myMultilingualContent = {
@@ -160,43 +100,6 @@ const myMultilingualContent = {
 } satisfies Dictionary;
 
 export default myMultilingualContent;
-```
-
-```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-import { file, t, md } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const myMultilingualContent = {
-  key: "my_multilingual_key",
-  content: {
-    myContent: md(
-      t({
-        en: file("src/components/test.en.md"),
-        fr: file("src/components/test.fr.md"),
-        es: file("src/components/test.es.md"),
-      })
-    ),
-  },
-};
-
-export default myMultilingualContent;
-```
-
-```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-const { file, t, md } = require("intlayer");
-
-const myMultilingualContent = {
-  key: "my_multilingual_key",
-  content: {
-    myContent: md(
-      t({
-        en: file("src/components/test.en.md"),
-        fr: file("src/components/test.fr.md"),
-        es: file("src/components/test.es.md"),
-      })
-    ),
-  },
-};
 ```
 
 यह सेटअप उपयोगकर्ता की भाषा प्राथमिकता के आधार पर सामग्री को गतिशील रूप से पुनः प्राप्त करने की अनुमति देता है। जब इसे Intlayer विज़ुअल एडिटर या CMS में उपयोग किया जाता है, तो सिस्टम यह पहचान लेगा कि सामग्री निर्दिष्ट Markdown फ़ाइलों से आती है और सुनिश्चित करेगा कि वे संपादन योग्य बनी रहें।

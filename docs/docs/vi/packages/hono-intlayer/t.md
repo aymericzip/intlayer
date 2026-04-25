@@ -65,53 +65,9 @@ t(translations: Record<string, string>): string;
 
 Đặt middleware `app.use("*", intlayer())` **trước bất kỳ tuyến đường nào** trong ứng dụng của bạn để đảm bảo tất cả các tuyến đường đều được hưởng lợi từ việc quốc tế hóa:
 
-```typescript {6} fileName="src/index.ts" codeFormat="typescript"
+```typescript {6} fileName="src/index.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Hono } from "hono";
 import { intlayer } from "hono-intlayer";
-
-const app = new Hono();
-
-// Tải trình xử lý yêu cầu quốc tế hóa
-app.use("*", intlayer());
-
-// Định nghĩa các tuyến đường sau khi tải middleware
-app.get("/", (c) => {
-  return c.text(
-    t({
-      en: "Hello, World!",
-      fr: "Bonjour le monde!",
-      es: "¡Hola, Mundo!",
-      vi: "Xin chào thế giới!",
-    })
-  );
-});
-```
-
-```javascript {6} fileName="src/index.mjs" codeFormat="esm"
-import { Hono } from "hono";
-import { intlayer } from "hono-intlayer";
-
-const app = new Hono();
-
-// Tải trình xử lý yêu cầu quốc tế hóa
-app.use("*", intlayer());
-
-// Định nghĩa các tuyến đường sau khi tải middleware
-app.get("/", (c) => {
-  return c.text(
-    t({
-      en: "Hello, World!",
-      fr: "Bonjour le monde!",
-      es: "¡Hola, Mundo!",
-      vi: "Xin chào thế giới!",
-    })
-  );
-});
-```
-
-```javascript {6} fileName="src/index.cjs" codeFormat="commonjs"
-const { Hono } = require("hono");
-const { intlayer, t } = require("hono-intlayer");
 
 const app = new Hono();
 

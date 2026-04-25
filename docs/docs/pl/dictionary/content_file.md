@@ -61,7 +61,7 @@ Słownik to uporządkowany zbiór treści zorganizowany według kluczy. Każdy s
 
 Przykład pliku z treścią:
 
-```tsx fileName="src/example.content.tsx" contentDeclarationFormat="typescript"
+```tsx fileName="src/example.content.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { type ReactNode } from "react";
 import {
   t,
@@ -140,106 +140,6 @@ export default {
     jsxContent: <h1>Mój tytuł</h1>,
   },
 } satisfies Dictionary<Content>; // [opcjonalnie] Dictionary jest generyczny i pozwala na wzmocnienie formatowania słownika
-```
-
-```javascript fileName="src/example.content.mjx" contentDeclarationFormat="esm"
-import { t, enu, cond, nest, md, insert, file } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-export default {
-  key: "page",
-  content: {
-    imbricatedContent: {
-      imbricatedContent2: {
-        stringContent: "Witaj świecie", // Zawartość tekstowa
-        numberContent: 123, // Zawartość liczbowa
-        booleanContent: true, // Zawartość logiczna
-        javaScriptContent: `${process.env.NODE_ENV}`, // Zawartość JavaScript
-      },
-      imbricatedArray: [1, 2, 3], // Zagnieżdżona tablica
-    },
-    multilingualContent: t({
-      en: "English content",
-      "en-GB": "English content (UK)",
-      fr: "French content",
-      es: "Spanish content",
-    }),
-    quantityContent: enu({
-      "<-1": "Mniej niż minus jeden samochód",
-      "-1": "Minus jeden samochód",
-      "0": "Brak samochodów",
-      "1": "Jeden samochód",
-      ">5": "Kilka samochodów",
-      ">19": "Wiele samochodów",
-    }),
-    conditionalContent: cond({
-      true: "Walidacja jest włączona",
-      false: "Walidacja jest wyłączona",
-    }),
-    insertionContent: insert("Witaj {{name}}!"),
-    nestedContent: nest(
-      "navbar", // Klucz słownika do zagnieżdżenia
-      "login.button" // [Opcjonalnie] Ścieżka do zawartości do zagnieżdżenia
-    ),
-    markdownContent: md("# Przykład Markdown"),
-    htmlContent: html("<p>Hello <strong>World</strong></p>"),
-    fileContent: file("./path/to/file.txt"),
-    externalContent: fetch("https://example.com").then((res) => res.json())
-
-    // Dostępne tylko przy użyciu `react-intlayer` lub `next-intlayer`
-    jsxContent: <h1>Mój tytuł</h1>,
-  },
-};
-```
-
-```javascript fileName="src/example.content.cjx" contentDeclarationFormat="commonjs"
-const { t, enu, cond, nest, md, insert, file } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-module.exports = {
-  key: "page",
-  content: {
-    imbricatedContent: {
-      imbricatedContent2: {
-        stringContent: "Hello World", // Zawartość tekstowa
-        numberContent: 123, // Zawartość liczbowa
-        booleanContent: true, // Zawartość logiczna
-        javaScriptContent: `${process.env.NODE_ENV}`, // Zawartość JavaScript
-      },
-      imbricatedArray: [1, 2, 3], // Zagnieżdżona tablica
-    },
-    multilingualContent: t({
-      en: "English content",
-      "en-GB": "English content (UK)",
-      fr: "French content",
-      es: "Spanish content",
-    }),
-    quantityContent: enu({
-      "<-1": "Mniej niż minus jeden samochód",
-      "-1": "Minus jeden samochód",
-      "0": "Brak samochodów",
-      "1": "Jeden samochód",
-      ">5": "Kilka samochodów",
-      ">19": "Wiele samochodów",
-    }),
-    conditionalContent: cond({
-      true: "Walidacja jest włączona",
-      false: "Walidacja jest wyłączona",
-    }),
-    insertionContent: insert("Witaj {{name}}!"),
-    nestedContent: nest(
-      "navbar", // Klucz słownika do zagnieżdżenia
-      "login.button" // [Opcjonalne] Ścieżka do zawartości do zagnieżdżenia
-    ),
-    markdownContent: md("# Przykład Markdown"),
-    htmlContent: html("<p>Hello <strong>World</strong></p>"),
-    fileContent: file("./path/to/file.txt"),
-    externalContent: fetch("https://example.com").then((res) => res.json())
-
-    // Dostępne tylko przy użyciu `react-intlayer` lub `next-intlayer`
-    jsxContent: <h1>Mój tytuł</h1>,
-  },
-};
 ```
 
 ```json5 fileName="src/example.content.json"  contentDeclarationFormat="json"
@@ -981,7 +881,7 @@ Możesz bez problemu zagnieżdżać funkcje w innych funkcjach.
 
 Przykład:
 
-```javascript fileName="src/example.content.tsx" contentDeclarationFormat="typescript"
+```javascript fileName="src/example.content.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, enu, cond, nest, md, type Dictionary } from "intlayer";
 
 const getName = async () => "John Doe";
@@ -1027,109 +927,6 @@ export default {
     }),
   },
 } satisfies Dictionary;
-```
-
-```javascript fileName="src/example.content.mjx" contentDeclarationFormat="esm"
-import { t, enu, cond, nest, md } from "intlayer";
-
-const getName = async () => "John Doe";
-
-/** @type {import('intlayer').Dictionary} */
-export default {
-  key: "page",
-  content: {
-    // `getIntlayer('page','pl').hiMessage` zwraca `['Cześć', ' ', 'John Doe']`
-    hiMessage: [
-      t({
-        en: "Hi",
-        fr: "Salut",
-        es: "Hola",
-        pl: "Cześć",
-      }),
-      " ",
-      getName(),
-    ],
-    // Złożona zawartość łącząca warunek, enumerację i treść wielojęzyczną
-    // `getIntlayer('page','pl').advancedContent(true)(10)` zwraca 'Znaleziono wiele elementów'
-    advancedContent: cond({
-      true: enu({
-        "0": t({
-          en: "No items found",
-          fr: "Aucun article trouvé",
-          es: "No se encontraron artículos",
-          pl: "Nie znaleziono elementów",
-        }),
-        "1": t({
-          en: "One item found",
-          fr: "Un article trouvé",
-          es: "Se encontró un artículo",
-          pl: "Znaleziono jeden element",
-        }),
-        ">1": t({
-          en: "Multiple items found",
-          fr: "Plusieurs articles trouvés",
-          es: "Se encontraron múltiples artículos",
-          pl: "Znaleziono wiele elementów",
-        }),
-      }),
-      false: t({
-        en: "No valid data available",
-        fr: "Aucune donnée valide disponible",
-        es: "No hay datos válidos disponibles",
-        pl: "Brak dostępnych prawidłowych danych",
-      }),
-    }),
-  },
-};
-```
-
-```javascript fileName="src/example.content.cjx" contentDeclarationFormat="commonjs"
-const { t, enu, cond, nest, md } = require("intlayer");
-
-const getName = async () => "John Doe";
-
-/** @type {import('intlayer').Dictionary} */
-module.exports = {
-  key: "page",
-  content: {
-    // `getIntlayer('page','en').hiMessage` zwraca `['Hi', ' ', 'John Doe']`
-    hiMessage: [
-      t({
-        en: "Hi",
-        fr: "Salut",
-        es: "Hola",
-      }),
-      " ",
-      getName(),
-    ],
-    // Złożona zawartość łącząca warunek, enumerację i wielojęzyczną treść
-    // `getIntlayer('page','en').advancedContent(true)(10)` zwraca 'Multiple items found'
-    advancedContent: cond({
-      true: enu({
-        "0": t({
-          en: "No items found",
-          fr: "Aucun article trouvé",
-          es: "No se encontraron artículos",
-        }),
-        "1": t({
-          en: "One item found",
-          fr: "Un article trouvé",
-          es: "Se encontró un artículo",
-        }),
-        ">1": t({
-          en: "Multiple items found",
-          fr: "Plusieurs articles trouvés",
-          es: "Se encontraron múltiples artículos",
-        }),
-      }),
-      false: t({
-        en: "No valid data available",
-        fr: "Aucune donnée valide disponible",
-        es: "No hay datos válidos disponibles",
-      }),
-    }),
-  },
-};
 ```
 
 ```json5 fileName="src/example.content.json"  contentDeclarationFormat="json"

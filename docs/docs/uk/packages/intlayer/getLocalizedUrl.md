@@ -114,7 +114,7 @@ getLocalizedUrl(
 
 Коли ви налаштували свій проєкт з параметрами інтернаціоналізації, ви можете використовувати цю функцію, передавши лише обов'язкові параметри:
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getLocalizedUrl, Locales } from "intlayer";
 
 // Використовує налаштування вашого проєкту для locales, defaultLocale та mode
@@ -125,29 +125,13 @@ getLocalizedUrl("/about", Locales.ENGLISH);
 // Вихід: "/about" або "/en/about" (залежно від налаштування режиму)
 ```
 
-```javascript codeFormat="esm"
-import { getLocalizedUrl, Locales } from "intlayer";
-
-// Використовує налаштування вашого проєкту
-getLocalizedUrl("/about", Locales.FRENCH);
-// Вихід: "/fr/about"
-```
-
-```javascript codeFormat="commonjs"
-const { getLocalizedUrl, Locales } = require("intlayer");
-
-// Використовує конфігурацію вашого проєкту
-getLocalizedUrl("/about", Locales.FRENCH);
-// Вивід: "/fr/about"
-```
-
 ### Розширене використання (з необов'язковими параметрами)
 
 Ви можете перевизначити конфігурацію за замовчуванням, передавши необов'язковий параметр `options`:
 
 ### Відносні URL (вказано всі параметри)
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getLocalizedUrl, Locales } from "intlayer";
 
 // Явно вказуємо всі необов'язкові параметри
@@ -164,30 +148,6 @@ getLocalizedUrl("/about", Locales.ENGLISH, {
   mode: "prefix-no-default",
 });
 // Вивід: "/about" для мови за замовчуванням (English)
-```
-
-```javascript codeFormat="esm"
-import { getLocalizedUrl, Locales } from "intlayer";
-
-// Явне вказання всіх необов'язкових параметрів
-getLocalizedUrl("/about", Locales.FRENCH, {
-  locales: [Locales.ENGLISH, Locales.FRENCH],
-  defaultLocale: Locales.ENGLISH,
-  mode: "prefix-no-default",
-});
-// Вивід: "/fr/about" для французької локалі
-```
-
-```javascript codeFormat="commonjs"
-const { getLocalizedUrl, Locales } = require("intlayer");
-
-// Явне вказання всіх необов'язкових параметрів
-getLocalizedUrl("/about", Locales.FRENCH, {
-  locales: [Locales.ENGLISH, Locales.FRENCH],
-  defaultLocale: Locales.ENGLISH,
-  mode: "prefix-no-default",
-});
-// Вивід: "/fr/about" для французької локалі
 ```
 
 ### Часткове перевизначення конфігурації
@@ -283,7 +243,7 @@ getLocalizedUrl("/about", Locales.ITALIAN, {
 
 У багатомовному застосунку конфігурація налаштувань інтернаціоналізації через `locales` та `defaultLocale` є критичною для забезпечення відображення правильної мови. Нижче наведено приклад того, як `getLocalizedUrl` можна використовувати в налаштуванні застосунку:
 
-```tsx codeFormat="typescript"
+```tsx codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 // Конфігурація для підтримуваних локалей та локалі за замовчуванням
@@ -295,34 +255,6 @@ export default {
 } satisfies IntlayerConfig;
 
 export default config;
-```
-
-```javascript codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-```javascript codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-module.exports = config;
 ```
 
 Вищенаведена конфігурація гарантує, що застосунок розпізнає `ENGLISH`, `FRENCH` і `SPANISH` як підтримувані мови та використовує `ENGLISH` як мову за замовчуванням.

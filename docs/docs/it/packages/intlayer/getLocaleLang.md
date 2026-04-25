@@ -45,28 +45,9 @@ La funzione `getLocaleLang` estrae il codice della lingua da una stringa di loca
 
 ### Estrazione dei codici lingua:
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getLocaleLang, Locales } from "intlayer";
 
-getLocaleLang(Locales.ENGLISH_UNITED_STATES); // Output: "en"
-getLocaleLang(Locales.ENGLISH); // Output: "en"
-getLocaleLang(Locales.FRENCH_CANADA); // Output: "fr"
-getLocaleLang(Locales.FRENCH); // Output: "fr"
-```
-
-```javascript codeFormat="esm"
-import { getLocaleLang } from "intlayer";
-
-getLocaleLang(Locales.ENGLISH_UNITED_STATES); // Output: "en"
-getLocaleLang(Locales.ENGLISH); // Output: "en"
-getLocaleLang(Locales.FRENCH_CANADA); // Output: "fr"
-getLocaleLang(Locales.FRENCH); // Output: "fr"
-```
-
-```javascript codeFormat="commonjs"
-const { getLocaleLang } = require("intlayer");
-
-// Nessuna localizzazione fornita:
 getLocaleLang(Locales.ENGLISH_UNITED_STATES); // Output: "en"
 getLocaleLang(Locales.ENGLISH); // Output: "en"
 getLocaleLang(Locales.FRENCH_CANADA); // Output: "fr"

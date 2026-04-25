@@ -88,7 +88,7 @@ bun add intlayer-editor --dev
 
 Intlayer yapılandırma dosyanızda düzenleyici ayarlarını özelleştirebilirsiniz:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import type { IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -123,77 +123,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... diğer yapılandırma ayarları
-  editor: {
-    /**
-     * Gerekli
-     * Uygulamanın URL'si.
-     * Bu, görsel düzenleyici tarafından hedeflenen URL'dir.
-     * Örnek: 'http://localhost:3000'
-     */
-    applicationURL: process.env.INTLAYER_APPLICATION_URL,
-    /**
-     * İsteğe bağlı
-     * Varsayılan olarak `true`. Eğer `false` ise, düzenleyici etkin değildir ve erişilemez.
-     * Güvenlik nedeniyle üretim gibi belirli ortamlar için düzenleyiciyi devre dışı bırakmak için kullanılabilir.
-     */
-    enabled: process.env.INTLAYER_ENABLED,
-    /**
-     * İsteğe bağlı
-     * Varsayılan olarak `8000`.
-     * Görsel düzenleyici sunucusu tarafından kullanılan port.
-     */
-    port: process.env.INTLAYER_PORT,
-    /**
-     * İsteğe bağlı
-     * Varsayılan olarak "http://localhost:8000"
-     * Uygulamadan erişilecek düzenleyici sunucusunun URL'si. Güvenlik nedeniyle uygulamayla etkileşim kurabilecek kaynakları kısıtlamak için kullanılır. '*' olarak ayarlanırsa, düzenleyici herhangi bir kaynaktan erişilebilir. Port değiştirilirse veya düzenleyici farklı bir domaine barındırılırsa ayarlanmalıdır.
-     */
-    editorURL: process.env.INTLAYER_EDITOR_URL,
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... diğer yapılandırma ayarları
-  editor: {
-    /**
-     * Gerekli
-     * Uygulamanın URL'si.
-     * Bu, görsel düzenleyici tarafından hedeflenen URL'dir.
-     */
-    applicationURL: process.env.INTLAYER_APPLICATION_URL,
-    /**
-     * İsteğe bağlı
-     * Varsayılan olarak `8000`.
-     * Düzenleyici sunucusunun portu.
-     */
-    port: process.env.INTLAYER_PORT,
-    /**
-     * İsteğe bağlı
-     * Varsayılan olarak "http://localhost:8000"
-     * Düzenleyici sunucusunun URL'si.
-     */
-    editorURL: process.env.INTLAYER_EDITOR_URL,
-    /**
-     * İsteğe bağlı
-     * Varsayılan olarak `true`. Eğer `false` ise, düzenleyici etkin değildir ve erişilemez.
-     * Güvenlik nedeniyle üretim gibi belirli ortamlar için düzenleyiciyi devre dışı bırakmak için kullanılabilir.
-     */
-    enabled: process.env.INTLAYER_ENABLED,
-  },
-};
-
-module.exports = config;
 ```
 
 > Kullanılabilir tüm parametreleri görmek için [yapılandırma dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md) bakın.

@@ -45,26 +45,8 @@ Hàm `getLocaleLang` trích xuất mã ngôn ngữ từ chuỗi locale. Nó hỗ
 
 ### Trích xuất mã ngôn ngữ:
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getLocaleLang, Locales } from "intlayer";
-
-getLocaleLang(Locales.ENGLISH_UNITED_STATES); // Kết quả: "en"
-getLocaleLang(Locales.ENGLISH); // Kết quả: "en"
-getLocaleLang(Locales.FRENCH_CANADA); // Kết quả: "fr"
-getLocaleLang(Locales.FRENCH); // Kết quả: "fr"
-```
-
-```javascript codeFormat="esm"
-import { getLocaleLang } from "intlayer";
-
-getLocaleLang(Locales.ENGLISH_UNITED_STATES); // Kết quả: "en"
-getLocaleLang(Locales.ENGLISH); // Kết quả: "en"
-getLocaleLang(Locales.FRENCH_CANADA); // Kết quả: "fr"
-getLocaleLang(Locales.FRENCH); // Kết quả: "fr"
-```
-
-```javascript codeFormat="commonjs"
-const { getLocaleLang } = require("intlayer");
 
 getLocaleLang(Locales.ENGLISH_UNITED_STATES); // Kết quả: "en"
 getLocaleLang(Locales.ENGLISH); // Kết quả: "en"

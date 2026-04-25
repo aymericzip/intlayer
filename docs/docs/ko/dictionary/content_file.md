@@ -58,7 +58,7 @@ Intlayer에서 콘텐츠 파일은 사전 정의를 포함하는 파일입니다
 
 콘텐츠 파일 예시:
 
-```tsx fileName="src/example.content.tsx" contentDeclarationFormat="typescript"
+```tsx fileName="src/example.content.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { type ReactNode } from "react";
 import {
   t,
@@ -138,107 +138,6 @@ export default {
     jsxContent: <h1>내 제목</h1>,
   },
 } satisfies Dictionary<Content>; // [선택 사항] Dictionary는 제네릭이며 사전의 형식을 강화할 수 있습니다
-```
-
-```javascript fileName="src/example.content.mjx" contentDeclarationFormat="esm"
-import { t, enu, cond, nest, md, insert, file } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-export default {
-  key: "page",
-  content: {
-    imbricatedContent: {
-      imbricatedContent2: {
-        stringContent: "Hello World",
-        numberContent: 123,
-        booleanContent: true,
-        javaScriptContent: `${process.env.NODE_ENV}`,
-      },
-      imbricatedArray: [1, 2, 3],
-    },
-    multilingualContent: t({
-      en: "English content",
-      "en-GB": "English content (UK)",
-      fr: "French content",
-      es: "Spanish content",
-    }),
-    quantityContent: enu({
-      "<-1": "마이너스 1대 미만의 자동차",
-      "-1": "마이너스 1대의 자동차",
-      "0": "자동차 없음",
-      "1": "자동차 1대",
-      ">5": "몇 대의 자동차",
-      ">19": "많은 자동차",
-    }),
-    conditionalContent: cond({
-      true: "검증이 활성화됨",
-      false: "검증이 비활성화됨",
-    }),
-    insertionContent: insert("안녕하세요 {{name}}!"),
-    nestedContent: nest(
-      "navbar", // 중첩할 사전의 키
-      "login.button" // [선택 사항] 중첩할 콘텐츠의 경로
-    ),
-    markdownContent: md("# 마크다운 예제"),
-    htmlContent: html("<p>Hello <strong>World</strong></p>"),
-    fileContent: file("./path/to/file.txt"),
-    externalContent: fetch("https://example.com").then((res) => res.json())
-
-    // `react-intlayer` 또는 `next-intlayer`를 사용할 때만 사용 가능
-    jsxContent: <h1>내 제목</h1>,
-  },
-};
-```
-
-```javascript fileName="src/example.content.cjx" contentDeclarationFormat="commonjs"
-const { t, enu, cond, nest, md, insert, file } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-module.exports = {
-  key: "page",
-  content: {
-    imbricatedContent: {
-      imbricatedContent2: {
-        stringContent: "Hello World",
-        numberContent: 123,
-        booleanContent: true,
-        javaScriptContent: `${process.env.NODE_ENV}`,
-      },
-      imbricatedArray: [1, 2, 3],
-    },
-    multilingualContent: t({
-      ko: "한국어 콘텐츠",
-      en: "English content",
-      "en-GB": "English content (UK)",
-      fr: "French content",
-      es: "Spanish content",
-    }),
-    quantityContent: enu({
-      "<-1": "마이너스 1대 미만의 자동차",
-      "-1": "마이너스 1대의 자동차",
-      "0": "자동차 없음",
-      "1": "자동차 1대",
-      ">5": "몇 대의 자동차",
-      ">19": "많은 자동차",
-    }),
-    conditionalContent: cond({
-      true: "검증이 활성화됨",
-      false: "검증이 비활성화됨",
-    }),
-    insertionContent: insert("안녕하세요 {{name}}!"),
-    nestedContent: nest(
-      "navbar", // 중첩할 사전의 키
-      "login.button" // [선택 사항] 중첩할 콘텐츠 경로
-    ),
-    markdownContent: md("# 마크다운 예제"),
-    htmlContent: html("<p>Hello <strong>World</strong></p>"),
-    fileContent: file("./path/to/file.txt"),
-    externalContent: fetch("https://example.com").then((res) => res.json())
-
-    // `react-intlayer` 또는 `next-intlayer`를 사용할 때만 사용 가능
-    jsxContent: <h1>내 제목</h1>,
-  },
-};
 ```
 
 ```json5 fileName="src/example.content.json"  contentDeclarationFormat="json"
@@ -962,7 +861,7 @@ export default {
 
 예시:
 
-```javascript fileName="src/example.content.tsx" contentDeclarationFormat="typescript"
+```javascript fileName="src/example.content.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, enu, cond, nest, md, type Dictionary } from "intlayer";
 
 const getName = async () => "John Doe";
@@ -1008,104 +907,6 @@ export default {
     }),
   },
 } satisfies Dictionary;
-```
-
-```javascript fileName="src/example.content.mjx" contentDeclarationFormat="esm"
-import { t, enu, cond, nest, md } from "intlayer";
-
-const getName = async () => "John Doe";
-
-/** @type {import('intlayer').Dictionary} */
-export default {
-  key: "page",
-  content: {
-    // `getIntlayer('page','en').hiMessage`는 `['Hi', ' ', 'John Doe']`를 반환합니다.
-    hiMessage: [
-      t({
-        en: "Hi",
-        fr: "Salut",
-        es: "Hola",
-      }),
-      " ",
-      getName(),
-    ],
-    // 조건, 열거형, 다국어 콘텐츠를 중첩한 복합 콘텐츠
-    // `getIntlayer('page','en').advancedContent(true)(10)`는 'Multiple items found'를 반환합니다.
-    advancedContent: cond({
-      true: enu({
-        "0": t({
-          en: "No items found",
-          fr: "Aucun article trouvé",
-          es: "No se encontraron artículos",
-        }),
-        "1": t({
-          en: "One item found",
-          fr: "Un article trouvé",
-          es: "Se encontró un artículo",
-        }),
-        ">1": t({
-          en: "Multiple items found",
-          fr: "Plusieurs articles trouvés",
-          es: "Se encontraron múltiples artículos",
-        }),
-      }),
-      false: t({
-        en: "No valid data available",
-        fr: "Aucune donnée valide disponible",
-        es: "No hay datos válidos disponibles",
-      }),
-    }),
-  },
-};
-```
-
-```javascript fileName="src/example.content.cjx" contentDeclarationFormat="commonjs"
-const { t, enu, cond, nest, md } = require("intlayer");
-
-const getName = async () => "John Doe";
-
-/** @type {import('intlayer').Dictionary} */
-module.exports = {
-  key: "page",
-  content: {
-    // `getIntlayer('page','en').hiMessage`는 `['Hi', ' ', 'John Doe']`를 반환합니다.
-    hiMessage: [
-      t({
-        en: "Hi",
-        fr: "Salut",
-        es: "Hola",
-      }),
-      " ",
-      getName(),
-    ],
-    // 조건, 열거형, 다국어 콘텐츠를 포함하는 복합 콘텐츠
-    // `getIntlayer('page','en').advancedContent(true)(10)`는 '여러 항목이 발견됨'을 반환합니다.
-    advancedContent: cond({
-      true: enu({
-        "0": t({
-          en: "No items found",
-          fr: "Aucun article trouvé",
-          es: "No se encontraron artículos",
-        }),
-        "1": t({
-          en: "One item found",
-          fr: "Un article trouvé",
-          es: "Se encontró un artículo",
-        }),
-        ">1": t({
-          en: "Multiple items found",
-          fr: "Plusieurs articles trouvés",
-          es: "Se encontraron múltiples artículos",
-        }),
-      }),
-      false: t({
-        en: "No valid data available",
-        fr: "Aucune donnée valide disponible",
-        es: "No hay datos válidos disponibles",
-      }),
-    }),
-  },
-};
 ```
 
 ```json5 fileName="src/example.content.json"  contentDeclarationFormat="json"

@@ -65,53 +65,9 @@ t(translations: Record<string, string>): string;
 
 将 `app.use("*", intlayer())` 中间件放置在应用程序的**任何路由之前**，以确保所有路由都受益于国际化：
 
-```typescript {6} fileName="src/index.ts" codeFormat="typescript"
+```typescript {6} fileName="src/index.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Hono } from "hono";
 import { intlayer } from "hono-intlayer";
-
-const app = new Hono();
-
-// 加载国际化请求处理器
-app.use("*", intlayer());
-
-// 在加载中间件后定义路由
-app.get("/", (c) => {
-  return c.text(
-    t({
-      en: "Hello, World!",
-      fr: "Bonjour le monde!",
-      es: "¡Hola, Mundo!",
-      zh: "你好，世界！",
-    })
-  );
-});
-```
-
-```javascript {6} fileName="src/index.mjs" codeFormat="esm"
-import { Hono } from "hono";
-import { intlayer } from "hono-intlayer";
-
-const app = new Hono();
-
-// 加载国际化请求处理器
-app.use("*", intlayer());
-
-// 在加载中间件后定义路由
-app.get("/", (c) => {
-  return c.text(
-    t({
-      en: "Hello, World!",
-      fr: "Bonjour le monde!",
-      es: "¡Hola, Mundo!",
-      zh: "你好，世界！",
-    })
-  );
-});
-```
-
-```javascript {6} fileName="src/index.cjs" codeFormat="commonjs"
-const { Hono } = require("hono");
-const { intlayer, t } = require("hono-intlayer");
 
 const app = new Hono();
 
@@ -145,31 +101,7 @@ app.get("/", (c) => {
 
 提供不同语言的本地化内容：
 
-```typescript fileName="src/index.ts" codeFormat="typescript"
-app.get("/", (c) => {
-  return c.text(
-    t({
-      en: "Welcome!",
-      fr: "Bienvenue!",
-      zh: "欢迎！",
-    })
-  );
-});
-```
-
-```javascript fileName="src/index.mjs" codeFormat="esm"
-app.get("/", (c) => {
-  return c.text(
-    t({
-      en: "Welcome!",
-      fr: "Bienvenue!",
-      zh: "欢迎！",
-    })
-  );
-});
-```
-
-```javascript fileName="src/index.cjs" codeFormat="commonjs"
+```typescript fileName="src/index.ts" codeFormat={["typescript", "esm", "commonjs"]}
 app.get("/", (c) => {
   return c.text(
     t({

@@ -100,7 +100,7 @@ type GetPrefixResult = {
 
 ### 基本的な使用法
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm"]}
 import { getPrefix, Locales } from "intlayer";
 
 // 英語ロケールのプレフィックスをチェック
@@ -116,17 +116,6 @@ getPrefix(Locales.FRENCH, {
   mode: "prefix-no-default",
 });
 // 戻り値: { prefix: 'fr/', localePrefix: 'fr' }
-```
-
-```javascript codeFormat="esm"
-import { getPrefix, Locales } from "intlayer";
-
-getPrefix(Locales.ENGLISH, { mode: "prefix-all" });
-javascript codeFormat="commonjs"
-const { getPrefix, Locales } = require("intlayer");
-
-getPrefix(Locales.ENGLISH, { mode: "prefix-all" });
-// 戻り値: { prefix: '', localePrefix: undefined }
 ```
 
 ### 異なるルーティングモード

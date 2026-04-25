@@ -99,7 +99,7 @@ type GetPrefixResult = {
 
 ### الاستخدام الأساسي
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm"]}
 import { getPrefix, Locales } from "intlayer";
 
 // تحقق من البادئة للغة الإنجليزية
@@ -115,17 +115,6 @@ getPrefix(Locales.FRENCH, {
   mode: "prefix-no-default",
 });
 // يعيد: { prefix: 'fr/', localePrefix: 'fr' }
-```
-
-```javascript codeFormat="esm"
-import { getPrefix, Locales } from "intlayer";
-
-getPrefix(Locales.ENGLISH, { mode: "prefix-all" });
-javascript codeFormat="commonjs"
-const { getPrefix, Locales } = require("intlayer");
-
-getPrefix(Locales.ENGLISH, { mode: "prefix-all" });
-// يعيد: { prefix: '', localePrefix: undefined }
 ```
 
 ### أوضاع التوجيه المختلفة

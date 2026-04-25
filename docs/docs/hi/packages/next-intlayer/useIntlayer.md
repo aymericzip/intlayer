@@ -75,7 +75,7 @@ history:
 
 यहाँ बताया गया है कि आप `useIntlayer` हुक को Next.js पेज के भीतर कैसे लागू कर सकते हैं ताकि एप्लिकेशन की वर्तमान स्थानीय भाषा के आधार पर स्थानीयकृत सामग्री को गतिशील रूप से लोड किया जा सके:
 
-```tsx fileName="src/pages/[locale]/index.tsx" codeFormat="typescript"
+```tsx fileName="src/pages/[locale]/index.tsx" codeFormat={["typescript", "esm"]}
 import { ClientComponentExample } from "@components/ClientComponentExample";
 import { ServerComponentExample } from "@components/ServerComponentExample";
 import { type NextPageIntlayer, IntlayerClientProvider } from "next-intlayer";
@@ -100,57 +100,7 @@ const HomePage: NextPageIntlayer = async ({ params }) => {
 };
 ```
 
-```jsx fileName="src/pages/[locale]/index.csx" codeFormat="esm"
-import { ClientComponentExample } from "@components/ClientComponentExample";
-import { ServerComponentExample } from "@components/ServerComponentExample";
-import { IntlayerClientProvider } from "next-intlayer";
-import { IntlayerServerProvider, useIntlayer } from "next-intlayer/server";
-
-const HomePage = ({ locale }) => {
-  const content = useIntlayer("homepage", locale);
-
-  return (
-    <>
-      <p>{content.introduction}</p>
-      <IntlayerClientProvider locale={locale}>
-        <ClientComponentExample />
-      </IntlayerClientProvider>
-      <IntlayerServerProvider locale={locale}>
-        <ServerComponentExample />
-      </IntlayerServerProvider>
-    </>
-  );
-};
-```
-
-```jsx fileName="src/components/ClientComponentExample.csx" codeFormat="commonjs"
-const {
-  ClientComponentExample,
-} = require("@components/ClientComponentExample");
-const {
-  ServerComponentExample,
-} = require("@components/ServerComponentExample");
-const { IntlayerClientProvider } = require("next-intlayer");
-const { useIntlayer } = require("next-intlayer/server");
-
-const HomePage = ({ locale }) => {
-  const content = useIntlayer("homepage", locale);
-
-  return (
-    <>
-      <p>{content.introduction}</p>
-      <IntlayerClientProvider locale={locale}>
-        <ClientComponentExample />
-      </IntlayerClientProvider>
-      <IntlayerServerProvider locale={locale}>
-        <ServerComponentExample />
-      </IntlayerServerProvider>
-    </>
-  );
-};
-```
-
-```tsx fileName="src/components/ClientComponentExample.tsx" codeFormat="typescript"
+```tsx fileName="src/components/ClientComponentExample.tsx" codeFormat={["typescript", "esm"]}
 "use-client";
 
 import type { FC } from "react";
@@ -169,43 +119,7 @@ const ClientComponentExample: FC = () => {
 };
 ```
 
-```jsx fileName="src/components/ClientComponentExample.msx" codeFormat="esm"
-"use-client";
-
-import { useIntlayer } from "next-intlayer";
-
-const ServerComponentExample = () => {
-  // सामग्री प्राप्त करने के लिए useIntlayer हुक का उपयोग करें
-  const content = useIntlayer("component-content");
-
-  return (
-    <div>
-      <h1>{content.title}</h1> {/* शीर्षक प्रदर्शित करें */}
-      <p>{content.description}</p> {/* विवरण प्रदर्शित करें */}
-    </div>
-  );
-};
-```
-
-```jsx fileName="src/components/ClientComponentExample.csx" codeFormat="commonjs"
-"use-client";
-
-const { useIntlayer } = require("next-intlayer");
-
-const ServerComponentExample = () => {
-  // सामग्री प्राप्त करने के लिए useIntlayer हुक का उपयोग करें
-  const content = useIntlayer("component-content");
-
-  return (
-    <div>
-      <h1>{content.title}</h1>
-      <p>{content.description}</p>
-    </div>
-  );
-};
-```
-
-```tsx fileName="src/components/ServerComponentExample.tsx" codeFormat="typescript"
+```tsx fileName="src/components/ServerComponentExample.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useIntlayer } from "next-intlayer/server";
 
@@ -217,37 +131,6 @@ const ServerComponentExample: FC = () => {
     <div>
       <h1>{content.title}</h1> {/* शीर्षक प्रदर्शित करें */}
       <p>{content.description}</p> {/* विवरण प्रदर्शित करें */}
-    </div>
-  );
-};
-```
-
-```jsx fileName="src/components/ServerComponentExample.mjx" codeFormat="esm"
-import { useIntlayer } from "next-intlayer/server";
-
-const ServerComponentExample = () => {
-  // सामग्री प्राप्त करने के लिए useIntlayer हुक का उपयोग करें
-  const content = useIntlayer("component-content");
-
-  return (
-    <div>
-      <h1>{content.title}</h1> {/* शीर्षक प्रदर्शित करें */}
-      <p>{content.description}</p> {/* विवरण प्रदर्शित करें */}
-    </div>
-  );
-};
-```
-
-```jsx fileName="src/components/ServerComponentExample.csx" codeFormat="commonjs"
-const { useIntlayer } = require("next-intlayer/server");
-
-const ServerComponentExample = () => {
-  const content = useIntlayer("component-content");
-
-  return (
-    <div>
-      <h1>{content.title}</h1>
-      <p>{content.description}</p>
     </div>
   );
 };

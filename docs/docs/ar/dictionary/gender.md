@@ -32,7 +32,7 @@ history:
 
 لإعداد المحتوى القائم على النوع الاجتماعي في مشروع Intlayer الخاص بك، قم بإنشاء وحدة محتوى تتضمن تعريفات النوع الخاصة بك. فيما يلي أمثلة بصيغ مختلفة.
 
-```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="**/*.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { gender, type Dictionary } from "intlayer";
 
 const myGenderContent = {
@@ -47,42 +47,6 @@ const myGenderContent = {
 } satisfies Dictionary;
 
 export default myGenderContent;
-```
-
-```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-import { gender } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const myGenderContent = {
-  key: "my_key",
-  content: {
-    myGender: gender({
-      male: "محتواي للمستخدمين الذكور",
-      female: "محتواي للمستخدمين الإناث",
-      fallback: "محتواي عندما لا يتم تحديد النوع", // اختياري
-    }),
-  },
-};
-
-export default myGenderContent;
-```
-
-```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-const { gender } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const myGenderContent = {
-  key: "my_key",
-  content: {
-    myGender: gender({
-      male: "محتواي للمستخدمين الذكور",
-      female: "محتواي للمستخدمين الإناث",
-      fallback: "محتواي عندما لا يتم تحديد النوع", // اختياري
-    }),
-  },
-};
-
-module.exports = myGenderContent;
 ```
 
 ```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
@@ -108,7 +72,7 @@ module.exports = myGenderContent;
 
 لاستخدام المحتوى المعتمد على النوع داخل مكون React، قم باستيراد واستخدام الخطاف `useIntlayer` من حزمة `react-intlayer`. يقوم هذا الخطاف بجلب المحتوى للمفتاح المحدد ويسمح لك بتمرير النوع لاختيار المخرجات المناسبة.
 
-```tsx fileName="**/*.tsx" codeFormat="typescript"
+```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useIntlayer } from "react-intlayer";
 
@@ -158,108 +122,6 @@ const GenderComponent: FC = () => {
 };
 
 export default GenderComponent;
-```
-
-```javascript fileName="**/*.mjx" codeFormat="esm"
-import { useIntlayer } from "react-intlayer";
-
-const GenderComponent = () => {
-  const { myGender } = useIntlayer("my_key");
-
-  return (
-    <div>
-      <p>
-        {
-          /* المخرجات: محتواي للمستخدمين الذكور */
-          myGender("male")
-        }
-      </p>
-      <p>
-        {
-          /* المخرجات: محتواي للمستخدمين الإناث */
-          myGender("female")
-        }
-      </p>
-      <p>
-        {
-          /* المخرجات: محتواي للمستخدمين الذكور */
-          myGender("m")
-        }
-      </p>
-      <p>
-        {
-          /* المخرجات: محتواي للمستخدمين الإناث */
-          myGender("f")
-        }
-      </p>
-      <p>
-        {
-          /* المخرجات: محتواي عندما لا يتم تحديد النوع */
-          myGender("")
-        }
-      </p>
-      <p>
-        {
-          /* المخرجات: محتواي عندما لا يتم تحديد النوع */
-          myGender(undefined)
-        }
-      </p>
-    </div>
-  );
-};
-
-export default GenderComponent;
-```
-
-```javascript fileName="**/*.cjs" codeFormat="commonjs"
-const { useIntlayer } = require("react-intlayer");
-
-const GenderComponent = () => {
-  const { myGender } = useIntlayer("my_key");
-
-  return (
-    <div>
-      <p>
-        {
-          /* المخرجات: محتواي للمستخدمين الذكور */
-          myGender("male")
-        }
-      </p>
-      <p>
-        {
-          /* المخرجات: محتواي للمستخدمين الإناث */
-          myGender("female")
-        }
-      </p>
-      <p>
-        {
-          /* المخرجات: محتواي للمستخدمين الذكور */
-          myGender("m")
-        }
-      </p>
-      <p>
-        {
-          /* المخرجات: محتواي للمستخدمين الإناث */
-          myGender("f")
-        }
-      </p>
-      <p>
-        {
-          /* المخرجات: محتواي عندما لا يتم تحديد الجنس */
-          myGender("")
-        }
-      </p>
-      <p>
-        {
-          /* المخرجات: محتواي عندما لا يتم تحديد الجنس */
-          myGender(undefined)
-        }
-      </p>
-    </div>
-  );
-};
-
-module.exports = GenderComponent;
 ```
 
 ## موارد إضافية

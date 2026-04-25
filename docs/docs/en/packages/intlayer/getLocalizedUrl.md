@@ -113,7 +113,7 @@ getLocalizedUrl(
 
 When you have configured your project with internationalization settings, you can use the function with just the required parameters:
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getLocalizedUrl, Locales } from "intlayer";
 
 // Uses your project's configuration for locales, defaultLocale, and mode
@@ -124,29 +124,13 @@ getLocalizedUrl("/about", Locales.ENGLISH);
 // Output: "/about" or "/en/about" (depending on your mode setting)
 ```
 
-```javascript codeFormat="esm"
-import { getLocalizedUrl, Locales } from "intlayer";
-
-// Uses your project's configuration
-getLocalizedUrl("/about", Locales.FRENCH);
-// Output: "/fr/about"
-```
-
-```javascript codeFormat="commonjs"
-const { getLocalizedUrl, Locales } = require("intlayer");
-
-// Uses your project's configuration
-getLocalizedUrl("/about", Locales.FRENCH);
-// Output: "/fr/about"
-```
-
 ### Advanced Usage (With Optional Parameters)
 
 You can override the default configuration by providing the optional `options` parameter:
 
 ### Relative URLs (All Options Specified)
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getLocalizedUrl, Locales } from "intlayer";
 
 // Explicitly providing all optional parameters
@@ -163,30 +147,6 @@ getLocalizedUrl("/about", Locales.ENGLISH, {
   mode: "prefix-no-default",
 });
 // Output: "/about" for the default (English) locale
-```
-
-```javascript codeFormat="esm"
-import { getLocalizedUrl, Locales } from "intlayer";
-
-// Explicitly providing all optional parameters
-getLocalizedUrl("/about", Locales.FRENCH, {
-  locales: [Locales.ENGLISH, Locales.FRENCH],
-  defaultLocale: Locales.ENGLISH,
-  mode: "prefix-no-default",
-});
-// Output: "/fr/about" for the French locale
-```
-
-```javascript codeFormat="commonjs"
-const { getLocalizedUrl, Locales } = require("intlayer");
-
-// Explicitly providing all optional parameters
-getLocalizedUrl("/about", Locales.FRENCH, {
-  locales: [Locales.ENGLISH, Locales.FRENCH],
-  defaultLocale: Locales.ENGLISH,
-  mode: "prefix-no-default",
-});
-// Output: "/fr/about" for the French locale
 ```
 
 ### Partial Configuration Override
@@ -282,7 +242,7 @@ getLocalizedUrl("/about", Locales.ITALIAN, {
 
 In a multilingual application, configuring the internationalization settings with `locales` and `defaultLocale` is critical for ensuring the correct language is displayed. Below is an example of how `getLocalizedUrl` can be used in an application setup:
 
-```tsx codeFormat="typescript"
+```tsx codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 // Configuration for supported locales and default locale
@@ -294,34 +254,6 @@ export default {
 } satisfies IntlayerConfig;
 
 export default config;
-```
-
-```javascript codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-```javascript codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-module.exports = config;
 ```
 
 The above configuration ensures that the application recognizes `ENGLISH`, `FRENCH`, and `SPANISH` as supported languages and uses `ENGLISH` as the fallback language.

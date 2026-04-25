@@ -53,36 +53,8 @@ history:
 
 ### पूरी कॉन्फ़िगरेशन प्राप्त करना
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getConfiguration } from "intlayer";
-
-const config = getConfiguration();
-console.log(config);
-// आउटपुट:
-// {
-//   internationalization: { ... },
-//   middleware: { ... },
-//   content: { ... },
-//   editor: { ... }
-// }
-```
-
-```javascript codeFormat="esm"
-import { getConfiguration } from "intlayer";
-
-const config = getConfiguration();
-console.log(config);
-// आउटपुट:
-// {
-//   internationalization: { ... },
-//   middleware: { ... },
-//   content: { ... },
-//   editor: { ... }
-// }
-```
-
-```javascript codeFormat="commonjs"
-const { getConfiguration } = require("intlayer");
 
 const config = getConfiguration();
 console.log(config);
@@ -99,32 +71,8 @@ console.log(config);
 
 कॉन्फ़िगरेशन का `internationalization` सेक्शन लोकल से संबंधित सेटिंग्स प्रदान करता है जैसे कि `locales` (उपलब्ध देशिकाएँ) और `defaultLocale` (डिफ़ॉल्ट भाषा)।
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getConfiguration } from "intlayer";
-
-const { internationalization, middleware } = getConfiguration();
-const { locales: availableLocales, defaultLocale } = internationalization;
-const { cookieName } = middleware;
-
-console.log(availableLocales); // आउटपुट उदाहरण: ["en", "fr", "es"]
-console.log(defaultLocale); // आउटपुट उदाहरण: "en"
-console.log(cookieName); // आउटपुट: "INTLAYER_LOCALE"
-```
-
-```javascript codeFormat="esm"
-import { getConfiguration } from "intlayer";
-
-const { internationalization, middleware } = getConfiguration();
-const { locales: availableLocales, defaultLocale } = internationalization;
-const { cookieName } = middleware;
-
-console.log(availableLocales); // आउटपुट उदाहरण: ["en", "fr", "es"]
-console.log(defaultLocale); // आउटपुट उदाहरण: "en"
-console.log(cookieName); // आउटपुट: "INTLAYER_LOCALE"
-```
-
-```javascript codeFormat="commonjs"
-const { getConfiguration } = require("intlayer");
 
 const { internationalization, middleware } = getConfiguration();
 const { locales: availableLocales, defaultLocale } = internationalization;

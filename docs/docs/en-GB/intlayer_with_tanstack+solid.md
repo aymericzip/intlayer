@@ -658,7 +658,7 @@ To ease this process, Intlayer proposes a [compiler](https://github.com/aymericz
 
 To set it up, you can add a `compiler` section in your `intlayer.config.ts` file:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -691,74 +691,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... Rest of your config
-  compiler: {
-    /**
-     * Indicates whether the compiler should be enabled.
-     */
-    enabled: true,
-
-    /**
-     * Defines the output files path
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * Indicates whether components should be saved after being transformed.
-     *
-     * - If `true`, the compiler will rewrite the component file on the disk. Thus, the transformation will be permanent, and the compiler will skip the transformation for the next process. In this way, the compiler can transform the app and then it can be removed.
-     *
-     * - If `false`, the compiler will inject the `useIntlayer()` function call in the code only in the build output, keeping the base codebase intact. Transformation will be done only in memory.
-     */
-    saveComponents: false,
-
-    /**
-     * Dictionary key prefix
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... Rest of your config
-  compiler: {
-    /**
-     * Indicates whether the compiler should be enabled.
-     */
-    enabled: true,
-
-    /**
-     * Defines the output files path
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * Indicates whether components should be saved after being transformed.
-     *
-     * - If `true`, the compiler will rewrite the component file on the disk. Thus, the transformation will be permanent, and the compiler will skip the transformation for the next process. In this way, the compiler can transform the app and then it can be removed.
-     *
-     * - If `false`, the compiler will inject the `useIntlayer()` function call in the code only in the build output, keeping the base codebase intact. Transformation will be done only in memory.
-     */
-    saveComponents: false,
-
-    /**
-     * Dictionary key prefix
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-module.exports = config;
 ```
 
 <Tabs>

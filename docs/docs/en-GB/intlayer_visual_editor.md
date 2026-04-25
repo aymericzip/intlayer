@@ -88,7 +88,7 @@ bun add intlayer-editor --dev
 
 In your Intlayer configuration file, you can customise the editor settings:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import type { IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -123,77 +123,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... other configuration settings
-  editor: {
-    /**
-     * Required
-     * The URL of the application.
-     * This is the URL targeted by the visual editor.
-     * Example: 'http://localhost:3000'
-     */
-    applicationURL: process.env.INTLAYER_APPLICATION_URL,
-    /**
-     * Optional
-     * Default as `true`. If `false`, the editor is inactive and cannot be accessed.
-     * Can be used to disable the editor for specific environments for security reasons, such as production.
-     */
-    enabled: process.env.INTLAYER_ENABLED,
-    /**
-     * Optional
-     * Default as `8000`.
-     * The port used by the visual editor server.
-     */
-    port: process.env.INTLAYER_PORT,
-    /**
-     * Optional
-     * Default as "http://localhost:8000"
-     * The URL of the editor server to reach from the application. Used to restrict the origins that can interact with the application for security reasons. If set to `'*'`, the editor is accessible from any origin. Should be set if the port is changed, or if the editor is hosted on a different domain.
-     */
-    editorURL: process.env.INTLAYER_EDITOR_URL,
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... other configuration settings
-  editor: {
-    /**
-     * Required
-     * The URL of the application.
-     * This is the URL targeted by the visual editor.
-     */
-    applicationURL: process.env.INTLAYER_APPLICATION_URL,
-    /**
-     * Optional
-     * Default as `8000`.
-     * The port of the editor server.
-     */
-    port: process.env.INTLAYER_PORT,
-    /**
-     * Optional
-     * Default as "http://localhost:8000"
-     * The URL of the editor server.
-     */
-    editorURL: process.env.INTLAYER_EDITOR_URL,
-    /**
-     * Optional
-     * Default as `true`. If `false`, the editor is inactive and cannot be accessed.
-     * Can be used to disable the editor for specific environments for security reasons, such as production.
-     */
-    enabled: process.env.INTLAYER_ENABLED,
-  },
-};
-
-module.exports = config;
 ```
 
 > To see all available parameters, refer to the [configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/configuration.md).

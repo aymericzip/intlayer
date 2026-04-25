@@ -48,24 +48,8 @@ La fonction `getHTMLTextDir` détermine la direction du texte (`ltr`, `rtl` ou `
 
 ### Déterminer la direction du texte
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getHTMLTextDir } from "intlayer";
-
-getHTMLTextDir(Locales.ENGLISH); // Sortie : "ltr"
-getHTMLTextDir(Locales.FRENCH); // Sortie : "ltr"
-getHTMLTextDir(Locales.ARABIC); // Sortie : "rtl"
-```
-
-```javascript codeFormat="esm"
-import { getHTMLTextDir } from "intlayer";
-
-getHTMLTextDir(Locales.ENGLISH); // Sortie : "ltr"
-getHTMLTextDir(Locales.FRENCH); // Sortie : "ltr"
-getHTMLTextDir(Locales.ARABIC); // Sortie : "rtl"
-```
-
-```javascript codeFormat="commonjs"
-const { getHTMLTextDir } = require("intlayer");
 
 getHTMLTextDir(Locales.ENGLISH); // Sortie : "ltr"
 getHTMLTextDir(Locales.FRENCH); // Sortie : "ltr"
@@ -84,7 +68,7 @@ getHTMLTextDir(Locales.ARABIC); // Sortie : "rtl"
 
 La fonction `getHTMLTextDir` peut être utilisée pour définir dynamiquement l'attribut `dir` dans un document HTML afin d'assurer un rendu correct du texte en fonction de la locale.
 
-```tsx codeFormat="typescript"
+```tsx codeFormat={["typescript", "esm", "commonjs"]}
 import type { FC } from "react";
 import { getHTMLTextDir, type Locales } from "intlayer";
 
@@ -92,27 +76,6 @@ export const HTMLLayout: FC<PropsWithChildren<{ locale: Locales }>> = ({
   children,
   locale,
 }) => (
-  <html dir={getHTMLTextDir(locale)} locale={locale}>
-    <body>{children}</body>
-  </html>
-);
-```
-
-```jsx codeFormat="esm"
-import { getHTMLTextDir } from "intlayer";
-
-const HTMLLayout = ({ children, locale }) => (
-  <html dir={getHTMLTextDir(locale)} locale={locale}>
-    <body>{children}</body>
-  </html>
-);
-```
-
-```jsx codeFormat="commonjs"
-const { getHTMLTextDir } = require("intlayer");
-
-// Composant HTMLLayout qui définit dynamiquement l'attribut dir selon la locale
-const HTMLLayout = ({ children, locale }) => (
   <html dir={getHTMLTextDir(locale)} locale={locale}>
     <body>{children}</body>
   </html>

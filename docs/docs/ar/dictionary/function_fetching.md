@@ -32,7 +32,7 @@ history:
 
 إليك مثال على دالة متزامنة بسيطة تقوم بجلب المحتوى:
 
-```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="**/*.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import type { Dictionary } from "intlayer";
 
 const functionContent = {
@@ -43,32 +43,6 @@ const functionContent = {
 } satisfies Dictionary;
 
 export default functionContent;
-```
-
-```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-/** @type {import('intlayer').Dictionary} */
-// تعريف محتوى الدالة
-const functionContent = {
-  key: "function_content",
-  content: {
-    text: () => "هذا هو المحتوى الذي تم عرضه بواسطة دالة",
-  },
-};
-
-export default functionContent;
-```
-
-```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-/** @type {import('intlayer').Dictionary} */
-// تعريف محتوى الدالة
-const functionContent = {
-  key: "function_content",
-  content: {
-    text: () => "هذا هو المحتوى الذي تم عرضه بواسطة دالة",
-  },
-};
-
-module.exports = functionContent;
 ```
 
 ```json fileName="**/*.content.json" contentDeclarationFormat="json"
@@ -89,7 +63,7 @@ module.exports = functionContent;
 
 فيما يلي مثال على دالة غير متزامنة تحاكي جلب بيانات من الخادم:
 
-```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="**/*.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { setTimeout } from "node:timers/promises";
 import type { Dictionary } from "intlayer";
 
@@ -108,42 +82,6 @@ const asyncFunctionContent = {
 export default asyncFunctionContent;
 ```
 
-```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-import { setTimeout } from "node:timers/promises";
-
-/** @type {import('intlayer').Dictionary} */
-const fakeFetch = async () => {
-  // الانتظار لمدة 200 مللي ثانية لمحاكاة جلب البيانات من الخادم
-  await setTimeout(200);
-  return "هذا هو المحتوى الذي تم جلبه من الخادم";
-};
-
-const asyncFunctionContent = {
-  key: "async_function",
-  content: { text: fakeFetch },
-};
-
-export default asyncFunctionContent;
-```
-
-```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-const { setTimeout } = require("node:timers/promises");
-
-/** @type {import('intlayer').Dictionary} */
-const fakeFetch = async () => {
-  // الانتظار لمدة 200 مللي ثانية لمحاكاة جلب البيانات من الخادم
-  await setTimeout(200);
-  return "هذا هو المحتوى الذي تم جلبه من الخادم";
-};
-
-const asyncFunctionContent = {
-  key: "async_function",
-  content: { text: fakeFetch },
-};
-
-module.exports = asyncFunctionContent;
-```
-
 ```plaintext fileName="**/*.content.json" contentDeclarationFormat="json"
 لا توجد طريقة لجلب المحتوى من ملف JSON، استخدم ملف .ts أو .js بدلاً من ذلك
 ```
@@ -154,7 +92,7 @@ module.exports = asyncFunctionContent;
 
 لاستخدام المحتوى المعتمد على الدوال في مكون React، تحتاج إلى استيراد `useIntlayer` من `react-intlayer` واستدعاؤه مع معرف المحتوى لاسترجاع المحتوى. إليك مثالاً:
 
-```typescript fileName="**/*.jsx" codeFormat="typescript"
+```typescript fileName="**/*.jsx" codeFormat={["typescript", "esm", "commonjs"]}
 import type { FC } from "react";
 import { useIntlayer } from "react-intlayer";
 
@@ -173,44 +111,4 @@ const MyComponent: FC = () => {
 };
 
 export default MyComponent;
-```
-
-```javascript fileName="**/*.mjx" codeFormat="esm"
-import { useIntlayer } from "react-intlayer";
-
-const MyComponent = () => {
-  const functionContent = useIntlayer("function_content");
-  const asyncFunctionContent = useIntlayer("async_function_content");
-
-  return (
-    <div>
-      <p>{functionContent.text}</p>
-      {/* المخرجات: هذا هو المحتوى الذي تم عرضه بواسطة دالة */}
-      <p>{asyncFunctionContent.text}</p>
-      {/* المخرجات: هذا هو المحتوى الذي تم جلبه من الخادم */}
-    </div>
-  );
-};
-
-export default MyComponent;
-```
-
-```javascript fileName="**/*.cjs" codeFormat="commonjs"
-const { useIntlayer } = require("react-intlayer");
-
-const MyComponent = () => {
-  const functionContent = useIntlayer("function_content");
-  const asyncFunctionContent = useIntlayer("async_function_content");
-
-  return (
-    <div>
-      <p>{functionContent.text}</p>
-      {/* المخرجات: هذا هو المحتوى الذي تم عرضه بواسطة دالة */}
-      <p>{asyncFunctionContent.text}</p>
-      {/* المخرجات: هذا هو المحتوى الذي تم جلبه من الخادم */}
-    </div>
-  );
-};
-
-module.exports = MyComponent;
 ```

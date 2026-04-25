@@ -32,16 +32,8 @@ history:
 
 अपने रिएक्ट एप्लिकेशन में `useLocale` हुक को एकीकृत करने के लिए, इसे उसके संबंधित पैकेज से इम्पोर्ट करें:
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { useLocale } from "react-intlayer"; // लोकल प्रबंधन के लिए रिएक्ट कॉम्पोनेंट्स में उपयोग किया जाता है
-```
-
-```javascript codeFormat="esm"
-import { useLocale } from "react-intlayer"; // लोकल प्रबंधन के लिए रिएक्ट कॉम्पोनेंट्स में उपयोग किया जाता है
-```
-
-```javascript codeFormat="commonjs"
-const { useLocale } = require("react-intlayer"); // लोकल प्रबंधन के लिए रिएक्ट कॉम्पोनेंट्स में उपयोग किया जाता है
 ```
 
 ## अवलोकन
@@ -52,59 +44,11 @@ const { useLocale } = require("react-intlayer"); // लोकल प्रबं
 
 यहाँ बताया गया है कि आप `useLocale` हुक को रिएक्ट कॉम्पोनेंट के भीतर कैसे उपयोग कर सकते हैं:
 
-```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
+```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useLocale } from "react-intlayer";
 
 const LocaleSwitcher: FC = () => {
-  const { locale, defaultLocale, availableLocales, setLocale } = useLocale();
-
-  return (
-    <div>
-      <h1>वर्तमान लोकल: {locale}</h1>
-      <p>डिफ़ॉल्ट लोकल: {defaultLocale}</p>
-      <select value={locale} onChange={(e) => setLocale(e.target.value)}>
-        {availableLocales.map((loc) => (
-          <option key={loc} value={loc}>
-            {loc}
-          </option>
-        ))}
-      </select>
-    </div>
-  );
-};
-
-export default LocaleSwitcher;
-```
-
-```jsx fileName="src/components/LocaleSwitcher.mjx" codeFormat="esm"
-import { useLocale } from "react.intlayer";
-
-const LocaleSwitcher = () => {
-  const { locale, defaultLocale, availableLocales, setLocale } = useLocale();
-
-  return (
-    <div>
-      <h1>वर्तमान लोकल: {locale}</h1>
-      <p>डिफ़ॉल्ट लोकल: {defaultLocale}</p>
-      <select value={locale} onChange={(e) => setLocale(e.target.value)}>
-        {availableLocales.map((loc) => (
-          <option key={loc} value={loc}>
-            {loc}
-          </option>
-        ))}
-      </select>
-    </div>
-  );
-};
-
-export default LocaleSwitcher;
-```
-
-```jsx fileName="src/components/LocaleSwitcher.csx" codeFormat="commonjs"
-const { useLocale } = require("react-intlayer");
-
-const LocaleSwitcher = () => {
   const { locale, defaultLocale, availableLocales, setLocale } = useLocale();
 
   return (
@@ -138,55 +82,11 @@ export default LocaleSwitcher;
 
 यह उदाहरण एक ऐसा कॉम्पोनेंट दिखाता है जो `useLocale` हुक का उपयोग करता है ताकि एक लोकल स्विचर रेंडर किया जा सके, जिससे उपयोगकर्ता एप्लिकेशन की लोकल को गतिशील रूप से बदल सकें:
 
-```tsx fileName="src/components/LocaleSelector.tsx" codeFormat="typescript"
+```tsx fileName="src/components/LocaleSelector.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useLocale } from "react-intlayer";
 
 const LocaleSelector: FC = () => {
-  const { locale, setLocale, availableLocales } = useLocale();
-
-  const handleLocaleChange = (newLocale) => {
-    setLocale(newLocale);
-  };
-
-  return (
-    <select value={locale} onChange={(e) => handleLocaleChange(e.target.value)}>
-      {availableLocales.map((locale) => (
-        <option key={locale} value={locale}>
-          {locale}
-        </option>
-      ))}
-    </select>
-  );
-};
-```
-
-```jsx fileName="src/components/LocaleSelector.mjx" codeFormat="esm"
-import { useLocale } from "react-intlayer";
-
-const LocaleSelector = () => {
-  const { locale, setLocale, availableLocales } = useLocale();
-
-  const handleLocaleChange = (newLocale) => {
-    setLocale(newLocale);
-  };
-
-  return (
-    <select value={locale} onChange={(e) => handleLocaleChange(e.target.value)}>
-      {availableLocales.map((locale) => (
-        <option key={locale} value={locale}>
-          {locale}
-        </option>
-      ))}
-    </select>
-  );
-};
-```
-
-```jsx fileName="src/components/LocaleSelector.csx" codeFormat="commonjs"
-const { useLocale } = require("react-intlayer");
-
-const LocaleSelector = () => {
   const { locale, setLocale, availableLocales } = useLocale();
 
   const handleLocaleChange = (newLocale) => {

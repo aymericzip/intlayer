@@ -28,7 +28,7 @@ Intlayer में, सशर्त सामग्री `cond` फ़ंक्
 
 अपने Intlayer प्रोजेक्ट में सशर्त सामग्री सेट करने के लिए, एक सामग्री मॉड्यूल बनाएं जिसमें आपकी सशर्त परिभाषाएँ शामिल हों। नीचे विभिन्न प्रारूपों में उदाहरण दिए गए हैं।
 
-```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="**/*.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { cond, type Dictionary } from "intlayer";
 
 const myConditionalContent = {
@@ -43,42 +43,6 @@ const myConditionalContent = {
 } satisfies Dictionary;
 
 export default myConditionalContent;
-```
-
-```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-import { cond } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const myConditionalContent = {
-  key: "my_key",
-  content: {
-    myCondition: cond({
-      true: "मेरी सामग्री जब यह सत्य है",
-      false: "मेरी सामग्री जब यह असत्य है",
-      fallback: "मेरी सामग्री जब शर्त विफल होती है", // वैकल्पिक
-    }),
-  },
-};
-
-export default myConditionalContent;
-```
-
-```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-const { cond } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const myConditionalContent = {
-  key: "my_key",
-  content: {
-    myCondition: cond({
-      true: "मेरी सामग्री जब यह सत्य है",
-      false: "मेरी सामग्री जब यह असत्य है",
-      fallback: "मेरी सामग्री जब शर्त विफल होती है", // वैकल्पिक
-    }),
-  },
-};
-
-module.exports = myConditionalContent;
 ```
 
 ```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
@@ -104,7 +68,7 @@ module.exports = myConditionalContent;
 
 React घटक के भीतर सशर्त सामग्री का उपयोग करने के लिए, `react-intlayer` पैकेज से `useIntlayer` हुक आयात करें और उपयोग करें। यह हुक निर्दिष्ट कुंजी के लिए सामग्री प्राप्त करता है और आपको उपयुक्त आउटपुट चुनने के लिए एक शर्त पास करने की अनुमति देता है।
 
-```tsx fileName="**/*.tsx" codeFormat="typescript"
+```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useIntlayer } from "react-intlayer";
 
@@ -142,84 +106,6 @@ const ConditionalComponent: FC = () => {
 };
 
 export default ConditionalComponent;
-```
-
-```javascript fileName="**/*.mjx" codeFormat="esm"
-import { useIntlayer } from "react-intlayer";
-
-const ConditionalComponent = () => {
-  const { myCondition } = useIntlayer("my_key");
-
-  return (
-    <div>
-      <p>
-        {
-          /* आउटपुट: मेरी सामग्री जब यह सत्य है */
-          myCondition(true)
-        }
-      </p>
-      <p>
-        {
-          /* आउटपुट: मेरी सामग्री जब यह असत्य है */
-          myCondition(false)
-        }
-      </p>
-      <p>
-        {
-          /* आउटपुट: मेरी सामग्री जब शर्त विफल होती है */
-          myCondition("")
-        }
-      </p>
-      <p>
-        {
-          /* आउटपुट: मेरी सामग्री जब शर्त विफल होती है */
-          myCondition(undefined)
-        }
-      </p>
-    </div>
-  );
-};
-
-export default ConditionalComponent;
-```
-
-```javascript fileName="**/*.cjs" codeFormat="commonjs"
-const { useIntlayer } = require("react-intlayer");
-
-const ConditionalComponent = () => {
-  const { myCondition } = useIntlayer("my_key");
-
-  return (
-    <div>
-      <p>
-        {
-          /* आउटपुट: मेरी सामग्री जब यह सत्य है */
-          myCondition(true)
-        }
-      </p>
-      <p>
-        {
-          /* आउटपुट: मेरी सामग्री जब यह असत्य है */
-          myCondition(false)
-        }
-      </p>
-      <p>
-        {
-          /* आउटपुट: मेरी सामग्री जब शर्त विफल होती है */
-          myCondition("")
-        }
-      </p>
-      <p>
-        {
-          /* आउटपुट: मेरी सामग्री जब शर्त विफल होती है */
-          myCondition(undefined)
-        }
-      </p>
-    </div>
-  );
-};
-
-module.exports = ConditionalComponent;
 ```
 
 ## अतिरिक्त संसाधन
