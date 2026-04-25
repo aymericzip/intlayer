@@ -12,7 +12,7 @@ keywords:
   - Next.js
   - JavaScript
   - React
-slug:
+slugs:
   - doc
   - concept
   - cli

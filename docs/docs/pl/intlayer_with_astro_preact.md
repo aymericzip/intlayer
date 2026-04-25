@@ -1,0 +1,442 @@
+---
+createdAt: 2026-04-24
+updatedAt: 2026-04-24
+title: Astro + Preact i18n - Jak przetłumaczyć aplikację Astro + Preact w 2026 roku
+description: Dowiedz się, jak dodać międzynarodowość (i18n) do swojej witryny Astro + Preact za pomocą Intlayer. Postępuj zgodnie z tym przewodnikiem, aby uczynić swoją witrynę wielojęzyczną.
+keywords:
+  - międzynarodowość
+  - dokumentacja
+  - Intlayer
+  - Astro
+  - Preact
+  - i18n
+  - JavaScript
+slugs:
+  - doc
+  - environment
+  - astro
+  - preact
+applicationTemplate: https://github.com/aymericzip/intlayer-astro-template
+history:
+  - version: 8.7.7
+    date: 2026-04-24
+    changes: "Początkowa dokumentacja dla Astro + Preact"
+---
+
+# Przetłumacz swoją witrynę Astro + Preact za pomocą Intlayer | Międzynarodowość (i18n)
+
+## Czym jest Intlayer?
+
+**Intlayer** to innowacyjna biblioteka międzynarodowości (i18n) o otwartym kodzie źródłowym, zaprojektowana w celu uproszczenia obsługi wielojęzyczności w nowoczesnych aplikacjach internetowych.
+
+Dzięki Intlayer możesz:
+
+- **Łatwo zarządzać tłumaczeniami**: Korzystając z deklaratywnych słowników na poziomie komponentów.
+- **Dynamicznie lokalizować metadane, trasy i treści**.
+- **Zapewnić obsługę TypeScript**: Dzięki automatycznie generowanym typom dla lepszego autouzupełniania i wykrywania błędów.
+- **Korzystać z zaawansowanych funkcji**: Takich jak dynamiczne wykrywanie języka i przełączanie języków.
+
+---
+
+## Przewodnik krok po kroku po konfiguracji Intlayer w Astro + Preact
+
+<iframe
+  src="https://stackblitz.com/github/aymericzip/intlayer-astro-template?embed=1&ctl=1&file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - Jak umiędzynarodowić aplikację za pomocą Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+Sprawdź [szablon aplikacji](https://github.com/aymericzip/intlayer-astro-template) na GitHubie.
+
+### Krok 1: Zainstaluj zależności
+
+Zainstaluj niezbędne pakiety za pomocą preferowanego menedżera pakietów:
+
+```bash packageManager="npm"
+npm install intlayer astro-intlayer preact preact-intlayer @astrojs/preact
+
+npx intlayer init
+```
+
+```bash packageManager="pnpm"
+pnpm add intlayer astro-intlayer preact preact-intlayer @astrojs/preact
+
+pnpm intlayer init
+```
+
+```bash packageManager="yarn"
+yarn add intlayer astro-intlayer preact preact-intlayer @astrojs/preact
+
+yarn intlayer init
+```
+
+```bash packageManager="bun"
+bun add intlayer astro-intlayer react react-dom react-intlayer @astrojs/react
+
+bun x intlayer init
+```
+
+- **intlayer**
+  Główny pakiet zapewniający narzędzia i18n do zarządzania konfiguracją, tłumaczeniami, [deklaracją treści](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/content_file.md), transpilacją i [poleceniami CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/index.md).
+
+- **astro-intlayer**
+  Wtyczka integracyjna Astro służąca do połączenia Intlayer z [bundlerem Vite](https://vite.dev/guide/why.html#why-bundle-for-production); zawiera również oprogramowanie pośredniczące (middleware) do wykrywania preferowanego języka użytkownika, zarządzania plikami cookie i obsługi przekierowań URL.
+
+- **preact**
+  Podstawowe pakiety Preact — szybka i lekka alternatywa dla Reacta.
+
+- **preact-intlayer**
+  Pakiet do integracji Intlayer z aplikacjami Preact. Zapewnia `IntlayerProvider` oraz hooki `useIntlayer` i `useLocale` dla międzynarodowości w Preact.
+
+- **@astrojs/preact**
+  Oficjalna integracja Astro pozwalająca na używanie islandów komponentów Preact.
+
+### Krok 2: Skonfiguruj swój projekt
+
+Utwórz plik konfiguracyjny, aby zdefiniować języki swojej aplikacji:
+
+```typescript fileName="intlayer.config.ts"
+import { Locales, type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  internationalization: {
+    locales: [
+      Locales.ENGLISH,
+      Locales.FRENCH,
+      Locales.SPANISH,
+      Locales.POLISH,
+      // Twoje inne języki
+    ],
+    defaultLocale: Locales.ENGLISH,
+  },
+};
+
+export default config;
+```
+
+> Za pośrednictwem tego pliku konfiguracyjnego możesz ustawić zlokalizowane adresy URL, przekierowania oprogramowania pośredniczącego, nazwy plików cookie, lokalizację i rozszerzenia deklaracji treści, wyłączyć dzienniki Intlayer w konsoli i wiele więcej. Pełną listę dostępnych parametrów znajdziesz w [dokumentacji konfiguracji](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/configuration.md).
+
+### Krok 3: Zintegruj Intlayer ze swoją konfiguracją Astro
+
+Dodaj wtyczkę `intlayer` do konfiguracji Astro oraz integrację Preact.
+
+```typescript fileName="astro.config.ts"
+// @ts-check
+
+import { intlayer } from "astro-intlayer";
+import preact from "@astrojs/preact";
+import { defineConfig } from "astro/config";
+
+// https://astro.build/config
+export default defineConfig({
+  integrations: [intlayer(), preact()],
+});
+```
+
+> Wtyczka integracyjna `intlayer()` służy do integracji Intlayer z Astro. Zapewnia ona generowanie plików deklaracji treści i monitoruje je w trybie deweloperskim. Definiuje zmienne środowiskowe Intlayer w aplikacji Astro i udostępnia aliasy w celu optymalizacji wydajności.
+
+> Integracja `preact()` pozwala na używanie islandów komponentów Preact poprzez `client:only="preact"`.
+
+### Krok 4: Zadeklaruj swoją treść
+
+Twórz i zarządzaj swoimi deklaracjami treści, aby przechowywać tłumaczenia:
+
+```tsx fileName="src/app.content.tsx"
+import { h } from "preact";
+import { t, type Dictionary } from "intlayer";
+import type { ComponentChildren } from "preact";
+
+const appContent = {
+  key: "app",
+  content: {
+    title: t({
+      en: "Hello World",
+      fr: "Bonjour le monde",
+      es: "Hola mundo",
+      pl: "Witaj świecie",
+    }),
+  },
+} satisfies Dictionary;
+
+export default appContent;
+```
+
+> Deklaracje treści mogą być definiowane w dowolnym miejscu aplikacji, pod warunkiem, że są zawarte w `contentDir` (domyślnie `./src`) i pasują do rozszerzenia pliku deklaracji treści (domyślnie `.content.{json,ts,tsx,js,jsx,mjs,cjs}`).
+
+> Więcej informacji znajdziesz w [dokumentacji deklaracji treści](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/content_file.md).
+
+> Jeśli Twoje pliki treści zawierają kod TSX, może być konieczne zaimportowanie `import { h } from "preact";` lub upewnienie się, że pragma JSX jest poprawnie skonfigurowana dla Preacta.
+
+### Krok 5: Korzystanie z treści w Astro
+
+Możesz konsumować słowniki bezpośrednio w swoich plikach `.astro`, używając podstawowych pomocników wyeksportowanych z `intlayer`. Powinieneś również dodać metadane SEO (takie jak linki hreflang i kanoniczne) na każdej stronie oraz wprowadzić island Preact dla interaktywnej treści po stronie klienta.
+
+```astro fileName="src/pages/[...locale]/index.astro"
+---
+import {
+  getIntlayer,
+  getLocaleFromPath,
+  getLocalizedUrl,
+  getPrefix,
+  localeMap,
+  defaultLocale,
+  type LocalesValues,
+} from "intlayer";
+import { PreactIsland } from "../../components/preact/ReactIsland";
+
+export const getStaticPaths = () => {
+  return localeMap(({ locale }) => ({
+    params: { locale: getPrefix(locale).localePrefix },
+  }));
+};
+
+const locale = getLocaleFromPath(Astro.url.pathname) as LocalesValues;
+const { title } = getIntlayer("app", locale);
+---
+
+<!doctype html>
+<html lang={locale}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+
+    <!-- Link kanoniczny: Informuje wyszukiwarki o głównej wersji tej strony -->
+    <link
+      rel="canonical"
+      href={new URL(getLocalizedUrl(Astro.url.pathname, locale), Astro.site)}
+    />
+
+    <!-- Hreflang: Informuje Google o wszystkich zlokalizowanych wersjach -->
+    {
+      localeMap(({ locale: mapLocale }) => (
+        <link
+          rel="alternate"
+          hreflang={mapLocale}
+          href={new URL(
+            getLocalizedUrl(Astro.url.pathname, mapLocale),
+            Astro.site
+          )}
+        />
+      ))
+    }
+
+    <!-- x-default: Opcja rezerwowa, gdy język nie pasuje do języka użytkownika -->
+    <link
+      rel="alternate"
+      hreflang="x-default"
+      href={new URL(
+        getLocalizedUrl(Astro.url.pathname, defaultLocale),
+        Astro.site
+      )}
+    />
+  </head>
+  <body>
+    <!-- Island Preact renderuje całą interaktywną treść, w tym przełącznik języków -->
+    <PreactIsland locale={locale} client:only="preact" />
+  </body>
+</html>
+```
+
+> **Uwaga na temat konfiguracji routingu:**
+> Używana przez Ciebie struktura katalogów zależy od ustawienia `middleware.routing` w `intlayer.config.ts`:
+>
+> - **`prefix-no-default` (domyślnie):** Zachowuje domyślny język w katalogu głównym (bez prefiksu) i dodaje prefiksy do pozostałych. Użyj `[...locale]`, aby obsłużyć wszystkie przypadki.
+> - **`prefix-all`:** Wszystkie adresy URL otrzymują prefiks języka. Możesz użyć standardowego `[locale]`, jeśli nie musisz traktować katalogu głównego oddzielnie.
+> - **`search-param` or `no-prefix`:** Katalogi językowe nie są wymagane. Język jest zarządzany za pomocą parametrów zapytania lub plików cookie.
+
+### Krok 6: Utworzenie komponentu Preact Island
+
+Utwórz komponent island, który opakowuje Twoją aplikację Preact i otrzymuje język wykryty przez serwer:
+
+```tsx fileName="src/components/preact/PreactIsland.tsx"
+/** @jsxImportSource preact */
+import { IntlayerProvider, useIntlayer } from "preact-intlayer";
+import { type LocalesValues } from "intlayer";
+import type { FunctionalComponent } from "preact";
+import { LocaleSwitcher } from "./LocaleSwitcher";
+
+const App: FunctionalComponent = () => {
+  const { title } = useIntlayer("app");
+
+  return (
+    <div>
+      <h1>{title}</h1>
+      <LocaleSwitcher />
+    </div>
+  );
+};
+
+export const PreactIsland: FunctionalComponent<{ locale: LocalesValues }> = ({
+  locale,
+}) => (
+  <IntlayerProvider locale={locale}>
+    <App />
+  </IntlayerProvider>
+);
+```
+
+> Prop `locale` jest przekazywany ze strony Astro (wykrywanie po stronie serwera) do `IntlayerProvider`, służąc jako początkowy język dla wszystkich hooków Preact wewnątrz drzewa.
+
+> Uwaga: W Preact używa się atrybutu HTML `class` zamiast `className`.
+
+### Krok 7: Dodanie przełącznika języków
+
+Utwórz komponent Preact `LocaleSwitcher`, który odczytuje dostępne języki i przechodzi do zlokalizowanego adresu URL, gdy użytkownik wybierze nowy język:
+
+```tsx fileName="src/components/preact/LocaleSwitcher.tsx"
+/** @jsxImportSource preact */
+import { useLocale } from "preact-intlayer";
+import { getLocalizedUrl, getLocaleName, type LocalesValues } from "intlayer";
+import type { FunctionalComponent } from "preact";
+
+export const LocaleSwitcher: FunctionalComponent = () => {
+  const { locale, availableLocales, setLocale } = useLocale({
+    onLocaleChange: (newLocale: LocalesValues) => {
+      // Przekieruj do zlokalizowanego adresu URL przy zmianie języka
+      window.location.href = getLocalizedUrl(
+        window.location.pathname,
+        newLocale
+      );
+    },
+  });
+
+  return (
+    <div class="locale-switcher">
+      <span class="switcher-label">Zmień język:</span>
+      <div class="locale-buttons">
+        {availableLocales.map((localeItem) => (
+          <button
+            key={localeItem}
+            onClick={() => setLocale(localeItem)}
+            class={`locale-btn ${localeItem === locale ? "active" : ""}`}
+            disabled={localeItem === locale}
+          >
+            <span class="ls-own-name">{getLocaleName(localeItem)}</span>
+            <span class="ls-current-name">
+              {getLocaleName(localeItem, locale)}
+            </span>
+            <span class="ls-code">{localeItem.toUpperCase()}</span>
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+};
+```
+
+> **Uwaga na temat trwałości:**
+> Użycie `onLocaleChange` do przekierowania przez `window.location.href` zapewnia, że nowy adres URL z prefiksem językowym zostanie odwiedzony. Pozwala to oprogramowaniu pośredniczącemu Intlayer ustawić plik cookie języka i zapamiętać preferencje użytkownika przy przyszłych wizytach.
+
+> `LocaleSwitcher` musi być renderowany wewnątrz `IntlayerProvider` — użyj go w swoim komponencie island (jak pokazano w kroku 6).
+
+### Krok 8: Sitemap i Robots.txt
+
+Intlayer oferuje narzędzia do dynamicznego generowania zlokalizowanej mapy witryny oraz pliku robots.txt.
+
+#### Sitemap
+
+Utwórz plik `src/pages/sitemap.xml.ts`, aby wygenerować mapę witryny obejmującą wszystkie Twoje zlokalizowane trasy.
+
+```typescript fileName="src/pages/sitemap.xml.ts"
+import type { APIRoute } from "astro";
+import { generateSitemap, type SitemapUrlEntry } from "intlayer";
+
+const pathList: SitemapUrlEntry[] = [
+  { path: "/", changefreq: "daily", priority: 1.0 },
+  { path: "/about", changefreq: "monthly", priority: 0.7 },
+];
+
+const SITE_URL = import.meta.env.SITE ?? "http://localhost:4321";
+
+export const GET: APIRoute = async ({ site }) => {
+  const xmlOutput = generateSitemap(pathList, { siteUrl: SITE_URL });
+
+  return new Response(xmlOutput, {
+    headers: { "Content-Type": "application/xml" },
+  });
+};
+```
+
+#### Robots.txt
+
+Utwórz plik `src/pages/robots.txt.ts`, aby kontrolować indeksowanie przez wyszukiwarki.
+
+```typescript fileName="src/pages/robots.txt.ts"
+import type { APIRoute } from "astro";
+import { getMultilingualUrls } from "intlayer";
+
+const isProd = import.meta.env.PROD;
+
+const getAllMultilingualUrls = (urls: string[]) =>
+  urls.flatMap((url) => Object.values(getMultilingualUrls(url)) as string[]);
+
+export const GET: APIRoute = ({ site }) => {
+  const disallowedPaths = getAllMultilingualUrls(["/admin", "/private"]);
+
+  const robotsTxt = [
+    "User-agent: *",
+    isProd ? "Allow: /" : "Disallow: /",
+    ...disallowedPaths.map((path) => `Disallow: ${path}`),
+    "",
+    site ? `Sitemap: ${new URL("/sitemap.xml", site).href}` : "",
+  ].join("\n");
+
+  return new Response(robotsTxt, {
+    headers: { "Content-Type": "text/plain" },
+  });
+};
+```
+
+### Konfiguracja TypeScript
+
+Intlayer wykorzystuje rozszerzenie modułów (module augmentation), aby skorzystać z TypeScript, czyniąc bazę kodu bardziej solidną. Upewnij się, że Twoja konfiguracja TypeScript zawiera automatycznie generowane typy i jest skonfigurowana dla Preacta:
+
+```json5 fileName="tsconfig.json"
+{
+  compilerOptions: {
+    // ...
+    jsx: "react-jsx",
+    jsxImportSource: "preact", // Zalecane dla Preact 10+
+  },
+  "include": [
+    // ... Twoja istniejąca konfiguracja TypeScript
+    ".intlayer/**/*.ts", // Uwzględnij automatycznie generowane typy
+  ],
+}
+```
+
+### Konfiguracja Git
+
+Zaleca się ignorowanie plików generowanych przez Intlayer. Zapobiega to ich przesyłaniu do repozytorium Git.
+
+Aby to zrobić, dodaj następujące instrukcje do pliku `.gitignore`:
+
+```bash
+# Ignoruj pliki generowane przez Intlayer
+.intlayer
+```
+
+### Rozszerzenie VS Code
+
+Aby poprawić wrażenia z programowania z Intlayer, możesz zainstalować **oficjalne rozszerzenie Intlayer dla VS Code**.
+
+[Instalacja z VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+To rozszerzenie zapewnia:
+
+- **Autouzupełnianie** kluczy tłumaczeń.
+- **Wykrywanie błędów w czasie rzeczywistym** dla brakujących tłumaczeń.
+- **Podgląd inline** przetłumaczonej treści.
+- **Szybkie akcje** do łatwego tworzenia i aktualizowania tłumaczeń.
+
+Więcej informacji na temat korzystania z rozszerzenia znajdziesz w [dokumentacji rozszerzenia VS Code](https://intlayer.org/doc/vs-code-extension).
+
+---
+
+### Pogłębiaj swoją wiedzę
+
+Jeśli chcesz dowiedzieć się więcej, możesz również wdrożyć [Edytor Wizualny](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_visual_editor.md) lub użyć [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md), aby wyeksternalizować swoją treść.

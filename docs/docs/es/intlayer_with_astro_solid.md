@@ -2,10 +2,10 @@
 createdAt: 2026-04-24
 updatedAt: 2026-04-24
 title: Astro + Solid i18n - Cómo traducir una aplicación Astro + Solid en 2026
-description: Aprende cómo añadir internacionalización (i18n) a tu sitio web Astro + Solid usando Intlayer. Sigue esta guía para hacer tu sitio multilingüe.
+description: Aprende a añadir internacionalización (i18n) a tu sitio Astro + Solid con Intlayer. Sigue esta guía para que tu sitio sea multilingüe.
 keywords:
-  - Internacionalización
-  - Documentación
+  - internacionalización
+  - documentación
   - Intlayer
   - Astro
   - Solid
@@ -13,7 +13,7 @@ keywords:
   - JavaScript
 slugs:
   - doc
-  - entorno
+  - environment
   - astro
   - solid
 applicationTemplate: https://github.com/aymericzip/intlayer-astro-template
@@ -23,18 +23,18 @@ history:
     changes: "Documentación inicial para Astro + Solid"
 ---
 
-# Traduce tu sitio web Astro + Solid con Intlayer | Internacionalización (i18n)
+# Traducir tu sitio Astro + Solid con Intlayer | Internacionalización (i18n)
 
 ## ¿Qué es Intlayer?
 
-**Intlayer** es una biblioteca de internacionalización (i18n) innovadora y de código abierto diseñada para simplificar el soporte multilingüe en aplicaciones web modernas.
+**Intlayer** es una librería de internacionalización (i18n) innovadora y de código abierto diseñada para simplificar el soporte multilingüe en aplicaciones web modernas.
 
 Con Intlayer, puedes:
 
-- **Gestionar fácilmente las traducciones** usando diccionarios declarativos a nivel de componente.
-- **Localizar dinámicamente metadatos**, rutas y contenido.
-- **Asegurar el soporte de TypeScript** con tipos autogenerados, mejorando el autocompletado y la detección de errores.
-- **Beneficiarte de funciones avanzadas**, como la detección y el cambio dinámico de idioma.
+- **Gestionar traducciones fácilmente**: Utilizando diccionarios declarativos a nivel de componente.
+- **Localizar metadatos, rutas y contenidos dinámicamente**.
+- **Asegurar el soporte de TypeScript**: Con tipos autogenerados para mejorar el autocompletado y la detección de errores.
+- **Beneficiarte de funciones avanzadas**: Como la detección dinámica de idioma y el cambio de idioma.
 
 ---
 
@@ -43,16 +43,16 @@ Con Intlayer, puedes:
 <iframe
   src="https://stackblitz.com/github/aymericzip/intlayer-astro-template?embed=1&ctl=1&file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo CodeSandbox - Cómo internacionalizar tu aplicación usando Intlayer"
+  title="Demo CodeSandbox - Cómo internacionalizar tu aplicación con Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
 
-Ver el [Modelo de Aplicación](https://github.com/aymericzip/intlayer-astro-template) en GitHub.
+Consulta la [plantilla de aplicación](https://github.com/aymericzip/intlayer-astro-template) en GitHub.
 
-### Paso 1: Instalar Dependencias
+### Paso 1: Instalar dependencias
 
-Instala los paquetes necesarios usando tu gestor de paquetes:
+Instala los paquetes necesarios utilizando tu gestor de paquetes preferido:
 
 ```bash packageManager="npm"
 npm install intlayer astro-intlayer solid-js solid-intlayer @astrojs/solid-js
@@ -79,23 +79,23 @@ bun x intlayer init
 ```
 
 - **intlayer**
-  El paquete principal que proporciona herramientas de internacionalización para la gestión de la configuración, traducción, [declaración de contenido](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/content_file.md), transpilación y [comandos CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/cli/index.md).
+  El paquete core que proporciona herramientas de i18n para la gestión de la configuración, traducciones, [declaración de contenidos](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/content_file.md), transpilación y [comandos CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/cli/index.md).
 
 - **astro-intlayer**
-  Incluye el plugin de integración de Astro para integrar Intlayer con el [bundler Vite](https://vite.dev/guide/why.html#why-bundle-for-production), así como un middleware para detectar el idioma preferido del usuario, gestionar cookies y manejar la redirección de URL.
+  Incluye el plugin de integración de Astro para conectar Intlayer con el [bundler Vite](https://vite.dev/guide/why.html#why-bundle-for-production), así como el middleware para detectar el idioma preferido del usuario, gestionar cookies y manejar redirecciones de URL.
 
 - **solid-js**
-  El paquete Solid fundamental.
+  El paquete core de Solid.
 
 - **solid-intlayer**
-  El paquete que integra Intlayer con las aplicaciones Solid. Proporciona `IntlayerProvider`, y las primitivas `useIntlayer` y `useLocale` para la internacionalización de Solid.
+  Paquete para integrar Intlayer con aplicaciones de Solid. Proporciona `IntlayerProvider`, así como los primitivos `useIntlayer` y `useLocale` para la internacionalización en Solid.
 
 - **@astrojs/solid-js**
-  La integración oficial de Astro que permite el uso de islas de componentes Solid.
+  Integración oficial de Astro que permite el uso de islas (islands) de componentes Solid.
 
-### Paso 2: Configuración de tu proyecto
+### Paso 2: Configurar tu proyecto
 
-Crea un archivo de configuración para configurar los idiomas de tu aplicación:
+Crea un archivo de configuración para definir los idiomas de tu aplicación:
 
 ```typescript fileName="intlayer.config.ts"
 import { Locales, type IntlayerConfig } from "intlayer";
@@ -106,7 +106,7 @@ const config: IntlayerConfig = {
       Locales.ENGLISH,
       Locales.FRENCH,
       Locales.SPANISH,
-      // Otros idiomas
+      // Tus otros idiomas
     ],
     defaultLocale: Locales.ENGLISH,
   },
@@ -115,11 +115,11 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-> Gracias a este archivo de configuración, puedes configurar URLs localizadas, la redirección del middleware, los nombres de las cookies, la ubicación y extensión de tus declaraciones de contenido, desactivar los logs de Intlayer en la consola, y más. Para una lista completa de los parámetros disponibles, consulta la [documentación de configuración](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/configuration.md).
+> A través de este archivo de configuración, puedes configurar URLs localizadas, redirecciones de middleware, nombres de cookies, ubicación y extensiones de las declaraciones de contenido, desactivar los logs de Intlayer en la consola, y más. Para una lista completa de los parámetros disponibles, consulta la [documentación de configuración](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/configuration.md).
 
 ### Paso 3: Integrar Intlayer en tu configuración de Astro
 
-Añade el plugin de intlayer y la integración de Solid en tu configuración.
+Añade el plugin `intlayer` y la integración de Solid a tu configuración de Astro.
 
 ```typescript fileName="astro.config.ts"
 // @ts-check
@@ -134,13 +134,13 @@ export default defineConfig({
 });
 ```
 
-> El plugin de integración de Astro `intlayer()` se utiliza para integrar Intlayer con Astro. Asegura la construcción de los archivos de declaración de contenido y los monitoriza en modo desarrollo. Define las variables de entorno de Intlayer en la aplicación Astro. Además, proporciona alias para optimizar el rendimiento.
+> El plugin de integración `intlayer()` se utiliza para integrar Intlayer con Astro. Asegura la generación de los archivos de declaración de contenido y los vigila en modo desarrollo. Define las variables de entorno de Intlayer dentro de la aplicación Astro y proporciona alias para optimizar el rendimiento.
 
-> La integración `solid()` permite utilizar islas de componentes Solid a través de `client:only="solid-js"`.
+> La integración `solid()` permite usar islas de componentes Solid a través de `client:only="solid-js"`.
 
-### Paso 4: Declarar tu Contenido
+### Paso 4: Declarar tu contenido
 
-Crea y gestiona tus declaraciones de contenido para almacenar las traducciones:
+Crea y gestiona tus declaraciones de contenido para almacenar traducciones:
 
 ```tsx fileName="src/app.content.tsx"
 import { t, type Dictionary } from "intlayer";
@@ -159,13 +159,13 @@ const appContent = {
 export default appContent;
 ```
 
-> Tus declaraciones de contenido se pueden definir en cualquier parte de su aplicación, siempre que se incluyan en el directorio `contentDir` (por defecto, `./src`) y coincidan con la extensión del archivo de declaración de contenido (por defecto, `.content.{json,ts,tsx,js,jsx,mjs,cjs}`).
+> Las declaraciones de contenido pueden definirse en cualquier lugar de tu aplicación, siempre que estén incluidas en el `contentDir` (por defecto `./src`) y coincidan con la extensión de los archivos de declaración de contenido (por defecto `.content.{json,ts,tsx,js,jsx,mjs,cjs}`).
 
-> Para más detalles, consulta la [documentación de declaración de contenido](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/content_file.md).
+> Para más información, consulta la [documentación de declaración de contenido](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/content_file.md).
 
-### Paso 5: Usar tu contenido en Astro
+### Paso 5: Usar el contenido en Astro
 
-Puedes consumir los diccionarios directamente en los archivos `.astro` utilizando los ayudantes básicos exportados por `intlayer`. También deberías añadir metadatos SEO como los enlaces hreflang y canónicos a cada página, e integrar la isla Solid para el contenido interactivo del lado del cliente.
+Puedes consumir los diccionarios directamente en tus archivos `.astro` utilizando los helpers core exportados por `intlayer`. También deberías añadir metadatos SEO (como hreflang y enlaces canónicos) a cada página e introducir una isla de Solid para el contenido interactivo del lado del cliente.
 
 ```astro fileName="src/pages/[...locale]/index.astro"
 ---
@@ -198,13 +198,13 @@ const { title } = getIntlayer("app", locale);
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
 
-    <!-- Enlace canónico: Indica a los motores de búsqueda cuál es la versión principal de esta página -->
+    <!-- Enlace Canónico: informa a los buscadores sobre la versión principal de esta página -->
     <link
       rel="canonical"
       href={new URL(getLocalizedUrl(Astro.url.pathname, locale), Astro.site)}
     />
 
-    <!-- Hreflang: Indica a Google todas las versiones localizadas -->
+    <!-- Hreflang: informa a Google sobre todas las versiones localizadas -->
     {
       localeMap(({ locale: mapLocale }) => (
         <link
@@ -218,7 +218,7 @@ const { title } = getIntlayer("app", locale);
       ))
     }
 
-    <!-- x-default: Opción de respaldo para usuarios en idiomas no correspondientes -->
+    <!-- x-default: opción de respaldo cuando el idioma no coincide con el del usuario -->
     <link
       rel="alternate"
       hreflang="x-default"
@@ -229,22 +229,22 @@ const { title } = getIntlayer("app", locale);
     />
   </head>
   <body>
-    <!-- La isla Solid hace que todo el contenido sea interactivo, incluido el selector de idioma -->
+    <!-- La isla de Solid renderiza todo el contenido interactivo, incluyendo el selector de idioma -->
     <SolidIsland locale={locale} client:only="solid-js" />
   </body>
 </html>
 ```
 
-> **Nota sobre la configuración del enrutamiento:**
-> La estructura de directorios que utilices depende del parámetro `middleware.routing` de tu `intlayer.config.ts`:
+> **Nota sobre la configuración de rutas:**
+> La estructura de directorios que utilices depende del ajuste `middleware.routing` en `intlayer.config.ts`:
 >
-> - **`prefix-no-default` (por defecto):** Mantiene el idioma predeterminado en la raíz (sin prefijo) y añade prefijos a los demás. Utiliza `[...locale]` para interceptar todos los casos.
-> - **`prefix-all`:** Todas las URLs van precedidas del idioma. Puedes utilizar un `[locale]` estándar si no necesitas manejar la raíz por separado.
-> - **`search-param` o `no-prefix`:** No se necesita una carpeta de idioma. El idioma se gestiona a través de parámetros de búsqueda o cookies.
+> - **`prefix-no-default` (por defecto):** mantiene el idioma por defecto en la raíz (sin prefijo) y añade prefijos a los demás. Usa `[...locale]` para capturar todos los casos.
+> - **`prefix-all`:** todos los URLs tienen prefijo de idioma. Puedes usar el estándar `[locale]` si no necesitas manejar la raíz por separado.
+> - **`search-param` o `no-prefix`:** no se necesitan directorios de idioma. El idioma se maneja a través de parámetros de consulta o cookies.
 
-### Paso 6: Crear el componente Isla Solid
+### Paso 6: Crear un componente de isla de Solid
 
-Crea el componente de isla que envuelve tu aplicación Solid y recibe la locale detectada por el servidor:
+Crea un componente de isla que envuelva tu aplicación Solid y reciba el idioma detectado por el servidor:
 
 ```tsx fileName="src/components/solid/SolidIsland.tsx"
 /** @jsxImportSource solid-js */
@@ -272,13 +272,13 @@ export function SolidIsland({ locale }: { locale: LocalesValues }) {
 }
 ```
 
-> La prop `locale` se transmite de la página Astro (detectada por el servidor) a `IntlayerProvider`, lo que la convierte en la locale inicial para todas las primitivas Solid del árbol.
+> El atributo `locale` se pasa desde la página de Astro (detección en el servidor) al `IntlayerProvider`, lo que lo convierte en el idioma inicial para todos los primitivos de Solid dentro del árbol.
 
-> En Solid, `useIntlayer` devuelve una función **accessor** (por ejemplo, `content()`). Debes llamar a esta función para acceder al contenido reactivo.
+> En Solid, `useIntlayer` devuelve una función **accessor** (ej: `content()`). Debes llamar a esta función para acceder al contenido reactivo.
 
-### Paso 7: Añadir un Selector de Idioma
+### Paso 7: Añadir un selector de idioma
 
-Crea un componente Solid `LocaleSwitcher` que lea los idiomas disponibles y navegue a la URL localizada cuando el usuario elija un nuevo idioma:
+Crea un componente de Solid `LocaleSwitcher` que lea los idiomas disponibles y navegue a la URL localizada cuando el usuario seleccione un nuevo idioma:
 
 ```tsx fileName="src/components/solid/LocaleSwitcher.tsx"
 /** @jsxImportSource solid-js */
@@ -288,7 +288,7 @@ import { getLocalizedUrl, getLocaleName, type LocalesValues } from "intlayer";
 export function LocaleSwitcher() {
   const { locale, availableLocales, setLocale } = useLocale({
     onLocaleChange: (newLocale: LocalesValues) => {
-      // Navegar a la URL localizada al cambiar de idioma
+      // Navegar a la URL localizada al cambiar el idioma
       window.location.href = getLocalizedUrl(
         window.location.pathname,
         newLocale
@@ -319,17 +319,17 @@ export function LocaleSwitcher() {
 }
 ```
 
-> **Nota sobre la reactividad de Solid:**
-> En Solid, `locale` es un accesor de señal reactivo — llámalo siempre como `locale()` cuando leas su valor actual.
+> **Nota sobre la reactividad en Solid:**
+> En Solid, `locale` es un accessor de señal reactiva — llámalo siempre como `locale()` para obtener el valor actual.
 
 > **Nota sobre la persistencia:**
-> El uso de `onLocaleChange` para redirigir a través de `window.location.href` asegura que se visite la URL del nuevo idioma, permitiendo que el middleware de Intlayer establezca la cookie de idioma y recuerde la preferencia del usuario para futuras visitas.
+> Usar `onLocaleChange` para redirigir mediante `window.location.href` asegura que se visite la nueva URL del idioma, lo que permite al middleware de Intlayer establecer la cookie de idioma e informar la preferencia del usuario en futuras visitas.
 
-> El `LocaleSwitcher` debe renderizarse dentro de `IntlayerProvider` — úsalo dentro de tu componente de isla (como se muestra en el paso 6).
+> El `LocaleSwitcher` debe renderizarse dentro del `IntlayerProvider` — úsalo dentro de tu componente de isla (como se muestra en el Paso 6).
 
 ### Paso 8: Sitemap y Robots.txt
 
-Intlayer proporciona utilidades para generar dinámicamente sitemaps y archivos robots.txt localizados.
+Intlayer ofrece utilidades para crear dinámicamente tu sitemap localizado y tus archivos robots.txt.
 
 #### Sitemap
 
@@ -357,7 +357,7 @@ export const GET: APIRoute = async ({ site }) => {
 
 #### Robots.txt
 
-Crea `src/pages/robots.txt.ts` para controlar la indexación por parte de los motores de búsqueda.
+Crea `src/pages/robots.txt.ts` para controlar el rastreo de los motores de búsqueda.
 
 ```typescript fileName="src/pages/robots.txt.ts"
 import type { APIRoute } from "astro";
@@ -385,9 +385,9 @@ export const GET: APIRoute = ({ site }) => {
 };
 ```
 
-### Configurar TypeScript
+### Configuración de TypeScript
 
-Intlayer utiliza el aumento de módulo para beneficiarse de TypeScript y hacer que su base de código sea más robusta.
+Intlayer utiliza el aumento de módulos (module augmentation) para aprovechar TypeScript, haciendo que tu código sea más robusto.
 
 ![Autocompletado](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
@@ -397,42 +397,42 @@ Asegúrate de que tu configuración de TypeScript incluya los tipos autogenerado
 
 ```json5 fileName="tsconfig.json"
 {
-  // ... Tus configuraciones de TypeScript existentes
-  include: [
-    // ... Tus configuraciones de TypeScript existentes
-    ".intlayer/**/*.ts", // Incluir los tipos autogenerados
+  // ... tu configuración de TypeScript existente
+  "include": [
+    // ... tu configuración de TypeScript existente
+    ".intlayer/**/*.ts", // Incluir tipos autogenerados
   ],
 }
 ```
 
-### Configuración del Git
+### Configuración de Git
 
-Se recomienda ignorar los archivos generados por Intlayer. Esto te permite evitar subirlos a tu repositorio de Git.
+Se recomienda ignorar los archivos generados por Intlayer. Esto evita incluirlos en tu repositorio de Git.
 
-Para hacerlo, puedes añadir las siguientes instrucciones a tu archivo `.gitignore`:
+Para hacerlo, añade las siguientes instrucciones a tu archivo `.gitignore`:
 
 ```bash
-# Ignorar los archivos generados por Intlayer
+# Ignorar archivos generados por Intlayer
 .intlayer
 ```
 
 ### Extensión de VS Code
 
-Para mejorar tu experiencia de desarrollo con Intlayer, puedes instalar la **Extensión oficial de Intlayer para VS Code**.
+Para mejorar tu experiencia de desarrollo con Intlayer, puedes instalar la **extensión oficial de Intlayer para VS Code**.
 
-[Instalar desde el Marketplace de VS Code](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+[Instalar desde el VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
 Esta extensión proporciona:
 
-- **Autocompletado** para las llaves de traducción.
+- **Autocompletado** para las claves de traducción.
 - **Detección de errores en tiempo real** para traducciones faltantes.
-- **Vistas previas en línea** del contenido traducido.
+- **Previsualización en línea** del contenido traducido.
 - **Acciones rápidas** para crear y actualizar traducciones fácilmente.
 
-Para más detalles sobre cómo usar la extensión, consulta la [documentación de la extensión de VS Code de Intlayer](https://intlayer.org/doc/vs-code-extension).
+Para más información sobre el uso de la extensión, consulta la [documentación de la extensión para VS Code](https://intlayer.org/doc/vs-code-extension).
 
 ---
 
-### Ir más allá
+### Profundiza más
 
-Para ir más allá, puede implementar el [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_visual_editor.md) o externalizar su contenido a través del [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_CMS.md).
+Si quieres saber más, también puedes implementar el [Editor Visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_visual_editor.md) o usar el [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_CMS.md) para externalizar tus contenidos.
