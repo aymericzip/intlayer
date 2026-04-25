@@ -369,6 +369,7 @@ module.exports.config = {
 Kök düzen dosyanızı çok dilli hale getirin:
 
 ```tsx fileName="src/app/layout.tsx" codeFormat="typescript"
+import {} from "next-intlayer";
 import { getHTMLTextDir } from "intlayer";
 import { getLocaleName } from "intlayer";
 import { Inter } from "next/font/google";
@@ -425,6 +426,7 @@ export default function RootLayout({
 ```
 
 ```jsx fileName="src/app/layout.jsx" codeFormat="esm"
+import {} from "next-intlayer";
 import { getHTMLTextDir } from "intlayer";
 import { getLocaleName } from "intlayer";
 import { Inter } from "next/font/google";
@@ -492,7 +494,6 @@ export default function HomePage() {
 
 ```jsx fileName="src/app/[locale]/page.jsx" codeFormat="esm"
 import { useIntlayer } from "next-intlayer";
-
 export default function HomePage() {
   const content = useIntlayer("home");
 

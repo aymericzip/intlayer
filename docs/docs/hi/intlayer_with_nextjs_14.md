@@ -262,7 +262,10 @@ module.exports = {
 
 ```tsx fileName="src/app/[locale]/layout.tsx" codeFormat="typescript"
 // डायनामिक लोकेल लेआउट घटक को परिभाषित करें
-import type { Next14LayoutIntlayer } from "next-intlayer";
+import {
+  type Next14LayoutIntlayer,
+  IntlayerClientProvider,
+} from "next-intlayer";
 import { Inter } from "next/font/google";
 import { getHTMLTextDir } from "intlayer";
 
@@ -273,7 +276,11 @@ const LocaleLayout: Next14LayoutIntlayer = ({
   params: { locale },
 }) => (
   <html lang={locale} dir={getHTMLTextDir(locale)}>
-    <body className={inter.className}>{children}</body>
+    <body className={inter.className}>
+      <IntlayerClientProvider locale={locale}>
+        {children}
+      </IntlayerClientProvider>
+    </body>
   </html>
 );
 
@@ -284,7 +291,11 @@ const inter = Inter({ subsets: ["latin"] });
 
 const LocaleLayout = ({ children, params: { locale } }) => (
   <html lang={locale} dir={getHTMLTextDir(locale)}>
-    <body className={inter.className}>{children}</body>
+    <body className={inter.className}>
+      <IntlayerClientProvider locale={locale}>
+        {children}
+      </IntlayerClientProvider>
+    </body>
   </html>
 );
 
@@ -293,13 +304,18 @@ export default LocaleLayout;
 
 ```jsx fileName="src/app/[locale]/layout.csx" codeFormat="commonjs"
 const { Inter } = require("next/font/google");
+const { IntlayerClientProvider } = require("next-intlayer");
 const { getHTMLTextDir } = require("intlayer");
 
 const inter = Inter({ subsets: ["latin"] });
 
 const LocaleLayout = ({ children, params: { locale } }) => (
   <html lang={locale} dir={getHTMLTextDir(locale)}>
-    <body className={inter.className}>{children}</body>
+    <body className={inter.className}>
+      <IntlayerClientProvider locale={locale}>
+        {children}
+      </IntlayerClientProvider>
+    </body>
   </html>
 );
 
@@ -454,7 +470,7 @@ module.exports = pageContent;
 ```tsx fileName="src/app/[locale]/page.tsx" codeFormat="typescript"
 import { ClientComponentExample } from "@components/ClientComponentExample";
 import { ServerComponentExample } from "@components/ServerComponentExample";
-import { type Next14PageIntlayer, IntlayerClientProvider } from "next-intlayer";
+import { type Next14PageIntlayer } from "next-intlayer";
 import { IntlayerServerProvider, useIntlayer } from "next-intlayer/server";
 
 const Page: Next14PageIntlayer = ({ params: { locale } }) => {
@@ -468,10 +484,8 @@ const Page: Next14PageIntlayer = ({ params: { locale } }) => {
       </p>
 
       <IntlayerServerProvider locale={locale}>
-        <IntlayerClientProvider locale={locale}>
-          <ServerComponentExample />
-          <ClientComponentExample />
-        </IntlayerClientProvider>
+        <ServerComponentExample />
+        <ClientComponentExample />
       </IntlayerServerProvider>
     </>
   );
@@ -483,7 +497,6 @@ export default Page;
 ```jsx fileName="src/app/[locale]/page.mjx" codeFormat="esm"
 import { ClientComponentExample } from "@components/ClientComponentExample";
 import { ServerComponentExample } from "@components/ServerComponentExample";
-import { IntlayerClientProvider } from "next-intlayer";
 import { IntlayerServerProvider, useIntlayer } from "next-intlayer/server";
 
 const Page = ({ params: { locale } }) => {
@@ -496,19 +509,16 @@ const Page = ({ params: { locale } }) => {
         <code>{content.getStarted.pageLink}</code>
       </p>
 
-      <IntlayerClientProvider locale={locale}>
-        <IntlayerServerProvider locale={locale}>
-          <ClientComponentExample />
-          <ServerComponentExample />
-        </IntlayerServerProvider>
-      </IntlayerClientProvider>
+      <IntlayerServerProvider locale={locale}>
+        <ClientComponentExample />
+        <ServerComponentExample />
+      </IntlayerServerProvider>
     </>
   );
 };
 ```
 
 ```jsx fileName="src/app/[locale]/page.csx" codeFormat="commonjs"
-const { IntlayerClientProvider } = require("next-intlayer");
 const { IntlayerServerProvider, useIntlayer } = require("next-intlayer/server");
 
 const Page = ({ params: { locale } }) => {
@@ -521,12 +531,10 @@ const Page = ({ params: { locale } }) => {
         <code>{content.getStarted.pageLink}</code>
       </p>
 
-      <IntlayerClientProvider locale={locale}>
-        <IntlayerServerProvider locale={locale}>
-          <ClientComponentExample />
-          <ServerComponentExample />
-        </IntlayerServerProvider>
-      </IntlayerClientProvider>
+      <IntlayerServerProvider locale={locale}>
+        <ClientComponentExample />
+        <ServerComponentExample />
+      </IntlayerServerProvider>
     </>
   );
 };

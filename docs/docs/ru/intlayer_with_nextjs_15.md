@@ -249,7 +249,7 @@ module.exports = {
 Для реализации динамической маршрутизации укажите путь для локали, добавив новый layout в директорию `[locale]`:
 
 ```tsx fileName="src/app/[locale]/layout.tsx" codeFormat="typescript"
-import type { NextLayoutIntlayer } from "next-intlayer";
+import { type NextLayoutIntlayer, IntlayerClientProvider } from "next-intlayer";
 import { Inter } from "next/font/google";
 import { getHTMLTextDir } from "intlayer";
 
@@ -260,7 +260,11 @@ const LocaleLayout: NextLayoutIntlayer = async ({ children, params }) => {
   const { locale } = await params; // Получаем текущую локаль из параметров
   return (
     <html lang={locale} dir={getHTMLTextDir(locale)}>
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <IntlayerClientProvider locale={locale}>
+          {children}
+        </IntlayerClientProvider>
+      </body>
     </html>
   );
 };
@@ -269,6 +273,7 @@ export default LocaleLayout;
 ```
 
 ```jsx fileName="src/app/[locale]/layout.mjx" codeFormat="esm"
+import { IntlayerClientProvider } from "next-intlayer";
 import { getHTMLTextDir } from "intlayer";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -277,7 +282,11 @@ const LocaleLayout = async ({ children, params: { locale } }) => {
   const { locale } = await params;
   return (
     <html lang={locale} dir={getHTMLTextDir(locale)}>
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <IntlayerClientProvider locale={locale}>
+          {children}
+        </IntlayerClientProvider>
+      </body>
     </html>
   );
 };
@@ -287,6 +296,7 @@ export default LocaleLayout;
 
 ```jsx fileName="src/app/[locale]/layout.csx" codeFormat="commonjs"
 const { Inter } = require("next/font/google");
+const { IntlayerClientProvider } = require("next-intlayer");
 const { getHTMLTextDir } = require("intlayer");
 
 const inter = Inter({ subsets: ["latin"] });
@@ -296,7 +306,11 @@ const LocaleLayout = async ({ children, params: { locale } }) => {
   const { locale } = await params; // Получаем текущую локаль из параметров
   return (
     <html lang={locale} dir={getHTMLTextDir(locale)}>
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <IntlayerClientProvider locale={locale}>
+          {children}
+        </IntlayerClientProvider>
+      </body>
     </html>
   );
 };
@@ -442,7 +456,7 @@ module.exports = pageContent;
 import type { FC } from "react";
 import { ClientComponentExample } from "@components/ClientComponentExample";
 import { ServerComponentExample } from "@components/ServerComponentExample";
-import { type NextPageIntlayer, IntlayerClientProvider } from "next-intlayer";
+import { type NextPageIntlayer } from "next-intlayer";
 import { IntlayerServerProvider, useIntlayer } from "next-intlayer/server";
 
 const PageContent: FC = () => {
@@ -465,9 +479,7 @@ const Page: NextPageIntlayer = async ({ params }) => {
       <PageContent />
       <ServerComponentExample />
 
-      <IntlayerClientProvider locale={locale}>
-        <ClientComponentExample />
-      </IntlayerClientProvider>
+      <ClientComponentExample />
     </IntlayerServerProvider>
   );
 };
@@ -478,7 +490,6 @@ export default Page;
 ```jsx fileName="src/app/[locale]/page.mjx" codeFormat="esm"
 import { ClientComponentExample } from "@components/ClientComponentExample";
 import { ServerComponentExample } from "@components/ServerComponentExample";
-import { IntlayerClientProvider } from "next-intlayer";
 import { IntlayerServerProvider, useIntlayer } from "next-intlayer/server";
 
 const PageContent = () => {
@@ -500,9 +511,7 @@ const Page = async ({ params }) => {
       <PageContent />
       <ServerComponentExample />
 
-      <IntlayerClientProvider locale={locale}>
-        <ClientComponentExample />
-      </IntlayerClientProvider>
+      <ClientComponentExample />
     </IntlayerServerProvider>
   );
 };
@@ -513,7 +522,6 @@ export default Page;
 ```jsx fileName="src/app/[locale]/page.csx" codeFormat="commonjs"
 import { ClientComponentExample } from "@components/ClientComponentExample";
 import { ServerComponentExample } from "@components/ServerComponentExample";
-import { IntlayerClientProvider } from "next-intlayer";
 import { IntlayerServerProvider, useIntlayer } from "next-intlayer/server";
 
 const PageContent = () => {
@@ -535,9 +543,7 @@ const Page = async ({ params }) => {
       <PageContent />
       <ServerComponentExample />
 
-      <IntlayerClientProvider locale={locale}>
-        <ClientComponentExample />
-      </IntlayerClientProvider>
+      <ClientComponentExample />
     </IntlayerServerProvider>
   );
 };
