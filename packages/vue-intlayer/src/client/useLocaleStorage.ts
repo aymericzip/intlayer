@@ -59,11 +59,4 @@ export const useLocaleStorage = (isCookieEnabled?: boolean) => {
  *
  * Composable that provides the locale cookie and a function to set it
  */
-export const useLocaleCookie = (isCookieEnabled?: boolean) => {
-  const storage = useLocaleStorage(isCookieEnabled);
-
-  return {
-    localeCookie: storage.localeStorage,
-    setLocaleCookie: storage.setLocaleStorage,
-  };
-};
+export const useLocaleCookie = useLocaleStorage;

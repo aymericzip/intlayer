@@ -51,11 +51,4 @@ export const useLocaleStorage = (isCookieEnabled?: boolean) => {
 /**
  * @deprecated Use useLocaleStorage instead.
  */
-export const useLocaleCookie = (isCookieEnabled?: boolean) => {
-  const storage = useLocaleStorage(isCookieEnabled);
-
-  return {
-    localeCookie: storage.localeStorage,
-    setLocaleCookie: storage.setLocaleStorage,
-  };
-};
+export const useLocaleCookie = useLocaleStorage;

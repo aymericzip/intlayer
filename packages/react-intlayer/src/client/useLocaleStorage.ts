@@ -60,11 +60,4 @@ export const useLocaleStorage = (isCookieEnabled?: boolean) =>
  *
  * Hook that provides the locale cookie and a function to set it
  */
-export const useLocaleCookie = (isCookieEnabled?: boolean) => {
-  const storage = useLocaleStorage(isCookieEnabled);
-
-  return {
-    localeCookie: storage.getLocale(),
-    setLocaleCookie: storage.setLocale,
-  };
-};
+export const useLocaleCookie = useLocaleStorage;
