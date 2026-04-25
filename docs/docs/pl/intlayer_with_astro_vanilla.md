@@ -25,6 +25,10 @@ history:
 
 # Przetłumacz swoją witrynę Astro + Vanilla JS za pomocą Intlayer | Międzynarodowość (i18n)
 
+## Spis treści
+
+<TOC/>
+
 ## Czym jest Intlayer?
 
 **Intlayer** to innowacyjna biblioteka międzynarodowości (i18n) o otwartym kodzie źródłowym, zaprojektowana w celu uproszczenia obsługi wielojęzyczności w nowoczesnych aplikacjach internetowych.

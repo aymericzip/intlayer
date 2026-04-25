@@ -25,6 +25,10 @@ history:
 
 # 使用 Intlayer 翻译您的 Astro + Vue 网站 | 国际化 (i18n)
 
+## 目录
+
+<TOC/>
+
 ## 什么是 Intlayer？
 
 **Intlayer** 是一个创新且开源的国际化 (i18n) 库，旨在简化现代 Web 应用程序的多语言支持。

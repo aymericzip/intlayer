@@ -25,6 +25,10 @@ history:
 
 # Traduza o seu site Astro + Solid com o Intlayer | Internacionalização (i18n)
 
+## Índice
+
+<TOC/>
+
 ## O que é o Intlayer?
 
 **Intlayer** é uma biblioteca de internacionalização (i18n) inovadora e de código aberto projetada para simplificar o suporte multilíngue em aplicações web modernas.

@@ -25,6 +25,10 @@ history:
 
 # Astro + Vanilla JS Sitenizi Intlayer ile Çevirin | Uluslararasılaştırma (i18n)
 
+## İçindekiler
+
+<TOC/>
+
 ## Intlayer Nedir?
 
 **Intlayer**, modern web uygulamalarında çok dilli desteği basitleştirmek için tasarlanmış yenilikçi, açık kaynaklı bir uluslararasılaştırma (i18n) kütüphanesidir.

@@ -25,6 +25,10 @@ history:
 
 # Translate your Astro + Vanilla JS website using Intlayer | Internationalization (i18n)
 
+## Table of Contents
+
+<TOC/>
+
 ## What is Intlayer?
 
 **Intlayer** is an innovative, open-source internationalization (i18n) library designed to simplify multilingual support in modern web applications.

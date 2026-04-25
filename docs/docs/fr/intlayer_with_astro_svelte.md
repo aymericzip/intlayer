@@ -25,6 +25,10 @@ history:
 
 # Traduire votre site Astro + Svelte avec Intlayer | Internationalisation (i18n)
 
+## Table des matières
+
+<TOC/>
+
 ## Qu’est-ce qu’Intlayer ?
 
 **Intlayer** est une bibliothèque d’internationalisation (i18n) innovante et open-source conçue pour simplifier le support multilingue dans les applications web modernes.

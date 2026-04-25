@@ -27,6 +27,10 @@ history:
 
 # Translate your Astro site with Intlayer | Internationalisation (i18n)
 
+## Table of Contents
+
+<TOC/>
+
 ## What is Intlayer?
 
 **Intlayer** is an innovative, open-source internationalisation (i18n) library designed to simplify multilingual support in modern web applications.

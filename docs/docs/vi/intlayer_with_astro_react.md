@@ -28,6 +28,10 @@ history:
 
 # Dịch trang web Astro + React của bạn với Intlayer | Đa ngôn ngữ (i18n)
 
+## Mục lục
+
+<TOC/>
+
 ## Intlayer là gì?
 
 **Intlayer** là một thư viện đa ngôn ngữ (i18n) mã nguồn mở sáng tạo được thiết kế để đơn giản hóa việc hỗ trợ nhiều ngôn ngữ trong các ứng dụng web hiện đại.

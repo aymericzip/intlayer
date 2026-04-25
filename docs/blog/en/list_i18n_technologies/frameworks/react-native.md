@@ -198,21 +198,17 @@ Below are several popular approaches to managing multilingual content in React N
 When selecting an i18n solution for your React Native application:
 
 1. **Assess Your Requirements**
-
    - How many languages are needed now and in the future?
    - Do you require on-demand loading for large apps?
 
 2. **Mind Platform Differences**
-
    - Ensure any library supports iOS and Android locale variations, especially date/number/currency quirks.
    - Consider offline usage some translations might need to be bundled with the app, while others can be fetched remotely.
 
 3. **Choose a Structure for Scalability**
-
    - If you’re planning a large or long-lived application, a strong extraction workflow or typed keys can help keep translations well-organized.
 
 4. **Performance & Bundle Size**
-
    - Mobile data constraints mean you should keep a close eye on the size of your translation files and any polyfills.
 
 5. **Developer Experience (DX)**

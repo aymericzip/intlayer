@@ -198,21 +198,17 @@ Im Folgenden sind mehrere beliebte Ansätze zur Verwaltung mehrsprachiger Inhalt
 Bei der Auswahl einer i18n-Lösung für Ihre React Native-Anwendung:
 
 1. **Bewerten Sie Ihre Anforderungen**
-
    - Wie viele Sprachen sind jetzt und in Zukunft erforderlich?
    - Benötigen Sie On-Demand-Ladungen für große Apps?
 
 2. **Berücksichtigen Sie plattformspezifische Unterschiede**
-
    - Stellen Sie sicher, dass jede Bibliothek die Unterschiede der iOS- und Android-Lokale unterstützt, insbesondere bei Daten-/Zahlen-/Währungsbesonderheiten.
    - Berücksichtigen Sie den Offline-Einsatz - einige Übersetzungen müssen möglicherweise mit der App gebündelt werden, während andere remote abgerufen werden können.
 
 3. **Wählen Sie eine Struktur für Skalierbarkeit**
-
    - Wenn Sie eine große oder langfristige Anwendung planen, kann ein starker Extraktionsworkflow oder typisierte Schlüssel helfen, Übersetzungen gut organisiert zu halten.
 
 4. **Leistung & Bündelgröße**
-
    - Mobile Datenbeschränkungen bedeuten, dass Sie die Größe Ihrer Übersetzungsdateien und aller Polyfills genau im Auge behalten sollten.
 
 5. **Entwicklererfahrung (DX)**

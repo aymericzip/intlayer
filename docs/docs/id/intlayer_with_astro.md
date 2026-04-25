@@ -27,6 +27,10 @@ history:
 
 # Terjemahkan Situs Astro Anda dengan Intlayer | Internasionalisasi (i18n)
 
+## Daftar Isi
+
+<TOC/>
+
 ## Apa itu Intlayer?
 
 **Intlayer** adalah pustaka internasionalisasi (i18n) sumber terbuka yang inovatif yang dirancang untuk menyederhanakan dukungan multibahasa dalam aplikasi web modern.

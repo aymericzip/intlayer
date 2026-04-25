@@ -26,10 +26,8 @@ import {
 import type { HTMLComponents } from '../html/HTMLComponentTypes';
 
 // Re-export RuleType for compatibility
-export { RuleType };
-
 // Re-export utilities for compatibility
-export { defaultSlugify as slugify, defaultSanitizer as sanitizer };
+export { defaultSanitizer as sanitizer, defaultSlugify as slugify, RuleType };
 
 type HTMLTags = keyof JSX.IntrinsicElements;
 

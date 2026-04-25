@@ -198,21 +198,17 @@ Voici plusieurs approches populaires pour gérer le contenu multilingue dans Rea
 Lorsque vous choisissez une solution i18n pour votre application React Native :
 
 1. **Évaluez vos exigences**
-
    - Combien de langues sont nécessaires maintenant et dans le futur ?
    - Avez-vous besoin d'un chargement à la demande pour les grandes applications ?
 
 2. **Pensez aux différences de plateformes**
-
    - Assurez-vous que toute bibliothèque prend en charge les variations de locale iOS et Android, en particulier les particularités de date/nombre/devises.
    - Pensez à l'utilisation hors ligne - certaines traductions pourraient devoir être intégrées dans l'application, tandis que d'autres peuvent être récupérées à distance.
 
 3. **Choisissez une structure pour la scalabilité**
-
    - Si vous prévoyez une application grande ou à long terme, un solide flux de travail d'extraction ou des clés typées peuvent aider à garder les traductions bien organisées.
 
 4. **Performance et taille du bundle**
-
    - Les contraintes de données mobiles signifient que vous devez garder un œil sur la taille de vos fichiers de traduction et tout polyfills.
 
 5. **Expérience développeur (DX)**

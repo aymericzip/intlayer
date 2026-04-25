@@ -28,6 +28,10 @@ history:
 
 # Übersetzen Sie Ihre Astro + React Website mit Intlayer | Internationalisierung (i18n)
 
+## Inhaltsverzeichnis
+
+<TOC/>
+
 ## Was ist Intlayer?
 
 **Intlayer** ist eine innovative Open-Source-Internationalisierungsbibliothek (i18n), die entwickelt wurde, um die mehrsprachige Unterstützung in modernen Webanwendungen zu vereinfachen.

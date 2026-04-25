@@ -26,6 +26,10 @@ history:
 
 # Traducir tu sitio Astro + Lit con Intlayer | Internacionalización (i18n)
 
+## Tabla de Contenidos
+
+<TOC/>
+
 ## ¿Qué es Intlayer?
 
 **Intlayer** es una librería de internacionalización (i18n) innovadora y de código abierto diseñada para simplificar el soporte multilingüe en aplicaciones web modernas.

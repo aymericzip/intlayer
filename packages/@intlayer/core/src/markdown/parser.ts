@@ -27,9 +27,11 @@ export const parserFor = (
   }
 
   // Sorts rules in order of increasing order, then
-  // ascending rule name in case of ties.
+  // ascending rule name (numeric) in case of ties.
+  // RuleType keys are string numbers — use numeric comparison to preserve
+  // intended ordering (e.g. codeFenced '4' must precede headingSetext '10').
   ruleList.sort((a, b) => {
-    return rules[a]._order - rules[b]._order || (a < b ? -1 : 1);
+    return rules[a]._order - rules[b]._order || +a - +b;
   });
 
   const nestedParse: NestedParser = (
