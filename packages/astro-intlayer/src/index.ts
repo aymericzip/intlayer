@@ -4,9 +4,10 @@ import { watch } from '@intlayer/chokidar/watcher';
 import { getConfiguration } from '@intlayer/config/node';
 import { getAlias } from '@intlayer/config/utils';
 import type { AstroIntegration } from 'astro';
+import type { PluginOption } from 'vite';
 import {
-  intlayerProxy as viteIntlayerMiddlewarePlugin,
   intlayer as viteIntlayerPlugin,
+  intlayerProxy as viteIntlayerProxyPlugin,
 } from 'vite-intlayer';
 
 /**
@@ -48,13 +49,13 @@ export const intlayer = (): AstroIntegration =>
               // (also handles optimize/prune/minify internally)
               viteIntlayerPlugin(),
               // Dev-time middleware for locale routing
-              viteIntlayerMiddlewarePlugin(),
-            ],
+              viteIntlayerProxyPlugin(),
+            ] as PluginOption[],
             resolve: {
               alias: {
                 ...getAlias({
                   configuration,
-                  formatter: (value: string) => resolve(value),
+                  formatter: (value) => resolve(value),
                 }),
               },
             },

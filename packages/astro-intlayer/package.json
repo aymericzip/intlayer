@@ -96,7 +96,8 @@
     "vitest": "4.1.5"
   },
   "peerDependencies": {
-    "astro": ">=4.0.0"
+    "astro": ">=4.0.0",
+    "vite": ">=4.0.0"
   },
   "engines": {
     "node": ">=14.18"

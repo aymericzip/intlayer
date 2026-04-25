@@ -1671,6 +1671,7 @@
       },
       "peerDependencies": {
         "astro": ">=4.0.0",
+        "vite": ">=4.0.0",
       },
     },
     "packages/express-intlayer": {
