@@ -13,6 +13,8 @@ import {
   useState,
 } from 'react';
 
+const HANDLE_DOUBLE_CLICK_ZONE_PX = 16;
+
 /**
  * Props for the HeightResizer component
  *
@@ -121,6 +123,7 @@ export const HeightResizer: FC<PropsWithChildren<HeightResizerProps>> = ({
   const containerRef = useRef<HTMLDivElement>(null);
   const [height, setHeight] = useState(initialHeight);
   const [isResizing, setIsResizing] = useState(false);
+  const lastExpandedHeightRef = useRef(initialHeight);
 
   /**
    * Handler to initiate the resizing process
@@ -201,6 +204,37 @@ export const HeightResizer: FC<PropsWithChildren<HeightResizerProps>> = ({
     };
   }, [resize, stopResizing]);
 
+  useEffect(() => {
+    if (height > minHeight) {
+      lastExpandedHeightRef.current = height;
+    }
+  }, [height, minHeight]);
+
+  const handleDoubleClick = useCallback(
+    (event: React.MouseEvent<HTMLDivElement>) => {
+      const el = containerRef.current;
+      if (!el) return;
+
+      const { top } = el.getBoundingClientRect();
+      if (event.clientY - top > HANDLE_DOUBLE_CLICK_ZONE_PX) return;
+
+      event.preventDefault();
+      event.stopPropagation();
+
+      if (height > minHeight) {
+        setHeight(minHeight);
+        return;
+      }
+
+      const capped =
+        maxHeight !== undefined
+          ? Math.min(lastExpandedHeightRef.current, maxHeight)
+          : lastExpandedHeightRef.current;
+      setHeight(Math.max(capped, minHeight));
+    },
+    [height, maxHeight, minHeight]
+  );
+
   return (
     <div
       className={cn(
@@ -217,6 +251,7 @@ export const HeightResizer: FC<PropsWithChildren<HeightResizerProps>> = ({
       ref={containerRef}
       onMouseDown={startResizing}
       onTouchStart={startResizing}
+      onDoubleClick={handleDoubleClick}
       aria-valuemin={minHeight}
       aria-valuemax={maxHeight}
       aria-valuenow={height}
@@ -225,7 +260,9 @@ export const HeightResizer: FC<PropsWithChildren<HeightResizerProps>> = ({
       tabIndex={0}
       {...props}
     >
+      {/* biome-ignore lint/a11y/noStaticElementInteractions: Stops content clicks from triggering resize on the parent slider */}
       <div
+        role="presentation"
         className="absolute top-0 left-0 size-full cursor-default overflow-hidden"
         onMouseDown={(e) => e.stopPropagation()}
         onTouchStart={(e) => e.stopPropagation()}

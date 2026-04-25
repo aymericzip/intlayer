@@ -10,6 +10,8 @@ import React, {
   useState,
 } from 'react';
 
+const HANDLE_DOUBLE_CLICK_ZONE_PX = 16;
+
 /**
  * Props for the WithResizer component.
  *
@@ -170,6 +172,7 @@ export const WithResizer: FC<PropsWithChildren<WithResizerProps>> = ({
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [width, setWidth] = useState(initialWidth);
+  const lastExpandedWidthRef = useRef(initialWidth);
 
   const resizeState = useRef({
     startX: 0,
@@ -267,6 +270,42 @@ export const WithResizer: FC<PropsWithChildren<WithResizerProps>> = ({
     };
   }, [resize, stopResizing]);
 
+  useEffect(() => {
+    if (width > minWidth) {
+      lastExpandedWidthRef.current = width;
+    }
+  }, [width, minWidth]);
+
+  const handleDoubleClick = useCallback(
+    (event: React.MouseEvent<HTMLDivElement>) => {
+      const el = containerRef.current;
+      if (!el) return;
+
+      const { left, right } = el.getBoundingClientRect();
+      const inHandleZone =
+        handlePosition === 'right'
+          ? right - event.clientX <= HANDLE_DOUBLE_CLICK_ZONE_PX
+          : event.clientX - left <= HANDLE_DOUBLE_CLICK_ZONE_PX;
+
+      if (!inHandleZone) return;
+
+      event.preventDefault();
+      event.stopPropagation();
+
+      if (width > minWidth) {
+        setWidth(minWidth);
+        return;
+      }
+
+      const target = Math.min(
+        Math.max(lastExpandedWidthRef.current, minWidth),
+        maxWidth ?? Infinity
+      );
+      setWidth(target);
+    },
+    [handlePosition, maxWidth, minWidth, width]
+  );
+
   return (
     <div
       className={cn(
@@ -290,6 +329,7 @@ export const WithResizer: FC<PropsWithChildren<WithResizerProps>> = ({
       ref={containerRef}
       onMouseDown={startResizing}
       onTouchStart={startResizing}
+      onDoubleClick={handleDoubleClick}
       aria-valuemin={minWidth}
       aria-valuemax={maxWidth}
       aria-valuenow={width}
