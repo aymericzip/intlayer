@@ -111,6 +111,7 @@ const secureHeaders = {
         'htmlpreview.github.io',
         'github.com',
         '*.github.com',
+        '*.vercel.app',
         `*.${process.env.NEXT_PUBLIC_DOMAIN}`,
       ],
       frameAncestors: [
