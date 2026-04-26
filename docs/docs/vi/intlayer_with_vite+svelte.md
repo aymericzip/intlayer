@@ -34,7 +34,7 @@ history:
   <Tab label="Mã nguồn" value="code">
 
 <iframe
-  src="https://ide.intlayer.org/github/aymericzip/intlayer-vite-svelte-template?file=intlayer.config.ts"
+  src="https://ide.intlayer.org/aymericzip/intlayer-vite-svelte-template?file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
   title="Demo CodeSandbox — Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
@@ -75,7 +75,7 @@ Với Intlayer, bạn có thể:
 ## Hướng Dẫn Từng Bước Để Cài Đặt Intlayer Trong Ứng Dụng Vite và Svelte
 
 <iframe
-  src="https://ide.intlayer.org/github/aymericzip/intlayer-vite-react-template?file=intlayer.config.ts"
+  src="https://ide.intlayer.org/aymericzip/intlayer-vite-react-template?file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
   title="Demo CodeSandbox - Cách quốc tế hóa ứng dụng của bạn bằng Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"

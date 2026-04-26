@@ -32,7 +32,7 @@ history:
   <Tab label="코드" value="code">
 
 <iframe
-  src="https://ide.intlayer.org/github/aymericzip/intlayer-astro-template?file=intlayer.config.ts"
+  src="https://ide.intlayer.org/aymericzip/intlayer-astro-template?file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
   title="CodeSandbox 데모 - Intlayer로 애플리케이션을 국제화하는 방법"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"

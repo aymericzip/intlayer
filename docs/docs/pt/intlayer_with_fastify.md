@@ -43,7 +43,7 @@ Ao internacionalizar o backend, a sua aplicação não apenas respeita as difere
 ## Primeiros Passos
 
 <iframe
-  src="https://ide.intlayer.org/github/aymericzip/intlayer-fastify-template?file=intlayer.config.ts"
+  src="https://ide.intlayer.org/aymericzip/intlayer-fastify-template?file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
   title="Demo CodeSandbox - Como internacionalizar a sua aplicação usando Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"

@@ -77,7 +77,7 @@ history:
   <Tab label="代码" value="code">
 
 <iframe
-  src="https://ide.intlayer.org/github/aymericzip/intlayer-tanstack-start-template?file=intlayer.config.ts"
+  src="https://ide.intlayer.org/aymericzip/intlayer-tanstack-start-template?file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
   title="演示 CodeSandbox - 如何使用 Intlayer 国际化您的应用程序"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"

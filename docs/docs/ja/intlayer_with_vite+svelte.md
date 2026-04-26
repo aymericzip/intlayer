@@ -34,7 +34,7 @@ history:
   <Tab label="コード" value="code">
 
 <iframe
-  src="https://ide.intlayer.org/github/aymericzip/intlayer-vite-svelte-template?file=intlayer.config.ts"
+  src="https://ide.intlayer.org/aymericzip/intlayer-vite-svelte-template?file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
   title="Demo CodeSandbox — Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
@@ -75,7 +75,7 @@ Intlayerを使うことで、以下が可能になります：
 ## ViteとSvelteアプリケーションでIntlayerをセットアップするステップバイステップガイド
 
 <iframe
-  src="https://ide.intlayer.org/github/aymericzip/intlayer-vite-react-template?file=intlayer.config.ts"
+  src="https://ide.intlayer.org/aymericzip/intlayer-vite-react-template?file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
   title="Demo CodeSandbox - Intlayerを使ったアプリケーションの国際化方法"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"

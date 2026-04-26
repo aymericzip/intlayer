@@ -50,7 +50,7 @@ history:
 ## 入门指南
 
 <iframe
-  src="https://ide.intlayer.org/github/aymericzip/intlayer-nestjs-template?file=intlayer.config.ts"
+  src="https://ide.intlayer.org/aymericzip/intlayer-nestjs-template?file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
   title="Demo CodeSandbox - 如何使用 Intlayer 实现应用国际化"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"

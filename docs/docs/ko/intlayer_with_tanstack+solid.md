@@ -60,7 +60,7 @@ Intlayer를 사용하면 다음을 수행할 수 있습니다.
   <Tab label="코드" value="code">
 
 <iframe
-  src="https://ide.intlayer.org/github/aymericzip/intlayer-tanstack-start-solid-template?file=intlayer.config.ts"
+  src="https://ide.intlayer.org/aymericzip/intlayer-tanstack-start-solid-template?file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
   title="데모 CodeSandbox - Intlayer를 사용하여 애플리케이션을 국제화하는 방법"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"

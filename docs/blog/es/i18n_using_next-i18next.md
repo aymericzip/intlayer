@@ -75,7 +75,7 @@ Antes de sumergirnos en la implementación, aquí tienes algunas prácticas que 
 ## Guía paso a paso para configurar i18next en una aplicación Next.js
 
 <iframe
-  src="https://ide.intlayer.org/github/aymericzip/next-i18next-template?file=src/app/i18n.ts"
+  src="https://ide.intlayer.org/aymericzip/next-i18next-template?file=src/app/i18n.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
   title="Demo CodeSandbox - Cómo internacionalizar tu aplicación usando Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"

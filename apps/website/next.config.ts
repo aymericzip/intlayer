@@ -111,7 +111,7 @@ const secureHeaders = {
         'htmlpreview.github.io',
         'github.com',
         '*.github.com',
-        'stackblitz.com',
+        `*.${process.env.NEXT_PUBLIC_DOMAIN}`,
       ],
       frameAncestors: [
         "'self'",

@@ -56,7 +56,7 @@ Intlayer를 사용하면 다음을 할 수 있습니다:
   <Tab label="코드" value="code">
 
 <iframe
-  src="https://ide.intlayer.org/github/aymericzip/intlayer-nuxt-4-template?file=intlayer.config.ts"
+  src="https://ide.intlayer.org/aymericzip/intlayer-nuxt-4-template?file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
   title="데모 CodeSandbox - Intlayer를 사용하여 애플리케이션 국제화하기"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"

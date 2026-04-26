@@ -30,7 +30,7 @@ history:
   <Tab label="कोड" value="code">
 
 <iframe
-  src="https://ide.intlayer.org/github/aymericzip/intlayer-astro-template?file=intlayer.config.ts"
+  src="https://ide.intlayer.org/aymericzip/intlayer-astro-template?file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
   title="डिमो कोडसैंडबॉक्स - Intlayer के साथ अपने एप्लिकेशन को कैसे अंतर्राष्ट्रीयकृत करें"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"

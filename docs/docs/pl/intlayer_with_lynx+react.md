@@ -30,7 +30,7 @@ history:
 Zobacz [Application Template](https://github.com/aymericzip/intlayer-lynx-template) na GitHub.
 
 <iframe
-  src="https://ide.intlayer.org/github/aymericzip/intlayer-lynx-template?file=intlayer.config.ts"
+  src="https://ide.intlayer.org/aymericzip/intlayer-lynx-template?file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
   title="Demo CodeSandbox - Jak zinternacjonalizować swoją aplikację za pomocą Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"

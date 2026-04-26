@@ -73,11 +73,11 @@ function escapeRegex(s) {
 }
 
 function ideSrcFromRepo(owner, repo) {
-  return `https://ide.intlayer.org/github/${owner}/${repo}?embed=1&ctl=1&file=intlayer.config.ts`;
+  return `https://ide.intlayer.org/${owner}/${repo}?embed=1&ctl=1&file=intlayer.config.ts`;
 }
 
 function findTabsBlockForRepo(body, owner, repo) {
-  const needle = `ide.intlayer.org/github/${owner}/${repo}`;
+  const needle = `ide.intlayer.org/${owner}/${repo}`;
   let pos = 0;
   while (pos < body.length) {
     const tabsStart = body.indexOf('<Tabs', pos);
