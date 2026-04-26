@@ -76,16 +76,24 @@ export const MarkDownIframe: FC<ComponentProps<'iframe'>> = (props) => {
         size={ModalSize.UNSET}
         hasCloseButton
         isScrollable
-        padding="md"
+        padding="sm"
       >
         {isModalOpen && src ? (
-          <iframe
-            {...rest}
-            src={src}
-            title={title ?? 'Embedded content'}
-            allowFullScreen
-            className="block min-h-[82vh] w-full border-0"
-          />
+          <Container
+            roundedSize="2xl"
+            border
+            borderColor="neutral"
+            className="overflow-hidden p-0"
+            gap="none"
+          >
+            <iframe
+              {...rest}
+              src={src}
+              title={title ?? 'Embedded content'}
+              allowFullScreen
+              className="block min-h-[82vh] w-full border-0"
+            />
+          </Container>
         ) : null}
       </Modal>
     </Container>
