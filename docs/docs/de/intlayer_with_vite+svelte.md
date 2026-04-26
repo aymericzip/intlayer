@@ -30,6 +30,31 @@ history:
 
 # Übersetzen Sie Ihre Vite- und Svelte-Website mit Intlayer | Internationalisierung (i18n)
 
+<Tabs defaultTab="code">
+  <Tab label="Code" value="code">
+
+<iframe
+  src="https://ide.intlayer.org/github/aymericzip/intlayer-vite-svelte-template?file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox — Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+  <Tab label="Demo" value="demo">
+
+<iframe
+  src="https://intlayer-vite-svelte-template.vercel.app"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo — intlayer-vite-svelte-template"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+</Tabs>
+
 ## Inhaltsverzeichnis
 
 <TOC/>
@@ -50,7 +75,7 @@ Mit Intlayer können Sie:
 ## Schritt-für-Schritt-Anleitung zur Einrichtung von Intlayer in einer Vite- und Svelte-Anwendung
 
 <iframe
-  src="https://stackblitz.com/github/aymericzip/intlayer-vite-react-template?embed=1&ctl=1&file=intlayer.config.ts"
+  src="https://ide.intlayer.org/github/aymericzip/intlayer-vite-react-template?file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
   title="Demo CodeSandbox - Wie Sie Ihre Anwendung mit Intlayer internationalisieren"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"

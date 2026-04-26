@@ -32,6 +32,36 @@ history:
 
 # Intlayer ile Next.js 15 çevirin | Uluslararasılaştırma (i18n)
 
+<Tabs defaultTab="video">
+  <Tab label="Video" value="video">
+  
+<iframe title="Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/e_PPG7PTqGU?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+
+  </Tab>
+  <Tab label="Kod" value="code">
+
+<iframe
+  src="https://ide.intlayer.org/github/aymericzip/intlayer-next-15-template?file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox — Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+  <Tab label="Demo" value="demo">
+
+<iframe
+  src="https://next-15-intlayer-template-xt83.vercel.app"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo — intlayer-next-15-template"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+</Tabs>
+
 <iframe title="Next.js için en iyi i18n çözümü mü? Intlayer'ı keşfedin" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/e_PPG7PTqGU?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 GitHub'da [Uygulama Şablonu](https://github.com/aymericzip/intlayer-next-15-template)na bakın.

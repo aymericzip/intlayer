@@ -29,6 +29,31 @@ history:
 
 # 使用Intlayer翻译您的Next.js and Page Router | 国际化(i18n)
 
+<Tabs defaultTab="code">
+  <Tab label="代码" value="code">
+
+<iframe
+  src="https://ide.intlayer.org/github/aymericzip/intlayer-next-14-template?file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox — Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+  <Tab label="演示" value="demo">
+
+<iframe
+  src="https://intlayer-next-14-template.vercel.app"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="演示 — intlayer-next-14-template"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+</Tabs>
+
 ## 什么是 Intlayer？
 
 **Intlayer** 是一个创新的开源国际化（i18n）库，旨在简化现代 Web 应用中的多语言支持。Intlayer 无缝集成了最新的 **Next.js** 框架，包括其传统的 **Page Router**。
@@ -191,7 +216,8 @@ const App = ({ Component, pageProps }) => (
 );
 
 module.exports = App;
-```
+
+`````
 
 3.  **设置 `getStaticPaths` 和 `getStaticProps`:**
 
@@ -316,7 +342,7 @@ const homeContent = {
 } satisfies Dictionary;
 
 export default homeContent;
-````
+`````
 
 ```json fileName="src/pages/[locale]/home.content.json" contentDeclarationFormat="json"
 {

@@ -26,6 +26,31 @@ history:
 
 # ترجمة موقع Astro + Vue الخاص بك باستخدام Intlayer | التدويل (i18n)
 
+<Tabs defaultTab="code">
+  <Tab label="كود" value="code">
+
+<iframe
+  src="https://ide.intlayer.org/github/aymericzip/intlayer-astro-template?file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - كيفية تدويل تطبيقك باستخدام Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+  <Tab label="تجربة" value="demo">
+
+<iframe
+  src="https://intlayer-astro-template.vercel.app"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="تجربة — intlayer-astro-template"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+</Tabs>
+
 ## جدول المحتويات
 
 <TOC/>
@@ -44,14 +69,6 @@ history:
 ---
 
 ## دليل خطوة بخطوة لتهيئة Intlayer في Astro + Vue
-
-<iframe
-  src="https://stackblitz.com/github/aymericzip/intlayer-astro-template?embed=1&ctl=1&file=intlayer.config.ts"
-  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo CodeSandbox - كيفية تدويل تطبيقك باستخدام Intlayer"
-  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-  loading="lazy"
-/>
 
 تحقق من [نموذج التطبيق](https://github.com/aymericzip/intlayer-astro-template) على GitHub.
 

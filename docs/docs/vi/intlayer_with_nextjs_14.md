@@ -40,6 +40,31 @@ history:
 
 # Dịch trang web Next.js 14 và App Router của bạn bằng Intlayer | Quốc tế hóa (i18n)
 
+<Tabs defaultTab="code">
+  <Tab label="Mã nguồn" value="code">
+
+<iframe
+  src="https://ide.intlayer.org/github/aymericzip/intlayer-next-14-template?file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - Cách quốc tế hóa ứng dụng của bạn bằng Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+  <Tab label="Bản demo" value="demo">
+
+<iframe
+  src="https://intlayer-next-14-template.vercel.app"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Bản demo — intlayer-next-14-template"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+</Tabs>
+
 ## Mục lục
 
 <TOC/>
@@ -61,14 +86,6 @@ Với Intlayer, bạn có thể:
 ---
 
 ## Hướng Dẫn Từng Bước Để Cài Đặt Intlayer Trong Ứng Dụng Next.js
-
-<iframe
-  src="https://stackblitz.com/github/aymericzip/intlayer-next-14-template?embed=1&ctl=1&file=intlayer.config.ts"
-  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo CodeSandbox - Cách quốc tế hóa ứng dụng của bạn bằng Intlayer"
-  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-  loading="lazy"
-/>
 
 Xem [Mẫu Ứng Dụng](https://github.com/aymericzip/intlayer-next-14-template) trên GitHub.
 

@@ -61,14 +61,6 @@ history:
 
 ## Покрокове керівництво з налаштування Intlayer у застосунку на React Router v7
 
-<iframe
-  src="https://stackblitz.com/github/aymericzip/intlayer-react-router-v7-template?embed=1&ctl=1&file=intlayer.config.ts"
-  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Демо CodeSandbox, як інтернаціоналізувати ваш застосунок за допомогою Intlayer"
-  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-  loading="lazy"
-/>
-
 ### Крок 1: Встановлення залежностей
 
 Встановіть необхідні пакети, використовуючи ваш улюблений package manager:
@@ -120,9 +112,20 @@ bun x intlayer init
   <Tab label="Код" value="code">
 
 <iframe
-  src="https://stackblitz.com/github/aymericzip/intlayer-react-router-v7-template?embed=1&ctl=1&file=intlayer.config.ts"
+  src="https://ide.intlayer.org/github/aymericzip/intlayer-react-router-v7-template?file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
   title="Демо CodeSandbox. Як інтернаціоналізувати ваш застосунок за допомогою Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+  <Tab label="Демо" value="demo">
+
+<iframe
+  src="https://intlayer-react-router-v7.vercel.app"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Демо — intlayer-react-router-v7-template"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />

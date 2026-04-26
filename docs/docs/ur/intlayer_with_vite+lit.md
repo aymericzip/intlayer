@@ -25,13 +25,30 @@ history:
 
 # Intlayer کا استعمال کرتے ہوئے اپنی Vite اور Lit ویب سائٹ کا ترجمہ کریں | بین الاقوامی کاری (i18n)
 
+<Tabs defaultTab="code">
+  <Tab label="کوڈ" value="code">
+
 <iframe
-  src="https://stackblitz.com/github/aymericzip/intlayer-vite-lit-template?embed=1&ctl=1&file=intlayer.config.ts"
+  src="https://ide.intlayer.org/github/aymericzip/intlayer-vite-lit-template?file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
   title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
+
+  </Tab>
+  <Tab label="ڈیمو" value="demo">
+
+<iframe
+  src="https://intlayer-vite-lit-template.vercel.app"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="ڈیمو — intlayer-vite-lit-template"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+</Tabs>
 
 ## فہرستِ مواد
 

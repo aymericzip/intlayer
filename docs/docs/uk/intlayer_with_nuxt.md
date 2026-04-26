@@ -62,9 +62,20 @@ history:
   <Tab label="Код" value="code">
 
 <iframe
-  src="https://stackblitz.com/github/aymericzip/intlayer-nuxt-4-template?embed=1&ctl=1&file=intlayer.config.ts"
+  src="https://ide.intlayer.org/github/aymericzip/intlayer-nuxt-4-template?file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
   title="Демо CodeSandbox, як інтернаціоналізувати ваш застосунок за допомогою Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+  <Tab label="Демо" value="demo">
+
+<iframe
+  src="https://intlayer-nuxt-4-template.vercel.app"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Демо — intlayer-nuxt-4-template"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />

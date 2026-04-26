@@ -60,9 +60,20 @@ Avec Intlayer, vous pouvez :
   <Tab label="Code" value="code">
 
 <iframe
-  src="https://stackblitz.com/github/aymericzip/intlayer-tanstack-start-solid-template?embed=1&ctl=1&file=intlayer.config.ts"
+  src="https://ide.intlayer.org/github/aymericzip/intlayer-tanstack-start-solid-template?file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
   title="Démo CodeSandbox - Comment internationaliser votre application en utilisant Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+  <Tab label="Démo" value="demo">
+
+<iframe
+  src="https://intlayer-tanstack-start-solid.vercel.app"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Démo — intlayer-tanstack-start-solid-template"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />

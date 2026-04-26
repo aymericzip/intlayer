@@ -28,6 +28,31 @@ history:
 
 # Traduire votre site Astro avec Intlayer | Internationalisation (i18n)
 
+<Tabs defaultTab="code">
+  <Tab label="Code" value="code">
+
+<iframe
+  src="https://ide.intlayer.org/github/aymericzip/intlayer-astro-template?file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Démo CodeSandbox - Comment internationaliser votre application avec Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+  <Tab label="Démo" value="demo">
+
+<iframe
+  src="https://intlayer-astro-template.vercel.app"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Démo — intlayer-astro-template"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+</Tabs>
+
 ## Table des matières
 
 <TOC/>
@@ -46,14 +71,6 @@ Avec Intlayer, vous pouvez :
 ---
 
 ## Guide étape par étape pour configurer Intlayer dans Astro
-
-<iframe
-  src="https://stackblitz.com/github/aymericzip/intlayer-astro-template?embed=1&ctl=1&file=intlayer.config.ts"
-  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Démo CodeSandbox - Comment internationaliser votre application avec Intlayer"
-  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-  loading="lazy"
-/>
 
 Voir le [Modèle d'application](https://github.com/aymericzip/intlayer-astro-template) sur GitHub.
 

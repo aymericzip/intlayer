@@ -27,6 +27,31 @@ history:
 
 # 使用 Intlayer 翻译您的 Astro + Lit 网站 | 国际化 (i18n)
 
+<Tabs defaultTab="code">
+  <Tab label="代码" value="code">
+
+<iframe
+  src="https://ide.intlayer.org/github/aymericzip/intlayer-astro-template?file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - 如何使用 Intlayer 国际化您的应用程序"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+  <Tab label="演示" value="demo">
+
+<iframe
+  src="https://intlayer-astro-template.vercel.app"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="演示 — intlayer-astro-template"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+</Tabs>
+
 ## 目录
 
 <TOC/>
@@ -45,14 +70,6 @@ history:
 ---
 
 ## 在 Astro + Lit 中配置 Intlayer 的分步指南
-
-<iframe
-  src="https://stackblitz.com/github/aymericzip/intlayer-astro-template?embed=1&ctl=1&file=intlayer.config.ts"
-  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo CodeSandbox - 如何使用 Intlayer 国际化您的应用程序"
-  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-  loading="lazy"
-/>
 
 在 GitHub 上查看[应用程序模板](https://github.com/aymericzip/intlayer-astro-template)。
 

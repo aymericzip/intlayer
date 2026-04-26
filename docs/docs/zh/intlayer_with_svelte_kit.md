@@ -27,6 +27,31 @@ history:
 
 # 使用 Intlayer 翻译您的 SvelteKit 网站 | 国际化 (i18n)
 
+<Tabs defaultTab="code">
+  <Tab label="代码" value="code">
+
+<iframe
+  src="https://ide.intlayer.org/github/aymericzip/intlayer-sveltekit-template?file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - Cách quốc tế hóa ứng dụng của bạn bằng Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+  <Tab label="演示" value="demo">
+
+<iframe
+  src="https://intlayer-sveltekit-template.vercel.app"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="演示 — intlayer-sveltekit-template"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+</Tabs>
+
 ## 目录
 
 <TOC/>
@@ -47,14 +72,6 @@ history:
 ## 在 SvelteKit 应用中设置 Intlayer 的分步指南
 
 首先，创建一个新的 SvelteKit 项目。以下是我们将要构建的最终结构：
-
-<iframe
-  src="https://stackblitz.com/github/aymericzip/intlayer-sveltekit-template?embed=1&ctl=1&file=intlayer.config.ts"
-  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo CodeSandbox - Cách quốc tế hóa ứng dụng của bạn bằng Intlayer"
-  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-  loading="lazy"
-/>
 
 ```bash
 .

@@ -28,6 +28,31 @@ history:
 
 # IntlayerでNext.js 14 and App Routerを翻訳する | 国際化（i18n）
 
+<Tabs defaultTab="code">
+  <Tab label="コード" value="code">
+
+<iframe
+  src="https://ide.intlayer.org/github/aymericzip/intlayer-next-14-template?file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox — Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+  <Tab label="デモ" value="demo">
+
+<iframe
+  src="https://intlayer-next-14-template.vercel.app"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="デモ — intlayer-next-14-template"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+</Tabs>
+
 GitHub の [アプリケーションテンプレート](https://github.com/aymericzip/intlayer-next-14-template) をご覧ください。
 
 ## Intlayer とは？

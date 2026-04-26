@@ -29,6 +29,31 @@ history:
 
 # Intlayer के साथ अपना Next.js and Page Router अनुवाद करें | अंतर्राष्ट्रीयकरण (i18n)
 
+<Tabs defaultTab="code">
+  <Tab label="कोड" value="code">
+
+<iframe
+  src="https://ide.intlayer.org/github/aymericzip/intlayer-next-14-template?file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox — Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+  <Tab label="डेमो" value="demo">
+
+<iframe
+  src="https://intlayer-next-14-template.vercel.app"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="डेमो — intlayer-next-14-template"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+</Tabs>
+
 ## Intlayer क्या है?
 
 **Intlayer** एक अभिनव, ओपन-सोर्स अंतरराष्ट्रीयकरण (i18n) लाइब्रेरी है जिसे आधुनिक वेब एप्लिकेशन में बहुभाषी समर्थन को सरल बनाने के लिए डिज़ाइन किया गया है। Intlayer नवीनतम **Next.js** फ्रेमवर्क के साथ सहजता से एकीकृत होता है, जिसमें इसका पारंपरिक **Page Router** भी शामिल है।

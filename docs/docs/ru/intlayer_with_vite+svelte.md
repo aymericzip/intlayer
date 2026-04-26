@@ -30,6 +30,31 @@ history:
 
 # Перевод вашего сайта на Vite и Svelte с использованием Intlayer | Интернационализация (i18n)
 
+<Tabs defaultTab="code">
+  <Tab label="Код" value="code">
+
+<iframe
+  src="https://ide.intlayer.org/github/aymericzip/intlayer-vite-svelte-template?file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox — Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+  <Tab label="Демо" value="demo">
+
+<iframe
+  src="https://intlayer-vite-svelte-template.vercel.app"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Демо — intlayer-vite-svelte-template"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+</Tabs>
+
 ## Содержание
 
 <TOC/>
@@ -50,7 +75,7 @@ history:
 ## Пошаговое руководство по настройке Intlayer в приложении на Vite и Svelte
 
 <iframe
-  src="https://stackblitz.com/github/aymericzip/intlayer-vite-react-template?embed=1&ctl=1&file=intlayer.config.ts"
+  src="https://ide.intlayer.org/github/aymericzip/intlayer-vite-react-template?file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
   title="Демонстрация CodeSandbox - Как интернационализировать ваше приложение с помощью Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"

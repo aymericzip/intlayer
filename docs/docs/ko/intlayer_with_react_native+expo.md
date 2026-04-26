@@ -27,6 +27,31 @@ history:
 
 # Expo 및 React Native 앱 번역하기 | 국제화(i18n)
 
+<Tabs defaultTab="code">
+  <Tab label="코드" value="code">
+
+<iframe
+  src="https://ide.intlayer.org/github/aymericzip/intlayer-react-native-template?file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox — Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+  <Tab label="데모" value="demo">
+
+<iframe
+  src="https://intlayer-react-native.vercel.app"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="데모 — intlayer-react-native-template"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+</Tabs>
+
 GitHub에서 [애플리케이션 템플릿](https://github.com/aymericzip/intlayer-react-native-template)을 참조하세요.
 
 ## Intlayer란 무엇인가요?

@@ -29,6 +29,31 @@ history:
 
 # Getting Started Internationalising (i18n) with Intlayer and Next.js using Page Router
 
+<Tabs defaultTab="code">
+  <Tab label="Code" value="code">
+
+<iframe
+  src="https://ide.intlayer.org/github/aymericzip/intlayer-next-14-template?file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox — Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+  <Tab label="Demo" value="demo">
+
+<iframe
+  src="https://intlayer-next-14-template.vercel.app"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo — intlayer-next-14-template"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+</Tabs>
+
 ## What is Intlayer?
 
 **Intlayer** is an innovative, open-source internationalisation (i18n) library designed to simplify multilingual support in modern web applications. Intlayer seamlessly integrates with the latest **Next.js** framework, including its traditional **Page Router**.
@@ -191,7 +216,8 @@ const App = ({ Component, pageProps }) => (
 );
 
 module.exports = App;
-```
+
+````
 
 3.  **Set Up `getStaticPaths` and `getStaticProps`:**
 
@@ -318,7 +344,7 @@ const homeContent = {
 } satisfies Dictionary;
 
 export default homeContent;
-```
+````
 
 ```json fileName="src/pages/[locale]/home.content.json" contentDeclarationFormat="json"
 {

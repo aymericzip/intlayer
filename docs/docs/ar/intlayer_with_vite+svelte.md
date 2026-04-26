@@ -30,6 +30,31 @@ history:
 
 # ترجمة موقعك الإلكتروني باستخدام Vite و Svelte عبر Intlayer | التدويل (i18n)
 
+<Tabs defaultTab="code">
+  <Tab label="كود" value="code">
+
+<iframe
+  src="https://ide.intlayer.org/github/aymericzip/intlayer-vite-svelte-template?file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox — Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+  <Tab label="تجربة" value="demo">
+
+<iframe
+  src="https://intlayer-vite-svelte-template.vercel.app"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="تجربة — intlayer-vite-svelte-template"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+</Tabs>
+
 ## جدول المحتويات
 
 <TOC/>
@@ -50,7 +75,7 @@ history:
 ## دليل خطوة بخطوة لإعداد Intlayer في تطبيق Vite و Svelte
 
 <iframe
-  src="https://stackblitz.com/github/aymericzip/intlayer-vite-react-template?embed=1&ctl=1&file=intlayer.config.ts"
+  src="https://ide.intlayer.org/github/aymericzip/intlayer-vite-react-template?file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
   title="Demo CodeSandbox - كيفية تدويل تطبيقك باستخدام Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"

@@ -26,6 +26,31 @@ history:
 
 # Переводите ваш сайт Astro + Vanilla JS с помощью Intlayer | Интернационализация (i18n)
 
+<Tabs defaultTab="code">
+  <Tab label="Код" value="code">
+
+<iframe
+  src="https://ide.intlayer.org/github/aymericzip/intlayer-astro-template?file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Демо CodeSandbox - Как интернационализировать ваше приложение с помощью Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+  <Tab label="Демо" value="demo">
+
+<iframe
+  src="https://intlayer-astro-template.vercel.app"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Демо — intlayer-astro-template"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+</Tabs>
+
 ## Содержание
 
 <TOC/>
@@ -44,14 +69,6 @@ history:
 ---
 
 ## Пошаговое руководство по настройке Intlayer в Astro + Vanilla JS
-
-<iframe
-  src="https://stackblitz.com/github/aymericzip/intlayer-astro-template?embed=1&ctl=1&file=intlayer.config.ts"
-  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Демо CodeSandbox - Как интернационализировать ваше приложение с помощью Intlayer"
-  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-  loading="lazy"
-/>
 
 Посмотреть [Шаблон приложения](https://github.com/aymericzip/intlayer-astro-template) на GitHub.
 

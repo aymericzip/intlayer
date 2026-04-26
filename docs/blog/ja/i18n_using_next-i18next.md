@@ -75,7 +75,7 @@ history:
 ## Next.jsアプリケーションでi18nextをセットアップするステップバイステップガイド
 
 <iframe
-  src="https://stackblitz.com/github/aymericzip/next-i18next-template?embed=1&ctl=1&file=src/app/i18n.ts"
+  src="https://ide.intlayer.org/github/aymericzip/next-i18next-template?file=src/app/i18n.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
   title="デモ CodeSandbox - Intlayerを使ったアプリケーションの国際化方法"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"

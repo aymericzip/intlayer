@@ -25,6 +25,31 @@ history:
 
 # 使用 Intlayer 翻译您的 Vanilla JS 网站 | 国际化 (i18n)
 
+<Tabs defaultTab="code">
+  <Tab label="代码" value="code">
+
+<iframe
+  src="https://ide.intlayer.org/github/aymericzip/intlayer-vanilla-template?file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox — Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+  <Tab label="演示" value="demo">
+
+<iframe
+  src="https://intlayer-vanilla-template.vercel.app"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="演示 — intlayer-vanilla-template"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+</Tabs>
+
 ## 目录
 
 <TOC/>

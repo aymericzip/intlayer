@@ -40,6 +40,31 @@ history:
 
 # Перекладіть ваш сайт на Next.js 14 та App Router за допомогою Intlayer | Інтернаціоналізація (i18n)
 
+<Tabs defaultTab="code">
+  <Tab label="Код" value="code">
+
+<iframe
+  src="https://ide.intlayer.org/github/aymericzip/intlayer-next-14-template?file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Демонстрація CodeSandbox. Як інтернаціоналізувати ваш додаток за допомогою Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+  <Tab label="Демо" value="demo">
+
+<iframe
+  src="https://intlayer-next-14-template.vercel.app"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Демо — intlayer-next-14-template"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+</Tabs>
+
 ## Зміст
 
 <TOC/>
@@ -61,14 +86,6 @@ With Intlayer, you can:
 ---
 
 ## Покроковий посібник з налаштування Intlayer у застосунку Next.js
-
-<iframe
-  src="https://stackblitz.com/github/aymericzip/intlayer-next-14-template?embed=1&ctl=1&file=intlayer.config.ts"
-  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Демонстрація CodeSandbox. Як інтернаціоналізувати ваш додаток за допомогою Intlayer"
-  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-  loading="lazy"
-/>
 
 Дивіться [Шаблон додатку](https://github.com/aymericzip/intlayer-next-14-template) на GitHub.
 

@@ -1,4 +1,3 @@
-import { Container } from '@components/Container';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import { cn } from '@utils/cn';
 import type { ComponentProps, ComponentPropsWithoutRef, FC } from 'react';
@@ -15,6 +14,7 @@ import { Link } from '../Link';
 import { Tab } from '../Tab';
 import { TabProvider } from '../Tab/TabContext';
 import { SmartTable } from '../Table';
+import { MarkDownIframe } from './MarkDownIframe';
 
 // Extracted, stable component renderers
 const H1Renderer = (props: ComponentProps<'h1'>) => (
@@ -193,15 +193,7 @@ const ColumnRenderer = ({
 );
 
 const Iframe = (props: ComponentProps<'iframe'>) => (
-  <Container
-    roundedSize="2xl"
-    border
-    background="none"
-    borderColor="neutral"
-    className="overflow-hidden"
-  >
-    <iframe {...props} />
-  </Container>
+  <MarkDownIframe {...props} />
 );
 
 // Static configuration object for static renderers

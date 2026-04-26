@@ -26,6 +26,31 @@ history:
 
 # Intlayer를 사용하여 Vite 및 Vanilla JS 웹사이트 번역하기 | 국제화 (i18n)
 
+<Tabs defaultTab="code">
+  <Tab label="코드" value="code">
+
+<iframe
+  src="https://ide.intlayer.org/github/aymericzip/intlayer-vite-vanilla-template?file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox — Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+  <Tab label="데모" value="demo">
+
+<iframe
+  src="https://intlayer-vite-vanilla.vercel.app"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="데모 — intlayer-vite-vanilla-template"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+</Tabs>
+
 ## 목차
 
 <TOC/>

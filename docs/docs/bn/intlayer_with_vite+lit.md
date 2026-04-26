@@ -25,13 +25,30 @@ history:
 
 # Intlayer ব্যবহার করে আপনার Vite এবং Lit ওয়েবসাইট অনুবাদ করুন | আন্তর্জাতিকীকরণ (i18n)
 
+<Tabs defaultTab="code">
+  <Tab label="কোড" value="code">
+
 <iframe
-  src="https://stackblitz.com/github/aymericzip/intlayer-vite-lit-template?embed=1&ctl=1&file=intlayer.config.ts"
+  src="https://ide.intlayer.org/github/aymericzip/intlayer-vite-lit-template?file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
   title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
+
+  </Tab>
+  <Tab label="ডেমো" value="demo">
+
+<iframe
+  src="https://intlayer-vite-lit-template.vercel.app"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="ডেমো — intlayer-vite-lit-template"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+</Tabs>
 
 ## সূচিপত্র
 

@@ -39,7 +39,7 @@ export const DemoCodeSandbox: FC = () => {
       <Loader isLoading={!isVisible} />
       {isVisible && (
         <iframe
-          src={`https://stackblitz.com/github/${REPO_PATH}?embed=1&file=README.md`}
+          src={`https://ide.intlayer.org/github/${REPO_PATH}?embed=1&file=README.md`}
           className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
           title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
           sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"

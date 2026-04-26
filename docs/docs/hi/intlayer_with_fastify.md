@@ -43,7 +43,7 @@ history:
 ## शुरुआत करना
 
 <iframe
-  src="https://stackblitz.com/github/aymericzip/intlayer-fastify-template?embed=1&ctl=1&file=intlayer.config.ts"
+  src="https://ide.intlayer.org/github/aymericzip/intlayer-fastify-template?file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
   title="डेमो CodeSandbox - Intlayer का उपयोग करके अपने एप्लिकेशन को अंतर्राष्ट्रीय कैसे बनाएं"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"

@@ -75,7 +75,7 @@ history:
 ## Next.js एप्लिकेशन में i18next सेटअप करने के लिए चरण-दर-चरण मार्गदर्शिका
 
 <iframe
-  src="https://stackblitz.com/github/aymericzip/next-i18next-template?embed=1&ctl=1&file=src/app/i18n.ts"
+  src="https://ide.intlayer.org/github/aymericzip/next-i18next-template?file=src/app/i18n.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
   title="Demo CodeSandbox - Intlayer का उपयोग करके अपने एप्लिकेशन का अंतरराष्ट्रीयकरण कैसे करें"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
