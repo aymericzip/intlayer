@@ -81,7 +81,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "2.4.13",
-    "@commitlint/cli": "20.5.0",
+    "@commitlint/cli": "20.5.2",
     "@commitlint/config-conventional": "20.5.0",
     "@commitlint/types": "20.5.0",
     "@sveltejs/vite-plugin-svelte": "7.0.0",
