@@ -2,9 +2,10 @@
 
 import { Button, ButtonSize, ButtonVariant } from '@components/Button';
 import { Container } from '@components/Container';
+import { Link } from '@components/Link';
 import { Modal, ModalSize } from '@components/Modal';
 import { cn } from '@utils/cn';
-import { ExternalLink, MoveDiagonal } from 'lucide-react';
+import { MoveDiagonal } from 'lucide-react';
 import { type ComponentProps, type FC, useState } from 'react';
 
 function embedLinkMeta(src: string | undefined): {
@@ -45,29 +46,18 @@ export const MarkDownIframe: FC<ComponentProps<'iframe'>> = (props) => {
           className
         )}
       />
-      <div
-        className={cn(
-          'flex items-center justify-between gap-3 border-neutral/30 border-t px-3 py-2',
-          'bg-card/40'
-        )}
-      >
+      <div className="flex items-center justify-between gap-3 border-neutral/30 border-t bg-card/40 px-3 py-1">
         {href ? (
-          <a
+          <Link
             href={href}
             target="_blank"
             rel="noopener noreferrer"
-            className={cn(
-              'inline-flex min-w-0 max-w-[calc(100%-3rem)] items-center gap-2 text-sm',
-              'text-neutral hover:text-text',
-              'underline-offset-2 hover:underline'
-            )}
+            label=""
+            color="neutral"
+            className="inline-flex min-w-0 max-w-[calc(100%-3rem)] items-center gap-2 text-neutral text-xs underline-offset-2 hover:text-text hover:underline"
           >
-            <ExternalLink
-              aria-hidden
-              className="size-4 shrink-0 text-neutral"
-            />
-            <span className="truncate font-medium">{label}</span>
-          </a>
+            {label}
+          </Link>
         ) : (
           <span className="text-neutral text-sm">Embedded frame</span>
         )}
@@ -86,7 +76,7 @@ export const MarkDownIframe: FC<ComponentProps<'iframe'>> = (props) => {
         size={ModalSize.UNSET}
         hasCloseButton
         isScrollable
-        padding="none"
+        padding="md"
       >
         {isModalOpen && src ? (
           <iframe
