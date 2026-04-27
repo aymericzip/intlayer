@@ -802,30 +802,26 @@ export const TranslationStatusAside: FC = () => {
                 {content.modeLabel}
               </span>
               <div className="flex gap-2">
-                <button
+                <Button
                   type="button"
                   onClick={() => setFillMode('complete')}
-                  className={cn(
-                    'flex-1 rounded-lg border px-3 py-2 text-xs transition-colors',
-                    fillMode === 'complete'
-                      ? 'border-primary bg-primary/10 font-medium text-primary'
-                      : 'border-neutral/20 text-neutral hover:bg-neutral/5'
-                  )}
+                  isActive={fillMode === 'complete'}
+                  variant="outline"
+                  label=""
+                  color="text"
                 >
                   {content.modeFillMissing}
-                </button>
-                <button
+                </Button>
+                <Button
                   type="button"
                   onClick={() => setFillMode('review')}
-                  className={cn(
-                    'flex-1 rounded-lg border px-3 py-2 text-xs transition-colors',
-                    fillMode === 'review'
-                      ? 'border-primary bg-primary/10 font-medium text-primary'
-                      : 'border-neutral/20 text-neutral hover:bg-neutral/5'
-                  )}
+                  isActive={fillMode === 'review'}
+                  variant="outline"
+                  label=""
+                  color="text"
                 >
                   {content.modeAuditAll}
-                </button>
+                </Button>
               </div>
             </div>
 
@@ -835,30 +831,26 @@ export const TranslationStatusAside: FC = () => {
                 {content.dictionariesLabel}
               </span>
               <div className="flex gap-2">
-                <button
+                <Button
                   type="button"
+                  label=""
                   onClick={() => setSelectSpecific(false)}
-                  className={cn(
-                    'flex-1 rounded-lg border px-3 py-2 text-xs transition-colors',
-                    !selectSpecific
-                      ? 'border-primary bg-primary/10 font-medium text-primary'
-                      : 'border-neutral/20 text-neutral hover:bg-neutral/5'
-                  )}
+                  isActive={!selectSpecific}
+                  variant="outline"
+                  color="text"
                 >
                   {content.allDictionaries}
-                </button>
-                <button
+                </Button>
+                <Button
                   type="button"
+                  label=""
                   onClick={() => setSelectSpecific(true)}
-                  className={cn(
-                    'flex-1 rounded-lg border px-3 py-2 text-xs transition-colors',
-                    selectSpecific
-                      ? 'border-primary bg-primary/10 font-medium text-primary'
-                      : 'border-neutral/20 text-neutral hover:bg-neutral/5'
-                  )}
+                  isActive={selectSpecific}
+                  variant="outline"
+                  color="text"
                 >
                   {content.selectSpecific}
-                </button>
+                </Button>
               </div>
 
               {selectSpecific && (
@@ -883,35 +875,37 @@ export const TranslationStatusAside: FC = () => {
                     ) : (
                       <>
                         {allDictionaries
-                          .filter((d) =>
-                            d.key
+                          .filter((dictionaries) =>
+                            dictionaries.key
                               .toLowerCase()
                               .includes(dictionarySearch.toLowerCase())
                           )
-                          .map((d) => (
+                          .map((dictionaries) => (
                             <Checkbox
-                              key={d.id}
-                              id={`dict-${d.id}`}
-                              name={`dict-${d.id}`}
+                              key={dictionaries.id}
+                              id={`dict-${dictionaries.id}`}
+                              name={`dict-${dictionaries.id}`}
                               size="sm"
-                              checked={selectedDictionaryIds.has(d.id)}
+                              checked={selectedDictionaryIds.has(
+                                dictionaries.id
+                              )}
                               onChange={() => {
                                 setSelectedDictionaryIds((prev) => {
                                   const next = new Set(prev);
-                                  if (next.has(d.id)) {
-                                    next.delete(d.id);
+                                  if (next.has(dictionaries.id)) {
+                                    next.delete(dictionaries.id);
                                   } else {
-                                    next.add(d.id);
+                                    next.add(dictionaries.id);
                                   }
                                   return next;
                                 });
                               }}
-                              label={d.key}
+                              label={dictionaries.key}
                               labelClassName="font-mono font-normal px-2 py-0.5 text-xs"
                             />
                           ))}
-                        {allDictionaries.filter((d) =>
-                          d.key
+                        {allDictionaries.filter((dictionaries) =>
+                          dictionaries.key
                             .toLowerCase()
                             .includes(dictionarySearch.toLowerCase())
                         ).length === 0 && (

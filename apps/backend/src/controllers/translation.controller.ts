@@ -41,6 +41,16 @@ export const translateDictionaries = async (
 
   try {
     const validIds = dictionaryIds.filter((id) => Types.ObjectId.isValid(id));
+
+    if (validIds.length === 0) {
+      return reply.send(
+        formatResponse({
+          data: null,
+          message: 'No valid dictionary IDs provided',
+        })
+      );
+    }
+
     const dictionaries = await dictionaryService.findDictionaries(
       { _id: { $in: validIds.map((id) => new Types.ObjectId(id)) } },
       0,
