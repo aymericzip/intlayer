@@ -147,7 +147,7 @@ export type InsertionCond<T, _S, L extends LocalesValues> = T extends {
   [NodeTypes.INSERTION]: infer I;
   fields: readonly string[];
 }
-  ? <V extends { [K in T['fields'][number]]: VNode }>(
+  ? <V extends { [K in T['fields'][number]]: VNode | string | number }>(
       values: V
     ) => I extends string
       ? V[keyof V] extends string | number
