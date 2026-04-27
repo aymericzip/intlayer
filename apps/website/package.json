@@ -35,6 +35,7 @@
   ],
   "sideEffects": false,
   "scripts": {
+    "baidu-push": "bun --env-file=.env.production.local ./scripts/baidu-push.ts",
     "build": "bun run --bun next build",
     "postbuild": "bun scripts/generate-sw.ts",
     "build:webpack": "bun run --bun next build --webpack",
