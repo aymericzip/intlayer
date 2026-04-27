@@ -2,6 +2,11 @@ import type { ConnectionOptions } from 'node:tls';
 import * as eventListener from '@controllers/eventListener.controller';
 import { type AIOptions, getAIConfig } from '@intlayer/ai';
 import { DEFAULT_LOCALE } from '@intlayer/config/defaultValues';
+import {
+  getFilterMissingTranslationsDictionary,
+  getPerLocaleDictionary,
+  insertContentInDictionary,
+} from '@intlayer/core/plugins';
 import type { Locale } from '@intlayer/types/allLocales';
 import { logger } from '@logger';
 import * as dictionaryService from '@services/dictionary.service';
@@ -14,7 +19,6 @@ import {
 import { mapDictionaryToAPI } from '@utils/mapper/dictionary';
 import { getRedisClient } from '@utils/redis/connectRedis';
 import { type Job, Worker } from 'bullmq';
-import { defu } from 'defu';
 import {
   isTranslationJobCancelled,
   isTranslationJobPaused,
@@ -28,6 +32,7 @@ type TranslationJobData = {
   dictionaryTargets?: { dictionaryId: string; locales: Locale[] }[];
   projectId: string;
   userId: string;
+  mode?: 'complete' | 'review';
 };
 
 export type TranslationJobProgress = {
@@ -49,8 +54,14 @@ const emitProgress = async (
 };
 
 const processTranslationJob = async (job: Job<TranslationJobData>) => {
-  const { dictionaryTargets, dictionaryIds, targetLocales, projectId, userId } =
-    job.data;
+  const {
+    dictionaryTargets,
+    dictionaryIds,
+    targetLocales,
+    projectId,
+    userId,
+    mode = 'complete',
+  } = job.data;
 
   // Migration / compatibility: if dictionaryTargets is missing, rebuild it from flat list
   const targets: { dictionaryId: string; locales: Locale[] }[] =
@@ -139,40 +150,111 @@ const processTranslationJob = async (job: Job<TranslationJobData>) => {
         project.configuration?.internationalization?.defaultLocale ||
         DEFAULT_LOCALE;
 
-      const translationResult = await translateDictionaryDB({
-        content: sourceContent as any,
-        sourceLocale: sourceLocale as Locale,
-        targetLocales: taskTargetLocales,
-        aiConfig,
-        dictionaryDescription: dictionary.description,
-        shouldStop,
-        onChunkStart: async ({ locale, chunkIndex, totalChunks }) => {
-          await emitProgress(job, {
-            percentage: (processedCount / totalDictionaries) * 100,
-            completedKeys,
-            failedKeys,
-            currentKey: dictionaryKey,
-            currentLocale: locale,
-            currentChunk: chunkIndex + 1,
-            totalChunks,
-          });
-        },
-      });
+      // Translate per locale, sending only the content that is actually missing.
+      // This mirrors the CLI's complete-mode logic:
+      //   1. getFilterMissingTranslationsDictionary – strips t() nodes that
+      //      already have this locale, so the AI never sees translated content.
+      //   2. getPerLocaleDictionary – extracts flat source-locale text for the
+      //      missing nodes (no multilingual wrappers sent to the AI).
+      //   3. insertContentInDictionary – puts the AI result back into the
+      //      multilingual structure correctly.
+      const translationResult: Partial<Record<Locale, unknown>> = {};
 
+      for (const targetLocale of taskTargetLocales) {
+        // In 'complete' mode: send only the missing nodes to the AI.
+        // In 'review' mode: send everything so the AI can re-translate / improve.
+        let contentToTranslate: Record<string, unknown>;
+
+        if (mode === 'review') {
+          const sourceForAll = getPerLocaleDictionary(
+            { key: dictionary.key, content: sourceContent as any },
+            sourceLocale as Locale
+          );
+          contentToTranslate = sourceForAll.content as Record<string, unknown>;
+        } else {
+          const missingForLocale = getFilterMissingTranslationsDictionary(
+            { key: dictionary.key, content: sourceContent as any },
+            targetLocale
+          );
+          const sourceForMissing = getPerLocaleDictionary(
+            missingForLocale,
+            sourceLocale as Locale
+          );
+          contentToTranslate = sourceForMissing.content as Record<
+            string,
+            unknown
+          >;
+        }
+
+        if (
+          !contentToTranslate ||
+          Object.keys(contentToTranslate).length === 0
+        ) {
+          logger.info(
+            `Dictionary ${dictionary.key}: locale ${targetLocale} already complete, skipping`
+          );
+          continue;
+        }
+
+        const localeResult = await translateDictionaryDB({
+          content: contentToTranslate as any,
+          sourceLocale: sourceLocale as Locale,
+          targetLocales: [targetLocale],
+          aiConfig,
+          mode,
+          dictionaryDescription: dictionary.description,
+          shouldStop,
+          onChunkStart: async ({ locale, chunkIndex, totalChunks }) => {
+            await emitProgress(job, {
+              percentage: (processedCount / totalDictionaries) * 100,
+              completedKeys,
+              failedKeys,
+              currentKey: dictionaryKey,
+              currentLocale: locale,
+              currentChunk: chunkIndex + 1,
+              totalChunks,
+            });
+          },
+        });
+
+        if (localeResult[targetLocale]) {
+          translationResult[targetLocale] = localeResult[targetLocale];
+        }
+      }
+
+      if (Object.keys(translationResult).length === 0) {
+        logger.info(
+          `Dictionary ${dictionary.key}: all target locales already complete`
+        );
+        completedKeys.push(dictionaryKey);
+        processedCount++;
+        continue;
+      }
+
+      // Fetch fresh DB content before writing to avoid overwriting concurrent edits.
       const currentDictionary =
         await dictionaryService.getDictionaryById(dictionaryId);
       const currentContentNode = currentDictionary.content.get(lastVersion)!;
-      let newContent = currentContentNode.content;
 
-      for (const locale of targetLocales) {
-        if (translationResult[locale]) {
-          newContent = defu(translationResult[locale], newContent);
-        }
+      // Insert each locale's translated content into the multilingual structure.
+      let updatedDict: { key: string; content: any } = {
+        key: dictionary.key,
+        content: currentContentNode.content,
+      };
+
+      for (const [locale, localeContent] of Object.entries(translationResult)) {
+        updatedDict = insertContentInDictionary(
+          updatedDict as any,
+          localeContent as any,
+          locale as Locale
+        );
       }
 
       const newVersion = dictionaryService.incrementVersion(currentDictionary);
       const updatedContentMap = new Map(currentDictionary.content);
-      updatedContentMap.set(newVersion, { content: newContent as any });
+      updatedContentMap.set(newVersion, {
+        content: updatedDict.content as any,
+      });
 
       const updatedDictionary = await dictionaryService.updateDictionaryById(
         dictionaryId,

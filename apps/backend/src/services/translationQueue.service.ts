@@ -60,6 +60,7 @@ export const addTranslationJob = async (data: {
   dictionaryTargets: { dictionaryId: string; locales: Locale[] }[];
   projectId: string;
   userId: string;
+  mode?: 'complete' | 'review';
 }) => {
   try {
     const queue = getTranslationQueue();

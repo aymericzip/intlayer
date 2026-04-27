@@ -85,6 +85,7 @@ export type ProjectData = {
   configuration?: ProjectConfiguration;
   repository?: RepositoryConnection;
   webhooks?: ProjectConfigCI;
+  autoFill?: boolean;
   /** Screenshot of the application URL, generated automatically when applicationURL is set */
   imageUrl?: string;
 };

@@ -138,6 +138,10 @@ export const projectSchema = new Schema<ProjectSchema>(
     oAuth2Access: [oAuth2AccessSchema],
     repository: repositorySchema,
     webhooks: webhooksConfigSchema,
+    autoFill: {
+      type: Boolean,
+      default: false,
+    },
     imageUrl: {
       type: String,
     },

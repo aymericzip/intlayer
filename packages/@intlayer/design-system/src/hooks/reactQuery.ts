@@ -1634,15 +1634,21 @@ export const useFillAllTranslations = () => {
   return useMutation({
     mutationKey: ['fill-all-translations'],
     mutationFn: async (
-      args: Pick<TranslateDictionariesBody, 'targetLocales'>
+      args: Pick<TranslateDictionariesBody, 'targetLocales' | 'mode'> & {
+        dictionaryIds?: string[];
+      }
     ) => {
-      const result = await intlayerOAuth.dictionary.getDictionaries({
-        pageSize: 1000,
-      });
-      const dictionaryIds = (result?.data ?? []).map((d) => d.id);
+      let dictionaryIds = args.dictionaryIds;
+      if (!dictionaryIds || dictionaryIds.length === 0) {
+        const result = await intlayerOAuth.dictionary.getDictionaries({
+          pageSize: 1000,
+        });
+        dictionaryIds = (result?.data ?? []).map((d) => d.id);
+      }
       return intlayerOAuth.translate.translateDictionaries({
         dictionaryIds,
         targetLocales: args.targetLocales,
+        mode: args.mode,
       });
     },
   });

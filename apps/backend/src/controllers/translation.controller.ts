@@ -18,6 +18,7 @@ import { Types } from 'mongoose';
 export type TranslateDictionariesBody = {
   dictionaryIds: string[];
   targetLocales: Locale[];
+  mode?: 'complete' | 'review';
 };
 export type TranslateDictionariesResult = ResponseData<{ jobId: string }>;
 
@@ -26,7 +27,7 @@ export const translateDictionaries = async (
   reply: FastifyReply
 ): Promise<void> => {
   const { project, user } = request.session || {};
-  const { dictionaryIds, targetLocales } = request.body;
+  const { dictionaryIds, targetLocales, mode = 'complete' } = request.body;
 
   if (!project) {
     return ErrorHandler.handleGenericErrorResponse(
@@ -60,24 +61,25 @@ export const translateDictionaries = async (
 
       if (!node) continue;
 
-      // Use core logic to find missing locales
-      const missingLocales = getMissingLocalesContentFromDictionary(
-        {
-          key: dictionary.key,
-          content: node.content,
-        },
-        projectLocales
-      );
+      // In 'complete' mode skip locales that already have full translations.
+      // In 'review' mode translate everything regardless.
+      let localesToTranslate: Locale[];
+      if (mode === 'review') {
+        localesToTranslate = targetLocales;
+      } else {
+        const missingLocales = getMissingLocalesContentFromDictionary(
+          { key: dictionary.key, content: node.content },
+          projectLocales
+        );
+        localesToTranslate = targetLocales.filter((locale) =>
+          missingLocales.includes(locale)
+        );
+      }
 
-      // Only translate requested locales that are actually missing
-      const requestedMissingLocales = targetLocales.filter((locale) =>
-        missingLocales.includes(locale)
-      );
-
-      if (requestedMissingLocales.length > 0) {
+      if (localesToTranslate.length > 0) {
         dictionaryTargets.push({
           dictionaryId: String(dictionary._id),
-          locales: requestedMissingLocales,
+          locales: localesToTranslate,
         });
       }
     }
@@ -95,6 +97,7 @@ export const translateDictionaries = async (
       dictionaryTargets,
       projectId: String(project.id),
       userId: String(user.id),
+      mode,
     });
 
     return reply.send(

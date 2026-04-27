@@ -5,6 +5,7 @@ import { Trash } from 'lucide-react';
 import { type FC, Suspense, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { AccessKeyForm } from './AccessKey/AccessKeyForm';
+import { AutoFillSettings } from './AutoFillSettings/AutoFillSettings';
 import { BuildSettings } from './BuildSettings/BuildSettings';
 import { ConfigDetails } from './Config/ConfigDetails';
 import { DeleteProjectModal } from './DeleteProjectModal';
@@ -66,6 +67,13 @@ export const ProjectFormContent: FC = () => {
               className="flex size-full justify-center"
             >
               <BuildSettings />
+            </Container>
+            <Container
+              roundedSize="3xl"
+              padding="md"
+              className="flex size-full justify-center"
+            >
+              <AutoFillSettings />
             </Container>
           </div>
           <div className="mb-auto flex flex-col gap-4">

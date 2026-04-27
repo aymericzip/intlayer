@@ -1,5 +1,6 @@
 import { isDeepStrictEqual } from 'node:util';
 import * as eventListener from '@controllers/eventListener.controller';
+import type { Locale } from '@intlayer/types/allLocales';
 import type {
   ContentNode,
   DictionaryId,
@@ -9,6 +10,7 @@ import type {
 import { logger } from '@logger';
 import * as dictionaryService from '@services/dictionary.service';
 import * as projectService from '@services/project.service';
+import { addTranslationJob } from '@services/translationQueue.service';
 import * as webhooksService from '@services/webhook.service';
 import { ensureMongoDocumentToObject } from '@utils/ensureMongoDocumentToObject';
 import { type AppError, ErrorHandler } from '@utils/errors';
@@ -636,14 +638,52 @@ export const pushDictionaries = async (
       ),
     ]);
 
+    const hasChanges =
+      newDictionariesResult.length > 0 || updatedDictionariesResult.length > 0;
+
     // Trigger CI builds if configured (only if there were actual changes)
-    if (
-      project &&
-      (newDictionariesResult.length > 0 || updatedDictionariesResult.length > 0)
-    ) {
+    if (project && hasChanges) {
       try {
         const fullProject = await projectService.getProjectById(project.id);
         await webhooksService.triggerAll(fullProject);
+
+        // Auto-fill: queue a translation job for the pushed dictionaries when enabled
+        if (fullProject.autoFill) {
+          const projectLocales =
+            fullProject.configuration?.internationalization?.locales ?? [];
+          const defaultLocale =
+            fullProject.configuration?.internationalization?.defaultLocale;
+          const targetLocales = projectLocales.filter(
+            (l) => l !== defaultLocale
+          );
+
+          if (targetLocales.length > 0) {
+            // Collect the IDs of all newly created and updated dictionaries
+            const affectedIds = [
+              ...newDictionariesResult
+                .map((d) => d.id)
+                .filter((id): id is string => !!id),
+              ...updatedDictionariesResult
+                .map((d) => d.id)
+                .filter((id): id is string => !!id),
+            ];
+
+            if (affectedIds.length > 0) {
+              await addTranslationJob({
+                dictionaryTargets: affectedIds.map((id) => ({
+                  dictionaryId: id,
+                  locales: targetLocales as Locale[],
+                })),
+                projectId: String(project.id),
+                userId: String(user.id),
+                mode: 'complete',
+              });
+              logger.info(
+                `Auto-fill triggered for ${affectedIds.length} dictionaries after push`
+              );
+            }
+          }
+        }
       } catch (error) {
         // Log error but don't fail the dictionary push
         logger.error(

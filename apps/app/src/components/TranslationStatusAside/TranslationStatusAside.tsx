@@ -2,11 +2,13 @@ import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
 import {
   useFillAllTranslations,
+  useGetDictionaries,
   usePauseTranslationJob,
   useResumeTranslationJob,
   useSession,
   useStopTranslationJob,
 } from '@intlayer/design-system/hooks';
+import { Checkbox, SearchInput } from '@intlayer/design-system/input';
 import { Loader } from '@intlayer/design-system/loader';
 import { PopoverStatic } from '@intlayer/design-system/popover';
 import { RightDrawer } from '@intlayer/design-system/right-drawer';
@@ -424,6 +426,18 @@ export const TranslationStatusAside: FC = () => {
   const { mutateAsync: pauseJob } = usePauseTranslationJob();
   const { mutateAsync: resumeJob } = useResumeTranslationJob();
 
+  // Fill options
+  const [fillMode, setFillMode] = useState<'complete' | 'review'>('complete');
+  const [selectSpecific, setSelectSpecific] = useState(false);
+  const [dictionarySearch, setDictionarySearch] = useState('');
+  const [selectedDictionaryIds, setSelectedDictionaryIds] = useState<
+    Set<string>
+  >(new Set());
+
+  const { data: dictionariesData, isLoading: isLoadingDictionaries } =
+    useGetDictionaries({ pageSize: 1000 });
+  const allDictionaries = dictionariesData?.data ?? [];
+
   /**
    * All jobs keyed by jobId.
    * Client-only flags (`dismissed`, `pendingAction`) live inside each record
@@ -618,8 +632,12 @@ export const TranslationStatusAside: FC = () => {
 
   const handleFillAll = useCallback(async () => {
     if (targetLocales.length === 0) return;
-    await fillAll({ targetLocales });
-  }, [fillAll, targetLocales]);
+    const dictionaryIds =
+      selectSpecific && selectedDictionaryIds.size > 0
+        ? [...selectedDictionaryIds]
+        : undefined;
+    await fillAll({ targetLocales, mode: fillMode, dictionaryIds });
+  }, [fillAll, targetLocales, fillMode, selectSpecific, selectedDictionaryIds]);
 
   // ── Derived data ──────────────────────────────────────────────────────────
 
@@ -776,12 +794,147 @@ export const TranslationStatusAside: FC = () => {
             </div>
           )}
 
-          {/* ── Fill all button ── */}
-          <div className="border-neutral-200 border-t px-6 pt-4 dark:border-neutral-800">
+          {/* ── Fill translations panel ── */}
+          <div className="flex flex-col gap-4 border-neutral-200 border-t pt-4 dark:border-neutral-800">
+            {/* Mode selector */}
+            <div className="flex flex-col gap-2">
+              <span className="font-medium text-text text-xs">
+                {content.modeLabel}
+              </span>
+              <div className="flex gap-2">
+                <button
+                  type="button"
+                  onClick={() => setFillMode('complete')}
+                  className={cn(
+                    'flex-1 rounded-lg border px-3 py-2 text-xs transition-colors',
+                    fillMode === 'complete'
+                      ? 'border-primary bg-primary/10 font-medium text-primary'
+                      : 'border-neutral/20 text-neutral hover:bg-neutral/5'
+                  )}
+                >
+                  {content.modeFillMissing}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setFillMode('review')}
+                  className={cn(
+                    'flex-1 rounded-lg border px-3 py-2 text-xs transition-colors',
+                    fillMode === 'review'
+                      ? 'border-primary bg-primary/10 font-medium text-primary'
+                      : 'border-neutral/20 text-neutral hover:bg-neutral/5'
+                  )}
+                >
+                  {content.modeAuditAll}
+                </button>
+              </div>
+            </div>
+
+            {/* Dictionary selector */}
+            <div className="flex flex-col gap-2">
+              <span className="font-medium text-text text-xs">
+                {content.dictionariesLabel}
+              </span>
+              <div className="flex gap-2">
+                <button
+                  type="button"
+                  onClick={() => setSelectSpecific(false)}
+                  className={cn(
+                    'flex-1 rounded-lg border px-3 py-2 text-xs transition-colors',
+                    !selectSpecific
+                      ? 'border-primary bg-primary/10 font-medium text-primary'
+                      : 'border-neutral/20 text-neutral hover:bg-neutral/5'
+                  )}
+                >
+                  {content.allDictionaries}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setSelectSpecific(true)}
+                  className={cn(
+                    'flex-1 rounded-lg border px-3 py-2 text-xs transition-colors',
+                    selectSpecific
+                      ? 'border-primary bg-primary/10 font-medium text-primary'
+                      : 'border-neutral/20 text-neutral hover:bg-neutral/5'
+                  )}
+                >
+                  {content.selectSpecific}
+                </button>
+              </div>
+
+              {selectSpecific && (
+                <div className="flex flex-col gap-2">
+                  <SearchInput
+                    placeholder={content.searchDictionaries.value}
+                    value={dictionarySearch}
+                    onChange={(e) => setDictionarySearch(e.target.value)}
+                  />
+                  <Container
+                    background="none"
+                    border
+                    borderColor="card"
+                    roundedSize="xl"
+                    padding="md"
+                    className="flex max-h-40 flex-col gap-2 overflow-y-auto"
+                  >
+                    {isLoadingDictionaries ? (
+                      <div className="flex items-center justify-center py-4">
+                        <Loader className="size-4" />
+                      </div>
+                    ) : (
+                      <>
+                        {allDictionaries
+                          .filter((d) =>
+                            d.key
+                              .toLowerCase()
+                              .includes(dictionarySearch.toLowerCase())
+                          )
+                          .map((d) => (
+                            <Checkbox
+                              key={d.id}
+                              id={`dict-${d.id}`}
+                              name={`dict-${d.id}`}
+                              size="sm"
+                              checked={selectedDictionaryIds.has(d.id)}
+                              onChange={() => {
+                                setSelectedDictionaryIds((prev) => {
+                                  const next = new Set(prev);
+                                  if (next.has(d.id)) {
+                                    next.delete(d.id);
+                                  } else {
+                                    next.add(d.id);
+                                  }
+                                  return next;
+                                });
+                              }}
+                              label={d.key}
+                              labelClassName="font-mono font-normal px-2 py-0.5 text-xs"
+                            />
+                          ))}
+                        {allDictionaries.filter((d) =>
+                          d.key
+                            .toLowerCase()
+                            .includes(dictionarySearch.toLowerCase())
+                        ).length === 0 && (
+                          <span className="py-2 text-center text-neutral-500 text-xs">
+                            {content.noDictionariesFound}
+                          </span>
+                        )}
+                      </>
+                    )}
+                  </Container>
+                </div>
+              )}
+            </div>
+
+            {/* Start button */}
             <Button
               onClick={handleFillAll}
               isLoading={isFilling}
-              disabled={isFilling || targetLocales.length === 0}
+              disabled={
+                isFilling ||
+                targetLocales.length === 0 ||
+                (selectSpecific && selectedDictionaryIds.size === 0)
+              }
               Icon={Languages}
               label={content.fillAllTranslations.value}
               variant="default"
@@ -791,7 +944,7 @@ export const TranslationStatusAside: FC = () => {
             >
               {content.fillAllTranslations}
             </Button>
-            <p className="mt-2 text-center text-neutral text-xs">
+            <p className="-mt-2 text-center text-neutral text-xs">
               {content.fillAllTranslationsDescription}
             </p>
           </div>
