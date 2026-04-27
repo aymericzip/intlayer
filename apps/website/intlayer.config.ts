@@ -23,7 +23,8 @@ export const locales: Locale[] = [
   Locales.VIETNAMESE,
   Locales.UKRAINIAN,
 ];
-export const defaultLocale = Locales.ENGLISH;
+export const defaultLocale =
+  (process.env.NEXT_PUBLIC_DEFAULT_LOCALE as Locale) || Locales.ENGLISH;
 
 const config: CustomIntlayerConfig = {
   internationalization: {
