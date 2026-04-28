@@ -1,7 +1,7 @@
 import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { performance } from 'node:perf_hooks';
-import { checkAISDKAccess } from '@intlayer/ai';
+
 import { listGitFiles, logConfigDetails } from '@intlayer/chokidar/cli';
 import { parallelize, pLimit } from '@intlayer/chokidar/utils';
 import * as ANSIColors from '@intlayer/config/colors';
@@ -53,12 +53,13 @@ export const translateDoc = async ({
   const aiResult = await setupAI(configuration, aiOptions);
   if (!aiResult?.hasAIAccess) return;
 
-  const { aiClient, aiConfig } = aiResult;
-
-  const { hasAIAccess, error } = await checkAISDKAccess(aiConfig!);
-  if (!hasAIAccess) {
-    appLogger(`${x} ${error}`);
-    return;
+  const { aiClient, aiConfig, isCustomAI } = aiResult;
+  if (isCustomAI && aiClient && aiConfig) {
+    const { hasAIAccess, error } = await aiClient.checkAISDKAccess(aiConfig);
+    if (!hasAIAccess) {
+      appLogger(`${x} ${error}`);
+      return;
+    }
   }
 
   if (gitOptions) {

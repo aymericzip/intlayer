@@ -67,7 +67,6 @@
   },
   "dependencies": {
     "@clack/prompts": "0.11.0",
-    "@intlayer/ai": "workspace:*",
     "@intlayer/api": "workspace:*",
     "@intlayer/babel": "workspace:*",
     "@intlayer/chokidar": "workspace:*",
@@ -83,6 +82,7 @@
     "fast-glob": "3.3.3"
   },
   "devDependencies": {
+    "@intlayer/ai": "workspace:*",
     "@types/node": "25.6.0",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",

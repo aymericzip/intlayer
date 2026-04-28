@@ -1,5 +1,5 @@
 import { basename, join, relative } from 'node:path';
-import { checkAISDKAccess } from '@intlayer/ai';
+
 import type { AIOptions } from '@intlayer/api';
 import {
   loadContentDeclarations,
@@ -82,12 +82,14 @@ export const fill = async (options?: FillOptions): Promise<void> => {
 
   if (!aiResult?.hasAIAccess) return;
 
-  const { aiClient, aiConfig } = aiResult;
+  const { aiClient, aiConfig, isCustomAI } = aiResult;
 
-  const { hasAIAccess, error } = await checkAISDKAccess(aiConfig!);
-  if (!hasAIAccess) {
-    appLogger(`${x} ${error}`);
-    return;
+  if (isCustomAI && aiClient && aiConfig) {
+    const { hasAIAccess, error } = await aiClient.checkAISDKAccess(aiConfig);
+    if (!hasAIAccess) {
+      appLogger(`${x} ${error}`);
+      return;
+    }
   }
 
   const targetUnmergedDictionaries =
