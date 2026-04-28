@@ -36,6 +36,11 @@ const createSafeFallback = (path = ''): any => {
         if (prop === 'then') {
           return undefined; // Prevent it from being treated as a Promise
         }
+        if (prop === Symbol.iterator) {
+          return function* () {
+            yield path;
+          };
+        }
 
         // Recursively build the path (e.g., "myDictionary.home.title")
         const nextPath = path ? `${path}.${String(prop)}` : String(prop);

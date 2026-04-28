@@ -29,6 +29,35 @@ export type ScriptBlock = {
 const SFC_SCRIPT_RE = /<script([^>]*)>([\s\S]*?)<\/script>/g;
 
 /**
+ * Matches an Astro frontmatter block: the JS/TS code between the opening `---`
+ * and closing `---` at the top of an `.astro` file.
+ *
+ * Group 1 captures the raw script content (without the fence markers).
+ */
+const ASTRO_FRONTMATTER_RE = /^---\r?\n([\s\S]*?)\r?\n---/;
+
+/**
+ * Extracts the frontmatter script block from a raw `.astro` source file.
+ * Returns an empty array when no frontmatter fence is present (static pages).
+ */
+const extractAstroFrontmatter = (code: string): ScriptBlock[] => {
+  const match = ASTRO_FRONTMATTER_RE.exec(code);
+  if (!match) return [];
+
+  const openingFence = match[0].slice(0, match[0].indexOf('\n') + 1); // "---\n" or "---\r\n"
+  const contentStartOffset = openingFence.length;
+  const content = match[1];
+
+  return [
+    {
+      content,
+      contentStartOffset,
+      contentEndOffset: contentStartOffset + content.length,
+    },
+  ];
+};
+
+/**
  * Extracts all `<script>` blocks from a Vue SFC or Svelte source string,
  * returning each block's text content together with its start/end byte offsets
  * in the original source.
@@ -65,12 +94,14 @@ const extractSFCScriptBlocks = (code: string): ScriptBlock[] => {
 /**
  * Extracts the script block(s) from a source file, dispatching by extension:
  *
- *  - `.vue` / `.svelte` → searches for `<script>` blocks using a regex
- *    (same approach used by `@intlayer/svelte-compiler`).  Returns one entry
- *    per block found (instance script + module/setup script).
+ *  - `.vue` / `.svelte` → searches for `<script>` blocks using a regex.
  *    Returns an **empty array** when no `<script>` tag is found, which
  *    happens both for template-only SFCs and for already-compiled JS that
  *    Vite passes to `enforce:'post'` transform hooks.
+ *  - `.astro` → extracts the frontmatter block between the opening and closing
+ *    `---` fences.  Returns an empty array when called on already-compiled JS
+ *    (no fences present), which is the case inside the `enforce:'post'`
+ *    transform hook where Astro has already compiled the file.
  *  - everything else → treats the whole file as a single script block and
  *    returns it wrapped in a single-element array.
  */
@@ -82,6 +113,10 @@ export const extractScriptBlocks = (
 
   if (ext === '.vue' || ext === '.svelte') {
     return extractSFCScriptBlocks(code);
+  }
+
+  if (ext === '.astro') {
+    return extractAstroFrontmatter(code);
   }
 
   // Plain JS / TS / JSX / TSX / MJS / CJS – the whole file is the script.

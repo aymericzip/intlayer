@@ -423,6 +423,67 @@ describe('babel-plugin-intlayer-optimize', () => {
     });
   });
 
+  describe('Astro', () => {
+    // In Astro's Vite pipeline our plugin runs with enforce:'post', so it
+    // receives Astro-compiled JS (no --- fences) with a .astro moduleId.
+    // The tests below mirror that: compiled JS passed with a .astro filename.
+    it('should transform getIntlayer in compiled Astro JS (static mode)', () => {
+      const code = `
+        import { getIntlayer, getLocaleFromPath } from "intlayer";
+        const locale = getLocaleFromPath(Astro.url.pathname);
+        const { title, subtitle } = getIntlayer("home", locale);
+      `;
+      const output = transform(
+        code,
+        { importMode: 'static' },
+        '/app/src/pages/index.astro'
+      );
+      // "home" → _dicHash (mock returns "dicHash2" only for key "app")
+      expect(output).toContain(
+        'import _dicHash from "../../.intlayer/dictionaries/home.json" with { type: "json" };'
+      );
+      expect(output).toContain(
+        'import { getDictionary as getIntlayer, getLocaleFromPath } from "intlayer";'
+      );
+      // locale second arg is preserved by getDictionary
+      expect(output).toContain('getIntlayer(_dicHash, locale)');
+    });
+
+    it('should transform getIntlayer in compiled Astro JS (dynamic mode)', () => {
+      const code = `
+        import { getIntlayer } from "intlayer";
+        const { title } = getIntlayer("home", locale);
+      `;
+      const output = transform(
+        code,
+        { importMode: 'dynamic' },
+        '/app/src/pages/index.astro'
+      );
+      expect(output).toContain(
+        'import _dicHash from "../../.intlayer/dictionaries/home.json" with { type: "json" };'
+      );
+      expect(output).toContain(
+        'import { getDictionary as getIntlayer } from "intlayer";'
+      );
+      expect(output).toContain('getIntlayer(_dicHash, locale)');
+    });
+
+    it('should not transform when .astro file is not in filesList', () => {
+      const code = `
+        import { getIntlayer } from "intlayer";
+        const { title } = getIntlayer("home", locale);
+      `;
+      // filesList defaults to the filename in transform(), so pass an empty list
+      const output = transform(
+        code,
+        { importMode: 'static', filesList: [] },
+        '/app/src/pages/index.astro'
+      );
+      expect(output).not.toContain('getDictionary');
+      expect(output).toContain('getIntlayer("home", locale)');
+    });
+  });
+
   describe('Vanilla', () => {
     it('should transform static imports', () => {
       const code = `

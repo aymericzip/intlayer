@@ -47,7 +47,7 @@ export const INTLAYER_USAGE_REGEX = /\b(use|get)Intlayer\b/;
  * transformation. Excludes sourcemap files, declaration files, and other
  * non-source extensions.
  */
-export const SOURCE_FILE_REGEX = /\.(tsx?|[mc]?jsx?|vue|svelte)$/;
+export const SOURCE_FILE_REGEX = /\.(tsx?|[mc]?jsx?|vue|svelte|astro)$/;
 
 // ── High-level transformer functions ──────────────────────────────────────────
 
