@@ -118,30 +118,6 @@ To set up insertion content in your Intlayer project, create a content module th
     export default myInsertionContent;
     ```
 
-    ```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-    /** @type {import('intlayer').Dictionary} */
-    const myInsertionContent = {
-      key: "my_key",
-      content: {
-        myInsertion: "Hello, my name is {{name}} and I am {{age}} years old!",
-      },
-    };
-
-    export default myInsertionContent;
-    ```
-
-    ```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-    /** @type {import('intlayer').Dictionary} */
-    const myInsertionContent = {
-      key: "my_key",
-      content: {
-        myInsertion: "Hello, my name is {{name}} and I am {{age}} years old!",
-      },
-    };
-
-    module.exports = myInsertionContent;
-    ```
-
     ```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
     {
       "$schema": "https://intlayer.org/schema.json",

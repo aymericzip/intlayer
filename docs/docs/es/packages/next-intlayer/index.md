@@ -110,58 +110,6 @@ const clientComponentContent = {
 export default clientComponentContent;
 ```
 
-```jsx fileName="src/ClientComponent/index.content.mjs" contentDeclarationFormat="esm"
-import { t } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const clientComponentContent = {
-  key: "client-component",
-  content: {
-    myTranslatedContent: t({
-      en: "Hello World",
-      es: "Hola Mundo",
-      fr: "Bonjour le monde",
-    }),
-    numberOfCar: enu({
-      "<-1": "Menos que menos un coche",
-      "-1": "Menos un coche",
-      "0": "Sin coches",
-      "1": "Un coche",
-      ">5": "Algunos coches",
-      ">19": "Muchos coches",
-    }),
-  },
-};
-
-export default clientComponentContent;
-```
-
-```jsx fileName="src/ClientComponent/index.content.cjs" contentDeclarationFormat="commonjs"
-const { t } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const clientComponentContent = {
-  key: "client-component",
-  content: {
-    myTranslatedContent: t({
-      en: "Hello World",
-      es: "Hola Mundo",
-      fr: "Bonjour le monde",
-    }),
-    numberOfCar: enu({
-      "<-1": "Menos que menos un coche",
-      "-1": "Menos un coche",
-      "0": "Sin coches",
-      "1": "Un coche",
-      ">5": "Algunos coches",
-      ">19": "Muchos coches",
-    }),
-  },
-};
-
-module.exports = clientComponentContent;
-```
-
 ```json fileName="src/ClientComponent/index.content.json" codeFormat="json"
 {
   "key": "client-component",

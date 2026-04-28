@@ -56,38 +56,6 @@ Intlayer 프로젝트에서 삽입 콘텐츠를 설정하려면, 삽입 정의�
     export default myInsertionContent;
     ```
 
-    ```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-    import { insert } from "intlayer";
-
-    /** @type {import('intlayer').Dictionary} */
-    const myInsertionContent = {
-      key: "my_key",
-      content: {
-        myInsertion: insert(
-          "안녕하세요, 제 이름은 {{name}}이고 저는 {{age}}살입니다!"
-        ),
-      },
-    };
-
-    export default myInsertionContent;
-    ```
-
-    ```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-    const { insert } = require("intlayer");
-
-    /** @type {import('intlayer').Dictionary} */
-    const myInsertionContent = {
-      key: "my_key",
-      content: {
-        myInsertion: insert(
-          "안녕하세요, 제 이름은 {{name}}이고 저는 {{age}}살입니다!"
-        ),
-      },
-    };
-
-    module.exports = myInsertionContent;
-    ```
-
     ```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
     {
       "$schema": "https://intlayer.org/schema.json",
@@ -116,30 +84,6 @@ Intlayer 프로젝트에서 삽입 콘텐츠를 설정하려면, 삽입 정의�
     } satisfies Dictionary;
 
     export default myInsertionContent;
-    ```
-
-    ```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-    /** @type {import('intlayer').Dictionary} */
-    const myInsertionContent = {
-      key: "my_key",
-      content: {
-        myInsertion: "안녕하세요, 제 이름은 {{name}}이고 저는 {{age}}살입니다!",
-      },
-    };
-
-    export default myInsertionContent;
-    ```
-
-    ```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-    /** @type {import('intlayer').Dictionary} */
-    const myInsertionContent = {
-      key: "my_key",
-      content: {
-        myInsertion: "안녕하세요, 제 이름은 {{name}}이고 저는 {{age}}살입니다!",
-      },
-    };
-
-    module.exports = myInsertionContent;
     ```
 
     ```json5 fileName="**/*.content.json" contentDeclarationFormat="json"

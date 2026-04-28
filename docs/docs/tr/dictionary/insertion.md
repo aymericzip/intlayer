@@ -54,34 +54,6 @@ Intlayer projenizde ekleme içeriğini ayarlamak için, ekleme tanımlarınızı
     export default myInsertionContent;
     ```
 
-    ```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-    import { insert } from "intlayer";
-
-    /** @type {import('intlayer').Dictionary} */
-    const myInsertionContent = {
-      key: "my_key",
-      content: {
-        myInsertion: insert("Merhaba, adım {{name}} ve {{age}} yaşındayım!"),
-      },
-    };
-
-    export default myInsertionContent;
-    ```
-
-    ```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-    const { insert } = require("intlayer");
-
-    /** @type {import('intlayer').Dictionary} */
-    const myInsertionContent = {
-      key: "my_key",
-      content: {
-        myInsertion: insert("Merhaba, adım {{name}} ve {{age}} yaşındayım!"),
-      },
-    };
-
-    module.exports = myInsertionContent;
-    ```
-
     ```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
     {
       "$schema": "https://intlayer.org/schema.json",
@@ -110,30 +82,6 @@ Intlayer projenizde ekleme içeriğini ayarlamak için, ekleme tanımlarınızı
     } satisfies Dictionary;
 
     export default myInsertionContent;
-    ```
-
-    ```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-    /** @type {import('intlayer').Dictionary} */
-    const myInsertionContent = {
-      key: "my_key",
-      content: {
-        myInsertion: "Merhaba, adım {{name}} ve {{age}} yaşındayım!",
-      },
-    };
-
-    export default myInsertionContent;
-    ```
-
-    ```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-    /** @type {import('intlayer').Dictionary} */
-    const myInsertionContent = {
-      key: "my_key",
-      content: {
-        myInsertion: "Merhaba, adım {{name}} ve {{age}} yaşındayım!",
-      },
-    };
-
-    module.exports = myInsertionContent;
     ```
 
     ```json5 fileName="**/*.content.json" contentDeclarationFormat="json"

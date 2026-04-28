@@ -56,36 +56,6 @@ history:
     export default myInsertionContent;
     ```
 
-    ```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-    import { insert } from "intlayer";
-
-    /** @type {import('intlayer').Dictionary} */
-    const myInsertionContent = {
-      key: "my_key",
-      content: {
-        myInsertion: insert(
-          "你好，我的名字是 {{name}}，我今年 {{age}} 岁！"
-        ),
-      },
-    };
-
-    export default myInsertionContent;
-    ```
-
-    ```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-    const { insert } = require("intlayer");
-
-    /** @type {import('intlayer').Dictionary} */
-    const myInsertionContent = {
-      key: "my_key",
-      content: {
-        myInsertion: insert("你好，我的名字是 {{name}}，我今年 {{age}} 岁！"),
-      },
-    };
-
-    module.exports = myInsertionContent;
-    ```
-
     ```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
     {
       "$schema": "https://intlayer.org/schema.json",
@@ -114,30 +84,6 @@ history:
     } satisfies Dictionary;
 
     export default myInsertionContent;
-    ```
-
-    ```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-    /** @type {import('intlayer').Dictionary} */
-    const myInsertionContent = {
-      key: "my_key",
-      content: {
-        myInsertion: "你好，我的名字是 {{name}}，我今年 {{age}} 岁！",
-      },
-    };
-
-    export default myInsertionContent;
-    ```
-
-    ```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-    /** @type {import('intlayer').Dictionary} */
-    const myInsertionContent = {
-      key: "my_key",
-      content: {
-        myInsertion: "你好，我的名字是 {{name}}，我今年 {{age}} 岁！",
-      },
-    };
-
-    module.exports = myInsertionContent;
     ```
 
     ```json5 fileName="**/*.content.json" contentDeclarationFormat="json"

@@ -54,34 +54,6 @@ Aby skonfigurować treść wstawiania w swoim projekcie Intlayer, utwórz moduł
     export default myInsertionContent;
     ```
 
-    ```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-    import { insert } from "intlayer";
-
-    /** @type {import('intlayer').Dictionary} */
-    const myInsertionContent = {
-      key: "my_key",
-      content: {
-        myInsertion: insert("Cześć, mam na imię {{name}} i mam {{age}} lat!"),
-      },
-    };
-
-    export default myInsertionContent;
-    ```
-
-    ```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-    const { insert } = require("intlayer");
-
-    /** @type {import('intlayer').Dictionary} */
-    const myInsertionContent = {
-      key: "my_key",
-      content: {
-        myInsertion: insert("Cześć, mam na imię {{name}} i mam {{age}} lat!"),
-      },
-    };
-
-    module.exports = myInsertionContent;
-    ```
-
     ```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
     {
       "$schema": "https://intlayer.org/schema.json",
@@ -112,30 +84,6 @@ Aby skonfigurować treść wstawiania w swoim projekcie Intlayer, utwórz moduł
     export default myInsertionContent;
     ```
 
-    ```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-    /** @type {import('intlayer').Dictionary} */
-    const myInsertionContent = {
-      key: "my_key",
-      content: {
-        myInsertion: "Cześć, mam na imię {{name}} i mam {{age}} lat!",
-      },
-    };
-
-    export default myInsertionContent;
-    ```
-
-    ```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-    /** @type {import('intlayer').Dictionary} */
-    const myInsertionContent = {
-      key: "my_key",
-      content: {
-        myInsertion: "Cześć, mam na imię {{name}} i mam {{age}} lat!",
-      },
-    };
-
-    module.exports = myInsertionContent;
-    ```
-
     ```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
     {
       "$schema": "https://intlayer.org/schema.json",
@@ -148,39 +96,6 @@ Aby skonfigurować treść wstawiania w swoim projekcie Intlayer, utwórz moduł
 
   </Tab>
 </Tabs>
-
-```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-import { insert } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const myInsertionContent = {
-  key: "my_key",
-  content: {
-    myInsertion: insert("Cześć, mam na imię {{name}} i mam {{age}} lat!"),
-    myInsertion2: "Cześć, mam na imię {{name}} i mam {{age}} lat!", // Since intlayer v8, insertion function is not required anymore. The content will be automatically decorated.
-  },
-};
-
-export default myInsertionContent;
-```
-
-```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-const { insert } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const myInsertionContent = {
-  key: "my_key",
-  content: {
-    myInsertion: insert(
-      "Cześć, mam na imię {{name}} i mam {{age}} lat!"
-    ),
-    myInsertion2: "Cześć, mam na imię {{name}} i mam {{age}} lat!", // Since intlayer v8, insertion function is not required anymore. The content will be automatically decorated.
-  },
-};
-
-module.exports = myInsertionContent;
-```
 
 ```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
 {

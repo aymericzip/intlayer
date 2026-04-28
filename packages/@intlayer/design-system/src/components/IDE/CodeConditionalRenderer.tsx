@@ -7,11 +7,13 @@ import { useCodeContext } from './CodeContext';
 
 /** Parse a codeFormat prop that may be a single value or a JSON array string. */
 const parseCodeFormats = (
-  raw: string | undefined
+  raw: string | string[] | undefined
 ): CodeFormat[] | undefined => {
-  if (raw === undefined) return undefined;
+  if (typeof raw === 'undefined' || raw === null) return undefined;
+  if (Array.isArray(raw)) return raw as CodeFormat[];
+
   // JSON array string: `["typescript","esm","commonjs"]`
-  if (raw.startsWith('[')) {
+  if (typeof raw === 'string' && raw.startsWith('[')) {
     try {
       const parsed = JSON.parse(raw);
       if (Array.isArray(parsed)) return parsed as CodeFormat[];

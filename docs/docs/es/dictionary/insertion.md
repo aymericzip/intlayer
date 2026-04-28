@@ -54,34 +54,6 @@ Para configurar contenido de inserción en tu proyecto Intlayer, crea un módulo
     export default myInsertionContent;
     ```
 
-    ```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-    import { insert } from "intlayer";
-
-    /** @type {import('intlayer').Dictionary} */
-    const myInsertionContent = {
-      key: "my_key",
-      content: {
-        myInsertion: insert("Hola, mi nombre es {{name}} y tengo {{age}} años."),
-      },
-    };
-
-    export default myInsertionContent;
-    ```
-
-    ```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-    const { insert } = require("intlayer");
-
-    /** @type {import('intlayer').Dictionary} */
-    const myInsertionContent = {
-      key: "my_key",
-      content: {
-        myInsertion: insert("Hola, mi nombre es {{name}} y tengo {{age}} años."),
-      },
-    };
-
-    module.exports = myInsertionContent;
-    ```
-
     ```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
     {
       "$schema": "https://intlayer.org/schema.json",
@@ -110,30 +82,6 @@ Para configurar contenido de inserción en tu proyecto Intlayer, crea un módulo
     } satisfies Dictionary;
 
     export default myInsertionContent;
-    ```
-
-    ```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-    /** @type {import('intlayer').Dictionary} */
-    const myInsertionContent = {
-      key: "my_key",
-      content: {
-        myInsertion: "Hola, mi nombre es {{name}} y tengo {{age}} años.",
-      },
-    };
-
-    export default myInsertionContent;
-    ```
-
-    ```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-    /** @type {import('intlayer').Dictionary} */
-    const myInsertionContent = {
-      key: "my_key",
-      content: {
-        myInsertion: "Hola, mi nombre es {{name}} y tengo {{age}} años.",
-      },
-    };
-
-    module.exports = myInsertionContent;
     ```
 
     ```json5 fileName="**/*.content.json" contentDeclarationFormat="json"

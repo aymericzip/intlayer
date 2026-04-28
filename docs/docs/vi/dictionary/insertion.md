@@ -54,34 +54,6 @@ Khi tích hợp với React Intlayer hoặc Next Intlayer, bạn chỉ cần cun
     export default myInsertionContent;
     ```
 
-    ```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-    import { insert } from "intlayer";
-
-    /** @type {import('intlayer').Dictionary} */
-    const myInsertionContent = {
-      key: "my_key",
-      content: {
-        myInsertion: insert("Xin chào, tôi tên là {{name}} và tôi {{age}} tuổi!"),
-      },
-    };
-
-    export default myInsertionContent;
-    ```
-
-    ```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-    const { insert } = require("intlayer");
-
-    /** @type {import('intlayer').Dictionary} */
-    const myInsertionContent = {
-      key: "my_key",
-      content: {
-        myInsertion: insert("Xin chào, tôi tên là {{name}} và tôi {{age}} tuổi!"),
-      },
-    };
-
-    module.exports = myInsertionContent;
-    ```
-
     ```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
     {
       "$schema": "https://intlayer.org/schema.json",
@@ -112,30 +84,6 @@ Khi tích hợp với React Intlayer hoặc Next Intlayer, bạn chỉ cần cun
     export default myInsertionContent;
     ```
 
-    ```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-    /** @type {import('intlayer').Dictionary} */
-    const myInsertionContent = {
-      key: "my_key",
-      content: {
-        myInsertion: "Xin chào, tôi tên là {{name}} và tôi {{age}} tuổi!",
-      },
-    };
-
-    export default myInsertionContent;
-    ```
-
-    ```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-    /** @type {import('intlayer').Dictionary} */
-    const myInsertionContent = {
-      key: "my_key",
-      content: {
-        myInsertion: "Xin chào, tôi tên là {{name}} và tôi {{age}} tuổi!",
-      },
-    };
-
-    module.exports = myInsertionContent;
-    ```
-
     ```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
     {
       "$schema": "https://intlayer.org/schema.json",
@@ -148,39 +96,6 @@ Khi tích hợp với React Intlayer hoặc Next Intlayer, bạn chỉ cần cun
 
   </Tab>
 </Tabs>
-
-```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-import { insert } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const myInsertionContent = {
-  key: "my_key",
-  content: {
-    myInsertion: insert("Xin chào, tôi tên là {{name}} và tôi {{age}} tuổi!"),
-  },
-};
-
-export default myInsertionContent;
-```
-
-```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-const { insert } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-// Nội dung chèn với các biến động
-const myInsertionContent = {
-  key: "my_key",
-  content: {
-    myInsertion: insert(
-      "Xin chào, tôi tên là {{name}} và tôi {{age}} tuổi!"
-    ),
-    myInsertion2: "Xin chào, tôi tên là {{name}} và tôi {{age}} tuổi!", // Since intlayer v8, insertion function is not required anymore. The content will be automatically decorated.
-  },
-};
-
-module.exports = myInsertionContent;
-```
 
 ```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
 {

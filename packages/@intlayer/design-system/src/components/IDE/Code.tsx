@@ -23,9 +23,9 @@ import { PackageManagerSelector } from './PackageManagerSelector';
 export type CodeCompAttributes = {
   fileName?: string;
   packageManager?: PackageManager;
-  /** Single format, or a JSON-array string like `["typescript","esm","commonjs"]`. */
-  codeFormat?: CodeFormat | string;
-  contentDeclarationFormat?: ContentDeclarationFormat | string;
+  /** Single format, a JSON-array string, or an array of formats. */
+  codeFormat?: CodeFormat | string | string[];
+  contentDeclarationFormat?: ContentDeclarationFormat | string | string[];
 };
 
 type CodeCompProps = {
@@ -44,10 +44,13 @@ const MIN_HEIGHT = 700;
 /** Languages that use JSX syntax — CommonJS doesn't make sense for these. */
 const JSX_LANGUAGES = new Set(['tsx', 'jsx']);
 
-/** Parse a codeFormat prop that may be a single value or a JSON-array string. */
-function parseFormats(raw: string | undefined): CodeFormat[] | undefined {
+/** Parse a codeFormat prop that may be a single value, a JSON-array string, or already an array. */
+const parseFormats = (
+  raw: string | string[] | undefined
+): CodeFormat[] | undefined => {
   if (!raw) return undefined;
-  if (raw.startsWith('[')) {
+  if (Array.isArray(raw)) return raw as CodeFormat[];
+  if (typeof raw === 'string' && raw.startsWith('[')) {
     try {
       const parsed = JSON.parse(raw);
       if (Array.isArray(parsed)) return parsed as CodeFormat[];
@@ -56,7 +59,7 @@ function parseFormats(raw: string | undefined): CodeFormat[] | undefined {
     }
   }
   return [raw as CodeFormat];
-}
+};
 
 export const Code: FC<CodeCompProps> = ({
   children,
@@ -125,9 +128,8 @@ export const Code: FC<CodeCompProps> = ({
     if (!effectiveFormats || effectiveFormats.includes(selectedFormat)) {
       return selectedFormat as Exclude<CodeFormat, 'json'>;
     }
-    return (
-      effectiveFormats[effectiveFormats.length - 1] ?? 'typescript'
-    ) as Exclude<CodeFormat, 'json'>;
+    return (effectiveFormats[effectiveFormats.length - 1] ??
+      'typescript') as Exclude<CodeFormat, 'json'>;
   }, [effectiveFormats, selectedFormat]);
 
   // ── Async filename derivation (dynamic import of transformer) ──────────────
@@ -148,9 +150,12 @@ export const Code: FC<CodeCompProps> = ({
     let cancelled = false;
     (async () => {
       const { deriveFileName } = await import('./codeTransformer');
-      if (!cancelled) setDisplayedFileName(deriveFileName(fileName, resolvedFormat));
+      if (!cancelled)
+        setDisplayedFileName(deriveFileName(fileName, resolvedFormat));
     })();
-    return () => { cancelled = true; };
+    return () => {
+      cancelled = true;
+    };
   }, [fileName, isMultiFormat, resolvedFormat]);
 
   // ── Async copy text (transformed code for CopyCode) ───────────────────────
@@ -171,7 +176,9 @@ export const Code: FC<CodeCompProps> = ({
       const { transformCode } = await import('./codeTransformer');
       if (!cancelled) setCopyCode(transformCode(rawCode, resolvedFormat));
     })();
-    return () => { cancelled = true; };
+    return () => {
+      cancelled = true;
+    };
   }, [rawCode, isMultiFormat, resolvedFormat]);
 
   const hadSelectInHeader =
@@ -197,9 +204,7 @@ export const Code: FC<CodeCompProps> = ({
         {showHeader && (
           <>
             <div className="grid w-full grid-cols-[1fr_auto] items-center justify-between rounded-t-xl bg-card/50 py-1.5 pr-12 pl-4 text-neutral text-xs">
-              <span className="truncate">
-                {displayedFileName ?? language}
-              </span>
+              <span className="truncate">{displayedFileName ?? language}</span>
               <div className="flex items-center gap-2">
                 {packageManager && <PackageManagerSelector />}
                 {rawCodeFormat && (

@@ -110,58 +110,6 @@ const component1Content = {
 export default component1Content;
 ```
 
-```jsx fileName="src/Component1/index.content.mjs" contentDeclarationFormat="esm"
-import { t } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const component1Content = {
-  key: "component-1",
-  content: {
-    myTranslatedContent: t({
-      en: "Hola Mundo",
-      fr: "Bonjour le monde",
-      es: "Hola Mundo",
-    }),
-    numberOfCar: enu({
-      "<-1": "Menos de menos un coche",
-      "-1": "Menos un coche",
-      "0": "Sin coches",
-      "1": "Un coche",
-      ">5": "Algunos coches",
-      ">19": "Muchos coches",
-    }),
-  },
-};
-
-export default component1Content;
-```
-
-```jsx fileName="src/Component1/index.content.cjs" contentDeclarationFormat="commonjs"
-const { t } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const component1Content = {
-  key: "component-1",
-  content: {
-    myTranslatedContent: t({
-      en: "Hola Mundo",
-      fr: "Bonjour le monde",
-      es: "Hola Mundo",
-    }),
-    numberOfCar: enu({
-      "<-1": "Menos de menos un coche",
-      "-1": "Menos un coche",
-      "0": "Sin coches",
-      "1": "Un coche",
-      ">5": "Algunos coches",
-      ">19": "Muchos coches",
-    }),
-  },
-};
-
-module.exports = component1Content;
-```
-
 ```json fileName="src/Component1/index.content.json" codeFormat="json"
 {
   "key": "component-1",

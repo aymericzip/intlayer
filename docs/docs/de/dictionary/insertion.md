@@ -56,38 +56,6 @@ Um Einfügeinhalt in Ihrem Intlayer-Projekt einzurichten, erstellen Sie ein Inha
     export default myInsertionContent;
     ```
 
-    ```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-    import { insert } from "intlayer";
-
-    /** @type {import('intlayer').Dictionary} */
-    const myInsertionContent = {
-      key: "my_key",
-      content: {
-        myInsertion: insert(
-          "Hallo, mein Name ist {{name}} und ich bin {{age}} Jahre alt!"
-        ),
-      },
-    };
-
-    export default myInsertionContent;
-    ```
-
-    ```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-    const { insert } = require("intlayer");
-
-    /** @type {import('intlayer').Dictionary} */
-    const myInsertionContent = {
-      key: "my_key",
-      content: {
-        myInsertion: insert(
-          "Hallo, mein Name ist {{name}} und ich bin {{age}} Jahre alt!"
-        ),
-      },
-    };
-
-    module.exports = myInsertionContent;
-    ```
-
     ```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
     {
       "$schema": "https://intlayer.org/schema.json",
@@ -118,30 +86,6 @@ Um Einfügeinhalt in Ihrem Intlayer-Projekt einzurichten, erstellen Sie ein Inha
     export default myInsertionContent;
     ```
 
-    ```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-    /** @type {import('intlayer').Dictionary} */
-    const myInsertionContent = {
-      key: "my_key",
-      content: {
-        myInsertion: "Hallo, mein Name ist {{name}} und ich bin {{age}} Jahre alt!",
-      },
-    };
-
-    export default myInsertionContent;
-    ```
-
-    ```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-    /** @type {import('intlayer').Dictionary} */
-    const myInsertionContent = {
-      key: "my_key",
-      content: {
-        myInsertion: "Hallo, mein Name ist {{name}} und ich bin {{age}} Jahre alt!",
-      },
-    };
-
-    module.exports = myInsertionContent;
-    ```
-
     ```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
     {
       "$schema": "https://intlayer.org/schema.json",
@@ -154,42 +98,6 @@ Um Einfügeinhalt in Ihrem Intlayer-Projekt einzurichten, erstellen Sie ein Inha
 
   </Tab>
 </Tabs>
-
-```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-import { insert } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const myInsertionContent = {
-  key: "my_key",
-  content: {
-    myInsertion: insert(
-      "Hallo, mein Name ist {{name}} und ich bin {{age}} Jahre alt!"
-    ),
-    myInsertion2:
-      "Hallo, mein Name ist {{name}} und ich bin {{age}} Jahre alt!", // Since intlayer v8, insertion function is not required anymore. The content will be automatically decorated.
-  },
-};
-
-export default myInsertionContent;
-```
-
-```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-const { insert } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const myInsertionContent = {
-  key: "my_key",
-  content: {
-    myInsertion: insert(
-      "Hallo, mein Name ist {{name}} und ich bin {{age}} Jahre alt!"
-    ),
-    myInsertion2: "Hallo, mein Name ist {{name}} und ich bin {{age}} Jahre alt!", // Since intlayer v8, insertion function is not required anymore. The content will be automatically decorated.
-  },
-};
-
-module.exports = myInsertionContent;
-```
 
 ```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
 {
