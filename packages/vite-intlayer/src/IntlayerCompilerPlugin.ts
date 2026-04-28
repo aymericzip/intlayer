@@ -327,7 +327,7 @@ export const intlayerCompiler = (
   /**
    * Transform a file using the appropriate extraction plugin based on file type.
    * Delegates to `extractContent` from `@intlayer/babel` which handles
-   * JS/TS/JSX/TSX/Vue/Svelte extraction and transformation.
+   * JS/TS/JSX/TSX/Vue/Svelte/Astro extraction and transformation.
    */
   const transformHandler = async (code: string, id: string) => {
     // Only transform if compiler is enabled

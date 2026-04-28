@@ -498,13 +498,14 @@ export const processSvelteFile = (
   _componentKey: string,
   packageName: string,
   tools: Tools,
-  save: boolean = true
+  save: boolean = true,
+  providedCode?: string
 ): {
   extractedContent: Record<string, string>;
   code: string;
   map?: any;
 } | null => {
-  const code = readFileSync(filePath, 'utf-8');
+  const code = providedCode ?? readFileSync(filePath, 'utf-8');
   let extractedContent: Record<string, string> | null = null;
 
   const result = intlayerSvelteExtract(code, filePath, {

@@ -137,7 +137,8 @@ const processFileInternal = (
       componentKey,
       packageName,
       compilerCommonOptions,
-      saveComponent
+      saveComponent,
+      fileText
     );
 
     if (res) {
@@ -157,7 +158,8 @@ const processFileInternal = (
       componentKey,
       packageName,
       compilerCommonOptions,
-      saveComponent
+      saveComponent,
+      fileText
     );
 
     if (res) {

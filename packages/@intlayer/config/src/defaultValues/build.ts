@@ -3,7 +3,7 @@ export const BUILD_MODE = 'auto';
 export const OPTIMIZE = undefined;
 
 export const TRAVERSE_PATTERN = [
-  '**/*.{tsx,ts,js,mjs,cjs,jsx,vue,svelte,svte,astro}',
+  '**/*.{tsx,ts,js,mjs,cjs,jsx,vue,svelte,astro}',
 
   '!**/node_modules/**',
   '!**/dist/**',
