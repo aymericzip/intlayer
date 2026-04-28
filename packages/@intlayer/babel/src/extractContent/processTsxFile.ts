@@ -106,7 +106,16 @@ export const processTsxFile = (
     let current: NodePath | null = path;
     while (current) {
       if (componentNodeToPath.has(current.node)) {
-        return existingInfoCache.get(current.node);
+        const componentPath = componentNodeToPath.get(current.node)!;
+
+        const existingInfo = existingInfoCache.get(current.node);
+        if (existingInfo) {
+          return existingInfo;
+        }
+
+        if (componentsNeedingHooks.has(componentPath)) {
+          return undefined;
+        }
       }
       current = current.parentPath;
     }
@@ -136,6 +145,36 @@ export const processTsxFile = (
     return 'useIntlayer';
   };
 
+  const generatedVarNames = new Map<NodePath, string>();
+  for (const componentPath of componentsNeedingHooks) {
+    let varName = 'content';
+    let counter = 1;
+    while (componentPath.scope.hasBinding(varName)) {
+      varName = `content${counter}`;
+      counter++;
+    }
+    generatedVarNames.set(componentPath, varName);
+  }
+
+  const getProvidingVarName = (path: NodePath): string => {
+    let current: NodePath | null = path;
+    while (current) {
+      const componentPath = componentNodeToPath.get(current.node);
+
+      if (componentPath) {
+        const existingInfo = existingInfoCache.get(componentPath.node);
+        if (existingInfo) {
+          return existingInfo.variableName ?? 'content';
+        }
+        if (componentsNeedingHooks.has(componentPath)) {
+          return generatedVarNames.get(componentPath) || 'content';
+        }
+      }
+      current = current.parentPath;
+    }
+    return 'content';
+  };
+
   for (const {
     path,
     key,
@@ -146,7 +185,7 @@ export const processTsxFile = (
     const existingInfo = getExistingInfoForPath(path);
     // When the existing call is destructured (e.g. `const { a } = getIntlayer(...)`),
     // new keys are added directly to that destructuring, so access them by name alone.
-    const varName = existingInfo?.variableName ?? 'content';
+    const varName = existingInfo?.variableName ?? getProvidingVarName(path);
     const contentAccessCode = existingInfo?.isDestructured
       ? key
       : isSolid
@@ -285,7 +324,8 @@ export const processTsxFile = (
 
       if (hook === 'getIntlayer') needsGetIntlayer = true;
 
-      const hookStatementStr = `\n  const content = ${hook}('${finalKey}');\n`;
+      const hookVarName = generatedVarNames.get(componentPath) || 'content';
+      const hookStatementStr = `\n  const ${hookVarName} = ${hook}('${finalKey}');\n`;
 
       if (componentPath.isProgram()) {
         // Find the last import or directive to inject the getIntlayer call
@@ -300,6 +340,10 @@ export const processTsxFile = (
           if (t.isImportDeclaration(stmt)) {
             insertPos = Math.max(insertPos, stmt.end!);
           }
+        }
+
+        if (insertPos === 0 && componentPath.node.body.length > 0) {
+          insertPos = componentPath.node.body[0].start!;
         }
 
         textEdits.push({

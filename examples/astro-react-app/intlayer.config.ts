@@ -1,0 +1,57 @@
+import { type IntlayerConfig, Locales } from 'intlayer';
+import { z } from 'zod';
+
+const config: IntlayerConfig = {
+  internationalization: {
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
+  },
+  editor: {
+    enabled: false,
+    applicationURL: 'http://localhost:5173',
+    editorURL: 'http://localhost:8000',
+    // cmsURL: 'http://localhost:3000',
+    // backendURL: 'http://localhost:3100',
+    // clientId: process.env.INTLAYER_CLIENT_ID,
+    // clientSecret: process.env.INTLAYER_CLIENT_SECRET,
+  },
+  ai: {
+    provider: 'openai',
+    model: 'gpt-5-mini',
+    apiKey: process.env.OPENAI_API_KEY,
+    applicationContext: 'This is a test application',
+    dataSerialization: 'json',
+  },
+  content: {
+    contentDir: ['./src', './compiler'],
+  },
+  log: {
+    mode: 'verbose',
+  },
+  dictionary: {
+    location: 'hybrid',
+    importMode: 'dynamic',
+    fill: './{{fileName}}.{{locale}}.content.json',
+  },
+  compiler: {
+    enabled: false,
+    output: (ctx) => `./${ctx.fileName}.content.ts`,
+    noMetadata: false,
+    saveComponents: true,
+  },
+  routing: {
+    storage: ['cookie', 'localStorage', 'header'],
+  },
+  build: {
+    minify: true,
+    purge: true,
+  },
+  schemas: {
+    user: z.object({
+      name: z.string(),
+      age: z.number(),
+    }),
+  },
+};
+
+export default config;

@@ -166,17 +166,27 @@ const processFileInternal = (
   }
 
   if (ext === '.astro') {
-    // Astro frontmatter is the TypeScript block between the opening and closing
-    // --- fences at the top of the file. Extract it, process it as plain TS,
-    // then splice the modified script back, preserving the HTML template.
     const frontmatterMatch = /^---\r?\n([\s\S]*?)\r?\n---/.exec(fileText);
-    if (!frontmatterMatch) return undefined;
+    let fakeTsxCode = fileText;
+    let hasFrontmatter = false;
 
-    const openingFence = fileText.slice(0, fileText.indexOf('\n') + 1); // "---\n" or "---\r\n"
-    const frontmatterContent = frontmatterMatch[1];
-    const rest = fileText.slice(
-      openingFence.length + frontmatterContent.length
-    ); // "\n---\n<html>…"
+    if (frontmatterMatch) {
+      hasFrontmatter = true;
+      const matchStart = frontmatterMatch.index;
+      const matchEnd = matchStart + frontmatterMatch[0].length;
+
+      const before = fileText.substring(0, matchStart);
+      const matchText = frontmatterMatch[0];
+      const after = fileText.substring(matchEnd);
+
+      const newMatchText = matchText
+        .replace(/^---/, '///')
+        .replace(/---$/, '///');
+      fakeTsxCode = before + newMatchText + after;
+    } else {
+      // Add empty frontmatter with a dummy statement so imports get injected properly
+      fakeTsxCode = `///\n;\n///\n${fileText}`;
+    }
 
     const result = processTsxFile(
       filePath,
@@ -185,15 +195,33 @@ const processFileInternal = (
       configuration,
       false, // don't let processTsxFile write — we reconstruct the full file below
       unmergedDictionaries,
-      frontmatterContent
+      fakeTsxCode
     );
 
     if (!result) return undefined;
 
-    const modifiedFullCode = openingFence + result.modifiedCode + rest;
+    let modifiedFullCode = result.modifiedCode
+      .replace(/^\s*\/\/\//, '---')
+      .replace(/\n\/\/\//, '\n---');
+
+    if (!hasFrontmatter) {
+      modifiedFullCode = modifiedFullCode.replace(/\n;\n---\n/, '\n---\n');
+    }
 
     if (saveComponent) {
       writeFileSync(filePath, modifiedFullCode);
+
+      const formatCommand = detectFormatCommand(configuration);
+      if (formatCommand) {
+        try {
+          execSync(formatCommand.replace('{{file}}', filePath), {
+            stdio: 'inherit',
+            cwd: dependencies.configuration.system.baseDir,
+          });
+        } catch (error) {
+          console.error(error);
+        }
+      }
     }
 
     return {

@@ -724,7 +724,7 @@ export const useCustomHook = () => {
       expect(updatedCode).toMatch(/^---\n[\s\S]*?\n---\n/);
     });
 
-    it('should return undefined for an Astro file with no frontmatter', async () => {
+    it('should extract strings from an Astro file with no frontmatter and add frontmatter', async () => {
       const componentPath = join(tmpDir, 'static.astro');
       const componentCode = '<html><body><h1>Static page</h1></body></html>';
 
@@ -732,9 +732,12 @@ export const useCustomHook = () => {
 
       const result = await extractContent(componentPath, 'react-intlayer');
 
-      expect(result).toBeUndefined();
-      // File must be unchanged
-      expect(readFileSync(componentPath, 'utf-8')).toBe(componentCode);
+      expect(result).toBeDefined();
+      expect(result!.transformedCode).toMatch(/^---\n[\s\S]*?\n---\n/);
+      expect(result!.transformedCode).toContain('content.staticPage');
+      expect(result!.transformedCode).toContain(
+        '<h1>{content.staticPage}</h1>'
+      );
     });
 
     it('should return undefined when frontmatter has no extractable strings', async () => {
@@ -1035,6 +1038,44 @@ export const trailingComma = (locale: string) => {
       expect(updatedCode).toContain('newAuthorName');
       // No duplicate call
       const callCount = (updatedCode.match(/getIntlayer\(/g) ?? []).length;
+      expect(callCount).toBe(1);
+    });
+    it('should inherit component key from ancestor for inner functions', async () => {
+      const componentPath = join(tmpDir, 'LocaleSwitcher.tsx');
+      const componentCode = `
+export function LocaleSwitcher() {
+  const { switchLocale } = useIntlayer("react-demo");
+
+  return (
+    <div className="locale-switcher">
+      <span className="switcher-label">{switchLocale}:</span>
+      <div className="locale-buttons">
+        {[].map((localeItem) => (
+          <button
+            key={localeItem}
+            onClick={() => {}}
+          >
+            here content to extract
+            <span className="ls-code">{localeItem}</span>
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+`;
+
+      writeFileSync(componentPath, componentCode);
+      await extractContent(componentPath, 'react-intlayer', { codeOnly: true });
+
+      const updatedCode = readFileSync(componentPath, 'utf-8');
+
+      expect(updatedCode).toMatch(
+        /const \{\s*switchLocale,\s*hereContentToExtract\s*\} = useIntlayer\(['"]react-demo['"]\);/
+      );
+      expect(updatedCode).toContain('{hereContentToExtract}');
+      expect(updatedCode).not.toContain('getIntlayer(');
+      const callCount = (updatedCode.match(/useIntlayer\(/g) ?? []).length;
       expect(callCount).toBe(1);
     });
   });

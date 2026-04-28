@@ -238,17 +238,31 @@ export const extractBabelContentForComponents = (
         componentKeyMap.set(path.node, globalFileKey);
         hookMap.set(path.node, 'getIntlayer');
       } else {
-        if (!globalFileKey) {
-          globalFileKey = resolveDictionaryKey(
-            defaultKey,
-            filePath,
-            configuration,
-            unmergedDictionaries,
-            usedKeysInFile
-          );
-          usedKeysInFile.add(globalFileKey);
+        let inheritedKey: string | undefined;
+        let parent: NodePath | null = path.parentPath;
+        while (parent) {
+          if (componentKeyMap.has(parent.node)) {
+            inheritedKey = componentKeyMap.get(parent.node);
+            break;
+          }
+          parent = parent.parentPath;
         }
-        componentKeyMap.set(path.node, globalFileKey);
+
+        if (!inheritedKey) {
+          if (!globalFileKey) {
+            globalFileKey = resolveDictionaryKey(
+              defaultKey,
+              filePath,
+              configuration,
+              unmergedDictionaries,
+              usedKeysInFile
+            );
+            usedKeysInFile.add(globalFileKey);
+          }
+          inheritedKey = globalFileKey;
+        }
+
+        componentKeyMap.set(path.node, inheritedKey);
 
         const compName = getComponentName(path);
         const isComponent = compName ? /^[A-Z]/.test(compName) : false;
