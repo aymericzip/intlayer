@@ -82,7 +82,7 @@
     "@intlayer/dictionaries-entry": "workspace:*",
     "@intlayer/types": "workspace:*",
     "fast-glob": "3.3.3",
-    "webpack": "5.105.4",
+    "webpack": "5.106.2",
     "webpack-dev-server": "5.2.3"
   },
   "devDependencies": {

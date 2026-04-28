@@ -120,7 +120,7 @@
     "defu": "6.1.7",
     "fast-glob": "3.3.3",
     "recast": "^0.23.11",
-    "simple-git": "3.33.0",
+    "simple-git": "3.36.0",
     "zod-to-ts": "2.0.0"
   },
   "devDependencies": {
