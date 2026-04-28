@@ -575,10 +575,6 @@ export const intlayerOptimize = async (
 
           if (!transformResult) return null;
 
-          console.log({
-            code: transformResult.code,
-          });
-
           return {
             code: transformResult.code,
             map: transformResult.map as any,
