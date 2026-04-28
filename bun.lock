@@ -972,7 +972,7 @@
     },
     "packages/@intlayer/ai": {
       "name": "@intlayer/ai",
-      "version": "8.7.9",
+      "version": "8.7.10",
       "dependencies": {
         "@ai-sdk/anthropic": "3.0.71",
         "@ai-sdk/google": "3.0.64",

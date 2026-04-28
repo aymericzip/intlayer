@@ -153,22 +153,70 @@ export default appContent;
 You can consume dictionaries directly in `.astro` files using the core helpers exported by `intlayer`.
 
 ```astro fileName="src/pages/index.astro"
-<!-- astro -->
 ---
-import { getIntlayer } from "intlayer";
-import appContent from "../app.content";
+import {
+  getIntlayer,
+  getLocaleFromPath,
+  getLocalizedUrl,
+  defaultLocale,
+  localeMap,
+  getHTMLTextDir,
+  type LocalesValues,
+} from "intlayer";
+import LocaleSwitcher from "../components/LocaleSwitcher.astro";
 
-const { title } = getIntlayer('app');
+// Get the current locale from the URL (e.g. /es/about -> 'es')
+const locale = getLocaleFromPath(Astro.url.pathname) as LocalesValues;
+
+// Get the content for the 'app' dictionary
+const { title } = getIntlayer("app", locale);
 ---
 
-<html lang="en">
+<!doctype html>
+<html lang={locale} dir={getHTMLTextDir(locale)}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
+
+    <!-- Canonical link: Tells search engines which is the primary version of this page -->
+    <link
+      rel="canonical"
+      href={new URL(getLocalizedUrl(Astro.url.pathname, locale), Astro.site)}
+    />
+
+    <!-- Hreflang: Tell Google about all localized versions -->
+    {
+      localeMap(({ locale: mapLocale }) => (
+        <link
+          rel="alternate"
+          hreflang={mapLocale}
+          href={new URL(
+            getLocalizedUrl(Astro.url.pathname, mapLocale),
+            Astro.site
+          )}
+        />
+      ))
+    }
+
+    <!-- x-default: Fallback for users in unmatched languages -->
+    <link
+      rel="alternate"
+      hreflang="x-default"
+      href={new URL(
+        getLocalizedUrl(Astro.url.pathname, defaultLocale),
+        Astro.site
+      )}
+    />
   </head>
   <body>
-    <h1>{title}</h1>
+    <header>
+      <LocaleSwitcher />
+    </header>
+    <main>
+      <h1>{title}</h1>
+    </main>
   </body>
 </html>
 ```
