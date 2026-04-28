@@ -261,5 +261,114 @@ describe('makeUsageAnalyzerBabelPlugin', () => {
         ctx.pendingFrameworkAnalysis.has('/app/src/Component.svelte')
       ).toBe(true);
     });
+
+    it('registers Astro files in pendingFrameworkAnalysis for plain variable bindings', () => {
+      // In Astro, the variable declared in the frontmatter is used in the
+      // HTML template — invisible to Babel — so it must be deferred.
+      const ctx = analyze(
+        `
+        import { getIntlayer } from 'intlayer';
+        const content = getIntlayer('homepage', locale);
+        `,
+        '/app/src/pages/index.astro'
+      );
+
+      expect(
+        ctx.pendingFrameworkAnalysis.has('/app/src/pages/index.astro')
+      ).toBe(true);
+      const pending = ctx.pendingFrameworkAnalysis.get(
+        '/app/src/pages/index.astro'
+      )!;
+      expect(pending.some((e) => e.dictionaryKey === 'homepage')).toBe(true);
+    });
+  });
+
+  describe('Solid / Angular signal accessor pattern', () => {
+    it('records fields accessed via content().field', () => {
+      const ctx = analyze(`
+        import { useIntlayer } from 'solid-intlayer';
+        const content = useIntlayer('homepage');
+        const t = content().title;
+        const d = content().description;
+      `);
+
+      const usage = ctx.dictionaryKeyToFieldUsageMap.get('homepage');
+      expect(usage).toBeInstanceOf(Set);
+      expect(usage as Set<string>).toContain('title');
+      expect(usage as Set<string>).toContain('description');
+      expect((usage as Set<string>).size).toBe(2);
+    });
+
+    it('records fields accessed via content()?.field (optional chaining)', () => {
+      const ctx = analyze(`
+        import { useIntlayer } from 'solid-intlayer';
+        const content = useIntlayer('homepage');
+        const t = content()?.title;
+      `);
+
+      const usage = ctx.dictionaryKeyToFieldUsageMap.get('homepage');
+      expect(usage).toBeInstanceOf(Set);
+      expect(usage as Set<string>).toContain('title');
+    });
+
+    it('marks "all" when content() is passed opaquely (no field access)', () => {
+      const ctx = analyze(`
+        import { useIntlayer } from 'solid-intlayer';
+        const content = useIntlayer('homepage');
+        doSomething(content());
+      `);
+
+      expect(ctx.dictionaryKeyToFieldUsageMap.get('homepage')).toBe('all');
+    });
+
+    it('marks "all" when content()[dynamicKey] is used', () => {
+      const ctx = analyze(`
+        import { useIntlayer } from 'solid-intlayer';
+        const content = useIntlayer('homepage');
+        const key = 'title';
+        const t = content()[key];
+      `);
+
+      expect(ctx.dictionaryKeyToFieldUsageMap.get('homepage')).toBe('all');
+    });
+
+    it('mixes signal accessor with direct member access on the same key', () => {
+      const ctx = analyze(`
+        import { useIntlayer } from 'solid-intlayer';
+        const content = useIntlayer('homepage');
+        const a = content().title;
+        const b = content().subtitle;
+      `);
+
+      const usage = ctx.dictionaryKeyToFieldUsageMap.get('homepage');
+      expect(usage).toBeInstanceOf(Set);
+      expect(usage as Set<string>).toContain('title');
+      expect(usage as Set<string>).toContain('subtitle');
+    });
+
+    it('records fields from destructuring the signal call', () => {
+      const ctx = analyze(`
+        import { useIntlayer } from 'solid-intlayer';
+        const content = useIntlayer('homepage');
+        const { title, description } = content();
+      `);
+
+      const usage = ctx.dictionaryKeyToFieldUsageMap.get('homepage');
+      expect(usage).toBeInstanceOf(Set);
+      expect(usage as Set<string>).toContain('title');
+      expect(usage as Set<string>).toContain('description');
+    });
+
+    it('records fields from optional call expression', () => {
+      const ctx = analyze(`
+        import { useIntlayer } from 'solid-intlayer';
+        const content = useIntlayer('homepage');
+        const t = content?.().title;
+      `);
+
+      const usage = ctx.dictionaryKeyToFieldUsageMap.get('homepage');
+      expect(usage).toBeInstanceOf(Set);
+      expect(usage as Set<string>).toContain('title');
+    });
   });
 });

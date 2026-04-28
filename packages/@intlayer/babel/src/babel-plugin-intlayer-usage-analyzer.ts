@@ -269,22 +269,20 @@ const analyzeCallExpressionUsage = (
     markOpaqueField(fieldName, refPath.node.loc?.start.line);
   };
 
-  // ── Pattern 1: const { fieldA, fieldB } = useIntlayer('key') ──────────────
-  if (
-    babelTypes.isVariableDeclarator(parentNode) &&
-    babelTypes.isObjectPattern(parentNode.id)
-  ) {
-    const hasRestElement = parentNode.id.properties.some((prop) =>
-      babelTypes.isRestElement(prop)
-    );
-
-    if (hasRestElement) {
-      recordFieldUsage(pruneContext, dictionaryKey, 'all');
-      return;
+  /**
+   * Helper to collect field names from an ObjectPattern (destructuring).
+   * Returns true if successful, false if a rest element was found (meaning 'all').
+   */
+  const collectFieldsFromObjectPattern = (
+    pattern: BabelTypes.ObjectPattern,
+    initPath: NodePath<BabelTypes.Node>,
+    targetSet: Set<string>
+  ): boolean => {
+    if (pattern.properties.some((prop) => babelTypes.isRestElement(prop))) {
+      return false;
     }
 
-    const accessedFieldNames = new Set<string>();
-    for (const property of parentNode.id.properties) {
+    for (const property of pattern.properties) {
       let fieldName: string | undefined;
 
       if (
@@ -300,14 +298,13 @@ const analyzeCallExpressionUsage = (
       }
 
       if (fieldName) {
-        accessedFieldNames.add(fieldName);
+        targetSet.add(fieldName);
 
-        // Check usage of the bound variable to look for opaque consumption
         if (
           babelTypes.isObjectProperty(property) &&
           babelTypes.isIdentifier(property.value)
         ) {
-          const variableBinding = callExpressionPath.scope.getBinding(
+          const variableBinding = initPath.scope.getBinding(
             property.value.name
           );
           if (variableBinding) {
@@ -318,8 +315,26 @@ const analyzeCallExpressionUsage = (
         }
       }
     }
+    return true;
+  };
 
-    recordFieldUsage(pruneContext, dictionaryKey, accessedFieldNames);
+  // ── Pattern 1: const { fieldA, fieldB } = useIntlayer('key') ──────────────
+  if (
+    babelTypes.isVariableDeclarator(parentNode) &&
+    babelTypes.isObjectPattern(parentNode.id)
+  ) {
+    const accessedFieldNames = new Set<string>();
+    if (
+      collectFieldsFromObjectPattern(
+        parentNode.id,
+        callExpressionPath,
+        accessedFieldNames
+      )
+    ) {
+      recordFieldUsage(pruneContext, dictionaryKey, accessedFieldNames);
+    } else {
+      recordFieldUsage(pruneContext, dictionaryKey, 'all');
+    }
     return;
   }
 
@@ -411,6 +426,66 @@ const analyzeCallExpressionUsage = (
         }
       } else if (babelTypes.isArrayExpression(referenceParentNode)) {
         // Ignore array literals (e.g. [content]) – uncommon but benign
+      } else if (
+        // Solid / Angular: content() signal accessor → content().field
+        (babelTypes.isCallExpression(referenceParentNode) ||
+          babelTypes.isOptionalCallExpression(referenceParentNode)) &&
+        (referenceParentNode as BabelTypes.CallExpression).callee ===
+          variableReferencePath.node
+      ) {
+        const callExprPath = variableReferencePath.parentPath;
+        const callParent = callExprPath?.parent;
+
+        if (
+          callParent &&
+          (babelTypes.isMemberExpression(callParent) ||
+            babelTypes.isOptionalMemberExpression(callParent)) &&
+          (callParent as BabelTypes.MemberExpression).object ===
+            callExprPath?.node
+        ) {
+          // content().field
+          const memberExpr = callParent as BabelTypes.MemberExpression;
+          let fieldName: string | undefined;
+
+          if (
+            !memberExpr.computed &&
+            babelTypes.isIdentifier(memberExpr.property)
+          ) {
+            fieldName = memberExpr.property.name;
+          } else if (
+            memberExpr.computed &&
+            babelTypes.isStringLiteral(memberExpr.property)
+          ) {
+            fieldName = memberExpr.property.value;
+          }
+
+          if (fieldName) {
+            accessedTopLevelFieldNames.add(fieldName);
+            const memberExprPath = callExprPath?.parentPath;
+            if (memberExprPath) analyzeOpaqueUsage(memberExprPath, fieldName);
+          } else {
+            // content()[dynamicKey] – cannot resolve statically
+            hasUntrackedReferenceAccess = true;
+            break;
+          }
+        } else if (
+          callParent &&
+          babelTypes.isVariableDeclarator(callParent) &&
+          babelTypes.isObjectPattern(callParent.id) &&
+          callExprPath &&
+          collectFieldsFromObjectPattern(
+            callParent.id,
+            callExprPath,
+            accessedTopLevelFieldNames
+          )
+        ) {
+          // const { title } = content()
+          // fields already added to accessedTopLevelFieldNames by collectFieldsFromObjectPattern
+        } else {
+          // content() with no field access or passed opaquely → cannot prune
+          hasUntrackedReferenceAccess = true;
+          break;
+        }
       } else {
         // Variable used in a non-member-access context (spread, function arg, etc.)
         hasUntrackedReferenceAccess = true;
@@ -461,7 +536,8 @@ export const makeUsageAnalyzerBabelPlugin =
             state.file.opts.filename ?? 'unknown file';
           const isSfcFile =
             currentSourceFilePath.endsWith('.vue') ||
-            currentSourceFilePath.endsWith('.svelte');
+            currentSourceFilePath.endsWith('.svelte') ||
+            currentSourceFilePath.endsWith('.astro');
 
           // Phase 1: collect local aliases for useIntlayer / getIntlayer
           const intlayerCallerLocalNameMap = new Map<string, string>();

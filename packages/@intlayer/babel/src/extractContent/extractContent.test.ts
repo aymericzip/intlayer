@@ -687,6 +687,96 @@ export const useCustomHook = () => {
     expect(matches?.length).toBe(3); // 1 for str1, 1 for str2, 1 for title
   });
 
+  describe('Astro frontmatter', () => {
+    it('should extract strings from Astro frontmatter and preserve the HTML template', async () => {
+      // Use a non-index filename so the key is derived from the filename, not the directory.
+      const componentPath = join(tmpDir, 'WelcomePage.astro');
+      const componentCode = [
+        '---',
+        'const pageTitle = "Welcome to Astro";',
+        'const subtitle = "Build faster websites";',
+        '---',
+        '<html>',
+        '  <h1>{pageTitle}</h1>',
+        '  <p>{subtitle}</p>',
+        '</html>',
+      ].join('\n');
+
+      writeFileSync(componentPath, componentCode);
+
+      await extractContent(componentPath, 'react-intlayer');
+
+      const updatedCode = readFileSync(componentPath, 'utf-8');
+
+      // Frontmatter must be modified: strings replaced with getIntlayer references
+      expect(updatedCode).toContain("import { getIntlayer } from 'intlayer';");
+      expect(updatedCode).toMatch(
+        /const content = getIntlayer\(['"]welcome-page['"]\);/
+      );
+      expect(updatedCode).toContain('content.welcomeToAstro');
+      expect(updatedCode).toContain('content.buildFasterWebsites');
+
+      // HTML template (after the closing ---) must be untouched
+      expect(updatedCode).toContain('  <h1>{pageTitle}</h1>');
+      expect(updatedCode).toContain('  <p>{subtitle}</p>');
+
+      // File must still have valid --- fences wrapping the frontmatter
+      expect(updatedCode).toMatch(/^---\n[\s\S]*?\n---\n/);
+    });
+
+    it('should return undefined for an Astro file with no frontmatter', async () => {
+      const componentPath = join(tmpDir, 'static.astro');
+      const componentCode = '<html><body><h1>Static page</h1></body></html>';
+
+      writeFileSync(componentPath, componentCode);
+
+      const result = await extractContent(componentPath, 'react-intlayer');
+
+      expect(result).toBeUndefined();
+      // File must be unchanged
+      expect(readFileSync(componentPath, 'utf-8')).toBe(componentCode);
+    });
+
+    it('should return undefined when frontmatter has no extractable strings', async () => {
+      const componentPath = join(tmpDir, 'NoStrings.astro');
+      const componentCode = [
+        '---',
+        'import { getLocaleFromPath } from "intlayer";',
+        'const locale = getLocaleFromPath(Astro.url.pathname);',
+        '---',
+        '<p>{locale}</p>',
+      ].join('\n');
+
+      writeFileSync(componentPath, componentCode);
+
+      const result = await extractContent(componentPath, 'react-intlayer');
+
+      expect(result).toBeUndefined();
+      expect(readFileSync(componentPath, 'utf-8')).toBe(componentCode);
+    });
+
+    it('should not write the file when codeOnly is true', async () => {
+      const componentPath = join(tmpDir, 'CodeOnly.astro');
+      const componentCode = [
+        '---',
+        'const msg = "Hello Astro";',
+        '---',
+        '<p>{msg}</p>',
+      ].join('\n');
+
+      writeFileSync(componentPath, componentCode);
+
+      const result = await extractContent(componentPath, 'react-intlayer', {
+        codeOnly: true,
+      });
+
+      // transformedCode is the reconstructed file (frontmatter + template)
+      expect(result?.transformedCode).toContain('content.helloAstro');
+      expect(result?.transformedCode).toContain('<p>{msg}</p>');
+      expect(result?.transformedCode).toMatch(/^---\n[\s\S]*?\n---\n/);
+    });
+  });
+
   describe('extractIntlayer - Arrow Functions and Direct Returns', () => {
     const tmpDir = join(process.cwd(), 'tmp_test_arrow_functions');
 

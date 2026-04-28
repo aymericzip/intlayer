@@ -16,7 +16,12 @@ import {
 } from '@intlayer/chokidar/utils';
 import * as ANSIColors from '@intlayer/config/colors';
 import { IMPORT_MODE } from '@intlayer/config/defaultValues';
-import { colorize, colorizeKey, getAppLogger } from '@intlayer/config/logger';
+import {
+  colorize,
+  colorizeKey,
+  colorizeNumber,
+  getAppLogger,
+} from '@intlayer/config/logger';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import type { Dictionary } from '@intlayer/types/dictionary';
@@ -166,15 +171,21 @@ export const intlayerOptimize = async (
             })
           );
 
-          // Phase 2: Framework-specific analysis for Vue / Svelte SFC bindings
-          // that Babel scope analysis cannot resolve (`.value` indirection in
-          // Vue, `$` prefix in Svelte).
+          // Phase 2: Framework-specific analysis for Vue / Svelte / Astro SFC
+          // bindings that Babel scope analysis cannot resolve:
+          //   Vue    → `.value` ref-accessor indirection
+          //   Svelte → `$` reactive store prefix
+          //   Astro  → frontmatter variables referenced in the HTML template
           if (pruneContext.pendingFrameworkAnalysis.size > 0) {
             const vuePending = new Map<
               string,
               { variableName: string; dictionaryKey: string }[]
             >();
             const sveltePending = new Map<
+              string,
+              { variableName: string; dictionaryKey: string }[]
+            >();
+            const astroPending = new Map<
               string,
               { variableName: string; dictionaryKey: string }[]
             >();
@@ -187,6 +198,8 @@ export const intlayerOptimize = async (
                 vuePending.set(filePath, entries);
               } else if (filePath.endsWith('.svelte')) {
                 sveltePending.set(filePath, entries);
+              } else if (filePath.endsWith('.astro')) {
+                astroPending.set(filePath, entries);
               }
             }
 
@@ -310,6 +323,52 @@ export const intlayerOptimize = async (
                   mergeFrameworkResult(
                     dictionaryKey,
                     result.get(dictionaryKey)
+                  );
+                }
+              }
+            }
+
+            // Astro files
+            // Frontmatter variables are used in the HTML template, which is not
+            // visible to Babel's scope analysis.  Scan the template section for
+            // `variableName.fieldName` accesses using a lightweight regex pass.
+            if (astroPending.size > 0) {
+              for (const [filePath, entries] of astroPending) {
+                let fileCode: string;
+                try {
+                  fileCode = await readFile(filePath, 'utf-8');
+                } catch {
+                  for (const { dictionaryKey } of entries) {
+                    mergeFrameworkResult(dictionaryKey, undefined);
+                  }
+                  continue;
+                }
+
+                // Extract only the template (everything after the closing ---).
+                // The frontmatter was already handled by Babel in Phase 1.
+                const fenceMatch = /^---\r?\n[\s\S]*?\r?\n---/.exec(fileCode);
+                const template = fenceMatch
+                  ? fileCode.slice(fenceMatch.index + fenceMatch[0].length)
+                  : fileCode;
+
+                for (const { variableName, dictionaryKey } of entries) {
+                  const escapedVar = variableName.replace(
+                    /[.*+?^${}()|[\]\\]/g,
+                    '\\$&'
+                  );
+                  const fieldRe = new RegExp(
+                    `\\b${escapedVar}\\.([a-zA-Z_$][a-zA-Z0-9_$]*)`,
+                    'g'
+                  );
+                  const foundFields = new Set<string>();
+                  let m = fieldRe.exec(template);
+                  while (m !== null) {
+                    foundFields.add(m[1]);
+                    m = fieldRe.exec(template);
+                  }
+                  mergeFrameworkResult(
+                    dictionaryKey,
+                    foundFields.size > 0 ? foundFields : undefined
                   );
                 }
               }

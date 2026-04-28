@@ -1,5 +1,5 @@
 import { execSync } from 'node:child_process';
-import { readFileSync } from 'node:fs';
+import { readFileSync, writeFileSync } from 'node:fs';
 import { extname, relative } from 'node:path';
 import type * as t from '@babel/types';
 import { detectFormatCommand } from '@intlayer/chokidar/cli';
@@ -163,6 +163,43 @@ const processFileInternal = (
     if (res) {
       return formatCompilerResult(componentKey, res);
     }
+  }
+
+  if (ext === '.astro') {
+    // Astro frontmatter is the TypeScript block between the opening and closing
+    // --- fences at the top of the file. Extract it, process it as plain TS,
+    // then splice the modified script back, preserving the HTML template.
+    const frontmatterMatch = /^---\r?\n([\s\S]*?)\r?\n---/.exec(fileText);
+    if (!frontmatterMatch) return undefined;
+
+    const openingFence = fileText.slice(0, fileText.indexOf('\n') + 1); // "---\n" or "---\r\n"
+    const frontmatterContent = frontmatterMatch[1];
+    const rest = fileText.slice(
+      openingFence.length + frontmatterContent.length
+    ); // "\n---\n<html>…"
+
+    const result = processTsxFile(
+      filePath,
+      componentKey,
+      packageName,
+      configuration,
+      false, // don't let processTsxFile write — we reconstruct the full file below
+      unmergedDictionaries,
+      frontmatterContent
+    );
+
+    if (!result) return undefined;
+
+    const modifiedFullCode = openingFence + result.modifiedCode + rest;
+
+    if (saveComponent) {
+      writeFileSync(filePath, modifiedFullCode);
+    }
+
+    return {
+      extractedContentMap: result.extractedContent,
+      transformedCode: modifiedFullCode,
+    };
   }
 
   if (['.tsx', '.jsx', '.ts', '.js', '.cjs', '.mjs'].includes(ext)) {
