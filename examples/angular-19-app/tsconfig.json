@@ -23,5 +23,6 @@
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
     "strictTemplates": true
-  }
+  },
+  "include": ["src", ".intlayer/**/*.ts"]
 }
