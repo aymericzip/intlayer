@@ -1,6 +1,5 @@
 import { existsSync } from 'node:fs';
 import { join, relative } from 'node:path';
-
 import type { AIOptions } from '@intlayer/api';
 import {
   type ListGitFilesOptions,
