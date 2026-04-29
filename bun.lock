@@ -1454,10 +1454,7 @@
     },
     "packages/@intlayer/svelte-compiler": {
       "name": "@intlayer/svelte-compiler",
-      "version": "8.7.11",
-      "bin": {
-        "intlayer": "./dist/cjs/index.cjs",
-      },
+      "version": "8.7.12",
       "dependencies": {
         "@babel/core": "7.29.0",
         "@intlayer/types": "workspace:*",
@@ -1528,7 +1525,7 @@
     },
     "packages/@intlayer/vue-compiler": {
       "name": "@intlayer/vue-compiler",
-      "version": "8.7.11",
+      "version": "8.7.12",
       "bin": {
         "intlayer": "./dist/cjs/index.cjs",
       },
