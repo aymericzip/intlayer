@@ -52,9 +52,6 @@
       ]
     }
   },
-  "bin": {
-    "intlayer": "./dist/cjs/index.cjs"
-  },
   "files": [
     "./dist",
     "./package.json"
