@@ -4,26 +4,6 @@ import { internationalization } from '@intlayer/config/built';
 // When these env vars are injected at build time, bundlers eliminate the
 // branches guarded by these constants.
 
-/**
- * True when the build-time routing mode is known and is NOT 'no-prefix'.
- */
-const TREE_SHAKE_NO_PREFIX =
-  process.env['INTLAYER_ROUTING_MODE'] &&
-  process.env['INTLAYER_ROUTING_MODE'] !== 'no-prefix';
-
-/**
- * True when the build-time routing mode is known and is NOT 'search-params'.
- */
-const TREE_SHAKE_SEARCH_PARAMS =
-  process.env['INTLAYER_ROUTING_MODE'] &&
-  process.env['INTLAYER_ROUTING_MODE'] !== 'search-params';
-
-/**
- * True when no domain routing is configured at build time
- * (INTLAYER_ROUTING_DOMAINS === 'false').
- */
-const TREE_SHAKE_DOMAINS = process.env['INTLAYER_ROUTING_DOMAINS'] === 'false';
-
 import type { Locale } from '@intlayer/types/allLocales';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import { checkIsURLAbsolute } from '../utils/checkIsURLAbsolute';
@@ -100,7 +80,13 @@ export const getLocalizedUrl = (
   const urlWithoutLocale = getPathWithoutLocale(url, locales);
   const rewriteRules = getRewriteRules(rewrite, 'url');
 
-  if (!TREE_SHAKE_NO_PREFIX && mode === 'no-prefix') {
+  if (
+    !(
+      process.env['INTLAYER_ROUTING_MODE'] &&
+      process.env['INTLAYER_ROUTING_MODE'] !== 'no-prefix'
+    ) &&
+    mode === 'no-prefix'
+  ) {
     return getLocalizedPath(
       getCanonicalPath(urlWithoutLocale, undefined, rewriteRules),
       currentLocale as Locale,
@@ -129,20 +115,22 @@ export const getLocalizedUrl = (
   //   3. `window.location.hostname` in browser environments.
   // When none of these is available we fall back to always generating an
   // absolute URL (the previous behaviour, safe for SSR/static generation).
-  const detectedCurrentHostname = !TREE_SHAKE_DOMAINS
-    ? extractHostname(
-        currentDomain ??
-          (isAbsoluteUrl ? parsedUrl.hostname : undefined) ??
-          (typeof window !== 'undefined'
-            ? window?.location?.hostname
-            : undefined) ??
-          ''
-      ) || null
-    : null;
+  const detectedCurrentHostname =
+    process.env['INTLAYER_ROUTING_DOMAINS'] !== 'false'
+      ? extractHostname(
+          currentDomain ??
+            (isAbsoluteUrl ? parsedUrl.hostname : undefined) ??
+            (typeof window !== 'undefined'
+              ? window?.location?.hostname
+              : undefined) ??
+            ''
+        ) || null
+      : null;
 
-  const localeDomain = !TREE_SHAKE_DOMAINS
-    ? domains?.[currentLocale as LocalesValues]
-    : undefined;
+  const localeDomain =
+    process.env['INTLAYER_ROUTING_DOMAINS'] !== 'false'
+      ? domains?.[currentLocale as LocalesValues]
+      : undefined;
 
   const localeDomainHostname = localeDomain
     ? extractHostname(localeDomain)
@@ -168,7 +156,13 @@ export const getLocalizedUrl = (
       : '';
   // ─────────────────────────────────────────────────────────────────────────
 
-  if (!TREE_SHAKE_SEARCH_PARAMS && mode === 'search-params') {
+  if (
+    !(
+      process.env['INTLAYER_ROUTING_MODE'] &&
+      process.env['INTLAYER_ROUTING_MODE'] !== 'search-params'
+    ) &&
+    mode === 'search-params'
+  ) {
     const searchParams = new URLSearchParams(parsedUrl.search);
 
     searchParams.set('locale', currentLocale.toString());

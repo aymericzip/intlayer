@@ -196,7 +196,10 @@ export const LegacyMarkdownRenderer: FC<
     options?: MarkdownRendererOptions;
   }
 > = ({ children = '', options, ...props }) => {
-  if (process.env.NODE_ENV !== 'production' && typeof children !== 'string') {
+  if (
+    process.env['NODE_ENV'] !== 'production' &&
+    typeof children !== 'string'
+  ) {
     console.error(
       'intlayer: <Markdown> component only accepts a single string as a child, received:',
       children

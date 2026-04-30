@@ -4,15 +4,13 @@ import type { Locale } from '@intlayer/types/allLocales';
 import { createEffect, createSignal, onCleanup, onMount } from 'solid-js';
 import { useIntlayerContext } from '../client';
 
-const TREE_SHAKE_EDITOR = process.env['INTLAYER_EDITOR_ENABLED'] === 'false';
-
 /**
  * Initialises the Intlayer editor client singleton when the editor is enabled.
  * Syncs the current locale from the Intlayer context into the editor manager so
  * the editor always knows which locale the app is displaying.
  */
 export const useEditor = () => {
-  if (TREE_SHAKE_EDITOR || !isEnabled) return;
+  if (process.env['INTLAYER_EDITOR_ENABLED'] === 'false' || !isEnabled) return;
 
   const { locale } = useIntlayerContext();
   const [manager, setManager] = createSignal<EditorStateManager | null>(null);

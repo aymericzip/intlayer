@@ -3,7 +3,6 @@ import { setIntlayerIdentifier } from '@intlayer/config/client';
 import type { Locale } from '@intlayer/types/allLocales';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import { type App, type Ref, readonly, ref } from 'vue';
-import { useEditor } from '../editor/useEditor';
 
 export const INTLAYER_SYMBOL = Symbol('intlayer');
 
@@ -83,7 +82,11 @@ export const installIntlayer = (
 
   app.provide(INTLAYER_SYMBOL, client);
 
-  useEditor(app);
+  if (process.env['INTLAYER_EDITOR_ENABLED'] !== 'false') {
+    import('../editor/useEditor').then(({ useEditor }) => {
+      useEditor(app);
+    });
+  }
 
   return app;
 };

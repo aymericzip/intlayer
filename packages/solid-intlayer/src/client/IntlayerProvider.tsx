@@ -8,14 +8,24 @@ import {
   createEffect,
   createMemo,
   createSignal,
+  lazy,
   on,
   onMount,
   type ParentProps,
+  Suspense,
   untrack,
   useContext,
 } from 'solid-js';
-import { EditorProvider } from '../editor/EditorProvider';
 import { localeInStorage, setLocaleInStorage } from './useLocaleStorage';
+
+const LazyEditorProvider =
+  process.env['INTLAYER_EDITOR_ENABLED'] !== 'false'
+    ? lazy(() =>
+        import('../editor/EditorProvider').then((m) => ({
+          default: m.EditorProvider,
+        }))
+      )
+    : null;
 
 type IntlayerValue = {
   locale: () => LocalesValues;
@@ -128,7 +138,12 @@ export const IntlayerProviderContent: Component<IntlayerProviderProps> = (
  */
 export const IntlayerProvider: Component<IntlayerProviderProps> = (props) => (
   <IntlayerProviderContent {...props}>
-    <EditorProvider />
+    {process.env['INTLAYER_EDITOR_ENABLED'] !== 'false' &&
+      LazyEditorProvider && (
+        <Suspense>
+          <LazyEditorProvider />
+        </Suspense>
+      )}
     {props.children}
   </IntlayerProviderContent>
 );

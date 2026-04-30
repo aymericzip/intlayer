@@ -28,38 +28,6 @@ import { HTMLRenderer } from './html/index';
 import type { HTMLComponents } from './html/types';
 import { type IntlayerNode, renderIntlayerNode } from './renderIntlayerNode';
 
-// ── Tree-shake constants ──────────────────────────────────────────────────────
-// When these env vars are injected at build time, bundlers eliminate the
-// branches guarded by these constants.
-
-/**
- * True when the intlayer node type is explicitly disabled at build time.
- */
-const TREE_SHAKE_INTLAYER_NODE =
-  process.env['INTLAYER_NODE_TYPE_INTLAYER_NODE'] === 'false';
-
-/**
- * True when the markdown node type is explicitly disabled at build time.
- */
-const TREE_SHAKE_MARKDOWN =
-  process.env['INTLAYER_NODE_TYPE_MARKDOWN'] === 'false';
-
-/**
- * True when the HTML node type is explicitly disabled at build time.
- */
-const TREE_SHAKE_HTML = process.env['INTLAYER_NODE_TYPE_HTML'] === 'false';
-
-/**
- * True when the insertion node type is explicitly disabled at build time.
- */
-const TREE_SHAKE_INSERTION =
-  process.env['INTLAYER_NODE_TYPE_INSERTION'] === 'false';
-
-/**
- * True when the editor is explicitly disabled at build time.
- */
-const TREE_SHAKE_EDITOR = process.env['INTLAYER_EDITOR_ENABLED'] === 'false';
-
 // Lazy pre-load heavy modules — creates separate code-split chunks.
 // Guarded by tree-shake constants so bundlers can eliminate the dynamic import()
 // entirely when the feature is disabled at build time.
@@ -72,7 +40,7 @@ let _MarkdownWithSelector: any = null;
 let _svelteHtmlRuntime: any = null;
 let _HTMLWithSelector: any = null;
 
-if (!TREE_SHAKE_MARKDOWN) {
+if (process.env['INTLAYER_NODE_TYPE_MARKDOWN'] !== 'false') {
   void import('@intlayer/core/markdown').then((m) => {
     _getMarkdownMetadata = m.getMarkdownMetadata;
     _compile = m.compile;
@@ -96,7 +64,7 @@ if (!TREE_SHAKE_MARKDOWN) {
   ]);
 }
 
-if (!TREE_SHAKE_HTML) {
+if (process.env['INTLAYER_NODE_TYPE_HTML'] !== 'false') {
   void import('./html/HTMLWithSelector.svelte').then(
     (m) => (_HTMLWithSelector = m.default)
   );
@@ -129,22 +97,22 @@ export type DeepTransformContent<
  * Basic Intlayer node plugins for content handling
  * These handle the core content transformation logic
  */
-export const intlayerNodePlugins: Plugins = TREE_SHAKE_INTLAYER_NODE
-  ? fallbackPlugin
-  : {
-      id: 'intlayer-node-plugin',
-      canHandle: (node) =>
-        typeof node === 'bigint' ||
-        typeof node === 'string' ||
-        typeof node === 'number',
-      transform: (node, { children, ...rest }) =>
-        renderIntlayerNode({
-          value: children ?? node,
-          component:
-            !TREE_SHAKE_EDITOR && editor.enabled ? ContentSelector : undefined,
-          props: rest,
-        }),
-    };
+export const intlayerNodePlugins: Plugins = {
+  id: 'intlayer-node-plugin',
+  canHandle: (node) =>
+    typeof node === 'bigint' ||
+    typeof node === 'string' ||
+    typeof node === 'number',
+  transform: (node, { children, ...rest }) =>
+    renderIntlayerNode({
+      value: children ?? node,
+      component:
+        process.env['INTLAYER_EDITOR_ENABLED'] !== 'false' && editor.enabled
+          ? ContentSelector
+          : undefined,
+      props: rest,
+    }),
+};
 
 /**
  * Svelte-specific node plugins for handling basic content types
@@ -234,85 +202,86 @@ const splitAndJoinInsertion = (
 };
 
 /** Insertion plugin for Svelte. Handles component insertion. */
-export const insertionPlugin: Plugins = TREE_SHAKE_INSERTION
-  ? fallbackPlugin
-  : {
-      id: 'insertion-plugin',
-      canHandle: (node) =>
-        typeof node === 'object' && node?.nodeType === NodeTypes.INSERTION,
-      transform: (node: InsertionContent, props, deepTransformNode) => {
-        const newKeyPath: KeyPath[] = [
-          ...props.keyPath,
-          {
-            type: NodeTypes.INSERTION,
-          },
-        ];
+export const insertionPlugin: Plugins =
+  process.env['INTLAYER_NODE_TYPE_INSERTION'] === 'false'
+    ? fallbackPlugin
+    : {
+        id: 'insertion-plugin',
+        canHandle: (node) =>
+          typeof node === 'object' && node?.nodeType === NodeTypes.INSERTION,
+        transform: (node: InsertionContent, props, deepTransformNode) => {
+          const newKeyPath: KeyPath[] = [
+            ...props.keyPath,
+            {
+              type: NodeTypes.INSERTION,
+            },
+          ];
 
-        const children = node[NodeTypes.INSERTION];
+          const children = node[NodeTypes.INSERTION];
 
-        /** Insertion string plugin. Replaces string node with a component that render the insertion. */
-        const insertionStringPlugin: Plugins = {
-          id: 'insertion-string-plugin',
-          canHandle: (node) => typeof node === 'string',
-          transform: (node: string, subProps, deepTransformNode) => {
-            const transformedResult = deepTransformNode(node, {
-              ...subProps,
-              children: node,
-              plugins: [
-                ...(props.plugins ?? ([] as Plugins[])).filter(
-                  (plugin) => plugin.id !== 'intlayer-node-plugin'
-                ),
-              ],
-            });
-
-            return (
-              values: {
-                [K in InsertionContent['fields'][number]]:
-                  | string
-                  | number
-                  | any;
-              }
-            ) => {
-              const result = splitAndJoinInsertion(transformedResult, values);
-
-              return deepTransformNode(result, {
+          /** Insertion string plugin. Replaces string node with a component that render the insertion. */
+          const insertionStringPlugin: Plugins = {
+            id: 'insertion-string-plugin',
+            canHandle: (node) => typeof node === 'string',
+            transform: (node: string, subProps, deepTransformNode) => {
+              const transformedResult = deepTransformNode(node, {
                 ...subProps,
-                plugins: props.plugins,
-                children: result,
+                children: node,
+                plugins: [
+                  ...(props.plugins ?? ([] as Plugins[])).filter(
+                    (plugin) => plugin.id !== 'intlayer-node-plugin'
+                  ),
+                ],
               });
-            };
-          },
-        };
 
-        const result = deepTransformNode(children, {
-          ...props,
-          children,
-          keyPath: newKeyPath,
-          plugins: [insertionStringPlugin, ...(props.plugins ?? [])],
-        });
+              return (
+                values: {
+                  [K in InsertionContent['fields'][number]]:
+                    | string
+                    | number
+                    | any;
+                }
+              ) => {
+                const result = splitAndJoinInsertion(transformedResult, values);
 
-        if (
-          typeof children === 'object' &&
-          children !== null &&
-          'nodeType' in children &&
-          [NodeTypes.ENUMERATION, NodeTypes.CONDITION].includes(
-            children.nodeType as any
-          )
-        ) {
-          return (values: any) => (arg: any) => {
-            const func = result as Function;
-            const inner = func(arg);
-
-            if (typeof inner === 'function') {
-              return inner(values);
-            }
-            return inner;
+                return deepTransformNode(result, {
+                  ...subProps,
+                  plugins: props.plugins,
+                  children: result,
+                });
+              };
+            },
           };
-        }
 
-        return result;
-      },
-    };
+          const result = deepTransformNode(children, {
+            ...props,
+            children,
+            keyPath: newKeyPath,
+            plugins: [insertionStringPlugin, ...(props.plugins ?? [])],
+          });
+
+          if (
+            typeof children === 'object' &&
+            children !== null &&
+            'nodeType' in children &&
+            [NodeTypes.ENUMERATION, NodeTypes.CONDITION].includes(
+              children.nodeType as any
+            )
+          ) {
+            return (values: any) => (arg: any) => {
+              const func = result as Function;
+              const inner = func(arg);
+
+              if (typeof inner === 'function') {
+                return inner(values);
+              }
+              return inner;
+            };
+          }
+
+          return result;
+        },
+      };
 
 /**
  * MARKDOWN PLUGIN
@@ -329,93 +298,97 @@ export type MarkdownStringCond<T> = T extends string
   : never;
 
 /** Markdown string plugin. Replaces string node with a component that render the markdown. */
-export const markdownStringPlugin: Plugins = TREE_SHAKE_MARKDOWN
-  ? fallbackPlugin
-  : {
-      id: 'markdown-string-plugin',
-      canHandle: (node) => typeof node === 'string',
-      transform: (node: string, props, deepTransformNode) => {
-        const { ...rest } = props;
+export const markdownStringPlugin: Plugins =
+  process.env['INTLAYER_NODE_TYPE_MARKDOWN'] === 'false'
+    ? fallbackPlugin
+    : {
+        id: 'markdown-string-plugin',
+        canHandle: (node) => typeof node === 'string',
+        transform: (node: string, props, deepTransformNode) => {
+          const { ...rest } = props;
 
-        const metadata = _getMarkdownMetadata?.(node) ?? {};
+          const metadata = _getMarkdownMetadata?.(node) ?? {};
 
-        const metadataPlugins: Plugins = {
-          id: 'markdown-metadata-plugin',
-          canHandle: (metadataNode) =>
-            typeof metadataNode === 'string' ||
-            typeof metadataNode === 'number' ||
-            typeof metadataNode === 'boolean' ||
-            !metadataNode,
-          transform: (metadataNode, props) =>
-            renderIntlayerNode({
-              value: metadataNode,
+          const metadataPlugins: Plugins = {
+            id: 'markdown-metadata-plugin',
+            canHandle: (metadataNode) =>
+              typeof metadataNode === 'string' ||
+              typeof metadataNode === 'number' ||
+              typeof metadataNode === 'boolean' ||
+              !metadataNode,
+            transform: (metadataNode, props) =>
+              renderIntlayerNode({
+                value: metadataNode,
+                component:
+                  process.env['INTLAYER_EDITOR_ENABLED'] !== 'false' &&
+                  editor.enabled
+                    ? (_MarkdownMetadataWithSelector ??
+                      _MarkdownMetadataRenderer)
+                    : _MarkdownMetadataRenderer,
+                props: {
+                  ...rest,
+                  value: node, // The full markdown string
+                  metadataKeyPath: props.keyPath,
+                },
+              }),
+          };
+
+          // Transform metadata while keeping the same structure
+          const metadataNodes =
+            deepTransformNode(metadata, {
+              plugins: [metadataPlugins],
+              dictionaryKey: rest.dictionaryKey,
+              keyPath: [],
+            }) ?? {};
+
+          const render = (components?: any) => {
+            const nodeResult = renderIntlayerNode({
+              value: node,
               component:
-                !TREE_SHAKE_EDITOR && editor.enabled
-                  ? (_MarkdownMetadataWithSelector ?? _MarkdownMetadataRenderer)
-                  : _MarkdownMetadataRenderer,
+                process.env['INTLAYER_EDITOR_ENABLED'] !== 'false' &&
+                editor.enabled
+                  ? (_MarkdownWithSelector ?? _MarkdownRenderer)
+                  : _MarkdownRenderer,
               props: {
                 ...rest,
-                value: node, // The full markdown string
-                metadataKeyPath: props.keyPath,
+                value: node,
+                ...components,
               },
-            }),
-        };
+              additionalProps: {
+                metadata: metadataNodes,
+              },
+            });
 
-        // Transform metadata while keeping the same structure
-        const metadataNodes =
-          deepTransformNode(metadata, {
-            plugins: [metadataPlugins],
-            dictionaryKey: rest.dictionaryKey,
-            keyPath: [],
-          }) ?? {};
+            return new Proxy(nodeResult as any, {
+              get(target, prop, receiver) {
+                if (prop === 'value') {
+                  return node;
+                }
+                if (prop === 'metadata') {
+                  return metadataNodes;
+                }
 
-        const render = (components?: any) => {
-          const nodeResult = renderIntlayerNode({
-            value: node,
-            component:
-              !TREE_SHAKE_EDITOR && editor.enabled
-                ? (_MarkdownWithSelector ?? _MarkdownRenderer)
-                : _MarkdownRenderer,
-            props: {
-              ...rest,
-              value: node,
-              ...components,
-            },
-            additionalProps: {
-              metadata: metadataNodes,
-            },
-          });
+                if (prop === 'use') {
+                  return (newComponents?: any) => render(newComponents);
+                }
 
-          return new Proxy(nodeResult as any, {
-            get(target, prop, receiver) {
-              if (prop === 'value') {
-                return node;
-              }
-              if (prop === 'metadata') {
-                return metadataNodes;
-              }
+                if (prop === 'toString') {
+                  return () =>
+                    _compile?.(
+                      node,
+                      { runtime: _svelteHtmlRuntime, components: components },
+                      {}
+                    ) ?? node;
+                }
 
-              if (prop === 'use') {
-                return (newComponents?: any) => render(newComponents);
-              }
+                return Reflect.get(target, prop, receiver);
+              },
+            });
+          };
 
-              if (prop === 'toString') {
-                return () =>
-                  _compile?.(
-                    node,
-                    { runtime: _svelteHtmlRuntime, components: components },
-                    {}
-                  ) ?? node;
-              }
-
-              return Reflect.get(target, prop, receiver);
-            },
-          });
-        };
-
-        return render();
-      },
-    };
+          return render();
+        },
+      };
 
 export type MarkdownCond<T, _S, L extends LocalesValues> = T extends {
   nodeType: NodeType | string;
@@ -429,30 +402,31 @@ export type MarkdownCond<T, _S, L extends LocalesValues> = T extends {
     } & any
   : never;
 
-export const markdownPlugin: Plugins = TREE_SHAKE_MARKDOWN
-  ? fallbackPlugin
-  : {
-      id: 'markdown-plugin',
-      canHandle: (node) =>
-        typeof node === 'object' && node?.nodeType === NodeTypes.MARKDOWN,
-      transform: (node: MarkdownContent, props, deepTransformNode) => {
-        const newKeyPath: KeyPath[] = [
-          ...props.keyPath,
-          {
-            type: NodeTypes.MARKDOWN,
-          },
-        ];
+export const markdownPlugin: Plugins =
+  process.env['INTLAYER_NODE_TYPE_MARKDOWN'] === 'false'
+    ? fallbackPlugin
+    : {
+        id: 'markdown-plugin',
+        canHandle: (node) =>
+          typeof node === 'object' && node?.nodeType === NodeTypes.MARKDOWN,
+        transform: (node: MarkdownContent, props, deepTransformNode) => {
+          const newKeyPath: KeyPath[] = [
+            ...props.keyPath,
+            {
+              type: NodeTypes.MARKDOWN,
+            },
+          ];
 
-        const children = node[NodeTypes.MARKDOWN];
+          const children = node[NodeTypes.MARKDOWN];
 
-        return deepTransformNode(children, {
-          ...props,
-          children,
-          keyPath: newKeyPath,
-          plugins: [markdownStringPlugin, ...(props.plugins ?? [])],
-        });
-      },
-    };
+          return deepTransformNode(children, {
+            ...props,
+            children,
+            keyPath: newKeyPath,
+            plugins: [markdownStringPlugin, ...(props.plugins ?? [])],
+          });
+        },
+      };
 
 /** ---------------------------------------------
  * HTML PLUGIN
@@ -469,38 +443,40 @@ export type HTMLPluginCond<T> = T extends {
   : never;
 
 /** HTML plugin. Replaces node with a function that takes components => HTMLElement[]. */
-export const htmlPlugin: Plugins = TREE_SHAKE_HTML
-  ? fallbackPlugin
-  : {
-      id: 'html-plugin',
-      canHandle: (node) =>
-        typeof node === 'object' && node?.nodeType === NodeTypes.HTML,
-      transform: (node: HTMLContent<string>, props) => {
-        const htmlString = node[NodeTypes.HTML];
-        const _tags = node.tags ?? [];
+export const htmlPlugin: Plugins =
+  process.env['INTLAYER_NODE_TYPE_HTML'] === 'false'
+    ? fallbackPlugin
+    : {
+        id: 'html-plugin',
+        canHandle: (node) =>
+          typeof node === 'object' && node?.nodeType === NodeTypes.HTML,
+        transform: (node: HTMLContent<string>, props) => {
+          const htmlString = node[NodeTypes.HTML];
+          const _tags = node.tags ?? [];
 
-        // Type-safe render function that accepts properly typed components
-        const render = (userComponents: HTMLComponents = {}): any =>
-          renderIntlayerNode({
-            ...props,
-            value: htmlString,
-            component:
-              !TREE_SHAKE_EDITOR && editor.enabled
-                ? (_HTMLWithSelector ?? HTMLRenderer)
-                : HTMLRenderer,
-            props: {
+          // Type-safe render function that accepts properly typed components
+          const render = (userComponents: HTMLComponents = {}): any =>
+            renderIntlayerNode({
               ...props,
               value: htmlString,
-              components: userComponents,
-            },
-            additionalProps: {
-              use: (components?: HTMLComponents) => render(components),
-            },
-          });
+              component:
+                process.env['INTLAYER_EDITOR_ENABLED'] !== 'false' &&
+                editor.enabled
+                  ? (_HTMLWithSelector ?? HTMLRenderer)
+                  : HTMLRenderer,
+              props: {
+                ...props,
+                value: htmlString,
+                components: userComponents,
+              },
+              additionalProps: {
+                use: (components?: HTMLComponents) => render(components),
+              },
+            });
 
-        return render();
-      },
-    };
+          return render();
+        },
+      };
 
 export interface IInterpreterPluginSvelte<T, S, L extends LocalesValues> {
   svelteIntlayerNode: T extends string | number ? IntlayerNode<T> : never;

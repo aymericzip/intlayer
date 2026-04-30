@@ -17,7 +17,7 @@ let debug: (message: string) => void = () => {};
 const configuration = getConfiguration();
 const { internationalization } = configuration;
 
-if (process.env.NODE_ENV === 'development') {
+if (process.env['NODE_ENV'] === 'development') {
   try {
     const logger = require('@adonisjs/core/services/logger').default;
     debug = (msg: string) => logger.debug(msg);

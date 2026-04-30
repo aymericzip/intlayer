@@ -5,43 +5,6 @@ import { ROUTING_MODE } from '@intlayer/config/defaultValues';
 // When these env vars are injected at build time, bundlers eliminate the
 // branches guarded by these constants.
 
-/**
- * True when the build-time routing mode is known and is NOT 'no-prefix'.
- * Use to guard no-prefix-specific code paths so bundlers can eliminate them.
- */
-const TREE_SHAKE_NO_PREFIX =
-  process.env['INTLAYER_ROUTING_MODE'] &&
-  process.env['INTLAYER_ROUTING_MODE'] !== 'no-prefix';
-
-/**
- * True when the build-time routing mode is known and is NOT 'search-params'.
- */
-const TREE_SHAKE_SEARCH_PARAMS =
-  process.env['INTLAYER_ROUTING_MODE'] &&
-  process.env['INTLAYER_ROUTING_MODE'] !== 'search-params';
-
-/**
- * True when the build-time routing mode is known and is not a prefix-based
- * mode (neither 'prefix-all' nor 'prefix-no-default').
- */
-const TREE_SHAKE_PREFIX_MODES =
-  process.env['INTLAYER_ROUTING_MODE'] &&
-  process.env['INTLAYER_ROUTING_MODE'] !== 'prefix-all' &&
-  process.env['INTLAYER_ROUTING_MODE'] !== 'prefix-no-default';
-
-/**
- * True when rewrite rules are explicitly disabled at build time
- * (INTLAYER_ROUTING_REWRITE_RULES === 'false').
- */
-const TREE_SHAKE_REWRITE =
-  process.env['INTLAYER_ROUTING_REWRITE_RULES'] === 'false';
-
-/**
- * True when no domain routing is configured at build time
- * (INTLAYER_ROUTING_DOMAINS === 'false').
- */
-const TREE_SHAKE_DOMAINS = process.env['INTLAYER_ROUTING_DOMAINS'] === 'false';
-
 import {
   getCanonicalPath,
   getLocalizedPath,
@@ -98,16 +61,29 @@ const { basePath, mode, rewrite, domains } = routing ?? {};
 // Derived flags from routing.mode
 const effectiveMode = mode ?? ROUTING_MODE;
 const noPrefix =
-  (!TREE_SHAKE_NO_PREFIX && effectiveMode === 'no-prefix') ||
-  (!TREE_SHAKE_SEARCH_PARAMS && effectiveMode === 'search-params');
+  (!(
+    process.env['INTLAYER_ROUTING_MODE'] &&
+    process.env['INTLAYER_ROUTING_MODE'] !== 'no-prefix'
+  ) &&
+    effectiveMode === 'no-prefix') ||
+  (!(
+    process.env['INTLAYER_ROUTING_MODE'] &&
+    process.env['INTLAYER_ROUTING_MODE'] !== 'search-params'
+  ) &&
+    effectiveMode === 'search-params');
 const prefixDefault =
-  !TREE_SHAKE_PREFIX_MODES && effectiveMode === 'prefix-all';
+  !(
+    process.env['INTLAYER_ROUTING_MODE'] &&
+    process.env['INTLAYER_ROUTING_MODE'] !== 'prefix-all' &&
+    process.env['INTLAYER_ROUTING_MODE'] !== 'prefix-no-default'
+  ) && effectiveMode === 'prefix-all';
 
 const internalPrefix = !noPrefix;
 
-const rewriteRules = !TREE_SHAKE_REWRITE
-  ? getRewriteRules(rewrite, 'url')
-  : undefined;
+const rewriteRules =
+  process.env['INTLAYER_ROUTING_REWRITE_RULES'] !== 'false'
+    ? getRewriteRules(rewrite, 'url')
+    : undefined;
 
 /**
  * Strips the protocol from a domain string and returns only the hostname.
@@ -170,7 +146,11 @@ const appendLocaleSearchIfNeeded = (
   search: string | undefined,
   locale: Locale
 ): string | undefined => {
-  if (TREE_SHAKE_SEARCH_PARAMS || effectiveMode !== 'search-params')
+  if (
+    (process.env['INTLAYER_ROUTING_MODE'] &&
+      process.env['INTLAYER_ROUTING_MODE'] !== 'search-params') ||
+    effectiveMode !== 'search-params'
+  )
     return search;
   const params = new URLSearchParams(search ?? '');
   params.set('locale', locale);
@@ -217,7 +197,11 @@ export const intlayerProxy = (
 
   // Domain routing: if the path locale is mapped to a different domain, redirect there.
   // e.g. intlayer.org/zh/about → https://intlayer.zh/about
-  if (!TREE_SHAKE_DOMAINS && pathLocale && domains) {
+  if (
+    process.env['INTLAYER_ROUTING_DOMAINS'] !== 'false' &&
+    pathLocale &&
+    domains
+  ) {
     const localeDomain = domains[pathLocale];
 
     if (localeDomain) {
@@ -239,7 +223,7 @@ export const intlayerProxy = (
   // Domain routing: if the current hostname is exclusively mapped to one locale,
   // treat it as that locale's domain — no URL prefix needed.
   // e.g. intlayer.zh/about → internally rewrite to /zh/about
-  if (!TREE_SHAKE_DOMAINS && !pathLocale) {
+  if (process.env['INTLAYER_ROUTING_DOMAINS'] !== 'false' && !pathLocale) {
     const domainLocale = getLocaleFromDomain(request.nextUrl.hostname);
 
     if (domainLocale) {
@@ -304,7 +288,13 @@ const handleNoPrefix = (
     return redirectUrl(request, redirectPath);
   }
 
-  if (!TREE_SHAKE_SEARCH_PARAMS && effectiveMode === 'search-params') {
+  if (
+    !(
+      process.env['INTLAYER_ROUTING_MODE'] &&
+      process.env['INTLAYER_ROUTING_MODE'] !== 'search-params'
+    ) &&
+    effectiveMode === 'search-params'
+  ) {
     const existingSearchParams = new URLSearchParams(request.nextUrl.search);
     const existingLocale = existingSearchParams.get('locale');
 
@@ -635,8 +625,16 @@ const constructPath = (
     : path;
 
   if (
-    (!TREE_SHAKE_NO_PREFIX && effectiveMode === 'no-prefix') ||
-    (!TREE_SHAKE_SEARCH_PARAMS && effectiveMode === 'search-params')
+    (!(
+      process.env['INTLAYER_ROUTING_MODE'] &&
+      process.env['INTLAYER_ROUTING_MODE'] !== 'no-prefix'
+    ) &&
+      effectiveMode === 'no-prefix') ||
+    (!(
+      process.env['INTLAYER_ROUTING_MODE'] &&
+      process.env['INTLAYER_ROUTING_MODE'] !== 'search-params'
+    ) &&
+      effectiveMode === 'search-params')
   ) {
     return `${pathWithoutPrefix}${search ? `?${search}` : ''}`;
   }

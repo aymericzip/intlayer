@@ -3,7 +3,7 @@ import { isEnabled } from '@intlayer/editor/isEnabled';
 import { defineComponent, h } from 'vue';
 
 
-const TREE_SHAKE_EDITOR = process.env['INTLAYER_EDITOR_ENABLED'] === 'false';
+
 
 export default defineComponent({
   name: 'ContentSelector',
@@ -19,7 +19,7 @@ export default defineComponent({
   },
   setup(props, { slots }) {
     return () => {
-      if (TREE_SHAKE_EDITOR || !isEnabled) {
+      if (process.env['INTLAYER_EDITOR_ENABLED'] === 'false' || !isEnabled) {
         return slots.default?.();
       }
 

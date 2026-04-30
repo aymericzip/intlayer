@@ -9,21 +9,6 @@ import {
 // When these env vars are injected at build time, bundlers eliminate the
 // branches guarded by these constants.
 
-/**
- * True when the build-time routing mode is known and is not a prefix-based
- * mode (neither 'prefix-all' nor 'prefix-no-default').
- */
-const TREE_SHAKE_PREFIX_MODES =
-  process.env['INTLAYER_ROUTING_MODE'] &&
-  process.env['INTLAYER_ROUTING_MODE'] !== 'prefix-all' &&
-  process.env['INTLAYER_ROUTING_MODE'] !== 'prefix-no-default';
-
-/**
- * True when no domain routing is configured at build time
- * (INTLAYER_ROUTING_DOMAINS === 'false').
- */
-const TREE_SHAKE_DOMAINS = process.env['INTLAYER_ROUTING_DOMAINS'] === 'false';
-
 import type { Locale } from '@intlayer/types/allLocales';
 import type { RoutingConfig } from '@intlayer/types/config';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
@@ -128,7 +113,13 @@ export const getPrefix = (
   const { defaultLocale, mode, locales, domains } =
     resolveRoutingConfig(options);
 
-  if (TREE_SHAKE_PREFIX_MODES || !locale || !locales.includes(locale)) {
+  if (
+    (process.env['INTLAYER_ROUTING_MODE'] &&
+      process.env['INTLAYER_ROUTING_MODE'] !== 'prefix-all' &&
+      process.env['INTLAYER_ROUTING_MODE'] !== 'prefix-no-default') ||
+    !locale ||
+    !locales.includes(locale)
+  ) {
     return {
       prefix: '',
       localePrefix: undefined,
@@ -137,7 +128,7 @@ export const getPrefix = (
 
   // If this locale is the only one assigned to its domain, no URL prefix is needed
   // (the domain itself identifies the locale). Shared domains use normal prefix logic.
-  if (!TREE_SHAKE_DOMAINS && domains) {
+  if (process.env['INTLAYER_ROUTING_DOMAINS'] !== 'false' && domains) {
     const localeDomain = domains[locale as LocalesValues];
 
     if (localeDomain) {

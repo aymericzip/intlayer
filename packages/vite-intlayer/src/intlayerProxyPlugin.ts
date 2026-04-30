@@ -6,43 +6,6 @@ import { ROUTING_MODE } from '@intlayer/config/defaultValues';
 // When these env vars are injected at build time, bundlers eliminate the
 // branches guarded by these constants.
 
-/**
- * True when the build-time routing mode is known and is NOT 'no-prefix'.
- * Use to guard no-prefix-specific code paths so bundlers can eliminate them.
- */
-const TREE_SHAKE_NO_PREFIX =
-  process.env['INTLAYER_ROUTING_MODE'] &&
-  process.env['INTLAYER_ROUTING_MODE'] !== 'no-prefix';
-
-/**
- * True when the build-time routing mode is known and is NOT 'search-params'.
- */
-const TREE_SHAKE_SEARCH_PARAMS =
-  process.env['INTLAYER_ROUTING_MODE'] &&
-  process.env['INTLAYER_ROUTING_MODE'] !== 'search-params';
-
-/**
- * True when the build-time routing mode is known and is not a prefix-based
- * mode (neither 'prefix-all' nor 'prefix-no-default').
- */
-const TREE_SHAKE_PREFIX_MODES =
-  process.env['INTLAYER_ROUTING_MODE'] &&
-  process.env['INTLAYER_ROUTING_MODE'] !== 'prefix-all' &&
-  process.env['INTLAYER_ROUTING_MODE'] !== 'prefix-no-default';
-
-/**
- * True when rewrite rules are explicitly disabled at build time
- * (INTLAYER_ROUTING_REWRITE_RULES === 'false').
- */
-const TREE_SHAKE_REWRITE =
-  process.env['INTLAYER_ROUTING_REWRITE_RULES'] === 'false';
-
-/**
- * True when no domain routing is configured at build time
- * (INTLAYER_ROUTING_DOMAINS === 'false').
- */
-const TREE_SHAKE_DOMAINS = process.env['INTLAYER_ROUTING_DOMAINS'] === 'false';
-
 import {
   type GetConfigurationOptions,
   getConfiguration,
@@ -113,6 +76,30 @@ export const intlayerProxy = (
   const redirectCounts = new Map<string, number>();
   const MAX_REDIRECTS = 10;
 
+  // Derived flags from routing.mode
+  const noPrefix =
+    (!(
+      process.env['INTLAYER_ROUTING_MODE'] &&
+      process.env['INTLAYER_ROUTING_MODE'] !== 'no-prefix'
+    ) &&
+      mode === 'no-prefix') ||
+    (!(
+      process.env['INTLAYER_ROUTING_MODE'] &&
+      process.env['INTLAYER_ROUTING_MODE'] !== 'search-params'
+    ) &&
+      mode === 'search-params');
+  const prefixDefault =
+    !(
+      process.env['INTLAYER_ROUTING_MODE'] &&
+      process.env['INTLAYER_ROUTING_MODE'] !== 'prefix-all' &&
+      process.env['INTLAYER_ROUTING_MODE'] !== 'prefix-no-default'
+    ) && mode === 'prefix-all';
+
+  const rewriteRules =
+    process.env['INTLAYER_ROUTING_REWRITE_RULES'] !== 'false'
+      ? getRewriteRules(rewrite, 'url')
+      : undefined;
+
   /**
    * Strips the protocol from a domain string, returning only the hostname.
    */
@@ -136,16 +123,6 @@ export const intlayerProxy = (
     return matching.length === 1 ? (matching[0][0] as Locale) : undefined;
   };
 
-  // Derived flags from routing.mode
-  const noPrefix =
-    (!TREE_SHAKE_NO_PREFIX && mode === 'no-prefix') ||
-    (!TREE_SHAKE_SEARCH_PARAMS && mode === 'search-params');
-  const prefixDefault = !TREE_SHAKE_PREFIX_MODES && mode === 'prefix-all';
-
-  const rewriteRules = !TREE_SHAKE_REWRITE
-    ? getRewriteRules(rewrite, 'url')
-    : undefined;
-
   /* --------------------------------------------------------------------
    *                     Helper & Utility Functions
    * --------------------------------------------------------------------
@@ -168,7 +145,12 @@ export const intlayerProxy = (
     search: string | undefined,
     locale: Locale
   ): string | undefined => {
-    if (TREE_SHAKE_SEARCH_PARAMS || mode !== 'search-params') return search;
+    if (
+      (process.env['INTLAYER_ROUTING_MODE'] &&
+        process.env['INTLAYER_ROUTING_MODE'] !== 'search-params') ||
+      mode !== 'search-params'
+    )
+      return search;
 
     const params = new URLSearchParams(search ?? '');
 
@@ -272,8 +254,16 @@ export const intlayerProxy = (
 
     // In 'search-params' and 'no-prefix' modes, do not prefix the path with the locale
     if (
-      (!TREE_SHAKE_NO_PREFIX && mode === 'no-prefix') ||
-      (!TREE_SHAKE_SEARCH_PARAMS && mode === 'search-params')
+      (!(
+        process.env['INTLAYER_ROUTING_MODE'] &&
+        process.env['INTLAYER_ROUTING_MODE'] !== 'no-prefix'
+      ) &&
+        mode === 'no-prefix') ||
+      (!(
+        process.env['INTLAYER_ROUTING_MODE'] &&
+        process.env['INTLAYER_ROUTING_MODE'] !== 'search-params'
+      ) &&
+        mode === 'search-params')
     ) {
       const newPath = search
         ? `${pathWithoutPrefix || '/'}${search}`
@@ -364,7 +354,13 @@ export const intlayerProxy = (
     const canonicalPath = getCanonicalPath(originalPath, locale, rewriteRules);
 
     // In search-params mode, we need to redirect to add the locale search param
-    if (!TREE_SHAKE_SEARCH_PARAMS && mode === 'search-params') {
+    if (
+      !(
+        process.env['INTLAYER_ROUTING_MODE'] &&
+        process.env['INTLAYER_ROUTING_MODE'] !== 'search-params'
+      ) &&
+      mode === 'search-params'
+    ) {
       // Check if locale search param already exists and matches the detected locale
       const existingSearchParams = new URLSearchParams(searchParams ?? '');
       const existingLocale = existingSearchParams.get('locale');
@@ -705,7 +701,12 @@ export const intlayerProxy = (
 
         // Domain routing: if the path locale is mapped to a different domain, redirect there.
         // e.g. intlayer.org/zh/about → https://intlayer.zh/about
-        if (!TREE_SHAKE_DOMAINS && !noPrefix && pathLocale && domains) {
+        if (
+          process.env['INTLAYER_ROUTING_DOMAINS'] !== 'false' &&
+          !noPrefix &&
+          pathLocale &&
+          domains
+        ) {
           const localeDomain = domains[pathLocale as keyof typeof domains];
           if (localeDomain) {
             const reqHost = (req.headers['host'] ?? '').split(':')[0];
@@ -730,7 +731,11 @@ export const intlayerProxy = (
         // Domain routing: if the current hostname is exclusively mapped to one locale,
         // treat it as that locale without a URL prefix.
         // e.g. intlayer.zh/about → internally rewrite to /zh/about
-        if (!TREE_SHAKE_DOMAINS && !noPrefix && !pathLocale) {
+        if (
+          process.env['INTLAYER_ROUTING_DOMAINS'] !== 'false' &&
+          !noPrefix &&
+          !pathLocale
+        ) {
           const reqHost = (req.headers['host'] ?? '').split(':')[0];
           const domainLocale = getLocaleFromDomain(reqHost);
           if (domainLocale) {

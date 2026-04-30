@@ -90,6 +90,7 @@ const sectionHdr: Record<string, string> = {
 
 const BenchmarkTable = () => {
   const content = useIntlayer('benchmark');
+
   const number = useNumber();
   const percentage = usePercentage();
   const currency = useCurrency();
@@ -442,28 +443,25 @@ const Home = () => {
 
 // ─── App ─────────────────────────────────────────────────────────────────────
 
-export const App = () => (
-  <IntlayerProvider>
-    {localeMap(({ locale, urlPrefix }) => (
-      <Route
-        path={urlPrefix}
-        component={(props) => (
-          <IntlayerProvider locale={locale}>
-            <MarkdownProvider
-              renderMarkdown={async (md) => {
-                const { compileMarkdown } = await import(
-                  'solid-intlayer/markdown'
-                );
-                return compileMarkdown(md);
-              }}
-            >
-              <Layout>{props.children}</Layout>
-            </MarkdownProvider>
-          </IntlayerProvider>
-        )}
-      >
-        <Route path="/" component={Home} />
-      </Route>
-    ))}
-  </IntlayerProvider>
-);
+export const App = () =>
+  localeMap(({ locale, urlPrefix }) => (
+    <Route
+      path={urlPrefix}
+      component={(props) => (
+        <IntlayerProvider locale={locale}>
+          <MarkdownProvider
+            renderMarkdown={async (md) => {
+              const { compileMarkdown } = await import(
+                'solid-intlayer/markdown'
+              );
+              return compileMarkdown(md);
+            }}
+          >
+            <Layout>{props.children}</Layout>
+          </MarkdownProvider>
+        </IntlayerProvider>
+      )}
+    >
+      <Route path="/" component={Home} />
+    </Route>
+  ));

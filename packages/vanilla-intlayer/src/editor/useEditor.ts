@@ -21,10 +21,10 @@ import { getIntlayerClient } from '../client/installIntlayer';
  * const stopEditor = useEditor();
  * ```
  */
-const TREE_SHAKE_EDITOR = process.env['INTLAYER_EDITOR_ENABLED'] === 'false';
 
 export const useEditor = (): (() => void) => {
-  if (TREE_SHAKE_EDITOR || !isEnabled) return () => {};
+  if (process.env['INTLAYER_EDITOR_ENABLED'] === 'false' || !isEnabled)
+    return () => {};
 
   let unsubscribeLocale: (() => void) | null = null;
   let stopped = false;

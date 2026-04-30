@@ -19,7 +19,7 @@ let debug: (message: string) => void = () => {};
 const configuration = getConfiguration();
 const { internationalization } = configuration;
 
-if (process.env.NODE_ENV === 'development') {
+if (process.env['NODE_ENV'] === 'development') {
   debug = (msg: string) => console.debug(msg);
 }
 

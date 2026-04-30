@@ -13,8 +13,6 @@ import {
   type IntlayerProvider,
 } from '../client/installIntlayer';
 
-const TREE_SHAKE_EDITOR = process.env['INTLAYER_EDITOR_ENABLED'] === 'false';
-
 /**
  * Starts the editor client and syncs the given locale ref into it.
  * Returns a cleanup function that stops the locale watcher and the client.
@@ -54,7 +52,7 @@ const startEditor = (locale: Ref<Locale> | undefined): (() => void) => {
  *   lifecycle hooks (use from a component's `setup`).
  */
 export const useEditor = (app?: App): void => {
-  if (TREE_SHAKE_EDITOR || !isEnabled) return;
+  if (process.env['INTLAYER_EDITOR_ENABLED'] === 'false' || !isEnabled) return;
 
   if (app) {
     let stopEditor: (() => void) | null = null;

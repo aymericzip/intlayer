@@ -28,45 +28,6 @@ import { getTranslation } from '../getTranslation';
 // When these env vars are injected at build time, bundlers eliminate the
 // branches guarded by these constants.
 
-/**
- * True when the translation node type is explicitly disabled at build time.
- */
-const TREE_SHAKE_TRANSLATION =
-  process.env['INTLAYER_NODE_TYPE_TRANSLATION'] === 'false';
-
-/**
- * True when the enumeration node type is explicitly disabled at build time.
- */
-const TREE_SHAKE_ENUMERATION =
-  process.env['INTLAYER_NODE_TYPE_ENUMERATION'] === 'false';
-
-/**
- * True when the condition node type is explicitly disabled at build time.
- */
-const TREE_SHAKE_CONDITION =
-  process.env['INTLAYER_NODE_TYPE_CONDITION'] === 'false';
-
-/**
- * True when the insertion node type is explicitly disabled at build time.
- */
-const TREE_SHAKE_INSERTION =
-  process.env['INTLAYER_NODE_TYPE_INSERTION'] === 'false';
-
-/**
- * True when the gender node type is explicitly disabled at build time.
- */
-const TREE_SHAKE_GENDER = process.env['INTLAYER_NODE_TYPE_GENDER'] === 'false';
-
-/**
- * True when the nested node type is explicitly disabled at build time.
- */
-const TREE_SHAKE_NESTED = process.env['INTLAYER_NODE_TYPE_NESTED'] === 'false';
-
-/**
- * True when the file node type is explicitly disabled at build time.
- */
-const TREE_SHAKE_FILE = process.env['INTLAYER_NODE_TYPE_FILE'] === 'false';
-
 /** ---------------------------------------------
  * PLUGIN DEFINITION
  * --------------------------------------------- */
@@ -137,7 +98,7 @@ export const translationPlugin = (
   locale: LocalesValues,
   fallback?: LocalesValues
 ): Plugins =>
-  TREE_SHAKE_TRANSLATION
+  process.env['INTLAYER_NODE_TYPE_TRANSLATION'] === 'false'
     ? fallbackPlugin
     : {
         id: 'translation-plugin',
@@ -183,41 +144,42 @@ export type EnumerationCond<T, S, _L> = T extends {
   : never;
 
 /** Enumeration plugin. Replaces node with a function that takes quantity => string. */
-export const enumerationPlugin: Plugins = TREE_SHAKE_ENUMERATION
-  ? fallbackPlugin
-  : {
-      id: 'enumeration-plugin',
-      canHandle: (node) =>
-        typeof node === 'object' && node?.nodeType === NodeTypes.ENUMERATION,
-      transform: (node: EnumerationContent, props, deepTransformNode) => {
-        const original = node[NodeTypes.ENUMERATION];
-        const result: Record<string, any> = {};
+export const enumerationPlugin: Plugins =
+  process.env['INTLAYER_NODE_TYPE_ENUMERATION'] === 'false'
+    ? fallbackPlugin
+    : {
+        id: 'enumeration-plugin',
+        canHandle: (node) =>
+          typeof node === 'object' && node?.nodeType === NodeTypes.ENUMERATION,
+        transform: (node: EnumerationContent, props, deepTransformNode) => {
+          const original = node[NodeTypes.ENUMERATION];
+          const result: Record<string, any> = {};
 
-        for (const key in original) {
-          const child = original[key as unknown as keyof typeof original];
-          const childProps = {
-            ...props,
-            children: child,
-            keyPath: [
-              ...props.keyPath,
-              { type: NodeTypes.ENUMERATION, key } as KeyPath,
-            ],
-          };
-          result[key] = deepTransformNode(child, childProps);
-        }
-
-        return (arg: number | { count: number }) => {
-          const quantity = typeof arg === 'number' ? arg : arg.count;
-          const subResult = getEnumeration(result, quantity);
-
-          if (typeof subResult === 'function' && typeof arg === 'object') {
-            return subResult(arg);
+          for (const key in original) {
+            const child = original[key as unknown as keyof typeof original];
+            const childProps = {
+              ...props,
+              children: child,
+              keyPath: [
+                ...props.keyPath,
+                { type: NodeTypes.ENUMERATION, key } as KeyPath,
+              ],
+            };
+            result[key] = deepTransformNode(child, childProps);
           }
 
-          return subResult;
-        };
-      },
-    };
+          return (arg: number | { count: number }) => {
+            const quantity = typeof arg === 'number' ? arg : arg.count;
+            const subResult = getEnumeration(result, quantity);
+
+            if (typeof subResult === 'function' && typeof arg === 'object') {
+              return subResult(arg);
+            }
+
+            return subResult;
+          };
+        },
+      };
 
 /** ---------------------------------------------
  * CONDITION PLUGIN
@@ -236,41 +198,42 @@ export type ConditionCond<T, S, _L> = T extends {
   : never;
 
 /** Condition plugin. Replaces node with a function that takes boolean => string. */
-export const conditionPlugin: Plugins = TREE_SHAKE_CONDITION
-  ? fallbackPlugin
-  : {
-      id: 'condition-plugin',
-      canHandle: (node) =>
-        typeof node === 'object' && node?.nodeType === NodeTypes.CONDITION,
-      transform: (node: ConditionContent, props, deepTransformNode) => {
-        const original = node[NodeTypes.CONDITION];
-        const result: Record<string, any> = {};
+export const conditionPlugin: Plugins =
+  process.env['INTLAYER_NODE_TYPE_CONDITION'] === 'false'
+    ? fallbackPlugin
+    : {
+        id: 'condition-plugin',
+        canHandle: (node) =>
+          typeof node === 'object' && node?.nodeType === NodeTypes.CONDITION,
+        transform: (node: ConditionContent, props, deepTransformNode) => {
+          const original = node[NodeTypes.CONDITION];
+          const result: Record<string, any> = {};
 
-        for (const key in original) {
-          const child = original[key as keyof typeof original];
-          const childProps = {
-            ...props,
-            children: child,
-            keyPath: [
-              ...props.keyPath,
-              { type: NodeTypes.CONDITION, key } as KeyPath,
-            ],
-          };
-          result[key] = deepTransformNode(child, childProps);
-        }
-
-        return (arg: boolean | { value: boolean }) => {
-          const value = typeof arg === 'boolean' ? arg : arg.value;
-          const subResult = getCondition(result as any, value);
-
-          if (typeof subResult === 'function' && typeof arg === 'object') {
-            return subResult(arg);
+          for (const key in original) {
+            const child = original[key as keyof typeof original];
+            const childProps = {
+              ...props,
+              children: child,
+              keyPath: [
+                ...props.keyPath,
+                { type: NodeTypes.CONDITION, key } as KeyPath,
+              ],
+            };
+            result[key] = deepTransformNode(child, childProps);
           }
 
-          return subResult;
-        };
-      },
-    };
+          return (arg: boolean | { value: boolean }) => {
+            const value = typeof arg === 'boolean' ? arg : arg.value;
+            const subResult = getCondition(result as any, value);
+
+            if (typeof subResult === 'function' && typeof arg === 'object') {
+              return subResult(arg);
+            }
+
+            return subResult;
+          };
+        },
+      };
 
 /** ---------------------------------------------
  *  INSERTION PLUGIN
@@ -291,61 +254,62 @@ export type InsertionCond<T, S, _L> = T extends {
   : never;
 
 /** Insertion plugin. Replaces node with a function that takes quantity => string. */
-export const insertionPlugin: Plugins = TREE_SHAKE_INSERTION
-  ? fallbackPlugin
-  : {
-      id: 'insertion-plugin',
-      canHandle: (node) =>
-        typeof node === 'object' && node?.nodeType === NodeTypes.INSERTION,
-      transform: (node: InsertionContent, props, deepTransformNode) => {
-        const newKeyPath: KeyPath[] = [
-          ...props.keyPath,
-          {
-            type: NodeTypes.INSERTION,
-          },
-        ];
+export const insertionPlugin: Plugins =
+  process.env['INTLAYER_NODE_TYPE_INSERTION'] === 'false'
+    ? fallbackPlugin
+    : {
+        id: 'insertion-plugin',
+        canHandle: (node) =>
+          typeof node === 'object' && node?.nodeType === NodeTypes.INSERTION,
+        transform: (node: InsertionContent, props, deepTransformNode) => {
+          const newKeyPath: KeyPath[] = [
+            ...props.keyPath,
+            {
+              type: NodeTypes.INSERTION,
+            },
+          ];
 
-        const children = node[NodeTypes.INSERTION];
+          const children = node[NodeTypes.INSERTION];
 
-        /** Insertion string plugin. Replaces string node with a component that render the insertion. */
-        const insertionStringPlugin: Plugins = {
-          id: 'insertion-string-plugin',
-          canHandle: (node) => typeof node === 'string',
-          transform: (node: string, subProps, deepTransformNode) => {
-            const transformedResult = deepTransformNode(node, {
-              ...subProps,
-              children: node,
-              plugins: [
-                ...(props.plugins ?? ([] as Plugins[])).filter(
-                  (plugin) => plugin.id !== 'intlayer-node-plugin'
-                ),
-              ],
-            });
-
-            return (
-              values: {
-                [K in InsertionContent['fields'][number]]: string | number;
-              }
-            ) => {
-              const children = getInsertion(transformedResult, values);
-
-              return deepTransformNode(children, {
+          /** Insertion string plugin. Replaces string node with a component that render the insertion. */
+          const insertionStringPlugin: Plugins = {
+            id: 'insertion-string-plugin',
+            canHandle: (node) => typeof node === 'string',
+            transform: (node: string, subProps, deepTransformNode) => {
+              const transformedResult = deepTransformNode(node, {
                 ...subProps,
-                plugins: props.plugins,
-                children,
+                children: node,
+                plugins: [
+                  ...(props.plugins ?? ([] as Plugins[])).filter(
+                    (plugin) => plugin.id !== 'intlayer-node-plugin'
+                  ),
+                ],
               });
-            };
-          },
-        };
 
-        return deepTransformNode(children, {
-          ...props,
-          children,
-          keyPath: newKeyPath,
-          plugins: [insertionStringPlugin, ...(props.plugins ?? [])],
-        });
-      },
-    };
+              return (
+                values: {
+                  [K in InsertionContent['fields'][number]]: string | number;
+                }
+              ) => {
+                const children = getInsertion(transformedResult, values);
+
+                return deepTransformNode(children, {
+                  ...subProps,
+                  plugins: props.plugins,
+                  children,
+                });
+              };
+            },
+          };
+
+          return deepTransformNode(children, {
+            ...props,
+            children,
+            keyPath: newKeyPath,
+            plugins: [insertionStringPlugin, ...(props.plugins ?? [])],
+          });
+        },
+      };
 
 /** ---------------------------------------------
  * GENDER PLUGIN
@@ -364,32 +328,33 @@ export type GenderCond<T, S, _L> = T extends {
   : never;
 
 /** Gender plugin. Replaces node with a function that takes gender => string. */
-export const genderPlugin: Plugins = TREE_SHAKE_GENDER
-  ? fallbackPlugin
-  : {
-      id: 'gender-plugin',
-      canHandle: (node) =>
-        typeof node === 'object' && node?.nodeType === NodeTypes.GENDER,
-      transform: (node: GenderContent, props, deepTransformNode) => {
-        const original = node[NodeTypes.GENDER];
-        const result: Record<string, any> = {};
+export const genderPlugin: Plugins =
+  process.env['INTLAYER_NODE_TYPE_GENDER'] === 'false'
+    ? fallbackPlugin
+    : {
+        id: 'gender-plugin',
+        canHandle: (node) =>
+          typeof node === 'object' && node?.nodeType === NodeTypes.GENDER,
+        transform: (node: GenderContent, props, deepTransformNode) => {
+          const original = node[NodeTypes.GENDER];
+          const result: Record<string, any> = {};
 
-        for (const key in original) {
-          const child = original[key as keyof typeof original];
-          const childProps = {
-            ...props,
-            children: child,
-            keyPath: [
-              ...props.keyPath,
-              { type: NodeTypes.GENDER, key } as KeyPath,
-            ],
-          };
-          result[key] = deepTransformNode(child, childProps);
-        }
+          for (const key in original) {
+            const child = original[key as keyof typeof original];
+            const childProps = {
+              ...props,
+              children: child,
+              keyPath: [
+                ...props.keyPath,
+                { type: NodeTypes.GENDER, key } as KeyPath,
+              ],
+            };
+            result[key] = deepTransformNode(child, childProps);
+          }
 
-        return (value: Gender) => getGender(result as any, value);
-      },
-    };
+          return (value: Gender) => getGender(result as any, value);
+        },
+      };
 
 /** ---------------------------------------------
  * NESTED PLUGIN
@@ -409,7 +374,7 @@ export type NestedCond<T, S, _L> = T extends {
 
 /** Nested plugin. Replaces node with the result of `getNesting`. */
 export const nestedPlugin = (locale?: LocalesValues): Plugins =>
-  TREE_SHAKE_NESTED
+  process.env['INTLAYER_NODE_TYPE_NESTED'] === 'false'
     ? fallbackPlugin
     : {
         id: 'nested-plugin',
@@ -440,18 +405,19 @@ export type FileCond<T> = T extends {
   : never;
 
 /** File plugin. Replaces node with the result of `getNesting`. */
-export const filePlugin: Plugins = TREE_SHAKE_FILE
-  ? fallbackPlugin
-  : {
-      id: 'file-plugin',
-      canHandle: (node) =>
-        typeof node === 'object' && node?.nodeType === NodeTypes.FILE,
-      transform: (node: FileContent, props, deepTransform) =>
-        deepTransform(node.content, {
-          ...props,
-          children: node.content,
-        }),
-    };
+export const filePlugin: Plugins =
+  process.env['INTLAYER_NODE_TYPE_FILE'] === 'false'
+    ? fallbackPlugin
+    : {
+        id: 'file-plugin',
+        canHandle: (node) =>
+          typeof node === 'object' && node?.nodeType === NodeTypes.FILE,
+        transform: (node: FileContent, props, deepTransform) =>
+          deepTransform(node.content, {
+            ...props,
+            children: node.content,
+          }),
+      };
 
 /**
  * PLUGIN RESULT

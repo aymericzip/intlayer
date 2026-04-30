@@ -4,8 +4,6 @@ import type { Locale } from '@intlayer/types/allLocales';
 import { onDestroy, onMount } from 'svelte';
 import { intlayerStore } from '../client/intlayerStore';
 
-const TREE_SHAKE_EDITOR = process.env['INTLAYER_EDITOR_ENABLED'] === 'false';
-
 /**
  * Initialises the Intlayer editor client singleton when the editor is enabled.
  * Syncs the current locale from intlayerStore into the editor manager so the
@@ -16,7 +14,7 @@ const TREE_SHAKE_EDITOR = process.env['INTLAYER_EDITOR_ENABLED'] === 'false';
  * direct access to the Svelte 5 rune state.
  */
 export const useEditor = () => {
-  if (TREE_SHAKE_EDITOR || !isEnabled) return;
+  if (process.env['INTLAYER_EDITOR_ENABLED'] === 'false' || !isEnabled) return;
 
   let unsubscribeLocale: (() => void) | null = null;
 

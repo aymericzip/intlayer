@@ -130,7 +130,7 @@ export class IntlayerContentSelectorWrapperElement extends _HTMLElement {
 
   private _getFilteredKeyPath(): KeyPath[] {
     return this._getRawKeyPath().filter(
-      (k) => k.type !== NodeTypes.TRANSLATION
+      (keyPath) => keyPath.type !== NodeTypes.TRANSLATION
     );
   }
 
