@@ -1,6 +1,9 @@
 'use client';
 
-import { useItemSelector } from '@hooks/useItemSelector';
+import {
+  type ItemSelectorOrientation,
+  useItemSelector,
+} from '@hooks/useItemSelector';
 import { cn } from '@utils/cn';
 import { cva, type VariantProps } from 'class-variance-authority';
 import {
@@ -31,6 +34,7 @@ export type SwitchSelectorProps<T = boolean> = {
   itemClassName?: string;
   hoverable?: boolean;
   disabled?: boolean;
+  orientation?: ItemSelectorOrientation;
 } & VariantProps<typeof switchSelectorVariant> &
   VariantProps<typeof choiceVariant>;
 
@@ -45,7 +49,7 @@ export enum SwitchSelectorColor {
 }
 
 const switchSelectorVariant = cva(
-  'flex w-fit cursor-pointer flex-row gap-2 rounded-full border-[1.3px] p-[1.5px]',
+  'flex h-fit w-fit cursor-pointer gap-2 border-[1.3px] p-[1.5px]',
   {
     variants: {
       color: {
@@ -58,6 +62,10 @@ const switchSelectorVariant = cva(
         [`${SwitchSelectorColor.DARK}`]: 'border-neutral-800 text-neutral-800',
         [`${SwitchSelectorColor.TEXT}`]: 'border-text text-text',
       },
+      orientation: {
+        horizontal: 'flex-row rounded-full',
+        vertical: 'flex-col rounded-2xl',
+      },
       disabled: {
         true: 'cursor-not-allowed opacity-50',
         false: '',
@@ -65,6 +73,7 @@ const switchSelectorVariant = cva(
     },
     defaultVariants: {
       color: `${SwitchSelectorColor.PRIMARY}`,
+      orientation: 'horizontal',
       disabled: false,
     },
   }
@@ -77,7 +86,7 @@ export enum SwitchSelectorSize {
 }
 
 const choiceVariant = cva(
-  'z-1 w-full flex-1 cursor-pointer font-medium text-sm transition-all duration-300 ease-in-out aria-selected:cursor-default data-[indicator=true]:text-text-opposite motion-reduce:transition-none',
+  'z-1 w-full cursor-pointer font-medium text-sm transition-all duration-300 ease-in-out aria-selected:cursor-default data-[indicator=true]:text-text-opposite motion-reduce:transition-none',
   {
     variants: {
       size: {
@@ -85,15 +94,20 @@ const choiceVariant = cva(
         [`${SwitchSelectorSize.MD}`]: 'p-2 text-sm',
         [`${SwitchSelectorSize.LG}`]: 'p-4 text-base',
       },
+      orientation: {
+        horizontal: 'flex-1',
+        vertical: '',
+      },
     },
     defaultVariants: {
       size: `${SwitchSelectorSize.MD}`,
+      orientation: 'horizontal',
     },
   }
 );
 
 const indicatorVariant = cva(
-  'absolute top-0 z-0 h-full w-auto rounded-full transition-[left,width] duration-300 ease-in-out motion-reduce:transition-none',
+  'absolute z-0 transition-all duration-300 ease-in-out motion-reduce:transition-none',
   {
     variants: {
       color: {
@@ -112,6 +126,13 @@ const indicatorVariant = cva(
         [`${SwitchSelectorColor.TEXT}`]:
           'bg-text data-[indicator=true]:text-text-opposite',
       },
+      orientation: {
+        horizontal: 'top-0 h-full w-auto rounded-full',
+        vertical: 'left-0 h-auto w-full rounded-xl',
+      },
+    },
+    defaultVariants: {
+      orientation: 'horizontal',
     },
   }
 );
@@ -144,6 +165,7 @@ export const SwitchSelector = <T,>({
   itemClassName,
   hoverable = true,
   disabled = false,
+  orientation = 'horizontal',
 }: SwitchSelectorProps<T>) => {
   const [valueState, setValue] = useState<T>(
     value ?? defaultValue ?? choices[0].value
@@ -153,7 +175,9 @@ export const SwitchSelector = <T,>({
   const optionsRefs = useRef<HTMLButtonElement[]>([]);
   const indicatorRef = useRef<HTMLDivElement | null>(null);
   const { choiceIndicatorPosition } = useItemSelector(optionsRefs, {
-    isHoverable: hoverable,
+    selector: (el) => el.getAttribute('data-indicator') === 'true',
+    isHoverable: false,
+    orientation,
   });
 
   const selectedIndex = choices.findIndex(
@@ -179,12 +203,18 @@ export const SwitchSelector = <T,>({
       className={switchSelectorVariant({
         color,
         disabled,
+        orientation,
         className,
       })}
       role="tablist"
       aria-disabled={disabled ? 'true' : undefined}
     >
-      <div className="relative flex size-full flex-row items-center justify-center">
+      <div
+        className={cn(
+          'relative flex w-full items-center justify-center',
+          orientation === 'horizontal' ? 'h-full flex-row' : 'h-fit flex-col'
+        )}
+      >
         {choices.map((choice, index) => {
           const { content, value, ...buttonProps } = choice;
 
@@ -200,6 +230,7 @@ export const SwitchSelector = <T,>({
               className={cn(
                 choiceVariant({
                   size,
+                  orientation,
                 }),
                 disabled && 'cursor-not-allowed',
                 itemClassName
@@ -227,6 +258,7 @@ export const SwitchSelector = <T,>({
             className={cn(
               indicatorVariant({
                 color,
+                orientation,
               })
             )}
             style={choiceIndicatorPosition}

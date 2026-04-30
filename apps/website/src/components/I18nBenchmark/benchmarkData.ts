@@ -13,8 +13,14 @@ export const fetchBenchmarkData = async (
     case 'tanstack':
       mappedFramework = 'tanstack';
       break;
-    case 'vite-react':
-      mappedFramework = 'vite-react';
+    case 'vite-vue':
+      mappedFramework = 'vite_vue';
+      break;
+    case 'vite-solid':
+      mappedFramework = 'vite_solid';
+      break;
+    case 'vite-svelte':
+      mappedFramework = 'vite_svelte';
       break;
     case 'nextjs':
     default:

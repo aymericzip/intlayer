@@ -131,7 +131,9 @@ export const useItemSelector = (
           for (const mutation of mutations) {
             if (
               mutation.type === 'attributes' &&
-              mutation.attributeName === 'aria-selected'
+              (mutation.attributeName === 'aria-selected' ||
+                mutation.attributeName === 'data-active' ||
+                mutation.attributeName === 'data-indicator')
             ) {
               calculatePosition();
               break;
@@ -141,7 +143,7 @@ export const useItemSelector = (
 
         observer.observe(option, {
           attributes: true,
-          attributeFilter: ['aria-selected'],
+          attributeFilter: ['aria-selected', 'data-active', 'data-indicator'],
         });
 
         mutationObservers.push(observer);
@@ -232,7 +234,14 @@ export const useItemSelector = (
         option?.removeEventListener('mouseleave', handleMouseLeave);
       });
     };
-  }, [optionsRefs, selector, hoveredItem, itemsLength, orientation]);
+  }, [
+    optionsRefs,
+    selector,
+    hoveredItem,
+    itemsLength,
+    orientation,
+    isHoverable,
+  ]);
 
   return { choiceIndicatorPosition, calculatePosition, orientation };
 };

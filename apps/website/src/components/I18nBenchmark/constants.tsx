@@ -1,3 +1,4 @@
+import FluentVueLogo from './logo/fluent-vue.png';
 import FormatJSLogo from './logo/format-js.svg';
 import GTLogo from './logo/general-translation.svg';
 import I18nextLogo from './logo/i18next.svg';
@@ -7,9 +8,18 @@ import NextInternationalLogo from './logo/next-international.png';
 import NextIntlLogo from './logo/next-intl.svg';
 import NextTranslateLogo from './logo/next-translate.svg';
 import ParaglideLogo from './logo/paraglide.svg';
+import ParaglideJSLogo from './logo/paragrlidejs.png';
+import SolidPrimitivesI18nLogo from './logo/solid-primitive.png';
+import SvelteI18nLogo from './logo/svelte-i18n.png';
 import TolgeeLogo from './logo/tolgee.svg';
+import VueI18nLogo from './logo/vue-i18n.png';
 import WuchaleLogo from './logo/wuchale.png';
-export type FrameworkKey = 'nextjs' | 'tanstack' | 'vite-react';
+export type FrameworkKey =
+  | 'nextjs'
+  | 'tanstack'
+  | 'vite-vue'
+  | 'vite-solid'
+  | 'vite-svelte';
 
 export type StaticImport = { src: string; height: number; width: number };
 
@@ -35,15 +45,26 @@ export type ChartItem = {
   version: string | null;
 };
 
-export type LibInfo = { id: string; name: string; version: string | null };
+export type LibInfo = {
+  id: string;
+  logoId?: string;
+  name: string;
+  version: string | null;
+};
 
 export const getLibColors = (isDarkMode: boolean): Record<string, string> => ({
   intlayer: isDarkMode ? '#c4c4c4ff' : '#1e1e1eff',
   'next-intlayer': isDarkMode ? '#c4c4c4ff' : '#1e1e1eff',
+  'react-intlayer': isDarkMode ? '#c4c4c4ff' : '#1e1e1eff',
+  'vue-intlayer': isDarkMode ? '#c4c4c4ff' : '#1e1e1eff',
+  'svelte-intlayer': isDarkMode ? '#c4c4c4ff' : '#1e1e1eff',
+  'solid-intlayer': isDarkMode ? '#c4c4c4ff' : '#1e1e1eff',
   'next-intl': '#64b5dc',
   'use-intl': '#64b5dc',
   'next-i18next': '#0b786e',
   'react-i18next': '#0b786e',
+  i18next: '#0b786e',
+  'vite-solid-i18next': '#0b786e',
   lingui: '#d8403e',
   'gt-next': '#73807cff',
   'gt-react': '#73807cff',
@@ -56,9 +77,20 @@ export const getLibColors = (isDarkMode: boolean): Record<string, string> => ({
   wuchale: '#80dcd1',
   'next-translate': '#752424',
   'next-international': '#5b5b5b',
+  'vue-i18n': '#41b883',
+  'vite-vue-i18n': '#41b883',
+  'svelte-i18n': '#ff3e00',
+  'vite-svelte-i18n': '#ff3e00',
+  'fluent-vue': '#41b883',
+  '@solid-primitives/i18n': '#2c4f7c',
+  'primitives-i18n': '#2c4f7c',
+  'paraglide-js': '#d09028',
   'base-app-nextjs': '#334155',
   'base-app-tanstack': '#334155',
   'base-app-vite-react': '#334155',
+  'base-app-vite-vue': '#334155',
+  'base-app-vite-solid': '#334155',
+  'base-app-vite-svelte': '#334155',
   base: '#334155',
 });
 
@@ -67,9 +99,11 @@ export const LIB_LOGOS: Record<string, StaticImport | null> = {
   'next-intlayer': null,
   'next-intl': NextIntlLogo as StaticImport,
   'use-intl': NextIntlLogo as StaticImport,
+  lingui: LinguiLogo as StaticImport,
   'next-i18next': I18nextLogo as StaticImport,
   'react-i18next': I18nextLogo as StaticImport,
-  lingui: LinguiLogo as StaticImport,
+  i18next: I18nextLogo as StaticImport,
+  'vite-solid-i18next': I18nextLogo as StaticImport,
   'gt-next': GTLogo as StaticImport,
   'gt-react': GTLogo as StaticImport,
   tolgee: TolgeeLogo as StaticImport,
@@ -81,4 +115,12 @@ export const LIB_LOGOS: Record<string, StaticImport | null> = {
   'next-translate': NextTranslateLogo as StaticImport,
   'next-international': NextInternationalLogo as StaticImport,
   wuchale: WuchaleLogo as StaticImport,
+  'vue-i18n': VueI18nLogo as StaticImport,
+  'vite-vue-i18n': VueI18nLogo as StaticImport,
+  'svelte-i18n': SvelteI18nLogo as StaticImport,
+  'vite-svelte-i18n': SvelteI18nLogo as StaticImport,
+  'fluent-vue': FluentVueLogo as StaticImport,
+  '@solid-primitives/i18n': SolidPrimitivesI18nLogo as StaticImport,
+  'primitives-i18n': SolidPrimitivesI18nLogo as StaticImport,
+  'paraglide-js': ParaglideJSLogo as StaticImport,
 };

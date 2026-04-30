@@ -1,4 +1,5 @@
 import { Button } from '@intlayer/design-system/button';
+import { Checkbox } from '@intlayer/design-system/input';
 import { useTheme } from 'next-themes';
 import type { FC } from 'react';
 import type { LibInfo } from './constants';
@@ -23,9 +24,17 @@ export const LibCard: FC<{
       variant="hoverable"
       onClick={onToggle}
       isActive={isActive}
-      className="relative min-w-32 shrink-0 overflow-hidden text-left"
+      className="relative h-12 min-w-32 shrink-0 overflow-hidden text-left"
     >
       <div className="flex flex-row items-center gap-4 px-3 py-1.5">
+        <Checkbox
+          name={lib.id}
+          checked={isActive}
+          onChange={onToggle}
+          onClick={(e) => e.stopPropagation()}
+          size="sm"
+          color="neutral"
+        />
         {colors[lib.id] && (
           <div
             className="absolute top-0 left-0 h-full w-[3px] rounded-r-full"

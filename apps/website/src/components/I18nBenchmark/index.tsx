@@ -39,7 +39,9 @@ export const getDisplayName = (id: string, baseAppLabel?: string): string => {
   return id
     .replace(/-app-nextjs$/, '')
     .replace(/-app-tanstack$/, '')
-    .replace(/-app-vite-react$/, '');
+    .replace(/-app-vite-vue$/, '')
+    .replace(/-app-vite-solid$/, '')
+    .replace(/-app-vite-svelte$/, '');
 };
 
 const CATEGORY_FALLBACKS: Record<string, string[]> = {
@@ -104,11 +106,14 @@ const buildChartData = (
 
       return {
         label: lib.name,
-        libId: lib.id,
+        libId: lib.logoId ?? lib.id,
         value: selectedMetric.transform(rawMetric.avg),
         min: selectedMetric.transform(rawMetric.min),
         max: selectedMetric.transform(rawMetric.max),
-        color: getLibColors(isDarkMode)[lib.id] || '#94a3b8',
+        color:
+          getLibColors(isDarkMode)[lib.logoId ?? lib.id] ||
+          getLibColors(isDarkMode)[lib.id] ||
+          '#94a3b8',
         version: lib.version,
       };
     })
@@ -150,6 +155,9 @@ export const I18nBenchmark = ({
     baseApp,
     nextjs: nextjsLabel,
     tanstack: tanstackLabel,
+    vite_vue: vueLabel,
+    vite_solid: solidLabel,
+    vite_svelte: svelteLabel,
   } = useIntlayer('i18n-benchmark');
 
   const { resolvedTheme } = useTheme();
@@ -190,10 +198,11 @@ export const I18nBenchmark = ({
     if (!currentFrameworkData?.libs) return [];
     return Object.keys(currentFrameworkData.libs).map((id) => ({
       id,
+      logoId: id === 'i18n' || id === 'i18next' ? `${framework}-${id}` : id,
       name: getDisplayName(id, baseApp.value),
       version: currentFrameworkData.libs[id].global?.version ?? null,
     }));
-  }, [currentFrameworkData, baseApp]);
+  }, [currentFrameworkData, baseApp, framework]);
 
   useEffect(() => {
     setActiveLibs(Object.fromEntries(allLibs.map((lib) => [lib.id, true])));
@@ -271,11 +280,48 @@ export const I18nBenchmark = ({
                       ) as any,
                       value: 'tanstack',
                     },
+                    {
+                      content: (
+                        <span className="flex items-center justify-center gap-1.5 px-1">
+                          <TechLogo
+                            name={TechLogoName.Vue}
+                            className="size-3.5"
+                          />
+                          {vueLabel}
+                        </span>
+                      ) as any,
+                      value: 'vite-vue',
+                    },
+                    {
+                      content: (
+                        <span className="flex items-center justify-center gap-1.5 px-1">
+                          <TechLogo
+                            name={TechLogoName.Solid}
+                            className="size-3.5"
+                          />
+                          {solidLabel}
+                        </span>
+                      ) as any,
+                      value: 'vite-solid',
+                    },
+                    {
+                      content: (
+                        <span className="flex items-center justify-center gap-1.5 px-1">
+                          <TechLogo
+                            name={TechLogoName.Svelte}
+                            className="size-3.5"
+                          />
+                          {svelteLabel}
+                        </span>
+                      ) as any,
+                      value: 'vite-svelte',
+                    },
                   ]}
                   value={framework}
                   onChange={(value) => setFramework(value as FrameworkKey)}
                   className="w-full"
                   color="text"
+                  orientation="vertical"
                 />
               </div>
             )}

@@ -86,6 +86,9 @@ const i18nBenchmarkDictionary = {
     }),
     nextjs: 'Next.js',
     tanstack: 'TanStack',
+    vite_vue: 'Vue',
+    vite_solid: 'Solid',
+    vite_svelte: 'Svelte',
     seeBenchmark: t({
       en: 'See benchmark',
       fr: 'Voir le benchmark',

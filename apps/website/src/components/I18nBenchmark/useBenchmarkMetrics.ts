@@ -141,51 +141,6 @@ export const useBenchmarkMetrics = (metricsContent: any) =>
         whatIsIt: metricsContent['page-load'].whatIsIt.value,
         whyItsImportant: metricsContent['page-load'].whyItsImportant.value,
       },
-      {
-        id: 'hydration',
-        label: metricsContent.hydration.label.value,
-        extract: (categoryData) =>
-          extractWithLocaleStats(
-            categoryData,
-            ['rendering', 'hydrationAvgMs'],
-            ['rendering', 'byLocale'],
-            'hydration'
-          ),
-        unit: 'ms',
-        transform: (value) => Number(value.toFixed(1)),
-        whatIsIt: metricsContent.hydration.whatIsIt.value,
-        whyItsImportant: metricsContent.hydration.whyItsImportant.value,
-      },
-      {
-        id: 'profiler',
-        label: metricsContent.profiler.label.value,
-        extract: (categoryData) =>
-          extractWithLocaleStats(
-            categoryData,
-            ['reactivity', 'profilerAvgMs'],
-            ['reactivity', 'byLocale'],
-            'profiler'
-          ),
-        unit: 'ms',
-        transform: (value) => Number(value.toFixed(2)),
-        whatIsIt: metricsContent.profiler.whatIsIt.value,
-        whyItsImportant: metricsContent.profiler.whyItsImportant.value,
-      },
-      {
-        id: 'reactivity',
-        label: metricsContent.reactivity.label.value,
-        extract: (categoryData) =>
-          extractWithLocaleStats(
-            categoryData,
-            ['reactivity', 'e2eAvgMs'],
-            ['reactivity', 'byLocale'],
-            'e2e'
-          ),
-        unit: 'ms',
-        transform: (value) => Number(value.toFixed(1)),
-        whatIsIt: metricsContent.reactivity.whatIsIt.value,
-        whyItsImportant: metricsContent.reactivity.whyItsImportant.value,
-      },
     ],
     [metricsContent]
   );
