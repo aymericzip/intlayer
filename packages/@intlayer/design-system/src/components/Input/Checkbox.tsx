@@ -12,9 +12,9 @@ export const checkboxVariants = cva(
     'appearance-none',
     'relative cursor-pointer border-2',
     'focus:outline-0',
-    'checked:border-current checked:bg-current checked:hover:bg-current/80',
-    'ring-current/20 ring-offset-current',
-    'hover:bg-current/20',
+    'checked:hover:opacity-80',
+    'ring-offset-background',
+    'hover:bg-neutral-500/10',
     'disabled:opacity-50',
 
     // Ring + animation
@@ -42,16 +42,24 @@ export const checkboxVariants = cva(
         lg: 'size-6 rounded-xl',
       },
       color: {
-        primary: 'accent-primary',
-        secondary: 'accent-secondary',
-        destructive: 'accent-destructive',
-        neutral: 'accent-neutral',
-        light: 'accent-light',
-        text: 'accent-text',
-        dark: 'accent-dark',
-        error: 'accent-error',
-        success: 'accent-success',
-        custom: 'accent-custom',
+        primary:
+          'border-primary/30 text-primary ring-primary/20 checked:border-primary checked:bg-primary',
+        secondary:
+          'border-secondary/30 text-secondary ring-secondary/20 checked:border-secondary checked:bg-secondary',
+        destructive:
+          'border-destructive/30 text-destructive ring-destructive/20 checked:border-destructive checked:bg-destructive',
+        neutral:
+          'border-neutral/30 text-neutral ring-neutral/20 checked:border-neutral checked:bg-neutral',
+        light:
+          'border-white/30 text-white ring-white/20 checked:border-white checked:bg-white',
+        text: 'border-text/30 text-text ring-text/20 checked:border-text checked:bg-text',
+        dark: 'border-neutral-800/30 text-neutral-800 ring-neutral-800/20 checked:border-neutral-800 checked:bg-neutral-800',
+        error:
+          'border-error/30 text-error ring-error/20 checked:border-error checked:bg-error',
+        success:
+          'border-success/30 text-success ring-success/20 checked:border-success checked:bg-success',
+        custom:
+          'border-custom/30 text-custom ring-custom/20 checked:border-custom checked:bg-custom',
       },
       validationStyleEnabled: {
         disabled: '',
