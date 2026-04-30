@@ -10,7 +10,10 @@ import {
   External_Github_i18n_benchmark,
   Website_Benchmark_Path,
 } from '@intlayer/design-system/routes';
-import { SwitchSelector } from '@intlayer/design-system/switch-selector';
+import {
+  SwitchSelector,
+  VerticalSwitchSelector,
+} from '@intlayer/design-system/switch-selector';
 import { SmartTable } from '@intlayer/design-system/table';
 import { TechLogo, TechLogoName } from '@intlayer/design-system/tech-logo';
 import { cn } from '@intlayer/design-system/utils';
@@ -253,7 +256,7 @@ export const I18nBenchmark = ({
             {!initialFramework && (
               <div>
                 <H3 className="mb-10 text-neutral">{frameworkLabel}</H3>
-                <SwitchSelector
+                <VerticalSwitchSelector
                   size="sm"
                   choices={[
                     {
@@ -321,7 +324,6 @@ export const I18nBenchmark = ({
                   onChange={(value) => setFramework(value as FrameworkKey)}
                   className="w-full"
                   color="text"
-                  orientation="vertical"
                 />
               </div>
             )}

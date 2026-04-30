@@ -168,7 +168,9 @@ export const I18nBenchmark = ({
     'graph'
   );
 
-  const activeCategories = useMemo(() => {
+  const activeCategories = useMemo<
+    ('scoped-dynamic' | 'dynamic' | 'scoped-static' | 'static')[]
+  >(() => {
     if (dynamicEnabled && scopedEnabled) return ['scoped-dynamic'];
     if (dynamicEnabled) return ['dynamic'];
     if (scopedEnabled) return ['scoped-static'];
