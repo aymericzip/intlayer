@@ -12,7 +12,7 @@ import {
 import { useSwitchSelector } from './useSwitchSelector';
 
 const verticalSwitchSelectorVariant = cva(
-  'flex h-fit w-fit cursor-pointer flex-col gap-2 rounded-2xl border-[1.3px] p-[1.5px]',
+  'flex h-fit w-fit cursor-pointer flex-col gap-2 rounded-2xl border-[1.3px] p-1',
   {
     variants: {
       color: {
