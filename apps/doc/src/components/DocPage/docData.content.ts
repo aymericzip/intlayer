@@ -1473,6 +1473,21 @@ const docDataContent: Dictionary = {
           default: getDocMetadata('./docs/en/benchmark/tanstack.md'),
           frameworks: ['tanstack', 'react'],
         },
+        vue: {
+          title: 'Vue',
+          default: getDocMetadata('./docs/en/benchmark/vue.md'),
+          frameworks: ['vue'],
+        },
+        solid: {
+          title: 'Solid',
+          default: getDocMetadata('./docs/en/benchmark/solid.md'),
+          frameworks: ['solid'],
+        },
+        svelte: {
+          title: 'Svelte',
+          default: getDocMetadata('./docs/en/benchmark/svelte.md'),
+          frameworks: ['svelte'],
+        },
       },
     },
   },
