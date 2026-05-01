@@ -182,7 +182,7 @@ Format pesan juga berbeda: `use-intl` menggunakan ICU MessageFormat, sementara `
 
 Benchmark TanStack Start ini tidak memiliki padanan langsung untuk `next-translate` (plugin Next.js + `getStaticProps`). Bagi tim yang benar-benar menginginkan API `t()` dengan ekosistem yang matang, `react-i18next` dan `use-intl` tetap menjadi pilihan yang "masuk akal", tetapi bersiaplah untuk menghabiskan banyak waktu mengoptimalkan untuk menghindari kebocoran.
 
-**(Intlayer)** (`react-intlayer@8.7.5-canary.0`):
+**(Intlayer)** (`react-intlayer@8.7.12`):
 
 Saya tidak akan secara pribadi menilai `react-intlayer` demi objektivitas, karena itu adalah solusi saya sendiri.
 

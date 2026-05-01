@@ -182,7 +182,7 @@ TanStack Start पर आप Next.js-विशिष्ट जाल ( `setReque
 
 इस TanStack Start बेंचमार्क का `next-translate` (Next.js प्लगइन + `getStaticProps`) के बराबर कोई सीधा विकल्प नहीं है। उन टीमों के लिए जो वास्तव में परिपक्व ईकोसिस्टम वाली `t()` API चाहती हैं, `react-i18next` और `use-intl` "उचित" विकल्प बने हुए हैं, लेकिन लीकेज से बचने के लिए अनुकूलन में बहुत समय निवेश करने के लिए तैयार रहें।
 
-**(Intlayer)** (`react-intlayer@8.7.5-canary.0`):
+**(Intlayer)** (`react-intlayer@8.7.12`):
 
 निष्पक्षता के लिए मैं व्यक्तिगत रूप से मेरे स्वयं के समाधान `react-intlayer` पर निर्णय नहीं दूँगा।
 

@@ -227,6 +227,17 @@ const HomePage = () => {
 </details>
 
 <details>
+<summary style="font-size:16px; font-weight:bold;">📊 基准测试</summary>
+<ul>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/nextjs.md" rel=''>Next.js</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/benchmark/tanstack.md" rel=''>TanStack Start</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/vue.md" rel=''>Vue</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/solid.md" rel=''>Solid</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/svelte.md" rel=''>Svelte</a></li>
+</ul>
+</details>
+
+<details>
 <summary style="font-size:16px; font-weight:bold;">📰 博客</summary>
 <ul>
   <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/blog/zh/what_is_internationalization.md" rel=''>什么是 i18n？</a></li>

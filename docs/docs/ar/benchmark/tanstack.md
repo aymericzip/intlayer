@@ -182,7 +182,7 @@ history:
 
 لا يوجد لهذا الاختبار في TanStack Start مكافئ مباشر لـ `next-translate` (إضافة Next.js + `getStaticProps`). بالنسبة للفرق التي تريد حقاً واجهة برمجة تطبيقات بأسلوب `t()` مع نظام ناضج، يظل `react-i18next` و `use-intl` خيارات "معقولة"، ولكن توقع استثمار الكثير من الوقت في التحسين لتجنب التسرب.
 
-**(Intlayer)** (`react-intlayer@8.7.5-canary.0`):
+**(Intlayer)** (`react-intlayer@8.7.12`):
 
 لن أحكم شخصيًا على `react-intlayer` من أجل الموضوعية، لأنه حلي الخاص.
 

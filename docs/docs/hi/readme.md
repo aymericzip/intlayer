@@ -227,6 +227,17 @@ Intlayer के साथ शुरुआत करने और इसे अ�
 </details>
 
 <details>
+<summary style="font-size:16px; font-weight:bold;">📊 बेंचमार्क</summary>
+<ul>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/nextjs.md" rel=''>Next.js</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/benchmark/tanstack.md" rel=''>TanStack Start</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/vue.md" rel=''>Vue</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/solid.md" rel=''>Solid</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/svelte.md" rel=''>Svelte</a></li>
+</ul>
+</details>
+
+<details>
 <summary style="font-size:16px; font-weight:bold;">📰 ब्लॉग</summary>
 <ul>
   <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/blog/hi/what_is_internationalization.md" rel=''>i18n क्या है?</a></li>

@@ -182,7 +182,7 @@ A menudo se elogia a `Lingui`. Personalmente, encontré el flujo de trabajo en t
 
 Este benchmark de TanStack Start no tiene un equivalente directo a `next-translate` (plugin de Next.js + `getStaticProps`). Para los equipos que realmente quieren una API `t()` con un ecosistema maduro, `react-i18next` y `use-intl` siguen siendo opciones "razonables", pero prepárate para invertir mucho tiempo optimizando para evitar fugas.
 
-**(Intlayer)** (`react-intlayer@8.7.5-canary.0`):
+**(Intlayer)** (`react-intlayer@8.7.12`):
 
 No seré yo quien juzgue personalmente a `react-intlayer` por objetividad, ya que es mi propia solución.
 

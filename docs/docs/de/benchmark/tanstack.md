@@ -182,7 +182,7 @@ Die Nachrichtenformate weichen ebenfalls voneinander ab: `use-intl` verwendet IC
 
 Dieser TanStack Start-Benchmark hat kein direktes Äquivalent zu `next-translate` (Next.js-Plugin + `getStaticProps`). Für Teams, die unbedingt eine `t()`-API mit einem ausgereiften Ökosystem wollen, bleiben `react-i18next` und `use-intl` "vernünftige" Entscheidungen, aber stellen Sie sich darauf ein, viel Zeit in die Optimierung zu investieren, um Leakage zu vermeiden.
 
-**(Intlayer)** (`react-intlayer@8.7.5-canary.0`):
+**(Intlayer)** (`react-intlayer@8.7.12`):
 
 Ich werde `react-intlayer` der Objektivität halber nicht persönlich bewerten, da es meine eigene Lösung ist.
 

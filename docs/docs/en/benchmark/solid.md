@@ -1,0 +1,159 @@
+---
+createdAt: 2026-04-20
+updatedAt: 2026-04-21
+title: Best i18n solution for Solid in 2026 - Benchmark Report
+description: Compare Solid internationalization libraries like solid-primitives, solid-i18next, and Intlayer. Detailed performance report on bundle size, leakage, and reactivity.
+keywords:
+  - benchmark
+  - i18n
+  - intl
+  - solid
+  - performance
+  - intlayer
+slugs:
+  - doc
+  - benchmark
+  - solid
+author: Aymeric PINEAU
+applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-solid-template
+history:
+  - version: 8.7.5
+    date: 2026-01-06
+    changes: "Init benchmark"
+---
+
+# Solid i18n Libraries - 2026 Benchmark Report
+
+This page is a benchmark report for i18n solutions on Solid.
+
+## Table of Contents
+
+<Toc/>
+
+## Interactive Benchmark
+
+<I18nBenchmark framework="vite-solid" vertical/>
+
+## Results reference:
+
+<iframe 
+  src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-vite_solid.md" 
+  width="100%" 
+  height="600px"
+  style="border:none;">
+</iframe>
+
+> https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-vite_solid.md
+
+See complete benchmark repository [here](https://github.com/intlayer-org/benchmark-i18n/tree/main).
+
+## Introduction
+
+Internationalization solutions are among the heaviest dependencies in a Solid app. The main risk is shipping unnecessary content: translations for other pages and other locales in a single route’s bundle.
+
+As your app grows, that problem can quickly blow up the JavaScript sent to the client and slow down navigation.
+
+In practice, for the least optimized implementations, an internationalized page can end up several times heavier than the version without i18n.
+
+The other impact is on developer experience: how you declare content, types, namespace organization, dynamic loading, and reactivity when the locale changes.
+
+## Test your app
+
+To quickly spot i18n leakage issues, I set up a free scanner available [here](https://intlayer.org/i18n-seo-scanner).
+
+<iframe src="https://intlayer.org/i18n-seo-scanner" width="100%" height="600px" style="border:none;"/>
+
+## The problem
+
+Two levers are essential to limit the cost of a multilingual app:
+
+- Split content by page / namespace so you do not load whole dictionaries when you do not need them
+- Load the right locale dynamically, only when needed
+
+Understanding the technical limitations of these approaches:
+
+**Dynamic loading**
+
+Without dynamic loading, most solutions keep messages in memory from the first render, which adds significant overhead for apps with many routes and locales.
+
+With dynamic loading, you accept a trade-off: less initial JS, but sometimes an extra request when switching language.
+
+**Content splitting**
+
+Syntaxes built around `t('a.b.c')` are very convenient but often encourage keeping large JSON objects at runtime. That model makes tree-shaking hard unless the library offers a real per-page split strategy.
+
+## Methodology
+
+For this benchmark, we compared the following libraries:
+
+- `Base App` (No i18n library)
+- `solid-intlayer` (v8.7.12)
+- `@solid-primitives/i18n` (v12.1.1)
+- `solid-i18next` (v17.0.2)
+
+The framework is `Solid` with a multilingual app of **10 pages** and **10 languages**.
+
+We compared **four loading strategies**:
+
+| Strategy            | No namespaces (global)                       | With namespaces (scoped)                                             |
+| :------------------ | :------------------------------------------- | :------------------------------------------------------------------- |
+| **Static loading**  | **Static**: Everything in memory at startup. | **Scoped static**: Split by namespace; everything loaded at startup. |
+| **Dynamic loading** | **Dynamic**: On-demand loading per locale.   | **Scoped dynamic**: Granular loading per namespace and locale.       |
+
+## Strategy summary
+
+- **Static**: Simple; no network latency after the initial load. Downside: large bundle size.
+- **Dynamic**: Reduces initial weight (lazy-loading). Ideal when you have many locales.
+- **Scoped static**: Keeps code organized (logical separation) without complex extra network requests.
+- **Scoped dynamic**: Best approach for _code splitting_ and performance. Minimizes memory by loading only what the current view and active locale need.
+
+### What I measured:
+
+I ran the same multilingual app in a real browser for every stack, then wrote down what actually showed up on the wire and how long things took. Sizes are reported **after normal web compression**, because that is closer to what people download than raw source counts.
+
+- **Internationalization library size**: After bundling, tree-shaking and minification, the size of the i18n library is the size of the providers + hooks/primitives code in an empty component. It does not include the loading of translation files. It answers how expensive the library is before your content enters the picture.
+
+- **JavaScript per page**: For each benchmark route, how much script the browser pulls in for that visit, averaged across the pages in the suite (and across locales where the report rolls them up). Heavy pages are slow pages.
+
+- **Leakage from other locales**: It's the content of the same page but in another language that would be loaded by mistake in the audited page. This content is unnecessary and should be avoided. (e.g. `/fr/about` page content in `/en/about` page bundle)
+
+- **Leakage from other routes**: The same idea for **other screens** in the app: whether their copy is riding along when you only opened one page. (e.g. `/en/about` page content in `/en/contact` page bundle). A high score hints at weak splitting or over-broad bundles.
+
+- **Average component bundle size**: Common UI pieces are measured **one at a time** instead of hiding inside one giant app number. It shows whether internationalization quietly inflates everyday components. For instance, if your component rerenders, it will load all that data from memory. Attaching a giant JSON to any component is like connecting a big store of unused data that will slow down your components’ performance.
+
+- **Language switch responsiveness**: I flip the language using the app’s own control and time how long it takes until the page has clearly switched, what a visitor would notice, not a lab micro-step.
+
+- **Rendering work after a language change**: A narrower follow-up: how much effort the interface took to repaint for the new language once the switch is in flight. Useful when the “felt” time and the framework cost diverge.
+
+- **Initial page load time**: From navigation to the browser considering the page fully loaded for the scenarios I tested. Good for comparing cold starts.
+
+- **Hydration time**: When the app exposes it, how long the client spends turning server HTML into something you can actually click. A dash in the tables means that implementation did not provide a reliable hydration figure in this benchmark.
+
+## Results in detail
+
+### 1 - Solutions to avoid
+
+**(solid-i18next)** (`solid-i18next@17.0.2`):
+
+`solid-i18next` is probably the most popular option because it was among the first to serve JavaScript app i18n needs. It also has a wide set of community plugins for specific problems.
+
+Still, it shares the same major downsides as stacks built on `t('a.b.c')`: optimizations are possible but very time-consuming, and large projects risk bad practices (namespaces + dynamic loading + types).
+
+### 2 - Experimental solutions
+
+**(@solid-primitives/i18n)** (`@solid-primitives/i18n@12.1.1`):
+
+Solid primitive is extremely light and efficient, I recommend that solution for light projects, but it can quickly become lacking features for professional solutions including cookie management, proxy redirection, formatters etc.
+It also misses lazy loading and scoping namespaces for page size optimization.
+
+### 3 - Recommendations
+
+**(Intlayer)** (`solid-intlayer@8.7.12`):
+
+I will not personally judge `solid-intlayer` for objectivity’s sake, since it is my own solution.
+
+### Personal note
+
+This note is personal and does not affect the benchmark results. Still, in the i18n world you often see consensus around a pattern like `const t = useTranslation('xx')` + `<>{t('xx.xx')}</>` for translated content.
+
+In Solid apps, injecting a function as a `JSX.Element` is, in my view, an anti-pattern. It also adds avoidable complexity and JavaScript execution overhead (even if it is barely noticeable).

@@ -182,7 +182,7 @@ history:
 
 在本次 TanStack Start 基准测试中，没有与 `next-translate`（Next.js 插件 + `getStaticProps`）直接对应的方案。对于那些确实想要 `t()` API 且拥有成熟生态的团队，`react-i18next` 和 `use-intl` 仍是“合理”的选择，但要做好投入大量时间进行优化以避免泄漏的准备。
 
-**(Intlayer)** (`react-intlayer@8.7.5-canary.0`):
+**(Intlayer)** (`react-intlayer@8.7.12`):
 
 出于客观性考量，我不会亲自评价 `react-intlayer`，因为这是我自己的解决方案。
 

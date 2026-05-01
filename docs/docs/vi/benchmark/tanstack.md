@@ -182,7 +182,7 @@ Các định dạng thông báo cũng khác nhau: `use-intl` sử dụng ICU Mes
 
 Benchmark TanStack Start này không có đối trọng trực tiếp cho `next-translate` (Next.js plugin + `getStaticProps`). Đối với các nhóm thực sự muốn một API `t()` với một hệ sinh thái chín muồi, `react-i18next` và `use-intl` vẫn là những lựa chọn "hợp lý", nhưng hãy chuẩn bị đầu tư nhiều thời gian tối ưu hóa để tránh rò rỉ.
 
-**(Intlayer)** (`react-intlayer@8.7.5-canary.0`):
+**(Intlayer)** (`react-intlayer@8.7.12`):
 
 Tôi sẽ không đích thân đánh giá `react-intlayer` vì tính khách quan, vì đây là giải pháp của riêng tôi.
 

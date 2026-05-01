@@ -182,7 +182,7 @@ O `react-intl` é uma implementação de alto desempenho da equipe do Format.js.
 
 Este benchmark do TanStack Start não possui um equivalente direto do `next-translate` (plugin Next.js + `getStaticProps`). Para as equipes que realmente desejam uma API `t()` com um ecossistema maduro, o `react-i18next` e o `use-intl` continuam sendo escolhas "razoáveis", mas espere investir muito tempo otimizando para evitar vazamentos.
 
-**(Intlayer)** (`react-intlayer@8.7.5-canary.0`):
+**(Intlayer)** (`react-intlayer@8.7.12`):
 
 Não serei eu a julgar pessoalmente o `react-intlayer` por uma questão de objetividade, já que é a minha própria solução.
 
