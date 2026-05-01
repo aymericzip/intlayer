@@ -48,7 +48,12 @@ export const urlRenamer = (
   const localePattern = localeMap(({ locale }) => locale).join('|');
 
   const getGithubUrlRegex = (githubUrl: string) =>
-    formatRegExp(githubUrl.replace('/en/', `/(${localePattern})/`));
+    formatRegExp(
+      githubUrl.replace(
+        new RegExp(`/(${localePattern})/`),
+        `/(${localePattern})/`
+      )
+    );
 
   for (const meta of [...docMetadata, ...blogMetadata]) {
     const docGithubUrlMap: URLMap = {
