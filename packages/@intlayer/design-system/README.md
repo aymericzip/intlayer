@@ -184,7 +184,7 @@ Explore our comprehensive documentation to get started with Intlayer and learn h
   <li><a href="https://intlayer.org/doc/environment/vite-and-react" rel=''>Vite + React</a>
      <ul>
       <li><a href="https://intlayer.org/doc/environment/vite-and-react/react-router-v7" rel=''>React-router-v7</a></li>
-      <li><a href="https://intlayer.org/doc/environment/vite-and-react/tanstack-start" rel=''>Tanstack start</a></li>
+      <li><a href="https://intlayer.org/doc/environment/tanstack-start" rel=''>Tanstack start</a></li>
     </ul>
   </li>
   <li><a href="https://intlayer.org/doc/environment/react-native-and-expo" rel=''>React Native</a></li>
