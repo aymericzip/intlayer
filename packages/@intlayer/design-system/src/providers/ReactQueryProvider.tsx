@@ -146,36 +146,75 @@ export const ReactQueryProvider: FC<
   PropsWithChildren<ReactQueryProviderProps>
 > = ({ children, client }) => {
   const { onError, onSuccess } = useToastEvents();
+  // Keep handlers in a ref so the cache config (set once below) always calls
+  // the latest closures from useToastEvents without needing re-wiring.
+  const handlersRef = useRef({ onSuccess, onError });
+  handlersRef.current = { onSuccess, onError };
+
   const clientRef = useRef<QueryClient>(client ?? null);
 
   if (!clientRef.current) {
-    const mutationCache = new MutationCache({
-      onSuccess,
-      onError,
-      onSettled: (_data, _error, _variables, _context, mutation) => {
-        if (mutation.meta?.invalidateQueries) {
-          mutation.meta.invalidateQueries.forEach((queryKey) => {
-            clientRef.current?.invalidateQueries({
-              queryKey,
-            });
-          });
-        }
-
-        if (mutation.meta?.resetQueries) {
-          mutation.meta.resetQueries.forEach((queryKey) => {
-            clientRef.current?.resetQueries({
-              queryKey,
-            });
-          });
-        }
-      },
-    });
-
-    const queryClient = new QueryClient({
+    clientRef.current = new QueryClient({
       defaultOptions: defaultQueryOptions,
-      mutationCache,
+      mutationCache: new MutationCache(),
     });
-    clientRef.current = queryClient;
+  }
+
+  // Wire toast handlers + meta-driven invalidation onto whatever client we
+  // ended up with. Required even when the client is created externally (e.g.
+  // via getQueryClient() in TanStack Router context), since the externally
+  // created client ships with a bare MutationCache.
+  const wiredRef = useRef(false);
+  if (!wiredRef.current) {
+    wiredRef.current = true;
+    const cache = clientRef.current.getMutationCache();
+    cache.config.onSuccess = (
+      data,
+      variables,
+      onMutateResult,
+      mutation,
+      context
+    ) =>
+      handlersRef.current.onSuccess?.(
+        data,
+        variables,
+        onMutateResult,
+        mutation,
+        context
+      );
+    cache.config.onError = (
+      error,
+      variables,
+      onMutateResult,
+      mutation,
+      context
+    ) =>
+      handlersRef.current.onError?.(
+        error,
+        variables,
+        onMutateResult,
+        mutation,
+        context
+      );
+    cache.config.onSettled = (
+      _data,
+      _error,
+      _variables,
+      _onMutateResult,
+      mutation
+    ) => {
+      if (mutation.meta?.invalidateQueries) {
+        mutation.meta.invalidateQueries.forEach((queryKey) => {
+          clientRef.current?.invalidateQueries({ queryKey });
+        });
+      }
+
+      if (mutation.meta?.resetQueries) {
+        mutation.meta.resetQueries.forEach((queryKey) => {
+          clientRef.current?.resetQueries({ queryKey });
+        });
+      }
+    };
   }
 
   if (client) {
