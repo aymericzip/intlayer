@@ -10,6 +10,10 @@ import {
 } from '@controllers/dictionary.controller';
 import type { FastifyInstance } from 'fastify';
 import type { Routes } from '@/types/Routes';
+import {
+  dictionaryIdParamsSchema,
+  dictionaryKeyParamsSchema,
+} from './paramsSchemas';
 
 export const dictionaryRoute = '/api/dictionary';
 
@@ -72,7 +76,11 @@ export const dictionaryRouter = async (fastify: FastifyInstance) => {
     getDictionaryRoutes().getDictionariesUpdateTimestamp.urlModel,
     getDictionariesUpdateTimestamp
   );
-  fastify.get(getDictionaryRoutes().getDictionary.urlModel, getDictionaryByKey);
+  fastify.get(
+    getDictionaryRoutes().getDictionary.urlModel,
+    { schema: { params: dictionaryKeyParamsSchema } },
+    getDictionaryByKey
+  );
   fastify.post(getDictionaryRoutes().addDictionary.urlModel, addDictionary);
   fastify.patch(
     getDictionaryRoutes().pushDictionaries.urlModel,
@@ -80,10 +88,12 @@ export const dictionaryRouter = async (fastify: FastifyInstance) => {
   );
   fastify.put(
     getDictionaryRoutes().updateDictionary.urlModel,
+    { schema: { params: dictionaryIdParamsSchema } },
     updateDictionary
   );
   fastify.delete(
     getDictionaryRoutes().deleteDictionary.urlModel,
+    { schema: { params: dictionaryIdParamsSchema } },
     deleteDictionary
   );
 };

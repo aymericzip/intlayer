@@ -9,6 +9,7 @@ import {
 } from '@controllers/translation.controller';
 import type { FastifyInstance } from 'fastify';
 import type { Routes } from '@/types/Routes';
+import { jobIdParamsSchema } from './paramsSchemas';
 
 export const translateRoute = '/api/translate';
 
@@ -64,22 +65,27 @@ export const translationRouter = async (fastify: FastifyInstance) => {
   );
   fastify.post(
     getTranslationsRoutes().pauseTranslationJob.urlModel,
+    { schema: { params: jobIdParamsSchema } },
     pauseTranslationJob
   );
   fastify.post(
     getTranslationsRoutes().resumeTranslationJob.urlModel,
+    { schema: { params: jobIdParamsSchema } },
     resumeTranslationJob
   );
   fastify.post(
     getTranslationsRoutes().stopTranslationJob.urlModel,
+    { schema: { params: jobIdParamsSchema } },
     stopTranslationJob
   );
   fastify.post(
     getTranslationsRoutes().retryTranslationJob.urlModel,
+    { schema: { params: jobIdParamsSchema } },
     retryTranslationJob
   );
   fastify.post(
     getTranslationsRoutes().restartTranslationJob.urlModel,
+    { schema: { params: jobIdParamsSchema } },
     restartTranslationJob
   );
 };

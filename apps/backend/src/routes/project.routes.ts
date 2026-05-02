@@ -19,6 +19,7 @@ import {
 } from '@controllers/projectAccessKey.controller';
 import type { FastifyInstance } from 'fastify';
 import type { Routes } from '@/types/Routes';
+import { projectIdParamsSchema } from './paramsSchemas';
 
 export const projectRoute = '/api/project';
 
@@ -121,7 +122,11 @@ export const projectRouter = async (fastify: FastifyInstance) => {
   fastify.patch(getProjectRoutes().refreshAccessKey.urlModel, refreshAccessKey);
   fastify.delete(getProjectRoutes().deleteAccessKey.urlModel, deleteAccessKey);
   fastify.post(getProjectRoutes().unselectProject.urlModel, unselectProject);
-  fastify.put(getProjectRoutes().selectProject.urlModel, selectProject);
+  fastify.put(
+    getProjectRoutes().selectProject.urlModel,
+    { schema: { params: projectIdParamsSchema } },
+    selectProject
+  );
   fastify.post(getProjectRoutes().triggerBuild.urlModel, triggerBuild);
   fastify.post(getProjectRoutes().triggerWebhook.urlModel, triggerWebhook);
   fastify.get(

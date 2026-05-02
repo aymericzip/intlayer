@@ -6,6 +6,7 @@ import {
 } from '@controllers/tag.controller';
 import type { FastifyInstance } from 'fastify';
 import type { Routes } from '@/types/Routes';
+import { tagIdParamsSchema } from './paramsSchemas';
 
 export const tagRoute = '/api/tag';
 
@@ -38,6 +39,14 @@ export const getTagRoutes = () =>
 export const tagRouter = async (fastify: FastifyInstance) => {
   fastify.get(getTagRoutes().getTags.urlModel, getTags);
   fastify.post(getTagRoutes().addTag.urlModel, addTag);
-  fastify.put(getTagRoutes().updateTag.urlModel, updateTag);
-  fastify.delete(getTagRoutes().deleteTag.urlModel, deleteTag);
+  fastify.put(
+    getTagRoutes().updateTag.urlModel,
+    { schema: { params: tagIdParamsSchema } },
+    updateTag
+  );
+  fastify.delete(
+    getTagRoutes().deleteTag.urlModel,
+    { schema: { params: tagIdParamsSchema } },
+    deleteTag
+  );
 };

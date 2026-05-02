@@ -9,6 +9,7 @@ import {
 } from '@controllers/recursiveAudit.controller';
 import type { FastifyInstance } from 'fastify';
 import type { Routes } from '@/types/Routes';
+import { jobIdParamsSchema } from './paramsSchemas';
 
 export const auditRoute = '/api/scan';
 
@@ -62,9 +63,22 @@ export const auditRouter = async (fastify: FastifyInstance) => {
   fastify.post(getAuditRoutes().startRecursive.urlModel, startRecursiveAudit);
   fastify.get(
     getAuditRoutes().getRecursiveStatus.urlModel,
+    { schema: { params: jobIdParamsSchema } },
     getRecursiveAuditStatus
   );
-  fastify.post(getAuditRoutes().cancelRecursive.urlModel, cancelRecursiveAudit);
-  fastify.post(getAuditRoutes().pauseRecursive.urlModel, pauseRecursiveAudit);
-  fastify.post(getAuditRoutes().resumeRecursive.urlModel, resumeRecursiveAudit);
+  fastify.post(
+    getAuditRoutes().cancelRecursive.urlModel,
+    { schema: { params: jobIdParamsSchema } },
+    cancelRecursiveAudit
+  );
+  fastify.post(
+    getAuditRoutes().pauseRecursive.urlModel,
+    { schema: { params: jobIdParamsSchema } },
+    pauseRecursiveAudit
+  );
+  fastify.post(
+    getAuditRoutes().resumeRecursive.urlModel,
+    { schema: { params: jobIdParamsSchema } },
+    resumeRecursiveAudit
+  );
 };

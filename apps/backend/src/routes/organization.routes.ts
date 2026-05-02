@@ -11,6 +11,7 @@ import {
 } from '@controllers/organization.controller';
 import type { FastifyInstance } from 'fastify';
 import type { Routes } from '@/types/Routes';
+import { organizationIdParamsSchema } from './paramsSchemas';
 
 export const organizationRoute = '/api/organization';
 
@@ -87,6 +88,7 @@ export const organizationRouter = async (fastify: FastifyInstance) => {
   );
   fastify.put(
     getOrganizationRoutes().updateOrganizationMembersById.urlModel,
+    { schema: { params: organizationIdParamsSchema } },
     updateOrganizationMembersById
   );
   fastify.post(
@@ -99,6 +101,7 @@ export const organizationRouter = async (fastify: FastifyInstance) => {
   );
   fastify.put(
     getOrganizationRoutes().selectOrganization.urlModel,
+    { schema: { params: organizationIdParamsSchema } },
     selectOrganization
   );
   fastify.post(

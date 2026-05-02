@@ -9,6 +9,7 @@ import {
 } from '@controllers/user.controller';
 import type { FastifyInstance } from 'fastify';
 import type { Routes } from '@/types/Routes';
+import { emailParamsSchema, userIdParamsSchema } from './paramsSchemas';
 
 export const userRoute = '/api/user';
 
@@ -58,11 +59,24 @@ export const userRouter = async (fastify: FastifyInstance) => {
   fastify.get(getUserRoutes().getUsers.urlModel, getUsers);
   fastify.put(getUserRoutes().updateUser.urlModel, updateUser);
   fastify.post(getUserRoutes().createUser.urlModel, createUser);
-  fastify.get(getUserRoutes().getUserById.urlModel, getUserById);
-  fastify.get(getUserRoutes().getUserByEmail.urlModel, getUserByEmail);
-  fastify.delete(getUserRoutes().deleteUser.urlModel, deleteUser);
+  fastify.get(
+    getUserRoutes().getUserById.urlModel,
+    { schema: { params: userIdParamsSchema } },
+    getUserById
+  );
+  fastify.get(
+    getUserRoutes().getUserByEmail.urlModel,
+    { schema: { params: emailParamsSchema } },
+    getUserByEmail
+  );
+  fastify.delete(
+    getUserRoutes().deleteUser.urlModel,
+    { schema: { params: userIdParamsSchema } },
+    deleteUser
+  );
   fastify.get(
     getUserRoutes().verifyEmailStatusSSE.urlModel,
+    { schema: { params: userIdParamsSchema } },
     verifyEmailStatusSSE
   );
 };

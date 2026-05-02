@@ -11,6 +11,7 @@ import {
 } from '@controllers/showcaseProject.controller';
 import type { FastifyInstance } from 'fastify';
 import type { Routes } from '@/types/Routes';
+import { projectIdParamsSchema } from './paramsSchemas';
 
 export const showcaseProjectRoute = '/api/showcase-project';
 
@@ -92,18 +93,22 @@ export const showcaseProjectRouter = async (fastify: FastifyInstance) => {
   );
   fastify.get(
     getShowcaseProjectRoutes().getShowcaseProjectById.urlModel,
+    { schema: { params: projectIdParamsSchema } },
     getShowcaseProjectById
   );
   fastify.get(
     getShowcaseProjectRoutes().scanShowcaseProject.urlModel,
+    { schema: { params: projectIdParamsSchema } },
     scanShowcaseProject
   );
   fastify.delete(
     getShowcaseProjectRoutes().deleteShowcaseProject.urlModel,
+    { schema: { params: projectIdParamsSchema } },
     deleteShowcaseProjectHandler
   );
   fastify.patch(
     getShowcaseProjectRoutes().updateShowcaseProject.urlModel,
+    { schema: { params: projectIdParamsSchema } },
     updateShowcaseProjectHandler
   );
 };
