@@ -12,6 +12,7 @@ import { Checkbox, SearchInput } from '@intlayer/design-system/input';
 import { Loader } from '@intlayer/design-system/loader';
 import { PopoverStatic } from '@intlayer/design-system/popover';
 import { RightDrawer } from '@intlayer/design-system/right-drawer';
+import { SwitchSelector } from '@intlayer/design-system/switch-selector';
 import { cn } from '@intlayer/design-system/utils';
 import {
   AlertCircle,
@@ -157,7 +158,6 @@ const DictionaryRow: FC<{
     </div>
   )
 );
-DictionaryRow.displayName = 'DictionaryRow';
 
 // ─── JobCard ──────────────────────────────────────────────────────────────────
 
@@ -413,7 +413,6 @@ const JobCard: FC<JobCardProps> = memo(
     );
   }
 );
-JobCard.displayName = 'JobCard';
 
 // ─── Main component ───────────────────────────────────────────────────────────
 
@@ -801,28 +800,19 @@ export const TranslationStatusAside: FC = () => {
               <span className="font-medium text-text text-xs">
                 {content.modeLabel}
               </span>
-              <div className="flex gap-2">
-                <Button
-                  type="button"
-                  onClick={() => setFillMode('complete')}
-                  isActive={fillMode === 'complete'}
-                  variant="outline"
-                  label=""
-                  color="text"
-                >
-                  {content.modeFillMissing}
-                </Button>
-                <Button
-                  type="button"
-                  onClick={() => setFillMode('review')}
-                  isActive={fillMode === 'review'}
-                  variant="outline"
-                  label=""
-                  color="text"
-                >
-                  {content.modeAuditAll}
-                </Button>
-              </div>
+              <SwitchSelector
+                choices={[
+                  { content: content.modeFillMissing, value: 'complete' },
+                  { content: content.modeAuditAll, value: 'review' },
+                ]}
+                value={fillMode}
+                onChange={(value) =>
+                  setFillMode(value as 'complete' | 'review')
+                }
+                color="text"
+                size="sm"
+                className="w-full"
+              />
             </div>
 
             {/* Dictionary selector */}
@@ -830,28 +820,17 @@ export const TranslationStatusAside: FC = () => {
               <span className="font-medium text-text text-xs">
                 {content.dictionariesLabel}
               </span>
-              <div className="flex gap-2">
-                <Button
-                  type="button"
-                  label=""
-                  onClick={() => setSelectSpecific(false)}
-                  isActive={!selectSpecific}
-                  variant="outline"
-                  color="text"
-                >
-                  {content.allDictionaries}
-                </Button>
-                <Button
-                  type="button"
-                  label=""
-                  onClick={() => setSelectSpecific(true)}
-                  isActive={selectSpecific}
-                  variant="outline"
-                  color="text"
-                >
-                  {content.selectSpecific}
-                </Button>
-              </div>
+              <SwitchSelector
+                choices={[
+                  { content: content.allDictionaries, value: false },
+                  { content: content.selectSpecific, value: true },
+                ]}
+                value={selectSpecific}
+                onChange={setSelectSpecific}
+                color="text"
+                size="sm"
+                className="w-full"
+              />
 
               {selectSpecific && (
                 <div className="flex flex-col gap-2">
@@ -886,6 +865,7 @@ export const TranslationStatusAside: FC = () => {
                               id={`dict-${dictionaries.id}`}
                               name={`dict-${dictionaries.id}`}
                               size="sm"
+                              color="text"
                               checked={selectedDictionaryIds.has(
                                 dictionaries.id
                               )}

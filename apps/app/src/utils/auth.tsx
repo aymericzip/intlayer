@@ -32,6 +32,41 @@ export const sessionQueryOptions = {
   gcTime: 5 * 60 * 1000,
 } as const;
 
+/**
+ * Force a backend round-trip that bypasses better-auth's signed cookie
+ * cache (5-min TTL). Used when the cached session would cause a wrongful
+ * redirect, since `selectProject`/`selectOrganization` write to Mongo
+ * directly without refreshing that cookie.
+ */
+export const refetchFreshSession = async (
+  queryClient: QueryClient
+): Promise<SessionAPI> => {
+  const intlayerAPI = getAuthAPI();
+  const result = await intlayerAPI.getSession({
+    query: { disableCookieCache: true },
+  });
+  const fresh = result.data as unknown as SessionAPI;
+  queryClient.setQueryData(sessionQueryOptions.queryKey, fresh);
+  return fresh;
+};
+
+const wouldRedirect = (
+  accessRule: Parameters<typeof accessValidation>[0],
+  session: SessionAPI | null
+): boolean => {
+  let triggered = false;
+  accessValidation(
+    accessRule,
+    session,
+    () => {
+      triggered = true;
+    },
+    '',
+    true
+  );
+  return triggered;
+};
+
 export const validateAuth = async ({
   queryClient,
   pathname,
@@ -40,7 +75,14 @@ export const validateAuth = async ({
   accessRule,
   redirectionRoute,
 }: ValidateAuthProps) => {
-  const session = await queryClient.ensureQueryData(sessionQueryOptions);
+  let session = await queryClient.ensureQueryData(sessionQueryOptions);
+
+  // Before redirecting, double-check against backend truth: the local
+  // cache (or better-auth's cookie cache) may be lagging behind a recent
+  // org/project switch.
+  if (wouldRedirect(accessRule, session)) {
+    session = await refetchFreshSession(queryClient);
+  }
 
   const redirectUrlSearch =
     typeof search.redirect_url === 'string' ? search.redirect_url : null;
