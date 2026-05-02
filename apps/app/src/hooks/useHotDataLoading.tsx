@@ -38,8 +38,20 @@ export const useHotDataLoading = () => {
   // Unconditionally call hooks; their internal enable gating uses session state
   useGetOrganizations();
   useGetProjects();
-  useGetTags();
-  useGetDictionaries();
+  useGetTags({
+    page: 1,
+    pageSize: 10,
+    search: undefined,
+  });
+  useGetDictionaries({
+    page: 1,
+    pageSize: 20,
+    search: '',
+    sortBy: 'updatedAt',
+    sortOrder: 'desc',
+    tags: '',
+    location: undefined,
+  });
   useGetDictionariesKeys();
   useGetUsers();
   useGetCIConfig();
