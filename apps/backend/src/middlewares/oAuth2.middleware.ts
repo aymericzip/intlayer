@@ -5,7 +5,11 @@ import {
 } from '@services/oAuth2.service';
 import { formatSession } from '@utils/auth/getAuth';
 import { type AppError, ErrorHandler } from '@utils/errors';
-import { authenticateOptions, getAuthModel } from '@utils/oAuth2';
+import {
+  ACCESS_TOKEN_EXPIRES_IN,
+  authenticateOptions,
+  getAuthModel,
+} from '@utils/oAuth2';
 import type { FastifyReply, FastifyRequest } from 'fastify';
 import OAuth2Server, {
   Request as OAuthRequest,
@@ -15,7 +19,7 @@ import OAuth2Server, {
 // Configuration of the OAuth server
 const oauth = new OAuth2Server({
   model: getAuthModel(),
-  accessTokenLifetime: 60 * 60, // 1 hour
+  accessTokenLifetime: ACCESS_TOKEN_EXPIRES_IN,
   allowBearerTokensInQueryString: true,
 });
 

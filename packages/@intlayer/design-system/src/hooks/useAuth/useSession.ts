@@ -39,14 +39,19 @@ export const useSession = (
       // Narrow to the public shape we want to expose
       return result.data as unknown as SessionAPI;
     },
-    // Session data rarely changes during navigation, so keep it fresh for 1 minute
+    // Session data rarely changes during navigation, so keep it fresh for 5 minutes
     // This prevents unnecessary refetches when navigating between pages
-    staleTime: 60 * 1000,
-    gcTime: 5 * 60 * 1000,
-    // Only refetch if data is stale (not on every mount)
+    staleTime: 5 * 60 * 1000,
+    gcTime: 30 * 60 * 1000,
+    // Periodically revalidate so the backend's sliding session-refresh
+    // (better-auth `updateAge`) keeps the cookie alive for active users.
+    refetchInterval: 10 * 60 * 1000,
+    refetchIntervalInBackground: false,
     refetchOnMount: true,
-    refetchOnWindowFocus: false,
-    refetchOnReconnect: false,
+    // Refetching on focus/reconnect lets a returning user get a fresh,
+    // extended session without a manual reload.
+    refetchOnWindowFocus: true,
+    refetchOnReconnect: true,
     enabled: !sessionProp,
   });
 

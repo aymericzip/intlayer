@@ -6,7 +6,7 @@ import { GenericError } from '@utils/errors';
 import { mapOrganizationToAPI } from '@utils/mapper/organization';
 import { mapProjectToAPI } from '@utils/mapper/project';
 import { mapUserToAPI } from '@utils/mapper/user';
-import { getTokenExpireAt } from '@utils/oAuth2';
+import { getTokenExpireAt, shouldExtendOAuth2Token } from '@utils/oAuth2';
 import type { Types } from 'mongoose';
 import type { Callback, Client } from 'oauth2-server';
 import type { OAuth2Token } from '@/types/oAuth2.types';
@@ -223,6 +223,21 @@ export const saveToken = async (
 };
 
 /**
+ * Sliding-refresh: push the token's expiry forward when it has been used
+ * within the refresh threshold. Idempotent and cheap when no extension is due.
+ */
+export const extendOAuth2AccessToken = async (
+  accessToken: string
+): Promise<Date> => {
+  const nextExpiresAt = getTokenExpireAt();
+  await OAuth2AccessTokenModel.updateOne(
+    { accessToken },
+    { $set: { accessTokenExpiresAt: nextExpiresAt, expiresIn: nextExpiresAt } }
+  );
+  return nextExpiresAt;
+};
+
+/**
  * Method to get the access token
  *
  * @param accessToken - The access token
@@ -237,6 +252,15 @@ export const getAccessToken = async (
 
   if (!token) {
     return false;
+  }
+
+  // Slide the expiry forward when this active token is approaching its
+  // deadline so a long-lived integration doesn't have to re-authenticate.
+  const currentExpiresAt = token.accessTokenExpiresAt ?? token.expiresIn;
+  if (currentExpiresAt && shouldExtendOAuth2Token(currentExpiresAt)) {
+    const nextExpiresAt = await extendOAuth2AccessToken(accessToken);
+    token.accessTokenExpiresAt = nextExpiresAt;
+    token.expiresIn = nextExpiresAt;
   }
 
   const { userId, clientId } = token;

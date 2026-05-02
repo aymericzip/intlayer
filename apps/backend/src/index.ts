@@ -1,5 +1,8 @@
 /// Controllers
-import { getOAuth2AccessToken } from '@controllers/oAuth2.controller';
+import {
+  extendOAuth2Token,
+  getOAuth2AccessToken,
+} from '@controllers/oAuth2.controller';
 import fastifyCompress from '@fastify/compress';
 import fastifyCookie from '@fastify/cookie';
 import fastifyCors from '@fastify/cors';
@@ -208,6 +211,7 @@ const startServer = async () => {
   // // oAuth2 Auth
   app.addHook('onRequest', attachOAuthInstance);
   app.post('/oauth2/token', getOAuth2AccessToken); // Route to get the token
+  app.post('/oauth2/token/extend', extendOAuth2Token); // Route to extend an active token
   app.addHook('preHandler', oAuth2Middleware);
 
   // // debug

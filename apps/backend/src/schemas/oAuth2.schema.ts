@@ -54,9 +54,12 @@ export const accessTokenSchema = new Schema<Token>(
   }
 );
 
+// MongoDB TTL fallback: tokens are normally garbage collected by their
+// accessTokenExpiresAt, but if the sliding-refresh keeps a token alive for a
+// long time we still want a hard upper bound from creation.
 accessTokenSchema.index(
   { createdAt: 1 },
   {
-    expireAfterSeconds: 60 * 60 * 24 * 10, // 10 Days
+    expireAfterSeconds: 60 * 60 * 24 * 90, // 90 Days
   }
 );

@@ -1,5 +1,6 @@
 import type { RequestWithOAuth2Information } from '@middlewares/oAuth2.middleware';
-import { type AppError, ErrorHandler } from '@utils/errors';
+import { extendOAuth2AccessToken } from '@services/oAuth2.service';
+import { type AppError, ErrorHandler, GenericError } from '@utils/errors';
 import { formatResponse, type ResponseData } from '@utils/responseData';
 import type { FastifyReply, FastifyRequest } from 'fastify';
 import {
@@ -38,6 +39,40 @@ export const getOAuth2AccessToken = async (
     });
 
     return reply.send(responseData);
+  } catch (error) {
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
+  }
+};
+
+export type ExtendOAuth2TokenResult = ResponseData<{
+  accessToken: string;
+  accessTokenExpiresAt: Date;
+}>;
+
+/**
+ * Extend the lifetime of the bearer token attached to the current request.
+ * Lets long-running clients keep using the same token instead of
+ * re-authenticating on a fixed schedule.
+ */
+export const extendOAuth2Token = async (
+  request: FastifyRequest,
+  reply: FastifyReply
+): Promise<void> => {
+  try {
+    const authorization = request.headers.authorization;
+    const accessToken = authorization?.match(/^Bearer\s+(.+)$/i)?.[1]?.trim();
+
+    if (!accessToken) {
+      throw new GenericError('INVALID_ACCESS_TOKEN');
+    }
+
+    const accessTokenExpiresAt = await extendOAuth2AccessToken(accessToken);
+
+    return reply.send(
+      formatResponse<{ accessToken: string; accessTokenExpiresAt: Date }>({
+        data: { accessToken, accessTokenExpiresAt },
+      })
+    );
   } catch (error) {
     return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }

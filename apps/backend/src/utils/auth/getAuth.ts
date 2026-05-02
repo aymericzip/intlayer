@@ -154,6 +154,19 @@ export const getAuth = (dbClient: MongoClient): Auth => {
       modelName: 'sessions',
       id: 'id',
 
+      // Session lives for 30 days; each access made more than 1 day after the
+      // last refresh slides the expiry forward, so an active user effectively
+      // stays signed in indefinitely.
+      expiresIn: 60 * 60 * 24 * 30,
+      updateAge: 60 * 60 * 24,
+
+      // Cache the session in a signed cookie for 5 minutes to avoid hitting
+      // Mongo on every request while still picking up updateAge refreshes.
+      cookieCache: {
+        enabled: true,
+        maxAge: 5 * 60,
+      },
+
       additionalFields: {
         activeOrganizationId: { type: 'string', nullable: true, input: false },
         activeProjectId: { type: 'string', nullable: true, input: false },
