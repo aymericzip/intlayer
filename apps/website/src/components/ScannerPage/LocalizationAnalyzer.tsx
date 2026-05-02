@@ -15,9 +15,7 @@ export const LocalizationAnalyzer: FC = () => {
   const { session } = useSession();
   const isLoggedIn = !!session;
 
-  const { globalError: globalErrorMessage } = useIntlayer(
-    'localization-analyzer'
-  );
+  const { globalError } = useIntlayer('localization-analyzer');
 
   const [externalError, setExternalError] = useState<string | null>(null);
 
@@ -31,7 +29,7 @@ export const LocalizationAnalyzer: FC = () => {
     mergedData,
     handleAnalyze,
     handleCancel,
-  } = useLocalizationScan(globalErrorMessage.value);
+  } = useLocalizationScan(globalError?.value);
 
   // Derive the scanned URL from mergedData keys (e.g. "url_htmlLang\\https://example.com")
   // so that it always matches exactly what was stored, both during an active scan and on refresh.
