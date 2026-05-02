@@ -197,7 +197,7 @@ export default defineConfig(({ mode }) => {
           host: 'https://showcase.intlayer.org',
         },
         prerender: {
-          enabled: true,
+          enabled: false,
           crawlLinks: false,
           concurrency: 10,
         },
