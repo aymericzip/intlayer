@@ -79,6 +79,7 @@ import { WebsiteHeader } from '#/structuredData/WebsiteHeader';
 
 function RootDocument({ children }: { children: React.ReactNode }) {
   const { locale = defaultLocale } = useParams({ strict: false }) as any;
+  const { queryClient } = Route.useRouteContext();
 
   return (
     <html dir={getHTMLTextDir(locale)} lang={locale} suppressHydrationWarning>
@@ -92,7 +93,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
           <AnimatePresenceProvider>
             <ThemeProvider>
               <IntlayerMarkdownProvider>
-                <ReactQueryProvider>
+                <ReactQueryProvider client={queryClient}>
                   <Toaster />
                   <WebsiteHeader />
                   <SoftwareApplicationHeader />

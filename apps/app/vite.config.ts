@@ -235,10 +235,22 @@ export default defineConfig(({ mode }) => {
       },
     },
     resolve: {
-      dedupe: ['react', 'react-dom'],
+      dedupe: [
+        'react',
+        'react-dom',
+        '@tanstack/react-query',
+        '@tanstack/react-router',
+        '@tanstack/react-start',
+      ],
     },
     optimizeDeps: {
-      include: ['react', 'react-dom'],
+      exclude: ['@tanstack/react-start'],
+      include: [
+        'react',
+        'react-dom',
+        '@tanstack/react-query',
+        '@tanstack/react-router',
+      ],
     },
   };
 });
