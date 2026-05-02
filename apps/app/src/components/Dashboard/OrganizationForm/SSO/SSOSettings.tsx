@@ -258,6 +258,7 @@ export const SSOSettings: FC = () => {
         <Container border borderColor="text" className="p-4" roundedSize="2xl">
           <Form.Checkbox
             name="enabled"
+            color="text"
             inputLabel={enabledLabel}
             disabled={!isOrganizationAdmin}
             onChange={() => {

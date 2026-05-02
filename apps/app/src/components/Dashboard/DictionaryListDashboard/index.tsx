@@ -82,6 +82,7 @@ export const DictionaryListDashboardContent: FC = () => {
           <Checkbox
             name="select-all"
             size="sm"
+            color="text"
             checked={table.getIsAllPageRowsSelected()}
             onChange={(e) => table.toggleAllPageRowsSelected(e.target.checked)}
             aria-label={content.selectAll.value}
@@ -91,6 +92,7 @@ export const DictionaryListDashboardContent: FC = () => {
           <Checkbox
             name={`select-row-${row.id}`}
             size="sm"
+            color="text"
             checked={row.getIsSelected()}
             onClick={(e) => e.stopPropagation()} // FIX: Prevent row click navigation
             onChange={(e) => row.toggleSelected(e.target.checked)}
@@ -194,6 +196,7 @@ export const DictionaryListDashboardContent: FC = () => {
                   checked={isLocal}
                   disabled
                   size="sm"
+                  color="text"
                   onClick={(e: React.MouseEvent) => e.stopPropagation()}
                 />
                 <span>{content.locationOptions.local.value}</span>
@@ -203,6 +206,7 @@ export const DictionaryListDashboardContent: FC = () => {
                   name={`is-remote-${row.id}`}
                   checked={isRemote}
                   disabled
+                  color="text"
                   size="sm"
                   onClick={(e: React.MouseEvent) => e.stopPropagation()}
                 />
