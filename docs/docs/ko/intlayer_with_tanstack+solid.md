@@ -54,7 +54,7 @@ Intlayer를 사용하면 다음을 수행할 수 있습니다.
 <Tabs defaultTab="video">
   <Tab label="비디오" value="video">
   
-<iframe title="Tanstack Start를 위한 최고의 i18n 솔루션? Intlayer 알아보기" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/_XTdKVWaeqg?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+<iframe title="Tanstack Start를 위한 최고의 i18n 솔루션? Intlayer 알아보기" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/_XTdKVWaeqg?autoplay=0&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
   </Tab>
   <Tab label="코드" value="code">

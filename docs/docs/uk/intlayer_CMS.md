@@ -31,7 +31,7 @@ history:
 
 # Документація системи керування контентом Intlayer (CMS)
 
-<iframe title="Візуальний редактор + CMS для вашого вебзастосунку: Intlayer, пояснення" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/UDDTnirwi_4?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+<iframe title="Візуальний редактор + CMS для вашого вебзастосунку: Intlayer, пояснення" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/UDDTnirwi_4?autoplay=0&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 Intlayer CMS, це застосунок, який дозволяє винести вміст вашого проєкту Intlayer у зовнішню систему (CMS).
 

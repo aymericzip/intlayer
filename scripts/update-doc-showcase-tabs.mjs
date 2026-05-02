@@ -119,7 +119,7 @@ function buildTabsBlock({
 />`;
 
   if (videoId) {
-    const embedSrc = `https://www.youtube.com/embed/${videoId}?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1`;
+    const embedSrc = `https://www.youtube.com/embed/${videoId}?autoplay=0&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1`;
     return `<Tabs defaultTab="video">
   <Tab label="${labels.video}" value="video">
   
