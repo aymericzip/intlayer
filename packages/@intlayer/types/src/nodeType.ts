@@ -7,6 +7,8 @@ export const OBJECT = 'object' as const;
 export const ARRAY = 'array' as const;
 export const NESTED = 'nested' as const;
 export const REACT_NODE = 'reactNode' as const;
+export const PREACT_NODE = 'preactNode' as const;
+export const SOLID_NODE = 'solidNode' as const;
 export const MARKDOWN = 'markdown' as const;
 export const HTML = 'html' as const;
 export const TEXT = 'text' as const;
@@ -30,6 +32,9 @@ export const PLUGIN_NODE_TYPES: readonly [
   typeof FILE,
   typeof MARKDOWN,
   typeof HTML,
+  typeof REACT_NODE,
+  typeof PREACT_NODE,
+  typeof SOLID_NODE,
 ] = [
   TRANSLATION,
   ENUMERATION,
@@ -40,6 +45,9 @@ export const PLUGIN_NODE_TYPES: readonly [
   FILE,
   MARKDOWN,
   HTML,
+  REACT_NODE,
+  PREACT_NODE,
+  SOLID_NODE,
 ] as const;
 
 export type NodeType =
@@ -52,6 +60,8 @@ export type NodeType =
   | typeof ARRAY
   | typeof NESTED
   | typeof REACT_NODE
+  | typeof PREACT_NODE
+  | typeof SOLID_NODE
   | typeof MARKDOWN
   | typeof HTML
   | typeof TEXT

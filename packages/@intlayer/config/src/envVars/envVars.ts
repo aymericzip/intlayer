@@ -1,6 +1,20 @@
 import type { IntlayerConfig } from '@intlayer/types/config';
 
 /**
+ * Converts a camelCase node-type string to SCREAMING_SNAKE_CASE so that
+ * the generated env-var name matches what the plugin source files check.
+ *
+ * @example
+ * toScreamingSnakeCase('reactNode')  // 'REACT_NODE'
+ * toScreamingSnakeCase('markdown')   // 'MARKDOWN'
+ */
+const toScreamingSnakeCase = (str: string): string =>
+  str
+    .replace(/([A-Z])/g, '_$1')
+    .toUpperCase()
+    .replace(/^_/, ''); // strip any leading underscore
+
+/**
  * Converts a list of unused NodeType keys into env-var definitions.
  * Set to `"false"` so bundlers can eliminate the corresponding plugin code.
  *
@@ -8,8 +22,8 @@ import type { IntlayerConfig } from '@intlayer/types/config';
  * formatNodeTypeToEnvVar(['enumeration'])
  * // { 'INTLAYER_NODE_TYPE_ENUMERATION': '"false"' }
  *
- * formatNodeTypeToEnvVar(['enumeration'], true)
- * // { 'process.env.INTLAYER_NODE_TYPE_ENUMERATION': '"false"' }
+ * formatNodeTypeToEnvVar(['reactNode'], (k) => `process.env.${k}`, (v) => `"${v}"`)
+ * // { 'process.env.INTLAYER_NODE_TYPE_REACT_NODE': '"false"' }
  */
 export const formatNodeTypeToEnvVar = (
   nodeTypes: string[],
@@ -18,7 +32,7 @@ export const formatNodeTypeToEnvVar = (
 ): Record<string, string> =>
   nodeTypes.reduce(
     (acc, nodeType) => {
-      acc[wrapKey(`INTLAYER_NODE_TYPE_${nodeType.toUpperCase()}`)] =
+      acc[wrapKey(`INTLAYER_NODE_TYPE_${toScreamingSnakeCase(nodeType)}`)] =
         wrapValue('false');
       return acc;
     },

@@ -1,7 +1,33 @@
 import type { Dictionary } from '@intlayer/types/dictionary';
-import { PLUGIN_NODE_TYPES } from '@intlayer/types/nodeType';
+import {
+  PLUGIN_NODE_TYPES,
+  PREACT_NODE,
+  REACT_NODE,
+  SOLID_NODE,
+} from '@intlayer/types/nodeType';
 
 export type PluginNodeType = (typeof PLUGIN_NODE_TYPES)[number];
+
+/**
+ * Detect whether a plain object looks like a serialized React element.
+ * React serializes JSX as: { key, props, _owner, _store }.
+ * Preact serializes VNodes similarly with a `_store` field.
+ */
+const isReactLikeElement = (obj: Record<string, unknown>): boolean =>
+  typeof obj.props !== 'undefined' &&
+  'key' in obj &&
+  typeof obj._store !== 'undefined';
+
+/**
+ * Detect whether a plain object looks like a serialized Solid element.
+ * Solid JSX is serialized as: { type, props } without the React-specific
+ * `_store` / `_owner` internal fields.
+ */
+const isSolidLikeElement = (obj: Record<string, unknown>): boolean =>
+  typeof obj.props !== 'undefined' &&
+  typeof obj._store === 'undefined' &&
+  typeof obj.nodeType === 'undefined' &&
+  'type' in obj;
 
 /** Recursively collect every `nodeType` string found in a value. */
 const collectNodeTypes = (value: unknown, result: Set<string>): void => {
@@ -16,6 +42,12 @@ const collectNodeTypes = (value: unknown, result: Set<string>): void => {
 
   if (typeof obj.nodeType === 'string') {
     result.add(obj.nodeType);
+  } else if (isReactLikeElement(obj)) {
+    // Serialized React / Preact JSX element — both use { key, props, _store }
+    result.add(REACT_NODE);
+    result.add(PREACT_NODE);
+  } else if (isSolidLikeElement(obj)) {
+    result.add(SOLID_NODE);
   }
 
   for (const key of Object.keys(obj)) {
