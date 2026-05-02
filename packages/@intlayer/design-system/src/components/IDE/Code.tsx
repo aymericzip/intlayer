@@ -1,7 +1,7 @@
 'use client';
 
 import { cn } from '@utils/cn';
-import type { FC, HTMLAttributes } from 'react';
+import type { FC, HTMLAttributes, ReactNode } from 'react';
 import { useEffect, useMemo, useState } from 'react';
 import type { BundledLanguage } from 'shiki/bundle/web';
 import { Container } from '../Container';
@@ -29,7 +29,7 @@ export type CodeCompAttributes = {
 };
 
 type CodeCompProps = {
-  children: string;
+  children: ReactNode;
   fileName?: string;
   language: BundledLanguage;
   isDarkMode?: boolean;
@@ -159,10 +159,10 @@ export const Code: FC<CodeCompProps> = ({
   }, [fileName, isMultiFormat, resolvedFormat]);
 
   // ── Async copy text (transformed code for CopyCode) ───────────────────────
-  const rawCode = useMemo(
-    () => (children?.endsWith('\n') ? children.slice(0, -1) : children),
-    [children]
-  );
+  const rawCode = useMemo(() => {
+    const code = Array.isArray(children) ? children.join('') : String(children);
+    return code.endsWith('\n') ? code.slice(0, -1) : code;
+  }, [children]);
 
   const [copyCode, setCopyCode] = useState<string>(rawCode);
 

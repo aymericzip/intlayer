@@ -113,43 +113,48 @@ const useToastEvents = () => {
 export const getQueryClient = () =>
   new QueryClient({ defaultOptions: defaultQueryOptions });
 
-export const ReactQueryProvider: FC<PropsWithChildren> = ({ children }) => {
-  const { onError, onSuccess } = useToastEvents();
-  const clientRef = useRef<QueryClient>(null);
+interface ReactQueryProviderProps {
+  client?: QueryClient;
+}
 
-  if (!clientRef.current) {
-    const mutationCache = new MutationCache({
-      onSuccess,
-      onError,
-      onSettled: (_data, _error, _variables, _context, mutation) => {
-        if (mutation.meta?.invalidateQueries) {
-          mutation.meta.invalidateQueries.forEach((queryKey) => {
-            queryClient.invalidateQueries({
-              queryKey,
+export const ReactQueryProvider: FC<PropsWithChildren<ReactQueryProviderProps>> =
+  ({ children, client }) => {
+    const { onError, onSuccess } = useToastEvents();
+    const clientRef = useRef<QueryClient>(client ?? null);
+
+    if (!clientRef.current) {
+      const mutationCache = new MutationCache({
+        onSuccess,
+        onError,
+        onSettled: (_data, _error, _variables, _context, mutation) => {
+          if (mutation.meta?.invalidateQueries) {
+            mutation.meta.invalidateQueries.forEach((queryKey) => {
+              clientRef.current?.invalidateQueries({
+                queryKey,
+              });
             });
-          });
-        }
+          }
 
-        if (mutation.meta?.resetQueries) {
-          mutation.meta.resetQueries.forEach((queryKey) => {
-            queryClient.resetQueries({
-              queryKey,
+          if (mutation.meta?.resetQueries) {
+            mutation.meta.resetQueries.forEach((queryKey) => {
+              clientRef.current?.resetQueries({
+                queryKey,
+              });
             });
-          });
-        }
-      },
-    });
+          }
+        },
+      });
 
-    const queryClient = new QueryClient({
-      defaultOptions: defaultQueryOptions,
-      mutationCache,
-    });
-    clientRef.current = queryClient;
-  }
+      const queryClient = new QueryClient({
+        defaultOptions: defaultQueryOptions,
+        mutationCache,
+      });
+      clientRef.current = queryClient;
+    }
 
-  return (
-    <QueryClientProvider client={clientRef.current}>
-      {children}
-    </QueryClientProvider>
-  );
-};
+    return (
+      <QueryClientProvider client={clientRef.current}>
+        {children}
+      </QueryClientProvider>
+    );
+  };

@@ -1,6 +1,6 @@
 'use client';
 
-import { type FC, useEffect, useState } from 'react';
+import { type FC, type ReactNode, useEffect, useState } from 'react';
 import type {
   BundledLanguage,
   BundledTheme,
@@ -96,7 +96,6 @@ const loadTheme = async (themeName: BundledTheme): Promise<any> => {
     case 'github-dark':
       themeModule = await import('shiki/themes/github-dark.mjs');
       break;
-    case 'github-light':
     default:
       themeModule = await import('shiki/themes/github-light.mjs');
       break;
@@ -125,7 +124,7 @@ const getHighlighterInstance = async () => {
 
 // Create a promise for highlighting
 const highlightCode = async (
-  code: string,
+  code: any,
   lang: BundledLanguage,
   isDarkMode?: boolean
 ): Promise<string> => {
@@ -146,14 +145,14 @@ const highlightCode = async (
     await highlighter.loadTheme(themeModule);
   }
 
-  return highlighter.codeToHtml(code, {
+  return highlighter.codeToHtml(String(code), {
     lang,
     theme: themeName,
   });
 };
 
 export type CodeBlockShikiProps = {
-  children: string;
+  children: ReactNode;
   lang: BundledLanguage;
   isDarkMode?: boolean;
 };

@@ -8,13 +8,13 @@
  * - The previous highlighted HTML stays visible while the new one loads (no white-text flash).
  */
 
-import { useEffect, useRef, useState } from 'react';
+import { type ReactNode, useEffect, useRef, useState } from 'react';
 import type { BundledLanguage } from 'shiki/bundle/web';
 import type { CodeFormat } from './CodeContext';
 
 type Props = {
   /** Raw TypeScript source code (the canonical "source of truth"). */
-  children: string;
+  children: ReactNode;
   /** Language of the source (e.g. 'tsx', 'typescript'). */
   originalLang: BundledLanguage;
   /** Currently selected format: 'typescript' | 'esm' | 'commonjs'. */
@@ -61,14 +61,14 @@ export const CodeBlockHighlight = ({
             './codeTransformer'
           );
           if (cancelled) return;
-          code = transformCode(children, targetFormat);
+          code = transformCode(String(children), targetFormat);
           shikiLang = toShikiLang(deriveLanguage(originalLang, targetFormat));
         }
 
         const { codeToHtml } = await import('shiki/bundle/web');
         if (cancelled) return;
 
-        const out = await codeToHtml(code, {
+        const out = await codeToHtml(String(code), {
           lang: shikiLang,
           theme: isDarkMode ? 'github-dark' : 'github-light',
         });
