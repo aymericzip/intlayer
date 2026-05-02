@@ -90,7 +90,7 @@ WORKDIR /workspace/apps/website
 ENV NODE_ENV=production
 
 # Build the Next.js website
-RUN bun run --bun next build && bun scripts/generate-sw.ts && bun scripts/baidu-push.ts
+RUN bun run --bun next build && bun scripts/generate-sw.ts && bun scripts/baidu-push.ts && bun run preserve
 
 # Runner
 FROM oven/bun:1.3.13-alpine AS runner
@@ -124,6 +124,7 @@ COPY --from=builder --chown=appuser:appgroup /workspace/docs/blog ./docs/blog
 COPY --from=builder --chown=appuser:appgroup /workspace/docs/docs ./docs/docs
 COPY --from=builder --chown=appuser:appgroup /workspace/docs/frequent_questions ./docs/frequent_questions
 COPY --from=builder --chown=appuser:appgroup /workspace/docs/legal ./docs/legal
+
 
 USER appuser
 

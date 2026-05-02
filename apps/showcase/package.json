@@ -18,6 +18,7 @@
     "dev": "bun --bun vite dev --port 3200",
     "format": "bun --bun biome format",
     "lint": "bun --bun biome lint",
+    "preserve": "bun --env-file=.env.production ./scripts/purge-cloudflare-cache.ts",
     "preview": "bun --bun vite preview",
     "start": "bun run .output/server/index.mjs",
     "test": "bun --bun vitest run"

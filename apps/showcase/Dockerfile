@@ -61,7 +61,7 @@ WORKDIR /workspace/apps/showcase
 ENV NODE_ENV=production
 
 # Build the showcase app
-RUN bun run build
+RUN bun run build && bun run preserve
 
 
 # Runner

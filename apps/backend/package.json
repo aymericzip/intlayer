@@ -60,6 +60,7 @@
     "format:fix": "bun --bun biome format --write .",
     "lint": "bun --bun biome lint .",
     "lint:fix": "bun --bun biome lint --write .",
+    "preserve": "bun --env-file=.env.production ./scripts/purge-cloudflare-cache.ts",
     "prepublish": "cp -f ../../README.md ./README.md",
     "publish": "bun publish || true",
     "publish:canary": "bun publish --access public --tag canary || true",

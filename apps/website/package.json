@@ -45,6 +45,7 @@
     "generate-pwa-assets": "pwa-asset-generator --preset minimal ../../packages/@intlayer/design-system/src/components/Logo/logo_circle_wite.svg ./public/assets/",
     "prettier": "prettier . --check",
     "prettier:fix": "prettier . --write",
+    "preserve": "bun --env-file=.env.production ./scripts/purge-cloudflare-cache.ts",
     "serve": "npx intlayer serve --bun",
     "start": "bun run --bun next start",
     "start:editor": "bun intlayer-editor start --with 'bun run --bun next dev'",
