@@ -47,7 +47,7 @@
     "@angular/cli": "21.2.2",
     "@angular/compiler-cli": "21.2.4",
     "intlayer-editor": "workspace:*",
-    "jsdom": "29.0.2",
+    "jsdom": "29.1.1",
     "typescript": "6.0.3",
     "vite": "8.0.10",
     "vite-intlayer": "workspace:*",
