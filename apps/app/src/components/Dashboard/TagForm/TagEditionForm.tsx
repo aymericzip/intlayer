@@ -29,7 +29,7 @@ export const TagEditionForm: FC<TagEditionFormProps> = ({ tag }) => {
     deleteButton,
   } = useIntlayer('tag-form');
 
-  const onSubmitSuccess = async (data: TagFormData) => {
+  const onSubmitSuccess = (data: TagFormData) => {
     updateTag(
       { tagId: tag.id, tag: data },
       {
@@ -42,7 +42,7 @@ export const TagEditionForm: FC<TagEditionFormProps> = ({ tag }) => {
     );
   };
 
-  const handleOnAuditFile = async () => {
+  const handleOnAuditFile = () => {
     const tagToAudit = form.getValues();
     auditTag(
       { tag: { ...tag, ...tagToAudit } },
