@@ -13,6 +13,7 @@ import { Loader } from '@intlayer/design-system/loader';
 import { PopoverStatic } from '@intlayer/design-system/popover';
 import { RightDrawer } from '@intlayer/design-system/right-drawer';
 import { SwitchSelector } from '@intlayer/design-system/switch-selector';
+import { useToast } from '@intlayer/design-system/toaster';
 import { cn } from '@intlayer/design-system/utils';
 import {
   AlertCircle,
@@ -424,6 +425,7 @@ export const TranslationStatusAside: FC = () => {
   const { mutateAsync: stopJob } = useStopTranslationJob();
   const { mutateAsync: pauseJob } = usePauseTranslationJob();
   const { mutateAsync: resumeJob } = useResumeTranslationJob();
+  const { toast } = useToast();
 
   // Fill options
   const [fillMode, setFillMode] = useState<'complete' | 'review'>('complete');
@@ -635,8 +637,27 @@ export const TranslationStatusAside: FC = () => {
       selectSpecific && selectedDictionaryIds.size > 0
         ? [...selectedDictionaryIds]
         : undefined;
-    await fillAll({ targetLocales, mode: fillMode, dictionaryIds });
-  }, [fillAll, targetLocales, fillMode, selectSpecific, selectedDictionaryIds]);
+    const result = await fillAll({
+      targetLocales,
+      mode: fillMode,
+      dictionaryIds,
+    });
+
+    if (result?.message === 'All dictionaries are already translated') {
+      toast({
+        title: content.allDictionariesAlreadyTranslated.value,
+        variant: 'success',
+      });
+    }
+  }, [
+    fillAll,
+    targetLocales,
+    fillMode,
+    selectSpecific,
+    selectedDictionaryIds,
+    toast,
+    content.allDictionariesAlreadyTranslated.value,
+  ]);
 
   // ── Derived data ──────────────────────────────────────────────────────────
 
