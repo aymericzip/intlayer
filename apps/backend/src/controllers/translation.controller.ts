@@ -65,6 +65,8 @@ export const translateDictionaries = async (
       project.configuration?.internationalization?.locales ?? [];
 
     for (const dictionary of dictionaries) {
+      if (!dictionary.content) continue;
+
       const versionList = Array.from(dictionary.content.keys());
       const lastVersion = versionList[versionList.length - 1] || 'v1';
       const node = dictionary.content.get(lastVersion);
@@ -117,6 +119,7 @@ export const translateDictionaries = async (
       })
     );
   } catch (error) {
+    logger.error('Error in translateDictionaries', error);
     return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }
 };
