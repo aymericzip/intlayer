@@ -23,6 +23,15 @@ export const connectDB = async (): Promise<mongo.MongoClient> => {
 
     logger.info('MongoDB connected');
 
+    // 2. Drop the old indexes directly
+    const db = client.connection.db;
+    if (db) {
+      const collections = await db.collections();
+      for (const col of collections) {
+        await col.dropIndex('createdAt_1').catch(() => {});
+      }
+    }
+
     // Recreate indexes for models
     await ProjectModel.syncIndexes();
     await DiscussionModel.syncIndexes();
