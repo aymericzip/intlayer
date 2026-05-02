@@ -5,6 +5,7 @@ import { useGetOtherShowcaseProjects } from '@intlayer/design-system/hooks';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { ProjectCard } from '#/components/ProjectCard';
+import { ProjectCardSkeleton } from '#/components/ProjectCardSkeleton';
 import type { ShowcaseProject } from '#/utils/projectActions/types';
 
 interface MoreProjectsProps {
@@ -14,7 +15,7 @@ interface MoreProjectsProps {
 export const MoreProjects: FC<MoreProjectsProps> = ({ excludeId }) => {
   const content = useIntlayer('project-more-projects');
 
-  const { data: response } = useGetOtherShowcaseProjects({
+  const { data: response, isPending } = useGetOtherShowcaseProjects({
     excludeId,
     limit: 8,
   });
@@ -36,7 +37,17 @@ export const MoreProjects: FC<MoreProjectsProps> = ({ excludeId }) => {
         border
         borderColor="text"
       >
-        {otherProjects.length === 0 ? (
+        {isPending ? (
+          <div className="flex flex-col gap-6">
+            <Carousel>
+              {Array.from({ length: 4 }, (_, i) => (
+                <Carousel.Item key={`skeleton-${i}`} className="shadow-lg">
+                  <ProjectCardSkeleton />
+                </Carousel.Item>
+              ))}
+            </Carousel>
+          </div>
+        ) : otherProjects.length === 0 ? (
           <Container
             roundedSize="3xl"
             transparency="lg"

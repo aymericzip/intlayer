@@ -45,7 +45,7 @@ export const ProjectCard = ({ project, ...props }: ProjectCardProps) => {
         params={{
           projectId: project.id,
         }}
-        preload="viewport"
+        preload="intent"
         className="flex flex-1 flex-col"
       >
         <div className="relative aspect-video overflow-hidden bg-background">
