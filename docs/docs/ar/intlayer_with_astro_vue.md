@@ -197,6 +197,7 @@ import {
   getIntlayer,
   getLocaleFromPath,
   getLocalizedUrl,
+  getHTMLTextDir,
   getPrefix,
   localeMap,
   defaultLocale,

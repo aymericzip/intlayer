@@ -204,6 +204,7 @@ import {
   getIntlayer,
   getLocaleFromPath,
   getLocalizedUrl,
+  getHTMLTextDir,
   getPrefix,
   localeMap,
   defaultLocale,
@@ -221,7 +222,7 @@ const { greeting } = getIntlayer("lit-demo", locale);
 ---
 
 <!doctype html>
-<html lang={locale}>
+<html lang={locale} dir={getHTMLTextDir(locale)}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
