@@ -368,8 +368,11 @@ export const withIntlayerSync = <T extends Partial<NextConfig>>(
     if (unusedNodeTypes && unusedNodeTypes.length > 0) {
       appLogger(
         [
-          'Filtering out plugins:',
+          'Filtering out unused logic:',
           unusedNodeTypes
+            .filter(
+              (key) => !['reactNode', 'solidNode', 'preactNode'].includes(key)
+            )
             .map((key) => colorize(key, ANSIColors.BLUE))
             .join(', '),
         ],

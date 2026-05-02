@@ -70,8 +70,14 @@ export const pluginIntlayerLynx = (): RsbuildPlugin => {
         if (unusedNodeTypes.length > 0) {
           appLogger(
             [
-              'Filtering out unused plugins:',
-              unusedNodeTypes.map((key) => colorize(key, BLUE)).join(', '),
+              'Filtering out unused logic:',
+              unusedNodeTypes
+                .filter(
+                  (key) =>
+                    !['reactNode', 'solidNode', 'preactNode'].includes(key)
+                )
+                .map((key) => colorize(key, BLUE))
+                .join(', '),
             ],
             {
               isVerbose: true,
