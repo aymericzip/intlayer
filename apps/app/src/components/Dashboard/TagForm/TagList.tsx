@@ -6,7 +6,6 @@ import {
   useSearch,
 } from '@intlayer/design-system/hooks';
 import { SearchInput } from '@intlayer/design-system/input';
-import { Loader } from '@intlayer/design-system/loader';
 import { Modal } from '@intlayer/design-system/modal';
 import {
   NumberItemsSelector,
@@ -59,9 +58,9 @@ export const TagList: FC = () => {
   });
   const navigate = useLocalizedNavigate();
 
-  const tags = (tagResponse as any)?.data ?? [];
-  const totalPages: number = (tagResponse as any)?.total_pages ?? 1;
-  const totalItems: number = (tagResponse as any)?.total_items ?? 0;
+  const tags = tagResponse?.data ?? [];
+  const totalPages: number = tagResponse?.total_pages ?? 1;
+  const totalItems: number = tagResponse?.total_items ?? 0;
   const currentPage: number = params.page;
   const itemsPerPage: number = params.pageSize;
 
