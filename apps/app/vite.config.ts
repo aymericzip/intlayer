@@ -200,6 +200,41 @@ export default defineConfig(({ mode }) => {
         routeRules: {
           '/**': { headers },
         },
+        hooks: {
+          close() {
+            console.log('\n=========================================');
+            console.log(
+              'Nitro build complete. Inspecting active processes blocking exit...'
+            );
+
+            // Log active I/O handles (Sockets, Servers, Timers, Child Processes)
+            if (typeof (process as any)._getActiveHandles === 'function') {
+              const handles = (process as any)._getActiveHandles();
+              console.log(`Active Handles (${handles.length}):`);
+
+              (handles as any[]).forEach((handle, index) => {
+                const type = handle.constructor.name;
+                let details = '';
+
+                if (type === 'Socket' && handle.remoteAddress) {
+                  details = `-> connected to ${handle.remoteAddress}:${handle.remotePort}`;
+                } else if (
+                  type === 'Server' &&
+                  typeof handle.address === 'function'
+                ) {
+                  const addr = handle.address();
+                  if (addr) details = `-> listening on port ${addr.port}`;
+                } else if (type === 'ChildProcess') {
+                  details = `-> PID: ${handle.pid}`;
+                } else if (type === 'Timer') {
+                  details = `-> setTimeout/setInterval`;
+                }
+
+                console.log(`  [${index}] ${type} ${details}`);
+              });
+            }
+          },
+        },
         rollupConfig: {
           onwarn(warning, warn) {
             if (warning.code === 'MODULE_LEVEL_DIRECTIVE') return;
