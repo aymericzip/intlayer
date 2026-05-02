@@ -19,7 +19,6 @@ import {
   type SidebarNavigationItem,
 } from '#components/Dashboard/DashboardSidebar';
 import { DashboardSkeleton } from '#components/Dashboard/DashboardSkeleton';
-import { WarmupClient } from '#components/Dashboard/WarmupClient';
 import { useSessionRouterListener } from '#hooks/useSessionRouterListener.ts';
 
 export const Route = createFileRoute('/{-$locale}/_dashboard')({
@@ -131,7 +130,6 @@ function DashboardLayout() {
 
   return (
     <AuthenticationBarrier accessRule="authenticated" locale={locale}>
-      <WarmupClient />
       <div
         className="dashboard-theme flex h-screen max-h-screen flex-col bg-card md:overflow-hidden"
         style={{ fontSize: '75%' }}

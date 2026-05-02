@@ -1,17 +1,19 @@
 import {
+  useGetCIConfig,
   useGetDictionaries,
   useGetDictionariesKeys,
   useGetOrganizations,
   useGetProjects,
   useGetTags,
   useGetUsers,
-  useQueryClient,
 } from '@intlayer/design-system/hooks';
-import type { FC } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
 import { useEffect } from 'react';
 
-// Mount once within dashboard to warm React Query cache on the client
-export const WarmupClient: FC = () => {
+/**
+ * Hook to warm up the cache with essential data
+ */
+export const useHotDataLoading = () => {
   const queryClient = useQueryClient();
 
   // Ensure dashboard queries stay fresh across client navigations
@@ -30,6 +32,7 @@ export const WarmupClient: FC = () => {
     queryClient.setQueryDefaults(['dictionaries'], defaults);
     queryClient.setQueryDefaults(['dictionariesKeys'], defaults);
     queryClient.setQueryDefaults(['users'], defaults);
+    queryClient.setQueryDefaults(['ci-config'], defaults);
   }, [queryClient]);
 
   // Unconditionally call hooks; their internal enable gating uses session state
@@ -39,6 +42,5 @@ export const WarmupClient: FC = () => {
   useGetDictionaries();
   useGetDictionariesKeys();
   useGetUsers();
-
-  return null;
+  useGetCIConfig();
 };

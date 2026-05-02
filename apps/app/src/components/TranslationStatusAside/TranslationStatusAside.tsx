@@ -914,7 +914,7 @@ export const TranslationStatusAside: FC = () => {
               variant="default"
               size="sm"
               color="text"
-              className="w-full"
+              className="mt-6 w-full"
             >
               {content.fillAllTranslations}
             </Button>
