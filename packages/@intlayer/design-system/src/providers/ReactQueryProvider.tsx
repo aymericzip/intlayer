@@ -1,5 +1,6 @@
 'use client';
 
+import { createAsyncStoragePersister } from '@tanstack/query-async-storage-persister';
 import {
   type DefaultOptions,
   MutationCache,
@@ -8,16 +9,21 @@ import {
   type QueryKey,
   type UseMutationOptions,
 } from '@tanstack/react-query';
+import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client';
 import { type FC, type PropsWithChildren, useRef } from 'react';
 import { useToast } from '../components/Toaster';
+
+const PERSIST_MAX_AGE = 1000 * 60 * 60 * 24; // 24h
+// Bump to invalidate every persisted cache after a breaking change in query shapes
+const PERSIST_BUSTER = 'v1';
 
 const defaultQueryOptions: DefaultOptions = {
   queries: {
     retry: 1,
     // Keep data fresh for 30 seconds to avoid unnecessary refetches during navigation
     staleTime: 30 * 1000,
-    // Give the cache a little breathing room across route transitions:
-    gcTime: 5 * 60 * 1000, // e.g. 5 minutes
+    // gcTime must be >= persist maxAge, otherwise restored entries are dropped on rehydrate
+    gcTime: PERSIST_MAX_AGE,
     // Only refetch on mount if data is stale (not every single mount)
     refetchOnMount: true,
     refetchOnWindowFocus: false,
@@ -27,6 +33,25 @@ const defaultQueryOptions: DefaultOptions = {
     retry: 0,
   },
 };
+
+const browserLocalStorage = {
+  getItem: (key: string) => Promise.resolve(window.localStorage.getItem(key)),
+  setItem: (key: string, value: string) =>
+    Promise.resolve(window.localStorage.setItem(key, value)),
+  removeItem: (key: string) =>
+    Promise.resolve(window.localStorage.removeItem(key)),
+};
+
+const noopStorage = {
+  getItem: () => Promise.resolve(null),
+  setItem: () => Promise.resolve(),
+  removeItem: () => Promise.resolve(),
+};
+
+const persister = createAsyncStoragePersister({
+  storage: typeof window !== 'undefined' ? browserLocalStorage : noopStorage,
+  key: 'intlayer-rq-cache',
+});
 
 const SHOW_ERROR_CODE = false;
 
@@ -117,44 +142,63 @@ interface ReactQueryProviderProps {
   client?: QueryClient;
 }
 
-export const ReactQueryProvider: FC<PropsWithChildren<ReactQueryProviderProps>> =
-  ({ children, client }) => {
-    const { onError, onSuccess } = useToastEvents();
-    const clientRef = useRef<QueryClient>(client ?? null);
+export const ReactQueryProvider: FC<
+  PropsWithChildren<ReactQueryProviderProps>
+> = ({ children, client }) => {
+  const { onError, onSuccess } = useToastEvents();
+  const clientRef = useRef<QueryClient>(client ?? null);
 
-    if (!clientRef.current) {
-      const mutationCache = new MutationCache({
-        onSuccess,
-        onError,
-        onSettled: (_data, _error, _variables, _context, mutation) => {
-          if (mutation.meta?.invalidateQueries) {
-            mutation.meta.invalidateQueries.forEach((queryKey) => {
-              clientRef.current?.invalidateQueries({
-                queryKey,
-              });
+  if (!clientRef.current) {
+    const mutationCache = new MutationCache({
+      onSuccess,
+      onError,
+      onSettled: (_data, _error, _variables, _context, mutation) => {
+        if (mutation.meta?.invalidateQueries) {
+          mutation.meta.invalidateQueries.forEach((queryKey) => {
+            clientRef.current?.invalidateQueries({
+              queryKey,
             });
-          }
+          });
+        }
 
-          if (mutation.meta?.resetQueries) {
-            mutation.meta.resetQueries.forEach((queryKey) => {
-              clientRef.current?.resetQueries({
-                queryKey,
-              });
+        if (mutation.meta?.resetQueries) {
+          mutation.meta.resetQueries.forEach((queryKey) => {
+            clientRef.current?.resetQueries({
+              queryKey,
             });
-          }
-        },
-      });
+          });
+        }
+      },
+    });
 
-      const queryClient = new QueryClient({
-        defaultOptions: defaultQueryOptions,
-        mutationCache,
-      });
-      clientRef.current = queryClient;
-    }
+    const queryClient = new QueryClient({
+      defaultOptions: defaultQueryOptions,
+      mutationCache,
+    });
+    clientRef.current = queryClient;
+  }
 
+  if (client) {
     return (
       <QueryClientProvider client={clientRef.current}>
         {children}
       </QueryClientProvider>
     );
-  };
+  }
+
+  return (
+    <PersistQueryClientProvider
+      client={clientRef.current}
+      persistOptions={{
+        persister,
+        maxAge: PERSIST_MAX_AGE,
+        buster: PERSIST_BUSTER,
+        dehydrateOptions: {
+          shouldDehydrateQuery: (query) => query.state.status === 'success',
+        },
+      }}
+    >
+      {children}
+    </PersistQueryClientProvider>
+  );
+};
