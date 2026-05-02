@@ -1,4 +1,4 @@
-import { Website_Playground_Path } from '@intlayer/design-system/routes';
+import { Website_Playground } from '@intlayer/design-system/routes';
 import { getIntlayer, getLocalizedUrl, getMultilingualUrls } from 'intlayer';
 import type { Metadata } from 'next';
 import type { LocalPromiseParams } from 'next-intlayer';
@@ -17,19 +17,16 @@ export const generateMetadata = async ({
     description,
     keywords,
     alternates: {
-      canonical: getLocalizedUrl(Website_Playground_Path, locale),
+      canonical: getLocalizedUrl(Website_Playground, locale),
       languages: {
-        ...getMultilingualUrls(Website_Playground_Path),
-        'x-default': Website_Playground_Path,
+        ...getMultilingualUrls(Website_Playground),
+        'x-default': Website_Playground,
       },
     },
     openGraph: {
       title,
       description,
-      url: getLocalizedUrl(
-        `${process.env.NEXT_PUBLIC_URL!}${Website_Playground_Path}`,
-        locale
-      ),
+      url: getLocalizedUrl(Website_Playground, locale),
     },
   };
 };

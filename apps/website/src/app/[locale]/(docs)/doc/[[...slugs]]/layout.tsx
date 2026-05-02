@@ -40,20 +40,19 @@ export const generateMetadata = async ({
   const docData = filteredDocsData[0];
 
   const absoluteUrl = docData.url;
-  const relativeUrl = docData.relativeUrl;
 
   return {
     title: `${docData.title} | Intlayer`,
     description: docData.description,
     keywords: docData.keywords,
     alternates: {
-      canonical: getLocalizedUrl(relativeUrl, locale),
+      canonical: getLocalizedUrl(absoluteUrl, locale),
       languages: {
-        ...getMultilingualUrls(relativeUrl),
-        'x-default': getLocalizedUrl(relativeUrl, Locales.ENGLISH),
+        ...getMultilingualUrls(absoluteUrl),
+        'x-default': getLocalizedUrl(absoluteUrl, Locales.ENGLISH),
       },
       types: {
-        'text/markdown': `${getLocalizedUrl(relativeUrl, locale)}.md`,
+        'text/markdown': `${getLocalizedUrl(absoluteUrl, locale)}.md`,
       },
     },
     openGraph: {

@@ -1,4 +1,4 @@
-import { App_Dashboard_Translate_Path } from '@intlayer/design-system/routes';
+import { App_Dashboard_Translate } from '@intlayer/design-system/routes';
 import { createFileRoute } from '@tanstack/react-router';
 import {
   defaultLocale,
@@ -15,7 +15,7 @@ export const Route = createFileRoute(
   component: TranslatePage,
   head: ({ params }) => {
     const { locale } = params;
-    const path = App_Dashboard_Translate_Path;
+    const path = App_Dashboard_Translate;
     const content = getIntlayer('translate-dashboard-page', locale);
 
     return {

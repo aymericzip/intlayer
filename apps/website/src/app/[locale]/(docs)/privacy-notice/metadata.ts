@@ -1,4 +1,4 @@
-import { Website_PrivacyPolicy_Path } from '@intlayer/design-system/routes';
+import { Website_PrivacyPolicy } from '@intlayer/design-system/routes';
 import { getLegalMetadata } from '@intlayer/docs';
 import { getLocalizedUrl, getMultilingualUrls } from 'intlayer';
 import type { Metadata } from 'next';
@@ -20,18 +20,15 @@ export const generateMetadata = async ({
     keywords,
 
     alternates: {
-      canonical: getLocalizedUrl(Website_PrivacyPolicy_Path, locale),
+      canonical: getLocalizedUrl(Website_PrivacyPolicy, locale),
       languages: {
-        ...getMultilingualUrls(Website_PrivacyPolicy_Path),
-        'x-default': Website_PrivacyPolicy_Path,
+        ...getMultilingualUrls(Website_PrivacyPolicy),
+        'x-default': Website_PrivacyPolicy,
       },
     },
 
     openGraph: {
-      url: getLocalizedUrl(
-        `${process.env.NEXT_PUBLIC_URL}${Website_PrivacyPolicy_Path}`,
-        locale
-      ),
+      url: getLocalizedUrl(Website_PrivacyPolicy, locale),
       title,
       description,
     },

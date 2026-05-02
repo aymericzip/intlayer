@@ -1,4 +1,4 @@
-import { Website_FrequentQuestions_Path } from '@intlayer/design-system/routes';
+import { Website_FrequentQuestions } from '@intlayer/design-system/routes';
 import { getIntlayer, getLocalizedUrl, getMultilingualUrls } from 'intlayer';
 import type { Metadata } from 'next';
 import type { LocalPromiseParams } from 'next-intlayer';
@@ -19,18 +19,15 @@ export const generateMetadata = async ({
     keywords,
 
     alternates: {
-      canonical: getLocalizedUrl(Website_FrequentQuestions_Path, locale),
+      canonical: getLocalizedUrl(Website_FrequentQuestions, locale),
       languages: {
-        ...getMultilingualUrls(Website_FrequentQuestions_Path),
-        'x-default': Website_FrequentQuestions_Path,
+        ...getMultilingualUrls(Website_FrequentQuestions),
+        'x-default': Website_FrequentQuestions,
       },
     },
 
     openGraph: {
-      url: getLocalizedUrl(
-        `${process.env.NEXT_PUBLIC_URL}${Website_FrequentQuestions_Path}`,
-        locale
-      ),
+      url: getLocalizedUrl(Website_FrequentQuestions, locale),
       title,
       description,
     },

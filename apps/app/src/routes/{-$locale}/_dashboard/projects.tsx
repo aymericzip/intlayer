@@ -2,7 +2,6 @@ import {
   App_Dashboard,
   App_Dashboard_Organization_Path,
   App_Dashboard_Projects,
-  App_Dashboard_Projects_Path,
 } from '@intlayer/design-system/routes';
 import { createFileRoute } from '@tanstack/react-router';
 import {
@@ -35,7 +34,7 @@ export const Route = createFileRoute('/{-$locale}/_dashboard/projects')({
   component: ProjectsPage,
   head: ({ params }) => {
     const { locale } = params;
-    const path = App_Dashboard_Projects_Path;
+    const path = App_Dashboard_Projects;
     const content = getIntlayer('projects-dashboard-page', locale);
 
     return {

@@ -1,4 +1,4 @@
-import { App_Dashboard_Tags_Path } from '@intlayer/design-system/routes';
+import { App_Dashboard_Tags } from '@intlayer/design-system/routes';
 import { createFileRoute } from '@tanstack/react-router';
 import {
   defaultLocale,
@@ -15,7 +15,7 @@ export const Route = createFileRoute('/{-$locale}/_dashboard/_editor/tags/')({
   component: TagsPage,
   head: ({ params }) => {
     const { locale } = params;
-    const path = App_Dashboard_Tags_Path;
+    const path = App_Dashboard_Tags;
     const content = getIntlayer('tags-dashboard-page', locale);
 
     return {

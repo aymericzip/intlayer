@@ -1,5 +1,5 @@
 import { Container } from '@intlayer/design-system/container';
-import { App_Auth_AskResetPassword_Path } from '@intlayer/design-system/routes';
+import { App_Auth_AskResetPassword } from '@intlayer/design-system/routes';
 import { createFileRoute } from '@tanstack/react-router';
 import {
   defaultLocale,
@@ -16,7 +16,7 @@ export const Route = createFileRoute(
   component: AskResetPasswordPage,
   head: ({ params }) => {
     const { locale } = params;
-    const path = App_Auth_AskResetPassword_Path;
+    const path = App_Auth_AskResetPassword;
     const content = getIntlayer('reset-password-page', locale);
 
     return {

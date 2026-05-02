@@ -1,4 +1,4 @@
-import { Website_Contributors_Path } from '@intlayer/design-system/routes';
+import { Website_Contributors } from '@intlayer/design-system/routes';
 import { getIntlayer, getLocalizedUrl, getMultilingualUrls } from 'intlayer';
 import type { Metadata } from 'next';
 import type { LocalPromiseParams } from 'next-intlayer';
@@ -18,18 +18,15 @@ export const generateMetadata = async ({
     keywords,
 
     alternates: {
-      canonical: getLocalizedUrl(Website_Contributors_Path, locale),
+      canonical: getLocalizedUrl(Website_Contributors, locale),
       languages: {
-        ...getMultilingualUrls(Website_Contributors_Path),
-        'x-default': Website_Contributors_Path,
+        ...getMultilingualUrls(Website_Contributors),
+        'x-default': Website_Contributors,
       },
     },
 
     openGraph: {
-      url: getLocalizedUrl(
-        `${process.env.NEXT_PUBLIC_URL}${Website_Contributors_Path}`,
-        locale
-      ),
+      url: getLocalizedUrl(Website_Contributors, locale),
       title,
       description,
     },

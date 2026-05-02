@@ -1,4 +1,4 @@
-import { App_Admin_Users_Path } from '@intlayer/design-system/routes';
+import { App_Admin_Users } from '@intlayer/design-system/routes';
 import { createFileRoute } from '@tanstack/react-router';
 import {
   defaultLocale,
@@ -14,7 +14,7 @@ export const Route = createFileRoute(
   component: UsersAdminPage,
   head: ({ params }) => {
     const { locale } = params;
-    const path = App_Admin_Users_Path;
+    const path = App_Admin_Users;
     const content = getIntlayer('admin-metadata', locale);
 
     return {

@@ -1,7 +1,6 @@
 import {
   App_Dashboard,
   App_Dashboard_Organization,
-  App_Dashboard_Organization_Path,
 } from '@intlayer/design-system/routes';
 import { createFileRoute } from '@tanstack/react-router';
 import {
@@ -19,7 +18,7 @@ export const Route = createFileRoute('/{-$locale}/_dashboard/organization')({
   component: OrganizationPage,
   head: ({ params }) => {
     const { locale } = params;
-    const path = App_Dashboard_Organization_Path;
+    const path = App_Dashboard_Organization;
     const content = getIntlayer('organization-dashboard-page', locale);
 
     return {

@@ -1,4 +1,4 @@
-import { App_Dashboard_Dictionaries_Path } from '@intlayer/design-system/routes';
+import { App_Dashboard_Dictionaries } from '@intlayer/design-system/routes';
 import { createFileRoute } from '@tanstack/react-router';
 import {
   defaultLocale,
@@ -14,7 +14,7 @@ export const Route = createFileRoute(
   component: DictionaryPage,
   head: ({ params }) => {
     const { locale } = params;
-    const path = App_Dashboard_Dictionaries_Path;
+    const path = App_Dashboard_Dictionaries;
     const content = getIntlayer('dictionary-dashboard-page', locale);
 
     return {

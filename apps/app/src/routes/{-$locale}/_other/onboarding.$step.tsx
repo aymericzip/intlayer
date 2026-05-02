@@ -1,5 +1,5 @@
 import { Container } from '@intlayer/design-system/container';
-import { App_Onboarding_Path } from '@intlayer/design-system/routes';
+import { App_Onboarding } from '@intlayer/design-system/routes';
 import { createFileRoute } from '@tanstack/react-router';
 import {
   defaultLocale,
@@ -27,7 +27,7 @@ export const Route = createFileRoute('/{-$locale}/_other/onboarding/$step')({
   component: OnboardingPage,
   head: ({ params }) => {
     const { locale, step } = params;
-    const path = `${App_Onboarding_Path}/${step}`;
+    const path = `${App_Onboarding}/${step}`;
     const content = getIntlayer('onboard-page', locale);
 
     return {

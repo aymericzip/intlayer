@@ -1,4 +1,4 @@
-import { Website_TermsOfService_Path } from '@intlayer/design-system/routes';
+import { Website_TermsOfService } from '@intlayer/design-system/routes';
 import { getLegalMetadata } from '@intlayer/docs';
 import { getLocalizedUrl, getMultilingualUrls } from 'intlayer';
 import type { Metadata } from 'next';
@@ -20,18 +20,15 @@ export const generateMetadata = async ({
     keywords,
 
     alternates: {
-      canonical: getLocalizedUrl(Website_TermsOfService_Path, locale),
+      canonical: getLocalizedUrl(Website_TermsOfService, locale),
       languages: {
-        ...getMultilingualUrls(Website_TermsOfService_Path),
-        'x-default': Website_TermsOfService_Path,
+        ...getMultilingualUrls(Website_TermsOfService),
+        'x-default': Website_TermsOfService,
       },
     },
 
     openGraph: {
-      url: getLocalizedUrl(
-        `${process.env.NEXT_PUBLIC_URL}${Website_TermsOfService_Path}`,
-        locale
-      ),
+      url: getLocalizedUrl(Website_TermsOfService, locale),
       title,
       description,
     },

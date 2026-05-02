@@ -1,7 +1,6 @@
 import {
   App_Dashboard,
   App_Dashboard_Editor,
-  App_Dashboard_Editor_Path,
 } from '@intlayer/design-system/routes';
 import { createFileRoute } from '@tanstack/react-router';
 import {
@@ -20,7 +19,7 @@ export const Route = createFileRoute(
   component: EditorPage,
   head: ({ params }) => {
     const { locale } = params;
-    const path = App_Dashboard_Editor_Path;
+    const path = App_Dashboard_Editor;
     const content = getIntlayer('editor-dashboard-page', locale);
 
     return {

@@ -1,3 +1,4 @@
+import { Website_Home } from '@intlayer/design-system/routes';
 import { getIntlayer, getLocalizedUrl, getMultilingualUrls } from 'intlayer';
 import type { Metadata, Viewport } from 'next';
 import type { LocalPromiseParams } from 'next-intlayer';
@@ -31,8 +32,11 @@ export const generateMetadata = async ({
     robots: 'index, follow',
     metadataBase: new URL(process.env.NEXT_PUBLIC_URL!),
     alternates: {
-      canonical: getLocalizedUrl('/', locale),
-      languages: { ...getMultilingualUrls('/'), 'x-default': '/' },
+      canonical: getLocalizedUrl(Website_Home, locale),
+      languages: {
+        ...getMultilingualUrls(Website_Home),
+        'x-default': Website_Home,
+      },
       types: {
         'application/rss+xml': '/feed.xml',
       },

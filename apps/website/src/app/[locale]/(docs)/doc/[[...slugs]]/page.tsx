@@ -37,13 +37,13 @@ const DocumentationPage = async ({ params }: LocalPromiseParams<DocProps>) => {
 
   const { prevDocData, nextDocData } = getPreviousNextDocMetadata(
     docData.docKey as DocKey,
-    locale
+    locale!
   );
   const defaultDocData = await getDocMetadata(docData.docKey as DocKey);
 
   const file = await getDoc(docData?.docKey as DocKey, locale);
 
-  const docContent = urlRenamer(file, locale);
+  const docContent = urlRenamer(file, locale!);
 
   const nextDoc: DocPageNavigationProps['nextDoc'] = nextDocData?.docs
     ? {

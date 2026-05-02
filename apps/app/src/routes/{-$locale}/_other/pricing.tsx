@@ -1,10 +1,6 @@
 import { getStripeAPI } from '@intlayer/api';
 import type { GetPricingResult } from '@intlayer/backend';
-import {
-  App_Pricing,
-  App_Pricing_Path,
-  Website_Home,
-} from '@intlayer/design-system/routes';
+import { App_Pricing, Website_Home } from '@intlayer/design-system/routes';
 import { createFileRoute } from '@tanstack/react-router';
 import { createServerFn } from '@tanstack/react-start';
 import {
@@ -47,7 +43,7 @@ export const Route = createFileRoute('/{-$locale}/_other/pricing')({
   component: PricingPage,
   head: ({ params }) => {
     const { locale } = params;
-    const path = App_Pricing_Path;
+    const path = App_Pricing;
     const content = getIntlayer('pricing-page', locale);
 
     return {

@@ -1,5 +1,5 @@
 import { Container } from '@intlayer/design-system/container';
-import { App_Auth_SignIn_Path } from '@intlayer/design-system/routes';
+import { App_Auth_SignIn } from '@intlayer/design-system/routes';
 import { createFileRoute } from '@tanstack/react-router';
 import {
   defaultLocale,
@@ -16,7 +16,7 @@ export const Route = createFileRoute(
   component: SignInPage,
   head: ({ params }) => {
     const { locale } = params;
-    const path = App_Auth_SignIn_Path;
+    const path = App_Auth_SignIn;
     const content = getIntlayer('sign-in-page', locale);
 
     return {
