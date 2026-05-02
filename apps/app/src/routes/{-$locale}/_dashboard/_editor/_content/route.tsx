@@ -1,19 +1,26 @@
 import { Button } from '@intlayer/design-system/button';
 import {
+  App_Dashboard,
   App_Dashboard_Dictionaries_Path,
+  App_Dashboard_Editor,
   App_Dashboard_Editor_Path,
   App_Dashboard_Projects_Path,
   App_Dashboard_Translate_Path,
 } from '@intlayer/design-system/routes';
 import { TabSelector } from '@intlayer/design-system/tab-selector';
+import { cn } from '@intlayer/design-system/utils';
 import { FocusDictionaryProvider } from '@intlayer/editor-react';
 import { createFileRoute, Outlet, useLocation } from '@tanstack/react-router';
-import { getPathWithoutLocale } from 'intlayer';
+import { getLocalizedUrl, getPathWithoutLocale } from 'intlayer';
 import { Book, Globe, PenTool } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
+import { BreadcrumbsHeader } from '#/structuredData/BreadcrumbsHeader';
 import { AuthenticationBarrier } from '#components/Auth/AuthenticationBarrier/AuthenticationBarrier';
 import { EditorConfigurationProvider } from '#components/Dashboard/ContentDashboard/ConfigurationProvider.tsx';
 import { DashboardContentLayout } from '#components/Dashboard/DashboardContentLayout';
+import { Editor } from '#components/Dashboard/Editor';
+import { DictionaryLoaderDashboard } from '#components/Dashboard/Editor/DictionaryLoaderDashboard';
 import { useLocalizedNavigate } from '#hooks/useLocalizedNavigate.ts';
 import { validateAuth } from '#utils/auth';
 
@@ -44,6 +51,20 @@ function EditorLayout() {
   const navigate = useLocalizedNavigate();
   const { pathname } = useLocation();
   const { locale } = Route.useParams();
+
+  const isEditorActive = getPathWithoutLocale(pathname).startsWith(
+    App_Dashboard_Editor_Path
+  );
+
+  // We want to keep the editor alive once it has been mounted
+  const [isEditorInitialized, setIsEditorInitialized] =
+    useState(isEditorActive);
+
+  useEffect(() => {
+    if (isEditorActive) {
+      setIsEditorInitialized(true);
+    }
+  }, [isEditorActive]);
 
   const tabItems = [
     {
@@ -102,7 +123,36 @@ function EditorLayout() {
         </div>
         <EditorConfigurationProvider>
           <FocusDictionaryProvider>
-            <Outlet />
+            {isEditorInitialized && (
+              <div
+                className={cn(
+                  'flex size-full flex-1 flex-col items-center justify-center p-2',
+                  isEditorActive ? 'flex' : 'hidden'
+                )}
+              >
+                <BreadcrumbsHeader
+                  breadcrumbs={[
+                    {
+                      name: 'Dashboard',
+                      url: getLocalizedUrl(App_Dashboard, locale),
+                    },
+                    {
+                      name: 'Editor',
+                      url: getLocalizedUrl(App_Dashboard_Editor, locale),
+                    },
+                  ]}
+                />
+                <Editor DictionariesLoader={DictionaryLoaderDashboard} />
+              </div>
+            )}
+            <div
+              className={cn(
+                'flex size-full flex-1 flex-col',
+                !isEditorActive ? 'flex' : 'hidden'
+              )}
+            >
+              <Outlet />
+            </div>
           </FocusDictionaryProvider>
         </EditorConfigurationProvider>
       </DashboardContentLayout>

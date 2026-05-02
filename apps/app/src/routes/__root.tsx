@@ -14,6 +14,8 @@ import { IntlayerProvider } from 'react-intlayer';
 import { AnimatePresenceProvider } from '#/providers/AnimatePresenceProvider';
 import { IntlayerMarkdownProvider } from '#/providers/IntlayerMarkdownProvider';
 import { ThemeProvider } from '#/providers/ThemeProvider';
+import { SoftwareApplicationHeader } from '#/structuredData/SoftwareApplication';
+import { WebsiteHeader } from '#/structuredData/WebsiteHeader';
 import appCss from '#/styles.css?url';
 import { ErrorComponent } from '#components/ErrorComponent';
 import { ServiceWorkerSubscriber } from '#components/ServiceWorker/ServiceWorkerSubscriber';
@@ -73,9 +75,6 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
   }),
   shellComponent: RootDocument,
 });
-
-import { SoftwareApplicationHeader } from '#/structuredData/SoftwareApplication';
-import { WebsiteHeader } from '#/structuredData/WebsiteHeader';
 
 function RootDocument({ children }: { children: React.ReactNode }) {
   const { locale = defaultLocale } = useParams({ strict: false }) as any;

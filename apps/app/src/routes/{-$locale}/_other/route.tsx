@@ -12,17 +12,11 @@ function OtherLayout() {
 
   const { footerLinks } = useIntlayer('dashboard-footer-content');
 
-  const formattedFooterLinks = footerLinks.map(
-    (el: {
-      href: { value: string };
-      label: { value: string };
-      text: { value: string };
-    }) => ({
-      href: el.href.value,
-      label: el.label.value,
-      text: el.text.value,
-    })
-  );
+  const formattedFooterLinks = footerLinks.map((el) => ({
+    href: el.href.value,
+    label: el.label.value,
+    text: el.text.value,
+  }));
 
   return (
     <div className="relative flex min-h-screen flex-col">
