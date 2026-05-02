@@ -131,7 +131,7 @@ USER appuser
 EXPOSE 3000
 
 # Use bun (always present) to make the HTTP request — avoids BusyBox wget edge cases.
-HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
+HEALTHCHECK --interval=30s --timeout=10s --start-period=15s --retries=3 \
   CMD bun -e "const r = await fetch('http://localhost:3000/api/health'); process.exit(r.ok ? 0 : 1)"
 
 # Execute the standalone server

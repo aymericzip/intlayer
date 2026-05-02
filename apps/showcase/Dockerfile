@@ -83,7 +83,7 @@ USER appuser
 
 EXPOSE 3000
 
-HEALTHCHECK --interval=30s --timeout=5s --start-period=60s --retries=3 \
+HEALTHCHECK --interval=30s --timeout=5s --start-period=15s --retries=3 \
   CMD \
     wget -qO- http://localhost:3000/ > /dev/null || exit 1 && \
     wget -qO- http://localhost:3000/doc/environment/nextjs > /dev/null || exit 1
