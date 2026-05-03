@@ -5,7 +5,7 @@ if (!ZONE_ID || !API_TOKEN) {
   console.error(
     'Error: CLOUDFLARE_ZONE_ID or CLOUDFLARE_API_TOKEN is not set.'
   );
-  process.exit(1);
+  process.exit(0);
 }
 
 console.log(`Purging Cloudflare cache for zone ${ZONE_ID}...`);
