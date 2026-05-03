@@ -25,6 +25,9 @@ const SwitchThemeSwitcher = dynamic(
 
 const getCleanChoice = (path?: string): string => {
   if (!path) return '';
+  if (path.startsWith('http')) {
+    return path;
+  }
   let pathname = path;
   try {
     pathname = new URL(path).pathname;
@@ -73,16 +76,14 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
         ({ id, url, label, title }) => (
           <Link
             id={id?.value}
-            key={id?.value}
+            key={getCleanChoice(url.value)}
             href={url.value}
             label={label.value}
             isExternalLink={false}
-            aria-current={
-              selectedChoice === getCleanChoice(url.value) ? 'page' : undefined
-            }
+            isActive={selectedChoice === getCleanChoice(url.value)}
             color="text"
             variant="invisible-link"
-            className="flex text-nowrap px-4 py-0.5 text-sm"
+            className="flex text-nowrap px-4 py-0.5 text-sm aria-[current]:bg-current/0"
           >
             {title}
           </Link>
@@ -92,12 +93,10 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
         ({ id, url, label, title }) => (
           <Link
             id={id?.value}
-            key={id?.value}
+            key={getCleanChoice(url.value)}
             href={url.value}
             isExternalLink={false}
-            aria-current={
-              selectedChoice === getCleanChoice(url.value) ? 'page' : undefined
-            }
+            isActive={selectedChoice === getCleanChoice(url.value)}
             label={label.value}
             color="text"
             variant="invisible-link"

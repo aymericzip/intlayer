@@ -1,7 +1,6 @@
 'use client';
 
 import { useDevice } from '@hooks/useDevice';
-import { useIsMounted } from '@hooks/useIsMounted';
 import type { ReactElement, ReactNode } from 'react';
 import type { TabSelectorItemProps } from '../TabSelector';
 import { DesktopNavbar } from './DesktopNavbar';
