@@ -5,6 +5,7 @@ import {
 } from '@intlayer/core/dictionaryManipulator';
 import { getLocaleName } from '@intlayer/core/localization';
 import { Button } from '@intlayer/design-system/button';
+import { Container } from '@intlayer/design-system/container';
 import {
   KeyPathBreadcrumb,
   TextEditor,
@@ -30,11 +31,13 @@ import {
 import type { Dictionary } from '@intlayer/types/dictionary';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import * as NodeTypes from '@intlayer/types/nodeType';
-import { ArrowUp, Plus } from 'lucide-react';
+import { ArrowUp, Filter, Plus } from 'lucide-react';
 import { type FC, Suspense, useEffect, useMemo, useRef, useState } from 'react';
 import { useIntlayer, useLocale } from 'react-intlayer';
 import { GroupedVirtuoso, type GroupedVirtuosoHandle } from 'react-virtuoso';
 import { Skeleton } from '#components/Skeleton';
+import { useSearchParamState } from '#hooks/useSearchParamState';
+import { FiltersModal } from '../DictionaryListDashboard/FiltersModal';
 import {
   type FlattenedDictionaryNode,
   flattenDictionary,
@@ -199,15 +202,25 @@ const mergeFlattenedNodes = (nodes: FlattenedDictionaryNode[]) => {
   return result;
 };
 
+const searchParams = {
+  search: { type: 'string', fallbackValue: '' },
+  location: { type: 'string', fallbackValue: 'none' },
+  tags: { type: 'string', fallbackValue: '' },
+} as const;
+
 const TranslateDashboardList: FC = () => {
-  const { searchPlaceholder, noDictionaries, scrollToTop } = useIntlayer(
-    'translate-dashboard'
-  );
-  const { setSearch } = useSearch({});
+  const { searchPlaceholder, noDictionaries, scrollToTop, filterLabels } =
+    useIntlayer('translate-dashboard');
+  const { params, setParam, setParams } = useSearchParamState(searchParams);
+  const { setSearch } = useSearch({
+    onSearch: (val) => setParam('search', val),
+    onClear: () => setParam('search', ''),
+    defaultValue: params.search,
+  });
   const { locale: currentLocale } = useLocale();
-  const [search, setInternalSearch] = useState('');
   const { setLocaleDictionaries } = useDictionariesRecordActions() ?? {};
   const [currentDictionaryKey, setCurrentDictionaryKey] = useState<string>('');
+  const [isFiltersModalOpen, setIsFiltersModalOpen] = useState(false);
 
   const [persistedTopIndex, setPersistedTopIndex] = usePersistedStore(
     'intlayer-dashboard-scroll-index',
@@ -232,7 +245,15 @@ const TranslateDashboardList: FC = () => {
   const headerRef = useRef<HTMLDivElement>(null);
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isPending } =
-    useInfiniteGetDictionaries({ search, pageSize: 3 });
+    useInfiniteGetDictionaries({
+      search: params.search,
+      pageSize: 3,
+      tags: params.tags,
+      location:
+        params.location !== 'none'
+          ? (params.location as 'none' | 'remote' | 'local' | 'both')
+          : undefined,
+    });
 
   const { selectedLocales } = useLocaleSwitcherContent();
 
@@ -325,16 +346,52 @@ const TranslateDashboardList: FC = () => {
     <div className="relative flex size-full flex-1 flex-col gap-2 overflow-hidden">
       <SaveAllButton dictionaries={allLoadedDictionaries} />
       <div className="flex w-full shrink-0 items-center justify-between gap-4 px-10 pt-6">
-        <SearchInput
-          placeholder={searchPlaceholder.value}
-          onChange={(e) => {
-            setSearch(e.target.value);
-            setInternalSearch(e.target.value);
-          }}
-          className="max-w-md flex-1"
-        />
+        <div className="flex max-w-md flex-1 items-center gap-4">
+          <SearchInput
+            placeholder={searchPlaceholder.value}
+            defaultValue={params.search}
+            onChange={(e) => {
+              setSearch(e.target.value);
+            }}
+          />
+          <div className="relative">
+            <PopoverStatic identifier="dictionary-filters">
+              <Button
+                variant="hoverable"
+                color="text"
+                size="icon-lg"
+                onClick={() => setIsFiltersModalOpen(true)}
+                Icon={Filter}
+                label={filterLabels.button.value}
+              />
+              <PopoverStatic.Detail identifier="dictionary-filters">
+                <Container className="p-3" roundedSize="xl">
+                  <p>{filterLabels.popover}</p>
+                </Container>
+              </PopoverStatic.Detail>
+            </PopoverStatic>
+            {(params.location !== 'none' || !!params.tags) && (
+              <span className="absolute -top-1 -right-1 flex size-4 items-center justify-center rounded-full bg-text text-[10px] text-card">
+                {(params.tags ? params.tags.split(',').length : 0) +
+                  (params.location === 'both'
+                    ? 2
+                    : params.location === 'none'
+                      ? 0
+                      : 1)}
+              </span>
+            )}
+          </div>
+        </div>
         <LocaleSwitcherContent />
       </div>
+
+      <FiltersModal
+        isOpen={isFiltersModalOpen}
+        onClose={() => setIsFiltersModalOpen(false)}
+        params={params}
+        setParam={setParam}
+        setParams={setParams}
+      />
 
       <div className="flex min-h-0 flex-1 flex-col">
         <div className="flex w-full items-center gap-6 border-card border-b px-10 py-2">

@@ -116,6 +116,98 @@ export const DictionaryListDashboardContent: FC = () => {
         ),
       },
       {
+        id: 'actions',
+        header: content.tableHeaders.actions,
+        cell: ({ row }) => (
+          <div className="flex items-center gap-1">
+            <PopoverStatic identifier={`delete-${row.original.id}`}>
+              <Button
+                variant="hoverable"
+                color="error"
+                className="ml-auto text-text hover:text-error"
+                size="icon-sm"
+                onClick={(e: React.MouseEvent) => {
+                  e.stopPropagation();
+
+                  if (row.original.id) {
+                    dashboard.state.setDictionaryToDelete(row.original.id);
+                  }
+                }}
+                Icon={Trash2}
+                label={content.deleteButton.label.value}
+              />
+              <PopoverStatic.Detail
+                xAlign="end"
+                identifier={`delete-${row.original.id}`}
+              >
+                <Container className="p-3">
+                  <p>{content.deleteButton.popover}</p>
+                </Container>
+              </PopoverStatic.Detail>
+            </PopoverStatic>
+
+            <PopoverStatic identifier={`edit-${row.original.id}`}>
+              <Button
+                variant="hoverable"
+                color="text"
+                size="icon-sm"
+                onClick={(e: React.MouseEvent) => {
+                  e.stopPropagation();
+
+                  if (row.original.key) {
+                    dashboard.state.setEditingDictionaryKey(row.original.key);
+                  }
+                }}
+                Icon={Pencil}
+                label={content.editButton.label.value}
+              />
+              <PopoverStatic.Detail
+                xAlign="end"
+                identifier={`edit-${row.original.id}`}
+              >
+                <Container className="p-3">
+                  <p>{content.editButton.popover}</p>
+                </Container>
+              </PopoverStatic.Detail>
+            </PopoverStatic>
+
+            <PopoverStatic identifier={`view-${row.original.id}`}>
+              <Button
+                variant="hoverable"
+                color="text"
+                size="icon-sm"
+                onClick={(e: React.MouseEvent) => {
+                  e.stopPropagation();
+
+                  setFocusedContent({
+                    dictionaryKey: row.original.key,
+                    dictionaryLocalId: row.original.localId,
+                    keyPath: [],
+                  });
+
+                  navigate({
+                    to: `/dictionary/$dictionaryKey`,
+                    params: {
+                      dictionaryKey: row.original.key,
+                    },
+                  });
+                }}
+                Icon={ArrowRight}
+                label={content.viewButton.label.value}
+              />
+              <PopoverStatic.Detail
+                xAlign="end"
+                identifier={`view-${row.original.id}`}
+              >
+                <Container className="p-3">
+                  <p>{content.viewButton?.popover}</p>
+                </Container>
+              </PopoverStatic.Detail>
+            </PopoverStatic>
+          </div>
+        ),
+      },
+      {
         accessorKey: 'key',
         header: () => (
           <SortHeader columnId="key" label={content.tableHeaders.key.value} />
@@ -241,98 +333,6 @@ export const DictionaryListDashboardContent: FC = () => {
         cell: ({ row }) => (
           <div className="text-neutral">
             {formatDate((row.original as any).updatedAt)}
-          </div>
-        ),
-      },
-      {
-        id: 'actions',
-        header: content.tableHeaders.actions,
-        cell: ({ row }) => (
-          <div className="flex items-center gap-1">
-            <PopoverStatic identifier={`delete-${row.original.id}`}>
-              <Button
-                variant="hoverable"
-                color="error"
-                className="ml-auto text-text hover:text-error"
-                size="icon-sm"
-                onClick={(e: React.MouseEvent) => {
-                  e.stopPropagation();
-
-                  if (row.original.id) {
-                    dashboard.state.setDictionaryToDelete(row.original.id);
-                  }
-                }}
-                Icon={Trash2}
-                label={content.deleteButton.label.value}
-              />
-              <PopoverStatic.Detail
-                xAlign="end"
-                identifier={`delete-${row.original.id}`}
-              >
-                <Container className="p-3">
-                  <p>{content.deleteButton.popover}</p>
-                </Container>
-              </PopoverStatic.Detail>
-            </PopoverStatic>
-
-            <PopoverStatic identifier={`edit-${row.original.id}`}>
-              <Button
-                variant="hoverable"
-                color="text"
-                size="icon-sm"
-                onClick={(e: React.MouseEvent) => {
-                  e.stopPropagation();
-
-                  if (row.original.key) {
-                    dashboard.state.setEditingDictionaryKey(row.original.key);
-                  }
-                }}
-                Icon={Pencil}
-                label={content.editButton.label.value}
-              />
-              <PopoverStatic.Detail
-                xAlign="end"
-                identifier={`edit-${row.original.id}`}
-              >
-                <Container className="p-3">
-                  <p>{content.editButton.popover}</p>
-                </Container>
-              </PopoverStatic.Detail>
-            </PopoverStatic>
-
-            <PopoverStatic identifier={`view-${row.original.id}`}>
-              <Button
-                variant="hoverable"
-                color="text"
-                size="icon-sm"
-                onClick={(e: React.MouseEvent) => {
-                  e.stopPropagation();
-
-                  setFocusedContent({
-                    dictionaryKey: row.original.key,
-                    dictionaryLocalId: row.original.localId,
-                    keyPath: [],
-                  });
-
-                  navigate({
-                    to: `/dictionary/$dictionaryKey`,
-                    params: {
-                      dictionaryKey: row.original.key,
-                    },
-                  });
-                }}
-                Icon={ArrowRight}
-                label={content.viewButton.label.value}
-              />
-              <PopoverStatic.Detail
-                xAlign="end"
-                identifier={`view-${row.original.id}`}
-              >
-                <Container className="p-3">
-                  <p>{content.viewButton?.popover}</p>
-                </Container>
-              </PopoverStatic.Detail>
-            </PopoverStatic>
           </div>
         ),
       },
