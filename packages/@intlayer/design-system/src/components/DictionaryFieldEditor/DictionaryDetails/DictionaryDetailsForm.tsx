@@ -237,6 +237,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
                     id="location-local"
                     name="location-local"
                     label={locationSelect.local.value}
+                    color="neutral"
                     checked={isLocal}
                     disabled={
                       !mode.includes('local') && !mode.includes('remote')
@@ -247,6 +248,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
                     id="location-remote"
                     name="location-remote"
                     label={locationSelect.remote.value}
+                    color="neutral"
                     checked={isRemote}
                     disabled={
                       !mode.includes('remote') &&
