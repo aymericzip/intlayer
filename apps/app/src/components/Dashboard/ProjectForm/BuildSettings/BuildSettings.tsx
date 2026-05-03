@@ -346,7 +346,7 @@ export const BuildSettings: FC = () => {
 
         {/* Global Save Button */}
         {isProjectAdmin && (
-          <div className="flex justify-end border-neutral/10 border-t">
+          <div className="flex justify-end border-neutral/10 border-t p-3">
             <Form.Button
               type="submit"
               label={saveButton.ariaLabel.value}

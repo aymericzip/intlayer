@@ -1,6 +1,9 @@
 import type {
+  CreatePortalSessionResult,
   GetCheckoutSessionBody,
   GetCheckoutSessionResult,
+  GetInvoicesResult,
+  GetPaymentMethodResult,
   GetPricingBody,
   GetPricingResult,
 } from '@intlayer/backend';
@@ -66,9 +69,46 @@ export const getStripeAPI = (
       }
     );
 
+  /**
+   * Lists invoices for the authenticated organization's Stripe customer.
+   */
+  const getInvoices = async (otherOptions: FetcherOptions = {}) =>
+    await fetcher<GetInvoicesResult>(
+      `${STRIPE_API_ROUTE}/invoices`,
+      authAPIOptions,
+      otherOptions,
+      { method: 'GET' }
+    );
+
+  /**
+   * Returns the first card payment method for the authenticated organization's
+   * Stripe customer (or null if none).
+   */
+  const getPaymentMethod = async (otherOptions: FetcherOptions = {}) =>
+    await fetcher<GetPaymentMethodResult>(
+      `${STRIPE_API_ROUTE}/payment-method`,
+      authAPIOptions,
+      otherOptions,
+      { method: 'GET' }
+    );
+
+  /**
+   * Creates a Stripe Billing Portal session for the authenticated organization.
+   */
+  const createPortalSession = async (otherOptions: FetcherOptions = {}) =>
+    await fetcher<CreatePortalSessionResult>(
+      `${STRIPE_API_ROUTE}/portal-session`,
+      authAPIOptions,
+      otherOptions,
+      { method: 'POST' }
+    );
+
   return {
     getPricing,
     getSubscription,
     cancelSubscription,
+    getInvoices,
+    getPaymentMethod,
+    createPortalSession,
   };
 };

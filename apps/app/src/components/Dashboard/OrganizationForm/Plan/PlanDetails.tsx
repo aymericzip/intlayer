@@ -9,10 +9,11 @@ import {
 import { Modal } from '@intlayer/design-system/modal';
 import { App_Pricing_Path } from '@intlayer/design-system/routes';
 import { Tag } from '@intlayer/design-system/tag';
-import { ChevronsUp, CircleX, RotateCcw } from 'lucide-react';
+import { ChevronsUp, CircleX, CreditCard, RotateCcw } from 'lucide-react';
 import { type FC, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { useLocalizedNavigate } from '#hooks/useLocalizedNavigate.ts';
+import { BillingModal } from './BillingModal';
 
 type PlanDetailsProps = {};
 
@@ -43,13 +44,20 @@ const getTypeTagColor = (plan?: PlanAPI) => {
 
 export const PlanDetails: FC<PlanDetailsProps> = () => {
   const { session } = useSession();
-  const { title, upgradeButton, renewButton, cancelButton, cancelModal } =
-    useIntlayer('organization-plan');
+  const {
+    title,
+    upgradeButton,
+    renewButton,
+    cancelButton,
+    cancelModal,
+    billingButton,
+  } = useIntlayer('organization-plan');
   const { mutate: cancelSubscription, isPending: isDeleting } =
     useCancelSubscription();
   const plan = session?.organization?.plan;
   const navigate = useLocalizedNavigate();
   const [isCancellationModalOpen, setIsCancellationModalOpen] = useState(false);
+  const [isBillingModalOpen, setIsBillingModalOpen] = useState(false);
 
   const handleCancelSubscription = () => {
     cancelSubscription(undefined, {
@@ -133,7 +141,24 @@ export const PlanDetails: FC<PlanDetailsProps> = () => {
             {cancelButton.text}
           </Button>
         )}
+        {plan?.customerId && (
+          <Button
+            label={billingButton.label.value}
+            color="text"
+            variant="outline"
+            Icon={CreditCard}
+            onClick={() => setIsBillingModalOpen(true)}
+          >
+            {billingButton.text}
+          </Button>
+        )}
       </div>
+      {plan?.customerId && (
+        <BillingModal
+          isOpen={isBillingModalOpen}
+          onClose={() => setIsBillingModalOpen(false)}
+        />
+      )}
     </>
   );
 };

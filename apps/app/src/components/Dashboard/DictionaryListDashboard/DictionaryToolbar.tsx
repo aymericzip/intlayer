@@ -91,6 +91,7 @@ export const DictionaryToolbar: FC<DictionaryToolbarProps> = ({
                       <Checkbox
                         id={`col-${column.id}`}
                         name={`col-${column.id}`}
+                        color="text"
                         checked={column.getIsVisible()}
                         onChange={(e) =>
                           column.toggleVisibility(e.target.checked)

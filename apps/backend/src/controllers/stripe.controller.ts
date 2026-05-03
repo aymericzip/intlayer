@@ -2,7 +2,7 @@ import type { Locale } from '@intlayer/types/allLocales';
 import * as emailService from '@services/email.service';
 import * as subscriptionService from '@services/subscription.service';
 import { type AppError, ErrorHandler } from '@utils/errors';
-import { retrievePlanInformation } from '@utils/plan';
+import { isLifetimePriceId, retrievePlanInformation } from '@utils/plan';
 import { formatResponse, type ResponseData } from '@utils/responseData';
 import type { FastifyReply, FastifyRequest } from 'fastify';
 import { t } from 'fastify-intlayer';
@@ -47,7 +47,8 @@ export type GetCheckoutSessionBody = {
 };
 
 export type GetCheckoutSessionResult = ResponseData<{
-  subscription: Stripe.Response<Stripe.Subscription>;
+  subscription?: Stripe.Response<Stripe.Subscription>;
+  paymentIntent?: Stripe.Response<Stripe.PaymentIntent>;
   clientSecret: string;
 }>;
 
@@ -114,6 +115,61 @@ export const getSubscription = async (
     const promoCodeId = promoCode
       ? await subscriptionService.getCouponId(promoCode)
       : null;
+
+    // Lifetime / one-time payment — handled with a PaymentIntent rather than a
+    // recurring subscription so the price is charged once.
+    if (isLifetimePriceId(priceId)) {
+      const price = await stripe.prices.retrieve(priceId);
+
+      if (!price.unit_amount) {
+        return ErrorHandler.handleGenericErrorResponse(
+          reply,
+          'SUBSCRIPTION_CREATION_FAILED',
+          { user, organization, priceId }
+        );
+      }
+
+      let amount = price.unit_amount;
+
+      if (promoCodeId) {
+        const coupon = await stripe.coupons.retrieve(promoCodeId);
+        if (coupon.percent_off) {
+          amount = Math.round(amount * (1 - coupon.percent_off / 100));
+        } else if (coupon.amount_off) {
+          amount = Math.max(0, amount - coupon.amount_off);
+        }
+      }
+
+      const paymentIntent = await stripe.paymentIntents.create({
+        customer: customerId,
+        amount,
+        currency: price.currency,
+        payment_method_types: ['card'],
+        metadata: {
+          organizationId: String(organization.id),
+          userId: String(user.id),
+          priceId,
+          purchaseType: 'lifetime',
+        },
+      });
+
+      if (!paymentIntent?.client_secret) {
+        return ErrorHandler.handleGenericErrorResponse(
+          reply,
+          'SUBSCRIPTION_CREATION_FAILED',
+          { user, organization, priceId }
+        );
+      }
+
+      return reply.send(
+        formatResponse<GetCheckoutSessionResult['data']>({
+          data: {
+            paymentIntent,
+            clientSecret: paymentIntent.client_secret,
+          },
+        })
+      );
+    }
 
     const discounts: Stripe.SubscriptionCreateParams.Discount[] = promoCodeId
       ? [{ coupon: promoCodeId }]
@@ -259,6 +315,113 @@ export const cancelSubscription = async (
     });
   } catch (error) {
     // Handle any errors that occur during the cancellation process
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
+  }
+};
+
+/** Pulls the Stripe customer ID from the authenticated organization's plan. */
+const getCustomerIdFromSession = (
+  request: FastifyRequest
+): string | undefined => request.session?.organization?.plan?.customerId;
+
+export type GetInvoicesResult = ResponseData<Stripe.Invoice[]>;
+
+/**
+ * Lists Stripe invoices for the authenticated organization's customer.
+ */
+export const getInvoices = async (
+  request: FastifyRequest,
+  reply: FastifyReply
+): Promise<void> => {
+  try {
+    const customerId = getCustomerIdFromSession(request);
+
+    if (!customerId) {
+      return ErrorHandler.handleGenericErrorResponse(
+        reply,
+        'ORGANIZATION_PLAN_NOT_FOUND'
+      );
+    }
+
+    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
+    const invoices = await stripe.invoices.list({ customer: customerId });
+
+    return reply.send(
+      formatResponse<GetInvoicesResult['data']>({ data: invoices.data })
+    );
+  } catch (error) {
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
+  }
+};
+
+export type GetPaymentMethodResult = ResponseData<Stripe.PaymentMethod | null>;
+
+/**
+ * Returns the first card payment method attached to the authenticated
+ * organization's Stripe customer (or null if none).
+ */
+export const getPaymentMethod = async (
+  request: FastifyRequest,
+  reply: FastifyReply
+): Promise<void> => {
+  try {
+    const customerId = getCustomerIdFromSession(request);
+
+    if (!customerId) {
+      return ErrorHandler.handleGenericErrorResponse(
+        reply,
+        'ORGANIZATION_PLAN_NOT_FOUND'
+      );
+    }
+
+    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
+    const paymentMethods = await stripe.paymentMethods.list({
+      customer: customerId,
+      type: 'card',
+    });
+
+    return reply.send(
+      formatResponse<GetPaymentMethodResult['data']>({
+        data: paymentMethods.data[0] ?? null,
+      })
+    );
+  } catch (error) {
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
+  }
+};
+
+export type CreatePortalSessionResult = ResponseData<{ url: string }>;
+
+/**
+ * Creates a Stripe Billing Portal session for the authenticated organization
+ * so the user can manage their payment method and subscription.
+ */
+export const createPortalSession = async (
+  request: FastifyRequest,
+  reply: FastifyReply
+): Promise<void> => {
+  try {
+    const customerId = getCustomerIdFromSession(request);
+
+    if (!customerId) {
+      return ErrorHandler.handleGenericErrorResponse(
+        reply,
+        'ORGANIZATION_PLAN_NOT_FOUND'
+      );
+    }
+
+    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
+    const session = await stripe.billingPortal.sessions.create({
+      customer: customerId,
+      return_url: `${process.env.APP_URL ?? 'http://localhost:3000'}/dashboard`,
+    });
+
+    return reply.send(
+      formatResponse<CreatePortalSessionResult['data']>({
+        data: { url: session.url },
+      })
+    );
+  } catch (error) {
     return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }
 };

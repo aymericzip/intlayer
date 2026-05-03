@@ -17,10 +17,18 @@ export const retrievePlanInformation = (
       return { period: 'YEARLY', type: 'ENTERPRISE' };
     case process.env.STRIPE_ENTERPRISE_MONTHLY_PRICE_ID!:
       return { period: 'MONTHLY', type: 'ENTERPRISE' };
+    case process.env.STRIPE_ONE_TIME_PAYMENT_PRICE_ID!:
+      return { period: 'LIFETIME', type: 'LIFETIME' };
     default:
       return { period: undefined, type: 'FREE' };
   }
 };
+
+export const isLifetimePriceId = (priceId: string): boolean =>
+  Boolean(
+    process.env.STRIPE_ONE_TIME_PAYMENT_PRICE_ID &&
+      priceId === process.env.STRIPE_ONE_TIME_PAYMENT_PRICE_ID
+  );
 
 type PlanDetails = {
   numberOfOrganizationUsers?: number;
@@ -46,6 +54,13 @@ const planDetails: Record<Plan['type'], PlanDetails> = {
     contentAI: true,
   },
   ENTERPRISE: {
+    numberOfOrganizationUsers: undefined,
+    numberOfProjects: undefined,
+    totalStorage: undefined,
+    SeoAI: true,
+    contentAI: true,
+  },
+  LIFETIME: {
     numberOfOrganizationUsers: undefined,
     numberOfProjects: undefined,
     totalStorage: undefined,

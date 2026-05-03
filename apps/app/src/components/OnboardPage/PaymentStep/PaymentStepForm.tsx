@@ -28,14 +28,24 @@ import { useStep } from '../useStep';
 type PaymentDetailsProps = {
   plan: Plans;
   period: Period;
-  invoice: Stripe.Invoice;
+  invoice?: Stripe.Invoice;
+  paymentIntent?: Stripe.PaymentIntent;
 };
 
-const PaymentDetails: FC<PaymentDetailsProps> = ({ plan, period, invoice }) => {
+const PaymentDetails: FC<PaymentDetailsProps> = ({
+  plan,
+  period,
+  invoice,
+  paymentIntent,
+}) => {
   const { pricing, period: periodContent } = useIntlayer('pricing');
-  const { title, description } = pricing[period][plan];
-  const subtotal = invoice.subtotal / 100;
-  const total = invoice.total / 100;
+  const { title, description } = (pricing as any)[period]?.[plan] ?? {};
+  const subtotal = invoice
+    ? invoice.subtotal / 100
+    : (paymentIntent?.amount ?? 0) / 100;
+  const total = invoice
+    ? invoice.total / 100
+    : (paymentIntent?.amount ?? 0) / 100;
 
   const hasDiscount = subtotal !== total;
 
@@ -97,6 +107,7 @@ export const PaymentStepContent: FC<PaymentDetailsProps> = ({
   plan,
   period,
   invoice,
+  paymentIntent,
 }) => {
   const { goNextStep, goPreviousStep, setState, nextUrl } = useStep(
     Steps.Payment
@@ -193,7 +204,12 @@ export const PaymentStepContent: FC<PaymentDetailsProps> = ({
           transparency="full"
           gap="xl"
         >
-          <PaymentDetails plan={plan} period={period} invoice={invoice} />
+          <PaymentDetails
+            plan={plan}
+            period={period}
+            invoice={invoice}
+            paymentIntent={paymentIntent}
+          />
         </Container>
 
         {isPlanValid ? (
@@ -255,10 +271,14 @@ export const PaymentStepForm: FC<PaymentStepContentProps> = ({
     return <>{error}</>;
   }
 
-  const invoice = data?.data?.subscription?.latest_invoice as Stripe.Invoice & {
-    confirmation_secret?: { client_secret: string };
-  };
-  const clientSecret = invoice?.confirmation_secret?.client_secret;
+  const invoice = data?.data?.subscription?.latest_invoice as
+    | (Stripe.Invoice & { confirmation_secret?: { client_secret: string } })
+    | undefined;
+  const paymentIntent = data?.data?.paymentIntent as
+    | Stripe.PaymentIntent
+    | undefined;
+  const clientSecret =
+    data?.data?.clientSecret ?? invoice?.confirmation_secret?.client_secret;
 
   const isDarkMode = resolvedTheme === 'dark';
 
@@ -277,7 +297,12 @@ export const PaymentStepForm: FC<PaymentStepContentProps> = ({
               appearance,
             }}
           >
-            <PaymentStepContent plan={plan} period={period} invoice={invoice} />
+            <PaymentStepContent
+              plan={plan}
+              period={period}
+              invoice={invoice}
+              paymentIntent={paymentIntent}
+            />
           </Elements>
         ) : (
           <Container

@@ -723,12 +723,7 @@ export const TranslationStatusAside: FC = () => {
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
         identifier="translation-status"
-        title={
-          <div className="flex items-center gap-2">
-            <Globe className="h-5 w-5" />
-            <span>{content.translationStatus1}</span>
-          </div>
-        }
+        title={content.translationStatus1}
       >
         <div className="flex flex-col gap-4 p-1">
           {/* Connection error banner */}

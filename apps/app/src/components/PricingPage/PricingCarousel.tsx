@@ -23,7 +23,12 @@ type PricingCarouselProps = HTMLAttributes<HTMLDivElement> & {
   setFocusedPeriod: (period: Period) => void;
 };
 
-const plans: Plans[] = [Plans.Free, Plans.Premium, Plans.Enterprise];
+const subscriptionPlans: Plans[] = [
+  Plans.Free,
+  Plans.Premium,
+  Plans.Enterprise,
+];
+const lifetimePlans: Plans[] = [Plans.Free, Plans.Lifetime];
 
 const IS_SELECT_PLAN_ON_HOVER = false;
 const SELECT_PLAN_ON_HOVER_TIMEOUT = 1000;
@@ -52,7 +57,10 @@ export const PricingCarousel: FC<PricingCarouselProps> = ({
   const { user } = useUser();
   const allParams = useSearch({ strict: false }) as any;
 
-  const { pricing, period } = useIntlayer('pricing');
+  const { pricing: pricingContent, period } = useIntlayer('pricing');
+  const pricing = pricingContent as any;
+  const plans =
+    focusedPeriod === 'lifetime' ? lifetimePlans : subscriptionPlans;
   const { data: pricingData, isFetching: isLoading } = useGetPricing(
     {
       priceIds: [
@@ -60,6 +68,7 @@ export const PricingCarousel: FC<PricingCarouselProps> = ({
         import.meta.env.VITE_STRIPE_PREMIUM_MONTHLY_PRICE_ID!,
         import.meta.env.VITE_STRIPE_ENTERPRISE_YEARLY_PRICE_ID!,
         import.meta.env.VITE_STRIPE_ENTERPRISE_MONTHLY_PRICE_ID!,
+        import.meta.env.VITE_STRIPE_ONE_TIME_PAYMENT_PRICE_ID!,
       ],
       promoCode: allParams.promoCode,
     },
@@ -175,7 +184,14 @@ export const PricingCarousel: FC<PricingCarouselProps> = ({
     } else if (selectedPlanIndex > plans.length - 1) {
       setSelectedPlanIndex(plans.length - 1);
     }
-  }, [selectedPlanIndex]);
+  }, [selectedPlanIndex, plans.length]);
+
+  // Reset highlighted plan when the period switcher changes so the default
+  // (middle column) is selected again — e.g. Lifetime when switching to lifetime.
+  useEffect(() => {
+    setSelectedPlanIndex(null);
+    setIsClicked(false);
+  }, [focusedPeriod]);
 
   /**
    * Smoothly transition between plans if the selected plan index changes
@@ -286,7 +302,7 @@ export const PricingCarousel: FC<PricingCarouselProps> = ({
       aria-label="Pricing Carousel"
       data-testid="pricing-carousel"
       style={{
-        height: (columnRef?.current?.offsetHeight ?? 0) + 30,
+        height: (columnRef?.current?.offsetHeight ?? 0) + 60,
       }}
       {...props}
     >
@@ -375,6 +391,7 @@ export const PricingCarousel: FC<PricingCarouselProps> = ({
               otherParams: allParams,
             })}
             title={pricing[focusedPeriod]?.[plan]?.title?.value}
+            badge={pricing[focusedPeriod]?.[plan]?.badge?.value}
             description={pricing[focusedPeriod]?.[plan]?.description?.value}
             className={displayedPlanIndex !== index ? 'hover:scale-103' : ''}
           />

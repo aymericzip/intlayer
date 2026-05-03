@@ -264,12 +264,12 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
                   variant="invisible-link"
                   preload="intent"
                   className={cn(
-                    'relative flex w-full items-center justify-center rounded-lg px-2 py-2',
+                    'relative flex w-full items-center justify-center rounded-lg px-2 py-2 aria-[current]:bg-current/0',
                     !isCollapsed && 'justify-start gap-3 px-4',
                     // Indentation
                     !isCollapsed && isChild && 'pl-10'
                   )}
-                  aria-current={activeKey === item.key ? 'page' : undefined}
+                  isActive={activeKey === item.key}
                 >
                   {/* Tree Visuals */}
                   {!isCollapsed && isChild && (

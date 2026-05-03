@@ -1,5 +1,8 @@
 import {
   cancelSubscription,
+  createPortalSession,
+  getInvoices,
+  getPaymentMethod,
   getPricing,
   getSubscription,
 } from '@controllers/stripe.controller';
@@ -27,6 +30,21 @@ export const getStripeRoutes = () =>
       url: `${baseURL()}/cancel-subscription`,
       method: 'POST',
     },
+    getInvoices: {
+      urlModel: '/invoices',
+      url: `${baseURL()}/invoices`,
+      method: 'GET',
+    },
+    getPaymentMethod: {
+      urlModel: '/payment-method',
+      url: `${baseURL()}/payment-method`,
+      method: 'GET',
+    },
+    createPortalSession: {
+      urlModel: '/portal-session',
+      url: `${baseURL()}/portal-session`,
+      method: 'POST',
+    },
   }) satisfies Routes;
 
 export const stripeRouter = async (fastify: FastifyInstance) => {
@@ -35,5 +53,11 @@ export const stripeRouter = async (fastify: FastifyInstance) => {
   fastify.post(
     getStripeRoutes().cancelSubscription.urlModel,
     cancelSubscription
+  );
+  fastify.get(getStripeRoutes().getInvoices.urlModel, getInvoices);
+  fastify.get(getStripeRoutes().getPaymentMethod.urlModel, getPaymentMethod);
+  fastify.post(
+    getStripeRoutes().createPortalSession.urlModel,
+    createPortalSession
   );
 };

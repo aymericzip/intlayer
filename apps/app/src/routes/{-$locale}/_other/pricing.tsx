@@ -21,6 +21,7 @@ const priceIds = [
   process.env.VITE_STRIPE_PREMIUM_MONTHLY_PRICE_ID,
   process.env.VITE_STRIPE_ENTERPRISE_YEARLY_PRICE_ID,
   process.env.VITE_STRIPE_ENTERPRISE_MONTHLY_PRICE_ID,
+  process.env.VITE_STRIPE_ONE_TIME_PAYMENT_PRICE_ID,
 ].filter(Boolean) as string[];
 
 const getPricingData = createServerFn().handler(async () => {

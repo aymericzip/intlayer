@@ -125,6 +125,7 @@ export const FiltersModal: FC<FiltersModalProps> = ({
               id="filter-location-remote"
               name="filter-location-remote"
               size="sm"
+              color="text"
               checked={activeLocations.includes('remote')}
               onChange={() => handleLocationToggle('remote')}
               label={locationOptions.remote}
@@ -135,6 +136,7 @@ export const FiltersModal: FC<FiltersModalProps> = ({
               id="filter-location-local"
               name="filter-location-local"
               size="sm"
+              color="text"
               checked={activeLocations.includes('local')}
               onChange={() => handleLocationToggle('local')}
               label={locationOptions.local}
@@ -181,6 +183,7 @@ export const FiltersModal: FC<FiltersModalProps> = ({
                   id={`tag-${tag.key}`}
                   name={`tag-${tag.key}`}
                   size="sm"
+                  color="text"
                   checked={activeTags.includes(tag.key)}
                   onChange={() => handleTagToggle(tag.key)}
                   label={tag.name || tag.key}

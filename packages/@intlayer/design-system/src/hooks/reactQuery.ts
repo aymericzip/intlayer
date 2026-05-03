@@ -1061,6 +1061,39 @@ export const useCancelSubscription = () => {
   });
 };
 
+export const useGetInvoices = (options?: Partial<UseQueryOptions>) => {
+  const intlayerOAuth = useIntlayerOAuth();
+
+  return useAppQuery({
+    queryKey: ['invoices'],
+    queryFn: ({ signal }) => intlayerOAuth.stripe.getInvoices({ signal }),
+    requireUser: true,
+    requireOrganization: true,
+    ...options,
+  });
+};
+
+export const useGetPaymentMethod = (options?: Partial<UseQueryOptions>) => {
+  const intlayerOAuth = useIntlayerOAuth();
+
+  return useAppQuery({
+    queryKey: ['paymentMethod'],
+    queryFn: ({ signal }) => intlayerOAuth.stripe.getPaymentMethod({ signal }),
+    requireUser: true,
+    requireOrganization: true,
+    ...options,
+  });
+};
+
+export const useCreatePortalSession = () => {
+  const intlayerOAuth = useIntlayerOAuth();
+
+  return useMutation({
+    mutationKey: ['portalSession'],
+    mutationFn: () => intlayerOAuth.stripe.createPortalSession(),
+  });
+};
+
 /**
  * AI
  */

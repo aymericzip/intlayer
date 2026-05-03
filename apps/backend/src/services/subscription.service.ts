@@ -237,11 +237,23 @@ export const getPricing = async (
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
   try {
-    // 1. Fetch all price objects
-    const pricePromises = priceIds.map((priceId) =>
-      stripe.prices.retrieve(priceId)
+    // 1. Fetch all price objects, skipping any that fail (e.g. unset / invalid
+    // env IDs). One bad ID should not break pricing for the entire page.
+    const priceResults = await Promise.allSettled(
+      priceIds.map((priceId) => stripe.prices.retrieve(priceId))
     );
-    const prices = await Promise.all(pricePromises);
+
+    const prices = priceResults
+      .map((result, index) => {
+        if (result.status === 'fulfilled') return result.value;
+        logger.warn(
+          `Skipping price ${priceIds[index]} — retrieval failed: ${
+            (result.reason as Error)?.message ?? 'unknown error'
+          }`
+        );
+        return null;
+      })
+      .filter((price): price is Stripe.Price => price !== null);
 
     // Calculate the total amount before discount (to help with proportional distribution if needed)
     const totalAmount = prices.reduce(

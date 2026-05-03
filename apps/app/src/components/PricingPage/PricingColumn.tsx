@@ -4,6 +4,7 @@ import {
 } from '@intlayer/design-system/container';
 import { H2 } from '@intlayer/design-system/headers';
 import { Loader } from '@intlayer/design-system/loader';
+import { Tag, TagColor } from '@intlayer/design-system/tag';
 import { cn } from '@intlayer/design-system/utils';
 import { Check } from 'lucide-react';
 import type { FC, ReactNode } from 'react';
@@ -11,6 +12,7 @@ import { Link } from '#components/Link/Link';
 
 type PricingColumnProps = {
   title: ReactNode;
+  badge?: ReactNode;
   totalPrice: number;
   basePrice: number;
   isPriceLoading: boolean;
@@ -25,6 +27,7 @@ type PricingColumnProps = {
 
 export const PricingColumn: FC<PricingColumnProps> = ({
   title,
+  badge,
   totalPrice,
   basePrice,
   isPriceLoading,
@@ -49,9 +52,12 @@ export const PricingColumn: FC<PricingColumnProps> = ({
     itemType="http://schema.org/Offer"
     {...props}
   >
-    <H2 className="mt-4 text-center" itemProp="name">
-      {title}
-    </H2>
+    <div className="mt-4 flex flex-col items-center gap-2">
+      <H2 className="text-center" itemProp="name">
+        {title}
+      </H2>
+      {badge && <Tag color={TagColor.WARNING}>{badge}</Tag>}
+    </div>
     <div className="flex flex-col justify-center">
       <Loader isLoading={isPriceLoading}>
         <span className="relative m-auto text-center font-bold text-6xl">
