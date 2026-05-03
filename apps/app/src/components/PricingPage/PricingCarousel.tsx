@@ -335,34 +335,38 @@ export const PricingCarousel: FC<PricingCarouselProps> = ({
         >
           <PricingColumn
             unit="$"
-            period={period.monthly.value}
+            period={period?.[focusedPeriod]?.value}
             isPriceLoading={isLoading}
             totalPrice={getPrice(
               pricingData?.data?.[
-                (pricing[focusedPeriod][plan] as any).priceId?.value
+                (pricing[focusedPeriod]?.[plan] as any)?.priceId?.value
               ]?.finalTotal ??
-                pricings?.[(pricing[focusedPeriod][plan] as any).priceId?.value]
-                  ?.finalTotal ??
+                pricings?.[
+                  (pricing[focusedPeriod]?.[plan] as any)?.priceId?.value
+                ]?.finalTotal ??
                 0,
               focusedPeriod
             )}
             basePrice={getPrice(
               pricingData?.data?.[
-                (pricing[focusedPeriod][plan] as any).priceId?.value
+                (pricing[focusedPeriod]?.[plan] as any)?.priceId?.value
               ]?.originalTotal ??
-                pricings?.[(pricing[focusedPeriod][plan] as any).priceId?.value]
-                  ?.originalTotal ??
+                pricings?.[
+                  (pricing[focusedPeriod]?.[plan] as any)?.priceId?.value
+                ]?.originalTotal ??
                 0,
               focusedPeriod
             )}
-            checkPoint={pricing[focusedPeriod][plan].checkPoint.map(
-              (el: any) => el.value
-            )}
+            checkPoint={
+              pricing[focusedPeriod]?.[plan]?.checkPoint?.map(
+                (el: any) => el.value
+              ) ?? []
+            }
             callToActionLabel={
-              pricing[focusedPeriod][plan].callToAction.label.value
+              pricing[focusedPeriod]?.[plan]?.callToAction?.label?.value
             }
             callToActionText={
-              pricing[focusedPeriod][plan].callToAction.text.value
+              pricing[focusedPeriod]?.[plan]?.callToAction?.text?.value
             }
             callToActionUrl={formatOnboardUrl({
               plan,
@@ -370,8 +374,8 @@ export const PricingCarousel: FC<PricingCarouselProps> = ({
               step: user ? Steps.SetupOrganization : Steps.Registration,
               otherParams: allParams,
             })}
-            title={pricing[focusedPeriod][plan].title.value}
-            description={pricing[focusedPeriod][plan].description.value}
+            title={pricing[focusedPeriod]?.[plan]?.title?.value}
+            description={pricing[focusedPeriod]?.[plan]?.description?.value}
             className={displayedPlanIndex !== index ? 'hover:scale-103' : ''}
           />
         </button>
