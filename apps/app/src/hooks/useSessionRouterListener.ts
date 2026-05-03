@@ -20,21 +20,17 @@ export const useSessionRouterListener = () => {
     const prev = prevSession.current;
     const curr = session;
 
-    // 1. Define what constitutes a routing-relevant change
+    // Define what constitutes a routing-relevant change
     const isUserChanged = prev?.user?.id !== curr?.user?.id;
     const isOrgChanged = prev?.organization?.id !== curr?.organization?.id;
     const isProjectChanged = prev?.project?.id !== curr?.project?.id;
 
-    // 2. Invalidate router only if a critical entity changed
+    // Invalidate router only if a critical entity changed
     if (isUserChanged || isOrgChanged || isProjectChanged) {
-      // First, mark the session cache stale so beforeLoad's ensureQueryData
-      // re-fetches fresh data instead of returning the 60s-cached value.
-      void queryClient
-        .invalidateQueries({ queryKey: sessionQueryOptions.queryKey })
-        .then(() => router.invalidate());
+      router.invalidate();
     }
 
-    // 3. Update the ref for the next render cycle
+    // Update the ref for the next render cycle
     prevSession.current = curr;
   }, [session, router, queryClient]);
 };

@@ -11,7 +11,6 @@ export const Route = createFileRoute('/')({
   beforeLoad: async ({ context }) => {
     const session =
       await context.queryClient.ensureQueryData(sessionQueryOptions);
-
     if (session) {
       if (session.organization && session.project) {
         throw redirect({
@@ -27,7 +26,6 @@ export const Route = createFileRoute('/')({
         });
       }
     }
-
     throw redirect({
       to: getLocalizedUrl(App_Dashboard_Organization_Path, defaultLocale),
     });

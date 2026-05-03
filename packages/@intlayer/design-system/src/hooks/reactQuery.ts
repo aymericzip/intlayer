@@ -157,12 +157,10 @@ export const useLogin = () => {
     onSuccess: (data) => {
       const session = queryClient.getQueryData(['session']);
 
-      if (session && data.data?.user) {
-        queryClient.setQueryData(['session'], {
-          ...session,
-          user: data.data.user,
-        });
-      }
+      queryClient.setQueryData(['session'], {
+        ...session,
+        user: data.data.user,
+      });
     },
   });
 };
@@ -559,12 +557,10 @@ export const useSelectOrganization = () => {
     onSuccess: (data) => {
       const session = queryClient.getQueryData(['session']);
 
-      if (session) {
-        queryClient.setQueryData(['session'], {
-          ...session,
-          organization: data.data,
-        });
-      }
+      queryClient.setQueryData(['session'], {
+        ...(session ?? {}),
+        organization: data.data,
+      });
     },
   });
 };
@@ -590,13 +586,11 @@ export const useUnselectOrganization = () => {
     onSuccess: () => {
       const session = queryClient.getQueryData(['session']);
 
-      if (session) {
-        queryClient.setQueryData(['session'], {
-          ...session,
-          organization: null,
-          project: null,
-        });
-      }
+      queryClient.setQueryData(['session'], {
+        ...(session ?? {}),
+        organization: null,
+        project: null,
+      });
     },
   });
 };
@@ -649,12 +643,10 @@ export const useUpdateProject = () => {
     onSuccess: (data) => {
       const session = queryClient.getQueryData(['session']);
 
-      if (session && data.data) {
-        queryClient.setQueryData(['session'], {
-          ...session,
-          project: data.data,
-        });
-      }
+      queryClient.setQueryData(['session'], {
+        ...(session ?? {}),
+        project: data.data,
+      });
     },
   });
 };
@@ -694,6 +686,7 @@ export const useSelectProject = () => {
       intlayerOAuth.project.selectProject(args),
     meta: {
       invalidateQueries: [
+        ['session'],
         ['projects'],
         ['dictionaries'],
         ['tags'],
@@ -704,12 +697,10 @@ export const useSelectProject = () => {
     onSuccess: (data) => {
       const session = queryClient.getQueryData(['session']);
 
-      if (session) {
-        queryClient.setQueryData(['session'], {
-          ...session,
-          project: data.data,
-        });
-      }
+      queryClient.setQueryData(['session'], {
+        ...(session ?? {}),
+        project: data.data,
+      });
     },
   });
 };
@@ -723,6 +714,7 @@ export const useUnselectProject = () => {
     mutationFn: () => intlayerOAuth.project.unselectProject(),
     meta: {
       resetQueries: [
+        ['session'],
         ['projects'],
         ['dictionaries'],
         ['tags'],
@@ -733,12 +725,10 @@ export const useUnselectProject = () => {
     onSuccess: () => {
       const session = queryClient.getQueryData(['session']);
 
-      if (session) {
-        queryClient.setQueryData(['session'], {
-          ...session,
-          project: null,
-        });
-      }
+      queryClient.setQueryData(['session'], {
+        ...(session ?? {}),
+        project: null,
+      });
     },
   });
 };

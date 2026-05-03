@@ -18,19 +18,21 @@ export const Route = createFileRoute('/{-$locale}/_dashboard/profile')({
   component: ProfilePage,
   head: ({ params }) => {
     const { locale } = params;
-    const path = App_Dashboard_Profile;
     const content = getIntlayer('profile-dashboard-page', locale);
 
     return {
       links: [
         // Canonical link: Points to the current localized page
-        { rel: 'canonical', href: getLocalizedUrl(path, locale) },
+        {
+          rel: 'canonical',
+          href: getLocalizedUrl(App_Dashboard_Profile, locale),
+        },
 
         // Hreflang: Tell Google about all localized versions
         ...localeMap(({ locale: mapLocale }) => ({
           rel: 'alternate',
           hrefLang: mapLocale,
-          href: getLocalizedUrl(path, mapLocale),
+          href: getLocalizedUrl(App_Dashboard_Profile, mapLocale),
         })),
 
         // x-default: For users in unmatched languages
@@ -38,7 +40,7 @@ export const Route = createFileRoute('/{-$locale}/_dashboard/profile')({
         {
           rel: 'alternate',
           hrefLang: 'x-default',
-          href: getLocalizedUrl(path, defaultLocale),
+          href: getLocalizedUrl(App_Dashboard_Profile, defaultLocale),
         },
       ],
       meta: [

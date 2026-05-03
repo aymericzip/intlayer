@@ -1,6 +1,9 @@
 import { useLogin } from '@intlayer/design-system/hooks';
-import { App_Auth_AskResetPassword_Path } from '@intlayer/design-system/routes';
-import { useSearch } from '@tanstack/react-router';
+import {
+  App_Auth_AskResetPassword_Path,
+  App_Home_Path,
+} from '@intlayer/design-system/routes';
+import { useRouter, useSearch } from '@tanstack/react-router';
 import { type FC, useEffect, useRef } from 'react';
 import { useLocalizedNavigate } from '#hooks/useLocalizedNavigate.ts';
 import { type SignIn, SignInForm as SignInFormUI } from './SignInForm/index';
@@ -9,7 +12,8 @@ export const SignInForm: FC<{
   callbackUrl?: string;
 }> = ({ callbackUrl }) => {
   const navigate = useLocalizedNavigate();
-  const { mutate: login, isPending } = useLogin();
+  const router = useRouter();
+  const { mutateAsync: login, isPending } = useLogin();
   const search = useSearch({ strict: false }) as any;
   const email = search.email;
   const emailInputRef = useRef<HTMLInputElement>(null);
@@ -24,13 +28,22 @@ export const SignInForm: FC<{
     }
   }, [callbackUrl, search]);
 
-  const onSubmitSuccess = ({ email, password, rememberMe }: SignIn) => {
-    login({
-      email,
-      password,
-      rememberMe,
-      callbackURL: callbackUrl ?? window.location.href,
-    });
+  const onSubmitSuccess = async ({ email, password, rememberMe }: SignIn) => {
+    // No `callbackURL` here — better-auth would otherwise hard-navigate the
+    // browser back to /login, racing the session cache and triggering a
+    // login → / → /organization → /login bounce. Instead we let useLogin
+    // refresh the session cache, then SPA-navigate ourselves.
+    await login({ email, password, rememberMe });
+
+    await router.invalidate();
+
+    const target =
+      callbackUrl ??
+      (typeof search.redirect_url === 'string'
+        ? (search.redirect_url as string)
+        : App_Home_Path);
+
+    navigate({ to: target as any, replace: true });
   };
 
   const getEmailContext = () => {

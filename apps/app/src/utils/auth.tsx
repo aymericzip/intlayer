@@ -26,10 +26,12 @@ export const sessionQueryOptions = {
     // Narrow to the public shape we want to expose
     return result.data as unknown as SessionAPI;
   },
-  // Session data rarely changes during navigation, so keep it fresh for 1 minute
-  // This prevents unnecessary refetches when navigating between pages
-  staleTime: 60 * 1000,
-  gcTime: 5 * 60 * 1000,
+  // Match the design-system `useSession` hook so both subscribers on the
+  // ['session'] key agree about freshness. Otherwise beforeLoad and
+  // AuthenticationBarrierClient can disagree about whether to refetch and
+  // redirect each other in circles.
+  staleTime: 5 * 60 * 1000,
+  gcTime: 30 * 60 * 1000,
 } as const;
 
 /**

@@ -186,8 +186,24 @@ const startServer = async () => {
 
         // Forward response to client
         reply.status(response.status);
+
+        // Forward headers, specifically handling multiple Set-Cookie headers
+        // which response.headers.forEach would otherwise mangle into a single
+        // comma-separated string.
+        if (typeof response.headers.getSetCookie === 'function') {
+          const setCookies = response.headers.getSetCookie();
+          if (setCookies.length > 0) {
+            reply.header('set-cookie', setCookies);
+          }
+        }
+
         response.headers.forEach((value, key) => {
-          reply.header(key, value);
+          if (key.toLowerCase() !== 'set-cookie') {
+            reply.header(key, value);
+          } else if (typeof response.headers.getSetCookie !== 'function') {
+            // Fallback for environments where getSetCookie is unavailable
+            reply.header(key, value);
+          }
         });
 
         const responseBody = response.body ? await response.text() : null;

@@ -19,7 +19,6 @@ import {
   type SidebarNavigationItem,
 } from '#components/Dashboard/DashboardSidebar';
 import { DashboardSkeleton } from '#components/Dashboard/DashboardSkeleton';
-import { useSessionRouterListener } from '#hooks/useSessionRouterListener.ts';
 
 export const Route = createFileRoute('/{-$locale}/_dashboard')({
   pendingComponent: DashboardSkeleton,
@@ -46,10 +45,6 @@ export const Route = createFileRoute('/{-$locale}/_dashboard')({
 
 function DashboardLayout() {
   const { locale } = useLocale();
-
-  // Invalidate router whenever org/project/user changes so beforeLoad
-  // redirects to the correct section without requiring a full page refresh.
-  useSessionRouterListener();
 
   const { collapseButton, navigation } = useIntlayer('dashboard-sidebar');
   const { footerLinks } = useIntlayer('dashboard-footer-content');

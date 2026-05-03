@@ -5,7 +5,6 @@ import { AdminBreadcrumb } from '#components/AdminBreadcrumb';
 import { AdminTabBar } from '#components/AdminTabBar';
 import { AuthenticationBarrier } from '#components/Auth/AuthenticationBarrier/AuthenticationBarrier';
 import { useLocalizedNavigate } from '#hooks/useLocalizedNavigate.ts';
-import { useSessionRouterListener } from '#hooks/useSessionRouterListener.ts';
 
 export const Route = createFileRoute('/{-$locale}/_dashboard/_admin')({
   // beforeLoad: async ({ context, location, params }) => {
@@ -42,8 +41,6 @@ export const Route = createFileRoute('/{-$locale}/_dashboard/_admin')({
 
 function AdminLayout() {
   const { locale } = Route.useParams();
-
-  useSessionRouterListener();
 
   const navigate = useLocalizedNavigate();
   const { pathname } = useLocation();

@@ -163,7 +163,7 @@ export const getAuth = (dbClient: MongoClient): Auth => {
       // Cache the session in a signed cookie for 5 minutes to avoid hitting
       // Mongo on every request while still picking up updateAge refreshes.
       cookieCache: {
-        enabled: true,
+        enabled: false,
         maxAge: 5 * 60,
       },
 

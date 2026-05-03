@@ -32,10 +32,21 @@ export const AuthenticationBarrier: FC<AuthenticationBarrierProps> = ({
   const effectivePathname =
     pathname === App_Auth_SignIn_Path ? App_Home_Path : pathname;
 
-  const redirectURL =
-    redirectionRoute ??
-    redirectUrl ??
-    `${App_Auth_SignIn_Path}?redirect_url=${encodeURIComponent(effectivePathname)}`;
+  const rules = Array.isArray(props.accessRule)
+    ? props.accessRule
+    : [props.accessRule];
+  const isNotAuthenticatedRule = rules.includes('not-authenticated');
+
+  // For `not-authenticated` routes, an authenticated user should land on the
+  // page they were trying to reach (`?redirect_url=...`) or, failing that,
+  // the home page — never bounced back to /login.
+  // For authenticated/admin routes, we send unauth users to /login carrying
+  // the current path as `redirect_url`.
+  const defaultRedirect = isNotAuthenticatedRule
+    ? (redirectUrl ?? App_Home_Path)
+    : `${App_Auth_SignIn_Path}?redirect_url=${encodeURIComponent(effectivePathname)}`;
+
+  const redirectURL = redirectionRoute ?? defaultRedirect;
 
   const localizedRedirectionURL = locale
     ? getLocalizedUrl(redirectURL, locale)
