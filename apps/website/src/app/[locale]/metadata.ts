@@ -113,6 +113,11 @@ export const generateMetadata = async ({
     category: 'Development Tools',
     classification: 'Developers',
     manifest: '/manifest.json',
+    verification: {
+      other: {
+        'baidu-site-verification': 'codeva-RLm6YdPzvy',
+      },
+    },
     other: undefined,
   };
 };
