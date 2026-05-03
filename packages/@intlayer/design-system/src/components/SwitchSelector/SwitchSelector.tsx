@@ -184,7 +184,7 @@ export const SwitchSelector = <T,>(props: SwitchSelectorProps<T>) => {
               onClick={() => handleChange(value)}
               aria-selected={isSelected ? 'true' : undefined}
               data-indicator={isIndicatorOwner ? 'true' : undefined}
-              disabled={disabled || isSelected}
+              disabled={disabled}
               tabIndex={isSelected ? 0 : -1}
               ref={(el) => {
                 optionsRefs.current[index] = el!;

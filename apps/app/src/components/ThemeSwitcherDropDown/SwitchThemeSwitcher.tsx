@@ -1,3 +1,4 @@
+import { useIsMounted } from '@intlayer/design-system/hooks';
 import {
   SwitchSelector,
   type SwitchSelectorChoices,
@@ -9,6 +10,11 @@ import { useTheme } from '#/providers/ThemeProvider';
 
 export const SwitchThemeSwitcher: FC = () => {
   const { resolvedTheme, setTheme } = useTheme();
+  const mounted = useIsMounted();
+
+  if (!mounted) {
+    return null;
+  }
 
   const themeSwitcher = [
     {

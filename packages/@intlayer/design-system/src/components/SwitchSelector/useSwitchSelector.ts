@@ -40,6 +40,7 @@ export const useSwitchSelector = <T>(
     hoverable && hoveredIndex !== null ? hoveredIndex : selectedIndex;
 
   const handleChange = (newValue: T) => {
+    console.log('useSwitchSelector handleChange', newValue);
     setValue(newValue);
     onChange?.(newValue);
   };

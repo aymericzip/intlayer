@@ -13,6 +13,7 @@ import { WebsiteHeader } from '#/structuredData/WebsiteHeader';
 import { ServiceWorkerSubscriber } from '#components/ServiceWorker/ServiceWorkerSubscriber.tsx';
 import { IntlayerMarkdownProvider } from '../components/IntlayerMarkdownProvider';
 import { Navbar } from '../components/Navbar';
+import { ThemeProvider } from '../components/ThemeProvider';
 import PostHogProvider from '../integrations/posthog/provider';
 import { SITE_DESCRIPTION, SITE_TITLE, SITE_URL } from '../lib/site';
 import appCss from '../styles.css?url';
@@ -21,8 +22,6 @@ import { Route as LocaleRoute } from './{-$locale}/route';
 interface MyRouterContext {
   queryClient: QueryClient;
 }
-
-const THEME_INIT_SCRIPT = `(function(){try{var stored=window.localStorage.getItem('theme');var mode=(stored==='light'||stored==='dark'||stored==='auto')?stored:'auto';var prefersDark=window.matchMedia('(prefers-color-scheme: dark)').matches;var resolved=mode==='auto'?(prefersDark?'dark':'light'):mode;var root=document.documentElement;root.classList.remove('light','dark');root.classList.add(resolved);if(mode==='auto'){root.removeAttribute('data-theme')}else{root.setAttribute('data-theme',mode)}root.style.colorScheme=resolved;}catch(e){}})();`;
 
 export const Route = createRootRouteWithContext<MyRouterContext>()({
   head: () => ({
@@ -89,25 +88,25 @@ function RootDocument({ children }: { children: React.ReactNode }) {
   return (
     <html dir={getHTMLTextDir(locale)} lang={locale} suppressHydrationWarning>
       <head>
-        {/** biome-ignore lint/security/noDangerouslySetInnerHtml: Theme initialization script */}
-        <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
         <HeadContent />
       </head>
       <body className="relative flex min-h-screen flex-col overflow-x-clip scroll-smooth bg-background text-text leading-8 transition md:flex">
         <IntlayerProvider locale={locale}>
           <WebsiteHeader />
           <SoftwareApplicationHeader />
-          <IntlayerMarkdownProvider>
-            <PostHogProvider>
-              <ReactQueryProvider>
-                <ServiceWorkerSubscriber />
-                <BackgroundLayout>
-                  <Navbar />
-                  {children}
-                </BackgroundLayout>
-              </ReactQueryProvider>
-            </PostHogProvider>
-          </IntlayerMarkdownProvider>
+          <ThemeProvider>
+            <IntlayerMarkdownProvider>
+              <PostHogProvider>
+                <ReactQueryProvider>
+                  <ServiceWorkerSubscriber />
+                  <BackgroundLayout>
+                    <Navbar />
+                    {children}
+                  </BackgroundLayout>
+                </ReactQueryProvider>
+              </PostHogProvider>
+            </IntlayerMarkdownProvider>
+          </ThemeProvider>
         </IntlayerProvider>
         <Scripts />
       </body>
