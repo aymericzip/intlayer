@@ -216,9 +216,14 @@ export const getMissingLocalesContent = <T extends ContentNode>(
     ...(nodeProps.plugins ?? []),
   ];
 
+  // eager: traversal of plain objects must run immediately. Without it the
+  // returned tree is a proxy of lazy getters; we discard the tree, so nested
+  // translation nodes inside plain objects (the typical dictionary shape) are
+  // never visited and their missing locales go undetected.
   deepTransformNode(node, {
     ...nodeProps,
     plugins,
+    eager: true,
   }) as DeepTransformContent<T>;
 
   return Array.from(missingLocales);

@@ -53,18 +53,24 @@ export const deepTransformNode = (node: any, props: NodeProps): any => {
   // If no plugin transforms it, we keep traversing its properties.
   const result: Record<string, any> = {};
   for (const key in node) {
+    const childProps = {
+      ...props,
+      children: node[key],
+      keyPath: [...props.keyPath, { type: NodeTypes.OBJECT, key } as KeyPath],
+    };
+
+    if (props.eager) {
+      // Eager mode: recurse immediately so plugins fire on every node, even
+      // when the caller discards the returned tree (e.g. side-effect-only
+      // plugins like missing-locale detection).
+      result[key] = deepTransformNode(node[key], childProps);
+      continue;
+    }
+
     Object.defineProperty(result, key, {
       enumerable: true,
       configurable: true,
       get: function () {
-        const childProps = {
-          ...props,
-          children: node[key],
-          keyPath: [
-            ...props.keyPath,
-            { type: NodeTypes.OBJECT, key } as KeyPath,
-          ],
-        };
         const transformed = deepTransformNode(node[key], childProps);
 
         // Memoize the result onto the property to avoid re-calculating on next read

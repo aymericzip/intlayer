@@ -434,6 +434,13 @@ export interface NodeProps {
   locale?: Locale;
   dictionaryPath?: string;
   children?: any;
+  /**
+   * Forces eager traversal of plain objects in `deepTransformNode`. By default
+   * traversal is lazy (property getters), so callers that discard the returned
+   * value never trigger plugins on nested nodes. Set this when running plugins
+   * for their side effects only (e.g. missing-locale detection).
+   */
+  eager?: boolean;
 }
 
 /**
