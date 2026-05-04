@@ -116,6 +116,21 @@ export const DictionaryListDashboardContent: FC = () => {
         ),
       },
       {
+        accessorKey: 'key',
+        header: () => (
+          <SortHeader columnId="key" label={content.tableHeaders.key.value} />
+        ),
+        cell: ({ row }) => (
+          <CopyToClipboard
+            text={row.original.key}
+            size={9}
+            className="font-mono"
+          >
+            {row.original.key}
+          </CopyToClipboard>
+        ),
+      },
+      {
         id: 'actions',
         header: content.tableHeaders.actions,
         cell: ({ row }) => (
@@ -205,21 +220,6 @@ export const DictionaryListDashboardContent: FC = () => {
               </PopoverStatic.Detail>
             </PopoverStatic>
           </div>
-        ),
-      },
-      {
-        accessorKey: 'key',
-        header: () => (
-          <SortHeader columnId="key" label={content.tableHeaders.key.value} />
-        ),
-        cell: ({ row }) => (
-          <CopyToClipboard
-            text={row.original.key}
-            size={9}
-            className="font-mono"
-          >
-            {row.original.key}
-          </CopyToClipboard>
         ),
       },
       {
