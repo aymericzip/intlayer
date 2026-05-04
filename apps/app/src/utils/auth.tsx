@@ -30,9 +30,7 @@ const getSafeHeaders = createIsomorphicFn()
       return undefined;
     }
   })
-  .client(async () => {
-    return undefined;
-  });
+  .client(async () => undefined);
 
 export const sessionQueryOptions = {
   queryKey: ['session'],

@@ -43,7 +43,7 @@ const NodeTypeView: FC<NodeTypeViewProps> = ({
   keyPath,
   onNodeTypeChange: onNodeTypeChangeProp,
 }) => {
-  const locales = useConfiguration()?.internationalization.locales ?? [];
+  const locales = useConfiguration()?.internationalization?.locales ?? [];
   const nodeType = getNodeType(section);
   const children = getNodeChildren(section);
 

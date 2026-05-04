@@ -35,17 +35,19 @@ type ModalProps = {
    * Defines if the modal content area is scrollable.
    */
   isScrollable?: boolean | 'x' | 'y';
-} & Pick<
-  ContainerProps,
-  | 'className'
-  | 'transparency'
-  | 'border'
-  | 'background'
-  | 'roundedSize'
-  | 'borderColor'
-  | 'padding'
-  | 'separator'
-  | 'gap'
+} & Partial<
+  Pick<
+    ContainerProps,
+    | 'className'
+    | 'transparency'
+    | 'border'
+    | 'background'
+    | 'roundedSize'
+    | 'borderColor'
+    | 'padding'
+    | 'separator'
+    | 'gap'
+  >
 >;
 
 const modalVariants = cva(

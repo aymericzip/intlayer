@@ -230,6 +230,7 @@ export default defineConfig(({ mode }) => {
       wasm(),
     ],
     build: {
+      minify: false,
       rolldownOptions: {
         external: ['wasi_snapshot_preview1', 'esbuild', 'env'],
       },

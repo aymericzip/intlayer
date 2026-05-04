@@ -40,9 +40,19 @@ export const CIWorkflowModal: FC<CIWorkflowModalProps> = ({
     pushConfig(undefined);
   };
 
+  const getTemplateContent = () => {
+    if (provider === 'github') {
+      return (ciTemplates as any).github.value;
+    } else if (provider === 'gitlab') {
+      return (ciTemplates as any).gitlab.value;
+    } else if (provider === 'bitbucket') {
+      return (ciTemplates as any).bitbucket.value;
+    }
+    return '';
+  };
+
   // Use actual content from server if available, otherwise fallback to default template
-  const displayContent =
-    ciStatus?.content || (provider ? (ciTemplates[provider] as any).value : '');
+  const displayContent = ciStatus?.content || getTemplateContent();
   const hasContent = !!displayContent;
 
   const { isCopied, copy } = useCopyToClipboard(displayContent ?? '');
@@ -53,13 +63,11 @@ export const CIWorkflowModal: FC<CIWorkflowModalProps> = ({
     }
   };
 
-  const title = ciStatus?.exists
-    ? ciModal.titleExisting.value
-    : ciModal.titleMissing.value;
+  const title = ciStatus?.exists ? ciModal.titleExisting : ciModal.titleMissing;
 
   const description = ciStatus?.exists
-    ? ciModal.descriptionExisting.value
-    : ciModal.descriptionMissing.value;
+    ? ciModal.descriptionExisting
+    : ciModal.descriptionMissing;
 
   return (
     <Modal
