@@ -11,7 +11,7 @@ import { refetchFreshSession, sessionQueryOptions } from '#utils/auth.tsx';
 export const Route = createFileRoute('/{-$locale}/_dashboard/')({
   beforeLoad: async ({ context, params }) => {
     const { locale } = params;
-    let session: SessionAPI =
+    let session: SessionAPI | null =
       await context.queryClient.ensureQueryData(sessionQueryOptions);
 
     // If the cached session would send us anywhere other than the

@@ -32,17 +32,33 @@ const getSafeHeaders = createIsomorphicFn()
   })
   .client(async () => undefined);
 
+const SESSION_FETCH_TIMEOUT_MS = 5_000;
+
+const safeGetSession = async (query?: {
+  disableCookieCache?: boolean;
+}): Promise<SessionAPI | null> => {
+  const intlayerAPI = getAuthAPI();
+  const headers = await getSafeHeaders();
+  try {
+    const result = await intlayerAPI.getSession({
+      ...(query ? { query } : {}),
+      fetchOptions: {
+        headers,
+        signal: AbortSignal.timeout(SESSION_FETCH_TIMEOUT_MS),
+      },
+    });
+    return (result.data ?? null) as unknown as SessionAPI | null;
+  } catch (err) {
+    // Backend unreachable, timed out, or upstream aborted: degrade to
+    // "no session" so SSR can render (or redirect) instead of 500'ing.
+    console.warn('[auth] getSession failed, treating as anonymous:', err);
+    return null;
+  }
+};
+
 export const sessionQueryOptions = {
   queryKey: ['session'],
-  queryFn: async () => {
-    const intlayerAPI = getAuthAPI();
-    const headers = await getSafeHeaders();
-    const result = await intlayerAPI.getSession({
-      fetchOptions: { headers },
-    });
-    // Narrow to the public shape we want to expose
-    return result.data as unknown as SessionAPI;
-  },
+  queryFn: () => safeGetSession(),
   // Match the design-system `useSession` hook so both subscribers on the
   // ['session'] key agree about freshness. Otherwise beforeLoad and
   // AuthenticationBarrierClient can disagree about whether to refetch and
@@ -59,16 +75,8 @@ export const sessionQueryOptions = {
  */
 export const refetchFreshSession = async (
   queryClient: QueryClient
-): Promise<SessionAPI> => {
-  const intlayerAPI = getAuthAPI();
-  const headers = await getSafeHeaders();
-
-  const result = await intlayerAPI.getSession({
-    query: { disableCookieCache: true },
-    fetchOptions: { headers },
-  });
-
-  const fresh = result.data as unknown as SessionAPI;
+): Promise<SessionAPI | null> => {
+  const fresh = await safeGetSession({ disableCookieCache: true });
   queryClient.setQueryData(sessionQueryOptions.queryKey, fresh);
   return fresh;
 };
