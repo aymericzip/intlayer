@@ -17,6 +17,7 @@ const benchmarkContent = {
     n01_t: t({
       en: 'Hello World',
       es: 'Hola Mundo',
+      fr: 'Bonjour le monde',
     }),
 
     n02_enu: enu({
@@ -212,6 +213,12 @@ const benchmarkContent = {
     // === NESTING ===
     n21_nest: nest('app', 'title'),
   },
+
+  filled: true,
+  title: 'Benchmark content',
+  description:
+    'Benchmark content dictionary for localization testing. Includes examples of enumeration, condition, gender, insertion, markdown, HTML, nested objects, arrays and other translation nodes.',
+  tags: ['benchmark', 'localization', 'translations', 'i18n', 'testing'],
 } satisfies Dictionary;
 
 export default benchmarkContent;

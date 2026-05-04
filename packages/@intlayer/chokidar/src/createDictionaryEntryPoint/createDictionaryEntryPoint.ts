@@ -18,21 +18,28 @@ const writeDictionaryFiles = async (
   format: 'cjs' | 'esm',
   configuration = getConfiguration()
 ) => {
-  const content = generateDictionaryListContent(
-    await paths,
-    functionName,
-    importType,
-    format,
-    configuration
-  );
-  const extension = format === 'cjs' ? 'cjs' : 'mjs';
+  try {
+    const resolvedPath = await paths;
 
-  const { mainDir } = configuration.system;
+    const content = generateDictionaryListContent(
+      resolvedPath,
+      functionName,
+      importType,
+      format,
+      configuration
+    );
+    const extension = format === 'cjs' ? 'cjs' : 'mjs';
 
-  await writeFileIfChanged(
-    resolve(mainDir, `${fileName}.${extension}`),
-    content
-  );
+    const { mainDir } = configuration.system;
+
+    await writeFileIfChanged(
+      resolve(mainDir, `${fileName}.${extension}`),
+      content
+    );
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
 };
 
 export type CreateDictionaryEntryPointOptions = {
@@ -117,7 +124,7 @@ export const createDictionaryEntryPoint = async (
   await parallelize(
     writeOperations,
     async ({ paths, fileName, format, functionName, importType }) =>
-      writeDictionaryFiles(
+      await writeDictionaryFiles(
         paths,
         fileName,
         importType,

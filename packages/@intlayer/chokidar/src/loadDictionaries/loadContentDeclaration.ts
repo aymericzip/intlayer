@@ -74,7 +74,7 @@ const getExternalDeps = async (baseDir: string): Promise<string[]> => {
     });
 
     // Specify the ESM packages to bundle
-    const esmPackagesToBundle = ['your-esm-package-name'];
+    const esmPackagesToBundle: string[] = [];
 
     const externalDeps = allDependencies.filter(
       (dep) => !esmPackagesToBundle.includes(dep)

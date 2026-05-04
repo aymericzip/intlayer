@@ -1,4 +1,5 @@
-import { existsSync, mkdirSync } from 'node:fs';
+import { existsSync } from 'node:fs';
+import { mkdir } from 'node:fs/promises';
 import { basename } from 'node:path';
 import { normalizePath } from '@intlayer/config/utils';
 import type { IntlayerConfig } from '@intlayer/types/config';
@@ -16,7 +17,7 @@ export const getBuiltDynamicDictionariesPath = async (
 
   // Create main directory if it doesn't exist
   if (!existsSync(mainDir)) {
-    mkdirSync(mainDir, { recursive: true });
+    await mkdir(mainDir, { recursive: true });
   }
 
   const extension = format === 'cjs' ? 'cjs' : 'mjs';

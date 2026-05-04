@@ -183,7 +183,9 @@ export const prepareIntlayer = async (
 
       await createTypes(dictionariesToBuild, configuration);
 
-      await createDictionaryEntryPoint(configuration);
+      await createDictionaryEntryPoint(configuration, {
+        formats: options?.format,
+      });
 
       const dictionariesBuiltTime = Date.now();
 

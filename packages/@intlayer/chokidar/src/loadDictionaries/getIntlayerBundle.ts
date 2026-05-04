@@ -17,7 +17,7 @@ const localResolvePlugin = (
     name: 'local-resolve',
     setup(build) {
       build.onResolve({ filter: /.*/ }, (args) => {
-        // 1. Direct alias match
+        // Direct alias match
         if (aliases[args.path]) {
           return {
             path: aliases[args.path],
@@ -25,7 +25,7 @@ const localResolvePlugin = (
           };
         }
 
-        // 2. Dynamic resolution via user workspace
+        // Dynamic resolution via user workspace
         if (args.path === 'defu' || args.path.startsWith('@intlayer/')) {
           try {
             const absolutePath = rootRequire.resolve(args.path);
