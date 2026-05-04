@@ -70,7 +70,7 @@ export const BillingModal: FC<BillingModalProps> = ({ isOpen, onClose }) => {
                   <CreditCard size={24} />
                 </div>
                 {isLoadingPaymentMethod ? (
-                  <Loader />
+                  <Loader className="ml-2 size-5" />
                 ) : paymentMethod ? (
                   <p className="text-sm text-text">
                     {paymentMethod.card?.brand.charAt(0).toUpperCase() +
