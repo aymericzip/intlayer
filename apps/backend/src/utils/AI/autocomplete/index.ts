@@ -60,10 +60,8 @@ export const autocomplete = async ({
   // Use the AI SDK to generate the completion
   const { text: newContent, usage } = await generateText({
     ...aiConfig,
-    messages: [
-      { role: 'system', content: prompt },
-      { role: 'assistant', content: text },
-    ],
+    system: prompt,
+    messages: [{ role: 'assistant', content: text }],
   });
 
   logger.info(`${usage?.totalTokens ?? 0} tokens used in the request`);

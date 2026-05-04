@@ -115,6 +115,8 @@ export const translateFile = async ({
                   `Translate ONLY the target chunk. Preserve frontmatter/code exactly.`,
                 ].join('\n'),
               },
+            ],
+            [
               {
                 role: 'user',
                 content: `>>> TARGET CHUNK START <<<\n${fileToTranslateCurrentChunk}\n>>> TARGET CHUNK END <<<`,

@@ -4,8 +4,8 @@ import { fileURLToPath } from 'node:url';
 import type { AIConfig, AIOptions } from '@intlayer/ai';
 import { generateText } from '@intlayer/ai';
 import { getLocaleName } from '@intlayer/core/localization';
-import type { KeyPath } from '@intlayer/types/keyPath';
 import type { Locale } from '@intlayer/types/allLocales';
+import type { KeyPath } from '@intlayer/types/keyPath';
 import * as Locales from '@intlayer/types/locales';
 import { logger } from '@logger';
 import type { Tag } from '@/types/tag.types';
@@ -92,8 +92,8 @@ export const auditDictionaryField = async ({
   // Use the AI SDK to generate the completion
   const { text: newContent, usage } = await generateText({
     ...aiConfig,
+    system: prompt,
     messages: [
-      { role: 'system', content: prompt },
       {
         role: 'user',
         content: ['**File to Audit:**', fileContent].join('\n'),

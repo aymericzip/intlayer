@@ -83,6 +83,7 @@ export const setupAI = async (
 
     const aiConfig = await aiClient.getAIConfig({
       userOptions: aiOptions,
+      projectOptions: configuration.ai as AIOptions,
       accessType: ['public'],
     });
 

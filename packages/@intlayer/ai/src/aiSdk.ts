@@ -78,8 +78,13 @@ export type AmazonBedrockProviderOptions = Parameters<
 >[0];
 export type TogetherAIProviderOptions = Parameters<typeof createTogetherAI>[0];
 
-export type Messages = (
+export type SystemMessage =
+  | string
   | SystemModelMessage
+  | SystemModelMessage[]
+  | undefined;
+
+export type Messages = (
   | UserModelMessage
   | AssistantModelMessage
   | ToolModelMessage

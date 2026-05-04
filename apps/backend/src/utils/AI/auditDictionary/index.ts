@@ -101,8 +101,8 @@ export const auditDictionary = async ({
   // Use the AI SDK to generate the completion
   const { text: newContent, usage } = await generateText({
     ...aiConfig,
+    system: prompt,
     messages: [
-      { role: 'system', content: prompt },
       {
         role: 'user',
         content: ['**File to Audit:**', fileContent].join('\n'),

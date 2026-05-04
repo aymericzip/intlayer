@@ -75,8 +75,8 @@ export const auditDictionaryMetadata = async ({
         tags: z.array(z.string()),
       }),
     }),
+    system: prompt,
     messages: [
-      { role: 'system', content: prompt },
       { role: 'user', content: EXAMPLE_REQUEST },
       { role: 'assistant', content: EXAMPLE_RESPONSE },
       {

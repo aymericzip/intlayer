@@ -16,7 +16,6 @@ const benchmarkContent = {
     // === BASIC NODES ===
     n01_t: t({
       en: 'Hello World',
-      fr: 'Bonjour le Monde',
       es: 'Hola Mundo',
     }),
 

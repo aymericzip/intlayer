@@ -166,8 +166,8 @@ export const translateJSON = async <T>({
   if (isToon) {
     const { text, usage } = await generateText({
       ...aiConfig,
+      system: prompt,
       messages: [
-        { role: 'system', content: prompt },
         {
           role: 'user',
           content: [
@@ -210,8 +210,8 @@ export const translateJSON = async <T>({
 
     // Disable schema if Schema is too complex (Block with Anthropic)
     output: useStrictOutput ? Output.object({ schema }) : undefined,
+    system: prompt,
     messages: [
-      { role: 'system', content: prompt },
       {
         role: 'user',
         content: [

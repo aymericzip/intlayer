@@ -340,7 +340,7 @@
     },
     "docs": {
       "name": "@intlayer/docs",
-      "version": "8.7.12",
+      "version": "8.7.13",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -2241,7 +2241,7 @@
     },
     "plugins/sync-json-plugin": {
       "name": "@intlayer/sync-json-plugin",
-      "version": "8.7.12",
+      "version": "8.7.13",
       "dependencies": {
         "@intlayer/chokidar": "workspace:*",
         "@intlayer/config": "workspace:*",
