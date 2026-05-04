@@ -11,7 +11,10 @@ import {
 import { Checkbox, SearchInput } from '@intlayer/design-system/input';
 import { Loader } from '@intlayer/design-system/loader';
 import { PopoverStatic } from '@intlayer/design-system/popover';
-import { RightDrawer } from '@intlayer/design-system/right-drawer';
+import {
+  RightDrawer,
+  useRightDrawer,
+} from '@intlayer/design-system/right-drawer';
 import { SwitchSelector } from '@intlayer/design-system/switch-selector';
 import { useToast } from '@intlayer/design-system/toaster';
 import { cn } from '@intlayer/design-system/utils';
@@ -445,7 +448,12 @@ export const TranslationStatusAside: FC = () => {
    * so SSE merges can never accidentally clear them.
    */
   const [jobs, setJobs] = useState<Record<string, JobData>>({});
-  const [isOpen, setIsOpen] = useState(false);
+  const {
+    open: openDrawer,
+    isOpen: checkIsOpen,
+    close: closeDrawer,
+  } = useRightDrawer();
+  const isOpen = checkIsOpen('translation-status');
   const [showArchive, setShowArchive] = useState(false);
   const [hasConnectionError, setHasConnectionError] = useState(false);
   const [lastSeenTimestamp, setLastSeenTimestamp] = useState(0);
@@ -692,16 +700,20 @@ export const TranslationStatusAside: FC = () => {
 
   // ── Render ────────────────────────────────────────────────────────────────
 
+  const isProcessingGlobal = visibleJobs.some((j) =>
+    ['active', 'waiting', 'delayed'].includes(j.state)
+  );
+
   return (
     <>
       <PopoverStatic identifier="translation-status">
         <Button
-          onClick={() => setIsOpen(true)}
+          onClick={() => openDrawer('translation-status')}
           type="button"
           variant="hoverable"
           label={content.translationStatus.value}
           Icon={Zap}
-          isLoading={isProcessing}
+          isLoading={isProcessingGlobal}
           disabled={false}
           size="icon-lg"
         >
@@ -721,7 +733,7 @@ export const TranslationStatusAside: FC = () => {
 
       <RightDrawer
         isOpen={isOpen}
-        onClose={() => setIsOpen(false)}
+        onClose={() => closeDrawer('translation-status')}
         identifier="translation-status"
         title={content.translationStatus1}
       >

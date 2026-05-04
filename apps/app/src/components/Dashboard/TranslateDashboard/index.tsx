@@ -11,9 +11,11 @@ import {
   TextEditor,
 } from '@intlayer/design-system/dictionary-field-editor';
 import {
+  useFillAllTranslations,
   useInfiniteGetDictionaries,
   usePersistedStore,
   useSearch,
+  useSession,
 } from '@intlayer/design-system/hooks';
 import { SearchInput } from '@intlayer/design-system/input';
 import { KeyboardShortcut } from '@intlayer/design-system/keyboard-shortcut';
@@ -23,6 +25,7 @@ import {
   useLocaleSwitcherContent,
 } from '@intlayer/design-system/locale-switcher-content-drop-down';
 import { PopoverStatic } from '@intlayer/design-system/popover';
+import { useRightDrawer } from '@intlayer/design-system/right-drawer';
 import {
   useConfiguration,
   useDictionariesRecordActions,
@@ -31,7 +34,7 @@ import {
 import type { Dictionary } from '@intlayer/types/dictionary';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import * as NodeTypes from '@intlayer/types/nodeType';
-import { ArrowUp, Filter, Plus } from 'lucide-react';
+import { ArrowUp, Filter, Plus, Zap } from 'lucide-react';
 import { type FC, Suspense, useEffect, useMemo, useRef, useState } from 'react';
 import { useIntlayer, useLocale } from 'react-intlayer';
 import { GroupedVirtuoso, type GroupedVirtuosoHandle } from 'react-virtuoso';
@@ -209,8 +212,13 @@ const searchParams = {
 } as const;
 
 const TranslateDashboardList: FC = () => {
-  const { searchPlaceholder, noDictionaries, scrollToTop, filterLabels } =
-    useIntlayer('translate-dashboard');
+  const {
+    searchPlaceholder,
+    noDictionaries,
+    scrollToTop,
+    filterLabels,
+    translateDictionary,
+  } = useIntlayer('translate-dashboard');
   const { params, setParam, setParams } = useSearchParamState(searchParams);
   const { setSearch } = useSearch({
     onSearch: (val) => setParam('search', val),
@@ -219,8 +227,34 @@ const TranslateDashboardList: FC = () => {
   });
   const { locale: currentLocale } = useLocale();
   const { setLocaleDictionaries } = useDictionariesRecordActions() ?? {};
+  const { open: openDrawer } = useRightDrawer();
+  const { mutateAsync: fillAll } = useFillAllTranslations();
+  const { session } = useSession();
   const [currentDictionaryKey, setCurrentDictionaryKey] = useState<string>('');
   const [isFiltersModalOpen, setIsFiltersModalOpen] = useState(false);
+
+  const projectLocales =
+    session?.project?.configuration?.internationalization?.locales ?? [];
+  const defaultLocale =
+    session?.project?.configuration?.internationalization?.defaultLocale;
+  const targetLocales = projectLocales.filter((l) => l !== defaultLocale);
+
+  const handleTranslateCurrentDictionary = async () => {
+    const dictionariesToTranslate = Object.values(allLoadedDictionaries).filter(
+      (dict) => dict.key === currentDictionaryKey && dict.id
+    );
+
+    const dictionaryIds = dictionariesToTranslate.map((dict) => dict.id!);
+
+    if (dictionaryIds.length > 0) {
+      openDrawer('translation-status');
+      await fillAll({
+        targetLocales,
+        mode: 'complete',
+        dictionaryIds,
+      });
+    }
+  };
 
   const [persistedTopIndex, setPersistedTopIndex] = usePersistedStore(
     'intlayer-dashboard-scroll-index',
@@ -432,6 +466,22 @@ const TranslateDashboardList: FC = () => {
           </PopoverStatic>
 
           <span className="ml-4">{currentDictionaryKey}</span>
+
+          <PopoverStatic identifier="translate-dictionary">
+            <Button
+              label={translateDictionary.value}
+              variant="hoverable"
+              color="text"
+              size="icon-md"
+              Icon={Zap}
+              onClick={handleTranslateCurrentDictionary}
+            />
+            <PopoverStatic.Detail identifier="translate-dictionary">
+              <span className="flex gap-4 text-nowrap py-2 pr-2 pl-4 text-neutral">
+                {translateDictionary}
+              </span>
+            </PopoverStatic.Detail>
+          </PopoverStatic>
         </div>
 
         <div
