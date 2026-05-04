@@ -42,7 +42,7 @@ export const CIWorkflowModal: FC<CIWorkflowModalProps> = ({
 
   // Use actual content from server if available, otherwise fallback to default template
   const displayContent =
-    ciStatus?.content || (provider ? ciTemplates[provider] : '');
+    ciStatus?.content || (provider ? (ciTemplates[provider] as any).value : '');
   const hasContent = !!displayContent;
 
   const { isCopied, copy } = useCopyToClipboard(displayContent ?? '');

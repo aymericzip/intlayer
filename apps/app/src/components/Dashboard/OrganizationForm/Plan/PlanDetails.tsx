@@ -130,17 +130,6 @@ export const PlanDetails: FC<PlanDetailsProps> = () => {
             {renewButton.text}
           </Button>
         )}
-        {!getIsFreePlan(plan) && plan?.status === 'active' && (
-          <Button
-            label={cancelButton.label.value}
-            color="error"
-            variant="outline"
-            Icon={CircleX}
-            onClick={() => setIsCancellationModalOpen(true)}
-          >
-            {cancelButton.text}
-          </Button>
-        )}
         {plan?.customerId && (
           <Button
             label={billingButton.label.value}
@@ -150,6 +139,17 @@ export const PlanDetails: FC<PlanDetailsProps> = () => {
             onClick={() => setIsBillingModalOpen(true)}
           >
             {billingButton.text}
+          </Button>
+        )}
+        {!getIsFreePlan(plan) && plan?.status === 'active' && (
+          <Button
+            label={cancelButton.label.value}
+            color="error"
+            variant="outline"
+            Icon={CircleX}
+            onClick={() => setIsCancellationModalOpen(true)}
+          >
+            {cancelButton.text}
           </Button>
         )}
       </div>

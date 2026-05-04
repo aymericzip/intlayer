@@ -6,6 +6,7 @@ import {
 } from '@intlayer/design-system/routes';
 import type { QueryClient } from '@tanstack/react-query';
 import { redirect } from '@tanstack/react-router';
+import { getRequestHeaders } from '@tanstack/react-start/server';
 import { getLocalizedUrl, type LocalesValues } from 'intlayer';
 import { accessValidation } from '#components/Auth/AuthenticationBarrier/accessValidation';
 
@@ -18,11 +19,26 @@ interface ValidateAuthProps {
   redirectionRoute?: string;
 }
 
+const getSafeHeaders = () => {
+  if (typeof document === 'undefined') {
+    try {
+      return getRequestHeaders();
+    } catch {
+      // ignore if not in request context
+    }
+  }
+
+  return undefined;
+};
+
 export const sessionQueryOptions = {
   queryKey: ['session'],
   queryFn: async () => {
     const intlayerAPI = getAuthAPI();
-    const result = await intlayerAPI.getSession();
+    const headers = getSafeHeaders();
+    const result = await intlayerAPI.getSession({
+      fetchOptions: { headers },
+    });
     // Narrow to the public shape we want to expose
     return result.data as unknown as SessionAPI;
   },
@@ -44,9 +60,13 @@ export const refetchFreshSession = async (
   queryClient: QueryClient
 ): Promise<SessionAPI> => {
   const intlayerAPI = getAuthAPI();
+  const headers = getSafeHeaders();
+
   const result = await intlayerAPI.getSession({
     query: { disableCookieCache: true },
+    fetchOptions: { headers },
   });
+
   const fresh = result.data as unknown as SessionAPI;
   queryClient.setQueryData(sessionQueryOptions.queryKey, fresh);
   return fresh;

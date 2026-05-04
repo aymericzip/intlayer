@@ -25,6 +25,7 @@ build/
 .eslintcache
 *.log
 *.tmp
+*.map
 *.temp
 .cache/
 .turbo
@@ -81,6 +82,3 @@ vitest.config.ts
 # Storybook
 storybook-static/
 
-
-# ___ files (Used just to keep some files in local for dev)
-___*

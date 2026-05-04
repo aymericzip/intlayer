@@ -135,6 +135,7 @@ export const LocaleSwitcherContent: FC<LocaleSwitcherContentProps> = ({
           className="p-0!"
           roundedSize="3xl"
           color="text"
+          variant="hoverable"
         >
           <div className="flex w-full items-center justify-between text-text">
             <div className="px-2 py-1">

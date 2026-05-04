@@ -5,10 +5,16 @@ import { default as defaultConfiguration } from '@intlayer/config/built';
 import { useConfiguration } from '@intlayer/editor-react';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import { useQuery } from '@tanstack/react-query';
+import { defu } from 'defu';
 
 export const useOAuth2 = (intlayerConfiguration?: IntlayerConfig) => {
   const configuration = useConfiguration();
-  const config = intlayerConfiguration ?? configuration ?? defaultConfiguration;
+  const config = defu(
+    intlayerConfiguration,
+    configuration,
+    defaultConfiguration
+  );
+
   const intlayerAPI = getOAuthAPI(config);
 
   const { data } = useQuery({
