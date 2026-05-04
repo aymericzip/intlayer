@@ -6,7 +6,6 @@ import {
 } from '@intlayer/design-system/routes';
 import type { QueryClient } from '@tanstack/react-query';
 import { redirect } from '@tanstack/react-router';
-import { getRequestHeaders } from '@tanstack/react-start/server';
 import { getLocalizedUrl, type LocalesValues } from 'intlayer';
 import { accessValidation } from '#components/Auth/AuthenticationBarrier/accessValidation';
 
@@ -19,9 +18,12 @@ interface ValidateAuthProps {
   redirectionRoute?: string;
 }
 
-const getSafeHeaders = () => {
+const getSafeHeaders = async () => {
   if (typeof document === 'undefined') {
     try {
+      const { getRequestHeaders } = await import(
+        '@tanstack/react-start/server'
+      );
       return getRequestHeaders();
     } catch {
       // ignore if not in request context
@@ -35,7 +37,7 @@ export const sessionQueryOptions = {
   queryKey: ['session'],
   queryFn: async () => {
     const intlayerAPI = getAuthAPI();
-    const headers = getSafeHeaders();
+    const headers = await getSafeHeaders();
     const result = await intlayerAPI.getSession({
       fetchOptions: { headers },
     });
@@ -60,7 +62,7 @@ export const refetchFreshSession = async (
   queryClient: QueryClient
 ): Promise<SessionAPI> => {
   const intlayerAPI = getAuthAPI();
-  const headers = getSafeHeaders();
+  const headers = await getSafeHeaders();
 
   const result = await intlayerAPI.getSession({
     query: { disableCookieCache: true },
