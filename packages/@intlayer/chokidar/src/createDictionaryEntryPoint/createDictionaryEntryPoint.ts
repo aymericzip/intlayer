@@ -18,28 +18,23 @@ const writeDictionaryFiles = async (
   format: 'cjs' | 'esm',
   configuration = getConfiguration()
 ) => {
-  try {
-    const resolvedPath = await paths;
+  const resolvedPath = await paths;
 
-    const content = generateDictionaryListContent(
-      resolvedPath,
-      functionName,
-      importType,
-      format,
-      configuration
-    );
-    const extension = format === 'cjs' ? 'cjs' : 'mjs';
+  const content = generateDictionaryListContent(
+    resolvedPath,
+    functionName,
+    importType,
+    format,
+    configuration
+  );
+  const extension = format === 'cjs' ? 'cjs' : 'mjs';
 
-    const { mainDir } = configuration.system;
+  const { mainDir } = configuration.system;
 
-    await writeFileIfChanged(
-      resolve(mainDir, `${fileName}.${extension}`),
-      content
-    );
-  } catch (error) {
-    console.log(error);
-    throw error;
-  }
+  await writeFileIfChanged(
+    resolve(mainDir, `${fileName}.${extension}`),
+    content
+  );
 };
 
 export type CreateDictionaryEntryPointOptions = {
