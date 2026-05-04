@@ -190,7 +190,22 @@ Explore our comprehensive documentation to get started with Intlayer and learn h
   <li><a href="https://intlayer.org/doc/environment/vite-and-react" rel=''>Vite + React</a></li>
   <li><a href="https://intlayer.org/doc/environment/vite-and-react" rel=''>Vite + React using Compiler</a></li>
   <li><a href="https://intlayer.org/doc/environment/vite-and-react/compiler" rel=''>React-router-v7</a></li>
-  <li><a href="https://intlayer.org/doc/environment/vite-and-react/tanstack-start" rel=''>Tanstack start</a></li>
+  <li><a href="https://intlayer.org/doc/environment/tanstack-start" rel=''>Tanstack start</a>
+    <ul>
+      <li><a href="https://intlayer.org/doc/environment/tanstack-start/solid" rel=''>Solid</a></li>
+    </ul>
+  </li>
+  <li><a href="https://intlayer.org/doc/environment/astro" rel=''>Astro</a>
+    <ul>
+      <li><a href="https://intlayer.org/doc/environment/astro/react" rel=''>React</a></li>
+      <li><a href="https://intlayer.org/doc/environment/astro/vue" rel=''>Vue</a></li>
+      <li><a href="https://intlayer.org/doc/environment/astro/svelte" rel=''>Svelte</a></li>
+      <li><a href="https://intlayer.org/doc/environment/astro/solid" rel=''>Solid</a></li>
+      <li><a href="https://intlayer.org/doc/environment/astro/vanilla" rel=''>Vanilla JS</a></li>
+      <li><a href="https://intlayer.org/doc/environment/astro/lit" rel=''>Lit</a></li>
+    </ul>
+  </li>
+
   <li><a href="https://intlayer.org/doc/environment/react-native-and-expo" rel=''>React Native</a></li>
   <li><a href="https://intlayer.org/doc/environment/vite-and-svelte" rel=''>Vite + Svelte</a></li>
   <li><a href="https://intlayer.org/doc/environment/sveltekit" rel=''>SvelteKit</a></li>
@@ -209,6 +224,17 @@ Explore our comprehensive documentation to get started with Intlayer and learn h
       <li><a href="https://intlayer.org/doc/environment/hono" rel=''>Hono</a></li>
     </ul>
   </li>
+</ul>
+</details>
+
+<details>
+<summary style="font-size:16px; font-weight:bold;">📊 Benchmark</summary>
+<ul>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/nextjs.md" rel=''>Next.js</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/tanstack.md" rel=''>TanStack Start</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/vue.md" rel=''>Vue</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/solid.md" rel=''>Solid</a></li>
+  <li><a href="https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/svelte.md" rel=''>Svelte</a></li>
 </ul>
 </details>
 
