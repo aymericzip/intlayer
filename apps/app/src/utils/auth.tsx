@@ -6,6 +6,7 @@ import {
 } from '@intlayer/design-system/routes';
 import type { QueryClient } from '@tanstack/react-query';
 import { redirect } from '@tanstack/react-router';
+import { createIsomorphicFn } from '@tanstack/react-start';
 import { getLocalizedUrl, type LocalesValues } from 'intlayer';
 import { accessValidation } from '#components/Auth/AuthenticationBarrier/accessValidation';
 
@@ -18,20 +19,20 @@ interface ValidateAuthProps {
   redirectionRoute?: string;
 }
 
-const getSafeHeaders = async () => {
-  if (typeof document === 'undefined') {
+const getSafeHeaders = createIsomorphicFn()
+  .server(async () => {
     try {
       const { getRequestHeaders } = await import(
         '@tanstack/react-start/server'
       );
       return getRequestHeaders();
     } catch {
-      // ignore if not in request context
+      return undefined;
     }
-  }
-
-  return undefined;
-};
+  })
+  .client(async () => {
+    return undefined;
+  });
 
 export const sessionQueryOptions = {
   queryKey: ['session'],
