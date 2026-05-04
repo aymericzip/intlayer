@@ -1,4 +1,4 @@
-import { relative } from 'node:path';
+import { join } from 'node:path';
 import { writeContentDeclaration } from '@intlayer/chokidar/build';
 import { formatLocale, formatPath } from '@intlayer/chokidar/utils';
 import { colorizeKey, getAppLogger } from '@intlayer/config/logger';
@@ -87,18 +87,13 @@ export const writeFill = async (
 
     const { fill, ...rest } = contentDeclarationFile;
 
-    const relativeFilePath = relative(
-      configuration.system.baseDir,
-      output.filePath
-    );
-
     await writeContentDeclaration(
       {
         ...rest,
         filled: true,
         locale: output.isPerLocale ? output.localeList[0] : undefined,
-        localId: `${contentDeclarationFile.key}::local::${relativeFilePath}`,
-        filePath: relativeFilePath,
+        localId: `${contentDeclarationFile.key}::local::${output.filePath}`,
+        filePath: join(configuration.system.baseDir, output.filePath), // Use absolute path for vscode extension
       },
       configuration,
       {

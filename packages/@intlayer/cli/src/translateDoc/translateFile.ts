@@ -1,5 +1,4 @@
-import { mkdirSync, writeFileSync } from 'node:fs';
-import { readFile } from 'node:fs/promises';
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname, relative } from 'node:path';
 import { performance } from 'node:perf_hooks';
 import { readAsset } from 'utils:asset';
@@ -181,8 +180,8 @@ export const translateFile = async ({
             }
             const currentContent = translatedParts.slice(0, endIdx).join('');
             // Write asynchronously/sync is fine here as node handles file locks reasonably well for single process
-            mkdirSync(dirname(outputFilePath), { recursive: true });
-            writeFileSync(outputFilePath, currentContent);
+            await mkdir(dirname(outputFilePath), { recursive: true });
+            await writeFile(outputFilePath, currentContent);
           }
         }
 
@@ -201,8 +200,8 @@ export const translateFile = async ({
     // Final Flush
     const fullContent = translatedParts.join('');
     if (flushStrategy === 'end' || flushStrategy === 'incremental') {
-      mkdirSync(dirname(outputFilePath), { recursive: true });
-      writeFileSync(outputFilePath, fullContent);
+      await mkdir(dirname(outputFilePath), { recursive: true });
+      await writeFile(outputFilePath, fullContent);
     }
 
     const fileEndTime = performance.now();
