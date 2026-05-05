@@ -64,7 +64,7 @@ export const DocHeader: FC<DocHeaderProps> = ({
           )}
         </div>
       </header>
-      <Container className="sticky top-10 z-10 mx-auto mt-5 flex max-w-3xl flex-col gap-2 overflow-x-auto px-4 py-2">
+      <Container className="sticky top-10 z-10 mx-auto mt-5 flex max-w-3xl flex-col gap-2 px-4 py-2 max-md:overflow-x-auto">
         <div className="flex w-full flex-row justify-between gap-4">
           <div className="flex w-full shrink flex-row items-center justify-start gap-4">
             {applicationTemplate && (
