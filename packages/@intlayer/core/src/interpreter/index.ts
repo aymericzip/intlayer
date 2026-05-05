@@ -5,5 +5,6 @@ export * from './getEnumeration';
 export * from './getHTML';
 export * from './getIntlayer';
 export * from './getNesting';
+export * from './getPlural';
 export * from './getTranslation';
 export * from './splitAndJoinInsertion';

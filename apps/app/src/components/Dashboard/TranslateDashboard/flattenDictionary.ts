@@ -103,6 +103,7 @@ export const flattenDictionary = (
     if (
       nodeType === NodeTypes.MARKDOWN ||
       nodeType === NodeTypes.ENUMERATION ||
+      nodeType === NodeTypes.PLURAL ||
       nodeType === NodeTypes.CONDITION ||
       nodeType === NodeTypes.GENDER ||
       nodeType === NodeTypes.INSERTION ||

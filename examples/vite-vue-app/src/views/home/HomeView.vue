@@ -116,6 +116,18 @@ const sections = computed<Section[]>(() => {
           desc: 'HTML string',
           result: 'html' as const,
         },
+        {
+          id: nextId(),
+          name: 'plural() 1',
+          desc: "count=1 → 'one'",
+          result: content.value.n22_plural(1),
+        },
+        {
+          id: nextId(),
+          name: 'plural() 5',
+          desc: "count=5 → 'other'",
+          result: content.value.n22_plural(5),
+        },
       ],
     },
     {

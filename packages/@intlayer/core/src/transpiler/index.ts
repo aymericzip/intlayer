@@ -6,4 +6,5 @@ export * from './html/index';
 export * from './insertion/index';
 export * from './markdown/index';
 export * from './nesting/index';
+export * from './plural/index';
 export * from './translation/index';

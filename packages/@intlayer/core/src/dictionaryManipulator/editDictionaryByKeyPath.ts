@@ -36,7 +36,8 @@ export const editDictionaryByKeyPath = (
 
       if (
         keyObj.type === NodeTypes.TRANSLATION ||
-        keyObj.type === NodeTypes.ENUMERATION
+        keyObj.type === NodeTypes.ENUMERATION ||
+        keyObj.type === NodeTypes.PLURAL
       ) {
         lastKeys = [keyObj.type, keyObj.key];
 
@@ -58,15 +59,19 @@ export const editDictionaryByKeyPath = (
 
       if (
         keyObj.type === NodeTypes.ENUMERATION ||
+        keyObj.type === NodeTypes.PLURAL ||
         keyObj.type === NodeTypes.CONDITION
       ) {
-        // Note: Logic above already handles Enumeration, ensure no duplication in your actual file
+        // Note: Logic above already handles Enumeration/Plural, ensure no duplication in your actual file
         // or keep the specific block if your logic differs.
         // The important part is below in the final update block.
 
         // Assuming this block runs for Condition/Gender/etc:
 
-        if (keyObj.type !== NodeTypes.ENUMERATION) {
+        if (
+          keyObj.type !== NodeTypes.ENUMERATION &&
+          keyObj.type !== NodeTypes.PLURAL
+        ) {
           lastKeys = [keyObj.type, keyObj.key];
           currentValue = currentValue[keyObj.type][keyObj.key];
         }

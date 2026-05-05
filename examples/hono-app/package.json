@@ -1,6 +1,6 @@
 {
   "name": "hono-app",
-  "version": "8.7.14",
+  "version": "8.8.0",
   "private": true,
   "scripts": {
     "build": "intlayer build",

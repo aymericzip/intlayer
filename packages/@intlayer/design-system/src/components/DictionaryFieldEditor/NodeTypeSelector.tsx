@@ -25,6 +25,7 @@ export const NodeTypeSelector: FC<NodeTypeSelectorProps> = ({
     node,
     array,
     enumeration,
+    plural,
     triggerPlaceHolder,
     nest,
     gender,
@@ -55,6 +56,7 @@ export const NodeTypeSelector: FC<NodeTypeSelectorProps> = ({
         <Select.Item value={NodeTypes.OBJECT}>{node}</Select.Item>
         <Select.Item value={NodeTypes.ARRAY}>{array}</Select.Item>
         <Select.Item value={NodeTypes.ENUMERATION}>{enumeration}</Select.Item>
+        <Select.Item value={NodeTypes.PLURAL}>{plural}</Select.Item>
         <Select.Item value={NodeTypes.GENDER}>{gender}</Select.Item>
         <Select.Item value={NodeTypes.INSERTION}>{insertion}</Select.Item>
         <Select.Item value={NodeTypes.MARKDOWN}>{markdown}</Select.Item>

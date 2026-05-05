@@ -15,6 +15,11 @@ export type EnumerationNode = {
   key: string;
 };
 
+export type PluralNode = {
+  type: typeof NodeTypes.PLURAL;
+  key: string;
+};
+
 export type TranslationNode = {
   type: typeof NodeTypes.TRANSLATION;
   key: string;
@@ -65,6 +70,7 @@ export type KeyPath =
   | ArrayNode
   | TranslationNode
   | EnumerationNode
+  | PluralNode
   | InsertionNode
   | GenderNode
   | MarkdownNode

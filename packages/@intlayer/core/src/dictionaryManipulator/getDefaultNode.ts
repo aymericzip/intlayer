@@ -30,6 +30,15 @@ export const getDefaultNode = (
         },
       } as ContentNode;
 
+    case NodeTypes.PLURAL:
+      return {
+        nodeType: NodeTypes.PLURAL,
+        [NodeTypes.PLURAL]: {
+          one: clonedContent ?? '',
+          other: clonedContent ?? '',
+        },
+      } as ContentNode;
+
     case NodeTypes.CONDITION:
       return {
         nodeType: NodeTypes.CONDITION,

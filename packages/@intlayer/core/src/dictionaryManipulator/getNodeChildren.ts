@@ -20,6 +20,7 @@ export const getNodeChildren = (section: ContentNode): ContentNode => {
     if (
       typedNode.nodeType === NodeTypes.TRANSLATION ||
       typedNode.nodeType === NodeTypes.ENUMERATION ||
+      typedNode.nodeType === NodeTypes.PLURAL ||
       typedNode.nodeType === NodeTypes.CONDITION ||
       typedNode.nodeType === NodeTypes.INSERTION ||
       typedNode.nodeType === NodeTypes.GENDER ||

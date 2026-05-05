@@ -129,6 +129,7 @@ export {
   insert,
   md,
   nest,
+  plural,
   t,
 } from '@intlayer/core/transpiler';
 export {

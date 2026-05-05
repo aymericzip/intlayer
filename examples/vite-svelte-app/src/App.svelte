@@ -53,6 +53,8 @@
           r('insert()', "{name:'Alice', age:30}", $bm.n05_insert({ name: 'Alice', age: 30 })),
           r('md()', 'Markdown string', 'md' as const),
           r('html()', 'HTML string', 'html' as const),
+          r('plural() 1', "count=1 → 'one'", $bm.n22_plural(1)),
+          r('plural() 5', "count=5 → 'other'", $bm.n22_plural(5)),
         ],
       },
       {

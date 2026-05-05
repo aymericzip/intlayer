@@ -88,6 +88,16 @@ const setupApp = async () => {
         },
         { name: 'md()', desc: 'Markdown string', result: bm.n06_md },
         { name: 'html()', desc: 'HTML string', result: bm.n07_html },
+        {
+          name: 'plural() 1',
+          desc: "count=1 → 'one'",
+          result: bm.n22_plural(1),
+        },
+        {
+          name: 'plural() 5',
+          desc: "count=5 → 'other'",
+          result: bm.n22_plural(5),
+        },
       ],
     },
     {

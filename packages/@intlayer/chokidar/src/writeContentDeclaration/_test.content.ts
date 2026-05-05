@@ -7,6 +7,7 @@ import {
   insert,
   md,
   nest,
+  plural,
   t,
 } from '@intlayer/core/transpiler';
 import type { Dictionary } from '@intlayer/types/dictionary';
@@ -154,6 +155,18 @@ const content: Dictionary = {
         en: 'Show less',
         fr: 'Afficher moins',
         es: 'Mostrar menos',
+      }),
+    }),
+    pluralExample: plural({
+      one: t({
+        en: '{{count}} item',
+        fr: '{{count}} article',
+        es: '{{count}} artículo',
+      }),
+      other: t({
+        en: '{{count}} items',
+        fr: '{{count}} articles',
+        es: '{{count}} artículos',
       }),
     }),
   },

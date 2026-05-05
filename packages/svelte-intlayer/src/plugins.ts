@@ -9,6 +9,7 @@ import {
   type IInterpreterPluginState as IInterpreterPluginStateCore,
   nestedPlugin,
   type Plugins,
+  pluralPlugin,
   translationPlugin,
 } from '@intlayer/core/interpreter';
 import type {
@@ -508,6 +509,7 @@ export const getPlugins = (
       fallback ? internationalization.defaultLocale : undefined
     ),
     enumerationPlugin,
+    pluralPlugin(locale ?? internationalization.defaultLocale),
     conditionPlugin,
     nestedPlugin(locale ?? internationalization.defaultLocale),
     filePlugin,

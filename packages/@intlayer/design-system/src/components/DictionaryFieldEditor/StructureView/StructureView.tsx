@@ -61,7 +61,8 @@ const NodeTypeView: FC<NodeTypeViewProps> = ({
     nodeType === NodeTypes.TRANSLATION ||
     nodeType === NodeTypes.CONDITION ||
     nodeType === NodeTypes.GENDER ||
-    nodeType === NodeTypes.ENUMERATION
+    nodeType === NodeTypes.ENUMERATION ||
+    nodeType === NodeTypes.PLURAL
   ) {
     const firstKey = Object.keys(
       (section as unknown as TypedNode)[nodeType as keyof typeof section]

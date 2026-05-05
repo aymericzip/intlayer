@@ -11,6 +11,7 @@ import type {
   HTMLContent,
   InsertionContent,
   MarkdownContent,
+  PluralContent,
   TranslationContent,
 } from '@intlayer/core/transpiler';
 import { useEditorLocale } from '@intlayer/editor-react';
@@ -29,6 +30,7 @@ import { InsertionWrapper } from './InsertionWrapper';
 import { MarkdownWrapper } from './MarkdownWrapper';
 import { NestedObjectWrapper } from './NestedObjectWrapper';
 import { NumberWrapper } from './NumberWrapper';
+import { PluralWrapper } from './PluralWrapper';
 import { StringWrapper } from './StringWrapper';
 import { TranslationWrapper } from './TranslationWrapper';
 
@@ -104,6 +106,15 @@ export const NodeWrapper: FC<NodeWrapperProps> = memo((props) => {
         <EnumerationWrapper
           {...props}
           section={section as EnumerationContent<ContentNode>}
+        />
+      );
+    }
+
+    if (nodeType === NodeTypes.PLURAL) {
+      return (
+        <PluralWrapper
+          {...props}
+          section={section as PluralContent<ContentNode>}
         />
       );
     }

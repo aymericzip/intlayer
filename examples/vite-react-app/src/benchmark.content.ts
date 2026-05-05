@@ -7,6 +7,7 @@ import {
   insert,
   md,
   nest,
+  plural,
   t,
 } from 'intlayer';
 
@@ -212,6 +213,18 @@ const benchmarkContent = {
 
     // === NESTING ===
     n21_nest: nest('app', 'title'),
+    n22_plural: plural({
+      one: t({
+        en: '{{count}} item',
+        fr: '{{count}} article',
+        es: '{{count}} artículo',
+      }),
+      other: t({
+        en: '{{count}} items',
+        fr: '{{count}} articles',
+        es: '{{count}} artículos',
+      }),
+    }),
   },
 
   filled: true,

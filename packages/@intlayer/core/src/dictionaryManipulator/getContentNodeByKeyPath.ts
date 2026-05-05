@@ -23,7 +23,8 @@ export const getContentNodeByKeyPath = (
     if (
       keyObj.type === NodeTypes.TRANSLATION ||
       keyObj.type === NodeTypes.CONDITION ||
-      keyObj.type === NodeTypes.ENUMERATION
+      keyObj.type === NodeTypes.ENUMERATION ||
+      keyObj.type === NodeTypes.PLURAL
     ) {
       currentValue = currentValue?.[keyObj.type]?.[keyObj.key];
     }

@@ -23,6 +23,7 @@ const isValidNodeType = (nodeType: string): nodeType is NodeType => {
   return [
     NodeTypes.TRANSLATION,
     NodeTypes.ENUMERATION,
+    NodeTypes.PLURAL,
     NodeTypes.CONDITION,
     NodeTypes.INSERTION,
     NodeTypes.FILE,

@@ -22,6 +22,7 @@ export const removeContentNodeByKeyPath = (
     if (
       keyObj.type === NodeTypes.TRANSLATION ||
       keyObj.type === NodeTypes.ENUMERATION ||
+      keyObj.type === NodeTypes.PLURAL ||
       keyObj.type === NodeTypes.CONDITION
     ) {
       lastKey = keyObj.type;

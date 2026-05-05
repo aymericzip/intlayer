@@ -1,5 +1,6 @@
 export const TRANSLATION = 'translation' as const;
 export const ENUMERATION = 'enumeration' as const;
+export const PLURAL = 'plural' as const;
 export const CONDITION = 'condition' as const;
 export const INSERTION = 'insertion' as const;
 export const FILE = 'file' as const;
@@ -25,6 +26,7 @@ export const UNKNOWN = 'unknown' as const;
 export const PLUGIN_NODE_TYPES: readonly [
   typeof TRANSLATION,
   typeof ENUMERATION,
+  typeof PLURAL,
   typeof CONDITION,
   typeof INSERTION,
   typeof GENDER,
@@ -38,6 +40,7 @@ export const PLUGIN_NODE_TYPES: readonly [
 ] = [
   TRANSLATION,
   ENUMERATION,
+  PLURAL,
   CONDITION,
   INSERTION,
   GENDER,
@@ -53,6 +56,7 @@ export const PLUGIN_NODE_TYPES: readonly [
 export type NodeType =
   | typeof TRANSLATION
   | typeof ENUMERATION
+  | typeof PLURAL
   | typeof CONDITION
   | typeof INSERTION
   | typeof FILE

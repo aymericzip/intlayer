@@ -15,6 +15,7 @@ import type {
   GenderContent,
   InsertionContent,
   NestedContent,
+  PluralContent,
   TranslationContent,
 } from '../../transpiler';
 import { getCondition } from '../getCondition';
@@ -22,6 +23,7 @@ import { getEnumeration } from '../getEnumeration';
 import { getGender } from '../getGender';
 import { getInsertion } from '../getInsertion';
 import { type GetNestingResult, getNesting } from '../getNesting';
+import { getPlural } from '../getPlural';
 import { getTranslation } from '../getTranslation';
 
 // ── Tree-shake constants ──────────────────────────────────────────────────────
@@ -174,6 +176,103 @@ export const enumerationPlugin: Plugins =
 
             if (typeof subResult === 'function' && typeof arg === 'object') {
               return subResult(arg);
+            }
+
+            return subResult;
+          };
+        },
+      };
+
+/** ---------------------------------------------
+ * PLURAL PLUGIN
+ * --------------------------------------------- */
+
+export type PluralCond<T, S, _L> = T extends {
+  nodeType: NodeType | string;
+  [NodeTypes.PLURAL]: object;
+}
+  ? (
+      arg: number | { count: number; [key: string]: unknown }
+    ) => DeepTransformContent<
+      T[typeof NodeTypes.PLURAL][keyof T[typeof NodeTypes.PLURAL]],
+      S
+    >
+  : never;
+
+/**
+ * Plural plugin. Replaces node with a function that takes a count (or
+ * `{ count, ...values }`) => string, picking the matching CLDR plural form
+ * for the active locale and interpolating `{{count}}` (and other values).
+ */
+export const pluralPlugin = (locale?: LocalesValues): Plugins =>
+  process.env['INTLAYER_NODE_TYPE_PLURAL'] === 'false'
+    ? fallbackPlugin
+    : {
+        id: 'plural-plugin',
+        canHandle: (node) =>
+          typeof node === 'object' && node?.nodeType === NodeTypes.PLURAL,
+        transform: (node: PluralContent, props, deepTransformNode) => {
+          const original = node[NodeTypes.PLURAL];
+          const result: Record<string, any> = {};
+
+          /** String plugin for plural. Replaces string node with a component that renders the insertion. */
+          const pluralStringPlugin: Plugins = {
+            id: 'plural-string-plugin',
+            canHandle: (node) => typeof node === 'string',
+            transform: (node: string, subProps, deepTransformNode) => {
+              const transformedResult = deepTransformNode(node, {
+                ...subProps,
+                children: node,
+                plugins: [
+                  ...(props.plugins ?? ([] as Plugins[])).filter(
+                    (plugin) => plugin.id !== 'intlayer-node-plugin'
+                  ),
+                ],
+              });
+
+              return (values: { [k: string]: string | number }) => {
+                const children = getInsertion(transformedResult, values);
+
+                return deepTransformNode(children, {
+                  ...subProps,
+                  plugins: props.plugins,
+                  children,
+                });
+              };
+            },
+          };
+
+          for (const key in original) {
+            const child = original[key as keyof typeof original];
+            const childProps = {
+              ...props,
+              children: child,
+              keyPath: [
+                ...props.keyPath,
+                { type: NodeTypes.PLURAL, key } as KeyPath,
+              ],
+              plugins: [pluralStringPlugin, ...(props.plugins ?? [])],
+            };
+            result[key] = deepTransformNode(child, childProps);
+          }
+
+          const effectiveLocale = String(locale ?? props.locale ?? 'en');
+
+          return (arg: number | { count: number; [key: string]: unknown }) => {
+            const count = typeof arg === 'number' ? arg : arg.count;
+            const values =
+              typeof arg === 'object'
+                ? arg
+                : ({ count } as Record<string, unknown>);
+
+            const subResult = getPlural(
+              result as PluralContent['plural'],
+              count,
+              effectiveLocale
+            );
+
+            if (typeof subResult === 'function') {
+              return subResult(values);
             }
 
             return subResult;
@@ -450,6 +549,7 @@ export interface NodeProps {
 export interface IInterpreterPlugin<T, S, L extends LocalesValues> {
   translation: TranslationCond<T, S, L>;
   enumeration: EnumerationCond<T, S, L>;
+  plural: PluralCond<T, S, L>;
   condition: ConditionCond<T, S, L>;
   insertion: InsertionCond<T, S, L>;
   gender: GenderCond<T, S, L>;
@@ -463,6 +563,7 @@ export interface IInterpreterPlugin<T, S, L extends LocalesValues> {
 export type IInterpreterPluginState = {
   translation: true;
   enumeration: true;
+  plural: true;
   condition: true;
   insertion: true;
   gender: true;

@@ -135,6 +135,16 @@ const BenchmarkTable: FC = () => {
           desc: 'HTML string',
           result: content.n07_html.use({}),
         },
+        {
+          name: 'plural() 1',
+          desc: "count=1 → 'one'",
+          result: content.n22_plural(1),
+        },
+        {
+          name: 'plural() 5',
+          desc: "count=5 → 'other'",
+          result: content.n22_plural(5),
+        },
       ],
     },
     {

@@ -100,6 +100,7 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
 
     if (
       nodeType === NodeTypes.ENUMERATION ||
+      nodeType === NodeTypes.PLURAL ||
       nodeType === NodeTypes.CONDITION
     ) {
       return (
