@@ -395,18 +395,18 @@ function RouteComponent() {
 
   return (
     <main>
-      <h1>{content().heroTitle}</h1>
-      <p>{content().heroDesc}</p>
+      <h1>{content.heroTitle}</h1>
+      <p>{content.heroDesc}</p>
       <div>
-        <LocalizedLink to="/">{content().navHome}</LocalizedLink>
-        <LocalizedLink to="/about">{content().navAbout}</LocalizedLink>
+        <LocalizedLink to="/">{content.navHome}</LocalizedLink>
+        <LocalizedLink to="/about">{content.navAbout}</LocalizedLink>
       </div>
     </main>
   );
 }
 ```
 
-> In Solid, `useIntlayer` restituisce una funzione **accessor** (ad esempio, `content()`). È necessario chiamare questa funzione per accedere al contenuto reattivo.
+> In Solid, `useIntlayer` restituisce una funzione **accessor** (ad esempio, `content.). È necessario chiamare questa funzione per accedere al contenuto reattivo.
 >
 > Per saperne di più sull'hook `useIntlayer`, fai riferimento alla [documentazione](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/solid-intlayer/useIntlayer.md).
 

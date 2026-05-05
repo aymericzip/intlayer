@@ -394,18 +394,18 @@ function RouteComponent() {
 
   return (
     <main>
-      <h1>{content().heroTitle}</h1>
-      <p>{content().heroDesc}</p>
+      <h1>{content.heroTitle}</h1>
+      <p>{content.heroDesc}</p>
       <div>
-        <LocalizedLink to="/">{content().navHome}</LocalizedLink>
-        <LocalizedLink to="/about">{content().navAbout}</LocalizedLink>
+        <LocalizedLink to="/">{content.navHome}</LocalizedLink>
+        <LocalizedLink to="/about">{content.navAbout}</LocalizedLink>
       </div>
     </main>
   );
 }
 ```
 
-> Trong Solid, `useIntlayer` trả về một hàm **accessor** (ví dụ: `content()`). Bạn phải gọi hàm này để truy cập nội dung phản ứng.
+> Trong Solid, `useIntlayer` trả về một hàm **accessor** (ví dụ: `content.). Bạn phải gọi hàm này để truy cập nội dung phản ứng.
 >
 > Để tìm hiểu thêm về hook `useIntlayer`, hãy tham khảo [tài liệu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/solid-intlayer/useIntlayer.md).
 

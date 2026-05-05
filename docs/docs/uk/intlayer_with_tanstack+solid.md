@@ -394,18 +394,18 @@ function RouteComponent() {
 
   return (
     <main>
-      <h1>{content().heroTitle}</h1>
-      <p>{content().heroDesc}</p>
+      <h1>{content.heroTitle}</h1>
+      <p>{content.heroDesc}</p>
       <div>
-        <LocalizedLink to="/">{content().navHome}</LocalizedLink>
-        <LocalizedLink to="/about">{content().navAbout}</LocalizedLink>
+        <LocalizedLink to="/">{content.navHome}</LocalizedLink>
+        <LocalizedLink to="/about">{content.navAbout}</LocalizedLink>
       </div>
     </main>
   );
 }
 ```
 
-> у Solid `useIntlayer` повертає функцію **accessor** (наприклад, `content()`). Ви повинні викликати цю функцію, щоб отримати доступ до реактивного вмісту.
+> у Solid `useIntlayer` повертає функцію **accessor** (наприклад, `content.). Ви повинні викликати цю функцію, щоб отримати доступ до реактивного вмісту.
 >
 > Щоб дізнатися більше про хук `useIntlayer`, зверніться до [документації](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/solid-intlayer/useIntlayer.md).
 

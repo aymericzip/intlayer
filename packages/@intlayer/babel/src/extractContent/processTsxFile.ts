@@ -54,10 +54,9 @@ export const processTsxFile = (
       ? `${packageName}/server`
       : packageName;
 
-  // Both Solid and Angular expose content via a reactive/signal function —
-  // access is `content().key` rather than `content.key`.
-  const isSolid =
-    packageName === 'solid-intlayer' || packageName === 'angular-intlayer';
+  // Angular exposes content via a reactive signal — access is `content().key`.
+  // solid-intlayer now returns a Proxy that supports direct `content.key` access.
+  const usesSignalAccessor = packageName === 'angular-intlayer';
   const existingKeys = new Set<string>();
 
   const {
@@ -188,7 +187,7 @@ export const processTsxFile = (
     const varName = existingInfo?.variableName ?? getProvidingVarName(path);
     const contentAccessCode = existingInfo?.isDestructured
       ? key
-      : isSolid
+      : usesSignalAccessor
         ? `${varName}().${key}`
         : `${varName}.${key}`;
     const hookType = getProvidingHookType(path);

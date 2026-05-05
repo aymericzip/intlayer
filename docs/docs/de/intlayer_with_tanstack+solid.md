@@ -395,18 +395,18 @@ function RouteComponent() {
 
   return (
     <main>
-      <h1>{content().heroTitle}</h1>
-      <p>{content().heroDesc}</p>
+      <h1>{content.heroTitle}</h1>
+      <p>{content.heroDesc}</p>
       <div>
-        <LocalizedLink to="/">{content().navHome}</LocalizedLink>
-        <LocalizedLink to="/about">{content().navAbout}</LocalizedLink>
+        <LocalizedLink to="/">{content.navHome}</LocalizedLink>
+        <LocalizedLink to="/about">{content.navAbout}</LocalizedLink>
       </div>
     </main>
   );
 }
 ```
 
-> In Solid gibt `useIntlayer` eine **Accessor-Funktion** zurück (z. B. `content()`). Sie müssen diese Funktion aufrufen, um auf den reaktiven Inhalt zuzugreifen.
+> In Solid gibt `useIntlayer` eine **Accessor-Funktion** zurück (z. B. `content.). Sie müssen diese Funktion aufrufen, um auf den reaktiven Inhalt zuzugreifen.
 >
 > Um mehr über den `useIntlayer`-Hook zu erfahren, lesen Sie die [Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/solid-intlayer/useIntlayer.md).
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-03-12
+updatedAt: 2026-05-04
 title: Vite + Solid i18n - Comment traduire une application Solid en 2026
 description: Découvrez comment rendre votre site Vite et Solid multilingue. Suivez la documentation pour internationaliser (i18n) et traduire votre site.
 keywords:
@@ -16,6 +16,9 @@ slugs:
   - vite-and-solid
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-solid-template
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Update Solid useIntlayer API usage to direct property access"
   - version: 7.5.9
     date: 2025-12-30
     changes: "Ajouter la commande init"
@@ -197,24 +200,24 @@ const AppContent: Component = () => {
     <>
       <div>
         <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} class="logo" alt={content().viteLogo.value} />
+          <img src={viteLogo} class="logo" alt={content.viteLogo.value} />
         </a>
         <a href="https://www.solidjs.com/" target="_blank">
           <img
             src={solidLogo}
             class="logo solid"
-            alt={content().solidLogo.value}
+            alt={content.solidLogo.value}
           />
         </a>
       </div>
-      <h1>{content().title}</h1>
+      <h1>{content.title}</h1>
       <div class="card">
         <button onClick={() => setCount((count) => count + 1)}>
-          {content().count({ count: count() })}
+          {content.count({ count: count() })}
         </button>
-        <p>{content().edit}</p>
+        <p>{content.edit}</p>
       </div>
-      <p class="read-the-docs">{content().readTheDocs}</p>
+      <p class="read-the-docs">{content.readTheDocs}</p>
     </>
   );
 };
@@ -228,12 +231,12 @@ const App: Component = () => (
 export default App;
 ```
 
-> Dans Solid, `useIntlayer` retourne une fonction **accesseur** (par exemple, `content()`). Vous devez appeler cette fonction pour accéder au contenu réactif.
+> Dans Solid, `useIntlayer` retourne une fonction **accesseur** (par exemple, `content.). Vous devez appeler cette fonction pour accéder au contenu réactif.
 
 > Si vous souhaitez utiliser votre contenu dans un attribut `string`, tel que `alt`, `title`, `href`, `aria-label`, etc., vous devez appeler la valeur de la fonction, comme :
 >
 > ```jsx
-> <img src={content().image.src.value} alt={content().image.value} />
+> <img src={content.image.src.value} alt={content.image.value} />
 > ```
 
 ### (Optionnel) Étape 6 : Changer la langue de votre contenu
@@ -443,7 +446,7 @@ const MyComponent = () => {
   return (
     <div>
       {/* Rendu en HTML via MarkdownProvider */}
-      {content().markdownContent}
+      {content.markdownContent}
     </div>
   );
 };

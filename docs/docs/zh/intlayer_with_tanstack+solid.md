@@ -395,18 +395,18 @@ function RouteComponent() {
 
   return (
     <main>
-      <h1>{content().heroTitle}</h1>
-      <p>{content().heroDesc}</p>
+      <h1>{content.heroTitle}</h1>
+      <p>{content.heroDesc}</p>
       <div>
-        <LocalizedLink to="/">{content().navHome}</LocalizedLink>
-        <LocalizedLink to="/about">{content().navAbout}</LocalizedLink>
+        <LocalizedLink to="/">{content.navHome}</LocalizedLink>
+        <LocalizedLink to="/about">{content.navAbout}</LocalizedLink>
       </div>
     </main>
   );
 }
 ```
 
-> 在 Solid 中，`useIntlayer` 返回一个 **accessor** 函数 (例如：`content()`)。您必须调用该函数以访问响应式内容。
+> 在 Solid 中，`useIntlayer` 返回一个 **accessor** 函数 (例如：`content.)。您必须调用该函数以访问响应式内容。
 >
 > 欲了解更多关于 `useIntlayer` 钩子的信息，请参考[文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/solid-intlayer/useIntlayer.md)。
 

@@ -147,7 +147,7 @@ export const Test = () => {
     );
   });
 
-  it('should extract text from Solid patterns using accessor syntax', async () => {
+  it('should extract text from Solid patterns using direct proxy access', async () => {
     const componentPath = join(tmpDir, 'SolidTest.tsx');
     const componentCode = `
 export const SolidTest = () => {
@@ -170,10 +170,10 @@ export const SolidTest = () => {
     );
     expect(updatedCode).toContain("const content = useIntlayer('solid-test');");
     expect(updatedCode).toContain(
-      '<h1>{content().helloWorldShouldBeExtracted}</h1>'
+      '<h1>{content.helloWorldShouldBeExtracted}</h1>'
     );
     expect(updatedCode).toContain(
-      'placeholder={content().thisIsThePlaceholderShould.value}'
+      'placeholder={content.thisIsThePlaceholderShould.value}'
     );
   });
 
@@ -364,7 +364,7 @@ export const useCustomHook = () => {
     expect(updatedCode).toMatch(
       /const content = useIntlayer\(['"]use-custom-hook-test-solid['"]\);/
     );
-    expect(updatedCode).toContain('content().myTranslatedHookString.value');
+    expect(updatedCode).toContain('content.myTranslatedHookString.value');
   });
 
   it('should inject useIntlayer inside custom hooks (Angular)', async () => {
@@ -467,7 +467,7 @@ export const useCustomHook = () => {
     expect(updatedCode).toMatch(
       /const content = useIntlayer\(['"]template-literal-solid['"]\);/
     );
-    expect(updatedCode).toContain('content().helloName({ name: name })');
+    expect(updatedCode).toContain('content.helloName({ name: name })');
   });
 
   it('should extract text from template literals with variables (Svelte/Vue/Lit)', async () => {

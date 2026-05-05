@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-03-12
+updatedAt: 2026-05-04
 title: Vite + Solid i18n - Solidアプリの翻訳方法 2026
 description: Vite と Solid のウェブサイトを多言語対応にする方法を紹介します。国際化（i18n）と翻訳のドキュメントに従ってください。
 keywords:
@@ -16,6 +16,9 @@ slugs:
   - vite-and-solid
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-solid-template
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Update Solid useIntlayer API usage to direct property access"
   - version: 7.5.9
     date: 2025-12-30
     changes: "initコマンドを追加"
@@ -215,24 +218,24 @@ const AppContent: Component = () => {
     <>
       <div>
         <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} class="logo" alt={content().viteLogo.value} />
+          <img src={viteLogo} class="logo" alt={content.viteLogo.value} />
         </a>
         <a href="https://www.solidjs.com/" target="_blank">
           <img
             src={solidLogo}
             class="logo solid"
-            alt={content().solidLogo.value}
+            alt={content.solidLogo.value}
           />
         </a>
       </div>
-      <h1>{content().title}</h1>
+      <h1>{content.title}</h1>
       <div class="card">
         <button onClick={() => setCount((count) => count + 1)}>
-          {content().count({ count: count() })}
+          {content.count({ count: count() })}
         </button>
-        <p>{content().edit}</p>
+        <p>{content.edit}</p>
       </div>
-      <p class="read-the-docs">{content().readTheDocs}</p>
+      <p class="read-the-docs">{content.readTheDocs}</p>
     </>
   );
 };
@@ -246,12 +249,12 @@ const App: Component = () => (
 export default App;
 ```
 
-> Solidでは、`useIntlayer`は**accessor**関数（例：`content()`）を返します。リアクティブコンテンツにアクセスするには、この関数を呼び出す必要があります。
+> Solidでは、`useIntlayer`は**accessor**関数（例：`content.）を返します。リアクティブコンテンツにアクセスするには、この関数を呼び出す必要があります。
 
 > `alt`、`title`、`href`、`aria-label`などの`string`属性でコンテンツを使用する場合は、関数の値を次のように呼び出す必要があります：
 >
 > ```jsx
-> <img src={content().image.src.value} alt={content().image.value} />
+> <img src={content.image.src.value} alt={content.image.value} />
 > ```
 
 ### （オプション）ステップ6: コンテンツの言語を変更する
@@ -461,7 +464,7 @@ const MyComponent = () => {
   return (
     <div>
       {/* MarkdownProvider経由でHTMLとしてレンダリング */}
-      {content().markdownContent}
+      {content.markdownContent}
     </div>
   );
 };

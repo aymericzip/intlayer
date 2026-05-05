@@ -395,18 +395,18 @@ function RouteComponent() {
 
   return (
     <main>
-      <h1>{content().heroTitle}</h1>
-      <p>{content().heroDesc}</p>
+      <h1>{content.heroTitle}</h1>
+      <p>{content.heroDesc}</p>
       <div>
-        <LocalizedLink to="/">{content().navHome}</LocalizedLink>
-        <LocalizedLink to="/about">{content().navAbout}</LocalizedLink>
+        <LocalizedLink to="/">{content.navHome}</LocalizedLink>
+        <LocalizedLink to="/about">{content.navAbout}</LocalizedLink>
       </div>
     </main>
   );
 }
 ```
 
-> Solid'de, `useIntlayer` bir **accessor** fonksiyonu (ör: `content()`) döndürür. Reaktif içeriğe erişmek için bu fonksiyonu çağırmalısınız.
+> Solid'de, `useIntlayer` bir **accessor** fonksiyonu (ör: `content.) döndürür. Reaktif içeriğe erişmek için bu fonksiyonu çağırmalısınız.
 >
 > `useIntlayer` hook'u hakkında daha fazla bilgi edinmek için [dokümantasyon](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/solid-intlayer/useIntlayer.md)a bakın.
 

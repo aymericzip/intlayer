@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2025-12-30
+updatedAt: 2026-05-04
 title: Vite + Solid i18n - How to translate an Solid app in 2026
 description: Discover how to make your Vite and Solid website multilingual. Follow the documentation to internationalize (i18n) and translate it.
 keywords:
@@ -16,6 +16,9 @@ slugs:
   - vite-and-solid
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-solid-template
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Update Solid useIntlayer API usage to direct property access"
   - version: 7.5.9
     date: 2025-12-30
     changes: "Add init command"
@@ -269,24 +272,24 @@ const AppContent: Component = () => {
     <>
       <div>
         <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} class="logo" alt={content().viteLogo.value} />
+          <img src={viteLogo} class="logo" alt={content.viteLogo.value} />
         </a>
         <a href="https://www.solidjs.com/" target="_blank">
           <img
             src={solidLogo}
             class="logo solid"
-            alt={content().solidLogo.value}
+            alt={content.solidLogo.value}
           />
         </a>
       </div>
-      <h1>{content().title}</h1>
+      <h1>{content.title}</h1>
       <div class="card">
         <button onClick={() => setCount((count) => count + 1)}>
-          {content().count({ count: count() })}
+          {content.count({ count: count() })}
         </button>
-        <p>{content().edit}</p>
+        <p>{content.edit}</p>
       </div>
-      <p class="read-the-docs">{content().readTheDocs}</p>
+      <p class="read-the-docs">{content.readTheDocs}</p>
     </>
   );
 };
@@ -300,12 +303,12 @@ const App: Component = () => (
 export default App;
 ```
 
-> In Solid, `useIntlayer` returns an **accessor** function (e.g., `content()`). You must call this function to access the reactive content.
+> In Solid, `useIntlayer` returns reactive content (e.g., `content`). You can access its properties directly.
 
 > If you want to use your content in a `string` attribute, such as `alt`, `title`, `href`, `aria-label`, etc., you must call the value of the function, like:
 >
 > ```jsx
-> <img src={content().image.src.value} alt={content().image.value} />
+> <img src={content.image.src.value} alt={content.image.value} />
 > ```
 
 ### (Optional) Step 6: Change the language of your content

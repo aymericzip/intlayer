@@ -395,18 +395,18 @@ function RouteComponent() {
 
   return (
     <main>
-      <h1>{content().heroTitle}</h1>
-      <p>{content().heroDesc}</p>
+      <h1>{content.heroTitle}</h1>
+      <p>{content.heroDesc}</p>
       <div>
-        <LocalizedLink to="/">{content().navHome}</LocalizedLink>
-        <LocalizedLink to="/about">{content().navAbout}</LocalizedLink>
+        <LocalizedLink to="/">{content.navHome}</LocalizedLink>
+        <LocalizedLink to="/about">{content.navAbout}</LocalizedLink>
       </div>
     </main>
   );
 }
 ```
 
-> Solid에서 `useIntlayer`는 **접근자** 함수(예: `content()`)를 반환합니다. 반응형 콘텐츠에 접근하려면 이 함수를 호출해야 합니다.
+> Solid에서 `useIntlayer`는 **접근자** 함수(예: `content.)를 반환합니다. 반응형 콘텐츠에 접근하려면 이 함수를 호출해야 합니다.
 >
 > `useIntlayer` 훅에 대해 자세히 알아보려면 [문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/solid-intlayer/useIntlayer.md)를 참조하세요.
 

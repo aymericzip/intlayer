@@ -7,8 +7,8 @@ export const Component = () => {
 
   return (
     <div>
-      <h2>{content().title}</h2>
-      <p>{content().content}</p>
+      <h2>{content.title}</h2>
+      <p>{content.content}</p>
     </div>
   );
 };

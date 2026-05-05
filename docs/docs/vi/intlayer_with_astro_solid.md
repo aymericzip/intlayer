@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-24
-updatedAt: 2026-04-24
+updatedAt: 2026-05-04
 title: Astro + Solid i18n - Cách dịch ứng dụng Astro + Solid vào năm 2026
 description: Tìm hiểu cách thêm đa ngôn ngữ (i18n) vào trang web Astro + Solid của bạn bằng Intlayer. Làm theo hướng dẫn này để trang web của bạn có thể sử dụng nhiều ngôn ngữ.
 keywords:
@@ -19,6 +19,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-astro-template
 applicationShowcase: https://intlayer-astro-template.vercel.app
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Update Solid useIntlayer API usage to direct property access"
   - version: 8.7.7
     date: 2026-04-24
     changes: "Tài liệu ban đầu cho Astro + Solid"
@@ -282,7 +285,7 @@ function App() {
 
   return (
     <div>
-      <h1>{content().title}</h1>
+      <h1>{content.title}</h1>
       <LocaleSwitcher />
     </div>
   );
@@ -299,7 +302,7 @@ export function SolidIsland({ locale }: { locale: LocalesValues }) {
 
 > Prop `locale` được truyền từ trang Astro (phát hiện phía máy chủ) đến `IntlayerProvider`, đóng vai trò là ngôn ngữ ban đầu cho tất cả các Solid primitives bên trong cây thành phần.
 
-> Trong Solid, `useIntlayer` trả về một **accessor** (ví dụ: `content()`). Bạn phải gọi nó để truy cập nội dung phản ứng.
+> Trong Solid, `useIntlayer` trả về một **accessor** (ví dụ: `content.). Bạn phải gọi nó để truy cập nội dung phản ứng.
 
 ### Bước 7: Thêm bộ chuyển đổi ngôn ngữ
 

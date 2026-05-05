@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-01-21
+updatedAt: 2026-05-04
 title: useIntlayer 훅 문서 | solid-intlayer
 description: solid-intlayer 패키지에서 useIntlayer 훅을 사용하는 방법을 확인하세요
 keywords:
@@ -18,6 +18,9 @@ slugs:
   - solid-intlayer
   - useIntlayer
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Update Solid useIntlayer API usage to direct property access"
   - version: 8.0.0
     date: 2026-01-21
     changes: "모든 export에 대한 문서 통합"
@@ -37,8 +40,8 @@ const MyComponent = () => {
 
   return (
     <div>
-      <h1>{content().title}</h1>
-      <p>{content().description}</p>
+      <h1>{content.title}</h1>
+      <p>{content.description}</p>
     </div>
   );
 };

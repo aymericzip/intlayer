@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-03-12
+updatedAt: 2026-05-04
 title: Vite + Solid i18n - Solid 앱 번역 방법 2026
 description: Vite와 Solid 웹사이트를 다국어로 만드는 방법을 알아보세요. 국제화(i18n) 및 번역을 위한 문서를 따라가세요.
 keywords:
@@ -16,6 +16,9 @@ slugs:
   - vite-and-solid
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-solid-template
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Update Solid useIntlayer API usage to direct property access"
   - version: 7.5.9
     date: 2025-12-30
     changes: "init 명령어 추가"
@@ -197,24 +200,24 @@ const AppContent: Component = () => {
     <>
       <div>
         <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} class="logo" alt={content().viteLogo.value} />
+          <img src={viteLogo} class="logo" alt={content.viteLogo.value} />
         </a>
         <a href="https://www.solidjs.com/" target="_blank">
           <img
             src={solidLogo}
             class="logo solid"
-            alt={content().solidLogo.value}
+            alt={content.solidLogo.value}
           />
         </a>
       </div>
-      <h1>{content().title}</h1>
+      <h1>{content.title}</h1>
       <div class="card">
         <button onClick={() => setCount((count) => count + 1)}>
-          {content().count({ count: count() })}
+          {content.count({ count: count() })}
         </button>
-        <p>{content().edit}</p>
+        <p>{content.edit}</p>
       </div>
-      <p class="read-the-docs">{content().readTheDocs}</p>
+      <p class="read-the-docs">{content.readTheDocs}</p>
     </>
   );
 };
@@ -228,12 +231,12 @@ const App: Component = () => (
 export default App;
 ```
 
-> Solid에서 `useIntlayer`는 **accessor** 함수(예: `content()`)를 반환합니다. 반응형 콘텐츠에 액세스하려면 이 함수를 호출해야 합니다.
+> Solid에서 `useIntlayer`는 **accessor** 함수(예: `content.)를 반환합니다. 반응형 콘텐츠에 액세스하려면 이 함수를 호출해야 합니다.
 
 > `alt`, `title`, `href`, `aria-label` 등의 `string` 속성에서 콘텐츠를 사용하려면 다음과 같이 함수의 값을 호출해야 합니다:
 >
 > ```jsx
-> <img src={content().image.src.value} alt={content().image.value} />
+> <img src={content.image.src.value} alt={content.image.value} />
 > ```
 
 ### (선택 사항) 6단계: 콘텐츠 언어 변경하기
@@ -443,7 +446,7 @@ const MyComponent = () => {
   return (
     <div>
       {/* MarkdownProvider를 통해 HTML로 렌더링 */}
-      {content().markdownContent}
+      {content.markdownContent}
     </div>
   );
 };

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-03-12
+updatedAt: 2026-05-04
 title: Vite + Solid i18n - 如何翻译Solid 应用 2026
 description: 了解如何使您的 Vite 和 Solid 网站支持多语言。按照文档进行国际化（i18n）和翻译。
 keywords:
@@ -16,6 +16,9 @@ slugs:
   - vite-and-solid
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-solid-template
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Update Solid useIntlayer API usage to direct property access"
   - version: 7.5.9
     date: 2025-12-30
     changes: "添加 init 命令"
@@ -196,24 +199,24 @@ const AppContent: Component = () => {
     <>
       <div>
         <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} class="logo" alt={content().viteLogo.value} />
+          <img src={viteLogo} class="logo" alt={content.viteLogo.value} />
         </a>
         <a href="https://www.solidjs.com/" target="_blank">
           <img
             src={solidLogo}
             class="logo solid"
-            alt={content().solidLogo.value}
+            alt={content.solidLogo.value}
           />
         </a>
       </div>
-      <h1>{content().title}</h1>
+      <h1>{content.title}</h1>
       <div class="card">
         <button onClick={() => setCount((count) => count + 1)}>
-          {content().count({ count: count() })}
+          {content.count({ count: count() })}
         </button>
-        <p>{content().edit}</p>
+        <p>{content.edit}</p>
       </div>
-      <p class="read-the-docs">{content().readTheDocs}</p>
+      <p class="read-the-docs">{content.readTheDocs}</p>
     </>
   );
 };
@@ -227,12 +230,12 @@ const App: Component = () => (
 export default App;
 ```
 
-> 在 Solid 中，`useIntlayer` 返回一个 **accessor** 函数（例如，`content()`）。您必须调用此函数才能访问响应式内容。
+> 在 Solid 中，`useIntlayer` 返回一个 **accessor** 函数（例如，`content.）。您必须调用此函数才能访问响应式内容。
 
 > 如果您想在 `string` 属性（如 `alt`、`title`、`href`、`aria-label` 等）中使用您的内容，必须调用函数的值，例如：
 >
 > ```jsx
-> <img src={content().image.src.value} alt={content().image.value} />
+> <img src={content.image.src.value} alt={content.image.value} />
 > ```
 
 ### （可选）第6步：更改内容语言
@@ -442,7 +445,7 @@ const MyComponent = () => {
   return (
     <div>
       {/* 通过 MarkdownProvider 渲染为 HTML */}
-      {content().markdownContent}
+      {content.markdownContent}
     </div>
   );
 };

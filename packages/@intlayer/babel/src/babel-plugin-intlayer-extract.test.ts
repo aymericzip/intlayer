@@ -184,16 +184,16 @@ describe('babel-plugin-intlayer-extract', () => {
     expect(output).toMatch(/return\s*(?:\(|<)/);
   });
 
-  it('should extract JSX text with solid-intlayer and use content().key access pattern', () => {
+  it('should extract JSX text with solid-intlayer and use content.key direct access', () => {
     const code = `
       export function MyComponent() {
         return <div>Hello World</div>;
       }
     `;
     const output = transform(code, { packageName: 'solid-intlayer' });
-    // Solid uses reactive signals — content is called as a function
-    expect(output).toContain('content().helloWorld');
-    expect(output).not.toContain('content.helloWorld');
+    // solid-intlayer returns a Proxy — content is accessed directly without calling it
+    expect(output).toContain('content.helloWorld');
+    expect(output).not.toContain('content().helloWorld');
     expect(output).toContain("const content = useIntlayer('my-component');");
     expect(output).toContain("import { useIntlayer } from 'solid-intlayer';");
   });
@@ -465,7 +465,7 @@ export function MyComponent() {
 });
 
 describe('transformation snapshot – Solid (solid-intlayer)', () => {
-  it('uses content().key reactive signal access for JSX text and attributes', () => {
+  it('uses content.key direct proxy access for JSX text and attributes', () => {
     const code = `
 export function MyComponent() {
   return (
@@ -482,9 +482,9 @@ export function MyComponent() {
       "import { useIntlayer } from 'solid-intlayer';
       export function MyComponent() {
         const content = useIntlayer('my-component');
-        return <section title={content().mainSection.value}>
-            <h1>{content().welcomeBack}</h1>
-            <input placeholder={content().enterYourEmail.value} />
+        return <section title={content.mainSection.value}>
+            <h1>{content.welcomeBack}</h1>
+            <input placeholder={content.enterYourEmail.value} />
           </section>;
       }"
     `);

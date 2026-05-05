@@ -394,18 +394,18 @@ function RouteComponent() {
 
   return (
     <main>
-      <h1>{content().heroTitle}</h1>
-      <p>{content().heroDesc}</p>
+      <h1>{content.heroTitle}</h1>
+      <p>{content.heroDesc}</p>
       <div>
-        <LocalizedLink to="/">{content().navHome}</LocalizedLink>
-        <LocalizedLink to="/about">{content().navAbout}</LocalizedLink>
+        <LocalizedLink to="/">{content.navHome}</LocalizedLink>
+        <LocalizedLink to="/about">{content.navAbout}</LocalizedLink>
       </div>
     </main>
   );
 }
 ```
 
-> في Solid، يعيد `useIntlayer` وظيفة **وصول (accessor)** (مثل `content()`). يجب عليك استدعاء هذه الوظيفة للوصول إلى المحتوى التفاعلي.
+> في Solid، يعيد `useIntlayer` وظيفة **وصول (accessor)** (مثل `content.). يجب عليك استدعاء هذه الوظيفة للوصول إلى المحتوى التفاعلي.
 >
 > لمعرفة المزيد حول خطاف `useIntlayer` ، راجع [التوثيق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/solid-intlayer/useIntlayer.md).
 

@@ -113,82 +113,82 @@ const BenchmarkTable = () => {
         {
           name: 't()',
           desc: 'Simple translation',
-          result: () => content().n01_t,
+          result: () => content.n01_t,
         },
         {
           name: 't().value',
           desc: 'Raw string value',
-          result: () => content().n01_t.value,
+          result: () => content.n01_t.value,
         },
         {
           name: 'enu() −2',
           desc: "count=-2 → '<-1'",
-          result: () => content().n02_enu(-2),
+          result: () => content.n02_enu(-2),
         },
         {
           name: 'enu() 0',
           desc: "count=0 → '0'",
-          result: () => content().n02_enu(0),
+          result: () => content.n02_enu(0),
         },
         {
           name: 'enu() 1',
           desc: "count=1 → '1'",
-          result: () => content().n02_enu(1),
+          result: () => content.n02_enu(1),
         },
         {
           name: 'enu() 7',
           desc: "count=7 → '>5'",
-          result: () => content().n02_enu(7),
+          result: () => content.n02_enu(7),
         },
         {
           name: 'enu() 25',
           desc: "count=25 → '>19'",
-          result: () => content().n02_enu(25),
+          result: () => content.n02_enu(25),
         },
         {
           name: 'cond() true',
           desc: 'condition=true',
-          result: () => content().n03_cond(true),
+          result: () => content.n03_cond(true),
         },
         {
           name: 'cond() false',
           desc: 'condition=false',
-          result: () => content().n03_cond(false),
+          result: () => content.n03_cond(false),
         },
         {
           name: "gender() 'male'",
           desc: "gender='male'",
-          result: () => content().n04_gender('male'),
+          result: () => content.n04_gender('male'),
         },
         {
           name: "gender() 'female'",
           desc: "gender='female'",
-          result: () => content().n04_gender('female'),
+          result: () => content.n04_gender('female'),
         },
         {
           name: 'insert()',
           desc: "{name:'Alice', age:30}",
-          result: () => content().n05_insert({ name: 'Alice', age: 30 }),
+          result: () => content.n05_insert({ name: 'Alice', age: 30 }),
         },
         {
           name: 'md()',
           desc: 'Markdown string',
-          result: () => content().n06_md,
+          result: () => content.n06_md,
         },
         {
           name: 'html()',
           desc: 'HTML string',
-          result: () => content().n07_html.use({}),
+          result: () => content.n07_html.use({}),
         },
         {
           name: 'plural() 1',
           desc: "count=1 → 'one'",
-          result: () => content().n22_plural(1),
+          result: () => content.n22_plural(1),
         },
         {
           name: 'plural() 5',
           desc: "count=5 → 'other'",
-          result: () => content().n22_plural(5),
+          result: () => content.n22_plural(5),
         },
       ],
     },
@@ -198,45 +198,44 @@ const BenchmarkTable = () => {
         {
           name: 'insert(t())',
           desc: "{name:'Alice', place:'Paris'}",
-          result: () =>
-            content().n08_insert_t({ name: 'Alice', place: 'Paris' }),
+          result: () => content.n08_insert_t({ name: 'Alice', place: 'Paris' }),
         },
         {
           name: 't(md())',
           desc: 'Translation of markdown',
-          result: () => content().n09_t_of_md,
+          result: () => content.n09_t_of_md,
         },
         {
           name: 'md(t())',
           desc: 'Markdown from translation',
-          result: () => content().n10_md_t,
+          result: () => content.n10_md_t,
         },
         {
           name: 'enu(t()) 2',
           desc: 'count=2',
-          result: () => content().n11_enu_t(2),
+          result: () => content.n11_enu_t(2),
         },
         {
           name: 'insert(enu(t()))',
           desc: '{count:3,name:"Alice"}(3)',
           result: () =>
-            content().n12_insert_enu_t({ count: 3, name: 'Alice' })(3),
+            content.n12_insert_enu_t({ count: 3, name: 'Alice' })(3),
         },
         {
           name: 'cond(t()) true',
           desc: 'true',
-          result: () => content().n13_cond_t(true),
+          result: () => content.n13_cond_t(true),
         },
         {
           name: 'cond(insert(t()))',
           desc: "true · {name:'Alice'}",
-          result: () => content().n14_cond_insert_t(true)?.({ name: 'Alice' }),
+          result: () => content.n14_cond_insert_t(true)?.({ name: 'Alice' }),
         },
         {
           name: 'gender(insert(t()))',
           desc: "female · {name:'Alice'}",
           result: () =>
-            content().n15_gender_insert_t('female')?.({ name: 'Alice' }),
+            content.n15_gender_insert_t('female')?.({ name: 'Alice' }),
         },
       ],
     },
@@ -246,30 +245,30 @@ const BenchmarkTable = () => {
         {
           name: 'nested object',
           desc: 'obj.level1.level2',
-          result: () => content().n17_nested_object.level1.level2,
+          result: () => content.n17_nested_object.level1.level2,
         },
         {
           name: "array ['string']",
           desc: "['item1','item2','item3']",
-          result: () => content().n18_array_strings,
+          result: () => content.n18_array_strings,
         },
         {
           name: 'array [t()]',
           desc: 'Array of translations',
-          result: () => content().n19_array_translations,
+          result: () => content.n19_array_translations,
         },
         {
           name: 'array [{obj}]',
           desc: 'Array of {name,role}',
           result: () =>
-            content()
-              .n20_array_objects.map((o) => `${o.name} (${o.role})`)
+            content.n20_array_objects
+              .map((o) => `${o.name} (${o.role})`)
               .join(' · '),
         },
         {
           name: "nest('app','title')",
           desc: 'Cross-dict reference',
-          result: () => content().n21_nest,
+          result: () => content.n21_nest,
         },
       ],
     },
@@ -421,32 +420,28 @@ const Home = () => {
     <>
       <div>
         <a href="https://vite.dev" target="_blank" rel="noopener">
-          <img
-            src={viteLogo}
-            class="logo"
-            alt={content().viteLogoLabel.value}
-          />
+          <img src={viteLogo} class="logo" alt={content.viteLogoLabel.value} />
         </a>
         <a href="https://solidjs.com" target="_blank" rel="noopener">
           <img
             src={solidLogo}
             class="logo solid"
-            alt={content().solidLogoLabel.value}
+            alt={content.solidLogoLabel.value}
           />
         </a>
       </div>
 
-      <h1>{content().title}</h1>
+      <h1>{content.title}</h1>
 
       <div class="card">
         <button type="button" onClick={() => setCount((c) => c + 1)}>
-          {content().countIs({ count: count() })}
+          {content.countIs({ count: count() })}
         </button>
       </div>
 
       <BenchmarkTable />
 
-      <p class="read-the-docs">{content().readTheDocs}</p>
+      <p class="read-the-docs">{content.readTheDocs}</p>
     </>
   );
 };

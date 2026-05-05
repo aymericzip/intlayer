@@ -394,18 +394,18 @@ function RouteComponent() {
 
   return (
     <main>
-      <h1>{content().heroTitle}</h1>
-      <p>{content().heroDesc}</p>
+      <h1>{content.heroTitle}</h1>
+      <p>{content.heroDesc}</p>
       <div>
-        <LocalizedLink to="/">{content().navHome}</LocalizedLink>
-        <LocalizedLink to="/about">{content().navAbout}</LocalizedLink>
+        <LocalizedLink to="/">{content.navHome}</LocalizedLink>
+        <LocalizedLink to="/about">{content.navAbout}</LocalizedLink>
       </div>
     </main>
   );
 }
 ```
 
-> Solid में, `useIntlayer` एक **एक्सेसॉर** हुक (उदा: `content()`) देता है। प्रतिक्रियाशील सामग्री तक पहुँचने के लिए आपको इस फ़ंक्शन को कॉल करना होगा।
+> Solid में, `useIntlayer` एक **एक्सेसॉर** हुक (उदा: `content.) देता है। प्रतिक्रियाशील सामग्री तक पहुँचने के लिए आपको इस फ़ंक्शन को कॉल करना होगा।
 >
 > `useIntlayer` हुक के बारे में अधिक जानने के लिए, [दस्तावेज़ीकरण](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/solid-intlayer/useIntlayer.md) देखें।
 

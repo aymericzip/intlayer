@@ -478,6 +478,7 @@ export const makeFieldRenameBabelPlugin =
                 if (!variableBinding) return;
 
                 for (const variableReferencePath of variableBinding.referencePaths) {
+                  // Direct access: result.fieldA or const { fieldA } = result
                   walkRenameChain(
                     babelTypes,
                     variableReferencePath,
@@ -488,6 +489,27 @@ export const makeFieldRenameBabelPlugin =
                     variableReferencePath,
                     fieldRenameMap
                   );
+
+                  // Signal accessor: result().fieldA or const { fieldA } = result()
+                  // walkRenameChain stops at a CallExpression parent, so we need to
+                  // start a new walk from the call-expression node itself.
+                  const refParent = variableReferencePath.parent;
+                  if (
+                    (babelTypes.isCallExpression(refParent) ||
+                      babelTypes.isOptionalCallExpression(refParent)) &&
+                    (refParent as BabelTypes.CallExpression).callee ===
+                      variableReferencePath.node
+                  ) {
+                    const callPath = variableReferencePath.parentPath;
+                    if (callPath) {
+                      walkRenameChain(babelTypes, callPath, fieldRenameMap);
+                      walkObjectDestructuring(
+                        babelTypes,
+                        callPath,
+                        fieldRenameMap
+                      );
+                    }
+                  }
                 }
               }
             },

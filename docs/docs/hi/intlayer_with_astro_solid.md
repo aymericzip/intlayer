@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-24
-updatedAt: 2026-04-24
+updatedAt: 2026-05-04
 title: Astro + Solid i18n - 2026 में Astro + Solid एप्लिकेशन का अनुवाद कैसे करें
 description: Intlayer के साथ अपनी Astro + Solid साइट में अंतर्राष्ट्रीयकरण (i18n) जोड़ना सीखें। अपनी साइट को बहुभाषी बनाने के लिए इस गाइड का पालन करें।
 keywords:
@@ -19,6 +19,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-astro-template
 applicationShowcase: https://intlayer-astro-template.vercel.app
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Update Solid useIntlayer API usage to direct property access"
   - version: 8.7.7
     date: 2026-04-24
     changes: "Astro + Solid के लिए प्रारंभिक दस्तावेज़ीकरण"
@@ -282,7 +285,7 @@ function App() {
 
   return (
     <div>
-      <h1>{content().title}</h1>
+      <h1>{content.title}</h1>
       <LocaleSwitcher />
     </div>
   );
@@ -299,7 +302,7 @@ export function SolidIsland({ locale }: { locale: LocalesValues }) {
 
 > `locale` प्रॉप को Astro पृष्ठ (सर्वर पहचान) से `IntlayerProvider` को पारित किया जाता है, जिससे यह पेड़ के भीतर सभी Solid प्रिमिटिव्स के लिए प्रारंभिक भाषा बन जाती है।
 
-> Solid में, `useIntlayer` एक **एक्सेसर (accessor)** फ़ंक्शन (उदा: `content()`) लौटाता है। प्रतिक्रियाशील सामग्री तक पहुँचने के लिए आपको इसे लागू करना होगा।
+> Solid में, `useIntlayer` एक **एक्सेसर (accessor)** फ़ंक्शन (उदा: `content.) लौटाता है। प्रतिक्रियाशील सामग्री तक पहुँचने के लिए आपको इसे लागू करना होगा।
 
 ### चरण 7: एक भाषा स्विचर जोड़ना
 

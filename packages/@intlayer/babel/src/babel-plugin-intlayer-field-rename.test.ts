@@ -368,6 +368,47 @@ describe('makeFieldRenameBabelPlugin', () => {
       expect(output).not.toMatch(/modal\.titleAdd\b/);
     });
 
+    it('renames fields accessed via signal accessor: content().title → content().b', () => {
+      const ctx = makeContext(buildSimpleRenameMap());
+      const code = `
+        import { useIntlayer } from 'solid-intlayer';
+        const content = useIntlayer('homepage');
+        const t = content().title;
+        const d = content().description;
+      `;
+      const output = rename(code, ctx);
+      expect(output).toContain('content().b');
+      expect(output).toContain('content().a');
+      expect(output).not.toMatch(/content\(\)\.title\b/);
+      expect(output).not.toMatch(/content\(\)\.description\b/);
+    });
+
+    it('renames fields accessed via new proxy API: content.title → content.b', () => {
+      const ctx = makeContext(buildSimpleRenameMap());
+      const code = `
+        import { useIntlayer } from 'solid-intlayer';
+        const content = useIntlayer('homepage');
+        const t = content.title;
+        const d = content.description;
+      `;
+      const output = rename(code, ctx);
+      expect(output).toContain('content.b');
+      expect(output).toContain('content.a');
+      expect(output).not.toMatch(/content\.title\b/);
+      expect(output).not.toMatch(/content\.description\b/);
+    });
+
+    it('renames destructured fields from signal call: const { title } = content()', () => {
+      const ctx = makeContext(buildSimpleRenameMap());
+      const code = `
+        import { useIntlayer } from 'solid-intlayer';
+        const content = useIntlayer('homepage');
+        const { title } = content();
+      `;
+      const output = rename(code, ctx);
+      expect(output).toContain('b: title');
+    });
+
     it('two components consuming the same dictionary both rename consistently', () => {
       // Simulate two separate transform calls (component files) with the same
       // shared pruneContext.  Both must see consistent renames.

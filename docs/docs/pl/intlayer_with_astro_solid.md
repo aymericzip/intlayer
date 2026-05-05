@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-24
-updatedAt: 2026-04-24
+updatedAt: 2026-05-04
 title: Astro + Solid i18n - Jak przetłumaczyć aplikację Astro + Solid w 2026 roku
 description: Dowiedz się, jak dodać międzynarodowość (i18n) do swojej witryny Astro + Solid za pomocą Intlayer. Postępuj zgodnie z tym przewodnikiem, aby uczynić swoją witrynę wielojęzyczną.
 keywords:
@@ -19,6 +19,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-astro-template
 applicationShowcase: https://intlayer-astro-template.vercel.app
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Update Solid useIntlayer API usage to direct property access"
   - version: 8.7.7
     date: 2026-04-24
     changes: "Początkowa dokumentacja dla Astro + Solid"
@@ -282,7 +285,7 @@ function App() {
 
   return (
     <div>
-      <h1>{content().title}</h1>
+      <h1>{content.title}</h1>
       <LocaleSwitcher />
     </div>
   );
@@ -299,7 +302,7 @@ export function SolidIsland({ locale }: { locale: LocalesValues }) {
 
 > Prop `locale` jest przekazywany ze strony Astro (wykrywanie po stronie serwera) do `IntlayerProvider`, służąc jako początkowy język dla wszystkich prymitywów Solid wewnątrz drzewa.
 
-> W Solid `useIntlayer` zwraca funkcję dostępową (**accessor**) (np. `content()`). Musisz ją wywołać, aby uzyskać dostęp do reaktywnej treści.
+> W Solid `useIntlayer` zwraca funkcję dostępową (**accessor**) (np. `content.). Musisz ją wywołać, aby uzyskać dostęp do reaktywnej treści.
 
 ### Krok 7: Dodanie przełącznika języków
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-03-12
+updatedAt: 2026-05-04
 title: Vite + Solid i18n - Solid ऐप कैसे अनुवाद करें 2026 में
 description: जानें कि अपनी Vite और Solid वेबसाइट को बहुभाषी कैसे बनाएं। अंतरराष्ट्रीयकरण (i18n) और अनुवाद के लिए दस्तावेज़ का पालन करें।
 keywords:
@@ -16,6 +16,9 @@ slugs:
   - vite-and-solid
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-solid-template
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Update Solid useIntlayer API usage to direct property access"
   - version: 7.5.9
     date: 2025-12-30
     changes: "init कमांड जोड़ें"
@@ -197,24 +200,24 @@ const AppContent: Component = () => {
     <>
       <div>
         <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} class="logo" alt={content().viteLogo.value} />
+          <img src={viteLogo} class="logo" alt={content.viteLogo.value} />
         </a>
         <a href="https://www.solidjs.com/" target="_blank">
           <img
             src={solidLogo}
             class="logo solid"
-            alt={content().solidLogo.value}
+            alt={content.solidLogo.value}
           />
         </a>
       </div>
-      <h1>{content().title}</h1>
+      <h1>{content.title}</h1>
       <div class="card">
         <button onClick={() => setCount((count) => count + 1)}>
-          {content().count({ count: count() })}
+          {content.count({ count: count() })}
         </button>
-        <p>{content().edit}</p>
+        <p>{content.edit}</p>
       </div>
-      <p class="read-the-docs">{content().readTheDocs}</p>
+      <p class="read-the-docs">{content.readTheDocs}</p>
     </>
   );
 };
@@ -228,12 +231,12 @@ const App: Component = () => (
 export default App;
 ```
 
-> Solid में, `useIntlayer` एक **accessor** फ़ंक्शन (उदाहरण: `content()`) लौटाता है। आपको रिएक्टिव सामग्री तक पहुंचने के लिए इस फ़ंक्शन को कॉल करना होगा।
+> Solid में, `useIntlayer` एक **accessor** फ़ंक्शन (उदाहरण: `content.) लौटाता है। आपको रिएक्टिव सामग्री तक पहुंचने के लिए इस फ़ंक्शन को कॉल करना होगा।
 
 > यदि आप `alt`, `title`, `href`, `aria-label` आदि जैसे `string` विशेषता में अपनी सामग्री का उपयोग करना चाहते हैं, तो आपको फ़ंक्शन के मान को इस तरह कॉल करना होगा:
 >
 > ```jsx
-> <img src={content().image.src.value} alt={content().image.value} />
+> <img src={content.image.src.value} alt={content.image.value} />
 > ```
 
 ### (वैकल्पिक) चरण 6: अपनी सामग्री की भाषा बदलें
@@ -443,7 +446,7 @@ const MyComponent = () => {
   return (
     <div>
       {/* MarkdownProvider के माध्यम से HTML के रूप में रेंडर होता है */}
-      {content().markdownContent}
+      {content.markdownContent}
     </div>
   );
 };

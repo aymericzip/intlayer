@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-03-12
+updatedAt: 2026-05-04
 title: Vite + Solid i18n - كيفية ترجمة تطبيق Solid في 2026
 description: اكتشف كيفية جعل موقعك باستخدام Vite و Solid متعدد اللغات. اتبع الوثائق لتدويل (i18n) وترجمته.
 keywords:
@@ -16,6 +16,9 @@ slugs:
   - vite-and-solid
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-solid-template
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Update Solid useIntlayer API usage to direct property access"
   - version: 7.5.9
     date: 2025-12-30
     changes: "إضافة أمر init"
@@ -197,24 +200,24 @@ const AppContent: Component = () => {
     <>
       <div>
         <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} class="logo" alt={content().viteLogo.value} />
+          <img src={viteLogo} class="logo" alt={content.viteLogo.value} />
         </a>
         <a href="https://www.solidjs.com/" target="_blank">
           <img
             src={solidLogo}
             class="logo solid"
-            alt={content().solidLogo.value}
+            alt={content.solidLogo.value}
           />
         </a>
       </div>
-      <h1>{content().title}</h1>
+      <h1>{content.title}</h1>
       <div class="card">
         <button onClick={() => setCount((count) => count + 1)}>
-          {content().count({ count: count() })}
+          {content.count({ count: count() })}
         </button>
-        <p>{content().edit}</p>
+        <p>{content.edit}</p>
       </div>
-      <p class="read-the-docs">{content().readTheDocs}</p>
+      <p class="read-the-docs">{content.readTheDocs}</p>
     </>
   );
 };
@@ -228,12 +231,12 @@ const App: Component = () => (
 export default App;
 ```
 
-> في Solid، `useIntlayer` يُرجع دالة **accessor** (على سبيل المثال، `content()`). يجب عليك استدعاء هذه الدالة للوصول إلى المحتوى التفاعلي.
+> في Solid، `useIntlayer` يُرجع دالة **accessor** (على سبيل المثال، `content.). يجب عليك استدعاء هذه الدالة للوصول إلى المحتوى التفاعلي.
 
 > إذا كنت تريد استخدام المحتوى الخاص بك في سمة `string`، مثل `alt`، `title`، `href`، `aria-label`، إلخ، يجب عليك استدعاء قيمة الدالة، مثل:
 >
 > ```jsx
-> <img src={content().image.src.value} alt={content().image.value} />
+> <img src={content.image.src.value} alt={content.image.value} />
 > ```
 
 ### (اختياري) الخطوة 6: تغيير لغة المحتوى الخاص بك
@@ -443,7 +446,7 @@ const MyComponent = () => {
   return (
     <div>
       {/* يتم عرضه كـ HTML عبر MarkdownProvider */}
-      {content().markdownContent}
+      {content.markdownContent}
     </div>
   );
 };

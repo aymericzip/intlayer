@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-01-21
+updatedAt: 2026-05-04
 title: Dokumentation des useIntlayer-Hooks | solid-intlayer
 description: Anleitung zur Verwendung des useIntlayer-Hooks im solid-intlayer-Paket
 keywords:
@@ -18,6 +18,9 @@ slugs:
   - solid-intlayer
   - useIntlayer
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Update Solid useIntlayer API usage to direct property access"
   - version: 8.0.0
     date: 2026-01-21
     changes: "Einheitliche Dokumentation für alle Exporte"
@@ -37,8 +40,8 @@ const MyComponent = () => {
 
   return (
     <div>
-      <h1>{content().title}</h1>
-      <p>{content().description}</p>
+      <h1>{content.title}</h1>
+      <p>{content.description}</p>
     </div>
   );
 };

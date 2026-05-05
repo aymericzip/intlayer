@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-24
-updatedAt: 2026-04-24
+updatedAt: 2026-05-04
 title: Astro + Solid i18n - How to translate an Astro + Solid app in 2026
 description: Learn how to add internationalization (i18n) to your Astro + Solid website using Intlayer. Follow this guide to make your site multilingual.
 keywords:
@@ -19,6 +19,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-astro-template
 applicationShowcase: https://intlayer-astro-template.vercel.app
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Update Solid useIntlayer API usage to direct property access"
   - version: 8.7.7
     date: 2026-04-24
     changes: "Initial documentation for Astro + Solid"
@@ -280,7 +283,7 @@ function App() {
 
   return (
     <div>
-      <h1>{content().title}</h1>
+      <h1>{content.title}</h1>
       <LocaleSwitcher />
     </div>
   );
@@ -297,7 +300,7 @@ export function SolidIsland({ locale }: { locale: LocalesValues }) {
 
 > The `locale` prop is passed from the Astro page (server-detected) into `IntlayerProvider`, which makes it the initial locale for all Solid primitives in the tree.
 
-> In Solid, `useIntlayer` returns an **accessor** function (e.g., `content()`). You must call this function to access the reactive content.
+> In Solid, `useIntlayer` returns reactive content (e.g., `content`). You can access its properties directly.
 
 ### Step 7: Add a Locale Switcher
 

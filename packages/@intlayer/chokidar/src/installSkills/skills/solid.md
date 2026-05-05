@@ -55,7 +55,7 @@ export default content;
 ## useIntlayer Hook
 
 > [!IMPORTANT]
-> In Solid, `useIntlayer` returns an **accessor** function (e.g., `content()`). You must call this function to access the reactive content.
+> In Solid, `useIntlayer` returns reactive content (e.g., `content`). You can access its properties directly.
 
 ```tsx
 import { useIntlayer } from "solid-intlayer";
@@ -67,10 +67,10 @@ const MyComponent = () => {
     <div>
       <h1>
         {/* Return content */}
-        {content().text}
+        {content.text}
       </h1>
       {/* Return string (.value) */}
-      <img src={content().text.value} alt={content().text.value} />
+      <img src={content.text.value} alt={content.text.value} />
     </div>
   );
 };

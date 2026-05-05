@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-01-21
+updatedAt: 2026-05-04
 title: Documentación del hook useIntlayer | solid-intlayer
 description: Muestra cómo usar el hook useIntlayer del paquete solid-intlayer
 keywords:
@@ -18,6 +18,9 @@ slugs:
   - solid-intlayer
   - useIntlayer
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Update Solid useIntlayer API usage to direct property access"
   - version: 8.0.0
     date: 2026-01-21
     changes: "Documentación unificada para todas las exportaciones"
@@ -25,7 +28,7 @@ history:
 
 # Documentación del hook useIntlayer
 
-El hook `useIntlayer` permite recuperar contenido localizado de un diccionario usando su clave. En Solid, este hook devuelve una función reactiva **accessor** que se actualiza siempre que cambia la locale.
+El hook `useIntlayer` permite recuperar contenido localizado de un diccionario usando su clave. En Solid, este hook devuelve contenido reactivo que se actualiza siempre que cambia la locale.
 
 ## Uso
 
@@ -37,8 +40,8 @@ const MyComponent = () => {
 
   return (
     <div>
-      <h1>{content().title}</h1>
-      <p>{content().description}</p>
+      <h1>{content.title}</h1>
+      <p>{content.description}</p>
     </div>
   );
 };

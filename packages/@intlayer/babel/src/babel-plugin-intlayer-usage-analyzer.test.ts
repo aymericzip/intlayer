@@ -370,5 +370,48 @@ describe('makeUsageAnalyzerBabelPlugin', () => {
       expect(usage).toBeInstanceOf(Set);
       expect(usage as Set<string>).toContain('title');
     });
+
+    it('records fields accessed via content.field (new proxy-based API)', () => {
+      const ctx = analyze(`
+        import { useIntlayer } from 'solid-intlayer';
+        const content = useIntlayer('homepage');
+        const t = content.title;
+        const d = content.description;
+      `);
+
+      const usage = ctx.dictionaryKeyToFieldUsageMap.get('homepage');
+      expect(usage).toBeInstanceOf(Set);
+      expect(usage as Set<string>).toContain('title');
+      expect(usage as Set<string>).toContain('description');
+      expect((usage as Set<string>).size).toBe(2);
+    });
+
+    it('marks "all" when variable is destructured (secondary destructuring cannot be statically traced)', () => {
+      // const { title } = content uses the variable in init position of a
+      // VariableDeclarator — the analyzer conservatively marks 'all' here because
+      // tracking fields through secondary destructuring of a bound variable would
+      // require a deeper analysis pass. The prune plugin then keeps all fields.
+      const ctx = analyze(`
+        import { useIntlayer } from 'solid-intlayer';
+        const content = useIntlayer('homepage');
+        const { title, description } = content;
+      `);
+
+      expect(ctx.dictionaryKeyToFieldUsageMap.get('homepage')).toBe('all');
+    });
+
+    it('mixes new proxy API with legacy signal accessor on the same key', () => {
+      const ctx = analyze(`
+        import { useIntlayer } from 'solid-intlayer';
+        const content = useIntlayer('homepage');
+        const a = content.title;
+        const b = content().subtitle;
+      `);
+
+      const usage = ctx.dictionaryKeyToFieldUsageMap.get('homepage');
+      expect(usage).toBeInstanceOf(Set);
+      expect(usage as Set<string>).toContain('title');
+      expect(usage as Set<string>).toContain('subtitle');
+    });
   });
 });
