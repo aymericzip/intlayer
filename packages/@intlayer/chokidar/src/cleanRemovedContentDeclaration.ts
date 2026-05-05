@@ -180,24 +180,28 @@ export const cleanRemovedContentDeclaration = async (
 
     // Remove the files synchronously (awaited) immediately after.
     if (filesToRemove.length > 0) {
-      await Promise.all(
-        filesToRemove.map(async (path) => {
-          const relativePath = relative(baseDir, path);
-          try {
-            await rm(path, { force: true });
+      setTimeout(
+        async () =>
+          await Promise.all(
+            filesToRemove.map(async (path) => {
+              const relativePath = relative(baseDir, path);
+              try {
+                await rm(path, { force: true });
 
-            appLogger(`Deleted artifact: ${colorizePath(relativePath)}`, {
-              isVerbose: true,
-            });
-          } catch {
-            appLogger(
-              `Error while removing file ${colorizePath(relativePath)}`,
-              {
-                isVerbose: true,
+                appLogger(`Deleted artifact: ${colorizePath(relativePath)}`, {
+                  isVerbose: true,
+                });
+              } catch {
+                appLogger(
+                  `Error while removing file ${colorizePath(relativePath)}`,
+                  {
+                    isVerbose: true,
+                  }
+                );
               }
-            );
-          }
-        })
+            })
+          ),
+        3000
       );
     }
   }

@@ -55,6 +55,7 @@ const createSafeFallback = (path = ''): any => {
 };
 
 const dictionaryCache = new Map<string, any>();
+const warnedMissingDictionaries = new Set<string>();
 
 export const getIntlayer = <
   T extends DictionaryKeys,
@@ -72,15 +73,18 @@ export const getIntlayer = <
   const dictionary = dictionaries[key as T] as DictionaryRegistryElement<T>;
 
   if (!dictionary) {
-    // Log a warning instead of throwing (so developers know it's missing)
-    const logger = getAppLogger({ log });
-    logger(
-      `Dictionary ${colorizeKey(key as string)} was not found. Using fallback proxy.`,
-      {
-        level: 'warn',
-        isVerbose: true,
-      }
-    );
+    if (!warnedMissingDictionaries.has(key as string)) {
+      // Log a warning instead of throwing (so developers know it's missing)
+      const logger = getAppLogger({ log });
+      logger(
+        `Dictionary ${colorizeKey(key as string)} was not found. Using fallback proxy.`,
+        {
+          level: 'warn',
+          isVerbose: true,
+        }
+      );
+      warnedMissingDictionaries.add(key as string);
+    }
 
     if (process.env.NODE_ENV === 'development') {
       // Return the Safe Proxy

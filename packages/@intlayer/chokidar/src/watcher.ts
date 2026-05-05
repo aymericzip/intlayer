@@ -1,6 +1,7 @@
 import { readFile } from 'node:fs/promises';
 import { basename } from 'node:path';
-import { getAppLogger } from '@intlayer/config/logger';
+import * as ANSIColor from '@intlayer/config/colors';
+import { colorize, getAppLogger } from '@intlayer/config/logger';
 import {
   type GetConfigurationOptions,
   getConfiguration,
@@ -88,6 +89,23 @@ export const watch = (options?: WatchOptions) => {
   if (!configuration.content.watch) return;
 
   appLogger('Watching Intlayer content declarations');
+
+  if (configuration.build.optimize === true) {
+    appLogger(
+      [
+        'Build optimization is forced to true, but watching is enabled too.',
+        'It may lead to dev mode performance degradation as well as import errors.',
+        'Its recommended to keep the',
+        colorize('`build.optimized`', ANSIColor.BLUE),
+        'option',
+        colorize('undefined', ANSIColor.GREY),
+        'to get the best dev mode experience',
+      ],
+      {
+        level: 'warn',
+      }
+    );
+  }
 
   return chokidarWatch(pathsToWatch, {
     persistent: isWatchMode, // Make the watcher persistent
