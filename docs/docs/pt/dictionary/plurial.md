@@ -28,9 +28,9 @@ history:
 
 ## Como o Plural Funciona
 
-No Intlayer, o conteúdo plural é alcançado através da função `plural`, que mapeia as categorias plurais do CLDR — `zero`, `one`, `two`, `few`, `many`, `other` — ao seu conteúdo correspondente. A categoria correta é selecionada automaticamente com base na localidade ativa e em um valor de contagem, usando a API [`Intl.PluralRules`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Intl/PluralRules) integrada à plataforma.
+No Intlayer, o conteúdo plural é alcançado através da função `plural`, que mapeia as categorias plurais do CLDR, `zero`, `one`, `two`, `few`, `many`, `other`, ao seu conteúdo correspondente. A categoria correta é selecionada automaticamente com base na localidade ativa e em um valor de contagem, usando a API [`Intl.PluralRules`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Intl/PluralRules) integrada à plataforma.
 
-Ao contrário do [`enu`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/enumeration.md), que seleciona o conteúdo com base em intervalos numéricos definidos por você mesmo, o `plural` delega a seleção às regras do CLDR. É isso que o torna escalável para idiomas com regras complexas de pluralização — como russo, polonês, árabe ou galês — sem ter que escrever manualmente a lógica de módulo.
+Ao contrário do [`enu`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/enumeration.md), que seleciona o conteúdo com base em intervalos numéricos definidos por você mesmo, o `plural` delega a seleção às regras do CLDR. É isso que o torna escalável para idiomas com regras complexas de pluralização, como russo, polonês, árabe ou galês, sem ter que escrever manualmente a lógica de módulo.
 
 ## Quando usar `plural` vs `enu`
 
@@ -95,7 +95,7 @@ export default openingsContent;
 }
 ```
 
-> As categorias suportadas são `zero`, `one`, `two`, `few`, `many`, `other`. Você só precisa declarar as categorias que seu idioma de destino usa — o Intlayer volta para `other` quando nenhuma categoria específica corresponde.
+> As categorias suportadas são `zero`, `one`, `two`, `few`, `many`, `other`. Você só precisa declarar as categorias que seu idioma de destino usa, o Intlayer volta para `other` quando nenhuma categoria específica corresponde.
 >
 > O marcador `{{count}}` é substituído automaticamente pela contagem que você passa em tempo de execução. Você também pode incluir outros marcadores (veja [Marcadores personalizados](#custom-placeholders) abaixo).
 
@@ -175,7 +175,43 @@ Diferentes idiomas usam diferentes subconjuntos das categorias CLDR. Alguns caso
 | Árabe (`ar`)     | `zero`, `one`, `two`, `few`, `many`, `other` |
 | Japonês / Chinês | apenas `other`                               |
 
-Você não precisa memorizar isso — declare as categorias para as quais você tem traduções, e o Intlayer voltará para `other` quando necessário.
+Você não precisa memorizar isso, declare as categorias para as quais você tem traduções, e o Intlayer voltará para `other` quando necessário.
+
+## Limitação
+
+Em comparação com outros nós, o `plural` ainda não pode ser aninhado com nós filhos.
+
+Exemplo:
+
+Válido:
+
+```ts
+    totalOpenings: t({
+      en: plural({
+        one: "{{count}} opening",
+        other: "{{count}} openings",
+      }),
+      fr: plural({
+        one: "{{count}} offre",
+        other: "{{count}} offres",
+      }),
+    }),
+```
+
+Inválido:
+
+```ts
+totalOpenings: plural({
+  one: {
+    en: "{{count}} opening",
+    fr: "{{count}} offre",
+  },
+  other: {
+    en: "{{count}} openings",
+    fr: "{{count}} offres",
+  },
+}),
+```
 
 ## Recursos Adicionais
 

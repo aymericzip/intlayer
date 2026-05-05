@@ -177,6 +177,42 @@ Verschiedene Sprachen verwenden unterschiedliche Teilmengen der CLDR-Kategorien.
 
 Sie müssen sich das nicht merken – deklarieren Sie die Kategorien, für die Sie Übersetzungen haben, und Intlayer wird bei Bedarf auf `other` zurückgreifen.
 
+## Einschränkung
+
+Im Gegensatz zu anderen Knoten kann der `plural`-Knoten noch nicht mit untergeordneten Knoten verschachtelt werden.
+
+Beispiel:
+
+Gültig:
+
+```ts
+    totalOpenings: t({
+      en: plural({
+        one: "{{count}} opening",
+        other: "{{count}} openings",
+      }),
+      fr: plural({
+        one: "{{count}} offre",
+        other: "{{count}} offres",
+      }),
+    }),
+```
+
+Ungültig:
+
+```ts
+totalOpenings: plural({
+  one: {
+    en: "{{count}} opening",
+    fr: "{{count}} offre",
+  },
+  other: {
+    en: "{{count}} openings",
+    fr: "{{count}} offres",
+  },
+}),
+```
+
 ## Zusätzliche Ressourcen
 
 Weitere detaillierte Informationen zur Konfiguration und Verwendung finden Sie in den folgenden Ressourcen:

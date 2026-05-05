@@ -28,9 +28,9 @@ history:
 
 ## كيف يعمل الجمع
 
-في Intlayer، يتم تحقيق محتوى الجمع من خلال وظيفة `plural` التي تربط فئات الجمع في CLDR — `zero` و `one` و `two` و `few` و `many` و `other` — بالمحتوى المقابل لها. يتم اختيار الفئة الصحيحة تلقائيًا بناءً على اللغة النشطة وقيمة العدد، باستخدام واجهة برمجة تطبيقات [`Intl.PluralRules`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Intl/PluralRules) المدمجة في النظام الأساسي.
+في Intlayer، يتم تحقيق محتوى الجمع من خلال وظيفة `plural` التي تربط فئات الجمع في CLDR, `zero` و `one` و `two` و `few` و `many` و `other`, بالمحتوى المقابل لها. يتم اختيار الفئة الصحيحة تلقائيًا بناءً على اللغة النشطة وقيمة العدد، باستخدام واجهة برمجة تطبيقات [`Intl.PluralRules`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Intl/PluralRules) المدمجة في النظام الأساسي.
 
-على عكس [`enu`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/enumeration.md)، الذي يختار المحتوى بناءً على نطاقات رقمية تحددها بنفسك، تفوض وظيفة `plural` الاختيار لقواعد CLDR. وهذا ما يجعلها قابلة للتوسع للغات ذات قواعد الجمع المعقدة — مثل الروسية أو البولندية أو العربية أو الويلزية — دون الحاجة إلى كتابة منطق الحساب يدويًا.
+على عكس [`enu`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/enumeration.md)، الذي يختار المحتوى بناءً على نطاقات رقمية تحددها بنفسك، تفوض وظيفة `plural` الاختيار لقواعد CLDR. وهذا ما يجعلها قابلة للتوسع للغات ذات قواعد الجمع المعقدة, مثل الروسية أو البولندية أو العربية أو الويلزية, دون الحاجة إلى كتابة منطق الحساب يدويًا.
 
 ## متى تستخدم `plural` مقابل `enu`
 
@@ -103,7 +103,7 @@ export default openingsContent;
 }
 ```
 
-> الفئات المدعومة هي `zero` و `one` و `two` و `few` و `many` و `other`. تحتاج فقط إلى التصريح عن الفئات التي تستخدمها لغتك المستهدفة — يعود Intlayer إلى `other` عندما لا تتطابق أي فئة محددة.
+> الفئات المدعومة هي `zero` و `one` و `two` و `few` و `many` و `other`. تحتاج فقط إلى التصريح عن الفئات التي تستخدمها لغتك المستهدفة, يعود Intlayer إلى `other` عندما لا تتطابق أي فئة محددة.
 >
 > يتم استبدال العنصر النائب `{{count}}` تلقائيًا بالعدد الذي تمرره في وقت التشغيل. يمكنك تضمين عناصر نائبة أخرى أيضًا (انظر [العناصر النائبة المخصصة](#custom-placeholders) أدناه).
 
@@ -183,7 +183,43 @@ summary({ count: 7, name: "Alice" });
 | العربية (`ar`)      | `zero` ، `one` ، `two` ، `few` ، `many` ، `other` |
 | اليابانية / الصينية | `other` فقط                                       |
 
-لا تحتاج إلى حفظ هذا — صرح عن الفئات التي لديك ترجمات لها، وسيعود Intlayer إلى `other` عند الحاجة.
+لا تحتاج إلى حفظ هذا, صرح عن الفئات التي لديك ترجمات لها، وسيعود Intlayer إلى `other` عند الحاجة.
+
+## قيود
+
+مقارنة بالعقد الأخرى، لا يمكن تداخل العقدة `plural` مع العقد الفرعية حتى الآن.
+
+مثال:
+
+صالح:
+
+```ts
+    totalOpenings: t({
+      en: plural({
+        one: "{{count}} opening",
+        other: "{{count}} openings",
+      }),
+      fr: plural({
+        one: "{{count}} offre",
+        other: "{{count}} offres",
+      }),
+    }),
+```
+
+غير صالح:
+
+```ts
+totalOpenings: plural({
+  one: {
+    en: "{{count}} opening",
+    fr: "{{count}} offre",
+  },
+  other: {
+    en: "{{count}} openings",
+    fr: "{{count}} offres",
+  },
+}),
+```
 
 ## موارد إضافية
 

@@ -28,9 +28,9 @@ history:
 
 ## How Plural Works
 
-In Intlayer, plural content is achieved through the `plural` function, which maps CLDR plural categories — `zero`, `one`, `two`, `few`, `many`, `other` — to their corresponding content. The correct category is selected automatically based on the active locale and a count value, using the platform's built-in [`Intl.PluralRules`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Intl/PluralRules) API.
+In Intlayer, plural content is achieved through the `plural` function, which maps CLDR plural categories, `zero`, `one`, `two`, `few`, `many`, `other`, to their corresponding content. The correct category is selected automatically based on the active locale and a count value, using the platform's built-in [`Intl.PluralRules`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Intl/PluralRules) API.
 
-Unlike [`enu`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/enumeration.md), which selects content based on numeric ranges you define yourself, `plural` delegates the selection to CLDR rules. This is what makes it scalable to languages with complex pluralization rules — such as Russian, Polish, Arabic, or Welsh — without having to hand-write modulo logic.
+Unlike [`enu`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/enumeration.md), which selects content based on numeric ranges you define yourself, `plural` delegates the selection to CLDR rules. This is what makes it scalable to languages with complex pluralization rules, such as Russian, Polish, Arabic, or Welsh, without having to hand-write modulo logic.
 
 ## When to Use `plural` vs `enu`
 
@@ -95,7 +95,7 @@ export default openingsContent;
 }
 ```
 
-> The supported categories are `zero`, `one`, `two`, `few`, `many`, `other`. You only need to declare the categories your target language uses — Intlayer falls back to `other` when no specific category matches.
+> The supported categories are `zero`, `one`, `two`, `few`, `many`, `other`. You only need to declare the categories your target language uses, Intlayer falls back to `other` when no specific category matches.
 >
 > The `{{count}}` placeholder is automatically replaced with the count you pass at runtime. You can include other placeholders too (see [Custom placeholders](#custom-placeholders) below).
 
@@ -175,7 +175,43 @@ Different languages use different subsets of the CLDR categories. A few common c
 | Arabic (`ar`)      | `zero`, `one`, `two`, `few`, `many`, `other` |
 | Japanese / Chinese | `other` only                                 |
 
-You don't need to memorize this — declare the categories you have translations for, and Intlayer will fall back to `other` when needed.
+You don't need to memorize this, declare the categories you have translations for, and Intlayer will fall back to `other` when needed.
+
+## Limitation
+
+In comparison to other nodes, `plural` cannot be imbricated with children nodes yet.
+
+Example:
+
+Valid:
+
+```ts
+    totalOpenings: t({
+      en: plural({
+        one: "{{count}} opening",
+        other: "{{count}} openings",
+      }),
+      fr: plural({
+        one: "{{count}} offre",
+        other: "{{count}} offres",
+      }),
+    }),
+```
+
+Invalid:
+
+```ts
+totalOpenings: plural({
+  one: {
+    en: "{{count}} opening",
+    fr: "{{count}} offre",
+  },
+  other: {
+    en: "{{count}} openings",
+    fr: "{{count}} offres",
+  },
+}),
+```
 
 ## Additional Resources
 

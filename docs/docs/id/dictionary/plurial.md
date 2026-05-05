@@ -28,9 +28,9 @@ history:
 
 ## Cara Kerja Jamak
 
-Di Intlayer, konten jamak dicapai melalui fungsi `plural`, yang memetakan kategori jamak CLDR — `zero`, `one`, `two`, `few`, `many`, `other` — ke konten yang sesuai. Kategori yang benar dipilih secara otomatis berdasarkan lokal aktif dan nilai hitungan, menggunakan API [`Intl.PluralRules`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Intl/PluralRules) bawaan platform.
+Di Intlayer, konten jamak dicapai melalui fungsi `plural`, yang memetakan kategori jamak CLDR, `zero`, `one`, `two`, `few`, `many`, `other`, ke konten yang sesuai. Kategori yang benar dipilih secara otomatis berdasarkan lokal aktif dan nilai hitungan, menggunakan API [`Intl.PluralRules`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Intl/PluralRules) bawaan platform.
 
-Berbeda dengan [`enu`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/enumeration.md), yang memilih konten berdasarkan rentang numerik yang Anda tentukan sendiri, `plural` mendelegasikan pemilihan ke aturan CLDR. Inilah yang membuatnya skalabel untuk bahasa dengan aturan pluralisasi yang kompleks — seperti Rusia, Polandia, Arab, atau Welsh — tanpa harus menulis logika modulo secara manual.
+Berbeda dengan [`enu`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/enumeration.md), yang memilih konten berdasarkan rentang numerik yang Anda tentukan sendiri, `plural` mendelegasikan pemilihan ke aturan CLDR. Inilah yang membuatnya skalabel untuk bahasa dengan aturan pluralisasi yang kompleks, seperti Rusia, Polandia, Arab, atau Welsh, tanpa harus menulis logika modulo secara manual.
 
 ## Kapan Menggunakan `plural` vs `enu`
 
@@ -93,7 +93,7 @@ export default openingsContent;
 }
 ```
 
-> Kategori yang didukung adalah `zero`, `one`, `two`, `few`, `many`, `other`. Anda hanya perlu mendeklarasikan kategori yang digunakan bahasa target Anda — Intlayer kembali ke `other` ketika tidak ada kategori spesifik yang cocok.
+> Kategori yang didukung adalah `zero`, `one`, `two`, `few`, `many`, `other`. Anda hanya perlu mendeklarasikan kategori yang digunakan bahasa target Anda, Intlayer kembali ke `other` ketika tidak ada kategori spesifik yang cocok.
 >
 > Placeholder `{{count}}` secara otomatis diganti dengan hitungan yang Anda berikan saat runtime. Anda juga dapat menyertakan placeholder lain (lihat [Placeholder khusus](#custom-placeholders) di bawah).
 
@@ -172,7 +172,43 @@ Bahasa yang berbeda menggunakan subset kategori CLDR yang berbeda. Beberapa kasu
 | Arab (`ar`)                   | `zero`, `one`, `two`, `few`, `many`, `other` |
 | Jepang / Mandarin / Indonesia | `other` saja                                 |
 
-Anda tidak perlu menghafal ini — deklarasikan kategori yang Anda miliki terjemahannya, dan Intlayer akan kembali ke `other` jika diperlukan.
+Anda tidak perlu menghafal ini, deklarasikan kategori yang Anda miliki terjemahannya, dan Intlayer akan kembali ke `other` jika diperlukan.
+
+## Batasan
+
+Dibandingkan dengan node lain, `plural` belum dapat disarangkan (nested) dengan node anak.
+
+Contoh:
+
+Valid:
+
+```ts
+    totalOpenings: t({
+      en: plural({
+        one: "{{count}} opening",
+        other: "{{count}} openings",
+      }),
+      fr: plural({
+        one: "{{count}} offre",
+        other: "{{count}} offres",
+      }),
+    }),
+```
+
+Tidak Valid:
+
+```ts
+totalOpenings: plural({
+  one: {
+    en: "{{count}} opening",
+    fr: "{{count}} offre",
+  },
+  other: {
+    en: "{{count}} openings",
+    fr: "{{count}} offres",
+  },
+}),
+```
 
 ## Sumber Daya Tambahan
 

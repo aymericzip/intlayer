@@ -175,6 +175,42 @@ summary({ count: 7, name: "Alice" });
 
 これらを暗記する必要はありません。翻訳があるカテゴリを宣言すれば、Intlayerは必要に応じて `other` にフォールバックします。
 
+## 制限事項
+
+他のノードと比較して、`plural` はまだ子ノードとネスト（入れ子）にすることはできません。
+
+例:
+
+有効:
+
+```ts
+    totalOpenings: t({
+      en: plural({
+        one: "{{count}} opening",
+        other: "{{count}} openings",
+      }),
+      fr: plural({
+        one: "{{count}} offre",
+        other: "{{count}} offres",
+      }),
+    }),
+```
+
+無効:
+
+```ts
+totalOpenings: plural({
+  one: {
+    en: "{{count}} opening",
+    fr: "{{count}} offre",
+  },
+  other: {
+    en: "{{count}} openings",
+    fr: "{{count}} offres",
+  },
+}),
+```
+
 ## その他のリソース
 
 設定や使用方法の詳細については、以下のリソースを参照してください。

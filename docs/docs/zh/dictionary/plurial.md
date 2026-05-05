@@ -93,7 +93,7 @@ export default openingsContent;
 }
 ```
 
-> 支持的类别包括 `zero`、`one`、`two`、`few`、`many`、`other`。您只需要声明目标语言使用的类别——当没有特定类别匹配时，Intlayer 会回退到 `other`。
+> 支持的类别包括 `zero`、`one`、`two`、`few`、`many`、`other`。您只需要声明目标语言使用的类别, 当没有特定类别匹配时，Intlayer 会回退到 `other`。
 >
 > `{{count}}` 占位符会自动替换为您在运行时传入的计数。您也可以包含其他占位符（参见下面的[自定义占位符](#custom-placeholders)）。
 
@@ -172,7 +172,43 @@ summary({ count: 7, name: "Alice" });
 | 阿拉伯语 (`ar`) | `zero`, `one`, `two`, `few`, `many`, `other` |
 | 日语 / 中文     | 仅 `other`                                   |
 
-您无需死记硬背——只需为您拥有翻译的类别进行声明，Intlayer 会在需要时回退到 `other`。
+您无需死记硬背, 只需为您拥有翻译的类别进行声明，Intlayer 会在需要时回退到 `other`。
+
+## 限制
+
+与其他节点相比，`plural` 目前还不能与子节点嵌套使用。
+
+示例：
+
+有效：
+
+```ts
+    totalOpenings: t({
+      en: plural({
+        one: "{{count}} opening",
+        other: "{{count}} openings",
+      }),
+      fr: plural({
+        one: "{{count}} offre",
+        other: "{{count}} offres",
+      }),
+    }),
+```
+
+无效：
+
+```ts
+totalOpenings: plural({
+  one: {
+    en: "{{count}} opening",
+    fr: "{{count}} offre",
+  },
+  other: {
+    en: "{{count}} openings",
+    fr: "{{count}} offres",
+  },
+}),
+```
 
 ## 更多资源
 

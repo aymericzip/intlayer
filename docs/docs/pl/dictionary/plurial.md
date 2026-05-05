@@ -28,9 +28,9 @@ history:
 
 ## Jak działa liczba mnoga
 
-W Intlayer treści w liczbie mnogiej są realizowane za pomocą funkcji `plural`, która mapuje kategorie liczby mnogiej CLDR — `zero`, `one`, `two`, `few`, `many`, `other` — do odpowiadającej im treści. Prawidłowa kategoria jest wybierana automatycznie na podstawie aktywnego języka i wartości licznika, przy użyciu wbudowanego w platformę API [`Intl.PluralRules`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Intl/PluralRules).
+W Intlayer treści w liczbie mnogiej są realizowane za pomocą funkcji `plural`, która mapuje kategorie liczby mnogiej CLDR, `zero`, `one`, `two`, `few`, `many`, `other`, do odpowiadającej im treści. Prawidłowa kategoria jest wybierana automatycznie na podstawie aktywnego języka i wartości licznika, przy użyciu wbudowanego w platformę API [`Intl.PluralRules`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Intl/PluralRules).
 
-W przeciwieństwie do [`enu`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/enumeration.md), który wybiera treści na podstawie zdefiniowanych przez Ciebie zakresów liczbowych, `plural` deleguje wybór do reguł CLDR. To właśnie sprawia, że jest on skalowalny dla języków o złożonych regułach pluralizacji — takich jak polski, rosyjski, arabski czy walijski — bez konieczności ręcznego pisania logiki modulo.
+W przeciwieństwie do [`enu`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/enumeration.md), który wybiera treści na podstawie zdefiniowanych przez Ciebie zakresów liczbowych, `plural` deleguje wybór do reguł CLDR. To właśnie sprawia, że jest on skalowalny dla języków o złożonych regułach pluralizacji, takich jak polski, rosyjski, arabski czy walijski, bez konieczności ręcznego pisania logiki modulo.
 
 ## Kiedy używać `plural` vs `enu`
 
@@ -99,7 +99,7 @@ export default openingsContent;
 }
 ```
 
-> Obsługiwane kategorie to `zero`, `one`, `two`, `few`, `many`, `other`. Musisz zadeklarować tylko te kategorie, których używa Twój język docelowy — Intlayer powraca do `other`, gdy żadna konkretna kategoria nie pasuje.
+> Obsługiwane kategorie to `zero`, `one`, `two`, `few`, `many`, `other`. Musisz zadeklarować tylko te kategorie, których używa Twój język docelowy, Intlayer powraca do `other`, gdy żadna konkretna kategoria nie pasuje.
 >
 > Symbol zastępczy `{{count}}` jest automatycznie zastępowany wartością licznika przekazaną w czasie wykonywania. Możesz również dołączyć inne symbole zastępcze (patrz [Niestandardowe symbole zastępcze](#custom-placeholders) poniżej).
 
@@ -181,7 +181,43 @@ Różne języki używają różnych podzbiorów kategorii CLDR. Kilka typowych p
 | Arabski (`ar`)     | `zero`, `one`, `two`, `few`, `many`, `other` |
 | Japoński / Chiński | tylko `other`                                |
 
-Nie musisz tego zapamiętywać — zadeklaruj kategorie, dla których masz tłumaczenia, a Intlayer w razie potrzeby powróci do `other`.
+Nie musisz tego zapamiętywać, zadeklaruj kategorie, dla których masz tłumaczenia, a Intlayer w razie potrzeby powróci do `other`.
+
+## Ograniczenie
+
+W przeciwieństwie do innych węzłów, węzeł `plural` nie może być jeszcze zagnieżdżany z węzłami podrzędnymi.
+
+Przykład:
+
+Prawidłowe:
+
+```ts
+    totalOpenings: t({
+      en: plural({
+        one: "{{count}} opening",
+        other: "{{count}} openings",
+      }),
+      fr: plural({
+        one: "{{count}} offre",
+        other: "{{count}} offres",
+      }),
+    }),
+```
+
+Nieprawidłowe:
+
+```ts
+totalOpenings: plural({
+  one: {
+    en: "{{count}} opening",
+    fr: "{{count}} offre",
+  },
+  other: {
+    en: "{{count}} openings",
+    fr: "{{count}} offres",
+  },
+}),
+```
 
 ## Dodatkowe zasoby
 

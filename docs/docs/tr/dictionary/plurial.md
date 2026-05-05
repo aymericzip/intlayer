@@ -95,7 +95,7 @@ export default openingsContent;
 }
 ```
 
-> Desteklenen kategoriler `zero`, `one`, `two`, `few`, `many`, `other`'dır. Sadece hedef dilinizin kullandığı kategorileri beyan etmeniz yeterlidir — Intlayer, belirli bir kategori eşleşmediğinde `other` kategorisine geri döner.
+> Desteklenen kategoriler `zero`, `one`, `two`, `few`, `many`, `other`'dır. Sadece hedef dilinizin kullandığı kategorileri beyan etmeniz yeterlidir, Intlayer, belirli bir kategori eşleşmediğinde `other` kategorisine geri döner.
 >
 > `{{count}}` yer tutucusu, çalışma zamanında ilettiğiniz sayıyla otomatik olarak değiştirilir. Diğer yer tutucuları da dahil edebilirsiniz (aşağıdaki [Özel yer tutucular](#custom-placeholders) bölümüne bakın).
 
@@ -175,7 +175,43 @@ Farklı diller CLDR kategorilerinin farklı alt kümelerini kullanır. Birkaç y
 | Arapça (`ar`)    | `zero`, `one`, `two`, `few`, `many`, `other` |
 | Japonca / Çince  | sadece `other`                               |
 
-Bunu ezberlemenize gerek yok — çevirilerinizin olduğu kategorileri beyan edin, Intlayer gerektiğinde `other` kategorisine geri dönecektir.
+Bunu ezberlemenize gerek yok, çevirilerinizin olduğu kategorileri beyan edin, Intlayer gerektiğinde `other` kategorisine geri dönecektir.
+
+## Sınırlama
+
+Diğer düğümlere kıyasla, `plural` henüz alt düğümlerle iç içe geçemez.
+
+Örnek:
+
+Geçerli:
+
+```ts
+    totalOpenings: t({
+      en: plural({
+        one: "{{count}} opening",
+        other: "{{count}} openings",
+      }),
+      fr: plural({
+        one: "{{count}} offre",
+        other: "{{count}} offres",
+      }),
+    }),
+```
+
+Geçersiz:
+
+```ts
+totalOpenings: plural({
+  one: {
+    en: "{{count}} opening",
+    fr: "{{count}} offre",
+  },
+  other: {
+    en: "{{count}} openings",
+    fr: "{{count}} offres",
+  },
+}),
+```
 
 ## Ek Kaynaklar
 

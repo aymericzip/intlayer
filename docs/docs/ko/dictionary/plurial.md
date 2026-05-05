@@ -174,6 +174,42 @@ summary({ count: 7, name: "Alice" });
 
 이를 모두 외울 필요는 없습니다. 번역이 있는 범주를 선언하면 Intlayer가 필요할 때 `other`로 폴백합니다.
 
+## 한계
+
+다른 노드와 비교할 때, `plural`은 아직 자식 노드와 중첩될 수 없습니다.
+
+예시:
+
+유효:
+
+```ts
+    totalOpenings: t({
+      en: plural({
+        one: "{{count}} opening",
+        other: "{{count}} openings",
+      }),
+      fr: plural({
+        one: "{{count}} offre",
+        other: "{{count}} offres",
+      }),
+    }),
+```
+
+무효:
+
+```ts
+totalOpenings: plural({
+  one: {
+    en: "{{count}} opening",
+    fr: "{{count}} offre",
+  },
+  other: {
+    en: "{{count}} openings",
+    fr: "{{count}} offres",
+  },
+}),
+```
+
 ## 추가 리소스
 
 설정 및 사용에 대한 자세한 내용은 다음 리소스를 참조하십시오.

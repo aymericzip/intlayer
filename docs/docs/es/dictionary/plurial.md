@@ -28,7 +28,7 @@ history:
 
 ## Cómo funciona el plural
 
-En Intlayer, el contenido en plural se logra a través de la función `plural`, que asigna las categorías de plural de CLDR — `zero`, `one`, `two`, `few`, `many`, `other` — a su contenido correspondiente. La categoría correcta se selecciona automáticamente según la configuración regional activa y un valor de conteo, utilizando la API integrada de la plataforma [`Intl.PluralRules`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Intl/PluralRules).
+En Intlayer, el contenido en plural se logra a través de la función `plural`, que asigna las categorías de plural de CLDR, `zero`, `one`, `two`, `few`, `many`, `other`, a su contenido correspondiente. La categoría correcta se selecciona automáticamente según la configuración regional activa y un valor de conteo, utilizando la API integrada de la plataforma [`Intl.PluralRules`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Intl/PluralRules).
 
 A diferencia de [`enu`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/enumeration.md), que selecciona contenido según rangos numéricos que tú mismo defines, `plural` delega la selección a las reglas de CLDR. Esto es lo que lo hace escalable a idiomas con reglas de pluralización complejas, como el ruso, el polaco, el árabe o el galés, sin tener que escribir manualmente lógica de módulo.
 
@@ -176,6 +176,42 @@ Diferentes idiomas utilizan diferentes subconjuntos de las categorías CLDR. Alg
 | Japonés / Chino | solo `other`                                 |
 
 No necesitas memorizar esto: declara las categorías para las que tienes traducciones e Intlayer recurrirá a `other` cuando sea necesario.
+
+## Limitación
+
+A diferencia de otros nodos, el nodo `plural` aún no se puede imbricar con nodos hijos.
+
+Ejemplo:
+
+Válido:
+
+```ts
+    totalOpenings: t({
+      en: plural({
+        one: "{{count}} opening",
+        other: "{{count}} openings",
+      }),
+      fr: plural({
+        one: "{{count}} offre",
+        other: "{{count}} offres",
+      }),
+    }),
+```
+
+Inválido:
+
+```ts
+totalOpenings: plural({
+  one: {
+    en: "{{count}} opening",
+    fr: "{{count}} offre",
+  },
+  other: {
+    en: "{{count}} openings",
+    fr: "{{count}} offres",
+  },
+}),
+```
 
 ## Recursos adicionales
 

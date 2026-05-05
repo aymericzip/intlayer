@@ -28,9 +28,9 @@ history:
 
 ## Come funziona il plurale
 
-In Intlayer, il contenuto plurale viene ottenuto tramite la funzione `plural`, che mappa le categorie plurali CLDR — `zero`, `one`, `two`, `few`, `many`, `other` — al loro contenuto corrispondente. La categoria corretta viene selezionata automaticamente in base alla locale attiva e a un valore di conteggio, utilizzando l'API integrata nella piattaforma [`Intl.PluralRules`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Intl/PluralRules).
+In Intlayer, il contenuto plurale viene ottenuto tramite la funzione `plural`, che mappa le categorie plurali CLDR, `zero`, `one`, `two`, `few`, `many`, `other`, al loro contenuto corrispondente. La categoria corretta viene selezionata automaticamente in base alla locale attiva e a un valore di conteggio, utilizzando l'API integrata nella piattaforma [`Intl.PluralRules`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Intl/PluralRules).
 
-A differenza di [`enu`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/enumeration.md), che seleziona il contenuto in base a intervalli numerici definiti da te, `plural` delega la selezione alle regole CLDR. Questo è ciò che lo rende scalabile per lingue con regole di pluralizzazione complesse — come il russo, il polacco, l'arabo o il gallese — senza dover scrivere manualmente la logica del modulo.
+A differenza di [`enu`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/enumeration.md), che seleziona il contenuto in base a intervalli numerici definiti da te, `plural` delega la selezione alle regole CLDR. Questo è ciò che lo rende scalabile per lingue con regole di pluralizzazione complesse, come il russo, il polacco, l'arabo o il gallese, senza dover scrivere manualmente la logica del modulo.
 
 ## Quando usare `plural` vs `enu`
 
@@ -95,7 +95,7 @@ export default openingsContent;
 }
 ```
 
-> Le categorie supportate sono `zero`, `one`, `two`, `few`, `many`, `other`. Devi solo dichiarare le categorie utilizzate dalla tua lingua di destinazione — Intlayer torna a `other` quando nessuna categoria specifica corrisponde.
+> Le categorie supportate sono `zero`, `one`, `two`, `few`, `many`, `other`. Devi solo dichiarare le categorie utilizzate dalla tua lingua di destinazione, Intlayer torna a `other` quando nessuna categoria specifica corrisponde.
 >
 > Il segnaposto `{{count}}` viene sostituito automaticamente con il conteggio passato in fase di esecuzione. Puoi includere anche altri segnaposto (vedi [Segnaposto personalizzati](#custom-placeholders) sotto).
 
@@ -175,7 +175,43 @@ Lingue diverse utilizzano diversi sottoinsiemi delle categorie CLDR. Alcuni casi
 | Arabo (`ar`)        | `zero`, `one`, `two`, `few`, `many`, `other` |
 | Giapponese / Cinese | solo `other`                                 |
 
-Non è necessario memorizzarlo — dichiara le categorie per le quali hai traduzioni e Intlayer tornerà a `other` quando necessario.
+Non è necessario memorizzarlo, dichiara le categorie per le quali hai traduzioni e Intlayer tornerà a `other` quando necessario.
+
+## Limitazione
+
+A differenza di altri nodi, il nodo `plural` non può ancora essere nidificato con nodi figli.
+
+Esempio:
+
+Valido:
+
+```ts
+    totalOpenings: t({
+      en: plural({
+        one: "{{count}} opening",
+        other: "{{count}} openings",
+      }),
+      fr: plural({
+        one: "{{count}} offre",
+        other: "{{count}} offres",
+      }),
+    }),
+```
+
+Non valido:
+
+```ts
+totalOpenings: plural({
+  one: {
+    en: "{{count}} opening",
+    fr: "{{count}} offre",
+  },
+  other: {
+    en: "{{count}} openings",
+    fr: "{{count}} offres",
+  },
+}),
+```
 
 ## Risorse aggiuntive
 
