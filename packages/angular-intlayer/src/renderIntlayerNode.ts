@@ -24,8 +24,17 @@ export const renderIntlayerNode = <
   if (children == null) {
     return new Proxy({} as any, {
       get(target, prop, receiver) {
-        if (prop === 'value') {
-          return value;
+        if (prop === 'value') return value;
+        if (prop === Symbol.toPrimitive) return () => value ?? '';
+        if (prop === 'toString') return () => String(value ?? '');
+        if (prop === 'valueOf') return () => value;
+        if (
+          typeof value === 'string' &&
+          typeof prop === 'string' &&
+          prop !== 'constructor'
+        ) {
+          const method = (String.prototype as any)[prop];
+          if (typeof method === 'function') return method.bind(value);
         }
 
         if (
@@ -60,15 +69,16 @@ export const renderIntlayerNode = <
         return value;
       }
 
-      if (prop === 'toString') {
-        return () => {
-          // console.log('renderIntlayerNode toString called for:', value);
-          return String(value);
-        };
-      }
-
-      if (prop === Symbol.toPrimitive) {
-        return () => value;
+      if (prop === Symbol.toPrimitive) return () => value ?? '';
+      if (prop === 'toString') return () => String(value ?? '');
+      if (prop === 'valueOf') return () => value;
+      if (
+        typeof value === 'string' &&
+        typeof prop === 'string' &&
+        prop !== 'constructor'
+      ) {
+        const method = (String.prototype as any)[prop];
+        if (typeof method === 'function') return method.bind(value);
       }
 
       if (

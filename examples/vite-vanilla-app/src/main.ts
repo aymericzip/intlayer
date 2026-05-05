@@ -12,8 +12,8 @@ import { setupLocaleSwitcher } from './locale-switcher';
 import './style.css';
 
 const setupApp = async () => {
-  const content = useIntlayer('app');
-  const bm = useIntlayer('benchmark');
+  let content = useIntlayer('app');
+  let bm = useIntlayer('benchmark');
   let count = 0;
 
   const appElement = document.querySelector<HTMLDivElement>('#app')!;
@@ -31,174 +31,174 @@ const setupApp = async () => {
   type Row = { name: string; desc: string; result: any };
   type Section = { label: string; rows: Row[] };
 
-  const sections: Section[] = [
-    {
-      label: 'Content Nodes',
-      rows: [
-        { name: 't()', desc: 'Simple translation', result: bm.n01_t },
-        {
-          name: 'enu() −2',
-          desc: "count=-2 → '<-1'",
-          result: bm.n02_enu(-2),
-        },
-        {
-          name: 'enu() 0',
-          desc: "count=0 → '0'",
-          result: bm.n02_enu(0),
-        },
-        {
-          name: 'enu() 1',
-          desc: "count=1 → '1'",
-          result: bm.n02_enu(1),
-        },
-        {
-          name: 'enu() 7',
-          desc: "count=7 → '>5'",
-          result: bm.n02_enu(7),
-        },
-        {
-          name: 'enu() 25',
-          desc: "count=25 → '>19'",
-          result: bm.n02_enu(25),
-        },
-        {
-          name: 'cond() true',
-          desc: 'condition=true',
-          result: bm.n03_cond(true),
-        },
-        {
-          name: 'cond() false',
-          desc: 'condition=false',
-          result: bm.n03_cond(false),
-        },
-        {
-          name: "gender() 'male'",
-          desc: "gender='male'",
-          result: bm.n04_gender('male'),
-        },
-        {
-          name: "gender() 'female'",
-          desc: "gender='female'",
-          result: bm.n04_gender('female'),
-        },
-        {
-          name: 'insert()',
-          desc: "{name:'Alice', age:30}",
-          result: bm.n05_insert({ name: 'Alice', age: 30 }),
-        },
-        { name: 'md()', desc: 'Markdown string', result: bm.n06_md },
-        { name: 'html()', desc: 'HTML string', result: bm.n07_html },
-        {
-          name: 'plural() 1',
-          desc: "count=1 → 'one'",
-          result: bm.n22_plural(1),
-        },
-        {
-          name: 'plural() 5',
-          desc: "count=5 → 'other'",
-          result: bm.n22_plural(5),
-        },
-      ],
-    },
-    {
-      label: 'Combinations',
-      rows: [
-        {
-          name: 'insert(t())',
-          desc: "{name:'Alice', place:'Paris'}",
-          result: bm.n08_insert_t({ name: 'Alice', place: 'Paris' }),
-        },
-        {
-          name: 'enu(t()) 2',
-          desc: 'count=2',
-          result: bm.n11_enu_t(2),
-        },
-        {
-          name: 'insert(enu(t()))',
-          desc: '{count:3,name:"Alice"}(3)',
-          result: undefined,
-          // result: bm.n12_insert_enu_t({ count: 3, name: 'Alice' })(3),
-        },
-        {
-          name: 'cond(t()) true',
-          desc: 'true',
-          result: bm.n13_cond_t(true),
-        },
-        {
-          name: 'cond(insert(t()))',
-          desc: "true · {name:'Alice'}",
-          result: bm.n14_cond_insert_t(true)?.({ name: 'Alice' }),
-        },
-        {
-          name: 'gender(insert(t()))',
-          desc: "female · {name:'Alice'}",
-          result: bm.n15_gender_insert_t('female')?.({
-            name: 'Alice',
-          }),
-        },
-      ],
-    },
-    {
-      label: 'Data Structures',
-      rows: [
-        {
-          name: 'nested object',
-          desc: 'obj.level1.level2',
-          result: bm.n17_nested_object.level1.level2,
-        },
-        {
-          name: "array ['string']",
-          desc: "['item1','item2','item3']",
-          result: bm.n18_array_strings,
-        },
-        {
-          name: 'array [t()]',
-          desc: 'Array of translations',
-          result: bm.n19_array_translations,
-        },
-        {
-          name: 'array [{obj}]',
-          desc: 'Array of {name,role}',
-          result: bm.n20_array_objects
-            .map((o) => `${o.name.value} (${o.role.value})`)
-            .join(' · '),
-        },
-        {
-          name: "nest('app','title')",
-          desc: 'Cross-dict reference',
-          result: bm.n21_nest,
-        },
-      ],
-    },
-    {
-      label: 'Formatters',
-      rows: [
-        { name: 'number()', desc: '123456.789', result: number(123456.789) },
-        { name: 'percentage()', desc: '0.25', result: percentage(0.25) },
-        {
-          name: 'currency()',
-          desc: '1234.5, EUR',
-          result: currency(1234.5, { currency: 'EUR' }),
-        },
-        { name: 'date()', desc: 'now, short', result: date(now, 'short') },
-        {
-          name: 'relativeTime()',
-          desc: 'now → +3 days',
-          result: relativeTime(now, in3Days, { unit: 'day' }),
-        },
-        {
-          name: 'units()',
-          desc: '5, kilometer, long',
-          result: units(5, { unit: 'kilometer', unitDisplay: 'long' }),
-        },
-        { name: 'compact()', desc: '1200', result: compact(1200) },
-      ],
-    },
-  ];
-
   let globalRowIdx = 0;
-  const buildSections = () =>
-    sections
+  const buildSections = () => {
+    const sections: Section[] = [
+      {
+        label: 'Content Nodes',
+        rows: [
+          { name: 't()', desc: 'Simple translation', result: bm.n01_t },
+          {
+            name: 'enu() −2',
+            desc: "count=-2 → '<-1'",
+            result: bm.n02_enu(-2),
+          },
+          {
+            name: 'enu() 0',
+            desc: "count=0 → '0'",
+            result: bm.n02_enu(0),
+          },
+          {
+            name: 'enu() 1',
+            desc: "count=1 → '1'",
+            result: bm.n02_enu(1),
+          },
+          {
+            name: 'enu() 7',
+            desc: "count=7 → '>5'",
+            result: bm.n02_enu(7),
+          },
+          {
+            name: 'enu() 25',
+            desc: "count=25 → '>19'",
+            result: bm.n02_enu(25),
+          },
+          {
+            name: 'cond() true',
+            desc: 'condition=true',
+            result: bm.n03_cond(true),
+          },
+          {
+            name: 'cond() false',
+            desc: 'condition=false',
+            result: bm.n03_cond(false),
+          },
+          {
+            name: "gender() 'male'",
+            desc: "gender='male'",
+            result: bm.n04_gender('male'),
+          },
+          {
+            name: "gender() 'female'",
+            desc: "gender='female'",
+            result: bm.n04_gender('female'),
+          },
+          {
+            name: 'insert()',
+            desc: "{name:'Alice', age:30}",
+            result: bm.n05_insert({ name: 'Alice', age: 30 }),
+          },
+          { name: 'md()', desc: 'Markdown string', result: bm.n06_md },
+          { name: 'html()', desc: 'HTML string', result: bm.n07_html },
+          {
+            name: 'plural() 1',
+            desc: "count=1 → 'one'",
+            result: bm.n22_plural(1),
+          },
+          {
+            name: 'plural() 5',
+            desc: "count=5 → 'other'",
+            result: bm.n22_plural(5),
+          },
+        ],
+      },
+      {
+        label: 'Combinations',
+        rows: [
+          {
+            name: 'insert(t())',
+            desc: "{name:'Alice', place:'Paris'}",
+            result: bm.n08_insert_t({ name: 'Alice', place: 'Paris' }),
+          },
+          {
+            name: 'enu(t()) 2',
+            desc: 'count=2',
+            result: bm.n11_enu_t(2),
+          },
+          {
+            name: 'insert(enu(t()))',
+            desc: '{count:3,name:"Alice"}(3)',
+            result: undefined,
+            // result: bm.n12_insert_enu_t({ count: 3, name: 'Alice' })(3),
+          },
+          {
+            name: 'cond(t()) true',
+            desc: 'true',
+            result: bm.n13_cond_t(true),
+          },
+          {
+            name: 'cond(insert(t()))',
+            desc: "true · {name:'Alice'}",
+            result: bm.n14_cond_insert_t(true)?.({ name: 'Alice' }),
+          },
+          {
+            name: 'gender(insert(t()))',
+            desc: "female · {name:'Alice'}",
+            result: bm.n15_gender_insert_t('female')?.({
+              name: 'Alice',
+            }),
+          },
+        ],
+      },
+      {
+        label: 'Data Structures',
+        rows: [
+          {
+            name: 'nested object',
+            desc: 'obj.level1.level2',
+            result: bm.n17_nested_object.level1.level2,
+          },
+          {
+            name: "array ['string']",
+            desc: "['item1','item2','item3']",
+            result: bm.n18_array_strings,
+          },
+          {
+            name: 'array [t()]',
+            desc: 'Array of translations',
+            result: bm.n19_array_translations,
+          },
+          {
+            name: 'array [{obj}]',
+            desc: 'Array of {name,role}',
+            result: bm.n20_array_objects
+              .map((o) => `${o.name.value} (${o.role.value})`)
+              .join(' · '),
+          },
+          {
+            name: "nest('app','title')",
+            desc: 'Cross-dict reference',
+            result: bm.n21_nest,
+          },
+        ],
+      },
+      {
+        label: 'Formatters',
+        rows: [
+          { name: 'number()', desc: '123456.789', result: number(123456.789) },
+          { name: 'percentage()', desc: '0.25', result: percentage(0.25) },
+          {
+            name: 'currency()',
+            desc: '1234.5, EUR',
+            result: currency(1234.5, { currency: 'EUR' }),
+          },
+          { name: 'date()', desc: 'now, short', result: date(now, 'short') },
+          {
+            name: 'relativeTime()',
+            desc: 'now → +3 days',
+            result: relativeTime(now, in3Days, { unit: 'day' }),
+          },
+          {
+            name: 'units()',
+            desc: '5, kilometer, long',
+            result: units(5, { unit: 'kilometer', unitDisplay: 'long' }),
+          },
+          { name: 'compact()', desc: '1200', result: compact(1200) },
+        ],
+      },
+    ];
+
+    return sections
       .map(
         (section) => `
       <tr style="background:rgba(255,255,255,0.04)">
@@ -219,6 +219,7 @@ const setupApp = async () => {
     `
       )
       .join('');
+  };
 
   const render = () => {
     globalRowIdx = 0;
@@ -263,6 +264,14 @@ const setupApp = async () => {
   };
 
   render();
+
+  bm.onChange((newBm) => {
+    bm = newBm as typeof bm;
+  });
+  content.onChange((newContent) => {
+    content = newContent as typeof content;
+    render();
+  });
 };
 
 setupApp();

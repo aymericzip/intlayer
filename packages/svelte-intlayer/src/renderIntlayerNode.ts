@@ -53,10 +53,36 @@ export const renderIntlayerNode = <T = any, P = Record<string, any>>(
   });
 
   Object.defineProperty(Node, 'toString', {
-    value: () => args.value?.toString() ?? '',
+    value: () => String(args.value ?? ''),
     writable: true,
     configurable: true,
   });
+
+  Object.defineProperty(Node, 'valueOf', {
+    value: () => args.value,
+    writable: true,
+    configurable: true,
+  });
+
+  Object.defineProperty(Node, Symbol.toPrimitive, {
+    value: () => args.value ?? '',
+    writable: true,
+    configurable: true,
+  });
+
+  if (typeof args.value === 'string' && args.additionalProps === undefined) {
+    for (const prop of Object.getOwnPropertyNames(String.prototype)) {
+      if (prop === 'constructor' || prop in Node) continue;
+      const method = (String.prototype as any)[prop];
+      if (typeof method === 'function') {
+        Object.defineProperty(Node, prop, {
+          value: method.bind(args.value),
+          writable: true,
+          configurable: true,
+        });
+      }
+    }
+  }
 
   if (args.additionalProps) {
     Object.assign(Node, args.additionalProps);
