@@ -356,17 +356,17 @@ export const markdownStringPlugin: Plugins =
 
           return new Proxy(element, {
             get(target, prop, receiver) {
-              if (prop === 'value') {
-                return node;
+              if (prop === 'value') return node;
+              if (prop === Symbol.toPrimitive) return () => node;
+              if (prop === 'toString') return () => node;
+              if (prop === 'valueOf') return () => node;
+              if (typeof prop === 'string' && prop !== 'constructor') {
+                const method = (String.prototype as any)[prop];
+                if (typeof method === 'function') return method.bind(node);
               }
-              if (prop === 'metadata') {
-                return metadataNodes;
-              }
-
-              if (prop === 'use') {
+              if (prop === 'metadata') return metadataNodes;
+              if (prop === 'use')
                 return (components?: HTMLComponents) => render(components);
-              }
-
               return Reflect.get(target, prop, receiver);
             },
           }) as any;
@@ -484,16 +484,17 @@ export const htmlPlugin: Plugins =
 
           return new Proxy(element, {
             get(target, prop, receiver) {
-              if (prop === 'value') {
-                return html;
+              if (prop === 'value') return html;
+              if (prop === Symbol.toPrimitive) return () => html;
+              if (prop === 'toString') return () => html;
+              if (prop === 'valueOf') return () => html;
+              if (typeof prop === 'string' && prop !== 'constructor') {
+                const method = (String.prototype as any)[prop];
+                if (typeof method === 'function') return method.bind(html);
               }
-
-              if (prop === 'use') {
-                // Return a properly typed function based on custom components
+              if (prop === 'use')
                 return (userComponents?: HTMLComponents) =>
                   render(userComponents);
-              }
-
               return Reflect.get(target, prop, receiver);
             },
           }) as any;

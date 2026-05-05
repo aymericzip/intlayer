@@ -44,16 +44,20 @@ export const renderIntlayerNode = <
         return value;
       }
 
-      if (prop === 'toString') {
-        return () => String(value);
-      }
-
-      if (prop === Symbol.toPrimitive) {
+      if (prop === Symbol.toPrimitive)
         return (hint: string) => {
-          if (hint === 'string') return String(value);
           if (hint === 'number') return Number(value);
-          return value;
+          return value ?? '';
         };
+      if (prop === 'toString') return () => String(value ?? '');
+      if (prop === 'valueOf') return () => value;
+      if (
+        typeof value === 'string' &&
+        typeof prop === 'string' &&
+        prop !== 'constructor'
+      ) {
+        const method = (String.prototype as any)[prop];
+        if (typeof method === 'function') return method.bind(value);
       }
 
       return Reflect.get(target, prop, receiver);

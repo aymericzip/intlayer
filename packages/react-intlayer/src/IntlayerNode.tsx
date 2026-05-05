@@ -39,6 +39,17 @@ export const renderIntlayerNode = <
   return new Proxy(element as ReactElement, {
     get(target, prop, receiver) {
       if (prop === 'value') return value;
+      if (prop === Symbol.toPrimitive) return () => value ?? '';
+      if (prop === 'toString') return () => String(value ?? '');
+      if (prop === 'valueOf') return () => value;
+      if (
+        typeof value === 'string' &&
+        typeof prop === 'string' &&
+        prop !== 'constructor'
+      ) {
+        const method = (String.prototype as any)[prop];
+        if (typeof method === 'function') return method.bind(value);
+      }
 
       if (additionalProps && prop in additionalProps) {
         return additionalProps[prop as keyof typeof additionalProps];
