@@ -207,7 +207,7 @@ export const BlogNavList: FC<BlogNavListProps> = ({
 
   return (
     <ClickOutsideDiv
-      className="top-0 left-0 z-10 flex h-full justify-end max-md:fixed"
+      className="top-0 left-0 z-40 flex h-full justify-end max-md:fixed"
       onClickOutSide={() => {
         if (isMobile) {
           setIsHidden(true);

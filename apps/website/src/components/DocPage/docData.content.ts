@@ -319,7 +319,7 @@ const docDataContent: Dictionary = {
                 id: 'Plural',
                 vi: 'Số nhiều',
               }),
-              default: getDocMetadata('./docs/en/dictionary/plural.md'),
+              default: getDocMetadata('./docs/en/dictionary/plurial.md'),
             },
             enumeration: {
               title: t({

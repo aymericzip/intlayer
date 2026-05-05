@@ -26,7 +26,7 @@ export const DocPageLayout: FC<DocPageLayoutProps> = ({
   return (
     <Suspense fallback={<></>}>
       <div className="flex max-w-screen flex-1 bg-card max-md:flex-col">
-        <aside className="z-10 flex-none">
+        <aside className="z-40 flex-none">
           <DocNavList docData={docData} activeSlugs={['doc', ...activeSlugs]} />
         </aside>
         <div className="flex flex-1 flex-row">

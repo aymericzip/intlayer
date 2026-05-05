@@ -23,7 +23,7 @@ export const BlogPageLayout: FC<BlogPageLayoutProps> = ({
   return (
     <Suspense fallback={<></>}>
       <div className="flex max-w-screen flex-1 bg-card max-md:flex-col">
-        <aside className="z-10 flex-none">
+        <aside className="z-40 flex-none">
           <BlogNavList
             blogData={blogData}
             activeSlugs={['blog', ...activeSlugs]}
