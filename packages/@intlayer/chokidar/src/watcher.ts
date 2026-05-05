@@ -9,6 +9,7 @@ import {
 } from '@intlayer/config/node';
 import {
   clearAllCache,
+  clearDiskCacheMemory,
   clearModuleCache,
   normalizePath,
 } from '@intlayer/config/utils';
@@ -28,31 +29,27 @@ const pendingUnlinks = new Map<
   { timer: NodeJS.Timeout; oldPath: string }
 >();
 
-// Mutex-based task queue for sequential file event processing
-let processingLock: Promise<void> | null = null;
-const processEvent = (task: () => Promise<void>) => {
-  const run = async () => {
-    // Wait for the previous task to finish
-    while (processingLock) {
-      await processingLock;
-    }
+// Array-based sequential task queue — no Promise chain accumulation, no race conditions
+const taskQueue: (() => Promise<void>)[] = [];
+let isProcessing = false;
 
-    let resolve: () => void;
-    processingLock = new Promise<void>((r) => {
-      resolve = r;
-    });
-
+const processQueue = async () => {
+  if (isProcessing) return;
+  isProcessing = true;
+  while (taskQueue.length > 0) {
+    const task = taskQueue.shift()!;
     try {
       await task();
     } catch (error) {
       console.error(error);
-    } finally {
-      processingLock = null;
-      resolve!();
     }
-  };
+  }
+  isProcessing = false;
+};
 
-  run();
+const processEvent = (task: () => Promise<void>) => {
+  taskQueue.push(task);
+  processQueue();
 };
 
 type WatchOptions = ChokidarOptions & {
@@ -209,6 +206,9 @@ export const watch = (options?: WatchOptions) => {
         } else {
           // Clear module cache for the changed file to avoid stale require() results
           clearModuleCache(filePath);
+          // Evict in-memory caches so loadContentDeclaration picks up fresh content
+          clearAllCache();
+          clearDiskCacheMemory();
           await handleContentDeclarationFileChange(filePath, configuration);
         }
       })
