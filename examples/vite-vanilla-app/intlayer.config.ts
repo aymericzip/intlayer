@@ -11,7 +11,6 @@ const config: IntlayerConfig = {
     editorURL: 'http://localhost:8000',
   },
   build: {
-    optimize: true,
     minify: true,
     purge: true,
   },

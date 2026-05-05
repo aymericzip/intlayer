@@ -70,6 +70,7 @@ export const watch = (options?: WatchOptions) => {
     watch: isWatchMode,
     fileExtensions,
     contentDir,
+    excludedPath,
   } = configuration.content;
 
   const watchedFilesPatternWithPath = fileExtensions.flatMap((ext) =>
@@ -90,7 +91,7 @@ export const watch = (options?: WatchOptions) => {
   if (configuration.build.optimize === true) {
     appLogger(
       [
-        'Build optimization is forced to true, but watching is enabled too.',
+        `Build optimization is forced to ${colorize('true', ANSIColor.GREY)}, but watching is enabled too.`,
         'It may lead to dev mode performance degradation as well as import errors.',
         'Its recommended to keep the',
         colorize('`build.optimized`', ANSIColor.BLUE),
@@ -111,12 +112,7 @@ export const watch = (options?: WatchOptions) => {
       stabilityThreshold: 1000,
       pollInterval: 100,
     },
-    ignored: [
-      '**/node_modules/**',
-      '**/dist/**',
-      '**/build/**',
-      '**/.intlayer/**',
-    ],
+    ignored: excludedPath,
     ...options,
   })
     .on('add', async (filePath) => {
