@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-12-30
-updatedAt: 2025-12-30
+updatedAt: 2026-05-06
 title: Fastify i18n - كيفية ترجمة تطبيق Fastify في 2026
 description: اكتشف كيفية جعل خادم Fastify الخاص بك متعدد اللغات. اتبع الوثائق لتدويل (i18n) وترجمته.
 keywords:
@@ -16,6 +16,9 @@ slugs:
   - fastify
 applicationTemplate: https://github.com/aymericzip/intlayer-fastify-template
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "تحديث استخدام واجهة برمجة تطبيقات useIntlayer في Solid للوصول المباشر إلى الخصائص"
   - version: 7.6.0
     date: 2025-12-31
     changes: "إضافة أمر init"

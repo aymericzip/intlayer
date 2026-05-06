@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-10
-updatedAt: 2026-01-10
+updatedAt: 2026-05-06
 title: Next.js i18n - Wie Sie eine Next.js 16 App übersetzen (ohne [locale] im Pfad) in 2026
 description: Erfahren Sie, wie Sie Ihre Next.js 16-Website mehrsprachig machen, ohne [locale] im Seitenpfad. Folgen Sie der Dokumentation, um sie zu internationalisieren (i18n) und zu übersetzen.
 keywords:
@@ -18,6 +18,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-next-no-lolale-path-template
 youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Aktualisieren der Solid useIntlayer API-Nutzung auf direkten Eigenschaftszugriff"
   - version: 8.0.0
     date: 2026-01-10
     changes: "Erstveröffentlichung"
@@ -443,6 +446,8 @@ export const ServerComponentExample: FC = () => {
 
 > ```jsx
 > <img src={content.image.src.value} alt={content.image.value} />
+> <img src={content.image.src.toString()} alt={content.image.toString()} />
+> <img src={String(content.image.src)} alt={String(content.image)} />
 > ```
 
 > Weitere Informationen zum `useIntlayer`-Hook finden Sie in der [Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/next-intlayer/useIntlayer.md).

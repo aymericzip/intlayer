@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-03-31
-updatedAt: 2026-03-31
+updatedAt: 2026-05-06
 title: Vanilla JS i18n - ২০২৬ সালে কীভাবে একটি Vanilla JS অ্যাপ অনুবাদ করবেন
 description: কীভাবে আপনার Vanilla JS ওয়েবসাইটকে বহুভাষিক করবেন তা আবিষ্কার করুন। এটিকে আন্তর্জাতিকীকরণ (i18n) এবং অনুবাদ করতে ডকুমেন্টেশন অনুসরণ করুন।
 keywords:
@@ -18,6 +18,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-vanilla-template
 applicationShowcase: https://intlayer-vanilla-template.vercel.app
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "সলিড useIntlayer API ব্যবহার সরাসরি প্রপার্টি অ্যাক্সেসে আপডেট করুন"
   - version: 8.4.10
     date: 2026-03-31
     changes: "ইতিহাস শুরু"

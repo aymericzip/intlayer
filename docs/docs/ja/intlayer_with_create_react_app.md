@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-12-30
+updatedAt: 2026-05-06
 title: Create React App i18n - Reactアプリの翻訳方法 2026
 description: Create React App (CRA) を使用したウェブサイトを多言語化する方法を見つけましょう。国際化（i18n）して翻訳するためにドキュメントに従ってください。
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - create-react-app
 applicationTemplate: https://github.com/aymericzip/intlayer-react-cra-template
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Solid の useIntlayer API の使用法を直接プロパティアクセスに更新"
   - version: 7.5.9
     date: 2025-12-30
     changes: "initコマンドを追加"
@@ -204,10 +207,12 @@ const App: FC = () => (
 export default App;
 ```
 
-> 注意: `alt`、`title`、`href`、`aria-label`などの`string`属性でコンテンツを使用したい場合は、関数の値を呼び出す必要があります。例：
+> 注意: `alt`、`title`、`href`、`aria-label`などの`string`属性でコンテンツを使用したい場合は、関数の値を使用できます。例：
 
 > ```jsx
 > <img src={content.image.src.value} alt={content.image.value} />
+> <img src={content.image.src.toString()} alt={content.image.toString()} />
+> <img src={String(content.image.src)} alt={String(content.image)} />
 > ```
 >
 > `useIntlayer`フックの詳細については、[ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/react-intlayer/useIntlayer.md)を参照してください。

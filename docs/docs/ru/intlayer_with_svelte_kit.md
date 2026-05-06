@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-11-20
-updatedAt: 2026-03-12
+updatedAt: 2026-05-06
 title: SvelteKit i18n - Как перевести приложение SvelteKit в 2026
 description: Узнайте, как сделать ваш сайт на SvelteKit многоязычным. Следуйте документации по интернационализации (i18n) и переводу с использованием серверного рендеринга (SSR).
 keywords:
@@ -17,6 +17,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-sveltekit-template
 applicationShowcase: https://intlayer-sveltekit-template.vercel.app
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Обновление использования API useIntlayer в Solid для прямого доступа к свойствам"
   - version: 7.5.9
     date: 2025-12-30
     changes: "Добавить команду init"
@@ -203,7 +206,7 @@ export default heroContent;
 
 > **Примечание:** `useIntlayer` возвращает Svelte store, поэтому для доступа к его реактивному значению нужно использовать префикс `---
 > createdAt: 2025-11-20
-> updatedAt: 2026-03-12
+> updatedAt: 2026-05-06
 > title: Как перевести ваше приложение SvelteKit – руководство по i18n 2026
 > description: Узнайте, как сделать ваш сайт на SvelteKit многоязычным. Следуйте документации по интернационализации (i18n) и переводу с использованием серверного рендеринга (SSR).
 > keywords:
@@ -391,6 +394,8 @@ export default heroContent;
 <h1>{@const Title = $content.title}<Title /></h1>
 <!-- Для отображения содержимого в виде строки -->
 <div aria-label={$content.title.value}></div>
+<div aria-label={$content.title.toString()}></div>
+<div aria-label={String($content.title)}></div>
 ```
 
 ### (Необязательно) Шаг 6: Настройка маршрутизации

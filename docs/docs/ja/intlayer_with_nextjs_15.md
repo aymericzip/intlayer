@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-12-06
-updatedAt: 2025-12-30
+updatedAt: 2026-05-06
 title: Next.js i18n - Next.js 15アプリの翻訳方法 2026
 description: Next.js 15 ウェブサイトを多言語対応にする方法をご紹介します。国際化（i18n）と翻訳のためのドキュメントに従ってください。
 keywords:
@@ -19,6 +19,9 @@ applicationTemplate: https://github.com/aymericzip/intlayer-next-15-template
 applicationShowcase: https://next-15-intlayer-template-xt83.vercel.app
 youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Solid の useIntlayer API の使用法を直接プロパティアクセスに更新"
   - version: 7.5.9
     date: 2025-12-30
     changes: "initコマンドを追加"
@@ -366,10 +369,12 @@ export const ServerComponentExample: FC = () => {
 };
 ```
 
-> コンテンツを `alt`、`title`、`href`、`aria-label` などの `string` 属性で使用したい場合は、関数の値を呼び出す必要があります。例：
+> コンテンツを `alt`、`title`、`href`、`aria-label` などの `string` 属性で使用したい場合は、関数の値を使用できます。例：
 
 > ```jsx
 > <img src={content.image.src.value} alt={content.image.value} />
+> <img src={content.image.src.toString()} alt={content.image.toString()} />
+> <img src={String(content.image.src)} alt={String(content.image)} />
 > ```
 
 > `useIntlayer` フックの詳細については、[ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/next-intlayer/useIntlayer.md)を参照してください。

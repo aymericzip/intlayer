@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-03-09
-updatedAt: 2025-12-30
+updatedAt: 2026-05-06
 title: Lynx + React i18n - Как перевести приложение Lynx в 2026
 description: Узнайте, как сделать ваше мобильное приложение Lynx и React многоязычным. Следуйте документации для интернационализации (i18n) и перевода.
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - lynx-and-react
 applicationTemplate: https://github.com/aymericzip/intlayer-lynx-template
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Обновление использования API useIntlayer в Solid для прямого доступа к свойствам"
   - version: 7.5.9
     date: 2025-12-30
     changes: "Добавить команду init"

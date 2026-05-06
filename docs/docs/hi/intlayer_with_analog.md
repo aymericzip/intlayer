@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2025-12-30
+updatedAt: 2026-05-06
 title: Analog i18n - Analog ऐप का अनुवाद कैसे करें 2026 में
 description: जानें कि अपने Analog ऐप को बहुभाषी कैसे बनाया जाए। इसे अंतरराष्ट्रीयकरण (i18n) और अनुवाद करने के लिए दस्तावेज़ का पालन करें।
 keywords:
@@ -17,9 +17,12 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-analog-template
 applicationShowcase: https://intlayer-analog-template.vercel.app
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "सॉलिड useIntlayer API उपयोग को सीधे प्रॉपर्टी एक्सेस में अपडेट करें"
   - version: 8.0.4
     date: 2026-01-26
-    changes: "Init history"
+    changes: "प्रारंभिक इतिहास"
 ---
 
 # Intlayer का उपयोग करके अपने Analog (Angular) ऐप का अनुवाद करें | अंतरराष्ट्रीयकरण (i18n)

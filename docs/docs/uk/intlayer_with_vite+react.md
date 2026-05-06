@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2026-03-12
+updatedAt: 2026-05-06
 title: Vite + React i18n - Як перекласти додаток React у 2026
 description: Дізнайтеся, як додати інтернаціоналізацію (i18n) до вашого додатка на Vite і React за допомогою Intlayer. Дотримуйтеся цього посібника, щоб зробити ваш додаток багатомовним.
 keywords:
@@ -19,6 +19,9 @@ applicationTemplate: https://github.com/aymericzip/intlayer-vite-react-template
 applicationShowcase: https://intlayer-vite-react-template.vercel.app
 youtubeVideo: https://www.youtube.com/watch?v=dS9L7uJeak4
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Оновлення використання API useIntlayer у Solid для прямого доступу до властивостей"
   - version: 7.5.9
     date: 2025-12-30
     changes: "Додано команду init"
@@ -351,6 +354,8 @@ export default App;
 
 > ```jsx
 > <img src={content.image.src.value} alt={content.image.value} />
+> <img src={content.image.src.toString()} alt={content.image.toString()} />
+> <img src={String(content.image.src)} alt={String(content.image)} />
 > ```
 
 > Щоб дізнатися більше про хук `useIntlayer`, зверніться до [документації](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/react-intlayer/useIntlayer.md).

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-11-20
-updatedAt: 2026-03-12
+updatedAt: 2026-05-06
 title: SvelteKit i18n - Cách dịch ứng dụng SvelteKit năm 2026
 description: Khám phá cách làm cho trang web SvelteKit của bạn đa ngôn ngữ. Theo dõi tài liệu để quốc tế hóa (i18n) và dịch nó bằng cách sử dụng Server-Side Rendering (SSR).
 keywords:
@@ -17,6 +17,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-sveltekit-template
 applicationShowcase: https://intlayer-sveltekit-template.vercel.app
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Cập nhật cách sử dụng API useIntlayer của Solid sang truy cập thuộc tính trực tiếp"
   - version: 7.5.9
     date: 2025-12-30
     changes: "Thêm lệnh init"
@@ -203,7 +206,7 @@ Bây giờ bạn có thể sử dụng hàm `useIntlayer` trong bất kỳ compo
 
 > **Lưu ý:** `useIntlayer` trả về một store của Svelte, vì vậy bạn cần sử dụng tiền tố `---
 > createdAt: 2025-11-20
-> updatedAt: 2026-03-12
+> updatedAt: 2026-05-06
 > title: Cách dịch ứng dụng SvelteKit của bạn – hướng dẫn i18n 2026
 > description: Khám phá cách làm cho trang web SvelteKit của bạn đa ngôn ngữ. Theo dõi tài liệu để quốc tế hóa (i18n) và dịch nó bằng cách sử dụng Server-Side Rendering (SSR).
 > keywords:
@@ -391,6 +394,8 @@ export default heroContent;
 <h1>{@const Title = $content.title}<Title /></h1>
 <!-- Để render nội dung dưới dạng chuỗi -->
 <div aria-label={$content.title.value}></div>
+<div aria-label={$content.title.toString()}></div>
+<div aria-label={String($content.title)}></div>
 ```
 
 ### (Tùy chọn) Bước 6: Thiết lập routing

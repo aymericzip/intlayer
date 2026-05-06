@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-12-30
+updatedAt: 2026-05-06
 title: Express i18n - Як перекласти додаток Express у 2026
 description: Дізнайтеся, як зробити ваш бекенд на Express багатомовним. Дотримуйтесь документації, щоб інтернаціоналізувати (i18n) та перекласти його.
 keywords:
@@ -16,6 +16,9 @@ slugs:
   - express
 applicationTemplate: https://github.com/aymericzip/intlayer-express-template
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Оновлення використання API useIntlayer у Solid для прямого доступу до властивостей"
   - version: 7.5.9
     date: 2025-12-30
     changes: "Додано команду init"

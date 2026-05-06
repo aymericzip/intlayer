@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-11-20
-updatedAt: 2026-03-12
+updatedAt: 2026-05-06
 title: SvelteKit i18n - SvelteKitアプリの翻訳方法 2026
 description: SvelteKitのウェブサイトを多言語対応にする方法を紹介します。Server-Side Rendering（SSR）を使って国際化（i18n）および翻訳を行うためのドキュメントに従ってください。
 keywords:
@@ -17,6 +17,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-sveltekit-template
 applicationShowcase: https://intlayer-sveltekit-template.vercel.app
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Solid の useIntlayer API の使用法を直接プロパティアクセスに更新"
   - version: 7.5.9
     date: 2025-12-30
     changes: "initコマンドを追加"

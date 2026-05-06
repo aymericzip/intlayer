@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2026-04-24
+updatedAt: 2026-05-06
 title: Astro + React i18n - Cómo traducir una aplicación Astro + React en 2026
 description: Aprende a añadir internacionalización (i18n) a tu sitio Astro + React con Intlayer. Sigue esta guía para que tu sitio sea multilingüe.
 keywords:
@@ -19,6 +19,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-astro-template
 applicationShowcase: https://intlayer-astro-template.vercel.app
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Actualizar el uso de la API useIntlayer de Solid para el acceso directo a las propiedades"
   - version: 7.5.9
     date: 2025-12-30
     changes: "Añadir comando init"
@@ -261,6 +264,14 @@ const { title } = getIntlayer("app", locale);
   </body>
 </html>
 ```
+
+> Si desea utilizar su contenido en un atributo de `cadena`, como `alt`, `title`, `href`, `aria-label`, etc., puede utilizar el valor de la función, como:
+
+> ```jsx
+> <img src={content.image.src.value} alt={content.image.value} />
+> <img src={content.image.src.toString()} alt={content.image.toString()} />
+> <img src={String(content.image.src)} alt={String(content.image)} />
+> ```
 
 > **Nota sobre la configuración de rutas:**
 > La estructura de directorios que utilices depende del ajuste `middleware.routing` en `intlayer.config.ts`:

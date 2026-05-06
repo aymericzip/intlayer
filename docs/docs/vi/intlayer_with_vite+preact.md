@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-03-12
+updatedAt: 2026-05-06
 title: Vite + Preact i18n - Cách dịch ứng dụng Preact năm 2026
 description: Khám phá cách làm cho trang web Vite và Preact của bạn đa ngôn ngữ. Theo dõi tài liệu để quốc tế hóa (i18n) và dịch nó.
 keywords:
@@ -17,6 +17,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-preact-template
 applicationShowcase: https://intlayer-vite-preact-template.vercel.app
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Cập nhật cách sử dụng API useIntlayer của Solid sang truy cập thuộc tính trực tiếp"
   - version: 7.5.9
     date: 2025-12-30
     changes: "Thêm lệnh init"
@@ -350,6 +353,8 @@ export default App;
 
 > ```jsx
 > <img src={content.image.src.value} alt={content.image.value} />
+> <img src={content.image.src.toString()} alt={content.image.toString()} />
+> <img src={String(content.image.src)} alt={String(content.image)} />
 > ```
 
 > Lưu ý: Trong Preact, `className` thường được viết là `class`.

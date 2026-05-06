@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-12-07
-updatedAt: 2025-12-30
+updatedAt: 2026-05-06
 title: Next.js Page Router i18n - 如何翻译Next.js 应用 2026
 description: 了解如何使使用 Page Router 的 Next.js 网站支持多语言。按照文档进行国际化（i18n）和翻译。
 keywords:
@@ -19,6 +19,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-next-14-template
 applicationShowcase: https://intlayer-next-14-template.vercel.app
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "更新 Solid useIntlayer API 用法以直接访问属性"
   - version: 7.5.9
     date: 2025-12-30
     changes: "添加 init 命令"
@@ -431,6 +434,8 @@ const ComponentExample = () => {
 
 > ```jsx
 > <img src={content.image.src.value} alt={content.image.value} />
+> <img src={content.image.src.toString()} alt={content.image.toString()} />
+> <img src={String(content.image.src)} alt={String(content.image)} />
 > ```
 
 > 要了解有关 `useIntlayer` 钩子的更多信息，请参阅[文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/next-intlayer/useIntlayer.md)。

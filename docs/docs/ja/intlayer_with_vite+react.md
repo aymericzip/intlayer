@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2026-03-12
+updatedAt: 2026-05-06
 title: Vite + React i18n - Reactアプリの翻訳方法 2026
 description: Intlayerを使ってViteとReactアプリケーションに国際化（i18n）を追加する方法を学びます。このガイドに従ってアプリを多言語対応にしましょう。
 keywords:
@@ -19,6 +19,9 @@ applicationTemplate: https://github.com/aymericzip/intlayer-vite-react-template
 applicationShowcase: https://intlayer-vite-react-template.vercel.app
 youtubeVideo: https://www.youtube.com/watch?v=dS9L7uJeak4
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Solid の useIntlayer API の使用法を直接プロパティアクセスに更新"
   - version: 7.5.9
     date: 2025-12-30
     changes: "initコマンドを追加"

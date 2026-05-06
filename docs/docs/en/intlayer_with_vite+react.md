@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2025-12-30
+updatedAt: 2026-05-06
 title: Vite + React i18n - How to translate an React app in 2026
 description: Learn how to add internationalization (i18n) to your Vite and React application using Intlayer. Follow this guide to make your app multilingual.
 keywords:
@@ -19,12 +19,15 @@ applicationTemplate: https://github.com/aymericzip/intlayer-vite-react-template
 applicationShowcase: https://intlayer-vite-react-template.vercel.app
 youtubeVideo: https://www.youtube.com/watch?v=dS9L7uJeak4
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Update Solid useIntlayer API usage to direct property access"
   - version: 7.5.9
     date: 2025-12-30
     changes: "Add init command"
   - version: 5.5.10
     date: 2025-06-29
-    changes: "Init history"
+    changes: "Initial history"
 ---
 
 # Translate your Vite and React website using Intlayer | Internationalization (i18n)
@@ -331,10 +334,12 @@ const App: FC = () => (
 export default App;
 ```
 
-> If you want to use your content in a `string` attribute, such as `alt`, `title`, `href`, `aria-label`, etc., you must call the value of the function, like:
+> If you want to use your content in a `string` attribute, such as `alt`, `title`, `href`, `aria-label`, etc., you can use the value of the function, like:
 
 > ```jsx
 > <img src={content.image.src.value} alt={content.image.value} />
+> <img src={content.image.src.toString()} alt={content.image.toString()} />
+> <img src={String(content.image.src)} alt={String(content.image)} />
 > ```
 
 > To Learn more about the `useIntlayer` hook, refer to the [documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useIntlayer.md).

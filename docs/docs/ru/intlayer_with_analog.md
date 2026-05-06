@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2025-12-30
+updatedAt: 2026-05-06
 title: Analog i18n - Как перевести приложение Analog в 2026
 description: Узнайте, как сделать ваше приложение Analog многоязычным. Следуйте документации для интернационализации (i18n) и перевода.
 keywords:
@@ -17,6 +17,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-analog-template
 applicationShowcase: https://intlayer-analog-template.vercel.app
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Обновление использования API useIntlayer в Solid для прямого доступа к свойствам"
   - version: 8.0.4
     date: 2026-01-26
     changes: "Инициализация истории"

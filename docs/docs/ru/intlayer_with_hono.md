@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-12-30
+updatedAt: 2026-05-06
 title: Hono i18n - Как перевести приложение Hono в 2026
 description: Узнайте, как сделать ваш бэкенд на Hono многоязычным. Следуйте документации для интернационализации (i18n) и перевода.
 keywords:
@@ -16,6 +16,9 @@ slugs:
   - hono
 applicationTemplate: https://github.com/aymericzip/intlayer-hono-template
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Обновление использования API useIntlayer в Solid для прямого доступа к свойствам"
   - version: 7.5.9
     date: 2025-12-30
     changes: "Добавлена команда init"

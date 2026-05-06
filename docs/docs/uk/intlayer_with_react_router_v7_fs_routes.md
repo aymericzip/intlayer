@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-12-07
-updatedAt: 2026-03-12
+updatedAt: 2026-05-06
 title: React Router v7 i18n - Як перекласти додаток React Router v7 у 2026
 description: Дізнайтеся, як додати інтернаціоналізацію (i18n) до вашого додатка на React Router v7 за допомогою Intlayer і маршрутизації на основі файлової системи. Дотримуйтеся цього вичерпного керівництва, щоб зробити ваш додаток багатомовним із локалізованою маршрутизацією.
 keywords:
@@ -23,6 +23,9 @@ applicationTemplate: https://github.com/aymericzip/intlayer-react-router-v7-fs-r
 applicationShowcase: https://intlayer-react-router-v7-fs-routes.vercel.app
 youtubeVideo: https://www.youtube.com/watch?v=dS9L7uJeak4
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Оновлення використання API useIntlayer у Solid для прямого доступу до властивостей"
   - version: 7.5.9
     date: 2025-12-30
     changes: "Додано команду init"

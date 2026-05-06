@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-04
-updatedAt: 2026-03-12
+updatedAt: 2026-05-06
 title: React Router v7 i18n - Wie Sie eine React Router v7 App übersetzen in 2026
 description: Erfahren Sie, wie Sie Internationalisierung (i18n) zu Ihrer React Router v7-Anwendung mit Intlayer hinzufügen. Folgen Sie dieser umfassenden Anleitung, um Ihre App mehrsprachig mit lokalisierungsbewusstem Routing zu machen.
 keywords:
@@ -21,6 +21,9 @@ applicationTemplate: https://github.com/aymericzip/intlayer-react-router-v7-temp
 applicationShowcase: https://intlayer-react-router-v7.vercel.app
 youtubeVideo: https://www.youtube.com/watch?v=dS9L7uJeak4
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Aktualisieren der Solid useIntlayer API-Nutzung auf direkten Eigenschaftszugriff"
   - version: 7.5.9
     date: 2025-12-30
     changes: "Init-Befehl hinzufügen"

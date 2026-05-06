@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-03-12
+updatedAt: 2026-05-06
 title: Vite + Svelte i18n - Svelte uygulamasını çevirme 2026
 description: Vite ve Svelte web sitenizi çok dilli hale nasıl getireceğinizi keşfedin. Uluslararasılaştırma (i18n) ve çeviri için dokümantasyonu takip edin.
 keywords:
@@ -17,6 +17,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-svelte-template
 applicationShowcase: https://intlayer-vite-svelte-template.vercel.app
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Solid useIntlayer API kullanımını doğrudan özellik erişimine güncelle"
   - version: 7.5.9
     date: 2025-12-30
     changes: "init komutu ekle"
@@ -223,6 +226,8 @@ export default appContent;
 <h1>{@const Title = $content.title}<Title /></h1>
 <!-- İçeriği string olarak render etmek için -->
 <div aria-label={$content.title.value}></div>
+<div aria-label={$content.title.toString()}></div>
+<div aria-label={String($content.title)}></div>
 
 > Eğer uygulamanız zaten mevcutsa, binlerce bileşeni bir saniye içinde dönüştürmek için [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md)'ı [extract komutu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/extract.md) ile birlikte kullanabilirsiniz.
 ```

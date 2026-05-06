@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2025-12-30
+updatedAt: 2026-05-06
 title: Angular i18n - Angularアプリを翻訳する方法 2026
 description: Angularウェブサイトを多言語化する方法をご紹介します。ドキュメントに従って、国際化 (i18n) と翻訳を行ってください。
 keywords:
@@ -16,6 +16,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-angular-template
 applicationShowcase: https://intlayer-angular-template.vercel.app
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Solid の useIntlayer API の使用法を直接プロパティアクセスに更新"
   - version: 8.0.0
     date: 2025-12-30
     changes: "initコマンドを追加"

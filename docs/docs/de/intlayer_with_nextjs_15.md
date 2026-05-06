@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-12-06
-updatedAt: 2025-12-30
+updatedAt: 2026-05-06
 title: Next.js i18n - Wie Sie eine Next.js 15 App übersetzen in 2026
 description: Entdecken Sie, wie Sie Ihre Next.js 15 Website mehrsprachig machen. Folgen Sie der Dokumentation, um sie zu internationalisieren (i18n) und zu übersetzen.
 keywords:
@@ -19,6 +19,9 @@ applicationTemplate: https://github.com/aymericzip/intlayer-next-15-template
 applicationShowcase: https://next-15-intlayer-template-xt83.vercel.app
 youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Aktualisieren der Solid useIntlayer API-Nutzung auf direkten Eigenschaftszugriff"
   - version: 7.5.9
     date: 2025-12-30
     changes: "Init-Befehl hinzufügen"
@@ -368,6 +371,8 @@ export const ServerComponentExample: FC = () => {
 
 > ```jsx
 > <img src={content.image.src.value} alt={content.image.value} />
+> <img src={content.image.src.toString()} alt={content.image.toString()} />
+> <img src={String(content.image.src)} alt={String(content.image)} />
 > ```
 
 > Um mehr über den `useIntlayer` Hook zu erfahren, lesen Sie die [Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/next-intlayer/useIntlayer.md).

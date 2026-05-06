@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-03-25
-updatedAt: 2026-03-25
+updatedAt: 2026-05-06
 title: i18n Tanstack Start - 2026 में Solid.js का उपयोग करके Tanstack Start ऐप का अनुवाद कैसे करें
 description: जानें कि Intlayer और Solid.js का उपयोग करके अपने Tanstack Start एप्लिकेशन में अंतर्राष्ट्रीयकरण (i18n) कैसे जोड़ें। अपने ऐप को लोकेल-जागरूक रूटिंग के साथ बहुभाषी बनाने के लिए इस व्यापक गाइड का पालन करें।
 keywords:
@@ -21,6 +21,9 @@ applicationTemplate: https://github.com/aymericzip/intlayer-tanstack-start-solid
 applicationShowcase: https://intlayer-tanstack-start-solid.vercel.app
 youtubeVideo: https://www.youtube.com/watch?v=_XTdKVWaeqg
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "सॉलिड useIntlayer API उपयोग को सीधे प्रॉपर्टी एक्सेस में अपडेट करें"
   - version: 8.5.1
     date: 2026-03-25
     changes: "Tanstack Start Solid.js के लिए जोड़ा गया"
@@ -405,7 +408,15 @@ function RouteComponent() {
 }
 ```
 
-> Solid में, `useIntlayer` एक **एक्सेसॉर** हुक (उदा: `content.) देता है। प्रतिक्रियाशील सामग्री तक पहुँचने के लिए आपको इस फ़ंक्शन को कॉल करना होगा।
+> यदि आप अपनी सामग्री को `string` एट्रिब्यूट में उपयोग करना चाहते हैं, जैसे `alt`, `title`, `href`, `aria-label`, आदि, तो आपको फ़ंक्शन के मान को कॉल करना होगा, जैसे:
+
+> ```jsx
+> <img src={content.image.src.value} alt={content.image.value} />
+> <img src={content.image.src.toString()} alt={content.image.toString()} />
+> <img src={String(content.image.src)} alt={String(content.image)} />
+> ```
+
+> In Solid, `useIntlayer` returns reactive content (e.g., `content`). You can access its properties directly.
 >
 > `useIntlayer` हुक के बारे में अधिक जानने के लिए, [दस्तावेज़ीकरण](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/solid-intlayer/useIntlayer.md) देखें।
 

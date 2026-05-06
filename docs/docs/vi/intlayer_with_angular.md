@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2025-12-30
+updatedAt: 2026-05-06
 title: Angular i18n - Cách dịch ứng dụng Angular năm 2026
 description: Khám phá cách làm cho trang web Angular của bạn đa ngôn ngữ. Làm theo tài liệu để quốc tế hóa (i18n) và dịch nó.
 keywords:
@@ -16,6 +16,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-angular-template
 applicationShowcase: https://intlayer-angular-template.vercel.app
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Cập nhật cách sử dụng API useIntlayer của Solid sang truy cập thuộc tính trực tiếp"
   - version: 8.0.0
     date: 2025-12-30
     changes: "Thêm lệnh init"

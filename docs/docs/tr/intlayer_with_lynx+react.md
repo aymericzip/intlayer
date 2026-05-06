@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-07
-updatedAt: 2025-12-30
+updatedAt: 2026-05-06
 title: Lynx + React i18n - Lynx uygulamasını çevirme 2026
 description: Lynx ve React mobil uygulamanızı çok dilli hale getirmeyi keşfedin. Dokümantasyonu takip ederek uluslararasılaştırma (i18n) yapın ve çevirin.
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - lynx-and-react
 applicationTemplate: https://github.com/aymericzip/intlayer-lynx-template
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Solid useIntlayer API kullanımını doğrudan özellik erişimine güncelle"
   - version: 7.5.9
     date: 2025-12-30
     changes: "init komutu ekle"

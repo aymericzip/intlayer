@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-11-20
-updatedAt: 2026-03-12
+updatedAt: 2026-05-06
 title: SvelteKit i18n - Wie Sie eine SvelteKit App übersetzen in 2026
 description: Entdecken Sie, wie Sie Ihre SvelteKit-Website mehrsprachig gestalten. Folgen Sie der Dokumentation, um sie mit Server-Side Rendering (SSR) zu internationalisieren (i18n) und zu übersetzen.
 keywords:
@@ -17,6 +17,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-sveltekit-template
 applicationShowcase: https://intlayer-sveltekit-template.vercel.app
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Aktualisieren der Solid useIntlayer API-Nutzung auf direkten Eigenschaftszugriff"
   - version: 7.5.9
     date: 2025-12-30
     changes: "Init-Befehl hinzufügen"
@@ -203,7 +206,7 @@ Jetzt können Sie die Funktion `useIntlayer` in jeder Svelte-Komponente verwende
 
 > **Hinweis:** `useIntlayer` gibt einen Svelte-Store zurück, daher müssen Sie das `---
 > createdAt: 2025-11-20
-> updatedAt: 2026-03-12
+> updatedAt: 2026-05-06
 > title: So übersetzen Sie Ihre SvelteKit-App – i18n-Anleitung 2026
 > description: Entdecken Sie, wie Sie Ihre SvelteKit-Website mehrsprachig gestalten. Folgen Sie der Dokumentation, um sie mit Server-Side Rendering (SSR) zu internationalisieren (i18n) und zu übersetzen.
 > keywords:
@@ -391,6 +394,8 @@ export default heroContent;
 <h1>{@const Title = $content.title}<Title /></h1>
 <!-- Um den Inhalt als String darzustellen -->
 <div aria-label={$content.title.value}></div>
+<div aria-label={$content.title.toString()}></div>
+<div aria-label={String($content.title)}></div>
 ```
 
 ### (Optional) Schritt 6: Routing einrichten

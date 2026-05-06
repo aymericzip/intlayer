@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-06-18
-updatedAt: 2025-12-07
+updatedAt: 2026-05-06
 title: Nuxt i18n - كيفية ترجمة تطبيق Nuxt في 2026
 description: اكتشف كيفية جعل موقع Nuxt و Vue الخاص بك متعدد اللغات. اتبع الوثائق لتدويل (i18n) وترجمته.
 keywords:
@@ -18,6 +18,9 @@ applicationTemplate: https://github.com/aymericzip/intlayer-nuxt-4-template
 applicationShowcase: https://intlayer-nuxt-4-template.vercel.app
 youtubeVideo: https://www.youtube.com/watch?v=nhUcUAVQ6eQ
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "تحديث استخدام واجهة برمجة تطبيقات useIntlayer في Solid للوصول المباشر إلى الخصائص"
   - version: 7.3.11
     date: 2025-12-07
     changes: "تحديث LocaleSwitcher، SEO، البيانات الوصفية"

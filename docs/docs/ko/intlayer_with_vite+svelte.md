@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-03-12
+updatedAt: 2026-05-06
 title: Vite + Svelte i18n - Svelte 앱 번역 방법 2026
 description: Vite 및 Svelte 웹사이트를 다국어로 만드는 방법을 알아보세요. 국제화(i18n) 및 번역을 위한 문서를 따라가세요.
 keywords:
@@ -17,6 +17,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-svelte-template
 applicationShowcase: https://intlayer-vite-svelte-template.vercel.app
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Solid useIntlayer API 사용법을 직접 속성 액세스로 업데이트"
   - version: 7.5.9
     date: 2025-12-30
     changes: "init 명령어 추가"
@@ -223,6 +226,8 @@ export default appContent;
 <h1>{@const Title = $content.title}<Title /></h1>
 <!-- 문자열로 콘텐츠 렌더링 -->
 <div aria-label={$content.title.value}></div>
+<div aria-label={$content.title.toString()}></div>
+<div aria-label={String($content.title)}></div>
 ```
 
 ### (선택 사항) 6단계: 콘텐츠 언어 변경하기

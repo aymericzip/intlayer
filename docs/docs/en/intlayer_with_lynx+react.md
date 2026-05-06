@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-03-09
-updatedAt: 2025-12-30
+updatedAt: 2026-05-06
 title: Lynx and React i18n - How to translate an Lynx app in 2026
 description: Discover how to make your Lynx and React mobile app multilingual. Follow the documentation to internationalize (i18n) and translate it.
 keywords:
@@ -17,12 +17,15 @@ slugs:
   - lynx-and-react
 applicationTemplate: https://github.com/aymericzip/intlayer-lynx-template
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Update Solid useIntlayer API usage to direct property access"
   - version: 7.5.9
     date: 2025-12-30
     changes: "Add init command"
   - version: 5.5.10
     date: 2025-06-29
-    changes: "Init history"
+    changes: "Initial history"
 ---
 
 # Translate your Lynx and React mobile app website using Intlayer | Internationalization (i18n)

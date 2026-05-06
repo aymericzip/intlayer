@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-03-20
-updatedAt: 2026-03-20
+updatedAt: 2026-05-06
 title: So richten Sie Intlayer mit Storybook ein
 description: Erfahren Sie, wie Sie Ihr Design-System mit Intlayer und Storybook mehrsprachig gestalten — Inhaltsdeklarationen kompilieren, einen Sprachumschalter hinzufügen und eine Vorschau Ihrer Komponenten in jeder Sprache anzeigen.
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - doc
   - storybook
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Aktualisieren der Solid useIntlayer API-Nutzung auf direkten Eigenschaftszugriff"
   - version: 8.4.5
     date: 2026-03-20
     changes: "Init doc"

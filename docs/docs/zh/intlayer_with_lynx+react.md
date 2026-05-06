@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-03-09
-updatedAt: 2025-12-30
+updatedAt: 2026-05-06
 title: Lynx + React i18n - 如何翻译Lynx 应用 2026
 description: 了解如何使您的使用 Lynx 和 React 的移动应用实现多语言。请遵循文档进行国际化（i18n）和翻译。
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - lynx-and-react
 applicationTemplate: https://github.com/aymericzip/intlayer-lynx-template
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "更新 Solid useIntlayer API 用法以直接访问属性"
   - version: 7.5.9
     date: 2025-12-30
     changes: "添加 init 命令"

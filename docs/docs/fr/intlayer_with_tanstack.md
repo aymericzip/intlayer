@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-03-29
+updatedAt: 2026-05-06
 title: Tanstack Start i18n - Comment traduire une application Tanstack Start en 2026
 description: Apprenez à ajouter l'internationalisation (i18n) à votre application Tanstack Start en utilisant Intlayer. Suivez ce guide complet pour rendre votre application multilingue avec un routage tenant compte de la locale.
 keywords:
@@ -21,6 +21,9 @@ applicationTemplate: https://github.com/aymericzip/intlayer-tanstack-start-templ
 applicationShowcase: https://intlayer-tanstack-start-template.vercel.app
 youtubeVideo: https://www.youtube.com/watch?v=_XTdKVWaeqg
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Mettre à jour l'utilisation de l'API useIntlayer de Solid pour un accès direct aux propriétés"
   - version: 7.5.9
     date: 2025-12-30
     changes: "Ajouter la commande init"
@@ -472,6 +475,14 @@ function RouteComponent() {
   );
 }
 ```
+
+> Si vous souhaitez utiliser votre contenu dans un attribut de type `string`, tel que `alt`, `title`, `href`, `aria-label`, etc., vous devez appeler la valeur de la fonction, comme ceci :
+
+> ```jsx
+> <img src={content.image.src.value} alt={content.image.value} />
+> <img src={content.image.src.toString()} alt={content.image.toString()} />
+> <img src={String(content.image.src)} alt={String(content.image)} />
+> ```
 
 > Pour en savoir plus sur le hook `useIntlayer`, reportez-vous à la [documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/react-intlayer/useIntlayer.md).
 

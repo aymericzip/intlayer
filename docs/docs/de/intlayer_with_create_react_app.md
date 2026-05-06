@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-06-29
+updatedAt: 2026-05-06
 title: Create React App i18n - Wie Sie eine React App übersetzen in 2026
 description: Entdecken Sie, wie Sie Ihre Create React App (CRA)-Website mehrsprachig gestalten können. Befolgen Sie die Dokumentation, um sie zu internationalisieren (i18n) und zu übersetzen.
 keywords:
@@ -16,6 +16,10 @@ slugs:
   - environment
   - create-react-app
 applicationTemplate: https://github.com/aymericzip/intlayer-react-cra-template
+history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Aktualisieren der Solid useIntlayer API-Nutzung auf direkten Eigenschaftszugriff"
 ---
 
 # Übersetzen Sie Ihre Create React App mit Intlayer | Internationalisierung (i18n)
@@ -207,6 +211,8 @@ export default App;
 
 > ```jsx
 > <img src={content.image.src.value} alt={content.image.value} />
+> <img src={content.image.src.toString()} alt={content.image.toString()} />
+> <img src={String(content.image.src)} alt={String(content.image)} />
 > ```
 
 > Weitere Informationen zum `useIntlayer`-Hook finden Sie in der [Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/react-intlayer/useIntlayer.md).

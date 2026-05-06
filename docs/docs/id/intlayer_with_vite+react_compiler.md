@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2025-12-30
+updatedAt: 2026-05-06
 title: Vite + React i18n - Ubah aplikasi yang ada menjadi aplikasi multibahasa di 2026
 description: Temukan cara membuat aplikasi Vite dan React Anda yang sudah ada menjadi multibahasa menggunakan Intlayer Compiler. Ikuti dokumentasi untuk menginternasionalisasi (i18n) dan menerjemahkannya dengan AI.
 keywords:
@@ -20,6 +20,9 @@ applicationTemplate: https://github.com/aymericzip/intlayer-vite-react-template
 applicationShowcase: https://intlayer-vite-react-template.vercel.app
 youtubeVideo: https://www.youtube.com/watch?v=dS9L7uJeak4
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Perbarui penggunaan API useIntlayer Solid ke akses properti langsung"
   - version: 8.2.0
     date: 2026-03-09
     changes: "Update compiler options, add FilePathPattern support"

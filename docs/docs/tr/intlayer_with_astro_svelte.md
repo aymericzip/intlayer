@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-24
-updatedAt: 2026-04-24
+updatedAt: 2026-05-06
 title: Astro + Svelte i18n - 2026'da Astro + Svelte uygulaması nasıl çevrilir?
 description: Intlayer kullanarak Astro + Svelte sitenize uluslararasılaştırma (i18n) eklemeyi öğrenin. Sitenizi çok dilli hale getirmek için bu kılavuzu izleyin.
 keywords:
@@ -19,6 +19,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-astro-template
 applicationShowcase: https://intlayer-astro-template.vercel.app
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Solid useIntlayer API kullanımını doğrudan özellik erişimine güncelle"
   - version: 8.7.7
     date: 2026-04-24
     changes: "Astro + Svelte için ilk dokümantasyon"
@@ -446,6 +449,14 @@ Bunu yapmak için `.gitignore` dosyanıza aşağıdaki talimatları ekleyin:
 # Intlayer tarafından oluşturulan dosyaları yoksay
 .intlayer
 ```
+
+> İçeriğinizi `alt`, `title`, `href`, `aria-label` vb. gibi bir `dize` (string) özniteliğinde kullanmak istiyorsanız, işlevin değerini şu şekilde kullanabilirsiniz:
+
+> ```jsx
+> <img src={content.image.src.value} alt={content.image.value} />
+> <img src={content.image.src.toString()} alt={content.image.toString()} />
+> <img src={String(content.image.src)} alt={String(content.image)} />
+> ```
 
 ### VS Code Uzantısı
 

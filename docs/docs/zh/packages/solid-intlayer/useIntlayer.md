@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-05-04
+updatedAt: 2026-05-06
 title: useIntlayer Hook 文档 | solid-intlayer
 description: 查看如何在 solid-intlayer 包中使用 useIntlayer hook
 keywords:
@@ -20,7 +20,7 @@ slugs:
 history:
   - version: 8.9.0
     date: 2026-05-04
-    changes: "Update Solid useIntlayer API usage to direct property access"
+    changes: "更新 Solid useIntlayer API 用法以直接访问属性"
   - version: 8.0.0
     date: 2026-01-21
     changes: "为所有导出项统一文档"

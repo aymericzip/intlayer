@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-07
-updatedAt: 2025-09-07
+updatedAt: 2026-05-06
 title: useIntlayer Hook Dokümantasyonu | next-intlayer
 description: next-intlayer paketi için useIntlayer hook'unun nasıl kullanılacağını görün
 keywords:
@@ -19,6 +19,9 @@ slugs:
   - next-intlayer
   - useIntlayer
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Solid useIntlayer API kullanımını doğrudan özellik erişimine güncelle"
   - version: 5.5.10
     date: 2025-06-29
     changes: "Geçmiş başlatıldı"
@@ -136,10 +139,12 @@ const ServerComponentExample: FC = () => {
 
 ## Özellik Yerelleştirmesi İşleme
 
-`alt`, `title`, `href`, `aria-label` vb. gibi özellikleri yerelleştirmek için, içeriği doğru şekilde referans aldığınızdan emin olun:
+`alt`, `title`, `href`, `aria-label` vb. gibi özellikleri yerelleştirmek için, içeriği değerini şu şekilde kullanabilirsiniz:
 
 ```tsx
 <img src={content.image.src.value} alt={content.image.alt.value} />
+<img src={content.image.src.toString()} alt={content.image.alt.toString()} />
+<img src={String(content.image.src)} alt={String(content.image.alt)} />
 ```
 
 ## Daha Fazla Bilgi

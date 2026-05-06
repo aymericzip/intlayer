@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-03-23
-updatedAt: 2026-03-23
+updatedAt: 2026-05-06
 title: i18n Vite + Lit - Comment traduire une application Lit en 2026
 description: Découvrez comment rendre votre site web Vite et Lit multilingue. Suivez la documentation pour l'internationaliser (i18n) et le traduire.
 keywords:
@@ -18,9 +18,12 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-lit-template
 applicationShowcase: https://intlayer-vite-lit-template.vercel.app
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Mettre à jour l'utilisation de l'API useIntlayer de Solid pour un accès direct aux propriétés"
   - version: 8.4.10
     date: 2026-03-23
-    changes: "Init history"
+    changes: "Historique initial"
 ---
 
 # Traduisez votre site web Vite et Lit en utilisant Intlayer | Internationalisation (i18n)
@@ -299,6 +302,8 @@ export class MyElement extends LitElement {
 >
 > ```typescript
 > html`<img alt=${content.viteLogo.value} />`;
+> html`<img alt=${content.viteLogo.toString()} />`;
+> html`<img alt=${String(content.viteLogo)} />`;
 > ```
 
 ### (Optionnel) Étape 7 : Changer la langue de votre contenu

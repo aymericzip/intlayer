@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-03-12
+updatedAt: 2026-05-06
 title: Vite + Svelte i18n - Cách dịch ứng dụng Svelte năm 2026
 description: Khám phá cách làm cho trang web Vite và Svelte của bạn đa ngôn ngữ. Theo dõi tài liệu để quốc tế hóa (i18n) và dịch nó.
 keywords:
@@ -17,6 +17,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-svelte-template
 applicationShowcase: https://intlayer-vite-svelte-template.vercel.app
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Cập nhật cách sử dụng API useIntlayer của Solid sang truy cập thuộc tính trực tiếp"
   - version: 7.5.9
     date: 2025-12-30
     changes: "Thêm lệnh init"
@@ -223,6 +226,8 @@ export default appContent;
 <h1>{@const Title = $content.title}<Title /></h1>
 <!-- Để hiển thị nội dung dưới dạng chuỗi -->
 <div aria-label={$content.title.value}></div>
+<div aria-label={$content.title.toString()}></div>
+<div aria-label={String($content.title)}></div>
 
 > Nếu ứng dụng của bạn đã tồn tại, bạn có thể sử dụng [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compiler.md) kết hợp với [lệnh extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/extract.md) để chuyển đổi hàng nghìn component chỉ trong một giây.
 ```

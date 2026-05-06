@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2025-12-30
+updatedAt: 2026-05-06
 title: Astro i18n अनुवाद - 2026 में Astro एप्लिकेशन का अनुवाद कैसे करें
 description: Intlayer के साथ अपनी Astro साइट में अंतर्राष्ट्रीयकरण (i18n) जोड़ना सीखें। अपनी साइट को बहुभाषी बनाने के लिए इस गाइड का पालन करें।
 keywords:
@@ -18,6 +18,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-astro-template
 applicationShowcase: https://intlayer-astro-template.vercel.app
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "सॉलिड useIntlayer API उपयोग को सीधे प्रॉपर्टी एक्सेस में अपडेट करें"
   - version: 7.5.9
     date: 2025-12-30
     changes: "init कमांड जोड़ा गया"

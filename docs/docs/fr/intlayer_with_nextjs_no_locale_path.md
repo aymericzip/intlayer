@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-10
-updatedAt: 2026-01-10
+updatedAt: 2026-05-06
 title: Next.js i18n - Comment traduire une application Next.js 16 (sans [locale] dans le chemin de la page) en 2026
 description: Découvrez comment rendre votre site Next.js 16 multilingue sans [locale] dans le chemin des pages. Suivez la documentation pour internationaliser (i18n) et traduire votre site.
 keywords:
@@ -18,6 +18,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-next-no-lolale-path-template
 youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Mettre à jour l'utilisation de l'API useIntlayer de Solid pour un accès direct aux propriétés"
   - version: 8.0.0
     date: 2026-01-10
     changes: "Version initiale"
@@ -438,10 +441,12 @@ export const ServerComponentExample: FC = () => {
 };
 ```
 
-> Si vous souhaitez utiliser votre contenu dans un attribut de type `string`, tel que `alt`, `title`, `href`, `aria-label`, etc., vous devez appeler la valeur de la fonction, par exemple :
+> Si vous souhaitez utiliser votre contenu dans un attribut de type `string`, tel que `alt`, `title`, `href`, `aria-label`, etc., vous pouvez utiliser la valeur de la fonction, par exemple :
 
 > ```jsx
 > <img src={content.image.src.value} alt={content.image.value} />
+> <img src={content.image.src.toString()} alt={content.image.toString()} />
+> <img src={String(content.image.src)} alt={String(content.image)} />
 > ```
 
 > Pour en savoir plus sur le hook `useIntlayer`, consultez la [documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/next-intlayer/useIntlayer.md).

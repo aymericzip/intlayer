@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2025-12-30
+updatedAt: 2026-05-06
 title: Vite + React i18n - Przekształć istniejącą aplikację w wielojęzyczną w 2026
 description: Odkryj, jak uczynić swoją istniejącą aplikację Vite i React wielojęzyczną przy użyciu Intlayer Compiler. Postępuj zgodnie z dokumentacją, aby ją umiędzynarodowić (i18n) i przetłumaczyć za pomocą AI.
 keywords:
@@ -20,6 +20,9 @@ applicationTemplate: https://github.com/aymericzip/intlayer-vite-react-template
 applicationShowcase: https://intlayer-vite-react-template.vercel.app
 youtubeVideo: https://www.youtube.com/watch?v=dS9L7uJeak4
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Aktualizacja użycia API useIntlayer w Solid do bezpośredniego dostępu do właściwości"
   - version: 8.2.0
     date: 2026-03-09
     changes: "Update compiler options, add FilePathPattern support"

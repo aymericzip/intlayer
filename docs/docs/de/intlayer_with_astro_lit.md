@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-24
-updatedAt: 2026-04-24
+updatedAt: 2026-05-06
 title: Astro + Lit i18n - Wie man eine Astro + Lit Anwendung im Jahr 2026 übersetzt
 description: Erfahren Sie, wie Sie Internationalisierung (i18n) zu Ihrer Astro + Lit Website mit Intlayer hinzufügen. Folgen Sie dieser Anleitung, um Ihre Website mehrsprachig zu gestalten.
 keywords:
@@ -20,6 +20,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-astro-template
 applicationShowcase: https://intlayer-astro-template.vercel.app
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Aktualisieren der Solid useIntlayer API-Nutzung auf direkten Eigenschaftszugriff"
   - version: 8.7.7
     date: 2026-04-24
     changes: "Ursprüngliche Dokumentation für Astro + Lit"
@@ -268,6 +271,14 @@ const { greeting } = getIntlayer("lit-demo", locale);
   import "../../components/lit/LitDemo";
 </script>
 ```
+
+> Wenn Sie Ihren Inhalt in einem `String`-Attribut wie `alt`, `title`, `href`, `aria-label` usw. verwenden möchten, können Sie den Wert der Funktion wie folgt verwenden:
+
+> ```jsx
+> <img src={content.image.src.value} alt={content.image.value} />
+> <img src={content.image.src.toString()} alt={content.image.toString()} />
+> <img src={String(content.image.src)} alt={String(content.image)} />
+> ```
 
 > **Hinweis zum Routing-Setup:**
 > Die von Ihnen verwendete Verzeichnisstruktur hängt von der Einstellung `middleware.routing` in `intlayer.config.ts` ab:

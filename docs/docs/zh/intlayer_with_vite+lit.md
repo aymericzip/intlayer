@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-03-23
-updatedAt: 2026-03-23
+updatedAt: 2026-05-06
 title: Vite + Lit i18n - 如何在 2026 年翻译 Lit 应用
 description: 了解如何使您的 Vite 和 Lit 网站支持多语言。按照文档进行国际化 (i18n) 和翻译。
 keywords:
@@ -18,9 +18,12 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-lit-template
 applicationShowcase: https://intlayer-vite-lit-template.vercel.app
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "更新 Solid useIntlayer API 用法以直接访问属性"
   - version: 8.4.10
     date: 2026-03-23
-    changes: "Init history"
+    changes: "初始历史"
 ---
 
 # 使用 Intlayer 翻译您的 Vite 和 Lit 网站 | 国际化 (i18n)
@@ -295,10 +298,12 @@ export class MyElement extends LitElement {
 }
 ```
 
-> 当您在原生 HTML 属性（例如 `alt`、`aria-label`、`title`）中需要翻译后的字符串时，请在叶节点上调用 `.value`：
+> 当您在原生 HTML 属性（例如 `alt`、`aria-label`、`title`）中需要翻译后的字符串时，您可以通过多种方式使用翻译后的字符串：
 >
 > ```typescript
 > html`<img alt=${content.viteLogo.value} />`;
+> html`<img alt=${content.viteLogo.toString()} />`;
+> html`<img alt=${String(content.viteLogo)} />`;
 > ```
 
 ### （可选）第 7 步：更改内容的语言

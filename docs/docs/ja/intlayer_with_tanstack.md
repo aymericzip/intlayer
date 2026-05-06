@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-03-29
+updatedAt: 2026-05-06
 title: Tanstack Start i18n - Tanstack Startアプリの翻訳方法 2026
 description: Intlayerを使用してTanStack Startアプリケーションに国際化（i18n）を追加する方法を学びます。ロケール対応のルーティングでアプリを多言語化するための包括的なガイドに従ってください。
 keywords:
@@ -21,6 +21,9 @@ applicationTemplate: https://github.com/aymericzip/intlayer-tanstack-start-templ
 applicationShowcase: https://intlayer-tanstack-start-template.vercel.app
 youtubeVideo: https://www.youtube.com/watch?v=_XTdKVWaeqg
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Solid の useIntlayer API の使用法を直接プロパティアクセスに更新"
   - version: 8.6.0
     date: 2026-03-29
     changes: "プリレンダリングとサイトマップの追加"
@@ -247,6 +250,14 @@ function RootDocument({ children }: { children: ReactNode }) {
   );
 }
 ```
+
+> コンテンツを `alt`、`title`、`href`、`aria-label` などの `string` 属性で使用したい場合は、関数の値を使用できます。例：
+
+> ```jsx
+> <img src={content.image.src.value} alt={content.image.value} />
+> <img src={content.image.src.toString()} alt={content.image.toString()} />
+> <img src={String(content.image.src)} alt={String(content.image)} />
+> ```
 
 ### ステップ 6: ロケールレイアウトの作成
 

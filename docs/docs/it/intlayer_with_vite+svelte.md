@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-03-12
+updatedAt: 2026-05-06
 title: Vite + Svelte i18n - Come tradurre un'app Svelte nel 2026
 description: Scopri come rendere il tuo sito web Vite e Svelte multilingue. Segui la documentazione per internazionalizzare (i18n) e tradurlo.
 keywords:
@@ -17,6 +17,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-svelte-template
 applicationShowcase: https://intlayer-vite-svelte-template.vercel.app
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Aggiornare l'uso dell'API useIntlayer di Solid all'accesso diretto alle proprietà"
   - version: 7.5.9
     date: 2025-12-30
     changes: "Aggiungi comando init"
@@ -223,6 +226,8 @@ export default appContent;
 <h1>{@const Title = $content.title}<Title /></h1>
 <!-- Per rendere il contenuto come stringa -->
 <div aria-label={$content.title.value}></div>
+<div aria-label={$content.title.toString()}></div>
+<div aria-label={String($content.title)}></div>
 ```
 
 > Se la tua app esiste già, puoi utilizzare l' [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/compiler.md) in combinazione con il [comando extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/cli/extract.md) per convertire migliaia di componenti in un secondo.

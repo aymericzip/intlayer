@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2025-12-30
+updatedAt: 2026-05-06
 title: NestJS i18n - 如何翻译NestJS 应用 2026
 description: 了解如何使你的 NestJS 后端支持多语言。按照文档进行国际化（i18n）和翻译。
 keywords:
@@ -17,6 +17,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-nestjs-template
 author: AydinTheFirst
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "更新 Solid useIntlayer API 用法以直接访问属性"
   - version: 7.5.9
     date: 2025-12-30
     changes: "添加 init 命令"

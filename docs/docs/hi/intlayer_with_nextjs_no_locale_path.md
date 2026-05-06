@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-10
-updatedAt: 2026-01-10
+updatedAt: 2026-05-06
 title: Next.js i18n - Next.js 16 ऐप कैसे अनुवाद करें (पृष्ठ पथ में [locale] के बिना) 2026 में
 description: जानें कि अपने Next.js 16 वेबसाइट को पृष्ठ पथ में [locale] के बिना बहुभाषी कैसे बनाना है। अंतर्राष्ट्रीयकरण (i18n) और अनुवाद के लिए इस दस्तावेज़ का पालन करें।
 keywords:
@@ -18,6 +18,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-next-no-lolale-path-template
 youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "सॉलिड useIntlayer API उपयोग को सीधे प्रॉपर्टी एक्सेस में अपडेट करें"
   - version: 8.0.0
     date: 2026-01-10
     changes: "प्रारंभिक रिलीज़"
@@ -443,6 +446,8 @@ export const ServerComponentExample: FC = () => {
 
 > ```jsx
 > <img src={content.image.src.value} alt={content.image.value} />
+> <img src={content.image.src.toString()} alt={content.image.toString()} />
+> <img src={String(content.image.src)} alt={String(content.image)} />
 > ```
 
 > `useIntlayer` हुक के बारे में अधिक जानने के लिए, [डॉक्यूमेंटेशन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/next-intlayer/useIntlayer.md) देखें।

@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-12-06
-updatedAt: 2025-12-30
+updatedAt: 2026-05-06
 title: Next.js i18n - Как перевести приложение Next.js 15 в 2026
 description: Узнайте, как сделать ваш сайт на Next.js 15 многоязычным. Следуйте документации для интернационализации (i18n) и перевода.
 keywords:
@@ -19,6 +19,9 @@ applicationTemplate: https://github.com/aymericzip/intlayer-next-15-template
 applicationShowcase: https://next-15-intlayer-template-xt83.vercel.app
 youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Обновление использования API useIntlayer в Solid для прямого доступа к свойствам"
   - version: 7.5.9
     date: 2025-12-30
     changes: "Добавить команду init"
@@ -373,6 +376,8 @@ export const ServerComponentExample: FC = () => {
 
 > ```jsx
 > <img src={content.image.src.value} alt={content.image.value} />
+> <img src={content.image.src.toString()} alt={content.image.toString()} />
+> <img src={String(content.image.src)} alt={String(content.image)} />
 > ```
 
 > Чтобы узнать больше о хуке `useIntlayer`, обратитесь к [документации](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/next-intlayer/useIntlayer.md).

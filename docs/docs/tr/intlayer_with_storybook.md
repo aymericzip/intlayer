@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-03-20
-updatedAt: 2026-03-20
+updatedAt: 2026-05-06
 title: Storybook ile Intlayer Nasıl Kurulur
 description: Intlayer ve Storybook kullanarak tasarım sisteminizi nasıl çok dilli hale getireceğinizi öğrenin — içerik bildirimlerini derleyin, bir yerel ayar değiştirici ekleyin ve bileşenlerinizi herhangi bir dilde önizleyin.
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - doc
   - storybook
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Solid useIntlayer API kullanımını doğrudan özellik erişimine güncelle"
   - version: 8.4.5
     date: 2026-03-20
     changes: "Init doc"

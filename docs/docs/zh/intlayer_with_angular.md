@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2025-12-30
+updatedAt: 2026-05-06
 title: Angular i18n - 如何翻译Angular 应用 2026
 description: 探索如何让你的 Angular 网站支持多语言。遵循文档进行国际化 (i18n) 和翻译。
 keywords:
@@ -16,6 +16,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-angular-template
 applicationShowcase: https://intlayer-angular-template.vercel.app
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "更新 Solid useIntlayer API 用法以直接访问属性"
   - version: 8.0.0
     date: 2025-12-30
     changes: "添加 init 命令"

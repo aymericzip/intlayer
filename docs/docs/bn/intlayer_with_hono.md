@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-12-30
+updatedAt: 2026-05-06
 title: Hono i18n - ২০২৬ সালে কীভাবে একটি Hono অ্যাপ অনুবাদ করবেন
 description: কীভাবে আপনার Hono ব্যাকএন্ডকে বহুভাষিক করবেন তা আবিষ্কার করুন। এটিকে আন্তর্জাতিকীকরণ (i18n) এবং অনুবাদ করতে ডকুমেন্টেশন অনুসরণ করুন।
 keywords:
@@ -16,6 +16,9 @@ slugs:
   - hono
 applicationTemplate: https://github.com/aymericzip/intlayer-hono-template
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "সলিড useIntlayer API ব্যবহার সরাসরি প্রপার্টি অ্যাক্সেসে আপডেট করুন"
   - version: 7.5.9
     date: 2025-12-30
     changes: "init কমান্ড যোগ করা হয়েছে"

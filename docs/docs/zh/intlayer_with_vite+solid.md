@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-05-04
+updatedAt: 2026-05-06
 title: Vite + Solid i18n - 如何翻译Solid 应用 2026
 description: 了解如何使您的 Vite 和 Solid 网站支持多语言。按照文档进行国际化（i18n）和翻译。
 keywords:
@@ -18,7 +18,7 @@ applicationTemplate: https://github.com/aymericzip/intlayer-vite-solid-template
 history:
   - version: 8.9.0
     date: 2026-05-04
-    changes: "Update Solid useIntlayer API usage to direct property access"
+    changes: "更新 Solid useIntlayer API 用法以直接访问属性"
   - version: 7.5.9
     date: 2025-12-30
     changes: "添加 init 命令"
@@ -232,10 +232,12 @@ export default App;
 
 > 在 Solid 中，`useIntlayer` 返回一个 **accessor** 函数（例如，`content.）。您必须调用此函数才能访问响应式内容。
 
-> 如果您想在 `string` 属性（如 `alt`、`title`、`href`、`aria-label` 等）中使用您的内容，必须调用函数的值，例如：
+> 如果您想在 `string` 属性（如 `alt`、`title`、`href`、`aria-label` 等）中使用您的内容，可以使用函数的值，例如：
 >
 > ```jsx
 > <img src={content.image.src.value} alt={content.image.value} />
+> <img src={content.image.src.toString()} alt={content.image.toString()} />
+> <img src={String(content.image.src)} alt={String(content.image)} />
 > ```
 
 ### （可选）第6步：更改内容语言

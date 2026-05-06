@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-03-25
-updatedAt: 2026-03-25
+updatedAt: 2026-05-06
 title: i18n Tanstack Start - Cách dịch ứng dụng Tanstack Start sử dụng Solid.js vào năm 2026
 description: Tìm hiểu cách thêm đa ngôn ngữ (i18n) vào ứng dụng Tanstack Start của bạn bằng Intlayer và Solid.js. Làm theo hướng dẫn toàn diện này để tạo ứng dụng đa ngôn ngữ với điều hướng theo ngôn ngữ.
 keywords:
@@ -21,6 +21,9 @@ applicationTemplate: https://github.com/aymericzip/intlayer-tanstack-start-solid
 applicationShowcase: https://intlayer-tanstack-start-solid.vercel.app
 youtubeVideo: https://www.youtube.com/watch?v=_XTdKVWaeqg
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Cập nhật cách sử dụng API useIntlayer của Solid sang truy cập thuộc tính trực tiếp"
   - version: 8.5.1
     date: 2026-03-25
     changes: "Đã thêm cho Tanstack Start Solid.js"
@@ -405,7 +408,15 @@ function RouteComponent() {
 }
 ```
 
-> Trong Solid, `useIntlayer` trả về một hàm **accessor** (ví dụ: `content.). Bạn phải gọi hàm này để truy cập nội dung phản ứng.
+> Nếu bạn muốn sử dụng nội dung của mình trong một thuộc tính `string`, như `alt`, `title`, `href`, `aria-label`, v.v., bạn phải gọi giá trị của hàm, ví dụ:
+
+> ```jsx
+> <img src={content.image.src.value} alt={content.image.value} />
+> <img src={content.image.src.toString()} alt={content.image.toString()} />
+> <img src={String(content.image.src)} alt={String(content.image)} />
+> ```
+
+> In Solid, `useIntlayer` returns reactive content (e.g., `content`). You can access its properties directly.
 >
 > Để tìm hiểu thêm về hook `useIntlayer`, hãy tham khảo [tài liệu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/solid-intlayer/useIntlayer.md).
 

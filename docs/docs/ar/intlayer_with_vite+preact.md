@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-03-12
+updatedAt: 2026-05-06
 title: Vite + Preact i18n - كيفية ترجمة تطبيق Preact في 2026
 description: اكتشف كيفية جعل موقعك باستخدام Vite و Preact متعدد اللغات. اتبع الوثائق لتدويل (i18n) وترجمته.
 keywords:
@@ -17,6 +17,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-preact-template
 applicationShowcase: https://intlayer-vite-preact-template.vercel.app
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "تحديث استخدام واجهة برمجة تطبيقات useIntlayer في Solid للوصول المباشر إلى الخصائص"
   - version: 7.5.9
     date: 2025-12-30
     changes: "إضافة أمر init"
@@ -347,6 +350,8 @@ export default App;
 
 > ```jsx
 > <img src={content.image.src.value} alt={content.image.value} />
+> <img src={content.image.src.toString()} alt={content.image.toString()} />
+> <img src={String(content.image.src)} alt={String(content.image)} />
 > ```
 
 > ملاحظة: في Preact، عادةً ما يتم كتابة `className` كـ `class`.

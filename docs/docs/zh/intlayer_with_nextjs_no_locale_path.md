@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-10
-updatedAt: 2026-01-10
+updatedAt: 2026-05-06
 title: Next.js i18n - 如何翻译Next.js 16 应用（页面路径中不包含 [locale]） 2026
 description: 了解如何在页面路径中不包含 [locale] 的情况下，让你的 Next.js 16 网站支持多语言。按照文档进行国际化 (i18n) 并进行翻译。
 keywords:
@@ -18,6 +18,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-next-no-lolale-path-template
 youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "更新 Solid useIntlayer API 用法以直接访问属性"
   - version: 8.0.0
     date: 2026-01-10
     changes: "初始发布"
@@ -451,10 +454,12 @@ export const ServerComponentExample: FC = () => {
 };
 ```
 
-> 如果您想在 `string` 属性（例如 `alt`、`title`、`href`、`aria-label` 等）中使用内容，必须调用函数的值，例如：
+> 如果您想在 `string` 属性（例如 `alt`、`title`、`href`、`aria-label` 等）中使用内容，可以使用函数的值，例如：
 
 > ```jsx
 > <img src={content.image.src.value} alt={content.image.value} />
+> <img src={content.image.src.toString()} alt={content.image.toString()} />
+> <img src={String(content.image.src)} alt={String(content.image)} />
 > ```
 
 > 若要了解有关 `useIntlayer` hook 的更多信息，请参阅 [文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/next-intlayer/useIntlayer.md)。

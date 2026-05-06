@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2025-12-30
+updatedAt: 2026-05-06
 title: Analog i18n - Cách dịch ứng dụng Analog năm 2026
 description: Khám phá cách làm cho ứng dụng Analog của bạn hỗ trợ đa ngôn ngữ. Làm theo tài liệu để quốc tế hóa (i18n) và dịch nó.
 keywords:
@@ -17,6 +17,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-analog-template
 applicationShowcase: https://intlayer-analog-template.vercel.app
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Cập nhật cách sử dụng API useIntlayer của Solid sang truy cập thuộc tính trực tiếp"
   - version: 8.0.4
     date: 2026-01-26
     changes: "Khởi tạo lịch sử"

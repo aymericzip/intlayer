@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-03-29
+updatedAt: 2026-05-06
 title: Tanstack Start i18n - 如何翻译Tanstack Start 应用 2026
 description: 学习如何使用 Intlayer 为您的 Tanstack Start 应用添加国际化 (i18n)。按照本综合指南，使您的应用支持多语言并具备基于区域设置的路由功能。
 keywords:
@@ -21,6 +21,9 @@ applicationTemplate: https://github.com/aymericzip/intlayer-tanstack-start-templ
 applicationShowcase: https://intlayer-tanstack-start-template.vercel.app
 youtubeVideo: https://www.youtube.com/watch?v=_XTdKVWaeqg
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "更新 Solid useIntlayer API 用法以直接访问属性"
   - version: 7.5.9
     date: 2025-12-30
     changes: "添加 init 命令"
@@ -244,6 +247,14 @@ function RootDocument({ children }: { children: ReactNode }) {
   );
 }
 ```
+
+> 如果您想在字符串属性中使用内容，比如 `alt`、`title`、`href`、`aria-label` 等，可以使用函数的值，例如：
+
+> ```jsx
+> <img src={content.image.src.value} alt={content.image.value} />
+> <img src={content.image.src.toString()} alt={content.image.toString()} />
+> <img src={String(content.image.src)} alt={String(content.image)} />
+> ```
 
 ### 第六步：创建 Locale 布局
 

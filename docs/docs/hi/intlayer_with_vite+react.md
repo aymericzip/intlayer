@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2026-03-12
+updatedAt: 2026-05-06
 title: Vite + React i18n - React ऐप कैसे अनुवाद करें 2026 में
 description: जानें कि कैसे Intlayer का उपयोग करके अपने Vite और React एप्लिकेशन में अंतरराष्ट्रीयकरण (i18n) जोड़ें। इस गाइड का पालन करके अपनी ऐप को बहुभाषी बनाएं।
 keywords:
@@ -19,12 +19,15 @@ applicationTemplate: https://github.com/aymericzip/intlayer-vite-react-template
 applicationShowcase: https://intlayer-vite-react-template.vercel.app
 youtubeVideo: https://www.youtube.com/watch?v=dS9L7uJeak4
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "सॉलिड useIntlayer API उपयोग को सीधे प्रॉपर्टी एक्सेस में अपडेट करें"
   - version: 7.5.9
     date: 2025-12-30
     changes: "init कमांड जोड़ें"
   - version: 5.5.10
     date: 2025-06-29
-    changes: "Init history"
+    changes: "प्रारंभिक इतिहास"
 ---
 
 # Intlayer का उपयोग करके अपनी Vite और React वेबसाइट का अनुवाद करें | अंतरराष्ट्रीयकरण (i18n)
@@ -351,6 +354,8 @@ export default App;
 
 > ```jsx
 > <img src={content.image.src.value} alt={content.image.value} />
+> <img src={content.image.src.toString()} alt={content.image.toString()} />
+> <img src={String(content.image.src)} alt={String(content.image)} />
 > ```
 
 > `useIntlayer` हुक के बारे में अधिक जानने के लिए, [डॉक्यूमेंटेशन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/react-intlayer/useIntlayer.md) देखें।

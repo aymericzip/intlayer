@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-03-20
-updatedAt: 2026-03-20
+updatedAt: 2026-05-06
 title: Cách thiết lập Intlayer với Storybook
 description: Tìm hiểu cách làm cho hệ thống thiết kế của bạn đa ngôn ngữ bằng cách sử dụng Intlayer với Storybook — biên dịch các khai báo nội dung, thêm trình chuyển đổi ngôn ngữ và xem trước các thành phần của bạn bằng bất kỳ ngôn ngữ nào.
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - doc
   - storybook
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Cập nhật cách sử dụng API useIntlayer của Solid sang truy cập thuộc tính trực tiếp"
   - version: 8.4.5
     date: 2026-03-20
     changes: "Init doc"

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-03-12
+updatedAt: 2026-05-06
 title: Vite + Vue i18n - Come tradurre un'app Vue nel 2026
 description: Scopri come rendere il tuo sito Vite e Vue multilingue. Segui la documentazione per internazionalizzare (i18n) e tradurlo.
 keywords:
@@ -15,6 +15,9 @@ slugs:
   - environment
   - vite-and-vue
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Aggiornare l'uso dell'API useIntlayer di Solid all'accesso diretto alle proprietà"
   - version: 7.5.9
     date: 2025-12-30
     changes: "Aggiungi comando init"

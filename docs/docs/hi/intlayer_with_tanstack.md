@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-03-12
+updatedAt: 2026-05-06
 title: Tanstack Start i18n - Tanstack Start ऐप कैसे अनुवाद करें 2026 में
 description: जानें कि Intlayer का उपयोग करके अपने TanStack Start एप्लिकेशन में अंतर्राष्ट्रीयकरण (i18n) कैसे जोड़ें। अपने ऐप को बहुभाषी और लोकेल-जागरूक रूटिंग के साथ बनाने के लिए इस व्यापक गाइड का पालन करें।
 keywords:
@@ -20,6 +20,9 @@ applicationTemplate: https://github.com/aymericzip/intlayer-tanstack-start-templ
 applicationShowcase: https://intlayer-tanstack-start-template.vercel.app
 youtubeVideo: https://www.youtube.com/watch?v=_XTdKVWaeqg
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "सॉलिड useIntlayer API उपयोग को सीधे प्रॉपर्टी एक्सेस में अपडेट करें"
   - version: 7.5.9
     date: 2025-12-30
     changes: "init कमांड जोड़ें"
@@ -243,6 +246,14 @@ function RootDocument({ children }: { children: ReactNode }) {
   );
 }
 ```
+
+> यदि आप अपनी सामग्री को `string` एट्रिब्यूट में उपयोग करना चाहते हैं, जैसे `alt`, `title`, `href`, `aria-label`, आदि, तो आपको फ़ंक्शन के मान को कॉल करना होगा, जैसे:
+
+> ```jsx
+> <img src={content.image.src.value} alt={content.image.value} />
+> <img src={content.image.src.toString()} alt={content.image.toString()} />
+> <img src={String(content.image.src)} alt={String(content.image)} />
+> ```
 
 ### चरण 6: लोकेल लेआउट बनाएं
 

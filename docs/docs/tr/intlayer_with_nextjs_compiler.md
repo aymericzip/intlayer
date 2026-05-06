@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-10
-updatedAt: 2026-03-12
+updatedAt: 2026-05-06
 title: Next.js i18n - Mevcut bir Next.js uygulamasını çok dilli bir uygulamaya dönüştürün 2026
 description: Intlayer Derleyicisi'ni kullanarak mevcut Next.js uygulamanızı nasıl çok dilli yapacağınızı keşfedin. Uygulamanızı uluslararasılaştırmak (i18n) ve AI ile çevirmek için kılavuzu takip edin.
 keywords:
@@ -20,6 +20,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-next-no-lolale-path-template
 youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Solid useIntlayer API kullanımını doğrudan özellik erişimine güncelle"
   - version: 8.2.0
     date: 2026-03-09
     changes: "Update compiler options, add FilePathPattern support"

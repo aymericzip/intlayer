@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-03-25
-updatedAt: 2026-03-25
+updatedAt: 2026-05-06
 title: Tanstack Start i18n - 2026'da Solid.js kullanarak Tanstack Start Uygulamasını Çevirme
 description: Intlayer ve Solid.js kullanarak Tanstack Start uygulamanıza nasıl uluslararasılaştırma (i18n) ekleyeceğinizi öğrenin. Uygulamanızı yerel ayara duyarlı yönlendirme ile çok dilli hale getirmek için bu kapsamlı kılavuzu izleyin.
 keywords:
@@ -21,6 +21,9 @@ applicationTemplate: https://github.com/aymericzip/intlayer-tanstack-start-solid
 applicationShowcase: https://intlayer-tanstack-start-solid.vercel.app
 youtubeVideo: https://www.youtube.com/watch?v=_XTdKVWaeqg
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Solid useIntlayer API kullanımını doğrudan özellik erişimine güncelle"
   - version: 8.5.1
     date: 2026-03-25
     changes: "Tanstack Start Solid.js için eklendi"
@@ -406,7 +409,15 @@ function RouteComponent() {
 }
 ```
 
-> Solid'de, `useIntlayer` bir **accessor** fonksiyonu (ör: `content.) döndürür. Reaktif içeriğe erişmek için bu fonksiyonu çağırmalısınız.
+> İçeriğinizi bir `string` niteliğinde kullanmak istiyorsanız, `alt`, `title`, `href`, `aria-label` vb. gibi, fonksiyonun değerini çağırmanız gerekir:
+
+> ```jsx
+> <img src={content.image.src.value} alt={content.image.value} />
+> <img src={content.image.src.toString()} alt={content.image.toString()} />
+> <img src={String(content.image.src)} alt={String(content.image)} />
+> ```
+
+> Solid'de, `useIntlayer` reaktif içerik döndürür (örneğin, `content`). Özelliklerine doğrudan erişebilirsiniz.
 >
 > `useIntlayer` hook'u hakkında daha fazla bilgi edinmek için [dokümantasyon](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/solid-intlayer/useIntlayer.md)a bakın.
 

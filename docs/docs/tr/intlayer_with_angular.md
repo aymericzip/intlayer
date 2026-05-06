@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2025-12-30
+updatedAt: 2026-05-06
 title: Angular i18n - Angular uygulamasını çevirme 2026
 description: Angular web sitenizi nasıl çok dilli hale getireceğinizi keşfedin. Uluslararasılaştırmak (i18n) ve çevirmek için belgeleri takip edin.
 keywords:
@@ -16,6 +16,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-angular-template
 applicationShowcase: https://intlayer-angular-template.vercel.app
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Solid useIntlayer API kullanımını doğrudan özellik erişimine güncelle"
   - version: 8.0.0
     date: 2025-12-30
     changes: "init komutu ekle"

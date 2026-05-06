@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-05-04
+updatedAt: 2026-05-06
 title: Vite + Solid i18n - How to translate an Solid app in 2026
 description: Discover how to make your Vite and Solid website multilingual. Follow the documentation to internationalize (i18n) and translate it.
 keywords:
@@ -24,7 +24,7 @@ history:
     changes: "Add init command"
   - version: 5.5.10
     date: 2025-06-29
-    changes: "Init history"
+    changes: "Initial history"
 ---
 
 # Translate your Vite and Solid website using Intlayer | Internationalization (i18n)
@@ -305,10 +305,12 @@ export default App;
 
 > In Solid, `useIntlayer` returns reactive content (e.g., `content`). You can access its properties directly.
 
-> If you want to use your content in a `string` attribute, such as `alt`, `title`, `href`, `aria-label`, etc., you must call the value of the function, like:
+> If you want to use your content in a `string` attribute, such as `alt`, `title`, `href`, `aria-label`, etc., you can use the value of the function, like:
 >
 > ```jsx
 > <img src={content.image.src.value} alt={content.image.value} />
+> <img src={content.image.src.toString()} alt={content.image.toString()} />
+> <img src={String(content.image.src)} alt={String(content.image)} />
 > ```
 
 ### (Optional) Step 6: Change the language of your content

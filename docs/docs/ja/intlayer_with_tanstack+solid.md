@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-03-25
-updatedAt: 2026-03-29
+updatedAt: 2026-05-06
 title: Tanstack Start i18n - 2026年にSolid.jsを使用してTanstack Startアプリを翻訳する方法
 description: IntlayerとSolid.jsを使用して、Tanstack Startアプリケーションに国際化（i18n）を追加する方法を学びます。この包括的なガイドに従って、ロケール対応ルーティングを備えた多言語アプリを作成してください。
 keywords:
@@ -22,6 +22,9 @@ applicationTemplate: https://github.com/aymericzip/intlayer-tanstack-start-solid
 applicationShowcase: https://intlayer-tanstack-start-solid.vercel.app
 youtubeVideo: https://www.youtube.com/watch?v=_XTdKVWaeqg
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Solid の useIntlayer API の使用法を直接プロパティアクセスに更新"
   - version: 8.5.1
     date: 2026-03-25
     changes: "Tanstack Start Solid.js用に追加"
@@ -406,7 +409,15 @@ function RouteComponent() {
 }
 ```
 
-> Solidでは、`useIntlayer` は **アクセサー** 関数 (例: `content.) を返します。リアクティブなコンテンツにアクセスするには、この関数を呼び出す必要があります。
+> コンテンツを `alt`、`title`、`href`、`aria-label` などの `string` 属性で使用したい場合は、関数の値を使用できます。例：
+
+> ```jsx
+> <img src={content.image.src.value} alt={content.image.value} />
+> <img src={content.image.src.toString()} alt={content.image.toString()} />
+> <img src={String(content.image.src)} alt={String(content.image)} />
+> ```
+
+> Solidでは、`useIntlayer`はリアクティブなコンテンツ（例：`content`）を返します。そのプロパティに直接アクセスできます。
 >
 > `useIntlayer` フックの詳細については、[ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/solid-intlayer/useIntlayer.md)を参照してください。
 

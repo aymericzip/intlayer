@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-03-25
-updatedAt: 2026-03-29
+updatedAt: 2026-05-06
 title: i18n Tanstack Start - Cómo traducir una aplicación Tanstack Start usando Solid.js en 2026
 description: Aprenda cómo agregar internacionalización (i18n) a su aplicación Tanstack Start usando Intlayer y Solid.js. Siga esta guía completa para hacer que su aplicación sea multilingüe con enrutamiento consciente de la localización.
 keywords:
@@ -22,6 +22,9 @@ applicationTemplate: https://github.com/aymericzip/intlayer-tanstack-start-solid
 applicationShowcase: https://intlayer-tanstack-start-solid.vercel.app
 youtubeVideo: https://www.youtube.com/watch?v=_XTdKVWaeqg
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Actualizar el uso de la API useIntlayer de Solid para el acceso directo a las propiedades"
   - version: 8.5.1
     date: 2026-03-25
     changes: "Añadido para Tanstack Start Solid.js"
@@ -406,7 +409,15 @@ function RouteComponent() {
 }
 ```
 
-> En Solid, `useIntlayer` devuelve una función **accessor** (por ejemplo, `content.). Debe llamar a esta función para acceder al contenido reactivo.
+> Si deseas usar tu contenido en un atributo de tipo `string`, como `alt`, `title`, `href`, `aria-label`, etc., debes llamar al valor de la función, así:
+
+> ```jsx
+> <img src={content.image.src.value} alt={content.image.value} />
+> <img src={content.image.src.toString()} alt={content.image.toString()} />
+> <img src={String(content.image.src)} alt={String(content.image)} />
+> ```
+
+> En Solid, `useIntlayer` devuelve contenido reactivo (por ejemplo, `content`). Puedes acceder a sus propiedades directamente.
 >
 > Para saber más sobre el hook `useIntlayer`, consulte la [documentación](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/solid-intlayer/useIntlayer.md).
 

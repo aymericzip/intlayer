@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-05-04
+updatedAt: 2026-05-06
 title: useIntlayer हुक दस्तावेज़ीकरण | solid-intlayer
 description: solid-intlayer पैकेज के लिए useIntlayer हुक का उपयोग कैसे करें
 keywords:
@@ -20,7 +20,7 @@ slugs:
 history:
   - version: 8.9.0
     date: 2026-05-04
-    changes: "Update Solid useIntlayer API usage to direct property access"
+    changes: "सॉलिड useIntlayer API उपयोग को सीधे प्रॉपर्टी एक्सेस में अपडेट करें"
   - version: 8.0.0
     date: 2026-01-21
     changes: "Unified documentation for all exports"

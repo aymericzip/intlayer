@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-03-23
-updatedAt: 2026-03-23
+updatedAt: 2026-05-06
 title: i18n Vite + Lit - Cara menerjemahkan aplikasi Lit di tahun 2026
 description: Temukan cara membuat situs web Vite dan Lit Anda multibahasa. Ikuti dokumentasi untuk internasionalisasi (i18n) dan terjemahan.
 keywords:
@@ -18,9 +18,12 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-lit-template
 applicationShowcase: https://intlayer-vite-lit-template.vercel.app
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Perbarui penggunaan API useIntlayer Solid ke akses properti langsung"
   - version: 8.4.10
     date: 2026-03-23
-    changes: "Init history"
+    changes: "Riwayat awal"
 ---
 
 # Terjemahkan situs web Vite dan Lit Anda dengan Intlayer | Internasionalisasi (i18n)
@@ -299,6 +302,8 @@ export class MyElement extends LitElement {
 >
 > ```typescript
 > html`<img alt=${content.viteLogo.value} />`;
+> html`<img alt=${content.viteLogo.toString()} />`;
+> html`<img alt=${String(content.viteLogo)} />`;
 > ```
 
 ### (Opsional) Langkah 7: Ubah Bahasa Konten Anda

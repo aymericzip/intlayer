@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-24
-updatedAt: 2026-04-24
+updatedAt: 2026-05-06
 title: Astro + Preact i18n - 如何在 2026 年翻译 Astro + Preact 应用程序
 description: 了解如何使用 Intlayer 为您的 Astro + Preact 网站添加 internationalization (i18n)。按照本指南让您的网站支持多语言。
 keywords:
@@ -19,6 +19,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-astro-template
 applicationShowcase: https://intlayer-astro-template.vercel.app
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "更新 Solid useIntlayer API 用法以直接访问属性"
   - version: 8.7.7
     date: 2026-04-24
     changes: "Astro + Preact 的初始文档"
@@ -443,6 +446,14 @@ Intlayer 使用模块扩展来利用 TypeScript，使您的代码库更加健壮
 # 忽略 Intlayer 生成的文件
 .intlayer
 ```
+
+> 如果您想在 `字符串` 属性（如 `alt`、`title`、`href`、`aria-label` 等）中使用内容，可以使用函数的值，例如：
+
+> ```jsx
+> <img src={content.image.src.value} alt={content.image.value} />
+> <img src={content.image.src.toString()} alt={content.image.toString()} />
+> <img src={String(content.image.src)} alt={String(content.image)} />
+> ```
 
 ### VS Code 扩展
 

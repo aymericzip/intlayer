@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-06-29
+updatedAt: 2026-05-06
 title: useIntlayer हुक दस्तावेज़ | next-intlayer
 description: next-intlayer पैकेज के लिए useIntlayer हुक का उपयोग कैसे करें देखें
 keywords:
@@ -19,6 +19,9 @@ slugs:
   - next-intlayer
   - useIntlayer
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "सॉलिड useIntlayer API उपयोग को सीधे प्रॉपर्टी एक्सेस में अपडेट करें"
   - version: 5.5.10
     date: 2025-06-29
     changes: "प्रारंभिक इतिहास"
@@ -142,6 +145,8 @@ const ServerComponentExample: FC = () => {
 
 ```tsx
 <img src={content.image.src.value} alt={content.image.alt.value} />
+<img src={content.image.src.toString()} alt={content.image.alt.toString()} />
+<img src={String(content.image.src)} alt={String(content.image.alt)} />
 ```
 
 ## आगे की जानकारी

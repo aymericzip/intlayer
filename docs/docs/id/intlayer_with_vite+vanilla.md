@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-03-23
-updatedAt: 2026-03-23
+updatedAt: 2026-05-06
 title: i18n Vite + Vanilla JS - Cara menerjemahkan aplikasi Vanilla JS pada tahun 2026
 description: Temukan cara membuat situs web Vite dan Vanilla JS Anda multibahasa. Ikuti dokumentasi untuk internasionalisasi (i18n) dan terjemahannya.
 keywords:
@@ -19,9 +19,12 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-vanilla-template
 applicationShowcase: https://intlayer-vite-vanilla.vercel.app
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Perbarui penggunaan API useIntlayer Solid ke akses properti langsung"
   - version: 8.4.10
     date: 2026-03-23
-    changes: "Init history"
+    changes: "Riwayat awal"
 ---
 
 # Terjemahkan situs web Vite dan Vanilla JS Anda dengan Intlayer | Internasionalisasi (i18n)

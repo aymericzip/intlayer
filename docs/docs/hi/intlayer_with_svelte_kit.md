@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-11-20
-updatedAt: 2026-03-12
+updatedAt: 2026-05-06
 title: SvelteKit i18n - SvelteKit ऐप कैसे अनुवाद करें 2026 में
 description: जानें कि अपनी SvelteKit वेबसाइट को बहुभाषी कैसे बनाएं। Server-Side Rendering (SSR) का उपयोग करके इसे अंतरराष्ट्रीयकृत (i18n) और अनुवादित करने के लिए दस्तावेज़ का पालन करें।
 keywords:
@@ -17,6 +17,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-sveltekit-template
 applicationShowcase: https://intlayer-sveltekit-template.vercel.app
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "सॉलिड useIntlayer API उपयोग को सीधे प्रॉपर्टी एक्सेस में अपडेट करें"
   - version: 7.5.9
     date: 2025-12-30
     changes: "init कमांड जोड़ें"
@@ -203,7 +206,7 @@ export default heroContent;
 
 > **नोट:** `useIntlayer` एक Svelte store लौटाता है, इसलिए इसके reactive मान तक पहुँचने के लिए आपको `---
 > createdAt: 2025-11-20
-> updatedAt: 2026-03-12
+> updatedAt: 2026-05-06
 > title: अपने SvelteKit ऐप का अनुवाद कैसे करें – i18n गाइड 2026
 > description: जानें कि अपनी SvelteKit वेबसाइट को बहुभाषी कैसे बनाएं। Server-Side Rendering (SSR) का उपयोग करके इसे अंतरराष्ट्रीयकृत (i18n) और अनुवादित करने के लिए दस्तावेज़ का पालन करें।
 > keywords:
@@ -391,6 +394,8 @@ export default heroContent;
 <h1>{@const Title = $content.title}<Title /></h1>
 <!-- सामग्री को स्ट्रिंग के रूप में प्रस्तुत करने के लिए -->
 <div aria-label={$content.title.value}></div>
+<div aria-label={$content.title.toString()}></div>
+<div aria-label={String($content.title)}></div>
 ```
 
 ### (वैकल्पिक) चरण 6: रूटिंग सेट करें

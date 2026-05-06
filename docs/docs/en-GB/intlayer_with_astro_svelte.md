@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-24
-updatedAt: 2026-04-24
+updatedAt: 2026-05-06
 title: Astro + Svelte i18n - How to translate an Astro + Svelte application in 2026
 description: Learn how to add internationalisation (i18n) to your Astro + Svelte site with Intlayer. Follow this guide to make your site multilingual.
 keywords:
@@ -19,6 +19,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-astro-template
 applicationShowcase: https://intlayer-astro-template.vercel.app
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Update Solid useIntlayer API usage to direct property access"
   - version: 8.7.7
     date: 2026-04-24
     changes: "Initial documentation for Astro + Svelte"
@@ -259,6 +262,14 @@ const { title } = getIntlayer("app", locale);
   </body>
 </html>
 ```
+
+> If you want to use your content in a `string` attribute, such as `alt`, `title`, `href`, `aria-label`, etc., you can use the value of the function, like:
+
+> ```jsx
+> <img src={content.image.src.value} alt={content.image.value} />
+> <img src={content.image.src.toString()} alt={content.image.toString()} />
+> <img src={String(content.image.src)} alt={String(content.image)} />
+> ```
 
 > **Note on routing setup:**
 > The directory structure you use depends on the `middleware.routing` setting in `intlayer.config.ts`:

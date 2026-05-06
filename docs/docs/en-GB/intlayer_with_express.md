@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-12-30
+updatedAt: 2026-05-06
 title: Express i18n - How to translate an Express app in 2026
 description: Discover how to make your Express backend multilingual. Follow the documentation to internationalize (i18n) and translate it.
 keywords:
@@ -16,12 +16,15 @@ slugs:
   - express
 applicationTemplate: https://github.com/aymericzip/intlayer-express-template
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Update Solid useIntlayer API usage to direct property access"
   - version: 7.5.9
     date: 2025-12-30
     changes: "Add init command"
   - version: 5.5.10
     date: 2025-06-29
-    changes: "Init history"
+    changes: "Initial history"
 ---
 
 # Translate your Express backend using Intlayer | Internationalization (i18n)

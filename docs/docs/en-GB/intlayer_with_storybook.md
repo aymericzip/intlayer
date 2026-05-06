@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-03-20
-updatedAt: 2026-03-20
+updatedAt: 2026-05-06
 title: How to set up Intlayer with Storybook
 description: Learn how to make your design system multilingual using Intlayer with Storybook — compile content declarations, add a locale switcher, and preview your components in any language.
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - doc
   - storybook
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Update Solid useIntlayer API usage to direct property access"
   - version: 8.4.5
     date: 2026-03-20
     changes: "Init doc"

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-24
-updatedAt: 2026-04-24
+updatedAt: 2026-05-06
 title: Astro + Svelte i18n - Cara Menerjemahkan Aplikasi Astro + Svelte di tahun 2026
 description: Pelajari cara menambahkan internasionalisasi (i18n) ke situs Astro + Svelte Anda menggunakan Intlayer. Ikuti panduan ini untuk membuat situs Anda multibahasa.
 keywords:
@@ -19,6 +19,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-astro-template
 applicationShowcase: https://intlayer-astro-template.vercel.app
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Perbarui penggunaan API useIntlayer Solid ke akses properti langsung"
   - version: 8.7.7
     date: 2026-04-24
     changes: "Dokumentasi awal untuk Astro + Svelte"
@@ -259,6 +262,14 @@ const { title } = getIntlayer("app", locale);
   </body>
 </html>
 ```
+
+> Jika Anda ingin menggunakan konten Anda dalam atribut `string`, seperti `alt`, `title`, `href`, `aria-label`, dll., Anda dapat menggunakan nilai fungsi, seperti:
+
+> ```jsx
+> <img src={content.image.src.value} alt={content.image.value} />
+> <img src={content.image.src.toString()} alt={content.image.toString()} />
+> <img src={String(content.image.src)} alt={String(content.image)} />
+> ```
 
 > **Catatan tentang Penyiapan Perutean:**
 > Struktur direktori yang Anda gunakan bergantung pada pengaturan `middleware.routing` di `intlayer.config.ts`:

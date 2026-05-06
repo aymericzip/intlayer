@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-12-30
+updatedAt: 2026-05-06
 title: AdonisJS i18n - How to translate an AdonisJS app in 2026
 description: Discover how to make your AdonisJS backend multilingual. Follow the documentation to internationalise (i18n) and translate it.
 keywords:
@@ -16,9 +16,12 @@ slugs:
   - adonisjs
 applicationTemplate: https://github.com/aymericzip/intlayer-adonis-template
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Update Solid useIntlayer API usage to direct property access"
   - version: 8.0.0
     date: 2025-12-30
-    changes: "Init history"
+    changes: "Initial history"
 ---
 
 # Translate your AdonisJS backend website using Intlayer | Internationalisation (i18n)

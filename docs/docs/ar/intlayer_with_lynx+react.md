@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-03-09
-updatedAt: 2025-12-30
+updatedAt: 2026-05-06
 title: Lynx + React i18n - كيفية ترجمة تطبيق Lynx في 2026
 description: اكتشف كيفية جعل موقعك الذي يستخدم Lynx و React مع Page Router متعدد اللغات. اتبع الوثائق لتدويله (i18n) وترجمته.
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - lynx-and-react
 applicationTemplate: https://github.com/aymericzip/intlayer-lynx-template
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "تحديث استخدام واجهة برمجة تطبيقات useIntlayer في Solid للوصول المباشر إلى الخصائص"
   - version: 7.5.9
     date: 2025-12-30
     changes: "إضافة أمر init"

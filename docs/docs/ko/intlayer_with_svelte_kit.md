@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-11-20
-updatedAt: 2026-03-12
+updatedAt: 2026-05-06
 title: SvelteKit i18n - SvelteKit 앱 번역 방법 2026
 description: SvelteKit 웹사이트를 다국어로 만드는 방법을 알아보세요. 서버 사이드 렌더링(SSR)을 사용하여 국제화(i18n) 및 번역하는 문서를 따라가세요.
 keywords:
@@ -17,6 +17,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-sveltekit-template
 applicationShowcase: https://intlayer-sveltekit-template.vercel.app
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Solid useIntlayer API 사용법을 직접 속성 액세스로 업데이트"
   - version: 7.5.9
     date: 2025-12-30
     changes: "init 명령어 추가"
@@ -203,7 +206,7 @@ export default heroContent;
 
 > **참고:** `useIntlayer`는 Svelte 스토어를 반환하므로, 반응형 값을 접근하려면 `---
 > createdAt: 2025-11-20
-> updatedAt: 2026-03-12
+> updatedAt: 2026-05-06
 > title: SvelteKit 앱 번역 방법 – i18n 가이드 2026
 > description: SvelteKit 웹사이트를 다국어로 만드는 방법을 알아보세요. 서버 사이드 렌더링(SSR)을 사용하여 국제화(i18n) 및 번역하는 문서를 따라가세요.
 > keywords:
@@ -391,6 +394,8 @@ export default heroContent;
 <h1>{@const Title = $content.title}<Title /></h1>
 <!-- 콘텐츠를 문자열로 렌더링하기 -->
 <div aria-label={$content.title.value}></div>
+<div aria-label={$content.title.toString()}></div>
+<div aria-label={String($content.title)}></div>
 ```
 
 ### (선택 사항) 6단계: 라우팅 설정하기

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-24
-updatedAt: 2026-05-04
+updatedAt: 2026-05-06
 title: Astro + Solid i18n - How to translate an Astro + Solid app in 2026
 description: Learn how to add internationalization (i18n) to your Astro + Solid website using Intlayer. Follow this guide to make your site multilingual.
 keywords:
@@ -260,6 +260,14 @@ const { title } = getIntlayer("app", locale);
   </body>
 </html>
 ```
+
+> If you want to use your content in a `string` attribute, such as `alt`, `title`, `href`, `aria-label`, etc., you can use the value of the function, like:
+
+> ```jsx
+> <img src={content.image.src.value} alt={content.image.value} />
+> <img src={content.image.src.toString()} alt={content.image.toString()} />
+> <img src={String(content.image.src)} alt={String(content.image)} />
+> ```
 
 > **Note on Routing Configuration:**
 > The directory structure you use depends on the `middleware.routing` setting in your `intlayer.config.ts`:

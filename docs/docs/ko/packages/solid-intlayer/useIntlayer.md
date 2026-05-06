@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-05-04
+updatedAt: 2026-05-06
 title: useIntlayer 훅 문서 | solid-intlayer
 description: solid-intlayer 패키지에서 useIntlayer 훅을 사용하는 방법을 확인하세요
 keywords:
@@ -20,7 +20,7 @@ slugs:
 history:
   - version: 8.9.0
     date: 2026-05-04
-    changes: "Update Solid useIntlayer API usage to direct property access"
+    changes: "Solid useIntlayer API 사용법을 직접 속성 액세스로 업데이트"
   - version: 8.0.0
     date: 2026-01-21
     changes: "모든 export에 대한 문서 통합"

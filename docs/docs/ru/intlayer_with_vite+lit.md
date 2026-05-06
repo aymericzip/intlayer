@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-03-23
-updatedAt: 2026-03-23
+updatedAt: 2026-05-06
 title: i18n Vite + Lit — Как перевести приложение на Lit в 2026 году
 description: Узнайте, как сделать ваш веб-сайт на Vite и Lit многоязычным. Следуйте документации для интернационализации (i18n) и перевода.
 keywords:
@@ -18,9 +18,12 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-lit-template
 applicationShowcase: https://intlayer-vite-lit-template.vercel.app
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Обновление использования API useIntlayer в Solid для прямого доступа к свойствам"
   - version: 8.4.10
     date: 2026-03-23
-    changes: "Init history"
+    changes: "Начальная история"
 ---
 
 # Переведите ваш веб-сайт на Vite и Lit с помощью Intlayer | Интернационализация (i18n)
@@ -299,6 +302,8 @@ export class MyElement extends LitElement {
 >
 > ```typescript
 > html`<img alt=${content.viteLogo.value} />`;
+> html`<img alt=${content.viteLogo.toString()} />`;
+> html`<img alt=${String(content.viteLogo)} />`;
 > ```
 
 ### (Опционально) Шаг 7: Изменение языка вашего контента

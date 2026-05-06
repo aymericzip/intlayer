@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-03-12
+updatedAt: 2026-05-06
 title: Tanstack Start i18n - Jak przetłumaczyć aplikację Tanstack Start w 2026
 description: Dowiedz się, jak dodać internacjonalizację (i18n) do swojej aplikacji Tanstack Start za pomocą Intlayer. Postępuj zgodnie z tym kompleksowym przewodnikiem, aby uczynić swoją aplikację wielojęzyczną z routingiem uwzględniającym lokalizację.
 keywords:
@@ -20,6 +20,9 @@ applicationTemplate: https://github.com/aymericzip/intlayer-tanstack-start-templ
 applicationShowcase: https://intlayer-tanstack-start-template.vercel.app
 youtubeVideo: https://www.youtube.com/watch?v=_XTdKVWaeqg
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Aktualizacja użycia API useIntlayer w Solid do bezpośredniego dostępu do właściwości"
   - version: 7.5.9
     date: 2025-12-30
     changes: "Dodaj polecenie init"
@@ -243,6 +246,14 @@ function RootDocument({ children }: { children: ReactNode }) {
   );
 }
 ```
+
+> Jeśli chcesz użyć swojej zawartości w atrybucie typu `string`, takim jak `alt`, `title`, `href`, `aria-label` itp., musisz wywołać wartość funkcji, na przykład:
+
+> ```jsx
+> <img src={content.image.src.value} alt={content.image.value} />
+> <img src={content.image.src.toString()} alt={content.image.toString()} />
+> <img src={String(content.image.src)} alt={String(content.image)} />
+> ```
 
 ### Krok 6: Utwórz układ lokalizacji
 

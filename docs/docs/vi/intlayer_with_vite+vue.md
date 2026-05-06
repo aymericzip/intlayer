@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-03-12
+updatedAt: 2026-05-06
 title: Vite + Vue i18n - Cách dịch ứng dụng Vue năm 2026
 description: Khám phá cách làm cho trang web Vite và Vue của bạn đa ngôn ngữ. Theo dõi tài liệu để quốc tế hóa (i18n) và dịch nó.
 keywords:
@@ -18,6 +18,9 @@ applicationTemplate: https://github.com/aymericzip/intlayer-vite-vue-template
 applicationShowcase: https://intlayer-vite-vue-template.vercel.app
 youtubeVideo: https://www.youtube.com/watch?v=IE3XWkZ6a5U
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Cập nhật cách sử dụng API useIntlayer của Solid sang truy cập thuộc tính trực tiếp"
   - version: 7.5.9
     date: 2025-12-30
     changes: "Thêm lệnh init"

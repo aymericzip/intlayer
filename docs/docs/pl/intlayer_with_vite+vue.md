@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-03-12
+updatedAt: 2026-05-06
 title: Vite + Vue i18n - Jak przetłumaczyć aplikację Vue w 2026
 description: Dowiedz się, jak uczynić swoją stronę Vite i Vue wielojęzyczną. Postępuj zgodnie z dokumentacją, aby zinternacjonalizować (i18n) i przetłumaczyć ją.
 keywords:
@@ -18,6 +18,9 @@ applicationTemplate: https://github.com/aymericzip/intlayer-vite-vue-template
 applicationShowcase: https://intlayer-vite-vue-template.vercel.app
 youtubeVideo: https://www.youtube.com/watch?v=IE3XWkZ6a5U
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Aktualizacja użycia API useIntlayer w Solid do bezpośredniego dostępu do właściwości"
   - version: 7.5.9
     date: 2025-12-30
     changes: "Dodaj polecenie init"

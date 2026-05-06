@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2025-12-30
+updatedAt: 2026-05-06
 title: Dịch Astro i18n - Cách dịch ứng dụng Astro vào năm 2026
 description: Tìm hiểu cách thêm đa ngôn ngữ (i18n) vào trang web Astro của bạn bằng Intlayer. Làm theo hướng dẫn này để trang web của bạn có thể sử dụng nhiều ngôn ngữ.
 keywords:
@@ -18,6 +18,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-astro-template
 applicationShowcase: https://intlayer-astro-template.vercel.app
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Cập nhật cách sử dụng API useIntlayer của Solid sang truy cập thuộc tính trực tiếp"
   - version: 7.5.9
     date: 2025-12-30
     changes: "Thêm lệnh init"

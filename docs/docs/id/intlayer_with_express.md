@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-12-30
+updatedAt: 2026-05-06
 title: Express i18n - Cara menerjemahkan aplikasi Express di 2026
 description: Temukan cara membuat backend Express Anda menjadi multibahasa. Ikuti dokumentasi untuk melakukan internasionalisasi (i18n) dan menerjemahkannya.
 keywords:
@@ -16,6 +16,9 @@ slugs:
   - express
 applicationTemplate: https://github.com/aymericzip/intlayer-express-template
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Perbarui penggunaan API useIntlayer Solid ke akses properti langsung"
   - version: 7.5.9
     date: 2025-12-30
     changes: "Tambahkan perintah init"

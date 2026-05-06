@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-07
-updatedAt: 2025-12-30
+updatedAt: 2026-05-06
 title: Create React App i18n - React uygulamasını çevirme 2026
 description: Create React App (CRA) web sitenizi çok dilli hale getirmeyi keşfedin. Dokümantasyonu takip ederek uluslararasılaştırma (i18n) yapın ve çevirin.
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - create-react-app
 applicationTemplate: https://github.com/aymericzip/intlayer-react-cra-template
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Solid useIntlayer API kullanımını doğrudan özellik erişimine güncelle"
   - version: 7.5.9
     date: 2025-12-30
     changes: "init komutu ekle"
@@ -207,6 +210,8 @@ export default App;
 
 > ```jsx
 > <img src={content.image.src.value} alt={content.image.value} />
+> <img src={content.image.src.toString()} alt={content.image.toString()} />
+> <img src={String(content.image.src)} alt={String(content.image)} />
 > ```
 
 > `useIntlayer` hook'u hakkında daha fazla bilgi için [dokümantasyona](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useIntlayer.md) bakın.

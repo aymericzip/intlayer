@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-03-23
-updatedAt: 2026-03-23
+updatedAt: 2026-05-06
 title: Vite + Lit i18n - How to translate a Lit app in 2026
 description: Discover how to make your Vite and Lit website multilingual. Follow the documentation to internationalize (i18n) and translate it.
 keywords:
@@ -18,9 +18,12 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-lit-template
 applicationShowcase: https://intlayer-vite-lit-template.vercel.app
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Update Solid useIntlayer API usage to direct property access"
   - version: 8.4.10
     date: 2026-03-23
-    changes: "Init history"
+    changes: "Initial history"
 ---
 
 # Translate your Vite and Lit website using Intlayer | Internationalization (i18n)
@@ -297,10 +300,12 @@ export class MyElement extends LitElement {
 }
 ```
 
-> When you need the translated string in a native HTML attribute (e.g. `alt`, `aria-label`, `title`), call `.value` on the leaf node:
+> When you need the translated string in a native HTML attribute (e.g. `alt`, `aria-label`, `title`), you can use the translated string in several ways:
 >
 > ```typescript
 > html`<img alt=${content.viteLogo.value} />`;
+> html`<img alt=${content.viteLogo.toString()} />`;
+> html`<img alt=${String(content.viteLogo)} />`;
 > ```
 
 ### (Optional) Step 7: Change the language of your content

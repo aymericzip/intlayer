@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-24
-updatedAt: 2026-05-04
+updatedAt: 2026-05-06
 title: Astro + Solid i18n - Як перекласти додаток Astro + Solid у 2026 році
 description: Дізнайтеся, як додати інтернаціоналізацію (i18n) на свій сайт Astro + Solid за допомогою Intlayer. Дотримуйтесь цього посібника, щоб зробити свій сайт багатомовним.
 keywords:
@@ -21,7 +21,7 @@ applicationShowcase: https://intlayer-astro-template.vercel.app
 history:
   - version: 8.9.0
     date: 2026-05-04
-    changes: "Update Solid useIntlayer API usage to direct property access"
+    changes: "Оновлення використання API useIntlayer у Solid для прямого доступу до властивостей"
   - version: 8.7.7
     date: 2026-04-24
     changes: "Початкова документація для Astro + Solid"
@@ -262,6 +262,14 @@ const { title } = getIntlayer("app", locale);
   </body>
 </html>
 ```
+
+> Якщо ви хочете використовувати свій контент в атрибуті `рядка`, такому як `alt`, `title`, `href`, `aria-label` тощо, ви можете використовувати значення функції, наприклад:
+
+> ```jsx
+> <img src={content.image.src.value} alt={content.image.value} />
+> <img src={content.image.src.toString()} alt={content.image.toString()} />
+> <img src={String(content.image.src)} alt={String(content.image)} />
+> ```
 
 > **Примітка щодо налаштування маршрутизації:**
 > Структура каталогів, яку ви використовуєте, залежить від параметра `middleware.routing` у `intlayer.config.ts`:

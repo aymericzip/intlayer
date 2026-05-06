@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-12-07
-updatedAt: 2025-12-30
+updatedAt: 2026-05-06
 title: Next.js Page Router i18n - Как перевести приложение Next.js в 2026
 description: Узнайте, как сделать ваш сайт на Next.js с использованием Page Router многоязычным. Следуйте документации для интернационализации (i18n) и перевода.
 keywords:
@@ -19,6 +19,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-next-14-template
 applicationShowcase: https://intlayer-next-14-template.vercel.app
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Обновление использования API useIntlayer в Solid для прямого доступа к свойствам"
   - version: 7.5.9
     date: 2025-12-30
     changes: "Добавить команду init"
@@ -482,6 +485,8 @@ export const ComponentExample: FC = () => {
 
 > ```jsx
 > <img src={content.image.src.value} alt={content.image.value} />
+> <img src={content.image.src.toString()} alt={content.image.toString()} />
+> <img src={String(content.image.src)} alt={String(content.image)} />
 > ```
 
 > Чтобы узнать больше о хуке `useIntlayer`, обратитесь к [документации](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/next-intlayer/useIntlayer.md).

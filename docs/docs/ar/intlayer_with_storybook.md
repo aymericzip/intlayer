@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-03-20
-updatedAt: 2026-03-20
+updatedAt: 2026-05-06
 title: كيفية إعداد Intlayer مع Storybook
 description: تعرف على كيفية جعل نظام التصميم الخاص بك متعدد اللغات باستخدام Intlayer مع Storybook — قم بتجميع إعلانات المحتوى، وإضافة مبدل اللغة، ومعاينة مكوناتك بأي لغة.
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - doc
   - storybook
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "تحديث استخدام واجهة برمجة تطبيقات useIntlayer في Solid للوصول المباشر إلى الخصائص"
   - version: 8.4.5
     date: 2026-03-20
     changes: "Init doc"

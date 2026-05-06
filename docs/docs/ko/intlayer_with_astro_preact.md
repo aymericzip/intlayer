@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-24
-updatedAt: 2026-04-24
+updatedAt: 2026-05-06
 title: Astro + Preact i18n - 2026년에 Astro + Preact 애플리케이션을 번역하는 방법
 description: Intlayer를 사용하여 Astro + Preact 사이트에 국제화(i18n)를 추가하는 방법을 배워보세요. 이 가이드를 따라 사이트를 다국어로 만들어 보세요.
 keywords:
@@ -19,6 +19,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-astro-template
 applicationShowcase: https://intlayer-astro-template.vercel.app
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Solid useIntlayer API 사용법을 직접 속성 액세스로 업데이트"
   - version: 8.7.7
     date: 2026-04-24
     changes: "Astro + Preact를 위한 초기 문서"
@@ -81,6 +84,14 @@ npm install intlayer astro-intlayer preact preact-intlayer @astrojs/preact
 
 npx intlayer init
 ```
+
+> `alt`, `title`, `href`, `aria-label` 등과 같은 `문자열` 속성에서 콘텐츠를 사용하려면 다음과 같이 함수의 값을 사용할 수 있습니다.
+
+> ```jsx
+> <img src={content.image.src.value} alt={content.image.value} />
+> <img src={content.image.src.toString()} alt={content.image.toString()} />
+> <img src={String(content.image.src)} alt={String(content.image)} />
+> ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer astro-intlayer preact preact-intlayer @astrojs/preact

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-05-04
+updatedAt: 2026-05-06
 title: Vite + Solid i18n - Solidアプリの翻訳方法 2026
 description: Vite と Solid のウェブサイトを多言語対応にする方法を紹介します。国際化（i18n）と翻訳のドキュメントに従ってください。
 keywords:
@@ -18,7 +18,7 @@ applicationTemplate: https://github.com/aymericzip/intlayer-vite-solid-template
 history:
   - version: 8.9.0
     date: 2026-05-04
-    changes: "Update Solid useIntlayer API usage to direct property access"
+    changes: "Solid の useIntlayer API の使用法を直接プロパティアクセスに更新"
   - version: 7.5.9
     date: 2025-12-30
     changes: "initコマンドを追加"
@@ -255,6 +255,8 @@ export default App;
 >
 > ```jsx
 > <img src={content.image.src.value} alt={content.image.value} />
+> <img src={content.image.src.toString()} alt={content.image.toString()} />
+> <img src={String(content.image.src)} alt={String(content.image)} />
 > ```
 
 ### （オプション）ステップ6: コンテンツの言語を変更する

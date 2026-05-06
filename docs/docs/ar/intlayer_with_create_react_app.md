@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-12-30
+updatedAt: 2026-05-06
 title: Create React App i18n - كيفية ترجمة تطبيق React في 2026
 description: اكتشف كيفية جعل موقع Create React App (CRA) الخاص بك متعدد اللغات. اتبع الوثائق لتدويله (i18n) وترجمته.
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - create-react-app
 applicationTemplate: https://github.com/aymericzip/intlayer-react-cra-template
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "تحديث استخدام واجهة برمجة تطبيقات useIntlayer في Solid للوصول المباشر إلى الخصائص"
   - version: 7.5.9
     date: 2025-12-30
     changes: "إضافة أمر init"
@@ -216,6 +219,8 @@ const App = () => (
 
 > ```jsx
 > <img src={content.image.src.value} alt={content.image.value} />
+> <img src={content.image.src.toString()} alt={content.image.toString()} />
+> <img src={String(content.image.src)} alt={String(content.image)} />
 > ```
 >
 > لمعرفة المزيد عن الخطاف `useIntlayer`، راجع [التوثيق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/react-intlayer/useIntlayer.md).

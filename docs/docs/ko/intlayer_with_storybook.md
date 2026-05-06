@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-03-20
-updatedAt: 2026-03-20
+updatedAt: 2026-05-06
 title: Storybook에서 Intlayer를 설정하는 방법
 description: Intlayer와 Storybook을 사용하여 디자인 시스템을 다국어화하는 방법을 배워보세요 — 콘텐츠 선언 컴파일, 로케일 스위처 추가, 그리고 모든 언어에서 컴포넌트 미리보기.
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - doc
   - storybook
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Solid useIntlayer API 사용법을 직접 속성 액세스로 업데이트"
   - version: 8.4.5
     date: 2026-03-20
     changes: "Init doc"

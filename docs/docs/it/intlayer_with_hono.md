@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-12-30
+updatedAt: 2026-05-06
 title: i18n Hono - Come tradurre un'app Hono nel 2026
 description: Scopri come rendere multilingue il tuo backend Hono. Segui la documentazione per internazionalizzarlo (i18n) e tradurlo.
 keywords:
@@ -16,6 +16,9 @@ slugs:
   - hono
 applicationTemplate: https://github.com/aymericzip/intlayer-hono-template
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Aggiornare l'uso dell'API useIntlayer di Solid all'accesso diretto alle proprietà"
   - version: 7.5.9
     date: 2025-12-30
     changes: "Aggiungi comando init"

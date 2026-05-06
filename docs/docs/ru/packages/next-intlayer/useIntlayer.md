@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-06-29
+updatedAt: 2026-05-06
 title: Документация по хуку useIntlayer | next-intlayer
 description: Узнайте, как использовать хук useIntlayer для пакета next-intlayer
 keywords:
@@ -19,6 +19,9 @@ slugs:
   - next-intlayer
   - useIntlayer
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Обновление использования API useIntlayer в Solid для прямого доступа к свойствам"
   - version: 5.5.10
     date: 2025-06-29
     changes: "Инициализация истории"
@@ -140,6 +143,8 @@ const ServerComponentExample: FC = () => {
 
 ```tsx
 <img src={content.image.src.value} alt={content.image.alt.value} />
+<img src={content.image.src.toString()} alt={content.image.alt.toString()} />
+<img src={String(content.image.src)} alt={String(content.image.alt)} />
 ```
 
 ## Дополнительная информация

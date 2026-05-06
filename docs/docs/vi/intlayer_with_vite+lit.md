@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-03-23
-updatedAt: 2026-03-23
+updatedAt: 2026-05-06
 title: i18n Vite + Lit - Cách dịch ứng dụng Lit vào năm 2026
 description: Khám phá cách làm cho trang web Vite và Lit của bạn hỗ trợ đa ngôn ngữ. Làm theo tài liệu để quốc tế hóa (i18n) và dịch thuật.
 keywords:
@@ -18,9 +18,12 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-lit-template
 applicationShowcase: https://intlayer-vite-lit-template.vercel.app
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Cập nhật cách sử dụng API useIntlayer của Solid sang truy cập thuộc tính trực tiếp"
   - version: 8.4.10
     date: 2026-03-23
-    changes: "Init history"
+    changes: "Lịch sử ban đầu"
 ---
 
 # Dịch trang web Vite và Lit của bạn bằng Intlayer | Quốc tế hóa (i18n)
@@ -299,6 +302,8 @@ export class MyElement extends LitElement {
 >
 > ```typescript
 > html`<img alt=${content.viteLogo.value} />`;
+> html`<img alt=${content.viteLogo.toString()} />`;
+> html`<img alt=${String(content.viteLogo)} />`;
 > ```
 
 ### (Tùy chọn) Bước 7: Thay đổi ngôn ngữ của nội dung

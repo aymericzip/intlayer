@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-06-18
-updatedAt: 2025-12-30
+updatedAt: 2026-05-06
 title: Expo + React Native i18n - 如何翻译React Native 应用 2026
 description: 了解如何使你的 React Native 和 Expo 网站支持多语言。按照文档进行国际化（i18n）和翻译。
 keywords:
@@ -17,6 +17,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-react-native-template
 applicationShowcase: https://intlayer-react-native.vercel.app
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "更新 Solid useIntlayer API 用法以直接访问属性"
   - version: 7.5.9
     date: 2025-12-30
     changes: "添加 init 命令"

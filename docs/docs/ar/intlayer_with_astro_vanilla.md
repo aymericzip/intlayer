@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-24
-updatedAt: 2026-04-24
+updatedAt: 2026-05-06
 title: ترجمة Astro + Vanilla JS i18n - كيفية ترجمة تطبيق Astro + Vanilla JS في عام 2026
 description: تعرف على كيفية إضافة التدويل (i18n) إلى موقع Astro + Vanilla JS الخاص بك باستخدام Intlayer. اتبع هذا الدليل لجعل موقعك متعدد اللغات.
 keywords:
@@ -19,6 +19,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-astro-template
 applicationShowcase: https://intlayer-astro-template.vercel.app
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "تحديث استخدام واجهة برمجة تطبيقات useIntlayer في Solid للوصول المباشر إلى الخصائص"
   - version: 8.7.7
     date: 2026-04-24
     changes: "التوثيق الأولي لـ Astro + Vanilla JS"
@@ -283,6 +286,14 @@ const { greeting, description, switchLocale } = getIntlayer("app", locale);
   </body>
 </html>
 ```
+
+> إذا كنت ترغب في استخدام محتواك في سمة `سلسلة` (string)، مثل `alt` و `title` و `href` و `aria-label` وما إلى ذلك، يمكنك استخدام قيمة الدالة، مثل:
+
+> ```jsx
+> <img src={content.image.src.value} alt={content.image.value} />
+> <img src={content.image.src.toString()} alt={content.image.toString()} />
+> <img src={String(content.image.src)} alt={String(content.image)} />
+> ```
 
 > **ملاحظة حول إعداد التوجيه:**
 > تعتمد بنية الدليل التي تستخدمها على إعداد `middleware.routing` في `intlayer.config.ts`:

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-10
-updatedAt: 2026-01-10
+updatedAt: 2026-05-06
 title: Next.js i18n - كيفية ترجمة تطبيق Next.js 16 (بدون [locale] في مسار الصفحة) في 2026
 description: اكتشف كيفية جعل موقع Next.js 16 متعدد اللغات بدون [locale] في مسار الصفحة. اتبع الوثائق لعمل تدويل (i18n) وترجمته.
 keywords:
@@ -18,6 +18,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-next-no-lolale-path-template
 youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "تحديث استخدام واجهة برمجة تطبيقات useIntlayer في Solid للوصول المباشر إلى الخصائص"
   - version: 8.0.0
     date: 2026-01-10
     changes: "الإصدار الأولي"

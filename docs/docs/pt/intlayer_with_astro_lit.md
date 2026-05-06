@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-24
-updatedAt: 2026-04-24
+updatedAt: 2026-05-06
 title: Astro + Lit i18n - Como traduzir uma aplicação Astro + Lit em 2026
 description: Aprenda como adicionar internacionalização (i18n) ao seu site Astro + Lit com o Intlayer. Siga este guia para tornar seu site multilíngue.
 keywords:
@@ -19,6 +19,9 @@ slugs:
   - lit
   applicationTemplate: https://github.com/aymericzip/intlayer-astro-template
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Atualizar o uso da API useIntlayer do Solid para acesso direto a propriedades"
   - version: 8.7.7
     date: 2026-04-24
     changes: "Documentação inicial para Astro + Lit"
@@ -250,6 +253,14 @@ const { greeting } = getIntlayer("lit-demo", locale);
   import "../../components/lit/LitDemo";
 </script>
 ```
+
+> Se você quiser usar seu conteúdo em un atributo de `string`, como `alt`, `title`, `href`, `aria-label`, etc., você pode usar o valor da função, como:
+
+> ```jsx
+> <img src={content.image.src.value} alt={content.image.value} />
+> <img src={content.image.src.toString()} alt={content.image.toString()} />
+> <img src={String(content.image.src)} alt={String(content.image)} />
+> ```
 
 > **Nota sobre a configuração de roteamento:**
 > A estrutura de diretórios que você usa depende da configuração `middleware.routing` no `intlayer.config.ts`:

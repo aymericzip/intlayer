@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-03-12
+updatedAt: 2026-05-06
 title: Vite + Vue i18n - 如何翻译Vue 应用 2026
 description: 了解如何使您的 Vite 和 Vue 网站支持多语言。按照文档进行国际化（i18n）和翻译。
 keywords:
@@ -18,6 +18,9 @@ applicationTemplate: https://github.com/aymericzip/intlayer-vite-vue-template
 applicationShowcase: https://intlayer-vite-vue-template.vercel.app
 youtubeVideo: https://www.youtube.com/watch?v=IE3XWkZ6a5U
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "更新 Solid useIntlayer API 用法以直接访问属性"
   - version: 7.5.9
     date: 2025-12-30
     changes: "添加 init 命令"

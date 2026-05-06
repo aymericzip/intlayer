@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-03-25
-updatedAt: 2026-03-29
+updatedAt: 2026-05-06
 title: Tanstack Start i18n - 2026년에 Solid.js를 사용하여 Tanstack Start 앱을 번역하는 방법
 description: Intlayer와 Solid.js를 사용하여 Tanstack Start 애플리케이션에 국제화(i18n)를 추가하는 방법을 알아보세요. 이 포괄적인 가이드를 따라 로케일 인식 라우팅을 갖춘 다국어 앱을 만드세요.
 keywords:
@@ -22,6 +22,9 @@ applicationTemplate: https://github.com/aymericzip/intlayer-tanstack-start-solid
 applicationShowcase: https://intlayer-tanstack-start-solid.vercel.app
 youtubeVideo: https://www.youtube.com/watch?v=_XTdKVWaeqg
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Solid useIntlayer API 사용법을 직접 속성 액세스로 업데이트"
   - version: 8.5.1
     date: 2026-03-25
     changes: "Tanstack Start Solid.js용으로 추가됨"
@@ -406,7 +409,15 @@ function RouteComponent() {
 }
 ```
 
-> Solid에서 `useIntlayer`는 **접근자** 함수(예: `content.)를 반환합니다. 반응형 콘텐츠에 접근하려면 이 함수를 호출해야 합니다.
+> 콘텐츠를 `alt`, `title`, `href`, `aria-label` 등과 같은 `string` 속성에서 사용하려면, 함수의 값을 호출해야 합니다. 예를 들어:
+
+> ```jsx
+> <img src={content.image.src.value} alt={content.image.value} />
+> <img src={content.image.src.toString()} alt={content.image.toString()} />
+> <img src={String(content.image.src)} alt={String(content.image)} />
+> ```
+
+> Solid에서 `useIntlayer`는 반응형 콘텐츠(예: `content`)를 반환합니다. 그 속성에 직접 액세스할 수 있습니다.
 >
 > `useIntlayer` 훅에 대해 자세히 알아보려면 [문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/solid-intlayer/useIntlayer.md)를 참조하세요.
 

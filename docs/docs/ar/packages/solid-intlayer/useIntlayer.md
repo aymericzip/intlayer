@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-05-04
+updatedAt: 2026-05-06
 title: توثيق hook useIntlayer | solid-intlayer
 description: اطلع على كيفية استخدام الـ hook useIntlayer لحزمة solid-intlayer
 keywords:
@@ -20,7 +20,7 @@ slugs:
 history:
   - version: 8.9.0
     date: 2026-05-04
-    changes: "Update Solid useIntlayer API usage to direct property access"
+    changes: "تحديث استخدام واجهة برمجة تطبيقات useIntlayer في Solid للوصول المباشر إلى الخصائص"
   - version: 8.0.0
     date: 2026-01-21
     changes: "توحيد التوثيق لجميع الصادرات"

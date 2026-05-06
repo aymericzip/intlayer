@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-10
-updatedAt: 2026-03-12
+updatedAt: 2026-05-06
 title: Next.js i18n - Transformer une application Next.js existante en une application multilingue en 2026
 description: Découvrez comment rendre votre application Next.js existante multilingue avec le compilateur Intlayer. Suivez la documentation pour internationaliser (i18n) et la traduire avec l'IA.
 keywords:
@@ -20,6 +20,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-next-no-lolale-path-template
 youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Mettre à jour l'utilisation de l'API useIntlayer de Solid pour un accès direct aux propriétés"
   - version: 8.2.0
     date: 2026-03-09
     changes: "Update compiler options, add FilePathPattern support"

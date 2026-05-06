@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-06-29
+updatedAt: 2026-05-06
 title: Documentation du Hook useIntlayer | next-intlayer
 description: Découvrez comment utiliser le hook useIntlayer pour le package next-intlayer
 keywords:
@@ -19,6 +19,9 @@ slugs:
   - next-intlayer
   - useIntlayer
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Mettre à jour l'utilisation de l'API useIntlayer de Solid pour un accès direct aux propriétés"
   - version: 5.5.10
     date: 2025-06-29
     changes: "Historique initial"
@@ -140,6 +143,8 @@ Pour localiser des attributs tels que `alt`, `title`, `href`, `aria-label`, etc.
 
 ```tsx
 <img src={content.image.src.value} alt={content.image.alt.value} />
+<img src={content.image.src.toString()} alt={content.image.alt.toString()} />
+<img src={String(content.image.src)} alt={String(content.image.alt)} />
 ```
 
 ## Informations complémentaires

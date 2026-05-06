@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-03-20
-updatedAt: 2026-03-20
+updatedAt: 2026-05-06
 title: Как настроить Intlayer с помощью Storybook
 description: Узнайте, как сделать вашу дизайн-систему многоязычной с помощью Intlayer и Storybook — компилируйте декларации контента, добавьте переключатель языков и просматривайте компоненты на любом языке.
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - doc
   - storybook
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Обновление использования API useIntlayer в Solid для прямого доступа к свойствам"
   - version: 8.4.5
     date: 2026-03-20
     changes: "Init doc"

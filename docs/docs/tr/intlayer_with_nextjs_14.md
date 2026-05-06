@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-12-06
-updatedAt: 2025-12-30
+updatedAt: 2026-05-06
 title: Next.js i18n - Next.js 14 uygulamasını çevirme 2026
 description: Next.js 14 ile Intlayer entegrasyonu. Next.js 14 uygulamanızda çok dilli içerik yönetimi için Intlayer'ı nasıl kuracağınızı ve kullanacağınızı öğrenin.
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - nextjs
   - 14
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Solid useIntlayer API kullanımını doğrudan özellik erişimine güncelle"
   - version: 7.5.9
     date: 2025-12-30
     changes: "init komutu ekle"

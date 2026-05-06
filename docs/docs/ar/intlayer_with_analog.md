@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2025-12-30
+updatedAt: 2026-05-06
 title: تدويل Analog - كيفية ترجمة تطبيق Analog في 2026
 description: اكتشف كيفية جعل تطبيق Analog الخاص بك متعدد اللغات. اتبع التوثيق لتدويله (i18n) وترجمته.
 keywords:
@@ -17,9 +17,12 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-analog-template
 applicationShowcase: https://intlayer-analog-template.vercel.app
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "تحديث استخدام واجهة برمجة تطبيقات useIntlayer في Solid للوصول المباشر إلى الخصائص"
   - version: 8.0.4
     date: 2026-01-26
-    changes: "Init history"
+    changes: "التاريخ الأولي"
 ---
 
 # ترجمة تطبيق Analog (Angular) الخاص بك باستخدام Intlayer | التدويل (i18n)

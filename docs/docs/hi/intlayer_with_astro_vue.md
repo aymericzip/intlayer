@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-24
-updatedAt: 2026-04-24
+updatedAt: 2026-05-06
 title: Astro + Vue i18n - 2026 में Astro + Vue एप्लिकेशन का अनुवाद कैसे करें
 description: Intlayer के साथ अपनी Astro + Vue साइट में अंतर्राष्ट्रीयकरण (i18n) जोड़ना सीखें। अपनी साइट को बहुभाषी बनाने के लिए इस गाइड का पालन करें।
 keywords:
@@ -19,6 +19,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-astro-template
 applicationShowcase: https://intlayer-astro-template.vercel.app
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "सॉलिड useIntlayer API उपयोग को सीधे प्रॉपर्टी एक्सेस में अपडेट करें"
   - version: 8.7.7
     date: 2026-04-24
     changes: "Astro + Vue के लिए प्रारंभिक दस्तावेज़ीकरण"

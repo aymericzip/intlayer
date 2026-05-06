@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2025-12-30
+updatedAt: 2026-05-06
 title: Analog i18n - Come tradurre un'app Analog nel 2026
 description: Scopri come rendere la tua app Analog multilingue. Segui la documentazione per internazionalizzarla (i18n) e tradurla.
 keywords:
@@ -17,9 +17,12 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-analog-template
 applicationShowcase: https://intlayer-analog-template.vercel.app
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Aggiornare l'uso dell'API useIntlayer di Solid all'accesso diretto alle proprietà"
   - version: 8.0.4
     date: 2026-01-26
-    changes: "Init history"
+    changes: "Cronologia iniziale"
 ---
 
 # Traduci la tua app Analog (Angular) usando Intlayer | Internazionalizzazione (i18n)

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-05-04
+updatedAt: 2026-05-06
 title: Tài liệu Hook useIntlayer | solid-intlayer
 description: Xem cách sử dụng hook useIntlayer cho package solid-intlayer
 keywords:
@@ -20,7 +20,7 @@ slugs:
 history:
   - version: 8.9.0
     date: 2026-05-04
-    changes: "Update Solid useIntlayer API usage to direct property access"
+    changes: "Cập nhật cách sử dụng API useIntlayer của Solid sang truy cập thuộc tính trực tiếp"
   - version: 8.0.0
     date: 2026-01-21
     changes: "Hợp nhất tài liệu cho tất cả exports"

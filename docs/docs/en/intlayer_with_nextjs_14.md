@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-12-06
-updatedAt: 2025-12-30
+updatedAt: 2026-05-06
 title: Next.js i18n - How to translate an Next.js 14 app in 2026
 description: Discover how to make your Next.js 14 App Router website multilingual. Follow the documentation to internationalize (i18n) and translate it.
 keywords:
@@ -18,6 +18,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-next-14-template
 applicationShowcase: https://intlayer-next-14-template.vercel.app
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Update Solid useIntlayer API usage to direct property access"
   - version: 7.5.9
     date: 2025-12-30
     changes: "Add init command"
@@ -35,7 +38,7 @@ history:
     changes: "Transform `withIntlayer()` function to a promise based function"
   - version: 5.5.10
     date: 2025-06-29
-    changes: "Init history"
+    changes: "Initial history"
 ---
 
 # Translate your Next.js 14 and App Router website using Intlayer | Internationalization (i18n)
@@ -419,10 +422,12 @@ const ServerComponentExample: FC = () => {
 };
 ```
 
-> If you want to use your content in a `string` attribute, such as `alt`, `title`, `href`, `aria-label`, etc., you must call the value of the function, like:
+> If you want to use your content in a `string` attribute, such as `alt`, `title`, `href`, `aria-label`, etc., you can use the value of the function, like:
 
 > ```jsx
 > <img src={content.image.src.value} alt={content.image.value} />
+> <img src={content.image.src.toString()} alt={content.image.toString()} />
+> <img src={String(content.image.src)} alt={String(content.image)} />
 > ```
 
 > To Learn more about the `useIntlayer` hook, refer to the [documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/useIntlayer.md).

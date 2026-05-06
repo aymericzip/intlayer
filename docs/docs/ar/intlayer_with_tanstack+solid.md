@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-03-25
-updatedAt: 2026-03-25
+updatedAt: 2026-05-06
 title: i18n Tanstack Start - كيفية ترجمة تطبيق Tanstack Start باستخدام Solid.js في عام 2026
 description: تعلم كيفية إضافة التدويل (i18n) إلى تطبيق Tanstack Start الخاص بك باستخدام Intlayer و Solid.js. اتبع هذا الدليل الشامل لجعل تطبيقك متعدد اللغات مع توجيه مدرك للغة.
 keywords:
@@ -21,6 +21,9 @@ applicationTemplate: https://github.com/aymericzip/intlayer-tanstack-start-solid
 applicationShowcase: https://intlayer-tanstack-start-solid.vercel.app
 youtubeVideo: https://www.youtube.com/watch?v=_XTdKVWaeqg
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "تحديث استخدام واجهة برمجة تطبيقات useIntlayer في Solid للوصول المباشر إلى الخصائص"
   - version: 8.5.1
     date: 2026-03-25
     changes: "تمت الإضافة لـ Tanstack Start Solid.js"
@@ -405,7 +408,15 @@ function RouteComponent() {
 }
 ```
 
-> في Solid، يعيد `useIntlayer` وظيفة **وصول (accessor)** (مثل `content.). يجب عليك استدعاء هذه الوظيفة للوصول إلى المحتوى التفاعلي.
+> إذا كنت ترغب في استخدام المحتوى الخاص بك في خاصية من نوع `string`، مثل `alt`، `title`، `href`، `aria-label`، إلخ، يجب عليك استدعاء قيمة الدالة، مثل:
+
+> ```jsx
+> <img src={content.image.src.value} alt={content.image.value} />
+> <img src={content.image.src.toString()} alt={content.image.toString()} />
+> <img src={String(content.image.src)} alt={String(content.image)} />
+> ```
+
+> في Solid، يعيد `useIntlayer` محتوى تفاعلياً (على سبيل المثال، `content`). يمكنك الوصول إلى خصائصه مباشرة.
 >
 > لمعرفة المزيد حول خطاف `useIntlayer` ، راجع [التوثيق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/solid-intlayer/useIntlayer.md).
 

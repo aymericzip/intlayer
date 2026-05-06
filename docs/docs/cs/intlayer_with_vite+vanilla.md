@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-03-23
-updatedAt: 2026-03-23
+updatedAt: 2026-05-06
 title: i18n Vite + Vanilla JS - Jak přeložit aplikaci Vanilla JS v roce 2026
 description: Zjistěte, jak vytvořit svůj web s Vite a Vanilla JS vícejazyčným. Postupujte podle dokumentace pro internacionalizaci (i18n) a překlad.
 keywords:
@@ -19,9 +19,12 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-vanilla-template
 applicationShowcase: https://intlayer-vite-vanilla.vercel.app
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Aktualizace použití API useIntlayer v Solid na přímý přístup k vlastnostem"
   - version: 8.4.10
     date: 2026-03-23
-    changes: "Init history"
+    changes: "Počáteční historie"
 ---
 
 # Přeložte svůj web s Vite a Vanilla JS pomocí Intlayer | Internacionalizace (i18n)

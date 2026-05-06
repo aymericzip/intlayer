@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-12-30
+updatedAt: 2026-05-06
 title: Hono i18n - Hoe een Hono-app te vertalen in 2026
 description: Ontdek hoe u uw Hono-backend meertalig kunt maken. Volg de documentatie voor internationalisering (i18n) en vertaling.
 keywords:
@@ -16,6 +16,9 @@ slugs:
   - hono
 applicationTemplate: https://github.com/aymericzip/intlayer-hono-template
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Update Solid useIntlayer API-gebruik naar directe toegang tot eigenschappen"
   - version: 7.5.9
     date: 2025-12-30
     changes: "Init commando toegevoegd"

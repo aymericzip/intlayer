@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-12-06
-updatedAt: 2025-06-29
+updatedAt: 2026-05-06
 title: Next.js i18n - Comment traduire une application Next.js 14 en 2026
 description: Découvrez comment rendre votre site Next.js 14 App Router multilingue. Suivez la documentation pour l’internationaliser (i18n) et le traduire.
 keywords:
@@ -17,6 +17,10 @@ slugs:
   - 14
 applicationTemplate: https://github.com/aymericzip/intlayer-next-14-template
 applicationShowcase: https://intlayer-next-14-template.vercel.app
+history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Mettre à jour l'utilisation de l'API useIntlayer de Solid pour un accès direct aux propriétés"
 ---
 
 # Traduire votre Next.js 14 and App Router avec Intlayer | Internationalisation (i18n)
@@ -373,6 +377,8 @@ const ServerComponentExample: FC = () => {
 
 > ```jsx
 > <img src={content.image.src.value} alt={content.image.value} />
+> <img src={content.image.src.toString()} alt={content.image.toString()} />
+> <img src={String(content.image.src)} alt={String(content.image)} />
 > ```
 
 > Pour en savoir plus sur le hook `useIntlayer`, consultez la [documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/next-intlayer/useIntlayer.md).

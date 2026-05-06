@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-21
-updatedAt: 2026-05-04
+updatedAt: 2026-05-06
 title: Документація хука useIntlayer | solid-intlayer
 description: Дізнайтеся, як використовувати хук useIntlayer з пакету solid-intlayer
 keywords:
@@ -20,7 +20,7 @@ slugs:
 history:
   - version: 8.9.0
     date: 2026-05-04
-    changes: "Update Solid useIntlayer API usage to direct property access"
+    changes: "Оновлення використання API useIntlayer у Solid для прямого доступу до властивостей"
   - version: 8.0.0
     date: 2026-01-21
     changes: "Уніфікована документація для всіх експортів"

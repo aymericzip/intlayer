@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-12-30
+updatedAt: 2026-05-06
 title: AdonisJS i18n - كيفية ترجمة تطبيق AdonisJS في 2026
 description: اكتشف كيفية جعل الواجهة الخلفية لـ AdonisJS متعددة اللغات. اتبع الوثائق لتدويل (i18n) وترجمتها.
 keywords:
@@ -16,6 +16,9 @@ slugs:
   - adonisjs
 applicationTemplate: https://github.com/aymericzip/intlayer-adonis-template
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "تحديث استخدام واجهة برمجة تطبيقات useIntlayer في Solid للوصول المباشر إلى الخصائص"
   - version: 8.0.0
     date: 2025-12-30
     changes: "تهيئة السجل"

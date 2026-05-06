@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-03-25
-updatedAt: 2026-03-29
+updatedAt: 2026-05-06
 title: Tanstack Start i18n - 如何在 2026 年使用 Solid.js 翻译 Tanstack Start 应用
 description: 了解如何使用 Intlayer 和 Solid.js 为您的 Tanstack Start 应用程序添加 internationalization (i18n)。按照此综合指南创建具有本地化感知路由的多语言应用。
 keywords:
@@ -22,6 +22,9 @@ applicationTemplate: https://github.com/aymericzip/intlayer-tanstack-start-solid
 applicationShowcase: https://intlayer-tanstack-start-solid.vercel.app
 youtubeVideo: https://www.youtube.com/watch?v=_XTdKVWaeqg
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "更新 Solid useIntlayer API 用法以直接访问属性"
   - version: 8.5.1
     date: 2026-03-25
     changes: "针对 Tanstack Start Solid.js 添加"
@@ -406,7 +409,15 @@ function RouteComponent() {
 }
 ```
 
-> 在 Solid 中，`useIntlayer` 返回一个 **accessor** 函数 (例如：`content.)。您必须调用该函数以访问响应式内容。
+> 如果您想在字符串属性中使用内容，比如 `alt`、`title`、`href`、`aria-label` 等，可以使用函数的值，例如：
+
+> ```jsx
+> <img src={content.image.src.value} alt={content.image.value} />
+> <img src={content.image.src.toString()} alt={content.image.toString()} />
+> <img src={String(content.image.src)} alt={String(content.image)} />
+> ```
+
+> 在 Solid 中，`useIntlayer` 返回响应式内容（例如 `content`）。您可以直接访问其属性。
 >
 > 欲了解更多关于 `useIntlayer` 钩子的信息，请参考[文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/solid-intlayer/useIntlayer.md)。
 

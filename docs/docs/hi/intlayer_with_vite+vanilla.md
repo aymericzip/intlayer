@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-03-23
-updatedAt: 2026-03-23
+updatedAt: 2026-05-06
 title: i18n Vite + Vanilla JS - 2026 में Vanilla JS ऐप का अनुवाद कैसे करें
 description: जानें कि अपने Vite और Vanilla JS वेबसाइट को बहुभाषी कैसे बनाएं। अंतर्राष्ट्रीयकरण (i18n) और अनुवाद के लिए दस्तावेज़ों का पालन करें।
 keywords:
@@ -19,9 +19,12 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-vanilla-template
 applicationShowcase: https://intlayer-vite-vanilla.vercel.app
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "सॉलिड useIntlayer API उपयोग को सीधे प्रॉपर्टी एक्सेस में अपडेट करें"
   - version: 8.4.10
     date: 2026-03-23
-    changes: "Init history"
+    changes: "प्रारंभिक इतिहास"
 ---
 
 # Intlayer का उपयोग करके अपने Vite और Vanilla JS वेबसाइट का अनुवाद करें | अंतर्राष्ट्रीयकरण (i18n)

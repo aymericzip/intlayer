@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-03-23
-updatedAt: 2026-03-23
+updatedAt: 2026-05-06
 title: Vite + Lit i18n - 2026년에 Lit 앱을 번역하는 방법
 description: Vite와 Lit 웹사이트를 다국어로 만드는 방법을 알아보세요. 문서를 따라 국제화(i18n) 및 번역을 진행하세요.
 keywords:
@@ -18,9 +18,12 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-lit-template
 applicationShowcase: https://intlayer-vite-lit-template.vercel.app
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Solid useIntlayer API 사용법을 직접 속성 액세스로 업데이트"
   - version: 8.4.10
     date: 2026-03-23
-    changes: "Init history"
+    changes: "초기 기록"
 ---
 
 # Intlayer를 사용하여 Vite 및 Lit 웹사이트 번역하기 | 국제화 (i18n)
@@ -299,6 +302,8 @@ export class MyElement extends LitElement {
 >
 > ```typescript
 > html`<img alt=${content.viteLogo.value} />`;
+> html`<img alt=${content.viteLogo.toString()} />`;
+> html`<img alt=${String(content.viteLogo)} />`;
 > ```
 
 ### (선택 사항) 7단계: 콘텐츠 언어 변경

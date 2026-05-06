@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-03-23
-updatedAt: 2026-03-23
+updatedAt: 2026-05-06
 title: i18n Vite + Vanilla JS - Cách dịch ứng dụng Vanilla JS vào năm 2026
 description: Khám phá cách làm cho website Vite và Vanilla JS của bạn đa ngôn ngữ. Làm theo tài liệu để quốc tế hóa (i18n) và dịch nó.
 keywords:
@@ -19,9 +19,12 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-vanilla-template
 applicationShowcase: https://intlayer-vite-vanilla.vercel.app
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Cập nhật cách sử dụng API useIntlayer của Solid sang truy cập thuộc tính trực tiếp"
   - version: 8.4.10
     date: 2026-03-23
-    changes: "Init history"
+    changes: "Lịch sử ban đầu"
 ---
 
 # Dịch website Vite và Vanilla JS của bạn bằng Intlayer | Quốc tế hóa (i18n)

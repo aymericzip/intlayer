@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-08-23
+updatedAt: 2026-05-06
 title: Dokumentasi Hook useIntlayer | next-intlayer
 description: Lihat cara menggunakan hook useIntlayer untuk paket next-intlayer
 keywords:
@@ -19,6 +19,9 @@ slugs:
   - next-intlayer
   - useIntlayer
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Perbarui penggunaan API useIntlayer Solid ke akses properti langsung"
   - version: 5.5.10
     date: 2025-06-29
     changes: "Riwayat awal"
@@ -141,6 +144,8 @@ Untuk melokalisasi atribut seperti `alt`, `title`, `href`, `aria-label`, dll., p
 
 ```tsx
 <img src={content.image.src.value} alt={content.image.alt.value} />
+<img src={content.image.src.toString()} alt={content.image.alt.toString()} />
+<img src={String(content.image.src)} alt={String(content.image.alt)} />
 ```
 
 ## Informasi Lebih Lanjut

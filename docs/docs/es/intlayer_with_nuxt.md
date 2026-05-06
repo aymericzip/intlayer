@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-06-18
-updatedAt: 2025-12-07
+updatedAt: 2026-05-06
 title: Nuxt i18n - Cómo traducir una aplicación Nuxt en 2026
 description: Descubre cómo hacer tu sitio web Nuxt y Vue multilingüe. Sigue la documentación para internacionalizar (i18n) y traducirlo.
 keywords:
@@ -18,6 +18,9 @@ applicationTemplate: https://github.com/aymericzip/intlayer-nuxt-4-template
 applicationShowcase: https://intlayer-nuxt-4-template.vercel.app
 youtubeVideo: https://www.youtube.com/watch?v=nhUcUAVQ6eQ
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Actualizar el uso de la API useIntlayer de Solid para el acceso directo a las propiedades"
   - version: 7.3.11
     date: 2025-12-07
     changes: "Actualización de LocaleSwitcher, SEO, metadatos"

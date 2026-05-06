@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-08-23
+updatedAt: 2026-05-06
 title: useIntlayer 훅 문서 | next-intlayer
 description: next-intlayer 패키지의 useIntlayer 훅 사용법을 확인하세요
 keywords:
@@ -19,6 +19,9 @@ slugs:
   - next-intlayer
   - useIntlayer
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Solid useIntlayer API 사용법을 직접 속성 액세스로 업데이트"
   - version: 5.5.10
     date: 2025-06-29
     changes: "초기 이력"
@@ -140,6 +143,8 @@ const ServerComponentExample: FC = () => {
 
 ```tsx
 <img src={content.image.src.value} alt={content.image.alt.value} />
+<img src={content.image.src.toString()} alt={content.image.alt.toString()} />
+<img src={String(content.image.src)} alt={String(content.image.alt)} />
 ```
 
 ## 추가 정보

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2025-12-30
+updatedAt: 2026-05-06
 title: Angular i18n - Angular ऐप का अनुवाद कैसे करें 2026 में
 description: जानें कि अपनी Angular वेबसाइट को बहुभाषी कैसे बनाया जाए। इसे अंतरराष्ट्रीय बनाने (i18n) और अनुवाद करने के लिए दस्तावेज़ों का पालन करें।
 keywords:
@@ -16,6 +16,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-angular-template
 applicationShowcase: https://intlayer-angular-template.vercel.app
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "सॉलिड useIntlayer API उपयोग को सीधे प्रॉपर्टी एक्सेस में अपडेट करें"
   - version: 8.0.0
     date: 2026-01-26
     changes: "स्थिर संस्करण जारी करें"

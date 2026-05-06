@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-03-12
+updatedAt: 2026-05-06
 title: Tanstack Start i18n - Tanstack Start uygulamasını çevirme 2026
 description: Tanstack Start uygulamanıza Intlayer kullanarak uluslararasılaştırma (i18n) nasıl eklenir öğrenin. Uygulamanızı yerel dil yönlendirmesi ile çok dilli hale getirmek için bu kapsamlı rehberi takip edin.
 keywords:
@@ -20,6 +20,9 @@ applicationTemplate: https://github.com/aymericzip/intlayer-tanstack-start-templ
 applicationShowcase: https://intlayer-tanstack-start-template.vercel.app
 youtubeVideo: https://www.youtube.com/watch?v=_XTdKVWaeqg
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Solid useIntlayer API kullanımını doğrudan özellik erişimine güncelle"
   - version: 7.5.9
     date: 2025-12-30
     changes: "init komutu ekle"
@@ -243,6 +246,14 @@ function RootDocument({ children }: { children: ReactNode }) {
   );
 }
 ```
+
+> İçeriğinizi bir `string` niteliğinde kullanmak istiyorsanız, `alt`, `title`, `href`, `aria-label` vb. gibi, fonksiyonun değerini çağırmanız gerekir:
+
+> ```jsx
+> <img src={content.image.src.value} alt={content.image.value} />
+> <img src={content.image.src.toString()} alt={content.image.toString()} />
+> <img src={String(content.image.src)} alt={String(content.image)} />
+> ```
 
 ### Adım 6: Yerel Dil Düzeni Oluşturma
 

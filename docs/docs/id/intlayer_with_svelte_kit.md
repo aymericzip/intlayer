@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-11-20
-updatedAt: 2026-03-12
+updatedAt: 2026-05-06
 title: SvelteKit i18n - Cara menerjemahkan aplikasi SvelteKit di 2026
 description: Temukan cara membuat situs web SvelteKit Anda menjadi multibahasa. Ikuti dokumentasi untuk melakukan internasionalisasi (i18n) dan menerjemahkannya menggunakan Server-Side Rendering (SSR).
 keywords:
@@ -17,6 +17,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-sveltekit-template
 applicationShowcase: https://intlayer-sveltekit-template.vercel.app
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Perbarui penggunaan API useIntlayer Solid ke akses properti langsung"
   - version: 7.5.9
     date: 2025-12-30
     changes: "Tambahkan perintah init"
@@ -203,7 +206,7 @@ Sekarang Anda dapat menggunakan fungsi `useIntlayer` di komponen Svelte mana pun
 
 > **Catatan:** `useIntlayer` mengembalikan store Svelte, jadi Anda perlu menggunakan prefix `---
 > createdAt: 2025-11-20
-> updatedAt: 2026-03-12
+> updatedAt: 2026-05-06
 > title: Cara menerjemahkan aplikasi SvelteKit Anda – panduan i18n 2026
 > description: Temukan cara membuat situs web SvelteKit Anda menjadi multibahasa. Ikuti dokumentasi untuk melakukan internasionalisasi (i18n) dan menerjemahkannya menggunakan Server-Side Rendering (SSR).
 > keywords:
@@ -391,6 +394,8 @@ untuk mengakses nilai reaktifnya (misalnya, `$content.title`).
 <h1>{@const Title = $content.title}<Title /></h1>
 <!-- Untuk merender konten sebagai string -->
 <div aria-label={$content.title.value}></div>
+<div aria-label={$content.title.toString()}></div>
+<div aria-label={String($content.title)}></div>
 ```
 
 ### (Opsional) Langkah 6: Atur routing

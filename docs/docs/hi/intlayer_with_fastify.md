@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-12-30
-updatedAt: 2025-12-30
+updatedAt: 2026-05-06
 title: Fastify i18n - 2026 में Fastify ऐप का अनुवाद कैसे करें
 description: जानें कि अपने Fastify बैकएंड को बहुभाषी कैसे बनाया जाए। इसे अंतर्राष्ट्रीयकरण (i18n) और अनुवाद करने के लिए दस्तावेज़ों का पालन करें।
 keywords:
@@ -16,6 +16,9 @@ slugs:
   - fastify
 applicationTemplate: https://github.com/aymericzip/intlayer-fastify-template
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "सॉलिड useIntlayer API उपयोग को सीधे प्रॉपर्टी एक्सेस में अपडेट करें"
   - version: 7.6.0
     date: 2025-12-31
     changes: "init कमांड जोड़ा गया"

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-03-20
-updatedAt: 2026-03-20
+updatedAt: 2026-05-06
 title: Jak nastavit Intlayer se Storybookem
 description: Naučte se, jak vytvořit svůj design systém vícejazyčný pomocí Intlayeru se Storybookem — kompilujte deklarace obsahu, přidejte přepínač jazyků a prohlížejte své komponenty v libovolném jazyce.
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - doc
   - storybook
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Aktualizace použití API useIntlayer v Solid na přímý přístup k vlastnostem"
   - version: 8.4.5
     date: 2026-03-20
     changes: "Iniciace dokumentace"

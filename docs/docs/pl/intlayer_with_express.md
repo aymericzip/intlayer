@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-12-30
+updatedAt: 2026-05-06
 title: Express i18n - Jak przetłumaczyć aplikację Express w 2026
 description: Dowiedz się, jak uczynić swój backend Express wielojęzycznym. Postępuj zgodnie z dokumentacją, aby internacjonalizować (i18n) i tłumaczyć.
 keywords:
@@ -16,6 +16,9 @@ slugs:
   - express
 applicationTemplate: https://github.com/aymericzip/intlayer-express-template
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Aktualizacja użycia API useIntlayer w Solid do bezpośredniego dostępu do właściwości"
   - version: 7.5.9
     date: 2025-12-30
     changes: "Dodaj polecenie init"

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-11-20
-updatedAt: 2026-03-12
+updatedAt: 2026-05-06
 title: SvelteKit i18n - Come tradurre un'app SvelteKit nel 2026
 description: Scopri come rendere il tuo sito SvelteKit multilingue. Segui la documentazione per internazionalizzare (i18n) e tradurlo utilizzando il Server-Side Rendering (SSR).
 keywords:
@@ -17,6 +17,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-sveltekit-template
 applicationShowcase: https://intlayer-sveltekit-template.vercel.app
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Aggiornare l'uso dell'API useIntlayer di Solid all'accesso diretto alle proprietà"
   - version: 7.5.9
     date: 2025-12-30
     changes: "Aggiungi comando init"
@@ -203,7 +206,7 @@ Ora puoi usare la funzione `useIntlayer` in qualsiasi componente Svelte. Essa re
 
 > **Nota:** `useIntlayer` restituisce uno store Svelte, quindi devi usare il prefisso `---
 > createdAt: 2025-11-20
-> updatedAt: 2026-03-12
+> updatedAt: 2026-05-06
 > title: Come tradurre la tua app SvelteKit – guida i18n 2026
 > description: Scopri come rendere il tuo sito SvelteKit multilingue. Segui la documentazione per internazionalizzare (i18n) e tradurlo utilizzando il Server-Side Rendering (SSR).
 > keywords:
@@ -391,6 +394,8 @@ per accedere al suo valore reattivo (ad esempio, `$content.title`).
 <h1>{@const Title = $content.title}<Title /></h1>
 <!-- Per rendere il contenuto come stringa -->
 <div aria-label={$content.title.value}></div>
+<div aria-label={$content.title.toString()}></div>
+<div aria-label={String($content.title)}></div>
 ```
 
 ### (Opzionale) Passo 6: Configurare il routing

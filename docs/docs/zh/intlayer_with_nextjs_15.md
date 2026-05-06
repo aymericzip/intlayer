@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-12-06
-updatedAt: 2025-12-30
+updatedAt: 2026-05-06
 title: Next.js i18n - 如何翻译Next.js 15 应用 2026
 description: 了解如何使您的 Next.js 15 网站支持多语言。按照文档进行国际化（i18n）和翻译。
 keywords:
@@ -19,6 +19,9 @@ applicationTemplate: https://github.com/aymericzip/intlayer-next-15-template
 applicationShowcase: https://next-15-intlayer-template-xt83.vercel.app
 youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "更新 Solid useIntlayer API 用法以直接访问属性"
   - version: 7.5.9
     date: 2025-12-30
     changes: "添加 init 命令"
@@ -385,10 +388,12 @@ export const ServerComponentExample: FC = () => {
 };
 ```
 
-> 如果您想在字符串属性中使用内容，比如 `alt`、`title`、`href`、`aria-label` 等，必须调用函数的值，例如：
+> 如果您想在字符串属性中使用内容，比如 `alt`、`title`、`href`、`aria-label` 等，可以使用函数的值，例如：
 
 > ```jsx
 > <img src={content.image.src.value} alt={content.image.value} />
+> <img src={content.image.src.toString()} alt={content.image.toString()} />
+> <img src={String(content.image.src)} alt={String(content.image)} />
 > ```
 
 > 要了解有关 `useIntlayer` 钩子的更多信息，请参阅[文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/next-intlayer/useIntlayer.md)。

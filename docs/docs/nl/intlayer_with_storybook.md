@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-03-20
-updatedAt: 2026-03-20
+updatedAt: 2026-05-06
 title: Intlayer instellen met Storybook
 description: Leer hoe u uw designsysteem meertalig kunt maken met Intlayer en Storybook — compileer inhoudsdeclaraties, voeg een taalschakelaar toe en bekijk uw componenten in elke gewenste taal.
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - doc
   - storybook
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Update Solid useIntlayer API-gebruik naar directe toegang tot eigenschappen"
   - version: 8.4.5
     date: 2026-03-20
     changes: "Documentatie geïnitialiseerd"

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-03-29
+updatedAt: 2026-05-06
 title: Tanstack Start i18n - How to translate an Tanstack Start app in 2026
 description: Learn how to add internationalization (i18n) to your Tanstack Start application using Intlayer. Follow this comprehensive guide to make your app multilingual with locale-aware routing.
 keywords:
@@ -21,6 +21,9 @@ applicationTemplate: https://github.com/aymericzip/intlayer-tanstack-start-templ
 applicationShowcase: https://intlayer-tanstack-start-template.vercel.app
 youtubeVideo: https://www.youtube.com/watch?v=_XTdKVWaeqg
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Update Solid useIntlayer API usage to direct property access"
   - version: 8.6.0
     date: 2026-03-29
     changes: "Add pre-render & sitemap"
@@ -41,7 +44,7 @@ history:
     changes: "Fix prefix default by adding getPrefix function useLocalizedNavigate, LocaleSwitcher and LocalizedLink."
   - version: 6.5.2
     date: 2025-10-03
-    changes: "Update doc"
+    changes: "Update documentation"
   - version: 5.8.1
     date: 2025-09-09
     changes: "Added for Tanstack Start"
@@ -475,6 +478,14 @@ function RouteComponent() {
   );
 }
 ```
+
+> If you want to use your content in a `string` attribute, such as `alt`, `title`, `href`, `aria-label`, etc., you can use the value of the function, like:
+>
+> ```jsx
+> <img src={content.image.src.value} alt={content.image.value} />
+> <img src={content.image.src.toString()} alt={content.image.toString()} />
+> <img src={String(content.image.src)} alt={String(content.image)} />
+> ```
 
 > To Learn more about the `useIntlayer` hook, refer to the [documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useIntlayer.md).
 

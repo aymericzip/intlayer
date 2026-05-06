@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-03-20
-updatedAt: 2026-03-20
+updatedAt: 2026-05-06
 title: Storybook के साथ Intlayer कैसे सेटअप करें
 description: सीखें कि Intlayer और Storybook का उपयोग करके अपने डिज़ाइन सिस्टम को बहुभाषी कैसे बनाया जाए — सामग्री घोषणाओं को संकलित करें, एक स्थानीय स्विचर जोड़ें और किसी भी भाषा में अपने घटकों का पूर्वावलोकन करें।
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - doc
   - storybook
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "सॉलिड useIntlayer API उपयोग को सीधे प्रॉपर्टी एक्सेस में अपडेट करें"
   - version: 8.4.5
     date: 2026-03-20
     changes: "Init doc"

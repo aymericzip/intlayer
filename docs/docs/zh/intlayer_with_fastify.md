@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-12-30
-updatedAt: 2025-12-30
+updatedAt: 2026-05-06
 title: Fastify i18n - 如何在 2026 年翻译 Fastify 应用程序
 description: 了解如何使您的 Fastify 后端实现多语言。按照文档进行国际化 (i18n) 和翻译。
 keywords:
@@ -16,6 +16,9 @@ slugs:
   - fastify
 applicationTemplate: https://github.com/aymericzip/intlayer-fastify-template
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "更新 Solid useIntlayer API 用法以直接访问属性"
   - version: 7.6.0
     date: 2025-12-31
     changes: "添加 init 命令"

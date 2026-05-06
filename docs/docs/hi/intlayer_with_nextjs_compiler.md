@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-10
-updatedAt: 2026-03-12
+updatedAt: 2026-05-06
 title: Next.js i18n - मौजूदा Next.js ऐप को बहुभाषी ऐप में बदलें 2026 में
 description: जानें कि Intlayer Compiler का उपयोग करके अपने मौजूदा Next.js एप्लिकेशन को बहुभाषी कैसे बनाया जाए। AI का उपयोग करके अपने ऐप का अंतर्राष्ट्रीयकरण (i18n) और अनुवाद करने के लिए दस्तावेज़ का पालन करें।
 keywords:
@@ -20,6 +20,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-next-no-lolale-path-template
 youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "सॉलिड useIntlayer API उपयोग को सीधे प्रॉपर्टी एक्सेस में अपडेट करें"
   - version: 8.2.0
     date: 2026-03-09
     changes: "Update compiler options, add FilePathPattern support"

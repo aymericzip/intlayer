@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-24
-updatedAt: 2026-05-04
+updatedAt: 2026-05-06
 title: ترجمة Astro + Solid i18n - كيفية ترجمة تطبيق Astro + Solid في عام 2026
 description: تعرف على كيفية إضافة التدويل (i18n) إلى موقع Astro + Solid الخاص بك باستخدام Intlayer. اتبع هذا الدليل لجعل موقعك متعدد اللغات.
 keywords:
@@ -21,7 +21,7 @@ applicationShowcase: https://intlayer-astro-template.vercel.app
 history:
   - version: 8.9.0
     date: 2026-05-04
-    changes: "Update Solid useIntlayer API usage to direct property access"
+    changes: "تحديث استخدام واجهة برمجة تطبيقات useIntlayer في Solid للوصول المباشر إلى الخصائص"
   - version: 8.7.7
     date: 2026-04-24
     changes: "التوثيق الأولي لـ Astro + Solid"
@@ -262,6 +262,14 @@ const { title } = getIntlayer("app", locale);
   </body>
 </html>
 ```
+
+> إذا كنت ترغب في استخدام محتواك في سمة `سلسلة` (string)، مثل `alt` و `title` و `href` و `aria-label` وما إلى ذلك، يمكنك استخدام قيمة الدالة، مثل:
+
+> ```jsx
+> <img src={content.image.src.value} alt={content.image.value} />
+> <img src={content.image.src.toString()} alt={content.image.toString()} />
+> <img src={String(content.image.src)} alt={String(content.image)} />
+> ```
 
 > **ملاحظة حول إعداد التوجيه:**
 > تعتمد بنية الدليل التي تستخدمها على إعداد `middleware.routing` في `intlayer.config.ts`:

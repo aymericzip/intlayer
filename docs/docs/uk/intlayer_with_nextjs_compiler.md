@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-10
-updatedAt: 2026-03-12
+updatedAt: 2026-05-06
 title: Next.js i18n - Перетворення існуючого додатка Next.js на багатомовний додаток у 2026
 description: Дізнайтеся, як зробити ваш існуючий додаток Next.js багатомовним за допомогою Intlayer Compiler. Дотримуйтесь документації, щоб інтернаціоналізувати (i18n) та перекласти ваш додаток за допомогою ШІ.
 keywords:
@@ -20,6 +20,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-next-no-lolale-path-template
 youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Оновлення використання API useIntlayer у Solid для прямого доступу до властивостей"
   - version: 8.2.0
     date: 2026-03-09
     changes: "Update compiler options, add FilePathPattern support"

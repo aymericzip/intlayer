@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-03-12
+updatedAt: 2026-05-06
 title: Vite + Preact i18n - Cómo traducir una aplicación Preact en 2026
 description: Descubre cómo hacer tu sitio web con Vite y Preact multilingüe. Sigue la documentación para internacionalizar (i18n) y traducirlo.
 keywords:
@@ -17,6 +17,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-preact-template
 applicationShowcase: https://intlayer-vite-preact-template.vercel.app
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Actualizar el uso de la API useIntlayer de Solid para el acceso directo a las propiedades"
   - version: 7.5.9
     date: 2025-12-30
     changes: "Agregar comando init"
@@ -339,10 +342,12 @@ const App: FunctionalComponent = () => (
 export default App;
 ```
 
-> Si desea usar su contenido en un atributo de tipo `string`, como `alt`, `title`, `href`, `aria-label`, etc., debe llamar al valor de la función, así:
+> Si desea usar su contenido en un atributo de tipo `string`, como `alt`, `title`, `href`, `aria-label`, etc., puede usar el valor de la función, así:
 
 > ```jsx
 > <img src={content.image.src.value} alt={content.image.value} />
+> <img src={content.image.src.toString()} alt={content.image.toString()} />
+> <img src={String(content.image.src)} alt={String(content.image)} />
 > ```
 
 > Nota: En Preact, `className` se escribe típicamente como `class`.

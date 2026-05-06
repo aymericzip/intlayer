@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-03-20
-updatedAt: 2026-03-20
+updatedAt: 2026-05-06
 title: 如何在 Storybook 中设置 Intlayer
 description: 学习如何使用 Intlayer 和 Storybook 使您的设计系统多语言化 — 编译内容声明、添加语言切换器，并以任何语言预览您的组件。
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - doc
   - storybook
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "更新 Solid useIntlayer API 用法以直接访问属性"
   - version: 8.4.5
     date: 2026-03-20
     changes: "Init doc"

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-24
-updatedAt: 2026-04-24
+updatedAt: 2026-05-06
 title: Astro + Preact i18n - Comment traduire une application Astro + Preact en 2026
 description: Apprenez à ajouter l'internationalisation (i18n) à votre site Astro + Preact avec Intlayer. Suivez ce guide pour rendre votre site multilingue.
 keywords:
@@ -19,6 +19,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-astro-template
 applicationShowcase: https://intlayer-astro-template.vercel.app
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Mettre à jour l'utilisation de l'API useIntlayer de Solid pour un accès direct aux propriétés"
   - version: 8.7.7
     date: 2026-04-24
     changes: "Documentation initiale pour Astro + Preact"
@@ -260,6 +263,14 @@ const { title } = getIntlayer("app", locale);
   </body>
 </html>
 ```
+
+> Si vous souhaitez utiliser votre contenu dans un attribut de type `chaîne`, tel que `alt`, `title`, `href`, `aria-label`, etc., vous pouvez utiliser la valeur de la fonction, comme :
+
+> ```jsx
+> <img src={content.image.src.value} alt={content.image.value} />
+> <img src={content.image.src.toString()} alt={content.image.toString()} />
+> <img src={String(content.image.src)} alt={String(content.image)} />
+> ```
 
 > **Note sur la configuration du routage :**
 > La structure de répertoire que vous utilisez dépend du paramètre `middleware.routing` dans votre `intlayer.config.ts` :

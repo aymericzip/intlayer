@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-03-23
-updatedAt: 2026-03-23
+updatedAt: 2026-05-06
 title: Vite + Lit i18n - ২০২৬ সালে কীভাবে একটি Lit অ্যাপ অনুবাদ করবেন
 description: শিখুন কীভাবে আপনার Vite এবং Lit ওয়েবসাইটকে বহুভাষী করবেন। আন্তর্জাতিকীকরণ (i18n) এবং অনুবাদের জন্য ডকুমেন্টেশন অনুসরণ করুন।
 keywords:
@@ -18,9 +18,12 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-lit-template
 applicationShowcase: https://intlayer-vite-lit-template.vercel.app
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "সলিড useIntlayer API ব্যবহার সরাসরি প্রপার্টি অ্যাক্সেসে আপডেট করুন"
   - version: 8.4.10
     date: 2026-03-23
-    changes: "Init history"
+    changes: "প্রাথমিক ইতিহাস"
 ---
 
 # Intlayer ব্যবহার করে আপনার Vite এবং Lit ওয়েবসাইট অনুবাদ করুন | আন্তর্জাতিকীকরণ (i18n)
@@ -336,6 +339,8 @@ export class MyElement extends LitElement {
 >
 > ```typescript
 > html`<img alt=${content.viteLogo.value} />`;
+> html`<img alt=${content.viteLogo.toString()} />`;
+> html`<img alt=${String(content.viteLogo)} />`;
 > ```
 
 ### (ঐচ্ছিক) ধাপ ৭: আপনার কন্টেন্টের ভাষা পরিবর্তন করুন

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-24
-updatedAt: 2026-04-24
+updatedAt: 2026-05-06
 title: Astro + Lit i18n - Как перевести приложение Astro + Lit в 2026 году
 description: Узнайте, как добавить интернационализацию (i18n) на ваш сайт Astro + Lit с помощью Intlayer. Следуйте этому руководству, чтобы сделать ваш сайт многоязычным.
 keywords:
@@ -20,6 +20,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-astro-template
 applicationShowcase: https://intlayer-astro-template.vercel.app
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Обновление использования API useIntlayer в Solid для прямого доступа к свойствам"
   - version: 8.7.7
     date: 2026-04-24
     changes: "Начальная документация для Astro + Lit"
@@ -82,6 +85,14 @@ npm install intlayer astro-intlayer lit lit-intlayer @astrojs/lit
 
 npx intlayer init
 ```
+
+> Если вы хотите использовать свой контент в атрибуте `строки`, таком как `alt`, `title`, `href`, `aria-label` и т. д., вы можете использовать значение функции, например:
+
+> ```jsx
+> <img src={content.image.src.value} alt={content.image.value} />
+> <img src={content.image.src.toString()} alt={content.image.toString()} />
+> <img src={String(content.image.src)} alt={String(content.image)} />
+> ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer astro-intlayer lit lit-intlayer @astrojs/lit

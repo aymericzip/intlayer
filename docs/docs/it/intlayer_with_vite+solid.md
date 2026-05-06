@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-05-04
+updatedAt: 2026-05-06
 title: Vite + Solid i18n - Come tradurre un'app Solid nel 2026
 description: Scopri come rendere il tuo sito Vite e Solid multilingue. Segui la documentazione per internazionalizzare (i18n) e tradurlo.
 keywords:
@@ -18,7 +18,7 @@ applicationTemplate: https://github.com/aymericzip/intlayer-vite-solid-template
 history:
   - version: 8.9.0
     date: 2026-05-04
-    changes: "Update Solid useIntlayer API usage to direct property access"
+    changes: "Aggiornare l'uso dell'API useIntlayer di Solid all'accesso diretto alle proprietà"
   - version: 7.5.9
     date: 2025-12-30
     changes: "Aggiungi comando init"
@@ -239,6 +239,8 @@ export default App;
 >
 > ```jsx
 > <img src={content.image.src.value} alt={content.image.value} />
+> <img src={content.image.src.toString()} alt={content.image.toString()} />
+> <img src={String(content.image.src)} alt={String(content.image)} />
 > ```
 
 ### (Opzionale) Passo 6: Cambiare la lingua del tuo contenuto

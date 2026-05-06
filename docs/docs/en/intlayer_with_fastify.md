@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-12-30
-updatedAt: 2025-12-30
+updatedAt: 2026-05-06
 title: Fastify i18n - How to translate an Fastify app in 2026
 description: Discover how to make your Fastify backend multilingual. Follow the documentation to internationalize (i18n) and translate it.
 keywords:
@@ -16,12 +16,15 @@ slugs:
   - fastify
 applicationTemplate: https://github.com/aymericzip/intlayer-fastify-template
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Update Solid useIntlayer API usage to direct property access"
   - version: 7.6.0
     date: 2025-12-31
     changes: "Add init command"
   - version: 7.6.0
     date: 2025-12-31
-    changes: "Init history"
+    changes: "Initial history"
 ---
 
 # Translate your Fastify backend website using Intlayer | Internationalization (i18n)

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2025-12-30
+updatedAt: 2026-05-06
 title: NestJS i18n - Як перекласти додаток NestJS у 2026
 description: Дізнайтеся, як зробити ваш бекенд на NestJS багатомовним. Слідуйте документації для інтернаціоналізації (i18n) та перекладу.
 keywords:
@@ -16,6 +16,9 @@ slugs:
   - nest
 applicationTemplate: https://github.com/AydinTheFirst/nestjs-intlayer
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Оновлення використання API useIntlayer у Solid для прямого доступу до властивостей"
   - version: 7.5.9
     date: 2025-12-30
     changes: "Додано команду init"

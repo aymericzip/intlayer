@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-01-10
-updatedAt: 2026-01-10
+updatedAt: 2026-05-06
 title: Next.js i18n - Cách dịch ứng dụng Next.js 16 (không có [locale] trong đường dẫn trang) năm 2026
 description: Tìm hiểu cách làm cho website Next.js 16 của bạn đa ngôn ngữ mà không cần [locale] trong đường dẫn trang. Làm theo tài liệu để quốc tế hóa (i18n) và dịch nội dung.
 keywords:
@@ -18,6 +18,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-next-no-lolale-path-template
 youtubeVideo: https://www.youtube.com/watch?v=e_PPG7PTqGU
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Cập nhật cách sử dụng API useIntlayer của Solid sang truy cập thuộc tính trực tiếp"
   - version: 8.0.0
     date: 2026-01-10
     changes: "Phát hành ban đầu"
@@ -454,6 +457,8 @@ export const ServerComponentExample: FC = () => {
 
 > ```jsx
 > <img src={content.image.src.value} alt={content.image.value} />
+> <img src={content.image.src.toString()} alt={content.image.toString()} />
+> <img src={String(content.image.src)} alt={String(content.image)} />
 > ```
 
 > Để tìm hiểu thêm về hook `useIntlayer`, tham khảo [tài liệu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/next-intlayer/useIntlayer.md).

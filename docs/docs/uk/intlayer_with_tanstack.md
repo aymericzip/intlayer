@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-03-12
+updatedAt: 2026-05-06
 title: Tanstack Start i18n - Як перекласти додаток Tanstack Start у 2026
 description: Дізнайтеся, як додати інтернаціоналізацію (i18n) до вашого застосунку Tanstack Start за допомогою Intlayer. Дотримуйтесь цього вичерпного посібника, щоб зробити ваш додаток багатомовним із маршрутизацією з урахуванням локалі.
 keywords:
@@ -20,6 +20,9 @@ applicationTemplate: https://github.com/aymericzip/intlayer-tanstack-start-templ
 applicationShowcase: https://intlayer-tanstack-start-template.vercel.app
 youtubeVideo: https://www.youtube.com/watch?v=_XTdKVWaeqg
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Оновлення використання API useIntlayer у Solid для прямого доступу до властивостей"
   - version: 7.5.9
     date: 2025-12-30
     changes: "Додано команду init"
@@ -243,6 +246,14 @@ function RootDocument({ children }: { children: ReactNode }) {
   );
 }
 ```
+
+> Якщо ви хочете використовувати свій вміст в атрибуті типу `string`, наприклад `alt`, `title`, `href`, `aria-label` тощо, ви повинні викликати значення функції, наприклад:
+
+> ```jsx
+> <img src={content.image.src.value} alt={content.image.value} />
+> <img src={content.image.src.toString()} alt={content.image.toString()} />
+> <img src={String(content.image.src)} alt={String(content.image)} />
+> ```
 
 ### Крок 6: Створіть Locale Layout
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2026-04-24
+updatedAt: 2026-05-06
 title: ترجمة Astro + React i18n - كيفية ترجمة تطبيق Astro + React في عام 2026
 description: تعرف على كيفية إضافة التدويل (i18n) إلى موقع Astro + React الخاص بك باستخدام Intlayer. اتبع هذا الدليل لجعل موقعك متعدد اللغات.
 keywords:
@@ -19,6 +19,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-astro-template
 applicationShowcase: https://intlayer-astro-template.vercel.app
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "تحديث استخدام واجهة برمجة تطبيقات useIntlayer في Solid للوصول المباشر إلى الخصائص"
   - version: 7.5.9
     date: 2025-12-30
     changes: "إضافة أمر init"
@@ -263,6 +266,14 @@ const { title } = getIntlayer("app", locale);
   </body>
 </html>
 ```
+
+> إذا كنت ترغب في استخدام محتواك في سمة `سلسلة` (string)، مثل `alt` و `title` و `href` و `aria-label` وما إلى ذلك، يمكنك استخدام قيمة الدالة، مثل:
+
+> ```jsx
+> <img src={content.image.src.value} alt={content.image.value} />
+> <img src={content.image.src.toString()} alt={content.image.toString()} />
+> <img src={String(content.image.src)} alt={String(content.image)} />
+> ```
 
 > **ملاحظة حول إعداد التوجيه:**
 > تعتمد بنية الدليل التي تستخدمها على إعداد `middleware.routing` في `intlayer.config.ts`:

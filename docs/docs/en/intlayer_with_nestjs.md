@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2025-12-30
+updatedAt: 2026-05-06
 title: NestJS i18n - How to translate an NestJS app in 2026
 description: Discover how to make your NestJS backend multilingual. Follow the documentation to internationalize (i18n) and translate it.
 keywords:
@@ -16,6 +16,9 @@ slugs:
   - nest
 applicationTemplate: https://github.com/aymericzip/intlayer-nestjs-template
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Update Solid useIntlayer API usage to direct property access"
   - version: 7.5.9
     date: 2025-12-30
     changes: "Add init command"

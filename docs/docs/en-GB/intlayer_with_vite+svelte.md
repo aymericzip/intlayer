@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2025-12-30
+updatedAt: 2026-05-06
 title: Vite + Svelte i18n - How to translate an Svelte app in 2026
 description: Discover how to make your Vite and Svelte website multilingual. Follow the documentation to internationalise (i18n) and translate it.
 keywords:
@@ -17,15 +17,18 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-svelte-template
 applicationShowcase: https://intlayer-vite-svelte-template.vercel.app
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Update Solid useIntlayer API usage to direct property access"
   - version: 7.5.9
     date: 2025-12-30
     changes: "Add init command"
   - version: 5.5.11
     date: 2025-11-19
-    changes: "Update doc"
+    changes: "Update documentation"
   - version: 5.5.10
     date: 2025-06-29
-    changes: "Init history"
+    changes: "Initial history"
 ---
 
 # Translate your Vite and Svelte website using Intlayer | Internationalisation (i18n)
@@ -223,6 +226,8 @@ export default appContent;
 <h1>{@const Title = $content.title}<Title /></h1>
 <!-- To render the content as a string -->
 <div aria-label={$content.title.value}></div>
+<div aria-label={$content.title.toString()}></div>
+<div aria-label={String($content.title)}></div>
 ```
 
 ### (Optional) Step 6: Change the language of your content
