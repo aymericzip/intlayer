@@ -1,7 +1,12 @@
 import { existsSync } from 'node:fs';
 import { dirname, extname, join } from 'node:path';
 import { pathToFileURL } from 'node:url';
-import { type BuildOptions, type BuildResult, build, buildSync } from 'esbuild';
+import {
+  type BuildOptions,
+  type BuildResult,
+  buildSync,
+  context,
+} from 'esbuild';
 import { getPackageJsonPath } from '../utils/getPackageJsonPath';
 import { getLoader } from './bundleFile';
 
@@ -87,20 +92,26 @@ export const transpileTSToCJS = async (
   const loader = getLoader(extension);
 
   const { esbuildInstance, ...buildOptions } = options ?? {};
-  const esbuildBuild = esbuildInstance?.build ?? build;
+  // Use context() + rebuild() + dispose() so esbuild deterministically releases
+  // Go-subprocess resources for each one-shot transpilation, preventing them
+  // from accumulating between rapid HMR-driven file changes.
+  const esbuildContext = esbuildInstance?.context ?? context;
 
-  const moduleResult: BuildResult = await esbuildBuild({
+  const ctx = await esbuildContext({
     stdin: {
       contents: code,
       loader,
-      resolveDir: dirname(filePath), // Add resolveDir to resolve imports relative to the file's location
-      sourcefile: filePath, // Add sourcefile for better error messages
+      resolveDir: dirname(filePath),
+      sourcefile: filePath,
     },
     ...getTransformationOptions(filePath),
     ...buildOptions,
   });
 
-  const moduleResultString = moduleResult.outputFiles?.[0].text;
-
-  return moduleResultString;
+  try {
+    const moduleResult = await ctx.rebuild();
+    return moduleResult.outputFiles?.[0].text;
+  } finally {
+    await ctx.dispose();
+  }
 };

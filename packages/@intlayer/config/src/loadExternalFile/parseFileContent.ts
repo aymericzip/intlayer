@@ -24,6 +24,32 @@ export type SandBoxContextOptions = {
   aliases?: Record<string, string>;
 };
 
+// Inject only Node.js-specific globals that are absent from a plain V8 context.
+// JS built-ins (Object, Array, Promise, Math, Date, JSON, Symbol, etc.) are
+// provided automatically by runInNewContext — no need to copy them.
+// Copying all of globalThis would retain hundreds of references (including the
+// full module cache via `global`) inside every sandbox, causing a memory leak.
+const NODE_GLOBALS = [
+  'Buffer',
+  'setTimeout',
+  'clearTimeout',
+  'setInterval',
+  'clearInterval',
+  'setImmediate',
+  'clearImmediate',
+  'queueMicrotask',
+  'URL',
+  'URLSearchParams',
+  'TextEncoder',
+  'TextDecoder',
+  'AbortController',
+  'AbortSignal',
+  'performance',
+  'fetch',
+  'crypto',
+  'structuredClone',
+] as const;
+
 export const getSandBoxContext = (options?: SandBoxContextOptions): Context => {
   const { envVarOptions, projectRequire, additionalEnvVars, mocks, aliases } =
     options ?? {};
@@ -110,12 +136,12 @@ export const getSandBoxContext = (options?: SandBoxContextOptions): Context => {
     ...additionalGlobalVar,
   };
 
-  // Dynamically inject all global variables
-  Object.getOwnPropertyNames(globalThis).forEach((key) => {
-    if (!(key in sandboxContext)) {
-      sandboxContext[key] = globalThis[key as keyof typeof globalThis];
+  for (const key of NODE_GLOBALS) {
+    if (!(key in sandboxContext) && key in globalThis) {
+      (sandboxContext as Record<string, unknown>)[key] =
+        globalThis[key as keyof typeof globalThis];
     }
-  });
+  }
 
   return sandboxContext;
 };
@@ -136,13 +162,26 @@ export const parseFileContent = <T>(
     sandboxContext.module?.exports,
   ];
 
+  let result: T | undefined;
   for (const candidate of candidates) {
     if (
       candidate &&
       typeof candidate === 'object' &&
       Object.keys(candidate as object).length > 0
     ) {
-      return candidate as T;
+      result = candidate as T;
+      break;
     }
   }
+
+  // Drop heavy references so the V8 context created by runInNewContext can be
+  // garbage-collected promptly. The extracted `result` is a plain data object
+  // and does not retain the sandbox.
+  (sandboxContext as Record<string, unknown>).require = undefined;
+  (sandboxContext as Record<string, unknown>).process = undefined;
+  (sandboxContext as Record<string, unknown>).React = undefined;
+  (sandboxContext as Record<string, unknown>).module = undefined;
+  (sandboxContext as Record<string, unknown>).exports = undefined;
+
+  return result;
 };

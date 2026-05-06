@@ -21,6 +21,14 @@ export type LoadExternalFileOptions = {
   configuration?: IntlayerConfig;
   buildOptions?: TranspileOptions;
   logError?: boolean;
+  /**
+   * Key-value pairs to temporarily set on the main Node.js `globalThis` for the
+   * synchronous duration of `parseFileContent` / `runInNewContext`. External modules
+   * loaded via `require()` inside the VM (e.g. `@intlayer/core`'s `file()` helper)
+   * run in the main context and read from the real `globalThis`, not the VM sandbox.
+   * Values are restored (or deleted) after `runInNewContext` returns.
+   */
+  preloadGlobals?: Record<string, unknown>;
 } & SandBoxContextOptions;
 
 /**
@@ -85,6 +93,33 @@ export const loadExternalFileSync = (
   }
 };
 
+const withPreloadedGlobals = <T>(
+  globals: Record<string, unknown> | undefined,
+  fn: () => T
+): T => {
+  if (!globals) return fn();
+
+  const globalVars = globalThis as Record<string, unknown>;
+  const prev: Record<string, unknown> = {};
+
+  for (const [key, value] of Object.entries(globals)) {
+    prev[key] = globalVars[key];
+    globalVars[key] = value;
+  }
+
+  try {
+    return fn();
+  } finally {
+    for (const key of Object.keys(globals)) {
+      if (prev[key] !== undefined) {
+        globalVars[key] = prev[key];
+      } else {
+        delete globalVars[key];
+      }
+    }
+  }
+};
+
 /**
  * Load the content declaration from the given path
  *
@@ -121,13 +156,17 @@ export const loadExternalFile = async (
       return undefined;
     }
 
-    const fileContent = parseFileContent(moduleResultString, {
-      projectRequire: options?.projectRequire,
-      envVarOptions: options?.envVarOptions,
-      additionalEnvVars: options?.additionalEnvVars,
-      mocks: options?.mocks,
-      aliases: options?.aliases,
-    });
+    // parseFileContent/runInNewContext is synchronous, so withPreloadedGlobals
+    // has no interleaving risk even when multiple files are processed concurrently.
+    const fileContent = withPreloadedGlobals(options?.preloadGlobals, () =>
+      parseFileContent(moduleResultString, {
+        projectRequire: options?.projectRequire,
+        envVarOptions: options?.envVarOptions,
+        additionalEnvVars: options?.additionalEnvVars,
+        mocks: options?.mocks,
+        aliases: options?.aliases,
+      })
+    );
 
     if (typeof fileContent === 'undefined') {
       logger(`File could not be loaded. Path : ${colorizePath(filePath)}`);

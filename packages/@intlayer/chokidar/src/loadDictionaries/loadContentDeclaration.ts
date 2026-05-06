@@ -120,6 +120,9 @@ export const loadContentDeclaration = async (
           js: [
             `var __filename = ${JSON.stringify(path)};`,
             `var __dirname = ${JSON.stringify(dirname(path))};`,
+            // Also set on the VM sandbox's globalThis for VM-internal code.
+            // External modules (e.g. @intlayer/core's file()) run in the main
+            // Node.js context and are handled by preloadGlobals below.
             `globalThis.INTLAYER_FILE_PATH = '${path}';`,
             `globalThis.INTLAYER_BASE_DIR = '${configuration.system.baseDir}';`,
           ].join('\n'),
@@ -127,6 +130,13 @@ export const loadContentDeclaration = async (
       },
       aliases: {
         intlayer: resolvedBundleFilePath,
+      },
+      // Temporarily expose these on the main Node.js globalThis so that external
+      // modules required inside the VM (e.g. @intlayer/core's file() helper)
+      // can resolve relative paths against the correct content declaration path.
+      preloadGlobals: {
+        INTLAYER_FILE_PATH: path,
+        INTLAYER_BASE_DIR: configuration.system.baseDir,
       },
     });
 
