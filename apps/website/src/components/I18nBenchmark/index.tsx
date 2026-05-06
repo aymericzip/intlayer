@@ -214,7 +214,7 @@ export const I18nBenchmark = ({
   const toggleLib = (id: string) =>
     setActiveLibs((prev) => ({ ...prev, [id]: !prev[id] }));
 
-  const { data: logoImagesReady = new Map(), isLoading: isLogosLoading } =
+  const { data: logoImagesReady = {}, isLoading: isLogosLoading } =
     useLogoImages();
 
   const isLoading = isBenchmarkLoading || isLogosLoading;

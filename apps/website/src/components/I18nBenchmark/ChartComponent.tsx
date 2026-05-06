@@ -36,13 +36,13 @@ export const useLogoImages = () => {
         return src ? ([[id, src]] as [string, string][]) : [];
       });
 
-      const map = new Map<string, HTMLImageElement>();
+      const map: Record<string, HTMLImageElement> = {};
       await Promise.all(
         entries.map(([id, src]) => {
           return new Promise<void>((resolve) => {
             const img = new window.Image();
             img.onload = img.onerror = () => {
-              map.set(id, img);
+              map[id] = img;
               resolve();
             };
             img.src = src;
@@ -52,14 +52,13 @@ export const useLogoImages = () => {
       return map;
     },
     staleTime: Infinity,
-    structuralSharing: false,
   });
 };
 
 export const ChartComponent: FC<{
   data: ChartItem[];
   unit: string;
-  logoImages: Map<string, HTMLImageElement>;
+  logoImages: Record<string, HTMLImageElement>;
 }> = ({ data, unit, logoImages }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const chartRef = useRef<Chart | null>(null);
@@ -76,6 +75,7 @@ export const ChartComponent: FC<{
     if (!ctx) return;
 
     chartRef.current?.destroy();
+    chartRef.current = null;
 
     const logoPlugin: Plugin<'bar'> = {
       id: 'logoPlugin',
@@ -91,7 +91,7 @@ export const ChartComponent: FC<{
             : (tick.label as string);
           const item = data.find((d) => d.label === label);
           if (!item) return;
-          const img = logoImages.get(item.libId);
+          const img = logoImages[item.libId];
           if (!img?.complete || !img.naturalWidth) return;
 
           const y = yAxis.getPixelForTick(i);
@@ -207,6 +207,7 @@ export const ChartComponent: FC<{
 
     return () => {
       chartRef.current?.destroy();
+      chartRef.current = null;
     };
   }, [data, unit, logoImages]);
 
