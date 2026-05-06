@@ -13,11 +13,11 @@
   },
   "dependencies": {
     "intlayer": "workspace:*",
-    "react": "19.2.5",
-    "react-dom": "19.2.5",
+    "react": "19.2.6",
+    "react-dom": "19.2.6",
     "react-intlayer": "workspace:*",
     "react-router-dom": "7.14.2",
-    "zod": "4.4.2"
+    "zod": "4.4.3"
   },
   "devDependencies": {
     "@intlayer/ai": "workspace:*",

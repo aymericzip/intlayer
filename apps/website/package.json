@@ -75,11 +75,11 @@
     "next-secure-headers": "2.2.0",
     "next-themes": "0.4.6",
     "posthog-js": "1.372.6",
-    "react": "19.2.5",
-    "react-dom": "19.2.5",
+    "react": "19.2.6",
+    "react-dom": "19.2.6",
     "rss": "^1.2.2",
     "sharp": "0.34.5",
-    "zod": "4.4.2"
+    "zod": "4.4.3"
   },
   "devDependencies": {
     "@intlayer/swc": "workspace:*",
@@ -91,12 +91,12 @@
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
-    "postcss": "8.5.13",
+    "postcss": "8.5.14",
     "pwa-asset-generator": "8.1.4",
     "raw-loader": "4.0.2",
     "tailwindcss": "4.2.4",
     "typescript": "6.0.3",
-    "workbox-build": "7.4.0"
+    "workbox-build": "7.4.1"
   },
   "peerDependencies": {
     "@intlayer/backend": "workspace:*"

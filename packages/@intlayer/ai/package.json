@@ -81,7 +81,7 @@
     "@intlayer/types": "workspace:*",
     "@toon-format/toon": "2.1.0",
     "ai": "6.0.174",
-    "zod": "4.4.2"
+    "zod": "4.4.3"
   },
   "devDependencies": {
     "@ai-sdk/alibaba": "1.0.21",

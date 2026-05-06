@@ -76,8 +76,8 @@
     "typecheck": "bun turbo typecheck --filter=./packages/** --filter=./docs --filter=./apps/backend --filter=./plugins/** --concurrency=1"
   },
   "resolutions": {
-    "react": "19.2.5",
-    "react-dom": "19.2.5"
+    "react": "19.2.6",
+    "react-dom": "19.2.6"
   },
   "devDependencies": {
     "@biomejs/biome": "2.4.14",

@@ -19,8 +19,8 @@
     "markdown-to-jsx": "7.7.17",
     "next": "15.5.14",
     "next-intlayer": "workspace:*",
-    "react": "19.2.5",
-    "react-dom": "19.2.5"
+    "react": "19.2.6",
+    "react-dom": "19.2.6"
   },
   "devDependencies": {
     "@next/bundle-analyzer": "15.5.14",
