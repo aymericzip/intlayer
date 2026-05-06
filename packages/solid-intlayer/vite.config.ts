@@ -56,7 +56,7 @@ export default defineConfig({
     dts({
       entryRoot: 'src',
       exclude: ['**/*.stories.*', '**/*.test.*'],
-      outDir: 'dist/types',
+      outDirs: 'dist/types',
       beforeWriteFile: (filePath, content) => ({
         filePath: filePath.replace('/dist/types/src/', '/dist/types/'),
         content,

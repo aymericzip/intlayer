@@ -12,7 +12,8 @@ export type IntlayerNode<
   AdditionalProps = Record<string, never>,
 > = ResolvedEditor<T, ReactNode> & {
   value: T;
-} & AdditionalProps;
+} & AdditionalProps &
+  T;
 
 type RenderIntlayerNodeProps<T> = PropsWithChildren<{
   value: T;
@@ -21,40 +22,47 @@ type RenderIntlayerNodeProps<T> = PropsWithChildren<{
 }>;
 
 export const renderIntlayerNode = <
-  T extends number | string | boolean | undefined | null,
+  T, // Broadened to support arrays, numbers, objects, etc.
 >({
   children,
   value,
   additionalProps,
 }: RenderIntlayerNodeProps<T>): IntlayerNode<T> => {
-  // If children is not a valid ReactElement, wrap it in a fragment
   const element: ReactElement<any> = isValidElement(children) ? (
     children
   ) : (
     <>{children}</>
   );
 
-  // Return a Proxy that pretends to be the original element
-  // but also has a .value getter.
   return new Proxy(element as ReactElement, {
     get(target, prop, receiver) {
       if (prop === 'value') return value;
       if (prop === Symbol.toPrimitive) return () => value ?? '';
       if (prop === 'toString') return () => String(value ?? '');
       if (prop === 'valueOf') return () => value;
-      if (
-        typeof value === 'string' &&
-        typeof prop === 'string' &&
-        prop !== 'constructor'
-      ) {
-        const method = (String.prototype as any)[prop];
-        if (typeof method === 'function') return method.bind(value);
-      }
 
+      // Additional Props take precedence
       if (additionalProps && prop in additionalProps) {
         return additionalProps[prop as keyof typeof additionalProps];
       }
 
+      // Delegate native methods/properties to the underlying value
+      if (
+        value !== null &&
+        value !== undefined &&
+        typeof prop === 'string' &&
+        prop !== 'constructor' &&
+        !(prop in target) // Prevents overwriting React internals (type, props, key)
+      ) {
+        const valObj = Object(value); // Safely boxes primitives (e.g., 50 -> Number object)
+
+        if (prop in valObj) {
+          const valProp = valObj[prop];
+          return typeof valProp === 'function' ? valProp.bind(value) : valProp;
+        }
+      }
+
+      // Fallback to React Element
       return Reflect.get(target, prop, receiver);
     },
   }) as unknown as IntlayerNode<T>;

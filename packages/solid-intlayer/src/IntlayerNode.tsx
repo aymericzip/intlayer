@@ -1,13 +1,14 @@
 import type { NodeProps } from '@intlayer/core/interpreter';
-// import type { ResolvedEditor } from '@intlayer/types/module_augmentation';
+import type { ResolvedEditor } from '@intlayer/types/module_augmentation';
 import type { JSX, ParentProps } from 'solid-js';
 
 export type IntlayerNode<
   T = NodeProps['children'],
-  AdditionalProps = {},
-> = T & {
+  AdditionalProps = Record<string, never>,
+> = ResolvedEditor<T, JSX.Element> & {
   value: T;
-} & AdditionalProps;
+} & AdditionalProps &
+  T;
 
 type RenderIntlayerNodeProps<T> = ParentProps<{
   value: T;
@@ -16,7 +17,7 @@ type RenderIntlayerNodeProps<T> = ParentProps<{
 }>;
 
 export const renderIntlayerNode = <
-  T extends number | string | boolean | undefined | null,
+  T, // Broadened to support arrays, numbers, objects, etc.
 >({
   children,
   value,
@@ -51,13 +52,23 @@ export const renderIntlayerNode = <
         };
       if (prop === 'toString') return () => String(value ?? '');
       if (prop === 'valueOf') return () => value;
+
+      // Delegate native methods/properties to the underlying value.
+      // Guard numeric indices and 'length' so Solid's array renderer keeps
+      // access to the wrapper [children] array intact.
       if (
-        typeof value === 'string' &&
+        value !== null &&
+        value !== undefined &&
         typeof prop === 'string' &&
-        prop !== 'constructor'
+        prop !== 'constructor' &&
+        prop !== 'length' &&
+        !/^\d+$/.test(prop)
       ) {
-        const method = (String.prototype as any)[prop];
-        if (typeof method === 'function') return method.bind(value);
+        const valObj = Object(value); // Safely boxes primitives (e.g., 50 -> Number object)
+        if (prop in valObj) {
+          const valProp = valObj[prop];
+          return typeof valProp === 'function' ? valProp.bind(value) : valProp;
+        }
       }
 
       return Reflect.get(target, prop, receiver);

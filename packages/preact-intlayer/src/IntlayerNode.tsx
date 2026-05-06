@@ -13,7 +13,8 @@ export type IntlayerNode<
   AdditionalProps = {},
 > = ResolvedEditor<T, VNode> & {
   value: T;
-} & AdditionalProps;
+} & AdditionalProps &
+  T;
 
 type RenderIntlayerNodeProps<T> = {
   value: T;
@@ -22,7 +23,7 @@ type RenderIntlayerNodeProps<T> = {
 };
 
 export const renderIntlayerNode = <
-  T extends number | string | boolean | undefined | null,
+  T, // Broadened to support arrays, numbers, objects, etc.
 >({
   children,
   value,
@@ -41,20 +42,25 @@ export const renderIntlayerNode = <
       if (prop === Symbol.toPrimitive) return () => value ?? '';
       if (prop === 'toString') return () => String(value ?? '');
       if (prop === 'valueOf') return () => value;
-      if (
-        typeof value === 'string' &&
-        typeof prop === 'string' &&
-        prop !== 'constructor'
-      ) {
-        const method = (String.prototype as any)[prop];
-        if (typeof method === 'function') return method.bind(value);
+
+      // Additional Props take precedence
+      if (additionalProps && prop in additionalProps) {
+        return additionalProps[prop as keyof typeof additionalProps];
       }
 
+      // Delegate native methods/properties to the underlying value
       if (
-        additionalProps &&
-        Object.keys(additionalProps).includes(prop as string)
+        value !== null &&
+        value !== undefined &&
+        typeof prop === 'string' &&
+        prop !== 'constructor' &&
+        !(prop in target) // Prevents overwriting VNode internals (type, props, key)
       ) {
-        return additionalProps[prop as keyof typeof additionalProps];
+        const valObj = Object(value); // Safely boxes primitives (e.g., 50 -> Number object)
+        if (prop in valObj) {
+          const valProp = valObj[prop];
+          return typeof valProp === 'function' ? valProp.bind(value) : valProp;
+        }
       }
 
       return Reflect.get(target, prop, receiver);

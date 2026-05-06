@@ -18,7 +18,7 @@ export type IntlayerNode<T = string> = ResolvedEditor<
 >;
 
 export const renderIntlayerNode = <
-  T extends string | number | boolean | null | undefined,
+  T, // Broadened to support arrays, numbers, objects, etc.
 >({
   value,
   children,
@@ -49,9 +49,6 @@ export const renderIntlayerNode = <
   // Create the node as a function (functional component)
   // This allows it to be used directly in templates as <node />
   const node = ((props: any) => renderFn(props)) as unknown as IntlayerNode<T>;
-
-  // Set prototype to String.prototype to satisfy instanceof String checks
-  Object.setPrototypeOf(node, String.prototype);
 
   Object.assign(node, {
     /* component renderer */
@@ -99,6 +96,23 @@ export const renderIntlayerNode = <
 
     ...additionalProps,
   });
+
+  // Delegate native methods from the underlying value (any type) to node.
+  if (value !== null && value !== undefined) {
+    const valObj = Object(value); // Safely boxes primitives (e.g., 50 -> Number object)
+    const proto = Object.getPrototypeOf(valObj);
+    for (const prop of Object.getOwnPropertyNames(proto)) {
+      if (prop === 'constructor' || prop in node) continue;
+      const valProp = valObj[prop]; // read from instance so index/length values are correct
+      if (typeof valProp === 'function') {
+        Object.defineProperty(node, prop, {
+          value: valProp.bind(value),
+          writable: true,
+          configurable: true,
+        });
+      }
+    }
+  }
 
   /* make sure Vue never tries to proxy the component object itself */
   return markRaw(node);

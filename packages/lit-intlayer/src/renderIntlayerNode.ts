@@ -17,10 +17,11 @@ export type IntlayerNode<T = string> = ResolvedEditor<
     toJSON: () => T;
     __update: (next: IntlayerNode<T>) => void;
   }
->;
+> &
+  T;
 
 export const renderIntlayerNode = <
-  T extends string | number | boolean | null | undefined,
+  T, // Broadened to support arrays, numbers, objects, etc.
 >({
   value,
   additionalProps = {},
@@ -64,8 +65,24 @@ export const renderIntlayerNode = <
     ...additionalProps,
   };
 
-  // Set prototype to String.prototype so the node can be used in string contexts
-  Object.setPrototypeOf(node, String.prototype);
+  // Delegate native methods from the underlying value (any type) to node.
+  // Note: Symbol.iterator is already explicitly set to undefined above so Lit's
+  // isIterable() check stays false — the loop skips Symbol keys anyway.
+  if (_value !== null && _value !== undefined) {
+    const valObj = Object(_value); // Safely boxes primitives (e.g., 50 -> Number object)
+    const proto = Object.getPrototypeOf(valObj);
+    for (const prop of Object.getOwnPropertyNames(proto)) {
+      if (prop === 'constructor' || prop in node) continue;
+      const valProp = valObj[prop]; // read from instance so length/index values are correct
+      if (typeof valProp === 'function') {
+        Object.defineProperty(node, prop, {
+          value: valProp.bind(_value),
+          writable: true,
+          configurable: true,
+        });
+      }
+    }
+  }
 
   return node as unknown as IntlayerNode<T>;
 };

@@ -8,7 +8,6 @@ import { createMemo, useContext } from 'solid-js';
 import { getIntlayer } from '../getIntlayer';
 import type { DeepTransformContent } from '../plugins';
 import { IntlayerClientContext } from './IntlayerProvider';
-import type { ReactiveContent } from './useDictionary';
 
 /**
  * Solid hook that picks one dictionary by its key and returns its reactive content.
@@ -38,7 +37,7 @@ export const useIntlayer = <
 >(
   key: T,
   locale?: L
-): ReactiveContent<DeepTransformContent<DictionaryRegistryContent<T>, L>> => {
+): DeepTransformContent<DictionaryRegistryContent<T>, L> => {
   const context = useContext(IntlayerClientContext) ?? {};
 
   // @ts-ignore Type instantiation is excessively deep and possibly infinite
@@ -57,5 +56,5 @@ export const useIntlayer = <
     apply(target, thisArg, args) {
       return Reflect.apply(target, thisArg, args);
     },
-  }) as ReactiveContent<DeepTransformContent<DictionaryRegistryContent<T>, L>>;
+  }) as DeepTransformContent<DictionaryRegistryContent<T>, L>;
 };
