@@ -1,3 +1,4 @@
+import { existsSync } from 'node:fs';
 import { readFile } from 'node:fs/promises';
 import { basename } from 'node:path';
 import * as ANSIColor from '@intlayer/config/colors';
@@ -14,8 +15,7 @@ import {
   normalizePath,
 } from '@intlayer/config/utils';
 import type { IntlayerConfig } from '@intlayer/types/config';
-/** @ts-ignore remove error Module '"chokidar"' has no exported member 'ChokidarOptions' */
-import { type ChokidarOptions, watch as chokidarWatch } from 'chokidar';
+import type { ChokidarOptions } from 'chokidar';
 import { handleAdditionalContentDeclarationFile } from './handleAdditionalContentDeclarationFile';
 import { handleContentDeclarationFileChange } from './handleContentDeclarationFileChange';
 import { handleContentDeclarationFileMoved } from './handleContentDeclarationFileMoved';
@@ -59,7 +59,8 @@ type WatchOptions = ChokidarOptions & {
 };
 
 // Initialize chokidar watcher (non-persistent)
-export const watch = (options?: WatchOptions) => {
+export const watch = async (options?: WatchOptions) => {
+  const { watch: chokidarWatch } = await import('chokidar');
   const configResult = getConfigurationAndFilePath(options?.configOptions);
   const configurationFilePath = configResult.configurationFilePath;
   let configuration: IntlayerConfig =
@@ -73,14 +74,9 @@ export const watch = (options?: WatchOptions) => {
     excludedPath,
   } = configuration.content;
 
-  const watchedFilesPatternWithPath = fileExtensions.flatMap((ext) =>
-    contentDir.map((dir) =>
-      `${normalizePath(dir)}/**/*${ext}`.replace('//', '/')
-    )
-  );
-
+  // chokidar v5 dropped glob support — use fs to resolve dirs, filter extensions via ignored
   const pathsToWatch = [
-    ...watchedFilesPatternWithPath,
+    ...contentDir.map((dir) => normalizePath(dir)).filter(existsSync),
     ...(configurationFilePath ? [configurationFilePath] : []),
   ];
 
@@ -105,6 +101,15 @@ export const watch = (options?: WatchOptions) => {
     );
   }
 
+  // Strip glob markers from excludedPath entries to get plain segments (e.g. 'node_modules')
+  const excludedSegments = excludedPath.map((segment) =>
+    segment.replace(/^\*\*\//, '').replace(/\/\*\*$/, '')
+  );
+
+  const normalizedConfigPath = configurationFilePath
+    ? normalizePath(configurationFilePath)
+    : null;
+
   return chokidarWatch(pathsToWatch, {
     persistent: isWatchMode, // Make the watcher persistent
     ignoreInitial: true, // Process existing files
@@ -112,7 +117,20 @@ export const watch = (options?: WatchOptions) => {
       stabilityThreshold: 1000,
       pollInterval: 100,
     },
-    ignored: excludedPath,
+    ignored: (filePath: string, stats?: import('node:fs').Stats) => {
+      const path = normalizePath(filePath);
+
+      if (normalizedConfigPath && path === normalizedConfigPath) return false;
+
+      if (excludedSegments.some((segment) => path.includes(`/${segment}`)))
+        return true;
+
+      if (stats?.isFile()) {
+        return !fileExtensions.some((extension) => path.endsWith(extension));
+      }
+
+      return false;
+    },
     ...options,
   })
     .on('add', async (filePath) => {
@@ -242,6 +260,6 @@ export const buildAndWatchIntlayer = async (options?: WatchOptions) => {
   }
 
   if (configuration.content.watch || options?.persistent) {
-    watch({ ...rest, configuration });
+    await watch({ ...rest, configuration });
   }
 };

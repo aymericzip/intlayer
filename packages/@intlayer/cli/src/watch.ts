@@ -36,7 +36,7 @@ export const watchContentDeclaration = async (options?: WatchOptions) => {
   }
 
   // Capture the watcher instance
-  const watcher = watch({
+  const watcher = await watch({
     persistent: true,
     skipPrepare: options?.skipPrepare ?? false,
   });

@@ -160,7 +160,7 @@ export const intlayerPlugin = (
       configureServer: async (server) => {
         if (server.config.mode === 'development') {
           // Start watching (assuming watch is also async)
-          watch({ configuration: intlayerConfig });
+          await watch({ configuration: intlayerConfig });
         }
       },
     },

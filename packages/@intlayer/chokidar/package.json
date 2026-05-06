@@ -116,7 +116,7 @@
     "@intlayer/remote-dictionaries-entry": "workspace:*",
     "@intlayer/types": "workspace:*",
     "@intlayer/unmerged-dictionaries-entry": "workspace:*",
-    "chokidar": "3.6.0",
+    "chokidar": "5.0.0",
     "defu": "6.1.7",
     "fast-glob": "3.3.3",
     "recast": "^0.23.11",

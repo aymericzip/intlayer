@@ -17,6 +17,7 @@
  */
 
 import { spawnSync } from 'node:child_process';
+import { existsSync } from 'node:fs';
 import process from 'node:process';
 import chokidar from 'chokidar';
 import minimist from 'minimist';
@@ -116,19 +117,31 @@ const startWatcher = () => {
     watcher.close(); // Close existing watcher before starting a new one
   }
 
-  watcher = chokidar.watch('**/*.{js,cjs,mjs,ts,jsx,tsx,vue,json,svelte}', {
+  // chokidar v5 dropped glob support — use fs to resolve dirs, filter extensions via ignored
+  const dirsToWatch = packageBuildOrder.filter((pkg) => existsSync(pkg));
+
+  watcher = chokidar.watch(dirsToWatch, {
     ignoreInitial: true,
-    ignored: [
-      'examples/**',
-      '**/node_modules/**',
-      '**/dist/**',
-      '**/build/**',
-      '**/.next/**',
-      '**/*.svelte-kit/**',
-      '**/.intlayer/**',
-      '**/tsup.config.bundled_*.mjs',
-      '**/*.test.*',
-    ],
+    ignored: (filePath, stats) => {
+      const p = normalizePath(filePath);
+
+      if (
+        p.includes('/node_modules') ||
+        p.includes('/dist') ||
+        p.includes('/build') ||
+        p.includes('/.next') ||
+        p.includes('/.svelte-kit') ||
+        p.includes('/.intlayer')
+      )
+        return true;
+
+      if (stats?.isFile()) {
+        if (!/\.(js|cjs|mjs|ts|jsx|tsx|vue|json|svelte)$/.test(p)) return true;
+        if (/tsup\.config\.bundled_/.test(p)) return true;
+        if (/\.test\./.test(p)) return true;
+      }
+      return false;
+    },
   });
 
   watcher.on('change', (path) => {

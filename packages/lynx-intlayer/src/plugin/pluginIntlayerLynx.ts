@@ -47,7 +47,7 @@ export const pluginIntlayerLynx = (): RsbuildPlugin => {
 
       // If file watching is enabled in Intlayer's config, start it.
       if (configuration.content.watch) {
-        watch({ configuration });
+        await watch({ configuration });
       }
 
       const isBuild = api.context.action === 'build';

@@ -65,8 +65,9 @@ export const intlayer = (): AstroIntegration =>
 
       'astro:server:setup': async () => {
         const configuration = getConfiguration();
+
         if (configuration.content.watch) {
-          watch({ configuration });
+          await watch({ configuration });
         }
       },
     },
