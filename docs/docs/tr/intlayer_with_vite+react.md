@@ -336,10 +336,10 @@ export default App;
 
 > İçeriğinizi `alt`, `title`, `href`, `aria-label` gibi bir `string` özniteliğinde kullanmak istiyorsanız, fonksiyonun değerini çağırmanız gerekir, örneğin:
 
-> ```jsx
-> <img src={content.image.src.value} alt={content.image.value} />
-> <img src={content.image.src.toString()} alt={content.image.toString()} />
-> <img src={String(content.image.src)} alt={String(content.image)} />
+> ```html
+> <img src="{content.image.src.value}" alt="{content.image.value}" />
+> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
+> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
 > ```
 
 > `useIntlayer` kancası hakkında daha fazla bilgi edinmek için [dokümantasyona](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/react-intlayer/useIntlayer.md) bakın.

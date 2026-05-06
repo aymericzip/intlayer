@@ -427,10 +427,10 @@ Intlayer 使用模块扩展来利用 TypeScript，使您的代码库更加健壮
 
 > 如果您想在 `字符串` 属性（如 `alt`、`title`、`href`、`aria-label` 等）中使用内容，可以使用函数的值，例如：
 
-> ```jsx
-> <img src={content.image.src.value} alt={content.image.value} />
-> <img src={content.image.src.toString()} alt={content.image.toString()} />
-> <img src={String(content.image.src)} alt={String(content.image)} />
+> ```html
+> <img src="{content.image.src.value}" alt="{content.image.value}" />
+> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
+> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
 > ```
 
 ### VS Code 扩展

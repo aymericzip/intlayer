@@ -344,10 +344,10 @@ export default App;
 
 > Si vous souhaitez utiliser votre contenu dans un attribut `string`, tel que `alt`, `title`, `href`, `aria-label`, etc., vous devez appeler la valeur de la fonction, comme ceci :
 
-> ```jsx
-> <img src={content.image.src.value} alt={content.image.value} />
-> <img src={content.image.src.toString()} alt={content.image.toString()} />
-> <img src={String(content.image.src)} alt={String(content.image)} />
+> ```html
+> <img src="{content.image.src.value}" alt="{content.image.value}" />
+> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
+> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
 > ```
 
 > Remarque : Dans Preact, `className` s'écrit généralement `class`.

@@ -344,10 +344,10 @@ export default App;
 
 > Si desea usar su contenido en un atributo de tipo `string`, como `alt`, `title`, `href`, `aria-label`, etc., puede usar el valor de la función, así:
 
-> ```jsx
-> <img src={content.image.src.value} alt={content.image.value} />
-> <img src={content.image.src.toString()} alt={content.image.toString()} />
-> <img src={String(content.image.src)} alt={String(content.image)} />
+> ```html
+> <img src="{content.image.src.value}" alt="{content.image.value}" />
+> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
+> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
 > ```
 
 > Nota: En Preact, `className` se escribe típicamente como `class`.

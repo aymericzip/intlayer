@@ -87,10 +87,10 @@ npx intlayer init
 
 > `alt`, `title`, `href`, `aria-label` 등과 같은 `문자열` 속성에서 콘텐츠를 사용하려면 다음과 같이 함수의 값을 사용할 수 있습니다.
 
-> ```jsx
-> <img src={content.image.src.value} alt={content.image.value} />
-> <img src={content.image.src.toString()} alt={content.image.toString()} />
-> <img src={String(content.image.src)} alt={String(content.image)} />
+> ```html
+> <img src="{content.image.src.value}" alt="{content.image.value}" />
+> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
+> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
 > ```
 
 ```bash packageManager="pnpm"

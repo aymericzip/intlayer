@@ -88,10 +88,10 @@ npx intlayer init
 
 > Если вы хотите использовать свой контент в атрибуте `строки`, таком как `alt`, `title`, `href`, `aria-label` и т. д., вы можете использовать значение функции, например:
 
-> ```jsx
-> <img src={content.image.src.value} alt={content.image.value} />
-> <img src={content.image.src.toString()} alt={content.image.toString()} />
-> <img src={String(content.image.src)} alt={String(content.image)} />
+> ```html
+> <img src="{content.image.src.value}" alt="{content.image.value}" />
+> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
+> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
 > ```
 
 ```bash packageManager="pnpm"

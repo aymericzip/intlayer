@@ -250,10 +250,10 @@ function RootDocument({ children }: { children: ReactNode }) {
 
 > 如果您想在字符串属性中使用内容，比如 `alt`、`title`、`href`、`aria-label` 等，可以使用函数的值，例如：
 
-> ```jsx
-> <img src={content.image.src.value} alt={content.image.value} />
-> <img src={content.image.src.toString()} alt={content.image.toString()} />
-> <img src={String(content.image.src)} alt={String(content.image)} />
+> ```html
+> <img src="{content.image.src.value}" alt="{content.image.value}" />
+> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
+> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
 > ```
 
 ### 第六步：创建 Locale 布局

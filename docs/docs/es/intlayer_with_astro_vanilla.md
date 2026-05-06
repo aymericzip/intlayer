@@ -285,10 +285,10 @@ const { greeting, description, switchLocale } = getIntlayer("app", locale);
 
 > Si desea utilizar su contenido en un atributo de `cadena`, como `alt`, `title`, `href`, `aria-label`, etc., puede utilizar el valor de la función, como:
 
-> ```jsx
-> <img src={content.image.src.value} alt={content.image.value} />
-> <img src={content.image.src.toString()} alt={content.image.toString()} />
-> <img src={String(content.image.src)} alt={String(content.image)} />
+> ```html
+> <img src="{content.image.src.value}" alt="{content.image.value}" />
+> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
+> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
 > ```
 
 > **Nota sobre la configuración de rutas:**

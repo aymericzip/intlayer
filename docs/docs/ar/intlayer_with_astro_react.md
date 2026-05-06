@@ -269,10 +269,10 @@ const { title } = getIntlayer("app", locale);
 
 > إذا كنت ترغب في استخدام محتواك في سمة `سلسلة` (string)، مثل `alt` و `title` و `href` و `aria-label` وما إلى ذلك، يمكنك استخدام قيمة الدالة، مثل:
 
-> ```jsx
-> <img src={content.image.src.value} alt={content.image.value} />
-> <img src={content.image.src.toString()} alt={content.image.toString()} />
-> <img src={String(content.image.src)} alt={String(content.image)} />
+> ```html
+> <img src="{content.image.src.value}" alt="{content.image.value}" />
+> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
+> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
 > ```
 
 > **ملاحظة حول إعداد التوجيه:**

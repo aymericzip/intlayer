@@ -274,10 +274,10 @@ const { greeting } = getIntlayer("lit-demo", locale);
 
 > Jeśli chcesz użyć swojej treści w atrybucie `string`, takim jak `alt`, `title`, `href`, `aria-label` itp., możesz użyć wartości funkcji, np.:
 
-> ```jsx
-> <img src={content.image.src.value} alt={content.image.value} />
-> <img src={content.image.src.toString()} alt={content.image.toString()} />
-> <img src={String(content.image.src)} alt={String(content.image)} />
+> ```html
+> <img src="{content.image.src.value}" alt="{content.image.value}" />
+> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
+> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
 > ```
 
 > **Uwaga na temat konfiguracji routingu:**

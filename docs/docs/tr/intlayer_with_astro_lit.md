@@ -501,10 +501,10 @@ Bunu yapmak için `.gitignore` dosyanıza aşağıdaki talimatları ekleyin:
 
 > İçeriğinizi `alt`, `title`, `href`, `aria-label` vb. gibi bir `dize` (string) özniteliğinde kullanmak istiyorsanız, işlevin değerini şu şekilde kullanabilirsiniz:
 
-> ```jsx
-> <img src={content.image.src.value} alt={content.image.value} />
-> <img src={content.image.src.toString()} alt={content.image.toString()} />
-> <img src={String(content.image.src)} alt={String(content.image)} />
+> ```html
+> <img src="{content.image.src.value}" alt="{content.image.value}" />
+> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
+> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
 > ```
 
 ### VS Code Uzantısı

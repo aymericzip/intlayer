@@ -265,10 +265,10 @@ const { title } = getIntlayer("app", locale);
 
 > Wenn Sie Ihren Inhalt in einem `String`-Attribut wie `alt`, `title`, `href`, `aria-label` usw. verwenden möchten, können Sie den Wert der Funktion wie folgt verwenden:
 
-> ```jsx
-> <img src={content.image.src.value} alt={content.image.value} />
-> <img src={content.image.src.toString()} alt={content.image.toString()} />
-> <img src={String(content.image.src)} alt={String(content.image)} />
+> ```html
+> <img src="{content.image.src.value}" alt="{content.image.value}" />
+> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
+> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
 > ```
 
 > **Hinweis zum Routing-Setup:**

@@ -411,10 +411,10 @@ function RouteComponent() {
 
 > 如果您想在字符串属性中使用内容，比如 `alt`、`title`、`href`、`aria-label` 等，可以使用函数的值，例如：
 
-> ```jsx
-> <img src={content.image.src.value} alt={content.image.value} />
-> <img src={content.image.src.toString()} alt={content.image.toString()} />
-> <img src={String(content.image.src)} alt={String(content.image)} />
+> ```html
+> <img src="{content.image.src.value}" alt="{content.image.value}" />
+> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
+> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
 > ```
 
 > 在 Solid 中，`useIntlayer` 返回响应式内容（例如 `content`）。您可以直接访问其属性。

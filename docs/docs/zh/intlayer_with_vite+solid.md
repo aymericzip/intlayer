@@ -234,10 +234,10 @@ export default App;
 
 > 如果您想在 `string` 属性（如 `alt`、`title`、`href`、`aria-label` 等）中使用您的内容，可以使用函数的值，例如：
 >
-> ```jsx
-> <img src={content.image.src.value} alt={content.image.value} />
-> <img src={content.image.src.toString()} alt={content.image.toString()} />
-> <img src={String(content.image.src)} alt={String(content.image)} />
+> ```html
+> <img src="{content.image.src.value}" alt="{content.image.value}" />
+> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
+> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
 > ```
 
 ### （可选）第6步：更改内容语言

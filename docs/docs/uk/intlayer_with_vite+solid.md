@@ -235,10 +235,10 @@ export default App;
 
 > Якщо ви хочете використовувати ваш контент у атрибуті `string`, такому як `alt`, `title`, `href`, `aria-label` тощо, ви повинні викликати значення функції, як:
 >
-> ```jsx
-> <img src={content.image.src.value} alt={content.image.value} />
-> <img src={content.image.src.toString()} alt={content.image.toString()} />
-> <img src={String(content.image.src)} alt={String(content.image)} />
+> ```html
+> <img src="{content.image.src.value}" alt="{content.image.value}" />
+> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
+> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
 > ```
 
 ### (Необов'язково) Крок 6: Змінити мову вашого контенту
