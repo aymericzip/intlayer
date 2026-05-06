@@ -52,6 +52,7 @@ export const useLogoImages = () => {
       return map;
     },
     staleTime: Infinity,
+    structuralSharing: false,
   });
 };
 
