@@ -1,6 +1,6 @@
 {
   "name": "svelte-intlayer",
-  "version": "8.9.0",
+  "version": "8.9.1",
   "description": "Easily internationalize i18n your Svelte applications with type-safe multilingual content management.",
   "keywords": [
     "intlayer",
@@ -91,7 +91,7 @@
   "devDependencies": {
     "@sveltejs/adapter-auto": "7.0.1",
     "@sveltejs/package": "2.5.7",
-    "@sveltejs/vite-plugin-svelte": "7.0.0",
+    "@sveltejs/vite-plugin-svelte": "7.1.1",
     "@types/node": "25.6.0",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
