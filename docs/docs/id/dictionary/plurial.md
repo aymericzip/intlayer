@@ -199,14 +199,14 @@ Tidak Valid:
 
 ```ts
 totalOpenings: plural({
-  one: {
+  one: t({
     en: "{{count}} opening",
     fr: "{{count}} offre",
-  },
-  other: {
+  }),
+  other: t({
     en: "{{count}} openings",
     fr: "{{count}} offres",
-  },
+  }),
 }),
 ```
 
