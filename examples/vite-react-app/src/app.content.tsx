@@ -8,7 +8,7 @@ const appContent = {
     viteLogoLabel: t({
       en: 'Vite logo',
       fr: 'Logo Vite',
-      es: 'Logo Vite',
+      es: 'Logotipo de Vite',
     }),
     reactLogoLabel: t({
       en: 'React logo',

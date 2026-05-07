@@ -41,13 +41,29 @@ export const formatFillData = async (
   if (!fillField || typeof fillField === 'boolean') return [];
 
   const { baseDir } = configuration.system;
-  const { defaultLocale } = configuration.internationalization;
+  const { defaultLocale, locales } = configuration.internationalization;
 
   const extension = extname(filePath);
   const base = basename(filePath);
-  const cleanComponentFileName = base.includes('.content.')
-    ? base.split('.content.')[0]
+
+  const { fileExtensions } = configuration.content;
+  const extensionMatch = fileExtensions.find((ext) => base.endsWith(ext));
+
+  let cleanComponentFileName = extensionMatch
+    ? base.slice(0, -extensionMatch.length)
     : base.split('.')[0];
+
+  // Strip source locale if present
+  const sourceLocaleMatch = locales.find((loc) =>
+    cleanComponentFileName.endsWith(`.${loc}`)
+  );
+  if (sourceLocaleMatch) {
+    cleanComponentFileName = cleanComponentFileName.slice(
+      0,
+      -(sourceLocaleMatch.length + 1)
+    );
+  }
+
   const uncapitalizedName =
     cleanComponentFileName.charAt(0).toLowerCase() +
     cleanComponentFileName.slice(1);
@@ -73,7 +89,10 @@ export const formatFillData = async (
         extension as FilePathPatternContext['componentExtension'],
       format,
       locale,
-      extension: configuration.content.fileExtensions[0],
+      extension:
+        configuration.content.fileExtensions.find((ext) =>
+          ext.endsWith(extension)
+        ) ?? configuration.content.fileExtensions[0],
     };
   };
 

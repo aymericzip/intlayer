@@ -1,0 +1,181 @@
+{
+  "newField": "Nouveau champ",
+  "Index": {
+    "title": "Accueil",
+    "description": "Ceci est la page d'accueil."
+  },
+  "LocaleSwitcher": {
+    "switchLocale": "Passer à {locale, select, de {Allemand} en {Anglais} other {Inconnu}}"
+  },
+  "PageLayout": {
+    "pageTitle": "next-intl"
+  },
+  "ICUExamples": {
+    "plural": {
+      "items": "{count, plural, =0 {Aucun élément} =1 {Un élément} other {# éléments}}",
+      "messages": "{messageCount, plural, =0 {Vous n'avez aucun message} =1 {Vous avez un message} other {Vous avez # messages}}",
+      "unread": "{unreadCount, plural, =0 {Aucun message non lu} =1 {# message non lu} other {# messages non lus}}"
+    },
+    "gender": {
+      "welcome": "{gender, select, male {Bienvenue, monsieur !} female {Bienvenue, madame !} other {Bienvenue !}}",
+      "invitation": "{gender, select, male {Il est invité} female {Elle est invitée} other {Ils sont invités}}",
+      "possession": "{gender, select, male {Son compte} female {Son compte} other {Leur compte}}"
+    },
+    "insert": {
+      "greeting": "Bonjour, {name} !",
+      "formattedNumber": "Prix : {price, number, currency}",
+      "formattedDate": "Aujourd'hui : {date, date, long}",
+      "formattedTime": "Heure actuelle : {time, time, short}",
+      "percentage": "Progression : {progress, number, percent}",
+      "complex": [
+        "Utilisateur ",
+        "{name}",
+        " a ",
+        {
+          "nodeType": "énumération",
+          "enumeration": {
+            "0": "aucun",
+            "1": "un",
+            "fallback": "{count}",
+            "__intlayer_icu_var": "nombre"
+          }
+        },
+        " ",
+        {
+          "nodeType": "énumération",
+          "enumeration": {
+            "message": "message",
+            "notification": "notification",
+            "other": "élément",
+            "__intlayer_icu_var": "type d'élément"
+          }
+        },
+        {
+          "nodeType": "énumération",
+          "enumeration": {
+            "0": "",
+            "1": "",
+            "fallback": "s",
+            "__intlayer_icu_var": "nombre"
+          }
+        }
+      ]
+    },
+    "combined": {
+      "userMessages": [
+        {
+          "nodeType": "genre",
+          "gender": {
+            "fallback": "Ils ont",
+            "male": "Il a",
+            "female": "Elle a"
+          }
+        },
+        " ",
+        {
+          "nodeType": "énumération",
+          "enumeration": {
+            "0": "aucun message",
+            "1": "un message",
+            "fallback": "{count} messages",
+            "__intlayer_icu_var": "nombre"
+          }
+        }
+      ],
+      "itemCount": [
+        "Vous avez ",
+        {
+          "nodeType": "énumération",
+          "enumeration": {
+            "0": "aucun article",
+            "1": "un article",
+            "fallback": "{count} articles",
+            "__intlayer_icu_var": "nombre"
+          }
+        },
+        " dans votre ",
+        {
+          "nodeType": "énumération",
+          "enumeration": {
+            "cart": "panier",
+            "wishlist": "liste de souhaits",
+            "other": "liste",
+            "__intlayer_icu_var": "catégorie"
+          }
+        }
+      ],
+      "notification": [
+        "{userName}",
+        " ",
+        {
+          "nodeType": "genre",
+          "gender": {
+            "fallback": "partagé",
+            "male": "partagé",
+            "female": "partagé"
+          }
+        },
+        " ",
+        {
+          "nodeType": "énumération",
+          "enumeration": {
+            "0": "rien",
+            "1": "un article",
+            "fallback": "{itemCount} articles",
+            "__intlayer_icu_var": "nombre d'articles"
+          }
+        },
+        " avec vous sur ",
+        "{date, date, medium}"
+      ]
+    },
+    "select": {
+      "status": {
+        "nodeType": "énumération",
+        "enumeration": {
+          "active": "Actif",
+          "inactive": "Inactif",
+          "pending": "En attente",
+          "other": "Inconnu",
+          "__intlayer_icu_var": "statut"
+        }
+      },
+      "role": {
+        "nodeType": "énumération",
+        "enumeration": {
+          "admin": "Administrateur",
+          "user": "Utilisateur",
+          "guest": "Invité",
+          "other": "Rôle inconnu",
+          "__intlayer_icu_var": "rôle"
+        }
+      },
+      "priority": {
+        "nodeType": "énumération",
+        "enumeration": {
+          "high": "Priorité élevée",
+          "medium": "Priorité moyenne",
+          "low": "Priorité faible",
+          "other": "Priorité normale",
+          "__intlayer_icu_var": "priorité"
+        }
+      }
+    },
+    "numberFormatting": {
+      "currency": "Total : {amount, number, currency}",
+      "decimal": "Valeur : {value, number}",
+      "percent": "Achèvement : {percentage, number, percent}",
+      "compact": "Vues : {views, number, compactShort}"
+    },
+    "dateTimeFormatting": {
+      "dateShort": "{date, date, short}",
+      "dateMedium": "{date, date, medium}",
+      "dateLong": "{date, date, long}",
+      "dateFull": "{date, date, full}",
+      "timeShort": "{time, time, short}",
+      "timeMedium": "{time, time, medium}",
+      "timeLong": "{time, time, long}",
+      "dateTime": "{datetime, date, medium} à {datetime, time, short}"
+    }
+  }
+}

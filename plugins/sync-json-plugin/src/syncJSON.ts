@@ -320,8 +320,11 @@ export const syncJSON = async (
         locale: '{{locale}}',
       } as any as FilePathPatternContext);
 
-      if (fill && !isAbsolute(fill)) {
-        fill = join(configuration.system.baseDir, fill);
+      if (fill) {
+        fill = relative(
+          configuration.system.baseDir,
+          resolve(configuration.system.baseDir, fill)
+        );
       }
 
       const dictionaries: Dictionary[] = [];
@@ -356,7 +359,7 @@ export const syncJSON = async (
       return dictionaries;
     },
 
-    formatOutput: async ({ dictionary }) => {
+    formatOutput: async ({ dictionary, configuration }) => {
       // Lazy import intlayer modules to avoid circular dependencies
       const { formatDictionaryOutput } = await import(
         '@intlayer/chokidar/build'
@@ -370,7 +373,10 @@ export const syncJSON = async (
       } as FilePathPatternContext);
 
       // Verification to ensure we are formatting the correct file
-      if (resolve(builderPath) !== resolve(dictionary.filePath)) {
+      if (
+        resolve(configuration.system.baseDir, builderPath) !==
+        resolve(configuration.system.baseDir, dictionary.filePath)
+      ) {
         return dictionary;
       }
 

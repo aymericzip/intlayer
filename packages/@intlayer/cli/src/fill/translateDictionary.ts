@@ -85,7 +85,7 @@ const serializeError = (error: unknown): string => {
   }
 };
 
-const CHUNK_SIZE = 1500; // Smaller chunks for better accuracy and structural integrity
+const CHUNK_SIZE = 4000;
 const GROUP_MAX_RETRY = 2;
 const MAX_RETRY = 3;
 const RETRY_DELAY = 1000 * 10; // 10 seconds
@@ -196,26 +196,39 @@ export const translateDictionary = async (
             // For per-locale files, the content is already in simple JSON format (not translation nodes)
             // The base dictionary is already the source locale content
 
-            // Load the existing target locale dictionary
-            const targetLocaleFilePath =
-              baseUnmergedDictionary.filePath?.replace(
-                new RegExp(`/${task.sourceLocale}/`, 'g'),
-                `/${targetLocale}/`
-              );
+            // Look up the target locale dictionary by its locale property.
+            // This handles both directory-based paths (/en/file.json → /es/file.json)
+            // AND filename-based paths (messages_ICU/en.json → messages_ICU/es.json).
+            // Plugins like syncJSON set `dict.locale` correctly, so matching by locale
+            // is the only reliable strategy — path string-replacement fails when the
+            // locale appears in the filename rather than a directory segment.
+            const targetUnmergedDictionary = unmergedDictionariesRecord[
+              task.dictionaryKey
+            ]?.find(
+              (dict) =>
+                dict.locale === targetLocale &&
+                dict.filePath !== baseUnmergedDictionary.filePath
+            );
 
-            // Find the target locale dictionary in unmerged dictionaries
-            const targetUnmergedDictionary = targetLocaleFilePath
-              ? unmergedDictionariesRecord[task.dictionaryKey]?.find(
-                  (dict) =>
-                    dict.filePath === targetLocaleFilePath &&
-                    dict.locale === targetLocale
+            // Derive the target file path for the fallback (when the file doesn't exist yet).
+            // Try directory-style first (/en/ → /es/), then filename-style (en.json → es.json).
+            const sourceFilePath = baseUnmergedDictionary.filePath ?? '';
+            const derivedTargetFilePath = sourceFilePath.includes(
+              `/${task.sourceLocale}/`
+            )
+              ? sourceFilePath.replace(
+                  new RegExp(`/${task.sourceLocale}/`, 'g'),
+                  `/${targetLocale}/`
                 )
-              : undefined;
+              : sourceFilePath.replace(
+                  new RegExp(`(^|/)${task.sourceLocale}(\\.[^/]+)$`),
+                  `$1${targetLocale}$2`
+                );
 
             targetLocaleDictionary = targetUnmergedDictionary ?? {
               key: baseUnmergedDictionary.key,
               content: {},
-              filePath: targetLocaleFilePath,
+              filePath: derivedTargetFilePath || undefined,
               locale: targetLocale,
             };
           } else {

@@ -1,3 +1,4 @@
+import { syncJSON } from '@intlayer/sync-json-plugin';
 import { type IntlayerConfig, Locales } from 'intlayer';
 import { z } from 'zod';
 
@@ -52,6 +53,13 @@ const config: IntlayerConfig = {
       age: z.number(),
     }),
   },
+  plugins: [
+    syncJSON({
+      format: 'icu',
+      source: ({ locale }) => `./locales/${locale}.json`,
+      location: 'ICU-content',
+    }),
+  ],
 };
 
 export default config;

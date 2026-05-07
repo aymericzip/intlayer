@@ -54,5 +54,6 @@
       "percentage": "Progress: {progress, number, percent}",
       "complex": "User {name} has {count, plural, =0 {no} =1 {one} other {#}} {Tipo de elemento, select, message {message} notification {notification} other {item}}{count, plural, =0 {} =1 {} other {s}}"
     }
-  }
+  },
+  "newField": "Nuevo campo"
 }

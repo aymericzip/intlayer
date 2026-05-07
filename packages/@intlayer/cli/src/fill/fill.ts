@@ -102,8 +102,8 @@ export const fill = async (options?: FillOptions): Promise<void> => {
   const uniqueSourcePaths = [
     ...new Set(
       targetUnmergedDictionaries
-        .filter(
-          (unmergedDictionary) => unmergedDictionary.location !== 'remote'
+        .filter((unmergedDictionary) =>
+          ['local', 'hybrid'].includes(unmergedDictionary.location!)
         )
         .map((unmergedDictionary) => unmergedDictionary.filePath)
         .filter(Boolean) as string[]
@@ -239,7 +239,7 @@ export const fill = async (options?: FillOptions): Promise<void> => {
         ? dictFill
         : isPerLocale
           ? (configuration.dictionary?.fill ?? true)
-          : (configuration.dictionary?.fill ?? false); // Multilingual dictionaries use config-level fill if set
+          : false; // Multilingual dictionaries (no locale property) always write to same file unless explicitly set on the dictionary
 
       const isFillOtherFile =
         typeof effectiveFill === 'string' ||
