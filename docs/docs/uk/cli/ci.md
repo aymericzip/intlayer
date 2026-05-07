@@ -24,8 +24,20 @@ history:
 
 # Команда CI
 
-```bash
+```bash packageManager="npm"
 npx intlayer ci <command...>
+```
+
+```bash packageManager="yarn"
+yarn intlayer ci <command...>
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer ci <command...>
+```
+
+```bash packageManager="bun"
+bun x intlayer ci <command...>
 ```
 
 Команда CI призначена для автоматизації та CI/CD-пайплайнів. Вона автоматично підставляє облікові дані зі змінної оточення `INTLAYER_PROJECT_CREDENTIALS` і може виконувати команди Intlayer для кількох проєктів у монорепозиторії.
@@ -97,8 +109,20 @@ npx intlayer ci push
 
 Ви можете передати будь-які прапори в базову команду Intlayer:
 
-```bash
+```bash packageManager="npm"
 npx intlayer ci fill --verbose --mode complete
+```
+
+```bash packageManager="yarn"
+yarn intlayer ci fill --verbose --mode complete
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer ci fill --verbose --mode complete
+```
+
+```bash packageManager="bun"
+bun x intlayer ci fill --verbose --mode complete
 ```
 
 ### Використання в CI/CD пайплайнах

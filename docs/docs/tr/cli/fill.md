@@ -20,8 +20,20 @@ slugs:
 
 # Sözlükleri doldurma / denetleme / çevirme
 
-```bash
+```bash packageManager="npm"
 npx intlayer fill
+```
+
+```bash packageManager="yarn"
+yarn intlayer fill
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill
+```
+
+```bash packageManager="bun"
+bun x intlayer fill
 ```
 
 Bu komut, içerik bildirim dosyalarınızı eksik çeviriler, yapısal tutarsızlıklar veya tür uyuşmazlıkları gibi potansiyel sorunlar açısından analiz eder. Herhangi bir problem bulursa, **intlayer fill** sözlüklerinizi tutarlı ve eksiksiz tutmak için güncellemeler önerir veya uygular.
@@ -161,8 +173,20 @@ Affected dictionary keys for processing: app, comp-test, hello-world, lang-switc
 
 ## Örnek:
 
-```bash
+```bash packageManager="npm"
 npx intlayer fill --file src/home/*.content.ts --source-locale en --output-locales fr es --model gpt-3.5-turbo
+```
+
+```bash packageManager="yarn"
+yarn intlayer fill --file src/home/*.content.ts --source-locale en --output-locales fr es --model gpt-3.5-turbo
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill --file src/home/*.content.ts --source-locale en --output-locales fr es --model gpt-3.5-turbo
+```
+
+```bash packageManager="bun"
+bun x intlayer fill --file src/home/*.content.ts --source-locale en --output-locales fr es --model gpt-3.5-turbo
 ```
 
 Bu komut, `src/home/` dizinindeki tüm içerik bildirim dosyaları için içeriği İngilizceden Fransızca ve İspanyolcaya GPT-3.5 Turbo modeli kullanarak çevirecektir.

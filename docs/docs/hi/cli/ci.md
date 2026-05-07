@@ -24,8 +24,20 @@ history:
 
 # CI कमांड
 
-```bash
+```bash packageManager="npm"
 npx intlayer ci <command...>
+```
+
+```bash packageManager="yarn"
+yarn intlayer ci <command...>
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer ci <command...>
+```
+
+```bash packageManager="bun"
+bun x intlayer ci <command...>
 ```
 
 CI कमांड स्वचालन और CI/CD पाइपलाइन के लिए डिज़ाइन किया गया है। यह स्वचालित रूप से `INTLAYER_PROJECT_CREDENTIALS` environment variable से क्रेडेंशियल इंजेक्ट करता है और मोनोरेपो में कई प्रोजेक्ट पर Intlayer कमांड चला सकता है।
@@ -97,8 +109,20 @@ npx intlayer ci push
 
 आप underlying Intlayer कमांड में कोई भी flags पास कर सकते हैं:
 
-```bash
+```bash packageManager="npm"
 npx intlayer ci fill --verbose --mode complete
+```
+
+```bash packageManager="yarn"
+yarn intlayer ci fill --verbose --mode complete
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer ci fill --verbose --mode complete
+```
+
+```bash packageManager="bun"
+bun x intlayer ci fill --verbose --mode complete
 ```
 
 ### CI/CD pipelines में उपयोग करें

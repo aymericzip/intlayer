@@ -29,8 +29,20 @@ Il comando `doc translate` traduce automaticamente i file di documentazione da u
 - Preserva le traduzioni esistenti non sovrascrivendole.
 - Elabora file, parti e locali in parallelo utilizzando un sistema di code per aumentare la velocità.
 
-```bash
+```bash packageManager="npm"
 npx intlayer doc translate
+```
+
+```bash packageManager="yarn"
+yarn intlayer doc translate
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer doc translate
+```
+
+```bash packageManager="bun"
+bun x intlayer doc translate
 ```
 
 ## Argomenti:

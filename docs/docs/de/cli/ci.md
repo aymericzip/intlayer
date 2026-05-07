@@ -24,8 +24,20 @@ history:
 
 # CI-Befehl
 
-```bash
+```bash packageManager="npm"
 npx intlayer ci <command...>
+```
+
+```bash packageManager="yarn"
+yarn intlayer ci <command...>
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer ci <command...>
+```
+
+```bash packageManager="bun"
+bun x intlayer ci <command...>
 ```
 
 Der CI-Befehl ist für Automatisierung und CI/CD-Pipelines konzipiert. Er injiziert automatisch Anmeldedaten aus der Umgebungsvariable `INTLAYER_PROJECT_CREDENTIALS` und kann Intlayer-Befehle über mehrere Projekte in einem Monorepo ausführen.
@@ -97,8 +109,20 @@ Dies führt den Befehl `push` für jedes in `INTLAYER_PROJECT_CREDENTIALS` konfi
 
 Sie können beliebige Flags an den zugrunde liegenden Intlayer-Befehl übergeben:
 
-```bash
+```bash packageManager="npm"
 npx intlayer ci fill --verbose --mode complete
+```
+
+```bash packageManager="yarn"
+yarn intlayer ci fill --verbose --mode complete
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer ci fill --verbose --mode complete
+```
+
+```bash packageManager="bun"
+bun x intlayer ci fill --verbose --mode complete
 ```
 
 ### Verwendung in CI/CD-Pipelines

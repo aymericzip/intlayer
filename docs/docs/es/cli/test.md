@@ -17,8 +17,20 @@ slugs:
 
 # Probar traducciones faltantes
 
-```bash
+```bash packageManager="npm"
 npx intlayer content test
+```
+
+```bash packageManager="yarn"
+yarn intlayer content test
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content test
+```
+
+```bash packageManager="bun"
+bun x intlayer content test
 ```
 
 ## Alias:
@@ -69,8 +81,20 @@ Total de locales requeridos faltantes: 0
 
 ## Ejemplo:
 
-```bash
+```bash packageManager="npm"
 npx intlayer content test --verbose
+```
+
+```bash packageManager="yarn"
+yarn intlayer content test --verbose
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content test --verbose
+```
+
+```bash packageManager="bun"
+bun x intlayer content test --verbose
 ```
 
 La salida te ayuda a identificar rápidamente qué traducciones necesitan completarse para asegurar que tu aplicación funcione correctamente en todos los locales configurados.

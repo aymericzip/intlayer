@@ -36,8 +36,20 @@ history:
 
 شغّل التدقيق من جذر مشروعك:
 
-```bash
+```bash packageManager="npm"
 npx intlayer content test
+```
+
+```bash packageManager="yarn"
+yarn intlayer content test
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content test
+```
+
+```bash packageManager="bun"
+bun x intlayer content test
 ```
 
 علامات مفيدة:
@@ -181,8 +193,20 @@ jobs:
 
 اختياري: قم بتشغيل تدقيق CLI للحصول على ملخص قابل للقراءة البشرية إلى جانب الاختبارات:
 
-```bash
+```bash packageManager="npm"
 npx intlayer content test --verbose
+```
+
+```bash packageManager="yarn"
+yarn intlayer content test --verbose
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content test --verbose
+```
+
+```bash packageManager="bun"
+bun x intlayer content test --verbose
 ```
 
 ---

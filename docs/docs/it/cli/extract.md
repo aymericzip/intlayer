@@ -18,8 +18,20 @@ slugs:
 
 # Estrai stringhe
 
-```bash
+```bash packageManager="npm"
 npx intlayer extract
+```
+
+```bash packageManager="yarn"
+yarn intlayer extract
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer extract
+```
+
+```bash packageManager="bun"
+bun x intlayer extract
 ```
 
 Questo comando analizza i tuoi file di codice per estrarre le stringhe dai componenti in un file .content vicino al componente. Supporta la selezione interattiva dei file o l'indicazione di file specifici.

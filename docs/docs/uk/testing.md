@@ -40,8 +40,20 @@ history:
 
 Запустіть аудит з кореня вашого проєкту:
 
-```bash
+```bash packageManager="npm"
 npx intlayer content test
+```
+
+```bash packageManager="yarn"
+yarn intlayer content test
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content test
+```
+
+```bash packageManager="bun"
+bun x intlayer content test
 ```
 
 Корисні прапорці:
@@ -189,8 +201,20 @@ jobs:
 
 Необов'язково: запустіть аудит CLI, щоб отримати зрозумілий для людини підсумок разом із тестами:
 
-```bash
+```bash packageManager="npm"
 npx intlayer content test --verbose
+```
+
+```bash packageManager="yarn"
+yarn intlayer content test --verbose
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content test --verbose
+```
+
+```bash packageManager="bun"
+bun x intlayer content test --verbose
 ```
 
 ---

@@ -24,8 +24,20 @@ history:
 
 # CI Komutu
 
-```bash
+```bash packageManager="npm"
 npx intlayer ci <command...>
+```
+
+```bash packageManager="yarn"
+yarn intlayer ci <command...>
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer ci <command...>
+```
+
+```bash packageManager="bun"
+bun x intlayer ci <command...>
 ```
 
 CI komutu otomasyon ve CI/CD pipeline'ları için tasarlanmıştır. `INTLAYER_PROJECT_CREDENTIALS` ortam değişkeninden kimlik bilgilerini otomatik olarak enjekte eder ve bir monorepo'daki birden fazla projede Intlayer komutlarını çalıştırabilir.
@@ -97,8 +109,20 @@ Bu, `INTLAYER_PROJECT_CREDENTIALS` içinde yapılandırılmış her proje için 
 
 Temel Intlayer komutuna herhangi bir bayrak iletebilirsiniz:
 
-```bash
+```bash packageManager="npm"
 npx intlayer ci fill --verbose --mode complete
+```
+
+```bash packageManager="yarn"
+yarn intlayer ci fill --verbose --mode complete
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer ci fill --verbose --mode complete
+```
+
+```bash packageManager="bun"
+bun x intlayer ci fill --verbose --mode complete
 ```
 
 ### CI/CD pipeline'larında kullanma

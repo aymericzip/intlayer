@@ -22,8 +22,20 @@ slugs:
 
 `configuration get` komutu, özellikle yerel ayarlar olmak üzere Intlayer için mevcut yapılandırmayı alır. Bu, kurulumunuzu doğrulamak için faydalıdır.
 
-```bash
+```bash packageManager="npm"
 npx intlayer configuration get
+```
+
+```bash packageManager="yarn"
+yarn intlayer configuration get
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer configuration get
+```
+
+```bash packageManager="bun"
+bun x intlayer configuration get
 ```
 
 ## Takma İsimler:
@@ -43,8 +55,20 @@ npx intlayer configuration get
 
 `configuration push` komutu, yapılandırmanızı Intlayer CMS ve editörüne yükler. Bu adım, Intlayer Görsel Editörü'nde uzak sözlüklerin kullanılabilmesini sağlamak için gereklidir.
 
-```bash
+```bash packageManager="npm"
 npx intlayer configuration push
+```
+
+```bash packageManager="yarn"
+yarn intlayer configuration push
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer configuration push
+```
+
+```bash packageManager="bun"
+bun x intlayer configuration push
 ```
 
 ## Takma İsimler:

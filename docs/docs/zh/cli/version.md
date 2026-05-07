@@ -16,9 +16,24 @@ slugs:
 
 # 检查 CLI 版本
 
-```bash
+```bash packageManager="npm"
 npx intlayer --version
 npx intlayer version
+```
+
+```bash packageManager="yarn"
+yarn intlayer --version
+yarn intlayer version
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer --version
+pnpm intlayer version
+```
+
+```bash packageManager="bun"
+bun x intlayer --version
+bun x intlayer version
 ```
 
 这两个命令都会打印已安装的 Intlayer CLI 版本。

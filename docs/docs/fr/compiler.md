@@ -297,20 +297,56 @@ Les propriétés suivantes peuvent être configurées dans le bloc `compiler` de
 
 Intlayer fournit un outil CLI pour vous aider à remplir les traductions manquantes. Vous pouvez utiliser la commande `intlayer` pour tester et remplir les traductions manquantes à partir de votre code.
 
-```bash
+```bash packageManager="npm"
 npx intlayer test         # Tester s'il y a des traductions manquantes
 ```
 
-```bash
+```bash packageManager="yarn"
+yarn intlayer test         # Tester s'il y a des traductions manquantes
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer test         # Tester s'il y a des traductions manquantes
+```
+
+```bash packageManager="bun"
+bun x intlayer test         # Tester s'il y a des traductions manquantes
+```
+
+```bash packageManager="npm"
 npx intlayer fill         # Remplir les traductions manquantes
+```
+
+```bash packageManager="yarn"
+yarn intlayer fill         # Remplir les traductions manquantes
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill         # Remplir les traductions manquantes
+```
+
+```bash packageManager="bun"
+bun x intlayer fill         # Remplir les traductions manquantes
 ```
 
 ### Extraction
 
 Intlayer propose un outil CLI pour extraire le contenu de votre code. Vous pouvez utiliser la commande `intlayer extract` pour extraire le contenu de votre code.
 
-```bash
+```bash packageManager="npm"
 npx intlayer extract
+```
+
+```bash packageManager="yarn"
+yarn intlayer extract
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer extract
+```
+
+```bash packageManager="bun"
+bun x intlayer extract
 ```
 
 > Pour plus de détails, consultez la [documentation CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/cli/index.md)

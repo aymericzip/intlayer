@@ -355,12 +355,36 @@ export default async function Page() {
 
 O Intlayer fornece uma ferramenta CLI para ajudar a preencher traduções em falta. Pode usar o comando `intlayer` para testar e preencher as traduções em falta do seu código.
 
-```bash
+```bash packageManager="npm"
 npx intlayer test         # Testar se existem traduções em falta
 ```
 
-```bash
+```bash packageManager="yarn"
+yarn intlayer test         # Testar se existem traduções em falta
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer test         # Testar se existem traduções em falta
+```
+
+```bash packageManager="bun"
+bun x intlayer test         # Testar se existem traduções em falta
+```
+
+```bash packageManager="npm"
 npx intlayer fill         # Preencher traduções em falta
+```
+
+```bash packageManager="yarn"
+yarn intlayer fill         # Preencher traduções em falta
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill         # Preencher traduções em falta
+```
+
+```bash packageManager="bun"
+bun x intlayer fill         # Preencher traduções em falta
 ```
 
 > Para mais detalhes, consulte a [documentação da CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/ci.md)

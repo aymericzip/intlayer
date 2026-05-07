@@ -78,8 +78,20 @@ Perlu dicatat bahwa server jarak jauh tidak mengintegrasikan alat CLI, autocompl
 
 Intlayer menyediakan perintah CLI untuk secara otomatis mengonfigurasi server MCP di proyek Anda.
 
-```bash
+```bash packageManager="npm"
 npx intlayer init mcp
+```
+
+```bash packageManager="yarn"
+yarn intlayer init mcp
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer init mcp
+```
+
+```bash packageManager="bun"
+bun x intlayer init mcp
 ```
 
 Perintah ini akan:

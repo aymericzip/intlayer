@@ -29,8 +29,20 @@ slugs:
 - يحافظ على الترجمات الموجودة بعدم الكتابة فوقها.
 - يعالج الملفات والأجزاء واللغات بالتوازي باستخدام نظام قائمة انتظار لزيادة السرعة.
 
-```bash
+```bash packageManager="npm"
 npx intlayer doc translate
+```
+
+```bash packageManager="yarn"
+yarn intlayer doc translate
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer doc translate
+```
+
+```bash packageManager="bun"
+bun x intlayer doc translate
 ```
 
 ## الوسائط:

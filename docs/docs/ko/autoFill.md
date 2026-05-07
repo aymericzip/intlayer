@@ -52,8 +52,20 @@ export default exampleContent;
 
 그런 다음, 다음 명령어를 실행하면:
 
-```bash
+```bash packageManager="npm"
 npx intlayer fill --file 'src/components/example/example.content.ts'
+```
+
+```bash packageManager="yarn"
+yarn intlayer fill --file 'src/components/example/example.content.ts'
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill --file 'src/components/example/example.content.ts'
+```
+
+```bash packageManager="bun"
+bun x intlayer fill --file 'src/components/example/example.content.ts'
 ```
 
 Intlayer는 메인 파일에 아직 선언되지 않은 모든 로케일을 채워 `src/components/example/example.content.json`에 파생 선언 파일을 자동으로 생성합니다.

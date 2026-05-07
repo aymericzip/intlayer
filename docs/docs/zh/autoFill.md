@@ -52,8 +52,20 @@ export default exampleContent;
 
 然后，当你运行以下命令时：
 
-```bash
+```bash packageManager="npm"
 npx intlayer fill --file 'src/components/example/example.content.ts'
+```
+
+```bash packageManager="yarn"
+yarn intlayer fill --file 'src/components/example/example.content.ts'
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill --file 'src/components/example/example.content.ts'
+```
+
+```bash packageManager="bun"
+bun x intlayer fill --file 'src/components/example/example.content.ts'
 ```
 
 Intlayer 将自动生成派生的声明文件，路径为 `src/components/example/example.content.json`，并填充主文件中尚未声明的所有语言环境。

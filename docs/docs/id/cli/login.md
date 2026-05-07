@@ -27,8 +27,20 @@ Perintah `login` dari Intlayer CLI memungkinkan Anda untuk mengautentikasi denga
 
 ## Penggunaan
 
-```bash
+```bash packageManager="npm"
 npx intlayer login [options]
+```
+
+```bash packageManager="yarn"
+yarn intlayer login [options]
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer login [options]
+```
+
+```bash packageManager="bun"
+bun x intlayer login [options]
 ```
 
 atau
@@ -47,8 +59,20 @@ Tentukan URL Intlayer CMS yang akan digunakan untuk autentikasi.
 - **Default**: Nilai yang dikonfigurasi di `intlayer.config.*` atau `https://intlayer.org`
 - **Contoh**:
 
-```bash
+```bash packageManager="npm"
 npx intlayer login --cms-url https://intlayer.org
+```
+
+```bash packageManager="yarn"
+yarn intlayer login --cms-url https://intlayer.org
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer login --cms-url https://intlayer.org
+```
+
+```bash packageManager="bun"
+bun x intlayer login --cms-url https://intlayer.org
 ```
 
 ### Opsi Konfigurasi
@@ -101,20 +125,56 @@ Jika browser tidak terbuka secara otomatis, Anda dapat mengunjungi URL yang dita
 
 ### Login dengan URL CMS Kustom
 
-```bash
+```bash packageManager="npm"
 npx intlayer login --cms-url https://custom-cms.example.com
+```
+
+```bash packageManager="yarn"
+yarn intlayer login --cms-url https://custom-cms.example.com
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer login --cms-url https://custom-cms.example.com
+```
+
+```bash packageManager="bun"
+bun x intlayer login --cms-url https://custom-cms.example.com
 ```
 
 ### Login dengan File Environment Tertentu
 
-```bash
+```bash packageManager="npm"
 npx intlayer login --env-file .env.production
+```
+
+```bash packageManager="yarn"
+yarn intlayer login --env-file .env.production
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer login --env-file .env.production
+```
+
+```bash packageManager="bun"
+bun x intlayer login --env-file .env.production
 ```
 
 ### Login dalam Mode Verbose
 
-```bash
+```bash packageManager="npm"
 npx intlayer login --verbose
+```
+
+```bash packageManager="yarn"
+yarn intlayer login --verbose
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer login --verbose
+```
+
+```bash packageManager="bun"
+bun x intlayer login --verbose
 ```
 
 ## Pemecahan Masalah

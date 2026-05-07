@@ -290,20 +290,56 @@ Aşağıdaki özellikler `intlayer.config.ts` dosyanızın `compiler` bloğunda 
 
 Intlayer, eksik çevirileri doldurmanıza yardımcı olacak bir CLI aracı sağlar. Kodunuzdaki eksik çevirileri test etmek ve doldurmak için `intlayer` komutunu kullanabilirsiniz.
 
-```bash
+```bash packageManager="npm"
 npx intlayer test         # Eksik çeviri olup olmadığını test et
 ```
 
-```bash
+```bash packageManager="yarn"
+yarn intlayer test         # Eksik çeviri olup olmadığını test et
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer test         # Eksik çeviri olup olmadığını test et
+```
+
+```bash packageManager="bun"
+bun x intlayer test         # Eksik çeviri olup olmadığını test et
+```
+
+```bash packageManager="npm"
 npx intlayer fill         # Eksik çevirileri doldur
+```
+
+```bash packageManager="yarn"
+yarn intlayer fill         # Eksik çevirileri doldur
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill         # Eksik çevirileri doldur
+```
+
+```bash packageManager="bun"
+bun x intlayer fill         # Eksik çevirileri doldur
 ```
 
 ### Çıkarma
 
 Intlayer, kodunuzdan içerik çıkarmak için bir CLI aracı sağlar. Kodunuzdaki içeriği çıkarmak için `intlayer extract` komutunu kullanabilirsiniz.
 
-```bash
+```bash packageManager="npm"
 npx intlayer extract
+```
+
+```bash packageManager="yarn"
+yarn intlayer extract
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer extract
+```
+
+```bash packageManager="bun"
+bun x intlayer extract
 ```
 
 > Daha fazla ayrıntı için [CLI belgelerine](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/index.md) bakın.

@@ -22,8 +22,20 @@ history:
 
 # List Intlayer Projects
 
-```bash
+```bash packageManager="npm"
 npx intlayer projects list
+```
+
+```bash packageManager="yarn"
+yarn intlayer projects list
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer projects list
+```
+
+```bash packageManager="bun"
+bun x intlayer projects list
 ```
 
 This command searches for and lists all Intlayer projects by finding directories that contain Intlayer configuration files. It is useful for discovering all Intlayer projects in a monorepo, workspace or git repository.
@@ -70,32 +82,92 @@ Each directory containing one of these files is considered an Intlayer project a
 
 ### List projects in current directory:
 
-```bash
+```bash packageManager="npm"
 npx intlayer projects list
+```
+
+```bash packageManager="yarn"
+yarn intlayer projects list
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer projects list
+```
+
+```bash packageManager="bun"
+bun x intlayer projects list
 ```
 
 ### List projects in a specific directory:
 
-```bash
+```bash packageManager="npm"
 npx intlayer projects list --base-dir ./packages
+```
+
+```bash packageManager="yarn"
+yarn intlayer projects list --base-dir ./packages
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer projects list --base-dir ./packages
+```
+
+```bash packageManager="bun"
+bun x intlayer projects list --base-dir ./packages
 ```
 
 ### List all projects in the git repository:
 
-```bash
+```bash packageManager="npm"
 npx intlayer projects list --git-root
+```
+
+```bash packageManager="yarn"
+yarn intlayer projects list --git-root
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer projects list --git-root
+```
+
+```bash packageManager="bun"
+bun x intlayer projects list --git-root
 ```
 
 ### Using the shortcut alias:
 
-```bash
+```bash packageManager="npm"
 npx intlayer pl --git-root
+```
+
+```bash packageManager="yarn"
+yarn intlayer pl --git-root
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer pl --git-root
+```
+
+```bash packageManager="bun"
+bun x intlayer pl --git-root
 ```
 
 ### Output as JSON:
 
-```bash
+```bash packageManager="npm"
 npx intlayer projects list --json
+```
+
+```bash packageManager="yarn"
+yarn intlayer projects list --json
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer projects list --json
+```
+
+```bash packageManager="bun"
+bun x intlayer projects list --json
 ```
 
 ## Example output:

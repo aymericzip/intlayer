@@ -160,14 +160,38 @@ export default config;
 
 Để cấu hình Intlayer CMS, bạn có thể sử dụng các lệnh của [intlayer CLI](https://github.com/aymericzip/intlayer/tree/main/docs/vi/cli/index.md).
 
-```bash
+```bash packageManager="npm"
 npx intlayer config push
+```
+
+```bash packageManager="yarn"
+yarn intlayer config push
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer config push
+```
+
+```bash packageManager="bun"
+bun x intlayer config push
 ```
 
 > Nếu bạn sử dụng biến môi trường trong tệp cấu hình `intlayer.config.ts`, bạn có thể chỉ định môi trường mong muốn bằng cách sử dụng đối số `--env`:
 
-```bash
+```bash packageManager="npm"
 npx intlayer config push --env production
+```
+
+```bash packageManager="yarn"
+yarn intlayer config push --env production
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer config push --env production
+```
+
+```bash packageManager="bun"
+bun x intlayer config push --env production
 ```
 
 Lệnh này sẽ tải cấu hình của bạn lên Intlayer CMS.
@@ -176,14 +200,38 @@ Lệnh này sẽ tải cấu hình của bạn lên Intlayer CMS.
 
 Để chuyển đổi các từ điển locale của bạn thành một từ điển từ xa, bạn có thể sử dụng các lệnh của [intlayer CLI](https://github.com/aymericzip/intlayer/tree/main/docs/vi/cli/index.md).
 
-```bash
+```bash packageManager="npm"
 npx intlayer dictionary push -d my-first-dictionary-key
+```
+
+```bash packageManager="yarn"
+yarn intlayer dictionary push -d my-first-dictionary-key
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer dictionary push -d my-first-dictionary-key
+```
+
+```bash packageManager="bun"
+bun x intlayer dictionary push -d my-first-dictionary-key
 ```
 
 > Nếu bạn sử dụng biến môi trường trong tệp cấu hình `intlayer.config.ts`, bạn có thể chỉ định môi trường mong muốn bằng cách sử dụng đối số `--env`:
 
-```bash
+```bash packageManager="npm"
 npx intlayer dictionary push -d my-first-dictionary-key --env production
+```
+
+```bash packageManager="yarn"
+yarn intlayer dictionary push -d my-first-dictionary-key --env production
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer dictionary push -d my-first-dictionary-key --env production
+```
+
+```bash packageManager="bun"
+bun x intlayer dictionary push -d my-first-dictionary-key --env production
 ```
 
 Lệnh này sẽ tải các từ điển nội dung ban đầu của bạn lên, giúp chúng có thể được lấy và chỉnh sửa bất đồng bộ thông qua nền tảng Intlayer.

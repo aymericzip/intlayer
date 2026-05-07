@@ -21,18 +21,48 @@ slugs:
 
 以下を実行してください：
 
-```bash
+```bash packageManager="npm"
 npx intlayer --version                  # 現在のローカルIntlayerバージョン
 npx intlayer@latest --version           # 現在の最新Intlayerバージョン
+```
+
+```bash packageManager="yarn"
+yarn intlayer --version                  # 現在のローカルIntlayerバージョン
+yarn intlayer@latest --version           # 現在の最新Intlayerバージョン
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer --version                  # 現在のローカルIntlayerバージョン
+pnpm intlayer@latest --version           # 現在の最新Intlayerバージョン
+```
+
+```bash packageManager="bun"
+bun x intlayer --version                  # 現在のローカルIntlayerバージョン
+bun x intlayer@latest --version           # 現在の最新Intlayerバージョン
 ```
 
 ## 2. **コマンドが登録されているか確認する**
 
 以下で確認できます：
 
-```bash
+```bash packageManager="npm"
 npx intlayer --help                     # 利用可能なコマンド一覧と使用情報を表示
 npx intlayer dictionary build --help    # コマンドの利用可能なオプション一覧を表示
+```
+
+```bash packageManager="yarn"
+yarn intlayer --help                     # 利用可能なコマンド一覧と使用情報を表示
+yarn intlayer dictionary build --help    # コマンドの利用可能なオプション一覧を表示
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer --help                     # 利用可能なコマンド一覧と使用情報を表示
+pnpm intlayer dictionary build --help    # コマンドの利用可能なオプション一覧を表示
+```
+
+```bash packageManager="bun"
+bun x intlayer --help                     # 利用可能なコマンド一覧と使用情報を表示
+bun x intlayer dictionary build --help    # コマンドの利用可能なオプション一覧を表示
 ```
 
 ## 3. **ターミナルを再起動する**

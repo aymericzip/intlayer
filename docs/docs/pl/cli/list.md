@@ -24,8 +24,20 @@ history:
 
 # Lista plików deklaracji zawartości
 
-```bash
+```bash packageManager="npm"
 npx intlayer content list
+```
+
+```bash packageManager="yarn"
+yarn intlayer content list
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content list
+```
+
+```bash packageManager="bun"
+bun x intlayer content list
 ```
 
 ## Alias:
@@ -44,20 +56,56 @@ To polecenie wyświetla wszystkie pliki deklaracji zawartości w Twoim projekcie
 
 ### Lista plików deklaracji zawartości:
 
-```bash
+```bash packageManager="npm"
 npx intlayer content list
+```
+
+```bash packageManager="yarn"
+yarn intlayer content list
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content list
+```
+
+```bash packageManager="bun"
+bun x intlayer content list
 ```
 
 ### Wyjście jako JSON:
 
-```bash
+```bash packageManager="npm"
 npx intlayer content list --json
+```
+
+```bash packageManager="yarn"
+yarn intlayer content list --json
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content list --json
+```
+
+```bash packageManager="bun"
+bun x intlayer content list --json
 ```
 
 ### Wyjście jako ścieżki bezwzględne:
 
-```bash
+```bash packageManager="npm"
 npx intlayer content list --absolute
+```
+
+```bash packageManager="yarn"
+yarn intlayer content list --absolute
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content list --absolute
+```
+
+```bash packageManager="bun"
+bun x intlayer content list --absolute
 ```
 
 ## Przykładowy wynik:

@@ -23,14 +23,38 @@ history:
 
 辞書をビルドするには、以下のコマンドを実行します。
 
-```bash
+```bash packageManager="npm"
 npx intlayer build
+```
+
+```bash packageManager="yarn"
+yarn intlayer build
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer build
+```
+
+```bash packageManager="bun"
+bun x intlayer build
 ```
 
 またはウォッチモードで
 
-```bash
+```bash packageManager="npm"
 npx intlayer build --watch
+```
+
+```bash packageManager="yarn"
+yarn intlayer build --watch
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer build --watch
+```
+
+```bash packageManager="bun"
+bun x intlayer build --watch
 ```
 
 このコマンドはデフォルトで `./src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx}` にある宣言コンテンツファイルを検出し、`.intlayer` ディレクトリに辞書をビルドします。

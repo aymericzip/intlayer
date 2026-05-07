@@ -290,20 +290,56 @@ Następujące właściwości można skonfigurować w bloku `compiler` pliku `int
 
 Intlayer udostępnia narzędzie CLI, które pomaga uzupełnić brakujące tłumaczenia. Możesz użyć polecenia `intlayer`, aby przetestować i uzupełnić brakujące tłumaczenia w swoim kodzie.
 
-```bash
+```bash packageManager="npm"
 npx intlayer test         # Sprawdź, czy brakuje tłumaczeń
 ```
 
-```bash
+```bash packageManager="yarn"
+yarn intlayer test         # Sprawdź, czy brakuje tłumaczeń
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer test         # Sprawdź, czy brakuje tłumaczeń
+```
+
+```bash packageManager="bun"
+bun x intlayer test         # Sprawdź, czy brakuje tłumaczeń
+```
+
+```bash packageManager="npm"
 npx intlayer fill         # Uzupełnij brakujące tłumaczenia
+```
+
+```bash packageManager="yarn"
+yarn intlayer fill         # Uzupełnij brakujące tłumaczenia
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill         # Uzupełnij brakujące tłumaczenia
+```
+
+```bash packageManager="bun"
+bun x intlayer fill         # Uzupełnij brakujące tłumaczenia
 ```
 
 ### Ekstrakcja
 
 Intlayer udostępnia narzędzie CLI do wyodrębniania treści z Twojego kodu. Możesz użyć polecenia `intlayer extract`, aby wyodrębnić treść ze swojego kodu.
 
-```bash
+```bash packageManager="npm"
 npx intlayer extract
+```
+
+```bash packageManager="yarn"
+yarn intlayer extract
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer extract
+```
+
+```bash packageManager="bun"
+bun x intlayer extract
 ```
 
 > Więcej szczegółów znajdziesz w [dokumentacji CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/index.md)

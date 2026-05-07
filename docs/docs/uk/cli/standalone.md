@@ -29,8 +29,20 @@ history:
 
 ## Використання
 
-```bash
+```bash packageManager="npm"
 npx intlayer standalone --packages [пакети...] [опції]
+```
+
+```bash packageManager="yarn"
+yarn intlayer standalone --packages [пакети...] [опції]
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer standalone --packages [пакети...] [опції]
+```
+
+```bash packageManager="bun"
+bun x intlayer standalone --packages [пакети...] [опції]
 ```
 
 ## Опції
@@ -54,22 +66,58 @@ npx intlayer standalone --packages [пакети...] [опції]
 
 ### Створення збірки для Vanilla JS:
 
-```bash
+```bash packageManager="npm"
 npx intlayer standalone --packages intlayer vanilla-intlayer --outfile intlayer.js
+```
+
+```bash packageManager="yarn"
+yarn intlayer standalone --packages intlayer vanilla-intlayer --outfile intlayer.js
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer standalone --packages intlayer vanilla-intlayer --outfile intlayer.js
+```
+
+```bash packageManager="bun"
+bun x intlayer standalone --packages intlayer vanilla-intlayer --outfile intlayer.js
 ```
 
 Це створить файл `intlayer.js`, що містить пакети `intlayer` та `vanilla-intlayer`, мініфікований та у форматі ESM, готовий до використання в браузері через тег `<script>`.
 
 ### Збірка конкретної версії:
 
-```bash
+```bash packageManager="npm"
 npx intlayer standalone --packages intlayer --version 8.6.4
+```
+
+```bash packageManager="yarn"
+yarn intlayer standalone --packages intlayer --version 8.6.4
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer standalone --packages intlayer --version 8.6.4
+```
+
+```bash packageManager="bun"
+bun x intlayer standalone --packages intlayer --version 8.6.4
 ```
 
 ### Збірка в іншому форматі:
 
-```bash
+```bash packageManager="npm"
 npx intlayer standalone --packages intlayer --format iife
+```
+
+```bash packageManager="yarn"
+yarn intlayer standalone --packages intlayer --format iife
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer standalone --packages intlayer --format iife
+```
+
+```bash packageManager="bun"
+bun x intlayer standalone --packages intlayer --format iife
 ```
 
 ## Що вона робить:

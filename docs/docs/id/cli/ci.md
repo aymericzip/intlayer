@@ -24,8 +24,20 @@ history:
 
 # Perintah CI
 
-```bash
+```bash packageManager="npm"
 npx intlayer ci <command...>
+```
+
+```bash packageManager="yarn"
+yarn intlayer ci <command...>
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer ci <command...>
+```
+
+```bash packageManager="bun"
+bun x intlayer ci <command...>
 ```
 
 Perintah CI dirancang untuk otomasi dan pipeline CI/CD. Perintah ini secara otomatis menyuntikkan kredensial dari variabel lingkungan `INTLAYER_PROJECT_CREDENTIALS` dan dapat menjalankan perintah Intlayer di beberapa proyek dalam monorepo.
@@ -97,8 +109,20 @@ Ini akan menjalankan perintah `push` untuk setiap proyek yang dikonfigurasi di `
 
 Anda dapat meneruskan flag apa pun ke perintah Intlayer yang mendasarinya:
 
-```bash
+```bash packageManager="npm"
 npx intlayer ci fill --verbose --mode complete
+```
+
+```bash packageManager="yarn"
+yarn intlayer ci fill --verbose --mode complete
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer ci fill --verbose --mode complete
+```
+
+```bash packageManager="bun"
+bun x intlayer ci fill --verbose --mode complete
 ```
 
 ### Menggunakan di pipeline CI/CD

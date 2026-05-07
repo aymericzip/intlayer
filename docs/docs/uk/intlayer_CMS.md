@@ -160,14 +160,38 @@ export default config;
 
 Щоб налаштувати Intlayer CMS, ви можете використовувати команди [intlayer CLI](https://github.com/aymericzip/intlayer/tree/main/docs/uk/cli/index.md).
 
-```bash
+```bash packageManager="npm"
 npx intlayer config push
+```
+
+```bash packageManager="yarn"
+yarn intlayer config push
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer config push
+```
+
+```bash packageManager="bun"
+bun x intlayer config push
 ```
 
 > Якщо ви використовуєте змінні оточення в файлі конфігурації `intlayer.config.ts`, ви можете вказати потрібне оточення за допомогою аргументу `--env`:
 
-```bash
+```bash packageManager="npm"
 npx intlayer config push --env production
+```
+
+```bash packageManager="yarn"
+yarn intlayer config push --env production
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer config push --env production
+```
+
+```bash packageManager="bun"
+bun x intlayer config push --env production
 ```
 
 Ця команда завантажує вашу конфігурацію в Intlayer CMS.
@@ -176,14 +200,38 @@ npx intlayer config push --env production
 
 Щоб перетворити ваші локальні словники у віддалений словник, ви можете використовувати команди [intlayer CLI](https://github.com/aymericzip/intlayer/tree/main/docs/uk/cli/index.md).
 
-```bash
+```bash packageManager="npm"
 npx intlayer dictionary push -d my-first-dictionary-key
+```
+
+```bash packageManager="yarn"
+yarn intlayer dictionary push -d my-first-dictionary-key
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer dictionary push -d my-first-dictionary-key
+```
+
+```bash packageManager="bun"
+bun x intlayer dictionary push -d my-first-dictionary-key
 ```
 
 > Якщо ви використовуєте змінні середовища у вашому файлі конфігурації `intlayer.config.ts`, ви можете вказати потрібне середовище за допомогою аргументу `--env`:
 
-```bash
+```bash packageManager="npm"
 npx intlayer dictionary push -d my-first-dictionary-key --env production
+```
+
+```bash packageManager="yarn"
+yarn intlayer dictionary push -d my-first-dictionary-key --env production
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer dictionary push -d my-first-dictionary-key --env production
+```
+
+```bash packageManager="bun"
+bun x intlayer dictionary push -d my-first-dictionary-key --env production
 ```
 
 Ця команда завантажує ваші початкові словники контенту, роблячи їх доступними для асинхронного отримання та редагування через платформу Intlayer.

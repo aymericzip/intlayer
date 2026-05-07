@@ -18,8 +18,20 @@ slugs:
 
 # स्ट्रिंग्स निकालना
 
-```bash
+```bash packageManager="npm"
 npx intlayer extract
+```
+
+```bash packageManager="yarn"
+yarn intlayer extract
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer extract
+```
+
+```bash packageManager="bun"
+bun x intlayer extract
 ```
 
 यह कमांड आपके कोड फ़ाइलों का विश्लेषण करता है ताकि कंपोनेंट्स से स्ट्रिंग्स को निकाला जा सके और उन्हें कंपोनेंट के पास .content फ़ाइल में रखा जा सके। यह इंटरैक्टिव फ़ाइल चयन या विशिष्ट फाइल लक्षित करने का समर्थन करता है।

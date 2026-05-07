@@ -355,12 +355,36 @@ export default async function Page() {
 
 Intlayerは、不足している翻訳を埋めるためのCLIツールを提供しています。 `intlayer` コマンドを使用して、コード内の不足している翻訳をテストして埋めることができます。
 
-```bash
+```bash packageManager="npm"
 npx intlayer test         # 不足している翻訳があるかテスト
 ```
 
-```bash
+```bash packageManager="yarn"
+yarn intlayer test         # 不足している翻訳があるかテスト
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer test         # 不足している翻訳があるかテスト
+```
+
+```bash packageManager="bun"
+bun x intlayer test         # 不足している翻訳があるかテスト
+```
+
+```bash packageManager="npm"
 npx intlayer fill         # 不足している翻訳を埋める
+```
+
+```bash packageManager="yarn"
+yarn intlayer fill         # 不足している翻訳を埋める
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill         # 不足している翻訳を埋める
+```
+
+```bash packageManager="bun"
+bun x intlayer fill         # 不足している翻訳を埋める
 ```
 
 > 詳細については、[CLIドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/ci.md)を参照してください。

@@ -154,14 +154,38 @@ export default config;
 
 Intlayer CMS를 구성하려면 [intlayer CLI](https://github.com/aymericzip/intlayer/tree/main/docs/ko/cli/index.md) 명령어를 사용할 수 있습니다.
 
-```bash
+```bash packageManager="npm"
 npx intlayer config push
+```
+
+```bash packageManager="yarn"
+yarn intlayer config push
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer config push
+```
+
+```bash packageManager="bun"
+bun x intlayer config push
 ```
 
 > `intlayer.config.ts` 구성 파일에서 환경 변수를 사용하는 경우, `--env` 인수를 사용하여 원하는 환경을 지정할 수 있습니다:
 
-```bash
+```bash packageManager="npm"
 npx intlayer config push --env production
+```
+
+```bash packageManager="yarn"
+yarn intlayer config push --env production
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer config push --env production
+```
+
+```bash packageManager="bun"
+bun x intlayer config push --env production
 ```
 
 이 명령어는 구성을 Intlayer CMS에 업로드합니다.
@@ -170,14 +194,38 @@ npx intlayer config push --env production
 
 로케일 사전을 원격 사전으로 변환하려면 [intlayer CLI](https://github.com/aymericzip/intlayer/tree/main/docs/ko/cli/index.md) 명령어를 사용할 수 있습니다.
 
-```bash
+```bash packageManager="npm"
 npx intlayer dictionary push -d my-first-dictionary-key
+```
+
+```bash packageManager="yarn"
+yarn intlayer dictionary push -d my-first-dictionary-key
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer dictionary push -d my-first-dictionary-key
+```
+
+```bash packageManager="bun"
+bun x intlayer dictionary push -d my-first-dictionary-key
 ```
 
 > `intlayer.config.ts` 구성 파일에서 환경 변수를 사용하는 경우 `--env` 인수를 사용하여 원하는 환경을 지정할 수 있습니다:
 
-```bash
+```bash packageManager="npm"
 npx intlayer dictionary push -d my-first-dictionary-key --env production
+```
+
+```bash packageManager="yarn"
+yarn intlayer dictionary push -d my-first-dictionary-key --env production
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer dictionary push -d my-first-dictionary-key --env production
+```
+
+```bash packageManager="bun"
+bun x intlayer dictionary push -d my-first-dictionary-key --env production
 ```
 
 이 명령은 초기 콘텐츠 사전을 업로드하여 Intlayer 플랫폼을 통해 비동기적으로 가져오고 편집할 수 있도록 합니다.

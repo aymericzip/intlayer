@@ -29,8 +29,20 @@ slugs:
 - 通过不覆盖现有翻译来保留它们。
 - 使用队列系统并行处理文件、块和语言环境以提高速度。
 
-```bash
+```bash packageManager="npm"
 npx intlayer doc translate
+```
+
+```bash packageManager="yarn"
+yarn intlayer doc translate
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer doc translate
+```
+
+```bash packageManager="bun"
+bun x intlayer doc translate
 ```
 
 ## 参数：

@@ -21,18 +21,48 @@ slugs:
 
 Führen Sie aus:
 
-```bash
+```bash packageManager="npm"
 npx intlayer --version                  # aktuelle lokale Intlayer-Version
 npx intlayer@latest --version           # aktuellste Intlayer-Version
+```
+
+```bash packageManager="yarn"
+yarn intlayer --version                  # aktuelle lokale Intlayer-Version
+yarn intlayer@latest --version           # aktuellste Intlayer-Version
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer --version                  # aktuelle lokale Intlayer-Version
+pnpm intlayer@latest --version           # aktuellste Intlayer-Version
+```
+
+```bash packageManager="bun"
+bun x intlayer --version                  # aktuelle lokale Intlayer-Version
+bun x intlayer@latest --version           # aktuellste Intlayer-Version
 ```
 
 ## 2. **Überprüfen Sie, ob der Befehl registriert ist**
 
 Sie können dies überprüfen mit:
 
-```bash
+```bash packageManager="npm"
 npx intlayer --help                     # Zeigt die Liste der verfügbaren Befehle und Nutzungsinformationen
 npx intlayer dictionary build --help    # Zeigt die Liste der verfügbaren Optionen für einen Befehl
+```
+
+```bash packageManager="yarn"
+yarn intlayer --help                     # Zeigt die Liste der verfügbaren Befehle und Nutzungsinformationen
+yarn intlayer dictionary build --help    # Zeigt die Liste der verfügbaren Optionen für einen Befehl
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer --help                     # Zeigt die Liste der verfügbaren Befehle und Nutzungsinformationen
+pnpm intlayer dictionary build --help    # Zeigt die Liste der verfügbaren Optionen für einen Befehl
+```
+
+```bash packageManager="bun"
+bun x intlayer --help                     # Zeigt die Liste der verfügbaren Befehle und Nutzungsinformationen
+bun x intlayer dictionary build --help    # Zeigt die Liste der verfügbaren Optionen für einen Befehl
 ```
 
 ## 3. **Starten Sie Ihr Terminal neu**

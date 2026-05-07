@@ -29,8 +29,20 @@ Bundel ini menggunakan [esbuild](https://esbuild.github.io/) untuk menggabungkan
 
 ## Penggunaan
 
-```bash
+```bash packageManager="npm"
 npx intlayer standalone --packages [paket...] [opsi]
+```
+
+```bash packageManager="yarn"
+yarn intlayer standalone --packages [paket...] [opsi]
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer standalone --packages [paket...] [opsi]
+```
+
+```bash packageManager="bun"
+bun x intlayer standalone --packages [paket...] [opsi]
 ```
 
 ## Opsi
@@ -54,22 +66,58 @@ npx intlayer standalone --packages [paket...] [opsi]
 
 ### Membuat bundel untuk Vanilla JS:
 
-```bash
+```bash packageManager="npm"
 npx intlayer standalone --packages intlayer vanilla-intlayer --outfile intlayer.js
+```
+
+```bash packageManager="yarn"
+yarn intlayer standalone --packages intlayer vanilla-intlayer --outfile intlayer.js
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer standalone --packages intlayer vanilla-intlayer --outfile intlayer.js
+```
+
+```bash packageManager="bun"
+bun x intlayer standalone --packages intlayer vanilla-intlayer --outfile intlayer.js
 ```
 
 Ini akan membuat file `intlayer.js` yang berisi paket `intlayer` dan `vanilla-intlayer`, dikecilkan dan dalam format ESM, siap digunakan di browser melalui tag `<script>`.
 
 ### Membundel versi tertentu:
 
-```bash
+```bash packageManager="npm"
 npx intlayer standalone --packages intlayer --version 8.6.4
+```
+
+```bash packageManager="yarn"
+yarn intlayer standalone --packages intlayer --version 8.6.4
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer standalone --packages intlayer --version 8.6.4
+```
+
+```bash packageManager="bun"
+bun x intlayer standalone --packages intlayer --version 8.6.4
 ```
 
 ### Membundel dalam format yang berbeda:
 
-```bash
+```bash packageManager="npm"
 npx intlayer standalone --packages intlayer --format iife
+```
+
+```bash packageManager="yarn"
+yarn intlayer standalone --packages intlayer --format iife
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer standalone --packages intlayer --format iife
+```
+
+```bash packageManager="bun"
+bun x intlayer standalone --packages intlayer --format iife
 ```
 
 ## Apa yang dilakukan:

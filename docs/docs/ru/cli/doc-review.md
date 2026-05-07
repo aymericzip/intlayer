@@ -27,8 +27,20 @@ slugs:
 - Оптимизирует части для проверки и пропускает части, которые уже переведены и не изменены.
 - Обрабатывает файлы, части и локали параллельно с использованием системы очередей для увеличения скорости.
 
-```bash
+```bash packageManager="npm"
 npx intlayer doc review
+```
+
+```bash packageManager="yarn"
+yarn intlayer doc review
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer doc review
+```
+
+```bash packageManager="bun"
+bun x intlayer doc review
 ```
 
 Её можно использовать для проверки уже переведённых файлов и для проверки корректности перевода.

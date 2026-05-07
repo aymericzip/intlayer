@@ -20,8 +20,20 @@ slugs:
 
 # Wypełnianie / audyt / tłumaczenie słowników
 
-```bash
+```bash packageManager="npm"
 npx intlayer fill
+```
+
+```bash packageManager="yarn"
+yarn intlayer fill
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill
+```
+
+```bash packageManager="bun"
+bun x intlayer fill
 ```
 
 To polecenie analizuje Twoje pliki deklaracji treści pod kątem potencjalnych problemów, takich jak brakujące tłumaczenia, niespójności strukturalne lub niezgodności typów. Jeśli wykryje jakiekolwiek problemy, **intlayer fill** zaproponuje lub zastosuje aktualizacje, aby utrzymać Twoje słowniki spójne i kompletne.
@@ -161,8 +173,20 @@ Affected dictionary keys for processing: app, comp-test, hello-world, lang-switc
 
 ## Przykład:
 
-```bash
+```bash packageManager="npm"
 npx intlayer fill --file src/home/*.content.ts --source-locale en --output-locales fr es --model gpt-3.5-turbo
+```
+
+```bash packageManager="yarn"
+yarn intlayer fill --file src/home/*.content.ts --source-locale en --output-locales fr es --model gpt-3.5-turbo
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill --file src/home/*.content.ts --source-locale en --output-locales fr es --model gpt-3.5-turbo
+```
+
+```bash packageManager="bun"
+bun x intlayer fill --file src/home/*.content.ts --source-locale en --output-locales fr es --model gpt-3.5-turbo
 ```
 
 To polecenie przetłumaczy zawartość z angielskiego na francuski i hiszpański dla wszystkich plików deklaracji zawartości w katalogu `src/home/` używając modelu GPT-3.5 Turbo.

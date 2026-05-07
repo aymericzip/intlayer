@@ -22,8 +22,20 @@ history:
 
 # Daftar Proyek Intlayer
 
-```bash
+```bash packageManager="npm"
 npx intlayer projects list
+```
+
+```bash packageManager="yarn"
+yarn intlayer projects list
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer projects list
+```
+
+```bash packageManager="bun"
+bun x intlayer projects list
 ```
 
 Perintah ini mencari dan menampilkan semua proyek Intlayer dengan menemukan direktori yang berisi berkas konfigurasi Intlayer. Ini berguna untuk menemukan semua proyek Intlayer dalam monorepo, workspace, atau repositori git.
@@ -68,32 +80,92 @@ Setiap direktori yang berisi salah satu berkas ini dianggap sebagai proyek Intla
 
 ### Daftar proyek di direktori saat ini:
 
-```bash
+```bash packageManager="npm"
 npx intlayer projects list
+```
+
+```bash packageManager="yarn"
+yarn intlayer projects list
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer projects list
+```
+
+```bash packageManager="bun"
+bun x intlayer projects list
 ```
 
 ### Daftar proyek di direktori tertentu:
 
-```bash
+```bash packageManager="npm"
 npx intlayer projects list --base-dir ./packages
+```
+
+```bash packageManager="yarn"
+yarn intlayer projects list --base-dir ./packages
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer projects list --base-dir ./packages
+```
+
+```bash packageManager="bun"
+bun x intlayer projects list --base-dir ./packages
 ```
 
 ### Daftar semua proyek di repositori git:
 
-```bash
+```bash packageManager="npm"
 npx intlayer projects list --git-root
+```
+
+```bash packageManager="yarn"
+yarn intlayer projects list --git-root
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer projects list --git-root
+```
+
+```bash packageManager="bun"
+bun x intlayer projects list --git-root
 ```
 
 ### Menggunakan alias pintas:
 
-```bash
+```bash packageManager="npm"
 npx intlayer pl --git-root
+```
+
+```bash packageManager="yarn"
+yarn intlayer pl --git-root
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer pl --git-root
+```
+
+```bash packageManager="bun"
+bun x intlayer pl --git-root
 ```
 
 ### Output sebagai JSON:
 
-```bash
+```bash packageManager="npm"
 npx intlayer projects list --json
+```
+
+```bash packageManager="yarn"
+yarn intlayer projects list --json
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer projects list --json
+```
+
+```bash packageManager="bun"
+bun x intlayer projects list --json
 ```
 
 ## Contoh output:

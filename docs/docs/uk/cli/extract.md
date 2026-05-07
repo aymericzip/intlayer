@@ -18,8 +18,20 @@ slugs:
 
 # Витягнення рядків
 
-```bash
+```bash packageManager="npm"
 npx intlayer extract
+```
+
+```bash packageManager="yarn"
+yarn intlayer extract
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer extract
+```
+
+```bash packageManager="bun"
+bun x intlayer extract
 ```
 
 Ця команда аналізує ваші файли коду, щоб витягнути рядки з компонентів у файл .content поруч із компонентом. Вона підтримує інтерактивний вибір файлів або вказівку конкретних файлів для обробки.

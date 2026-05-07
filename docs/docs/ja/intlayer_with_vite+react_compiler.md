@@ -367,12 +367,36 @@ const LocaleSwitcher: FC = () => {
 
 Intlayerは、欠落した翻訳を埋めるためのCLIツールを提供しています。`intlayer`コマンドを使用して、コードから欠落した翻訳をテストおよび埋めることができます。
 
-```bash
+```bash packageManager="npm"
 npx intlayer test         # 欠落した翻訳があるかテストする
 ```
 
-```bash
+```bash packageManager="yarn"
+yarn intlayer test         # 欠落した翻訳があるかテストする
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer test         # 欠落した翻訳があるかテストする
+```
+
+```bash packageManager="bun"
+bun x intlayer test         # 欠落した翻訳があるかテストする
+```
+
+```bash packageManager="npm"
 npx intlayer fill         # 欠落した翻訳を埋める
+```
+
+```bash packageManager="yarn"
+yarn intlayer fill         # 欠落した翻訳を埋める
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill         # 欠落した翻訳を埋める
+```
+
+```bash packageManager="bun"
+bun x intlayer fill         # 欠落した翻訳を埋める
 ```
 
 > 詳細については、[CLIドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/ci.md)を参照してください。

@@ -19,8 +19,20 @@ slugs:
 
 # दूरस्थ शब्दकोश खींचें
 
-```bash
+```bash packageManager="npm"
 npx intlayer pull
+```
+
+```bash packageManager="yarn"
+yarn intlayer pull
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer pull
+```
+
+```bash packageManager="bun"
+bun x intlayer pull
 ```
 
 यदि [intlayer संपादक](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md) स्थापित है, तो आप संपादक से भी शब्दकोश खींच सकते हैं। इस तरह, आप अपनी एप्लिकेशन की आवश्यकता के लिए अपने शब्दकोश की सामग्री को अधिलेखित कर सकते हैं।
@@ -73,6 +85,18 @@ npx intlayer pull
 
 ## उदाहरण:
 
-```bash
+```bash packageManager="npm"
 npx intlayer dictionary pull --newDictionariesPath ./my-dictionaries-dir/
+```
+
+```bash packageManager="yarn"
+yarn intlayer dictionary pull --newDictionariesPath ./my-dictionaries-dir/
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer dictionary pull --newDictionariesPath ./my-dictionaries-dir/
+```
+
+```bash packageManager="bun"
+bun x intlayer dictionary pull --newDictionariesPath ./my-dictionaries-dir/
 ```

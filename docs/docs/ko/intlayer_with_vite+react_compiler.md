@@ -361,12 +361,36 @@ const LocaleSwitcher: FC = () => {
 
 Intlayer는 누락된 번역을 채울 수 있도록 돕는 CLI 도구를 제공합니다. `intlayer` 명령어를 사용하여 코드에서 누락된 번역을 테스트하고 채울 수 있습니다.
 
-```bash
+```bash packageManager="npm"
 npx intlayer test         # 누락된 번역이 있는지 테스트
 ```
 
-```bash
+```bash packageManager="yarn"
+yarn intlayer test         # 누락된 번역이 있는지 테스트
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer test         # 누락된 번역이 있는지 테스트
+```
+
+```bash packageManager="bun"
+bun x intlayer test         # 누락된 번역이 있는지 테스트
+```
+
+```bash packageManager="npm"
 npx intlayer fill         # 누락된 번역 채우기
+```
+
+```bash packageManager="yarn"
+yarn intlayer fill         # 누락된 번역 채우기
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill         # 누락된 번역 채우기
+```
+
+```bash packageManager="bun"
+bun x intlayer fill         # 누락된 번역 채우기
 ```
 
 > 자세한 내용은 [CLI 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/ci.md)를 참조하세요.

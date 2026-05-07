@@ -29,8 +29,20 @@ slugs:
 - 기존 번역을 덮어쓰지 않아 기존 번역을 보존합니다.
 - 큐 시스템을 사용하여 파일, 청크 및 로케일을 병렬로 처리하여 속도를 높입니다.
 
-```bash
+```bash packageManager="npm"
 npx intlayer doc translate
+```
+
+```bash packageManager="yarn"
+yarn intlayer doc translate
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer doc translate
+```
+
+```bash packageManager="bun"
+bun x intlayer doc translate
 ```
 
 ## 인수:

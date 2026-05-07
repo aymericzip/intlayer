@@ -355,12 +355,36 @@ export default async function Page() {
 
 Intlayer offre uno strumento CLI per completare le traduzioni mancanti. Usa il comando `intlayer` per testare e riempire le lacune nel codice.
 
-```bash
+```bash packageManager="npm"
 npx intlayer test         # Verifica traduzioni mancanti
 ```
 
-```bash
+```bash packageManager="yarn"
+yarn intlayer test         # Verifica traduzioni mancanti
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer test         # Verifica traduzioni mancanti
+```
+
+```bash packageManager="bun"
+bun x intlayer test         # Verifica traduzioni mancanti
+```
+
+```bash packageManager="npm"
 npx intlayer fill         # Completa traduzioni mancanti
+```
+
+```bash packageManager="yarn"
+yarn intlayer fill         # Completa traduzioni mancanti
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill         # Completa traduzioni mancanti
+```
+
+```bash packageManager="bun"
+bun x intlayer fill         # Completa traduzioni mancanti
 ```
 
 > Per maggiori dettagli, fare riferimento alla [documentazione CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/cli/ci.md)

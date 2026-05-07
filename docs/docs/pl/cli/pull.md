@@ -19,8 +19,20 @@ slugs:
 
 # Pobieranie zdalnych słowników
 
-```bash
+```bash packageManager="npm"
 npx intlayer pull
+```
+
+```bash packageManager="yarn"
+yarn intlayer pull
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer pull
+```
+
+```bash packageManager="bun"
+bun x intlayer pull
 ```
 
 Jeśli [edytor intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_visual_editor.md) jest zainstalowany, możesz również pobierać słowniki z edytora. W ten sposób możesz nadpisać zawartość swoich słowników zgodnie z potrzebami Twojej aplikacji.
@@ -73,6 +85,18 @@ Jeśli [edytor intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/d
 
 ## Przykład:
 
-```bash
+```bash packageManager="npm"
 npx intlayer dictionary pull --newDictionariesPath ./my-dictionaries-dir/
+```
+
+```bash packageManager="yarn"
+yarn intlayer dictionary pull --newDictionariesPath ./my-dictionaries-dir/
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer dictionary pull --newDictionariesPath ./my-dictionaries-dir/
+```
+
+```bash packageManager="bun"
+bun x intlayer dictionary pull --newDictionariesPath ./my-dictionaries-dir/
 ```

@@ -23,14 +23,38 @@ history:
 
 अपने शब्दकोश बनाने के लिए, आप निम्नलिखित कमांड चला सकते हैं:
 
-```bash
+```bash packageManager="npm"
 npx intlayer build
+```
+
+```bash packageManager="yarn"
+yarn intlayer build
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer build
+```
+
+```bash packageManager="bun"
+bun x intlayer build
 ```
 
 या वॉच मोड में
 
-```bash
+```bash packageManager="npm"
 npx intlayer build --watch
+```
+
+```bash packageManager="yarn"
+yarn intlayer build --watch
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer build --watch
+```
+
+```bash packageManager="bun"
+bun x intlayer build --watch
 ```
 
 यह कमांड डिफ़ॉल्ट रूप से आपकी घोषणा कंटेंट फ़ाइलों को `./src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx}` के रूप में खोजेगा। और `.intlayer` डायरेक्टरी में शब्दकोश बनाएगा।

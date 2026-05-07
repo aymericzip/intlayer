@@ -29,8 +29,20 @@ history:
 
 ## استعمال
 
-```bash
+```bash packageManager="npm"
 npx intlayer standalone --packages [پیکیجز...] [اختیارات]
+```
+
+```bash packageManager="yarn"
+yarn intlayer standalone --packages [پیکیجز...] [اختیارات]
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer standalone --packages [پیکیجز...] [اختیارات]
+```
+
+```bash packageManager="bun"
+bun x intlayer standalone --packages [پیکیجز...] [اختیارات]
 ```
 
 ## اختیارات
@@ -54,22 +66,58 @@ npx intlayer standalone --packages [پیکیجز...] [اختیارات]
 
 ### Vanilla JS کے لیے بنڈل بنانا:
 
-```bash
+```bash packageManager="npm"
 npx intlayer standalone --packages intlayer vanilla-intlayer --outfile intlayer.js
+```
+
+```bash packageManager="yarn"
+yarn intlayer standalone --packages intlayer vanilla-intlayer --outfile intlayer.js
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer standalone --packages intlayer vanilla-intlayer --outfile intlayer.js
+```
+
+```bash packageManager="bun"
+bun x intlayer standalone --packages intlayer vanilla-intlayer --outfile intlayer.js
 ```
 
 یہ ایک `intlayer.js` فائل بنائے گا جس میں `intlayer` اور `vanilla-intlayer` دونوں پیکیجز شامل ہوں گے، جو چھوٹے کیے گئے ہوں گے اور ESM فارمیٹ میں ہوں گے، اور ایک `<script>` ٹیگ کے ذریعے براؤزر میں استعمال کے لیے تیار ہوں گے۔
 
 ### مخصوص ورژن کا بنڈل بنانا:
 
-```bash
+```bash packageManager="npm"
 npx intlayer standalone --packages intlayer --version 8.6.4
+```
+
+```bash packageManager="yarn"
+yarn intlayer standalone --packages intlayer --version 8.6.4
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer standalone --packages intlayer --version 8.6.4
+```
+
+```bash packageManager="bun"
+bun x intlayer standalone --packages intlayer --version 8.6.4
 ```
 
 ### دوسرے فارمیٹ میں بنڈل بنانا:
 
-```bash
+```bash packageManager="npm"
 npx intlayer standalone --packages intlayer --format iife
+```
+
+```bash packageManager="yarn"
+yarn intlayer standalone --packages intlayer --format iife
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer standalone --packages intlayer --format iife
+```
+
+```bash packageManager="bun"
+bun x intlayer standalone --packages intlayer --format iife
 ```
 
 ## یہ کیا کرتا ہے:

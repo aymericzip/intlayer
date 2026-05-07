@@ -19,8 +19,20 @@ slugs:
 
 # Отримання віддалених словників
 
-```bash
+```bash packageManager="npm"
 npx intlayer pull
+```
+
+```bash packageManager="yarn"
+yarn intlayer pull
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer pull
+```
+
+```bash packageManager="bun"
+bun x intlayer pull
 ```
 
 Якщо встановлено [редактор Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md), ви також можете витягувати словники з редактора. Таким чином ви можете перезаписати вміст ваших словників відповідно до потреб вашого застосунку.
@@ -73,6 +85,18 @@ npx intlayer pull
 
 ## Приклад:
 
-```bash
+```bash packageManager="npm"
 npx intlayer dictionary pull --newDictionariesPath ./my-dictionaries-dir/
+```
+
+```bash packageManager="yarn"
+yarn intlayer dictionary pull --newDictionariesPath ./my-dictionaries-dir/
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer dictionary pull --newDictionariesPath ./my-dictionaries-dir/
+```
+
+```bash packageManager="bun"
+bun x intlayer dictionary pull --newDictionariesPath ./my-dictionaries-dir/
 ```

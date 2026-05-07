@@ -24,8 +24,20 @@ history:
 
 # CI 명령어
 
-```bash
+```bash packageManager="npm"
 npx intlayer ci <command...>
+```
+
+```bash packageManager="yarn"
+yarn intlayer ci <command...>
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer ci <command...>
+```
+
+```bash packageManager="bun"
+bun x intlayer ci <command...>
 ```
 
 CI 명령어는 자동화 및 CI/CD 파이프라인을 위해 설계되었습니다. `INTLAYER_PROJECT_CREDENTIALS` 환경 변수에서 자격 증명을 자동으로 주입하고 모노레포의 여러 프로젝트에서 Intlayer 명령어를 실행할 수 있습니다.
@@ -97,8 +109,20 @@ npx intlayer ci push
 
 기본 Intlayer 명령어에 모든 플래그를 전달할 수 있습니다:
 
-```bash
+```bash packageManager="npm"
 npx intlayer ci fill --verbose --mode complete
+```
+
+```bash packageManager="yarn"
+yarn intlayer ci fill --verbose --mode complete
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer ci fill --verbose --mode complete
+```
+
+```bash packageManager="bun"
+bun x intlayer ci fill --verbose --mode complete
 ```
 
 ### CI/CD 파이프라인에서 사용

@@ -18,8 +18,20 @@ slugs:
 
 # Extraer cadenas
 
-```bash
+```bash packageManager="npm"
 npx intlayer extract
+```
+
+```bash packageManager="yarn"
+yarn intlayer extract
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer extract
+```
+
+```bash packageManager="bun"
+bun x intlayer extract
 ```
 
 Este comando analiza tus archivos de código para extraer cadenas de los componentes a un archivo .content ubicado junto al componente. Admite selección interactiva de archivos o la especificación de archivos concretos.

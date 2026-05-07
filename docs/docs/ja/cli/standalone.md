@@ -29,8 +29,20 @@ history:
 
 ## 使用法
 
-```bash
+```bash packageManager="npm"
 npx intlayer standalone --packages [パッケージ名...] [オプション]
+```
+
+```bash packageManager="yarn"
+yarn intlayer standalone --packages [パッケージ名...] [オプション]
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer standalone --packages [パッケージ名...] [オプション]
+```
+
+```bash packageManager="bun"
+bun x intlayer standalone --packages [パッケージ名...] [オプション]
 ```
 
 ## オプション
@@ -54,22 +66,58 @@ npx intlayer standalone --packages [パッケージ名...] [オプション]
 
 ### Vanilla JS 用のバンドルを作成する：
 
-```bash
+```bash packageManager="npm"
 npx intlayer standalone --packages intlayer vanilla-intlayer --outfile intlayer.js
+```
+
+```bash packageManager="yarn"
+yarn intlayer standalone --packages intlayer vanilla-intlayer --outfile intlayer.js
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer standalone --packages intlayer vanilla-intlayer --outfile intlayer.js
+```
+
+```bash packageManager="bun"
+bun x intlayer standalone --packages intlayer vanilla-intlayer --outfile intlayer.js
 ```
 
 これにより、`intlayer` パッケージと `vanilla-intlayer` パッケージの両方を含む、最小化されたESM形式の `intlayer.js` ファイルが作成され、`<script>` タグを介してブラウザで使用できるようになります。
 
 ### 特定のバージョンをバンドルする：
 
-```bash
+```bash packageManager="npm"
 npx intlayer standalone --packages intlayer --version 8.6.4
+```
+
+```bash packageManager="yarn"
+yarn intlayer standalone --packages intlayer --version 8.6.4
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer standalone --packages intlayer --version 8.6.4
+```
+
+```bash packageManager="bun"
+bun x intlayer standalone --packages intlayer --version 8.6.4
 ```
 
 ### 別の形式でバンドルする：
 
-```bash
+```bash packageManager="npm"
 npx intlayer standalone --packages intlayer --format iife
+```
+
+```bash packageManager="yarn"
+yarn intlayer standalone --packages intlayer --format iife
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer standalone --packages intlayer --format iife
+```
+
+```bash packageManager="bun"
+bun x intlayer standalone --packages intlayer --format iife
 ```
 
 ## 動作の仕組み：

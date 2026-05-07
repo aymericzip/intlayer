@@ -20,8 +20,20 @@ slugs:
 
 # Remplir / auditer / traduire les dictionnaires
 
-```bash
+```bash packageManager="npm"
 npx intlayer fill
+```
+
+```bash packageManager="yarn"
+yarn intlayer fill
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill
+```
+
+```bash packageManager="bun"
+bun x intlayer fill
 ```
 
 Cette commande analyse vos fichiers de déclaration de contenu pour détecter d’éventuels problèmes tels que des traductions manquantes, des incohérences structurelles ou des incompatibilités de types. Si elle trouve des problèmes, **intlayer fill** proposera ou appliquera des mises à jour pour garder vos dictionnaires cohérents et complets.
@@ -161,8 +173,20 @@ Affected dictionary keys for processing: app, comp-test, hello-world, lang-switc
 
 ## Exemple :
 
-```bash
+```bash packageManager="npm"
 npx intlayer fill --file src/home/*.content.ts --source-locale en --output-locales fr es --model gpt-3.5-turbo
+```
+
+```bash packageManager="yarn"
+yarn intlayer fill --file src/home/*.content.ts --source-locale en --output-locales fr es --model gpt-3.5-turbo
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill --file src/home/*.content.ts --source-locale en --output-locales fr es --model gpt-3.5-turbo
+```
+
+```bash packageManager="bun"
+bun x intlayer fill --file src/home/*.content.ts --source-locale en --output-locales fr es --model gpt-3.5-turbo
 ```
 
 Cette commande traduira le contenu de l’anglais vers le français et l’espagnol pour tous les fichiers de déclaration de contenu dans le répertoire `src/home/` en utilisant le modèle GPT-3.5 Turbo.

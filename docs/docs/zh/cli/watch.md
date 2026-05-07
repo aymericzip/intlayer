@@ -17,8 +17,20 @@ slugs:
 
 # 监视字典
 
-```bash
+```bash packageManager="npm"
 npx intlayer watch
+```
+
+```bash packageManager="yarn"
+yarn intlayer watch
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer watch
+```
+
+```bash packageManager="bun"
+bun x intlayer watch
 ```
 
 此命令将监视内容声明文件的更改，并在 `.intlayer` 目录中构建字典。

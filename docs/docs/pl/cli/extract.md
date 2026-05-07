@@ -18,8 +18,20 @@ slugs:
 
 # Wyodrębnianie stringów
 
-```bash
+```bash packageManager="npm"
 npx intlayer extract
+```
+
+```bash packageManager="yarn"
+yarn intlayer extract
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer extract
+```
+
+```bash packageManager="bun"
+bun x intlayer extract
 ```
 
 Ten polecenie analizuje pliki z kodem, aby wyodrębnić stringi z komponentów do pliku .content umieszczonego blisko komponentu. Obsługuje interaktywny wybór plików lub wskazanie konkretnych plików do przetworzenia.

@@ -27,8 +27,20 @@ O comando `login` do Intlayer CLI permite que você se autentique no Intlayer CM
 
 ## Uso
 
-```bash
+```bash packageManager="npm"
 npx intlayer login [options]
+```
+
+```bash packageManager="yarn"
+yarn intlayer login [options]
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer login [options]
+```
+
+```bash packageManager="bun"
+bun x intlayer login [options]
 ```
 
 ou
@@ -47,8 +59,20 @@ Especifica a URL do Intlayer CMS para se conectar para autenticação.
 - **Padrão**: O valor configurado em `intlayer.config.*` ou `https://intlayer.org`
 - **Exemplo**:
 
-```bash
+```bash packageManager="npm"
 npx intlayer login --cms-url https://intlayer.org
+```
+
+```bash packageManager="yarn"
+yarn intlayer login --cms-url https://intlayer.org
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer login --cms-url https://intlayer.org
+```
+
+```bash packageManager="bun"
+bun x intlayer login --cms-url https://intlayer.org
 ```
 
 ### Opções de Configuração
@@ -71,8 +95,20 @@ Especifique a URL do Intlayer CMS para se conectar durante a autenticação.
 - **Padrão**: O valor configurado em `intlayer.config.*` ou `https://intlayer.org`
 - **Exemplo**:
 
-```bash
+```bash packageManager="npm"
 npx intlayer login --cms-url https://intlayer.org
+```
+
+```bash packageManager="yarn"
+yarn intlayer login --cms-url https://intlayer.org
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer login --cms-url https://intlayer.org
+```
+
+```bash packageManager="bun"
+bun x intlayer login --cms-url https://intlayer.org
 ```
 
 ### Opções de Configuração
@@ -129,20 +165,56 @@ Se o navegador não abrir automaticamente, você pode visitar manualmente a URL 
 
 ### Login com URL do CMS personalizado
 
-```bash
+```bash packageManager="npm"
 npx intlayer login --cms-url https://custom-cms.example.com
+```
+
+```bash packageManager="yarn"
+yarn intlayer login --cms-url https://custom-cms.example.com
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer login --cms-url https://custom-cms.example.com
+```
+
+```bash packageManager="bun"
+bun x intlayer login --cms-url https://custom-cms.example.com
 ```
 
 ### Login com Arquivo de Ambiente Específico
 
-```bash
+```bash packageManager="npm"
 npx intlayer login --env-file .env.production
+```
+
+```bash packageManager="yarn"
+yarn intlayer login --env-file .env.production
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer login --env-file .env.production
+```
+
+```bash packageManager="bun"
+bun x intlayer login --env-file .env.production
 ```
 
 ### Login em Modo Verbose
 
-```bash
+```bash packageManager="npm"
 npx intlayer login --verbose
+```
+
+```bash packageManager="yarn"
+yarn intlayer login --verbose
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer login --verbose
+```
+
+```bash packageManager="bun"
+bun x intlayer login --verbose
 ```
 
 ## Solução de Problemas

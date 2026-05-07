@@ -20,8 +20,20 @@ slugs:
 
 # Điền / kiểm tra / dịch từ điển
 
-```bash
+```bash packageManager="npm"
 npx intlayer fill
+```
+
+```bash packageManager="yarn"
+yarn intlayer fill
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill
+```
+
+```bash packageManager="bun"
+bun x intlayer fill
 ```
 
 Lệnh này phân tích các tệp khai báo nội dung của bạn để tìm các vấn đề tiềm ẩn như thiếu bản dịch, không nhất quán về cấu trúc hoặc không khớp kiểu dữ liệu. Nếu phát hiện bất kỳ vấn đề nào, **intlayer fill** sẽ đề xuất hoặc áp dụng các cập nhật để giữ cho từ điển của bạn nhất quán và đầy đủ.
@@ -160,8 +172,20 @@ Affected dictionary keys for processing: app, comp-test, hello-world, lang-switc
 
 ## Ví dụ:
 
-```bash
+```bash packageManager="npm"
 npx intlayer fill --file src/home/*.content.ts --source-locale en --output-locales fr es --model gpt-3.5-turbo
+```
+
+```bash packageManager="yarn"
+yarn intlayer fill --file src/home/*.content.ts --source-locale en --output-locales fr es --model gpt-3.5-turbo
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill --file src/home/*.content.ts --source-locale en --output-locales fr es --model gpt-3.5-turbo
+```
+
+```bash packageManager="bun"
+bun x intlayer fill --file src/home/*.content.ts --source-locale en --output-locales fr es --model gpt-3.5-turbo
 ```
 
 Lệnh này sẽ dịch nội dung từ tiếng Anh sang tiếng Pháp và tiếng Tây Ban Nha cho tất cả các file khai báo nội dung trong thư mục `src/home/` sử dụng mô hình GPT-3.5 Turbo.

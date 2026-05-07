@@ -29,8 +29,20 @@ history:
 
 ## 사용법
 
-```bash
+```bash packageManager="npm"
 npx intlayer standalone --packages [패키지...] [옵션]
+```
+
+```bash packageManager="yarn"
+yarn intlayer standalone --packages [패키지...] [옵션]
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer standalone --packages [패키지...] [옵션]
+```
+
+```bash packageManager="bun"
+bun x intlayer standalone --packages [패키지...] [옵션]
 ```
 
 ## 옵션
@@ -54,22 +66,58 @@ npx intlayer standalone --packages [패키지...] [옵션]
 
 ### Vanilla JS용 번들 생성:
 
-```bash
+```bash packageManager="npm"
 npx intlayer standalone --packages intlayer vanilla-intlayer --outfile intlayer.js
+```
+
+```bash packageManager="yarn"
+yarn intlayer standalone --packages intlayer vanilla-intlayer --outfile intlayer.js
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer standalone --packages intlayer vanilla-intlayer --outfile intlayer.js
+```
+
+```bash packageManager="bun"
+bun x intlayer standalone --packages intlayer vanilla-intlayer --outfile intlayer.js
 ```
 
 이렇게 하면 `intlayer`와 `vanilla-intlayer` 패키지가 모두 포함된 `intlayer.js` 파일이 생성되며, 압축된 ESM 형식으로 브라우저에서 `<script>` 태그를 통해 사용할 준비가 됩니다.
 
 ### 특정 버전 번들링:
 
-```bash
+```bash packageManager="npm"
 npx intlayer standalone --packages intlayer --version 8.6.4
+```
+
+```bash packageManager="yarn"
+yarn intlayer standalone --packages intlayer --version 8.6.4
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer standalone --packages intlayer --version 8.6.4
+```
+
+```bash packageManager="bun"
+bun x intlayer standalone --packages intlayer --version 8.6.4
 ```
 
 ### 다른 형식으로 번들링:
 
-```bash
+```bash packageManager="npm"
 npx intlayer standalone --packages intlayer --format iife
+```
+
+```bash packageManager="yarn"
+yarn intlayer standalone --packages intlayer --format iife
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer standalone --packages intlayer --format iife
+```
+
+```bash packageManager="bun"
+bun x intlayer standalone --packages intlayer --format iife
 ```
 
 ## 작동 원리:

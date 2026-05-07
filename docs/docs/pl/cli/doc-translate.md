@@ -29,8 +29,20 @@ Polecenie `doc translate` automatycznie tłumaczy pliki dokumentacji z bazowego 
 - Zachowuje istniejące tłumaczenia, nie nadpisując ich.
 - Przetwarza pliki, fragmenty i lokalizacje równolegle przy użyciu systemu kolejkowego, aby zwiększyć prędkość.
 
-```bash
+```bash packageManager="npm"
 npx intlayer doc translate
+```
+
+```bash packageManager="yarn"
+yarn intlayer doc translate
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer doc translate
+```
+
+```bash packageManager="bun"
+bun x intlayer doc translate
 ```
 
 ## Argumenty:

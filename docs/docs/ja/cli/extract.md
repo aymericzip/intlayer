@@ -18,8 +18,20 @@ slugs:
 
 # 文字列の抽出
 
-```bash
+```bash packageManager="npm"
 npx intlayer extract
+```
+
+```bash packageManager="yarn"
+yarn intlayer extract
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer extract
+```
+
+```bash packageManager="bun"
+bun x intlayer extract
 ```
 
 このコマンドはコードファイルを解析し、コンポーネントから文字列を抽出してコンポーネント近くの .content ファイルに保存します。対話式のファイル選択または特定ファイルの指定をサポートします。

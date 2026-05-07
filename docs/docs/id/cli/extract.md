@@ -18,8 +18,20 @@ slugs:
 
 # Ekstrak string
 
-```bash
+```bash packageManager="npm"
 npx intlayer extract
+```
+
+```bash packageManager="yarn"
+yarn intlayer extract
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer extract
+```
+
+```bash packageManager="bun"
+bun x intlayer extract
 ```
 
 Perintah ini menganalisis berkas kode Anda untuk mengekstrak string dari komponen ke file .content yang berada dekat dengan komponen. Perintah ini mendukung pemilihan berkas secara interaktif atau penargetan berkas tertentu.

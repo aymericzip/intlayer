@@ -24,8 +24,20 @@ history:
 
 # Lister les fichiers de déclaration de contenu
 
-```bash
+```bash packageManager="npm"
 npx intlayer content list
+```
+
+```bash packageManager="yarn"
+yarn intlayer content list
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content list
+```
+
+```bash packageManager="bun"
+bun x intlayer content list
 ```
 
 ## Alias :
@@ -44,20 +56,56 @@ Cette commande affiche tous les fichiers de déclaration de contenu dans votre p
 
 ### Lister les fichiers de déclaration de contenu :
 
-```bash
+```bash packageManager="npm"
 npx intlayer content list
+```
+
+```bash packageManager="yarn"
+yarn intlayer content list
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content list
+```
+
+```bash packageManager="bun"
+bun x intlayer content list
 ```
 
 ### Sortie au format JSON :
 
-```bash
+```bash packageManager="npm"
 npx intlayer content list --json
+```
+
+```bash packageManager="yarn"
+yarn intlayer content list --json
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content list --json
+```
+
+```bash packageManager="bun"
+bun x intlayer content list --json
 ```
 
 ### Sortie en tant que chemins absolus :
 
-```bash
+```bash packageManager="npm"
 npx intlayer content list --absolute
+```
+
+```bash packageManager="yarn"
+yarn intlayer content list --absolute
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content list --absolute
+```
+
+```bash packageManager="bun"
+bun x intlayer content list --absolute
 ```
 
 ## Exemple de sortie :

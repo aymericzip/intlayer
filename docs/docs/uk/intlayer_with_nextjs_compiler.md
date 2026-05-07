@@ -355,12 +355,36 @@ export default async function Page() {
 
 Intlayer надає CLI-інструмент, щоб допомогти вам заповнити відсутні переклади. Ви можете використовувати команду `intlayer` для перевірки та заповнення відсутніх перекладів із вашого коду.
 
-```bash
+```bash packageManager="npm"
 npx intlayer test         # Перевірити наявність відсутніх перекладів
 ```
 
-```bash
+```bash packageManager="yarn"
+yarn intlayer test         # Перевірити наявність відсутніх перекладів
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer test         # Перевірити наявність відсутніх перекладів
+```
+
+```bash packageManager="bun"
+bun x intlayer test         # Перевірити наявність відсутніх перекладів
+```
+
+```bash packageManager="npm"
 npx intlayer fill         # Заповнити відсутні переклади
+```
+
+```bash packageManager="yarn"
+yarn intlayer fill         # Заповнити відсутні переклади
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill         # Заповнити відсутні переклади
+```
+
+```bash packageManager="bun"
+bun x intlayer fill         # Заповнити відсутні переклади
 ```
 
 > Для отримання більш детальної інформації зверніться до [документації CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/ci.md)

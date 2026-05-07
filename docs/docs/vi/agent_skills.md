@@ -26,8 +26,20 @@ history:
 
 Lệnh `intlayer init skills` là cách dễ nhất để thiết lập kỹ năng agent trong dự án của bạn. Nó phát hiện môi trường và cài đặt các tập tin cấu hình cần thiết cho các nền tảng bạn ưu tiên.
 
-```bash
+```bash packageManager="npm"
 npx intlayer init skills
+```
+
+```bash packageManager="yarn"
+yarn intlayer init skills
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer init skills
+```
+
+```bash packageManager="bun"
+bun x intlayer init skills
 ```
 
 ### Sử dụng SDK Vercel Skill

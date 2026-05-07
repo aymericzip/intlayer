@@ -27,8 +27,20 @@ slugs:
 
 ## Використання
 
-```bash
+```bash packageManager="npm"
 npx intlayer login [options]
+```
+
+```bash packageManager="yarn"
+yarn intlayer login [options]
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer login [options]
+```
+
+```bash packageManager="bun"
+bun x intlayer login [options]
 ```
 
 або
@@ -47,8 +59,20 @@ intlayer login [options]
 - **За замовчуванням**: Значення, вказане в `intlayer.config.*` або `https://intlayer.org`
 - **Приклад**:
 
-```bash
+```bash packageManager="npm"
 npx intlayer login --cms-url https://intlayer.org
+```
+
+```bash packageManager="yarn"
+yarn intlayer login --cms-url https://intlayer.org
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer login --cms-url https://intlayer.org
+```
+
+```bash packageManager="bun"
+bun x intlayer login --cms-url https://intlayer.org
 ```
 
 ### Параметри конфігурації
@@ -101,20 +125,56 @@ INTLAYER_CLIENT_SECRET=your_client_secret
 
 ### Вхід із власною URL-адресою CMS
 
-```bash
+```bash packageManager="npm"
 npx intlayer login --cms-url https://custom-cms.example.com
+```
+
+```bash packageManager="yarn"
+yarn intlayer login --cms-url https://custom-cms.example.com
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer login --cms-url https://custom-cms.example.com
+```
+
+```bash packageManager="bun"
+bun x intlayer login --cms-url https://custom-cms.example.com
 ```
 
 ### Вхід із конкретним файлом середовища
 
-```bash
+```bash packageManager="npm"
 npx intlayer login --env-file .env.production
+```
+
+```bash packageManager="yarn"
+yarn intlayer login --env-file .env.production
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer login --env-file .env.production
+```
+
+```bash packageManager="bun"
+bun x intlayer login --env-file .env.production
 ```
 
 ### Вхід у verbose-режимі
 
-```bash
+```bash packageManager="npm"
 npx intlayer login --verbose
+```
+
+```bash packageManager="yarn"
+yarn intlayer login --verbose
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer login --verbose
+```
+
+```bash packageManager="bun"
+bun x intlayer login --verbose
 ```
 
 ## Усунення несправностей

@@ -25,8 +25,20 @@ Gói `intlayer-cli` cung cấp một tập các lệnh để quản lý từ đi
 
 ## Cài đặt
 
-```bash
+```bash packageManager="npm"
 npm install intlayer-cli
+```
+
+```bash packageManager="yarn"
+yarn add intlayer-cli
+```
+
+```bash packageManager="pnpm"
+pnpm add intlayer-cli
+```
+
+```bash packageManager="bun"
+bun add intlayer-cli
 ```
 
 ## Các export

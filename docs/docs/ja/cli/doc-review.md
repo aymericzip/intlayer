@@ -27,8 +27,20 @@ slugs:
 - レビューするチャンクを最適化し、すでに翻訳され、変更されていない部分をスキップします。
 - キューシステムを使用してファイル、チャンク、ロケールを並列処理し、速度を向上させます。
 
-```bash
+```bash packageManager="npm"
 npx intlayer doc review
+```
+
+```bash packageManager="yarn"
+yarn intlayer doc review
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer doc review
+```
+
+```bash packageManager="bun"
+bun x intlayer doc review
 ```
 
 これは、すでに翻訳されたファイルをレビューし、翻訳が正しいかどうかを確認するために使用できます。

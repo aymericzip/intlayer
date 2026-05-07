@@ -99,8 +99,20 @@ Berikut adalah [file deklarasi konten per-locale](https://github.com/aymericzip/
 
 Kemudian, ketika Anda menjalankan perintah berikut:
 
-```bash
+```bash packageManager="npm"
 npx intlayer fill --file 'src/components/example/example.content.ts'
+```
+
+```bash packageManager="yarn"
+yarn intlayer fill --file 'src/components/example/example.content.ts'
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill --file 'src/components/example/example.content.ts'
+```
+
+```bash packageManager="bun"
+bun x intlayer fill --file 'src/components/example/example.content.ts'
 ```
 
 Intlayer akan secara otomatis menghasilkan file deklarasi turunan di `src/components/example/example.content.json`, mengisi semua locale yang belum dideklarasikan di file utama.

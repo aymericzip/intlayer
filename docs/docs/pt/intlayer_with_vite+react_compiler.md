@@ -372,12 +372,36 @@ const LocaleSwitcher: FC = () => {
 
 Intlayer fornece uma ferramenta CLI para ajudá-lo a preencher as traduções ausentes. Você pode usar o comando `intlayer` para testar e preencher as traduções ausentes do seu código.
 
-```bash
+```bash packageManager="npm"
 npx intlayer test         # Testa se há traduções ausentes
 ```
 
-```bash
+```bash packageManager="yarn"
+yarn intlayer test         # Testa se há traduções ausentes
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer test         # Testa se há traduções ausentes
+```
+
+```bash packageManager="bun"
+bun x intlayer test         # Testa se há traduções ausentes
+```
+
+```bash packageManager="npm"
 npx intlayer fill         # Preencher traduções ausentes
+```
+
+```bash packageManager="yarn"
+yarn intlayer fill         # Preencher traduções ausentes
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill         # Preencher traduções ausentes
+```
+
+```bash packageManager="bun"
+bun x intlayer fill         # Preencher traduções ausentes
 ```
 
 > Para mais detalhes, consulte a [documentação da CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/ci.md)

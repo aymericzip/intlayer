@@ -297,20 +297,56 @@ export default config;
 
 Intlayer 提供了一个 CLI 工具来帮助您填充缺失的翻译。您可以使用 `intlayer` 命令来测试并从代码中填充缺失的翻译。
 
-```bash
+```bash packageManager="npm"
 npx intlayer test         # 测试是否存在缺失的翻译
 ```
 
-```bash
+```bash packageManager="yarn"
+yarn intlayer test         # 测试是否存在缺失的翻译
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer test         # 测试是否存在缺失的翻译
+```
+
+```bash packageManager="bun"
+bun x intlayer test         # 测试是否存在缺失的翻译
+```
+
+```bash packageManager="npm"
 npx intlayer fill         # 填充缺失的翻译
+```
+
+```bash packageManager="yarn"
+yarn intlayer fill         # 填充缺失的翻译
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill         # 填充缺失的翻译
+```
+
+```bash packageManager="bun"
+bun x intlayer fill         # 填充缺失的翻译
 ```
 
 ### 提取
 
 Intlayer 提供了一个 CLI 工具来从您的代码中提取内容。您可以使用 `intlayer extract` 命令从代码中提取内容。
 
-```bash
+```bash packageManager="npm"
 npx intlayer extract
+```
+
+```bash packageManager="yarn"
+yarn intlayer extract
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer extract
+```
+
+```bash packageManager="bun"
+bun x intlayer extract
 ```
 
 > 有关更多详细信息，请参阅 [CLI 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)

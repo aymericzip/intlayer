@@ -19,8 +19,20 @@ slugs:
 
 # Sözlükleri Gönder
 
-```bash
+```bash packageManager="npm"
 npx intlayer dictionary push
+```
+
+```bash packageManager="yarn"
+yarn intlayer dictionary push
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer dictionary push
+```
+
+```bash packageManager="bun"
+bun x intlayer dictionary push
 ```
 
 Eğer [intlayer editörü](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md) yüklüyse, sözlükleri editöre de gönderebilirsiniz. Bu komut, sözlüklerin [editörde](https://app.intlayer.org/) kullanılabilir olmasını sağlar. Bu sayede, sözlüklerinizi ekibinizle paylaşabilir ve uygulamanızın kodunu düzenlemeden içeriğinizi düzenleyebilirsiniz.

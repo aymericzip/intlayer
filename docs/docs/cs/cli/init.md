@@ -24,8 +24,20 @@ history:
 
 # Inicializace Intlayeru
 
-```bash
+```bash packageManager="npm"
 npx intlayer init
+```
+
+```bash packageManager="yarn"
+yarn intlayer init
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer init
+```
+
+```bash packageManager="bun"
+bun x intlayer init
 ```
 
 Příkaz `init` automaticky nakonfiguruje Intlayer ve vašem projektu vytvořením potřebných souborů a nastavení. Toto je doporučený způsob, jak začít s Intlayerem.
@@ -54,24 +66,60 @@ Příkaz `init` provádí následující úlohy nastavení:
 
 ### Základní inicializace:
 
-```bash
+```bash packageManager="npm"
 npx intlayer init
+```
+
+```bash packageManager="yarn"
+yarn intlayer init
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer init
+```
+
+```bash packageManager="bun"
+bun x intlayer init
 ```
 
 Tím se inicializuje Intlayer v aktuálním adresáři s automatickou detekcí kořene projektu.
 
 ### Inicializace s vlastním kořenem projektu:
 
-```bash
+```bash packageManager="npm"
 npx intlayer init --project-root ./muj-projekt
+```
+
+```bash packageManager="yarn"
+yarn intlayer init --project-root ./muj-projekt
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer init --project-root ./muj-projekt
+```
+
+```bash packageManager="bun"
+bun x intlayer init --project-root ./muj-projekt
 ```
 
 Tím se inicializuje Intlayer v zadaném adresáři.
 
 ### Inicializace bez aktualizace .gitignore:
 
-```bash
+```bash packageManager="npm"
 npx intlayer init --no-gitignore
+```
+
+```bash packageManager="yarn"
+yarn intlayer init --no-gitignore
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer init --no-gitignore
+```
+
+```bash packageManager="bun"
+bun x intlayer init --no-gitignore
 ```
 
 Tím se nastaví všechny konfigurační soubory, ale neupraví se váš soubor `.gitignore`.

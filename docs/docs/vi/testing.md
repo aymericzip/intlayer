@@ -40,8 +40,20 @@ Hướng dẫn này trình bày cách tự động xác minh từ điển của 
 
 Chạy kiểm tra từ thư mục gốc dự án của bạn:
 
-```bash
+```bash packageManager="npm"
 npx intlayer content test
+```
+
+```bash packageManager="yarn"
+yarn intlayer content test
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content test
+```
+
+```bash packageManager="bun"
+bun x intlayer content test
 ```
 
 Các cờ hữu ích:
@@ -187,8 +199,20 @@ jobs:
 
 Tùy chọn: chạy kiểm tra CLI để có bản tóm tắt dễ đọc bên cạnh các bài kiểm tra:
 
-```bash
+```bash packageManager="npm"
 npx intlayer content test --verbose
+```
+
+```bash packageManager="yarn"
+yarn intlayer content test --verbose
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content test --verbose
+```
+
+```bash packageManager="bun"
+bun x intlayer content test --verbose
 ```
 
 ---

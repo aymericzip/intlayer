@@ -18,8 +18,20 @@ slugs:
 
 # 提取字符串
 
-```bash
+```bash packageManager="npm"
 npx intlayer extract
+```
+
+```bash packageManager="yarn"
+yarn intlayer extract
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer extract
+```
+
+```bash packageManager="bun"
+bun x intlayer extract
 ```
 
 此命令会分析你的代码文件，将组件中的字符串提取到靠近组件的 .content 文件中。它支持交互式文件选择或指定文件目标。

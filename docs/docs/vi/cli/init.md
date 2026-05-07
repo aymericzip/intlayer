@@ -24,8 +24,20 @@ history:
 
 # Khởi tạo Intlayer
 
-```bash
+```bash packageManager="npm"
 npx intlayer init
+```
+
+```bash packageManager="yarn"
+yarn intlayer init
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer init
+```
+
+```bash packageManager="bun"
+bun x intlayer init
 ```
 
 Lệnh `init` tự động định cấu hình Intlayer cho dự án của bạn bằng cách tạo các tệp và cài đặt cần thiết. Đây là cách bắt đầu được khuyến nghị với Intlayer.
@@ -54,24 +66,60 @@ Lệnh `init` thực hiện các tác vụ thiết lập sau:
 
 ### Khởi tạo cơ bản:
 
-```bash
+```bash packageManager="npm"
 npx intlayer init
+```
+
+```bash packageManager="yarn"
+yarn intlayer init
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer init
+```
+
+```bash packageManager="bun"
+bun x intlayer init
 ```
 
 Thao tác này khởi tạo Intlayer trong thư mục hiện tại, tự động phát hiện gốc dự án.
 
 ### Khởi tạo với gốc dự án tùy chỉnh:
 
-```bash
+```bash packageManager="npm"
 npx intlayer init --project-root ./du-an-cua-toi
+```
+
+```bash packageManager="yarn"
+yarn intlayer init --project-root ./du-an-cua-toi
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer init --project-root ./du-an-cua-toi
+```
+
+```bash packageManager="bun"
+bun x intlayer init --project-root ./du-an-cua-toi
 ```
 
 Thao tác này khởi tạo Intlayer trong thư mục được chỉ định.
 
 ### Khởi tạo không cập nhật .gitignore:
 
-```bash
+```bash packageManager="npm"
 npx intlayer init --no-gitignore
+```
+
+```bash packageManager="yarn"
+yarn intlayer init --no-gitignore
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer init --no-gitignore
+```
+
+```bash packageManager="bun"
+bun x intlayer init --no-gitignore
 ```
 
 Thao tác này sẽ thiết lập tất cả các tệp cấu hình nhưng sẽ không sửa đổi tệp `.gitignore` của bạn.

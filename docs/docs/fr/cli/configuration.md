@@ -22,8 +22,20 @@ slugs:
 
 La commande `configuration get` récupère la configuration actuelle pour Intlayer, en particulier les paramètres de locale. Ceci est utile pour vérifier votre configuration.
 
-```bash
+```bash packageManager="npm"
 npx intlayer configuration get
+```
+
+```bash packageManager="yarn"
+yarn intlayer configuration get
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer configuration get
+```
+
+```bash packageManager="bun"
+bun x intlayer configuration get
 ```
 
 ## Alias :
@@ -43,8 +55,20 @@ npx intlayer configuration get
 
 La commande `configuration push` télécharge votre configuration vers le CMS et l'éditeur Intlayer. Cette étape est nécessaire pour permettre l'utilisation des dictionnaires distants dans l'éditeur visuel Intlayer.
 
-```bash
+```bash packageManager="npm"
 npx intlayer configuration push
+```
+
+```bash packageManager="yarn"
+yarn intlayer configuration push
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer configuration push
+```
+
+```bash packageManager="bun"
+bun x intlayer configuration push
 ```
 
 ## Alias :

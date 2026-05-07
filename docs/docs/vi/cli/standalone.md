@@ -29,8 +29,20 @@ Bản đóng gói sử dụng [esbuild](https://esbuild.github.io/) để kết 
 
 ## Cách sử dụng
 
-```bash
+```bash packageManager="npm"
 npx intlayer standalone --packages [các gói...] [tùy chọn]
+```
+
+```bash packageManager="yarn"
+yarn intlayer standalone --packages [các gói...] [tùy chọn]
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer standalone --packages [các gói...] [tùy chọn]
+```
+
+```bash packageManager="bun"
+bun x intlayer standalone --packages [các gói...] [tùy chọn]
 ```
 
 ## Tùy chọn
@@ -54,22 +66,58 @@ npx intlayer standalone --packages [các gói...] [tùy chọn]
 
 ### Tạo bản đóng gói cho Vanilla JS:
 
-```bash
+```bash packageManager="npm"
 npx intlayer standalone --packages intlayer vanilla-intlayer --outfile intlayer.js
+```
+
+```bash packageManager="yarn"
+yarn intlayer standalone --packages intlayer vanilla-intlayer --outfile intlayer.js
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer standalone --packages intlayer vanilla-intlayer --outfile intlayer.js
+```
+
+```bash packageManager="bun"
+bun x intlayer standalone --packages intlayer vanilla-intlayer --outfile intlayer.js
 ```
 
 Thao tác này sẽ tạo một tệp `intlayer.js` chứa cả hai gói `intlayer` và `vanilla-intlayer`, được nén và ở định dạng ESM, sẵn sàng để sử dụng trong trình duyệt qua thẻ `<script>`.
 
 ### Đóng gói phiên bản cụ thể:
 
-```bash
+```bash packageManager="npm"
 npx intlayer standalone --packages intlayer --version 8.6.4
+```
+
+```bash packageManager="yarn"
+yarn intlayer standalone --packages intlayer --version 8.6.4
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer standalone --packages intlayer --version 8.6.4
+```
+
+```bash packageManager="bun"
+bun x intlayer standalone --packages intlayer --version 8.6.4
 ```
 
 ### Đóng gói ở định dạng khác:
 
-```bash
+```bash packageManager="npm"
 npx intlayer standalone --packages intlayer --format iife
+```
+
+```bash packageManager="yarn"
+yarn intlayer standalone --packages intlayer --format iife
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer standalone --packages intlayer --format iife
+```
+
+```bash packageManager="bun"
+bun x intlayer standalone --packages intlayer --format iife
 ```
 
 ## Cách thức hoạt động:

@@ -22,8 +22,20 @@ history:
 
 # 列出 Intlayer 项目
 
-```bash
+```bash packageManager="npm"
 npx intlayer projects list
+```
+
+```bash packageManager="yarn"
+yarn intlayer projects list
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer projects list
+```
+
+```bash packageManager="bun"
+bun x intlayer projects list
 ```
 
 此命令通过查找包含 Intlayer 配置文件的目录来搜索并列出所有 Intlayer 项目。对于在 monorepo、workspace 或 git 仓库中发现所有 Intlayer 项目非常有用。
@@ -70,32 +82,92 @@ npx intlayer projects list
 
 ### 列出当前目录中的项目：
 
-```bash
+```bash packageManager="npm"
 npx intlayer projects list
+```
+
+```bash packageManager="yarn"
+yarn intlayer projects list
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer projects list
+```
+
+```bash packageManager="bun"
+bun x intlayer projects list
 ```
 
 ### 在特定目录中列出项目：
 
-```bash
+```bash packageManager="npm"
 npx intlayer projects list --base-dir ./packages
+```
+
+```bash packageManager="yarn"
+yarn intlayer projects list --base-dir ./packages
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer projects list --base-dir ./packages
+```
+
+```bash packageManager="bun"
+bun x intlayer projects list --base-dir ./packages
 ```
 
 ### 列出 git 仓库中的所有项目：
 
-```bash
+```bash packageManager="npm"
 npx intlayer projects list --git-root
+```
+
+```bash packageManager="yarn"
+yarn intlayer projects list --git-root
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer projects list --git-root
+```
+
+```bash packageManager="bun"
+bun x intlayer projects list --git-root
 ```
 
 ### 使用快捷别名：
 
-```bash
+```bash packageManager="npm"
 npx intlayer pl --git-root
+```
+
+```bash packageManager="yarn"
+yarn intlayer pl --git-root
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer pl --git-root
+```
+
+```bash packageManager="bun"
+bun x intlayer pl --git-root
 ```
 
 ### 以 JSON 格式输出：
 
-```bash
+```bash packageManager="npm"
 npx intlayer projects list --json
+```
+
+```bash packageManager="yarn"
+yarn intlayer projects list --json
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer projects list --json
+```
+
+```bash packageManager="bun"
+bun x intlayer projects list --json
 ```
 
 ## 示例输出：

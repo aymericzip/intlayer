@@ -29,8 +29,20 @@ Perintah `doc translate` secara otomatis menerjemahkan file dokumentasi dari loc
 - Mempertahankan terjemahan yang ada dengan tidak menimpa mereka.
 - Memproses file, potongan, dan locale secara paralel menggunakan sistem antrian untuk meningkatkan kecepatan.
 
-```bash
+```bash packageManager="npm"
 npx intlayer doc translate
+```
+
+```bash packageManager="yarn"
+yarn intlayer doc translate
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer doc translate
+```
+
+```bash packageManager="bun"
+bun x intlayer doc translate
 ```
 
 ## Argumen:

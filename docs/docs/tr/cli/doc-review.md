@@ -27,8 +27,20 @@ slugs:
 - İncelenecek parçaları optimize eder ve zaten çevrilmiş ve değiştirilmemiş kısımları atlar.
 - Hızı artırmak için bir kuyruk sistemi kullanarak dosyaları, parçaları ve yerel ayarları paralel olarak işler.
 
-```bash
+```bash packageManager="npm"
 npx intlayer doc review
+```
+
+```bash packageManager="yarn"
+yarn intlayer doc review
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer doc review
+```
+
+```bash packageManager="bun"
+bun x intlayer doc review
 ```
 
 Zaten çevrilmiş dosyaları incelemek ve çevirinin doğru olup olmadığını kontrol etmek için kullanılabilir.

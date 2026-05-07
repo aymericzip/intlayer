@@ -20,8 +20,20 @@ slugs:
 
 # ملء / تدقيق / ترجمة القواميس
 
-```bash
+```bash packageManager="npm"
 npx intlayer fill
+```
+
+```bash packageManager="yarn"
+yarn intlayer fill
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill
+```
+
+```bash packageManager="bun"
+bun x intlayer fill
 ```
 
 يقوم هذا الأمر بتحليل ملفات إعلان المحتوى الخاصة بك للبحث عن مشكلات محتملة مثل الترجمات المفقودة، التناقضات الهيكلية، أو عدم تطابق الأنواع. إذا وجد أي مشاكل، فإن **intlayer fill** سيقترح أو يطبق تحديثات للحفاظ على اتساق وكمال قواميسك.
@@ -161,8 +173,20 @@ Affected dictionary keys for processing: app, comp-test, hello-world, lang-switc
 
 ## مثال:
 
-```bash
+```bash packageManager="npm"
 npx intlayer fill --file src/home/*.content.ts --source-locale en --output-locales fr es --model gpt-3.5-turbo
+```
+
+```bash packageManager="yarn"
+yarn intlayer fill --file src/home/*.content.ts --source-locale en --output-locales fr es --model gpt-3.5-turbo
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill --file src/home/*.content.ts --source-locale en --output-locales fr es --model gpt-3.5-turbo
+```
+
+```bash packageManager="bun"
+bun x intlayer fill --file src/home/*.content.ts --source-locale en --output-locales fr es --model gpt-3.5-turbo
 ```
 
 يقوم هذا الأمر بترجمة المحتوى من الإنجليزية إلى الفرنسية والإسبانية لجميع ملفات إعلان المحتوى في دليل `src/home/` باستخدام نموذج GPT-3.5 Turbo.

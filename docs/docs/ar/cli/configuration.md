@@ -22,8 +22,20 @@ slugs:
 
 يقوم الأمر `configuration get` باسترجاع التكوين الحالي لـ Intlayer، وخاصة إعدادات اللغة (locale). هذا مفيد للتحقق من إعداداتك.
 
-```bash
+```bash packageManager="npm"
 npx intlayer configuration get
+```
+
+```bash packageManager="yarn"
+yarn intlayer configuration get
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer configuration get
+```
+
+```bash packageManager="bun"
+bun x intlayer configuration get
 ```
 
 ## الأسماء المستعارة:
@@ -43,8 +55,20 @@ npx intlayer configuration get
 
 يقوم الأمر `configuration push` بتحميل تكوينك إلى نظام إدارة المحتوى (CMS) ومحرر Intlayer. هذه الخطوة ضرورية لتمكين استخدام القواميس البعيدة في محرر Intlayer المرئي.
 
-```bash
+```bash packageManager="npm"
 npx intlayer configuration push
+```
+
+```bash packageManager="yarn"
+yarn intlayer configuration push
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer configuration push
+```
+
+```bash packageManager="bun"
+bun x intlayer configuration push
 ```
 
 ## الأسماء المستعارة:

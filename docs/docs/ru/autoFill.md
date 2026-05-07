@@ -52,8 +52,20 @@ export default exampleContent;
 
 Затем, когда вы выполните следующую команду:
 
-```bash
+```bash packageManager="npm"
 npx intlayer fill --file 'src/components/example/example.content.ts'
+```
+
+```bash packageManager="yarn"
+yarn intlayer fill --file 'src/components/example/example.content.ts'
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill --file 'src/components/example/example.content.ts'
+```
+
+```bash packageManager="bun"
+bun x intlayer fill --file 'src/components/example/example.content.ts'
 ```
 
 Intlayer автоматически сгенерирует производный файл декларации по пути `src/components/example/example.content.json`, заполняя все локали, которые ещё не объявлены в основном файле.

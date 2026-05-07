@@ -355,12 +355,36 @@ export default async function Page() {
 
 يوفر Intlayer أداة CLI لمساعدتك في ملء الترجمات المفقودة. يمكنك استخدام الأمر `intlayer` لاختبار وملء الترجمات المفقودة من التعليمات البرمجية الخاصة بك.
 
-```bash
+```bash packageManager="npm"
 npx intlayer test         # اختبر ما إذا كانت هناك ترجمات مفقودة
 ```
 
-```bash
+```bash packageManager="yarn"
+yarn intlayer test         # اختبر ما إذا كانت هناك ترجمات مفقودة
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer test         # اختبر ما إذا كانت هناك ترجمات مفقودة
+```
+
+```bash packageManager="bun"
+bun x intlayer test         # اختبر ما إذا كانت هناك ترجمات مفقودة
+```
+
+```bash packageManager="npm"
 npx intlayer fill         # ملء الترجمات المفقودة
+```
+
+```bash packageManager="yarn"
+yarn intlayer fill         # ملء الترجمات المفقودة
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill         # ملء الترجمات المفقودة
+```
+
+```bash packageManager="bun"
+bun x intlayer fill         # ملء الترجمات المفقودة
 ```
 
 > لمزيد من التفاصيل، راجع [وثائق CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/ci.md)

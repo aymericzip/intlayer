@@ -29,8 +29,20 @@ Balíček používá [esbuild](https://esbuild.github.io/) ke kombinaci požadov
 
 ## Použití
 
-```bash
+```bash packageManager="npm"
 npx intlayer standalone --packages [balíčky...] [volby]
+```
+
+```bash packageManager="yarn"
+yarn intlayer standalone --packages [balíčky...] [volby]
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer standalone --packages [balíčky...] [volby]
+```
+
+```bash packageManager="bun"
+bun x intlayer standalone --packages [balíčky...] [volby]
 ```
 
 ## Volby
@@ -54,22 +66,58 @@ npx intlayer standalone --packages [balíčky...] [volby]
 
 ### Vytvoření balíčku pro Vanilla JS:
 
-```bash
+```bash packageManager="npm"
 npx intlayer standalone --packages intlayer vanilla-intlayer --outfile intlayer.js
+```
+
+```bash packageManager="yarn"
+yarn intlayer standalone --packages intlayer vanilla-intlayer --outfile intlayer.js
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer standalone --packages intlayer vanilla-intlayer --outfile intlayer.js
+```
+
+```bash packageManager="bun"
+bun x intlayer standalone --packages intlayer vanilla-intlayer --outfile intlayer.js
 ```
 
 Tím se vytvoří soubor `intlayer.js` obsahující balíčky `intlayer` i `vanilla-intlayer`, minimalizovaný a ve formátu ESM, připravený k použití v prohlížeči přes tag `<script>`.
 
 ### Sbalení konkrétní verze:
 
-```bash
+```bash packageManager="npm"
 npx intlayer standalone --packages intlayer --version 8.6.4
+```
+
+```bash packageManager="yarn"
+yarn intlayer standalone --packages intlayer --version 8.6.4
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer standalone --packages intlayer --version 8.6.4
+```
+
+```bash packageManager="bun"
+bun x intlayer standalone --packages intlayer --version 8.6.4
 ```
 
 ### Sbalení v jiném formátu:
 
-```bash
+```bash packageManager="npm"
 npx intlayer standalone --packages intlayer --format iife
+```
+
+```bash packageManager="yarn"
+yarn intlayer standalone --packages intlayer --format iife
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer standalone --packages intlayer --format iife
+```
+
+```bash packageManager="bun"
+bun x intlayer standalone --packages intlayer --format iife
 ```
 
 ## Co dělá:

@@ -17,8 +17,20 @@ slugs:
 
 # Wörterbücher beobachten
 
-```bash
+```bash packageManager="npm"
 npx intlayer watch
+```
+
+```bash packageManager="yarn"
+yarn intlayer watch
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer watch
+```
+
+```bash packageManager="bun"
+bun x intlayer watch
 ```
 
 Dieser Befehl überwacht Änderungen in Ihren Inhaltsdeklarationsdateien und erstellt die Wörterbücher im Verzeichnis `.intlayer`.

@@ -27,8 +27,20 @@ Lệnh `doc review` phân tích các tệp tài liệu về chất lượng, tí
 - Tối ưu hóa các phần cần đánh giá và bỏ qua các phần đã được dịch và không thay đổi.
 - Xử lý tệp, phần và ngôn ngữ song song bằng hệ thống hàng đợi để tăng tốc độ.
 
-```bash
+```bash packageManager="npm"
 npx intlayer doc review
+```
+
+```bash packageManager="yarn"
+yarn intlayer doc review
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer doc review
+```
+
+```bash packageManager="bun"
+bun x intlayer doc review
 ```
 
 Lệnh này có thể được sử dụng để đánh giá các tệp đã được dịch, và kiểm tra xem bản dịch có chính xác hay không.

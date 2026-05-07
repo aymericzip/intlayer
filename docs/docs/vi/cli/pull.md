@@ -19,8 +19,20 @@ slugs:
 
 # Kéo Từ Điển Từ Xa
 
-```bash
+```bash packageManager="npm"
 npx intlayer pull
+```
+
+```bash packageManager="yarn"
+yarn intlayer pull
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer pull
+```
+
+```bash packageManager="bun"
+bun x intlayer pull
 ```
 
 Nếu đã cài đặt [trình chỉnh sửa intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md), bạn cũng có thể kéo từ điển từ trình chỉnh sửa. Bằng cách này, bạn có thể ghi đè nội dung của các từ điển để phục vụ nhu cầu ứng dụng của bạn.
@@ -73,6 +85,18 @@ Nếu đã cài đặt [trình chỉnh sửa intlayer](https://github.com/aymeri
 
 ## Ví dụ:
 
-```bash
+```bash packageManager="npm"
 npx intlayer dictionary pull --newDictionariesPath ./my-dictionaries-dir/
+```
+
+```bash packageManager="yarn"
+yarn intlayer dictionary pull --newDictionariesPath ./my-dictionaries-dir/
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer dictionary pull --newDictionariesPath ./my-dictionaries-dir/
+```
+
+```bash packageManager="bun"
+bun x intlayer dictionary pull --newDictionariesPath ./my-dictionaries-dir/
 ```

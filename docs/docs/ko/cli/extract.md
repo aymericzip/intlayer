@@ -18,8 +18,20 @@ slugs:
 
 # 문자열 추출
 
-```bash
+```bash packageManager="npm"
 npx intlayer extract
+```
+
+```bash packageManager="yarn"
+yarn intlayer extract
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer extract
+```
+
+```bash packageManager="bun"
+bun x intlayer extract
 ```
 
 이 명령은 코드 파일을 분석하여 컴포넌트의 문자열을 컴포넌트 근처의 .content 파일로 추출합니다. 대화형 파일 선택 또는 특정 파일 지정 방식을 지원합니다.

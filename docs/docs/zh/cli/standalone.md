@@ -29,8 +29,20 @@ history:
 
 ## 用法
 
-```bash
+```bash packageManager="npm"
 npx intlayer standalone --packages [包名...] [选项]
+```
+
+```bash packageManager="yarn"
+yarn intlayer standalone --packages [包名...] [选项]
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer standalone --packages [包名...] [选项]
+```
+
+```bash packageManager="bun"
+bun x intlayer standalone --packages [包名...] [选项]
 ```
 
 ## 选项
@@ -54,22 +66,58 @@ npx intlayer standalone --packages [包名...] [选项]
 
 ### 为 Vanilla JS 创建 bundle：
 
-```bash
+```bash packageManager="npm"
 npx intlayer standalone --packages intlayer vanilla-intlayer --outfile intlayer.js
+```
+
+```bash packageManager="yarn"
+yarn intlayer standalone --packages intlayer vanilla-intlayer --outfile intlayer.js
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer standalone --packages intlayer vanilla-intlayer --outfile intlayer.js
+```
+
+```bash packageManager="bun"
+bun x intlayer standalone --packages intlayer vanilla-intlayer --outfile intlayer.js
 ```
 
 这将创建一个包含 `intlayer` 和 `vanilla-intlayer` 包的 `intlayer.js` 文件，经过压缩并采用 ESM 格式，随时可以通过 `<script>` 标签在浏览器中使用。
 
 ### 打包特定版本：
 
-```bash
+```bash packageManager="npm"
 npx intlayer standalone --packages intlayer --version 8.6.4
+```
+
+```bash packageManager="yarn"
+yarn intlayer standalone --packages intlayer --version 8.6.4
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer standalone --packages intlayer --version 8.6.4
+```
+
+```bash packageManager="bun"
+bun x intlayer standalone --packages intlayer --version 8.6.4
 ```
 
 ### 以不同格式打包：
 
-```bash
+```bash packageManager="npm"
 npx intlayer standalone --packages intlayer --format iife
+```
+
+```bash packageManager="yarn"
+yarn intlayer standalone --packages intlayer --format iife
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer standalone --packages intlayer --format iife
+```
+
+```bash packageManager="bun"
+bun x intlayer standalone --packages intlayer --format iife
 ```
 
 ## 工作原理：

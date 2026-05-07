@@ -24,8 +24,20 @@ history:
 
 # Inhaltsdeklarationsdateien auflisten
 
-```bash
+```bash packageManager="npm"
 npx intlayer content list
+```
+
+```bash packageManager="yarn"
+yarn intlayer content list
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content list
+```
+
+```bash packageManager="bun"
+bun x intlayer content list
 ```
 
 ## Aliase:
@@ -44,20 +56,56 @@ Dieser Befehl zeigt alle Inhaltsdeklarationsdateien in Ihrem Projekt an, einschl
 
 ### Inhaltsdeklarationsdateien auflisten:
 
-```bash
+```bash packageManager="npm"
 npx intlayer content list
+```
+
+```bash packageManager="yarn"
+yarn intlayer content list
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content list
+```
+
+```bash packageManager="bun"
+bun x intlayer content list
 ```
 
 ### Ausgabe als JSON:
 
-```bash
+```bash packageManager="npm"
 npx intlayer content list --json
+```
+
+```bash packageManager="yarn"
+yarn intlayer content list --json
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content list --json
+```
+
+```bash packageManager="bun"
+bun x intlayer content list --json
 ```
 
 ### Ausgabe als absolute Pfade:
 
-```bash
+```bash packageManager="npm"
 npx intlayer content list --absolute
+```
+
+```bash packageManager="yarn"
+yarn intlayer content list --absolute
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content list --absolute
+```
+
+```bash packageManager="bun"
+bun x intlayer content list --absolute
 ```
 
 ## Beispielausgabe:

@@ -367,12 +367,36 @@ const LocaleSwitcher: FC = () => {
 
 Intlayer bietet ein CLI-Tool an, mit dem Sie fehlende Übersetzungen ausfüllen können. Sie können den Befehl `intlayer` verwenden, um fehlende Übersetzungen in Ihrem Code zu testen und auszufüllen.
 
-```bash
+```bash packageManager="npm"
 npx intlayer test         # Testen, ob Übersetzungen fehlen
 ```
 
-```bash
+```bash packageManager="yarn"
+yarn intlayer test         # Testen, ob Übersetzungen fehlen
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer test         # Testen, ob Übersetzungen fehlen
+```
+
+```bash packageManager="bun"
+bun x intlayer test         # Testen, ob Übersetzungen fehlen
+```
+
+```bash packageManager="npm"
 npx intlayer fill         # Fehlende Übersetzungen ausfüllen
+```
+
+```bash packageManager="yarn"
+yarn intlayer fill         # Fehlende Übersetzungen ausfüllen
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill         # Fehlende Übersetzungen ausfüllen
+```
+
+```bash packageManager="bun"
+bun x intlayer fill         # Fehlende Übersetzungen ausfüllen
 ```
 
 > Weitere Informationen finden Sie in der [CLI-Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/cli/ci.md)

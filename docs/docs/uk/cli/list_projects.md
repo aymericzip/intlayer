@@ -22,8 +22,20 @@ history:
 
 # Перелік проєктів Intlayer
 
-```bash
+```bash packageManager="npm"
 npx intlayer projects list
+```
+
+```bash packageManager="yarn"
+yarn intlayer projects list
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer projects list
+```
+
+```bash packageManager="bun"
+bun x intlayer projects list
 ```
 
 Ця команда шукає та перераховує всі проєкти Intlayer, знаходячи каталоги, які містять конфігураційні файли Intlayer. Це корисно для виявлення всіх проєктів Intlayer у monorepo, workspace або git-репозиторії.
@@ -68,32 +80,92 @@ npx intlayer projects list
 
 ### Список проектів у поточній директорії:
 
-```bash
+```bash packageManager="npm"
 npx intlayer projects list
+```
+
+```bash packageManager="yarn"
+yarn intlayer projects list
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer projects list
+```
+
+```bash packageManager="bun"
+bun x intlayer projects list
 ```
 
 ### Список проектів у вказаній директорії:
 
-```bash
+```bash packageManager="npm"
 npx intlayer projects list --base-dir ./packages
+```
+
+```bash packageManager="yarn"
+yarn intlayer projects list --base-dir ./packages
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer projects list --base-dir ./packages
+```
+
+```bash packageManager="bun"
+bun x intlayer projects list --base-dir ./packages
 ```
 
 ### Список усіх проектів у git-репозиторії:
 
-```bash
+```bash packageManager="npm"
 npx intlayer projects list --git-root
+```
+
+```bash packageManager="yarn"
+yarn intlayer projects list --git-root
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer projects list --git-root
+```
+
+```bash packageManager="bun"
+bun x intlayer projects list --git-root
 ```
 
 ### Використання скороченого аліасу:
 
-```bash
+```bash packageManager="npm"
 npx intlayer pl --git-root
+```
+
+```bash packageManager="yarn"
+yarn intlayer pl --git-root
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer pl --git-root
+```
+
+```bash packageManager="bun"
+bun x intlayer pl --git-root
 ```
 
 ### Вивід у форматі JSON:
 
-```bash
+```bash packageManager="npm"
 npx intlayer projects list --json
+```
+
+```bash packageManager="yarn"
+yarn intlayer projects list --json
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer projects list --json
+```
+
+```bash packageManager="bun"
+bun x intlayer projects list --json
 ```
 
 ## Приклад виводу:

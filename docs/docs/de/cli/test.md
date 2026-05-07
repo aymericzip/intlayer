@@ -17,8 +17,20 @@ slugs:
 
 # Fehlende Übersetzungen testen
 
-```bash
+```bash packageManager="npm"
 npx intlayer content test
+```
+
+```bash packageManager="yarn"
+yarn intlayer content test
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content test
+```
+
+```bash packageManager="bun"
+bun x intlayer content test
 ```
 
 ## Aliase:
@@ -69,8 +81,20 @@ Insgesamt fehlende erforderliche Sprachen: 0
 
 ## Beispiel:
 
-```bash
+```bash packageManager="npm"
 npx intlayer content test --verbose
+```
+
+```bash packageManager="yarn"
+yarn intlayer content test --verbose
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content test --verbose
+```
+
+```bash packageManager="bun"
+bun x intlayer content test --verbose
 ```
 
 Die Ausgabe hilft Ihnen schnell zu erkennen, welche Übersetzungen noch abgeschlossen werden müssen, damit Ihre Anwendung in allen konfigurierten Sprachen korrekt funktioniert.

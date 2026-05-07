@@ -37,8 +37,20 @@ Dieser Leitfaden zeigt, wie Sie automatisch überprüfen können, ob Ihre Wörte
 
 Führen Sie die Prüfung vom Projektstammverzeichnis aus durch:
 
-```bash
+```bash packageManager="npm"
 npx intlayer content test
+```
+
+```bash packageManager="yarn"
+yarn intlayer content test
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content test
+```
+
+```bash packageManager="bun"
+bun x intlayer content test
 ```
 
 Nützliche Optionen:
@@ -182,8 +194,20 @@ jobs:
 
 Optional: Führen Sie die CLI-Prüfung für eine menschenlesbare Zusammenfassung neben den Tests aus:
 
-```bash
+```bash packageManager="npm"
 npx intlayer content test --verbose
+```
+
+```bash packageManager="yarn"
+yarn intlayer content test --verbose
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content test --verbose
+```
+
+```bash packageManager="bun"
+bun x intlayer content test --verbose
 ```
 
 ---

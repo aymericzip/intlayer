@@ -29,8 +29,20 @@ slugs:
 - Зберігає існуючі переклади, не перезаписуючи їх.
 - Обробляє файли, частини та локалі паралельно, використовуючи систему черг для збільшення швидкості.
 
-```bash
+```bash packageManager="npm"
 npx intlayer doc translate
+```
+
+```bash packageManager="yarn"
+yarn intlayer doc translate
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer doc translate
+```
+
+```bash packageManager="bun"
+bun x intlayer doc translate
 ```
 
 ## Аргументи:

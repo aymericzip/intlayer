@@ -23,14 +23,38 @@ history:
 
 Untuk membangun kamus Anda, Anda dapat menjalankan perintah:
 
-```bash
+```bash packageManager="npm"
 npx intlayer build
+```
+
+```bash packageManager="yarn"
+yarn intlayer build
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer build
+```
+
+```bash packageManager="bun"
+bun x intlayer build
 ```
 
 atau dalam mode watch
 
-```bash
+```bash packageManager="npm"
 npx intlayer build --watch
+```
+
+```bash packageManager="yarn"
+yarn intlayer build --watch
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer build --watch
+```
+
+```bash packageManager="bun"
+bun x intlayer build --watch
 ```
 
 Perintah ini akan mencari file deklarasi konten Anda secara default di `./src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx}`. Dan membangun kamus di direktori `.intlayer`.

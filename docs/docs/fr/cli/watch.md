@@ -17,8 +17,20 @@ slugs:
 
 # Surveiller les dictionnaires
 
-```bash
+```bash packageManager="npm"
 npx intlayer watch
+```
+
+```bash packageManager="yarn"
+yarn intlayer watch
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer watch
+```
+
+```bash packageManager="bun"
+bun x intlayer watch
 ```
 
 Cette commande surveillera les modifications dans vos fichiers de déclaration de contenu et construira les dictionnaires dans le répertoire `.intlayer`.

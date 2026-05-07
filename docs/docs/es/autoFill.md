@@ -52,8 +52,20 @@ Aquí hay un [archivo de declaración de contenido por idioma](https://github.co
 
 Luego, cuando ejecutes el siguiente comando:
 
-```bash
+```bash packageManager="npm"
 npx intlayer fill --file 'src/components/example/example.content.ts'
+```
+
+```bash packageManager="yarn"
+yarn intlayer fill --file 'src/components/example/example.content.ts'
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill --file 'src/components/example/example.content.ts'
+```
+
+```bash packageManager="bun"
+bun x intlayer fill --file 'src/components/example/example.content.ts'
 ```
 
 Intlayer generará automáticamente el archivo de declaración derivado en `src/components/example/example.content.json`, completando todos los locales que no estén ya declarados en el archivo principal.

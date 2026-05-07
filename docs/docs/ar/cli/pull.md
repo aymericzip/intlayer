@@ -19,8 +19,20 @@ slugs:
 
 # سحب القواميس البعيدة
 
-```bash
+```bash packageManager="npm"
 npx intlayer pull
+```
+
+```bash packageManager="yarn"
+yarn intlayer pull
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer pull
+```
+
+```bash packageManager="bun"
+bun x intlayer pull
 ```
 
 إذا كان [محرر intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) مثبتًا، يمكنك أيضًا سحب القواميس من المحرر. بهذه الطريقة، يمكنك استبدال محتوى قواميسك حسب حاجة تطبيقك.
@@ -73,6 +85,18 @@ npx intlayer pull
 
 ## مثال:
 
-```bash
+```bash packageManager="npm"
 npx intlayer dictionary pull --newDictionariesPath ./my-dictionaries-dir/
+```
+
+```bash packageManager="yarn"
+yarn intlayer dictionary pull --newDictionariesPath ./my-dictionaries-dir/
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer dictionary pull --newDictionariesPath ./my-dictionaries-dir/
+```
+
+```bash packageManager="bun"
+bun x intlayer dictionary pull --newDictionariesPath ./my-dictionaries-dir/
 ```

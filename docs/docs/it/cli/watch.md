@@ -17,8 +17,20 @@ slugs:
 
 # Osservare i Dizionari
 
-```bash
+```bash packageManager="npm"
 npx intlayer watch
+```
+
+```bash packageManager="yarn"
+yarn intlayer watch
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer watch
+```
+
+```bash packageManager="bun"
+bun x intlayer watch
 ```
 
 Questo comando osserverà le modifiche nei tuoi file di dichiarazione dei contenuti e costruirà i dizionari nella directory `.intlayer`.

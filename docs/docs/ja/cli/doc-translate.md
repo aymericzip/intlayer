@@ -29,8 +29,20 @@ slugs:
 - 既存の翻訳を上書きしないことで、既存の翻訳を保持します。
 - キューシステムを使用してファイル、チャンク、ロケールを並列処理し、速度を向上させます。
 
-```bash
+```bash packageManager="npm"
 npx intlayer doc translate
+```
+
+```bash packageManager="yarn"
+yarn intlayer doc translate
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer doc translate
+```
+
+```bash packageManager="bun"
+bun x intlayer doc translate
 ```
 
 ## 引数:

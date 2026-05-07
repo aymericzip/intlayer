@@ -17,8 +17,20 @@ slugs:
 
 # مراقبة القواميس
 
-```bash
+```bash packageManager="npm"
 npx intlayer watch
+```
+
+```bash packageManager="yarn"
+yarn intlayer watch
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer watch
+```
+
+```bash packageManager="bun"
+bun x intlayer watch
 ```
 
 هذا الأمر سيراقب التغييرات في ملفات إعلان المحتوى الخاصة بك ويبني القواميس في دليل `.intlayer`.

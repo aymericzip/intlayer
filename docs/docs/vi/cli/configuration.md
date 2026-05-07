@@ -22,8 +22,20 @@ slugs:
 
 Lệnh `configuration get` lấy cấu hình hiện tại cho Intlayer, đặc biệt là các thiết lập locale. Điều này hữu ích để kiểm tra cấu hình của bạn.
 
-```bash
+```bash packageManager="npm"
 npx intlayer configuration get
+```
+
+```bash packageManager="yarn"
+yarn intlayer configuration get
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer configuration get
+```
+
+```bash packageManager="bun"
+bun x intlayer configuration get
 ```
 
 ## Bí danh:
@@ -43,8 +55,20 @@ npx intlayer configuration get
 
 Lệnh `configuration push` tải cấu hình của bạn lên Intlayer CMS và trình chỉnh sửa. Bước này cần thiết để cho phép sử dụng từ điển từ xa trong Intlayer Visual Editor.
 
-```bash
+```bash packageManager="npm"
 npx intlayer configuration push
+```
+
+```bash packageManager="yarn"
+yarn intlayer configuration push
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer configuration push
+```
+
+```bash packageManager="bun"
+bun x intlayer configuration push
 ```
 
 ## Bí danh:

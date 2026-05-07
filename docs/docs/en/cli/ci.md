@@ -24,8 +24,20 @@ history:
 
 # CI Command
 
-```bash
+```bash packageManager="npm"
 npx intlayer ci <command...>
+```
+
+```bash packageManager="yarn"
+yarn intlayer ci <command...>
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer ci <command...>
+```
+
+```bash packageManager="bun"
+bun x intlayer ci <command...>
 ```
 
 The CI command is designed for automation and CI/CD pipelines. It automatically injects credentials from the `INTLAYER_PROJECT_CREDENTIALS` environment variable and can run Intlayer commands across multiple projects in a monorepo.
@@ -97,8 +109,20 @@ This will run the `push` command for each project configured in `INTLAYER_PROJEC
 
 You can pass any flags to the underlying Intlayer command:
 
-```bash
+```bash packageManager="npm"
 npx intlayer ci fill --verbose --mode complete
+```
+
+```bash packageManager="yarn"
+yarn intlayer ci fill --verbose --mode complete
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer ci fill --verbose --mode complete
+```
+
+```bash packageManager="bun"
+bun x intlayer ci fill --verbose --mode complete
 ```
 
 ### Use in CI/CD pipelines

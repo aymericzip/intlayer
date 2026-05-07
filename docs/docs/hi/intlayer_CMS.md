@@ -154,14 +154,38 @@ export default config;
 
 Intlayer CMS को कॉन्फ़िगर करने के लिए, आप [intlayer CLI](https://github.com/aymericzip/intlayer/tree/main/docs/hi/cli/index.md) कमांड्स का उपयोग कर सकते हैं।
 
-```bash
+```bash packageManager="npm"
 npx intlayer config push
+```
+
+```bash packageManager="yarn"
+yarn intlayer config push
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer config push
+```
+
+```bash packageManager="bun"
+bun x intlayer config push
 ```
 
 > यदि आप अपनी `intlayer.config.ts` कॉन्फ़िगरेशन फ़ाइल में पर्यावरण चर (environment variables) का उपयोग करते हैं, तो आप `--env` तर्क का उपयोग करके इच्छित पर्यावरण निर्दिष्ट कर सकते हैं:
 
-```bash
+```bash packageManager="npm"
 npx intlayer config push --env production
+```
+
+```bash packageManager="yarn"
+yarn intlayer config push --env production
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer config push --env production
+```
+
+```bash packageManager="bun"
+bun x intlayer config push --env production
 ```
 
 यह कमांड आपकी कॉन्फ़िगरेशन को Intlayer CMS पर अपलोड करता है।
@@ -170,14 +194,38 @@ npx intlayer config push --env production
 
 अपने लोकल शब्दकोशों को दूरस्थ शब्दकोश में बदलने के लिए, आप [intlayer CLI](https://github.com/aymericzip/intlayer/tree/main/docs/hi/cli/index.md) कमांड्स का उपयोग कर सकते हैं।
 
-```bash
+```bash packageManager="npm"
 npx intlayer dictionary push -d my-first-dictionary-key
+```
+
+```bash packageManager="yarn"
+yarn intlayer dictionary push -d my-first-dictionary-key
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer dictionary push -d my-first-dictionary-key
+```
+
+```bash packageManager="bun"
+bun x intlayer dictionary push -d my-first-dictionary-key
 ```
 
 > यदि आप अपनी `intlayer.config.ts` कॉन्फ़िगरेशन फ़ाइल में पर्यावरण चर (environment variables) का उपयोग करते हैं, तो आप `--env` तर्क का उपयोग करके इच्छित पर्यावरण निर्दिष्ट कर सकते हैं:
 
-```bash
+```bash packageManager="npm"
 npx intlayer dictionary push -d my-first-dictionary-key --env production
+```
+
+```bash packageManager="yarn"
+yarn intlayer dictionary push -d my-first-dictionary-key --env production
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer dictionary push -d my-first-dictionary-key --env production
+```
+
+```bash packageManager="bun"
+bun x intlayer dictionary push -d my-first-dictionary-key --env production
 ```
 
 यह कमांड आपकी प्रारंभिक सामग्री शब्दकोशों को अपलोड करता है, जिससे वे Intlayer प्लेटफ़ॉर्म के माध्यम से असिंक्रोनस रूप से प्राप्त करने और संपादित करने के लिए उपलब्ध हो जाते हैं।

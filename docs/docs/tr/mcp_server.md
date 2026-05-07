@@ -78,8 +78,20 @@ Uzak sunucunun CLI araçlarını, AI otomatik tamamlama vb. entegre etmediğini 
 
 Intlayer, projenizde MCP sunucusunu otomatik olarak yapılandırmak için bir CLI komutu sağlar.
 
-```bash
+```bash packageManager="npm"
 npx intlayer init mcp
+```
+
+```bash packageManager="yarn"
+yarn intlayer init mcp
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer init mcp
+```
+
+```bash packageManager="bun"
+bun x intlayer init mcp
 ```
 
 Bu komut şunları yapacaktır:

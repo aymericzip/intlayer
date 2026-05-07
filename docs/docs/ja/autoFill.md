@@ -52,8 +52,20 @@ export default exampleContent;
 
 次に、以下のコマンドを実行すると：
 
-```bash
+```bash packageManager="npm"
 npx intlayer fill --file 'src/components/example/example.content.ts'
+```
+
+```bash packageManager="yarn"
+yarn intlayer fill --file 'src/components/example/example.content.ts'
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill --file 'src/components/example/example.content.ts'
+```
+
+```bash packageManager="bun"
+bun x intlayer fill --file 'src/components/example/example.content.ts'
 ```
 
 Intlayer は、メインファイルにまだ宣言されていないすべてのロケールを埋めて、派生した宣言ファイルを `src/components/example/example.content.json` に自動生成します。

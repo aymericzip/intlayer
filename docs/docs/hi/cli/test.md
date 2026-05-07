@@ -17,8 +17,20 @@ slugs:
 
 # गायब अनुवादों का परीक्षण करें
 
-```bash
+```bash packageManager="npm"
 npx intlayer content test
+```
+
+```bash packageManager="yarn"
+yarn intlayer content test
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content test
+```
+
+```bash packageManager="bun"
+bun x intlayer content test
 ```
 
 ## उपनाम:
@@ -69,8 +81,20 @@ Total missing required locales: 0
 
 ## उदाहरण:
 
-```bash
+```bash packageManager="npm"
 npx intlayer content test --verbose
+```
+
+```bash packageManager="yarn"
+yarn intlayer content test --verbose
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content test --verbose
+```
+
+```bash packageManager="bun"
+bun x intlayer content test --verbose
 ```
 
 आउटपुट आपको जल्दी से यह पहचानने में मदद करता है कि किन अनुवादों को पूरा करने की आवश्यकता है ताकि आपका एप्लिकेशन सभी कॉन्फ़िगर किए गए लोकल्स में सही ढंग से काम करे।

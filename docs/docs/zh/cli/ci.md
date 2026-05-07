@@ -24,8 +24,20 @@ history:
 
 # CI 命令
 
-```bash
+```bash packageManager="npm"
 npx intlayer ci <command...>
+```
+
+```bash packageManager="yarn"
+yarn intlayer ci <command...>
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer ci <command...>
+```
+
+```bash packageManager="bun"
+bun x intlayer ci <command...>
 ```
 
 CI 命令专为自动化和 CI/CD 管道而设计。它会自动从 `INTLAYER_PROJECT_CREDENTIALS` 环境变量注入凭据，并可以在 monorepo 中的多个项目上运行 Intlayer 命令。
@@ -97,8 +109,20 @@ npx intlayer ci push
 
 您可以将任何标志传递给底层 Intlayer 命令：
 
-```bash
+```bash packageManager="npm"
 npx intlayer ci fill --verbose --mode complete
+```
+
+```bash packageManager="yarn"
+yarn intlayer ci fill --verbose --mode complete
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer ci fill --verbose --mode complete
+```
+
+```bash packageManager="bun"
+bun x intlayer ci fill --verbose --mode complete
 ```
 
 ### 在 CI/CD 管道中使用

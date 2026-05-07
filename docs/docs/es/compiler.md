@@ -297,20 +297,56 @@ Las siguientes propiedades pueden configurarse en el bloque `compiler` de tu arc
 
 Intlayer proporciona una herramienta CLI para ayudarte a rellenar las traducciones faltantes. Puedes usar el comando `intlayer` para probar y rellenar las traducciones faltantes de tu código.
 
-```bash
+```bash packageManager="npm"
 npx intlayer test         # Probar si faltan traducciones
 ```
 
-```bash
+```bash packageManager="yarn"
+yarn intlayer test         # Probar si faltan traducciones
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer test         # Probar si faltan traducciones
+```
+
+```bash packageManager="bun"
+bun x intlayer test         # Probar si faltan traducciones
+```
+
+```bash packageManager="npm"
 npx intlayer fill         # Rellenar traducciones faltantes
+```
+
+```bash packageManager="yarn"
+yarn intlayer fill         # Rellenar traducciones faltantes
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill         # Rellenar traducciones faltantes
+```
+
+```bash packageManager="bun"
+bun x intlayer fill         # Rellenar traducciones faltantes
 ```
 
 ### Extracción
 
 Intlayer proporciona una herramienta CLI para extraer contenido de tu código. Puedes usar el comando `intlayer extract` para extraer contenido de tu código.
 
-```bash
+```bash packageManager="npm"
 npx intlayer extract
+```
+
+```bash packageManager="yarn"
+yarn intlayer extract
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer extract
+```
+
+```bash packageManager="bun"
+bun x intlayer extract
 ```
 
 > Para más detalles, consulta la [documentación de la CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/cli/index.md)

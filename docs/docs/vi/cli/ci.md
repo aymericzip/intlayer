@@ -24,8 +24,20 @@ history:
 
 # Lệnh CI
 
-```bash
+```bash packageManager="npm"
 npx intlayer ci <command...>
+```
+
+```bash packageManager="yarn"
+yarn intlayer ci <command...>
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer ci <command...>
+```
+
+```bash packageManager="bun"
+bun x intlayer ci <command...>
 ```
 
 Lệnh CI được thiết kế cho tự động hóa và các pipeline CI/CD. Nó tự động chèn thông tin xác thực từ biến môi trường `INTLAYER_PROJECT_CREDENTIALS` và có thể chạy các lệnh Intlayer trên nhiều dự án trong một monorepo.
@@ -97,8 +109,20 @@ npx intlayer ci push
 
 Bạn có thể truyền bất kỳ cờ nào cho lệnh Intlayer cơ bản:
 
-```bash
+```bash packageManager="npm"
 npx intlayer ci fill --verbose --mode complete
+```
+
+```bash packageManager="yarn"
+yarn intlayer ci fill --verbose --mode complete
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer ci fill --verbose --mode complete
+```
+
+```bash packageManager="bun"
+bun x intlayer ci fill --verbose --mode complete
 ```
 
 ### Sử dụng trong pipeline CI/CD

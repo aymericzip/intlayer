@@ -23,14 +23,38 @@ history:
 
 Щоб побудувати ваші словники, ви можете виконати команди:
 
-```bash
+```bash packageManager="npm"
 npx intlayer build
+```
+
+```bash packageManager="yarn"
+yarn intlayer build
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer build
+```
+
+```bash packageManager="bun"
+bun x intlayer build
 ```
 
 або в режимі відстеження
 
-```bash
+```bash packageManager="npm"
 npx intlayer build --watch
+```
+
+```bash packageManager="yarn"
+yarn intlayer build --watch
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer build --watch
+```
+
+```bash packageManager="bun"
+bun x intlayer build --watch
 ```
 
 Ця команда за замовчуванням знайде ваші файли декларації контенту за шляхом `./src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx}` і побудує словники в директорії `.intlayer`.

@@ -18,8 +18,20 @@ slugs:
 
 # Strings extrahieren
 
-```bash
+```bash packageManager="npm"
 npx intlayer extract
+```
+
+```bash packageManager="yarn"
+yarn intlayer extract
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer extract
+```
+
+```bash packageManager="bun"
+bun x intlayer extract
 ```
 
 Dieser Befehl analysiert Ihre Codedateien, um Strings aus Komponenten in eine .content-Datei in der Nähe der Komponente zu extrahieren. Er unterstützt die interaktive Dateiauswahl oder das gezielte Ansprechen spezifischer Dateien.

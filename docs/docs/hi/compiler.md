@@ -292,20 +292,56 @@ export default config;
 
 Intlayer अनुवादों को भरने में आपकी सहायता के लिए एक CLI टूल प्रदान करता है। आप अपने कोड से लापता अनुवादों का परीक्षण करने और उन्हें भरने के लिए `intlayer` कमांड का उपयोग कर सकते हैं।
 
-```bash
+```bash packageManager="npm"
 npx intlayer test         # परीक्षण करें कि क्या कोई अनुवाद लापता है
 ```
 
-```bash
+```bash packageManager="yarn"
+yarn intlayer test         # परीक्षण करें कि क्या कोई अनुवाद लापता है
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer test         # परीक्षण करें कि क्या कोई अनुवाद लापता है
+```
+
+```bash packageManager="bun"
+bun x intlayer test         # परीक्षण करें कि क्या कोई अनुवाद लापता है
+```
+
+```bash packageManager="npm"
 npx intlayer fill         # लापता अनुवाद भरें
+```
+
+```bash packageManager="yarn"
+yarn intlayer fill         # लापता अनुवाद भरें
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill         # लापता अनुवाद भरें
+```
+
+```bash packageManager="bun"
+bun x intlayer fill         # लापता अनुवाद भरें
 ```
 
 ### निष्कर्षण
 
 Intlayer आपके कोड से सामग्री निकालने के लिए एक CLI टूल प्रदान करता है। आप अपने कोड से सामग्री निकालने के लिए `intlayer extract` कमांड का उपयोग कर सकते हैं।
 
-```bash
+```bash packageManager="npm"
 npx intlayer extract
+```
+
+```bash packageManager="yarn"
+yarn intlayer extract
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer extract
+```
+
+```bash packageManager="bun"
+bun x intlayer extract
 ```
 
 > अधिक विवरण के लिए, [CLI दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/index.md) देखें।

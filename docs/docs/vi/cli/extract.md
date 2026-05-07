@@ -18,8 +18,20 @@ slugs:
 
 # Trích xuất chuỗi
 
-```bash
+```bash packageManager="npm"
 npx intlayer extract
+```
+
+```bash packageManager="yarn"
+yarn intlayer extract
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer extract
+```
+
+```bash packageManager="bun"
+bun x intlayer extract
 ```
 
 Lệnh này phân tích các tệp mã của bạn để trích xuất chuỗi từ các component vào một tệp .content nằm gần component. Nó hỗ trợ việc chọn tệp tương tác hoặc chỉ định tệp cụ thể để trích xuất.

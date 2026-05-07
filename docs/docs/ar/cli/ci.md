@@ -24,8 +24,20 @@ history:
 
 # أمر CI
 
-```bash
+```bash packageManager="npm"
 npx intlayer ci <command...>
+```
+
+```bash packageManager="yarn"
+yarn intlayer ci <command...>
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer ci <command...>
+```
+
+```bash packageManager="bun"
+bun x intlayer ci <command...>
 ```
 
 تم تصميم أمر CI للأتمتة وخطوط أنابيب CI/CD. يقوم بحقن بيانات الاعتماد تلقائياً من متغير البيئة `INTLAYER_PROJECT_CREDENTIALS` ويمكنه تشغيل أوامر Intlayer عبر مشاريع متعددة في مستودع أحادي.
@@ -97,8 +109,20 @@ npx intlayer ci push
 
 يمكنك تمرير أي علامات إلى أمر Intlayer الأساسي:
 
-```bash
+```bash packageManager="npm"
 npx intlayer ci fill --verbose --mode complete
+```
+
+```bash packageManager="yarn"
+yarn intlayer ci fill --verbose --mode complete
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer ci fill --verbose --mode complete
+```
+
+```bash packageManager="bun"
+bun x intlayer ci fill --verbose --mode complete
 ```
 
 ### الاستخدام في خطوط أنابيب CI/CD

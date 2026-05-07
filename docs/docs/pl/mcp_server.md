@@ -78,8 +78,20 @@ Należy zauważyć, że serwer zdalny nie integruje narzędzi CLI, autouzupełni
 
 Intlayer zapewnia polecenie CLI do automatycznej konfiguracji serwera MCP w Twoim projekcie.
 
-```bash
+```bash packageManager="npm"
 npx intlayer init mcp
+```
+
+```bash packageManager="yarn"
+yarn intlayer init mcp
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer init mcp
+```
+
+```bash packageManager="bun"
+bun x intlayer init mcp
 ```
 
 To polecenie:

@@ -17,8 +17,20 @@ slugs:
 
 # Відстеження словників
 
-```bash
+```bash packageManager="npm"
 npx intlayer watch
+```
+
+```bash packageManager="yarn"
+yarn intlayer watch
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer watch
+```
+
+```bash packageManager="bun"
+bun x intlayer watch
 ```
 
 Ця команда відстежуватиме зміни у ваших файлах декларації контенту та автоматично створюватиме словники в каталозі `.intlayer`.

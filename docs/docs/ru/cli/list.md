@@ -24,8 +24,20 @@ history:
 
 # Список файлов декларации контента
 
-```bash
+```bash packageManager="npm"
 npx intlayer content list
+```
+
+```bash packageManager="yarn"
+yarn intlayer content list
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content list
+```
+
+```bash packageManager="bun"
+bun x intlayer content list
 ```
 
 ## Псевдонимы:
@@ -44,20 +56,56 @@ npx intlayer content list
 
 ### Список файлов декларации контента:
 
-```bash
+```bash packageManager="npm"
 npx intlayer content list
+```
+
+```bash packageManager="yarn"
+yarn intlayer content list
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content list
+```
+
+```bash packageManager="bun"
+bun x intlayer content list
 ```
 
 ### Вывод в формате JSON:
 
-```bash
+```bash packageManager="npm"
 npx intlayer content list --json
+```
+
+```bash packageManager="yarn"
+yarn intlayer content list --json
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content list --json
+```
+
+```bash packageManager="bun"
+bun x intlayer content list --json
 ```
 
 ### Вывод в виде абсолютных путей:
 
-```bash
+```bash packageManager="npm"
 npx intlayer content list --absolute
+```
+
+```bash packageManager="yarn"
+yarn intlayer content list --absolute
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content list --absolute
+```
+
+```bash packageManager="bun"
+bun x intlayer content list --absolute
 ```
 
 ## Пример вывода:

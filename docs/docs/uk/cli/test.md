@@ -17,8 +17,20 @@ slugs:
 
 # Перевірка відсутніх перекладів
 
-```bash
+```bash packageManager="npm"
 npx intlayer content test
+```
+
+```bash packageManager="yarn"
+yarn intlayer content test
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content test
+```
+
+```bash packageManager="bun"
+bun x intlayer content test
 ```
 
 ## Аліаси:
@@ -69,8 +81,20 @@ Total missing required locales: 0
 
 ## Приклад:
 
-```bash
+```bash packageManager="npm"
 npx intlayer content test --verbose
+```
+
+```bash packageManager="yarn"
+yarn intlayer content test --verbose
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content test --verbose
+```
+
+```bash packageManager="bun"
+bun x intlayer content test --verbose
 ```
 
 Вивід допомагає швидко визначити, які переклади потрібно завершити, щоб ваша програма коректно працювала у всіх налаштованих локалях.

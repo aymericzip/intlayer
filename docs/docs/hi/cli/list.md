@@ -24,8 +24,20 @@ history:
 
 # सामग्री घोषणा फ़ाइलों की सूची बनाएं
 
-```bash
+```bash packageManager="npm"
 npx intlayer content list
+```
+
+```bash packageManager="yarn"
+yarn intlayer content list
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content list
+```
+
+```bash packageManager="bun"
+bun x intlayer content list
 ```
 
 ## उपनाम:
@@ -44,20 +56,56 @@ npx intlayer content list
 
 ### सामग्री घोषणा फ़ाइलों की सूची बनाएं:
 
-```bash
+```bash packageManager="npm"
 npx intlayer content list
+```
+
+```bash packageManager="yarn"
+yarn intlayer content list
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content list
+```
+
+```bash packageManager="bun"
+bun x intlayer content list
 ```
 
 ### JSON के रूप में आउटपुट:
 
-```bash
+```bash packageManager="npm"
 npx intlayer content list --json
+```
+
+```bash packageManager="yarn"
+yarn intlayer content list --json
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content list --json
+```
+
+```bash packageManager="bun"
+bun x intlayer content list --json
 ```
 
 ### पूर्ण पथों के रूप में आउटपुट:
 
-```bash
+```bash packageManager="npm"
 npx intlayer content list --absolute
+```
+
+```bash packageManager="yarn"
+yarn intlayer content list --absolute
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content list --absolute
+```
+
+```bash packageManager="bun"
+bun x intlayer content list --absolute
 ```
 
 ## उदाहरण आउटपुट:

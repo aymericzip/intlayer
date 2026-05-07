@@ -25,8 +25,20 @@ El paquete `intlayer` es la biblioteca núcleo del ecosistema Intlayer. Proporci
 
 ## Instalación
 
-```bash
+```bash packageManager="npm"
 npm install intlayer
+```
+
+```bash packageManager="yarn"
+yarn add intlayer
+```
+
+```bash packageManager="pnpm"
+pnpm add intlayer
+```
+
+```bash packageManager="bun"
+bun add intlayer
 ```
 
 ## Exportaciones

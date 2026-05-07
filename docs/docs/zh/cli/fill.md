@@ -20,8 +20,20 @@ slugs:
 
 # 填充 / 审核 / 翻译字典
 
-```bash
+```bash packageManager="npm"
 npx intlayer fill
+```
+
+```bash packageManager="yarn"
+yarn intlayer fill
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill
+```
+
+```bash packageManager="bun"
+bun x intlayer fill
 ```
 
 此命令会分析您的内容声明文件，查找潜在问题，例如缺失的翻译、结构不一致或类型不匹配。如果发现任何问题，**intlayer fill** 将建议或应用更新，以保持您的字典一致且完整。
@@ -160,8 +172,20 @@ Affected dictionary keys for processing: app, comp-test, hello-world, lang-switc
 
 ## 示例：
 
-```bash
+```bash packageManager="npm"
 npx intlayer fill --file src/home/*.content.ts --source-locale en --output-locales fr es --model gpt-3.5-turbo
+```
+
+```bash packageManager="yarn"
+yarn intlayer fill --file src/home/*.content.ts --source-locale en --output-locales fr es --model gpt-3.5-turbo
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill --file src/home/*.content.ts --source-locale en --output-locales fr es --model gpt-3.5-turbo
+```
+
+```bash packageManager="bun"
+bun x intlayer fill --file src/home/*.content.ts --source-locale en --output-locales fr es --model gpt-3.5-turbo
 ```
 
 该命令将使用 GPT-3.5 Turbo 模型，将 `src/home/` 目录下所有内容声明文件的内容从英语翻译为法语和西班牙语。

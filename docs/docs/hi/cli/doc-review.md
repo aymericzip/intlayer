@@ -27,8 +27,20 @@ slugs:
 - समीक्षा करने के लिए चंक्स को अनुकूलित करता है और पहले से अनुवादित और अपरिवर्तित भागों को छोड़ देता है।
 - गति बढ़ाने के लिए कतार प्रणाली का उपयोग करके फ़ाइलों, चंक्स और लोकेल्स को समानांतर में संसाधित करता है।
 
-```bash
+```bash packageManager="npm"
 npx intlayer doc review
+```
+
+```bash packageManager="yarn"
+yarn intlayer doc review
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer doc review
+```
+
+```bash packageManager="bun"
+bun x intlayer doc review
 ```
 
 इसका उपयोग उन फ़ाइलों की समीक्षा करने के लिए किया जा सकता है जो पहले से अनुवादित हैं, और यह जांचने के लिए कि अनुवाद सही है या नहीं।

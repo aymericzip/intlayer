@@ -37,8 +37,20 @@ history:
 
 프로젝트 루트에서 감사를 실행하세요:
 
-```bash
+```bash packageManager="npm"
 npx intlayer content test
+```
+
+```bash packageManager="yarn"
+yarn intlayer content test
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content test
+```
+
+```bash packageManager="bun"
+bun x intlayer content test
 ```
 
 유용한 플래그:
@@ -182,8 +194,20 @@ jobs:
 
 선택 사항: 테스트와 함께 사람이 읽기 쉬운 요약을 위해 CLI 감사를 실행하세요:
 
-```bash
+```bash packageManager="npm"
 npx intlayer content test --verbose
+```
+
+```bash packageManager="yarn"
+yarn intlayer content test --verbose
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content test --verbose
+```
+
+```bash packageManager="bun"
+bun x intlayer content test --verbose
 ```
 
 ---

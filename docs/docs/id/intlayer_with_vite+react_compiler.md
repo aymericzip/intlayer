@@ -367,12 +367,36 @@ const LocaleSwitcher: FC = () => {
 
 Intlayer menyediakan alat CLI untuk membantu Anda mengisi terjemahan yang hilang. Anda dapat menggunakan perintah `intlayer` untuk menguji dan mengisi terjemahan yang hilang dari kode Anda.
 
-```bash
+```bash packageManager="npm"
 npx intlayer test         # Uji apakah ada terjemahan yang hilang
 ```
 
-```bash
+```bash packageManager="yarn"
+yarn intlayer test         # Uji apakah ada terjemahan yang hilang
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer test         # Uji apakah ada terjemahan yang hilang
+```
+
+```bash packageManager="bun"
+bun x intlayer test         # Uji apakah ada terjemahan yang hilang
+```
+
+```bash packageManager="npm"
 npx intlayer fill         # Isi terjemahan yang hilang
+```
+
+```bash packageManager="yarn"
+yarn intlayer fill         # Isi terjemahan yang hilang
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill         # Isi terjemahan yang hilang
+```
+
+```bash packageManager="bun"
+bun x intlayer fill         # Isi terjemahan yang hilang
 ```
 
 > Untuk detail lebih lanjut, silakan merujuk ke [dokumentasi CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/ci.md)

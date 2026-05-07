@@ -370,12 +370,36 @@ const LocaleSwitcher: FC = () => {
 
 Intlayer 提供了一个 CLI 工具来帮助您填充缺失的翻译。您可以使用 `intlayer` 命令来测试并填充代码中缺失的翻译。
 
-```bash
+```bash packageManager="npm"
 npx intlayer test         # 测试是否存在缺失的翻译
 ```
 
-```bash
+```bash packageManager="yarn"
+yarn intlayer test         # 测试是否存在缺失的翻译
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer test         # 测试是否存在缺失的翻译
+```
+
+```bash packageManager="bun"
+bun x intlayer test         # 测试是否存在缺失的翻译
+```
+
+```bash packageManager="npm"
 npx intlayer fill         # 填充缺失的翻译
+```
+
+```bash packageManager="yarn"
+yarn intlayer fill         # 填充缺失的翻译
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill         # 填充缺失的翻译
+```
+
+```bash packageManager="bun"
+bun x intlayer fill         # 填充缺失的翻译
 ```
 
 > 有关更多详细信息，请参阅 [CLI 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/ci.md)

@@ -52,8 +52,20 @@ export default exampleContent;
 
 Sonra, aşağıdaki komutu çalıştırdığınızda:
 
-```bash
+```bash packageManager="npm"
 npx intlayer fill --file 'src/components/example/example.content.ts'
+```
+
+```bash packageManager="yarn"
+yarn intlayer fill --file 'src/components/example/example.content.ts'
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill --file 'src/components/example/example.content.ts'
+```
+
+```bash packageManager="bun"
+bun x intlayer fill --file 'src/components/example/example.content.ts'
 ```
 
 Intlayer, ana dosyada henüz beyan edilmemiş tüm yerelleri doldurarak, türetilmiş beyan dosyasını `src/components/example/example.content.json` konumunda otomatik olarak oluşturacaktır.

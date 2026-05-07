@@ -78,8 +78,20 @@ MCP 服务器也可以通过 SSE 传输方式远程使用。该服务器由 Intl
 
 Intlayer 提供了一个 CLI 命令，用于在项目中自动配置 MCP 服务器。
 
-```bash
+```bash packageManager="npm"
 npx intlayer init mcp
+```
+
+```bash packageManager="yarn"
+yarn intlayer init mcp
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer init mcp
+```
+
+```bash packageManager="bun"
+bun x intlayer init mcp
 ```
 
 此命令将：

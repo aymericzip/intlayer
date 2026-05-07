@@ -22,8 +22,20 @@ slugs:
 
 `configuration get` コマンドは、Intlayerの現在の設定、特にロケール設定を取得します。これはセットアップの確認に役立ちます。
 
-```bash
+```bash packageManager="npm"
 npx intlayer configuration get
+```
+
+```bash packageManager="yarn"
+yarn intlayer configuration get
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer configuration get
+```
+
+```bash packageManager="bun"
+bun x intlayer configuration get
 ```
 
 ## エイリアス:
@@ -43,8 +55,20 @@ npx intlayer configuration get
 
 `configuration push` コマンドは、設定をIntlayer CMSおよびエディターにアップロードします。このステップは、Intlayer Visual Editorで遠隔辞書を使用可能にするために必要です。
 
-```bash
+```bash packageManager="npm"
 npx intlayer configuration push
+```
+
+```bash packageManager="yarn"
+yarn intlayer configuration push
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer configuration push
+```
+
+```bash packageManager="bun"
+bun x intlayer configuration push
 ```
 
 ## エイリアス:

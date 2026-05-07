@@ -367,12 +367,36 @@ const LocaleSwitcher: FC = () => {
 
 Intlayer предоставляет инструмент CLI, который поможет вам заполнить недостающие переводы. Вы можете использовать команду `intlayer` для тестирования и заполнения недостающих переводов в вашем коде.
 
-```bash
+```bash packageManager="npm"
 npx intlayer test         # Проверить наличие недостающих переводов
 ```
 
-```bash
+```bash packageManager="yarn"
+yarn intlayer test         # Проверить наличие недостающих переводов
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer test         # Проверить наличие недостающих переводов
+```
+
+```bash packageManager="bun"
+bun x intlayer test         # Проверить наличие недостающих переводов
+```
+
+```bash packageManager="npm"
 npx intlayer fill         # Заполнить недостающие переводы
+```
+
+```bash packageManager="yarn"
+yarn intlayer fill         # Заполнить недостающие переводы
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill         # Заполнить недостающие переводы
+```
+
+```bash packageManager="bun"
+bun x intlayer fill         # Заполнить недостающие переводы
 ```
 
 > Для получения более подробной информации обратитесь к [документации CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/cli/ci.md)

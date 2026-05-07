@@ -26,8 +26,20 @@ history:
 
 Der Befehl `intlayer init skills` ist der am einfachsten Weg, um Agenten-Skills in Ihrem Projekt einzurichten. Er erkennt Ihre Umgebung und installiert die notwendigen Konfigurationsdateien für Ihre bevorzugten Plattformen.
 
-```bash
+```bash packageManager="npm"
 npx intlayer init skills
+```
+
+```bash packageManager="yarn"
+yarn intlayer init skills
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer init skills
+```
+
+```bash packageManager="bun"
+bun x intlayer init skills
 ```
 
 ### Vercel Skill SDK verwenden

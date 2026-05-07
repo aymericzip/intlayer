@@ -23,14 +23,38 @@ history:
 
 사전을 빌드하려면 다음 명령어를 실행할 수 있습니다:
 
-```bash
+```bash packageManager="npm"
 npx intlayer build
+```
+
+```bash packageManager="yarn"
+yarn intlayer build
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer build
+```
+
+```bash packageManager="bun"
+bun x intlayer build
 ```
 
 또는 감시 모드로 실행하려면
 
-```bash
+```bash packageManager="npm"
 npx intlayer build --watch
+```
+
+```bash packageManager="yarn"
+yarn intlayer build --watch
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer build --watch
+```
+
+```bash packageManager="bun"
+bun x intlayer build --watch
 ```
 
 이 명령어는 기본적으로 `./src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx}` 경로에서 선언된 콘텐츠 파일을 찾아 `.intlayer` 디렉토리에 사전을 빌드합니다.

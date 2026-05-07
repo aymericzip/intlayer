@@ -37,8 +37,20 @@ Esta guía muestra cómo verificar automáticamente que tus diccionarios estén 
 
 Ejecuta la auditoría desde la raíz de tu proyecto:
 
-```bash
+```bash packageManager="npm"
 npx intlayer content test
+```
+
+```bash packageManager="yarn"
+yarn intlayer content test
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content test
+```
+
+```bash packageManager="bun"
+bun x intlayer content test
 ```
 
 Flags útiles:
@@ -182,8 +194,20 @@ jobs:
 
 Opcional: ejecuta la auditoría CLI para un resumen legible por humanos junto con las pruebas:
 
-```bash
+```bash packageManager="npm"
 npx intlayer content test --verbose
+```
+
+```bash packageManager="yarn"
+yarn intlayer content test --verbose
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content test --verbose
+```
+
+```bash packageManager="bun"
+bun x intlayer content test --verbose
 ```
 
 ---

@@ -160,14 +160,38 @@ export default config;
 
 Untuk mengonfigurasi Intlayer CMS, Anda dapat menggunakan perintah [intlayer CLI](https://github.com/aymericzip/intlayer/tree/main/docs/id/cli/index.md).
 
-```bash
+```bash packageManager="npm"
 npx intlayer config push
+```
+
+```bash packageManager="yarn"
+yarn intlayer config push
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer config push
+```
+
+```bash packageManager="bun"
+bun x intlayer config push
 ```
 
 > Jika Anda menggunakan variabel lingkungan dalam file konfigurasi `intlayer.config.ts` Anda, Anda dapat menentukan lingkungan yang diinginkan menggunakan argumen `--env`:
 
-```bash
+```bash packageManager="npm"
 npx intlayer config push --env production
+```
+
+```bash packageManager="yarn"
+yarn intlayer config push --env production
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer config push --env production
+```
+
+```bash packageManager="bun"
+bun x intlayer config push --env production
 ```
 
 Perintah ini mengunggah konfigurasi Anda ke Intlayer CMS.
@@ -176,14 +200,38 @@ Perintah ini mengunggah konfigurasi Anda ke Intlayer CMS.
 
 Untuk mengubah kamus lokal Anda menjadi kamus jarak jauh, Anda dapat menggunakan perintah [intlayer CLI](https://github.com/aymericzip/intlayer/tree/main/docs/id/cli/index.md).
 
-```bash
+```bash packageManager="npm"
 npx intlayer dictionary push -d my-first-dictionary-key
+```
+
+```bash packageManager="yarn"
+yarn intlayer dictionary push -d my-first-dictionary-key
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer dictionary push -d my-first-dictionary-key
+```
+
+```bash packageManager="bun"
+bun x intlayer dictionary push -d my-first-dictionary-key
 ```
 
 > Jika Anda menggunakan variabel lingkungan dalam file konfigurasi `intlayer.config.ts` Anda, Anda dapat menentukan lingkungan yang diinginkan menggunakan argumen `--env`:
 
-```bash
+```bash packageManager="npm"
 npx intlayer dictionary push -d my-first-dictionary-key --env production
+```
+
+```bash packageManager="yarn"
+yarn intlayer dictionary push -d my-first-dictionary-key --env production
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer dictionary push -d my-first-dictionary-key --env production
+```
+
+```bash packageManager="bun"
+bun x intlayer dictionary push -d my-first-dictionary-key --env production
 ```
 
 Perintah ini mengunggah kamus konten awal Anda, sehingga tersedia untuk pengambilan dan pengeditan secara asinkron melalui platform Intlayer.

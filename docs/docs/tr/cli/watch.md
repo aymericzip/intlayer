@@ -17,8 +17,20 @@ slugs:
 
 # Sözlükleri İzle
 
-```bash
+```bash packageManager="npm"
 npx intlayer watch
+```
+
+```bash packageManager="yarn"
+yarn intlayer watch
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer watch
+```
+
+```bash packageManager="bun"
+bun x intlayer watch
 ```
 
 Bu komut, içerik bildirim dosyalarınızdaki değişiklikleri izleyecek ve `.intlayer` dizininde sözlükleri oluşturacaktır.

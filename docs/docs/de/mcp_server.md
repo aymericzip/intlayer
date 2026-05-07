@@ -78,8 +78,20 @@ Beachten Sie, dass der Remote-Server keine CLI-Tools, keine KI-Autovervollständ
 
 Intlayer stellt einen CLI-Befehl zur Verfügung, um den MCP-Server automatisch in Ihrem Projekt zu konfigurieren.
 
-```bash
+```bash packageManager="npm"
 npx intlayer init mcp
+```
+
+```bash packageManager="yarn"
+yarn intlayer init mcp
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer init mcp
+```
+
+```bash packageManager="bun"
+bun x intlayer init mcp
 ```
 
 Dieser Befehl wird:

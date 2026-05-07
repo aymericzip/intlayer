@@ -18,8 +18,20 @@ slugs:
 
 # Extraire des chaînes
 
-```bash
+```bash packageManager="npm"
 npx intlayer extract
+```
+
+```bash packageManager="yarn"
+yarn intlayer extract
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer extract
+```
+
+```bash packageManager="bun"
+bun x intlayer extract
 ```
 
 Cette commande analyse vos fichiers de code pour extraire les chaînes des composants dans un fichier .content proche du composant. Elle prend en charge la sélection interactive des fichiers ou le ciblage de fichiers spécifiques.

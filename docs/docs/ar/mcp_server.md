@@ -78,8 +78,20 @@ history:
 
 توفر Intlayer أمر CLI لتكوين خادم MCP تلقائيًا في مشروعك.
 
-```bash
+```bash packageManager="npm"
 npx intlayer init mcp
+```
+
+```bash packageManager="yarn"
+yarn intlayer init mcp
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer init mcp
+```
+
+```bash packageManager="bun"
+bun x intlayer init mcp
 ```
 
 سيقوم هذا الأمر بما يلي:

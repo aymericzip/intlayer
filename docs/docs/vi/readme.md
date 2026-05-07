@@ -77,8 +77,20 @@ Bắt đầu hành trình với Intlayer ngay hôm nay và trải nghiệm một
   <img src="https://img.shields.io/badge/Bắt_đầu-FFFFFF?style=for-the-badge&logo=rocket&logoColor=black" />
 </a>
 
-```bash
+```bash packageManager="npm"
 npm install intlayer react-intlayer
+```
+
+```bash packageManager="yarn"
+yarn add intlayer react-intlayer
+```
+
+```bash packageManager="pnpm"
+pnpm add intlayer react-intlayer
+```
+
+```bash packageManager="bun"
+bun add intlayer react-intlayer
 ```
 
 ⚡ Bắt đầu nhanh (Next.js)

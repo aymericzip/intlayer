@@ -25,8 +25,20 @@ Le package `intlayer-cli` fournit un ensemble de commandes pour gérer les dicti
 
 ## Installation
 
-```bash
+```bash packageManager="npm"
 npm install intlayer-cli
+```
+
+```bash packageManager="yarn"
+yarn add intlayer-cli
+```
+
+```bash packageManager="pnpm"
+pnpm add intlayer-cli
+```
+
+```bash packageManager="bun"
+bun add intlayer-cli
 ```
 
 ## Exports

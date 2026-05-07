@@ -367,12 +367,36 @@ const LocaleSwitcher: FC = () => {
 
 يوفر Intlayer أداة CLI لمساعدتك في ملء الترجمات المفقودة. يمكنك استخدام الأمر `intlayer` لاختبار وملء الترجمات المفقودة من التعليمات البرمجية الخاصة بك.
 
-```bash
+```bash packageManager="npm"
 npx intlayer test         # اختبار ما إذا كانت هناك ترجمات مفقودة
 ```
 
-```bash
+```bash packageManager="yarn"
+yarn intlayer test         # اختبار ما إذا كانت هناك ترجمات مفقودة
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer test         # اختبار ما إذا كانت هناك ترجمات مفقودة
+```
+
+```bash packageManager="bun"
+bun x intlayer test         # اختبار ما إذا كانت هناك ترجمات مفقودة
+```
+
+```bash packageManager="npm"
 npx intlayer fill         # ملء الترجمات المفقودة
+```
+
+```bash packageManager="yarn"
+yarn intlayer fill         # ملء الترجمات المفقودة
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill         # ملء الترجمات المفقودة
+```
+
+```bash packageManager="bun"
+bun x intlayer fill         # ملء الترجمات المفقودة
 ```
 
 > لمزيد من التفاصيل، راجع [وثائق CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/ci.md)

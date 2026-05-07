@@ -21,8 +21,20 @@ history:
 
 # Intlayer initialisieren
 
-```bash
+```bash packageManager="npm"
 npx intlayer init
+```
+
+```bash packageManager="yarn"
+yarn intlayer init
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer init
+```
+
+```bash packageManager="bun"
+bun x intlayer init
 ```
 
 Der `init`-Befehl richtet Intlayer automatisch in Ihrem Projekt ein, indem er die erforderlichen Dateien und Einstellungen konfiguriert. Er ist der empfohlene Weg, um mit Intlayer zu starten.
@@ -58,16 +70,40 @@ Der `init`-Befehl führt die folgenden Einrichtungsschritte aus:
 
 ### Grundlegende Initialisierung:
 
-```bash
+```bash packageManager="npm"
 npx intlayer init
+```
+
+```bash packageManager="yarn"
+yarn intlayer init
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer init
+```
+
+```bash packageManager="bun"
+bun x intlayer init
 ```
 
 Dies initialisiert Intlayer im aktuellen Verzeichnis und erkennt automatisch das Projekt-Root.
 
 ### Initialisierung mit benutzerdefiniertem Projekt-Root:
 
-```bash
+```bash packageManager="npm"
 npx intlayer init --project-root ./my-project
+```
+
+```bash packageManager="yarn"
+yarn intlayer init --project-root ./my-project
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer init --project-root ./my-project
+```
+
+```bash packageManager="bun"
+bun x intlayer init --project-root ./my-project
 ```
 
 Dies initialisiert Intlayer im angegebenen Verzeichnis.

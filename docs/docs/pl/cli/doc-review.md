@@ -27,8 +27,20 @@ Polecenie `doc review` analizuje pliki dokumentacji pod kątem jakości, spójno
 - Optymalizuje fragmenty do przeglądu i pomija części, które są już przetłumaczone i nie zostały zmienione.
 - Przetwarza pliki, fragmenty i lokalizacje równolegle przy użyciu systemu kolejkowego, aby zwiększyć prędkość.
 
-```bash
+```bash packageManager="npm"
 npx intlayer doc review
+```
+
+```bash packageManager="yarn"
+yarn intlayer doc review
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer doc review
+```
+
+```bash packageManager="bun"
+bun x intlayer doc review
 ```
 
 Można go użyć do przeglądu plików, które są już przetłumaczone, oraz do sprawdzenia, czy tłumaczenie jest poprawne.

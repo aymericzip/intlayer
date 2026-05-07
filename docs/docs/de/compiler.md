@@ -297,20 +297,56 @@ Die folgenden Eigenschaften können im Block `compiler` Ihrer Datei `intlayer.co
 
 Intlayer bietet ein CLI-Tool an, mit dem Sie fehlende Übersetzungen ausfüllen können. Sie können den Befehl `intlayer` verwenden, um fehlende Übersetzungen in Ihrem Code zu testen und auszufüllen.
 
-```bash
+```bash packageManager="npm"
 npx intlayer test         # Testen, ob Übersetzungen fehlen
 ```
 
-```bash
+```bash packageManager="yarn"
+yarn intlayer test         # Testen, ob Übersetzungen fehlen
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer test         # Testen, ob Übersetzungen fehlen
+```
+
+```bash packageManager="bun"
+bun x intlayer test         # Testen, ob Übersetzungen fehlen
+```
+
+```bash packageManager="npm"
 npx intlayer fill         # Fehlende Übersetzungen ausfüllen
+```
+
+```bash packageManager="yarn"
+yarn intlayer fill         # Fehlende Übersetzungen ausfüllen
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill         # Fehlende Übersetzungen ausfüllen
+```
+
+```bash packageManager="bun"
+bun x intlayer fill         # Fehlende Übersetzungen ausfüllen
 ```
 
 ### Extraktion
 
 Intlayer bietet ein CLI-Tool, um Inhalte aus Ihrem Code zu extrahieren. Sie können den Befehl `intlayer extract` verwenden, um Inhalte aus Ihrem Code zu extrahieren.
 
-```bash
+```bash packageManager="npm"
 npx intlayer extract
+```
+
+```bash packageManager="yarn"
+yarn intlayer extract
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer extract
+```
+
+```bash packageManager="bun"
+bun x intlayer extract
 ```
 
 > Weitere Informationen finden Sie in der [CLI-Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/cli/index.md)

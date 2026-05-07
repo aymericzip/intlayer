@@ -53,8 +53,20 @@ Aqui está um [arquivo de declaração de conteúdo por localidade](https://gith
 
 Então, quando você executar o seguinte comando:
 
-```bash
+```bash packageManager="npm"
 npx intlayer fill --file 'src/components/example/example.content.ts'
+```
+
+```bash packageManager="yarn"
+yarn intlayer fill --file 'src/components/example/example.content.ts'
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill --file 'src/components/example/example.content.ts'
+```
+
+```bash packageManager="bun"
+bun x intlayer fill --file 'src/components/example/example.content.ts'
 ```
 
 O Intlayer irá gerar automaticamente o arquivo de declaração derivado em `src/components/example/example.content.json`, preenchendo todos os locais que ainda não foram declarados no arquivo principal.

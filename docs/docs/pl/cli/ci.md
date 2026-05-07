@@ -24,8 +24,20 @@ history:
 
 # Polecenie CI
 
-```bash
+```bash packageManager="npm"
 npx intlayer ci <command...>
+```
+
+```bash packageManager="yarn"
+yarn intlayer ci <command...>
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer ci <command...>
+```
+
+```bash packageManager="bun"
+bun x intlayer ci <command...>
 ```
 
 Polecenie CI jest zaprojektowane do automatyzacji i pipeline'ów CI/CD. Automatycznie wstrzykuje poświadczenia ze zmiennej środowiskowej `INTLAYER_PROJECT_CREDENTIALS` i może uruchamiać polecenia Intlayer w wielu projektach w monorepo.
@@ -97,8 +109,20 @@ To uruchomi polecenie `push` dla każdego projektu skonfigurowanego w `INTLAYER_
 
 Możesz przekazać dowolne flagi do podstawowego polecenia Intlayer:
 
-```bash
+```bash packageManager="npm"
 npx intlayer ci fill --verbose --mode complete
+```
+
+```bash packageManager="yarn"
+yarn intlayer ci fill --verbose --mode complete
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer ci fill --verbose --mode complete
+```
+
+```bash packageManager="bun"
+bun x intlayer ci fill --verbose --mode complete
 ```
 
 ### Użycie w pipeline'ach CI/CD

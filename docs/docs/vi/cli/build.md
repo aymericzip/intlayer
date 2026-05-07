@@ -23,14 +23,38 @@ history:
 
 Để xây dựng từ điển của bạn, bạn có thể chạy các lệnh:
 
-```bash
+```bash packageManager="npm"
 npx intlayer build
+```
+
+```bash packageManager="yarn"
+yarn intlayer build
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer build
+```
+
+```bash packageManager="bun"
+bun x intlayer build
 ```
 
 hoặc ở chế độ theo dõi
 
-```bash
+```bash packageManager="npm"
 npx intlayer build --watch
+```
+
+```bash packageManager="yarn"
+yarn intlayer build --watch
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer build --watch
+```
+
+```bash packageManager="bun"
+bun x intlayer build --watch
 ```
 
 Lệnh này sẽ tìm các tệp khai báo nội dung của bạn theo mặc định tại `./src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx}`. Và xây dựng các từ điển trong thư mục `.intlayer`.

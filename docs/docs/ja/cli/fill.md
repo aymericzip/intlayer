@@ -20,8 +20,20 @@ slugs:
 
 # 辞書の補完 / 監査 / 翻訳
 
-```bash
+```bash packageManager="npm"
 npx intlayer fill
+```
+
+```bash packageManager="yarn"
+yarn intlayer fill
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill
+```
+
+```bash packageManager="bun"
+bun x intlayer fill
 ```
 
 このコマンドは、翻訳の欠落、構造の不整合、型の不一致などの潜在的な問題を検出するために、コンテンツ宣言ファイルを解析します。問題が見つかった場合、**intlayer fill** は辞書を一貫性があり完全な状態に保つために、更新を提案または適用します。
@@ -161,8 +173,20 @@ Affected dictionary keys for processing: app, comp-test, hello-world, lang-switc
 
 ## 例:
 
-```bash
+```bash packageManager="npm"
 npx intlayer fill --file src/home/*.content.ts --source-locale en --output-locales fr es --model gpt-3.5-turbo
+```
+
+```bash packageManager="yarn"
+yarn intlayer fill --file src/home/*.content.ts --source-locale en --output-locales fr es --model gpt-3.5-turbo
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill --file src/home/*.content.ts --source-locale en --output-locales fr es --model gpt-3.5-turbo
+```
+
+```bash packageManager="bun"
+bun x intlayer fill --file src/home/*.content.ts --source-locale en --output-locales fr es --model gpt-3.5-turbo
 ```
 
 このコマンドは、`src/home/` ディレクトリ内のすべてのコンテンツ宣言ファイルに対して、GPT-3.5 Turboモデルを使用して英語からフランス語およびスペイン語にコンテンツを翻訳します。

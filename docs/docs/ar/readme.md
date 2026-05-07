@@ -77,8 +77,20 @@ Intlayer هو **حل i18n حديث** لتطبيقات الويب والهاتف 
   <img src="https://img.shields.io/badge/ابدأ-FFFFFF?style=for-the-badge&logo=rocket&logoColor=black" />
 </a>
 
-```bash
+```bash packageManager="npm"
 npm install intlayer react-intlayer
+```
+
+```bash packageManager="yarn"
+yarn add intlayer react-intlayer
+```
+
+```bash packageManager="pnpm"
+pnpm add intlayer react-intlayer
+```
+
+```bash packageManager="bun"
+bun add intlayer react-intlayer
 ```
 
 ⚡ بداية سريعة (Next.js)

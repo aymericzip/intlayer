@@ -17,8 +17,20 @@ slugs:
 
 # Testowanie brakujących tłumaczeń
 
-```bash
+```bash packageManager="npm"
 npx intlayer content test
+```
+
+```bash packageManager="yarn"
+yarn intlayer content test
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content test
+```
+
+```bash packageManager="bun"
+bun x intlayer content test
 ```
 
 ## Alias:
@@ -69,8 +81,20 @@ Brakujące wymagane lokalizacje: -
 
 ## Przykład:
 
-```bash
+```bash packageManager="npm"
 npx intlayer content test --verbose
+```
+
+```bash packageManager="yarn"
+yarn intlayer content test --verbose
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content test --verbose
+```
+
+```bash packageManager="bun"
+bun x intlayer content test --verbose
 ```
 
 Wynik pomaga szybko zidentyfikować, które tłumaczenia wymagają uzupełnienia, aby zapewnić prawidłowe działanie aplikacji we wszystkich skonfigurowanych lokalizacjach.

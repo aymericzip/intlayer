@@ -27,8 +27,20 @@ Perintah `doc review` menganalisis file dokumentasi untuk kualitas, konsistensi,
 - Mengoptimalkan potongan untuk ditinjau dan melewatkan bagian yang sudah diterjemahkan dan tidak berubah.
 - Memproses file, potongan, dan locale secara paralel menggunakan sistem antrian untuk meningkatkan kecepatan.
 
-```bash
+```bash packageManager="npm"
 npx intlayer doc review
+```
+
+```bash packageManager="yarn"
+yarn intlayer doc review
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer doc review
+```
+
+```bash packageManager="bun"
+bun x intlayer doc review
 ```
 
 Perintah ini dapat digunakan untuk meninjau file yang sudah diterjemahkan, dan untuk memeriksa apakah terjemahannya sudah benar.

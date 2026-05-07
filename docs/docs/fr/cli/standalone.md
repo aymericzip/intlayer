@@ -29,8 +29,20 @@ Le bundle utilise [esbuild](https://esbuild.github.io/) pour combiner les paquet
 
 ## Utilisation
 
-```bash
+```bash packageManager="npm"
 npx intlayer standalone --packages [paquets...] [options]
+```
+
+```bash packageManager="yarn"
+yarn intlayer standalone --packages [paquets...] [options]
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer standalone --packages [paquets...] [options]
+```
+
+```bash packageManager="bun"
+bun x intlayer standalone --packages [paquets...] [options]
 ```
 
 ## Options
@@ -54,22 +66,58 @@ npx intlayer standalone --packages [paquets...] [options]
 
 ### Créer un bundle pour Vanilla JS :
 
-```bash
+```bash packageManager="npm"
 npx intlayer standalone --packages intlayer vanilla-intlayer --outfile intlayer.js
+```
+
+```bash packageManager="yarn"
+yarn intlayer standalone --packages intlayer vanilla-intlayer --outfile intlayer.js
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer standalone --packages intlayer vanilla-intlayer --outfile intlayer.js
+```
+
+```bash packageManager="bun"
+bun x intlayer standalone --packages intlayer vanilla-intlayer --outfile intlayer.js
 ```
 
 Cela créera un fichier `intlayer.js` contenant à la fois les paquets `intlayer` et `vanilla-intlayer`, minifié et au format ESM, prêt à être utilisé dans un navigateur via une balise `<script>`.
 
 ### Regrouper une version spécifique :
 
-```bash
+```bash packageManager="npm"
 npx intlayer standalone --packages intlayer --version 8.6.4
+```
+
+```bash packageManager="yarn"
+yarn intlayer standalone --packages intlayer --version 8.6.4
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer standalone --packages intlayer --version 8.6.4
+```
+
+```bash packageManager="bun"
+bun x intlayer standalone --packages intlayer --version 8.6.4
 ```
 
 ### Regrouper avec un format différent :
 
-```bash
+```bash packageManager="npm"
 npx intlayer standalone --packages intlayer --format iife
+```
+
+```bash packageManager="yarn"
+yarn intlayer standalone --packages intlayer --format iife
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer standalone --packages intlayer --format iife
+```
+
+```bash packageManager="bun"
+bun x intlayer standalone --packages intlayer --format iife
 ```
 
 ## Ce qu'il fait :

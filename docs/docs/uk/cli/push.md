@@ -19,8 +19,20 @@ slugs:
 
 # Push словників
 
-```bash
+```bash packageManager="npm"
 npx intlayer dictionary push
+```
+
+```bash packageManager="yarn"
+yarn intlayer dictionary push
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer dictionary push
+```
+
+```bash packageManager="bun"
+bun x intlayer dictionary push
 ```
 
 Якщо [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md) встановлено, ви також можете передавати словники до редактора. Ця команда дозволяє зробити словники доступними в [редакторі](https://app.intlayer.org/). Таким чином ви можете ділитися своїми словниками з командою та редагувати вміст без редагування коду вашого додатка.

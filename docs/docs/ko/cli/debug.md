@@ -21,18 +21,48 @@ slugs:
 
 다음 명령어를 실행하세요:
 
-```bash
+```bash packageManager="npm"
 npx intlayer --version                  # 현재 로컬 Intlayer 버전
 npx intlayer@latest --version           # 최신 Intlayer 버전
+```
+
+```bash packageManager="yarn"
+yarn intlayer --version                  # 현재 로컬 Intlayer 버전
+yarn intlayer@latest --version           # 최신 Intlayer 버전
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer --version                  # 현재 로컬 Intlayer 버전
+pnpm intlayer@latest --version           # 최신 Intlayer 버전
+```
+
+```bash packageManager="bun"
+bun x intlayer --version                  # 현재 로컬 Intlayer 버전
+bun x intlayer@latest --version           # 최신 Intlayer 버전
 ```
 
 ## 2. **명령어가 등록되어 있는지 확인하세요**
 
 다음 명령어로 확인할 수 있습니다:
 
-```bash
+```bash packageManager="npm"
 npx intlayer --help                     # 사용 가능한 명령어 목록과 사용법 정보 표시
 npx intlayer dictionary build --help    # 특정 명령어에 대한 사용 가능한 옵션 목록 표시
+```
+
+```bash packageManager="yarn"
+yarn intlayer --help                     # 사용 가능한 명령어 목록과 사용법 정보 표시
+yarn intlayer dictionary build --help    # 특정 명령어에 대한 사용 가능한 옵션 목록 표시
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer --help                     # 사용 가능한 명령어 목록과 사용법 정보 표시
+pnpm intlayer dictionary build --help    # 특정 명령어에 대한 사용 가능한 옵션 목록 표시
+```
+
+```bash packageManager="bun"
+bun x intlayer --help                     # 사용 가능한 명령어 목록과 사용법 정보 표시
+bun x intlayer dictionary build --help    # 특정 명령어에 대한 사용 가능한 옵션 목록 표시
 ```
 
 ## 3. **터미널을 재시작하세요**

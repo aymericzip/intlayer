@@ -355,12 +355,36 @@ export default async function Page() {
 
 Intlayer 提供了一个 CLI 工具来帮助您填写缺失的翻译。您可以使用 `intlayer` 命令来测试并从您的代码中填写缺失的翻译。
 
-```bash
+```bash packageManager="npm"
 npx intlayer test         # 测试是否有缺失的翻译
 ```
 
-```bash
+```bash packageManager="yarn"
+yarn intlayer test         # 测试是否有缺失的翻译
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer test         # 测试是否有缺失的翻译
+```
+
+```bash packageManager="bun"
+bun x intlayer test         # 测试是否有缺失的翻译
+```
+
+```bash packageManager="npm"
 npx intlayer fill         # 填写缺失的翻译
+```
+
+```bash packageManager="yarn"
+yarn intlayer fill         # 填写缺失的翻译
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill         # 填写缺失的翻译
+```
+
+```bash packageManager="bun"
+bun x intlayer fill         # 填写缺失的翻译
 ```
 
 > 有关更多详细信息，请参阅 [CLI 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/ci.md)

@@ -23,14 +23,38 @@ history:
 
 لبناء قواميسك، يمكنك تشغيل الأوامر التالية:
 
-```bash
+```bash packageManager="npm"
 npx intlayer build
+```
+
+```bash packageManager="yarn"
+yarn intlayer build
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer build
+```
+
+```bash packageManager="bun"
+bun x intlayer build
 ```
 
 أو في وضع المراقبة
 
-```bash
+```bash packageManager="npm"
 npx intlayer build --watch
+```
+
+```bash packageManager="yarn"
+yarn intlayer build --watch
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer build --watch
+```
+
+```bash packageManager="bun"
+bun x intlayer build --watch
 ```
 
 سيقوم هذا الأمر بالعثور على ملفات إعلان المحتوى الخاصة بك بشكل افتراضي في المسار `./src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx}`. وسيبني القواميس في مجلد `.intlayer`.

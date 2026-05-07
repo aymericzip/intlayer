@@ -78,8 +78,20 @@ Notez que le serveur distant n'intègre pas les outils CLI, l'autocomplétion IA
 
 Intlayer fournit une commande CLI pour configurer automatiquement le serveur MCP dans votre projet.
 
-```bash
+```bash packageManager="npm"
 npx intlayer init mcp
+```
+
+```bash packageManager="yarn"
+yarn intlayer init mcp
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer init mcp
+```
+
+```bash packageManager="bun"
+bun x intlayer init mcp
 ```
 
 Cette commande va :

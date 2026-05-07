@@ -24,8 +24,20 @@ history:
 
 # Inisialisasi Intlayer
 
-```bash
+```bash packageManager="npm"
 npx intlayer init
+```
+
+```bash packageManager="yarn"
+yarn intlayer init
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer init
+```
+
+```bash packageManager="bun"
+bun x intlayer init
 ```
 
 Perintah `init` secara otomatis mengonfigurasi Intlayer di proyek Anda dengan membuat file dan pengaturan yang diperlukan. Ini adalah cara yang disarankan untuk mulai menggunakan Intlayer.
@@ -54,24 +66,60 @@ Perintah `init` melakukan tugas setup berikut:
 
 ### Inisialisasi dasar:
 
-```bash
+```bash packageManager="npm"
 npx intlayer init
+```
+
+```bash packageManager="yarn"
+yarn intlayer init
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer init
+```
+
+```bash packageManager="bun"
+bun x intlayer init
 ```
 
 Ini menginisialisasi Intlayer di direktori saat ini, mendeteksi akar proyek secara otomatis.
 
 ### Inisialisasi dengan akar proyek khusus:
 
-```bash
+```bash packageManager="npm"
 npx intlayer init --project-root ./proyek-saya
+```
+
+```bash packageManager="yarn"
+yarn intlayer init --project-root ./proyek-saya
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer init --project-root ./proyek-saya
+```
+
+```bash packageManager="bun"
+bun x intlayer init --project-root ./proyek-saya
 ```
 
 Ini menginisialisasi Intlayer di direktori yang ditentukan.
 
 ### Inisialisasi tanpa memperbarui .gitignore:
 
-```bash
+```bash packageManager="npm"
 npx intlayer init --no-gitignore
+```
+
+```bash packageManager="yarn"
+yarn intlayer init --no-gitignore
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer init --no-gitignore
+```
+
+```bash packageManager="bun"
+bun x intlayer init --no-gitignore
 ```
 
 Ini akan menyiapkan semua file konfigurasi tetapi tidak akan memodifikasi `.gitignore` Anda.

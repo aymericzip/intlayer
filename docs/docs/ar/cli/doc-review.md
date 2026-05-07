@@ -27,8 +27,20 @@ slugs:
 - يحسن الأجزاء المراد مراجعتها ويتخطى الأجزاء التي تم ترجمتها بالفعل ولم تتغير.
 - يعالج الملفات والأجزاء واللغات بالتوازي باستخدام نظام قائمة انتظار لزيادة السرعة.
 
-```bash
+```bash packageManager="npm"
 npx intlayer doc review
+```
+
+```bash packageManager="yarn"
+yarn intlayer doc review
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer doc review
+```
+
+```bash packageManager="bun"
+bun x intlayer doc review
 ```
 
 يمكن استخدامه لمراجعة الملفات التي تم ترجمتها بالفعل، وللتحقق مما إذا كانت الترجمة صحيحة.

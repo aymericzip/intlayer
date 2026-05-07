@@ -292,20 +292,56 @@ export default config;
 
 Intlayer надає CLI-інструмент, який допоможе заповнити відсутні переклади. Ви можете використовувати команду `intlayer` для перевірки та заповнення відсутніх перекладів у вашому коді.
 
-```bash
+```bash packageManager="npm"
 npx intlayer test         # Перевірити наявність відсутніх перекладів
 ```
 
-```bash
+```bash packageManager="yarn"
+yarn intlayer test         # Перевірити наявність відсутніх перекладів
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer test         # Перевірити наявність відсутніх перекладів
+```
+
+```bash packageManager="bun"
+bun x intlayer test         # Перевірити наявність відсутніх перекладів
+```
+
+```bash packageManager="npm"
 npx intlayer fill         # Заповнити відсутні переклади
+```
+
+```bash packageManager="yarn"
+yarn intlayer fill         # Заповнити відсутні переклади
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill         # Заповнити відсутні переклади
+```
+
+```bash packageManager="bun"
+bun x intlayer fill         # Заповнити відсутні переклади
 ```
 
 ### Екстракція
 
 Intlayer надає CLI-інструмент, який допоможе вам витягти контент із вашого коду. Ви можете використовувати команду `intlayer extract`, щоб витягти контент із вашого коду.
 
-```bash
+```bash packageManager="npm"
 npx intlayer extract
+```
+
+```bash packageManager="yarn"
+yarn intlayer extract
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer extract
+```
+
+```bash packageManager="bun"
+bun x intlayer extract
 ```
 
 > Для отримання детальнішої інформації див. [документацію CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/index.md)

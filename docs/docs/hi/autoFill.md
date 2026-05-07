@@ -52,8 +52,20 @@ export default exampleContent;
 
 फिर, जब आप निम्नलिखित कमांड चलाते हैं:
 
-```bash
+```bash packageManager="npm"
 npx intlayer fill --file 'src/components/example/example.content.ts'
+```
+
+```bash packageManager="yarn"
+yarn intlayer fill --file 'src/components/example/example.content.ts'
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill --file 'src/components/example/example.content.ts'
+```
+
+```bash packageManager="bun"
+bun x intlayer fill --file 'src/components/example/example.content.ts'
 ```
 
 Intlayer स्वचालित रूप से व्युत्पन्न घोषणा फ़ाइल `src/components/example/example.content.json` बनाएगा, जिसमें मुख्य फ़ाइल में पहले से घोषित नहीं किए गए सभी स्थानों को भरा जाएगा।

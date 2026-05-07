@@ -26,8 +26,20 @@ history:
 
 El comando `intlayer init skills` es la forma más fácil de configurar las habilidades del agente en su proyecto. Detecta su entorno e instala los archivos de configuración necesarios para sus plataformas preferidas.
 
-```bash
+```bash packageManager="npm"
 npx intlayer init skills
+```
+
+```bash packageManager="yarn"
+yarn intlayer init skills
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer init skills
+```
+
+```bash packageManager="bun"
+bun x intlayer init skills
 ```
 
 ### Usando el SDK de Vercel Skill

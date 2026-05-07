@@ -355,12 +355,36 @@ export default async function Page() {
 
 Intlayer, eksik çevirileri doldurmanıza yardımcı olacak bir CLI aracı sağlar. Kodunuzdaki eksik çevirileri test etmek ve doldurmak için `intlayer` komutunu kullanabilirsiniz.
 
-```bash
+```bash packageManager="npm"
 npx intlayer test         # Eksik çeviri olup olmadığını test et
 ```
 
-```bash
+```bash packageManager="yarn"
+yarn intlayer test         # Eksik çeviri olup olmadığını test et
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer test         # Eksik çeviri olup olmadığını test et
+```
+
+```bash packageManager="bun"
+bun x intlayer test         # Eksik çeviri olup olmadığını test et
+```
+
+```bash packageManager="npm"
 npx intlayer fill         # Eksik çevirileri doldur
+```
+
+```bash packageManager="yarn"
+yarn intlayer fill         # Eksik çevirileri doldur
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill         # Eksik çevirileri doldur
+```
+
+```bash packageManager="bun"
+bun x intlayer fill         # Eksik çevirileri doldur
 ```
 
 > Daha fazla ayrıntı için [CLI belgelerine](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/ci.md) bakın.

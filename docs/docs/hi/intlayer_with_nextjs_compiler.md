@@ -355,12 +355,36 @@ export default async function Page() {
 
 Intlayer छूटे हुए अनुवादों को भरने में आपकी मदद करने के लिए एक CLI टूल प्रदान करता है। आप अपने कोड से छूटे हुए अनुवादों का परीक्षण करने और उन्हें भरने के लिए `intlayer` कमांड का उपयोग कर सकते हैं।
 
-```bash
+```bash packageManager="npm"
 npx intlayer test         # परीक्षण करें कि क्या अनुवाद छूटे हुए हैं
 ```
 
-```bash
+```bash packageManager="yarn"
+yarn intlayer test         # परीक्षण करें कि क्या अनुवाद छूटे हुए हैं
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer test         # परीक्षण करें कि क्या अनुवाद छूटे हुए हैं
+```
+
+```bash packageManager="bun"
+bun x intlayer test         # परीक्षण करें कि क्या अनुवाद छूटे हुए हैं
+```
+
+```bash packageManager="npm"
 npx intlayer fill         # छूटे हुए अनुवाद भरें
+```
+
+```bash packageManager="yarn"
+yarn intlayer fill         # छूटे हुए अनुवाद भरें
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill         # छूटे हुए अनुवाद भरें
+```
+
+```bash packageManager="bun"
+bun x intlayer fill         # छूटे हुए अनुवाद भरें
 ```
 
 > अधिक विवरण के लिए, [CLI दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/ci.md) देखें।

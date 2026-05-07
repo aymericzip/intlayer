@@ -27,8 +27,20 @@ Der Befehl `doc review` analysiert Dokumentationsdateien auf Qualität, Konsiste
 - Optimiert die zu überprüfenden Chunks und überspringt Teile, die bereits übersetzt und unverändert sind.
 - Verarbeitet Dateien, Chunks und Locales parallel mithilfe eines Warteschlangensystems, um die Geschwindigkeit zu erhöhen.
 
-```bash
+```bash packageManager="npm"
 npx intlayer doc review
+```
+
+```bash packageManager="yarn"
+yarn intlayer doc review
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer doc review
+```
+
+```bash packageManager="bun"
+bun x intlayer doc review
 ```
 
 Er kann verwendet werden, um bereits übersetzte Dateien zu überprüfen und zu prüfen, ob die Übersetzung korrekt ist.

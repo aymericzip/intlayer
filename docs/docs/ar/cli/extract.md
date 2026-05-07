@@ -18,8 +18,20 @@ slugs:
 
 # استخراج السلاسل
 
-```bash
+```bash packageManager="npm"
 npx intlayer extract
+```
+
+```bash packageManager="yarn"
+yarn intlayer extract
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer extract
+```
+
+```bash packageManager="bun"
+bun x intlayer extract
 ```
 
 يقوم هذا الأمر بتحليل ملفات الشيفرة الخاصة بك لاستخراج السلاسل من المكونات إلى ملف .content بجانب المكون. يدعم اختيار الملفات بشكل تفاعلي أو استهداف ملفات محددة.

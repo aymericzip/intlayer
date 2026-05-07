@@ -22,8 +22,20 @@ slugs:
 
 `configuration get` 命令用于检索当前 Intlayer 的配置，特别是语言环境设置。这对于验证您的设置非常有用。
 
-```bash
+```bash packageManager="npm"
 npx intlayer configuration get
+```
+
+```bash packageManager="yarn"
+yarn intlayer configuration get
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer configuration get
+```
+
+```bash packageManager="bun"
+bun x intlayer configuration get
 ```
 
 ## 别名：
@@ -43,8 +55,20 @@ npx intlayer configuration get
 
 `configuration push` 命令将您的配置上传到 Intlayer CMS 和编辑器。此步骤对于启用 Intlayer 可视化编辑器中远程词典的使用是必要的。
 
-```bash
+```bash packageManager="npm"
 npx intlayer configuration push
+```
+
+```bash packageManager="yarn"
+yarn intlayer configuration push
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer configuration push
+```
+
+```bash packageManager="bun"
+bun x intlayer configuration push
 ```
 
 ## 别名：

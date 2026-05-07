@@ -25,8 +25,20 @@ The `intlayer` package is the core library of the Intlayer ecosystem. It provide
 
 ## Installation
 
-```bash
+```bash packageManager="npm"
 npm install intlayer
+```
+
+```bash packageManager="yarn"
+yarn add intlayer
+```
+
+```bash packageManager="pnpm"
+pnpm add intlayer
+```
+
+```bash packageManager="bun"
+bun add intlayer
 ```
 
 ## Exports

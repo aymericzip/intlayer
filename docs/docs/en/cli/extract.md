@@ -18,8 +18,20 @@ slugs:
 
 # Extract strings
 
-```bash
+```bash packageManager="npm"
 npx intlayer extract
+```
+
+```bash packageManager="yarn"
+yarn intlayer extract
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer extract
+```
+
+```bash packageManager="bun"
+bun x intlayer extract
 ```
 
 This command analyzes your code files to extract strings from components into a .content file close to the component. It supports interactive file selection or specific file targeting.

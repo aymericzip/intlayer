@@ -154,14 +154,38 @@ export default config;
 
 Um das Intlayer CMS zu konfigurieren, können Sie die [intlayer CLI](https://github.com/aymericzip/intlayer/tree/main/docs/docs/de/cli/index.md) Befehle verwenden.
 
-```bash
+```bash packageManager="npm"
 npx intlayer config push
+```
+
+```bash packageManager="yarn"
+yarn intlayer config push
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer config push
+```
+
+```bash packageManager="bun"
+bun x intlayer config push
 ```
 
 > Wenn Sie Umgebungsvariablen in Ihrer `intlayer.config.ts` Konfigurationsdatei verwenden, können Sie die gewünschte Umgebung mit dem Argument `--env` angeben:
 
-```bash
+```bash packageManager="npm"
 npx intlayer config push --env production
+```
+
+```bash packageManager="yarn"
+yarn intlayer config push --env production
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer config push --env production
+```
+
+```bash packageManager="bun"
+bun x intlayer config push --env production
 ```
 
 Dieser Befehl lädt Ihre Konfiguration in das Intlayer CMS hoch.
@@ -170,14 +194,38 @@ Dieser Befehl lädt Ihre Konfiguration in das Intlayer CMS hoch.
 
 Um Ihre Lokalisierungswörterbücher in ein entferntes Wörterbuch zu transformieren, können Sie die [intlayer CLI](https://github.com/aymericzip/intlayer/tree/main/docs/docs/de/cli/index.md) Befehle verwenden.
 
-```bash
+```bash packageManager="npm"
 npx intlayer dictionary push -d my-first-dictionary-key
+```
+
+```bash packageManager="yarn"
+yarn intlayer dictionary push -d my-first-dictionary-key
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer dictionary push -d my-first-dictionary-key
+```
+
+```bash packageManager="bun"
+bun x intlayer dictionary push -d my-first-dictionary-key
 ```
 
 > Wenn Sie Umgebungsvariablen in Ihrer `intlayer.config.ts` Konfigurationsdatei verwenden, können Sie die gewünschte Umgebung mit dem Argument `--env` angeben:
 
-```bash
+```bash packageManager="npm"
 npx intlayer dictionary push -d my-first-dictionary-key --env production
+```
+
+```bash packageManager="yarn"
+yarn intlayer dictionary push -d my-first-dictionary-key --env production
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer dictionary push -d my-first-dictionary-key --env production
+```
+
+```bash packageManager="bun"
+bun x intlayer dictionary push -d my-first-dictionary-key --env production
 ```
 
 Dieser Befehl lädt Ihre anfänglichen Inhaltswörterbücher hoch und macht sie für asynchrones Abrufen und Bearbeiten über die Intlayer-Plattform verfügbar.

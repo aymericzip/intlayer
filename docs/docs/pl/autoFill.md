@@ -99,8 +99,20 @@ Oto [plik deklaracji zawartości dla poszczególnych lokalizacji](https://github
 
 Następnie, gdy uruchomisz następujące polecenie:
 
-```bash
+```bash packageManager="npm"
 npx intlayer fill --file 'src/components/example/example.content.ts'
+```
+
+```bash packageManager="yarn"
+yarn intlayer fill --file 'src/components/example/example.content.ts'
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill --file 'src/components/example/example.content.ts'
+```
+
+```bash packageManager="bun"
+bun x intlayer fill --file 'src/components/example/example.content.ts'
 ```
 
 Intlayer automatycznie wygeneruje pochodny plik deklaracji w `src/components/example/example.content.json`, wypełniając wszystkie lokalizacje, które nie zostały jeszcze zadeklarowane w głównym pliku.

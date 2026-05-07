@@ -24,8 +24,20 @@ history:
 
 # Intlayer'ı Başlat
 
-```bash
+```bash packageManager="npm"
 npx intlayer init
+```
+
+```bash packageManager="yarn"
+yarn intlayer init
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer init
+```
+
+```bash packageManager="bun"
+bun x intlayer init
 ```
 
 `init` komutu, gerekli dosyaları ve ayarları oluşturarak projenizde Intlayer'ı otomatik olarak yapılandırır. Bu, Intlayer'ı kullanmaya başlamak için önerilen yoldur.
@@ -54,24 +66,60 @@ npx intlayer init
 
 ### Temel başlatma:
 
-```bash
+```bash packageManager="npm"
 npx intlayer init
+```
+
+```bash packageManager="yarn"
+yarn intlayer init
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer init
+```
+
+```bash packageManager="bun"
+bun x intlayer init
 ```
 
 Bu, proje kökünü otomatik olarak algılayarak Intlayer'ı mevcut dizinde başlatır.
 
 ### Özel proje kökü ile başlatma:
 
-```bash
+```bash packageManager="npm"
 npx intlayer init --project-root ./projem
+```
+
+```bash packageManager="yarn"
+yarn intlayer init --project-root ./projem
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer init --project-root ./projem
+```
+
+```bash packageManager="bun"
+bun x intlayer init --project-root ./projem
 ```
 
 Bu, Intlayer'ı belirtilen dizinde başlatır.
 
 ### .gitignore'u güncellemeden başlatma:
 
-```bash
+```bash packageManager="npm"
 npx intlayer init --no-gitignore
+```
+
+```bash packageManager="yarn"
+yarn intlayer init --no-gitignore
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer init --no-gitignore
+```
+
+```bash packageManager="bun"
+bun x intlayer init --no-gitignore
 ```
 
 Bu, tüm yapılandırma dosyalarını kurar ancak `.gitignore` dosyanızı değiştirmez.

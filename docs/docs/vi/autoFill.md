@@ -99,8 +99,20 @@ Dưới đây là một [tệp khai báo nội dung theo từng locale](https://
 
 Sau đó, khi bạn chạy lệnh sau:
 
-```bash
+```bash packageManager="npm"
 npx intlayer fill --file 'src/components/example/example.content.ts'
+```
+
+```bash packageManager="yarn"
+yarn intlayer fill --file 'src/components/example/example.content.ts'
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill --file 'src/components/example/example.content.ts'
+```
+
+```bash packageManager="bun"
+bun x intlayer fill --file 'src/components/example/example.content.ts'
 ```
 
 Intlayer sẽ tự động tạo tệp khai báo dẫn xuất tại `src/components/example/example.content.json`, điền vào tất cả các locale chưa được khai báo trong tệp chính.

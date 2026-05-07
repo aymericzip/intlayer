@@ -20,8 +20,20 @@ slugs:
 
 # शब्दकोश भरें / ऑडिट करें / अनुवाद करें
 
-```bash
+```bash packageManager="npm"
 npx intlayer fill
+```
+
+```bash packageManager="yarn"
+yarn intlayer fill
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill
+```
+
+```bash packageManager="bun"
+bun x intlayer fill
 ```
 
 यह कमांड आपकी सामग्री घोषणा फ़ाइलों का विश्लेषण संभावित समस्याओं के लिए करता है जैसे कि गायब अनुवाद, संरचनात्मक असंगतियां, या प्रकार असंगतताएं। यदि यह कोई समस्या पाता है, तो **intlayer fill** आपके शब्दकोशों को सुसंगत और पूर्ण बनाए रखने के लिए अपडेट प्रस्तावित या लागू करेगा।
@@ -161,8 +173,20 @@ Affected dictionary keys for processing: app, comp-test, hello-world, lang-switc
 
 ## उदाहरण:
 
-```bash
+```bash packageManager="npm"
 npx intlayer fill --file src/home/*.content.ts --source-locale en --output-locales fr es --model gpt-3.5-turbo
+```
+
+```bash packageManager="yarn"
+yarn intlayer fill --file src/home/*.content.ts --source-locale en --output-locales fr es --model gpt-3.5-turbo
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill --file src/home/*.content.ts --source-locale en --output-locales fr es --model gpt-3.5-turbo
+```
+
+```bash packageManager="bun"
+bun x intlayer fill --file src/home/*.content.ts --source-locale en --output-locales fr es --model gpt-3.5-turbo
 ```
 
 यह कमांड GPT-3.5 टर्बो मॉडल का उपयोग करते हुए `src/home/` डायरेक्टरी में सभी कंटेंट घोषणा फ़ाइलों के लिए अंग्रेज़ी से फ्रेंच और स्पेनिश में सामग्री का अनुवाद करेगा।

@@ -78,8 +78,20 @@ MCP сервер также можно использовать удалённо
 
 Intlayer предоставляет команду CLI для автоматической настройки MCP-сервера в вашем проекте.
 
-```bash
+```bash packageManager="npm"
 npx intlayer init mcp
+```
+
+```bash packageManager="yarn"
+yarn intlayer init mcp
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer init mcp
+```
+
+```bash packageManager="bun"
+bun x intlayer init mcp
 ```
 
 Эта команда:

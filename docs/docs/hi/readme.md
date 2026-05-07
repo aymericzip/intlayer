@@ -77,8 +77,20 @@ Intlayer वेब और मोबाइल एप्लिकेशन के 
   <img src="https://img.shields.io/badge/शुरू_करें-FFFFFF?style=for-the-badge&logo=rocket&logoColor=black" />
 </a>
 
-```bash
+```bash packageManager="npm"
 npm install intlayer react-intlayer
+```
+
+```bash packageManager="yarn"
+yarn add intlayer react-intlayer
+```
+
+```bash packageManager="pnpm"
+pnpm add intlayer react-intlayer
+```
+
+```bash packageManager="bun"
+bun add intlayer react-intlayer
 ```
 
 ⚡ त्वरित शुरुआत (Next.js)

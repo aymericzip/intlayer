@@ -25,8 +25,20 @@ history:
 
 ## 安装
 
-```bash
+```bash packageManager="npm"
 npm install intlayer-cli
+```
+
+```bash packageManager="yarn"
+yarn add intlayer-cli
+```
+
+```bash packageManager="pnpm"
+pnpm add intlayer-cli
+```
+
+```bash packageManager="bun"
+bun add intlayer-cli
 ```
 
 ## 导出

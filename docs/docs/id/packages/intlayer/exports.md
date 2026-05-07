@@ -25,8 +25,20 @@ Package `intlayer` adalah library inti dari ekosistem Intlayer. Paket ini menyed
 
 ## Instalasi
 
-```bash
+```bash packageManager="npm"
 npm install intlayer
+```
+
+```bash packageManager="yarn"
+yarn add intlayer
+```
+
+```bash packageManager="pnpm"
+pnpm add intlayer
+```
+
+```bash packageManager="bun"
+bun add intlayer
 ```
 
 ## Ekspor

@@ -77,8 +77,20 @@ Start your journey with Intlayer today and experience a smoother, more powerful 
   <img src="https://img.shields.io/badge/Get_Started-FFFFFF?style=for-the-badge&logo=rocket&logoColor=black" />
 </a>
 
-```bash
+```bash packageManager="npm"
 npm install intlayer react-intlayer
+```
+
+```bash packageManager="yarn"
+yarn add intlayer react-intlayer
+```
+
+```bash packageManager="pnpm"
+pnpm add intlayer react-intlayer
+```
+
+```bash packageManager="bun"
+bun add intlayer react-intlayer
 ```
 
 ⚡ Quick Start (Next.js)

@@ -52,8 +52,20 @@ Ecco un [file di dichiarazione dei contenuti per locale](https://github.com/ayme
 
 Quindi, quando esegui il seguente comando:
 
-```bash
+```bash packageManager="npm"
 npx intlayer fill --file 'src/components/example/example.content.ts'
+```
+
+```bash packageManager="yarn"
+yarn intlayer fill --file 'src/components/example/example.content.ts'
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill --file 'src/components/example/example.content.ts'
+```
+
+```bash packageManager="bun"
+bun x intlayer fill --file 'src/components/example/example.content.ts'
 ```
 
 Intlayer genererà automaticamente il file di dichiarazione derivato in `src/components/example/example.content.json`, compilando tutte le localizzazioni non già dichiarate nel file principale.

@@ -29,8 +29,20 @@ history:
 
 ## उपयोग
 
-```bash
+```bash packageManager="npm"
 npx intlayer standalone --packages [पैकेज...] [विकल्प]
+```
+
+```bash packageManager="yarn"
+yarn intlayer standalone --packages [पैकेज...] [विकल्प]
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer standalone --packages [पैकेज...] [विकल्प]
+```
+
+```bash packageManager="bun"
+bun x intlayer standalone --packages [पैकेज...] [विकल्प]
 ```
 
 ## विकल्प
@@ -54,22 +66,58 @@ npx intlayer standalone --packages [पैकेज...] [विकल्प]
 
 ### Vanilla JS के लिए बंडल बनाना:
 
-```bash
+```bash packageManager="npm"
 npx intlayer standalone --packages intlayer vanilla-intlayer --outfile intlayer.js
+```
+
+```bash packageManager="yarn"
+yarn intlayer standalone --packages intlayer vanilla-intlayer --outfile intlayer.js
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer standalone --packages intlayer vanilla-intlayer --outfile intlayer.js
+```
+
+```bash packageManager="bun"
+bun x intlayer standalone --packages intlayer vanilla-intlayer --outfile intlayer.js
 ```
 
 यह `intlayer` और `vanilla-intlayer` दोनों पैकेजों वाला एक `intlayer.js` फ़ाइल बनाएगा, जो छोटा होगा और ESM प्रारूप में होगा, जिसे `<script>` टैग के माध्यम से ब्राउज़र में उपयोग के लिए तैयार किया जाएगा।
 
 ### विशिष्ट संस्करण बंडल करना:
 
-```bash
+```bash packageManager="npm"
 npx intlayer standalone --packages intlayer --version 8.6.4
+```
+
+```bash packageManager="yarn"
+yarn intlayer standalone --packages intlayer --version 8.6.4
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer standalone --packages intlayer --version 8.6.4
+```
+
+```bash packageManager="bun"
+bun x intlayer standalone --packages intlayer --version 8.6.4
 ```
 
 ### अलग प्रारूप में बंडल करना:
 
-```bash
+```bash packageManager="npm"
 npx intlayer standalone --packages intlayer --format iife
+```
+
+```bash packageManager="yarn"
+yarn intlayer standalone --packages intlayer --format iife
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer standalone --packages intlayer --format iife
+```
+
+```bash packageManager="bun"
+bun x intlayer standalone --packages intlayer --format iife
 ```
 
 ## यह क्या करता है:

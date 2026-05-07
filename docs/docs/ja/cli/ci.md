@@ -24,8 +24,20 @@ history:
 
 # CIコマンド
 
-```bash
+```bash packageManager="npm"
 npx intlayer ci <command...>
+```
+
+```bash packageManager="yarn"
+yarn intlayer ci <command...>
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer ci <command...>
+```
+
+```bash packageManager="bun"
+bun x intlayer ci <command...>
 ```
 
 CIコマンドは、自動化とCI/CDパイプライン用に設計されています。`INTLAYER_PROJECT_CREDENTIALS`環境変数から認証情報を自動的に注入し、モノレポ内の複数のプロジェクトでIntlayerコマンドを実行できます。
@@ -97,8 +109,20 @@ npx intlayer ci push
 
 基になるIntlayerコマンドに任意のフラグを渡すことができます：
 
-```bash
+```bash packageManager="npm"
 npx intlayer ci fill --verbose --mode complete
+```
+
+```bash packageManager="yarn"
+yarn intlayer ci fill --verbose --mode complete
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer ci fill --verbose --mode complete
+```
+
+```bash packageManager="bun"
+bun x intlayer ci fill --verbose --mode complete
 ```
 
 ### CI/CDパイプラインで使用

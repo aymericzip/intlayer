@@ -77,8 +77,20 @@ Intlayer は、ウェブおよびモバイルアプリ向けの**最新の i18n 
   <img src="https://img.shields.io/badge/はじめに-FFFFFF?style=for-the-badge&logo=rocket&logoColor=black" />
 </a>
 
-```bash
+```bash packageManager="npm"
 npm install intlayer react-intlayer
+```
+
+```bash packageManager="yarn"
+yarn add intlayer react-intlayer
+```
+
+```bash packageManager="pnpm"
+pnpm add intlayer react-intlayer
+```
+
+```bash packageManager="bun"
+bun add intlayer react-intlayer
 ```
 
 ⚡ クイックスタート (Next.js)

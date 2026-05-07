@@ -21,18 +21,48 @@ slugs:
 
 चलाएँ:
 
-```bash
+```bash packageManager="npm"
 npx intlayer --version                  # वर्तमान लोकल Intlayer संस्करण
 npx intlayer@latest --version           # वर्तमान नवीनतम Intlayer संस्करण
+```
+
+```bash packageManager="yarn"
+yarn intlayer --version                  # वर्तमान लोकल Intlayer संस्करण
+yarn intlayer@latest --version           # वर्तमान नवीनतम Intlayer संस्करण
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer --version                  # वर्तमान लोकल Intlayer संस्करण
+pnpm intlayer@latest --version           # वर्तमान नवीनतम Intlayer संस्करण
+```
+
+```bash packageManager="bun"
+bun x intlayer --version                  # वर्तमान लोकल Intlayer संस्करण
+bun x intlayer@latest --version           # वर्तमान नवीनतम Intlayer संस्करण
 ```
 
 ## 2. **जांचें कि कमांड पंजीकृत है या नहीं**
 
 आप जांच सकते हैं:
 
-```bash
+```bash packageManager="npm"
 npx intlayer --help                     # उपलब्ध कमांड और उपयोग जानकारी की सूची दिखाता है
 npx intlayer dictionary build --help    # किसी कमांड के लिए उपलब्ध विकल्पों की सूची दिखाता है
+```
+
+```bash packageManager="yarn"
+yarn intlayer --help                     # उपलब्ध कमांड और उपयोग जानकारी की सूची दिखाता है
+yarn intlayer dictionary build --help    # किसी कमांड के लिए उपलब्ध विकल्पों की सूची दिखाता है
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer --help                     # उपलब्ध कमांड और उपयोग जानकारी की सूची दिखाता है
+pnpm intlayer dictionary build --help    # किसी कमांड के लिए उपलब्ध विकल्पों की सूची दिखाता है
+```
+
+```bash packageManager="bun"
+bun x intlayer --help                     # उपलब्ध कमांड और उपयोग जानकारी की सूची दिखाता है
+bun x intlayer dictionary build --help    # किसी कमांड के लिए उपलब्ध विकल्पों की सूची दिखाता है
 ```
 
 ## 3. **अपने टर्मिनल को पुनः प्रारंभ करें**

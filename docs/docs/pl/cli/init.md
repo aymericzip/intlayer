@@ -24,8 +24,20 @@ history:
 
 # Inicjalizacja Intlayer
 
-```bash
+```bash packageManager="npm"
 npx intlayer init
+```
+
+```bash packageManager="yarn"
+yarn intlayer init
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer init
+```
+
+```bash packageManager="bun"
+bun x intlayer init
 ```
 
 Polecenie `init` automatycznie konfiguruje Intlayer w Twoim projekcie, tworząc niezbędne pliki i ustawienia. Jest to zalecany sposób na rozpoczęcie pracy z Intlayer.
@@ -54,24 +66,60 @@ Polecenie `init` wykonuje następujące zadania konfiguracyjne:
 
 ### Podstawowa inicjalizacja:
 
-```bash
+```bash packageManager="npm"
 npx intlayer init
+```
+
+```bash packageManager="yarn"
+yarn intlayer init
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer init
+```
+
+```bash packageManager="bun"
+bun x intlayer init
 ```
 
 Inicjuje Intlayer w bieżącym katalogu, automatycznie wykrywając katalog główny projektu.
 
 ### Inicjalizacja z niestandardowym katalogiem głównym projektu:
 
-```bash
+```bash packageManager="npm"
 npx intlayer init --project-root ./moj-projekt
+```
+
+```bash packageManager="yarn"
+yarn intlayer init --project-root ./moj-projekt
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer init --project-root ./moj-projekt
+```
+
+```bash packageManager="bun"
+bun x intlayer init --project-root ./moj-projekt
 ```
 
 Inicjuje Intlayer we wskazanym katalogu.
 
 ### Inicjalizacja bez aktualizacji .gitignore:
 
-```bash
+```bash packageManager="npm"
 npx intlayer init --no-gitignore
+```
+
+```bash packageManager="yarn"
+yarn intlayer init --no-gitignore
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer init --no-gitignore
+```
+
+```bash packageManager="bun"
+bun x intlayer init --no-gitignore
 ```
 
 Konfiguruje wszystkie pliki konfiguracyjne, ale nie modyfikuje pliku `.gitignore`.

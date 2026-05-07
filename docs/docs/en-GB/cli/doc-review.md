@@ -27,8 +27,20 @@ The `doc review` command analyses documentation files for quality, consistency, 
 - Optimize the chunks to review, and skip the parts that are already translated, and not changed.
 - Process files, chunks, and locales in parallel using a queue system to increase speed.
 
-```bash
+```bash packageManager="npm"
 npx intlayer doc review
+```
+
+```bash packageManager="yarn"
+yarn intlayer doc review
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer doc review
+```
+
+```bash packageManager="bun"
+bun x intlayer doc review
 ```
 
 It can be used to review files that are already translated, and to check if the translation is correct.

@@ -26,8 +26,20 @@ history:
 
 أمر `intlayer init skills` هو أسهل طريقة لإعداد مهارات الوكلاء في مشروعك. يقوم باكتشاف بيئتك وتثبيت ملفات التهيئة اللازمة للمنصات التي تفضّلها.
 
-```bash
+```bash packageManager="npm"
 npx intlayer init skills
+```
+
+```bash packageManager="yarn"
+yarn intlayer init skills
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer init skills
+```
+
+```bash packageManager="bun"
+bun x intlayer init skills
 ```
 
 ### استخدام Vercel Skill SDK

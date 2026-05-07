@@ -77,8 +77,20 @@ Bugün Intlayer ile yolculuğunuza başlayın ve uluslararasılaştırmada daha 
   <img src="https://img.shields.io/badge/Başlarken-FFFFFF?style=for-the-badge&logo=rocket&logoColor=black" />
 </a>
 
-```bash
+```bash packageManager="npm"
 npm install intlayer react-intlayer
+```
+
+```bash packageManager="yarn"
+yarn add intlayer react-intlayer
+```
+
+```bash packageManager="pnpm"
+pnpm add intlayer react-intlayer
+```
+
+```bash packageManager="bun"
+bun add intlayer react-intlayer
 ```
 
 ⚡ Hızlı Başlangıç (Next.js)

@@ -29,8 +29,20 @@ slugs:
 - मौजूदा अनुवादों को अधिलेखित न करके उन्हें संरक्षित करता है।
 - गति बढ़ाने के लिए कतार प्रणाली का उपयोग करके फ़ाइलों, चंक्स और लोकेल्स को समानांतर में संसाधित करता है।
 
-```bash
+```bash packageManager="npm"
 npx intlayer doc translate
+```
+
+```bash packageManager="yarn"
+yarn intlayer doc translate
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer doc translate
+```
+
+```bash packageManager="bun"
+bun x intlayer doc translate
 ```
 
 ## तर्क:

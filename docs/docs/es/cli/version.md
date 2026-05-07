@@ -16,9 +16,24 @@ slugs:
 
 # Comprobar la versión de la CLI
 
-```bash
+```bash packageManager="npm"
 npx intlayer --version
 npx intlayer version
+```
+
+```bash packageManager="yarn"
+yarn intlayer --version
+yarn intlayer version
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer --version
+pnpm intlayer version
+```
+
+```bash packageManager="bun"
+bun x intlayer --version
+bun x intlayer version
 ```
 
 Ambos comandos muestran la versión instalada de la CLI de Intlayer.

@@ -303,20 +303,56 @@ The following properties can be configured in the `compiler` block of your `intl
 
 Intlayer provide a CLI tool to help you fill missing translations. You can use the `intlayer` command to test and fill missing translations from your code.
 
-```bash
+```bash packageManager="npm"
 npx intlayer test         # Test if there is missing translations
 ```
 
-```bash
+```bash packageManager="yarn"
+yarn intlayer test         # Test if there is missing translations
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer test         # Test if there is missing translations
+```
+
+```bash packageManager="bun"
+bun x intlayer test         # Test if there is missing translations
+```
+
+```bash packageManager="npm"
 npx intlayer fill         # Fill missing translations
+```
+
+```bash packageManager="yarn"
+yarn intlayer fill         # Fill missing translations
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill         # Fill missing translations
+```
+
+```bash packageManager="bun"
+bun x intlayer fill         # Fill missing translations
 ```
 
 ### Extract
 
 Intlayer provide a CLI tool to extract content from your code. You can use the `intlayer extract` command to extract content from your code.
 
-```bash
+```bash packageManager="npm"
 npx intlayer extract
+```
+
+```bash packageManager="yarn"
+yarn intlayer extract
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer extract
+```
+
+```bash packageManager="bun"
+bun x intlayer extract
 ```
 
 > For more details, refer to the [CLI documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md)

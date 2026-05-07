@@ -17,8 +17,20 @@ slugs:
 
 # 测试缺失的翻译
 
-```bash
+```bash packageManager="npm"
 npx intlayer content test
+```
+
+```bash packageManager="yarn"
+yarn intlayer content test
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content test
+```
+
+```bash packageManager="bun"
+bun x intlayer content test
 ```
 
 ## 别名：
@@ -69,8 +81,20 @@ Total missing required locales: 0
 
 ## 示例：
 
-```bash
+```bash packageManager="npm"
 npx intlayer content test --verbose
+```
+
+```bash packageManager="yarn"
+yarn intlayer content test --verbose
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content test --verbose
+```
+
+```bash packageManager="bun"
+bun x intlayer content test --verbose
 ```
 
 输出帮助您快速识别需要完成的翻译，以确保您的应用程序在所有配置的语言环境中正常运行。

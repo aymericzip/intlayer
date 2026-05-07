@@ -367,12 +367,36 @@ const LocaleSwitcher: FC = () => {
 
 Intlayer cung cấp một công cụ CLI để giúp bạn điền các bản dịch còn thiếu. Bạn có thể sử dụng lệnh `intlayer` để kiểm tra và điền các bản dịch còn thiếu từ mã nguồn của bạn.
 
-```bash
+```bash packageManager="npm"
 npx intlayer test         # Kiểm tra xem có bản dịch nào còn thiếu không
 ```
 
-```bash
+```bash packageManager="yarn"
+yarn intlayer test         # Kiểm tra xem có bản dịch nào còn thiếu không
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer test         # Kiểm tra xem có bản dịch nào còn thiếu không
+```
+
+```bash packageManager="bun"
+bun x intlayer test         # Kiểm tra xem có bản dịch nào còn thiếu không
+```
+
+```bash packageManager="npm"
 npx intlayer fill         # Điền các bản dịch còn thiếu
+```
+
+```bash packageManager="yarn"
+yarn intlayer fill         # Điền các bản dịch còn thiếu
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill         # Điền các bản dịch còn thiếu
+```
+
+```bash packageManager="bun"
+bun x intlayer fill         # Điền các bản dịch còn thiếu
 ```
 
 > Để biết thêm chi tiết, vui lòng tham khảo [tài liệu CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/ci.md)

@@ -23,14 +23,38 @@ history:
 
 Para construir seus dicionários, você pode executar os comandos:
 
-```bash
+```bash packageManager="npm"
 npx intlayer build
+```
+
+```bash packageManager="yarn"
+yarn intlayer build
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer build
+```
+
+```bash packageManager="bun"
+bun x intlayer build
 ```
 
 ou no modo watch
 
-```bash
+```bash packageManager="npm"
 npx intlayer build --watch
+```
+
+```bash packageManager="yarn"
+yarn intlayer build --watch
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer build --watch
+```
+
+```bash packageManager="bun"
+bun x intlayer build --watch
 ```
 
 Este comando irá localizar seus arquivos de declaração de conteúdo por padrão em `./src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx}`. E construir os dicionários no diretório `.intlayer`.

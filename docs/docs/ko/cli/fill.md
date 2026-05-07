@@ -20,8 +20,20 @@ slugs:
 
 # 사전 채우기 / 감사 / 번역
 
-```bash
+```bash packageManager="npm"
 npx intlayer fill
+```
+
+```bash packageManager="yarn"
+yarn intlayer fill
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill
+```
+
+```bash packageManager="bun"
+bun x intlayer fill
 ```
 
 이 명령어는 누락된 번역, 구조적 불일치 또는 타입 불일치와 같은 잠재적인 문제를 찾기 위해 콘텐츠 선언 파일을 분석합니다. 문제가 발견되면, **intlayer fill**은 사전을 일관되고 완전하게 유지하기 위해 업데이트를 제안하거나 적용합니다.
@@ -161,8 +173,20 @@ Affected dictionary keys for processing: app, comp-test, hello-world, lang-switc
 
 ## 예시:
 
-```bash
+```bash packageManager="npm"
 npx intlayer fill --file src/home/*.content.ts --source-locale en --output-locales fr es --model gpt-3.5-turbo
+```
+
+```bash packageManager="yarn"
+yarn intlayer fill --file src/home/*.content.ts --source-locale en --output-locales fr es --model gpt-3.5-turbo
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill --file src/home/*.content.ts --source-locale en --output-locales fr es --model gpt-3.5-turbo
+```
+
+```bash packageManager="bun"
+bun x intlayer fill --file src/home/*.content.ts --source-locale en --output-locales fr es --model gpt-3.5-turbo
 ```
 
 이 명령어는 `src/home/` 디렉토리 내 모든 콘텐츠 선언 파일에 대해 GPT-3.5 Turbo 모델을 사용하여 영어에서 프랑스어 및 스페인어로 콘텐츠를 번역합니다.

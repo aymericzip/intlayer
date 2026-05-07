@@ -25,8 +25,20 @@ history:
 
 ## इंस्टॉलेशन
 
-```bash
+```bash packageManager="npm"
 npm install intlayer-cli
+```
+
+```bash packageManager="yarn"
+yarn add intlayer-cli
+```
+
+```bash packageManager="pnpm"
+pnpm add intlayer-cli
+```
+
+```bash packageManager="bun"
+bun add intlayer-cli
 ```
 
 ## एक्सपोर्ट्स

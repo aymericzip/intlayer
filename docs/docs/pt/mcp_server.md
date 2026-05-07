@@ -78,8 +78,20 @@ Observe que o servidor remoto não integra ferramentas CLI, autocompletar de IA,
 
 O Intlayer fornece um comando CLI para configurar automaticamente o servidor MCP no seu projeto.
 
-```bash
+```bash packageManager="npm"
 npx intlayer init mcp
+```
+
+```bash packageManager="yarn"
+yarn intlayer init mcp
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer init mcp
+```
+
+```bash packageManager="bun"
+bun x intlayer init mcp
 ```
 
 Este comando irá:

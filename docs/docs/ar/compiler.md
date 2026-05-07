@@ -292,20 +292,56 @@ export default config;
 
 يوفر Intlayer أداة CLI لمساعدتك في ملء الترجمات المفقودة. يمكنك استخدام أمر `intlayer` لاختبار وملء الترجمات المفقودة من الكود الخاص بك.
 
-```bash
+```bash packageManager="npm"
 npx intlayer test         # اختبار ما إذا كانت هناك ترجمات مفقودة
 ```
 
-```bash
+```bash packageManager="yarn"
+yarn intlayer test         # اختبار ما إذا كانت هناك ترجمات مفقودة
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer test         # اختبار ما إذا كانت هناك ترجمات مفقودة
+```
+
+```bash packageManager="bun"
+bun x intlayer test         # اختبار ما إذا كانت هناك ترجمات مفقودة
+```
+
+```bash packageManager="npm"
 npx intlayer fill         # ملء الترجمات المفقودة
+```
+
+```bash packageManager="yarn"
+yarn intlayer fill         # ملء الترجمات المفقودة
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill         # ملء الترجمات المفقودة
+```
+
+```bash packageManager="bun"
+bun x intlayer fill         # ملء الترجمات المفقودة
 ```
 
 ### الاستخراج
 
 يوفر Intlayer أداة CLI لاستخراج المحتوى من الكود الخاص بك. يمكنك استخدام أمر `intlayer extract` لاستخراج المحتوى من الكود الخاص بك.
 
-```bash
+```bash packageManager="npm"
 npx intlayer extract
+```
+
+```bash packageManager="yarn"
+yarn intlayer extract
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer extract
+```
+
+```bash packageManager="bun"
+bun x intlayer extract
 ```
 
 > لمزيد من التفاصيل، راجع [توثيق CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/index.md)

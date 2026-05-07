@@ -21,18 +21,48 @@ slugs:
 
 شغّل:
 
-```bash
+```bash packageManager="npm"
 npx intlayer --version                  # إصدار intlayer الحالي للغة المحلية
 npx intlayer@latest --version           # أحدث إصدار متوفر من intlayer
+```
+
+```bash packageManager="yarn"
+yarn intlayer --version                  # إصدار intlayer الحالي للغة المحلية
+yarn intlayer@latest --version           # أحدث إصدار متوفر من intlayer
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer --version                  # إصدار intlayer الحالي للغة المحلية
+pnpm intlayer@latest --version           # أحدث إصدار متوفر من intlayer
+```
+
+```bash packageManager="bun"
+bun x intlayer --version                  # إصدار intlayer الحالي للغة المحلية
+bun x intlayer@latest --version           # أحدث إصدار متوفر من intlayer
 ```
 
 ## 2. **تحقق مما إذا كان الأمر مسجلاً**
 
 يمكنك التحقق باستخدام:
 
-```bash
+```bash packageManager="npm"
 npx intlayer --help                     # يعرض قائمة الأوامر المتاحة ومعلومات الاستخدام
 npx intlayer dictionary build --help    # يعرض قائمة الخيارات المتاحة لأمر معين
+```
+
+```bash packageManager="yarn"
+yarn intlayer --help                     # يعرض قائمة الأوامر المتاحة ومعلومات الاستخدام
+yarn intlayer dictionary build --help    # يعرض قائمة الخيارات المتاحة لأمر معين
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer --help                     # يعرض قائمة الأوامر المتاحة ومعلومات الاستخدام
+pnpm intlayer dictionary build --help    # يعرض قائمة الخيارات المتاحة لأمر معين
+```
+
+```bash packageManager="bun"
+bun x intlayer --help                     # يعرض قائمة الأوامر المتاحة ومعلومات الاستخدام
+bun x intlayer dictionary build --help    # يعرض قائمة الخيارات المتاحة لأمر معين
 ```
 
 ## 3. **أعد تشغيل الطرفية الخاصة بك**

@@ -17,8 +17,20 @@ slugs:
 
 # Watch Dictionaries
 
-```bash
+```bash packageManager="npm"
 npx intlayer watch
+```
+
+```bash packageManager="yarn"
+yarn intlayer watch
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer watch
+```
+
+```bash packageManager="bun"
+bun x intlayer watch
 ```
 
 This command will watch for changes in your content declaration files and build the dictionaries in the `.intlayer` directory.

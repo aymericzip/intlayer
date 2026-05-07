@@ -17,8 +17,20 @@ slugs:
 
 # Test delle traduzioni mancanti
 
-```bash
+```bash packageManager="npm"
 npx intlayer content test
+```
+
+```bash packageManager="yarn"
+yarn intlayer content test
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content test
+```
+
+```bash packageManager="bun"
+bun x intlayer content test
 ```
 
 ## Alias:
@@ -69,8 +81,20 @@ Totale locali richieste mancanti: 0
 
 ## Esempio:
 
-```bash
+```bash packageManager="npm"
 npx intlayer content test --verbose
+```
+
+```bash packageManager="yarn"
+yarn intlayer content test --verbose
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content test --verbose
+```
+
+```bash packageManager="bun"
+bun x intlayer content test --verbose
 ```
 
 L'output ti aiuta a identificare rapidamente quali traduzioni devono essere completate per garantire che la tua applicazione funzioni correttamente in tutte le localizzazioni configurate.

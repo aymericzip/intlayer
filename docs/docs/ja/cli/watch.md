@@ -17,8 +17,20 @@ slugs:
 
 # 辞書の監視
 
-```bash
+```bash packageManager="npm"
 npx intlayer watch
+```
+
+```bash packageManager="yarn"
+yarn intlayer watch
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer watch
+```
+
+```bash packageManager="bun"
+bun x intlayer watch
 ```
 
 このコマンドは、コンテンツ宣言ファイルの変更を監視し、`.intlayer` ディレクトリ内に辞書をビルドします。

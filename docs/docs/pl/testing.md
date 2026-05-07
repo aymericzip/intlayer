@@ -40,8 +40,20 @@ Ten przewodnik pokazuje, jak automatycznie weryfikować kompletność słownikó
 
 Uruchom audyt z katalogu głównego projektu:
 
-```bash
+```bash packageManager="npm"
 npx intlayer content test
+```
+
+```bash packageManager="yarn"
+yarn intlayer content test
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content test
+```
+
+```bash packageManager="bun"
+bun x intlayer content test
 ```
 
 Przydatne flagi:
@@ -187,8 +199,20 @@ jobs:
 
 Opcjonalnie: uruchom audyt CLI, aby uzyskać czytelne podsumowanie wraz z testami:
 
-```bash
+```bash packageManager="npm"
 npx intlayer content test --verbose
+```
+
+```bash packageManager="yarn"
+yarn intlayer content test --verbose
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content test --verbose
+```
+
+```bash packageManager="bun"
+bun x intlayer content test --verbose
 ```
 
 ---

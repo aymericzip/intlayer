@@ -154,14 +154,38 @@ export default config;
 
 要配置 Intlayer CMS，您可以使用[intlayer CLI](https://github.com/aymericzip/intlayer/tree/main/docs/zh/cli/index.md)命令。
 
-```bash
+```bash packageManager="npm"
 npx intlayer config push
+```
+
+```bash packageManager="yarn"
+yarn intlayer config push
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer config push
+```
+
+```bash packageManager="bun"
+bun x intlayer config push
 ```
 
 > 如果您在 `intlayer.config.ts` 配置文件中使用了环境变量，可以通过 `--env` 参数指定所需的环境：
 
-```bash
+```bash packageManager="npm"
 npx intlayer config push --env production
+```
+
+```bash packageManager="yarn"
+yarn intlayer config push --env production
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer config push --env production
+```
+
+```bash packageManager="bun"
+bun x intlayer config push --env production
 ```
 
 此命令会将您的配置上传到 Intlayer CMS。
@@ -170,14 +194,38 @@ npx intlayer config push --env production
 
 要将您的本地化字典转换为远程字典，您可以使用[intlayer CLI](https://github.com/aymericzip/intlayer/tree/main/docs/zh/cli/index.md)命令。
 
-```bash
+```bash packageManager="npm"
 npx intlayer dictionary push -d my-first-dictionary-key
+```
+
+```bash packageManager="yarn"
+yarn intlayer dictionary push -d my-first-dictionary-key
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer dictionary push -d my-first-dictionary-key
+```
+
+```bash packageManager="bun"
+bun x intlayer dictionary push -d my-first-dictionary-key
 ```
 
 > 如果您在 `intlayer.config.ts` 配置文件中使用环境变量，可以使用 `--env` 参数指定所需的环境：
 
-```bash
+```bash packageManager="npm"
 npx intlayer dictionary push -d my-first-dictionary-key --env production
+```
+
+```bash packageManager="yarn"
+yarn intlayer dictionary push -d my-first-dictionary-key --env production
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer dictionary push -d my-first-dictionary-key --env production
+```
+
+```bash packageManager="bun"
+bun x intlayer dictionary push -d my-first-dictionary-key --env production
 ```
 
 此命令会上传您的初始内容字典，使其可通过 Intlayer 平台进行异步获取和编辑。

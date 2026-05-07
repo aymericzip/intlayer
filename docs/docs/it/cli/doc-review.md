@@ -27,8 +27,20 @@ Il comando `doc review` analizza i file di documentazione per qualità, coerenza
 - Ottimizza le parti da revisionare e salta le parti che sono già tradotte e non modificate.
 - Elabora file, parti e locali in parallelo utilizzando un sistema di code per aumentare la velocità.
 
-```bash
+```bash packageManager="npm"
 npx intlayer doc review
+```
+
+```bash packageManager="yarn"
+yarn intlayer doc review
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer doc review
+```
+
+```bash packageManager="bun"
+bun x intlayer doc review
 ```
 
 Può essere utilizzato per revisionare file già tradotti e per verificare se la traduzione è corretta.

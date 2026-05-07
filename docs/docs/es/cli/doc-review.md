@@ -27,8 +27,20 @@ El comando `doc review` analiza archivos de documentación para calidad, consist
 - Optimiza los fragmentos a revisar y omite las partes que ya están traducidas y no han cambiado.
 - Procesa archivos, fragmentos y locales en paralelo usando un sistema de cola para aumentar la velocidad.
 
-```bash
+```bash packageManager="npm"
 npx intlayer doc review
+```
+
+```bash packageManager="yarn"
+yarn intlayer doc review
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer doc review
+```
+
+```bash packageManager="bun"
+bun x intlayer doc review
 ```
 
 Se puede usar para revisar archivos que ya están traducidos y para verificar si la traducción es correcta.

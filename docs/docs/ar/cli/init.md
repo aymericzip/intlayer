@@ -24,8 +24,20 @@ history:
 
 # تهيئة Intlayer
 
-```bash
+```bash packageManager="npm"
 npx intlayer init
+```
+
+```bash packageManager="yarn"
+yarn intlayer init
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer init
+```
+
+```bash packageManager="bun"
+bun x intlayer init
 ```
 
 يقوم الأمر `init` بتكوين Intlayer تلقائيًا في مشروعك عن طريق إنشاء الملفات والإعدادات اللازمة. هذه هي الطريقة الموصى بها للبدء مع Intlayer.
@@ -54,24 +66,60 @@ npx intlayer init
 
 ### التهيئة الأساسية:
 
-```bash
+```bash packageManager="npm"
 npx intlayer init
+```
+
+```bash packageManager="yarn"
+yarn intlayer init
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer init
+```
+
+```bash packageManager="bun"
+bun x intlayer init
 ```
 
 يؤدي هذا إلى تهيئة Intlayer في الدليل الحالي ، مع اكتشاف جذر المشروع تلقائيًا.
 
 ### التهيئة مع جذر مشروع مخصص:
 
-```bash
+```bash packageManager="npm"
 npx intlayer init --project-root ./my-project
+```
+
+```bash packageManager="yarn"
+yarn intlayer init --project-root ./my-project
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer init --project-root ./my-project
+```
+
+```bash packageManager="bun"
+bun x intlayer init --project-root ./my-project
 ```
 
 يؤدي هذا إلى تهيئة Intlayer في الدليل المحدد.
 
 ### التهيئة دون تحديث .gitignore:
 
-```bash
+```bash packageManager="npm"
 npx intlayer init --no-gitignore
+```
+
+```bash packageManager="yarn"
+yarn intlayer init --no-gitignore
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer init --no-gitignore
+```
+
+```bash packageManager="bun"
+bun x intlayer init --no-gitignore
 ```
 
 سيؤدي هذا إلى إعداد جميع ملفات التكوين ولكنه لن يعدل ملف `.gitignore` الخاص بك.

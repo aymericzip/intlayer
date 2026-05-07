@@ -154,14 +154,38 @@ export default config;
 
 Pour configurer le CMS Intlayer, vous pouvez utiliser les commandes du [intlayer CLI](https://github.com/aymericzip/intlayer/tree/main/docs/fr/cli/index.md).
 
-```bash
+```bash packageManager="npm"
 npx intlayer config push
+```
+
+```bash packageManager="yarn"
+yarn intlayer config push
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer config push
+```
+
+```bash packageManager="bun"
+bun x intlayer config push
 ```
 
 > Si vous utilisez des variables d'environnement dans votre fichier de configuration `intlayer.config.ts`, vous pouvez spécifier l'environnement souhaité en utilisant l'argument `--env` :
 
-```bash
+```bash packageManager="npm"
 npx intlayer config push --env production
+```
+
+```bash packageManager="yarn"
+yarn intlayer config push --env production
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer config push --env production
+```
+
+```bash packageManager="bun"
+bun x intlayer config push --env production
 ```
 
 Cette commande téléverse votre configuration vers le CMS Intlayer.
@@ -170,14 +194,38 @@ Cette commande téléverse votre configuration vers le CMS Intlayer.
 
 Pour transformer vos dictionnaires de locale en un dictionnaire distant, vous pouvez utiliser les commandes du [intlayer CLI](https://github.com/aymericzip/intlayer/tree/main/docs/fr/cli/index.md).
 
-```bash
+```bash packageManager="npm"
 npx intlayer dictionary push -d my-first-dictionary-key
+```
+
+```bash packageManager="yarn"
+yarn intlayer dictionary push -d my-first-dictionary-key
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer dictionary push -d my-first-dictionary-key
+```
+
+```bash packageManager="bun"
+bun x intlayer dictionary push -d my-first-dictionary-key
 ```
 
 > Si vous utilisez des variables d'environnement dans votre fichier de configuration `intlayer.config.ts`, vous pouvez spécifier l'environnement souhaité en utilisant l'argument `--env` :
 
-```bash
+```bash packageManager="npm"
 npx intlayer dictionary push -d my-first-dictionary-key --env production
+```
+
+```bash packageManager="yarn"
+yarn intlayer dictionary push -d my-first-dictionary-key --env production
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer dictionary push -d my-first-dictionary-key --env production
+```
+
+```bash packageManager="bun"
+bun x intlayer dictionary push -d my-first-dictionary-key --env production
 ```
 
 Cette commande télécharge vos dictionnaires de contenu initiaux, les rendant disponibles pour une récupération et une édition asynchrones via la plateforme Intlayer.

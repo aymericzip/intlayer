@@ -24,8 +24,20 @@ history:
 
 # Intlayer प्रारंभ करें (Initialize Intlayer)
 
-```bash
+```bash packageManager="npm"
 npx intlayer init
+```
+
+```bash packageManager="yarn"
+yarn intlayer init
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer init
+```
+
+```bash packageManager="bun"
+bun x intlayer init
 ```
 
 `init` कमांड आवश्यक फ़ाइलें और सेटिंग्स बनाकर आपके प्रोजेक्ट में Intlayer को स्वचालित रूप से कॉन्फ़िगर करता है। यह Intlayer के साथ शुरुआत करने का अनुशंसित तरीका है।
@@ -54,24 +66,60 @@ npx intlayer init
 
 ### बुनियादी प्रारंभ:
 
-```bash
+```bash packageManager="npm"
 npx intlayer init
+```
+
+```bash packageManager="yarn"
+yarn intlayer init
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer init
+```
+
+```bash packageManager="bun"
+bun x intlayer init
 ```
 
 यह वर्तमान निर्देशिका में Intlayer को प्रारंभ करता है, प्रोजेक्ट रूट को स्वचालित रूप से खोजता है।
 
 ### कस्टम प्रोजेक्ट रूट के साथ प्रारंभ:
 
-```bash
+```bash packageManager="npm"
 npx intlayer init --project-root ./my-project
+```
+
+```bash packageManager="yarn"
+yarn intlayer init --project-root ./my-project
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer init --project-root ./my-project
+```
+
+```bash packageManager="bun"
+bun x intlayer init --project-root ./my-project
 ```
 
 यह निर्दिष्ट निर्देशिका में Intlayer को प्रारंभ करता है।
 
 ### .gitignore अपडेट किए बिना प्रारंभ:
 
-```bash
+```bash packageManager="npm"
 npx intlayer init --no-gitignore
+```
+
+```bash packageManager="yarn"
+yarn intlayer init --no-gitignore
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer init --no-gitignore
+```
+
+```bash packageManager="bun"
+bun x intlayer init --no-gitignore
 ```
 
 यह सभी कॉन्फ़िगरेशन फ़ाइलें सेट करेगा लेकिन आपके `.gitignore` को संशोधित नहीं करेगा।

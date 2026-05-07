@@ -22,8 +22,20 @@ slugs:
 
 Команда `configuration get` отримує поточну конфігурацію для Intlayer, зокрема налаштування локалі. Це корисно для перевірки вашої установки.
 
-```bash
+```bash packageManager="npm"
 npx intlayer configuration get
+```
+
+```bash packageManager="yarn"
+yarn intlayer configuration get
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer configuration get
+```
+
+```bash packageManager="bun"
+bun x intlayer configuration get
 ```
 
 ## Аліаси:
@@ -43,8 +55,20 @@ npx intlayer configuration get
 
 Команда `configuration push` завантажує вашу конфігурацію в Intlayer CMS та редактор. Цей крок необхідний для увімкнення використання віддалених словників в Intlayer Visual Editor.
 
-```bash
+```bash packageManager="npm"
 npx intlayer configuration push
+```
+
+```bash packageManager="yarn"
+yarn intlayer configuration push
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer configuration push
+```
+
+```bash packageManager="bun"
+bun x intlayer configuration push
 ```
 
 ## Аліаси:

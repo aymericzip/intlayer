@@ -373,12 +373,36 @@ const LocaleSwitcher: FC = () => {
 
 Intlayer, eksik çevirileri doldurmanıza yardımcı olacak bir CLI aracı sağlar. Kodunuzdaki eksik çevirileri test etmek ve doldurmak için `intlayer` komutunu kullanabilirsiniz.
 
-```bash
+```bash packageManager="npm"
 npx intlayer test         # Eksik çeviri olup olmadığını test edin
 ```
 
-```bash
+```bash packageManager="yarn"
+yarn intlayer test         # Eksik çeviri olup olmadığını test edin
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer test         # Eksik çeviri olup olmadığını test edin
+```
+
+```bash packageManager="bun"
+bun x intlayer test         # Eksik çeviri olup olmadığını test edin
+```
+
+```bash packageManager="npm"
 npx intlayer fill         # Eksik çevirileri doldurun
+```
+
+```bash packageManager="yarn"
+yarn intlayer fill         # Eksik çevirileri doldurun
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill         # Eksik çevirileri doldurun
+```
+
+```bash packageManager="bun"
+bun x intlayer fill         # Eksik çevirileri doldurun
 ```
 
 > Daha fazla ayrıntı için [CLI belgelerine](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/ci.md) bakın.

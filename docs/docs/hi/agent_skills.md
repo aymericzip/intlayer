@@ -26,8 +26,20 @@ history:
 
 `intlayer init skills` कमांड आपके प्रोजेक्ट में एजेंट स्किल्स सेटअप करने का सबसे आसान तरीका है। यह आपके वातावरण का पता लगाता है और आपके पसंदीदा प्लेटफ़ॉर्म के लिए आवश्यक कॉन्फ़िगरेशन फ़ाइलें इंस्टॉल करता है।
 
-```bash
+```bash packageManager="npm"
 npx intlayer init skills
+```
+
+```bash packageManager="yarn"
+yarn intlayer init skills
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer init skills
+```
+
+```bash packageManager="bun"
+bun x intlayer init skills
 ```
 
 ### Vercel Skill SDK का उपयोग करके

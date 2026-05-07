@@ -18,8 +18,20 @@ slugs:
 
 # Stringleri çıkarma
 
-```bash
+```bash packageManager="npm"
 npx intlayer extract
+```
+
+```bash packageManager="yarn"
+yarn intlayer extract
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer extract
+```
+
+```bash packageManager="bun"
+bun x intlayer extract
 ```
 
 Bu komut, bileşenlerden stringleri bileşene yakın bir .content dosyasına çıkarmak için kod dosyalarınızı analiz eder. Etkileşimli dosya seçimini veya belirli dosyaların hedeflenmesini destekler.

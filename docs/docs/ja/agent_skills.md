@@ -26,8 +26,20 @@ history:
 
 `intlayer init skills` コマンドは、プロジェクトにエージェントスキルをセットアップする最も簡単な方法です。環境を検出し、好みのプラットフォームに必要な設定ファイルをインストールします。
 
-```bash
+```bash packageManager="npm"
 npx intlayer init skills
+```
+
+```bash packageManager="yarn"
+yarn intlayer init skills
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer init skills
+```
+
+```bash packageManager="bun"
+bun x intlayer init skills
 ```
 
 ### Vercel Skill SDK を使用する
