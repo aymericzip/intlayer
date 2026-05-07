@@ -7,10 +7,7 @@ import {
 } from '@intlayer/config/envVars';
 import { colorize, getAppLogger } from '@intlayer/config/logger';
 import { getConfiguration } from '@intlayer/config/node';
-import {
-  getUnusedNodeTypes,
-  getUnusedNodeTypesAsync,
-} from '@intlayer/config/utils';
+import { getUnusedNodeTypesAsync } from '@intlayer/config/utils';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import type { Compiler } from 'webpack';
@@ -71,7 +68,7 @@ export class IntlayerPlugin {
 
     if (this.configuration.content.watch) {
       // Start watching (assuming watch is also async)
-      watch({ configuration: this.configuration });
+      await watch({ configuration: this.configuration });
     }
 
     compiler.hooks.beforeCompile.tapPromise('IntlayerPlugin', async () => {
