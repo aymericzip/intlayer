@@ -13,7 +13,7 @@ import { CodeProvider } from '../IDE/CodeContext';
 import { Link } from '../Link';
 import { Tab } from '../Tab';
 import { TabProvider } from '../Tab/TabContext';
-import { SmartTable } from '../Table';
+import { Hr, SmartTable, Td, Th, Tr } from '../Table';
 import { MarkDownIframe } from './MarkDownIframe';
 
 // Extracted, stable component renderers
@@ -153,24 +153,6 @@ const PreRenderer = (props: ComponentProps<'pre'>) => <>{props.children}</>;
 const TableRenderer = (props: ComponentProps<typeof SmartTable>) => (
   <SmartTable isRollable displayModal {...props} />
 );
-const ThRenderer = ({ className, ...props }: ComponentProps<'th'>) => (
-  <th
-    className={cn('border-neutral border-b bg-neutral/10 p-4', className)}
-    {...props}
-  />
-);
-const TrRenderer = ({ className, ...props }: ComponentProps<'tr'>) => (
-  <tr className={cn('hover:/10 hover:bg-neutral/10', className)} {...props} />
-);
-const TdRenderer = ({ className, ...props }: ComponentProps<'td'>) => (
-  <td
-    className={cn('border-neutral-500/50 border-b p-4', className)}
-    {...props}
-  />
-);
-const HrRenderer = ({ className, ...props }: ComponentProps<'hr'>) => (
-  <hr className={cn('mx-6 mt-16 text-neutral', className)} {...props} />
-);
 
 const TabsRenderer = (props: ComponentProps<typeof Tab>) => (
   <Tab
@@ -211,10 +193,10 @@ const staticMarkdownComponents = {
   img: ImgRenderer,
   pre: PreRenderer,
   table: TableRenderer,
-  th: ThRenderer,
-  tr: TrRenderer,
-  td: TdRenderer,
-  hr: HrRenderer,
+  th: Th,
+  tr: Tr,
+  td: Td,
+  hr: Hr,
   Tabs: TabsRenderer,
   Tab: Tab.Item,
   Columns: ColumnsRenderer,

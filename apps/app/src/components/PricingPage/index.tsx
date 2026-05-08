@@ -5,6 +5,7 @@ import { type FC, Suspense, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { Period } from './data.content';
 import { PricingCarousel } from './PricingCarousel';
+import { PricingComparisonTable } from './PricingComparisonTable';
 
 type PricingPageProps = {
   pricings?: GetPricingResult['data'];
@@ -47,6 +48,7 @@ export const PricingPage: FC<PricingPageProps> = ({ pricings }) => {
           </p>
         </div>
       )}
+      <PricingComparisonTable />
     </div>
   );
 };
