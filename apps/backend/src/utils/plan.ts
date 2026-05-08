@@ -40,7 +40,7 @@ type PlanDetails = {
 
 const planDetails: Record<Plan['type'], PlanDetails> = {
   FREE: {
-    numberOfOrganizationUsers: 1,
+    numberOfOrganizationUsers: 2,
     numberOfProjects: 2,
     totalStorage: 100, // 100 MB
     SeoAI: false,

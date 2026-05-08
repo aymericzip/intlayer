@@ -75,7 +75,7 @@ export const planDetails = {
         'Unlimited distant dictionaries',
         '100 Mb of storage',
         '2 projects',
-        '1 organization user',
+        '2 organization users',
       ],
       fr: [
         'Accès à tous les packages Intlayer',
@@ -83,7 +83,7 @@ export const planDetails = {
         'Dictionnaires distants illimités',
         '100 Mo de stockage',
         '2 projets',
-        '1 utilisateur d’organisation',
+        '2 utilisateurs d’organisation',
       ],
       es: [
         'Acceso a todos los paquetes de Intlayer',
@@ -91,7 +91,7 @@ export const planDetails = {
         'Diccionarios distantes ilimitados',
         '100 Mb de almacenamiento',
         '2 proyectos',
-        '1 usuario de organización',
+        '2 usuarios de organización',
       ],
       'en-GB': [
         'Access to all Intlayer packages',
@@ -99,7 +99,7 @@ export const planDetails = {
         'Unlimited distant dictionaries',
         '100 Mb of storage',
         '2 projects',
-        '1 organization user',
+        '2 organization users',
       ],
       de: [
         'Zugriff auf alle Intlayer-Pakete',
@@ -107,7 +107,7 @@ export const planDetails = {
         'Unbegrenzte entfernte Wörterbücher',
         '100 MB Speicher',
         '2 Projekte',
-        '1 Organisationsbenutzer',
+        '2 Organisationsbenutzer',
       ],
       ja: [
         'すべてのIntlayerパッケージにアクセス',
@@ -115,7 +115,7 @@ export const planDetails = {
         '無制限の遠隔辞書',
         '100 MBのストレージ',
         '2プロジェクト',
-        '1組織ユーザー',
+        '2組織ユーザー',
       ],
       ko: [
         '모든 Intlayer 패키지에 액세스',
@@ -123,7 +123,7 @@ export const planDetails = {
         '무제한 원격 사전',
         '100MB의 저장 공간',
         '2 프로젝트',
-        '1 조직 사용자',
+        '2 조직 사용자',
       ],
       zh: [
         '访问所有Intlayer程序包',
@@ -131,7 +131,7 @@ export const planDetails = {
         '无限远程字典',
         '100MB存储',
         '2个项目',
-        '1个组织用户',
+        '2个组织用户',
       ],
       it: [
         'Accesso a tutti i pacchetti Intlayer',
@@ -139,7 +139,7 @@ export const planDetails = {
         'Dizionari remoti illimitati',
         '100 Mb di spazio di archiviazione',
         '2 progetti',
-        '1 utente dell’organizzazione',
+        '2 utenti dell’organizzazione',
       ],
       pt: [
         'Acesso a todos os pacotes Intlayer',
@@ -147,7 +147,7 @@ export const planDetails = {
         'Dicionários remotos ilimitados',
         '100 Mb de armazenamento',
         '2 projetos',
-        '1 usuário da organização',
+        '2 usuários da organização',
       ],
       hi: [
         'सभी Intlayer पैकेजों तक पहुँच',
@@ -155,7 +155,7 @@ export const planDetails = {
         'असीमित दूरस्थ शब्दकोश',
         '100 एमबी भंडारण',
         '2 प्रोजेक्ट',
-        '1 संगठन उपयोगकर्ता',
+        '2 संगठन उपयोगकर्ता',
       ],
       ar: [
         'الوصول إلى جميع حزم Intlayer',
@@ -163,7 +163,7 @@ export const planDetails = {
         'قواميس بعيدة غير محدودة',
         '100 ميغابايت من التخزين',
         'مشروعين',
-        '1 مستخدم منظمة',
+        'مستخدمين اثنين للمنظمة',
       ],
       ru: [
         'Доступ ко всем пакетам Intlayer',
@@ -171,7 +171,7 @@ export const planDetails = {
         'Неограниченные удаленные словари',
         '100 Мб памяти',
         '2 проекта',
-        '1 пользователь организации',
+        '2 пользователя организации',
       ],
       tr: [
         'Tüm Intlayer paketlerine erişim',
@@ -179,7 +179,7 @@ export const planDetails = {
         'Sınırsız uzak sözlükler',
         '100 Mb depolama',
         '2 proje',
-        '1 organizasyon kullanıcısı',
+        '2 organizasyon kullanıcısı',
       ],
       pl: [
         'Dostęp do wszystkich pakietów Intlayer',
@@ -187,7 +187,7 @@ export const planDetails = {
         'Nieograniczone zdalne słowniki',
         '100 MB pamięci',
         '2 projekty',
-        '1 użytkownik organizacji',
+        '2 użytkowników organizacji',
       ],
       id: [
         'Akses ke semua paket Intlayer',
@@ -195,7 +195,7 @@ export const planDetails = {
         'Kamus jarak jauh tanpa batas',
         '100 MB penyimpanan',
         '2 proyek',
-        '1 pengguna organisasi',
+        '2 pengguna organisasi',
       ],
       vi: [
         'Truy cập tất cả các gói Intlayer',
@@ -203,7 +203,7 @@ export const planDetails = {
         'Từ điển từ xa không giới hạn',
         '100 MB dung lượng lưu trữ',
         '2 dự án',
-        '1 người dùng tổ chức',
+        '2 người dùng tổ chức',
       ],
       uk: [
         'Доступ до всіх пакетів Intlayer',
@@ -211,7 +211,7 @@ export const planDetails = {
         'Необмежені віддалені словники',
         '100 МБ сховища',
         '2 проекти',
-        '1 користувач організації',
+        '2 користувачі організації',
       ],
     }),
     callToAction: {
