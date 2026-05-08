@@ -13,6 +13,7 @@ import { Suspense } from 'react';
 import { IntlayerProvider } from 'react-intlayer';
 import { AnimatePresenceProvider } from '#/providers/AnimatePresenceProvider';
 import { IntlayerMarkdownProvider } from '#/providers/IntlayerMarkdownProvider';
+import { PostHogProvider } from '#/providers/PostHogProvider';
 import { ThemeProvider } from '#/providers/ThemeProvider';
 import { SoftwareApplicationHeader } from '#/structuredData/SoftwareApplication';
 import { WebsiteHeader } from '#/structuredData/WebsiteHeader';
@@ -85,19 +86,21 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       </head>
       <body className="relative flex size-full min-h-screen flex-col overflow-auto overflow-x-clip scroll-smooth text-text leading-6 transition md:flex">
         <IntlayerProvider locale={locale}>
-          <AnimatePresenceProvider>
-            <ThemeProvider>
-              <IntlayerMarkdownProvider>
-                <ReactQueryProvider client={queryClient}>
-                  <Toaster />
-                  <WebsiteHeader />
-                  <SoftwareApplicationHeader />
-                  <ServiceWorkerSubscriber />
-                  <Suspense fallback={<Loader />}>{children}</Suspense>
-                </ReactQueryProvider>
-              </IntlayerMarkdownProvider>
-            </ThemeProvider>
-          </AnimatePresenceProvider>
+          <PostHogProvider>
+            <AnimatePresenceProvider>
+              <ThemeProvider>
+                <IntlayerMarkdownProvider>
+                  <ReactQueryProvider client={queryClient}>
+                    <Toaster />
+                    <WebsiteHeader />
+                    <SoftwareApplicationHeader />
+                    <ServiceWorkerSubscriber />
+                    <Suspense fallback={<Loader />}>{children}</Suspense>
+                  </ReactQueryProvider>
+                </IntlayerMarkdownProvider>
+              </ThemeProvider>
+            </AnimatePresenceProvider>
+          </PostHogProvider>
         </IntlayerProvider>
         <Scripts />
       </body>
