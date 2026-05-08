@@ -70,6 +70,10 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
         sizes: '180x180',
         href: '/apple-touch-icon.png',
       },
+      {
+        rel: 'preconnect',
+        href: import.meta.env.VITE_POSTHOG_HOST || 'https://us.i.posthog.com',
+      },
     ],
   }),
   shellComponent: RootDocument,
