@@ -202,7 +202,7 @@ export const PaymentStepContent: FC<PaymentDetailsProps> = ({
         <Container
           border={true}
           padding="xl"
-          roundedSize="xl"
+          roundedSize="2xl"
           transparency="full"
           gap="xl"
         >
