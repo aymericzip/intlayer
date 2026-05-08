@@ -76,6 +76,8 @@ export const stripeWebhook = async (
     return;
   }
 
+  console.log({ event });
+
   // Utility function to extract metadata from a Stripe customer
   const extractMetadata = async (customerId: string) => {
     const customer = await stripe.customers.retrieve(customerId); // Retrieve customer details from Stripe
@@ -212,6 +214,34 @@ export const stripeWebhook = async (
     );
   };
 
+  // Handles charge-related events (one-time payments)
+  const handleChargeEvent = async (charge: Stripe.Charge) => {
+    const { customer, metadata, status, paid } = charge;
+
+    if (!paid || status !== 'succeeded') {
+      return;
+    }
+
+    const { organizationId, userId, priceId, purchaseType } = metadata || {};
+
+    if (purchaseType === 'lifetime' && organizationId && userId && priceId) {
+      const organization = await getOrganizationById(organizationId);
+
+      if (!organization) {
+        throw new GenericError('ORGANIZATION_NOT_FOUND');
+      }
+
+      await addOrUpdateSubscription(
+        charge.id,
+        priceId,
+        customer as string,
+        userId,
+        organization,
+        'active'
+      );
+    }
+  };
+
   try {
     // Log the event type for debugging and monitoring
     logger.info(`Triggered event type ${event.type}`);
@@ -259,6 +289,13 @@ export const stripeWebhook = async (
           event.data.object as Stripe.Invoice,
           'incomplete'
         );
+        break;
+      }
+      case 'charge.succeeded':
+      case 'charge.updated': {
+        logger.info(`Handled event type ${event.type}`);
+        // Handle charge events (e.g. one-time payments)
+        await handleChargeEvent(event.data.object as Stripe.Charge);
         break;
       }
       default:

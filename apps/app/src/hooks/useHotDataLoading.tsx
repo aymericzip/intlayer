@@ -32,7 +32,6 @@ export const useHotDataLoading = () => {
     queryClient.setQueryDefaults(['dictionaries'], defaults);
     queryClient.setQueryDefaults(['dictionariesKeys'], defaults);
     queryClient.setQueryDefaults(['users'], defaults);
-    queryClient.setQueryDefaults(['ci-config'], defaults);
   }, [queryClient]);
 
   // Unconditionally call hooks; their internal enable gating uses session state
@@ -54,5 +53,4 @@ export const useHotDataLoading = () => {
   });
   useGetDictionariesKeys();
   useGetUsers();
-  useGetCIConfig();
 };

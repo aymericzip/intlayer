@@ -913,7 +913,7 @@ export const getCIConfiguration = async (
   }
 
   try {
-    const ciStatus = await ciService.getCIStatus(project);
+    const ciStatus = await ciService.getCIStatus(project, user.id);
 
     const responseData = formatResponse<ciService.CIStatus>({
       data: ciStatus,
@@ -921,7 +921,17 @@ export const getCIConfiguration = async (
 
     return reply.send(responseData);
   } catch (error) {
-    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
+    if ((error as any)?.isAppError) {
+      return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
+    }
+    return ErrorHandler.handleCustomErrorResponse(
+      reply,
+      'CI_CONFIG_ERROR',
+      'CI Configuration Error',
+      (error as Error)?.message ?? 'Failed to get CI configuration',
+      undefined,
+      500
+    );
   }
 };
 
@@ -948,7 +958,7 @@ export const pushCIConfiguration = async (
   }
 
   try {
-    await ciService.installCI(project);
+    await ciService.installCI(project, user.id);
 
     const responseData = formatResponse<{ success: boolean }>({
       message: t({
@@ -966,6 +976,16 @@ export const pushCIConfiguration = async (
 
     return reply.send(responseData);
   } catch (error) {
-    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
+    if ((error as any)?.isAppError) {
+      return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
+    }
+    return ErrorHandler.handleCustomErrorResponse(
+      reply,
+      'CI_INSTALL_ERROR',
+      'CI Installation Error',
+      (error as Error)?.message ?? 'Failed to install CI configuration',
+      undefined,
+      500
+    );
   }
 };

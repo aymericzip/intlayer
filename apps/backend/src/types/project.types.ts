@@ -52,6 +52,8 @@ export type BaseRepository = {
   branch: string;
   url: string;
   configFilePath: string;
+  /** Repo-scoped OAuth token used for CI operations (write access to the repo) */
+  token?: string;
 };
 
 export type GitHubRepository = BaseRepository & {

@@ -1,3 +1,4 @@
+import { Link } from '@intlayer/design-system';
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
 import { H2, H3 } from '@intlayer/design-system/headers';
@@ -116,6 +117,7 @@ export const PaymentStepContent: FC<PaymentDetailsProps> = ({
     youReOrganizationIsAlreadySubscribed,
     pickANewProductButton,
     paymentDetails,
+    morePaymentOptions,
   } = useIntlayer('payment-step');
   const [isLoading, setIsLoading] = useState(false);
   const [isPaymentElementReady, setIsPaymentElementReady] = useState(false);
@@ -230,7 +232,21 @@ export const PaymentStepContent: FC<PaymentDetailsProps> = ({
             </Button>
           </>
         ) : (
-          <PaymentElement onReady={() => setIsPaymentElementReady(true)} />
+          <div className="flex flex-col gap-3">
+            <PaymentElement onReady={() => setIsPaymentElementReady(true)} />
+            {invoice?.hosted_invoice_url && (
+              <Link
+                label={morePaymentOptions}
+                href={invoice.hosted_invoice_url}
+                target="_blank"
+                rel="noreferrer"
+                color="text"
+                className="ml-auto"
+              >
+                {morePaymentOptions}
+              </Link>
+            )}
+          </div>
         )}
       </StepLayout>
     </form>

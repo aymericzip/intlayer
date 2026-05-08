@@ -6,7 +6,7 @@ import {
   useSearch,
   useSelectOrganization,
 } from '@intlayer/design-system/hooks';
-import { SearchInput } from '@intlayer/design-system/input';
+import { Checkbox, SearchInput } from '@intlayer/design-system/input';
 import { Loader } from '@intlayer/design-system/loader';
 import { Modal } from '@intlayer/design-system/modal';
 import {
@@ -24,11 +24,13 @@ import { OrganizationCreationForm } from './OrganizationCreationForm';
 type OrganizationListProps = {
   selectedOrganizationId?: OrganizationAPI['id'] | string;
   onSelectOrganization?: (organization: OrganizationAPI) => void;
+  isPending?: boolean;
 };
 
 export const OrganizationList: FC<OrganizationListProps> = ({
   selectedOrganizationId,
   onSelectOrganization,
+  isPending,
 }) => {
   const { search, setSearch } = useSearch({});
 
@@ -37,7 +39,7 @@ export const OrganizationList: FC<OrganizationListProps> = ({
 
   const {
     data: organizationsResponse,
-    isPending,
+    isPending: isLoadingOrganizations,
     refetch,
   } = useGetOrganizations({
     search,
@@ -64,9 +66,7 @@ export const OrganizationList: FC<OrganizationListProps> = ({
         (organization: any) => organization.id === organizationId
       );
 
-      if (!organization) {
-        return;
-      }
+      if (!organization) return;
 
       onSelectOrganization(organization);
       return;
@@ -86,7 +86,7 @@ export const OrganizationList: FC<OrganizationListProps> = ({
         onChange={(e) => setSearch(e.target.value)}
         className="max-w-md"
       />
-      <Loader isLoading={isPending}>
+      <Loader isLoading={isLoadingOrganizations}>
         <div className="flex w-full flex-1 flex-col items-center p-10">
           {organizations.length > 0 ? (
             <ul className="flex w-full flex-wrap gap-3">
@@ -108,7 +108,21 @@ export const OrganizationList: FC<OrganizationListProps> = ({
                       label={selectButton.ariaLabel.value}
                       color="text"
                       isSelected={selectedOrganizationId === organization.id}
-                      className="mt-auto"
+                      className="mt-auto flex items-center gap-2"
+                      isLoading={isPending}
+                      Icon={
+                        selectedOrganizationId
+                          ? () => (
+                              <Checkbox
+                                color="text-inverse"
+                                name={`select-organization-checkbox-${organization.id}`}
+                                checked={
+                                  selectedOrganizationId === organization.id
+                                }
+                              />
+                            )
+                          : undefined
+                      }
                     >
                       {String(selectedOrganizationId) ===
                       String(organization.id)

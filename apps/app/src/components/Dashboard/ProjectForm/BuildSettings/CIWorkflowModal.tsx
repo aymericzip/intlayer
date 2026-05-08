@@ -103,12 +103,12 @@ export const CIWorkflowModal: FC<CIWorkflowModalProps> = ({
             to={ciStatus.fileUrl}
             isExternalLink
             variant="default"
-            color="primary"
+            color="text"
             underlined
             size="sm"
             label={ciModal.viewFileLink.value}
           >
-            {ciModal.viewFileLink} →
+            {ciModal.viewFileLink}
           </Link>
         )}
 
@@ -128,6 +128,7 @@ export const CIWorkflowModal: FC<CIWorkflowModalProps> = ({
             <Button
               onClick={handlePush}
               isLoading={isPushing}
+              color="text"
               Icon={GitCommit}
               label={ciModal.pushButtonLabel.value}
             >

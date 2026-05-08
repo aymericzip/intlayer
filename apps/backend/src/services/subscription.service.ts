@@ -48,14 +48,16 @@ export const addOrUpdateSubscription = async (
     }
   }
 
+  const isCanceled = status === 'canceled';
+
   const updatedOrganization = await updatePlan(organization, {
     creatorId: user.id,
-    priceId,
+    priceId: isCanceled ? undefined : priceId,
     customerId,
-    subscriptionId,
-    type: planInfo.type,
-    period: planInfo.period,
-    status,
+    subscriptionId: isCanceled ? undefined : subscriptionId,
+    type: isCanceled ? 'FREE' : planInfo.type,
+    period: isCanceled ? undefined : planInfo.period,
+    status: isCanceled ? 'active' : status,
   });
 
   if (!updatedOrganization) {
@@ -93,7 +95,11 @@ export const cancelSubscription = async (
   }
 
   const updatedOrganization = await updatePlan(organization, {
-    status: 'canceled',
+    status: 'active',
+    type: 'FREE',
+    period: undefined,
+    subscriptionId: undefined,
+    priceId: undefined,
   });
 
   if (!updatedOrganization) {
@@ -132,10 +138,23 @@ export const changeSubscriptionStatus = async (
     });
   }
 
-  const updatedOrganization = await updatePlan(organization, {
-    status,
-    subscriptionId,
-  });
+  const isCanceled = status === 'canceled';
+
+  const updatedOrganization = await updatePlan(
+    organization,
+    isCanceled
+      ? {
+          status: 'active',
+          type: 'FREE',
+          period: undefined,
+          subscriptionId: undefined,
+          priceId: undefined,
+        }
+      : {
+          status,
+          subscriptionId,
+        }
+  );
 
   if (!updatedOrganization) {
     throw new GenericError('ORGANIZATION_UPDATE_FAILED', {

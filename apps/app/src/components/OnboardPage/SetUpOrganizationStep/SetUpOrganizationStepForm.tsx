@@ -24,52 +24,18 @@ import {
   useSetUpOrganizationSchema,
 } from './useSetUpOrganizationSchema';
 
-const OrganizationFormContent: FC<{
-  selectedOrganizationId?: OrganizationAPI['id'] | string;
-  onSelectOrganization: (organization: OrganizationAPI) => void;
-}> = ({ onSelectOrganization, selectedOrganizationId }) => {
-  const [isCreationModalOpen, setIsCreationModalOpen] = useState(false);
-  const { data: organizations, isSuccess } = useGetOrganizations();
-
-  if ((organizations?.data ?? []).length > 0) {
-    return (
-      <OrganizationList
-        organizations={organizations?.data ?? []}
-        onSelectOrganization={onSelectOrganization}
-        selectedOrganizationId={selectedOrganizationId}
-      />
-    );
-  }
-
-  if (isSuccess) {
-    return (
-      <>
-        <Modal
-          isOpen={isCreationModalOpen}
-          onClose={() => setIsCreationModalOpen(false)}
-          hasCloseButton
-          padding="md"
-        >
-          <OrganizationCreationForm />
-        </Modal>
-
-        <NoOrganizationView
-          onClickCreateOrganization={() => setIsCreationModalOpen(true)}
-        />
-      </>
-    );
-  }
-
-  return <Loader />;
-};
-
 export const SetupOrganizationStepForm: FC = () => {
   const SetUpOrganizationSchema = useSetUpOrganizationSchema();
   const { session } = useSession();
   const navigate = useLocalizedNavigate();
   const search = useSearch({ strict: false });
 
-  const { mutate: selectOrganization } = useSelectOrganization();
+  const [isCreationModalOpen, setIsCreationModalOpen] = useState(false);
+  const { data: organizations, isSuccess: isOrganizationsSuccess } =
+    useGetOrganizations();
+  const { mutate: selectOrganization, isPending: isSelectOrganizationPending } =
+    useSelectOrganization();
+
   const { formData, goNextStep, goPreviousStep, setFormData } = useStep(
     Steps.SetupOrganization
   );
@@ -82,6 +48,7 @@ export const SetupOrganizationStepForm: FC = () => {
         : formData?.organizationId,
     },
   });
+
   const { title } = useIntlayer('set-up-organization-step');
 
   const onSubmitSuccess = (data: SetUpOrganization) => {
@@ -91,13 +58,61 @@ export const SetupOrganizationStepForm: FC = () => {
       goNextStep();
     }
 
-    if (formData?.organizationId) {
-      selectOrganization(formData.organizationId, {
+    // Fixed: Use 'data' from the submission, not the stale 'formData' state
+    if (data.organizationId) {
+      selectOrganization(data.organizationId, {
         onSuccess: () => {
           goNextStep();
         },
       });
     }
+  };
+
+  const handleSelectOrganization = (organization: OrganizationAPI) => {
+    selectOrganization(organization.id, {
+      onSuccess: () => {
+        setFormData({
+          organizationId: String(organization.id),
+        });
+
+        setTimeout(() => {
+          goNextStep();
+        }, 2000);
+      },
+    });
+  };
+
+  const renderContent = () => {
+    if ((organizations?.data ?? []).length > 0) {
+      return (
+        <OrganizationList
+          isPending={isSelectOrganizationPending}
+          onSelectOrganization={handleSelectOrganization}
+          selectedOrganizationId={session?.organization?.id}
+        />
+      );
+    }
+
+    if (isOrganizationsSuccess) {
+      return (
+        <>
+          <Modal
+            isOpen={isCreationModalOpen}
+            onClose={() => setIsCreationModalOpen(false)}
+            hasCloseButton
+            padding="md"
+          >
+            <OrganizationCreationForm />
+          </Modal>
+
+          <NoOrganizationView
+            onClickCreateOrganization={() => setIsCreationModalOpen(true)}
+          />
+        </>
+      );
+    }
+
+    return <Loader />;
   };
 
   return (
@@ -122,16 +137,11 @@ export const SetupOrganizationStepForm: FC = () => {
         onSkipStep={goNextStep}
       >
         <H2>{title}</H2>
-        <OrganizationFormContent
-          onSelectOrganization={(organization) => {
-            if (form.getValues().organizationId === String(organization.id)) {
-              form.setValue('organizationId', null as unknown as string);
-            } else {
-              form.setValue('organizationId', String(organization.id));
-            }
-          }}
-          selectedOrganizationId={form.watch('organizationId')}
-        />
+
+        {/* Hidden input to ensure React Hook Form tracks the value for re-renders */}
+        <input type="hidden" {...form.register('organizationId')} />
+
+        {renderContent()}
       </StepLayout>
     </Form>
   );

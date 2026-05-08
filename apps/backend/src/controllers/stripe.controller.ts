@@ -266,9 +266,19 @@ export const cancelSubscription = async (
     // Try to get the subscription ID from the organization's plan
     const subscriptionId = organization.plan?.subscriptionId;
 
-    if (subscriptionId) {
-      // Cancel the subscription on Stripe immediately using the subscription ID
-      await stripe.subscriptions.cancel(subscriptionId);
+    // Only attempt to cancel on Stripe if it's a subscription (not LIFETIME or FREE)
+    if (subscriptionId && organization.plan?.type !== 'LIFETIME') {
+      try {
+        // Cancel the subscription on Stripe immediately using the subscription ID
+        await stripe.subscriptions.cancel(subscriptionId);
+      } catch (error) {
+        // If the subscription is already canceled or not found on Stripe, we log it and continue
+        // to ensure our local database remains in sync.
+        console.error(
+          `Stripe subscription cancellation failed for ${subscriptionId}:`,
+          error
+        );
+      }
     }
 
     // Update the organization's plan in the database to reflect the cancellation

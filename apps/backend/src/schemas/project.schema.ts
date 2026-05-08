@@ -108,6 +108,7 @@ const repositorySchema = new Schema<Project['repository']>(
     branch: { type: String, default: 'main' },
     url: { type: String, required: true },
     configFilePath: { type: String, required: true },
+    token: { type: String }, // Repo-scoped OAuth token for CI operations
     // GitHub specific
     installationId: { type: Number },
     // GitLab specific

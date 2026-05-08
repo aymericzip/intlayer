@@ -1,4 +1,5 @@
 import { logger } from '@logger';
+import type { Types } from 'mongoose';
 import type { Project } from '@/types/project.types';
 import * as bitbucketService from './bitbucket.service';
 import * as githubService from './github.service';
@@ -52,28 +53,52 @@ export type CIStatus = {
 };
 
 /**
- * Get access token from project's OAuth2 access
+ * Get the best available token for CI operations on a repository.
+ * Prefers the repo-scoped token stored on the repository connection,
+ * falls back to the social login token from the account collection.
  */
-const getAccessToken = (project: Project): string | null => {
-  const tokenData = project.oAuth2Access?.[0];
-  const accessToken = tokenData?.accessToken?.[0];
-  return accessToken || null;
+const getProviderToken = async (
+  repository: NonNullable<Project['repository']>,
+  userId: string | Types.ObjectId
+): Promise<string | null> => {
+  // 1. Prefer the repo-scoped token stored on the repository (has write access)
+  if (repository.token) {
+    return repository.token;
+  }
+
+  // 2. Fall back to the social login token from Better Auth account collection
+  const userIdStr = String(userId);
+  switch (repository.provider) {
+    case 'github':
+      return githubService.getGitHubTokenFromUser(userIdStr);
+    case 'gitlab':
+      return gitlabService.getGitLabTokenFromUser(userIdStr);
+    case 'bitbucket':
+      return bitbucketService.getBitbucketTokenFromUser(userIdStr);
+    default:
+      return null;
+  }
 };
 
 /**
  * Get CI configuration status for a project
  */
-export const getCIStatus = async (project: Project): Promise<CIStatus> => {
+export const getCIStatus = async (
+  project: Project,
+  userId: string | Types.ObjectId
+): Promise<CIStatus> => {
   const { repository } = project;
 
   if (!repository) {
     throw new Error('Project is not connected to a repository.');
   }
 
-  const accessToken = getAccessToken(project);
+  const accessToken = await getProviderToken(userId, repository.provider);
 
   if (!accessToken) {
-    throw new Error('No valid OAuth2 access token found.');
+    throw new Error(
+      `No valid ${repository.provider} OAuth token found for the current user. Please reconnect your ${repository.provider} account.`
+    );
   }
 
   const branch = repository.branch || 'main';
@@ -168,17 +193,22 @@ export const getCIStatus = async (project: Project): Promise<CIStatus> => {
 /**
  * Install CI configuration file in the repository
  */
-export const installCI = async (project: Project): Promise<void> => {
+export const installCI = async (
+  project: Project,
+  userId: string | Types.ObjectId
+): Promise<void> => {
   const { repository } = project;
 
   if (!repository) {
     throw new Error('Project is not connected to a repository.');
   }
 
-  const accessToken = getAccessToken(project);
+  const accessToken = await getProviderToken(userId, repository.provider);
 
   if (!accessToken) {
-    throw new Error('No valid OAuth2 access token found.');
+    throw new Error(
+      `No valid ${repository.provider} OAuth token found for the current user. Please reconnect your ${repository.provider} account.`
+    );
   }
 
   const branch = repository.branch || 'main';
