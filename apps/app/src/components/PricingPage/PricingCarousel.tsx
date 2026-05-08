@@ -28,7 +28,7 @@ const subscriptionPlans: Plans[] = [
   Plans.Premium,
   Plans.Enterprise,
 ];
-const lifetimePlans: Plans[] = [Plans.Free, Plans.Lifetime];
+const lifetimePlans: Plans[] = [Plans.Free, Plans.Lifetime, Plans.Custom];
 
 const IS_SELECT_PLAN_ON_HOVER = false;
 const SELECT_PLAN_ON_HOVER_TIMEOUT = 1000;
@@ -76,33 +76,32 @@ export const PricingCarousel: FC<PricingCarouselProps> = ({
       enabled: Boolean(allParams.promoCode),
     }
   );
+
   const [selectedPlanIndex, setSelectedPlanIndex] = useState<number | null>(
     null
-  ); // Index of selected plan, starting as null
+  );
   const [displayedPlanIndex, setDisplayedPlanIndex] = useState<number>(
     selectedPlanIndex ?? 0
-  ); // Index of the plan currently displayed
+  );
 
-  const [startX, setStartX] = useState(0); // Stores the start position of a swipe or drag event
-  const [isDragging, setIsDragging] = useState(false); // Indicates if a dragging action is happening
-  const [isClicked, setIsClicked] = useState(false); // Tracks if a plan has been clicked to prevent selection on hover
-  const [focusTimeout, setFocusTimeout] = useState<NodeJS.Timeout | null>(null); // Timeout for delayed plan selection on hover
+  const [startX, setStartX] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
+  const [isClicked, setIsClicked] = useState(false);
+  const [focusTimeout, setFocusTimeout] = useState<NodeJS.Timeout | null>(null);
 
-  const columnRef = useRef<HTMLButtonElement>(null); // Reference to the pricing column div element
+  const columnsRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const [carouselHeight, setCarouselHeight] = useState<number | string>(
+    '100vh'
+  );
 
-  /**
-   * Handle switching plans based on swipe or drag distance
-   * @param diff - Difference in X coordinate from swipe/drag start
-   */
   const handleSwitchPlan = (diff: number) => {
     const screenWidth = window.innerWidth;
-    const swipeStep = screenWidth / 5; // Defines how much distance must be swiped to switch plans
+    const swipeStep = screenWidth / 5;
     const numSwipe = Math.round(diff / swipeStep);
 
     if (Math.abs(numSwipe) >= 1) {
       const newIndex = (displayedPlanIndex ?? displayedPlanIndex) - numSwipe;
 
-      // Update the selected plan index if within valid range
       if (newIndex >= 0 && newIndex < plans.length) {
         setSelectedPlanIndex(newIndex);
         setStartX((prev) => prev + diff);
@@ -110,38 +109,36 @@ export const PricingCarousel: FC<PricingCarouselProps> = ({
     }
   };
 
-  /** Mouse event handlers for drag functionality */
   const handleMouseDown: MouseEventHandler<HTMLDivElement> = (e) => {
     setIsDragging(true);
-    setStartX(e.clientX); // Store the initial X position on mouse down
+    setStartX(e.clientX);
   };
 
   const handleMouseMove: MouseEventHandler<HTMLDivElement> = (e) => {
     if (isDragging) {
-      const diff = e.clientX - startX; // Calculate the difference from the start position
+      const diff = e.clientX - startX;
       handleSwitchPlan(diff);
     }
   };
 
   const handleMouseUp: MouseEventHandler<HTMLDivElement> = () => {
-    setIsDragging(false); // Stop dragging
+    setIsDragging(false);
   };
 
-  /** Touch event handlers for swipe functionality */
   const handleTouchStart: TouchEventHandler = (e) => {
     setIsDragging(true);
-    setStartX(e.touches[0].clientX ?? 0); // Store the initial X position on touch start
+    setStartX(e.touches[0].clientX ?? 0);
   };
 
   const handleTouchMove: TouchEventHandler = (e) => {
     if (isDragging) {
-      const diff = e.touches[0].clientX - startX; // Calculate the difference from the start position
+      const diff = e.touches[0].clientX - startX;
       handleSwitchPlan(diff);
     }
   };
 
   const handleTouchEnd: TouchEventHandler = () => {
-    setIsDragging(false); // Stop dragging
+    setIsDragging(false);
   };
 
   /**
@@ -151,11 +148,9 @@ export const PricingCarousel: FC<PricingCarouselProps> = ({
   const selectPlanAfterDelay = (index: number) => {
     if (!IS_SELECT_PLAN_ON_HOVER) return;
 
-    // Clear existing timeout if it exists
     if (focusTimeout) {
       clearTimeout(focusTimeout);
     }
-    // Set new timeout to select plan after 0.5 seconds
     const newTimeout = setTimeout(() => {
       setSelectedPlanIndex(index);
     }, SELECT_PLAN_ON_HOVER_TIMEOUT);
@@ -169,7 +164,7 @@ export const PricingCarousel: FC<PricingCarouselProps> = ({
    */
   const handleMouseEnter = (index: number) => (e: React.MouseEvent) => {
     e.stopPropagation();
-    if (isClicked) return; // Prevent hover selection if plan is clicked
+    if (isClicked) return;
     selectPlanAfterDelay(index);
   };
 
@@ -209,7 +204,7 @@ export const PricingCarousel: FC<PricingCarouselProps> = ({
           }
           return prev < selectedPlanIndex ? prev + 1 : prev - 1;
         });
-      }, 50); // Smoothly adjust index in steps
+      }, 50);
     }
 
     return () => {
@@ -225,6 +220,29 @@ export const PricingCarousel: FC<PricingCarouselProps> = ({
    * @param displayedIndex - Index of the displayed plan column
    * @returns - Tailwind CSS class for styling the column
    */
+
+  // Max height calculation effect
+  useEffect(() => {
+    const updateMaxHeight = () => {
+      // Filter out null refs and map to their offsetHeights
+      const heights = columnsRefs.current
+        .filter((el): el is HTMLButtonElement => el !== null)
+        .map((el) => el.offsetHeight);
+
+      if (heights.length > 0) {
+        // Set the carousel to the maximum height found + 60px offset
+        const maxHeight = Math.max(...heights);
+        setCarouselHeight(maxHeight + 60);
+      }
+    };
+
+    // Calculate immediately, and wrap in setTimeout to ensure child DOM is fully painted
+    setTimeout(updateMaxHeight, 0);
+
+    window.addEventListener('resize', updateMaxHeight);
+    return () => window.removeEventListener('resize', updateMaxHeight);
+  }, [plans]); // Re-run only when the available plans change, not on column switch
+
   const setColumnStyle = (index: number, displayedIndex: number) => {
     const diff = Math.abs(index - displayedIndex);
     switch (diff) {
@@ -273,14 +291,12 @@ export const PricingCarousel: FC<PricingCarouselProps> = ({
     return diff * offset;
   };
 
-  // Set initial displayed plan index if none is selected
   useEffect(() => {
     if (!selectedPlanIndex) {
       setDisplayedPlanIndex(1);
     }
   }, [selectedPlanIndex]);
 
-  // Clear the focus timeout on component unmount
   useEffect(() => {
     return () => {
       if (focusTimeout) {
@@ -291,7 +307,8 @@ export const PricingCarousel: FC<PricingCarouselProps> = ({
 
   return (
     <section
-      className="relative h-screen w-full cursor-grab select-none overflow-hidden active:cursor-grabbing"
+      // Removed the transition-[height] class to ensure strict, immediate sizing
+      className="relative w-full cursor-grab select-none overflow-hidden active:cursor-grabbing"
       onMouseDown={handleMouseDown}
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
@@ -302,7 +319,10 @@ export const PricingCarousel: FC<PricingCarouselProps> = ({
       aria-label="Pricing Carousel"
       data-testid="pricing-carousel"
       style={{
-        height: (columnRef?.current?.offsetHeight ?? 0) + 60,
+        height:
+          typeof carouselHeight === 'number'
+            ? `${carouselHeight}px`
+            : carouselHeight,
       }}
       {...props}
     >
@@ -313,26 +333,26 @@ export const PricingCarousel: FC<PricingCarouselProps> = ({
             `absolute left-1/2 -translate-x-1/2 transition duration-300 ease-in-out`,
             setColumnStyle(index, displayedPlanIndex)
           )}
-          ref={columnRef}
+          ref={(el) => {
+            columnsRefs.current[index] = el;
+          }}
           onKeyDown={(e) => {
             if (e.key === 'Enter' || e.key === ' ') {
-              setSelectedPlanIndex(index); // Handle Enter/Space to activate
+              setSelectedPlanIndex(index);
             }
             if (e.key === 'ArrowLeft') {
-              setSelectedPlanIndex(
-                (prev) => Math.max(0, (prev ?? 0) - 1) // Handle Left Arrow to go back
-              );
+              setSelectedPlanIndex((prev) => Math.max(0, (prev ?? 0) - 1));
             }
             if (e.key === 'ArrowRight') {
-              setSelectedPlanIndex(
-                (prev) => Math.min(plans.length - 1, (prev ?? 0) + 1) // Handle Right Arrow to go forward
+              setSelectedPlanIndex((prev) =>
+                Math.min(plans.length - 1, (prev ?? 0) + 1)
               );
             }
           }}
-          aria-pressed={selectedPlanIndex === index} // Indicates selected state
+          aria-pressed={selectedPlanIndex === index}
           key={plan}
           style={
-            columnRef?.current?.offsetWidth
+            columnsRefs.current[index]?.offsetWidth
               ? {
                   transform: `
               translateX(${setColumnPositionX(index, displayedPlanIndex)}px)
@@ -384,14 +404,21 @@ export const PricingCarousel: FC<PricingCarouselProps> = ({
             callToActionText={
               pricing[focusedPeriod]?.[plan]?.callToAction?.text?.value
             }
-            callToActionUrl={formatOnboardUrl({
-              plan,
-              period: focusedPeriod,
-              step: user ? Steps.SetupOrganization : Steps.Registration,
-              otherParams: allParams,
-            })}
+            callToActionUrl={
+              plan === Plans.Custom
+                ? 'https://calendly.com/ay-pineau/new-meeting'
+                : formatOnboardUrl({
+                    plan,
+                    period: focusedPeriod,
+                    step: user ? Steps.SetupOrganization : Steps.Registration,
+                    otherParams: allParams,
+                  })
+            }
             title={pricing[focusedPeriod]?.[plan]?.title?.value}
             badge={pricing[focusedPeriod]?.[plan]?.badge?.value}
+            priceLabel={
+              (pricing[focusedPeriod]?.[plan] as any)?.priceLabel?.value
+            }
             description={pricing[focusedPeriod]?.[plan]?.description?.value}
             className={displayedPlanIndex !== index ? 'hover:scale-103' : ''}
           />

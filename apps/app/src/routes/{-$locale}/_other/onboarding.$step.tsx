@@ -81,8 +81,8 @@ function OnboardingPage() {
         <Container
           className="w-full max-w-xl justify-center text-2xl"
           padding="xl"
-          roundedSize="2xl"
-          transparency="xs"
+          roundedSize="4xl"
+          transparency="md"
         >
           <OnboardFlow {...pageDetails} />
         </Container>

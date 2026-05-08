@@ -23,6 +23,7 @@ type PricingColumnProps = {
   callToActionUrl: string;
   callToActionLabel: string;
   callToActionText: string;
+  priceLabel?: ReactNode;
 } & ContainerProps;
 
 export const PricingColumn: FC<PricingColumnProps> = ({
@@ -38,6 +39,7 @@ export const PricingColumn: FC<PricingColumnProps> = ({
   callToActionLabel,
   callToActionText,
   checkPoint,
+  priceLabel,
   className,
   ...props
 }) => (
@@ -58,37 +60,43 @@ export const PricingColumn: FC<PricingColumnProps> = ({
       </H2>
       {badge && <Tag color={TagColor.WARNING}>{badge}</Tag>}
     </div>
-    <div className="flex flex-col justify-center">
+    <div className="flex min-h-[72px] flex-col justify-center">
       <Loader isLoading={isPriceLoading}>
-        <span className="relative m-auto text-center font-bold text-6xl">
-          <span itemProp="price" className="hidden">
-            {totalPrice.toFixed(2)}
+        {priceLabel ? (
+          <span className="relative m-auto text-center font-bold text-4xl">
+            {priceLabel}
           </span>
-          <span>{totalPrice.toFixed(2).split('.')[0]}</span>
-          <span className="text-3xl">
-            {`.${totalPrice.toFixed(2).split('.')[1]}`}
-          </span>
-          <span className="text-xl" itemProp="priceCurrency">
-            {unit}
-          </span>
-
-          {totalPrice !== basePrice && (
-            <span className="absolute top-0 left-full m-auto scale-90 text-center font-bold text-2xl text-neutral">
-              <span className="absolute top-1/2 left-0 h-[2px] w-full bg-neutral" />
-
-              <span itemProp="price" className="hidden">
-                {basePrice.toFixed(2)}
-              </span>
-              <span>{basePrice.toFixed(2).split('.')[0]}</span>
-              <span className="text-xl">
-                {`.${basePrice.toFixed(2).split('.')[1]}`}
-              </span>
-              <span className="text-base" itemProp="priceCurrency">
-                $
-              </span>
+        ) : (
+          <span className="relative m-auto text-center font-bold text-6xl">
+            <span itemProp="price" className="hidden">
+              {totalPrice.toFixed(2)}
             </span>
-          )}
-        </span>
+            <span>{totalPrice.toFixed(2).split('.')[0]}</span>
+            <span className="text-3xl">
+              {`.${totalPrice.toFixed(2).split('.')[1]}`}
+            </span>
+            <span className="text-xl" itemProp="priceCurrency">
+              {unit}
+            </span>
+
+            {totalPrice !== basePrice && (
+              <span className="absolute top-0 left-full m-auto scale-90 text-center font-bold text-2xl text-neutral">
+                <span className="absolute top-1/2 left-0 h-[2px] w-full bg-neutral" />
+
+                <span itemProp="price" className="hidden">
+                  {basePrice.toFixed(2)}
+                </span>
+                <span>{basePrice.toFixed(2).split('.')[0]}</span>
+                <span className="text-xl">
+                  {`.${basePrice.toFixed(2).split('.')[1]}`}
+                </span>
+                <span className="text-base" itemProp="priceCurrency">
+                  $
+                </span>
+              </span>
+            )}
+          </span>
+        )}
       </Loader>
       <span
         className="text-center text-neutral text-xl"
@@ -102,7 +110,6 @@ export const PricingColumn: FC<PricingColumnProps> = ({
       to={callToActionUrl}
       variant="button"
       color="text"
-      isExternalLink={false}
       className="text-center"
     >
       {callToActionText}
@@ -116,13 +123,13 @@ export const PricingColumn: FC<PricingColumnProps> = ({
     <ul className="flex flex-col gap-4 p-4">
       {checkPoint.map((el, index) => (
         <li
-          className="flex items-start gap-3"
+          className="flex items-center gap-5"
           key={typeof el === 'string' ? el : index}
         >
           <span className="block aspect-square rounded-full border-[2.5px] border-lime-300 p-0.5 text-2xl text-lime-800 dark:border-lime-900 dark:text-lime-600">
-            <Check className="size-4" />
+            <Check className="size-2" />
           </span>
-          <span className="text-neutral text-sm" itemProp="feature">
+          <span className="text-md text-neutral" itemProp="feature">
             {el}
           </span>
         </li>
