@@ -179,9 +179,11 @@ export const changeSubscriptionStatus = async (
     to: user.email,
     username: user.name,
     email: user.email,
-    planName: organization.plan.type,
+    planName:
+      updatedOrganization?.plan?.type ?? organization.plan?.type ?? 'Unknown',
     date: new Date().toLocaleDateString(),
     link: `${process.env.APP_URL}/dashboard`,
+    billingLink: `${process.env.APP_URL}/organization`,
   };
 
   switch (status) {
@@ -192,6 +194,7 @@ export const changeSubscriptionStatus = async (
         organizationName: organization.name,
         subscriptionStartDate: emailData.date,
         manageSubscriptionLink: emailData.link,
+        billingLink: emailData.billingLink,
       });
       break;
     case 'canceled':
@@ -201,6 +204,7 @@ export const changeSubscriptionStatus = async (
         organizationName: organization.name,
         cancellationDate: emailData.date,
         reactivateLink: emailData.link,
+        billingLink: emailData.billingLink,
       });
       break;
     case 'incomplete':
@@ -210,6 +214,7 @@ export const changeSubscriptionStatus = async (
         organizationName: organization.name,
         errorDate: emailData.date,
         retryPaymentLink: emailData.link,
+        billingLink: emailData.billingLink,
       });
       break;
     default:

@@ -6,6 +6,7 @@ import {
   Heading,
   Html,
   Img,
+  Link,
   Preview,
   Section,
   Tailwind,
@@ -19,6 +20,7 @@ export type SubscriptionPaymentSuccessProps = {
   organizationName: string; // The name of the organization
   subscriptionStartDate: string; // The start date of the subscription
   manageSubscriptionLink: string; // A link for the user to manage their subscription
+  billingLink?: string; // A link for the user to see their billing
 };
 
 export const SubscriptionPaymentSuccessEN = ({
@@ -27,6 +29,7 @@ export const SubscriptionPaymentSuccessEN = ({
   organizationName,
   subscriptionStartDate,
   manageSubscriptionLink,
+  billingLink,
 }: SubscriptionPaymentSuccessProps) => {
   const previewText = `Your payment for ${planName} subscription is confirmed`;
 
@@ -70,6 +73,15 @@ export const SubscriptionPaymentSuccessEN = ({
                 Manage Your Subscription
               </Button>
             </Section>
+            {billingLink && (
+              <Section className="mt-[32px] text-center">
+                <Text className="text-[#666666] text-[12px] leading-[24px]">
+                  <Link href={billingLink} className="text-black underline">
+                    See your billing
+                  </Link>
+                </Text>
+              </Section>
+            )}
           </Container>
         </Body>
       </Tailwind>
@@ -83,6 +95,7 @@ export const SubscriptionPaymentSuccessFR = ({
   organizationName,
   subscriptionStartDate,
   manageSubscriptionLink,
+  billingLink,
 }: SubscriptionPaymentSuccessProps) => {
   const previewText = `Votre paiement pour l'abonnement ${planName} est confirmé`;
 
@@ -126,6 +139,15 @@ export const SubscriptionPaymentSuccessFR = ({
                 Gérer votre abonnement
               </Button>
             </Section>
+            {billingLink && (
+              <Section className="mt-[32px] text-center">
+                <Text className="text-[#666666] text-[12px] leading-[24px]">
+                  <Link href={billingLink} className="text-black underline">
+                    See your billing
+                  </Link>
+                </Text>
+              </Section>
+            )}
           </Container>
         </Body>
       </Tailwind>
@@ -139,6 +161,7 @@ export const SubscriptionPaymentSuccessES = ({
   organizationName,
   subscriptionStartDate,
   manageSubscriptionLink,
+  billingLink,
 }: SubscriptionPaymentSuccessProps) => {
   const previewText = `Tu pago por la suscripción ${planName} ha sido confirmado`;
 
@@ -182,6 +205,15 @@ export const SubscriptionPaymentSuccessES = ({
                 Gestionar tu suscripción
               </Button>
             </Section>
+            {billingLink && (
+              <Section className="mt-[32px] text-center">
+                <Text className="text-[#666666] text-[12px] leading-[24px]">
+                  <Link href={billingLink} className="text-black underline">
+                    See your billing
+                  </Link>
+                </Text>
+              </Section>
+            )}
           </Container>
         </Body>
       </Tailwind>
@@ -195,6 +227,7 @@ export const SubscriptionPaymentSuccessRU = ({
   organizationName,
   subscriptionStartDate,
   manageSubscriptionLink,
+  billingLink,
 }: SubscriptionPaymentSuccessProps) => {
   const previewText = `Ваш платеж за подписку на ${planName} подтвержден`;
 
@@ -238,6 +271,15 @@ export const SubscriptionPaymentSuccessRU = ({
                 Управление подпиской
               </Button>
             </Section>
+            {billingLink && (
+              <Section className="mt-[32px] text-center">
+                <Text className="text-[#666666] text-[12px] leading-[24px]">
+                  <Link href={billingLink} className="text-black underline">
+                    See your billing
+                  </Link>
+                </Text>
+              </Section>
+            )}
           </Container>
         </Body>
       </Tailwind>
@@ -251,6 +293,7 @@ export const SubscriptionPaymentSuccessJA = ({
   organizationName,
   subscriptionStartDate,
   manageSubscriptionLink,
+  billingLink,
 }: SubscriptionPaymentSuccessProps) => {
   const previewText = `${planName}のサブスクリプション支払いが確認されました`;
 
@@ -295,6 +338,15 @@ export const SubscriptionPaymentSuccessJA = ({
                 サブスクリプションを管理する
               </Button>
             </Section>
+            {billingLink && (
+              <Section className="mt-[32px] text-center">
+                <Text className="text-[#666666] text-[12px] leading-[24px]">
+                  <Link href={billingLink} className="text-black underline">
+                    See your billing
+                  </Link>
+                </Text>
+              </Section>
+            )}
           </Container>
         </Body>
       </Tailwind>
@@ -308,6 +360,7 @@ export const SubscriptionPaymentSuccessKO = ({
   organizationName,
   subscriptionStartDate,
   manageSubscriptionLink,
+  billingLink,
 }: SubscriptionPaymentSuccessProps) => {
   const previewText = `${planName} 구독 결제가 확인되었습니다`;
 
@@ -351,6 +404,15 @@ export const SubscriptionPaymentSuccessKO = ({
                 구독 관리하기
               </Button>
             </Section>
+            {billingLink && (
+              <Section className="mt-[32px] text-center">
+                <Text className="text-[#666666] text-[12px] leading-[24px]">
+                  <Link href={billingLink} className="text-black underline">
+                    See your billing
+                  </Link>
+                </Text>
+              </Section>
+            )}
           </Container>
         </Body>
       </Tailwind>
@@ -364,6 +426,7 @@ export const SubscriptionPaymentSuccessZH = ({
   organizationName,
   subscriptionStartDate,
   manageSubscriptionLink,
+  billingLink,
 }: SubscriptionPaymentSuccessProps) => {
   const previewText = `您的 ${planName} 订阅支付已确认`;
 
@@ -406,6 +469,15 @@ export const SubscriptionPaymentSuccessZH = ({
                 管理您的订阅
               </Button>
             </Section>
+            {billingLink && (
+              <Section className="mt-[32px] text-center">
+                <Text className="text-[#666666] text-[12px] leading-[24px]">
+                  <Link href={billingLink} className="text-black underline">
+                    See your billing
+                  </Link>
+                </Text>
+              </Section>
+            )}
           </Container>
         </Body>
       </Tailwind>
@@ -419,6 +491,7 @@ export const SubscriptionPaymentSuccessDE = ({
   organizationName,
   subscriptionStartDate,
   manageSubscriptionLink,
+  billingLink,
 }: SubscriptionPaymentSuccessProps) => {
   const previewText = `Ihre Zahlung für das ${planName}-Abonnement wurde bestätigt`;
 
@@ -462,6 +535,15 @@ export const SubscriptionPaymentSuccessDE = ({
                 Ihr Abonnement verwalten
               </Button>
             </Section>
+            {billingLink && (
+              <Section className="mt-[32px] text-center">
+                <Text className="text-[#666666] text-[12px] leading-[24px]">
+                  <Link href={billingLink} className="text-black underline">
+                    See your billing
+                  </Link>
+                </Text>
+              </Section>
+            )}
           </Container>
         </Body>
       </Tailwind>
@@ -475,6 +557,7 @@ export const SubscriptionPaymentSuccessAR = ({
   organizationName,
   subscriptionStartDate,
   manageSubscriptionLink,
+  billingLink,
 }: SubscriptionPaymentSuccessProps) => {
   const previewText = `تم تأكيد دفعتك لاشتراك ${planName}`;
 
@@ -518,6 +601,15 @@ export const SubscriptionPaymentSuccessAR = ({
                 إدارة اشتراكك
               </Button>
             </Section>
+            {billingLink && (
+              <Section className="mt-[32px] text-center">
+                <Text className="text-[#666666] text-[12px] leading-[24px]">
+                  <Link href={billingLink} className="text-black underline">
+                    See your billing
+                  </Link>
+                </Text>
+              </Section>
+            )}
           </Container>
         </Body>
       </Tailwind>
@@ -531,6 +623,7 @@ export const SubscriptionPaymentSuccessIT = ({
   organizationName,
   subscriptionStartDate,
   manageSubscriptionLink,
+  billingLink,
 }: SubscriptionPaymentSuccessProps) => {
   const previewText = `Il tuo pagamento per l'abbonamento ${planName} è confermato`;
 
@@ -574,6 +667,15 @@ export const SubscriptionPaymentSuccessIT = ({
                 Gestisci il tuo abbonamento
               </Button>
             </Section>
+            {billingLink && (
+              <Section className="mt-[32px] text-center">
+                <Text className="text-[#666666] text-[12px] leading-[24px]">
+                  <Link href={billingLink} className="text-black underline">
+                    See your billing
+                  </Link>
+                </Text>
+              </Section>
+            )}
           </Container>
         </Body>
       </Tailwind>
@@ -587,6 +689,7 @@ export const SubscriptionPaymentSuccessEN_GB = ({
   organizationName,
   subscriptionStartDate,
   manageSubscriptionLink,
+  billingLink,
 }: SubscriptionPaymentSuccessProps) => {
   const previewText = `Your payment for ${planName} subscription is confirmed`;
 
@@ -630,6 +733,15 @@ export const SubscriptionPaymentSuccessEN_GB = ({
                 Manage Your Subscription
               </Button>
             </Section>
+            {billingLink && (
+              <Section className="mt-[32px] text-center">
+                <Text className="text-[#666666] text-[12px] leading-[24px]">
+                  <Link href={billingLink} className="text-black underline">
+                    See your billing
+                  </Link>
+                </Text>
+              </Section>
+            )}
           </Container>
         </Body>
       </Tailwind>
@@ -643,6 +755,7 @@ export const SubscriptionPaymentSuccessPT = ({
   organizationName,
   subscriptionStartDate,
   manageSubscriptionLink,
+  billingLink,
 }: SubscriptionPaymentSuccessProps) => {
   const previewText = `Seu pagamento para a assinatura ${planName} está confirmado`;
 
@@ -686,6 +799,15 @@ export const SubscriptionPaymentSuccessPT = ({
                 Gerencie sua assinatura
               </Button>
             </Section>
+            {billingLink && (
+              <Section className="mt-[32px] text-center">
+                <Text className="text-[#666666] text-[12px] leading-[24px]">
+                  <Link href={billingLink} className="text-black underline">
+                    See your billing
+                  </Link>
+                </Text>
+              </Section>
+            )}
           </Container>
         </Body>
       </Tailwind>
@@ -699,6 +821,7 @@ export const SubscriptionPaymentSuccessHI = ({
   organizationName,
   subscriptionStartDate,
   manageSubscriptionLink,
+  billingLink,
 }: SubscriptionPaymentSuccessProps) => {
   const previewText = `${planName} सदस्यता के लिए आपका भुगतान पुष्ट हो गया है`;
 
@@ -742,6 +865,15 @@ export const SubscriptionPaymentSuccessHI = ({
                 अपनी सदस्यता प्रबंधित करें
               </Button>
             </Section>
+            {billingLink && (
+              <Section className="mt-[32px] text-center">
+                <Text className="text-[#666666] text-[12px] leading-[24px]">
+                  <Link href={billingLink} className="text-black underline">
+                    See your billing
+                  </Link>
+                </Text>
+              </Section>
+            )}
           </Container>
         </Body>
       </Tailwind>
@@ -755,6 +887,7 @@ export const SubscriptionPaymentSuccessTR = ({
   organizationName,
   subscriptionStartDate,
   manageSubscriptionLink,
+  billingLink,
 }: SubscriptionPaymentSuccessProps) => {
   const previewText = `${planName} aboneliği için ödemeniz onaylandı`;
 
@@ -798,6 +931,15 @@ export const SubscriptionPaymentSuccessTR = ({
                 Aboneliğinizi Yönetin
               </Button>
             </Section>
+            {billingLink && (
+              <Section className="mt-[32px] text-center">
+                <Text className="text-[#666666] text-[12px] leading-[24px]">
+                  <Link href={billingLink} className="text-black underline">
+                    See your billing
+                  </Link>
+                </Text>
+              </Section>
+            )}
           </Container>
         </Body>
       </Tailwind>
@@ -811,6 +953,7 @@ export const SubscriptionPaymentSuccessPL = ({
   organizationName,
   subscriptionStartDate,
   manageSubscriptionLink,
+  billingLink,
 }: SubscriptionPaymentSuccessProps) => {
   const previewText = `Twoja płatność za subskrypcję ${planName} została potwierdzona`;
 
@@ -854,6 +997,15 @@ export const SubscriptionPaymentSuccessPL = ({
                 Zarządzaj swoją subskrypcją
               </Button>
             </Section>
+            {billingLink && (
+              <Section className="mt-[32px] text-center">
+                <Text className="text-[#666666] text-[12px] leading-[24px]">
+                  <Link href={billingLink} className="text-black underline">
+                    See your billing
+                  </Link>
+                </Text>
+              </Section>
+            )}
           </Container>
         </Body>
       </Tailwind>
@@ -867,6 +1019,7 @@ export const SubscriptionPaymentSuccessID = ({
   organizationName,
   subscriptionStartDate,
   manageSubscriptionLink,
+  billingLink,
 }: SubscriptionPaymentSuccessProps) => {
   const previewText = `Pembayaran Anda untuk langganan ${planName} telah dikonfirmasi`;
 
@@ -910,6 +1063,15 @@ export const SubscriptionPaymentSuccessID = ({
                 Kelola Langganan Anda
               </Button>
             </Section>
+            {billingLink && (
+              <Section className="mt-[32px] text-center">
+                <Text className="text-[#666666] text-[12px] leading-[24px]">
+                  <Link href={billingLink} className="text-black underline">
+                    See your billing
+                  </Link>
+                </Text>
+              </Section>
+            )}
           </Container>
         </Body>
       </Tailwind>
@@ -923,6 +1085,7 @@ export const SubscriptionPaymentSuccessVI = ({
   organizationName,
   subscriptionStartDate,
   manageSubscriptionLink,
+  billingLink,
 }: SubscriptionPaymentSuccessProps) => {
   const previewText = `Thanh toán cho gói thuê bao ${planName} của bạn đã được xác nhận`;
 
@@ -966,6 +1129,15 @@ export const SubscriptionPaymentSuccessVI = ({
                 Quản lý gói thuê bao của bạn
               </Button>
             </Section>
+            {billingLink && (
+              <Section className="mt-[32px] text-center">
+                <Text className="text-[#666666] text-[12px] leading-[24px]">
+                  <Link href={billingLink} className="text-black underline">
+                    See your billing
+                  </Link>
+                </Text>
+              </Section>
+            )}
           </Container>
         </Body>
       </Tailwind>
@@ -979,6 +1151,7 @@ export const SubscriptionPaymentSuccessUK = ({
   organizationName,
   subscriptionStartDate,
   manageSubscriptionLink,
+  billingLink,
 }: SubscriptionPaymentSuccessProps) => {
   const previewText = `Ваш платіж за підписку на ${planName} підтверджено`;
 
@@ -1022,6 +1195,15 @@ export const SubscriptionPaymentSuccessUK = ({
                 Керувати підпискою
               </Button>
             </Section>
+            {billingLink && (
+              <Section className="mt-[32px] text-center">
+                <Text className="text-[#666666] text-[12px] leading-[24px]">
+                  <Link href={billingLink} className="text-black underline">
+                    See your billing
+                  </Link>
+                </Text>
+              </Section>
+            )}
           </Container>
         </Body>
       </Tailwind>

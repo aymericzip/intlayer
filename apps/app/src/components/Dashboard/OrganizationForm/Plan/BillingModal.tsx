@@ -54,6 +54,7 @@ export const BillingModal: FC<BillingModalProps> = ({ isOpen, onClose }) => {
       padding="lg"
       title={billingModal.title.value}
       hasCloseButton
+      isScrollable
     >
       <div className="flex flex-col gap-10">
         {/* Payment Section */}
@@ -63,7 +64,7 @@ export const BillingModal: FC<BillingModalProps> = ({ isOpen, onClose }) => {
               {billingModal.paymentTitle}
             </h3>
           </div>
-          <div className="divide-y divide-neutral-200 pt-sm">
+          <div className="divide-y divide-neutral pt-sm">
             <div className="flex w-full flex-row items-center justify-between gap-x-8 gap-y-3 py-4">
               <div className="flex items-center gap-2">
                 <div className="flex size-6 items-center justify-center text-neutral-400">
@@ -104,78 +105,74 @@ export const BillingModal: FC<BillingModalProps> = ({ isOpen, onClose }) => {
               {billingModal.invoicesTitle}
             </h3>
           </div>
-          <div className="divide-y divide-neutral-200 pt-sm">
-            <div className="overflow-x-auto">
-              <table className="w-full border-collapse" aria-label="Invoices">
-                <thead>
-                  <tr className="text-left">
-                    <th className="py-2 font-medium text-sm text-text">
-                      {billingModal.dateHeader}
-                    </th>
-                    <th className="py-2 font-medium text-sm text-text">
-                      {billingModal.totalHeader}
-                    </th>
-                    <th className="py-2 font-medium text-sm text-text">
-                      {billingModal.statusHeader}
-                    </th>
-                    <th className="py-2 font-medium text-sm text-text">
-                      {billingModal.actionsHeader}
-                    </th>
+          <table className="w-full border-collapse pt-sm" aria-label="Invoices">
+            <thead>
+              <tr className="text-left">
+                <th className="py-2 font-medium text-sm text-text">
+                  {billingModal.dateHeader}
+                </th>
+                <th className="py-2 font-medium text-sm text-text">
+                  {billingModal.totalHeader}
+                </th>
+                <th className="py-2 font-medium text-sm text-text">
+                  {billingModal.statusHeader}
+                </th>
+                <th className="py-2 font-medium text-sm text-text">
+                  {billingModal.actionsHeader}
+                </th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-dashed divide-neutral/50">
+              {isLoadingInvoices ? (
+                <tr>
+                  <td colSpan={4} className="py-4 text-center text-neutral">
+                    {billingModal.loadingInvoices}
+                  </td>
+                </tr>
+              ) : !invoices || invoices.length === 0 ? (
+                <tr>
+                  <td colSpan={4} className="py-4 text-center text-neutral">
+                    {billingModal.noInvoices}
+                  </td>
+                </tr>
+              ) : (
+                invoices.map((invoice: Stripe.Invoice) => (
+                  <tr key={invoice.id}>
+                    <td className="truncate py-2 text-sm text-text">
+                      {dateFormatter(invoice.created * 1000)}
+                    </td>
+                    <td className="py-2">
+                      <div className="flex items-center gap-1 text-sm text-text">
+                        {(invoice.total / 100).toLocaleString('en-US', {
+                          style: 'currency',
+                          currency: invoice.currency,
+                        })}
+                        <Info size={12} className="ml-2 text-neutral" />
+                      </div>
+                    </td>
+                    <td className="py-2 text-sm text-text">
+                      {invoice.status
+                        ? invoice.status.charAt(0).toUpperCase() +
+                          invoice.status.slice(1)
+                        : 'Unknown'}
+                    </td>
+                    <td className="py-2">
+                      <Link
+                        to={invoice.hosted_invoice_url ?? '#'}
+                        target="_blank"
+                        label={billingModal.viewLink.value}
+                        rel="noopener noreferrer"
+                        color="text"
+                        className="text-sm"
+                      >
+                        {billingModal.viewLink}
+                      </Link>
+                    </td>
                   </tr>
-                </thead>
-                <tbody className="divide-y divide-neutral-100">
-                  {isLoadingInvoices ? (
-                    <tr>
-                      <td colSpan={4} className="py-4 text-center text-neutral">
-                        {billingModal.loadingInvoices}
-                      </td>
-                    </tr>
-                  ) : !invoices || invoices.length === 0 ? (
-                    <tr>
-                      <td colSpan={4} className="py-4 text-center text-neutral">
-                        {billingModal.noInvoices}
-                      </td>
-                    </tr>
-                  ) : (
-                    invoices.map((invoice: Stripe.Invoice) => (
-                      <tr key={invoice.id}>
-                        <td className="truncate py-2 text-sm text-text">
-                          {dateFormatter(invoice.created * 1000)}
-                        </td>
-                        <td className="py-2">
-                          <div className="flex items-center gap-1 text-sm text-text">
-                            {(invoice.total / 100).toLocaleString('en-US', {
-                              style: 'currency',
-                              currency: invoice.currency,
-                            })}
-                            <Info size={12} className="ml-2 text-neutral" />
-                          </div>
-                        </td>
-                        <td className="py-2 text-sm text-text">
-                          {invoice.status
-                            ? invoice.status.charAt(0).toUpperCase() +
-                              invoice.status.slice(1)
-                            : 'Unknown'}
-                        </td>
-                        <td className="py-2">
-                          <Link
-                            to={invoice.hosted_invoice_url ?? '#'}
-                            target="_blank"
-                            label={billingModal.viewLink.value}
-                            rel="noopener noreferrer"
-                            color="text"
-                            className="text-sm"
-                          >
-                            {billingModal.viewLink}
-                          </Link>
-                        </td>
-                      </tr>
-                    ))
-                  )}
-                </tbody>
-              </table>
-            </div>
-          </div>
+                ))
+              )}
+            </tbody>
+          </table>
         </section>
       </div>
     </Modal>

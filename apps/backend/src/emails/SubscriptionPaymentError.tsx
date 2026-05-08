@@ -6,6 +6,7 @@ import {
   Heading,
   Html,
   Img,
+  Link,
   Preview,
   Section,
   Tailwind,
@@ -19,6 +20,7 @@ export type SubscriptionPaymentErrorProps = {
   organizationName: string; // The name of the organization
   errorDate: string; // The date the payment error occurred
   retryPaymentLink: string; // A link for the user to retry their payment
+  billingLink?: string; // A link for the user to see their billing
 };
 
 // Payment Error Email - English (EN)
@@ -28,6 +30,7 @@ export const SubscriptionPaymentErrorEN = ({
   organizationName,
   errorDate,
   retryPaymentLink,
+  billingLink,
 }: SubscriptionPaymentErrorProps) => {
   const previewText = `There was an issue with your ${planName} subscription payment`;
 
@@ -70,6 +73,15 @@ export const SubscriptionPaymentErrorEN = ({
                 Retry Payment
               </Button>
             </Section>
+            {billingLink && (
+              <Section className="mt-[32px] text-center">
+                <Text className="text-[#666666] text-[12px] leading-[24px]">
+                  <Link href={billingLink} className="text-black underline">
+                    See your billing
+                  </Link>
+                </Text>
+              </Section>
+            )}
           </Container>
         </Body>
       </Tailwind>
@@ -84,6 +96,7 @@ export const SubscriptionPaymentErrorFR = ({
   organizationName,
   errorDate,
   retryPaymentLink,
+  billingLink,
 }: SubscriptionPaymentErrorProps) => {
   const previewText = `Un problème est survenu avec votre paiement pour l'abonnement ${planName}`;
 
@@ -127,6 +140,15 @@ export const SubscriptionPaymentErrorFR = ({
                 Réessayer le Paiement
               </Button>
             </Section>
+            {billingLink && (
+              <Section className="mt-[32px] text-center">
+                <Text className="text-[#666666] text-[12px] leading-[24px]">
+                  <Link href={billingLink} className="text-black underline">
+                    See your billing
+                  </Link>
+                </Text>
+              </Section>
+            )}
           </Container>
         </Body>
       </Tailwind>
@@ -141,6 +163,7 @@ export const SubscriptionPaymentErrorES = ({
   organizationName,
   errorDate,
   retryPaymentLink,
+  billingLink,
 }: SubscriptionPaymentErrorProps) => {
   const previewText = `Hubo un problema con el pago de tu suscripción ${planName}`;
 
@@ -183,6 +206,15 @@ export const SubscriptionPaymentErrorES = ({
                 Reintentar el Pago
               </Button>
             </Section>
+            {billingLink && (
+              <Section className="mt-[32px] text-center">
+                <Text className="text-[#666666] text-[12px] leading-[24px]">
+                  <Link href={billingLink} className="text-black underline">
+                    See your billing
+                  </Link>
+                </Text>
+              </Section>
+            )}
           </Container>
         </Body>
       </Tailwind>
@@ -197,6 +229,7 @@ export const SubscriptionPaymentErrorRU = ({
   organizationName,
   errorDate,
   retryPaymentLink,
+  billingLink,
 }: SubscriptionPaymentErrorProps) => {
   const previewText = `Возникла проблема с оплатой вашей подписки на ${planName}`;
 
@@ -239,6 +272,15 @@ export const SubscriptionPaymentErrorRU = ({
                 Повторить попытку оплаты
               </Button>
             </Section>
+            {billingLink && (
+              <Section className="mt-[32px] text-center">
+                <Text className="text-[#666666] text-[12px] leading-[24px]">
+                  <Link href={billingLink} className="text-black underline">
+                    See your billing
+                  </Link>
+                </Text>
+              </Section>
+            )}
           </Container>
         </Body>
       </Tailwind>
@@ -253,6 +295,7 @@ export const SubscriptionPaymentErrorJA = ({
   organizationName,
   errorDate,
   retryPaymentLink,
+  billingLink,
 }: SubscriptionPaymentErrorProps) => {
   const previewText = `${planName}のサブスクリプション支払いに問題が発生しました`;
 
@@ -293,6 +336,15 @@ export const SubscriptionPaymentErrorJA = ({
                 支払いを再試行する
               </Button>
             </Section>
+            {billingLink && (
+              <Section className="mt-[32px] text-center">
+                <Text className="text-[#666666] text-[12px] leading-[24px]">
+                  <Link href={billingLink} className="text-black underline">
+                    See your billing
+                  </Link>
+                </Text>
+              </Section>
+            )}
           </Container>
         </Body>
       </Tailwind>
@@ -307,6 +359,7 @@ export const SubscriptionPaymentErrorKO = ({
   organizationName,
   errorDate,
   retryPaymentLink,
+  billingLink,
 }: SubscriptionPaymentErrorProps) => {
   const previewText = `${planName} 구독 결제에 문제가 발생했습니다`;
 
@@ -348,6 +401,15 @@ export const SubscriptionPaymentErrorKO = ({
                 결제 재시도하기
               </Button>
             </Section>
+            {billingLink && (
+              <Section className="mt-[32px] text-center">
+                <Text className="text-[#666666] text-[12px] leading-[24px]">
+                  <Link href={billingLink} className="text-black underline">
+                    See your billing
+                  </Link>
+                </Text>
+              </Section>
+            )}
           </Container>
         </Body>
       </Tailwind>
@@ -362,6 +424,7 @@ export const SubscriptionPaymentErrorZH = ({
   organizationName,
   errorDate,
   retryPaymentLink,
+  billingLink,
 }: SubscriptionPaymentErrorProps) => {
   const previewText = `您的 ${planName} 订阅支付出现问题`;
 
@@ -404,6 +467,15 @@ export const SubscriptionPaymentErrorZH = ({
                 重试支付
               </Button>
             </Section>
+            {billingLink && (
+              <Section className="mt-[32px] text-center">
+                <Text className="text-[#666666] text-[12px] leading-[24px]">
+                  <Link href={billingLink} className="text-black underline">
+                    See your billing
+                  </Link>
+                </Text>
+              </Section>
+            )}
           </Container>
         </Body>
       </Tailwind>
@@ -418,6 +490,7 @@ export const SubscriptionPaymentErrorDE = ({
   organizationName,
   errorDate,
   retryPaymentLink,
+  billingLink,
 }: SubscriptionPaymentErrorProps) => {
   const previewText = `Es gab ein Problem mit Ihrer Zahlung für das ${planName}-Abonnement`;
 
@@ -460,6 +533,15 @@ export const SubscriptionPaymentErrorDE = ({
                 Zahlung erneut versuchen
               </Button>
             </Section>
+            {billingLink && (
+              <Section className="mt-[32px] text-center">
+                <Text className="text-[#666666] text-[12px] leading-[24px]">
+                  <Link href={billingLink} className="text-black underline">
+                    See your billing
+                  </Link>
+                </Text>
+              </Section>
+            )}
           </Container>
         </Body>
       </Tailwind>
@@ -474,6 +556,7 @@ export const SubscriptionPaymentErrorAR = ({
   organizationName,
   errorDate,
   retryPaymentLink,
+  billingLink,
 }: SubscriptionPaymentErrorProps) => {
   const previewText = `كانت هناك مشكلة في دفع اشتراكك في ${planName}`;
 
@@ -515,6 +598,15 @@ export const SubscriptionPaymentErrorAR = ({
                 إعادة محاولة الدفع
               </Button>
             </Section>
+            {billingLink && (
+              <Section className="mt-[32px] text-center">
+                <Text className="text-[#666666] text-[12px] leading-[24px]">
+                  <Link href={billingLink} className="text-black underline">
+                    See your billing
+                  </Link>
+                </Text>
+              </Section>
+            )}
           </Container>
         </Body>
       </Tailwind>
@@ -529,6 +621,7 @@ export const SubscriptionPaymentErrorIT = ({
   organizationName,
   errorDate,
   retryPaymentLink,
+  billingLink,
 }: SubscriptionPaymentErrorProps) => {
   const previewText = `Si è verificato un problema con il pagamento del tuo abbonamento ${planName}`;
 
@@ -571,6 +664,15 @@ export const SubscriptionPaymentErrorIT = ({
                 Riprova il Pagamento
               </Button>
             </Section>
+            {billingLink && (
+              <Section className="mt-[32px] text-center">
+                <Text className="text-[#666666] text-[12px] leading-[24px]">
+                  <Link href={billingLink} className="text-black underline">
+                    See your billing
+                  </Link>
+                </Text>
+              </Section>
+            )}
           </Container>
         </Body>
       </Tailwind>
@@ -585,6 +687,7 @@ export const SubscriptionPaymentErrorEN_GB = ({
   organizationName,
   errorDate,
   retryPaymentLink,
+  billingLink,
 }: SubscriptionPaymentErrorProps) => {
   const previewText = `There was an issue with your ${planName} subscription payment`;
 
@@ -627,6 +730,15 @@ export const SubscriptionPaymentErrorEN_GB = ({
                 Retry Payment
               </Button>
             </Section>
+            {billingLink && (
+              <Section className="mt-[32px] text-center">
+                <Text className="text-[#666666] text-[12px] leading-[24px]">
+                  <Link href={billingLink} className="text-black underline">
+                    See your billing
+                  </Link>
+                </Text>
+              </Section>
+            )}
           </Container>
         </Body>
       </Tailwind>
@@ -641,6 +753,7 @@ export const SubscriptionPaymentErrorPT = ({
   organizationName,
   errorDate,
   retryPaymentLink,
+  billingLink,
 }: SubscriptionPaymentErrorProps) => {
   const previewText = `Houve um problema com o pagamento da sua assinatura ${planName}`;
 
@@ -683,6 +796,15 @@ export const SubscriptionPaymentErrorPT = ({
                 Repetir Pagamento
               </Button>
             </Section>
+            {billingLink && (
+              <Section className="mt-[32px] text-center">
+                <Text className="text-[#666666] text-[12px] leading-[24px]">
+                  <Link href={billingLink} className="text-black underline">
+                    See your billing
+                  </Link>
+                </Text>
+              </Section>
+            )}
           </Container>
         </Body>
       </Tailwind>
@@ -697,6 +819,7 @@ export const SubscriptionPaymentErrorHI = ({
   organizationName,
   errorDate,
   retryPaymentLink,
+  billingLink,
 }: SubscriptionPaymentErrorProps) => {
   const previewText = `आपकी ${planName} सदस्यता के भुगतान में समस्या आई थी`;
 
@@ -738,6 +861,15 @@ export const SubscriptionPaymentErrorHI = ({
                 भुगतान पुनः प्रयास करें
               </Button>
             </Section>
+            {billingLink && (
+              <Section className="mt-[32px] text-center">
+                <Text className="text-[#666666] text-[12px] leading-[24px]">
+                  <Link href={billingLink} className="text-black underline">
+                    See your billing
+                  </Link>
+                </Text>
+              </Section>
+            )}
           </Container>
         </Body>
       </Tailwind>
@@ -752,6 +884,7 @@ export const SubscriptionPaymentErrorTR = ({
   organizationName,
   errorDate,
   retryPaymentLink,
+  billingLink,
 }: SubscriptionPaymentErrorProps) => {
   const previewText = `${planName} abonelik ödemenizde bir sorun oluştu`;
 
@@ -794,6 +927,15 @@ export const SubscriptionPaymentErrorTR = ({
                 Ödemeyi Tekrar Dene
               </Button>
             </Section>
+            {billingLink && (
+              <Section className="mt-[32px] text-center">
+                <Text className="text-[#666666] text-[12px] leading-[24px]">
+                  <Link href={billingLink} className="text-black underline">
+                    See your billing
+                  </Link>
+                </Text>
+              </Section>
+            )}
           </Container>
         </Body>
       </Tailwind>
@@ -808,6 +950,7 @@ export const SubscriptionPaymentErrorPL = ({
   organizationName,
   errorDate,
   retryPaymentLink,
+  billingLink,
 }: SubscriptionPaymentErrorProps) => {
   const previewText = `Wystąpił problem z płatnością za Twoją subskrypcję ${planName}`;
 
@@ -850,6 +993,15 @@ export const SubscriptionPaymentErrorPL = ({
                 Ponów Płatność
               </Button>
             </Section>
+            {billingLink && (
+              <Section className="mt-[32px] text-center">
+                <Text className="text-[#666666] text-[12px] leading-[24px]">
+                  <Link href={billingLink} className="text-black underline">
+                    See your billing
+                  </Link>
+                </Text>
+              </Section>
+            )}
           </Container>
         </Body>
       </Tailwind>
@@ -865,6 +1017,7 @@ export const SubscriptionPaymentErrorID = ({
   organizationName,
   errorDate,
   retryPaymentLink,
+  billingLink,
 }: SubscriptionPaymentErrorProps) => {
   const previewText = `Ada masalah dengan pembayaran langganan ${planName} Anda`;
 
@@ -907,6 +1060,15 @@ export const SubscriptionPaymentErrorID = ({
                 Coba Lagi Pembayaran
               </Button>
             </Section>
+            {billingLink && (
+              <Section className="mt-[32px] text-center">
+                <Text className="text-[#666666] text-[12px] leading-[24px]">
+                  <Link href={billingLink} className="text-black underline">
+                    See your billing
+                  </Link>
+                </Text>
+              </Section>
+            )}
           </Container>
         </Body>
       </Tailwind>
@@ -921,6 +1083,7 @@ export const SubscriptionPaymentErrorVI = ({
   organizationName,
   errorDate,
   retryPaymentLink,
+  billingLink,
 }: SubscriptionPaymentErrorProps) => {
   const previewText = `Đã xảy ra vấn đề với thanh toán gói thuê bao ${planName} của bạn`;
 
@@ -963,6 +1126,15 @@ export const SubscriptionPaymentErrorVI = ({
                 Thử lại Thanh toán
               </Button>
             </Section>
+            {billingLink && (
+              <Section className="mt-[32px] text-center">
+                <Text className="text-[#666666] text-[12px] leading-[24px]">
+                  <Link href={billingLink} className="text-black underline">
+                    See your billing
+                  </Link>
+                </Text>
+              </Section>
+            )}
           </Container>
         </Body>
       </Tailwind>
@@ -977,6 +1149,7 @@ export const SubscriptionPaymentErrorUK = ({
   organizationName,
   errorDate,
   retryPaymentLink,
+  billingLink,
 }: SubscriptionPaymentErrorProps) => {
   const previewText = `Виникла проблема з оплатою вашої підписки на ${planName}`;
 
@@ -1019,6 +1192,15 @@ export const SubscriptionPaymentErrorUK = ({
                 Повторити спробу оплати
               </Button>
             </Section>
+            {billingLink && (
+              <Section className="mt-[32px] text-center">
+                <Text className="text-[#666666] text-[12px] leading-[24px]">
+                  <Link href={billingLink} className="text-black underline">
+                    See your billing
+                  </Link>
+                </Text>
+              </Section>
+            )}
           </Container>
         </Body>
       </Tailwind>

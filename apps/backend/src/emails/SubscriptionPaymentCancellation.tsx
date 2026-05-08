@@ -6,6 +6,7 @@ import {
   Heading,
   Html,
   Img,
+  Link,
   Preview,
   Section,
   Tailwind,
@@ -19,6 +20,7 @@ export type SubscriptionPaymentCancellationProps = {
   organizationName: string; // The name of the organization
   cancellationDate: string; // The date when the subscription will end
   reactivateLink: string; // A link for the user to reactivate their subscription
+  billingLink?: string; // A link for the user to see their billing
 };
 
 export const SubscriptionPaymentCancellationEN = ({
@@ -27,6 +29,7 @@ export const SubscriptionPaymentCancellationEN = ({
   organizationName,
   cancellationDate,
   reactivateLink,
+  billingLink,
 }: SubscriptionPaymentCancellationProps) => {
   const previewText = `Your ${planName} subscription has been canceled`;
 
@@ -68,6 +71,15 @@ export const SubscriptionPaymentCancellationEN = ({
                 Reactivate Your Subscription
               </Button>
             </Section>
+            {billingLink && (
+              <Section className="mt-[32px] text-center">
+                <Text className="text-[#666666] text-[12px] leading-[24px]">
+                  <Link href={billingLink} className="text-black underline">
+                    See your billing
+                  </Link>
+                </Text>
+              </Section>
+            )}
           </Container>
         </Body>
       </Tailwind>
@@ -81,6 +93,7 @@ export const SubscriptionPaymentCancellationFR = ({
   organizationName,
   cancellationDate,
   reactivateLink,
+  billingLink,
 }: SubscriptionPaymentCancellationProps) => {
   const previewText = `Votre abonnement ${planName} a été annulé`;
 
@@ -122,6 +135,15 @@ export const SubscriptionPaymentCancellationFR = ({
                 Réactiver votre abonnement
               </Button>
             </Section>
+            {billingLink && (
+              <Section className="mt-[32px] text-center">
+                <Text className="text-[#666666] text-[12px] leading-[24px]">
+                  <Link href={billingLink} className="text-black underline">
+                    See your billing
+                  </Link>
+                </Text>
+              </Section>
+            )}
           </Container>
         </Body>
       </Tailwind>
@@ -135,6 +157,7 @@ export const SubscriptionPaymentCancellationES = ({
   organizationName,
   cancellationDate,
   reactivateLink,
+  billingLink,
 }: SubscriptionPaymentCancellationProps) => {
   const previewText = `Tu suscripción ${planName} ha sido cancelada`;
 
@@ -176,6 +199,15 @@ export const SubscriptionPaymentCancellationES = ({
                 Reactivar tu suscripción
               </Button>
             </Section>
+            {billingLink && (
+              <Section className="mt-[32px] text-center">
+                <Text className="text-[#666666] text-[12px] leading-[24px]">
+                  <Link href={billingLink} className="text-black underline">
+                    See your billing
+                  </Link>
+                </Text>
+              </Section>
+            )}
           </Container>
         </Body>
       </Tailwind>
@@ -189,6 +221,7 @@ export const SubscriptionPaymentCancellationRU = ({
   organizationName,
   cancellationDate,
   reactivateLink,
+  billingLink,
 }: SubscriptionPaymentCancellationProps) => {
   const previewText = `Ваша подписка на ${planName} была отменена`;
 
@@ -230,6 +263,15 @@ export const SubscriptionPaymentCancellationRU = ({
                 Возобновить подписку
               </Button>
             </Section>
+            {billingLink && (
+              <Section className="mt-[32px] text-center">
+                <Text className="text-[#666666] text-[12px] leading-[24px]">
+                  <Link href={billingLink} className="text-black underline">
+                    See your billing
+                  </Link>
+                </Text>
+              </Section>
+            )}
           </Container>
         </Body>
       </Tailwind>
@@ -243,6 +285,7 @@ export const SubscriptionPaymentCancellationJA = ({
   organizationName,
   cancellationDate,
   reactivateLink,
+  billingLink,
 }: SubscriptionPaymentCancellationProps) => {
   const previewText = `${planName}のサブスクリプションがキャンセルされました`;
 
@@ -285,6 +328,15 @@ export const SubscriptionPaymentCancellationJA = ({
                 サブスクリプションを再開する
               </Button>
             </Section>
+            {billingLink && (
+              <Section className="mt-[32px] text-center">
+                <Text className="text-[#666666] text-[12px] leading-[24px]">
+                  <Link href={billingLink} className="text-black underline">
+                    See your billing
+                  </Link>
+                </Text>
+              </Section>
+            )}
           </Container>
         </Body>
       </Tailwind>
@@ -298,6 +350,7 @@ export const SubscriptionPaymentCancellationKO = ({
   organizationName,
   cancellationDate,
   reactivateLink,
+  billingLink,
 }: SubscriptionPaymentCancellationProps) => {
   const previewText = `${planName} 구독이 취소되었습니다`;
 
@@ -339,6 +392,15 @@ export const SubscriptionPaymentCancellationKO = ({
                 구독 재활성화하기
               </Button>
             </Section>
+            {billingLink && (
+              <Section className="mt-[32px] text-center">
+                <Text className="text-[#666666] text-[12px] leading-[24px]">
+                  <Link href={billingLink} className="text-black underline">
+                    See your billing
+                  </Link>
+                </Text>
+              </Section>
+            )}
           </Container>
         </Body>
       </Tailwind>
@@ -352,6 +414,7 @@ export const SubscriptionPaymentCancellationZH = ({
   organizationName,
   cancellationDate,
   reactivateLink,
+  billingLink,
 }: SubscriptionPaymentCancellationProps) => {
   const previewText = `您的 ${planName} 订阅已取消`;
 
@@ -393,6 +456,15 @@ export const SubscriptionPaymentCancellationZH = ({
                 重新激活您的订阅
               </Button>
             </Section>
+            {billingLink && (
+              <Section className="mt-[32px] text-center">
+                <Text className="text-[#666666] text-[12px] leading-[24px]">
+                  <Link href={billingLink} className="text-black underline">
+                    See your billing
+                  </Link>
+                </Text>
+              </Section>
+            )}
           </Container>
         </Body>
       </Tailwind>
@@ -406,6 +478,7 @@ export const SubscriptionPaymentCancellationDE = ({
   organizationName,
   cancellationDate,
   reactivateLink,
+  billingLink,
 }: SubscriptionPaymentCancellationProps) => {
   const previewText = `Ihr ${planName}-Abonnement wurde gekündigt`;
 
@@ -447,6 +520,15 @@ export const SubscriptionPaymentCancellationDE = ({
                 Ihr Abonnement reaktivieren
               </Button>
             </Section>
+            {billingLink && (
+              <Section className="mt-[32px] text-center">
+                <Text className="text-[#666666] text-[12px] leading-[24px]">
+                  <Link href={billingLink} className="text-black underline">
+                    See your billing
+                  </Link>
+                </Text>
+              </Section>
+            )}
           </Container>
         </Body>
       </Tailwind>
@@ -460,6 +542,7 @@ export const SubscriptionPaymentCancellationAR = ({
   organizationName,
   cancellationDate,
   reactivateLink,
+  billingLink,
 }: SubscriptionPaymentCancellationProps) => {
   const previewText = `تم إلغاء اشتراكك في ${planName}`;
 
@@ -501,6 +584,15 @@ export const SubscriptionPaymentCancellationAR = ({
                 إعادة تفعيل اشتراكك
               </Button>
             </Section>
+            {billingLink && (
+              <Section className="mt-[32px] text-center">
+                <Text className="text-[#666666] text-[12px] leading-[24px]">
+                  <Link href={billingLink} className="text-black underline">
+                    See your billing
+                  </Link>
+                </Text>
+              </Section>
+            )}
           </Container>
         </Body>
       </Tailwind>
@@ -514,6 +606,7 @@ export const SubscriptionPaymentCancellationIT = ({
   organizationName,
   cancellationDate,
   reactivateLink,
+  billingLink,
 }: SubscriptionPaymentCancellationProps) => {
   const previewText = `Il tuo abbonamento ${planName} è stato annullato`;
 
@@ -555,6 +648,15 @@ export const SubscriptionPaymentCancellationIT = ({
                 Riattiva il tuo abbonamento
               </Button>
             </Section>
+            {billingLink && (
+              <Section className="mt-[32px] text-center">
+                <Text className="text-[#666666] text-[12px] leading-[24px]">
+                  <Link href={billingLink} className="text-black underline">
+                    See your billing
+                  </Link>
+                </Text>
+              </Section>
+            )}
           </Container>
         </Body>
       </Tailwind>
@@ -568,6 +670,7 @@ export const SubscriptionPaymentCancellationEN_GB = ({
   organizationName,
   cancellationDate,
   reactivateLink,
+  billingLink,
 }: SubscriptionPaymentCancellationProps) => {
   const previewText = `Your ${planName} subscription has been cancelled`;
 
@@ -609,6 +712,15 @@ export const SubscriptionPaymentCancellationEN_GB = ({
                 Reactivate Your Subscription
               </Button>
             </Section>
+            {billingLink && (
+              <Section className="mt-[32px] text-center">
+                <Text className="text-[#666666] text-[12px] leading-[24px]">
+                  <Link href={billingLink} className="text-black underline">
+                    See your billing
+                  </Link>
+                </Text>
+              </Section>
+            )}
           </Container>
         </Body>
       </Tailwind>
@@ -622,6 +734,7 @@ export const SubscriptionPaymentCancellationPT = ({
   organizationName,
   cancellationDate,
   reactivateLink,
+  billingLink,
 }: SubscriptionPaymentCancellationProps) => {
   const previewText = `Sua assinatura ${planName} foi cancelada`;
 
@@ -663,6 +776,15 @@ export const SubscriptionPaymentCancellationPT = ({
                 Reativar sua assinatura
               </Button>
             </Section>
+            {billingLink && (
+              <Section className="mt-[32px] text-center">
+                <Text className="text-[#666666] text-[12px] leading-[24px]">
+                  <Link href={billingLink} className="text-black underline">
+                    See your billing
+                  </Link>
+                </Text>
+              </Section>
+            )}
           </Container>
         </Body>
       </Tailwind>
@@ -676,6 +798,7 @@ export const SubscriptionPaymentCancellationHI = ({
   organizationName,
   cancellationDate,
   reactivateLink,
+  billingLink,
 }: SubscriptionPaymentCancellationProps) => {
   const previewText = `आपकी ${planName} सदस्यता रद्द कर दी गई है`;
 
@@ -717,6 +840,15 @@ export const SubscriptionPaymentCancellationHI = ({
                 अपनी सदस्यता को फिर से सक्रिय करें
               </Button>
             </Section>
+            {billingLink && (
+              <Section className="mt-[32px] text-center">
+                <Text className="text-[#666666] text-[12px] leading-[24px]">
+                  <Link href={billingLink} className="text-black underline">
+                    See your billing
+                  </Link>
+                </Text>
+              </Section>
+            )}
           </Container>
         </Body>
       </Tailwind>
@@ -730,6 +862,7 @@ export const SubscriptionPaymentCancellationTR = ({
   organizationName,
   cancellationDate,
   reactivateLink,
+  billingLink,
 }: SubscriptionPaymentCancellationProps) => {
   const previewText = `${planName} aboneliğiniz iptal edildi`;
 
@@ -772,6 +905,15 @@ export const SubscriptionPaymentCancellationTR = ({
                 Aboneliğinizi Yeniden Etkinleştirin
               </Button>
             </Section>
+            {billingLink && (
+              <Section className="mt-[32px] text-center">
+                <Text className="text-[#666666] text-[12px] leading-[24px]">
+                  <Link href={billingLink} className="text-black underline">
+                    See your billing
+                  </Link>
+                </Text>
+              </Section>
+            )}
           </Container>
         </Body>
       </Tailwind>
@@ -785,6 +927,7 @@ export const SubscriptionPaymentCancellationPL = ({
   organizationName,
   cancellationDate,
   reactivateLink,
+  billingLink,
 }: SubscriptionPaymentCancellationProps) => {
   const previewText = `Twoja subskrypcja ${planName} została anulowana`;
 
@@ -826,6 +969,15 @@ export const SubscriptionPaymentCancellationPL = ({
                 Reaktywuj swoją subskrypcję
               </Button>
             </Section>
+            {billingLink && (
+              <Section className="mt-[32px] text-center">
+                <Text className="text-[#666666] text-[12px] leading-[24px]">
+                  <Link href={billingLink} className="text-black underline">
+                    See your billing
+                  </Link>
+                </Text>
+              </Section>
+            )}
           </Container>
         </Body>
       </Tailwind>
@@ -839,6 +991,7 @@ export const SubscriptionPaymentCancellationID = ({
   organizationName,
   cancellationDate,
   reactivateLink,
+  billingLink,
 }: SubscriptionPaymentCancellationProps) => {
   const previewText = `Langganan ${planName} Anda telah dibatalkan`;
 
@@ -880,6 +1033,15 @@ export const SubscriptionPaymentCancellationID = ({
                 Aktifkan Kembali Langganan Anda
               </Button>
             </Section>
+            {billingLink && (
+              <Section className="mt-[32px] text-center">
+                <Text className="text-[#666666] text-[12px] leading-[24px]">
+                  <Link href={billingLink} className="text-black underline">
+                    See your billing
+                  </Link>
+                </Text>
+              </Section>
+            )}
           </Container>
         </Body>
       </Tailwind>
@@ -893,6 +1055,7 @@ export const SubscriptionPaymentCancellationVI = ({
   organizationName,
   cancellationDate,
   reactivateLink,
+  billingLink,
 }: SubscriptionPaymentCancellationProps) => {
   const previewText = `Gói thuê bao ${planName} của bạn đã bị hủy`;
 
@@ -934,6 +1097,15 @@ export const SubscriptionPaymentCancellationVI = ({
                 Kích hoạt lại gói thuê bao của bạn
               </Button>
             </Section>
+            {billingLink && (
+              <Section className="mt-[32px] text-center">
+                <Text className="text-[#666666] text-[12px] leading-[24px]">
+                  <Link href={billingLink} className="text-black underline">
+                    See your billing
+                  </Link>
+                </Text>
+              </Section>
+            )}
           </Container>
         </Body>
       </Tailwind>
@@ -947,6 +1119,7 @@ export const SubscriptionPaymentCancellationUK = ({
   organizationName,
   cancellationDate,
   reactivateLink,
+  billingLink,
 }: SubscriptionPaymentCancellationProps) => {
   const previewText = `Вашу підписку на ${planName} скасовано`;
 
@@ -988,6 +1161,15 @@ export const SubscriptionPaymentCancellationUK = ({
                 Відновити підписку
               </Button>
             </Section>
+            {billingLink && (
+              <Section className="mt-[32px] text-center">
+                <Text className="text-[#666666] text-[12px] leading-[24px]">
+                  <Link href={billingLink} className="text-black underline">
+                    See your billing
+                  </Link>
+                </Text>
+              </Section>
+            )}
           </Container>
         </Body>
       </Tailwind>

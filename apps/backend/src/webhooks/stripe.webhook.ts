@@ -122,7 +122,7 @@ export const stripeWebhook = async (
     const status = statusOverride ?? subscription.status; // Use the provided status override or the subscription's status
 
     // Update or create a subscription record in the database
-    await addOrUpdateSubscription(
+    const updatedPlan = await addOrUpdateSubscription(
       subscriptionId,
       priceId!,
       customerId,
@@ -140,7 +140,8 @@ export const stripeWebhook = async (
         manageSubscriptionLink: `${process.env.APP_URL}/organization`,
         username: user.name,
         organizationName: organization.name,
-        planName: organization.plan?.type ?? 'Unknown',
+        planName: updatedPlan?.type ?? 'Unknown',
+        billingLink: `${process.env.APP_URL}/organization`,
       });
     }
     if (status === 'canceled') {
@@ -154,7 +155,8 @@ export const stripeWebhook = async (
         reactivateLink: `${process.env.APP_URL}/pricing`,
         username: user.name,
         organizationName: organization.name,
-        planName: organization.plan?.type ?? 'Unknown',
+        planName: updatedPlan?.type ?? 'Unknown',
+        billingLink: `${process.env.APP_URL}/organization`,
       });
     }
   };
@@ -225,20 +227,47 @@ export const stripeWebhook = async (
     const { organizationId, userId, priceId, purchaseType } = metadata || {};
 
     if (purchaseType === 'lifetime' && organizationId && userId && priceId) {
+      const customerId = customer as string;
+      const { locale } = await extractMetadata(customerId);
+
+      // Set localization in request locals if available
+      if (locale && req.intlayer) {
+        req.intlayer.locale = locale;
+      }
+
       const organization = await getOrganizationById(organizationId);
 
       if (!organization) {
         throw new GenericError('ORGANIZATION_NOT_FOUND');
       }
 
-      await addOrUpdateSubscription(
+      const user = await getUserById(userId);
+
+      if (!user) {
+        throw new GenericError('USER_NOT_FOUND');
+      }
+
+      const updatedPlan = await addOrUpdateSubscription(
         charge.id,
         priceId,
-        customer as string,
+        customerId,
         userId,
         organization,
         'active'
       );
+
+      await emailService.sendEmail({
+        type: 'subscriptionPaymentSuccess',
+        to: user.email,
+        email: user.email,
+        subscriptionStartDate: new Date().toLocaleDateString(),
+        manageSubscriptionLink: `${process.env.APP_URL}/organization`,
+        username: user.name,
+        organizationName: organization.name,
+        planName: updatedPlan?.type ?? 'Unknown',
+        billingLink: `${process.env.APP_URL}/organization`,
+        locale,
+      });
     }
   };
 
