@@ -96,7 +96,7 @@ const AccessKeyItem: FC<{ value: OAuth2AccessAPI }> = ({
         border={true}
         borderColor="text"
         padding="md"
-        className="flex flex-col gap-3"
+        className="flex flex-col gap-3 max-md:m-auto"
       >
         <div className="flex items-center justify-center px-3 pb-3">
           <KeyRound className="size-5" size={16} />

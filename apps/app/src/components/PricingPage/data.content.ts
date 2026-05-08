@@ -74,7 +74,7 @@ export const planDetails = {
         'Unlimited usage of the visual editor',
         'Unlimited distant dictionaries',
         '100 Mb of storage',
-        '1 project',
+        '2 projects',
         '1 organization user',
       ],
       fr: [
@@ -82,7 +82,7 @@ export const planDetails = {
         'Utilisation illimitée de l’éditeur visuel',
         'Dictionnaires distants illimités',
         '100 Mo de stockage',
-        '1 projet',
+        '2 projets',
         '1 utilisateur d’organisation',
       ],
       es: [
@@ -90,7 +90,7 @@ export const planDetails = {
         'Uso ilimitado del editor visual',
         'Diccionarios distantes ilimitados',
         '100 Mb de almacenamiento',
-        '1 proyecto',
+        '2 proyectos',
         '1 usuario de organización',
       ],
       'en-GB': [
@@ -98,7 +98,7 @@ export const planDetails = {
         'Unlimited usage of the visual editor',
         'Unlimited distant dictionaries',
         '100 Mb of storage',
-        '1 project',
+        '2 projects',
         '1 organization user',
       ],
       de: [
@@ -106,7 +106,7 @@ export const planDetails = {
         'Unbegrenzte Nutzung des visuellen Editors',
         'Unbegrenzte entfernte Wörterbücher',
         '100 MB Speicher',
-        '1 Projekt',
+        '2 Projekte',
         '1 Organisationsbenutzer',
       ],
       ja: [
@@ -114,7 +114,7 @@ export const planDetails = {
         'ビジュアルエディタの無制限使用',
         '無制限の遠隔辞書',
         '100 MBのストレージ',
-        '1プロジェクト',
+        '2プロジェクト',
         '1組織ユーザー',
       ],
       ko: [
@@ -122,7 +122,7 @@ export const planDetails = {
         '비주얼 편집기를 무제한으로 사용',
         '무제한 원격 사전',
         '100MB의 저장 공간',
-        '1 프로젝트',
+        '2 프로젝트',
         '1 조직 사용자',
       ],
       zh: [
@@ -130,7 +130,7 @@ export const planDetails = {
         '无限使用可视化编辑器',
         '无限远程字典',
         '100MB存储',
-        '1个项目',
+        '2个项目',
         '1个组织用户',
       ],
       it: [
@@ -138,7 +138,7 @@ export const planDetails = {
         'Utilizzo illimitato dell’editor visivo',
         'Dizionari remoti illimitati',
         '100 Mb di spazio di archiviazione',
-        '1 progetto',
+        '2 progetti',
         '1 utente dell’organizzazione',
       ],
       pt: [
@@ -146,7 +146,7 @@ export const planDetails = {
         'Uso ilimitado do editor visual',
         'Dicionários remotos ilimitados',
         '100 Mb de armazenamento',
-        '1 projeto',
+        '2 projetos',
         '1 usuário da organização',
       ],
       hi: [
@@ -154,7 +154,7 @@ export const planDetails = {
         'दृश्य संपादक का असीमित उपयोग',
         'असीमित दूरस्थ शब्दकोश',
         '100 एमबी भंडारण',
-        '1 प्रोजेक्ट',
+        '2 प्रोजेक्ट',
         '1 संगठन उपयोगकर्ता',
       ],
       ar: [
@@ -162,7 +162,7 @@ export const planDetails = {
         'استخدام غير محدود للمحرر المرئي',
         'قواميس بعيدة غير محدودة',
         '100 ميغابايت من التخزين',
-        '1 مشروع',
+        'مشروعين',
         '1 مستخدم منظمة',
       ],
       ru: [
@@ -170,7 +170,7 @@ export const planDetails = {
         'Неограниченное использование визуального редактора',
         'Неограниченные удаленные словари',
         '100 Мб памяти',
-        '1 проект',
+        '2 проекта',
         '1 пользователь организации',
       ],
       tr: [
@@ -178,7 +178,7 @@ export const planDetails = {
         'Görsel düzenleyicinin sınırsız kullanımı',
         'Sınırsız uzak sözlükler',
         '100 Mb depolama',
-        '1 proje',
+        '2 proje',
         '1 organizasyon kullanıcısı',
       ],
       pl: [
@@ -186,7 +186,7 @@ export const planDetails = {
         'Nieograniczone korzystanie z edytora wizualnego',
         'Nieograniczone zdalne słowniki',
         '100 MB pamięci',
-        '1 projekt',
+        '2 projekty',
         '1 użytkownik organizacji',
       ],
       id: [
@@ -194,7 +194,7 @@ export const planDetails = {
         'Penggunaan editor visual tanpa batas',
         'Kamus jarak jauh tanpa batas',
         '100 MB penyimpanan',
-        '1 proyek',
+        '2 proyek',
         '1 pengguna organisasi',
       ],
       vi: [
@@ -202,7 +202,7 @@ export const planDetails = {
         'Sử dụng trình chỉnh sửa trực quan không giới hạn',
         'Từ điển từ xa không giới hạn',
         '100 MB dung lượng lưu trữ',
-        '1 dự án',
+        '2 dự án',
         '1 người dùng tổ chức',
       ],
       uk: [
@@ -210,7 +210,7 @@ export const planDetails = {
         'Необмежене використання візуального редактора',
         'Необмежені віддалені словники',
         '100 МБ сховища',
-        '1 проект',
+        '2 проекти',
         '1 користувач організації',
       ],
     }),
