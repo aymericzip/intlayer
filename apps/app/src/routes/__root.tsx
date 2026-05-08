@@ -72,7 +72,11 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
       },
       {
         rel: 'preconnect',
-        href: import.meta.env.VITE_POSTHOG_HOST || 'https://us.i.posthog.com',
+        href: import.meta.env.VITE_POSTHOG_HOST,
+      },
+      {
+        rel: 'preconnect',
+        href: import.meta.env.VITE_BACKEND_URL,
       },
     ],
   }),
