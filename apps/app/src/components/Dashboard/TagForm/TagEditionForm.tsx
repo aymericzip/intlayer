@@ -3,6 +3,7 @@ import { Form, useForm } from '@intlayer/design-system/form';
 import { useAuditTag, useUpdateTag } from '@intlayer/design-system/hooks';
 import { Save, WandSparkles, XCircle } from 'lucide-react';
 import { type FC, useState } from 'react';
+import { useWatch } from 'react-hook-form';
 import { useIntlayer } from 'react-intlayer';
 import { DeleteTagModal } from './DeleteTagModal';
 import { type TagFormData, useTagSchema } from './useTagFormSchema';
@@ -47,23 +48,16 @@ export const TagEditionForm: FC<TagEditionFormProps> = ({ tag }) => {
     auditTag(
       { tag: { ...tag, ...tagToAudit } },
       {
-        onSuccess: (response: { data: { fileContent: string } }) => {
-          if (!response.data) return;
+        onSuccess: (response: { data: { fileContent: TagAPI } }) => {
+          if (!response.data?.fileContent) return;
 
-          try {
-            const editedTag = JSON.parse(response.data.fileContent) as TagAPI;
-
-            form.reset(editedTag);
-          } catch (error) {
-            console.error(error);
-          }
+          form.reset(response.data.fileContent);
         },
       }
     );
   };
 
-  // Derive isEdited from form values using watch to track changes
-  const formValues = form.watch();
+  const formValues = useWatch({ control: form.control });
   const isEdited = Boolean(
     tag &&
       (formValues.key !== tag.key ||

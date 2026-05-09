@@ -28,22 +28,24 @@ export const TagDetailsContent: FC<TagDetailsProps> = ({ tagKey }) => {
   if (isLoading) return <Loader />;
 
   return (
-    <>
+    <div className="relative flex flex-col gap-10 md:flex-row">
+      <div className="sticky top-20 self-start">
+        <Container
+          className="m-auto flex max-w-3xl justify-start gap-10 p-6"
+          roundedSize="3xl"
+        >
+          <H2>{detailsTitle}</H2>
+          {tag && <TagEditionForm tag={tag} />}
+        </Container>
+      </div>
       <Container
-        className="m-auto flex size-full max-w-3xl justify-start gap-10 p-6"
-        roundedSize="3xl"
-      >
-        <H2>{detailsTitle}</H2>
-        {tag && <TagEditionForm tag={tag} />}
-      </Container>
-      <Container
-        className="m-auto flex size-full max-w-3xl justify-start gap-10 p-6"
+        className="m-auto flex h-full max-w-3xl flex-1 justify-start gap-10 p-6 md:w-1/3"
         roundedSize="3xl"
       >
         <H2>{dictionariesListTitle}</H2>
         {tag && <TagsDictionariesList tagKey={tag.key} />}
       </Container>
-    </>
+    </div>
   );
 };
 

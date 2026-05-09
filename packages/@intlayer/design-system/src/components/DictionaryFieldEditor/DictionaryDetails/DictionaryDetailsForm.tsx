@@ -67,6 +67,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
   useEffect(() => {
     form.reset({
       ...dictionary,
+      tags: dictionary.tags ?? [],
       location: dictionary.location ?? 'remote',
     });
   }, [dictionary, form?.reset]);
@@ -75,6 +76,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
     if (typeof updatedDictionary === 'undefined') {
       form.reset({
         ...dictionary,
+        tags: dictionary.tags ?? [],
         location: dictionary.location ?? 'remote',
       });
     }
@@ -94,21 +96,16 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
         onSuccess: (response) => {
           if (!response?.data) return;
 
-          try {
-            const auditedDictionary = response.data.fileContent;
+          const auditedDictionary = response.data.fileContent;
 
-            setEditedDictionary((prev) => ({
-              ...prev,
-              ...dictionaryToAudit,
-              ...auditedDictionary,
-            }));
-            form.reset({
-              ...dictionaryToAudit,
-              ...auditedDictionary,
-            });
-          } catch (error) {
-            console.error(error);
-          }
+          const merged = {
+            ...dictionaryToAudit,
+            ...auditedDictionary,
+            tags: auditedDictionary.tags ?? dictionaryToAudit.tags ?? [],
+          };
+
+          setEditedDictionary(merged as Dictionary);
+          form.reset(merged);
         },
       }
     );
@@ -137,11 +134,11 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
           isRequired
           onSave={(value) => {
             form.setValue('key', value, { shouldDirty: true });
-            setEditedDictionary((prev) => ({
+            setEditedDictionary({
               ...dictionary,
-              ...(prev ?? {}),
+              ...(updatedDictionary ?? {}),
               key: value,
-            }));
+            });
           }}
         />
         <Form.EditableFieldInput
@@ -152,11 +149,11 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
           disabled={isSubmitting}
           onSave={(value) => {
             form.setValue('title', value, { shouldDirty: true });
-            setEditedDictionary((prev) => ({
+            setEditedDictionary({
               ...dictionary,
-              ...(prev ?? {}),
+              ...(updatedDictionary ?? {}),
               title: value,
-            }));
+            });
           }}
         />
       </div>
@@ -168,11 +165,11 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
         disabled={isSubmitting}
         onSave={(value) => {
           form.setValue('description', value, { shouldDirty: true });
-          setEditedDictionary((prev) => ({
+          setEditedDictionary({
             ...dictionary,
-            ...(prev ?? {}),
+            ...(updatedDictionary ?? {}),
             description: value,
-          }));
+          });
         }}
       />
       <div className="grid grid-cols-2 gap-8 px-1 max-md:grid-cols-1">
@@ -203,12 +200,12 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
                 form.setValue('filePath', undefined);
               }
 
-              setEditedDictionary((prev) => ({
+              setEditedDictionary({
                 ...dictionary,
-                ...(prev ?? {}),
+                ...(updatedDictionary ?? {}),
                 location: newValue,
                 filePath: newFilePath,
-              }));
+              });
             };
 
             const handleRemoteToggle = (isChecked: boolean) => {
@@ -222,11 +219,11 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
 
               field.onChange(newValue);
 
-              setEditedDictionary((prev) => ({
+              setEditedDictionary({
                 ...dictionary,
-                ...(prev ?? {}),
+                ...(updatedDictionary ?? {}),
                 location: newValue,
-              }));
+              });
             };
 
             return (
@@ -285,11 +282,11 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
                 disabled={isSubmitting || !isLocalChecked}
                 onChange={(e) => {
                   const value = e.target.value;
-                  setEditedDictionary((prev) => ({
+                  setEditedDictionary({
                     ...dictionary,
-                    ...(prev ?? {}),
+                    ...(updatedDictionary ?? {}),
                     filePath: value,
-                  }));
+                  });
                 }}
               />
             </motion.div>
@@ -303,11 +300,11 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
           description={importModeSelect.description.value}
           onValueChange={(value) => {
             form.setValue('importMode', value as any, { shouldDirty: true });
-            setEditedDictionary((prev) => ({
+            setEditedDictionary({
               ...dictionary,
-              ...(prev ?? {}),
+              ...(updatedDictionary ?? {}),
               importMode: value as any,
-            }));
+            });
           }}
         >
           <Select.Trigger>
@@ -334,11 +331,11 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
           onValueChange={(value) => {
             const valueArray = [value].flat();
             form.setValue('projectIds', valueArray, { shouldDirty: true });
-            setEditedDictionary((prev) => ({
+            setEditedDictionary({
               ...dictionary,
-              ...(prev ?? {}),
+              ...(updatedDictionary ?? {}),
               projectIds: valueArray,
-            }));
+            });
           }}
         >
           <MultiSelect.Trigger
@@ -372,11 +369,11 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
           onValueChange={(value) => {
             const valueArray = [value].flat();
             form.setValue('tags', valueArray, { shouldDirty: true });
-            setEditedDictionary((prev) => ({
+            setEditedDictionary({
               ...dictionary,
-              ...(prev ?? {}),
+              ...(updatedDictionary ?? {}),
               tags: valueArray,
-            }));
+            });
           }}
         >
           <MultiSelect.Trigger

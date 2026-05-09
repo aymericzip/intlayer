@@ -70,7 +70,7 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
           </Button>
         )}
 
-        <div className="min-h-0 flex-1">
+        <div className="mb-20 min-h-0 flex-1">
           <Tab
             defaultTab="content"
             variant="ghost"
@@ -94,7 +94,7 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
           </Tab>
         </div>
 
-        <div className="sticky bottom-16 z-20 flex shrink-0 flex-wrap items-center justify-end gap-10 border-card border-t p-4 md:bottom-0">
+        <div className="absolute bottom-16 z-20 flex w-full shrink-0 flex-wrap items-center justify-end gap-10 border-card border-t bg-background p-4 md:bottom-0">
           <CopyToClipboard
             text={dictionary.id!}
             className="text-nowrap text-neutral text-sm"

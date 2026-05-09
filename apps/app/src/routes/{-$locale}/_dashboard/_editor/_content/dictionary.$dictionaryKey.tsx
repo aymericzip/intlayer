@@ -94,7 +94,7 @@ function DictionaryDetailPage() {
           locale
         )}
       />
-      <div className="flex min-h-0 w-full flex-1 flex-col items-stretch px-10">
+      <div className="flex min-h-0 w-full flex-1 flex-col items-stretch">
         <ContentDashboard dictionaryKey={dictionaryKey} />
       </div>
       <BackgroundLayout />
