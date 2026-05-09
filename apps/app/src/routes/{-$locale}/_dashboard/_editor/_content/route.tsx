@@ -147,7 +147,7 @@ function EditorLayout() {
             )}
             <div
               className={cn(
-                'relative size-auto flex-1 flex-col overflow-hidden',
+                'relative size-auto flex-1 flex-col overflow-auto',
                 !isEditorActive ? 'flex' : 'hidden'
               )}
             >
