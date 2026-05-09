@@ -1,12 +1,22 @@
 import { internationalization } from '@intlayer/config/built';
-import type { LocalesValues } from '@intlayer/types/module_augmentation';
+import type {
+  DeclaredLocales,
+  LocalesValues,
+} from '@intlayer/types/module_augmentation';
 import { useContext } from 'preact/hooks';
 import { IntlayerClientContext } from './IntlayerProvider';
 import { setLocaleInStorage } from './useLocaleStorage';
 
-type useLocaleProps = {
+type UseLocaleProps = {
   isCookieEnabled?: boolean;
-  onLocaleChange?: (locale: LocalesValues) => void;
+  onLocaleChange?: (locale: DeclaredLocales) => void;
+};
+
+type UseLocaleResult = {
+  locale: DeclaredLocales;
+  defaultLocale: DeclaredLocales;
+  availableLocales: DeclaredLocales[];
+  setLocale: (locale: LocalesValues) => void;
 };
 
 /**
@@ -35,7 +45,7 @@ type useLocaleProps = {
 export const useLocale = ({
   isCookieEnabled,
   onLocaleChange,
-}: useLocaleProps = {}) => {
+}: UseLocaleProps = {}): UseLocaleResult => {
   const { defaultLocale, locales: availableLocales } =
     internationalization ?? {};
 
@@ -58,7 +68,7 @@ export const useLocale = ({
       isCookieEnabled ?? isCookieEnabledContext ?? true
     );
 
-    onLocaleChange?.(locale);
+    onLocaleChange?.(locale as DeclaredLocales);
   };
 
   return {
@@ -66,5 +76,5 @@ export const useLocale = ({
     defaultLocale, // Principal locale defined in config
     availableLocales, // List of the available locales defined in config
     setLocale, // Function to set the locale
-  };
+  } as UseLocaleResult;
 };

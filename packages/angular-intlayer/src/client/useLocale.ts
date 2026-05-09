@@ -1,12 +1,22 @@
-import { computed, inject } from '@angular/core';
+import { computed, inject, type Signal } from '@angular/core';
 import { internationalization } from '@intlayer/config/built';
-import type { LocalesValues } from '@intlayer/types/module_augmentation';
+import type {
+  DeclaredLocales,
+  LocalesValues,
+} from '@intlayer/types/module_augmentation';
 import { INTLAYER_TOKEN, type IntlayerProvider } from './installIntlayer';
 import { setLocaleInStorage } from './useLocaleStorage';
 
-type useLocaleProps = {
+export type UseLocaleProps = {
   isCookieEnabled?: boolean;
-  onLocaleChange?: (locale: LocalesValues) => void;
+  onLocaleChange?: (locale: DeclaredLocales) => void;
+};
+
+export type UseLocaleResult = {
+  locale: Signal<DeclaredLocales>;
+  defaultLocale: DeclaredLocales;
+  availableLocales: DeclaredLocales[];
+  setLocale: (locale: LocalesValues) => void;
 };
 
 /**
@@ -39,13 +49,15 @@ type useLocaleProps = {
 export const useLocale = ({
   isCookieEnabled,
   onLocaleChange,
-}: useLocaleProps = {}) => {
+}: UseLocaleProps = {}): UseLocaleResult => {
   const { defaultLocale, locales: availableLocales } =
     internationalization ?? {};
   const intlayer = inject<IntlayerProvider>(INTLAYER_TOKEN);
 
   // Create a reactive reference for the locale
-  const locale = computed(() => intlayer?.locale() ?? defaultLocale);
+  const locale = computed(
+    () => (intlayer?.locale() ?? defaultLocale) as DeclaredLocales
+  );
   const isCookieEnabledContext = computed(
     () => intlayer?.isCookieEnabled() ?? true
   );
@@ -63,7 +75,7 @@ export const useLocale = ({
       newLocale,
       isCookieEnabled ?? isCookieEnabledContext() ?? true
     );
-    onLocaleChange?.(newLocale);
+    onLocaleChange?.(newLocale as DeclaredLocales);
   };
 
   return {
@@ -71,5 +83,5 @@ export const useLocale = ({
     defaultLocale, // Principal locale defined in config
     availableLocales, // List of the available locales defined in config
     setLocale, // Function to set the locale
-  };
+  } as UseLocaleResult;
 };

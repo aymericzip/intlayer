@@ -1,13 +1,23 @@
 import { internationalization } from '@intlayer/config/built';
-import type { LocalesValues } from '@intlayer/types/module_augmentation';
-import { derived } from 'svelte/store';
+import type {
+  DeclaredLocales,
+  LocalesValues,
+} from '@intlayer/types/module_augmentation';
+import { derived, type Readable } from 'svelte/store';
 import { getIntlayerContext } from './intlayerContext';
 import { intlayerStore } from './intlayerStore';
 import { setLocaleInStorage } from './useLocaleStorage';
 
-type useLocaleProps = {
+export type UseLocaleProps = {
   isCookieEnabled?: boolean;
-  onLocaleChange?: (locale: LocalesValues) => void;
+  onLocaleChange?: (locale: DeclaredLocales) => void;
+};
+
+export type UseLocaleResult = {
+  locale: Readable<DeclaredLocales>;
+  defaultLocale: DeclaredLocales;
+  availableLocales: DeclaredLocales[];
+  setLocale: (locale: LocalesValues) => void;
 };
 
 /**
@@ -33,7 +43,7 @@ type useLocaleProps = {
 export const useLocale = ({
   isCookieEnabled,
   onLocaleChange,
-}: useLocaleProps = {}) => {
+}: UseLocaleProps = {}): UseLocaleResult => {
   const context = getIntlayerContext();
   const { defaultLocale, locales: availableLocales } =
     internationalization ?? {};
@@ -43,7 +53,7 @@ export const useLocale = ({
     return {
       locale: derived(
         [intlayerStore],
-        ([$store]) => context.locale ?? $store.locale
+        ([$store]) => (context.locale ?? $store.locale) as DeclaredLocales
       ),
       setLocale: (locale: LocalesValues) => {
         context.setLocale(locale);
@@ -53,24 +63,24 @@ export const useLocale = ({
           isCookieEnabled ?? context?.isCookieEnabled ?? true
         );
 
-        onLocaleChange?.(locale);
+        onLocaleChange?.(locale as DeclaredLocales);
       },
       defaultLocale,
       availableLocales,
-    };
+    } as UseLocaleResult;
   }
 
   // Fallback to global store
   return {
-    locale: intlayerStore.getLocale(),
+    locale: intlayerStore.getLocale() as Readable<DeclaredLocales>,
     setLocale: (locale: LocalesValues) => {
       intlayerStore.setLocale(locale);
 
       setLocaleInStorage(locale, isCookieEnabled ?? true);
 
-      onLocaleChange?.(locale);
+      onLocaleChange?.(locale as DeclaredLocales);
     },
     defaultLocale,
     availableLocales,
-  };
+  } as UseLocaleResult;
 };

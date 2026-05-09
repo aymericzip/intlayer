@@ -9,15 +9,15 @@ import { useCallback, useContext } from 'react';
 import { IntlayerClientContext } from './IntlayerProvider';
 import { setLocaleInStorage } from './useLocaleStorage';
 
-type UseLocaleProps = {
+export type UseLocaleProps = {
   isCookieEnabled?: boolean;
-  onLocaleChange?: (locale: LocalesValues) => void;
+  onLocaleChange?: (locale: DeclaredLocales) => void;
 };
 
-type UseLocaleResult = {
-  locale: LocalesValues;
-  defaultLocale: LocalesValues;
-  availableLocales: LocalesValues[];
+export type UseLocaleResult = {
+  locale: DeclaredLocales;
+  defaultLocale: DeclaredLocales;
+  availableLocales: DeclaredLocales[];
   setLocale: (locale: LocalesValues) => void;
 };
 

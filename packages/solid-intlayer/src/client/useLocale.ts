@@ -7,12 +7,12 @@ import { type Accessor, createEffect, on, useContext } from 'solid-js';
 import { IntlayerClientContext } from './IntlayerProvider';
 import { setLocaleInStorage } from './useLocaleStorage';
 
-type useLocaleProps = {
+export type UseLocaleProps = {
   isCookieEnabled?: boolean;
-  onLocaleChange?: (locale: LocalesValues) => void;
+  onLocaleChange?: (locale: DeclaredLocales) => void;
 };
 
-type UseLocaleResult = {
+export type UseLocaleResult = {
   locale: Accessor<DeclaredLocales>;
   defaultLocale: DeclaredLocales;
   availableLocales: DeclaredLocales[];
@@ -45,7 +45,7 @@ type UseLocaleResult = {
 export const useLocale = ({
   isCookieEnabled,
   onLocaleChange,
-}: useLocaleProps = {}) => {
+}: UseLocaleProps = {}): UseLocaleResult => {
   const { defaultLocale, locales: availableLocales } =
     internationalization ?? {};
 
@@ -71,7 +71,7 @@ export const useLocale = ({
       () => context?.locale?.(),
       (currentLocale) => {
         if (onLocaleChange && currentLocale !== undefined) {
-          onLocaleChange(currentLocale);
+          onLocaleChange(currentLocale as DeclaredLocales);
         }
       },
       { defer: true }
@@ -83,5 +83,5 @@ export const useLocale = ({
     defaultLocale, // Principal locale defined in config
     availableLocales, // List of the available locales defined in config
     setLocale, // Function to set the locale
-  } as unknown as UseLocaleResult;
+  } as UseLocaleResult;
 };

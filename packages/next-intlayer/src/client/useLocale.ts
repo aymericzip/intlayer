@@ -5,17 +5,29 @@ import {
   getPathWithoutLocale,
 } from '@intlayer/core/localization';
 import { checkIsURLAbsolute } from '@intlayer/core/utils';
-import type { LocalesValues } from '@intlayer/types/module_augmentation';
+import type {
+  DeclaredLocales,
+  LocalesValues,
+} from '@intlayer/types/module_augmentation';
 import { usePathname, useRouter } from 'next/navigation.js';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { useLocale as useLocaleReact } from 'react-intlayer';
+import {
+  type UseLocaleResult as UseLocaleResultReact,
+  useLocale as useLocaleReact,
+} from 'react-intlayer';
 
-type UseLocaleProps = {
+export type UseLocaleProps = {
+  isCookieEnabled?: boolean;
+  onLocaleChange?: (locale: DeclaredLocales) => void;
   onChange?:
     | 'replace'
     | 'push'
     | 'none'
     | ((params: { locale: LocalesValues; path: string }) => void);
+};
+
+export type UseLocaleResult = UseLocaleResultReact & {
+  pathWithoutLocale: string;
 };
 
 const usePathWithoutLocale = () => {
@@ -56,7 +68,11 @@ const usePathWithoutLocale = () => {
  * };
  * ```
  */
-export const useLocale = ({ onChange = 'replace' }: UseLocaleProps = {}) => {
+export const useLocale = ({
+  onChange = 'replace',
+  onLocaleChange,
+  isCookieEnabled,
+}: UseLocaleProps = {}): UseLocaleResult => {
   const { replace, push } = useRouter();
   const pathWithoutLocale = usePathWithoutLocale();
 
@@ -95,16 +111,19 @@ export const useLocale = ({ onChange = 'replace' }: UseLocaleProps = {}) => {
       if (onChange === 'push') {
         push(pathWithLocale);
       }
+
+      onLocaleChange?.(locale as DeclaredLocales);
     },
-    [replace, push, pathWithoutLocale, onChange]
+    [replace, push, pathWithoutLocale, onChange, onLocaleChange]
   );
 
   const reactLocaleHook = useLocaleReact({
     onLocaleChange: redirectionFunction,
+    isCookieEnabled,
   });
 
   return {
     ...reactLocaleHook,
     pathWithoutLocale,
-  };
+  } as UseLocaleResult;
 };

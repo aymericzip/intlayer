@@ -25,7 +25,11 @@ export { useDictionaryDynamic } from './client/useDictionaryDynamic';
 export { useI18n } from './client/useI18n';
 export { useIntlayer } from './client/useIntlayer';
 export { useLoadDynamic } from './client/useLoadDynamic';
-export { useLocale } from './client/useLocale';
+export {
+  type UseLocaleProps,
+  type UseLocaleResult,
+  useLocale,
+} from './client/useLocale';
 export { useLocaleBase } from './client/useLocaleBase';
 export {
   localeCookie,

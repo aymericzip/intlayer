@@ -4,10 +4,12 @@ import {
   getLocalizedUrl,
   getPathWithoutLocale,
 } from '@intlayer/core/localization';
+import type { Locale } from '@intlayer/types/allLocales';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import { useRouter } from 'next/router.js';
 import { useCallback, useMemo } from 'react';
 import { useLocale as useLocaleReact } from 'react-intlayer';
+import type { UseLocaleProps, UseLocaleResult } from './useLocale';
 
 /**
  * Hook to manage the current locale in Next.js Page Router.
@@ -30,7 +32,10 @@ import { useLocale as useLocaleReact } from 'react-intlayer';
  * };
  * ```
  */
-export const useLocalePageRouter = () => {
+export const useLocalePageRouter = ({
+  onLocaleChange,
+  isCookieEnabled,
+}: UseLocaleProps = {}): UseLocaleResult => {
   const { push, pathname, reload } = useRouter();
   const pathWithoutLocale = useMemo(
     () => getPathWithoutLocale(pathname),
@@ -43,17 +48,20 @@ export const useLocalePageRouter = () => {
 
       push(pathWithLocale);
 
+      onLocaleChange?.(locale as Locale);
+
       return reload();
     },
-    [pathWithoutLocale]
+    [pathWithoutLocale, onLocaleChange, reload]
   );
 
   const reactLocaleHook = useLocaleReact({
     onLocaleChange: redirectionFunction,
+    isCookieEnabled,
   });
 
   return {
     ...reactLocaleHook,
     pathWithoutLocale,
-  };
+  } as UseLocaleResult;
 };

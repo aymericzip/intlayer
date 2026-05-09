@@ -3,7 +3,7 @@ import type { DeclaredLocales } from '@intlayer/types/module_augmentation';
 import { IntlayerServerContext } from './IntlayerServerProvider';
 import { getServerContext } from './serverContext';
 
-type UseLocaleResult = {
+export type UseLocaleResult = {
   locale: DeclaredLocales;
   defaultLocale: DeclaredLocales;
   availableLocales: DeclaredLocales[];

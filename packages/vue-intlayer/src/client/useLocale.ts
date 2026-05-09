@@ -7,12 +7,12 @@ import { type ComputedRef, computed, inject } from 'vue';
 import { INTLAYER_SYMBOL, type IntlayerProvider } from './installIntlayer';
 import { setLocaleInStorage } from './useLocaleStorage';
 
-type useLocaleProps = {
+export type UseLocaleProps = {
   isCookieEnabled?: boolean;
-  onLocaleChange?: (locale: LocalesValues) => void;
+  onLocaleChange?: (locale: DeclaredLocales) => void;
 };
 
-type UseLocaleResult = {
+export type UseLocaleResult = {
   locale: ComputedRef<DeclaredLocales>;
   defaultLocale: DeclaredLocales;
   availableLocales: DeclaredLocales[];
@@ -45,7 +45,7 @@ type UseLocaleResult = {
 export const useLocale = ({
   isCookieEnabled,
   onLocaleChange,
-}: useLocaleProps = {}): UseLocaleResult => {
+}: UseLocaleProps = {}): UseLocaleResult => {
   const { defaultLocale, locales: availableLocales } =
     internationalization ?? {};
   const intlayer = inject<IntlayerProvider>(INTLAYER_SYMBOL);
@@ -70,7 +70,7 @@ export const useLocale = ({
       isCookieEnabled ?? intlayer?.isCookieEnabled ?? true
     );
 
-    onLocaleChange?.(newLocale);
+    onLocaleChange?.(newLocale as DeclaredLocales);
   };
 
   return {

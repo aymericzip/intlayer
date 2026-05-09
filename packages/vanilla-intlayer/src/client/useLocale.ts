@@ -6,9 +6,17 @@ import type {
 import { getIntlayerClient } from './installIntlayer';
 import { setLocaleInStorage } from './useLocaleStorage';
 
-type UseLocaleProps = {
+export type UseLocaleProps = {
   isCookieEnabled?: boolean;
-  onLocaleChange?: (locale: LocalesValues) => void;
+  onLocaleChange?: (locale: DeclaredLocales) => void;
+};
+
+export type UseLocaleResult = {
+  locale: DeclaredLocales;
+  defaultLocale: DeclaredLocales;
+  availableLocales: DeclaredLocales[];
+  setLocale: (locale: LocalesValues) => void;
+  subscribe: (callback: (locale: LocalesValues) => void) => () => void;
 };
 
 /**
@@ -38,15 +46,7 @@ type UseLocaleProps = {
  * });
  * ```
  */
-export const useLocale = (
-  props: UseLocaleProps = {}
-): {
-  locale: DeclaredLocales;
-  defaultLocale: DeclaredLocales;
-  availableLocales: DeclaredLocales[];
-  setLocale: (newLocale: LocalesValues) => void;
-  subscribe: (callback: (locale: LocalesValues) => void) => () => void;
-} => {
+export const useLocale = (props: UseLocaleProps = {}): UseLocaleResult => {
   const client = getIntlayerClient();
   const { defaultLocale, locales: availableLocales } =
     internationalization ?? {};
@@ -64,7 +64,7 @@ export const useLocale = (
       props.isCookieEnabled ?? client.isCookieEnabled ?? true
     );
 
-    props.onLocaleChange?.(newLocale);
+    props.onLocaleChange?.(newLocale as DeclaredLocales);
   };
 
   return {

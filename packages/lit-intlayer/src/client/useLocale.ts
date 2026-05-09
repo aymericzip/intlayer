@@ -7,9 +7,9 @@ import type { ReactiveController, ReactiveControllerHost } from 'lit';
 import { getIntlayerClient } from './installIntlayer';
 import { setLocaleInStorage } from './useLocaleStorage';
 
-type UseLocaleProps = {
+export type UseLocaleProps = {
   isCookieEnabled?: boolean;
-  onLocaleChange?: (locale: LocalesValues) => void;
+  onLocaleChange?: (locale: DeclaredLocales) => void;
 };
 
 /**
@@ -20,7 +20,7 @@ export class LocaleController implements ReactiveController {
   private readonly host: ReactiveControllerHost;
   private readonly _isCookieEnabled: boolean | undefined;
   private readonly _onLocaleChange:
-    | ((locale: LocalesValues) => void)
+    | ((locale: DeclaredLocales) => void)
     | undefined;
   private _unsubscribe: (() => void) | null = null;
 
@@ -65,7 +65,7 @@ export class LocaleController implements ReactiveController {
       this._isCookieEnabled ?? client.isCookieEnabled ?? true
     );
 
-    this._onLocaleChange?.(newLocale);
+    this._onLocaleChange?.(newLocale as DeclaredLocales);
   };
 
   hostConnected(): void {
