@@ -3,6 +3,7 @@ import { dirname as pathDirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { isESModule } from '@intlayer/config/utils';
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
+import { loadAPITools } from '../tools/api';
 import { loadCLITools } from '../tools/cli';
 import { loadDocsTools } from '../tools/docs';
 import { loadInstallSkillsTool } from '../tools/installSkills';
@@ -36,6 +37,12 @@ export const loadServer: LoadServer = ({ isLocal }) => {
     loadDocsTools(server);
   } catch (error) {
     console.error('Error loading docs tools:', error);
+  }
+
+  try {
+    loadAPITools(server);
+  } catch (error) {
+    console.error('Error loading API tools:', error);
   }
 
   return server;
