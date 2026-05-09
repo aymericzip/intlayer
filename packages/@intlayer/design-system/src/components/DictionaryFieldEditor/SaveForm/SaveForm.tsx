@@ -173,10 +173,7 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
           </div>
         </form>
       </Modal>
-      <form
-        className={cn('flex justify-end gap-2 max-md:flex-col', className)}
-        {...props}
-      >
+      <form className={cn('flex justify-end gap-2', className)} {...props}>
         {mode.includes('remote') &&
           isDistantDictionary &&
           onDelete &&

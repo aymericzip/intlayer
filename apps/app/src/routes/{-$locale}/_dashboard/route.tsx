@@ -135,8 +135,8 @@ function DashboardLayout() {
             items={navigationItems}
             collapseButtonLabel={collapseButton.label.value}
           />
-          <div className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-2xl bg-background">
-            <div className="flex flex-1 flex-col overflow-auto md:mr-2">
+          <div className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-2xl bg-background md:mr-2">
+            <div className="flex flex-1 flex-col overflow-auto">
               <Outlet />
             </div>
           </div>
