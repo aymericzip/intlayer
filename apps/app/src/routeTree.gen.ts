@@ -9,13 +9,16 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root';
-import { Route as Char123LocaleChar125DashboardAdminAdminDiscussionsRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin.discussions';
-import { Route as Char123LocaleChar125DashboardAdminAdminOrganizationsRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin.organizations';
-import { Route as Char123LocaleChar125DashboardAdminAdminOrganizationsIdRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin.organizations.$id';
-import { Route as Char123LocaleChar125DashboardAdminAdminProjectsRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin.projects';
-import { Route as Char123LocaleChar125DashboardAdminAdminProjectsIdRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin.projects.$id';
-import { Route as Char123LocaleChar125DashboardAdminAdminUsersRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin.users';
-import { Route as Char123LocaleChar125DashboardAdminAdminUsersIdRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin.users.$id';
+import { Route as Char123LocaleChar125DashboardAdminAdminDiscussionsRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/discussions';
+import { Route as Char123LocaleChar125DashboardAdminAdminOrganizationsIdRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/organizations/$id';
+import { Route as Char123LocaleChar125DashboardAdminAdminOrganizationsIndexRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/organizations/index';
+import { Route as Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/organizations/route';
+import { Route as Char123LocaleChar125DashboardAdminAdminProjectsIdRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/projects/$id';
+import { Route as Char123LocaleChar125DashboardAdminAdminProjectsIndexRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/projects/index';
+import { Route as Char123LocaleChar125DashboardAdminAdminProjectsRouteRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/projects/route';
+import { Route as Char123LocaleChar125DashboardAdminAdminUsersIdRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/users/$id';
+import { Route as Char123LocaleChar125DashboardAdminAdminUsersIndexRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/users/index';
+import { Route as Char123LocaleChar125DashboardAdminAdminUsersRouteRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/users/route';
 import { Route as Char123LocaleChar125DashboardAdminRouteRouteImport } from './routes/{-$locale}/_dashboard/_admin/route';
 import { Route as Char123LocaleChar125DashboardEditorContentDictionaryDictionaryKeyRouteImport } from './routes/{-$locale}/_dashboard/_editor/_content/dictionary.$dictionaryKey';
 import { Route as Char123LocaleChar125DashboardEditorContentDictionaryIndexRouteImport } from './routes/{-$locale}/_dashboard/_editor/_content/dictionary.index';
@@ -225,28 +228,28 @@ const Char123LocaleChar125DashboardEditorContentEditorRoute =
     path: '/editor',
     getParentRoute: () => Char123LocaleChar125DashboardEditorContentRouteRoute,
   } as any);
-const Char123LocaleChar125DashboardAdminAdminUsersRoute =
-  Char123LocaleChar125DashboardAdminAdminUsersRouteImport.update({
-    id: '/admin/users',
-    path: '/admin/users',
-    getParentRoute: () => Char123LocaleChar125DashboardAdminRouteRoute,
-  } as any);
-const Char123LocaleChar125DashboardAdminAdminProjectsRoute =
-  Char123LocaleChar125DashboardAdminAdminProjectsRouteImport.update({
-    id: '/admin/projects',
-    path: '/admin/projects',
-    getParentRoute: () => Char123LocaleChar125DashboardAdminRouteRoute,
-  } as any);
-const Char123LocaleChar125DashboardAdminAdminOrganizationsRoute =
-  Char123LocaleChar125DashboardAdminAdminOrganizationsRouteImport.update({
-    id: '/admin/organizations',
-    path: '/admin/organizations',
-    getParentRoute: () => Char123LocaleChar125DashboardAdminRouteRoute,
-  } as any);
 const Char123LocaleChar125DashboardAdminAdminDiscussionsRoute =
   Char123LocaleChar125DashboardAdminAdminDiscussionsRouteImport.update({
     id: '/admin/discussions',
     path: '/admin/discussions',
+    getParentRoute: () => Char123LocaleChar125DashboardAdminRouteRoute,
+  } as any);
+const Char123LocaleChar125DashboardAdminAdminUsersRouteRoute =
+  Char123LocaleChar125DashboardAdminAdminUsersRouteRouteImport.update({
+    id: '/admin/users',
+    path: '/admin/users',
+    getParentRoute: () => Char123LocaleChar125DashboardAdminRouteRoute,
+  } as any);
+const Char123LocaleChar125DashboardAdminAdminProjectsRouteRoute =
+  Char123LocaleChar125DashboardAdminAdminProjectsRouteRouteImport.update({
+    id: '/admin/projects',
+    path: '/admin/projects',
+    getParentRoute: () => Char123LocaleChar125DashboardAdminRouteRoute,
+  } as any);
+const Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRoute =
+  Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRouteImport.update({
+    id: '/admin/organizations',
+    path: '/admin/organizations',
     getParentRoute: () => Char123LocaleChar125DashboardAdminRouteRoute,
   } as any);
 const Char123LocaleChar125DashboardEditorContentDictionaryIndexRoute =
@@ -254,6 +257,27 @@ const Char123LocaleChar125DashboardEditorContentDictionaryIndexRoute =
     id: '/dictionary/',
     path: '/dictionary/',
     getParentRoute: () => Char123LocaleChar125DashboardEditorContentRouteRoute,
+  } as any);
+const Char123LocaleChar125DashboardAdminAdminUsersIndexRoute =
+  Char123LocaleChar125DashboardAdminAdminUsersIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () =>
+      Char123LocaleChar125DashboardAdminAdminUsersRouteRoute,
+  } as any);
+const Char123LocaleChar125DashboardAdminAdminProjectsIndexRoute =
+  Char123LocaleChar125DashboardAdminAdminProjectsIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () =>
+      Char123LocaleChar125DashboardAdminAdminProjectsRouteRoute,
+  } as any);
+const Char123LocaleChar125DashboardAdminAdminOrganizationsIndexRoute =
+  Char123LocaleChar125DashboardAdminAdminOrganizationsIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () =>
+      Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRoute,
   } as any);
 const Char123LocaleChar125OtherAuthAuthenticatedPasswordChangeRoute =
   Char123LocaleChar125OtherAuthAuthenticatedPasswordChangeRouteImport.update({
@@ -274,20 +298,22 @@ const Char123LocaleChar125DashboardAdminAdminUsersIdRoute =
   Char123LocaleChar125DashboardAdminAdminUsersIdRouteImport.update({
     id: '/$id',
     path: '/$id',
-    getParentRoute: () => Char123LocaleChar125DashboardAdminAdminUsersRoute,
+    getParentRoute: () =>
+      Char123LocaleChar125DashboardAdminAdminUsersRouteRoute,
   } as any);
 const Char123LocaleChar125DashboardAdminAdminProjectsIdRoute =
   Char123LocaleChar125DashboardAdminAdminProjectsIdRouteImport.update({
     id: '/$id',
     path: '/$id',
-    getParentRoute: () => Char123LocaleChar125DashboardAdminAdminProjectsRoute,
+    getParentRoute: () =>
+      Char123LocaleChar125DashboardAdminAdminProjectsRouteRoute,
   } as any);
 const Char123LocaleChar125DashboardAdminAdminOrganizationsIdRoute =
   Char123LocaleChar125DashboardAdminAdminOrganizationsIdRouteImport.update({
     id: '/$id',
     path: '/$id',
     getParentRoute: () =>
-      Char123LocaleChar125DashboardAdminAdminOrganizationsRoute,
+      Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRoute,
   } as any);
 
 export interface FileRoutesByFullPath {
@@ -306,10 +332,10 @@ export interface FileRoutesByFullPath {
   '/{-$locale}/auth': typeof Char123LocaleChar125OtherAuthNotAuthenticatedRouteRouteWithChildren;
   '/{-$locale}/auth/cli-login': typeof Char123LocaleChar125OtherAuthCliLoginRoute;
   '/{-$locale}/onboarding/$step': typeof Char123LocaleChar125OtherOnboardingStepRoute;
+  '/{-$locale}/admin/organizations': typeof Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRouteWithChildren;
+  '/{-$locale}/admin/projects': typeof Char123LocaleChar125DashboardAdminAdminProjectsRouteRouteWithChildren;
+  '/{-$locale}/admin/users': typeof Char123LocaleChar125DashboardAdminAdminUsersRouteRouteWithChildren;
   '/{-$locale}/admin/discussions': typeof Char123LocaleChar125DashboardAdminAdminDiscussionsRoute;
-  '/{-$locale}/admin/organizations': typeof Char123LocaleChar125DashboardAdminAdminOrganizationsRouteWithChildren;
-  '/{-$locale}/admin/projects': typeof Char123LocaleChar125DashboardAdminAdminProjectsRouteWithChildren;
-  '/{-$locale}/admin/users': typeof Char123LocaleChar125DashboardAdminAdminUsersRouteWithChildren;
   '/{-$locale}/editor': typeof Char123LocaleChar125DashboardEditorContentEditorRoute;
   '/{-$locale}/translate': typeof Char123LocaleChar125DashboardEditorContentTranslateRoute;
   '/{-$locale}/tags/$tagKey': typeof Char123LocaleChar125DashboardEditorTagsTagKeyRoute;
@@ -325,6 +351,9 @@ export interface FileRoutesByFullPath {
   '/{-$locale}/admin/users/$id': typeof Char123LocaleChar125DashboardAdminAdminUsersIdRoute;
   '/{-$locale}/dictionary/$dictionaryKey': typeof Char123LocaleChar125DashboardEditorContentDictionaryDictionaryKeyRoute;
   '/{-$locale}/auth/password/change': typeof Char123LocaleChar125OtherAuthAuthenticatedPasswordChangeRoute;
+  '/{-$locale}/admin/organizations/': typeof Char123LocaleChar125DashboardAdminAdminOrganizationsIndexRoute;
+  '/{-$locale}/admin/projects/': typeof Char123LocaleChar125DashboardAdminAdminProjectsIndexRoute;
+  '/{-$locale}/admin/users/': typeof Char123LocaleChar125DashboardAdminAdminUsersIndexRoute;
   '/{-$locale}/dictionary/': typeof Char123LocaleChar125DashboardEditorContentDictionaryIndexRoute;
 }
 export interface FileRoutesByTo {
@@ -343,9 +372,6 @@ export interface FileRoutesByTo {
   '/{-$locale}/auth/cli-login': typeof Char123LocaleChar125OtherAuthCliLoginRoute;
   '/{-$locale}/onboarding/$step': typeof Char123LocaleChar125OtherOnboardingStepRoute;
   '/{-$locale}/admin/discussions': typeof Char123LocaleChar125DashboardAdminAdminDiscussionsRoute;
-  '/{-$locale}/admin/organizations': typeof Char123LocaleChar125DashboardAdminAdminOrganizationsRouteWithChildren;
-  '/{-$locale}/admin/projects': typeof Char123LocaleChar125DashboardAdminAdminProjectsRouteWithChildren;
-  '/{-$locale}/admin/users': typeof Char123LocaleChar125DashboardAdminAdminUsersRouteWithChildren;
   '/{-$locale}/editor': typeof Char123LocaleChar125DashboardEditorContentEditorRoute;
   '/{-$locale}/translate': typeof Char123LocaleChar125DashboardEditorContentTranslateRoute;
   '/{-$locale}/tags/$tagKey': typeof Char123LocaleChar125DashboardEditorTagsTagKeyRoute;
@@ -361,6 +387,9 @@ export interface FileRoutesByTo {
   '/{-$locale}/admin/users/$id': typeof Char123LocaleChar125DashboardAdminAdminUsersIdRoute;
   '/{-$locale}/dictionary/$dictionaryKey': typeof Char123LocaleChar125DashboardEditorContentDictionaryDictionaryKeyRoute;
   '/{-$locale}/auth/password/change': typeof Char123LocaleChar125OtherAuthAuthenticatedPasswordChangeRoute;
+  '/{-$locale}/admin/organizations': typeof Char123LocaleChar125DashboardAdminAdminOrganizationsIndexRoute;
+  '/{-$locale}/admin/projects': typeof Char123LocaleChar125DashboardAdminAdminProjectsIndexRoute;
+  '/{-$locale}/admin/users': typeof Char123LocaleChar125DashboardAdminAdminUsersIndexRoute;
   '/{-$locale}/dictionary': typeof Char123LocaleChar125DashboardEditorContentDictionaryIndexRoute;
 }
 export interface FileRoutesById {
@@ -385,10 +414,10 @@ export interface FileRoutesById {
   '/{-$locale}/_other/auth/_not-authenticated': typeof Char123LocaleChar125OtherAuthNotAuthenticatedRouteRouteWithChildren;
   '/{-$locale}/_other/auth/cli-login': typeof Char123LocaleChar125OtherAuthCliLoginRoute;
   '/{-$locale}/_other/onboarding/$step': typeof Char123LocaleChar125OtherOnboardingStepRoute;
+  '/{-$locale}/_dashboard/_admin/admin/organizations': typeof Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRouteWithChildren;
+  '/{-$locale}/_dashboard/_admin/admin/projects': typeof Char123LocaleChar125DashboardAdminAdminProjectsRouteRouteWithChildren;
+  '/{-$locale}/_dashboard/_admin/admin/users': typeof Char123LocaleChar125DashboardAdminAdminUsersRouteRouteWithChildren;
   '/{-$locale}/_dashboard/_admin/admin/discussions': typeof Char123LocaleChar125DashboardAdminAdminDiscussionsRoute;
-  '/{-$locale}/_dashboard/_admin/admin/organizations': typeof Char123LocaleChar125DashboardAdminAdminOrganizationsRouteWithChildren;
-  '/{-$locale}/_dashboard/_admin/admin/projects': typeof Char123LocaleChar125DashboardAdminAdminProjectsRouteWithChildren;
-  '/{-$locale}/_dashboard/_admin/admin/users': typeof Char123LocaleChar125DashboardAdminAdminUsersRouteWithChildren;
   '/{-$locale}/_dashboard/_editor/_content/editor': typeof Char123LocaleChar125DashboardEditorContentEditorRoute;
   '/{-$locale}/_dashboard/_editor/_content/translate': typeof Char123LocaleChar125DashboardEditorContentTranslateRoute;
   '/{-$locale}/_dashboard/_editor/tags/$tagKey': typeof Char123LocaleChar125DashboardEditorTagsTagKeyRoute;
@@ -404,6 +433,9 @@ export interface FileRoutesById {
   '/{-$locale}/_dashboard/_admin/admin/users/$id': typeof Char123LocaleChar125DashboardAdminAdminUsersIdRoute;
   '/{-$locale}/_dashboard/_editor/_content/dictionary/$dictionaryKey': typeof Char123LocaleChar125DashboardEditorContentDictionaryDictionaryKeyRoute;
   '/{-$locale}/_other/auth/_authenticated/password/change': typeof Char123LocaleChar125OtherAuthAuthenticatedPasswordChangeRoute;
+  '/{-$locale}/_dashboard/_admin/admin/organizations/': typeof Char123LocaleChar125DashboardAdminAdminOrganizationsIndexRoute;
+  '/{-$locale}/_dashboard/_admin/admin/projects/': typeof Char123LocaleChar125DashboardAdminAdminProjectsIndexRoute;
+  '/{-$locale}/_dashboard/_admin/admin/users/': typeof Char123LocaleChar125DashboardAdminAdminUsersIndexRoute;
   '/{-$locale}/_dashboard/_editor/_content/dictionary/': typeof Char123LocaleChar125DashboardEditorContentDictionaryIndexRoute;
 }
 export interface FileRouteTypes {
@@ -424,10 +456,10 @@ export interface FileRouteTypes {
     | '/{-$locale}/auth'
     | '/{-$locale}/auth/cli-login'
     | '/{-$locale}/onboarding/$step'
-    | '/{-$locale}/admin/discussions'
     | '/{-$locale}/admin/organizations'
     | '/{-$locale}/admin/projects'
     | '/{-$locale}/admin/users'
+    | '/{-$locale}/admin/discussions'
     | '/{-$locale}/editor'
     | '/{-$locale}/translate'
     | '/{-$locale}/tags/$tagKey'
@@ -443,6 +475,9 @@ export interface FileRouteTypes {
     | '/{-$locale}/admin/users/$id'
     | '/{-$locale}/dictionary/$dictionaryKey'
     | '/{-$locale}/auth/password/change'
+    | '/{-$locale}/admin/organizations/'
+    | '/{-$locale}/admin/projects/'
+    | '/{-$locale}/admin/users/'
     | '/{-$locale}/dictionary/';
   fileRoutesByTo: FileRoutesByTo;
   to:
@@ -461,9 +496,6 @@ export interface FileRouteTypes {
     | '/{-$locale}/auth/cli-login'
     | '/{-$locale}/onboarding/$step'
     | '/{-$locale}/admin/discussions'
-    | '/{-$locale}/admin/organizations'
-    | '/{-$locale}/admin/projects'
-    | '/{-$locale}/admin/users'
     | '/{-$locale}/editor'
     | '/{-$locale}/translate'
     | '/{-$locale}/tags/$tagKey'
@@ -479,6 +511,9 @@ export interface FileRouteTypes {
     | '/{-$locale}/admin/users/$id'
     | '/{-$locale}/dictionary/$dictionaryKey'
     | '/{-$locale}/auth/password/change'
+    | '/{-$locale}/admin/organizations'
+    | '/{-$locale}/admin/projects'
+    | '/{-$locale}/admin/users'
     | '/{-$locale}/dictionary';
   id:
     | '__root__'
@@ -502,10 +537,10 @@ export interface FileRouteTypes {
     | '/{-$locale}/_other/auth/_not-authenticated'
     | '/{-$locale}/_other/auth/cli-login'
     | '/{-$locale}/_other/onboarding/$step'
-    | '/{-$locale}/_dashboard/_admin/admin/discussions'
     | '/{-$locale}/_dashboard/_admin/admin/organizations'
     | '/{-$locale}/_dashboard/_admin/admin/projects'
     | '/{-$locale}/_dashboard/_admin/admin/users'
+    | '/{-$locale}/_dashboard/_admin/admin/discussions'
     | '/{-$locale}/_dashboard/_editor/_content/editor'
     | '/{-$locale}/_dashboard/_editor/_content/translate'
     | '/{-$locale}/_dashboard/_editor/tags/$tagKey'
@@ -521,6 +556,9 @@ export interface FileRouteTypes {
     | '/{-$locale}/_dashboard/_admin/admin/users/$id'
     | '/{-$locale}/_dashboard/_editor/_content/dictionary/$dictionaryKey'
     | '/{-$locale}/_other/auth/_authenticated/password/change'
+    | '/{-$locale}/_dashboard/_admin/admin/organizations/'
+    | '/{-$locale}/_dashboard/_admin/admin/projects/'
+    | '/{-$locale}/_dashboard/_admin/admin/users/'
     | '/{-$locale}/_dashboard/_editor/_content/dictionary/';
   fileRoutesById: FileRoutesById;
 }
@@ -743,32 +781,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char123LocaleChar125DashboardEditorContentEditorRouteImport;
       parentRoute: typeof Char123LocaleChar125DashboardEditorContentRouteRoute;
     };
+    '/{-$locale}/_dashboard/_admin/admin/discussions': {
+      id: '/{-$locale}/_dashboard/_admin/admin/discussions';
+      path: '/admin/discussions';
+      fullPath: '/{-$locale}/admin/discussions';
+      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminDiscussionsRouteImport;
+      parentRoute: typeof Char123LocaleChar125DashboardAdminRouteRoute;
+    };
     '/{-$locale}/_dashboard/_admin/admin/users': {
       id: '/{-$locale}/_dashboard/_admin/admin/users';
       path: '/admin/users';
       fullPath: '/{-$locale}/admin/users';
-      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminUsersRouteImport;
+      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminUsersRouteRouteImport;
       parentRoute: typeof Char123LocaleChar125DashboardAdminRouteRoute;
     };
     '/{-$locale}/_dashboard/_admin/admin/projects': {
       id: '/{-$locale}/_dashboard/_admin/admin/projects';
       path: '/admin/projects';
       fullPath: '/{-$locale}/admin/projects';
-      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminProjectsRouteImport;
+      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminProjectsRouteRouteImport;
       parentRoute: typeof Char123LocaleChar125DashboardAdminRouteRoute;
     };
     '/{-$locale}/_dashboard/_admin/admin/organizations': {
       id: '/{-$locale}/_dashboard/_admin/admin/organizations';
       path: '/admin/organizations';
       fullPath: '/{-$locale}/admin/organizations';
-      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminOrganizationsRouteImport;
-      parentRoute: typeof Char123LocaleChar125DashboardAdminRouteRoute;
-    };
-    '/{-$locale}/_dashboard/_admin/admin/discussions': {
-      id: '/{-$locale}/_dashboard/_admin/admin/discussions';
-      path: '/admin/discussions';
-      fullPath: '/{-$locale}/admin/discussions';
-      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminDiscussionsRouteImport;
+      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRouteImport;
       parentRoute: typeof Char123LocaleChar125DashboardAdminRouteRoute;
     };
     '/{-$locale}/_dashboard/_editor/_content/dictionary/': {
@@ -777,6 +815,27 @@ declare module '@tanstack/react-router' {
       fullPath: '/{-$locale}/dictionary/';
       preLoaderRoute: typeof Char123LocaleChar125DashboardEditorContentDictionaryIndexRouteImport;
       parentRoute: typeof Char123LocaleChar125DashboardEditorContentRouteRoute;
+    };
+    '/{-$locale}/_dashboard/_admin/admin/users/': {
+      id: '/{-$locale}/_dashboard/_admin/admin/users/';
+      path: '/';
+      fullPath: '/{-$locale}/admin/users/';
+      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminUsersIndexRouteImport;
+      parentRoute: typeof Char123LocaleChar125DashboardAdminAdminUsersRouteRoute;
+    };
+    '/{-$locale}/_dashboard/_admin/admin/projects/': {
+      id: '/{-$locale}/_dashboard/_admin/admin/projects/';
+      path: '/';
+      fullPath: '/{-$locale}/admin/projects/';
+      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminProjectsIndexRouteImport;
+      parentRoute: typeof Char123LocaleChar125DashboardAdminAdminProjectsRouteRoute;
+    };
+    '/{-$locale}/_dashboard/_admin/admin/organizations/': {
+      id: '/{-$locale}/_dashboard/_admin/admin/organizations/';
+      path: '/';
+      fullPath: '/{-$locale}/admin/organizations/';
+      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminOrganizationsIndexRouteImport;
+      parentRoute: typeof Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRoute;
     };
     '/{-$locale}/_other/auth/_authenticated/password/change': {
       id: '/{-$locale}/_other/auth/_authenticated/password/change';
@@ -797,87 +856,96 @@ declare module '@tanstack/react-router' {
       path: '/$id';
       fullPath: '/{-$locale}/admin/users/$id';
       preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminUsersIdRouteImport;
-      parentRoute: typeof Char123LocaleChar125DashboardAdminAdminUsersRoute;
+      parentRoute: typeof Char123LocaleChar125DashboardAdminAdminUsersRouteRoute;
     };
     '/{-$locale}/_dashboard/_admin/admin/projects/$id': {
       id: '/{-$locale}/_dashboard/_admin/admin/projects/$id';
       path: '/$id';
       fullPath: '/{-$locale}/admin/projects/$id';
       preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminProjectsIdRouteImport;
-      parentRoute: typeof Char123LocaleChar125DashboardAdminAdminProjectsRoute;
+      parentRoute: typeof Char123LocaleChar125DashboardAdminAdminProjectsRouteRoute;
     };
     '/{-$locale}/_dashboard/_admin/admin/organizations/$id': {
       id: '/{-$locale}/_dashboard/_admin/admin/organizations/$id';
       path: '/$id';
       fullPath: '/{-$locale}/admin/organizations/$id';
       preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminOrganizationsIdRouteImport;
-      parentRoute: typeof Char123LocaleChar125DashboardAdminAdminOrganizationsRoute;
+      parentRoute: typeof Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRoute;
     };
   }
 }
 
-interface Char123LocaleChar125DashboardAdminAdminOrganizationsRouteChildren {
+interface Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRouteChildren {
   Char123LocaleChar125DashboardAdminAdminOrganizationsIdRoute: typeof Char123LocaleChar125DashboardAdminAdminOrganizationsIdRoute;
+  Char123LocaleChar125DashboardAdminAdminOrganizationsIndexRoute: typeof Char123LocaleChar125DashboardAdminAdminOrganizationsIndexRoute;
 }
 
-const Char123LocaleChar125DashboardAdminAdminOrganizationsRouteChildren: Char123LocaleChar125DashboardAdminAdminOrganizationsRouteChildren =
+const Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRouteChildren: Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRouteChildren =
   {
     Char123LocaleChar125DashboardAdminAdminOrganizationsIdRoute:
       Char123LocaleChar125DashboardAdminAdminOrganizationsIdRoute,
+    Char123LocaleChar125DashboardAdminAdminOrganizationsIndexRoute:
+      Char123LocaleChar125DashboardAdminAdminOrganizationsIndexRoute,
   };
 
-const Char123LocaleChar125DashboardAdminAdminOrganizationsRouteWithChildren =
-  Char123LocaleChar125DashboardAdminAdminOrganizationsRoute._addFileChildren(
-    Char123LocaleChar125DashboardAdminAdminOrganizationsRouteChildren
+const Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRouteWithChildren =
+  Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRoute._addFileChildren(
+    Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRouteChildren
   );
 
-interface Char123LocaleChar125DashboardAdminAdminProjectsRouteChildren {
+interface Char123LocaleChar125DashboardAdminAdminProjectsRouteRouteChildren {
   Char123LocaleChar125DashboardAdminAdminProjectsIdRoute: typeof Char123LocaleChar125DashboardAdminAdminProjectsIdRoute;
+  Char123LocaleChar125DashboardAdminAdminProjectsIndexRoute: typeof Char123LocaleChar125DashboardAdminAdminProjectsIndexRoute;
 }
 
-const Char123LocaleChar125DashboardAdminAdminProjectsRouteChildren: Char123LocaleChar125DashboardAdminAdminProjectsRouteChildren =
+const Char123LocaleChar125DashboardAdminAdminProjectsRouteRouteChildren: Char123LocaleChar125DashboardAdminAdminProjectsRouteRouteChildren =
   {
     Char123LocaleChar125DashboardAdminAdminProjectsIdRoute:
       Char123LocaleChar125DashboardAdminAdminProjectsIdRoute,
+    Char123LocaleChar125DashboardAdminAdminProjectsIndexRoute:
+      Char123LocaleChar125DashboardAdminAdminProjectsIndexRoute,
   };
 
-const Char123LocaleChar125DashboardAdminAdminProjectsRouteWithChildren =
-  Char123LocaleChar125DashboardAdminAdminProjectsRoute._addFileChildren(
-    Char123LocaleChar125DashboardAdminAdminProjectsRouteChildren
+const Char123LocaleChar125DashboardAdminAdminProjectsRouteRouteWithChildren =
+  Char123LocaleChar125DashboardAdminAdminProjectsRouteRoute._addFileChildren(
+    Char123LocaleChar125DashboardAdminAdminProjectsRouteRouteChildren
   );
 
-interface Char123LocaleChar125DashboardAdminAdminUsersRouteChildren {
+interface Char123LocaleChar125DashboardAdminAdminUsersRouteRouteChildren {
   Char123LocaleChar125DashboardAdminAdminUsersIdRoute: typeof Char123LocaleChar125DashboardAdminAdminUsersIdRoute;
+  Char123LocaleChar125DashboardAdminAdminUsersIndexRoute: typeof Char123LocaleChar125DashboardAdminAdminUsersIndexRoute;
 }
 
-const Char123LocaleChar125DashboardAdminAdminUsersRouteChildren: Char123LocaleChar125DashboardAdminAdminUsersRouteChildren =
+const Char123LocaleChar125DashboardAdminAdminUsersRouteRouteChildren: Char123LocaleChar125DashboardAdminAdminUsersRouteRouteChildren =
   {
     Char123LocaleChar125DashboardAdminAdminUsersIdRoute:
       Char123LocaleChar125DashboardAdminAdminUsersIdRoute,
+    Char123LocaleChar125DashboardAdminAdminUsersIndexRoute:
+      Char123LocaleChar125DashboardAdminAdminUsersIndexRoute,
   };
 
-const Char123LocaleChar125DashboardAdminAdminUsersRouteWithChildren =
-  Char123LocaleChar125DashboardAdminAdminUsersRoute._addFileChildren(
-    Char123LocaleChar125DashboardAdminAdminUsersRouteChildren
+const Char123LocaleChar125DashboardAdminAdminUsersRouteRouteWithChildren =
+  Char123LocaleChar125DashboardAdminAdminUsersRouteRoute._addFileChildren(
+    Char123LocaleChar125DashboardAdminAdminUsersRouteRouteChildren
   );
 
 interface Char123LocaleChar125DashboardAdminRouteRouteChildren {
+  Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRoute: typeof Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRouteWithChildren;
+  Char123LocaleChar125DashboardAdminAdminProjectsRouteRoute: typeof Char123LocaleChar125DashboardAdminAdminProjectsRouteRouteWithChildren;
+  Char123LocaleChar125DashboardAdminAdminUsersRouteRoute: typeof Char123LocaleChar125DashboardAdminAdminUsersRouteRouteWithChildren;
   Char123LocaleChar125DashboardAdminAdminDiscussionsRoute: typeof Char123LocaleChar125DashboardAdminAdminDiscussionsRoute;
-  Char123LocaleChar125DashboardAdminAdminOrganizationsRoute: typeof Char123LocaleChar125DashboardAdminAdminOrganizationsRouteWithChildren;
-  Char123LocaleChar125DashboardAdminAdminProjectsRoute: typeof Char123LocaleChar125DashboardAdminAdminProjectsRouteWithChildren;
-  Char123LocaleChar125DashboardAdminAdminUsersRoute: typeof Char123LocaleChar125DashboardAdminAdminUsersRouteWithChildren;
 }
 
 const Char123LocaleChar125DashboardAdminRouteRouteChildren: Char123LocaleChar125DashboardAdminRouteRouteChildren =
   {
+    Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRoute:
+      Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRouteWithChildren,
+    Char123LocaleChar125DashboardAdminAdminProjectsRouteRoute:
+      Char123LocaleChar125DashboardAdminAdminProjectsRouteRouteWithChildren,
+    Char123LocaleChar125DashboardAdminAdminUsersRouteRoute:
+      Char123LocaleChar125DashboardAdminAdminUsersRouteRouteWithChildren,
     Char123LocaleChar125DashboardAdminAdminDiscussionsRoute:
       Char123LocaleChar125DashboardAdminAdminDiscussionsRoute,
-    Char123LocaleChar125DashboardAdminAdminOrganizationsRoute:
-      Char123LocaleChar125DashboardAdminAdminOrganizationsRouteWithChildren,
-    Char123LocaleChar125DashboardAdminAdminProjectsRoute:
-      Char123LocaleChar125DashboardAdminAdminProjectsRouteWithChildren,
-    Char123LocaleChar125DashboardAdminAdminUsersRoute:
-      Char123LocaleChar125DashboardAdminAdminUsersRouteWithChildren,
   };
 
 const Char123LocaleChar125DashboardAdminRouteRouteWithChildren =

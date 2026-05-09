@@ -1,4 +1,4 @@
-import { App_Admin_Discussions } from '@intlayer/design-system/routes';
+import { App_Admin_Users } from '@intlayer/design-system/routes';
 import { createFileRoute } from '@tanstack/react-router';
 import {
   defaultLocale,
@@ -6,31 +6,25 @@ import {
   getLocalizedUrl,
   localeMap,
 } from 'intlayer';
-import { DiscussionsAdminPageContent } from '#components/Dashboard/AdminPage/AdminDiscussions/DiscussionsAdminPage';
+import { UsersAdminPageContent } from '#components/Dashboard/AdminPage';
 
 export const Route = createFileRoute(
-  '/{-$locale}/_dashboard/_admin/admin/discussions'
+  '/{-$locale}/_dashboard/_admin/admin/users/'
 )({
-  component: DiscussionsAdminPage,
+  component: UsersAdminPage,
   head: ({ params }) => {
     const { locale } = params;
-    const path = App_Admin_Discussions;
+    const path = App_Admin_Users;
     const content = getIntlayer('admin-metadata', locale);
 
     return {
       links: [
-        // Canonical link: Points to the current localized page
         { rel: 'canonical', href: getLocalizedUrl(path, locale) },
-
-        // Hreflang: Tell Google about all localized versions
         ...localeMap(({ locale: mapLocale }) => ({
           rel: 'alternate',
           hrefLang: mapLocale,
           href: getLocalizedUrl(path, mapLocale),
         })),
-
-        // x-default: For users in unmatched languages
-        // Define the default fallback locale (usually your primary language)
         {
           rel: 'alternate',
           hrefLang: 'x-default',
@@ -52,6 +46,6 @@ export const Route = createFileRoute(
   },
 });
 
-function DiscussionsAdminPage() {
-  return <DiscussionsAdminPageContent />;
+function UsersAdminPage() {
+  return <UsersAdminPageContent />;
 }
