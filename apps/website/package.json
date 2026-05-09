@@ -83,8 +83,8 @@
   },
   "devDependencies": {
     "@intlayer/swc": "workspace:*",
-    "@tailwindcss/postcss": "4.2.4",
-    "@types/node": "25.6.1",
+    "@tailwindcss/postcss": "4.3.0",
+    "@types/node": "25.6.2",
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
     "@types/rss": "^0.0.32",
@@ -94,7 +94,7 @@
     "postcss": "8.5.14",
     "pwa-asset-generator": "8.1.4",
     "raw-loader": "4.0.2",
-    "tailwindcss": "4.2.4",
+    "tailwindcss": "4.3.0",
     "typescript": "6.0.3",
     "workbox-build": "7.4.1"
   },

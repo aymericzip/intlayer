@@ -95,7 +95,7 @@
     "@ai-sdk/mistral": "3.0.35",
     "@ai-sdk/togetherai": "2.0.50",
     "@openrouter/ai-sdk-provider": "2.9.0",
-    "@types/node": "25.6.1",
+    "@types/node": "25.6.2",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",

@@ -16,19 +16,19 @@
     "react": "19.2.6",
     "react-dom": "19.2.6",
     "react-intlayer": "workspace:*",
-    "react-router-dom": "7.14.2",
+    "react-router-dom": "7.15.0",
     "zod": "4.4.3"
   },
   "devDependencies": {
     "@intlayer/ai": "workspace:*",
     "@intlayer/sync-json-plugin": "workspace:*",
-    "@tailwindcss/vite": "4.2.4",
+    "@tailwindcss/vite": "4.3.0",
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
     "@vitejs/plugin-react": "6.0.1",
     "autoprefixer": "10.5.0",
     "intlayer-editor": "workspace:*",
-    "tailwindcss": "4.2.4",
+    "tailwindcss": "4.3.0",
     "typescript": "6.0.3",
     "vite": "8.0.11",
     "vite-intlayer": "workspace:*"

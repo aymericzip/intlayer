@@ -92,7 +92,7 @@
     "@sveltejs/adapter-auto": "7.0.1",
     "@sveltejs/package": "2.5.7",
     "@sveltejs/vite-plugin-svelte": "7.1.2",
-    "@types/node": "25.6.1",
+    "@types/node": "25.6.2",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
