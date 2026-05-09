@@ -86,7 +86,10 @@ export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
         onBack: handleOnBack,
         text: backButtonText.value,
       }}
-      onClose={close}
+      onClose={() => {
+        close();
+        setFocusedContent(null);
+      }}
       header={
         <>
           <header className="mb-5 flex w-full px-3">
