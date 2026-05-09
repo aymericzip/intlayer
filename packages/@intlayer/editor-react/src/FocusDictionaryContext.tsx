@@ -105,11 +105,32 @@ export const useFocusDictionary = (): FocusDictionaryState &
     return () => manager.focusedContent.removeEventListener('change', handler);
   }, [manager, reactContext?.focusedContent]);
 
+  const setFocusedContent = useCallback(
+    (value: FileContent | null) => {
+      if (reactContext) {
+        reactContext.setFocusedContent(value);
+      } else if (manager) {
+        manager.focusedContent.set(value);
+      }
+    },
+    [reactContext, manager]
+  );
+
+  const setFocusedContentKeyPath = useCallback(
+    (keyPath: KeyPath[]) => {
+      if (reactContext) {
+        reactContext.setFocusedContentKeyPath(keyPath);
+      } else if (manager) {
+        manager.setFocusedContentKeyPath(keyPath);
+      }
+    },
+    [reactContext, manager]
+  );
+
   return {
     focusedContent,
-    setFocusedContent: reactContext?.setFocusedContent ?? (() => {}),
-    setFocusedContentKeyPath:
-      reactContext?.setFocusedContentKeyPath ?? (() => {}),
+    setFocusedContent,
+    setFocusedContentKeyPath,
   };
 };
 

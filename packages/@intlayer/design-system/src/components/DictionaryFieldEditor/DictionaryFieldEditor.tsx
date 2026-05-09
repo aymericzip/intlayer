@@ -1,5 +1,6 @@
 'use client';
 
+import { Container } from '@components/Container';
 import { CopyToClipboard } from '@components/CopyToClipboard';
 import {
   useConfiguration,
@@ -94,23 +95,29 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
           </Tab>
         </div>
 
-        <div className="absolute bottom-16 z-20 flex w-full shrink-0 flex-wrap items-center justify-end gap-10 border-card border-t bg-background p-4 md:bottom-0">
-          <CopyToClipboard
-            text={dictionary.id!}
-            className="text-nowrap text-neutral text-sm"
-            size={9}
+        <div className="absolute bottom-3 z-20 w-full p-2">
+          <Container
+            color="card"
+            roundedSize="2xl"
+            className="w-full shrink-0 flex-row flex-wrap items-center justify-end gap-10 bg-background/20 p-4 md:bottom-0"
           >
-            {dictionary.id}
-          </CopyToClipboard>
-          <SaveForm
-            dictionary={dictionary}
-            mode={mode}
-            onDelete={() => {
-              setFocusedContent(null);
-              onDelete?.();
-            }}
-            onSave={onSave}
-          />
+            <CopyToClipboard
+              text={dictionary.id!}
+              className="text-nowrap text-neutral text-sm"
+              size={9}
+            >
+              {dictionary.id}
+            </CopyToClipboard>
+            <SaveForm
+              dictionary={dictionary}
+              mode={mode}
+              onDelete={() => {
+                setFocusedContent(null);
+                onDelete?.();
+              }}
+              onSave={onSave}
+            />
+          </Container>
         </div>
       </div>
     </LocaleSwitcherContentProvider>
