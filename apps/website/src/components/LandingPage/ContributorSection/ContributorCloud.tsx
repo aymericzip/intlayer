@@ -11,8 +11,9 @@ import {
 import { DiscordLogo } from '@intlayer/design-system/social-networks';
 import { cn } from '@intlayer/design-system/utils';
 import { motion } from 'framer-motion';
+import { getHTMLTextDir } from 'intlayer';
 import { ArrowRight } from 'lucide-react';
-import { useIntlayer } from 'next-intlayer';
+import { useIntlayer, useLocale } from 'next-intlayer';
 import {
   type CSSProperties,
   type FC,
@@ -171,14 +172,14 @@ const ContributorAvatar: FC<ContributorAvatarProps> = ({
 };
 
 // ... [Keep generateCloudPositions] ...
-const generateCloudPositions = (count: number) => {
+const generateCloudPositions = (count: number, isRTL = false) => {
   const positions = [];
   const goldenAngle = Math.PI * (3 - Math.sqrt(5));
   const maxRadiusX = 20;
   const maxRadiusY = 30;
   const cX = count > 1 ? maxRadiusX / Math.sqrt(count - 1) : 0;
   const cY = count > 1 ? maxRadiusY / Math.sqrt(count - 1) : 0;
-  const centerX = 25;
+  const centerX = isRTL ? 75 : 25;
   const centerY = 40;
 
   for (let i = 0; i < count; i++) {
@@ -198,7 +199,9 @@ export const ContributorCloud: FC<ContributorCloudProps> = ({
   const { discordLinkLabel, seeAllLink, title, subtitle } = useIntlayer(
     'contributor-section'
   );
-  const positions = generateCloudPositions(contributors.length);
+  const { locale } = useLocale();
+  const isRTL = getHTMLTextDir(locale) === 'rtl';
+  const positions = generateCloudPositions(contributors.length, isRTL);
   const sectionRef = useRef<HTMLElement>(null);
 
   // State to track the exact pixel size of the container
