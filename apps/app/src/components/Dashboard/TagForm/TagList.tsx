@@ -1,203 +1,314 @@
+import type { TagAPI } from '@intlayer/backend';
 import { Button } from '@intlayer/design-system/button';
-import { Container } from '@intlayer/design-system/container';
-import {
-  useGetTags,
-  useItemSelector,
-  useSearch,
-} from '@intlayer/design-system/hooks';
-import { SearchInput } from '@intlayer/design-system/input';
+import { useDeleteTag, useGetTags } from '@intlayer/design-system/hooks';
+import { Checkbox, SearchInput } from '@intlayer/design-system/input';
 import { Modal } from '@intlayer/design-system/modal';
 import {
   NumberItemsSelector,
   Pagination,
   ShowingResultsNumberItems,
 } from '@intlayer/design-system/pagination';
-import { ChevronRight, Plus } from 'lucide-react';
 import {
-  type ComponentProps,
-  type FC,
-  Suspense,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+  type ColumnDef,
+  getCoreRowModel,
+  type RowSelectionState,
+  useReactTable,
+} from '@tanstack/react-table';
+import {
+  ArrowRight,
+  ChevronDown,
+  ChevronsUpDown,
+  ChevronUp,
+  Plus,
+  Trash2,
+} from 'lucide-react';
+import { type FC, Suspense, useCallback, useMemo, useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { useIntlayer } from 'react-intlayer';
-import { Skeleton } from '#components/Skeleton';
+import { useDate } from 'react-intlayer/format';
 import { useLocalizedNavigate } from '#hooks/useLocalizedNavigate.ts';
 import { useSearchParamState } from '#hooks/useSearchParamState';
+import { DictionaryTable } from '../DictionaryListDashboard/DictionaryTable';
+import { DeleteTagsModal } from './DeleteTagsModal';
 import { TagCreationForm } from './TagCreationForm';
 import { TagListSkeleton } from './TagListSkeleton';
 
-const InputIndicator: FC<ComponentProps<'div'>> = (props) => (
-  <div
-    data-indicator
-    className="absolute top-0 z-0 h-auto w-full rounded-xl bg-text/10 transition-[left,width,top,height,opacity] duration-300 ease-in-out [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-2xl motion-reduce:transition-none"
-    {...props}
-  />
-);
-
 export const TagList: FC = () => {
   const [isCreationModalOpen, setIsCreationModalOpen] = useState(false);
-  const { noTagView, createTagButton } = useIntlayer('tag-list');
-  const { setSearch, search } = useSearch({});
+  const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
+  const [tagsToDelete, setTagsToDelete] = useState<string[] | null>(null);
+
+  const {
+    noTagView,
+    createTagButton,
+    searchPlaceholder,
+    tableHeaders,
+    selectAll,
+    selectRow,
+    deleteSelectedButton,
+  } = useIntlayer('tag-list');
+  const formatDate = useDate();
+  const navigate = useLocalizedNavigate();
+
   const { params, setParam, setParams } = useSearchParamState({
     page: { type: 'number', fallbackValue: 1 },
-    pageSize: { type: 'number', fallbackValue: 10 },
-    search: { type: 'string', fallbackValue: undefined },
-    sortBy: { type: 'string', fallbackValue: undefined },
+    pageSize: { type: 'number', fallbackValue: 20 },
+    search: { type: 'string', fallbackValue: '' },
+    sortBy: { type: 'string', fallbackValue: 'key' },
     sortOrder: { type: 'string', fallbackValue: 'asc' },
-  });
+  } as const);
 
   const {
     data: tagResponse,
     isPending,
     refetch,
   } = useGetTags({
-    ...params,
-    search: search || undefined,
+    page: params.page,
+    pageSize: params.pageSize,
+    search: params.search || undefined,
+    sortBy: params.sortBy,
+    sortOrder: params.sortOrder,
   });
-  const navigate = useLocalizedNavigate();
+
+  const { mutateAsync: deleteTag, isPending: isDeleting } = useDeleteTag();
 
   const tags = tagResponse?.data ?? [];
   const totalPages: number = tagResponse?.total_pages ?? 1;
   const totalItems: number = tagResponse?.total_items ?? 0;
-  const currentPage: number = params.page;
-  const itemsPerPage: number = params.pageSize;
 
-  const optionsRefs = useRef<HTMLElement[]>([]);
-  const { choiceIndicatorPosition, calculatePosition } = useItemSelector(
-    optionsRefs,
-    {
-      isHoverable: true,
-      orientation: 'vertical',
-    }
+  const { register } = useForm({ defaultValues: { search: params.search } });
+
+  const selectedCount = Object.keys(rowSelection).length;
+
+  const handleSort = (columnId: string) => {
+    const isAsc = params.sortBy === columnId && params.sortOrder === 'asc';
+    setParams({ sortBy: columnId, sortOrder: isAsc ? 'desc' : 'asc', page: 1 });
+  };
+
+  const getSortIcon = (columnId: string) => {
+    if (params.sortBy !== columnId) return ChevronsUpDown;
+    return params.sortOrder === 'asc' ? ChevronUp : ChevronDown;
+  };
+
+  const SortHeader: FC<{ columnId: string; label: string }> = ({
+    columnId,
+    label,
+  }) => (
+    <Button
+      variant="hoverable"
+      color="text"
+      size="sm"
+      className="flex items-center gap-1 font-medium"
+      onClick={() => handleSort(columnId)}
+      Icon={getSortIcon(columnId)}
+      label={label}
+    >
+      {label}
+    </Button>
   );
 
-  useEffect(() => {
-    calculatePosition();
-  }, [tags]);
-
-  const handlePageChange = (page: number) => {
-    setParam('page', page);
+  const onConfirmDelete = useCallback(async () => {
+    if (!tagsToDelete) return;
+    await Promise.all(
+      tagsToDelete.map((id) => deleteTag({ tagId: id } as any))
+    );
+    setTagsToDelete(null);
+    setRowSelection({});
     refetch();
-  };
+  }, [tagsToDelete, deleteTag, refetch]);
 
-  const handlePageSizeChange = (newPageSize: string) => {
-    const size = parseInt(newPageSize, 10);
-    setParams({ pageSize: size, page: 1 });
-    refetch();
-  };
-
-  // Refetch when search changes
-  useEffect(() => {
-    refetch();
-  }, [search, refetch]);
-
-  return (
-    <div className="flex size-full flex-1 flex-col gap-10 px-10 py-6">
-      <SearchInput
-        placeholder="Search tags..."
-        onChange={(e) => setSearch(e.target.value)}
-        className="max-w-md"
-      />
-      <div className="flex flex-1 justify-center">
-        <Container
-          roundedSize="4xl"
-          className="m-auto mt-[15%] flex min-h-60 w-full max-w-[400px] flex-col justify-center gap-2 p-6"
-        >
-          {isPending ? (
-            <div className="flex flex-1 flex-col gap-4">
-              {[1, 2, 3].map((i) => (
-                <div key={i} className="flex flex-col gap-2 p-2">
-                  <Skeleton className="h-4 w-1/2" />
-                  <Skeleton className="h-3 w-1/3" />
-                  <Skeleton className="h-10 w-full" />
-                </div>
-              ))}
+  const columns = useMemo<ColumnDef<TagAPI>[]>(
+    () => [
+      {
+        id: 'selection',
+        header: ({ table }) => (
+          <Checkbox
+            name="select-all-tags"
+            size="sm"
+            color="text"
+            checked={table.getIsAllPageRowsSelected()}
+            onChange={(e) => table.toggleAllPageRowsSelected(e.target.checked)}
+            aria-label={selectAll.value}
+          />
+        ),
+        cell: ({ row }) => (
+          <Checkbox
+            name={`select-tag-${row.id}`}
+            size="sm"
+            color="text"
+            checked={row.getIsSelected()}
+            onClick={(e: React.MouseEvent) => e.stopPropagation()}
+            onChange={(e) => row.toggleSelected(e.target.checked)}
+            aria-label={selectRow.value}
+          />
+        ),
+        enableSorting: false,
+        enableHiding: false,
+      },
+      {
+        accessorKey: 'key',
+        header: () => (
+          <SortHeader columnId="key" label={tableHeaders.key.value} />
+        ),
+        cell: ({ row }) => (
+          <span className="font-mono">{row.original.key}</span>
+        ),
+      },
+      {
+        accessorKey: 'name',
+        header: () => (
+          <SortHeader columnId="name" label={tableHeaders.name.value} />
+        ),
+        cell: ({ row }) =>
+          row.original.name ? (
+            <div className="font-medium">{row.original.name}</div>
+          ) : (
+            <span className="text-neutral">-</span>
+          ),
+      },
+      {
+        accessorKey: 'description',
+        header: tableHeaders.description.value,
+        cell: ({ row }) =>
+          row.original.description ? (
+            <div className="line-clamp-2 max-w-xs text-neutral">
+              {row.original.description}
             </div>
           ) : (
-            <div className="relative flex flex-1 flex-col gap-2">
-              {tags.length === 0 && (
-                <span className="m-auto text-neutral text-sm">
-                  {noTagView.title}
-                </span>
-              )}
-              {choiceIndicatorPosition && (
-                <InputIndicator style={choiceIndicatorPosition} />
-              )}
-              {tags.map((tag: any, index: number) => (
-                <Button
-                  key={String(tag.key)}
-                  label="Select tag"
-                  IconRight={ChevronRight}
-                  variant="invisible-link"
-                  color="text"
-                  onClick={() => {
-                    navigate({
-                      to: '/tags/$tagKey',
-                      params: {
-                        tagKey: tag.key,
-                      },
-                    });
-                  }}
-                  ref={(el) => {
-                    if (el) {
-                      optionsRefs.current[index] = el;
-                    }
-                  }}
-                >
-                  <div className="flex flex-col gap-2 p-2">
-                    {tag.name && (
-                      <strong className="text-wrap text-sm">{tag.name}</strong>
-                    )}
-                    {tag.key && <span>{tag.key}</span>}
-                    {tag.description && (
-                      <span className="line-clamp-2 text-wrap text-neutral">
-                        {tag.description}
-                      </span>
-                    )}
-                  </div>
-                </Button>
-              ))}
-            </div>
+            <span className="text-neutral">-</span>
+          ),
+      },
+      {
+        accessorKey: 'createdAt',
+        header: () => (
+          <SortHeader
+            columnId="createdAt"
+            label={tableHeaders.createdAt.value}
+          />
+        ),
+        cell: ({ row }) => (
+          <div className="text-neutral">
+            {formatDate((row.original as any).createdAt)}
+          </div>
+        ),
+      },
+      {
+        id: 'actions',
+        header: tableHeaders.actions.value,
+        cell: ({ row }) => (
+          <Button
+            variant="hoverable"
+            color="text"
+            size="icon-sm"
+            Icon={ArrowRight}
+            label={tableHeaders.actions.value}
+            onClick={(e: React.MouseEvent) => {
+              e.stopPropagation();
+              navigate({
+                to: '/tags/$tagKey',
+                params: { tagKey: row.original.key },
+              });
+            }}
+          />
+        ),
+      },
+    ],
+    [params.sortBy, params.sortOrder, formatDate]
+  );
+
+  const table = useReactTable({
+    data: tags,
+    columns,
+    state: { rowSelection },
+    onRowSelectionChange: setRowSelection,
+    getCoreRowModel: getCoreRowModel(),
+    getRowId: (row) => row.key,
+  });
+
+  return (
+    <div className="flex w-full flex-1 flex-col gap-6 py-6 text-sm text-text/80">
+      <div className="flex items-center justify-between gap-4 px-10">
+        <SearchInput
+          placeholder={searchPlaceholder.value}
+          className="max-w-md"
+          {...register('search', {
+            onChange: (e) => setParam('search', e.target.value),
+          })}
+        />
+        <div className="flex items-center gap-2">
+          {selectedCount > 0 && (
+            <Button
+              color="error"
+              variant="outline"
+              Icon={Trash2}
+              label={deleteSelectedButton.label.value}
+              onClick={() => {
+                const ids = table
+                  .getSelectedRowModel()
+                  .rows.map((r) => r.original.id!);
+                setTagsToDelete(ids);
+              }}
+            >
+              {deleteSelectedButton.text} ({selectedCount})
+            </Button>
           )}
           <Button
-            label={createTagButton.ariaLabel.value}
-            IconRight={Plus}
-            variant="default"
-            className="mt-12 ml-auto"
+            Icon={Plus}
             color="text"
+            label={createTagButton.ariaLabel.value}
             onClick={() => setIsCreationModalOpen(true)}
           >
             {createTagButton.text}
           </Button>
-          <Modal
-            isOpen={isCreationModalOpen}
-            onClose={() => setIsCreationModalOpen(false)}
-          >
-            <TagCreationForm
-              onTagCreated={() => setIsCreationModalOpen(false)}
-            />
-          </Modal>
-        </Container>
+        </div>
       </div>
 
-      <div className="flex w-full flex-row items-end justify-between gap-4">
+      <DictionaryTable
+        table={table}
+        isPending={isPending}
+        noDataFound={noTagView.title.value}
+        onRowClick={(row) =>
+          navigate({
+            to: '/tags/$tagKey',
+            params: { tagKey: row.original.key },
+          })
+        }
+        skeleton={<TagListSkeleton />}
+      />
+
+      <Modal
+        isOpen={isCreationModalOpen}
+        onClose={() => setIsCreationModalOpen(false)}
+      >
+        <TagCreationForm onTagCreated={() => setIsCreationModalOpen(false)} />
+      </Modal>
+
+      <DeleteTagsModal
+        isOpen={!!tagsToDelete}
+        onClose={() => setTagsToDelete(null)}
+        onConfirm={onConfirmDelete}
+        isDeleting={isDeleting}
+        count={tagsToDelete?.length ?? 1}
+      />
+
+      <div className="flex w-full flex-row items-end justify-between px-10 pt-4">
         <div className="flex flex-col gap-4">
           <ShowingResultsNumberItems
-            currentPage={currentPage}
-            pageSize={itemsPerPage}
+            currentPage={params.page}
+            pageSize={params.pageSize}
             totalItems={totalItems}
           />
           <NumberItemsSelector
-            value={itemsPerPage.toString()}
-            onValueChange={handlePageSizeChange}
+            value={params.pageSize.toString()}
+            onValueChange={(val) =>
+              setParams({ pageSize: Number(val), page: 1 })
+            }
           />
         </div>
         <Pagination
-          currentPage={currentPage}
+          currentPage={params.page}
           totalPages={totalPages}
-          onPageChange={handlePageChange}
+          onPageChange={(page) => setParam('page', page)}
         />
       </div>
     </div>
