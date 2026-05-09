@@ -34,7 +34,9 @@ export { ALL_LOCALES, type Locale } from '@intlayer/types/allLocales';
 export type { ContentNode } from '@intlayer/types/dictionary';
 export * as Locales from '@intlayer/types/locales';
 export type {
+  DeclaredLocales,
   LocalesValues,
+  RequiredLocales,
   StrictModeLocaleMap,
 } from '@intlayer/types/module_augmentation';
 
