@@ -62,6 +62,7 @@ linux:
 appImage:
   artifactName: ${name}-${version}.${ext}
 beforeBuild: scripts/electron-before-build.cjs
+afterSign: scripts/electron-after-sign.cjs
 extraMetadata:
   dependencies: {}
 publish:

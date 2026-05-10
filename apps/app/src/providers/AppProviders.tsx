@@ -1,7 +1,9 @@
 import { ReactQueryProvider } from '@intlayer/design-system/providers';
 import { Toaster } from '@intlayer/design-system/toaster';
 import type { FC, PropsWithChildren } from 'react';
+import { AppInstallModal } from '#components/AppInstallModal/AppInstallModal';
 import { ChunkErrorListener } from '#components/ChunkErrorListener';
+import { ElectronUpdater } from '#components/ElectronUpdater/ElectronUpdater';
 import { AnimatePresenceProvider } from './AnimatePresenceProvider';
 
 export const AppProviders: FC<PropsWithChildren> = ({ children }) => {
@@ -18,6 +20,8 @@ export const AppProviders: FC<PropsWithChildren> = ({ children }) => {
           />
         )}
         {children}
+        <AppInstallModal />
+        <ElectronUpdater />
       </ReactQueryProvider>
     </AnimatePresenceProvider>
   );

@@ -1,7 +1,11 @@
 import { join } from 'node:path';
 import { electronApp, is, optimizer } from '@electron-toolkit/utils';
 import { app, BrowserWindow, ipcMain, shell } from 'electron';
-import icon from '../public/favicon-32x32.png?asset';
+import { autoUpdater } from 'electron-updater';
+import icon from '../build/icon.png?asset';
+
+autoUpdater.autoDownload = false;
+autoUpdater.autoInstallOnAppQuit = true;
 
 function createWindow(): void {
   const mainWindow = new BrowserWindow({
@@ -32,6 +36,22 @@ function createWindow(): void {
       process.env['VITE_SITE_URL'] ?? 'https://app.intlayer.org'
     );
   }
+
+  autoUpdater.on('update-available', (info) => {
+    mainWindow.webContents.send('update-available', info);
+  });
+
+  autoUpdater.on('update-downloaded', (info) => {
+    mainWindow.webContents.send('update-downloaded', info);
+  });
+
+  autoUpdater.on('download-progress', (progress) => {
+    mainWindow.webContents.send('download-progress', progress);
+  });
+
+  autoUpdater.on('error', (err) => {
+    mainWindow.webContents.send('update-error', err.message);
+  });
 }
 
 app.whenReady().then(() => {
@@ -44,7 +64,17 @@ app.whenReady().then(() => {
   ipcMain.on('ping', () => console.log('pong'));
   ipcMain.handle('ping', () => 'pong');
 
+  ipcMain.handle('check-for-updates', () => autoUpdater.checkForUpdates());
+  ipcMain.handle('download-update', () => autoUpdater.downloadUpdate());
+  ipcMain.handle('install-update', () => {
+    autoUpdater.quitAndInstall(false, true);
+  });
+
   createWindow();
+
+  if (!is.dev) {
+    setTimeout(() => autoUpdater.checkForUpdates(), 3000);
+  }
 
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
