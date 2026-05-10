@@ -9,7 +9,6 @@
     "name": "Aymeric PINEAU",
     "url": "https://github.com/aymericzip"
   },
-  "main": "out/main/index.js",
   "sideEffects": false,
   "type": "module",
   "imports": {
@@ -21,20 +20,22 @@
     "#assets/*": "./src/assets/*",
     "#structuredData/*": "./src/structuredData/*"
   },
+  "main": "out/main/index.js",
   "scripts": {
     "build": "bun --bun vite build",
     "check": "bun --bun biome check",
     "dev": "bun --bun vite dev --port 3000",
+    "electron:build": "electron-vite build && electron-builder",
+    "electron:dev": "electron-vite dev",
+    "electron:preview": "electron-vite preview",
+    "electron:publish": "bash scripts/electron-publish.sh",
     "format": "bun --bun biome format",
     "lint": "bun --bun biome lint",
     "preserve": "bun --env-file=.env.production ./scripts/purge-cloudflare-cache.ts",
     "preview": "bun --bun vite preview",
+    "publish": "bash scripts/electron-publish.sh",
     "start": "bun run .output/server/index.mjs",
-    "test": "bun --bun vitest run",
-    "electron:dev": "electron-vite dev",
-    "electron:build": "electron-vite build && electron-builder",
-    "electron:publish": "bash scripts/electron-publish.sh",
-    "electron:preview": "electron-vite preview"
+    "test": "bun --bun vitest run"
   },
   "dependencies": {
     "@better-auth/sso": "1.6.9",
@@ -86,9 +87,6 @@
   "devDependencies": {
     "@intlayer/backend": "workspace:*",
     "@rolldown/plugin-babel": "^0.2.3",
-    "electron": "^42.0.1",
-    "electron-builder": "^25.1.8",
-    "electron-vite": "^5.0.0",
     "@tanstack/devtools-vite": "0.6.0",
     "@testing-library/dom": "10.4.1",
     "@testing-library/react": "16.3.2",
@@ -97,6 +95,9 @@
     "@types/react-dom": "19.2.3",
     "@vitejs/plugin-react": "6.0.1",
     "babel-plugin-react-compiler": "^1.0.0",
+    "electron": "^42.0.1",
+    "electron-builder": "^25.1.8",
+    "electron-vite": "^5.0.0",
     "jsdom": "29.1.1",
     "remark-gfm": "4.0.1",
     "typescript": "6.0.3",

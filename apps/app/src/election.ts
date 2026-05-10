@@ -1,6 +1,6 @@
+import { join } from 'node:path';
 import { electronApp, is, optimizer } from '@electron-toolkit/utils';
 import { app, BrowserWindow, ipcMain, shell } from 'electron';
-import { join } from 'node:path';
 import icon from '../public/favicon-32x32.png?asset';
 
 function createWindow(): void {
@@ -28,7 +28,9 @@ function createWindow(): void {
   if (is.dev && process.env['ELECTRON_RENDERER_URL']) {
     mainWindow.loadURL(process.env['ELECTRON_RENDERER_URL']);
   } else {
-    mainWindow.loadURL(process.env['VITE_SITE_URL'] ?? 'https://app.intlayer.org');
+    mainWindow.loadURL(
+      process.env['VITE_SITE_URL'] ?? 'https://app.intlayer.org'
+    );
   }
 }
 

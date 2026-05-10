@@ -1,10 +1,10 @@
-import { getQueryClient } from '@intlayer/design-system/providers';
 import { Loader } from '@intlayer/design-system/loader';
+import { getQueryClient } from '@intlayer/design-system/providers';
 import { createRouter, RouterProvider } from '@tanstack/react-router';
 import { StrictMode } from 'react';
 import ReactDOM from 'react-dom/client';
-import { NotFoundComponent } from '#components/NotFoundComponent';
 import { routeTree } from '#/routeTree.electron.gen';
+import { NotFoundComponent } from '#components/NotFoundComponent';
 
 const queryClient = getQueryClient();
 
