@@ -1,6 +1,7 @@
 import { existsSync } from 'node:fs';
 import { readFile } from 'node:fs/promises';
-import { basename } from 'node:path';
+import { basename, dirname } from 'node:path';
+import { pathToFileURL } from 'node:url';
 import * as ANSIColor from '@intlayer/config/colors';
 import { colorize, getAppLogger } from '@intlayer/config/logger';
 import {
@@ -21,6 +22,7 @@ import { handleContentDeclarationFileChange } from './handleContentDeclarationFi
 import { handleContentDeclarationFileMoved } from './handleContentDeclarationFileMoved';
 import { handleUnlinkedContentDeclarationFile } from './handleUnlinkedContentDeclarationFile';
 import { prepareIntlayer } from './prepareIntlayer';
+import { formatPath } from './utils';
 import { writeContentDeclaration } from './writeContentDeclaration';
 
 // Map to track files that were recently unlinked: oldPath -> { timer, timestamp }
@@ -109,6 +111,80 @@ export const watch = async (options?: WatchOptions) => {
   const normalizedConfigPath = configurationFilePath
     ? normalizePath(configurationFilePath)
     : null;
+
+  const { mainDir, baseDir } = configuration.system;
+  const normalizedIntlayerDir = normalizePath(dirname(mainDir));
+
+  // Watch mainDir to detect broken or missing entry point files
+  if (existsSync(mainDir)) {
+    chokidarWatch(mainDir, {
+      persistent: isWatchMode,
+      ignoreInitial: true,
+      depth: 0,
+    })
+      .on('change', async (filePath) => {
+        if (isProcessing) return;
+
+        processEvent(async () => {
+          clearModuleCache(filePath);
+          try {
+            // Convert absolute path to a valid file:// URL
+            const fileUrl = pathToFileURL(filePath).href;
+
+            // Append a timestamp to bypass the ESM cache
+            await import(`${fileUrl}?update=${Date.now()}`);
+          } catch {
+            appLogger(
+              `Entry point ${basename(filePath)} failed to load, running clean rebuild...`,
+              { level: 'warn' }
+            );
+            await prepareIntlayer(configuration, {
+              clean: true,
+              forceRun: true,
+            });
+          }
+        });
+      })
+      .on('unlink', async (filePath) => {
+        if (isProcessing) return;
+
+        processEvent(async () => {
+          appLogger(
+            [
+              'Entry point',
+              formatPath(basename(filePath)),
+              'was removed, running clean rebuild...',
+            ],
+            { level: 'warn' }
+          );
+          await prepareIntlayer(configuration, { clean: true, forceRun: true });
+        });
+      });
+  }
+
+  // Watch baseDir at depth 0 to detect the entire .intlayer folder being removed
+  chokidarWatch(baseDir, {
+    persistent: isWatchMode,
+    ignoreInitial: true,
+    depth: 0,
+    ignored: (filePath: string) => {
+      const path = normalizePath(filePath);
+      return path !== normalizePath(baseDir) && path !== normalizedIntlayerDir;
+    },
+  }).on('unlinkDir', async (dirPath) => {
+    if (isProcessing) return;
+
+    if (normalizePath(dirPath) === normalizedIntlayerDir) {
+      appLogger([
+        formatPath('.intlayer'),
+        'directory removed, running clean rebuild...',
+      ]);
+
+      processEvent(() =>
+        prepareIntlayer(configuration, { clean: true, forceRun: true })
+      );
+    }
+  });
 
   return chokidarWatch(pathsToWatch, {
     persistent: isWatchMode, // Make the watcher persistent
