@@ -10,12 +10,15 @@ export const TagListSkeleton: FC<TagListSkeletonProps> = ({
   showToolBar = true,
 }) => (
   <div className="flex size-full flex-1 flex-col gap-6 py-4 text-sm text-text/80">
+    {/* Toolbar Skeleton */}
     {showToolBar && (
       <div className="flex w-full items-center justify-between gap-4 px-10 pb-2">
         <Skeleton className="h-10 w-full max-w-md rounded-xl" />
         <Skeleton className="h-10 w-32 rounded-xl" />
       </div>
     )}
+
+    {/* Table Skeleton */}
     <div className="flex w-full flex-1 flex-col overflow-x-auto overflow-y-hidden">
       <Table className="w-full border-separate border-spacing-0 px-10">
         <thead>
@@ -69,7 +72,9 @@ export const TagListSkeleton: FC<TagListSkeletonProps> = ({
         </tbody>
       </Table>
     </div>
+
     {showToolBar && (
+      /* Pagination Skeleton */
       <div className="flex w-full flex-row items-end justify-between px-10">
         <div className="flex flex-col gap-4">
           <Skeleton className="h-4 w-48" />

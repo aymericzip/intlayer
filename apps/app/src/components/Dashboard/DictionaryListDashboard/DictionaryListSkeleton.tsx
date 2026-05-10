@@ -9,7 +9,7 @@ type DictionaryListSkeletonProps = {
 export const DictionaryListSkeleton: FC<DictionaryListSkeletonProps> = ({
   showToolBar = true,
 }) => (
-  <div className="flex w-full flex-1 flex-col gap-6 py-6 text-sm text-text/80">
+  <div className="flex size-full flex-1 flex-col gap-6 py-4 text-sm text-text/80">
     {/* Toolbar Skeleton */}
     {showToolBar && (
       <div className="flex w-full items-center justify-between gap-4 px-10 pb-2">
@@ -118,13 +118,15 @@ export const DictionaryListSkeleton: FC<DictionaryListSkeletonProps> = ({
       </Table>
     </div>
 
-    {/* Pagination Skeleton */}
-    <div className="flex w-full flex-row items-end justify-between px-10">
-      <div className="flex flex-col gap-4">
-        <Skeleton className="h-4 w-48" />
-        <Skeleton className="h-10 w-24 rounded-xl" />
+    {showToolBar && (
+      /* Pagination Skeleton */
+      <div className="flex w-full flex-row items-end justify-between px-10">
+        <div className="flex flex-col gap-4">
+          <Skeleton className="h-4 w-48" />
+          <Skeleton className="h-10 w-24 rounded-xl" />
+        </div>
+        <Skeleton className="h-10 w-48 rounded-xl" />
       </div>
-      <Skeleton className="h-10 w-48 rounded-xl" />
-    </div>
+    )}
   </div>
 );
