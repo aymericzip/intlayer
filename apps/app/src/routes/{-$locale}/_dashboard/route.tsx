@@ -2,6 +2,7 @@ import {
   App_Admin_Users_Path,
   App_Dashboard_Dictionaries_Path,
   App_Dashboard_Editor_Path,
+  App_Dashboard_IDE_Path,
   App_Dashboard_Organization_Path,
   App_Dashboard_Profile_Path,
   App_Dashboard_Projects_Path,
@@ -86,6 +87,13 @@ function DashboardLayout() {
       icon: 'Tags',
       label: navigation.tags.label.value,
       title: navigation.tags.title.value,
+    },
+    {
+      key: 'ide',
+      href: App_Dashboard_IDE_Path,
+      icon: 'SquareCode',
+      label: navigation.ide.label.value,
+      title: navigation.ide.title.value,
     },
     {
       key: 'projects',

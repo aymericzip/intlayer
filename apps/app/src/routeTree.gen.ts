@@ -23,6 +23,7 @@ import { Route as Char123LocaleChar125OtherPricingRouteImport } from './routes/{
 import { Route as Char123LocaleChar125DashboardProjectsRouteImport } from './routes/{-$locale}/_dashboard/projects'
 import { Route as Char123LocaleChar125DashboardProfileRouteImport } from './routes/{-$locale}/_dashboard/profile'
 import { Route as Char123LocaleChar125DashboardOrganizationRouteImport } from './routes/{-$locale}/_dashboard/organization'
+import { Route as Char123LocaleChar125DashboardIdeRouteImport } from './routes/{-$locale}/_dashboard/ide'
 import { Route as Char123LocaleChar125DashboardAdminRouteRouteImport } from './routes/{-$locale}/_dashboard/_admin/route'
 import { Route as Char123LocaleChar125OtherOnboardingStepRouteImport } from './routes/{-$locale}/_other/onboarding.$step'
 import { Route as Char123LocaleChar125OtherAuthCliLoginRouteImport } from './routes/{-$locale}/_other/auth/cli-login'
@@ -129,6 +130,12 @@ const Char123LocaleChar125DashboardOrganizationRoute =
   Char123LocaleChar125DashboardOrganizationRouteImport.update({
     id: '/organization',
     path: '/organization',
+    getParentRoute: () => Char123LocaleChar125DashboardRouteRoute,
+  } as any)
+const Char123LocaleChar125DashboardIdeRoute =
+  Char123LocaleChar125DashboardIdeRouteImport.update({
+    id: '/ide',
+    path: '/ide',
     getParentRoute: () => Char123LocaleChar125DashboardRouteRoute,
   } as any)
 const Char123LocaleChar125DashboardAdminRouteRoute =
@@ -324,6 +331,7 @@ export interface FileRoutesByFullPath {
   '/{-$locale}/$': typeof Char123LocaleChar125SplatRoute
   '/{-$locale}/404': typeof Char123LocaleChar125404Route
   '/{-$locale}/page': typeof Char123LocaleChar125PageRoute
+  '/{-$locale}/ide': typeof Char123LocaleChar125DashboardIdeRoute
   '/{-$locale}/organization': typeof Char123LocaleChar125DashboardOrganizationRoute
   '/{-$locale}/profile': typeof Char123LocaleChar125DashboardProfileRoute
   '/{-$locale}/projects': typeof Char123LocaleChar125DashboardProjectsRoute
@@ -364,6 +372,7 @@ export interface FileRoutesByTo {
   '/{-$locale}/$': typeof Char123LocaleChar125SplatRoute
   '/{-$locale}/404': typeof Char123LocaleChar125404Route
   '/{-$locale}/page': typeof Char123LocaleChar125PageRoute
+  '/{-$locale}/ide': typeof Char123LocaleChar125DashboardIdeRoute
   '/{-$locale}/organization': typeof Char123LocaleChar125DashboardOrganizationRoute
   '/{-$locale}/profile': typeof Char123LocaleChar125DashboardProfileRoute
   '/{-$locale}/projects': typeof Char123LocaleChar125DashboardProjectsRoute
@@ -404,6 +413,7 @@ export interface FileRoutesById {
   '/{-$locale}/404': typeof Char123LocaleChar125404Route
   '/{-$locale}/page': typeof Char123LocaleChar125PageRoute
   '/{-$locale}/_dashboard/_admin': typeof Char123LocaleChar125DashboardAdminRouteRouteWithChildren
+  '/{-$locale}/_dashboard/ide': typeof Char123LocaleChar125DashboardIdeRoute
   '/{-$locale}/_dashboard/organization': typeof Char123LocaleChar125DashboardOrganizationRoute
   '/{-$locale}/_dashboard/profile': typeof Char123LocaleChar125DashboardProfileRoute
   '/{-$locale}/_dashboard/projects': typeof Char123LocaleChar125DashboardProjectsRoute
@@ -448,6 +458,7 @@ export interface FileRouteTypes {
     | '/{-$locale}/$'
     | '/{-$locale}/404'
     | '/{-$locale}/page'
+    | '/{-$locale}/ide'
     | '/{-$locale}/organization'
     | '/{-$locale}/profile'
     | '/{-$locale}/projects'
@@ -488,6 +499,7 @@ export interface FileRouteTypes {
     | '/{-$locale}/$'
     | '/{-$locale}/404'
     | '/{-$locale}/page'
+    | '/{-$locale}/ide'
     | '/{-$locale}/organization'
     | '/{-$locale}/profile'
     | '/{-$locale}/projects'
@@ -527,6 +539,7 @@ export interface FileRouteTypes {
     | '/{-$locale}/404'
     | '/{-$locale}/page'
     | '/{-$locale}/_dashboard/_admin'
+    | '/{-$locale}/_dashboard/ide'
     | '/{-$locale}/_dashboard/organization'
     | '/{-$locale}/_dashboard/profile'
     | '/{-$locale}/_dashboard/projects'
@@ -667,6 +680,13 @@ declare module '@tanstack/react-router' {
       path: '/organization'
       fullPath: '/{-$locale}/organization'
       preLoaderRoute: typeof Char123LocaleChar125DashboardOrganizationRouteImport
+      parentRoute: typeof Char123LocaleChar125DashboardRouteRoute
+    }
+    '/{-$locale}/_dashboard/ide': {
+      id: '/{-$locale}/_dashboard/ide'
+      path: '/ide'
+      fullPath: '/{-$locale}/ide'
+      preLoaderRoute: typeof Char123LocaleChar125DashboardIdeRouteImport
       parentRoute: typeof Char123LocaleChar125DashboardRouteRoute
     }
     '/{-$locale}/_dashboard/_admin': {
@@ -979,6 +999,7 @@ const Char123LocaleChar125DashboardEditorContentRouteRouteWithChildren =
 
 interface Char123LocaleChar125DashboardRouteRouteChildren {
   Char123LocaleChar125DashboardAdminRouteRoute: typeof Char123LocaleChar125DashboardAdminRouteRouteWithChildren
+  Char123LocaleChar125DashboardIdeRoute: typeof Char123LocaleChar125DashboardIdeRoute
   Char123LocaleChar125DashboardOrganizationRoute: typeof Char123LocaleChar125DashboardOrganizationRoute
   Char123LocaleChar125DashboardProfileRoute: typeof Char123LocaleChar125DashboardProfileRoute
   Char123LocaleChar125DashboardProjectsRoute: typeof Char123LocaleChar125DashboardProjectsRoute
@@ -992,6 +1013,8 @@ const Char123LocaleChar125DashboardRouteRouteChildren: Char123LocaleChar125Dashb
   {
     Char123LocaleChar125DashboardAdminRouteRoute:
       Char123LocaleChar125DashboardAdminRouteRouteWithChildren,
+    Char123LocaleChar125DashboardIdeRoute:
+      Char123LocaleChar125DashboardIdeRoute,
     Char123LocaleChar125DashboardOrganizationRoute:
       Char123LocaleChar125DashboardOrganizationRoute,
     Char123LocaleChar125DashboardProfileRoute:

@@ -7,6 +7,7 @@ import {
   App_Admin_Users_Path,
   App_Dashboard_Dictionaries_Path,
   App_Dashboard_Editor_Path,
+  App_Dashboard_IDE_Path,
   App_Dashboard_Projects_Path,
   App_Dashboard_Tags_Path,
   App_Dashboard_Translate_Path,
@@ -26,6 +27,7 @@ import {
   type LucideIcon,
   PenTool,
   Shield,
+  SquareCode,
   Tags,
   User,
 } from 'lucide-react';
@@ -43,6 +45,7 @@ export const iconMap: Record<string, LucideIcon> = {
   User,
   Shield,
   Globe,
+  SquareCode,
 };
 
 export const shouldHaveOrganizationRoutes = [
@@ -55,6 +58,7 @@ export const shouldHaveProjectRoutes = [
   App_Dashboard_Translate_Path,
   App_Dashboard_Dictionaries_Path,
   App_Dashboard_Tags_Path,
+  App_Dashboard_IDE_Path,
 ] as string[];
 
 export const shouldHaveAdminRoutes = [App_Admin_Users_Path] as string[];
@@ -106,6 +110,7 @@ export const filterItems = (
     hasOrganization: boolean;
     hasProject: boolean;
     isSuperAdmin: boolean;
+    isGithub?: boolean;
   }
 ): SidebarNavigationItem[] =>
   nodes
@@ -122,6 +127,7 @@ export const filterItems = (
           return false;
         if (shouldHaveAdminRoutes.includes(href) && !context.isSuperAdmin)
           return false;
+        if (href === App_Dashboard_IDE_Path && !context.isGithub) return false;
       }
 
       return true;
@@ -174,11 +180,11 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
   const isSuperAdmin =
     roles?.some((role: string) => role.toLowerCase() === 'admin') ?? false;
 
-  // Filter navigation items based on session context
   const filteredNavItems = filterItems(items, {
     hasOrganization: !!organization,
     hasProject: !!project,
     isSuperAdmin,
+    isGithub: project?.repository?.provider === 'github',
   });
 
   const flatNavItems = flattenItems(filteredNavItems);

@@ -58,6 +58,7 @@ export const DashboardNavbar: FC<DashboardNavbarProps> = ({ items = [] }) => {
     hasOrganization: !!organization,
     hasProject: !!project,
     isSuperAdmin,
+    isGithub: project?.repository?.provider === 'github',
   });
 
   const flatNavItems = flattenItems(filteredNavItems);

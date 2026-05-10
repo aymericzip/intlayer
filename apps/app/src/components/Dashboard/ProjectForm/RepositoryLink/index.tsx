@@ -3,10 +3,12 @@ import { Container } from '@intlayer/design-system/container';
 import { H3 } from '@intlayer/design-system/headers';
 import { Input } from '@intlayer/design-system/input';
 import { Modal } from '@intlayer/design-system/modal';
+import { App_Dashboard_IDE_Path } from '@intlayer/design-system/routes';
 import { TechLogos } from '@intlayer/design-system/tech-logo';
 import { CheckCircle2, FileCode, FolderSearch, Globe } from 'lucide-react';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
+import { useLocalizedNavigate } from '#hooks/useLocalizedNavigate';
 import { ConfigPreviewModal } from './ConfigPreviewModal';
 import { ConfigSelectionModal } from './ConfigSelectionModal';
 import { ProviderSelector } from './ProviderSelector';
@@ -77,6 +79,8 @@ export const RepositoryLink: FC = () => {
     handleProviderSelect,
   } = useRepositoryLink();
 
+  const navigate = useLocalizedNavigate();
+
   return (
     <div className="flex flex-col gap-6">
       <H3>{content.title}</H3>
@@ -146,6 +150,18 @@ export const RepositoryLink: FC = () => {
             >
               {content.actions?.loadConfig}
             </Button>
+            {connectedRepository.provider === 'github' && (
+              <Button
+                variant="default"
+                color="text"
+                size="sm"
+                Icon={Globe}
+                onClick={() => navigate({ to: App_Dashboard_IDE_Path })}
+                label={content.actions?.openIDE?.value}
+              >
+                {content.actions?.openIDE}
+              </Button>
+            )}
           </div>
         </Container>
       )}

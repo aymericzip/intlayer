@@ -18,6 +18,7 @@ export const App_Dashboard_Projects_Path = '/projects' as const;
 export const App_Dashboard_Tags_Path = '/tags' as const;
 export const App_Dashboard_Organization_Path = '/organization' as const;
 export const App_Dashboard_Profile_Path = '/profile' as const;
+export const App_Dashboard_IDE_Path = '/ide' as const;
 
 export const App_Pricing_Path = '/pricing' as const;
 
@@ -66,6 +67,8 @@ export const App_Dashboard_Organization =
   `https://${App_Domain}${App_Dashboard_Organization_Path}` as const;
 export const App_Dashboard_Profile =
   `https://${App_Domain}${App_Dashboard_Profile_Path}` as const;
+export const App_Dashboard_IDE =
+  `https://${App_Domain}${App_Dashboard_IDE_Path}` as const;
 
 export const App_Pricing = `https://${App_Domain}${App_Pricing_Path}` as const;
 

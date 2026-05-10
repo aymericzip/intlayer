@@ -14,6 +14,7 @@ import {
   App_Auth_TwoFactor_Path,
   App_Dashboard_Dictionaries_Path,
   App_Dashboard_Editor_Path,
+  App_Dashboard_IDE_Path,
   App_Dashboard_Organization_Path,
   App_Dashboard_Profile_Path,
   App_Dashboard_Projects_Path,
@@ -42,6 +43,7 @@ const sitemapConfig: SitemapUrlEntry[] = [
   { path: App_Auth_TwoFactor_Path, changefreq: 'never', priority: 0.1 },
   { path: App_Dashboard_Editor_Path, changefreq: 'monthly', priority: 0.7 },
   { path: App_Dashboard_Translate_Path, changefreq: 'monthly', priority: 0.7 },
+  { path: App_Dashboard_IDE_Path, changefreq: 'monthly', priority: 0.7 },
   {
     path: App_Dashboard_Dictionaries_Path,
     changefreq: 'monthly',
