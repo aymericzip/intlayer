@@ -23,7 +23,7 @@ history:
     changes: "Add set up of Claude Desktop"
   - version: 5.5.12
     date: 2025-07-10
-    changes: "Add SSE transport and distant server"
+    changes: "Add Streamable HTTP transport and distant server"
   - version: 5.5.10
     date: 2025-06-29
     changes: "Initialise history"
@@ -51,12 +51,12 @@ By enabling the Intlayer MCP Server in your IDE, you unlock:
 
   > View the full list of commands and options in the [Intlayer CLI documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/cli/index.md).
 
-## Local server (stdio) vs Remote server (SSE)
+## Local server (stdio) vs Remote server (Streamable HTTP)
 
 The MCP server can be used in two ways:
 
 - Local server (stdio)
-- Remote server (SSE)
+- Remote server (Streamable HTTP)
 
 ### Local server (stdio) (recommended)
 
@@ -64,9 +64,9 @@ Intlayer provides an NPM package that can be installed locally on your machine. 
 
 This server is the recommended way to use the MCP server, as it integrates all the features of the MCP server, including the CLI tools.
 
-### Remote server (SSE)
+### Remote server (Streamable HTTP)
 
-The MCP server can also be used remotely, using the SSE transport method. This server is hosted by Intlayer and is available at https://mcp.intlayer.org. This server can be accessed publicly, without any authentication, and is free to use.
+The MCP server can also be used remotely, using the Streamable HTTP transport method. This server is hosted by Intlayer and is available at https://mcp.intlayer.org. This server can be accessed publicly, without any authentication, and is free to use.
 
 Note that the remote server does not integrate CLI tools, AI autocompletion, etc. The remote server is only for interaction with the documentation to assist your AI assistant with the Intlayer ecosystem.
 
@@ -97,7 +97,7 @@ bun x intlayer init mcp
 This command will:
 
 1. Ask you which platform you are using (Cursor, VS Code, Claude Desktop, etc.).
-2. Ask you which transport method you want to use (Local server (stdio) or Remote server (SSE)).
+2. Ask you which transport method you want to use (Local server (stdio) or Remote server (Streamable HTTP)).
 3. Automatically update your configuration file (e.g., `.cursor/mcp.json`, `.vscode/mcp.json`, or the global Claude Desktop config).
 
 ---
@@ -107,7 +107,7 @@ This command will:
 1. Open the Command Palette (Ctrl+Shift+P or Cmd+Shift+P).
 2. Type `Intlayer: Setup AI Agent Skills`
 3. Pick the platform you use (e.g. `VS Code`, `Cursor`, `Windsurf`, `OpenCode`, `Claude Code`, `GitHub Copilot Workspace`, etc.).
-4. Pick the MCP to install (stdio, SSE)
+4. Pick the MCP to install (stdio, Streamable HTTP)
 5. Press Enter.
 
 ---
@@ -131,16 +131,16 @@ In your project root, add the following `.cursor/mcp.json` configuration file:
 }
 ```
 
-### Remote server (SSE)
+### Remote server (Streamable HTTP)
 
-For connecting to a remote Intlayer MCP server using Server-Sent Events (SSE), you can configure your MCP client to connect to the hosted service.
+For connecting to a remote Intlayer MCP server using Server-Sent Events (Streamable HTTP), you can configure your MCP client to connect to the hosted service.
 
 ```json fileName=".cursor/mcp.json"
 {
   "mcpServers": {
-    "intlayer": {
-      "url": "https://mcp.intlayer.org",
-      "transport": "sse"
+    "intlayer-sse": {
+      "command": "npx",
+      "args": ["-y", "mcp-remote@latest", "https://mcp.intlayer.org"]
     }
   }
 }
@@ -172,16 +172,16 @@ Create a `.vscode/mcp.json` file in your project root:
 }
 ```
 
-### Remote server (SSE)
+### Remote server (Streamable HTTP)
 
-For connecting to a remote Intlayer MCP server using Server-Sent Events (SSE), you can configure your MCP client to connect to the hosted service.
+For connecting to a remote Intlayer MCP server using Server-Sent Events (Streamable HTTP), you can configure your MCP client to connect to the hosted service.
 
 ```json fileName=".vscode/mcp.json"
 {
   "servers": {
-    "intlayer": {
-      "url": "https://mcp.intlayer.org",
-      "type": "sse"
+    "intlayer-sse": {
+      "command": "npx",
+      "args": ["-y", "mcp-remote@latest", "https://mcp.intlayer.org"]
     }
   }
 }
@@ -191,7 +191,7 @@ For connecting to a remote Intlayer MCP server using Server-Sent Events (SSE), y
 
 ## Set Up in ChatGPT
 
-### Remote server (SSE)
+### Remote server (Streamable HTTP)
 
 Follow the [official documentation](https://platform.openai.com/docs/mcp#test-and-connect-your-mcp-server) to configure the MCP server in ChatGPT.
 
@@ -227,6 +227,19 @@ Path of the config file:
     "intlayer": {
       "command": "npx",
       "args": ["-y", "@intlayer/mcp"]
+    }
+  }
+}
+```
+
+### Remote server (Streamable HTTP)
+
+```json fileName="claude_desktop_config.json"
+{
+  "mcpServers": {
+    "intlayer-sse": {
+      "command": "npx",
+      "args": ["-y", "mcp-remote@latest", "https://mcp.intlayer.org"]
     }
   }
 }

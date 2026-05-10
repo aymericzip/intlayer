@@ -23,7 +23,7 @@ history:
     changes: "Menambahkan pengaturan Claude Desktop"
   - version: 5.5.12
     date: 2025-07-10
-    changes: "Menambahkan transport SSE dan server jarak jauh"
+    changes: "Menambahkan transport Streamable HTTP dan server jarak jauh"
   - version: 5.5.10
     date: 2025-06-29
     changes: "Inisialisasi riwayat"
@@ -51,12 +51,12 @@ Dengan mengaktifkan Intlayer MCP Server di IDE Anda, Anda membuka:
 
 > Lihat daftar lengkap perintah dan opsi di [dokumentasi Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/index.md).
 
-## Server lokal (stdio) vs Server jarak jauh (SSE)
+## Server lokal (stdio) vs Server jarak jauh (Streamable HTTP)
 
 Server MCP dapat digunakan dengan dua cara:
 
 - Server lokal (stdio)
-- Server jarak jauh (SSE)
+- Server jarak jauh (Streamable HTTP)
 
 ### Server lokal (stdio) (direkomendasikan)
 
@@ -64,7 +64,7 @@ Intlayer menyediakan paket NPM yang dapat diinstal secara lokal di mesin Anda. P
 
 Server ini adalah cara yang direkomendasikan untuk menggunakan server MCP. Karena server ini mengintegrasikan semua fitur dari server MCP, termasuk alat CLI.
 
-### Server jarak jauh (SSE)
+### Server jarak jauh (Streamable HTTP)
 
 Server MCP juga dapat digunakan secara jarak jauh, menggunakan metode transport SSE. Server ini dihosting oleh Intlayer, dan tersedia di https://mcp.intlayer.org. Server ini dapat diakses secara publik, tanpa autentikasi, dan gratis untuk digunakan.
 
@@ -97,7 +97,7 @@ bun x intlayer init mcp
 Perintah ini akan:
 
 1. Menanyakan platform apa yang Anda gunakan (Cursor, VS Code, Claude Desktop, dll.).
-2. Menanyakan metode transportasi apa yang ingin Anda gunakan (Server lokal (stdio) atau Server jarak jauh (SSE)).
+2. Menanyakan metode transportasi apa yang ingin Anda gunakan (Server lokal (stdio) atau Server jarak jauh (Streamable HTTP)).
 3. Secara otomatis memperbarui file konfigurasi Anda (misalnya, `.cursor/mcp.json`, `.vscode/mcp.json`, atau konfigurasi global Claude Desktop).
 
 ---
@@ -107,7 +107,7 @@ Perintah ini akan:
 1. Buka Command Palette (Ctrl+Shift+P atau Cmd+Shift+P).
 2. Ketik `Intlayer: Setup AI Agent Skills`
 3. Pilih platform yang Anda gunakan (mis. `VS Code`, `Cursor`, `Windsurf`, `OpenCode`, `Claude Code`, `GitHub Copilot Workspace`, dll.).
-4. Pilih MCP yang akan diinstal (stdio, SSE)
+4. Pilih MCP yang akan diinstal (stdio, Streamable HTTP)
 5. Tekan Enter.
 
 ---
@@ -131,16 +131,16 @@ Di root proyek Anda, tambahkan file konfigurasi `.cursor/mcp.json` berikut:
 }
 ```
 
-### Server jarak jauh (SSE)
+### Server jarak jauh (Streamable HTTP)
 
-Untuk menghubungkan ke server Intlayer MCP jarak jauh menggunakan Server-Sent Events (SSE), Anda dapat mengonfigurasi klien MCP Anda untuk terhubung ke layanan yang dihosting.
+Untuk menghubungkan ke server Intlayer MCP jarak jauh menggunakan Server-Sent Events (Streamable HTTP), Anda dapat mengonfigurasi klien MCP Anda untuk terhubung ke layanan yang dihosting.
 
 ```json fileName=".cursor/mcp.json"
 {
   "mcpServers": {
-    "intlayer": {
-      "url": "https://mcp.intlayer.org",
-      "transport": "sse"
+    "intlayer-sse": {
+      "command": "npx",
+      "args": ["-y", "mcp-remote@latest", "https://mcp.intlayer.org"]
     }
   }
 }
@@ -172,16 +172,16 @@ Buat file `.vscode/mcp.json` di root proyek Anda:
 }
 ```
 
-### Server jarak jauh (SSE)
+### Server jarak jauh (Streamable HTTP)
 
-Untuk menghubungkan ke server Intlayer MCP jarak jauh menggunakan Server-Sent Events (SSE), Anda dapat mengonfigurasi klien MCP Anda untuk terhubung ke layanan yang dihosting.
+Untuk menghubungkan ke server Intlayer MCP jarak jauh menggunakan Server-Sent Events (Streamable HTTP), Anda dapat mengonfigurasi klien MCP Anda untuk terhubung ke layanan yang dihosting.
 
 ```json fileName=".vscode/mcp.json"
 {
   "servers": {
-    "intlayer": {
-      "url": "https://mcp.intlayer.org",
-      "type": "sse"
+    "intlayer-sse": {
+      "command": "npx",
+      "args": ["-y", "mcp-remote@latest", "https://mcp.intlayer.org"]
     }
   }
 }
@@ -191,7 +191,7 @@ Untuk menghubungkan ke server Intlayer MCP jarak jauh menggunakan Server-Sent Ev
 
 ## Pengaturan di ChatGPT
 
-### Server jarak jauh (SSE)
+### Server jarak jauh (Streamable HTTP)
 
 Ikuti [dokumentasi resmi](https://platform.openai.com/docs/mcp#test-and-connect-your-mcp-server) untuk mengonfigurasi server MCP di ChatGPT.
 
@@ -227,6 +227,19 @@ Lokasi file konfigurasi:
     "intlayer": {
       "command": "npx",
       "args": ["-y", "@intlayer/mcp"]
+    }
+  }
+}
+```
+
+### Server jarak jauh (Streamable HTTP)
+
+```json fileName="claude_desktop_config.json"
+{
+  "mcpServers": {
+    "intlayer-sse": {
+      "command": "npx",
+      "args": ["-y", "mcp-remote@latest", "https://mcp.intlayer.org"]
     }
   }
 }

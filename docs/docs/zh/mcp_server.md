@@ -23,7 +23,7 @@ history:
     changes: "添加 Claude Desktop 的设置"
   - version: 5.5.12
     date: 2025-07-10
-    changes: "添加 SSE 传输和远程服务器支持"
+    changes: "添加 Streamable HTTP 传输和远程服务器支持"
   - version: 5.5.10
     date: 2025-06-29
     changes: "初始化历史记录"
@@ -51,12 +51,12 @@ history:
 
   > 查看完整的命令和选项列表，请参阅 [Intlayer CLI 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)。
 
-## 本地服务器（stdio）与远程服务器（SSE）
+## 本地服务器（stdio）与远程服务器（Streamable HTTP）
 
 MCP 服务器可以通过两种方式使用：
 
 - 本地服务器（stdio）
-- 远程服务器（SSE）
+- 远程服务器（Streamable HTTP）
 
 ### 本地服务器（stdio）（推荐）
 
@@ -64,9 +64,9 @@ Intlayer 提供了一个可以在您的机器上本地安装的 NPM 包。它可
 
 这是使用 MCP 服务器的推荐方式，因为它集成了 MCP 服务器的所有功能，包括 CLI 工具。
 
-### 远程服务器（SSE）
+### 远程服务器（Streamable HTTP）
 
-MCP 服务器也可以通过 SSE 传输方式远程使用。该服务器由 Intlayer 托管，地址为 https://mcp.intlayer.org。该服务器可公开访问，无需任何身份验证，且免费使用。
+MCP 服务器也可以通过 Streamable HTTP 传输方式远程使用。该服务器由 Intlayer 托管，地址为 https://mcp.intlayer.org。该服务器可公开访问，无需任何身份验证，且免费使用。
 
 请注意，远程服务器不集成 CLI 工具、AI 自动补全等功能。远程服务器仅用于与文档交互，以帮助您的 AI 助手使用 Intlayer 生态系统。
 
@@ -97,7 +97,7 @@ bun x intlayer init mcp
 此命令将：
 
 1. 询问您正在使用的平台（Cursor、VS Code、Claude Desktop 等）。
-2. 询问您要使用的传输方法（本地服务器 (stdio) 或远程服务器 (SSE)）。
+2. 询问您要使用的传输方法（本地服务器 (stdio) 或远程服务器 (Streamable HTTP)）。
 3. 自动更新您的配置文件（例如 `.cursor/mcp.json`、`.vscode/mcp.json` 或全局 Claude Desktop 配置）。
 
 ---
@@ -107,7 +107,7 @@ bun x intlayer init mcp
 1. 打开命令面板 (Ctrl+Shift+P 或 Cmd+Shift+P)。
 2. 输入 `Intlayer: Setup AI Agent Skills`
 3. 选择您使用的平台（例如 `VS Code`、`Cursor`、`Windsurf`、`OpenCode`、`Claude Code`、`GitHub Copilot Workspace` 等）。
-4. 选择要安装的 MCP (stdio, SSE)
+4. 选择要安装的 MCP (stdio, Streamable HTTP)
 5. 按 Enter 键。
 
 ---
@@ -131,16 +131,16 @@ bun x intlayer init mcp
 }
 ```
 
-### 远程服务器（SSE）
+### 远程服务器（Streamable HTTP）
 
-要通过服务器发送事件（SSE）连接到远程 Intlayer MCP 服务器，您可以配置 MCP 客户端以连接到托管服务。
+要通过服务器发送事件（Streamable HTTP）连接到远程 Intlayer MCP 服务器，您可以配置 MCP 客户端以连接到托管服务。
 
 ```json fileName=".cursor/mcp.json"
 {
   "mcpServers": {
-    "intlayer": {
-      "url": "https://mcp.intlayer.org",
-      "transport": "sse"
+    "intlayer-sse": {
+      "command": "npx",
+      "args": ["-y", "mcp-remote@latest", "https://mcp.intlayer.org"]
     }
   }
 }
@@ -172,16 +172,16 @@ bun x intlayer init mcp
 }
 ```
 
-### 远程服务器（SSE）
+### 远程服务器（Streamable HTTP）
 
-要连接到使用服务器发送事件（SSE）的远程 Intlayer MCP 服务器，你可以配置你的 MCP 客户端以连接到托管服务。
+要连接到使用服务器发送事件（Streamable HTTP）的远程 Intlayer MCP 服务器，你可以配置你的 MCP 客户端以连接到托管服务。
 
 ```json fileName=".vscode/mcp.json"
 {
   "servers": {
-    "intlayer": {
-      "url": "https://mcp.intlayer.org",
-      "type": "sse"
+    "intlayer-sse": {
+      "command": "npx",
+      "args": ["-y", "mcp-remote@latest", "https://mcp.intlayer.org"]
     }
   }
 }
@@ -191,7 +191,7 @@ bun x intlayer init mcp
 
 ## 在 ChatGPT 中设置
 
-### 远程服务器（SSE）
+### 远程服务器（Streamable HTTP）
 
 请按照[官方文档](https://platform.openai.com/docs/mcp#test-and-connect-your-mcp-server)配置 ChatGPT 中的 MCP 服务器。
 
@@ -227,6 +227,19 @@ bun x intlayer init mcp
     "intlayer": {
       "command": "npx",
       "args": ["-y", "@intlayer/mcp"]
+    }
+  }
+}
+```
+
+### 远程服务器（Streamable HTTP）
+
+```json fileName="claude_desktop_config.json"
+{
+  "mcpServers": {
+    "intlayer-sse": {
+      "command": "npx",
+      "args": ["-y", "mcp-remote@latest", "https://mcp.intlayer.org"]
     }
   }
 }

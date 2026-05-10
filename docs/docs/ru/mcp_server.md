@@ -23,7 +23,7 @@ history:
     changes: "Добавлена настройка Claude Desktop"
   - version: 5.5.12
     date: 2025-07-10
-    changes: "Добавлен SSE транспорт и удалённый сервер"
+    changes: "Добавлен Streamable HTTP транспорт и удалённый сервер"
   - version: 5.5.10
     date: 2025-06-29
     changes: "Инициализация истории"
@@ -51,12 +51,12 @@ history:
 
   > Полный список команд и опций смотрите в [документации Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/cli/index.md).
 
-## Локальный сервер (stdio) против удалённого сервера (SSE)
+## Локальный сервер (stdio) против удалённого сервера (Streamable HTTP)
 
 MCP сервер можно использовать двумя способами:
 
 - Локальный сервер (stdio)
-- Удалённый сервер (SSE)
+- Удалённый сервер (Streamable HTTP)
 
 ### Локальный сервер (stdio) (рекомендуется)
 
@@ -64,7 +64,7 @@ Intlayer предоставляет пакет NPM, который можно у
 
 Этот сервер является рекомендуемым способом использования MCP сервера, так как он интегрирует все функции MCP сервера, включая инструменты CLI.
 
-### Удалённый сервер (SSE)
+### Удалённый сервер (Streamable HTTP)
 
 MCP сервер также можно использовать удалённо, используя транспортный метод SSE. Этот сервер размещён Intlayer и доступен по адресу https://mcp.intlayer.org. К этому серверу можно получить публичный доступ без аутентификации, и он бесплатен для использования.
 
@@ -97,7 +97,7 @@ bun x intlayer init mcp
 Эта команда:
 
 1. Спросит, какую платформу вы используете (Cursor, VS Code, Claude Desktop и т. д.).
-2. Спросит, какой метод транспортировки вы хотите использовать (локальный сервер (stdio) или удаленный сервер (SSE)).
+2. Спросит, какой метод транспортировки вы хотите использовать (локальный сервер (stdio) или удаленный сервер (Streamable HTTP)).
 3. Автоматически обновит ваш файл конфигурации (например, `.cursor/mcp.json`, `.vscode/mcp.json` или глобальную конфигурацию Claude Desktop).
 
 ---
@@ -107,7 +107,7 @@ bun x intlayer init mcp
 1. Откройте палитру команд (Ctrl+Shift+P или Cmd+Shift+P).
 2. Введите `Intlayer: Setup AI Agent Skills`
 3. Выберите платформу, которую вы используете (например, `VS Code`, `Cursor`, `Windsurf`, `OpenCode`, `Claude Code`, `GitHub Copilot Workspace` и т. д.).
-4. Выберите MCP для установки (stdio, SSE)
+4. Выберите MCP для установки (stdio, Streamable HTTP)
 5. Нажмите Enter.
 
 ---
@@ -131,16 +131,16 @@ bun x intlayer init mcp
 }
 ```
 
-### Удалённый сервер (SSE)
+### Удалённый сервер (Streamable HTTP)
 
-Для подключения к удалённому MCP серверу Intlayer с использованием Server-Sent Events (SSE) вы можете настроить ваш MCP клиент для подключения к размещённому сервису.
+Для подключения к удалённому MCP серверу Intlayer с использованием Server-Sent Events (Streamable HTTP) вы можете настроить ваш MCP клиент для подключения к размещённому сервису.
 
 ```json fileName=".cursor/mcp.json"
 {
   "mcpServers": {
-    "intlayer": {
-      "url": "https://mcp.intlayer.org",
-      "transport": "sse"
+    "intlayer-sse": {
+      "command": "npx",
+      "args": ["-y", "mcp-remote@latest", "https://mcp.intlayer.org"]
     }
   }
 }
@@ -172,16 +172,16 @@ bun x intlayer init mcp
 }
 ```
 
-### Удалённый сервер (SSE)
+### Удалённый сервер (Streamable HTTP)
 
-Для подключения к удалённому MCP серверу Intlayer с использованием Server-Sent Events (SSE) вы можете настроить ваш MCP клиент для подключения к размещённому сервису.
+Для подключения к удалённому MCP серверу Intlayer с использованием Server-Sent Events (Streamable HTTP) вы можете настроить ваш MCP клиент для подключения к размещённому сервису.
 
 ```json fileName=".vscode/mcp.json"
 {
   "servers": {
-    "intlayer": {
-      "url": "https://mcp.intlayer.org",
-      "type": "sse"
+    "intlayer-sse": {
+      "command": "npx",
+      "args": ["-y", "mcp-remote@latest", "https://mcp.intlayer.org"]
     }
   }
 }
@@ -191,7 +191,7 @@ bun x intlayer init mcp
 
 ## Настройка в ChatGPT
 
-### Удалённый сервер (SSE)
+### Удалённый сервер (Streamable HTTP)
 
 Следуйте [официальной документации](https://platform.openai.com/docs/mcp#test-and-connect-your-mcp-server) для настройки MCP сервера в ChatGPT.
 
@@ -227,6 +227,19 @@ bun x intlayer init mcp
     "intlayer": {
       "command": "npx",
       "args": ["-y", "@intlayer/mcp"]
+    }
+  }
+}
+```
+
+### Удалённый сервер (Streamable HTTP)
+
+```json fileName="claude_desktop_config.json"
+{
+  "mcpServers": {
+    "intlayer-sse": {
+      "command": "npx",
+      "args": ["-y", "mcp-remote@latest", "https://mcp.intlayer.org"]
     }
   }
 }
