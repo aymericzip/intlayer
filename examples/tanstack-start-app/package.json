@@ -22,7 +22,7 @@
     "@tanstack/react-router-devtools": "1.166.13",
     "@tanstack/react-router-ssr-query": "1.166.11",
     "@tanstack/react-start": "1.167.59",
-    "@tanstack/router-plugin": "1.167.32",
+    "@tanstack/router-plugin": "1.167.35",
     "intlayer": "workspace:*",
     "nitro": "latest",
     "react": "19.2.6",
