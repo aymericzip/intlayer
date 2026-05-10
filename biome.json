@@ -9,7 +9,9 @@
     "ignoreUnknown": false,
     "includes": [
       "**/*.{js,jsx,ts,tsx,mjs,cjs,md,yml,yaml,css,html,vue,svelte,solid,astro,json}",
-      "!**/package.json"
+      "!**/package.json",
+      "!**/out",
+      "!**/dist/electron"
     ]
   },
   "formatter": {
