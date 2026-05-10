@@ -270,6 +270,7 @@ export const ChatBot: FC<ChatBotProps> = ({
             </>
           }
           isActive={isActive}
+          isLoading={isPending}
         />
       </div>
     </div>

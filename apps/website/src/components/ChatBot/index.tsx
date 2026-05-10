@@ -93,11 +93,14 @@ export const ChatBot: FC<ChatBotProps> = ({
 
   const handleAskNewQuestion = (newQuestion: string) => {
     setCurrentResponse('');
+
+    const newDiscussionId = discussion?.discussionId ?? uuid();
+
     setDiscussion(
       (discussion) =>
         ({
           ...discussion,
-          discussionId: discussion?.discussionId ?? uuid(),
+          discussionId: newDiscussionId,
           storedPrompt: [
             ...(discussion?.storedPrompt ?? []),
             {
@@ -120,7 +123,7 @@ export const ChatBot: FC<ChatBotProps> = ({
     askDocQuestion(
       {
         messages: newMessages,
-        discussionId: discussion?.discussionId ?? '',
+        discussionId: newDiscussionId,
         onMessage: (chunk: string) =>
           setCurrentResponse((prev) => prev + chunk),
         onDone: (response: AskDocQuestionResult) => {
@@ -279,6 +282,7 @@ export const ChatBot: FC<ChatBotProps> = ({
             </>
           }
           isActive={isActive}
+          isLoading={isPending}
         />
       </div>
     </div>

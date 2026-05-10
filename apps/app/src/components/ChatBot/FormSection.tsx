@@ -21,6 +21,7 @@ type FormSectionProps = {
   clear: () => void;
   additionalButtons?: ReactNode;
   isActive?: boolean;
+  isLoading?: boolean;
 };
 
 export const FormSection: FC<FormSectionProps> = ({
@@ -30,6 +31,7 @@ export const FormSection: FC<FormSectionProps> = ({
   clear,
   additionalButtons,
   isActive,
+  isLoading,
 }) => {
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const schema = useFormSectionSchema();
@@ -71,7 +73,9 @@ export const FormSection: FC<FormSectionProps> = ({
   const handleKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
-      handleSubmit(form.getValues());
+      if (!isSubmitting && !isLoading) {
+        form.handleSubmit(handleSubmit)();
+      }
       return;
     }
 
@@ -142,6 +146,7 @@ export const FormSection: FC<FormSectionProps> = ({
         placeholder={textArea.placeholder.value}
         aria-label={textArea.label.value}
         onKeyDown={handleKeyDown}
+        disabled={isLoading}
       />
       <div className="ml-auto flex items-center justify-end gap-2 max-md:w-full">
         {additionalButtons}
@@ -152,7 +157,7 @@ export const FormSection: FC<FormSectionProps> = ({
           color="text"
           variant="outline"
           size="icon-md"
-          disabled={isSubmitting || !hasClearButton}
+          disabled={isSubmitting || isLoading || !hasClearButton}
           Icon={Eraser}
           onClick={handleClear}
           className={cn(!hasClearButton && 'opacity-0')}
@@ -162,7 +167,7 @@ export const FormSection: FC<FormSectionProps> = ({
           label={sendQuestionButton.label.value}
           type="submit"
           color="text"
-          isLoading={isSubmitting}
+          isLoading={isSubmitting || isLoading}
           Icon={ArrowUp}
           size="icon-md"
         />
