@@ -2,16 +2,27 @@ import { Table } from '@intlayer/design-system/table';
 import type { FC } from 'react';
 import { Skeleton } from '#components/Skeleton';
 
-export const TagListSkeleton: FC = () => (
-  <div className="flex w-full flex-1 flex-col gap-6 py-6 text-sm text-text/80">
-    <div className="flex w-full items-center justify-between gap-4 px-10 pb-2">
-      <Skeleton className="h-10 w-full max-w-md rounded-xl" />
-      <Skeleton className="h-10 w-32 rounded-xl" />
-    </div>
+type TagListSkeletonProps = {
+  showToolBar?: boolean;
+};
+
+export const TagListSkeleton: FC<TagListSkeletonProps> = ({
+  showToolBar = true,
+}) => (
+  <div className="flex size-full flex-1 flex-col gap-6 py-4 text-sm text-text/80">
+    {showToolBar && (
+      <div className="flex w-full items-center justify-between gap-4 px-10 pb-2">
+        <Skeleton className="h-10 w-full max-w-md rounded-xl" />
+        <Skeleton className="h-10 w-32 rounded-xl" />
+      </div>
+    )}
     <div className="flex w-full flex-1 flex-col overflow-x-auto overflow-y-hidden">
       <Table className="w-full border-separate border-spacing-0 px-10">
         <thead>
           <tr className="border-neutral-200 border-b dark:border-neutral-700">
+            <th className="px-4 py-3">
+              <Skeleton className="h-4 w-4" />
+            </th>
             <th className="px-4 py-3">
               <Skeleton className="h-4 w-16" />
             </th>
@@ -31,7 +42,11 @@ export const TagListSkeleton: FC = () => (
         </thead>
         <tbody>
           {[...Array(10)].map((_, i) => (
+            // biome-ignore lint/suspicious/noArrayIndexKey: Skeletons are static and don't change order
             <tr key={i} className="border-card border-b">
+              <td className="px-4 py-4">
+                <Skeleton className="h-4 w-4" />
+              </td>
               <td className="px-4 py-4">
                 <Skeleton className="h-4 w-24 font-mono" />
               </td>
@@ -54,12 +69,14 @@ export const TagListSkeleton: FC = () => (
         </tbody>
       </Table>
     </div>
-    <div className="flex w-full flex-row items-end justify-between px-10 pt-4">
-      <div className="flex flex-col gap-4">
-        <Skeleton className="h-4 w-48" />
-        <Skeleton className="h-10 w-24 rounded-xl" />
+    {showToolBar && (
+      <div className="flex w-full flex-row items-end justify-between px-10">
+        <div className="flex flex-col gap-4">
+          <Skeleton className="h-4 w-48" />
+          <Skeleton className="h-10 w-24 rounded-xl" />
+        </div>
+        <Skeleton className="h-10 w-48 rounded-xl" />
       </div>
-      <Skeleton className="h-10 w-48 rounded-xl" />
-    </div>
+    )}
   </div>
 );

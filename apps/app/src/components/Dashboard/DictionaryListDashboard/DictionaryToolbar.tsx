@@ -93,9 +93,7 @@ export const DictionaryToolbar: FC<DictionaryToolbarProps> = ({
                         name={`col-${column.id}`}
                         color="text"
                         checked={column.getIsVisible()}
-                        onChange={(e) =>
-                          column.toggleVisibility(e.target.checked)
-                        }
+                        onChange={() => column.toggleVisibility()}
                         size="sm"
                       />
                       <label

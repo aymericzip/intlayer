@@ -40,6 +40,7 @@ import { useIntlayer, useLocale } from 'react-intlayer';
 import { GroupedVirtuoso, type GroupedVirtuosoHandle } from 'react-virtuoso';
 import { Skeleton } from '#components/Skeleton';
 import { useSearchParamState } from '#hooks/useSearchParamState';
+import { useDashboardScroll } from '../DashboardScrollContext';
 import { FiltersModal } from '../DictionaryListDashboard/FiltersModal';
 import {
   type FlattenedDictionaryNode,
@@ -273,6 +274,12 @@ const TranslateDashboardList: FC = () => {
     }, 500);
     return () => clearTimeout(handler);
   }, [currentTopIndex, setPersistedTopIndex]);
+
+  const notifyScroll = useDashboardScroll();
+
+  useEffect(() => {
+    notifyScroll(0);
+  }, [notifyScroll]);
 
   // Refs for syncing scroll
   const virtuosoRef = useRef<GroupedVirtuosoHandle>(null);
@@ -509,11 +516,11 @@ const TranslateDashboardList: FC = () => {
             groupCounts={groupCounts}
             initialTopMostItemIndex={initialTopIndex}
             onScroll={(e) => {
+              const target = e.target as HTMLElement;
               if (headerRef.current) {
-                headerRef.current.scrollLeft = (
-                  e.target as HTMLElement
-                ).scrollLeft;
+                headerRef.current.scrollLeft = target.scrollLeft;
               }
+              notifyScroll(target.scrollTop);
             }}
             rangeChanged={({ startIndex }) => {
               if (startIndex !== currentTopIndex) {
@@ -539,6 +546,7 @@ const TranslateDashboardList: FC = () => {
                   <div className="flex flex-col gap-4 overflow-hidden px-10 py-6">
                     {[...Array(2)].map((_, i) => (
                       <div
+                        // biome-ignore lint/suspicious/noArrayIndexKey: Skeletons are static and don't change order
                         key={i}
                         className="flex flex-col gap-4 border-card/50 border-b py-6"
                       >

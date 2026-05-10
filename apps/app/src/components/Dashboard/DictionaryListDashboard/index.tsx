@@ -359,7 +359,7 @@ export const DictionaryListDashboardContent: FC = () => {
   });
 
   return (
-    <div className="flex w-full flex-1 flex-col gap-6 py-6 text-sm text-text/80">
+    <div className="flex size-full flex-1 flex-col gap-6 py-4 text-sm text-text/80">
       <DictionaryToolbar dashboard={dashboard} table={table} />
 
       <DictionaryTable
@@ -379,10 +379,8 @@ export const DictionaryListDashboardContent: FC = () => {
         }}
         skeleton={<DictionaryListSkeleton showToolBar={false} />}
       />
-
       <DictionaryModals dashboard={dashboard} />
-
-      <div className="flex w-full flex-row items-end justify-between px-10 pt-4">
+      <div className="flex w-full flex-row items-end justify-between px-10">
         <div className="flex flex-col gap-4">
           <ShowingResultsNumberItems
             currentPage={dashboard.params.page}

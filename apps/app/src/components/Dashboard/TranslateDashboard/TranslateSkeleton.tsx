@@ -35,8 +35,9 @@ export const TranslateSkeleton: FC<TranslateSkeletonProps> = ({
 
     {/* Content Rows Skeleton */}
     <div className="flex flex-1 flex-col overflow-hidden px-10">
-      {[...Array(5)].map((_, i) => (
+      {[...Array(3)].map((_, i) => (
         <div
+          // biome-ignore lint/suspicious/noArrayIndexKey: Skeletons are static and don't change order
           key={i}
           className="flex flex-col gap-4 border-card/50 border-b py-6"
         >

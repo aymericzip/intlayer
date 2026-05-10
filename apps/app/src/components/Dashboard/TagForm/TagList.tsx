@@ -233,7 +233,7 @@ export const TagList: FC = () => {
   });
 
   return (
-    <div className="flex w-full flex-1 flex-col gap-6 py-6 text-sm text-text/80">
+    <div className="flex size-full flex-1 flex-col gap-6 py-4 text-sm text-text/80">
       <div className="flex items-center justify-between gap-4 px-10">
         <SearchInput
           placeholder={searchPlaceholder.value}
@@ -270,18 +270,20 @@ export const TagList: FC = () => {
         </div>
       </div>
 
-      <DictionaryTable
-        table={table}
-        isPending={isPending}
-        noDataFound={noTagView.title.value}
-        onRowClick={(row) =>
-          navigate({
-            to: '/tags/$tagKey',
-            params: { tagKey: row.original.key },
-          })
-        }
-        skeleton={<TagListSkeleton />}
-      />
+      <div className="flex size-full flex-1 overflow-auto">
+        <DictionaryTable
+          table={table}
+          isPending={isPending}
+          noDataFound={noTagView.title.value}
+          onRowClick={(row) =>
+            navigate({
+              to: '/tags/$tagKey',
+              params: { tagKey: row.original.key },
+            })
+          }
+          skeleton={<TagListSkeleton showToolBar={false} />}
+        />
+      </div>
 
       <Modal
         isOpen={isCreationModalOpen}
@@ -298,7 +300,7 @@ export const TagList: FC = () => {
         count={tagsToDelete?.length ?? 1}
       />
 
-      <div className="flex w-full flex-row items-end justify-between px-10 pt-4">
+      <div className="flex w-full flex-row items-end justify-between px-10">
         <div className="flex flex-col gap-4">
           <ShowingResultsNumberItems
             currentPage={params.page}

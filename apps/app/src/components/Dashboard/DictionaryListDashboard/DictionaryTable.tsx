@@ -5,7 +5,8 @@ import {
   type Table as ReactTableType,
   type Row,
 } from '@tanstack/react-table';
-import { memo, type ReactNode } from 'react';
+import { memo, type ReactNode, useEffect } from 'react';
+import { useDashboardScroll } from '../DashboardScrollContext';
 
 type DataTableProps<TData> = {
   table: ReactTableType<TData>;
@@ -22,10 +23,19 @@ const DataTableComponent = <TData,>({
   onRowClick,
   skeleton,
 }: DataTableProps<TData>) => {
+  const notifyScroll = useDashboardScroll();
+
+  useEffect(() => {
+    notifyScroll(0);
+  }, [notifyScroll]);
+
   if (isPending) return <>{skeleton}</>;
 
   return (
-    <div className="flex w-full max-w-screen flex-1 flex-col overflow-x-auto overflow-y-hidden">
+    <div
+      className="flex w-full max-w-screen flex-1 flex-col overflow-auto"
+      onScroll={(e) => notifyScroll(e.currentTarget.scrollTop)}
+    >
       {table.getRowModel().rows.length === 0 ? (
         <div className="flex min-h-60 items-center justify-center">
           <span className="text-neutral">{noDataFound}</span>
@@ -41,7 +51,12 @@ const DataTableComponent = <TData,>({
                 {headerGroup.headers.map((header) => (
                   <th
                     key={header.id}
-                    className="whitespace-nowrap px-4 py-3 text-left font-medium text-neutral"
+                    className={cn(
+                      'whitespace-nowrap px-4 py-3 font-medium text-neutral',
+                      ['selection', 'actions'].includes(header.id)
+                        ? 'text-center'
+                        : 'text-left'
+                    )}
                   >
                     {header.isPlaceholder
                       ? null

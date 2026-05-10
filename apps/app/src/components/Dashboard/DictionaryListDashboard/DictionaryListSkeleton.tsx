@@ -64,6 +64,7 @@ export const DictionaryListSkeleton: FC<DictionaryListSkeletonProps> = ({
         </thead>
         <tbody>
           {[...Array(10)].map((_, i) => (
+            // biome-ignore lint/suspicious/noArrayIndexKey: Skeletons are static and don't change order
             <tr key={i} className="border-card border-b">
               <td className="px-4 py-4">
                 <Skeleton className="h-4 w-4" />
@@ -118,7 +119,7 @@ export const DictionaryListSkeleton: FC<DictionaryListSkeletonProps> = ({
     </div>
 
     {/* Pagination Skeleton */}
-    <div className="flex w-full flex-row items-end justify-between px-10 pt-4">
+    <div className="flex w-full flex-row items-end justify-between px-10">
       <div className="flex flex-col gap-4">
         <Skeleton className="h-4 w-48" />
         <Skeleton className="h-10 w-24 rounded-xl" />
