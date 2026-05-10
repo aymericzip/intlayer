@@ -1,5 +1,7 @@
 {
   "include": ["**/*.ts", "**/*.tsx", ".intlayer/**/*.ts"],
+  "exclude": ["src/election.ts", "src/preload/**/*"],
+  "references": [{ "path": "./tsconfig.node.json" }],
   "compilerOptions": {
     "target": "ES2022",
     "jsx": "react-jsx",

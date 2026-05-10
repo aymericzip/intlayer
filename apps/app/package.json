@@ -9,6 +9,7 @@
     "name": "Aymeric PINEAU",
     "url": "https://github.com/aymericzip"
   },
+  "main": "out/main/index.js",
   "sideEffects": false,
   "type": "module",
   "imports": {
@@ -29,10 +30,15 @@
     "preserve": "bun --env-file=.env.production ./scripts/purge-cloudflare-cache.ts",
     "preview": "bun --bun vite preview",
     "start": "bun run .output/server/index.mjs",
-    "test": "bun --bun vitest run"
+    "test": "bun --bun vitest run",
+    "electron:dev": "electron-vite dev",
+    "electron:build": "electron-vite build && electron-builder",
+    "electron:publish": "bash scripts/electron-publish.sh",
+    "electron:preview": "electron-vite preview"
   },
   "dependencies": {
     "@better-auth/sso": "1.6.9",
+    "@electron-toolkit/utils": "^4.0.0",
     "@intlayer/api": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
@@ -80,6 +86,9 @@
   "devDependencies": {
     "@intlayer/backend": "workspace:*",
     "@rolldown/plugin-babel": "^0.2.3",
+    "electron": "^42.0.1",
+    "electron-builder": "^25.1.8",
+    "electron-vite": "^5.0.0",
     "@tanstack/devtools-vite": "0.6.0",
     "@testing-library/dom": "10.4.1",
     "@testing-library/react": "16.3.2",
