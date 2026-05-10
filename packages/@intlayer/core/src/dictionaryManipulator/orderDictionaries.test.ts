@@ -5,13 +5,17 @@ import { buildConfigurationFields } from '../../../config/src/configFile/buildCo
 import { orderDictionaries } from './orderDictionaries';
 
 // Mock the configuration
-vi.mock('@intlayer/config/built', () => ({
-  default: {
+vi.mock('@intlayer/config/built', () => {
+  const config = {
     editor: {
       dictionaryPriorityStrategy: 'local_first',
     },
-  },
-}));
+  };
+  return {
+    ...config,
+    default: config,
+  };
+});
 
 describe('orderDictionaries', () => {
   beforeEach(() => {

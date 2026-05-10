@@ -1,6 +1,6 @@
 import * as NodeTypes from '@intlayer/types/nodeType';
 import { describe, expect, it } from 'vitest';
-import { enu, gender, html, insert } from '../transpiler';
+import { enu, gender, html, insert, plural } from '../transpiler';
 import { icuToIntlayerFormatter, intlayerToICUFormatter } from './ICU';
 
 describe('ICU Formatter', () => {
@@ -80,7 +80,21 @@ describe('ICU Formatter', () => {
       expect(result).toEqual(html(input));
     });
 
-    it('should transform plural', () => {
+    it('should transform plural using PLURAL node', () => {
+      const result = icuToIntlayerFormatter(
+        '{count, plural, one {One item} other {# items}}'
+      );
+
+      expect(result).toEqual({
+        nodeType: NodeTypes.PLURAL,
+        plural: {
+          one: 'One item',
+          other: '{{count}} items',
+        },
+      });
+    });
+
+    it('should transform plural using ENUMERATION node when exact match is present', () => {
       // Using =1 to test exact match mapping as requested
       const result = icuToIntlayerFormatter(
         '{count, plural, =0 {No items} =1 {One item} other {# items}}'
@@ -225,6 +239,30 @@ describe('ICU Formatter', () => {
       expect(result).toContain('male {He}');
       expect(result).toContain('female {She}');
       expect(result).toContain('other {They}');
+    });
+
+    it('should transform plural (CLDR)', () => {
+      const input = plural({
+        one: 'One item',
+        other: '{{count}} items',
+      });
+      const result = intlayerToICUFormatter(input);
+      expect(result).toBe('{count, plural, one {One item} other {# items}}');
+    });
+
+    it('should transform plural with multiple CLDR categories', () => {
+      const input = plural({
+        one: '{{count}} вакансия',
+        few: '{{count}} вакансии',
+        many: '{{count}} вакансий',
+        other: '{{count}} вакансий',
+      });
+      const result = intlayerToICUFormatter(input);
+      expect(result).toContain('{count, plural,');
+      expect(result).toContain('one {# вакансия}');
+      expect(result).toContain('few {# вакансии}');
+      expect(result).toContain('many {# вакансий}');
+      expect(result).toContain('other {# вакансий}');
     });
 
     it('should handle nested structures', () => {

@@ -46,4 +46,5 @@ export const packageBuildOrder = [
   'packages/intlayer-editor',
   'packages/fastify-intlayer',
   'plugins/sync-json-plugin',
+  'plugins/sync-po-plugin',
 ];

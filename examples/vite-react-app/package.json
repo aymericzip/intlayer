@@ -22,6 +22,7 @@
   "devDependencies": {
     "@intlayer/ai": "workspace:*",
     "@intlayer/sync-json-plugin": "workspace:*",
+    "@intlayer/sync-po-plugin": "workspace:*",
     "@tailwindcss/vite": "4.3.0",
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",

@@ -5,6 +5,7 @@ import {
   gender,
   html,
   insert,
+  plural,
 } from '../transpiler';
 import {
   i18nextToIntlayerFormatter,
@@ -37,7 +38,20 @@ describe('i18next', () => {
       );
     });
 
-    it('should transform plural', () => {
+    it('should transform plural using PLURAL node', () => {
+      expect(
+        i18nextToIntlayerFormatter(
+          '{count, plural, one {one item} other {# items}}'
+        )
+      ).toEqual(
+        plural({
+          one: 'one item',
+          other: '{{count}} items',
+        })
+      );
+    });
+
+    it('should transform plural using ENUMERATION node when exact match is present', () => {
       expect(
         i18nextToIntlayerFormatter(
           '{count, plural, =0 {no items} one {one item} other {# items}}'
@@ -125,6 +139,32 @@ describe('i18next', () => {
       ).toEqual(
         '{count, plural, =0 {no items} =1 {one item} =2 {two items} few {few items} many {many items} other {# items}}'
       );
+    });
+
+    it('should transform plural (CLDR)', () => {
+      expect(
+        intlayerToI18nextFormatter(
+          plural({
+            one: 'one item',
+            other: '{{count}} items',
+          })
+        )
+      ).toEqual('{count, plural, one {one item} other {# items}}');
+    });
+
+    it('should transform plural with multiple CLDR categories', () => {
+      const result = intlayerToI18nextFormatter(
+        plural({
+          one: '{{count}} вакансия',
+          few: '{{count}} вакансии',
+          many: '{{count}} вакансий',
+          other: '{{count}} вакансий',
+        })
+      );
+      expect(result).toContain('{count, plural,');
+      expect(result).toContain('one {# вакансия}');
+      expect(result).toContain('few {# вакансии}');
+      expect(result).toContain('many {# вакансий}');
     });
   });
 

@@ -127,7 +127,12 @@ export type DictionaryLocation =
 export type LocalDictionaryId =
   `${DictionaryKey}::${Dictionary['location']}::${Dictionary['filePath'] | DictionaryId}`;
 
-export type DictionaryFormat = 'intlayer' | 'icu' | 'i18next' | 'vue-i18n';
+export type DictionaryFormat =
+  | 'intlayer'
+  | 'icu'
+  | 'i18next'
+  | 'vue-i18n'
+  | 'po';
 
 /**
  * Indicates the mode of import to use for the dictionary.

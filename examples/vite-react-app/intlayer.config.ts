@@ -1,4 +1,5 @@
 import { syncJSON } from '@intlayer/sync-json-plugin';
+import { syncPO } from '@intlayer/sync-po-plugin';
 import { type IntlayerConfig, Locales } from 'intlayer';
 import { z } from 'zod';
 
@@ -8,7 +9,7 @@ const config: IntlayerConfig = {
     defaultLocale: Locales.ENGLISH,
   },
   editor: {
-    enabled: false,
+    enabled: true,
     applicationURL: 'http://localhost:5173',
     editorURL: 'http://localhost:8000',
     // cmsURL: 'http://localhost:3000',
@@ -58,6 +59,10 @@ const config: IntlayerConfig = {
       format: 'icu',
       source: ({ locale }) => `./locales/${locale}.json`,
       location: 'ICU-content',
+    }),
+    syncPO({
+      source: ({ locale }) => `./locale-po/index.${locale}.po`,
+      location: 'PO-content',
     }),
   ],
 };

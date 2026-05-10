@@ -1,7 +1,7 @@
 import type { Dictionary } from '@intlayer/types/dictionary';
 import * as NodeTypes from '@intlayer/types/nodeType';
 import { deepTransformNode } from '../interpreter';
-import { enu, insert } from '../transpiler';
+import { enu, insert, plural } from '../transpiler';
 import type { JsonValue } from './ICU';
 
 // Types for our AST
@@ -99,23 +99,29 @@ const vueI18nNodesToIntlayer = (parts: VueI18nNode[][]): any => {
 
   if (parts.length === 2) {
     // 2 choices: 1 | other
-    options['1'] = vueI18nPartToIntlayer(parts[0]);
-    options.fallback = vueI18nPartToIntlayer(parts[1]);
-  } else if (parts.length === 3) {
-    // 3 choices: 0 | 1 | other
-    options['0'] = vueI18nPartToIntlayer(parts[0]);
-    options['1'] = vueI18nPartToIntlayer(parts[1]);
-    options.fallback = vueI18nPartToIntlayer(parts[2]);
-  } else {
-    // > 3 choices: 0 | 1 | 2 | ... | other
-    parts.forEach((part, index) => {
-      if (index === parts.length - 1) {
-        options.fallback = vueI18nPartToIntlayer(part);
-      } else {
-        options[index.toString()] = vueI18nPartToIntlayer(part);
-      }
+    return plural({
+      one: vueI18nPartToIntlayer(parts[0]),
+      other: vueI18nPartToIntlayer(parts[1]),
     });
   }
+
+  if (parts.length === 3) {
+    // 3 choices: 0 | 1 | other
+    return plural({
+      zero: vueI18nPartToIntlayer(parts[0]),
+      one: vueI18nPartToIntlayer(parts[1]),
+      other: vueI18nPartToIntlayer(parts[2]),
+    });
+  }
+
+  // > 3 choices: 0 | 1 | 2 | ... | other
+  parts.forEach((part, index) => {
+    if (index === parts.length - 1) {
+      options.fallback = vueI18nPartToIntlayer(part);
+    } else {
+      options[index.toString()] = vueI18nPartToIntlayer(part);
+    }
+  });
 
   // Preserve variable name
   options.__intlayer_vue_i18n_var = varName;
@@ -145,6 +151,7 @@ const intlayerToVueI18nPlugin = {
       typeof node === 'object' &&
       (node.nodeType === NodeTypes.INSERTION ||
         node.nodeType === NodeTypes.ENUMERATION ||
+        node.nodeType === NodeTypes.PLURAL ||
         node.nodeType === NodeTypes.GENDER ||
         node.nodeType === 'composite')
     ) {
@@ -192,6 +199,31 @@ const intlayerToVueI18nPlugin = {
     if (node.nodeType === NodeTypes.INSERTION) {
       // {{name}} -> {name}
       return node[NodeTypes.INSERTION].replace(/\{\{([^}]+)\}\}/g, '{$1}');
+    }
+
+    if (node.nodeType === NodeTypes.PLURAL) {
+      const options = node[NodeTypes.PLURAL];
+
+      const transformedOptions: Record<string, string> = {};
+      for (const [key, val] of Object.entries(options)) {
+        const childVal = next(val, props);
+        transformedOptions[key] =
+          typeof childVal === 'string' ? childVal : JSON.stringify(childVal);
+      }
+
+      if (
+        transformedOptions.zero &&
+        transformedOptions.one &&
+        transformedOptions.other
+      ) {
+        return `${transformedOptions.zero} | ${transformedOptions.one} | ${transformedOptions.other}`;
+      }
+
+      if (transformedOptions.one && transformedOptions.other) {
+        return `${transformedOptions.one} | ${transformedOptions.other}`;
+      }
+
+      return transformedOptions.other || Object.values(transformedOptions)[0];
     }
 
     if (node.nodeType === NodeTypes.ENUMERATION) {

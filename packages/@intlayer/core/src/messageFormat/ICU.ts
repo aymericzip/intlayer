@@ -1,7 +1,7 @@
 import type { Dictionary } from '@intlayer/types/dictionary';
 import * as NodeTypes from '@intlayer/types/nodeType';
 import { deepTransformNode } from '../interpreter';
-import { enu, gender, html, insert } from '../transpiler';
+import { enu, gender, html, insert, plural } from '../transpiler';
 
 /**
  * ICU MessageFormat Converter
@@ -266,41 +266,65 @@ const icuNodesToIntlayer = (nodes: ICUNode[]): any => {
     }
     if (node.type === 'plural') {
       const options: Record<string, any> = {};
+      let hasExactMatch = false;
 
-      for (const [key, val] of Object.entries(node.options)) {
-        // Map ICU keys to Intlayer keys
-        let newKey = key;
+      for (const key of Object.keys(node.options)) {
         if (key.startsWith('=')) {
-          newKey = key.substring(1); // =0 -> 0
-        } else if (key === 'one') {
-          newKey = '1';
-        } else if (key === 'two') {
-          newKey = '2';
-        } else if (key === 'few') {
-          newKey = '<=3';
-        } else if (key === 'many') {
-          newKey = '>=4';
-        } else if (key === 'other') {
-          newKey = 'fallback';
+          hasExactMatch = true;
+          break;
         }
-        // Handle # in plural value
-        // For plural, we need to pass the variable name down or replace #
-        // Intlayer uses {{n}} (or whatever var name) for simple variables
-        // We should replace # with {{n}} in the string parts of val
-        const replacedVal = val.map((v) => {
-          if (typeof v === 'string') {
-            return v.replace(/#/g, `{{${node.name}}}`);
-          }
-          return v;
-        });
-
-        options[newKey] = icuNodesToIntlayer(replacedVal);
       }
 
-      // Preserve variable name
-      options.__intlayer_icu_var = node.name;
+      if (hasExactMatch) {
+        for (const [key, val] of Object.entries(node.options)) {
+          // Map ICU keys to Intlayer keys
+          let newKey = key;
+          if (key.startsWith('=')) {
+            newKey = key.substring(1); // =0 -> 0
+          } else if (key === 'one') {
+            newKey = '1';
+          } else if (key === 'two') {
+            newKey = '2';
+          } else if (key === 'few') {
+            newKey = '<=3';
+          } else if (key === 'many') {
+            newKey = '>=4';
+          } else if (key === 'other') {
+            newKey = 'fallback';
+          }
+          // Handle # in plural value
+          // For plural, we need to pass the variable name down or replace #
+          // Intlayer uses {{n}} (or whatever var name) for simple variables
+          // We should replace # with {{n}} in the string parts of val
+          const replacedVal = val.map((v) => {
+            if (typeof v === 'string') {
+              return v.replace(/#/g, `{{${node.name}}}`);
+            }
+            return v;
+          });
 
-      return enu(options);
+          options[newKey] = icuNodesToIntlayer(replacedVal);
+        }
+
+        // Preserve variable name
+        options.__intlayer_icu_var = node.name;
+
+        return enu(options);
+      } else {
+        for (const [key, val] of Object.entries(node.options)) {
+          // Handle # in plural value
+          const replacedVal = val.map((v) => {
+            if (typeof v === 'string') {
+              return v.replace(/#/g, `{{${node.name}}}`);
+            }
+            return v;
+          });
+
+          options[key] = icuNodesToIntlayer(replacedVal);
+        }
+
+        return plural(options as any);
+      }
     }
     if (node.type === 'select') {
       const options: Record<string, any> = {};
@@ -369,6 +393,7 @@ const intlayerToIcuPlugin = {
       (node.nodeType === NodeTypes.INSERTION ||
         node.nodeType === NodeTypes.HTML ||
         node.nodeType === NodeTypes.ENUMERATION ||
+        node.nodeType === NodeTypes.PLURAL ||
         node.nodeType === NodeTypes.GENDER ||
         node.nodeType === 'composite')
     ) {
@@ -420,6 +445,38 @@ const intlayerToIcuPlugin = {
 
     if (node.nodeType === NodeTypes.HTML) {
       return node[NodeTypes.HTML];
+    }
+
+    if (node.nodeType === NodeTypes.PLURAL) {
+      const options = node[NodeTypes.PLURAL];
+
+      const transformedOptions: Record<string, string> = {};
+      for (const [key, val] of Object.entries(options)) {
+        const childVal = next(val, props);
+        transformedOptions[key] =
+          typeof childVal === 'string' ? childVal : JSON.stringify(childVal);
+      }
+
+      let varName = 'count';
+
+      const fallbackVal =
+        transformedOptions.other || Object.values(transformedOptions)[0];
+
+      if (fallbackVal) {
+        const match = fallbackVal.match(/\{([a-zA-Z0-9_]+)\}(?!,)/);
+        if (match) {
+          varName = match[1];
+        }
+      }
+
+      const parts = [];
+
+      for (const [key, val] of Object.entries(transformedOptions)) {
+        let strVal = val;
+        strVal = strVal.replace(new RegExp(`\\{${varName}\\}`, 'g'), '#');
+        parts.push(`${key} {${strVal}}`);
+      }
+      return `{${varName}, plural, ${parts.join(' ')}}`;
     }
 
     if (node.nodeType === NodeTypes.ENUMERATION) {

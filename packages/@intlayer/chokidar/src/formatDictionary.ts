@@ -3,7 +3,9 @@ import {
   icuToIntlayerFormatter,
   intlayerToI18nextFormatter,
   intlayerToICUFormatter,
+  intlayerToPortableObjectFormatter,
   intlayerToVueI18nFormatter,
+  portableObjectToIntlayerFormatter,
   vueI18nToIntlayerFormatter,
 } from '@intlayer/core/messageFormat';
 import type { Dictionary } from '@intlayer/types/dictionary';
@@ -30,6 +32,14 @@ export const formatDictionary = (dictionary: Dictionary): Dictionary => {
       ...dictionary,
       format: 'intlayer',
       content: vueI18nToIntlayerFormatter(dictionary.content),
+    };
+  }
+
+  if (dictionary.format === 'po') {
+    return {
+      ...dictionary,
+      format: 'intlayer',
+      content: portableObjectToIntlayerFormatter(dictionary.content),
     };
   }
 
@@ -65,6 +75,14 @@ export const formatDictionaryOutput = (
       ...dictionary,
       format: 'vue-i18n',
       content: intlayerToVueI18nFormatter(dictionary.content),
+    };
+  }
+
+  if (dictionary.format === 'po') {
+    return {
+      ...dictionary,
+      format: 'po',
+      content: intlayerToPortableObjectFormatter(dictionary.content),
     };
   }
 

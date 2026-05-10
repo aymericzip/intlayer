@@ -2,8 +2,8 @@ import * as Locales from '@intlayer/types/locales';
 import { describe, expect, it, vi } from 'vitest';
 import { getLocale } from './getLocale';
 
-vi.mock('@intlayer/config/built', () => ({
-  default: {
+vi.mock('@intlayer/config/built', () => {
+  const config = {
     internationalization: {
       locales: [Locales.ENGLISH, Locales.FRENCH],
       defaultLocale: Locales.ENGLISH,
@@ -16,8 +16,12 @@ vi.mock('@intlayer/config/built', () => ({
         headers: [{ name: 'accept-language' }],
       },
     },
-  },
-}));
+  };
+  return {
+    ...config,
+    default: config,
+  };
+});
 
 describe('getLocale', () => {
   it('should return locale from cookie if present', async () => {

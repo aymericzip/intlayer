@@ -8,8 +8,17 @@ import type { Dictionary } from '@intlayer/types/dictionary';
  * @param priorityStrategy - The priority strategy ('local_first' or 'distant_first')
  * @returns Ordered array of dictionaries
  */
-export const orderDictionaries = (dictionaries: Dictionary[]): Dictionary[] => {
-  const { dictionaryPriorityStrategy } = editor;
+export const orderDictionaries = (
+  dictionaries: Dictionary[],
+  config?: {
+    editor: {
+      dictionaryPriorityStrategy: 'local_first' | 'distant_first';
+    };
+  }
+): Dictionary[] => {
+  const dictionaryPriorityStrategy =
+    config?.editor?.dictionaryPriorityStrategy ??
+    editor.dictionaryPriorityStrategy;
 
   if (dictionaries.length <= 1) {
     return dictionaries;

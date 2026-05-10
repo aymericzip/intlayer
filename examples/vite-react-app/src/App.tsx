@@ -18,6 +18,30 @@ import reactLogo from './assets/react.svg';
 import { LocaleSwitcher } from './components/LangSwitcherDropDown';
 import { LocaleRouter } from './Router';
 
+const PoTestSection: FC = () => {
+  const content = useIntlayer('index');
+  return (
+    <div
+      style={{
+        padding: '20px',
+        border: '2px solid #646cff',
+        borderRadius: '12px',
+        marginTop: '30px',
+        background: 'rgba(100, 108, 255, 0.05)',
+        textAlign: 'left',
+      }}
+    >
+      <h2 style={{ color: '#646cff', marginTop: 0 }}>PO File Content Test</h2>
+      <div
+        style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '10px' }}
+      >
+        <strong>Default Key:</strong> <span>{content.test_key}</span>
+        <strong>Default Welcome:</strong> <span>{content.welcome_message}</span>
+      </div>
+    </div>
+  );
+};
+
 // ─── Benchmark table ─────────────────────────────────────────────────────────
 
 const th: React.CSSProperties = {
@@ -354,6 +378,8 @@ const AppContent: FC = () => {
       <h1>{content.title}</h1>
 
       <BenchmarkTable />
+
+      <PoTestSection />
 
       <p className="read-the-docs">{content.readTheDocs}</p>
 
