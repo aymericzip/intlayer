@@ -32,8 +32,8 @@ type VectorStoreEl = {
   chunkNumber: number;
   content: string;
   embedding?: number[];
-  docUrl: string;
-  docName: string;
+  docUrl?: string;
+  docName?: string;
 };
 
 /**
@@ -353,13 +353,7 @@ export const askDocQuestion = async (
   }
 
   // Format messages for AI SDK
-  const aiMessages = [
-    {
-      role: 'system' as const,
-      content: systemPrompt,
-    },
-    ...processedMessages,
-  ];
+  const aiMessages = [...processedMessages];
 
   if (!aiConfig) {
     throw new Error('Failed to initialize AI configuration');
@@ -369,6 +363,7 @@ export const askDocQuestion = async (
   let fullResponse = '';
   const stream = streamText({
     ...aiConfig,
+    system: systemPrompt,
     messages: aiMessages,
   });
 

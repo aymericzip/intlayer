@@ -6,8 +6,19 @@ import {
   getDocMetadataRecord,
   getDocsKeys,
 } from '@intlayer/docs';
-import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import z from 'zod';
+
+export type ToolResult = {
+  content: { type: string; text: string }[];
+  isError?: boolean;
+};
+export type McpServer = {
+  registerTool(
+    name: string,
+    config: any,
+    handler: (params: any) => Promise<ToolResult>
+  ): void;
+};
 
 type LoadDocsTools = (server: McpServer) => Promise<void>;
 
@@ -139,7 +150,7 @@ export const loadDocsTools: LoadDocsTools = async (server) => {
     },
     async ({ query, limit }) => {
       try {
-        const { searchDoc } = getSearchAPI();
+        const { searchDoc } = getSearchAPI(undefined);
         const response = await searchDoc({
           input: query,
           limit: limit?.toString(),

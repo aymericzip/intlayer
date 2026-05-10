@@ -43,6 +43,16 @@
       "require": "./dist/esm/server/sse.mjs",
       "import": "./dist/esm/server/sse.mjs"
     },
+    "./client": {
+      "types": "./dist/types/client/client.d.ts",
+      "require": "./dist/esm/client/client.mjs",
+      "import": "./dist/esm/client/client.mjs"
+    },
+    "./tools": {
+      "types": "./dist/types/tools/index.d.ts",
+      "require": "./dist/esm/tools/index.mjs",
+      "import": "./dist/esm/tools/index.mjs"
+    },
     "./package.json": "./package.json"
   },
   "main": "dist/esm/server/stdio.mjs",
@@ -55,6 +65,12 @@
       ],
       "sse": [
         "./dist/types/server/sse.d.ts"
+      ],
+      "client": [
+        "./dist/types/client/client.d.ts"
+      ],
+      "tools": [
+        "./dist/types/tools/index.d.ts"
       ],
       "package.json": [
         "./package.json"
@@ -93,7 +109,6 @@
     "typecheck": "tsc --noEmit --project tsconfig.types.json"
   },
   "dependencies": {
-    "@ai-sdk/mcp": "^1.0.41",
     "@intlayer/api": "workspace:*",
     "@intlayer/chokidar": "workspace:*",
     "@intlayer/cli": "workspace:*",

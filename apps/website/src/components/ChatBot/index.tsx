@@ -258,6 +258,9 @@ export const ChatBot: FC<ChatBotProps> = ({
           askNewQuestion={handleAskNewQuestion}
           clear={handleClear}
           nbMessages={(discussion?.storedPrompt ?? []).length}
+          userMessages={(discussion?.storedPrompt ?? [])
+            .filter((msg) => msg.role === 'user')
+            .map((msg) => msg.content as string)}
           additionalButtons={
             <>
               <PopoverStatic identifier="chat-info">

@@ -1,7 +1,7 @@
-import { getConfiguration } from '@intlayer/config';
 import { getIntlayerAPI } from '@intlayer/api';
-import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
+import { default as config } from '@intlayer/config/built';
 import z from 'zod';
+import type { McpServer } from './docs';
 
 type LoadAPITools = (server: McpServer) => void;
 
@@ -21,7 +21,6 @@ const authSchema = {
 };
 
 const getAPI = async (clientId?: string, clientSecret?: string) => {
-  const config = getConfiguration();
   const resolvedClientId = clientId ?? config.editor.clientId;
   const resolvedClientSecret = clientSecret ?? config.editor.clientSecret;
 
@@ -33,7 +32,11 @@ const getAPI = async (clientId?: string, clientSecret?: string) => {
 
   const configWithCreds = {
     ...config,
-    editor: { ...config.editor, clientId: resolvedClientId, clientSecret: resolvedClientSecret },
+    editor: {
+      ...config.editor,
+      clientId: resolvedClientId,
+      clientSecret: resolvedClientSecret,
+    },
   };
 
   const tempAPI = getIntlayerAPI({}, configWithCreds);
@@ -41,7 +44,9 @@ const getAPI = async (clientId?: string, clientSecret?: string) => {
   const token = (tokenResult as any)?.data?.access_token as string | undefined;
 
   if (!token) {
-    throw new Error('Failed to obtain OAuth2 access token. Check your credentials.');
+    throw new Error(
+      'Failed to obtain OAuth2 access token. Check your credentials.'
+    );
   }
 
   return getIntlayerAPI(
@@ -83,7 +88,10 @@ export const loadAPITools: LoadAPITools = (server) => {
     async ({ clientId, clientSecret, page, pageSize }) => {
       try {
         const api = await getAPI(clientId, clientSecret);
-        const result = await api.dictionary.getDictionaries({ page, pageSize } as any);
+        const result = await api.dictionary.getDictionaries({
+          page,
+          pageSize,
+        });
         return ok(result);
       } catch (error) {
         return fail('List dictionaries', error);
@@ -122,15 +130,26 @@ export const loadAPITools: LoadAPITools = (server) => {
         ...authSchema,
         key: z.string().describe('Unique key for the dictionary'),
         title: z.string().optional().describe('Human-readable title'),
-        description: z.string().optional().describe('Description of the dictionary'),
-        content: z.record(z.unknown()).optional().describe('Initial content as JSON object'),
+        description: z
+          .string()
+          .optional()
+          .describe('Description of the dictionary'),
+        content: z
+          .record(z.string(), z.unknown())
+          .optional()
+          .describe('Initial content as JSON object'),
       },
       annotations: { destructiveHint: false },
     },
     async ({ clientId, clientSecret, key, title, description, content }) => {
       try {
         const api = await getAPI(clientId, clientSecret);
-        const result = await api.dictionary.addDictionary({ key, title, description, content } as any);
+        const result = await api.dictionary.addDictionary({
+          key,
+          title,
+          description,
+          content,
+        });
         return ok(result);
       } catch (error) {
         return fail('Create dictionary', error);
@@ -149,14 +168,31 @@ export const loadAPITools: LoadAPITools = (server) => {
         key: z.string().optional().describe('New key for the dictionary'),
         title: z.string().optional().describe('New title'),
         description: z.string().optional().describe('New description'),
-        content: z.record(z.unknown()).optional().describe('Updated content as JSON object'),
+        content: z
+          .record(z.string(), z.unknown())
+          .optional()
+          .describe('Updated content as JSON object'),
       },
       annotations: { destructiveHint: true },
     },
-    async ({ clientId, clientSecret, id, key, title, description, content }) => {
+    async ({
+      clientId,
+      clientSecret,
+      id,
+      key,
+      title,
+      description,
+      content,
+    }) => {
       try {
         const api = await getAPI(clientId, clientSecret);
-        const result = await api.dictionary.updateDictionary({ id, key, title, description, content } as any);
+        const result = await api.dictionary.updateDictionary({
+          id,
+          key,
+          title,
+          description,
+          content,
+        });
         return ok(result);
       } catch (error) {
         return fail('Update dictionary', error);
@@ -168,7 +204,8 @@ export const loadAPITools: LoadAPITools = (server) => {
     'intlayer-dictionary-delete',
     {
       title: 'Delete Dictionary',
-      description: 'Delete a dictionary by its ID. This action is irreversible.',
+      description:
+        'Delete a dictionary by its ID. This action is irreversible.',
       inputSchema: {
         ...authSchema,
         dictionaryId: z.string().describe('Dictionary ID to delete'),
@@ -203,7 +240,7 @@ export const loadAPITools: LoadAPITools = (server) => {
     async ({ clientId, clientSecret, page, pageSize }) => {
       try {
         const api = await getAPI(clientId, clientSecret);
-        const result = await api.tag.getTags({ page, pageSize } as any);
+        const result = await api.tag.getTags({ page, pageSize });
         return ok(result);
       } catch (error) {
         return fail('List tags', error);
@@ -223,14 +260,31 @@ export const loadAPITools: LoadAPITools = (server) => {
         name: z.string().optional().describe('Display name for the tag'),
         description: z.string().optional().describe('Description of the tag'),
         color: z.string().optional().describe('Tag color (hex code)'),
-        instructions: z.string().optional().describe('AI instructions to apply when this tag is used'),
+        instructions: z
+          .string()
+          .optional()
+          .describe('AI instructions to apply when this tag is used'),
       },
       annotations: { destructiveHint: false },
     },
-    async ({ clientId, clientSecret, key, name, description, color, instructions }) => {
+    async ({
+      clientId,
+      clientSecret,
+      key,
+      name,
+      description,
+      color,
+      instructions,
+    }) => {
       try {
         const api = await getAPI(clientId, clientSecret);
-        const result = await api.tag.addTag({ key, name, description, color, instructions } as any);
+        const result = await api.tag.addTag({
+          key,
+          name,
+          description,
+          color,
+          instructions,
+        });
         return ok(result);
       } catch (error) {
         return fail('Create tag', error);
@@ -254,10 +308,25 @@ export const loadAPITools: LoadAPITools = (server) => {
       },
       annotations: { destructiveHint: true },
     },
-    async ({ clientId, clientSecret, tagId, key, name, description, color, instructions }) => {
+    async ({
+      clientId,
+      clientSecret,
+      tagId,
+      key,
+      name,
+      description,
+      color,
+      instructions,
+    }) => {
       try {
         const api = await getAPI(clientId, clientSecret);
-        const result = await api.tag.updateTag(tagId, { key, name, description, color, instructions } as any);
+        const result = await api.tag.updateTag(tagId, {
+          key,
+          name,
+          description,
+          color,
+          instructions,
+        });
         return ok(result);
       } catch (error) {
         return fail('Update tag', error);
@@ -304,7 +373,10 @@ export const loadAPITools: LoadAPITools = (server) => {
     async ({ clientId, clientSecret, page, pageSize }) => {
       try {
         const api = await getAPI(clientId, clientSecret);
-        const result = await api.organization.getOrganizations({ page, pageSize } as any);
+        const result = await api.organization.getOrganizations({
+          page,
+          pageSize,
+        });
         return ok(result);
       } catch (error) {
         return fail('List organizations', error);
@@ -327,7 +399,8 @@ export const loadAPITools: LoadAPITools = (server) => {
     async ({ clientId, clientSecret, organizationId }) => {
       try {
         const api = await getAPI(clientId, clientSecret);
-        const result = await api.organization.selectOrganization(organizationId);
+        const result =
+          await api.organization.selectOrganization(organizationId);
         return ok(result);
       } catch (error) {
         return fail('Select organization', error);
@@ -343,14 +416,20 @@ export const loadAPITools: LoadAPITools = (server) => {
       inputSchema: {
         ...authSchema,
         name: z.string().optional().describe('New organization name'),
-        customInstructions: z.string().optional().describe('Custom AI instructions for this organization'),
+        customInstructions: z
+          .string()
+          .optional()
+          .describe('Custom AI instructions for this organization'),
       },
       annotations: { destructiveHint: true },
     },
     async ({ clientId, clientSecret, name, customInstructions }) => {
       try {
         const api = await getAPI(clientId, clientSecret);
-        const result = await api.organization.updateOrganization({ name, customInstructions } as any);
+        const result = await api.organization.updateOrganization({
+          name,
+          customInstructions,
+        });
         return ok(result);
       } catch (error) {
         return fail('Update organization', error);
@@ -376,7 +455,7 @@ export const loadAPITools: LoadAPITools = (server) => {
     async ({ clientId, clientSecret, page, pageSize }) => {
       try {
         const api = await getAPI(clientId, clientSecret);
-        const result = await api.project.getProjects({ page, pageSize } as any);
+        const result = await api.project.getProjects({ page, pageSize });
         return ok(result);
       } catch (error) {
         return fail('List CMS projects', error);
@@ -421,7 +500,7 @@ export const loadAPITools: LoadAPITools = (server) => {
     async ({ clientId, clientSecret, name }) => {
       try {
         const api = await getAPI(clientId, clientSecret);
-        const result = await api.project.addProject({ name } as any);
+        const result = await api.project.addProject({ name });
         return ok(result);
       } catch (error) {
         return fail('Create CMS project', error);
@@ -443,7 +522,7 @@ export const loadAPITools: LoadAPITools = (server) => {
     async ({ clientId, clientSecret, name }) => {
       try {
         const api = await getAPI(clientId, clientSecret);
-        const result = await api.project.updateProject({ name } as any);
+        const result = await api.project.updateProject({ name });
         return ok(result);
       } catch (error) {
         return fail('Update CMS project', error);

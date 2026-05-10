@@ -46,7 +46,7 @@ export type * from '@controllers/organization.controller';
 export type * from '@controllers/project.controller';
 export type * from '@controllers/projectAccessKey.controller';
 export type * from '@controllers/recursiveAudit.controller';
-export type * from '@controllers/search.controller';
+export type * from '@controllers/searchDoc.controller';
 export type * from '@controllers/showcaseProject.controller';
 export type * from '@controllers/stripe.controller';
 export type * from '@controllers/tag.controller';

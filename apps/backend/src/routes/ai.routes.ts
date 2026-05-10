@@ -5,6 +5,7 @@ import {
   auditContentDeclarationMetadata,
   auditTag,
   autocomplete,
+  chat,
   customQuery,
   getDiscussions,
   translateJSON,
@@ -55,6 +56,11 @@ export const getAiRoutes = () =>
       url: `${baseURL()}/ask`,
       method: 'POST',
     },
+    chat: {
+      urlModel: '/chat',
+      url: `${baseURL()}/chat`,
+      method: 'POST',
+    },
     autocomplete: {
       urlModel: '/autocomplete',
       url: `${baseURL()}/autocomplete`,
@@ -95,4 +101,5 @@ export const aiRouter = async (fastify: FastifyInstance) => {
     routeId: 'ai-ask-rate-limit',
   });
   fastify.post(getAiRoutes().ask.urlModel, askDocQuestion);
+  fastify.post(getAiRoutes().chat.urlModel, chat);
 };

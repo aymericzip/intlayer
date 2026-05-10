@@ -5,8 +5,8 @@ import {
   SKILLS,
   type Skill,
 } from '@intlayer/chokidar/cli';
-import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import z from 'zod';
+import type { McpServer } from './docs';
 
 export const loadInstallSkillsTool = (server: McpServer): void => {
   server.registerTool(

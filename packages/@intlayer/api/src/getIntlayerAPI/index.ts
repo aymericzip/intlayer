@@ -1,4 +1,4 @@
-import { default as defaultConfiguration } from '@intlayer/config/built';
+import config from '@intlayer/config/built';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import { defu } from 'defu';
 import type { FetcherOptions } from '../fetcher';
@@ -42,12 +42,9 @@ interface IntlayerAPIReturn {
 
 export const getIntlayerAPI = (
   authAPIOptions: FetcherOptions = {},
-  intlayerConfig?: IntlayerConfig
+  intlayerConfig: IntlayerConfig = config
 ): IntlayerAPIReturn => {
-  const resolvedConfig = defu(
-    intlayerConfig ?? {},
-    defaultConfiguration
-  ) as IntlayerConfig;
+  const resolvedConfig = defu(intlayerConfig ?? {}, config) as IntlayerConfig;
 
   return {
     organization: getOrganizationAPI(authAPIOptions, resolvedConfig),

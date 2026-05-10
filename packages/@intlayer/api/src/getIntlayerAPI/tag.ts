@@ -9,12 +9,13 @@ import type {
   UpdateTagParams,
   UpdateTagResult,
 } from '@intlayer/backend';
+import config from '@intlayer/config/built';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import { type FetcherOptions, fetcher } from '../fetcher';
 
 export const getTagAPI = (
   authAPIOptions: FetcherOptions = {},
-  intlayerConfig: IntlayerConfig
+  intlayerConfig: IntlayerConfig = config
 ) => {
   const backendURL = intlayerConfig.editor.backendURL;
 

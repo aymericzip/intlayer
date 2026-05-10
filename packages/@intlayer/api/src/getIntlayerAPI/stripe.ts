@@ -7,7 +7,7 @@ import type {
   GetPricingBody,
   GetPricingResult,
 } from '@intlayer/backend';
-import { default as defaultConfiguration } from '@intlayer/config/built';
+import defaultConfiguration from '@intlayer/config/built';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import { type FetcherOptions, fetcher } from '../fetcher';
 

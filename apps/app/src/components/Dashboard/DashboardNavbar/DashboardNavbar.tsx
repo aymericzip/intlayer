@@ -7,6 +7,7 @@ import { cn } from '@intlayer/design-system/utils';
 import { useLocation } from '@tanstack/react-router';
 import { getPathWithoutLocale } from 'intlayer';
 import { type FC, useState } from 'react';
+import { DashboardChatBot } from '#components/Dashboard/DashboardChatBot';
 import { Link } from '#components/Link/Link';
 import { LocaleSwitcher } from '#components/LocaleSwitcher/LocaleSwitcher';
 import { ProfileDropDown } from '#components/ProfileDropdown/ProfileDropdown';
@@ -84,6 +85,7 @@ export const DashboardNavbar: FC<DashboardNavbarProps> = ({ items = [] }) => {
         </div>
         <div className="flex items-center gap-4">
           {project && <TranslationStatusAside />}
+          <DashboardChatBot />
           <LocaleSwitcher />
           <ProfileDropDown />
           {isMobile && (

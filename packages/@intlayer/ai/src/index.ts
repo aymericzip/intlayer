@@ -14,7 +14,7 @@ import type {
   VertexProviderOptions,
 } from './aiSdk';
 
-export { generateText, streamText } from 'ai';
+export { generateText, jsonSchema, stepCountIs, streamText, tool } from 'ai';
 export * from './aiSdk';
 export {
   type AuditDictionaryMetadataOptions,

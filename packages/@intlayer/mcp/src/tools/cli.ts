@@ -11,9 +11,60 @@ import {
   push,
 } from '@intlayer/cli';
 import { ALL_LOCALES } from '@intlayer/types/allLocales';
-import type { LogConfig } from '@intlayer/types/config';
-import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import z from 'zod';
+import type { McpServer } from './docs';
+
+const configOptionsSchema = z
+  .object({
+    baseDir: z.string().optional().describe('Base directory for the project'),
+    env: z.string().optional().describe('Environment name'),
+    envFile: z.string().optional().describe('Path to the environment file'),
+    override: z
+      .object({
+        editor: z
+          .object({
+            clientId: z.string().optional().describe('Intlayer CMS client ID'),
+            clientSecret: z
+              .string()
+              .optional()
+              .describe('Intlayer CMS client secret'),
+            backendURL: z
+              .string()
+              .optional()
+              .describe('Intlayer CMS backend URL'),
+          })
+          .optional(),
+        internationalization: z
+          .object({
+            locales: z
+              .array(z.nativeEnum(ALL_LOCALES))
+              .optional()
+              .describe('Available locales'),
+            defaultLocale: z
+              .nativeEnum(ALL_LOCALES)
+              .optional()
+              .describe('Default locale'),
+          })
+          .optional(),
+        log: z
+          .object({
+            mode: z
+              .enum(['default', 'verbose', 'disabled'])
+              .optional()
+              .describe('Log mode'),
+            prefix: z.string().optional().describe('Log prefix'),
+          })
+          .optional(),
+      })
+      .optional()
+      .describe(
+        'Config override - use when running remotely or without a local config file'
+      ),
+  })
+  .optional()
+  .describe(
+    'Configuration options. Required when running remotely or when no intlayer config file is present'
+  );
 
 type LoadCLITools = (server: McpServer) => Promise<void>;
 
@@ -65,37 +116,15 @@ export const loadCLITools: LoadCLITools = async (server) => {
         'Build the dictionaries. List all content declarations files `.content.{ts,tsx,js,json,...}` to update the content callable using the `useIntlayer` hook.',
       inputSchema: {
         watch: z.boolean().optional().describe('Watch for changes'),
-        baseDir: z.string().optional().describe('Base directory'),
-        env: z.string().optional().describe('Environment'),
-        envFile: z.string().optional().describe('Environment file'),
-        verbose: z.boolean().optional().describe('Verbose output'),
-        prefix: z.string().optional().describe('Log prefix'),
+        configOptions: configOptionsSchema,
       },
       annotations: {
         destructiveHint: true,
       },
     },
-    async ({ watch, baseDir, env, envFile, verbose, prefix }) => {
+    async ({ watch, configOptions }) => {
       try {
-        const log: Partial<LogConfig> = {};
-        if (verbose) {
-          log.mode = 'verbose';
-        }
-        if (prefix) {
-          log.prefix = prefix;
-        }
-
-        await build({
-          watch,
-          configOptions: {
-            baseDir,
-            env,
-            envFile,
-            override: {
-              log,
-            },
-          },
-        });
+        await build({ watch, configOptions });
 
         return {
           content: [
@@ -177,6 +206,7 @@ export const loadCLITools: LoadCLITools = async (server) => {
           })
           .optional()
           .describe('AI options'),
+        configOptions: configOptionsSchema,
       },
       annotations: {
         destructiveHint: true,
@@ -253,6 +283,7 @@ export const loadCLITools: LoadCLITools = async (server) => {
           })
           .optional()
           .describe('Git options'),
+        configOptions: configOptionsSchema,
       },
       annotations: {
         destructiveHint: true,
@@ -314,6 +345,7 @@ export const loadCLITools: LoadCLITools = async (server) => {
           .string()
           .optional()
           .describe('Path to save new dictionaries'),
+        configOptions: configOptionsSchema,
       },
       annotations: {
         destructiveHint: true,
@@ -353,24 +385,7 @@ export const loadCLITools: LoadCLITools = async (server) => {
       description:
         'List the content declaration (.content.{ts,tsx,js,json,...}) files present in the project. That files contain the multilingual content of the application and are used to build the dictionaries.',
       inputSchema: {
-        configOptions: z
-          .object({
-            baseDir: z.string().optional(),
-            env: z.string().optional(),
-            envFile: z.string().optional(),
-            override: z
-              .object({
-                log: z
-                  .object({
-                    prefix: z.string().optional(),
-                    verbose: z.boolean().optional(),
-                  })
-                  .optional(),
-              })
-              .optional(),
-          })
-          .optional()
-          .describe('Configuration options'),
+        configOptions: configOptionsSchema,
         absolute: z
           .boolean()
           .optional()
@@ -421,24 +436,7 @@ export const loadCLITools: LoadCLITools = async (server) => {
       description:
         'Test if there are missing translations in the content declaration files. That files contain the multilingual content of the application and are used to build the dictionaries.',
       inputSchema: {
-        configOptions: z
-          .object({
-            baseDir: z.string().optional(),
-            env: z.string().optional(),
-            envFile: z.string().optional(),
-            override: z
-              .object({
-                log: z
-                  .object({
-                    prefix: z.string().optional(),
-                    verbose: z.boolean().optional(),
-                  })
-                  .optional(),
-              })
-              .optional(),
-          })
-          .optional()
-          .describe('Configuration options'),
+        configOptions: configOptionsSchema,
       },
       annotations: {
         readOnlyHint: true,
@@ -487,24 +485,7 @@ export const loadCLITools: LoadCLITools = async (server) => {
           .string()
           .optional()
           .describe('Path to output content declaration files'),
-        configOptions: z
-          .object({
-            baseDir: z.string().optional(),
-            env: z.string().optional(),
-            envFile: z.string().optional(),
-            override: z
-              .object({
-                log: z
-                  .object({
-                    prefix: z.string().optional(),
-                    verbose: z.boolean().optional(),
-                  })
-                  .optional(),
-              })
-              .optional(),
-          })
-          .optional()
-          .describe('Configuration options'),
+        configOptions: configOptionsSchema,
       },
       annotations: {
         destructiveHint: true,
@@ -583,7 +564,6 @@ export const loadCLITools: LoadCLITools = async (server) => {
           gitRoot: props.gitRoot,
         });
 
-        // Handle absolute option similar to CLI command
         const projectsRelativePath = projectsPath
           .map((projectPath) =>
             props.absolute ? projectPath : relative(searchDir, projectPath)

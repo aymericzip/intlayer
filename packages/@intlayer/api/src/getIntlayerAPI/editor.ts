@@ -1,3 +1,4 @@
+import config from '@intlayer/config/built';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import type {
   GetConfigurationResult,
@@ -9,7 +10,7 @@ import { type FetcherOptions, fetcher } from '../fetcher';
 
 export const getEditorAPI = (
   authAPIOptions: FetcherOptions = {},
-  intlayerConfig: IntlayerConfig
+  intlayerConfig: IntlayerConfig = config
 ) => {
   const editorURL = intlayerConfig.editor.editorURL;
 

@@ -1157,6 +1157,16 @@ export const useAskDocQuestion = () => {
   });
 };
 
+export const useChat = () => {
+  const intlayerOAuth = useIntlayerOAuth();
+
+  return useMutation({
+    mutationKey: ['ai-chat'],
+    mutationFn: (args?: AskDocQuestionBody) =>
+      intlayerOAuth.ai.chat(args as any),
+  });
+};
+
 export const useAutocomplete = () => {
   const intlayerOAuth = useIntlayerOAuth();
 

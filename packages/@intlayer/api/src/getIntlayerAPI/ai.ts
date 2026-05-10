@@ -11,6 +11,7 @@ import type {
   AuditTagResult,
   AutocompleteResponse,
   ChatCompletionRequestMessage,
+  ChatResult,
   CustomQueryBody,
   CustomQueryResult,
   GetDiscussionsParams,
@@ -18,6 +19,7 @@ import type {
   TranslateJSONBody,
   TranslateJSONResult,
 } from '@intlayer/backend';
+import config from '@intlayer/config/built';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import { type FetcherOptions, fetcher } from '../fetcher';
 
@@ -36,11 +38,23 @@ export type AskDocQuestionBody = {
   onDone?: (response: AskDocQuestionResult) => void;
 };
 
-export type { AskDocQuestionResult };
+export type ClientAction =
+  | { type: 'navigate'; path: string }
+  | { type: 'invalidate_queries' };
+
+export type ChatBody = {
+  messages: ChatCompletionRequestMessage[];
+  discussionId: string;
+  onMessage?: (chunk: string) => void;
+  onDone?: (response: ChatResult) => void;
+  onAction?: (action: ClientAction) => void;
+};
+
+export type { AskDocQuestionResult, ChatResult };
 
 export const getAiAPI = (
   authAPIOptions: FetcherOptions = {},
-  intlayerConfig: IntlayerConfig
+  intlayerConfig: IntlayerConfig = config
 ) => {
   const backendURL = intlayerConfig.editor.backendURL;
 
@@ -268,6 +282,91 @@ export const getAiAPI = (
     }
   };
 
+  const chat = async (body?: ChatBody, otherOptions: FetcherOptions = {}) => {
+    if (!body) return;
+
+    const { onMessage, onDone, onAction, ...rest } = body;
+    const abortController = new AbortController();
+
+    try {
+      const response = await fetch(`${AI_API_ROUTE}/chat`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          ...authAPIOptions.headers,
+          ...otherOptions.headers,
+        },
+        body: JSON.stringify({
+          ...rest,
+          ...authAPIOptions.body,
+          ...otherOptions.body,
+        }),
+        signal: abortController.signal,
+        credentials: 'include',
+      });
+
+      if (!response.ok) {
+        let errorMessage: string = 'An error occurred';
+
+        try {
+          const errorData = await response.json();
+          const errorObj = errorData.error ?? errorData;
+          errorMessage = JSON.stringify(errorObj) ?? 'An error occurred';
+        } catch {
+          try {
+            const errorText = await response.text();
+            if (errorText) {
+              errorMessage = errorText;
+            }
+          } catch {
+            // ignore
+          }
+        }
+
+        throw new Error(errorMessage);
+      }
+
+      const reader = response.body?.getReader();
+      if (!reader) {
+        throw new Error('No reader available');
+      }
+
+      const decoder = new TextDecoder();
+      let buffer = '';
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+
+        buffer += decoder.decode(value, { stream: true });
+        const lines = buffer.split('\n');
+        buffer = lines.pop() ?? '';
+
+        for (const line of lines) {
+          if (line.startsWith('data: ')) {
+            try {
+              const data = JSON.parse(line.slice(6));
+              if (data.chunk) {
+                onMessage?.(data.chunk);
+              }
+              if (data.action) {
+                onAction?.(data.action);
+              }
+              if (data.done && data.response) {
+                onDone?.(data.response);
+              }
+            } catch (e) {
+              console.error('Failed to parse SSE data:', e);
+            }
+          }
+        }
+      }
+    } catch (error) {
+      console.error('Error in chat:', error);
+      throw error;
+    }
+  };
+
   const autocomplete = async (
     body?: AutocompleteBody,
     otherOptions: FetcherOptions = {}
@@ -308,6 +407,7 @@ export const getAiAPI = (
     auditContentDeclarationMetadata,
     auditTag,
     askDocQuestion,
+    chat,
     autocomplete,
     getDiscussions,
   };

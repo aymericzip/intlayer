@@ -1,4 +1,4 @@
-import { searchDocUtil } from '@controllers/search.controller';
+import { searchDocUtil } from '@controllers/searchDoc.controller';
 import type { FastifyInstance } from 'fastify';
 import type { Routes } from '@/types/Routes';
 

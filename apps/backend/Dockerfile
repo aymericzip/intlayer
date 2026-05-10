@@ -37,7 +37,6 @@ COPY \
     --exclude=packages/@intlayer/webpack \
     --exclude=packages/@intlayer/editor \
     --exclude=packages/@intlayer/editor-react \
-    --exclude=packages/@intlayer/mcp \
     --exclude=packages/intlayer-cli \
     --exclude=packages/next-intlayer \
     --exclude=packages/react-scripts-intlayer \

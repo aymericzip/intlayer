@@ -22,7 +22,14 @@ import {
   Plus,
   Trash2,
 } from 'lucide-react';
-import { type FC, Suspense, useCallback, useMemo, useState } from 'react';
+import {
+  type FC,
+  type MouseEvent,
+  Suspense,
+  useCallback,
+  useMemo,
+  useState,
+} from 'react';
 import { useForm } from 'react-hook-form';
 import { useIntlayer } from 'react-intlayer';
 import { useDate } from 'react-intlayer/format';
@@ -137,7 +144,7 @@ export const TagList: FC = () => {
             size="sm"
             color="text"
             checked={row.getIsSelected()}
-            onClick={(e: React.MouseEvent) => e.stopPropagation()}
+            onClick={(e: MouseEvent) => e.stopPropagation()}
             onChange={(e) => row.toggleSelected(e.target.checked)}
             aria-label={selectRow.value}
           />
@@ -202,7 +209,7 @@ export const TagList: FC = () => {
             size="icon-sm"
             Icon={ArrowRight}
             label={tableHeaders.actions.value}
-            onClick={(e: React.MouseEvent) => {
+            onClick={(e: MouseEvent) => {
               e.stopPropagation();
               navigate({
                 to: '/tags/$tagKey',

@@ -16,6 +16,7 @@ import {
 
 type FormSectionProps = {
   nbMessages: number;
+  userMessages: string[];
   askNewQuestion: (newQuestion: string) => void;
   clear: () => void;
   additionalButtons?: ReactNode;
@@ -24,6 +25,7 @@ type FormSectionProps = {
 
 export const FormSection: FC<FormSectionProps> = ({
   nbMessages,
+  userMessages = [],
   askNewQuestion,
   clear,
   additionalButtons,
@@ -34,17 +36,23 @@ export const FormSection: FC<FormSectionProps> = ({
   const { form, isSubmitting } = useForm(schema);
   const { sendQuestionButton, clearButton, textArea } =
     useIntlayer('chat-form-section');
+  const historyIndexRef = useRef<number>(-1);
+  const draftRef = useRef<string>('');
 
   const handleSubmit = (data: FormSectionSchemaData) => {
     if (!data.question) return;
 
     askNewQuestion(data.question);
     form.reset({ question: '' });
+    historyIndexRef.current = -1;
+    draftRef.current = '';
   };
 
   const handleClear = () => {
     clear();
     form.reset({ question: '' });
+    historyIndexRef.current = -1;
+    draftRef.current = '';
   };
 
   const hasClearButton = nbMessages >= 1;
@@ -60,6 +68,65 @@ export const FormSection: FC<FormSectionProps> = ({
     return () => clearTimeout(timeoutId);
   }, [isActive]);
 
+  const handleKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      handleSubmit(form.getValues());
+      return;
+    }
+
+    const { value } = e.currentTarget;
+
+    if (e.key === 'ArrowUp') {
+      if (userMessages.length === 0) return;
+      e.preventDefault();
+
+      let nextIndex: number;
+      if (historyIndexRef.current === -1) {
+        draftRef.current = value;
+        nextIndex = userMessages.length - 1;
+      } else if (historyIndexRef.current > 0) {
+        nextIndex = historyIndexRef.current - 1;
+      } else {
+        return;
+      }
+
+      historyIndexRef.current = nextIndex;
+      form.setValue('question', userMessages[nextIndex]);
+      requestAnimationFrame(() => {
+        if (inputRef.current) {
+          inputRef.current.selectionStart = userMessages[nextIndex].length;
+          inputRef.current.selectionEnd = userMessages[nextIndex].length;
+        }
+      });
+    } else if (e.key === 'ArrowDown' && historyIndexRef.current !== -1) {
+      e.preventDefault();
+
+      if (historyIndexRef.current === userMessages.length - 1) {
+        historyIndexRef.current = -1;
+        const draft = draftRef.current;
+        form.setValue('question', draft);
+        requestAnimationFrame(() => {
+          if (inputRef.current) {
+            inputRef.current.selectionStart = draft.length;
+            inputRef.current.selectionEnd = draft.length;
+          }
+        });
+      } else {
+        const nextIndex = historyIndexRef.current + 1;
+        historyIndexRef.current = nextIndex;
+        const msg = userMessages[nextIndex];
+        form.setValue('question', msg);
+        requestAnimationFrame(() => {
+          if (inputRef.current) {
+            inputRef.current.selectionStart = msg.length;
+            inputRef.current.selectionEnd = msg.length;
+          }
+        });
+      }
+    }
+  };
+
   return (
     <Form
       className="item-end flex h-auto flex-col items-end justify-center gap-3 px-4 py-3"
@@ -74,15 +141,7 @@ export const FormSection: FC<FormSectionProps> = ({
         maxRows={10}
         placeholder={textArea.placeholder.value}
         aria-label={textArea.label.value}
-        onKeyDown={
-          // Submit the form when the user presses the Enter key
-          (e: KeyboardEvent<HTMLTextAreaElement>) => {
-            if (e.key === 'Enter' && !e.shiftKey) {
-              e.preventDefault();
-              handleSubmit(form.getValues());
-            }
-          }
-        }
+        onKeyDown={handleKeyDown}
       />
       <div className="ml-auto flex items-center justify-end gap-2 max-md:w-full">
         {additionalButtons}

@@ -85,6 +85,7 @@
     "@intlayer/ai": "workspace:*",
     "@intlayer/chokidar": "workspace:*",
     "@intlayer/core": "workspace:*",
+    "@intlayer/mcp": "workspace:*",
     "@octokit/rest": "22.0.1",
     "@react-email/components": "1.0.12",
     "better-auth": "1.6.9",
@@ -107,7 +108,8 @@
     "stripe": "22.1.1",
     "validator": "13.15.35",
     "winston": "3.19.0",
-    "zod": "4.4.3"
+    "zod": "4.4.3",
+    "zod-to-json-schema": "^3.25.2"
   },
   "devDependencies": {
     "@intlayer/config": "workspace:*",

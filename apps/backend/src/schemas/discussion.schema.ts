@@ -47,6 +47,11 @@ export const discussionSchema = new Schema<DiscussionSchema>(
       type: String,
       required: false,
     },
+    type: {
+      type: String,
+      enum: ['doc', 'dashboard'],
+      required: false,
+    },
     isArchived: {
       type: Boolean,
       default: false,

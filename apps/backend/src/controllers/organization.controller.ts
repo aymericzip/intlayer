@@ -856,7 +856,7 @@ export const selectOrganization = async (
   reply: FastifyReply
 ): Promise<void> => {
   const { organizationId } = request.params;
-  const { session } = request.session || {};
+  const { session, roles } = request.session || {};
 
   if (!organizationId) {
     return ErrorHandler.handleGenericErrorResponse(
@@ -875,6 +875,21 @@ export const selectOrganization = async (
   try {
     const organization =
       await organizationService.getOrganizationById(organizationId);
+
+    if (
+      !hasPermission(
+        roles || [],
+        'organization:read'
+      )({
+        ...request.session,
+        targetOrganizations: [organization],
+      })
+    ) {
+      return ErrorHandler.handleGenericErrorResponse(
+        reply,
+        'PERMISSION_DENIED'
+      );
+    }
 
     // Update session to set activeOrganizationId
     await SessionModel.updateOne(

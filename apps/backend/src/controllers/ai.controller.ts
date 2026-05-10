@@ -16,6 +16,8 @@ import * as auditContentDeclarationFieldUtil from '@utils/AI/auditDictionaryFiel
 import * as auditContentDeclarationMetadataUtil from '@utils/AI/auditDictionaryMetadata';
 import * as auditTagUtil from '@utils/AI/auditTag';
 import * as autocompleteUtil from '@utils/AI/autocomplete';
+import * as chatUtil from '@utils/AI/chat';
+import { createSessionTools } from '@utils/AI/chat/sessionTools';
 import * as customQueryUtil from '@utils/AI/customQuery';
 import * as translateJSONUtil from '@utils/AI/translateJSON';
 import { type AppError, ErrorHandler } from '@utils/errors';
@@ -539,6 +541,7 @@ export const askDocQuestion = async (
     if (lastUserMessageNbWords >= 2 || messages.length >= 2) {
       const updatePayload: any = {
         discussionId,
+        type: 'doc',
         messages: [
           ...messages.map((msg) => ({
             role: msg.role,
@@ -598,6 +601,163 @@ export const askDocQuestion = async (
     };
 
     // Send error event to client
+    if (!reply.raw.writableEnded) {
+      reply.raw.write(
+        `event: error\ndata: ${JSON.stringify(errorPayload)}\n\n`
+      );
+      reply.raw.end();
+    }
+  }
+};
+
+export type ChatBody = {
+  messages: ChatCompletionRequestMessage[];
+  discussionId: string;
+};
+export type ChatResult = ResponseData<chatUtil.ChatResultData>;
+
+export const chat = async (
+  request: FastifyRequest<{ Body: ChatBody }>,
+  reply: FastifyReply
+): Promise<void> => {
+  const { messages = [], discussionId } = request.body;
+  const { user, project, organization, roles } = request.session || {};
+
+  reply.hijack();
+
+  const headers = reply.getHeaders();
+  for (const [key, value] of Object.entries(headers)) {
+    if (value !== undefined) {
+      reply.raw.setHeader(key, value);
+    }
+  }
+
+  const projectAIOptions = project?.configuration?.ai
+    ? (project.configuration.ai as AIOptions)
+    : undefined;
+
+  try {
+    let aiConfig: AIConfig;
+    try {
+      aiConfig = await getAIConfig(
+        {
+          userOptions: {},
+          projectOptions: projectAIOptions,
+          accessType: ['registered_user'],
+        },
+        !!user
+      );
+    } catch (error) {
+      console.error(error);
+
+      const errorPayload = {
+        code: 'AI_ACCESS_DENIED',
+        title: 'Access Denied',
+        message: 'Unable to configure AI access.',
+      };
+      reply.raw.write(
+        `event: error\ndata: ${JSON.stringify(errorPayload)}\n\n`
+      );
+      reply.raw.end();
+      return;
+    }
+
+    reply.raw.setHeader('Content-Type', 'text/event-stream; charset=utf-8');
+    reply.raw.setHeader('Cache-Control', 'no-cache, no-transform');
+    reply.raw.setHeader('Connection', 'keep-alive');
+    reply.raw.setHeader('X-Accel-Buffering', 'no');
+
+    if (reply.raw.flushHeaders) {
+      reply.raw.flushHeaders();
+    }
+
+    reply.raw.write(': connected\n\n');
+
+    const sessionTools = createSessionTools({
+      projectId: project?.id ? String(project.id) : undefined,
+      organizationId: organization?.id ? String(organization.id) : undefined,
+      userId: user?.id ? String(user.id) : undefined,
+      roles: roles || [],
+      session: request.session,
+      onAction: (action) => {
+        if (!reply.raw.writableEnded) {
+          reply.raw.write(`data: ${JSON.stringify({ action })}\n\n`);
+        }
+      },
+    });
+
+    const fullResponse = await chatUtil.chat(messages, aiConfig, {
+      tools: sessionTools,
+      onMessage: (chunk) => {
+        if (!reply.raw.writableEnded) {
+          reply.raw.write(`data: ${JSON.stringify({ chunk })}\n\n`);
+        }
+      },
+    });
+
+    const reversedMessages = [...messages].reverse();
+    const lastUserMessageContent = reversedMessages.find(
+      (message) => message.role === 'user'
+    )?.content;
+    const lastUserMessageNbWords =
+      typeof lastUserMessageContent === 'string'
+        ? lastUserMessageContent.split(' ').length
+        : 0;
+
+    if (lastUserMessageNbWords >= 2 || messages.length >= 2) {
+      const updatePayload: any = {
+        discussionId,
+        type: 'dashboard',
+        messages: [
+          ...messages.map((msg) => ({
+            role: msg.role,
+            content: msg.content,
+            timestamp: msg.timestamp ?? new Date(),
+          })),
+          {
+            role: 'assistant',
+            content: fullResponse.response,
+            timestamp: new Date(),
+          },
+        ],
+      };
+
+      if (user?.id) updatePayload.userId = user.id;
+      if (project?.id) updatePayload.projectId = project.id;
+      if (organization?.id) updatePayload.organizationId = organization.id;
+
+      await DiscussionModel.findOneAndUpdate(
+        { discussionId },
+        { $set: updatePayload },
+        { upsert: true, returnDocument: 'after' }
+      );
+    }
+
+    if (!reply.raw.writableEnded) {
+      reply.raw.write(
+        `data: ${JSON.stringify({ done: true, response: fullResponse })}\n\n`
+      );
+      reply.raw.end();
+    }
+  } catch (err) {
+    const errorMessage = err instanceof Error ? err.message : String(err);
+    const errorStack = err instanceof Error ? err.stack : undefined;
+
+    logger.error('AI Chat Stream Error:', {
+      message: errorMessage,
+      stack: errorStack,
+    });
+
+    const isAuthError =
+      errorMessage.includes('401') ||
+      errorMessage.includes('Incorrect API key');
+
+    const errorPayload = {
+      code: isAuthError ? 'AI_AUTH_ERROR' : 'AI_STREAM_ERROR',
+      title: isAuthError ? 'AI Configuration Error' : 'Generation Failed',
+      message: errorMessage,
+    };
+
     if (!reply.raw.writableEnded) {
       reply.raw.write(
         `event: error\ndata: ${JSON.stringify(errorPayload)}\n\n`

@@ -1012,7 +1012,7 @@ export const selectProject = async (
   reply: FastifyReply
 ) => {
   const { projectId } = request.params;
-  const { session } = request.session || {};
+  const { session, roles } = request.session || {};
 
   if (!projectId) {
     return ErrorHandler.handleGenericErrorResponse(
@@ -1030,6 +1030,21 @@ export const selectProject = async (
 
   try {
     const project = await projectService.getProjectById(projectId);
+
+    if (
+      !hasPermission(
+        roles || [],
+        'project:read'
+      )({
+        ...request.session,
+        targetProjects: [project],
+      })
+    ) {
+      return ErrorHandler.handleGenericErrorResponse(
+        reply,
+        'PERMISSION_DENIED'
+      );
+    }
 
     await SessionModel.updateOne(
       { _id: session.id },
