@@ -2,16 +2,18 @@ import { Burger, MaxHeightSmoother } from '@intlayer/design-system';
 import { Container } from '@intlayer/design-system/container';
 import { useDevice, useSession } from '@intlayer/design-system/hooks';
 import { Logo } from '@intlayer/design-system/logo';
-import { App_Home_Path } from '@intlayer/design-system/routes';
+import {
+  App_Dashboard_Dictionaries_Path,
+  App_Dashboard_Translate_Path,
+  App_Home_Path,
+} from '@intlayer/design-system/routes';
 import { cn } from '@intlayer/design-system/utils';
 import { useLocation } from '@tanstack/react-router';
 import { getPathWithoutLocale } from 'intlayer';
-import { type FC, useState } from 'react';
-import { DashboardChatBot } from '#components/Dashboard/DashboardChatBot';
+import { type FC, lazy, Suspense, useState } from 'react';
 import { Link } from '#components/Link/Link';
 import { LocaleSwitcher } from '#components/LocaleSwitcher/LocaleSwitcher';
 import { ProfileDropDown } from '#components/ProfileDropdown/ProfileDropdown';
-import { TranslationStatusAside } from '#components/TranslationStatusAside';
 import {
   filterItems,
   flattenItems,
@@ -21,6 +23,22 @@ import {
 } from '../DashboardSidebar/DashboardSidebar';
 import { OrganizationDropdown } from './OrganizationDropdown';
 import { ProjectDropdown } from './ProjectDropdown';
+
+const TranslationStatusAside = lazy(() =>
+  import('#components/TranslationStatusAside').then((m) => ({
+    default: m.TranslationStatusAside,
+  }))
+);
+const DashboardChatBot = lazy(() =>
+  import('#components/Dashboard/DashboardChatBot').then((m) => ({
+    default: m.DashboardChatBot,
+  }))
+);
+const VisualEditorDrawer = lazy(() =>
+  import('#components/Dashboard/Editor/VisualEditorDrawer').then((m) => ({
+    default: m.VisualEditorDrawer,
+  }))
+);
 
 export type DashboardNavbarProps = {
   items?: SidebarNavigationItem[];
@@ -57,6 +75,10 @@ export const DashboardNavbar: FC<DashboardNavbarProps> = ({ items = [] }) => {
     }
   }
 
+  const isEditorDrawerVisible =
+    getPathWithoutLocale(pathname).startsWith(App_Dashboard_Translate_Path) ||
+    getPathWithoutLocale(pathname).startsWith(App_Dashboard_Dictionaries_Path);
+
   return (
     <Container
       className="sticky top-0 z-50 flex w-full flex-col gap-3 p-4"
@@ -84,8 +106,19 @@ export const DashboardNavbar: FC<DashboardNavbarProps> = ({ items = [] }) => {
           </div>
         </div>
         <div className="flex items-center gap-4">
-          {project && <TranslationStatusAside />}
-          <DashboardChatBot />
+          {project && (
+            <Suspense fallback={<div className="size-10" />}>
+              <TranslationStatusAside />
+            </Suspense>
+          )}
+          {project && isEditorDrawerVisible && (
+            <Suspense fallback={<div className="size-10" />}>
+              <VisualEditorDrawer />
+            </Suspense>
+          )}
+          <Suspense fallback={<div className="size-10" />}>
+            <DashboardChatBot />
+          </Suspense>
           <LocaleSwitcher />
           <ProfileDropDown />
           {isMobile && (

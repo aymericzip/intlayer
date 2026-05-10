@@ -1,9 +1,19 @@
 import { Container } from '@intlayer/design-system/container';
-import type { FC, PropsWithChildren } from 'react';
+import { lazy, Suspense } from 'react';
 import { useTheme } from '#/providers/ThemeProvider';
-import { DictionaryEditionDrawerController } from './DictionaryEditionDrawer';
-import { DictionaryListDrawer } from './DictionaryListDrawer';
 import { LongPressMessage } from './LongPressMessage';
+
+const DictionaryEditionDrawerController = lazy(() =>
+  import('./DictionaryEditionDrawer').then((m) => ({
+    default: m.DictionaryEditionDrawerController,
+  }))
+);
+
+const DictionaryListDrawer = lazy(() =>
+  import('./DictionaryListDrawer').then((m) => ({
+    default: m.DictionaryListDrawer,
+  }))
+);
 
 type EditorLayoutProps = PropsWithChildren;
 
@@ -23,10 +33,12 @@ export const EditorLayout: FC<EditorLayoutProps> = ({ children }) => {
           <LongPressMessage />
         </div>
       </Container>
-      <DictionaryEditionDrawerController
-        isDarkMode={resolvedTheme === 'dark'}
-      />
-      <DictionaryListDrawer />
+      <Suspense fallback={null}>
+        <DictionaryEditionDrawerController
+          isDarkMode={resolvedTheme === 'dark'}
+        />
+        <DictionaryListDrawer />
+      </Suspense>
     </>
   );
 };

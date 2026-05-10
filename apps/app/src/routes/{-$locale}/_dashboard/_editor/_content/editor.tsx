@@ -1,7 +1,4 @@
-import {
-  App_Dashboard,
-  App_Dashboard_Editor,
-} from '@intlayer/design-system/routes';
+import { App_Dashboard_Editor } from '@intlayer/design-system/routes';
 import { createFileRoute } from '@tanstack/react-router';
 import {
   defaultLocale,
@@ -9,9 +6,6 @@ import {
   getLocalizedUrl,
   localeMap,
 } from 'intlayer';
-import { BreadcrumbsHeader } from '#/structuredData/BreadcrumbsHeader';
-import { Editor } from '#components/Dashboard/Editor';
-import { DictionaryLoaderDashboard } from '#components/Dashboard/Editor/DictionaryLoaderDashboard';
 
 export const Route = createFileRoute(
   '/{-$locale}/_dashboard/_editor/_content/editor'
