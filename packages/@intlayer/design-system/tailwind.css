@@ -14,18 +14,18 @@
   --color-card: rgba(231, 231, 231);
   --color-card-hover: rgba(231, 231, 231);
 
-  --color-hypertext: rgba(203, 235, 64);
+  --color-hypertext: var(--color-text);
   --color-hypertext-hover: rgba(197, 101, 212);
-  --color-hypertext-active: rgba(203, 235, 64);
+  --color-hypertext-active: var(--color-text);
 
   --color-shadow: rgba(18, 18, 18);
 
-  --color-primary: rgba(203, 235, 64);
+  --color-primary: var(--color-text);
   --color-primary-50: rgba(249, 253, 230);
   --color-primary-100: rgba(238, 248, 186);
   --color-primary-200: rgba(226, 243, 143);
   --color-primary-300: rgba(215, 239, 105);
-  --color-primary-400: rgba(203, 235, 64);
+  --color-primary-400: var(--color-text);
   --color-primary-500: rgba(182, 211, 57);
   --color-primary-600: rgba(153, 177, 48);
   --color-primary-700: rgba(116, 134, 37);
@@ -111,6 +111,21 @@
   --color-white: rgba(255, 255, 255);
 
   --color-black: rgba(0, 0, 0);
+
+  /* Shadcn standard theme variables mapped to the design system */
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
 }
 
 @variant dark 
@@ -133,13 +148,13 @@
   --color-card: rgba(231, 231, 231);
   --color-card-hover: rgba(231, 231, 231);
 
-  --color-hypertext: rgba(203, 235, 64);
+  --color-hypertext: var(--color-text);
   --color-hypertext-hover: rgba(197, 101, 212);
-  --color-hypertext-active: rgba(203, 235, 64);
+  --color-hypertext-active: var(--color-text);
 
   --color-shadow: rgba(18, 18, 18);
 
-  --color-primary: rgba(203, 235, 64);
+  --color-primary: var(--color-text);
   --color-secondary: rgba(255, 230, 109);
   --color-destructive: rgba(251, 125, 60);
   --color-neutral: rgba(93, 93, 93);
@@ -150,6 +165,33 @@
 
   --color-white: rgba(255, 255, 255);
   --color-black: rgba(0, 0, 0);
+
+  /* Shadcn mappings (Light) */
+  --background: var(--color-background);
+  --foreground: var(--color-text);
+  --card: var(--color-card);
+  --card-foreground: var(--color-text);
+  --popover: var(--color-card);
+  --popover-foreground: var(--color-text);
+  --primary: var(--color-text);
+  --primary-foreground: var(--color-background);
+  --secondary: var(--color-secondary);
+  --secondary-foreground: var(--color-text-light);
+  --muted: var(--color-neutral-100);
+  --muted-foreground: var(--color-neutral-600);
+  --accent: var(--color-card);
+  --accent-foreground: var(--color-text);
+  --destructive: var(--color-destructive);
+  --destructive-foreground: var(--color-white);
+  --border: var(--color-neutral-200);
+  --input: var(--color-neutral-200);
+  --ring: var(--color-primary);
+  --radius: 0.5rem;
+
+  /* Monaco theme variables */
+  --monaco-background: var(--color-background);
+  --monaco-foreground: var(--color-text);
+  --monaco-border: var(--color-neutral-200);
 }
 
 [data-theme="dark"] {
@@ -164,13 +206,13 @@
   --color-card: rgba(39, 39, 39);
   --color-card-hover: rgba(79, 79, 79);
 
-  --color-hypertext: rgba(203, 235, 64);
+  --color-hypertext: var(--color-text);
   --color-hypertext-hover: rgba(197, 101, 212);
-  --color-hypertext-active: rgba(203, 235, 64);
+  --color-hypertext-active: var(--color-text);
 
   --color-shadow: rgba(18, 18, 18);
 
-  --color-primary: rgba(203, 235, 64);
+  --color-primary: var(--color-text);
   --color-secondary: rgba(255, 230, 109);
   --color-destructive: rgba(251, 125, 60);
   --color-neutral: rgba(93, 93, 93);
@@ -181,8 +223,35 @@
 
   --color-white: rgba(255, 255, 255);
   --color-black: rgba(0, 0, 0);
+
+  /* Shadcn mappings (Dark) */
+  --background: var(--color-background);
+  --foreground: var(--color-text);
+  --card: var(--color-card);
+  --card-foreground: var(--color-text);
+  --popover: var(--color-card);
+  --popover-foreground: var(--color-text);
+  --primary: var(--color-text);
+  --primary-foreground: var(--color-background);
+  --secondary: var(--color-secondary);
+  --secondary-foreground: var(--color-text-light);
+  --muted: rgba(79, 79, 79, 1);
+  --muted-foreground: rgba(176, 176, 176, 1);
+  --accent: var(--color-card);
+  --accent-foreground: var(--color-text);
+  --destructive: var(--color-destructive);
+  --destructive-foreground: var(--color-white);
+  --border: rgba(79, 79, 79, 1);
+  --input: rgba(79, 79, 79, 1);
+  --ring: var(--color-primary);
+
+  /* Monaco theme variables */
+  --monaco-background: var(--color-background);
+  --monaco-foreground: var(--color-text);
+  --monaco-border: rgba(79, 79, 79, 1);
 }
 
 @plugin '@tailwindcss/aspect-ratio';
 
 @source "./src/**/*.{ts,tsx,svg}";
+

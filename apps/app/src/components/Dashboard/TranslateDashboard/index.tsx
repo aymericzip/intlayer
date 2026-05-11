@@ -221,7 +221,7 @@ const TranslateDashboardList: FC = () => {
     scrollToTop,
     filterLabels,
     translateDictionary,
-    viewDetails,
+    goToDictionary,
   } = useIntlayer('translate-dashboard');
   const { params, setParam, setParams } = useSearchParamState(searchParams);
   const { setSearch } = useSearch({
@@ -438,7 +438,7 @@ const TranslateDashboardList: FC = () => {
       />
 
       <div className="flex min-h-0 flex-1 flex-col">
-        <div className="flex w-full items-center gap-6 border-card border-b px-10 py-2">
+        <div className="flex w-full items-center gap-3 border-card border-b px-10 py-2">
           <PopoverStatic identifier="scroll-to-top">
             <Button
               label={scrollToTop.value}
@@ -475,9 +475,31 @@ const TranslateDashboardList: FC = () => {
             </PopoverStatic.Detail>
           </PopoverStatic>
 
-          <span className="ml-4">{currentDictionaryKey}</span>
+          <span className="ml-10">{currentDictionaryKey}</span>
 
-          <PopoverStatic identifier="translate-dictionary">
+          {currentDictionaryKey && (
+            <PopoverStatic identifier="go-to-dictionary">
+              <Link
+                label={goToDictionary.value}
+                to={`${App_Dashboard_Dictionaries_Path}/${currentDictionaryKey}`}
+              >
+                <Button
+                  label={goToDictionary.value}
+                  variant="hoverable"
+                  color="text"
+                  size="icon-md"
+                  Icon={ArrowRight}
+                />
+              </Link>
+              <PopoverStatic.Detail identifier="go-to-dictionary">
+                <span className="flex gap-4 text-nowrap py-2 pr-2 pl-4 text-neutral">
+                  {goToDictionary}
+                </span>
+              </PopoverStatic.Detail>
+            </PopoverStatic>
+          )}
+
+          <PopoverStatic identifier="translate-dictionary" className="ml-auto">
             <Button
               label={translateDictionary.value}
               variant="hoverable"
@@ -492,27 +514,6 @@ const TranslateDashboardList: FC = () => {
               </span>
             </PopoverStatic.Detail>
           </PopoverStatic>
-
-          {currentDictionaryKey && (
-            <PopoverStatic identifier="view-dictionary-details">
-              <Link
-                to={`${App_Dashboard_Dictionaries_Path}/${currentDictionaryKey}`}
-              >
-                <Button
-                  label={viewDetails.value}
-                  variant="hoverable"
-                  color="text"
-                  size="icon-md"
-                  Icon={ArrowRight}
-                />
-              </Link>
-              <PopoverStatic.Detail identifier="view-dictionary-details">
-                <span className="flex gap-4 text-nowrap py-2 pr-2 pl-4 text-neutral">
-                  {viewDetails}
-                </span>
-              </PopoverStatic.Detail>
-            </PopoverStatic>
-          )}
         </div>
 
         <div
