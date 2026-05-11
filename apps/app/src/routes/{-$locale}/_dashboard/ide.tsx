@@ -79,7 +79,7 @@ function IDEPage() {
 
   useEffect(() => {
     if (token && iframeRef.current) {
-      const targetOrigin = import.meta.env.IDE_URL;
+      const targetOrigin = import.meta.env.VITE_IDE_URL;
       iframeRef.current.contentWindow?.postMessage(
         { type: 'INTLAYER_SET_TOKEN', token },
         targetOrigin
@@ -89,7 +89,7 @@ function IDEPage() {
 
   const handleLoad = () => {
     if (token && iframeRef.current) {
-      const targetOrigin = import.meta.env.IDE_URL;
+      const targetOrigin = import.meta.env.VITE_IDE_URL;
       iframeRef.current.contentWindow?.postMessage(
         { type: 'INTLAYER_SET_TOKEN', token },
         targetOrigin
@@ -131,7 +131,7 @@ function IDEPage() {
             >
               <iframe
                 ref={iframeRef}
-                src={`${import.meta.env.IDE_URL}/${connectedRepository.owner}/${connectedRepository.repository}?file=${connectedRepository.configFilePath || 'intlayer.config.ts'}`}
+                src={`${import.meta.env.VITE_IDE_URL}/${connectedRepository.owner}/${connectedRepository.repository}?file=${connectedRepository.configFilePath || 'intlayer.config.ts'}`}
                 title={`${iframeTitle} ${connectedRepository.owner}/${connectedRepository.repository}`}
                 className="size-full"
                 onLoad={handleLoad}

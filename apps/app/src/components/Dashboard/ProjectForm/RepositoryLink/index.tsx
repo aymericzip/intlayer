@@ -7,6 +7,7 @@ import { App_Dashboard_IDE_Path } from '@intlayer/design-system/routes';
 import { TechLogos } from '@intlayer/design-system/tech-logo';
 import {
   CheckCircle2,
+  Code,
   FileCode,
   FolderSearch,
   Globe,
@@ -165,7 +166,7 @@ export const RepositoryLink: FC = () => {
                 variant="default"
                 color="text"
                 size="sm"
-                Icon={Globe}
+                Icon={Code}
                 onClick={() => navigate({ to: App_Dashboard_IDE_Path })}
                 label={content.actions?.openIDE?.value}
               >
