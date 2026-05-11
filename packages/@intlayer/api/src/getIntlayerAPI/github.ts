@@ -62,6 +62,12 @@ export type GitHubGetAuthUrlResult = {
   };
 };
 
+export type GitHubGetTokenResult = {
+  data: {
+    token: string;
+  };
+};
+
 export const getGithubAPI = (
   authAPIOptions: FetcherOptions = {},
   intlayerConfig: IntlayerConfig = config
@@ -172,11 +178,22 @@ export const getGithubAPI = (
       }
     );
 
+  /**
+   * Get user's GitHub token
+   */
+  const getToken = async (otherOptions: FetcherOptions = {}) =>
+    await fetcher<GitHubGetTokenResult>(
+      `${GITHUB_API_ROUTE}/token`,
+      authAPIOptions,
+      otherOptions
+    );
+
   return {
     getAuthUrl,
     authenticate,
     getRepositories,
     checkIntlayerConfig,
     getConfigFile,
+    getToken,
   };
 };

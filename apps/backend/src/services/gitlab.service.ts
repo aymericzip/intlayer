@@ -1,7 +1,6 @@
 import { configurationFilesCandidates } from '@intlayer/config/node';
 import { logger } from '@logger';
-import { getDBClient } from '@utils/mongoDB/connectDB';
-import { ObjectId } from 'mongodb';
+import { AccountModel } from '@models/account.model';
 
 const GITLAB_DEFAULT_URL = 'https://gitlab.com';
 
@@ -237,34 +236,10 @@ export const getGitLabTokenFromUser = async (
   userId: string
 ): Promise<string | null> => {
   try {
-    const client = getDBClient();
-    const db = client.db();
-
-    let account = await db.collection('account').findOne({
-      userId: userId,
+    const account = await AccountModel.findOne({
+      userId,
       providerId: 'gitlab',
     });
-
-    if (!account && ObjectId.isValid(userId)) {
-      account = await db.collection('account').findOne({
-        userId: new ObjectId(userId),
-        providerId: 'gitlab',
-      });
-    }
-
-    if (!account) {
-      account = await db.collection('accounts').findOne({
-        userId: userId,
-        providerId: 'gitlab',
-      });
-    }
-
-    if (!account && ObjectId.isValid(userId)) {
-      account = await db.collection('accounts').findOne({
-        userId: new ObjectId(userId),
-        providerId: 'gitlab',
-      });
-    }
 
     if (!account) {
       return null;

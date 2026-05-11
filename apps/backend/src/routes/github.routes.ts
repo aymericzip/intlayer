@@ -3,6 +3,7 @@ import {
   checkConfig,
   getAuthUrl,
   getConfigFile,
+  getToken,
   listRepos,
 } from '@controllers/github.controller';
 import type { FastifyInstance } from 'fastify';
@@ -39,6 +40,11 @@ export const getGithubRoutes = () =>
       url: `${baseURL()}/get-config-file`,
       method: 'POST',
     },
+    getToken: {
+      urlModel: '/token',
+      url: `${baseURL()}/token`,
+      method: 'GET',
+    },
   }) satisfies Routes;
 
 export const githubRouter = async (fastify: FastifyInstance) => {
@@ -47,4 +53,5 @@ export const githubRouter = async (fastify: FastifyInstance) => {
   fastify.get(getGithubRoutes().listRepos.urlModel, listRepos);
   fastify.post(getGithubRoutes().checkConfig.urlModel, checkConfig);
   fastify.post(getGithubRoutes().getConfigFile.urlModel, getConfigFile);
+  fastify.get(getGithubRoutes().getToken.urlModel, getToken);
 };

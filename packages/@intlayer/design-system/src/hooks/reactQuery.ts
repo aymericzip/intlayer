@@ -1372,6 +1372,16 @@ export const useGithubGetConfigFile = () => {
   });
 };
 
+export const useGithubToken = (options?: Partial<UseQueryOptions>) => {
+  const intlayerOAuth = useIntlayerOAuth();
+
+  return useQuery({
+    queryKey: ['github', 'token'],
+    queryFn: () => intlayerOAuth.github.getToken(),
+    ...options,
+  });
+};
+
 /**
  * GitLab
  */

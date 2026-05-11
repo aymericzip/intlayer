@@ -1,9 +1,8 @@
 import { configurationFilesCandidates } from '@intlayer/config/node';
 import { logger } from '@logger';
+import { AccountModel } from '@models/account.model';
 import type { RestEndpointMethodTypes } from '@octokit/rest';
 import { Octokit } from '@octokit/rest';
-import { getDBClient } from '@utils/mongoDB/connectDB';
-import { ObjectId } from 'mongodb';
 import type { Project } from '@/types/project.types';
 
 export type GitHubRepository =
@@ -186,34 +185,10 @@ export const getGitHubTokenFromUser = async (
   userId: string
 ): Promise<string | null> => {
   try {
-    const client = getDBClient();
-    const db = client.db();
-
-    let account = await db.collection('account').findOne({
-      userId: userId,
+    const account = await AccountModel.findOne({
+      userId,
       providerId: 'github',
     });
-
-    if (!account && ObjectId.isValid(userId)) {
-      account = await db.collection('account').findOne({
-        userId: new ObjectId(userId),
-        providerId: 'github',
-      });
-    }
-
-    if (!account) {
-      account = await db.collection('accounts').findOne({
-        userId: userId,
-        providerId: 'github',
-      });
-    }
-
-    if (!account && ObjectId.isValid(userId)) {
-      account = await db.collection('accounts').findOne({
-        userId: new ObjectId(userId),
-        providerId: 'github',
-      });
-    }
 
     if (!account) {
       return null;

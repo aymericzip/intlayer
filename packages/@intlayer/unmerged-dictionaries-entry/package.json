@@ -75,7 +75,7 @@
   },
   "devDependencies": {
     "@intlayer/types": "workspace:*",
-    "@types/node": "25.6.2",
+    "@types/node": "25.7.0",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",

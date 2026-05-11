@@ -1,5 +1,4 @@
 import * as githubService from '@services/github.service';
-import { getGitHubTokenFromUser } from '@services/github.service';
 import { type AppError, ErrorHandler } from '@utils/errors';
 import { formatResponse, type ResponseData } from '@utils/responseData';
 import type { FastifyReply, FastifyRequest } from 'fastify';
@@ -88,7 +87,9 @@ export const listRepos = async (
     let accessToken: string | undefined = token;
 
     if (!accessToken && userId) {
-      accessToken = (await getGitHubTokenFromUser(String(userId))) ?? undefined;
+      accessToken =
+        (await githubService.getGitHubTokenFromUser(String(userId))) ??
+        undefined;
     }
 
     if (!accessToken) {
@@ -134,7 +135,9 @@ export const checkConfig = async (
     let accessToken: string | undefined = token;
 
     if (!accessToken && userId) {
-      accessToken = (await getGitHubTokenFromUser(String(userId))) ?? undefined;
+      accessToken =
+        (await githubService.getGitHubTokenFromUser(String(userId))) ??
+        undefined;
     }
 
     if (!accessToken || !owner || !repository) {
@@ -197,7 +200,9 @@ export const getConfigFile = async (
     let accessToken: string | undefined = token;
 
     if (!accessToken && userId) {
-      accessToken = (await getGitHubTokenFromUser(String(userId))) ?? undefined;
+      accessToken =
+        (await githubService.getGitHubTokenFromUser(String(userId))) ??
+        undefined;
     }
 
     if (!accessToken || !owner || !repository) {
@@ -224,6 +229,36 @@ export const getConfigFile = async (
 
     const responseData = formatResponse<{ content: string }>({
       data: { content },
+    });
+
+    return reply.send(responseData);
+  } catch (error) {
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
+  }
+};
+
+export const getToken = async (
+  request: FastifyRequest,
+  reply: FastifyReply
+): Promise<void> => {
+  try {
+    const userId = request.session?.user?.id;
+
+    if (!userId) {
+      return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_FOUND');
+    }
+
+    const token = await githubService.getGitHubTokenFromUser(userId);
+
+    if (!token) {
+      return ErrorHandler.handleGenericErrorResponse(
+        reply,
+        'GITHUB_TOKEN_MISSING'
+      );
+    }
+
+    const responseData = formatResponse<{ token: string }>({
+      data: { token },
     });
 
     return reply.send(responseData);

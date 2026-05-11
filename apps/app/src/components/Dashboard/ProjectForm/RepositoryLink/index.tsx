@@ -5,7 +5,16 @@ import { Input } from '@intlayer/design-system/input';
 import { Modal } from '@intlayer/design-system/modal';
 import { App_Dashboard_IDE_Path } from '@intlayer/design-system/routes';
 import { TechLogos } from '@intlayer/design-system/tech-logo';
-import { CheckCircle2, FileCode, FolderSearch, Globe } from 'lucide-react';
+import {
+  CheckCircle2,
+  FileCode,
+  FolderSearch,
+  Globe,
+  Link,
+  RotateCcw,
+  Search,
+  Trash2,
+} from 'lucide-react';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { useLocalizedNavigate } from '#hooks/useLocalizedNavigate';
@@ -135,6 +144,7 @@ export const RepositoryLink: FC = () => {
               variant="outline"
               color="error"
               size="sm"
+              Icon={Trash2}
               label={content.actions?.disconnect?.value}
               onClick={handleDisconnect}
             >
@@ -227,6 +237,7 @@ export const RepositoryLink: FC = () => {
                   provider: PROVIDER_NAMES[selectedProvider],
                 })}
                 isLoading={isLinking}
+                Icon={Link}
                 color="text"
                 className="mx-auto"
               >
@@ -256,16 +267,29 @@ export const RepositoryLink: FC = () => {
                   </p>
                 </div>
               </div>
-              <Button
-                onClick={() => setIsRepoListOpen(true)}
-                isLoading={isLoadingRepos}
-                disabled={isLoadingRepos}
-                label={content.actions?.browseRepos?.value}
-                color="text"
-                className="ml-auto"
-              >
-                {content.actions?.browseRepos}
-              </Button>
+              <div className="ml-auto flex gap-3">
+                <Button
+                  onClick={handleConnectClick}
+                  isLoading={isLinking}
+                  disabled={isLoadingRepos || isLinking}
+                  label={content.actions?.renewAuth?.value}
+                  variant="outline"
+                  color="text"
+                  Icon={RotateCcw}
+                >
+                  {content.actions?.renewAuth}
+                </Button>
+                <Button
+                  onClick={() => setIsRepoListOpen(true)}
+                  isLoading={isLoadingRepos}
+                  disabled={isLoadingRepos || isLinking}
+                  label={content.actions?.browseRepos?.value}
+                  color="text"
+                  Icon={Search}
+                >
+                  {content.actions?.browseRepos}
+                </Button>
+              </div>
             </Container>
           )}
         </>

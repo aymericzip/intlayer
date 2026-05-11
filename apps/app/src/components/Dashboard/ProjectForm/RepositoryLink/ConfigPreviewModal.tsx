@@ -2,7 +2,7 @@ import { Button } from '@intlayer/design-system/button';
 import { CodeBlock } from '@intlayer/design-system/ide';
 import { Loader } from '@intlayer/design-system/loader';
 import { Modal } from '@intlayer/design-system/modal';
-import { XCircle } from 'lucide-react';
+import { Check, XCircle } from 'lucide-react';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { useTheme } from '#/providers/ThemeProvider';
@@ -51,16 +51,18 @@ export const ConfigPreviewModal: FC<ConfigPreviewModalProps> = ({
       hasCloseButton
       size="lg"
       padding="2xl"
+      isScrollable={false}
+      className="max-h-[90vh]"
       title={title}
     >
-      <div className="flex w-full flex-col gap-4">
-        <div className="flex max-h-96 min-h-0 flex-1 flex-col overflow-auto rounded-xl bg-text-opposite/80">
+      <div className="flex size-full flex-col gap-4">
+        <div className="flex max-h-156 min-h-0 flex-1 flex-col overflow-auto rounded-xl bg-text-opposite/80">
           {isLoadingConfigContent && !hasContent ? (
             <div className="flex min-h-20 items-center justify-center gap-2">
               <Loader className="size-4" />
             </div>
           ) : hasContent ? (
-            <div className="flex items-center justify-center gap-2 p-6">
+            <div className="p-6">
               <CodeBlock lang="typescript" isDarkMode={isDarkMode}>
                 {configPreview?.content ?? viewOnlyConfigContent ?? ''}
               </CodeBlock>
@@ -73,9 +75,8 @@ export const ConfigPreviewModal: FC<ConfigPreviewModalProps> = ({
           )}
         </div>
 
-        {/* If we are in "Import Mode", show confirmation buttons */}
         {isImportMode && (
-          <div className="flex justify-end gap-2 pt-4">
+          <div className="flex shrink-0 justify-end gap-2 pt-4">
             <Button
               variant="outline"
               color="text"
@@ -93,24 +94,11 @@ export const ConfigPreviewModal: FC<ConfigPreviewModalProps> = ({
             <Button
               onClick={onConfirm}
               color="text"
+              Icon={Check}
               isLoading={isUpdatingProject}
               label={content.actions?.useThisFile?.value}
             >
               {content.actions?.useThisFile}
-            </Button>
-          </div>
-        )}
-
-        {/* If we are in "View Only Mode", just show Close */}
-        {!isImportMode && (
-          <div className="flex justify-end pt-4">
-            <Button
-              variant="outline"
-              color="text"
-              onClick={onClose}
-              label={content.modal?.close?.value}
-            >
-              {content.modal?.close}
             </Button>
           </div>
         )}

@@ -172,6 +172,7 @@ export const useRepositoryLink = (): UseRepositoryLinkReturn => {
           defaultBranch: repo.default_branch,
           updatedAt: repo.updated_at,
           provider: 'github' as RepositoryProvider,
+          isPrivate: repo.private,
           owner: {
             login: repo.owner.login,
             avatarUrl: repo.owner.avatar_url,
@@ -186,6 +187,7 @@ export const useRepositoryLink = (): UseRepositoryLinkReturn => {
             defaultBranch: project.default_branch || 'main',
             updatedAt: project.last_activity_at,
             provider: 'gitlab' as RepositoryProvider,
+            isPrivate: project.visibility === 'private',
             projectId: project.id,
             namespace: project.namespace,
             instanceUrl: gitlabInstanceUrl || undefined,
@@ -202,6 +204,7 @@ export const useRepositoryLink = (): UseRepositoryLinkReturn => {
               defaultBranch: repo.mainbranch?.name || 'main',
               updatedAt: repo.updated_on,
               provider: 'bitbucket' as RepositoryProvider,
+              isPrivate: repo.is_private,
               workspace: repo.workspace,
               slug: repo.slug,
               owner: {
@@ -212,7 +215,7 @@ export const useRepositoryLink = (): UseRepositoryLinkReturn => {
 
   // Get connected repository from project
   const connectedRepository: ConnectedRepository | null =
-    project?.repository ?? project?.github ?? null;
+    project?.repository ?? null;
 
   const isConnectedToRepo = !!connectedRepository;
 

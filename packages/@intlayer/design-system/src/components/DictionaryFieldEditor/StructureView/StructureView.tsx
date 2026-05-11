@@ -24,9 +24,10 @@ import {
 import type { LocalDictionaryId, TypedNode } from '@intlayer/types/dictionary';
 import type { KeyPath } from '@intlayer/types/keyPath';
 import * as NodeTypes from '@intlayer/types/nodeType';
+import { useVirtualizer } from '@tanstack/react-virtual';
 import type { ContentNode } from 'intlayer';
 import { Plus, Trash } from 'lucide-react';
-import type { FC } from 'react';
+import { type FC, memo, useMemo, useRef } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { NodeTypeSelector } from '../NodeTypeSelector';
 
@@ -44,8 +45,10 @@ const NodeTypeView: FC<NodeTypeViewProps> = ({
   onNodeTypeChange: onNodeTypeChangeProp,
 }) => {
   const locales = useConfiguration()?.internationalization?.locales ?? [];
-  const nodeType = getNodeType(section);
-  const children = getNodeChildren(section);
+
+  // Memoize node type and children calculations
+  const nodeType = useMemo(() => getNodeType(section), [section]);
+  const children = useMemo(() => getNodeChildren(section), [section]);
 
   const onNodeTypeChange = (content?: ContentNode) => {
     const transformedContent = getDefaultNode(
@@ -155,85 +158,82 @@ type NodeWrapperProps = {
   section: ContentNode;
 };
 
-export const NodeView: FC<NodeWrapperProps> = ({
-  sectionKey,
-  section,
-  keyPath,
-  dictionaryLocalId,
-}) => {
-  const { focusedContent, setFocusedContentKeyPath } =
-    useFocusUnmergedDictionary();
-  const { renameEditedContent, addEditedContent } = useEditedContentActions();
+export const NodeView: FC<NodeWrapperProps> = memo(
+  ({ sectionKey, section, keyPath, dictionaryLocalId }) => {
+    const { focusedContent, setFocusedContentKeyPath } =
+      useFocusUnmergedDictionary();
+    const { renameEditedContent, addEditedContent } = useEditedContentActions();
 
-  const { titleInput, deleteButton } = useIntlayer('structure-view');
+    const { titleInput, deleteButton } = useIntlayer('structure-view');
 
-  const handleRenameNodeKey = (keyName: string) => {
-    renameEditedContent(dictionaryLocalId, keyName, keyPath);
-    const prevKeyPath: KeyPath[] = keyPath.slice(0, -1);
-    const lastKeyPath: KeyPath = keyPath[keyPath.length - 1];
-    const newKeyPath: KeyPath[] = [
-      ...prevKeyPath,
-      { ...lastKeyPath, key: keyName } as KeyPath,
-    ];
-    setFocusedContentKeyPath(newKeyPath);
-  };
+    const handleRenameNodeKey = (keyName: string) => {
+      renameEditedContent(dictionaryLocalId, keyName, keyPath);
+      const prevKeyPath: KeyPath[] = keyPath.slice(0, -1);
+      const lastKeyPath: KeyPath = keyPath[keyPath.length - 1];
+      const newKeyPath: KeyPath[] = [
+        ...prevKeyPath,
+        { ...lastKeyPath, key: keyName } as KeyPath,
+      ];
+      setFocusedContentKeyPath(newKeyPath);
+    };
 
-  return (
-    <Container
-      transparency="xl"
-      roundedSize="xl"
-      className="w-full min-w-80 gap-2 overflow-auto px-5 py-2"
-      border
-      borderColor="text"
-      background="none"
-      aria-selected={isSameKeyPath(keyPath, focusedContent?.keyPath ?? [])}
-      onClick={() => setFocusedContentKeyPath(keyPath)}
-    >
-      <div className="flex w-full flex-col items-start justify-between gap-3">
-        {typeof sectionKey === 'string' && (
-          <div className="w-full">
-            <div className="flex w-full items-center justify-between gap-10">
-              <EditableFieldInput
-                name="key"
-                aria-label="Key"
-                placeholder={titleInput.placeholder.value}
-                defaultValue={sectionKey}
-                onSave={(value) => handleRenameNodeKey(value)}
-                variant={InputVariant.INVISIBLE}
-              />
-              <Button
-                label={deleteButton.label.value}
-                variant={ButtonVariant.HOVERABLE}
-                size={ButtonSize.ICON_SM}
-                color={ButtonColor.TEXT}
-                className="translate-x-2"
-                Icon={Trash}
-                onClick={() => {
-                  addEditedContent(dictionaryLocalId, undefined, keyPath);
+    return (
+      <Container
+        transparency="xl"
+        roundedSize="xl"
+        className="w-full min-w-80 gap-2 overflow-auto px-5 py-2"
+        border
+        borderColor="text"
+        background="none"
+        aria-selected={isSameKeyPath(keyPath, focusedContent?.keyPath ?? [])}
+        onClick={() => setFocusedContentKeyPath(keyPath)}
+      >
+        <div className="flex w-full flex-col items-start justify-between gap-3">
+          {typeof sectionKey === 'string' && (
+            <div className="w-full">
+              <div className="flex w-full items-center justify-between gap-10">
+                <EditableFieldInput
+                  name="key"
+                  aria-label="Key"
+                  placeholder={titleInput.placeholder.value}
+                  defaultValue={sectionKey}
+                  onSave={(value) => handleRenameNodeKey(value)}
+                  variant={InputVariant.INVISIBLE}
+                />
+                <Button
+                  label={deleteButton.label.value}
+                  variant={ButtonVariant.HOVERABLE}
+                  size={ButtonSize.ICON_SM}
+                  color={ButtonColor.TEXT}
+                  className="translate-x-2"
+                  Icon={Trash}
+                  onClick={() => {
+                    addEditedContent(dictionaryLocalId, undefined, keyPath);
 
-                  const parentKeyPath: KeyPath[] = keyPath.slice(0, -1);
-                  setFocusedContentKeyPath(parentKeyPath);
-                }}
-              />
+                    const parentKeyPath: KeyPath[] = keyPath.slice(0, -1);
+                    setFocusedContentKeyPath(parentKeyPath);
+                  }}
+                />
+              </div>
+
+              <span className="ml-3 text-neutral text-sm">
+                ( {camelCaseToSentence(sectionKey)} )
+              </span>
             </div>
-
-            <span className="ml-3 text-neutral text-sm">
-              ( {camelCaseToSentence(sectionKey)} )
-            </span>
-          </div>
-        )}
-        <NodeTypeView
-          keyPath={keyPath}
-          dictionaryLocalId={dictionaryLocalId}
-          section={section}
-          onNodeTypeChange={(content) => {
-            addEditedContent(dictionaryLocalId, content, keyPath);
-          }}
-        />
-      </div>
-    </Container>
-  );
-};
+          )}
+          <NodeTypeView
+            keyPath={keyPath}
+            dictionaryLocalId={dictionaryLocalId}
+            section={section}
+            onNodeTypeChange={(content) => {
+              addEditedContent(dictionaryLocalId, content, keyPath);
+            }}
+          />
+        </div>
+      </Container>
+    );
+  }
+);
 
 type ObjectViewProps = {
   dictionaryLocalId: LocalDictionaryId;
@@ -250,34 +250,77 @@ export const ObjectView: FC<ObjectViewProps> = ({
   const { setFocusedContentKeyPath } = useFocusUnmergedDictionary();
   const { addEditedContent } = useEditedContentActions();
 
+  // 1. Memoize keys to avoid unnecessary virtualizer resets
+  const keys = useMemo(
+    () => (section && typeof section === 'object' ? Object.keys(section) : []),
+    [section]
+  );
+
+  // 2. Setup virtualization for large objects
+  const parentRef = useRef<HTMLDivElement>(null);
+
+  const rowVirtualizer = useVirtualizer({
+    count: keys.length,
+    getScrollElement: () => parentRef.current,
+    estimateSize: () => 140, // Estimated height for a NodeView
+    overscan: 5,
+  });
+
   if (!section || typeof section !== 'object') {
     return <div>Not an object</div>;
   }
 
   return (
-    <div className="flex flex-col gap-2 overflow-y-auto">
-      <ul className="mr-auto flex flex-col gap-4">
-        {Object.keys(section).map((key) => (
-          <li
-            key={`${JSON.stringify(keyPath)}-object-${key}`}
-            className="flex w-full"
-          >
-            <NodeView
-              sectionKey={key}
-              section={section?.[key as keyof typeof section]}
-              keyPath={[...keyPath, { type: NodeTypes.OBJECT, key }]}
-              dictionaryLocalId={dictionaryLocalId}
-            />
-          </li>
-        ))}
-      </ul>
+    <div className="flex flex-col gap-2">
+      <div
+        ref={parentRef}
+        className="flex max-h-[800px] flex-col gap-4 overflow-y-auto pr-2"
+      >
+        <div
+          style={{
+            height: `${rowVirtualizer.getTotalSize()}px`,
+            width: '100%',
+            position: 'relative',
+          }}
+        >
+          {rowVirtualizer.getVirtualItems().map((virtualRow) => {
+            const key = keys[virtualRow.index];
+            return (
+              <div
+                key={virtualRow.key}
+                data-index={virtualRow.index}
+                ref={rowVirtualizer.measureElement}
+                style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  width: '100%',
+                  transform: `translateY(${virtualRow.start}px)`,
+                }}
+                className="pb-4"
+              >
+                <NodeView
+                  sectionKey={key}
+                  section={section?.[key as keyof typeof section]}
+                  keyPath={[
+                    ...keyPath,
+                    { type: NodeTypes.OBJECT, key } as KeyPath,
+                  ]}
+                  dictionaryLocalId={dictionaryLocalId}
+                />
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
       <Button
         label={addNodeButton.label.value}
         variant={ButtonVariant.HOVERABLE}
         size={ButtonSize.MD}
         color={ButtonColor.TEXT}
         Icon={Plus}
-        className="flex-1"
+        className="mt-2 flex-1"
         onClick={() => {
           const newKey = 'newKey';
           const newKeyPath = [

@@ -1,6 +1,8 @@
+import { Badge } from '@intlayer/design-system/badge';
 import { Button } from '@intlayer/design-system/button';
+import { Container } from '@intlayer/design-system/container';
 import { TechLogos } from '@intlayer/design-system/tech-logo';
-import { GitBranch, GitCommit } from 'lucide-react';
+import { GitBranch, GitCommit, Globe, Lock } from 'lucide-react';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import type { RepoData, RepositoryProvider } from './types';
@@ -51,7 +53,13 @@ export const RepositoryItem: FC<RepositoryItemProps> = ({
           : repo.name;
 
   return (
-    <div className="flex items-center justify-between rounded-xl border border-neutral/20 p-4 transition-colors hover:border-neutral/50">
+    <Container
+      roundedSize="3xl"
+      border
+      background="none"
+      borderColor="neutral"
+      className="mr-4 flex flex-row items-center justify-between border-neutral/20 p-4 transition-colors hover:border-neutral/50"
+    >
       <div className="flex items-center gap-4">
         <div className="flex size-12 items-center justify-center rounded-full text-text">
           <ProviderLogo
@@ -61,9 +69,31 @@ export const RepositoryItem: FC<RepositoryItemProps> = ({
         </div>
 
         <div className="flex flex-col gap-1">
-          <h5 className="font-semibold text-base leading-none">
-            {displayName}
-          </h5>
+          <div className="flex items-center gap-2">
+            <h5 className="font-semibold text-base leading-none">
+              {displayName}
+            </h5>
+            {repo.isPrivate !== undefined && (
+              <Badge
+                variant="outline"
+                color="neutral"
+                size="sm"
+                className="gap-1 rounded-full px-2 py-0"
+              >
+                {repo.isPrivate ? (
+                  <>
+                    <Lock className="size-3" />
+                    Private
+                  </>
+                ) : (
+                  <>
+                    <Globe className="size-3" />
+                    Public
+                  </>
+                )}
+              </Badge>
+            )}
+          </div>
           <div className="flex items-center gap-4 text-neutral text-xs">
             <span className="flex items-center gap-1">
               <GitBranch className="size-3" />
@@ -89,6 +119,6 @@ export const RepositoryItem: FC<RepositoryItemProps> = ({
       >
         {content.actions?.import}
       </Button>
-    </div>
+    </Container>
   );
 };

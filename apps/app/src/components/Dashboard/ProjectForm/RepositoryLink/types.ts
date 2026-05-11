@@ -16,6 +16,7 @@ export type RepoData = {
   defaultBranch: string;
   updatedAt: string;
   provider: RepositoryProvider;
+  isPrivate?: boolean;
 
   // GitHub specific
   owner?: {

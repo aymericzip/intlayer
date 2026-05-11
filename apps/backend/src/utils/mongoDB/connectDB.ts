@@ -1,4 +1,5 @@
 import { logger } from '@logger';
+import { AccountModel } from '@models/account.model';
 import { AuditModel } from '@models/audit.model';
 import { AuditJobModel } from '@models/auditJob.model';
 import { AuditPageModel } from '@models/auditPage.model';
@@ -40,6 +41,7 @@ export const connectDB = async (): Promise<mongo.MongoClient> => {
     await TagModel.createIndexes();
     await DictionaryModel.createIndexes();
     await OrganizationModel.createIndexes();
+    await AccountModel.createIndexes();
     await ShowcaseProjectModel.syncIndexes();
     await AuditModel.syncIndexes();
     await AuditJobModel.syncIndexes();

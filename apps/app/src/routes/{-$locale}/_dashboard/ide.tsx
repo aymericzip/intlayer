@@ -1,5 +1,5 @@
 import { Container } from '@intlayer/design-system/container';
-import { useSession } from '@intlayer/design-system/hooks';
+import { useGithubToken, useSession } from '@intlayer/design-system/hooks';
 import {
   App_Dashboard,
   App_Dashboard_IDE_Path,
@@ -11,6 +11,7 @@ import {
   getLocalizedUrl,
   localeMap,
 } from 'intlayer';
+import { useEffect, useRef } from 'react';
 import { useIntlayer, useLocale } from 'react-intlayer';
 import { BreadcrumbsHeader } from '#/structuredData/BreadcrumbsHeader';
 import { AuthenticationBarrier } from '#components/Auth/AuthenticationBarrier/AuthenticationBarrier';
@@ -68,6 +69,34 @@ function IDEPage() {
   const connectedRepository = project?.repository ?? null;
   const isGithub = connectedRepository?.provider === 'github';
 
+  const { data: githubTokenData } = useGithubToken({
+    enabled: isGithub && !connectedRepository?.token,
+  });
+
+  const token = connectedRepository?.token || githubTokenData?.data?.token;
+
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+
+  useEffect(() => {
+    if (token && iframeRef.current) {
+      const targetOrigin = import.meta.env.IDE_URL;
+      iframeRef.current.contentWindow?.postMessage(
+        { type: 'INTLAYER_SET_TOKEN', token },
+        targetOrigin
+      );
+    }
+  }, [token]);
+
+  const handleLoad = () => {
+    if (token && iframeRef.current) {
+      const targetOrigin = import.meta.env.IDE_URL;
+      iframeRef.current.contentWindow?.postMessage(
+        { type: 'INTLAYER_SET_TOKEN', token },
+        targetOrigin
+      );
+    }
+  };
+
   return (
     <AuthenticationBarrier accessRule="authenticated" locale={locale}>
       <DashboardContentLayout title={title}>
@@ -83,6 +112,7 @@ function IDEPage() {
             },
           ]}
         />
+
         <div className="flex w-full flex-1 flex-col items-center p-2">
           {!project ? (
             <div className="flex size-full items-center justify-center">
@@ -100,9 +130,11 @@ function IDEPage() {
               className="relative z-0 size-full min-h-0 flex-1 flex-col overflow-hidden rounded-t-xl bg-background"
             >
               <iframe
-                src={`https://ide.intlayer.org/${connectedRepository.owner}/${connectedRepository.repository}?file=${connectedRepository.configFilePath || 'intlayer.config.ts'}`}
+                ref={iframeRef}
+                src={`${import.meta.env.IDE_URL}/${connectedRepository.owner}/${connectedRepository.repository}?file=${connectedRepository.configFilePath || 'intlayer.config.ts'}`}
                 title={`${iframeTitle} ${connectedRepository.owner}/${connectedRepository.repository}`}
                 className="size-full"
+                onLoad={handleLoad}
                 sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
                 loading="lazy"
               />

@@ -1,7 +1,6 @@
 import { configurationFilesCandidates } from '@intlayer/config/node';
 import { logger } from '@logger';
-import { getDBClient } from '@utils/mongoDB/connectDB';
-import { ObjectId } from 'mongodb';
+import { AccountModel } from '@models/account.model';
 
 const BITBUCKET_API_URL = 'https://api.bitbucket.org/2.0';
 const BITBUCKET_AUTH_URL = 'https://bitbucket.org/site/oauth2';
@@ -244,35 +243,11 @@ export const getBitbucketTokenFromUser = async (
   userId: string
 ): Promise<string | null> => {
   try {
-    const client = getDBClient();
-    const db = client.db();
-
     // Try with 'atlassian' provider ID (as it's linked through Better Auth's atlassian provider)
-    let account = await db.collection('account').findOne({
-      userId: userId,
+    const account = await AccountModel.findOne({
+      userId,
       providerId: 'atlassian',
     });
-
-    if (!account && ObjectId.isValid(userId)) {
-      account = await db.collection('account').findOne({
-        userId: new ObjectId(userId),
-        providerId: 'atlassian',
-      });
-    }
-
-    if (!account) {
-      account = await db.collection('accounts').findOne({
-        userId: userId,
-        providerId: 'atlassian',
-      });
-    }
-
-    if (!account && ObjectId.isValid(userId)) {
-      account = await db.collection('accounts').findOne({
-        userId: new ObjectId(userId),
-        providerId: 'atlassian',
-      });
-    }
 
     if (!account) {
       return null;
