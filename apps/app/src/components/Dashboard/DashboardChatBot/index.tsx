@@ -151,7 +151,7 @@ export const DashboardChatBot: FC = () => {
           variant="hoverable"
           label="Open AI assistant"
           Icon={MessageSquare}
-          size="icon-lg"
+          size="icon-xl"
         />
         <PopoverStatic.Detail identifier={DRAWER_ID} xAlign="end">
           <span className="flex gap-4 text-nowrap py-2 pr-2 pl-4 text-neutral text-sm">

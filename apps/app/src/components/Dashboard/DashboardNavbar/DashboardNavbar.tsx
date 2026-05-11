@@ -107,19 +107,22 @@ export const DashboardNavbar: FC<DashboardNavbarProps> = ({ items = [] }) => {
           </div>
         </div>
         <div className="flex items-center gap-4">
-          {project && (
+          <div className="mr-8 flex items-center gap-1">
+            {project && (
+              <Suspense fallback={<div className="size-10" />}>
+                <TranslationStatusAside />
+              </Suspense>
+            )}
+            {project && isEditorDrawerVisible && (
+              <Suspense fallback={<div className="size-10" />}>
+                <VisualEditorDrawer />
+              </Suspense>
+            )}
             <Suspense fallback={<div className="size-10" />}>
-              <TranslationStatusAside />
+              <DashboardChatBot />
             </Suspense>
-          )}
-          {project && isEditorDrawerVisible && (
-            <Suspense fallback={<div className="size-10" />}>
-              <VisualEditorDrawer />
-            </Suspense>
-          )}
-          <Suspense fallback={<div className="size-10" />}>
-            <DashboardChatBot />
-          </Suspense>
+          </div>
+
           <LocaleSwitcher />
           <ProfileDropDown />
           {isMobile && (
