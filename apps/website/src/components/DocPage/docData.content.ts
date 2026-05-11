@@ -1398,8 +1398,12 @@ const docDataContent: Dictionary = {
       title: 'Plugins',
       subSections: {
         syncJSON: {
-          title: 'syncJSON',
+          title: 'JSON',
           default: getDocMetadata('./docs/en/plugins/sync-json.md'),
+        },
+        syncPO: {
+          title: 'gettext (.po)',
+          default: getDocMetadata('./docs/en/plugins/sync-po.md'),
         },
       },
     },
