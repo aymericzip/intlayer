@@ -61,6 +61,17 @@ export const intlayerPlugin = (
     {
       name: 'vite-intlayer-plugin',
 
+      apply: (_config, env) => {
+        // Don't apply intlayer plugin during `preview` command
+        const isPreviewCommand =
+          env.command === 'serve' && env.mode === 'production';
+
+        // But if liveSync is enabled, ensure the data are fresh
+        const isLiveSyncEnabled = intlayerConfig.editor.liveSync;
+
+        return !isPreviewCommand || isLiveSyncEnabled;
+      },
+
       config: async (_config, env) => {
         const { mode } = intlayerConfig.build;
 
@@ -68,7 +79,7 @@ export const intlayerPlugin = (
           env.command === 'serve' && env.mode === 'development';
         const isBuildCommand = env.command === 'build';
 
-        // Only call prepareIntlayer during `dev` or `build` (not during `start`)
+        // Only call prepareIntlayer during `dev` or `build` (not during `preview`)
         // If prod: clean and rebuild once
         // If dev: rebuild only once if it's more than 1 hour since last rebuild
         if (isDevCommand || isBuildCommand || mode === 'auto') {

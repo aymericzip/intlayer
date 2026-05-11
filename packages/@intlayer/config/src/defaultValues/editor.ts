@@ -4,6 +4,6 @@ export const CMS_URL = 'https://app.intlayer.org';
 export const BACKEND_URL = 'https://back.intlayer.org';
 export const PORT = 8000;
 export const IS_ENABLED = false;
-export const LIVE_SYNC = true;
+export const LIVE_SYNC = false;
 export const DICTIONARY_PRIORITY_STRATEGY = 'local_first';
 export const LIVE_SYNC_PORT = 4000;
