@@ -101,7 +101,7 @@ function IDEPage() {
             >
               <iframe
                 src={`https://ide.intlayer.org/${connectedRepository.owner}/${connectedRepository.repository}?file=${connectedRepository.configFilePath || 'intlayer.config.ts'}`}
-                title="Codebase - How to Internationalize your application using Intlayer"
+                title={`${iframeTitle} ${connectedRepository.owner}/${connectedRepository.repository}`}
                 className="size-full"
                 sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
                 loading="lazy"

@@ -26,6 +26,7 @@ import {
 } from '@intlayer/design-system/locale-switcher-content-drop-down';
 import { PopoverStatic } from '@intlayer/design-system/popover';
 import { useRightDrawer } from '@intlayer/design-system/right-drawer';
+import { App_Dashboard_Dictionaries_Path } from '@intlayer/design-system/routes';
 import {
   useConfiguration,
   useDictionariesRecordActions,
@@ -34,10 +35,11 @@ import {
 import type { Dictionary } from '@intlayer/types/dictionary';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import * as NodeTypes from '@intlayer/types/nodeType';
-import { ArrowUp, Filter, Plus, Zap } from 'lucide-react';
+import { ArrowRight, ArrowUp, Filter, Plus, Zap } from 'lucide-react';
 import { type FC, Suspense, useEffect, useMemo, useRef, useState } from 'react';
 import { useIntlayer, useLocale } from 'react-intlayer';
 import { GroupedVirtuoso, type GroupedVirtuosoHandle } from 'react-virtuoso';
+import { Link } from '#components/Link/Link';
 import { Skeleton } from '#components/Skeleton';
 import { useSearchParamState } from '#hooks/useSearchParamState';
 import { useDashboardScroll } from '../DashboardScrollContext';
@@ -219,6 +221,7 @@ const TranslateDashboardList: FC = () => {
     scrollToTop,
     filterLabels,
     translateDictionary,
+    viewDetails,
   } = useIntlayer('translate-dashboard');
   const { params, setParam, setParams } = useSearchParamState(searchParams);
   const { setSearch } = useSearch({
@@ -489,6 +492,27 @@ const TranslateDashboardList: FC = () => {
               </span>
             </PopoverStatic.Detail>
           </PopoverStatic>
+
+          {currentDictionaryKey && (
+            <PopoverStatic identifier="view-dictionary-details">
+              <Link
+                to={`${App_Dashboard_Dictionaries_Path}/${currentDictionaryKey}`}
+              >
+                <Button
+                  label={viewDetails.value}
+                  variant="hoverable"
+                  color="text"
+                  size="icon-md"
+                  Icon={ArrowRight}
+                />
+              </Link>
+              <PopoverStatic.Detail identifier="view-dictionary-details">
+                <span className="flex gap-4 text-nowrap py-2 pr-2 pl-4 text-neutral">
+                  {viewDetails}
+                </span>
+              </PopoverStatic.Detail>
+            </PopoverStatic>
+          )}
         </div>
 
         <div
