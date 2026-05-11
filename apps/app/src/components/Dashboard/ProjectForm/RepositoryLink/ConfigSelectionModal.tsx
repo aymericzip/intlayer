@@ -1,4 +1,5 @@
 import { Button } from '@intlayer/design-system/button';
+import { containerVariants } from '@intlayer/design-system/container';
 import { Modal } from '@intlayer/design-system/modal';
 import { FileJson, FolderOpen } from 'lucide-react';
 import type { FC } from 'react';
@@ -58,23 +59,30 @@ export const ConfigSelectionModal: FC<ConfigSelectionModalProps> = ({
           {content.modal?.selectConfigDescriptionEnd}
         </p>
 
-        <div className="flex min-h-0 flex-1 flex-col gap-2 overflow-y-auto border-card border-y pr-2">
+        <div className="flex min-h-0 flex-1 flex-col gap-2 overflow-y-auto pr-2">
           {detectedConfigs.map((fullPath) => {
             const { fileName, directory } = formatPath(fullPath);
 
             return (
               <Button
                 label={fileName ?? ''}
-                Icon={FileJson}
                 isLoading={processingConfigPath === fullPath}
                 variant="invisible-link"
                 type="button"
                 key={fullPath}
+                Icon={FileJson}
                 onClick={() =>
                   selectedRepo && onSelectConfig(selectedRepo, fullPath)
                 }
+                className={containerVariants({
+                  roundedSize: '3xl',
+                  border: 'with',
+                  borderColor: 'neutral',
+                  background: 'none',
+                  className:
+                    'shrink-0 cursor-pointer flex-row items-center gap-3 border-neutral/20 p-3 text-left transition-colors hover:border-neutral/50',
+                })}
                 disabled={processingConfigPath !== null}
-                className="flex shrink-0 cursor-pointer items-center gap-3 rounded-xl border border-neutral/20 p-3 text-left transition-colors hover:border-neutral/50"
               >
                 <div className="flex min-w-0 flex-1 flex-col">
                   <span className="truncate font-medium text-sm text-text">
