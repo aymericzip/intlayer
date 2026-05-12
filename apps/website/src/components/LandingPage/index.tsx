@@ -161,6 +161,19 @@ export const LandingPage: FC = () => (
             height="58"
           />
         </a>
+
+        <a
+          href="https://indiehunt.io/project/intlayer"
+          target="_blank"
+          rel="noopener"
+        >
+          <img
+            src="https://indiehunt.io/badges/indiehunt-badge-light.svg"
+            alt="Featured on IndieHunt"
+            width="265"
+            height="58"
+          />
+        </a>
       </div>
 
       <DynamicFeatureFlagsSection />
