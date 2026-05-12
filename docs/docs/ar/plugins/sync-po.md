@@ -160,28 +160,7 @@ syncPO({
   source: ({ key, locale }) => string, // مطلوب
   location?: string, // تسمية اختيارية، الافتراضي: "sync-po::path/to/source"
   priority?: number, // أولوية اختيارية لحل النزاعات، الافتراضي: 0
-  format?: 'icu' | 'i18next' | 'vue-i18n', // اختياري، مطلوب فقط عندما تستخدم قيم msgstr الخاصة بك بناء جملة إدراج محدد
 });
-```
-
-#### `format` ('icu' | 'i18next' | 'vue-i18n')
-
-ملفات PO هي دائمًا ملفات Gettext Portable Object — وهذا أمر ثابت. يصف هذا الخيار فقط **بناء جملة الإدراج** المستخدم داخل قيم `msgstr` ، بحيث يمكن لـ Intlayer تحويلها إلى تنسيقه الخاص في وقت التحليل (عبر `formatDictionary`) والعودة عند كتابة المخرجات.
-
-- `undefined` _(افتراضي)_: يتم التعامل مع قيم `msgstr` كسلاسل نصية عادية — لا يوجد تحويل. استخدم هذا لمعظم ملفات PO.
-- `'icu'`: تستخدم قيم `msgstr` بناء جملة رسائل ICU (على سبيل المثال `{count, plural, one {# item} other {# items}}`).
-- `'i18next'`: تستخدم قيم `msgstr` بناء جملة إدراج i18next (على سبيل المثال `{{variable}}`).
-- `'vue-i18n'`: تستخدم قيم `msgstr` بناء جملة Vue I18n.
-
-> يتم تطبيق التحويل بواسطة `formatDictionary` الخاص بـ `@intlayer/chokidar` عند التحميل، ويتم عكسه باستخدام `formatDictionaryOutput` عند الكتابة. بالنسبة للقواعد المعقدة مثل جموع ICU، فإن دقة الرحلة الذهاب والاياب غير مضمونة.
-
-**مثال — تحتوي ملفات PO على إدراج بنمط i18next:**
-
-```ts
-syncPO({
-  source: ({ key, locale }) => `./locales/${locale}/${key}.po`,
-  format: "i18next",
-}),
 ```
 
 ### مصادر PO متعددة والأولوية

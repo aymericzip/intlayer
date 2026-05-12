@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-01-28
+updatedAt: 2026-05-12
 title: Berkas Konten
 description: Pelajari cara menyesuaikan ekstensi untuk berkas deklarasi konten Anda. Ikuti dokumentasi ini untuk mengimplementasikan kondisi secara efisien dalam proyek Anda.
 keywords:
@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 8.9.0
+    date: 2026-05-12
+    changes: "Add `plural` content node type"
   - version: 8.0.0
     date: 2026-01-28
     changes: "Tambahkan tipe node konten `html`"
@@ -66,6 +69,7 @@ import { type ReactNode } from "react";
 import {
   t,
   enu,
+  plural,
   cond,
   nest,
   md,
@@ -85,6 +89,7 @@ interface Content {
   };
   multilingualContent: string;
   quantityContent: string;
+  pluralContent: string;
   conditionalContent: string;
   markdownContent: never;
   htmlContent: never;
@@ -119,6 +124,10 @@ export default {
       "1": "Satu mobil",
       ">5": "Beberapa mobil",
       ">19": "Banyak mobil",
+    }),
+    pluralContent: plural({
+      one: "One car",
+      other: "{{count}} cars",
     }),
     conditionalContent: cond({
       true: "Validasi diaktifkan",
@@ -174,6 +183,13 @@ export default {
         ">5": "Beberapa mobil",
         ">19": "Banyak mobil",
       },
+      "pluralContent": {
+        "nodeType": "plural",
+        "plural": {
+          "one": "One car",
+          "other": "{{count}} cars",
+        },
+      },
     },
     "conditionalContent": {
       "nodeType": "condition",
@@ -221,6 +237,7 @@ Content nodes adalah blok bangunan dari konten kamus. Mereka dapat berupa:
 - **Nilai primitif**: string, angka, boolean, null, undefined
 - **Node bertipe**: Jenis konten khusus seperti terjemahan, kondisi, markdown, dll.
 - **Fungsi**: Konten dinamis yang dapat dievaluasi saat runtime [lihat Pengambilan Fungsi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/function_fetching.md)
+- **Plural Content**: See Plural Content [See Plural Content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/plural.md)
 - **Konten bersarang**: Referensi ke kamus lain
 
 #### Jenis Konten
@@ -551,6 +568,8 @@ multilingualContent: t({
 });
 ```
 
+> See [Konten Terjemahan (`t`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/translation.md) for more information.
+
 ### Konten Kondisi (`cond`)
 
 Konten yang berubah berdasarkan kondisi boolean:
@@ -563,6 +582,8 @@ conditionalContent: cond({
   false: "Silakan masuk untuk melanjutkan",
 });
 ```
+
+> See [Konten Kondisi (`cond`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/condition.md) for more information.
 
 ### Konten Enumerasi (`enu`)
 
@@ -578,6 +599,23 @@ statusContent: enu({
 });
 ```
 
+> See [Konten Enumerasi (`enu`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/enumeration.md) for more information.
+
+### Plural Content (`plural`)
+
+Content that varies based on plural rules:
+
+```typescript
+import { plural } from "intlayer";
+
+pluralContent: plural({
+  one: "One car",
+  other: "{{count}} cars",
+});
+```
+
+> See [Plural Content Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/plural.md) for more information.
+
 ### Konten Penyisipan (`insert`)
 
 Konten yang dapat disisipkan ke dalam konten lain:
@@ -588,6 +626,8 @@ import { insert } from "intlayer";
 insertionContent: insert("Teks ini dapat disisipkan di mana saja");
 ```
 
+> See [Konten Penyisipan (`insert`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/insertion.md) for more information.
+
 ### Konten Bersarang (`nest`)
 
 Referensi ke kamus lain:
@@ -597,6 +637,8 @@ import { nest } from "intlayer";
 
 nestedContent: nest("about-page");
 ```
+
+> See [Konten Bersarang (`nest`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/nesting.md) for more information.
 
 ### Konten Markdown (`md`)
 
@@ -609,6 +651,8 @@ markdownContent: md(
   "# Selamat Datang\n\nIni adalah teks **tebal** dengan [tautan](https://example.com)"
 );
 ```
+
+> See [Konten Markdown (`md`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/markdown.md) for more information.
 
 ### Konten HTML (`html`)
 
@@ -627,6 +671,8 @@ localizedHtmlContent: t({
 });
 ```
 
+> See [Konten HTML (`html`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/html.md) for more information.
+
 ### Konten Gender (`gender`)
 
 Konten yang bervariasi berdasarkan gender:
@@ -641,6 +687,8 @@ genderContent: gender({
 });
 ```
 
+> See [Konten Gender (`gender`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/gender.md) for more information.
+
 ### Konten File (`file`)
 
 Referensi ke file eksternal:
@@ -650,6 +698,8 @@ import { file } from "intlayer";
 
 fileContent: file("./path/to/content.txt");
 ```
+
+> See [Konten File (`file`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/file.md) for more information.
 
 ## Membuat File Konten
 

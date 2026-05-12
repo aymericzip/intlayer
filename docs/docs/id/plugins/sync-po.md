@@ -160,28 +160,7 @@ syncPO({
   source: ({ key, locale }) => string, // wajib
   location?: string, // label opsional, default: "sync-po::path/to/source"
   priority?: number, // prioritas opsional untuk resolusi konflik, default: 0
-  format?: 'icu' | 'i18next' | 'vue-i18n', // opsional, hanya diperlukan jika nilai msgstr Anda menggunakan sintaks interpolasi tertentu
 });
-```
-
-#### `format` ('icu' | 'i18next' | 'vue-i18n')
-
-File PO selalu berupa file Gettext Portable Object — itu sudah tetap. Opsi ini hanya menjelaskan **sintaks interpolasi** yang digunakan di dalam nilai `msgstr`, sehingga Intlayer dapat mengonversinya ke formatnya sendiri pada saat penguraian (melalui `formatDictionary`) dan kembali saat menulis output.
-
-- `undefined` _(default)_: nilai `msgstr` diperlakukan sebagai string biasa — tidak ada transformasi. Gunakan ini untuk sebagian besar file PO.
-- `'icu'`: nilai `msgstr` menggunakan sintaks pesan ICU (misalnya `{count, plural, one {# item} other {# items}}`).
-- `'i18next'`: nilai `msgstr` menggunakan sintaks interpolasi i18next (misalnya `{{variable}}`).
-- `'vue-i18n'`: nilai `msgstr` menggunakan sintaks Vue I18n.
-
-> Transformasi diterapkan oleh `formatDictionary` dari `@intlayer/chokidar` pada saat pemuatan, dan dibalik dengan `formatDictionaryOutput` pada saat penulisan. Untuk aturan kompleks seperti jamak ICU, kesetiaan bolak-balik tidak dijamin.
-
-**Contoh — file PO berisi interpolasi gaya i18next:**
-
-```ts
-syncPO({
-  source: ({ key, locale }) => `./locales/${locale}/${key}.po`,
-  format: "i18next",
-}),
 ```
 
 ### Beberapa sumber PO dan prioritas

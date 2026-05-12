@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-01-28
+updatedAt: 2026-05-12
 title: Файл контенту
 description: Дізнайтеся, як налаштувати розширення для файлів декларації контенту. Дотримуйтесь цієї документації, щоб ефективно реалізувати умови у вашому проєкті.
 keywords:
@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 8.9.0
+    date: 2026-05-12
+    changes: "Add `plural` content node type"
   - version: 8.0.0
     date: 2026-01-28
     changes: "Додано тип вузла контенту `html`"
@@ -69,6 +72,7 @@ import { type ReactNode } from "react";
 import {
   t,
   enu,
+  plural,
   cond,
   nest,
   md,
@@ -89,6 +93,7 @@ interface Content {
   };
   multilingualContent: string;
   quantityContent: string;
+  pluralContent: string;
   conditionalContent: string;
   markdownContent: never;
   htmlContent: never;
@@ -124,6 +129,10 @@ export default {
       "1": "Одна машина",
       ">5": "Декілька машин",
       ">19": "Багато машин",
+    }),
+    pluralContent: plural({
+      one: "One car",
+      other: "{{count}} cars",
     }),
     conditionalContent: cond({
       true: "Валідація увімкнена",
@@ -180,6 +189,13 @@ export default {
         ">5": "Декілька автомобілів",
         ">19": "Багато автомобілів",
       },
+      "pluralContent": {
+        "nodeType": "plural",
+        "plural": {
+          "one": "One car",
+          "other": "{{count}} cars",
+        },
+      },
     },
     "conditionalContent": {
       "nodeType": "condition",
@@ -227,6 +243,7 @@ export default {
 - **Примітивні значення**: strings, numbers, booleans, null, undefined
 - **Типізовані вузли**: спеціальні типи контенту, такі як translations, conditions, markdown тощо
 - **Функції**: динамічний контент, який може бути виконаний під час виконання [див. Отримання функцій](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/function_fetching.md)
+- **Plural Content**: See Plural Content [See Plural Content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/plural.md)
 - **Вкладений контент**: посилання на інші словники
 
 #### Типи контенту
@@ -558,6 +575,8 @@ multilingualContent: t({
 });
 ```
 
+> See [Перекладний контент (`t`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/translation.md) for more information.
+
 ### Умовний контент (`cond`)
 
 Контент, що змінюється залежно від булевих умов:
@@ -570,6 +589,8 @@ conditionalContent: cond({
   false: "Будь ласка, увійдіть, щоб продовжити",
 });
 ```
+
+> See [Умовний контент (`cond`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/condition.md) for more information.
 
 ### Контент переліку (`enu`)
 
@@ -585,6 +606,23 @@ statusContent: enu({
 });
 ```
 
+> See [Контент переліку (`enu`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/enumeration.md) for more information.
+
+### Plural Content (`plural`)
+
+Content that varies based on plural rules:
+
+```typescript
+import { plural } from "intlayer";
+
+pluralContent: plural({
+  one: "One car",
+  other: "{{count}} cars",
+});
+```
+
+> See [Plural Content Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/plural.md) for more information.
+
 ### Вставний вміст (`insert`)
 
 Вміст, який можна вставляти в інший вміст:
@@ -595,6 +633,8 @@ import { insert } from "intlayer";
 insertionContent: insert("Цей текст можна вставити будь-де");
 ```
 
+> See [Вставний вміст (`insert`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/insertion.md) for more information.
+
 ### Вкладений вміст (`nest`)
 
 Посилання на інші словники:
@@ -604,6 +644,8 @@ import { nest } from "intlayer";
 
 nestedContent: nest("about-page");
 ```
+
+> See [Вкладений вміст (`nest`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/nesting.md) for more information.
 
 ### Markdown-вміст (`md`)
 
@@ -616,6 +658,8 @@ markdownContent: md(
   "# Ласкаво просимо\n\nЦе **жирний** текст з [посиланнями](https://example.com)"
 );
 ```
+
+> See [Markdown-вміст (`md`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/markdown.md) for more information.
 
 ### HTML-вміст (`html`)
 
@@ -634,6 +678,8 @@ localizedHtmlContent: t({
 });
 ```
 
+> See [HTML-вміст (`html`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/html.md) for more information.
+
 ### Гендерний вміст (`gender`)
 
 Вміст, що змінюється залежно від гендеру:
@@ -648,6 +694,8 @@ genderContent: gender({
 });
 ```
 
+> See [Гендерний вміст (`gender`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/gender.md) for more information.
+
 ### Вміст файлу (`file`)
 
 Посилання на зовнішні файли:
@@ -657,6 +705,8 @@ import { file } from "intlayer";
 
 fileContent: file("./path/to/content.txt");
 ```
+
+> See [Вміст файлу (`file`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/file.md) for more information.
 
 ## Створення файлів контенту
 

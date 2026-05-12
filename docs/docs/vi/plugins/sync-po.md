@@ -160,28 +160,7 @@ syncPO({
   source: ({ key, locale }) => string, // bắt buộc
   location?: string, // nhãn tùy chọn, mặc định: "sync-po::path/to/source"
   priority?: number, // ưu tiên tùy chọn để giải quyết xung đột, mặc định: 0
-  format?: 'icu' | 'i18next' | 'vue-i18n', // tùy chọn, chỉ cần thiết khi giá trị msgstr của bạn sử dụng cú pháp nội suy cụ thể
 });
-```
-
-#### `format` ('icu' | 'i18next' | 'vue-i18n')
-
-Các tệp PO luôn là các tệp Gettext Portable Object — điều đó là cố định. Tùy chọn này chỉ mô tả **cú pháp nội suy** được sử dụng bên trong các giá trị `msgstr`, để Intlayer có thể chuyển đổi chúng sang định dạng của riêng nó tại thời điểm phân tích cú pháp (thông qua `formatDictionary`) và ngược lại khi ghi đầu ra.
-
-- `undefined` _(mặc định)_: các giá trị `msgstr` được coi là các chuỗi văn bản thuần túy — không có chuyển đổi. Sử dụng tùy chọn này cho hầu hết các tệp PO.
-- `'icu'`: các giá trị `msgstr` sử dụng cú pháp tin nhắn ICU (ví dụ: `{count, plural, one {# item} other {# items}}`).
-- `'i18next'`: các giá trị `msgstr` sử dụng cú pháp nội suy i18next (ví dụ: `{{variable}}`).
-- `'vue-i18n'`: các giá trị `msgstr` sử dụng cú pháp Vue I18n.
-
-> Chuyển đổi được áp dụng bởi `formatDictionary` của `@intlayer/chokidar` khi tải và đảo ngược với `formatDictionaryOutput` khi ghi. Đối với các quy tắc phức tạp như số nhiều ICU, độ trung thực của quy trình chuyển đổi qua lại không được đảm bảo.
-
-**Ví dụ — Các tệp PO chứa nội suy kiểu i18next:**
-
-```ts
-syncPO({
-  source: ({ key, locale }) => `./locales/${locale}/${key}.po`,
-  format: "i18next",
-}),
 ```
 
 ### Nhiều nguồn PO và mức độ ưu tiên

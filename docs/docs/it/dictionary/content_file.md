@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-01-28
+updatedAt: 2026-05-12
 title: File di Contenuto
 description: Scopri come personalizzare le estensioni per i tuoi file di dichiarazione dei contenuti. Segui questa documentazione per implementare condizioni in modo efficiente nel tuo progetto.
 keywords:
@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 8.9.0
+    date: 2026-05-12
+    changes: "Aggiungi il tipo di nodo di contenuto `plural`"
   - version: 8.0.0
     date: 2026-01-28
     changes: "Aggiunto tipo di nodo contenuto `html`"
@@ -63,6 +66,7 @@ import { type ReactNode } from "react";
 import {
   t,
   enu,
+  plural,
   cond,
   nest,
   md,
@@ -82,6 +86,7 @@ interface Content {
   };
   multilingualContent: string;
   quantityContent: string;
+  pluralContent: string;
   conditionalContent: string;
   markdownContent: never;
   htmlContent: never;
@@ -117,6 +122,10 @@ export default {
       "1": "Una macchina",
       ">5": "Alcune macchine",
       ">19": "Molte macchine",
+    }),
+    pluralContent: plural({
+      one: "One car",
+      other: "{{count}} cars",
     }),
     conditionalContent: cond({
       true: "La validazione è abilitata",
@@ -172,6 +181,13 @@ export default {
         ">5": "Alcune auto",
         ">19": "Molte auto",
       },
+      "pluralContent": {
+        "nodeType": "plural",
+        "plural": {
+          "one": "One car",
+          "other": "{{count}} cars",
+        },
+      },
     },
     "conditionalContent": {
       "nodeType": "condizione",
@@ -219,6 +235,7 @@ I nodi di contenuto sono i mattoni fondamentali del contenuto del dizionario. Po
 - **Valori primitivi**: stringhe, numeri, booleani, null, undefined
 - **Nodi tipizzati**: Tipi di contenuto speciali come traduzioni, condizioni, markdown, ecc.
 - **Funzioni**: Contenuto dinamico che può essere valutato a runtime [vedi Recupero Funzioni](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/function_fetching.md)
+- **Contenuto Plurale**: Vedere Contenuto Plurale [Vedere Contenuto Plurale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/plural.md)
 - **Contenuto annidato**: Riferimenti ad altri dizionari
 
 #### Tipi di Contenuto
@@ -544,6 +561,8 @@ multilingualContent: t({
 });
 ```
 
+> Vedere [Contenuto di Traduzione (`t`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/translation.md) per ulteriori informazioni.
+
 ### Contenuto Condizionale (`cond`)
 
 Contenuto che cambia in base a condizioni booleane:
@@ -556,6 +575,8 @@ conditionalContent: cond({
   false: "Please log in to continue",
 });
 ```
+
+> Vedere [Contenuto Condizionale (`cond`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/condition.md) per ulteriori informazioni.
 
 ### Contenuto Enumerato (`enu`)
 
@@ -571,6 +592,23 @@ statusContent: enu({
 });
 ```
 
+> Vedere [Contenuto Enumerato (`enu`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/enumeration.md) per ulteriori informazioni.
+
+### Contenuto Plurale (`plural`)
+
+Contenuto che varia in base alle regole del plurale:
+
+```typescript
+import { plural } from "intlayer";
+
+pluralContent: plural({
+  one: "One car",
+  other: "{{count}} cars",
+});
+```
+
+> Vedere [Contenuto Plurale Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/plural.md) per ulteriori informazioni.
+
 ### Contenuto di Inserimento (`insert`)
 
 Contenuto che può essere inserito in altri contenuti:
@@ -581,6 +619,8 @@ import { insert } from "intlayer";
 insertionContent: insert("Questo testo può essere inserito ovunque");
 ```
 
+> Vedere [Contenuto di Inserimento (`insert`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/insertion.md) per ulteriori informazioni.
+
 ### Contenuto Nidificato (`nest`)
 
 Riferimenti ad altri dizionari:
@@ -590,6 +630,8 @@ import { nest } from "intlayer";
 
 nestedContent: nest("about-page");
 ```
+
+> Vedere [Contenuto Nidificato (`nest`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/nesting.md) per ulteriori informazioni.
 
 ### Contenuto Markdown (`md`)
 
@@ -602,6 +644,8 @@ markdownContent: md(
   "# Benvenuto\n\nQuesto è un testo in **grassetto** con [link](https://example.com)"
 );
 ```
+
+> Vedere [Contenuto Markdown (`md`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/markdown.md) per ulteriori informazioni.
 
 ### Contenuto HTML (`html`)
 
@@ -620,6 +664,8 @@ localizedHtmlContent: t({
 });
 ```
 
+> Vedere [Contenuto HTML (`html`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/html.md) per ulteriori informazioni.
+
 ### Contenuto per Genere (`gender`)
 
 Contenuto che varia in base al genere:
@@ -634,6 +680,8 @@ genderContent: gender({
 });
 ```
 
+> Vedere [Contenuto per Genere (`gender`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/gender.md) per ulteriori informazioni.
+
 ### Contenuto da File (`file`)
 
 Riferimenti a file esterni:
@@ -643,6 +691,8 @@ import { file } from "intlayer";
 
 fileContent: file("./path/to/content.txt");
 ```
+
+> Vedere [Contenuto da File (`file`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/file.md) per ulteriori informazioni.
 
 ## Creazione di File di Contenuto
 

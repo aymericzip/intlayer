@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-01-28
+updatedAt: 2026-05-12
 title: Inhaltsdatei
 description: Erfahren Sie, wie Sie die Erweiterungen für Ihre Inhaltsdeklarationsdateien anpassen können. Folgen Sie dieser Dokumentation, um Bedingungen effizient in Ihrem Projekt umzusetzen.
 keywords:
@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 8.9.0
+    date: 2026-05-12
+    changes: "Inhaltstyp `plural` hinzufügen"
   - version: 8.0.0
     date: 2026-01-28
     changes: "Inhaltstyp-Knoten `html` hinzugefügt"
@@ -66,6 +69,7 @@ import { type ReactNode } from "react";
 import {
   t,
   enu,
+  plural,
   cond,
   nest,
   md,
@@ -84,7 +88,8 @@ interface Content {
     };
   };
   multilingualContent: string; // Mehrsprachiger Inhalt
-  quantityContent: string; // Mengeninhalt
+  quantityContent: string;
+  pluralContent: string; // Mengeninhalt
   conditionalContent: string; // Bedingter Inhalt
   markdownContent: never; // Markdown-Inhalt
   htmlContent: never; // HTML-Inhalt
@@ -120,6 +125,10 @@ export default {
       "1": "Ein Auto",
       ">5": "Einige Autos",
       ">19": "Viele Autos",
+    }),
+    pluralContent: plural({
+      one: "One car",
+      other: "{{count}} cars",
     }),
     conditionalContent: cond({
       true: "Validierung ist aktiviert",
@@ -175,6 +184,13 @@ export default {
         ">5": "Einige Autos",
         ">19": "Viele Autos",
       },
+      "pluralContent": {
+        "nodeType": "plural",
+        "plural": {
+          "one": "One car",
+          "other": "{{count}} cars",
+        },
+      },
     },
     "conditionalContent": {
       "nodeType": "condition",
@@ -222,6 +238,7 @@ Inhaltsknoten sind die Bausteine des Wörterbuchinhalts. Sie können sein:
 - **Primitive Werte**: Zeichenketten, Zahlen, Booleans, null, undefined
 - **Typisierte Knoten**: Spezielle Inhaltstypen wie Übersetzungen, Bedingungen, Markdown usw.
 - **Funktionen**: Dynamische Inhalte, die zur Laufzeit ausgewertet werden können [siehe Funktionsabruf](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/function_fetching.md)
+- **Plural-Inhalt**: Siehe Plural-Inhalt [Siehe Plural-Inhalt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/plural.md)
 - **Verschachtelte Inhalte**: Verweise auf andere Wörterbücher
 
 #### Inhaltstypen
@@ -540,6 +557,8 @@ multilingualContent: t({
 });
 ```
 
+> Siehe [Übersetzungsinhalt (`t`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/translation.md) für weitere Informationen.
+
 ### Bedingter Inhalt (`cond`)
 
 Inhalt, der sich basierend auf booleschen Bedingungen ändert:
@@ -552,6 +571,8 @@ conditionalContent: cond({
   false: "Please log in to continue",
 });
 ```
+
+> Siehe [Bedingter Inhalt (`cond`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/condition.md) für weitere Informationen.
 
 ### Aufzählungsinhalt (`enu`)
 
@@ -567,6 +588,23 @@ statusContent: enu({
 });
 ```
 
+> Siehe [Aufzählungsinhalt (`enu`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/enumeration.md) für weitere Informationen.
+
+### Plural-Inhalt (`plural`)
+
+Inhalt, der je nach Pluralregeln variiert:
+
+```typescript
+import { plural } from "intlayer";
+
+pluralContent: plural({
+  one: "One car",
+  other: "{{count}} cars",
+});
+```
+
+> Siehe [Plural-Inhalt Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/plural.md) für weitere Informationen.
+
 ### Einfügeinhalt (`insert`)
 
 Inhalt, der in anderen Inhalt eingefügt werden kann:
@@ -577,6 +615,8 @@ import { insert } from "intlayer";
 insertionContent: insert("Dieser Text kann überall eingefügt werden");
 ```
 
+> Siehe [Einfügeinhalt (`insert`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/insertion.md) für weitere Informationen.
+
 ### Verschachtelter Inhalt (`nest`)
 
 Verweise auf andere Wörterbücher:
@@ -586,6 +626,8 @@ import { nest } from "intlayer";
 
 nestedContent: nest("about-page");
 ```
+
+> Siehe [Verschachtelter Inhalt (`nest`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/nesting.md) für weitere Informationen.
 
 ### Markdown-Inhalt (`md`)
 
@@ -598,6 +640,8 @@ markdownContent: md(
   "# Willkommen\n\nDies ist **fetter** Text mit [Links](https://example.com)"
 );
 ```
+
+> Siehe [Markdown-Inhalt (`md`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/markdown.md) für weitere Informationen.
 
 ### HTML-Inhalt (`html`)
 
@@ -616,6 +660,8 @@ localizedHtmlContent: t({
 });
 ```
 
+> Siehe [HTML-Inhalt (`html`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/html.md) für weitere Informationen.
+
 ### Geschlechtsabhängiger Inhalt (`gender`)
 
 Inhalt, der sich je nach Geschlecht unterscheidet:
@@ -630,6 +676,8 @@ genderContent: gender({
 });
 ```
 
+> Siehe [Geschlechtsabhängiger Inhalt (`gender`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/gender.md) für weitere Informationen.
+
 ### Dateiinhalt (`file`)
 
 Verweise auf externe Dateien:
@@ -639,6 +687,8 @@ import { file } from "intlayer";
 
 fileContent: file("./path/to/content.txt");
 ```
+
+> Siehe [Dateiinhalt (`file`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/file.md) für weitere Informationen.
 
 ## Erstellen von Inhaltsdateien
 

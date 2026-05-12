@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-01-28
+updatedAt: 2026-05-12
 title: İçerik Dosyası
 description: İçerik bildirim dosyalarınız için uzantıları nasıl özelleştireceğinizi öğrenin. Projenizde koşulları verimli bir şekilde uygulamak için bu dokümantasyonu takip edin.
 keywords:
@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 8.9.0
+    date: 2026-05-12
+    changes: "Add `plural` content node type"
   - version: 8.0.0
     date: 2026-01-28
     changes: "`html` içerik düğümü tipi eklendi"
@@ -63,6 +66,7 @@ import { type ReactNode } from "react";
 import {
   t,
   enu,
+  plural,
   cond,
   nest,
   md,
@@ -82,6 +86,7 @@ interface Content {
   };
   multilingualContent: string;
   quantityContent: string;
+  pluralContent: string;
   conditionalContent: string;
   markdownContent: never;
   htmlContent: never;
@@ -116,6 +121,10 @@ export default {
       "1": "Bir araba",
       ">5": "Birkaç araba",
       ">19": "Birçok araba",
+    }),
+    pluralContent: plural({
+      one: "One car",
+      other: "{{count}} cars",
     }),
     conditionalContent: cond({
       true: "Doğrulama etkin",
@@ -171,6 +180,13 @@ export default {
         ">5": "Birkaç araba",
         ">19": "Birçok araba",
       },
+      "pluralContent": {
+        "nodeType": "plural",
+        "plural": {
+          "one": "One car",
+          "other": "{{count}} cars",
+        },
+      },
     },
     "conditionalContent": {
       "nodeType": "condition",
@@ -218,6 +234,7 @@ export default {
 - **İlkel değerler**: stringler, sayılar, booleanlar, null, undefined
 - **Tiplenmiş düğümler**: Çeviriler, koşullar, markdown gibi özel içerik türleri
 - **Fonksiyonlar**: Çalışma zamanında değerlendirilebilen dinamik içerik [bkz. Fonksiyon Getirme](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/function_fetching.md)
+- **Plural Content**: See Plural Content [See Plural Content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/plural.md)
 - **İç içe içerik**: Diğer sözlüklere referanslar
 
 #### İçerik Türleri
@@ -563,6 +580,8 @@ multilingualContent: t({
 });
 ```
 
+> See [Çeviri İçeriği (`t`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/translation.md) for more information.
+
 ### Koşul İçeriği (`cond`)
 
 Boolean koşullara göre değişen içerik:
@@ -575,6 +594,8 @@ conditionalContent: cond({
   false: "Please log in to continue",
 });
 ```
+
+> See [Koşul İçeriği (`cond`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/condition.md) for more information.
 
 ### Numaralandırma İçeriği (`enu`)
 
@@ -590,6 +611,23 @@ statusContent: enu({
 });
 ```
 
+> See [Numaralandırma İçeriği (`enu`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/enumeration.md) for more information.
+
+### Plural Content (`plural`)
+
+Content that varies based on plural rules:
+
+```typescript
+import { plural } from "intlayer";
+
+pluralContent: plural({
+  one: "One car",
+  other: "{{count}} cars",
+});
+```
+
+> See [Plural Content Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/plural.md) for more information.
+
 ### Ekleme İçeriği (`insert`)
 
 Başka içeriklere eklenebilen içerik:
@@ -600,6 +638,8 @@ import { insert } from "intlayer";
 insertionContent: insert("Bu metin herhangi bir yere eklenebilir");
 ```
 
+> See [Ekleme İçeriği (`insert`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/insertion.md) for more information.
+
 ### İç İçe İçerik (`nest`)
 
 Diğer sözlüklere referanslar:
@@ -609,6 +649,8 @@ import { nest } from "intlayer";
 
 nestedContent: nest("about-page");
 ```
+
+> See [İç İçe İçerik (`nest`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/nesting.md) for more information.
 
 ### Markdown İçeriği (`md`)
 
@@ -621,6 +663,8 @@ markdownContent: md(
   "# Hoşgeldiniz\n\nBu, [bağlantılar](https://example.com) içeren **kalın** metindir"
 );
 ```
+
+> See [Markdown İçeriği (`md`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/markdown.md) for more information.
 
 ### HTML İçeriği (`html`)
 
@@ -639,6 +683,8 @@ localizedHtmlContent: t({
 });
 ```
 
+> See [HTML İçeriği (`html`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/html.md) for more information.
+
 ### Cinsiyete Göre İçerik (`gender`)
 
 Cinsiyete göre değişen içerik:
@@ -653,6 +699,8 @@ genderContent: gender({
 });
 ```
 
+> See [Cinsiyete Göre İçerik (`gender`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/gender.md) for more information.
+
 ### Dosya İçeriği (`file`)
 
 Harici dosyalara referanslar:
@@ -662,6 +710,8 @@ import { file } from "intlayer";
 
 fileContent: file("./path/to/content.txt");
 ```
+
+> See [Dosya İçeriği (`file`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/file.md) for more information.
 
 ## İçerik Dosyaları Oluşturma
 

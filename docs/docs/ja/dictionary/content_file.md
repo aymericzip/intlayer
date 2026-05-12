@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-01-28
+updatedAt: 2026-05-12
 title: コンテンツファイル
 description: コンテンツ宣言ファイルの拡張機能をカスタマイズする方法を学びます。このドキュメントに従って、プロジェクトで効率的に条件を実装しましょう。
 keywords:
@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 8.9.0
+    date: 2026-05-12
+    changes: "コンテンツノードタイプ `plural` を追加"
   - version: 8.0.0
     date: 2026-01-28
     changes: "`html` コンテンツノードタイプを追加"
@@ -63,6 +66,7 @@ import { type ReactNode } from "react";
 import {
   t,
   enu,
+  plural,
   cond,
   nest,
   md,
@@ -82,6 +86,7 @@ interface Content {
   };
   multilingualContent: string;
   quantityContent: string;
+  pluralContent: string;
   conditionalContent: string;
   markdownContent: never;
   htmlContent: never;
@@ -117,6 +122,10 @@ export default {
       "1": "1台の車",
       ">5": "いくつかの車",
       ">19": "多くの車",
+    }),
+    pluralContent: plural({
+      one: "One car",
+      other: "{{count}} cars",
     }),
     conditionalContent: cond({
       true: "検証が有効です",
@@ -172,6 +181,13 @@ export default {
         ">5": "いくつかの車",
         ">19": "多くの車",
       },
+      "pluralContent": {
+        "nodeType": "plural",
+        "plural": {
+          "one": "One car",
+          "other": "{{count}} cars",
+        },
+      },
     },
     "conditionalContent": {
       "nodeType": "condition",
@@ -219,6 +235,7 @@ export default {
 - **プリミティブ値**：文字列、数値、真偽値、null、undefined
 - **型付きノード**：翻訳、条件、マークダウンなどの特殊なコンテンツタイプ
 - **関数**：実行時に評価可能な動的コンテンツ [関数フェッチについてはこちら](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/function_fetching.md)
+- **複数形コンテンツ**: 詳細については、 複数形コンテンツ [詳細については、 複数形コンテンツ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/plural.md)
 - **ネストされたコンテンツ**：他の辞書への参照
 
 #### コンテンツタイプ
@@ -544,6 +561,8 @@ multilingualContent: t({
 });
 ```
 
+> 詳細については、 [翻訳コンテンツ (`t`) ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/translation.md) を参照してください。
+
 ### 条件コンテンツ (`cond`)
 
 ブール条件に基づいて変化するコンテンツ：
@@ -556,6 +575,8 @@ conditionalContent: cond({
   false: "Please log in to continue",
 });
 ```
+
+> 詳細については、 [条件コンテンツ (`cond`) ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/condition.md) を参照してください。
 
 ### 列挙コンテンツ (`enu`)
 
@@ -571,7 +592,22 @@ statusContent: enu({
 });
 ```
 
-### 挿入コンテンツ (`insert`)
+> 詳細については、 [列挙コンテンツ (`enu`) ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/enumeration.md) を参照してください。
+
+### Plural Content (`plural`)
+
+Content that varies based on plural rules:
+
+```typescript
+import { plural } from "intlayer";
+
+pluralContent: plural({
+  one: "One car",
+  other: "{{count}} cars",
+});
+```
+
+> 詳細については、 [Plural Content ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/plural.md) を参照してください。### 挿入コンテンツ (`insert`)
 
 他のコンテンツに挿入できるコンテンツ：
 
@@ -580,6 +616,8 @@ import { insert } from "intlayer";
 
 insertionContent: insert("This text can be inserted anywhere"); // このテキストはどこにでも挿入できます
 ```
+
+> 詳細については、 [挿入コンテンツ (`insert`) ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/insertion.md) を参照してください。
 
 ### ネストコンテンツ (`nest`)
 
@@ -590,6 +628,8 @@ import { nest } from "intlayer";
 
 nestedContent: nest("about-page"); // "about-page" への参照
 ```
+
+> 詳細については、 [ネストコンテンツ (`nest`) ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/nesting.md) を参照してください。
 
 ### マークダウンコンテンツ (`md`)
 
@@ -602,6 +642,8 @@ markdownContent: md(
   "# Welcome\n\nこれは**太字**のテキストで、[リンク](https://example.com)が含まれています"
 );
 ```
+
+> 詳細については、 [マークダウンコンテンツ (`md`) ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/markdown.md) を参照してください。
 
 ### HTMLコンテンツ (`html`)
 
@@ -620,6 +662,8 @@ localizedHtmlContent: t({
 });
 ```
 
+> 詳細については、 [HTMLコンテンツ (`html`) ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/html.md) を参照してください。
+
 ### ジェンダーコンテンツ (`gender`)
 
 ジェンダーに基づいて変化するコンテンツ:
@@ -634,6 +678,8 @@ genderContent: gender({
 });
 ```
 
+> 詳細については、 [ジェンダーコンテンツ (`gender`) ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/gender.md) を参照してください。
+
 ### ファイルコンテンツ (`file`)
 
 外部ファイルへの参照:
@@ -643,6 +689,8 @@ import { file } from "intlayer";
 
 fileContent: file("./path/to/content.txt");
 ```
+
+> 詳細については、 [ファイルコンテンツ (`file`) ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/file.md) を参照してください。
 
 ## コンテンツファイルの作成
 

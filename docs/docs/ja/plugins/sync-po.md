@@ -160,28 +160,7 @@ syncPO({
   source: ({ key, locale }) => string, // 必須
   location?: string, // オプションのラベル、デフォルト: "sync-po::path/to/source"
   priority?: number, // 競合解決のためのオプションの優先度、デフォルト: 0
-  format?: 'icu' | 'i18next' | 'vue-i18n', // オプション、msgstr の値が特定の補完構文を使用している場合にのみ必要
 });
-```
-
-#### `format` ('icu' | 'i18next' | 'vue-i18n')
-
-PO ファイルは常に Gettext Portable Object ファイルです。これは固定されています。このオプションは、`msgstr` 値の中で使用される **補完構文** のみを記述します。これにより、Intlayer はパース時（`formatDictionary` 経由）に独自の形式に変換し、出力書き込み時に元に戻すことができます。
-
-- `undefined` _(デフォルト)_: `msgstr` の値はプレーンテキストとして扱われ、変換されません。ほとんどの PO ファイルでこれを使用します。
-- `'icu'`: `msgstr` の値は ICU メッセージ構文を使用します（例：`{count, plural, one {# item} other {# items}}`）。
-- `'i18next'`: `msgstr` の値は i18next 補完構文を使用します（例：`{{variable}}`）。
-- `'vue-i18n'`: `msgstr` の値は Vue I18n 構文を使用します。
-
-> 変換はロード時に `@intlayer/chokidar` の `formatDictionary` によって適用され、書き込み時に `formatDictionaryOutput` で元に戻されます。ICU 複数形のような複雑なルールの場合、ラウンドトリップの忠実性は保証されません。
-
-**例 — PO ファイルに i18next スタイルの補完が含まれている場合:**
-
-```ts
-syncPO({
-  source: ({ key, locale }) => `./locales/${locale}/${key}.po`,
-  format: "i18next",
-}),
 ```
 
 ### 複数の PO ソースと優先度

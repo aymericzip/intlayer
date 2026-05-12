@@ -160,28 +160,7 @@ syncPO({
   source: ({ key, locale }) => string, // gerekli
   location?: string, // isteğe bağlı etiket, varsayılan: "sync-po::path/to/source"
   priority?: number, // çakışma çözümü için isteğe bağlı öncelik, varsayılan: 0
-  format?: 'icu' | 'i18next' | 'vue-i18n', // isteğe bağlı, yalnızca msgstr değerleriniz belirli bir enterpolasyon sözdizimi kullandığında gereklidir
 });
-```
-
-#### `format` ('icu' | 'i18next' | 'vue-i18n')
-
-PO dosyaları her zaman Gettext Portable Object dosyalarıdır — bu sabittir. Bu seçenek yalnızca `msgstr` değerlerinin içinde kullanılan **enterpolasyon sözdizimini** açıklar, böylece Intlayer bunları ayrıştırma zamanında ( `formatDictionary` aracılığıyla) kendi biçimine dönüştürebilir ve çıktıyı yazarken geri dönüştürebilir.
-
-- `undefined` _(varsayılan)_: `msgstr` değerleri düz dizeler olarak işlenir — dönüşüm yok. Çoğu PO dosyası için bunu kullanın.
-- `'icu'`: `msgstr` değerleri ICU mesaj sözdizimini kullanır (örneğin `{count, plural, one {# item} other {# items}}`).
-- `'i18next'`: `msgstr` değerleri i18next enterpolasyon sözdizimini kullanır (örneğin `{{variable}}`).
-- `'vue-i18n'`: `msgstr` değerleri Vue I18n sözdizimini kullanır.
-
-> Dönüşüm, yükleme sırasında `@intlayer/chokidar`'ın `formatDictionary` işlevi tarafından uygulanır ve yazma sırasında `formatDictionaryOutput` ile tersine çevrilir. ICU çoğulları gibi karmaşık kurallar için gidiş-dönüş doğruluğu garanti edilmez.
-
-**Örnek — PO dosyaları i18next tarzı enterpolasyon içeriyor:**
-
-```ts
-syncPO({
-  source: ({ key, locale }) => `./locales/${locale}/${key}.po`,
-  format: "i18next",
-}),
 ```
 
 ### Birden fazla PO kaynağı ve öncelik

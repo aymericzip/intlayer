@@ -160,28 +160,7 @@ syncPO({
   source: ({ key, locale }) => string, // 必填
   location?: string, // 可选标签，默认："sync-po::path/to/source"
   priority?: number, // 用于冲突解决的可选优先级，默认：0
-  format?: 'icu' | 'i18next' | 'vue-i18n', // 可选，仅当您的 msgstr 值使用特定插值语法时才需要
 });
-```
-
-#### `format` ('icu' | 'i18next' | 'vue-i18n')
-
-PO 文件始终是 Gettext Portable Object 文件 —— 这是固定的。此选项仅描述 `msgstr` 值内部使用的 **插值语法**，以便 Intlayer 可以在解析时（通过 `formatDictionary`）将其转换为自己的格式，并在写入输出时转换回来。
-
-- `undefined` _（默认）_：`msgstr` 值被视为普通字符串 —— 不进行转换。大多数 PO 文件使用此选项。
-- `'icu'`：`msgstr` 值使用 ICU 消息语法（例如 `{count, plural, one {# item} other {# items}}`）。
-- `'i18next'`：`msgstr` 值使用 i18next 插值语法（例如 `{{variable}}`）。
-- `'vue-i18n'`：`msgstr` 值使用 Vue I18n 语法。
-
-> 转换由 `@intlayer/chokidar` 的 `formatDictionary` 在加载时应用，并在写入时通过 `formatDictionaryOutput` 反转。对于像 ICU 复数这样的复杂规则，不保证往返的保真度。
-
-**示例 —— PO 文件包含 i18next 风格的插值：**
-
-```ts
-syncPO({
-  source: ({ key, locale }) => `./locales/${locale}/${key}.po`,
-  format: "i18next",
-}),
 ```
 
 ### 多个 PO 源和优先级

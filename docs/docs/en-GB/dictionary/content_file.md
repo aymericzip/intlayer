@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-01-28
+updatedAt: 2026-05-12
 title: Content File
 description: Learn how to customise the extensions for your content declaration files. Follow this documentation to implement conditions efficiently in your project.
 keywords:
@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 8.9.0
+    date: 2026-05-12
+    changes: "Add `plural` content node type"
   - version: 8.0.0
     date: 2026-01-28
     changes: "Add `html` content node type"
@@ -63,6 +66,7 @@ import { type ReactNode } from "react";
 import {
   t,
   enu,
+  plural,
   cond,
   nest,
   md,
@@ -82,6 +86,7 @@ interface Content {
   };
   multilingualContent: string;
   quantityContent: string;
+  pluralContent: string;
   conditionalContent: string;
   markdownContent: never;
   htmlContent: never;
@@ -116,6 +121,10 @@ export default {
       "1": "One car",
       ">5": "Some cars",
       ">19": "Many cars",
+    }),
+    pluralContent: plural({
+      one: "One car",
+      other: "{{count}} cars",
     }),
     conditionalContent: cond({
       true: "Validation is enabled",
@@ -171,6 +180,13 @@ export default {
         ">5": "Some cars",
         ">19": "Many cars",
       },
+      "pluralContent": {
+        "nodeType": "plural",
+        "plural": {
+          "one": "One car",
+          "other": "{{count}} cars",
+        },
+      },
     },
     "conditionalContent": {
       "nodeType": "condition",
@@ -218,6 +234,7 @@ Content nodes are the building blocks of dictionary content. They can be:
 - **Primitive values**: strings, numbers, booleans, null, undefined
 - **Typed nodes**: Special content types such as translations, conditions, markdown, etc.
 - **Functions**: Dynamic content that can be evaluated at runtime [see Function Fetching](https://github.com/aymericzip/intlayer/blob/main/docs/docs/{{locale}}/dictionary/function_fetching.md)
+- **Plural Content**: See Plural Content [See Plural Content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/plural.md)
 - **Nested content**: References to other dictionaries
 
 #### Content Types
@@ -543,6 +560,8 @@ multilingualContent: t({
 });
 ```
 
+> See [Translation Content (`t`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/translation.md) for more information.
+
 ### Condition Content (`cond`)
 
 Content that changes based on boolean conditions:
@@ -555,6 +574,8 @@ conditionalContent: cond({
   false: "Please log in to continue",
 });
 ```
+
+> See [Condition Content (`cond`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/condition.md) for more information.
 
 ### Enumeration Content (`enu`)
 
@@ -570,6 +591,23 @@ statusContent: enu({
 });
 ```
 
+> See [Enumeration Content (`enu`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/enumeration.md) for more information.
+
+### Plural Content (`plural`)
+
+Content that varies based on plural rules:
+
+```typescript
+import { plural } from "intlayer";
+
+pluralContent: plural({
+  one: "One car",
+  other: "{{count}} cars",
+});
+```
+
+> See [Plural Content Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/plural.md) for more information.
+
 ### Insertion Content (`insert`)
 
 Content that can be inserted into other content:
@@ -580,6 +618,8 @@ import { insert } from "intlayer";
 insertionContent: insert("This text can be inserted anywhere");
 ```
 
+> See [Insertion Content (`insert`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/insertion.md) for more information.
+
 ### Nested Content (`nest`)
 
 References to other dictionaries:
@@ -589,6 +629,8 @@ import { nest } from "intlayer";
 
 nestedContent: nest("about-page");
 ```
+
+> See [Nested Content (`nest`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/nesting.md) for more information.
 
 ### Markdown Content (`md`)
 
@@ -601,6 +643,8 @@ markdownContent: md(
   "# Welcome\n\nThis is **bold** text with [links](https://example.com)"
 );
 ```
+
+> See [Markdown Content (`md`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/markdown.md) for more information.
 
 ### HTML Content (`html`)
 
@@ -619,6 +663,8 @@ localizedHtmlContent: t({
 });
 ```
 
+> See [HTML Content (`html`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/html.md) for more information.
+
 ### Gender Content (`gender`)
 
 Content that varies based on gender:
@@ -633,6 +679,8 @@ genderContent: gender({
 });
 ```
 
+> See [Gender Content (`gender`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/gender.md) for more information.
+
 ### File Content (`file`)
 
 References to external files:
@@ -642,6 +690,8 @@ import { file } from "intlayer";
 
 fileContent: file("./path/to/content.txt");
 ```
+
+> See [File Content (`file`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/file.md) for more information.
 
 ## Creating Content Files
 

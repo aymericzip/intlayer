@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-01-28
+updatedAt: 2026-05-12
 title: Tệp Nội Dung
 description: Tìm hiểu cách tùy chỉnh các phần mở rộng cho các tệp khai báo nội dung của bạn. Theo dõi tài liệu này để triển khai các điều kiện một cách hiệu quả trong dự án của bạn.
 keywords:
@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 8.9.0
+    date: 2026-05-12
+    changes: "Thêm loại nút nội dung `plural`"
   - version: 8.0.0
     date: 2026-01-28
     changes: "Thêm kiểu nút nội dung `html`"
@@ -69,6 +72,7 @@ import { type ReactNode } from "react";
 import {
   t,
   enu,
+  plural,
   cond,
   nest,
   md,
@@ -88,6 +92,7 @@ interface Content {
   };
   multilingualContent: string;
   quantityContent: string;
+  pluralContent: string;
   conditionalContent: string;
   markdownContent: never;
   htmlContent: never;
@@ -122,6 +127,10 @@ export default {
       "1": "Một chiếc xe",
       ">5": "Một vài chiếc xe",
       ">19": "Nhiều chiếc xe",
+    }),
+    pluralContent: plural({
+      one: "One car",
+      other: "{{count}} cars",
     }),
     conditionalContent: cond({
       true: "Xác thực được bật",
@@ -177,6 +186,13 @@ export default {
         ">5": "Một vài chiếc xe",
         ">19": "Nhiều chiếc xe",
       },
+      "pluralContent": {
+        "nodeType": "plural",
+        "plural": {
+          "one": "One car",
+          "other": "{{count}} cars",
+        },
+      },
     },
     "conditionalContent": {
       "nodeType": "condition",
@@ -224,6 +240,7 @@ Các nút nội dung là các khối xây dựng của nội dung từ điển. 
 - **Giá trị nguyên thủy**: chuỗi, số, boolean, null, undefined
 - **Node kiểu**: Các loại nội dung đặc biệt như bản dịch, điều kiện, markdown, v.v.
 - **Hàm**: Nội dung động có thể được đánh giá tại thời gian chạy [xem Function Fetching](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/function_fetching.md)
+- **Nội dung số nhiều**: Xem Nội dung số nhiều [Xem Nội dung số nhiều](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/plural.md)
 - **Nội dung lồng nhau**: Tham chiếu đến các từ điển khác
 
 #### Các loại nội dung
@@ -554,6 +571,8 @@ multilingualContent: t({
 });
 ```
 
+> Xem [Nội dung dịch (`t`) Tài liệu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/translation.md) để biết thêm thông tin.
+
 ### Nội dung điều kiện (`cond`)
 
 Nội dung thay đổi dựa trên các điều kiện boolean:
@@ -566,6 +585,8 @@ conditionalContent: cond({
   false: "Vui lòng đăng nhập để tiếp tục",
 });
 ```
+
+> Xem [Nội dung điều kiện (`cond`) Tài liệu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/condition.md) để biết thêm thông tin.
 
 ### Nội dung liệt kê (`enu`)
 
@@ -581,6 +602,23 @@ statusContent: enu({
 });
 ```
 
+> Xem [Nội dung liệt kê (`enu`) Tài liệu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/enumeration.md) để biết thêm thông tin.
+
+### Nội dung số nhiều (`plural`)
+
+Nội dung thay đổi dựa trên các quy tắc số nhiều:
+
+```typescript
+import { plural } from "intlayer";
+
+pluralContent: plural({
+  one: "One car",
+  other: "{{count}} cars",
+});
+```
+
+> Xem [Nội dung số nhiều Tài liệu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/plural.md) để biết thêm thông tin.
+
 ### Nội dung chèn (`insert`)
 
 Nội dung có thể được chèn vào các nội dung khác:
@@ -591,6 +629,8 @@ import { insert } from "intlayer";
 insertionContent: insert("Đoạn văn bản này có thể được chèn vào bất cứ đâu");
 ```
 
+> Xem [Nội dung chèn (`insert`) Tài liệu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/insertion.md) để biết thêm thông tin.
+
 ### Nội dung lồng nhau (`nest`)
 
 Tham chiếu đến các từ điển khác:
@@ -600,6 +640,8 @@ import { nest } from "intlayer";
 
 nestedContent: nest("about-page");
 ```
+
+> Xem [Nội dung lồng nhau (`nest`) Tài liệu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/nesting.md) để biết thêm thông tin.
 
 ### Nội dung Markdown (`md`)
 
@@ -612,6 +654,8 @@ markdownContent: md(
   "# Chào mừng\n\nĐây là văn bản **in đậm** với các [liên kết](https://example.com)"
 );
 ```
+
+> Xem [Nội dung Markdown (`md`) Tài liệu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/markdown.md) để biết thêm thông tin.
 
 ### Nội dung HTML (`html`)
 
@@ -630,6 +674,8 @@ localizedHtmlContent: t({
 });
 ```
 
+> Xem [Nội dung HTML (`html`) Tài liệu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/html.md) để biết thêm thông tin.
+
 ### Nội dung theo giới tính (`gender`)
 
 Nội dung thay đổi dựa trên giới tính:
@@ -644,6 +690,8 @@ genderContent: gender({
 });
 ```
 
+> Xem [Nội dung theo giới tính (`gender`) Tài liệu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/gender.md) để biết thêm thông tin.
+
 ### Nội dung tệp tin (`file`)
 
 Tham chiếu đến các tệp tin bên ngoài:
@@ -653,6 +701,8 @@ import { file } from "intlayer";
 
 fileContent: file("./path/to/content.txt");
 ```
+
+> Xem [Nội dung tệp tin (`file`) Tài liệu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/file.md) để biết thêm thông tin.
 
 ## Tạo các tệp nội dung
 

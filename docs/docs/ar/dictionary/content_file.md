@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-01-28
+updatedAt: 2026-05-12
 title: ملف المحتوى
 description: تعلّم كيفية تخصيص الامتدادات لملفات إعلان المحتوى الخاصة بك. اتبع هذا التوثيق لتنفيذ الشروط بكفاءة في مشروعك.
 keywords:
@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 8.9.0
+    date: 2026-05-12
+    changes: "إضافة نوع عقدة المحتوى `plural`"
   - version: 8.0.0
     date: 2026-01-28
     changes: "إضافة نوع عقدة المحتوى `html`"
@@ -66,6 +69,7 @@ import { type ReactNode } from "react";
 import {
   t,
   enu,
+  plural,
   cond,
   nest,
   md,
@@ -85,6 +89,7 @@ interface Content {
   };
   multilingualContent: string;
   quantityContent: string;
+  pluralContent: string;
   conditionalContent: string;
   markdownContent: never;
   htmlContent: never;
@@ -120,6 +125,10 @@ export default {
       "1": "سيارة واحدة",
       ">5": "بعض السيارات",
       ">19": "الكثير من السيارات",
+    }),
+    pluralContent: plural({
+      one: "One car",
+      other: "{{count}} cars",
     }),
     conditionalContent: cond({
       true: "التحقق مفعل",
@@ -175,6 +184,13 @@ export default {
         ">5": "بعض السيارات",
         ">19": "العديد من السيارات",
       },
+      "pluralContent": {
+        "nodeType": "plural",
+        "plural": {
+          "one": "One car",
+          "other": "{{count}} cars",
+        },
+      },
     },
     "conditionalContent": {
       "nodeType": "condition",
@@ -222,6 +238,7 @@ export default {
 - **قيم بدائية**: سلاسل نصية، أرقام، قيم منطقية، null، undefined
 - **عقد ذات نوع**: أنواع محتوى خاصة مثل الترجمات، الشروط، الماركداون، إلخ.
 - **دوال**: محتوى ديناميكي يمكن تقييمه أثناء وقت التشغيل [انظر جلب الدوال](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/function_fetching.md)
+- **محتوى الجمع**: راجع محتوى الجمع [راجع محتوى الجمع](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/plural.md)
 - **محتوى متداخل**: مراجع إلى قواميس أخرى
 
 #### أنواع المحتوى
@@ -547,6 +564,8 @@ multilingualContent: t({
 });
 ```
 
+> راجع [محتوى الترجمة (`t`) توثيق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/translation.md) لمزيد من المعلومات.
+
 ### محتوى الشرط (`cond`)
 
 محتوى يتغير بناءً على شروط منطقية:
@@ -559,6 +578,8 @@ conditionalContent: cond({
   false: "Please log in to continue",
 });
 ```
+
+> راجع [محتوى الشرط (`cond`) توثيق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/condition.md) لمزيد من المعلومات.
 
 ### محتوى التعداد (`enu`)
 
@@ -574,6 +595,23 @@ statusContent: enu({
 });
 ```
 
+> راجع [محتوى التعداد (`enu`) توثيق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/enumeration.md) لمزيد من المعلومات.
+
+### محتوى الجمع (`plural`)
+
+المحتوى الذي يختلف بناءً على قواعد الجمع:
+
+```typescript
+import { plural } from "intlayer";
+
+pluralContent: plural({
+  one: "One car",
+  other: "{{count}} cars",
+});
+```
+
+> راجع [محتوى الجمع توثيق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/plural.md) لمزيد من المعلومات.
+
 ### محتوى الإدراج (`insert`)
 
 محتوى يمكن إدراجه داخل محتويات أخرى:
@@ -584,6 +622,8 @@ import { insert } from "intlayer";
 insertionContent: insert("يمكن إدراج هذا النص في أي مكان");
 ```
 
+> راجع [محتوى الإدراج (`insert`) توثيق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/insertion.md) لمزيد من المعلومات.
+
 ### المحتوى المتداخل (`nest`)
 
 مراجع إلى قواميس أخرى:
@@ -593,6 +633,8 @@ import { nest } from "intlayer";
 
 nestedContent: nest("about-page");
 ```
+
+> راجع [المحتوى المتداخل (`nest`) توثيق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/nesting.md) لمزيد من المعلومات.
 
 ### محتوى ماركداون (`md`)
 
@@ -605,6 +647,8 @@ markdownContent: md(
   "# مرحبًا\n\nهذا نص **عريض** مع [روابط](https://example.com)"
 );
 ```
+
+> راجع [محتوى ماركداون (`md`) توثيق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/markdown.md) لمزيد من المعلومات.
 
 ### محتوى HTML (`html`)
 
@@ -623,6 +667,8 @@ localizedHtmlContent: t({
 });
 ```
 
+> راجع [محتوى HTML (`html`) توثيق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/html.md) لمزيد من المعلومات.
+
 ### محتوى الجنس (`gender`)
 
 محتوى يتغير بناءً على الجنس:
@@ -637,6 +683,8 @@ genderContent: gender({
 });
 ```
 
+> راجع [محتوى الجنس (`gender`) توثيق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/gender.md) لمزيد من المعلومات.
+
 ### محتوى الملف (`file`)
 
 مراجع لملفات خارجية:
@@ -646,6 +694,8 @@ import { file } from "intlayer";
 
 fileContent: file("./path/to/content.txt");
 ```
+
+> راجع [محتوى الملف (`file`) توثيق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/file.md) لمزيد من المعلومات.
 
 ## إنشاء ملفات المحتوى
 

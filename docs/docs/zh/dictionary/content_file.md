@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-01-28
+updatedAt: 2026-05-12
 title: 内容文件
 description: 学习如何自定义内容声明文件的扩展。按照本指南高效地在项目中实现条件。
 keywords:
@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 8.9.0
+    date: 2026-05-12
+    changes: "添加 `plural` 内容节点类型"
   - version: 8.0.0
     date: 2026-01-28
     changes: "添加 `html` 内容节点类型"
@@ -66,6 +69,7 @@ import { type ReactNode } from "react";
 import {
   t,
   enu,
+  plural,
   cond,
   nest,
   md,
@@ -85,7 +89,8 @@ interface Content {
     };
   };
   multilingualContent: string; // 多语言内容
-  quantityContent: string; // 数量内容
+  quantityContent: string;
+  pluralContent: string; // 数量内容
   conditionalContent: string; // 条件内容
   markdownContent: never; // Markdown 内容
   htmlContent: never; // HTML 内容
@@ -121,6 +126,10 @@ export default {
       "1": "一辆车",
       ">5": "几辆车",
       ">19": "许多车",
+    }),
+    pluralContent: plural({
+      one: "One car",
+      other: "{{count}} cars",
     }), // 数量内容
     conditionalContent: cond({
       true: "验证已启用",
@@ -176,6 +185,13 @@ export default {
         ">5": "一些汽车",
         ">19": "许多汽车",
       },
+      "pluralContent": {
+        "nodeType": "plural",
+        "plural": {
+          "one": "One car",
+          "other": "{{count}} cars",
+        },
+      },
     },
     "conditionalContent": {
       "nodeType": "condition",
@@ -219,6 +235,7 @@ export default {
 - **原始值**：字符串、数字、布尔值、null、undefined
 - **类型化节点**：特殊内容类型，如翻译、条件、Markdown 等
 - **函数**：可在运行时计算的动态内容 [参见函数获取](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/function_fetching.md)
+- **复数内容**: 请参阅 复数内容 [请参阅 复数内容](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/plural.md)
 - **嵌套内容**：对其他字典的引用
 
 #### 内容类型
@@ -557,6 +574,8 @@ multilingualContent: t({
 });
 ```
 
+> 请参阅 [翻译内容 (`t`) 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/translation.md) 以获取更多信息。
+
 ### 条件内容 (`cond`)
 
 基于布尔条件变化的内容：
@@ -569,6 +588,8 @@ conditionalContent: cond({
   false: "Please log in to continue",
 });
 ```
+
+> 请参阅 [条件内容 (`cond`) 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/condition.md) 以获取更多信息。
 
 ### 枚举内容 (`enu`)
 
@@ -584,7 +605,22 @@ statusContent: enu({
 });
 ```
 
-### 插入内容 (`insert`)
+> 请参阅 [枚举内容 (`enu`) 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/enumeration.md) 以获取更多信息。
+
+### Plural Content (`plural`)
+
+Content that varies based on plural rules:
+
+```typescript
+import { plural } from "intlayer";
+
+pluralContent: plural({
+  one: "One car",
+  other: "{{count}} cars",
+});
+```
+
+> 请参阅 [Plural Content 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/plural.md) 以获取更多信息。### 插入内容 (`insert`)
 
 可以插入到其他内容中的内容：
 
@@ -593,6 +629,8 @@ import { insert } from "intlayer";
 
 insertionContent: insert("这段文本可以插入到任何地方");
 ```
+
+> 请参阅 [插入内容 (`insert`) 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/insertion.md) 以获取更多信息。
 
 ### 嵌套内容 (`nest`)
 
@@ -603,6 +641,8 @@ import { nest } from "intlayer";
 
 nestedContent: nest("about-page");
 ```
+
+> 请参阅 [嵌套内容 (`nest`) 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/nesting.md) 以获取更多信息。
 
 ### Markdown 内容 (`md`)
 
@@ -615,6 +655,8 @@ markdownContent: md(
   "# 欢迎\n\n这是带有[链接](https://example.com)的**加粗**文本"
 );
 ```
+
+> 请参阅 [Markdown 内容 (`md`) 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/markdown.md) 以获取更多信息。
 
 ### HTML 内容 (`html`)
 
@@ -633,6 +675,8 @@ localizedHtmlContent: t({
 });
 ```
 
+> 请参阅 [HTML 内容 (`html`) 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/html.md) 以获取更多信息。
+
 ### 性别内容 (`gender`)
 
 根据性别变化的内容：
@@ -647,6 +691,8 @@ genderContent: gender({
 });
 ```
 
+> 请参阅 [性别内容 (`gender`) 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/gender.md) 以获取更多信息。
+
 ### 文件内容 (`file`)
 
 引用外部文件：
@@ -656,6 +702,8 @@ import { file } from "intlayer";
 
 fileContent: file("./path/to/content.txt");
 ```
+
+> 请参阅 [文件内容 (`file`) 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/file.md) 以获取更多信息。
 
 ## 创建内容文件
 

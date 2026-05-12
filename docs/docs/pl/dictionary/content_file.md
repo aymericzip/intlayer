@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-01-28
+updatedAt: 2026-05-12
 title: Plik z Treścią
 description: Dowiedz się, jak dostosować rozszerzenia dla plików deklaracji treści. Postępuj zgodnie z tą dokumentacją, aby efektywnie wdrażać warunki w swoim projekcie.
 keywords:
@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 8.9.0
+    date: 2026-05-12
+    changes: "Add `plural` content node type"
   - version: 8.0.0
     date: 2026-01-28
     changes: "Dodano typ węzła zawartości `html`"
@@ -66,6 +69,7 @@ import { type ReactNode } from "react";
 import {
   t,
   enu,
+  plural,
   cond,
   nest,
   md,
@@ -85,6 +89,7 @@ interface Content {
   };
   multilingualContent: string;
   quantityContent: string;
+  pluralContent: string;
   conditionalContent: string;
   markdownContent: never;
   htmlContent: never;
@@ -119,6 +124,10 @@ export default {
       "1": "Jeden samochód",
       ">5": "Kilka samochodów",
       ">19": "Wiele samochodów",
+    }),
+    pluralContent: plural({
+      one: "One car",
+      other: "{{count}} cars",
     }),
     conditionalContent: cond({
       true: "Walidacja jest włączona",
@@ -174,6 +183,13 @@ export default {
         ">5": "Kilka samochodów",
         ">19": "Wiele samochodów",
       },
+      "pluralContent": {
+        "nodeType": "plural",
+        "plural": {
+          "one": "One car",
+          "other": "{{count}} cars",
+        },
+      },
     },
     "conditionalContent": {
       "nodeType": "condition",
@@ -221,6 +237,7 @@ Węzły treści są podstawowymi elementami zawartości słownika. Mogą to być
 - **Wartości prymitywne**: łańcuchy znaków, liczby, wartości logiczne, null, undefined
 - **Węzły typowane**: Specjalne typy zawartości, takie jak tłumaczenia, warunki, markdown itp.
 - **Funkcje**: Dynamiczna zawartość, która może być oceniana w czasie wykonywania [zobacz Pobieranie funkcji](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/function_fetching.md)
+- **Plural Content**: See Plural Content [See Plural Content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/plural.md)
 - **Zagnieżdżona zawartość**: Odwołania do innych słowników
 
 #### Typy zawartości
@@ -551,6 +568,8 @@ multilingualContent: t({
 });
 ```
 
+> See [Zawartość tłumaczenia (`t`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/translation.md) for more information.
+
 ### Zawartość warunkowa (`cond`)
 
 Treść, która zmienia się w zależności od warunków logicznych (boolean):
@@ -563,6 +582,8 @@ conditionalContent: cond({
   false: "Proszę się zalogować, aby kontynuować",
 });
 ```
+
+> See [Zawartość warunkowa (`cond`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/condition.md) for more information.
 
 ### Treść enumeracyjna (`enu`)
 
@@ -578,6 +599,23 @@ statusContent: enu({
 });
 ```
 
+> See [Treść enumeracyjna (`enu`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/enumeration.md) for more information.
+
+### Plural Content (`plural`)
+
+Content that varies based on plural rules:
+
+```typescript
+import { plural } from "intlayer";
+
+pluralContent: plural({
+  one: "One car",
+  other: "{{count}} cars",
+});
+```
+
+> See [Plural Content Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/plural.md) for more information.
+
 ### Treść wstawiana (`insert`)
 
 Treść, którą można wstawić do innej treści:
@@ -588,6 +626,8 @@ import { insert } from "intlayer";
 insertionContent: insert("Ten tekst można wstawić w dowolne miejsce");
 ```
 
+> See [Treść wstawiana (`insert`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/insertion.md) for more information.
+
 ### Treść zagnieżdżona (`nest`)
 
 Odniesienia do innych słowników:
@@ -597,6 +637,8 @@ import { nest } from "intlayer";
 
 nestedContent: nest("about-page");
 ```
+
+> See [Treść zagnieżdżona (`nest`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/nesting.md) for more information.
 
 ### Zawartość Markdown (`md`)
 
@@ -609,6 +651,8 @@ markdownContent: md(
   "# Witamy\n\nTo jest **pogrubiony** tekst z [linkami](https://example.com)"
 );
 ```
+
+> See [Zawartość Markdown (`md`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/markdown.md) for more information.
 
 ### Zawartość HTML (`html`)
 
@@ -627,6 +671,8 @@ localizedHtmlContent: t({
 });
 ```
 
+> See [Zawartość HTML (`html`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/html.md) for more information.
+
 ### Zawartość według płci (`gender`)
 
 Treść zmieniająca się w zależności od płci:
@@ -641,6 +687,8 @@ genderContent: gender({
 });
 ```
 
+> See [Zawartość według płci (`gender`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/gender.md) for more information.
+
 ### Zawartość pliku (`file`)
 
 Odniesienia do plików zewnętrznych:
@@ -650,6 +698,8 @@ import { file } from "intlayer";
 
 fileContent: file("./path/to/content.txt");
 ```
+
+> See [Zawartość pliku (`file`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/file.md) for more information.
 
 ## Tworzenie plików z zawartością
 

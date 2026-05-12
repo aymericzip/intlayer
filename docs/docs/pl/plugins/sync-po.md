@@ -160,28 +160,7 @@ syncPO({
   source: ({ key, locale }) => string, // wymagane
   location?: string, // opcjonalna etykieta, domyślnie: "sync-po::path/to/source"
   priority?: number, // opcjonalny priorytet dla rozwiązywania konfliktów, domyślnie: 0
-  format?: 'icu' | 'i18next' | 'vue-i18n', // opcjonalne, potrzebne tylko gdy wartości msgstr używają specyficznej składni interpolacji
 });
-```
-
-#### `format` ('icu' | 'i18next' | 'vue-i18n')
-
-Pliki PO to zawsze pliki Gettext Portable Object — to jest stałe. Ta opcja opisuje jedynie **składnię interpolacji** używaną wewnątrz wartości `msgstr`, dzięki czemu Intlayer może przekonwertować je na własny format w czasie parsowania (przez `formatDictionary`) i z powrotem podczas zapisywania wyników.
-
-- `undefined` _(domyślnie)_: wartości `msgstr` są traktowane jako zwykłe ciągi znaków — brak transformacji. Używaj tego dla większości plików PO.
-- `'icu'`: wartości `msgstr` używają składni komunikatów ICU (np. `{count, plural, one {# item} other {# items}}`).
-- `'i18next'`: wartości `msgstr` używają składni interpolacji i18next (np. `{{variable}}`).
-- `'vue-i18n'`: wartości `msgstr` używają składni Vue I18n.
-
-> Transformacja jest nakładana przez `formatDictionary` z `@intlayer/chokidar` przy ładowaniu i odwracana za pomocą `formatDictionaryOutput` przy zapisie. W przypadku złożonych reguł, takich jak liczby mnogie ICU, wierność konwersji w obie strony nie jest gwarantowana.
-
-**Przykład — pliki PO zawierają interpolację w stylu i18next:**
-
-```ts
-syncPO({
-  source: ({ key, locale }) => `./locales/${locale}/${key}.po`,
-  format: "i18next",
-}),
 ```
 
 ### Wiele źródeł PO i priorytet

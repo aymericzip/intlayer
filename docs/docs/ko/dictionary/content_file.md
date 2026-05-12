@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-01-28
+updatedAt: 2026-05-12
 title: 콘텐츠 파일
 description: 콘텐츠 선언 파일의 확장자를 사용자 정의하는 방법을 배우세요. 이 문서를 따라 프로젝트에서 조건을 효율적으로 구현하세요.
 keywords:
@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 8.9.0
+    date: 2026-05-12
+    changes: "`plural` 콘텐츠 노드 유형 추가"
   - version: 8.0.0
     date: 2026-01-28
     changes: "`html` 콘텐츠 노드 타입 추가"
@@ -63,6 +66,7 @@ import { type ReactNode } from "react";
 import {
   t,
   enu,
+  plural,
   cond,
   nest,
   md,
@@ -82,6 +86,7 @@ interface Content {
   };
   multilingualContent: string;
   quantityContent: string;
+  pluralContent: string;
   conditionalContent: string;
   markdownContent: never;
   htmlContent: never;
@@ -117,6 +122,10 @@ export default {
       "1": "자동차 1대",
       ">5": "몇 대의 자동차",
       ">19": "많은 자동차",
+    }),
+    pluralContent: plural({
+      one: "One car",
+      other: "{{count}} cars",
     }),
     conditionalContent: cond({
       true: "검증이 활성화됨",
@@ -172,6 +181,13 @@ export default {
         ">5": "몇 대의 차",
         ">19": "많은 차",
       },
+      "pluralContent": {
+        "nodeType": "plural",
+        "plural": {
+          "one": "One car",
+          "other": "{{count}} cars",
+        },
+      },
     },
     "conditionalContent": {
       "nodeType": "condition",
@@ -219,6 +235,7 @@ export default {
 - **원시 값**: 문자열, 숫자, 불리언, null, undefined
 - **타입이 지정된 노드**: 번역, 조건, 마크다운 등과 같은 특수 콘텐츠 유형
 - **함수**: 런타임에 평가될 수 있는 동적 콘텐츠 [함수 가져오기 참조](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/function_fetching.md)
+- **복수형 콘텐츠**: 자세한 내용은 복수형 콘텐츠 [자세한 내용은 복수형 콘텐츠](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/plural.md)
 - **중첩 콘텐츠**: 다른 사전에 대한 참조
 
 #### 콘텐츠 유형
@@ -564,6 +581,8 @@ multilingualContent: t({
 });
 ```
 
+> 자세한 내용은 [번역 콘텐츠 (`t`) 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/translation.md) 를 참조하세요.
+
 ### 조건 콘텐츠 (`cond`)
 
 불리언 조건에 따라 변경되는 콘텐츠:
@@ -576,6 +595,8 @@ conditionalContent: cond({
   false: "Please log in to continue",
 });
 ```
+
+> 자세한 내용은 [조건 콘텐츠 (`cond`) 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/condition.md) 를 참조하세요.
 
 ### 열거형 콘텐츠 (`enu`)
 
@@ -591,6 +612,23 @@ statusContent: enu({
 });
 ```
 
+> 자세한 내용은 [열거형 콘텐츠 (`enu`) 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/enumeration.md) 를 참조하세요.
+
+### 복수형 콘텐츠 (`plural`)
+
+복수형 규칙에 따라 달라지는 콘텐츠:
+
+```typescript
+import { plural } from "intlayer";
+
+pluralContent: plural({
+  one: "One car",
+  other: "{{count}} cars",
+});
+```
+
+> 자세한 내용은 [복수형 콘텐츠 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/plural.md) 를 참조하세요.
+
 ### 삽입 콘텐츠 (`insert`)
 
 다른 콘텐츠에 삽입할 수 있는 콘텐츠:
@@ -601,6 +639,8 @@ import { insert } from "intlayer";
 insertionContent: insert("이 텍스트는 어디에나 삽입할 수 있습니다");
 ```
 
+> 자세한 내용은 [삽입 콘텐츠 (`insert`) 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/insertion.md) 를 참조하세요.
+
 ### 중첩 콘텐츠 (`nest`)
 
 다른 사전에 대한 참조:
@@ -610,6 +650,8 @@ import { nest } from "intlayer";
 
 nestedContent: nest("about-page");
 ```
+
+> 자세한 내용은 [중첩 콘텐츠 (`nest`) 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/nesting.md) 를 참조하세요.
 
 ### 마크다운 콘텐츠 (`md`)
 
@@ -622,6 +664,8 @@ markdownContent: md(
   "# 환영합니다\n\n이것은 [링크](https://example.com)가 포함된 **굵은** 텍스트입니다"
 );
 ```
+
+> 자세한 내용은 [마크다운 콘텐츠 (`md`) 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/markdown.md) 를 참조하세요.
 
 ### HTML 콘텐츠 (`html`)
 
@@ -640,6 +684,8 @@ localizedHtmlContent: t({
 });
 ```
 
+> 자세한 내용은 [HTML 콘텐츠 (`html`) 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/html.md) 를 참조하세요.
+
 ### 성별에 따른 콘텐츠 (`gender`)
 
 성별에 따라 달라지는 콘텐츠:
@@ -654,6 +700,8 @@ genderContent: gender({
 });
 ```
 
+> 자세한 내용은 [성별에 따른 콘텐츠 (`gender`) 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/gender.md) 를 참조하세요.
+
 ### 파일 콘텐츠 (`file`)
 
 외부 파일에 대한 참조:
@@ -663,6 +711,8 @@ import { file } from "intlayer";
 
 fileContent: file("./path/to/content.txt");
 ```
+
+> 자세한 내용은 [파일 콘텐츠 (`file`) 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/file.md) 를 참조하세요.
 
 ## 콘텐츠 파일 생성하기
 

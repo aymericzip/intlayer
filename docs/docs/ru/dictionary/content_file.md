@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-01-28
+updatedAt: 2026-05-12
 title: Файл контента
 description: Узнайте, как настраивать расширения для ваших файлов декларации контента. Следуйте этой документации, чтобы эффективно реализовывать условия в вашем проекте.
 keywords:
@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 8.9.0
+    date: 2026-05-12
+    changes: "Добавить тип узла содержимого `plural`"
   - version: 8.0.0
     date: 2026-01-28
     changes: "Добавлен тип узла содержимого `html`"
@@ -66,6 +69,7 @@ import { type ReactNode } from "react";
 import {
   t,
   enu,
+  plural,
   cond,
   nest,
   md,
@@ -84,7 +88,8 @@ interface Content {
     };
   };
   multilingualContent: string; // мультиязычный контент
-  quantityContent: string; // контент с количеством
+  quantityContent: string;
+  pluralContent: string; // контент с количеством
   conditionalContent: string; // условный контент
   markdownContent: never; // markdown контент (никогда не используется)
   htmlContent: never; // HTML контент
@@ -120,6 +125,10 @@ export default {
       "1": "Одна машина",
       ">5": "Несколько машин",
       ">19": "Много машин",
+    }),
+    pluralContent: plural({
+      one: "One car",
+      other: "{{count}} cars",
     }),
     conditionalContent: cond({
       true: "Валидация включена",
@@ -175,6 +184,13 @@ export default {
         ">5": "Некоторые машины",
         ">19": "Много машин",
       },
+      "pluralContent": {
+        "nodeType": "plural",
+        "plural": {
+          "one": "One car",
+          "other": "{{count}} cars",
+        },
+      },
     },
     "conditionalContent": {
       "nodeType": "condition",
@@ -222,6 +238,7 @@ export default {
 - **Примитивные значения**: строки, числа, булевы значения, null, undefined
 - **Типизированные узлы**: специальные типы содержимого, такие как переводы, условия, markdown и т.д.
 - **Функции**: динамическое содержимое, которое может быть вычислено во время выполнения [см. Получение функций](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/function_fetching.md)
+- **Множественное число**: См. Множественное число [См. Множественное число](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/plural.md)
 - **Вложенное содержимое**: ссылки на другие словари
 
 #### Типы содержимого
@@ -567,6 +584,8 @@ multilingualContent: t({
 });
 ```
 
+> См. [Переводимый контент (`t`) Документация](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/translation.md) для получения дополнительной информации.
+
 ### Условный контент (`cond`)
 
 Контент, который меняется в зависимости от булевых условий:
@@ -579,6 +598,8 @@ conditionalContent: cond({
   false: "Please log in to continue",
 });
 ```
+
+> См. [Условный контент (`cond`) Документация](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/condition.md) для получения дополнительной информации.
 
 ### Перечисляемый контент (`enu`)
 
@@ -594,6 +615,23 @@ statusContent: enu({
 });
 ```
 
+> См. [Перечисляемый контент (`enu`) Документация](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/enumeration.md) для получения дополнительной информации.
+
+### Множественное число (`plural`)
+
+Контент, который варьируется в зависимости от правил множественного числа:
+
+```typescript
+import { plural } from "intlayer";
+
+pluralContent: plural({
+  one: "One car",
+  other: "{{count}} cars",
+});
+```
+
+> См. [Множественное число документацию](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/plural.md) для получения дополнительной информации.
+
 ### Вставляемый контент (`insert`)
 
 Контент, который можно вставлять в другой контент:
@@ -604,6 +642,8 @@ import { insert } from "intlayer";
 insertionContent: insert("Этот текст можно вставить куда угодно");
 ```
 
+> См. [Вставляемый контент (`insert`) Документация](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/insertion.md) для получения дополнительной информации.
+
 ### Вложенный контент (`nest`)
 
 Ссылки на другие словари:
@@ -613,6 +653,8 @@ import { nest } from "intlayer";
 
 nestedContent: nest("about-page");
 ```
+
+> См. [Вложенный контент (`nest`) Документация](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/nesting.md) для получения дополнительной информации.
 
 ### Контент в формате Markdown (`md`)
 
@@ -625,6 +667,8 @@ markdownContent: md(
   "# Добро пожаловать\n\nЭто **жирный** текст с [ссылками](https://example.com)"
 );
 ```
+
+> См. [Контент в формате Markdown (`md`) Документация](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/markdown.md) для получения дополнительной информации.
 
 ### HTML-контент (`html`)
 
@@ -643,6 +687,8 @@ localizedHtmlContent: t({
 });
 ```
 
+> См. [HTML-контент (`html`) Документация](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/html.md) для получения дополнительной информации.
+
 ### Контент по половому признаку (`gender`)
 
 Контент, который меняется в зависимости от пола:
@@ -657,6 +703,8 @@ genderContent: gender({
 });
 ```
 
+> См. [Контент по половому признаку (`gender`) Документация](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/gender.md) для получения дополнительной информации.
+
 ### Контент из файла (`file`)
 
 Ссылки на внешние файлы:
@@ -666,6 +714,8 @@ import { file } from "intlayer";
 
 fileContent: file("./path/to/content.txt");
 ```
+
+> См. [Контент из файла (`file`) Документация](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/file.md) для получения дополнительной информации.
 
 ## Создание файлов контента
 

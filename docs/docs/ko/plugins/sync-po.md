@@ -160,28 +160,7 @@ syncPO({
   source: ({ key, locale }) => string, // 필수
   location?: string, // 선택적 레이블, 기본값: "sync-po::path/to/source"
   priority?: number, // 충돌 해결을 위한 선택적 우선순위, 기본값: 0
-  format?: 'icu' | 'i18next' | 'vue-i18n', // 선택적, msgstr 값이 특정 보간 구문을 사용하는 경우에만 필요
 });
-```
-
-#### `format` ('icu' | 'i18next' | 'vue-i18n')
-
-PO 파일은 항상 Gettext Portable Object 파일입니다. 이는 고정되어 있습니다. 이 옵션은 `msgstr` 값 내부에서 사용되는 **보간 구문**만 설명합니다. 이를 통해 Intlayer는 파싱 시점(`formatDictionary`를 통해)에 자체 형식으로 변환하고 출력을 쓸 때 다시 변환할 수 있습니다.
-
-- `undefined` _(기본값)_: `msgstr` 값은 일반 문자열로 처리되며 변환되지 않습니다. 대부분의 PO 파일에 이를 사용하세요.
-- `'icu'`: `msgstr` 값은 ICU 메시지 구문을 사용합니다(예: `{count, plural, one {# item} other {# items}}`).
-- `'i18next'`: `msgstr` 값은 i18next 보간 구문을 사용합니다(예: `{{variable}}`).
-- `'vue-i18n'`: `msgstr` 값은 Vue I18n 구문을 사용합니다.
-
-> 변환은 로드 시 `@intlayer/chokidar`의 `formatDictionary`에 의해 적용되고, 쓰기 시 `formatDictionaryOutput`에 의해 역전됩니다. ICU 복수형과 같은 복잡한 규칙의 경우 라운드 트립 충실도가 보장되지 않습니다.
-
-**예 — PO 파일에 i18next 스타일 보간이 포함된 경우:**
-
-```ts
-syncPO({
-  source: ({ key, locale }) => `./locales/${locale}/${key}.po`,
-  format: "i18next",
-}),
 ```
 
 ### 여러 PO 소스 및 우선순위

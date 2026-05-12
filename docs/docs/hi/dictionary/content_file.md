@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-01-28
+updatedAt: 2026-05-12
 title: कंटेंट फ़ाइल
 description: अपनी कंटेंट घोषणा फ़ाइलों के एक्सटेंशनों को कस्टमाइज़ करना सीखें। अपने प्रोजेक्ट में शर्तों को कुशलतापूर्वक लागू करने के लिए इस दस्तावेज़ का पालन करें।
 keywords:
@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 8.9.0
+    date: 2026-05-12
+    changes: "Add `plural` content node type"
   - version: 8.0.0
     date: 2026-01-28
     changes: "`html` कंटेंट नोड प्रकार जोड़ें"
@@ -63,6 +66,7 @@ import { type ReactNode } from "react";
 import {
   t,
   enu,
+  plural,
   cond,
   nest,
   md,
@@ -83,6 +87,7 @@ interface Content {
   };
   multilingualContent: string;
   quantityContent: string;
+  pluralContent: string;
   conditionalContent: string;
   markdownContent: never;
   htmlContent: never;
@@ -118,6 +123,10 @@ export default {
       "1": "एक कार",
       ">5": "कुछ कारें",
       ">19": "कई कारें",
+    }),
+    pluralContent: plural({
+      one: "One car",
+      other: "{{count}} cars",
     }),
     conditionalContent: cond({
       true: "सत्यापन सक्षम है",
@@ -173,6 +182,13 @@ export default {
         ">5": "कुछ कारें",
         ">19": "कई कारें",
       },
+      "pluralContent": {
+        "nodeType": "plural",
+        "plural": {
+          "one": "One car",
+          "other": "{{count}} cars",
+        },
+      },
     },
     "conditionalContent": {
       "nodeType": "condition",
@@ -220,6 +236,7 @@ export default {
 - **प्रिमिटिव मान**: स्ट्रिंग्स, संख्याएँ, बूलियन, नल, अपरिभाषित
 - **टाइप्ड नोड्स**: विशेष सामग्री प्रकार जैसे अनुवाद, शर्तें, मार्कडाउन, आदि
 - **फंक्शन्स**: गतिशील सामग्री जिसे रनटाइम पर मूल्यांकन किया जा सकता है [देखें फंक्शन फेचिंग](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/function_fetching.md)
+- **Plural Content**: See Plural Content [See Plural Content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/plural.md)
 - **नेस्टेड कंटेंट**: अन्य शब्दकोशों के संदर्भ
 
 #### कंटेंट प्रकार
@@ -545,6 +562,8 @@ multilingualContent: t({
 });
 ```
 
+> See [अनुवाद सामग्री (`t`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/translation.md) for more information.
+
 ### शर्त सामग्री (`cond`)
 
 सामग्री जो बूलियन शर्तों के आधार पर बदलती है:
@@ -557,6 +576,8 @@ conditionalContent: cond({
   false: "Please log in to continue",
 });
 ```
+
+> See [शर्त सामग्री (`cond`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/condition.md) for more information.
 
 ### गणना सामग्री (`enu`)
 
@@ -572,6 +593,23 @@ statusContent: enu({
 });
 ```
 
+> See [गणना सामग्री (`enu`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/enumeration.md) for more information.
+
+### Plural Content (`plural`)
+
+Content that varies based on plural rules:
+
+```typescript
+import { plural } from "intlayer";
+
+pluralContent: plural({
+  one: "One car",
+  other: "{{count}} cars",
+});
+```
+
+> See [Plural Content Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/plural.md) for more information.
+
 ### सम्मिलन सामग्री (`insert`)
 
 सामग्री जिसे अन्य सामग्री में सम्मिलित किया जा सकता है:
@@ -582,6 +620,8 @@ import { insert } from "intlayer";
 insertionContent: insert("यह पाठ कहीं भी सम्मिलित किया जा सकता है");
 ```
 
+> See [सम्मिलन सामग्री (`insert`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/insertion.md) for more information.
+
 ### नेस्टेड सामग्री (`nest`)
 
 अन्य शब्दकोशों के संदर्भ:
@@ -591,6 +631,8 @@ import { nest } from "intlayer";
 
 nestedContent: nest("about-page");
 ```
+
+> See [नेस्टेड सामग्री (`nest`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/nesting.md) for more information.
 
 ### मार्कडाउन सामग्री (`md`)
 
@@ -603,6 +645,8 @@ markdownContent: md(
   "# स्वागत\n\nयह **बोल्ड** टेक्स्ट है जिसमें [लिंक](https://example.com) शामिल हैं"
 );
 ```
+
+> See [मार्कडाउन सामग्री (`md`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/markdown.md) for more information.
 
 ### HTML सामग्री (`html`)
 
@@ -621,6 +665,8 @@ localizedHtmlContent: t({
 });
 ```
 
+> See [HTML सामग्री (`html`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/html.md) for more information.
+
 ### जेंडर सामग्री (`gender`)
 
 लिंग के आधार पर भिन्न सामग्री:
@@ -635,6 +681,8 @@ genderContent: gender({
 });
 ```
 
+> See [जेंडर सामग्री (`gender`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/gender.md) for more information.
+
 ### फ़ाइल सामग्री (`file`)
 
 बाहरी फ़ाइलों के संदर्भ:
@@ -644,6 +692,8 @@ import { file } from "intlayer";
 
 fileContent: file("./path/to/content.txt");
 ```
+
+> See [फ़ाइल सामग्री (`file`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/file.md) for more information.
 
 ## सामग्री फ़ाइलें बनाना
 

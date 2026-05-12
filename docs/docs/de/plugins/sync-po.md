@@ -160,28 +160,6 @@ syncPO({
   source: ({ key, locale }) => string, // erforderlich
   location?: string, // optionales Label, Standard: "sync-po::path/to/source"
   priority?: number, // optionale Priorität für die Konfliktlösung, Standard: 0
-  format?: 'icu' | 'i18next' | 'vue-i18n', // optional, nur erforderlich, wenn Ihre msgstr-Werte eine spezifische Interpolationssyntax verwenden
-});
-```
-
-#### `format` ('icu' | 'i18next' | 'vue-i18n')
-
-PO-Dateien sind immer Gettext Portable Object-Dateien – das ist festgelegt. Diese Option beschreibt nur die **Interpolationssyntax**, die innerhalb der `msgstr`-Werte verwendet wird, damit Intlayer sie zum Zeitpunkt des Parsens (über `formatDictionary`) in sein eigenes Format konvertieren und beim Schreiben der Ausgabe zurückkonvertieren kann.
-
-- `undefined` _(Standard)_: `msgstr`-Werte werden als einfache Zeichenfolgen behandelt – keine Transformation. Verwenden Sie dies für die meisten PO-Dateien.
-- `'icu'`: `msgstr`-Werte verwenden die ICU-Nachrichtensyntax (z. B. `{count, plural, one {# item} other {# items}}`).
-- `'i18next'`: `msgstr`-Werte verwenden die i18next-Interpolationssyntax (z. B. `{{variable}}`).
-- `'vue-i18n'`: `msgstr`-Werte verwenden die Vue I18n-Syntax.
-
-> Die Transformation wird beim Laden durch `formatDictionary` von `@intlayer/chokidar` angewendet und beim Schreiben mit `formatDictionaryOutput` umgekehrt. Bei komplexen Regeln wie ICU-Pluralen ist die Genauigkeit bei der Hin- und Rückkonvertierung nicht garantiert.
-
-**Beispiel – PO-Dateien enthalten Interpolation im i18next-Stil:**
-
-```ts
-syncPO({
-  source: ({ key, locale }) => `./locales/${locale}/${key}.po`,
-  format: "i18next",
-}),
 ```
 
 ### Mehrere PO-Quellen und Priorität
