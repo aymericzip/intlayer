@@ -234,35 +234,22 @@ export default withIntlayer(nextConfig);
 >
 > export default nextConfigWithOtherPlugins;
 > ```
->
-> ### Bước 4: Định nghĩa các tuyến đường Locale động
->
-> Xóa tất cả mọi thứ trong `RootLayout` và thay thế bằng đoạn mã sau:
->
-> ```tsx {3} fileName="src/app/layout.tsx" codeFormat="typescript"
-> import type { PropsWithChildren, FC } from "react";
-> import "./globals.css";
->
-> const RootLayout: FC<PropsWithChildren> = ({ children }) => (
->   // Bạn vẫn có thể bao bọc các children với các provider khác, như `next-themes`, `react-query`, `framer-motion`, v.v.
->   <>{children}</>
-> );
-> ```
 
-export default RootLayout;
+### Bước 4: Định nghĩa các tuyến đường Locale động
 
-````
+Xóa tất cả mọi thứ trong `RootLayout` và thay thế bằng đoạn mã sau:
 
-```jsx {3} fileName="src/app/layout.mjx" codeFormat="esm"
+```tsx {3} fileName="src/app/layout.tsx" codeFormat={["typescript", "esm"]}
+import type { PropsWithChildren, FC } from "react";
 import "./globals.css";
 
-const RootLayout = ({ children }) => (
-  // Bạn vẫn có thể bao bọc children với các provider khác, như `next-themes`, `react-query`, `framer-motion`, v.v.
+const RootLayout: FC<PropsWithChildren> = ({ children }) => (
+  // Bạn vẫn có thể bao bọc các children với các provider khác, như `next-themes`, `react-query`, `framer-motion`, v.v.
   <>{children}</>
 );
 
 export default RootLayout;
-````
+```
 
 ```jsx {1,8} fileName="src/app/layout.csx" codeFormat="commonjs"
 require("./globals.css");
@@ -282,21 +269,7 @@ module.exports = {
 
 Để triển khai dynamic routing, cung cấp đường dẫn cho locale bằng cách thêm một layout mới trong thư mục `[locale]` của bạn:
 
-````tsx fileName="src/app/[locale]/layout.tsx" codeFormat={["typescript", "esm"]}
-import type { NextLayoutIntlayer } from "next-intlayer";
-import { Inter } from "next/font/google";
-import { getHTMLTextDir } from "intlayer";
-
-const inter = Inter({ subsets: ["latin"] });
-
-const LocaleLayout: NextLayoutIntlayer = async ({ children, params }) => {
-  const { locale } = await params;
-  return (
-> Việc giữ cho component `RootLayout` trống cho phép thiết lập các thuộc tính [`lang`](https://developer.mozilla.org/fr/docs/Web/HTML/Global_attributes/lang) và [`dir`](https://developer.mozilla.org/fr/docs/Web/HTML/Global_attributes/dir) cho thẻ `<html>`.
-
-Để triển khai routing động, cung cấp đường dẫn cho locale bằng cách thêm một layout mới trong thư mục `[locale]` của bạn:
-
-```tsx fileName="src/app/[locale]/layout.tsx" codeFormat="typescript"
+```tsx fileName="src/app/[locale]/layout.tsx" codeFormat={["typescript", "esm"]}
 import { type NextLayoutIntlayer, IntlayerClientProvider } from "next-intlayer";
 import { Inter } from "next/font/google";
 import { getHTMLTextDir } from "intlayer";
@@ -317,27 +290,7 @@ const LocaleLayout: NextLayoutIntlayer = async ({ children, params }) => {
 };
 
 export default LocaleLayout;
-````
-
-> Đoạn đường dẫn `[locale]` được sử dụng để định nghĩa locale. Ví dụ: `/en-US/about` sẽ tương ứng với `en-US` và `/fr/about` sẽ tương ứng với `fr`.
-
-const inter = Inter({ subsets: ["latin"] });
-
-const LocaleLayout = async ({ children, params: { locale } }) => {
-const { locale } = await params;
-return (
-
-<html lang={locale} dir={getHTMLTextDir(locale)}>
-<body className={inter.className}>
-        {children}
-      </body>
-</html>
-);
-};
-
-module.exports = LocaleLayout;
-
-````
+```
 
 > Đoạn đường dẫn `[locale]` được sử dụng để xác định locale. Ví dụ: `/en-US/about` sẽ tham chiếu đến `en-US` và `/fr/about` sẽ tham chiếu đến `fr`.
 
@@ -353,7 +306,7 @@ const LocaleLayout: NextLayoutIntlayer = async ({ children, params }) => {
 };
 
 export default LocaleLayout;
-````
+```
 
 ```jsx {1} fileName="src/app/[locale]/layout.mjx" codeFormat="esm"
 export { generateStaticParams } from "next-intlayer"; // Dòng cần chèn

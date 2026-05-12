@@ -2,7 +2,7 @@
 createdAt: 2026-05-07
 updatedAt: 2026-05-07
 title: Kiểu IntlayerNode. Nó là gì?
-description: Kiểu IntlayerNode là gì? Tại sao chuỗi của tôi lại được chuyển đổi thành IntlayerNode<string>?
+description: Kiểu IntlayerNode là gì? Tại sao chuỗi của tôi lại được chuyển đổi thành IntlayerNode&lt;string&gt;?
 keywords:
   - Giới thiệu
   - Bắt đầu
@@ -57,7 +57,7 @@ import { useIntlayer } from "react-intlayer";
 const AppContent = () => {
   const { title } = useIntlayer("app");
 
-  return title; // trả về kiểu: IntlayerNode<string>
+  return title; // trả về kiểu: IntlayerNode&lt;string&gt;
 };
 ```
 
@@ -80,7 +80,7 @@ Ví dụ:
 const content = useIntlayer("app");
 
 // Trường hợp là Chuỗi (String)
-content.title; // Trả về IntlayerNode<string>
+content.title; // Trả về IntlayerNode&lt;string&gt;
 content.title.value; // Trả về nội dung cơ bản, ở đây là một chuỗi
 
 content.title.toString(); // Trả về chuỗi

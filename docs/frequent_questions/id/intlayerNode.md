@@ -2,7 +2,7 @@
 createdAt: 2026-05-07
 updatedAt: 2026-05-07
 title: Tipe IntlayerNode. Apa itu?
-description: Apa itu tipe IntlayerNode? Mengapa string saya diubah menjadi IntlayerNode<string>?
+description: Apa itu tipe IntlayerNode? Mengapa string saya diubah menjadi IntlayerNode&lt;string&gt;?
 keywords:
   - Pendahuluan
   - Memulai
@@ -57,7 +57,7 @@ import { useIntlayer } from "react-intlayer";
 const AppContent = () => {
   const { title } = useIntlayer("app");
 
-  return title; // mengembalikan tipe: IntlayerNode<string>
+  return title; // mengembalikan tipe: IntlayerNode&lt;string&gt;
 };
 ```
 
@@ -80,7 +80,7 @@ Sebagai contoh:
 const content = useIntlayer("app");
 
 // Kasus String
-content.title; // Mengembalikan IntlayerNode<string>
+content.title; // Mengembalikan IntlayerNode&lt;string&gt;
 content.title.value; // Mengembalikan konten dasar, dalam hal ini sebuah string
 
 content.title.toString(); // Mengembalikan string

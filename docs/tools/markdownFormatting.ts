@@ -11,6 +11,7 @@ export const EXCLUDED_GLOB_PATTEN: string[] = [
   '**/src/**',
   '**/tools/**',
   '**/readme.md',
+  '**/___*.md',
 ];
 
 interface FileValidationResult {

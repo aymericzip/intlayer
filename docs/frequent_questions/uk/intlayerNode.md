@@ -2,7 +2,7 @@
 createdAt: 2026-05-07
 updatedAt: 2026-05-07
 title: Тип IntlayerNode. Що це таке?
-description: Що таке тип IntlayerNode? Чому мій рядок перетворюється на IntlayerNode<string>?
+description: Що таке тип IntlayerNode? Чому мій рядок перетворюється на IntlayerNode&lt;string&gt;?
 keywords:
   - Вступ
   - Початок роботи
@@ -57,7 +57,7 @@ import { useIntlayer } from "react-intlayer";
 const AppContent = () => {
   const { title } = useIntlayer("app");
 
-  return title; // повертає тип: IntlayerNode<string>
+  return title; // повертає тип: IntlayerNode&lt;string&gt;
 };
 ```
 
@@ -80,7 +80,7 @@ IntlayerNode — це розширений вузол React/Vue/Preact/Solid/Ang
 const content = useIntlayer("app");
 
 // Випадок з рядком (String)
-content.title; // Повертає IntlayerNode<string>
+content.title; // Повертає IntlayerNode&lt;string&gt;
 content.title.value; // Повертає базовий вміст, у даному випадку рядок
 
 content.title.toString(); // Повертає рядок

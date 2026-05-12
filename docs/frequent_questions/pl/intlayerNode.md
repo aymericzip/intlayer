@@ -2,7 +2,7 @@
 createdAt: 2026-05-07
 updatedAt: 2026-05-07
 title: Typ IntlayerNode. Co to jest?
-description: Czym jest typ IntlayerNode? Dlaczego mój ciąg znaków jest przekształcany w IntlayerNode<string>?
+description: Czym jest typ IntlayerNode? Dlaczego mój ciąg znaków jest przekształcany w IntlayerNode&lt;string&gt;?
 keywords:
   - Wprowadzenie
   - Rozpoczęcie pracy
@@ -57,7 +57,7 @@ import { useIntlayer } from "react-intlayer";
 const AppContent = () => {
   const { title } = useIntlayer("app");
 
-  return title; // zwraca typ: IntlayerNode<string>
+  return title; // zwraca typ: IntlayerNode&lt;string&gt;
 };
 ```
 
@@ -80,7 +80,7 @@ Na przykład:
 const content = useIntlayer("app");
 
 // Przypadek ciągu znaków (String)
-content.title; // Zwraca IntlayerNode<string>
+content.title; // Zwraca IntlayerNode&lt;string&gt;
 content.title.value; // Zwraca bazową treść, tutaj ciąg znaków
 
 content.title.toString(); // Zwraca ciąg znaków

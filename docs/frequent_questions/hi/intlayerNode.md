@@ -2,7 +2,7 @@
 createdAt: 2026-05-07
 updatedAt: 2026-05-07
 title: IntlayerNode प्रकार। यह क्या है?
-description: IntlayerNode प्रकार क्या है? मेरी स्ट्रिंग IntlayerNode<string> में क्यों बदल गई है?
+description: IntlayerNode प्रकार क्या है? मेरी स्ट्रिंग IntlayerNode&lt;string&gt; में क्यों बदल गई है?
 keywords:
   - परिचय
   - शुरू करें
@@ -57,7 +57,7 @@ import { useIntlayer } from "react-intlayer";
 const AppContent = () => {
   const { title } = useIntlayer("app");
 
-  return title; // प्रकार लौटाता है: IntlayerNode<string>
+  return title; // प्रकार लौटाता है: IntlayerNode&lt;string&gt;
 };
 ```
 
@@ -80,7 +80,7 @@ Intlayer CMS / विजुअल एडिटर के संदर्भ म�
 const content = useIntlayer("app");
 
 // स्ट्रिंग का मामला
-content.title; // IntlayerNode<string> लौटाता है
+content.title; // IntlayerNode&lt;string&gt; लौटाता है
 content.title.value; // बेस कंटेंट लौटाता है, यहाँ एक स्ट्रिंग
 
 content.title.toString(); // स्ट्रिंग लौटाता है

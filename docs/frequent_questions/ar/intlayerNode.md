@@ -2,7 +2,7 @@
 createdAt: 2026-05-07
 updatedAt: 2026-05-07
 title: نوع IntlayerNode. ما هو؟
-description: ما هو نوع IntlayerNode؟ لماذا يتم تحويل سلسلتي النصية إلى IntlayerNode<string>؟
+description: ما هو نوع IntlayerNode؟ لماذا يتم تحويل سلسلتي النصية إلى IntlayerNode&lt;string&gt;؟
 keywords:
   - مقدمة
   - ابدأ الآن
@@ -57,7 +57,7 @@ import { useIntlayer } from "react-intlayer";
 const AppContent = () => {
   const { title } = useIntlayer("app");
 
-  return title; // يرجع النوع: IntlayerNode<string>
+  return title; // يرجع النوع: IntlayerNode&lt;string&gt;
 };
 ```
 
@@ -80,7 +80,7 @@ const AppContent = () => {
 const content = useIntlayer("app");
 
 // حالة السلسلة النصية (String)
-content.title; // يرجع IntlayerNode<string>
+content.title; // يرجع IntlayerNode&lt;string&gt;
 content.title.value; // يرجع المحتوى الأساسي، هنا سلسلة نصية
 
 content.title.toString(); // يرجع سلسلة نصية

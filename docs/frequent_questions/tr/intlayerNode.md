@@ -2,7 +2,7 @@
 createdAt: 2026-05-07
 updatedAt: 2026-05-07
 title: IntlayerNode tipi. Nedir bu?
-description: IntlayerNode tipi nedir? Neden dizgim bir IntlayerNode<string> olarak dönüştürülüyor?
+description: IntlayerNode tipi nedir? Neden dizgim bir IntlayerNode&lt;string&gt; olarak dönüştürülüyor?
 keywords:
   - Giriş
   - Başlarken
@@ -57,7 +57,7 @@ import { useIntlayer } from "react-intlayer";
 const AppContent = () => {
   const { title } = useIntlayer("app");
 
-  return title; // şu tipi döndürür: IntlayerNode<string>
+  return title; // şu tipi döndürür: IntlayerNode&lt;string&gt;
 };
 ```
 
@@ -80,7 +80,7 @@ Bir IntlayerNode; zenginleştirilmiş bir React/Vue/Preact/Solid/Angular/Svelte/
 const content = useIntlayer("app");
 
 // String Durumu
-content.title; // IntlayerNode<string> döndürür
+content.title; // IntlayerNode&lt;string&gt; döndürür
 content.title.value; // Temel içeriği döndürür, burada bir string
 
 content.title.toString(); // String döndürür

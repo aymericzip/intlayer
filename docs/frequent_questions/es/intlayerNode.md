@@ -2,7 +2,7 @@
 createdAt: 2026-05-07
 updatedAt: 2026-05-07
 title: Tipo IntlayerNode. ¿Qué es?
-description: ¿Qué es el tipo IntlayerNode? ¿Por qué mi cadena se transforma en un IntlayerNode<string>?
+description: ¿Qué es el tipo IntlayerNode? ¿Por qué mi cadena se transforma en un IntlayerNode&lt;string&gt;?
 keywords:
   - Introducción
   - Empezar
@@ -57,7 +57,7 @@ import { useIntlayer } from "react-intlayer";
 const AppContent = () => {
   const { title } = useIntlayer("app");
 
-  return title; // devuelve tipo: IntlayerNode<string>
+  return title; // devuelve tipo: IntlayerNode&lt;string&gt;
 };
 ```
 
@@ -80,7 +80,7 @@ Por ejemplo:
 const content = useIntlayer("app");
 
 // Caso de cadena (String)
-content.title; // Devuelve IntlayerNode<string>
+content.title; // Devuelve IntlayerNode&lt;string&gt;
 content.title.value; // Devuelve el contenido base, aquí una cadena
 
 content.title.toString(); // Devuelve cadena

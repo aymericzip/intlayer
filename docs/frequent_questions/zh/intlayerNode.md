@@ -2,7 +2,7 @@
 createdAt: 2026-05-07
 updatedAt: 2026-05-07
 title: IntlayerNode 类型。它是什么？
-description: 什么是 IntlayerNode 类型？为什么我的字符串被转换为 IntlayerNode<string>？
+description: 什么是 IntlayerNode 类型？为什么我的字符串被转换为 IntlayerNode&lt;string&gt;？
 keywords:
   - 介绍
   - 开始使用
@@ -57,7 +57,7 @@ import { useIntlayer } from "react-intlayer";
 const AppContent = () => {
   const { title } = useIntlayer("app");
 
-  return title; // 返回类型：IntlayerNode<string>
+  return title; // 返回类型：IntlayerNode&lt;string&gt;
 };
 ```
 
@@ -80,7 +80,7 @@ IntlayerNode 是一个增强的 React/Vue/Preact/Solid/Angular/Svelte/Lit/Vanill
 const content = useIntlayer("app");
 
 // 字符串的情况
-content.title; // 返回 IntlayerNode<string>
+content.title; // 返回 IntlayerNode&lt;string&gt;
 content.title.value; // 返回基础内容，这里是一个字符串
 
 content.title.toString(); // 返回字符串

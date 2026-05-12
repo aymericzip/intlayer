@@ -2,7 +2,7 @@
 createdAt: 2026-05-07
 updatedAt: 2026-05-07
 title: IntlayerNode 型。これは何ですか？
-description: IntlayerNode 型とは何ですか？なぜ私の文字列が IntlayerNode<string> に変換されるのですか？
+description: IntlayerNode 型とは何ですか？なぜ私の文字列が IntlayerNode&lt;string&gt; に変換されるのですか？
 keywords:
   - 導入
   - はじめる
@@ -57,7 +57,7 @@ import { useIntlayer } from "react-intlayer";
 const AppContent = () => {
   const { title } = useIntlayer("app");
 
-  return title; // 型: IntlayerNode<string> を返します
+  return title; // 型: IntlayerNode&lt;string&gt; を返します
 };
 ```
 
@@ -80,7 +80,7 @@ IntlayerNode は、拡張された React/Vue/Preact/Solid/Angular/Svelte/Lit/Van
 const content = useIntlayer("app");
 
 // 文字列の場合
-content.title; // IntlayerNode<string> を返す
+content.title; // IntlayerNode&lt;string&gt; を返す
 content.title.value; // ベースとなるコンテンツ（ここでは文字列）を返す
 
 content.title.toString(); // 文字列を返す
