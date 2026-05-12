@@ -40,18 +40,26 @@ export const multipleProxies =
   async (req: NextRequest, event?: NextFetchEvent, response?: NextResponse) => {
     // Array to store proxy headers
     const proxyHeader: Headers[] = [];
+    let finalStatus = 200;
+    let redirectLocation: string | null = null;
 
-    // Loop through proxy functions
     for (const proxy of proxies) {
-      // Execute proxy function and await the result
       const result = await proxy(req, event, response);
 
-      // Check if the result is not okay and return it
-      if (!result.ok) {
+      // Only bail early on actual server errors (500+).
+      // Do not bail on !result.ok because 30x redirects have ok=false.
+      if (result.status >= 500) {
         return result;
       }
 
-      // Push proxy headers to the array
+      // Capture redirect status and location to preserve them across the chain
+      if (result.status >= 300 && result.status < 400) {
+        finalStatus = result.status;
+        const location = result.headers.get('location');
+
+        if (location) redirectLocation = location;
+      }
+
       proxyHeader.push(result.headers);
     }
 
@@ -85,32 +93,38 @@ export const multipleProxies =
       }
     });
 
-    // Look for the 'x-middleware-request-redirect' header
-    const redirect = mergedHeaders.get('x-middleware-request-redirect');
+    let finalResponse: NextResponse;
 
-    // If a redirection is required based on the proxy headers
-    if (redirect) {
-      // Perform the redirection
-      return NextResponse.redirect(new URL(redirect, req.url), {
-        status: 307, // Temporary redirect
+    const redirectHeader = mergedHeaders.get('x-middleware-request-redirect');
+    const rewriteHeader = mergedHeaders.get('x-middleware-rewrite');
+
+    // Construct the base response type preserving redirects/rewrites
+    if (redirectHeader || redirectLocation) {
+      finalResponse = NextResponse.redirect(
+        new URL((redirectHeader || redirectLocation) as string, req.url),
+        { status: finalStatus >= 300 ? finalStatus : 307 }
+      );
+    } else if (rewriteHeader) {
+      finalResponse = NextResponse.rewrite(new URL(rewriteHeader, req.url), {
+        request: { headers: transmittedHeaders },
+      });
+    } else {
+      finalResponse = NextResponse.next({
+        request: { headers: transmittedHeaders },
       });
     }
 
-    // Look for the 'x-middleware-rewrite' header
-    const rewrite = mergedHeaders.get('x-middleware-rewrite');
-    if (rewrite) {
-      // Perform the rewrite
-      return NextResponse.rewrite(new URL(rewrite, req.url), {
-        request: {
-          headers: transmittedHeaders,
-        },
-      });
-    }
-
-    // Default: continue to next proxy
-    return NextResponse.next({
-      request: {
-        headers: transmittedHeaders,
-      },
+    // Attach accumulated response headers to the final output
+    mergedHeaders.forEach((value, key) => {
+      if (
+        key !== 'x-middleware-rewrite' &&
+        key !== 'x-middleware-request-redirect' &&
+        !key.startsWith('x-middleware-request-') &&
+        key !== 'location'
+      ) {
+        finalResponse.headers.set(key, value);
+      }
     });
+
+    return finalResponse;
   };
