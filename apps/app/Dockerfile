@@ -48,7 +48,7 @@ COPY \
     . .
 
 # Install all dependencies (dev + prod) (frozen for reproducible builds)
-RUN bun install
+RUN bun install --frozen-lockfile --no-cache --verbose
 
 # Build every package in the workspace (uses the root "build" script)
 RUN bun x turbo run build:ci --filter=./apps/app
