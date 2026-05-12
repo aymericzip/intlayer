@@ -21,7 +21,8 @@ import {
   useScroll,
   useTransform,
 } from 'framer-motion';
-import { useIntlayer } from 'next-intlayer';
+import { getHTMLTextDir } from 'intlayer';
+import { useIntlayer, useLocale } from 'next-intlayer';
 import type { CSSProperties, FC } from 'react';
 import { useRef, useState } from 'react';
 
@@ -205,6 +206,7 @@ const logosRow3 = [
 
 export const AvailableTechnoSection: FC = () => {
   const { availableOn, icons } = useIntlayer('available-techno-section');
+  const { locale } = useLocale();
 
   const { isMobile } = useDevice();
   const { screenWidth } = useScreenWidth();
@@ -218,8 +220,11 @@ export const AvailableTechnoSection: FC = () => {
   // Animation progress that starts at 50% scroll
   const animationProgress = useTransform(scrollYProgress, [0.4, 1], [0, 1]);
 
-  const getXPosition = (index: number) =>
-    index * (screenWidth / BASE_SCREEN_WIDTH);
+  const isRTL = getHTMLTextDir(locale) === 'rtl';
+  const getXPosition = (index: number) => {
+    const position = index * (screenWidth / BASE_SCREEN_WIDTH);
+    return isRTL ? -position : position;
+  };
 
   return (
     <section
