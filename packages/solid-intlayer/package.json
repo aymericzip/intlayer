@@ -125,7 +125,7 @@
     "vite": "8.0.12",
     "vite-plugin-dts": "5.0.0",
     "vite-plugin-solid": "2.11.12",
-    "vitest": "4.1.5"
+    "vitest": "4.1.6"
   },
   "peerDependencies": {
     "solid-js": ">=1.0.0"
