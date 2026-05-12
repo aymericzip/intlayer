@@ -4,9 +4,7 @@
 # Use node because of bun issue blocking at `Creating an optimized production build ...`
 # https://github.com/oven-sh/bun/issues/17136
 # https://github.com/oven-sh/bun/issues/4795
-FROM node:22-alpine AS builder
-
-# RUN apk add --no-cache wget
+FROM node:26-alpine AS builder
 
 RUN npm install -g bun@1.3.13
 
@@ -48,7 +46,7 @@ COPY \
     . .
 
 # Install all dependencies (dev + prod) (frozen for reproducible builds)
-RUN bun install --frozen-lockfile --no-cache --verbose
+RUN bun install
 
 # Build every package in the workspace (uses the root "build" script)
 RUN bun x turbo run build:ci --filter=./apps/app

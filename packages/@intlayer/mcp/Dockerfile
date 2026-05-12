@@ -4,7 +4,7 @@
 # Use node because of bun issue blocking at `Creating an optimized production build ...`
 # https://github.com/oven-sh/bun/issues/17136
 # https://github.com/oven-sh/bun/issues/4795
-FROM node:22-alpine AS builder
+FROM node:26-alpine AS builder
 
 RUN npm install -g bun@1.3.13
 

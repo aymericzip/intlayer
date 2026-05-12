@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1.23.0
 
 # Builder stage
-FROM node:22-alpine AS builder
+FROM node:26-alpine AS builder
 
 RUN npm install -g bun@1.3.13
 
@@ -63,7 +63,7 @@ ENV STORYBOOK_STATIC=true
 RUN bun x storybook build --disable-telemetry
 
 # Runner — plain node + serve; no bun needed for static file serving
-FROM node:22-alpine AS runner
+FROM node:26-alpine AS runner
 
 RUN npm install -g bun@1.3.13
 
