@@ -21,6 +21,10 @@ import type {
 } from '@ai-sdk/huggingface';
 import type { createMistral, MistralProvider } from '@ai-sdk/mistral';
 import type { createOpenAI, OpenAIProvider } from '@ai-sdk/openai';
+import type {
+  createOpenAICompatible,
+  OpenAICompatibleProvider,
+} from '@ai-sdk/openai-compatible';
 import type { createTogetherAI, TogetherAIProvider } from '@ai-sdk/togetherai';
 import * as ANSIColors from '@intlayer/config/colors';
 import { colorize, logger, x } from '@intlayer/config/logger';
@@ -57,6 +61,7 @@ type FireworksModel = Parameters<FireworksProvider>[0];
 type GroqModel = Parameters<GroqProvider>[0];
 type HuggingFaceModel = Parameters<HuggingFaceProvider>[0];
 type TogetherAIModel = Parameters<TogetherAIProvider>[0];
+type LMStudioModel = Parameters<OpenAICompatibleProvider>[0];
 
 export type OpenAIProviderOptions = Parameters<typeof createOpenAI>[0];
 export type AnthropicProviderOptions = Parameters<typeof createAnthropic>[0];
@@ -77,6 +82,9 @@ export type AmazonBedrockProviderOptions = Parameters<
   typeof createAmazonBedrock
 >[0];
 export type TogetherAIProviderOptions = Parameters<typeof createTogetherAI>[0];
+export type LMStudioProviderOptions = Parameters<
+  typeof createOpenAICompatible
+>[0];
 
 export type SystemMessage =
   | string
@@ -107,6 +115,7 @@ export type Model =
   | GroqModel
   | HuggingFaceModel
   | TogetherAIModel
+  | LMStudioModel
   | (string & {});
 
 /**
@@ -175,6 +184,9 @@ export type AIOptions = (
   | ({
       provider: AiProviders.TOGETHERAI | `${AiProviders.TOGETHERAI}`;
     } & TogetherAIProviderOptions)
+  | ({
+      provider: AiProviders.LMSTUDIO | `${AiProviders.LMSTUDIO}`;
+    } & LMStudioProviderOptions)
   | ({ provider?: undefined } & OpenAIProviderOptions)
 ) &
   CommonAIOptions;
@@ -219,7 +231,11 @@ const getModelName = (
   userModel?: Model
 ): Model => {
   // If the user provides their own API key, allow custom model selection
-  if (isUserProvidedKey || provider === AiProviders.OLLAMA) {
+  if (
+    isUserProvidedKey ||
+    provider === AiProviders.OLLAMA ||
+    provider === AiProviders.LMSTUDIO
+  ) {
     if (userModel) {
       return userModel;
     }
@@ -618,6 +634,31 @@ const getLanguageModel = async (
       return togetherai(selectedModel as string);
     }
 
+    case AiProviders.LMSTUDIO: {
+      const {
+        provider,
+        model,
+        temperature,
+        applicationContext,
+        dataSerialization,
+        apiKey: _apiKey,
+        baseURL: _baseURL,
+        ...otherOptions
+      } = aiOptions as any;
+
+      const { createOpenAICompatible } = await loadModule<
+        typeof import('@ai-sdk/openai-compatible')
+      >('@ai-sdk/openai-compatible');
+
+      const lmstudio = createOpenAICompatible({
+        name: 'lmstudio',
+        baseURL: baseURL ?? 'http://localhost:1234/v1',
+        ...otherOptions,
+      });
+
+      return lmstudio(selectedModel as string);
+    }
+
     default: {
       throw new Error(`Provider ${provider} not supported`);
     }
@@ -691,7 +732,11 @@ export const getAIConfig = async (
   const apiKey = getAPIKey(accessType, aiOptions, isAuthenticated);
 
   // Check if API key is provided
-  if (!apiKey && aiOptions.provider !== AiProviders.OLLAMA) {
+  if (
+    !apiKey &&
+    aiOptions.provider !== AiProviders.OLLAMA &&
+    aiOptions.provider !== AiProviders.LMSTUDIO
+  ) {
     throw new Error(`API key for ${aiOptions.provider} is missing`);
   }
 

@@ -458,6 +458,7 @@ export enum AiProviders {
   GOOGLEVERTEX = 'googlevertex',
   GOOGLEGENERATIVEAI = 'googlegenerativeai',
   TOGETHERAI = 'togetherai',
+  LMSTUDIO = 'lmstudio',
 }
 
 export type CommonAiConfig = {

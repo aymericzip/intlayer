@@ -7,6 +7,7 @@ import type {
   GoogleProviderOptions,
   GroqProviderOptions,
   HuggingFaceProviderOptions,
+  LMStudioProviderOptions,
   MistralProviderOptions,
   OpenAIProviderOptions,
   OpenRouterProviderOptions,
@@ -50,5 +51,6 @@ declare module '@intlayer/types/config' {
     huggingface: HuggingFaceProviderOptions;
     bedrock: AmazonBedrockProviderOptions;
     togetherai: TogetherAIProviderOptions;
+    lmstudio: LMStudioProviderOptions;
   }
 }
