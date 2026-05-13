@@ -7,7 +7,6 @@ import {
   useGetCIConfig,
   useSession,
   useTriggerBuild,
-  useTriggerWebhook,
   useUpdateProject,
 } from '@intlayer/design-system/hooks';
 import { CheckCircle, Pencil, Play, Plus, Trash, XCircle } from 'lucide-react';
@@ -32,9 +31,7 @@ const WebhookItem: FC<WebhookItemProps> = ({
   onEdit,
   onDelete,
 }) => {
-  const { mutate: triggerWebhook, isPending: isTriggeringWebhook } =
-    useTriggerWebhook();
-  const { webhooksSection, testTriggerButton } = useIntlayer('build-settings');
+  const { webhooksSection } = useIntlayer('build-settings');
 
   return (
     <Container
@@ -62,16 +59,6 @@ const WebhookItem: FC<WebhookItemProps> = ({
         </span>
       </div>
       <div className="flex items-center gap-2">
-        <Button
-          variant="hoverable"
-          color="text"
-          size="icon-sm"
-          disabled={!isProjectAdmin || isTriggeringWebhook}
-          onClick={() => triggerWebhook(index)}
-          label={testTriggerButton.ariaLabel.value}
-          isLoading={isTriggeringWebhook}
-          Icon={Play}
-        />
         <Button
           variant="hoverable"
           color="text"
@@ -111,13 +98,8 @@ export const BuildSettings: FC = () => {
   const { mutate: updateProject, isPending: isUpdating } = useUpdateProject();
   const { mutate: triggerBuild, isPending: isBuilding } = useTriggerBuild();
 
-  const {
-    title,
-    gitProviderSection,
-    webhooksSection,
-    testTriggerButton,
-    saveButton,
-  } = useIntlayer('build-settings');
+  const { title, gitProviderSection, webhooksSection, saveButton } =
+    useIntlayer('build-settings');
 
   // We keep a local state for the webhooks list that syncs with DB
   const [webhooksList, setWebhooksList] = useState<Webhook[]>([]);
@@ -197,10 +179,6 @@ export const BuildSettings: FC = () => {
         },
       }
     );
-  };
-
-  const handleTestTrigger = () => {
-    triggerBuild(undefined);
   };
 
   const handleCheckCI = async () => {

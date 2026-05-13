@@ -38,7 +38,17 @@ export const ErrorComponent = ({ error, reset }: ErrorComponentProps) => {
         >
           {content.tryAgain}
         </Button>
-        <Link to={Showcase_Root_Path} variant="button" color="text" size="xl">
+        <Link
+          to={Showcase_Root_Path}
+          onClick={() => {
+            reset();
+            window.location.href = '/';
+          }}
+          label={content.backToHome}
+          variant="button"
+          color="text"
+          size="xl"
+        >
           {content.backToHome}
         </Link>
       </div>
