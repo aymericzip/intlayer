@@ -8,5 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: npm ci
+      # When a change is made on the CMS,
+      # The following command will be triggered to rebuild your app(s)
+      - run: npm install
       - run: npm run build

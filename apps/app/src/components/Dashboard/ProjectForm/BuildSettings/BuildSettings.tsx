@@ -254,7 +254,6 @@ export const BuildSettings: FC = () => {
           {provider && (
             <div className="mt-2 flex flex-wrap justify-end gap-2 pt-4">
               <Button
-                variant="outline"
                 color="text"
                 label={gitProviderSection.configureCIButton.ariaLabel.value}
                 onClick={handleCheckCI}
@@ -262,16 +261,6 @@ export const BuildSettings: FC = () => {
                 isLoading={isLoadingCI}
               >
                 {gitProviderSection.configureCIButton.text}
-              </Button>
-              <Button
-                color="text"
-                label={testTriggerButton.ariaLabel.value}
-                onClick={handleTestTrigger}
-                disabled={isBuilding}
-                isLoading={isBuilding}
-                Icon={Play}
-              >
-                {testTriggerButton.text}
               </Button>
             </div>
           )}
