@@ -37,14 +37,16 @@ export const DiscussionAdminDetail: FC<DiscussionAdminDetailProps> = ({
     content: string;
     timestamp?: string | Date;
   }>;
-  const messages = msgs.map((m) => ({
-    role: m.role,
-    content: m.content,
-    timestamp: m.timestamp ? new Date(m.timestamp as any) : undefined,
+  const messages = msgs.map((messages) => ({
+    role: messages.role,
+    content: messages.content,
+    timestamp: messages.timestamp
+      ? new Date(messages.timestamp as any)
+      : undefined,
   }));
 
   return (
-    <div className="flex size-full min-h-[700px] flex-col">
+    <div className="flex h-[700px] w-full flex-col">
       {messages.length === 0 && !isPending ? (
         <div className="p-6 text-neutral-500 dark:text-neutral-400">
           {noDiscussionFound}
@@ -52,7 +54,7 @@ export const DiscussionAdminDetail: FC<DiscussionAdminDetailProps> = ({
       ) : (
         <MessagesList
           storedPrompt={messages}
-          isLoading={isPending || discussion.id !== discussionId}
+          isLoading={isPending || discussion?.id !== discussionId}
         />
       )}
     </div>
