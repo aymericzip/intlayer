@@ -30,6 +30,21 @@ const ProviderLogo: FC<{
   }
 };
 
+export const getRepoDisplayName = (repo: RepoData | null): string => {
+  if (!repo) return '';
+
+  switch (repo.provider) {
+    case 'github':
+      return `${repo.owner?.login}/${repo.name}`;
+    case 'gitlab':
+      return repo.fullName;
+    case 'bitbucket':
+      return `${repo.workspace?.slug}/${repo.name}`;
+    default:
+      return repo.name;
+  }
+};
+
 export const RepositoryItem: FC<RepositoryItemProps> = ({
   repo,
   isProcessing,
@@ -43,14 +58,7 @@ export const RepositoryItem: FC<RepositoryItemProps> = ({
     timeStyle: 'short',
   }).format(new Date(repo.updatedAt));
 
-  const displayName =
-    repo.provider === 'github'
-      ? `${repo.owner?.login}/${repo.name}`
-      : repo.provider === 'gitlab'
-        ? repo.fullName
-        : repo.provider === 'bitbucket'
-          ? `${repo.workspace?.slug}/${repo.name}`
-          : repo.name;
+  const displayName = getRepoDisplayName(repo);
 
   return (
     <Container
@@ -83,12 +91,12 @@ export const RepositoryItem: FC<RepositoryItemProps> = ({
                 {repo.isPrivate ? (
                   <>
                     <Lock className="size-3" />
-                    Private
+                    {content.private}
                   </>
                 ) : (
                   <>
                     <Globe className="size-3" />
-                    Public
+                    {content.public}
                   </>
                 )}
               </Badge>

@@ -4,7 +4,7 @@ import { Input } from '@intlayer/design-system/input';
 import { Loader } from '@intlayer/design-system/loader';
 import { Modal } from '@intlayer/design-system/modal';
 import { cn } from '@intlayer/design-system/utils';
-import { Building2 } from 'lucide-react';
+import { Building2, Check } from 'lucide-react';
 import { type FC, useEffect, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { useSearchParamState } from '#hooks/useSearchParamState';
@@ -179,6 +179,7 @@ export const SSOButton: FC<SSOButtonProps> = ({
                 <Button
                   variant="default"
                   color="text"
+                  Icon={Check}
                   label={submitButton.value}
                   onClick={handleSubmitDomain}
                   disabled={!inputDomain.trim()}

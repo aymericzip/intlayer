@@ -39,6 +39,7 @@ import type {
   NewsletterUnsubscriptionBody,
   OtherShowcaseProjectsQuery,
   PushDictionariesBody,
+  PushProjectConfigurationBody,
   RefreshAccessKeyBody,
   SearchDocUtilParams,
   SelectOrganizationParam,
@@ -640,6 +641,25 @@ export const useUpdateProject = () => {
     meta: {
       invalidateQueries: [['projects']],
     },
+    onSuccess: (data) => {
+      const session = queryClient.getQueryData(['session']);
+
+      queryClient.setQueryData(['session'], {
+        ...(session ?? {}),
+        project: data.data,
+      });
+    },
+  });
+};
+
+export const usePushProjectConfiguration = () => {
+  const intlayerOAuth = useIntlayerOAuth();
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationKey: ['project', 'push-configuration'],
+    mutationFn: (args: PushProjectConfigurationBody) =>
+      intlayerOAuth.project.pushProjectConfiguration(args),
     onSuccess: (data) => {
       const session = queryClient.getQueryData(['session']);
 

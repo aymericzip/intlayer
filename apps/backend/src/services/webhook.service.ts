@@ -120,7 +120,12 @@ const triggerGitPipeline = async (project: Project) => {
 };
 
 const triggerGithub = async (repo: any, token: string) => {
-  const octokit = new Octokit({ auth: token });
+  const octokit = new Octokit({
+    auth: token,
+    headers: {
+      'X-GitHub-Api-Version': '2026-03-10',
+    },
+  });
 
   // Triggers a 'repository_dispatch' event
   // Workflow must listen to: types: [intlayer_cms_update]
@@ -131,6 +136,9 @@ const triggerGithub = async (repo: any, token: string) => {
     client_payload: {
       timestamp: new Date().toISOString(),
       source: 'intlayer-cms',
+    },
+    headers: {
+      'X-GitHub-Api-Version': '2026-03-10',
     },
   });
 

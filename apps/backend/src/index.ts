@@ -120,10 +120,10 @@ const startServer = async () => {
       'application/json',
       { parseAs: 'buffer' },
       (request, body, done) => {
-        // 1. Attach the raw buffer to the Fastify request for Stripe
+        // Attach the raw buffer to the Fastify request for Stripe
         (request as any).rawBody = body;
 
-        // 2. Parse the body to JSON so request.body behaves normally
+        // Parse the body to JSON so request.body behaves normally
         try {
           done(null, JSON.parse(body.toString()));
         } catch (err) {
@@ -142,8 +142,23 @@ const startServer = async () => {
     return reply.send(
       t({
         en: 'Ok - locale: en',
+        ru: 'Ok - locale: ru',
+        ja: 'Ok - locale: ja',
         fr: 'Ok - locale: fr',
+        ko: 'Ok - locale: ko',
+        zh: 'Ok - locale: zh',
         es: 'Ok - locale: es',
+        de: 'Ok - locale: de',
+        ar: 'Ok - locale: ar',
+        it: 'Ok - locale: it',
+        'en-GB': 'Ok - locale: en-GB',
+        pt: 'Ok - locale: pt',
+        hi: 'Ok - locale: hi',
+        tr: 'Ok - locale: tr',
+        pl: 'Ok - locale: pl',
+        id: 'Ok - locale: id',
+        vi: 'Ok - locale: vi',
+        uk: 'Ok - locale: uk',
       })
     );
   });
@@ -238,7 +253,14 @@ const startServer = async () => {
         params: request.params,
         query: request.query,
         body: request.body,
-        locals: request.session,
+        session: {
+          userId: request.session?.user?.id,
+          userEmail: request.session?.user?.email,
+          organizationId: request.session?.user?.organizationId,
+          organizationName: request.session?.user?.organization?.name,
+          projectId: request.session?.user?.projectId,
+          projectName: request.session?.user?.project?.name,
+        },
       };
 
       logger.info(

@@ -47,6 +47,15 @@ export const ProjectFormContent: FC = () => {
             >
               <ProjectEditionForm />
             </Container>
+
+            <Container
+              roundedSize="3xl"
+              padding="md"
+              className="z-10 flex size-full justify-center"
+            >
+              <MembersForm />
+            </Container>
+
             <Container
               roundedSize="3xl"
               padding="md"
@@ -54,20 +63,7 @@ export const ProjectFormContent: FC = () => {
             >
               <AccessKeyForm />
             </Container>
-            <Container
-              roundedSize="3xl"
-              padding="md"
-              className="z-10 flex size-full justify-center"
-            >
-              <RepositoryLink />
-            </Container>
-            <Container
-              roundedSize="3xl"
-              padding="md"
-              className="flex size-full justify-center"
-            >
-              <BuildSettings />
-            </Container>
+
             <Container
               roundedSize="3xl"
               padding="md"
@@ -89,7 +85,15 @@ export const ProjectFormContent: FC = () => {
               padding="md"
               className="z-10 flex size-full justify-center"
             >
-              <MembersForm />
+              <RepositoryLink />
+            </Container>
+
+            <Container
+              roundedSize="3xl"
+              padding="md"
+              className="flex size-full justify-center"
+            >
+              <BuildSettings />
             </Container>
             <Container
               roundedSize="3xl"

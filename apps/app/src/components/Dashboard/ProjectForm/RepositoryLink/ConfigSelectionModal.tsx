@@ -1,19 +1,26 @@
 import { Button } from '@intlayer/design-system/button';
 import { containerVariants } from '@intlayer/design-system/container';
+import {
+  useBitbucketGetConfigFile,
+  useGithubGetConfigFile,
+  useGitlabGetConfigFile,
+} from '@intlayer/design-system/hooks';
 import { Modal } from '@intlayer/design-system/modal';
 import { FileJson, FolderOpen } from 'lucide-react';
-import type { FC } from 'react';
+import { type FC, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import type { RepoData } from './types';
+import { useProjectConfigActions } from './hooks/useProjectConfigActions';
+import { getRepoDisplayName } from './RepositoryItem';
+import type { ConfigPreviewState, RepoData } from './types';
 
 type ConfigSelectionModalProps = {
   isOpen: boolean;
   onClose: () => void;
   selectedRepo: RepoData | null;
   detectedConfigs: string[];
-  processingConfigPath: string | null;
-  onSelectConfig: (repo: RepoData, configPath: string) => void;
+  onConfigFetched: (configPreview: ConfigPreviewState) => void;
   onBack: () => void;
+  handleViewCurrentConfig?: (onLoadStart: () => void) => Promise<void>;
 };
 
 export const ConfigSelectionModal: FC<ConfigSelectionModalProps> = ({
@@ -21,11 +28,74 @@ export const ConfigSelectionModal: FC<ConfigSelectionModalProps> = ({
   onClose,
   selectedRepo,
   detectedConfigs,
-  processingConfigPath,
-  onSelectConfig,
+  onConfigFetched,
   onBack,
+  handleViewCurrentConfig: handleViewCurrentConfigProp,
 }) => {
+  const {
+    handlePushConfig,
+    hasExistingConfig,
+    handleViewCurrentConfig: handleViewCurrentConfigHook,
+  } = useProjectConfigActions();
+
+  const handleViewCurrentConfig =
+    handleViewCurrentConfigProp ?? handleViewCurrentConfigHook;
+
   const content = useIntlayer('repository-link');
+
+  const [processingConfigPath, setProcessingConfigPath] = useState<
+    string | null
+  >(null);
+
+  const { mutateAsync: getGithubConfigFile } = useGithubGetConfigFile();
+  const { mutateAsync: getGitlabConfigFile } = useGitlabGetConfigFile();
+  const { mutateAsync: getBitbucketConfigFile } = useBitbucketGetConfigFile();
+
+  const handleSelectConfig = async (repo: RepoData, configPath: string) => {
+    try {
+      setProcessingConfigPath(configPath);
+      let fileContent: string = '';
+
+      if (repo.provider === 'github') {
+        const fileResult = await getGithubConfigFile({
+          owner: repo.owner?.login ?? '',
+          repository: repo.name,
+          branch: repo.defaultBranch,
+          path: configPath,
+        });
+        fileContent = fileResult.data.content;
+      } else if (repo.provider === 'gitlab') {
+        const fileResult = await getGitlabConfigFile({
+          projectId: repo.projectId!,
+          branch: repo.defaultBranch,
+          path: configPath,
+          instanceUrl: repo.instanceUrl,
+        });
+        fileContent = fileResult.data.content;
+      } else if (repo.provider === 'bitbucket') {
+        const fileResult = await getBitbucketConfigFile({
+          workspace: repo.workspace?.slug ?? '',
+          repoSlug: repo.slug ?? repo.name,
+          branch: repo.defaultBranch,
+          path: configPath,
+        });
+        fileContent = fileResult.data.content;
+      }
+
+      const configPreview = { repo, configPath, content: fileContent };
+
+      if (hasExistingConfig) {
+        await handleViewCurrentConfig(() => {});
+        onConfigFetched(configPreview);
+      } else {
+        await handlePushConfig(configPreview, () => {
+          onConfigFetched(configPreview);
+        });
+      }
+    } finally {
+      setProcessingConfigPath(null);
+    }
+  };
 
   const formatPath = (fullPath: string) => {
     const parts = fullPath.split('/');
@@ -34,20 +104,13 @@ export const ConfigSelectionModal: FC<ConfigSelectionModalProps> = ({
     return { fileName, directory: directory || 'Root' };
   };
 
-  const displayName =
-    selectedRepo?.provider === 'github'
-      ? `${selectedRepo?.owner?.login}/${selectedRepo?.name}`
-      : selectedRepo?.provider === 'gitlab'
-        ? selectedRepo?.fullName
-        : selectedRepo?.provider === 'bitbucket'
-          ? `${selectedRepo?.workspace?.slug}/${selectedRepo?.name}`
-          : selectedRepo?.name;
+  const displayName = getRepoDisplayName(selectedRepo);
 
   return (
     <Modal
       isOpen={isOpen}
       onClose={onClose}
-      title={content.modal?.selectConfigTitle?.value}
+      title={content.modal?.selectConfigTitle}
       hasCloseButton
       size="md"
       padding="lg"
@@ -72,7 +135,7 @@ export const ConfigSelectionModal: FC<ConfigSelectionModalProps> = ({
                 key={fullPath}
                 Icon={FileJson}
                 onClick={() =>
-                  selectedRepo && onSelectConfig(selectedRepo, fullPath)
+                  selectedRepo && handleSelectConfig(selectedRepo, fullPath)
                 }
                 className={containerVariants({
                   roundedSize: '3xl',
@@ -103,7 +166,7 @@ export const ConfigSelectionModal: FC<ConfigSelectionModalProps> = ({
             variant="outline"
             color="text"
             onClick={onBack}
-            label={content.modal?.back?.value}
+            label={content.modal?.back}
           >
             {content.modal?.back}
           </Button>

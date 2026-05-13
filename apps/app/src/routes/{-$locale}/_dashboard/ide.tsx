@@ -13,6 +13,7 @@ import {
 } from 'intlayer';
 import { useEffect, useRef } from 'react';
 import { useIntlayer, useLocale } from 'react-intlayer';
+import { useTheme } from '#/providers/ThemeProvider';
 import { BreadcrumbsHeader } from '#/structuredData/BreadcrumbsHeader';
 import { AuthenticationBarrier } from '#components/Auth/AuthenticationBarrier/AuthenticationBarrier';
 import { DashboardContentLayout } from '#components/Dashboard/DashboardContentLayout';
@@ -63,6 +64,7 @@ function IDEPage() {
   const { title, noProject, noGithubRepo, iframeTitle } =
     useIntlayer('ide-dashboard-page');
   const { locale } = useLocale();
+  const { resolvedTheme } = useTheme();
   const { session } = useSession();
   const { project } = session ?? {};
 
@@ -131,7 +133,7 @@ function IDEPage() {
             >
               <iframe
                 ref={iframeRef}
-                src={`${import.meta.env.VITE_IDE_URL}/${connectedRepository.owner}/${connectedRepository.repository}?file=${connectedRepository.configFilePath || 'intlayer.config.ts'}`}
+                src={`${import.meta.env.VITE_IDE_URL}/${connectedRepository.owner}/${connectedRepository.repository}?file=${connectedRepository.configFilePath || 'intlayer.config.ts'}&theme=${resolvedTheme}`}
                 title={`${iframeTitle} ${connectedRepository.owner}/${connectedRepository.repository}`}
                 className="size-full"
                 onLoad={handleLoad}

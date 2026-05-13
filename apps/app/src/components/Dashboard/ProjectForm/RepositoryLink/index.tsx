@@ -16,15 +16,16 @@ import {
   Search,
   Trash2,
 } from 'lucide-react';
-import type { FC } from 'react';
+import { type FC, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { useLocalizedNavigate } from '#hooks/useLocalizedNavigate';
 import { ConfigPreviewModal } from './ConfigPreviewModal';
 import { ConfigSelectionModal } from './ConfigSelectionModal';
+import { useProjectConfigActions } from './hooks/useProjectConfigActions';
+import { useProviderLink } from './hooks/useProviderLink';
 import { ProviderSelector } from './ProviderSelector';
 import { RepositoryList } from './RepositoryList';
-import type { RepositoryProvider } from './types';
-import { useRepositoryLink } from './useRepositoryLink';
+import type { ConfigPreviewState, RepoData, RepositoryProvider } from './types';
 
 const ProviderIcon: FC<{
   provider: RepositoryProvider;
@@ -47,49 +48,39 @@ const PROVIDER_NAMES: Record<RepositoryProvider, string> = {
   gitlab: 'GitLab',
   bitbucket: 'Bitbucket',
 };
-
 export const RepositoryLink: FC = () => {
   const content = useIntlayer('repository-link');
+  const navigate = useLocalizedNavigate();
+
+  const [isRepoListOpen, setIsRepoListOpen] = useState(false);
+  const [isConfigSelectionOpen, setIsConfigSelectionOpen] = useState(false);
+  const [isConfigPreviewOpen, setIsConfigPreviewOpen] = useState(false);
+  const [selectedRepo, setSelectedRepo] = useState<RepoData | null>(null);
+  const [detectedConfigs, setDetectedConfigs] = useState<string[]>([]);
+  const [configPreview, setConfigPreview] = useState<ConfigPreviewState | null>(
+    null
+  );
 
   const {
-    // State
     selectedProvider,
     isProviderLinked,
     isLinking,
     isCheckingProvider,
-    isRepoListOpen,
-    isConfigSelectionOpen,
-    isConfigPreviewOpen,
-    processingRepoId,
-    processingConfigPath,
-    selectedRepo,
-    detectedConfigs,
-    configPreview,
-    viewOnlyConfigContent,
-    isLoadingRepos,
-    isLoadingConfigContent,
-    isUpdatingProject,
-    repos,
-    isConnectedToRepo,
-    connectedRepository,
     gitlabInstanceUrl,
-
-    // Actions
-    setIsRepoListOpen,
-    setIsConfigSelectionOpen,
-    setIsConfigPreviewOpen,
-    setConfigPreview,
     setGitlabInstanceUrl,
+    handleProviderSelect,
     handleConnectClick,
-    handleSelectRepo,
-    handleSelectConfig,
-    confirmImport,
+  } = useProviderLink();
+
+  const {
+    connectedRepository,
+    isConnectedToRepo,
     handleDisconnect,
     handleViewCurrentConfig,
-    handleProviderSelect,
-  } = useRepositoryLink();
-
-  const navigate = useLocalizedNavigate();
+    handleRefreshConfig,
+    viewOnlyConfigContent,
+    isFetchingConfig,
+  } = useProjectConfigActions();
 
   return (
     <div className="flex flex-col gap-6">
@@ -131,48 +122,47 @@ export const RepositoryLink: FC = () => {
                   {connectedRepository.configFilePath}
                 </span>
               </div>
-              {connectedRepository.instanceUrl && (
-                <div className="flex items-center gap-1 text-neutral text-xs">
-                  <Globe className="size-3" />
-                  <span>{connectedRepository.instanceUrl}</span>
-                </div>
-              )}
             </div>
           </div>
 
-          <div className="flex justify-end gap-3 pt-4">
+          <div className="flex flex-wrap justify-end gap-3 pt-4">
             <Button
               variant="outline"
               color="error"
               size="sm"
               Icon={Trash2}
-              label={content.actions?.disconnect?.value}
+              label={content.actions?.disconnect}
               onClick={handleDisconnect}
             >
               {content.actions?.disconnect}
             </Button>
+            {connectedRepository.provider === 'github' && (
+              <Button
+                variant="outline"
+                color="text"
+                size="sm"
+                Icon={Code}
+                onClick={() => navigate({ to: App_Dashboard_IDE_Path })}
+                label={content.actions?.openIDE}
+              >
+                {content.actions?.openIDE}
+              </Button>
+            )}
             <Button
               variant="default"
               color="text"
               size="sm"
               Icon={FileCode}
-              onClick={handleViewCurrentConfig}
-              label={content.actions?.loadConfig?.value}
+              onClick={() => {
+                handleViewCurrentConfig(() => {
+                  setIsConfigPreviewOpen(true);
+                  setConfigPreview(null);
+                });
+              }}
+              label={content.actions?.loadConfig}
             >
               {content.actions?.loadConfig}
             </Button>
-            {connectedRepository.provider === 'github' && (
-              <Button
-                variant="default"
-                color="text"
-                size="sm"
-                Icon={Code}
-                onClick={() => navigate({ to: App_Dashboard_IDE_Path })}
-                label={content.actions?.openIDE?.value}
-              >
-                {content.actions?.openIDE}
-              </Button>
-            )}
           </div>
         </Container>
       )}
@@ -272,8 +262,8 @@ export const RepositoryLink: FC = () => {
                 <Button
                   onClick={handleConnectClick}
                   isLoading={isLinking}
-                  disabled={isLoadingRepos || isLinking}
-                  label={content.actions?.renewAuth?.value}
+                  disabled={isLinking}
+                  label={content.actions?.renewAuth}
                   variant="outline"
                   color="text"
                   Icon={RotateCcw}
@@ -282,9 +272,8 @@ export const RepositoryLink: FC = () => {
                 </Button>
                 <Button
                   onClick={() => setIsRepoListOpen(true)}
-                  isLoading={isLoadingRepos}
-                  disabled={isLoadingRepos || isLinking}
-                  label={content.actions?.browseRepos?.value}
+                  disabled={isLinking}
+                  label={content.actions?.browseRepos}
                   color="text"
                   Icon={Search}
                 >
@@ -305,16 +294,30 @@ export const RepositoryLink: FC = () => {
             ? content.modal?.selectRepositoryWithProvider({
                 provider: PROVIDER_NAMES[selectedProvider],
               })
-            : content.modal?.selectRepository?.value
+            : content.modal?.selectRepository
         }
         hasCloseButton
         size="lg"
         padding="md"
       >
         <RepositoryList
-          repos={repos}
-          onSelectRepo={handleSelectRepo}
-          processingRepoId={processingRepoId}
+          selectedProvider={selectedProvider}
+          isProviderLinked={isProviderLinked}
+          gitlabInstanceUrl={gitlabInstanceUrl}
+          onConfigDetected={(repo, configPaths) => {
+            setSelectedRepo(repo);
+            setDetectedConfigs(configPaths);
+
+            if (configPaths.length === 1) {
+              // We need to fetch the file content, which is done in ConfigSelectionModal or ConfigPreviewModal.
+              // We will open ConfigSelectionModal which automatically handles the logic if we want, or we can just open it.
+              setIsRepoListOpen(false);
+              setIsConfigSelectionOpen(true);
+            } else {
+              setIsRepoListOpen(false);
+              setIsConfigSelectionOpen(true);
+            }
+          }}
         />
       </Modal>
 
@@ -324,8 +327,12 @@ export const RepositoryLink: FC = () => {
         onClose={() => setIsConfigSelectionOpen(false)}
         selectedRepo={selectedRepo}
         detectedConfigs={detectedConfigs}
-        processingConfigPath={processingConfigPath}
-        onSelectConfig={handleSelectConfig}
+        handleViewCurrentConfig={handleViewCurrentConfig}
+        onConfigFetched={(preview) => {
+          setConfigPreview(preview);
+          setIsConfigSelectionOpen(false);
+          setIsConfigPreviewOpen(true);
+        }}
         onBack={() => {
           setIsConfigSelectionOpen(false);
           setIsRepoListOpen(true);
@@ -337,11 +344,11 @@ export const RepositoryLink: FC = () => {
         isOpen={isConfigPreviewOpen}
         onClose={() => setIsConfigPreviewOpen(false)}
         configPreview={configPreview}
-        viewOnlyConfigContent={viewOnlyConfigContent}
-        isLoadingConfigContent={isLoadingConfigContent}
-        isUpdatingProject={isUpdatingProject}
         detectedConfigs={detectedConfigs}
-        onConfirm={confirmImport}
+        viewOnlyConfigContent={viewOnlyConfigContent}
+        isFetchingConfig={isFetchingConfig}
+        handleRefreshConfig={handleRefreshConfig}
+        setConfigPreview={setConfigPreview}
         onBackToSelection={() => {
           setIsConfigPreviewOpen(false);
           setConfigPreview(null);
@@ -351,6 +358,10 @@ export const RepositoryLink: FC = () => {
           setIsConfigPreviewOpen(false);
           setConfigPreview(null);
           setIsRepoListOpen(true);
+        }}
+        onSuccess={() => {
+          setIsConfigPreviewOpen(false);
+          setConfigPreview(null);
         }}
       />
     </div>

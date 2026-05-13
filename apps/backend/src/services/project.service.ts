@@ -111,7 +111,7 @@ export const updateProjectById = async (
 
   const updatedKeys = Object.keys(projectToUpdate) as ProjectFields;
 
-  const errors = validateProject(project, updatedKeys);
+  const errors = await validateProject(project, updatedKeys);
 
   if (Object.keys(errors).length > 0) {
     throw new GenericError('PROJECT_INVALID_FIELDS', {

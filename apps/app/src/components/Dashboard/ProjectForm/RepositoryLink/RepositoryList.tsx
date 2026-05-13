@@ -3,20 +3,30 @@ import { SearchInput } from '@intlayer/design-system/input';
 import { useVirtualizer } from '@tanstack/react-virtual';
 import Fuse from 'fuse.js';
 import { type FC, useMemo, useRef } from 'react';
+import { useRepositoryList } from './hooks/useRepositoryList';
 import { RepositoryItem } from './RepositoryItem';
-import type { RepoData } from './types';
+import type { RepoData, RepositoryProvider } from './types';
 
 type RepositoryListProps = {
-  repos: RepoData[];
-  onSelectRepo: (repo: RepoData) => void;
-  processingRepoId: string | number | null;
+  selectedProvider: RepositoryProvider | null;
+  isProviderLinked: boolean | null;
+  gitlabInstanceUrl?: string;
+  onConfigDetected: (repo: RepoData, configPaths: string[]) => void;
 };
 
 export const RepositoryList: FC<RepositoryListProps> = ({
-  repos,
-  onSelectRepo,
-  processingRepoId,
+  selectedProvider,
+  isProviderLinked,
+  gitlabInstanceUrl,
+  onConfigDetected,
 }) => {
+  const { repos, isLoadingRepos, processingRepoId, handleSelectRepo } =
+    useRepositoryList({
+      selectedProvider,
+      isProviderLinked,
+      gitlabInstanceUrl,
+      onConfigDetected,
+    });
   const { search, setSearch } = useSearch({
     defaultValue: '',
   });
@@ -62,7 +72,11 @@ export const RepositoryList: FC<RepositoryListProps> = ({
 
       {/* The Scrollable Container */}
       <div ref={parentRef} className="flex flex-1 flex-col overflow-y-auto">
-        {filteredRepos.length === 0 ? (
+        {isLoadingRepos ? (
+          <div className="py-8 text-center">
+            <p className="text-neutral text-sm">Loading repositories...</p>
+          </div>
+        ) : filteredRepos.length === 0 ? (
           <div className="py-8 text-center">
             <p className="text-neutral text-sm">No repositories found.</p>
           </div>
@@ -100,7 +114,7 @@ export const RepositoryList: FC<RepositoryListProps> = ({
                     repo={repo}
                     isProcessing={isCurrentRepoProcessing}
                     disabled={isDisabled}
-                    onImport={() => onSelectRepo(repo)}
+                    onImport={() => handleSelectRepo(repo)}
                   />
                 </div>
               );

@@ -1,14 +1,17 @@
 import type { ProjectConfiguration } from '@intlayer/backend';
 import { Form, useForm } from '@intlayer/design-system/form';
 import { H4 } from '@intlayer/design-system/headers';
-import { useSession, useUpdateProject } from '@intlayer/design-system/hooks';
+import {
+  usePushProjectConfiguration,
+  useSession,
+} from '@intlayer/design-system/hooks';
 import { Modal } from '@intlayer/design-system/modal';
 import { MultiSelect, Select } from '@intlayer/design-system/select';
 import { ALL_LOCALES } from '@intlayer/types/allLocales';
 import { AiProviders } from '@intlayer/types/config';
 import { getLocaleName, type Locale } from 'intlayer';
 import { Save } from 'lucide-react';
-import { type FC, useEffect } from 'react';
+import { type FC, useEffect, useMemo } from 'react';
 import { useIntlayer, useLocale } from 'react-intlayer';
 import {
   type ConfigFormData,
@@ -32,8 +35,8 @@ export const ConfigEditionForm: FC<ConfigEditionFormProps> = ({
   const { locale } = useLocale();
   const { session } = useSession();
   const isProjectAdmin = session?.roles?.includes('project_admin');
-  const ConfigSchema = useConfigFormSchema();
-  const { mutate: updateProject, isPending } = useUpdateProject();
+  const { mutate: pushProjectConfiguration, isPending } =
+    usePushProjectConfiguration();
   const {
     title,
     i18nSection,
@@ -43,24 +46,30 @@ export const ConfigEditionForm: FC<ConfigEditionFormProps> = ({
     cancelButton,
   } = useIntlayer('config-edition-form');
 
-  const defaultValues: ConfigFormData = {
-    locales: (projectConfig?.internationalization?.locales as Locale[]) ?? [],
-    defaultLocale: projectConfig?.internationalization?.defaultLocale as Locale,
-    applicationURL: projectConfig?.editor?.applicationURL,
-    cmsURL: projectConfig?.editor?.cmsURL,
-    // AI Configuration
-    aiProvider:
-      (projectConfig?.ai?.provider as string | undefined) ?? undefined,
-    aiModel: (projectConfig?.ai?.model as string | undefined) ?? undefined,
-    // Don't set apiKey default value - it should be empty so user can enter a new one
-    // If apiKeyConfigured is true, the field will be empty but user knows it's set
-    aiApiKey: '',
-    aiApplicationContext:
-      (projectConfig?.ai?.applicationContext as string | undefined) ??
-      undefined,
-  };
+  const configSchema = useConfigFormSchema();
 
-  const { form, isSubmitting } = useForm(ConfigSchema, {
+  const defaultValues: ConfigFormData = useMemo(
+    () => ({
+      locales: (projectConfig?.internationalization?.locales as Locale[]) ?? [],
+      defaultLocale: projectConfig?.internationalization
+        ?.defaultLocale as Locale,
+      applicationURL: projectConfig?.editor?.applicationURL,
+      cmsURL: projectConfig?.editor?.cmsURL,
+      // AI Configuration
+      aiProvider:
+        (projectConfig?.ai?.provider as string | undefined) ?? undefined,
+      aiModel: (projectConfig?.ai?.model as string | undefined) ?? undefined,
+      // Don't set apiKey default value - it should be empty so user can enter a new one
+      // If apiKeyConfigured is true, the field will be empty but user knows it's set
+      aiApiKey: '',
+      aiApplicationContext:
+        (projectConfig?.ai?.applicationContext as string | undefined) ??
+        undefined,
+    }),
+    [projectConfig]
+  );
+
+  const { form, isSubmitting } = useForm(configSchema, {
     defaultValues,
   });
 
@@ -97,14 +106,11 @@ export const ConfigEditionForm: FC<ConfigEditionFormProps> = ({
       ai: Object.keys(aiConfig).length > 0 ? aiConfig : undefined,
     };
 
-    updateProject(
-      { configuration },
-      {
-        onSuccess: () => {
-          onClose();
-        },
-      }
-    );
+    pushProjectConfiguration(configuration, {
+      onSuccess: () => {
+        onClose();
+      },
+    });
   };
 
   return (
@@ -119,7 +125,7 @@ export const ConfigEditionForm: FC<ConfigEditionFormProps> = ({
       isScrollable="y"
     >
       <Form
-        schema={ConfigSchema}
+        schema={configSchema}
         onSubmitSuccess={onSubmitSuccess}
         className="flex flex-col gap-6 px-3 py-4"
         {...form}
@@ -133,7 +139,7 @@ export const ConfigEditionForm: FC<ConfigEditionFormProps> = ({
             label={i18nSection.localesInput.label.value}
             description={i18nSection.localesInput.description.value}
             isRequired
-            // disabled={!isProjectAdmin}
+            disabled={!isProjectAdmin}
             onValueChange={(values) => {
               const valueArray = [values].flat();
               form.setValue('locales', valueArray as Locale[]);

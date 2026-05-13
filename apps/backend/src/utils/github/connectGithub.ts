@@ -4,7 +4,12 @@ let githubClientInstance: Octokit | null = null;
 
 export const connectGithub = async (): Promise<Octokit> => {
   try {
-    githubClientInstance = new Octokit({ auth: process.env.GITHUB_TOKEN });
+    githubClientInstance = new Octokit({
+      auth: process.env.GITHUB_TOKEN,
+      headers: {
+        'X-GitHub-Api-Version': '2026-03-10',
+      },
+    });
     return githubClientInstance;
   } catch (error) {
     const errorMessage = `Github connection error - ${(error as Error).message}`;
@@ -14,7 +19,12 @@ export const connectGithub = async (): Promise<Octokit> => {
 
 export const getGithubClient = (): Octokit => {
   if (!githubClientInstance) {
-    githubClientInstance = new Octokit({ auth: process.env.GITHUB_TOKEN });
+    githubClientInstance = new Octokit({
+      auth: process.env.GITHUB_TOKEN,
+      headers: {
+        'X-GitHub-Api-Version': '2026-03-10',
+      },
+    });
   }
   return githubClientInstance;
 };

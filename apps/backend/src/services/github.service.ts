@@ -80,12 +80,20 @@ export const getUserRepos = async (
   accessToken: string
 ): Promise<GitHubRepository[]> => {
   try {
-    const octokit = new Octokit({ auth: accessToken });
+    const octokit = new Octokit({
+      auth: accessToken,
+      headers: {
+        'X-GitHub-Api-Version': '2026-03-10',
+      },
+    });
 
     const { data } = await octokit.rest.repos.listForAuthenticatedUser({
       sort: 'updated',
       per_page: 100,
       visibility: 'all',
+      headers: {
+        'X-GitHub-Api-Version': '2026-03-10',
+      },
     });
 
     return data;
@@ -106,7 +114,9 @@ export const checkIntlayerConfig = async (
   branch: string = 'main'
 ): Promise<string[]> => {
   try {
-    const octokit = new Octokit({ auth: accessToken });
+    const octokit = new Octokit({
+      auth: accessToken,
+    });
 
     // Use Git Tree API to get all files recursively
     // This allows finding configs in monorepos/subfolders
@@ -115,6 +125,9 @@ export const checkIntlayerConfig = async (
       repo,
       tree_sha: branch,
       recursive: 'true',
+      headers: {
+        'X-GitHub-Api-Version': '2026-03-10',
+      },
     });
 
     if (!data.tree || !Array.isArray(data.tree)) {
@@ -153,13 +166,21 @@ export const getRepositoryFileContents = async (
   branch: string = 'main'
 ): Promise<string | null> => {
   try {
-    const octokit = new Octokit({ auth: accessToken });
+    const octokit = new Octokit({
+      auth: accessToken,
+      headers: {
+        'X-GitHub-Api-Version': '2026-03-10',
+      },
+    });
 
     const { data } = await octokit.rest.repos.getContent({
       owner,
       repo,
       path,
       ref: branch,
+      headers: {
+        'X-GitHub-Api-Version': '2026-03-10',
+      },
     });
 
     // Octokit types are union types (file | dir | submodule), we need to check if it's a file
@@ -239,6 +260,7 @@ export const triggerGithubDispatch = async ({
       headers: {
         Authorization: `Bearer ${accessToken}`,
         Accept: 'application/vnd.github+json',
+        'X-GitHub-Api-Version': '2026-03-10',
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
@@ -277,12 +299,20 @@ export const checkWorkflowFileExists = async (
   branch: string = 'main'
 ): Promise<boolean> => {
   try {
-    const octokit = new Octokit({ auth: accessToken });
+    const octokit = new Octokit({
+      auth: accessToken,
+      headers: {
+        'X-GitHub-Api-Version': '2026-03-10',
+      },
+    });
     await octokit.rest.repos.getContent({
       owner,
       repo,
       path: filename,
       ref: branch,
+      headers: {
+        'X-GitHub-Api-Version': '2026-03-10',
+      },
     });
     return true;
   } catch (error: any) {
@@ -305,7 +335,12 @@ export const createWorkflowFile = async (
   message: string = 'Add Intlayer CI workflow'
 ): Promise<void> => {
   try {
-    const octokit = new Octokit({ auth: accessToken });
+    const octokit = new Octokit({
+      auth: accessToken,
+      headers: {
+        'X-GitHub-Api-Version': '2026-03-10',
+      },
+    });
 
     // Check if file exists to get SHA for update
     let sha: string | undefined;
@@ -315,6 +350,9 @@ export const createWorkflowFile = async (
         repo,
         path: filename,
         ref: branch,
+        headers: {
+          'X-GitHub-Api-Version': '2026-03-10',
+        },
       });
 
       if (Array.isArray(data) || !('sha' in data)) {
@@ -339,6 +377,9 @@ export const createWorkflowFile = async (
       message,
       content: encodedContent,
       branch,
+      headers: {
+        'X-GitHub-Api-Version': '2026-03-10',
+      },
       ...(sha && { sha }), // Include SHA if updating existing file
     });
 

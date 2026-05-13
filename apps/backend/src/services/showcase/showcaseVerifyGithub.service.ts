@@ -53,6 +53,9 @@ const getOctokitForHost = (hostname: string): Octokit => {
   const isGithubCom = hostname === 'github.com';
   return new Octokit({
     auth: process.env.GITHUB_TOKEN,
+    headers: {
+      'X-GitHub-Api-Version': '2026-03-10',
+    },
     ...(isGithubCom ? {} : { baseUrl: `https://${hostname}/api/v3` }),
   });
 };
@@ -148,6 +151,9 @@ export const verifyGithubRepo = async (
             owner,
             repo,
             path: pkgPath,
+            headers: {
+              'X-GitHub-Api-Version': '2026-03-10',
+            },
           });
 
           if (!Array.isArray(response.data) && 'content' in response.data) {

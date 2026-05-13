@@ -71,7 +71,9 @@ export const validateProject = async (
 ): Promise<ValidationErrors> => {
   const mask = fieldsToCheck.reduce(
     (acc, curr) => {
-      acc[curr as string] = true;
+      if (curr in projectZodSchema.shape) {
+        acc[curr as string] = true;
+      }
       return acc;
     },
     {} as Record<string, true>
