@@ -23,7 +23,7 @@ export const EditorProvider: FC<PropsWithChildren<EditorProviderProps>> = ({
   const { session } = useSession();
   const intlayerConfig =
     configuration ?? (session?.project?.configuration as IntlayerConfig);
-  const applicationURL = intlayerConfig?.editor.applicationURL;
+  const applicationURL = intlayerConfig?.editor?.applicationURL;
 
   // Health check for the application URL using react-query
   const { data: isApplicationRunning, isPending } = useQuery({
@@ -49,7 +49,7 @@ export const EditorProvider: FC<PropsWithChildren<EditorProviderProps>> = ({
     retry: 1,
   });
 
-  if (!intlayerConfig) {
+  if (!intlayerConfig || !applicationURL) {
     return <NoApplicationURLView />;
   }
 
@@ -63,7 +63,7 @@ export const EditorProvider: FC<PropsWithChildren<EditorProviderProps>> = ({
     return (
       <ApplicationNotRunningView
         applicationUrl={applicationURL}
-        editorUrl={intlayerConfig.editor.cmsURL}
+        editorUrl={intlayerConfig.editor?.cmsURL}
       />
     );
   }
