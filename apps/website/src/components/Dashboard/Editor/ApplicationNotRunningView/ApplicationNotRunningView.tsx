@@ -5,10 +5,24 @@ import { Website_Doc_IntlayerCMS_Path } from '@intlayer/design-system/routes';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
 
-export const ApplicationNotRunningView: FC = () => {
-  const { title, description, tips, documentationLink } = useIntlayer(
-    'application-not-running-view'
-  );
+type ApplicationNotRunningViewProps = {
+  applicationUrl: string | undefined;
+  editorUrl: string | undefined;
+};
+
+export const ApplicationNotRunningView: FC<ApplicationNotRunningViewProps> = ({
+  applicationUrl,
+  editorUrl,
+}) => {
+  const {
+    title,
+    description,
+    urlLabel,
+    urlLinkLabel,
+    tipsTitle,
+    tips,
+    documentationLink,
+  } = useIntlayer('application-not-running-view');
 
   return (
     <div className="flex flex-1 items-center justify-center">
@@ -18,14 +32,35 @@ export const ApplicationNotRunningView: FC = () => {
         roundedSize="2xl"
       >
         <H3 className="mb-4 text-lg">{title}</H3>
+        <span className="font-semibold text-xs">
+          {urlLabel}
+          {applicationUrl ? (
+            <Link
+              href={applicationUrl}
+              className="ml-4 font-bold"
+              label={urlLinkLabel.value}
+              color="neutral"
+            >
+              {applicationUrl}
+            </Link>
+          ) : (
+            <span className="ml-4 font-bold">-</span>
+          )}
+        </span>
         <p className="mb-4 block text-neutral">{description}</p>
 
         <div className="mb-4">
-          <h4 className="mb-2 font-semibold">Tips:</h4>
+          <h4 className="mb-2 font-semibold">{tipsTitle}</h4>
           <ul className="list-inside list-disc space-y-2 pl-3">
             {tips.map((tip, index) => (
               <li key={index} className="text-neutral">
-                {tip}
+                {tip({
+                  editorUrl: (
+                    <span className="font-bold">
+                      {editorUrl ?? process.env.NEXT_PUBLIC_URL}
+                    </span>
+                  ),
+                })}
               </li>
             ))}
           </ul>
