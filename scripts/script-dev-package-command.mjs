@@ -10,8 +10,8 @@
  * listed in the `packageBuildOrder`, a predefined array of package paths.
  * The script continues to run even if one of the commands fails, and logs all activity.
  *
- * It uses `chokidar` for file system watching, `spawnSync` for executing npm commands,
- * and `minimist` for parsing command-line arguments.
+ * It uses `chokidar` for file system watching, `fast-glob` for fast file enumeration,
+ * `spawnSync` for executing npm commands, and `minimist` for parsing command-line arguments.
  *
  * @module FileWatcher
  */
@@ -20,6 +20,7 @@ import { spawnSync } from 'node:child_process';
 import { existsSync } from 'node:fs';
 import process from 'node:process';
 import chokidar from 'chokidar';
+import fg from 'fast-glob';
 import minimist from 'minimist';
 import { packageBuildOrder } from './package-build-order.mjs';
 
@@ -61,9 +62,9 @@ const runBuild = (paths) => {
           : `${normalizedPkg}/`;
         return normalizedPath.startsWith(pkgPath);
       });
-      filteredPackages.forEach((pkg) => {
+      for (const pkg of filteredPackages) {
         packagesToRebuild.add(pkg);
-      });
+      }
     }
 
     for (const pkg of packagesToRebuild) {
@@ -104,42 +105,66 @@ const queueChange = (path) => {
   }, DEBOUNCE_DELAY);
 };
 
+const IGNORED_GLOBS = [
+  '**/node_modules/**',
+  '**/dist/**',
+  '**/build/**',
+  '**/.next/**',
+  '**/.svelte-kit/**',
+  '**/.intlayer/**',
+  '**/*.test.*',
+  '**/tsup.config.bundled_*',
+];
+
+const FILE_EXT_RE = /\.(js|cjs|mjs|ts|jsx|tsx|vue|json|svelte)$/;
+
+/**
+ * Uses fast-glob to enumerate source files, then extracts unique parent directories.
+ * Watching directories (not individual files) is what FSEvents/chokidar v5 is designed for.
+ */
+const getFilesToWatch = async () => {
+  const validPkgs = packageBuildOrder.filter((pkg) => existsSync(pkg));
+  const patterns = validPkgs.map(
+    (pkg) => `${pkg}/**/*.{js,cjs,mjs,ts,jsx,tsx,vue,json,svelte}`
+  );
+  const files = await fg(patterns, { ignore: IGNORED_GLOBS, dot: false });
+
+  return [...files];
+};
+
 let watcher;
 
 /**
  * Starts the file watcher to monitor changes in the relevant files and directories.
- * It listens for changes, additions, or errors, and triggers the build process when
- * necessary. This function also manages restarting the watcher if needed.
+ * Uses fast-glob to derive the set of directories to watch so chokidar never needs
+ * to scan the full tree — it only watches leaf directories that actually contain
+ * source files.
  */
-const startWatcher = () => {
+const startWatcher = async () => {
   if (watcher) {
     console.info('[INFO] Restarting watcher...');
-    watcher.close(); // Close existing watcher before starting a new one
+    await watcher.close();
   }
 
-  // chokidar v5 dropped glob support — use fs to resolve dirs, filter extensions via ignored
-  const dirsToWatch = packageBuildOrder.filter((pkg) => existsSync(pkg));
+  console.info('[INFO] Scanning source files...');
+  const files = await getFilesToWatch();
+  console.info(`[INFO] Watching ${files.length} source directories...`);
 
-  watcher = chokidar.watch(dirsToWatch, {
+  watcher = chokidar.watch(files, {
+    persistent: true,
     ignoreInitial: true,
+    awaitWriteFinish: {
+      stabilityThreshold: 300,
+      pollInterval: 100,
+    },
     ignored: (filePath, stats) => {
+      if (!stats?.isFile()) return false;
       const p = normalizePath(filePath);
 
-      if (
-        p.includes('/node_modules') ||
-        p.includes('/dist') ||
-        p.includes('/build') ||
-        p.includes('/.next') ||
-        p.includes('/.svelte-kit') ||
-        p.includes('/.intlayer')
-      )
-        return true;
+      if (!FILE_EXT_RE.test(p)) return true;
+      if (/tsup\.config\.bundled_/.test(p)) return true;
+      if (/\.test\./.test(p)) return true;
 
-      if (stats?.isFile()) {
-        if (!/\.(js|cjs|mjs|ts|jsx|tsx|vue|json|svelte)$/.test(p)) return true;
-        if (/tsup\.config\.bundled_/.test(p)) return true;
-        if (/\.test\./.test(p)) return true;
-      }
       return false;
     },
   });
