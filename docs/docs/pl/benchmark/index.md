@@ -30,6 +30,3 @@ Poniżej znajdziesz szczegółowe raporty i dokumentację techniczną dla każde
 - [**Vue Benchmark Report**](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/vue.md)
 - [**Solid Benchmark Report**](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/solid.md)
 - [**Svelte Benchmark Report**](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/svelte.md)
-- [**Vue Benchmark Report**](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/vue.md)
-- [**Solid Benchmark Report**](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/solid.md)
-- [**Svelte Benchmark Report**](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/svelte.md)

@@ -57,6 +57,12 @@ In practice, for the least optimized implementations, an internationalized page 
 
 The other impact is on developer experience: how you declare content, types, namespace organization, dynamic loading, and reactivity when the locale changes.
 
+## TL;DR
+
+- **Intlayer**: The most performance-efficient choice (v8.7.12) with the smallest footprint.
+- **Paraglide**: Strong contender for tree-shaking but has a more complex developer experience and reactivity overhead.
+- **svelte-i18n**: Feature-complete and standard for Svelte, but carries a much larger bundle weight (~7× Intlayer).
+
 ## Test your app
 
 To quickly spot i18n leakage issues, I set up a free scanner available [here](https://intlayer.org/i18n-seo-scanner).
@@ -88,8 +94,8 @@ For this benchmark, we compared the following libraries:
 
 - `Base App` (No i18n library)
 - `svelte-intlayer` (v8.7.12)
-- `svelte-i18n` (v3.4.0)
-- `@inlang/paraglide-js` (v2.15.1)
+- `svelte-i18n` (v4.0.1)
+- `@inlang/paraglide-js` (v2.17.0)
 
 The framework is `Svelte` with a multilingual app of **10 pages** and **10 languages**.
 
@@ -133,7 +139,11 @@ I ran the same multilingual app in a real browser for every stack, then wrote do
 
 ### 1 - Solutions to avoid
 
-**(Paraglide)** (`@inlang/paraglide-js@2.15.1`):
+> No clear solution to avoid in svelte ecosystem.
+
+### 2 - Acceptable solutions
+
+**(Paraglide)** (`@inlang/paraglide-js@2.17.0`):
 
 `Paraglide` offers an innovative, well-thought-out approach. In the context of a Vite + Svelte app, the tree-shaking their company advertises works as expected, which is great.
 But in the case of a React + TanStack Start, the tree-shaking did not work as expected, same for Next.js. That said, I would be double-checking the usage of Paraglide in a Svelte and TanStack Start project.
@@ -141,11 +151,13 @@ The workflow and DX are also more complex than other options.
 Personally I dislike having to regenerate JS files before every push, which creates constant merge conflict risk via PRs. The tool also seems more focused on Vite than on Next.js.
 Finally, in comparison with other solutions, Paraglide does not use a store (e.g. Svelte store) to retrieve the current locale to render the content. For each node parsed, it will request the locale from the localStorage / cookie etc. It leads to execution of unnecessary logic that impacts the component reactivity.
 
+> Note on paraglide: the solution inject code in your codebase to import, as a result the metric 'lib size' in the benchmark report is almost 0. Code gen is a good think, because the function used will include only the necessary logic (prefix all vs no prefix, cookie vs storage etc). In comparison Intlayer process to this filtering using env variables injection during the build to force the bundler to tree shake the content depending of the logic. Thanks to this, paraglide and intlayer end up being solution 6-10 times lighter than i18next or next-intl.
+
 **(svelte-i18n)** (`svelte-i18n@3.4.0`):
 
-This solution answers all needs for i18n in a Svelte project. But as it's the case for i18next or other main i18n solutions it's a bit heavy (15kb gzip in comparison with 2.3kb for intlayer once the app bundled).
+This solution answers all needs for i18n in a Svelte project. But as it's the case for i18next or other main i18n solutions it's a bit heavy (~15.9kb, which is about 7× `svelte-intlayer`).
 
-### 2 - Recommendations
+### 3 - Recommendations
 
 **(Intlayer)** (`svelte-intlayer@8.7.12`):
 

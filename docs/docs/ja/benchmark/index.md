@@ -25,8 +25,8 @@ Benchmark Bloom は、複数の React フレームワークとロード戦略に
 
 各フレームワークの詳細レポートと技術ドキュメントは次のとおりです。
 
-- [**Next.js Benchmark Report**](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/nextjs.md)
-- [**TanStack Start Benchmark Report**](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/tanstack.md)
-- [**Vue Benchmark Report**](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/vue.md)
-- [**Solid Benchmark Report**](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/solid.md)
-- [**Svelte Benchmark Report**](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/svelte.md)
+- [**Next.js ベンチマークレポート**](./nextjs.md)
+- [**TanStack Start ベンチマークレポート**](./tanstack.md)
+- [**Vue ベンチマークレポート**](./vue.md)
+- [**Solid ベンチマークレポート**](./solid.md)
+- [**Svelte ベンチマークレポート**](./svelte.md)

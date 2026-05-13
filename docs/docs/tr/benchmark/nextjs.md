@@ -61,6 +61,13 @@ Sorun zor olduğu için birçok çözüm mevcuttur; bazıları DX'e (geliştiric
 
 Intlayer tüm bu boyutlarda optimizasyon yapmaya çalışır.
 
+## TL;DR
+
+- **Intlayer** & **next-translate**: Next.js performansı için en iyi seçimler; en küçük ayak izini ve en iyi statik render desteğini sunarlar.
+- **next-intl**: Şu anki en popüler seçenek ancak ağır ve büyük uygulamalar için optimize edilmesi karmaşık.
+- **next-i18next**: Popüler ve eklenti bakımından zengin ancak önemli bir paket ağırlığı getiriyor (~3× Intlayer).
+- **Kaçının**: Ciddi performans sorunları, satıcı kısıtlaması (vendor lock-in) ve derlemeyi bozan hatalar nedeniyle **gt-next** ve **lingo.dev**'den kaçının.
+
 ## Uygulamanızı Test Edin
 
 Bu sorunları ortaya çıkarmak için [buradan](https://intlayer.org/i18n-seo-scanner) deneyebileceğiniz ücretsiz bir tarayıcı oluşturdum.
@@ -99,14 +106,14 @@ Son olarak `Intlayer`, derleme zamanı (build-time) optimizasyonu uygulayarak `u
 Bu benchmark için aşağıdaki kütüphaneleri karşılaştırdık:
 
 - `Base App` (i18n kütüphanesi yok)
-- `next-intlayer` (v8.7.5)
+- `next-intlayer` (v8.7.12)
 - `next-i18next` (v16.0.5)
 - `next-intl` (v4.9.1)
 - `@lingui/core` (v5.3.0)
 - `next-translate` (v3.1.2)
 - `next-international` (v1.3.1)
 - `@inlang/paraglide-js` (v2.15.1)
-- `tolgee` (v7.0.0)
+- `@tolgee/react` (v7.0.0)
 - `@lingo.dev/compiler` (v0.4.0)
 - `wuchale` (v0.22.11)
 - `gt-next` (v6.16.5)
@@ -161,10 +168,10 @@ Karşılaşılan sorunlar:
 
 **(General Translation)** (`gt-next@6.16.5`):
 
-- 110kb'lık bir uygulama için `gt-react` 440kb'tan fazla ek veri ekler.
+- 110kb'lık bir uygulama için `gt-next` 440kb'tan fazla ek veri ekler.
 - General Translation ile yapılan ilk derlemede `Quota Exceeded, please upgrade your plan` mesajı.
 - Çeviriler render edilmiyor; kütüphanede bir hata gibi görünen `Error: <T> used on the client-side outside of <GTProvider>` hatası alıyorum.
-- **gt-tanstack-start-react** uygulanırken kütüphaneyle ilgili bir [sorun](https://github.com/generaltranslation/gt/issues/1210#event-24510646961) ile de karşılaştım: `does not provide an export named 'printAST' - @formatjs/icu-messageformat-parser` hatası uygulamayı bozdu. Sorun bildirildikten sonra 24 saat içinde düzeltildi.
+- **gt-next** uygulanırken kütüphaneyle ilgili bir [sorun](https://github.com/generaltranslation/gt/issues/1210#event-24510646961) ile de karşılaştım: `does not provide an export named 'printAST' - @formatjs/icu-messageformat-parser` hatası uygulamayı bozdu. Sorun bildirildikten sonra 24 saat içinde düzeltildi.
 - Kütüphane Next.js sayfalarının statik render edilmesini engelliyor.
 
 **(Lingo.dev)** (`@lingo.dev/compiler@0.4.0`):
@@ -186,9 +193,11 @@ Karşılaşılan sorunlar:
 Şahsen her push öncesinde JS dosyalarını yeniden oluşturmak zorunda kalmaktan hoşlanmıyorum, bu da PR'ler üzerinden sürekli merge çelişkisi riski yaratıyor. Araç ayrıca Next.js'ten ziyade Vite'e daha fazla odaklanmış gibi görünüyor.
 Son olarak, diğer çözümlerle karşılaştırıldığında Paraglide, içeriği render etmek için mevcut dili almak üzere bir store (örneğin React context) kullanmaz. Ayrıştırılan her düğüm için localStorage / cookie vb. üzerinden dili sorgular. Bu, bileşen reaktivitesini etkileyen gereksiz mantık yürütülmesine yol açar.
 
+> Paraglide üzerine not: Bu çözüm, içe aktarma (import) için kod tabanınıza kod enjekte eder ve sonuç olarak benchmark raporundaki 'kütüphane boyutu' metriği neredeyse 0'dır. Kod oluşturma iyi bir şeydir, çünkü kullanılan fonksiyon yalnızca gerekli mantığı (tüm önekler vs önek yok, çerezler vs depolama vb.) içerecektir. Buna karşılık Intlayer, paketleyiciyi mantığa bağlı olarak içeriği tree-shake yapmaya zorlamak için derlemede ortam değişkeni enjeksiyonları yoluyla bu filtrelemeyi gerçekleştirir. Bu sayede paraglide ve intlayer, i18next veya next-intl'den 6 ila 10 kat daha hafif çözümler haline gelir.
+
 ### 3 — Kabul edilebilir çözümler
 
-**(Tolgee)** (`tolgee@7.0.0`):
+**(Tolgee)** (`@tolgee/react@7.0.0`):
 
 `Tolgee` daha önce bahsedilen sorunların çoğunu ele alıyor. Benzer araçlara göre benimsenmesinin daha zor olduğunu gördüm. Tip güvenliği (type safety) sağlamıyor, bu da eksik anahtarların derleme zamanında yakalanmasını zorlaştırıyor. Eksik anahtar algılama özelliği eklemek için Tolgee'nin fonksiyonlarını kendi fonksiyonlarımla sarmak zorunda kaldım.
 
@@ -216,7 +225,7 @@ Mesaj formatları da farklıdır: `next-intl` ICU MessageFormat kullanırken, `i
 
 `t()` stili bir API seviyorsanız `next-translate` ana önerimdir. `next-translate-plugin` aracılığıyla zarif bir şekilde çalışır ve Webpack / Turbopack yükleyicisi ile `getStaticProps` üzerinden ad alanlarını yükler. Ayrıca buradaki en hafif seçenektir (~2.5kb). Yapılandırmada sayfa veya rota başına ad alanı tanımlamak iyi düşünülmüştür ve **next-intl** veya **next-i18next** gibi ana alternatiflerden daha kolay bakımı yapılır. `3.1.2` sürümünde statik render'ın çalışmadığını ve Next.js'in dinamik render'a geri döndüğünü fark ettim.
 
-**(Intlayer)** (`next-intlayer@8.7.5`):
+**(Intlayer)** (`next-intlayer@8.7.12`):
 
 Nesnellik adına kendi çözümüm olan `next-intlayer` hakkında kişisel olarak yorum yapmayacağım.
 

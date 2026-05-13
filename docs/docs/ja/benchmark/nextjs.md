@@ -61,6 +61,13 @@ history:
 
 Intlayerは、これらの各側面において最適化を試みています。
 
+## TL;DR
+
+- **Intlayer** & **next-translate**: Next.jsのパフォーマンスにおいて最適な選択肢。最小のフットプリントと最高の静的レンダリングサポートを提供。
+- **next-intl**: 最もトレンドのオプションだが、大規模なアプリケーション向けに最適化するには重く、複雑。
+- **next-i18next**: 人気がありプラグインも豊富だが、バンドル重量が非常に大きい（Intlayer의約3倍）。
+- **避けるべき**: **gt-next** と **lingo.dev**。深刻なパフォーマンスの問題、ベンダーロックイン、ビルドを破壊するバグのため。
+
 ## アプリをテストする
 
 これらの問題を顕在化させるために、無料のスキャナーを作成しました。[こちら](https://intlayer.org/i18n-seo-scanner)で試すことができます。
@@ -99,14 +106,14 @@ WebpackやTurbopackを使用し、`[locale]/page.tsx`のようなルートを宣
 このベンチマークでは、以下のライブラリを比較しました。
 
 - `Base App`（i18nライブラリなし）
-- `next-intlayer` (v8.7.5)
+- `next-intlayer` (v8.7.12)
 - `next-i18next` (v16.0.5)
 - `next-intl` (v4.9.1)
 - `@lingui/core` (v5.3.0)
 - `next-translate` (v3.1.2)
 - `next-international` (v1.3.1)
 - `@inlang/paraglide-js` (v2.15.1)
-- `tolgee` (v7.0.0)
+- `@tolgee/react` (v7.0.0)
 - `@lingo.dev/compiler` (v0.4.0)
 - `wuchale` (v0.22.11)
 - `gt-next` (v6.16.5)
@@ -161,10 +168,10 @@ Next.jsのバージョンは`16.2.4`（App Router）を使用しました。
 
 **(General Translation)** (`gt-next@6.16.5`):
 
-- 110kbのアプリに対して、`gt-react`は440kb以上の余分なデータを追加します。
+- 110kbのアプリに対して、`gt-next`は440kb以上の余分なデータを追加します。
 - General Translationを使用した最初のビルドで「Quota Exceeded, please upgrade your plan（クォータ超過、プランをアップグレードしてください）」と表示されました。
 - 翻訳がレンダリングされません。`Error: <T> used on the client-side outside of <GTProvider>`というエラーが発生しましたが、これはライブラリのバグのようです。
-- **gt-tanstack-start-react**を実装中、ライブラリの[問題](https://github.com/generaltranslation/gt/issues/1210#event-24510646961)にも遭遇しました。`does not provide an export named 'printAST' - @formatjs/icu-messageformat-parser`というエラーでアプリケーションが壊れました。この問題を報告した後、メンテナは24時間以内に修正しました。
+- **gt-next**を実装中、ライブラリの[問題](https://github.com/generaltranslation/gt/issues/1210#event-24510646961)にも遭遇しました。`does not provide an export named 'printAST' - @formatjs/icu-messageformat-parser`というエラーでアプリケーションが壊れました。この問題を報告した後、メンテナは24時間以内に修正しました。
 - このライブラリはNext.jsページの静的レンダリングをブロックします。
 
 **(Lingo.dev)** (`@lingo.dev/compiler@0.4.0`):
@@ -186,9 +193,11 @@ Next.jsのバージョンは`16.2.4`（App Router）を使用しました。
 個人的には、プッシュのたびにJSファイルを再生成しなければならないのが嫌いです。これはPRを通じて常にマージ競合のリスクを生み出します。また、このツールはNext.jsよりもViteにフォーカスしているように見えます。
 最後に、他のソリューションと比較して、Paraglideはコンテンツをレンダリングするために現在のロケールを取得するためのストア（例：Reactコンテキスト）を使用しません。パースされる各ノードについて、localStorageやクッキーなどからロケールをリクエストします。これにより、コンポーネントの反応性に影響を与える不要なロジックが実行されます。
 
+> paraglideについての注意：このソリューションは、インポートのためにコードベースにコードを注入します。その結果、ベンチマークレポートの「ライブラリサイズ」指標はほぼ0になります。コード生成は良いことです。なぜなら、使用される関数には必要なロジック（すべてのプレフィックス対プレフィックスなし、クッキー対ストレージなど）のみが含まれるからです。対照的に、Intlayerはビルド時に環境変数を注入して、ロジックに応じてコンテンツをツリーシェイキングするようバンドラーに強制します。このおかげで、paraglideとintlayerは、i18nextやnext-intlよりも6〜10倍軽量なソリューションとなっています。
+
 ### 3 — 許容できるソリューション
 
-**(Tolgee)** (`tolgee@7.0.0`):
+**(Tolgee)** (`@tolgee/react@7.0.0`):
 
 `Tolgee`は前述の問題の多くに対処しています。しかし、同様のツールよりも導入が難しいと感じました。型安全性が提供されていないため、コンパイル時に紛失したキーを見つけることも困難です。キーの不備を検出するために、Tolgeeの関数を自前の関数でラップする必要がありました。
 
@@ -216,7 +225,7 @@ Next.jsのバージョンは`16.2.4`（App Router）を使用しました。
 
 `t()`スタイルのAPIがお好みなら、`next-translate`が私の主な推奨事項です。`next-translate-plugin`を介して優雅に動作し、Webpack / Turbopackローダーを使用して`getStaticProps`経由でネームスペースをロードします。また、今回の中で最も軽量な選択肢です（約2.5kb）。ネームスぺーシングについては、設定ファイルでページやルートごとにネームスペースを定義する方法がよく考えられており、**next-intl**や**next-i18next**のような主要な選択肢よりもメンテナンスが容易です。バージョン`3.1.2`では、静的レンダリングが機能せず、Next.jsが動的レンダリングにフォールバックすることに気づきました。
 
-**(Intlayer)** (`next-intlayer@8.7.5`):
+**(Intlayer)** (`next-intlayer@8.7.12`):
 
 客観性を保つため、自分自身のソリューションである`next-intlayer`については個人的な判断を控えさせていただきます。
 

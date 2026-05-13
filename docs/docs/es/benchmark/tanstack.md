@@ -57,6 +57,13 @@ En la práctica, en las implementaciones menos optimizadas, una página internac
 
 El otro impacto es en la experiencia del desarrollador: cómo declaras el contenido, los tipos, la organización de los namespaces, la carga dinámica y la reactividad cuando cambia el idioma.
 
+## TL;DR
+
+- **Intlayer**: Proporciona el mejor rendimiento y el tamaño de bundle más pequeño (v8.7.12) para TanStack Start.
+- **react-i18next** & **use-intl**: Alternativas maduras con grandes ecosistemas, mas significativamente más pesadas y complejas de optimizar.
+- **Paraglide**: Idea innovadora de tree-shaking que no funciona en la práctica. DX compleja y sobrecarga de reactividad en TanStack Start.
+- **Evitar**: **General Translation (GT)** y **Lingo.dev** debido a graves problemas de rendimiento, límites de cuota de IA y bloqueo del proveedor (vendor lock-in).
+
 ## Pon a prueba tu aplicación
 
 Para detectar rápidamente problemas de fuga de i18n, he configurado un escáner gratuito disponible [aquí](https://intlayer.org/i18n-seo-scanner).
@@ -87,12 +94,12 @@ Las sintaxis basadas en `const t = useTranslation()` + `t('a.b.c')` son muy cóm
 Para este benchmark, comparamos las siguientes librerías:
 
 - `Base App` (Sin librería i18n)
-- `react-intlayer` (v8.7.5-canary.0)
+- `react-intlayer` (v8.7.12)
 - `react-i18next` (v17.0.2)
 - `use-intl` (v4.9.1)
 - `@lingui/core` (v5.3.0)
 - `@inlang/paraglide-js` (v2.15.1)
-- `tolgee` (v7.0.0)
+- `@tolgee/react` (v7.0.0)
 - `react-intl` (v10.1.1)
 - `wuchale` (v0.22.11)
 - `gt-react` (vlatest)
@@ -150,7 +157,9 @@ La idea detrás de `Wuchale` es interesante pero todavía no es una solución vi
 
 `Paraglide` ofrece un enfoque innovador y bien pensado. Aun así, en este benchmark, el tree-shaking que su empresa publicita no funcionó para mi implementación en Next.js ni para TanStack Start. El flujo de trabajo y la DX también son más complejos que otras opciones. Personalmente, no soy fan de tener que regenerar archivos JS antes de cada push, lo que crea un riesgo constante de conflictos de fusión para los desarrolladores a través de las PR.
 
-**(Tolgee)** (`tolgee@7.0.0`):
+> Nota sobre paraglide: la solución inyecta código en tu base de código para las importaciones, como resultado, la métrica 'lib size' en el informe del benchmark es casi 0. La generación de código es algo bueno, porque la función utilizada incluirá solo la lógica necesaria (prefijo para todo vs sin prefijo, cookie vs almacenamiento, etc.). En comparación, Intlayer realiza este filtrado mediante inyecciones de variables de entorno en la compilación para forzar al bundler a realizar tree-shake del contenido dependiendo de la lógica. Gracias a esto, paraglide e intlayer terminan siendo soluciones entre 6 y 10 veces más ligeras que i18next o next-intl.
+
+**(Tolgee)** (`@tolgee/react@7.0.0`):
 
 `Tolgee` aborda muchos de los problemas mencionados anteriormente. Me resultó más difícil empezar con ella que con otras herramientas con enfoques similares. No proporciona seguridad de tipos, lo que también dificulta mucho detectar claves faltantes en tiempo de compilación. Tuve que envolver las API de Tolgee con las mías propias para añadir la detección de claves faltantes.
 

@@ -57,6 +57,13 @@ history:
 
 또 다른 영향은 개발자 경험(DX)입니다: 콘텐츠 선언 방식, 타입, 네임스페이스 구성, 동적 로딩, 로케일 변경 시의 반응성 등이 포함됩니다.
 
+## TL;DR
+
+- **Intlayer**: TanStack Start에서 최고의 성능과 가장 작은 번들 크(v8.7.12)를 제공합니다.
+- **react-i18next** & **use-intl**: 큰 에코시스템을 가진 성숙한 대안이지만, 훨씬 더 무겁고 최적화가 복잡합니다.
+- **Paraglide**: 혁신적인 트리 쉐이킹 아이디어이지만 실제로는 작동하지 않습니다. TanStack Start에서 복잡한 DX와 반응성 오버헤드가 발생합니다.
+- **피해야 할 솔루션**: **General Translation (GT)** 및 **Lingo.dev**. 심각한 성능 문제, AI 쿼터 제한 및 벤더 종속성(vendor lock-in) 때문입니다.
+
 ## 앱 테스트하기
 
 i18n 누수 문제를 빠르게 파악하기 위해 [여기](https://intlayer.org/i18n-seo-scanner)에서 시도해 볼 수 있는 무료 스캐너를 구축했습니다.
@@ -87,12 +94,12 @@ i18n 누수 문제를 빠르게 파악하기 위해 [여기](https://intlayer.or
 이 벤치마크에서는 다음과 같은 라이브러리를 비교했습니다:
 
 - `Base App` (i18n 라이브러리 없음)
-- `react-intlayer` (v8.7.5-canary.0)
+- `react-intlayer` (v8.7.12)
 - `react-i18next` (v17.0.2)
 - `use-intl` (v4.9.1)
 - `@lingui/core` (v5.3.0)
 - `@inlang/paraglide-js` (v2.15.1)
-- `tolgee` (v7.0.0)
+- `@tolgee/react` (v7.0.0)
 - `react-intl` (v10.1.1)
 - `wuchale` (v0.22.11)
 - `gt-react` (vlatest)
@@ -150,7 +157,9 @@ i18n 누수 문제를 빠르게 파악하기 위해 [여기](https://intlayer.or
 
 `Paraglide`는 혁신적이고 잘 설계된 접근 방식을 제공합니다. 그럼에도 불구하고 이 벤치마크에서는 광고된 트리 쉐이킹이 나의 Next.js 구현이나 TanStack Start에서 작동하지 않았습니다. 워크플로우와 DX 또한 다른 옵션보다 복잡합니다. 개인적으로 푸시할 때마다 JS 파일을 다시 생성해야 하는 것을 선호하지 않으며, 이는 PR을 통한 개발자들 간의 지속적인 머지 충돌 위험을 만듭니다.
 
-**(Tolgee)** (`tolgee@7.0.0`):
+> paraglide에 관한 참고: 이 솔루션은 임포트를 위해 코드베이스에 코드를 주입하므로, 벤치마크 리포트의 'lib size' 메트릭은 거의 0에 가깝습니다. 코드 생성(Code generation)은 사용되는 함수에 필요한 로직(모든 접두사 vs 접두사 없음, 쿠키 vs 스토리지 등)만 포함되므로 좋은 방식입니다. 이에 비해 Intlayer는 빌드 시 환경 변수 주입을 통해 이 필터링을 수행하여 번들러가 로직에 따라 콘텐츠를 트리 쉐이킹하도록 강제합니다. 덕분에 paraglide와 intlayer는 i18next나 next-intl보다 6~10배 더 가벼운 솔루션이 됩니다.
+
+**(Tolgee)** (`@tolgee/react@7.0.0`):
 
 `Tolgee`는 앞에서 언급한 많은 문제들을 해결합니다. 비슷한 접근 방식을 가진 다른 도구들보다 시작하기 더 어렵다고 느꼈습니다. 타입 안전성을 제공하지 않아 컴파일 시점에 누락된 키를 찾는 것도 매우 어렵습니다. 누락된 키 감지 기능을 추가하기 위해 Tolgee의 API를 나의 API로 래핑해야 했습니다.
 

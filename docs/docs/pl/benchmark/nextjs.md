@@ -61,6 +61,13 @@ Ponieważ problem jest trudny, istnieje wiele rozwiązań — niektóre koncentr
 
 Intlayer stara się optymalizować we wszystkich tych wymiarach.
 
+## TL;DR
+
+- **Intlayer** i **next-translate**: Najlepsze wybory dla wydajności Next.js, oferujące najmniejszy rozmiar i najlepsze wsparcie dla statycznego renderowania.
+- **next-intl**: Najmodniejsza obecnie opcja, ale ciężka i skomplikowana w optymalizacji dla dużych aplikacji.
+- **next-i18next**: Popularna i bogata w pluginy, ale niesie ze sobą znaczny ciężar pakietu (~3× Intlayer).
+- **Unikaj**: **gt-next** i **lingo.dev** ze względu na poważne problemy z wydajnością, uzależnienie od dostawcy (vendor lock-in) i błędy blokujące budowanie.
+
 ## Przetestuj swoją aplikację
 
 Aby ujawnić te problemy, zbudowałem darmowy skaner, który możesz wypróbować [tutaj](https://intlayer.org/i18n-seo-scanner).
@@ -99,14 +106,14 @@ Wreszcie, `Intlayer` stosuje optymalizację w czasie budowania, dzięki czemu `u
 W tym benchmarku porównaliśmy następujące biblioteki:
 
 - `Base App` (Brak biblioteki i18n)
-- `next-intlayer` (v8.7.5)
+- `next-intlayer` (v8.7.12)
 - `next-i18next` (v16.0.5)
 - `next-intl` (v4.9.1)
 - `@lingui/core` (v5.3.0)
 - `next-translate` (v3.1.2)
 - `next-international` (v1.3.1)
 - `@inlang/paraglide-js` (v2.15.1)
-- `tolgee` (v7.0.0)
+- `@tolgee/react` (v7.0.0)
 - `@lingo.dev/compiler` (v0.4.0)
 - `wuchale` (v0.22.11)
 - `gt-next` (v6.16.5)
@@ -161,10 +168,10 @@ Napotkane problemy:
 
 **(General Translation)** (`gt-next@6.16.5`):
 
-- W przypadku aplikacji o rozmiarze 110 KB, `gt-react` dodaje ponad 440 KB ekstra.
+- W przypadku aplikacji o rozmiarze 110 KB, `gt-next` dodaje ponad 440 KB ekstra.
 - Komunikat `Quota Exceeded, please upgrade your plan` przy pierwszej próbie budowania z General Translation.
 - Tłumaczenia nie są renderowane; otrzymuję błąd `Error: <T> used on the client-side outside of <GTProvider>`, co wydaje się być błędem w bibliotece.
-- Podczas wdrażania **gt-tanstack-start-react** napotkałem również [problem](https://github.com/generaltranslation/gt/issues/1210#event-24510646961) z biblioteką: błąd `does not provide an export named 'printAST' - @formatjs/icu-messageformat-parser`, który powodował awarię aplikacji. Po zgłoszeniu tego problemu opiekun naprawił go w ciągu 24 godzin.
+- Podczas wdrażania **gt-next** napotkałem również [problem](https://github.com/generaltranslation/gt/issues/1210#event-24510646961) z biblioteką: błąd `does not provide an export named 'printAST' - @formatjs/icu-messageformat-parser`, który powodował awarię aplikacji. Po zgłoszeniu tego problemu opiekun naprawił go w ciągu 24 godzin.
 - Biblioteka blokuje statyczne renderowanie stron Next.js.
 
 **(Lingo.dev)** (`@lingo.dev/compiler@0.4.0`):
@@ -186,9 +193,11 @@ Idea stojąca za `Wuchale` jest interesująca, ale nie jest to jeszcze opłacaln
 Osobiście nie podoba mi się konieczność regenerowania plików JS przed każdym przesłaniem kodu (push), co stwarza ciągłe ryzyko konfliktów scalania (merge conflicts) przy Pull Requestach. Narzędzie wydaje się również bardziej skoncentrowane na Vite niż na Next.js.
 Wreszcie, w porównaniu z innymi rozwiązaniami, Paraglide nie używa magazynu (np. React context) do pobierania bieżącej lokalizacji w celu renderowania treści. Dla każdego przeanalizowanego węzła żąda lokalizacji z localStorage / cookie itp. Prowadzi to do wykonywania niepotrzebnej logiki, co wpływa na reaktywność komponentu.
 
+> Notatka o paraglide: rozwiązanie to wstrzykuje kod do Twojej bazy kodu w celu importu, w wyniku czego metryka 'rozmiar biblioteki' w raporcie benchmarka wynosi prawie 0. Generowanie kodu to dobra rzecz, ponieważ używana funkcja będzie zawierać tylko niezbędną logikę (wszystkie prefiksy vs brak prefiksów, ciasteczka vs storage itp.). Dla porównania, Intlayer wykonuje to filtrowanie poprzez wstrzykiwanie zmiennych środowiskowych w procesie budowania, aby wymusić na bundlerze usunięcie treści (tree-shake) w zależności od logiki. Dzięki temu paraglide i intlayer okazują się być od 6 do 10 razy lżejszymi rozwiązaniami niż i18next czy next-intl.
+
 ### 3 — Akceptowalne rozwiązania
 
-**(Tolgee)** (`tolgee@7.0.0`):
+**(Tolgee)** (`@tolgee/react@7.0.0`):
 
 `Tolgee` rozwiązuje wiele z wymienionych wcześniej problemów. Uznałem jednak, że trudniej go wdrożyć niż podobne narzędzia. Nie zapewnia on bezpieczeństwa typów (type safety), co utrudnia również wyłapywanie brakujących kluczy w czasie kompilacji. Musiałem opakować funkcje Tolgee we własne funkcje, aby dodać wykrywanie brakujących kluczy.
 
@@ -216,7 +225,7 @@ Różnią się również formaty komunikatów: `next-intl` używa ICU MessageFor
 
 `next-translate` to moja główna rekomendacja, jeśli lubisz API w stylu `t()`. Działa on elegancko poprzez `next-translate-plugin`, ładując przestrzenie nazw przez `getStaticProps` za pomocą loadera Webpack / Turbopack. Jest to również najlżejsza opcja w tym zestawieniu (~2.5 KB). Jeśli chodzi o przestrzenie nazw, definiowanie ich na poziomie strony lub trasy w konfiguracji jest przemyślane i łatwiejsze w utrzymaniu niż w przypadku głównych alternatyw, takich jak **next-intl** czy **next-i18next**. W wersji `3.1.2` zauważyłem, że statyczne renderowanie nie działało; Next.js powracał do renderowania dynamicznego.
 
-**(Intlayer)** (`next-intlayer@8.7.5`):
+**(Intlayer)** (`next-intlayer@8.7.12`):
 
 Nie będę osobiście oceniał `next-intlayer` ze względu na obiektywizm, ponieważ jest to moje własne rozwiązanie.
 

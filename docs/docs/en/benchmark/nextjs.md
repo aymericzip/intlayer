@@ -61,6 +61,13 @@ Because the problem is hard, many solutions exist—some focused on DX, others o
 
 Intlayer tries to optimize across these dimensions.
 
+## TL;DR
+
+- **Intlayer** & **next-translate**: Top picks for Next.js performance, offering the smallest footprint and best static rendering support.
+- **next-intl**: Trendiest option but heavy and complex to optimize for large applications.
+- **next-i18next**: Popular and plugin-rich, but carries significant bundle weight (~3× Intlayer).
+- **Avoid**: **gt-next** and **lingo.dev** due to severe performance issues, vendor lock-in, and build-breaking bugs.
+
 ## Test your app
 
 To surface these issues, I built a free scanner you can try [here](https://intlayer.org/i18n-seo-scanner).
@@ -99,7 +106,7 @@ Finally, `Intlayer` applies a build-time optimization so `useIntlayer('my-key')`
 For this benchmark, we compared the following libraries:
 
 - `Base App` (No i18n library)
-- `next-intlayer` (v8.7.5)
+- `next-intlayer` (v8.7.12)
 - `next-i18next` (v16.0.5)
 - `next-intl` (v4.9.1)
 - `@lingui/core` (v5.3.0)
@@ -187,6 +194,8 @@ Personally I dislike having to regenerate JS files before every push, which crea
 Even if in theory the tree-shaking strategy works, it does include all locales in the bundle anyway. Paraglide offers no way to lazy-load the content. That means your page size grows in line with the number of locales you have.
 Finally, in comparison with other solutions, Paraglide does not use a store (e.g. React context) to retrieve the current locale to render the content. For each node parsed, it will request the locale from the localStorage / cookie etc. It leads to execution of unnecessary logic that impacts the component reactivity.
 
+> Note on paraglide: the solution inject code in your codebase to import, as a result the metric 'lib size' in the benchmark report is almost 0. Code gen is a good think, because the function used will include only the necessary logic (prefix all vs no prefix, cookie vs storage etc). In comparison Intlayer process to this filtering using env variables injections in the build to force the bundler to tree shake the content depending of the logic. Thanks to this, paraglide and intlayer end up being solution 6-10 times lighter than i18next or next-intl.
+
 ### 3 - Acceptable solutions
 
 **(Tolgee)** (`@tolgee/react@7.0.0`):
@@ -217,7 +226,7 @@ Message formats also differ: `next-intl` uses ICU MessageFormat, while `i18next`
 
 `next-translate` is my main recommendation if you like a `t()`-style API. It is elegant via `next-translate-plugin`, loading namespaces through `getStaticProps` with a Webpack / Turbopack loader. It is also the lightest option here (~2.5kb). For namespacing, defining namespaces per page or route in config is well thought out and easier to maintain than main alternatives like **next-intl** or **next-i18next**. In version `3.1.2`, I noted that static rendering did not work; Next.js fell back to dynamic rendering.
 
-**(Intlayer)** (`next-intlayer@8.7.5`):
+**(Intlayer)** (`next-intlayer@8.7.12`):
 
 I will not personally judge `next-intlayer` for objectivity’s sake, since it is my own solution.
 

@@ -61,6 +61,13 @@ i18n 库的另一个影响是开发速度变慢。将组件转换为支持多语
 
 Intlayer 尝试在这些维度上进行优化。
 
+## TL;DR
+
+- **Intlayer** & **next-translate**: Next.js 性能的最佳选择，提供最小的体积和最佳的静态渲染支持。
+- **next-intl**: 最热门的选择，但体积庞大且对于大型应用优化复杂。
+- **next-i18next**: 流行且插件丰富，但打包体积显著（约为 Intlayer 的 3 倍）。
+- **应避免**: **gt-next** 和 **lingo.dev**，因为存在严重的性能问题、供应商锁定以及导致构建失败的 Bug。
+
 ## 测试你的应用
 
 为了发现这些问题，我构建了一个免费扫描器，你可以在[这里](https://intlayer.org/i18n-seo-scanner)试用。
@@ -99,14 +106,14 @@ Intlayer 尝试在这些维度上进行优化。
 在此基准测试中，我们对比了以下库：
 
 - `Base App`（无 i18n 库）
-- `next-intlayer` (v8.7.5)
+- `next-intlayer` (v8.7.12)
 - `next-i18next` (v16.0.5)
 - `next-intl` (v4.9.1)
 - `@lingui/core` (v5.3.0)
 - `next-translate` (v3.1.2)
 - `next-international` (v1.3.1)
 - `@inlang/paraglide-js` (v2.15.1)
-- `tolgee` (v7.0.0)
+- `@tolgee/react` (v7.0.0)
 - `@lingo.dev/compiler` (v0.4.0)
 - `wuchale` (v0.22.11)
 - `gt-next` (v6.16.5)
@@ -161,10 +168,10 @@ Intlayer 尝试在这些维度上进行优化。
 
 **(General Translation)** (`gt-next@6.16.5`):
 
-- 对于一个 110kb 的应用，`gt-react` 额外增加了超过 440kb。
+- 对于一个 110kb 的应用，`gt-next` 额外增加了超过 440kb。
 - 第一次使用 General Translation 构建就提示 `Quota Exceeded, please upgrade your plan`（配额超出，请升级计划）。
 - 翻译未渲染；我收到了错误 `Error: <T> used on the client-side outside of <GTProvider>`，这似乎是库的一个 Bug。
-- 在实施 **gt-tanstack-start-react** 时，我还遇到了该库的一个[问题](https://github.com/generaltranslation/gt/issues/1210#event-24510646961)：`does not provide an export named 'printAST' - @formatjs/icu-messageformat-parser`，这导致应用崩溃。在报告此问题后，维护者在 24 小时内修复了它。
+- 在实施 **gt-next** 时，我还遇到了该库的一个[问题](https://github.com/generaltranslation/gt/issues/1210#event-24510646961)：`does not provide an export named 'printAST' - @formatjs/icu-messageformat-parser`，这导致应用崩溃。在报告此问题后，维护者在 24 小时内修复了它。
 - 该库阻塞了 Next.js 页面的静态渲染。
 
 **(Lingo.dev)** (`@lingo.dev/compiler@0.4.0`):
@@ -186,9 +193,11 @@ Intlayer 尝试在这些维度上进行优化。
 就个人而言，我不喜欢每次推送到代码库前都要重新生成 JS 文件，这通过 PR 产生了持续的合并冲突风险。该工具似乎也更关注 Vite 而非 Next.js。
 最后，与其他解决方案相比，Paraglide 不使用存储（如 React Context）来检索当前语言环境以渲染内容。对于解析的每个节点，它都会从 localStorage / Cookie 等请求语言环境。这导致了影响组件响应性的不必要逻辑执行。
 
+> 关于 Paraglide 的说明：该解决方案通过将代码注入到你的代码库中进行导入，因此在基准测试报告中，“库体积”指标几乎为 0。代码生成是一件好事，因为所使用的函数将仅包含必要的逻辑（全前缀 vs 无前缀、Cookie vs 存储等）。相比之下，Intlayer 通过在构建中注入环境变量来强制打包工具根据逻辑对内容进行 Tree-shaking。得益于此，Paraglide 和 Intlayer 最终成为比 i18next 或 next-intl 轻 6 到 10 倍的解决方案。
+
 ### 3 — 可接受的解决方案
 
-**(Tolgee)** (`tolgee@7.0.0`):
+**(Tolgee)** (`@tolgee/react@7.0.0`):
 
 `Tolgee` 解决了前面提到的许多问题。我发现它比类似的工具更难采用。它不提供类型安全，这增加了在编译时捕捉缺失键的难度。我不得不使用自己的函数封装 Tolgee 的函数，以添加缺失键检测。
 
@@ -216,7 +225,7 @@ Intlayer 尝试在这些维度上进行优化。
 
 如果你喜欢 `t()` 风格的 API，`next-translate` 是我的主要推荐方案。它通过 `next-translate-plugin` 优雅运作，利用 Webpack / Turbopack loader 通过 `getStaticProps` 加载命名空间。它也是这些方案中最轻量的（约 2.5kb）。对于命名空间拆分，在配置中为每个页面或路由定义命名空间的设计非常周到，比 **next-intl** 或 **next-i18next** 等主要替代方案更易于维护。在版本 `3.1.2` 中，我注意到静态渲染无法工作，Next.js 会回退到动态渲染。
 
-**(Intlayer)** (`next-intlayer@8.7.5`):
+**(Intlayer)** (`next-intlayer@8.7.12`):
 
 出于客观性考量，我不会亲自评价 `next-intlayer`，因为这是我自己的解决方案。
 

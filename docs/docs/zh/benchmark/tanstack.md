@@ -57,6 +57,13 @@ history:
 
 另一个影响是开发体验（DX）：内容声明方式、类型、命名空间组织、动态加载以及语言环境更改时的响应性。
 
+## TL;DR
+
+- **Intlayer**: 为 TanStack Start 提供最佳性能和最小的打包体积 (v8.7.12)。
+- **react-i18next** & **use-intl**: 拥有庞大生态系统的成熟替代方案，但体积显著更大且优化更为复杂。
+- **Paraglide**: 创新的 Tree-shaking 理念，但在实际应用中并未生效。在 TanStack Start 中 DX 复杂且存在响应性开销。
+- **应当避免**: **General Translation (GT)** 和 **Lingo.dev**。由于严重的性能问题、AI 配额限制以及供应商锁定 (vendor lock-in)。
+
 ## 测试你的应用
 
 为了快速发现 i18n 泄漏问题，我建立了一个免费扫描器，你可以在[这里](https://intlayer.org/i18n-seo-scanner)试用。
@@ -87,12 +94,12 @@ history:
 在此基准测试中，我们对比了以下库：
 
 - `Base App`（无 i18n 库）
-- `react-intlayer` (v8.7.5-canary.0)
+- `react-intlayer` (v8.7.12)
 - `react-i18next` (v17.0.2)
 - `use-intl` (v4.9.1)
 - `@lingui/core` (v5.3.0)
 - `@inlang/paraglide-js` (v2.15.1)
-- `tolgee` (v7.0.0)
+- `@tolgee/react` (v7.0.0)
 - `react-intl` (v10.1.1)
 - `wuchale` (v0.22.11)
 - `gt-react` (vlatest)
@@ -150,7 +157,9 @@ history:
 
 `Paraglide` 提供了一种创新且经过深思熟虑的方法。即便如此，在此基准测试中，其公司宣称的 Tree-shaking 在我的 Next.js 实现或 TanStack Start 中并未生效。工作流和 DX 也比其他选项更复杂。就个人而言，我不喜欢每次推送到代码库前都要重新生成 JS 文件，这通过 PR 产生了持续的合并冲突风险。
 
-**(Tolgee)** (`tolgee@7.0.0`):
+> 关于 paraglide 的说明：该解决方案通过将代码注入到您的代码库中进行导入，因此基准测试报告中的“库体积”指标几乎为 0。代码生成是一件好事，因为所使用的函数将仅包含必要的逻辑（全部前缀 vs 无前缀、cookie vs 存储等）。相比之下，Intlayer 通过在构建中注入环境变量来进行过滤，以强制打包工具根据逻辑对内容进行 Tree-shake。得益于此，paraglide 和 intlayer 最终成为比 i18next 或 next-intl 轻 6-10 倍的解决方案。
+
+**(Tolgee)** (`@tolgee/react@7.0.0`):
 
 `Tolgee` 解决了前面提到的许多问题。我发现它比其他采用类似方法的工具更难上手。它不提供类型安全，这极大增加了在编译时捕捉缺失键的难度。我不得不使用自己的 API 封装 Tolgee 的 API 以添加缺失键检测。
 

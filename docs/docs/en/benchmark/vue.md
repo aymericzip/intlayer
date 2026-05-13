@@ -57,6 +57,12 @@ In practice, for the least optimized implementations, an internationalized page 
 
 The other impact is on developer experience: how you declare content, types, namespace organization, dynamic loading, and reactivity when the locale changes.
 
+## TL;DR
+
+- **Intlayer**: The most lightweight solution (v8.7.12) with built-in scoping and dynamic loading.
+- **vue-i18n**: The industry standard with a rich ecosystem but can be significantly heavier and harder to optimize for code-splitting in large applications.
+- **fluent-vue**: Innovative message organization but lacks type safety and is extremely heavy.
+
 ## Test your app
 
 To quickly spot i18n leakage issues, I set up a free scanner available [here](https://intlayer.org/i18n-seo-scanner).
@@ -88,8 +94,8 @@ For this benchmark, we compared the following libraries:
 
 - `Base App` (No i18n library)
 - `vue-intlayer` (v8.7.12)
-- `vue-i18n` (v11.1.1)
-- `fluent-vue` (v0.5.0)
+- `vue-i18n` (v11.4.0)
+- `fluent-vue` (v3.8.2)
 
 The framework is `Vue` with a multilingual app of **10 pages** and **10 languages**.
 
@@ -133,22 +139,22 @@ I ran the same multilingual app in a real browser for every stack, then wrote do
 
 ### 1 - Solutions to avoid
 
-**(vue-i18n)** (`vue-i18n@11.1.1`):
+> No clear solution to avoid in vue ecosystem.
+
+### 2 - Acceptable solutions
+
+**(vue-i18n)** (`vue-i18n@11.4.0`):
 
 - **vue-i18n** is without contestation the most used i18n library for vue, it has a lot of features and a huge ecosystem. but under the hood the solution is quite heavy. even if vue-i18n integrate lazy loading for messages, it miss a scoping feature. In the case of a classic Vue SPA app there is no issue, but for a nuxt app, using @nuxt/i18n, it leads to including the messages from all pages into a single one. For a big nuxt app including more than 10 pages, it can become really problematic.
 
+The package is very heavy (~24.3kb, which is about 9× `vue-intlayer`).
+
 **(fluent-vue)** (`fluent-vue@0.5.0`):
 
-- **fluent-vue** offer one inovation attempt thought the .ftl format. the message organization is great, easier to get started. but in practice, the lack of typesafty increase the risk of error and can quickly become time consuming to debug. Moreever, that solution load the messages using a vite plugin that force the loading of all the content in all languages into each page. Additionally this is an extreamly heavy solution (92kb gziped in comparison of 24kb gzipped for vue-i18n and 2.7kb gzipped for intlayer once the app bundled on a vue app)
+- **fluent-vue** offer one inovation attempt thought the .ftl format. the message organization is great, easier to get started. but in practice, the lack of typesafty increase the risk of error and can quickly become time consuming to debug. Moreever, that solution load the messages using a vite plugin that force the loading of all the content in all languages into each page. Additionally this is an extremely heavy solution (~92.7kb, which is about 34× `vue-intlayer`).
 
-### 2 - Recommendations
+### 3 - Recommendations
 
 **(Intlayer)** (`vue-intlayer@8.7.12`):
 
 I will not personally judge `vue-intlayer` for objectivity’s sake, since it is my own solution.
-
-### Personal note
-
-This note is personal and does not affect the benchmark results. Still, in the i18n world you often see consensus around a pattern like `const { t } = useI18n()` + `<>{t('xx.xx')}</>` for translated content.
-
-In Vue apps, injecting a function as a `VNode` is, in my view, an anti-pattern. It also adds avoidable complexity and JavaScript execution overhead (even if it is barely noticeable).
