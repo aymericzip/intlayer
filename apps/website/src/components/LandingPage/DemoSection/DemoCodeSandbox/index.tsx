@@ -1,51 +1,44 @@
 'use client';
 
+import { Container } from '@intlayer/design-system/container';
 import { Loader } from '@intlayer/design-system/loader';
+import { useIntlayer } from 'next-intlayer';
+import { useTheme } from 'next-themes';
 import { type FC, useEffect, useRef, useState } from 'react';
 
-const REPO_PATH = '/aymericzip/intlayer-next-15-template';
+interface DemoCodeSandboxProps {
+  repoPath?: string;
+  framework?: string;
+}
 
-export const DemoCodeSandbox: FC = () => {
-  const [isVisible, setIsVisible] = useState(false);
+export const DemoCodeSandbox: FC<DemoCodeSandboxProps> = ({
+  repoPath = '/aymericzip/intlayer-next-16-template',
+  framework = repoPath.split('/').pop() ?? '',
+}) => {
+  const content = useIntlayer('demo-code-sandbox');
+  const { resolvedTheme } = useTheme();
   const ref = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const checkVisibility = () => {
-      if (!isVisible) {
-        // Example condition: check if the element is in the viewport
-        const rect = ref.current?.getBoundingClientRect();
-        setIsVisible(
-          (rect && rect.top >= 0 && rect.bottom <= window.innerHeight) ?? false
-        );
-      }
-    };
-
-    // Run the visibility check on mount
-    checkVisibility();
-
-    // Optional: Re-check visibility on window resize or scroll
-    window.addEventListener('resize', checkVisibility, { passive: true });
-    window.addEventListener('scroll', checkVisibility, { passive: true });
-
-    // Cleanup listeners
-    return () => {
-      window.removeEventListener('resize', checkVisibility);
-      window.removeEventListener('scroll', checkVisibility);
-    };
-  }, [isVisible]);
-
   return (
-    <div ref={ref} className="m-auto w-full">
-      <Loader isLoading={!isVisible} />
-      {isVisible && (
-        <iframe
-          src={`https://ide.intlayer.org/${REPO_PATH}?embed=1&file=README.md`}
-          className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-          title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
-          sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-          loading="lazy"
-        />
-      )}
-    </div>
+    <Container
+      ref={ref}
+      className="m-auto w-full overflow-hidden"
+      roundedSize="3xl"
+      background="with"
+      border
+      borderColor="card"
+    >
+      <iframe
+        src={`https://ide.intlayer.org${repoPath}?embed=1&file=intlayer.config.ts&theme=${resolvedTheme}&framework=${framework}`}
+        className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+        title={
+          content.demoCodesandboxHowToInternationalize({
+            framework,
+          }).value
+        }
+        sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+        loading="lazy"
+      />
+    </Container>
   );
 };

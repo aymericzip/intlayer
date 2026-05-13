@@ -107,6 +107,7 @@ const secureHeaders = {
       frameSrc: [
         "'self'",
         '*.youtube.com',
+        '*.intlayer.org',
         'github.dev',
         'htmlpreview.github.io',
         'github.com',

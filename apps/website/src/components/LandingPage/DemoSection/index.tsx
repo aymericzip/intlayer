@@ -7,25 +7,39 @@ import {
 import { useIntlayer } from 'next-intlayer';
 import { type FC, useState } from 'react';
 import { DemoCodeSandbox } from './DemoCodeSandbox';
-import { DemoYoutube } from './DemoYoutube';
 
 enum DemoType {
-  Youtube,
-  CodeSandbox,
+  Nextjs,
+  Tanstack,
+  Astro,
+  Nuxt,
+  Svelte,
 }
 
 export const DemoSection: FC = () => {
-  const [demoType, setDemoType] = useState<DemoType>(DemoType.Youtube);
+  const [demoType, setDemoType] = useState<DemoType>(DemoType.Nextjs);
   const { title, demoSwitchSelector } = useIntlayer('demo-section');
 
   const demoSection = [
     {
-      content: demoSwitchSelector.youtube,
-      value: DemoType.Youtube,
+      content: demoSwitchSelector.nextjs,
+      value: DemoType.Nextjs,
     },
     {
-      content: demoSwitchSelector.codeSandbox,
-      value: DemoType.CodeSandbox,
+      content: demoSwitchSelector.tanstack,
+      value: DemoType.Tanstack,
+    },
+    {
+      content: demoSwitchSelector.astro,
+      value: DemoType.Astro,
+    },
+    {
+      content: demoSwitchSelector.nuxt,
+      value: DemoType.Nuxt,
+    },
+    {
+      content: demoSwitchSelector.svelte,
+      value: DemoType.Svelte,
     },
   ] as SwitchSelectorChoices<DemoType>;
 
@@ -38,10 +52,40 @@ export const DemoSection: FC = () => {
           choices={demoSection}
           defaultValue={demoType}
           onChange={setDemoType}
+          itemClassName="text-nowrap"
           color="text"
+          size="sm"
         />
-        {demoType === DemoType.Youtube && <DemoYoutube />}
-        {demoType === DemoType.CodeSandbox && <DemoCodeSandbox />}
+        {demoType === DemoType.Nextjs && (
+          <DemoCodeSandbox
+            repoPath="/aymericzip/intlayer-next-16-template"
+            framework="Next.js"
+          />
+        )}
+        {demoType === DemoType.Tanstack && (
+          <DemoCodeSandbox
+            repoPath="/aymericzip/intlayer-tanstack-start-template"
+            framework="Tanstack Start"
+          />
+        )}
+        {demoType === DemoType.Astro && (
+          <DemoCodeSandbox
+            repoPath="/aymericzip/intlayer-astro-template"
+            framework="Astro"
+          />
+        )}
+        {demoType === DemoType.Nuxt && (
+          <DemoCodeSandbox
+            repoPath="/aymericzip/intlayer-nuxt-4-template"
+            framework="Nuxt"
+          />
+        )}
+        {demoType === DemoType.Svelte && (
+          <DemoCodeSandbox
+            repoPath="/aymericzip/intlayer-vite-svelte-template"
+            framework="Svelte"
+          />
+        )}
       </div>
     </section>
   );
