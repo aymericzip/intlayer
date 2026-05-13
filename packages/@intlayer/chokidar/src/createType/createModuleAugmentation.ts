@@ -4,7 +4,6 @@ import { kebabCaseToCamelCase, normalizePath } from '@intlayer/config/utils';
 import type { Locale } from '@intlayer/types/allLocales';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import fg from 'fast-glob';
-import { createAuxiliaryTypeStore, printNode, zodToTs } from 'zod-to-ts';
 import { getPathHash } from '../utils';
 import { writeFileIfChanged } from '../writeFileIfChanged';
 
@@ -82,10 +81,17 @@ const zodToTsString = (schema: any): string => {
   }
 };
 
+type ZodToTsFns = {
+  zodToTs: (schema: any, opts?: any) => { node: any };
+  printNode: (node: any) => string;
+  createAuxiliaryTypeStore: () => any;
+};
+
 /** Generate the content of the module augmentation file */
 const generateTypeIndexContent = (
   typeFiles: string[],
-  configuration: IntlayerConfig
+  configuration: IntlayerConfig,
+  zodToTsFns: ZodToTsFns | null
 ): string => {
   const { internationalization, system, editor } = configuration;
   const { moduleAugmentationDir } = system;
@@ -131,14 +137,17 @@ const generateTypeIndexContent = (
 
       if (schema) {
         try {
-          const { node } = zodToTs(schema, {
-            auxiliaryTypeStore: createAuxiliaryTypeStore(),
-          });
-          // 133 is the kind for AnyKeyword in TypeScript
-          if ((node as any).kind !== 133) {
-            typeStr = printNode(node);
+          if (zodToTsFns) {
+            const { node } = zodToTsFns.zodToTs(schema, {
+              auxiliaryTypeStore: zodToTsFns.createAuxiliaryTypeStore(),
+            });
+            // 133 is the kind for AnyKeyword in TypeScript
+            if ((node as any).kind !== 133) {
+              typeStr = zodToTsFns.printNode(node);
+            } else {
+              typeStr = zodToTsString(schema);
+            }
           } else {
-            // Fallback to custom string generator if zodToTs returns any
             typeStr = zodToTsString(schema);
           }
         } catch (_e) {
@@ -192,9 +201,22 @@ export const createModuleAugmentation = async (
     { ignore: ['**/*.d.ts'] }
   );
 
+  let zodToTsFns: ZodToTsFns | null = null;
+  try {
+    const mod = await import('zod-to-ts');
+    zodToTsFns = {
+      zodToTs: mod.zodToTs,
+      printNode: mod.printNode,
+      createAuxiliaryTypeStore: mod.createAuxiliaryTypeStore,
+    };
+  } catch {
+    // typescript peer dep not installed (plain JS project), use fallback
+  }
+
   const tsContent = generateTypeIndexContent(
     dictionariesTypesDefinitions,
-    configuration
+    configuration,
+    zodToTsFns
   );
 
   const tsFilePath = join(moduleAugmentationDir, 'intlayer.d.ts');
