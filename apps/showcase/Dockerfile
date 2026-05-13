@@ -9,7 +9,7 @@ FROM node:26-alpine AS builder
 
 # RUN apk add --no-cache wget
 
-RUN npm install -g bun@1.3.13
+RUN npm install -g bun@1.3.14
 
 
 # Create app directory
@@ -64,7 +64,7 @@ RUN bun run build && bun run preserve
 
 
 # Runner
-FROM oven/bun:1.3.13-alpine AS runner
+FROM oven/bun:1.3.14-alpine AS runner
 
 RUN apk add --no-cache wget
 

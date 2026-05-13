@@ -6,7 +6,7 @@
 # https://github.com/oven-sh/bun/issues/4795
 FROM node:26-alpine AS builder
 
-RUN npm install -g bun@1.3.13
+RUN npm install -g bun@1.3.14
 
 WORKDIR /workspace
 
@@ -67,7 +67,7 @@ RUN bun x turbo run build:ci --filter=./packages/@intlayer/mcp
 RUN find . -path "*/src/*" -type f \( -name "*.ts" -o -name "*.tsx" -o -name "*.map" \) -not -path "*/node_modules/*" -delete
 
 # Runner — use oven/bun base image to avoid npm install overhead
-FROM oven/bun:1.3.13-alpine AS runner
+FROM oven/bun:1.3.14-alpine AS runner
 
 RUN apk add --no-cache wget
 

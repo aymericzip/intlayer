@@ -3,7 +3,7 @@
 # Base stage: system deps shared between builder and runner
 FROM node:26-alpine AS base
 
-RUN npm install -g bun@1.3.13
+RUN npm install -g bun@1.3.14
 
 # System deps for wget (healthcheck) + headless Chromium (Puppeteer)
 RUN apk add --no-cache \
