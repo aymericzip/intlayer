@@ -8,6 +8,7 @@ import {
 } from '@intlayer/design-system/hooks';
 import { useToast } from '@intlayer/design-system/toaster';
 import { useMutation } from '@tanstack/react-query';
+import { defu } from 'defu';
 import { useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { parseConfigContent } from '../parseConfigContent';
@@ -141,7 +142,9 @@ export const useProjectConfigActions = () => {
           return fileContent;
         }
 
-        await pushProjectConfiguration(parsedConfig);
+        await pushProjectConfiguration(
+          defu(parsedConfig, project.configuration)
+        );
         setViewOnlyConfigContent(fileContent);
 
         toast({
@@ -192,7 +195,7 @@ export const useProjectConfigActions = () => {
       repository: repositoryData,
     });
 
-    await pushProjectConfiguration(parsedConfig);
+    await pushProjectConfiguration(defu(parsedConfig, project.configuration));
 
     onSuccess?.();
   };

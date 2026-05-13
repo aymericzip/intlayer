@@ -3,6 +3,7 @@ import { SearchInput } from '@intlayer/design-system/input';
 import { useVirtualizer } from '@tanstack/react-virtual';
 import Fuse from 'fuse.js';
 import { type FC, useMemo, useRef } from 'react';
+import { useIntlayer } from 'react-intlayer';
 import { useRepositoryList } from './hooks/useRepositoryList';
 import { RepositoryItem } from './RepositoryItem';
 import type { RepoData, RepositoryProvider } from './types';
@@ -20,6 +21,7 @@ export const RepositoryList: FC<RepositoryListProps> = ({
   gitlabInstanceUrl,
   onConfigDetected,
 }) => {
+  const { repositoryList } = useIntlayer('repository-link');
   const { repos, isLoadingRepos, processingRepoId, handleSelectRepo } =
     useRepositoryList({
       selectedProvider,
@@ -64,7 +66,7 @@ export const RepositoryList: FC<RepositoryListProps> = ({
     <div className="flex max-h-[500px] flex-col">
       <div className="border-card border-b p-4">
         <SearchInput
-          placeholder="Search repositories..."
+          placeholder={repositoryList.searchPlaceholder}
           defaultValue={search}
           onChange={(e) => setSearch(e.target.value)}
         />
@@ -74,11 +76,11 @@ export const RepositoryList: FC<RepositoryListProps> = ({
       <div ref={parentRef} className="flex flex-1 flex-col overflow-y-auto">
         {isLoadingRepos ? (
           <div className="py-8 text-center">
-            <p className="text-neutral text-sm">Loading repositories...</p>
+            <p className="text-neutral text-sm">{repositoryList.loading}</p>
           </div>
         ) : filteredRepos.length === 0 ? (
           <div className="py-8 text-center">
-            <p className="text-neutral text-sm">No repositories found.</p>
+            <p className="text-neutral text-sm">{repositoryList.empty}</p>
           </div>
         ) : (
           /* The Virtualized List Wrapper */
