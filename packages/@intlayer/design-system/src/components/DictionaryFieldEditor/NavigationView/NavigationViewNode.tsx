@@ -1,4 +1,4 @@
-import { Accordion } from '@components/Accordion';
+import { Accordion, type AccordionProps } from '@components/Accordion';
 import {
   Button,
   ButtonColor,
@@ -23,11 +23,34 @@ import type { KeyPath } from '@intlayer/types/keyPath';
 import * as NodeTypes from '@intlayer/types/nodeType';
 import type { ContentNode, Dictionary } from 'intlayer';
 import { ChevronRight, Plus } from 'lucide-react';
-import type { FC } from 'react';
+import { type FC, type ReactNode, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { getIsEditableSection } from '../getIsEditableSection';
 
 export const traceKeys: string[] = ['filePath', 'id', 'nodeType'];
+
+type GatedAccordionProps = AccordionProps & { children: ReactNode };
+
+// Renders children only after the accordion is first opened (mount-once pattern).
+// Prevents the entire recursive subtree from mounting on initial render.
+const GatedAccordion: FC<GatedAccordionProps> = ({
+  children,
+  onToggle,
+  ...props
+}) => {
+  const [hasOpened, setHasOpened] = useState(false);
+  return (
+    <Accordion
+      {...props}
+      onToggle={(isOpen) => {
+        if (isOpen && !hasOpened) setHasOpened(true);
+        onToggle?.(isOpen);
+      }}
+    >
+      {hasOpened ? children : null}
+    </Accordion>
+  );
+};
 
 export type NodeWrapperProps = {
   keyPath: KeyPath[];
@@ -155,7 +178,7 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
             }
 
             return (
-              <Accordion
+              <GatedAccordion
                 key={JSON.stringify(childKeyPath)}
                 label={`${goToField.label.value} ${index}`}
                 header={`Item ${index}`}
@@ -171,7 +194,7 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
                     />
                   </div>
                 </div>
-              </Accordion>
+              </GatedAccordion>
             );
           })}
 
@@ -256,7 +279,7 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
           }
 
           return (
-            <Accordion
+            <GatedAccordion
               key={key}
               label={`${goToField.label.value} ${key}`}
               isActive={getIsSelected(childKeyPath)}
@@ -272,7 +295,7 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
                   />
                 </div>
               </div>
-            </Accordion>
+            </GatedAccordion>
           );
         })}
       </div>

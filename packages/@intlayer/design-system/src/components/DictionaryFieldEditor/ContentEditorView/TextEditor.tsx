@@ -1,5 +1,6 @@
 'use client';
 
+import { Accordion } from '@components/Accordion';
 import {
   Button,
   ButtonColor,
@@ -19,8 +20,8 @@ import {
 import { renameKey } from '@components/DictionaryFieldEditor/ContentEditorView/object';
 import { InputVariant } from '@components/Input';
 import { Label } from '@components/Label';
+import { Loader } from '@components/Loader';
 import { useLocaleSwitcherContent } from '@components/LocaleSwitcherContentDropDown';
-import { MarkdownRenderer } from '@components/MarkDownRender';
 import {
   SwitchSelector,
   type SwitchSelectorChoices,
@@ -29,6 +30,7 @@ import {
   SwitchSelectorSize,
 } from '@components/SwitchSelector';
 import { useAuditContentDeclarationField } from '@hooks/reactQuery';
+import { camelCaseToSentence } from '@intlayer/config/client';
 import {
   getEmptyNode,
   getNodeType,
@@ -51,9 +53,42 @@ import type { KeyPath } from '@intlayer/types/keyPath';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import * as NodeTypes from '@intlayer/types/nodeType';
 import { Plus, Trash, WandSparkles } from 'lucide-react';
-import { type FC, Fragment, type ReactNode, useState } from 'react';
+import {
+  type FC,
+  Fragment,
+  lazy,
+  memo,
+  type ReactNode,
+  Suspense,
+  useState,
+} from 'react';
 import { useIntlayer, useLocale } from 'react-intlayer';
 import { EnumKeyInput } from '../EnumKeyInput';
+
+const LazyMarkdownRenderer = lazy(() =>
+  import('@components/MarkDownRender').then((m) => ({
+    default: m.MarkdownRenderer,
+  }))
+);
+
+// Renders children only after the accordion is first opened (mount-once pattern).
+// Prevents deeply nested sub-trees from mounting on initial render.
+type CollapsibleEditorProps = TextEditorProps & { label: string };
+const CollapsibleEditor = memo<CollapsibleEditorProps>(
+  function CollapsibleEditor({ label, ...editorProps }) {
+    const [hasOpened, setHasOpened] = useState(false);
+    return (
+      <Accordion
+        header={label}
+        onToggle={(isOpen) => {
+          if (isOpen && !hasOpened) setHasOpened(true);
+        }}
+      >
+        {hasOpened ? <TextEditor {...editorProps} /> : null}
+      </Accordion>
+    );
+  }
+);
 
 export const traceKeys: string[] = ['filePath', 'id', 'nodeType'];
 
@@ -586,28 +621,29 @@ const ObjectTextEditor: FC<TextEditorProps> = ({
   keyPath,
   dictionary,
   renderSection,
-}) => (
-  <>
+}) => {
+  const typedSection = section as unknown as Record<string, ContentNode>;
+  const firstKey = Object.keys(typedSection)[0] as keyof typeof section;
+
+  return (
     <table className="w-full">
       <tbody className="flex flex-col gap-2">
-        {Object.keys(section as unknown as Record<string, ContentNode>).map(
-          (key) => {
-            const childKeyPath: KeyPath[] = [
-              ...keyPath,
-              { type: NodeTypes.OBJECT, key },
-            ];
-            const typedSection = section as unknown as Record<
-              string,
-              ContentNode
-            >;
-            const firstKey = Object.keys(
-              typedSection
-            )[0] as keyof typeof section;
-            const subSection =
-              typedSection[key as keyof typeof section] ??
-              getEmptyNode(typedSection[firstKey]);
-            const uniqueKey = `${JSON.stringify(keyPath)}-object-${key}`;
+        {Object.keys(typedSection).map((key) => {
+          const childKeyPath: KeyPath[] = [
+            ...keyPath,
+            { type: NodeTypes.OBJECT, key },
+          ];
+          const subSection =
+            typedSection[key as keyof typeof section] ??
+            getEmptyNode(typedSection[firstKey]);
+          const uniqueKey = `${JSON.stringify(keyPath)}-object-${key}`;
+          // Collapse any object/array (typed or plain) — only true primitives render inline.
+          // getIsEditableSection can't be used here: it inspects getNodeChildren(), which for
+          // translation nodes returns the first locale value (a string), causing translation
+          // subtrees to be mistakenly treated as leaves and mounted all at once.
+          const isLeaf = subSection === null || typeof subSection !== 'object';
 
+          if (isLeaf) {
             return (
               <Fragment key={uniqueKey}>
                 <tr className="mt-2 p-2 text-xs">
@@ -626,11 +662,28 @@ const ObjectTextEditor: FC<TextEditorProps> = ({
               </Fragment>
             );
           }
-        )}
+
+          return (
+            <tr
+              key={uniqueKey}
+              className="block w-full border-neutral/10 border-t py-1"
+            >
+              <td className="flex w-full">
+                <CollapsibleEditor
+                  label={camelCaseToSentence(key)}
+                  section={subSection}
+                  keyPath={childKeyPath}
+                  dictionary={dictionary}
+                  renderSection={renderSection}
+                />
+              </td>
+            </tr>
+          );
+        })}
       </tbody>
     </table>
-  </>
-);
+  );
+};
 
 enum MarkdownViewMode {
   Edit,
@@ -733,9 +786,11 @@ const MarkdownTextEditor: FC<TextEditorProps> = ({
         renderSection={
           mode === MarkdownViewMode.Preview
             ? (content) => (
-                <MarkdownRenderer isDarkMode={isDarkMode}>
-                  {content}
-                </MarkdownRenderer>
+                <Suspense fallback={<Loader />}>
+                  <LazyMarkdownRenderer isDarkMode={isDarkMode}>
+                    {content}
+                  </LazyMarkdownRenderer>
+                </Suspense>
               )
             : undefined
         }
@@ -845,13 +900,13 @@ const NestedTextEditor: FC<TextEditorProps> = ({
   );
 };
 
-export const TextEditor: FC<TextEditorProps> = ({
+export const TextEditor = memo<TextEditorProps>(function TextEditor({
   section,
   keyPath,
   dictionary,
   renderSection,
   isDarkMode,
-}) => {
+}) {
   const { tsxNotEditable } = useIntlayer('navigation-view');
   const nodeType = getNodeType(section);
 
@@ -1038,15 +1093,19 @@ export const TextEditor: FC<TextEditorProps> = ({
       NodeType : {nodeType}
     </div>
   );
-};
+});
 
-export const TextEditorContainer: FC<TextEditorProps> = (props) => (
-  <Container
-    border
-    background="none"
-    className="top-6 flex h-full flex-1 flex-col gap-6 overflow-hidden p-2 md:sticky"
-    roundedSize="xl"
-  >
-    <TextEditor {...props} />
-  </Container>
+export const TextEditorContainer = memo<TextEditorProps>(
+  function TextEditorContainer(props) {
+    return (
+      <Container
+        border
+        background="none"
+        className="top-6 flex h-full flex-1 flex-col gap-6 overflow-hidden p-2 md:sticky"
+        roundedSize="2xl"
+      >
+        <TextEditor {...props} />
+      </Container>
+    );
+  }
 );

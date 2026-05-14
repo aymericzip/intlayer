@@ -9,11 +9,11 @@ import {
 } from '@intlayer/editor-react';
 import type { Dictionary } from '@intlayer/types/dictionary';
 import { ArrowLeft } from 'lucide-react';
-import { type FC, useEffect } from 'react';
+import { type FC, useEffect, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { Button, ButtonColor, ButtonVariant } from '../Button';
 import { LocaleSwitcherContentProvider } from '../LocaleSwitcherContentDropDown';
-import { Tab } from '../Tab';
+import { TabSelector, TabSelectorColor } from '../TabSelector';
 import { ContentEditor } from './ContentEditor';
 import { DictionaryDetailsForm } from './DictionaryDetails/DictionaryDetailsForm';
 import { JSONEditor } from './JSONEditor';
@@ -43,6 +43,7 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
   const { returnToDictionaryList } = useIntlayer('dictionary-field-editor');
   const { focusedContent, setFocusedContent } = useFocusUnmergedDictionary();
   const { setLocaleDictionary } = useDictionariesRecordActions();
+  const [activeTab, setActiveTab] = useState<string>('content');
 
   useEffect(() => {
     setFocusedContent({
@@ -71,28 +72,77 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
           </Button>
         )}
 
-        <div className="mb-22 min-h-0 flex-1">
-          <Tab
-            defaultTab="content"
-            variant="ghost"
-            fullHeight
-            headerClassName="sticky top-0 z-10 rounded-xl bg-background/20 pb-4"
-          >
-            {mode.includes('remote') && (
-              <Tab.Item label="Details" value="details">
+        <div className="mb-22 flex min-h-0 flex-1 flex-col overflow-hidden">
+          {/* Tab headers */}
+          <div className="sticky top-0 z-10 flex shrink-0 gap-3 rounded-xl bg-background/20 p-3 pb-4">
+            <TabSelector
+              selectedChoice={activeTab}
+              tabs={[
+                ...(mode.includes('remote')
+                  ? [
+                      <button
+                        key="details"
+                        className="cursor-pointer whitespace-nowrap rounded-md px-4 py-1 font-medium text-sm transition-colors focus:outline-none"
+                        data-active={activeTab === 'details'}
+                        onClick={() => setActiveTab('details')}
+                        type="button"
+                      >
+                        Details
+                      </button>,
+                    ]
+                  : []),
+                <button
+                  key="structure"
+                  className="cursor-pointer whitespace-nowrap rounded-md px-4 py-1 font-medium text-sm transition-colors focus:outline-none"
+                  data-active={activeTab === 'structure'}
+                  onClick={() => setActiveTab('structure')}
+                  type="button"
+                >
+                  Structure
+                </button>,
+                <button
+                  key="content"
+                  className="cursor-pointer whitespace-nowrap rounded-md px-4 py-1 font-medium text-sm transition-colors focus:outline-none"
+                  data-active={activeTab === 'content'}
+                  onClick={() => setActiveTab('content')}
+                  type="button"
+                >
+                  Content
+                </button>,
+                <button
+                  key="json"
+                  className="cursor-pointer whitespace-nowrap rounded-md px-4 py-1 font-medium text-sm transition-colors focus:outline-none"
+                  data-active={activeTab === 'json'}
+                  onClick={() => setActiveTab('json')}
+                  type="button"
+                >
+                  JSON
+                </button>,
+              ]}
+              hoverable
+              color={TabSelectorColor.TEXT}
+            />
+          </div>
+          {/* Tab content — only active panel is mounted */}
+          <div className="min-h-0 flex-1 overflow-y-auto p-6">
+            <div className="flex w-full min-w-0 flex-col items-stretch gap-6">
+              {mode.includes('remote') && activeTab === 'details' && (
                 <DictionaryDetailsForm dictionary={dictionary} mode={mode} />
-              </Tab.Item>
-            )}
-            <Tab.Item label="Structure" value="structure">
-              <StructureEditor dictionary={dictionary} />
-            </Tab.Item>
-            <Tab.Item label="Content" value="content">
-              <ContentEditor dictionary={dictionary} isDarkMode={isDarkMode} />
-            </Tab.Item>
-            <Tab.Item label="JSON" value="json">
-              <JSONEditor dictionary={dictionary} isDarkMode={isDarkMode} />
-            </Tab.Item>
-          </Tab>
+              )}
+              {activeTab === 'structure' && (
+                <StructureEditor dictionary={dictionary} />
+              )}
+              {activeTab === 'content' && (
+                <ContentEditor
+                  dictionary={dictionary}
+                  isDarkMode={isDarkMode}
+                />
+              )}
+              {activeTab === 'json' && (
+                <JSONEditor dictionary={dictionary} isDarkMode={isDarkMode} />
+              )}
+            </div>
+          </div>
         </div>
 
         <div className="absolute bottom-3 z-20 w-full p-2">

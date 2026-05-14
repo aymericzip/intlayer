@@ -7,7 +7,7 @@ import {
   useFocusUnmergedDictionary,
 } from '@intlayer/editor-react';
 import type { Dictionary, LocalDictionaryId } from '@intlayer/types/dictionary';
-import { type FC, useEffect } from 'react';
+import { type FC, useDeferredValue, useEffect, useTransition } from 'react';
 import { Container } from '../Container';
 import { LocaleSwitcherContent } from '../LocaleSwitcherContentDropDown';
 import { TextEditorContainer } from './ContentEditorView/TextEditor';
@@ -26,8 +26,14 @@ export const ContentEditor: FC<NodeEditorProps> = ({
 }) => {
   const { content, key, localId } = dictionary;
   const { editedContent } = useEditedContent();
-  const { focusedContent, setFocusedContentKeyPath } =
-    useFocusUnmergedDictionary();
+  const {
+    focusedContent,
+    setFocusedContentKeyPath: _setFocusedContentKeyPath,
+  } = useFocusUnmergedDictionary();
+  const [, startTransition] = useTransition();
+  const setFocusedContentKeyPath: typeof _setFocusedContentKeyPath = (
+    keyPath
+  ) => startTransition(() => _setFocusedContentKeyPath(keyPath));
 
   const focusedKeyPath = focusedContent?.keyPath;
   const section =
@@ -42,8 +48,15 @@ export const ContentEditor: FC<NodeEditorProps> = ({
     focusedKeyPath ?? [],
     currentLocale
   );
+
+  // Defer the expensive right-panel render so navigation clicks feel instant.
+  // The stale section stays visible while React computes the new one in background.
+  const deferredKeyPath = useDeferredValue(focusedKeyPath);
+  const deferredSection = useDeferredValue(focusedSection);
+  const isStale = deferredSection !== focusedSection;
+
   const isEditableBaseSection = getIsEditableSection(section);
-  const isEditableFocusedSection = getIsEditableSection(focusedSection);
+  const isEditableFocusedSection = getIsEditableSection(deferredSection);
 
   useEffect(() => {
     if (typeof focusedSection === 'undefined') {
@@ -72,7 +85,7 @@ export const ContentEditor: FC<NodeEditorProps> = ({
               border
               background="none"
               className="top-10 flex h-full flex-col items-start gap-0.5 overflow-auto p-2 md:sticky md:max-w-[50%]"
-              roundedSize="xl"
+              roundedSize="2xl"
               transparency="xs"
             >
               <NavigationViewNode
@@ -82,13 +95,21 @@ export const ContentEditor: FC<NodeEditorProps> = ({
               />
             </Container>
           )}
-        {(isEditableFocusedSection || (focusedKeyPath ?? []).length > 0) && (
-          <TextEditorContainer
-            keyPath={focusedKeyPath ?? []}
-            section={focusedSection}
-            dictionary={dictionary}
-            isDarkMode={isDarkMode}
-          />
+        {(isEditableFocusedSection || (deferredKeyPath ?? []).length > 0) && (
+          <div
+            className={
+              isStale
+                ? 'pointer-events-none flex-1 opacity-50 transition-opacity'
+                : 'flex-1 transition-opacity'
+            }
+          >
+            <TextEditorContainer
+              keyPath={deferredKeyPath ?? []}
+              section={deferredSection}
+              dictionary={dictionary}
+              isDarkMode={isDarkMode}
+            />
+          </div>
         )}
       </div>
     </div>
