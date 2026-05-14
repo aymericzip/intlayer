@@ -80,13 +80,13 @@
     "@intlayer/core": "workspace:*",
     "@intlayer/types": "workspace:*",
     "@toon-format/toon": "2.2.0",
-    "ai": "6.0.180",
+    "ai": "6.0.182",
     "zod": "4.4.3"
   },
   "devDependencies": {
     "@ai-sdk/alibaba": "1.0.23",
     "@ai-sdk/amazon-bedrock": "4.0.105",
-    "@ai-sdk/deepseek": "2.0.34",
+    "@ai-sdk/deepseek": "2.0.35",
     "@ai-sdk/fireworks": "2.0.52",
     "@ai-sdk/google": "3.0.73",
     "@ai-sdk/google-vertex": "^4.0.122",
