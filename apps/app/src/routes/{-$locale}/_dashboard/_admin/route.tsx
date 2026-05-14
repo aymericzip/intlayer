@@ -55,7 +55,7 @@ function AdminLayout() {
     <AuthenticationBarrier accessRule="admin" locale={locale}>
       <div className="flex flex-1 flex-col">
         <AdminTabBar />
-        <section className="flex flex-1 flex-col p-10">
+        <section className="flex flex-1 flex-col justify-center p-10">
           <div className="mb-10 p-4">
             <AdminBreadcrumb />
           </div>

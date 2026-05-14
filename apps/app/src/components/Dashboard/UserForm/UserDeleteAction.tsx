@@ -1,4 +1,5 @@
 import type { UserAPI } from '@intlayer/backend';
+import { Container } from '@intlayer/design-system/container';
 import { Form } from '@intlayer/design-system/form';
 import { useDeleteUser, useGetUserById } from '@intlayer/design-system/hooks';
 import { Loader } from '@intlayer/design-system/loader';
@@ -59,12 +60,18 @@ export const UserDeleteAction: FC<{ userId: string }> = ({ userId }) => {
     <>
       <Loader isLoading={isLoading}>
         {user ? (
-          <div className="rounded-lg border-2 border-red-200 bg-red-50 p-6 dark:border-red-900 dark:bg-red-950/20">
+          <Container
+            roundedSize="2xl"
+            padding="md"
+            border
+            borderColor="error"
+            className="bg-red-50 p-6 dark:border-red-900 dark:bg-red-950/10"
+          >
             <h3 className="mb-2 flex items-center gap-2 font-semibold text-lg text-red-900 dark:text-red-100">
               <AlertTriangle className="h-5 w-5" />
               {deleteSection.title}
             </h3>
-            <p className="mb-4 text-red-700 text-sm dark:text-red-300">
+            <p className="mb-4 text-neutral text-sm">
               {deleteSection.description}
             </p>
             <Form.Button
@@ -78,7 +85,7 @@ export const UserDeleteAction: FC<{ userId: string }> = ({ userId }) => {
             >
               {deleteSection.button}
             </Form.Button>
-          </div>
+          </Container>
         ) : (
           <div className="py-12 text-center">
             <p className="text-neutral-500 dark:text-neutral-400">

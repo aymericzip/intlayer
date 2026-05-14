@@ -536,6 +536,19 @@ export const useDeleteOrganization = () => {
   });
 };
 
+export const useDeleteOrganizationById = () => {
+  const intlayerOAuth = useIntlayerOAuth();
+
+  return useMutation({
+    mutationKey: ['organizations'],
+    mutationFn: (organizationId: string) =>
+      intlayerOAuth.organization.deleteOrganizationByIdAdmin(organizationId),
+    meta: {
+      invalidateQueries: [['organizations']],
+    },
+  });
+};
+
 export const useSelectOrganization = () => {
   const intlayerOAuth = useIntlayerOAuth();
   const queryClient = useQueryClient();
@@ -690,6 +703,19 @@ export const useDeleteProject = () => {
   return useMutation({
     mutationKey: ['projects'],
     mutationFn: () => intlayerOAuth.project.deleteProject(),
+    meta: {
+      invalidateQueries: [['projects']],
+    },
+  });
+};
+
+export const useDeleteProjectById = () => {
+  const intlayerOAuth = useIntlayerOAuth();
+
+  return useMutation({
+    mutationKey: ['projects'],
+    mutationFn: (projectId: string) =>
+      intlayerOAuth.project.deleteProjectByIdAdmin(projectId),
     meta: {
       invalidateQueries: [['projects']],
     },

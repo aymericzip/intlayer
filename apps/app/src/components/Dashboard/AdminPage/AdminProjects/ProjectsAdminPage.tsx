@@ -1,8 +1,14 @@
 import type { GetProjectsResult, ProjectAPI } from '@intlayer/backend';
+import { Button } from '@intlayer/design-system/button';
+import { Container } from '@intlayer/design-system/container';
 import { CopyToClipboard } from '@intlayer/design-system/copy-to-clipboard';
-import { useGetProjects, useSearch } from '@intlayer/design-system/hooks';
-import { SearchInput } from '@intlayer/design-system/input';
-import { Loader } from '@intlayer/design-system/loader';
+import {
+  useDeleteProjectById,
+  useGetProjects,
+  useSearch,
+} from '@intlayer/design-system/hooks';
+import { Checkbox, SearchInput } from '@intlayer/design-system/input';
+
 import {
   NumberItemsSelector,
   Pagination,
@@ -15,18 +21,24 @@ import {
   type ColumnDef,
   flexRender,
   getCoreRowModel,
+  type RowSelectionState,
   type SortingState,
   useReactTable,
 } from '@tanstack/react-table';
-import { ChevronDown, ChevronUp } from 'lucide-react';
-import { type FC, useEffect } from 'react';
+import { ChevronDown, ChevronUp, Trash2 } from 'lucide-react';
+import { type FC, useEffect, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { useLocalizedNavigate } from '#hooks/useLocalizedNavigate.ts';
 import { useSearchParamState } from '#hooks/useSearchParamState';
+import { ProjectsAdminSkeleton } from './ProjectsAdminSkeleton';
 
 type SortOrder = 'asc' | 'desc';
 
 export const ProjectsAdminPageContent: FC = () => {
+  const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
+  const { mutateAsync: deleteProjectById, isPending: isDeleting } =
+    useDeleteProjectById();
+
   const { params, setParam, setParams } = useSearchParamState({
     page: { type: 'number', fallbackValue: 1 },
     pageSize: { type: 'number', fallbackValue: 10 },
@@ -64,7 +76,35 @@ export const ProjectsAdminPageContent: FC = () => {
     ? [{ id: params.sortBy, desc: params.sortOrder === 'desc' }]
     : [];
 
+  const selectedProjectIds = Object.keys(rowSelection)
+    .filter((k) => rowSelection[k])
+    .map((idx) => projects[parseInt(idx)]?.id)
+    .filter(Boolean) as string[];
+
   const columns: ColumnDef<ProjectAPI>[] = [
+    {
+      id: 'selection',
+      enableSorting: false,
+      header: ({ table }) => (
+        <Checkbox
+          name="select-all"
+          size="sm"
+          color="text"
+          checked={table.getIsAllPageRowsSelected()}
+          onChange={(e) => table.toggleAllPageRowsSelected(e.target.checked)}
+        />
+      ),
+      cell: ({ row }) => (
+        <Checkbox
+          name={`select-row-${row.id}`}
+          size="sm"
+          color="text"
+          checked={row.getIsSelected()}
+          onClick={(e: React.MouseEvent) => e.stopPropagation()}
+          onChange={(e) => row.toggleSelected(e.target.checked)}
+        />
+      ),
+    },
     {
       accessorKey: 'name',
       enableSorting: true,
@@ -91,7 +131,7 @@ export const ProjectsAdminPageContent: FC = () => {
           <div className="flex items-center">
             <div className="ml-3">
               {project.name ? (
-                <CopyToClipboard text={project.name}>
+                <CopyToClipboard text={project.name} size={10}>
                   {project.name}
                 </CopyToClipboard>
               ) : (
@@ -198,8 +238,10 @@ export const ProjectsAdminPageContent: FC = () => {
   const table = useReactTable({
     data: projects,
     columns,
-    state: { sorting },
+    state: { sorting, rowSelection },
     manualSorting: true,
+    enableRowSelection: true,
+    onRowSelectionChange: setRowSelection,
     onSortingChange: (updater) => {
       const next = typeof updater === 'function' ? updater(sorting) : updater;
       if (next.length > 0) {
@@ -241,39 +283,63 @@ export const ProjectsAdminPageContent: FC = () => {
   }
 
   return (
-    <div className="flex flex-1 flex-col">
-      <div className="mb-6">
-        <h1 className="font-bold text-2xl text-neutral-900 dark:text-neutral-100">
-          {title}
-        </h1>
-      </div>
+    <div className="flex flex-1 flex-col items-center p-4">
+      <div className="flex w-full max-w-5xl flex-col gap-4">
+        <div className="mb-6">
+          <h1 className="font-bold text-2xl text-neutral-900 dark:text-neutral-100">
+            {title}
+          </h1>
+        </div>
 
-      <SearchInput
-        type="search"
-        placeholder={searchPlaceholder.value}
-        onChange={(e) => handleSearch(e.target.value)}
-        className="max-w-md pl-10"
-      />
+        <div className="space-y-4">
+          <SearchInput
+            type="search"
+            placeholder={searchPlaceholder.value}
+            onChange={(e) => handleSearch(e.target.value)}
+            className="max-w-md"
+          />
+        </div>
 
-      <Loader isLoading={isFetching}>
-        {projects.length === 0 ? (
+        {selectedProjectIds.length > 0 && (
+          <div className="mb-4 flex items-center justify-end gap-2">
+            <Button
+              color="error"
+              variant="outline"
+              Icon={Trash2}
+              label={`Delete selected (${selectedProjectIds.length})`}
+              isLoading={isDeleting}
+              onClick={async () => {
+                for (const id of selectedProjectIds) {
+                  await deleteProjectById(id);
+                }
+                setRowSelection({});
+              }}
+            >
+              Delete selected ({selectedProjectIds.length})
+            </Button>
+          </div>
+        )}
+
+        {isFetching && projects.length === 0 ? (
+          <ProjectsAdminSkeleton showToolBar={false} />
+        ) : projects.length === 0 ? (
           <div className="py-12 text-center">
             <p className="text-neutral-500 dark:text-neutral-400">{noData}</p>
           </div>
         ) : (
           <div className="space-y-4">
-            <Table className="w-full">
+            <Table className="w-full border-separate border-spacing-0">
               <thead>
                 {table.getHeaderGroups().map((headerGroup) => (
-                  <tr
-                    key={headerGroup.id}
-                    className="border-neutral-200 border-b dark:border-neutral-700"
-                  >
+                  <tr key={headerGroup.id}>
                     {headerGroup.headers.map((header) => (
                       <th
                         key={header.id}
                         className={cn(
-                          'whitespace-nowrap px-4 py-3 text-left font-medium text-neutral-900 dark:text-neutral-100',
+                          'whitespace-nowrap px-4 py-3 font-medium text-neutral',
+                          ['selection', 'actions'].includes(header.id)
+                            ? 'text-center'
+                            : 'text-left',
                           header.column.getCanSort() &&
                             'cursor-pointer select-none hover:text-neutral-600'
                         )}
@@ -295,53 +361,73 @@ export const ProjectsAdminPageContent: FC = () => {
                 ))}
               </thead>
               <tbody>
-                {table.getRowModel().rows.map((row) => (
-                  <tr
-                    key={row.id}
-                    className="cursor-pointer whitespace-nowrap border-neutral-100 border-b hover:bg-neutral-50 dark:border-neutral-800 dark:hover:bg-neutral-800"
-                    onClick={() => {
-                      navigate({
-                        to: getAppAdminProjectRoute(row.original.id) as any,
-                      });
-                    }}
-                  >
-                    {row.getVisibleCells().map((cell) => (
-                      <td key={cell.id} className="whitespace-nowrap px-4 py-3">
-                        {flexRender(
-                          cell.column.columnDef.cell,
-                          cell.getContext()
-                        )}
-                      </td>
-                    ))}
-                  </tr>
-                ))}
+                {table.getRowModel().rows.map((row) => {
+                  const visibleCells = row.getVisibleCells();
+                  return (
+                    <tr
+                      key={row.id}
+                      className="cursor-pointer whitespace-nowrap rounded-xl border-card border-b transition-colors hover:bg-card/30 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-card"
+                      onClick={() => {
+                        navigate({
+                          to: getAppAdminProjectRoute(row.original.id) as any,
+                        });
+                      }}
+                    >
+                      {visibleCells.map((cell, cellIndex) => (
+                        <td
+                          key={cell.id}
+                          className={cn(
+                            'whitespace-nowrap px-4 py-3',
+                            cellIndex === 0 && 'first:rounded-l-2xl',
+                            cellIndex === visibleCells.length - 1 &&
+                              'last:rounded-r-2xl'
+                          )}
+                        >
+                          <div
+                            className={cn(
+                              'flex items-center',
+                              ['selection', 'actions'].includes(cell.column.id)
+                                ? 'justify-center'
+                                : 'justify-start'
+                            )}
+                          >
+                            {flexRender(
+                              cell.column.columnDef.cell,
+                              cell.getContext()
+                            )}
+                          </div>
+                        </td>
+                      ))}
+                    </tr>
+                  );
+                })}
               </tbody>
             </Table>
           </div>
         )}
-      </Loader>
 
-      <div className="flex w-full flex-row items-end justify-between gap-4 pt-8">
-        <div className="flex flex-col gap-4">
-          <ShowingResultsNumberItems
+        <div className="flex w-full flex-row items-end justify-between gap-4 pt-8">
+          <div className="flex flex-col gap-4">
+            <ShowingResultsNumberItems
+              currentPage={currentPage}
+              pageSize={itemsPerPage}
+              totalItems={totalItems}
+            />
+            <NumberItemsSelector
+              value={itemsPerPage.toString()}
+              onValueChange={handlePageSizeChange}
+            />
+          </div>
+          <Pagination
             currentPage={currentPage}
-            pageSize={itemsPerPage}
-            totalItems={totalItems}
-          />
-          <NumberItemsSelector
-            value={itemsPerPage.toString()}
-            onValueChange={handlePageSizeChange}
+            totalPages={totalPages}
+            onPageChange={(page) => setParam('page', page)}
+            showFirstLast={true}
+            showPrevNext={true}
+            maxVisiblePages={5}
+            color="text"
           />
         </div>
-        <Pagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          onPageChange={(page) => setParam('page', page)}
-          showFirstLast={true}
-          showPrevNext={true}
-          maxVisiblePages={5}
-          color="text"
-        />
       </div>
     </div>
   );

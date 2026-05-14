@@ -2,10 +2,16 @@ import type {
   GetOrganizationsResult,
   OrganizationAPI,
 } from '@intlayer/backend';
+import { Button } from '@intlayer/design-system/button';
+import { Container } from '@intlayer/design-system/container';
 import { CopyToClipboard } from '@intlayer/design-system/copy-to-clipboard';
-import { useGetOrganizations, useSearch } from '@intlayer/design-system/hooks';
-import { SearchInput } from '@intlayer/design-system/input';
-import { Loader } from '@intlayer/design-system/loader';
+import {
+  useDeleteOrganizationById,
+  useGetOrganizations,
+  useSearch,
+} from '@intlayer/design-system/hooks';
+import { Checkbox, SearchInput } from '@intlayer/design-system/input';
+
 import {
   NumberItemsSelector,
   Pagination,
@@ -18,17 +24,23 @@ import {
   type ColumnDef,
   flexRender,
   getCoreRowModel,
+  type RowSelectionState,
   type SortingState,
   useReactTable,
 } from '@tanstack/react-table';
-import { ChevronDown, ChevronUp, Search } from 'lucide-react';
-import { type FC, useEffect } from 'react';
+import { ChevronDown, ChevronUp, Trash2 } from 'lucide-react';
+import { type FC, useEffect, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { useLocalizedNavigate } from '#hooks/useLocalizedNavigate.ts';
 import { useSearchParamState } from '#hooks/useSearchParamState';
+import { OrganizationsAdminSkeleton } from './OrganizationsAdminSkeleton';
 
 export const OrganizationsAdminPageContent: FC = () => {
   type SortOrder = 'asc' | 'desc';
+
+  const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
+  const { mutateAsync: deleteOrgById, isPending: isDeleting } =
+    useDeleteOrganizationById();
 
   const { params, setParam, setParams } = useSearchParamState({
     page: { type: 'number', fallbackValue: 1 },
@@ -63,7 +75,35 @@ export const OrganizationsAdminPageContent: FC = () => {
     ? [{ id: params.sortBy, desc: params.sortOrder === 'desc' }]
     : [];
 
+  const selectedOrgIds = Object.keys(rowSelection)
+    .filter((k) => rowSelection[k])
+    .map((idx) => organizations[parseInt(idx)]?.id)
+    .filter(Boolean) as string[];
+
   const columns: ColumnDef<OrganizationAPI>[] = [
+    {
+      id: 'selection',
+      enableSorting: false,
+      header: ({ table }) => (
+        <Checkbox
+          name="select-all"
+          size="sm"
+          color="text"
+          checked={table.getIsAllPageRowsSelected()}
+          onChange={(e) => table.toggleAllPageRowsSelected(e.target.checked)}
+        />
+      ),
+      cell: ({ row }) => (
+        <Checkbox
+          name={`select-row-${row.id}`}
+          size="sm"
+          color="text"
+          checked={row.getIsSelected()}
+          onClick={(e: React.MouseEvent) => e.stopPropagation()}
+          onChange={(e) => row.toggleSelected(e.target.checked)}
+        />
+      ),
+    },
     {
       accessorKey: 'name',
       enableSorting: true,
@@ -90,7 +130,7 @@ export const OrganizationsAdminPageContent: FC = () => {
           <div className="flex items-center">
             <div className="ml-3">
               {organization.name ? (
-                <CopyToClipboard text={organization.name}>
+                <CopyToClipboard text={organization.name} size={10}>
                   {organization.name}
                 </CopyToClipboard>
               ) : (
@@ -198,8 +238,10 @@ export const OrganizationsAdminPageContent: FC = () => {
   const table = useReactTable({
     data: organizations,
     columns,
-    state: { sorting },
+    state: { sorting, rowSelection },
     manualSorting: true,
+    enableRowSelection: true,
+    onRowSelectionChange: setRowSelection,
     onSortingChange: (updater) => {
       const next = typeof updater === 'function' ? updater(sorting) : updater;
       if (next.length > 0) {
@@ -245,28 +287,45 @@ export const OrganizationsAdminPageContent: FC = () => {
   }
 
   return (
-    <div className="flex flex-1 flex-col">
-      <div className="mb-6">
-        <h1 className="font-bold text-2xl text-neutral-900 dark:text-neutral-100">
-          {title}
-        </h1>
-      </div>
-
-      <div className="mb-4 space-y-4">
-        <div className="flex flex-col gap-4 sm:flex-row">
-          <div className="relative flex-1">
-            <Search className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-            <SearchInput
-              placeholder={searchPlaceholder.value}
-              onChange={(e) => handleSearch(e.target.value)}
-              className="max-w-md pl-10"
-            />
-          </div>
+    <div className="flex flex-1 flex-col items-center p-4">
+      <div className="flex w-full max-w-5xl flex-col gap-4">
+        <div className="mb-6">
+          <h1 className="font-bold text-2xl text-neutral-900 dark:text-neutral-100">
+            {title}
+          </h1>
         </div>
-      </div>
 
-      <Loader isLoading={isFetching}>
-        {organizations.length === 0 ? (
+        <div className="space-y-4">
+          <SearchInput
+            placeholder={searchPlaceholder.value}
+            onChange={(e) => handleSearch(e.target.value)}
+            className="max-w-md"
+          />
+        </div>
+
+        {selectedOrgIds.length > 0 && (
+          <div className="mb-4 flex items-center justify-end gap-2">
+            <Button
+              color="error"
+              variant="outline"
+              Icon={Trash2}
+              label={`Delete selected (${selectedOrgIds.length})`}
+              isLoading={isDeleting}
+              onClick={async () => {
+                for (const id of selectedOrgIds) {
+                  await deleteOrgById(id);
+                }
+                setRowSelection({});
+              }}
+            >
+              Delete selected ({selectedOrgIds.length})
+            </Button>
+          </div>
+        )}
+
+        {isFetching && organizations.length === 0 ? (
+          <OrganizationsAdminSkeleton showToolBar={false} />
+        ) : organizations.length === 0 ? (
           <div className="py-12 text-center">
             <p className="text-neutral-500 dark:text-neutral-400">
               {noData.value}
@@ -274,18 +333,18 @@ export const OrganizationsAdminPageContent: FC = () => {
           </div>
         ) : (
           <div className="space-y-4">
-            <Table className="w-full">
+            <Table className="w-full border-separate border-spacing-0">
               <thead>
                 {table.getHeaderGroups().map((headerGroup) => (
-                  <tr
-                    key={headerGroup.id}
-                    className="border-neutral-200 border-b dark:border-neutral-700"
-                  >
+                  <tr key={headerGroup.id}>
                     {headerGroup.headers.map((header) => (
                       <th
                         key={header.id}
                         className={cn(
-                          'whitespace-nowrap px-4 py-3 text-left font-medium text-neutral-900 dark:text-neutral-100',
+                          'whitespace-nowrap px-4 py-3 font-medium text-neutral',
+                          ['selection', 'actions'].includes(header.id)
+                            ? 'text-center'
+                            : 'text-left',
                           header.column.getCanSort() &&
                             'cursor-pointer select-none hover:text-neutral-600'
                         )}
@@ -307,50 +366,70 @@ export const OrganizationsAdminPageContent: FC = () => {
                 ))}
               </thead>
               <tbody>
-                {table.getRowModel().rows.map((row) => (
-                  <tr
-                    key={row.id}
-                    className="cursor-pointer whitespace-nowrap border-neutral-100 border-b hover:bg-neutral-50 dark:border-neutral-800 dark:hover:bg-neutral-800"
-                    onClick={() => {
-                      navigate({
-                        to: getAppAdminOrganizationRoute(
-                          row.original.id
-                        ) as any,
-                      });
-                    }}
-                  >
-                    {row.getVisibleCells().map((cell) => (
-                      <td key={cell.id} className="whitespace-nowrap px-4 py-3">
-                        {flexRender(
-                          cell.column.columnDef.cell,
-                          cell.getContext()
-                        )}
-                      </td>
-                    ))}
-                  </tr>
-                ))}
+                {table.getRowModel().rows.map((row) => {
+                  const visibleCells = row.getVisibleCells();
+                  return (
+                    <tr
+                      key={row.id}
+                      className="cursor-pointer whitespace-nowrap rounded-xl border-card border-b transition-colors hover:bg-card/30 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-card"
+                      onClick={() => {
+                        navigate({
+                          to: getAppAdminOrganizationRoute(
+                            row.original.id
+                          ) as any,
+                        });
+                      }}
+                    >
+                      {visibleCells.map((cell, cellIndex) => (
+                        <td
+                          key={cell.id}
+                          className={cn(
+                            'whitespace-nowrap px-4 py-3',
+                            cellIndex === 0 && 'first:rounded-l-2xl',
+                            cellIndex === visibleCells.length - 1 &&
+                              'last:rounded-r-2xl'
+                          )}
+                        >
+                          <div
+                            className={cn(
+                              'flex items-center',
+                              ['selection', 'actions'].includes(cell.column.id)
+                                ? 'justify-center'
+                                : 'justify-start'
+                            )}
+                          >
+                            {flexRender(
+                              cell.column.columnDef.cell,
+                              cell.getContext()
+                            )}
+                          </div>
+                        </td>
+                      ))}
+                    </tr>
+                  );
+                })}
               </tbody>
             </Table>
           </div>
         )}
-      </Loader>
-      <div className="flex w-full flex-row items-end justify-between gap-4 pt-8">
-        <div className="flex flex-col gap-4">
-          <ShowingResultsNumberItems
+        <div className="flex w-full flex-row items-end justify-between gap-4 pt-8">
+          <div className="flex flex-col gap-4">
+            <ShowingResultsNumberItems
+              currentPage={currentPage}
+              pageSize={itemsPerPage}
+              totalItems={totalItems}
+            />
+            <NumberItemsSelector
+              value={itemsPerPage.toString()}
+              onValueChange={handlePageSizeChange}
+            />
+          </div>
+          <Pagination
             currentPage={currentPage}
-            pageSize={itemsPerPage}
-            totalItems={totalItems}
-          />
-          <NumberItemsSelector
-            value={itemsPerPage.toString()}
-            onValueChange={handlePageSizeChange}
+            totalPages={totalPages}
+            onPageChange={handlePageChange}
           />
         </div>
-        <Pagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          onPageChange={handlePageChange}
-        />
       </div>
     </div>
   );

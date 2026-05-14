@@ -4,6 +4,9 @@ import { useDevice, useSession } from '@intlayer/design-system/hooks';
 import { KeyboardShortcut } from '@intlayer/design-system/keyboard-shortcut';
 import { PopoverStatic } from '@intlayer/design-system/popover';
 import {
+  App_Admin_Discussions_Path,
+  App_Admin_Organizations_Path,
+  App_Admin_Projects_Path,
   App_Admin_Users_Path,
   App_Dashboard_Dictionaries_Path,
   App_Dashboard_Editor_Path,
@@ -25,6 +28,7 @@ import {
   FolderKanban,
   Globe,
   type LucideIcon,
+  MessageSquare,
   PenTool,
   Shield,
   SquareCode,
@@ -46,6 +50,7 @@ export const iconMap: Record<string, LucideIcon> = {
   Shield,
   Globe,
   SquareCode,
+  MessageSquare,
 };
 
 export const shouldHaveOrganizationRoutes = [
@@ -61,7 +66,12 @@ export const shouldHaveProjectRoutes = [
   App_Dashboard_IDE_Path,
 ] as string[];
 
-export const shouldHaveAdminRoutes = [App_Admin_Users_Path] as string[];
+export const shouldHaveAdminRoutes = [
+  App_Admin_Users_Path,
+  App_Admin_Organizations_Path,
+  App_Admin_Projects_Path,
+  App_Admin_Discussions_Path,
+] as string[];
 
 export type SidebarNavigationItem = {
   key: string;

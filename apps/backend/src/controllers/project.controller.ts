@@ -1001,6 +1001,73 @@ export const deleteProject = async (
   }
 };
 
+export type DeleteProjectByIdAdminParams = { projectId: string };
+export type DeleteProjectByIdAdminResult = ResponseData<ProjectAPI>;
+
+/**
+ * Admin-only: Deletes any project from the database by its ID.
+ */
+export const deleteProjectByIdAdmin = async (
+  request: FastifyRequest<{ Params: DeleteProjectByIdAdminParams }>,
+  reply: FastifyReply
+): Promise<void> => {
+  const { projectId } = request.params;
+  const { roles } = request.session || {};
+
+  if (!hasPermission(roles || [], 'project:admin')({ ...request.session })) {
+    return ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
+  }
+
+  try {
+    const project = await projectService.getProjectById(projectId);
+
+    if (!project) {
+      return ErrorHandler.handleGenericErrorResponse(
+        reply,
+        'PROJECT_NOT_DEFINED'
+      );
+    }
+
+    const deletedProject = await projectService.deleteProjectById(project.id);
+
+    if (!deletedProject) {
+      return ErrorHandler.handleGenericErrorResponse(
+        reply,
+        'PROJECT_NOT_DEFINED'
+      );
+    }
+
+    const formattedProject = mapProjectToAPI(deletedProject);
+    const responseData = formatResponse<ProjectAPI>({
+      message: t({
+        en: 'Project deleted',
+        fr: 'Projet supprimé',
+        es: 'Proyecto eliminado',
+        'en-GB': 'Project deleted',
+        de: 'Projekt gelöscht',
+        ja: 'プロジェクトが削除されました',
+        ko: '프로젝트가 삭제되었습니다',
+        zh: '项目已删除',
+        it: 'Progetto eliminato',
+        pt: 'Projeto excluído',
+        hi: 'परियोजना हटा दी गई',
+        ar: 'تم حذف المشروع',
+        ru: 'Проект удален',
+        tr: 'Proje silindi',
+        pl: 'Projekt usunięty',
+        id: 'Proyek dihapus',
+        vi: 'Dự án đã bị xóa',
+        uk: 'Проєкт видалено',
+      }),
+      data: formattedProject,
+    });
+
+    return reply.send(responseData);
+  } catch (error) {
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
+  }
+};
+
 export type SelectProjectParam = { projectId: string | Types.ObjectId };
 export type SelectProjectResult = ResponseData<ProjectAPI>;
 

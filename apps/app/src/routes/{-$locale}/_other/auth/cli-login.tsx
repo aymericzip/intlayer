@@ -3,7 +3,12 @@ import { CliLoginFlow } from '#components/Auth/CliLogin/CliLoginFlow';
 
 export const Route = createFileRoute('/{-$locale}/_other/auth/cli-login')({
   validateSearch: (search: Record<string, unknown>) => ({
-    port: typeof search.port === 'string' ? search.port : undefined,
+    port:
+      typeof search.port === 'string'
+        ? search.port
+        : typeof search.port === 'number'
+          ? String(search.port)
+          : undefined,
     state: typeof search.state === 'string' ? search.state : undefined,
   }),
   component: CliLoginPage,
@@ -11,5 +16,6 @@ export const Route = createFileRoute('/{-$locale}/_other/auth/cli-login')({
 
 function CliLoginPage() {
   const { port, state } = Route.useSearch();
+
   return <CliLoginFlow port={port} state={state} />;
 }

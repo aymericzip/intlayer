@@ -5,14 +5,17 @@ import type {
 } from '@intlayer/backend';
 import { Avatar } from '@intlayer/design-system/avatar';
 import { Badge, BadgeColor, BadgeVariant } from '@intlayer/design-system/badge';
+import { Button } from '@intlayer/design-system/button';
 import { CopyToClipboard } from '@intlayer/design-system/copy-to-clipboard';
 import {
+  useDeleteUser,
   useGetOrganizations,
   useGetUsers,
   useSearch,
+  useUpdateUser,
 } from '@intlayer/design-system/hooks';
-import { SearchInput } from '@intlayer/design-system/input';
-import { Loader } from '@intlayer/design-system/loader';
+import { Checkbox, SearchInput } from '@intlayer/design-system/input';
+
 import {
   NumberItemsSelector,
   Pagination,
@@ -20,6 +23,7 @@ import {
 } from '@intlayer/design-system/pagination';
 import { getAppAdminUserRoute } from '@intlayer/design-system/routes';
 import { Select } from '@intlayer/design-system/select';
+import { SwitchSelector } from '@intlayer/design-system/switch-selector';
 import { Table } from '@intlayer/design-system/table';
 import { cn } from '@intlayer/design-system/utils';
 import {
@@ -29,12 +33,13 @@ import {
   type SortingState,
   useReactTable,
 } from '@tanstack/react-table';
-import { ChevronDown, ChevronUp } from 'lucide-react';
-import { type FC, useEffect } from 'react';
+import { ChevronDown, ChevronUp, Trash2 } from 'lucide-react';
+import { type FC, useEffect, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { Link } from '#components/Link/Link';
 import { useLocalizedNavigate } from '#hooks/useLocalizedNavigate.ts';
 import { useSearchParamState } from '#hooks/useSearchParamState';
+import { UsersAdminSkeleton } from './UsersAdminSkeleton';
 
 export const UsersAdminPageContent: FC = () => {
   type SortOrder = 'asc' | 'desc';
@@ -50,6 +55,10 @@ export const UsersAdminPageContent: FC = () => {
 
   const navigate = useLocalizedNavigate();
   const { setSearch, search } = useSearch({});
+  const { mutateAsync: deleteUserById, isPending: isDeleting } =
+    useDeleteUser();
+  const { mutateAsync: updateUser } = useUpdateUser();
+  const [rowSelection, setRowSelection] = useState<Record<string, boolean>>({});
 
   const { data: organizationsData } = useGetOrganizations({
     fetchAll: 'true',
@@ -93,6 +102,29 @@ export const UsersAdminPageContent: FC = () => {
 
   const columns: ColumnDef<UserAPI>[] = [
     {
+      id: 'selection',
+      enableSorting: false,
+      header: ({ table }) => (
+        <Checkbox
+          name="select-all"
+          size="sm"
+          color="text"
+          checked={table.getIsAllPageRowsSelected()}
+          onChange={(e) => table.toggleAllPageRowsSelected(e.target.checked)}
+        />
+      ),
+      cell: ({ row }) => (
+        <Checkbox
+          name={`select-row-${row.id}`}
+          size="sm"
+          color="text"
+          checked={row.getIsSelected()}
+          onClick={(e: React.MouseEvent) => e.stopPropagation()}
+          onChange={(e) => row.toggleSelected(e.target.checked)}
+        />
+      ),
+    },
+    {
       accessorKey: 'name',
       enableSorting: true,
       header: ({ column }) => (
@@ -122,10 +154,13 @@ export const UsersAdminPageContent: FC = () => {
               className="shrink-0"
               src={user.image ?? undefined}
               fullname={user.name}
+              size="sm"
             />
             <div className="ml-3">
               {user.name ? (
-                <CopyToClipboard text={user.name}>{user.name}</CopyToClipboard>
+                <CopyToClipboard text={user.name} size={10}>
+                  {user.name}
+                </CopyToClipboard>
               ) : (
                 '-'
               )}
@@ -159,7 +194,7 @@ export const UsersAdminPageContent: FC = () => {
         return (
           <div className="flex items-center">
             <div className="ml-3">
-              <CopyToClipboard text={user.id}>
+              <CopyToClipboard text={user.id} size={10}>
                 <span className="font-mono text-sm">
                   ...{user.id.slice(-5)}
                 </span>
@@ -193,7 +228,9 @@ export const UsersAdminPageContent: FC = () => {
         const user = row.original as UserAPI;
         return (
           <div className="text-neutral-900 text-sm dark:text-neutral-100">
-            <CopyToClipboard text={user.email}>{user.email}</CopyToClipboard>
+            <CopyToClipboard text={user.email} size={10}>
+              {user.email}
+            </CopyToClipboard>
           </div>
         );
       },
@@ -223,6 +260,7 @@ export const UsersAdminPageContent: FC = () => {
         return (
           <Badge
             variant={BadgeVariant.OUTLINE}
+            className="opacity-70"
             color={
               user.emailVerified ? BadgeColor.SUCCESS : BadgeColor.DESTRUCTIVE
             }
@@ -295,6 +333,25 @@ export const UsersAdminPageContent: FC = () => {
       },
     },
     {
+      id: 'active',
+      enableSorting: false,
+      header: () => tableHeaders.active,
+      cell: ({ row }) => {
+        const user = row.original as UserAPI;
+        return (
+          <SwitchSelector
+            color="text"
+            size="sm"
+            value={!!user.emailVerified}
+            onChange={(checked: boolean) =>
+              updateUser({ id: user.id, emailVerified: checked })
+            }
+            onClick={(e: React.MouseEvent) => e.stopPropagation()}
+          />
+        );
+      },
+    },
+    {
       id: 'actions',
       enableSorting: false,
       header: () => tableHeaders.actions,
@@ -318,7 +375,9 @@ export const UsersAdminPageContent: FC = () => {
   const table = useReactTable({
     data: users,
     columns,
-    state: { sorting },
+    state: { sorting, rowSelection },
+    enableRowSelection: true,
+    onRowSelectionChange: setRowSelection,
     manualSorting: true,
     onSortingChange: (updater) => {
       const next = typeof updater === 'function' ? updater(sorting) : updater;
@@ -333,6 +392,18 @@ export const UsersAdminPageContent: FC = () => {
     },
     getCoreRowModel: getCoreRowModel(),
   });
+
+  const selectedUserIds = Object.keys(rowSelection)
+    .filter((k) => rowSelection[k])
+    .map((idx) => users[parseInt(idx)]?.id)
+    .filter(Boolean) as string[];
+
+  const handleBulkDelete = async () => {
+    for (const userId of selectedUserIds) {
+      await deleteUserById(userId);
+    }
+    setRowSelection({});
+  };
 
   const handleSearch = (value: string) => {
     setSearch(value);
@@ -369,44 +440,46 @@ export const UsersAdminPageContent: FC = () => {
   }
 
   return (
-    <div className="flex flex-1 flex-col">
-      <div className="mb-6">
-        <h1 className="font-bold text-2xl text-neutral-900 dark:text-neutral-100">
-          {title}
-        </h1>
-      </div>
+    <div className="flex flex-1 flex-col items-center p-4">
+      <div className="flex w-full max-w-5xl flex-col gap-4">
+        <div className="mb-6">
+          <h1 className="font-bold text-2xl text-neutral-900 dark:text-neutral-100">
+            {title}
+          </h1>
+        </div>
 
-      <div className="mb-4 space-y-4">
-        <div className="flex flex-col gap-4 sm:flex-row">
-          <SearchInput
-            placeholder={searchPlaceholder.value}
-            onChange={(e) => handleSearch(e.target.value)}
-            className="max-w-md pl-10"
-          />
+        <div className="space-y-4">
+          <div className="flex flex-col gap-4 sm:flex-row">
+            <SearchInput
+              placeholder={searchPlaceholder.value}
+              onChange={(e) => handleSearch(e.target.value)}
+              className="max-w-md pl-10"
+            />
 
-          <div className="flex gap-2">
-            <Select
-              value={(params.organizationId as string) ?? 'all'}
-              onValueChange={handleOrganizationFilter}
-            >
-              <Select.Trigger className="w-[200px]">
-                <Select.Value placeholder={filterPlaceholder} />
-              </Select.Trigger>
-              <Select.Content>
-                <Select.Item value="all">{allStatuses}</Select.Item>
-                {organizations.map((org: any) => (
-                  <Select.Item key={org.id} value={org.id}>
-                    {org.name}
-                  </Select.Item>
-                ))}
-              </Select.Content>
-            </Select>
+            <div className="flex gap-2">
+              <Select
+                value={(params.organizationId as string) ?? 'all'}
+                onValueChange={handleOrganizationFilter}
+              >
+                <Select.Trigger className="w-[200px]">
+                  <Select.Value placeholder={filterPlaceholder} />
+                </Select.Trigger>
+                <Select.Content>
+                  <Select.Item value="all">{allStatuses}</Select.Item>
+                  {organizations.map((org: any) => (
+                    <Select.Item key={org.id} value={org.id}>
+                      {org.name}
+                    </Select.Item>
+                  ))}
+                </Select.Content>
+              </Select>
+            </div>
           </div>
         </div>
-      </div>
 
-      <Loader isLoading={isFetching}>
-        {users.length === 0 ? (
+        {isFetching && users.length === 0 ? (
+          <UsersAdminSkeleton showToolBar={false} />
+        ) : users.length === 0 ? (
           <div className="py-12 text-center">
             <p className="text-neutral-500 dark:text-neutral-400">
               {noUsersMessage}
@@ -414,18 +487,32 @@ export const UsersAdminPageContent: FC = () => {
           </div>
         ) : (
           <div className="space-y-4">
-            <Table className="w-full">
+            {selectedUserIds.length > 0 && (
+              <div className="flex items-center justify-end gap-2">
+                <Button
+                  color="error"
+                  variant="outline"
+                  Icon={Trash2}
+                  label={actions.deleteSelected.value}
+                  onClick={handleBulkDelete}
+                  isLoading={isDeleting}
+                >
+                  {actions.deleteSelected} ({selectedUserIds.length})
+                </Button>
+              </div>
+            )}
+            <Table className="w-full border-separate border-spacing-0">
               <thead>
                 {table.getHeaderGroups().map((headerGroup) => (
-                  <tr
-                    key={headerGroup.id}
-                    className="border-neutral-200 border-b dark:border-neutral-700"
-                  >
+                  <tr key={headerGroup.id}>
                     {headerGroup.headers.map((header) => (
                       <th
                         key={header.id}
                         className={cn(
-                          'px-4 py-3 text-left font-medium text-neutral-900 dark:text-neutral-100',
+                          'whitespace-nowrap px-4 py-3 font-medium text-neutral',
+                          ['selection', 'actions', 'active'].includes(header.id)
+                            ? 'text-center'
+                            : 'text-left',
                           header.column.getCanSort() &&
                             'cursor-pointer select-none hover:text-neutral-600'
                         )}
@@ -447,48 +534,70 @@ export const UsersAdminPageContent: FC = () => {
                 ))}
               </thead>
               <tbody>
-                {table.getRowModel().rows.map((row) => (
-                  <tr
-                    key={row.id}
-                    className="cursor-pointer border-neutral-100 border-b hover:bg-neutral-50 dark:border-neutral-800 dark:hover:bg-neutral-800"
-                    onClick={() => {
-                      navigate({
-                        to: getAppAdminUserRoute(row.original.id) as any,
-                      });
-                    }}
-                  >
-                    {row.getVisibleCells().map((cell) => (
-                      <td key={cell.id} className="whitespace-nowrap px-4 py-3">
-                        {flexRender(
-                          cell.column.columnDef.cell,
-                          cell.getContext()
-                        )}
-                      </td>
-                    ))}
-                  </tr>
-                ))}
+                {table.getRowModel().rows.map((row) => {
+                  const visibleCells = row.getVisibleCells();
+                  return (
+                    <tr
+                      key={row.id}
+                      className="cursor-pointer whitespace-nowrap rounded-xl border-card border-b transition-colors hover:bg-card/30 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-card"
+                      onClick={() => {
+                        navigate({
+                          to: getAppAdminUserRoute(row.original.id) as any,
+                        });
+                      }}
+                    >
+                      {visibleCells.map((cell, cellIndex) => (
+                        <td
+                          key={cell.id}
+                          className={cn(
+                            'whitespace-nowrap px-4 py-3',
+                            cellIndex === 0 && 'first:rounded-l-2xl',
+                            cellIndex === visibleCells.length - 1 &&
+                              'last:rounded-r-2xl'
+                          )}
+                        >
+                          <div
+                            className={cn(
+                              'flex items-center',
+                              ['selection', 'actions', 'active'].includes(
+                                cell.column.id
+                              )
+                                ? 'justify-center'
+                                : 'justify-start'
+                            )}
+                          >
+                            {flexRender(
+                              cell.column.columnDef.cell,
+                              cell.getContext()
+                            )}
+                          </div>
+                        </td>
+                      ))}
+                    </tr>
+                  );
+                })}
               </tbody>
             </Table>
           </div>
         )}
-      </Loader>
-      <div className="flex w-full flex-row items-end justify-between gap-4 pt-8">
-        <div className="flex flex-col gap-4">
-          <ShowingResultsNumberItems
+        <div className="flex w-full flex-row items-end justify-between gap-4 pt-8">
+          <div className="flex flex-col gap-4">
+            <ShowingResultsNumberItems
+              currentPage={currentPage}
+              pageSize={itemsPerPage}
+              totalItems={totalItems}
+            />
+            <NumberItemsSelector
+              value={itemsPerPage.toString()}
+              onValueChange={handlePageSizeChange}
+            />
+          </div>
+          <Pagination
             currentPage={currentPage}
-            pageSize={itemsPerPage}
-            totalItems={totalItems}
-          />
-          <NumberItemsSelector
-            value={itemsPerPage.toString()}
-            onValueChange={handlePageSizeChange}
+            totalPages={totalPages}
+            onPageChange={handlePageChange}
           />
         </div>
-        <Pagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          onPageChange={handlePageChange}
-        />
       </div>
     </div>
   );

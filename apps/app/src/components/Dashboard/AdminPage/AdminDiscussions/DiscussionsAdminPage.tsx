@@ -12,7 +12,7 @@ import {
   useSearch,
 } from '@intlayer/design-system/hooks';
 import { SearchInput } from '@intlayer/design-system/input';
-import { Loader } from '@intlayer/design-system/loader';
+
 import { Modal } from '@intlayer/design-system/modal';
 import {
   NumberItemsSelector,
@@ -29,12 +29,13 @@ import {
   type SortingState,
   useReactTable,
 } from '@tanstack/react-table';
-import { ChevronDown, ChevronUp, Search } from 'lucide-react';
+import { ChevronDown, ChevronUp } from 'lucide-react';
 import { type FC, useEffect, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { Link } from '#components/Link/Link';
 import { useSearchParamState } from '#hooks/useSearchParamState';
 import { DiscussionAdminDetail } from './DiscussionAdminDetail';
+import { DiscussionsAdminSkeleton } from './DiscussionsAdminSkeleton';
 
 export const DiscussionsAdminPageContent: FC = () => {
   type SortOrder = 'asc' | 'desc';
@@ -161,9 +162,7 @@ export const DiscussionsAdminPageContent: FC = () => {
       cell: ({ row }) => {
         const discussion = row.original as any;
         return (
-          <div className="text-center font-medium">
-            {discussion.numberOfMessages ?? 0}
-          </div>
+          <div className="font-medium">{discussion.numberOfMessages ?? 0}</div>
         );
       },
     },
@@ -207,7 +206,7 @@ export const DiscussionsAdminPageContent: FC = () => {
                     label={user.name ?? '-'}
                     color="text"
                   >
-                    <CopyToClipboard text={user.name}>
+                    <CopyToClipboard text={user.name} size={10}>
                       {user.name}
                     </CopyToClipboard>
                   </Link>
@@ -334,28 +333,25 @@ export const DiscussionsAdminPageContent: FC = () => {
   }
 
   return (
-    <div className="flex flex-1 flex-col">
-      <div className="mb-6">
-        <h1 className="font-bold text-2xl text-neutral-900 dark:text-neutral-100">
-          {title}
-        </h1>
-      </div>
-
-      <div className="mb-4 space-y-4">
-        <div className="flex flex-col gap-4 sm:flex-row">
-          <div className="relative flex-1">
-            <Search className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-            <SearchInput
-              placeholder={searchPlaceholder.value}
-              onChange={(e) => handleSearch(e.target.value)}
-              className="max-w-md pl-10"
-            />
-          </div>
+    <div className="flex flex-1 flex-col items-center p-4">
+      <div className="flex w-full max-w-5xl flex-col gap-4">
+        <div className="mb-6">
+          <h1 className="font-bold text-2xl text-neutral-900 dark:text-neutral-100">
+            {title}
+          </h1>
         </div>
-      </div>
 
-      <Loader isLoading={isFetching}>
-        {discussions.length === 0 ? (
+        <div className="mb-4 space-y-4">
+          <SearchInput
+            placeholder={searchPlaceholder.value}
+            onChange={(e) => handleSearch(e.target.value)}
+            className="max-w-md"
+          />
+        </div>
+
+        {isFetching && discussions.length === 0 ? (
+          <DiscussionsAdminSkeleton showToolBar={false} />
+        ) : discussions.length === 0 ? (
           <div className="py-12 text-center">
             <p className="text-neutral-500 dark:text-neutral-400">
               {noData.value}
@@ -363,18 +359,18 @@ export const DiscussionsAdminPageContent: FC = () => {
           </div>
         ) : (
           <div className="space-y-4">
-            <Table className="w-full">
+            <Table className="w-full border-separate border-spacing-0">
               <thead>
                 {table.getHeaderGroups().map((headerGroup) => (
-                  <tr
-                    key={headerGroup.id}
-                    className="border-neutral-200 border-b dark:border-neutral-700"
-                  >
+                  <tr key={headerGroup.id}>
                     {headerGroup.headers.map((header) => (
                       <th
                         key={header.id}
                         className={cn(
-                          'whitespace-nowrap px-4 py-3 text-left font-medium text-neutral-900 dark:text-neutral-100',
+                          'whitespace-nowrap px-4 py-3 font-medium text-neutral',
+                          header.id === 'numberOfMessages'
+                            ? 'text-center'
+                            : 'text-left',
                           header.column.getCanSort() &&
                             'cursor-pointer select-none hover:text-neutral-600'
                         )}
@@ -396,51 +392,71 @@ export const DiscussionsAdminPageContent: FC = () => {
                 ))}
               </thead>
               <tbody>
-                {table.getRowModel().rows.map((row) => (
-                  <tr
-                    key={row.id}
-                    className="cursor-pointer whitespace-nowrap border-neutral-100 border-b hover:bg-neutral-50 dark:border-neutral-800 dark:hover:bg-neutral-800"
-                    onClick={() => setDiscussionId(String(row.original.id))}
-                    onKeyDown={(e) => {
-                      if (e.key === 'Enter' || e.key === ' ') {
-                        setDiscussionId(String(row.original.id));
-                      }
-                    }}
-                    tabIndex={0}
-                    role="button"
-                  >
-                    {row.getVisibleCells().map((cell) => (
-                      <td key={cell.id} className="whitespace-nowrap px-4 py-3">
-                        {flexRender(
-                          cell.column.columnDef.cell,
-                          cell.getContext()
-                        )}
-                      </td>
-                    ))}
-                  </tr>
-                ))}
+                {table.getRowModel().rows.map((row) => {
+                  const visibleCells = row.getVisibleCells();
+                  return (
+                    <tr
+                      key={row.id}
+                      className="cursor-pointer whitespace-nowrap rounded-xl border-card border-b transition-colors hover:bg-card/30 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-card"
+                      onClick={() => setDiscussionId(String(row.original.id))}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                          setDiscussionId(String(row.original.id));
+                        }
+                      }}
+                      tabIndex={0}
+                      role="button"
+                    >
+                      {visibleCells.map((cell, cellIndex) => (
+                        <td
+                          key={cell.id}
+                          className={cn(
+                            'whitespace-nowrap px-4 py-3',
+                            cellIndex === 0 && 'first:rounded-l-2xl',
+                            cellIndex === visibleCells.length - 1 &&
+                              'last:rounded-r-2xl'
+                          )}
+                        >
+                          <div
+                            className={cn(
+                              'flex items-center',
+                              cell.column.id === 'numberOfMessages'
+                                ? 'justify-center'
+                                : 'justify-start'
+                            )}
+                          >
+                            {flexRender(
+                              cell.column.columnDef.cell,
+                              cell.getContext()
+                            )}
+                          </div>
+                        </td>
+                      ))}
+                    </tr>
+                  );
+                })}
               </tbody>
             </Table>
           </div>
         )}
-      </Loader>
-      <div className="flex w-full flex-row items-end justify-between gap-4 pt-8">
-        <div className="flex flex-col gap-4">
-          <ShowingResultsNumberItems
+        <div className="flex w-full flex-row items-end justify-between gap-4 pt-8">
+          <div className="flex flex-col gap-4">
+            <ShowingResultsNumberItems
+              currentPage={currentPage}
+              pageSize={itemsPerPage}
+              totalItems={totalItems}
+            />
+            <NumberItemsSelector
+              value={itemsPerPage.toString()}
+              onValueChange={handlePageSizeChange}
+            />
+          </div>
+          <Pagination
             currentPage={currentPage}
-            pageSize={itemsPerPage}
-            totalItems={totalItems}
-          />
-          <NumberItemsSelector
-            value={itemsPerPage.toString()}
-            onValueChange={handlePageSizeChange}
+            totalPages={totalPages}
+            onPageChange={handlePageChange}
           />
         </div>
-        <Pagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          onPageChange={handlePageChange}
-        />
       </div>
       <Modal
         isOpen={!!discussionId}

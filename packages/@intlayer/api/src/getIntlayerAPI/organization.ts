@@ -168,6 +168,21 @@ export const getOrganizationAPI = (
     );
 
   /**
+   * Admin-only: Deletes any organization from the database by its ID.
+   * @param organizationId - Organization ID.
+   */
+  const deleteOrganizationByIdAdmin = async (
+    organizationId: string,
+    otherOptions: FetcherOptions = {}
+  ) =>
+    fetcher<DeleteOrganizationResult>(
+      `${ORGANIZATION_API_ROUTE}/${organizationId}/admin`,
+      authAPIOptions,
+      otherOptions,
+      { method: 'DELETE' }
+    );
+
+  /**
    * Select an organization from the database by its ID.
    * @param organizationId - Organization ID.
    */
@@ -207,6 +222,7 @@ export const getOrganizationAPI = (
     updateOrganizationMembers,
     updateOrganizationMembersById,
     deleteOrganization,
+    deleteOrganizationByIdAdmin,
     selectOrganization,
     unselectOrganization,
   };

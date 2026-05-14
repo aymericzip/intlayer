@@ -2,6 +2,7 @@ import {
   addOrganization,
   addOrganizationMember,
   deleteOrganization,
+  deleteOrganizationByIdAdmin,
   getOrganizations,
   selectOrganization,
   unselectOrganization,
@@ -67,6 +68,12 @@ export const getOrganizationRoutes = () =>
       url: `${baseURL()}/logout`,
       method: 'POST',
     },
+    deleteOrganizationByIdAdmin: {
+      urlModel: '/:organizationId/admin',
+      url: ({ organizationId }: { organizationId: string }) =>
+        `${baseURL()}/${organizationId}/admin`,
+      method: 'DELETE',
+    },
   }) satisfies Routes;
 
 export const organizationRouter = async (fastify: FastifyInstance) => {
@@ -107,5 +114,10 @@ export const organizationRouter = async (fastify: FastifyInstance) => {
   fastify.post(
     getOrganizationRoutes().unselectOrganization.urlModel,
     unselectOrganization
+  );
+  fastify.delete(
+    getOrganizationRoutes().deleteOrganizationByIdAdmin.urlModel,
+    { schema: { params: organizationIdParamsSchema } },
+    deleteOrganizationByIdAdmin
   );
 };

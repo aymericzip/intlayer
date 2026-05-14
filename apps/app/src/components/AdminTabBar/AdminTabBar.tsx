@@ -72,7 +72,7 @@ export const AdminTabBar: FC<AdminTabBarProps> = ({ className }) => {
       color="text"
       variant="invisible-link"
       roundedSize="2xl"
-      className="relative flex items-center px-3 py-2 transition-colors"
+      className="relative flex items-center px-3 py-2 transition-colors aria-[current]:bg-current/0!"
       aria-label={item.label}
     >
       <item.icon className="size-4 min-w-4 shrink-0" />

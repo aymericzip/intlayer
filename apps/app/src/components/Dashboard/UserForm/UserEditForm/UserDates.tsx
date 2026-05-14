@@ -10,7 +10,7 @@ export const UserDates: FC<UserDatesProps> = ({ user }) => {
   const { formLabels } = useIntlayer('user-edit-form');
 
   return (
-    <div className="m-3 grid grid-cols-1 gap-4 border-neutral-200 border-t pt-4 md:col-span-2 md:grid-cols-2 dark:border-neutral-700">
+    <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
       <div>
         <div className="mb-1 block font-medium text-neutral-600 text-sm dark:text-neutral-400">
           {formLabels.createdAt}

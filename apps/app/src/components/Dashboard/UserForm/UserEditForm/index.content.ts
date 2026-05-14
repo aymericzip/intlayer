@@ -23,6 +23,7 @@ const userEditFormContent = {
       vi: 'Chi tiết người dùng',
       uk: 'Деталі користувача',
     }),
+
     statusLabels: {
       verified: t({
         en: 'Verified',
@@ -65,6 +66,7 @@ const userEditFormContent = {
         uk: 'В очікуванні',
       }),
     },
+
     errorMessages: {
       loadingError: t({
         en: 'Error loading user details',
@@ -167,6 +169,7 @@ const userEditFormContent = {
         uk: 'Наступні організації мають лише цього користувача',
       }),
     },
+
     successMessages: {
       userDeleted: t({
         en: 'User deleted successfully',
@@ -209,6 +212,7 @@ const userEditFormContent = {
         uk: 'Користувача успішно оновлено',
       }),
     },
+
     formLabels: {
       title: t({
         en: 'Edit User Information',
@@ -611,6 +615,7 @@ const userEditFormContent = {
         uk: 'Немає організації',
       }),
     },
+
     formValidation: {
       nameRequired: t({
         en: 'Name is required',
@@ -733,6 +738,71 @@ const userEditFormContent = {
         uk: "Мова є обов'язковою",
       }),
     },
+
+    updateError: t({
+      en: 'Update error:',
+      fr: 'Erreur de mise à jour :',
+      es: 'Error al actualizar:',
+      'en-GB': 'Update error:',
+      de: 'Aktualisierungsfehler:',
+      ja: '更新エラー：',
+      ko: '업데이트 오류:',
+      zh: '更新错误：',
+      it: 'Errore di aggiornamento:',
+      pt: 'Erro de atualização:',
+      hi: 'अपडेट त्रुटि:',
+      ar: 'خطأ في التحديث:',
+      ru: 'Ошибка обновления:',
+      tr: 'Güncelleme hatası:',
+      pl: 'Błąd aktualizacji:',
+      id: 'Kesalahan pembaruan:',
+      vi: 'Lỗi cập nhật:',
+      uk: 'Помилка оновлення:',
+      ro: 'Eroare la actualizare:',
+    }),
+
+    unknownError: t({
+      en: 'Unknown error',
+      fr: 'Erreur inconnue',
+      es: 'Error desconocido',
+      'en-GB': 'Unknown error',
+      de: 'Unbekannter Fehler',
+      ja: '不明なエラー',
+      ko: '알 수 없는 오류',
+      zh: '未知错误',
+      it: 'Errore sconosciuto',
+      pt: 'Erro desconhecido',
+      hi: 'अज्ञात त्रुटि',
+      ar: 'خطأ غير معروف',
+      ru: 'Неизвестная ошибка',
+      tr: 'Bilinmeyen hata',
+      pl: 'Nieznany błąd',
+      id: 'Kesalahan tidak diketahui',
+      vi: 'Lỗi không xác định',
+      uk: 'Невідома помилка',
+      ro: 'Eroare necunoscută',
+    }),
+
+    userNotFound: t({
+      en: 'User not found',
+      fr: 'Utilisateur non trouvé',
+      es: 'Usuario no encontrado',
+      'en-GB': 'User not found',
+      de: 'Benutzer nicht gefunden',
+      ja: 'ユーザーが見つかりません',
+      ko: '사용자를 찾을 수 없습니다',
+      zh: '未找到用户',
+      it: 'Utente non trovato',
+      pt: 'Usuário não encontrado',
+      hi: 'उपयोगकर्ता नहीं मिला',
+      ar: 'لم يتم العثور على المستخدم',
+      ru: 'Пользователь не найден',
+      tr: 'Kullanıcı bulunamadı',
+      pl: 'Użytkownik nie znaleziony',
+      id: 'Pengguna tidak ditemukan',
+      vi: 'Không tìm thấy người dùng',
+      uk: 'Користувача не знайдено',
+    }),
   },
   title: 'User edit form',
   description:

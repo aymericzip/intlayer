@@ -1,6 +1,7 @@
 import {
   addProject,
   deleteProject,
+  deleteProjectByIdAdmin,
   getCIConfiguration,
   getProjects,
   pushCIConfiguration,
@@ -103,6 +104,12 @@ export const getProjectRoutes = () =>
       url: `${baseURL()}/ci`,
       method: 'POST',
     },
+    deleteProjectByIdAdmin: {
+      urlModel: '/:projectId/admin',
+      url: ({ projectId }: { projectId: string }) =>
+        `${baseURL()}/${projectId}/admin`,
+      method: 'DELETE',
+    },
   }) satisfies Routes;
 
 export const projectRouter = async (fastify: FastifyInstance) => {
@@ -136,5 +143,10 @@ export const projectRouter = async (fastify: FastifyInstance) => {
   fastify.post(
     getProjectRoutes().pushCIConfiguration.urlModel,
     pushCIConfiguration
+  );
+  fastify.delete(
+    getProjectRoutes().deleteProjectByIdAdmin.urlModel,
+    { schema: { params: projectIdParamsSchema } },
+    deleteProjectByIdAdmin
   );
 };

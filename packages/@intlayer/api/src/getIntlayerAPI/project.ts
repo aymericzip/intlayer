@@ -141,6 +141,21 @@ export const getProjectAPI = (
     );
 
   /**
+   * Admin-only: Deletes any project from the database by its ID.
+   * @param projectId - Project ID.
+   */
+  const deleteProjectByIdAdmin = async (
+    projectId: string,
+    otherOptions: FetcherOptions = {}
+  ) =>
+    fetcher<DeleteProjectResult>(
+      `${PROJECT_API_ROUTE}/${projectId}/admin`,
+      authAPIOptions,
+      otherOptions,
+      { method: 'DELETE' }
+    );
+
+  /**
    * Select a project from the database by its ID.
    * @param projectId - Organization ID.
    */
@@ -303,6 +318,7 @@ export const getProjectAPI = (
     updateProjectMembers,
     pushProjectConfiguration,
     deleteProject,
+    deleteProjectByIdAdmin,
     selectProject,
     unselectProject,
     addNewAccessKey,

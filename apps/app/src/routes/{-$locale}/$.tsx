@@ -19,6 +19,7 @@ export const Route = createFileRoute('/{-$locale}/$')({
     if (!isValid) {
       throw redirect({
         to: getLocalizedUrl(location.pathname, localePrefix),
+        search: location.search,
       });
     }
 
@@ -39,14 +40,17 @@ export const Route = createFileRoute('/{-$locale}/$')({
       if (session.organization && session.project) {
         throw redirect({
           to: getLocalizedUrl(App_Dashboard_Dictionaries_Path, localePrefix),
+          search: location.search,
         });
       } else if (session.organization) {
         throw redirect({
           to: getLocalizedUrl(App_Dashboard_Projects_Path, localePrefix),
+          search: location.search,
         });
       } else {
         throw redirect({
           to: getLocalizedUrl(App_Dashboard_Organization_Path, localePrefix),
+          search: location.search,
         });
       }
     }
@@ -54,6 +58,7 @@ export const Route = createFileRoute('/{-$locale}/$')({
     throw redirect({
       to: `/{-$locale}${App_Dashboard_Organization_Path}`,
       params: { locale: localePrefix },
+      search: location.search,
     });
   },
   component: NotFoundComponent,

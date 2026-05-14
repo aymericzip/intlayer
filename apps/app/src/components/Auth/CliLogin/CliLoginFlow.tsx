@@ -41,6 +41,7 @@ const AccessKeySelector: FC<{
   const handleSelect = async (accessKey: OAuth2AccessAPI) => {
     setLoadingKeyId(String(accessKey.id));
     await onSelect(accessKey);
+
     setLoadingKeyId(null);
   };
 
@@ -53,28 +54,30 @@ const AccessKeySelector: FC<{
         padding="md"
         isScrollable
       >
-        <div className="p-3">
-          <AccessKeyCreationForm
-            onAccessKeyCreated={(response) => {
-              if (!response.data) {
-                return;
-              }
-              setIsCreationModalOpen(false);
-            }}
-          />
-        </div>
+        <AccessKeyCreationForm
+          onAccessKeyCreated={(response) => {
+            if (!response.data) {
+              return;
+            }
+            setIsCreationModalOpen(false);
+          }}
+        />
       </Modal>
 
       <div className="flex w-full flex-col gap-6">
         <H3>{title}</H3>
         <span className="text-neutral text-sm">{description}</span>
         {project?.oAuth2Access.map((accessKey) => (
-          <div
+          <Container
             key={String(accessKey.id)}
-            className="flex flex-col gap-3 divide-y divide-dashed divide-neutral rounded-lg border-2 p-3"
+            roundedSize="3xl"
+            padding="md"
+            border
+            borderColor="text"
+            className="gap-3 divide-y divide-dashed divide-neutral"
           >
             <div className="flex items-center justify-center px-3 pb-3">
-              <KeyRound className="size-5" size={16} />
+              <KeyRound className="mr-2 size-5" size={16} />
               <span className="m-auto w-full font-bold text-lg">
                 {accessKey.name}
               </span>
@@ -119,7 +122,7 @@ const AccessKeySelector: FC<{
             >
               Select
             </Button>
-          </div>
+          </Container>
         ))}
 
         {nbAccessKeys === 0 && (
@@ -170,6 +173,8 @@ export const CliLoginFlow: FC<CliLoginFlowProps> = ({ port, state }) => {
   };
 
   const handleKeySelect = async (key: OAuth2AccessAPI) => {
+    console.log({ key, port });
+
     if (!port) return;
 
     // Redirect the browser to the local CLI server to complete the login
@@ -177,55 +182,57 @@ export const CliLoginFlow: FC<CliLoginFlowProps> = ({ port, state }) => {
     window.location.href = `http://localhost:${port}/callback?clientId=${key.clientId}&clientSecret=${key.clientSecret}&state=${state}`;
   };
 
-  if (isLoading) return <Loader />;
-
   return (
-    <div className="flex flex-1 flex-col items-center justify-center pt-10">
-      <Container className="w-full max-w-xl p-5" roundedSize="xl">
-        {(session?.organization || session?.project) && (
-          <div className="z-10 mb-6 border-neutral/20 border-b border-dashed p-2 pb-6">
-            <H2 className="mb-5">Context</H2>
-            <Container
-              className="z-10 mr-auto w-fit flex-row items-center gap-2 p-2"
-              border
-              borderColor="text"
-              roundedSize="2xl"
-            >
-              {session?.organization && <OrganizationDropdown />}
-              {session?.project && (
-                <>
-                  <span className="text-neutral">/</span>
-                  <ProjectDropdown />
-                </>
-              )}
-            </Container>
-          </div>
-        )}
-        {currentStep === 'login' && (
-          <div className="m-auto">
-            <H2 className="mb-5">{loginTitle}</H2>
-            <SignInForm callbackUrl={callbackUrl} />
-          </div>
-        )}
-        {currentStep === 'org' && (
-          <div className="flex flex-col gap-5">
-            <H2>{selectOrganizationText}</H2>
-            <OrganizationList onSelectOrganization={handleOrganizationSelect} />
-          </div>
-        )}
-        {currentStep === 'project' && (
-          <div className="flex flex-col gap-5">
-            <H2>{selectProjectText}</H2>
-            <ProjectList />
-          </div>
-        )}
-        {currentStep === 'key' && (
-          <div className="m-auto flex-col gap-5">
-            <H2>{selectAccessKeyText}</H2>
-            <AccessKeySelector onSelect={handleKeySelect} />
-          </div>
-        )}
-      </Container>
-    </div>
+    <Loader isLoading={isLoading}>
+      <div className="flex flex-1 flex-col items-center justify-center pt-10">
+        <Container className="w-full max-w-xl" roundedSize="4xl" padding="xl">
+          {(session?.organization || session?.project) && (
+            <div className="z-10 mb-6 border-neutral/20 border-b border-dashed p-2 pb-6">
+              <H2 className="mb-5">Context</H2>
+              <Container
+                className="z-10 mr-auto w-fit flex-row items-center gap-2 p-2"
+                border
+                borderColor="text"
+                roundedSize="2xl"
+              >
+                {session?.organization && <OrganizationDropdown />}
+                {session?.project && (
+                  <>
+                    <span className="text-neutral">/</span>
+                    <ProjectDropdown />
+                  </>
+                )}
+              </Container>
+            </div>
+          )}
+          {currentStep === 'login' && (
+            <div className="m-auto">
+              <H2 className="mb-5">{loginTitle}</H2>
+              <SignInForm callbackUrl={callbackUrl} />
+            </div>
+          )}
+          {currentStep === 'org' && (
+            <div className="flex flex-col gap-5">
+              <H2>{selectOrganizationText}</H2>
+              <OrganizationList
+                onSelectOrganization={handleOrganizationSelect}
+              />
+            </div>
+          )}
+          {currentStep === 'project' && (
+            <div className="flex flex-col gap-5">
+              <H2>{selectProjectText}</H2>
+              <ProjectList />
+            </div>
+          )}
+          {currentStep === 'key' && (
+            <div className="m-auto flex-col gap-5">
+              <H2>{selectAccessKeyText}</H2>
+              <AccessKeySelector onSelect={handleKeySelect} />
+            </div>
+          )}
+        </Container>
+      </div>
+    </Loader>
   );
 };

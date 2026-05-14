@@ -1,4 +1,8 @@
+import { useSession } from '@intlayer/design-system/hooks';
 import {
+  App_Admin_Discussions_Path,
+  App_Admin_Organizations_Path,
+  App_Admin_Projects_Path,
   App_Admin_Users_Path,
   App_Dashboard_Dictionaries_Path,
   App_Dashboard_Editor_Path,
@@ -46,6 +50,8 @@ export const Route = createFileRoute('/{-$locale}/_dashboard')({
 
 function DashboardLayout() {
   const { locale } = useLocale();
+  const { session } = useSession();
+  const hasProject = !!session?.project;
 
   const { collapseButton, navigation } = useIntlayer('dashboard-sidebar');
   const { footerLinks } = useIntlayer('dashboard-footer-content');
@@ -100,7 +106,9 @@ function DashboardLayout() {
       href: App_Dashboard_Projects_Path,
       icon: 'FolderKanban',
       label: navigation.projects.label.value,
-      title: navigation.projects.title.value,
+      title: hasProject
+        ? navigation.project.title.value
+        : navigation.projects.title.value,
     },
     {
       key: 'organization',
@@ -122,6 +130,36 @@ function DashboardLayout() {
       icon: 'Shield',
       label: navigation.admin.label.value,
       title: navigation.admin.title.value,
+      items: [
+        {
+          key: 'admin-users',
+          href: App_Admin_Users_Path,
+          icon: 'User',
+          label: navigation.adminUsers.label.value,
+          title: navigation.adminUsers.title.value,
+        },
+        {
+          key: 'admin-projects',
+          href: App_Admin_Projects_Path,
+          icon: 'FolderKanban',
+          label: navigation.adminProjects.label.value,
+          title: navigation.adminProjects.title.value,
+        },
+        {
+          key: 'admin-organizations',
+          href: App_Admin_Organizations_Path,
+          icon: 'Building2',
+          label: navigation.adminOrganizations.label.value,
+          title: navigation.adminOrganizations.title.value,
+        },
+        {
+          key: 'admin-discussions',
+          href: App_Admin_Discussions_Path,
+          icon: 'MessageSquare',
+          label: navigation.adminDiscussions.label.value,
+          title: navigation.adminDiscussions.title.value,
+        },
+      ],
     },
   ];
 

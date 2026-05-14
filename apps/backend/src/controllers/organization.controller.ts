@@ -843,6 +843,77 @@ export const deleteOrganization = async (
   }
 };
 
+export type DeleteOrganizationByIdAdminParams = { organizationId: string };
+export type DeleteOrganizationByIdAdminResult = ResponseData<OrganizationAPI>;
+
+/**
+ * Admin-only: Deletes any organization from the database by its ID.
+ */
+export const deleteOrganizationByIdAdmin = async (
+  request: FastifyRequest<{ Params: DeleteOrganizationByIdAdminParams }>,
+  reply: FastifyReply
+): Promise<void> => {
+  const { organizationId } = request.params;
+  const { roles } = request.session || {};
+
+  if (
+    !hasPermission(roles || [], 'organization:admin')({ ...request.session })
+  ) {
+    return ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
+  }
+
+  try {
+    const organization =
+      await organizationService.getOrganizationById(organizationId);
+
+    if (!organization) {
+      return ErrorHandler.handleGenericErrorResponse(
+        reply,
+        'ORGANIZATION_NOT_FOUND'
+      );
+    }
+
+    const deletedOrganization =
+      await organizationService.deleteOrganizationById(organization.id);
+
+    if (!deletedOrganization) {
+      return ErrorHandler.handleGenericErrorResponse(
+        reply,
+        'ORGANIZATION_NOT_FOUND'
+      );
+    }
+
+    const formattedOrganization = mapOrganizationToAPI(deletedOrganization);
+    const responseData = formatResponse<OrganizationAPI>({
+      message: t({
+        en: 'Organization deleted',
+        fr: 'Organisation supprimée',
+        es: 'Organización eliminada',
+        'en-GB': 'Organisation deleted',
+        de: 'Organisation gelöscht',
+        ja: '組織が削除されました',
+        ko: '조직이 삭제되었습니다',
+        zh: '组织已删除',
+        it: 'Organizzazione eliminata',
+        pt: 'Organização excluída',
+        hi: 'संगठन हटा दिया गया',
+        ar: 'تم حذف المنظمة',
+        ru: 'Организация удалена',
+        tr: 'Organizasyon silindi',
+        pl: 'Organizacja usunięta',
+        id: 'Organisasi dihapus',
+        vi: 'Tổ chức đã bị xóa',
+        uk: 'Організацію видалено',
+      }),
+      data: formattedOrganization,
+    });
+
+    return reply.send(responseData);
+  } catch (error) {
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
+  }
+};
+
 export type SelectOrganizationParam = {
   organizationId: string | Types.ObjectId;
 };

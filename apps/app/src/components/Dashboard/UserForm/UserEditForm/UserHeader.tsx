@@ -1,6 +1,7 @@
 import type { UserAPI } from '@intlayer/backend';
 import { Avatar } from '@intlayer/design-system/avatar';
 import { Badge, BadgeColor, BadgeVariant } from '@intlayer/design-system/badge';
+import { Container } from '@intlayer/design-system/container';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
 
@@ -12,7 +13,14 @@ export const UserHeader: FC<UserHeaderProps> = ({ user }) => {
   const { statusLabels } = useIntlayer('user-edit-form');
 
   return (
-    <div className="flex items-center gap-4 rounded-lg border border-neutral bg-card p-6">
+    <Container
+      roundedSize="3xl"
+      padding="md"
+      border
+      borderColor="text"
+      background="none"
+      className="relative flex items-center gap-4"
+    >
       <Avatar
         isLoggedIn={true}
         isLoading={false}
@@ -20,18 +28,19 @@ export const UserHeader: FC<UserHeaderProps> = ({ user }) => {
         fullname={user.email}
       />
       <div className="flex-1">
-        <h2 className="font-semibold text-neutral text-xl">
+        <h2 className="font-semibold text-text text-xl">
           {user.name ?? user.email}
         </h2>
         <p className="text-neutral">{user.email}</p>
 
         <Badge
           variant={BadgeVariant.OUTLINE}
+          className="absolute top-3 right-10"
           color={user.emailVerified ? BadgeColor.TEXT : BadgeColor.DESTRUCTIVE}
         >
           {user.emailVerified ? statusLabels.verified : statusLabels.pending}
         </Badge>
       </div>
-    </div>
+    </Container>
   );
 };

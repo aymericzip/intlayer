@@ -1,5 +1,7 @@
 import type { UserAPI } from '@intlayer/backend';
+import { Container } from '@intlayer/design-system/container';
 import { Form, useForm } from '@intlayer/design-system/form';
+import { H3 } from '@intlayer/design-system/headers';
 import {
   useGetOrganizations,
   useGetUserById,
@@ -30,8 +32,15 @@ export const UserEditForm: FC<{ userId: string }> = ({ userId }) => {
   const UserEditSchema = useUserEditSchema();
   const { form, isSubmitting } = useForm(UserEditSchema);
 
-  const { title, statusLabels, formLabels, errorMessages, successMessages } =
-    useIntlayer('user-edit-form');
+  const {
+    title,
+    formLabels,
+    errorMessages,
+    successMessages,
+    updateError,
+    unknownError,
+    userNotFound,
+  } = useIntlayer('user-edit-form');
 
   const user: UserAPI | undefined = userResponse?.data ?? undefined;
 
@@ -139,7 +148,7 @@ export const UserEditForm: FC<{ userId: string }> = ({ userId }) => {
         variant: 'success',
       });
     } catch (error) {
-      console.error('Update error:', error);
+      console.error(updateError.value, error);
       toast({
         title: errorMessages.updateError.value,
         description: (error as Error).message,
@@ -162,14 +171,14 @@ export const UserEditForm: FC<{ userId: string }> = ({ userId }) => {
     return (
       <div className="p-6 text-error">
         {errorMessages.loadingError}:{' '}
-        {(error as Error)?.message ?? 'Unknown error'}
+        {(error as Error)?.message ?? unknownError.value}
       </div>
     );
   }
 
   return (
-    <>
-      <div className="mb-6">
+    <div className="flex max-w-5xl flex-col items-center justify-center gap-4">
+      <div className="mb-6 size-full">
         <h1 className="font-bold text-2xl text-neutral-900 dark:text-neutral-100">
           {title}
         </h1>
@@ -177,50 +186,68 @@ export const UserEditForm: FC<{ userId: string }> = ({ userId }) => {
 
       <Loader isLoading={isLoading}>
         {user ? (
-          <div className="space-y-6">
-            <UserHeader user={user} />
+          <div className="grid w-full justify-evenly gap-x-5 gap-y-4 max-md:grid-cols-1 md:grid-cols-2 lg:gap-x-16">
+            <div className="mb-auto flex flex-col gap-4">
+              <UserHeader user={user} />
 
-            <div className="rounded-lg border border-neutral-200 bg-card p-6 dark:border-neutral-700">
-              <h3 className="mb-6 font-semibold text-lg text-neutral-900 dark:text-neutral-100">
-                {formLabels.title}
-              </h3>
-
-              <Form
-                schema={UserEditSchema}
-                onSubmitSuccess={onSubmitSuccess}
-                {...form}
+              <Container
+                roundedSize="3xl"
+                padding="md"
+                border
+                borderColor="text"
+                background="none"
               >
-                <UserFormFields
-                  organizations={organizations}
-                  isLastMemberInOrg={isLastMemberInOrg}
-                  getOrganizationName={getOrganizationName}
-                />
+                <H3 className="mb-8">{formLabels.title}</H3>
 
-                <UserDates user={user} />
-
-                <Form.Button
-                  type="submit"
-                  label={formLabels.updateButton.value}
-                  isLoading={
-                    isSubmitting ||
-                    updateUserMutation.isPending ||
-                    updateOrganizationMembersByIdMutation.isPending
-                  }
-                  color="text"
+                <Form
+                  schema={UserEditSchema}
+                  onSubmitSuccess={onSubmitSuccess}
+                  className="w-full"
+                  {...form}
                 >
-                  {formLabels.updateButton}
-                </Form.Button>
-              </Form>
+                  <UserFormFields
+                    organizations={organizations}
+                    isLastMemberInOrg={isLastMemberInOrg}
+                    getOrganizationName={getOrganizationName}
+                  />
+
+                  <Form.Button
+                    type="submit"
+                    className="mt-12 w-full"
+                    label={formLabels.updateButton.value}
+                    isLoading={
+                      isSubmitting ||
+                      updateUserMutation.isPending ||
+                      updateOrganizationMembersByIdMutation.isPending
+                    }
+                    color="text"
+                  >
+                    {formLabels.updateButton}
+                  </Form.Button>
+                </Form>
+              </Container>
+            </div>
+
+            <div className="mb-auto flex flex-col gap-4">
+              <Container
+                roundedSize="3xl"
+                padding="md"
+                border
+                borderColor="text"
+                background="none"
+              >
+                <UserDates user={user} />
+              </Container>
             </div>
           </div>
         ) : (
           <div className="py-12 text-center">
             <p className="text-neutral-500 dark:text-neutral-400">
-              User not found
+              {userNotFound}
             </p>
           </div>
         )}
       </Loader>
-    </>
+    </div>
   );
 };
