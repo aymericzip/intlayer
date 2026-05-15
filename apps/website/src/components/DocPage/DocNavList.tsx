@@ -404,84 +404,109 @@ export const DocNavList: FC<DocNavListProps> = ({ docData, activeSlugs }) => {
   const [selectedFramework, setSelectedFramework] = useFrameworkFilter();
 
   return (
-    <ClickOutsideDiv
-      className="top-0 left-0 z-40 flex h-full justify-end max-md:fixed"
-      onClickOutSide={() => {
-        if (isMobile) {
-          setIsHidden(true);
-        }
-      }}
-    >
-      <Container
+    <>
+      <div
         className={cn(
-          isHidden ? 'h-[100px]' : 'h-full',
-          'sticky top-[60px] rounded-br-2xl'
+          'fixed top-[4.5rem] left-2 z-50 flex flex-col gap-1 md:hidden',
+          !isHidden && 'hidden'
         )}
-        roundedSize="none"
-        transparency="xs"
       >
-        <div className="relative h-full max-w-80">
-          <Container
-            transparency="xs"
-            className="sticky top-[3.6rem] z-10 m-auto pt-4"
-            roundedSize="none"
-          >
-            <div
-              className={cn(
-                'relative m-auto flex w-full flex-row items-center justify-center gap-2 px-2',
-                isHidden && 'flex-col-reverse'
-              )}
+        <SearchTrigger isMini />
+        <Button
+          Icon={ArrowLeftToLine}
+          size="icon-md"
+          variant="hoverable"
+          color="text"
+          label={collapseButton.label.value}
+          className="rotate-180"
+          onClick={() => setIsHidden(false)}
+        />
+      </div>
+      <ClickOutsideDiv
+        className={cn(
+          'top-0 left-0 z-40 flex h-full justify-end max-md:fixed',
+          'max-md:transition-transform max-md:duration-300 max-md:ease-in-out',
+          isHidden
+            ? 'max-md:pointer-events-none max-md:-translate-x-full'
+            : 'max-md:translate-x-0'
+        )}
+        onClickOutSide={() => {
+          if (isMobile) {
+            setIsHidden(true);
+          }
+        }}
+      >
+        <Container
+          className={cn(
+            isHidden ? 'h-[100px]' : 'h-full',
+            'sticky top-[60px] rounded-br-2xl'
+          )}
+          roundedSize="none"
+          transparency="xs"
+        >
+          <div className="relative h-full max-w-80">
+            <Container
+              transparency="xs"
+              className="sticky top-[3.6rem] z-10 m-auto pt-4"
+              roundedSize="none"
             >
-              {!isHidden && (
-                <FrameworkFilter
-                  selected={selectedFramework}
-                  onSelect={setSelectedFramework}
-                />
-              )}
-              <SearchTrigger isMini={isHidden} />
-              <PopoverStatic identifier="doc-nav-collapse">
-                <Button
-                  Icon={ArrowLeftToLine}
-                  size="icon-md"
-                  variant="hoverable"
-                  color="text"
-                  label={collapseButton.label.value}
-                  className={cn([
-                    'transition-transform',
-                    isHidden && 'rotate-180',
-                  ])}
-                  onClick={() => setIsHidden((isHidden) => !isHidden)}
-                />
-                <PopoverStatic.Detail identifier="doc-nav-collapse">
-                  <KeyboardShortcut
-                    shortcut="Alt + ArrowLeft"
-                    onTriggered={() => setIsHidden((isHidden) => !isHidden)}
-                    size="sm"
-                  />
-                </PopoverStatic.Detail>
-              </PopoverStatic>
               <div
                 className={cn(
-                  'absolute bottom-0 left-0 h-8 w-full translate-y-full bg-linear-to-b from-card/90 backdrop-blur',
-                  isHidden && 'hidden'
+                  'relative m-auto flex w-full flex-row items-center justify-center gap-2 px-2',
+                  isHidden && 'flex-col-reverse'
                 )}
-              />
-            </div>
-          </Container>
-
-          <div className="sticky top-28 pt-0">
-            <MaxWidthSmoother isHidden={Boolean(isHidden)}>
-              <div className="relative overflow-hidden">
-                <DocNavListContent
-                  docData={docData}
-                  activeSlugs={activeSlugs}
-                  selectedFramework={selectedFramework}
+              >
+                {!isHidden && (
+                  <FrameworkFilter
+                    selected={selectedFramework}
+                    onSelect={setSelectedFramework}
+                  />
+                )}
+                <SearchTrigger isMini={isHidden} />
+                <PopoverStatic identifier="doc-nav-collapse">
+                  <Button
+                    Icon={ArrowLeftToLine}
+                    size="icon-md"
+                    variant="hoverable"
+                    color="text"
+                    label={collapseButton.label.value}
+                    className={cn([
+                      'transition-transform',
+                      isHidden && 'rotate-180',
+                    ])}
+                    onClick={() => setIsHidden((isHidden) => !isHidden)}
+                  />
+                  <PopoverStatic.Detail identifier="doc-nav-collapse">
+                    <KeyboardShortcut
+                      shortcut="Alt + ArrowLeft"
+                      onTriggered={() => setIsHidden((isHidden) => !isHidden)}
+                      size="sm"
+                    />
+                  </PopoverStatic.Detail>
+                </PopoverStatic>
+                <div
+                  className={cn(
+                    'absolute bottom-0 left-0 h-8 w-full translate-y-full bg-linear-to-b from-card/90 backdrop-blur',
+                    isHidden && 'hidden'
+                  )}
                 />
               </div>
-            </MaxWidthSmoother>
+            </Container>
+
+            <div className="sticky top-28 pt-0">
+              <MaxWidthSmoother isHidden={Boolean(isHidden)}>
+                <div className="relative overflow-hidden">
+                  <DocNavListContent
+                    docData={docData}
+                    activeSlugs={activeSlugs}
+                    selectedFramework={selectedFramework}
+                  />
+                </div>
+              </MaxWidthSmoother>
+            </div>
           </div>
-        </div>
-      </Container>
-    </ClickOutsideDiv>
+        </Container>
+      </ClickOutsideDiv>
+    </>
   );
 };
