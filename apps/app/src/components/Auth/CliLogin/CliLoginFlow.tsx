@@ -1,4 +1,5 @@
 import type { OAuth2AccessAPI } from '@intlayer/backend';
+import { LanguageBackground } from '@intlayer/design-system';
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
 import { CopyToClipboard } from '@intlayer/design-system/copy-to-clipboard';
@@ -33,8 +34,15 @@ const AccessKeySelector: FC<{
   const [isCreationModalOpen, setIsCreationModalOpen] = useState(false);
   const [loadingKeyId, setLoadingKeyId] = useState<string | null>(null);
 
-  const { title, description, noAccessKeys, createAccessKey, labels } =
-    useIntlayer('access-key-form');
+  const {
+    title,
+    description,
+    noAccessKeys,
+    createAccessKey,
+    labels,
+    selectThisKey,
+    select,
+  } = useIntlayer('access-key-form');
 
   const nbAccessKeys = project?.oAuth2Access.length ?? 0;
 
@@ -115,12 +123,12 @@ const AccessKeySelector: FC<{
             <Button
               onClick={() => handleSelect(accessKey)}
               isLoading={loadingKeyId === String(accessKey.id)}
-              label="Select this key"
+              label={selectThisKey.value}
               color="text"
               Icon={Check}
               className="w-full"
             >
-              Select
+              {select}
             </Button>
           </Container>
         ))}
@@ -150,6 +158,7 @@ export const CliLoginFlow: FC<CliLoginFlowProps> = ({ port, state }) => {
     selectOrganization: selectOrganizationText,
     selectProject: selectProjectText,
     selectAccessKey: selectAccessKeyText,
+    context,
   } = useIntlayer('cli-login-flow');
 
   // Construct callback URL to stay on the CLI login page after authentication
@@ -184,55 +193,57 @@ export const CliLoginFlow: FC<CliLoginFlowProps> = ({ port, state }) => {
 
   return (
     <Loader isLoading={isLoading}>
-      <div className="flex flex-1 flex-col items-center justify-center pt-10">
-        <Container className="w-full max-w-xl" roundedSize="4xl" padding="xl">
-          {(session?.organization || session?.project) && (
-            <div className="z-10 mb-6 border-neutral/20 border-b border-dashed p-2 pb-6">
-              <H2 className="mb-5">Context</H2>
-              <Container
-                className="z-10 mr-auto w-fit flex-row items-center gap-2 p-2"
-                border
-                borderColor="text"
-                roundedSize="2xl"
-              >
-                {session?.organization && <OrganizationDropdown />}
-                {session?.project && (
-                  <>
-                    <span className="text-neutral">/</span>
-                    <ProjectDropdown />
-                  </>
-                )}
-              </Container>
-            </div>
-          )}
-          {currentStep === 'login' && (
-            <div className="m-auto">
-              <H2 className="mb-5">{loginTitle}</H2>
-              <SignInForm callbackUrl={callbackUrl} />
-            </div>
-          )}
-          {currentStep === 'org' && (
-            <div className="flex flex-col gap-5">
-              <H2>{selectOrganizationText}</H2>
-              <OrganizationList
-                onSelectOrganization={handleOrganizationSelect}
-              />
-            </div>
-          )}
-          {currentStep === 'project' && (
-            <div className="flex flex-col gap-5">
-              <H2>{selectProjectText}</H2>
-              <ProjectList />
-            </div>
-          )}
-          {currentStep === 'key' && (
-            <div className="m-auto flex-col gap-5">
-              <H2>{selectAccessKeyText}</H2>
-              <AccessKeySelector onSelect={handleKeySelect} />
-            </div>
-          )}
-        </Container>
-      </div>
+      <LanguageBackground>
+        <div className="flex flex-1 flex-col items-center justify-center pt-10">
+          <Container className="w-full max-w-xl" roundedSize="4xl" padding="xl">
+            {(session?.organization || session?.project) && (
+              <div className="z-10 mb-6 border-neutral/20 border-b border-dashed p-2 pb-6">
+                <H2 className="mb-5">{context}</H2>
+                <Container
+                  className="z-10 mr-auto w-fit flex-row items-center gap-2 p-2"
+                  border
+                  borderColor="text"
+                  roundedSize="2xl"
+                >
+                  {session?.organization && <OrganizationDropdown />}
+                  {session?.project && (
+                    <>
+                      <span className="text-neutral">/</span>
+                      <ProjectDropdown />
+                    </>
+                  )}
+                </Container>
+              </div>
+            )}
+            {currentStep === 'login' && (
+              <>
+                <H2 className="mb-5">{loginTitle}</H2>
+                <SignInForm callbackUrl={callbackUrl} />
+              </>
+            )}
+            {currentStep === 'org' && (
+              <div className="flex flex-col gap-5">
+                <H2>{selectOrganizationText}</H2>
+                <OrganizationList
+                  onSelectOrganization={handleOrganizationSelect}
+                />
+              </div>
+            )}
+            {currentStep === 'project' && (
+              <div className="flex flex-col gap-5">
+                <H2>{selectProjectText}</H2>
+                <ProjectList />
+              </div>
+            )}
+            {currentStep === 'key' && (
+              <div className="m-auto flex-col gap-5">
+                <H2>{selectAccessKeyText}</H2>
+                <AccessKeySelector onSelect={handleKeySelect} />
+              </div>
+            )}
+          </Container>
+        </div>
+      </LanguageBackground>
     </Loader>
   );
 };

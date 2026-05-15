@@ -24,6 +24,7 @@ const accessKeyFormContent = {
       vi: 'Khóa truy cập',
       uk: 'Ключі доступу',
     }),
+
     description: t({
       ar: 'مفاتيح الوصول تستخدم للمصادقة على مشروعك.',
       de: 'Zugriffsschlüssel werden verwendet, um Ihr Projekt zu authentifizieren.',
@@ -44,6 +45,7 @@ const accessKeyFormContent = {
       vi: 'Các khóa truy cập được sử dụng để xác thực dự án của bạn.',
       uk: 'Ключі доступу використовуються для автентифікації вашого проєкту.',
     }),
+
     noAccessKeys: t({
       ar: 'لا توجد مفاتيح الوصول',
       de: 'Keine Zugriffsschlüssel',
@@ -64,6 +66,7 @@ const accessKeyFormContent = {
       vi: 'Không có khóa truy cập',
       uk: 'Немає ключів доступу',
     }),
+
     createAccessKey: {
       text: t({
         en: 'Create access key',
@@ -106,6 +109,7 @@ const accessKeyFormContent = {
         uk: 'Натисніть, щоб створити ключ доступу',
       }),
     },
+
     rights: {
       title: t({
         en: 'Grants',
@@ -229,6 +233,7 @@ const accessKeyFormContent = {
         uk: 'Словник: ',
       }),
     },
+
     labels: {
       clientId: 'clientId',
       clientSecret: 'clientSecret',
@@ -353,6 +358,7 @@ const accessKeyFormContent = {
         uk: 'Оновити секретний ключ доступу',
       }),
     },
+
     modal: {
       deleteTitle: t({
         en: 'Are you sure you want to delete this access key?',
@@ -581,6 +587,14 @@ const accessKeyFormContent = {
       id: 'Access key bersifat pribadi dan tidak boleh dibagikan kepada orang lain. Pastikan menyimpan access key ini dengan aman, misalnya di environment variables.',
       vi: 'Khóa truy cập là thông tin cá nhân và không nên chia sẻ với người khác. Hãy lưu trữ các khóa truy cập này một cách an toàn, ví dụ bằng biến môi trường.',
       uk: 'Ключі доступу є особистими і не повинні передаватися іншим. Зберігайте їх у безпечному місці, наприклад у змінних середовища.',
+    }),
+
+    selectThisKey: t({
+      en: 'Select this key',
+    }),
+
+    select: t({
+      en: 'Select',
     }),
   },
   title: 'Access key form',

@@ -23,6 +23,7 @@ const cliLoginFlowContent = {
       vi: 'Đăng nhập vào CLI',
       uk: 'Увійти в CLI',
     }),
+
     selectOrganization: t({
       en: 'Select Organization',
       'en-GB': 'Select Organisation',
@@ -43,6 +44,7 @@ const cliLoginFlowContent = {
       vi: 'Chọn tổ chức',
       uk: 'Оберіть організацію',
     }),
+
     selectProject: t({
       en: 'Select Project',
       'en-GB': 'Select Project',
@@ -63,6 +65,7 @@ const cliLoginFlowContent = {
       vi: 'Chọn dự án',
       uk: 'Оберіть проєкт',
     }),
+
     selectAccessKey: t({
       en: 'Select Access Key',
       'en-GB': 'Select Access Key',
@@ -82,6 +85,27 @@ const cliLoginFlowContent = {
       id: 'Pilih Kunci Akses',
       vi: 'Chọn khóa truy cập',
       uk: 'Оберіть ключ доступу',
+    }),
+
+    context: t({
+      en: 'Context',
+      'en-GB': 'Context',
+      es: 'Contexto',
+      fr: 'Contexte',
+      ru: 'Контекст',
+      ja: 'コンテキスト',
+      ko: '컨텍스트',
+      zh: '上下文',
+      de: 'Kontext',
+      ar: 'السياق',
+      it: 'Contesto',
+      pt: 'Contexto',
+      hi: 'संदर्भ',
+      tr: 'Bağlam',
+      pl: 'Kontekst',
+      id: 'Konteks',
+      vi: 'Ngữ cảnh',
+      uk: 'Контекст',
     }),
   },
   title: 'CLI Login Flow',

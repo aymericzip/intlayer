@@ -77,6 +77,7 @@ export const login = async (options: LoginOptions) => {
           [
             `${ANSIColors.GREY_LIGHT}{`,
             `  editor: {`,
+            `     enabled: true,`,
             `     cmsURL: '${colorizePath(cmsUrl!, undefined, ANSIColors.GREY_LIGHT)}',`,
             `     clientId: '${colorize('process.env.INTLAYER_CLIENT_ID', ANSIColors.BLUE, ANSIColors.GREY_LIGHT)}',`,
             `     clientSecret: '${colorize('process.env.INTLAYER_CLIENT_SECRET', ANSIColors.BLUE, ANSIColors.GREY_LIGHT)}',`,
@@ -141,6 +142,7 @@ export const login = async (options: LoginOptions) => {
                   
                   p {
                     color: var(--color-neutral);
+                    font-size: 0.8rem;
                     margin: 0 0 1.5rem 0;
                     line-height: 1.5;
                   }
