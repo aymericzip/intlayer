@@ -62,7 +62,7 @@ export const ProjectsAdminPageContent: FC = () => {
   );
 
   const { data, error, isFetching } = projectsQuery;
-  const { title, tableHeaders, noData, errorMessages, searchPlaceholder } =
+  const { tableHeaders, noData, errorMessages, searchPlaceholder } =
     useIntlayer('project-admin-page');
 
   const projectsResponse = data as GetProjectsResult | undefined;
@@ -284,13 +284,7 @@ export const ProjectsAdminPageContent: FC = () => {
 
   return (
     <div className="flex flex-1 flex-col items-center p-4">
-      <div className="flex w-full max-w-5xl flex-col gap-4">
-        <div className="mb-6">
-          <h1 className="font-bold text-2xl text-neutral-900 dark:text-neutral-100">
-            {title}
-          </h1>
-        </div>
-
+      <div className="flex w-full flex-col gap-4 overflow-scroll">
         <div className="space-y-4">
           <SearchInput
             type="search"

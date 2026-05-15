@@ -67,14 +67,8 @@ export const DiscussionsAdminPageContent: FC = () => {
   // users fetched after discussions are loaded
 
   const { data, error, isFetching } = discussionsQuery;
-  const {
-    title,
-    tableHeaders,
-    noData,
-    errorMessages,
-    searchPlaceholder,
-    modalTitle,
-  } = useIntlayer('discussion-admin-detail');
+  const { tableHeaders, noData, errorMessages, searchPlaceholder, modalTitle } =
+    useIntlayer('discussion-admin-detail');
 
   const discussionsResponse = data as GetDiscussionsResult | undefined;
   const discussions = discussionsResponse?.data ?? [];
@@ -334,13 +328,7 @@ export const DiscussionsAdminPageContent: FC = () => {
 
   return (
     <div className="flex flex-1 flex-col items-center p-4">
-      <div className="flex w-full max-w-5xl flex-col gap-4">
-        <div className="mb-6">
-          <h1 className="font-bold text-2xl text-neutral-900 dark:text-neutral-100">
-            {title}
-          </h1>
-        </div>
-
+      <div className="flex w-full flex-col gap-4 overflow-scroll">
         <div className="mb-4 space-y-4">
           <SearchInput
             placeholder={searchPlaceholder.value}

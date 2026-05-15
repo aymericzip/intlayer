@@ -1,9 +1,10 @@
 import { createFileRoute, Outlet, useLocation } from '@tanstack/react-router';
 import { getIntlayer } from 'intlayer';
 import { useEffect } from 'react';
-import { AdminBreadcrumb } from '#components/AdminBreadcrumb';
+import { useIntlayer } from 'react-intlayer';
 import { AdminTabBar } from '#components/AdminTabBar';
 import { AuthenticationBarrier } from '#components/Auth/AuthenticationBarrier/AuthenticationBarrier';
+import { DashboardContentLayout } from '#components/Dashboard/DashboardContentLayout';
 import { useLocalizedNavigate } from '#hooks/useLocalizedNavigate.ts';
 
 export const Route = createFileRoute('/{-$locale}/_dashboard/_admin')({
@@ -41,6 +42,7 @@ export const Route = createFileRoute('/{-$locale}/_dashboard/_admin')({
 
 function AdminLayout() {
   const { locale } = Route.useParams();
+  const { navigation } = useIntlayer('admin-sidebar');
 
   const navigate = useLocalizedNavigate();
   const { pathname } = useLocation();
@@ -53,15 +55,10 @@ function AdminLayout() {
 
   return (
     <AuthenticationBarrier accessRule="admin" locale={locale}>
-      <div className="flex flex-1 flex-col">
+      <DashboardContentLayout title={navigation.management.title}>
         <AdminTabBar />
-        <section className="flex flex-1 flex-col justify-center p-10">
-          <div className="mb-10 p-4">
-            <AdminBreadcrumb />
-          </div>
-          <Outlet />
-        </section>
-      </div>
+        <Outlet />
+      </DashboardContentLayout>
     </AuthenticationBarrier>
   );
 }

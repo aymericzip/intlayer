@@ -1,4 +1,5 @@
 import { Burger, MaxHeightSmoother } from '@intlayer/design-system';
+import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
 import { useDevice, useSession } from '@intlayer/design-system/hooks';
 import { Logo } from '@intlayer/design-system/logo';
@@ -10,7 +11,9 @@ import {
 import { cn } from '@intlayer/design-system/utils';
 import { useLocation } from '@tanstack/react-router';
 import { getPathWithoutLocale } from 'intlayer';
+import { MoreHorizontal } from 'lucide-react';
 import { type FC, lazy, Suspense, useState } from 'react';
+import { useIntlayer } from 'react-intlayer';
 import { Link } from '#components/Link/Link';
 import { LocaleSwitcher } from '#components/LocaleSwitcher/LocaleSwitcher';
 import { ProfileDropDown } from '#components/ProfileDropdown/ProfileDropdown';
@@ -45,9 +48,12 @@ export type DashboardNavbarProps = {
 };
 
 export const DashboardNavbar: FC<DashboardNavbarProps> = ({ items = [] }) => {
+  const content = useIntlayer('dashboard-navbar1');
+
   const { session } = useSession();
   const { organization, project, roles } = session ?? {};
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isBreadcrumbOpen, setIsBreadcrumbOpen] = useState(false);
   const { isMobile } = useDevice();
   const { pathname } = useLocation();
 
@@ -87,24 +93,65 @@ export const DashboardNavbar: FC<DashboardNavbarProps> = ({ items = [] }) => {
     >
       <div className="flex justify-between">
         <div className="flex w-auto items-center gap-2 md:gap-4">
-          <Link to={App_Home_Path} label="Dashboard" color="text">
+          <Link to={App_Home_Path} label={content.dashboard.value} color="text">
             <Logo className="size-6" />
           </Link>
 
-          <div className="flex w-auto items-center gap-4">
-            {organization && (
-              <>
-                <span>/</span>
-                <OrganizationDropdown />
-              </>
-            )}
-            {project && (
-              <>
-                <span>/</span>
-                <ProjectDropdown />
-              </>
-            )}
-          </div>
+          {isMobile ? (
+            (organization || project) && (
+              <div className="relative">
+                {isBreadcrumbOpen && (
+                  <div
+                    className="fixed inset-0 z-40"
+                    role="button"
+                    tabIndex={0}
+                    onClick={() => setIsBreadcrumbOpen(false)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        setIsBreadcrumbOpen(false);
+                      }
+                    }}
+                  />
+                )}
+                <Button
+                  Icon={MoreHorizontal}
+                  variant="hoverable"
+                  color="text"
+                  size="icon-md"
+                  label={content.organizationAndProject.value}
+                  onClick={() => setIsBreadcrumbOpen((prev) => !prev)}
+                  className="ml-6"
+                />
+                {isBreadcrumbOpen && (
+                  <div className="absolute top-[calc(100%+0.5rem)] left-0 z-50 min-w-max">
+                    <Container
+                      className="flex min-h-20 min-w-20 flex-col gap-2 p-2"
+                      roundedSize="lg"
+                      transparency="sm"
+                    >
+                      {organization && <OrganizationDropdown />}
+                      {project && <ProjectDropdown />}
+                    </Container>
+                  </div>
+                )}
+              </div>
+            )
+          ) : (
+            <div className="flex w-auto items-center gap-4">
+              {organization && (
+                <>
+                  <span>/</span>
+                  <OrganizationDropdown />
+                </>
+              )}
+              {project && (
+                <>
+                  <span>/</span>
+                  <ProjectDropdown />
+                </>
+              )}
+            </div>
+          )}
         </div>
         <div className="flex items-center gap-4">
           <div className="mr-8 flex items-center gap-1">
@@ -143,6 +190,13 @@ export const DashboardNavbar: FC<DashboardNavbarProps> = ({ items = [] }) => {
               roundedSize="none"
               transparency="xs"
               onClick={() => setIsMenuOpen(false)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  setIsMenuOpen(false);
+                }
+              }}
+              role="button"
+              tabIndex={0}
             >
               {flatNavItems.map((item) => {
                 const IconComponent = item.icon

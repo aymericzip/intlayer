@@ -10,7 +10,7 @@ export const UsersAdminSkeleton: FC<UsersAdminSkeletonProps> = ({
   showToolBar = true,
 }) => (
   <div className="flex flex-1 flex-col items-center p-4">
-    <div className="flex w-full max-w-5xl flex-col gap-4">
+    <div className="flex w-full flex-col gap-4 overflow-scroll">
       {/* Title Skeleton */}
       <div className="mb-6">
         <Skeleton className="h-8 w-48" />
