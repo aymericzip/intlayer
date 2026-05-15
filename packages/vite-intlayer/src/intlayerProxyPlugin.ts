@@ -72,9 +72,10 @@ export const intlayerProxy = (
 
   const { basePath = '', mode = ROUTING_MODE, rewrite, domains } = routing;
 
-  // Track redirect counts per request to detect loops
-  const redirectCounts = new Map<string, number>();
+  type RedirectCounter = { count: number; lastSeen: number };
+  const redirectCounts = new Map<string, RedirectCounter>();
   const MAX_REDIRECTS = 10;
+  const REDIRECT_TTL_MS = 2_000;
 
   // Derived flags from routing.mode
   const noPrefix =
@@ -182,10 +183,22 @@ export const intlayerProxy = (
     reason?: string,
     originalUrl?: string
   ) => {
-    // Track redirect count to detect loops
     if (originalUrl) {
-      const count = (redirectCounts.get(originalUrl) || 0) + 1;
-      redirectCounts.set(originalUrl, count);
+      if (originalUrl === newUrl) {
+        console.error('[REDIRECT LOOP DETECTED!]', { originalUrl, reason });
+        res.writeHead(500, { 'Content-Type': 'text/plain' });
+        return res.end(
+          `Redirect loop detected: ${originalUrl} redirects to itself`
+        );
+      }
+
+      const now = Date.now();
+      const key = `${originalUrl} -> ${newUrl}`;
+      const prev = redirectCounts.get(key);
+      const count =
+        prev && now - prev.lastSeen < REDIRECT_TTL_MS ? prev.count + 1 : 1;
+
+      redirectCounts.set(key, { count, lastSeen: now });
 
       if (count > MAX_REDIRECTS) {
         console.error('[REDIRECT LOOP DETECTED!]', {
@@ -198,6 +211,10 @@ export const intlayerProxy = (
         return res.end(
           `Redirect loop detected: ${count} redirects from ${originalUrl}`
         );
+      }
+
+      for (const [key, entry] of redirectCounts) {
+        if (now - entry.lastSeen >= REDIRECT_TTL_MS) redirectCounts.delete(key);
       }
     }
 
@@ -781,11 +798,6 @@ export const intlayerProxy = (
           originalUrl,
         });
       });
-
-      // Clean up redirect counts periodically (every 100 requests)
-      if (redirectCounts.size > 100) {
-        redirectCounts.clear();
-      }
     },
   };
 };
