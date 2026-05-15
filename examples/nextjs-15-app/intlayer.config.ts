@@ -19,8 +19,10 @@ const config: IntlayerConfig = {
     }),
   },
   content: {
-    contentAutoTransformation: true,
     // contentDir: ['./', '../../apps'],
+  },
+  dictionary: {
+    contentAutoTransformation: true,
   },
   editor: {
     liveSync: false,
@@ -34,9 +36,6 @@ const config: IntlayerConfig = {
   },
   compiler: {
     output: ({ fileName }) => `./${fileName}.content.ts`,
-  },
-  dictionary: {
-    importMode: 'fetch',
   },
 };
 

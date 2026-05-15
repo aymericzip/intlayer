@@ -1,6 +1,6 @@
 'use client';
 
-import { MarkdownProvider } from 'next-intlayer';
+import { MarkdownProvider } from 'next-intlayer/markdown';
 import type { FC, PropsWithChildren } from 'react';
 
 export const IntlayerMarkdownProvider: FC<PropsWithChildren> = ({
