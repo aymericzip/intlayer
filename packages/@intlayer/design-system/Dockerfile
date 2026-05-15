@@ -71,9 +71,12 @@ RUN npm install -g serve && apk add --no-cache wget
 
 WORKDIR /www
 
-
 # Copy the built static site
 COPY --from=builder /workspace/packages/@intlayer/design-system/storybook-static .
+
+# Drop root privileges — node user ships with the base image
+RUN chown -R node:node /www
+USER node
 
 EXPOSE 6006
 

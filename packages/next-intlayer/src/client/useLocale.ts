@@ -101,7 +101,14 @@ export const useLocale = ({
         process.env['INTLAYER_ROUTING_DOMAINS'] !== 'false' &&
         checkIsURLAbsolute(pathWithLocale)
       ) {
-        window.location.href = pathWithLocale;
+        try {
+          const parsed = new URL(pathWithLocale);
+          if (parsed.protocol === 'http:' || parsed.protocol === 'https:') {
+            window.location.href = pathWithLocale;
+          }
+        } catch {
+          // Malformed URL — skip redirect
+        }
         return;
       }
 

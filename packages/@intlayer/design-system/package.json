@@ -439,6 +439,7 @@
     "class-variance-authority": "0.7.1",
     "cmdk": "1.1.1",
     "defu": "6.1.7",
+    "dompurify": "^3.4.3",
     "react-intlayer": "workspace:*",
     "rollup-preserve-directives": "1.1.3",
     "zod": "4.4.3"
@@ -466,6 +467,7 @@
     "@testing-library/jest-dom": "6.9.1",
     "@testing-library/react": "16.3.2",
     "@testing-library/user-event": "14.6.1",
+    "@types/dompurify": "^3.2.0",
     "@types/espree": "11.1.0",
     "@types/node": "25.7.0",
     "@types/react": "19.2.14",

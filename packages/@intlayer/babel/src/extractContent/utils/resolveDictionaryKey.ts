@@ -1,5 +1,6 @@
 import { existsSync } from 'node:fs';
-import { dirname, join } from 'node:path';
+import { dirname, join, resolve } from 'node:path';
+import { assertPathWithin } from '@intlayer/config/utils';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import type { Dictionary } from '@intlayer/types/dictionary';
 import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
@@ -33,6 +34,9 @@ export const resolveDictionaryKey = (
     const keyToTest = index === 0 ? initialKey : `${initialKey}${index}`;
     const dictionaries = dicts[keyToTest] as Dictionary[] | undefined;
     const contentFilePath = join(dirName, `${keyToTest}${extension}`);
+
+    assertPathWithin(resolve(contentFilePath), dirName);
+
     const isKeyUsed = usedKeys.has(keyToTest);
     const hasDictionaries = dictionaries && dictionaries.length > 0;
     const fileExists = existsSync(contentFilePath);

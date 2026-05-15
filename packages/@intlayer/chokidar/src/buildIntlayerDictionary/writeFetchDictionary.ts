@@ -2,7 +2,7 @@ import { mkdir } from 'node:fs/promises';
 import { relative, resolve } from 'node:path';
 import { OUTPUT_FORMAT } from '@intlayer/config/defaultValues';
 import { colorizePath } from '@intlayer/config/logger';
-import { normalizePath } from '@intlayer/config/utils';
+import { assertPathWithin, normalizePath } from '@intlayer/config/utils';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import { parallelize } from '../utils/parallelize';
 import { writeFileIfChanged } from '../writeFileIfChanged';
@@ -95,12 +95,15 @@ export const writeFetchDictionary = async (
         format
       );
 
-      await writeFileIfChanged(
-        resolve(fetchDictionariesDir, `${key}.${extension}`),
-        content
-      ).catch((err) => {
+      const fetchEntryPath = resolve(
+        fetchDictionariesDir,
+        `${key}.${extension}`
+      );
+      assertPathWithin(fetchEntryPath, fetchDictionariesDir);
+
+      await writeFileIfChanged(fetchEntryPath, content).catch((err) => {
         console.error(
-          `Error creating fetch ${colorizePath(resolve(fetchDictionariesDir, `${key}.${extension}`))}:`,
+          `Error creating fetch ${colorizePath(fetchEntryPath)}:`,
           err
         );
       });

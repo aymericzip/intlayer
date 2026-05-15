@@ -12,6 +12,7 @@ export * from './getUsedNodeTypes';
 export * from './logStack';
 export * from './normalizePath';
 export * from './parseFilePathPattern';
+export * from './pathSecurity';
 export * from './retryManager';
 export * from './setIntlayerIdentifier';
 export * from './stringFormatter';

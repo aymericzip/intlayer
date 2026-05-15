@@ -5,7 +5,7 @@ import {
 } from '@intlayer/chokidar/utils';
 import * as ANSIColors from '@intlayer/config/colors';
 import { colorize } from '@intlayer/config/logger';
-import { parseStringPattern } from '@intlayer/config/utils';
+import { assertPathWithin, parseStringPattern } from '@intlayer/config/utils';
 import type { Locale } from '@intlayer/types/allLocales';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import type { Fill } from '@intlayer/types/dictionary';
@@ -98,6 +98,8 @@ export const resolveContentFilePaths = async (
   if (existingDicts?.[0]?.filePath) {
     const existingPath = existingDicts[0].filePath;
     const resolvedAbsolutePath = resolve(baseDir, existingPath);
+
+    assertPathWithin(resolvedAbsolutePath, baseDir);
 
     return {
       absolutePath: resolvedAbsolutePath,

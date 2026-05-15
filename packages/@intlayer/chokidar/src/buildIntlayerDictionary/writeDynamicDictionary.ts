@@ -2,6 +2,7 @@ import { mkdir } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { OUTPUT_FORMAT } from '@intlayer/config/defaultValues';
 import { colorizePath } from '@intlayer/config/logger';
+import { assertPathWithin } from '@intlayer/config/utils';
 import { getPerLocaleDictionary } from '@intlayer/core/plugins';
 import type { Locale } from '@intlayer/types/allLocales';
 import type { IntlayerConfig } from '@intlayer/types/config';
@@ -96,6 +97,7 @@ export const writeDynamicDictionary = async (
       const localizedDictionariesPathsRecord: LocalizedDictionaryResult = {};
 
       const keyDir = resolve(dictDir, key);
+      assertPathWithin(keyDir, dictDir);
       await mkdir(keyDir, { recursive: true });
 
       await parallelize(locales, async (locale) => {
@@ -129,12 +131,15 @@ export const writeDynamicDictionary = async (
         const extension = format === 'cjs' ? 'cjs' : 'mjs';
         const content = generateDictionaryEntryPoint(key, locales, format);
 
-        await writeFileIfChanged(
-          resolve(dynamicDictionariesDir, `${key}.${extension}`),
-          content
-        ).catch((err) => {
+        const dynEntryPath = resolve(
+          dynamicDictionariesDir,
+          `${key}.${extension}`
+        );
+        assertPathWithin(dynEntryPath, dynamicDictionariesDir);
+
+        await writeFileIfChanged(dynEntryPath, content).catch((err) => {
           console.error(
-            `Error creating dynamic ${colorizePath(resolve(dynamicDictionariesDir, `${key}.${extension}`))}:`,
+            `Error creating dynamic ${colorizePath(dynEntryPath)}:`,
             err
           );
         });

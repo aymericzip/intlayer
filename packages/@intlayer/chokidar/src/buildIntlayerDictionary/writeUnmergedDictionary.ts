@@ -1,6 +1,7 @@
 import { mkdir } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { colorizePath, x } from '@intlayer/config/logger';
+import { assertPathWithin } from '@intlayer/config/utils';
 import { orderDictionaries } from '@intlayer/core/dictionaryManipulator';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import type { Dictionary, DictionaryKey } from '@intlayer/types/dictionary';
@@ -86,6 +87,8 @@ export const writeUnmergedDictionaries = async (
 
       const outputFileName = `${key}.json`;
       const unmergedFilePath = resolve(unmergedDictionariesDir, outputFileName);
+
+      assertPathWithin(unmergedFilePath, unmergedDictionariesDir);
 
       // Write the grouped dictionaries in disk if the editor is enabled
       // To make work the visual editor on the server

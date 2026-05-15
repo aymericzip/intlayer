@@ -1,94 +1,92 @@
 #!/usr/bin/env node
 
 import { randomUUID } from 'node:crypto';
+import fastifyCors from '@fastify/cors';
+import fastifyHelmet from '@fastify/helmet';
 import dotenv from 'dotenv';
-import express, { type Request, type Response } from 'express';
+import Fastify from 'fastify';
 import { loadServer, type McpServer } from './server';
 
-const app = express();
-const env = app.get('env');
+const startServer = async () => {
+  const app = Fastify();
 
-dotenv.config({
-  path: [`.env.${env}.local`, `.env.${env}`, '.env.local', '.env'],
-  quiet: true,
-});
+  const env = process.env.NODE_ENV || 'development';
 
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Methods', 'GET, POST, DELETE, OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Content-Type, mcp-session-id');
-  if (req.method === 'OPTIONS') {
-    res.sendStatus(200);
-    return;
-  }
-  next();
-});
+  dotenv.config({
+    path: [`.env.${env}.local`, `.env.${env}`, '.env.local', '.env'],
+    quiet: true,
+  });
 
-app.use(express.json());
-const router = express.Router();
+  await app.register(fastifyHelmet, {
+    contentSecurityPolicy: false,
+    global: true,
+  });
 
-const sessions = new Map<string, McpServer>();
+  await app.register(fastifyCors, {
+    origin: '*',
+    methods: ['GET', 'POST', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'mcp-session-id'],
+  });
 
-router.post('/', async (req: Request, res: Response) => {
-  const sessionId = req.headers['mcp-session-id'] as string | undefined;
+  const sessions = new Map<string, McpServer>();
 
-  let server: McpServer;
-  let currentSessionId: string;
+  app.post('/', async (request, reply) => {
+    const sessionId = request.headers['mcp-session-id'] as string | undefined;
 
-  if (sessionId && sessions.has(sessionId)) {
-    server = sessions.get(sessionId)!;
-    currentSessionId = sessionId;
-  } else if (!sessionId) {
-    currentSessionId = randomUUID();
-    server = loadServer({ isLocal: false });
-    sessions.set(currentSessionId, server);
-    res.setHeader('mcp-session-id', currentSessionId);
-  } else {
-    res.status(400).send({ messages: 'Bad session id.' });
-    return;
-  }
+    let server: McpServer;
+    let currentSessionId: string;
 
-  try {
-    const response = await server.handleMessage(req.body);
-    if (response !== null && response !== undefined) {
-      res.json(response);
+    if (sessionId && sessions.has(sessionId)) {
+      server = sessions.get(sessionId)!;
+      currentSessionId = sessionId;
+    } else if (!sessionId) {
+      currentSessionId = randomUUID();
+      server = loadServer({ isLocal: false });
+      sessions.set(currentSessionId, server);
+      reply.header('mcp-session-id', currentSessionId);
     } else {
-      res.status(202).end();
+      return reply.status(400).send({ messages: 'Bad session id.' });
     }
-  } catch (error) {
-    res.status(500).json({
-      jsonrpc: '2.0',
-      id: req.body?.id ?? null,
-      error: { code: -32000, message: 'Internal server error' },
-    });
-  }
-});
 
-router.get('/', (req: Request, res: Response) => {
-  const sessionId = req.headers['mcp-session-id'] as string | undefined;
-  if (!sessionId || !sessions.has(sessionId)) {
-    res.status(400).send({ messages: 'Bad session id.' });
-    return;
-  }
-  res.status(200).end();
-});
+    try {
+      const response = await server.handleMessage(request.body);
+      if (response !== null && response !== undefined) {
+        return reply.send(response);
+      }
+      return reply.status(202).send();
+    } catch (error) {
+      return reply.status(500).send({
+        jsonrpc: '2.0',
+        id: (request.body as any)?.id ?? null,
+        error: { code: -32000, message: ['Internal server error', error] },
+      });
+    }
+  });
 
-router.delete('/', (req: Request, res: Response) => {
-  const sessionId = req.headers['mcp-session-id'] as string | undefined;
-  if (!sessionId || !sessions.has(sessionId)) {
-    res.status(400).send({ messages: 'Bad session id.' });
-    return;
-  }
-  sessions.delete(sessionId);
-  res.status(200).end();
-});
+  app.get('/', async (request, reply) => {
+    const sessionId = request.headers['mcp-session-id'] as string | undefined;
+    if (!sessionId || !sessions.has(sessionId)) {
+      return reply.status(400).send({ messages: 'Bad session id.' });
+    }
+    return reply.status(200).send();
+  });
 
-app.use('/', router);
-app.use('/health', (_req: Request, res: Response) => {
-  res.send('OK');
-});
+  app.delete('/', async (request, reply) => {
+    const sessionId = request.headers['mcp-session-id'] as string | undefined;
+    if (!sessionId || !sessions.has(sessionId)) {
+      return reply.status(400).send({ messages: 'Bad session id.' });
+    }
+    sessions.delete(sessionId);
+    return reply.status(200).send();
+  });
 
-const PORT = process.env.PORT ?? 3000;
-app.listen(PORT, () => {
+  app.get('/health', async (_request, reply) => {
+    return reply.send('OK');
+  });
+
+  const PORT = Number(process.env.PORT) || 3000;
+  await app.listen({ port: PORT, host: '0.0.0.0' });
   console.info(`MCP Streamable HTTP Server listening on port ${PORT}`);
-});
+};
+
+startServer();

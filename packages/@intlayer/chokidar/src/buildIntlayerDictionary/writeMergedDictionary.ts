@@ -1,6 +1,7 @@
 import { mkdir } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { colorizePath } from '@intlayer/config/logger';
+import { assertPathWithin } from '@intlayer/config/utils';
 import {
   mergeDictionaries,
   normalizeDictionaries,
@@ -62,6 +63,8 @@ export const writeMergedDictionaries = async (
 
       const outputFileName = `${key}.json`;
       const resultFilePath = resolve(dictionariesDir, outputFileName);
+
+      assertPathWithin(resultFilePath, dictionariesDir);
 
       // Write the merged dictionary
       await writeJsonIfChanged(resultFilePath, mergedDictionary).catch(

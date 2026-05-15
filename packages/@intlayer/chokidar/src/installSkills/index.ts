@@ -262,11 +262,20 @@ const getLicenceContent = (): string => {
   }
 };
 
+const ALLOWED_FETCH_HOSTS = new Set(['intlayer.org']);
+
 /**
  * Fetches the content of a URL using native fetch.
  */
 const fetchUrlContent = async (url: string): Promise<string> => {
-  const response = await fetch(url);
+  const parsed = new URL(url);
+  if (
+    parsed.protocol !== 'https:' ||
+    !ALLOWED_FETCH_HOSTS.has(parsed.hostname)
+  ) {
+    throw new Error(`Blocked fetch to disallowed host: ${parsed.hostname}`);
+  }
+  const response = await fetch(url, { redirect: 'error' });
   if (!response.ok) {
     throw new Error(`Failed to fetch ${url}: ${response.statusText}`);
   }
@@ -301,9 +310,7 @@ export const installSkills = async (
 
     // Extract unique URLs
     const urls = Array.from(
-      new Set(
-        skillContent.match(/https:\/\/intlayer\.org\/doc\/[^\s)]+\.md/g) || []
-      )
+      new Set(skillContent.match(/https:\/\/intlayer\.org\/[^\s)]+\.md/g) || [])
     );
 
     // Agent Standard: .../skills/<skill-name>/SKILL.md

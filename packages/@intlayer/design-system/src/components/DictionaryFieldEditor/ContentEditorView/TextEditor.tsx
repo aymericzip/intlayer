@@ -52,6 +52,7 @@ import type { ContentNode, Dictionary } from '@intlayer/types/dictionary';
 import type { KeyPath } from '@intlayer/types/keyPath';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import * as NodeTypes from '@intlayer/types/nodeType';
+import DOMPurify from 'isomorphic-dompurify';
 import { Plus, Trash, WandSparkles } from 'lucide-react';
 import {
   type FC,
@@ -734,10 +735,11 @@ const HtmlTextEditor: FC<TextEditorProps> = ({
         dictionary={dictionary}
         renderSection={
           mode === HtmlViewMode.Preview
-            ? (content) => (
-                // biome-ignore lint/security/noDangerouslySetInnerHtml: HTML content is user-controlled and rendered in editor context
-                <div dangerouslySetInnerHTML={{ __html: content }} />
-              )
+            ? (rawContent) => {
+                // Sanitize user input to prevent XSS
+                const cleanHtml = DOMPurify.sanitize(rawContent);
+                return <div dangerouslySetInnerHTML={{ __html: cleanHtml }} />;
+              }
             : undefined
         }
       />

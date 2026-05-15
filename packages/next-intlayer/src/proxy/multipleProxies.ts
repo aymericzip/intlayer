@@ -106,10 +106,21 @@ export const multipleProxies =
     let finalResponse: NextResponse;
 
     if (redirectHeader || redirectLocation) {
-      finalResponse = NextResponse.redirect(
-        new URL((redirectHeader ?? redirectLocation) as string, req.url),
-        { status: finalStatus >= 300 ? finalStatus : 307 }
-      );
+      const rawRedirect = (redirectHeader ?? redirectLocation) as string;
+      const target = new URL(rawRedirect, req.url);
+      // Prevent open redirect: strip to same-origin path/search/hash if the
+      // resolved origin differs from the request origin.
+      const safeTarget =
+        target.origin === req.nextUrl.origin
+          ? target
+          : new URL(
+              `${target.pathname}${target.search}${target.hash}`,
+              req.url
+            );
+
+      finalResponse = NextResponse.redirect(safeTarget, {
+        status: finalStatus >= 300 ? finalStatus : 307,
+      });
     } else if (rewriteHeader) {
       finalResponse = NextResponse.rewrite(new URL(rewriteHeader, req.url), {
         request: { headers: transmittedHeaders },

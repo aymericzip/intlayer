@@ -711,5 +711,17 @@ const redirectUrl = (request: NextRequest, newPath: string): NextResponse => {
   const pathWithSearch =
     search && !newPath.includes('?') ? `${newPath}${search}` : newPath;
 
-  return NextResponse.redirect(new URL(pathWithSearch, request.url));
+  const target = new URL(pathWithSearch, request.url);
+
+  // Prevent open redirect: if the resolved origin differs from the request
+  // origin, strip it back to a same-origin URL using only the path/search/hash.
+  const safeTarget =
+    target.origin === request.nextUrl.origin
+      ? target
+      : new URL(
+          `${target.pathname}${target.search}${target.hash}`,
+          request.url
+        );
+
+  return NextResponse.redirect(safeTarget);
 };
