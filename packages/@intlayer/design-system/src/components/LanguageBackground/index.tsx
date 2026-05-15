@@ -11,6 +11,7 @@ import {
   type FC,
   type HTMLAttributes,
   type PropsWithChildren,
+  Suspense,
   useEffect,
   useState,
 } from 'react';
@@ -104,10 +105,18 @@ export const LanguageSection: FC<HTMLAttributes<HTMLElement>> = ({
       {...props}
     >
       <div className="relative flex w-full flex-col gap-5 py-3">
-        <LocalCardList localeList={firstPart} className="horizontal-loop-1" />
-        <LocalCardList localeList={secondPart} className="horizontal-loop-2" />
-        <LocalCardList localeList={thirdPart} className="horizontal-loop-1" />
-        <LocalCardList localeList={fourthPart} className="horizontal-loop-2" />
+        <Suspense>
+          <LocalCardList localeList={firstPart} className="horizontal-loop-1" />
+          <LocalCardList
+            localeList={secondPart}
+            className="horizontal-loop-2"
+          />
+          <LocalCardList localeList={thirdPart} className="horizontal-loop-1" />
+          <LocalCardList
+            localeList={fourthPart}
+            className="horizontal-loop-2"
+          />
+        </Suspense>
       </div>
     </section>
   );
