@@ -8,14 +8,9 @@ type OrganizationsAdminSkeletonProps = {
 
 export const OrganizationsAdminSkeleton: FC<
   OrganizationsAdminSkeletonProps
-> = ({ showToolBar = true }) => (
+> = ({ showToolBar = false }) => (
   <div className="flex flex-1 flex-col items-center p-4">
     <div className="flex w-full flex-col gap-4 overflow-scroll">
-      {/* Title Skeleton */}
-      <div className="mb-6">
-        <Skeleton className="h-8 w-48" />
-      </div>
-
       {showToolBar && (
         /* Search Skeleton */
         <div className="space-y-4">
