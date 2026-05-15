@@ -43,7 +43,7 @@ Ta strona to raport z benchmarku rozwiązań i18n w Next.js.
   style="border:none;">
 </iframe>
 
-> https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md
+> [Zobacz pełne dane benchmarku](https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md)
 
 Zobacz pełne repozytorium benchmarka [tutaj](https://github.com/intlayer-org/benchmark-i18n).
 

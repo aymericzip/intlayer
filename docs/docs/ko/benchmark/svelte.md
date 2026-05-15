@@ -43,7 +43,7 @@ history:
   style="border:none;">
 </iframe>
 
-> https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-vite_svelte.md
+> [전체 벤치마크 데이터 보기](https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-vite_svelte.md)
 
 전체 벤치마크 저장소는 [여기](https://github.com/intlayer-org/benchmark-i18n/tree/main)에서 확인할 수 있습니다.
 

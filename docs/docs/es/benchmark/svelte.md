@@ -43,7 +43,7 @@ Esta página es un informe de benchmark para soluciones de i18n en Svelte.
   style="border:none;">
 </iframe>
 
-> https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-vite_svelte.md
+> [Ver datos completos del benchmark](https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-vite_svelte.md)
 
 Vea el repositorio completo del benchmark [aquí](https://github.com/intlayer-org/benchmark-i18n/tree/main).
 

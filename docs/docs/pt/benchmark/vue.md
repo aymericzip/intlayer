@@ -43,7 +43,7 @@ Esta página é um relatório de benchmark para soluções i18n no Vue.
   style="border:none;">
 </iframe>
 
-> https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-vite_vue.md
+> [Ver dados completos do benchmark](https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-vite_vue.md)
 
 Veja o repositório completo do benchmark [aqui](https://github.com/intlayer-org/benchmark-i18n/tree/main).
 

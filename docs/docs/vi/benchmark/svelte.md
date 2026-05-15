@@ -43,7 +43,7 @@ Trang này là báo cáo benchmark cho các giải pháp i18n trên Svelte.
   style="border:none;">
 </iframe>
 
-> https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-vite_svelte.md
+> [Xem dữ liệu benchmark đầy đủ](https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-vite_svelte.md)
 
 Xem toàn bộ kho lưu trữ benchmark [tại đây](https://github.com/intlayer-org/benchmark-i18n/tree/main).
 

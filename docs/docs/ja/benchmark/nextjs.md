@@ -43,7 +43,7 @@ history:
   style="border:none;">
 </iframe>
 
-> https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md
+> [完全なベンチマークデータを見る](https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md)
 
 ベンチマークのリポジトリ全体は[こちら](https://github.com/intlayer-org/benchmark-i18n)でご確認いただけます。
 

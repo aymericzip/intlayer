@@ -43,7 +43,7 @@ history:
   style="border:none;">
 </iframe>
 
-> https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-vite_vue.md
+> [Переглянути повні дані бенчмарку](https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-vite_vue.md)
 
 Повний репозиторій бенчмарку можна знайти [тут](https://github.com/intlayer-org/benchmark-i18n/tree/main).
 
