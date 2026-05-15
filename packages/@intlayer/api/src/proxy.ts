@@ -55,8 +55,15 @@ export const getIntlayerAPIProxy = (
   baseAuthOptions: FetcherOptions = {},
   intlayerConfig?: IntlayerConfig
 ): IntlayerAPI => {
-  // Use a shared mutable auth options object captured by the API closures
-  const authOptionsRef: FetcherOptions = { ...baseAuthOptions };
+  // Use a shared mutable auth options object captured by the API closures.
+  // credentials: 'omit' prevents the browser from attaching session cookies to
+  // these requests; authentication is handled exclusively via the Bearer token
+  // injected below. This is required because the backend only sets
+  // Access-Control-Allow-Credentials: true for whitelisted first-party origins.
+  const authOptionsRef: FetcherOptions = {
+    ...baseAuthOptions,
+    credentials: 'omit',
+  };
   const hasCMSAuth =
     intlayerConfig?.editor?.clientId && intlayerConfig?.editor?.clientSecret;
   const baseApi = getIntlayerAPI(authOptionsRef, intlayerConfig);
