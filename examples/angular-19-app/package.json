@@ -35,7 +35,7 @@
     "@angular/compiler-cli": "19.2.21",
     "@types/express": "5.0.6",
     "@types/jasmine": "5.1.0",
-    "@types/node": "25.7.0",
+    "@types/node": "25.8.0",
     "intlayer-editor": "workspace:*",
     "jasmine-core": "5.6.0",
     "karma": "6.4.0",

@@ -92,7 +92,7 @@
     "@sveltejs/adapter-auto": "7.0.1",
     "@sveltejs/package": "2.5.7",
     "@sveltejs/vite-plugin-svelte": "7.1.2",
-    "@types/node": "25.7.0",
+    "@types/node": "25.8.0",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
@@ -101,7 +101,7 @@
     "svelte-check": "4.4.6",
     "tsdown": "0.22.00",
     "typescript": "6.0.3",
-    "vite": "8.0.12",
+    "vite": "8.0.13",
     "vitest": "4.1.6"
   },
   "peerDependencies": {

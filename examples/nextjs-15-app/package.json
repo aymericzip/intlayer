@@ -16,21 +16,20 @@
   "dependencies": {
     "fuse.js": "7.3.0",
     "intlayer": "workspace:*",
-    "markdown-to-jsx": "7.7.17",
-    "next": "15.5.14",
+    "next": "15.5.18",
     "next-intlayer": "workspace:*",
     "react": "19.2.6",
     "react-dom": "19.2.6"
   },
   "devDependencies": {
-    "@next/bundle-analyzer": "15.5.14",
+    "@next/bundle-analyzer": "15.5.18",
     "@tailwindcss/postcss": "4.3.0",
-    "@types/node": "25.7.0",
+    "@types/node": "25.8.0",
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
     "intlayer-editor": "workspace:*",
-    "postcss": "8.5.10",
+    "postcss": "8.5.14",
     "tailwindcss": "4.3.0",
-    "typescript": "5.9.3"
+    "typescript": "6.0.3"
   }
 }

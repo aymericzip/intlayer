@@ -19,6 +19,7 @@ const config: IntlayerConfig = {
     }),
   },
   content: {
+    contentAutoTransformation: true,
     // contentDir: ['./', '../../apps'],
   },
   editor: {

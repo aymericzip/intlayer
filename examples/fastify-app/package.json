@@ -35,11 +35,11 @@
     "intlayer": "workspace:*"
   },
   "devDependencies": {
-    "@types/node": "25.7.0",
+    "@types/node": "25.8.0",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
     "tsdown": "0.22.00",
-    "typescript": "5.9.3"
+    "typescript": "6.0.3"
   }
 }
