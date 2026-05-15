@@ -29,6 +29,18 @@ type SectionsContent = {
   logo: {
     label: string;
     url: string;
+    downloadSvg: {
+      label: string;
+    };
+    downloadPng: {
+      label: string;
+    };
+    copyAsSvg: {
+      label: string;
+    };
+    copyAsImage: {
+      label: string;
+    };
   };
   logout: {
     title: string;
@@ -66,6 +78,94 @@ export const navbarContent = {
         uk: 'Логотип компанії — перейти на головну сторінку',
       }),
       url: Website_Home_Path,
+      downloadSvg: {
+        label: t({
+          en: 'Download SVG',
+          fr: 'Télécharger le SVG',
+          es: 'Descargar SVG',
+          'en-GB': 'Download SVG',
+          de: 'SVG herunterladen',
+          ja: 'SVGをダウンロード',
+          ko: 'SVG 다운로드',
+          zh: '下载 SVG',
+          it: 'Scarica SVG',
+          pt: 'Baixar SVG',
+          hi: 'SVG डाउनलोड करें',
+          ar: 'تحميل SVG',
+          ru: 'Скачать SVG',
+          tr: 'SVG indir',
+          pl: 'Pobierz SVG',
+          id: 'Unduh SVG',
+          vi: 'Tải SVG',
+          uk: 'Завантажити SVG',
+        }),
+      },
+      downloadPng: {
+        label: t({
+          en: 'Download PNG',
+          fr: 'Télécharger le PNG',
+          es: 'Descargar PNG',
+          'en-GB': 'Download PNG',
+          de: 'PNG herunterladen',
+          ja: 'PNGをダウンロード',
+          ko: 'PNG 다운로드',
+          zh: '下载 PNG',
+          it: 'Scarica PNG',
+          pt: 'Baixar PNG',
+          hi: 'PNG डाउनलोड करें',
+          ar: 'تحميل PNG',
+          ru: 'Скачать PNG',
+          tr: 'PNG indir',
+          pl: 'Pobierz PNG',
+          id: 'Unduh PNG',
+          vi: 'Tải PNG',
+          uk: 'Завантажити PNG',
+        }),
+      },
+      copyAsSvg: {
+        label: t({
+          en: 'Copy as SVG',
+          fr: 'Copier en SVG',
+          es: 'Copiar como SVG',
+          'en-GB': 'Copy as SVG',
+          de: 'Als SVG kopieren',
+          ja: 'SVGとしてコピー',
+          ko: 'SVG로 복사',
+          zh: '复制为 SVG',
+          it: 'Copia come SVG',
+          pt: 'Copiar como SVG',
+          hi: 'SVG के रूप में कॉपी करें',
+          ar: 'نسخ بصيغة SVG',
+          ru: 'Копировать как SVG',
+          tr: 'SVG olarak kopyala',
+          pl: 'Kopiuj jako SVG',
+          id: 'Salin sebagai SVG',
+          vi: 'Sao chép dưới dạng SVG',
+          uk: 'Копіювати як SVG',
+        }),
+      },
+      copyAsImage: {
+        label: t({
+          en: 'Copy as image',
+          fr: "Copier en tant qu'image",
+          es: 'Copiar como imagen',
+          'en-GB': 'Copy as image',
+          de: 'Als Bild kopieren',
+          ja: '画像としてコピー',
+          ko: '이미지로 복사',
+          zh: '复制为图片',
+          it: 'Copia come immagine',
+          pt: 'Copiar como imagem',
+          hi: 'छवि के रूप में कॉपी करें',
+          ar: 'نسخ كصورة',
+          ru: 'Копировать как изображение',
+          tr: 'Görüntü olarak kopyala',
+          pl: 'Kopiuj jako obraz',
+          id: 'Salin sebagai gambar',
+          vi: 'Sao chép dưới dạng hình ảnh',
+          uk: 'Копіювати як зображення',
+        }),
+      },
     },
     sections: [
       {

@@ -4,12 +4,14 @@ import { Link } from '@components/Link/Link';
 import { LocaleSwitcher } from '@components/LocaleSwitcher/LocaleSwitcher';
 import { Avatar } from '@intlayer/design-system/avatar';
 import { Button } from '@intlayer/design-system/button';
-import { useUser } from '@intlayer/design-system/hooks';
+import { Container } from '@intlayer/design-system/container';
+import { DropDown } from '@intlayer/design-system/drop-down';
+import { useDevice, useUser } from '@intlayer/design-system/hooks';
 import { LogoWithText } from '@intlayer/design-system/logo';
 import { Navbar as UINavBar } from '@intlayer/design-system/navbar';
 import { DiscordLogo } from '@intlayer/design-system/social-networks';
 import { TechLogos } from '@intlayer/design-system/tech-logo';
-import { StarIcon } from 'lucide-react';
+import { Image, StarIcon, VectorSquare } from 'lucide-react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
 import { useIntlayer, useLocale } from 'next-intlayer';
@@ -54,6 +56,7 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
   const { isAuthenticated, logout, user } = useUser();
   const { pathWithoutLocale } = useLocale();
   const router = useRouter();
+  const { isMobile } = useDevice();
 
   const handleLogOut = () => {
     logout()
@@ -63,11 +66,118 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
 
   const selectedChoice = getCleanChoice(pathWithoutLocale);
 
+  const downloadFile = async (url: string, filename: string) => {
+    const response = await fetch(url);
+    const blob = await response.blob();
+    const blobUrl = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = blobUrl;
+    a.download = filename;
+    a.click();
+    URL.revokeObjectURL(blobUrl);
+  };
+
+  const copySvg = async () => {
+    const response = await fetch('/logo.svg');
+    const text = await response.text();
+    await navigator.clipboard.writeText(text);
+  };
+
+  const copyImage = async () => {
+    const response = await fetch('/android-chrome-512x512.png');
+    const blob = await response.blob();
+    await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
+  };
+
   return (
     <UINavBar
       logo={
-        <Link href={logo.url.value} label={logo.label.value} color="text">
-          <LogoWithText className="max-h-6 w-auto flex-auto sm:max-h-6" />
+        <Link href={logo.url.value} label={logo.label.value} color="neutral">
+          {isMobile ? (
+            <LogoWithText className="max-h-6 w-auto flex-auto" />
+          ) : (
+            <DropDown identifier="navbar-logo">
+              <DropDown.Trigger
+                identifier="navbar-logo"
+                variant="none"
+                color="neutral"
+                className="px-0! group-focus-within/dropdown:bg-current/0 group-focus-within/dropdown:ring-0"
+              >
+                <LogoWithText className="max-h-6 w-auto flex-auto text-text" />
+              </DropDown.Trigger>
+              <DropDown.Panel
+                align="start"
+                identifier="navbar-logo"
+                isOverable
+                isFocusable={false}
+                smootherClassName="delay-0 group-hover/dropdown:delay-600"
+              >
+                <Container
+                  background="with"
+                  transparency="lg"
+                  roundedSize="2xl"
+                  padding="sm"
+                  className="gap-3 border border-text/5"
+                >
+                  <Button
+                    variant="hoverable"
+                    color="neutral"
+                    size="md"
+                    label={logo.downloadSvg.label.value}
+                    Icon={VectorSquare}
+                    onClick={() =>
+                      downloadFile('/logo.svg', 'intlayer-logo.svg')
+                    }
+                  >
+                    <span className="ml-2 flex w-full text-text">
+                      {logo.downloadSvg.label}
+                    </span>
+                  </Button>
+                  <Button
+                    variant="hoverable"
+                    color="neutral"
+                    size="md"
+                    label={logo.downloadPng.label.value}
+                    Icon={Image}
+                    onClick={() =>
+                      downloadFile(
+                        '/android-chrome-512x512.png',
+                        'intlayer-logo.png'
+                      )
+                    }
+                  >
+                    <span className="ml-2 flex w-full text-text">
+                      {logo.downloadPng.label}
+                    </span>
+                  </Button>
+                  <Button
+                    variant="hoverable"
+                    size="md"
+                    color="neutral"
+                    label={logo.copyAsSvg.label.value}
+                    Icon={VectorSquare}
+                    onClick={copySvg}
+                  >
+                    <span className="ml-2 flex w-full text-text">
+                      {logo.copyAsSvg.label}
+                    </span>
+                  </Button>
+                  <Button
+                    variant="hoverable"
+                    size="md"
+                    color="neutral"
+                    label={logo.copyAsImage.label.value}
+                    Icon={Image}
+                    onClick={copyImage}
+                  >
+                    <span className="ml-2 flex w-full text-text">
+                      {logo.copyAsImage.label}
+                    </span>
+                  </Button>
+                </Container>
+              </DropDown.Panel>
+            </DropDown>
+          )}
         </Link>
       }
       selectedChoice={selectedChoice}

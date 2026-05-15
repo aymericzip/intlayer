@@ -208,6 +208,13 @@ export interface PanelProps extends HTMLAttributes<HTMLDivElement> {
    * @default DropDownYAlign.BELOW
    */
   yAlign?: DropDownYAlign | `${DropDownYAlign}`;
+
+  /**
+   * Additional className applied directly to the MaxHeightSmoother container.
+   * Useful for adding transition delays — e.g. `"delay-0 group-hover/dropdown:delay-500"`
+   * gives an open delay while keeping the close instant.
+   */
+  smootherClassName?: string;
 }
 
 /**
@@ -260,6 +267,7 @@ const Panel: FC<PanelProps> = ({
   yAlign = DropDownYAlign.BELOW,
   identifier,
   className,
+  smootherClassName,
   ...props
 }) => (
   <div
@@ -287,7 +295,8 @@ const Panel: FC<PanelProps> = ({
         isOverable &&
           'group-hover/dropdown:visible group-hover/dropdown:grid-rows-[1fr]',
         isFocusable &&
-          'group-focus-within/dropdown:visible group-focus-within/dropdown:grid-rows-[1fr]'
+          'group-focus-within/dropdown:visible group-focus-within/dropdown:grid-rows-[1fr]',
+        smootherClassName
       )}
       {...props}
     >
