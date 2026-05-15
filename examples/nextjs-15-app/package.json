@@ -6,7 +6,7 @@
     "build": "bun --bun next build",
     "build:turbo": "bun --bun next build --turbopack",
     "dev": "bun --bun next dev",
-    "dev:turbo": "bun --bun next dev --turbopack",
+    "dev:turbo": "bun intlayer watch --with 'bun --bun next dev --turbopack'",
     "lint": "bun --bun next lint",
     "start": "bun --bun next start",
     "start:editor": "bun intlayer-editor start",
