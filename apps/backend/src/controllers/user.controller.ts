@@ -168,6 +168,18 @@ export const getUserById = async (
   reply: FastifyReply
 ): Promise<void> => {
   const { userId } = request.params;
+  const { user: sessionUser } = request.session || {};
+
+  if (!sessionUser) {
+    return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
+  }
+
+  if (
+    String(sessionUser.id) !== String(userId) &&
+    sessionUser.role !== 'admin'
+  ) {
+    return ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
+  }
 
   try {
     const user = await userService.getUserById(userId);
@@ -193,7 +205,11 @@ export const getUserByEmail = async (
   reply: FastifyReply
 ): Promise<void> => {
   const { email } = request.params;
-  const { roles } = request.session || {};
+  const { user: sessionUser, roles } = request.session || {};
+
+  if (!sessionUser) {
+    return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
+  }
 
   try {
     const user = await userService.getUserByEmail(email);
@@ -450,6 +466,26 @@ export const verifyEmailStatusSSE = async (
   request: FastifyRequest<{ Params: VerifyEmailStatusSSEParams }>,
   reply: FastifyReply
 ) => {
+  const { user: sessionUser, roles } = request.session || {};
+
+  if (!sessionUser) {
+    return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
+  }
+
+  const { userId } = request.params; // Get user ID from params
+
+  const user = await userService.getUserById(userId);
+
+  if (
+    String(sessionUser.id) !== String(userId) &&
+    !hasPermission(
+      roles || [],
+      'user:admin'
+    )({ ...request.session, targetUsers: [user] })
+  ) {
+    return ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
+  }
+
   // Set headers for SSE
   reply.raw.setHeader('Content-Type', 'text/event-stream;charset=utf-8');
   reply.raw.setHeader('Cache-Control', 'no-cache, no-transform');
@@ -460,10 +496,7 @@ export const verifyEmailStatusSSE = async (
   reply.raw.write(':\n\n'); // Comment to keep connection alive
   reply.raw.flushHeaders?.();
 
-  const { userId } = request.params; // Get user ID from params
   const clientId = Date.now();
-
-  const user = await userService.getUserById(userId);
 
   if (!user) {
     logger.error(`User not found - User ID: ${userId}`);

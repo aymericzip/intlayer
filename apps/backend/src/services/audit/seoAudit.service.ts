@@ -97,12 +97,17 @@ export const runSingleAudit = async (
 
     await page.setRequestInterception(true);
     page.on('request', (req) => {
+      const reqUrl = req.url();
       const type = req.resourceType();
       if (
         type === 'image' ||
         type === 'media' ||
         type === 'font' ||
-        type === 'websocket'
+        type === 'websocket' ||
+        reqUrl.startsWith('file://') ||
+        reqUrl.startsWith('data:') ||
+        reqUrl.startsWith('chrome://') ||
+        reqUrl.startsWith('view-source:')
       ) {
         req.abort();
       } else {
