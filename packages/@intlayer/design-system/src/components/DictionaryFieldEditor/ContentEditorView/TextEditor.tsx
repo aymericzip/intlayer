@@ -81,6 +81,7 @@ const CollapsibleEditor = memo<CollapsibleEditorProps>(
     return (
       <Accordion
         header={label}
+        label={label}
         onToggle={(isOpen) => {
           if (isOpen && !hasOpened) setHasOpened(true);
         }}
@@ -738,6 +739,7 @@ const HtmlTextEditor: FC<TextEditorProps> = ({
             ? (rawContent) => {
                 // Sanitize user input to prevent XSS
                 const cleanHtml = DOMPurify.sanitize(rawContent);
+                // biome-ignore lint/security/noDangerouslySetInnerHtml: sanitize
                 return <div dangerouslySetInnerHTML={{ __html: cleanHtml }} />;
               }
             : undefined
