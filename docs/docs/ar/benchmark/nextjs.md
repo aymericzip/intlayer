@@ -36,12 +36,12 @@ history:
 
 ## مرجع النتائج:
 
-<iframe 
-  src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md" 
-  width="100%" 
-  height="600px"
-  style="border:none;">
-</iframe>
+<ClickToOpenIframe
+src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md"
+width="100%"
+height="600px"
+style="border:none;"
+/>
 
 > [شاهد بيانات المقارنة الكاملة](https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md)
 
@@ -72,7 +72,7 @@ history:
 
 لتسليط الضوء على هذه المشكلات، قمت ببناء ماسح ضوئي مجاني يمكنك تجربته [هنا](https://intlayer.org/i18n-seo-scanner).
 
-<iframe src="https://intlayer.org/i18n-seo-scanner" width="100%" height="600px" style="border:none;"/>
+<ClickToOpenIframe src="https://intlayer.org/i18n-seo-scanner" width="100%" height="600px" style="border:none;"/>
 
 ## المشكلة
 

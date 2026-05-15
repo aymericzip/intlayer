@@ -36,12 +36,12 @@ This page is a benchmark report for i18n solutions on Next.js.
 
 ## Results reference:
 
-<iframe 
-  src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md" 
-  width="100%" 
-  height="600px"
-  style="border:none;">
-</iframe>
+<ClickToOpenIframe
+src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md"
+width="100%"
+height="600px"
+style="border:none;"
+/>
 
 > [See complete benchmark data](https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md)
 
@@ -72,7 +72,7 @@ Intlayer tries to optimise across these dimensions.
 
 To surface these issues, I built a free scanner you can try [here](https://intlayer.org/i18n-seo-scanner).
 
-<iframe src="https://intlayer.org/i18n-seo-scanner" width="100%" height="600px" style="border:none;"/>
+<ClickToOpenIframe src="https://intlayer.org/i18n-seo-scanner" width="100%" height="600px" style="border:none;"/>
 
 ## The problem
 

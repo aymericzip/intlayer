@@ -36,12 +36,12 @@ Esta página es un informe de benchmark para soluciones de i18n en Vue.
 
 ## Referencia de resultados:
 
-<iframe 
-  src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-vite_vue.md" 
-  width="100%" 
-  height="600px"
-  style="border:none;">
-</iframe>
+<ClickToOpenIframe
+src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-vite_vue.md"
+width="100%"
+height="600px"
+style="border:none;"
+/>
 
 > [Ver datos completos del benchmark](https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-vite_vue.md)
 
@@ -67,7 +67,7 @@ El otro impacto es en la experiencia del desarrollador (DX): cómo se declara el
 
 Para detectar rápidamente problemas de fugas de i18n, he configurado un escáner gratuito disponible [aquí](https://intlayer.org/i18n-seo-scanner).
 
-<iframe src="https://intlayer.org/i18n-seo-scanner" width="100%" height="600px" style="border:none;"/>
+<ClickToOpenIframe src="https://intlayer.org/i18n-seo-scanner" width="100%" height="600px" style="border:none;"/>
 
 ## El problema
 

@@ -36,12 +36,12 @@ Ta strona to raport z benchmarku rozwiązań i18n w Next.js.
 
 ## Referencja wyników:
 
-<iframe 
-  src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md" 
-  width="100%" 
-  height="600px"
-  style="border:none;">
-</iframe>
+<ClickToOpenIframe
+src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md"
+width="100%"
+height="600px"
+style="border:none;"
+/>
 
 > [Zobacz pełne dane benchmarku](https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md)
 
@@ -72,7 +72,7 @@ Intlayer stara się optymalizować we wszystkich tych wymiarach.
 
 Aby ujawnić te problemy, zbudowałem darmowy skaner, który możesz wypróbować [tutaj](https://intlayer.org/i18n-seo-scanner).
 
-<iframe src="https://intlayer.org/i18n-seo-scanner" width="100%" height="600px" style="border:none;"/>
+<ClickToOpenIframe src="https://intlayer.org/i18n-seo-scanner" width="100%" height="600px" style="border:none;"/>
 
 ## Problem
 

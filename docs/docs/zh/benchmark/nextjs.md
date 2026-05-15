@@ -36,12 +36,12 @@ history:
 
 ## 结果参考：
 
-<iframe 
-  src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md" 
-  width="100%" 
-  height="600px"
-  style="border:none;">
-</iframe>
+<ClickToOpenIframe
+src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md"
+width="100%"
+height="600px"
+style="border:none;"
+/>
 
 > [查看完整的基准测试数据](https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-nextjs.md)
 
@@ -72,7 +72,7 @@ Intlayer 尝试在这些维度上进行优化。
 
 为了发现这些问题，我构建了一个免费扫描器，你可以在[这里](https://intlayer.org/i18n-seo-scanner)试用。
 
-<iframe src="https://intlayer.org/i18n-seo-scanner" width="100%" height="600px" style="border:none;"/>
+<ClickToOpenIframe src="https://intlayer.org/i18n-seo-scanner" width="100%" height="600px" style="border:none;"/>
 
 ## 问题所在
 

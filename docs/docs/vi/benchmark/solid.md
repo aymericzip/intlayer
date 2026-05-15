@@ -36,12 +36,12 @@ Trang này là báo cáo benchmark cho các giải pháp i18n trên Solid.
 
 ## Tham chiếu kết quả:
 
-<iframe 
-  src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-vite_solid.md" 
-  width="100%" 
-  height="600px"
-  style="border:none;">
-</iframe>
+<ClickToOpenIframe
+src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-vite_solid.md"
+width="100%"
+height="600px"
+style="border:none;"
+/>
 
 > [Xem dữ liệu benchmark đầy đủ](https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-vite_solid.md)
 
@@ -68,7 +68,7 @@ Tác động khác là đối với trải nghiệm nhà phát triển (DX): cá
 
 Để nhanh chóng phát hiện các vấn đề rò rỉ i18n, tôi đã thiết lập một trình quét miễn phí có sẵn [tại đây](https://intlayer.org/i18n-seo-scanner).
 
-<iframe src="https://intlayer.org/i18n-seo-scanner" width="100%" height="600px" style="border:none;"/>
+<ClickToOpenIframe src="https://intlayer.org/i18n-seo-scanner" width="100%" height="600px" style="border:none;"/>
 
 ## Vấn đề
 

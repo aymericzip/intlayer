@@ -8,6 +8,7 @@ import dynamic from 'next/dynamic';
 import { useLocale } from 'next-intlayer';
 import { useTheme } from 'next-themes';
 import type { ComponentProps, FC } from 'react';
+import { ClickToOpenIframe } from './ClickToOpenIframe';
 import { SectionScroller } from './SectionScroller';
 
 const I18nBenchmark = dynamic(
@@ -58,6 +59,7 @@ export const DocumentationRender: FC<DocumentationRenderProps> = ({
           I18nBenchmark: (props: { framework?: FrameworkKey }) => (
             <I18nBenchmark initialFramework={props.framework} />
           ),
+          ClickToOpenIframe,
         }}
         wrapper={(props) => (
           <>

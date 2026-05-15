@@ -36,12 +36,12 @@ Questa pagina è un rapporto benchmark per le soluzioni i18n su TanStack Start.
 
 ## Riferimento risultati:
 
-<iframe 
-  src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-tanstack.md" 
-  width="100%" 
+<ClickToOpenIframe
+  src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-tanstack.md"
+  width="100%"
   height="600px"
-  style="border:none;">
-</iframe>
+  style="border:none;"
+/>
 
 > [Visualizza i dati completi del benchmark](https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-tanstack.md)
 
@@ -68,7 +68,7 @@ L'altro impatto riguarda la developer experience (DX): come si dichiara il conte
 
 Per individuare rapidamente problemi di leakage i18n, ho configurato uno scanner gratuito disponibile [qui](https://intlayer.org/i18n-seo-scanner).
 
-<iframe src="https://intlayer.org/i18n-seo-scanner" width="100%" height="600px" style="border:none;"/>
+<ClickToOpenIframe src="https://intlayer.org/i18n-seo-scanner" width="100%" height="600px" style="border:none;"/>
 
 ## Il problema
 

@@ -36,12 +36,12 @@ Bu sayfa, Solid üzerindeki i18n çözümleri için bir benchmark raporudur.
 
 ## Sonuç referansı:
 
-<iframe 
-  src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-vite_solid.md" 
-  width="100%" 
-  height="600px"
-  style="border:none;">
-</iframe>
+<ClickToOpenIframe
+src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-vite_solid.md"
+width="100%"
+height="600px"
+style="border:none;"
+/>
 
 > [Tam kıyaslama verilerini görün](https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-vite_solid.md)
 
@@ -68,7 +68,7 @@ Diğer etki geliştirici deneyimi (DX) üzerindedir: içeriği nasıl tanımlad�
 
 i18n sızıntı sorunlarını hızlıca tespit etmek için [burada](https://intlayer.org/i18n-seo-scanner) mevcut olan ücretsiz bir tarayıcı kurdum.
 
-<iframe src="https://intlayer.org/i18n-seo-scanner" width="100%" height="600px" style="border:none;"/>
+<ClickToOpenIframe src="https://intlayer.org/i18n-seo-scanner" width="100%" height="600px" style="border:none;"/>
 
 ## Sorun
 

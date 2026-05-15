@@ -36,12 +36,12 @@ Esta página é um relatório de benchmark para soluções i18n no TanStack Star
 
 ## Referência de resultados:
 
-<iframe 
-  src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-tanstack.md" 
-  width="100%" 
+<ClickToOpenIframe
+  src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-tanstack.md"
+  width="100%"
   height="600px"
-  style="border:none;">
-</iframe>
+  style="border:none;"
+/>
 
 > [Ver dados completos do benchmark](https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-tanstack.md)
 
@@ -68,7 +68,7 @@ O outro impacto é na experência do desenvolvedor: como você declara o conteú
 
 Para detectar rapidamente problemas de vazamento de i18n, configurei um scanner gratuito disponível [aqui](https://intlayer.org/i18n-seo-scanner).
 
-<iframe src="https://intlayer.org/i18n-seo-scanner" width="100%" height="600px" style="border:none;"/>
+<ClickToOpenIframe src="https://intlayer.org/i18n-seo-scanner" width="100%" height="600px" style="border:none;"/>
 
 ## O problema
 

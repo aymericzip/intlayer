@@ -5,7 +5,7 @@ import { memo } from 'react';
 import {
   type MarkdownRenderer as MarkdownRendererIntlayer,
   renderMarkdown,
-} from 'react-intlayer';
+} from 'react-intlayer/markdown';
 import type { BundledLanguage } from 'shiki/bundle/web';
 import { H1, H2, H3, H4, H5, H6 } from '../Headers';
 import { Code } from '../IDE/Code';

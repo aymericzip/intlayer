@@ -36,12 +36,12 @@ history:
 
 ## परिणाम संदर्भ:
 
-<iframe 
-  src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-tanstack.md" 
-  width="100%" 
+<ClickToOpenIframe
+  src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-tanstack.md"
+  width="100%"
   height="600px"
-  style="border:none;">
-</iframe>
+  style="border:none;"
+/>
 
 > [पूर्ण बेंचमार्क डेटा देखें](https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-tanstack.md)
 
@@ -68,7 +68,7 @@ history:
 
 i18n लीकेज के मुद्दों को तेज़ी से पहचानने के लिए, मैंने एक मुफ़्त स्कैनर सेट किया है जो [यहाँ](https://intlayer.org/i18n-seo-scanner) उपलब्ध है।
 
-<iframe src="https://intlayer.org/i18n-seo-scanner" width="100%" height="600px" style="border:none;"/>
+<ClickToOpenIframe src="https://intlayer.org/i18n-seo-scanner" width="100%" height="600px" style="border:none;"/>
 
 ## समस्या
 

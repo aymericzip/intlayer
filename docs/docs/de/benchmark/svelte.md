@@ -36,12 +36,12 @@ Diese Seite ist ein Benchmark-Bericht für i18n-Lösungen in Svelte.
 
 ## Ergebnisreferenz:
 
-<iframe 
-  src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-vite_svelte.md" 
-  width="100%" 
-  height="600px"
-  style="border:none;">
-</iframe>
+<ClickToOpenIframe
+src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-vite_svelte.md"
+width="100%"
+height="600px"
+style="border:none;"
+/>
 
 > [Vollständige Benchmark-Daten anzeigen](https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-vite_svelte.md)
 
@@ -67,7 +67,7 @@ Die andere Auswirkung betrifft die Entwicklererfahrung (DX): Wie Sie Inhalte dek
 
 Um i18n-Leakage-Probleme schnell zu erkennen, habe ich einen kostenlosen Scanner eingerichtet, der [hier](https://intlayer.org/i18n-seo-scanner) verfügbar ist.
 
-<iframe src="https://intlayer.org/i18n-seo-scanner" width="100%" height="600px" style="border:none;"/>
+<ClickToOpenIframe src="https://intlayer.org/i18n-seo-scanner" width="100%" height="600px" style="border:none;"/>
 
 ## Das Problem
 

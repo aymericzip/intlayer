@@ -36,12 +36,12 @@ Esta página é um relatório de benchmark para soluções i18n no Solid.
 
 ## Referência de resultados:
 
-<iframe 
-  src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-vite_solid.md" 
-  width="100%" 
-  height="600px"
-  style="border:none;">
-</iframe>
+<ClickToOpenIframe
+src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-vite_solid.md"
+width="100%"
+height="600px"
+style="border:none;"
+/>
 
 > [Ver dados completos do benchmark](https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-vite_solid.md)
 
@@ -68,7 +68,7 @@ O outro impacto é na experiência do desenvolvedor (DX): como você declara con
 
 Para identificar rapidamente problemas de vazamento de i18n, configurei um scanner gratuito disponível [aqui](https://intlayer.org/i18n-seo-scanner).
 
-<iframe src="https://intlayer.org/i18n-seo-scanner" width="100%" height="600px" style="border:none;"/>
+<ClickToOpenIframe src="https://intlayer.org/i18n-seo-scanner" width="100%" height="600px" style="border:none;"/>
 
 ## O problema
 

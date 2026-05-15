@@ -36,12 +36,12 @@ Ta strona to raport z benchmarku rozwiązań i18n w TanStack Start.
 
 ## Referencja wyników:
 
-<iframe 
-  src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-tanstack.md" 
-  width="100%" 
+<ClickToOpenIframe
+  src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-tanstack.md"
+  width="100%"
   height="600px"
-  style="border:none;">
-</iframe>
+  style="border:none;"
+/>
 
 > [Zobacz pełne dane benchmarku](https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-tanstack.md)
 
@@ -68,7 +68,7 @@ Inny wpływ dotyczy doświadczenia programisty (DX): sposobu deklarowania treśc
 
 Aby szybko wykryć problemy z wyciekami i18n, przygotowałem darmowy skaner dostępny [tutaj](https://intlayer.org/i18n-seo-scanner).
 
-<iframe src="https://intlayer.org/i18n-seo-scanner" width="100%" height="600px" style="border:none;"/>
+<ClickToOpenIframe src="https://intlayer.org/i18n-seo-scanner" width="100%" height="600px" style="border:none;"/>
 
 ## Problem
 
