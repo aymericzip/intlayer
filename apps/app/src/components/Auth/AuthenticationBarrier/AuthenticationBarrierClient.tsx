@@ -1,9 +1,8 @@
 import { useSession } from '@intlayer/design-system/hooks';
 import { Loader } from '@intlayer/design-system/loader';
 import { App_Home_Path } from '@intlayer/design-system/routes';
-import { useLocation } from '@tanstack/react-router';
+import { useLocation, useNavigate } from '@tanstack/react-router';
 import { type FC, useEffect } from 'react';
-import { useLocalizedNavigate } from '#hooks/useLocalizedNavigate';
 import {
   type AuthenticationBarrierProps,
   accessValidation,
@@ -33,7 +32,7 @@ export const AuthenticationBarrierClient: FC<
   originUrl,
   isPermissive = true,
 }) => {
-  const navigate = useLocalizedNavigate();
+  const navigate = useNavigate();
   const { pathname } = useLocation();
 
   const { session: sessionClient } = useSession(sessionProp);
@@ -54,7 +53,7 @@ export const AuthenticationBarrierClient: FC<
     accessValidation(
       accessRule,
       sessionClient,
-      (url) => navigate({ to: url as any, replace: true }),
+      (url) => navigate({ to: url, replace: true }),
       redirectionRoute,
       isEnabled
     );

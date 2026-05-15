@@ -31,7 +31,7 @@ import react, { reactCompilerPreset } from '@vitejs/plugin-react';
 import { localeFlatMap } from 'intlayer';
 import { nitro } from 'nitro/vite';
 import { defineConfig, loadEnv } from 'vite';
-import { intlayer } from 'vite-intlayer';
+import { intlayer, intlayerProxy } from 'vite-intlayer';
 import wasm from 'vite-plugin-wasm';
 
 export const pathList = [
@@ -197,6 +197,7 @@ export default defineConfig(({ mode }) => {
       headers,
     },
     plugins: [
+      intlayerProxy(),
       nitro({
         preset: 'bun',
         routeRules: {
