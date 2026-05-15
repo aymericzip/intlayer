@@ -7,9 +7,8 @@ export const IntlayerMarkdownProvider: FC<PropsWithChildren> = ({
   children,
 }) => (
   <MarkdownProvider
-    renderMarkdown={async (md) => {
-      const { compileMarkdown } = await import('next-intlayer/markdown');
-      return compileMarkdown(md);
+    components={{
+      p: (props) => <span className="hello" {...props} />,
     }}
   >
     {children}

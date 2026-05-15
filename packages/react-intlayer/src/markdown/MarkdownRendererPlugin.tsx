@@ -8,6 +8,7 @@ import {
   type MarkdownProviderOptions,
   useMarkdownContext,
 } from './MarkdownProvider';
+import { compiler } from './processor';
 
 type MarkdownRendererPluginProps = {
   dictionaryKey: string;
@@ -23,11 +24,13 @@ export const MarkdownRendererPlugin: FC<MarkdownRendererPluginProps> = (
 ): ReactNode => {
   const { children, options, components } = props;
   const context = useMarkdownContext();
-  const renderMarkdown = context?.renderMarkdown ?? ((md) => md);
-  const contentToRender = children;
 
-  return renderMarkdown(contentToRender, options, {
-    ...(context?.components ?? {}),
-    ...(components ?? {}),
-  });
+  if (context) {
+    return context.renderMarkdown(children, options, {
+      ...context.components,
+      ...components,
+    }) as ReactNode;
+  }
+
+  return compiler(children, { ...options, components });
 };

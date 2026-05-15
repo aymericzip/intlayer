@@ -31,9 +31,7 @@ const config: IntlayerConfig = {
   ai: {
     apiKey: process.env.OPENAI_API_KEY,
   },
-  build: {
-    optimize: true,
-  },
+
   compiler: {
     output: ({ fileName }) => `./${fileName}.content.ts`,
   },

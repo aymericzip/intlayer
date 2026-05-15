@@ -14,6 +14,7 @@ export const HomeContent = () => {
     learn,
     examples,
     goToNextjs,
+    markdownContent,
   } = useIntlayer('home-content');
   const { locale } = useLocale();
 
@@ -42,7 +43,6 @@ export const HomeContent = () => {
           </li>
           <li>{saveAndSeeChanges}</li>
         </ol>
-
         <div className="flex flex-col items-center gap-4 sm:flex-row">
           <a
             className="flex h-10 items-center justify-center gap-2 rounded-full border border-transparent border-solid bg-foreground px-4 text-background text-sm transition-colors hover:bg-[#383838] sm:h-12 sm:px-5 sm:text-base dark:hover:bg-[#ccc]"
@@ -68,7 +68,9 @@ export const HomeContent = () => {
             {readOurDocs}
           </a>
         </div>
+        {markdownContent}
       </main>
+
       <footer className="row-start-3 flex flex-wrap items-center justify-center gap-6">
         <a
           className="flex items-center gap-2 hover:underline hover:underline-offset-4"

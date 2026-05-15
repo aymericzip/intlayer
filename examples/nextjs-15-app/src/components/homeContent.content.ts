@@ -1,4 +1,4 @@
-import { type Dictionary, t } from 'intlayer';
+import { type Dictionary, md, t } from 'intlayer';
 
 const homeContent = {
   key: 'home-content',
@@ -31,6 +31,9 @@ const homeContent = {
       fr: 'Accéder à Next.js',
       es: 'Ir a Next.js',
     }),
+    markdownContent: md(
+      'Simple paragraph. **Hello world**\n- **Bold text**\n- _Italic text_\n- ~~Strikethrough text~~\n- [Link](https://www.google.com)'
+    ),
   },
 } satisfies Dictionary;
 
