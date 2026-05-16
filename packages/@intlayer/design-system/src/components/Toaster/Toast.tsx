@@ -6,12 +6,11 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { X } from 'lucide-react';
 import type { ComponentProps, FC, ReactElement } from 'react';
 
-const ToastProvider = ToastPrimitives;
+export const ToastProvider = ToastPrimitives;
 
-const ToastViewport: FC<ComponentProps<typeof ToastPrimitives.Viewport>> = ({
-  className,
-  ...props
-}) => (
+export const ToastViewport: FC<
+  ComponentProps<typeof ToastPrimitives.Viewport>
+> = ({ className, ...props }) => (
   <ToastPrimitives.Viewport
     className={cn(
       'fixed top-0 z-100 flex max-h-screen w-full flex-col-reverse p-4 sm:top-auto sm:right-0 sm:bottom-0 sm:flex-col md:max-w-[420px]',
@@ -39,8 +38,8 @@ const ToastViewport: FC<ComponentProps<typeof ToastPrimitives.Viewport>> = ({
  * <Toast variant="default">Info message</Toast>
  * ```
  */
-const toastVariants = cva(
-  'group data-[state=closed]:fade-out-80 data-[state=closed]:slide-out-to-right-full data-[state=open]:slide-in-from-top-full data-[state=open]:sm:slide-in-from-bottom-full pointer-events-auto relative flex w-full items-center justify-between space-x-2 overflow-hidden rounded-md p-4 pr-6 shadow-[0_0_10px_-15px_rgba(0,0,0,0.3)] backdrop-blur transition-all data-[swipe=cancel]:translate-x-0 data-[swipe=end]:translate-x-[var(--radix-toast-swipe-end-x)] data-[swipe=move]:translate-x-[var(--radix-toast-swipe-move-x)] data-[state=closed]:animate-out data-[state=open]:animate-in data-[swipe=end]:animate-out data-[swipe=move]:transition-none',
+export const toastVariants = cva(
+  'group data-[state=closed]:fade-out-80 data-[state=closed]:slide-out-to-right-full data-[state=open]:slide-in-from-top-full data-[state=open]:sm:slide-in-from-bottom-full pointer-events-auto relative flex w-full items-center justify-between space-x-2 overflow-hidden rounded-xl p-4 pr-6 shadow-[0_0_10px_-15px_rgba(0,0,0,0.3)] backdrop-blur transition-all [corner-shape:squircle] data-[swipe=cancel]:translate-x-0 data-[swipe=end]:translate-x-[var(--radix-toast-swipe-end-x)] data-[swipe=move]:translate-x-[var(--radix-toast-swipe-move-x)] data-[state=closed]:animate-out data-[state=open]:animate-in data-[swipe=end]:animate-out data-[swipe=move]:transition-none supports-[corner-shape:squircle]:rounded-2xl',
   {
     variants: {
       /** Toast visual variants for different message types */
@@ -98,7 +97,7 @@ const toastVariants = cva(
  * </Toast>
  * ```
  */
-const Toast: FC<
+export const Toast: FC<
   ComponentProps<typeof ToastPrimitives.Root> &
     VariantProps<typeof toastVariants>
 > = ({ className, variant, ...props }) => {
@@ -146,7 +145,7 @@ const Toast: FC<
  * </ToastAction>
  * ```
  */
-const ToastAction: FC<ComponentProps<typeof ToastPrimitives.Action>> = ({
+export const ToastAction: FC<ComponentProps<typeof ToastPrimitives.Action>> = ({
   className,
   ...props
 }) => (
@@ -159,7 +158,7 @@ const ToastAction: FC<ComponentProps<typeof ToastPrimitives.Action>> = ({
   />
 );
 
-const ToastClose: FC<ComponentProps<typeof ToastPrimitives.Close>> = ({
+export const ToastClose: FC<ComponentProps<typeof ToastPrimitives.Close>> = ({
   className,
   ...props
 }) => (
@@ -192,7 +191,7 @@ const ToastClose: FC<ComponentProps<typeof ToastPrimitives.Close>> = ({
  * <ToastTitle>Settings Saved</ToastTitle>
  * ```
  */
-const ToastTitle: FC<ComponentProps<typeof ToastPrimitives.Title>> = ({
+export const ToastTitle: FC<ComponentProps<typeof ToastPrimitives.Title>> = ({
   className,
   ...props
 }) => (
@@ -229,7 +228,7 @@ const ToastTitle: FC<ComponentProps<typeof ToastPrimitives.Title>> = ({
  * </ToastDescription>
  * ```
  */
-const ToastDescription: FC<
+export const ToastDescription: FC<
   ComponentProps<typeof ToastPrimitives.Description>
 > = ({ className, ...props }) => (
   <ToastPrimitives.Description
@@ -241,22 +240,10 @@ const ToastDescription: FC<
  * Props type for Toast component including all Radix UI Toast.Root props
  * and variant styling options.
  */
-type ToastProps = ComponentProps<typeof Toast>;
+export type ToastProps = ComponentProps<typeof Toast>;
 
 /**
  * Type for ToastAction elements used in toast configurations.
  * Ensures type safety when passing action elements to toast functions.
  */
-type ToastActionElement = ReactElement<typeof ToastAction>;
-
-export {
-  Toast,
-  ToastAction,
-  ToastClose,
-  ToastDescription,
-  ToastProvider,
-  ToastTitle,
-  ToastViewport,
-  type ToastActionElement,
-  type ToastProps,
-};
+export type ToastActionElement = ReactElement<typeof ToastAction>;
