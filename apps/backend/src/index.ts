@@ -49,7 +49,7 @@ import { processAuditJobs } from '@services/audit/recursiveAudit.service';
 import { startTranslationWorker } from '@services/translationWorker.service';
 // Utils
 import { getAuth } from '@utils/auth/getAuth';
-import { corsOptions, credentialWhitelist } from '@utils/cors';
+import { corsOptions } from '@utils/cors';
 import { connectDB } from '@utils/mongoDB/connectDB';
 import { ipLimiter } from '@utils/rateLimiter';
 import { connectRedis } from '@utils/redis/connectRedis';
@@ -89,20 +89,6 @@ const startServer = async () => {
 
   // CORS
   await app.register(fastifyCors, corsOptions);
-
-  // Re-enable cookie credentials only for first-party origins.
-  // The cors plugin sets credentials: false globally (to prevent cross-origin
-  // cookie theft). This hook selectively adds Access-Control-Allow-Credentials: true
-  // back for whitelisted origins so browser session auth continues to work.
-  // Non-whitelisted callers (intlayer-editor on third-party sites, CLI, MCP) must
-  // authenticate via Authorization: Bearer <token> and must NOT send credentials: 'include'.
-  app.addHook('onSend', (request, reply, _payload, done) => {
-    const origin = request.headers.origin;
-    if (origin && credentialWhitelist().includes(origin)) {
-      reply.header('Access-Control-Allow-Credentials', 'true');
-    }
-    done();
-  });
 
   // Compression
   await app.register(fastifyCompress);
