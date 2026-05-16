@@ -335,7 +335,12 @@ export const buildAndWatchIntlayer = async (options?: WatchOptions) => {
     await prepareIntlayer(configuration, { forceRun: true });
   }
 
-  if (configuration.content.watch || options?.persistent) {
+  // Only enter watch mode when the caller explicitly opts in via `persistent`.
+  // `configuration.content.watch` is the dev-mode signal consumed by bundler
+  // plugins (e.g. vite-intlayer's `configureServer`); it must not coerce
+  // `intlayer build` (which passes `persistent: false`) into a persistent
+  // watcher, since that prevents the build command from ever exiting.
+  if (options?.persistent) {
     await watch({ ...rest, configuration });
   }
 };
