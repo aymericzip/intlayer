@@ -58,12 +58,18 @@ export const SignUpForm: FC = () => {
   };
 
   const handleEmailValidated = async () => {
+    setUser(null);
     onClickBackToSignIn();
+  };
+
+  const handleCancel = () => {
+    setUser(null);
   };
 
   return user ? (
     <VerifyEmailFormUI
       onSubmitSuccess={handleEmailValidated}
+      onCancel={handleCancel}
       userId={(user?.id ? String(user.id) : undefined) ?? userId}
     />
   ) : (

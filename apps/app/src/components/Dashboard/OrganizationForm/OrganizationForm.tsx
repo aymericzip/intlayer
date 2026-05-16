@@ -92,7 +92,11 @@ const OrganizationFormContent: FC = () => {
 
   if (isSuccess && !isPending) {
     return (
-      <Container roundedSize="3xl" padding="md" className="flex justify-center">
+      <Container
+        roundedSize="3xl"
+        padding="2xl"
+        className="flex justify-center"
+      >
         <Modal
           isOpen={isCreationModalOpen}
           onClose={() => setIsCreationModalOpen(false)}

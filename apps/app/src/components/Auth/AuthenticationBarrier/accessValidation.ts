@@ -33,6 +33,10 @@ export const accessValidation = (
   }
 
   if (session?.user && accessRuleArray?.includes('not-authenticated')) {
+    // Allow users with an unverified email to stay on not-authenticated routes
+    // so they can complete the email verification flow.
+    if (!session.user.emailVerified) return;
+
     redirectionFunction(redirectionRoute);
   }
 

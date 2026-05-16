@@ -1,5 +1,6 @@
 import { Button } from '@intlayer/design-system/button';
 import { useForm } from '@intlayer/design-system/form';
+import { H3 } from '@intlayer/design-system/headers';
 import { Plus } from 'lucide-react';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
@@ -19,7 +20,7 @@ export const NoProjectView: FC<NoProjectViewProps> = ({
 
   return (
     <div className="flex size-full max-w-[400px] flex-1 flex-col items-center justify-center gap-3">
-      <span className="font-bold">{createProjectTitle}</span>
+      <H3>{createProjectTitle}</H3>
       <span className="mb-3 text-neutral text-sm">
         {createProjectDescription}
       </span>

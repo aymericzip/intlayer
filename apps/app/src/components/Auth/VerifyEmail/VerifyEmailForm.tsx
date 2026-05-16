@@ -4,14 +4,16 @@ import { Form, useForm } from '@intlayer/design-system/form';
 import { H3 } from '@intlayer/design-system/headers';
 import { useUser } from '@intlayer/design-system/hooks';
 import { Loader } from '@intlayer/design-system/loader';
-import { Check } from 'lucide-react';
-import { type FC, useEffect, useState } from 'react';
+import { useRouter } from '@tanstack/react-router';
+import { Check, RefreshCw } from 'lucide-react';
+import { type FC, useCallback, useEffect, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { getVerifyEmailSchema, type VerifyEmail } from './VerifyEmailSchema';
 
 type VerifyEmailFormProps = {
   onSubmitSuccess: (data: VerifyEmail) => Promise<void>;
   onSubmitError?: (error: Error) => void;
+  onCancel?: () => void;
   userId?: string;
 };
 
@@ -19,14 +21,24 @@ export const VerifyEmailForm: FC<VerifyEmailFormProps> = ({
   userId,
   onSubmitSuccess,
   onSubmitError,
+  onCancel,
 }) => {
   const VerifyEmailSchema = getVerifyEmailSchema();
-  const { revalidateSession, user } = useUser();
-  const { verifyEmail, doneButton } = useIntlayer('verify-email-form');
+  const router = useRouter();
+  const { revalidateSession, user, logout } = useUser();
+  const { verifyEmail, doneButton, refreshButton, cancelButton } =
+    useIntlayer('verify-email-form');
   const [isEmailVerified, setIsEmailVerified] = useState(false);
+  const [isRefreshing, setIsRefreshing] = useState(false);
   const { form } = useForm(VerifyEmailSchema, {});
 
   const targetedUserId = userId ?? user?.id;
+
+  const handleVerified = useCallback(async () => {
+    setIsEmailVerified(true);
+    await revalidateSession();
+    await router.invalidate();
+  }, [revalidateSession, router]);
 
   useEffect(() => {
     if (!targetedUserId) return;
@@ -36,32 +48,35 @@ export const VerifyEmailForm: FC<VerifyEmailFormProps> = ({
       String(targetedUserId)
     );
 
-    // EventSource alow to receive server-sent events from the server
-    // In this case, we are listening to the email verification status
     const eventSource = new EventSource(verifyEmailStatusURL);
 
     eventSource.onmessage = async (event) => {
       const data = JSON.parse(event.data);
 
       if (data.status === 'verified') {
-        // Update your UI to reflect the verification
-
-        setIsEmailVerified(true);
-
-        await revalidateSession();
-
-        eventSource.close(); // Close the connection if no longer needed
+        await handleVerified();
+        eventSource.close();
       }
     };
 
-    eventSource.onerror = (event) => {
-      console.error(event);
-      // Handle errors or reconnection logic
+    eventSource.onerror = () => {
       eventSource.close();
     };
 
-    return () => eventSource.close(); // Clean up on component unmount
-  }, [revalidateSession, targetedUserId, userId, user?.id, isEmailVerified]);
+    return () => eventSource.close();
+  }, [handleVerified, targetedUserId, isEmailVerified]);
+
+  const handleRefresh = async () => {
+    setIsRefreshing(true);
+    try {
+      const session = await revalidateSession();
+      if (session?.user?.emailVerified) {
+        await handleVerified();
+      }
+    } finally {
+      setIsRefreshing(false);
+    }
+  };
 
   return (
     <Form
@@ -78,14 +93,47 @@ export const VerifyEmailForm: FC<VerifyEmailFormProps> = ({
           <Check className="text-success" size={50} />
         </div>
       </Loader>
-      <Button
-        disabled={!isEmailVerified}
-        label={doneButton.text.value}
-        type="submit"
-        color="text"
-      >
-        {doneButton.text}
-      </Button>
+      <div className="flex flex-col gap-2">
+        <div className="flex w-full flex-row gap-2">
+          <Button
+            label={cancelButton.ariaLabel.value}
+            type="button"
+            variant="outline"
+            color="text"
+            className="w-full"
+            onClick={async () => {
+              await logout();
+              onCancel?.();
+            }}
+          >
+            {cancelButton.text}
+          </Button>
+          {!isEmailVerified && (
+            <Button
+              label={refreshButton.ariaLabel.value}
+              type="button"
+              variant="outline"
+              className="w-full"
+              color="text"
+              Icon={RefreshCw}
+              isLoading={isRefreshing}
+              onClick={handleRefresh}
+            >
+              {refreshButton.text}
+            </Button>
+          )}
+        </div>
+
+        <Button
+          disabled={!isEmailVerified}
+          label={doneButton.text.value}
+          type="submit"
+          color="text"
+          Icon={Check}
+        >
+          {doneButton.text}
+        </Button>
+      </div>
     </Form>
   );
 };

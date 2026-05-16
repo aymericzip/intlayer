@@ -110,7 +110,14 @@ export const getAuth = (dbClient: MongoClient): Auth => {
         if (!user) return;
 
         if (path.includes('/verify-email')) {
-          sendVerificationUpdate(user as unknown as User);
+          // Fetch fresh user from DB so emailVerified is definitely up-to-date
+          // (the hook context user may be a stale snapshot from before the DB write).
+          const freshUser = await getUserById(user.id);
+
+          if (freshUser) {
+            sendVerificationUpdate(freshUser);
+          }
+
           logger.info('SSE verification update sent', {
             email: user.email,
             userId: user.id,
@@ -333,11 +340,18 @@ export const getAuth = (dbClient: MongoClient): Auth => {
       sendOnSignIn: true,
       sendVerificationEmail: async ({ user, url }) => {
         logger.info('sending verification email', { email: user.email });
+        // Override callbackURL so the link redirects to the app after verification,
+        // not to the backend root which just shows the raw API response.
+        const verificationUrl = new URL(url);
+        verificationUrl.searchParams.set(
+          'callbackURL',
+          process.env.APP_URL ?? '/'
+        );
         await sendEmail({
           type: 'validate',
           to: user.email,
           username: user.name ?? user.email.split('@')[0],
-          validationLink: url,
+          validationLink: verificationUrl.toString(),
         });
       },
     },

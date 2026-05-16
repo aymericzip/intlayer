@@ -468,15 +468,20 @@ export const verifyEmailStatusSSE = async (
 ) => {
   const { user: sessionUser, roles } = request.session || {};
 
-  if (!sessionUser) {
-    return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
-  }
-
   const { userId } = request.params; // Get user ID from params
 
   const user = await userService.getUserById(userId);
 
+  if (!user) {
+    return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
+  }
+
+  // When a session exists, enforce ownership or admin access.
+  // When there is no session the user just registered and is waiting for
+  // email verification — BetterAuth does not create a session until the
+  // email is verified, so we allow unauthenticated access for this endpoint.
   if (
+    sessionUser &&
     String(sessionUser.id) !== String(userId) &&
     !hasPermission(
       roles || [],
@@ -497,13 +502,6 @@ export const verifyEmailStatusSSE = async (
   reply.raw.flushHeaders?.();
 
   const clientId = Date.now();
-
-  if (!user) {
-    logger.error(`User not found - User ID: ${userId}`);
-    reply.raw.write(`data: ${JSON.stringify({ userId, status: 'error' })}\n\n`);
-    reply.raw.end();
-    return;
-  }
 
   // Add client to the list
   const newClient = { id: clientId, userId, res: { raw: reply.raw } };
