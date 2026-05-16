@@ -1483,7 +1483,7 @@ export const config = {
 
 Зірки на GitHub є потужним індикатором популярності проєкту, довіри спільноти та його довгострокової значущості. Хоча це не прямий показник технічної якості, вони відображають, скільки розробників вважають проєкт корисним, стежать за його розвитком і, ймовірно, приймуть його у використання. Для оцінки цінності проєкту зірки допомагають порівнювати залученість між альтернативами та дають уявлення про зростання екосистеми.
 
-[![Графік історії зірок](https://api.star-history.com/svg?repos=i18next/next-i18next&repos=amannn/next-intl&repos=aymericzip/intlayer&type=Date)](https://www.star-history.com/#i18next/next-i18next&amannn/next-intl&aymericzip/intlayer)
+[![Графік історії зірок](https://api.star-history.com/chart?repos=i18next/next-i18next%2Camannn/next-intl%2Caymericzip/intlayer&type=date&legend=top-left)](https://www.star-history.com/#i18next/next-i18next&amannn/next-intl&aymericzip/intlayer)
 
 ---
 

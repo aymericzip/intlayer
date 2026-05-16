@@ -152,7 +152,7 @@ slugs:
 
 GitHub-зірки, це вагомий індикатор популярності проєкту, довіри спільноти та його довгострокової релевантності. Хоча вони не є прямим показником технічної якості, вони відображають, скільки розробників вважають проєкт корисним, стежать за його розвитком і ймовірно його приймуть. Для оцінки цінності проєкту зірки допомагають порівнювати популярність між альтернативами та дають уявлення про зростання екосистеми.
 
-## [![Діаграма історії зірок](https://api.star-history.com/svg?repos=formatjs/formatjs&repos=i18next/react-i18next&repos=aymericzip/intlayer&type=Date)](https://www.star-history.com/#formatjs/formatjs&i18next/react-i18next&aymericzip/intlayer)
+[![Діаграма історії зірок](https://api.star-history.com/chart?repos=formatjs/formatjs%2Ci18next/react-i18next%2Caymericzip/intlayer&type=date&legend=top-left)](https://www.star-history.com/#formatjs/formatjs&i18next/react-i18next&aymericzip/intlayer)
 
 ## Висновок
 

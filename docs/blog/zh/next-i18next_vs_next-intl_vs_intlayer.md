@@ -1223,7 +1223,7 @@ export default robots;
 
 GitHub 星标是衡量项目受欢迎程度、社区信任度和长期相关性的有力指标。虽然它们不是技术质量的直接衡量标准，但反映了有多少开发者认为该项目有用、关注其进展并可能采用它。对于评估项目价值，星标有助于比较不同选项的吸引力，并提供生态系统增长的洞察。
 
-[![星标历史图表](https://api.star-history.com/svg?repos=i18next/next-i18next&repos=amannn/next-intl&repos=aymericzip/intlayer&type=Date)](https://www.star-history.com/#i18next/next-i18next&amannn/next-intl&aymericzip/intlayer)
+[![星标历史图表](https://api.star-history.com/chart?repos=i18next/next-i18next%2Camannn/next-intl%2Caymericzip/intlayer&type=date&legend=top-left)](https://www.star-history.com/#i18next/next-i18next&amannn/next-intl&aymericzip/intlayer)
 
 ---
 

@@ -1212,7 +1212,7 @@ export default robots;
 
 GitHub 스타는 프로젝트의 인기, 커뮤니티 신뢰도, 그리고 장기적인 관련성을 강력하게 나타내는 지표입니다. 기술적 품질의 직접적인 척도는 아니지만, 얼마나 많은 개발자가 해당 프로젝트를 유용하다고 생각하고, 진행 상황을 팔로우하며, 채택할 가능성이 있는지를 반영합니다. 프로젝트의 가치를 평가할 때, 스타는 대안들 간의 관심도를 비교하고 생태계 성장에 대한 통찰을 제공하는 데 도움이 됩니다.
 
-[![스타 히스토리 차트](https://api.star-history.com/svg?repos=i18next/next-i18next&repos=amannn/next-intl&repos=aymericzip/intlayer&type=Date)](https://www.star-history.com/#i18next/next-i18next&amannn/next-intl&aymericzip/intlayer)
+[![스타 히스토리 차트](https://api.star-history.com/chart?repos=i18next/next-i18next%2Camannn/next-intl%2Caymericzip/intlayer&type=date&legend=top-left)](https://www.star-history.com/#i18next/next-i18next&amannn/next-intl&aymericzip/intlayer)
 
 ---
 

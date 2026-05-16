@@ -1364,7 +1364,7 @@ Wenn Sie eine minimale Einrichtung bevorzugen und etwas manuelle Verkabelung akz
 
 GitHub-Sterne sind ein starkes Indiz für die Popularität eines Projekts, das Vertrauen der Community und die langfristige Relevanz. Obwohl sie kein direktes Maß für die technische Qualität sind, spiegeln sie wider, wie viele Entwickler das Projekt nützlich finden, seinen Fortschritt verfolgen und es wahrscheinlich übernehmen werden. Zur Einschätzung des Werts eines Projekts helfen Sterne dabei, die Resonanz im Vergleich zu Alternativen zu vergleichen und Einblicke in das Wachstum des Ökosystems zu geben.
 
-[![Stern-Historien-Diagramm](https://api.star-history.com/svg?repos=i18next/next-i18next&repos=amannn/next-intl&repos=aymericzip/intlayer&type=Date)](https://www.star-history.com/#i18next/next-i18next&amannn/next-intl&aymericzip/intlayer)
+[![Stern-Historien-Diagramm](https://api.star-history.com/chart?repos=i18next/next-i18next%2Camannn/next-intl%2Caymericzip/intlayer&type=date&legend=top-left)](https://www.star-history.com/#i18next/next-i18next&amannn/next-intl&aymericzip/intlayer)
 
 ---
 

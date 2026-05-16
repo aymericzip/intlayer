@@ -1224,7 +1224,7 @@ export default robots;
 
 Звёзды на GitHub являются сильным индикатором популярности проекта, доверия сообщества и его долгосрочной актуальности. Хотя они не являются прямой мерой технического качества, они отражают, сколько разработчиков считают проект полезным, следят за его развитием и, вероятно, будут его использовать. Для оценки ценности проекта звёзды помогают сравнивать популярность среди альтернатив и дают представление о росте экосистемы.
 
-[![График истории звёзд](https://api.star-history.com/svg?repos=i18next/next-i18next&repos=amannn/next-intl&repos=aymericzip/intlayer&type=Date)](https://www.star-history.com/#i18next/next-i18next&amannn/next-intl&aymericzip/intlayer)
+[![График истории звёзд](https://api.star-history.com/chart?repos=i18next/next-i18next%2Camannn/next-intl%2Caymericzip/intlayer&type=date&legend=top-left)](https://www.star-history.com/#i18next/next-i18next&amannn/next-intl&aymericzip/intlayer)
 
 ---
 

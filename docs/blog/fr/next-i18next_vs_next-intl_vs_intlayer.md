@@ -1215,7 +1215,7 @@ Si vous préférez une configuration minimale et acceptez un certain câblage ma
 
 Les étoiles GitHub sont un indicateur fort de la popularité d’un projet, de la confiance de la communauté et de sa pertinence à long terme. Bien qu’elles ne mesurent pas directement la qualité technique, elles reflètent combien de développeurs trouvent le projet utile, suivent son évolution et sont susceptibles de l’adopter. Pour estimer la valeur d’un projet, les étoiles aident à comparer la traction entre différentes alternatives et fournissent des informations sur la croissance de l’écosystème.
 
-[![Graphique de l’historique des étoiles](https://api.star-history.com/svg?repos=i18next/next-i18next&repos=amannn/next-intl&repos=aymericzip/intlayer&type=Date)](https://www.star-history.com/#i18next/next-i18next&amannn/next-intl&aymericzip/intlayer)
+[![Graphique de l’historique des étoiles](https://api.star-history.com/chart?repos=i18next/next-i18next%2Camannn/next-intl%2Caymericzip/intlayer&type=date&legend=top-left)](https://www.star-history.com/#i18next/next-i18next&amannn/next-intl&aymericzip/intlayer)
 
 ---
 

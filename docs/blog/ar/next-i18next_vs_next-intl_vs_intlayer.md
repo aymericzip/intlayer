@@ -1454,7 +1454,7 @@ The set up of the middleware centralized in the `intlayer.config.ts` file.
 
 نجوم GitHub هي مؤشر قوي على شعبية المشروع، وثقة المجتمع، وأهميته على المدى الطويل. وعلى الرغم من أنها ليست مقياسًا مباشرًا للجودة التقنية، إلا أنها تعكس عدد المطورين الذين يجدون المشروع مفيدًا، ويتابعون تقدمه، ومن المحتمل أن يتبنوه. لتقدير قيمة المشروع، تساعد النجوم في مقارنة الجذب بين البدائل وتوفر رؤى حول نمو النظام البيئي.
 
-[![مخطط تاريخ النجوم](https://api.star-history.com/svg?repos=i18next/next-i18next&repos=amannn/next-intl&repos=aymericzip/intlayer&type=Date)](https://www.star-history.com/#i18next/next-i18next&amannn/next-intl&aymericzip/intlayer)
+[![مخطط تاريخ النجوم](https://api.star-history.com/chart?repos=i18next/next-i18next%2Camannn/next-intl%2Caymericzip/intlayer&type=date&legend=top-left)](https://www.star-history.com/#i18next/next-i18next&amannn/next-intl&aymericzip/intlayer)
 
 ---
 

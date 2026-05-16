@@ -1220,7 +1220,7 @@ export default robots;
 
 GitHubのスターは、プロジェクトの人気、コミュニティの信頼、そして長期的な関連性を示す強力な指標です。技術的な品質の直接的な尺度ではありませんが、どれだけ多くの開発者がそのプロジェクトを有用と感じ、進捗を追い、採用する可能性が高いかを反映しています。プロジェクトの価値を評価する際、スターは代替案間のトラクションを比較し、エコシステムの成長に関する洞察を提供するのに役立ちます。
 
-[![スター履歴チャート](https://api.star-history.com/svg?repos=i18next/next-i18next&repos=amannn/next-intl&repos=aymericzip/intlayer&type=Date)](https://www.star-history.com/#i18next/next-i18next&amannn/next-intl&aymericzip/intlayer)
+[![スター履歴チャート](https://api.star-history.com/chart?repos=i18next/next-i18next%2Camannn/next-intl%2Caymericzip/intlayer&type=date&legend=top-left)](https://www.star-history.com/#i18next/next-i18next&amannn/next-intl&aymericzip/intlayer)
 
 ---
 

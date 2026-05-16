@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-14
-updatedAt: 2025-08-20
+updatedAt: 2025-09-27
 title: Interés de Intlayer
 description: Descubre los beneficios y ventajas de usar Intlayer en tus proyectos. Entiende por qué Intlayer destaca entre otros frameworks.
 keywords:
@@ -13,6 +13,9 @@ slugs:
   - doc
   - why
 history:
+  - version: 7.3.1
+    date: 2025-11-27
+    changes: "Lanzamiento del Compilador"
   - version: 5.8.0
     date: 2025-08-19
     changes: "Actualización de la tabla comparativa"
@@ -164,12 +167,16 @@ Este enfoque te permite:
    - El agente de IA no tendrá que escanear toda tu base de código para saber dónde implementar tu contenido
    - Las traducciones pueden realizarse fácilmente mediante herramientas de autocompletado con IA en tu IDE (como GitHub Copilot)
 
+6. **Optimizar el rendimiento de carga**
+   - Si un componente se carga de forma diferida, su contenido relacionado se cargará al mismo tiempo
+
 ## Características adicionales de Intlayer
 
 | Funcionalidad                                                                                                                    | Descripción                                                                                                                                                                                                                                                                                                                                                                                                                                |
 | -------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | ![Característica](https://github.com/aymericzip/intlayer/blob/main/docs/assets/frameworks.png?raw=true)                          | **Compatibilidad entre Frameworks**<br><br>Intlayer es compatible con todos los principales frameworks y bibliotecas, incluyendo Next.js, React, Vite, Vue.js, Nuxt, Preact, Express y más.                                                                                                                                                                                                                                                |
 | ![Característica](https://github.com/aymericzip/intlayer/blob/main/docs/assets/javascript_content_management.jpg?raw=true)       | **Gestión de Contenido Potenciada por JavaScript**<br><br>Aprovecha la flexibilidad de JavaScript para definir y gestionar tu contenido de manera eficiente. <br><br> - [Declaración de contenido](https://intlayer.org/doc/concept/content)                                                                                                                                                                                               |
+| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/compiler.jpg?raw=true" alt="Característica" width="700">  | **Compilador**<br><br>El Compilador Intlayer extrae automáticamente el contenido de los componentes y genera los archivos de diccionario.<br><br> - [Compilador](https://intlayer.org/doc/compiler)                                                                                                                                                                                                                                        |
 | ![Característica](https://github.com/aymericzip/intlayer/blob/main/docs/assets/per_locale_content_declaration_file.png?raw=true) | **Archivo de Declaración de Contenido por Localidad**<br><br>Acelera tu desarrollo declarando tu contenido una vez, antes de la generación automática.<br><br> - [Archivo de Declaración de Contenido por Localidad](https://intlayer.org/doc/concept/per-locale-file)                                                                                                                                                                     |
 | ![Característica](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)                      | **Entorno con Tipos Seguros**<br><br>Aprovecha TypeScript para asegurar que tus definiciones de contenido y código estén libres de errores, además de beneficiarte de la autocompletación en el IDE.<br><br> - [Configuración de TypeScript](https://intlayer.org/doc/environment/vite-and-react#configure-typescript)                                                                                                                     |
 | ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/config_file.png?raw=true)                                | **Configuración Simplificada**<br><br>Pon en marcha rápidamente con una configuración mínima. Ajusta fácilmente los ajustes para internacionalización, enrutamiento, IA, compilación y manejo de contenido.<br><br> - [Explora la integración con Next.js](https://intlayer.org/doc/environment/nextjs)                                                                                                                                    |
@@ -182,9 +189,10 @@ Este enfoque te permite:
 | ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.png?raw=true)                                     | **Contenido Tree-shakable**<br><br>Contenido tree-shakable, que reduce el tamaño del paquete final. Carga contenido por componente, excluyendo cualquier contenido no utilizado de tu paquete. Soporta carga diferida para mejorar la eficiencia de carga de la aplicación. <br><br> - [Optimización de construcción de la aplicación](https://intlayer.org/doc/concept/how-works-intlayer#app-build-optimization)                         |
 | ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/static_rendering.png?raw=true)                           | **Renderizado Estático**<br><br>No bloquea el Renderizado Estático. <br><br> - [Integración con Next.js](https://intlayer.org/doc/environment/nextjs)                                                                                                                                                                                                                                                                                      |
 | ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/AI_translation.png?raw=true)                             | **Traducción impulsada por IA**<br><br>Transforma tu sitio web a 231 idiomas con un solo clic utilizando las avanzadas herramientas de traducción impulsadas por IA de Intlayer, usando tu propio proveedor de IA/clave API. <br><br> - [Integración CI/CD](https://intlayer.org/doc/concept/ci-cd) <br> - [CLI de Intlayer](https://intlayer.org/doc/concept/cli) <br> - [Relleno automático](https://intlayer.org/doc/concept/auto-fill) |
-| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/mcp.png?raw=true)                                        | **Integración del Servidor MCP**<br><br>Proporciona un servidor MCP (Protocolo de Contexto de Modelo) para la automatización del IDE, permitiendo una gestión de contenido fluida y flujos de trabajo de i18n directamente dentro de tu entorno de desarrollo. <br><br> - [Servidor MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/mcp_server.md)                                                                      |
+| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/mcp.png?raw=true)                                        | **Integración del Servidor MCP**<br><br>Proporciona un servidor MCP (Protocolo de Contexto de Modelo) para la automatización del IDE, permitiendo una gestión de contenido fluida y flujos de trabajo de i18n directamente dentro de tu entorno de desarrollo. <br><br> - [Servidor MCP](https://github.com/aymericzip/intlayer/blob/main/docs/es/mcp_server.md)                                                                           |
 | ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extension.png?raw=true)                           | **Extensión para VSCode**<br><br>Intlayer proporciona una extensión para VSCode que te ayuda a gestionar tu contenido y traducciones, construir tus diccionarios, traducir tu contenido y más. <br><br> - [Extensión para VSCode](https://intlayer.org/doc/vs-code-extension)                                                                                                                                                              |
 | ![Funcionalidad](https://github.com/aymericzip/intlayer/blob/main/docs/assets/interoperability.png?raw=true)                     | **Interoperabilidad**<br><br>Permite la interoperabilidad con react-i18next, next-i18next, next-intl y react-intl. <br><br> - [Intlayer y react-intl](https://intlayer.org/blog/intlayer-with-react-intl) <br> - [Intlayer y next-intl](https://intlayer.org/blog/intlayer-with-next-intl) <br> - [Intlayer y next-i18next](https://intlayer.org/blog/intlayer-with-next-i18next)                                                          |
+| Prueba de Traducciones Faltantes (CLI/CI)                                                                                        | ✅ CLI: npx intlayer content test (auditoría compatible con CI)                                                                                                                                                                                                                                                                                                                                                                            |
 
 ## Comparación de Intlayer con otras soluciones
 
@@ -208,3 +216,21 @@ Este enfoque te permite:
 | **Eliminación de código muerto (cargar solo el contenido usado)** | Sí, por componente en tiempo de compilación mediante plugins de Babel/SWC                                                                     | Usualmente carga todo (puede mejorarse con namespaces/división de código) | Usualmente carga todo                                            | No es el valor predeterminado                                    | Parcial                                                          | Parcial                                                          | Parcial (con división de código/configuración manual)                    |
 | **Carga diferida**                                                | Sí, por localización/por componente                                                                                                           | Sí (por ejemplo, backends/namespaces bajo demanda)                        | Sí (división de paquetes por localización)                       | Sí (importaciones dinámicas de catálogos)                        | Sí (por ruta/por localización)                                   | Sí (por ruta/por localización)                                   | Sí (mensajes de localización asíncronos)                                 |
 | **Gestión de Proyectos Grandes**                                  | Fomenta la modularidad, adecuado para sistemas de diseño                                                                                      | Requiere buena disciplina de archivos                                     | Los catálogos centrales pueden volverse grandes                  | Puede volverse complejo                                          | Modular con configuración                                        | Modular con configuración                                        | Modular con configuración de Vue Router/Nuxt i18n                        |
+
+---
+
+## Estrellas de GitHub
+
+Las estrellas de GitHub son un fuerte indicador de la popularidad de un proyecto, la confianza de la comunidad y la relevancia a largo plazo. Si bien no son una medida directa de la calidad técnica, reflejan cuántos desarrolladores encuentran útil el proyecto, siguen su progreso y es probable que lo adopten. Para estimar el valor de un proyecto, las estrellas ayudan a comparar la tracción entre alternativas y brindan información sobre el crecimiento del ecosistema.
+
+[![Star History Chart](https://api.star-history.com/chart?repos=formatjs/formatjs%2Ci18next/react-i18next%2Ci18next/i18next%2Ci18next/next-i18next%2Clingui/js-lingui%2Camannn/next-intl%2Cintlify/vue-i18n%2Caymericzip/intlayer%2Copral/inlang&type=date&legend=top-left)](https://www.star-history.com/#formatjs/formatjs&i18next/react-i18next&i18next/i18next&i18next/next-i18next&lingui/js-lingui&amannn/next-intl&intlify/vue-i18n&opral/paraglide-js&aymericzip/intlayer)
+
+---
+
+## Interoperabilidad
+
+intlayer también puede ayudar a gestionar tus espacios de nombres react-intl, react-i18next, next-intl, next-i18next y vue-i18n.
+
+Usando intlayer, puedes declarar tu contenido en el formato de tu biblioteca i18n favorita, e intlayer generará tus espacios de nombres en la ubicación de tu elección (ejemplo: /messages/{{locale}}/{{namespace}}.json).
+
+Consulta las [opciones dictionaryOutput e i18nextResourcesDir](https://intlayer.org/doc/concept/configuration#content-configuration) para más detalles.
