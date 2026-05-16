@@ -15,42 +15,46 @@ export const credentialWhitelist = (): string[] =>
   ].filter(Boolean) as string[];
 
 /**
- * Per-request CORS delegator.
+ * CORS configuration with a per-request delegator.
  *
- * @fastify/cors calls this function once per request with the parsed request
- * object. We return a full options object so the plugin itself sets
- * Access-Control-Allow-Credentials correctly — avoiding the fragile onSend
- * header-patching pattern.
+ * Using the `delegator` property (not a bare function) avoids Fastify's
+ * avvio plugin loader calling our function as a factory at startup with the
+ * Fastify instance instead of a request object.
  *
  * Whitelisted first-party origins → credentials: true (cookie auth works).
  * All other origins              → credentials: false (Bearer token required).
  */
-export const corsOptions = (
-  req: FastifyRequest,
-  cb: (err: Error | null, options: FastifyCorsOptions) => void
-): void => {
-  const origin = req.headers.origin as string | undefined;
-  const whitelist = credentialWhitelist();
-  const isWhitelisted = Boolean(origin && whitelist.includes(origin));
+export const corsOptions: FastifyCorsOptions = {
+  delegator: (
+    req: FastifyRequest,
+    cb: (err: Error | null, options: FastifyCorsOptions) => void
+  ): void => {
+    const origin = req.headers.origin as string | undefined;
+    const whitelist = credentialWhitelist();
+    const isWhitelisted = Boolean(origin && whitelist.includes(origin));
 
-  if (origin && !isWhitelisted) {
-    logger.info('non-whitelisted origin, allowing without credentials', origin);
-  }
+    if (origin && !isWhitelisted) {
+      logger.info(
+        'non-whitelisted origin, allowing without credentials',
+        origin
+      );
+    }
 
-  cb(null, {
-    // Reflect the origin so third-party embeds (intlayer-editor) work.
-    // For originless requests (curl, server-to-server) true means allow.
-    origin: true,
-    credentials: isWhitelisted,
-    allowedHeaders: [
-      'authorization',
-      'Content-Type',
-      'cache-control',
-      'private-state-token-redemption',
-      'private-state-token-issuance',
-      'browsing-topics',
-    ],
-    exposedHeaders: [],
-    methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
-  });
+    cb(null, {
+      // Reflect the origin so third-party embeds (intlayer-editor) work.
+      // For originless requests (curl, server-to-server) true means allow.
+      origin: true,
+      credentials: isWhitelisted,
+      allowedHeaders: [
+        'authorization',
+        'Content-Type',
+        'cache-control',
+        'private-state-token-redemption',
+        'private-state-token-issuance',
+        'browsing-topics',
+      ],
+      exposedHeaders: [],
+      methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
+    });
+  },
 };
