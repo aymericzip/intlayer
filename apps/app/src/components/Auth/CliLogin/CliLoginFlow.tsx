@@ -160,6 +160,8 @@ const SessionAuthSelector: FC<{
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  const { sessionAuthSelector } = useIntlayer('cli-login-flow');
+
   const handleSessionAuth = async () => {
     setIsLoading(true);
     setError(null);
@@ -168,13 +170,13 @@ const SessionAuthSelector: FC<{
       const { token, expiresAt } = result.data ?? {};
 
       if (!token || !expiresAt) {
-        setError('Failed to create session token. Please try again.');
+        setError(sessionAuthSelector.error.value);
         return;
       }
 
       window.location.href = `http://localhost:${port}/callback?sessionToken=${encodeURIComponent(token)}&expiresAt=${encodeURIComponent(new Date(expiresAt).toISOString())}&state=${state ?? ''}`;
     } catch {
-      setError('Failed to create session token. Please try again.');
+      setError(sessionAuthSelector.error.value);
     } finally {
       setIsLoading(false);
     }
@@ -191,10 +193,11 @@ const SessionAuthSelector: FC<{
       >
         <Clock className="mt-0.5 size-5 shrink-0 text-neutral" />
         <div className="flex flex-col gap-1">
-          <span className="font-semibold text-sm">2-hour session token</span>
+          <span className="font-semibold text-sm">
+            {sessionAuthSelector.title}
+          </span>
           <span className="text-neutral text-xs">
-            A temporary token tied directly to your user account. Valid for 2
-            hours, no access key required.
+            {sessionAuthSelector.description}
           </span>
         </div>
       </Container>
@@ -202,12 +205,12 @@ const SessionAuthSelector: FC<{
       <Button
         className="w-full"
         color="text"
-        label="Generate 2h session token"
+        label={sessionAuthSelector.buttonLabel.value}
         onClick={handleSessionAuth}
         isLoading={isLoading}
         Icon={Check}
       >
-        Authenticate with session
+        {sessionAuthSelector.buttonText}
       </Button>
     </div>
   );
