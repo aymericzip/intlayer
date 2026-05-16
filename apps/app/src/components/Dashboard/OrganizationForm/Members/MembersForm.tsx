@@ -82,51 +82,50 @@ export const MembersForm: FC = () => {
         onRemove={() => setMemberIdToRemove(undefined)}
       />
       <H3 className="mb-8">{title}</H3>
-      {isLoadingUsers ? (
-        <Loader />
-      ) : (
-        <div className="flex flex-col gap-3">
-          {isOrganizationAdmin && (
-            <Form
-              schema={NewMembersFormSchema}
-              onSubmitSuccess={onSubmitSuccessAddMember}
-              className="flex flex-row items-end gap-3 align-bottom"
-              autoComplete={false}
-              {...newUserForm}
-            >
-              <Form.Input
-                name="userEmail"
-                type="email"
-                label={newMemberEmailInput.label.value}
-                placeholder={newMemberEmailInput.placeholder.value}
-              />
-              <Form.Button
-                className="mb-2"
-                type="submit"
-                color="text"
-                size="icon-lg"
-                isLoading={IsSubmittingNewUser}
-                label={newMemberSubmitButton.label.value}
-                Icon={Plus}
-              />
-            </Form>
-          )}
 
+      <div className="flex flex-col gap-3">
+        {isOrganizationAdmin && (
           <Form
-            className="w-full"
-            schema={MembersFormSchema}
-            onSubmitSuccess={updateOrganizationMembers}
-            {...form}
+            schema={NewMembersFormSchema}
+            onSubmitSuccess={onSubmitSuccessAddMember}
+            className="flex flex-row items-end gap-3 align-bottom"
+            autoComplete={false}
+            {...newUserForm}
           >
-            <div className="flex flex-col gap-2 px-3">
-              <Form.Label>{title}</Form.Label>
-              <Form.Description>{description}</Form.Description>
+            <Form.Input
+              name="userEmail"
+              type="email"
+              label={newMemberEmailInput.label.value}
+              placeholder={newMemberEmailInput.placeholder.value}
+            />
+            <Form.Button
+              className="mb-2"
+              type="submit"
+              color="text"
+              size="icon-lg"
+              isLoading={IsSubmittingNewUser}
+              label={newMemberSubmitButton.label.value}
+              Icon={Plus}
+            />
+          </Form>
+        )}
 
+        <Form
+          className="w-full"
+          schema={MembersFormSchema}
+          onSubmitSuccess={updateOrganizationMembers}
+          {...form}
+        >
+          <div className="flex flex-col gap-2 px-3">
+            <Form.Label>{title}</Form.Label>
+            <Form.Description>{description}</Form.Description>
+            <Loader isLoading={isLoadingUsers}>
               {!organization?.membersIds.length && (
                 <span className="flex size-full justify-center text-neutral text-sm">
                   {noMembers}
                 </span>
               )}
+
               <Container
                 roundedSize="2xl"
                 border={true}
@@ -153,21 +152,19 @@ export const MembersForm: FC = () => {
                   </div>
                 ))}
               </Container>
-            </div>
+            </Loader>
+          </div>
 
-            <Form.MultiSelect
-              name="adminsIds"
-              label={adminsSelect.label.value}
-              placeholder={adminsSelect.placeholder.value}
-              description={adminsSelect.description.value}
-            >
-              <MultiSelect.Trigger
-                getBadgeValue={(value) => getUserName(value)}
-              >
-                <MultiSelect.Input
-                  placeholder={adminsSelect.placeholder.value}
-                />
-              </MultiSelect.Trigger>
+          <Form.MultiSelect
+            name="adminsIds"
+            label={adminsSelect.label.value}
+            placeholder={adminsSelect.placeholder.value}
+            description={adminsSelect.description.value}
+          >
+            <MultiSelect.Trigger getBadgeValue={(value) => getUserName(value)}>
+              <MultiSelect.Input placeholder={adminsSelect.placeholder.value} />
+            </MultiSelect.Trigger>
+            <Loader isLoading={isLoadingUsers}>
               <MultiSelect.Content>
                 <MultiSelect.List>
                   {organization?.membersIds.map((memberId) => (
@@ -180,23 +177,24 @@ export const MembersForm: FC = () => {
                   ))}
                 </MultiSelect.List>
               </MultiSelect.Content>
-            </Form.MultiSelect>
+            </Loader>
+          </Form.MultiSelect>
 
-            {isOrganizationAdmin && (
-              <Form.Button
-                className="w-full"
-                type="submit"
-                color="text"
-                isLoading={isSubmitting}
-                label={addMembersButton.label.value}
-                onClick={() => null}
-              >
-                {addMembersButton.text}
-              </Form.Button>
-            )}
-          </Form>
-        </div>
-      )}
+          {isOrganizationAdmin && (
+            <Form.Button
+              className="w-full"
+              type="submit"
+              color="text"
+              disabled={isLoadingUsers || isSubmitting}
+              isLoading={isSubmitting}
+              label={addMembersButton.label.value}
+              onClick={() => null}
+            >
+              {addMembersButton.text}
+            </Form.Button>
+          )}
+        </Form>
+      </div>
     </>
   );
 };

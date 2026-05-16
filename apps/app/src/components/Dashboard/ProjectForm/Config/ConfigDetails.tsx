@@ -1,7 +1,10 @@
 import type { ProjectConfiguration } from '@intlayer/backend';
+import { CopyButton } from '@intlayer/design-system';
 import { Button } from '@intlayer/design-system/button';
+import { Container } from '@intlayer/design-system/container';
 import { H3, H4, H5 } from '@intlayer/design-system/headers';
 import { useSession } from '@intlayer/design-system/hooks';
+import { CodeBlock } from '@intlayer/design-system/ide';
 import { Website_Doc_IntlayerCMS } from '@intlayer/design-system/routes';
 import { Tag } from '@intlayer/design-system/tag';
 import { getLocaleName, type Locale } from 'intlayer';
@@ -36,8 +39,21 @@ export const ConfigDetails: FC<ConfigDetailsProps> = ({ projectConfig }) => {
       <div className="flex flex-col gap-4">
         <H3 className="mb-8">{title}</H3>
 
-        <div className="flex flex-col gap-2 rounded-lg bg-card p-4 text-sm">
+        <Container
+          background="none"
+          border
+          roundedSize="2xl"
+          className="flex flex-col gap-2 p-4 text-sm"
+        >
           <strong className="block text-neutral">{noConfig.message}</strong>
+
+          <div className="my-2 flex items-center gap-2 rounded-xl bg-text/90 px-2 py-1">
+            <CodeBlock lang="bash">npx intlayer config push</CodeBlock>
+            <CopyButton
+              className="text-text-opposite"
+              content="npx intlayer config push"
+            />
+          </div>
           <Link
             label={pushConfigDocLink.label.value}
             to={`${Website_Doc_IntlayerCMS}#using-the-cms`}
@@ -45,7 +61,7 @@ export const ConfigDetails: FC<ConfigDetailsProps> = ({ projectConfig }) => {
           >
             {pushConfigDocLink.text}
           </Link>
-        </div>
+        </Container>
       </div>
     );
   }

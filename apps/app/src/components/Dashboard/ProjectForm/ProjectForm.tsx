@@ -69,7 +69,22 @@ export const ProjectFormContent: FC = () => {
               padding="md"
               className="flex size-full justify-center"
             >
-              <AutoFillSettings />
+              <DeleteProjectModal
+                isOpen={isDeletionModalOpen}
+                onClose={() => setIsDeletionModalOpen(false)}
+                onDelete={() => setIsDeletionModalOpen(false)}
+              />
+              <Button
+                type="submit"
+                color="error"
+                label={deleteProjectButton.ariaLabel.value}
+                isFullWidth
+                variant="outline"
+                onClick={() => setIsDeletionModalOpen(true)}
+                Icon={Trash}
+              >
+                {deleteProjectButton.text}
+              </Button>
             </Container>
           </div>
           <div className="mb-auto flex flex-col gap-4">
@@ -95,27 +110,13 @@ export const ProjectFormContent: FC = () => {
             >
               <BuildSettings />
             </Container>
+
             <Container
               roundedSize="3xl"
               padding="md"
               className="flex size-full justify-center"
             >
-              <DeleteProjectModal
-                isOpen={isDeletionModalOpen}
-                onClose={() => setIsDeletionModalOpen(false)}
-                onDelete={() => setIsDeletionModalOpen(false)}
-              />
-              <Button
-                type="submit"
-                color="error"
-                label={deleteProjectButton.ariaLabel.value}
-                isFullWidth
-                variant="outline"
-                onClick={() => setIsDeletionModalOpen(true)}
-                Icon={Trash}
-              >
-                {deleteProjectButton.text}
-              </Button>
+              <AutoFillSettings />
             </Container>
           </div>
         </div>

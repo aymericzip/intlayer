@@ -589,7 +589,7 @@ const TranslateDashboardList: FC = () => {
             }}
           />
         ) : (
-          <div className="flex h-full items-center justify-center px-10">
+          <div className="flex min-h-60 items-center justify-center">
             <p className="text-center text-neutral">{noDictionaries}</p>
           </div>
         )}

@@ -11,7 +11,7 @@ import { Tag } from '@intlayer/design-system/tag';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import QRCode from 'react-qr-code';
+import { QRCode } from 'react-qr-code';
 import {
   type TwoFactorAuthForm,
   type TwoFactorAuthOTPSchema,

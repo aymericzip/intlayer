@@ -54,7 +54,9 @@ export const OrganizationEditionForm: FC = () => {
           className="mt-12 w-full"
           type="submit"
           color="text"
-          disabled={!isOrganizationAdmin}
+          disabled={
+            !isOrganizationAdmin || isSubmitting || isPending || !organization
+          }
           isLoading={isSubmitting || isPending}
           label={editButton.ariaLabel.value}
         >

@@ -59,28 +59,25 @@ export const MembersForm: FC = () => {
   return (
     <>
       <H3 className="mb-8">{title}</H3>
-      {isLoadingUsers ? (
-        <Loader />
-      ) : (
-        <Form
-          className="w-full"
-          schema={MembersFormSchema}
-          onSubmitSuccess={onSubmitSuccess}
-          {...form}
+
+      <Form
+        className="w-full"
+        schema={MembersFormSchema}
+        onSubmitSuccess={onSubmitSuccess}
+        {...form}
+      >
+        <Form.MultiSelect
+          name="membersIds"
+          label={membersSelect.label.value}
+          placeholder={membersSelect.placeholder.value}
+          description={membersSelect.description.value}
         >
-          <Form.MultiSelect
-            name="membersIds"
-            label={membersSelect.label.value}
-            placeholder={membersSelect.placeholder.value}
-            description={membersSelect.description.value}
+          <MultiSelect.Trigger
+            getBadgeValue={(value) => getUserNames(users, value)}
           >
-            <MultiSelect.Trigger
-              getBadgeValue={(value) => getUserNames(users, value)}
-            >
-              <MultiSelect.Input
-                placeholder={membersSelect.placeholder.value}
-              />
-            </MultiSelect.Trigger>
+            <MultiSelect.Input placeholder={membersSelect.placeholder.value} />
+          </MultiSelect.Trigger>
+          <Loader isLoading={isLoadingUsers}>
             <MultiSelect.Content>
               <MultiSelect.List>
                 {organization?.membersIds.map((memberId) => (
@@ -93,18 +90,20 @@ export const MembersForm: FC = () => {
                 ))}
               </MultiSelect.List>
             </MultiSelect.Content>
-          </Form.MultiSelect>
-          <Form.MultiSelect
-            name="adminsIds"
-            label={adminsSelect.label.value}
-            placeholder={adminsSelect.placeholder.value}
-            description={adminsSelect.description.value}
+          </Loader>
+        </Form.MultiSelect>
+        <Form.MultiSelect
+          name="adminsIds"
+          label={adminsSelect.label.value}
+          placeholder={adminsSelect.placeholder.value}
+          description={adminsSelect.description.value}
+        >
+          <MultiSelect.Trigger
+            getBadgeValue={(value) => getUserNames(users, value)}
           >
-            <MultiSelect.Trigger
-              getBadgeValue={(value) => getUserNames(users, value)}
-            >
-              <MultiSelect.Input placeholder={adminsSelect.placeholder.value} />
-            </MultiSelect.Trigger>
+            <MultiSelect.Input placeholder={adminsSelect.placeholder.value} />
+          </MultiSelect.Trigger>
+          <Loader isLoading={isLoadingUsers}>
             <MultiSelect.Content>
               <MultiSelect.List>
                 {form.getValues('membersIds').map((memberId) => (
@@ -117,21 +116,22 @@ export const MembersForm: FC = () => {
                 ))}
               </MultiSelect.List>
             </MultiSelect.Content>
-          </Form.MultiSelect>
-          {isProjectAdmin && (
-            <Form.Button
-              className="w-full"
-              type="submit"
-              color="text"
-              isLoading={isSubmitting}
-              label={addMembersButton.label.value}
-              onClick={() => null}
-            >
-              {addMembersButton.text}
-            </Form.Button>
-          )}
-        </Form>
-      )}
+          </Loader>
+        </Form.MultiSelect>
+        {isProjectAdmin && (
+          <Form.Button
+            className="w-full"
+            type="submit"
+            color="text"
+            disabled={isSubmitting || isLoadingUsers}
+            isLoading={isSubmitting}
+            label={addMembersButton.label.value}
+            onClick={() => null}
+          >
+            {addMembersButton.text}
+          </Form.Button>
+        )}
+      </Form>
     </>
   );
 };

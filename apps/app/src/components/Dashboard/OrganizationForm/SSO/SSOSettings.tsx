@@ -231,14 +231,6 @@ export const SSOSettings: FC = () => {
     );
   };
 
-  if (isLoadingProviders) {
-    return (
-      <div className="flex items-center justify-center py-12">
-        <Loader />
-      </div>
-    );
-  }
-
   return (
     <div className="flex flex-col gap-6">
       <div>
@@ -255,82 +247,91 @@ export const SSOSettings: FC = () => {
         {...form}
       >
         {/* Enable SSO Checkbox */}
-        <Container border borderColor="text" className="p-4" roundedSize="2xl">
-          <Form.Checkbox
-            name="enabled"
-            color="text"
-            inputLabel={enabledLabel}
-            disabled={!isOrganizationAdmin}
-            onChange={() => {
-              setIsSsoEnabled((prev) => !prev);
-            }}
-          />
-        </Container>
-        <MaxHeightSmoother isHidden={!isSsoEnabled}>
-          {/* Show existing provider info */}
-          {existingProvider && (
-            <CurrentProviderInfo
-              existingProvider={existingProvider}
-              existingProviderType={existingProviderType}
-              isOrganizationAdmin={isOrganizationAdmin}
-              handleDeleteProvider={handleDeleteProvider}
-              isPendingDelete={isPendingDelete}
+        <Loader isLoading={isLoadingProviders}>
+          <Container
+            border
+            borderColor="text"
+            className="p-4"
+            roundedSize="2xl"
+          >
+            <Form.Checkbox
+              name="enabled"
+              color="text"
+              inputLabel={enabledLabel}
+              disabled={!isOrganizationAdmin}
+              onChange={() => {
+                setIsSsoEnabled((prev) => !prev);
+              }}
             />
-          )}
+          </Container>
+          <MaxHeightSmoother isHidden={!isSsoEnabled}>
+            {/* Show existing provider info */}
+            {existingProvider && (
+              <CurrentProviderInfo
+                existingProvider={existingProvider}
+                existingProviderType={existingProviderType}
+                isOrganizationAdmin={isOrganizationAdmin}
+                handleDeleteProvider={handleDeleteProvider}
+                isPendingDelete={isPendingDelete}
+              />
+            )}
 
-          {/* Show registration form only if no existing provider */}
-          {!existingProvider && (
-            <>
-              {/* Provider Type */}
-              <div className="mt-4">
-                <span className="font-medium text-sm">{providerTypeLabel}</span>
-                <Form.SwitchSelector
-                  name="providerType"
-                  className="mt-2"
-                  size="sm"
-                  color="text"
-                  disabled={!isOrganizationAdmin}
-                  choices={[
-                    { value: 'oidc', content: providerTypeOptions.oidc },
-                    { value: 'saml', content: providerTypeOptions.saml },
-                  ]}
-                  onChange={(value: 'oidc' | 'saml') => {
-                    setExistingProviderType(value);
-                  }}
-                />
-              </div>
+            {/* Show registration form only if no existing provider */}
+            {!existingProvider && (
+              <>
+                {/* Provider Type */}
+                <div className="mt-4">
+                  <span className="font-medium text-sm">
+                    {providerTypeLabel}
+                  </span>
+                  <Form.SwitchSelector
+                    name="providerType"
+                    className="mt-2"
+                    size="sm"
+                    color="text"
+                    disabled={!isOrganizationAdmin}
+                    choices={[
+                      { value: 'oidc', content: providerTypeOptions.oidc },
+                      { value: 'saml', content: providerTypeOptions.saml },
+                    ]}
+                    onChange={(value: 'oidc' | 'saml') => {
+                      setExistingProviderType(value);
+                    }}
+                  />
+                </div>
 
-              {/* Domain */}
-              <div className="mt-4">
-                <Form.Input
-                  name="domain"
-                  label={domainsLabel}
-                  placeholder={domainsPlaceholder.value}
-                  disabled={!isOrganizationAdmin}
-                />
-                <p className="mt-1 text-neutral text-xs dark:text-neutral-dark">
-                  {domainsDescription}
-                </p>
-              </div>
+                {/* Domain */}
+                <div className="mt-4">
+                  <Form.Input
+                    name="domain"
+                    label={domainsLabel}
+                    placeholder={domainsPlaceholder.value}
+                    disabled={!isOrganizationAdmin}
+                  />
+                  <p className="mt-1 text-neutral text-xs dark:text-neutral-dark">
+                    {domainsDescription}
+                  </p>
+                </div>
 
-              {/* SAML Configuration */}
-              {existingProviderType === 'saml' && (
-                <SAMLConfigForm isOrganizationAdmin={isOrganizationAdmin} />
-              )}
+                {/* SAML Configuration */}
+                {existingProviderType === 'saml' && (
+                  <SAMLConfigForm isOrganizationAdmin={isOrganizationAdmin} />
+                )}
 
-              {/* OIDC Configuration */}
-              {existingProviderType === 'oidc' && (
-                <OIDCConfigForm isOrganizationAdmin={isOrganizationAdmin} />
-              )}
-            </>
-          )}
-        </MaxHeightSmoother>
+                {/* OIDC Configuration */}
+                {existingProviderType === 'oidc' && (
+                  <OIDCConfigForm isOrganizationAdmin={isOrganizationAdmin} />
+                )}
+              </>
+            )}
+          </MaxHeightSmoother>
+        </Loader>
 
         <Form.Button
           className="mt-6 w-full"
           type="submit"
           color="text"
-          disabled={!isOrganizationAdmin}
+          disabled={!isOrganizationAdmin || isLoadingProviders}
           isLoading={isSubmitting || isPendingRegisterSSO}
           label={saveButton.ariaLabel.value}
         >
