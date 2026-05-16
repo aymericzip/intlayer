@@ -395,7 +395,8 @@ const config: IntlayerConfig = {
    */
   build: {
     /**
-     * Build execution mode.
+     * Preparation of .intlayer folder before building.
+     * By default it try to prepare the intlayer content before the app build, but it can also be triggered manually by running the command `intlayer build`..
      * - "auto": Automatic build during app build.
      * - "manual": Requires explicit build command.
      * Default: "auto"
