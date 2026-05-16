@@ -18,11 +18,7 @@ export const DisableTwoFactor: FC = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const TwoFactorAuthSchema = useTwoFactorAuthSchema();
-  const { form, isSubmitting } = useForm(TwoFactorAuthSchema, {
-    defaultValues: {
-      password: '',
-    },
-  });
+  const { form, isSubmitting } = useForm(TwoFactorAuthSchema);
 
   const handleOpenModal = () => {
     setIsOpen(true);

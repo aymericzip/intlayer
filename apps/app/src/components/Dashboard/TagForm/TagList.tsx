@@ -288,6 +288,7 @@ export const TagList: FC = () => {
       <Modal
         isOpen={isCreationModalOpen}
         onClose={() => setIsCreationModalOpen(false)}
+        padding="md"
       >
         <TagCreationForm onTagCreated={() => setIsCreationModalOpen(false)} />
       </Modal>

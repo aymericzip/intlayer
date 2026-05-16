@@ -11,9 +11,7 @@ export const ProjectEditionForm: FC = () => {
   const { project } = session ?? {};
   const ProjectSchema = useProjectSchema();
   const { mutate: updateProject, isPending } = useUpdateProject();
-  const { form, isSubmitting } = useForm(ProjectSchema, {
-    defaultValues: project ?? undefined,
-  });
+  const { form, isSubmitting } = useForm(ProjectSchema);
   const { title, nameInput, editButton } = useIntlayer('project-form');
 
   const onSubmitSuccess = (data: ProjectFormData) => {
@@ -44,7 +42,6 @@ export const ProjectEditionForm: FC = () => {
           label={nameInput.label}
           placeholder={nameInput.placeholder.value}
           isRequired
-          defaultValue={project?.name}
           disabled={!isProjectAdmin}
         />
 

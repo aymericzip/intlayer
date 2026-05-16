@@ -27,7 +27,7 @@ export const TagCreationForm: FC<TagCreationFormProps> = ({ onTagCreated }) => {
     <Form
       schema={TagSchema}
       onSubmitSuccess={onSubmitSuccess}
-      className="w-full max-w-[400px]"
+      className="w-full max-w-xl"
       {...form}
     >
       <Form.Input
