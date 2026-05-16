@@ -48,7 +48,7 @@ export const ConfigDetails: FC<ConfigDetailsProps> = ({ projectConfig }) => {
           <strong className="block text-neutral">{noConfig.message}</strong>
 
           <div className="my-2 flex items-center gap-2 rounded-xl bg-text/90 px-2 py-1">
-            <CodeBlock lang="bash">npx intlayer config push</CodeBlock>
+            <CodeBlock lang="bash">{`npx intlayer login\nnpx intlayer config push`}</CodeBlock>
             <CopyButton
               className="text-text-opposite"
               content="npx intlayer config push"
