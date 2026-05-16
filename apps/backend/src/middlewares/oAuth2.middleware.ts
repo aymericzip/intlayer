@@ -1,5 +1,9 @@
 import { logger } from '@logger';
 import {
+  getCliSessionTokenContext,
+  isCliSessionToken,
+} from '@services/cliSessionToken.service';
+import {
   getOAuth2AccessTokenContext,
   validateOAuth2AccessToken,
 } from '@services/oAuth2.service';
@@ -58,6 +62,22 @@ export const oAuth2Middleware = async (
     if (!hasToken) {
       // If the request does not have a token, skip the oAuth2 authentication
       // Necessary because the oAuth2 library will throw an error if the token is not present
+      return;
+    }
+
+    const bearerToken = request.headers.authorization
+      ?.match(/^Bearer\s+(.+)$/i)?.[1]
+      ?.trim();
+
+    // Handle CLI session tokens (prefixed with "clisession_")
+    if (bearerToken && isCliSessionToken(bearerToken)) {
+      const sessionContext = await getCliSessionTokenContext(bearerToken);
+      const formattedSession = formatSession(sessionContext);
+      request.session = { ...formattedSession, authType: 'oauth2' };
+      logger.info(
+        'CLI session token authenticated',
+        sessionContext.user?.email
+      );
       return;
     }
 

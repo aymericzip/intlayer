@@ -1,4 +1,5 @@
 import http from 'node:http';
+import { relative } from 'node:path';
 import { URL } from 'node:url';
 import { logConfigDetails } from '@intlayer/chokidar/cli';
 import * as ANSIColors from '@intlayer/config/colors';
@@ -8,6 +9,60 @@ import {
   getConfiguration,
 } from '@intlayer/config/node';
 import { openBrowser } from '../utils/openBrowser';
+import { writeCliSessionToken } from './sessionToken';
+
+const buildSuccessHtml = (message: string): string => `
+  <!DOCTYPE html>
+  <html lang="en" data-theme="dark">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Intlayer CLI Login</title>
+      <style>
+        :root {
+          --color-background: rgba(23, 23, 23);
+          --color-card: rgba(39, 39, 39);
+          --color-text: rgba(255, 245, 237);
+          --color-neutral: rgba(93, 93, 93);
+          --font-sans: "Inter", -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+        * { box-sizing: border-box; }
+        body {
+          font-family: var(--font-sans);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          min-height: 100vh;
+          margin: 0;
+          padding: 1rem;
+          background-color: var(--color-background);
+          color: var(--color-text);
+        }
+        .container {
+          text-align: center;
+          padding: 2rem;
+          border-radius: 1rem;
+          background-color: var(--color-card);
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+          max-width: 400px;
+          width: 100%;
+        }
+        h1 { margin: 0 0 1rem 0; font-size: 1.5rem; font-weight: 700; color: var(--color-text); }
+        p { color: var(--color-neutral); font-size: 0.8rem; margin: 0 0 1.5rem 0; line-height: 1.5; }
+      </style>
+    </head>
+    <body>
+      <div class="container">
+        <h1>Login Successful</h1>
+        <p>${message}</p>
+      </div>
+      <script>
+        window.close();
+        setTimeout(() => { window.close(); }, 1000);
+      </script>
+    </body>
+  </html>
+`;
 
 type LoginOptions = {
   cmsUrl?: string;
@@ -23,7 +78,7 @@ export const login = async (options: LoginOptions) => {
   const cmsUrl = options.cmsUrl ?? configuration.editor.cmsURL;
 
   return new Promise<void>((resolve) => {
-    const server = http.createServer((req, res) => {
+    const server = http.createServer(async (req, res) => {
       const url = new URL(req.url ?? '', `http://${req.headers.host}`);
 
       // Set CORS headers
@@ -38,8 +93,44 @@ export const login = async (options: LoginOptions) => {
       }
 
       if (url.pathname === '/callback') {
+        const sessionToken = url.searchParams.get('sessionToken');
+        const sessionExpiresAt = url.searchParams.get('expiresAt');
         const clientId = url.searchParams.get('clientId');
         const clientSecret = url.searchParams.get('clientSecret');
+
+        if (sessionToken && sessionExpiresAt) {
+          logger('');
+          logger(
+            `Log in successful. ${colorize('2h', ANSIColors.BLUE)} session token received.`
+          );
+          logger('');
+
+          logger(
+            colorize(
+              `Token expires at: ${new Date(sessionExpiresAt).toLocaleString()}`,
+              ANSIColors.GREY
+            )
+          );
+
+          await writeCliSessionToken(
+            configuration,
+            sessionToken,
+            new Date(sessionExpiresAt)
+          );
+
+          res.writeHead(200, { 'Content-Type': 'text/html' });
+          res.end(
+            buildSuccessHtml(
+              'Your 2h session token has been stored. You can now close this tab and return to your terminal.'
+            )
+          );
+
+          server.close(() => {
+            resolve();
+            process.exit(0);
+          });
+          return;
+        }
 
         if (clientId && clientSecret) {
           logger('');
@@ -91,80 +182,11 @@ export const login = async (options: LoginOptions) => {
           );
 
           res.writeHead(200, { 'Content-Type': 'text/html' });
-          res.end(`
-            <!DOCTYPE html>
-            <html lang="en" data-theme="dark">
-              <head>
-                <meta charset="UTF-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>Intlayer CLI Login</title>
-                <style>
-                  :root {
-                    --color-background: rgba(23, 23, 23);
-                    --color-card: rgba(39, 39, 39);
-                    --color-text: rgba(255, 245, 237);
-                    --color-neutral: rgba(93, 93, 93);
-                    --font-sans: "Inter", -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-                  }
-                  
-                  * {
-                    box-sizing: border-box;
-                  }
-                  
-                  body {
-                    font-family: var(--font-sans);
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    min-height: 100vh;
-                    margin: 0;
-                    padding: 1rem;
-                    background-color: var(--color-background);
-                    color: var(--color-text);
-                  }
-                  
-                  .container {
-                    text-align: center;
-                    padding: 2rem;
-                    border-radius: 1rem;
-                    background-color: var(--color-card);
-                    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-                    max-width: 400px;
-                    width: 100%;
-                  }
-                  
-                  h1 {
-                    margin: 0 0 1rem 0;
-                    font-size: 1.5rem;
-                    font-weight: 700;
-                    color: var(--color-text);
-                  }
-                  
-                  p {
-                    color: var(--color-neutral);
-                    font-size: 0.8rem;
-                    margin: 0 0 1.5rem 0;
-                    line-height: 1.5;
-                  }
-                </style>
-              </head>
-              <body>
-                <div class="container">
-                  <h1>Login Successful</h1>
-                  <p>You have successfully logged in to Intlayer CLI. You can now close this tab and return to your terminal.</p>
-                </div>
-                <script>
-                  // Attempt to close the window
-                  window.close();
-                  
-                  // Fallback: if window.close() doesn't work, show a message
-                  setTimeout(() => {
-                    window.close();
-                  }, 1000);
-                </script>
-              </body>
-            </html>
-          `);
+          res.end(
+            buildSuccessHtml(
+              'You have successfully logged in to Intlayer CLI. You can now close this tab and return to your terminal.'
+            )
+          );
 
           server.close(() => {
             resolve();

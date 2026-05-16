@@ -311,11 +311,9 @@ export const ROLE_POLICY = {
   },
 } as const satisfies RolePolicy;
 
-export const getSessionRoles = ({
-  user,
-  organization,
-  project,
-}: SessionContext): Roles[] => {
+export const getSessionRoles = (session?: SessionContext | null): Roles[] => {
+  const { user, organization, project } = session ?? {};
+
   const roles: Roles[] = [];
 
   if (!user) {

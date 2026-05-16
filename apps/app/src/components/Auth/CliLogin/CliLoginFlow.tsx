@@ -1,3 +1,4 @@
+import { getIntlayerAPI } from '@intlayer/api';
 import type { OAuth2AccessAPI } from '@intlayer/backend';
 import { LanguageBackground } from '@intlayer/design-system';
 import { Button } from '@intlayer/design-system/button';
@@ -11,7 +12,7 @@ import {
 } from '@intlayer/design-system/hooks';
 import { Loader } from '@intlayer/design-system/loader';
 import { Modal } from '@intlayer/design-system/modal';
-import { Check, KeyRound } from 'lucide-react';
+import { Check, Clock, KeyRound, Plus } from 'lucide-react';
 import { type FC, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { OrganizationDropdown } from '#components/Dashboard/DashboardNavbar/OrganizationDropdown';
@@ -72,7 +73,7 @@ const AccessKeySelector: FC<{
         />
       </Modal>
 
-      <div className="flex w-full flex-col gap-6">
+      <div className="flex w-full flex-1 flex-col gap-6">
         <H3>{title}</H3>
         <span className="text-neutral text-sm">{description}</span>
         {project?.oAuth2Access.map((accessKey) => (
@@ -82,7 +83,7 @@ const AccessKeySelector: FC<{
             padding="md"
             border
             borderColor="text"
-            className="gap-3 divide-y divide-dashed divide-neutral"
+            className="flex-1 gap-3 divide-y divide-dashed divide-neutral"
           >
             <div className="flex items-center justify-center px-3 pb-3">
               <KeyRound className="mr-2 size-5" size={16} />
@@ -126,7 +127,7 @@ const AccessKeySelector: FC<{
               label={selectThisKey.value}
               color="text"
               Icon={Check}
-              className="w-full"
+              className="mt-auto w-full"
             >
               {select}
             </Button>
@@ -140,6 +141,8 @@ const AccessKeySelector: FC<{
         <Button
           className="w-full"
           color="text"
+          variant="outline"
+          Icon={Plus}
           label={createAccessKey.label.value}
           onClick={() => setIsCreationModalOpen(true)}
         >
@@ -150,6 +153,66 @@ const AccessKeySelector: FC<{
   );
 };
 
+const SessionAuthSelector: FC<{
+  port: string;
+  state?: string;
+}> = ({ port, state }) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const handleSessionAuth = async () => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      const result = await getIntlayerAPI().oAuth.createCliSessionToken();
+      const { token, expiresAt } = result.data ?? {};
+
+      if (!token || !expiresAt) {
+        setError('Failed to create session token. Please try again.');
+        return;
+      }
+
+      window.location.href = `http://localhost:${port}/callback?sessionToken=${encodeURIComponent(token)}&expiresAt=${encodeURIComponent(new Date(expiresAt).toISOString())}&state=${state ?? ''}`;
+    } catch {
+      setError('Failed to create session token. Please try again.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return (
+    <div className="flex flex-1 flex-col justify-end gap-4">
+      <Container
+        roundedSize="xl"
+        background="none"
+        border
+        borderColor="neutral"
+        className="flex-row items-center gap-4 border-dashed p-4"
+      >
+        <Clock className="mt-0.5 size-5 shrink-0 text-neutral" />
+        <div className="flex flex-col gap-1">
+          <span className="font-semibold text-sm">2-hour session token</span>
+          <span className="text-neutral text-xs">
+            A temporary token tied directly to your user account. Valid for 2
+            hours, no access key required.
+          </span>
+        </div>
+      </Container>
+      {error && <span className="text-red-500 text-sm">{error}</span>}
+      <Button
+        className="w-full"
+        color="text"
+        label="Generate 2h session token"
+        onClick={handleSessionAuth}
+        isLoading={isLoading}
+        Icon={Check}
+      >
+        Authenticate with session
+      </Button>
+    </div>
+  );
+};
+
 export const CliLoginFlow: FC<CliLoginFlowProps> = ({ port, state }) => {
   const { session } = useSession();
   const { mutate: selectOrganization } = useSelectOrganization();
@@ -157,7 +220,6 @@ export const CliLoginFlow: FC<CliLoginFlowProps> = ({ port, state }) => {
     loginTitle,
     selectOrganization: selectOrganizationText,
     selectProject: selectProjectText,
-    selectAccessKey: selectAccessKeyText,
     context,
   } = useIntlayer('cli-login-flow');
 
@@ -191,11 +253,23 @@ export const CliLoginFlow: FC<CliLoginFlowProps> = ({ port, state }) => {
     window.location.href = `http://localhost:${port}/callback?clientId=${key.clientId}&clientSecret=${key.clientSecret}&state=${state}`;
   };
 
+  if (!port) {
+    return (
+      <Container className="flex h-screen w-screen items-center justify-center">
+        <span className="text-red-500">No port defined</span>
+      </Container>
+    );
+  }
+
   return (
     <Loader isLoading={isLoading}>
       <LanguageBackground>
-        <div className="flex flex-1 flex-col items-center justify-center pt-10">
-          <Container className="w-full max-w-xl" roundedSize="4xl" padding="xl">
+        <div className="mt-10 flex flex-1 flex-col items-center justify-center">
+          <Container
+            className="w-full max-w-2xl"
+            roundedSize="4xl"
+            padding="xl"
+          >
             {(session?.organization || session?.project) && (
               <div className="z-10 mb-6 border-neutral/20 border-b border-dashed p-2 pb-6">
                 <H2 className="mb-5">{context}</H2>
@@ -236,9 +310,13 @@ export const CliLoginFlow: FC<CliLoginFlowProps> = ({ port, state }) => {
               </div>
             )}
             {currentStep === 'key' && (
-              <div className="m-auto flex-col gap-5">
-                <H2>{selectAccessKeyText}</H2>
-                <AccessKeySelector onSelect={handleKeySelect} />
+              <div className="m-auto flex w-full flex-col divide-y-1 divide-dashed divide-neutral/20">
+                <div className="flex w-full flex-row pb-4">
+                  <SessionAuthSelector port={port} state={state} />
+                </div>
+                <div className="flex w-full flex-row pt-4">
+                  <AccessKeySelector onSelect={handleKeySelect} />
+                </div>
               </div>
             )}
           </Container>

@@ -51,7 +51,6 @@ export const AddPasskeyModal: FC<AddPasskeyModalProps> = ({
             {modalDescription}
           </p>
         </div>
-
         <Form
           schema={AddPasskeySchema}
           onSubmitSuccess={handleSubmit}

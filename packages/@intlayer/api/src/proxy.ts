@@ -49,11 +49,16 @@ let pendingRefresh: Promise<void> | undefined;
  * - Injects Authorization header for each request
  * - Refreshes token proactively when near expiry
  *
+ * When `sessionToken` is provided (a CLI session token starting with
+ * "clisession_"), it is used directly as the Bearer token without any OAuth2
+ * exchange — the backend validates it against the CliSessionToken collection.
+ *
  * The returned API matches the shape of getIntlayerAPI.
  */
 export const getIntlayerAPIProxy = (
   baseAuthOptions: FetcherOptions = {},
-  intlayerConfig?: IntlayerConfig
+  intlayerConfig?: IntlayerConfig,
+  sessionToken?: string
 ): IntlayerAPI => {
   // Use a shared mutable auth options object captured by the API closures.
   // credentials: 'omit' prevents the browser from attaching session cookies to
@@ -65,7 +70,20 @@ export const getIntlayerAPIProxy = (
     credentials: 'omit',
   };
   const hasCMSAuth =
-    intlayerConfig?.editor?.clientId && intlayerConfig?.editor?.clientSecret;
+    Boolean(sessionToken) ||
+    Boolean(
+      intlayerConfig?.editor?.clientId && intlayerConfig?.editor?.clientSecret
+    );
+
+  // When a CLI session token is provided, inject it immediately and skip the
+  // OAuth2 client_credentials exchange entirely.
+  if (sessionToken) {
+    authOptionsRef.headers = {
+      ...(authOptionsRef.headers ?? {}),
+      Authorization: `Bearer ${sessionToken}`,
+    } as HeadersInit;
+  }
+
   const baseApi = getIntlayerAPI(authOptionsRef, intlayerConfig);
 
   const needsRefresh = (): boolean => {
@@ -77,7 +95,7 @@ export const getIntlayerAPIProxy = (
 
   const refreshToken = async (): Promise<void> => {
     const doRefresh = async () => {
-      const authApi = getOAuthAPI(intlayerConfig);
+      const authApi = getOAuthAPI({}, intlayerConfig);
       const res = await authApi.getOAuth2AccessToken();
       const tokenData = res?.data as OAuthTokenLike | undefined;
 
@@ -119,15 +137,19 @@ export const getIntlayerAPIProxy = (
           // Wrap section method to inject token and headers
           return async (...args: unknown[]) => {
             if (!skipAuth) {
-              await ensureValidToken();
-              applyAuthHeaderToRef();
+              if (sessionToken) {
+                // Session token is pre-injected in authOptionsRef; no OAuth2 exchange needed
+              } else {
+                await ensureValidToken();
+                applyAuthHeaderToRef();
+              }
             }
 
             try {
               return await value.apply(target, args);
             } catch (err) {
               // Best-effort retry: if token might be stale, refresh once and retry
-              if (!skipAuth) {
+              if (!skipAuth && !sessionToken) {
                 await refreshToken();
                 applyAuthHeaderToRef();
                 return await value.apply(target, args);

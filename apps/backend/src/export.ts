@@ -13,6 +13,7 @@ export type {
   BitbucketListReposQuerystring,
   BitbucketListReposResult,
 } from '@controllers/bitbucket.controller';
+export type * from '@controllers/cliSessionToken.controller';
 export type * from '@controllers/dictionary.controller';
 export type * from '@controllers/eventListener.controller';
 export type {

@@ -1,5 +1,9 @@
 /// Controllers
 import {
+  createCliSessionTokenHandler,
+  getCliSessionMeHandler,
+} from '@controllers/cliSessionToken.controller';
+import {
   extendOAuth2Token,
   getOAuth2AccessToken,
 } from '@controllers/oAuth2.controller';
@@ -258,6 +262,10 @@ const startServer = async () => {
   app.post('/oauth2/token', getOAuth2AccessToken); // Route to get the token
   app.post('/oauth2/token/extend', extendOAuth2Token); // Route to extend an active token
   app.addHook('preHandler', oAuth2Middleware);
+
+  // CLI session tokens (short-lived 2h tokens for authenticated users)
+  app.post('/api/cli-session', createCliSessionTokenHandler);
+  app.get('/api/cli-session/me', getCliSessionMeHandler);
 
   // // debug
   const isDev = env === 'development';

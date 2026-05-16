@@ -65,7 +65,7 @@ export const containerVariants = cva('flex flex-col text-text backdrop-blur', {
       success: 'border-success',
     },
     background: {
-      none: '',
+      none: 'backdrop-blur-none',
       hoverable:
         'bg-opacity-5! backdrop-blur-0 hover:bg-opacity-10! hover:backdrop-blur focus:bg-opacity-10! focus:backdrop-blur aria-selected:bg-opacity-15! aria-selected:backdrop-blur',
       with: '',

@@ -831,11 +831,11 @@ export const useAddNewAccessKey = () => {
   const intlayerOAuth = useIntlayerOAuth();
 
   return useMutation({
-    mutationKey: ['projects'],
+    mutationKey: ['session', 'access-keys'],
     mutationFn: (args: AddNewAccessKeyBody) =>
       intlayerOAuth.project.addNewAccessKey(args),
     meta: {
-      invalidateQueries: [['projects']],
+      invalidateQueries: [['session']],
     },
   });
 };
@@ -844,11 +844,11 @@ export const useDeleteAccessKey = () => {
   const intlayerOAuth = useIntlayerOAuth();
 
   return useMutation({
-    mutationKey: ['projects'],
+    mutationKey: ['session', 'access-keys'],
     mutationFn: (args: DeleteAccessKeyBody) =>
       intlayerOAuth.project.deleteAccessKey(args),
     meta: {
-      invalidateQueries: [['projects']],
+      invalidateQueries: [['session']],
     },
   });
 };
@@ -857,11 +857,11 @@ export const useRefreshAccessKey = () => {
   const intlayerOAuth = useIntlayerOAuth();
 
   return useMutation({
-    mutationKey: ['projects'],
+    mutationKey: ['session', 'access-keys'],
     mutationFn: (args: RefreshAccessKeyBody) =>
       intlayerOAuth.project.refreshAccessKey(args),
     meta: {
-      invalidateQueries: [['projects']],
+      invalidateQueries: [['session']],
     },
   });
 };

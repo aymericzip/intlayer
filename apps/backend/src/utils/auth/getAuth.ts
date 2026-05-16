@@ -29,7 +29,7 @@ import type {
   SessionContext,
   SessionDataApi,
 } from '@/types/session.types';
-import type { User, UserAPI } from '@/types/user.types';
+import type { UserAPI } from '@/types/user.types';
 
 export type Auth = ReturnType<typeof betterAuth>;
 
@@ -184,86 +184,62 @@ export const getAuth = (dbClient: MongoClient): Auth => {
       customSession(async ({ session }) => {
         const typedSession = session as unknown as SessionDataApi;
 
-        let userAPI: UserAPI | null = null;
-        let organizationAPI: OrganizationAPI | null = null;
-        let projectAPI: ProjectAPI | null = null;
+        const normalizeId = (id: any): string | null =>
+          typeof id === 'string'
+            ? id
+            : id?.buffer instanceof Uint8Array
+              ? Buffer.from(id.buffer).toString('hex')
+              : null;
 
-        if (typedSession.userId) {
-          const userData = await getUserById(typedSession.userId);
+        const orgIdStr = typedSession.activeOrganizationId
+          ? normalizeId(typedSession.activeOrganizationId)
+          : null;
+        const projectIdStr = typedSession.activeProjectId
+          ? normalizeId(typedSession.activeProjectId)
+          : null;
 
-          if (userData) {
-            userAPI = mapUserToAPI(userData);
-          }
-        }
+        const [userData, orgData, projectData] = await Promise.all([
+          typedSession.userId ? getUserById(typedSession.userId) : null,
+          orgIdStr ? getOrganizationById(orgIdStr) : null,
+          projectIdStr ? getProjectById(projectIdStr) : null,
+        ]);
 
-        if (typedSession.activeOrganizationId) {
-          // activeOrganizationId may be stored as a BSON ObjectId in MongoDB
-          // (legacy data), so we normalize it to a string before querying.
-          const rawOrgId = typedSession.activeOrganizationId as any;
-          const orgIdStr: string | null =
-            typeof rawOrgId === 'string'
-              ? rawOrgId
-              : rawOrgId.buffer instanceof Uint8Array
-                ? Buffer.from(rawOrgId.buffer).toString('hex')
-                : null;
+        const userAPI: UserAPI | null = userData
+          ? mapUserToAPI(userData)
+          : null;
+        let organizationAPI: OrganizationAPI | null = orgData
+          ? mapOrganizationToAPI(orgData)
+          : null;
+        let projectAPI: ProjectAPI | null = projectData
+          ? mapProjectToAPI(projectData)
+          : null;
 
-          if (!orgIdStr) {
+        // Cleanup if normalization failed or data not found (Zombie session)
+        const shouldClearOrg = typedSession.activeOrganizationId && !orgData;
+        const shouldClearProject = typedSession.activeProjectId && !projectData;
+
+        if (shouldClearOrg || shouldClearProject) {
+          const updateDoc: any = {};
+
+          if (shouldClearOrg) {
+            updateDoc.activeOrganizationId = null;
+            updateDoc.activeProjectId = null;
+
             typedSession.activeOrganizationId = undefined;
             typedSession.activeProjectId = undefined;
-          }
+            organizationAPI = null;
+            projectAPI = null;
+          } else if (shouldClearProject) {
+            updateDoc.activeProjectId = null;
 
-          const orgData = orgIdStr ? await getOrganizationById(orgIdStr) : null;
-
-          if (orgData) {
-            organizationAPI = mapOrganizationToAPI(orgData);
-          } else {
-            // Organization ID is present in session but not found in DB (Zombie session)
-            // We detach the organization to prevent login errors
-            await dbClient
-              .db()
-              .collection('sessions')
-              .updateOne(
-                { id: typedSession.id },
-                {
-                  $set: { activeOrganizationId: null, activeProjectId: null },
-                }
-              );
-
-            // Clear it locally so the current request proceeds without error
-            typedSession.activeOrganizationId = undefined;
             typedSession.activeProjectId = undefined;
+            projectAPI = null;
           }
-        }
-        if (typedSession.activeProjectId) {
-          const rawProjectId = typedSession.activeProjectId as any;
-          const projectIdStr: string | null =
-            typeof rawProjectId === 'string'
-              ? rawProjectId
-              : rawProjectId.buffer instanceof Uint8Array
-                ? Buffer.from(rawProjectId.buffer).toString('hex')
-                : null;
-          const projectData = projectIdStr
-            ? await getProjectById(projectIdStr)
-            : null;
 
-          if (projectData) {
-            projectAPI = mapProjectToAPI(projectData);
-          } else {
-            // Organization ID is present in session but not found in DB (Zombie session)
-            // We detach the organization to prevent login errors
-            await dbClient
-              .db()
-              .collection('sessions')
-              .updateOne(
-                { id: typedSession.id },
-                {
-                  $set: { activeProjectId: null },
-                }
-              );
-
-            // Clear it locally so the current request proceeds without error
-            typedSession.activeProjectId = undefined;
-          }
+          await dbClient
+            .db()
+            .collection('sessions')
+            .updateOne({ id: typedSession.id }, { $set: updateDoc });
         }
 
         const sessionWithNoPermission: SessionContext = {

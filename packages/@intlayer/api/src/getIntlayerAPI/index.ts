@@ -50,7 +50,7 @@ export const getIntlayerAPI = (
     organization: getOrganizationAPI(authAPIOptions, resolvedConfig),
     project: getProjectAPI(authAPIOptions, resolvedConfig),
     user: getUserAPI(authAPIOptions, resolvedConfig),
-    oAuth: getOAuthAPI(resolvedConfig),
+    oAuth: getOAuthAPI(authAPIOptions, resolvedConfig),
     dictionary: getDictionaryAPI(authAPIOptions, resolvedConfig),
     stripe: getStripeAPI(authAPIOptions, resolvedConfig),
     ai: getAiAPI(authAPIOptions, resolvedConfig),

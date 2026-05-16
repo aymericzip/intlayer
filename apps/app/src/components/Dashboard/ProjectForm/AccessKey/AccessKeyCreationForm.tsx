@@ -1,7 +1,8 @@
 import type { AddNewAccessKeyResponse } from '@intlayer/backend';
+import { Select } from '@intlayer/design-system';
 import { Form, useForm } from '@intlayer/design-system/form';
 import { useAddNewAccessKey, useSession } from '@intlayer/design-system/hooks';
-import type { FC } from 'react';
+import { type FC, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import {
   type AccessKeyFormCreationData,
@@ -26,16 +27,72 @@ const getDefaultGrants = (permissions: string[]) =>
     permissions.map((permission) => [permission, isDefaultGrant(permission)])
   );
 
+type ExpirationPreset =
+  | '1d'
+  | '3d'
+  | '1m'
+  | '3m'
+  | '1y'
+  | '3y'
+  | 'custom'
+  | 'none';
+
+const computeExpiresAt = (preset: ExpirationPreset): string | undefined => {
+  const now = new Date();
+  switch (preset) {
+    case '1d':
+      return new Date(now.setDate(now.getDate() + 1))
+        .toISOString()
+        .slice(0, 16);
+    case '3d':
+      return new Date(now.setDate(now.getDate() + 3))
+        .toISOString()
+        .slice(0, 16);
+    case '1m':
+      return new Date(now.setMonth(now.getMonth() + 1))
+        .toISOString()
+        .slice(0, 16);
+    case '3m':
+      return new Date(now.setMonth(now.getMonth() + 3))
+        .toISOString()
+        .slice(0, 16);
+    case '1y':
+      return new Date(now.setFullYear(now.getFullYear() + 1))
+        .toISOString()
+        .slice(0, 16);
+    case '3y':
+      return new Date(now.setFullYear(now.getFullYear() + 3))
+        .toISOString()
+        .slice(0, 16);
+    default:
+      return undefined;
+  }
+};
+
 export const AccessKeyCreationForm: FC<AccessKeyCreationFormProps> = ({
   onAccessKeyCreated,
 }) => {
   /** ------------------------------------------------------------------ hooks */
   const { session } = useSession();
+  const [expirationPreset, setExpirationPreset] =
+    useState<ExpirationPreset>('none');
 
   const permissions = session?.permissions ?? [];
   const { mutate: addNewAccessKey, isPending } = useAddNewAccessKey();
-  const { nameInput, expiresAtInput, rights, createAccessKeyButton } =
-    useIntlayer('access-key-creation-form');
+  const {
+    nameInput,
+    expiresAtInput,
+    rights,
+    createAccessKeyButton,
+    expirationPresets,
+  } = useIntlayer('access-key-creation-form');
+
+  const EXPIRATION_PRESETS = Object.entries(expirationPresets).map(
+    ([value, label]) => ({
+      value: value as ExpirationPreset,
+      label: label.value,
+    })
+  );
 
   const AccessKeyCreationSchema = useAccessKeyCreationSchema(permissions);
 
@@ -47,10 +104,19 @@ export const AccessKeyCreationForm: FC<AccessKeyCreationFormProps> = ({
     defaultValues,
   });
 
-  // Don’t render the form until the session (and its permissions) is loaded
+  // Don't render the form until the session (and its permissions) is loaded
   if (!session) return null;
 
   /** -------------------------------------------------------- form handlers */
+  const handlePresetChange = (value: string) => {
+    const preset = value as ExpirationPreset;
+    setExpirationPreset(preset);
+    form.setValue(
+      'expiresAt',
+      preset !== 'custom' ? computeExpiresAt(preset) : undefined
+    );
+  };
+
   const onSubmitSuccess = (data: AccessKeyFormCreationData) => {
     const selectedGrants = Object.entries(data.grants ?? {})
       .filter(([, granted]) => granted)
@@ -74,7 +140,7 @@ export const AccessKeyCreationForm: FC<AccessKeyCreationFormProps> = ({
     <Form
       schema={AccessKeyCreationSchema}
       {...form}
-      className="flex min-w-64 flex-col overflow-auto"
+      className="flex min-w-64 flex-col"
       autoComplete={false}
       onSubmitSuccess={onSubmitSuccess}
     >
@@ -85,14 +151,42 @@ export const AccessKeyCreationForm: FC<AccessKeyCreationFormProps> = ({
         placeholder={nameInput.placeholder.value}
         required
       />
-      <Form.Input
-        name="expiresAt"
-        id="access-key-expires-at-input"
-        label={expiresAtInput.label.value}
-        placeholder={expiresAtInput.placeholder.value}
-        type="datetime-local"
-        min={new Date().toISOString()}
-      />
+
+      {/* Expiration preset — not a form field, purely UI */}
+      <div className="flex w-full flex-col flex-wrap gap-2 px-1 py-2">
+        <div className="flex flex-col gap-1 p-1 leading-none">
+          <div className="ml-1 flex gap-1 align-middle text-base leading-none">
+            <label
+              htmlFor="access-key-expires-at-preset"
+              className="mb-2 select-none font-bold text-sm leading-none"
+            >
+              {expiresAtInput.label.value}
+            </label>
+          </div>
+        </div>
+        <Select value={expirationPreset} onValueChange={handlePresetChange}>
+          <Select.Trigger id="access-key-expires-at-preset">
+            <Select.Value />
+          </Select.Trigger>
+          <Select.Content>
+            {EXPIRATION_PRESETS.map(({ value, label }) => (
+              <Select.Item key={value} value={value}>
+                {label}
+              </Select.Item>
+            ))}
+          </Select.Content>
+        </Select>
+      </div>
+
+      {expirationPreset === 'custom' && (
+        <Form.Input
+          name="expiresAt"
+          id="access-key-expires-at-input"
+          placeholder={expiresAtInput.placeholder.value}
+          type="datetime-local"
+          min={new Date().toISOString().slice(0, 16)}
+        />
+      )}
 
       <div className="flex flex-col justify-center p-3">
         <Form.Label className="w-full" isRequired>
