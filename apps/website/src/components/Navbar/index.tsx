@@ -15,7 +15,7 @@ import { Image, StarIcon, VectorSquare } from 'lucide-react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
 import { useIntlayer, useLocale } from 'next-intlayer';
-import type { FC } from 'react';
+import type { FC, MouseEvent } from 'react';
 
 const SwitchThemeSwitcher = dynamic(
   () =>
@@ -114,7 +114,7 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
               >
                 <Container
                   background="with"
-                  transparency="lg"
+                  transparency="md"
                   roundedSize="2xl"
                   padding="sm"
                   className="gap-3 border border-text/5"
@@ -125,9 +125,11 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
                     size="md"
                     label={logo.downloadSvg.label.value}
                     Icon={VectorSquare}
-                    onClick={() =>
-                      downloadFile('/logo.svg', 'intlayer-logo.svg')
-                    }
+                    onClick={(e: MouseEvent) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      downloadFile('/logo.svg', 'intlayer-logo.svg');
+                    }}
                   >
                     <span className="ml-2 flex w-full text-text">
                       {logo.downloadSvg.label}
@@ -139,12 +141,14 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
                     size="md"
                     label={logo.downloadPng.label.value}
                     Icon={Image}
-                    onClick={() =>
+                    onClick={(e: MouseEvent) => {
+                      e.preventDefault();
+                      e.stopPropagation();
                       downloadFile(
                         '/android-chrome-512x512.png',
                         'intlayer-logo.png'
-                      )
-                    }
+                      );
+                    }}
                   >
                     <span className="ml-2 flex w-full text-text">
                       {logo.downloadPng.label}
@@ -156,7 +160,11 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
                     color="neutral"
                     label={logo.copyAsSvg.label.value}
                     Icon={VectorSquare}
-                    onClick={copySvg}
+                    onClick={(e: MouseEvent) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      copySvg();
+                    }}
                   >
                     <span className="ml-2 flex w-full text-text">
                       {logo.copyAsSvg.label}
@@ -168,7 +176,11 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
                     color="neutral"
                     label={logo.copyAsImage.label.value}
                     Icon={Image}
-                    onClick={copyImage}
+                    onClick={(e: MouseEvent) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      copyImage();
+                    }}
                   >
                     <span className="ml-2 flex w-full text-text">
                       {logo.copyAsImage.label}
