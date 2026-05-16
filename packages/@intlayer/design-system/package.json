@@ -503,7 +503,7 @@
     "lucide-react": "1.16.0",
     "react": ">=16.0.0",
     "react-dom": ">=16.0.0",
-    "react-hook-form": "7.75.0",
+    "react-hook-form": "7.76.0",
     "react-intlayer": "workspace:*",
     "shiki": "4.0.2",
     "tailwindcss": "4.3.0"
