@@ -102,12 +102,7 @@ const ProfileFormContent: FC = () => {
         </div>
       </Container>
 
-      <div
-        className={cn(
-          'justify-top grid w-full grid-cols-1 gap-x-5 gap-y-4 lg:gap-x-16',
-          hasPasswordColumn && 'max-md:grid-cols-1 md:grid-cols-[8fr_7fr]'
-        )}
-      >
+      <div className="justify-top grid w-full grid-cols-1 gap-x-5 gap-y-4 max-md:grid-cols-1 md:grid-cols-[8fr_7fr] lg:gap-x-16">
         <div className="flex size-full w-full flex-col gap-10 md:max-w-xl">
           <ConnectedAccounts />
         </div>
