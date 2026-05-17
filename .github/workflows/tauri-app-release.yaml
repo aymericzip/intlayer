@@ -42,6 +42,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         with:
           projectPath: apps/app
+          tauriScript: bun run tauri:build
           tagName: ${{ github.ref_name }}
           releaseName: 'App ${{ github.ref_name }}'
           releaseBody: 'See the assets to download this version and install.'
