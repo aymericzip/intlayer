@@ -52,6 +52,14 @@ type WithResizerProps = {
   minWidth?: number;
   /** Position of the resize handle (default: 'right') */
   handlePosition?: 'left' | 'right';
+  /** Apply base styles */
+  style?: boolean;
+  /** Additional className */
+  className?: string;
+  /** Controlled open/close — true expands to defaultOpenWidth (or last used), false collapses to 0 */
+  isOpen?: boolean;
+  /** Width to restore when isOpen becomes true and current width is 0 */
+  defaultOpenWidth?: number;
 };
 
 /**
@@ -169,9 +177,14 @@ export const WithResizer: FC<PropsWithChildren<WithResizerProps>> = ({
   minWidth = 0,
   handlePosition = 'right',
   children,
+  style,
+  className,
+  isOpen,
+  defaultOpenWidth,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [width, setWidth] = useState(initialWidth);
+  const [isResizing, setIsResizing] = useState(false);
   const lastExpandedWidthRef = useRef(initialWidth);
 
   const resizeState = useRef({
@@ -213,6 +226,7 @@ export const WithResizer: FC<PropsWithChildren<WithResizerProps>> = ({
 
   // Handler to stop resizing
   const stopResizing = useCallback(() => {
+    setIsResizing(false);
     document.body.style.cursor = '';
     document.body.style.userSelect = '';
     window.removeEventListener('mousemove', resize);
@@ -250,6 +264,7 @@ export const WithResizer: FC<PropsWithChildren<WithResizerProps>> = ({
         factor,
       };
 
+      setIsResizing(true);
       document.body.style.cursor = 'ew-resize';
       document.body.style.userSelect = 'none';
 
@@ -275,6 +290,19 @@ export const WithResizer: FC<PropsWithChildren<WithResizerProps>> = ({
       lastExpandedWidthRef.current = width;
     }
   }, [width, minWidth]);
+
+  useEffect(() => {
+    if (isOpen === undefined) return;
+    if (!isOpen) {
+      setWidth(0);
+    } else {
+      const target =
+        lastExpandedWidthRef.current > 0
+          ? lastExpandedWidthRef.current
+          : (defaultOpenWidth ?? initialWidth);
+      setWidth(Math.max(target, minWidth));
+    }
+  }, [isOpen]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleDoubleClick = useCallback(
     (event: React.MouseEvent<HTMLDivElement>) => {
@@ -309,22 +337,27 @@ export const WithResizer: FC<PropsWithChildren<WithResizerProps>> = ({
   return (
     <div
       className={cn(
-        'relative h-full w-full max-w-[80%] shrink-0 cursor-ew-resize border-neutral-200 transition dark:border-neutral-950',
-        handlePosition === 'right'
-          ? [
-              'border-r-[2px]',
-              'after:absolute after:top-1/2 after:right-0 after:block after:h-10 after:w-2 after:translate-x-1/2 after:-translate-y-1/2 after:transform after:cursor-ew-resize after:rounded-full after:bg-neutral-200 after:transition after:content-[""] dark:after:bg-neutral-950',
-            ]
-          : [
-              'border-l-[2px]',
-              'after:absolute after:top-1/2 after:left-0 after:block after:h-10 after:w-2 after:-translate-x-1/2 after:-translate-y-1/2 after:transform after:cursor-ew-resize after:rounded-full after:bg-neutral-200 after:transition after:content-[""] dark:after:bg-neutral-950',
-            ],
-        'active:border-neutral-400 active:after:bg-neutral-400 dark:active:border-neutral-600 active:dark:after:bg-neutral-600',
+        'relative h-full w-full max-w-[80%] shrink-0 cursor-ew-resize',
+        style &&
+          (handlePosition === 'right'
+            ? [
+                'border-r-[2px]',
+                'after:absolute after:top-1/2 after:right-0 after:block after:h-10 after:w-2 after:translate-x-1/2 after:-translate-y-1/2 after:transform after:cursor-ew-resize after:rounded-full after:bg-neutral-200 after:transition after:content-[""] dark:after:bg-neutral-950',
+              ]
+            : [
+                'border-l-[2px]',
+                'after:absolute after:top-1/2 after:left-0 after:block after:h-10 after:w-2 after:-translate-x-1/2 after:-translate-y-1/2 after:transform after:cursor-ew-resize after:rounded-full after:bg-neutral-200 after:transition after:content-[""] dark:after:bg-neutral-950',
+              ]),
+        style &&
+          'border-neutral-200 transition active:border-neutral-400 active:after:bg-neutral-400 dark:border-neutral-950 dark:active:border-neutral-600 active:dark:after:bg-neutral-600',
         minWidth && `min-w-[${minWidth}px]`,
-        maxWidth && `max-w-[${maxWidth}px]`
+
+        maxWidth && `max-w-[${maxWidth}px]`,
+        !style && className
       )}
       style={{
         width: `${width}px`,
+        transition: isResizing ? 'none' : 'width 200ms ease-in-out',
       }}
       ref={containerRef}
       onMouseDown={startResizing}

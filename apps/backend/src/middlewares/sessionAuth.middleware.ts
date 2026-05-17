@@ -11,8 +11,7 @@ declare module 'fastify' {
 }
 
 export const authMiddleware =
-  (auth: Auth) =>
-  async (request: FastifyRequest, _reply: FastifyReply) => {
+  (auth: Auth) => async (request: FastifyRequest, _reply: FastifyReply) => {
     if (request.session?.authType) {
       // Skip if user is already authenticated (ex: oAuth2)
       return;

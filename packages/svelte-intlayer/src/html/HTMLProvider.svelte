@@ -6,6 +6,7 @@ import type { HTMLComponents } from './types';
 export const components: HTMLComponents<'permissive', {}> = {};
 
 let customRenderHTML: ((html: string, overrides?: any) => string) | undefined;
+
 export { customRenderHTML as renderHTML };
 
 const internalRenderHTML = (html: string, overrides?: any) => {

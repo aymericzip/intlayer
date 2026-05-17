@@ -216,6 +216,18 @@ export const extractBabelContentForComponents = (
     },
   });
 
+  // Pre-scan non-Program paths to collect their existing dictionary keys before the
+  // Program scope is assigned. Without this, Program is processed first (depth-first
+  // traversal) and creates a new file-path-derived key even when a child component
+  // already declares a specific dictionary (e.g. useIntlayer('dashboard-sidebar')).
+  for (const path of componentPaths) {
+    if (path.isProgram()) continue;
+    const existingInfo = getExistingIntlayerInfo(path);
+    if (existingInfo) {
+      usedKeysInFile.add(existingInfo.key);
+    }
+  }
+
   for (const path of componentPaths) {
     const existingInfo = getExistingIntlayerInfo(path);
 
@@ -226,14 +238,23 @@ export const extractBabelContentForComponents = (
     } else {
       if (path.isProgram()) {
         if (!globalFileKey) {
-          globalFileKey = resolveDictionaryKey(
-            defaultKey,
-            filePath,
-            configuration,
-            unmergedDictionaries,
-            usedKeysInFile
-          );
-          usedKeysInFile.add(globalFileKey);
+          // Reuse the dominant existing key from child components so that
+          // module-level strings join the same dictionary rather than
+          // creating a new file-path-derived one (e.g. 'route').
+          const dominantKey =
+            usedKeysInFile.size > 0 ? [...usedKeysInFile][0] : undefined;
+          if (dominantKey) {
+            globalFileKey = dominantKey;
+          } else {
+            globalFileKey = resolveDictionaryKey(
+              defaultKey,
+              filePath,
+              configuration,
+              unmergedDictionaries,
+              usedKeysInFile
+            );
+            usedKeysInFile.add(globalFileKey);
+          }
         }
         componentKeyMap.set(path.node, globalFileKey);
         hookMap.set(path.node, 'getIntlayer');
@@ -385,6 +406,11 @@ export const extractBabelContentForComponents = (
       }
 
       if (parent.isObjectProperty() && parent.node.key === path.node) return;
+
+      // Skip string values in named object properties (identifier key, e.g. `icon: 'Globe'`).
+      // These are technical mappings, not translatable text. String-keyed properties
+      // (e.g. `'translation-status': 'Translation Status'`) are still extracted.
+      if (parent.isObjectProperty() && t.isIdentifier(parent.node.key)) return;
 
       if (parent.isMemberExpression() && parent.node.property === path.node)
         return;

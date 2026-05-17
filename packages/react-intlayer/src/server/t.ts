@@ -1,5 +1,9 @@
 import { getTranslation } from '@intlayer/core/interpreter';
-import type { DeclaredLocales, LocalesValues, StrictModeLocaleMap } from '@intlayer/types/module_augmentation';
+import type {
+  DeclaredLocales,
+  LocalesValues,
+  StrictModeLocaleMap,
+} from '@intlayer/types/module_augmentation';
 import { IntlayerServerContext } from './IntlayerServerProvider';
 import { getServerContext } from './serverContext';
 

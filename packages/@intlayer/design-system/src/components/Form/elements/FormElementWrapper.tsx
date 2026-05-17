@@ -1,7 +1,7 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import type { FC, SubmitEvent, HTMLProps } from 'react';
+import type { FC, HTMLProps, SubmitEvent } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { z } from 'zod/v4';
 

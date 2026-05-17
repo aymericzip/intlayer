@@ -1,5 +1,5 @@
-import type { Dictionary } from '@intlayer/types/dictionary';
 import type { Locale } from '@intlayer/types/allLocales';
+import type { Dictionary } from '@intlayer/types/dictionary';
 
 /**
  * Recursively traverses dictionary content to find all locales that have actual translations.

@@ -2,9 +2,6 @@
 import { isEnabled } from '@intlayer/editor/isEnabled';
 import { defineComponent, h } from 'vue';
 
-
-
-
 export default defineComponent({
   name: 'ContentSelector',
   props: {

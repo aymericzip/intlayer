@@ -1,5 +1,5 @@
-import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import * as Locales from '@intlayer/types/locales';
+import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import { describe, expect, it } from 'vitest';
 import { getMultilingualUrls } from './getMultilingualUrls';
 

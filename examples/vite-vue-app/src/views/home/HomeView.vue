@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue';
-import { h } from 'vue';
+import { computed, h } from 'vue';
 import { useIntlayer } from 'vue-intlayer';
 import {
   useCompact,

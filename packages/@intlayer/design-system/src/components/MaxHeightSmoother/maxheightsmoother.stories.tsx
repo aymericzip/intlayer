@@ -42,7 +42,7 @@ const meta: Meta<typeof MaxHeightSmoother> = {
       description: {
         component:
           'A CSS-only container that provides smooth, single-phase height transitions for collapsible content. ' +
-          'No `\'use client\'` required — fully compatible with React Server Components and Next.js App Router.\n\n' +
+          "No `'use client'` required — fully compatible with React Server Components and Next.js App Router.\n\n" +
           '**Strategy A** (`minHeight === 0`): `grid-template-rows` animation between `0fr` and `1fr`.\n\n' +
           '**Strategy B** (`minHeight > 0`): `max-height` driven by CSS custom properties (`--mhs-collapsed`, `--mhs-expanded`), ' +
           'eliminating the dead-time artifact caused by child `min-height` clamping the grid track.',
@@ -59,22 +59,24 @@ type Story = StoryObj<typeof MaxHeightSmoother>;
 
 const sampleContent = (
   <div className="rounded-lg bg-gradient-to-br from-blue-50 to-indigo-100 p-4">
-    <h3 className="mb-3 font-semibold text-gray-800 text-lg">Expandable Content</h3>
+    <h3 className="mb-3 font-semibold text-gray-800 text-lg">
+      Expandable Content
+    </h3>
     <p className="mb-2 text-gray-600">
-      This is the beginning of the content that might be quite long and needs to be
-      progressively disclosed.
+      This is the beginning of the content that might be quite long and needs to
+      be progressively disclosed.
     </p>
     <p className="mb-2 text-gray-600">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
-      incididunt ut labore et dolore magna aliqua.
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua.
     </p>
     <p className="mb-2 text-gray-600">
-      Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-      ex ea commodo consequat.
+      Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+      aliquip ex ea commodo consequat.
     </p>
     <p className="text-gray-600">
-      Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-      fugiat nulla pariatur.
+      Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
+      dolore eu fugiat nulla pariatur.
     </p>
   </div>
 );
@@ -85,19 +87,33 @@ const longArticle = (
       <h2 className="mb-2 font-bold text-2xl text-gray-900">
         Understanding MaxHeightSmoother
       </h2>
-      <p className="text-gray-600 text-sm">Published on December 1, 2023 • 5 min read</p>
+      <p className="text-gray-600 text-sm">
+        Published on December 1, 2023 • 5 min read
+      </p>
     </header>
     <div className="prose prose-gray max-w-none">
       <p>
-        The MaxHeightSmoother component provides a sophisticated solution for creating
-        smooth height transitions in web applications.
+        The MaxHeightSmoother component provides a sophisticated solution for
+        creating smooth height transitions in web applications.
       </p>
       <h3>Key Features</h3>
       <ul>
-        <li><strong>CSS-only:</strong> No hooks, no client directive, compatible with RSC</li>
-        <li><strong>Dual strategy:</strong> Grid for minHeight=0, max-height for minHeight&gt;0</li>
-        <li><strong>No dead time:</strong> CSS variable approach eliminates the snap artifact</li>
-        <li><strong>Accessible:</strong> Focus expansion via :focus-within pseudo-class</li>
+        <li>
+          <strong>CSS-only:</strong> No hooks, no client directive, compatible
+          with RSC
+        </li>
+        <li>
+          <strong>Dual strategy:</strong> Grid for minHeight=0, max-height for
+          minHeight&gt;0
+        </li>
+        <li>
+          <strong>No dead time:</strong> CSS variable approach eliminates the
+          snap artifact
+        </li>
+        <li>
+          <strong>Accessible:</strong> Focus expansion via :focus-within
+          pseudo-class
+        </li>
       </ul>
       <h3>Use Cases</h3>
       <ul>
@@ -116,7 +132,10 @@ export const Default: Story = {
   args: { children: sampleContent },
   parameters: {
     docs: {
-      description: { story: 'Default state — no interaction triggers, content fully expanded.' },
+      description: {
+        story:
+          'Default state — no interaction triggers, content fully expanded.',
+      },
     },
   },
 };
@@ -125,7 +144,10 @@ export const ControlledCollapsed: Story = {
   args: { isHidden: true, children: sampleContent },
   parameters: {
     docs: {
-      description: { story: 'Controlled mode, collapsed. Toggle isHidden in the controls panel.' },
+      description: {
+        story:
+          'Controlled mode, collapsed. Toggle isHidden in the controls panel.',
+      },
     },
   },
   play: async ({ canvasElement }) => {
@@ -141,7 +163,10 @@ export const ControlledExpanded: Story = {
   args: { isHidden: false, children: sampleContent },
   parameters: {
     docs: {
-      description: { story: 'Controlled mode, expanded. Toggle isHidden in the controls panel.' },
+      description: {
+        story:
+          'Controlled mode, expanded. Toggle isHidden in the controls panel.',
+      },
     },
   },
   play: async ({ canvasElement }) => {
@@ -157,7 +182,9 @@ export const HoverToExpand: Story = {
   args: { isOverable: true, children: sampleContent },
   parameters: {
     docs: {
-      description: { story: 'Hover-triggered expansion. Strategy A (grid, no minHeight).' },
+      description: {
+        story: 'Hover-triggered expansion. Strategy A (grid, no minHeight).',
+      },
     },
   },
   play: async ({ canvasElement }) => {
@@ -215,8 +242,12 @@ export const WithMinHeight: Story = {
     const smoother = canvasElement.querySelector('.group\\/mhs') as HTMLElement;
 
     // CSS variables set via inline style
-    expect(smoother.style.getPropertyValue('--mhs-collapsed').trim()).toBe('120px');
-    expect(smoother.style.getPropertyValue('--mhs-expanded').trim()).toBe('3000px');
+    expect(smoother.style.getPropertyValue('--mhs-collapsed').trim()).toBe(
+      '120px'
+    );
+    expect(smoother.style.getPropertyValue('--mhs-expanded').trim()).toBe(
+      '3000px'
+    );
 
     // Correct Tailwind classes
     expect(smoother).toHaveClass('max-h-[var(--mhs-collapsed)]');
@@ -231,7 +262,9 @@ export const HoverAndFocus: Story = {
     minHeight: 80,
     children: (
       <div className="rounded-lg border border-purple-200 bg-gradient-to-r from-purple-50 to-pink-50 p-4">
-        <h3 className="mb-2 font-semibold text-lg text-purple-800">Interactive Card</h3>
+        <h3 className="mb-2 font-semibold text-lg text-purple-800">
+          Interactive Card
+        </h3>
         <p className="mb-2 text-purple-700">
           This card expands on both hover and keyboard focus.
         </p>
@@ -247,7 +280,8 @@ export const HoverAndFocus: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Combined hover + focus with minHeight. Strategy B. Accessible to mouse and keyboard users.',
+        story:
+          'Combined hover + focus with minHeight. Strategy B. Accessible to mouse and keyboard users.',
       },
     },
   },
@@ -273,7 +307,10 @@ export const ArticlePreview: Story = {
   },
   parameters: {
     docs: {
-      description: { story: 'Article preview that expands on hover. Strategy B with minHeight=200.' },
+      description: {
+        story:
+          'Article preview that expands on hover. Strategy B with minHeight=200.',
+      },
     },
   },
 };
@@ -283,7 +320,9 @@ export const ArticlePreview: Story = {
 export const FAQSection: Story = {
   render: () => (
     <div className="mx-auto max-w-2xl space-y-4">
-      <h2 className="mb-6 font-bold text-2xl text-gray-900">Frequently Asked Questions</h2>
+      <h2 className="mb-6 font-bold text-2xl text-gray-900">
+        Frequently Asked Questions
+      </h2>
       {[
         {
           question: 'What is MaxHeightSmoother?',
@@ -309,7 +348,9 @@ export const FAQSection: Story = {
           className="rounded-lg border border-gray-200"
         >
           <div className="p-4">
-            <h3 className="mb-2 font-semibold text-gray-900 text-lg">{faq.question}</h3>
+            <h3 className="mb-2 font-semibold text-gray-900 text-lg">
+              {faq.question}
+            </h3>
             <p className="text-gray-600 leading-relaxed">{faq.answer}</p>
           </div>
         </MaxHeightSmoother>
@@ -318,7 +359,9 @@ export const FAQSection: Story = {
   ),
   args: {},
   parameters: {
-    docs: { description: { story: 'FAQ section — Strategy B (minHeight=60).' } },
+    docs: {
+      description: { story: 'FAQ section — Strategy B (minHeight=60).' },
+    },
   },
 };
 
@@ -326,12 +369,42 @@ export const DashboardWidgets: Story = {
   render: () => (
     <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
       {[
-        { title: 'Revenue', preview: '$42,350', details: 'Monthly revenue is up 12% from last month. Q4 projections look strong with enterprise deals closing.' },
-        { title: 'Active Users', preview: '1,249', details: 'Daily active users have grown by 8% this week. Mobile usage continues to dominate at 65%.' },
-        { title: 'Conversion Rate', preview: '3.2%', details: 'Conversion rate improved by 0.3% after the latest landing page optimization campaign.' },
-        { title: 'Support Tickets', preview: '23 Open', details: 'Current response time is 2.3 hours. Most common issues relate to account setup.' },
-        { title: 'Server Uptime', preview: '99.9%', details: 'Excellent uptime this month with only one minor incident lasting 4 minutes.' },
-        { title: 'Storage Usage', preview: '67.3 GB', details: 'Database growth is steady at 2GB per week. Consider upgrading storage plan next quarter.' },
+        {
+          title: 'Revenue',
+          preview: '$42,350',
+          details:
+            'Monthly revenue is up 12% from last month. Q4 projections look strong with enterprise deals closing.',
+        },
+        {
+          title: 'Active Users',
+          preview: '1,249',
+          details:
+            'Daily active users have grown by 8% this week. Mobile usage continues to dominate at 65%.',
+        },
+        {
+          title: 'Conversion Rate',
+          preview: '3.2%',
+          details:
+            'Conversion rate improved by 0.3% after the latest landing page optimization campaign.',
+        },
+        {
+          title: 'Support Tickets',
+          preview: '23 Open',
+          details:
+            'Current response time is 2.3 hours. Most common issues relate to account setup.',
+        },
+        {
+          title: 'Server Uptime',
+          preview: '99.9%',
+          details:
+            'Excellent uptime this month with only one minor incident lasting 4 minutes.',
+        },
+        {
+          title: 'Storage Usage',
+          preview: '67.3 GB',
+          details:
+            'Database growth is steady at 2GB per week. Consider upgrading storage plan next quarter.',
+        },
       ].map((widget, index) => (
         <MaxHeightSmoother
           key={index}
@@ -343,8 +416,12 @@ export const DashboardWidgets: Story = {
             <h3 className="mb-2 font-medium text-gray-500 text-sm uppercase tracking-wide">
               {widget.title}
             </h3>
-            <div className="mb-4 font-bold text-3xl text-gray-900">{widget.preview}</div>
-            <p className="text-gray-600 text-sm leading-relaxed">{widget.details}</p>
+            <div className="mb-4 font-bold text-3xl text-gray-900">
+              {widget.preview}
+            </div>
+            <p className="text-gray-600 text-sm leading-relaxed">
+              {widget.details}
+            </p>
           </div>
         </MaxHeightSmoother>
       ))}
@@ -352,7 +429,12 @@ export const DashboardWidgets: Story = {
   ),
   args: {},
   parameters: {
-    docs: { description: { story: 'Dashboard widgets — Strategy B (minHeight=120), hover expansion.' } },
+    docs: {
+      description: {
+        story:
+          'Dashboard widgets — Strategy B (minHeight=120), hover expansion.',
+      },
+    },
   },
 };
 
@@ -364,12 +446,19 @@ export const AccessibilityDemo: Story = {
     'aria-label': 'Expandable accessibility information',
     children: (
       <div className="rounded-lg border border-green-200 bg-green-50 p-4">
-        <h3 className="mb-2 font-semibold text-green-800 text-lg">♿ Accessibility Features</h3>
+        <h3 className="mb-2 font-semibold text-green-800 text-lg">
+          ♿ Accessibility Features
+        </h3>
         <ul className="space-y-1 text-green-700">
-          <li>• Keyboard navigation: Tab to focus, content expands via :focus-within</li>
+          <li>
+            • Keyboard navigation: Tab to focus, content expands via
+            :focus-within
+          </li>
           <li>• role="button" and tabIndex for keyboard discoverability</li>
           <li>• aria-expanded reflects state in controlled mode</li>
-          <li>• Respects prefers-reduced-motion via motion-reduce:transition-none</li>
+          <li>
+            • Respects prefers-reduced-motion via motion-reduce:transition-none
+          </li>
         </ul>
       </div>
     ),
@@ -377,7 +466,8 @@ export const AccessibilityDemo: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Accessibility attributes. In uncontrolled mode, expansion is CSS-driven via :focus-within.',
+        story:
+          'Accessibility attributes. In uncontrolled mode, expansion is CSS-driven via :focus-within.',
       },
     },
   },
@@ -386,7 +476,10 @@ export const AccessibilityDemo: Story = {
 
     expect(smoother).toHaveAttribute('role', 'button');
     expect(smoother).toHaveAttribute('tabIndex', '0');
-    expect(smoother).toHaveAttribute('aria-label', 'Expandable accessibility information');
+    expect(smoother).toHaveAttribute(
+      'aria-label',
+      'Expandable accessibility information'
+    );
 
     smoother.focus();
     expect(document.activeElement).toBe(smoother);
@@ -398,7 +491,9 @@ export const AccessibilityDemo: Story = {
 export const EmptyContent: Story = {
   args: { isOverable: true, children: null },
   parameters: {
-    docs: { description: { story: 'Empty / null content handled gracefully.' } },
+    docs: {
+      description: { story: 'Empty / null content handled gracefully.' },
+    },
   },
 };
 
@@ -408,17 +503,25 @@ export const LargeContent: Story = {
     minHeight: 150,
     children: (
       <div className="rounded-lg bg-blue-50 p-6">
-        <h3 className="mb-4 font-bold text-blue-800 text-xl">Large Content Example</h3>
+        <h3 className="mb-4 font-bold text-blue-800 text-xl">
+          Large Content Example
+        </h3>
         {Array.from({ length: 20 }, (_, i) => (
           <p key={i} className="mb-2 text-blue-700">
-            Paragraph {i + 1}: Testing smooth animation with large amounts of content.
+            Paragraph {i + 1}: Testing smooth animation with large amounts of
+            content.
           </p>
         ))}
       </div>
     ),
   },
   parameters: {
-    docs: { description: { story: 'Large content — animation remains smooth regardless of content size.' } },
+    docs: {
+      description: {
+        story:
+          'Large content — animation remains smooth regardless of content size.',
+      },
+    },
   },
 };
 
@@ -430,7 +533,9 @@ export const DynamicContent: Story = {
       <div className="max-w-md">
         <div className="mb-4 flex gap-2">
           <button
-            onClick={() => setItems((prev) => [...prev, `Item ${prev.length + 1}`])}
+            onClick={() =>
+              setItems((prev) => [...prev, `Item ${prev.length + 1}`])
+            }
             className="rounded bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
           >
             Add Item
@@ -443,12 +548,21 @@ export const DynamicContent: Story = {
             Remove Item
           </button>
         </div>
-        <MaxHeightSmoother {...args} isOverable minHeight={80} className="rounded-lg border bg-gray-50">
+        <MaxHeightSmoother
+          {...args}
+          isOverable
+          minHeight={80}
+          className="rounded-lg border bg-gray-50"
+        >
           <div className="p-4">
-            <h3 className="mb-2 font-semibold">Dynamic List ({items.length} items)</h3>
+            <h3 className="mb-2 font-semibold">
+              Dynamic List ({items.length} items)
+            </h3>
             <ul className="space-y-1">
               {items.map((item, index) => (
-                <li key={index} className="text-gray-700">{item}</li>
+                <li key={index} className="text-gray-700">
+                  {item}
+                </li>
               ))}
             </ul>
             {items.length === 0 && (
@@ -461,6 +575,10 @@ export const DynamicContent: Story = {
   },
   args: {},
   parameters: {
-    docs: { description: { story: 'Dynamic content — component adapts as items are added/removed.' } },
+    docs: {
+      description: {
+        story: 'Dynamic content — component adapts as items are added/removed.',
+      },
+    },
   },
-};  
+};

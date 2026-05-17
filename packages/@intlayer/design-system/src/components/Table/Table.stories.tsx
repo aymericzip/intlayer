@@ -30,7 +30,8 @@ const meta: Meta<typeof Table> = {
   argTypes: {
     isInteractive: {
       control: 'boolean',
-      description: 'Enables hover states and cursor changes for interactive rows',
+      description:
+        'Enables hover states and cursor changes for interactive rows',
       table: {
         type: { summary: 'boolean' },
         defaultValue: { summary: 'false' },

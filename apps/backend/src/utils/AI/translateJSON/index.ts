@@ -21,7 +21,7 @@ export type TranslateJSONOptions<T = JSON> = {
   applicationContext?: string;
 };
 
-export { type TranslateJSONResultData, AIProvider };
+export { AIProvider, type TranslateJSONResultData };
 
 export const aiDefaultOptions: AIOptions = {
   provider: AIProvider.OPENAI,

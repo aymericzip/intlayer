@@ -28,7 +28,8 @@ const editorDashboardContent = {
         ar: 'إدارة محتوى موقعك باستخدام محرر الفيديو لـ Intlayer.',
         de: 'Verwalten Sie Ihre Website-Inhalte mit dem Intlayer-visuellen Editor.',
         en: 'Manage your website content using the Intlayer visual editor.',
-        'en-GB': 'Manage your website content using the Intlayer visual editor.',
+        'en-GB':
+          'Manage your website content using the Intlayer visual editor.',
         es: 'Administre el contenido de su sitio web utilizando el editor visual de Intlayer.',
         fr: 'Gérez le contenu de votre site Web en utilisant l’éditeur visuel Intlayer.',
         hi: 'अनुकूलताओं को अनुकूल एडिटर का उपयोग करें और अपनी वेब साइट का सामग्री करें।',
@@ -45,7 +46,13 @@ const editorDashboardContent = {
         uk: 'Керуйте вмістом свого сайту за допомогою візуального редактора Intlayer.',
       }),
       keywords: t({
-        ar: ['CMS', 'نظام إدارة المحتوى', 'محرر الفيديو', 'محرر', 'لوحة القيادة'],
+        ar: [
+          'CMS',
+          'نظام إدارة المحتوى',
+          'محرر الفيديو',
+          'محرر',
+          'لوحة القيادة',
+        ],
         de: [
           'CMS',
           'Inhaltsmanagementsystem',
@@ -81,13 +88,7 @@ const editorDashboardContent = {
           'Éditeur',
           'Tableau de bord',
         ],
-        hi: [
-          'CMS',
-          'सामग्री प्रबंधन सिस्टम',
-          'व्हिडिओ एडिटर',
-          'एडिटर',
-          'डैशबोर्ड',
-        ],
+        hi: ['CMS', 'सामग्री प्रबंधन सिस्टम', 'व्हिडिओ एडिटर', 'एडिटर', 'डैशबोर्ड'],
         it: [
           'CMS',
           'Sistema de gestione dei contenuti',

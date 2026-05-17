@@ -8,7 +8,7 @@ export const CheckingApplicationStatusView: FC = () => {
     'checking-application-status-view'
   );
   return (
-    <div className="flex flex-1 items-center justify-center">
+    <div className="flex flex-1 items-center justify-center p-4">
       <Container
         className="flex max-w-xl flex-col items-center justify-center gap-4 rounded-2xl p-6"
         padding="xl"

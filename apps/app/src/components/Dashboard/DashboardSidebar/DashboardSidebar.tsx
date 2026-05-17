@@ -227,10 +227,7 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
       )}
     >
       <Container
-        className={cn(
-          'flex h-full flex-col transition-all duration-300',
-          isCollapsed ? 'p-2' : 'p-4'
-        )}
+        className="flex h-full flex-col p-2 transition-all duration-300"
         roundedSize="none"
         transparency="none"
       >
@@ -264,9 +261,9 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
                   {!isCollapsed && isChild && (
                     <div className="absolute top-0 left-4 h-full w-4 scale-110">
                       <div className="pointer-events-none relative h-full w-4">
-                        <div className="absolute top-0 left-0 h-1/2 w-3 rounded-bl-lg border-text/60 border-b border-l" />
+                        <div className="absolute top-0 left-0 h-1/2 w-3 rounded-bl-lg border-neutral/80 border-b border-l" />
                         {!item.isLastChild && (
-                          <div className="absolute top-1/2 left-0 h-1/2 w-px bg-text/60" />
+                          <div className="absolute top-1/2 left-0 h-1/2 w-px bg-neutral/80" />
                         )}
                       </div>
                     </div>

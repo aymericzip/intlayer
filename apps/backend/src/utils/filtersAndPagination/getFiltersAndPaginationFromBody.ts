@@ -1,4 +1,5 @@
-import type { FastifyRequest } from 'fastify';import type { ObjectId } from 'mongoose';
+import type { FastifyRequest } from 'fastify';
+import type { ObjectId } from 'mongoose';
 
 const DEFAULT_PAGE_SIZE = 1000;
 const DEFAULT_PAGE = 1;

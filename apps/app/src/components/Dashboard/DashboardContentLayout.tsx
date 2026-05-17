@@ -34,7 +34,7 @@ export const DashboardContentLayout: FC<DashboardContentLayoutProps> = ({
     <DashboardScrollContext.Provider value={notifyScroll}>
       <h1
         ref={h1Ref}
-        className="sticky top-0 z-30 border-neutral border-b-[0.5px] bg-background p-6 pl-10 text-3xl"
+        className="sticky top-0 z-30 border-neutral/20 border-b bg-background p-6 pl-10 text-3xl"
         style={{
           // Fallback CSS scroll-driven animation for pages whose scroll container
           // is the outer overflow-auto (e.g. projects, profile). Inner-scroll pages

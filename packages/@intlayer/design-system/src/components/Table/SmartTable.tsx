@@ -1,12 +1,7 @@
 'use client';
 
 import { cn } from '@utils/cn';
-import {
-  type FC,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import { type FC, useEffect, useRef, useState } from 'react';
 import { ExpandCollapse } from '../ExpandCollapse';
 import { Modal, ModalSize } from '../Modal';
 import { ExpandButton } from './ExpandButton';

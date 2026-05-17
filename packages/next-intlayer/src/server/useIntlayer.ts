@@ -1,5 +1,8 @@
-import type { DeclaredLocales, DictionaryKeys } from '@intlayer/types/module_augmentation';
 import type { Locale } from '@intlayer/types/allLocales';
+import type {
+  DeclaredLocales,
+  DictionaryKeys,
+} from '@intlayer/types/module_augmentation';
 import React from 'react';
 import { useIntlayer as useIntlayerBase } from 'react-intlayer/server';
 import { getLocale } from './getLocale';

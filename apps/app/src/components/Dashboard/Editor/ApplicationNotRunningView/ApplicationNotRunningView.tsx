@@ -25,7 +25,7 @@ export const ApplicationNotRunningView: FC<ApplicationNotRunningViewProps> = ({
   } = useIntlayer('application-not-running-view');
 
   return (
-    <div className="flex flex-1 items-center justify-center">
+    <div className="flex flex-1 items-center justify-center p-4">
       <Container
         className="mb-[20%] flex max-w-xl flex-col gap-2 text-sm"
         padding="xl"

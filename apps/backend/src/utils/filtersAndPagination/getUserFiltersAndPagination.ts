@@ -70,8 +70,7 @@ export const getUserFiltersAndPagination = (
 
       const allowedIds = requestedIds.filter(
         (id) =>
-          (currentUserId && id === currentUserId) ||
-          orgMemberIds.includes(id)
+          (currentUserId && id === currentUserId) || orgMemberIds.includes(id)
       );
 
       filters = {

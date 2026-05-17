@@ -6,19 +6,15 @@ import {
   getLocalizedUrl,
   localeMap,
 } from 'intlayer';
-import { useIntlayer } from 'react-intlayer';
-import { BackgroundLayout } from '#components/BackgroundLayout';
-import { DashboardContentLayout } from '#components/Dashboard/DashboardContentLayout';
-import { TagDetails } from '#components/Dashboard/TagForm/TagDetails';
 
-export const Route = createFileRoute(
-  '/{-$locale}/_dashboard/_editor/tags/$tagKey'
-)({
-  component: TagDetailPage,
+import { TagList } from '#components/Dashboard/TagForm/TagList';
+
+export const Route = createFileRoute('/{-$locale}/_dashboard/_editor/_content/tags/')({
+  component: TagsPage,
   head: ({ params }) => {
-    const { locale, tagKey } = params;
-    const path = `${App_Dashboard_Tags}/${tagKey}`;
-    const content = getIntlayer('tag-dashboard-page', locale);
+    const { locale } = params;
+    const path = App_Dashboard_Tags;
+    const content = getIntlayer('tags-dashboard-page', locale);
 
     return {
       links: [
@@ -41,7 +37,7 @@ export const Route = createFileRoute(
         },
       ],
       meta: [
-        { title: `${tagKey} | ${content.metadata.title}` },
+        { title: content.metadata.title },
         {
           name: 'description',
           content: content.metadata.description,
@@ -55,16 +51,6 @@ export const Route = createFileRoute(
   },
 });
 
-function TagDetailPage() {
-  const { tagKey } = Route.useParams();
-  const { title } = useIntlayer('tag-dashboard-page');
-
-  return (
-    <DashboardContentLayout title={title}>
-      <div className="flex w-full flex-1 flex-col items-center p-10">
-        <TagDetails tagKey={tagKey} />
-      </div>
-      <BackgroundLayout />
-    </DashboardContentLayout>
-  );
+function TagsPage() {
+  return <TagList />;
 }

@@ -491,6 +491,10 @@ const dashboardSidebarContent = {
       vi: 'Xem hồ sơ',
       uk: 'Переглянути профіль',
     }),
+    globe: 'Globe',
+    book: 'Book',
+    tags: 'Tags',
+    building2: 'Building2',
   },
   title: 'Dashboard sidebar navigation',
   description:

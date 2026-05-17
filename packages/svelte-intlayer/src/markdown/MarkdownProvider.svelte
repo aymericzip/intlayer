@@ -5,7 +5,8 @@ import { setMarkdownContext } from './context';
 
 export const components: HTMLComponents<'permissive', {}> | undefined =
   undefined;
-export const wrapper: string | import('svelte').ComponentType | undefined = undefined;
+export const wrapper: string | import('svelte').ComponentType | undefined =
+  undefined;
 export const forceBlock: boolean | undefined = undefined;
 export const forceInline: boolean | undefined = undefined;
 export const preserveFrontmatter: boolean | undefined = undefined;
@@ -19,6 +20,7 @@ let customRenderMarkdown:
       wrapper?: string | import('svelte').ComponentType
     ) => string | Promise<string>)
   | undefined;
+
 export { customRenderMarkdown as renderMarkdown };
 
 $: baseOptions = {

@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { IntlayerClientProvider, type Next14PageIntlayer } from 'next-intlayer';
 import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
 import { generateMetadata } from './metadata';
+
 export { generateMetadata };
 
 const Page: Next14PageIntlayer = ({ params: { locale } }) => {

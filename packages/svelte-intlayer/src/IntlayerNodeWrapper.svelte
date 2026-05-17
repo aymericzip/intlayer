@@ -1,7 +1,7 @@
 <script lang="ts">
-  export let Renderer: any = undefined;
-  export let rendererProps: Record<string, any> = {};
-  export let value: any = undefined;
+export let Renderer: any = undefined;
+export let rendererProps: Record<string, any> = {};
+export let value: any = undefined;
 </script>
 
 {#if typeof Renderer === 'string'}

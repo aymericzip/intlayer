@@ -1,5 +1,8 @@
-import type { DeclaredLocales, StrictModeLocaleMap } from '@intlayer/types/module_augmentation';
 import type { Dictionary } from '@intlayer/types/dictionary';
+import type {
+  DeclaredLocales,
+  StrictModeLocaleMap,
+} from '@intlayer/types/module_augmentation';
 import { useDictionaryDynamic as useDictionaryDynamicBase } from 'react-intlayer/server';
 import { safeUseLocale } from './useIntlayer';
 

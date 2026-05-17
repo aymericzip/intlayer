@@ -1,19 +1,17 @@
 import { Button } from '@intlayer/design-system/button';
 import { useChat, usePersistedStore } from '@intlayer/design-system/hooks';
 import { PopoverStatic } from '@intlayer/design-system/popover';
-import {
-  RightDrawer,
-  useRightDrawer,
-} from '@intlayer/design-system/right-drawer';
 import { useQueryClient } from '@tanstack/react-query';
 import { MessageSquare } from 'lucide-react';
 import { type FC, useCallback, useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { useIntlayer } from 'react-intlayer';
 import { FormSection } from '#components/ChatBot/FormSection';
 import {
   type ChatCompletionRequestMessage,
   MessagesList,
 } from '#components/ChatBot/MessagesList';
+import { useDashboardRightPanel } from '#hooks/useDashboardRightPanel';
 import { useLocalizedNavigate } from '#hooks/useLocalizedNavigate';
 
 const uuid = () => Math.random().toString(36).slice(2);
@@ -34,13 +32,14 @@ export const DashboardChatBot: FC = () => {
   const { firstMessage: firstMessageContent } =
     useIntlayer('dashboard-chat-bot');
   const { mutate: sendChat, isPending } = useChat();
-  const {
-    open: openDrawer,
-    isOpen: checkIsOpen,
-    close: closeDrawer,
-  } = useRightDrawer();
+  const { open: openPanel, isOpen: checkIsOpen } = useDashboardRightPanel();
   const isOpen = checkIsOpen(DRAWER_ID);
+  const [portalTarget, setPortalTarget] = useState<HTMLElement | null>(null);
   const isFirstRender = useRef(true);
+
+  useEffect(() => {
+    setPortalTarget(document.getElementById('dashboard-right-panel'));
+  }, []);
   const [currentResponse, setCurrentResponse] = useState('');
   const navigate = useLocalizedNavigate();
   const queryClient = useQueryClient();
@@ -146,7 +145,7 @@ export const DashboardChatBot: FC = () => {
     <>
       <PopoverStatic identifier={DRAWER_ID}>
         <Button
-          onClick={() => openDrawer(DRAWER_ID)}
+          onClick={() => openPanel(DRAWER_ID)}
           type="button"
           variant="hoverable"
           label="Open AI assistant"
@@ -160,40 +159,43 @@ export const DashboardChatBot: FC = () => {
         </PopoverStatic.Detail>
       </PopoverStatic>
 
-      <RightDrawer
-        isOpen={isOpen}
-        onClose={() => closeDrawer(DRAWER_ID)}
-        identifier={DRAWER_ID}
-        title="AI assistant"
-      >
-        <div className="flex size-full flex-col items-center justify-between overflow-auto">
-          <div className="relative flex size-full flex-auto">
-            <div className="absolute inset-0 size-full">
-              <MessagesList
-                storedPrompt={[
-                  firstMessage,
-                  ...(discussion?.storedPrompt ?? []),
-                  ...(currentResponse
-                    ? [{ role: 'assistant' as const, content: currentResponse }]
-                    : []),
-                ]}
-                isLoading={isPending}
+      {isOpen &&
+        portalTarget &&
+        createPortal(
+          <div className="flex size-full flex-col items-center justify-between overflow-auto">
+            <div className="relative flex size-full flex-auto">
+              <div className="absolute inset-0 size-full">
+                <MessagesList
+                  storedPrompt={[
+                    firstMessage,
+                    ...(discussion?.storedPrompt ?? []),
+                    ...(currentResponse
+                      ? [
+                          {
+                            role: 'assistant' as const,
+                            content: currentResponse,
+                          },
+                        ]
+                      : []),
+                  ]}
+                  isLoading={isPending}
+                />
+              </div>
+            </div>
+            <div className="w-full flex-1">
+              <FormSection
+                askNewQuestion={handleAskNewQuestion}
+                clear={handleClear}
+                nbMessages={(discussion?.storedPrompt ?? []).length}
+                userMessages={(discussion?.storedPrompt ?? [])
+                  .filter((msg) => msg.role === 'user')
+                  .map((msg) => msg.content as string)}
+                isActive={isOpen}
               />
             </div>
-          </div>
-          <div className="w-full flex-1">
-            <FormSection
-              askNewQuestion={handleAskNewQuestion}
-              clear={handleClear}
-              nbMessages={(discussion?.storedPrompt ?? []).length}
-              userMessages={(discussion?.storedPrompt ?? [])
-                .filter((msg) => msg.role === 'user')
-                .map((msg) => msg.content as string)}
-              isActive={isOpen}
-            />
-          </div>
-        </div>
-      </RightDrawer>
+          </div>,
+          portalTarget
+        )}
     </>
   );
 };

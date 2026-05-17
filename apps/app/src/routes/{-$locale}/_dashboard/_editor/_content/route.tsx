@@ -6,13 +6,14 @@ import {
   App_Dashboard_Editor_Path,
   App_Dashboard_Projects_Path,
   App_Dashboard_Translate_Path,
+  App_Dashboard_Tags_Path,
 } from '@intlayer/design-system/routes';
 import { TabSelector } from '@intlayer/design-system/tab-selector';
 import { cn } from '@intlayer/design-system/utils';
 import { FocusDictionaryProvider } from '@intlayer/editor-react';
 import { createFileRoute, Outlet, useLocation } from '@tanstack/react-router';
 import { getLocalizedUrl, getPathWithoutLocale } from 'intlayer';
-import { Book, Globe, PenTool } from 'lucide-react';
+import { Book, Globe, PenTool, Tag } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { BreadcrumbsHeader } from '#/structuredData/BreadcrumbsHeader';
@@ -48,6 +49,7 @@ export const Route = createFileRoute('/{-$locale}/_dashboard/_editor/_content')(
 
 function EditorLayout() {
   const { title, tabItems: tabLabels } = useIntlayer('content-dashboard-page');
+  const { title: editTagTitle } = useIntlayer('tag-dashboard-page');
   const navigate = useLocalizedNavigate();
   const { pathname } = useLocation();
   const { locale } = Route.useParams();
@@ -82,11 +84,30 @@ function EditorLayout() {
       value: App_Dashboard_Dictionaries_Path,
       icon: Book,
     },
+    {
+      label: tabLabels.tags,
+      value: App_Dashboard_Tags_Path,
+      icon: Tag,
+    },
   ];
 
   const currentTabValue =
     tabItems.find((tab) => getPathWithoutLocale(pathname).startsWith(tab.value))
       ?.value ?? tabItems[0].value;
+
+  const isTagDetailPage = getPathWithoutLocale(pathname).startsWith(
+    `${App_Dashboard_Tags_Path}/`
+  );
+
+  const activeTab = tabItems.find((tab) =>
+    getPathWithoutLocale(pathname).startsWith(tab.value)
+  );
+
+  const dynamicTitle = isTagDetailPage
+    ? editTagTitle
+    : activeTab?.value === App_Dashboard_Editor_Path
+      ? title
+      : (activeTab?.label ?? title);
 
   return (
     <AuthenticationBarrier
@@ -98,7 +119,7 @@ function EditorLayout() {
       redirectionRoute={App_Dashboard_Projects_Path}
       locale={locale}
     >
-      <DashboardContentLayout title={title}>
+      <DashboardContentLayout title={dynamicTitle}>
         <div className="mr-3 ml-auto flex justify-end gap-2 py-3">
           <TabSelector
             selectedChoice={currentTabValue}

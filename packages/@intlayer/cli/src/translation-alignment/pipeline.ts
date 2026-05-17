@@ -80,5 +80,5 @@ export const buildAlignmentPlan = ({
   return { englishBlocks, frenchBlocks, plan, segmentsToReview };
 };
 
-export { mergeReviewedSegments };
 export type { SegmentToReview };
+export { mergeReviewedSegments };

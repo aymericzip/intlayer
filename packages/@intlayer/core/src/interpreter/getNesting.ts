@@ -1,5 +1,8 @@
-import type { DictionaryKeys, DictionaryRegistryContent } from '@intlayer/types/module_augmentation';
 import type { GetSubPath } from '@intlayer/types/dictionary';
+import type {
+  DictionaryKeys,
+  DictionaryRegistryContent,
+} from '@intlayer/types/module_augmentation';
 import type { ValidDotPathsFor } from '../transpiler';
 import type {
   DeepTransformContent,

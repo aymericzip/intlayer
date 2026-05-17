@@ -18,7 +18,7 @@ export const DashboardSidebarProfile: FC<DashboardSidebarProfileProps> = ({
   isCollapsed,
 }) => {
   const { isAuthenticated, user, logout } = useUser();
-  const { navigation, gotToProfile } = useIntlayer('dashboard-sidebar');
+  const { navigation, goToProfile } = useIntlayer('dashboard-sidebar');
 
   if (!isAuthenticated) return null;
 
@@ -81,7 +81,6 @@ export const DashboardSidebarProfile: FC<DashboardSidebarProfileProps> = ({
             variant="hoverable"
             color="neutral"
             className="w-full min-w-0 p-1"
-            childrenClassName="flex-1 min-w-0"
           >
             <Link
               to={App_Dashboard_Profile_Path}
@@ -121,7 +120,7 @@ export const DashboardSidebarProfile: FC<DashboardSidebarProfileProps> = ({
             >
               <Link
                 to={App_Dashboard_Profile_Path}
-                variant="button-outlined"
+                variant="hoverable"
                 color="text"
                 label={navigation.logout.label.value}
                 size="sm"
@@ -129,12 +128,12 @@ export const DashboardSidebarProfile: FC<DashboardSidebarProfileProps> = ({
               >
                 <User2 size={10} />
                 <span className="ml-2 w-full text-text text-xs">
-                  {gotToProfile}
+                  {goToProfile}
                 </span>
               </Link>
               <Button
-                variant="outline"
-                color="error"
+                variant="hoverable"
+                color="text"
                 Icon={LogOut}
                 onClick={logout}
                 label={navigation.logout.label.value}

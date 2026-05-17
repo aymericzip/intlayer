@@ -11,10 +11,6 @@ import {
 import { Checkbox, SearchInput } from '@intlayer/design-system/input';
 import { Loader } from '@intlayer/design-system/loader';
 import { PopoverStatic } from '@intlayer/design-system/popover';
-import {
-  RightDrawer,
-  useRightDrawer,
-} from '@intlayer/design-system/right-drawer';
 import { SwitchSelector } from '@intlayer/design-system/switch-selector';
 import { useToast } from '@intlayer/design-system/toaster';
 import { cn } from '@intlayer/design-system/utils';
@@ -33,7 +29,9 @@ import {
   Zap,
 } from 'lucide-react';
 import { type FC, memo, useCallback, useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { useIntlayer } from 'react-intlayer';
+import { useDashboardRightPanel } from '#hooks/useDashboardRightPanel';
 
 // ─── localStorage persistence ─────────────────────────────────────────────────
 
@@ -448,13 +446,14 @@ export const TranslationStatusAside: FC = () => {
    * so SSE merges can never accidentally clear them.
    */
   const [jobs, setJobs] = useState<Record<string, JobData>>({});
-  const {
-    open: openDrawer,
-    isOpen: checkIsOpen,
-    close: closeDrawer,
-  } = useRightDrawer();
+  const { open: openPanel, isOpen: checkIsOpen } = useDashboardRightPanel();
   const isOpen = checkIsOpen('translation-status');
+  const [portalTarget, setPortalTarget] = useState<HTMLElement | null>(null);
   const [showArchive, setShowArchive] = useState(false);
+
+  useEffect(() => {
+    setPortalTarget(document.getElementById('dashboard-right-panel'));
+  }, []);
   const [hasConnectionError, setHasConnectionError] = useState(false);
   const [lastSeenTimestamp, setLastSeenTimestamp] = useState(0);
 
@@ -671,20 +670,20 @@ export const TranslationStatusAside: FC = () => {
 
   const allJobs = Object.values(jobs);
   const visibleJobs = allJobs
-    .filter((j) => !j.dismissed)
+    .filter((job) => !job.dismissed)
     .sort((a, b) => (b.updatedAt ?? 0) - (a.updatedAt ?? 0));
   const archivedJobs = allJobs
-    .filter((j) => j.dismissed)
+    .filter((job) => job.dismissed)
     .sort((a, b) => (b.updatedAt ?? 0) - (a.updatedAt ?? 0));
 
-  const isProcessing = visibleJobs.some((j) =>
-    ['active', 'waiting', 'delayed'].includes(j.state)
+  const isProcessing = visibleJobs.some((job) =>
+    ['active', 'waiting', 'delayed'].includes(job.state)
   );
 
   const hasUnseenChanges = visibleJobs.some(
-    (j) =>
-      ['completed', 'failed'].includes(j.state) &&
-      (j.updatedAt ?? 0) > lastSeenTimestamp
+    (job) =>
+      ['completed', 'failed'].includes(job.state) &&
+      (job.updatedAt ?? 0) > lastSeenTimestamp
   );
 
   // Stable content object so JobCard memo never breaks on every render
@@ -700,15 +699,15 @@ export const TranslationStatusAside: FC = () => {
 
   // ── Render ────────────────────────────────────────────────────────────────
 
-  const isProcessingGlobal = visibleJobs.some((j) =>
-    ['active', 'waiting', 'delayed'].includes(j.state)
+  const isProcessingGlobal = visibleJobs.some((job) =>
+    ['active', 'waiting', 'delayed'].includes(job.state)
   );
 
   return (
     <>
       <PopoverStatic identifier="translation-status">
         <Button
-          onClick={() => openDrawer('translation-status')}
+          onClick={() => openPanel('translation-status')}
           type="button"
           variant="hoverable"
           label={content.translationStatus.value}
@@ -731,227 +730,225 @@ export const TranslationStatusAside: FC = () => {
         </PopoverStatic.Detail>
       </PopoverStatic>
 
-      <RightDrawer
-        isOpen={isOpen}
-        onClose={() => closeDrawer('translation-status')}
-        identifier="translation-status"
-        title={content.translationStatus1}
-      >
-        <div className="flex flex-col gap-4 p-1">
-          {/* Connection error banner */}
-          {hasConnectionError && (
-            <div className="flex items-center gap-2 rounded-md bg-card p-3 text-sm text-warning">
-              <AlertCircle className="size-4" />
-              {content.connectionLostReconnecting}
-            </div>
-          )}
-
-          {/* ── Active / visible jobs ── */}
-          <div className="flex flex-col gap-3">
-            {visibleJobs.length === 0 && !hasConnectionError ? (
-              <div className="flex flex-col items-center justify-center px-6 py-12 text-center">
-                <div className="mb-3 rounded-full bg-neutral/20 p-4">
-                  <Globe className="h-8 w-8 text-neutral" />
-                </div>
-                <p className="font-medium text-base text-text">
-                  {content.noActiveTranslations}
-                </p>
-                <p className="text-neutral text-sm">
-                  {content.startATranslationToSee}
-                </p>
+      {isOpen &&
+        portalTarget &&
+        createPortal(
+          <div className="flex h-full flex-col gap-4 overflow-auto p-4">
+            {/* Connection error banner */}
+            {hasConnectionError && (
+              <div className="flex items-center gap-2 rounded-md bg-card p-3 text-sm text-warning">
+                <AlertCircle className="size-4" />
+                {content.connectionLostReconnecting}
               </div>
-            ) : (
-              visibleJobs.map((job) => (
-                <JobCard
-                  key={job.jobId}
-                  job={job}
-                  onStop={handleStop}
-                  onPause={handlePause}
-                  onResume={handleResume}
-                  onDismiss={handleDismiss}
-                  onRetry={handleRetry}
-                  onRestore={handleRestore}
-                  content={cardContent}
-                />
-              ))
             )}
-          </div>
 
-          {/* ── Archive section ── */}
-          {archivedJobs.length > 0 && (
-            <div className="border-neutral/15 border-t pt-2">
-              <button
-                type="button"
-                onClick={() => setShowArchive((v) => !v)}
-                className="flex w-full items-center justify-between gap-2 rounded-lg px-2 py-2 text-neutral text-sm transition-colors hover:bg-neutral/10"
-              >
-                <span className="flex items-center gap-2">
-                  <Archive className="size-4" />
-                  {content.archivedJobs}
-                  <span className="rounded-full bg-neutral/20 px-1.5 py-0.5 text-xs">
-                    {archivedJobs.length}
-                  </span>
-                </span>
-                <ChevronDown
-                  className={cn(
-                    'size-4 transition-transform duration-200',
-                    showArchive && 'rotate-180'
-                  )}
-                />
-              </button>
-
-              {showArchive && (
-                <div className="mt-2 flex flex-col gap-2">
-                  {archivedJobs.map((job) => (
-                    <JobCard
-                      key={job.jobId}
-                      job={job}
-                      archived
-                      onStop={handleStop}
-                      onPause={handlePause}
-                      onResume={handleResume}
-                      onDismiss={handleDismiss}
-                      onRetry={handleRetry}
-                      onRestore={handleRestore}
-                      content={cardContent}
-                    />
-                  ))}
+            {/* ── Active / visible jobs ── */}
+            <div className="flex flex-col gap-3">
+              {visibleJobs.length === 0 && !hasConnectionError ? (
+                <div className="flex flex-col items-center justify-center px-6 py-12 text-center">
+                  <div className="mb-3 rounded-full bg-neutral/20 p-4">
+                    <Globe className="h-8 w-8 text-neutral" />
+                  </div>
+                  <p className="font-medium text-base text-text">
+                    {content.noActiveTranslations}
+                  </p>
+                  <p className="text-neutral text-sm">
+                    {content.startATranslationToSee}
+                  </p>
                 </div>
+              ) : (
+                visibleJobs.map((job) => (
+                  <JobCard
+                    key={job.jobId}
+                    job={job}
+                    onStop={handleStop}
+                    onPause={handlePause}
+                    onResume={handleResume}
+                    onDismiss={handleDismiss}
+                    onRetry={handleRetry}
+                    onRestore={handleRestore}
+                    content={cardContent}
+                  />
+                ))
               )}
             </div>
-          )}
 
-          {/* ── Fill translations panel ── */}
-          <div className="flex flex-col gap-4 border-neutral-200 border-t pt-4 dark:border-neutral-800">
-            {/* Mode selector */}
-            <div className="flex flex-col gap-2">
-              <span className="font-medium text-text text-xs">
-                {content.modeLabel}
-              </span>
-              <SwitchSelector
-                choices={[
-                  { content: content.modeFillMissing, value: 'complete' },
-                  { content: content.modeAuditAll, value: 'review' },
-                ]}
-                value={fillMode}
-                onChange={(value) =>
-                  setFillMode(value as 'complete' | 'review')
-                }
-                color="text"
-                size="sm"
-                className="w-full"
-              />
-            </div>
-
-            {/* Dictionary selector */}
-            <div className="flex flex-col gap-2">
-              <span className="font-medium text-text text-xs">
-                {content.dictionariesLabel}
-              </span>
-              <SwitchSelector
-                choices={[
-                  { content: content.allDictionaries, value: false },
-                  { content: content.selectSpecific, value: true },
-                ]}
-                value={selectSpecific}
-                onChange={setSelectSpecific}
-                color="text"
-                size="sm"
-                className="w-full"
-              />
-
-              {selectSpecific && (
-                <div className="flex flex-col gap-2">
-                  <SearchInput
-                    placeholder={content.searchDictionaries.value}
-                    value={dictionarySearch}
-                    onChange={(e) => setDictionarySearch(e.target.value)}
+            {/* ── Archive section ── */}
+            {archivedJobs.length > 0 && (
+              <div className="border-neutral/15 border-t pt-2">
+                <button
+                  type="button"
+                  onClick={() => setShowArchive((v) => !v)}
+                  className="flex w-full items-center justify-between gap-2 rounded-lg px-2 py-2 text-neutral text-sm transition-colors hover:bg-neutral/10"
+                >
+                  <span className="flex items-center gap-2">
+                    <Archive className="size-4" />
+                    {content.archivedJobs}
+                    <span className="rounded-full bg-neutral/20 px-1.5 py-0.5 text-xs">
+                      {archivedJobs.length}
+                    </span>
+                  </span>
+                  <ChevronDown
+                    className={cn(
+                      'size-4 transition-transform duration-200',
+                      showArchive && 'rotate-180'
+                    )}
                   />
-                  <Container
-                    background="none"
-                    border
-                    borderColor="card"
-                    roundedSize="xl"
-                    padding="md"
-                    className="flex max-h-40 flex-col gap-2 overflow-y-auto"
-                  >
-                    {isLoadingDictionaries ? (
-                      <div className="flex items-center justify-center py-4">
-                        <Loader className="size-4" />
-                      </div>
-                    ) : (
-                      <>
-                        {allDictionaries
-                          .filter((dictionaries) =>
+                </button>
+
+                {showArchive && (
+                  <div className="mt-2 flex flex-col gap-2">
+                    {archivedJobs.map((job) => (
+                      <JobCard
+                        key={job.jobId}
+                        job={job}
+                        archived
+                        onStop={handleStop}
+                        onPause={handlePause}
+                        onResume={handleResume}
+                        onDismiss={handleDismiss}
+                        onRetry={handleRetry}
+                        onRestore={handleRestore}
+                        content={cardContent}
+                      />
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* ── Fill translations panel ── */}
+            <div className="flex flex-col gap-4 border-neutral-200 border-t pt-4 dark:border-neutral-800">
+              {/* Mode selector */}
+              <div className="flex flex-col gap-2">
+                <span className="font-medium text-text text-xs">
+                  {content.modeLabel}
+                </span>
+                <SwitchSelector
+                  choices={[
+                    { content: content.modeFillMissing, value: 'complete' },
+                    { content: content.modeAuditAll, value: 'review' },
+                  ]}
+                  value={fillMode}
+                  onChange={(value) =>
+                    setFillMode(value as 'complete' | 'review')
+                  }
+                  color="text"
+                  size="sm"
+                  className="w-full"
+                />
+              </div>
+
+              {/* Dictionary selector */}
+              <div className="flex flex-col gap-2">
+                <span className="font-medium text-text text-xs">
+                  {content.dictionariesLabel}
+                </span>
+                <SwitchSelector
+                  choices={[
+                    { content: content.allDictionaries, value: false },
+                    { content: content.selectSpecific, value: true },
+                  ]}
+                  value={selectSpecific}
+                  onChange={setSelectSpecific}
+                  color="text"
+                  size="sm"
+                  className="w-full"
+                />
+
+                {selectSpecific && (
+                  <div className="flex flex-col gap-2">
+                    <SearchInput
+                      placeholder={content.searchDictionaries.value}
+                      value={dictionarySearch}
+                      onChange={(e) => setDictionarySearch(e.target.value)}
+                    />
+                    <Container
+                      background="none"
+                      border
+                      borderColor="card"
+                      roundedSize="xl"
+                      padding="md"
+                      className="flex max-h-40 flex-col gap-2 overflow-y-auto"
+                    >
+                      {isLoadingDictionaries ? (
+                        <div className="flex items-center justify-center py-4">
+                          <Loader className="size-4" />
+                        </div>
+                      ) : (
+                        <>
+                          {allDictionaries
+                            .filter((dictionaries) =>
+                              dictionaries.key
+                                .toLowerCase()
+                                .includes(dictionarySearch.toLowerCase())
+                            )
+                            .map((dictionaries) => (
+                              <Checkbox
+                                key={dictionaries.id}
+                                id={`dict-${dictionaries.id}`}
+                                name={`dict-${dictionaries.id}`}
+                                size="sm"
+                                color="text"
+                                checked={selectedDictionaryIds.has(
+                                  dictionaries.id
+                                )}
+                                onChange={() => {
+                                  setSelectedDictionaryIds((prev) => {
+                                    const next = new Set(prev);
+                                    if (next.has(dictionaries.id)) {
+                                      next.delete(dictionaries.id);
+                                    } else {
+                                      next.add(dictionaries.id);
+                                    }
+                                    return next;
+                                  });
+                                }}
+                                label={dictionaries.key}
+                                labelClassName="font-mono font-normal px-2 py-0.5 text-xs"
+                              />
+                            ))}
+                          {allDictionaries.filter((dictionaries) =>
                             dictionaries.key
                               .toLowerCase()
                               .includes(dictionarySearch.toLowerCase())
-                          )
-                          .map((dictionaries) => (
-                            <Checkbox
-                              key={dictionaries.id}
-                              id={`dict-${dictionaries.id}`}
-                              name={`dict-${dictionaries.id}`}
-                              size="sm"
-                              color="text"
-                              checked={selectedDictionaryIds.has(
-                                dictionaries.id
-                              )}
-                              onChange={() => {
-                                setSelectedDictionaryIds((prev) => {
-                                  const next = new Set(prev);
-                                  if (next.has(dictionaries.id)) {
-                                    next.delete(dictionaries.id);
-                                  } else {
-                                    next.add(dictionaries.id);
-                                  }
-                                  return next;
-                                });
-                              }}
-                              label={dictionaries.key}
-                              labelClassName="font-mono font-normal px-2 py-0.5 text-xs"
-                            />
-                          ))}
-                        {allDictionaries.filter((dictionaries) =>
-                          dictionaries.key
-                            .toLowerCase()
-                            .includes(dictionarySearch.toLowerCase())
-                        ).length === 0 && (
-                          <span className="py-2 text-center text-neutral-500 text-xs">
-                            {content.noDictionariesFound}
-                          </span>
-                        )}
-                      </>
-                    )}
-                  </Container>
-                </div>
-              )}
-            </div>
+                          ).length === 0 && (
+                            <span className="py-2 text-center text-neutral-500 text-xs">
+                              {content.noDictionariesFound}
+                            </span>
+                          )}
+                        </>
+                      )}
+                    </Container>
+                  </div>
+                )}
+              </div>
 
-            {/* Start button */}
-            <Button
-              onClick={handleFillAll}
-              isLoading={isFilling}
-              disabled={
-                isFilling ||
-                targetLocales.length === 0 ||
-                (selectSpecific && selectedDictionaryIds.size === 0)
-              }
-              Icon={Languages}
-              label={content.fillAllTranslations.value}
-              variant="default"
-              size="sm"
-              color="text"
-              className="mt-6 w-full"
-            >
-              {content.fillAllTranslations}
-            </Button>
-            <p className="-mt-2 text-center text-neutral text-xs">
-              {content.fillAllTranslationsDescription}
-            </p>
-          </div>
-        </div>
-      </RightDrawer>
+              {/* Start button */}
+              <Button
+                onClick={handleFillAll}
+                isLoading={isFilling}
+                disabled={
+                  isFilling ||
+                  targetLocales.length === 0 ||
+                  (selectSpecific && selectedDictionaryIds.size === 0)
+                }
+                Icon={Languages}
+                label={content.fillAllTranslations.value}
+                variant="default"
+                size="sm"
+                color="text"
+                className="mt-6 w-full"
+              >
+                {content.fillAllTranslations}
+              </Button>
+              <p className="-mt-2 text-center text-neutral text-xs">
+                {content.fillAllTranslationsDescription}
+              </p>
+            </div>
+          </div>,
+          portalTarget
+        )}
     </>
   );
 };

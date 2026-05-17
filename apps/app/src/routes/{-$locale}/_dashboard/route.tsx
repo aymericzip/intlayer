@@ -1,3 +1,4 @@
+import { Button } from '@intlayer/design-system/button';
 import { useSession } from '@intlayer/design-system/hooks';
 import {
   App_Dashboard_Dictionaries_Path,
@@ -8,8 +9,11 @@ import {
   App_Dashboard_Tags_Path,
   App_Dashboard_Translate_Path,
 } from '@intlayer/design-system/routes';
-import { createFileRoute, Outlet } from '@tanstack/react-router';
-import { getIntlayer } from 'intlayer';
+import { WithResizer } from '@intlayer/design-system/with-resizer';
+import { createFileRoute, Outlet, useLocation } from '@tanstack/react-router';
+import { getIntlayer, getPathWithoutLocale } from 'intlayer';
+import { X } from 'lucide-react';
+import { useEffect, useRef } from 'react';
 import { useIntlayer, useLocale } from 'react-intlayer';
 import { AuthenticationBarrier } from '#components/Auth/AuthenticationBarrier/AuthenticationBarrier';
 import { DashboardFooter } from '#components/Dashboard/DashboardFooter';
@@ -19,6 +23,10 @@ import {
   type SidebarNavigationItem,
 } from '#components/Dashboard/DashboardSidebar';
 import { DashboardSkeleton } from '#components/Dashboard/DashboardSkeleton';
+import {
+  dashboardRightPanelManager,
+  useDashboardRightPanel,
+} from '#hooks/useDashboardRightPanel';
 
 export const Route = createFileRoute('/{-$locale}/_dashboard')({
   pendingComponent: DashboardSkeleton,
@@ -46,10 +54,42 @@ export const Route = createFileRoute('/{-$locale}/_dashboard')({
 function DashboardLayout() {
   const { locale } = useLocale();
   const { session } = useSession();
+  const {
+    activePanel,
+    close: closeRightPanel,
+    open: openRightPanel,
+  } = useDashboardRightPanel();
+  const { pathname } = useLocation();
+  const wasVisualEditorOpenRef = useRef(false);
   const hasProject = !!session?.project;
 
-  const { collapseButton, navigation } = useIntlayer('dashboard-sidebar');
+  const isVisualEditorPage =
+    getPathWithoutLocale(pathname).startsWith(App_Dashboard_Translate_Path) ||
+    getPathWithoutLocale(pathname).startsWith(App_Dashboard_Dictionaries_Path);
+
+  useEffect(() => {
+    const currentPanel = dashboardRightPanelManager.getSnapshot().activePanel;
+    if (!isVisualEditorPage && currentPanel === 'visual-editor') {
+      wasVisualEditorOpenRef.current = true;
+      closeRightPanel();
+    } else if (isVisualEditorPage && wasVisualEditorOpenRef.current) {
+      wasVisualEditorOpenRef.current = false;
+      openRightPanel('visual-editor');
+    }
+  }, [isVisualEditorPage]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const { navigation, globe, book, tags, building2 } =
+    useIntlayer('dashboard-sidebar');
   const { footerLinks } = useIntlayer('dashboard-footer-content');
+
+  const { translationStatus, aiAssistant, visualEditor, closePanel } =
+    useIntlayer('dashboard-route');
+
+  const PANEL_TITLES: Record<string, string> = {
+    'translation-status': translationStatus.value,
+    'dashboard-chat': aiAssistant.value,
+    'visual-editor': visualEditor.value,
+  };
 
   const navigationItems: SidebarNavigationItem[] = [
     {
@@ -69,21 +109,21 @@ function DashboardLayout() {
         {
           key: 'translate',
           href: App_Dashboard_Translate_Path,
-          icon: 'Globe',
+          icon: globe.value,
           label: navigation.translate.label.value,
           title: navigation.translate.title.value,
         },
         {
           key: 'dictionaries',
           href: App_Dashboard_Dictionaries_Path,
-          icon: 'Book',
+          icon: book.value,
           label: navigation.dictionaries.label.value,
           title: navigation.dictionaries.title.value,
         },
         {
           key: 'tags',
           href: App_Dashboard_Tags_Path,
-          icon: 'Tags',
+          icon: tags.value,
           label: navigation.tags.label.value,
           title: navigation.tags.title.value,
         },
@@ -108,7 +148,7 @@ function DashboardLayout() {
     {
       key: 'organization',
       href: App_Dashboard_Organization_Path,
-      icon: 'Building2',
+      icon: building2.value,
       label: navigation.organization.label.value,
       title: navigation.organization.title.value,
     },
@@ -128,15 +168,41 @@ function DashboardLayout() {
       >
         <DashboardNavbar items={navigationItems} />
         <div className="flex min-h-0 w-full flex-1">
-          <DashboardSidebar
-            items={navigationItems}
-            collapseButtonLabel={collapseButton.label.value}
-          />
-          <div className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-2xl bg-background md:mr-2">
+          <DashboardSidebar items={navigationItems} />
+          <div className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-2xl border border-neutral/40 bg-background md:mr-2">
             <div className="flex flex-1 flex-col overflow-auto">
               <Outlet />
             </div>
           </div>
+          <WithResizer
+            initialWidth={0}
+            defaultOpenWidth={360}
+            isOpen={activePanel !== null}
+            handlePosition="left"
+            style={false}
+          >
+            <div className="flex h-full min-h-0 flex-col overflow-hidden rounded-2xl border border-neutral/40 bg-background md:mr-2">
+              <div className="flex shrink-0 items-center justify-between border-neutral/20 border-b px-3 py-2">
+                <span className="font-medium text-sm">
+                  {activePanel
+                    ? (PANEL_TITLES[activePanel] ?? activePanel)
+                    : ''}
+                </span>
+                <Button
+                  type="button"
+                  label={closePanel.value}
+                  onClick={closeRightPanel}
+                  Icon={X}
+                  variant="hoverable"
+                  size="icon-md"
+                />
+              </div>
+              <div
+                id="dashboard-right-panel"
+                className="relative flex-1 overflow-hidden"
+              />
+            </div>
+          </WithResizer>
         </div>
         <DashboardFooter locale={locale} links={formattedFooterLinks} />
       </div>
