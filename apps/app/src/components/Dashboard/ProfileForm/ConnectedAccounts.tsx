@@ -42,7 +42,7 @@ export const ConnectedAccounts: FC = () => {
   const { data: accountsData } = useListAccounts();
   const accounts = (accountsData?.data ?? []) as Array<{
     id: string;
-    provider: string;
+    providerId: string;
   }>;
   const { mutate: unlinkAccount } = useUnlinkAccount();
   const { mutate: linkSocial } = useLinkSocial();
@@ -51,10 +51,10 @@ export const ConnectedAccounts: FC = () => {
   );
 
   const isConnected = (providerId: ProviderId) =>
-    accounts.some((a) => a.provider === providerId);
+    accounts.some((a) => a.providerId === providerId);
 
   const getAccountId = (providerId: ProviderId) =>
-    accounts.find((a) => a.provider === providerId)?.id;
+    accounts.find((a) => a.providerId === providerId)?.id;
 
   const handleConnect = (provider: ProviderId) => {
     setPendingProvider(provider);
