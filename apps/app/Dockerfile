@@ -8,6 +8,7 @@ FROM node:26-alpine AS builder
 
 RUN npm install -g bun@1.3.14
 
+RUN apk add --no-cache build-base zlib-dev autoconf automake
 
 # Create app directory
 WORKDIR /workspace
