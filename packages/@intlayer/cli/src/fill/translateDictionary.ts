@@ -1,6 +1,6 @@
 import { basename } from 'node:path';
 import type { AIConfig } from '@intlayer/ai';
-import { type AIOptions, getIntlayerAPIProxy } from '@intlayer/api';
+import type { AIOptions } from '@intlayer/api';
 import {
   chunkJSON,
   excludeObjectFormat,
@@ -29,6 +29,7 @@ import type { Locale } from '@intlayer/types/allLocales';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import type { Dictionary } from '@intlayer/types/dictionary';
 import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
+import { getAuthenticatedAPI } from '../utils/checkAccess';
 import type { AIClient } from '../utils/setupAI';
 import { deepMergeContent } from './deepMergeContent';
 import {
@@ -99,7 +100,7 @@ export const translateDictionary = async (
   options?: TranslateDictionaryOptions
 ): Promise<TranslateDictionaryResult> => {
   const appLogger = getAppLogger(configuration);
-  const intlayerAPI = getIntlayerAPIProxy(undefined, configuration);
+  const intlayerAPI = await getAuthenticatedAPI(configuration);
 
   const { mode, aiOptions, fillMetadata, aiClient, aiConfig } = {
     mode: 'complete',

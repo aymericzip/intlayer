@@ -1,11 +1,10 @@
-import { getIntlayerAPIProxy } from '@intlayer/api';
 import { logConfigDetails } from '@intlayer/chokidar/cli';
 import { getAppLogger } from '@intlayer/config/logger';
 import {
   type GetConfigurationOptions,
   getConfiguration,
 } from '@intlayer/config/node';
-import { checkCMSAuth } from './utils/checkAccess';
+import { checkCMSAuth, getAuthenticatedAPI } from './utils/checkAccess';
 
 type PushOptions = {
   configOptions?: GetConfigurationOptions;
@@ -21,7 +20,7 @@ export const pushConfig = async (options?: PushOptions) => {
 
   if (!hasCMSAuth) return;
 
-  const intlayerAPI = getIntlayerAPIProxy(undefined, config);
+  const intlayerAPI = await getAuthenticatedAPI(config);
 
   // Push the project configuration
   const getDictionariesKeysResult =

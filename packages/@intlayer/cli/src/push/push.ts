@@ -1,6 +1,5 @@
 import * as fsPromises from 'node:fs/promises';
 import { join } from 'node:path';
-import { getIntlayerAPIProxy } from '@intlayer/api';
 import {
   prepareIntlayer,
   writeContentDeclaration,
@@ -20,7 +19,7 @@ import {
 import type { Dictionary } from '@intlayer/types/dictionary';
 import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 import { PushLogger, type PushStatus } from '../pushLog';
-import { checkCMSAuth } from '../utils/checkAccess';
+import { checkCMSAuth, getAuthenticatedAPI } from '../utils/checkAccess';
 
 type PushOptions = {
   deleteLocaleDictionary?: boolean;
@@ -73,7 +72,7 @@ export const push = async (options?: PushOptions): Promise<void> => {
 
     if (!hasCMSAuth) return;
 
-    const intlayerAPI = getIntlayerAPIProxy(undefined, config);
+    const intlayerAPI = await getAuthenticatedAPI(config);
 
     const unmergedDictionariesRecord = getUnmergedDictionaries(config);
     const allDictionaries = Object.values(unmergedDictionariesRecord).flat();

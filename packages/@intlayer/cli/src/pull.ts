@@ -1,6 +1,5 @@
 import { existsSync } from 'node:fs';
 import { join } from 'node:path';
-import { getIntlayerAPIProxy } from '@intlayer/api';
 import {
   type DictionaryStatus,
   writeContentDeclaration,
@@ -17,7 +16,7 @@ import { getProjectRequire } from '@intlayer/config/utils';
 import type { Dictionary } from '@intlayer/types/dictionary';
 import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 import { PullLogger, type PullStatus } from './push/pullLog';
-import { checkCMSAuth } from './utils/checkAccess';
+import { checkCMSAuth, getAuthenticatedAPI } from './utils/checkAccess';
 
 type PullOptions = {
   dictionaries?: string[];
@@ -37,17 +36,17 @@ type DictionariesStatus = {
  * with progress indicators and concurrency control.
  */
 export const pull = async (options?: PullOptions): Promise<void> => {
-  const appLogger = getAppLogger(options?.configOptions?.override);
+  const config = getConfiguration(options?.configOptions);
+  const appLogger = getAppLogger(config);
 
   try {
-    const config = getConfiguration(options?.configOptions);
     logConfigDetails(options?.configOptions);
 
     const hasCMSAuth = await checkCMSAuth(config);
 
     if (!hasCMSAuth) return;
 
-    const intlayerAPI = getIntlayerAPIProxy(undefined, config);
+    const intlayerAPI = await getAuthenticatedAPI(config);
 
     const unmergedDictionariesRecord = getUnmergedDictionaries(config);
 

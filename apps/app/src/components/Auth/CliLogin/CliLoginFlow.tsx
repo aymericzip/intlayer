@@ -1,5 +1,6 @@
 import { getIntlayerAPI } from '@intlayer/api';
 import type { OAuth2AccessAPI } from '@intlayer/backend';
+import appConfig from '@intlayer/config/built';
 import { LanguageBackground } from '@intlayer/design-system';
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
@@ -25,6 +26,7 @@ import { SignInForm } from '../SignIn';
 type CliLoginFlowProps = {
   port?: string;
   state?: string;
+  backendUrl?: string;
 };
 
 const AccessKeySelector: FC<{
@@ -156,7 +158,8 @@ const AccessKeySelector: FC<{
 const SessionAuthSelector: FC<{
   port: string;
   state?: string;
-}> = ({ port, state }) => {
+  backendUrl?: string;
+}> = ({ port, state, backendUrl }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -166,7 +169,16 @@ const SessionAuthSelector: FC<{
     setIsLoading(true);
     setError(null);
     try {
-      const result = await getIntlayerAPI().oAuth.createCliSessionToken();
+      const resolvedConfig = backendUrl
+        ? {
+            ...appConfig,
+            editor: { ...appConfig.editor, backendURL: backendUrl },
+          }
+        : appConfig;
+      const result = await getIntlayerAPI(
+        {},
+        resolvedConfig
+      ).oAuth.createCliSessionToken();
       const { token, expiresAt } = result.data ?? {};
 
       if (!token || !expiresAt) {
@@ -216,7 +228,11 @@ const SessionAuthSelector: FC<{
   );
 };
 
-export const CliLoginFlow: FC<CliLoginFlowProps> = ({ port, state }) => {
+export const CliLoginFlow: FC<CliLoginFlowProps> = ({
+  port,
+  state,
+  backendUrl,
+}) => {
   const { session } = useSession();
   const { mutate: selectOrganization } = useSelectOrganization();
   const {
@@ -315,7 +331,11 @@ export const CliLoginFlow: FC<CliLoginFlowProps> = ({ port, state }) => {
             {currentStep === 'key' && (
               <div className="m-auto flex w-full flex-col divide-y-1 divide-dashed divide-neutral/20">
                 <div className="flex w-full flex-row pb-4">
-                  <SessionAuthSelector port={port} state={state} />
+                  <SessionAuthSelector
+                    port={port}
+                    state={state}
+                    backendUrl={backendUrl}
+                  />
                 </div>
                 <div className="flex w-full flex-row pt-4">
                   <AccessKeySelector onSelect={handleKeySelect} />

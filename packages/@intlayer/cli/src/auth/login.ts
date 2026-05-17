@@ -1,5 +1,4 @@
 import http from 'node:http';
-import { relative } from 'node:path';
 import { URL } from 'node:url';
 import { logConfigDetails } from '@intlayer/chokidar/cli';
 import * as ANSIColors from '@intlayer/config/colors';
@@ -209,7 +208,8 @@ export const login = async (options: LoginOptions) => {
 
       const websiteUrl =
         cmsUrl ?? process.env.INTLAYER_SITE_URL ?? 'http://localhost:3000';
-      const loginUrl = `${websiteUrl}/auth/cli-login?port=${port}&state=${state}`;
+      const backendUrl = configuration.editor.backendURL ?? '';
+      const loginUrl = `${websiteUrl}/auth/cli-login?port=${port}&state=${state}&backendUrl=${encodeURIComponent(backendUrl)}`;
 
       logger('Opening browser for login...');
       logger(`If browser does not open, visit: ${colorizePath(loginUrl)}`);
