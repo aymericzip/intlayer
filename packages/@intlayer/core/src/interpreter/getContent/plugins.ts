@@ -16,6 +16,7 @@ import type {
   InsertionContent,
   NestedContent,
   PluralContent,
+  PluralContentState,
   TranslationContent,
 } from '../../transpiler';
 import { getCondition } from '../getCondition';
@@ -260,20 +261,12 @@ export const pluralPlugin = (locale?: LocalesValues): Plugins =>
 
           return (arg: number | { count: number; [key: string]: unknown }) => {
             const count = typeof arg === 'number' ? arg : arg.count;
-            const values =
-              typeof arg === 'object'
-                ? arg
-                : ({ count } as Record<string, unknown>);
 
             const subResult = getPlural(
-              result as PluralContent['plural'],
+              result as PluralContent['plural'] as PluralContentState<string>,
               count,
               effectiveLocale
             );
-
-            if (typeof subResult === 'function') {
-              return subResult(values);
-            }
 
             return subResult;
           };
@@ -495,12 +488,12 @@ export const nestedPlugin = (locale?: LocalesValues): Plugins =>
  * FILE PLUGIN
  * --------------------------------------------- */
 
-export type FileCond<T> = T extends {
+export type FileCond<T, S, _L> = T extends {
   nodeType: NodeType | string;
   [NodeTypes.FILE]: string;
   content?: string;
 }
-  ? string
+  ? DeepTransformContent<string, S>
   : never;
 
 /** File plugin. Replaces node with the result of `getNesting`. */
@@ -554,7 +547,7 @@ export interface IInterpreterPlugin<T, S, L extends LocalesValues> {
   insertion: InsertionCond<T, S, L>;
   gender: GenderCond<T, S, L>;
   nested: NestedCond<T, S, L>;
-  file: FileCond<T>;
+  file: FileCond<T, S, L>;
 }
 
 /**
