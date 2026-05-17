@@ -567,28 +567,6 @@ const repositoryLinkContent = {
         uk: 'Відкрити IDE',
       }),
     },
-
-    errorReadingFile: t({
-      en: 'Error reading file',
-      fr: 'Erreur lors de la lecture du fichier',
-      es: 'Error al leer el archivo',
-      ru: 'Ошибка при чтении файла',
-      ja: 'ファイルの読み取りエラー',
-      ko: '파일 읽기 오류',
-      zh: '读取文件时出错',
-      de: 'Fehler beim Lesen der Datei',
-      ar: 'خطأ في قراءة الملف',
-      it: 'Errore durante la lettura del file',
-      'en-GB': 'Error reading file',
-      pt: 'Erro ao ler o arquivo',
-      hi: 'फ़ाइल पढ़ने में त्रुटि',
-      tr: 'Dosya okunurken hata oluştu',
-      pl: 'Błąd podczas odczytu pliku',
-      id: 'Kesalahan saat membaca file',
-      vi: 'Lỗi khi đọc tệp',
-      uk: 'Помилка при читанні файлу',
-    }),
-
     modal: {
       selectRepository: t({
         en: 'Select Repository',

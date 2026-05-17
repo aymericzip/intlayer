@@ -66,27 +66,6 @@ const cliLoginFlowContent = {
       uk: 'Оберіть проєкт',
     }),
 
-    selectAccessKey: t({
-      en: 'Select Access Key',
-      'en-GB': 'Select Access Key',
-      es: 'Seleccionar clave de acceso',
-      fr: "Sélectionner une clé d'accès",
-      ru: 'Выберите ключ доступа',
-      ja: 'アクセスキーを選択',
-      ko: '액세스 키 선택',
-      zh: '选择访问密钥',
-      de: 'Zugriffsschlüssel auswählen',
-      ar: 'اختر مفتاح الوصول',
-      it: "Seleziona chiave d'accesso",
-      pt: 'Selecionar chave de acesso',
-      hi: 'एक्सेस कुंजी चुनें',
-      tr: 'Erişim Anahtarını Seç',
-      pl: 'Wybierz klucz dostępu',
-      id: 'Pilih Kunci Akses',
-      vi: 'Chọn khóa truy cập',
-      uk: 'Оберіть ключ доступу',
-    }),
-
     context: t({
       en: 'Context',
       'en-GB': 'Context',

@@ -3,26 +3,6 @@ import { type Dictionary, t } from 'intlayer';
 const organizationsAdminPageContent = {
   key: 'organization-admin-page',
   content: {
-    title: t({
-      en: 'Organizations Management',
-      fr: 'Gestion des organisations',
-      es: 'Gestión de organizaciones',
-      'en-GB': 'Organisations Management',
-      de: 'Organisationsverwaltung',
-      ja: '組織管理',
-      ko: '조직 관리',
-      zh: '组织管理',
-      it: 'Gestione delle organizzazioni',
-      pt: 'Gestão de organizações',
-      hi: 'संगठन व्यवस्थापन',
-      ar: 'إدارة المنظمات',
-      ru: 'Управление организациями',
-      tr: 'Organizasyon Yönetimi',
-      pl: 'Zarządzanie organizacjami',
-      id: 'Manajemen organisasi',
-      vi: 'Quản lý tổ chức',
-      uk: 'Управління організаціями',
-    }),
     tableHeaders: {
       name: t({
         en: 'Name',

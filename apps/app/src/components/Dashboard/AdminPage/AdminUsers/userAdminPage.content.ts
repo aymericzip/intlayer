@@ -3,26 +3,6 @@ import { type Dictionary, t } from 'intlayer';
 const userAdminPageContent = {
   key: 'user-admin-page',
   content: {
-    title: t({
-      en: 'Users Management',
-      fr: 'Gestion des utilisateurs',
-      es: 'Gestión de usuarios',
-      'en-GB': 'Users Management',
-      de: 'Benutzerverwaltung',
-      ja: 'ユーザー管理',
-      ko: '사용자 관리',
-      zh: '用户管理',
-      it: 'Gestione utenti',
-      pt: 'Gestão de usuários',
-      hi: 'उपयोगकर्ता प्रबंधन',
-      ar: 'إدارة المستخدمين',
-      ru: 'Управление пользователями',
-      tr: 'Kullanıcı yönetimi',
-      pl: 'Zarządzanie użytkownikami',
-      id: 'Manajemen Pengguna',
-      vi: 'Quản lý người dùng',
-      uk: 'Управління користувачами',
-    }),
     tableHeaders: {
       name: t({
         en: 'Name',

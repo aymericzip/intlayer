@@ -3,27 +3,6 @@ import { type Dictionary, insert, t } from 'intlayer';
 const discussionsAdminPageContent = {
   key: 'discussion-admin-detail',
   content: {
-    title: t({
-      en: 'Discussions Management',
-      fr: 'Gestion des discussions',
-      es: 'Gestión de discusiones',
-      'en-GB': 'Discussions Management',
-      de: 'Diskussionsverwaltung',
-      ja: 'ディスカッション管理',
-      ko: '토론 관리',
-      zh: '讨论管理',
-      it: 'Gestione discussioni',
-      pt: 'Gestão de discussões',
-      hi: 'चर्चा प्रबंधन',
-      ar: 'إدارة المناقشات',
-      ru: 'Управление обсуждениями',
-      tr: 'Tartışma yönetimi',
-      pl: 'Zarządzanie dyskusjami',
-      id: 'Manajemen Diskusi',
-      vi: 'Quản lý thảo luận',
-      uk: 'Керування обговореннями',
-    }),
-
     tableHeaders: {
       id: 'ID',
       userName: t({
