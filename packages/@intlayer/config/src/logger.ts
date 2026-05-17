@@ -4,7 +4,17 @@ import type {
   IntlayerConfig,
 } from '@intlayer/types/config';
 import type * as ANSIColorsTypes from './colors';
-import { BEIGE, BLUE, GREEN, GREY, RED, RESET } from './colors';
+import {
+  BEIGE,
+  BLUE,
+  GREEN,
+  GREY,
+  GREY_DARK,
+  GREY_LIGHT,
+  RED,
+  RESET,
+  WHITE,
+} from './colors';
 
 export type ANSIColorsType =
   (typeof ANSIColorsTypes)[keyof typeof ANSIColorsTypes];
@@ -126,6 +136,85 @@ export const colorizeNumber = (
   const rule = new Intl.PluralRules('en').select(Number(number));
   const color = options[rule];
   return colorize(number.toString(), color);
+};
+
+export const colorizeObject = (
+  obj: any,
+  indentLevel = 0,
+  indentSize = 2,
+  key?: string
+): string => {
+  const indent = ' '.repeat(indentLevel * indentSize);
+  const nextIndent = ' '.repeat((indentLevel + 1) * indentSize);
+
+  if (obj === null) {
+    return colorize('null', BLUE);
+  }
+
+  if (typeof obj === 'boolean') {
+    return colorize(obj.toString(), BLUE);
+  }
+
+  if (typeof obj === 'number') {
+    return colorize(obj.toString(), BLUE);
+  }
+
+  if (typeof obj === 'string') {
+    const isDateString = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/.test(obj);
+    const isUrl = obj.startsWith('http://') || obj.startsWith('https://');
+    const isPath =
+      obj.startsWith('/') ||
+      obj.startsWith('./') ||
+      obj.startsWith('../') ||
+      /\.[a-zA-Z0-9]{2,5}$/.test(obj);
+    const isSecret =
+      /^[0-9a-fA-F]{24,}$/.test(obj) || (obj.length >= 40 && !/\s/.test(obj));
+    const hasSpaces = /\s/.test(obj);
+
+    if (isDateString) return colorize(`"${obj}"`, BEIGE);
+    if (isUrl || isPath) return colorize(`"${obj}"`, GREY_DARK);
+    if (isSecret) return colorize(`"${obj}"`, GREY);
+    if (hasSpaces) return colorize(`"${obj}"`, WHITE);
+    return colorize(`"${obj}"`, BLUE);
+  }
+
+  if (Array.isArray(obj)) {
+    if (obj.length === 0) {
+      return '[]';
+    }
+    const items = obj
+      .map(
+        (item) =>
+          `${nextIndent}${colorizeObject(item, indentLevel + 1, indentSize, key)}`
+      )
+      .join(',\n');
+    return `[\n${items}\n${indent}]`;
+  }
+
+  if (typeof obj === 'object') {
+    const keys = Object.keys(obj);
+
+    if (keys.length === 0) {
+      return '{}';
+    }
+
+    const fields = keys
+      .map((key) => {
+        const coloredKey = colorize(`"${key}"`, GREY_LIGHT);
+        const value = obj[key];
+        const coloredValue = colorizeObject(
+          value,
+          indentLevel + 1,
+          indentSize,
+          key
+        );
+        return `${nextIndent}${coloredKey}: ${coloredValue}`;
+      })
+      .join(',\n');
+    return `{\n${fields}\n${indent}}`;
+  }
+
+  return colorize(String(obj), GREY);
 };
 
 export const removeColor = (text: string) =>

@@ -1,5 +1,5 @@
 import { logConfigDetails } from '@intlayer/chokidar/cli';
-import { getAppLogger } from '@intlayer/config/logger';
+import { colorizeObject, getAppLogger } from '@intlayer/config/logger';
 import {
   type GetConfigurationOptions,
   getConfiguration,
@@ -15,5 +15,5 @@ export const getConfig = (options?: ConfigOptions) => {
 
   const appLogger = getAppLogger(config);
 
-  appLogger(JSON.stringify(config, null, 2));
+  appLogger(colorizeObject(config));
 };

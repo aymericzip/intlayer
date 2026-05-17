@@ -1,5 +1,5 @@
 import { logConfigDetails } from '@intlayer/chokidar/cli';
-import { getAppLogger } from '@intlayer/config/logger';
+import { colorizeObject, getAppLogger } from '@intlayer/config/logger';
 import {
   type GetConfigurationOptions,
   getConfiguration,
@@ -32,5 +32,5 @@ export const pushConfig = async (options?: PushOptions) => {
 
   appLogger('Project configuration pushed successfully');
 
-  appLogger(JSON.stringify(getDictionariesKeysResult.data, null, 2));
+  appLogger(colorizeObject(getDictionariesKeysResult.data));
 };
