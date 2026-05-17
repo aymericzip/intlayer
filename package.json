@@ -33,11 +33,11 @@
     "./plugins/*"
   ],
   "scripts": {
-    "build": "turbo build --filter=./packages/** --filter=./docs --filter=./apps/backend",
-    "build:ci": "turbo build:ci --filter=./packages/** --filter=./docs --filter=./apps/backend",
+    "build": "turbo build '--filter=./packages/**' '--filter=./docs' '--filter=./apps/backend'",
+    "build:ci": "turbo build:ci '--filter=./packages/**' '--filter=./docs' '--filter=./apps/backend'",
     "check": "bun --bun biome check .",
     "check:fix": "bun --bun biome check --write .",
-    "clean": "turbo clean --filter=./packages/** --filter=./docs --filter=./apps/backend",
+    "clean": "turbo clean '--filter=./packages/**' '--filter=./docs' '--filter=./apps/backend'",
     "clean:node_modules": "bun --bun rimraf node_modules ./**/node_modules",
     "clean:packages:node_modules": "bun --bun rimraf ./**/node_modules",
     "dev": "bun ./scripts/script-dev-package-command.mjs --command build",
