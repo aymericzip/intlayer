@@ -233,5 +233,3 @@ GitHub yıldızları, bir projenin popülerliğinin, topluluk güveninin ve uzun
 `intlayer` ayrıca `react-intl`, `react-i18next`, `next-intl`, `next-i18next` ve `vue-i18n` ad alanlarınızı yönetmenize yardımcı olabilir.
 
 `intlayer` kullanarak içeriğinizi favori i18n kütüphanenizin formatında beyan edebilirsiniz ve intlayer ad alanlarınızı seçtiğiniz konumda oluşturacaktır (örnek: `/messages/{{locale}}/{{namespace}}.json`).
-
-Daha fazla ayrıntı için [`dictionaryOutput` ve `i18nextResourcesDir` seçeneklerine](https://intlayer.org/doc/concept/configuration#content-configuration) bakın.

@@ -233,5 +233,3 @@ Sao GitHub là một chỉ số mạnh mẽ về mức độ phổ biến của 
 `intlayer` cũng có thể giúp quản lý các không gian tên `react-intl`, `react-i18next`, `next-intl`, `next-i18next` và `vue-i18n` của bạn.
 
 Sử dụng `intlayer`, bạn có thể khai báo nội dung của mình theo định dạng của thư viện i18n yêu thích và intlayer sẽ tạo các không gian tên của bạn tại vị trí bạn chọn (ví dụ: `/messages/{{locale}}/{{namespace}}.json`).
-
-Tham khảo các [tùy chọn dictionaryOutput và i18nextResourcesDir](https://intlayer.org/doc/concept/configuration#content-configuration) để biết thêm chi tiết.

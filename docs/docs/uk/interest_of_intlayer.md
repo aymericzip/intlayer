@@ -233,5 +233,3 @@ export const ComponentExample = () => {
 `intlayer` також може допомогти в управлінні просторами назв `react-intl`, `react-i18next`, `next-intl`, `next-i18next` та `vue-i18n`.
 
 За допомогою `intlayer` ви можете оголосити свій вміст у форматі вашої улюбленої бібліотеки i18n, і intlayer згенерує простори назв у вибраному вами місці (наприклад: `/messages/{{locale}}/{{namespace}}.json`).
-
-Для отримання додаткової інформації зверніться до [опцій `dictionaryOutput` та `i18nextResourcesDir`](https://intlayer.org/doc/concept/configuration#content-configuration).

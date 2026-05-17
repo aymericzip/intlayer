@@ -257,8 +257,6 @@ const { greeting } = useIntlayer("component-example");
 
 Використовуючи `intlayer`, ви можете задавати контент у форматі вашої улюбленої i18n-бібліотеки, і intlayer згенерує ваші неймспейси в обраному місці (наприклад: `/messages/{{locale}}/{{namespace}}.json`).
 
-Див. опції [`dictionaryOutput` та `i18nextResourcesDir`](https://intlayer.org/doc/concept/configuration#content-configuration) для детальнішої інформації.
-
 ---
 
 ## Зірки GitHub

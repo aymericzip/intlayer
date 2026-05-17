@@ -233,5 +233,3 @@ Le stelle di GitHub sono un forte indicatore della popolarità di un progetto, d
 `intlayer` può anche aiutare a gestire i tuoi namespace `react-intl`, `react-i18next`, `next-intl`, `next-i18next` e `vue-i18n`.
 
 Usando `intlayer`, puoi dichiarare i tuoi contenuti nel formato della tua libreria i18n preferita, e intlayer genererà i tuoi namespace nella posizione di tua scelta (esempio: `/messages/{{locale}}/{{namespace}}.json`).
-
-Consulta le [opzioni dictionaryOutput e i18nextResourcesDir](https://intlayer.org/doc/concept/configuration#content-configuration) per maggiori dettagli.

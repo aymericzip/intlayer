@@ -233,5 +233,3 @@ GitHub স্টার হলো একটি প্রজেক্টের জ
 `intlayer` আপনার `react-intl`, `react-i18next`, `next-intl`, `next-i18next` এবং `vue-i18n` নেমস্পেসগুলি পরিচালনা করতেও সহায়তা করতে পারে।
 
 `intlayer` ব্যবহার করে, আপনি আপনার প্রিয় i18n লাইব্রেরির ফরম্যাটে আপনার বিষয়বস্তু ঘোষণা করতে পারেন এবং intlayer আপনার পছন্দের অবস্থানে আপনার নেমস্পেস তৈরি করবে (উদাহরণ: `/messages/{{locale}}/{{namespace}}.json`)।
-
-আরও বিশদ বিবরণের জন্য [`dictionaryOutput` এবং `i18nextResourcesDir` অপশনগুলি](https://intlayer.org/doc/concept/configuration#content-configuration) দেখুন।

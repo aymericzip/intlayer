@@ -233,5 +233,3 @@ Hvězdičky na GitHubu jsou silným ukazatelem popularity projektu, důvěry kom
 `intlayer` může také pomoci spravovat vaše jmenné prostory pro `react-intl`, `react-i18next`, `next-intl`, `next-i18next` a `vue-i18n`.
 
 Pomocí `intlayer` můžete deklarovat svůj obsah ve formátu vaší oblíbené knihovny i18n a intlayer vygeneruje vaše jmenné prostory v umístění podle vašeho výběru (příklad: `/messages/{{locale}}/{{namespace}}.json`).
-
-Další podrobnosti naleznete v [možnostech `dictionaryOutput` a `i18nextResourcesDir`](https://intlayer.org/doc/concept/configuration#content-configuration).

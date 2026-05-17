@@ -232,5 +232,3 @@ Les étoiles GitHub sont un indicateur fort de la popularité d'un projet, de la
 intlayer peut également aider à gérer vos namespaces react-intl, react-i18next, next-intl, next-i18next et vue-i18n.
 
 En utilisant intlayer, vous pouvez déclarer votre contenu au format de votre bibliothèque i18n préférée, et intlayer générera vos namespaces à l'emplacement de votre choix (exemple : /messages/{{locale}}/{{namespace}}.json).
-
-Consultez les [options dictionaryOutput et i18nextResourcesDir](https://intlayer.org/doc/concept/configuration#content-configuration) pour plus de détails.

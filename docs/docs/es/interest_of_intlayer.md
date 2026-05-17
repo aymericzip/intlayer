@@ -232,5 +232,3 @@ Las estrellas de GitHub son un fuerte indicador de la popularidad de un proyecto
 intlayer también puede ayudar a gestionar tus espacios de nombres react-intl, react-i18next, next-intl, next-i18next y vue-i18n.
 
 Usando intlayer, puedes declarar tu contenido en el formato de tu biblioteca i18n favorita, e intlayer generará tus espacios de nombres en la ubicación de tu elección (ejemplo: /messages/{{locale}}/{{namespace}}.json).
-
-Consulta las [opciones dictionaryOutput e i18nextResourcesDir](https://intlayer.org/doc/concept/configuration#content-configuration) para más detalles.

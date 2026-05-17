@@ -144,8 +144,6 @@ slugs:
 
 Використовуючи `intlayer`, ви можете оголошувати ваш контент у форматі улюбленої i18n-бібліотеки, і intlayer згенерує ваші неймспейси у вибраному місці (приклад: `/messages/{{locale}}/{{namespace}}.json`).
 
-Дивіться опції [`dictionaryOutput` and `i18nextResourcesDir`](https://intlayer.org/doc/concept/configuration#content-configuration) для детальнішої інформації.
-
 ---
 
 ## Зірки GitHub

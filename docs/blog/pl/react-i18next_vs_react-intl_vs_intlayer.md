@@ -144,8 +144,6 @@ Oceniamy:
 
 Korzystając z `intlayer`, możesz deklarować swoją zawartość w formacie ulubionej biblioteki i18n, a intlayer wygeneruje Twoje przestrzenie nazw w wybranej lokalizacji (np. `/messages/{{locale}}/{{namespace}}.json`).
 
-Zapoznaj się z opcjami [`dictionaryOutput` i `i18nextResourcesDir`](https://intlayer.org/doc/concept/configuration#content-configuration) po więcej szczegółów.
-
 ---
 
 ## Gwiazdki GitHub

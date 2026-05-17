@@ -144,8 +144,6 @@ Chúng tôi đánh giá:
 
 Sử dụng `intlayer`, bạn có thể khai báo nội dung theo định dạng của thư viện i18n yêu thích của bạn, và intlayer sẽ tạo ra các namespace tại vị trí bạn chọn (ví dụ: `/messages/{{locale}}/{{namespace}}.json`).
 
-Tham khảo các tùy chọn [`dictionaryOutput` và `i18nextResourcesDir`](https://intlayer.org/doc/concept/configuration#content-configuration) để biết thêm chi tiết.
-
 ---
 
 ## Sao trên GitHub

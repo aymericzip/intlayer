@@ -233,5 +233,3 @@ Gwiazdki na GitHubie są silnym wskaźnikiem popularności projektu, zaufania sp
 `intlayer` może również pomóc w zarządzaniu przestrzeniami nazw `react-intl`, `react-i18next`, `next-intl`, `next-i18next` oraz `vue-i18n`.
 
 Korzystając z `intlayer`, możesz zadeklarować swoją treść w formacie ulubionej biblioteki i18n, a intlayer wygeneruje przestrzenie nazw w wybranej przez Ciebie lokalizacji (przykład: `/messages/{{locale}}/{{namespace}}.json`).
-
-Więcej szczegółów znajdziesz w [opcjach `dictionaryOutput` oraz `i18nextResourcesDir`](https://intlayer.org/doc/concept/configuration#content-configuration).

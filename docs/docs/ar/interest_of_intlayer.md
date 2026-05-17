@@ -233,5 +233,3 @@ export const ComponentExample = () => {
 يمكن لـ `intlayer` أيضًا المساعدة في إدارة مساحات الأسماء الخاصة بـ `react-intl` و `react-i18next` و `next-intl` و `next-i18next` و `vue-i18n`.
 
 باستخدام `intlayer`، يمكنك التصريح عن المحتوى الخاص بك بتنسيق مكتبة i18n المفضلة لديك، وسيقوم intlayer بإنشاء مساحات الأسماء الخاصة بك في الموقع الذي تختاره (مثال: `/messages/{{locale}}/{{namespace}}.json`).
-
-ارجع إلى [خيارات dictionaryOutput و i18nextResourcesDir](https://intlayer.org/doc/concept/configuration#content-configuration) لمزيد من التفاصيل.

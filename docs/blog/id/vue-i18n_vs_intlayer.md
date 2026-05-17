@@ -256,8 +256,6 @@ Pendekatan ini:
 
 Dengan menggunakan `intlayer`, Anda dapat mendeklarasikan konten Anda dalam format perpustakaan i18n favorit Anda, dan intlayer akan menghasilkan namespace Anda di lokasi pilihan Anda (contoh: `/messages/{{locale}}/{{namespace}}.json`).
 
-Lihat opsi [`dictionaryOutput` dan `i18nextResourcesDir`](https://intlayer.org/doc/concept/configuration#content-configuration) untuk detail lebih lanjut.
-
 ---
 
 ## GitHub STARs

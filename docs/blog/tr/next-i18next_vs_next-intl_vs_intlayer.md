@@ -152,8 +152,6 @@ Bu rehber, **Next.js** için yaygın olarak kullanılan üç i18n seçeneğini k
 
 `intlayer` kullanarak, içeriğinizi favori i18n kütüphanenizin formatında beyan edebilirsiniz ve intlayer ad alanlarınızı istediğiniz konumda oluşturacaktır (örnek: `/messages/{{locale}}/{{namespace}}.json`).
 
-Daha fazla detay için [`dictionaryOutput` ve `i18nextResourcesDir` seçeneklerine](https://intlayer.org/doc/concept/configuration#content-configuration) bakın.
-
 ---
 
 ## GitHub YILDIZLARI

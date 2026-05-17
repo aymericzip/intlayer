@@ -233,5 +233,3 @@ GitHub सितारे किसी प्रोजेक्ट की लो
 `intlayer` आपके `react-intl`, `react-i18next`, `next-intl`, `next-i18next`, और `vue-i18n` नेमस्पेस को प्रबंधित करने में भी मदद कर सकता है।
 
 `intlayer` का उपयोग करके, आप अपनी पसंदीदा i18n लाइब्रेरी के प्रारूप में अपनी सामग्री घोषित कर सकते हैं, और intlayer आपकी पसंद के स्थान पर आपके नेमस्पेस उत्पन्न करेगा (उदाहरण: `/messages/{{locale}}/{{namespace}}.json)।
-
-अधिक विवरण के लिए [`dictionaryOutput` और `i18nextResourcesDir` विकल्पों](https://intlayer.org/doc/concept/configuration#content-configuration) को देखें।

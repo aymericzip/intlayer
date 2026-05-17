@@ -233,5 +233,3 @@ Bintang GitHub adalah indikator kuat dari popularitas proyek, kepercayaan komuni
 `intlayer` juga dapat membantu mengelola namespace `react-intl`, `react-i18next`, `next-intl`, `next-i18next`, dan `vue-i18n` Anda.
 
 Menggunakan `intlayer`, Anda dapat mendeklarasikan konten dalam format pustaka i18n favorit Anda, dan intlayer akan menghasilkan namespace Anda di lokasi pilihan Anda (contoh: `/messages/{{locale}}/{{namespace}}.json`).
-
-Lihat [opsi dictionaryOutput dan i18nextResourcesDir](https://intlayer.org/doc/concept/configuration#content-configuration) untuk detail lebih lanjut.

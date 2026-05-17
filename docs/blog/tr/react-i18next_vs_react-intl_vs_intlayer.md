@@ -144,8 +144,6 @@ Bu rehber, **React** için üç yerleşik i18n seçeneğini karşılaştırır: 
 
 `intlayer` kullanarak, içeriğinizi favori i18n kütüphanenizin formatında beyan edebilirsiniz ve intlayer ad alanlarınızı istediğiniz konumda oluşturacaktır (örnek: `/messages/{{locale}}/{{namespace}}.json`).
 
-Daha fazla detay için [`dictionaryOutput` ve `i18nextResourcesDir` seçeneklerine](https://intlayer.org/doc/concept/configuration#content-configuration) bakın.
-
 ---
 
 ## GitHub YILDIZLARI
