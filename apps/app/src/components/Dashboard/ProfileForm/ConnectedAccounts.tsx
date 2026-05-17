@@ -93,7 +93,7 @@ export const ConnectedAccounts: FC = () => {
                     <provider.Icon className="h-6 w-6" />
                   </div>
                   {connected && (
-                    <CircleCheck className="absolute -right-0.5 -bottom-0.5 h-4 w-4 rounded-full bg-card text-emerald-500" />
+                    <CircleCheck className="absolute -right-0.5 -bottom-0.5 h-4 w-4 rounded-full bg-card text-success" />
                   )}
                 </div>
                 <div>
@@ -105,25 +105,30 @@ export const ConnectedAccounts: FC = () => {
                   </p>
                 </div>
               </div>
-              <Button
-                disabled={pendingProvider === provider.id}
-                onClick={() =>
-                  connected
-                    ? handleDisconnect(provider.id)
-                    : handleConnect(provider.id)
-                }
-                color="text"
-                variant="outline"
-                size="sm"
-                className={cn(
-                  'shrink-0',
-                  connected &&
-                    'border-red-500/30 text-red-500 hover:border-red-500/50 hover:bg-red-500/10 hover:text-red-600'
-                )}
-                label={connected ? disconnectButton.value : connectButton.value}
-              >
-                {connected ? disconnectButton : connectButton}
-              </Button>
+              {connected ? (
+                <Button
+                  disabled={pendingProvider === provider.id}
+                  onClick={() => handleDisconnect(provider.id)}
+                  color="text"
+                  variant="hoverable"
+                  size="sm"
+                  className="text-text hover:text-error"
+                  label={disconnectButton.value}
+                >
+                  {disconnectButton}
+                </Button>
+              ) : (
+                <Button
+                  disabled={pendingProvider === provider.id}
+                  onClick={() => handleConnect(provider.id)}
+                  color="text"
+                  variant="outline"
+                  size="sm"
+                  label={connectButton.value}
+                >
+                  {connectButton}
+                </Button>
+              )}
             </Container>
           );
         })}
