@@ -9,7 +9,7 @@ export const ProjectDetailsSkeleton: FC = () => (
         <Container
           roundedSize="3xl"
           padding="md"
-          className="flex size-full flex-col gap-3"
+          className="flex size-full h-70 flex-col gap-3"
         >
           <Skeleton className="h-6 w-1/3" />
           <Skeleton className="h-10 w-full" />
@@ -18,7 +18,7 @@ export const ProjectDetailsSkeleton: FC = () => (
         <Container
           roundedSize="3xl"
           padding="md"
-          className="flex size-full flex-col gap-3"
+          className="flex size-full h-120 flex-col gap-3"
         >
           <Skeleton className="h-6 w-1/4" />
           {[1, 2, 3].map((i) => (
@@ -32,7 +32,7 @@ export const ProjectDetailsSkeleton: FC = () => (
         <Container
           roundedSize="3xl"
           padding="md"
-          className="flex size-full flex-col gap-3"
+          className="flex size-full h-200 flex-col gap-3"
         >
           <Skeleton className="h-6 w-1/3" />
           <Skeleton className="h-10 w-full" />
@@ -43,7 +43,7 @@ export const ProjectDetailsSkeleton: FC = () => (
         <Container
           roundedSize="3xl"
           padding="md"
-          className="flex size-full flex-col gap-3"
+          className="flex size-full h-230 flex-col gap-3"
         >
           <Skeleton className="h-6 w-1/3" />
           <Skeleton className="h-32 w-full rounded-lg" />
@@ -51,7 +51,7 @@ export const ProjectDetailsSkeleton: FC = () => (
         <Container
           roundedSize="3xl"
           padding="md"
-          className="flex size-full flex-col gap-3"
+          className="flex size-full h-60 flex-col gap-3"
         >
           <Skeleton className="h-6 w-1/4" />
           <Skeleton className="h-10 w-full" />
@@ -59,7 +59,7 @@ export const ProjectDetailsSkeleton: FC = () => (
         <Container
           roundedSize="3xl"
           padding="md"
-          className="flex size-full flex-col gap-3"
+          className="flex size-full h-150 flex-col gap-3"
         >
           <Skeleton className="h-6 w-1/3" />
           <Skeleton className="h-10 w-full" />
@@ -68,7 +68,7 @@ export const ProjectDetailsSkeleton: FC = () => (
         <Container
           roundedSize="3xl"
           padding="md"
-          className="flex size-full flex-col gap-3"
+          className="flex size-full h-70 flex-col gap-3"
         >
           <Skeleton className="h-6 w-1/3" />
           <Skeleton className="h-10 w-full" />

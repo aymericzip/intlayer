@@ -3,13 +3,13 @@ import type { FC } from 'react';
 import { Skeleton } from '#components/Skeleton';
 
 export const OrganizationSkeleton: FC = () => (
-  <div className="flex max-w-6xl flex-col items-center justify-center gap-8">
+  <div className="flex w-full max-w-6xl flex-col items-center justify-center gap-8">
     <div className="grid w-full justify-evenly gap-x-5 gap-y-4 max-md:grid-cols-1 md:grid-cols-[8fr_7fr] lg:gap-x-16">
       <div className="mb-auto flex flex-col gap-4">
         <Container
           roundedSize="3xl"
           padding="md"
-          className="flex size-full flex-col gap-3"
+          className="flex size-full h-70 flex-col gap-3"
         >
           <Skeleton className="h-6 w-1/3" />
           <Skeleton className="h-10 w-full" />
@@ -26,7 +26,7 @@ export const OrganizationSkeleton: FC = () => (
         <Container
           roundedSize="3xl"
           padding="md"
-          className="flex size-full flex-col gap-3"
+          className="flex size-full h-70 flex-col gap-3"
         >
           <Skeleton className="h-6 w-1/3" />
           <Skeleton className="h-10 w-full" />
@@ -36,15 +36,18 @@ export const OrganizationSkeleton: FC = () => (
         <Container
           roundedSize="3xl"
           padding="md"
-          className="flex size-full flex-col gap-3"
+          className="flex size-full h-140 flex-col gap-3"
         >
           <Skeleton className="h-6 w-1/4" />
           {[1, 2, 3, 4].map((i) => (
-            <div key={i} className="flex items-center gap-3">
-              <Skeleton className="size-8 rounded-full" />
-              <Skeleton className="h-5 w-32" />
-              <Skeleton className="ml-auto h-7 w-16 rounded-lg" />
-            </div>
+            <>
+              <Skeleton className="my-4 h-6 w-1/4" />
+              <div key={i} className="flex items-center gap-3">
+                <Skeleton className="size-8 rounded-full" />
+                <Skeleton className="h-5 w-32" />
+                <Skeleton className="ml-auto h-7 w-16 rounded-lg" />
+              </div>
+            </>
           ))}
         </Container>
       </div>
