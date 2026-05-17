@@ -115,7 +115,7 @@ export const DashboardSidebarProfile: FC<DashboardSidebarProfileProps> = ({
             <Container
               className="min-w-[100px] gap-2 border border-neutral/10"
               transparency="xs"
-              padding="md"
+              padding="sm"
               roundedSize="2xl"
             >
               <Link
@@ -124,10 +124,10 @@ export const DashboardSidebarProfile: FC<DashboardSidebarProfileProps> = ({
                 color="text"
                 label={navigation.logout.label.value}
                 size="sm"
-                className="w-full"
+                className="flex w-full flex-row justify-center px-3 py-2"
               >
                 <User2 size={10} />
-                <span className="ml-2 w-full text-text text-xs">
+                <span className="ml-2 w-full text-center text-text text-xs">
                   {goToProfile}
                 </span>
               </Link>

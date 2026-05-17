@@ -11,7 +11,7 @@ import type { FC } from 'react';
 import { lazy, Suspense } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { Link } from '#components/Link/Link';
-import { LocaleSwitcher } from '#components/LocaleSwitcher/LocaleSwitcher';
+import { LocaleSwitcher } from '#components/LocaleSwitcher/LocaleSwitcherBig';
 import { ProfileDropDown } from '#components/ProfileDropdown/ProfileDropdown';
 
 const SwitchThemeSwitcher = lazy(() =>
