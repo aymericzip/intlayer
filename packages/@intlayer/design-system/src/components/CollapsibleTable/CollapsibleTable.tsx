@@ -53,7 +53,7 @@ const headerVariants = cva(
       },
       borderStyle: {
         none: '',
-        dashed: 'border-neutral/20 border-b border-dashed',
+        dashed: 'border-neutral/20 border-b border-dotted',
         solid: 'border-neutral/20 border-b border-solid',
       },
     },

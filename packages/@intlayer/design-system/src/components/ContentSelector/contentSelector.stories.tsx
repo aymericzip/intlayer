@@ -669,7 +669,7 @@ export const ARIALabelsAndDescriptions: Story = {
             aria-label="Configure interactive widget settings"
             className="block"
           >
-            <div className="rounded-lg border-2 border-blue-300 border-dashed bg-blue-50 p-4">
+            <div className="rounded-lg border-2 border-blue-300 border-dotted bg-blue-50 p-4">
               <div className="text-center">
                 <div className="mb-1 font-medium text-blue-600">
                   Interactive Widget

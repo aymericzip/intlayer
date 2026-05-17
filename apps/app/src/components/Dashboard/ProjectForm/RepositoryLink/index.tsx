@@ -10,7 +10,6 @@ import {
   Code,
   FileCode,
   FolderSearch,
-  Globe,
   Link,
   RotateCcw,
   Search,

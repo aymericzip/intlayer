@@ -94,7 +94,7 @@ const AccessKeySelector: FC<{
               </span>
             </div>
             <div className="flex pt-3">
-              <div className="flex flex-col gap-4 pb-3">
+              <div className="flex w-full flex-col gap-4 pb-3">
                 <div className="flex flex-col gap-1">
                   <CopyToClipboard
                     text={accessKey.clientId}
@@ -201,7 +201,7 @@ const SessionAuthSelector: FC<{
         background="none"
         border
         borderColor="neutral"
-        className="flex-row items-center gap-4 border-dashed p-4"
+        className="flex-row items-center gap-4 border-dotted p-4"
       >
         <Clock className="mt-0.5 size-5 shrink-0 text-neutral" />
         <div className="flex flex-col gap-1">
@@ -290,7 +290,7 @@ export const CliLoginFlow: FC<CliLoginFlowProps> = ({
             padding="xl"
           >
             {(session?.organization || session?.project) && (
-              <div className="z-10 mb-6 border-neutral/20 border-b border-dashed p-2 pb-6">
+              <div className="z-10 mb-6 border-neutral/20 border-b border-dotted p-2 pb-6">
                 <H2 className="mb-5">{context}</H2>
                 <Container
                   className="z-10 mr-auto w-fit flex-row items-center gap-2 p-2"

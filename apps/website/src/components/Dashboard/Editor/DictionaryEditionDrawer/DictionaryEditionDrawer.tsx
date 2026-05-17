@@ -116,7 +116,7 @@ export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
             </Popover>
           </header>
 
-          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 border-text/20 border-b border-dashed pb-3">
+          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 border-text/20 border-b border-dotted pb-3">
             <Tag color="text" roundedSize="full" size="xs">
               {dictionary.key}
             </Tag>

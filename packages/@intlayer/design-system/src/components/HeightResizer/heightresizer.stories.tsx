@@ -465,7 +465,7 @@ export const CustomStyled: Story = {
     minHeight: 100,
     maxHeight: 400,
     className:
-      'border-2 border-dashed border-purple-300 rounded-lg bg-purple-50',
+      'border-2 border-dotted border-purple-300 rounded-lg bg-purple-50',
     children:
       'This resizer has custom styling with a purple theme and dashed border. The functionality remains the same while adapting to your design system.',
   },

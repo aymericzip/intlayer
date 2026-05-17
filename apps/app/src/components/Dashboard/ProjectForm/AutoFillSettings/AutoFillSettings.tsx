@@ -69,7 +69,7 @@ export const AutoFillSettings: FC = () => {
       </Container>
 
       {isProjectAdmin && (
-        <div className="flex justify-end border-neutral/10 border-t pt-3">
+        <div className="flex justify-end border-neutral/30 border-t border-dotted pt-3">
           <Form.Button
             type="submit"
             label={saveButton.ariaLabel.value}

@@ -82,7 +82,7 @@ type ContentSelectorProps = {
    * @example
    * ```tsx
    * <ContentSelector
-   *   className="border-2 border-dashed border-blue-300"
+   *   className="border-2 border-dotted border-blue-300"
    *   onSelect={() => {}}
    * >
    *   Styled selectable content

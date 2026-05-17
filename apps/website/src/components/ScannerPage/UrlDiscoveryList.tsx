@@ -89,7 +89,7 @@ export const UrlDiscoveryList: FC<UrlDiscoveryListProps> = ({
   const noneSelected = selected.size === 0;
 
   return (
-    <div className="mt-6 flex flex-col gap-4 border-neutral border-t border-dashed pt-6 text-left">
+    <div className="mt-6 flex flex-col gap-4 border-neutral border-t border-dotted pt-6 text-left">
       <div className="flex items-center justify-between gap-4">
         <div>
           <h3 className="font-semibold text-lg">{title}</h3>

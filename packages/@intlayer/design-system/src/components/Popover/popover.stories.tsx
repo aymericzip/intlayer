@@ -241,7 +241,7 @@ export const ContextMenu: Story = {
   render: () => (
     <Container className="flex items-center justify-center p-16">
       <Popover identifier="context-menu">
-        <div className="cursor-pointer rounded border-2 border-neutral-300 border-dashed p-8 text-center transition-colors hover:border-primary">
+        <div className="cursor-pointer rounded border-2 border-neutral-300 border-dotted p-8 text-center transition-colors hover:border-primary">
           <p className="text-neutral-500 text-xs">Hover for menu</p>
         </div>
 

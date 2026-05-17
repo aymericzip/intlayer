@@ -90,84 +90,137 @@ export const ConfigDetails: FC<ConfigDetailsProps> = ({ projectConfig }) => {
         />
       )}
 
-      <div className="flex flex-col gap-4">
-        <H4>{i18nSection.title}</H4>
-        <div className="flex flex-col gap-4">
-          <H5>{i18nSection.localeListTitle}</H5>
-
-          <div className="flex flex-row flex-wrap gap-2">
-            {projectConfig.internationalization?.locales?.map((localeEl) => (
-              <Tag key={localeEl} size="sm">
-                {getLocaleName(localeEl as Locale, locale)}
-              </Tag>
-            ))}
+      <div className="flex flex-col gap-6">
+        <div>
+          <div className="flex flex-col gap-1">
+            <H4>{i18nSection.title}</H4>
+            <p className="text-neutral text-xs">{i18nSection.description}</p>
           </div>
-          <H5>{i18nSection.defaultLocaleTitle}</H5>
-
-          {projectConfig.internationalization?.defaultLocale && (
-            <Tag size="sm">
-              {getLocaleName(
-                projectConfig.internationalization.defaultLocale,
-                locale
+          <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-[1fr_auto]">
+            <div className="flex flex-col gap-2">
+              <H5>{i18nSection.localeListTitle}</H5>
+              <div className="flex flex-row flex-wrap gap-2">
+                {projectConfig.internationalization?.locales?.map(
+                  (localeEl) => (
+                    <Tag key={localeEl} size="sm">
+                      {getLocaleName(localeEl as Locale, locale)}
+                    </Tag>
+                  )
+                )}
+              </div>
+            </div>
+            <div className="flex flex-col gap-2">
+              <H5>{i18nSection.defaultLocaleTitle}</H5>
+              {projectConfig.internationalization?.defaultLocale && (
+                <div className="flex">
+                  <Tag size="sm">
+                    {getLocaleName(
+                      projectConfig.internationalization.defaultLocale,
+                      locale
+                    )}
+                  </Tag>
+                </div>
               )}
-            </Tag>
-          )}
+            </div>
+          </div>
         </div>
 
-        <H4>{editorSection.title}</H4>
-        <div className="flex flex-col gap-4">
-          <H5>{editorSection.applicationURL.title}</H5>
-          <Tag size="sm">
-            {projectConfig.editor?.applicationURL ? (
-              <Link
-                to={projectConfig.editor?.applicationURL}
-                label={editorSection.applicationURL.label.value}
-                color="text"
-              >
-                {projectConfig.editor?.applicationURL}
-              </Link>
-            ) : (
-              '-'
-            )}
-          </Tag>
+        <hr className="border-neutral/20 border-dotted" />
 
-          <H5>{editorSection.cmsURL.title}</H5>
-          {projectConfig.editor?.cmsURL ? (
-            <Tag size="sm">
-              <Link
-                to={projectConfig.editor?.cmsURL}
-                label={editorSection.cmsURL.label.value}
-                color="text"
-              >
-                {projectConfig.editor?.cmsURL}
-              </Link>
-            </Tag>
-          ) : (
-            '-'
-          )}
+        <div>
+          <div className="flex flex-col gap-1">
+            <H4>{editorSection.title}</H4>
+            <p className="text-neutral text-xs">{editorSection.description}</p>
+          </div>
+          <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">
+            <div className="flex flex-col gap-2">
+              <H5>{editorSection.applicationURL.title}</H5>
+              <div className="flex">
+                <Tag size="sm">
+                  {projectConfig.editor?.applicationURL ? (
+                    <Link
+                      to={projectConfig.editor?.applicationURL}
+                      label={editorSection.applicationURL.label.value}
+                      color="text"
+                    >
+                      {projectConfig.editor?.applicationURL}
+                    </Link>
+                  ) : (
+                    '-'
+                  )}
+                </Tag>
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-2">
+              <H5>{editorSection.cmsURL.title}</H5>
+              <div className="flex">
+                <Tag size="sm">
+                  {projectConfig.editor?.cmsURL ? (
+                    <Link
+                      to={projectConfig.editor?.cmsURL}
+                      label={editorSection.cmsURL.label.value}
+                      color="text"
+                    >
+                      {projectConfig.editor?.cmsURL}
+                    </Link>
+                  ) : (
+                    '-'
+                  )}
+                </Tag>
+              </div>
+            </div>
+          </div>
         </div>
 
         {projectConfig.ai && (
           <>
-            <H4>{aiSection.title}</H4>
-            <div className="flex flex-col gap-4">
-              <H5>{aiSection.provider.title}</H5>
-              <Tag size="sm">{String(projectConfig.ai.provider ?? '-')}</Tag>
+            <hr className="border-neutral/20 border-dotted" />
 
-              <H5>{aiSection.model.title}</H5>
-              <Tag size="sm">{String(projectConfig.ai.model ?? '-')}</Tag>
+            <div>
+              <div className="flex flex-col gap-1">
+                <H4>{aiSection.title}</H4>
+                <p className="text-neutral text-xs">{aiSection.description}</p>
+              </div>
+              <div className="mt-4 flex flex-col gap-4">
+                <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                  <div className="flex flex-col gap-2">
+                    <H5>{aiSection.provider.title}</H5>
+                    <div className="flex">
+                      <Tag size="sm">
+                        {String(projectConfig.ai.provider ?? '-')}
+                      </Tag>
+                    </div>
+                  </div>
 
-              <H5>{aiSection.apiKey.title}</H5>
-              <Tag size="sm">
-                {(projectConfig.ai as any).apiKeyConfigured
-                  ? aiSection.apiKey.configured
-                  : aiSection.apiKey.notConfigured}
-              </Tag>
+                  <div className="flex flex-col gap-2">
+                    <H5>{aiSection.model.title}</H5>
+                    <div className="flex">
+                      <Tag size="sm">
+                        {String(projectConfig.ai.model ?? '-')}
+                      </Tag>
+                    </div>
+                  </div>
 
-              <H5>{aiSection.applicationContext.title}</H5>
-              <p className="text-neutral-dark text-sm dark:text-neutral">
-                {String(projectConfig.ai.applicationContext ?? '-')}
-              </p>
+                  <div className="flex flex-col gap-2">
+                    <H5>{aiSection.apiKey.title}</H5>
+                    <div className="flex">
+                      <Tag size="sm">
+                        {(projectConfig.ai as any).apiKeyConfigured
+                          ? aiSection.apiKey.configured
+                          : aiSection.apiKey.notConfigured}
+                      </Tag>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex flex-col gap-2">
+                  <H5>{aiSection.applicationContext.title}</H5>
+                  <p className="text-neutral-dark text-sm dark:text-neutral">
+                    {projectConfig.ai.applicationContext || '-'}
+                  </p>
+                </div>
+              </div>
             </div>
           </>
         )}

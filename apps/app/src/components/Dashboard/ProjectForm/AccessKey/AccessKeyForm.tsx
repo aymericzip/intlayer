@@ -105,7 +105,7 @@ const AccessKeyItem: FC<{ value: OAuth2AccessAPI }> = ({
           </span>
         </div>
         <div className="flex pt-3">
-          <div className="flex flex-col gap-4 pb-3">
+          <div className="flex w-full flex-col gap-4 pb-3">
             <div className="flex flex-col gap-1">
               <CopyToClipboard
                 text={accessKey.clientId}

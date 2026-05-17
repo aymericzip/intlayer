@@ -334,7 +334,7 @@ export const CustomStyling: Story = {
       </Badge>
       <Badge
         variant={BadgeVariant.OUTLINE}
-        className="border-blue-400 border-dashed text-blue-600"
+        className="border-blue-400 border-dotted text-blue-600"
       >
         Dashed Border
       </Badge>

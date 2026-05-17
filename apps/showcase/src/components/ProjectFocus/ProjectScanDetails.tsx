@@ -81,7 +81,7 @@ export const ProjectScanDetails: FC<ProjectScanDetailsProps> = ({
       <Container roundedSize="3xl" padding="lg" transparency="lg">
         <AnalyzerPageResults data={mergedData} url={url} />
 
-        <div className="mt-8 grid grid-cols-1 gap-8 border-neutral/20 border-t border-dashed pt-8 md:grid-cols-2">
+        <div className="mt-8 grid grid-cols-1 gap-8 border-neutral/20 border-t border-dotted pt-8 md:grid-cols-2">
           <div>
             <RobotsSection data={mergedData} />
           </div>

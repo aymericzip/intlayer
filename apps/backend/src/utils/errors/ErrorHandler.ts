@@ -51,13 +51,26 @@ export const handleAppErrorResponse = (
   messageDetails?: object
 ) => {
   if (!error.isAppError) {
+    const errorKey =
+      error.errorKey ??
+      (error as any).error ??
+      (error as any).code ??
+      (error as any).name ??
+      'UNKNOWN_ERROR';
+
+    const statusCode =
+      error.httpStatusCode ??
+      (error as any).statusCode ??
+      (error as any).status ??
+      HttpStatusCodes.INTERNAL_SERVER_ERROR_500;
+
     handleCustomErrorResponse(
       reply,
-      error.errorKey ?? 'UNKNOWN_ERROR',
+      String(errorKey),
       'Error',
       error.message ?? JSON.stringify(error),
       undefined,
-      error.httpStatusCode ?? HttpStatusCodes.INTERNAL_SERVER_ERROR_500
+      statusCode
     );
     return;
   }
