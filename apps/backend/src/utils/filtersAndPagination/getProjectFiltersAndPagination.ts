@@ -27,11 +27,20 @@ export type ProjectFilters = QueryFilter<Project>;
  * @param req - Fastify request object.
  * @returns Object containing filters, page, pageSize, and getNumberOfPages functions.
  */
+export type ProjectFiltersAndPaginationResult = {
+  filters: ProjectFilters;
+  sortOptions: Record<string, 1 | -1>;
+  page: number;
+  skip: number;
+  pageSize: number;
+  getNumberOfPages: (totalItems: number) => number;
+};
+
 export const getProjectFiltersAndPagination = (
   req: FastifyRequest<{
     Querystring: FiltersAndPagination<ProjectFiltersParams>;
   }>
-) => {
+): ProjectFiltersAndPaginationResult => {
   const { filters: filtersRequest, ...pagination } =
     getFiltersAndPaginationFromBody<ProjectFiltersParams>(req);
   const roles = req.session?.roles;

@@ -34,11 +34,20 @@ export type OrganizationFilters = QueryFilter<Organization>;
  * @param req - Fastify request object.
  * @returns Object containing filters, page, pageSize, and getNumberOfPages functions.
  */
+export type OrganizationFiltersAndPaginationResult = {
+  filters: OrganizationFilters;
+  sortOptions: Record<string, 1 | -1>;
+  page: number;
+  skip: number;
+  pageSize: number;
+  getNumberOfPages: (totalItems: number) => number;
+};
+
 export const getOrganizationFiltersAndPagination = (
   req: FastifyRequest<{
     Querystring: FiltersAndPagination<OrganizationFiltersParams>;
   }>
-) => {
+): OrganizationFiltersAndPaginationResult => {
   const { filters: filtersRequest, ...pagination } =
     getFiltersAndPaginationFromBody<OrganizationFiltersParams>(req);
   const roles = req.session?.roles;
