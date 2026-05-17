@@ -87,12 +87,16 @@ export const AccessKeyCreationForm: FC<AccessKeyCreationFormProps> = ({
     expirationPresets,
   } = useIntlayer('access-key-creation-form');
 
-  const EXPIRATION_PRESETS = Object.entries(expirationPresets).map(
-    ([value, label]) => ({
-      value: value as ExpirationPreset,
-      label: label.value,
-    })
-  );
+  const EXPIRATION_PRESETS = [
+    { value: 'none' as const, label: expirationPresets.none.value },
+    { value: '1d' as const, label: expirationPresets['1d'].value },
+    { value: '3d' as const, label: expirationPresets['3d'].value },
+    { value: '1m' as const, label: expirationPresets['1m'].value },
+    { value: '3m' as const, label: expirationPresets['3m'].value },
+    { value: '1y' as const, label: expirationPresets['1y'].value },
+    { value: '3y' as const, label: expirationPresets['3y'].value },
+    { value: 'custom' as const, label: expirationPresets.custom.value },
+  ];
 
   const AccessKeyCreationSchema = useAccessKeyCreationSchema(permissions);
 

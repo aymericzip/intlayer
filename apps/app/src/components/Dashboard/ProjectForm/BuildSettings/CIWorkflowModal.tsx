@@ -42,11 +42,11 @@ export const CIWorkflowModal: FC<CIWorkflowModalProps> = ({
 
   const getTemplateContent = () => {
     if (provider === 'github') {
-      return (ciTemplates as any).github.value;
+      return ciTemplates.github.value;
     } else if (provider === 'gitlab') {
-      return (ciTemplates as any).gitlab.value;
+      return ciTemplates.gitlab.value;
     } else if (provider === 'bitbucket') {
-      return (ciTemplates as any).bitbucket.value;
+      return ciTemplates.bitbucket.value;
     }
     return '';
   };
