@@ -4,8 +4,8 @@ import { Skeleton } from '#components/Skeleton';
 
 export const ProjectDetailsSkeleton: FC = () => (
   <div className="flex w-full max-w-6xl flex-col items-center justify-center gap-8">
-    <div className="grid w-full justify-evenly gap-x-5 gap-y-4 max-md:grid-cols-1 md:grid-cols-[8fr_7fr] lg:gap-x-16">
-      <div className="mb-auto flex flex-col gap-4">
+    <div className="grid w-full min-w-0 justify-evenly gap-x-5 gap-y-4 max-md:grid-cols-1 md:grid-cols-[8fr_7fr] lg:gap-x-16">
+      <div className="mb-auto flex min-w-0 flex-col gap-4">
         <Container
           roundedSize="3xl"
           padding="md"
@@ -39,7 +39,7 @@ export const ProjectDetailsSkeleton: FC = () => (
           <Skeleton className="mt-2 h-9 w-32 rounded-lg" />
         </Container>
       </div>
-      <div className="mb-auto flex flex-col gap-4">
+      <div className="mb-auto flex min-w-0 flex-col gap-4">
         <Container
           roundedSize="3xl"
           padding="md"

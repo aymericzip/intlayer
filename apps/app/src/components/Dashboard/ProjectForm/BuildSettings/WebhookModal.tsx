@@ -44,9 +44,7 @@ export const WebhookModal: FC<WebhookModalProps> = ({
     enabled: true,
   };
 
-  const { form, isSubmitting } = useForm(schema, {
-    defaultValues,
-  });
+  const { form, isSubmitting } = useForm(schema);
 
   // Reset form and refresh session when modal opens
   useEffect(() => {
@@ -64,7 +62,7 @@ export const WebhookModal: FC<WebhookModalProps> = ({
     <Modal
       isOpen={isOpen}
       onClose={onClose}
-      title={initialValues ? modal.titleEdit.value : modal.titleAdd.value}
+      title={initialValues ? modal.titleEdit : modal.titleAdd}
       size="lg"
       hasCloseButton
       padding="lg"

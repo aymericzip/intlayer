@@ -187,7 +187,7 @@ export const UserEditForm: FC<{ userId: string }> = ({ userId }) => {
       <Loader isLoading={isLoading}>
         {user ? (
           <div className="grid w-full justify-evenly gap-x-5 gap-y-4 max-md:grid-cols-1 md:grid-cols-2 lg:gap-x-16">
-            <div className="mb-auto flex flex-col gap-4">
+            <div className="mb-auto flex min-w-0 flex-col gap-4">
               <UserHeader user={user} />
 
               <Container
@@ -228,7 +228,7 @@ export const UserEditForm: FC<{ userId: string }> = ({ userId }) => {
               </Container>
             </div>
 
-            <div className="mb-auto flex flex-col gap-4">
+            <div className="mb-auto flex min-w-0 flex-col gap-4">
               <Container
                 roundedSize="3xl"
                 padding="md"

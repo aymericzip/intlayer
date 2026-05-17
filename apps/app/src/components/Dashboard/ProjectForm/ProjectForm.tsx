@@ -43,8 +43,8 @@ export const ProjectFormContent: FC = () => {
           </Container>
         )}
 
-        <div className="grid w-full justify-evenly gap-x-5 gap-y-4 max-md:grid-cols-1 md:grid-cols-[8fr_7fr] lg:gap-x-16">
-          <div className="mb-auto flex flex-col gap-4">
+        <div className="grid w-full min-w-0 justify-evenly gap-x-5 gap-y-4 max-md:grid-cols-1 md:grid-cols-[8fr_7fr] lg:gap-x-16">
+          <div className="mb-auto flex min-w-0 flex-col gap-4">
             <Container
               roundedSize="3xl"
               padding="md"
@@ -52,7 +52,6 @@ export const ProjectFormContent: FC = () => {
             >
               <ProjectEditionForm />
             </Container>
-
             <Container
               roundedSize="3xl"
               padding="md"
@@ -60,7 +59,6 @@ export const ProjectFormContent: FC = () => {
             >
               <MembersForm />
             </Container>
-
             <Container
               roundedSize="3xl"
               padding="md"
@@ -69,7 +67,7 @@ export const ProjectFormContent: FC = () => {
               <AccessKeyForm />
             </Container>
           </div>
-          <div className="mb-auto flex flex-col gap-4">
+          <div className="mb-auto flex min-w-0 flex-col gap-4">
             <Container
               roundedSize="3xl"
               padding="md"
@@ -84,7 +82,6 @@ export const ProjectFormContent: FC = () => {
             >
               <RepositoryLink />
             </Container>
-
             <Container
               roundedSize="3xl"
               padding="md"
@@ -92,7 +89,6 @@ export const ProjectFormContent: FC = () => {
             >
               <BuildSettings />
             </Container>
-
             <Container
               roundedSize="3xl"
               padding="md"
