@@ -1,3 +1,4 @@
+import { createHash } from 'node:crypto';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -10,14 +11,19 @@ import { OpenAI } from 'openai';
 const OUTPUT_EMBEDDINGS_DIR = 'src/utils/AI/askDocQuestion/embeddings';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-const readEmbeddingsForFile = (fileKey: string): Record<string, number[]> => {
+type EmbeddingStore = Record<string, number[] | string>;
+
+const contentHash = (text: string): string =>
+  createHash('sha256').update(text).digest('hex');
+
+const readEmbeddingsForFile = (fileKey: string): EmbeddingStore => {
   try {
     return JSON.parse(
       readFileSync(
         `${__dirname}/embeddings/${fileKey.replace('.md', '.json')}`,
         'utf-8'
       )
-    ) as Record<string, number[]>;
+    ) as EmbeddingStore;
   } catch {
     return {};
   }
@@ -25,7 +31,7 @@ const readEmbeddingsForFile = (fileKey: string): Record<string, number[]> => {
 
 const writeEmbeddingsForFile = (
   fileKey: string,
-  data: Record<string, number[]>
+  data: EmbeddingStore
 ): void => {
   const filePath = join(
     OUTPUT_EMBEDDINGS_DIR,
@@ -161,24 +167,8 @@ export const indexMarkdownFiles = async (): Promise<void> => {
     // Read existing embeddings for this file
     const existingEmbeddings = readEmbeddingsForFile(fileKey);
 
-    // Check if the number of chunks has changed for this file
-    const existingChunksForFile = Object.keys(existingEmbeddings);
-    const currentChunkCount = fileChunks.length;
-    const previousChunkCount = existingChunksForFile.length;
-
-    let shouldRegenerateFileEmbeddings = false;
-
-    // If chunk count differs, we need to regenerate embeddings for this file
-    if (currentChunkCount !== previousChunkCount) {
-      logger.info(
-        `File "${fileKey}" chunk count changed: ${previousChunkCount} -> ${currentChunkCount}. Regenerating embeddings.`
-      );
-
-      shouldRegenerateFileEmbeddings = !skipDocEmbeddingsIndex;
-    }
-
     // Iterate over each chunk within the current file
-    let resultForFile: Record<string, number[]> = {};
+    let resultForFile: EmbeddingStore = {};
     for await (const chunkIndex of Object.keys(fileChunks)) {
       const chunkNumber = Number(chunkIndex) + 1; // Chunk number starts at 1
       const chunksNumber = fileChunks.length;
@@ -188,33 +178,43 @@ export const indexMarkdownFiles = async (): Promise<void> => {
       ] as string;
 
       const chunkKeyName = `chunk_${chunkNumber}`; // Unique key for the chunk within the file
+      const chunkHashKey = `chunk_${chunkNumber}_hash`;
+      const currentChunkHash = contentHash(fileChunk);
+      const storedHash = existingEmbeddings[chunkHashKey] as string | undefined;
+      const storedEmbedding = existingEmbeddings[chunkKeyName] as
+        | number[]
+        | undefined;
 
-      // Retrieve precomputed embedding if available and file hasn't changed
-      const docEmbedding = !shouldRegenerateFileEmbeddings
-        ? (existingEmbeddings[
-            chunkKeyName as keyof typeof existingEmbeddings
-          ] as number[] | undefined)
-        : undefined;
+      const chunkContentChanged = storedHash !== currentChunkHash;
 
-      let embedding = docEmbedding; // Use existing embedding if available and valid
+      let embedding: number[] | undefined = storedEmbedding;
 
-      if (!embedding) {
-        embedding = await generateEmbedding(fileChunk); // Generate embedding if not present or file changed
+      if (
+        !storedEmbedding ||
+        (chunkContentChanged && !skipDocEmbeddingsIndex)
+      ) {
+        embedding = await generateEmbedding(fileChunk); // Generate embedding if not present or content changed
         logger.info(`- Generated new embedding: ${fileKey}/${chunkKeyName}`);
       }
 
-      // Update the file-scoped result object with the embedding
-      resultForFile = { ...resultForFile, [chunkKeyName]: embedding };
+      // Update the file-scoped result object with the embedding and hash
+      resultForFile = {
+        ...resultForFile,
+        [chunkKeyName]: embedding ?? [],
+        [chunkHashKey]: currentChunkHash,
+      };
 
       // Store the embedding and content in the in-memory vector store
-      vectorStore.push({
-        fileKey,
-        chunkNumber,
-        embedding,
-        content: fileChunk,
-        docUrl: fileMetadata.url,
-        docName: fileMetadata.title,
-      });
+      if (embedding) {
+        vectorStore.push({
+          fileKey,
+          chunkNumber,
+          embedding,
+          content: fileChunk,
+          docUrl: fileMetadata.url,
+          docName: fileMetadata.title,
+        });
+      }
 
       logger.info(`- Indexed: ${fileKey}/${chunkKeyName}/${chunksNumber}`);
     }

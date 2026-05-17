@@ -30,7 +30,7 @@ export const searchDocUtil = async (
   const response = await askDocQuestionUtil.searchChunkReference(
     input,
     maxResults,
-    0.2
+    0.4
   );
 
   if (shouldReturnContent) {

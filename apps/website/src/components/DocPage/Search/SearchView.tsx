@@ -27,11 +27,14 @@ import {
 // Fuse.js options
 const fuseOptions: IFuseOptions<DocMetadata> = {
   keys: [
-    { name: 'title', weight: 0.8 },
-    { name: 'description', weight: 0.1 },
-    { name: 'keywords', weight: 0.1 },
+    { name: 'title', weight: 0.5 },
+    { name: 'description', weight: 0.25 },
+    { name: 'keywords', weight: 0.15 },
+    { name: 'slugs', weight: 0.1 },
   ],
-  threshold: 0.02, // Defines how fuzzy the matching should be (lower is more strict)
+  threshold: 0.3, // Defines how fuzzy the matching should be (lower is more strict)
+  includeScore: true,
+  minMatchCharLength: 2,
 };
 
 const isValidDoc = (doc: DocMetadata) => {

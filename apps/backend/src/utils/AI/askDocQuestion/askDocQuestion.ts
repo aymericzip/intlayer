@@ -16,10 +16,16 @@ const __dirname = dirname(__filename);
 
 const readEmbeddingsForFile = (fileKey: string): Record<string, number[]> => {
   try {
-    return JSON.parse(
+    const raw = JSON.parse(
       readFileSync(
         join(__dirname, `./embeddings/${fileKey.replace('.md', '.json')}`),
         'utf-8'
+      )
+    ) as Record<string, unknown>;
+    // Strip hash entries (keys ending in _hash) — only return actual embedding vectors
+    return Object.fromEntries(
+      Object.entries(raw).filter(
+        ([key, value]) => !key.endsWith('_hash') && Array.isArray(value)
       )
     ) as Record<string, number[]>;
   } catch {
