@@ -4,18 +4,19 @@ import * as ANSIColors from '@intlayer/config/colors';
 import { colorize, getAppLogger } from '@intlayer/config/logger';
 import { extractErrorMessage } from '@intlayer/config/utils';
 import type { IntlayerConfig } from '@intlayer/types/config';
-import { readCliSessionToken } from '../auth/sessionToken';
+import { type CliSessionData, readCliSessionToken } from '../auth/sessionToken';
 import { checkConfigConsistency } from './checkConfigConsistency';
 
 export const getAuthenticatedAPI = async (
   configuration?: IntlayerConfig
 ): Promise<IntlayerAPIProxy> => {
-  if (configuration?.editor.clientId && configuration.editor.clientSecret) {
-    return getIntlayerAPIProxy(undefined, configuration);
+  let sessionData: CliSessionData | null = null;
+
+  // First use session data if it exists
+  if (configuration) {
+    sessionData = await readCliSessionToken(configuration);
   }
-  const sessionData = configuration
-    ? await readCliSessionToken(configuration)
-    : null;
+
   return getIntlayerAPIProxy(undefined, configuration, sessionData?.token);
 };
 

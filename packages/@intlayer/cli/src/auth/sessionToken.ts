@@ -4,7 +4,7 @@ import type { IntlayerConfig } from '@intlayer/types/config';
 
 const SESSION_FILE_NAME = 'cli-session.json';
 
-type CliSessionData = {
+export type CliSessionData = {
   token: string;
   expiresAt: string; // ISO date string
 };
