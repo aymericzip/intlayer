@@ -166,6 +166,40 @@ export const useLogin = () => {
   });
 };
 
+export const useListAccounts = () => {
+  const intlayerAuth = useIntlayerAuth();
+  return useQuery({
+    queryKey: ['listAccounts'],
+    queryFn: () => intlayerAuth.listAccounts(),
+  });
+};
+
+export const useUnlinkAccount = () => {
+  const intlayerAuth = useIntlayerAuth();
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationKey: ['unlinkAccount'],
+    mutationFn: (args: Parameters<AuthAPI['unlinkAccount']>[0]) =>
+      intlayerAuth.unlinkAccount(args),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['listAccounts'] });
+    },
+  });
+};
+
+export const useLinkSocial = () => {
+  const intlayerAuth = useIntlayerAuth();
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationKey: ['linkSocial'],
+    mutationFn: (args: Parameters<AuthAPI['linkSocial']>[0]) =>
+      intlayerAuth.linkSocial(args),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['listAccounts'] });
+    },
+  });
+};
+
 export const useGetVerifyEmailStatus = () => {
   const intlayerAuth = useIntlayerAuth();
 

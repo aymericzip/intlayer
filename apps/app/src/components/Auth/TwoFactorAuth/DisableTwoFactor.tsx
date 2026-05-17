@@ -65,48 +65,51 @@ export const DisableTwoFactor: FC = () => {
         padding="lg"
         className="max-h-[80vh]"
       >
-        <div className="mt-6 flex w-full flex-col gap-6">
-          <p className="text-neutral text-sm">{modal.disable.description}</p>
+        {isOpen && (
+          <div className="mt-6 flex w-full flex-col gap-6">
+            <p className="text-neutral text-sm">{modal.disable.description}</p>
 
-          <Form
-            schema={TwoFactorAuthSchema}
-            onSubmitSuccess={handleSubmit}
-            className="mt-4 flex flex-col gap-4"
-            {...form}
-          >
-            <Form.InputPassword
-              name="password"
-              id="disable-two-factor-password"
-              autoComplete="current-password"
-              placeholder={modal.passwordPlaceholder.value}
-              isRequired
-              autoFocus
-            />
+            <Form
+              schema={TwoFactorAuthSchema}
+              onSubmitSuccess={handleSubmit}
+              className="mt-4 flex flex-col gap-4"
+              autoComplete
+              {...form}
+            >
+              <Form.InputPassword
+                name="password"
+                id="disable-two-factor-password"
+                autoComplete="current-password"
+                placeholder={modal.passwordPlaceholder.value}
+                isRequired
+                autoFocus
+              />
 
-            <div className="flex gap-3">
-              <Button
-                onClick={handleCloseModal}
-                color="text"
-                variant="outline"
-                disabled={isDisablingTwoFactor || isSubmitting}
-                label={modal.cancelButton.value}
-                className="flex-1"
-              >
-                {modal.cancelButton}
-              </Button>
-              <Form.Button
-                type="submit"
-                color="text"
-                isLoading={isDisablingTwoFactor || isSubmitting}
-                disabled={isDisablingTwoFactor || isSubmitting}
-                label={modal.confirmButton.value}
-                className="flex-1"
-              >
-                {modal.confirmButton}
-              </Form.Button>
-            </div>
-          </Form>
-        </div>
+              <div className="flex gap-3">
+                <Button
+                  onClick={handleCloseModal}
+                  color="text"
+                  variant="outline"
+                  disabled={isDisablingTwoFactor || isSubmitting}
+                  label={modal.cancelButton.value}
+                  className="flex-1"
+                >
+                  {modal.cancelButton}
+                </Button>
+                <Form.Button
+                  type="submit"
+                  color="text"
+                  isLoading={isDisablingTwoFactor || isSubmitting}
+                  disabled={isDisablingTwoFactor || isSubmitting}
+                  label={modal.confirmButton.value}
+                  className="flex-1"
+                >
+                  {modal.confirmButton}
+                </Form.Button>
+              </div>
+            </Form>
+          </div>
+        )}
       </Modal>
     </>
   );

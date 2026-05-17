@@ -17,7 +17,7 @@ export interface AvatarProps extends Omit<ComponentProps<'button'>, 'onClick'> {
   /** Whether the user is authenticated */
   isLoggedIn?: boolean;
   /** Size variant of the avatar */
-  size?: 'sm' | 'md' | 'lg' | 'xl';
+  size?: 'sm' | 'md' | 'lg' | 'xl' | '2xl';
   /** Click handler - when provided, makes the avatar clickable */
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   /** Alternative text for accessibility */
@@ -166,6 +166,7 @@ export const Avatar: FC<AvatarProps> = ({
         size === 'md' && 'size-9',
         size === 'lg' && 'size-12',
         size === 'xl' && 'size-16',
+        size === '2xl' && 'size-24',
         isClickable &&
           `cursor-pointer hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2`,
         !isClickable &&

@@ -1,9 +1,29 @@
-import { type Dictionary, t } from 'intlayer';
+import { type Dictionary, insert, t } from 'intlayer';
 
 const deleteUserContent = {
   key: 'delete-user',
   fill: './{{fileName}}.content.json',
   content: {
+    dangerZoneTitle: t({
+      en: 'Danger Zone',
+      'en-GB': 'Danger Zone',
+      fr: 'Zone dangereuse',
+      es: 'Zona de peligro',
+      de: 'Gefahrenzone',
+      ja: '危険ゾーン',
+      ko: '위험 구역',
+      zh: '危险区域',
+      it: 'Zona di pericolo',
+      pt: 'Zona de perigo',
+      hi: 'खतरनाक क्षेत्र',
+      ar: 'منطقة الخطر',
+      ru: 'Опасная зона',
+      tr: 'Tehlike Bölgesi',
+      pl: 'Strefa niebezpieczeństwa',
+      id: 'Zona Bahaya',
+      vi: 'Vùng nguy hiểm',
+      uk: 'Небезпечна зона',
+    }),
     deleteButton: {
       text: t({
         en: 'Delete Account',
@@ -89,37 +109,28 @@ const deleteUserContent = {
         id: 'Tindakan ini bersifat permanen dan tidak dapat dibatalkan. Semua data Anda akan dihapus secara permanen.',
         vi: 'Hành động này là vĩnh viễn và không thể hoàn tác. Tất cả dữ liệu của bạn sẽ bị xóa vĩnh viễn.',
       }),
-      instruction: t({
-        en: ['Type your email', ' to confirm this action.'],
-        fr: ['Saisissez votre adresse e-mail', ' pour confirmer cette action.'],
-        es: ['Escriba su correo electrónico', ' para confirmar esta acción.'],
-        de: [
-          'Geben Sie Ihre E-Mail-Adresse ein',
-          ', um diese Aktion zu bestätigen.',
-        ],
-        ja: [
-          'この操作を確認するには、ご自身のメールアドレスを入力してください。',
-        ],
-        ko: ['이 작업을 확인하려면', '을(를) 입력하세요.'],
-        zh: ['输入您的电子邮件地址', '以确认此操作。'],
-        it: ['Digita la tua email', ' per confermare questa azione.'],
-        pt: ['Digite seu e-mail', ' para confirmar esta ação.'],
-        hi: ['इस क्रिया की पुष्टि करने के लिए', ' अपना ईमेल टाइप करें।'],
-        ar: ['اكتب بريدك الإلكتروني', ' للتأكيد على هذا الإجراء.'],
-        uk: [
-          'Введіть свою адресу електронної пошти',
-          ', щоб підтвердити цю дію.',
-        ],
-        ru: [
-          'Введите свой адрес электронной почты',
-          ', чтобы подтвердить это действие.',
-        ],
-        'en-GB': ['Type your email', ' to confirm this action.'],
-        tr: ['Bu işlemi onaylamak için', ' adresinizi yazınız.'],
-        pl: ['Wpisz swój adres e-mail', ', aby potwierdzić tę akcję.'],
-        id: ['Ketik email Anda', ' untuk mengonfirmasi aksi ini.'],
-        vi: ['Nhập email của bạn', ' để xác nhận hành động này.'],
-      }),
+      instruction: insert(
+        t({
+          en: 'Type your email {{email}} to confirm this action.',
+          'en-GB': 'Type your email {{email}} to confirm this action.',
+          fr: 'Saisissez votre adresse e-mail {{email}} pour confirmer cette action.',
+          es: 'Escriba su correo electrónico {{email}} para confirmar esta acción.',
+          de: 'Geben Sie Ihre E-Mail-Adresse {{email}} ein, um diese Aktion zu bestätigen.',
+          ja: 'この操作を確認するには {{email}} を入力してください。',
+          ko: '이 작업을 확인하려면 {{email}}을(를) 입력하세요.',
+          zh: '输入您的电子邮件地址 {{email}} 以确认此操作。',
+          it: 'Digita la tua email {{email}} per confermare questa azione.',
+          pt: 'Digite seu e-mail {{email}} para confirmar esta ação.',
+          hi: 'इस क्रिया की पुष्टि करने के लिए {{email}} टाइप करें।',
+          ar: 'اكتب بريدك الإلكتروني {{email}} للتأكيد على هذا الإجراء.',
+          uk: 'Введіть свою адресу електронної пошти {{email}}, щоб підтвердити цю дію.',
+          ru: 'Введите свой адрес электронной почты {{email}}, чтобы подтвердить это действие.',
+          tr: 'Bu işlemi onaylamak için {{email}} adresinizi yazınız.',
+          pl: 'Wpisz swój adres e-mail {{email}}, aby potwierdzić tę akcję.',
+          id: 'Ketik email Anda {{email}} untuk mengonfirmasi aksi ini.',
+          vi: 'Nhập email của bạn {{email}} để xác nhận hành động này.',
+        })
+      ),
       emailPlaceholder: t({
         en: 'Enter your email address',
         fr: 'Entrez votre adresse e-mail',

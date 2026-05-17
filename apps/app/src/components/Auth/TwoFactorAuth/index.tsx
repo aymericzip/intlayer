@@ -15,7 +15,11 @@ export const TwoFactorAuth: FC = () => {
 
   return (
     <div className="flex flex-col gap-10">
-      <Tag className="ml-auto" size="sm" color={isEnabled ? 'success' : 'text'}>
+      <Tag
+        className="absolute top-4 right-5"
+        size="sm"
+        color={isEnabled ? 'success' : 'text'}
+      >
         {state(isEnabled)}
       </Tag>
 

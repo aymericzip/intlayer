@@ -87,7 +87,6 @@ export const EnableTwoFactor: FC = () => {
       {
         onSuccess: () => {
           setModalType('backupCodes');
-          revalidateSession();
         },
       }
     );
@@ -95,6 +94,7 @@ export const EnableTwoFactor: FC = () => {
 
   const handleBackupCodesDone = () => {
     setTwoFactorData(null);
+    revalidateSession();
     handleCloseModal();
   };
 
@@ -207,11 +207,7 @@ const QRCodeVerification: FC<{
 }> = ({ data, onVerify, isVerifying }) => {
   const { qrCode } = useIntlayer('two-factor-auth');
   const TwoFactorAuthOTPSchema = useTwoFactorAuthOTPSchema();
-  const { form } = useForm(TwoFactorAuthOTPSchema, {
-    defaultValues: {
-      code: '',
-    },
-  });
+  const { form } = useForm(TwoFactorAuthOTPSchema);
 
   const handleSubmit = (data: TwoFactorAuthOTPSchema) => {
     onVerify(data.code);
@@ -227,6 +223,7 @@ const QRCodeVerification: FC<{
         {...form}
         schema={TwoFactorAuthOTPSchema}
         onSubmitSuccess={handleSubmit}
+        autoComplete
         className="flex flex-col gap-4"
       >
         <div className="mx-auto w-fit items-center justify-center rounded-lg bg-white p-4">

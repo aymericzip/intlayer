@@ -2,6 +2,7 @@ import { Button } from '@intlayer/design-system/button';
 import { Form, useForm } from '@intlayer/design-system/form';
 import { useDeleteUser, useUser } from '@intlayer/design-system/hooks';
 import { Modal } from '@intlayer/design-system/modal';
+import { Trash2, TriangleAlert } from 'lucide-react';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
@@ -11,7 +12,7 @@ import {
 } from './useDeleteUserSchema';
 
 export const DeleteUser: FC = () => {
-  const { deleteButton, modal } = useIntlayer('delete-user');
+  const { dangerZoneTitle, deleteButton, modal } = useIntlayer('delete-user');
   const { mutate: deleteUser, isPending } = useDeleteUser();
   const { logout, user } = useUser();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -33,8 +34,10 @@ export const DeleteUser: FC = () => {
     form.reset();
   };
 
-  const handleSubmit = (data: DeleteUserForm) => {
-    deleteUser(data.email, {
+  const handleSubmit = (_data: DeleteUserForm) => {
+    if (!user?.id) return;
+
+    deleteUser(user.id, {
       onSuccess: () => {
         handleCloseModal();
         logout();
@@ -44,14 +47,27 @@ export const DeleteUser: FC = () => {
 
   return (
     <>
-      <Button
-        onClick={handleOpenModal}
-        color="error"
-        variant="outline"
-        label={deleteButton.ariaLabel.value}
-      >
-        {deleteButton.text}
-      </Button>
+      <div className="flex items-start gap-6 px-4">
+        <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-red-500/10">
+          <TriangleAlert className="h-5 w-5 text-red-500" />
+        </div>
+        <div className="flex-1">
+          <h3 className="font-medium text-base text-red-500">
+            {dangerZoneTitle}
+          </h3>
+          <p className="mt-1 text-neutral text-sm">{modal.description}</p>
+          <Button
+            onClick={handleOpenModal}
+            color="error"
+            variant="outline"
+            label={deleteButton.ariaLabel.value}
+            Icon={Trash2}
+            className="mt-4"
+          >
+            {deleteButton.text}
+          </Button>
+        </div>
+      </div>
 
       <Modal
         isOpen={isModalOpen}
@@ -60,56 +76,60 @@ export const DeleteUser: FC = () => {
         padding="lg"
         hasCloseButton
       >
-        <div className="mt-6 flex w-full flex-col gap-6">
-          <p className="text-neutral text-sm">{modal.description}</p>
+        {isModalOpen && (
+          <div className="mt-6 flex w-full flex-col gap-6">
+            <p className="text-neutral text-sm">{modal.description}</p>
 
-          <p className="text-neutral text-sm">
-            {modal.instruction[0]}
-            <span className="mx-1 font-bold">{user?.email ?? ''}</span>
-            {modal.instruction[1]}
-          </p>
+            <p className="text-neutral text-sm">
+              {modal.instruction({
+                email: (
+                  <span className="mx-1 font-bold">{user?.email ?? ''}</span>
+                ),
+              })}
+            </p>
 
-          <Form
-            schema={DeleteUserSchema}
-            onSubmitSuccess={handleSubmit}
-            className="flex flex-col gap-4 py-4"
-            {...form}
-          >
-            <Form.Input
-              name="email"
-              id="delete-user-email-confirmation"
-              type="email"
-              autoComplete="email"
-              placeholder={modal.emailPlaceholder.value}
-              isRequired
-              autoFocus
-            />
+            <Form
+              schema={DeleteUserSchema}
+              onSubmitSuccess={handleSubmit}
+              className="flex flex-col gap-4 pt-4"
+              {...form}
+            >
+              <Form.Input
+                name="email"
+                id="delete-user-email-confirmation"
+                type="email"
+                autoComplete="email"
+                placeholder={modal.emailPlaceholder.value}
+                isRequired
+                autoFocus
+              />
 
-            <div className="flex gap-3">
-              <Button
-                onClick={handleCloseModal}
-                color="text"
-                variant="outline"
-                disabled={isPending || isSubmitting}
-                label={modal.cancelButton.value}
-                className="flex-1"
-              >
-                {modal.cancelButton}
-              </Button>
-              <Form.Button
-                type="submit"
-                color="error"
-                variant="outline"
-                isLoading={isPending || isSubmitting}
-                disabled={isPending || isSubmitting}
-                label={modal.confirmButton.value}
-                className="flex-1"
-              >
-                {modal.confirmButton}
-              </Form.Button>
-            </div>
-          </Form>
-        </div>
+              <div className="flex gap-3">
+                <Button
+                  onClick={handleCloseModal}
+                  color="text"
+                  variant="outline"
+                  disabled={isPending || isSubmitting}
+                  label={modal.cancelButton.value}
+                  className="flex-1"
+                >
+                  {modal.cancelButton}
+                </Button>
+                <Form.Button
+                  type="submit"
+                  color="error"
+                  variant="outline"
+                  isLoading={isPending || isSubmitting}
+                  disabled={isPending || isSubmitting}
+                  label={modal.confirmButton.value}
+                  className="flex-1"
+                >
+                  {modal.confirmButton}
+                </Form.Button>
+              </div>
+            </Form>
+          </div>
+        )}
       </Modal>
     </>
   );

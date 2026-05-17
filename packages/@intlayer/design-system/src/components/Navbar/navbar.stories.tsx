@@ -132,6 +132,12 @@ const NavbarStory = (args: any) => {
             : 'text-neutral-700 hover:text-primary'
         }`}
         onClick={() => setSelectedChoice(section.key)}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            setSelectedChoice(section.key);
+          }
+        }}
       >
         {section.label}
       </div>
@@ -171,9 +177,12 @@ const NavbarStory = (args: any) => {
 
         {/* Add some scroll content */}
         <div className="mt-16 space-y-8">
-          {Array.from({ length: 10 }, (_, i) => (
-            <div key={i} className="rounded border border-neutral-200 p-6">
-              <H3>Content Section {i + 1}</H3>
+          {Array.from({ length: 10 }, (_, i) => i + 1).map((val) => (
+            <div
+              key={`content-section-${val}`}
+              className="rounded border border-neutral-200 p-6"
+            >
+              <H3>Content Section {val}</H3>
               <p className="mt-2 text-neutral-600">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
                 eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
@@ -208,6 +217,12 @@ const NavbarWithBottomSectionsStory = (args: any) => {
             : 'text-neutral-700 hover:text-primary'
         }`}
         onClick={() => setSelectedChoice(section.key)}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            setSelectedChoice(section.key);
+          }
+        }}
       >
         {section.label}
       </div>
@@ -307,12 +322,19 @@ export const ExtensiveNavigation: Story = {
         <div
           key={section.key}
           role="tab"
+          tabIndex={selectedChoice === section.key ? 0 : -1}
           className={`cursor-pointer px-3 py-2 font-medium text-sm transition-colors ${
             selectedChoice === section.key
               ? 'text-primary'
               : 'text-neutral-700 hover:text-primary'
           }`}
           onClick={() => setSelectedChoice(section.key)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              setSelectedChoice(section.key);
+            }
+          }}
         >
           {section.label}
         </div>
@@ -357,7 +379,7 @@ export const CustomStyling: Story = {
   args: {
     logo: (
       <div className="flex items-center gap-2">
-        <div className="h-10 w-10 rounded-full bg-gradient-to-r from-blue-500 to-purple-600"></div>
+        <div className="size-10 rounded-full bg-gradient-to-r from-blue-500 to-purple-600"></div>
         <div>
           <div className="font-bold text-lg">CustomBrand</div>
           <div className="text-neutral-500 text-xs">tagline</div>

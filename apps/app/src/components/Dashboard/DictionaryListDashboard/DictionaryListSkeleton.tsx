@@ -16,8 +16,8 @@ export const DictionaryListSkeleton: FC<DictionaryListSkeletonProps> = ({
         <div className="flex max-w-md flex-1 items-center gap-4">
           <Skeleton className="h-10 w-full rounded-xl" />
           <div className="flex items-center gap-1">
-            <Skeleton className="h-10 w-10 rounded-xl" />
-            <Skeleton className="h-10 w-10 rounded-xl" />
+            <Skeleton className="size-10 rounded-xl" />
+            <Skeleton className="size-10 rounded-xl" />
           </div>
         </div>
         <div className="flex items-center gap-2">

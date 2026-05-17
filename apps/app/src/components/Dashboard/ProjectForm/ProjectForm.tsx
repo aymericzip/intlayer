@@ -1,7 +1,7 @@
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
 import { useSession } from '@intlayer/design-system/hooks';
-import { Trash } from 'lucide-react';
+import { Trash, TriangleAlert } from 'lucide-react';
 import { type FC, Suspense, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { AccessKeyForm } from './AccessKey/AccessKeyForm';
@@ -23,11 +23,16 @@ export const ProjectFormContent: FC = () => {
 
   const { project } = session ?? {};
   const [isDeletionModalOpen, setIsDeletionModalOpen] = useState(false);
-  const { noAdminMessage, deleteProjectButton } = useIntlayer('project-form');
+  const {
+    noAdminMessage,
+    dangerZoneTitle,
+    dangerZoneDescription,
+    deleteProjectButton,
+  } = useIntlayer('project-form');
 
   if (project) {
     return (
-      <div className="flex max-w-5xl flex-col items-center justify-center gap-4">
+      <div className="flex max-w-6xl flex-col items-center justify-center gap-8">
         {!isProjectAdmin && isProjectMember && (
           <Container
             roundedSize="xl"
@@ -38,7 +43,7 @@ export const ProjectFormContent: FC = () => {
           </Container>
         )}
 
-        <div className="grid w-full justify-evenly gap-x-5 gap-y-4 max-md:grid-cols-1 md:grid-cols-2 lg:gap-x-16">
+        <div className="grid w-full justify-evenly gap-x-5 gap-y-4 max-md:grid-cols-1 md:grid-cols-[8fr_7fr] lg:gap-x-16">
           <div className="mb-auto flex flex-col gap-4">
             <Container
               roundedSize="3xl"
@@ -62,29 +67,6 @@ export const ProjectFormContent: FC = () => {
               className="flex size-full justify-center"
             >
               <AccessKeyForm />
-            </Container>
-
-            <Container
-              roundedSize="3xl"
-              padding="md"
-              className="flex size-full justify-center"
-            >
-              <DeleteProjectModal
-                isOpen={isDeletionModalOpen}
-                onClose={() => setIsDeletionModalOpen(false)}
-                onDelete={() => setIsDeletionModalOpen(false)}
-              />
-              <Button
-                type="submit"
-                color="error"
-                label={deleteProjectButton.ariaLabel.value}
-                isFullWidth
-                variant="outline"
-                onClick={() => setIsDeletionModalOpen(true)}
-                Icon={Trash}
-              >
-                {deleteProjectButton.text}
-              </Button>
             </Container>
           </div>
           <div className="mb-auto flex flex-col gap-4">
@@ -120,6 +102,36 @@ export const ProjectFormContent: FC = () => {
             </Container>
           </div>
         </div>
+        <Container roundedSize="3xl" padding="lg" className="w-full">
+          <DeleteProjectModal
+            isOpen={isDeletionModalOpen}
+            onClose={() => setIsDeletionModalOpen(false)}
+            onDelete={() => setIsDeletionModalOpen(false)}
+          />
+          <div className="flex items-start gap-6 px-4">
+            <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-red-500/10">
+              <TriangleAlert className="h-5 w-5 text-red-500" />
+            </div>
+            <div className="flex-1">
+              <h3 className="font-medium text-base text-red-500">
+                {dangerZoneTitle}
+              </h3>
+              <p className="mt-1 text-neutral text-sm">
+                {dangerZoneDescription}
+              </p>
+              <Button
+                color="error"
+                label={deleteProjectButton.ariaLabel.value}
+                variant="outline"
+                onClick={() => setIsDeletionModalOpen(true)}
+                Icon={Trash}
+                className="mt-4"
+              >
+                {deleteProjectButton.text}
+              </Button>
+            </div>
+          </div>
+        </Container>
       </div>
     );
   }

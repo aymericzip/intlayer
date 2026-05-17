@@ -192,7 +192,7 @@ export const RichContent: Story = {
         <Popover.Detail identifier="rich-popover" xAlign={PopoverXAlign.END}>
           <Container className="w-64 p-4">
             <div className="mb-3 flex items-center gap-3">
-              <div className="h-10 w-10 rounded-full bg-primary"></div>
+              <div className="size-10 rounded-full bg-primary"></div>
               <div>
                 <H3 className="font-semibold text-sm">John Doe</H3>
                 <p className="text-neutral-600 text-xs">john@example.com</p>
@@ -251,17 +251,29 @@ export const ContextMenu: Story = {
           xAlign={PopoverXAlign.START}
         >
           <Container className="py-1" transparency="xl">
-            <button className="flex w-full px-4 py-2 text-left text-sm transition-colors hover:bg-neutral-100">
+            <button
+              type="button"
+              className="flex w-full px-4 py-2 text-left text-sm transition-colors hover:bg-neutral-100"
+            >
               Cut
             </button>
-            <button className="flex w-full px-4 py-2 text-left text-sm transition-colors hover:bg-neutral-100">
+            <button
+              type="button"
+              className="flex w-full px-4 py-2 text-left text-sm transition-colors hover:bg-neutral-100"
+            >
               Copy
             </button>
-            <button className="flex w-full px-4 py-2 text-left text-sm transition-colors hover:bg-neutral-100">
+            <button
+              type="button"
+              className="flex w-full px-4 py-2 text-left text-sm transition-colors hover:bg-neutral-100"
+            >
               Paste
             </button>
             <hr className="my-1 border-neutral-200" />
-            <button className="flex w-full px-4 py-2 text-left text-destructive text-sm transition-colors hover:bg-destructive/10">
+            <button
+              type="button"
+              className="flex w-full px-4 py-2 text-left text-destructive text-sm transition-colors hover:bg-destructive/10"
+            >
               Delete
             </button>
           </Container>
@@ -279,7 +291,7 @@ export const HelpTooltip: Story = {
   render: () => (
     <Container className="flex items-center justify-center p-16">
       <div className="flex items-center gap-2">
-        <label className="font-medium text-sm">Password</label>
+        <span className="font-medium text-sm">Password</span>
 
         <Popover identifier="help-tooltip">
           <div className="flex h-5 w-5 cursor-help items-center justify-center rounded-full bg-neutral-200 text-neutral-600 text-xs">

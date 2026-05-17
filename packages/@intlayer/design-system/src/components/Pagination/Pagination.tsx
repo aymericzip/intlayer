@@ -216,9 +216,13 @@ export const Pagination: FC<PaginationProps> = ({
         <div className="flex items-center gap-1 max-md:gap-0.5">
           {pageNumbers.map((page, index) => {
             if (page === 'ellipsis') {
+              const isFirstEllipsis = index === pageNumbers.indexOf('ellipsis');
+              const ellipsisKey = isFirstEllipsis
+                ? 'ellipsis-start'
+                : 'ellipsis-end';
               return (
                 <div
-                  key={`ellipsis-${page}-${index}`}
+                  key={ellipsisKey}
                   className="flex h-8 min-w-8 items-center justify-center px-1"
                 >
                   <MoreHorizontal className="h-4 w-4 text-muted-foreground" />
@@ -251,7 +255,7 @@ export const Pagination: FC<PaginationProps> = ({
                 className={cn(
                   'flex aspect-square h-8 w-8 min-w-0 items-center justify-center p-0 text-sm',
                   size === 'sm' && 'h-6 w-6 text-xs',
-                  size === 'lg' && 'h-10 w-10 text-base',
+                  size === 'lg' && 'size-10 text-base',
                   isActive && 'font-semibold'
                 )}
               >

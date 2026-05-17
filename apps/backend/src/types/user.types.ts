@@ -1,5 +1,5 @@
-import type { RenameId } from '@utils/mongoDB/types';
-import type { User as BetterAuthUser, OmitId } from 'better-auth';
+import type { OmitId, RenameId } from '@utils/mongoDB/types';
+import type { User as BetterAuthUser } from 'better-auth';
 import type { Document, Model, ObjectIdToString, Types } from 'mongoose';
 
 export interface UserData {
