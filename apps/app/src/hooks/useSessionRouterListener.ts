@@ -25,8 +25,15 @@ export const useSessionRouterListener = () => {
     const isOrgChanged = prev?.organization?.id !== curr?.organization?.id;
     const isProjectChanged = prev?.project?.id !== curr?.project?.id;
 
-    // Invalidate router only if a critical entity changed
-    if (isUserChanged || isOrgChanged || isProjectChanged) {
+    // Skip invalidation when the user just signed IN (prev had no user, curr has one).
+    // The SignIn component already calls router.invalidate() + navigate() itself;
+    // firing a second invalidation here races with that navigation and causes the
+    // not-authenticated AuthenticationBarrier to redirect back to "/" while the
+    // explicit navigate() is trying to land on the target — producing an infinite
+    // /login → / → /organization → /login loop.
+    const isSignIn = !prev?.user && !!curr?.user;
+
+    if (!isSignIn && (isUserChanged || isOrgChanged || isProjectChanged)) {
       router.invalidate();
     }
 

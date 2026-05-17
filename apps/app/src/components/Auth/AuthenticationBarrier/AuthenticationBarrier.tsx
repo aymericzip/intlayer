@@ -3,7 +3,11 @@ import {
   App_Home_Path,
 } from '@intlayer/design-system/routes';
 import { useLocation, useSearch } from '@tanstack/react-router';
-import { getLocalizedUrl, type LocalesValues } from 'intlayer';
+import {
+  getLocalizedUrl,
+  getPathWithoutLocale,
+  type LocalesValues,
+} from 'intlayer';
 import type { FC } from 'react';
 import { AuthenticationBarrierClient } from './AuthenticationBarrierClient';
 import type { AuthenticationBarrierProps as AuthenticationBarrierPropsBoth } from './accessValidation';
@@ -29,8 +33,17 @@ export const AuthenticationBarrier: FC<AuthenticationBarrierProps> = ({
   const redirectUrl =
     typeof search.redirect_url === 'string' ? search.redirect_url : null;
 
+  // Strip the locale prefix before comparing to the un-localized constant,
+  // otherwise `/fr/auth/login === /auth/login` is always false and we embed
+  // the localized login path inside `redirect_url`, producing a circular URL.
+  const pathnameWithoutLocale = locale
+    ? getPathWithoutLocale(pathname, [locale])
+    : pathname;
+
   const effectivePathname =
-    pathname === App_Auth_SignIn_Path ? App_Home_Path : pathname;
+    pathnameWithoutLocale === App_Auth_SignIn_Path
+      ? App_Home_Path
+      : pathnameWithoutLocale;
 
   const rules = Array.isArray(props.accessRule)
     ? props.accessRule
@@ -48,9 +61,13 @@ export const AuthenticationBarrier: FC<AuthenticationBarrierProps> = ({
 
   const redirectURL = redirectionRoute ?? defaultRedirect;
 
-  const localizedRedirectionURL = locale
-    ? getLocalizedUrl(redirectURL, locale)
-    : redirectURL;
+  const isAlreadyLocalized = (url: string, loc: string) =>
+    url === `/${loc}` || url.startsWith(`/${loc}/`);
+
+  const localizedRedirectionURL =
+    locale && !isAlreadyLocalized(redirectURL, locale)
+      ? getLocalizedUrl(redirectURL, locale)
+      : redirectURL;
 
   return (
     <AuthenticationBarrierClient

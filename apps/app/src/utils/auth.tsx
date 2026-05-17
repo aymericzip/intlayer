@@ -7,7 +7,11 @@ import {
 import type { QueryClient } from '@tanstack/react-query';
 import { redirect } from '@tanstack/react-router';
 import { createIsomorphicFn } from '@tanstack/react-start';
-import { getLocalizedUrl, type LocalesValues } from 'intlayer';
+import {
+  getLocalizedUrl,
+  getPathWithoutLocale,
+  type LocalesValues,
+} from 'intlayer';
 import { accessValidation } from '#components/Auth/AuthenticationBarrier/accessValidation';
 
 interface ValidateAuthProps {
@@ -118,17 +122,28 @@ export const validateAuth = async ({
   const redirectUrlSearch =
     typeof search.redirect_url === 'string' ? search.redirect_url : null;
 
+  const pathnameWithoutLocale = locale
+    ? getPathWithoutLocale(pathname, [locale])
+    : pathname;
+
   const effectivePathname =
-    pathname === App_Auth_SignIn_Path ? App_Home_Path : pathname;
+    pathnameWithoutLocale === App_Auth_SignIn_Path
+      ? App_Home_Path
+      : pathnameWithoutLocale;
 
   const redirectURL =
     redirectionRoute ??
     redirectUrlSearch ??
     `${App_Auth_SignIn_Path}?redirect_url=${encodeURIComponent(effectivePathname)}`;
 
-  const localizedRedirectionURL = locale
-    ? getLocalizedUrl(redirectURL, locale)
-    : redirectURL;
+  const isAlreadyLocalized = (url: string, loc: string) => {
+    return url === `/${loc}` || url.startsWith(`/${loc}/`);
+  };
+
+  const localizedRedirectionURL =
+    locale && !isAlreadyLocalized(redirectURL, locale)
+      ? getLocalizedUrl(redirectURL, locale)
+      : redirectURL;
 
   accessValidation(
     accessRule,
