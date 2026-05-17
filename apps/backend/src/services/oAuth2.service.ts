@@ -1,6 +1,7 @@
 import { randomBytes } from 'node:crypto';
 import { OAuth2AccessTokenModel } from '@models/oAuth2.model';
 import { ProjectModel } from '@models/project.model';
+import type { Callback, Client } from '@node-oauth/oauth2-server';
 import { ensureMongoDocumentToObject } from '@utils/ensureMongoDocumentToObject';
 import { GenericError } from '@utils/errors';
 import { mapOrganizationToAPI } from '@utils/mapper/organization';
@@ -8,7 +9,6 @@ import { mapProjectToAPI } from '@utils/mapper/project';
 import { mapUserToAPI } from '@utils/mapper/user';
 import { getTokenExpireAt, shouldExtendOAuth2Token } from '@utils/oAuth2';
 import type { Types } from 'mongoose';
-import type { Callback, Client } from 'oauth2-server';
 import type { OAuth2Token } from '@/types/oAuth2.types';
 import type { Organization } from '@/types/organization.types';
 import type {

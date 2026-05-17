@@ -1,3 +1,5 @@
+import type OAuth2Server from '@node-oauth/oauth2-server';
+import type { AuthenticateOptions } from '@node-oauth/oauth2-server';
 import {
   getAccessToken,
   getClient,
@@ -5,8 +7,6 @@ import {
   saveToken,
   verifyScope,
 } from '@services/oAuth2.service';
-import type OAuth2Server from 'oauth2-server';
-import type { AuthenticateOptions } from 'oauth2-server';
 
 export const ACCESS_TOKEN_EXPIRES_IN = 60 * 60 * 24 * 7; // 7 days
 

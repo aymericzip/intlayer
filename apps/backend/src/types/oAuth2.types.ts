@@ -1,5 +1,5 @@
+import type { Token } from '@node-oauth/oauth2-server';
 import type { Document, Model } from 'mongoose';
-import type { Token } from 'oauth2-server';
 import type { OrganizationAPI } from './organization.types';
 import type { ProjectAPI } from './project.types';
 import type { UserAPI } from './user.types';

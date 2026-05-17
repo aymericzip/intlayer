@@ -1,4 +1,8 @@
 import { logger } from '@logger';
+import OAuth2Server, {
+  Request as OAuthRequest,
+  Response as OAuthResponse,
+} from '@node-oauth/oauth2-server';
 import {
   getCliSessionTokenContext,
   isCliSessionToken,
@@ -15,10 +19,6 @@ import {
   getAuthModel,
 } from '@utils/oAuth2';
 import type { FastifyReply, FastifyRequest } from 'fastify';
-import OAuth2Server, {
-  Request as OAuthRequest,
-  Response as OAuthResponse,
-} from 'oauth2-server';
 
 // Configuration of the OAuth server
 const oauth = new OAuth2Server({
@@ -83,9 +83,9 @@ export const oAuth2Middleware = async (
 
     // Authenticate the request using OAuth2
     const oauthRequest = new OAuthRequest({
-      headers: request.headers,
+      headers: request.headers as Record<string, string>,
       method: request.method,
-      query: request.query as any,
+      query: request.query as Record<string, string>,
       body: request.body as any,
     });
     const oauthResponse = new OAuthResponse(reply.raw);

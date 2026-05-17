@@ -1,5 +1,4 @@
 import { basename, join, relative } from 'node:path';
-
 import type { AIOptions } from '@intlayer/api';
 import {
   loadContentDeclarations,

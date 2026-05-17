@@ -1,12 +1,12 @@
 import type { RequestWithOAuth2Information } from '@middlewares/oAuth2.middleware';
+import {
+  Request as OAuthRequest,
+  Response as OAuthResponse,
+} from '@node-oauth/oauth2-server';
 import { extendOAuth2AccessToken } from '@services/oAuth2.service';
 import { type AppError, ErrorHandler, GenericError } from '@utils/errors';
 import { formatResponse, type ResponseData } from '@utils/responseData';
 import type { FastifyReply, FastifyRequest } from 'fastify';
-import {
-  Request as OAuthRequest,
-  Response as OAuthResponse,
-} from 'oauth2-server';
 import type { OAuth2Token } from '@/types/oAuth2.types';
 
 export type GetOAuth2TokenBody = {
@@ -22,9 +22,9 @@ export const getOAuth2AccessToken = async (
   reply: FastifyReply
 ): Promise<void> => {
   const oauthRequest = new OAuthRequest({
-    headers: request.headers,
+    headers: request.headers as Record<string, string>,
     method: request.method,
-    query: request.query as any,
+    query: request.query as Record<string, string>,
     body: request.body as any,
   });
   const oauthResponse = new OAuthResponse(reply.raw);
