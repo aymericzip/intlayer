@@ -14,7 +14,7 @@ export const SwitchThemeSwitcher: FC = () => {
     {
       content: (
         <SunIcon
-          size={20}
+          size={13}
           data-mode="light"
           aria-label="Switch to light mode"
         />
@@ -23,7 +23,7 @@ export const SwitchThemeSwitcher: FC = () => {
     },
     {
       content: (
-        <MoonIcon size={20} data-mode="dark" aria-label="Switch to dark mode" />
+        <MoonIcon size={13} data-mode="dark" aria-label="Switch to dark mode" />
       ),
       value: Modes.dark,
     },
@@ -35,7 +35,7 @@ export const SwitchThemeSwitcher: FC = () => {
       value={resolvedTheme as Modes}
       onChange={(m) => setTheme(m as 'light' | 'dark' | 'auto')}
       color="text"
-      size="sm"
+      size="xs"
     />
   );
 };

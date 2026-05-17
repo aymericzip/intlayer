@@ -1,17 +1,11 @@
 import { useDevice } from '@intlayer/design-system/hooks';
-import { Logo } from '@intlayer/design-system/logo';
 import { TechLogos } from '@intlayer/design-system/tech-logo';
 import type { LocalesValues } from 'intlayer';
 import type { FC, ReactNode } from 'react';
-import { lazy, Suspense } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { Link } from '#components/Link/Link';
-
-const SwitchThemeSwitcher = lazy(() =>
-  import('#components/ThemeSwitcherDropDown/SwitchThemeSwitcher').then(
-    (mod) => ({ default: mod.SwitchThemeSwitcher })
-  )
-);
+import { LocaleSwitcher } from '#components/LocaleSwitcher/LocaleSwitcher.tsx';
+import { SwitchThemeSwitcher } from '#components/SwitchThemeSwitcher.tsx';
 
 export type DashboardFooterLink = {
   href: string;
@@ -26,28 +20,25 @@ export type DashboardFooterProps = {
 };
 
 export const DashboardFooter: FC<DashboardFooterProps> = ({ links }) => {
-  const { github, logo } = useIntlayer('dashboard-footer');
+  const { github } = useIntlayer('dashboard-footer');
   const { isMobile } = useDevice('sm');
 
   return (
-    <footer className="flex flex-none flex-wrap items-center gap-4 px-6 py-1 max-md:pb-2 md:flex-row">
+    <footer className="z-10 flex flex-none flex-wrap items-center gap-4 px-6 py-1 max-md:pb-2 md:flex-row">
       <div className="flex flex-row items-center justify-center gap-x-4 gap-y-2 max-md:max-w-1/4">
-        <Link to={logo.url.value} label={logo.label.value} color="text">
-          <Logo width={80} height={80} className="size-6" />
-        </Link>
         <Link to={github.url.value} label={github.label.value} color="text">
-          <TechLogos.GITHUB width={25} />
+          <TechLogos.GITHUB width={20} />
         </Link>
+
         {isMobile && (
-          <div className="scale-75">
-            <Suspense>
-              <SwitchThemeSwitcher />
-            </Suspense>
+          <div className="flex flex-row items-center justify-center gap-x-2">
+            <LocaleSwitcher />
+            <SwitchThemeSwitcher />
           </div>
         )}
       </div>
 
-      <div className="m-auto flex w-auto flex-row flex-nowrap justify-around gap-4 gap-y-1 overflow-x-scroll max-md:max-w-2/3">
+      <div className="m-auto flex w-auto flex-row flex-nowrap justify-around gap-4 gap-y-1 overflow-x-scroll max-md:hidden max-md:max-w-2/3">
         {links?.map((link) => (
           <Link
             key={link.href}
@@ -63,10 +54,9 @@ export const DashboardFooter: FC<DashboardFooterProps> = ({ links }) => {
         ))}
       </div>
       {!isMobile && (
-        <div className="scale-75">
-          <Suspense>
-            <SwitchThemeSwitcher />
-          </Suspense>
+        <div className="flex items-center gap-4">
+          <LocaleSwitcher />
+          <SwitchThemeSwitcher />
         </div>
       )}
     </footer>

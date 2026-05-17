@@ -9,6 +9,7 @@ import { Loader } from '../Loader';
  * Button size variants for different use cases
  */
 export enum ButtonSize {
+  XS = 'xs',
   SM = 'sm',
   MD = 'md',
   LG = 'lg',
@@ -22,6 +23,7 @@ export enum ButtonSize {
 const buttonIconVariants = cva('flex-none shrink-0', {
   variants: {
     size: {
+      [`${ButtonSize.XS}`]: 'size-2',
       [`${ButtonSize.SM}`]: 'size-3',
       [`${ButtonSize.MD}`]: 'size-4',
       [`${ButtonSize.LG}`]: 'size-5',
@@ -87,6 +89,7 @@ export const buttonVariants = cva(
   {
     variants: {
       size: {
+        [`${ButtonSize.XS}`]: 'min-h-7 px-3 text-xs max-md:py-1',
         [`${ButtonSize.SM}`]: 'min-h-7 px-3 text-xs max-md:py-1',
         [`${ButtonSize.MD}`]: 'min-h-8 px-6 text-sm max-md:py-2',
         [`${ButtonSize.LG}`]: 'min-h-10 px-8 text-lg max-md:py-3',

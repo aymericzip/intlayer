@@ -27,6 +27,12 @@ export const pushConfig = async (options?: PushOptions) => {
     await intlayerAPI.project.pushProjectConfiguration(config);
 
   if (!getDictionariesKeysResult.data) {
+    appLogger(
+      `Error pushing project configuration. Run intlayer login command to authenticate.`,
+      {
+        level: 'error',
+      }
+    );
     throw new Error('Error pushing project configuration');
   }
 

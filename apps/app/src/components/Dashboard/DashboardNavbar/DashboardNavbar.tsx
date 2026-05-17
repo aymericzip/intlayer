@@ -15,8 +15,6 @@ import { MoreHorizontal } from 'lucide-react';
 import { type FC, lazy, Suspense, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { Link } from '#components/Link/Link';
-import { LocaleSwitcher } from '#components/LocaleSwitcher/LocaleSwitcher';
-import { ProfileDropDown } from '#components/ProfileDropdown/ProfileDropdown';
 import {
   filterItems,
   flattenItems,
@@ -154,7 +152,7 @@ export const DashboardNavbar: FC<DashboardNavbarProps> = ({ items = [] }) => {
           )}
         </div>
         <div className="flex items-center gap-4">
-          <div className="mr-8 flex items-center gap-1">
+          <div className="mr-3 flex items-center gap-1">
             {project && (
               <Suspense fallback={<div className="size-10" />}>
                 <TranslationStatusAside />
@@ -170,8 +168,6 @@ export const DashboardNavbar: FC<DashboardNavbarProps> = ({ items = [] }) => {
             </Suspense>
           </div>
 
-          <LocaleSwitcher />
-          <ProfileDropDown />
           {isMobile && (
             <Burger
               isActive={isMenuOpen}

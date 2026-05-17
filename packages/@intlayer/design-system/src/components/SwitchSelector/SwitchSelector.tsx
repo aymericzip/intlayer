@@ -27,6 +27,7 @@ export enum SwitchSelectorColor {
 }
 
 export enum SwitchSelectorSize {
+  XS = 'xs',
   SM = 'sm',
   MD = 'md',
   LG = 'lg',
@@ -79,6 +80,7 @@ export const choiceVariant = cva(
   {
     variants: {
       size: {
+        [`${SwitchSelectorSize.XS}`]: 'px-2 py-0.5 text-xs',
         [`${SwitchSelectorSize.SM}`]: 'px-2 py-1 text-xs',
         [`${SwitchSelectorSize.MD}`]: 'p-2 text-sm',
         [`${SwitchSelectorSize.LG}`]: 'p-4 text-base',

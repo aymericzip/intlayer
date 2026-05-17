@@ -1,14 +1,9 @@
 import { useSession } from '@intlayer/design-system/hooks';
 import {
-  App_Admin_Discussions_Path,
-  App_Admin_Organizations_Path,
-  App_Admin_Projects_Path,
-  App_Admin_Users_Path,
   App_Dashboard_Dictionaries_Path,
   App_Dashboard_Editor_Path,
   App_Dashboard_IDE_Path,
   App_Dashboard_Organization_Path,
-  App_Dashboard_Profile_Path,
   App_Dashboard_Projects_Path,
   App_Dashboard_Tags_Path,
   App_Dashboard_Translate_Path,
@@ -85,14 +80,14 @@ function DashboardLayout() {
           label: navigation.dictionaries.label.value,
           title: navigation.dictionaries.title.value,
         },
+        {
+          key: 'tags',
+          href: App_Dashboard_Tags_Path,
+          icon: 'Tags',
+          label: navigation.tags.label.value,
+          title: navigation.tags.title.value,
+        },
       ],
-    },
-    {
-      key: 'tags',
-      href: App_Dashboard_Tags_Path,
-      icon: 'Tags',
-      label: navigation.tags.label.value,
-      title: navigation.tags.title.value,
     },
     {
       key: 'ide',
@@ -116,50 +111,6 @@ function DashboardLayout() {
       icon: 'Building2',
       label: navigation.organization.label.value,
       title: navigation.organization.title.value,
-    },
-    {
-      key: 'profile',
-      href: App_Dashboard_Profile_Path,
-      icon: 'User',
-      label: navigation.profile.label.value,
-      title: navigation.profile.title.value,
-    },
-    {
-      key: 'admin',
-      href: App_Admin_Users_Path,
-      icon: 'Shield',
-      label: navigation.admin.label.value,
-      title: navigation.admin.title.value,
-      items: [
-        {
-          key: 'admin-users',
-          href: App_Admin_Users_Path,
-          icon: 'User',
-          label: navigation.adminUsers.label.value,
-          title: navigation.adminUsers.title.value,
-        },
-        {
-          key: 'admin-projects',
-          href: App_Admin_Projects_Path,
-          icon: 'FolderKanban',
-          label: navigation.adminProjects.label.value,
-          title: navigation.adminProjects.title.value,
-        },
-        {
-          key: 'admin-organizations',
-          href: App_Admin_Organizations_Path,
-          icon: 'Building2',
-          label: navigation.adminOrganizations.label.value,
-          title: navigation.adminOrganizations.title.value,
-        },
-        {
-          key: 'admin-discussions',
-          href: App_Admin_Discussions_Path,
-          icon: 'MessageSquare',
-          label: navigation.adminDiscussions.label.value,
-          title: navigation.adminDiscussions.title.value,
-        },
-      ],
     },
   ];
 

@@ -53,7 +53,7 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
         <DropDown.Trigger
           identifier={DROPDOWN_IDENTIFIER}
           aria-label={localeSwitcherLabel.value}
-          size="sm"
+          size="xs"
           className="p-0!"
           variant="outline"
           color="text"
@@ -62,12 +62,12 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
         >
           <div className="flex w-full items-center justify-between">
             <div
-              className="text-nowrap px-2 text-base"
+              className="text-nowrap px-2 text-base text-xs"
               suppressHydrationWarning
             >
               {localeName}
             </div>
-            <MoveVertical className="w-5 self-center" />
+            <MoveVertical className="self-center" size={10} />
           </div>
         </DropDown.Trigger>
 
@@ -76,6 +76,8 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
           isOverable
           isFocusable
           align="end"
+          yAlign="above"
+          className="z-100"
           {...panelProps}
         >
           <Container
