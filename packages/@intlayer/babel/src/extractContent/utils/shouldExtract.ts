@@ -43,6 +43,23 @@ export const shouldExtract = (text: string): boolean => {
 
   const wordCount = trimmed.split(/\s+/).length;
 
+  // Ignore CSS/Tailwind utility class strings. A string whose tokens all look
+  // like CSS utility classes (lowercase, optional responsive/state prefix like
+  // "sm:" or "hover:", optional hyphenated suffix like "-4" or "-full") and
+  // where at least one token contains a hyphen is almost certainly a className
+  // value, not translatable text.
+  const cssClassTokenRegex =
+    /^!?([a-z][a-z0-9]*:)*[a-z][a-z0-9]*(-[a-z0-9[\].,%#/]+)*(\/[a-z0-9]+)?$/;
+  if (wordCount > 1) {
+    const tokens = trimmed.split(/\s+/);
+    if (
+      tokens.every((token) => cssClassTokenRegex.test(token)) &&
+      tokens.some((token) => token.includes('-'))
+    ) {
+      return false;
+    }
+  }
+
   // Check if starts with a capital letter (including after an opening parenthesis/quote)
   const isCapitalized = /^['"([]*\p{Lu}/u.test(trimmed);
 

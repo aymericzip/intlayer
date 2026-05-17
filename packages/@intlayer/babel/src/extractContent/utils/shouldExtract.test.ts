@@ -80,4 +80,23 @@ describe('shouldExtract', () => {
       )
     ).toBe(true);
   });
+
+  it('should return false for Tailwind/CSS utility class strings', () => {
+    expect(shouldExtract('my-4 flex w-full justify-center')).toBe(false);
+    expect(shouldExtract('items-center justify-between gap-4')).toBe(false);
+    expect(shouldExtract('hover:bg-blue-500 dark:text-white')).toBe(false);
+    expect(shouldExtract('sm:px-6 lg:px-8 xl:px-12')).toBe(false);
+    expect(shouldExtract('flex flex-col gap-2 rounded-lg border p-4')).toBe(
+      false
+    );
+    expect(shouldExtract('!text-red-500 font-bold')).toBe(false);
+    expect(shouldExtract('text-sm/6 font-semibold')).toBe(false);
+  });
+
+  it('should not filter real lowercase sentences that have no hyphenated tokens', () => {
+    expect(shouldExtract('back to top')).toBe(true);
+    expect(
+      shouldExtract('this is a longer sentence with lowercase starting letter')
+    ).toBe(true);
+  });
 });
