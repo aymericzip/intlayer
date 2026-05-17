@@ -16,7 +16,8 @@
         "width": 800,
         "height": 600,
         "resizable": true,
-        "fullscreen": false
+        "fullscreen": false,
+        "visible": false
       }
     ],
     "security": {
@@ -26,6 +27,10 @@
   "bundle": {
     "active": true,
     "targets": "all",
+    "resources": {
+      "../.output/server": "server",
+      "../.output/public": "public"
+    },
     "icon": [
       "icons/32x32.png",
       "icons/128x128.png",
