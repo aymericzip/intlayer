@@ -24,6 +24,9 @@ jobs:
       - name: Install dependencies
         run: bun install
 
+      - name: Build packages
+        run: bun run build:ci
+
       - name: Build Vite app
         working-directory: apps/app
         run: bun --bun vite build --config tory.vite.config.ts
