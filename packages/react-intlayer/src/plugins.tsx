@@ -28,36 +28,28 @@ import type { NodeType } from '@intlayer/types/nodeType';
 import * as NodeTypes from '@intlayer/types/nodeType';
 import {
   createElement,
+  type FC,
   Fragment,
-  lazy,
   type ReactElement,
   type ReactNode,
-  Suspense,
 } from 'react';
+import { useLoadDynamic } from './client/useLoadDynamic';
 import { ContentSelector } from './editor/ContentSelector';
 import type { HTMLComponents } from './html/HTMLComponentTypes';
 import { type IntlayerNode, renderIntlayerNode } from './IntlayerNode';
 import { renderReactElement } from './reactElement/renderReactElement';
 
-const LazyMarkdownRendererPlugin = (
-  process.env['INTLAYER_NODE_TYPE_MARKDOWN'] === 'false'
-    ? null
-    : lazy(() =>
-        import('./markdown/MarkdownRendererPlugin').then((m) => ({
-          default: m.MarkdownRendererPlugin,
-        }))
+const markdownRendererModulePromise =
+  process.env['INTLAYER_NODE_TYPE_MARKDOWN'] !== 'false'
+    ? import('./markdown/MarkdownRendererPlugin').then(
+        (m) => m.MarkdownRendererPlugin
       )
-)!;
+    : null;
 
-const LazyHTMLRendererPlugin = (
-  process.env['INTLAYER_NODE_TYPE_HTML'] === 'false'
-    ? null
-    : lazy(() =>
-        import('./html/HTMLRendererPlugin').then((m) => ({
-          default: m.HTMLRendererPlugin,
-        }))
-      )
-)!;
+const htmlRendererModulePromise =
+  process.env['INTLAYER_NODE_TYPE_HTML'] !== 'false'
+    ? import('./html/HTMLRendererPlugin').then((m) => m.HTMLRendererPlugin)
+    : null;
 
 /** ---------------------------------------------
  *  INTLAYER NODE PLUGIN
@@ -277,6 +269,17 @@ export type MarkdownStringCond<T> = T extends string
     >
   : never;
 
+const MarkdownSuspenseRenderer: FC<Record<string, any>> = ({
+  children,
+  ...props
+}) => {
+  const MarkdownRendererPlugin = useLoadDynamic(
+    'markdown-renderer-plugin',
+    markdownRendererModulePromise!
+  );
+  return createElement(MarkdownRendererPlugin as any, { ...props, children });
+};
+
 /** Markdown string plugin. Replaces string node with a component that render the markdown. */
 export const markdownStringPlugin: Plugins =
   process.env['INTLAYER_NODE_TYPE_MARKDOWN'] === 'false'
@@ -328,24 +331,14 @@ export const markdownStringPlugin: Plugins =
                 process.env['INTLAYER_EDITOR_ENABLED'] !== 'false' &&
                 editor.enabled ? (
                   <ContentSelector {...rest}>
-                    <Suspense fallback={node}>
-                      <LazyMarkdownRendererPlugin
-                        {...rest}
-                        components={components}
-                      >
-                        {node}
-                      </LazyMarkdownRendererPlugin>
-                    </Suspense>
+                    <MarkdownSuspenseRenderer {...rest} components={components}>
+                      {node}
+                    </MarkdownSuspenseRenderer>
                   </ContentSelector>
                 ) : (
-                  <Suspense fallback={node}>
-                    <LazyMarkdownRendererPlugin
-                      {...rest}
-                      components={components}
-                    >
-                      {node}
-                    </LazyMarkdownRendererPlugin>
-                  </Suspense>
+                  <MarkdownSuspenseRenderer {...rest} components={components}>
+                    {node}
+                  </MarkdownSuspenseRenderer>
                 ),
               additionalProps: {
                 metadata: metadataNodes,
@@ -439,6 +432,14 @@ export type HTMLPluginCond<T> = T extends {
     >
   : never;
 
+const HTMLSuspenseRenderer: FC<Record<string, any>> = (props) => {
+  const HTMLRendererPlugin = useLoadDynamic(
+    'html-renderer-plugin',
+    htmlRendererModulePromise!
+  );
+  return createElement(HTMLRendererPlugin as any, props);
+};
+
 /** HTML plugin. Replaces node with a function that takes components => ReactNode. */
 export const htmlPlugin: Plugins =
   process.env['INTLAYER_NODE_TYPE_HTML'] === 'false'
@@ -461,22 +462,18 @@ export const htmlPlugin: Plugins =
                 process.env['INTLAYER_EDITOR_ENABLED'] !== 'false' &&
                 editor.enabled ? (
                   <ContentSelector {...rest}>
-                    <Suspense fallback={html}>
-                      <LazyHTMLRendererPlugin
-                        {...rest}
-                        html={html}
-                        userComponents={userComponents}
-                      />
-                    </Suspense>
-                  </ContentSelector>
-                ) : (
-                  <Suspense fallback={html}>
-                    <LazyHTMLRendererPlugin
+                    <HTMLSuspenseRenderer
                       {...rest}
                       html={html}
                       userComponents={userComponents}
                     />
-                  </Suspense>
+                  </ContentSelector>
+                ) : (
+                  <HTMLSuspenseRenderer
+                    {...rest}
+                    html={html}
+                    userComponents={userComponents}
+                  />
                 ),
             });
 

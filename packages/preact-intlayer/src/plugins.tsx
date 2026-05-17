@@ -25,40 +25,25 @@ import type {
 } from '@intlayer/types/module_augmentation';
 import type { NodeType } from '@intlayer/types/nodeType';
 import * as NodeTypes from '@intlayer/types/nodeType';
-import { Fragment, h, type VNode } from 'preact';
-import { lazy, Suspense } from 'preact/compat';
+import { Fragment, type FunctionComponent, h, type VNode } from 'preact';
+import { useLoadDynamic } from './client/useLoadDynamic';
 import { ContentSelector } from './editor/ContentSelector';
 import type { HTMLComponents } from './html/types';
 import { type IntlayerNode, renderIntlayerNode } from './IntlayerNode';
 import { renderPreactElement } from './preactElement/renderPreactElement';
 
-const LazyMarkdownMetadataRenderer = (
-  process.env['INTLAYER_NODE_TYPE_MARKDOWN'] === 'false'
-    ? null
-    : lazy(() =>
-        import('./markdown/MarkdownRendererPlugin').then((m) => ({
-          default: m.MarkdownMetadataRenderer,
-        }))
-      )
-)!;
+const markdownRendererModulePromise =
+  process.env['INTLAYER_NODE_TYPE_MARKDOWN'] !== 'false'
+    ? import('./markdown/MarkdownRendererPlugin').then((m) => ({
+        MarkdownRendererPlugin: m.MarkdownRendererPlugin,
+        MarkdownMetadataRenderer: m.MarkdownMetadataRenderer,
+      }))
+    : null;
 
-const LazyMarkdownRendererPlugin = (
-  process.env['INTLAYER_NODE_TYPE_MARKDOWN'] === 'false'
-    ? null
-    : lazy(() =>
-        import('./markdown/MarkdownRendererPlugin').then((m) => ({
-          default: m.MarkdownRendererPlugin,
-        }))
-      )
-)!;
-
-const LazyHTMLRenderer = (
-  process.env['INTLAYER_NODE_TYPE_HTML'] === 'false'
-    ? null
-    : lazy(() =>
-        import('./html/HTMLRenderer').then((m) => ({ default: m.HTMLRenderer }))
-      )
-)!;
+const htmlRendererModulePromise =
+  process.env['INTLAYER_NODE_TYPE_HTML'] !== 'false'
+    ? import('./html/HTMLRenderer').then((m) => m.HTMLRenderer)
+    : null;
 
 /** ---------------------------------------------
  * INTLAYER NODE PLUGIN
@@ -323,6 +308,27 @@ export type MarkdownStringCond<T> = T extends string
     >
   : never;
 
+const MarkdownSuspenseRenderer: FunctionComponent<Record<string, any>> = ({
+  children,
+  ...props
+}) => {
+  const { MarkdownRendererPlugin } = useLoadDynamic(
+    'preact-markdown-renderer',
+    markdownRendererModulePromise!
+  );
+  return h(MarkdownRendererPlugin as any, { ...props, children });
+};
+
+const MarkdownMetadataSuspenseRenderer: FunctionComponent<
+  Record<string, any>
+> = ({ children, ...props }) => {
+  const { MarkdownMetadataRenderer } = useLoadDynamic(
+    'preact-markdown-renderer',
+    markdownRendererModulePromise!
+  );
+  return h(MarkdownMetadataRenderer as any, { ...props, children });
+};
+
 /** Markdown string plugin. Replaces string node with a component that render the markdown. */
 export const markdownStringPlugin: Plugins =
   process.env['INTLAYER_NODE_TYPE_MARKDOWN'] === 'false'
@@ -353,24 +359,20 @@ export const markdownStringPlugin: Plugins =
                   process.env['INTLAYER_EDITOR_ENABLED'] !== 'false' &&
                   editor.enabled ? (
                     <ContentSelector {...rest}>
-                      <Suspense fallback={node}>
-                        <LazyMarkdownMetadataRenderer
-                          {...rest}
-                          metadataKeyPath={props.keyPath}
-                        >
-                          {node}
-                        </LazyMarkdownMetadataRenderer>
-                      </Suspense>
-                    </ContentSelector>
-                  ) : (
-                    <Suspense fallback={node}>
-                      <LazyMarkdownMetadataRenderer
+                      <MarkdownMetadataSuspenseRenderer
                         {...rest}
                         metadataKeyPath={props.keyPath}
                       >
                         {node}
-                      </LazyMarkdownMetadataRenderer>
-                    </Suspense>
+                      </MarkdownMetadataSuspenseRenderer>
+                    </ContentSelector>
+                  ) : (
+                    <MarkdownMetadataSuspenseRenderer
+                      {...rest}
+                      metadataKeyPath={props.keyPath}
+                    >
+                      {node}
+                    </MarkdownMetadataSuspenseRenderer>
                   ),
               }),
           };
@@ -390,24 +392,14 @@ export const markdownStringPlugin: Plugins =
                 process.env['INTLAYER_EDITOR_ENABLED'] !== 'false' &&
                 editor.enabled ? (
                   <ContentSelector {...rest}>
-                    <Suspense fallback={node}>
-                      <LazyMarkdownRendererPlugin
-                        {...rest}
-                        components={components}
-                      >
-                        {node}
-                      </LazyMarkdownRendererPlugin>
-                    </Suspense>
+                    <MarkdownSuspenseRenderer {...rest} components={components}>
+                      {node}
+                    </MarkdownSuspenseRenderer>
                   </ContentSelector>
                 ) : (
-                  <Suspense fallback={node}>
-                    <LazyMarkdownRendererPlugin
-                      {...rest}
-                      components={components}
-                    >
-                      {node}
-                    </LazyMarkdownRendererPlugin>
-                  </Suspense>
+                  <MarkdownSuspenseRenderer {...rest} components={components}>
+                    {node}
+                  </MarkdownSuspenseRenderer>
                 ),
               additionalProps: {
                 metadata: metadataNodes,
@@ -487,6 +479,16 @@ export type HTMLPluginCond<T> = T extends {
     }
   : never;
 
+const HTMLSuspenseRenderer: FunctionComponent<Record<string, any>> = (
+  props
+) => {
+  const HTMLRenderer = useLoadDynamic(
+    'preact-html-renderer',
+    htmlRendererModulePromise!
+  );
+  return h(HTMLRenderer as any, props);
+};
+
 /** HTML plugin. Replaces node with a function that takes components => VNode. */
 export const htmlPlugin: Plugins =
   process.env['INTLAYER_NODE_TYPE_HTML'] === 'false'
@@ -511,25 +513,9 @@ export const htmlPlugin: Plugins =
                   ? h(
                       ContentSelector,
                       { ...rest },
-                      h(
-                        Suspense as any,
-                        { fallback: html },
-                        h(LazyHTMLRenderer as any, {
-                          ...rest,
-                          html,
-                          userComponents,
-                        })
-                      )
+                      h(HTMLSuspenseRenderer, { ...rest, html, userComponents })
                     )
-                  : h(
-                      Suspense as any,
-                      { fallback: html },
-                      h(LazyHTMLRenderer as any, {
-                        ...rest,
-                        html,
-                        userComponents,
-                      })
-                    ),
+                  : h(HTMLSuspenseRenderer, { ...rest, html, userComponents }),
             }) as any;
 
           const element = render() as any;
