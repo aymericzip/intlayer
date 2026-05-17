@@ -237,6 +237,11 @@ export type ButtonProps = DetailedHTMLProps<
 > &
   VariantProps<typeof buttonVariants> & {
     /**
+     * Optional className for the children wrapper span
+     */
+    childrenClassName?: string;
+
+    /**
      * Accessible label for screen readers and assistive technologies.
      * This is required for accessibility compliance.
      */
@@ -352,6 +357,7 @@ export const Button: FC<ButtonProps> = ({
   Icon,
   IconRight,
   iconClassName,
+  childrenClassName,
   isLoading = false,
   isActive,
   isSelected,
@@ -442,7 +448,13 @@ export const Button: FC<ButtonProps> = ({
       </div>
 
       {children && (
-        <span className="flex-1 truncate whitespace-nowrap">{children}</span>
+        <span
+          className={cn(
+            childrenClassName ?? 'flex-1 truncate whitespace-nowrap'
+          )}
+        >
+          {children}
+        </span>
       )}
 
       {!children && isIconOnly && <span className="sr-only">{label}</span>}

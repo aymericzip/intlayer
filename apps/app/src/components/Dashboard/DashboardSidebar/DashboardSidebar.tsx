@@ -1,8 +1,6 @@
-import { Avatar } from '@intlayer/design-system/avatar';
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
-import { DropDown } from '@intlayer/design-system/drop-down';
-import { useDevice, useSession, useUser } from '@intlayer/design-system/hooks';
+import { useDevice, useSession } from '@intlayer/design-system/hooks';
 import { KeyboardShortcut } from '@intlayer/design-system/keyboard-shortcut';
 import { PopoverStatic } from '@intlayer/design-system/popover';
 import {
@@ -13,7 +11,6 @@ import {
   App_Dashboard_Dictionaries_Path,
   App_Dashboard_Editor_Path,
   App_Dashboard_IDE_Path,
-  App_Dashboard_Profile_Path,
   App_Dashboard_Projects_Path,
   App_Dashboard_Tags_Path,
   App_Dashboard_Translate_Path,
@@ -41,6 +38,7 @@ import {
 import { type FC, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { Link } from '#components/Link/Link';
+import { DashboardSidebarProfile } from './DashboardSidebarProfile';
 
 // Map icon names to components - must be done in client component
 export const iconMap: Record<string, LucideIcon> = {
@@ -187,11 +185,7 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
   const { isMobile } = useDevice();
   const { pathname } = useLocation();
   const { session } = useSession();
-  const { isAuthenticated, user, logout } = useUser();
-  const { navigation } = useIntlayer('dashboard-sidebar');
   const shouldReduceMotion = useReducedMotion();
-
-  const userName = user?.name ?? user?.email ?? '';
 
   const { organization, project, roles } = session ?? {};
   const isSuperAdmin =
@@ -351,116 +345,7 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
           </PopoverStatic>
         </div>
 
-        {isAuthenticated && (
-          <div
-            className={cn(
-              'my-4 flex w-full justify-center',
-              !isCollapsed && 'px-2'
-            )}
-          >
-            {isCollapsed ? (
-              <DropDown identifier="profile-sidebar-collapsed">
-                <DropDown.Trigger
-                  identifier="profile-sidebar-collapsed"
-                  size="icon-sm"
-                  variant="outline"
-                  color="text"
-                  roundedSize="full"
-                  className="border-none p-0!"
-                >
-                  <Avatar
-                    fullname={userName}
-                    isLoggedIn={isAuthenticated}
-                    src={user?.image ?? undefined}
-                    size="sm"
-                  />
-                </DropDown.Trigger>
-                <DropDown.Panel
-                  identifier="profile-sidebar-collapsed"
-                  isFocusable
-                  isOverable
-                  align="start"
-                >
-                  <Link
-                    to={App_Dashboard_Profile_Path}
-                    label={navigation.viewProfile.label.value}
-                    variant="hoverable"
-                  >
-                    {navigation.viewProfile.text.value}
-                  </Link>
-                  <hr className="my-1 border-text/10" />
-                  <Button
-                    variant="outline"
-                    color="text"
-                    onClick={logout}
-                    label={navigation.logout.label.value}
-                    size="sm"
-                  >
-                    {navigation.logout.text.value}
-                  </Button>
-                </DropDown.Panel>
-              </DropDown>
-            ) : (
-              <DropDown identifier="profile-sidebar-expanded">
-                <DropDown.Trigger
-                  identifier="profile-sidebar-expanded"
-                  size="icon-sm"
-                  variant="hoverable"
-                  color="neutral"
-                  className="p-1"
-                >
-                  <Link
-                    to={App_Dashboard_Profile_Path}
-                    label={navigation.viewProfile.label.value}
-                    className="flex min-w-0 flex-1 items-center gap-3"
-                  >
-                    <Avatar
-                      fullname={userName}
-                      isLoggedIn={isAuthenticated}
-                      src={user?.image ?? undefined}
-                      size="sm"
-                    />
-                    <div className="flex min-w-0 flex-1 flex-col">
-                      <span className="truncate font-semibold text-sm text-text leading-tight">
-                        {userName}
-                      </span>
-                      {user?.email && (
-                        <span className="truncate text-neutral text-xs leading-none">
-                          {user.email}
-                        </span>
-                      )}
-                    </div>
-                  </Link>
-                </DropDown.Trigger>
-                <DropDown.Panel
-                  identifier="profile-sidebar-expanded"
-                  isFocusable
-                  isOverable
-                  align="end"
-                  yAlign="above"
-                >
-                  <Container
-                    className="min-w-[100px] border border-neutral/30"
-                    transparency="xs"
-                    padding="md"
-                    roundedSize="xl"
-                  >
-                    <Button
-                      variant="outline"
-                      color="text"
-                      onClick={logout}
-                      label={navigation.logout.label.value}
-                      size="sm"
-                      className="w-full"
-                    >
-                      {navigation.logout.text.value}
-                    </Button>
-                  </Container>
-                </DropDown.Panel>
-              </DropDown>
-            )}
-          </div>
-        )}
+        <DashboardSidebarProfile isCollapsed={isCollapsed} />
       </Container>
     </aside>
   );
