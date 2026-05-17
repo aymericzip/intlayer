@@ -81,6 +81,20 @@ export const refetchFreshSession = async (
   queryClient: QueryClient
 ): Promise<SessionAPI | null> => {
   const fresh = await safeGetSession({ disableCookieCache: true });
+
+  if (!fresh) {
+    const cached = queryClient.getQueryData<SessionAPI>(
+      sessionQueryOptions.queryKey
+    );
+    if (cached?.user) {
+      console.warn(
+        '[auth] refetchFreshSession returned null, but keeping cached session to avoid wrongful redirect loop',
+        cached
+      );
+      return cached;
+    }
+  }
+
   queryClient.setQueryData(sessionQueryOptions.queryKey, fresh);
   return fresh;
 };
