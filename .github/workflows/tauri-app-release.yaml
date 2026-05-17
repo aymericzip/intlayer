@@ -1,10 +1,16 @@
-name: Tauri Release
+name: 💻 Tauri Release
 
 on:
   push:
     tags:
       - 'v*'
   workflow_dispatch:
+
+permissions:
+  contents: write
+
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
   build-and-publish:
@@ -38,8 +44,6 @@ jobs:
 
       - name: Build and publish Tauri app
         uses: tauri-apps/tauri-action@v0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         with:
           projectPath: apps/app
           tauriScript: bunx tauri
