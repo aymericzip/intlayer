@@ -43,7 +43,8 @@ export const isInvalidDictionary = (
   // dictionary resolution.
   // Allows alphanumeric characters, dashes, and underscores.
   // Allows dots, but not as the first or last character, and no consecutive dots.
-  const isInsecureKey = !/^[a-zA-Z0-9]+([._-][a-zA-Z0-9]+)*$/.test(
+  // Allows chinese or russian characters e.g. 你好
+  const isInsecureKey = !/^[\p{L}\p{N}]+([._-][\p{L}\p{N}]+)*$/u.test(
     dictionary.key
   );
 
