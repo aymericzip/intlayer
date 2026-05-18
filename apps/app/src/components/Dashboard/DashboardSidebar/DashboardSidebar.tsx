@@ -328,7 +328,9 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
               onClick={() => setIsCollapsed((prev) => !prev)}
             >
               {!isCollapsed && (
-                <span className="w-full">{collapseButton.text}</span>
+                <span className="ml-4 block w-full text-left">
+                  {collapseButton.text}
+                </span>
               )}
             </Button>
 

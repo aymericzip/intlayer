@@ -58,7 +58,7 @@ export const RepositoryList: FC<RepositoryListProps> = ({
   const rowVirtualizer = useVirtualizer({
     count: filteredRepos.length,
     getScrollElement: () => parentRef.current,
-    estimateSize: () => 64, // Estimate height of RepositoryItem in px
+    estimateSize: () => 72,
     overscan: 5, // Render a few items outside the viewport for smooth scrolling
   });
 
@@ -103,7 +103,9 @@ export const RepositoryList: FC<RepositoryListProps> = ({
               return (
                 <div
                   key={virtualRow.key}
+                  className="pb-2"
                   style={{
+                    paddingBottom: '8px',
                     position: 'absolute',
                     top: 0,
                     left: 0,

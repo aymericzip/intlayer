@@ -8,11 +8,19 @@ import {
 } from '@intlayer/design-system/hooks';
 import { useToast } from '@intlayer/design-system/toaster';
 import { useMutation } from '@tanstack/react-query';
-import { defu } from 'defu';
+import { createDefu } from 'defu';
 import { useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { parseConfigContent } from '../parseConfigContent';
 import type { ConfigPreviewState, ConnectedRepository } from '../types';
+
+// Arrays in the config (e.g. locales) should be replaced, not concatenated.
+const defu = createDefu((obj, key, value) => {
+  if (Array.isArray(value)) {
+    obj[key] = value;
+    return true;
+  }
+});
 
 export const useProjectConfigActions = () => {
   const { session } = useSession();

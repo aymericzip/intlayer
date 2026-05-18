@@ -3,16 +3,33 @@ import { CopyButton } from '@intlayer/design-system';
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
 import { H3, H4, H5 } from '@intlayer/design-system/headers';
-import { useSession } from '@intlayer/design-system/hooks';
+import {
+  usePushProjectConfiguration,
+  useSession,
+} from '@intlayer/design-system/hooks';
 import { CodeBlock } from '@intlayer/design-system/ide';
+import { PopoverStatic } from '@intlayer/design-system/popover';
 import { Website_Doc_IntlayerCMS } from '@intlayer/design-system/routes';
 import { Tag } from '@intlayer/design-system/tag';
+import { useToast } from '@intlayer/design-system/toaster';
+import { useMutation } from '@tanstack/react-query';
+import { createDefu } from 'defu';
 import { getLocaleName, type Locale } from 'intlayer';
-import { Pencil } from 'lucide-react';
-import { type FC, useState } from 'react';
+import { GitBranch, Pencil, Upload } from 'lucide-react';
+import { type FC, useRef, useState } from 'react';
 import { useIntlayer, useLocale } from 'react-intlayer';
 import { Link } from '#components/Link/Link';
+import { parseConfigContent } from '../RepositoryLink/parseConfigContent';
 import { ConfigEditionForm } from './ConfigEditionForm';
+import { ConfigFilePreviewModal } from './ConfigFilePreviewModal';
+import { ConfigImportFlow } from './ConfigImportFlow';
+
+const defu = createDefu((obj, key, value) => {
+  if (Array.isArray(value)) {
+    obj[key] = value;
+    return true;
+  }
+});
 
 type ConfigDetailsProps = {
   projectConfig?: ProjectConfiguration;
@@ -21,8 +38,21 @@ type ConfigDetailsProps = {
 export const ConfigDetails: FC<ConfigDetailsProps> = ({ projectConfig }) => {
   const { locale } = useLocale();
   const { session } = useSession();
+  const { project } = session ?? {};
   const isProjectAdmin = session?.roles?.includes('project_admin');
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isImportFlowOpen, setIsImportFlowOpen] = useState(false);
+  const [filePreview, setFilePreview] = useState<{
+    content: string;
+    parsedConfig: ProjectConfiguration;
+  } | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const { toast } = useToast();
+  const { mutateAsync: parseConfig, isPending: isParsingConfig } = useMutation({
+    mutationFn: (content: string) => parseConfigContent({ data: { content } }),
+  });
+  const { mutate: pushProjectConfiguration, isPending: isPushingConfig } =
+    usePushProjectConfiguration();
   const {
     noConfig,
     updateConfig,
@@ -32,7 +62,48 @@ export const ConfigDetails: FC<ConfigDetailsProps> = ({ projectConfig }) => {
     editorSection,
     aiSection,
   } = useIntlayer('project-config-detail');
-  const { editButton } = useIntlayer('config-edition-form');
+  const { editButton, uploadFileButton, loadFromRepoButton } = useIntlayer(
+    'config-edition-form'
+  );
+
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    try {
+      const content = await file.text();
+      const parsedConfig = await parseConfig(content);
+      setFilePreview({
+        content,
+        parsedConfig: parsedConfig as ProjectConfiguration,
+      });
+    } catch (error) {
+      toast({
+        title: 'Failed to parse configuration file',
+        description: (error as Error).message,
+        variant: 'error',
+      });
+    } finally {
+      e.target.value = '';
+    }
+  };
+
+  const handleConfirmUpload = () => {
+    if (!filePreview) return;
+    const merged = defu(filePreview.parsedConfig, project?.configuration ?? {});
+    pushProjectConfiguration(merged as ProjectConfiguration, {
+      onSuccess: () => {
+        setFilePreview(null);
+        toast({ title: 'Configuration updated', variant: 'success' });
+      },
+      onError: (error) => {
+        toast({
+          title: 'Failed to push configuration',
+          description: (error as Error).message,
+          variant: 'error',
+        });
+      },
+    });
+  };
 
   if (!projectConfig) {
     return (
@@ -71,23 +142,88 @@ export const ConfigDetails: FC<ConfigDetailsProps> = ({ projectConfig }) => {
       <div className="flex items-center justify-between">
         <H3>{title}</H3>
         {isProjectAdmin && projectConfig && (
-          <Button
-            variant="hoverable"
-            size="icon-md"
-            color="text"
-            Icon={Pencil}
-            label={editButton.ariaLabel.value}
-            onClick={() => setIsEditModalOpen(true)}
-          />
+          <div className="flex items-center gap-1">
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept=".ts,.js,.mjs,.cjs,.json"
+              className="hidden"
+              onChange={handleFileChange}
+            />
+            <PopoverStatic identifier="config-upload">
+              <Button
+                variant="hoverable"
+                size="icon-md"
+                color="text"
+                Icon={Upload}
+                label={uploadFileButton.ariaLabel.value}
+                isLoading={isParsingConfig}
+                onClick={() => fileInputRef.current?.click()}
+              />
+              <PopoverStatic.Detail identifier="config-upload" xAlign="end">
+                <Container className="p-3" roundedSize="xl">
+                  <p>{uploadFileButton.popover}</p>
+                </Container>
+              </PopoverStatic.Detail>
+            </PopoverStatic>
+
+            <PopoverStatic identifier="config-import-repo">
+              <Button
+                variant="hoverable"
+                size="icon-md"
+                color="text"
+                Icon={GitBranch}
+                label={loadFromRepoButton.ariaLabel.value}
+                onClick={() => setIsImportFlowOpen(true)}
+              />
+              <PopoverStatic.Detail
+                identifier="config-import-repo"
+                xAlign="end"
+              >
+                <Container className="p-3" roundedSize="xl">
+                  <p>{loadFromRepoButton.popover}</p>
+                </Container>
+              </PopoverStatic.Detail>
+            </PopoverStatic>
+
+            <PopoverStatic identifier="config-edit">
+              <Button
+                variant="hoverable"
+                size="icon-md"
+                color="text"
+                Icon={Pencil}
+                label={editButton.ariaLabel.value}
+                onClick={() => setIsEditModalOpen(true)}
+              />
+              <PopoverStatic.Detail identifier="config-edit" xAlign="end">
+                <Container className="p-3" roundedSize="xl">
+                  <p>{editButton.popover}</p>
+                </Container>
+              </PopoverStatic.Detail>
+            </PopoverStatic>
+          </div>
         )}
       </div>
 
       {isProjectAdmin && projectConfig && (
-        <ConfigEditionForm
-          projectConfig={projectConfig}
-          isOpen={isEditModalOpen}
-          onClose={() => setIsEditModalOpen(false)}
-        />
+        <>
+          <ConfigEditionForm
+            projectConfig={projectConfig}
+            isOpen={isEditModalOpen}
+            onClose={() => setIsEditModalOpen(false)}
+          />
+          <ConfigImportFlow
+            isOpen={isImportFlowOpen}
+            onClose={() => setIsImportFlowOpen(false)}
+          />
+          <ConfigFilePreviewModal
+            isOpen={!!filePreview}
+            onClose={() => setFilePreview(null)}
+            fileContent={filePreview?.content ?? ''}
+            onConfirm={handleConfirmUpload}
+            isLoading={isPushingConfig}
+          />
+        </>
       )}
 
       <div className="flex flex-col gap-6">

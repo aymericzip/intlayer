@@ -442,9 +442,7 @@ export const Button: FC<ButtonProps> = ({
       </div>
 
       {children && (
-        <span className={cn('flex-1 truncate whitespace-nowrap')}>
-          {children}
-        </span>
+        <span className="flex-1 truncate whitespace-nowrap">{children}</span>
       )}
 
       {!children && isIconOnly && <span className="sr-only">{label}</span>}
