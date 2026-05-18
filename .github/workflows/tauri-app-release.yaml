@@ -1,4 +1,4 @@
-name: Tauri Release
+name: 💻 Tauri Release
 
 on:
   push:
@@ -35,6 +35,13 @@ jobs:
       - name: Build packages
         run: bun run build:ci
 
+      - name: Get app version
+        id: get_version
+        shell: bash
+        run: |
+          VERSION=$(bun -e "console.log(JSON.parse(require('fs').readFileSync('apps/app/package.json', 'utf-8')).version)")
+          echo "version=v$VERSION" >> $GITHUB_OUTPUT
+
       - name: Build Vite app
         working-directory: apps/app
         run: bun --bun vite build --config tory.vite.config.ts
@@ -46,8 +53,8 @@ jobs:
         with:
           projectPath: apps/app
           tauriScript: bunx tauri
-          tagName: ${{ github.ref_name }}
-          releaseName: 'App ${{ github.ref_name }}'
+          tagName: ${{ steps.get_version.outputs.version }}
+          releaseName: 'App ${{ steps.get_version.outputs.version }}'
           releaseBody: 'See the assets to download this version and install.'
           releaseDraft: true
           prerelease: false
