@@ -5,7 +5,7 @@ import {
   ButtonTextAlign,
   ButtonVariant,
 } from '@components/Button';
-import { internationalization } from '@intlayer/config/built';
+import { useLocaleSwitcherContent } from '@components/LocaleSwitcherContentDropDown';
 import { camelCaseToSentence } from '@intlayer/config/client';
 import {
   getContentNodeByKeyPath,
@@ -63,7 +63,7 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
   keyPath,
   dictionary,
 }) => {
-  const { locales } = internationalization;
+  const { selectedLocales } = useLocaleSwitcherContent();
 
   const currentLocale = useEditorLocale();
   const section = getContentNodeByKeyPath(sectionProp, keyPath, currentLocale);
@@ -102,7 +102,7 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
     if (nodeType === NodeTypes.TRANSLATION) {
       return (
         <div className="flex flex-col justify-between gap-2">
-          {locales.map((translationKey) => {
+          {selectedLocales.map((translationKey) => {
             const childKeyPath: KeyPath[] = [
               ...keyPath,
               { type: NodeTypes.TRANSLATION, key: translationKey },
