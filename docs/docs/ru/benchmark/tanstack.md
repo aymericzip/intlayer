@@ -121,6 +121,12 @@ history:
 - **Локальная статическая (Scoped static)**: Позволяет организовать код (логическое разделение) без сложных дополнительных сетевых запросов.
 - **Локальная динамическая (Scoped dynamic)**: Лучший подход для _разделения кода_ и производительности. Минимизирует использование памяти, загружая только то, что нужно для текущего представления и активной локали.
 
+## Звезды на GitHub
+
+Звезды на GitHub — это сильный индикатор популярности проекта, доверия сообщества и долгосрочной актуальности. Хотя они не являются прямым показателем технического качества, они отражают, сколько разработчиков считают проект полезным, следят за его прогрессом и, вероятно, будут его использовать. Для оценки ценности проекта звезды помогают сравнивать популярность альтернатив и дают представление о росте экосистемы.
+
+[![Star History Chart](https://api.star-history.com/chart?repos=formatjs%2Fformatjs%2Ci18next%2Freact-i18next%2Clingui%2Fjs-lingui%2Camannn%2Fnext-intl%2Copral%2Finlang%2Ctolgee%2Ftolgee-js%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#formatjs/formatjs&i18next/react-i18next&lingui/js-lingui&amannn/next-intl&opral/paraglide-js&tolgee/tolgee-js&aymericzip/intlayer)
+
 ## Результаты в деталях
 
 ### 1 — Решения, которых следует избегать

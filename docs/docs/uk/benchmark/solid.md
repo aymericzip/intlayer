@@ -115,6 +115,12 @@ style="border:none;"
 - **Scoped static**: Зберігає код організованим (логічне розділення) без складних додаткових мережевих запитів.
 - **Scoped dynamic**: Найкращий підхід для _code splitting_ та продуктивності. Мінімізує пам'ять, завантажуючи лише те, що потрібно поточному перегляду та активній локалі.
 
+## Зірки на GitHub
+
+Зірки на GitHub є потужним індикатором популярності проекту, довіри спільноти та довгострокової актуальності. Хоча вони не є прямим показником технічної якості, вони відображають, скільки розробників вважають проект корисним, стежать за його розвитком і, ймовірно, впровадять його. Для оцінки цінності проекту зірки допомагають порівняти інтерес до альтернатив і дають уявлення про зростання екосистеми.
+
+[![Star History Chart](https://api.star-history.com/chart?repos=solidjs-community%2Fsolid-primitives%2Cmbarzda%2Fsolid-i18next%2Copral%2Finlang%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#solidjs-community/solid-primitives&mbarzda/solid-i18next&opral/paraglide-js&aymericzip/intlayer)
+
 ## Результати детально
 
 ### 1 — Рішення, яких слід уникати

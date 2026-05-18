@@ -158,6 +158,12 @@ Ich habe dieselbe mehrsprachige Anwendung in einem echten Browser für jedes Fra
 
 - **Hydrierungszeit**: Sofern die App dies ausgibt: Wie lange der Client benötigt, um Server-HTML in etwas Interaktives zu verwandeln. Ein Bindestrich in den Tabellen bedeutet, dass diese Implementierung in diesem Benchmark keinen zuverlässigen Hydrierungswert geliefert hat.
 
+## GitHub-Sterne
+
+GitHub-Sterne sind ein starker Indikator für die Popularität eines Projekts, das Vertrauen der Community und die langfristige Relevanz. Sie sind zwar kein direktes Maß für die technische Qualität, spiegeln jedoch wider, wie viele Entwickler das Projekt nützlich finden, seinen Fortschritt verfolgen und es wahrscheinlich übernehmen werden. Um den Wert eines Projekts einzuschätzen, helfen Sterne dabei, die Traktion verschiedener Alternativen zu vergleichen und Einblicke in das Wachstum des Ökosystems zu gewinnen.
+
+[![Star History Chart](https://api.star-history.com/chart?repos=i18next%2Fnext-i18next%2Camannn%2Fnext-intl%2Clingui%2Fjs-lingui%2Cvinissimus%2Fnext-translate%2Cinostudio%2Fnext-international%2Copral%2Finlang%2Ctolgee%2Ftolgee-js%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#i18next/next-i18next&amannn/next-intl&lingui/js-lingui&vinissimus/next-translate&inostudio/next-international&opral/paraglide-js&tolgee/tolgee-js&aymericzip/intlayer)
+
 ## Ergebnisse im Detail
 
 ### 1 — Zu vermeidende Lösungen

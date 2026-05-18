@@ -135,6 +135,12 @@ J'ai fait tourner la même application multilingue dans un vrai navigateur pour 
 
 - **Temps d'hydratation (Hydration)** : Temps que le client passe à transformer le HTML du serveur en interface interactive. Un tiret dans les tableaux signifie que l'implémentation n'a pas fourni de chiffre d'hydratation fiable dans ce test.
 
+## Étoiles GitHub
+
+Les étoiles GitHub sont un indicateur fort de la popularité d'un projet, de la confiance de la communauté et de sa pertinence à long terme. Bien qu'elles ne soient pas une mesure directe de la qualité technique, elles reflètent le nombre de développeurs qui trouvent le projet utile, suivent ses progrès et sont susceptibles de l'adopter. Pour estimer la valeur d'un projet, les étoiles aident à comparer l'attraction entre les alternatives et fournissent des informations sur la croissance de l'écosystème.
+
+[![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Cfluent-vue%2Ffluent-vue%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#intlify/vue-i18n&fluent-vue/fluent-vue&aymericzip/intlayer)
+
 ## Résultats en détail
 
 ### 1 — Solutions à éviter

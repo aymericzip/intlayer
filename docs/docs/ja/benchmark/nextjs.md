@@ -158,6 +158,12 @@ Next.jsのバージョンは`16.2.4`（App Router）を使用しました。
 
 - **ハイドレーション時間**: アプリが表示している場合、クライアントがサーバーのHTMLを実際にクリックできるものに変換するのにかかる時間です。表内のダッシュ（-）は、その実装がこのベンチマークで信頼できるハイドレーション数値を提供しなかったことを意味します。
 
+## GitHubのスター
+
+GitHubのスターは、プロジェクトの普及度、コミュニティの信頼、および長期的な関連性を示す強力な指標です。技術的な品質を直接測定するものではありませんが、どれだけの開発者がプロジェクトを有用だと感じ、その進捗をフォローし、採用する可能性があるかを反映しています。プロジェクトの価値を見積もる際、スターは代替案との勢いの比較を助け、エコシステムの成長に関する洞察を提供します。
+
+[![Star History Chart](https://api.star-history.com/chart?repos=i18next%2Fnext-i18next%2Camannn%2Fnext-intl%2Clingui%2Fjs-lingui%2Cvinissimus%2Fnext-translate%2Cinostudio%2Fnext-international%2Copral%2Finlang%2Ctolgee%2Ftolgee-js%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#i18next/next-i18next&amannn/next-intl&lingui/js-lingui&vinissimus/next-translate&inostudio/next-international&opral/paraglide-js&tolgee/tolgee-js&aymericzip/intlayer)
+
 ## 結果の詳細
 
 ### 1 — 避けるべきソリューション

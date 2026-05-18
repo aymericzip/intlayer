@@ -158,6 +158,12 @@ Saya menjalankan aplikasi multibahasa yang sama di browser asli untuk setiap sta
 
 - **Waktu hidrasi (Hydration)**: Ketika aplikasi mengeksposnya, berapa lama waktu yang dihabiskan klien untuk mengubah HTML server menjadi sesuatu yang benar-benar dapat Anda klik. Tanda strip dalam tabel berarti implementasi tersebut tidak memberikan angka hidrasi yang andal dalam benchmark ini.
 
+## Bintang GitHub
+
+Bintang GitHub adalah indikator kuat dari popularitas proyek, kepercayaan komunitas, dan relevansi jangka panjang. Meskipun bukan ukuran langsung dari kualitas teknis, bintang-bintang tersebut mencerminkan berapa banyak pengembang yang menganggap proyek tersebut berguna, mengikuti kemajuannya, dan kemungkinan akan mengadopsinya. Untuk memperkirakan nilai suatu proyek, bintang membantu membandingkan daya tarik di berbagai alternatif dan memberikan wawasan tentang pertumbuhan ekosistem.
+
+[![Star History Chart](https://api.star-history.com/chart?repos=i18next%2Fnext-i18next%2Camannn%2Fnext-intl%2Clingui%2Fjs-lingui%2Cvinissimus%2Fnext-translate%2Cinostudio%2Fnext-international%2Copral%2Finlang%2Ctolgee%2Ftolgee-js%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#i18next/next-i18next&amannn/next-intl&lingui/js-lingui&vinissimus/next-translate&inostudio/next-international&opral/paraglide-js&tolgee/tolgee-js&aymericzip/intlayer)
+
 ## Hasil secara terperinci
 
 ### 1 — Solusi yang harus dihindari

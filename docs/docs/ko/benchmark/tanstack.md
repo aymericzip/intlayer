@@ -121,6 +121,12 @@ i18n 누수 문제를 빠르게 파악하기 위해 [여기](https://intlayer.or
 - **Scoped static**: 복잡한 추가 네트워크 요청 없이 코드 구조를 유지(논리적 분리).
 - **Scoped dynamic**: 코드 분할 및 성능을 위한 최선의 접근 방식. 현재 뷰와 활성 로케일에 필요한 것만 로드하여 메모리 사용을 최소화함.
 
+## GitHub 스타
+
+GitHub 스타는 프로젝트의 인기, 커뮤니티 신뢰 및 장기적인 관련성을 나타내는 강력한 지표입니다. 기술적 품질을 직접적으로 측정하는 것은 아니지만, 얼마나 많은 개발자가 프로젝트가 유용하다고 생각하고 진행 상황을 팔로우하며 채택할 가능성이 있는지를 반영합니다. 프로젝트의 가치를 평가할 때 스타는 대안 간의 견인력을 비교하는 데 도움이 되며 생태계 성장에 대한 통찰력을 제공합니다.
+
+[![Star History Chart](https://api.star-history.com/chart?repos=formatjs%2Fformatjs%2Ci18next%2Freact-i18next%2Clingui%2Fjs-lingui%2Camannn%2Fnext-intl%2Copral%2Finlang%2Ctolgee%2Ftolgee-js%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#formatjs/formatjs&i18next/react-i18next&lingui/js-lingui&amannn/next-intl&opral/paraglide-js&tolgee/tolgee-js&aymericzip/intlayer)
+
 ## 결과 상세
 
 ### 1 — 피해야 할 솔루션

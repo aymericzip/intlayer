@@ -113,6 +113,12 @@ Wir haben **vier Ladestrategien** verglichen:
 - **Scoped static**: Hält den Code organisiert (logische Trennung) ohne komplexe zusätzliche Netzwerkanfragen.
 - **Scoped dynamic**: Bester Ansatz für _Code-Splitting_ und Leistung. Minimiert den Speicherverbrauch, indem nur das geladen wird, was die aktuelle Ansicht und die aktive Locale benötigen.
 
+## GitHub-Sterne
+
+GitHub-Sterne sind ein starker Indikator für die Popularität eines Projekts, das Vertrauen der Community und die langfristige Relevanz. Sie sind zwar kein direktes Maß für die technische Qualität, spiegeln jedoch wider, wie viele Entwickler das Projekt nützlich finden, seinen Fortschritt verfolgen und es wahrscheinlich übernehmen werden. Um den Wert eines Projekts einzuschätzen, helfen Sterne dabei, die Traktion verschiedener Alternativen zu vergleichen und Einblicke in das Wachstum des Ökosystems zu gewinnen.
+
+[![Star History Chart](https://api.star-history.com/chart?repos=kaisermann%2Fsvelte-i18n%2Copral%2Finlang%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#kaisermann/svelte-i18n&opral/paraglide-js&aymericzip/intlayer)
+
 ## Ergebnisse im Detail
 
 ### 1 — Zu vermeidende Lösungen

@@ -135,6 +135,12 @@ Ejecuté la misma aplicación multilingüe en un navegador real para cada stack 
 
 - **Tiempo de hidratación (Hydration)**: Tiempo que pasa el cliente convirtiendo el HTML del servidor en una interfaz interactiva. Un guion en las tablas significa que esa implementación no proporcionó una cifra de hidratación fiable en este benchmark.
 
+## Estrellas de GitHub
+
+Las estrellas de GitHub son un fuerte indicador de la popularidad de un proyecto, la confianza de la comunidad y la relevancia a largo plazo. Si bien no son una medida directa de la calidad técnica, reflejan cuántos desarrolladores encuentran útil el proyecto, siguen su progreso y es probable que lo adopten. Para estimar el valor de un proyecto, las estrellas ayudan a comparar la tracción entre alternativas y brindan información sobre el crecimiento del ecosistema.
+
+[![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Cfluent-vue%2Ffluent-vue%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#intlify/vue-i18n&fluent-vue/fluent-vue&aymericzip/intlayer)
+
 ## Resultados en detalle
 
 ### 1 — Soluciones a evitar

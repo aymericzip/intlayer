@@ -135,6 +135,12 @@ Saya menjalankan aplikasi multibahasa yang sama di browser asli untuk setiap sta
 
 - **Waktu hidrasi (Hydration)**: Waktu yang dihabiskan klien untuk mengubah HTML server menjadi antarmuka interaktif. Tanda hubung dalam tabel berarti implementasi tersebut tidak memberikan angka hidrasi yang andal dalam benchmark ini.
 
+## Bintang GitHub
+
+Bintang GitHub adalah indikator kuat dari popularitas proyek, kepercayaan komunitas, dan relevansi jangka panjang. Meskipun bukan ukuran langsung dari kualitas teknis, bintang-bintang tersebut mencerminkan berapa banyak pengembang yang menganggap proyek tersebut berguna, mengikuti kemajuannya, dan kemungkinan akan mengadopsinya. Untuk memperkirakan nilai suatu proyek, bintang membantu membandingkan daya tarik di berbagai alternatif dan memberikan wawasan tentang pertumbuhan ekosistem.
+
+[![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Cfluent-vue%2Ffluent-vue%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#intlify/vue-i18n&fluent-vue/fluent-vue&aymericzip/intlayer)
+
 ## Hasil secara mendetail
 
 ### 1 — Solusi yang harus dihindari

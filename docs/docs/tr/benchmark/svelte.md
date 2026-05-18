@@ -113,6 +113,12 @@ Framework, **10 sayfa** ve **10 dilden** oluşan çok dilli bir uygulamaya sahip
 - **Scoped static**: Karmaşık ek ağ istekleri olmadan kodu düzenli tutar (mantıksal ayrım).
 - **Scoped dynamic**: _Kod bölme_ ve performans için en iyi yaklaşım. Yalnızca geçerli görünüm ve aktif dil için gerekenleri yükleyerek belleği minimize eder.
 
+## GitHub Yıldızları
+
+GitHub yıldızları, bir projenin popülerliğinin, topluluk güveninin ve uzun vadeli alakasının güçlü bir göstergesidir. Teknik kalitenin doğrudan bir ölçüsü olmasa da, kaç geliştiricinin projeyi yararlı bulduğunu, ilerlemesini takip ettiğini ve benimseme olasılığını yansıtır. Bir projenin değerini tahmin etmek için yıldızlar, alternatifler arasındaki çekişi karşılaştırmaya yardımcı olur ve ekosistem büyümesi hakkında içgörüler sağlar.
+
+[![Star History Chart](https://api.star-history.com/chart?repos=kaisermann%2Fsvelte-i18n%2Copral%2Finlang%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#kaisermann/svelte-i18n&opral/paraglide-js&aymericzip/intlayer)
+
 ## Detaylı sonuçlar
 
 ### 1 — Kaçınılması gereken çözümler

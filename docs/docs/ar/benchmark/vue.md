@@ -135,6 +135,12 @@ style="border:none;"
 
 - **وقت الهيدرة (Hydration)**: الوقت الذي يقضيه العميل في تحويل HTML الخادم إلى واجهة تفاعلية. تعني الشرطة في الجداول أن هذا التنفيذ لم يوفر رقم هيدرة موثوقًا به في هذا التقييم.
 
+## نجوم GitHub
+
+تعد نجوم GitHub مؤشرًا قويًا على شعبية المشروع وثقة المجتمع وأهميته على المدى الطويل. على الرغم من أنها ليست مقياسًا مباشرًا للجودة التقنية، إلا أنها تعكس عدد المطورين الذين يجدون المشروع مفيدًا ويتابعون تقدمه ومن المحتمل أن يتبنوه. لتقدير قيمة المشروع، تساعد النجوم في مقارنة الجاذبية عبر البدائل وتوفر رؤى حول نمو النظام البيئي.
+
+[![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Cfluent-vue%2Ffluent-vue%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#intlify/vue-i18n&fluent-vue/fluent-vue&aymericzip/intlayer)
+
 ## النتائج بالتفصيل
 
 ### 1 — حلول يجب تجنبها

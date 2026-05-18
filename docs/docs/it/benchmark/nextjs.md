@@ -158,6 +158,12 @@ Ho eseguito la stessa applicazione multilingue in un browser reale per ogni stac
 
 - **Tempo di idratazione (Hydration)**: Quando l'app lo espone, quanto tempo impiega il client per trasformare l'HTML del server in qualcosa su cui si può effettivamente cliccare. Un trattino nelle tabelle significa che quell'implementazione non ha fornito un dato di idratazione affidabile in questo benchmark.
 
+## Stelle di GitHub
+
+Le stelle di GitHub sono un forte indicatore della popolarità di un progetto, della fiducia della comunità e della pertinenza a lungo termine. Sebbene non siano una misura diretta della qualità tecnica, riflettono quanti sviluppatori trovano il progetto utile, ne seguono i progressi e sono propensi ad adottarlo. Per stimare il valore di un progetto, le stelle aiutano a confrontare la trazione tra le alternative e forniscono approfondimenti sulla crescita dell'ecosistema.
+
+[![Star History Chart](https://api.star-history.com/chart?repos=i18next%2Fnext-i18next%2Camannn%2Fnext-intl%2Clingui%2Fjs-lingui%2Cvinissimus%2Fnext-translate%2Cinostudio%2Fnext-international%2Copral%2Finlang%2Ctolgee%2Ftolgee-js%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#i18next/next-i18next&amannn/next-intl&lingui/js-lingui&vinissimus/next-translate&inostudio/next-international&opral/paraglide-js&tolgee/tolgee-js&aymericzip/intlayer)
+
 ## Risultati nel dettaglio
 
 ### 1 — Soluzioni da evitare

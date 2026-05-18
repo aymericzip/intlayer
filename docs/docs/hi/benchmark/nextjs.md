@@ -158,6 +158,12 @@ Intlayer इन सभी आयामों में अनुकूलन क
 
 - **हाइड्रेशन समय**: जब ऐप इसे उजागर करता है, तो क्लाइयंट सर्वर HTML को किसी ऐसी चीज़ में बदलने में कितना समय बिताता है जिस पर आप वास्तव में क्लिक कर सकें। तालिकाओं में एक डैश (-) का अर्थ है कि उस कार्यान्वयन ने इस बेंचमार्क में एक विश्वसनीय हाइड्रेशन आंकड़ा प्रदान नहीं किया।
 
+## GitHub सितारे
+
+GitHub सितारे किसी प्रोजेक्ट की लोकप्रियता, सामुदायिक विश्वास और दीर्घकालिक प्रासंगिकता का एक मजबूत संकेतक हैं। हालांकि यह तकनीकी गुणवत्ता का प्रत्यक्ष माप नहीं है, वे दर्शाते हैं कि कितने डेवलपर्स प्रोजेक्ट को उपयोगी पाते हैं, इसकी प्रगति का पालन करते हैं, और इसे अपनाने की संभावना रखते हैं। किसी प्रोजेक्ट के मूल्य का अनुमान लगाने के लिए, सितारे विकल्पों के बीच कर्षण की तुलना करने में मदद करते हैं और पारिस्थितिकी तंत्र के विकास में अंतर्दृष्टि प्रदान करते हैं।
+
+[![Star History Chart](https://api.star-history.com/chart?repos=i18next%2Fnext-i18next%2Camannn%2Fnext-intl%2Clingui%2Fjs-lingui%2Cvinissimus%2Fnext-translate%2Cinostudio%2Fnext-international%2Copral%2Finlang%2Ctolgee%2Ftolgee-js%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#i18next/next-i18next&amannn/next-intl&lingui/js-lingui&vinissimus/next-translate&inostudio/next-international&opral/paraglide-js&tolgee/tolgee-js&aymericzip/intlayer)
+
 ## परिणाम विस्तार से
 
 ### 1 — बचने के लिए समाधान

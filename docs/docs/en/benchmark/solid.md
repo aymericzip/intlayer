@@ -137,6 +137,12 @@ I ran the same multilingual app in a real browser for every stack, then wrote do
 
 - **Hydration time**: When the app exposes it, how long the client spends turning server HTML into something you can actually click. A dash in the tables means that implementation did not provide a reliable hydration figure in this benchmark.
 
+## GitHub STARs
+
+GitHub stars are a strong indicator of a project's popularity, community trust, and long-term relevance. While not a direct measure of technical quality, they reflect how many developers find the project useful, follow its progress, and are likely to adopt it. For estimating the value of a project, stars help compare traction across alternatives and provide insights into ecosystem growth.
+
+[![Star History Chart](https://api.star-history.com/chart?repos=solidjs-community%2Fsolid-primitives%2Cmbarzda%2Fsolid-i18next%2Copral%2Finlang%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#solidjs-community/solid-primitives&mbarzda/solid-i18next&opral/paraglide-js&aymericzip/intlayer)
+
 ## Results in detail
 
 ### 1 - Solutions to avoid

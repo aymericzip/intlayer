@@ -121,6 +121,12 @@ history:
 - **Scoped static**: يحافظ على تنظيم الكود (فصل منطقي) بدون طلبات شبكة إضافية معقدة.
 - **Scoped dynamic**: أفضل نهج لتقسيم الكود والأداء. يقلل استهلاك الذاكرة عن طريق تحميل ما تحتاجه الرؤية الحالية واللغة النشطة فقط.
 
+## نجوم GitHub
+
+تعد نجوم GitHub مؤشرًا قويًا على شعبية المشروع وثقة المجتمع وأهميته على المدى الطويل. على الرغم من أنها ليست مقياسًا مباشرًا للجودة التقنية، إلا أنها تعكس عدد المطورين الذين يجدون المشروع مفيدًا ويتابعون تقدمه ومن المحتمل أن يتبنوه. لتقدير قيمة المشروع، تساعد النجوم في مقارنة الجاذبية عبر البدائل وتوفر رؤى حول نمو النظام البيئي.
+
+[![Star History Chart](https://api.star-history.com/chart?repos=formatjs%2Fformatjs%2Ci18next%2Freact-i18next%2Clingui%2Fjs-lingui%2Camannn%2Fnext-intl%2Copral%2Finlang%2Ctolgee%2Ftolgee-js%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#formatjs/formatjs&i18next/react-i18next&lingui/js-lingui&amannn/next-intl&opral/paraglide-js&tolgee/tolgee-js&aymericzip/intlayer)
+
 ## النتائج بالتفصيل
 
 ### 1 — حلول يجب تجنبها

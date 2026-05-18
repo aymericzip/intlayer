@@ -121,6 +121,12 @@ Abbiamo confrontato **quattro strategie di caricamento**:
 - **Scoped static**: Mantiene il codice organizzato (separazione logica) senza requisiti di rete complessi.
 - **Scoped dynamic**: Il miglior approccio per il _code splitting_ e le prestazioni. Riduce al minimo la memoria caricando solo ciò di cui la vista corrente e la lingua attiva hanno bisogno.
 
+## Stelle di GitHub
+
+Le stelle di GitHub sono un forte indicatore della popolarità di un progetto, della fiducia della comunità e della pertinenza a lungo termine. Sebbene non siano una misura diretta della qualità tecnica, riflettono quanti sviluppatori trovano il progetto utile, ne seguono i progressi e sono propensi ad adottarlo. Per stimare il valore di un progetto, le stelle aiutano a confrontare la trazione tra le alternative e forniscono approfondimenti sulla crescita dell'ecosistema.
+
+[![Star History Chart](https://api.star-history.com/chart?repos=formatjs%2Fformatjs%2Ci18next%2Freact-i18next%2Clingui%2Fjs-lingui%2Camannn%2Fnext-intl%2Copral%2Finlang%2Ctolgee%2Ftolgee-js%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#formatjs/formatjs&i18next/react-i18next&lingui/js-lingui&amannn/next-intl&opral/paraglide-js&tolgee/tolgee-js&aymericzip/intlayer)
+
 ## Risultati nel dettaglio
 
 ### 1 — Soluzioni da evitare

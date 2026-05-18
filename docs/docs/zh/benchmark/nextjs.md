@@ -158,6 +158,12 @@ Intlayer 尝试在这些维度上进行优化。
 
 - **注水 (Hydration) 时间**: 当应用暴露该数据时，客户端将服务端 HTML 转换为可交互状态所需的时间。表格中的破折号表示该实现在本基准测试中未提供可靠的注水数值。
 
+## GitHub 星数
+
+GitHub 星数是项目受欢迎程度、社区信任和长期相关性的有力指标。虽然星数不是技术质量的直接衡量标准，但它们反映了有多少开发人员发现该项目有用、关注其进展并可能采用它。在评估项目价值时，星数有助于比较不同方案的吸引力，并提供对生态系统增长的见解。
+
+[![Star History Chart](https://api.star-history.com/chart?repos=i18next%2Fnext-i18next%2Camannn%2Fnext-intl%2Clingui%2Fjs-lingui%2Cvinissimus%2Fnext-translate%2Cinostudio%2Fnext-international%2Copral%2Finlang%2Ctolgee%2Ftolgee-js%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#i18next/next-i18next&amannn/next-intl&lingui/js-lingui&vinissimus/next-translate&inostudio/next-international&opral/paraglide-js&tolgee/tolgee-js&aymericzip/intlayer)
+
 ## 结果详情
 
 ### 1 — 应当避免的解决方案

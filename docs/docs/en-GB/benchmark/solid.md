@@ -115,6 +115,12 @@ We compared **four loading strategies**:
 - **Scoped static**: Keeps code organised (logical separation) without complex extra network requests.
 - **Scoped dynamic**: Best approach for _code splitting_ and performance. Minimises memory by loading only what the current view and active locale need.
 
+## GitHub STARs
+
+GitHub stars are a strong indicator of a project's popularity, community trust, and long-term relevance. While not a direct measure of technical quality, they reflect how many developers find the project useful, follow its progress, and are likely to adopt it. For estimating the value of a project, stars help compare traction across alternatives and provide insights into ecosystem growth.
+
+[![Star History Chart](https://api.star-history.com/chart?repos=solidjs-community%2Fsolid-primitives%2Cmbarzda%2Fsolid-i18next%2Copral%2Finlang%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#solidjs-community/solid-primitives&mbarzda/solid-i18next&opral/paraglide-js&aymericzip/intlayer)
+
 ## Results in detail
 
 ### 1 — Solutions to avoid

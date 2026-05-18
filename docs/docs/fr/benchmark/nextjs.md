@@ -158,6 +158,12 @@ J'ai fait tourner la même application multilingue dans un navigateur réel pour
 
 - **Temps d'hydratation** : Lorsque l'application le permet, combien de temps le client passe à transformer le HTML serveur en quelque chose sur lequel on peut réellement cliquer. Un tiret dans les tableaux signifie que cette implémentation n'a pas fourni de valeur d'hydratation fiable dans ce benchmark.
 
+## Étoiles GitHub
+
+Les étoiles GitHub sont un indicateur fort de la popularité d'un projet, de la confiance de la communauté et de sa pertinence à long terme. Bien qu'elles ne soient pas une mesure directe de la qualité technique, elles reflètent le nombre de développeurs qui trouvent le projet utile, suivent ses progrès et sont susceptibles de l'adopter. Pour estimer la valeur d'un projet, les étoiles aident à comparer l'attraction entre les alternatives et fournissent des informations sur la croissance de l'écosystème.
+
+[![Star History Chart](https://api.star-history.com/chart?repos=i18next%2Fnext-i18next%2Camannn%2Fnext-intl%2Clingui%2Fjs-lingui%2Cvinissimus%2Fnext-translate%2Cinostudio%2Fnext-international%2Copral%2Finlang%2Ctolgee%2Ftolgee-js%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#i18next/next-i18next&amannn/next-intl&lingui/js-lingui&vinissimus/next-translate&inostudio/next-international&opral/paraglide-js&tolgee/tolgee-js&aymericzip/intlayer)
+
 ## Résultats détaillés
 
 ### 1 — Solutions à éviter

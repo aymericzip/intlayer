@@ -115,6 +115,12 @@ style="border:none;"
 - **ثابت بنطاق (Scoped static)**: يحافظ على تنظيم الكود (فصل منطقي) بدون طلبات شبكة إضافية معقدة.
 - **ديناميكي بنطاق (Scoped dynamic)**: أفضل نهج لتقسيم الكود والأداء. يقلل من استخدام الذاكرة عن طريق تحميل ما تحتاجه الرؤية الحالية واللغة النشطة فقط.
 
+## نجوم GitHub
+
+تعد نجوم GitHub مؤشرًا قويًا على شعبية المشروع وثقة المجتمع وأهميته على المدى الطويل. على الرغم من أنها ليست مقياسًا مباشرًا للجودة التقنية، إلا أنها تعكس عدد المطورين الذين يجدون المشروع مفيدًا ويتابعون تقدمه ومن المحتمل أن يتبنوه. لتقدير قيمة المشروع، تساعد النجوم في مقارنة الجاذبية عبر البدائل وتوفر رؤى حول نمو النظام البيئي.
+
+[![Star History Chart](https://api.star-history.com/chart?repos=solidjs-community%2Fsolid-primitives%2Cmbarzda%2Fsolid-i18next%2Copral%2Finlang%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#solidjs-community/solid-primitives&mbarzda/solid-i18next&opral/paraglide-js&aymericzip/intlayer)
+
 ## النتائج بالتفصيل
 
 ### 1 — حلول يجب تجنبها

@@ -135,6 +135,12 @@ i18n 누수 문제를 빠르게 파악하기 위해 [여기](https://intlayer.or
 
 - **하이드레이션 시간 (Hydration)**: 클라이언트가 서버 HTML을 실제 클릭 가능한 상태로 변환하는 데 걸리는 시간입니다. 표의 대시(-)는 해당 구현이 이 벤치마크에서 신뢰할 수 있는 하이드레이션 수치를 제공하지 않았음을 의미합니다.
 
+## GitHub 스타
+
+GitHub 스타는 프로젝트의 인기, 커뮤니티 신뢰 및 장기적인 관련성을 나타내는 강력한 지표입니다. 기술적 품질을 직접적으로 측정하는 것은 아니지만, 얼마나 많은 개발자가 프로젝트가 유용하다고 생각하고 진행 상황을 팔로우하며 채택할 가능성이 있는지를 반영합니다. 프로젝트의 가치를 평가할 때 스타는 대안 간의 견인력을 비교하는 데 도움이 되며 생태계 성장에 대한 통찰력을 제공합니다.
+
+[![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Cfluent-vue%2Ffluent-vue%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#intlify/vue-i18n&fluent-vue/fluent-vue&aymericzip/intlayer)
+
 ## 결과 상세
 
 ### 1 — 피해야 할 솔루션

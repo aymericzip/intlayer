@@ -135,6 +135,12 @@ Ho eseguito la stessa app multilingue in un browser reale per ogni stack, poi ho
 
 - **Tempo di idratazione (Hydration)**: Il tempo che il client impiega per trasformare l'HTML del server in un'interfaccia interattiva. Un trattino nelle tabelle significa che quella implementazione non ha fornito una cifra di idratazione affidabile in questo benchmark.
 
+## Stelle di GitHub
+
+Le stelle di GitHub sono un forte indicatore della popolarità di un progetto, della fiducia della comunità e della pertinenza a lungo termine. Sebbene non siano una misura diretta della qualità tecnica, riflettono quanti sviluppatori trovano il progetto utile, ne seguono i progressi e sono propensi ad adottarlo. Per stimare il valore di un progetto, le stelle aiutano a confrontare la trazione tra le alternative e forniscono approfondimenti sulla crescita dell'ecosistema.
+
+[![Star History Chart](https://api.star-history.com/chart?repos=intlify%2Fvue-i18n%2Cfluent-vue%2Ffluent-vue%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#intlify/vue-i18n&fluent-vue/fluent-vue&aymericzip/intlayer)
+
 ## Risultati in dettaglio
 
 ### 1 — Soluzioni da evitare

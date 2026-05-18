@@ -113,6 +113,12 @@ Porównaliśmy **cztery strategie ładowania**:
 - **Scoped static**: Utrzymuje porządek w kodzie (logiczna separacja) bez skomplikowanych dodatkowych zapytań sieciowych.
 - **Scoped dynamic**: Najlepsze podejście dla _code splittingu_ i wydajności. Minimalizuje zużycie pamięci, ładując tylko to, czego potrzebuje bieżący widok i aktywna lokalizacja.
 
+## Gwiazdki na GitHubie
+
+Gwiazdki na GitHubie są silnym wskaźnikiem popularności projektu, zaufania społeczności i długoterminowego znaczenia. Choć nie są bezpośrednią miarą jakości technicznej, odzwierciedlają, ilu programistów uważa projekt za przydatny, śledzi jego postępy i prawdopodobnie go przyjmie. Przy szacowaniu wartości projektu gwiazdki pomagają porównać zainteresowanie alternatywami i dostarczają wglądu w rozwój ekosystemu.
+
+[![Star History Chart](https://api.star-history.com/chart?repos=kaisermann%2Fsvelte-i18n%2Copral%2Finlang%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#kaisermann/svelte-i18n&opral/paraglide-js&aymericzip/intlayer)
+
 ## Wyniki szczegółowe
 
 ### 1 — Rozwiązania, których należy unikać

@@ -121,6 +121,12 @@ history:
 - **Scoped static (局部静态)**: 保持代码组织良（逻辑分离），且无需复杂的额外网络请求。
 - **Scoped dynamic (局部动态)**: 代码分割和性能的最佳方案。通过仅加载当前视图和活动语言环境所需的内容来最小化内存占用。
 
+## GitHub 星数
+
+GitHub 星数是项目受欢迎程度、社区信任和长期相关性的有力指标。虽然星数不是技术质量的直接衡量标准，但它们反映了有多少开发人员发现该项目有用、关注其进展并可能采用它。在评估项目价值时，星数有助于比较不同方案的吸引力，并提供对生态系统增长的见解。
+
+[![Star History Chart](https://api.star-history.com/chart?repos=formatjs%2Fformatjs%2Ci18next%2Freact-i18next%2Clingui%2Fjs-lingui%2Camannn%2Fnext-intl%2Copral%2Finlang%2Ctolgee%2Ftolgee-js%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#formatjs/formatjs&i18next/react-i18next&lingui/js-lingui&amannn/next-intl&opral/paraglide-js&tolgee/tolgee-js&aymericzip/intlayer)
+
 ## 结果详情
 
 ### 1 — 应当避免的解决方案
