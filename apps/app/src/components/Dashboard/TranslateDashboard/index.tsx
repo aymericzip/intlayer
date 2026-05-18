@@ -444,7 +444,7 @@ const TranslateDashboardList: FC = () => {
               label={scrollToTop.value}
               variant="hoverable"
               color="text"
-              size="icon-xl"
+              size="icon-lg"
               Icon={ArrowUp}
               onClick={() => {
                 setCurrentTopIndex(0);

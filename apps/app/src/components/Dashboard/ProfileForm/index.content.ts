@@ -23,6 +23,7 @@ const profileFormContent = {
       vi: 'Chi tiết hồ sơ',
       uk: 'Деталі профілю',
     }),
+
     nameInput: {
       label: t({
         en: 'Name',
@@ -65,6 +66,7 @@ const profileFormContent = {
         uk: "Введіть своє ім'я",
       }),
     },
+
     editButton: {
       text: t({
         en: 'Edit profile',
@@ -368,6 +370,27 @@ const profileFormContent = {
         }),
       },
     },
+
+    changeAvatar: t({
+      en: 'Change avatar',
+      'en-GB': 'Change avatar',
+      fr: "Changer l'avatar",
+      es: 'Cambiar avatar',
+      de: 'Avatar ändern',
+      ja: 'アバターを変更',
+      ko: '아바타 변경',
+      zh: '更改头像',
+      it: 'Cambia avatar',
+      pt: 'Mudar avatar',
+      hi: 'अवतार बदलें',
+      ar: 'تغيير الصورة الرمزية',
+      ru: 'Изменить аватар',
+      tr: 'Avatar değiştir',
+      pl: 'Zmień awatar',
+      id: 'Ubah avatar',
+      vi: 'Thay đổi ảnh đại diện',
+      uk: 'Змінити аватар',
+    }),
   },
   title: 'Profile form',
   description:

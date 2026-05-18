@@ -21,6 +21,10 @@ export const userSchema = new Schema<UserSchema>(
       maxlength: NAMES_MAX_LENGTH,
       minlength: NAMES_MIN_LENGTH,
     },
+    image: {
+      type: String,
+      required: false,
+    },
     phone: {
       type: String,
       maxlength: 20,

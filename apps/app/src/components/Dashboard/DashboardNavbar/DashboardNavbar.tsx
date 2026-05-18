@@ -86,7 +86,7 @@ export const DashboardNavbar: FC<DashboardNavbarProps> = ({ items = [] }) => {
 
   return (
     <Container
-      className="sticky top-0 z-50 flex w-full flex-col gap-3 p-4"
+      className="sticky top-0 z-50 flex w-full flex-col gap-3 px-4 pt-4 pb-2"
       roundedSize="none"
     >
       <div className="flex justify-between">
@@ -115,7 +115,7 @@ export const DashboardNavbar: FC<DashboardNavbarProps> = ({ items = [] }) => {
                   Icon={MoreHorizontal}
                   variant="hoverable"
                   color="text"
-                  size="icon-md"
+                  size="icon-sm"
                   label={content.organizationAndProject.value}
                   onClick={() => setIsBreadcrumbOpen((prev) => !prev)}
                   className="ml-6"
@@ -152,15 +152,15 @@ export const DashboardNavbar: FC<DashboardNavbarProps> = ({ items = [] }) => {
           )}
         </div>
         <div className="flex items-center gap-4">
-          <div className="mr-3 flex items-center gap-1">
-            {project && (
-              <Suspense fallback={<div className="size-10" />}>
-                <TranslationStatusAside />
-              </Suspense>
-            )}
+          <div className="mr-1 flex items-center gap-2">
             {project && isEditorDrawerVisible && (
               <Suspense fallback={<div className="size-10" />}>
                 <VisualEditorDrawer />
+              </Suspense>
+            )}
+            {project && (
+              <Suspense fallback={<div className="size-10" />}>
+                <TranslationStatusAside />
               </Suspense>
             )}
             <Suspense fallback={<div className="size-10" />}>

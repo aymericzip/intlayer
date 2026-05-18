@@ -7,11 +7,19 @@ import {
   useListPasskeys,
   useSession,
   useUpdateUser,
+  useUploadUserAvatar,
 } from '@intlayer/design-system/hooks';
 import { Modal } from '@intlayer/design-system/modal';
 import { cn } from '@intlayer/design-system/utils';
 import { LockIcon, PenIcon } from 'lucide-react';
-import { type FC, Suspense, useEffect, useState } from 'react';
+import {
+  type ChangeEvent,
+  type FC,
+  Suspense,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { ChangePasswordModal } from '#components/Auth/ChangePassword';
 import { DeleteUser } from '#components/Auth/DeleteUser';
@@ -36,12 +44,24 @@ const ProfileFormContent: FC = () => {
     changePasswordTitle,
     twoFactorTitle,
     passkeyTitle,
+    changeAvatar,
   } = useIntlayer('profile-form');
   const { mutate: updateUser, isPending } = useUpdateUser();
+  const { mutate: uploadAvatar, isPending: isUploadingAvatar } =
+    useUploadUserAvatar();
   const { data: passkeysData, refetch: refetchPasskeys } = useListPasskeys();
   const passkeys = passkeysData?.data ?? [];
   const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
   const [isChangePasswordOpen, setIsChangePasswordOpen] = useState(false);
+  const avatarInputRef = useRef<HTMLInputElement>(null);
+
+  const handleAvatarChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    uploadAvatar(file);
+    // Reset so selecting the same file again triggers onChange
+    e.target.value = '';
+  };
 
   const hasPasswordColumn =
     user?.lastLoginMethod === 'email' || user?.lastLoginMethod === 'passkey';
@@ -74,7 +94,22 @@ const ProfileFormContent: FC = () => {
         borderColor="neutral"
         className="w-full flex-row items-center gap-10"
       >
-        <Avatar size="2xl" src={user?.image} />
+        <input
+          ref={avatarInputRef}
+          type="file"
+          accept="image/jpeg,image/png,image/webp,image/gif"
+          className="hidden"
+          onChange={handleAvatarChange}
+        />
+        <Avatar
+          size="2xl"
+          src={user?.image}
+          fullname={user?.name}
+          isLoading={isUploadingAvatar}
+          onClick={() => avatarInputRef.current?.click()}
+          hoverable
+          alt={changeAvatar.value}
+        />
         <div className="flex flex-col justify-between gap-2">
           <span className="text-4xl text-text">{user?.name}</span>
           <span className="text-lg text-neutral">{user?.email}</span>

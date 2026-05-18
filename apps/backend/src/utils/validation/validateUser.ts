@@ -52,13 +52,18 @@ export const validateUser = (
   user: Partial<User | UserAPI>,
   fieldsToCheck = defaultFieldsToCheck
 ): ValidationErrors => {
+  const knownKeys = new Set(Object.keys(userZodSchema.shape));
   const mask = fieldsToCheck.reduce(
     (acc, curr) => {
-      acc[curr as string] = true;
+      if (knownKeys.has(curr as string)) {
+        acc[curr as string] = true;
+      }
       return acc;
     },
     {} as Record<string, true>
   );
+
+  if (Object.keys(mask).length === 0) return {};
 
   const schema = userZodSchema.pick(mask as any);
   const parsed = schema.safeParse(user);

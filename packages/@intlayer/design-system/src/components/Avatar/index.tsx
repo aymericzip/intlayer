@@ -24,6 +24,8 @@ export interface AvatarProps extends Omit<ComponentProps<'button'>, 'onClick'> {
   alt?: string;
   /** Whether the avatar should be focusable when not clickable */
   focusable?: boolean;
+  /** Whether the avatar should be hoverable */
+  hoverable?: boolean;
 }
 
 /**
@@ -104,6 +106,7 @@ export const Avatar: FC<AvatarProps> = ({
   size = 'md',
   alt,
   focusable = false,
+  hoverable = false,
   ...props
 }) => {
   const isImageDefined = Boolean(src);
@@ -161,17 +164,19 @@ export const Avatar: FC<AvatarProps> = ({
     <Container
       isClickable={isClickable}
       className={cn(
-        `rounded-full border-[1.3px] border-text p-[1.5px]`,
+        `rounded-full border-[1.3px] border-text p-[1.5px] ring-offset-0 transition-ring duration-200`,
         size === 'sm' && 'size-7 border-[1px] p-[1px]',
         size === 'md' && 'size-9',
         size === 'lg' && 'size-12',
         size === 'xl' && 'size-16',
         size === '2xl' && 'size-24',
         isClickable &&
-          `cursor-pointer hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2`,
+          `cursor-pointer hover:opacity-80 focus:outline-none focus:ring-3 focus:ring-text/50 focus:ring-offset-2`,
+        hoverable &&
+          `hover:opacity-80 hover:ring-4 hover:ring-text/30 hover:ring-offset-2`,
         !isClickable &&
           focusable &&
-          `focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2`,
+          `focus:outline-none focus:ring-3 focus:ring-text/50 focus:ring-offset-2`,
         displayLoader && 'animate-pulse',
         className
       )}
@@ -179,8 +184,8 @@ export const Avatar: FC<AvatarProps> = ({
       {...accessibilityProps}
       {...props}
     >
-      <div className="relative flex size-full flex-row items-center justify-center">
-        <div className="absolute top-0 left-0 flex size-full flex-col items-center justify-center rounded-full bg-text text-text-opposite">
+      <div className="relative flex aspect-square size-full flex-row items-center justify-center">
+        <div className="absolute top-0 left-0 flex aspect-square size-full flex-col items-center justify-center rounded-full bg-text text-text-opposite">
           {displayLoader && (
             <Loader className="w-3/4" aria-label="Loading user avatar" />
           )}
@@ -199,7 +204,16 @@ export const Avatar: FC<AvatarProps> = ({
           )}
 
           {displayInitials && (
-            <div className="flex size-full items-center justify-center gap-[0.1rem] font-bold text-sm max-md:py-1">
+            <div
+              className={cn(
+                'flex size-full items-center justify-center gap-[0.1rem] font-bold max-md:py-1',
+                size === 'sm' && 'text-xs',
+                size === 'md' && 'text-sm',
+                size === 'lg' && 'text-base',
+                size === 'xl' && 'text-lg',
+                size === '2xl' && 'text-xl'
+              )}
+            >
               {capitals?.map((capital, index) => (
                 // biome-ignore lint/suspicious/noArrayIndexKey: Capitals are primitives and order is fixed
                 <span key={`${capital}-${index}`}>{capital}</span>

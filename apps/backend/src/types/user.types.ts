@@ -7,6 +7,7 @@ export interface UserData {
   name: string;
   phone?: string;
   dateOfBirth?: Date;
+  image?: string;
 }
 
 export enum EmailsList {

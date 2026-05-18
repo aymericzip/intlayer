@@ -1,5 +1,10 @@
 import { logger } from '@logger';
 import { sendEmail } from '@services/email.service';
+import {
+  deleteUserAvatar,
+  uploadUserAvatar,
+  validateAvatarUpload,
+} from '@services/user/avatarUpload.service';
 import * as userService from '@services/user.service';
 import { type AppError, ErrorHandler } from '@utils/errors';
 import type { FiltersAndPagination } from '@utils/filtersAndPagination/getFiltersAndPaginationFromBody';
@@ -433,6 +438,123 @@ export const deleteUser = async (
 
     return reply.send(responseData);
   } catch (error) {
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
+  }
+};
+
+export type UploadUserAvatarResult = ResponseData<UserAPI>;
+
+/**
+ * Uploads a new avatar for the authenticated user, stores it in S3, and
+ * updates the user's image field. Deletes the previous avatar if it was
+ * hosted on our own storage.
+ */
+export const uploadAvatar = async (
+  request: FastifyRequest,
+  reply: FastifyReply
+): Promise<void> => {
+  const { user, roles } = request.session || {};
+
+  if (!user) {
+    return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
+  }
+
+  const rawContentType = request.headers['content-type'] ?? '';
+  // Strip parameters like "; charset=utf-8" to get the bare MIME type
+  const contentType = rawContentType.split(';')[0].trim() || 'image/jpeg';
+  const contentLength = Number(request.headers['content-length'] ?? 0);
+
+  logger.info('uploadAvatar request', {
+    contentType,
+    contentLength,
+    userId: String(user.id),
+  });
+
+  const validationError = validateAvatarUpload(contentType, contentLength);
+  if (validationError) {
+    logger.warn('uploadAvatar validation failed', {
+      validationError,
+      contentType,
+      contentLength,
+    });
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'USER_INVALID_FIELDS'
+    );
+  }
+
+  if (
+    !hasPermission(
+      roles || [],
+      'user:write'
+    )({ ...request.session, targetUsers: [user] })
+  ) {
+    return ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
+  }
+
+  try {
+    const buffer = request.body;
+    const userId = String(user.id);
+
+    if (!Buffer.isBuffer(buffer) || buffer.length === 0) {
+      logger.error('uploadAvatar: body is not a Buffer', {
+        bodyType: typeof buffer,
+        isBuffer: Buffer.isBuffer(buffer),
+        length: Buffer.isBuffer(buffer) ? buffer.length : 'N/A',
+        contentType,
+      });
+      return ErrorHandler.handleGenericErrorResponse(
+        reply,
+        'USER_INVALID_FIELDS'
+      );
+    }
+
+    // Delete the old avatar from S3 if it was uploaded by us
+    if (user.image) {
+      await deleteUserAvatar(user.image).catch(() => {});
+    }
+
+    const imageUrl = await uploadUserAvatar(buffer, userId, contentType);
+
+    const updatedUser = await userService.updateUserById(userId, {
+      image: imageUrl,
+    });
+
+    logger.info(`Avatar uploaded for user ${userId}`);
+
+    const formattedUser = mapUserToAPI(updatedUser);
+    const responseData = formatResponse<UserAPI>({
+      message: t({
+        en: 'Avatar uploaded',
+        'en-GB': 'Avatar uploaded',
+        fr: 'Avatar mis à jour',
+        es: 'Avatar actualizado',
+        ru: 'Аватар загружен',
+        ja: 'アバターをアップロードしました',
+        ko: '아바타가 업로드되었습니다',
+        zh: '头像已上传',
+        de: 'Avatar hochgeladen',
+        ar: 'تم رفع الصورة الرمزية',
+        it: 'Avatar caricato',
+        pt: 'Avatar enviado',
+        hi: 'अवतार अपलोड किया गया',
+        tr: 'Avatar yüklendi',
+        pl: 'Awatar przesłany',
+        id: 'Avatar diunggah',
+        vi: 'Ảnh đại diện đã được tải lên',
+        uk: 'Аватар завантажено',
+      }),
+      data: formattedUser,
+    });
+
+    return reply.send(responseData);
+  } catch (error) {
+    logger.error('uploadAvatar error', {
+      message: (error as Error)?.message,
+      name: (error as Error)?.name,
+      code: (error as any)?.code,
+      stack: (error as Error)?.stack,
+    });
     return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }
 };

@@ -5,6 +5,7 @@ import {
   getUserById,
   getUsers,
   updateUser,
+  uploadAvatar,
   verifyEmailStatusSSE,
 } from '@controllers/user.controller';
 import type { FastifyInstance } from 'fastify';
@@ -53,9 +54,21 @@ export const getUserRoutes = () =>
         `${baseURL()}/verify-email-status/${userId}`,
       method: 'GET',
     },
+    uploadAvatar: {
+      urlModel: '/avatar',
+      url: `${baseURL()}/avatar`,
+      method: 'POST',
+    },
   }) satisfies Routes;
 
 export const userRouter = async (fastify: FastifyInstance) => {
+  // Accept raw image buffers for avatar upload (regex matches any image/* MIME type)
+  fastify.addContentTypeParser(
+    /^image\//,
+    { parseAs: 'buffer' },
+    (_req, body, done) => done(null, body)
+  );
+
   fastify.get(getUserRoutes().getUsers.urlModel, getUsers);
   fastify.put(getUserRoutes().updateUser.urlModel, updateUser);
   fastify.post(getUserRoutes().createUser.urlModel, createUser);
@@ -79,4 +92,5 @@ export const userRouter = async (fastify: FastifyInstance) => {
     { schema: { params: userIdParamsSchema } },
     verifyEmailStatusSSE
   );
+  fastify.post(getUserRoutes().uploadAvatar.urlModel, uploadAvatar);
 };

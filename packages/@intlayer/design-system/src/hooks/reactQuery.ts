@@ -470,6 +470,18 @@ export const useDeleteUser = () => {
   });
 };
 
+export const useUploadUserAvatar = () => {
+  const intlayerOAuth = useIntlayerOAuth();
+
+  return useMutation({
+    mutationKey: ['users', 'avatar'],
+    mutationFn: (file: File) => intlayerOAuth.user.uploadAvatar(file),
+    meta: {
+      invalidateQueries: [['session']],
+    },
+  });
+};
+
 /**
  * Organization
  */
