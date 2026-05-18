@@ -161,12 +161,10 @@ export const ConfigDetails: FC<ConfigDetailsProps> = ({ projectConfig }) => {
                 onClick={() => fileInputRef.current?.click()}
               />
               <PopoverStatic.Detail identifier="config-upload" xAlign="end">
-                <Container
-                  padding="sm"
-                  roundedSize="xl"
-                  className="min-w-[200px]"
-                >
-                  <p>{uploadFileButton.popover}</p>
+                <Container padding="sm" roundedSize="xl">
+                  <span className="text-nowrap">
+                    {uploadFileButton.popover}
+                  </span>
                 </Container>
               </PopoverStatic.Detail>
             </PopoverStatic>
@@ -184,12 +182,10 @@ export const ConfigDetails: FC<ConfigDetailsProps> = ({ projectConfig }) => {
                 identifier="config-import-repo"
                 xAlign="end"
               >
-                <Container
-                  padding="sm"
-                  roundedSize="xl"
-                  className="min-w-[200px]"
-                >
-                  <p>{loadFromRepoButton.popover}</p>
+                <Container padding="sm" roundedSize="xl">
+                  <span className="text-nowrap">
+                    {loadFromRepoButton.popover}
+                  </span>
                 </Container>
               </PopoverStatic.Detail>
             </PopoverStatic>
@@ -204,12 +200,8 @@ export const ConfigDetails: FC<ConfigDetailsProps> = ({ projectConfig }) => {
                 onClick={() => setIsEditModalOpen(true)}
               />
               <PopoverStatic.Detail identifier="config-edit" xAlign="end">
-                <Container
-                  padding="sm"
-                  roundedSize="xl"
-                  className="min-w-[200px]"
-                >
-                  <p>{editButton.popover}</p>
+                <Container padding="sm" roundedSize="xl">
+                  <span className="text-nowrap">{editButton.popover}</span>
                 </Container>
               </PopoverStatic.Detail>
             </PopoverStatic>
