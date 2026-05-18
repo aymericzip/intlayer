@@ -37,6 +37,25 @@ export const isInvalidDictionary = (
     return false;
   }
 
+  // Reject keys that contain path-unsafe characters.
+  // A key is used as a filename component ({key}.json), so slashes, backslashes,
+  // null bytes, or pure dot-segments can escape the output directory or break
+  // dictionary resolution.
+  const isInsecureKey =
+    dictionary.key.includes('/') ||
+    dictionary.key.includes('\\') ||
+    dictionary.key.includes('\x00') ||
+    dictionary.key.startsWith('.') ||
+    dictionary.key.startsWith('..');
+
+  if (isInsecureKey) {
+    appLogger(
+      `Insecure key ${colorizeKey(dictionary.key)} at ${dictionary.filePath ? formatPath(dictionary.filePath) : colorizePath('Remote')} - dictionary filtered out`,
+      { level: 'error' }
+    );
+    return false;
+  }
+
   if (!hasContent) {
     appLogger(
       `${location} dictionary ${colorizeKey(dictionary.key)} has no content - ${dictionary.filePath ? formatPath(dictionary.filePath) : colorizePath('Remote')}`,
