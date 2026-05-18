@@ -49,7 +49,7 @@ history:
 <iframe
   src="https://intlayer-astro-template.vercel.app"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="डेमो — intlayer-astro-template"
+  title="डेमो - intlayer-astro-template"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -361,7 +361,7 @@ export function LocaleSwitcher() {
 > **निरंतरता पर नोट:**
 > `window.location.href` के माध्यम से रीडायरेक्ट करने के लिए `onLocaleChange` का उपयोग यह सुनिश्चित करता है कि नया भाषाई URL देखा जाए, जिससे Intlayer मिडलवेयर भाषा कुकी सेट कर सके और भविष्य की यात्राओं में उपयोगकर्ता की वरीयता को याद रख सके।
 
-> `LocaleSwitcher` को `IntlayerProvider` के भीतर रेंडर किया जाना चाहिए — इसे अपने island घटक में उपयोग करें (जैसा कि चरण 6 में दिखाया गया है)।
+> `LocaleSwitcher` को `IntlayerProvider` के भीतर रेंडर किया जाना चाहिए - इसे अपने island घटक में उपयोग करें (जैसा कि चरण 6 में दिखाया गया है)।
 
 ### चरण 8: Sitemap और Robots.txt
 

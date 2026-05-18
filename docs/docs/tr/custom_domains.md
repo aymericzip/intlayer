@@ -34,8 +34,8 @@ Intlayer, belirli yerel ayarları özel ana makine adlarından sunmanıza olanak
 
 Temel ayrım **münhasırlıktır**:
 
-- **Özel alan adı** — Bu ana makine adına yalnızca bir yerel ayar eşlenir (örneğin `zh → intlayer.zh`). Alan adının kendisi yerel ayarı tanımlar, bu nedenle yola herhangi bir yerel ayar öneki eklenmez. `https://intlayer.zh/about` Çince içerik sunar.
-- **Paylaşılan alan adı** — Birden fazla yerel ayar aynı ana makine adına eşlenir (örneğin hem `en` hem de `fr` `intlayer.org` adresine eşlenir). Normal önek tabanlı yönlendirme uygulanır. `intlayer.org/fr/about` Fransızca içerik sunar.
+- **Özel alan adı** - Bu ana makine adına yalnızca bir yerel ayar eşlenir (örneğin `zh → intlayer.zh`). Alan adının kendisi yerel ayarı tanımlar, bu nedenle yola herhangi bir yerel ayar öneki eklenmez. `https://intlayer.zh/about` Çince içerik sunar.
+- **Paylaşılan alan adı** - Birden fazla yerel ayar aynı ana makine adına eşlenir (örneğin hem `en` hem de `fr` `intlayer.org` adresine eşlenir). Normal önek tabanlı yönlendirme uygulanır. `intlayer.org/fr/about` Fransızca içerik sunar.
 
 ## Yapılandırma
 
@@ -55,9 +55,9 @@ const config: IntlayerConfig = {
   routing: {
     mode: "prefix-no-default",
     domains: {
-      // Paylaşılan alan adı — en ve fr, intlayer.org'da önek yönlendirmesini kullanır
+      // Paylaşılan alan adı - en ve fr, intlayer.org'da önek yönlendirmesini kullanır
       en: "intlayer.org",
-      // Özel alan adı — zh'nin kendi ana makine adı vardır, /zh/ önekine gerek yoktur
+      // Özel alan adı - zh'nin kendi ana makine adı vardır, /zh/ önekine gerek yoktur
       zh: "intlayer.zh",
     },
   },
@@ -96,7 +96,7 @@ getLocalizedUrl("/about", "zh", { currentDomain: "intlayer.org" });
 ```ts
 // Mevcut sayfa: intlayer.zh/about
 getLocalizedUrl("/about", "zh", { currentDomain: "intlayer.zh" });
-// → "/about"  (zaten doğru alan adında — göreli URL)
+// → "/about"  (zaten doğru alan adında - göreli URL)
 
 getLocalizedUrl("/about", "fr", { currentDomain: "intlayer.zh" });
 // → "https://intlayer.org/fr/about"  (intlayer.org'a geri dönen alan adları arası bağlantı)
@@ -108,14 +108,14 @@ getLocalizedUrl("/about", "fr", { currentDomain: "intlayer.zh" });
 
 1. Mutlak bir giriş URL'sinin ana makine adı (örneğin `https://intlayer.org/about` → `intlayer.org`).
 2. Tarayıcı ortamlarında `window.location.hostname`.
-3. Hiçbiri mevcut değilse (açık seçenek olmadan SSR), aynı alan adı yerel ayarları için göreli bir URL döndürülür ve mutlak bir URL oluşturulmaz — bu güvenli geri dönüştür.
+3. Hiçbiri mevcut değilse (açık seçenek olmadan SSR), aynı alan adı yerel ayarları için göreli bir URL döndürülür ve mutlak bir URL oluşturulmaz - bu güvenli geri dönüştür.
 
 ```ts
-// Tarayıcı — window.location.hostname === 'intlayer.org'
+// Tarayıcı - window.location.hostname === 'intlayer.org'
 getLocalizedUrl("/about", "zh");
 // → "https://intlayer.zh/about"  (pencereden otomatik algılandı)
 
-// Mutlak bir URL'den — alan adı otomatik olarak algılandı
+// Mutlak bir URL'den - alan adı otomatik olarak algılandı
 getLocalizedUrl("https://intlayer.org/about", "zh");
 // → "https://intlayer.zh/about"
 ```
@@ -151,14 +151,14 @@ export const config = {
 };
 ```
 
-**Yeniden Yönlendirme (Redirect)** — İstek, belirli bir yerel ayar öneki için yanlış alan adına ulaşır:
+**Yeniden Yönlendirme (Redirect)** - İstek, belirli bir yerel ayar öneki için yanlış alan adına ulaşır:
 
 ```
 GET intlayer.org/zh/about
 → 301 https://intlayer.zh/about
 ```
 
-**Yeniden Yazma (Rewrite)** — İstek, önek olmadan yerel ayarın özel alan adına ulaşır:
+**Yeniden Yazma (Rewrite)** - İstek, önek olmadan yerel ayarın özel alan adına ulaşır:
 
 ```
 GET intlayer.zh/about
@@ -209,7 +209,7 @@ export const LocaleSwitcher = () => {
 };
 ```
 
-Ek yapılandırma gerekmez — `useLocale` dahili olarak `window.location.hostname` algılar ve `router.replace` (aynı alan adı) ile `window.location.href` (alan adları arası) arasında karar verir.
+Ek yapılandırma gerekmez - `useLocale` dahili olarak `window.location.hostname` algılar ve `router.replace` (aynı alan adı) ile `window.location.href` (alan adları arası) arasında karar verir.
 
 ## SEO: `hreflang` Alternatif Bağlantılar
 

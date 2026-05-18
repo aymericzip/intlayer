@@ -25,7 +25,7 @@ history:
     changes: "Inicio del benchmark"
 ---
 
-# Librerías i18n para TanStack Start — Informe de Benchmark 2026
+# Librerías i18n para TanStack Start - Informe de Benchmark 2026
 
 Esta página es un informe comparativo de soluciones i18n en TanStack Start.
 
@@ -132,7 +132,7 @@ Las estrellas de GitHub son un fuerte indicador de la popularidad de un proyecto
 
 ## Resultados en detalle
 
-### 1 — Soluciones a evitar
+### 1 - Soluciones a evitar
 
 Algunas soluciones, como `gt-react` o `lingo.dev`, son claramente opciones de las que alejarse. Combinan el bloqueo del proveedor con la contaminación de tu base de código. Peor aún: a pesar de pasar muchas horas intentando implementarlas, nunca logré que funcionaran correctamente en TanStack Start (similar a Next.js con `gt-next`).
 
@@ -154,13 +154,13 @@ Problemas encontrados:
 - Al compilar, borraba totalmente los JSON generados cuando se añadía nuevo contenido. Como resultado, podrías terminar con solo unas pocas claves eliminando cientos de claves existentes.
 - Tuve problemas de reactividad con la librería en TanStack Start: al cambiar de idioma, tuve que forzar el renderizado del proveedor para que funcionara.
 
-### 2 — Soluciones experimentales
+### 2 - Soluciones experimentales
 
 **(Wuchale)** (`wuchale@0.22.11`):
 
 La idea detrás de `Wuchale` es interesante pero todavía no es una solución viable. Experimenté problemas de reactividad con la librería y tuve que forzar el renderizado del proveedor para que la aplicación funcionara en TanStack Start. La documentación también es bastante confusa, lo que dificulta la adopción.
 
-### 3 — Soluciones aceptables
+### 3 - Soluciones aceptables
 
 **(Paraglide)** (`@inlang/paraglide-js@2.15.1`):
 
@@ -196,7 +196,7 @@ A menudo se elogia a `Lingui`. Personalmente, encontré el flujo de trabajo en t
 
 `react-intl` es una implementación de alto rendimiento del equipo de Format.js. La DX sigue siendo verbosa: `const intl = useIntl()` + `intl.formatMessage({ id: "xx.xx" })` añade complejidad, trabajo extra de JavaScript y vincula la instancia global de i18n a muchos nodos en el árbol de React.
 
-### 4 — Recomendaciones
+### 4 - Recomendaciones
 
 Este benchmark de TanStack Start no tiene un equivalente directo a `next-translate` (plugin de Next.js + `getStaticProps`). Para los equipos que realmente quieren una API `t()` con un ecosistema maduro, `react-i18next` y `use-intl` siguen siendo opciones "razonables", pero prepárate para invertir mucho tiempo optimizando para evitar fugas.
 

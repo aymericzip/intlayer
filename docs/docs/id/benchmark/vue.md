@@ -25,7 +25,7 @@ history:
     changes: "Inisialisasi benchmark"
 ---
 
-# Pustaka i18n Vue — Laporan Benchmark 2026
+# Pustaka i18n Vue - Laporan Benchmark 2026
 
 Halaman ini adalah laporan benchmark untuk solusi i18n pada Vue.
 
@@ -146,11 +146,11 @@ Bintang GitHub adalah indikator kuat dari popularitas proyek, kepercayaan komuni
 
 ## Hasil secara mendetail
 
-### 1 — Solusi yang harus dihindari
+### 1 - Solusi yang harus dihindari
 
 > Tidak ada solusi yang jelas untuk dihindari dalam ekosistem Vue.
 
-### 2 — Solusi yang dapat diterima
+### 2 - Solusi yang dapat diterima
 
 **(vue-i18n)** (`vue-i18n@11.4.0`):
 
@@ -162,7 +162,7 @@ Paketnya sangat berat (~24.3kb, yang mana sekitar 9× `vue-intlayer`).
 
 - **fluent-vue** menawarkan satu upaya inovasi melalui format .ftl. Organisasi pesan sangat bagus, lebih mudah untuk memulai. Namun dalam praktiknya, kurangnya keamanan tipe meningkatkan risiko kesalahan dan dapat dengan cepat memakan waktu untuk proses debug. Selain itu, solusi tersebut memuat pesan menggunakan plugin vite yang memaksa pemuatan semua konten dalam semua bahasa ke setiap halaman. Selain itu, ini adalah solusi yang sangat berat (~92.7kb, yang mana sekitar 34× `vue-intlayer`).
 
-### 3 — Rekomendasi
+### 3 - Rekomendasi
 
 **(Intlayer)** (`vue-intlayer@8.7.12`):
 

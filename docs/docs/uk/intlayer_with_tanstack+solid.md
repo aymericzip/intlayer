@@ -39,7 +39,7 @@ history:
 
 ## Що таке Intlayer?
 
-**Intlayer** — це інноваційна бібліотека інтернаціоналізації (i18n) з відкритим кодом, розроблена для спрощення підтримки багатьох мов у сучасних веб-додатках.
+**Intlayer** - це інноваційна бібліотека інтернаціоналізації (i18n) з відкритим кодом, розроблена для спрощення підтримки багатьох мов у сучасних веб-додатках.
 
 З Intlayer ви можете:
 
@@ -75,7 +75,7 @@ history:
 <iframe
   src="https://intlayer-tanstack-start-solid.vercel.app"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Демо — intlayer-tanstack-start-solid-template"
+  title="Демо - intlayer-tanstack-start-solid-template"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -246,7 +246,7 @@ export const Route = createFileRoute("/{-$locale}")({
 });
 ```
 
-> Тут `{-$locale}` — це динамічний параметр маршруту, який замінюється поточною локаллю. Така нотація робить слот необов'язковим, дозволяючи йому працювати з такими режимами маршрутизації, як `'prefix-no-default'` тощо.
+> Тут `{-$locale}` - це динамічний параметр маршруту, який замінюється поточною локаллю. Така нотація робить слот необов'язковим, дозволяючи йому працювати з такими режимами маршрутизації, як `'prefix-no-default'` тощо.
 
 > Майте на увазі, що цей слот може спричинити проблеми, якщо ви використовуєте кілька динамічних сегментів в одному маршруті (наприклад: `/{-$locale}/other-path/$anotherDynamicPath/...`).
 > Для режиму `'prefix-all'` ви можете віддати перевагу перемиканню слота на `$locale`.
@@ -644,7 +644,7 @@ export const Route = createFileRoute("/{-$locale}")({
     const { isValid, localePrefix } = validatePrefix(localeParam);
 
     if (!isValid) {
-      // Недійсний префікс локалі — перенаправлення на сторінку 404 з дійсним префіксом локалі
+      // Недійсний префікс локалі - перенаправлення на сторінку 404 з дійсним префіксом локалі
       throw redirect({
         to: "/{-$locale}/404",
         params: { locale: localePrefix },

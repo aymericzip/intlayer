@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-03-31
 updatedAt: 2026-05-06
-title: Vanilla JS i18n — Как перевести приложение на Vanilla JS в 2026 году
+title: Vanilla JS i18n - Как перевести приложение на Vanilla JS в 2026 году
 description: Узнайте, как сделать ваш сайт на Vanilla JS многоязычным. Следуйте документации по интернационализации (i18n) и переводу.
 keywords:
   - Интернационализация
@@ -34,7 +34,7 @@ history:
 <iframe
   src="https://ide.intlayer.org/aymericzip/intlayer-vanilla-template?file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo CodeSandbox — Intlayer"
+  title="Demo CodeSandbox - Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -45,7 +45,7 @@ history:
 <iframe
   src="https://intlayer-vanilla-template.vercel.app"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Демо — intlayer-vanilla-template"
+  title="Демо - intlayer-vanilla-template"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -59,7 +59,7 @@ history:
 
 ## Что такое Intlayer?
 
-**Intlayer** — это инновационная библиотека интернационализации (i18n) с открытым исходным кодом, созданная для упрощения поддержки нескольких языков в современных веб-приложениях.
+**Intlayer** - это инновационная библиотека интернационализации (i18n) с открытым исходным кодом, созданная для упрощения поддержки нескольких языков в современных веб-приложениях.
 
 С помощью Intlayer вы можете:
 

@@ -76,7 +76,7 @@ npx skills add aymericzip/intlayer-skills
 
 **intlayer-content**
 
-- Dạy agent cách sử dụng các nút nội dung nâng cao—như số nhiều, điều kiện và markdown—để xây dựng các từ điển phong phú, động và được bản địa hóa.
+- Dạy agent cách sử dụng các nút nội dung nâng cao-như số nhiều, điều kiện và markdown-để xây dựng các từ điển phong phú, động và được bản địa hóa.
 
 **intlayer-next-js**
 
@@ -108,7 +108,7 @@ npx skills add aymericzip/intlayer-skills
 
 **intlayer-vue**
 
-- Trang bị cho agent các mẫu cụ thể của Vue—bao gồm Composables và hỗ trợ Nuxt—để xây dựng các ứng dụng web hiện đại, được bản địa hóa.
+- Trang bị cho agent các mẫu cụ thể của Vue-bao gồm Composables và hỗ trợ Nuxt-để xây dựng các ứng dụng web hiện đại, được bản địa hóa.
 
 **intlayer-compiler**
 

@@ -186,7 +186,7 @@ bun run build # Or bun run dev
 <iframe
   src="https://intlayer-vite-react-template.vercel.app"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="デモ — intlayer-vite-react-template"
+  title="デモ - intlayer-vite-react-template"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />

@@ -25,7 +25,7 @@ history:
     changes: "Inizializzazione del benchmark"
 ---
 
-# Librerie i18n per Solid — Rapporto Benchmark 2026
+# Librerie i18n per Solid - Rapporto Benchmark 2026
 
 Questa pagina è un rapporto di benchmark per le soluzioni i18n su Solid.
 
@@ -126,11 +126,11 @@ Le stelle di GitHub sono un forte indicatore della popolarità di un progetto, d
 
 ## Risultati in dettaglio
 
-### 1 — Soluzioni da evitare
+### 1 - Soluzioni da evitare
 
 > Nessuna soluzione chiara da evitare nell'ecosistema Solid.
 
-### 2 — Soluzioni accettabili
+### 2 - Soluzioni accettabili
 
 **(solid-i18next)** (`solid-i18next@17.0.2`):
 
@@ -151,7 +151,7 @@ Manca inoltre del lazy loading e dello scoping dei namespace per l'ottimizzazion
 Personalmente, non amo dover rigenerare file JS prima di ogni push, il che crea un costante rischio di conflitti di merge tramite le PR.
 Infine, rispetto ad altre soluzioni, Paraglide non utilizza uno store (es. Solid signal) per recuperare la lingua corrente per renderizzare il contenuto. Per ogni nodo analizzato, richiederà la lingua al localStorage / cookie ecc. Ciò porta all'esecuzione di logica non necessaria che impatta sulla reattività del componente.
 
-### 3 — Raccomandazioni
+### 3 - Raccomandazioni
 
 **(Intlayer)** (`solid-intlayer@8.7.12`):
 

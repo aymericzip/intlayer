@@ -35,7 +35,7 @@ history:
 <iframe
   src="https://ide.intlayer.org/aymericzip/intlayer-vite-vanilla-template?file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo CodeSandbox — Intlayer"
+  title="Demo CodeSandbox - Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -46,7 +46,7 @@ history:
 <iframe
   src="https://intlayer-vite-vanilla.vercel.app"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="演示 — intlayer-vite-vanilla-template"
+  title="演示 - intlayer-vite-vanilla-template"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -255,7 +255,7 @@ export default appContent;
 
 ### 第 6 步：在 JavaScript 中使用 Intlayer
 
-`vanilla-intlayer` 镜像了 `react-intlayer` 的表面 API：`useIntlayer(key, locale?)` 直接返回翻译后的内容。在结果上链式调用 `.onChange()` 以订阅语言更改 — 这相当于 React 的显式重新渲染。
+`vanilla-intlayer` 镜像了 `react-intlayer` 的表面 API：`useIntlayer(key, locale?)` 直接返回翻译后的内容。在结果上链式调用 `.onChange()` 以订阅语言更改 - 这相当于 React 的显式重新渲染。
 
 ```typescript fileName="src/main.ts" codeFormat="typescript"
 import { installIntlayer, useIntlayer } from "vanilla-intlayer";
@@ -456,7 +456,7 @@ const unsubscribe = useDictionaryDynamic(
 });
 ```
 
-> 每种语言的包仅在该语言激活时才获取，并且结果会被缓存 — 随后切换到同一语言是即时的。
+> 每种语言的包仅在该语言激活时才获取，并且结果会被缓存 - 随后切换到同一语言是即时的。
 
 ### (可选) 第 13 步：提取组件内容
 

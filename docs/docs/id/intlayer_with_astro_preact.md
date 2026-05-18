@@ -46,7 +46,7 @@ history:
 <iframe
   src="https://intlayer-astro-template.vercel.app"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo — intlayer-astro-template"
+  title="Demo - intlayer-astro-template"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -110,7 +110,7 @@ bun x intlayer init
   Plugin integrasi Astro untuk menghubungkan Intlayer dengan [bundler Vite](https://vite.dev/guide/why.html#why-bundle-for-production); juga mencakup middleware untuk mendeteksi bahasa pilihan pengguna, mengelola cookie, dan menangani pengalihan URL.
 
 - **preact**
-  Paket inti Preact — alternatif yang cepat dan ringan untuk React.
+  Paket inti Preact - alternatif yang cepat dan ringan untuk React.
 
 - **preact-intlayer**
   Paket untuk mengintegrasikan Intlayer ke dalam aplikasi Preact. Paket ini menyediakan `IntlayerProvider` serta hook `useIntlayer` dan `useLocale` untuk internasionalisasi di Preact.
@@ -365,7 +365,7 @@ export const LocaleSwitcher: FunctionalComponent = () => {
 > **Catatan tentang Persistensi:**
 > Menggunakan `onLocaleChange` untuk mengarahkan ulang melalui `window.location.href` memastikan bahwa URL bahasa baru dikunjungi. Hal ini memungkinkan middleware Intlayer menyetel cookie bahasa dan mengingat preferensi pengguna untuk kunjungan mendatang.
 
-> `LocaleSwitcher` harus dirender di dalam `IntlayerProvider` — gunakan ini di komponen island Anda (seperti yang ditunjukkan pada Langkah 6).
+> `LocaleSwitcher` harus dirender di dalam `IntlayerProvider` - gunakan ini di komponen island Anda (seperti yang ditunjukkan pada Langkah 6).
 
 ### Langkah 8: Sitemap dan Robots.txt
 

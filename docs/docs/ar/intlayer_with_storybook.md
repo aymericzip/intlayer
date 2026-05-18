@@ -2,7 +2,7 @@
 createdAt: 2026-03-20
 updatedAt: 2026-05-06
 title: كيفية إعداد Intlayer مع Storybook
-description: تعرف على كيفية جعل نظام التصميم الخاص بك متعدد اللغات باستخدام Intlayer مع Storybook — قم بتجميع إعلانات المحتوى، وإضافة مبدل اللغة، ومعاينة مكوناتك بأي لغة.
+description: تعرف على كيفية جعل نظام التصميم الخاص بك متعدد اللغات باستخدام Intlayer مع Storybook - قم بتجميع إعلانات المحتوى، وإضافة مبدل اللغة، ومعاينة مكوناتك بأي لغة.
 keywords:
   - تدويل
   - توثيق
@@ -33,7 +33,7 @@ history:
 
 ## ما هو Intlayer؟
 
-**Intlayer** هو مكتبة تدويل (i18n) مبتكرة ومفتوحة المصدر مصممة لتبسيط الدعم متعدد اللغات في تطبيقات الويب الحديثة. تعمل على **مستوى المكون** — حيث يمتلك كل مكون إعلانات المحتوى الخاصة به — مما يحافظ على الترجمات في نفس مكان الكود الذي يستخدمها.
+**Intlayer** هو مكتبة تدويل (i18n) مبتكرة ومفتوحة المصدر مصممة لتبسيط الدعم متعدد اللغات في تطبيقات الويب الحديثة. تعمل على **مستوى المكون** - حيث يمتلك كل مكون إعلانات المحتوى الخاصة به - مما يحافظ على الترجمات في نفس مكان الكود الذي يستخدمها.
 
 باستخدام Intlayer يمكنك:
 
@@ -83,9 +83,9 @@ bun add vite-intlayer --dev
 
 | الحزمة           | الدور                                                    |
 | ---------------- | -------------------------------------------------------- |
-| `intlayer`       | الأساس — التكوين، تجميع المحتوى، واجهة سطر الأوامر (CLI) |
-| `react-intlayer` | روابط React — `IntlayerProvider` و `useIntlayer` hook    |
-| `vite-intlayer`  | إضافة Vite — تراقب وتجمع ملفات إعلان المحتوى             |
+| `intlayer`       | الأساس - التكوين، تجميع المحتوى، واجهة سطر الأوامر (CLI) |
+| `react-intlayer` | روابط React - `IntlayerProvider` و `useIntlayer` hook    |
+| `vite-intlayer`  | إضافة Vite - تراقب وتجمع ملفات إعلان المحتوى             |
 
 ---
 
@@ -291,7 +291,7 @@ export default config;
 
 ### الخطوة 4: إضافة `IntlayerProvider` ومبدل اللغة في شريط الأدوات
 
-كما هو الحال في إعداد Vite — أضف الـ decorator ونوع اللغة العالمي في `.storybook/preview.tsx`:
+كما هو الحال في إعداد Vite - أضف الـ decorator ونوع اللغة العالمي في `.storybook/preview.tsx`:
 
 ```tsx fileName=".storybook/preview.tsx" codeFormat="typescript"
 import type { Preview, StoryContext } from "@storybook/react";
@@ -411,7 +411,7 @@ const meta: Meta<typeof CopyButton> = {
 export default meta;
 type Story = StoryObj<typeof CopyButton>;
 
-/** القصة الافتراضية — قم بتبديل اللغة في شريط الأدوات لمعاينة الترجمات. */
+/** القصة الافتراضية - قم بتبديل اللغة في شريط الأدوات لمعاينة الترجمات. */
 export const Default: Story = {
   args: {
     content: "npm install intlayer react-intlayer",

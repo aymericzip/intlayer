@@ -2,7 +2,7 @@
 createdAt: 2026-03-20
 updatedAt: 2026-05-06
 title: Cara Menyiapkan Intlayer dengan Storybook
-description: Pelajari cara membuat sistem desain Anda multibahasa menggunakan Intlayer dengan Storybook — kompilasi deklarasi konten, tambahkan pengalih lokal, dan pratinjau komponen Anda dalam bahasa apa pun.
+description: Pelajari cara membuat sistem desain Anda multibahasa menggunakan Intlayer dengan Storybook - kompilasi deklarasi konten, tambahkan pengalih lokal, dan pratinjau komponen Anda dalam bahasa apa pun.
 keywords:
   - Internasionalisasi
   - Dokumentasi
@@ -33,7 +33,7 @@ history:
 
 ## Apa itu Intlayer?
 
-**Intlayer** adalah perpustakaan internasionalisasi (i18n) sumber terbuka yang inovatif yang dirancang untuk menyederhanakan dukungan multibahasa dalam aplikasi web modern. Ini bekerja pada **tingkat komponen** — setiap komponen memiliki deklarasi kontennya sendiri — menjaga terjemahan tetap berada di tempat yang sama dengan kode yang menggunakannya.
+**Intlayer** adalah perpustakaan internasionalisasi (i18n) sumber terbuka yang inovatif yang dirancang untuk menyederhanakan dukungan multibahasa dalam aplikasi web modern. Ini bekerja pada **tingkat komponen** - setiap komponen memiliki deklarasi kontennya sendiri - menjaga terjemahan tetap berada di tempat yang sama dengan kode yang menggunakannya.
 
 Dengan Intlayer Anda dapat:
 
@@ -83,9 +83,9 @@ bun add vite-intlayer --dev
 
 | Paket            | Peran                                                         |
 | ---------------- | ------------------------------------------------------------- |
-| `intlayer`       | Inti — konfigurasi, kompilasi konten, CLI                     |
-| `react-intlayer` | Pengikatan React — `IntlayerProvider`, hook `useIntlayer`     |
-| `vite-intlayer`  | Plugin Vite — memantau dan mengompilasi file deklarasi konten |
+| `intlayer`       | Inti - konfigurasi, kompilasi konten, CLI                     |
+| `react-intlayer` | Pengikatan React - `IntlayerProvider`, hook `useIntlayer`     |
+| `vite-intlayer`  | Plugin Vite - memantau dan mengompilasi file deklarasi konten |
 
 ---
 
@@ -291,7 +291,7 @@ export default config;
 
 ### Langkah 4: Tambahkan Dekorator `IntlayerProvider` dan Bilah Alat Lokal
 
-Sama seperti pengaturan Vite — tambahkan dekorator dan tipe lokal global di `.storybook/preview.tsx`:
+Sama seperti pengaturan Vite - tambahkan dekorator dan tipe lokal global di `.storybook/preview.tsx`:
 
 ```tsx fileName=".storybook/preview.tsx" codeFormat="typescript"
 import type { Preview, StoryContext } from "@storybook/react";
@@ -411,7 +411,7 @@ const meta: Meta<typeof CopyButton> = {
 export default meta;
 type Story = StoryObj<typeof CopyButton>;
 
-/** Story default — ubah lokal di bilah alat untuk melihat pratinjau terjemahan. */
+/** Story default - ubah lokal di bilah alat untuk melihat pratinjau terjemahan. */
 export const Default: Story = {
   args: {
     content: "npm install intlayer react-intlayer",

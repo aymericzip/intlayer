@@ -25,7 +25,7 @@ history:
     changes: "Inicialização do benchmark"
 ---
 
-# Bibliotecas i18n para Solid — Relatório de Benchmark 2026
+# Bibliotecas i18n para Solid - Relatório de Benchmark 2026
 
 Esta página é um relatório de benchmark para soluções i18n no Solid.
 
@@ -126,11 +126,11 @@ As estrelas do GitHub são um forte indicador da popularidade de um projeto, da 
 
 ## Resultados em detalhes
 
-### 1 — Soluções a evitar
+### 1 - Soluções a evitar
 
 > Nenhuma solução clara a evitar no ecossistema Solid.
 
-### 2 — Soluções aceitáveis
+### 2 - Soluções aceitáveis
 
 **(solid-i18next)** (`solid-i18next@17.0.2`):
 
@@ -151,7 +151,7 @@ O `Paraglide` oferece uma abordagem inovadora e bem pensada. Ainda assim, neste 
 Pessoalmente, não gosto de ter que regenerar arquivos JS antes de cada push, o que cria um risco constante de conflito de merge através de PRs.
 Finalmente, em comparação com outras soluções, o Paraglide não usa um store (ex: Solid signal) para recuperar o local atual para renderizar o conteúdo. Para cada nó analisado, ele solicitará o local do localStorage / cookie etc. Isso leva à execução de lógica desnecessária que impacta a reatividade do componente.
 
-### 3 — Recomendações
+### 3 - Recomendações
 
 **(Intlayer)** (`solid-intlayer@8.7.12`):
 

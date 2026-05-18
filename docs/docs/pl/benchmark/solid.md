@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-04-20
 updatedAt: 2026-05-18
-title: Najlepsze rozwiązanie i18n dla Solid w 2026 r. — raport z benchmarku
+title: Najlepsze rozwiązanie i18n dla Solid w 2026 r. - raport z benchmarku
 description: Porównaj biblioteki internacjonalizacji (i18n) dla Solid, takie jak solid-primitives, solid-i18next i Intlayer. Szczegółowy raport wydajności dotyczący rozmiaru paczki, wycieków i reaktywności.
 keywords:
   - benchmark
@@ -25,7 +25,7 @@ history:
     changes: "Inicjalizacja benchmarku"
 ---
 
-# Biblioteki i18n dla Solid — raport z benchmarku 2026
+# Biblioteki i18n dla Solid - raport z benchmarku 2026
 
 Ta strona zawiera raport z benchmarku rozwiązań i18n dla Solid.
 
@@ -126,11 +126,11 @@ Gwiazdki na GitHubie są silnym wskaźnikiem popularności projektu, zaufania sp
 
 ## Wyniki szczegółowe
 
-### 1 — Rozwiązania, których należy unikać
+### 1 - Rozwiązania, których należy unikać
 
 > W ekosystemie Solid nie ma jednoznacznego rozwiązania, którego należy unikać.
 
-### 2 — Rozwiązania akceptowalne
+### 2 - Rozwiązania akceptowalne
 
 **(solid-i18next)** (`solid-i18next@17.0.2`):
 
@@ -151,7 +151,7 @@ Brakuje mu również lazy loadingu i scopingu przestrzeni nazw w celu optymaliza
 Osobiście nie lubię konieczności regeneracji plików JS przed każdym pushem, co stwarza ciągłe ryzyko konfliktów przy mergowaniu poprzez PR-y.
 Wreszcie, w porównaniu z innymi rozwiązaniami, Paraglide nie używa store'a (np. Solid signal) do pobierania aktualnej lokalizacji w celu renderowania treści. Dla każdego sparsowanego węzła będzie żądać lokalizacji z localStorage / cookie itp. Prowadzi to do wykonywania niepotrzebnej logiki, która wpływa na reaktywność komponentu.
 
-### 3 — Rekomendacje
+### 3 - Rekomendacje
 
 **(Intlayer)** (`solid-intlayer@8.7.12`):
 

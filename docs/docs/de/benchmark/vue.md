@@ -25,7 +25,7 @@ history:
     changes: "Benchmark-Initialisierung"
 ---
 
-# Vue i18n-Bibliotheken — Benchmark-Bericht 2026
+# Vue i18n-Bibliotheken - Benchmark-Bericht 2026
 
 Diese Seite ist ein Benchmark-Bericht für i18n-Lösungen in Vue.
 
@@ -146,11 +146,11 @@ GitHub-Sterne sind ein starker Indikator für die Popularität eines Projekts, d
 
 ## Ergebnisse im Detail
 
-### 1 — Zu vermeidende Lösungen
+### 1 - Zu vermeidende Lösungen
 
 > Im Vue-Ökosystem gibt es keine eindeutig zu vermeidenden Lösungen.
 
-### 2 — Akzeptable Lösungen
+### 2 - Akzeptable Lösungen
 
 **(vue-i18n)** (`vue-i18n@11.4.0`):
 
@@ -162,7 +162,7 @@ Das Paket ist sehr schwer (~24,3 KB, was etwa das 9-fache von `vue-intlayer` ist
 
 - **fluent-vue** bietet einen Innovationsversuch durch das .ftl-Format. Die Nachrichtenorganisation ist großartig und der Einstieg einfacher. In der Praxis erhöht jedoch der Mangel an Typsicherheit das Fehlerrisiko und das Debuggen kann schnell zeitaufwendig werden. Darüber hinaus lädt diese Lösung die Nachrichten über ein Vite-Plugin, das das Laden aller Inhalte in allen Sprachen in jede Seite erzwingt. Zusätzlich ist dies eine extrem schwere Lösung (~92,7 KB, was etwa das 34-fache von `vue-intlayer` ist).
 
-### 3 — Empfehlungen
+### 3 - Empfehlungen
 
 **(Intlayer)** (`vue-intlayer@8.7.12`):
 

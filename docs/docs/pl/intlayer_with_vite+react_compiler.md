@@ -55,7 +55,7 @@ history:
 <iframe
   src="https://intlayer-vite-react-template.vercel.app"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo — intlayer-vite-react-template"
+  title="Demo - intlayer-vite-react-template"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -403,7 +403,7 @@ bun x intlayer fill         # Uzupełnij brakujące tłumaczenia
 
 ### (Opcjonalnie) Sitemap i robots.txt (generacja przy buildzie)
 
-Intlayer udostępnia `generateSitemap` i `getMultilingualUrls` — narzędzia do formatowania wielojęzycznych plików `sitemap.xml` i `robots.txt` dla crawlerów i automatycznego zapisu do `public/`. Zwykle uruchamia się mały skrypt Node **przed** Vite (np. hooki npm `predev` / `prebuild`).
+Intlayer udostępnia `generateSitemap` i `getMultilingualUrls` - narzędzia do formatowania wielojęzycznych plików `sitemap.xml` i `robots.txt` dla crawlerów i automatycznego zapisu do `public/`. Zwykle uruchamia się mały skrypt Node **przed** Vite (np. hooki npm `predev` / `prebuild`).
 
 #### Sitemap
 

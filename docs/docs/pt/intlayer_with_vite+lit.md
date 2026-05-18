@@ -45,7 +45,7 @@ history:
 <iframe
   src="https://intlayer-vite-lit-template.vercel.app"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo — intlayer-vite-lit-template"
+  title="Demo - intlayer-vite-lit-template"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -263,7 +263,7 @@ export default appContent;
 
 ### Passo 6: Utilizar o Intlayer no seu LitElement
 
-Use o `useIntlayer` dentro de um `LitElement`. Ele retorna um proxy `ReactiveController` que ativa automaticamente re-renderizações sempre que o idioma ativo muda — não é necessária configuração extra.
+Use o `useIntlayer` dentro de um `LitElement`. Ele retorna um proxy `ReactiveController` que ativa automaticamente re-renderizações sempre que o idioma ativo muda - não é necessária configuração extra.
 
 ```typescript fileName="src/my-element.ts" codeFormat="typescript"
 import { LitElement, html } from "lit";
@@ -516,7 +516,7 @@ export default config;
 
 ### (Opcional) Sitemap e robots.txt (geração no build)
 
-A Intlayer expõe utilitários — `generateSitemap` e `getMultilingualUrls` — para formatar um `sitemap.xml` multilíngue e um `robots.txt` prontos para crawlers e os gravar automaticamente em `public/`. Normalmente corre um pequeno script Node **antes** do Vite (por exemplo hooks npm `predev` / `prebuild`) para que os ficheiros existam no build ou no servidor de desenvolvimento.
+A Intlayer expõe utilitários - `generateSitemap` e `getMultilingualUrls` - para formatar um `sitemap.xml` multilíngue e um `robots.txt` prontos para crawlers e os gravar automaticamente em `public/`. Normalmente corre um pequeno script Node **antes** do Vite (por exemplo hooks npm `predev` / `prebuild`) para que os ficheiros existam no build ou no servidor de desenvolvimento.
 
 #### Sitemap
 

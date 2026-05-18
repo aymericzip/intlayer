@@ -25,7 +25,7 @@ history:
     changes: "Khởi tạo benchmark"
 ---
 
-# Thư viện i18n cho Solid — Báo cáo Benchmark 2026
+# Thư viện i18n cho Solid - Báo cáo Benchmark 2026
 
 Trang này là báo cáo benchmark cho các giải pháp i18n trên Solid.
 
@@ -126,11 +126,11 @@ Sao GitHub là một chỉ số mạnh mẽ về mức độ phổ biến của 
 
 ## Kết quả chi tiết
 
-### 1 — Các giải pháp cần tránh
+### 1 - Các giải pháp cần tránh
 
 > Không có giải pháp rõ ràng nào cần tránh trong hệ sinh thái Solid.
 
-### 2 — Các giải pháp chấp nhận được
+### 2 - Các giải pháp chấp nhận được
 
 **(solid-i18next)** (`solid-i18next@17.0.2`):
 
@@ -151,7 +151,7 @@ Nó cũng thiếu lazy loading và scoping namespace để tối ưu hóa kích 
 Cá nhân tôi không thích việc phải tạo lại các file JS trước mỗi lần push, điều này tạo ra rủi ro xung đột merge liên tục thông qua các PR.
 Cuối cùng, so với các giải pháp khác, Paraglide không sử dụng store (ví dụ: Solid signal) để truy xuất ngôn ngữ hiện tại để render nội dung. Đối với mỗi node được phân tích cú pháp, nó sẽ yêu cầu ngôn ngữ từ localStorage / cookie, v.v. Nó dẫn đến việc thực thi logic không cần thiết ảnh hưởng đến tính phản ứng của component.
 
-### 3 — Khuyến nghị
+### 3 - Khuyến nghị
 
 **(Intlayer)** (`solid-intlayer@8.7.12`):
 

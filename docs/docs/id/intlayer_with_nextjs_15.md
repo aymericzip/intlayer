@@ -97,7 +97,7 @@ Dengan Intlayer, Anda dapat:
 <iframe
   src="https://next-15-intlayer-template-xt83.vercel.app"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo — intlayer-next-15-template"
+  title="Demo - intlayer-next-15-template"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />

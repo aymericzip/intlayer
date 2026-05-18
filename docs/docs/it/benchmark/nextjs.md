@@ -25,7 +25,7 @@ history:
     changes: "Inizializzazione benchmark"
 ---
 
-# Librerie i18n per Next.js — Rapporto Benchmark 2026
+# Librerie i18n per Next.js - Rapporto Benchmark 2026
 
 Questa pagina è un rapporto benchmark per le soluzioni i18n su Next.js.
 
@@ -98,7 +98,7 @@ Ciò che accade al build time è che Next.js emette un bundle JS per lingua (es.
 
 Se usi una sintassi come `const t = useTranslation()` + `t('my-object.my-sub-object.my-key')`, l'intero JSON deve solitamente essere presente nel bundle in modo che la libreria possa analizzarlo e risolvere la chiave. Gran parte di quel contenuto viene spedito anche quando è inutilizzato nella pagina.
 
-Per mitigare questo, alcune librerie chiedono di dichiarare per pagina quali namespace caricare — es. `next-i18next`, `next-intl`, `lingui`, `next-translate`, `next-international`.
+Per mitigare questo, alcune librerie chiedono di dichiarare per pagina quali namespace caricare - es. `next-i18next`, `next-intl`, `lingui`, `next-translate`, `next-international`.
 
 Al contrario, `Paraglide` aggiunge un passaggio extra prima della build per trasformare i JSON in simboli piatti come `const en_my_var = () => 'my value'`. In teoria questo abilita il tree-shaking dei contenuti inutilizzati nella pagina. Come vedremo, questo metodo presenta comunque dei compromessi.
 
@@ -153,7 +153,7 @@ Ho eseguito la stessa applicazione multilingue in un browser reale per ogni stac
 
 - **Dimensione media del bundle per componente**: I pezzi comuni della UI vengono misurati **uno alla volta** invece di nascondersi all'interno di un unico numero gigante dell'app. Mostra se l'internazionalizzazione gonfia silenziosamente i componenti quotidiani. Ad esempio, se il tuo componente esegue un re-rendering, caricherà tutti quei dati dalla memoria. Allegare un JSON gigante a qualsiasi componente è come collegare un grande magazzino di dati inutilizzati che rallenterà le prestazioni dei tuoi componenti.
 
-- **Reattività al cambio di lingua**: Cambio la lingua usando il controllo dell'app e cronometro quanto tempo ci vuole finché la pagina non è chiaramente cambiata — ciò che un visitatore noterebbe, non un micro-passaggio di laboratorio.
+- **Reattività al cambio di lingua**: Cambio la lingua usando il controllo dell'app e cronometro quanto tempo ci vuole finché la pagina non è chiaramente cambiata - ciò che un visitatore noterebbe, non un micro-passaggio di laboratorio.
 
 - **Lavoro di rendering dopo un cambio di lingua**: Un approfondimento: quanto sforzo ha impiegato l'interfaccia per ridisegnarsi per la nuova lingua una volta avviato il cambio. Utile quando il tempo "percepito" e il costo del framework divergono.
 
@@ -169,7 +169,7 @@ Le stelle di GitHub sono un forte indicatore della popolarità di un progetto, d
 
 ## Risultati nel dettaglio
 
-### 1 — Soluzioni da evitare
+### 1 - Soluzioni da evitare
 
 Alcune soluzioni, come `gt-next` o `lingo.dev`, sono chiaramente da evitare. Combinano il vendor lock-in con l'inquinamento della base di codice. Nonostante molte ore trascorse cercando di implementarle, non sono mai riuscito a farle funzionare, né su TanStack Start né su Next.js.
 
@@ -185,12 +185,12 @@ Problemi riscontrati:
 
 **(Lingo.dev)** (`@lingo.dev/compiler@0.4.0`):
 
-- Quota AI superata, bloccando interamente la build — quindi non puoi andare in produzione senza pagare.
+- Quota AI superata, bloccando interamente la build - quindi non puoi andare in produzione senza pagare.
 - Il compilatore perdeva quasi il 40% del contenuto tradotto. Ho dovuto riscrivere tutti i `.map` in blocchi di componenti piatti per farlo funzionare.
 - La loro CLI è buggata e tendeva a resettare il file di configurazione senza motivo.
 - Alla build, cancellava totalmente i JSON generati quando veniva aggiunto nuovo contenuto. Di conseguenza, una manciata di chiavi poteva cancellare più di 300 chiavi esistenti.
 
-### 2 — Soluzioni sperimentali
+### 2 - Soluzioni sperimentali
 
 **(Wuchale)** (`wuchale@0.22.11`):
 
@@ -204,7 +204,7 @@ Infine, rispetto ad altre soluzioni, Paraglide non usa uno store (es. contesto R
 
 > Nota su paraglide: la soluzione inietta codice nella tua codebase per l'importazione, di conseguenza la metrica 'dimensione della lib' nel report benchmark è quasi 0. La generazione del codice è un aspetto positivo, poiché la funzione utilizzata includerà solo la lógica necessaria (prefisso totale vs nessun prefisso, cookie vs storage, ecc.). In confronto, Intlayer esegue questo filtraggio tramite iniezioni di variabili d'ambiente nella build per forzare il bundler a scartare i contenuti in base alla logica. Grazie a ciò, paraglide e intlayer risultano soluzioni da 6 a 10 volte più leggere rispetto a i18next o next-intl.
 
-### 3 — Soluzioni accettabili
+### 3 - Soluzioni accettabili
 
 **(Tolgee)** (`@tolgee/react@7.0.0`):
 
@@ -228,7 +228,7 @@ I formati dei messaggi differiscono inoltre: `next-intl` usa ICU MessageFormat, 
 
 `Lingui` è spesso elogiato. Personalmente ho trovato il workflow `lingui extract` / `lingui compile` più complesso delle alternative, senza un chiaro vantaggio. Ho anche notato sintassi inconsistenti che confondono le AI (es. `t()`, `t''`, `i18n.t()`, `<Trans>`).
 
-### 4 — Raccomandazioni
+### 4 - Raccomandazioni
 
 **(Next Translate)** (`next-translate@3.1.2`):
 

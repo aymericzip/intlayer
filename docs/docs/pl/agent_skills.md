@@ -76,7 +76,7 @@ npx skills add aymericzip/intlayer-skills
 
 **intlayer-content**
 
-- Uczy agenta, jak korzystać z zaawansowanych węzłów treści — takich jak liczba mnoga, warunki i markdown — w celu tworzenia bogatych, dynamicznych i zlokalizowanych słowników.
+- Uczy agenta, jak korzystać z zaawansowanych węzłów treści - takich jak liczba mnoga, warunki i markdown - w celu tworzenia bogatych, dynamicznych i zlokalizowanych słowników.
 
 **intlayer-next-js**
 
@@ -108,7 +108,7 @@ npx skills add aymericzip/intlayer-skills
 
 **intlayer-vue**
 
-- Wyposaża agenta we wzorce specyficzne dla Vue — w tym Composable i wsparcie dla Nuxt — w celu budowania nowoczesnych, zlokalizowanych aplikacji internetowych.
+- Wyposaża agenta we wzorce specyficzne dla Vue - w tym Composable i wsparcie dla Nuxt - w celu budowania nowoczesnych, zlokalizowanych aplikacji internetowych.
 
 **intlayer-compiler**
 

@@ -45,7 +45,7 @@ history:
 <iframe
   src="https://intlayer-vite-lit-template.vercel.app"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Демо — intlayer-vite-lit-template"
+  title="Демо - intlayer-vite-lit-template"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -59,7 +59,7 @@ history:
 
 ## Що таке Intlayer?
 
-**Intlayer** — це інноваційна бібліотека інтернаціоналізації (i18n) з відкритим вихідним кодом, розроблена для спрощення підтримки багатомовності в сучасних веб-додатках.
+**Intlayer** - це інноваційна бібліотека інтернаціоналізації (i18n) з відкритим вихідним кодом, розроблена для спрощення підтримки багатомовності в сучасних веб-додатках.
 
 З Intlayer ви можете:
 
@@ -263,7 +263,7 @@ export default appContent;
 
 ### Крок 6: Використовуйте Intlayer у вашому LitElement
 
-Використовуйте `useIntlayer` всередині `LitElement`. Він повертає проксі `ReactiveController`, який автоматично запускає перерендеринг щоразу, коли змінюється активна мова — додаткових налаштувань не потрібно.
+Використовуйте `useIntlayer` всередині `LitElement`. Він повертає проксі `ReactiveController`, який автоматично запускає перерендеринг щоразу, коли змінюється активна мова - додаткових налаштувань не потрібно.
 
 ```typescript fileName="src/my-element.ts" codeFormat="typescript"
 import { LitElement, html } from "lit";
@@ -513,7 +513,7 @@ export default config;
 
 ### (Опційно) Sitemap і robots.txt (генерація під час збірки)
 
-Intlayer надає `generateSitemap` і `getMultilingualUrls` — утиліти для формування багатомовних `sitemap.xml` і `robots.txt` для краулерів та автоматичного запису в `public/`. Зазвичай запускають невеликий Node-скрипт **перед** Vite (наприклад, npm-хуки `predev` / `prebuild`).
+Intlayer надає `generateSitemap` і `getMultilingualUrls` - утиліти для формування багатомовних `sitemap.xml` і `robots.txt` для краулерів та автоматичного запису в `public/`. Зазвичай запускають невеликий Node-скрипт **перед** Vite (наприклад, npm-хуки `predev` / `prebuild`).
 
 #### Sitemap
 

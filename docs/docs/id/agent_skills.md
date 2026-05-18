@@ -76,7 +76,7 @@ npx skills add aymericzip/intlayer-skills
 
 **intlayer-content**
 
-- Mengajarkan agen cara memanfaatkan simpul konten tingkat lanjut—seperti pluralisasi, kondisi, dan markdown—untuk membangun kamus yang kaya, dinamis, dan terlokalisasi.
+- Mengajarkan agen cara memanfaatkan simpul konten tingkat lanjut-seperti pluralisasi, kondisi, dan markdown-untuk membangun kamus yang kaya, dinamis, dan terlokalisasi.
 
 **intlayer-next-js**
 
@@ -108,7 +108,7 @@ npx skills add aymericzip/intlayer-skills
 
 **intlayer-vue**
 
-- Membekali agen dengan pola khusus Vue—termasuk Composable dan dukungan Nuxt—untuk membangun aplikasi web modern dan terlokalisasi.
+- Membekali agen dengan pola khusus Vue-termasuk Composable dan dukungan Nuxt-untuk membangun aplikasi web modern dan terlokalisasi.
 
 **intlayer-compiler**
 

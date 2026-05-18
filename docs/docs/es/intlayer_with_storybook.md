@@ -2,7 +2,7 @@
 createdAt: 2026-03-20
 updatedAt: 2026-05-06
 title: Cómo configurar Intlayer con Storybook
-description: Aprenda a hacer que su sistema de diseño sea multilingüe usando Intlayer con Storybook — compile declaraciones de contenido, agregue un selector de idioma y previsualice sus componentes en cualquier idioma.
+description: Aprenda a hacer que su sistema de diseño sea multilingüe usando Intlayer con Storybook - compile declaraciones de contenido, agregue un selector de idioma y previsualice sus componentes en cualquier idioma.
 keywords:
   - Internacionalización
   - Documentación
@@ -83,9 +83,9 @@ bun add vite-intlayer --dev
 
 | Paquete          | Rol                                                          |
 | ---------------- | ------------------------------------------------------------ |
-| `intlayer`       | Núcleo — configuración, compilación de contenido, CLI        |
-| `react-intlayer` | Enlaces para React — `IntlayerProvider`, hook `useIntlayer`  |
-| `vite-intlayer`  | Complemento de Vite — vigila y compila archivos de contenido |
+| `intlayer`       | Núcleo - configuración, compilación de contenido, CLI        |
+| `react-intlayer` | Enlaces para React - `IntlayerProvider`, hook `useIntlayer`  |
+| `vite-intlayer`  | Complemento de Vite - vigila y compila archivos de contenido |
 
 ---
 
@@ -411,7 +411,7 @@ const meta: Meta<typeof CopyButton> = {
 export default meta;
 type Story = StoryObj<typeof CopyButton>;
 
-/** Historia predeterminada — cambia el idioma en la barra de herramientas para previsualizar las traducciones. */
+/** Historia predeterminada - cambia el idioma en la barra de herramientas para previsualizar las traducciones. */
 export const Default: Story = {
   args: {
     content: "npm install intlayer react-intlayer",

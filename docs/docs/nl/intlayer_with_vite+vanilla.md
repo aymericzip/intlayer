@@ -35,7 +35,7 @@ history:
 <iframe
   src="https://ide.intlayer.org/aymericzip/intlayer-vite-vanilla-template?file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo CodeSandbox — Intlayer"
+  title="Demo CodeSandbox - Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -46,7 +46,7 @@ history:
 <iframe
   src="https://intlayer-vite-vanilla.vercel.app"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo — intlayer-vite-vanilla-template"
+  title="Demo - intlayer-vite-vanilla-template"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -255,7 +255,7 @@ export default appContent;
 
 ### Stap 6: Gebruik Intlayer in uw JavaScript
 
-`vanilla-intlayer` spiegelt de `react-intlayer` surface API: `useIntlayer(key, locale?)` retourneert de vertaalde inhoud rechtstreeks. Koppel `.onChange()` aan het resultaat om u te abonneren op taalveranderingen — het expliciete equivalent van een React re-render.
+`vanilla-intlayer` spiegelt de `react-intlayer` surface API: `useIntlayer(key, locale?)` retourneert de vertaalde inhoud rechtstreeks. Koppel `.onChange()` aan het resultaat om u te abonneren op taalveranderingen - het expliciete equivalent van een React re-render.
 
 ```typescript fileName="src/main.ts" codeFormat="typescript"
 import { installIntlayer, useIntlayer } from "vanilla-intlayer";
@@ -456,7 +456,7 @@ const unsubscribe = useDictionaryDynamic(
 });
 ```
 
-> De bundel van elke taal wordt alleen opgehaald wanneer die taal actief wordt en het resultaat wordt in de cache opgeslagen — volgende overschakelingen naar dezelfde taal zijn onmiddellijk.
+> De bundel van elke taal wordt alleen opgehaald wanneer die taal actief wordt en het resultaat wordt in de cache opgeslagen - volgende overschakelingen naar dezelfde taal zijn onmiddellijk.
 
 ### (Optioneel) Stap 13: De inhoud van uw componenten extraheren
 

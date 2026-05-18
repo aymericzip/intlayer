@@ -34,8 +34,8 @@ Intlayerはドメインベースのロケールルーティングをサポート
 
 主な違いは **排他性** です。
 
-- **排他的ドメイン** — 1つのロケールのみがそのホスト名にマップされます（例： `zh → intlayer.zh`）。ドメイン自体がロケールを識別するため、パスにロケールプレフィックスは追加されません。 `https://intlayer.zh/about` は中国語のコンテンツを提供します。
-- **共有ドメイン** — 複数のロケールが同じホスト名にマップされます（例： `en` と `fr` の両方が `intlayer.org` にマップされます）。通常のプレフィックスベースのルーティングが適用されます。 `intlayer.org/fr/about` はフランス語のコンテンツを提供します。
+- **排他的ドメイン** - 1つのロケールのみがそのホスト名にマップされます（例： `zh → intlayer.zh`）。ドメイン自体がロケールを識別するため、パスにロケールプレフィックスは追加されません。 `https://intlayer.zh/about` は中国語のコンテンツを提供します。
+- **共有ドメイン** - 複数のロケールが同じホスト名にマップされます（例： `en` と `fr` の両方が `intlayer.org` にマップされます）。通常のプレフィックスベースのルーティングが適用されます。 `intlayer.org/fr/about` はフランス語のコンテンツを提供します。
 
 ## 設定
 
@@ -55,9 +55,9 @@ const config: IntlayerConfig = {
   routing: {
     mode: "prefix-no-default",
     domains: {
-      // 共有ドメイン — enとfrはintlayer.orgでプレフィックスルーティングを使用
+      // 共有ドメイン - enとfrはintlayer.orgでプレフィックスルーティングを使用
       en: "intlayer.org",
-      // 排他的ドメイン — zhは独自のホスト名を持ち、/zh/プレフィックスは不要
+      // 排他的ドメイン - zhは独自のホスト名を持ち、/zh/プレフィックスは不要
       zh: "intlayer.zh",
     },
   },
@@ -96,7 +96,7 @@ getLocalizedUrl("/about", "zh", { currentDomain: "intlayer.org" });
 ```ts
 // 現在のページ： intlayer.zh/about
 getLocalizedUrl("/about", "zh", { currentDomain: "intlayer.zh" });
-// → "/about" （すでに正しいドメイン上にある — 相対URL）
+// → "/about" （すでに正しいドメイン上にある - 相対URL）
 
 getLocalizedUrl("/about", "fr", { currentDomain: "intlayer.zh" });
 // → "https://intlayer.org/fr/about" （intlayer.orgへのドメイン間リンク）
@@ -111,11 +111,11 @@ getLocalizedUrl("/about", "fr", { currentDomain: "intlayer.zh" });
 3. いずれも利用できない場合（明示的なオプションなしのSSR）、同一ドメインのロケールに対して相対URLが返され、絶対URLは生成されません。これが安全なフォールバックです。
 
 ```ts
-// ブラウザ — window.location.hostname === 'intlayer.org'
+// ブラウザ - window.location.hostname === 'intlayer.org'
 getLocalizedUrl("/about", "zh");
 // → "https://intlayer.zh/about" （windowから自動検出）
 
-// 絶対URLから — ドメインを自動検出
+// 絶対URLから - ドメインを自動検出
 getLocalizedUrl("https://intlayer.org/about", "zh");
 // → "https://intlayer.zh/about"
 ```
@@ -151,14 +151,14 @@ export const config = {
 };
 ```
 
-**リダイレクト** — 指定されたロケールプレフィックスに対してリクエストが間違ったドメインに到着した場合：
+**リダイレクト** - 指定されたロケールプレフィックスに対してリクエストが間違ったドメインに到着した場合：
 
 ```
 GET intlayer.org/zh/about
 → 301 https://intlayer.zh/about
 ```
 
-**リライト** — プレフィックスなしでロケールの排他的ドメインにリクエストが到着した場合：
+**リライト** - プレフィックスなしでロケールの排他的ドメインにリクエストが到着した場合：
 
 ```
 GET intlayer.zh/about

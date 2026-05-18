@@ -46,7 +46,7 @@ history:
 <iframe
   src="https://intlayer-astro-template.vercel.app"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="演示 — intlayer-astro-template"
+  title="演示 - intlayer-astro-template"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -110,7 +110,7 @@ bun x intlayer init
   包含将 Intlayer 与 [Vite 构建器](https://vite.dev/guide/why.html#why-bundle-for-production)集成的 Astro 集成插件，以及用于检测用户首选语言、管理 Cookie 和处理 URL 重定向的中间件。
 
 - **preact**
-  核心 Preact 软件包 — React 的快速且轻量级的替代方案。
+  核心 Preact 软件包 - React 的快速且轻量级的替代方案。
 
 - **preact-intlayer**
   将 Intlayer 与 Preact 应用程序集成的软件包。它提供了 `IntlayerProvider`，以及用于 Preact 国际化的 `useIntlayer` 和 `useLocale` 钩子。
@@ -356,7 +356,7 @@ export const LocaleSwitcher: FunctionalComponent = () => {
 > **关于持久性的说明：**
 > 使用 `onLocaleChange` 通过 `window.location.href` 重定向，确保访问了新的语言 URL，允许 Intlayer 中间件设置语言 Cookie 并记住用户在未来访问时的首选语言。
 
-> `LocaleSwitcher` 必须在 `IntlayerProvider` 内部渲染——在您的岛组件中使用它（如第六步所示）。
+> `LocaleSwitcher` 必须在 `IntlayerProvider` 内部渲染--在您的岛组件中使用它（如第六步所示）。
 
 ### 第八步：站点地图和 Robots.txt
 

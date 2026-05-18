@@ -206,7 +206,7 @@ async function main(): Promise<void> {
 
 function printHelp(): void {
   console.log(`
-editLocalizedDocs — edit markdown under docs/docs/<locale>/
+editLocalizedDocs - edit markdown under docs/docs/<locale>/
 
 Commands:
   list-locales

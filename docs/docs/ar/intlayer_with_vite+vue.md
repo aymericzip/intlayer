@@ -70,7 +70,7 @@ history:
 <iframe
   src="https://intlayer-vite-vue-template.vercel.app"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="تجربة — intlayer-vite-vue-template"
+  title="تجربة - intlayer-vite-vue-template"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />

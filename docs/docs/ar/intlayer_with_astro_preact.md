@@ -46,7 +46,7 @@ history:
 <iframe
   src="https://intlayer-astro-template.vercel.app"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="تجربة — intlayer-astro-template"
+  title="تجربة - intlayer-astro-template"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -110,7 +110,7 @@ bun x intlayer init
   تتضمن إضافة تكامل Astro لربط Intlayer بـ [Vite bundler](https://vite.dev/guide/why.html#why-bundle-for-production)، بالإضافة إلى وسيط (middleware) لاكتشاف لغة المستخدم المفضلة، وإدارة ملفات تعريف الارتباط (cookies)، والتعامل مع إعادة توجيه الروابط.
 
 - **preact**
-  حزمة Preact الأساسية — بديل سريع وخفيف لـ React.
+  حزمة Preact الأساسية - بديل سريع وخفيف لـ React.
 
 - **preact-intlayer**
   حزمة لدمج Intlayer في تطبيقات Preact. توفر `IntlayerProvider` بالإضافة إلى الخطافات (hooks) `useIntlayer` و `useLocale` للتدويل في Preact.
@@ -365,7 +365,7 @@ export const LocaleSwitcher: FunctionalComponent = () => {
 > **ملاحظة حول الاستمرارية:**
 > يضمن استخدام `onLocaleChange` لإعادة التوجيه عبر `window.location.href` زيارة الرابط الجديد للغة، مما يسمح لوسيط Intlayer بتعيين كوكيز اللغة وتذكر تفضيلات المستخدم في الزيارات المستقبلية.
 
-> يجب رندر `LocaleSwitcher` داخل `IntlayerProvider` — استخدمه داخل مكون الجزيرة الخاص بك (كما هو موضح في الخطوة 6).
+> يجب رندر `LocaleSwitcher` داخل `IntlayerProvider` - استخدمه داخل مكون الجزيرة الخاص بك (كما هو موضح في الخطوة 6).
 
 ### الخطوة 8: خريطة الموقع وRobots.txt
 

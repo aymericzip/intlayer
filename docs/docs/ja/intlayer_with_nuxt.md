@@ -72,7 +72,7 @@ Intlayerを使うことで、以下が可能になります：
 <iframe
   src="https://intlayer-nuxt-4-template.vercel.app"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="デモ — intlayer-nuxt-4-template"
+  title="デモ - intlayer-nuxt-4-template"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />

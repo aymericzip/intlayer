@@ -2,7 +2,7 @@
 createdAt: 2026-03-20
 updatedAt: 2026-05-06
 title: Como configurar o Intlayer com o Storybook
-description: Saiba como tornar o seu sistema de design multilíngue usando o Intlayer com o Storybook — compile declarações de conteúdo, adicione um seletor de local e visualize os seus componentes em qualquer idioma.
+description: Saiba como tornar o seu sistema de design multilíngue usando o Intlayer com o Storybook - compile declarações de conteúdo, adicione um seletor de local e visualize os seus componentes em qualquer idioma.
 keywords:
   - Internacionalização
   - Documentação
@@ -33,7 +33,7 @@ history:
 
 ## O que é o Intlayer?
 
-**Intlayer** é uma biblioteca de internacionalização (i18n) inovadora e de código aberto, projetada para simplificar o suporte multilíngue em aplicações web modernas. Funciona ao **nível do componente** — cada componente possui as suas próprias declarações de conteúdo — mantendo as traduções localizadas junto ao código que as utiliza.
+**Intlayer** é uma biblioteca de internacionalização (i18n) inovadora e de código aberto, projetada para simplificar o suporte multilíngue em aplicações web modernas. Funciona ao **nível do componente** - cada componente possui as suas próprias declarações de conteúdo - mantendo as traduções localizadas junto ao código que as utiliza.
 
 Com o Intlayer pode:
 
@@ -83,9 +83,9 @@ bun add vite-intlayer --dev
 
 | Pacote           | Função                                                                 |
 | ---------------- | ---------------------------------------------------------------------- |
-| `intlayer`       | Core — configuração, compilação de conteúdo, CLI                       |
-| `react-intlayer` | Bindings React — `IntlayerProvider`, hook `useIntlayer`                |
-| `vite-intlayer`  | Plugin Vite — monitoriza e compila ficheiros de declaração de conteúdo |
+| `intlayer`       | Core - configuração, compilação de conteúdo, CLI                       |
+| `react-intlayer` | Bindings React - `IntlayerProvider`, hook `useIntlayer`                |
+| `vite-intlayer`  | Plugin Vite - monitoriza e compila ficheiros de declaração de conteúdo |
 
 ---
 
@@ -291,7 +291,7 @@ export default config;
 
 ### Passo 4: Adicionar o Decorador `IntlayerProvider` e uma Barra de Ferramentas de Local
 
-O mesmo que na configuração Vite — adicione o decorador e o tipo de local global em `.storybook/preview.tsx`:
+O mesmo que na configuração Vite - adicione o decorador e o tipo de local global em `.storybook/preview.tsx`:
 
 ```tsx fileName=".storybook/preview.tsx" codeFormat="typescript"
 import type { Preview, StoryContext } from "@storybook/react";
@@ -411,7 +411,7 @@ const meta: Meta<typeof CopyButton> = {
 export default meta;
 type Story = StoryObj<typeof CopyButton>;
 
-/** Story padrão — altere o local na barra de ferramentas para visualizar as traduções. */
+/** Story padrão - altere o local na barra de ferramentas para visualizar as traduções. */
 export const Default: Story = {
   args: {
     content: "npm install intlayer react-intlayer",

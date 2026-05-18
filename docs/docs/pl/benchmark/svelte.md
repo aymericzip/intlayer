@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-04-20
 updatedAt: 2026-05-18
-title: Najlepsze rozwiązanie i18n dla Svelte w 2026 r. — raport z benchmarku
+title: Najlepsze rozwiązanie i18n dla Svelte w 2026 r. - raport z benchmarku
 description: Porównaj biblioteki internacjonalizacji (i18n) dla Svelte, takie jak svelte-i18n, Paraglide i Intlayer. Szczegółowy raport wydajności dotyczący rozmiaru paczki, wycieków i reaktywności.
 keywords:
   - benchmark
@@ -25,7 +25,7 @@ history:
     changes: "Inicjalizacja benchmarku"
 ---
 
-# Biblioteki i18n dla Svelte — raport z benchmarku 2026
+# Biblioteki i18n dla Svelte - raport z benchmarku 2026
 
 Ta strona zawiera raport z benchmarku rozwiązań i18n dla Svelte.
 
@@ -124,11 +124,11 @@ Gwiazdki na GitHubie są silnym wskaźnikiem popularności projektu, zaufania sp
 
 ## Wyniki szczegółowe
 
-### 1 — Rozwiązania, których należy unikać
+### 1 - Rozwiązania, których należy unikać
 
 > W ekosystemie Svelte nie ma jednoznacznego rozwiązania, którego należy unikać.
 
-### 2 — Rozwiązania akceptowalne
+### 2 - Rozwiązania akceptowalne
 
 **(Paraglide)** (`@inlang/paraglide-js@2.17.0`):
 
@@ -144,7 +144,7 @@ Wreszcie, w porównaniu z innymi rozwiązaniami, Paraglide nie używa store'a (n
 
 To rozwiązanie odpowiada na wszystkie potrzeby i18n w projekcie Svelte. Ale podobnie jak w przypadku i18next lub innych głównych rozwiązań i18n, jest ono nieco ciężkie (~15.9kb, co stanowi około 7x `svelte-intlayer`).
 
-### 3 — Rekomendacje
+### 3 - Rekomendacje
 
 **(Intlayer)** (`svelte-intlayer@8.7.12`):
 

@@ -25,7 +25,7 @@ history:
     changes: "Benchmark başlatıldı"
 ---
 
-# Solid i18n Kütüphaneleri — 2026 Benchmark Raporu
+# Solid i18n Kütüphaneleri - 2026 Benchmark Raporu
 
 Bu sayfa, Solid üzerindeki i18n çözümleri için bir benchmark raporudur.
 
@@ -126,11 +126,11 @@ GitHub yıldızları, bir projenin popülerliğinin, topluluk güveninin ve uzun
 
 ## Detaylı sonuçlar
 
-### 1 — Kaçınılması gereken çözümler
+### 1 - Kaçınılması gereken çözümler
 
 > Solid ekosisteminde kaçınılması gereken net bir çözüm yoktur.
 
-### 2 — Kabul edilebilir çözümler
+### 2 - Kabul edilebilir çözümler
 
 **(solid-i18next)** (`solid-i18next@17.0.2`):
 
@@ -151,7 +151,7 @@ Ayrıca sayfa boyutu optimizasyonu için lazy loading ve kapsamlı namespace öz
 Kişisel olarak her push'tan önce JS dosyalarını yeniden oluşturmak zorunda kalmayı sevmiyorum, bu da PR'lar aracılığıyla sürekli bir birleştirme çakışması riski yaratıyor.
 Son olarak, diğer çözümlerle karşılaştırıldığında Paraglide, içeriği işlemek için geçerli dili almak için bir store (örneğin Solid signal) kullanmaz. Ayrıştırılan her düğüm için localStorage / cookie vb.'den dili isteyecektir. Bu, bileşen reaktivitesini etkileyen gereksiz mantık yürütülmesine yol açar.
 
-### 3 — Öneriler
+### 3 - Öneriler
 
 **(Intlayer)** (`solid-intlayer@8.7.12`):
 

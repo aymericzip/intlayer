@@ -2,7 +2,7 @@
 createdAt: 2026-03-20
 updatedAt: 2026-05-06
 title: Jak nastavit Intlayer se Storybookem
-description: Naučte se, jak vytvořit svůj design systém vícejazyčný pomocí Intlayeru se Storybookem — kompilujte deklarace obsahu, přidejte přepínač jazyků a prohlížejte své komponenty v libovolném jazyce.
+description: Naučte se, jak vytvořit svůj design systém vícejazyčný pomocí Intlayeru se Storybookem - kompilujte deklarace obsahu, přidejte přepínač jazyků a prohlížejte své komponenty v libovolném jazyce.
 keywords:
   - Internacionalizace
   - Dokumentace
@@ -33,7 +33,7 @@ history:
 
 ## Co je Intlayer?
 
-**Intlayer** je inovativní open-source knihovna pro internacionalizaci (i18n) navržená pro zjednodušení vícejazyčné podpory v moderních webových aplikacích. Funguje na **úrovni komponent** — každá komponenta vlastní své deklarace obsahu — což udržuje překlady přímo u kódu, který je používá.
+**Intlayer** je inovativní open-source knihovna pro internacionalizaci (i18n) navržená pro zjednodušení vícejazyčné podpory v moderních webových aplikacích. Funguje na **úrovni komponent** - každá komponenta vlastní své deklarace obsahu - což udržuje překlady přímo u kódu, který je používá.
 
 S Intlayerem můžete:
 
@@ -83,9 +83,9 @@ bun add vite-intlayer --dev
 
 | Balíček          | Role                                                       |
 | ---------------- | ---------------------------------------------------------- |
-| `intlayer`       | Jádro — konfigurace, kompilace obsahu, CLI                 |
-| `react-intlayer` | Vazby pro React — `IntlayerProvider`, hook `useIntlayer`   |
-| `vite-intlayer`  | Vite plugin — sleduje a kompiluje soubory deklarace obsahu |
+| `intlayer`       | Jádro - konfigurace, kompilace obsahu, CLI                 |
+| `react-intlayer` | Vazby pro React - `IntlayerProvider`, hook `useIntlayer`   |
+| `vite-intlayer`  | Vite plugin - sleduje a kompiluje soubory deklarace obsahu |
 
 ---
 
@@ -291,7 +291,7 @@ export default config;
 
 ### Krok 4: Přidání dekorátoru `IntlayerProvider` a nástrojové lišty jazyků
 
-Stejné jako u nastavení Vite — přidejte dekorátor a globální typ lokality v `.storybook/preview.tsx`:
+Stejné jako u nastavení Vite - přidejte dekorátor a globální typ lokality v `.storybook/preview.tsx`:
 
 ```tsx fileName=".storybook/preview.tsx" codeFormat="typescript"
 import type { Preview, StoryContext } from "@storybook/react";
@@ -411,7 +411,7 @@ const meta: Meta<typeof CopyButton> = {
 export default meta;
 type Story = StoryObj<typeof CopyButton>;
 
-/** Výchozí příběh — přepněte jazyk v nástrojové liště pro náhled překladů. */
+/** Výchozí příběh - přepněte jazyk v nástrojové liště pro náhled překladů. */
 export const Default: Story = {
   args: {
     content: "npm install intlayer react-intlayer",

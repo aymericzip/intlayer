@@ -35,7 +35,7 @@ history:
 <iframe
   src="https://ide.intlayer.org/aymericzip/intlayer-vite-vanilla-template?file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo CodeSandbox — Intlayer"
+  title="Demo CodeSandbox - Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -46,7 +46,7 @@ history:
 <iframe
   src="https://intlayer-vite-vanilla.vercel.app"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="تجربة — intlayer-vite-vanilla-template"
+  title="تجربة - intlayer-vite-vanilla-template"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -255,7 +255,7 @@ export default appContent;
 
 ### الخطوة 6: استخدام Intlayer في JavaScript الخاص بك
 
-تعكس `vanilla-intlayer` واجهة برمجة تطبيقات `react-intlayer`: `useIntlayer(key, locale?)` تعيد المحتوى المترجم مباشرة. قم بربط `.onChange()` مع النتيجة للاشتراك في تغييرات اللغة — المعادل الصريح لإعادة العرض في React.
+تعكس `vanilla-intlayer` واجهة برمجة تطبيقات `react-intlayer`: `useIntlayer(key, locale?)` تعيد المحتوى المترجم مباشرة. قم بربط `.onChange()` مع النتيجة للاشتراك في تغييرات اللغة - المعادل الصريح لإعادة العرض في React.
 
 ```typescript fileName="src/main.ts" codeFormat="typescript"
 import { installIntlayer, useIntlayer } from "vanilla-intlayer";
@@ -456,7 +456,7 @@ const unsubscribe = useDictionaryDynamic(
 });
 ```
 
-> يتم جلب حزمة كل لغة فقط عندما تصبح تلك اللغة نشطة ويتم تخزين النتيجة مؤقتًا — التبديلات اللاحقة لنفس اللغة تكون فورية.
+> يتم جلب حزمة كل لغة فقط عندما تصبح تلك اللغة نشطة ويتم تخزين النتيجة مؤقتًا - التبديلات اللاحقة لنفس اللغة تكون فورية.
 
 ### (اختياري) الخطوة 13: استخراج محتوى مكوناتك
 

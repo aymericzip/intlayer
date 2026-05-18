@@ -47,7 +47,7 @@ history:
 <iframe
   src="https://intlayer-astro-template.vercel.app"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Démo — intlayer-astro-template"
+  title="Démo - intlayer-astro-template"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -259,7 +259,7 @@ const { greeting } = getIntlayer("lit-demo", locale);
     />
   </head>
   <body>
-    <!-- Élément personnalisé Lit — reçoit la locale détectée par le serveur via une propriété -->
+    <!-- Élément personnalisé Lit - reçoit la locale détectée par le serveur via une propriété -->
     <lit-demo locale={locale}></lit-demo>
   </body>
 </html>
@@ -361,7 +361,7 @@ customElements.define("lit-demo", LitDemo);
 
 > La prop `locale` est transmise de la page Astro (détection serveur) et utilisée pour initialiser `installIntlayer` dans le `connectedCallback`, ce qui en fait la locale initiale pour tous les hooks `ReactiveController` de l'élément.
 
-> `useIntlayer` est enregistré en tant que `ReactiveController`. L'élément se re-rendra automatiquement lors des changements de langue — aucun setup supplémentaire requis.
+> `useIntlayer` est enregistré en tant que `ReactiveController`. L'élément se re-rendra automatiquement lors des changements de langue - aucun setup supplémentaire requis.
 
 ### Étape 7 : Ajouter un sélecteur de langue
 
@@ -404,7 +404,7 @@ override render() {
 ```
 
 > **Note sur la réactivité de Lit :**
-> `useLocale` retourne un `ReactiveController`. Lorsque `setLocale` est appelé, le contrôleur planifie automatiquement un re-rendu — ainsi, l'état du bouton actif est mis à jour sans manipulation manuelle du DOM.
+> `useLocale` retourne un `ReactiveController`. Lorsque `setLocale` est appelé, le contrôleur planifie automatiquement un re-rendu - ainsi, l'état du bouton actif est mis à jour sans manipulation manuelle du DOM.
 
 > **Note sur la persistance :**
 > L’utilisation de `onLocaleChange` pour rediriger via `window.location.href` garantit que la nouvelle URL de langue est bien visitée, permettant au middleware Intlayer de définir le cookie de langue et de mémoriser la préférence de l’utilisateur pour les visites futures.

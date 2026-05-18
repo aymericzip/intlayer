@@ -25,7 +25,7 @@ history:
     changes: "Khởi tạo benchmark"
 ---
 
-# Thư viện i18n cho Vue — Báo cáo Benchmark 2026
+# Thư viện i18n cho Vue - Báo cáo Benchmark 2026
 
 Trang này là báo cáo benchmark cho các giải pháp i18n trên Vue.
 
@@ -146,11 +146,11 @@ Sao GitHub là một chỉ số mạnh mẽ về mức độ phổ biến của 
 
 ## Kết quả chi tiết
 
-### 1 — Các giải pháp cần tránh
+### 1 - Các giải pháp cần tránh
 
 > Không có giải pháp rõ ràng nào cần tránh trong hệ sinh thái Vue.
 
-### 2 — Các giải pháp chấp nhận được
+### 2 - Các giải pháp chấp nhận được
 
 **(vue-i18n)** (`vue-i18n@11.4.0`):
 
@@ -162,7 +162,7 @@ Package này rất nặng (~24.3kb, gấp khoảng 9 lần `vue-intlayer`).
 
 - **fluent-vue** đưa ra một nỗ lực đổi mới thông qua định dạng .ftl. Tổ chức tin nhắn tuyệt vời, dễ dàng bắt đầu hơn. Nhưng trong thực tế, việc thiếu an toàn kiểu làm tăng rủi ro lỗi và có thể nhanh chóng trở nên tốn thời gian để debug. Hơn nữa, giải pháp đó tải các tin nhắn bằng một plugin vite bắt buộc tải tất cả nội dung ở tất cả các ngôn ngữ vào mỗi trang. Ngoài ra, đây là một giải pháp cực kỳ nặng (~92.7kb, gấp khoảng 34 lần `vue-intlayer`).
 
-### 3 — Khuyến nghị
+### 3 - Khuyến nghị
 
 **(Intlayer)** (`vue-intlayer@8.7.12`):
 

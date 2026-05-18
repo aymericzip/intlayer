@@ -45,7 +45,7 @@ history:
 <iframe
   src="https://intlayer-vite-lit-template.vercel.app"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo — intlayer-vite-lit-template"
+  title="Demo - intlayer-vite-lit-template"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -263,7 +263,7 @@ export default appContent;
 
 ### Langkah 6: Gunakan Intlayer di LitElement Anda
 
-Gunakan `useIntlayer` di dalam `LitElement`. Ini mengembalikan proxy `ReactiveController` yang secara otomatis memicu perenderan ulang setiap kali bahasa aktif berubah — tidak diperlukan pengaturan tambahan.
+Gunakan `useIntlayer` di dalam `LitElement`. Ini mengembalikan proxy `ReactiveController` yang secara otomatis memicu perenderan ulang setiap kali bahasa aktif berubah - tidak diperlukan pengaturan tambahan.
 
 ```typescript fileName="src/my-element.ts" codeFormat="typescript"
 import { LitElement, html } from "lit";

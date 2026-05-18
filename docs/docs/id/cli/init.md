@@ -138,7 +138,7 @@ Checking Intlayer configuration...
 
 ## Catatan:
 
-- Perintah ini idempotent — Anda dapat menjalankannya berkali-kali dengan aman. Langkah-langkah yang sudah dikonfigurasi akan dilewati.
+- Perintah ini idempotent - Anda dapat menjalankannya berkali-kali dengan aman. Langkah-langkah yang sudah dikonfigurasi akan dilewati.
 - Jika file konfigurasi sudah ada, file tersebut tidak akan ditimpa.
 - Konfigurasi TypeScript tanpa array `include` (misal: konfigurasi gaya solusi dengan referensi) akan dilewati.
 - Perintah akan keluar dengan kesalahan jika `package.json` tidak ditemukan di akar proyek.

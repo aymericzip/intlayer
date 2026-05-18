@@ -46,7 +46,7 @@ history:
 <iframe
   src="https://intlayer-astro-template.vercel.app"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Демо — intlayer-astro-template"
+  title="Демо - intlayer-astro-template"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -60,7 +60,7 @@ history:
 
 ## Что такое Intlayer?
 
-**Intlayer** — это инновационная библиотека интернационализации (i18n) с открытым исходным кодом, разработанная для упрощения многоязычной поддержки в современных веб-приложениях.
+**Intlayer** - это инновационная библиотека интернационализации (i18n) с открытым исходным кодом, разработанная для упрощения многоязычной поддержки в современных веб-приложениях.
 
 С Intlayer вы можете:
 
@@ -118,7 +118,7 @@ bun x intlayer init
   Включает плагин интеграции для Astro для интеграции Intlayer с [бандлером Vite](https://vite.dev/guide/why.html#why-bundle-for-production), а также промежуточное ПО для определения предпочтительной локали пользователя, управления куки и обработки перенаправлений URL.
 
 - **preact**
-  Основной пакет Preact — быстрая и легкая альтернатива React.
+  Основной пакет Preact - быстрая и легкая альтернатива React.
 
 - **preact-intlayer**
   Пакет, который интегрирует Intlayer с приложениями Preact. Он предоставляет `IntlayerProvider`, а также хуки `useIntlayer` и `useLocale` для интернационализации в Preact.
@@ -363,7 +363,7 @@ export const LocaleSwitcher: FunctionalComponent = () => {
 > **Примечание по сохранению состояния:**
 > Использование `onLocaleChange` для перенаправления через `window.location.href` гарантирует посещение нового языкового URL, позволяя middleware Intlayer установить куки языка и запомнить предпочтение пользователя для будущих посещений.
 
-> `LocaleSwitcher` должен отрисовываться внутри `IntlayerProvider` — используйте его внутри вашего компонента острова (как показано в Шаге 6).
+> `LocaleSwitcher` должен отрисовываться внутри `IntlayerProvider` - используйте его внутри вашего компонента острова (как показано в Шаге 6).
 
 ### Шаг 8: Sitemap и Robots.txt
 

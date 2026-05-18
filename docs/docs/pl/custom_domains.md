@@ -34,8 +34,8 @@ Mapa `domains` w `routing` kojarzy każdą lokalizację z nazwą hosta. Intlayer
 
 Kluczowym rozróżnieniem jest **wyłączność**:
 
-- **Domena wyłączna** — tylko jedna lokalizacja jest mapowana na tę nazwę hosta (np. `zh → intlayer.zh`). Sama domena identyfikuje lokalizację, więc do ścieżki nie jest dodawany prefiks lokalizacji. `https://intlayer.zh/about` obsługuje chińską treść.
-- **Domena współdzielona** — wiele lokalizacji jest mapowanych na tę samą nazwę hosta (np. zarówno `en`, jak i `fr` są mapowane na `intlayer.org`). Stosowany jest normalny routing oparty na prefiksach. `intlayer.org/fr/about` obsługuje francuską treść.
+- **Domena wyłączna** - tylko jedna lokalizacja jest mapowana na tę nazwę hosta (np. `zh → intlayer.zh`). Sama domena identyfikuje lokalizację, więc do ścieżki nie jest dodawany prefiks lokalizacji. `https://intlayer.zh/about` obsługuje chińską treść.
+- **Domena współdzielona** - wiele lokalizacji jest mapowanych na tę samą nazwę hosta (np. zarówno `en`, jak i `fr` są mapowane na `intlayer.org`). Stosowany jest normalny routing oparty na prefiksach. `intlayer.org/fr/about` obsługuje francuską treść.
 
 ## Konfiguracja
 
@@ -55,9 +55,9 @@ const config: IntlayerConfig = {
   routing: {
     mode: "prefix-no-default",
     domains: {
-      // Domena współdzielona — en i fr używają routingu z prefiksem na intlayer.org
+      // Domena współdzielona - en i fr używają routingu z prefiksem na intlayer.org
       en: "intlayer.org",
-      // Domena wyłączna — zh ma własną nazwę hosta, prefiks /zh/ nie jest potrzebny
+      // Domena wyłączna - zh ma własną nazwę hosta, prefiks /zh/ nie jest potrzebny
       zh: "intlayer.zh",
     },
   },
@@ -96,7 +96,7 @@ getLocalizedUrl("/about", "zh", { currentDomain: "intlayer.org" });
 ```ts
 // Bieżąca strona: intlayer.zh/about
 getLocalizedUrl("/about", "zh", { currentDomain: "intlayer.zh" });
-// → "/about"  (już na właściwej domenie — względny URL)
+// → "/about"  (już na właściwej domenie - względny URL)
 
 getLocalizedUrl("/about", "fr", { currentDomain: "intlayer.zh" });
 // → "https://intlayer.org/fr/about"  (link międzydomenowy z powrotem do intlayer.org)
@@ -108,14 +108,14 @@ Parametr `currentDomain` jest opcjonalny. Gdy zostanie pominięty, `getLocalized
 
 1. Nazwa hosta z bezwzględnego wejściowego adresu URL (np. `https://intlayer.org/about` → `intlayer.org`).
 2. `window.location.hostname` w środowiskach przeglądarkowych.
-3. Jeśli żadna z powyższych opcji nie jest dostępna (SSR bez jawnej opcji), zwracany jest względny adres URL dla lokalizacji w tej samej domenie i nie jest generowany bezwzględny adres URL — jest to bezpieczny mechanizm rezerwowy.
+3. Jeśli żadna z powyższych opcji nie jest dostępna (SSR bez jawnej opcji), zwracany jest względny adres URL dla lokalizacji w tej samej domenie i nie jest generowany bezwzględny adres URL - jest to bezpieczny mechanizm rezerwowy.
 
 ```ts
-// Przeglądarka — window.location.hostname === 'intlayer.org'
+// Przeglądarka - window.location.hostname === 'intlayer.org'
 getLocalizedUrl("/about", "zh");
 // → "https://intlayer.zh/about"  (wykryto automatycznie z window)
 
-// Z bezwzględnego adresu URL — domena wykryta automatycznie
+// Z bezwzględnego adresu URL - domena wykryta automatycznie
 getLocalizedUrl("https://intlayer.org/about", "zh");
 // → "https://intlayer.zh/about"
 ```
@@ -151,14 +151,14 @@ export const config = {
 };
 ```
 
-**Przekierowanie (Redirect)** — żądanie trafia do niewłaściwej domeny dla danego prefiksu lokalizacji:
+**Przekierowanie (Redirect)** - żądanie trafia do niewłaściwej domeny dla danego prefiksu lokalizacji:
 
 ```
 GET intlayer.org/zh/about
 → 301 https://intlayer.zh/about
 ```
 
-**Przepisanie (Rewrite)** — żądanie trafia do wyłącznej domeny lokalizacji bez prefiksu:
+**Przepisanie (Rewrite)** - żądanie trafia do wyłącznej domeny lokalizacji bez prefiksu:
 
 ```
 GET intlayer.zh/about
@@ -209,7 +209,7 @@ export const LocaleSwitcher = () => {
 };
 ```
 
-Nie jest wymagana żadna dodatkowa konfiguracja — `useLocale` wewnętrznie wykrywa `window.location.hostname` i decyduje między `router.replace` (ta sama domena) a `window.location.href` (inna domena).
+Nie jest wymagana żadna dodatkowa konfiguracja - `useLocale` wewnętrznie wykrywa `window.location.hostname` i decyduje między `router.replace` (ta sama domena) a `window.location.href` (inna domena).
 
 ## SEO: Linki alternatywne `hreflang`
 

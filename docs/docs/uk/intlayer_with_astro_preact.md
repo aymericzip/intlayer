@@ -46,7 +46,7 @@ history:
 <iframe
   src="https://intlayer-astro-template.vercel.app"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Демо — intlayer-astro-template"
+  title="Демо - intlayer-astro-template"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -60,7 +60,7 @@ history:
 
 ## Що таке Intlayer?
 
-**Intlayer** — це інноваційна бібліотека інтернаціоналізації (i18n) з відкритим вихідним кодом, розроблена для спрощення підтримки багатьох мов у сучасних веб-додатках.
+**Intlayer** - це інноваційна бібліотека інтернаціоналізації (i18n) з відкритим вихідним кодом, розроблена для спрощення підтримки багатьох мов у сучасних веб-додатках.
 
 З Intlayer ви можете:
 
@@ -110,7 +110,7 @@ bun x intlayer init
   Плагін інтеграції Astro для зв'язку Intlayer з [бандлером Vite](https://vite.dev/guide/why.html#why-bundle-for-production); він також включає middleware для визначення бажаної мови користувача, керування cookie та обробки перенаправлень URL.
 
 - **preact**
-  Основний пакет Preact — швидка і легка альтернатива React.
+  Основний пакет Preact - швидка і легка альтернатива React.
 
 - **preact-intlayer**
   Пакет для інтеграції Intlayer у додатки Preact. Він надає `IntlayerProvider`, а також хуки `useIntlayer` та `useLocale` для інтернаціоналізації в Preact.
@@ -365,7 +365,7 @@ export const LocaleSwitcher: FunctionalComponent = () => {
 > **Примітка щодо стійкості:**
 > Використання `onLocaleChange` para redicuicamiento через `window.location.href` garantiza відвідування нової URL-адреси з мовним префіксом. Це дозволяє middleware Intlayer встановити cookie мови та запам'ятати вибір користувача для майбутніх візитів.
 
-> `LocaleSwitcher` повинен рендеритися всередині `IntlayerProvider` — використовуйте його у вашому компоненті island (як показано на кроці 6).
+> `LocaleSwitcher` повинен рендеритися всередині `IntlayerProvider` - використовуйте його у вашому компоненті island (як показано на кроці 6).
 
 ### Крок 8: Sitemap та Robots.txt
 

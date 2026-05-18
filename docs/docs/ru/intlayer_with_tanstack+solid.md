@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-03-25
 updatedAt: 2026-05-06
-title: i18n Tanstack Start — Как перевести приложение Tanstack Start с использованием Solid.js в 2026 году
+title: i18n Tanstack Start - Как перевести приложение Tanstack Start с использованием Solid.js в 2026 году
 description: Узнайте, как добавить интернационализацию (i18n) в ваше приложение Tanstack Start с помощью Intlayer и Solid.js. Следуйте этому подробному руководству, чтобы сделать ваше приложение многоязычным с маршрутизацией, учитывающей локаль.
 keywords:
   - Интернационализация
@@ -40,7 +40,7 @@ history:
 
 ## Что такое Intlayer?
 
-**Intlayer** — это инновационная библиотека интернационализации (i18n) с открытым исходным кодом, разработанная для упрощения многоязычной поддержки в современных веб-приложениях.
+**Intlayer** - это инновационная библиотека интернационализации (i18n) с открытым исходным кодом, разработанная для упрощения многоязычной поддержки в современных веб-приложениях.
 
 С Intlayer вы можете:
 
@@ -65,7 +65,7 @@ history:
 <iframe
   src="https://ide.intlayer.org/aymericzip/intlayer-tanstack-start-solid-template?file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Демо CodeSandbox — Как интернационализировать ваше приложение с помощью Intlayer"
+  title="Демо CodeSandbox - Как интернационализировать ваше приложение с помощью Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -76,7 +76,7 @@ history:
 <iframe
   src="https://intlayer-tanstack-start-solid.vercel.app"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Демо — intlayer-tanstack-start-solid-template"
+  title="Демо - intlayer-tanstack-start-solid-template"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -247,7 +247,7 @@ export const Route = createFileRoute("/{-$locale}")({
 });
 ```
 
-> Здесь `{-$locale}` — это динамический параметр маршрута, который заменяется текущей локалью. Такая нотация делает сегмент необязательным, позволяя ему работать с такими режимами маршрутизации, как `'prefix-no-default'` и т.д.
+> Здесь `{-$locale}` - это динамический параметр маршрута, который заменяется текущей локалью. Такая нотация делает сегмент необязательным, позволяя ему работать с такими режимами маршрутизации, как `'prefix-no-default'` и т.д.
 
 > Имейте в виду, что этот сегмент может вызвать проблемы, если вы используете несколько динамических сегментов в одном маршруте (например, `/{-$locale}/other-path/$anotherDynamicPath/...`).
 > Для режима `'prefix-all'` вы можете предпочесть заменить сегмент на `$locale`.
@@ -461,7 +461,7 @@ export const LocaleSwitcher = () => {
 export default LocaleSwitcher;
 ```
 
-> В Solid `locale` из `useLocale` — это **аксессор сигнала**. Используйте `locale()` (со скобками) для реактивного чтения текущего значения.
+> В Solid `locale` из `useLocale` - это **аксессор сигнала**. Используйте `locale()` (со скобками) для реактивного чтения текущего значения.
 >
 > Чтобы узнать больше о хуке `useLocale`, обратитесь к [документации](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/solid-intlayer/useLocale.md).
 
@@ -645,7 +645,7 @@ export const Route = createFileRoute("/{-$locale}")({
     const { isValid, localePrefix } = validatePrefix(localeParam);
 
     if (!isValid) {
-      // Невалидный префикс локали — перенаправление на страницу 404 с валидным префиксом
+      // Невалидный префикс локали - перенаправление на страницу 404 с валидным префиксом
       throw redirect({
         to: "/{-$locale}/404",
         params: { locale: localePrefix },

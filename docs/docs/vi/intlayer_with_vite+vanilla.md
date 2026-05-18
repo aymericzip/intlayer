@@ -35,7 +35,7 @@ history:
 <iframe
   src="https://ide.intlayer.org/aymericzip/intlayer-vite-vanilla-template?file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo CodeSandbox — Intlayer"
+  title="Demo CodeSandbox - Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -46,7 +46,7 @@ history:
 <iframe
   src="https://intlayer-vite-vanilla.vercel.app"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Bản demo — intlayer-vite-vanilla-template"
+  title="Bản demo - intlayer-vite-vanilla-template"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -255,7 +255,7 @@ export default appContent;
 
 ### Bước 6: Sử dụng Intlayer trong JavaScript của bạn
 
-`vanilla-intlayer` ánh xạ API của `react-intlayer`: `useIntlayer(key, locale?)` trả về nội dung đã dịch trực tiếp. Chuỗi hàm `.onChange()` vào kết quả để đăng ký theo dõi các thay đổi ngôn ngữ — tương đương với việc re-render trong React.
+`vanilla-intlayer` ánh xạ API của `react-intlayer`: `useIntlayer(key, locale?)` trả về nội dung đã dịch trực tiếp. Chuỗi hàm `.onChange()` vào kết quả để đăng ký theo dõi các thay đổi ngôn ngữ - tương đương với việc re-render trong React.
 
 ```typescript fileName="src/main.ts" codeFormat="typescript"
 import { installIntlayer, useIntlayer } from "vanilla-intlayer";
@@ -456,7 +456,7 @@ const unsubscribe = useDictionaryDynamic(
 });
 ```
 
-> Mỗi bundle ngôn ngữ chỉ được tải khi ngôn ngữ đó được kích hoạt và kết quả được lưu vào cache — các lần chuyển đổi sau đó sang cùng một ngôn ngữ sẽ diễn ra tức thì.
+> Mỗi bundle ngôn ngữ chỉ được tải khi ngôn ngữ đó được kích hoạt và kết quả được lưu vào cache - các lần chuyển đổi sau đó sang cùng một ngôn ngữ sẽ diễn ra tức thì.
 
 ### (Tùy chọn) Bước 13: Trích xuất nội dung từ các thành phần của bạn
 

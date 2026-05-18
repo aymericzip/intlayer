@@ -52,7 +52,7 @@ history:
 <iframe
   src="https://intlayer-vite-preact-template.vercel.app"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="デモ — intlayer-vite-preact-template"
+  title="デモ - intlayer-vite-preact-template"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />

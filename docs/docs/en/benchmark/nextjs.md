@@ -60,7 +60,7 @@ As an example, for the worst offenders, once internationalized your page can end
 
 Another impact of i18n libraries is slower development. Turning components into multilingual content across languages is time-consuming.
 
-Because the problem is hard, many solutions exist—some focused on DX, others on performance or scalability, and so on.
+Because the problem is hard, many solutions exist-some focused on DX, others on performance or scalability, and so on.
 
 Intlayer tries to optimize across these dimensions.
 

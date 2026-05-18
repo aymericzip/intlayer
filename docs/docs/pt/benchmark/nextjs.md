@@ -25,7 +25,7 @@ history:
     changes: "Início do benchmark"
 ---
 
-# Bibliotecas i18n para Next.js — Relatório de Benchmark 2026
+# Bibliotecas i18n para Next.js - Relatório de Benchmark 2026
 
 Esta página é um relatório de benchmark para soluções i18n no Next.js.
 
@@ -60,7 +60,7 @@ Como exemplo, nos piores casos, uma vez internacionalizada, sua página pode aca
 
 Outro impacto das bibliotecas i18n é o desenvolvimento mais lento. Transformar componentes em conteúdo multilíngue em todos os idiomas consome muito tempo.
 
-Como o problema é difícil, existem muitas soluções — algumas focadas na DX (experiência do desenvolvedor), outras no desempenho ou escalabilidade, e assim por diante.
+Como o problema é difícil, existem muitas soluções - algumas focadas na DX (experiência do desenvolvedor), outras no desempenho ou escalabilidade, e assim por diante.
 
 O Intlayer tenta otimizar em todas essas dimensões.
 
@@ -98,7 +98,7 @@ O que acontece no momento do build é que o Next.js emite um bundle JS por local
 
 Se você usar uma sintaxe como `const t = useTranslation()` + `t('meu-objeto.meu-subobjeto.minha-chave')`, o JSON inteiro geralmente precisa estar no bundle para que a biblioteca possa analisá-lo e resolver a chave. Grande parte desse conteúdo é enviado mesmo quando não é utilizado na página.
 
-Para mitigar isso, algumas bibliotecas pedem que você declare por página quais namespaces carregar — ex: `next-i18next`, `next-intl`, `lingui`, `next-translate`, `next-international`.
+Para mitigar isso, algumas bibliotecas pedem que você declare por página quais namespaces carregar - ex: `next-i18next`, `next-intl`, `lingui`, `next-translate`, `next-international`.
 
 Em contrapartida, o `Paraglide` adiciona um passo extra antes do build para transformar o JSON em símbolos planos como `const en_my_var = () => 'meu valor'`. Em teoria, isso permite o tree-shaking de conteúdo não utilizado na página. Como veremos, esse método ainda tem seus compromissos.
 
@@ -153,7 +153,7 @@ Executei a mesma aplicação multilíngue em um navegador real para cada stack e
 
 - **Tamanho médio do bundle por componente**: Peças comuns da UI são medidas **uma por uma** em vez de se esconderem dentro de um número gigante da aplicação. Isso mostra se a internacionalização infla silenciosamente os componentes do dia a dia. Por exemplo, se seu componente renderizar novamente, ele carregará todos esses dados da memória. Anexar um JSON gigante a qualquer componente é como conectar um grande depósito de dados não utilizados que diminuirá o desempenho dos seus componentes.
 
-- **Responsividade ao trocar de idioma**: Eu troco o idioma usando o controle da própria aplicação e cronometro quanto tempo leva até que a página tenha mudado claramente — o que um visitante notaria, não um micro-passo de laboratório.
+- **Responsividade ao trocar de idioma**: Eu troco o idioma usando o controle da própria aplicação e cronometro quanto tempo leva até que a página tenha mudado claramente - o que um visitante notaria, não um micro-passo de laboratório.
 
 - **Trabalho de renderização após uma mudança de idioma**: Um acompanhamento mais específico: quanto esforço a interface levou para redesenhar para o novo idioma uma vez que a mudança está em andamento. Útil quando o tempo "sentido" e o custo do framework divergem.
 
@@ -169,9 +169,9 @@ As estrelas do GitHub são um forte indicador da popularidade de um projeto, da 
 
 ## Resultados em detalhe
 
-### 1 — Soluções a evitar
+### 1 - Soluções a evitar
 
-Algumas soluções, como `gt-next` ou `lingo.dev`, devem claramente ser evitadas. Elas combinam o aprisionamento tecnológico (vendor lock-in) com a poluição da sua base de código. Apesar de passar muitas horas tentando implementá-las, nunca consegui fazê-las funcionar — nem no TanStack Start nem no Next.js.
+Algumas soluções, como `gt-next` ou `lingo.dev`, devem claramente ser evitadas. Elas combinam o aprisionamento tecnológico (vendor lock-in) com a poluição da sua base de código. Apesar de passar muitas horas tentando implementá-las, nunca consegui fazê-las funcionar - nem no TanStack Start nem no Next.js.
 
 Problemas encontrados:
 
@@ -185,12 +185,12 @@ Problemas encontrados:
 
 **(Lingo.dev)** (`@lingo.dev/compiler@0.4.0`):
 
-- Cota de IA excedida, bloqueando a build inteiramente — então você não pode lançar para produção sem pagar.
+- Cota de IA excedida, bloqueando a build inteiramente - então você não pode lançar para produção sem pagar.
 - O compilador estava perdendo quase 40% do conteúdo traduzido. Tive que reescrever todos os `.map` em blocos de componentes planos para fazer funcionar.
 - A CLI deles é instável e costumava resetar o arquivo de configuração sem motivo.
 - No build, ele apagava totalmente os JSONs gerados quando um novo conteúdo era adicionado. Como resultado, um punhado de chaves poderia apagar mais de 300 chaves existentes.
 
-### 2 — Soluções experimentais
+### 2 - Soluções experimentais
 
 **(Wuchale)** (`wuchale@0.22.11`):
 
@@ -204,7 +204,7 @@ Finalmente, em comparação com outras soluções, o Paraglide não usa store (e
 
 > Nota sobre paraglide: a solução injeta código na sua base de código para importação, como resultado a métrica 'tamanho da lib' no relatório de benchmark é quase 0. A geração de código é algo bom, porque a função utilizada incluirá apenas a lógica necessária (prefixo total vs sem prefixo, cookie vs armazenamento, etc.). Em comparação, o Intlayer executa essa filtragem via inyeções de variáveis de ambiente na build para forçar o bundler a aplicar tree-shaking ao conteúdo dependendo da lógica. Graças a isso, paraglide e intlayer acabam sendo soluções de 6 a 10 vezes mais leves do que i18next ou next-intl.
 
-### 3 — Soluções aceitáveis
+### 3 - Soluções aceitáveis
 
 **(Tolgee)** (`@tolgee/react@7.0.0`):
 
@@ -228,7 +228,7 @@ O `next-international` também aborda os problemas acima, mas não difere muito 
 
 O `Lingui` é frequentemente elogiado. Pessoalmente, achei o fluxo de trabalho `lingui extract` / `lingui compile` mais complexo que as alternativas, sem uma vantagem clara. Também notei sintaxes inconsistentes que confundem as IAs (ex: `t()`, `t''`, `i18n.t()`, `<Trans>`).
 
-### 4 — Recomendações
+### 4 - Recomendações
 
 **(Next Translate)** (`next-translate@3.1.2`):
 

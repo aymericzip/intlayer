@@ -72,7 +72,7 @@ Com o Intlayer, você pode:
 <iframe
   src="https://intlayer-nuxt-4-template.vercel.app"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo — intlayer-nuxt-4-template"
+  title="Demo - intlayer-nuxt-4-template"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />

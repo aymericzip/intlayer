@@ -25,7 +25,7 @@ history:
     changes: "Khởi tạo benchmark"
 ---
 
-# Thư viện i18n cho Svelte — Báo cáo Benchmark 2026
+# Thư viện i18n cho Svelte - Báo cáo Benchmark 2026
 
 Trang này là báo cáo benchmark cho các giải pháp i18n trên Svelte.
 
@@ -124,11 +124,11 @@ Sao GitHub là một chỉ số mạnh mẽ về mức độ phổ biến của 
 
 ## Kết quả chi tiết
 
-### 1 — Các giải pháp cần tránh
+### 1 - Các giải pháp cần tránh
 
 > Không có giải pháp rõ ràng nào cần tránh trong hệ sinh thái Svelte.
 
-### 2 — Các giải pháp chấp nhận được
+### 2 - Các giải pháp chấp nhận được
 
 **(Paraglide)** (`@inlang/paraglide-js@2.17.0`):
 
@@ -144,7 +144,7 @@ Cuối cùng, so với các giải pháp khác, Paraglide không sử dụng sto
 
 Giải pháp này đáp ứng tất cả các nhu cầu i18n trong một dự án Svelte. Nhưng giống như trường hợp của i18next hoặc các giải pháp i18n lớn khác, nó hơi nặng (~15.9kb, gấp khoảng 7 lần `svelte-intlayer`).
 
-### 3 — Khuyến nghị
+### 3 - Khuyến nghị
 
 **(Intlayer)** (`svelte-intlayer@8.7.12`):
 

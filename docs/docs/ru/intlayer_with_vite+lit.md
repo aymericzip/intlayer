@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-03-23
 updatedAt: 2026-05-06
-title: i18n Vite + Lit — Как перевести приложение на Lit в 2026 году
+title: i18n Vite + Lit - Как перевести приложение на Lit в 2026 году
 description: Узнайте, как сделать ваш веб-сайт на Vite и Lit многоязычным. Следуйте документации для интернационализации (i18n) и перевода.
 keywords:
   - Интернационализация
@@ -45,7 +45,7 @@ history:
 <iframe
   src="https://intlayer-vite-lit-template.vercel.app"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Демо — intlayer-vite-lit-template"
+  title="Демо - intlayer-vite-lit-template"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -59,7 +59,7 @@ history:
 
 ## Что такое Intlayer?
 
-**Intlayer** — это инновационная библиотека интернационализации (i18n) с открытым исходным кодом, разработанная для упрощения многоязычной поддержки в современных веб-приложениях.
+**Intlayer** - это инновационная библиотека интернационализации (i18n) с открытым исходным кодом, разработанная для упрощения многоязычной поддержки в современных веб-приложениях.
 
 С помощью Intlayer вы можете:
 
@@ -263,7 +263,7 @@ export default appContent;
 
 ### Шаг 6: Использование Intlayer в вашем LitElement
 
-Используйте `useIntlayer` внутри `LitElement`. Он возвращает прокси `ReactiveController`, который автоматически вызывает перерисовку при изменении активного языка — никакой дополнительной настройки не требуется.
+Используйте `useIntlayer` внутри `LitElement`. Он возвращает прокси `ReactiveController`, который автоматически вызывает перерисовку при изменении активного языка - никакой дополнительной настройки не требуется.
 
 ```typescript fileName="src/my-element.ts" codeFormat="typescript"
 import { LitElement, html } from "lit";
@@ -516,7 +516,7 @@ export default config;
 
 ### (Опционально) Sitemap и robots.txt (генерация на сборке)
 
-Intlayer предоставляет `generateSitemap` и `getMultilingualUrls` — утилиты, которые формируют многоязычные `sitemap.xml` и `robots.txt` для краулеров и позволяют автоматически записать их в `public/`. Обычно запускают небольшой Node-скрипт **до** Vite (например, npm-хуки `predev` / `prebuild`).
+Intlayer предоставляет `generateSitemap` и `getMultilingualUrls` - утилиты, которые формируют многоязычные `sitemap.xml` и `robots.txt` для краулеров и позволяют автоматически записать их в `public/`. Обычно запускают небольшой Node-скрипт **до** Vite (например, npm-хуки `predev` / `prebuild`).
 
 #### Sitemap
 

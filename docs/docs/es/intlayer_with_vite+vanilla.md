@@ -35,7 +35,7 @@ history:
 <iframe
   src="https://ide.intlayer.org/aymericzip/intlayer-vite-vanilla-template?file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo CodeSandbox — Intlayer"
+  title="Demo CodeSandbox - Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -46,7 +46,7 @@ history:
 <iframe
   src="https://intlayer-vite-vanilla.vercel.app"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo — intlayer-vite-vanilla-template"
+  title="Demo - intlayer-vite-vanilla-template"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -255,7 +255,7 @@ export default appContent;
 
 ### Paso 6: Usar Intlayer en tu JavaScript
 
-`vanilla-intlayer` refleja la API de superficie de `react-intlayer`: `useIntlayer(key, locale?)` devuelve el contenido traducido directamente. Encadena `.onChange()` en el resultado para suscribirte a los cambios de idioma — el equivalente explícito de un re-renderizado de React.
+`vanilla-intlayer` refleja la API de superficie de `react-intlayer`: `useIntlayer(key, locale?)` devuelve el contenido traducido directamente. Encadena `.onChange()` en el resultado para suscribirte a los cambios de idioma - el equivalente explícito de un re-renderizado de React.
 
 ```typescript fileName="src/main.ts" codeFormat="typescript"
 import { installIntlayer, useIntlayer } from "vanilla-intlayer";
@@ -557,7 +557,7 @@ bun run build # O bun run dev
 
 ### (Opcional) Sitemap y robots.txt (generación en el build)
 
-Intlayer ofrece utilidades — `generateSitemap` y `getMultilingualUrls` — para formatear un `sitemap.xml` multilingüe y un `robots.txt` listos para rastreadores y escribirlos automáticamente en `public/`. Lo habitual es ejecutar un script pequeño de Node **antes** de Vite (por ejemplo hooks npm `predev` / `prebuild`) para que esos archivos existan al compilar o al levantar el servidor de desarrollo.
+Intlayer ofrece utilidades - `generateSitemap` y `getMultilingualUrls` - para formatear un `sitemap.xml` multilingüe y un `robots.txt` listos para rastreadores y escribirlos automáticamente en `public/`. Lo habitual es ejecutar un script pequeño de Node **antes** de Vite (por ejemplo hooks npm `predev` / `prebuild`) para que esos archivos existan al compilar o al levantar el servidor de desarrollo.
 
 #### Sitemap
 

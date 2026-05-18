@@ -47,7 +47,7 @@ history:
 <iframe
   src="https://intlayer-astro-template.vercel.app"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Демо — intlayer-astro-template"
+  title="Демо - intlayer-astro-template"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -61,7 +61,7 @@ history:
 
 ## Что такое Intlayer?
 
-**Intlayer** — это инновационная библиотека интернационализации (i18n) с открытым исходным кодом, разработанная для упрощения многоязычной поддержки в современных веб-приложениях.
+**Intlayer** - это инновационная библиотека интернационализации (i18n) с открытым исходным кодом, разработанная для упрощения многоязычной поддержки в современных веб-приложениях.
 
 С Intlayer вы можете:
 
@@ -269,7 +269,7 @@ const { greeting } = getIntlayer("lit-demo", locale);
     />
   </head>
   <body>
-    <!-- Кастомный элемент Lit — получает локаль, определенную сервером, через свойство -->
+    <!-- Кастомный элемент Lit - получает локаль, определенную сервером, через свойство -->
     <lit-demo locale={locale}></lit-demo>
   </body>
 </html>
@@ -363,7 +363,7 @@ customElements.define("lit-demo", LitDemo);
 
 > Проп `locale` передается со страницы Astro (определенной сервером) и используется в `connectedCallback` для инициализации `installIntlayer`, что делает её начальной локалью для всех хуков `ReactiveController` в элементе.
 
-> `useIntlayer` регистрируется как `ReactiveController`. Элемент автоматически перерисовывается при смене языка — дополнительная настройка не требуется.
+> `useIntlayer` регистрируется как `ReactiveController`. Элемент автоматически перерисовывается при смене языка - дополнительная настройка не требуется.
 
 ### Шаг 7: Добавление переключателя языков
 
@@ -406,7 +406,7 @@ override render() {
 ```
 
 > **Примечание по реактивности Lit:**
-> `useLocale` возвращает `ReactiveController`. При вызове `setLocale` контроллер автоматически планирует перерисовку — таким образом, состояние активной кнопки обновляется без ручных манипуляций с DOM.
+> `useLocale` возвращает `ReactiveController`. При вызове `setLocale` контроллер автоматически планирует перерисовку - таким образом, состояние активной кнопки обновляется без ручных манипуляций с DOM.
 
 > **Примечание по сохранению состояния:**
 > Использование `onLocaleChange` для перенаправления через `window.location.href` гарантирует посещение нового языкового URL, позволяя middleware Intlayer установить куки языка и запомнить предпочтение пользователя для будущих посещений.

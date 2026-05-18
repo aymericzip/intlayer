@@ -47,7 +47,7 @@ history:
 <iframe
   src="https://intlayer-astro-template.vercel.app"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo — intlayer-astro-template"
+  title="Demo - intlayer-astro-template"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -259,7 +259,7 @@ const { greeting } = getIntlayer("lit-demo", locale);
     />
   </head>
   <body>
-    <!-- The Lit custom element — receives the server-detected locale as a property -->
+    <!-- The Lit custom element - receives the server-detected locale as a property -->
     <lit-demo locale={locale}></lit-demo>
   </body>
 </html>
@@ -361,7 +361,7 @@ customElements.define("lit-demo", LitDemo);
 
 > The `locale` property is passed from the Astro page (server-detected) and used in `connectedCallback` to initialise `installIntlayer`, making it the initial locale for all `ReactiveController` hooks in the element.
 
-> `useIntlayer` registers itself as a `ReactiveController`. The element re-renders automatically when the locale changes — no extra setup required.
+> `useIntlayer` registers itself as a `ReactiveController`. The element re-renders automatically when the locale changes - no extra setup required.
 
 ### Step 7: Add a Locale Switcher
 
@@ -404,7 +404,7 @@ override render() {
 ```
 
 > **Note on Lit Reactivity:**
-> `useLocale` returns a `ReactiveController`. When `setLocale` is called, the controller schedules a re-render automatically — so the active button state updates without manual DOM manipulation.
+> `useLocale` returns a `ReactiveController`. When `setLocale` is called, the controller schedules a re-render automatically - so the active button state updates without manual DOM manipulation.
 
 > **Note on Persistence:**
 > Using `onLocaleChange` to redirect via `window.location.href` ensures that the new locale URL is visited, allowing Intlayer middleware to set the locale cookie and remember the user's preference on future visits.

@@ -49,7 +49,7 @@ history:
 <iframe
   src="https://intlayer-astro-template.vercel.app"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo — intlayer-astro-template"
+  title="Demo - intlayer-astro-template"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -353,7 +353,7 @@ export function LocaleSwitcher() {
 > **Kalıcılık Hakkında Not:**
 > `window.location.href` aracılığıyla yönlendirmek için `onLocaleChange` kullanmak, yeni dil URL'sinin ziyaret edilmesini sağlar. Bu da Intlayer ara yazılımının dil çerezini ayarlamasına ve gelecekteki ziyaretlerde kullanıcının tercihini hatırlamasına olanak tanır.
 
-> `LocaleSwitcher`, `IntlayerProvider` içinde oluşturulmalıdır — bunu island bileşeninizde kullanın (Adım 6'da gösterildiği gibi).
+> `LocaleSwitcher`, `IntlayerProvider` içinde oluşturulmalıdır - bunu island bileşeninizde kullanın (Adım 6'da gösterildiği gibi).
 
 ### Adım 8: Sitemap ve Robots.txt
 

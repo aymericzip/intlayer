@@ -2,7 +2,7 @@
 createdAt: 2026-03-20
 updatedAt: 2026-05-06
 title: Cách thiết lập Intlayer với Storybook
-description: Tìm hiểu cách làm cho hệ thống thiết kế của bạn đa ngôn ngữ bằng cách sử dụng Intlayer với Storybook — biên dịch các khai báo nội dung, thêm trình chuyển đổi ngôn ngữ và xem trước các thành phần của bạn bằng bất kỳ ngôn ngữ nào.
+description: Tìm hiểu cách làm cho hệ thống thiết kế của bạn đa ngôn ngữ bằng cách sử dụng Intlayer với Storybook - biên dịch các khai báo nội dung, thêm trình chuyển đổi ngôn ngữ và xem trước các thành phần của bạn bằng bất kỳ ngôn ngữ nào.
 keywords:
   - Quốc tế hóa
   - Tài liệu
@@ -33,7 +33,7 @@ history:
 
 ## Intlayer là gì?
 
-**Intlayer** là một thư viện quốc tế hóa (i18n) mã nguồn mở sáng tạo được thiết kế để đơn giản hóa việc hỗ trợ đa ngôn ngữ trong các ứng dụng web hiện đại. Nó hoạt động ở **cấp độ thành phần** — mỗi thành phần sở hữu các khai báo nội dung riêng — giữ cho các bản dịch được đặt cùng với mã nguồn sử dụng chúng.
+**Intlayer** là một thư viện quốc tế hóa (i18n) mã nguồn mở sáng tạo được thiết kế để đơn giản hóa việc hỗ trợ đa ngôn ngữ trong các ứng dụng web hiện đại. Nó hoạt động ở **cấp độ thành phần** - mỗi thành phần sở hữu các khai báo nội dung riêng - giữ cho các bản dịch được đặt cùng với mã nguồn sử dụng chúng.
 
 Với Intlayer, bạn có thể:
 
@@ -83,9 +83,9 @@ bun add vite-intlayer --dev
 
 | Gói              | Vai trò                                                       |
 | ---------------- | ------------------------------------------------------------- |
-| `intlayer`       | Cốt lõi — cấu hình, biên dịch nội dung, CLI                   |
-| `react-intlayer` | Liên kết React — `IntlayerProvider`, hook `useIntlayer`       |
-| `vite-intlayer`  | Plugin Vite — theo dõi và biên dịch các tệp khai báo nội dung |
+| `intlayer`       | Cốt lõi - cấu hình, biên dịch nội dung, CLI                   |
+| `react-intlayer` | Liên kết React - `IntlayerProvider`, hook `useIntlayer`       |
+| `vite-intlayer`  | Plugin Vite - theo dõi và biên dịch các tệp khai báo nội dung |
 
 ---
 
@@ -291,7 +291,7 @@ export default config;
 
 ### Bước 4: Thêm Decorator `IntlayerProvider` và Thanh công cụ Ngôn ngữ
 
-Tương tự như thiết lập Vite — thêm decorator và kiểu ngôn ngữ toàn cục trong tệp `.storybook/preview.tsx`:
+Tương tự như thiết lập Vite - thêm decorator và kiểu ngôn ngữ toàn cục trong tệp `.storybook/preview.tsx`:
 
 ```tsx fileName=".storybook/preview.tsx" codeFormat="typescript"
 import type { Preview, StoryContext } from "@storybook/react";
@@ -411,7 +411,7 @@ const meta: Meta<typeof CopyButton> = {
 export default meta;
 type Story = StoryObj<typeof CopyButton>;
 
-/** Câu chuyện mặc định — chuyển đổi ngôn ngữ trên thanh công cụ để xem trước các bản dịch. */
+/** Câu chuyện mặc định - chuyển đổi ngôn ngữ trên thanh công cụ để xem trước các bản dịch. */
 export const Default: Story = {
   args: {
     content: "npm install intlayer react-intlayer",

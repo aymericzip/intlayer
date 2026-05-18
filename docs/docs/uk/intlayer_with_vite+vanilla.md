@@ -35,7 +35,7 @@ history:
 <iframe
   src="https://ide.intlayer.org/aymericzip/intlayer-vite-vanilla-template?file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo CodeSandbox — Intlayer"
+  title="Demo CodeSandbox - Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -46,7 +46,7 @@ history:
 <iframe
   src="https://intlayer-vite-vanilla.vercel.app"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Демо — intlayer-vite-vanilla-template"
+  title="Демо - intlayer-vite-vanilla-template"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -60,7 +60,7 @@ history:
 
 ## Що таке Intlayer?
 
-**Intlayer** — це інноваційна бібліотека інтернаціоналізації (i18n) з відкритим вихідним кодом, розроблена для спрощення підтримки багатомовності в сучасних веб-додатках.
+**Intlayer** - це інноваційна бібліотека інтернаціоналізації (i18n) з відкритим вихідним кодом, розроблена для спрощення підтримки багатомовності в сучасних веб-додатках.
 
 З Intlayer ви можете:
 
@@ -255,7 +255,7 @@ export default appContent;
 
 ### Крок 6: Використовуйте Intlayer у вашому JavaScript
 
-`vanilla-intlayer` відображає API поверхні `react-intlayer`: `useIntlayer(key, locale?)` повертає перекладений вміст безпосередньо. Приєднайте `.onChange()` до результату, щоб підписатися на зміни локалі — явний еквівалент перерендерингу в React.
+`vanilla-intlayer` відображає API поверхні `react-intlayer`: `useIntlayer(key, locale?)` повертає перекладений вміст безпосередньо. Приєднайте `.onChange()` до результату, щоб підписатися на зміни локалі - явний еквівалент перерендерингу в React.
 
 ```typescript fileName="src/main.ts" codeFormat="typescript"
 import { installIntlayer, useIntlayer } from "vanilla-intlayer";
@@ -456,7 +456,7 @@ const unsubscribe = useDictionaryDynamic(
 });
 ```
 
-> Пакет кожної локалі завантажується лише тоді, коли ця локаль стає активною, а результат кешується — наступні перемикання на ту саму локаль відбуваються миттєво.
+> Пакет кожної локалі завантажується лише тоді, коли ця локаль стає активною, а результат кешується - наступні перемикання на ту саму локаль відбуваються миттєво.
 
 ### (Необов’язково) Крок 13: Отримайте вміст ваших компонентів (Extract)
 
@@ -557,7 +557,7 @@ bun run build # Або bun run dev
 
 ### (Опційно) Sitemap і robots.txt (генерація під час збірки)
 
-Intlayer надає `generateSitemap` і `getMultilingualUrls` — утиліти для формування багатомовних `sitemap.xml` і `robots.txt` для краулерів та автоматичного запису в `public/`. Зазвичай запускають невеликий Node-скрипт **перед** Vite (наприклад, npm-хуки `predev` / `prebuild`).
+Intlayer надає `generateSitemap` і `getMultilingualUrls` - утиліти для формування багатомовних `sitemap.xml` і `robots.txt` для краулерів та автоматичного запису в `public/`. Зазвичай запускають невеликий Node-скрипт **перед** Vite (наприклад, npm-хуки `predev` / `prebuild`).
 
 #### Sitemap
 

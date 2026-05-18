@@ -25,7 +25,7 @@ history:
     changes: "Benchmark-Initialisierung"
 ---
 
-# Solid i18n-Bibliotheken — Benchmark-Bericht 2026
+# Solid i18n-Bibliotheken - Benchmark-Bericht 2026
 
 Diese Seite ist ein Benchmark-Bericht für i18n-Lösungen in Solid.
 
@@ -126,11 +126,11 @@ GitHub-Sterne sind ein starker Indikator für die Popularität eines Projekts, d
 
 ## Ergebnisse im Detail
 
-### 1 — Zu vermeidende Lösungen
+### 1 - Zu vermeidende Lösungen
 
 > Im Solid-Ökosystem gibt es keine eindeutig zu vermeidenden Lösungen.
 
-### 2 — Akzeptable Lösungen
+### 2 - Akzeptable Lösungen
 
 **(solid-i18next)** (`solid-i18next@17.0.2`):
 
@@ -151,7 +151,7 @@ Es fehlen auch Lazy-Loading und Scoping-Namespaces für die Optimierung der Seit
 Persönlich gefällt mir nicht, dass JS-Dateien vor jedem Push neu generiert werden müssen, was ein ständiges Risiko für Merge-Konflikte bei PRs darstellt.
 Schließlich verwendet Paraglide im Vergleich zu anderen Lösungen keinen Store (z. B. Solid Signal), um das aktuelle Gebietsschema zum Rendern des Inhalts abzurufen. Für jeden geparsten Knoten wird das Gebietsschema aus dem localStorage / Cookie usw. angefordert. Dies führt zur Ausführung unnötiger Logik, die sich auf die Reaktivität der Komponenten auswirkt.
 
-### 3 — Empfehlungen
+### 3 - Empfehlungen
 
 **(Intlayer)** (`solid-intlayer@8.7.12`):
 

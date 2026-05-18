@@ -21,9 +21,9 @@ history:
 
 # Benchmark - Звіт
 
-Benchmark Bloom — це набір тестів продуктивності, який вимірює реальний вплив бібліотек i18n (інтернаціоналізації) у різних React-фреймворках і стратегіях завантаження.
+Benchmark Bloom - це набір тестів продуктивності, який вимірює реальний вплив бібліотек i18n (інтернаціоналізації) у різних React-фреймворках і стратегіях завантаження.
 
-Нижче — детальні звіти та технічна документація для кожного фреймворку:
+Нижче - детальні звіти та технічна документація для кожного фреймворку:
 
 - [**Next.js Benchmark Report**](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/nextjs.md)
 - [**TanStack Start Benchmark Report**](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/benchmark/tanstack.md)

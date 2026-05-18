@@ -46,7 +46,7 @@ history:
 <iframe
   src="https://intlayer-astro-template.vercel.app"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo — intlayer-astro-template"
+  title="Demo - intlayer-astro-template"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -110,7 +110,7 @@ bun x intlayer init
   Inclui o plugin de integração do Astro para vincular o Intlayer ao [bundler Vite](https://vite.dev/guide/why.html#why-bundle-for-production), bem como o middleware para detectar o idioma preferido do usuário, gerenciar cookies e lidar com redirecionamentos de URL.
 
 - **preact**
-  Pacote principal do Preact — uma alternativa rápida e leve ao React.
+  Pacote principal do Preact - uma alternativa rápida e leve ao React.
 
 - **preact-intlayer**
   Pacote para integrar o Intlayer em aplicações Preact. Ele fornece o `IntlayerProvider`, além dos hooks `useIntlayer` e `useLocale` para internacionalização no Preact.
@@ -365,7 +365,7 @@ export const LocaleSwitcher: FunctionalComponent = () => {
 > **Nota sobre persistência:**
 > O uso de `onLocaleChange` para redirecionar via `window.location.href` garante que a nova URL linguística seja visitada, permitindo que o middleware do Intlayer defina o cookie de idioma e lembre da preferência do usuário em visitas futuras.
 
-> O `LocaleSwitcher` deve ser renderizado dentro de um `IntlayerProvider` — use-o no seu componente de island (como mostrado no passo 6).
+> O `LocaleSwitcher` deve ser renderizado dentro de um `IntlayerProvider` - use-o no seu componente de island (como mostrado no passo 6).
 
 ### Passo 8: Sitemap e Robots.txt
 

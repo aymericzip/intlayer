@@ -34,8 +34,8 @@ history:
 
 الفرق الرئيسي هو **الحصرية**:
 
-- **نطاق حصري** — لغة واحدة فقط ترتبط باسم المضيف هذا (مثل `zh → intlayer.zh`). النطاق نفسه يحدد اللغة، لذا لا يتم إضافة بادئة لغة إلى المسار. يخدم `https://intlayer.zh/about` المحتوى الصيني.
-- **نطاق مشترك** — ترتبط لغات متعددة بنفس اسم المضيف (مثل `en` و `fr` كلاهما يرتبطان بـ `intlayer.org`). يتم تطبيق التوجيه التقليدي القائم على البادئة. يخدم `intlayer.org/fr/about` المحتوى الفرنسي.
+- **نطاق حصري** - لغة واحدة فقط ترتبط باسم المضيف هذا (مثل `zh → intlayer.zh`). النطاق نفسه يحدد اللغة، لذا لا يتم إضافة بادئة لغة إلى المسار. يخدم `https://intlayer.zh/about` المحتوى الصيني.
+- **نطاق مشترك** - ترتبط لغات متعددة بنفس اسم المضيف (مثل `en` و `fr` كلاهما يرتبطان بـ `intlayer.org`). يتم تطبيق التوجيه التقليدي القائم على البادئة. يخدم `intlayer.org/fr/about` المحتوى الفرنسي.
 
 ## التكوين
 
@@ -55,9 +55,9 @@ const config: IntlayerConfig = {
   routing: {
     mode: "prefix-no-default",
     domains: {
-      // نطاق مشترك — en و fr يستخدمان توجيه البادئة على intlayer.org
+      // نطاق مشترك - en و fr يستخدمان توجيه البادئة على intlayer.org
       en: "intlayer.org",
-      // نطاق حصري — zh لها اسم مضيف خاص بها، لا حاجة لبادئة /zh/
+      // نطاق حصري - zh لها اسم مضيف خاص بها، لا حاجة لبادئة /zh/
       zh: "intlayer.zh",
     },
   },
@@ -96,7 +96,7 @@ getLocalizedUrl("/about", "zh", { currentDomain: "intlayer.org" });
 ```ts
 // الصفحة الحالية: intlayer.zh/about
 getLocalizedUrl("/about", "zh", { currentDomain: "intlayer.zh" });
-// ← "/about"  (بالفعل على النطاق الصحيح — رابط نسبي)
+// ← "/about"  (بالفعل على النطاق الصحيح - رابط نسبي)
 
 getLocalizedUrl("/about", "fr", { currentDomain: "intlayer.zh" });
 // ← "https://intlayer.org/fr/about"  (رابط عبر النطاقات يعود إلى intlayer.org)
@@ -108,14 +108,14 @@ getLocalizedUrl("/about", "fr", { currentDomain: "intlayer.zh" });
 
 1. اسم المضيف لرابط إدخال مطلق (مثلاً `https://intlayer.org/about` ← `intlayer.org`).
 2. `window.location.hostname` في بيئات المتصفح.
-3. إذا لم يتوفر أي منهما (SSR بدون خيار صريح)، يتم إرجاع رابط نسبي للغات الموجودة على نفس النطاق ولا يتم إنتاج رابط مطلق — وهذا هو التراجع الآمن.
+3. إذا لم يتوفر أي منهما (SSR بدون خيار صريح)، يتم إرجاع رابط نسبي للغات الموجودة على نفس النطاق ولا يتم إنتاج رابط مطلق - وهذا هو التراجع الآمن.
 
 ```ts
-// المتصفح — window.location.hostname === 'intlayer.org'
+// المتصفح - window.location.hostname === 'intlayer.org'
 getLocalizedUrl("/about", "zh");
 // ← "https://intlayer.zh/about"  (تم اكتشافه تلقائيًا من النافذة)
 
-// من رابط مطلق — تم اكتشاف النطاق تلقائيًا
+// من رابط مطلق - تم اكتشاف النطاق تلقائيًا
 getLocalizedUrl("https://intlayer.org/about", "zh");
 // ← "https://intlayer.zh/about"
 ```
@@ -151,14 +151,14 @@ export const config = {
 };
 ```
 
-**إعادة التوجيه (Redirect)** — يصل الطلب إلى النطاق الخطأ لبادئة لغة معينة:
+**إعادة التوجيه (Redirect)** - يصل الطلب إلى النطاق الخطأ لبادئة لغة معينة:
 
 ```
 GET intlayer.org/zh/about
 ← 301 https://intlayer.zh/about
 ```
 
-**إعادة الكتابة (Rewrite)** — يصل الطلب إلى النطاق الحصري للغة بدون بادئة:
+**إعادة الكتابة (Rewrite)** - يصل الطلب إلى النطاق الحصري للغة بدون بادئة:
 
 ```
 GET intlayer.zh/about
@@ -209,7 +209,7 @@ export const LocaleSwitcher = () => {
 };
 ```
 
-لا يلزم تكوين إضافي — يكتشف `useLocale` داخليًا `window.location.hostname` ويقرر بين `router.replace` (نفس النطاق) و `window.location.href` (عبر النطاقات).
+لا يلزم تكوين إضافي - يكتشف `useLocale` داخليًا `window.location.hostname` ويقرر بين `router.replace` (نفس النطاق) و `window.location.href` (عبر النطاقات).
 
 ## SEO: روابط `hreflang` البديلة
 

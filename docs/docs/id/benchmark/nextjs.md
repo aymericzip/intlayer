@@ -25,7 +25,7 @@ history:
     changes: "Inisialisasi benchmark"
 ---
 
-# Library i18n Next.js — Laporan Benchmark 2026
+# Library i18n Next.js - Laporan Benchmark 2026
 
 Halaman ini adalah laporan benchmark untuk solusi i18n pada Next.js.
 
@@ -60,7 +60,7 @@ Sebagai contoh, pada kasus terburuk, setelah diinternasionalisasi, halaman Anda 
 
 Dampak lain dari library i18n adalah pengembangan yang lebih lambat. Mengubah komponen menjadi konten multibahasa di berbagai bahasa memakan waktu lama.
 
-Karena masalah ini sulit, banyak solusi tersedia—beberapa berfokus pada DX (Developer Experience), yang lain pada performa atau skalabilitas, dan sebagainya.
+Karena masalah ini sulit, banyak solusi tersedia-beberapa berfokus pada DX (Developer Experience), yang lain pada performa atau skalabilitas, dan sebagainya.
 
 Intlayer mencoba mengoptimalkan di semua dimensi ini.
 
@@ -98,7 +98,7 @@ Apa yang terjadi pada saat build adalah Next.js memancarkan satu bundle JS per l
 
 Jika Anda menggunakan sintaks seperti `const t = useTranslation()` + `t('objek-saya.sub-objek-saya.kunci-saya')`, seluruh JSON biasanya harus ada dalam bundle sehingga library dapat mem-parsing-nya dan menyelesaikan kuncinya. Banyak dari konten tersebut kemudian dikirimkan bahkan saat tidak digunakan di halaman.
 
-Untuk memitigasi hal ini, beberapa library meminta Anda untuk mendeklarasikan per halaman namespace mana yang akan dimuat—misalnya `next-i18next`, `next-intl`, `lingui`, `next-translate`, `next-international`.
+Untuk memitigasi hal ini, beberapa library meminta Anda untuk mendeklarasikan per halaman namespace mana yang akan dimuat-misalnya `next-i18next`, `next-intl`, `lingui`, `next-translate`, `next-international`.
 
 Sebaliknya, `Paraglide` menambahkan langkah ekstra sebelum build untuk mengubah JSON menjadi simbol datar seperti `const en_my_var = () => 'nilai saya'`. Secara teori, hal itu memungkinkan tree-shaking konten yang tidak digunakan pada halaman. Seperti yang akan kita lihat, metode tersebut masih memiliki trade-off.
 
@@ -153,7 +153,7 @@ Saya menjalankan aplikasi multibahasa yang sama di browser asli untuk setiap sta
 
 - **Ukuran bundle komponen rata-rata**: Bagian UI umum diukur **satu per satu** daripada bersembunyi di dalam satu angka aplikasi yang besar. Ini menunjukkan apakah internasionalisasi secara diam-diam membesarkan komponen sehari-hari. Misalnya, jika komponen Anda merender ulang, ia akan memuat semua data itu dari memori. Melampirkan JSON raksasa ke komponen mana pun, seperti menghubungkan gudang besar data yang tidak digunakan yang akan memperlambat performa komponen Anda.
 
-- **Responsivitas pergantian bahasa**: Saya mengganti bahasa menggunakan kontrol aplikasi itu sendiri dan mencatat berapa lama waktu yang dibutuhkan hingga halaman benar-benar berganti — apa yang akan diperhatikan pengunjung, bukan langkah mikro laboratorium.
+- **Responsivitas pergantian bahasa**: Saya mengganti bahasa menggunakan kontrol aplikasi itu sendiri dan mencatat berapa lama waktu yang dibutuhkan hingga halaman benar-benar berganti - apa yang akan diperhatikan pengunjung, bukan langkah mikro laboratorium.
 
 - **Pekerjaan render setelah perubahan bahasa**: Tindak lanjut yang lebih sempit: seberapa besar upaya yang dilakukan antarmuka untuk menggambar ulang bahasa baru setelah pergantian dilakukan. Berguna ketika waktu yang "dirasakan" dan biaya framework berbeda.
 
@@ -169,9 +169,9 @@ Bintang GitHub adalah indikator kuat dari popularitas proyek, kepercayaan komuni
 
 ## Hasil secara terperinci
 
-### 1 — Solusi yang harus dihindari
+### 1 - Solusi yang harus dihindari
 
-Beberapa solusi, seperti `gt-next` atau `lingo.dev`, jelas paling baik dihindari. Mereka menggabungkan ketergantungan pada vendor (vendor lock-in) dengan pengotoran basis kode Anda. Meskipun menghabiskan banyak waktu mencoba menerapkannya, saya tidak pernah berhasil membuatnya bekerja—baik di TanStack Start maupun di Next.js.
+Beberapa solusi, seperti `gt-next` atau `lingo.dev`, jelas paling baik dihindari. Mereka menggabungkan ketergantungan pada vendor (vendor lock-in) dengan pengotoran basis kode Anda. Meskipun menghabiskan banyak waktu mencoba menerapkannya, saya tidak pernah berhasil membuatnya bekerja-baik di TanStack Start maupun di Next.js.
 
 Masalah yang ditemui:
 
@@ -185,12 +185,12 @@ Masalah yang ditemui:
 
 **(Lingo.dev)** (`@lingo.dev/compiler@0.4.0`):
 
-- Kuota AI terlampaui, memblokir seluruh build—sehingga Anda tidak dapat merilis ke produksi tanpa membayar.
+- Kuota AI terlampaui, memblokir seluruh build-sehingga Anda tidak dapat merilis ke produksi tanpa membayar.
 - Kompilator melewatkan hampir 40% konten yang diterjemahkan. Saya harus menulis ulang semua `.map` menjadi blok komponen datar agar dapat berfungsi.
 - CLI mereka penuh bug dan sering mereset file config tanpa alasan.
 - Saat build, library ini menghapus total JSON yang dihasilkan ketika ada konten baru ditambahkan. Akibatnya, segelintir kunci dapat menghapus lebih dari 300 kunci yang ada.
 
-### 2 — Solusi eksperimental
+### 2 - Solusi eksperimental
 
 **(Wuchale)** (`wuchale@0.22.11`):
 
@@ -204,7 +204,7 @@ Terakhir, dibandingkan dengan solusi lain, Paraglide tidak menggunakan store (mi
 
 > Catatan tentang paraglide: solusi ini menyuntikkan kode ke dalam basis kode Anda untuk impor, akibatnya metrik 'ukuran lib' dalam laporan benchmark hampir 0. Pembuatan kode (code generation) adalah hal yang baik, karena fungsi yang digunakan hanya akan mencakup logika yang diperlukan (semua awalan vs tanpa awalan, cookie vs penyimpanan, dll.). Sebagai perbandingan, Intlayer melakukan pemfilteran ini melalui injeksi variabel lingkungan dalam build untuk memaksa bundler melakukan tree-shake pada konten tergantung pada logikanya. Berkat ini, paraglide dan intlayer berakhir menjadi solusi yang 6 hingga 10 kali lebih ringan daripada i18next atau next-intl.
 
-### 3 — Solusi yang dapat diterima
+### 3 - Solusi yang dapat diterima
 
 **(Tolgee)** (`@tolgee/react@7.0.0`):
 
@@ -228,7 +228,7 @@ Format pesan juga berbeda: `next-intl` menggunakan ICU MessageFormat, sementara 
 
 `Lingui` sering dipuji. Secara pribadi saya merasa alur kerja `lingui extract` / `lingui compile` lebih kompleks daripada alternatifnya, tanpa keunggulan yang jelas. Saya juga menyadari sintaksis yang tidak konsisten yang membingungkan AI (misalnya `t()`, `t''`, `i18n.t()`, `<Trans>`).
 
-### 4 — Rekomendasi
+### 4 - Rekomendasi
 
 **(Next Translate)** (`next-translate@3.1.2`):
 

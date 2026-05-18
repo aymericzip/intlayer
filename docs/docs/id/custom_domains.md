@@ -34,8 +34,8 @@ Peta `domains` di dalam `routing` mengaitkan setiap lokal dengan nama host. Intl
 
 Perbedaan utamanya adalah **eksklusivitas**:
 
-- **Domain eksklusif** — hanya satu lokal yang memetakan ke nama host tersebut (misalnya `zh → intlayer.zh`). Domain itu sendiri bertindak sebagai pengidentifikasi lokal, sehingga tidak ada awalan lokal yang ditambahkan ke jalur. `https://intlayer.zh/about` menyajikan konten bahasa Mandarin.
-- **Domain bersama** — beberapa lokal memetakan ke nama host yang sama (misalnya `en` dan `fr` keduanya memetakan ke `intlayer.org`). Perutean berbasis awalan normal berlaku. `intlayer.org/fr/about` menyajikan konten bahasa Prancis.
+- **Domain eksklusif** - hanya satu lokal yang memetakan ke nama host tersebut (misalnya `zh → intlayer.zh`). Domain itu sendiri bertindak sebagai pengidentifikasi lokal, sehingga tidak ada awalan lokal yang ditambahkan ke jalur. `https://intlayer.zh/about` menyajikan konten bahasa Mandarin.
+- **Domain bersama** - beberapa lokal memetakan ke nama host yang sama (misalnya `en` dan `fr` keduanya memetakan ke `intlayer.org`). Perutean berbasis awalan normal berlaku. `intlayer.org/fr/about` menyajikan konten bahasa Prancis.
 
 ## Konfigurasi
 
@@ -55,9 +55,9 @@ const config: IntlayerConfig = {
   routing: {
     mode: "prefix-no-default",
     domains: {
-      // Domain bersama — en dan fr menggunakan perutean awalan pada intlayer.org
+      // Domain bersama - en dan fr menggunakan perutean awalan pada intlayer.org
       en: "intlayer.org",
-      // Domain eksklusif — zh memiliki nama host sendiri, tidak perlu awalan /zh/
+      // Domain eksklusif - zh memiliki nama host sendiri, tidak perlu awalan /zh/
       zh: "intlayer.zh",
     },
   },
@@ -96,7 +96,7 @@ getLocalizedUrl("/about", "zh", { currentDomain: "intlayer.org" });
 ```ts
 // Halaman saat ini: intlayer.zh/about
 getLocalizedUrl("/about", "zh", { currentDomain: "intlayer.zh" });
-// → "/about" (sudah berada di domain yang benar — URL relatif)
+// → "/about" (sudah berada di domain yang benar - URL relatif)
 
 getLocalizedUrl("/about", "fr", { currentDomain: "intlayer.zh" });
 // → "https://intlayer.org/fr/about" (tautan lintas domain kembali ke intlayer.org)
@@ -108,14 +108,14 @@ getLocalizedUrl("/about", "fr", { currentDomain: "intlayer.zh" });
 
 1. Nama host dari URL input absolut (misalnya `https://intlayer.org/about` → `intlayer.org`).
 2. `window.location.hostname` di lingkungan peramban.
-3. Jika keduanya tidak tersedia (SSR tanpa opsi eksplisit), URL relatif akan dikembalikan untuk lokal domain yang sama dan tidak ada URL absolut yang dihasilkan — ini adalah fallback yang aman.
+3. Jika keduanya tidak tersedia (SSR tanpa opsi eksplisit), URL relatif akan dikembalikan untuk lokal domain yang sama dan tidak ada URL absolut yang dihasilkan - ini adalah fallback yang aman.
 
 ```ts
-// Peramban — window.location.hostname === 'intlayer.org'
+// Peramban - window.location.hostname === 'intlayer.org'
 getLocalizedUrl("/about", "zh");
 // → "https://intlayer.zh/about" (dideteksi otomatis dari jendela)
 
-// Dari URL absolut — domain terdeteksi secara otomatis
+// Dari URL absolut - domain terdeteksi secara otomatis
 getLocalizedUrl("https://intlayer.org/about", "zh");
 // → "https://intlayer.zh/about"
 ```
@@ -151,14 +151,14 @@ export const config = {
 };
 ```
 
-**Redirect** — permintaan tiba di domain yang salah untuk awalan lokal tertentu:
+**Redirect** - permintaan tiba di domain yang salah untuk awalan lokal tertentu:
 
 ```
 GET intlayer.org/zh/about
 → 301 https://intlayer.zh/about
 ```
 
-**Rewrite** — permintaan tiba di domain eksklusif lokal tanpa awalan:
+**Rewrite** - permintaan tiba di domain eksklusif lokal tanpa awalan:
 
 ```
 GET intlayer.zh/about
@@ -209,7 +209,7 @@ export const LocaleSwitcher = () => {
 };
 ```
 
-Tidak diperlukan konfigurasi tambahan — `useLocale` mendeteksi `window.location.hostname` secara internal dan memutuskan antara `router.replace` (domain yang sama) dan `window.location.href` (lintas domain).
+Tidak diperlukan konfigurasi tambahan - `useLocale` mendeteksi `window.location.hostname` secara internal dan memutuskan antara `router.replace` (domain yang sama) dan `window.location.href` (lintas domain).
 
 ## SEO: Tautan Alternatif `hreflang`
 

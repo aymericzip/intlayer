@@ -35,7 +35,7 @@ history:
 <iframe
   src="https://ide.intlayer.org/aymericzip/intlayer-vite-vanilla-template?file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo CodeSandbox — Intlayer"
+  title="Demo CodeSandbox - Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -46,7 +46,7 @@ history:
 <iframe
   src="https://intlayer-vite-vanilla.vercel.app"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo — intlayer-vite-vanilla-template"
+  title="Demo - intlayer-vite-vanilla-template"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -255,7 +255,7 @@ export default appContent;
 
 ### Langkah 6: Gunakan Intlayer di JavaScript Anda
 
-`vanilla-intlayer` mencerminkan API permukaan `react-intlayer`: `useIntlayer(key, locale?)` mengembalikan konten yang diterjemahkan secara langsung. Rantai `.onChange()` pada hasilnya untuk berlangganan perubahan lokal — padanan eksplisit dari render ulang React.
+`vanilla-intlayer` mencerminkan API permukaan `react-intlayer`: `useIntlayer(key, locale?)` mengembalikan konten yang diterjemahkan secara langsung. Rantai `.onChange()` pada hasilnya untuk berlangganan perubahan lokal - padanan eksplisit dari render ulang React.
 
 ```typescript fileName="src/main.ts" codeFormat="typescript"
 import { installIntlayer, useIntlayer } from "vanilla-intlayer";
@@ -456,7 +456,7 @@ const unsubscribe = useDictionaryDynamic(
 });
 ```
 
-> Bundel masing-masing lokal hanya diambil ketika lokal tersebut menjadi aktif dan hasilnya disimpan di cache — pengalihan berikutnya ke lokal yang sama bersifat instan.
+> Bundel masing-masing lokal hanya diambil ketika lokal tersebut menjadi aktif dan hasilnya disimpan di cache - pengalihan berikutnya ke lokal yang sama bersifat instan.
 
 ### (Opsional) Langkah 13: Ekstrak konten komponen Anda
 

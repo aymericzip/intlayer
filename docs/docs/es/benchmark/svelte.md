@@ -25,7 +25,7 @@ history:
     changes: "Inicialización del benchmark"
 ---
 
-# Bibliotecas i18n para Svelte — Informe de Benchmark 2026
+# Bibliotecas i18n para Svelte - Informe de Benchmark 2026
 
 Esta página es un informe de benchmark para soluciones de i18n en Svelte.
 
@@ -124,11 +124,11 @@ Las estrellas de GitHub son un fuerte indicador de la popularidad de un proyecto
 
 ## Resultados detallados
 
-### 1 — Soluciones a evitar
+### 1 - Soluciones a evitar
 
 > No hay una solución clara a evitar en el ecosistema de Svelte.
 
-### 2 — Soluciones aceptables
+### 2 - Soluciones aceptables
 
 **(Paraglide)** (`@inlang/paraglide-js@2.17.0`):
 
@@ -144,7 +144,7 @@ Finalmente, en comparación con otras soluciones, Paraglide no utiliza un almac�
 
 Esta solución satisface todas las necesidades de i18n en un proyecto Svelte. Pero como es el caso de i18next u otras soluciones importantes, es un poco pesada (~15.9kb, aproximadamente 7 veces `svelte-intlayer`).
 
-### 3 — Recomendaciones
+### 3 - Recomendaciones
 
 **(Intlayer)** (`svelte-intlayer@8.7.12`):
 

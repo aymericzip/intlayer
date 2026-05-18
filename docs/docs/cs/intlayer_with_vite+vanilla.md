@@ -35,7 +35,7 @@ history:
 <iframe
   src="https://ide.intlayer.org/aymericzip/intlayer-vite-vanilla-template?file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo CodeSandbox — Intlayer"
+  title="Demo CodeSandbox - Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -46,7 +46,7 @@ history:
 <iframe
   src="https://intlayer-vite-vanilla.vercel.app"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo — intlayer-vite-vanilla-template"
+  title="Demo - intlayer-vite-vanilla-template"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -255,7 +255,7 @@ export default appContent;
 
 ### Krok 6: Použití Intlayer v JavaScriptu
 
-`vanilla-intlayer` zrcadlí povrchové API `react-intlayer`: `useIntlayer(key, locale?)` vrací přeložený obsah přímo. Na výsledek připojte `.onChange()`, abyste se přihlásili k odběru změn lokality — explicitní ekvivalent re-renderu v Reactu.
+`vanilla-intlayer` zrcadlí povrchové API `react-intlayer`: `useIntlayer(key, locale?)` vrací přeložený obsah přímo. Na výsledek připojte `.onChange()`, abyste se přihlásili k odběru změn lokality - explicitní ekvivalent re-renderu v Reactu.
 
 ```typescript fileName="src/main.ts" codeFormat="typescript"
 import { installIntlayer, useIntlayer } from "vanilla-intlayer";
@@ -456,7 +456,7 @@ const unsubscribe = useDictionaryDynamic(
 });
 ```
 
-> Balíček každé lokality se načte pouze tehdy, když se daná lokalita stane aktivní, a výsledek se uloží do mezipaměti — následné přepnutí na stejnou lokalitu je okamžité.
+> Balíček každé lokality se načte pouze tehdy, když se daná lokalita stane aktivní, a výsledek se uloží do mezipaměti - následné přepnutí na stejnou lokalitu je okamžité.
 
 ### (Volitelné) Krok 13: Extrakce obsahu vašich komponent
 
@@ -557,7 +557,7 @@ bun run build # Nebo bun run dev
 
 ### (Volitelné) Sitemap a robots.txt (generování při buildu)
 
-Intlayer poskytuje `generateSitemap` a `getMultilingualUrls` — nástroje pro formátování vícejazyčných souborů `sitemap.xml` a `robots.txt` pro crawlery a jejich automatický zápis do `public/`. Obvykle se spouští malý Node skript **před** Vitem (např. npm hooky `predev` / `prebuild`).
+Intlayer poskytuje `generateSitemap` a `getMultilingualUrls` - nástroje pro formátování vícejazyčných souborů `sitemap.xml` a `robots.txt` pro crawlery a jejich automatický zápis do `public/`. Obvykle se spouští malý Node skript **před** Vitem (např. npm hooky `predev` / `prebuild`).
 
 #### Sitemap
 

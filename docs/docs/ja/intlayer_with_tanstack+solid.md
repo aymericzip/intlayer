@@ -76,7 +76,7 @@ Intlayerを使用すると、以下のことが可能になります：
 <iframe
   src="https://intlayer-tanstack-start-solid.vercel.app"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="デモ — intlayer-tanstack-start-solid-template"
+  title="デモ - intlayer-tanstack-start-solid-template"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />

@@ -25,7 +25,7 @@ history:
     changes: "Inicjalizacja benchmarka"
 ---
 
-# Biblioteki i18n dla TanStack Start — Raport Benchmark 2026
+# Biblioteki i18n dla TanStack Start - Raport Benchmark 2026
 
 Ta strona to raport z benchmarku rozwiązań i18n w TanStack Start.
 
@@ -132,7 +132,7 @@ Gwiazdki na GitHubie są silnym wskaźnikiem popularności projektu, zaufania sp
 
 ## Szczegóły wyników
 
-### 1 — Rozwiązania, których należy unikać
+### 1 - Rozwiązania, których należy unikać
 
 Należy wyraźnie unikać niektórych rozwiązań, takich jak `gt-react` czy `lingo.dev`. Łączą one uzależnienie od dostawcy z zaśmiecaniem bazy kodu. Co gorsza: mimo wielu godzin spędzonych na próbach ich wdrożenia, nigdy nie udało mi się sprawić, by działały poprawnie w TanStack Start (podobnie jak w przypadku `gt-next` w Next.js).
 
@@ -154,13 +154,13 @@ Napotkane problemy:
 - Podczas budowania całkowicie wymazywało wygenerowane pliki JSON, gdy dodawana była nowa treść. W rezultacie kilka kluczy mogło wymazać setki istniejących kluczy.
 - Napotkałem problemy z reaktywnością biblioteki w TanStack Start: przy zmianie lokalizacji musiałem wymusić ponowne renderowanie dostawcy, aby działała.
 
-### 2 — Rozwiązania eksperymentalne
+### 2 - Rozwiązania eksperymentalne
 
 **(Wuchale)** (`wuchale@0.22.11`):
 
 Idea stojąca za `Wuchale` jest interesująca, ale nie jest to jeszcze opłacalne rozwiązanie. Napotkałem problemy z reaktywnością tej biblioteki i musiałem wymusić ponowne renderowanie dostawcy, aby aplikacja działała w TanStack Start. Dokumentacja jest również dość niejasna, co utrudnia wdrożenie.
 
-### 3 — Akceptowalne rozwiązania
+### 3 - Akceptowalne rozwiązania
 
 **(Paraglide)** (`@inlang/paraglide-js@2.15.1`):
 
@@ -186,7 +186,7 @@ W TanStack Start unikasz pułapek specyficznych dla Next.js (`setRequestLocale`,
 
 Mimo to ma on te same główne wady co stosy zbudowane na `t('a.b.c')`: optymalizacje są możliwe, ale bardzo czasochłonne, a duże projekty niosą ze sobą ryzyko wpadnięcia w złe praktyki (przestrzenie nazw + ładowanie dynamiczne + typy).
 
-Różnią się również formaty komunikatów: `use-intl` używa ICU MessageFormat, podczas gdy `i18next` używa własnego formatu — co komplikuje narzędzia lub migracje, jeśli się je miesza.
+Różnią się również formaty komunikatów: `use-intl` używa ICU MessageFormat, podczas gdy `i18next` używa własnego formatu - co komplikuje narzędzia lub migracje, jeśli się je miesza.
 
 **(Lingui)** (`@lingui/core@5.3.0`):
 
@@ -196,7 +196,7 @@ Różnią się również formaty komunikatów: `use-intl` używa ICU MessageForm
 
 `react-intl` to wydajna implementacja zespołu Format.js. DX pozostaje rozwlekły: `const intl = useIntl()` + `intl.formatMessage({ id: "xx.xx" })` dodaje złożoność, dodatkową pracę JavaScript i wiąże globalną instancję i18n z wieloma węzłami w drzewie React.
 
-### 4 — Rekomendacje
+### 4 - Rekomendacje
 
 Ten benchmark TanStack Start nie ma bezpośredniego odpowiednika `next-translate` (wtyczka Next.js + `getStaticProps`). Dla zespołów, które naprawdę chcą API `t()` z dojrzałym ekosystemem, `react-i18next` i `use-intl` pozostają „rozsądnymi” wyborami, ale przygotuj się na zainwestowanie dużej ilości czasu w optymalizację, aby uniknąć wycieków.
 

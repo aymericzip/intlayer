@@ -593,7 +593,7 @@ bun run build # Or bun run dev
 
 ### (Опційно) Sitemap і robots.txt (генерація під час збірки)
 
-Intlayer надає `generateSitemap` і `getMultilingualUrls` — утиліти для формування багатомовних `sitemap.xml` і `robots.txt` для краулерів та автоматичного запису в `public/`. Зазвичай запускають невеликий Node-скрипт **перед** Vite (наприклад, npm-хуки `predev` / `prebuild`).
+Intlayer надає `generateSitemap` і `getMultilingualUrls` - утиліти для формування багатомовних `sitemap.xml` і `robots.txt` для краулерів та автоматичного запису в `public/`. Зазвичай запускають невеликий Node-скрипт **перед** Vite (наприклад, npm-хуки `predev` / `prebuild`).
 
 #### Sitemap
 

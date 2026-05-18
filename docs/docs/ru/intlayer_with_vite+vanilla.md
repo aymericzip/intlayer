@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-03-23
 updatedAt: 2026-05-06
-title: i18n Vite + Vanilla JS — Как перевести приложение на Vanilla JS в 2026 году
+title: i18n Vite + Vanilla JS - Как перевести приложение на Vanilla JS в 2026 году
 description: Узнайте, как сделать ваш сайт на Vite и Vanilla JS многоязычным. Следуйте документации для интернационализации (i18n) и перевода.
 keywords:
   - Интернационализация
@@ -35,7 +35,7 @@ history:
 <iframe
   src="https://ide.intlayer.org/aymericzip/intlayer-vite-vanilla-template?file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo CodeSandbox — Intlayer"
+  title="Demo CodeSandbox - Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -46,7 +46,7 @@ history:
 <iframe
   src="https://intlayer-vite-vanilla.vercel.app"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Демо — intlayer-vite-vanilla-template"
+  title="Демо - intlayer-vite-vanilla-template"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -60,7 +60,7 @@ history:
 
 ## Что такое Intlayer?
 
-**Intlayer** — это инновационная библиотека интернационализации (i18n) с открытым исходным кодом, упрощающая поддержку многоязычности в современных веб-приложениях.
+**Intlayer** - это инновационная библиотека интернационализации (i18n) с открытым исходным кодом, упрощающая поддержку многоязычности в современных веб-приложениях.
 
 С Intlayer вы можете:
 
@@ -255,7 +255,7 @@ export default appContent;
 
 ### Шаг 6: Использование Intlayer в вашем JavaScript
 
-`vanilla-intlayer` повторяет поверхностный API `react-intlayer`: `useIntlayer(key, locale?)` возвращает переведенный контент напрямую. Добавьте `.onChange()` к результату, чтобы подписаться на изменения языка — это явный эквивалент ререндеринга в React.
+`vanilla-intlayer` повторяет поверхностный API `react-intlayer`: `useIntlayer(key, locale?)` возвращает переведенный контент напрямую. Добавьте `.onChange()` к результату, чтобы подписаться на изменения языка - это явный эквивалент ререндеринга в React.
 
 ```typescript fileName="src/main.ts" codeFormat="typescript"
 import { installIntlayer, useIntlayer } from "vanilla-intlayer";
@@ -456,7 +456,7 @@ const unsubscribe = useDictionaryDynamic(
 });
 ```
 
-> Бандл каждого языка запрашивается только тогда, когда этот язык становится активным, и результат кэшируется — последующие переключения на тот же язык происходят мгновенно.
+> Бандл каждого языка запрашивается только тогда, когда этот язык становится активным, и результат кэшируется - последующие переключения на тот же язык происходят мгновенно.
 
 ### (Опционально) Шаг 13: Извлечение контента из ваших компонентов
 
@@ -557,7 +557,7 @@ bun run build # Или bun run dev
 
 ### (Опционально) Sitemap и robots.txt (генерация на сборке)
 
-Intlayer предоставляет `generateSitemap` и `getMultilingualUrls` — утилиты, которые формируют многоязычные `sitemap.xml` и `robots.txt` для краулеров и позволяют автоматически записать их в `public/`. Обычно запускают небольшой Node-скрипт **до** Vite (например, npm-хуки `predev` / `prebuild`).
+Intlayer предоставляет `generateSitemap` и `getMultilingualUrls` - утилиты, которые формируют многоязычные `sitemap.xml` и `robots.txt` для краулеров и позволяют автоматически записать их в `public/`. Обычно запускают небольшой Node-скрипт **до** Vite (например, npm-хуки `predev` / `prebuild`).
 
 #### Sitemap
 

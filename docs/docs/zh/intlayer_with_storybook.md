@@ -2,7 +2,7 @@
 createdAt: 2026-03-20
 updatedAt: 2026-05-06
 title: 如何在 Storybook 中设置 Intlayer
-description: 学习如何使用 Intlayer 和 Storybook 使您的设计系统多语言化 — 编译内容声明、添加语言切换器，并以任何语言预览您的组件。
+description: 学习如何使用 Intlayer 和 Storybook 使您的设计系统多语言化 - 编译内容声明、添加语言切换器，并以任何语言预览您的组件。
 keywords:
   - 国际化
   - 文档
@@ -33,7 +33,7 @@ history:
 
 ## 什么是 Intlayer？
 
-**Intlayer** 是一个创新且开源的国际化（i18n）库，旨在简化现代 Web 应用程序的多语言支持。它在**组件级别**运行——每个组件拥有自己的内容声明——使翻译与使用它们的代码位于同一位置。
+**Intlayer** 是一个创新且开源的国际化（i18n）库，旨在简化现代 Web 应用程序的多语言支持。它在**组件级别**运行--每个组件拥有自己的内容声明--使翻译与使用它们的代码位于同一位置。
 
 使用 Intlayer，您可以：
 
@@ -83,9 +83,9 @@ bun add vite-intlayer --dev
 
 | 软件包           | 角色                                                |
 | ---------------- | --------------------------------------------------- |
-| `intlayer`       | 核心 — 配置、内容编译、命令行工具                   |
-| `react-intlayer` | React 绑定 — `IntlayerProvider`, `useIntlayer` 钩子 |
-| `vite-intlayer`  | Vite 插件 — 监听并编译内容声明文件                  |
+| `intlayer`       | 核心 - 配置、内容编译、命令行工具                   |
+| `react-intlayer` | React 绑定 - `IntlayerProvider`, `useIntlayer` 钩子 |
+| `vite-intlayer`  | Vite 插件 - 监听并编译内容声明文件                  |
 
 ---
 
@@ -291,7 +291,7 @@ export default config;
 
 ### 第四步：添加 `IntlayerProvider` 装饰器和语言工具栏
 
-与 Vite 设置相同 —— 在 `.storybook/preview.tsx` 中添加装饰器和全局语言类型：
+与 Vite 设置相同 -- 在 `.storybook/preview.tsx` 中添加装饰器和全局语言类型：
 
 ```tsx fileName=".storybook/preview.tsx" codeFormat="typescript"
 import type { Preview, StoryContext } from "@storybook/react";
@@ -411,7 +411,7 @@ const meta: Meta<typeof CopyButton> = {
 export default meta;
 type Story = StoryObj<typeof CopyButton>;
 
-/** 默认 Story — 在工具栏中切换语言来预览翻译。 */
+/** 默认 Story - 在工具栏中切换语言来预览翻译。 */
 export const Default: Story = {
   args: {
     content: "npm install intlayer react-intlayer",

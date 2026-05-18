@@ -46,7 +46,7 @@ history:
 <iframe
   src="https://intlayer-astro-template.vercel.app"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo — intlayer-astro-template"
+  title="Demo - intlayer-astro-template"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -356,12 +356,12 @@ export function LocaleSwitcher() {
 ```
 
 > **Nota sulla reattività di Solid:**
-> In Solid, `locale` è un accessor del segnale reattivo — invoca sempre come `locale()` per ottenere il valore corrente.
+> In Solid, `locale` è un accessor del segnale reattivo - invoca sempre come `locale()` per ottenere il valore corrente.
 
 > **Nota sulla persistenza:**
 > L'uso di `onLocaleChange` per reindirizzare tramite `window.location.href` assicura che il nuovo URL linguistico venga visitato, consentendo al middleware Intlayer di impostare il cookie della lingua e di ricordare la preferenza dell'utente nelle visite future.
 
-> Il `LocaleSwitcher` deve essere reso all'interno dell'`IntlayerProvider` — usalo nel tuo componente island (come mostrato nel passaggio 6).
+> Il `LocaleSwitcher` deve essere reso all'interno dell'`IntlayerProvider` - usalo nel tuo componente island (come mostrato nel passaggio 6).
 
 ### Passaggio 8: Sitemap e Robots.txt
 

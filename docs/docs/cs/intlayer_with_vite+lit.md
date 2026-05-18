@@ -45,7 +45,7 @@ history:
 <iframe
   src="https://intlayer-vite-lit-template.vercel.app"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo — intlayer-vite-lit-template"
+  title="Demo - intlayer-vite-lit-template"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -263,7 +263,7 @@ export default appContent;
 
 ### Krok 6: Využijte Intlayer ve vašem LitElementu
 
-Použijte `useIntlayer` uvnitř `LitElement`. Vrací proxy `ReactiveController`, který automaticky spouští nové vykreslení pokaždé, když se změní aktivní jazyk — není vyžadováno žádné další nastavení.
+Použijte `useIntlayer` uvnitř `LitElement`. Vrací proxy `ReactiveController`, který automaticky spouští nové vykreslení pokaždé, když se změní aktivní jazyk - není vyžadováno žádné další nastavení.
 
 ```typescript fileName="src/my-element.ts" codeFormat="typescript"
 import { LitElement, html } from "lit";
@@ -513,7 +513,7 @@ export default config;
 
 ### (Volitelné) Sitemap a robots.txt (generování při buildu)
 
-Intlayer poskytuje `generateSitemap` a `getMultilingualUrls` — nástroje pro formátování vícejazyčných souborů `sitemap.xml` a `robots.txt` pro crawlery a jejich automatický zápis do `public/`. Obvykle se spouští malý Node skript **před** Vitem (např. npm hooky `predev` / `prebuild`).
+Intlayer poskytuje `generateSitemap` a `getMultilingualUrls` - nástroje pro formátování vícejazyčných souborů `sitemap.xml` a `robots.txt` pro crawlery a jejich automatický zápis do `public/`. Obvykle se spouští malý Node skript **před** Vitem (např. npm hooky `predev` / `prebuild`).
 
 #### Sitemap
 

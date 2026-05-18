@@ -20,7 +20,7 @@ history:
 
 # Что такое тип IntlayerNode?
 
-Тип `IntlayerNode<T>` — это специальный тип, предоставляемый пакетами intlayer, такими как `next-intlayer`, `react-intlayer`, `vue-intlayer`, `preact-intlayer`, `solid-intlayer`, `angular-intlayer`, `svelte-intlayer`, `lit-intlayer` и `vanilla-intlayer`.
+Тип `IntlayerNode<T>` - это специальный тип, предоставляемый пакетами intlayer, такими как `next-intlayer`, `react-intlayer`, `vue-intlayer`, `preact-intlayer`, `solid-intlayer`, `angular-intlayer`, `svelte-intlayer`, `lit-intlayer` и `vanilla-intlayer`.
 
 ## Пример использования
 
@@ -72,7 +72,7 @@ Intlayer вставляет IntlayerNode, чтобы иметь возможно
 
 ![Демо визуального редактора](https://raw.githubusercontent.com/aymericzip/intlayer/main/docs/assets/visual_editor.gif?raw=true)
 
-IntlayerNode — это расширенный узел React/Vue/Preact/Solid/Angular/Svelte/Lit/Vanilla, который также позволяет обращаться к свойствам базового примитивного узла.
+IntlayerNode - это расширенный узел React/Vue/Preact/Solid/Angular/Svelte/Lit/Vanilla, который также позволяет обращаться к свойствам базового примитивного узла.
 
 Например:
 

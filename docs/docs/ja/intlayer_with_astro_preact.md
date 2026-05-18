@@ -46,7 +46,7 @@ history:
 <iframe
   src="https://intlayer-astro-template.vercel.app"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="デモ — intlayer-astro-template"
+  title="デモ - intlayer-astro-template"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -110,7 +110,7 @@ bun x intlayer init
   Intlayerを[Viteバンドラー](https://vite.dev/guide/why.html#why-bundle-for-production)と統合するためのAstro統合プラグイン、およびユーザーの優先ロケールの検出、クッキーの管理、URLリダイレクトの処理を行うミドルウェアが含まれています。
 
 - **preact**
-  コアPreactパッケージ — Reactの高速で軽量な代替手段です。
+  コアPreactパッケージ - Reactの高速で軽量な代替手段です。
 
 - **preact-intlayer**
   IntlayerをPreactアプリケーションと統合するパッケージ。Preactにおける国際化のための `IntlayerProvider`、および `useIntlayer` と `useLocale` フックを提供します。

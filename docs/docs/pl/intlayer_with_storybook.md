@@ -2,7 +2,7 @@
 createdAt: 2026-03-20
 updatedAt: 2026-05-06
 title: Jak skonfigurować Intlayer z Storybook
-description: Dowiedz się, jak uczynić swój system projektowania wielojęzycznym, używając Intlayer z Storybook — kompiluj deklaracje treści, dodaj przełącznik języka i przeglądaj komponenty w dowolnym języku.
+description: Dowiedz się, jak uczynić swój system projektowania wielojęzycznym, używając Intlayer z Storybook - kompiluj deklaracje treści, dodaj przełącznik języka i przeglądaj komponenty w dowolnym języku.
 keywords:
   - Internacjonalizacja
   - Dokumentacja
@@ -33,7 +33,7 @@ history:
 
 ## Czym jest Intlayer?
 
-**Intlayer** to innowacyjna biblioteka internacjonalizacji (i18n) typu open-source, zaprojektowana w celu uproszczenia obsługi wielojęzyczności w nowoczesnych aplikacjach internetowych. Działa na **poziomie komponentów** — każdy komponent posiada własne deklaracje treści — co pozwala na przechowywanie tłumaczeń w tym samym miejscu, co kod, który ich używa.
+**Intlayer** to innowacyjna biblioteka internacjonalizacji (i18n) typu open-source, zaprojektowana w celu uproszczenia obsługi wielojęzyczności w nowoczesnych aplikacjach internetowych. Działa na **poziomie komponentów** - każdy komponent posiada własne deklaracje treści - co pozwala na przechowywanie tłumaczeń w tym samym miejscu, co kod, który ich używa.
 
 Dzięki Intlayer możesz:
 
@@ -83,9 +83,9 @@ bun add vite-intlayer --dev
 
 | Pakiet           | Rola                                                          |
 | ---------------- | ------------------------------------------------------------- |
-| `intlayer`       | Rdzeń — konfiguracja, kompilacja treści, interfejs CLI        |
-| `react-intlayer` | Powiązania React — `IntlayerProvider`, hook `useIntlayer`     |
-| `vite-intlayer`  | Wtyczka Vite — monitoruje i kompiluje pliki deklaracji treści |
+| `intlayer`       | Rdzeń - konfiguracja, kompilacja treści, interfejs CLI        |
+| `react-intlayer` | Powiązania React - `IntlayerProvider`, hook `useIntlayer`     |
+| `vite-intlayer`  | Wtyczka Vite - monitoruje i kompiluje pliki deklaracji treści |
 
 ---
 
@@ -291,7 +291,7 @@ export default config;
 
 ### Krok 4: Dodawanie dekoratora `IntlayerProvider` i przełącznika języków
 
-Podobnie jak w przypadku konfiguracji Vite — dodaj dekorator i globalny typ języka w `.storybook/preview.tsx`:
+Podobnie jak w przypadku konfiguracji Vite - dodaj dekorator i globalny typ języka w `.storybook/preview.tsx`:
 
 ```tsx fileName=".storybook/preview.tsx" codeFormat="typescript"
 import type { Preview, StoryContext } from "@storybook/react";
@@ -411,7 +411,7 @@ const meta: Meta<typeof CopyButton> = {
 export default meta;
 type Story = StoryObj<typeof CopyButton>;
 
-/** Domyślna historia — przełącz język na pasku narzędzi, aby zobaczyć tłumaczenia. */
+/** Domyślna historia - przełącz język na pasku narzędzi, aby zobaczyć tłumaczenia. */
 export const Default: Story = {
   args: {
     content: "npm install intlayer react-intlayer",

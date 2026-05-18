@@ -47,7 +47,7 @@ history:
 <iframe
   src="https://intlayer-astro-template.vercel.app"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Bản demo — intlayer-astro-template"
+  title="Bản demo - intlayer-astro-template"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -262,7 +262,7 @@ const { greeting } = getIntlayer("lit-demo", locale);
     />
   </head>
   <body>
-    <!-- Lit custom element — nhận ngôn ngữ được phát hiện bởi máy chủ dưới dạng thuộc tính -->
+    <!-- Lit custom element - nhận ngôn ngữ được phát hiện bởi máy chủ dưới dạng thuộc tính -->
     <lit-demo locale={locale}></lit-demo>
   </body>
 </html>

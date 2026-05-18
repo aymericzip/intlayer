@@ -93,7 +93,7 @@ Intlayer를 사용하면 다음을 수행할 수 있습니다:
 <iframe
   src="https://intlayer-tanstack-start-template.vercel.app"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="데모 — intlayer-tanstack-start-template"
+  title="데모 - intlayer-tanstack-start-template"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />

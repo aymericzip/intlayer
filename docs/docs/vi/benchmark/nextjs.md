@@ -25,7 +25,7 @@ history:
     changes: "Khởi tạo benchmark"
 ---
 
-# Thư viện i18n cho Next.js — Báo cáo Benchmark 2026
+# Thư viện i18n cho Next.js - Báo cáo Benchmark 2026
 
 Trang này là báo cáo benchmark cho các giải pháp i18n trên Next.js.
 
@@ -60,7 +60,7 @@ Ví dụ, trong những trường hợp xấu nhất, sau khi triển khai đa n
 
 Một tác động khác của các thư viện i18n là làm chậm quá trình phát triển. Việc chuyển đổi các component thành nội dung đa ngôn ngữ trên nhiều ngôn ngữ khác nhau rất tốn thời gian.
 
-Vì bài toán này khó, nên có nhiều giải pháp tồn tại — một số tập trung vào trải nghiệm phát triển (DX), một số khác vào hiệu năng hoặc khả năng mở rộng, v.v.
+Vì bài toán này khó, nên có nhiều giải pháp tồn tại - một số tập trung vào trải nghiệm phát triển (DX), một số khác vào hiệu năng hoặc khả năng mở rộng, v.v.
 
 Intlayer cố gắng tối ưu hóa trên tất cả các khía cạnh này.
 
@@ -98,7 +98,7 @@ Ngay cả khi bạn khai báo các route như `[locale]/page.tsx`, với Webpack
 
 Nếu bạn sử dụng cú pháp như `const t = useTranslation()` + `t('object-của-tôi.sub-object.key-của-tôi')`, toàn bộ tệp JSON thường phải nằm trong gói bundle để thư viện có thể phân tích và tìm kiếm khóa (key). Phần lớn nội dung đó sau đó được gửi đi ngay cả khi nó không được sử dụng trên trang.
 
-Để giảm thiểu điều này, một số thư viện yêu cầu bạn khai báo theo từng trang những namespace nào cần tải — ví dụ: `next-i18next`, `next-intl`, `lingui`, `next-translate`, `next-international`.
+Để giảm thiểu điều này, một số thư viện yêu cầu bạn khai báo theo từng trang những namespace nào cần tải - ví dụ: `next-i18next`, `next-intl`, `lingui`, `next-translate`, `next-international`.
 
 Ngược lại, `Paraglide` thêm một bước bổ sung trước khi build để chuyển đổi tệp JSON thành các biểu tượng phẳng như `const en_my_var = () => 'giá trị của tôi'`. Về lý thuyết, điều đó cho phép loại bỏ mã thừa cho nội dung không dùng đến trên trang. Như chúng ta sẽ thấy, phương pháp đó vẫn có những nhược điểm đánh đổi.
 
@@ -153,7 +153,7 @@ Tôi đã chạy cùng một ứng dụng đa ngôn ngữ trên trình duyệt t
 
 - **Kích thước gói bundle trung bình cho component**: Các thành phần giao diện người dùng (UI) phổ biến được đo lường **từng cái một** thay vì ẩn bên trong một con số khổng lồ của ứng dụng. Nó cho thấy liệu việc quốc tế hóa có âm thầm làm phồng các component hàng ngày hay không. Ví dụ, nếu component của bạn render lại, nó sẽ tải toàn bộ dữ liệu đó từ bộ nhớ. Việc đính kèm một tệp JSON khổng lồ vào bất kỳ component nào giống như việc kết nối một kho lưu trữ lớn các dữ liệu không dùng đến sẽ làm chậm hiệu năng của component của bạn.
 
-- **Khả năng phản ứng khi chuyển đổi ngôn ngữ**: Tôi chuyển đổi ngôn ngữ bằng bộ điều khiển của chính ứng dụng và đo thời gian cho đến khi trang được chuyển đổi rõ ràng — những gì một khách truy cập sẽ nhận thấy, không phải là một bước vi mô trong phòng thí nghiệm.
+- **Khả năng phản ứng khi chuyển đổi ngôn ngữ**: Tôi chuyển đổi ngôn ngữ bằng bộ điều khiển của chính ứng dụng và đo thời gian cho đến khi trang được chuyển đổi rõ ràng - những gì một khách truy cập sẽ nhận thấy, không phải là một bước vi mô trong phòng thí nghiệm.
 
 - **Công việc render sau khi thay đổi ngôn ngữ**: Một theo dõi hẹp hơn: giao diện mất bao nhiêu công sức để vẽ lại cho ngôn ngữ mới sau khi việc chuyển đổi đang diễn ra. Hữu ích khi thời gian "cảm nhận được" và chi phí framework khác biệt.
 
@@ -169,9 +169,9 @@ Sao GitHub là một chỉ số mạnh mẽ về mức độ phổ biến của 
 
 ## Kết quả chi tiết
 
-### 1 — Các giải pháp cần tránh
+### 1 - Các giải pháp cần tránh
 
-Một số giải pháp, chẳng hạn như `gt-next` hoặc `lingo.dev`, rõ ràng là tốt nhất nên tránh. Chúng kết hợp việc phụ thuộc vào nhà cung cấp (vendor lock-in) với việc làm ô nhiễm mã nguồn của bạn. Mặc dù đã dành nhiều giờ để thử triển khai chúng, tôi chưa bao giờ làm cho chúng hoạt động bình thường — kể cả trên TanStack Start hay Next.js.
+Một số giải pháp, chẳng hạn như `gt-next` hoặc `lingo.dev`, rõ ràng là tốt nhất nên tránh. Chúng kết hợp việc phụ thuộc vào nhà cung cấp (vendor lock-in) với việc làm ô nhiễm mã nguồn của bạn. Mặc dù đã dành nhiều giờ để thử triển khai chúng, tôi chưa bao giờ làm cho chúng hoạt động bình thường - kể cả trên TanStack Start hay Next.js.
 
 Các vấn đề gặp phải:
 
@@ -185,12 +185,12 @@ Các vấn đề gặp phải:
 
 **(Lingo.dev)** (`@lingo.dev/compiler@0.4.0`):
 
-- Vượt quá hạn mức AI, khiến việc xây dựng bị đình trệ hoàn toàn — vì vậy bạn không thể đưa lên production nếu không trả tiền.
+- Vượt quá hạn mức AI, khiến việc xây dựng bị đình trệ hoàn toàn - vì vậy bạn không thể đưa lên production nếu không trả tiền.
 - Trình biên dịch đã bỏ sót gần 40% nội dung đã dịch. Tôi đã phải viết lại tất cả các cấu trúc `.map` thành các khối component phẳng để nó hoạt động.
 - CLI của họ có rất nhiều lỗi và hay tự ý đặt lại tệp cấu hình không vì lý do gì.
 - Khi xây dựng, nó đã xóa hoàn toàn các tệp JSON được tạo ra khi có nội dung mới được thêm vào. Kết quả là, một số ít khóa có thể xóa sạch hơn 300 khóa hiện có.
 
-### 2 — Các giải pháp thử nghiệm
+### 2 - Các giải pháp thử nghiệm
 
 **(Wuchale)** (`wuchale@0.22.11`):
 
@@ -204,7 +204,7 @@ Cuối cùng, so với các giải pháp khác, Paraglide không sử dụng sto
 
 > Ghi chú về paraglide: giải pháp này đưa mã vào cơ sở mã của bạn để import, kết quả là chỉ số 'kích thước thư viện' trong báo cáo benchmark gần bằng 0. Việc tạo mã (code generation) là một điều tốt, vì hàm được sử dụng sẽ chỉ bao gồm logic cần thiết (toàn bộ tiền tố so với không có tiền tố, cookie so với lưu trữ, v.v.). So sánh với điều này, Intlayer thực hiện việc lọc này thông qua các lần chèn biến môi trường trong quá trình build để buộc bundler phải loại bỏ mã thừa (tree-shake) cho nội dung tùy thuộc vào logic. Nhờ đó, paraglide và intlayer cuối cùng trở thành các giải pháp nhẹ hơn từ 6 đến 10 lần so với i18next hoặc next-intl.
 
-### 3 — Các giải pháp chấp nhận được
+### 3 - Các giải pháp chấp nhận được
 
 **(Tolgee)** (`@tolgee/react@7.0.0`):
 
@@ -228,7 +228,7 @@ Các định dạng thông báo cũng khác nhau: `next-intl` sử dụng ICU Me
 
 `Lingui` thường được khen ngợi. Cá nhân tôi thấy quy trình `lingui extract` / `lingui compile` phức tạp hơn các lựa chọn thay thế, mà không có ưu điểm rõ ràng. Tôi cũng nhận thấy cú pháp không nhất quán gây nhầm lẫn cho AI (ví dụ: `t()`, `t''`, `i18n.t()`, `<Trans>`).
 
-### 4 — Các khuyến nghị
+### 4 - Các khuyến nghị
 
 **(Next Translate)** (`next-translate@3.1.2`):
 

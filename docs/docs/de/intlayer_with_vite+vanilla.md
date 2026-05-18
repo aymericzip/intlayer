@@ -35,7 +35,7 @@ history:
 <iframe
   src="https://ide.intlayer.org/aymericzip/intlayer-vite-vanilla-template?file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo CodeSandbox — Intlayer"
+  title="Demo CodeSandbox - Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -46,7 +46,7 @@ history:
 <iframe
   src="https://intlayer-vite-vanilla.vercel.app"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo — intlayer-vite-vanilla-template"
+  title="Demo - intlayer-vite-vanilla-template"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -255,7 +255,7 @@ export default appContent;
 
 ### Schritt 6: Intlayer in Ihrem JavaScript verwenden
 
-`vanilla-intlayer` spiegelt die Oberflächen-API von `react-intlayer` wider: `useIntlayer(key, locale?)` gibt den übersetzten Inhalt direkt zurück. Verketten Sie `.onChange()` am Ergebnis, um Sprachänderungen zu abonnieren — das explizite Äquivalent zu einem React-Re-Render.
+`vanilla-intlayer` spiegelt die Oberflächen-API von `react-intlayer` wider: `useIntlayer(key, locale?)` gibt den übersetzten Inhalt direkt zurück. Verketten Sie `.onChange()` am Ergebnis, um Sprachänderungen zu abonnieren - das explizite Äquivalent zu einem React-Re-Render.
 
 ```typescript fileName="src/main.ts" codeFormat="typescript"
 import { installIntlayer, useIntlayer } from "vanilla-intlayer";
@@ -456,7 +456,7 @@ const unsubscribe = useDictionaryDynamic(
 });
 ```
 
-> Das Bundle jeder Sprache wird nur abgerufen, wenn diese Sprache aktiv wird, und das Ergebnis wird zwischengespeichert — nachfolgende Wechsel zur gleichen Sprache erfolgen sofort.
+> Das Bundle jeder Sprache wird nur abgerufen, wenn diese Sprache aktiv wird, und das Ergebnis wird zwischengespeichert - nachfolgende Wechsel zur gleichen Sprache erfolgen sofort.
 
 ### (Optional) Schritt 13: Den Inhalt Ihrer Komponenten extrahieren
 
@@ -557,7 +557,7 @@ bun run build # Oder bun run dev
 
 ### (Optional) Sitemap und robots.txt (Build-Zeit)
 
-Intlayer stellt Hilfsfunktionen bereit — `generateSitemap` und `getMultilingualUrls` —, mit denen Sie mehrsprachige `sitemap.xml`- und `robots.txt`-Inhalte für Crawler formatieren und automatisch nach `public/` schreiben können. Üblich ist ein kleines Node-Skript **vor** Vite (z. B. npm-`predev`-/`prebuild`-Hooks), damit die Dateien beim Build bzw. Dev-Server vorliegen.
+Intlayer stellt Hilfsfunktionen bereit - `generateSitemap` und `getMultilingualUrls` -, mit denen Sie mehrsprachige `sitemap.xml`- und `robots.txt`-Inhalte für Crawler formatieren und automatisch nach `public/` schreiben können. Üblich ist ein kleines Node-Skript **vor** Vite (z. B. npm-`predev`-/`prebuild`-Hooks), damit die Dateien beim Build bzw. Dev-Server vorliegen.
 
 #### Sitemap
 

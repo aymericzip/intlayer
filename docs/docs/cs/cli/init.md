@@ -138,7 +138,7 @@ Checking Intlayer configuration...
 
 ## Poznámky:
 
-- Příkaz je idempotentní — můžete jej bezpečně spustit několikrát. Již nakonfigurované kroky budou přeskočeny.
+- Příkaz je idempotentní - můžete jej bezpečně spustit několikrát. Již nakonfigurované kroky budou přeskočeny.
 - Pokud konfigurační soubor již existuje, nebude přepsán.
 - Konfigurace TypeScriptu bez pole `include` (např. konfigurace ve stylu řešení s referencemi) jsou přeskočeny.
 - Příkaz se zastaví s chybou, pokud v kořenu projektu nebude nalezen soubor `package.json`.

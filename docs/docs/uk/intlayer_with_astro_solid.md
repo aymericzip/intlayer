@@ -46,7 +46,7 @@ history:
 <iframe
   src="https://intlayer-astro-template.vercel.app"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Демо — intlayer-astro-template"
+  title="Демо - intlayer-astro-template"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -60,7 +60,7 @@ history:
 
 ## Що таке Intlayer?
 
-**Intlayer** — це інноваційна бібліотека інтернаціоналізації (i18n) з відкритим вихідним кодом, розроблена для спрощення підтримки багатьох мов у сучасних веб-додатках.
+**Intlayer** - це інноваційна бібліотека інтернаціоналізації (i18n) з відкритим вихідним кодом, розроблена для спрощення підтримки багатьох мов у сучасних веб-додатках.
 
 З Intlayer ви можете:
 
@@ -356,12 +356,12 @@ export function LocaleSwitcher() {
 ```
 
 > **Примітка щодо реактивності Solid:**
-> У Solid `locale` є сигналом реактивного доступу (reactive accessor signal) — завжди викликайте його як `locale()`, щоб отримати поточне значення.
+> У Solid `locale` є сигналом реактивного доступу (reactive accessor signal) - завжди викликайте його як `locale()`, щоб отримати поточне значення.
 
 > **Примітка щодо стійкості:**
 > Використання `onLocaleChange` для перенаправлення через `window.location.href` гарантує відвідування нової URL-адреси з мовним префіксом. Це дозволяє middleware Intlayer встановити cookie мови та запам'ятати вибір користувача для майбутніх візитів.
 
-> `LocaleSwitcher` повинен рендеритися всередині `IntlayerProvider` — використовуйте його у вашому компоненті island (як показано на кроці 6).
+> `LocaleSwitcher` повинен рендеритися всередині `IntlayerProvider` - використовуйте його у вашому компоненті island (як показано на кроці 6).
 
 ### Крок 8: Sitemap та Robots.txt
 

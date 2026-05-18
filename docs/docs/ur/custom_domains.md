@@ -34,8 +34,8 @@ Intlayer ڈومین پر مبنی لوکل راؤٹنگ کو سپورٹ کرتا
 
 بنیادی فرق **خصوصیت (exclusivity)** ہے:
 
-- **خصوصی ڈومین (Exclusive domain)** — اس ہوسٹ نیم پر صرف ایک ہی لوکل میپ ہوتا ہے (مثلاً `zh → intlayer.zh`)۔ ڈومین خود ہی لوکل کی شناخت کرتا ہے، اس لیے پاتھ میں کوئی لوکل سابقہ (prefix) شامل نہیں کیا جاتا۔ `https://intlayer.zh/about` چینی مواد فراہم کرتا ہے۔
-- **مشترکہ ڈومین (Shared domain)** — ایک ہی ہوسٹ نیم پر متعدد لوکلز میپ ہوتے ہیں (مثلاً `en` اور `fr` دونوں `intlayer.org` پر میپ ہوتے ہیں)۔ عام سابقہ پر مبنی راؤٹنگ لاگو ہوتی ہے۔ `intlayer.org/fr/about` فرانسیسی مواد فراہم کرتا ہے۔
+- **خصوصی ڈومین (Exclusive domain)** - اس ہوسٹ نیم پر صرف ایک ہی لوکل میپ ہوتا ہے (مثلاً `zh → intlayer.zh`)۔ ڈومین خود ہی لوکل کی شناخت کرتا ہے، اس لیے پاتھ میں کوئی لوکل سابقہ (prefix) شامل نہیں کیا جاتا۔ `https://intlayer.zh/about` چینی مواد فراہم کرتا ہے۔
+- **مشترکہ ڈومین (Shared domain)** - ایک ہی ہوسٹ نیم پر متعدد لوکلز میپ ہوتے ہیں (مثلاً `en` اور `fr` دونوں `intlayer.org` پر میپ ہوتے ہیں)۔ عام سابقہ پر مبنی راؤٹنگ لاگو ہوتی ہے۔ `intlayer.org/fr/about` فرانسیسی مواد فراہم کرتا ہے۔
 
 ## کنفیگریشن
 
@@ -55,9 +55,9 @@ const config: IntlayerConfig = {
   routing: {
     mode: "prefix-no-default",
     domains: {
-      // مشترکہ ڈومین — en اور fr intlayer.org پر سابقہ راؤٹنگ استعمال کرتے ہیں
+      // مشترکہ ڈومین - en اور fr intlayer.org پر سابقہ راؤٹنگ استعمال کرتے ہیں
       en: "intlayer.org",
-      // خصوصی ڈومین — zh کا اپنا ہوسٹ نیم ہے، کسی /zh/ سابقہ کی ضرورت نہیں ہے
+      // خصوصی ڈومین - zh کا اپنا ہوسٹ نیم ہے، کسی /zh/ سابقہ کی ضرورت نہیں ہے
       zh: "intlayer.zh",
     },
   },
@@ -96,7 +96,7 @@ getLocalizedUrl("/about", "zh", { currentDomain: "intlayer.org" });
 ```ts
 // موجودہ پیج: intlayer.zh/about
 getLocalizedUrl("/about", "zh", { currentDomain: "intlayer.zh" });
-// ← "/about"  (پہلے سے ہی صحیح ڈومین پر ہے — نسبتاً URL)
+// ← "/about"  (پہلے سے ہی صحیح ڈومین پر ہے - نسبتاً URL)
 
 getLocalizedUrl("/about", "fr", { currentDomain: "intlayer.zh" });
 // ← "https://intlayer.org/fr/about"  (intlayer.org پر واپس کراس ڈومین لنک)
@@ -108,14 +108,14 @@ getLocalizedUrl("/about", "fr", { currentDomain: "intlayer.zh" });
 
 1. مطلق ان پٹ URL کا ہوسٹ نیم (مثلاً `https://intlayer.org/about` ← `intlayer.org`)۔
 2. براؤزر کے ماحول میں `window.location.hostname`۔
-3. اگر دونوں میں سے کوئی بھی دستیاب نہ ہو (بغیر کسی واضح آپشن کے SSR)، تو ایک ہی ڈومین کے لوکلز کے لیے نسبتاً URL واپس کیا جاتا ہے اور کوئی مطلق URL تیار نہیں کیا جاتا — یہ ایک محفوظ فال بیک (fallback) ہے۔
+3. اگر دونوں میں سے کوئی بھی دستیاب نہ ہو (بغیر کسی واضح آپشن کے SSR)، تو ایک ہی ڈومین کے لوکلز کے لیے نسبتاً URL واپس کیا جاتا ہے اور کوئی مطلق URL تیار نہیں کیا جاتا - یہ ایک محفوظ فال بیک (fallback) ہے۔
 
 ```ts
-// براؤزر — window.location.hostname === 'intlayer.org'
+// براؤزر - window.location.hostname === 'intlayer.org'
 getLocalizedUrl("/about", "zh");
 // ← "https://intlayer.zh/about"  (ونڈو سے خودکار شناخت ہوئی)
 
-// ایک مطلق URL سے — ڈومین کی خودکار شناخت ہوئی
+// ایک مطلق URL سے - ڈومین کی خودکار شناخت ہوئی
 getLocalizedUrl("https://intlayer.org/about", "zh");
 // ← "https://intlayer.zh/about"
 ```
@@ -151,14 +151,14 @@ export const config = {
 };
 ```
 
-**ری ڈائریکٹ (Redirect)** — درخواست کسی خاص لوکل سابقہ کے لیے غلط ڈومین پر پہنچتی ہے:
+**ری ڈائریکٹ (Redirect)** - درخواست کسی خاص لوکل سابقہ کے لیے غلط ڈومین پر پہنچتی ہے:
 
 ```
 GET intlayer.org/zh/about
 ← 301 https://intlayer.zh/about
 ```
 
-**ری رائٹ (Rewrite)** — درخواست بغیر کسی سابقہ کے لوکل کے خصوصی ڈومین پر پہنچتی ہے:
+**ری رائٹ (Rewrite)** - درخواست بغیر کسی سابقہ کے لوکل کے خصوصی ڈومین پر پہنچتی ہے:
 
 ```
 GET intlayer.zh/about
@@ -209,7 +209,7 @@ export const LocaleSwitcher = () => {
 };
 ```
 
-کسی اضافی کنفیگریشن کی ضرورت نہیں ہے — `useLocale` اندرونی طور پر `window.location.hostname` کا پتہ لگاتا ہے اور `router.replace` (ایک ہی ڈومین) اور `window.location.href` (کراس ڈومین) کے درمیان فیصلہ کرتا ہے۔
+کسی اضافی کنفیگریشن کی ضرورت نہیں ہے - `useLocale` اندرونی طور پر `window.location.hostname` کا پتہ لگاتا ہے اور `router.replace` (ایک ہی ڈومین) اور `window.location.href` (کراس ڈومین) کے درمیان فیصلہ کرتا ہے۔
 
 ## SEO: `hreflang` متبادل لنکس
 

@@ -45,7 +45,7 @@ history:
 <iframe
   src="https://intlayer-vite-lit-template.vercel.app"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="ডেমো — intlayer-vite-lit-template"
+  title="ডেমো - intlayer-vite-lit-template"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -300,7 +300,7 @@ module.exports = appContent;
 
 ### ধাপ ৬: আপনার LitElement-এ Intlayer ব্যবহার করুন
 
-একটি `LitElement`-এর ভিতরে `useIntlayer` ব্যবহার করুন। এটি একটি `ReactiveController` প্রক্সি প্রদান করে যা লোকাল পরিবর্তন হলে স্বয়ংক্রিয়ভাবে পুনরায় রেন্ডারিং ট্রিগার করে — কোনো অতিরিক্ত সেটআপের প্রয়োজন নেই।
+একটি `LitElement`-এর ভিতরে `useIntlayer` ব্যবহার করুন। এটি একটি `ReactiveController` প্রক্সি প্রদান করে যা লোকাল পরিবর্তন হলে স্বয়ংক্রিয়ভাবে পুনরায় রেন্ডারিং ট্রিগার করে - কোনো অতিরিক্ত সেটআপের প্রয়োজন নেই।
 
 ```typescript fileName="src/my-element.ts" codeFormat="typescript"
 import { LitElement, html } from "lit";
@@ -556,7 +556,7 @@ Intlayer `generateSitemap` ও `getMultilingualUrls` দেয়, যাতে আ
 
 Intlayer-এর সাইটম্যাপ জেনারেটর আপনার লোকেল কনফিগারেশন মেনে চলে এবং ক্রলারের জন্য মেটাডেটা যোগ করে।
 
-> জেনারেটেড সাইটম্যাপ `xhtml:link` (hreflang) নেমস্পেস সমর্থন করে। শুধু সমতল URL তালিকার বদলে Intlayer প্রতিটি পৃষ্ঠার সব ভাষার সংস্করণ দ্বিমুখীভাবে যুক্ত করে (যেমন `/about`, `/fr/about`, বা `/about?lang=fr` — রাউটিং মোড অনুযায়ী)।
+> জেনারেটেড সাইটম্যাপ `xhtml:link` (hreflang) নেমস্পেস সমর্থন করে। শুধু সমতল URL তালিকার বদলে Intlayer প্রতিটি পৃষ্ঠার সব ভাষার সংস্করণ দ্বিমুখীভাবে যুক্ত করে (যেমন `/about`, `/fr/about`, বা `/about?lang=fr` - রাউটিং মোড অনুযায়ী)।
 
 #### Robots.txt
 

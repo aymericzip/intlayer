@@ -25,7 +25,7 @@ history:
     changes: "Init benchmark"
 ---
 
-# Next.js i18n Libraries — 2026 Benchmark Report
+# Next.js i18n Libraries - 2026 Benchmark Report
 
 This page is a benchmark report for i18n solutions on Next.js.
 
@@ -60,7 +60,7 @@ As an example, for the worst offenders, once internationalised your page can end
 
 Another impact of i18n libraries is slower development. Turning components into multilingual content across languages is time-consuming.
 
-Because the problem is hard, many solutions exist—some focused on DX, others on performance or scalability, and so on.
+Because the problem is hard, many solutions exist-some focused on DX, others on performance or scalability, and so on.
 
 Intlayer tries to optimise across these dimensions.
 
@@ -169,7 +169,7 @@ GitHub stars are a strong indicator of a project's popularity, community trust, 
 
 ## Results in detail
 
-### 1 — Solutions to avoid
+### 1 - Solutions to avoid
 
 Some solutions, such as `gt-next` or `lingo.dev`, are clearly best avoided. They combine vendor lock-in with polluting your codebase. Despite many hours trying to implement them, I never got them working, neither on TanStack Start nor on Next.js.
 
@@ -190,7 +190,7 @@ Issues encountered:
 - Their CLI is buggy and used to reset the config file for no reason.
 - At build, it totally erased the generated JSONs when new content was added. As a result, a handful of keys could wipe out more than 300 existing keys.
 
-### 2 — Experimental solutions
+### 2 - Experimental solutions
 
 **(Wuchale)** (`wuchale@0.22.11`):
 
@@ -205,7 +205,7 @@ Finally, in comparison of other solutions, Paraglide does not use store (e.g. Re
 
 > Note on paraglide: the solution injects code into your codebase for import, as a result the 'lib size' metric in the benchmark report is nearly 0. Code generation is a good thing, because the function used will include only the necessary logic (all prefixes vs no prefixes, cookies vs storage, etc.). In comparison, Intlayer performs this filtering via environment variable injections in the build to force the bundler to tree-shake content depending on the logic. Thanks to this, paraglide and intlayer end up being 6 to 10 times lighter solutions than i18next or next-intl.
 
-### 3 — Acceptable solutions
+### 3 - Acceptable solutions
 
 **(Tolgee)** (`@tolgee/react@7.0.0`):
 
@@ -229,7 +229,7 @@ Message formats also differ: `next-intl` uses ICU MessageFormat, while `i18next`
 
 `Lingui` is often praised. Personally I found the `lingui extract` / `lingui compile` workflow more complex than alternatives, without a clear upside. I also noticed inconsistent syntaxes that confuse AIs (e.g. `t()`, `t''`, `i18n.t()`, `<Trans>`).
 
-### 4 — Recommendations
+### 4 - Recommendations
 
 **(Next Translate)** (`next-translate@3.1.2`):
 

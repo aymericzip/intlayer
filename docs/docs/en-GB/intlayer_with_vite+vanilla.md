@@ -35,7 +35,7 @@ history:
 <iframe
   src="https://ide.intlayer.org/aymericzip/intlayer-vite-vanilla-template?file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo CodeSandbox — Intlayer"
+  title="Demo CodeSandbox - Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -46,7 +46,7 @@ history:
 <iframe
   src="https://intlayer-vite-vanilla.vercel.app"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo — intlayer-vite-vanilla-template"
+  title="Demo - intlayer-vite-vanilla-template"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -255,7 +255,7 @@ export default appContent;
 
 ### Step 6: Use Intlayer in Your JavaScript
 
-`vanilla-intlayer` mirrors the `react-intlayer` surface API: `useIntlayer(key, locale?)` returns the translated content directly. Chain `.onChange()` on the result to subscribe to locale changes — the explicit equivalent of a React re-render.
+`vanilla-intlayer` mirrors the `react-intlayer` surface API: `useIntlayer(key, locale?)` returns the translated content directly. Chain `.onChange()` on the result to subscribe to locale changes - the explicit equivalent of a React re-render.
 
 ```typescript fileName="src/main.ts" codeFormat="typescript"
 import { installIntlayer, useIntlayer } from "vanilla-intlayer";
@@ -456,7 +456,7 @@ const unsubscribe = useDictionaryDynamic(
 });
 ```
 
-> Each locale's bundle is fetched only when that locale becomes active and the result is cached — subsequent switches to the same locale are instant.
+> Each locale's bundle is fetched only when that locale becomes active and the result is cached - subsequent switches to the same locale are instant.
 
 ### (Optional) Step 13: Extract the content of your components
 

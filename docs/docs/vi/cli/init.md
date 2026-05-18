@@ -138,7 +138,7 @@ Checking Intlayer configuration...
 
 ## Lưu ý:
 
-- Lệnh này mang tính lũy đẳng (idempotent) — bạn có thể chạy nó nhiều lần một cách an toàn. Các bước đã được cấu hình sẽ tự động được bỏ qua.
+- Lệnh này mang tính lũy đẳng (idempotent) - bạn có thể chạy nó nhiều lần một cách an toàn. Các bước đã được cấu hình sẽ tự động được bỏ qua.
 - Nếu tệp cấu hình đã tồn tại, nó sẽ không bị ghi đè.
 - Các cấu hình TypeScript không có mảng `include` (ví dụ: cấu hình kiểu giải pháp có tham chiếu) sẽ bị bỏ qua.
 - Lệnh sẽ dừng với thông báo lỗi nếu không tìm thấy `package.json` trong gốc dự án.

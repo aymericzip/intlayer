@@ -138,7 +138,7 @@ Checking Intlayer configuration...
 
 ## Notes:
 
-- The command is idempotent — you can safely run it multiple times. Already configured steps will be automatically skipped.
+- The command is idempotent - you can safely run it multiple times. Already configured steps will be automatically skipped.
 - If a configuration file already exists, it will not be overwritten.
 - TypeScript configurations without an `include` array (e.g. solution-style configurations with references) are skipped.
 - The command stops with an error if no `package.json` is found in the project root.

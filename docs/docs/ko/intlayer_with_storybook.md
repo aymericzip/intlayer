@@ -2,7 +2,7 @@
 createdAt: 2026-03-20
 updatedAt: 2026-05-06
 title: Storybook에서 Intlayer를 설정하는 방법
-description: Intlayer와 Storybook을 사용하여 디자인 시스템을 다국어화하는 방법을 배워보세요 — 콘텐츠 선언 컴파일, 로케일 스위처 추가, 그리고 모든 언어에서 컴포넌트 미리보기.
+description: Intlayer와 Storybook을 사용하여 디자인 시스템을 다국어화하는 방법을 배워보세요 - 콘텐츠 선언 컴파일, 로케일 스위처 추가, 그리고 모든 언어에서 컴포넌트 미리보기.
 keywords:
   - 국제화
   - 문서
@@ -83,9 +83,9 @@ bun add vite-intlayer --dev
 
 | 패키지           | 역할                                                |
 | ---------------- | --------------------------------------------------- |
-| `intlayer`       | 코어 — 구성, 콘텐츠 컴파일, CLI                     |
-| `react-intlayer` | React 바인딩 — `IntlayerProvider`, `useIntlayer` 훅 |
-| `vite-intlayer`  | Vite 플러그인 — 콘텐츠 선언 파일을 감시하고 컴파일  |
+| `intlayer`       | 코어 - 구성, 콘텐츠 컴파일, CLI                     |
+| `react-intlayer` | React 바인딩 - `IntlayerProvider`, `useIntlayer` 훅 |
+| `vite-intlayer`  | Vite 플러그인 - 콘텐츠 선언 파일을 감시하고 컴파일  |
 
 ---
 
@@ -411,7 +411,7 @@ const meta: Meta<typeof CopyButton> = {
 export default meta;
 type Story = StoryObj<typeof CopyButton>;
 
-/** 기본 스토리 — 번역을 미리 보려면 도구 모음에서 로케일을 전환하세요. */
+/** 기본 스토리 - 번역을 미리 보려면 도구 모음에서 로케일을 전환하세요. */
 export const Default: Story = {
   args: {
     content: "npm install intlayer react-intlayer",

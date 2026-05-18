@@ -25,7 +25,7 @@ history:
     changes: "Benchmark initialisiert"
 ---
 
-# Next.js i18n-Bibliotheken — Benchmark-Bericht 2026
+# Next.js i18n-Bibliotheken - Benchmark-Bericht 2026
 
 Diese Seite ist ein Benchmark-Bericht für i18n-Lösungen auf Next.js.
 
@@ -169,7 +169,7 @@ GitHub-Sterne sind ein starker Indikator für die Popularität eines Projekts, d
 
 ## Ergebnisse im Detail
 
-### 1 — Zu vermeidende Lösungen
+### 1 - Zu vermeidende Lösungen
 
 Einige Lösungen wie `gt-next` oder `lingo.dev` sollten klar vermieden werden. Sie kombinieren Vendor-Lock-in mit einer Verunreinigung Ihrer Codebasis. Trotz vieler Stunden Arbeit ist es mir nicht gelungen, sie zum Laufen zu bringen – weder auf TanStack Start noch auf Next.js.
 
@@ -190,7 +190,7 @@ Aufgetretene Probleme:
 - Ihr CLI ist fehleranfällig und setzte die Konfigurationsdatei grundlos zurück.
 - Beim Build löschte es die generierten JSONs vollständig, sobald neuer Inhalt hinzugefügt wurde. Dies konnte dazu führen, dass eine Handvoll Schlüssel mehr als 300 bestehende Schlüssel vernichtete.
 
-### 2 — Experimentelle Lösungen
+### 2 - Experimentelle Lösungen
 
 **(Wuchale)** (`wuchale@0.22.11`):
 
@@ -204,7 +204,7 @@ Schließlich nutzt Paraglide im Vergleich zu anderen Lösungen keinen Store (z. 
 
 > Hinweis zu Paraglide: Die Lösung injiziert Code in Ihre Codebasis für den Import, wodurch die Metrik 'Bibliotheksgröße' im Benchmark-Bericht fast 0 ist. Codegenerierung ist eine gute Sache, da die verwendete Funktion nur die notwendige Logik enthält (Präfix-Gesamtheit vs. kein Präfix, Cookie vs. Speicher usw.). Im Vergleich dazu führt Intlayer diese Filterung durch Injektionen von Umgebungsvariablen in den Build durch, um den Bundler zu zwingen, Inhalte je nach Logik per Tree-shaking zu entfernen. Dank dessen sind Paraglide und Intlayer am Ende 6- bis 10-mal leichtere Lösungen als i18next oder next-intl.
 
-### 3 — Akzeptable Lösungen
+### 3 - Akzeptable Lösungen
 
 **(Tolgee)** (`@tolgee/react@7.0.0`):
 
@@ -228,7 +228,7 @@ Die Nachrichtenformate unterscheiden sich ebenfalls: `next-intl` verwendet ICU M
 
 `Lingui` wird oft gelobt. Persönlich fand ich den `lingui extract` / `lingui compile` Workflow komplexer als Alternativen, ohne einen klaren Vorteil. Mir fielen zudem inkonsistente Syntaxen auf, die KIs verwirren (z. B. `t()`, `t''`, `i18n.t()`, `<Trans>`).
 
-### 4 — Empfehlungen
+### 4 - Empfehlungen
 
 **(Next Translate)** (`next-translate@3.1.2`):
 

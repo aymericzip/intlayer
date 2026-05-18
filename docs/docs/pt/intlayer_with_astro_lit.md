@@ -244,7 +244,7 @@ const { greeting } = getIntlayer("lit-demo", locale);
     />
   </head>
   <body>
-    <!-- Custom element Lit — recebe a localidade detectada pelo servidor como uma propriedade -->
+    <!-- Custom element Lit - recebe a localidade detectada pelo servidor como uma propriedade -->
     <lit-demo locale={locale}></lit-demo>
   </body>
 </html>

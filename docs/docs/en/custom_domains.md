@@ -34,8 +34,8 @@ The `domains` map in `routing` associates each locale with a hostname. Intlayer 
 
 The key distinction is **exclusivity**:
 
-- **Exclusive domain** — only one locale maps to that hostname (e.g. `zh → intlayer.zh`). The domain itself identifies the locale, so no locale prefix is added to the path. `https://intlayer.zh/about` serves Chinese content.
-- **Shared domain** — multiple locales map to the same hostname (e.g. `en` and `fr` both map to `intlayer.org`). Normal prefix-based routing applies. `intlayer.org/fr/about` serves French content.
+- **Exclusive domain** - only one locale maps to that hostname (e.g. `zh → intlayer.zh`). The domain itself identifies the locale, so no locale prefix is added to the path. `https://intlayer.zh/about` serves Chinese content.
+- **Shared domain** - multiple locales map to the same hostname (e.g. `en` and `fr` both map to `intlayer.org`). Normal prefix-based routing applies. `intlayer.org/fr/about` serves French content.
 
 ## Configuration
 
@@ -50,9 +50,9 @@ const config: IntlayerConfig = {
   routing: {
     mode: "prefix-no-default",
     domains: {
-      // Shared domain — en and fr use prefix routing on intlayer.org
+      // Shared domain - en and fr use prefix routing on intlayer.org
       en: "intlayer.org",
-      // Exclusive domain — zh has its own hostname, no /zh/ prefix needed
+      // Exclusive domain - zh has its own hostname, no /zh/ prefix needed
       zh: "intlayer.zh",
     },
   },
@@ -91,7 +91,7 @@ getLocalizedUrl("/about", "zh", { currentDomain: "intlayer.org" });
 ```ts
 // Current page: intlayer.zh/about
 getLocalizedUrl("/about", "zh", { currentDomain: "intlayer.zh" });
-// → "/about"  (already on the correct domain — relative URL)
+// → "/about"  (already on the correct domain - relative URL)
 
 getLocalizedUrl("/about", "fr", { currentDomain: "intlayer.zh" });
 // → "https://intlayer.org/fr/about"  (cross-domain link back to intlayer.org)
@@ -103,14 +103,14 @@ getLocalizedUrl("/about", "fr", { currentDomain: "intlayer.zh" });
 
 1. The hostname of an absolute input URL (e.g. `https://intlayer.org/about` → `intlayer.org`).
 2. `window.location.hostname` in browser environments.
-3. If neither is available (SSR without explicit option), a relative URL is returned for same-domain locales and no absolute URL is produced — this is the safe fallback.
+3. If neither is available (SSR without explicit option), a relative URL is returned for same-domain locales and no absolute URL is produced - this is the safe fallback.
 
 ```ts
-// Browser — window.location.hostname === 'intlayer.org'
+// Browser - window.location.hostname === 'intlayer.org'
 getLocalizedUrl("/about", "zh");
 // → "https://intlayer.zh/about"  (auto-detected from window)
 
-// From an absolute URL — domain detected automatically
+// From an absolute URL - domain detected automatically
 getLocalizedUrl("https://intlayer.org/about", "zh");
 // → "https://intlayer.zh/about"
 ```
@@ -146,14 +146,14 @@ export const config = {
 };
 ```
 
-**Redirect** — request arrives on the wrong domain for a given locale prefix:
+**Redirect** - request arrives on the wrong domain for a given locale prefix:
 
 ```
 GET intlayer.org/zh/about
 → 301 https://intlayer.zh/about
 ```
 
-**Rewrite** — request arrives on the locale's exclusive domain without a prefix:
+**Rewrite** - request arrives on the locale's exclusive domain without a prefix:
 
 ```
 GET intlayer.zh/about
@@ -204,7 +204,7 @@ export const LocaleSwitcher = () => {
 };
 ```
 
-No extra configuration is required — `useLocale` detects `window.location.hostname` internally and decides between `router.replace` (same domain) and `window.location.href` (cross-domain).
+No extra configuration is required - `useLocale` detects `window.location.hostname` internally and decides between `router.replace` (same domain) and `window.location.href` (cross-domain).
 
 ## SEO: `hreflang` Alternate Links
 

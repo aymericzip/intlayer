@@ -35,7 +35,7 @@ history:
 <iframe
   src="https://ide.intlayer.org/aymericzip/intlayer-vite-vanilla-template?file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo CodeSandbox — Intlayer"
+  title="Demo CodeSandbox - Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -46,7 +46,7 @@ history:
 <iframe
   src="https://intlayer-vite-vanilla.vercel.app"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="ডেমো — intlayer-vite-vanilla-template"
+  title="ডেমো - intlayer-vite-vanilla-template"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -255,7 +255,7 @@ export default appContent;
 
 ### ধাপ ৬: আপনার JavaScript-এ Intlayer ব্যবহার করুন
 
-`vanilla-intlayer` প্যাকেজটি `react-intlayer` এর সারফেস API-কে অনুকরণ করে: `useIntlayer(key, locale?)` সরাসরি অনূদিত কন্টেন্ট রিটার্ন করে। লোক্যাল পরিবর্তনের সাবস্ক্রিপশন নিতে রেজাল্টের সাথে `.onChange()` চেইন করুন — যা React রি-রেন্ডারের একটি স্পষ্ট সমতুল্য।
+`vanilla-intlayer` প্যাকেজটি `react-intlayer` এর সারফেস API-কে অনুকরণ করে: `useIntlayer(key, locale?)` সরাসরি অনূদিত কন্টেন্ট রিটার্ন করে। লোক্যাল পরিবর্তনের সাবস্ক্রিপশন নিতে রেজাল্টের সাথে `.onChange()` চেইন করুন - যা React রি-রেন্ডারের একটি স্পষ্ট সমতুল্য।
 
 ```typescript fileName="src/main.ts" codeFormat="typescript"
 import { installIntlayer, useIntlayer } from "vanilla-intlayer";
@@ -456,7 +456,7 @@ const unsubscribe = useDictionaryDynamic(
 });
 ```
 
-> প্রতিটি লোক্যালের বান্ডেল শুধুমাত্র তখনই আনা হয় যখন সেই লোক্যালটি সক্রিয় হয় এবং ফলাফলটি ক্যাশে রাখা হয় — একই লোক্যালে পরবর্তী পরিবর্তনগুলো তাত্ক্ষণিক হয়।
+> প্রতিটি লোক্যালের বান্ডেল শুধুমাত্র তখনই আনা হয় যখন সেই লোক্যালটি সক্রিয় হয় এবং ফলাফলটি ক্যাশে রাখা হয় - একই লোক্যালে পরবর্তী পরিবর্তনগুলো তাত্ক্ষণিক হয়।
 
 ### (ঐচ্ছিক) ধাপ ১৩: আপনার কম্পোনেন্টের কন্টেন্ট এক্সট্র্যাক্ট করুন
 
@@ -563,7 +563,7 @@ Intlayer `generateSitemap` ও `getMultilingualUrls` দেয়, যাতে আ
 
 Intlayer-এর সাইটম্যাপ জেনারেটর আপনার লোকেল কনফিগারেশন মেনে চলে এবং ক্রলারের জন্য মেটাডেটা যোগ করে।
 
-> জেনারেটেড সাইটম্যাপ `xhtml:link` (hreflang) নেমস্পেস সমর্থন করে। শুধু সমতল URL তালিকার বদলে Intlayer প্রতিটি পৃষ্ঠার সব ভাষার সংস্করণ দ্বিমুখীভাবে যুক্ত করে (যেমন `/about`, `/fr/about`, বা `/about?lang=fr` — রাউটিং মোড অনুযায়ী)।
+> জেনারেটেড সাইটম্যাপ `xhtml:link` (hreflang) নেমস্পেস সমর্থন করে। শুধু সমতল URL তালিকার বদলে Intlayer প্রতিটি পৃষ্ঠার সব ভাষার সংস্করণ দ্বিমুখীভাবে যুক্ত করে (যেমন `/about`, `/fr/about`, বা `/about?lang=fr` - রাউটিং মোড অনুযায়ী)।
 
 #### Robots.txt
 

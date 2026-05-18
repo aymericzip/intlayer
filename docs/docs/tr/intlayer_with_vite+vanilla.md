@@ -35,7 +35,7 @@ history:
 <iframe
   src="https://ide.intlayer.org/aymericzip/intlayer-vite-vanilla-template?file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo CodeSandbox — Intlayer"
+  title="Demo CodeSandbox - Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -46,7 +46,7 @@ history:
 <iframe
   src="https://intlayer-vite-vanilla.vercel.app"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo — intlayer-vite-vanilla-template"
+  title="Demo - intlayer-vite-vanilla-template"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -255,7 +255,7 @@ export default appContent;
 
 ### Adım 6: JavaScript'inizde Intlayer Kullanın
 
-`vanilla-intlayer`, `react-intlayer` yüzey API'sini yansıtır: `useIntlayer(key, locale?)` doğrudan çevrilmiş içeriği döndürür. Yerel ayar değişikliklerine abone olmak için sonuç üzerinde `.onChange()` işlevini zincirleyin — bir React yeniden oluşturmasının açık eşdeğeri.
+`vanilla-intlayer`, `react-intlayer` yüzey API'sini yansıtır: `useIntlayer(key, locale?)` doğrudan çevrilmiş içeriği döndürür. Yerel ayar değişikliklerine abone olmak için sonuç üzerinde `.onChange()` işlevini zincirleyin - bir React yeniden oluşturmasının açık eşdeğeri.
 
 ```typescript fileName="src/main.ts" codeFormat="typescript"
 import { installIntlayer, useIntlayer } from "vanilla-intlayer";
@@ -456,7 +456,7 @@ const unsubscribe = useDictionaryDynamic(
 });
 ```
 
-> Her yerel ayarın paketi yalnızca o yerel ayar etkinleştirildiğinde getirilir ve sonuç önbelleğe alınır — aynı yerel ayara sonraki geçişler anlıktır.
+> Her yerel ayarın paketi yalnızca o yerel ayar etkinleştirildiğinde getirilir ve sonuç önbelleğe alınır - aynı yerel ayara sonraki geçişler anlıktır.
 
 ### (İsteğe Bağlı) Adım 13: Bileşenlerinizin içeriğini dışa aktarın
 
@@ -563,7 +563,7 @@ Intlayer, `generateSitemap` ve `getMultilingualUrls` ile tarayıcılar için ço
 
 Intlayer sitemap oluşturucusu yerel ayarlarınıza uyar ve tarayıcılar için metadata ekler.
 
-> Üretilen sitemap `xhtml:link` (hreflang) ad alanını destekler. Düz URL listesi yerine, her sayfanın tüm dil sürümleri çift yönlü bağlanır (ör. `/about`, `/fr/about` veya `/about?lang=fr` — yönlendirme moduna bağlı).
+> Üretilen sitemap `xhtml:link` (hreflang) ad alanını destekler. Düz URL listesi yerine, her sayfanın tüm dil sürümleri çift yönlü bağlanır (ör. `/about`, `/fr/about` veya `/about?lang=fr` - yönlendirme moduna bağlı).
 
 #### Robots.txt
 

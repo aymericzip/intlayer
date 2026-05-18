@@ -46,7 +46,7 @@ history:
 <iframe
   src="https://intlayer-astro-template.vercel.app"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo — intlayer-astro-template"
+  title="Demo - intlayer-astro-template"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -356,12 +356,12 @@ export function LocaleSwitcher() {
 ```
 
 > **Catatan tentang Reaktivitas Solid:**
-> Di Solid, `locale` adalah sinyal accessor reaktif — selalu panggil sebagai `locale()` untuk mengambil nilai saat ini.
+> Di Solid, `locale` adalah sinyal accessor reaktif - selalu panggil sebagai `locale()` untuk mengambil nilai saat ini.
 
 > **Catatan tentang Persistensi:**
 > Menggunakan `onLocaleChange` untuk mengarahkan ulang melalui `window.location.href` memastikan bahwa URL bahasa baru dikunjungi. Hal ini memungkinkan middleware Intlayer menyetel cookie bahasa dan mengingat preferensi pengguna untuk kunjungan mendatang.
 
-> `LocaleSwitcher` harus dirender di dalam `IntlayerProvider` — gunakan ini di komponen island Anda (seperti yang ditunjukkan pada Langkah 6).
+> `LocaleSwitcher` harus dirender di dalam `IntlayerProvider` - gunakan ini di komponen island Anda (seperti yang ditunjukkan pada Langkah 6).
 
 ### Langkah 8: Sitemap dan Robots.txt
 

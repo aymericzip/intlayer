@@ -25,7 +25,7 @@ history:
     changes: "Inisialisasi benchmark"
 ---
 
-# Pustaka i18n Solid — Laporan Benchmark 2026
+# Pustaka i18n Solid - Laporan Benchmark 2026
 
 Halaman ini adalah laporan benchmark untuk solusi i18n pada Solid.
 
@@ -126,11 +126,11 @@ Bintang GitHub adalah indikator kuat dari popularitas proyek, kepercayaan komuni
 
 ## Hasil secara mendetail
 
-### 1 — Solusi yang harus dihindari
+### 1 - Solusi yang harus dihindari
 
 > Tidak ada solusi yang jelas untuk dihindari dalam ekosistem Solid.
 
-### 2 — Solusi yang dapat diterima
+### 2 - Solusi yang dapat diterima
 
 **(solid-i18next)** (`solid-i18next@17.0.2`):
 
@@ -151,7 +151,7 @@ Ia juga tidak memiliki lazy loading dan scoping namespace untuk optimasi ukuran 
 Secara pribadi saya tidak suka harus meregenerasi file JS sebelum setiap push, yang menciptakan risiko konflik merge yang konstan melalui PR.
 Terakhir, dibandingkan dengan solusi lain, Paraglide tidak menggunakan store (misalnya Solid signal) untuk mengambil locale saat ini guna merender konten. Untuk setiap node yang di-parse, ia akan meminta locale dari localStorage / cookie dll. Hal ini menyebabkan eksekusi logika yang tidak perlu yang berdampak pada reaktivitas komponen.
 
-### 3 — Rekomendasi
+### 3 - Rekomendasi
 
 **(Intlayer)** (`solid-intlayer@8.7.12`):
 

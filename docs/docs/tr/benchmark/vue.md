@@ -25,7 +25,7 @@ history:
     changes: "Benchmark başlatıldı"
 ---
 
-# Vue i18n Kütüphaneleri — 2026 Benchmark Raporu
+# Vue i18n Kütüphaneleri - 2026 Benchmark Raporu
 
 Bu sayfa, Vue üzerindeki i18n çözümleri için bir benchmark raporudur.
 
@@ -146,11 +146,11 @@ GitHub yıldızları, bir projenin popülerliğinin, topluluk güveninin ve uzun
 
 ## Detaylı sonuçlar
 
-### 1 — Kaçınılması gereken çözümler
+### 1 - Kaçınılması gereken çözümler
 
 > Vue ekosisteminde kaçınılması gereken net bir çözüm yoktur.
 
-### 2 — Kabul edilebilir çözümler
+### 2 - Kabul edilebilir çözümler
 
 **(vue-i18n)** (`vue-i18n@11.4.0`):
 
@@ -162,7 +162,7 @@ Paket çok ağırdır (~24.3kb, bu da `vue-intlayer`'ın yaklaşık 9 katıdır)
 
 - **fluent-vue** .ftl formatı aracılığıyla yenilikçi bir girişim sunar. Mesaj organizasyonu harikadır, başlaması daha kolaydır. Ancak pratikte tip güvenliği eksikliği hata riskini artırır ve hata ayıklaması hızla zaman alıcı hale gelebilir. Dahası, bu çözüm mesajları her sayfada her dildeki tüm içeriğin yüklenmesini zorlayan bir vite eklentisi kullanarak yükler. Ek olarak, bu son derece ağır bir çözümdür (~92.7kb, bu da `vue-intlayer`'ın yaklaşık 34 katıdır).
 
-### 3 — Öneriler
+### 3 - Öneriler
 
 **(Intlayer)** (`vue-intlayer@8.7.12`):
 

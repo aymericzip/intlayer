@@ -45,7 +45,7 @@ history:
 <iframe
   src="https://intlayer-vite-lit-template.vercel.app"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="ڈیمو — intlayer-vite-lit-template"
+  title="ڈیمو - intlayer-vite-lit-template"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -263,7 +263,7 @@ export default appContent;
 
 ### مرحلہ 6: اپنے LitElement میں Intlayer کا استعمال کریں
 
-ایک `LitElement` کے اندر `useIntlayer` کا استعمال کریں۔ یہ ایک `ReactiveController` پراکسی واپس کرتا ہے جو فعال مقام تبدیل ہونے پر خود بخود دوبارہ رینڈرنگ شروع کر دیتا ہے — کسی اضافی سیٹ اپ کی ضرورت نہیں ہے۔
+ایک `LitElement` کے اندر `useIntlayer` کا استعمال کریں۔ یہ ایک `ReactiveController` پراکسی واپس کرتا ہے جو فعال مقام تبدیل ہونے پر خود بخود دوبارہ رینڈرنگ شروع کر دیتا ہے - کسی اضافی سیٹ اپ کی ضرورت نہیں ہے۔
 
 ```typescript fileName="src/my-element.ts" codeFormat="typescript"
 import { LitElement, html } from "lit";

@@ -46,7 +46,7 @@ history:
 <iframe
   src="https://intlayer-astro-template.vercel.app"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="演示 — intlayer-astro-template"
+  title="演示 - intlayer-astro-template"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -347,12 +347,12 @@ export function LocaleSwitcher() {
 ```
 
 > **关于 Solid 响应性的说明：**
-> 在 Solid 中，`locale` 是一个响应式信号访问器——始终像 `locale()` 这样调用它来获取当前值。
+> 在 Solid 中，`locale` 是一个响应式信号访问器--始终像 `locale()` 这样调用它来获取当前值。
 
 > **关于持久性的说明：**
 > 使用 `onLocaleChange` 通过 `window.location.href` 重定向，确保访问了新的语言 URL，允许 Intlayer 中间件设置语言 Cookie 并记住用户在未来访问时的首选语言。
 
-> `LocaleSwitcher` 必须在 `IntlayerProvider` 内部渲染——在您的岛组件中使用它（如第六步所示）。
+> `LocaleSwitcher` 必须在 `IntlayerProvider` 内部渲染--在您的岛组件中使用它（如第六步所示）。
 
 ### 第八步：站点地图和 Robots.txt
 

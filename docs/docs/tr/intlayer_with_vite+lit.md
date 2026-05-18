@@ -45,7 +45,7 @@ history:
 <iframe
   src="https://intlayer-vite-lit-template.vercel.app"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo — intlayer-vite-lit-template"
+  title="Demo - intlayer-vite-lit-template"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -263,7 +263,7 @@ export default appContent;
 
 ### Adım 6: LitElement'inizde Intlayer'ı Kullanın
 
-Bir `LitElement` içinde `useIntlayer` kullanın. Aktif dil değiştiğinde otomatik olarak yeniden oluşturma işlemini tetikleyen bir `ReactiveController` proxy'si döndürür — ekstra kurulum gerekmez.
+Bir `LitElement` içinde `useIntlayer` kullanın. Aktif dil değiştiğinde otomatik olarak yeniden oluşturma işlemini tetikleyen bir `ReactiveController` proxy'si döndürür - ekstra kurulum gerekmez.
 
 ```typescript fileName="src/my-element.ts" codeFormat="typescript"
 import { LitElement, html } from "lit";
@@ -519,7 +519,7 @@ Intlayer, `generateSitemap` ve `getMultilingualUrls` ile tarayıcılar için ço
 
 Intlayer sitemap oluşturucusu yerel ayarlarınıza uyar ve tarayıcılar için metadata ekler.
 
-> Üretilen sitemap `xhtml:link` (hreflang) ad alanını destekler. Düz URL listesi yerine, her sayfanın tüm dil sürümleri çift yönlü bağlanır (ör. `/about`, `/fr/about` veya `/about?lang=fr` — yönlendirme moduna bağlı).
+> Üretilen sitemap `xhtml:link` (hreflang) ad alanını destekler. Düz URL listesi yerine, her sayfanın tüm dil sürümleri çift yönlü bağlanır (ör. `/about`, `/fr/about` veya `/about?lang=fr` - yönlendirme moduna bağlı).
 
 #### Robots.txt
 

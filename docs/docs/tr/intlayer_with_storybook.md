@@ -2,7 +2,7 @@
 createdAt: 2026-03-20
 updatedAt: 2026-05-06
 title: Storybook ile Intlayer Nasıl Kurulur
-description: Intlayer ve Storybook kullanarak tasarım sisteminizi nasıl çok dilli hale getireceğinizi öğrenin — içerik bildirimlerini derleyin, bir yerel ayar değiştirici ekleyin ve bileşenlerinizi herhangi bir dilde önizleyin.
+description: Intlayer ve Storybook kullanarak tasarım sisteminizi nasıl çok dilli hale getireceğinizi öğrenin - içerik bildirimlerini derleyin, bir yerel ayar değiştirici ekleyin ve bileşenlerinizi herhangi bir dilde önizleyin.
 keywords:
   - Uluslararasılaştırma
   - Dokümantasyon
@@ -33,7 +33,7 @@ history:
 
 ## Intlayer Nedir?
 
-**Intlayer**, modern web uygulamalarında çok dilli desteği basitleştirmek için tasarlanmış yenilikçi, açık kaynaklı bir uluslararasılaştırma (i18n) kütüphanesidir. **Bileşen düzeyinde** çalışır — her bileşen kendi içerik bildirimlerine sahiptir — böylece çeviriler, onları kullanan kodla aynı yerde tutulur.
+**Intlayer**, modern web uygulamalarında çok dilli desteği basitleştirmek için tasarlanmış yenilikçi, açık kaynaklı bir uluslararasılaştırma (i18n) kütüphanesidir. **Bileşen düzeyinde** çalışır - her bileşen kendi içerik bildirimlerine sahiptir - böylece çeviriler, onları kullanan kodla aynı yerde tutulur.
 
 Intlayer ile şunları yapabilirsiniz:
 
@@ -83,9 +83,9 @@ bun add vite-intlayer --dev
 
 | Paket            | Rol                                                          |
 | ---------------- | ------------------------------------------------------------ |
-| `intlayer`       | Çekirdek — yapılandırma, içerik derleme, CLI                 |
-| `react-intlayer` | React bağlamaları — `IntlayerProvider`, `useIntlayer` hook   |
-| `vite-intlayer`  | Vite eklentisi — içerik bildirim dosyalarını izler ve derler |
+| `intlayer`       | Çekirdek - yapılandırma, içerik derleme, CLI                 |
+| `react-intlayer` | React bağlamaları - `IntlayerProvider`, `useIntlayer` hook   |
+| `vite-intlayer`  | Vite eklentisi - içerik bildirim dosyalarını izler ve derler |
 
 ---
 
@@ -291,7 +291,7 @@ export default config;
 
 ### Adım 4: `IntlayerProvider` Dekoratörünü ve Bir Yerel Araç Çubuğunu Ekleyin
 
-Vite kurulumuyla aynıdır — dekoratörü ve genel dil türünü `.storybook/preview.tsx` dosyasına ekleyin:
+Vite kurulumuyla aynıdır - dekoratörü ve genel dil türünü `.storybook/preview.tsx` dosyasına ekleyin:
 
 ```tsx fileName=".storybook/preview.tsx" codeFormat="typescript"
 import type { Preview, StoryContext } from "@storybook/react";
@@ -411,7 +411,7 @@ const meta: Meta<typeof CopyButton> = {
 export default meta;
 type Story = StoryObj<typeof CopyButton>;
 
-/** Varsayılan hikaye — çevirileri önizlemek için araç çubuğunda dili değiştirin. */
+/** Varsayılan hikaye - çevirileri önizlemek için araç çubuğunda dili değiştirin. */
 export const Default: Story = {
   args: {
     content: "npm install intlayer react-intlayer",

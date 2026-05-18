@@ -116,7 +116,7 @@ history:
 <iframe
   src="https://next-15-intlayer-template-xt83.vercel.app"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Демо — intlayer-next-15-template"
+  title="Демо - intlayer-next-15-template"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />

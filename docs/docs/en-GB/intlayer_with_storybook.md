@@ -2,7 +2,7 @@
 createdAt: 2026-03-20
 updatedAt: 2026-05-06
 title: How to set up Intlayer with Storybook
-description: Learn how to make your design system multilingual using Intlayer with Storybook — compile content declarations, add a locale switcher, and preview your components in any language.
+description: Learn how to make your design system multilingual using Intlayer with Storybook - compile content declarations, add a locale switcher, and preview your components in any language.
 keywords:
   - Internationalisation
   - Documentation
@@ -33,7 +33,7 @@ history:
 
 ## What is Intlayer?
 
-**Intlayer** is an innovative, open-source internationalisation (i18n) library designed to simplify multilingual support in modern web applications. It works at the **component level** — each component owns its content declarations — keeping translations co-located with the code that uses them.
+**Intlayer** is an innovative, open-source internationalisation (i18n) library designed to simplify multilingual support in modern web applications. It works at the **component level** - each component owns its content declarations - keeping translations co-located with the code that uses them.
 
 With Intlayer you can:
 
@@ -83,9 +83,9 @@ bun add vite-intlayer --dev
 
 | Package          | Role                                                         |
 | ---------------- | ------------------------------------------------------------ |
-| `intlayer`       | Core — config, content compilation, CLI                      |
-| `react-intlayer` | React bindings — `IntlayerProvider`, `useIntlayer` hook      |
-| `vite-intlayer`  | Vite plugin — watches and compiles content declaration files |
+| `intlayer`       | Core - config, content compilation, CLI                      |
+| `react-intlayer` | React bindings - `IntlayerProvider`, `useIntlayer` hook      |
+| `vite-intlayer`  | Vite plugin - watches and compiles content declaration files |
 
 ---
 
@@ -291,7 +291,7 @@ export default config;
 
 ### Step 4: Add the `IntlayerProvider` Decorator and a Locale Toolbar
 
-Same as the Vite setup — add the decorator and global locale type in `.storybook/preview.tsx`:
+Same as the Vite setup - add the decorator and global locale type in `.storybook/preview.tsx`:
 
 ```tsx fileName=".storybook/preview.tsx" codeFormat="typescript"
 import type { Preview, StoryContext } from "@storybook/react";
@@ -411,7 +411,7 @@ const meta: Meta<typeof CopyButton> = {
 export default meta;
 type Story = StoryObj<typeof CopyButton>;
 
-/** Default story — switch the locale in the toolbar to preview translations. */
+/** Default story - switch the locale in the toolbar to preview translations. */
 export const Default: Story = {
   args: {
     content: "npm install intlayer react-intlayer",

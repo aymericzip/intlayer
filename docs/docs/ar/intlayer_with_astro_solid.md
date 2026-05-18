@@ -46,7 +46,7 @@ history:
 <iframe
   src="https://intlayer-astro-template.vercel.app"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="تجربة — intlayer-astro-template"
+  title="تجربة - intlayer-astro-template"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -356,12 +356,12 @@ export function LocaleSwitcher() {
 ```
 
 > **ملاحظة حول التفاعلية في Solid:**
-> في Solid، تعتبر `locale` بمثابة مخرج إشارة تفاعلية (reactive signal accessor) — استدعِها دائمًا كـ `locale()` للحصول على القيمة الحالية.
+> في Solid، تعتبر `locale` بمثابة مخرج إشارة تفاعلية (reactive signal accessor) - استدعِها دائمًا كـ `locale()` للحصول على القيمة الحالية.
 
 > **ملاحظة حول الاستمرارية:**
 > يضمن استخدام `onLocaleChange` لإعادة التوجيه عبر `window.location.href` زيارة الرابط الجديد للغة، مما يسمح لوسيط Intlayer بتعيين كوكيز اللغة وتذكر تفضيلات المستخدم في الزيارات المستقبلية.
 
-> يجب رندر `LocaleSwitcher` داخل `IntlayerProvider` — استخدمه داخل مكون الجزيرة الخاص بك (كما هو موضح في الخطوة 6).
+> يجب رندر `LocaleSwitcher` داخل `IntlayerProvider` - استخدمه داخل مكون الجزيرة الخاص بك (كما هو موضح في الخطوة 6).
 
 ### الخطوة 8: خريطة الموقع وRobots.txt
 

@@ -34,8 +34,8 @@ Mapa `domains` v `routing` přidružuje každou lokalitu k hostitelskému jménu
 
 Klíčovým rozdílem je **exkluzivita**:
 
-- **Exkluzivní doména** — k tomuto hostitelskému jménu se mapuje pouze jedna lokalita (např. `zh → intlayer.zh`). Doména sama o sobě identifikuje lokalitu, takže k cestě není přidán žádný prefix lokality. `https://intlayer.zh/about` obsluhuje čínský obsah.
-- **Sdílená doména** — ke stejnému hostitelskému jménu se mapuje více lokalit (např. `en` i `fr` se mapují na `intlayer.org`). Použije se běžné směrování založené na prefixech. `intlayer.org/fr/about` obsluhuje francouzský obsah.
+- **Exkluzivní doména** - k tomuto hostitelskému jménu se mapuje pouze jedna lokalita (např. `zh → intlayer.zh`). Doména sama o sobě identifikuje lokalitu, takže k cestě není přidán žádný prefix lokality. `https://intlayer.zh/about` obsluhuje čínský obsah.
+- **Sdílená doména** - ke stejnému hostitelskému jménu se mapuje více lokalit (např. `en` i `fr` se mapují na `intlayer.org`). Použije se běžné směrování založené na prefixech. `intlayer.org/fr/about` obsluhuje francouzský obsah.
 
 ## Konfigurace
 
@@ -55,9 +55,9 @@ const config: IntlayerConfig = {
   routing: {
     mode: "prefix-no-default",
     domains: {
-      // Sdílená doména — en a fr používají směrování prefixů na intlayer.org
+      // Sdílená doména - en a fr používají směrování prefixů na intlayer.org
       en: "intlayer.org",
-      // Exkluzivní doména — zh má vlastní hostitelské jméno, prefix /zh/ není potřeba
+      // Exkluzivní doména - zh má vlastní hostitelské jméno, prefix /zh/ není potřeba
       zh: "intlayer.zh",
     },
   },
@@ -96,7 +96,7 @@ getLocalizedUrl("/about", "zh", { currentDomain: "intlayer.org" });
 ```ts
 // Aktuální stránka: intlayer.zh/about
 getLocalizedUrl("/about", "zh", { currentDomain: "intlayer.zh" });
-// → "/about"  (již na správné doméně — relativní URL)
+// → "/about"  (již na správné doméně - relativní URL)
 
 getLocalizedUrl("/about", "fr", { currentDomain: "intlayer.zh" });
 // → "https://intlayer.org/fr/about"  (mezidoménový odkaz zpět na intlayer.org)
@@ -108,14 +108,14 @@ getLocalizedUrl("/about", "fr", { currentDomain: "intlayer.zh" });
 
 1. Hostitelské jméno absolutní vstupní URL (např. `https://intlayer.org/about` → `intlayer.org`).
 2. `window.location.hostname` v prostředí prohlížeče.
-3. Pokud není k dispozici ani jedno (SSR bez explicitní volby), vrátí se relativní URL pro lokality na stejné doméně a nevytvoří se absolutní URL — toto je bezpečný záložní mechanismus.
+3. Pokud není k dispozici ani jedno (SSR bez explicitní volby), vrátí se relativní URL pro lokality na stejné doméně a nevytvoří se absolutní URL - toto je bezpečný záložní mechanismus.
 
 ```ts
-// Prohlížeč — window.location.hostname === 'intlayer.org'
+// Prohlížeč - window.location.hostname === 'intlayer.org'
 getLocalizedUrl("/about", "zh");
 // → "https://intlayer.zh/about"  (automaticky detekováno z window)
 
-// Z absolutní URL — doména detekována automaticky
+// Z absolutní URL - doména detekována automaticky
 getLocalizedUrl("https://intlayer.org/about", "zh");
 // → "https://intlayer.zh/about"
 ```
@@ -151,14 +151,14 @@ export const config = {
 };
 ```
 
-**Přesměrování (Redirect)** — požadavek dorazí na nesprávnou doménu pro daný prefix lokality:
+**Přesměrování (Redirect)** - požadavek dorazí na nesprávnou doménu pro daný prefix lokality:
 
 ```
 GET intlayer.org/zh/about
 → 301 https://intlayer.zh/about
 ```
 
-**Přepis (Rewrite)** — požadavek dorazí na exkluzivní doménu lokality bez prefixu:
+**Přepis (Rewrite)** - požadavek dorazí na exkluzivní doménu lokality bez prefixu:
 
 ```
 GET intlayer.zh/about
@@ -209,7 +209,7 @@ export const LocaleSwitcher = () => {
 };
 ```
 
-Není vyžadována žádná další konfigurace — `useLocale` interně detekuje `window.location.hostname` a rozhoduje mezi `router.replace` (stejná doména) a `window.location.href` (mezidoménová).
+Není vyžadována žádná další konfigurace - `useLocale` interně detekuje `window.location.hostname` a rozhoduje mezi `router.replace` (stejná doména) a `window.location.href` (mezidoménová).
 
 ## SEO: alternativní odkazy `hreflang`
 

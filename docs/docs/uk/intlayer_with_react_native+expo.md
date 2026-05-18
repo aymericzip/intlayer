@@ -50,7 +50,7 @@ history:
 <iframe
   src="https://intlayer-react-native.vercel.app"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Демо — intlayer-react-native-template"
+  title="Демо - intlayer-react-native-template"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />

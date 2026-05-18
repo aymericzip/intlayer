@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-04-20
 updatedAt: 2026-05-18
-title: Najlepsze rozwiązanie i18n dla Vue w 2026 r. — raport z benchmarku
+title: Najlepsze rozwiązanie i18n dla Vue w 2026 r. - raport z benchmarku
 description: Porównaj biblioteki internacjonalizacji (i18n) dla Vue, takie jak vue-i18n, fluent-vue i Intlayer. Szczegółowy raport wydajności dotyczący rozmiaru paczki, wycieków i reaktywności.
 keywords:
   - benchmark
@@ -25,7 +25,7 @@ history:
     changes: "Inicjalizacja benchmarku"
 ---
 
-# Biblioteki i18n dla Vue — raport z benchmarku 2026
+# Biblioteki i18n dla Vue - raport z benchmarku 2026
 
 Ta strona zawiera raport z benchmarku rozwiązań i18n dla Vue.
 
@@ -130,7 +130,7 @@ Uruchomiłem tę samą wielojęzyczną aplikację w prawdziwej przeglądarce dla
 
 - **Średni rozmiar paczki komponentu**: Typowe elementy interfejsu użytkownika są mierzone **pojedynczo**, zamiast ukrywać się w gigantycznej liczbie dla całej aplikacji. Pokazuje to, czy internacjonalizacja po cichu nadyma codzienne komponenty. Na przykład, jeśli Twój komponent renderuje się ponownie, załaduje wszystkie te dane z pamięci. Dołączanie gigantycznego JSON-a do dowolnego komponentu jest jak podłączanie dużego magazynu nieużywanych danych, co spowolni wydajność Twoich komponentów.
 
-- **Reaktywność przełączania języka**: Przełączam język za pomocą własnego sterowania aplikacji i mierzę czas, aż strona wyraźnie się przełączy — co zauważyłby odwiedzający.
+- **Reaktywność przełączania języka**: Przełączam język za pomocą własnego sterowania aplikacji i mierzę czas, aż strona wyraźnie się przełączy - co zauważyłby odwiedzający.
 
 - **Praca renderowania po zmianie języka**: Bardziej szczegółowe badanie: ile wysiłku interfejs włożył w ponowne odrysowanie dla nowego języka po rozpoczęciu zmiany. Przydatne, gdy „odczuwalny” czas i koszt frameworka się rozbiegają.
 
@@ -146,11 +146,11 @@ Gwiazdki na GitHubie są silnym wskaźnikiem popularności projektu, zaufania sp
 
 ## Wyniki szczegółowe
 
-### 1 — Rozwiązania, których należy unikać
+### 1 - Rozwiązania, których należy unikać
 
 > W ekosystemie Vue nie ma jednoznacznego rozwiązania, którego należy unikać.
 
-### 2 — Rozwiązania akceptowalne
+### 2 - Rozwiązania akceptowalne
 
 **(vue-i18n)** (`vue-i18n@11.4.0`):
 
@@ -162,7 +162,7 @@ Paczka jest bardzo ciężka (~24.3kb, co stanowi około 9x `vue-intlayer`).
 
 - **fluent-vue** oferuje próbę innowacji poprzez format .ftl. Organizacja komunikatów jest świetna, łatwiej zacząć. Ale w praktyce brak bezpieczeństwa typów zwiększa ryzyko błędu, a debugowanie może szybko stać się czasochłonne. Co więcej, to rozwiązanie ładuje komunikaty za pomocą wtyczki vite, która wymusza ładowanie całej treści we wszystkich językach na każdej stronie. Dodatkowo jest to ekstremalnie ciężkie rozwiązanie (~92.7kb, co stanowi około 34x `vue-intlayer`).
 
-### 3 — Rekomendacje
+### 3 - Rekomendacje
 
 **(Intlayer)** (`vue-intlayer@8.7.12`):
 

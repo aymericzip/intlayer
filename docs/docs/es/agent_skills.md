@@ -76,7 +76,7 @@ npx skills add aymericzip/intlayer-skills
 
 **intlayer-content**
 
-- Enseña al agente cómo utilizar los nodos de contenido avanzados—como pluralización, condiciones y markdown—para construir diccionarios ricos, dinámicos y localizados.
+- Enseña al agente cómo utilizar los nodos de contenido avanzados-como pluralización, condiciones y markdown-para construir diccionarios ricos, dinámicos y localizados.
 
 **intlayer-next-js**
 
@@ -108,7 +108,7 @@ npx skills add aymericzip/intlayer-skills
 
 **intlayer-vue**
 
-- Equipa al agente con patrones específicos de Vue—incluyendo Composables y soporte de Nuxt—para construir aplicaciones web modernas y localizadas.
+- Equipa al agente con patrones específicos de Vue-incluyendo Composables y soporte de Nuxt-para construir aplicaciones web modernas y localizadas.
 
 **intlayer-compiler**
 

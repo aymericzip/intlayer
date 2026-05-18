@@ -35,7 +35,7 @@ history:
 <iframe
   src="https://ide.intlayer.org/aymericzip/intlayer-vite-vanilla-template?file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo CodeSandbox — Intlayer"
+  title="Demo CodeSandbox - Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -46,7 +46,7 @@ history:
 <iframe
   src="https://intlayer-vite-vanilla.vercel.app"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="ڈیمو — intlayer-vite-vanilla-template"
+  title="ڈیمو - intlayer-vite-vanilla-template"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -255,7 +255,7 @@ export default appContent;
 
 ### مرحلہ 6: اپنے JavaScript میں Intlayer کا استعمال کریں
 
-`vanilla-intlayer` لائبریری `react-intlayer` کے سرفیس API کی عکاسی کرتی ہے: `useIntlayer(key, locale?)` براہ راست ترجمہ شدہ مواد واپس کرتا ہے۔ لوکل کی تبدیلیوں کو سبسکرائب کرنے کے لیے نتیجے پر `.onChange()` کو جوڑیں — جو کہ React ری رینڈر کا واضح متبادل ہے۔
+`vanilla-intlayer` لائبریری `react-intlayer` کے سرفیس API کی عکاسی کرتی ہے: `useIntlayer(key, locale?)` براہ راست ترجمہ شدہ مواد واپس کرتا ہے۔ لوکل کی تبدیلیوں کو سبسکرائب کرنے کے لیے نتیجے پر `.onChange()` کو جوڑیں - جو کہ React ری رینڈر کا واضح متبادل ہے۔
 
 ```typescript fileName="src/main.ts" codeFormat="typescript"
 import { installIntlayer, useIntlayer } from "vanilla-intlayer";
@@ -456,7 +456,7 @@ const unsubscribe = useDictionaryDynamic(
 });
 ```
 
-> ہر لوکل کا بنڈل صرف اس وقت حاصل کیا جاتا ہے جب وہ لوکل فعال ہو جائے اور نتیجہ کیش کر دیا جاتا ہے — اسی لوکل پر بعد کی تبدیلیاں فوری ہوتی ہیں۔
+> ہر لوکل کا بنڈل صرف اس وقت حاصل کیا جاتا ہے جب وہ لوکل فعال ہو جائے اور نتیجہ کیش کر دیا جاتا ہے - اسی لوکل پر بعد کی تبدیلیاں فوری ہوتی ہیں۔
 
 ### (اختیاری) مرحلہ 13: اپنے اجزاء سے مواد نکالیں (Extract)
 

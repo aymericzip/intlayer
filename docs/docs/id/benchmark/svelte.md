@@ -25,7 +25,7 @@ history:
     changes: "Inisialisasi benchmark"
 ---
 
-# Pustaka i18n Svelte — Laporan Benchmark 2026
+# Pustaka i18n Svelte - Laporan Benchmark 2026
 
 Halaman ini adalah laporan benchmark untuk solusi i18n pada Svelte.
 
@@ -124,11 +124,11 @@ Bintang GitHub adalah indikator kuat dari popularitas proyek, kepercayaan komuni
 
 ## Hasil secara mendetail
 
-### 1 — Solusi yang harus dihindari
+### 1 - Solusi yang harus dihindari
 
 > Tidak ada solusi yang jelas untuk dihindari dalam ekosistem Svelte.
 
-### 2 — Solusi yang dapat diterima
+### 2 - Solusi yang dapat diterima
 
 **(Paraglide)** (`@inlang/paraglide-js@2.17.0`):
 
@@ -144,7 +144,7 @@ Terakhir, dibandingkan dengan solusi lain, Paraglide tidak menggunakan store (mi
 
 Solusi ini menjawab semua kebutuhan i18n dalam proyek Svelte. Tetapi seperti halnya i18next atau solusi i18n besar lainnya, ia sedikit berat (~15.9kb, yang mana sekitar 7× `svelte-intlayer`).
 
-### 3 — Rekomendasi
+### 3 - Rekomendasi
 
 **(Intlayer)** (`svelte-intlayer@8.7.12`):
 

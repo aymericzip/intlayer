@@ -45,7 +45,7 @@ history:
 <iframe
   src="https://intlayer-vite-lit-template.vercel.app"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="演示 — intlayer-vite-lit-template"
+  title="演示 - intlayer-vite-lit-template"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -263,7 +263,7 @@ export default appContent;
 
 ### 第 6 步：在您的 LitElement 中利用 Intlayer
 
-在 `LitElement` 中使用 `useIntlayer`。它返回一个 `ReactiveController` 代理，每当激活语言发生变化时，它会自动触发重新渲染——无需额外设置。
+在 `LitElement` 中使用 `useIntlayer`。它返回一个 `ReactiveController` 代理，每当激活语言发生变化时，它会自动触发重新渲染--无需额外设置。
 
 ```typescript fileName="src/my-element.ts" codeFormat="typescript"
 import { LitElement, html } from "lit";

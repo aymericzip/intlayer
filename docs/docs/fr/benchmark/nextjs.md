@@ -25,7 +25,7 @@ history:
     changes: "Initialisation du benchmark"
 ---
 
-# Bibliothèques i18n Next.js — Rapport de Benchmark 2026
+# Bibliothèques i18n Next.js - Rapport de Benchmark 2026
 
 Cette page est un rapport de benchmark pour les solutions i18n sur Next.js.
 
@@ -60,7 +60,7 @@ Par exemple, pour les cas les plus critiques, une fois internationalisée, votre
 
 Un autre impact des bibliothèques i18n est le ralentissement du développement. Transformer des composants en contenu multilingue à travers plusieurs langues prend du temps.
 
-Parce que le problème est complexe, de nombreuses solutions existent — certaines axées sur la DX (expérience développeur), d'autres sur la performance ou la scalabilité, etc.
+Parce que le problème est complexe, de nombreuses solutions existent - certaines axées sur la DX (expérience développeur), d'autres sur la performance ou la scalabilité, etc.
 
 Intlayer tente d'optimiser l'ensemble de ces dimensions.
 
@@ -98,7 +98,7 @@ Ce qui se passe au moment du build, c'est que Next.js émet un bundle JS par loc
 
 Si vous utilisez une syntaxe comme `const t = useTranslation()` + `t('mon-objet.mon-sous-objet.ma-cle')`, l'intégralité du JSON doit généralement être présent dans le bundle pour que la bibliothèque puisse le parser et résoudre la clé. Une grande partie de ce contenu est donc expédiée même lorsqu'il est inutilisé sur la page.
 
-Pour atténuer cela, certaines bibliothèques vous demandent de déclarer par page quels namespaces charger — ex: `next-i18next`, `next-intl`, `lingui`, `next-translate`, `next-international`.
+Pour atténuer cela, certaines bibliothèques vous demandent de déclarer par page quels namespaces charger - ex: `next-i18next`, `next-intl`, `lingui`, `next-translate`, `next-international`.
 
 En revanche, `Paraglide` ajoute une étape supplémentaire avant le build pour transformer le JSON en symboles plats comme `const en_my_var = () => 'ma valeur'`. En théorie, cela permet au tree-shaking de supprimer le contenu inutilisé sur la page. Comme nous le verrons, cette méthode présente tout de même des compromis.
 
@@ -153,7 +153,7 @@ J'ai fait tourner la même application multilingue dans un navigateur réel pour
 
 - **Taille moyenne de bundle par composant** : Les éléments d'interface communs sont mesurés **un par un** au lieu de se cacher derrière un gros chiffre global de l'application. Cela montre si l'internationalisation gonfle silencieusement les composants quotidiens. Par exemple, si votre composant re-rend, il chargera toutes ces données depuis la mémoire. Attacher un JSON géant à n'importe quel composant revient à connecter un grand réservoir de données inutilisées qui ralentira la performance de vos composants.
 
-- **Réactivité du changement de langue** : Je change la langue en utilisant le propre contrôle de l'application et je mesure le temps nécessaire jusqu'à ce que la page ait clairement basculé — ce qu'un visiteur remarquerait, et non une micro-étape de laboratoire.
+- **Réactivité du changement de langue** : Je change la langue en utilisant le propre contrôle de l'application et je mesure le temps nécessaire jusqu'à ce que la page ait clairement basculé - ce qu'un visiteur remarquerait, et non une micro-étape de laboratoire.
 
 - **Travail de rendu après un changement de langue** : Un suivi plus précis : quel effort l'interface a fourni pour se redessiner dans la nouvelle langue une fois le basculement lancé. Utile lorsque le ressenti utilisateur et le coût du framework divergent.
 
@@ -169,9 +169,9 @@ Les étoiles GitHub sont un indicateur fort de la popularité d'un projet, de la
 
 ## Résultats détaillés
 
-### 1 — Solutions à éviter
+### 1 - Solutions à éviter
 
-Certaines solutions, telles que `gt-next` ou `lingo.dev`, sont clairement à éviter. Elles combinent un verrouillage propriétaire (vendor lock-in) avec une pollution de votre base de code. Malgré de nombreuses heures passées à essayer de les implémenter, je n'ai jamais réussi à les faire fonctionner correctement — ni sur TanStack Start, ni sur Next.js.
+Certaines solutions, telles que `gt-next` ou `lingo.dev`, sont clairement à éviter. Elles combinent un verrouillage propriétaire (vendor lock-in) avec une pollution de votre base de code. Malgré de nombreuses heures passées à essayer de les implémenter, je n'ai jamais réussi à les faire fonctionner correctement - ni sur TanStack Start, ni sur Next.js.
 
 Problèmes rencontrés :
 
@@ -185,12 +185,12 @@ Problèmes rencontrés :
 
 **(Lingo.dev)** (`@lingo.dev/compiler@0.4.0`) :
 
-- Quota AI dépassé, bloquant entièrement le build — vous ne pouvez donc pas mettre en production sans payer.
+- Quota AI dépassé, bloquant entièrement le build - vous ne pouvez donc pas mettre en production sans payer.
 - Le compilateur ratait presque 40 % du contenu traduit. J'ai dû réécrire tous les `.map` en blocs de composants plats pour que cela fonctionne.
 - Leur CLI est buggée et réinitialisait régulièrement le fichier de configuration sans raison.
 - Au build, il effaçait totalement les JSONs générés lorsque du nouveau contenu était ajouté. Résultat : une poignée de clés pouvait rayer de la carte plus de 300 clés existantes.
 
-### 2 — Solutions expérimentales
+### 2 - Solutions expérimentales
 
 **(Wuchale)** (`wuchale@0.22.11`) :
 
@@ -204,7 +204,7 @@ Enfin, par rapport aux autres solutions, Paraglide n'utilise pas de "store" (ex:
 
 > Note sur paraglide : la solution injecte du code dans votre base de code à importer, par conséquent la métrique 'taille de la lib' dans le rapport de benchmark est presque de 0. La génération de code est une bonne chose, car la fonction utilisée n'inclura que la logique nécessaire (préfixe total vs pas de préfixe, cookie vs stockage etc). En comparaison, Intlayer procède à ce filtrage via des injections de variables d'environnement dans le build pour forcer le bundler à tree-shaker le contenu selon la logique. Grâce à cela, paraglide et intlayer finissent par être des solutions 6 à 10 fois plus légères que i18next ou next-intl.
 
-### 3 — Solutions acceptables
+### 3 - Solutions acceptables
 
 **(Tolgee)** (`@tolgee/react@7.0.0`) :
 
@@ -228,7 +228,7 @@ Les formats de messages diffèrent également : `next-intl` utilise ICU MessageF
 
 `Lingui` est souvent vanté. Personnellement, j'ai trouvé le workflow `lingui extract` / `lingui compile` plus complexe que les alternatives, sans avantage clair. J'ai également remarqué des syntaxes inconsistantes qui perturbent les IAs (ex: `t()`, `t''`, `i18n.t()`, `<Trans>`).
 
-### 4 — Recommandations
+### 4 - Recommandations
 
 **(Next Translate)** (`next-translate@3.1.2`) :
 

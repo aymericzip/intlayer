@@ -34,8 +34,8 @@ Bản đồ `domains` trong `routing` liên kết mỗi ngôn ngữ với một 
 
 Sự khác biệt chính là **tính độc quyền**:
 
-- **Tên miền độc quyền** — Chỉ một ngôn ngữ ánh xạ tới tên miền đó (ví dụ: `zh → intlayer.zh`). Bản thân tên miền đó xác định ngôn ngữ, vì vậy không có tiền tố ngôn ngữ nào được thêm vào đường dẫn. `https://intlayer.zh/about` phục vụ nội dung tiếng Trung.
-- **Tên miền chung** — Nhiều ngôn ngữ ánh xạ tới cùng một tên miền (ví dụ: cả `en` và `fr` đều ánh xạ tới `intlayer.org`). Điều hướng dựa trên tiền tố thông thường sẽ được áp dụng. `intlayer.org/fr/about` phục vụ nội dung tiếng Pháp.
+- **Tên miền độc quyền** - Chỉ một ngôn ngữ ánh xạ tới tên miền đó (ví dụ: `zh → intlayer.zh`). Bản thân tên miền đó xác định ngôn ngữ, vì vậy không có tiền tố ngôn ngữ nào được thêm vào đường dẫn. `https://intlayer.zh/about` phục vụ nội dung tiếng Trung.
+- **Tên miền chung** - Nhiều ngôn ngữ ánh xạ tới cùng một tên miền (ví dụ: cả `en` và `fr` đều ánh xạ tới `intlayer.org`). Điều hướng dựa trên tiền tố thông thường sẽ được áp dụng. `intlayer.org/fr/about` phục vụ nội dung tiếng Pháp.
 
 ## Cấu hình
 
@@ -55,9 +55,9 @@ const config: IntlayerConfig = {
   routing: {
     mode: "prefix-no-default",
     domains: {
-      // Tên miền chung — en và fr sử dụng điều hướng tiền tố trên intlayer.org
+      // Tên miền chung - en và fr sử dụng điều hướng tiền tố trên intlayer.org
       en: "intlayer.org",
-      // Tên miền độc quyền — zh có tên miền riêng, không cần tiền tố /zh/
+      // Tên miền độc quyền - zh có tên miền riêng, không cần tiền tố /zh/
       zh: "intlayer.zh",
     },
   },
@@ -96,7 +96,7 @@ getLocalizedUrl("/about", "zh", { currentDomain: "intlayer.org" });
 ```ts
 // Trang hiện tại: intlayer.zh/about
 getLocalizedUrl("/about", "zh", { currentDomain: "intlayer.zh" });
-// → "/about" (đã ở đúng tên miền — URL tương đối)
+// → "/about" (đã ở đúng tên miền - URL tương đối)
 
 getLocalizedUrl("/about", "fr", { currentDomain: "intlayer.zh" });
 // → "https://intlayer.org/fr/about" (liên kết xuyên tên miền quay lại intlayer.org)
@@ -108,14 +108,14 @@ getLocalizedUrl("/about", "fr", { currentDomain: "intlayer.zh" });
 
 1. Tên miền của một URL đầu vào tuyệt đối (ví dụ: `https://intlayer.org/about` → `intlayer.org`).
 2. `window.location.hostname` trong môi trường trình duyệt.
-3. Nếu không có cái nào khả dụng (SSR không có tùy chọn rõ ràng), một URL tương đối sẽ được trả về cho các ngôn ngữ cùng tên miền và không có URL tuyệt đối nào được tạo — đây là phương án dự phòng an toàn.
+3. Nếu không có cái nào khả dụng (SSR không có tùy chọn rõ ràng), một URL tương đối sẽ được trả về cho các ngôn ngữ cùng tên miền và không có URL tuyệt đối nào được tạo - đây là phương án dự phòng an toàn.
 
 ```ts
-// Trình duyệt — window.location.hostname === 'intlayer.org'
+// Trình duyệt - window.location.hostname === 'intlayer.org'
 getLocalizedUrl("/about", "zh");
 // → "https://intlayer.zh/about" (tự động phát hiện từ window)
 
-// Từ một URL tuyệt đối — tên miền được phát hiện tự động
+// Từ một URL tuyệt đối - tên miền được phát hiện tự động
 getLocalizedUrl("https://intlayer.org/about", "zh");
 // → "https://intlayer.zh/about"
 ```
@@ -151,14 +151,14 @@ export const config = {
 };
 ```
 
-**Chuyển hướng** — yêu cầu đến sai tên miền cho một tiền tố ngôn ngữ nhất định:
+**Chuyển hướng** - yêu cầu đến sai tên miền cho một tiền tố ngôn ngữ nhất định:
 
 ```
 GET intlayer.org/zh/about
 → 301 https://intlayer.zh/about
 ```
 
-**Ghi lại (Rewrite)** — yêu cầu đến tên miền độc quyền của ngôn ngữ mà không có tiền tố:
+**Ghi lại (Rewrite)** - yêu cầu đến tên miền độc quyền của ngôn ngữ mà không có tiền tố:
 
 ```
 GET intlayer.zh/about
@@ -209,7 +209,7 @@ export const LocaleSwitcher = () => {
 };
 ```
 
-Không cần cấu hình thêm — `useLocale` tự động phát hiện `window.location.hostname` bên trong và quyết định giữa `router.replace` (cùng tên miền) và `window.location.href` (khác tên miền).
+Không cần cấu hình thêm - `useLocale` tự động phát hiện `window.location.hostname` bên trong và quyết định giữa `router.replace` (cùng tên miền) và `window.location.href` (khác tên miền).
 
 ## SEO: `hreflang` Liên kết thay thế
 

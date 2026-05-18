@@ -25,7 +25,7 @@ history:
     changes: "Benchmark-Initialisierung"
 ---
 
-# Svelte i18n-Bibliotheken — Benchmark-Bericht 2026
+# Svelte i18n-Bibliotheken - Benchmark-Bericht 2026
 
 Diese Seite ist ein Benchmark-Bericht für i18n-Lösungen in Svelte.
 
@@ -124,11 +124,11 @@ GitHub-Sterne sind ein starker Indikator für die Popularität eines Projekts, d
 
 ## Ergebnisse im Detail
 
-### 1 — Zu vermeidende Lösungen
+### 1 - Zu vermeidende Lösungen
 
 > Im Svelte-Ökosystem gibt es keine eindeutig zu vermeidenden Lösungen.
 
-### 2 — Akzeptable Lösungen
+### 2 - Akzeptable Lösungen
 
 **(Paraglide)** (`@inlang/paraglide-js@2.17.0`):
 
@@ -144,7 +144,7 @@ Schließlich verwendet Paraglide im Vergleich zu anderen Lösungen keinen Store 
 
 Diese Lösung erfüllt alle i18n-Anforderungen in einem Svelte-Projekt. Aber wie bei i18next oder anderen großen i18n-Lösungen ist sie etwas schwer (~15,9 KB, was etwa das 7-fache von `svelte-intlayer` ist).
 
-### 3 — Empfehlungen
+### 3 - Empfehlungen
 
 **(Intlayer)** (`svelte-intlayer@8.7.12`):
 

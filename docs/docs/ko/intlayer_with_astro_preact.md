@@ -46,7 +46,7 @@ history:
 <iframe
   src="https://intlayer-astro-template.vercel.app"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="데모 — intlayer-astro-template"
+  title="데모 - intlayer-astro-template"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -118,7 +118,7 @@ bun x intlayer init
   Intlayer를 [Vite 번들러](https://vite.dev/guide/why.html#why-bundle-for-production)와 통합하기 위한 Astro 통합 플러그인과 사용자의 선호 로케일을 감지하고 쿠키를 관리하며 URL 리디렉션을 처리하는 미들웨어가 포함되어 있습니다.
 
 - **preact**
-  핵심 Preact 패키지 — React의 빠르고 가벼운 대안입니다.
+  핵심 Preact 패키지 - React의 빠르고 가벼운 대안입니다.
 
 - **preact-intlayer**
   Intlayer를 Preact 애플리케이션과 통합하는 패키지입니다. Preact의 국제화를 위한 `IntlayerProvider`, `useIntlayer` 및 `useLocale` 훅을 제공합니다.

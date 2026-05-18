@@ -2,7 +2,7 @@
 createdAt: 2026-03-20
 updatedAt: 2026-05-06
 title: Intlayer instellen met Storybook
-description: Leer hoe u uw designsysteem meertalig kunt maken met Intlayer en Storybook — compileer inhoudsdeclaraties, voeg een taalschakelaar toe en bekijk uw componenten in elke gewenste taal.
+description: Leer hoe u uw designsysteem meertalig kunt maken met Intlayer en Storybook - compileer inhoudsdeclaraties, voeg een taalschakelaar toe en bekijk uw componenten in elke gewenste taal.
 keywords:
   - Internationalisering
   - Documentatie
@@ -33,7 +33,7 @@ history:
 
 ## Wat is Intlayer?
 
-**Intlayer** is een innovatieve, open-source internationaliseringsbibliotheek (i18n) die is ontworpen om meertalige ondersteuning in moderne webapplicaties te vereenvoudigen. Het werkt op **componentniveau** — elke component beheert zijn eigen inhoudsdeclaraties — waardoor vertalingen samen met de code worden bewaard die ze gebruikt.
+**Intlayer** is een innovatieve, open-source internationaliseringsbibliotheek (i18n) die is ontworpen om meertalige ondersteuning in moderne webapplicaties te vereenvoudigen. Het werkt op **componentniveau** - elke component beheert zijn eigen inhoudsdeclaraties - waardoor vertalingen samen met de code worden bewaard die ze gebruikt.
 
 Met Intlayer kunt u:
 
@@ -83,9 +83,9 @@ bun add vite-intlayer --dev
 
 | Pakket           | Rol                                                            |
 | ---------------- | -------------------------------------------------------------- |
-| `intlayer`       | Core — configuratie, inhoudscompilatie, CLI                    |
-| `react-intlayer` | React-bindingen — `IntlayerProvider`, `useIntlayer` hook       |
-| `vite-intlayer`  | Vite-plugin — bewaakt en compileert inhoudsdeclaratiebestanden |
+| `intlayer`       | Core - configuratie, inhoudscompilatie, CLI                    |
+| `react-intlayer` | React-bindingen - `IntlayerProvider`, `useIntlayer` hook       |
+| `vite-intlayer`  | Vite-plugin - bewaakt en compileert inhoudsdeclaratiebestanden |
 
 ---
 
@@ -291,7 +291,7 @@ export default config;
 
 ### Stap 4: De `IntlayerProvider` decorator en een locale-werkbalk toevoegen
 
-Hetzelfde als de Vite-instelling — voeg de decorator en het globale locale-type toe in `.storybook/preview.tsx`:
+Hetzelfde als de Vite-instelling - voeg de decorator en het globale locale-type toe in `.storybook/preview.tsx`:
 
 ```tsx fileName=".storybook/preview.tsx" codeFormat="typescript"
 import type { Preview, StoryContext } from "@storybook/react";
@@ -411,7 +411,7 @@ const meta: Meta<typeof CopyButton> = {
 export default meta;
 type Story = StoryObj<typeof CopyButton>;
 
-/** Default story — wissel van taal in de werkbalk om vertalingen te bekijken. */
+/** Default story - wissel van taal in de werkbalk om vertalingen te bekijken. */
 export const Default: Story = {
   args: {
     content: "npm install intlayer react-intlayer",
