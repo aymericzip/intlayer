@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-04-21
+updatedAt: 2026-05-18
 title: Melhor solução i18n para Vue em 2026 - Relatório de Benchmark
 description: Compare bibliotecas de internacionalização (i18n) para Vue como vue-i18n, fluent-vue e Intlayer. Relatório de desempenho detalhado sobre tamanho do bundle, vazamento e reatividade.
 keywords:
@@ -17,6 +17,9 @@ slugs:
 author: Aymeric PINEAU
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-vue-template
 history:
+  - version: 8.9.8
+    date: 2026-05-18
+    changes: "Adicionar comparativo de estrelas do GitHub"
   - version: 8.7.12
     date: 2026-01-06
     changes: "Inicialização do benchmark"

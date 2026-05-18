@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-04-21
+updatedAt: 2026-05-18
 title: Лучшее i18n решение для Solid в 2026 году - Отчет о бенчмарке
 description: Сравните библиотеки интернационализации (i18n) для Solid, такие как solid-primitives, solid-i18next и Intlayer. Подробный отчет о производительности, размере бандла, утечках и реактивности.
 keywords:
@@ -17,6 +17,9 @@ slugs:
 author: Aymeric PINEAU
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-solid-template
 history:
+  - version: 8.9.8
+    date: 2026-05-18
+    changes: "Добавить сравнение звезд GitHub"
   - version: 8.7.12
     date: 2026-01-06
     changes: "Инициализация бенчмарка"
@@ -118,7 +121,7 @@ history:
 
 Звезды на GitHub — это сильный индикатор популярности проекта, доверия сообщества и долгосрочной актуальности. Хотя они не являются прямым показателем технического качества, они отражают, сколько разработчиков считают проект полезным, следят за его прогрессом и, вероятно, будут его использовать. Для оценки ценности проекта звезды помогают сравнивать популярность альтернатив и дают представление о росте экосистемы.
 
-[![Star History Chart](https://api.star-history.com/chart?repos=solidjs-community%2Fsolid-primitives%2Cmbarzda%2Fsolid-i18next%2Copral%2Finlang%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#solidjs-community/solid-primitives&mbarzda/solid-i18next&opral/paraglide-js&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=solidjs-community%2Fsolid-primitives%2Cmbarzda%2Fsolid-i18next%2Copral%2paraglide-js%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#solidjs-community/solid-primitives&mbarzda/solid-i18next&opral/paraglide-js&aymericzip/intlayer)
 
 ## Результаты в деталях
 

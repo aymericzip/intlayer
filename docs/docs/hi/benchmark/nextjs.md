@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-04-21
+updatedAt: 2026-05-18
 title: 2026 में Next.js के लिए सर्वश्रेष्ठ i18n समाधान - बेंचमार्क रिपोर्ट
 description: next-intl, next-i18next और Intlayer जैसे Next.js अंतर्राष्ट्रीयकरण (i18n) लाइब्रेरीज़ की तुलना करें। बंडल आकार, लीकेज और रिएक्टिविटी पर विस्तृत परफॉरमेंस रिपोर्ट।
 keywords:
@@ -17,6 +17,9 @@ slugs:
 author: Aymeric PINEAU
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n
 history:
+  - version: 8.9.8
+    date: 2026-05-18
+    changes: "GitHub स्टार तुलना जोड़ें"
   - version: 8.7.5
     date: 2026-01-06
     changes: "बेंचमार्क इनिशियलाइज़ेशन"
@@ -162,7 +165,7 @@ Intlayer इन सभी आयामों में अनुकूलन क
 
 GitHub सितारे किसी प्रोजेक्ट की लोकप्रियता, सामुदायिक विश्वास और दीर्घकालिक प्रासंगिकता का एक मजबूत संकेतक हैं। हालांकि यह तकनीकी गुणवत्ता का प्रत्यक्ष माप नहीं है, वे दर्शाते हैं कि कितने डेवलपर्स प्रोजेक्ट को उपयोगी पाते हैं, इसकी प्रगति का पालन करते हैं, और इसे अपनाने की संभावना रखते हैं। किसी प्रोजेक्ट के मूल्य का अनुमान लगाने के लिए, सितारे विकल्पों के बीच कर्षण की तुलना करने में मदद करते हैं और पारिस्थितिकी तंत्र के विकास में अंतर्दृष्टि प्रदान करते हैं।
 
-[![Star History Chart](https://api.star-history.com/chart?repos=i18next%2Fnext-i18next%2Camannn%2Fnext-intl%2Clingui%2Fjs-lingui%2Cvinissimus%2Fnext-translate%2Cinostudio%2Fnext-international%2Copral%2Finlang%2Ctolgee%2Ftolgee-js%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#i18next/next-i18next&amannn/next-intl&lingui/js-lingui&vinissimus/next-translate&inostudio/next-international&opral/paraglide-js&tolgee/tolgee-js&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=i18next%2Fnext-i18next%2Camannn%2Fnext-intl%2Clingui%2Fjs-lingui%2Cvinissimus%2Fnext-translate%2Cinostudio%2Fnext-international%2Copral%2paraglide-js%2Ctolgee%2Ftolgee-js%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#i18next/next-i18next&amannn/next-intl&lingui/js-lingui&vinissimus/next-translate&inostudio/next-international&opral/paraglide-js&tolgee/tolgee-js&aymericzip/intlayer)
 
 ## परिणाम विस्तार से
 

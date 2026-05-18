@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-04-21
+updatedAt: 2026-05-18
 title: أفضل حل i18n لـ Vue في عام 2026 - تقرير قياسي
 description: قارن بين مكتبات تدويل Vue (i18n) مثل vue-i18n وfluent-vue وIntlayer. تقرير أداء مفصل حول حجم الحزمة والتسرب والتفاعل.
 keywords:
@@ -17,6 +17,9 @@ slugs:
 author: Aymeric PINEAU
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-vue-template
 history:
+  - version: 8.9.8
+    date: 2026-05-18
+    changes: "إضافة مقارنة نجوم GitHub"
   - version: 8.7.12
     date: 2026-01-06
     changes: "بدء التقييم القياسي"

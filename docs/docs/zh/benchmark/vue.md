@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-20
-updatedAt: 2026-04-21
+updatedAt: 2026-05-18
 title: 2026 年 Vue 最佳 i18n 解决方案 - 基准报告
 description: 比较 Vue 国际化（i18n）库，如 vue-i18n、fluent-vue 和 Intlayer。关于包大小、泄漏和反应性的详细性能报告。
 keywords:
@@ -17,6 +17,9 @@ slugs:
 author: Aymeric PINEAU
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-vue-template
 history:
+  - version: 8.9.8
+    date: 2026-05-18
+    changes: "添加 GitHub 明星对比"
   - version: 8.7.12
     date: 2026-01-06
     changes: "初始化基准"
