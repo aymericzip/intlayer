@@ -177,7 +177,7 @@ export const WithResizer: FC<PropsWithChildren<WithResizerProps>> = ({
   minWidth = 0,
   handlePosition = 'right',
   children,
-  style,
+  style = true,
   className,
   isOpen,
   defaultOpenWidth,
@@ -337,21 +337,12 @@ export const WithResizer: FC<PropsWithChildren<WithResizerProps>> = ({
   return (
     <div
       className={cn(
-        'relative h-full w-full max-w-[80%] shrink-0 cursor-ew-resize',
+        'relative h-full w-full max-w-[80%] shrink-0',
         style &&
-          (handlePosition === 'right'
-            ? [
-                'border-r-[2px]',
-                'after:absolute after:top-1/2 after:right-0 after:block after:h-10 after:w-2 after:translate-x-1/2 after:-translate-y-1/2 after:transform after:cursor-ew-resize after:rounded-full after:bg-neutral-200 after:transition after:content-[""] dark:after:bg-neutral-950',
-              ]
-            : [
-                'border-l-[2px]',
-                'after:absolute after:top-1/2 after:left-0 after:block after:h-10 after:w-2 after:-translate-x-1/2 after:-translate-y-1/2 after:transform after:cursor-ew-resize after:rounded-full after:bg-neutral-200 after:transition after:content-[""] dark:after:bg-neutral-950',
-              ]),
+          (handlePosition === 'right' ? 'border-r-[2px]' : 'border-l-[2px]'),
         style &&
-          'border-neutral-200 transition active:border-neutral-400 active:after:bg-neutral-400 dark:border-neutral-950 dark:active:border-neutral-600 active:dark:after:bg-neutral-600',
+          'border-neutral-200 transition active:border-neutral-400 dark:border-neutral-950 dark:active:border-neutral-600',
         minWidth && `min-w-[${minWidth}px]`,
-
         maxWidth && `max-w-[${maxWidth}px]`,
         !style && className
       )}
@@ -360,9 +351,6 @@ export const WithResizer: FC<PropsWithChildren<WithResizerProps>> = ({
         transition: isResizing ? 'none' : 'width 200ms ease-in-out',
       }}
       ref={containerRef}
-      onMouseDown={startResizing}
-      onTouchStart={startResizing}
-      onDoubleClick={handleDoubleClick}
       aria-valuemin={minWidth}
       aria-valuemax={maxWidth}
       aria-valuenow={width}
@@ -379,6 +367,17 @@ export const WithResizer: FC<PropsWithChildren<WithResizerProps>> = ({
       >
         {children}
       </div>
+      {/* biome-ignore lint/a11y/noStaticElementInteractions: Invisible handle strip — owns resize events so content stopPropagation doesn't block them */}
+      <div
+        role="presentation"
+        className={cn(
+          'absolute top-0 z-10 h-full w-3 cursor-ew-resize',
+          handlePosition === 'right' ? 'right-0' : 'left-0'
+        )}
+        onMouseDown={startResizing}
+        onTouchStart={startResizing}
+        onDoubleClick={handleDoubleClick}
+      />
     </div>
   );
 };
