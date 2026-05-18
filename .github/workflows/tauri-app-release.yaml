@@ -54,7 +54,7 @@ jobs:
           projectPath: apps/app
           tauriScript: bunx tauri
           tagName: ${{ steps.get_version.outputs.version }}
-          releaseName: 'App ${{ steps.get_version.outputs.version }}'
+          releaseName: '${{ steps.get_version.outputs.version }}'
           releaseBody: 'See the assets to download this version and install.'
-          releaseDraft: true
+          releaseDraft: false
           prerelease: false
