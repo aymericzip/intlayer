@@ -261,6 +261,18 @@ Explore nuestra documentación completa para comenzar con Intlayer y aprender c�
 </ul>
 </details>
 
+## Sistema de gestión de contenidos multilingüe
+
+Más que una biblioteca i18n, Intlayer es un **sistema de gestión de contenidos multilingüe** completo. Un CMS completo está disponible de forma gratuita en [app.intlayer.org](https://app.intlayer.org/?utm_source=chatgpt.com).
+
+Intlayer conecta a **desarrolladores**, **redactores** y **agentes de IA** en un único flujo de trabajo para crear y mantener sitios web multilingües sin esfuerzo. Intlayer reemplaza la siguiente pila en una sola solución:
+
+- Soluciones i18n (por ejemplo, `i18next`, `next-intl`, `vue-i18n`)
+- TMSs (Sistemas de Gestión de Traducciones) (por ejemplo, Crowdin, Phrase, Lokalise)
+- CMSs Headless (por ejemplo, Contentful, Strapi, Sanity)
+
+![CMS Preview](https://github.com/aymericzip/intlayer/blob/main/docs/assets/CMS.png?raw=true)
+
 ## 🌐 Readme en otros idiomas
 
 <p align="center">

@@ -261,6 +261,18 @@ Khám phá tài liệu toàn diện của chúng tôi để bắt đầu với I
 </ul>
 </details>
 
+## Hệ thống quản lý nội dung đa ngôn ngữ
+
+Không chỉ là một thư viện i18n, Intlayer là một **hệ thống quản lý nội dung đa ngôn ngữ** hoàn chỉnh. Một CMS đầy đủ tính năng có sẵn miễn phí tại [app.intlayer.org](https://app.intlayer.org/?utm_source=chatgpt.com).
+
+Intlayer kết nối **lập trình viên**, **người viết nội dung** và **các tác nhân AI** trong một luồng công việc duy nhất để tạo và duy trì các trang web đa ngôn ngữ một cách dễ dàng. Intlayer thay thế toàn bộ ngăn xếp công nghệ sau đây bằng một giải pháp duy nhất:
+
+- Các giải pháp i18n (ví dụ: `i18next`, `next-intl`, `vue-i18n`)
+- TMS (Hệ thống quản lý dịch thuật) (ví dụ: Crowdin, Phrase, Lokalise)
+- Headless CMS (ví dụ: Contentful, Strapi, Sanity)
+
+![CMS Preview](https://github.com/aymericzip/intlayer/blob/main/docs/assets/CMS.png?raw=true)
+
 ## 🌐 Readme bằng các ngôn ngữ khác
 
 <p align="center">

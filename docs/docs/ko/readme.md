@@ -261,6 +261,18 @@ Intlayer를 시작하고 프로젝트에 통합하는 방법을 배우려면 종
 </ul>
 </details>
 
+## 다국어 콘텐츠 관리 시스템
+
+단순한 i18n 라이브러리를 넘어, Intlayer는 완전한 **다국어 콘텐츠 관리 시스템**입니다. 전체 CMS는 [app.intlayer.org](https://app.intlayer.org/?utm_source=chatgpt.com)에서 무료로 사용할 수 있습니다.
+
+Intlayer는 **개발자**, **카피라이터**, **AI 에이전트**를 하나의 워크플로우로 연결하여 다국어 웹사이트를 손쉽게 구축하고 유지 관리할 수 있도록 지원합니다. Intlayer는 단 하나의 솔루션으로 다음 스택을 대체합니다:
+
+- i18n 솔루션 (예: `i18next`, `next-intl`, `vue-i18n`)
+- TMS (번역 관리 시스템) (예: Crowdin, Phrase, Lokalise)
+- Headless CMS (예: Contentful, Strapi, Sanity)
+
+![CMS Preview](https://github.com/aymericzip/intlayer/blob/main/docs/assets/CMS.png?raw=true)
+
 ## 🌐 다른 언어로 된 Readme
 
 <p align="center">

@@ -261,6 +261,18 @@ Jelajahi dokumentasi lengkap kami untuk memulai dengan Intlayer dan pelajari car
 </ul>
 </details>
 
+## Sistem Manajemen Konten Multibahasa
+
+Lebih dari sekadar pustaka i18n, Intlayer adalah **sistem manajemen konten multibahasa** yang lengkap. CMS lengkap tersedia secara gratis di [app.intlayer.org](https://app.intlayer.org/?utm_source=chatgpt.com).
+
+Intlayer menghubungkan **pengembang**, **penulis naskah**, dan **agen AI** dalam satu alur kerja untuk membuat dan memelihara situs web multibahasa dengan mudah. Intlayer menggantikan tumpukan teknologi berikut dalam satu solusi tunggal:
+
+- Solusi i18n (misalnya `i18next`, `next-intl`, `vue-i18n`)
+- TMS (Translation Management Systems) (misalnya Crowdin, Phrase, Lokalise)
+- Headless CMS (misalnya Contentful, Strapi, Sanity)
+
+![CMS Preview](https://github.com/aymericzip/intlayer/blob/main/docs/assets/CMS.png?raw=true)
+
 ## 🌐 Readme dalam bahasa lain
 
 <p align="center">

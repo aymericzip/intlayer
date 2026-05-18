@@ -261,6 +261,18 @@ const HomePage = () => {
 </ul>
 </details>
 
+## نظام إدارة محتوى متعدد اللغات
+
+أكثر من مجرد مكتبة i18n، يعتبر Intlayer **نظام إدارة محتوى متعدد اللغات** متكامل. يتوفر نظام إدارة محتوى (CMS) كامل مجانًا على [app.intlayer.org](https://app.intlayer.org).
+
+يربط Intlayer بين **المطورين** و**كتاب المحتوى** و**وكلاء الذكاء الاصطناعي** في تدفق عمل واحد لإنشاء مواقع الويب متعددة اللغات وصيانتها دون عناء. يستبدل Intlayer الأدوات والأنظمة التالية بحل واحد:
+
+- حلول i18n (مثل `i18next` و `next-intl` و `vue-i18n`)
+- أنظمة إدارة الترجمة (TMS) (مثل Crowdin و Phrase و Lokalise)
+- أنظمة إدارة المحتوى بدون واجهة (Headless CMS) (مثل Contentful و Strapi و Sanity)
+
+![CMS Preview](https://github.com/aymericzip/intlayer/blob/main/docs/assets/CMS.png?raw=true)
+
 ## 🌐 ملف README بلغات أخرى
 
 <p align="center">

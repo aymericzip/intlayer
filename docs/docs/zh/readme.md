@@ -261,6 +261,18 @@ const HomePage = () => {
 </ul>
 </details>
 
+## 多语言内容管理系统
+
+不仅是一个 i18n 库，Intlayer 还是一个完整的 **多语言内容管理系统**。您可以在 [app.intlayer.cn](https://app.intlayer.cn) 免费使用完整的 CMS。
+
+Intlayer 将 **开发人员**、**文案撰写人员** 和 **AI 代理** 连接在同一个工作流中，以轻松创建和维护多语言网站。Intlayer 在单个解决方案中替代了以下技术栈：
+
+- i18n 解决方案（例如 `i18next`、`next-intl`、`vue-i18n`）
+- TMS（翻译管理系统）（例如 Crowdin、Phrase、Lokalise）
+- 无头 CMS（例如 Contentful、Strapi、Sanity）
+
+![CMS Preview](https://github.com/aymericzip/intlayer/blob/main/docs/assets/CMS.png?raw=true)
+
 ## 🌐 其他语言的 Readme
 
 <p align="center">

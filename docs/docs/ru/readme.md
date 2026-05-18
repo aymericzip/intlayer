@@ -261,6 +261,18 @@ const HomePage = () => {
 </ul>
 </details>
 
+## Многоязычная система управления контентом
+
+Больше, чем просто библиотека i18n, Intlayer — это полноценная **многоязычная система управления контентом**. Полнофункциональная CMS доступна бесплатно по адресу [app.intlayer.org](https://app.intlayer.org/?utm_source=chatgpt.com).
+
+Intlayer объединяет **разработчиков**, **копирайтеров** и **ИИ-агентов** в единый рабочий процесс для легкого создания и поддержки многоязычных сайтов. Intlayer заменяет следующий стек в одном решении:
+
+- i18n решения (например, `i18next`, `next-intl`, `vue-i18n`)
+- TMS (системы управления переводами) (например, Crowdin, Phrase, Lokalise)
+- Headless CMS (например, Contentful, Strapi, Sanity)
+
+![CMS Preview](https://github.com/aymericzip/intlayer/blob/main/docs/assets/CMS.png?raw=true)
+
 ## 🌐 Readme на других языках
 
 <p align="center">

@@ -261,6 +261,18 @@ Intlayer ile başlamanıza yardımcı olacak kapsamlı dokümantasyonumuzu keşf
 </ul>
 </details>
 
+## Çok Dilli İçerik Yönetim Sistemi
+
+Bir i18n kütüphanesinden çok daha fazlası olan Intlayer, eksiksiz bir **çok dilli içerik yönetim sistemidir**. Ücretsiz ve tam kapsamlı bir CMS'ye [app.intlayer.org](https://app.intlayer.org/?utm_source=chatgpt.com) adresinden erişilebilir.
+
+Intlayer, çok dilli web sitelerini zahmetsizce oluşturmak ve sürdürmek için **geliştiricileri**, **metin yazarlarını** ve **yapay zeka ajanlarını** tek bir iş akışında birleştirir. Intlayer, aşağıdaki teknolojileri tek bir çözümde bir araya getirerek değiştirir:
+
+- i18n çözümleri (örn. `i18next`, `next-intl`, `vue-i18n`)
+- TMS'ler (Çeviri Yönetim Sistemleri) (örn. Crowdin, Phrase, Lokalise)
+- Headless CMS'ler (örn. Contentful, Strapi, Sanity)
+
+![CMS Preview](https://github.com/aymericzip/intlayer/blob/main/docs/assets/CMS.png?raw=true)
+
 ## 🌐 Diğer dillerde Readme
 
 <p align="center">
