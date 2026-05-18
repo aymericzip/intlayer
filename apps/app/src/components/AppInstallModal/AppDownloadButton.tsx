@@ -13,7 +13,7 @@ import { useIntlayer } from 'react-intlayer';
 
 const RELEASES_API =
   'https://api.github.com/repos/aymericzip/intlayer/releases/latest';
-const RELEASES_PAGE = 'https://github.com/aymericzip/intlayer/releases/latest';
+const RELEASES_PAGE = 'https://github.com/aymericzip/intlayer/releases';
 
 type OS = 'mac' | 'windows' | 'linux' | 'unknown';
 type ReleaseAsset = { name: string; browser_download_url: string };
