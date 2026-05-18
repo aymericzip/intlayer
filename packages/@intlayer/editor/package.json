@@ -81,7 +81,7 @@
     "@intlayer/unmerged-dictionaries-entry": "workspace:*"
   },
   "devDependencies": {
-    "@types/node": "25.8.0",
+    "@types/node": "25.9.0",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
