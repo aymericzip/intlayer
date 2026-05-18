@@ -30,8 +30,8 @@ const buttonIconVariants = cva('flex-none shrink-0', {
       [`${ButtonSize.XL}`]: 'size-6',
       [`${ButtonSize.ICON_SM}`]: 'size-3',
       [`${ButtonSize.ICON_MD}`]: 'size-4',
-      [`${ButtonSize.ICON_LG}`]: 'size-4',
-      [`${ButtonSize.ICON_XL}`]: 'size-5',
+      [`${ButtonSize.ICON_LG}`]: 'size-5',
+      [`${ButtonSize.ICON_XL}`]: 'size-6',
     },
   },
   defaultVariants: {
@@ -96,7 +96,7 @@ export const buttonVariants = cva(
         [`${ButtonSize.XL}`]: 'min-h-11 px-10 text-xl max-md:py-4',
         [`${ButtonSize.ICON_SM}`]: 'p-1.5',
         [`${ButtonSize.ICON_MD}`]: 'p-1.5',
-        [`${ButtonSize.ICON_LG}`]: 'p-2',
+        [`${ButtonSize.ICON_LG}`]: 'p-1.5',
         [`${ButtonSize.ICON_XL}`]: 'p-3',
       },
       color: {
@@ -426,8 +426,8 @@ export const Button: FC<ButtonProps> = ({
           'flex items-center justify-center transition-[width] duration-300',
           isLoading && size === ButtonSize.SM && 'w-3',
           isLoading && size === ButtonSize.MD && 'w-4',
-          isLoading && size === ButtonSize.LG && 'w-5',
-          isLoading && size === ButtonSize.XL && 'w-6'
+          isLoading && size === ButtonSize.LG && 'w-6',
+          isLoading && size === ButtonSize.XL && 'w-8'
         )}
       >
         <Loader

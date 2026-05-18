@@ -300,10 +300,12 @@ export const Link: FC<LinkProps> = (props) => {
 
   const target = isExternalLink ? '_blank' : '_self';
 
-  const href =
+  const resolvedHref =
     locale && hrefProp && !isExternalLink && !isPageSection
       ? getLocalizedUrl(hrefProp, locale)
       : hrefProp;
+
+  const href = resolvedHref === '' ? undefined : resolvedHref;
 
   return (
     <a

@@ -1,5 +1,6 @@
 import { Container } from '@intlayer/design-system/container';
 import type { FC } from 'react';
+import { Fragment } from 'react';
 import { Skeleton } from '#components/Skeleton';
 
 export const OrganizationSkeleton: FC = () => (
@@ -40,14 +41,14 @@ export const OrganizationSkeleton: FC = () => (
         >
           <Skeleton className="h-6 w-1/4" />
           {[1, 2, 3, 4].map((i) => (
-            <>
+            <Fragment key={i}>
               <Skeleton className="my-4 h-6 w-1/4" />
-              <div key={i} className="flex items-center gap-3">
+              <div className="flex items-center gap-3">
                 <Skeleton className="size-8 rounded-full" />
                 <Skeleton className="h-5 w-32" />
                 <Skeleton className="ml-auto h-7 w-16 rounded-lg" />
               </div>
-            </>
+            </Fragment>
           ))}
         </Container>
       </div>

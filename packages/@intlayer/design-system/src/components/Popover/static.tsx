@@ -1,5 +1,10 @@
 import { cn } from '@utils/cn';
-import type { DetailedHTMLProps, FC, HTMLAttributes } from 'react';
+import type {
+  ComponentProps,
+  DetailedHTMLProps,
+  FC,
+  HTMLAttributes,
+} from 'react';
 import { Container } from '../Container';
 
 /**
@@ -145,7 +150,7 @@ export const PopoverStatic: PopoverType = ({
  * Props for the Popover.Detail component
  * Extends HTMLDivElement attributes for styling flexibility
  */
-export type DetailProps = HTMLAttributes<HTMLDivElement> & {
+export type DetailProps = ComponentProps<typeof Container> & {
   /** Whether the popover responds to focus events on the trigger */
   isFocusable?: boolean;
   /** Controls visibility state - undefined allows automatic hover/focus control */

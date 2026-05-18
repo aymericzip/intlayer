@@ -90,8 +90,8 @@ export const AppInstallModal = () => {
 
   return (
     <Modal isOpen={isOpen} onClose={handleDismiss} size="sm" padding="md">
-      <div className="flex flex-col gap-4">
-        <div className="flex items-center gap-3">
+      <div className="flex flex-col gap-10">
+        <div className="flex items-center gap-10">
           <img
             src="/favicon-32x32.png"
             alt="Intlayer"
@@ -99,7 +99,7 @@ export const AppInstallModal = () => {
             height={32}
             className="shrink-0"
           />
-          <div>
+          <div className="flex flex-col gap-1">
             <p className="font-semibold text-base">{title}</p>
             <p className="text-neutral-500 text-sm dark:text-neutral-400">
               {description}
@@ -107,7 +107,7 @@ export const AppInstallModal = () => {
           </div>
         </div>
 
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-3">
           {os !== 'unknown' && (
             <a
               href={downloadUrl}
@@ -135,7 +135,7 @@ export const AppInstallModal = () => {
             </Button>
           </a>
           <Button
-            variant="ghost"
+            variant="hoverable"
             className="w-full"
             onClick={handleDismiss}
             label={String(notNow)}

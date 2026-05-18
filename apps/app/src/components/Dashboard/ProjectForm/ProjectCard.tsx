@@ -66,7 +66,7 @@ export const ProjectCard: FC<ProjectCardProps> = ({
           </div>
           <div className="flex flex-wrap items-center gap-2">
             <a
-              href={project.repository.url}
+              href={project.repository.url || undefined}
               target="_blank"
               rel="noopener noreferrer"
               className="block w-full font-medium text-xs underline"

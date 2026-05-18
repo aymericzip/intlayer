@@ -70,10 +70,12 @@ export const Link: FC<LinkProps> = ({
   const isButton =
     variant === LinkVariant.BUTTON || variant === LinkVariant.BUTTON_OUTLINED;
 
-  const href =
+  const resolvedHref =
     locale && normalizedHref && !isExternalLink && !isPageSection
       ? getLocalizedUrl(normalizedHref, locale)
       : normalizedHref;
+
+  const href = resolvedHref === '' ? undefined : resolvedHref;
 
   const rel = isExternalLink ? 'noopener noreferrer' : undefined;
 

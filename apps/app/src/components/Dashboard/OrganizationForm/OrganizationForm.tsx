@@ -32,6 +32,8 @@ const OrganizationFormContent: FC = () => {
             <Container
               roundedSize="3xl"
               padding="md"
+              border
+              borderColor="neutral"
               className="flex size-full justify-center"
             >
               <OrganizationEditionForm />
@@ -39,6 +41,8 @@ const OrganizationFormContent: FC = () => {
             <Container
               roundedSize="3xl"
               padding="md"
+              border
+              borderColor="neutral"
               className="flex size-full justify-center"
             >
               <PlanDetails />
@@ -46,6 +50,8 @@ const OrganizationFormContent: FC = () => {
             <Container
               roundedSize="3xl"
               padding="md"
+              border
+              borderColor="neutral"
               className="flex size-full justify-center"
             >
               <SSOSettings />
@@ -55,13 +61,21 @@ const OrganizationFormContent: FC = () => {
             <Container
               padding="md"
               roundedSize="3xl"
+              border
+              borderColor="neutral"
               className="flex size-full justify-center"
             >
               <MembersForm />
             </Container>
           </div>
         </div>
-        <Container roundedSize="3xl" padding="lg" className="z-10 w-full">
+        <Container
+          roundedSize="3xl"
+          border
+          borderColor="neutral"
+          padding="lg"
+          className="z-10 w-full"
+        >
           <DeleteOrganizationModal
             isOpen={isDeletionModalOpen}
             onClose={() => setIsDeletionModalOpen(false)}
@@ -104,6 +118,8 @@ const OrganizationFormContent: FC = () => {
       <Container
         roundedSize="3xl"
         padding="2xl"
+        border
+        borderColor="neutral"
         className="flex justify-center"
       >
         <Modal

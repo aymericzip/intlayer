@@ -70,6 +70,8 @@ const ProfileFormContent: FC = () => {
       <Container
         roundedSize="3xl"
         padding="lg"
+        border
+        borderColor="neutral"
         className="w-full flex-row items-center gap-10"
       >
         <Avatar size="2xl" src={user?.image} />
@@ -108,11 +110,23 @@ const ProfileFormContent: FC = () => {
         </div>
 
         <div className="flex w-full flex-col gap-10 md:max-w-xl">
-          <Container roundedSize="3xl" padding="md" className="relative w-full">
+          <Container
+            roundedSize="3xl"
+            padding="md"
+            border
+            borderColor="neutral"
+            className="relative w-full"
+          >
             <H3 className="mb-8">{twoFactorTitle}</H3>
             <TwoFactorAuth />
           </Container>
-          <Container roundedSize="3xl" padding="md" className="w-full">
+          <Container
+            roundedSize="3xl"
+            padding="md"
+            border
+            borderColor="neutral"
+            className="w-full"
+          >
             <H3 className="mb-8">{passkeyTitle}</H3>
             <PasskeyManagement
               passkeys={passkeys}
@@ -123,7 +137,13 @@ const ProfileFormContent: FC = () => {
         </div>
       </div>
 
-      <Container roundedSize="3xl" padding="lg" className="w-full">
+      <Container
+        roundedSize="3xl"
+        padding="lg"
+        border
+        borderColor="neutral"
+        className="w-full"
+      >
         <DeleteUser />
       </Container>
 

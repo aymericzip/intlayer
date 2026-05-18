@@ -3,6 +3,7 @@ import { TechLogos } from '@intlayer/design-system/tech-logo';
 import type { LocalesValues } from 'intlayer';
 import type { FC, ReactNode } from 'react';
 import { useIntlayer } from 'react-intlayer';
+import { AppDownloadButton } from '#components/AppInstallModal/AppDownloadButton';
 import { Link } from '#components/Link/Link';
 import { LocaleSwitcher } from '#components/LocaleSwitcher/LocaleSwitcher.tsx';
 import { SwitchThemeSwitcher } from '#components/SwitchThemeSwitcher.tsx';
@@ -24,14 +25,15 @@ export const DashboardFooter: FC<DashboardFooterProps> = ({ links }) => {
   const { isMobile } = useDevice('sm');
 
   return (
-    <footer className="z-90 flex flex-none flex-wrap items-center gap-4 px-6 py-1 max-md:pb-2 md:flex-row">
+    <footer className="z-90 flex flex-none flex-wrap items-center gap-4 px-6 pt-1 pb-2 max-md:pb-2 md:flex-row">
       <div className="flex flex-row items-center justify-center gap-x-4 gap-y-2 max-md:max-w-1/4">
         <Link to={github.url.value} label={github.label.value} color="text">
           <TechLogos.GITHUB width={20} />
         </Link>
+        <AppDownloadButton />
 
         {isMobile && (
-          <div className="flex flex-row items-center justify-center gap-x-2">
+          <div className="ml-auto flex flex-row items-center justify-center gap-x-2">
             <LocaleSwitcher />
             <SwitchThemeSwitcher />
           </div>

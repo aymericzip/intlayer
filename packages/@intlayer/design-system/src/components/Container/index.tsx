@@ -57,7 +57,7 @@ export const containerVariants = cva('flex flex-col text-text backdrop-blur', {
     borderColor: {
       primary: 'border-primary',
       secondary: 'border-secondary',
-      neutral: 'border-neutral',
+      neutral: 'border-neutral/20',
       card: 'border-card',
       text: 'border-text',
       error: 'border-error',

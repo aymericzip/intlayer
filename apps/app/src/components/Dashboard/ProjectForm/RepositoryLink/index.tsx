@@ -110,7 +110,7 @@ export const RepositoryLink: FC = () => {
                   </span>
                 </span>
                 <a
-                  href={connectedRepository.url}
+                  href={connectedRepository.url || undefined}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="font-medium underline"

@@ -37,6 +37,8 @@ export const ProjectFormContent: FC = () => {
           <Container
             roundedSize="xl"
             padding="md"
+            border
+            borderColor="neutral"
             className="flex size-full justify-center"
           >
             <p className="text-neutral text-sm">{noAdminMessage}</p>
@@ -48,6 +50,8 @@ export const ProjectFormContent: FC = () => {
             <Container
               roundedSize="3xl"
               padding="md"
+              border
+              borderColor="neutral"
               className="z-20 flex size-full justify-center"
             >
               <ProjectEditionForm />
@@ -55,6 +59,8 @@ export const ProjectFormContent: FC = () => {
             <Container
               roundedSize="3xl"
               padding="md"
+              border
+              borderColor="neutral"
               className="z-10 flex size-full justify-center"
             >
               <MembersForm />
@@ -62,6 +68,8 @@ export const ProjectFormContent: FC = () => {
             <Container
               roundedSize="3xl"
               padding="md"
+              border
+              borderColor="neutral"
               className="flex size-full justify-center"
             >
               <AccessKeyForm />
@@ -71,6 +79,8 @@ export const ProjectFormContent: FC = () => {
             <Container
               roundedSize="3xl"
               padding="md"
+              border
+              borderColor="neutral"
               className="z-20 flex size-full justify-center"
             >
               <ConfigDetails projectConfig={project.configuration} />
@@ -78,6 +88,8 @@ export const ProjectFormContent: FC = () => {
             <Container
               roundedSize="3xl"
               padding="md"
+              border
+              borderColor="neutral"
               className="z-10 flex size-full justify-center"
             >
               <RepositoryLink />
@@ -85,6 +97,8 @@ export const ProjectFormContent: FC = () => {
             <Container
               roundedSize="3xl"
               padding="md"
+              border
+              borderColor="neutral"
               className="flex size-full justify-center"
             >
               <BuildSettings />
@@ -92,13 +106,21 @@ export const ProjectFormContent: FC = () => {
             <Container
               roundedSize="3xl"
               padding="md"
+              border
+              borderColor="neutral"
               className="flex size-full justify-center"
             >
               <AutoFillSettings />
             </Container>
           </div>
         </div>
-        <Container roundedSize="3xl" padding="lg" className="w-full">
+        <Container
+          roundedSize="3xl"
+          padding="lg"
+          border
+          borderColor="neutral"
+          className="w-full"
+        >
           <DeleteProjectModal
             isOpen={isDeletionModalOpen}
             onClose={() => setIsDeletionModalOpen(false)}
