@@ -41,12 +41,11 @@ export const isInvalidDictionary = (
   // A key is used as a filename component ({key}.json), so slashes, backslashes,
   // null bytes, or pure dot-segments can escape the output directory or break
   // dictionary resolution.
-  const isInsecureKey =
-    dictionary.key.includes('/') ||
-    dictionary.key.includes('\\') ||
-    dictionary.key.includes('\x00') ||
-    dictionary.key.startsWith('.') ||
-    dictionary.key.startsWith('..');
+  // Allows alphanumeric characters, dashes, and underscores.
+  // Allows dots, but not as the first or last character, and no consecutive dots.
+  const isInsecureKey = !/^[a-zA-Z0-9]+([._-][a-zA-Z0-9]+)*$/.test(
+    dictionary.key
+  );
 
   if (isInsecureKey) {
     appLogger(
