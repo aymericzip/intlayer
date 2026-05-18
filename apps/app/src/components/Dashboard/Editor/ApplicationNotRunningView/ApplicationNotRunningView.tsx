@@ -30,6 +30,8 @@ export const ApplicationNotRunningView: FC<ApplicationNotRunningViewProps> = ({
         className="mb-[20%] flex max-w-xl flex-col gap-2 text-sm"
         padding="xl"
         roundedSize="3xl"
+        border
+        borderColor="neutral"
       >
         <H3 className="mb-4 text-lg">{title}</H3>
         <span className="font-semibold">

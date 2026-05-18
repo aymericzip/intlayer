@@ -13,6 +13,8 @@ export const CheckingApplicationStatusView: FC = () => {
         className="flex max-w-xl flex-col items-center justify-center gap-4 rounded-2xl p-6"
         padding="xl"
         roundedSize="2xl"
+        border
+        borderColor="neutral"
       >
         <Loader />
         <span className="ml-2">{checkingApplicationStatus}</span>
