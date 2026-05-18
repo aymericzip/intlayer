@@ -1,6 +1,5 @@
 import { Button } from '@intlayer/design-system/button';
 import { PopoverStatic } from '@intlayer/design-system/popover';
-import { FocusDictionaryProvider } from '@intlayer/editor-react';
 import { PenTool } from 'lucide-react';
 import { type FC, memo, useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
@@ -47,9 +46,7 @@ export const VisualEditorDrawer: FC = memo(() => {
         createPortal(
           <div className="flex size-full flex-col overflow-hidden">
             <EditorConfigurationProvider>
-              <FocusDictionaryProvider>
-                <Editor DictionariesLoader={DictionaryLoaderDashboard} />
-              </FocusDictionaryProvider>
+              <Editor DictionariesLoader={DictionaryLoaderDashboard} />
             </EditorConfigurationProvider>
           </div>,
           portalTarget

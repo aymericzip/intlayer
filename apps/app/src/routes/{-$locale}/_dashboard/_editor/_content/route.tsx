@@ -5,12 +5,11 @@ import {
   App_Dashboard_Editor,
   App_Dashboard_Editor_Path,
   App_Dashboard_Projects_Path,
-  App_Dashboard_Translate_Path,
   App_Dashboard_Tags_Path,
+  App_Dashboard_Translate_Path,
 } from '@intlayer/design-system/routes';
 import { TabSelector } from '@intlayer/design-system/tab-selector';
 import { cn } from '@intlayer/design-system/utils';
-import { FocusDictionaryProvider } from '@intlayer/editor-react';
 import { createFileRoute, Outlet, useLocation } from '@tanstack/react-router';
 import { getLocalizedUrl, getPathWithoutLocale } from 'intlayer';
 import { Book, Globe, PenTool, Tag } from 'lucide-react';
@@ -143,38 +142,36 @@ function EditorLayout() {
           />
         </div>
         <EditorConfigurationProvider>
-          <FocusDictionaryProvider>
-            {isEditorInitialized && (
-              <div
-                className={cn(
-                  'flex size-full flex-1 flex-col items-center justify-center p-2',
-                  isEditorActive ? 'flex' : 'hidden'
-                )}
-              >
-                <BreadcrumbsHeader
-                  breadcrumbs={[
-                    {
-                      name: 'Dashboard',
-                      url: getLocalizedUrl(App_Dashboard, locale),
-                    },
-                    {
-                      name: 'Editor',
-                      url: getLocalizedUrl(App_Dashboard_Editor, locale),
-                    },
-                  ]}
-                />
-                <Editor DictionariesLoader={DictionaryLoaderDashboard} />
-              </div>
-            )}
+          {isEditorInitialized && (
             <div
               className={cn(
-                'relative size-auto flex-1 flex-col overflow-auto',
-                !isEditorActive ? 'flex' : 'hidden'
+                'flex size-full flex-1 flex-col items-center justify-center p-2',
+                isEditorActive ? 'flex' : 'hidden'
               )}
             >
-              <Outlet />
+              <BreadcrumbsHeader
+                breadcrumbs={[
+                  {
+                    name: 'Dashboard',
+                    url: getLocalizedUrl(App_Dashboard, locale),
+                  },
+                  {
+                    name: 'Editor',
+                    url: getLocalizedUrl(App_Dashboard_Editor, locale),
+                  },
+                ]}
+              />
+              <Editor DictionariesLoader={DictionaryLoaderDashboard} />
             </div>
-          </FocusDictionaryProvider>
+          )}
+          <div
+            className={cn(
+              'relative size-auto flex-1 flex-col overflow-auto',
+              !isEditorActive ? 'flex' : 'hidden'
+            )}
+          >
+            <Outlet />
+          </div>
         </EditorConfigurationProvider>
       </DashboardContentLayout>
     </AuthenticationBarrier>
