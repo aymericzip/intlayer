@@ -33,10 +33,11 @@ export const VisualEditorDrawer: FC = memo(() => {
           label={buttonLabel.value}
           Icon={PenTool}
           size="icon-lg"
+          isActive={isOpen}
         />
         <PopoverStatic.Detail identifier={DRAWER_ID} xAlign="end">
           <span className="flex gap-4 text-nowrap py-2 pr-2 pl-4 text-neutral text-sm">
-            {buttonDescription.value}
+            {buttonDescription}
           </span>
         </PopoverStatic.Detail>
       </PopoverStatic>

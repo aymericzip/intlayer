@@ -29,8 +29,11 @@ type DiscussionStore = {
 };
 
 export const DashboardChatBot: FC = () => {
-  const { firstMessage: firstMessageContent } =
-    useIntlayer('dashboard-chat-bot');
+  const {
+    firstMessage: firstMessageContent,
+    openAiAssistant,
+    aiAssistant,
+  } = useIntlayer('dashboard-chat-bot');
   const { mutate: sendChat, isPending } = useChat();
   const { open: openPanel, isOpen: checkIsOpen } = useDashboardRightPanel();
   const isOpen = checkIsOpen(DRAWER_ID);
@@ -148,13 +151,14 @@ export const DashboardChatBot: FC = () => {
           onClick={() => openPanel(DRAWER_ID)}
           type="button"
           variant="hoverable"
-          label="Open AI assistant"
+          label={openAiAssistant.value}
           Icon={MessageSquare}
           size="icon-lg"
+          isActive={isOpen}
         />
         <PopoverStatic.Detail identifier={DRAWER_ID} xAlign="end">
           <span className="flex gap-4 text-nowrap py-2 pr-2 pl-4 text-neutral text-sm">
-            AI assistant
+            {aiAssistant}
           </span>
         </PopoverStatic.Detail>
       </PopoverStatic>

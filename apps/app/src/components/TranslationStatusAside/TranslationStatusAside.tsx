@@ -715,6 +715,7 @@ export const TranslationStatusAside: FC = () => {
           isLoading={isProcessingGlobal}
           disabled={false}
           size="icon-lg"
+          isActive={isOpen}
         >
           <div className="relative">
             {hasUnseenChanges && (
