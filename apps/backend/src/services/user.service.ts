@@ -45,7 +45,7 @@ export const createUser = async (
 export const getUserByEmail = async (
   email: string
 ): Promise<UserDocument | null> => {
-  return await UserModel.findOne({ email });
+  return await UserModel.findOne({ email: String(email) });
 };
 
 /**

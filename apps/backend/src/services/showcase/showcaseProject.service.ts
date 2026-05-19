@@ -93,7 +93,9 @@ export const findShowcaseProjectByUrl = async (
     hostname = new URL(websiteUrl).hostname;
   } catch {
     // Fallback to exact match if URL is unparseable
-    const project = await ShowcaseProjectModel.findOne({ websiteUrl }).lean();
+    const project = await ShowcaseProjectModel.findOne({
+      websiteUrl: String(websiteUrl),
+    }).lean();
     return project as unknown as ShowcaseProjectDocument | null;
   }
 

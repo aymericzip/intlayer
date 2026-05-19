@@ -277,7 +277,7 @@ export const updateDictionaryByKey = async (
   projectId: string | Types.ObjectId
 ): Promise<DictionaryDocument> => {
   const existing = await DictionaryModel.findOne({
-    key: dictionaryKey,
+    key: String(dictionaryKey),
     projectIds: projectId,
   });
 

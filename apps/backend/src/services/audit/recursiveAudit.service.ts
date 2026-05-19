@@ -60,7 +60,7 @@ export const startRecursiveAuditJob = async (
   urls?: string[]
 ): Promise<string> => {
   const existingJob = await AuditJobModel.findOne({
-    targetUrl,
+    targetUrl: String(targetUrl),
     status: { $in: [AuditJobStatus.PENDING, AuditJobStatus.RUNNING] },
   });
 

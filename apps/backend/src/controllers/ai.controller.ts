@@ -562,7 +562,7 @@ export const askDocQuestion = async (
       if (organization?.id) updatePayload.organizationId = organization.id;
 
       await DiscussionModel.findOneAndUpdate(
-        { discussionId },
+        { discussionId: String(discussionId) },
         { $set: updatePayload },
         { upsert: true, returnDocument: 'after' }
       );
@@ -727,7 +727,7 @@ export const chat = async (
       if (organization?.id) updatePayload.organizationId = organization.id;
 
       await DiscussionModel.findOneAndUpdate(
-        { discussionId },
+        { discussionId: String(discussionId) },
         { $set: updatePayload },
         { upsert: true, returnDocument: 'after' }
       );

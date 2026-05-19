@@ -42,14 +42,14 @@ export const getCliSessionTokenContext = async (
     throw new GenericError('INVALID_ACCESS_TOKEN');
   }
 
-  const stored = await CliSessionTokenModel.findOne({ token });
+  const stored = await CliSessionTokenModel.findOne({ token: String(token) });
 
   if (!stored) {
     throw new GenericError('INVALID_ACCESS_TOKEN');
   }
 
   if (new Date() > stored.expiresAt) {
-    await CliSessionTokenModel.deleteOne({ token });
+    await CliSessionTokenModel.deleteOne({ token: String(token) });
     throw new GenericError('EXPIRED_ACCESS_TOKEN');
   }
 

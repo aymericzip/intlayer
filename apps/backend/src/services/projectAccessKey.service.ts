@@ -124,7 +124,7 @@ export const refreshAccessKey = async (
 ): Promise<OAuth2Access> => {
   const project = await ProjectModel.findOne({
     _id: projectId,
-    'oAuth2Access.clientId': clientId,
+    'oAuth2Access.clientId': String(clientId),
     'oAuth2Access.userId': String(userId),
   });
 
@@ -151,7 +151,7 @@ export const refreshAccessKey = async (
 
   const result = await ProjectModel.updateOne(
     {
-      'oAuth2Access.clientId': clientId,
+      'oAuth2Access.clientId': String(clientId),
       'oAuth2Access.userId': String(userId),
     },
     {

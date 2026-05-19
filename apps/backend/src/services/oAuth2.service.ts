@@ -56,7 +56,7 @@ export const getClientAndProjectByClientId = async (
   | false
 > => {
   const project = await ProjectModel.findOne({
-    'oAuth2Access.clientId': clientId,
+    'oAuth2Access.clientId': String(clientId),
   });
 
   if (!project) {
@@ -230,7 +230,7 @@ export const extendOAuth2AccessToken = async (
 ): Promise<Date> => {
   const nextExpiresAt = getTokenExpireAt();
   await OAuth2AccessTokenModel.updateOne(
-    { accessToken },
+    { accessToken: String(accessToken) },
     { $set: { accessTokenExpiresAt: nextExpiresAt, expiresIn: nextExpiresAt } }
   );
   return nextExpiresAt;
@@ -246,7 +246,7 @@ export const getAccessToken = async (
   accessToken: string
 ): Promise<OAuth2Token | false> => {
   const token = await OAuth2AccessTokenModel.findOne({
-    accessToken,
+    accessToken: String(accessToken),
   });
 
   if (!token) {
