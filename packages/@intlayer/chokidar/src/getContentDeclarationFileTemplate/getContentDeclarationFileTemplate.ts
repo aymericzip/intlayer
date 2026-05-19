@@ -53,6 +53,26 @@ export const getContentDeclarationFileTemplate = async (
   const satisfiesType = noMetadata ? "Dictionary['content']" : 'Dictionary';
 
   switch (format) {
+    case 'md': {
+      const mdFrontmatterLines = [
+        `key: ${key}`,
+        ...(fileParams.locale ? [`locale: ${fileParams.locale}`] : []),
+        ...(fileParams.title
+          ? [`title: ${JSON.stringify(fileParams.title)}`]
+          : []),
+        ...(fileParams.description
+          ? [`description: ${JSON.stringify(fileParams.description)}`]
+          : []),
+        ...(fileParams.tags?.length
+          ? [
+              'tags:',
+              ...(fileParams.tags as string[]).map((t) => `  - ${JSON.stringify(t)}`),
+            ]
+          : []),
+      ];
+      return ['---', ...mdFrontmatterLines, '---', '', ''].join('\n');
+    }
+
     case 'ts':
       return [
         "import { type Dictionary } from 'intlayer';",

@@ -355,6 +355,7 @@ const BenchmarkTable: FC = () => {
 
 const AppContent: FC = () => {
   const content = useIntlayer('app');
+  const mdContent = useIntlayer('my-markdown-content');
 
   return (
     <>
@@ -376,6 +377,8 @@ const AppContent: FC = () => {
       </div>
 
       <h1>{content.title}</h1>
+
+      {mdContent}
 
       <BenchmarkTable />
 

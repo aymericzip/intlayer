@@ -8,6 +8,7 @@ export const FILE_EXTENSIONS = [
   '.content.jsonc',
   '.content.tsx',
   '.content.jsx',
+  '.content.md',
 ];
 
 export const EXCLUDED_PATHS = [

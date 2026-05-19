@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-01-22
+updatedAt: 2026-05-19
 title: Markdown
 description: Pelajari cara mendeklarasikan dan menggunakan konten Markdown di situs web multibahasa Anda dengan Intlayer. Ikuti langkah-langkah dalam dokumentasi online ini untuk mengintegrasikan Markdown secara mulus ke dalam proyek Anda.
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - content
   - markdown
 history:
+  - version: 8.10.0
+    date: 2026-05-19
+    changes: "Menambahkan dukungan file `.content.md`"
   - version: 8.5.0
     date: 2026-03-24
     changes: "Add `intlayerMarkdown` plugin object; use `app.use(intlayerMarkdown)` instead of `app.use(installIntlayerMarkdown)`"
@@ -43,6 +46,38 @@ Intlayer mendukung konten teks kaya yang didefinisikan menggunakan sintaks Markd
 Anda dapat menyatakan konten Markdown menggunakan fungsi `md` atau cukup sebagai string (jika mengandung sintaks Markdown).
 
 <Tabs>
+  <Tab label=".content.md" value=".content.md">
+    Sejak versi `8.10.0`, Anda dapat mendeklarasikan konten Markdown secara langsung di file `.content.md`. Intlayer akan secara otomatis mendeteksi dan mengurai konten Markdown tersebut.
+
+    ```md fileName="markdown-file.id.content.md"
+    ---
+    key: my-markdown-content
+    description: Konten saya
+    locale: id
+    ---
+
+    # Konten saya
+
+    Berikut adalah contoh konten markdown
+    ```
+
+    Bidang frontmatter `locale` adalah bidang yang menentukan lokal (bahasa) dari konten. Bidang ini opsional. Jika tidak disediakan, Intlayer akan menggunakan lokal default, yang juga digunakan sebagai lokal cadangan (fallback) jika tidak ada terjemahan yang tersedia untuk lokal tertentu.
+
+    Contoh struktur file:
+
+    ```text
+    content/
+    ├── en/
+    │   └── markdown-file.en.content.md
+    ├── fr/
+    │   └── markdown-file.fr.content.md
+    └── es/
+        └── markdown-file.es.content.md
+    ```
+
+    Anda dapat menambahkan properti apa pun yang didefinisikan dalam [definisi Kamus (Dictionary)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/content_file.md) ke dalam front-matter.
+
+  </Tab>
   <Tab label="Pembungkusan Manual" value="manual-wrapping">
     Gunakan fungsi `md` untuk menyatakan konten Markdown secara eksplisit. Ini berguna jika Anda ingin memastikan sebuah string diperlakukan sebagai Markdown meskipun tidak mengandung sintaks yang jelas.
 

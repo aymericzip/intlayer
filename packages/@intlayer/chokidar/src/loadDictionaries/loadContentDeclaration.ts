@@ -1,5 +1,5 @@
 import { readFile, writeFile } from 'node:fs/promises';
-import { dirname, join, relative } from 'node:path';
+import { dirname, extname, join, relative } from 'node:path';
 import { loadExternalFile } from '@intlayer/config/file';
 import {
   cacheDisk,
@@ -12,6 +12,7 @@ import { processContentDeclaration } from '../buildIntlayerDictionary/processCon
 import { filterInvalidDictionaries } from '../filterInvalidDictionaries';
 import { parallelize } from '../utils/parallelize';
 import { getIntlayerBundle } from './getIntlayerBundle';
+import { loadMarkdownContentDeclaration } from './loadMarkdownContentDeclaration';
 import type { DictionariesStatus } from './loadDictionaries';
 import { logTypeScriptErrors } from './logTypeScriptErrors';
 
@@ -101,6 +102,10 @@ export const loadContentDeclaration = async (
   bundleFilePath?: string,
   options?: LoadContentDeclarationOptions
 ): Promise<Dictionary | undefined> => {
+  if (extname(path) === '.md') {
+    return loadMarkdownContentDeclaration(path);
+  }
+
   const { build, system } = configuration;
 
   // Call the cached helper

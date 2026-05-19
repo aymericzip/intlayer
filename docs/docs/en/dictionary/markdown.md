@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-03-24
+updatedAt: 2026-05-19
 title: Markdown
 description: Learn how to declare and use Markdown content in your multilingual website with Intlayer. Follow the steps in this online documentation to integrate Markdown seamlessly into your project.
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - content
   - markdown
 history:
+  - version: 8.10.0
+    date: 2026-05-19
+    changes: "Add `.content.md` files support"
   - version: 8.5.0
     date: 2026-03-24
     changes: "Add `intlayerMarkdown` plugin object; use `app.use(intlayerMarkdown)` instead of `app.use(installIntlayerMarkdown)`"
@@ -43,6 +46,39 @@ Intlayer supports rich text content defined using Markdown syntax. This allows y
 You can declare Markdown content using the `md` function or simply as a string (if it contains Markdown syntax).
 
 <Tabs>
+  <Tab label=".content.md" value=".content.md">
+    Since version `8.10.0`, you can declare Markdown content directly in `.content.md` files. Intlayer will
+    automatically detect and parse the Markdown content.
+
+    ```md fileName="markdown-file.en.content.md"
+    ---
+    key: my-markdown-content
+    description: My content
+    locale: en
+    ---
+
+    # My content
+
+    Here an example of markdown content
+    ```
+
+    The `locale` front-matter field is the field that define the locale of the content. It is optional. If not provided, Intlayer will use the default locale, which is also used as fallback locale if no translation is available for a specific locale.
+
+    Example of file structure:
+
+    ```text
+    content/
+    ├── en/
+    │   └── markdown-file.en.content.md
+    ├── fr/
+    │   └── markdown-file.fr.content.md
+    └── es/
+        └── markdown-file.es.content.md
+    ```
+
+    You can add in front-matter any properties defined in the [Dictionary definition](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md)
+
+  </Tab>
   <Tab label="Manual Wrapping" value="manual-wrapping">
     Use the `md` function to explicitly declare Markdown content. This is useful if you want to ensure a string is treated as Markdown even if it doesn't contain obvious syntax.
 
@@ -74,6 +110,7 @@ You can declare Markdown content using the `md` function or simply as a string (
     ```
 
   </Tab>
+
   <Tab label="External Files" value="external-files">
     Import `.md` files directly using the `file` function.
 

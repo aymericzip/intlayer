@@ -22,6 +22,7 @@ import type { DictionaryStatus } from './dictionaryStatus';
 import { processContentDeclarationContent } from './processContentDeclarationContent';
 import { transformJSONFile } from './transformJSONFile';
 import { writeJSFile } from './writeJSFile';
+import { writeMarkdownFile } from './writeMarkdownFile';
 
 const formatContentDeclaration = async (
   dictionary: Dictionary,
@@ -231,6 +232,11 @@ const writeFileWithDirectories = async (
   await mkdir(dir, { recursive: true });
 
   const extension = extname(absoluteFilePath);
+
+  if (extension === '.md') {
+    await writeMarkdownFile(absoluteFilePath, dictionary, configuration);
+    return;
+  }
 
   // Handle JSON, JSONC, and JSON5 via the AST transformer
   if (['.json', '.jsonc', '.json5'].includes(extension)) {

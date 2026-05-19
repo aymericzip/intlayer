@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-01-22
+updatedAt: 2026-05-19
 title: Markdown
 description: Дізнайтеся, як оголошувати та використовувати контент Markdown на вашому багатомовному веб-сайті за допомогою Intlayer. Дотримуйтесь кроків у цій онлайн-документації, щоб легко інтегрувати Markdown у ваш проєкт.
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - content
   - markdown
 history:
+  - version: 8.10.0
+    date: 2026-05-19
+    changes: "Додано підтримку файлів `.content.md`"
   - version: 8.5.0
     date: 2026-03-24
     changes: "Add `intlayerMarkdown` plugin object; use `app.use(intlayerMarkdown)` instead of `app.use(installIntlayerMarkdown)`"
@@ -43,6 +46,38 @@ Intlayer підтримує контент rich text, визначений за 
 Ви можете оголосити контент Markdown за допомогою функції `md` або просто як рядок (якщо він містить синтаксис Markdown).
 
 <Tabs>
+  <Tab label=".content.md" value=".content.md">
+    Починаючи з версії `8.10.0`, ви можете оголошувати контент Markdown безпосередньо у файлах `.content.md`. Intlayer автоматично виявить та розбере контент Markdown.
+
+    ```md fileName="markdown-file.uk.content.md"
+    ---
+    key: my-markdown-content
+    description: Мій контент
+    locale: uk
+    ---
+
+    # Мій контент
+
+    Ось приклад контенту markdown
+    ```
+
+    Поле `locale` у frontmatter визначає локаль контенту. Це поле є необов'язковим. Якщо його не вказано, Intlayer використовуватиме локаль за замовчуванням, яка також використовується як резервна (fallback) локаль, якщо переклад для конкретної локалі відсутній.
+
+    Приклад структури файлів:
+
+    ```text
+    content/
+    ├── en/
+    │   └── markdown-file.en.content.md
+    ├── fr/
+    │   └── markdown-file.fr.content.md
+    └── es/
+        └── markdown-file.es.content.md
+    ```
+
+    Ви можете додати у front-matter будь-які властивості, визначені у [Визначенні словника (Dictionary definition)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/content_file.md)
+
+  </Tab>
   <Tab label="Ручне обгортання" value="manual-wrapping">
     Використовуйте функцію `md` для явного оголошення контенту Markdown. Це корисно, якщо ви хочете переконатися, що рядок розглядається як Markdown, навіть якщо він не містить очевидного синтаксису.
 

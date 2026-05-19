@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-03-24
+updatedAt: 2026-05-19
 title: Markdown
 description: Scopri come dichiarare e utilizzare contenuti Markdown nel tuo sito web multilingue con Intlayer. Segui i passaggi in questa documentazione online per integrare Markdown nel tuo progetto in modo semplice.
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - content
   - markdown
 history:
+  - version: 8.10.0
+    date: 2026-05-19
+    changes: "Aggiunto il supporto per i file `.content.md`"
   - version: 8.5.0
     date: 2026-03-24
     changes: "Add `intlayerMarkdown` plugin object; use `app.use(intlayerMarkdown)` instead of `app.use(installIntlayerMarkdown)`"
@@ -43,6 +46,38 @@ Intlayer supporta contenuti rich text definiti utilizzando la sintassi Markdown.
 Puoi dichiarare contenuti Markdown usando la funzione `md` o semplicemente come stringa (se contiene sintassi Markdown).
 
 <Tabs>
+  <Tab label=".content.md" value=".content.md">
+    A partire della versione `8.10.0`, puoi dichiarare contenuti Markdown direttamente nei file `.content.md`. Intlayer rileverà e analizzerà automaticamente il contenuto Markdown.
+
+    ```md fileName="markdown-file.it.content.md"
+    ---
+    key: my-markdown-content
+    description: Il mio contenuto
+    locale: it
+    ---
+
+    # Il mio contenuto
+
+    Ecco un esempio di contenuto Markdown
+    ```
+
+    Il campo frontmatter `locale` è il campo che definisce la localizzazione del contenuto. È opzionale. Se non fornito, Intlayer utilizzerà la localizzazione predefinita, utilizzata anche come localizzazione di fallback se non è disponibile alcuna traduzione per una localizzazione specifica.
+
+    Esempio di struttura dei file:
+
+    ```text
+    content/
+    ├── en/
+    │   └── markdown-file.en.content.md
+    ├── fr/
+    │   └── markdown-file.fr.content.md
+    └── es/
+        └── markdown-file.es.content.md
+    ```
+
+    Puoi aggiungere nel front-matter qualsiasi proprietà definita nella [definizione del Dizionario](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/content_file.md)
+
+  </Tab>
   <Tab label="Avvolgimento manuale" value="manual-wrapping">
     Usa la funzione `md` per dichiarare esplicitamente contenuti Markdown. Questo è utile se vuoi assicurarti che una stringa sia trattata come Markdown anche se non contiene sintassi ovvia.
 

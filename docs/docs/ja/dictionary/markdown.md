@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-01-22
+updatedAt: 2026-05-19
 title: Markdown
 description: Intlayerを使用して多言語ウェブサイトにMarkdownコンテンツを宣言および使用する方法を学びます。このオンラインドキュメントの手順に従って、プロジェクトにMarkdownを簡単に統合しましょう。
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - content
   - markdown
 history:
+  - version: 8.10.0
+    date: 2026-05-19
+    changes: "`.content.md` ファイルのサポートを追加"
   - version: 8.5.0
     date: 2026-03-24
     changes: "Add `intlayerMarkdown` plugin object; use `app.use(intlayerMarkdown)` instead of `app.use(installIntlayerMarkdown)`"
@@ -43,6 +46,38 @@ Intlayerは、マークダウン構文を使用して定義されたリッチテ
 マークダウンコンテンツは `md` 関数を使って宣言するか、単に文字列として（マークダウン構文が含まれている場合）定義できます。
 
 <Tabs>
+  <Tab label=".content.md" value=".content.md">
+    バージョン `8.10.0` 以降、`.content.md` ファイル内に直接 Markdown コンテンツを宣言できるようになりました。Intlayer は Markdown コンテンツを自動的に検出して解析します。
+
+    ```md fileName="markdown-file.ja.content.md"
+    ---
+    key: my-markdown-content
+    description: マイコンテンツ
+    locale: ja
+    ---
+
+    # マイコンテンツ
+
+    ここにマークダウンコンテンツの例があります
+    ```
+
+    `locale` フロントマターフィールドは、コンテンツのロケールを定義するフィールドです。これは任意です。指定しない場合、Intlayer はデフォルトのロケールを使用します。また、特定のロケールに対する翻訳が存在しない場合のフォールバックロケールとしても使用されます。
+
+    ファイル構造の例：
+
+    ```text
+    content/
+    ├── en/
+    │   └── markdown-file.en.content.md
+    ├── fr/
+    │   └── markdown-file.fr.content.md
+    └── es/
+        └── markdown-file.es.content.md
+    ```
+
+    フロントマターには、[辞書の定義](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/content_file.md)で定義されている任意のプロパティを追加できます。
+
+  </Tab>
   <Tab label="手動ラッピング" value="manual-wrapping">
     `md` 関数を使用して明示的にマークダウンコンテンツを宣言します。これは、明らかな構文が含まれていない場合でも文字列をマークダウンとして扱いたい場合に便利です。
 

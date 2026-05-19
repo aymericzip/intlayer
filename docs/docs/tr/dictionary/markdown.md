@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-03-24
+updatedAt: 2026-05-19
 title: Markdown
 description: Intlayer ile çok dilli web sitenizde Markdown içeriği nasıl bildireceğinizi ve kullanacağınızı öğrenin. Bu çevrimiçi dokümantasyonun adımlarını takip ederek Markdown'ı projenize sorunsuz bir şekilde entegre edin.
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - content
   - markdown
 history:
+  - version: 8.10.0
+    date: 2026-05-19
+    changes: "`.content.md` dosyaları desteği eklendi"
   - version: 8.5.0
     date: 2026-03-24
     changes: "Add `intlayerMarkdown` plugin object; use `app.use(intlayerMarkdown)` instead of `app.use(installIntlayerMarkdown)`"
@@ -43,6 +46,38 @@ Intlayer, Markdown sözdizimi kullanılarak tanımlanan zengin metin içeriğini
 Markdown içeriğini `md` fonksiyonunu kullanarak veya sadece bir string olarak (Markdown sözdizimi içeriyorsa) tanımlayabilirsiniz.
 
 <Tabs>
+  <Tab label=".content.md" value=".content.md">
+    `8.10.0` sürümünden itibaren, Markdown içeriğini doğrudan `.content.md` dosyalarında tanımlayabilirsiniz. Intlayer, Markdown içeriğini otomatik olarak algılayacak ve ayrıştıracaktır.
+
+    ```md fileName="markdown-file.tr.content.md"
+    ---
+    key: my-markdown-content
+    description: İçeriğim
+    locale: tr
+    ---
+
+    # İçeriğim
+
+    İşte bir markdown içeriği örneği
+    ```
+
+    `locale` frontmatter alanı, içeriğin dilini tanımlayan alandır. İsteğe bağlıdır. Sağlanmazsa Intlayer varsayılan dili kullanır; bu dil aynı zamanda belirli bir dil için çeviri mevcut olmadığında yedek dil olarak da kullanılır.
+
+    Dosya yapısı örneği:
+
+    ```text
+    content/
+    ├── en/
+    │   └── markdown-file.en.content.md
+    ├── fr/
+    │   └── markdown-file.fr.content.md
+    └── es/
+        └── markdown-file.es.content.md
+    ```
+
+    [Sözlük tanımında (Dictionary definition)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/content_file.md) tanımlanan herhangi bir özelliği front-matter alanına ekleyebilirsiniz.
+
+  </Tab>
   <Tab label="Elle Sarma" value="manual-wrapping">
     Markdown içeriğini açıkça bildirmek için `md` fonksiyonunu kullanın. Bu, bir dizenin belirgin bir sözdizimi içermese bile Markdown olarak işlenmesini sağlamak istediğinizde yararlıdır.
 

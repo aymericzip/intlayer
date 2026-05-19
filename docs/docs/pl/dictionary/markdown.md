@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-03-24
+updatedAt: 2026-05-19
 title: Markdown
 description: Dowiedz się, jak deklarować i używać zawartości Markdown na swojej wielojęzycznej stronie internetowej z Intlayer. Postępuj zgodnie z krokami w tej dokumentacji online, aby bezproblemowo zintegrować Markdown z Twoim projektem.
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - content
   - markdown
 history:
+  - version: 8.10.0
+    date: 2026-05-19
+    changes: "Dodano obsługę plików `.content.md`"
   - version: 8.5.0
     date: 2026-03-24
     changes: "Add `intlayerMarkdown` plugin object; use `app.use(intlayerMarkdown)` instead of `app.use(installIntlayerMarkdown)`"
@@ -43,6 +46,38 @@ Intlayer obsługuje zawartość tekstu sformatowanego zdefiniowaną za pomocą s
 Możesz zadeklarować treść Markdown, używając funkcji `md` lub po prostu jako łańcuch znaków (jeśli zawiera składnię Markdown).
 
 <Tabs>
+  <Tab label=".content.md" value=".content.md">
+    Od wersji `8.10.0` możesz deklarować zawartość Markdown bezpośrednio w plikach `.content.md`. Intlayer automatycznie wykryje i sparsuje zawartość Markdown.
+
+    ```md fileName="markdown-file.pl.content.md"
+    ---
+    key: moja-zawartosc-markdown
+    description: Moja zawartość
+    locale: pl
+    ---
+
+    # Moja zawartość
+
+    Tutaj przykład zawartości Markdown
+    ```
+
+    Pole frontmatter `locale` to pole definiujące język (ustawienia regionalne) zawartości. Jest ono opcjonalne. Jeśli nie zostanie podane, Intlayer użyje domyślnego języka, który jest również używany jako język rezerwowy (fallback), gdy dla danego języka nie jest dostępna żadna translacja.
+
+    Przykład struktury plików:
+
+    ```text
+    content/
+    ├── en/
+    │   └── markdown-file.en.content.md
+    ├── fr/
+    │   └── markdown-file.fr.content.md
+    └── es/
+        └── markdown-file.es.content.md
+    ```
+
+    W sekcji front-matter możesz dodać dowolne właściwości zdefiniowane w [definicji Słownika](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/content_file.md)
+
+  </Tab>
   <Tab label="Ręczne opakowanie" value="manual-wrapping">
     Użyj funkcji `md`, aby jawnie zadeklarować zawartość Markdown. Jest to przydatne, jeśli chcesz upewnić się, że ciąg zostanie potraktowany jako Markdown, nawet jeśli nie zawiera oczywistej składni.
 

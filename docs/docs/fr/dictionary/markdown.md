@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-03-24
+updatedAt: 2026-05-19
 title: Markdown
 description: Apprenez à déclarer et à utiliser du contenu Markdown dans votre site Web multilingue avec Intlayer. Suivez les étapes de cette documentation en ligne pour intégrer Markdown de manière transparente dans votre projet.
 keywords:
@@ -17,6 +17,9 @@ slugs:
   - content
   - markdown
 history:
+  - version: 8.10.0
+    date: 2026-05-19
+    changes: "Ajouter la prise en charge des fichiers `.content.md`"
   - version: 8.5.0
     date: 2026-03-24
     changes: "Add `intlayerMarkdown` plugin object; use `app.use(intlayerMarkdown)` instead of `app.use(installIntlayerMarkdown)`"
@@ -43,6 +46,38 @@ Intlayer prend en charge le contenu riche en texte défini à l'aide de la synta
 Vous pouvez déclarer du contenu Markdown à l'aide de la fonction `md` ou simplement sous forme de chaîne de caractères (si elle contient la syntaxe Markdown).
 
 <Tabs>
+  <Tab label=".content.md" value=".content.md">
+    Depuis la version `8.10.0`, vous pouvez déclarer du contenu Markdown directement dans les fichiers `.content.md`. Intlayer détectera et analysera automatiquement le contenu Markdown.
+
+    ```md fileName="markdown-file.fr.content.md"
+    ---
+    key: my-markdown-content
+    description: Mon contenu
+    locale: fr
+    ---
+
+    # Mon contenu
+
+    Voici un exemple de contenu Markdown
+    ```
+
+    Le champ de front-matter `locale` est le champ qui définit la langue du contenu. Il est facultatif. S'il n'est pas fourni, Intlayer utilisera la langue par défaut, qui est également utilisée comme langue de secours si aucune traduction n'est disponible pour une langue spécifique.
+
+    Exemple de structure de fichier :
+
+    ```text
+    content/
+    ├── en/
+    │   └── markdown-file.en.content.md
+    ├── fr/
+    │   └── markdown-file.fr.content.md
+    └── es/
+        └── markdown-file.es.content.md
+    ```
+
+    Vous pouvez ajouter dans le front-matter toutes les propriétés définies dans la [définition du Dictionnaire](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/content_file.md)
+
+  </Tab>
   <Tab label="Enveloppement Manuel" value="manual-wrapping">
     Utilisez la fonction `md` pour déclarer explicitement du contenu Markdown. Cela est utile si vous voulez vous assurer qu'une chaîne est traitée comme du Markdown même si elle ne contient pas de syntaxe évidente.
 
