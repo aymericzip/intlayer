@@ -1,7 +1,15 @@
 'use client';
 
+import { Container } from '@components/Container';
 import { cn } from '@utils/cn';
-import { ArrowLeft, ArrowRight, Globe, RotateCw } from 'lucide-react';
+import {
+  ArrowLeft,
+  ArrowRight,
+  Globe,
+  List,
+  RotateCw,
+  ScanSearch,
+} from 'lucide-react';
 import {
   type CSSProperties,
   type HTMLAttributes,
@@ -16,8 +24,8 @@ import {
 import { useIntlayer } from 'react-intlayer';
 import { Button } from '../Button';
 import { ClickOutsideDiv } from '../ClickOutsideDiv';
+import { DropDown } from '../DropDown';
 import { Input, inputVariants } from '../Input';
-import { PopoverStatic, PopoverXAlign } from '../Popover/static';
 
 export type BrowserProps = {
   initialUrl?: string;
@@ -30,6 +38,15 @@ export type BrowserProps = {
   ref?: RefObject<HTMLIFrameElement | null>;
   domainRestriction?: string;
 } & HTMLAttributes<HTMLIFrameElement>;
+
+const getUrlPath = (url: string) => {
+  try {
+    const { pathname, search, hash } = new URL(url);
+    return `${pathname}${search}${hash}` || '/';
+  } catch {
+    return url;
+  }
+};
 
 export const Browser = ({
   initialUrl = 'https://example.com',
@@ -110,9 +127,7 @@ export const Browser = ({
         }
       }
 
-      // Update History Stack
-      // We perform this check regardless of `isAlreadyAtUrl`.
-      // If the path changed (even internally), we want to record it in the arrow stack.
+      // Update History Stack regardless of isAlreadyAtUrl so arrow navigation is always correct
       if (history[currentIndex] !== fullUrl) {
         setHistory((prev) => {
           const newHistory = prev.slice(0, currentIndex + 1);
@@ -122,8 +137,7 @@ export const Browser = ({
         setCurrentIndex((prev) => prev + 1);
       }
 
-      // Navigate (Update src) only if NOT already there
-      // This prevents the iframe from refreshing when the user navigated inside it.
+      // Navigate only if NOT already there to avoid refreshing on internal iframe navigation
       if (!isAlreadyAtUrl) {
         setCurrentUrl(fullUrl);
       }
@@ -133,6 +147,17 @@ export const Browser = ({
       // Ignore invalid paths
     }
   }, [path, domainRestriction, initialUrl]); // Removed currentIndex dependency to prevent loops
+
+  // Imperatively keep the iframe src in sync with currentUrl.
+  // React's attribute reconciliation can be unreliable for cross-origin iframes after
+  // internal navigation, so this effect is the source of truth for navigation.
+  useEffect(() => {
+    const iframe = internalIframeRef.current;
+    if (!iframe) return;
+    if (iframe.src !== currentUrl) {
+      iframe.src = currentUrl;
+    }
+  }, [currentUrl]);
 
   // --- Navigation Logic ------------------------------------------------------
 
@@ -200,14 +225,13 @@ export const Browser = ({
   };
 
   const handleReload = () => {
-    if (internalIframeRef.current) {
-      // Create a clean reload effect
-      const src = internalIframeRef.current.src;
-      internalIframeRef.current.src = '';
-      setTimeout(() => {
-        if (internalIframeRef.current) internalIframeRef.current.src = src;
-      }, 50);
-    }
+    const iframe = internalIframeRef.current;
+    if (!iframe) return;
+    const src = iframe.src;
+    iframe.src = '';
+    setTimeout(() => {
+      if (internalIframeRef.current) internalIframeRef.current.src = src;
+    }, 50);
   };
 
   // --- Validation Helpers ----------------------------------------------------
@@ -295,9 +319,7 @@ export const Browser = ({
 
   const filteredSitemapUrls = useMemo(() => {
     const query = sitemapSearch.trim().toLowerCase();
-
     if (!query) return sitemapUrls;
-
     return sitemapUrls.filter((url) => url.toLowerCase().includes(query));
   }, [sitemapUrls, sitemapSearch]);
 
@@ -390,76 +412,84 @@ export const Browser = ({
         <ClickOutsideDiv
           onClickOutSide={() => setSitemapOpen(false)}
           disabled={!sitemapOpen}
-          className="relative"
           role="none"
         >
-          <Button
-            type="button"
-            onClick={handleSitemapToggle}
-            variant="hoverable"
-            size="icon-md"
-            label={content.sitemapButtonLabel.value}
-            Icon={Globe}
-          />
+          <DropDown identifier="sitemap-explorer">
+            <DropDown.Trigger
+              identifier="sitemap-explorer-trigger"
+              type="button"
+              color="text"
+              onClick={handleSitemapToggle}
+              variant="hoverable"
+              size="icon-md"
+              label={content.sitemapButtonLabel.value}
+              Icon={ScanSearch}
+            />
 
-          <PopoverStatic.Detail
-            identifier="sitemap-explorer"
-            isHidden={!sitemapOpen}
-            isOverable={true}
-            isFocusable={true}
-            xAlign={PopoverXAlign.END}
-            roundedSize="xl"
-            className="min-w-72 overflow-hidden"
-          >
-            <div className="p-2">
-              <Input
-                type="search"
-                ref={sitemapInputRef}
-                aria-label={content.sitemapSearchAriaLabel.value}
-                placeholder={content.sitemapSearchPlaceholder.value}
-                onChange={(e) => setSitemapSearch(e.target.value)}
-                value={sitemapSearch}
-                size="sm"
-              />
-            </div>
-            <ul
-              className="max-h-64 divide-y divide-dashed divide-text/20 overflow-y-auto p-1"
-              aria-label={content.sitemapButtonLabel.value}
+            <DropDown.Panel
+              identifier="sitemap-explorer"
+              isHidden={!sitemapOpen}
+              align="end"
+              isFocusable
+              isOverable
             >
-              {sitemapLoading ? (
-                <li className="px-3 py-4 text-center text-neutral text-xs">
-                  {content.sitemapLoading.value}
-                </li>
-              ) : sitemapError ||
-                (!sitemapLoading && filteredSitemapUrls.length === 0) ? (
-                <li className="px-3 py-4 text-center text-neutral text-xs">
-                  {sitemapError
-                    ? content.sitemapError.value
-                    : content.sitemapEmpty.value}
-                </li>
-              ) : (
-                filteredSitemapUrls.map((url) => (
-                  <li key={url} className="py-0.5">
-                    <Button
-                      variant="hoverable"
-                      color="text"
-                      size="sm"
-                      className="w-full justify-start"
-                      label={url}
-                      onClick={() => {
-                        handleNavigateTo(url);
-                        setSitemapOpen(false);
-                      }}
-                    >
-                      <span className="max-w-64 truncate text-left text-xs">
-                        {url}
-                      </span>
-                    </Button>
-                  </li>
-                ))
-              )}
-            </ul>
-          </PopoverStatic.Detail>
+              <Container
+                className="min-w-48 rounded-md!"
+                roundedSize="sm"
+                border
+                borderColor="neutral"
+              >
+                <div className="p-2">
+                  <Input
+                    type="search"
+                    ref={sitemapInputRef}
+                    aria-label={content.sitemapSearchAriaLabel.value}
+                    placeholder={content.sitemapSearchPlaceholder.value}
+                    onChange={(e) => setSitemapSearch(e.target.value)}
+                    value={sitemapSearch}
+                    size="sm"
+                  />
+                </div>
+                <ul
+                  className="max-h-64 divide-y divide-dotted divide-neutral/30 overflow-y-auto p-1"
+                  aria-label={content.sitemapButtonLabel.value}
+                >
+                  {sitemapLoading ? (
+                    <li className="px-3 py-4 text-center text-neutral text-xs">
+                      {content.sitemapLoading.value}
+                    </li>
+                  ) : sitemapError ||
+                    (!sitemapLoading && filteredSitemapUrls.length === 0) ? (
+                    <li className="px-3 py-4 text-center text-neutral text-xs">
+                      {sitemapError
+                        ? content.sitemapError.value
+                        : content.sitemapEmpty.value}
+                    </li>
+                  ) : (
+                    filteredSitemapUrls.map((url) => (
+                      <li key={url} className="py-0.5">
+                        <Button
+                          variant="hoverable"
+                          color="text"
+                          size="sm"
+                          className="w-full justify-start"
+                          label={url}
+                          onClick={() => {
+                            handleNavigateTo(url);
+                            setSitemapOpen(false);
+                          }}
+                        >
+                          <span className="max-w-64 truncate text-left text-base">
+                            {getUrlPath(url)}
+                          </span>
+                        </Button>
+                      </li>
+                    ))
+                  )}
+                </ul>
+              </Container>
+            </DropDown.Panel>
+          </DropDown>
         </ClickOutsideDiv>
 
         {/* Error Message Tooltip */}
