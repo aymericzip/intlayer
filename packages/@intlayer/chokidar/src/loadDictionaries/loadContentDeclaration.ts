@@ -103,7 +103,7 @@ export const loadContentDeclaration = async (
   bundleFilePath?: string,
   options?: LoadContentDeclarationOptions
 ): Promise<Dictionary | undefined> => {
-  if (extname(path) === '.md') {
+  if (extname(path) === '.md' || extname(path) === '.mdx') {
     return loadMarkdownContentDeclaration(path);
   }
 

@@ -9,6 +9,7 @@ export const FILE_EXTENSIONS = [
   '.content.tsx',
   '.content.jsx',
   '.content.md',
+  '.content.mdx',
   '.content.yaml',
   '.content.yml',
 ];

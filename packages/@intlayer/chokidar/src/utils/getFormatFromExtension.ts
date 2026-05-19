@@ -20,6 +20,7 @@ export type Extension =
   | '.jsonc'
   | '.json5'
   | '.md'
+  | '.mdx'
   | '.yaml'
   | '.yml';
 
@@ -43,6 +44,7 @@ export const getFormatFromExtension = (
     case '.json5':
       return 'json';
     case '.md':
+    case '.mdx':
       return 'md';
     case '.yaml':
     case '.yml':

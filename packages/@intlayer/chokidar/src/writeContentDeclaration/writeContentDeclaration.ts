@@ -234,7 +234,7 @@ const writeFileWithDirectories = async (
 
   const extension = extname(absoluteFilePath);
 
-  if (extension === '.md') {
+  if (extension === '.md' || extension === '.mdx') {
     await writeMarkdownFile(absoluteFilePath, dictionary, configuration);
     return;
   }
