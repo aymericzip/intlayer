@@ -1,4 +1,5 @@
 import { getHTML } from '@intlayer/core/interpreter';
+import { VOID_HTML_ELEMENTS } from '@intlayer/core/transpiler';
 import { defineComponent, h, type PropType, type VNodeChild } from 'vue';
 import { useHTML } from './installIntlayerHTML';
 import type { HTMLComponents } from './types';
@@ -35,6 +36,10 @@ export const renderHTML = (
       }
       // Fallback: Lazily generate a wrapper for standard lowercase HTML tags
       if (typeof prop === 'string' && /^[a-z][a-z0-9]*$/.test(prop)) {
+        if (VOID_HTML_ELEMENTS.has(prop)) {
+          // Void elements cannot have children — strip them to avoid render error
+          return ({ children: _children, ...rest }: any) => h(prop, rest);
+        }
         return (props: any) => h(prop, props, props?.children);
       }
       return undefined;

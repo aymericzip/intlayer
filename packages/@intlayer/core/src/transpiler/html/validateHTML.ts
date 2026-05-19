@@ -1,4 +1,4 @@
-export const VOID_ELEMENTS = new Set([
+export const VOID_HTML_ELEMENTS = new Set([
   'area',
   'base',
   'br',
@@ -73,7 +73,7 @@ export const validateHTML = (content: string): HTMLValidationResult => {
         stack.pop();
       }
     } else {
-      const isVoidElement = VOID_ELEMENTS.has(tagName.toLowerCase());
+      const isVoidElement = VOID_HTML_ELEMENTS.has(tagName.toLowerCase());
       if (!isSelfClosing && !isVoidElement) {
         stack.push({ tag: tagName });
       }

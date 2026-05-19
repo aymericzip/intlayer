@@ -1,4 +1,5 @@
 import { getHTML } from '@intlayer/core/interpreter';
+import { VOID_HTML_ELEMENTS } from '@intlayer/core/transpiler';
 import type { KeyPath } from '@intlayer/types/keyPath';
 import type { Component, JSX, ValidComponent } from 'solid-js';
 import { Dynamic } from 'solid-js/web';
@@ -43,6 +44,12 @@ export const renderHTML = (
       }
       // Fallback: Lazily generate a wrapper for standard lowercase HTML tags
       if (typeof prop === 'string' && /^[a-z][a-z0-9]*$/.test(prop)) {
+        if (VOID_HTML_ELEMENTS.has(prop)) {
+          // Void elements cannot have children — strip them to avoid render error
+          return ({ children: _children, ...rest }: any) => (
+            <Dynamic component={prop as ValidComponent} {...rest} />
+          );
+        }
         return (props: any) => (
           <Dynamic component={prop as ValidComponent} {...props} />
         );
