@@ -1,7 +1,7 @@
 'use client';
 
 import { cn } from '@utils/cn';
-import { ArrowLeft, ArrowRight, RotateCw } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Globe, RotateCw } from 'lucide-react';
 import {
   type CSSProperties,
   type HTMLAttributes,
@@ -9,12 +9,15 @@ import {
   type SubmitEvent,
   useEffect,
   useImperativeHandle,
+  useMemo,
   useRef,
   useState,
 } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { Button } from '../Button';
+import { ClickOutsideDiv } from '../ClickOutsideDiv';
 import { Input, inputVariants } from '../Input';
+import { PopoverStatic, PopoverXAlign } from '../Popover/static';
 
 export type BrowserProps = {
   initialUrl?: string;
@@ -52,6 +55,15 @@ export const Browser = ({
   const [submitted, setSubmitted] = useState(false);
   const internalIframeRef = useRef<HTMLIFrameElement>(null);
 
+  // Sitemap explorer state
+  const [sitemapOpen, setSitemapOpen] = useState(false);
+  const [sitemapUrls, setSitemapUrls] = useState<string[]>([]);
+  const [sitemapSearch, setSitemapSearch] = useState('');
+  const [sitemapLoading, setSitemapLoading] = useState(false);
+  const [sitemapFetched, setSitemapFetched] = useState(false);
+  const [sitemapError, setSitemapError] = useState(false);
+  const sitemapInputRef = useRef<HTMLInputElement>(null);
+
   useImperativeHandle(ref, () => internalIframeRef.current!, []);
   const content = useIntlayer('browser');
 
@@ -65,6 +77,11 @@ export const Browser = ({
     setCurrentIndex(0);
     setError(null);
     setSubmitted(false);
+    setSitemapOpen(false);
+    setSitemapUrls([]);
+    setSitemapSearch('');
+    setSitemapFetched(false);
+    setSitemapError(false);
   }, [initialUrl]);
 
   // Sync external path changes with the URL bar and History
@@ -252,6 +269,38 @@ export const Browser = ({
     return url.toString();
   };
 
+  const handleSitemapToggle = async () => {
+    const nextOpen = !sitemapOpen;
+    setSitemapOpen(nextOpen);
+
+    if (nextOpen && !sitemapFetched) {
+      setSitemapLoading(true);
+      setSitemapError(false);
+      setSitemapFetched(true);
+      try {
+        const { extractUrlFromSitemap } = await import(
+          './extractUrlFromSitemap'
+        );
+        const urls = await extractUrlFromSitemap(currentUrl);
+        setSitemapUrls(urls);
+        if (urls.length === 0) setSitemapError(false);
+      } catch {
+        setSitemapError(true);
+      } finally {
+        setSitemapLoading(false);
+      }
+      setTimeout(() => sitemapInputRef.current?.focus(), 50);
+    }
+  };
+
+  const filteredSitemapUrls = useMemo(() => {
+    const query = sitemapSearch.trim().toLowerCase();
+
+    if (!query) return sitemapUrls;
+
+    return sitemapUrls.filter((url) => url.toLowerCase().includes(query));
+  }, [sitemapUrls, sitemapSearch]);
+
   const showError = submitted && !!error;
   const canGoBack = currentIndex > 0;
   const canGoForward = currentIndex < history.length - 1;
@@ -336,6 +385,82 @@ export const Browser = ({
           {/* invisible submit */}
           <button type="submit" className="sr-only absolute" tabIndex={-1} />
         </form>
+
+        {/* Sitemap Explorer */}
+        <ClickOutsideDiv
+          onClickOutSide={() => setSitemapOpen(false)}
+          disabled={!sitemapOpen}
+          className="relative"
+          role="none"
+        >
+          <Button
+            type="button"
+            onClick={handleSitemapToggle}
+            variant="hoverable"
+            size="icon-md"
+            label={content.sitemapButtonLabel.value}
+            Icon={Globe}
+          />
+
+          <PopoverStatic.Detail
+            identifier="sitemap-explorer"
+            isHidden={!sitemapOpen}
+            isOverable={true}
+            isFocusable={true}
+            xAlign={PopoverXAlign.END}
+            roundedSize="xl"
+            className="min-w-72 overflow-hidden"
+          >
+            <div className="p-2">
+              <Input
+                type="search"
+                ref={sitemapInputRef}
+                aria-label={content.sitemapSearchAriaLabel.value}
+                placeholder={content.sitemapSearchPlaceholder.value}
+                onChange={(e) => setSitemapSearch(e.target.value)}
+                value={sitemapSearch}
+                size="sm"
+              />
+            </div>
+            <ul
+              className="max-h-64 divide-y divide-dashed divide-text/20 overflow-y-auto p-1"
+              aria-label={content.sitemapButtonLabel.value}
+            >
+              {sitemapLoading ? (
+                <li className="px-3 py-4 text-center text-neutral text-xs">
+                  {content.sitemapLoading.value}
+                </li>
+              ) : sitemapError ||
+                (!sitemapLoading && filteredSitemapUrls.length === 0) ? (
+                <li className="px-3 py-4 text-center text-neutral text-xs">
+                  {sitemapError
+                    ? content.sitemapError.value
+                    : content.sitemapEmpty.value}
+                </li>
+              ) : (
+                filteredSitemapUrls.map((url) => (
+                  <li key={url} className="py-0.5">
+                    <Button
+                      variant="hoverable"
+                      color="text"
+                      size="sm"
+                      className="w-full justify-start"
+                      label={url}
+                      onClick={() => {
+                        handleNavigateTo(url);
+                        setSitemapOpen(false);
+                      }}
+                    >
+                      <span className="max-w-64 truncate text-left text-xs">
+                        {url}
+                      </span>
+                    </Button>
+                  </li>
+                ))
+              )}
+            </ul>
+          </PopoverStatic.Detail>
+        </ClickOutsideDiv>
 
         {/* Error Message Tooltip */}
         {showError && (
