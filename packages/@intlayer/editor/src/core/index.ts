@@ -2,6 +2,7 @@ export * from './CrossFrameMessenger';
 export * from './CrossFrameStateManager';
 export * from './EditorStateManager';
 export * from './editedContentBus';
+export * from './focusedContentBus';
 export * from './globalManager';
 export * from './IframeClickInterceptor';
 export * from './initEditorClient';

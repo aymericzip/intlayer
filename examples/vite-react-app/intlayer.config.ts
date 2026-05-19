@@ -48,6 +48,7 @@ const config: IntlayerConfig = {
     minify: true,
     purge: true,
   },
+
   schemas: {
     user: z.object({
       name: z.string(),

@@ -25,6 +25,7 @@ const dictionaryEditionDrawerContent = {
         uk: 'Натисніть, щоб відкрити словник у редакторі',
       }),
     },
+
     backButtonText: t({
       ar: 'قائمة القوامل',
       de: 'Wörterbuchliste',
@@ -45,6 +46,7 @@ const dictionaryEditionDrawerContent = {
       vi: 'Danh sách từ điển',
       uk: 'Список словників',
     }),
+
     modalTitle: t({
       ar: 'تحرير قاموس',
       de: 'Wörterbuch bearbeiten',
@@ -65,6 +67,7 @@ const dictionaryEditionDrawerContent = {
       vi: 'Chỉnh sửa từ điển',
       uk: 'Редагувати словник',
     }),
+
     noDictionaryFocused: t({
       ar: 'لا يوجد قاموس مرتبط',
       de: 'Kein Wörterbuch ausgewählt',
@@ -85,6 +88,7 @@ const dictionaryEditionDrawerContent = {
       vi: 'Không có từ điển nào được chọn',
       uk: 'Жоден словник не вибрано',
     }),
+
     focusedDictionaryNotFound: t({
       ar: 'لا يوجد قاموس مرتبط',
       de: 'Ausgewähltes Wörterbuch nicht gefunden',
@@ -104,6 +108,27 @@ const dictionaryEditionDrawerContent = {
       id: 'Dictionary yang dipilih tidak ditemukan',
       vi: 'Không tìm thấy từ điển được chọn',
       uk: 'Не знайдено вибраного словника',
+    }),
+
+    openDictionaryInEditor: t({
+      ar: 'افتح القاموس في المحرر',
+      de: 'Öffnen Sie das Wörterbuch im Editor',
+      en: 'Open Dictionary in Editor',
+      'en-GB': 'Open Dictionary in Editor',
+      es: 'Abrir el diccionario en el editor',
+      fr: 'Ouvrir le dictionnaire dans l’éditeur',
+      hi: 'एडिटर में शब्दकोश खोलें',
+      it: 'Apri dizionario nell’editor',
+      ja: '辞書をエディターで開く',
+      ko: '편집기에서 사전 열기',
+      pt: 'Abrir dicionário no editor',
+      ru: 'Открыть словарь в редакторе',
+      tr: 'Sözlüğü düzenleyicide aç',
+      zh: '在编辑器中打开词典',
+      pl: 'Otwórz słownik w edytorze',
+      id: 'Buka dictionary di editor',
+      vi: 'Mở từ điển trong trình chỉnh sửa',
+      uk: 'Відкрити словник у редакторі',
     }),
   },
   title: 'Dictionary edition drawer',

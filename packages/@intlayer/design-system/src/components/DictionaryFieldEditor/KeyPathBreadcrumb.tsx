@@ -40,7 +40,7 @@ export const KeyPathBreadcrumb: FC<KeyPathBreadcrumbProps> = ({
             onClickKeyPath?.(keyPath.slice(0, index + 1))
         : undefined,
 
-      text: el.key?.toString() ?? '',
+      text: camelCaseToSentence(el.key?.toString() ?? ''),
     })),
   ];
 

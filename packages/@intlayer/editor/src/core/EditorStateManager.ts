@@ -23,6 +23,11 @@ import {
   setGlobalEditedContent,
   subscribeToGlobalEditedContent,
 } from './editedContentBus';
+import {
+  getGlobalFocusedContent,
+  setGlobalFocusedContent,
+  subscribeToGlobalFocusedContent,
+} from './focusedContentBus';
 import { IframeClickInterceptor } from './IframeClickInterceptor';
 import { UrlStateManager } from './UrlStateManager';
 
@@ -81,6 +86,11 @@ export class EditorStateManager {
   private _editedContentFromBus = false;
   private _unsubGlobalEditedContent: (() => void) | null = null;
   private _editedContentBusHandler: ((e: Event) => void) | null = null;
+
+  // Global focusedContent bus sync
+  private _focusedContentFromBus = false;
+  private _unsubGlobalFocusedContent: (() => void) | null = null;
+  private _focusedContentBusHandler: ((e: Event) => void) | null = null;
 
   constructor(config: EditorStateManagerConfig) {
     this._mode = config.mode;
@@ -155,6 +165,7 @@ export class EditorStateManager {
     this.currentLocale.start();
     this.displayedDictionaryKeys.start();
     this._startEditedContentBusSync();
+    this._startFocusedContentBusSync();
 
     if (this._mode === 'client') {
       this._urlManager.start();
@@ -190,6 +201,7 @@ export class EditorStateManager {
     this.displayedDictionaryKeys.stop();
     this._stopDisplayedDictionariesTracking();
     this._stopEditedContentBusSync();
+    this._stopFocusedContentBusSync();
     this._urlManager.stop();
     this._iframeInterceptor.stopInterceptor();
     this._iframeInterceptor.stopMerger();
@@ -482,6 +494,48 @@ export class EditorStateManager {
     }
     this._unsubGlobalEditedContent?.();
     this._unsubGlobalEditedContent = null;
+  }
+
+  // ─── Global focusedContent bus sync ──────────────────────────────────────
+
+  private _startFocusedContentBusSync(): void {
+    this._focusedContentBusHandler = (e: Event) => {
+      if (this._focusedContentFromBus) return;
+      const content = (e as CustomEvent<FileContent | null>).detail;
+      setGlobalFocusedContent(content, this.messenger.senderId);
+    };
+    this.focusedContent.addEventListener(
+      'change',
+      this._focusedContentBusHandler
+    );
+
+    this._unsubGlobalFocusedContent = subscribeToGlobalFocusedContent(
+      (content, sourceId) => {
+        if (sourceId === this.messenger.senderId) return;
+        this._focusedContentFromBus = true;
+        this.focusedContent.set(content);
+        this._focusedContentFromBus = false;
+      }
+    );
+
+    const existing = getGlobalFocusedContent();
+    if (existing !== undefined) {
+      this._focusedContentFromBus = true;
+      this.focusedContent.set(existing);
+      this._focusedContentFromBus = false;
+    }
+  }
+
+  private _stopFocusedContentBusSync(): void {
+    if (this._focusedContentBusHandler) {
+      this.focusedContent.removeEventListener(
+        'change',
+        this._focusedContentBusHandler
+      );
+      this._focusedContentBusHandler = null;
+    }
+    this._unsubGlobalFocusedContent?.();
+    this._unsubGlobalFocusedContent = null;
   }
 
   // ─── Displayed dictionaries tracking (client mode only) ──────────────────

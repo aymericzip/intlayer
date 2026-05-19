@@ -84,10 +84,7 @@ export const editDictionaryByKeyPath = (
       ) {
         lastKeys = [keyObj.type];
 
-        if (
-          !currentValue[keyObj.type] ||
-          typeof currentValue[keyObj.type] !== 'object'
-        ) {
+        if (currentValue[keyObj.type] == null) {
           currentValue[keyObj.type] = '';
         }
         currentValue = currentValue[keyObj.type];

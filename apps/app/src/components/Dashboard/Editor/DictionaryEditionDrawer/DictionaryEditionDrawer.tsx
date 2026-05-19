@@ -33,9 +33,12 @@ export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
   dictionaryKey,
   isDarkMode,
 }) => {
-  const { backButtonText, openDictionaryEditor, modalTitle } = useIntlayer(
-    'dictionary-edition-drawer'
-  );
+  const {
+    backButtonText,
+    openDictionaryEditor,
+    modalTitle,
+    openDictionaryInEditor,
+  } = useIntlayer('dictionary-edition-drawer');
   const id = getDrawerIdentifier(dictionaryKey);
   const { noDictionaryFocused, focusedDictionaryNotFound } = useIntlayer(
     'dictionary-edition-drawer'
@@ -108,7 +111,7 @@ export const DictionaryEditionDrawer: FC<DictionaryEditionDrawerProps> = ({
               />
               <Popover.Detail identifier="open-dictionary-editor">
                 <span className="whitespace-nowrap p-2 text-neutral text-xs">
-                  Open Dictionary in Editor
+                  {openDictionaryInEditor}
                 </span>
               </Popover.Detail>
             </Popover>

@@ -44,6 +44,7 @@ import type {
   HTMLContent,
   InsertionContent,
   MarkdownContent,
+  PluralContent,
   TranslationContent,
 } from '@intlayer/core/transpiler';
 import { useConfiguration, useEditedContent } from '@intlayer/editor-react';
@@ -64,6 +65,7 @@ import {
 } from 'react';
 import { useIntlayer, useLocale } from 'react-intlayer';
 import { EnumKeyInput } from '../EnumKeyInput';
+import { SafeHtmlRenderer } from './SafeHtmlRenderer';
 
 const LazyMarkdownRenderer = lazy(() =>
   import('@components/MarkDownRender').then((m) => ({
@@ -515,6 +517,53 @@ const GenderTextEditor: FC<TextEditorProps> = ({
   );
 };
 
+const PLURAL_CATEGORIES = ['zero', 'one', 'two', 'few', 'many', 'other'];
+
+const PluralTextEditor: FC<TextEditorProps> = ({
+  section,
+  keyPath,
+  dictionary,
+  renderSection,
+}) => {
+  const content = (section as PluralContent<string>)[NodeTypes.PLURAL];
+
+  return (
+    <table className="w-full">
+      <tbody className="flex w-full flex-col gap-2">
+        {PLURAL_CATEGORIES.map((pluralKey) => {
+          const uniqueKey = `${JSON.stringify(keyPath)}-plural-${pluralKey}`;
+          return (
+            <Fragment key={uniqueKey}>
+              <tr className="mt-2 block w-full p-2 text-xs">
+                <td className="flex w-full">{pluralKey}</td>
+              </tr>
+              <tr className="block w-full">
+                <td className="flex w-full">
+                  <TextEditorContainer
+                    section={
+                      content[pluralKey as keyof typeof content] ??
+                      getEmptyNode(content.other)
+                    }
+                    keyPath={[
+                      ...keyPath,
+                      {
+                        type: NodeTypes.PLURAL,
+                        key: pluralKey,
+                      } as KeyPath,
+                    ]}
+                    dictionary={dictionary}
+                    renderSection={renderSection}
+                  />
+                </td>
+              </tr>
+            </Fragment>
+          );
+        })}
+      </tbody>
+    </table>
+  );
+};
+
 const ArrayTextEditor: FC<TextEditorProps> = ({
   section,
   keyPath,
@@ -762,9 +811,9 @@ const MarkdownTextEditor: FC<TextEditorProps> = ({
   ] as SwitchSelectorChoices<MarkdownViewMode>;
   const childKeyPath: KeyPath[] = [...keyPath, { type: NodeTypes.MARKDOWN }];
 
-  const content = (section as MarkdownContent<ContentNode>)[
+  const content = ((section as MarkdownContent<ContentNode>)[
     NodeTypes.MARKDOWN
-  ] as ContentNode;
+  ] ?? '') as ContentNode;
 
   return (
     <div className="flex w-full flex-col justify-center gap-6 p-2">
@@ -964,6 +1013,17 @@ export const TextEditor = memo<TextEditorProps>(function TextEditor({
   if (nodeType === NodeTypes.GENDER) {
     return (
       <GenderTextEditor
+        dictionary={dictionary}
+        renderSection={renderSection}
+        keyPath={keyPath}
+        section={section}
+      />
+    );
+  }
+
+  if (nodeType === NodeTypes.PLURAL) {
+    return (
+      <PluralTextEditor
         dictionary={dictionary}
         renderSection={renderSection}
         keyPath={keyPath}

@@ -37,7 +37,7 @@ export const getEmptyNode = (section: ContentNode): ContentNode => {
     }
 
     if (typedNode.nodeType === NodeTypes.MARKDOWN) {
-      return getEmptyNode(typedNode);
+      return getEmptyNode(content as ContentNode);
     }
 
     return content;

@@ -4,6 +4,7 @@ import {
   getEmptyNode,
 } from '@intlayer/core/dictionaryManipulator';
 import { getLocaleName } from '@intlayer/core/localization';
+import { isSameKeyPath } from '@intlayer/core/utils';
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
 import {
@@ -27,12 +28,15 @@ import {
 import { PopoverStatic } from '@intlayer/design-system/popover';
 import { useRightDrawer } from '@intlayer/design-system/right-drawer';
 import { App_Dashboard_Dictionaries_Path } from '@intlayer/design-system/routes';
+import { cn } from '@intlayer/design-system/utils';
 import {
   useConfiguration,
   useDictionariesRecord,
   useEditedContent,
+  useFocusUnmergedDictionary,
 } from '@intlayer/editor-react';
 import type { Dictionary } from '@intlayer/types/dictionary';
+import type { KeyPath } from '@intlayer/types/keyPath';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import * as NodeTypes from '@intlayer/types/nodeType';
 import { ArrowRight, ArrowUp, Filter, Plus, Zap } from 'lucide-react';
@@ -56,7 +60,13 @@ import { TranslateSkeleton } from './TranslateSkeleton';
 const TranslateRow: FC<{
   nodes: FlattenedDictionaryNode[];
   selectedLocales: LocalesValues[];
-}> = ({ nodes, selectedLocales }) => {
+  selectedKeyPath: KeyPath[];
+  onFocusField: (
+    dictionaryKey: string,
+    dictionaryLocalId: string | undefined,
+    keyPath: KeyPath[]
+  ) => void;
+}> = ({ nodes, selectedLocales, selectedKeyPath, onFocusField }) => {
   const { editedContent, addEditedContent } = useEditedContent();
   const configuration = useConfiguration();
   const defaultLocale =
@@ -74,7 +84,137 @@ const TranslateRow: FC<{
 
   if (nodeType === NodeTypes.TRANSLATION) {
     return (
-      <div className="flex w-full flex-col items-start gap-2 px-10 py-4">
+      <div className="px-4 py-2">
+        <Container
+          background="none"
+          roundedSize="2xl"
+          border
+          className={cn(
+            'flex w-max min-w-full flex-col items-start gap-2 border-text/0 px-8 py-2 transition-colors duration-300 ease-in-out',
+            isSameKeyPath(keyPath, selectedKeyPath) && 'border-text/80'
+          )}
+        >
+          <div className="shrink-0 pt-2">
+            <KeyPathBreadcrumb
+              showDictionaryKey={false}
+              dictionaryKey={dictionary.key}
+              keyPath={keyPath}
+              color="neutral"
+            />
+          </div>
+          <div
+            style={{
+              display: 'inline-grid',
+              minWidth: '100%',
+              gap: '0.5rem',
+              gridTemplateColumns: `repeat(${selectedLocales.length}, minmax(28rem, 1fr))`,
+            }}
+          >
+            {selectedLocales.map((locale) => (
+              <div key={locale} className="flex flex-col gap-2">
+                {nodes.map((node, index) => {
+                  const { dictionary, content: originalContent } = node;
+                  const editedDictionaryContent =
+                    editedContent?.[dictionary.localId!]?.content;
+                  const content =
+                    typeof editedDictionaryContent === 'undefined'
+                      ? originalContent
+                      : getContentNodeByKeyPath(
+                          editedDictionaryContent,
+                          keyPath
+                        );
+
+                  const translationContent = (content as any)?.[nodeType]?.[
+                    locale
+                  ];
+
+                  if (typeof translationContent === 'undefined') {
+                    return (
+                      <div
+                        key={dictionary.localId || index}
+                        className="mt-5 mb-auto flex w-full justify-center"
+                      >
+                        <Button
+                          label={addTranslation.value}
+                          variant="fade"
+                          Icon={Plus}
+                          color="neutral"
+                          onClick={() => {
+                            const contentMap =
+                              (content as any)?.[nodeType] ?? {};
+                            const referenceContent =
+                              contentMap[defaultLocale] ??
+                              contentMap[Object.keys(contentMap)[0]];
+
+                            const newContent = {
+                              ...((editedContent as Record<string, any>) ?? {}),
+                              [nodeType]: {
+                                ...contentMap,
+                                [locale]: getEmptyNode(referenceContent),
+                              },
+                            };
+
+                            addEditedContent(
+                              dictionary.localId!,
+                              newContent,
+                              keyPath
+                            );
+                          }}
+                        >
+                          {addTranslation}
+                        </Button>
+                      </div>
+                    );
+                  }
+
+                  return (
+                    // biome-ignore lint/a11y/noStaticElementInteractions: This div handles focus events bubbling up from nested input elements.
+                    <div
+                      key={dictionary.localId || index}
+                      className="w-full"
+                      onFocus={() =>
+                        onFocusField(dictionary.key, dictionary.localId, [
+                          ...keyPath,
+                          { type: nodeType, key: locale } as any,
+                        ])
+                      }
+                    >
+                      {nodes.length > 1 && dictionary.localId && (
+                        <span className="mb-0.5 ml-8 block text-neutral/60 text-xs">
+                          {dictionary.localId}
+                        </span>
+                      )}
+
+                      <TextEditor
+                        section={translationContent}
+                        keyPath={[
+                          ...keyPath,
+                          { type: nodeType, key: locale } as any,
+                        ]}
+                        dictionary={dictionary}
+                      />
+                    </div>
+                  );
+                })}
+              </div>
+            ))}
+          </div>
+        </Container>
+      </div>
+    );
+  }
+
+  return (
+    <div className="px-4 py-2">
+      <Container
+        background="none"
+        roundedSize="2xl"
+        border
+        className={cn(
+          'flex w-full flex-col items-start gap-2 border-text/0 px-8 py-2 transition-colors duration-300 ease-in-out',
+          isSameKeyPath(keyPath, selectedKeyPath) && 'border-text/80'
+        )}
+      >
         <div className="shrink-0 pt-2">
           <KeyPathBreadcrumb
             showDictionaryKey={false}
@@ -83,106 +223,39 @@ const TranslateRow: FC<{
             color="neutral"
           />
         </div>
-        <div className="flex w-full flex-1 gap-2">
-          {selectedLocales.map((locale) => (
-            <div key={locale} className="flex min-w-md flex-1 flex-col gap-2">
-              {nodes.map((node, index) => {
-                const { dictionary: dict, content: originalContent } = node;
-                const editedDictionaryContent =
-                  editedContent?.[dict.localId!]?.content;
-                const content =
-                  typeof editedDictionaryContent === 'undefined'
-                    ? originalContent
-                    : getContentNodeByKeyPath(editedDictionaryContent, keyPath);
+        <div className="flex w-full flex-1 flex-col gap-2">
+          {nodes.map((node, index) => {
+            const { dictionary, content: originalContent } = node;
+            const editedDictionaryContent =
+              editedContent?.[dictionary.localId!]?.content;
+            const content =
+              typeof editedDictionaryContent === 'undefined'
+                ? originalContent
+                : getContentNodeByKeyPath(editedDictionaryContent, keyPath);
 
-                const translationContent = (content as any)?.[nodeType]?.[
-                  locale
-                ];
-
-                if (typeof translationContent === 'undefined') {
-                  return (
-                    <div
-                      key={dict.localId || index}
-                      className="mt-5 mb-auto flex w-full justify-center"
-                    >
-                      <Button
-                        label={addTranslation.value}
-                        variant="fade"
-                        Icon={Plus}
-                        color="neutral"
-                        onClick={() => {
-                          const contentMap = (content as any)?.[nodeType] ?? {};
-                          const referenceContent =
-                            contentMap[defaultLocale] ??
-                            contentMap[Object.keys(contentMap)[0]];
-
-                          const newContent = {
-                            ...((editedContent as Record<string, any>) ?? {}),
-                            [nodeType]: {
-                              ...contentMap,
-                              [locale]: getEmptyNode(referenceContent),
-                            },
-                          };
-
-                          addEditedContent(dict.localId!, newContent, keyPath);
-                        }}
-                      >
-                        {addTranslation}
-                      </Button>
-                    </div>
-                  );
+            return (
+              // biome-ignore lint/a11y/noStaticElementInteractions: This div handles focus events bubbling up from nested input elements.
+              <div
+                key={dictionary.localId || index}
+                onFocus={() =>
+                  onFocusField(dictionary.key, dictionary.localId, keyPath)
                 }
-
-                return (
-                  <div key={dict.localId || index} className="w-full">
-                    <TextEditor
-                      section={translationContent}
-                      keyPath={[
-                        ...keyPath,
-                        { type: nodeType, key: locale } as any,
-                      ]}
-                      dictionary={dict}
-                    />
-                  </div>
-                );
-              })}
-            </div>
-          ))}
+              >
+                {nodes.length > 1 && dictionary.localId && (
+                  <span className="mb-0.5 ml-8 ml-8 block text-neutral/60 text-xs">
+                    {dictionary.localId.split('::').slice(-2).join('  :  ')}
+                  </span>
+                )}
+                <TextEditor
+                  section={content}
+                  keyPath={keyPath}
+                  dictionary={dictionary}
+                />
+              </div>
+            );
+          })}
         </div>
-      </div>
-    );
-  }
-
-  return (
-    <div className="flex w-full max-w-5xl flex-col items-start gap-2 px-10 py-4">
-      <div className="shrink-0 pt-2">
-        <KeyPathBreadcrumb
-          showDictionaryKey={false}
-          dictionaryKey={dictionary.key}
-          keyPath={keyPath}
-          color="neutral"
-        />
-      </div>
-      <div className="flex w-full flex-1 flex-col gap-2">
-        {nodes.map((node, index) => {
-          const { dictionary: dict, content: originalContent } = node;
-          const editedDictionaryContent =
-            editedContent?.[dict.localId!]?.content;
-          const content =
-            typeof editedDictionaryContent === 'undefined'
-              ? originalContent
-              : getContentNodeByKeyPath(editedDictionaryContent, keyPath);
-
-          return (
-            <TextEditor
-              key={dict.localId || index}
-              section={content}
-              keyPath={keyPath}
-              dictionary={dict}
-            />
-          );
-        })}
-      </div>
+      </Container>
     </div>
   );
 };
@@ -310,12 +383,13 @@ const TranslateDashboardList: FC = () => {
     });
 
   const { selectedLocales } = useLocaleSwitcherContent();
+  const { focusedContent, setFocusedContent } = useFocusUnmergedDictionary();
 
   // Locale-only dicts: received from the editor iframe, not yet in the remote API
   const localeOnlyDicts = useMemo(
     () =>
       Object.values(localeDictionaries ?? {}).filter(
-        (d): d is Dictionary => !d.id
+        (dictionary): dictionary is Dictionary => !dictionary.id
       ),
     [localeDictionaries]
   );
@@ -372,7 +446,7 @@ const TranslateDashboardList: FC = () => {
       ) ?? []
     );
     return filteredLocaleOnlyDicts.filter(
-      (d) => d.localId && !apiLocalIds.has(d.localId)
+      (dictionary) => dictionary.localId && !apiLocalIds.has(dictionary.localId)
     );
   }, [data?.pages, filteredLocaleOnlyDicts]);
 
@@ -397,16 +471,22 @@ const TranslateDashboardList: FC = () => {
     }
   }, [mergedNodes, currentTopIndex]);
 
-  const { groupCounts } = useMemo(() => {
+  const { groupCounts, groupStartIndices } = useMemo(() => {
     if (!mergedNodes || mergedNodes.length === 0) {
-      return { groupCounts: [], groupKeys: [] };
+      return {
+        groupCounts: [],
+        groupKeys: [],
+        groupStartIndices: new Set<number>(),
+      };
     }
 
     const counts: number[] = [];
     const keys: string[] = [];
+    const starts = new Set<number>();
 
     let currentKey: string | null = null;
     let currentCount = 0;
+    let idx = 0;
 
     mergedNodes.forEach((nodes) => {
       const key = nodes[0].dictionary.key;
@@ -416,11 +496,13 @@ const TranslateDashboardList: FC = () => {
           counts.push(currentCount);
           keys.push(currentKey);
         }
+        starts.add(idx);
         currentKey = key;
         currentCount = 1;
       } else {
         currentCount++;
       }
+      idx++;
     });
 
     if (currentKey !== null) {
@@ -428,7 +510,7 @@ const TranslateDashboardList: FC = () => {
       keys.push(currentKey);
     }
 
-    return { groupCounts: counts, groupKeys: keys };
+    return { groupCounts: counts, groupKeys: keys, groupStartIndices: starts };
   }, [mergedNodes]);
 
   return (
@@ -597,12 +679,25 @@ const TranslateDashboardList: FC = () => {
                 setCurrentTopIndex(startIndex);
               }
             }}
-            groupContent={() => <div className="my-4 border-card border-b" />}
+            groupContent={() => <div />}
             itemContent={(index) => (
-              <TranslateRow
-                nodes={mergedNodes[index]}
-                selectedLocales={selectedLocales}
-              />
+              <>
+                {groupStartIndices.has(index) && index > 0 && (
+                  <div className="border-card border-t" />
+                )}
+                <TranslateRow
+                  nodes={mergedNodes[index]}
+                  selectedLocales={selectedLocales}
+                  selectedKeyPath={focusedContent?.keyPath ?? []}
+                  onFocusField={(dictionaryKey, dictionaryLocalId, keyPath) =>
+                    setFocusedContent({
+                      dictionaryKey,
+                      dictionaryLocalId,
+                      keyPath,
+                    })
+                  }
+                />
+              </>
             )}
             overscan={500}
             endReached={() => {
