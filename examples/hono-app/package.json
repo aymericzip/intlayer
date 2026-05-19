@@ -9,12 +9,12 @@
   },
   "dependencies": {
     "@hono/node-server": "1.19.13",
-    "hono": "4.12.12",
+    "hono": "4.12.21",
     "hono-intlayer": "workspace:*",
     "intlayer": "workspace:*"
   },
   "devDependencies": {
-    "@types/node": "25.9.0",
+    "@types/node": "25.9.1",
     "typescript": "6.0.3"
   }
 }

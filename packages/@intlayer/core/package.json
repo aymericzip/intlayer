@@ -176,7 +176,7 @@
     "defu": "6.1.7"
   },
   "devDependencies": {
-    "@types/node": "25.9.0",
+    "@types/node": "25.9.1",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
