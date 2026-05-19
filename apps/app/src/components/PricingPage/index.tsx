@@ -12,7 +12,7 @@ type PricingPageProps = {
 };
 
 export const PricingPage: FC<PricingPageProps> = ({ pricings }) => {
-  const [focusedPeriod, setFocusedPeriod] = useState<Period>(Period.Lifetime);
+  const [focusedPeriod, setFocusedPeriod] = useState<Period>(Period.Yearly);
   const { title, period, description } = useIntlayer('pricing');
 
   return (
