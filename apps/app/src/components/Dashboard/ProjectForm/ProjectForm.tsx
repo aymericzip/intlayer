@@ -45,8 +45,8 @@ export const ProjectFormContent: FC = () => {
           </Container>
         )}
 
-        <div className="grid w-full min-w-0 justify-evenly gap-x-5 gap-y-4 max-md:grid-cols-1 md:grid-cols-[8fr_7fr] lg:gap-x-16">
-          <div className="mb-auto flex min-w-0 flex-col gap-4">
+        <div className="relative grid w-full min-w-0 justify-evenly gap-x-5 gap-y-4 max-md:grid-cols-1 md:grid-cols-[8fr_7fr] lg:gap-x-16">
+          <div className="sticky top-20 mb-auto flex min-w-0 flex-col gap-4">
             <Container
               roundedSize="3xl"
               padding="md"
@@ -75,7 +75,7 @@ export const ProjectFormContent: FC = () => {
               <AccessKeyForm />
             </Container>
           </div>
-          <div className="mb-auto flex min-w-0 flex-col gap-4">
+          <div className="sticky top-20 mb-auto flex min-w-0 flex-col gap-4">
             <Container
               roundedSize="3xl"
               padding="md"
