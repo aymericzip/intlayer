@@ -1,6 +1,8 @@
+import { App_Dashboard_Dictionaries_Path } from '@intlayer/design-system/routes';
 import { MessageKey, useEditorStateManager } from '@intlayer/editor-react';
-import { useLocation } from '@tanstack/react-router';
+import { useLocation, useParams } from '@tanstack/react-router';
 import { type FC, useEffect } from 'react';
+import { useLocalizedNavigate } from '#hooks/useLocalizedNavigate.ts';
 import { visualEditorKeysManager } from '#hooks/useVisualEditorKeys';
 import { DictionaryLoaderDashboard } from './DictionaryLoaderDashboard';
 
@@ -13,6 +15,10 @@ import { DictionaryLoaderDashboard } from './DictionaryLoaderDashboard';
 export const DictionaryLoaderVisualEditor: FC = () => {
   const manager = useEditorStateManager();
   const { pathname } = useLocation();
+  const { dictionaryKey: currentDictionaryKey } = useParams({
+    strict: false,
+  }) as { dictionaryKey?: string };
+  const navigate = useLocalizedNavigate();
 
   // Re-request displayed keys from the client app whenever the dashboard route changes.
   useEffect(() => {
@@ -30,6 +36,18 @@ export const DictionaryLoaderVisualEditor: FC = () => {
         .detail;
       if (focused?.dictionaryKey) {
         visualEditorKeysManager.setKeys([focused.dictionaryKey]);
+
+        if (
+          currentDictionaryKey &&
+          focused.dictionaryKey !== currentDictionaryKey
+        ) {
+          navigate({
+            to: `${App_Dashboard_Dictionaries_Path}/$dictionaryKey`,
+            params: {
+              dictionaryKey: focused.dictionaryKey,
+            },
+          });
+        }
       } else {
         visualEditorKeysManager.setKeys(
           manager.displayedDictionaryKeys.value ?? []
@@ -39,7 +57,7 @@ export const DictionaryLoaderVisualEditor: FC = () => {
 
     manager.focusedContent.addEventListener('change', handler);
     return () => manager.focusedContent.removeEventListener('change', handler);
-  }, [manager]);
+  }, [manager, currentDictionaryKey, navigate]);
 
   return <DictionaryLoaderDashboard />;
 };

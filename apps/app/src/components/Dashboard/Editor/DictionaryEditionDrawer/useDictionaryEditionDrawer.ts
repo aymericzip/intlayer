@@ -38,10 +38,10 @@ export const useDictionaryEditionDrawer = (
   const { focusedContent, setFocusedContent } = useFocusUnmergedDictionary();
 
   useEffect(() => {
-    if (focusedContent && (focusedContent.keyPath?.length ?? 0) > 0) {
+    if (focusedContent?.dictionaryKey) {
       openDrawer(id);
     }
-  }, [focusedContent, openDrawer, id]);
+  }, [focusedContent?.dictionaryKey, openDrawer, id]);
 
   return {
     isOpen: isOpenDrawer(id),
