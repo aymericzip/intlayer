@@ -5,3 +5,4 @@ export * from './isSameKeyPath';
 export * from './isValidReactElement';
 export * from './localeStorage';
 export * from './parseYaml';
+export * from './stringifyYaml';

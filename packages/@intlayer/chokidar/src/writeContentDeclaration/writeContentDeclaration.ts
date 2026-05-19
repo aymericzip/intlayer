@@ -23,6 +23,7 @@ import { processContentDeclarationContent } from './processContentDeclarationCon
 import { transformJSONFile } from './transformJSONFile';
 import { writeJSFile } from './writeJSFile';
 import { writeMarkdownFile } from './writeMarkdownFile';
+import { writeYamlFile } from './writeYamlFile';
 
 const formatContentDeclaration = async (
   dictionary: Dictionary,
@@ -235,6 +236,11 @@ const writeFileWithDirectories = async (
 
   if (extension === '.md') {
     await writeMarkdownFile(absoluteFilePath, dictionary, configuration);
+    return;
+  }
+
+  if (extension === '.yaml' || extension === '.yml') {
+    await writeYamlFile(absoluteFilePath, dictionary, configuration);
     return;
   }
 

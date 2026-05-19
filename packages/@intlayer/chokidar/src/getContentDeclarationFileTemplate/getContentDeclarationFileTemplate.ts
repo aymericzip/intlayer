@@ -53,6 +53,29 @@ export const getContentDeclarationFileTemplate = async (
   const satisfiesType = noMetadata ? "Dictionary['content']" : 'Dictionary';
 
   switch (format) {
+    case 'yaml': {
+      const yamlLines = [
+        `key: ${key}`,
+        ...(fileParams.locale ? [`locale: ${fileParams.locale}`] : []),
+        ...(fileParams.title
+          ? [`title: ${JSON.stringify(fileParams.title)}`]
+          : []),
+        ...(fileParams.description
+          ? [`description: ${JSON.stringify(fileParams.description)}`]
+          : []),
+        ...(fileParams.tags?.length
+          ? [
+              'tags:',
+              ...(fileParams.tags as string[]).map(
+                (tag) => `  - ${JSON.stringify(tag)}`
+              ),
+            ]
+          : []),
+        'content: {}',
+      ];
+      return `${yamlLines.join('\n')}\n`;
+    }
+
     case 'md': {
       const mdFrontmatterLines = [
         `key: ${key}`,
@@ -66,7 +89,9 @@ export const getContentDeclarationFileTemplate = async (
         ...(fileParams.tags?.length
           ? [
               'tags:',
-              ...(fileParams.tags as string[]).map((t) => `  - ${JSON.stringify(t)}`),
+              ...(fileParams.tags as string[]).map(
+                (t) => `  - ${JSON.stringify(t)}`
+              ),
             ]
           : []),
       ];

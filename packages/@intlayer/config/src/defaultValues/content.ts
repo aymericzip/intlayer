@@ -9,6 +9,8 @@ export const FILE_EXTENSIONS = [
   '.content.tsx',
   '.content.jsx',
   '.content.md',
+  '.content.yaml',
+  '.content.yml',
 ];
 
 export const EXCLUDED_PATHS = [

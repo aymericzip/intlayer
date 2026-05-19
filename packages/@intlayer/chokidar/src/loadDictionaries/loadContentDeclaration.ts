@@ -12,8 +12,9 @@ import { processContentDeclaration } from '../buildIntlayerDictionary/processCon
 import { filterInvalidDictionaries } from '../filterInvalidDictionaries';
 import { parallelize } from '../utils/parallelize';
 import { getIntlayerBundle } from './getIntlayerBundle';
-import { loadMarkdownContentDeclaration } from './loadMarkdownContentDeclaration';
 import type { DictionariesStatus } from './loadDictionaries';
+import { loadMarkdownContentDeclaration } from './loadMarkdownContentDeclaration';
+import { loadYamlContentDeclaration } from './loadYamlContentDeclaration';
 import { logTypeScriptErrors } from './logTypeScriptErrors';
 
 export const formatLocalDictionaries = (
@@ -104,6 +105,10 @@ export const loadContentDeclaration = async (
 ): Promise<Dictionary | undefined> => {
   if (extname(path) === '.md') {
     return loadMarkdownContentDeclaration(path);
+  }
+
+  if (extname(path) === '.yaml' || extname(path) === '.yml') {
+    return loadYamlContentDeclaration(path);
   }
 
   const { build, system } = configuration;
