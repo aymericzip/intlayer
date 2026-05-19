@@ -6,7 +6,7 @@ import { Loader } from '@intlayer/design-system/loader';
 import { Modal } from '@intlayer/design-system/modal';
 import { App_Admin_Users_Path } from '@intlayer/design-system/routes';
 import { toast } from '@intlayer/design-system/toaster';
-import { AlertTriangle, Trash2 } from 'lucide-react';
+import { Trash2, TriangleAlert } from 'lucide-react';
 import { type FC, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { useLocalizedNavigate } from '#hooks/useLocalizedNavigate.ts';
@@ -61,30 +61,36 @@ export const UserDeleteAction: FC<{ userId: string }> = ({ userId }) => {
       <Loader isLoading={isLoading}>
         {user ? (
           <Container
-            roundedSize="2xl"
-            padding="md"
+            roundedSize="3xl"
+            padding="lg"
             border
-            borderColor="error"
-            className="bg-red-50 p-6 dark:border-red-900 dark:bg-red-950/10"
+            borderColor="neutral"
+            className="w-full"
           >
-            <h3 className="mb-2 flex items-center gap-2 font-semibold text-lg text-red-900 dark:text-red-100">
-              <AlertTriangle className="h-5 w-5" />
-              {deleteSection.title}
-            </h3>
-            <p className="mb-4 text-neutral text-sm">
-              {deleteSection.description}
-            </p>
-            <Form.Button
-              label={deleteSection.button.value}
-              onClick={() => setIsDeleteModalOpen(true)}
-              disabled={deleteUserMutation.isPending}
-              Icon={Trash2}
-              variant="outline"
-              className="ml-auto"
-              color="error"
-            >
-              {deleteSection.button}
-            </Form.Button>
+            <div className="flex items-start gap-6 px-4">
+              <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-red-500/10">
+                <TriangleAlert className="h-5 w-5 text-red-500" />
+              </div>
+              <div className="flex-1">
+                <h3 className="font-medium text-base text-red-500">
+                  {deleteSection.title}
+                </h3>
+                <p className="mt-1 text-neutral text-sm">
+                  {deleteSection.description}
+                </p>
+                <Form.Button
+                  label={deleteSection.button.value}
+                  onClick={() => setIsDeleteModalOpen(true)}
+                  disabled={deleteUserMutation.isPending}
+                  Icon={Trash2}
+                  variant="outline"
+                  color="error"
+                  className="mt-4"
+                >
+                  {deleteSection.button}
+                </Form.Button>
+              </div>
+            </div>
           </Container>
         ) : (
           <div className="py-12 text-center">
@@ -104,7 +110,7 @@ export const UserDeleteAction: FC<{ userId: string }> = ({ userId }) => {
       >
         <div className="flex flex-col gap-8 px-3 pt-4">
           <div className="flex items-start gap-3 rounded-lg px-4">
-            <AlertTriangle className="mt-0.5 h-5 w-5 flex-shrink-0 text-red-600 dark:text-red-400" />
+            <TriangleAlert className="mt-0.5 h-5 w-5 flex-shrink-0 text-red-600 dark:text-red-400" />
             <div className="flex-1">
               <p className="font-medium text-red-900 text-sm dark:text-red-100">
                 {deleteSection.modalWarning}

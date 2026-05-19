@@ -17,8 +17,7 @@ export const UserHeader: FC<UserHeaderProps> = ({ user }) => {
       roundedSize="3xl"
       padding="md"
       border
-      borderColor="text"
-      background="none"
+      borderColor="neutral"
       className="relative flex items-center gap-4"
     >
       <Avatar

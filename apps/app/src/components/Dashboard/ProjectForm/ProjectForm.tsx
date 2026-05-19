@@ -32,7 +32,7 @@ export const ProjectFormContent: FC = () => {
 
   if (project) {
     return (
-      <div className="flex max-w-6xl flex-col items-center justify-center gap-8">
+      <div className="m-auto flex max-w-6xl flex-col items-center justify-center gap-8">
         {!isProjectAdmin && isProjectMember && (
           <Container
             roundedSize="xl"

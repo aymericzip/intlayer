@@ -33,7 +33,6 @@ export const UserEditForm: FC<{ userId: string }> = ({ userId }) => {
   const { form, isSubmitting } = useForm(UserEditSchema);
 
   const {
-    title,
     formLabels,
     errorMessages,
     successMessages,
@@ -177,77 +176,67 @@ export const UserEditForm: FC<{ userId: string }> = ({ userId }) => {
   }
 
   return (
-    <div className="flex max-w-5xl flex-col items-center justify-center gap-4">
-      <div className="mb-6 size-full">
-        <h1 className="font-bold text-2xl text-neutral-900 dark:text-neutral-100">
-          {title}
-        </h1>
-      </div>
+    <Loader isLoading={isLoading}>
+      {user ? (
+        <div className="grid w-full min-w-0 justify-evenly gap-x-5 gap-y-4 max-md:grid-cols-1 md:grid-cols-[8fr_7fr] lg:gap-x-16">
+          <div className="mb-auto flex min-w-0 flex-col gap-4">
+            <UserHeader user={user} />
 
-      <Loader isLoading={isLoading}>
-        {user ? (
-          <div className="grid w-full justify-evenly gap-x-5 gap-y-4 max-md:grid-cols-1 md:grid-cols-2 lg:gap-x-16">
-            <div className="mb-auto flex min-w-0 flex-col gap-4">
-              <UserHeader user={user} />
+            <Container
+              roundedSize="3xl"
+              padding="md"
+              border
+              borderColor="neutral"
+            >
+              <H3 className="mb-8">{formLabels.title}</H3>
 
-              <Container
-                roundedSize="3xl"
-                padding="md"
-                border
-                borderColor="text"
-                background="none"
+              <Form
+                schema={UserEditSchema}
+                onSubmitSuccess={onSubmitSuccess}
+                className="w-full"
+                {...form}
               >
-                <H3 className="mb-8">{formLabels.title}</H3>
+                <UserFormFields
+                  organizations={organizations}
+                  isLastMemberInOrg={isLastMemberInOrg}
+                  getOrganizationName={getOrganizationName}
+                />
 
-                <Form
-                  schema={UserEditSchema}
-                  onSubmitSuccess={onSubmitSuccess}
-                  className="w-full"
-                  {...form}
+                <Form.Button
+                  type="submit"
+                  className="mt-12 w-full"
+                  label={formLabels.updateButton.value}
+                  isLoading={
+                    isSubmitting ||
+                    updateUserMutation.isPending ||
+                    updateOrganizationMembersByIdMutation.isPending
+                  }
+                  color="text"
                 >
-                  <UserFormFields
-                    organizations={organizations}
-                    isLastMemberInOrg={isLastMemberInOrg}
-                    getOrganizationName={getOrganizationName}
-                  />
-
-                  <Form.Button
-                    type="submit"
-                    className="mt-12 w-full"
-                    label={formLabels.updateButton.value}
-                    isLoading={
-                      isSubmitting ||
-                      updateUserMutation.isPending ||
-                      updateOrganizationMembersByIdMutation.isPending
-                    }
-                    color="text"
-                  >
-                    {formLabels.updateButton}
-                  </Form.Button>
-                </Form>
-              </Container>
-            </div>
-
-            <div className="mb-auto flex min-w-0 flex-col gap-4">
-              <Container
-                roundedSize="3xl"
-                padding="md"
-                border
-                borderColor="text"
-                background="none"
-              >
-                <UserDates user={user} />
-              </Container>
-            </div>
+                  {formLabels.updateButton}
+                </Form.Button>
+              </Form>
+            </Container>
           </div>
-        ) : (
-          <div className="py-12 text-center">
-            <p className="text-neutral-500 dark:text-neutral-400">
-              {userNotFound}
-            </p>
+
+          <div className="mb-auto flex min-w-0 flex-col gap-4">
+            <Container
+              roundedSize="3xl"
+              padding="md"
+              border
+              borderColor="neutral"
+            >
+              <UserDates user={user} />
+            </Container>
           </div>
-        )}
-      </Loader>
-    </div>
+        </div>
+      ) : (
+        <div className="py-12 text-center">
+          <p className="text-neutral-500 dark:text-neutral-400">
+            {userNotFound}
+          </p>
+        </div>
+      )}
+    </Loader>
   );
 };

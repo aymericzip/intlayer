@@ -32,7 +32,7 @@ export const ProjectAdminDetailPage = ({
       {project ? (
         <ProjectForm />
       ) : (
-        <div className="py-12 text-center">
+        <div className="m-auto py-12 text-center">
           <p className="text-neutral-500 dark:text-neutral-400">
             {noProjectFound}
           </p>
