@@ -1,6 +1,7 @@
 import { Button } from '@intlayer/design-system/button';
 import { useSession } from '@intlayer/design-system/hooks';
 import {
+  App_Admin_Users_Path,
   App_Dashboard_Dictionaries_Path,
   App_Dashboard_Editor_Path,
   App_Dashboard_IDE_Path,
@@ -78,8 +79,7 @@ function DashboardLayout() {
     }
   }, [isVisualEditorPage]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const { navigation, globe, book, tags, building2 } =
-    useIntlayer('dashboard-sidebar');
+  const { navigation } = useIntlayer('dashboard-sidebar');
   const { footerLinks } = useIntlayer('dashboard-footer-content');
 
   const { translationStatus, aiAssistant, visualEditor, closePanel } =
@@ -109,21 +109,21 @@ function DashboardLayout() {
         {
           key: 'translate',
           href: App_Dashboard_Translate_Path,
-          icon: globe.value,
+          icon: 'Globe',
           label: navigation.translate.label.value,
           title: navigation.translate.title.value,
         },
         {
           key: 'dictionaries',
           href: App_Dashboard_Dictionaries_Path,
-          icon: book.value,
+          icon: 'Book',
           label: navigation.dictionaries.label.value,
           title: navigation.dictionaries.title.value,
         },
         {
           key: 'tags',
           href: App_Dashboard_Tags_Path,
-          icon: tags.value,
+          icon: 'Tags',
           label: navigation.tags.label.value,
           title: navigation.tags.title.value,
         },
@@ -148,9 +148,16 @@ function DashboardLayout() {
     {
       key: 'organization',
       href: App_Dashboard_Organization_Path,
-      icon: building2.value,
+      icon: 'Building2',
       label: navigation.organization.label.value,
       title: navigation.organization.title.value,
+    },
+    {
+      key: 'admin',
+      href: App_Admin_Users_Path,
+      icon: 'Shield',
+      label: navigation.admin.label.value,
+      title: navigation.admin.title.value,
     },
   ];
 
