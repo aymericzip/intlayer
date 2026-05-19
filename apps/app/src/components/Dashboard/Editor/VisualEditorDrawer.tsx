@@ -6,14 +6,14 @@ import { createPortal } from 'react-dom';
 import { useIntlayer } from 'react-intlayer';
 import { EditorConfigurationProvider } from '#components/Dashboard/ContentDashboard/ConfigurationProvider';
 import { Editor } from '#components/Dashboard/Editor';
-import { DictionaryLoaderDashboard } from '#components/Dashboard/Editor/DictionaryLoaderDashboard';
+import { DictionaryLoaderVisualEditor } from '#components/Dashboard/Editor/DictionaryLoaderVisualEditor';
 import { useDashboardRightPanel } from '#hooks/useDashboardRightPanel';
 
 const DRAWER_ID = 'visual-editor';
 
 export const VisualEditorDrawer: FC = memo(() => {
   const { open: openPanel, isOpen: checkIsOpen } = useDashboardRightPanel();
-  const { title, buttonLabel, buttonDescription } = useIntlayer(
+  const { buttonLabel, buttonDescription } = useIntlayer(
     'visual-editor-drawer'
   );
   const isOpen = checkIsOpen(DRAWER_ID);
@@ -47,7 +47,10 @@ export const VisualEditorDrawer: FC = memo(() => {
         createPortal(
           <div className="flex size-full flex-col overflow-hidden">
             <EditorConfigurationProvider>
-              <Editor DictionariesLoader={DictionaryLoaderDashboard} />
+              <Editor
+                DictionariesLoader={DictionaryLoaderVisualEditor}
+                suppressEditionDrawer
+              />
             </EditorConfigurationProvider>
           </div>,
           portalTarget

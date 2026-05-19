@@ -226,7 +226,9 @@ export const DictionaryListDashboardContent: FC = () => {
         ),
         cell: ({ row }) => (
           <div className="text-neutral">
-            {formatDate((row.original as any).createdAt)}
+            {(row.original as any).createdAt
+              ? formatDate((row.original as any).createdAt)
+              : null}
           </div>
         ),
       },
@@ -240,7 +242,9 @@ export const DictionaryListDashboardContent: FC = () => {
         ),
         cell: ({ row }) => (
           <div className="text-neutral">
-            {formatDate((row.original as any).updatedAt)}
+            {(row.original as any).updatedAt
+              ? formatDate((row.original as any).updatedAt)
+              : null}
           </div>
         ),
       },

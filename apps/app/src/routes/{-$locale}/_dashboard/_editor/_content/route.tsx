@@ -21,6 +21,7 @@ import { EditorConfigurationProvider } from '#components/Dashboard/ContentDashbo
 import { DashboardContentLayout } from '#components/Dashboard/DashboardContentLayout';
 import { Editor } from '#components/Dashboard/Editor';
 import { DictionaryLoaderDashboard } from '#components/Dashboard/Editor/DictionaryLoaderDashboard';
+import { DictionaryLoaderRoute } from '#components/Dashboard/Editor/DictionaryLoaderRoute';
 import { useLocalizedNavigate } from '#hooks/useLocalizedNavigate.ts';
 import { validateAuth } from '#utils/auth';
 
@@ -142,6 +143,7 @@ function EditorLayout() {
           />
         </div>
         <EditorConfigurationProvider>
+          <DictionaryLoaderRoute />
           {isEditorInitialized && (
             <div
               className={cn(
@@ -161,7 +163,10 @@ function EditorLayout() {
                   },
                 ]}
               />
-              <Editor DictionariesLoader={DictionaryLoaderDashboard} />
+              <Editor
+                DictionariesLoader={DictionaryLoaderDashboard}
+                suppressEditionDrawer={!isEditorActive}
+              />
             </div>
           )}
           <div

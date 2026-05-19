@@ -24,4 +24,7 @@ export enum MessageKey {
 
   /** Client → editor: Helper to sync iframe client reactivity on click client */
   INTLAYER_IFRAME_CLICKED = 'INTLAYER_IFRAME_CLICKED',
+
+  /** Client → editor: list of dictionary keys currently rendered in the iframe */
+  INTLAYER_DISPLAYED_DICTIONARY_KEYS = 'INTLAYER_DISPLAYED_DICTIONARY_KEYS',
 }

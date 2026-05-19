@@ -1,5 +1,5 @@
 import { Container } from '@intlayer/design-system/container';
-import { lazy, Suspense } from 'react';
+import { type FC, lazy, type PropsWithChildren, Suspense } from 'react';
 import { useTheme } from '#/providers/ThemeProvider';
 import { LongPressMessage } from './LongPressMessage';
 
@@ -15,9 +15,12 @@ const DictionaryListDrawer = lazy(() =>
   }))
 );
 
-type EditorLayoutProps = PropsWithChildren;
+type EditorLayoutProps = PropsWithChildren<{ suppressEditionDrawer?: boolean }>;
 
-export const EditorLayout: FC<EditorLayoutProps> = ({ children }) => {
+export const EditorLayout: FC<EditorLayoutProps> = ({
+  children,
+  suppressEditionDrawer = false,
+}) => {
   const { resolvedTheme } = useTheme();
 
   return (
@@ -34,9 +37,11 @@ export const EditorLayout: FC<EditorLayoutProps> = ({ children }) => {
         </div>
       </Container>
       <Suspense fallback={null}>
-        <DictionaryEditionDrawerController
-          isDarkMode={resolvedTheme === 'dark'}
-        />
+        {!suppressEditionDrawer && (
+          <DictionaryEditionDrawerController
+            isDarkMode={resolvedTheme === 'dark'}
+          />
+        )}
         <DictionaryListDrawer />
       </Suspense>
     </>

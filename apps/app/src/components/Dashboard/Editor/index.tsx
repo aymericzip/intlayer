@@ -7,15 +7,16 @@ import { IframeController } from './IframeController';
 type EditorProps = {
   configuration?: IntlayerConfig;
   DictionariesLoader: FC;
+  suppressEditionDrawer?: boolean;
 };
 
 export const Editor: FC<EditorProps> = memo(
-  ({ configuration, DictionariesLoader }) => {
+  ({ configuration, DictionariesLoader, suppressEditionDrawer }) => {
     const iframeRef = useRef<HTMLIFrameElement>(null);
 
     return (
       <EditorProvider iframeRef={iframeRef} configuration={configuration}>
-        <EditorLayout>
+        <EditorLayout suppressEditionDrawer={suppressEditionDrawer}>
           <DictionariesLoader />
           <IframeController iframeRef={iframeRef} />
         </EditorLayout>

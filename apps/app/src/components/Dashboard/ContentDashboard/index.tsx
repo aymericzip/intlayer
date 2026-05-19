@@ -2,8 +2,10 @@ import { DictionaryFieldEditor } from '@intlayer/design-system/dictionary-field-
 import { useGetDictionary } from '@intlayer/design-system/hooks';
 import { Loader } from '@intlayer/design-system/loader';
 import { App_Dashboard_Dictionaries_Path } from '@intlayer/design-system/routes';
+import { useDictionariesRecord } from '@intlayer/editor-react';
+import type { Dictionary } from '@intlayer/types/dictionary';
 import { useQueryClient } from '@tanstack/react-query';
-import { type FC, Suspense } from 'react';
+import { type FC, Suspense, useMemo } from 'react';
 import { useTheme } from '#/providers/ThemeProvider';
 import { useLocalizedNavigate } from '#hooks/useLocalizedNavigate.ts';
 
@@ -16,10 +18,23 @@ export const ContentDashboard: FC<ContentDashboardContentProps> = ({
 }) => {
   const { resolvedTheme } = useTheme();
   const { data: dictionaryResult, isPending } = useGetDictionary(dictionaryKey);
+  const { localeDictionaries } = useDictionariesRecord();
   const queryClient = useQueryClient();
 
   const navigate = useLocalizedNavigate();
-  const dictionary = dictionaryResult?.data;
+
+  const remoteDictionary = dictionaryResult?.data;
+
+  // Fall back to locale dict when the remote API has no entry for this key
+  const localeDictionary = useMemo(
+    () =>
+      Object.values(localeDictionaries ?? {}).find(
+        (d): d is Dictionary => d.key === dictionaryKey
+      ),
+    [localeDictionaries, dictionaryKey]
+  );
+
+  const dictionary = remoteDictionary ?? localeDictionary;
 
   const handleSave = () => {
     // usePushDictionaries only invalidates ['dictionaries'] / ['dictionariesKeys'],
@@ -30,7 +45,7 @@ export const ContentDashboard: FC<ContentDashboardContentProps> = ({
 
   return (
     <Suspense fallback={<Loader />}>
-      <Loader isLoading={!dictionary || isPending}>
+      <Loader isLoading={!dictionary && isPending}>
         <div className="flex h-full min-h-0 w-full flex-1 flex-col">
           {dictionary && (
             <DictionaryFieldEditor

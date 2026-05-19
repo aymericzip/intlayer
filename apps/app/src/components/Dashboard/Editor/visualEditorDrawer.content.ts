@@ -3,26 +3,6 @@ import { type Dictionary, t } from 'intlayer';
 const visualEditorDrawerContent = {
   key: 'visual-editor-drawer',
   content: {
-    title: t({
-      en: 'Visual Editor',
-      fr: 'Éditeur visuel',
-      es: 'Editor visual',
-      de: 'Visueller Editor',
-      ja: 'ビジュアルエディタ',
-      ko: '비주얼 에디터',
-      zh: '可视化编辑器',
-      it: 'Editor visuale',
-      pt: 'Editor visual',
-      hi: 'दृश्य संपादक',
-      tr: 'Görsel Düzenleyici',
-      ru: 'Визуальный редактор',
-      pl: 'Edytor wizualny',
-      vi: 'Trình chỉnh sửa trực quan',
-      ar: 'المحرر المرئي',
-      id: 'Editor Visual',
-      'en-GB': 'Visual Editor',
-      uk: 'Візуальний редактор',
-    }),
     buttonLabel: t({
       en: 'Open visual editor',
       fr: "Ouvrir l'éditeur visuel",

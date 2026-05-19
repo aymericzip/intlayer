@@ -29,7 +29,7 @@ import { useRightDrawer } from '@intlayer/design-system/right-drawer';
 import { App_Dashboard_Dictionaries_Path } from '@intlayer/design-system/routes';
 import {
   useConfiguration,
-  useDictionariesRecordActions,
+  useDictionariesRecord,
   useEditedContent,
 } from '@intlayer/editor-react';
 import type { Dictionary } from '@intlayer/types/dictionary';
@@ -41,7 +41,9 @@ import { useIntlayer, useLocale } from 'react-intlayer';
 import { GroupedVirtuoso, type GroupedVirtuosoHandle } from 'react-virtuoso';
 import { Link } from '#components/Link/Link';
 import { Skeleton } from '#components/Skeleton';
+import { useDashboardRightPanel } from '#hooks/useDashboardRightPanel';
 import { useSearchParamState } from '#hooks/useSearchParamState';
+import { useVisualEditorKeys } from '#hooks/useVisualEditorKeys';
 import { useDashboardScroll } from '../DashboardScrollContext';
 import { FiltersModal } from '../DictionaryListDashboard/FiltersModal';
 import {
@@ -230,12 +232,19 @@ const TranslateDashboardList: FC = () => {
     defaultValue: params.search,
   });
   const { locale: currentLocale } = useLocale();
-  const { setLocaleDictionaries } = useDictionariesRecordActions() ?? {};
+  const { localeDictionaries, setLocaleDictionaries } = useDictionariesRecord();
   const { open: openDrawer } = useRightDrawer();
   const { mutateAsync: fillAll } = useFillAllTranslations();
   const { session } = useSession();
   const [currentDictionaryKey, setCurrentDictionaryKey] = useState<string>('');
   const [isFiltersModalOpen, setIsFiltersModalOpen] = useState(false);
+
+  const { isOpen } = useDashboardRightPanel();
+  const visualEditorKeys = useVisualEditorKeys();
+  const activeVisualEditorKeys =
+    isOpen('visual-editor') && visualEditorKeys.length > 0
+      ? visualEditorKeys
+      : undefined;
 
   const projectLocales =
     session?.project?.configuration?.internationalization?.locales ?? [];
@@ -297,9 +306,26 @@ const TranslateDashboardList: FC = () => {
         params.location !== 'none'
           ? (params.location as 'none' | 'remote' | 'local' | 'both')
           : undefined,
+      keys: activeVisualEditorKeys,
     });
 
   const { selectedLocales } = useLocaleSwitcherContent();
+
+  // Locale-only dicts: received from the editor iframe, not yet in the remote API
+  const localeOnlyDicts = useMemo(
+    () =>
+      Object.values(localeDictionaries ?? {}).filter(
+        (d): d is Dictionary => !d.id
+      ),
+    [localeDictionaries]
+  );
+  const filteredLocaleOnlyDicts = useMemo(
+    () =>
+      activeVisualEditorKeys
+        ? localeOnlyDicts.filter((d) => activeVisualEditorKeys.includes(d.key))
+        : localeOnlyDicts,
+    [localeOnlyDicts, activeVisualEditorKeys]
+  );
 
   const allLoadedDictionaries: Record<string, Dictionary> = useMemo(() => {
     const result: Record<string, Dictionary> = {};
@@ -310,8 +336,14 @@ const TranslateDashboardList: FC = () => {
         }
       });
     });
+    // Supplement with locale-only dicts not already returned by the API
+    for (const dict of filteredLocaleOnlyDicts) {
+      if (dict.localId && !result[dict.localId]) {
+        result[dict.localId] = dict;
+      }
+    }
     return result;
-  }, [data?.pages]);
+  }, [data?.pages, filteredLocaleOnlyDicts]);
 
   useEffect(() => {
     if (
@@ -332,13 +364,26 @@ const TranslateDashboardList: FC = () => {
     }
   }, [allLoadedDictionaries, setLocaleDictionaries]);
 
-  const flattenedNodes: FlattenedDictionaryNode[] = useMemo(() => {
-    return (
+  // Locale-only dicts whose localId is not already covered by the API pages
+  const localeOnlyForDisplay = useMemo(() => {
+    const apiLocalIds = new Set(
       data?.pages.flatMap((page: any) =>
-        (page.data as Dictionary[]).flatMap(flattenDictionary)
+        (page.data as Dictionary[]).map((d) => d.localId).filter(Boolean)
       ) ?? []
     );
-  }, [data?.pages]);
+    return filteredLocaleOnlyDicts.filter(
+      (d) => d.localId && !apiLocalIds.has(d.localId)
+    );
+  }, [data?.pages, filteredLocaleOnlyDicts]);
+
+  const flattenedNodes: FlattenedDictionaryNode[] = useMemo(() => {
+    const apiNodes =
+      data?.pages.flatMap((page: any) =>
+        (page.data as Dictionary[]).flatMap(flattenDictionary)
+      ) ?? [];
+    const localeNodes = localeOnlyForDisplay.flatMap(flattenDictionary);
+    return [...apiNodes, ...localeNodes];
+  }, [data?.pages, localeOnlyForDisplay]);
 
   const mergedNodes = useMemo(
     () => mergeFlattenedNodes(flattenedNodes),

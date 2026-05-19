@@ -18,6 +18,11 @@ import {
   type MessengerConfig,
 } from './CrossFrameMessenger';
 import { CrossFrameStateManager } from './CrossFrameStateManager';
+import {
+  getGlobalEditedContent,
+  setGlobalEditedContent,
+  subscribeToGlobalEditedContent,
+} from './editedContentBus';
 import { IframeClickInterceptor } from './IframeClickInterceptor';
 import { UrlStateManager } from './UrlStateManager';
 
@@ -54,6 +59,7 @@ export class EditorStateManager {
   readonly editedContent: CrossFrameStateManager<DictionaryContent>;
   readonly configuration: CrossFrameStateManager<IntlayerConfig>;
   readonly currentLocale: CrossFrameStateManager<Locale | undefined>;
+  readonly displayedDictionaryKeys: CrossFrameStateManager<string[]>;
 
   private readonly _urlManager: UrlStateManager;
   private readonly _iframeInterceptor: IframeClickInterceptor;
@@ -65,6 +71,16 @@ export class EditorStateManager {
   private _unsubActivate: (() => void) | null = null;
   // Editor-mode handshake subscriber
   private _unsubClientReady: (() => void) | null = null;
+
+  // Client-mode displayed-keys tracking
+  private _displayedKeysObserver: MutationObserver | null = null;
+  private _displayedKeysTimer: ReturnType<typeof setTimeout> | null = null;
+  private _displayedKeysListeners: Array<[string, EventListener]> = [];
+
+  // Global editedContent bus sync
+  private _editedContentFromBus = false;
+  private _unsubGlobalEditedContent: (() => void) | null = null;
+  private _editedContentBusHandler: ((e: Event) => void) | null = null;
 
   constructor(config: EditorStateManagerConfig) {
     this._mode = config.mode;
@@ -114,6 +130,17 @@ export class EditorStateManager {
       }
     );
 
+    // Client emits displayed dictionary keys; editor receives them.
+    this.displayedDictionaryKeys = new CrossFrameStateManager<string[]>(
+      MessageKey.INTLAYER_DISPLAYED_DICTIONARY_KEYS,
+      this.messenger,
+      {
+        emit: config.mode === 'client',
+        receive: config.mode === 'editor',
+        initialValue: [],
+      }
+    );
+
     this._urlManager = new UrlStateManager(this.messenger);
     this._iframeInterceptor = new IframeClickInterceptor(this.messenger);
   }
@@ -126,11 +153,14 @@ export class EditorStateManager {
     this.editedContent.start();
     this.configuration.start();
     this.currentLocale.start();
+    this.displayedDictionaryKeys.start();
+    this._startEditedContentBusSync();
 
     if (this._mode === 'client') {
       this._urlManager.start();
       this._iframeInterceptor.startInterceptor();
       this._loadDictionaries();
+      this._startDisplayedDictionariesTracking();
       // Request current edited content from the editor
       this.messenger.send(`${MessageKey.INTLAYER_EDITED_CONTENT_CHANGED}/get`);
       // Activation handshake: only participate if editor.enabled !== false
@@ -157,6 +187,9 @@ export class EditorStateManager {
     this.editedContent.stop();
     this.configuration.stop();
     this.currentLocale.stop();
+    this.displayedDictionaryKeys.stop();
+    this._stopDisplayedDictionariesTracking();
+    this._stopEditedContentBusSync();
     this._urlManager.stop();
     this._iframeInterceptor.stopInterceptor();
     this._iframeInterceptor.stopMerger();
@@ -405,6 +438,113 @@ export class EditorStateManager {
 
     return undefined;
   }
+
+  // ─── Global editedContent bus sync ───────────────────────────────────────
+
+  private _startEditedContentBusSync(): void {
+    // Push local changes to the global bus (loop-guarded)
+    this._editedContentBusHandler = (e: Event) => {
+      if (this._editedContentFromBus) return;
+      const content = (e as CustomEvent<DictionaryContent>).detail;
+      setGlobalEditedContent(content, this.messenger.senderId);
+    };
+    this.editedContent.addEventListener(
+      'change',
+      this._editedContentBusHandler
+    );
+
+    // Receive bus changes from other managers
+    this._unsubGlobalEditedContent = subscribeToGlobalEditedContent(
+      (content, sourceId) => {
+        if (sourceId === this.messenger.senderId) return;
+        this._editedContentFromBus = true;
+        this.editedContent.set(content);
+        this._editedContentFromBus = false;
+      }
+    );
+
+    // Seed local value from the bus if bus already has content
+    const existing = getGlobalEditedContent();
+    if (Object.keys(existing).length > 0) {
+      this._editedContentFromBus = true;
+      this.editedContent.set(existing);
+      this._editedContentFromBus = false;
+    }
+  }
+
+  private _stopEditedContentBusSync(): void {
+    if (this._editedContentBusHandler) {
+      this.editedContent.removeEventListener(
+        'change',
+        this._editedContentBusHandler
+      );
+      this._editedContentBusHandler = null;
+    }
+    this._unsubGlobalEditedContent?.();
+    this._unsubGlobalEditedContent = null;
+  }
+
+  // ─── Displayed dictionaries tracking (client mode only) ──────────────────
+
+  private _scanDisplayedDictionaryKeys(): void {
+    if (typeof document === 'undefined') return;
+    const elements = document.querySelectorAll(
+      'intlayer-content-selector-wrapper[dictionary-key]'
+    );
+    const keys = Array.from(
+      new Set(
+        Array.from(elements)
+          .map((el) => el.getAttribute('dictionary-key') ?? '')
+          .filter(Boolean)
+      )
+    );
+    this.displayedDictionaryKeys.set(keys);
+  }
+
+  private _startDisplayedDictionariesTracking(): void {
+    if (
+      typeof document === 'undefined' ||
+      typeof MutationObserver === 'undefined'
+    )
+      return;
+
+    const schedule = () => {
+      if (this._displayedKeysTimer) clearTimeout(this._displayedKeysTimer);
+      this._displayedKeysTimer = setTimeout(
+        () => this._scanDisplayedDictionaryKeys(),
+        100
+      );
+    };
+
+    this._displayedKeysObserver = new MutationObserver(schedule);
+    this._displayedKeysObserver.observe(document.body, {
+      childList: true,
+      subtree: true,
+    });
+
+    for (const evt of ['locationchange', 'popstate'] as const) {
+      const listener = schedule as EventListener;
+      window.addEventListener(evt, listener);
+      this._displayedKeysListeners.push([evt, listener]);
+    }
+
+    this._scanDisplayedDictionaryKeys();
+  }
+
+  private _stopDisplayedDictionariesTracking(): void {
+    this._displayedKeysObserver?.disconnect();
+    this._displayedKeysObserver = null;
+    if (this._displayedKeysTimer) {
+      clearTimeout(this._displayedKeysTimer);
+      this._displayedKeysTimer = null;
+    }
+    for (const [evt, listener] of this._displayedKeysListeners) {
+      window.removeEventListener(evt, listener);
+    }
+    this._displayedKeysListeners = [];
+  }
+
+  // ─── Handshake helpers ───────────────────────────────────────────────────────
 
   /**
    * EDITOR mode: listen for CLIENT_READY and respond with EDITOR_ACTIVATE.

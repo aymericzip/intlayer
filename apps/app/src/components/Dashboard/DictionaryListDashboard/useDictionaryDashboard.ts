@@ -3,9 +3,13 @@ import {
   useGetDictionaries,
   usePersistedStore,
 } from '@intlayer/design-system/hooks';
+import { useDictionariesRecord } from '@intlayer/editor-react';
+import type { Dictionary } from '@intlayer/types/dictionary';
 import type { RowSelectionState, VisibilityState } from '@tanstack/react-table';
-import { useCallback, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
+import { useDashboardRightPanel } from '#hooks/useDashboardRightPanel';
 import { useSearchParamState } from '#hooks/useSearchParamState';
+import { useVisualEditorKeys } from '#hooks/useVisualEditorKeys';
 
 const searchParams = {
   page: { type: 'number', fallbackValue: 1 },
@@ -20,6 +24,29 @@ const searchParams = {
 export const useDictionaryDashboard = () => {
   // Search & Pagination Params
   const { params, setParam, setParams } = useSearchParamState(searchParams);
+
+  const { isOpen } = useDashboardRightPanel();
+  const visualEditorKeys = useVisualEditorKeys();
+  const activeVisualEditorKeys =
+    isOpen('visual-editor') && visualEditorKeys.length > 0
+      ? visualEditorKeys
+      : undefined;
+
+  const { localeDictionaries } = useDictionariesRecord();
+  const localeOnlyDicts = useMemo(
+    () =>
+      Object.values(localeDictionaries ?? {}).filter(
+        (dictionary): dictionary is Dictionary => !dictionary.id
+      ),
+    [localeDictionaries]
+  );
+  const filteredLocaleOnlyDicts = useMemo(
+    () =>
+      activeVisualEditorKeys
+        ? localeOnlyDicts.filter((d) => activeVisualEditorKeys.includes(d.key))
+        : localeOnlyDicts,
+    [localeOnlyDicts, activeVisualEditorKeys]
+  );
 
   // Modals & Selection State
   const [isCreationModalOpen, setIsCreationModalOpen] = useState(false);
@@ -53,6 +80,7 @@ export const useDictionaryDashboard = () => {
       params.location !== 'none'
         ? (params.location as 'none' | 'remote' | 'local' | 'both')
         : undefined,
+    keys: activeVisualEditorKeys,
   });
 
   const { mutateAsync: deleteDict, isPending: isDeleting } =
@@ -89,8 +117,12 @@ export const useDictionaryDashboard = () => {
       isDeleting,
     },
     data: {
-      dictionaries: data?.data ?? [],
-      totalItems: data?.total_items ?? 0,
+      // Locale-only dicts (no backend id) are prepended to the first page
+      dictionaries:
+        params.page === 1
+          ? [...filteredLocaleOnlyDicts, ...(data?.data ?? [])]
+          : (data?.data ?? []),
+      totalItems: (data?.total_items ?? 0) + filteredLocaleOnlyDicts.length,
       totalPages: data?.total_pages ?? 1,
       isPending,
     },

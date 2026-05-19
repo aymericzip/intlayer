@@ -1,36 +1,20 @@
 import { useGetDictionaries } from '@intlayer/design-system/hooks';
-import {
-  useDictionariesRecord,
-  useEditorStateManager,
-} from '@intlayer/editor-react';
+import { useDictionariesRecord } from '@intlayer/editor-react';
 import type { Dictionary, LocalDictionaryId } from '@intlayer/types/dictionary';
 import { type FC, useEffect } from 'react';
-import { visualEditorKeysManager } from '#hooks/useVisualEditorKeys';
 
-export const DictionaryLoaderDashboard: FC = () => {
-  // Will receive the locale dictionaries from the client, and will add remote dictionaries to the list
+/**
+ * Route-level dictionary loader: always active for all _content sub-routes.
+ * Fetches remote dictionaries and merges them with any locale dictionaries
+ * received from the editor iframe (via window.message broadcast).
+ * When no editor is connected, locale dicts are empty and Manager A ends up
+ * with remote dicts only.
+ */
+export const DictionaryLoaderRoute: FC = () => {
   const { localeDictionaries, setLocaleDictionaries } = useDictionariesRecord();
-  const manager = useEditorStateManager();
-
   const { data, isFetching } = useGetDictionaries();
 
   useEffect(() => {
-    if (!manager) return;
-    const handler = (e: Event) => {
-      visualEditorKeysManager.setKeys(
-        (e as CustomEvent<string[]>).detail ?? []
-      );
-    };
-    manager.displayedDictionaryKeys.addEventListener('change', handler);
-    return () => {
-      manager.displayedDictionaryKeys.removeEventListener('change', handler);
-      visualEditorKeysManager.setKeys([]);
-    };
-  }, [manager]);
-
-  useEffect(() => {
-    // Wait for the locale dictionaries to be loaded for security
-    if (Object.keys(localeDictionaries ?? {}).length === 0) return;
     if (!data) return;
 
     const dictionariesList: Record<LocalDictionaryId, Dictionary> =
@@ -49,7 +33,6 @@ export const DictionaryLoaderDashboard: FC = () => {
         }).sort(([keyA], [keyB]) => keyA.localeCompare(keyB))
       );
 
-    // Check if the merged dictionaries are different from the current locale dictionaries
     const isDifferent =
       JSON.stringify(mergedDictionaries) !== JSON.stringify(localeDictionaries);
 
