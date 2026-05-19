@@ -63,6 +63,7 @@ export const loadMarkdownContentDeclaration = async (
       content: {
         nodeType: MARKDOWN,
         [MARKDOWN]: fileContent,
+        metadata: frontmatter,
       },
     } as Dictionary;
   } catch (error) {
