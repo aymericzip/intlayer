@@ -2,7 +2,7 @@
 createdAt: 2025-02-07
 updatedAt: 2026-05-19
 title: Markdown
-description: Intlayer ile çok dilli web sitenizde Markdown içeriği nasıl bildireceğinizi ve kullanacağınızı öğrenin. Bu çevrimiçi dokümantasyonun adımlarını takip ederek Markdown'ı projenize sorunsuz bir şekilde entegre edin.
+description: Intlayer ile çok dilli web sitenizde Markdown içeriğini nasıl bildireceğinizi ve kullanacağınızı öğrenin. Projenize Markdown'ı sorunsuz bir şekilde entegre etmek için bu çevrimiçi belgelerdeki adımları izleyin.
 keywords:
   - Markdown
   - Uluslararasılaştırma
@@ -19,19 +19,19 @@ slugs:
 history:
   - version: 8.10.0
     date: 2026-05-19
-    changes: "`.content.md` dosyaları desteği eklendi"
+    changes: "`.content.md` dosyaları için destek eklendi"
   - version: 8.5.0
     date: 2026-03-24
-    changes: "Add `intlayerMarkdown` plugin object; use `app.use(intlayerMarkdown)` instead of `app.use(installIntlayerMarkdown)`"
+    changes: "`intlayerMarkdown` eklenti nesnesi eklendi; `app.use(installIntlayerMarkdown)` yerine `app.use(intlayerMarkdown)` kullanın"
   - version: 8.5.0
     date: 2026-03-24
-    changes: "İçeri aktarmalar {{framework}}-intlayer'dan {{framework}}-intlayer/markdown'a taşındı"
+    changes: "İçe aktarma işlemi `{{framework}}-intlayer` konumundan `{{framework}}-intlayer/markdown` konumuna taşındı"
   - version: 8.0.0
     date: 2026-01-22
-    changes: "MarkdownRenderer / useMarkdownRenderer / renderMarkdown yardımcı araçları ve forceInline seçeneği eklendi"
+    changes: "MarkdownRenderer / useMarkdownRenderer / renderMarkdown yardımcı programı ve forceInline seçeneği eklendi"
   - version: 8.0.0
     date: 2026-01-18
-    changes: "Markdown içeriğinin otomatik olarak süslenmesi, MDX ve SSR desteği"
+    changes: "Markdown içeriğinin otomatik dekorasyonu, MDX ve SSR desteği"
   - version: 5.5.10
     date: 2025-06-29
     changes: "Geçmiş başlatıldı"
@@ -39,29 +39,29 @@ history:
 
 # Markdown / Zengin Metin İçeriği
 
-Intlayer, Markdown sözdizimi kullanılarak tanımlanan zengin metin içeriğini destekler. Bu, bloglar, makaleler ve daha fazlası gibi zengin biçimlendirmeye sahip içeriği kolayca yazmanıza ve sürdürmenize olanak tanır.
+Intlayer, Markdown sözdizimi kullanılarak tanımlanan zengin metin içeriğini destekler. Bu, bloglar, makaleler ve daha fazlası gibi zengin biçimlendirilmiş içerikleri kolayca yazmanıza ve sürdürmenize olanak tanır.
 
-## Markdown İçeriğini Tanımlama
+## Markdown İçeriğini Bildirme
 
-Markdown içeriğini `md` fonksiyonunu kullanarak veya sadece bir string olarak (Markdown sözdizimi içeriyorsa) tanımlayabilirsiniz.
+Markdown içeriğini `md` işlevini kullanarak veya basitçe bir dize olarak (Markdown sözdizimi içeriyorsa) bildirebilirsiniz.
 
 <Tabs>
   <Tab label=".content.md" value=".content.md">
-    `8.10.0` sürümünden itibaren, Markdown içeriğini doğrudan `.content.md` dosyalarında tanımlayabilirsiniz. Intlayer, Markdown içeriğini otomatik olarak algılayacak ve ayrıştıracaktır.
+    Sürüm `8.10.0`'dan itibaren Markdown içeriğini doğrudan `.content.md` dosyalarında bildirebilirsiniz. Intlayer, Markdown içeriğini otomatik olarak algılar ve ayrıştırır.
 
-    ```md fileName="markdown-file.tr.content.md"
+    ```md fileName="markdown-file.en.content.md"
     ---
     key: my-markdown-content
     description: İçeriğim
-    locale: tr
+    locale: en
     ---
 
     # İçeriğim
 
-    İşte bir markdown içeriği örneği
+    İşte bir markdown içerik örneği
     ```
 
-    `locale` frontmatter alanı, içeriğin dilini tanımlayan alandır. İsteğe bağlıdır. Sağlanmazsa Intlayer varsayılan dili kullanır; bu dil aynı zamanda belirli bir dil için çeviri mevcut olmadığında yedek dil olarak da kullanılır.
+    `locale` ön madde alanı, içeriğin yerel ayarını tanımlayan alandır. İsteğe bağlıdır. Sağlanmazsa, Intlayer varsayılan yerel ayarı kullanacaktır; bu, belirli bir yerel ayar için çeviri mevcut değilse aynı zamanda geri dönüş yerel ayarı olarak da kullanılır.
 
     Dosya yapısı örneği:
 
@@ -75,11 +75,11 @@ Markdown içeriğini `md` fonksiyonunu kullanarak veya sadece bir string olarak 
         └── markdown-file.es.content.md
     ```
 
-    [Sözlük tanımında (Dictionary definition)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/content_file.md) tanımlanan herhangi bir özelliği front-matter alanına ekleyebilirsiniz.
+    Ön maddeye [Sözlük Tanımı](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/content_file.md) bölümünde tanımlanan özellikleri ekleyebilirsiniz.
 
   </Tab>
-  <Tab label="Elle Sarma" value="manual-wrapping">
-    Markdown içeriğini açıkça bildirmek için `md` fonksiyonunu kullanın. Bu, bir dizenin belirgin bir sözdizimi içermese bile Markdown olarak işlenmesini sağlamak istediğinizde yararlıdır.
+  <Tab label="Manuel Sarma" value="manual-wrapping">
+    Markdown içeriğini açıkça bildirmek için `md` işlevini kullanın. Bu, belirgin bir sözdizimi içermese bile bir dizenin Markdown olarak ele alınmasını sağlamak istiyorsanız kullanışlıdır.
 
     ```typescript fileName="markdownDictionary.content.ts"
     import { md, type Dictionary } from "intlayer";
@@ -96,12 +96,12 @@ Markdown içeriğini `md` fonksiyonunu kullanarak veya sadece bir string olarak 
 
   </Tab>
   <Tab label="Otomatik Algılama" value="automatic-detection">
-    Dize yaygın Markdown göstergelerini (başlıklar, listeler, bağlantılar vb.) içeriyorsa, Intlayer bunu otomatik olarak dönüştürecektir.
+    Dize ortak Markdown göstergeleri (başlıklar, listeler, bağlantılar vb.) içeriyorsa, Intlayer bunu otomatik olarak dönüştürecektir.
 
     ```typescript fileName="markdownDictionary.content.ts"
     export default {
       key: "app",
-      contentAutoTransformation: true, // Markdown içeriğinin otomatik olarak algılanmasını etkinleştir - intlayer.config.ts dosyasında küresel olarak ayarlanabilir
+      contentAutoTransformation: true, // Markdown içeriğinin otomatik algılanmasını etkinleştir - intlayer.config.ts dosyasında global olarak ayarlanabilir
       content: {
         myMarkdownContent: "## Başlığım \n\nLorem Ipsum",
       },
@@ -109,8 +109,9 @@ Markdown içeriğini `md` fonksiyonunu kullanarak veya sadece bir string olarak 
     ```
 
   </Tab>
-  <Tab label="Harici Dosyalar">
-    `.md` dosyalarını `file` fonksiyonunu kullanarak doğrudan içe aktarın.
+
+  <Tab label="Harici Dosyalar" value="external-files">
+    `.md` dosyalarını doğrudan `file` işlevini kullanarak içe aktarın.
 
     ```typescript fileName="markdownDictionary.content.ts"
     import { md, file, t } from "intlayer";
@@ -120,7 +121,6 @@ Markdown içeriğini `md` fonksiyonunu kullanarak veya sadece bir string olarak 
       content: {
         content: t({
           en: md(file("./myMarkdown.en.md")),
-          fr: md(file("./myMarkdown.fr.md")),
           tr: md(file("./myMarkdown.tr.md")),
         }),
       },
@@ -132,38 +132,74 @@ Markdown içeriğini `md` fonksiyonunu kullanarak veya sadece bir string olarak 
 
 ---
 
-## Markdown'ı Render Etme
+## Markdown'u İşleme (Rendering)
 
-Render işlemi Intlayer'ın içerik sistemi tarafından otomatik olarak veya özel araçlar kullanılarak manuel olarak yapılabilir.
+Intlayer, Markdown'ı işlemek için iki bağımsız yol sağlar:
 
-### 1. Otomatik Renderleme ( `useIntlayer` kullanarak)
+1. **`useIntlayer` aracılığıyla**
+   — Intlayer, `md` düğümünü çerçevenin yerel çıktısına (JSX, VNode, HTML dizesi) otomatik olarak dönüştürür.
+   - Frontmatter ayrıştırılır ve `.metadata` olarak sunulur. İşlemeyi iki düzeyde geçersiz kılabilirsiniz — `MarkdownProvider` (veya çerçeve eşdeğeri) ile global olarak ve `.use()` ile düğüm başına yerel olarak. Her ikisi de birleştirilebilir; `.use()`, `MarkdownProvider`'dan önceliklidir ve o da varsayılandan önceliklidir.
 
-`useIntlayer` aracılığıyla içeriğe eriştiğinizde, Markdown düğümleri render için zaten hazırlanmıştır.
+2. **Yardımcı araçlar** — `<MarkdownRenderer />`, `useMarkdownRenderer()` ve `renderMarkdown()`, **yalnızca ham Markdown dizelerini** kabul eden bağımsız araçlardır. `useIntlayer`'dan bağımsızdırlar ve döndürdüğü süslenmiş düğümlerle çalışmazlar.
+
+Markdown oluşturma **MDX**'i destekler — Markdown'ınızın içinde doğrudan adıyla herhangi bir JSX/çerçeve bileşenini kullanın.
+
+### 1. Otomatik İşleme (`useIntlayer` aracılığıyla)
 
 <Tabs group="framework">
   <Tab label="React / Next.js" value="react">
-    Markdown düğümleri doğrudan JSX olarak render edilebilir.
+    Markdown düğümleri doğrudan JSX olarak işlenebilir.
 
     ```tsx fileName="App.tsx"
     import { useIntlayer } from "react-intlayer";
+    import { MarkdownProvider } from "react-intlayer/markdown";
 
     const AppContent = () => {
       const { myMarkdownContent } = useIntlayer("app");
+
       return <div>{myMarkdownContent}</div>;
     };
+
+    const App = () => (
+      <MarkdownProvider
+        components={{
+          h1: ({ children }) => <h1 style={{ color: "red" }}>{children}</h1>,
+          MyButton: (props) => <button {...props} />, // MDX Bileşeni
+        }}
+      >
+        <AppContent />
+      </MarkdownProvider>
+    );
     ```
 
-    Ayrıca `.use()` metodunu kullanarak belirli düğümler için yerel override'lar sağlayabilirsiniz:
+    > `MarkdownProvider` mevcut değilse, Intlayer varsayılan Markdown - JSX ayrıştırıcısını kullanarak markdown'ı oluşturacaktır.
+
+    Ayrıca `.use()` yöntemini kullanarak belirli düğümler için yerel geçersiz kılmalar sağlayabilirsiniz:
 
     ```tsx
     {myMarkdownContent.use({
-      h1: ({ children }) => <h1 className="text-3xl font-bold">{children}</h1>,
+      h1: ({ children }) => <h1 style={{ color: "red" }}>{children}</h1>,
     })}
+    ```
+
+    Markdown'ı bir dize olarak alabilirsiniz:
+
+    ```tsx
+    {myMarkdownContent.value}
+    {String(myMarkdownContent)}
+    {myMarkdownContent.toString()}
+    ```
+
+    Ve markdown meta verilerinize şu şekilde erişebilirsiniz:
+
+    ```tsx
+    {myMarkdownContent.metadata}
+    {myMarkdownContent.metadata.title}
     ```
 
   </Tab>
   <Tab label="Vue" value="vue">
-    Vue'de, Markdown içeriği `component` yerleşik bileşeni kullanılarak veya doğrudan bir düğüm olarak render edilebilir.
+    Vue'da, Markdown içeriği yerleşik `component` etiketi kullanılarak veya doğrudan bir düğüm olarak oluşturulabilir.
 
     ```vue fileName="App.vue"
     <script setup>
@@ -176,48 +212,188 @@ Render işlemi Intlayer'ın içerik sistemi tarafından otomatik olarak veya öz
     </template>
     ```
 
-  </Tab>
-  <Tab label="Svelte">
-    Svelte, Markdown'ı varsayılan olarak bir HTML stringi olarak render eder. Bunu render etmek için `{@html}` kullanın.
+    `intlayerMarkdown` eklentisi aracılığıyla global olarak yapılandırın (MDX özel bileşenlerini destekler):
 
-    ```svelte
+    ```ts fileName="main.ts"
+    import { intlayerMarkdown } from "vue-intlayer/markdown";
+
+    app.use(intlayerMarkdown, {
+      components: {
+        h1: (props) => h('h1', { style: { color: 'green' } }, props.children),
+        MyButton: (props) => h('button', props), // MDX Bileşeni
+      },
+    });
+    ```
+
+    > `intlayerMarkdown` eklentisi yüklü değilse, Intlayer varsayılan derleyiciyi kullanarak oluşturacaktır.
+
+    Ayrıca `.use()` yöntemini kullanarak belirli düğümler için yerel geçersiz kılmalar sağlayabilirsiniz:
+
+    ```vue
+    <component :is="myMarkdownContent.use({
+      h1: (props) => h('h1', { style: { color: 'red' } }, props.children),
+    })" />
+    ```
+
+    Markdown'ı bir dize olarak alabilirsiniz:
+
+    ```vue
+    {{ myMarkdownContent.value }}
+    {{ String(myMarkdownContent) }}
+    {{ myMarkdownContent.toString() }}
+    ```
+
+    Ve markdown meta verilerinize şu şekilde erişebilirsiniz:
+
+    ```vue
+    <component :is="myMarkdownContent.metadata" />
+    <component :is="myMarkdownContent.metadata.title" />
+    ```
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+    Svelte, Markdown'ı varsayılan olarak bir HTML dizesi olarak oluşturur. Oluşturmak için `{@html}` kullanın.
+
+    ```svelte fileName="App.svelte"
     <script lang="ts">
     import { useIntlayer } from "svelte-intlayer";
+    import { MarkdownProvider } from "svelte-intlayer/markdown";
+    import MyHeading from "./MyHeading.svelte";
+
     const content = useIntlayer("app");
     </script>
 
-    {@html $content.myMarkdownContent}
+    <MarkdownProvider components={{ h1: MyHeading }}>
+      {@html $content.myMarkdownContent}
+    </MarkdownProvider>
+    ```
+
+    > `MarkdownProvider` mevcut değilse, Intlayer varsayılan derleyiciyi kullanarak markdown'ı oluşturacaktır.
+
+    Ayrıca `.use()` yöntemini kullanarak belirli düğümler için yerel geçersiz kılmalar sağlayabilirsiniz:
+
+    ```svelte
+    {@html $content.myMarkdownContent.use({ ... })}
+    ```
+
+    Markdown'ı bir dize olarak alabilirsiniz:
+
+    ```svelte
+    {$content.myMarkdownContent.value}
+    {String($content.myMarkdownContent)}
+    {$content.myMarkdownContent.toString()}
+    ```
+
+    Ve markdown meta verilerinize şu şekilde erişebilirsiniz:
+
+    ```svelte
+    {$content.myMarkdownContent.metadata}
+    {$content.myMarkdownContent.metadata.title}
     ```
 
   </Tab>
   <Tab label="Preact" value="preact">
-    Preact, Markdown düğümlerini JSX içinde doğrudan destekler.
+    Preact, JSX'teki Markdown düğümlerini doğrudan destekler.
 
     ```tsx fileName="App.tsx"
     import { useIntlayer } from "preact-intlayer";
+    import { MarkdownProvider } from "preact-intlayer/markdown";
 
     const AppContent = () => {
       const { myMarkdownContent } = useIntlayer("app");
       return <div>{myMarkdownContent}</div>;
     };
+
+    const App = () => (
+      <MarkdownProvider
+        components={{
+          h1: ({ children }) => <h1 style={{ color: "red" }}>{children}</h1>,
+          MyButton: (props) => <button {...props} />, // MDX Bileşeni
+        }}
+      >
+        <AppContent />
+      </MarkdownProvider>
+    );
+    ```
+
+    > `MarkdownProvider` mevcut değilse, Intlayer varsayılan Markdown - JSX ayrıştırıcısını kullanarak markdown'ı oluşturacaktır.
+
+    Ayrıca `.use()` yöntemini kullanarak belirli düğümler için yerel geçersiz kılmalar sağlayabilirsiniz:
+
+    ```tsx
+    {myMarkdownContent.use({
+      h1: ({ children }) => <h1 style={{ color: "red" }}>{children}</h1>,
+    })}
+    ```
+
+    Markdown'ı bir dize olarak alabilirsiniz:
+
+    ```tsx
+    {myMarkdownContent.value}
+    {String(myMarkdownContent)}
+    {myMarkdownContent.toString()}
+    ```
+
+    Ve markdown meta verilerinize şu şekilde erişebilirsiniz:
+
+    ```tsx
+    {myMarkdownContent.metadata}
+    {myMarkdownContent.metadata.title}
     ```
 
   </Tab>
   <Tab label="Solid" value="solid">
-    Solid, Markdown düğümlerini JSX içinde doğrudan destekler.
+    Solid, JSX'teki Markdown düğümlerini doğrudan destekler.
 
     ```tsx fileName="App.tsx"
     import { useIntlayer } from "solid-intlayer";
+    import { MarkdownProvider } from "solid-intlayer/markdown";
 
     const AppContent = () => {
       const { myMarkdownContent } = useIntlayer("app");
       return <div>{myMarkdownContent}</div>;
     };
+
+    const App = () => (
+      <MarkdownProvider
+        components={{
+          h1: (props) => <h1 style={{ color: "red" }}>{props.children}</h1>,
+          MyButton: (props) => <button {...props} />, // MDX Bileşeni
+        }}
+      >
+        <AppContent />
+      </MarkdownProvider>
+    );
+    ```
+
+    > `MarkdownProvider` mevcut değilse, Intlayer varsayılan Markdown - JSX ayrıştırıcısını kullanarak markdown'ı oluşturacaktır.
+
+    Ayrıca `.use()` yöntemini kullanarak belirli düğümler için yerel geçersiz kılmalar sağlayabilirsiniz:
+
+    ```tsx
+    {myMarkdownContent.use({
+      h1: (props) => <h1 style={{ color: "red" }}>{props.children}</h1>,
+    })}
+    ```
+
+    Markdown'ı bir dize olarak alabilirsiniz:
+
+    ```tsx
+    {myMarkdownContent.value}
+    {String(myMarkdownContent)}
+    {myMarkdownContent.toString()}
+    ```
+
+    Ve markdown meta verilerinize şu şekilde erişebilirsiniz:
+
+    ```tsx
+    {myMarkdownContent.metadata}
+    {myMarkdownContent.metadata.title}
     ```
 
   </Tab>
   <Tab label="Angular" value="angular">
-    Angular, Markdown içeriğini oluşturmak için `[innerHTML]` direktifini kullanır.
+    Angular, Markdown içeriğini oluşturmak için `[innerHTML]` yönergesini kullanır.
 
     ```typescript fileName="app.component.ts"
     import { Component } from "@angular/core";
@@ -232,7 +408,9 @@ Render işlemi Intlayer'ın içerik sistemi tarafından otomatik olarak veya öz
     }
     ```
 
-    Ayrıca `.use()` metodunu kullanarak belirli düğümler için yerel override'lar sağlayabilirsiniz:
+    > IntlayerMarkdown sağlayıcısı yapılandırılmamışsa, Intlayer varsayılan derleyiciyi kullanarak oluşturacaktır.
+
+    Ayrıca `.use()` yöntemini kullanarak belirli düğümler için yerel geçersiz kılmalar sağlayabilirsiniz:
 
     ```typescript
     content().myMarkdownContent.use({
@@ -240,17 +418,34 @@ Render işlemi Intlayer'ın içerik sistemi tarafından otomatik olarak veya öz
     })
     ```
 
+    Markdown'ı bir dize olarak alabilirsiniz:
+
+    ```typescript
+    content().myMarkdownContent.value
+    String(content().myMarkdownContent)
+    content().myMarkdownContent.toString()
+    ```
+
+    Ve markdown meta verilerinize şu şekilde erişebilirsiniz:
+
+    ```typescript
+    content().myMarkdownContent.metadata
+    content().myMarkdownContent.metadata.title
+    ```
+
   </Tab>
 </Tabs>
 
-### 2. Manuel Renderlama ve Gelişmiş Araçlar
+### 2. Yardımcı Araçlar (Yalnızca Markdown Dizeleri)
 
-Ham Markdown string'lerini render etmeniz gerekiyorsa veya render süreci üzerinde daha fazla kontrole ihtiyacınız varsa, aşağıdaki araçları kullanın.
+Bu yardımcı programlar **yalnızca ham Markdown dizelerini** oluşturur ve `useIntlayer`'dan bağımsızdır. Markdown'ı sözlükleriniz dışındaki kaynaklardan oluşturmanız gerektiğinde bunları kullanın.
 
 <Tabs group="framework">
   <Tab label="React / Next.js" value="react">
   
     #### `<MarkdownRenderer />` Bileşeni
+
+    Belirli seçeneklerle bir Markdown dizesini oluşturur.
 
     ```tsx
     import { MarkdownRenderer } from "react-intlayer/markdown";
@@ -260,8 +455,9 @@ Ham Markdown string'lerini render etmeniz gerekiyorsa veya render süreci üzeri
     </MarkdownRenderer>
     ```
 
-    #### `useMarkdownRenderer()` Hook
-    Ön yapılandırılmış bir renderer fonksiyonu alın.
+    #### `useMarkdownRenderer()` Kancası
+
+    Önceden yapılandırılmış bir oluşturucu işlevi alın.
 
     ```tsx
     import { useMarkdownRenderer } from "react-intlayer/markdown";
@@ -274,8 +470,8 @@ Ham Markdown string'lerini render etmeniz gerekiyorsa veya render süreci üzeri
     return renderMarkdown("# Başlığım");
     ```
 
-    #### `renderMarkdown()` Yardımcı Aracı
-    Bileşenlerin dışında render yapmak için bağımsız yardımcı araç.
+    #### `renderMarkdown()` Yardımcı Programı
+    Bileşenler dışında oluşturmak için bağımsız yardımcı program.
 
     ```tsx
     import { renderMarkdown } from "react-intlayer/markdown";
@@ -299,7 +495,7 @@ Ham Markdown string'lerini render etmeniz gerekiyorsa veya render süreci üzeri
     ```
 
   </Tab>
-  <Tab label="Svelte">
+  <Tab label="Svelte" value="svelte">
 
     #### `<MarkdownRenderer />` Bileşeni
 
@@ -311,7 +507,7 @@ Ham Markdown string'lerini render etmeniz gerekiyorsa veya render süreci üzeri
     <MarkdownRenderer forceBlock={true} value="# Başlığım" />
     ```
 
-    #### `useMarkdownRenderer()` Hook
+    #### `useMarkdownRenderer()` Kancası
 
     ```svelte
     <script lang="ts">
@@ -322,7 +518,7 @@ Ham Markdown string'lerini render etmeniz gerekiyorsa veya render süreci üzeri
     {@html render("# Başlığım")}
     ```
 
-    #### `renderMarkdown()` Yardımcı Aracı
+    #### `renderMarkdown()` Yardımcı Programı
 
     ```svelte
     <script lang="ts">
@@ -344,7 +540,7 @@ Ham Markdown string'lerini render etmeniz gerekiyorsa veya render süreci üzeri
     </MarkdownRenderer>
     ```
 
-    #### `useMarkdownRenderer()` Hook
+    #### `useMarkdownRenderer()` Kancası
 
     ```tsx
     import { useMarkdownRenderer } from "preact-intlayer/markdown";
@@ -354,7 +550,7 @@ Ham Markdown string'lerini render etmeniz gerekiyorsa veya render süreci üzeri
     return <div>{render("# Başlığım")}</div>;
     ```
 
-    #### `renderMarkdown()` Yardımcı Aracı
+    #### `renderMarkdown()` Yardımcı Programı
 
     ```tsx
     import { renderMarkdown } from "preact-intlayer/markdown";
@@ -374,7 +570,7 @@ Ham Markdown string'lerini render etmeniz gerekiyorsa veya render süreci üzeri
     </MarkdownRenderer>
     ```
 
-    #### `useMarkdownRenderer()` Hook
+    #### `useMarkdownRenderer()` Kancası
 
     ```tsx
     import { useMarkdownRenderer } from "solid-intlayer/markdown";
@@ -384,7 +580,7 @@ Ham Markdown string'lerini render etmeniz gerekiyorsa veya render süreci üzeri
     return <div>{render("# Başlığım")}</div>;
     ```
 
-    #### `renderMarkdown()` Yardımcı Aracı
+    #### `renderMarkdown()` Yardımcı Programı
 
     ```tsx
     import { renderMarkdown } from "solid-intlayer/markdown";
@@ -394,8 +590,8 @@ Ham Markdown string'lerini render etmeniz gerekiyorsa veya render süreci üzeri
 
   </Tab>
   <Tab label="Angular" value="angular">
-    #### `IntlayerMarkdownService` Servisi
-    Servisi kullanarak bir Markdown dizesini oluşturun.
+    #### `IntlayerMarkdownService` Hizmeti
+    Hizmeti kullanarak bir Markdown dizesini oluşturur.
 
     ```typescript
     import { IntlayerMarkdownService } from "angular-intlayer/markdown";
@@ -414,9 +610,9 @@ Ham Markdown string'lerini render etmeniz gerekiyorsa veya render süreci üzeri
 
 ---
 
-## `MarkdownProvider` ile Genel Yapılandırma
+## `MarkdownProvider` ile Global Yapılandırma
 
-Markdown render'lamasını tüm uygulamanız için global olarak yapılandırabilirsiniz. Bu, her renderer'a aynı prop'ları geçirme zorunluluğunu ortadan kaldırır.
+`MarkdownProvider` (veya çerçeve eşdeğeri), tüm uygulamanız için Markdown oluşturma işlem hattını yapılandırır. Bu hem otomatik `useIntlayer` oluşturma işlemleri hem de yardımcı araçlar için geçerlidir. Burada ayarlanan seçenekler varsayılanlardır — `.use()` bunları düğüm düzeyinde geçersiz kılar.
 
 <Tabs group="framework">
   <Tab label="React / Next.js" value="react">
@@ -427,8 +623,9 @@ Markdown render'lamasını tüm uygulamanız için global olarak yapılandırabi
     export const AppProvider = ({ children }) => (
       <MarkdownProvider
         components={{
-          h1: ({ children }) => <h1 className="text-2xl font-bold">{children}</h1>,
-          a: ({ href, children }) => <Link to={href}>{children}</Link>,
+          h1: (props) => <h1 style={{color: 'green'}} {...props} />,
+          a: ({ href, ...props }) => <a style={{color: 'red'}} {...props} />,
+          MyCustomJSXComponent: (props) => <span style={{color: 'red'}} {...props} />,
         }}
       >
         {children}
@@ -436,7 +633,9 @@ Markdown render'lamasını tüm uygulamanız için global olarak yapılandırabi
     );
     ```
 
-    Kendi Markdown oluşturucunuzu da kullanabilirsiniz:
+    > MDX desteklenir — Markdown'ınızın içinde kullanılan herhangi bir bileşen adı (örn. `<MyCustomJSXComponent />`) `components` haritasına göre çözümlenir.
+
+    Kendi markdown oluşturucunuzu da kullanabilirsiniz:
 
     ```tsx fileName="AppProvider.tsx"
     import { MarkdownProvider } from "react-intlayer/markdown";
@@ -444,8 +643,8 @@ Markdown render'lamasını tüm uygulamanız için global olarak yapılandırabi
     export const AppProvider = ({ children }) => (
       <MarkdownProvider
         renderMarkdown={async (md) => {
-          const { compileMarkdown } = await import('react-intlayer/markdown');
-          return compileMarkdown(md);
+          const { renderMarkdown } = await import('react-intlayer/markdown');
+          return renderMarkdown(md);
         }}
       >
         {children}
@@ -453,7 +652,7 @@ Markdown render'lamasını tüm uygulamanız için global olarak yapılandırabi
     );
     ```
 
-    > Markdown oluşturucunuzu dinamik olarak içe aktarmak, uygulamanızın paket boyutunu azaltmanın iyi bir yoludur.
+    > Markdown oluşturucunuzu dinamik olarak içe aktarmak, uygulamanızın paket boyutunu azaltmanın harika bir yoludur.
 
   </Tab>
   <Tab label="Vue" value="vue">
@@ -480,7 +679,7 @@ Markdown render'lamasını tüm uygulamanız için global olarak yapılandırabi
     app.mount("#app");
     ```
 
-    Kendi Markdown oluşturucunuzu da kullanabilirsiniz:
+    Kendi markdown oluşturucunuzu da kullanabilirsiniz:
 
     ```typescript fileName="main.ts"
     import { createApp } from "vue";
@@ -493,18 +692,18 @@ Markdown render'lamasını tüm uygulamanız için global olarak yapılandırabi
     app.use(intlayer);
     app.use(intlayerMarkdown, {
       renderMarkdown: async (md) => {
-        const { compileMarkdown } = await import('vue-intlayer/markdown');
-        return compileMarkdown(md);
+        const { renderMarkdown } = await import('vue-intlayer/markdown');
+        return renderMarkdown(md);
       },
     });
 
     app.mount("#app");
     ```
 
-    > Markdown oluşturucunuzu dinamik olarak içe aktarmak, uygulamanızın paket boyutunu azaltmanın iyi bir yoludur.
+    > Markdown oluşturucunuzu dinamik olarak içe aktarmak, uygulamanızın paket boyutunu azaltmanın harika bir yoludur.
 
   </Tab>
-  <Tab label="Svelte">
+  <Tab label="Svelte" value="svelte">
 
     ```svelte fileName="App.svelte"
     <script lang="ts">
@@ -521,7 +720,7 @@ Markdown render'lamasını tüm uygulamanız için global olarak yapılandırabi
     </MarkdownProvider>
     ```
 
-    Kendi Markdown oluşturucunuzu da kullanabilirsiniz:
+    Kendi markdown oluşturucunuzu da kullanabilirsiniz:
 
     ```svelte fileName="App.svelte"
     <script lang="ts">
@@ -530,15 +729,15 @@ Markdown render'lamasını tüm uygulamanız için global olarak yapılandırabi
 
     <MarkdownProvider
       renderMarkdown={async (md) => {
-        const { compileMarkdown } = await import('svelte-intlayer/markdown');
-        return compileMarkdown(md);
+        const { renderMarkdown } = await import('svelte-intlayer/markdown');
+        return renderMarkdown(md);
       }}
     >
       <slot />
     </MarkdownProvider>
     ```
 
-    > Markdown oluşturucunuzu dinamik olarak içe aktarmak, uygulamanızın paket boyutunu azaltmanın iyi bir yoludur.
+    > Markdown oluşturucunuzu dinamik olarak içe aktarmak, uygulamanızın paket boyutunu azaltmanın harika bir yoludur.
 
   </Tab>
   <Tab label="Preact" value="preact">
@@ -557,7 +756,7 @@ Markdown render'lamasını tüm uygulamanız için global olarak yapılandırabi
     );
     ```
 
-    Kendi Markdown oluşturucunuzu da kullanabilirsiniz:
+    Kendi markdown oluşturucunuzu da kullanabilirsiniz:
 
     ```tsx fileName="AppProvider.tsx"
     import { MarkdownProvider } from "preact-intlayer/markdown";
@@ -565,8 +764,8 @@ Markdown render'lamasını tüm uygulamanız için global olarak yapılandırabi
     export const AppProvider = ({ children }) => (
       <MarkdownProvider
         renderMarkdown={async (md) => {
-          const { compileMarkdown } = await import('preact-intlayer/markdown');
-          return compileMarkdown(md);
+          const { renderMarkdown } = await import('preact-intlayer/markdown');
+          return renderMarkdown(md);
         }}
       >
         {children}
@@ -574,7 +773,7 @@ Markdown render'lamasını tüm uygulamanız için global olarak yapılandırabi
     );
     ```
 
-    > Markdown oluşturucunuzu dinamik olarak içe aktarmak, uygulamanızın paket boyutunu azaltmanın iyi bir yoludur.
+    > Markdown oluşturucunuzu dinamik olarak içe aktarmak, uygulamanızın paket boyutunu azaltmanın harika bir yoludur.
 
   </Tab>
   <Tab label="Solid" value="solid">
@@ -593,7 +792,7 @@ Markdown render'lamasını tüm uygulamanız için global olarak yapılandırabi
     );
     ```
 
-    Kendi Markdown oluşturucunuzu da kullanabilirsiniz:
+    Kendi markdown oluşturucunuzu da kullanabilirsiniz:
 
     ```tsx fileName="AppProvider.tsx"
     import { MarkdownProvider } from "solid-intlayer/markdown";
@@ -601,8 +800,8 @@ Markdown render'lamasını tüm uygulamanız için global olarak yapılandırabi
     export const AppProvider = (props) => (
       <MarkdownProvider
         renderMarkdown={async (md) => {
-          const { compileMarkdown } = await import('solid-intlayer/markdown');
-          return compileMarkdown(md);
+          const { renderMarkdown } = await import('solid-intlayer/markdown');
+          return renderMarkdown(md);
         }}
       >
         {props.children}
@@ -610,59 +809,29 @@ Markdown render'lamasını tüm uygulamanız için global olarak yapılandırabi
     );
     ```
 
-    > Markdown oluşturucunuzu dinamik olarak içe aktarmak, uygulamanızın paket boyutunu azaltmanın iyi bir yoludur.
+    > Markdown oluşturucunuzu dinamik olarak içe aktarmak, uygulamanızın paket boyutunu azaltmanın harika bir yoludur.
 
   </Tab>
   <Tab label="Angular" value="angular">
 
-    ```typescript fileName="app.config.ts"
-    import { createIntlayerMarkdownProvider } from "angular-intlayer/markdown";
+    ```typescript fileName="app.module.ts"
+    import { NgModule } from '@angular/core';
+    import { IntlayerMarkdownModule } from 'angular-intlayer/markdown';
 
-    export const appConfig: ApplicationConfig = {
-      providers: [
-        createIntlayerMarkdownProvider({
-          components: {
-            h1: { class: "text-2xl font-bold" },
-          },
-        }),
-      ],
-    };
-    ```
-
-    Kendi Markdown oluşturucunuzu da kullanabilirsiniz:
-
-    ```typescript fileName="app.config.ts"
-    import { createIntlayerMarkdownProvider } from "angular-intlayer/markdown";
-
-    export const appConfig: ApplicationConfig = {
-      providers: [
-        createIntlayerMarkdownProvider({
+    @NgModule({
+      imports: [
+        IntlayerMarkdownModule.forRoot({
           renderMarkdown: async (md) => {
-            const { compileMarkdown } = await import('angular-intlayer/markdown');
-            return compileMarkdown(md);
-          },
-        }),
-      ],
-    };
+            const { renderMarkdown } = await import('angular-intlayer/markdown');
+            return renderMarkdown(md);
+          }
+        })
+      ]
+    })
+    export class AppModule {}
     ```
 
-    > Markdown oluşturucunuzu dinamik olarak içe aktarmak, uygulamanızın paket boyutunu azaltmanın iyi bir yoludur.
+    > Markdown oluşturucunuzu dinamik olarak içe aktarmak, uygulamanızın paket boyutunu azaltmanın harika bir yoludur.
 
   </Tab>
 </Tabs>
-
----
-
-## Seçenekler Referansı
-
-Bu seçenekler `MarkdownProvider`, `MarkdownRenderer`, `useMarkdownRenderer` ve `renderMarkdown`'a iletilebilir.
-
-| Seçenek               | Tür         | Varsayılan | Açıklama                                                                                                |
-| :-------------------- | :---------- | :--------- | :------------------------------------------------------------------------------------------------------ |
-| `forceBlock`          | `boolean`   | `false`    | Çıktıyı bir blok düzeyinde öğe (örneğin `<div>`) içine sarılmaya zorlar.                                |
-| `forceInline`         | `boolean`   | `false`    | Çıktıyı bir satır içi öğe (örneğin `<span>`) içine sarılmaya zorlar.                                    |
-| `tagfilter`           | `boolean`   | `true`     | Tehlikeli HTML etiketlerini ayıklayarak güvenliği artırmak için GitHub Etiket Filtresini etkinleştirir. |
-| `preserveFrontmatter` | `boolean`   | `false`    | `true` ise, Markdown dizesinin başındaki frontmatter ayıklanmaz.                                        |
-| `components`          | `Overrides` | `{}`       | HTML etiketlerini özel bileşenlere eşleyen bir harita (örneğin, `{ h1: MyHeading }`).                   |
-| `wrapper`             | `Component` | `null`     | Oluşturulan Markdown'ı sarmalamak için özel bir bileşen.                                                |
-| `renderMarkdown`      | `Function`  | `null`     | Varsayılan Markdown derleyicisini tamamen değiştirmek için özel bir render fonksiyonu.                  |

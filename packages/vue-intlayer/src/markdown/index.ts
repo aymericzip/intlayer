@@ -1,4 +1,3 @@
-export { compileMarkdown } from './compiler';
 export {
   type IntlayerMarkdownPluginOptions,
   type IntlayerMarkdownProvider,

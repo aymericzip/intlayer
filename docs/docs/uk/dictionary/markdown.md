@@ -2,7 +2,7 @@
 createdAt: 2025-02-07
 updatedAt: 2026-05-19
 title: Markdown
-description: Дізнайтеся, як оголошувати та використовувати контент Markdown на вашому багатомовному веб-сайті за допомогою Intlayer. Дотримуйтесь кроків у цій онлайн-документації, щоб легко інтегрувати Markdown у ваш проєкт.
+description: Дізнайтеся, як оголошувати та використовувати вміст Markdown на вашому багатомовному веб-сайті за допомогою Intlayer. Дотримуйтесь інструкцій у цій онлайн-документації, щоб безперешкодно інтегрувати Markdown у ваш проект.
 keywords:
   - Markdown
   - Інтернаціоналізація
@@ -22,46 +22,46 @@ history:
     changes: "Додано підтримку файлів `.content.md`"
   - version: 8.5.0
     date: 2026-03-24
-    changes: "Add `intlayerMarkdown` plugin object; use `app.use(intlayerMarkdown)` instead of `app.use(installIntlayerMarkdown)`"
+    changes: "Додано об'єкт плагіна `intlayerMarkdown`; використовуйте `app.use(intlayerMarkdown)` замість `app.use(installIntlayerMarkdown)`"
   - version: 8.5.0
     date: 2026-03-24
-    changes: "move import from `{{framework}}-intlayer` to `{{framework}}-intlayer/markdown`"
+    changes: "Імпорт переміщено з `{{framework}}-intlayer` до `{{framework}}-intlayer/markdown`"
   - version: 8.0.0
     date: 2026-01-22
-    changes: "Додано MarkdownRenderer / useMarkdownRenderer / утиліту renderMarkdown та опцію forceInline"
+    changes: "Додано утиліту MarkdownRenderer / useMarkdownRenderer / renderMarkdown та опцію forceInline"
   - version: 8.0.0
     date: 2026-01-18
-    changes: "Автоматичне оформлення контенту markdown, підтримка MDX та SSR"
+    changes: "Автоматичне оформлення вмісту markdown, підтримка MDX та SSR"
   - version: 5.5.10
     date: 2025-06-29
     changes: "Ініціалізація історії"
 ---
 
-# Markdown / Форматований текст
+# Markdown / Вміст форматованого тексту
 
-Intlayer підтримує контент rich text, визначений за допомогою синтаксису Markdown. Це дозволяє легко писати та підтримувати контент із багатим форматуванням, таким як блоги, статті та інше.
+Intlayer підтримує вміст форматованого тексту, визначений за допомогою синтаксису Markdown. Це дозволяє легко створювати та підтримувати форматований вміст, такий як блоги, статті тощо.
 
-## Оголошення контенту Markdown
+## Оголошення вмісту Markdown
 
-Ви можете оголосити контент Markdown за допомогою функції `md` або просто як рядок (якщо він містить синтаксис Markdown).
+Ви можете оголосити вміст Markdown за допомогою функції `md` або просто як рядок (якщо він містить синтаксис Markdown).
 
 <Tabs>
   <Tab label=".content.md" value=".content.md">
-    Починаючи з версії `8.10.0`, ви можете оголошувати контент Markdown безпосередньо у файлах `.content.md`. Intlayer автоматично виявить та розбере контент Markdown.
+    Починаючи з версії `8.10.0`, ви можете оголошувати вміст Markdown безпосередньо у файлах `.content.md`. Intlayer автоматично виявлятиме та аналізуватиме вміст Markdown.
 
-    ```md fileName="markdown-file.uk.content.md"
+    ```md fileName="markdown-file.en.content.md"
     ---
     key: my-markdown-content
-    description: Мій контент
-    locale: uk
+    description: Мій вміст
+    locale: en
     ---
 
-    # Мій контент
+    # Мій вміст
 
-    Ось приклад контенту markdown
+    Ось приклад вмісту markdown
     ```
 
-    Поле `locale` у frontmatter визначає локаль контенту. Це поле є необов'язковим. Якщо його не вказано, Intlayer використовуватиме локаль за замовчуванням, яка також використовується як резервна (fallback) локаль, якщо переклад для конкретної локалі відсутній.
+    Поле front-matter `locale` визначає локаль вмісту. Воно є необов'язковим. Якщо його не вказано, Intlayer використовуватиме локаль за замовчуванням, яка також слугуватиме резервною, якщо переклад для конкретної локалі недоступний.
 
     Приклад структури файлів:
 
@@ -75,11 +75,11 @@ Intlayer підтримує контент rich text, визначений за 
         └── markdown-file.es.content.md
     ```
 
-    Ви можете додати у front-matter будь-які властивості, визначені у [Визначенні словника (Dictionary definition)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/content_file.md)
+    У front-matter ви можете додати будь-які властивості, визначені у [Визначенні словника](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/content_file.md)
 
   </Tab>
   <Tab label="Ручне обгортання" value="manual-wrapping">
-    Використовуйте функцію `md` для явного оголошення контенту Markdown. Це корисно, якщо ви хочете переконатися, що рядок розглядається як Markdown, навіть якщо він не містить очевидного синтаксису.
+    Використовуйте функцію `md` для явного оголошення вмісту Markdown. Це корисно, якщо ви хочете переконатися, що рядок обробляється як Markdown, навіть якщо він не містить очевидного синтаксису.
 
     ```typescript fileName="markdownDictionary.content.ts"
     import { md, type Dictionary } from "intlayer";
@@ -95,13 +95,13 @@ Intlayer підтримує контент rich text, визначений за 
     ```
 
   </Tab>
-  <Tab label="Автоматичне виявлення">
-    Якщо рядок містить загальні індикатори Markdown (наприклад, заголовки, списки, посилання тощо), Intlayer автоматично перетворить його.
+  <Tab label="Автоматичне виявлення" value="automatic-detection">
+    Якщо рядок містить типові індикатори Markdown (наприклад, заголовки, списки, посилання тощо), Intlayer автоматично перетворить його.
 
     ```typescript fileName="markdownDictionary.content.ts"
     export default {
       key: "app",
-      contentAutoTransformation: true, // Увімкнути автоматичне виявлення контенту Markdown - Можна встановити глобально в intlayer.config.ts
+      contentAutoTransformation: true, // Увімкнути автоматичне виявлення вмісту Markdown - Можна налаштувати глобально в intlayer.config.ts
       content: {
         myMarkdownContent: "## Мій заголовок \n\nLorem Ipsum",
       },
@@ -109,6 +109,7 @@ Intlayer підтримує контент rich text, визначений за 
     ```
 
   </Tab>
+
   <Tab label="Зовнішні файли" value="external-files">
     Імпортуйте файли `.md` безпосередньо за допомогою функції `file`.
 
@@ -120,7 +121,7 @@ Intlayer підтримує контент rich text, визначений за 
       content: {
         content: t({
           en: md(file("./myMarkdown.en.md")),
-          fr: md(file("./myMarkdown.fr.md")),
+          uk: md(file("./myMarkdown.uk.md")),
         }),
       },
     };
@@ -131,38 +132,74 @@ Intlayer підтримує контент rich text, визначений за 
 
 ---
 
-## Відтворення Markdown
+## Рендеринг Markdown
 
-Відтворення може виконуватися автоматично системою контенту Intlayer або вручну за допомогою спеціалізованих інструментів.
+Intlayer надає два незалежні способи рендерингу Markdown:
 
-### 1. Автоматичне відтворення (за допомогою `useIntlayer`)
+1. **Через `useIntlayer`**
+   — Intlayer автоматично перетворює вузол `md` у нативний вихідний формат фреймворку (JSX, VNode, HTML-рядок).
+   - Frontmatter аналізується та надається як `.metadata`. Ви можете перевизначити рендеринг на двох рівнях — глобально за допомогою `MarkdownProvider` (або еквівалента фреймворку) та локально для кожного вузла за допомогою `.use()`. Обидва підходи можна комбінувати; `.use()` має пріоритет над `MarkdownProvider`, який має пріоритет над поведінкою за замовчуванням.
 
-Коли ви отримуєте доступ до контенту через `useIntlayer`, вузли Markdown вже підготовлені до відтворення.
+2. **Допоміжні утиліти** — `<MarkdownRenderer />`, `useMarkdownRenderer()` та `renderMarkdown()` є самостійними інструментами, які приймають **тільки необроблені рядки Markdown**. Вони не залежать від `useIntlayer` і не працюють з оформленими вузлами, які він повертає.
+
+Рендеринг Markdown підтримує **MDX** — використовуйте будь-який компонент JSX/фреймворку за назвою безпосередньо у вашому Markdown.
+
+### 1. Автоматичний рендеринг (через `useIntlayer`)
 
 <Tabs group="framework">
-  <Tab label="React / Next.js">
-    Вузли Markdown можна відтворювати безпосередньо як JSX.
+  <Tab label="React / Next.js" value="react">
+    Вузли Markdown можна рендерити безпосередньо як JSX.
 
     ```tsx fileName="App.tsx"
     import { useIntlayer } from "react-intlayer";
+    import { MarkdownProvider } from "react-intlayer/markdown";
 
     const AppContent = () => {
       const { myMarkdownContent } = useIntlayer("app");
+
       return <div>{myMarkdownContent}</div>;
     };
+
+    const App = () => (
+      <MarkdownProvider
+        components={{
+          h1: ({ children }) => <h1 style={{ color: "red" }}>{children}</h1>,
+          MyButton: (props) => <button {...props} />, // MDX-компонент
+        }}
+      >
+        <AppContent />
+      </MarkdownProvider>
+    );
     ```
+
+    > Якщо `MarkdownProvider` відсутній, Intlayer рендеритиме markdown, використовуючи стандартний парсер Markdown у JSX.
 
     Ви також можете надати локальні перевизначення для конкретних вузлів за допомогою методу `.use()`:
 
     ```tsx
     {myMarkdownContent.use({
-      h1: ({ children }) => <h1 className="text-3xl font-bold">{children}</h1>,
+      h1: ({ children }) => <h1 style={{ color: "red" }}>{children}</h1>,
     })}
+    ```
+
+    Ви можете отримати Markdown як рядок:
+
+    ```tsx
+    {myMarkdownContent.value}
+    {String(myMarkdownContent)}
+    {myMarkdownContent.toString()}
+    ```
+
+    І ви можете отримати доступ до метаданих markdown наступним чином:
+
+    ```tsx
+    {myMarkdownContent.metadata}
+    {myMarkdownContent.metadata.title}
     ```
 
   </Tab>
   <Tab label="Vue" value="vue">
-    У Vue контент Markdown можна відтворити за допомогою вбудованого компонента `component` або безпосередньо як вузол.
+    У Vue вміст Markdown можна рендерити за допомогою вбудованого тегу `component` або безпосередньо як вузол.
 
     ```vue fileName="App.vue"
     <script setup>
@@ -175,48 +212,188 @@ Intlayer підтримує контент rich text, визначений за 
     </template>
     ```
 
+    Глобальне налаштування через плагін `intlayerMarkdown` (підтримує власні компоненти MDX):
+
+    ```ts fileName="main.ts"
+    import { intlayerMarkdown } from "vue-intlayer/markdown";
+
+    app.use(intlayerMarkdown, {
+      components: {
+        h1: (props) => h('h1', { style: { color: 'green' } }, props.children),
+        MyButton: (props) => h('button', props), // MDX-компонент
+      },
+    });
+    ```
+
+    > Якщо плагін `intlayerMarkdown` не встановлено, Intlayer рендеритиме за допомогою компілятора за замовчуванням.
+
+    Ви також можете надати локальні перевизначення для конкретних вузлів за допомогою методу `.use()`:
+
+    ```vue
+    <component :is="myMarkdownContent.use({
+      h1: (props) => h('h1', { style: { color: 'red' } }, props.children),
+    })" />
+    ```
+
+    Ви можете отримати Markdown як рядок:
+
+    ```vue
+    {{ myMarkdownContent.value }}
+    {{ String(myMarkdownContent) }}
+    {{ myMarkdownContent.toString() }}
+    ```
+
+    І ви можете отримати доступ до метаданих markdown наступним чином:
+
+    ```vue
+    <component :is="myMarkdownContent.metadata" />
+    <component :is="myMarkdownContent.metadata.title" />
+    ```
+
   </Tab>
   <Tab label="Svelte" value="svelte">
-    Svelte відтворює Markdown як рядок HTML за замовчуванням. Використовуйте `{@html}` для його відображення.
+    Svelte за замовчуванням рендерить Markdown як HTML-рядок. Використовуйте `{@html}`, щоб його відрендерити.
 
-    ```svelte
+    ```svelte fileName="App.svelte"
     <script lang="ts">
     import { useIntlayer } from "svelte-intlayer";
+    import { MarkdownProvider } from "svelte-intlayer/markdown";
+    import MyHeading from "./MyHeading.svelte";
+
     const content = useIntlayer("app");
     </script>
 
-    {@html $content.myMarkdownContent}
+    <MarkdownProvider components={{ h1: MyHeading }}>
+      {@html $content.myMarkdownContent}
+    </MarkdownProvider>
+    ```
+
+    > Якщо `MarkdownProvider` відсутній, Intlayer рендеритиме markdown за допомогою компілятора за замовчуванням.
+
+    Ви також можете надати локальні перевизначення для конкретних вузлів за допомогою методу `.use()`:
+
+    ```svelte
+    {@html $content.myMarkdownContent.use({ ... })}
+    ```
+
+    Ви можете отримати Markdown як рядок:
+
+    ```svelte
+    {$content.myMarkdownContent.value}
+    {String($content.myMarkdownContent)}
+    {$content.myMarkdownContent.toString()}
+    ```
+
+    І ви можете отримати доступ до метаданих markdown наступним чином:
+
+    ```svelte
+    {$content.myMarkdownContent.metadata}
+    {$content.myMarkdownContent.metadata.title}
     ```
 
   </Tab>
   <Tab label="Preact" value="preact">
-    Preact підтримує вузли Markdown безпосередньо в JSX.
+    Preact підтримує вузли Markdown безпосередньо у JSX.
 
     ```tsx fileName="App.tsx"
     import { useIntlayer } from "preact-intlayer";
+    import { MarkdownProvider } from "preact-intlayer/markdown";
 
     const AppContent = () => {
       const { myMarkdownContent } = useIntlayer("app");
       return <div>{myMarkdownContent}</div>;
     };
+
+    const App = () => (
+      <MarkdownProvider
+        components={{
+          h1: ({ children }) => <h1 style={{ color: "red" }}>{children}</h1>,
+          MyButton: (props) => <button {...props} />, // MDX-компонент
+        }}
+      >
+        <AppContent />
+      </MarkdownProvider>
+    );
+    ```
+
+    > Якщо `MarkdownProvider` відсутній, Intlayer рендеритиме markdown, використовуючи стандартний парсер Markdown у JSX.
+
+    Ви також можете надати локальні перевизначення для конкретних вузлів за допомогою методу `.use()`:
+
+    ```tsx
+    {myMarkdownContent.use({
+      h1: ({ children }) => <h1 style={{ color: "red" }}>{children}</h1>,
+    })}
+    ```
+
+    Ви можете отримати Markdown як рядок:
+
+    ```tsx
+    {myMarkdownContent.value}
+    {String(myMarkdownContent)}
+    {myMarkdownContent.toString()}
+    ```
+
+    І ви можете отримати доступ до метаданих markdown наступним чином:
+
+    ```tsx
+    {myMarkdownContent.metadata}
+    {myMarkdownContent.metadata.title}
     ```
 
   </Tab>
-  <Tab label="Solid">
-    Solid підтримує вузли Markdown безпосередньо в JSX.
+  <Tab label="Solid" value="solid">
+    Solid підтримує вузли Markdown безпосередньо у JSX.
 
     ```tsx fileName="App.tsx"
     import { useIntlayer } from "solid-intlayer";
+    import { MarkdownProvider } from "solid-intlayer/markdown";
 
     const AppContent = () => {
       const { myMarkdownContent } = useIntlayer("app");
       return <div>{myMarkdownContent}</div>;
     };
+
+    const App = () => (
+      <MarkdownProvider
+        components={{
+          h1: (props) => <h1 style={{ color: "red" }}>{props.children}</h1>,
+          MyButton: (props) => <button {...props} />, // MDX-компонент
+        }}
+      >
+        <AppContent />
+      </MarkdownProvider>
+    );
+    ```
+
+    > Якщо `MarkdownProvider` відсутній, Intlayer рендеритиме markdown, використовуючи стандартний парсер Markdown у JSX.
+
+    Ви також можете надати локальні перевизначення для конкретних вузлів за допомогою методу `.use()`:
+
+    ```tsx
+    {myMarkdownContent.use({
+      h1: (props) => <h1 style={{ color: "red" }}>{props.children}</h1>,
+    })}
+    ```
+
+    Ви можете отримати Markdown як рядок:
+
+    ```tsx
+    {myMarkdownContent.value}
+    {String(myMarkdownContent)}
+    {myMarkdownContent.toString()}
+    ```
+
+    І ви можете отримати доступ до метаданих markdown наступним чином:
+
+    ```tsx
+    {myMarkdownContent.metadata}
+    {myMarkdownContent.metadata.title}
     ```
 
   </Tab>
   <Tab label="Angular" value="angular">
-    Angular використовує директиву `[innerHTML]` для відтворення контенту Markdown.
+    Angular використовує директиву `[innerHTML]` для рендерингу вмісту Markdown.
 
     ```typescript fileName="app.component.ts"
     import { Component } from "@angular/core";
@@ -231,6 +408,8 @@ Intlayer підтримує контент rich text, визначений за 
     }
     ```
 
+    > Якщо провайдер IntlayerMarkdown не налаштовано, Intlayer рендеритиме за допомогою компілятора за замовчуванням.
+
     Ви також можете надати локальні перевизначення для конкретних вузлів за допомогою методу `.use()`:
 
     ```typescript
@@ -239,31 +418,46 @@ Intlayer підтримує контент rich text, визначений за 
     })
     ```
 
+    Ви можете отримати Markdown як рядок:
+
+    ```typescript
+    content().myMarkdownContent.value
+    String(content().myMarkdownContent)
+    content().myMarkdownContent.toString()
+    ```
+
+    І ви можете отримати доступ до метаданих markdown наступним чином:
+
+    ```typescript
+    content().myMarkdownContent.metadata
+    content().myMarkdownContent.metadata.title
+    ```
+
   </Tab>
 </Tabs>
 
-### 2. Ручне відтворення та розширені інструменти
+### 2. Допоміжні утиліти (тільки рядки Markdown)
 
-Якщо вам потрібно відтворити сирі рядки Markdown або мати більше контролю над процесом відтворення, використовуйте наступні інструменти.
+Ці утиліти рендерять **тільки необроблені рядки Markdown** і не залежать від `useIntlayer`. Використовуйте їх, коли вам потрібно відрендерити Markdown з джерел, відмінних від ваших словників.
 
 <Tabs group="framework">
-  <Tab label="React / Next.js">
+  <Tab label="React / Next.js" value="react">
   
     #### Компонент `<MarkdownRenderer />`
 
-    Відтворіть рядок Markdown із конкретними параметрами.
+    Рендерить рядок Markdown з певними опціями.
 
     ```tsx
     import { MarkdownRenderer } from "react-intlayer/markdown";
 
     <MarkdownRenderer forceBlock={true} tagfilter={true}>
-      {"# Мій заголовок"}
+      {"# Мій Заголовок"}
     </MarkdownRenderer>
     ```
 
     #### Хук `useMarkdownRenderer()`
 
-    Отримайте попередньо налаштовану функцію рендерера.
+    Отримайте попередньо налаштовану функцію рендерингу.
 
     ```tsx
     import { useMarkdownRenderer } from "react-intlayer/markdown";
@@ -273,16 +467,16 @@ Intlayer підтримує контент rich text, визначений за 
       components: { h1: (props) => <h1 {...props} className="custom" /> }
     });
 
-    return renderMarkdown("# Мій заголовок");
+    return renderMarkdown("# Мій Заголовок");
     ```
 
     #### Утиліта `renderMarkdown()`
-    Автономна утиліта для відтворення поза компонентами.
+    Окрема утиліта для рендерингу поза компонентами.
 
     ```tsx
     import { renderMarkdown } from "react-intlayer/markdown";
 
-    const jsx = renderMarkdown("# Мій заголовок", { forceBlock: true });
+    const jsx = renderMarkdown("# Мій Заголовок", { forceBlock: true });
     ```
 
   </Tab>
@@ -296,7 +490,7 @@ Intlayer підтримує контент rich text, визначений за 
     </script>
 
     <template>
-      <MarkdownRenderer :forceBlock="true" content="# Мій заголовок" />
+      <MarkdownRenderer :forceBlock="true" content="# Мій Заголовок" />
     </template>
     ```
 
@@ -310,7 +504,7 @@ Intlayer підтримує контент rich text, визначений за 
     import { MarkdownRenderer } from "svelte-intlayer/markdown";
     </script>
 
-    <MarkdownRenderer forceBlock={true} value="# Мій заголовок" />
+    <MarkdownRenderer forceBlock={true} value="# Мій Заголовок" />
     ```
 
     #### Хук `useMarkdownRenderer()`
@@ -321,7 +515,7 @@ Intlayer підтримує контент rich text, визначений за 
     const render = useMarkdownRenderer();
     </script>
 
-    {@html render("# Мій заголовок")}
+    {@html render("# Мій Заголовок")}
     ```
 
     #### Утиліта `renderMarkdown()`
@@ -331,7 +525,7 @@ Intlayer підтримує контент rich text, визначений за 
     import { renderMarkdown } from "svelte-intlayer/markdown";
     </script>
 
-    {@html renderMarkdown("# Мій заголовок")}
+    {@html renderMarkdown("# Мій Заголовок")}
     ```
 
   </Tab>
@@ -342,7 +536,7 @@ Intlayer підтримує контент rich text, визначений за 
     import { MarkdownRenderer } from "preact-intlayer/markdown";
 
     <MarkdownRenderer forceBlock={true}>
-      {"# Мій заголовок"}
+      {"# Мій Заголовок"}
     </MarkdownRenderer>
     ```
 
@@ -353,7 +547,7 @@ Intlayer підтримує контент rich text, визначений за 
 
     const render = useMarkdownRenderer();
 
-    return <div>{render("# Мій заголовок")}</div>;
+    return <div>{render("# Мій Заголовок")}</div>;
     ```
 
     #### Утиліта `renderMarkdown()`
@@ -361,18 +555,18 @@ Intlayer підтримує контент rich text, визначений за 
     ```tsx
     import { renderMarkdown } from "preact-intlayer/markdown";
 
-    return <div>{renderMarkdown("# Мій заголовок")}</div>;
+    return <div>{renderMarkdown("# Мій Заголовок")}</div>;
     ```
 
   </Tab>
-  <Tab label="Solid">
+  <Tab label="Solid" value="solid">
     #### Компонент `<MarkdownRenderer />`
 
     ```tsx
     import { MarkdownRenderer } from "solid-intlayer/markdown";
 
     <MarkdownRenderer forceBlock={true}>
-      {"# Мій заголовок"}
+      {"# Мій Заголовок"}
     </MarkdownRenderer>
     ```
 
@@ -383,7 +577,7 @@ Intlayer підтримує контент rich text, визначений за 
 
     const render = useMarkdownRenderer();
 
-    return <div>{render("# Мій заголовок")}</div>;
+    return <div>{render("# Мій Заголовок")}</div>;
     ```
 
     #### Утиліта `renderMarkdown()`
@@ -391,16 +585,16 @@ Intlayer підтримує контент rich text, визначений за 
     ```tsx
     import { renderMarkdown } from "solid-intlayer/markdown";
 
-    return <div>{renderMarkdown("# Мій заголовок")}</div>;
+    return <div>{renderMarkdown("# Мій Заголовок")}</div>;
     ```
 
   </Tab>
   <Tab label="Angular" value="angular">
     #### Сервіс `IntlayerMarkdownService`
-    Відтворіть рядок Markdown за допомогою сервісу.
+    Рендерить рядок Markdown за допомогою сервісу.
 
     ```typescript
-    import { IntlayerMarkdownService } from "angular-intlayer";
+    import { IntlayerMarkdownService } from "angular-intlayer/markdown";
 
     export class MyComponent {
       constructor(private markdownService: IntlayerMarkdownService) {}
@@ -416,12 +610,12 @@ Intlayer підтримує контент rich text, визначений за 
 
 ---
 
-## Глобальна конфігурація за допомогою `MarkdownProvider`
+## Глобальне налаштування за допомогою `MarkdownProvider`
 
-Ви можете налаштувати відтворення Markdown глобально для всього застосунку. Це дозволяє уникнути передачі однакових пропсів кожному рендереру.
+`MarkdownProvider` (або його еквівалент у фреймворку) налаштовує конвеєр рендерингу Markdown для всього вашого додатку. Це стосується як автоматичного рендерингу `useIntlayer`, так і допоміжних утиліт. Налаштування, вказані тут, є значеннями за замовчуванням — `.use()` перевизначає їх на рівні вузла.
 
 <Tabs group="framework">
-  <Tab label="React / Next.js">
+  <Tab label="React / Next.js" value="react">
 
     ```tsx fileName="AppProvider.tsx"
     import { MarkdownProvider } from "react-intlayer/markdown";
@@ -429,14 +623,36 @@ Intlayer підтримує контент rich text, визначений за 
     export const AppProvider = ({ children }) => (
       <MarkdownProvider
         components={{
-          h1: ({ children }) => <h1 className="text-2xl font-bold">{children}</h1>,
-          a: ({ href, children }) => <Link to={href}>{children}</Link>,
+          h1: (props) => <h1 style={{color: 'green'}} {...props} />,
+          a: ({ href, ...props }) => <a style={{color: 'red'}} {...props} />,
+          MyCustomJSXComponent: (props) => <span style={{color: 'red'}} {...props} />,
         }}
       >
         {children}
       </MarkdownProvider>
     );
     ```
+
+    > Підтримується MDX — будь-яка назва компонента, яка використовується всередині вашого Markdown (наприклад, `<MyCustomJSXComponent />`), розпізнається відповідно до карти `components`.
+
+    Ви також можете використовувати власний рендерер markdown:
+
+    ```tsx fileName="AppProvider.tsx"
+    import { MarkdownProvider } from "react-intlayer/markdown";
+
+    export const AppProvider = ({ children }) => (
+      <MarkdownProvider
+        renderMarkdown={async (md) => {
+          const { renderMarkdown } = await import('react-intlayer/markdown');
+          return renderMarkdown(md);
+        }}
+      >
+        {children}
+      </MarkdownProvider>
+    );
+    ```
+
+    > Динамічний імпорт вашого рендерера Markdown — чудовий спосіб зменшити розмір бандлу вашого додатка.
 
   </Tab>
   <Tab label="Vue" value="vue">
@@ -463,6 +679,29 @@ Intlayer підтримує контент rich text, визначений за 
     app.mount("#app");
     ```
 
+    Ви також можете використовувати власний рендерер markdown:
+
+    ```typescript fileName="main.ts"
+    import { createApp } from "vue";
+    import { intlayer } from "vue-intlayer";
+    import { intlayerMarkdown } from "vue-intlayer/markdown";
+    import App from "./App.vue";
+
+    const app = createApp(App);
+
+    app.use(intlayer);
+    app.use(intlayerMarkdown, {
+      renderMarkdown: async (md) => {
+        const { renderMarkdown } = await import('vue-intlayer/markdown');
+        return renderMarkdown(md);
+      },
+    });
+
+    app.mount("#app");
+    ```
+
+    > Динамічний імпорт вашого рендерера Markdown — чудовий спосіб зменшити розмір бандлу вашого додатка.
+
   </Tab>
   <Tab label="Svelte" value="svelte">
 
@@ -481,6 +720,25 @@ Intlayer підтримує контент rich text, визначений за 
     </MarkdownProvider>
     ```
 
+    Ви також можете використовувати власний рендерер markdown:
+
+    ```svelte fileName="App.svelte"
+    <script lang="ts">
+      import { MarkdownProvider } from "svelte-intlayer/markdown";
+    </script>
+
+    <MarkdownProvider
+      renderMarkdown={async (md) => {
+        const { renderMarkdown } = await import('svelte-intlayer/markdown');
+        return renderMarkdown(md);
+      }}
+    >
+      <slot />
+    </MarkdownProvider>
+    ```
+
+    > Динамічний імпорт вашого рендерера Markdown — чудовий спосіб зменшити розмір бандлу вашого додатка.
+
   </Tab>
   <Tab label="Preact" value="preact">
 
@@ -498,8 +756,27 @@ Intlayer підтримує контент rich text, визначений за 
     );
     ```
 
+    Ви також можете використовувати власний рендерер markdown:
+
+    ```tsx fileName="AppProvider.tsx"
+    import { MarkdownProvider } from "preact-intlayer/markdown";
+
+    export const AppProvider = ({ children }) => (
+      <MarkdownProvider
+        renderMarkdown={async (md) => {
+          const { renderMarkdown } = await import('preact-intlayer/markdown');
+          return renderMarkdown(md);
+        }}
+      >
+        {children}
+      </MarkdownProvider>
+    );
+    ```
+
+    > Динамічний імпорт вашого рендерера Markdown — чудовий спосіб зменшити розмір бандлу вашого додатка.
+
   </Tab>
-  <Tab label="Solid">
+  <Tab label="Solid" value="solid">
 
     ```tsx fileName="AppProvider.tsx"
     import { MarkdownProvider } from "solid-intlayer/markdown";
@@ -515,38 +792,46 @@ Intlayer підтримує контент rich text, визначений за 
     );
     ```
 
+    Ви також можете використовувати власний рендерер markdown:
+
+    ```tsx fileName="AppProvider.tsx"
+    import { MarkdownProvider } from "solid-intlayer/markdown";
+
+    export const AppProvider = (props) => (
+      <MarkdownProvider
+        renderMarkdown={async (md) => {
+          const { renderMarkdown } = await import('solid-intlayer/markdown');
+          return renderMarkdown(md);
+        }}
+      >
+        {props.children}
+      </MarkdownProvider>
+    );
+    ```
+
+    > Динамічний імпорт вашого рендерера Markdown — чудовий спосіб зменшити розмір бандлу вашого додатка.
+
   </Tab>
   <Tab label="Angular" value="angular">
 
-    ```typescript fileName="app.config.ts"
-    import { createIntlayerMarkdownProvider } from "angular-intlayer/markdown";
+    ```typescript fileName="app.module.ts"
+    import { NgModule } from '@angular/core';
+    import { IntlayerMarkdownModule } from 'angular-intlayer/markdown';
 
-    export const appConfig: ApplicationConfig = {
-      providers: [
-        createIntlayerMarkdownProvider({
-          components: {
-            h1: { class: "text-2xl font-bold" },
-          },
-        }),
-      ],
-    };
+    @NgModule({
+      imports: [
+        IntlayerMarkdownModule.forRoot({
+          renderMarkdown: async (md) => {
+            const { renderMarkdown } = await import('angular-intlayer/markdown');
+            return renderMarkdown(md);
+          }
+        })
+      ]
+    })
+    export class AppModule {}
     ```
+
+    > Динамічний імпорт вашого рендерера Markdown — чудовий спосіб зменшити розмір бандлу вашого додатка.
 
   </Tab>
 </Tabs>
-
----
-
-## Довідник опцій
-
-Ці опції можна передавати в `MarkdownProvider`, `MarkdownRenderer`, `useMarkdownRenderer` та `renderMarkdown`.
-
-| Опція                 | Тип         | Типово  | Опис                                                                                       |
-| :-------------------- | :---------- | :------ | :----------------------------------------------------------------------------------------- |
-| `forceBlock`          | `boolean`   | `false` | Змушує вивід бути загорнутим у елемент блочного рівня (наприклад, `<div>`).                |
-| `forceInline`         | `boolean`   | `false` | Змушує вивід бути загорнутим у рядковий елемент (наприклад, `<span>`).                     |
-| `tagfilter`           | `boolean`   | `true`  | Вмикає фільтр тегів GitHub для підвищення безпеки шляхом видалення небезпечних HTML-тегів. |
-| `preserveFrontmatter` | `boolean`   | `false` | Якщо `true`, frontmatter на початку рядка Markdown не буде видалено.                       |
-| `components`          | `Overrides` | `{}`    | Мапа HTML-тегів до користувацьких компонентів (наприклад, `{ h1: MyHeading }`).            |
-| `wrapper`             | `Component` | `null`  | Користувацький компонент для обгортання відтвореного Markdown.                             |
-| `renderMarkdown`      | `Function`  | `null`  | Користувацька функція відтворення для повної заміни стандартного компілятора Markdown.     |

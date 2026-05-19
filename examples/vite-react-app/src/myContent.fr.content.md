@@ -1,5 +1,6 @@
 ---
 key: my-markdown-content
+title: Mon contenu
 description: Mon contenu
 locale: fr
 tags: [test]
