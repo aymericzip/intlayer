@@ -42,20 +42,15 @@ export const fileContent = (
         fixedPath: relative(baseDir, filePath),
       });
     } catch {
-      appLogger(
-        `Unable to read path: ${colorizePath(relative(baseDir, filePath))}`,
-        { level: 'warn' }
+      throw new Error(
+        `Unable to read path: ${colorizePath(relative(baseDir, filePath))}`
       );
     }
   } else {
-    appLogger(`File not found: ${colorizePath(relative(baseDir, filePath))}`, {
-      level: 'warn',
-    });
+    throw new Error(
+      `File not found: ${colorizePath(relative(baseDir, filePath))}`
+    );
   }
-
-  return formatNodeType(FILE, path, {
-    content: `-`,
-  });
 };
 
 type GlobalIntlayerFilePath = {
