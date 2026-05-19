@@ -12,6 +12,7 @@ type SignInFormProps = {
   onClickForgotPassword: () => void;
   onClickSignUp: () => void;
   onSubmitError?: (error: Error) => void;
+  onLogin?: () => Promise<void> | void;
   emailInputRef?: RefObject<HTMLInputElement | null>;
   isLoading?: boolean;
 };
@@ -34,6 +35,7 @@ export const SignInForm: FC<SignInFormProps> = ({
   onSubmitError,
   onClickForgotPassword,
   onClickSignUp,
+  onLogin,
   emailInputRef,
   isLoading,
 }) => {
@@ -142,6 +144,7 @@ export const SignInForm: FC<SignInFormProps> = ({
         showAll={showAll}
         setShowAll={setShowAll}
         email={email}
+        onLogin={onLogin}
       />
     </>
   );

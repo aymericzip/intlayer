@@ -28,6 +28,12 @@ export const SignInForm: FC<{
     }
   }, [callbackUrl, search]);
 
+  const getTarget = () =>
+    callbackUrl ??
+    (typeof search.redirect_url === 'string'
+      ? (search.redirect_url as string)
+      : App_Home_Path);
+
   const onSubmitSuccess = async ({ email, password, rememberMe }: SignIn) => {
     // No `callbackURL` here — better-auth would otherwise hard-navigate the
     // browser back to /login, racing the session cache and triggering a
@@ -37,13 +43,12 @@ export const SignInForm: FC<{
 
     await router.invalidate();
 
-    const target =
-      callbackUrl ??
-      (typeof search.redirect_url === 'string'
-        ? (search.redirect_url as string)
-        : App_Home_Path);
+    navigate({ to: getTarget() as any, replace: true });
+  };
 
-    navigate({ to: target as any, replace: true });
+  const onLogin = async () => {
+    await router.invalidate();
+    navigate({ to: getTarget() as any, replace: true });
   };
 
   const getEmailContext = () => {
@@ -87,6 +92,7 @@ export const SignInForm: FC<{
       onSubmitSuccess={onSubmitSuccess}
       onClickForgotPassword={onClickForgotPassword}
       onClickSignUp={onClickSignUp}
+      onLogin={onLogin}
       defaultEmail={email ?? undefined}
       emailInputRef={emailInputRef}
       isLoading={isPending}
