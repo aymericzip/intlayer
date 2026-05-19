@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 8.10.0
+    date: 2026-05-19
+    changes: "Ajout du support des formats de fichiers YAML et Markdown"
   - version: 8.9.0
     date: 2026-05-12
     changes: "Ajouter le type de nœud de contenu `plural`"
@@ -778,6 +781,40 @@ Vous pouvez également créer des fichiers de contenu au format JSON :
 }
 ```
 
+### Fichier de contenu Markdown
+
+```markdown
+---
+key: welcome-page
+locale: en
+title: Welcome Page Content
+description: Content for the main welcome page
+tags:
+  - page
+  - welcome
+---
+
+# Welcome to Our Platform
+
+## Build amazing applications with ease
+```
+
+### Fichier de contenu YAML
+
+```yaml
+key: welcome-page
+title: Welcome Page Content
+description: Content for the main welcome page
+locale: "en"
+tags:
+  - page
+  - welcome
+content:
+  hero:
+    title: Welcome to Our Platform
+    subtitle: Build amazing applications with ease
+```
+
 ### Fichiers de contenu par langue
 
 Pour les dictionnaires par langue, spécifiez la propriété `locale` :
@@ -829,6 +866,10 @@ Par défaut, Intlayer surveille tous les fichiers avec les extensions suivantes 
 - `.content.mjx`
 - `.content.cjs`
 - `.content.cjx`
+- `.content.md`
+- `.content.mdx`
+- `.content.yaml`
+- `.content.yml`
 
 Ces extensions par défaut conviennent à la plupart des applications. Cependant, lorsque vous avez des besoins spécifiques, vous pouvez définir des extensions personnalisées pour rationaliser le processus de construction et réduire le risque de conflits avec d'autres composants.
 

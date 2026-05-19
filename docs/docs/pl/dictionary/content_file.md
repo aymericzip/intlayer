@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 8.10.0
+    date: 2026-05-19
+    changes: "Dodano obsługę formatów plików YAML i Markdown"
   - version: 8.9.0
     date: 2026-05-12
     changes: "Add `plural` content node type"
@@ -793,6 +796,40 @@ Możesz również tworzyć pliki zawartości w formacie JSON:
 }
 ```
 
+### Plik zawartości Markdown
+
+```markdown
+---
+key: welcome-page
+locale: en
+title: Welcome Page Content
+description: Content for the main welcome page
+tags:
+  - page
+  - welcome
+---
+
+# Welcome to Our Platform
+
+## Build amazing applications with ease
+```
+
+### Plik zawartości YAML
+
+```yaml
+key: welcome-page
+title: Welcome Page Content
+description: Content for the main welcome page
+locale: "en"
+tags:
+  - page
+  - welcome
+content:
+  hero:
+    title: Welcome to Our Platform
+    subtitle: Build amazing applications with ease
+```
+
 ### Pliki zawartości per-locale
 
 Dla słowników per-locale określ właściwość `locale`:
@@ -878,6 +915,10 @@ Domyślnie Intlayer monitoruje wszystkie pliki o następujących rozszerzeniach 
 - `.content.mjx`
 - `.content.cjs`
 - `.content.cjx`
+- `.content.md`
+- `.content.mdx`
+- `.content.yaml`
+- `.content.yml`
 
 Te domyślne rozszerzenia są odpowiednie dla większości aplikacji. Jednak gdy masz specyficzne potrzeby, możesz zdefiniować niestandardowe rozszerzenia, aby usprawnić proces budowania i zmniejszyć ryzyko konfliktów z innymi komponentami.
 

@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 8.10.0
+    date: 2026-05-19
+    changes: "YAML ve Markdown dosya formatları için destek eklendi"
   - version: 8.9.0
     date: 2026-05-12
     changes: "Add `plural` content node type"
@@ -805,6 +808,40 @@ export default {
 }
 ```
 
+### Markdown İçerik Dosyası
+
+```markdown
+---
+key: welcome-page
+locale: en
+title: Welcome Page Content
+description: Content for the main welcome page
+tags:
+  - page
+  - welcome
+---
+
+# Welcome to Our Platform
+
+## Build amazing applications with ease
+```
+
+### YAML İçerik Dosyası
+
+```yaml
+key: welcome-page
+title: Welcome Page Content
+description: Content for the main welcome page
+locale: "en"
+tags:
+  - page
+  - welcome
+content:
+  hero:
+    title: Welcome to Our Platform
+    subtitle: Build amazing applications with ease
+```
+
 ### Yerel İçerik Dosyaları
 
 Yerel sözlükler için `locale` özelliğini belirtin:
@@ -856,6 +893,10 @@ Varsayılan olarak, Intlayer içerik bildirimleri için aşağıdaki uzantılara
 - `.content.mjx`
 - `.content.cjs`
 - `.content.cjx`
+- `.content.md`
+- `.content.mdx`
+- `.content.yaml`
+- `.content.yml`
 
 Bu varsayılan uzantılar çoğu uygulama için uygundur. Ancak, özel ihtiyaçlarınız olduğunda, derleme sürecini kolaylaştırmak ve diğer bileşenlerle çakışma riskini azaltmak için özel uzantılar tanımlayabilirsiniz.
 

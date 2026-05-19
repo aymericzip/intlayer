@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 8.10.0
+    date: 2026-05-19
+    changes: "Unterstützung für YAML- und Markdown-Dateiformate hinzugefügt"
   - version: 8.9.0
     date: 2026-05-12
     changes: "Inhaltstyp `plural` hinzufügen"
@@ -782,6 +785,40 @@ Sie können Inhaltsdateien auch im JSON-Format erstellen:
 }
 ```
 
+### Markdown-Inhaltsdatei
+
+```markdown
+---
+key: welcome-page
+locale: en
+title: Welcome Page Content
+description: Content for the main welcome page
+tags:
+  - page
+  - welcome
+---
+
+# Welcome to Our Platform
+
+## Build amazing applications with ease
+```
+
+### YAML-Inhaltsdatei
+
+```yaml
+key: welcome-page
+title: Welcome Page Content
+description: Content for the main welcome page
+locale: "en"
+tags:
+  - page
+  - welcome
+content:
+  hero:
+    title: Welcome to Our Platform
+    subtitle: Build amazing applications with ease
+```
+
 ### Inhalt pro Locale-Dateien
 
 Für Wörterbücher pro Locale geben Sie die Eigenschaft `locale` an:
@@ -833,6 +870,10 @@ Standardmäßig überwacht Intlayer alle Dateien mit den folgenden Erweiterungen
 - `.content.mjx`
 - `.content.cjs`
 - `.content.cjx`
+- `.content.md`
+- `.content.mdx`
+- `.content.yaml`
+- `.content.yml`
 
 Diese Standarderweiterungen sind für die meisten Anwendungen geeignet. Wenn Sie jedoch spezielle Anforderungen haben, können Sie benutzerdefinierte Erweiterungen definieren, um den Build-Prozess zu optimieren und das Risiko von Konflikten mit anderen Komponenten zu verringern.
 

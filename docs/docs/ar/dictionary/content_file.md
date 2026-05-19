@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 8.10.0
+    date: 2026-05-19
+    changes: "إضافة دعم لتنسيقات ملفات YAML و Markdown"
   - version: 8.9.0
     date: 2026-05-12
     changes: "إضافة نوع عقدة المحتوى `plural`"
@@ -788,6 +791,40 @@ export default {
 }
 ```
 
+### ملف محتوى Markdown
+
+```markdown
+---
+key: welcome-page
+locale: en
+title: Welcome Page Content
+description: Content for the main welcome page
+tags:
+  - page
+  - welcome
+---
+
+# Welcome to Our Platform
+
+## Build amazing applications with ease
+```
+
+### ملف محتوى YAML
+
+```yaml
+key: welcome-page
+title: Welcome Page Content
+description: Content for the main welcome page
+locale: "en"
+tags:
+  - page
+  - welcome
+content:
+  hero:
+    title: Welcome to Our Platform
+    subtitle: Build amazing applications with ease
+```
+
 ### ملفات المحتوى حسب اللغة
 
 للقواميس حسب اللغة، حدد خاصية `locale`:
@@ -839,6 +876,10 @@ export default {
 - `.content.mjx`
 - `.content.cjs`
 - `.content.cjx`
+- `.content.md`
+- `.content.mdx`
+- `.content.yaml`
+- `.content.yml`
 
 هذه الامتدادات الافتراضية مناسبة لمعظم التطبيقات. ومع ذلك، عندما تكون لديك احتياجات محددة، يمكنك تعريف امتدادات مخصصة لتبسيط عملية البناء وتقليل خطر التعارض مع المكونات الأخرى.
 

@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 8.10.0
+    date: 2026-05-19
+    changes: "YAMLおよびMarkdownファイルフォーマットのサポートを追加"
   - version: 8.9.0
     date: 2026-05-12
     changes: "コンテンツノードタイプ `plural` を追加"
@@ -786,6 +789,40 @@ JSON形式でコンテンツファイルを作成することもできます：
 }
 ```
 
+### Markdown コンテンツファイル
+
+```markdown
+---
+key: welcome-page
+locale: en
+title: Welcome Page Content
+description: Content for the main welcome page
+tags:
+  - page
+  - welcome
+---
+
+# Welcome to Our Platform
+
+## Build amazing applications with ease
+```
+
+### YAML コンテンツファイル
+
+```yaml
+key: welcome-page
+title: Welcome Page Content
+description: Content for the main welcome page
+locale: "en"
+tags:
+  - page
+  - welcome
+content:
+  hero:
+    title: Welcome to Our Platform
+    subtitle: Build amazing applications with ease
+```
+
 ### ロケール別コンテンツファイル
 
 ロケール別の辞書を作成する場合は、`locale` プロパティを指定します:
@@ -837,6 +874,10 @@ Intlayerでは、コンテンツ宣言ファイルの拡張子をカスタマイ
 - `.content.mjx`
 - `.content.cjs`
 - `.content.cjx`
+- `.content.md`
+- `.content.mdx`
+- `.content.yaml`
+- `.content.yml`
 
 これらのデフォルト拡張子はほとんどのアプリケーションに適しています。しかし、特定のニーズがある場合は、カスタム拡張子を定義してビルドプロセスを効率化し、他のコンポーネントとの競合リスクを減らすことができます。
 

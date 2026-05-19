@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 8.10.0
+    date: 2026-05-19
+    changes: "Додано підтримку форматів файлів YAML та Markdown"
   - version: 8.9.0
     date: 2026-05-12
     changes: "Add `plural` content node type"
@@ -808,6 +811,40 @@ export default {
 }
 ```
 
+### Файл вмісту в форматі Markdown
+
+```markdown
+---
+key: welcome-page
+locale: en
+title: Welcome Page Content
+description: Content for the main welcome page
+tags:
+  - page
+  - welcome
+---
+
+# Welcome to Our Platform
+
+## Build amazing applications with ease
+```
+
+### Файл вмісту в форматі YAML
+
+```yaml
+key: welcome-page
+title: Welcome Page Content
+description: Content for the main welcome page
+locale: "en"
+tags:
+  - page
+  - welcome
+content:
+  hero:
+    title: Welcome to Our Platform
+    subtitle: Build amazing applications with ease
+```
+
 ### Файли вмісту для кожної локалі
 
 Для словників по локалях вкажіть властивість `locale`:
@@ -859,6 +896,10 @@ Intlayer дозволяє налаштовувати розширення фай
 - `.content.mjx`
 - `.content.cjs`
 - `.content.cjx`
+- `.content.md`
+- `.content.mdx`
+- `.content.yaml`
+- `.content.yml`
 
 Ці стандартні розширення підходять для більшості застосунків. Однак якщо у вас є спеціальні вимоги, ви можете визначити власні розширення, щоб оптимізувати процес збірки та зменшити ризик конфліктів з іншими компонентами.
 

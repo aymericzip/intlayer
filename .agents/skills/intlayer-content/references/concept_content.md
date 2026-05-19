@@ -795,6 +795,10 @@ By default, Intlayer watches all files with the following extensions for content
 - `.content.mjx`
 - `.content.cjs`
 - `.content.cjx`
+- `.content.md`
+- `.content.mdx`
+- `.content.yaml`
+- `.content.yml`
 
 These default extensions are suitable for most applications. However, when you have specific needs, you can define custom extensions to streamline the build process and reduce the risk of conflicts with other components.
 
