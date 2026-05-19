@@ -258,6 +258,7 @@ Intlayer connects **developers**, **copywriters**, and **AI agents** in one work
 
 - i18n solutions (e.g. `i18next`, `next-intl`, `vue-i18n`)
 - TMSs (Translation Management Systems) (e.g. Crowdin, Phrase, Lokalise)
+- Feature flags
 - Headless CMSs (e.g. Contentful, Strapi, Sanity)
 
 ![CMS Preview](https://github.com/aymericzip/intlayer/blob/main/docs/assets/CMS.png?raw=true)

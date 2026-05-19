@@ -67,6 +67,7 @@ With **per-locale content files**, **TypeScript autocompletion**, **tree-shakabl
 | <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/mcp.png?raw=true" alt="Feature" width="700">                                 | **MCP Server Integration**<br><br>Provides an MCP (Model Context Protocol) server for IDE automation, enabling seamless content management and i18n workflows directly within your development environment. <br><br> - [MCP Server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)                                                                                                                                                            |
 | <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extension.png?raw=true" alt="Feature" width="700">                    | **VSCode Extension**<br><br>Intlayer provides a VSCode extension to help you manage your content and translations, building your dictionaries, translating your content, and more. <br><br> - [VSCode Extension](https://intlayer.org/doc/vs-code-extension)                                                                                                                                                                                                                |
 | <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/interoperability.png?raw=true" alt="Feature" width="700">                    | **Interoperability**<br><br>Allow interoperability with react-i18next, next-i18next, next-intl, react-intl, vue-i18n. <br><br> - [Intlayer and react-intl](https://intlayer.org/blog/intlayer-with-react-intl) <br> - [Intlayer and next-intl](https://intlayer.org/blog/intlayer-with-next-intl) <br> - [Intlayer and next-i18next](https://intlayer.org/blog/intlayer-with-next-i18next) <br> - [Intlayer and vue-i18n](https://intlayer.org/blog/intlayer-with-vue-i18n) |
+| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/benchmark.png?raw=true" alt="Feature" width="700">                           | **Performances & Benchmark**<br><br>Uses advanced tree-shaking and dynamic loading to boost performances and keep the solution as light as possible. <br><br> - [Performances & Benchmark](https://intlayer.org/doc/benchmark)                                                                                                                                                                                                                                              |
 
 ---
 
@@ -248,6 +249,19 @@ Explore our comprehensive documentation to get started with Intlayer and learn h
   <li><a href="https://intlayer.org/blog/intlayer-with-next-intl" rel=''>Intlayer and next-intl</a></li>
 </ul>
 </details>
+
+## Multilingual content management system
+
+More than an i18n library, Intlayer is a complete **multilingual content management system**. A full CMS is available for free at [app.intlayer.org](https://app.intlayer.org).
+
+Intlayer connects **developers**, **copywriters**, and **AI agents** in one workflow for creating and maintaining multilingual websites effortlessly.Intlayer replaces the following stack in a single solution:
+
+- i18n solutions (e.g. `i18next`, `next-intl`, `vue-i18n`)
+- TMSs (Translation Management Systems) (e.g. Crowdin, Phrase, Lokalise)
+- Feature flags
+- Headless CMSs (e.g. Contentful, Strapi, Sanity)
+
+![CMS Preview](https://github.com/aymericzip/intlayer/blob/main/docs/assets/CMS.png?raw=true)
 
 ## 🌐 Readme in other languages
 
