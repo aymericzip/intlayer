@@ -434,7 +434,7 @@ export const Browser = ({
               isOverable
             >
               <Container
-                className="min-w-48 rounded-md!"
+                className="min-w-28 rounded-md!"
                 roundedSize="sm"
                 border
                 borderColor="neutral"
@@ -451,7 +451,7 @@ export const Browser = ({
                   />
                 </div>
                 <ul
-                  className="max-h-64 divide-y divide-dotted divide-neutral/30 overflow-y-auto p-1"
+                  className="max-h-64 divide-y divide-dotted divide-neutral/30 overflow-y-auto p-1 text-center"
                   aria-label={content.sitemapButtonLabel.value}
                 >
                   {sitemapLoading ? (
@@ -472,7 +472,7 @@ export const Browser = ({
                           variant="hoverable"
                           color="text"
                           size="sm"
-                          className="w-full justify-start"
+                          className="w-full text-left"
                           label={url}
                           onClick={() => {
                             handleNavigateTo(url);
