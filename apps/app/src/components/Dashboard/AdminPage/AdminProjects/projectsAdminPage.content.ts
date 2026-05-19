@@ -3,26 +3,6 @@ import { type Dictionary, t } from 'intlayer';
 const projectsAdminPageContentContent = {
   key: 'project-admin-page',
   content: {
-    title: t({
-      en: 'Projects Management',
-      fr: 'Gestion des projets',
-      es: 'Gestión de proyectos',
-      'en-GB': 'Projects Management',
-      de: 'Projektverwaltung',
-      ja: 'プロジェクト管理',
-      ko: '프로젝트 관리',
-      zh: '项目管理',
-      it: 'Gestione progetti',
-      pt: 'Gestão de projetos',
-      hi: 'परियोजना प्रबंधन',
-      ar: 'إدارة المشاريع',
-      ru: 'Управление проектами',
-      tr: 'Proje yönetimi',
-      pl: 'Zarządzanie projektami',
-      id: 'Manajemen Proyek',
-      vi: 'Quản lý dự án',
-      uk: 'Управління проєктами',
-    }),
     tableHeaders: {
       name: t({
         en: 'Name',
