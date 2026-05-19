@@ -20,38 +20,30 @@ import { getDictionary } from './getDictionary';
  * stringified. This prevents the app from crashing on undefined access.
  */
 const createSafeFallback = (path = ''): any => {
-  return new Proxy(
-    // Target is a function so it can be called if the dictionary expects a function
-    () => path,
-    {
-      get: (_target, prop) => {
-        // Handle common object methods to prevent infinite recursion or weird behavior
-        if (
-          prop === 'toJSON' ||
-          prop === Symbol.toPrimitive ||
-          prop === 'toString'
-        ) {
-          return () => path;
-        }
-        if (prop === 'then') {
-          return undefined; // Prevent it from being treated as a Promise
-        }
-        if (prop === Symbol.iterator) {
-          return function* () {
-            yield path;
-          };
-        }
+  return new Proxy({} as Record<string | symbol, unknown>, {
+    get: (_target, prop) => {
+      if (
+        prop === 'toJSON' ||
+        prop === Symbol.toPrimitive ||
+        prop === 'toString' ||
+        prop === 'valueOf'
+      ) {
+        return () => path;
+      }
+      if (prop === 'then') {
+        return undefined; // Prevent it from being treated as a Promise
+      }
+      if (prop === Symbol.iterator) {
+        return function* () {
+          yield path;
+        };
+      }
 
-        // Recursively build the path (e.g., "myDictionary.home.title")
-        const nextPath = path ? `${path}.${String(prop)}` : String(prop);
-        return createSafeFallback(nextPath);
-      },
-      // If the code tries to execute the missing key as a function: t.title()
-      apply: () => {
-        return path;
-      },
-    }
-  );
+      // Recursively build the path (e.g., "myDictionary.home.title")
+      const nextPath = path ? `${path}.${String(prop)}` : String(prop);
+      return createSafeFallback(nextPath);
+    },
+  });
 };
 
 const dictionaryCache = new Map<string, any>();
@@ -72,24 +64,19 @@ export const getIntlayer = <
   const dictionaries = getDictionaries();
   const dictionary = dictionaries[key as T] as DictionaryRegistryElement<T>;
 
-  if (!dictionary) {
+  if (!dictionary && process.env.NODE_ENV === 'development') {
     if (!warnedMissingDictionaries.has(key as string)) {
       // Log a warning instead of throwing (so developers know it's missing)
       const logger = getAppLogger({ log });
       logger(
-        `Dictionary ${colorizeKey(key as string)} was not found. Using fallback proxy.`,
+        typeof window === 'undefined'
+          ? `Dictionary ${colorizeKey(key)} was not found. Using fallback proxy.`
+          : `Dictionary ${key} was not found. Using fallback proxy.`,
         {
           level: 'warn',
-          isVerbose: true,
         }
       );
       warnedMissingDictionaries.add(key as string);
-    }
-
-    if (process.env.NODE_ENV === 'development') {
-      // Return the Safe Proxy
-      // We initialize it with the dictionary key name so the UI shows "my-dictionary.someKey"
-      return createSafeFallback(key as string);
     }
 
     return createSafeFallback(key as string);
