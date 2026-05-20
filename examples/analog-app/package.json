@@ -22,7 +22,7 @@
     "@angular/core": "21.2.4",
     "@angular/forms": "21.2.4",
     "@angular/platform-browser": "21.2.4",
-    "@angular/platform-server": "21.2.4",
+    "@angular/platform-server": "21.2.13",
     "@angular/router": "21.2.4",
     "@tailwindcss/vite": "4.3.0",
     "angular-intlayer": "workspace:*",
