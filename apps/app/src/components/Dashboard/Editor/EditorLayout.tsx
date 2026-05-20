@@ -29,7 +29,7 @@ export const EditorLayout: FC<EditorLayoutProps> = ({
         background="none"
         border
         roundedSize="2xl"
-        className="size-full flex-1 flex-col items-center justify-center overflow-hidden"
+        className="size-full flex-1 flex-col items-center justify-center overflow-hidden border-text/10"
       >
         {children}
         <div className="absolute right-2 bottom-2">

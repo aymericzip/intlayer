@@ -44,7 +44,7 @@ export const VisualEditorDrawer: FC = memo(() => {
       {isOpen &&
         portalTarget &&
         createPortal(
-          <div className="flex size-full flex-col overflow-hidden">
+          <div className="flex size-full flex-col overflow-hidden p-1.5">
             <Editor
               DictionariesLoader={DictionaryLoaderVisualEditor}
               suppressEditionDrawer

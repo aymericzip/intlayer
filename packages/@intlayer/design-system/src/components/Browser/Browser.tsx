@@ -2,14 +2,7 @@
 
 import { Container } from '@components/Container';
 import { cn } from '@utils/cn';
-import {
-  ArrowLeft,
-  ArrowRight,
-  Globe,
-  List,
-  RotateCw,
-  ScanSearch,
-} from 'lucide-react';
+import { ArrowLeft, ArrowRight, RotateCw, ScanSearch } from 'lucide-react';
 import {
   type CSSProperties,
   type HTMLAttributes,
