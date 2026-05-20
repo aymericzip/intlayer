@@ -6,6 +6,8 @@ const LazyLanguageSection = lazy(() =>
   import('./LanguageSection').then((m) => ({ default: m.LanguageSection }))
 );
 
+export { LanguageSection } from './LanguageSection';
+
 export const LanguageBackground: FC<PropsWithChildren> = ({ children }) => (
   <>
     <div className="absolute top-0 left-0 z-0 flex size-full items-center justify-center">
