@@ -32,7 +32,14 @@ type PushOptions = {
 
 type DictionariesStatus = {
   dictionary: Dictionary;
-  status: 'pending' | 'pushing' | 'modified' | 'pushed' | 'unknown' | 'error';
+  status:
+    | 'pending'
+    | 'pushing'
+    | 'modified'
+    | 'pushed'
+    | 'up-to-date'
+    | 'unknown'
+    | 'error';
   error?: Error;
   errorMessage?: string;
 };
@@ -41,6 +48,7 @@ type DictionariesStatus = {
 const statusIconsAndColors = {
   pushed: { icon: '✔', color: ANSIColors.GREEN },
   modified: { icon: '✔', color: ANSIColors.GREEN },
+  'up-to-date': { icon: '=', color: ANSIColors.GREY },
   error: { icon: '✖', color: ANSIColors.RED },
   default: { icon: '⏲', color: ANSIColors.BLUE },
 };
@@ -196,8 +204,14 @@ export const push = async (options?: PushOptions): Promise<void> => {
 
         const updatedDictionaries = pushResult.data?.updatedDictionaries ?? [];
         const newDictionaries = pushResult.data?.newDictionaries ?? [];
+        const upToDateDictionaries =
+          pushResult.data?.upToDateDictionaries ?? [];
 
-        const allDictionaries = [...updatedDictionaries, ...newDictionaries];
+        const allDictionaries = [
+          ...updatedDictionaries,
+          ...newDictionaries,
+          ...upToDateDictionaries,
+        ];
 
         for (const remoteDictionaryData of allDictionaries) {
           const localDictionary = unmergedDictionariesRecord[
@@ -233,6 +247,15 @@ export const push = async (options?: PushOptions): Promise<void> => {
           successfullyPushedDictionaries.push(statusObj.dictionary);
           logger.update([
             { dictionaryKey: statusObj.dictionary.key, status: 'pushed' },
+          ]);
+        } else if (
+          upToDateDictionaries.some(
+            (dictionary) => dictionary.key === statusObj.dictionary.key
+          )
+        ) {
+          statusObj.status = 'up-to-date';
+          logger.update([
+            { dictionaryKey: statusObj.dictionary.key, status: 'up-to-date' },
           ]);
         } else {
           statusObj.status = 'unknown';

@@ -455,6 +455,11 @@ type PushDictionariesResultData = {
     localId: LocalDictionaryId;
     id: string | undefined;
   }[];
+  upToDateDictionaries: {
+    key: string;
+    localId: LocalDictionaryId;
+    id: string | undefined;
+  }[];
   error: {
     id: string | undefined;
     key: string;
@@ -532,6 +537,8 @@ export const pushDictionaries = async (
       [];
     const updatedDictionariesResult: PushDictionariesResultData['updatedDictionaries'] =
       [];
+    const upToDateDictionariesResult: PushDictionariesResultData['upToDateDictionaries'] =
+      [];
     const errorResult: PushDictionariesResultData['error'] = [];
 
     for (const dictionaryDataEl of newDictionaries) {
@@ -589,17 +596,22 @@ export const pushDictionaries = async (
 
       const isSameContent = isDeepStrictEqual(lastContent, cleanedContent);
 
-      const newContent: VersionedContent = new Map(remoteDictionary.content);
-
-      if (!isSameContent) {
-        const newContentVersion =
-          dictionaryService.incrementVersion(remoteDictionary);
-
-        newContent.set(newContentVersion, {
-          // Remove metadata as markdown metadata are dynamic data inserted at build time
-          content: cleanedContent,
+      if (isSameContent) {
+        upToDateDictionariesResult.push({
+          key: remoteDictionary.key,
+          localId: dictionaryDataEl.localId!,
+          id: remoteDictionary.id,
         });
+        continue;
       }
+
+      const newContent: VersionedContent = new Map(remoteDictionary.content);
+      const newContentVersion =
+        dictionaryService.incrementVersion(remoteDictionary);
+
+      newContent.set(newContentVersion, {
+        content: cleanedContent,
+      });
 
       const dictionary: DictionaryData = {
         ...ensureMongoDocumentToObject(remoteDictionary),
@@ -634,6 +646,7 @@ export const pushDictionaries = async (
     const result: PushDictionariesResultData = {
       newDictionaries: newDictionariesResult,
       updatedDictionaries: updatedDictionariesResult,
+      upToDateDictionaries: upToDateDictionariesResult,
       error: errorResult,
     };
 

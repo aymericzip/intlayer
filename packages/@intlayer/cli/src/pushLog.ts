@@ -7,7 +7,13 @@ import {
 
 export type PushStatus = {
   dictionaryKey: string;
-  status: 'pending' | 'pushing' | 'pushed' | 'modified' | 'error';
+  status:
+    | 'pending'
+    | 'pushing'
+    | 'pushed'
+    | 'modified'
+    | 'up-to-date'
+    | 'error';
   errorMessage?: string;
 };
 
@@ -58,7 +64,8 @@ export class PushLogger {
   }
 
   private render() {
-    const { total, done, pushed, modified, errors } = this.computeProgress();
+    const { total, done, pushed, modified, upToDate, errors } =
+      this.computeProgress();
 
     const frame = this.spinnerFrames[this.spinnerIndex];
     const lines: string[] = [];
@@ -69,6 +76,10 @@ export class PushLogger {
     const details: string[] = [];
     if (pushed > 0) details.push(`new: ${colorizeNumber(pushed)}`);
     if (modified > 0) details.push(`modified: ${colorizeNumber(modified)}`);
+    if (upToDate > 0)
+      details.push(
+        colorize(`up-to-date: ${colorizeNumber(upToDate)}`, ANSIColors.GREY)
+      );
     if (errors > 0)
       details.push(
         colorize(`errors: ${colorizeNumber(errors)}`, ANSIColors.RED)
@@ -116,14 +127,18 @@ export class PushLogger {
     const modified = this.statuses.filter(
       (s) => s.status === 'modified'
     ).length;
+    const upToDate = this.statuses.filter(
+      (s) => s.status === 'up-to-date'
+    ).length;
     const errors = this.statuses.filter((s) => s.status === 'error').length;
-    const done = pushed + modified + errors;
+    const done = pushed + modified + upToDate + errors;
 
     return {
       total: keys.size,
       done,
       pushed,
       modified,
+      upToDate,
       errors,
     } as const;
   }
