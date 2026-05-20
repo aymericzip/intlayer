@@ -863,12 +863,6 @@ export const deleteOrganizationByIdAdmin = async (
   const { organizationId } = request.params;
   const { roles } = request.session || {};
 
-  if (
-    !hasPermission(roles || [], 'organization:admin')({ ...request.session })
-  ) {
-    return ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
-  }
-
   try {
     const organization =
       await organizationService.getOrganizationById(organizationId);
@@ -877,6 +871,21 @@ export const deleteOrganizationByIdAdmin = async (
       return ErrorHandler.handleGenericErrorResponse(
         reply,
         'ORGANIZATION_NOT_FOUND'
+      );
+    }
+
+    if (
+      !hasPermission(
+        roles || [],
+        'organization:admin'
+      )({
+        ...request.session,
+        targetOrganizations: [organization],
+      })
+    ) {
+      return ErrorHandler.handleGenericErrorResponse(
+        reply,
+        'PERMISSION_DENIED'
       );
     }
 

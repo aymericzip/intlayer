@@ -220,7 +220,7 @@ export const getDictionariesUpdateTimestamp = async (
       { key: string; updatedAt: number }
     > = {};
     for (const dictionary of dictionaries) {
-      dictionariesUpdateTimestamp[dictionary.id] = {
+      dictionariesUpdateTimestamp[String(dictionary.id)] = {
         key: dictionary.key,
         updatedAt: new Date(dictionary.updatedAt).getTime(),
       };
@@ -361,7 +361,7 @@ export const addDictionary = async (
     projectIds: dictionaryData.projectIds ?? [String(project.id)],
   };
 
-  if (!hasPermission(roles || [], 'dictionary:write')(request.session)) {
+  if (!hasPermission(roles || [], 'dictionary:write')(request.session ?? {})) {
     return ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
   }
 
@@ -521,7 +521,7 @@ export const pushDictionaries = async (
     return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
   }
 
-  if (!hasPermission(roles || [], 'dictionary:write')(request.session)) {
+  if (!hasPermission(roles || [], 'dictionary:write')(request.session ?? {})) {
     return ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
   }
 
@@ -567,7 +567,7 @@ export const pushDictionaries = async (
         newDictionariesResult.push({
           key: newDictionary.key,
           localId: dictionaryDataEl.localId!,
-          id: newDictionary.id,
+          id: String(newDictionary.id),
         });
       } catch (error) {
         errorResult.push({
@@ -600,7 +600,7 @@ export const pushDictionaries = async (
         upToDateDictionariesResult.push({
           key: remoteDictionary.key,
           localId: dictionaryDataEl.localId!,
-          id: remoteDictionary.id,
+          id: String(remoteDictionary.id),
         });
         continue;
       }
@@ -631,7 +631,7 @@ export const pushDictionaries = async (
         updatedDictionariesResult.push({
           key: updatedDictionary.key,
           localId: dictionaryDataEl.localId!,
-          id: updatedDictionary.id,
+          id: String(updatedDictionary.id),
         });
       } catch (error) {
         errorResult.push({
@@ -818,7 +818,7 @@ export const updateDictionary = async (
     );
   }
 
-  if (!hasPermission(roles || [], 'dictionary:write')(request.session)) {
+  if (!hasPermission(roles || [], 'dictionary:write')(request.session ?? {})) {
     return ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
   }
 
@@ -928,7 +928,7 @@ export const deleteDictionary = async (
     );
   }
 
-  if (!hasPermission(roles || [], 'dictionary:admin')(request.session)) {
+  if (!hasPermission(roles || [], 'dictionary:admin')(request.session ?? {})) {
     return ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
   }
 

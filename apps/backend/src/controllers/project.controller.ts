@@ -1031,10 +1031,6 @@ export const deleteProjectByIdAdmin = async (
   const { projectId } = request.params;
   const { roles } = request.session || {};
 
-  if (!hasPermission(roles || [], 'project:admin')({ ...request.session })) {
-    return ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
-  }
-
   try {
     const project = await projectService.getProjectById(projectId);
 
@@ -1042,6 +1038,21 @@ export const deleteProjectByIdAdmin = async (
       return ErrorHandler.handleGenericErrorResponse(
         reply,
         'PROJECT_NOT_DEFINED'
+      );
+    }
+
+    if (
+      !hasPermission(
+        roles || [],
+        'project:admin'
+      )({
+        ...request.session,
+        targetProjectIds: [String(project.id)],
+      })
+    ) {
+      return ErrorHandler.handleGenericErrorResponse(
+        reply,
+        'PERMISSION_DENIED'
       );
     }
 
