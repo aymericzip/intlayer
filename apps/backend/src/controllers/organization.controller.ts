@@ -722,7 +722,7 @@ export const deleteOrganization = async (
   reply: FastifyReply
 ): Promise<void> => {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
-  const { organization, session, roles } = _request.session || {};
+  const { organization, session, roles, user } = _request.session || {};
 
   if (!organization) {
     return ErrorHandler.handleGenericErrorResponse(
@@ -789,6 +789,13 @@ export const deleteOrganization = async (
         },
       }
     );
+
+    if (user) {
+      await userService.updateUserById(user.id, {
+        lastActiveOrganizationId: null,
+        lastActiveProjectId: null,
+      });
+    }
 
     logger.info(`Organization deleted: ${String(deletedOrganization.id)}`);
 
@@ -927,7 +934,7 @@ export const selectOrganization = async (
   reply: FastifyReply
 ): Promise<void> => {
   const { organizationId } = request.params;
-  const { session, roles } = request.session || {};
+  const { session, roles, user } = request.session || {};
 
   if (!organizationId) {
     return ErrorHandler.handleGenericErrorResponse(
@@ -972,6 +979,13 @@ export const selectOrganization = async (
         },
       }
     );
+
+    if (user) {
+      await userService.updateUserById(user.id, {
+        lastActiveOrganizationId: String(organization.id),
+        lastActiveProjectId: null,
+      });
+    }
 
     // No need to update session here, as it's a select operation
     const responseData = formatResponse<OrganizationAPI>({
@@ -1033,7 +1047,7 @@ export const unselectOrganization = async (
   _request: FastifyRequest,
   reply: FastifyReply
 ): Promise<void> => {
-  const { session } = _request.session || {};
+  const { session, user } = _request.session || {};
   try {
     // Update session to clear activeOrganizationId and activeProjectId
 
@@ -1053,6 +1067,13 @@ export const unselectOrganization = async (
         },
       }
     );
+
+    if (user) {
+      await userService.updateUserById(user.id, {
+        lastActiveOrganizationId: null,
+        lastActiveProjectId: null,
+      });
+    }
 
     const responseData = formatResponse<null>({
       message: t({

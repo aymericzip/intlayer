@@ -22,6 +22,7 @@ import { createAuthMiddleware } from 'better-auth/api';
 import { customSession, lastLoginMethod, twoFactor } from 'better-auth/plugins';
 import { magicLink } from 'better-auth/plugins/magic-link';
 import type { MongoClient } from 'mongodb';
+import { Types } from 'mongoose';
 import type { OrganizationAPI } from '@/types/organization.types';
 import type { ProjectAPI } from '@/types/project.types';
 import type {
@@ -191,15 +192,48 @@ export const getAuth = (dbClient: MongoClient): Auth => {
               ? Buffer.from(id.buffer).toString('hex')
               : null;
 
-        const orgIdStr = typedSession.activeOrganizationId
+        let orgIdStr = typedSession.activeOrganizationId
           ? normalizeId(typedSession.activeOrganizationId)
           : null;
-        const projectIdStr = typedSession.activeProjectId
+        let projectIdStr = typedSession.activeProjectId
           ? normalizeId(typedSession.activeProjectId)
           : null;
 
-        const [userData, orgData, projectData] = await Promise.all([
-          typedSession.userId ? getUserById(typedSession.userId) : null,
+        const userData = typedSession.userId
+          ? await getUserById(typedSession.userId)
+          : null;
+
+        // If the session does not have an active organization or project context, try to restore from the user's last active context
+        let isSessionUpdated = false;
+        if (userData) {
+          if (!orgIdStr && userData.lastActiveOrganizationId) {
+            orgIdStr = userData.lastActiveOrganizationId;
+            isSessionUpdated = true;
+          }
+          if (!projectIdStr && userData.lastActiveProjectId) {
+            projectIdStr = userData.lastActiveProjectId;
+            isSessionUpdated = true;
+          }
+
+          if (isSessionUpdated) {
+            await dbClient
+              .db()
+              .collection('sessions')
+              .updateOne(
+                { id: typedSession.id },
+                {
+                  $set: {
+                    activeOrganizationId: orgIdStr,
+                    activeProjectId: projectIdStr,
+                  },
+                }
+              );
+            typedSession.activeOrganizationId = orgIdStr ?? undefined;
+            typedSession.activeProjectId = projectIdStr ?? undefined;
+          }
+        }
+
+        const [orgData, projectData] = await Promise.all([
           orgIdStr ? getOrganizationById(orgIdStr) : null,
           projectIdStr ? getProjectById(projectIdStr) : null,
         ]);
@@ -220,10 +254,13 @@ export const getAuth = (dbClient: MongoClient): Auth => {
 
         if (shouldClearOrg || shouldClearProject) {
           const updateDoc: any = {};
+          const userUpdateDoc: any = {};
 
           if (shouldClearOrg) {
             updateDoc.activeOrganizationId = null;
             updateDoc.activeProjectId = null;
+            userUpdateDoc.lastActiveOrganizationId = null;
+            userUpdateDoc.lastActiveProjectId = null;
 
             typedSession.activeOrganizationId = undefined;
             typedSession.activeProjectId = undefined;
@@ -231,15 +268,33 @@ export const getAuth = (dbClient: MongoClient): Auth => {
             projectAPI = null;
           } else if (shouldClearProject) {
             updateDoc.activeProjectId = null;
+            userUpdateDoc.lastActiveProjectId = null;
 
             typedSession.activeProjectId = undefined;
             projectAPI = null;
           }
 
-          await dbClient
-            .db()
-            .collection('sessions')
-            .updateOne({ id: typedSession.id }, { $set: updateDoc });
+          const promises: Promise<any>[] = [
+            dbClient
+              .db()
+              .collection('sessions')
+              .updateOne({ id: typedSession.id }, { $set: updateDoc }),
+          ];
+
+          if (userData) {
+            const userIdObj =
+              typeof userData.id === 'string'
+                ? new Types.ObjectId(userData.id)
+                : userData.id;
+            promises.push(
+              dbClient
+                .db()
+                .collection('users')
+                .updateOne({ _id: userIdObj }, { $set: userUpdateDoc })
+            );
+          }
+
+          await Promise.all(promises);
         }
 
         const sessionWithNoPermission: SessionContext = {

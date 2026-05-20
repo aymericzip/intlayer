@@ -23,6 +23,8 @@ export type User = OmitId<UserData & BetterAuthUser> & {
   role?: string;
   lastLoginMethod?: 'email' | 'google' | 'github' | 'passkey';
   lang?: string;
+  lastActiveOrganizationId?: string | null;
+  lastActiveProjectId?: string | null;
   createdAt: Date;
   updatedAt: Date;
 };

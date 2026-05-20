@@ -311,6 +311,13 @@ export const updateProject = async (
       }
     );
 
+    if (user) {
+      await userService.updateUserById(user.id, {
+        lastActiveOrganizationId: String(organization.id),
+        lastActiveProjectId: String(project.id),
+      });
+    }
+
     // Fire-and-forget screenshot generation
     refreshProjectScreenshotIfChanged({
       newApplicationUrl,
@@ -995,6 +1002,12 @@ export const deleteProject = async (
       { $set: { activeProjectId: null } }
     );
 
+    if (user) {
+      await userService.updateUserById(user.id, {
+        lastActiveProjectId: null,
+      });
+    }
+
     return reply.send(responseData);
   } catch (error) {
     return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
@@ -1079,7 +1092,7 @@ export const selectProject = async (
   reply: FastifyReply
 ) => {
   const { projectId } = request.params;
-  const { session, roles } = request.session || {};
+  const { session, roles, user } = request.session || {};
 
   if (!projectId) {
     return ErrorHandler.handleGenericErrorResponse(
@@ -1117,6 +1130,12 @@ export const selectProject = async (
       { _id: session.id },
       { $set: { activeProjectId: String(projectId) } }
     );
+
+    if (user) {
+      await userService.updateUserById(user.id, {
+        lastActiveProjectId: String(projectId),
+      });
+    }
 
     const responseData = formatResponse<ProjectAPI>({
       message: t({
@@ -1177,7 +1196,7 @@ export const unselectProject = async (
   _request: FastifyRequest,
   reply: FastifyReply
 ) => {
-  const { session } = _request.session || {};
+  const { session, user } = _request.session || {};
 
   if (typeof session === 'undefined') {
     return ErrorHandler.handleGenericErrorResponse(
@@ -1191,6 +1210,12 @@ export const unselectProject = async (
       { _id: session.id },
       { $set: { activeProjectId: null } }
     );
+
+    if (user) {
+      await userService.updateUserById(user.id, {
+        lastActiveProjectId: null,
+      });
+    }
 
     const responseData = formatResponse<null>({
       message: t({

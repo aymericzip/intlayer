@@ -63,6 +63,14 @@ export const userSchema = new Schema<UserSchema>(
       type: Date,
       required: false,
     },
+    lastActiveOrganizationId: {
+      type: String,
+      required: false,
+    },
+    lastActiveProjectId: {
+      type: String,
+      required: false,
+    },
   },
   {
     timestamps: true,
