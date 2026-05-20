@@ -200,6 +200,8 @@ export type PluralCond<T, S, _L> = T extends {
     >
   : never;
 
+type SubResultFunction = (values: Record<string, string | number>) => string;
+
 /**
  * Plural plugin. Replaces node with a function that takes a count (or
  * `{ count, ...values }`) => string, picking the matching CLDR plural form
@@ -261,12 +263,20 @@ export const pluralPlugin = (locale?: LocalesValues): Plugins =>
 
           return (arg: number | { count: number; [key: string]: unknown }) => {
             const count = typeof arg === 'number' ? arg : arg.count;
+            const values =
+              typeof arg === 'number'
+                ? { count: arg }
+                : (arg as { count: number; [key: string]: unknown });
 
-            const subResult = getPlural(
+            const subResult: string | SubResultFunction = getPlural(
               result as PluralContent['plural'] as PluralContentState<string>,
               count,
               effectiveLocale
             );
+
+            if (typeof subResult === 'function') {
+              return (subResult as SubResultFunction)(values);
+            }
 
             return subResult;
           };
