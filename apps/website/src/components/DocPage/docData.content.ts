@@ -131,10 +131,6 @@ const docDataContent: Dictionary = {
           title: 'CLI',
           default: getDocMetadata('./docs/en/cli/index.md'),
           subSections: {
-            list: {
-              title: 'List',
-              default: getDocMetadata('./docs/en/cli/list.md'),
-            },
             test: {
               title: 'Test',
               default: getDocMetadata('./docs/en/cli/test.md'),
@@ -151,9 +147,9 @@ const docDataContent: Dictionary = {
               title: 'Watch',
               default: getDocMetadata('./docs/en/cli/watch.md'),
             },
-            version: {
-              title: 'Version',
-              default: getDocMetadata('./docs/en/cli/version.md'),
+            extract: {
+              title: 'Extract',
+              default: getDocMetadata('./docs/en/cli/extract.md'),
             },
             login: {
               title: 'Login',
@@ -171,6 +167,22 @@ const docDataContent: Dictionary = {
               title: 'Configuration',
               default: getDocMetadata('./docs/en/cli/configuration.md'),
             },
+            list: {
+              title: 'List',
+              default: getDocMetadata('./docs/en/cli/list.md'),
+            },
+            version: {
+              title: 'Version',
+              default: getDocMetadata('./docs/en/cli/version.md'),
+            },
+            editor: {
+              title: 'Editor',
+              default: getDocMetadata('./docs/en/cli/editor.md'),
+            },
+            live: {
+              title: 'Live',
+              default: getDocMetadata('./docs/en/cli/live.md'),
+            },
             debug: {
               title: 'Debug',
               default: getDocMetadata('./docs/en/cli/debug.md'),
@@ -183,21 +195,9 @@ const docDataContent: Dictionary = {
               title: 'Doc Translate',
               default: getDocMetadata('./docs/en/cli/doc-translate.md'),
             },
-            editor: {
-              title: 'Editor',
-              default: getDocMetadata('./docs/en/cli/editor.md'),
-            },
-            live: {
-              title: 'Live',
-              default: getDocMetadata('./docs/en/cli/live.md'),
-            },
             sdk: {
               title: 'SDK',
               default: getDocMetadata('./docs/en/cli/sdk.md'),
-            },
-            extract: {
-              title: 'Extract',
-              default: getDocMetadata('./docs/en/cli/extract.md'),
             },
           },
         },
