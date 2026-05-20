@@ -14,7 +14,6 @@ import {
   updateAstroConfig,
   updateNextConfig,
   updateNuxtConfig,
-  updateSvelteConfig,
   updateViteConfig,
   writeFileToRoot,
 } from './utils';
@@ -380,28 +379,9 @@ export const initIntlayer = async (rootDir: string, options?: InitOptions) => {
       const content = await readFileFromRoot(rootDir, file);
 
       if (!content.includes('nuxt-intlayer')) {
-        const extension = file.split('.').pop()!;
-        const updatedContent = updateNuxtConfig(content, extension);
+        const updatedContent = updateNuxtConfig(content);
         await writeFileToRoot(rootDir, file, updatedContent);
         logger(`${v} Updated ${colorizePath(file)} to include Intlayer module`);
-      }
-      break;
-    }
-  }
-
-  const svelteConfigs = ['svelte.config.js', 'svelte.config.ts'];
-
-  for (const file of svelteConfigs) {
-    if (await exists(rootDir, file)) {
-      hasAliasConfiguration = true;
-
-      const content = await readFileFromRoot(rootDir, file);
-
-      if (!content.includes('@ts-check')) {
-        const extension = file.split('.').pop()!;
-        const updatedContent = updateSvelteConfig(content, extension);
-        await writeFileToRoot(rootDir, file, updatedContent);
-        logger(`${v} Updated ${colorizePath(file)} to include Intlayer typing`);
       }
       break;
     }

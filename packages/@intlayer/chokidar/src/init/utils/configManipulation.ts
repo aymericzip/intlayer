@@ -54,22 +54,6 @@ const injectImport = (
   ast.program.body.unshift(declaration);
 };
 
-const ensureTsCheck = (ast: any, content: string, extension: string) => {
-  if (
-    ['js', 'mjs', 'cjs'].includes(extension) &&
-    !content.includes('@ts-check')
-  ) {
-    const comment = b.commentLine(' @ts-check', true, false);
-    if (ast.program.body.length > 0) {
-      const firstNode = ast.program.body[0];
-      firstNode.comments = firstNode.comments || [];
-      firstNode.comments.unshift(comment);
-    } else {
-      ast.program.body.unshift(comment as any);
-    }
-  }
-};
-
 const updatePluginArray = (
   objExpr: any,
   propertyName: string,
@@ -186,8 +170,6 @@ export const updateViteConfig = (
     parser: require('recast/parsers/typescript'),
   });
 
-  ensureTsCheck(ast, content, extension);
-
   const isCJSFile =
     extension === 'cjs' ||
     (content.includes('module.exports') && !content.includes('import '));
@@ -209,8 +191,6 @@ export const updateAstroConfig = (
     parser: require('recast/parsers/typescript'),
   });
 
-  ensureTsCheck(ast, content, extension);
-
   const isCJSFile =
     extension === 'cjs' ||
     (content.includes('module.exports') && !content.includes('import '));
@@ -231,8 +211,6 @@ export const updateNextConfig = (
   const ast = recast.parse(content, {
     parser: require('recast/parsers/typescript'),
   });
-
-  ensureTsCheck(ast, content, extension);
 
   const isCJSFile = extension === 'cjs' || content.includes('module.exports');
 
@@ -280,15 +258,10 @@ export const updateNextConfig = (
   return recast.print(ast).code;
 };
 
-export const updateNuxtConfig = (
-  content: string,
-  extension: string
-): string => {
+export const updateNuxtConfig = (content: string): string => {
   const ast = recast.parse(content, {
     parser: require('recast/parsers/typescript'),
   });
-
-  ensureTsCheck(ast, content, extension);
 
   const updateConfigObject = (objExpr: any) => {
     if (
@@ -339,19 +312,5 @@ export const updateNuxtConfig = (
 
   genericRecastVisit(ast, updateConfigObject, ['defineNuxtConfig']);
 
-  return recast.print(ast).code;
-};
-
-export const updateSvelteConfig = (
-  content: string,
-  extension: string
-): string => {
-  const ast = recast.parse(content, {
-    parser: require('recast/parsers/typescript'),
-  });
-
-  ensureTsCheck(ast, content, extension);
-
-  // Svelte config usually doesn't need Intlayer injection, just typing
   return recast.print(ast).code;
 };
