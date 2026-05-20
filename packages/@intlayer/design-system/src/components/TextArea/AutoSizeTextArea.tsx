@@ -4,8 +4,8 @@ import { cn } from '@utils/cn';
 import {
   type ChangeEventHandler,
   type FC,
-  useEffect,
   useImperativeHandle,
+  useLayoutEffect,
   useRef,
 } from 'react';
 import { TextArea, type TextAreaProps } from './TextArea';
@@ -138,7 +138,7 @@ export const AutoSizedTextArea: FC<AutoSizedTextAreaProps> = ({
     textAreaStyle.height = `${Math.max(Math.min(scrollHeight, maxHeight), minHeight)}px`;
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     adjustHeight();
   }, [props.value, props.defaultValue, adjustHeight]);
 

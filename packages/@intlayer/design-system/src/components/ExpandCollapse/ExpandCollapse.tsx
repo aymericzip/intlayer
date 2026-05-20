@@ -1,7 +1,13 @@
 'use client';
 
 import { cn } from '@utils/cn';
-import { type FC, type ReactNode, useEffect, useRef, useState } from 'react';
+import {
+  type FC,
+  type ReactNode,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { MaxHeightSmoother } from '../MaxHeightSmoother';
 
@@ -86,7 +92,7 @@ export const ExpandCollapse: FC<ExpandCollapseProps> = ({
 
   const isTooBig = codeContainerHeight > minHeight;
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const measure = () => {
       if (codeContainerRef.current) {
         setCodeContainerHeight(codeContainerRef.current.clientHeight);

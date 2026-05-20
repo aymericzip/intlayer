@@ -13,6 +13,7 @@ import {
   type Ref,
   useEffect,
   useImperativeHandle,
+  useLayoutEffect,
   useRef,
   useState,
 } from 'react';
@@ -268,7 +269,7 @@ export const useContentEditable = ({
     }
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (pendingCaretRef.current && containerRef.current) {
       setCaretPosition(pendingCaretRef.current);
       pendingCaretRef.current = null;
@@ -679,7 +680,7 @@ export const ContentEditableTextArea: FC<ContentEditableTextAreaProps> = ({
     },
   }));
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!autoSize || !elRef.current) return;
 
     const el = elRef.current;

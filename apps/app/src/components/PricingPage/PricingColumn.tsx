@@ -4,7 +4,7 @@ import {
 } from '@intlayer/design-system/container';
 import { H2 } from '@intlayer/design-system/headers';
 import { Loader } from '@intlayer/design-system/loader';
-import { Tag, TagColor } from '@intlayer/design-system/tag';
+import { Tag } from '@intlayer/design-system/tag';
 import { cn } from '@intlayer/design-system/utils';
 import { Check } from 'lucide-react';
 import type { FC, ReactNode } from 'react';
@@ -19,7 +19,8 @@ type PricingColumnProps = {
   unit?: ReactNode;
   period: ReactNode;
   description: ReactNode;
-  checkPoint: ReactNode[];
+  checkPoint: string[];
+  previousCheckpoints?: string[];
   callToActionUrl: string;
   callToActionLabel: string;
   callToActionText: string;
@@ -39,6 +40,7 @@ export const PricingColumn: FC<PricingColumnProps> = ({
   callToActionLabel,
   callToActionText,
   checkPoint,
+  previousCheckpoints,
   priceLabel,
   className,
   ...props
@@ -59,7 +61,7 @@ export const PricingColumn: FC<PricingColumnProps> = ({
         {title}
       </H2>
       {badge && (
-        <Tag size="sm" color={TagColor.WARNING}>
+        <Tag size="sm" color="warning">
           {badge}
         </Tag>
       )}
@@ -119,26 +121,31 @@ export const PricingColumn: FC<PricingColumnProps> = ({
       {callToActionText}
     </Link>
     <span
-      className="justify-center text-neutral text-sm leading-7"
+      className="justify-center text-md text-text/50 leading-7"
       itemProp="description"
     >
       {description}
     </span>
     <ul className="flex flex-col gap-4 p-4">
-      {checkPoint.map((el, index) => (
-        <li
-          className="flex items-center gap-5"
-          key={typeof el === 'string' ? el : index}
-        >
-          <span className="block aspect-square rounded-full border-[2.5px] border-lime-300 p-0.5 text-2xl text-lime-800 dark:border-lime-900 dark:text-lime-600">
-            <Check className="size-2" />
-          </span>
-          <span className="text-md text-neutral" itemProp="feature">
-            {el}
-          </span>
-        </li>
-      ))}
+      {checkPoint.map((el, index) => {
+        const isNew =
+          previousCheckpoints !== undefined &&
+          !previousCheckpoints.includes(el);
+        return (
+          <li className="flex items-center gap-5" key={el || index}>
+            <span className="block aspect-square rounded-full border-[2.5px] border-lime-300 p-0.5 text-2xl text-lime-800 dark:border-lime-900 dark:text-lime-600">
+              <Check className="size-2" />
+            </span>
+            <span
+              className={cn('text-md', isNew ? 'text-text/50' : 'text-neutral')}
+              itemProp="feature"
+            >
+              {el}
+            </span>
+          </li>
+        );
+      })}
     </ul>
-    <link itemProp="availability" to="http://schema.org/InStock" />
+    <link itemProp="availability" href="http://schema.org/InStock" />
   </Container>
 );

@@ -8,6 +8,7 @@ import React, {
   type MouseEventHandler,
   type TouchEventHandler,
   useEffect,
+  useLayoutEffect,
   useRef,
   useState,
 } from 'react';
@@ -57,7 +58,9 @@ export const PricingCarousel: FC<PricingCarouselProps> = ({
   const { user } = useUser();
   const allParams = useSearch({ strict: false }) as any;
 
-  const { pricing: pricingContent, period } = useIntlayer('pricing');
+  const { pricing: pricingContent, priceFrequency } = useIntlayer(
+    'pricing'
+  ) as any;
   const pricing = pricingContent as any;
   const plans =
     focusedPeriod === 'lifetime' ? lifetimePlans : subscriptionPlans;
@@ -222,7 +225,7 @@ export const PricingCarousel: FC<PricingCarouselProps> = ({
    */
 
   // Max height calculation effect
-  useEffect(() => {
+  useLayoutEffect(() => {
     const updateMaxHeight = () => {
       // Filter out null refs and map to their offsetHeights
       const heights = columnsRefs.current
@@ -305,6 +308,8 @@ export const PricingCarousel: FC<PricingCarouselProps> = ({
     };
   }, [focusTimeout]);
 
+  const displayedPeriod = priceFrequency?.[focusedPeriod]?.value;
+
   return (
     <section
       // Removed the transition-[height] class to ensure strict, immediate sizing
@@ -371,7 +376,7 @@ export const PricingCarousel: FC<PricingCarouselProps> = ({
         >
           <PricingColumn
             unit="$"
-            period={period?.[focusedPeriod]?.value}
+            period={displayedPeriod}
             isPriceLoading={isLoading}
             totalPrice={getPrice(
               pricingData?.data?.[
@@ -416,6 +421,13 @@ export const PricingCarousel: FC<PricingCarouselProps> = ({
             }
             title={pricing[focusedPeriod]?.[plan]?.title?.value}
             badge={pricing[focusedPeriod]?.[plan]?.badge?.value}
+            previousCheckpoints={
+              index > 0
+                ? (pricing[focusedPeriod]?.[plans[index - 1]]?.checkPoint?.map(
+                    (el: any) => el.value
+                  ) ?? [])
+                : undefined
+            }
             priceLabel={
               (pricing[focusedPeriod]?.[plan] as any)?.priceLabel?.value
             }

@@ -1,7 +1,7 @@
 'use client';
 
 import type { FC } from 'react';
-import { useEffect, useRef, useState } from 'react';
+import { useLayoutEffect, useRef, useState } from 'react';
 import {
   type DetailProps,
   type PopoverProps,
@@ -51,7 +51,7 @@ const Detail: FC<DetailProps> = ({
   const [computedYAlign, setComputedYAlign] = useState(yAlign);
   const [maxWidth, setMaxWidth] = useState<number | undefined>(undefined);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const adjustPosition = () => {
       if (!popoverRef.current) return;
 

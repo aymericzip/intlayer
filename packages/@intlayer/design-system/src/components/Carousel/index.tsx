@@ -22,6 +22,7 @@ import {
   type TouchEventHandler,
   useContext,
   useEffect,
+  useLayoutEffect,
   useRef,
   useState,
 } from 'react';
@@ -275,7 +276,7 @@ const CarouselRoot: FC<CarouselProps> = ({
   const [containerHeight, setContainerHeight] = useState<number>(0);
   const [containerWidth, setContainerWidth] = useState<number>(0);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const calculateDimensions = () => {
       if (!containerRef.current) return;
 
@@ -380,7 +381,7 @@ const CarouselRoot: FC<CarouselProps> = ({
   }, [selectedIndex, displayedIndex]);
 
   // Calculate height based on the MAX height of ALL items
-  useEffect(() => {
+  useLayoutEffect(() => {
     const calculateMaxHeight = () => {
       const heights = itemsRef.current.map((item) => item?.offsetHeight || 0);
       const maxHeight = Math.max(0, ...heights);
