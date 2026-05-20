@@ -1,8 +1,54 @@
-import { type Dictionary, t } from 'intlayer';
+import { type Dictionary, insert, t } from 'intlayer';
 
 const applicationNotRunningViewContent = {
   key: 'application-not-running-view',
   content: {
+    connectionError: insert(
+      t({
+        ar: 'فشل الاتصال بـ {{applicationUrl}}. يرجى التأكد من تشغيل تطبيقك. (الخطأ: {{error}})',
+        de: 'Verbindung zu {{applicationUrl}} fehlgeschlagen. Stellen Sie sicher, dass Ihre Anwendung läuft. (Fehler: {{error}})',
+        en: 'Failed to connect to {{applicationUrl}}. Please ensure your application is running. (Error: {{error}})',
+        'en-GB':
+          'Failed to connect to {{applicationUrl}}. Please ensure your application is running. (Error: {{error}})',
+        es: 'Error al conectar con {{applicationUrl}}. Asegúrese de que su aplicación se esté ejecutando. (Error: {{error}})',
+        fr: "Impossible de se connecter à {{applicationUrl}}. Veuillez vous assurer que votre application est en cours d'exécution. (Erreur : {{error}})",
+        hi: '{{applicationUrl}} से कनेक्ट करने में विफल। कृपया सुनिश्चित करें कि आपका एप्लिकेशन चल रहा है। (त्रुटि: {{error}})',
+        it: 'Connessione a {{applicationUrl}} fallita. Assicurati che la tua applicazione sia in esecuzione. (Errore: {{error}})',
+        ja: '{{applicationUrl}} への接続に失敗しました。アプリケーションが実行されていることを確認してください。(エラー: {{error}})',
+        ko: '{{applicationUrl}}에 연결하지 못했습니다. 애플리케이션이 실행 중인지 확인하십시오. (오류: {{error}})',
+        pt: 'Falha ao conectar a {{applicationUrl}}. Certifique-se de que sua aplicação está em execução. (Erro: {{error}})',
+        ru: 'Не удалось подключиться к {{applicationUrl}}. Убедитесь, что ваше приложение запущено. (Ошибка: {{error}})',
+        tr: '{{applicationUrl}} adresine bağlanılamadı. Lütfen uygulamanızın çalıştığından emin olun. (Hata: {{error}})',
+        zh: '连接 {{applicationUrl}} 失败。请确保您的应用程序 server 正在运行。(错误: {{error}})',
+        pl: 'Nie udało się połączyć z {{applicationUrl}}. Upewnij się, że Twoja aplikacja jest uruchomiona. (Błąd: {{error}})',
+        id: 'Gagal terhubung ke {{applicationUrl}}. Pastikan aplikasi Anda sedang berjalan. (Error: {{error}})',
+        vi: 'Không thể kết nối với {{applicationUrl}}. Vui lòng đảm bảo ứng dụng của bạn đang chạy. (Lỗi: {{error}})',
+        uk: 'Не вдалося підключитися до {{applicationUrl}}. Переконайтеся, що ваша програма запущена. (Помилка: {{error}})',
+      })
+    ),
+    fetchError: insert(
+      t({
+        ar: 'فشل جلب تطبيق العميل. حالة الاستجابة: {{status}} {{statusText}}',
+        de: 'Abrufen der Client-Anwendung fehlgeschlagen. Antwortstatus: {{status}} {{statusText}}',
+        en: 'Failed to fetch client application. Response status: {{status}} {{statusText}}',
+        'en-GB':
+          'Failed to fetch client application. Response status: {{status}} {{statusText}}',
+        es: 'Error al obtener la aplicação cliente. Estado de la respuesta: {{status}} {{statusText}}',
+        fr: 'Échec de la récupération de l’application client. Statut de la réponse : {{status}} {{statusText}}',
+        hi: 'क्लाइंट एप्लिकेशन प्राप्त करने में विफल। प्रतिक्रिया स्थिति: {{status}} {{statusText}}',
+        it: 'Impossibile recuperare l’applicazione client. Stato della risposta: {{status}} {{statusText}}',
+        ja: 'クライアントアプリケーションの取得に失敗しました。レスポンスステータス: {{status}} {{statusText}}',
+        ko: '클라이언트 애플리케이션을 가져오지 못했습니다. 응답 상태: {{status}} {{statusText}}',
+        pt: 'Falha ao buscar a aplicação cliente. Status da resposta: {{status}} {{statusText}}',
+        ru: 'Не удалось загрузить клиентское приложение. Статус ответа: {{status}} {{statusText}}',
+        tr: 'İstemci uygulaması alınamadı. Yanıt durumu: {{status}} {{statusText}}',
+        zh: '获取客户端应用程序失败。响应状态: {{status}} {{statusText}}',
+        pl: 'Nie udało się pobrać aplikacji klienckiej. Status odpowiedzi: {{status}} {{statusText}}',
+        id: 'Gagal mengambil aplikasi klien. Status respons: {{status}} {{statusText}}',
+        vi: 'Không thể tải ứng dụng khách. Trạng thái phản hồi: {{status}} {{statusText}}',
+        uk: 'Не вдалося завантажити клієнтський додаток. Статус відповіді: {{status}} {{statusText}}',
+      })
+    ),
     title: t({
       ar: 'التطبيق غير متاح',
       de: 'Ihre Anwendung ist nicht zugänglich',
@@ -104,98 +150,100 @@ const applicationNotRunningViewContent = {
       vi: 'Gợi ý:',
       uk: 'Поради:',
     }),
-    tips: t({
-      ar: [
-        'إذا كانت التطبيق يعمل بشكل محلي (مثال: http://localhost:3000)، قم بتشغيل التطبيق وتأكد من أن حقل التكوين `editor.cmsUrl` معين على `https://app.intlayer.org`.',
-        'إذا كانت التطبيق يعمل على خادم مركزي (مثال: https://my-app.com)، تأكد من أن حقل التكوين `editor.cmsUrl` معين على `https://app.intlayer.org`.',
-        "في كل الحالات، تأكد من أن عنوان الموقع المصدر ('Content-Security-Policy') لا يحجب iframe المحرر.",
-      ],
-      de: [
-        'Wenn Ihre Anwendung lokal ausgeführt wird (Beispiel: http://localhost:3000), starten Sie die Anwendung und stellen Sie sicher, dass das Konfigurationsfeld `editor.cmsUrl` auf `https://app.intlayer.org` gesetzt ist.',
-        'Wenn Ihre Anwendung auf einem Remote-Server ausgeführt wird (Beispiel: https://my-app.com), stellen Sie sicher, dass das Konfigurationsfeld `editor.cmsUrl` auf `https://app.intlayer.org` gesetzt ist.',
-        "In allen Fällen, stellen Sie sicher, dass der CSP ('Content-Security-Policy') Header das iframe des Editors nicht blockiert.",
-      ],
-      en: [
-        'If your application is running locally (example: http://localhost:3000), start the application and ensure the `editor.cmsUrl` configuration field is set to `https://app.intlayer.org`.',
-        'If your application is running on a remote server (example: https://my-app.com), ensure the `editor.cmsUrl` configuration field is set to `https://app.intlayer.org`.',
-        "In all cases, ensure the CSP ('Content-Security-Policy') header does not block the editor's iframe.",
-      ],
-      'en-GB': [
-        'If your application is running locally (example: http://localhost:3000), start the application and ensure the `editor.cmsUrl` configuration field is set to `https://app.intlayer.org`.',
-        'If your application is running on a remote server (example: https://my-app.com), ensure the `editor.cmsUrl` configuration field is set to `https://app.intlayer.org`.',
-        "In all cases, ensure the CSP ('Content-Security-Policy') header does not block the editor's iframe.",
-      ],
-      es: [
-        'Si tu aplicación está funcionando localmente (ejemplo: http://localhost:3000), inicia la aplicación y asegúrate de que el campo de configuración `editor.cmsUrl` esté configurado en `https://app.intlayer.org`.',
-        'Si tu aplicación está funcionando en un servidor remoto (ejemplo: https://my-app.com), asegúrate de que el campo de configuración `editor.cmsUrl` esté configurado en `https://app.intlayer.org`.',
-        "En todos los casos, asegúrate de que el encabezado CSP ('Content-Security-Policy') no bloquee el iframe del editor.",
-      ],
-      fr: [
-        'Si votre application est en cours d’exécution localement (exemple: http://localhost:3000), démarrez l’application et assurez-vous que le champ de configuration `editor.cmsUrl` est défini sur `https://app.intlayer.org`.',
-        'Si votre application est en cours d’exécution sur un serveur distant (exemple: https://my-app.com), assurez-vous que le champ de configuration `editor.cmsUrl` est défini sur `https://app.intlayer.org`.',
-        "Dans tous les cas, assurez-vous que l'en-tête CSP ('Content-Security-Policy') ne bloque pas l'iframe de l'éditeur.",
-      ],
-      hi: [
-        'यदि आपका एप्लिकेशन स्थानीय रूप से चल रहा है (उदाहरण: http://localhost:3000) एप्लिकेशन शुरू करें और सुनिश्चित करें कि `editor.cmsUrl` कॉन्फ़िगरेशन फ़ील्ड को `https://app.intlayer.org` पर सेट किया गया है।',
-        'यदि आपका एप्लिकेशन रिमोट सर्वर पर चल रहा है (उदाहरण: https://my-app.com) सुनिश्चित करें कि `editor.cmsUrl` कॉन्फ़िगरेशन फ़ील्ड को `https://app.intlayer.org` पर सेट किया गया है।',
-        "सभी मामलों में, सुनिश्चित करें कि CSP ('Content-Security-Policy') हेडर एडिटर के iframe को ब्लॉक नहीं करता है।",
-      ],
-      it: [
-        'Se la tua applicazione è in esecuzione localmente (esempio: http://localhost:3000), avvia l’applicazione e assicurati che il campo di configurazione `editor.cmsUrl` sia impostato su `https://app.intlayer.org`.',
-        'Se la tua applicazione è in esecuzione su un server remoto (esempio: https://my-app.com), assicurati che il campo di configurazione `editor.cmsUrl` sia impostato su `https://app.intlayer.org`.',
-        "In tutti i casi, assicurati che l'header CSP ('Content-Security-Policy') non blocchi l'iframe dell'editor.",
-      ],
-      ja: [
-        'アプリケーションがローカルで実行されている場合（例: http://localhost:3000）、アプリケーションを起動し、`editor.cmsUrl` 設定フィールドが `https://app.intlayer.org` に設定されていることを確認してください。',
-        'アプリケーションがリモートサーバーで実行されている場合（例: https://my-app.com）、`editor.cmsUrl` 設定フィールドが `https://app.intlayer.org` に設定されていることを確認してください。',
-        "すべての場合において、CSP ('Content-Security-Policy') ヘッダーがエディターの iframe をブロックしないことを確認してください。",
-      ],
-      ko: [
-        '앱이 로컬에서 실행되고 있는 경우 (예: http://localhost:3000) 앱을 시작하고 `editor.cmsUrl` 설정 필드가 `https://app.intlayer.org`로 설정되어 있는지 확인하십시오.',
-        '앱이 리모트 서버에서 실행되고 있는 경우 (예: https://my-app.com) `editor.cmsUrl` 설정 필드가 `https://app.intlayer.org`로 설정되어 있는지 확인하십시오.',
-        "모든 경우에 대해 CSP ('Content-Security-Policy') 헤더가 에디터의 iframe을 차단하지 않는지 확인하십시오.",
-      ],
-      pt: [
-        'Se sua aplicação estiver em execução localmente (exemplo: http://localhost:3000), inicie a aplicação e certifique-se de que o campo de configuração `editor.cmsUrl` está definido como `https://app.intlayer.org`.',
-        'Se sua aplicação estiver em execução em um servidor remoto (exemplo: https://my-app.com), certifique-se de que o campo de configuração `editor.cmsUrl` está definido como `https://app.intlayer.org`.',
-        "Em todos os casos, certifique-se de que o cabeçalho CSP ('Content-Security-Policy') não bloqueie o iframe do editor.",
-      ],
-      ru: [
-        'Если ваше приложение работает локально (например: http://localhost:3000), запустите приложение и убедитесь, что поле конфигурации `editor.cmsUrl` установлено на `https://app.intlayer.org`.',
-        'Если ваше приложение работает на удаленном сервере (например: https://my-app.com), убедитесь, что поле конфигурации `editor.cmsUrl` установлено на `https://app.intlayer.org`.',
-        "В любом случае, убедитесь, что заголовок CSP ('Content-Security-Policy') не блокирует iframe редактора.",
-      ],
-      tr: [
-        'Uygulamanız yerel olarak çalışıyorsa (örnek: http://localhost:3000), uygulamayı başlatın ve `editor.cmsUrl` yapılandırma alanının `https://app.intlayer.org` olarak ayarlandığından emin olun.',
-        'Uygulamanız uzak bir sunucuda çalışıyorsa (örnek: https://my-app.com), `editor.cmsUrl` yapılandırma alanının `https://app.intlayer.org` olarak ayarlandığından emin olun.',
-        "Her durumda, CSP ('Content-Security-Policy') başlığının editörün iframe'ini engellemediğinden emin olun.",
-      ],
-      zh: [
-        '如果您的应用程序在本地运行（例如：http://localhost:3000），请启动应用程序并确保 `editor.cmsUrl` 配置字段设置为 `https://app.intlayer.org`。',
-        '如果您的应用程序在远程服务器上运行（例如：https://my-app.com），请确保 `editor.cmsUrl` 配置字段设置为 `https://app.intlayer.org`。',
-        "在所有情况下，确保 CSP ('Content-Security-Policy') 头不阻止编辑器的 iframe。",
-      ],
-      pl: [
-        'Jeśli twoja aplikacja działa lokalnie (np.: http://localhost:3000), uruchom aplikację i upewnij się, że pole konfiguracji `editor.cmsUrl` jest ustawione na `https://app.intlayer.org`.',
-        'Jeśli twoja aplikacja działa na zdalnym serwerze (np.: https://my-app.com), upewnij się, że pole konfiguracji `editor.cmsUrl` jest ustawione na `https://app.intlayer.org`.',
-        "W każdym przypadku upewnij się, że nagłówek CSP ('Content-Security-Policy') nie blokuje iframe edytora.",
-      ],
-      id: [
-        'Jika aplikasi Anda berjalan secara lokal (contoh: http://localhost:3000), jalankan aplikasinya dan pastikan field konfigurasi `editor.cmsUrl` diatur ke `https://app.intlayer.org`.',
-        'Jika aplikasi Anda berjalan di server jarak jauh (contoh: https://my-app.com), pastikan field konfigurasi `editor.cmsUrl` diatur ke `https://app.intlayer.org`.',
-        "Dalam semua kasus, pastikan header CSP ('Content-Security-Policy') tidak memblokir iframe editor.",
-      ],
-      vi: [
-        'Nếu ứng dụng của bạn đang chạy cục bộ (ví dụ: http://localhost:3000), hãy khởi động ứng dụng và đảm bảo trường cấu hình `editor.cmsUrl` được đặt thành `https://app.intlayer.org`.',
-        'Nếu ứng dụng của bạn đang chạy trên máy chủ từ xa (ví dụ: https://my-app.com), đảm bảo trường cấu hình `editor.cmsUrl` được đặt thành `https://app.intlayer.org`.',
-        "Trong mọi trường hợp, đảm bảo header CSP ('Content-Security-Policy') không chặn iframe của editor.",
-      ],
-      uk: [
-        'Якщо ваш додаток працює локально (наприклад: http://localhost:3000), запустіть його та переконайтеся, що поле конфігурації `editor.cmsUrl` встановлено на `https://app.intlayer.org`.',
-        'Якщо ваш додаток працює на віддаленому сервері (наприклад: https://my-app.com), переконайтеся, що поле конфігурації `editor.cmsUrl` встановлено на `https://app.intlayer.org`.',
-        "У всіх випадках переконайтеся, що заголовок CSP ('Content-Security-Policy') не блокує iframe редактора.",
-      ],
-    }),
+    tips: insert(
+      t({
+        en: [
+          'Ensure the `editor.cmsUrl` configuration field is set to `{{editorUrl}}`.',
+          'Ensure the `editor.applicationUrl` configuration field is set to `{{applicationUrl}}`.',
+          "Ensure the CSP ('Content-Security-Policy') header does not block the editor's iframe (Required: `frame-ancestors` and `connect-src`). Check the console (F12) for more details.",
+        ],
+        'en-GB': [
+          'Ensure the `editor.cmsUrl` configuration field is set to `{{editorUrl}}`.',
+          'Ensure the `editor.applicationUrl` configuration field is set to `{{applicationUrl}}`.',
+          "Ensure the CSP ('Content-Security-Policy') header does not block the editor's iframe (Required: `frame-ancestors` and `connect-src`). Check the console (F12) for more details.",
+        ],
+        fr: [
+          'Assurez-vous que le champ de configuration `editor.cmsUrl` est défini sur `{{editorUrl}}`.',
+          'Assurez-vous que le champ de configuration `editor.applicationUrl` est défini sur `{{applicationUrl}}`.',
+          "Assurez-vous que l'en-tête CSP ('Content-Security-Policy') ne bloque pas l'iframe de l'éditeur (Requis : `frame-ancestors` et `connect-src`). Vérifiez la console (F12) pour plus de détails.",
+        ],
+        es: [
+          'Asegúrese de que el campo de configuración `editor.cmsUrl` esté establecido en `{{editorUrl}}`.',
+          'Asegúrese de que el campo de configuración `editor.applicationUrl` esté establecido en `{{applicationUrl}}`.',
+          "Asegúrese de que el encabezado CSP ('Content-Security-Policy') no bloquee el iframe del editor (Requerido: `frame-ancestors` y `connect-src`). Verifique la consola (F12) para más detalles.",
+        ],
+        de: [
+          'Stellen Sie sicher, dass das Konfigurationsfeld `editor.cmsUrl` auf `{{editorUrl}}` gesetzt ist.',
+          'Stellen Sie sicher, dass das Konfigurationsfeld `editor.applicationUrl` auf `{{applicationUrl}}` gesetzt ist.',
+          "Stellen Sie sicher, dass der CSP-Header ('Content-Security-Policy') das Iframe des Editors nicht blockiert (Erforderlich: `frame-ancestors` und `connect-src`). Überprüfen Sie die Konsole (F12) für weitere Details.",
+        ],
+        it: [
+          'Assicurati che il campo di configurazione `editor.cmsUrl` sia impostato su `{{editorUrl}}`.',
+          'Assicurati che il campo di configurazione `editor.applicationUrl` sia impostato su `{{applicationUrl}}`.',
+          "Assicurati che l'intestazione CSP ('Content-Security-Policy') non blocchi l'iframe dell'editor (Richiesto: `frame-ancestors` e `connect-src`). Controlla la console (F12) per maggiori dettagli.",
+        ],
+        ja: [
+          '`editor.cmsUrl`設定フィールドが`{{editorUrl}}`に設定されていることを確認してください。',
+          '`editor.applicationUrl`設定フィールドが`{{applicationUrl}}`に設定されていることを確認してください。',
+          "CSP（'Content-Security-Policy'）ヘッダーがエディターのiframeをブロックしていないことを確認してください（必須：`frame-ancestors`および`connect-src`）。詳細はコンソール（F12）を確認してください。",
+        ],
+        ko: [
+          '`editor.cmsUrl` 설정 필드가 `{{editorUrl}}`로 설정되어 있는지 확인하세요.',
+          '`editor.applicationUrl` 설정 필드가 `{{applicationUrl}}`로 설정되어 있는지 확인하세요.',
+          "CSP('Content-Security-Policy') 헤더가 에디터의 iframe을 차단하지 않는지 확인하세요(필수: `frame-ancestors` 및 `connect-src`). 자세한 내용은 콘솔(F12)을 확인하세요.",
+        ],
+        zh: [
+          '确保 `editor.cmsUrl` 配置字段设置为 `{{editorUrl}}`。',
+          '确保 `editor.applicationUrl` 配置字段设置为 `{{applicationUrl}}`。',
+          "确保 CSP（'Content-Security-Policy'）标头不会阻止编辑器的 iframe（必需：`frame-ancestors` 和 `connect-src`）。查看控制台（F12）以获取更多详细信息。",
+        ],
+        pt: [
+          'Certifique-se de que o campo de configuração `editor.cmsUrl` esteja definido como `{{editorUrl}}`.',
+          'Certifique-se de que o campo de configuração `editor.applicationUrl` esteja definido como `{{applicationUrl}}`.',
+          "Certifique-se de que o cabeçalho CSP ('Content-Security-Policy') não bloqueie o iframe do editor (Obrigatório: `frame-ancestors` e `connect-src`). Verifique a console (F12) para mais detalhes.",
+        ],
+        ru: [
+          'Убедитесь, что поле конфигурации `editor.cmsUrl` установлено на `{{editorUrl}}`.',
+          'Убедитесь, что поле конфигурации `editor.applicationUrl` установлено на `{{applicationUrl}}`.',
+          "Убедитесь, что заголовок CSP ('Content-Security-Policy') не блокирует iframe редактора (Требуется: `frame-ancestors` и `connect-src`). Проверьте консоль (F12) для получения дополнительных сведений.",
+        ],
+        ar: [
+          'تأكد من تعيين حقل التكوين `editor.cmsUrl` إلى `{{editorUrl}}`.',
+          'تأكد من تعيين حقل التكوين `editor.applicationUrl` إلى `{{applicationUrl}}`.',
+          "تأكد من أن ترويسة CSP ('Content-Security-Policy') لا تحظر إطار iframe الخاص بالمحرر (مطلوب: `frame-ancestors` و `connect-src`). تحقق من وحدة التحكم (F12) لمزيد من التفاصيل.",
+        ],
+        hi: [
+          'सुनिश्चित करें कि `editor.cmsUrl` कॉन्फ़िगरेशन फ़ील्ड `{{editorUrl}}` पर सेट है।',
+          'सुनिश्चित करें कि `editor.applicationUrl` कॉन्फ़िगरेशन फ़ील्ड `{{applicationUrl}}` पर सेट है।',
+          "सुनिश्चित करें कि CSP ('Content-Security-Policy') हेडर संपादक के iframe को ब्लॉक नहीं करता है (आवश्यक: `frame-ancestors` और `connect-src`)। अधिक जानकारी के लिए कंसोल (F12) की जांच करें।",
+        ],
+        tr: [
+          '`editor.cmsUrl` yapılandırma alanının `{{editorUrl}}` olarak ayarlandığından emin olun.',
+          '`editor.applicationUrl` yapılandırma alanının `{{applicationUrl}}` olarak ayarlandığından emin olun.',
+          "CSP ('Content-Security-Policy') başlığının düzenleyicinin iframe'ini engellemediğinden emin olun (Gerekli: `frame-ancestors` ve `connect-src`). Daha fazla detay için konsolu (F12) kontrol edin.",
+        ],
+        pl: [
+          'Upewnij się, że pole konfiguracji `editor.cmsUrl` jest ustawione na `{{editorUrl}}`.',
+          'Upewnij się, że pole konfiguracji `editor.applicationUrl` jest ustawione na `{{applicationUrl}}`.',
+          "Upewnij się, że nagłówek CSP ('Content-Security-Policy') nie blokuje ramki iframe edytora (Wymagane: `frame-ancestors` i `connect-src`). Sprawdź konsolę (F12), aby uzyskać więcej szczegółów.",
+        ],
+        id: [
+          'Pastikan bidang konfigurasi `editor.cmsUrl` diatur ke `{{editorUrl}}`.',
+          'Pastikan bidang konfigurasi `editor.applicationUrl` diatur ke `{{applicationUrl}}`.',
+          "Pastikan header CSP ('Content-Security-Policy') tidak memblokir iframe editor (Diperlukan: `frame-ancestors` dan `connect-src`). Periksa konsol (F12) untuk detail lebih lanjut.",
+        ],
+        vi: [
+          'Đảm bảo trường cấu hình `editor.cmsUrl` được đặt thành `{{editorUrl}}`.',
+          'Đảm bảo trường cấu hình `editor.applicationUrl` được đặt thành `{{applicationUrl}}`.',
+          "Đảm bảo tiêu đề CSP ('Content-Security-Policy') không chặn iframe của trình chỉnh sửa (Bắt buộc: `frame-ancestors` và `connect-src`). Kiểm tra bảng điều khiển (F12) để biết thêm chi tiết.",
+        ],
+        uk: [
+          'Переконайтеся, що поле конфігурації `editor.cmsUrl` встановлено на `{{editorUrl}}`.',
+          'Переконайтеся, що поле конфігурації `editor.applicationUrl` встановлено на `{{applicationUrl}}`.',
+          "Переконайтеся, що заголовок CSP ('Content-Security-Policy') не блокує iframe редактора (Потрібно: `frame-ancestors` та `connect-src`). Перевірте консоль (F12) для отримання додаткової інформації.",
+        ],
+      })
+    ),
     documentationLink: {
       label: t({
         en: 'Click to go to the CMS documentation',

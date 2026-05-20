@@ -5,14 +5,20 @@ import { Website_Doc_IntlayerCMS_Path } from '@intlayer/design-system/routes';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
 
+export type ApplicationNotRunningError =
+  | { type: 'fetch'; status: number; statusText: string }
+  | { type: 'connect'; message: string };
+
 type ApplicationNotRunningViewProps = {
   applicationUrl: string | undefined;
   editorUrl: string | undefined;
+  errors?: ApplicationNotRunningError[];
 };
 
 export const ApplicationNotRunningView: FC<ApplicationNotRunningViewProps> = ({
   applicationUrl,
   editorUrl,
+  errors,
 }) => {
   const {
     title,
@@ -22,6 +28,8 @@ export const ApplicationNotRunningView: FC<ApplicationNotRunningViewProps> = ({
     tipsTitle,
     tips,
     documentationLink,
+    connectionError,
+    fetchError,
   } = useIntlayer('application-not-running-view');
 
   return (
@@ -51,6 +59,40 @@ export const ApplicationNotRunningView: FC<ApplicationNotRunningViewProps> = ({
         </span>
         <p className="mb-4 block text-neutral">{description}</p>
 
+        {(errors?.length ?? 0) > 0 && (
+          <Container
+            border
+            borderColor="error"
+            padding="md"
+            background="none"
+            className="mb-6 flex flex-col gap-1 pb-3 font-mono text-neutral text-xs"
+          >
+            {errors.map((error, index) => {
+              if (error.type === 'connect') {
+                return (
+                  <p key={index}>
+                    {connectionError({
+                      applicationUrl: applicationUrl ?? '',
+                      error: error.message,
+                    })}
+                  </p>
+                );
+              }
+              if (error.type === 'fetch') {
+                return (
+                  <p key={index}>
+                    {fetchError({
+                      status: String(error.status),
+                      statusText: error.statusText,
+                    })}
+                  </p>
+                );
+              }
+              return null;
+            })}
+          </Container>
+        )}
+
         <div className="mb-4">
           <h4 className="mb-2 font-semibold">{tipsTitle}</h4>
           <ul className="list-inside list-disc space-y-2 pl-3">
@@ -60,6 +102,11 @@ export const ApplicationNotRunningView: FC<ApplicationNotRunningViewProps> = ({
                   editorUrl: (
                     <span className="font-bold">
                       {editorUrl ?? process.env.NEXT_PUBLIC_URL}
+                    </span>
+                  ),
+                  applicationUrl: (
+                    <span className="font-bold">
+                      {applicationUrl ?? 'http://localhost:3000'}
                     </span>
                   ),
                 })}

@@ -26,28 +26,57 @@ export const EditorProvider: FC<PropsWithChildren<EditorProviderProps>> = ({
   const applicationURL = intlayerConfig?.editor?.applicationURL;
 
   // Health check for the application URL using react-query
-  const { data: isApplicationRunning, isPending } = useQuery({
+  const { data, isPending } = useQuery({
     queryKey: ['application-health', applicationURL],
     queryFn: async () => {
-      if (!applicationURL) return false;
+      if (!applicationURL) {
+        return {
+          isRunning: false,
+          error: {
+            type: 'connect' as const,
+            message: 'No application URL configured',
+          },
+        };
+      }
       try {
         const response = await fetch(applicationURL, {
           method: 'HEAD', // Use HEAD to avoid downloading the full page
         });
-        return response.ok;
+        if (!response.ok) {
+          return {
+            isRunning: false,
+            error: {
+              type: 'fetch' as const,
+              status: response.status,
+              statusText: response.statusText,
+            },
+          };
+        }
+        return { isRunning: true, error: undefined };
       } catch (error) {
         console.warn(
           'Application URL is not responding:',
           applicationURL,
           error
         );
-        return false;
+        const errorMessage =
+          error instanceof Error ? error.message : String(error);
+        return {
+          isRunning: false,
+          error: {
+            type: 'connect' as const,
+            message: errorMessage,
+          },
+        };
       }
     },
     enabled: Boolean(intlayerConfig && applicationURL),
     staleTime: 30 * 1000, // Cache for 30 seconds
     retry: 1,
   });
+
+  const isApplicationRunning = data?.isRunning;
+  const connectionError = data?.error;
 
   if (!intlayerConfig || !applicationURL) {
     return <NoApplicationURLView />;
@@ -64,6 +93,7 @@ export const EditorProvider: FC<PropsWithChildren<EditorProviderProps>> = ({
       <ApplicationNotRunningView
         applicationUrl={applicationURL}
         editorUrl={intlayerConfig.editor?.cmsURL}
+        errors={connectionError ? [connectionError] : undefined}
       />
     );
   }
