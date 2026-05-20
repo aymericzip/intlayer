@@ -32,9 +32,25 @@ export type BrowserProps = {
   domainRestriction?: string;
 } & HTMLAttributes<HTMLIFrameElement>;
 
+const UrlPath = ({ url }: { url: string }) => {
+  const parts = getUrlPath(url).split('/').filter(Boolean);
+
+  if (parts.length === 0) return <span>/</span>;
+
+  return parts.flatMap((part, index, array) => [
+    <span key={`part-${index}`}>{part}</span>,
+    index < array.length - 1 && (
+      <span key={`sep-${index}`} className="mx-2 text-neutral">
+        /
+      </span>
+    ),
+  ]);
+};
+
 const getUrlPath = (url: string) => {
   try {
     const { pathname, search, hash } = new URL(url);
+
     return `${pathname}${search}${hash}` || '/';
   } catch {
     return url;
@@ -364,7 +380,7 @@ export const Browser = ({
           )}
         >
           <label htmlFor="browser-url" className="sr-only">
-            {content.urlLabel.value}
+            {content.urlLabel}
           </label>
           <Input
             id="browser-url"
@@ -449,14 +465,14 @@ export const Browser = ({
                 >
                   {sitemapLoading ? (
                     <li className="px-3 py-4 text-center text-neutral text-xs">
-                      {content.sitemapLoading.value}
+                      {content.sitemapLoading}
                     </li>
                   ) : sitemapError ||
                     (!sitemapLoading && filteredSitemapUrls.length === 0) ? (
                     <li className="px-3 py-4 text-center text-neutral text-xs">
                       {sitemapError
-                        ? content.sitemapError.value
-                        : content.sitemapEmpty.value}
+                        ? content.sitemapError
+                        : content.sitemapEmpty}
                     </li>
                   ) : (
                     filteredSitemapUrls.map((url) => (
@@ -473,7 +489,7 @@ export const Browser = ({
                           }}
                         >
                           <span className="max-w-64 truncate text-left text-base">
-                            {getUrlPath(url)}
+                            <UrlPath url={url} />
                           </span>
                         </Button>
                       </li>
