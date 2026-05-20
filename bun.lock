@@ -109,7 +109,7 @@
     },
     "apps/backend": {
       "name": "@intlayer/backend",
-      "version": "8.10.0",
+      "version": "8.10.1",
       "dependencies": {
         "@aws-sdk/client-s3": "^3.1050.0",
         "@better-auth/core": "1.6.11",
@@ -225,7 +225,7 @@
     },
     "apps/website": {
       "name": "website",
-      "version": "8.10.0",
+      "version": "8.10.1",
       "dependencies": {
         "@intlayer/api": "workspace:*",
         "@intlayer/config": "workspace:*",
@@ -991,7 +991,7 @@
     },
     "packages/@intlayer/api": {
       "name": "@intlayer/api",
-      "version": "8.10.0",
+      "version": "8.10.1",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/types": "workspace:*",
@@ -1118,7 +1118,7 @@
     },
     "packages/@intlayer/config": {
       "name": "@intlayer/config",
-      "version": "8.10.0",
+      "version": "8.10.1",
       "dependencies": {
         "@intlayer/types": "workspace:*",
         "defu": "6.1.7",
@@ -1146,7 +1146,7 @@
     },
     "packages/@intlayer/core": {
       "name": "@intlayer/core",
-      "version": "8.10.0",
+      "version": "8.10.1",
       "dependencies": {
         "@intlayer/api": "workspace:*",
         "@intlayer/config": "workspace:*",
@@ -1168,7 +1168,7 @@
     },
     "packages/@intlayer/design-system": {
       "name": "@intlayer/design-system",
-      "version": "8.10.0",
+      "version": "8.10.1",
       "dependencies": {
         "@better-auth/passkey": "1.6.11",
         "@better-auth/sso": "1.6.11",
@@ -1265,7 +1265,7 @@
     },
     "packages/@intlayer/dictionaries-entry": {
       "name": "@intlayer/dictionaries-entry",
-      "version": "8.10.0",
+      "version": "8.10.1",
       "dependencies": {
         "@intlayer/config": "workspace:*",
       },
@@ -1301,7 +1301,7 @@
     },
     "packages/@intlayer/editor": {
       "name": "@intlayer/editor",
-      "version": "8.10.0",
+      "version": "8.10.1",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -1321,7 +1321,7 @@
     },
     "packages/@intlayer/editor-react": {
       "name": "@intlayer/editor-react",
-      "version": "8.10.0",
+      "version": "8.10.1",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -1454,7 +1454,7 @@
     },
     "packages/@intlayer/types": {
       "name": "@intlayer/types",
-      "version": "8.10.0",
+      "version": "8.10.1",
       "devDependencies": {
         "@types/node": "25.9.1",
         "@utils/ts-config": "workspace:*",
@@ -1469,7 +1469,7 @@
     },
     "packages/@intlayer/unmerged-dictionaries-entry": {
       "name": "@intlayer/unmerged-dictionaries-entry",
-      "version": "8.10.0",
+      "version": "8.10.1",
       "dependencies": {
         "@intlayer/config": "workspace:*",
       },
@@ -1705,7 +1705,7 @@
     },
     "packages/intlayer": {
       "name": "intlayer",
-      "version": "8.10.0",
+      "version": "8.10.1",
       "bin": {
         "intlayer": "./dist/cjs/cli/script.cjs",
       },
@@ -1748,7 +1748,7 @@
     },
     "packages/intlayer-editor": {
       "name": "intlayer-editor",
-      "version": "8.10.0",
+      "version": "8.10.1",
       "bin": {
         "intlayer-editor": "./bin/intlayer-editor.mjs",
       },
