@@ -177,46 +177,15 @@ export const trimLeadingWhitespaceOutsideFences = (
   if (!whitespace) return text;
 
   const lines = text.split('\n');
-  let inFence = false;
-  let fenceToken: string | null = null;
 
-  const isFenceLine = (line: string): RegExpMatchArray | null =>
-    line.match(/^\s*(`{3,}|~{3,})/);
-
-  const maybeToggleFence = (line: string): void => {
-    const m = isFenceLine(line);
-
-    if (!m) return;
-
-    const token = m[1];
-
-    if (!inFence) {
-      inFence = true;
-      fenceToken = token;
-    } else if (fenceToken && line.includes(fenceToken)) {
-      inFence = false;
-      fenceToken = null;
-    }
-  };
-
-  const out = lines.map((line) => {
-    const fenceMatch = isFenceLine(line);
-    if (fenceMatch) {
-      const trimmedFenceLine = line.startsWith(whitespace)
-        ? line.slice(whitespace.length)
-        : line;
-      maybeToggleFence(line);
-      return trimmedFenceLine;
-    }
-
-    if (inFence) {
-      return line;
-    }
-
-    return line.startsWith(whitespace) ? line.slice(whitespace.length) : line;
-  });
-
-  const result = out.join('\n');
+  // Strip the base structural indentation from every line uniformly.
+  // Lines that don't start with the whitespace prefix are left as-is,
+  // which correctly preserves relative indentation inside code fences.
+  const result = lines
+    .map((line) =>
+      line.startsWith(whitespace) ? line.slice(whitespace.length) : line
+    )
+    .join('\n');
 
   const duration = performance.now() - start;
   if (duration > DURATION_DELAY_TRIGGER) {

@@ -47,6 +47,7 @@ You can declare Markdown content using the `md` function or simply as a string (
 
 <Tabs>
   <Tab label=".content.md" value=".content.md">
+  
     Since version `8.10.0`, you can declare Markdown content directly in `.content.md` files. Intlayer will
     automatically detect and parse the Markdown content.
 

@@ -127,4 +127,30 @@ describe('Markdown Core Compiler', () => {
       '<h4 id="heading" key="1">Heading</h4>'
     );
   });
+
+  it('should render fenced code blocks inside a custom component whose content starts with a soft-wrapped paragraph', () => {
+    const markdown = `<Tab label="test" value="test">
+    Since version \`1.0.0\`, you can declare content directly. Intlayer will
+    automatically detect and parse the content.
+
+    \`\`\`md fileName="example.en.content.md"
+    # My content
+
+    Here is an example
+    \`\`\`
+
+    The \`locale\` field is optional.
+</Tab>`;
+    const result = compile(markdown, ctx) as any;
+    const html = result.toString();
+    // Fenced block must render as <pre><code> not as inline <code>
+    expect(html).toContain('<pre');
+    expect(html).toContain('<code');
+    // The language class should be set (block code path)
+    expect(html).toContain('lang-md');
+    // The raw language identifier must NOT appear as text content of an inline code element
+    expect(html).not.toContain('>md fileName=');
+    // Code content must not carry the 4-space structural indentation
+    expect(html).not.toContain('    # My content');
+  });
 });

@@ -1058,7 +1058,8 @@ export const compile = (
     tag: HTMLTag,
     str: string
   ): Record<string, any> | null => {
-    if (!str || !str.trim()) return null;
+    if (!str?.trim()) return null;
+
     const attributes = str.match(ATTR_EXTRACTOR_R);
 
     if (!attributes) return null;
@@ -1109,6 +1110,10 @@ export const compile = (
   const containsBlockSyntax = (input: string): boolean => {
     const cleaned = input.replace(TRIM_STARTING_NEWLINES, '');
     const slice = cleaned.length > 2048 ? cleaned.slice(0, 2048) : cleaned;
+
+    // A blank line unambiguously separates block-level elements
+    if (slice.indexOf('\n\n') !== -1) return true;
+
     const syntaxes = options.disableParsingRawHTML
       ? nonParagraphBlockSyntaxes
       : [
