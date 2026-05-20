@@ -224,7 +224,7 @@ Tento přístup vám umožňuje:
 
 Hvězdičky na GitHubu jsou silným ukazatelem popularity projektu, důvěry komunity a dlouhodobé relevance. Přestože nejsou přímým měřítkem technické kvality, odrážejí, kolik vývojářů považuje projekt za užitečný, sleduje jeho pokrok a pravděpodobně jej přijme. Pro odhad hodnoty projektu pomáhají hvězdičky porovnat zájem o alternativy a poskytují náhled na růst ekosystému.
 
-[![Star History Chart](https://api.star-history.com/svg?repos=formatjs/formatjs&repos=i18next/react-i18next&repos=i18next/i18next&repos=i18next/next-i18next&repos=lingui/js-lingui&repos=amannn/next-intl&repos=intlify/vue-i18n&repo=opral/paraglide-js&repos=aymericzip/intlayer&repos=opral/inlang&type=Date)](https://www.star-history.com/#formatjs/formatjs&i18next/react-i18next&i18next/i18next&i18next/next-i18next&lingui/js-lingui&amannn/next-intl&intlify/vue-i18n&opral/paraglide-js&aymericzip/intlayer&codingcommons/typesafe-i18n)
+[![Star History Chart](https://api.star-history.com/chart?repos=aymericzip/intlayer%2Cformatjs/formatjs%2Ci18next/react-i18next%2Ci18next/i18next%2Ci18next/next-i18next%2Clingui/js-lingui%2Camannn/next-intl%2Cintlify/vue-i18n%2Ccodingcommons/typesafe-i18n%2Copral/paraglide-js&type=date&legend=top-left)](https://www.star-history.com/#aymericzip/intlayer&formatjs/formatjs&i18next/react-i18next&i18next/i18next&i18next/next-i18next&lingui/js-lingui&amannn/next-intl&intlify/vue-i18n&codingcommons/typesafe-i18n&opral/paraglide-js)
 
 ---
 

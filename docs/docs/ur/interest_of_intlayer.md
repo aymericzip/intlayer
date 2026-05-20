@@ -224,7 +224,7 @@ export const ComponentExample = () => {
 
 GitHub ستارے کسی پروجیکٹ کی مقبولیت، کمیونٹی کے اعتماد اور طویل مدتی مطابقت کا ایک مضبوط اشارہ ہیں۔ اگرچہ یہ تکنیکی معیار کی براہ راست پیمائش نہیں ہے، وہ اس بات کی عکاسی کرتے ہیں کہ کتنے ڈویلپرز پروجیکٹ کو مفید پاتے ہیں، اس کی پیشرفت کی پیروی کرتے ہیں، اور اسے اپنانے کا امکان رکھتے ہیں۔ کسی پروجیکٹ کی قدر کا اندازہ لگانے کے لیے، ستارے متبادلات کے درمیان کشش کا موازنہ کرنے میں مدد کرتے ہیں اور ماحولیاتی نظام کی ترقی کے بارے میں بصیرت فراہم کرتے ہیں۔
 
-[![Star History Chart](https://api.star-history.com/svg?repos=formatjs/formatjs&repos=i18next/react-i18next&repos=i18next/i18next&repos=i18next/next-i18next&repos=lingui/js-lingui&repos=amannn/next-intl&repos=intlify/vue-i18n&repo=opral/paraglide-js&repos=aymericzip/intlayer&repos=opral/inlang&type=Date)](https://api.star-history.com/chart?repos=formatjs/formatjs%2Ci18next/react-i18next%2Ci18next/i18next%2Ci18next/next-i18next%2Clingui/js-lingui%2Amannn/next-intl%2Cintlify/vue-i18n%2Caymericzip/intlayer%2Copral/inlang%2Ccodingcommons/typesafe-i18nopral/inlang&type=date&legend=top-lefttype=dateopral/inlang&type=date&legend=top-leftlegend=top-left)
+[![Star History Chart](https://api.star-history.com/chart?repos=aymericzip/intlayer%2Cformatjs/formatjs%2Ci18next/react-i18next%2Ci18next/i18next%2Ci18next/next-i18next%2Clingui/js-lingui%2Camannn/next-intl%2Cintlify/vue-i18n%2Ccodingcommons/typesafe-i18n%2Copral/paraglide-js&type=date&legend=top-left)](https://www.star-history.com/#aymericzip/intlayer&formatjs/formatjs&i18next/react-i18next&i18next/i18next&i18next/next-i18next&lingui/js-lingui&amannn/next-intl&intlify/vue-i18n&codingcommons/typesafe-i18n&opral/paraglide-js)
 
 ---
 
