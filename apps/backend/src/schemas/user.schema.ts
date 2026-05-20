@@ -2,9 +2,9 @@ import {
   NAMES_MAX_LENGTH,
   NAMES_MIN_LENGTH,
 } from '@utils/validation/validateUser';
-import { Schema } from 'mongoose';
+import { model, Schema } from 'mongoose';
 import validator from 'validator';
-import type { UserSchema } from '@/types/user.types';
+import type { UserModelType, UserSchema } from '@/types/user.types';
 
 export const userSchema = new Schema<UserSchema>(
   {
@@ -98,3 +98,5 @@ export const userSchema = new Schema<UserSchema>(
     },
   }
 );
+
+export const UserModel = model<UserSchema, UserModelType>('user', userSchema);

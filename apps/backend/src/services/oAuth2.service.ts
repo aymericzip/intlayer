@@ -1,7 +1,7 @@
 import { randomBytes } from 'node:crypto';
-import { OAuth2AccessTokenModel } from '@models/oAuth2.model';
-import { ProjectModel } from '@models/project.model';
 import type { Callback, Client } from '@node-oauth/oauth2-server';
+import { OAuth2AccessTokenModel } from '@schemas/oAuth2.schema';
+import { ProjectModel } from '@schemas/project.schema';
 import { ensureMongoDocumentToObject } from '@utils/ensureMongoDocumentToObject';
 import { GenericError } from '@utils/errors';
 import { mapOrganizationToAPI } from '@utils/mapper/organization';

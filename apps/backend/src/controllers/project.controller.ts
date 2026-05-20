@@ -1,5 +1,5 @@
 import { logger } from '@logger';
-import { SessionModel } from '@models/session.model';
+import { SessionModel } from '@schemas/session.schema';
 import * as ciService from '@services/ci.service';
 import { createDemoDictionaries } from '@services/dictionary.service';
 import { refreshProjectScreenshotIfChanged } from '@services/project/projectScreenshot.service';
@@ -586,7 +586,11 @@ export const pushProjectConfiguration = async (
     const projectObject = await projectService.getProjectById(project.id);
 
     // Preserve existing API key if not provided in the update
-    if (projectConfiguration.ai && projectObject.configuration?.ai?.apiKey) {
+    if (
+      projectConfiguration.ai &&
+      !projectConfiguration.ai.apiKey &&
+      projectObject.configuration?.ai?.apiKey
+    ) {
       projectConfiguration.ai.apiKey = projectObject.configuration.ai.apiKey;
     }
 

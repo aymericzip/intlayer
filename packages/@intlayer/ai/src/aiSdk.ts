@@ -200,26 +200,33 @@ export type ChatCompletionRequestMessage = {
 
 type AccessType = 'apiKey' | 'registered_user' | 'premium_user' | 'public';
 
+const isMaskedKey = (key?: string): boolean => !!key?.includes('*');
+
 const getAPIKey = (
   accessType: AccessType[],
   aiOptions?: AIOptions,
   isAuthenticated: boolean = false
 ) => {
+  const apiKey =
+    aiOptions?.apiKey && !isMaskedKey(aiOptions.apiKey)
+      ? aiOptions.apiKey
+      : undefined;
+
   if (accessType.includes('public')) {
-    return aiOptions?.apiKey ?? DEFAULT_API_KEY;
+    return apiKey ?? DEFAULT_API_KEY;
   }
 
-  if (accessType.includes('apiKey') && aiOptions?.apiKey) {
-    return aiOptions?.apiKey;
+  if (accessType.includes('apiKey') && apiKey) {
+    return apiKey;
   }
 
   if (accessType.includes('registered_user') && isAuthenticated) {
-    return aiOptions?.apiKey ?? DEFAULT_API_KEY;
+    return apiKey ?? DEFAULT_API_KEY;
   }
 
   // TODO: Implement premium user access
   if (accessType.includes('premium_user') && isAuthenticated) {
-    return aiOptions?.apiKey ?? DEFAULT_API_KEY;
+    return apiKey ?? DEFAULT_API_KEY;
   }
 
   return undefined;
@@ -722,12 +729,24 @@ export const getAIConfig = async (
     accessType = ['registered_user'],
   } = options;
 
-  const aiOptions = {
-    provider: DEFAULT_PROVIDER,
-    ...defaultOptions,
-    ...projectOptions,
-    ...userOptions,
-  } as AIOptions;
+  const mergeWithoutUndefined = (...sources: (AIOptions | undefined)[]) => {
+    const result: Record<string, unknown> = { provider: DEFAULT_PROVIDER };
+    for (const source of sources) {
+      if (!source) continue;
+      for (const [key, value] of Object.entries(source)) {
+        if (value === undefined) continue;
+        if (key === 'apiKey' && isMaskedKey(value as string)) continue;
+        result[key] = value;
+      }
+    }
+    return result;
+  };
+
+  const aiOptions = mergeWithoutUndefined(
+    defaultOptions,
+    projectOptions,
+    userOptions
+  ) as AIOptions;
 
   const apiKey = getAPIKey(accessType, aiOptions, isAuthenticated);
 

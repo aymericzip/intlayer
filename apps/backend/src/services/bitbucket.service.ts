@@ -1,6 +1,6 @@
 import { configurationFilesCandidates } from '@intlayer/config/node';
 import { logger } from '@logger';
-import { AccountModel } from '@models/account.model';
+import { AccountModel } from '@schemas/account.schema';
 
 const BITBUCKET_API_URL = 'https://api.bitbucket.org/2.0';
 const BITBUCKET_AUTH_URL = 'https://bitbucket.org/site/oauth2';

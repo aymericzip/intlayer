@@ -255,13 +255,21 @@ export const ConfigEditionForm: FC<ConfigEditionFormProps> = ({
             disabled={!isProjectAdmin}
           />
 
-          <Form.Input
+          <Form.InputPassword
             name="aiApiKey"
-            type="password"
             autoComplete="off"
+            className="w-auto"
             label={aiSection.apiKeyInput.label.value}
             placeholder={aiSection.apiKeyInput.placeholder.value}
-            description={aiSection.apiKeyInput.description.value}
+            description={
+              <div>
+                <p>{aiSection.apiKeyInput.description}</p>
+                <p>{aiSection.apiKeyInput.currentKey}:</p>
+                <p className="my-2 flex overflow-x-scroll text-nowrap rounded-xl bg-text/10 p-2 pb-4">
+                  {projectConfig?.ai?.apiKey}
+                </p>
+              </div>
+            }
             disabled={!isProjectAdmin}
           />
 

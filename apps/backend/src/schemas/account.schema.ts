@@ -1,5 +1,5 @@
-import { Schema } from 'mongoose';
-import type { AccountSchema } from '@/types/account.types';
+import { model, Schema } from 'mongoose';
+import type { AccountModelType, AccountSchema } from '@/types/account.types';
 
 export const accountSchema = new Schema<AccountSchema>(
   {
@@ -75,4 +75,9 @@ export const accountSchema = new Schema<AccountSchema>(
       },
     },
   }
+);
+
+export const AccountModel = model<AccountSchema, AccountModelType>(
+  'account',
+  accountSchema
 );

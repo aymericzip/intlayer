@@ -1,8 +1,8 @@
 import { configurationFilesCandidates } from '@intlayer/config/node';
 import { logger } from '@logger';
-import { AccountModel } from '@models/account.model';
 import type { RestEndpointMethodTypes } from '@octokit/rest';
 import { Octokit } from '@octokit/rest';
+import { AccountModel } from '@schemas/account.schema';
 import type { Project } from '@/types/project.types';
 
 export type GitHubRepository =

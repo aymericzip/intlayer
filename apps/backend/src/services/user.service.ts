@@ -1,4 +1,4 @@
-import { UserModel } from '@models/user.model';
+import { UserModel } from '@schemas/user.schema';
 import { GenericError } from '@utils/errors';
 import type { UserFilters } from '@utils/filtersAndPagination/getUserFiltersAndPagination';
 import {

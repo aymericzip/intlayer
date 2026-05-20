@@ -1,5 +1,5 @@
 import type { Client, Token as TokenType } from '@node-oauth/oauth2-server';
-import { Schema } from 'mongoose';
+import { type Model, model, Schema } from 'mongoose';
 import type { User } from '@/types/user.types';
 
 export type Token = Omit<TokenType, 'client' | 'user'> & {
@@ -62,4 +62,9 @@ accessTokenSchema.index(
   {
     expireAfterSeconds: 60 * 60 * 24 * 90, // 90 Days
   }
+);
+
+export const OAuth2AccessTokenModel = model<Token, Model<Token>>(
+  'oAuth2',
+  accessTokenSchema
 );

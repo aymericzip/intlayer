@@ -25,7 +25,7 @@ export const FormItemLayout: FC<FormItemLayoutProps> = ({
     className={cn('flex w-full flex-col flex-wrap gap-2 px-1 py-2', className)}
   >
     {(description || label) && (
-      <div className="flex flex-col gap-1 p-1 leading-none">
+      <div className="flex max-w-full flex-col gap-1 p-1 leading-none">
         {label && (
           <FormLabelLayout
             isRequired={isRequired}

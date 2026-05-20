@@ -1,7 +1,7 @@
 import { lookup as dnsLookup } from 'node:dns/promises';
 import net from 'node:net';
 import { logger } from '@logger';
-import { AuditModel } from '@models/audit.model';
+import { AuditModel } from '@schemas/audit.schema';
 import {
   mutateScore,
   type Score,

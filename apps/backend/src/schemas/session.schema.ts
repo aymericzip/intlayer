@@ -1,5 +1,5 @@
-import { Schema } from 'mongoose';
-import type { SessionSchema } from '@/types/session.types';
+import { model, Schema } from 'mongoose';
+import type { SessionModelType, SessionSchema } from '@/types/session.types';
 
 export const sessionSchema = new Schema<SessionSchema>(
   {
@@ -39,4 +39,9 @@ export const sessionSchema = new Schema<SessionSchema>(
       },
     },
   }
+);
+
+export const SessionModel = model<SessionSchema, SessionModelType>(
+  'session',
+  sessionSchema
 );

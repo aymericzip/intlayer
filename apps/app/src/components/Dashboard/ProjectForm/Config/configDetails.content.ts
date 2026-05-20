@@ -345,7 +345,7 @@ const projectConfigDetailsContent = {
         configured: t({
           en: 'Configured',
           'en-GB': 'Configured',
-          fr: 'Configuré',
+          fr: 'Configurée',
           es: 'Configurado',
           de: 'Konfiguriert',
           ja: '設定済み',

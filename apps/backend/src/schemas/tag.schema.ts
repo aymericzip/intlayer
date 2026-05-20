@@ -4,8 +4,8 @@ import {
   NAME_MAX_LENGTH,
   NAME_MIN_LENGTH,
 } from '@utils/validation/validateTag';
-import { Schema } from 'mongoose';
-import type { TagSchema } from '@/types/tag.types';
+import { model, Schema } from 'mongoose';
+import type { TagModelType, TagSchema } from '@/types/tag.types';
 
 export const tagSchema = new Schema<TagSchema>(
   {
@@ -68,3 +68,5 @@ export const tagSchema = new Schema<TagSchema>(
     },
   }
 );
+
+export const TagModel = model<TagSchema, TagModelType>('tag', tagSchema);

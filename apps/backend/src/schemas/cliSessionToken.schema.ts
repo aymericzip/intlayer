@@ -1,5 +1,5 @@
 import type { Types } from 'mongoose';
-import { Schema } from 'mongoose';
+import { type Model, model, Schema } from 'mongoose';
 
 export type CliSessionToken = {
   token: string;
@@ -22,3 +22,8 @@ export const cliSessionTokenSchema = new Schema<CliSessionToken>(
 
 // Auto-delete expired tokens via MongoDB TTL
 cliSessionTokenSchema.index({ expiresAt: 1 }, { expireAfterSeconds: 0 });
+
+export const CliSessionTokenModel = model<
+  CliSessionToken,
+  Model<CliSessionToken>
+>('cliSessionToken', cliSessionTokenSchema);

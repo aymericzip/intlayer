@@ -1,5 +1,5 @@
 import { logger } from '@logger';
-import { SessionModel } from '@models/session.model';
+import { SessionModel } from '@schemas/session.schema';
 import { sendEmail } from '@services/email.service';
 import * as organizationService from '@services/organization.service';
 import * as projectService from '@services/project.service';

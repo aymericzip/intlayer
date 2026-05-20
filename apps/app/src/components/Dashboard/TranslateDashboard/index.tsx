@@ -35,7 +35,7 @@ import {
   useEditedContent,
   useFocusUnmergedDictionary,
 } from '@intlayer/editor-react';
-import type { Dictionary } from '@intlayer/types/dictionary';
+import type { Dictionary, LocalDictionaryId } from '@intlayer/types/dictionary';
 import type { KeyPath } from '@intlayer/types/keyPath';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import * as NodeTypes from '@intlayer/types/nodeType';
@@ -147,7 +147,7 @@ const TranslateRow: FC<{
                               contentMap[Object.keys(contentMap)[0]];
 
                             const newContent = {
-                              ...((editedContent as Record<string, any>) ?? {}),
+                              ...((content as Record<string, any>) ?? {}),
                               [nodeType]: {
                                 ...contentMap,
                                 [locale]: getEmptyNode(referenceContent),
@@ -420,23 +420,21 @@ const TranslateDashboardList: FC = () => {
   }, [data?.pages, filteredLocaleOnlyDicts]);
 
   useEffect(() => {
-    if (
-      setLocaleDictionaries &&
-      Object.keys(allLoadedDictionaries).length > 0
-    ) {
-      setLocaleDictionaries((prev) => {
-        let hasChanges = false;
-        const next = { ...prev };
-        for (const [key, value] of Object.entries(allLoadedDictionaries)) {
-          if (next[key] !== value) {
-            next[key] = value;
-            hasChanges = true;
-          }
-        }
-        return hasChanges ? next : prev; // Bail out of render if identical
-      });
+    if (Object.keys(allLoadedDictionaries).length === 0) return;
+
+    let hasChanges = false;
+    const next = { ...localeDictionaries };
+    for (const [key, value] of Object.entries(allLoadedDictionaries)) {
+      if (next[key as LocalDictionaryId] !== value) {
+        next[key as LocalDictionaryId] = value;
+        hasChanges = true;
+      }
     }
-  }, [allLoadedDictionaries, setLocaleDictionaries]);
+
+    if (hasChanges) {
+      setLocaleDictionaries(next as any);
+    }
+  }, [allLoadedDictionaries, localeDictionaries]);
 
   // Locale-only dicts whose localId is not already covered by the API pages
   const localeOnlyForDisplay = useMemo(() => {
@@ -692,7 +690,9 @@ const TranslateDashboardList: FC = () => {
                   onFocusField={(dictionaryKey, dictionaryLocalId, keyPath) =>
                     setFocusedContent({
                       dictionaryKey,
-                      dictionaryLocalId,
+                      dictionaryLocalId: dictionaryLocalId as
+                        | LocalDictionaryId
+                        | undefined,
                       keyPath,
                     })
                   }

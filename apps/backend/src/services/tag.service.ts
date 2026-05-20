@@ -1,4 +1,4 @@
-import { TagModel } from '@models/tag.model';
+import { TagModel } from '@schemas/tag.schema';
 import { GenericError } from '@utils/errors';
 import type { TagFilters } from '@utils/filtersAndPagination/getTagFiltersAndPagination';
 import { type TagFields, validateTag } from '@utils/validation/validateTag';

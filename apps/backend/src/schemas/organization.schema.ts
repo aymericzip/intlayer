@@ -3,8 +3,11 @@ import {
   NAME_MAX_LENGTH,
   NAME_MIN_LENGTH,
 } from '@utils/validation/validateOrganization';
-import { Schema } from 'mongoose';
-import type { OrganizationSchema } from '@/types/organization.types';
+import { model, Schema } from 'mongoose';
+import type {
+  OrganizationModelType,
+  OrganizationSchema,
+} from '@/types/organization.types';
 import { planSchema } from './plans.schema';
 
 export const organizationSchema = new Schema<OrganizationSchema>(
@@ -74,3 +77,8 @@ export const organizationSchema = new Schema<OrganizationSchema>(
 organizationSchema.virtual('id').get(function () {
   return this._id.toString();
 });
+
+export const OrganizationModel = model<
+  OrganizationSchema,
+  OrganizationModelType
+>('organization', organizationSchema);

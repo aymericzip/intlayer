@@ -1,5 +1,5 @@
 import { logger } from '@logger';
-import { DictionaryModel } from '@models/dictionary.model';
+import { DictionaryModel } from '@schemas/dictionary.schema';
 import { getDemoDictionaries } from '@utils/demoDictionaries';
 import { ensureMongoDocumentToObject } from '@utils/ensureMongoDocumentToObject';
 import { GenericError } from '@utils/errors';

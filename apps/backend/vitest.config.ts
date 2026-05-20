@@ -5,7 +5,6 @@ export default defineConfig({
   resolve: {
     alias: {
       '@controllers': path.resolve(__dirname, 'src/controllers'),
-      '@models': path.resolve(__dirname, 'src/models'),
       '@services': path.resolve(__dirname, 'src/services'),
       '@routes': path.resolve(__dirname, 'src/routes'),
       '@webhooks': path.resolve(__dirname, 'src/webhooks'),

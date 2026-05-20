@@ -1,5 +1,7 @@
-import { Schema } from 'mongoose';
+import type { RenameId } from '@utils/mongoDB/types';
+import { type Model, model, Schema } from 'mongoose';
 import type {
+  Dictionary,
   DictionarySchema,
   VersionedContentEl,
 } from '@/types/dictionary.types';
@@ -82,4 +84,9 @@ export const dictionarySchema = new Schema<DictionarySchema>(
       },
     },
   }
+);
+
+export const DictionaryModel = model<RenameId<Dictionary>, Model<Dictionary>>(
+  'dictionary',
+  dictionarySchema
 );

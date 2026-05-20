@@ -1,5 +1,5 @@
 import { randomBytes } from 'node:crypto';
-import { ProjectModel } from '@models/project.model';
+import { ProjectModel } from '@schemas/project.schema';
 import { GenericError } from '@utils/errors';
 import type { Types } from 'mongoose';
 import type {

@@ -1,6 +1,6 @@
 import { logger } from '@logger';
-import { AuditJobModel, AuditJobStatus } from '@models/auditJob.model';
-import { AuditPageModel, AuditPageStatus } from '@models/auditPage.model';
+import { AuditJobModel, AuditJobStatus } from '@schemas/auditJob.schema';
+import { AuditPageModel, AuditPageStatus } from '@schemas/auditPage.schema';
 import { load } from 'cheerio';
 import { mutateScore, type Score } from './analysis/calculateScore';
 import { runSingleAudit } from './seoAudit.service';

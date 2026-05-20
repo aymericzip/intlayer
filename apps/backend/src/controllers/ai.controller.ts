@@ -7,6 +7,7 @@ import {
 import type { Locale } from '@intlayer/types/allLocales';
 import type { KeyPath } from '@intlayer/types/keyPath';
 import { logger } from '@logger';
+import { DiscussionModel } from '@schemas/discussion.schema';
 import { getDictionariesByTags } from '@services/dictionary.service';
 import * as tagService from '@services/tag.service';
 import { getTagsByKeys } from '@services/tag.service';
@@ -19,6 +20,7 @@ import * as autocompleteUtil from '@utils/AI/autocomplete';
 import * as chatUtil from '@utils/AI/chat';
 import { createSessionTools } from '@utils/AI/chat/sessionTools';
 import * as customQueryUtil from '@utils/AI/customQuery';
+import { getProjectAIOptions } from '@utils/AI/getProjectAIOptions';
 import * as translateJSONUtil from '@utils/AI/translateJSON';
 import { type AppError, ErrorHandler } from '@utils/errors';
 import {
@@ -32,7 +34,6 @@ import {
   type ResponseData,
 } from '@utils/responseData';
 import type { FastifyReply, FastifyRequest } from 'fastify';
-import { DiscussionModel } from '@/models/discussion.model';
 import type { Dictionary } from '@/types/dictionary.types';
 import type { DiscussionAPI } from '@/types/discussion.types';
 import type { Tag, TagAPI } from '@/types/tag.types';
@@ -63,9 +64,7 @@ export const customQuery = async (
   const { aiOptions, tagsKeys, ...rest } = request.body;
   const { user, project } = request.session || {};
 
-  const projectAIOptions = project?.configuration?.ai
-    ? (project.configuration.ai as AIOptions)
-    : undefined;
+  const projectAIOptions = await getProjectAIOptions(project);
 
   let aiConfig: AIConfig;
   try {
@@ -119,9 +118,7 @@ export const translateJSON = async (
   const { project, user } = request.session || {};
   const { aiOptions, tagsKeys, ...rest } = request.body;
 
-  const projectAIOptions = project?.configuration?.ai
-    ? (project.configuration.ai as AIOptions)
-    : undefined;
+  const projectAIOptions = await getProjectAIOptions(project);
 
   let aiConfig: AIConfig;
   try {
@@ -190,9 +187,7 @@ export const auditContentDeclaration = async (
   const { fileContent, filePath, aiOptions, locales, defaultLocale, tagsKeys } =
     request.body;
 
-  const projectAIOptions = project?.configuration?.ai
-    ? (project.configuration.ai as AIOptions)
-    : undefined;
+  const projectAIOptions = await getProjectAIOptions(project);
 
   let aiConfig: AIConfig;
   try {
@@ -262,9 +257,7 @@ export const auditContentDeclarationField = async (
   const { project, user } = request.session || {};
   const { fileContent, aiOptions, locales, tagsKeys, keyPath } = request.body;
 
-  const projectAIOptions = project?.configuration?.ai
-    ? (project.configuration.ai as AIOptions)
-    : undefined;
+  const projectAIOptions = await getProjectAIOptions(project);
 
   let aiConfig: AIConfig;
   try {
@@ -395,9 +388,7 @@ export const auditTag = async (
   const { project, user } = request.session || {};
   const { aiOptions, tag } = request.body;
 
-  const projectAIOptions = project?.configuration?.ai
-    ? (project.configuration.ai as AIOptions)
-    : undefined;
+  const projectAIOptions = await getProjectAIOptions(project);
 
   let aiConfig: AIConfig;
   try {
@@ -467,9 +458,7 @@ export const askDocQuestion = async (
     }
   }
 
-  const projectAIOptions = project?.configuration?.ai
-    ? (project.configuration.ai as AIOptions)
-    : undefined;
+  const projectAIOptions = await getProjectAIOptions(project);
 
   let aiConfig: AIConfig;
 
@@ -632,9 +621,7 @@ export const chat = async (
     }
   }
 
-  const projectAIOptions = project?.configuration?.ai
-    ? (project.configuration.ai as AIOptions)
-    : undefined;
+  const projectAIOptions = await getProjectAIOptions(project);
 
   try {
     let aiConfig: AIConfig;
@@ -785,9 +772,7 @@ export const autocomplete = async (
 ): Promise<void> => {
   const { user, project } = request.session || {};
 
-  const projectAIOptions = project?.configuration?.ai
-    ? (project.configuration.ai as AIOptions)
-    : undefined;
+  const projectAIOptions = await getProjectAIOptions(project);
 
   try {
     const { text, aiOptions, contextBefore, currentLine, contextAfter } =

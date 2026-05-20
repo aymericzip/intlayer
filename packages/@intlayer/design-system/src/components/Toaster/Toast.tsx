@@ -232,7 +232,7 @@ export const ToastDescription: FC<
   ComponentProps<typeof ToastPrimitives.Description>
 > = ({ className, ...props }) => (
   <ToastPrimitives.Description
-    className={cn('text-sm opacity-90', className)}
+    className={cn('overflow-scroll text-sm opacity-90', className)}
     {...props}
   />
 );

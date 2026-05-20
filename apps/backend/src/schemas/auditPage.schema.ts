@@ -18,7 +18,7 @@ export interface IAuditPage extends Document {
   updatedAt: Date;
 }
 
-const auditPageSchema = new Schema<IAuditPage>(
+export const auditPageSchema = new Schema<IAuditPage>(
   {
     jobId: {
       type: Schema.Types.ObjectId,

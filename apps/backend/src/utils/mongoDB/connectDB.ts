@@ -1,16 +1,16 @@
 import { logger } from '@logger';
-import { AccountModel } from '@models/account.model';
-import { AuditModel } from '@models/audit.model';
-import { AuditJobModel } from '@models/auditJob.model';
-import { AuditPageModel } from '@models/auditPage.model';
-import { DictionaryModel } from '@models/dictionary.model';
-import { DiscussionModel } from '@models/discussion.model';
-import { OAuth2AccessTokenModel } from '@models/oAuth2.model';
-import { OrganizationModel } from '@models/organization.model';
-import { ProjectModel } from '@models/project.model';
-import { ShowcaseProjectModel } from '@models/showcaseProject.model';
-import { TagModel } from '@models/tag.model';
-import { UserModel } from '@models/user.model';
+import { AccountModel } from '@schemas/account.schema';
+import { AuditModel } from '@schemas/audit.schema';
+import { AuditJobModel } from '@schemas/auditJob.schema';
+import { AuditPageModel } from '@schemas/auditPage.schema';
+import { DictionaryModel } from '@schemas/dictionary.schema';
+import { DiscussionModel } from '@schemas/discussion.schema';
+import { OAuth2AccessTokenModel } from '@schemas/oAuth2.schema';
+import { OrganizationModel } from '@schemas/organization.schema';
+import { ProjectModel } from '@schemas/project.schema';
+import { ShowcaseProjectModel } from '@schemas/showcaseProject.schema';
+import { TagModel } from '@schemas/tag.schema';
+import { UserModel } from '@schemas/user.schema';
 import { connect, type mongo } from 'mongoose';
 
 // Store the DB client singleton

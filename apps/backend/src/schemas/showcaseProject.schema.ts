@@ -1,5 +1,8 @@
-import { Schema } from 'mongoose';
-import type { ShowcaseProjectDocument } from '@/types/showcaseProject.types';
+import { model, Schema } from 'mongoose';
+import type {
+  ShowcaseProjectDocument,
+  ShowcaseProjectModelType,
+} from '@/types/showcaseProject.types';
 
 const scanDetailsSchema = new Schema(
   {
@@ -75,3 +78,8 @@ export const showcaseProjectSchema = new Schema<ShowcaseProjectDocument>(
     },
   }
 );
+
+export const ShowcaseProjectModel = model<
+  ShowcaseProjectDocument,
+  ShowcaseProjectModelType
+>('ShowcaseProject', showcaseProjectSchema);

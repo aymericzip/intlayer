@@ -158,7 +158,7 @@ export const AccessKeyCreationForm: FC<AccessKeyCreationFormProps> = ({
 
       {/* Expiration preset — not a form field, purely UI */}
       <div className="flex w-full flex-col flex-wrap gap-2 px-1 py-2">
-        <div className="flex flex-col gap-1 p-1 leading-none">
+        <div className="flex max-w-full flex-col gap-1 p-1 leading-none">
           <div className="ml-1 flex gap-1 align-middle text-base leading-none">
             <label
               htmlFor="access-key-expires-at-preset"

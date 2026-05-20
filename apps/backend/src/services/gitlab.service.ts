@@ -1,6 +1,6 @@
 import { configurationFilesCandidates } from '@intlayer/config/node';
 import { logger } from '@logger';
-import { AccountModel } from '@models/account.model';
+import { AccountModel } from '@schemas/account.schema';
 
 const GITLAB_DEFAULT_URL = 'https://gitlab.com';
 

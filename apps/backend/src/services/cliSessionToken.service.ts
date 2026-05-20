@@ -1,5 +1,5 @@
 import { randomBytes } from 'node:crypto';
-import { CliSessionTokenModel } from '@models/cliSessionToken.model';
+import { CliSessionTokenModel } from '@schemas/cliSessionToken.schema';
 import { getOrganizationById } from '@services/organization.service';
 import { getProjectById } from '@services/project.service';
 import { getUserById } from '@services/user.service';

@@ -154,7 +154,6 @@ export const submitShowcaseProject = async (
 
     return reply.send(responseData);
   } catch (error) {
-    logger.error('[submitShowcaseProject] Error:', error);
     return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }
 };
@@ -504,7 +503,6 @@ export const updateShowcaseProjectHandler = async (
       })
     );
   } catch (error) {
-    logger.error('[updateShowcaseProjectHandler] Error:', error);
     return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }
 };

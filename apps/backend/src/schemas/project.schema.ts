@@ -6,10 +6,11 @@ import {
   NAME_MAX_LENGTH,
   NAME_MIN_LENGTH,
 } from '@utils/validation/validateProject';
-import { Schema } from 'mongoose';
+import { model, Schema } from 'mongoose';
 import type {
   OAuth2Access,
   Project,
+  ProjectModelType,
   ProjectSchema,
 } from '@/types/project.types';
 
@@ -189,4 +190,9 @@ export const projectSchema = new Schema<ProjectSchema>(
       },
     },
   }
+);
+
+export const ProjectModel = model<ProjectSchema, ProjectModelType>(
+  'project',
+  projectSchema
 );

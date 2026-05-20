@@ -1,5 +1,6 @@
-import { Schema } from 'mongoose';
-import type { DiscussionSchema } from '@/types/discussion.types';
+import type { RenameId } from '@utils/mongoDB/types';
+import { type Model, model, Schema } from 'mongoose';
+import type { Discussion, DiscussionSchema } from '@/types/discussion.types';
 
 export const discussionSchema = new Schema<DiscussionSchema>(
   {
@@ -82,4 +83,9 @@ export const discussionSchema = new Schema<DiscussionSchema>(
       },
     },
   }
+);
+
+export const DiscussionModel = model<RenameId<Discussion>, Model<Discussion>>(
+  'discussion',
+  discussionSchema
 );

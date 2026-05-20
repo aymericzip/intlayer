@@ -1,4 +1,4 @@
-import { ProjectModel } from '@models/project.model';
+import { ProjectModel } from '@schemas/project.schema';
 import { ensureMongoDocumentToObject } from '@utils/ensureMongoDocumentToObject';
 import { GenericError } from '@utils/errors';
 import type { ProjectFilters } from '@utils/filtersAndPagination/getProjectFiltersAndPagination';

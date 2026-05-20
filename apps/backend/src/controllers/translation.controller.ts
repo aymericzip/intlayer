@@ -119,7 +119,6 @@ export const translateDictionaries = async (
       })
     );
   } catch (error) {
-    logger.error('Error in translateDictionaries', error);
     return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }
 };

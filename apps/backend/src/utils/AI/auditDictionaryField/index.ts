@@ -84,6 +84,16 @@ export const auditDictionaryField = async ({
     .replace('{{applicationContext}}', applicationContext ?? '')
     .replace('{{tagsInstructions}}', formatTagInstructions(tags));
 
+  console.log({
+    prompt,
+    fileContent,
+    applicationContext,
+    locales,
+    keyPath,
+    tags,
+    aiConfig,
+  });
+
   if (!aiConfig) {
     logger.error('Failed to configure AI model');
     return undefined;

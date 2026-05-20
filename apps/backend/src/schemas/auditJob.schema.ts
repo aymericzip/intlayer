@@ -20,7 +20,7 @@ export interface IAuditJob extends Document {
   updatedAt: Date;
 }
 
-const auditJobSchema = new Schema<IAuditJob>(
+export const auditJobSchema = new Schema<IAuditJob>(
   {
     targetUrl: {
       type: String,

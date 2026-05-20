@@ -6,6 +6,14 @@ import type { Project, ProjectAPI } from '@/types/project.types';
  * @param aiConfig - The AI configuration to sanitize.
  * @returns The sanitized AI configuration.
  */
+const maskApiKey = (apiKey: string): string => {
+  if (apiKey.length <= 8) return '*'.repeat(apiKey.length);
+  const prefix = apiKey.slice(0, 8);
+  const suffix = apiKey.slice(-4);
+  const masked = '*'.repeat(Math.max(apiKey.length - 12, 8));
+  return `${prefix}${masked}${suffix}`;
+};
+
 const sanitizeAIConfig = (aiConfig?: any) => {
   if (!aiConfig) {
     return aiConfig;
@@ -14,7 +22,7 @@ const sanitizeAIConfig = (aiConfig?: any) => {
   const { apiKey, ...rest } = aiConfig;
   return {
     ...rest,
-    apiKeyConfigured: !!apiKey,
+    apiKey: apiKey ? maskApiKey(apiKey) : undefined,
   };
 };
 
@@ -55,7 +63,7 @@ export const mapProjectToAPI = <T extends Project | ProjectAPI | null>(
   if (projectObject.configuration) {
     projectObject.configuration = sanitizeProjectConfiguration(
       projectObject.configuration
-    ) as any;
+    );
   }
 
   return projectObject as any;

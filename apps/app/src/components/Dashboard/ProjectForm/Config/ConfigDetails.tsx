@@ -272,7 +272,7 @@ export const ConfigDetails: FC<ConfigDetailsProps> = ({ projectConfig }) => {
             <H4>{editorSection.title}</H4>
             <p className="text-neutral text-xs">{editorSection.description}</p>
           </div>
-          <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">
+          <div className="mt-4 grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-4">
             <div className="flex flex-col gap-2">
               <H5>{editorSection.applicationURL.title}</H5>
               <div className="flex">
@@ -346,7 +346,7 @@ export const ConfigDetails: FC<ConfigDetailsProps> = ({ projectConfig }) => {
                     <H5>{aiSection.apiKey.title}</H5>
                     <div className="flex">
                       <Tag size="sm">
-                        {(projectConfig.ai as any).apiKeyConfigured
+                        {projectConfig.ai.apiKey
                           ? aiSection.apiKey.configured
                           : aiSection.apiKey.notConfigured}
                       </Tag>
@@ -357,7 +357,7 @@ export const ConfigDetails: FC<ConfigDetailsProps> = ({ projectConfig }) => {
                 <div className="flex flex-col gap-2">
                   <H5>{aiSection.applicationContext.title}</H5>
                   <p className="text-neutral-dark text-sm dark:text-neutral">
-                    {projectConfig.ai.applicationContext || '-'}
+                    {(projectConfig.ai.applicationContext as string) || '-'}
                   </p>
                 </div>
               </div>

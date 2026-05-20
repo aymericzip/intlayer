@@ -1,4 +1,4 @@
-import { ShowcaseProjectModel } from '@models/showcaseProject.model';
+import { ShowcaseProjectModel } from '@schemas/showcaseProject.schema';
 import { GenericError } from '@utils/errors';
 import type {
   ShowcaseProjectData,

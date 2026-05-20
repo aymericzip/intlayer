@@ -549,12 +549,6 @@ export const uploadAvatar = async (
 
     return reply.send(responseData);
   } catch (error) {
-    logger.error('uploadAvatar error', {
-      message: (error as Error)?.message,
-      name: (error as Error)?.name,
-      code: (error as any)?.code,
-      stack: (error as Error)?.stack,
-    });
     return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }
 };

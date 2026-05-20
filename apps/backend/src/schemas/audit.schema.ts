@@ -6,7 +6,7 @@ export interface IAudit extends Document {
   createdAt: Date;
 }
 
-const auditSchema = new Schema<IAudit>(
+export const auditSchema = new Schema<IAudit>(
   {
     domain: {
       type: String,

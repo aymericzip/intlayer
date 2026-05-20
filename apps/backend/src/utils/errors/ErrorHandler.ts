@@ -51,32 +51,34 @@ export const handleAppErrorResponse = (
   messageDetails?: object
 ) => {
   if (!error.isAppError) {
+    const err = error as any;
     const errorKey =
-      error.errorKey ??
-      (error as any).error ??
-      (error as any).code ??
-      (error as any).name ??
-      'UNKNOWN_ERROR';
+      err.errorKey ?? err.error ?? err.code ?? err.name ?? 'UNKNOWN_ERROR';
 
     const statusCode =
-      error.httpStatusCode ??
-      (error as any).statusCode ??
-      (error as any).status ??
+      err.httpStatusCode ??
+      err.statusCode ??
+      err.status ??
       HttpStatusCodes.INTERNAL_SERVER_ERROR_500;
+
+    const logDetails: Record<string, unknown> = {};
+    if (err.url) logDetails.url = err.url;
+    if (err.responseBody) logDetails.responseBody = err.responseBody;
+    if (err.stack) logDetails.stack = err.stack;
 
     handleCustomErrorResponse(
       reply,
       String(errorKey),
       'Error',
-      error.message ?? JSON.stringify(error),
+      err.message ?? JSON.stringify(err),
       undefined,
-      statusCode
+      statusCode,
+      Object.keys(logDetails).length ? logDetails : undefined
     );
     return;
   }
 
   const isMultilingual = error.isMultilingual ?? false;
-  // Delegate to a more customizable error response handler.
   handleCustomErrorResponse(
     reply,
     error.errorKey,
@@ -103,15 +105,46 @@ export const handleCustomErrorResponse = (
   title: StrictModeLocaleMap<string> | string,
   message: StrictModeLocaleMap<string> | string,
   messageDetails?: object,
-  statusCode?: HttpStatusCodes
+  statusCode?: HttpStatusCodes,
+  logDetails?: object
 ) => {
-  const errorTitle = t(title as StrictModeLocaleMap<string>, Locales.ENGLISH);
-  const errorMessage = t(
-    message as StrictModeLocaleMap<string>,
-    Locales.ENGLISH
-  );
-  logger.error(errorMessage, messageDetails); // Log the English version of the error message.
-  const status = statusCode ?? HttpStatusCodes.INTERNAL_SERVER_ERROR_500; // Default to 500 if no status code is provided.
+  const errorTitle =
+    typeof title === 'string'
+      ? title
+      : t(title as StrictModeLocaleMap<string>, Locales.ENGLISH);
+  const errorMessage =
+    typeof message === 'string'
+      ? message
+      : t(message as StrictModeLocaleMap<string>, Locales.ENGLISH);
+  const status = statusCode ?? HttpStatusCodes.INTERNAL_SERVER_ERROR_500;
+
+  const req = reply.request;
+  const session = req?.session;
+  const requestContext = {
+    method: req?.method,
+    url: req?.url,
+    params: req?.params,
+    query: req?.query,
+    body: req?.body,
+    session: session
+      ? {
+          userId: String(session.user?.id ?? ''),
+          userEmail: session.user?.email,
+          organizationId: String(session.organization?.id ?? ''),
+          organizationName: session.organization?.name,
+          projectId: String(session.project?.id ?? ''),
+          projectName: session.project?.name,
+        }
+      : undefined,
+  };
+
+  logger.error(errorKey, {
+    message: errorMessage,
+    status,
+    request: requestContext,
+    ...messageDetails,
+    ...logDetails,
+  });
 
   // Format the response as a standard non-paginated error response.
   const responseData = formatResponse<UserAPI>({
@@ -143,7 +176,7 @@ export const formatGenericErrorResponse = (
   const status = statusCode ?? error.statusCode;
   const errorTitle = t(error.title, Locales.ENGLISH);
   const errorMessage = t(error.message, Locales.ENGLISH);
-  logger.error(errorMessage, errorDetails);
+  logger.error(errorKey, { message: errorMessage, status, ...errorDetails });
 
   return formatResponse<UserAPI>({
     error: {

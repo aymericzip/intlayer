@@ -17,12 +17,10 @@ type ProjectConfigEditor = Partial<
   Pick<IntlayerConfig['editor'], 'applicationURL' | 'cmsURL'>
 >;
 
-type ProjectConfigAI = Partial<
-  Pick<
-    IntlayerConfig['ai'],
-    'provider' | 'model' | 'apiKey' | 'applicationContext' | 'baseURL'
-  >
-> & { apiKeyConfigured?: boolean };
+type ProjectConfigAI = Partial<IntlayerConfig['ai']> & {
+  apiKey?: string;
+  apiKeyConfigured?: boolean;
+};
 
 export type Webhook = {
   id?: string;
