@@ -330,7 +330,7 @@ export const PricingCarousel: FC<PricingCarouselProps> = ({
         <button
           type="button"
           className={cn(
-            `absolute left-1/2 -translate-x-1/2 transition duration-300 ease-in-out`,
+            `absolute left-1/2 -translate-x-1/2 cursor-grab transition duration-300 ease-in-out focus:outline-none`,
             setColumnStyle(index, displayedPlanIndex)
           )}
           ref={(el) => {

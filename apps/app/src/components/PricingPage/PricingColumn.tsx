@@ -58,7 +58,11 @@ export const PricingColumn: FC<PricingColumnProps> = ({
       <H2 className="text-center" itemProp="name">
         {title}
       </H2>
-      {badge && <Tag color={TagColor.WARNING}>{badge}</Tag>}
+      {badge && (
+        <Tag size="sm" color={TagColor.WARNING}>
+          {badge}
+        </Tag>
+      )}
     </div>
     <div className="flex min-h-[72px] flex-col justify-center">
       <Loader isLoading={isPriceLoading}>
