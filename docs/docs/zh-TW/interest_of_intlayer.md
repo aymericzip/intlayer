@@ -224,7 +224,7 @@ export const ComponentExample = () => {
 
 GitHub 星數是專案受歡迎程度、社區信任和長期相關性的有力指標。雖然星數不是技術質量的直接衡量標準，但它們反映了有多少開發人員發現該專案有用、關注其進展並可能採用它。在評估專案價值時，星數有助於比較不同方案的吸引力，並提供對生態系統增長的見解。
 
-[![Star History Chart](https://api.star-history.com/chart?repos=formatjs/formatjs%2Ci18next/react-i18next%2Ci18next/i18next%2Ci18next/next-i18next%2Clingui/js-lingui%2Camannn/next-intl%2Cintlify/vue-i18n%2Caymericzip/intlayer%2Copral/inlang&type=date&legend=top-left)](https://www.star-history.com/#formatjs/formatjs&i18next/react-i18next&i18next/i18next&i18next/next-i18next&lingui/js-lingui&amannn/next-intl&intlify/vue-i18n&opral/paraglide-js&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=formatjs/formatjs%2Ci18next/react-i18next%2Ci18next/i18next%2Ci18next/next-i18next%2Clingui/js-lingui%2Camannn/next-intl%2Cintlify/vue-i18n%2Caymericzip/intlayer%2Copral/inlang%2Ccodingcommons/typesafe-i18nopral/inlang&type=date&legend=top-lefttype=dateopral/inlang&type=date&legend=top-leftlegend=top-left)](https://www.star-history.com/#formatjs/formatjs&i18next/react-i18next&i18next/i18next&i18next/next-i18next&lingui/js-lingui&amannn/next-intl&intlify/vue-i18n&opral/paraglide-js&aymericzip/intlayer&codingcommons/typesafe-i18n)
 
 ---
 

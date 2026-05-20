@@ -224,7 +224,7 @@ export const ComponentExample = () => {
 
 GitHub স্টার হলো একটি প্রজেক্টের জনপ্রিয়তা, সম্প্রদায়ের বিশ্বাস এবং দীর্ঘমেয়াদী প্রাসঙ্গিকতার একটি শক্তিশালী সূচক। যদিও এটি প্রযুক্তিগত মানের সরাসরি পরিমাপ নয়, তবে এটি প্রতিফলিত করে যে কতজন ডেভেলপার প্রজেক্টটিকে দরকারী মনে করেন, এর অগ্রগতি অনুসরণ করেন এবং এটি গ্রহণ করার সম্ভাবনা রয়েছে। একটি প্রজেক্টের মূল্য অনুমানের জন্য, স্টারগুলি বিকল্পগুলির মধ্যে ট্র্যাকশন তুলনা করতে সাহায্য করে এবং ইকোসিস্টেমের বৃদ্ধি সম্পর্কে ধারণা প্রদান করে।
 
-[![Star History Chart](https://api.star-history.com/chart?repos=formatjs/formatjs%2Ci18next/react-i18next%2Ci18next/i18next%2Ci18next/next-i18next%2Clingui/js-lingui%2Camannn/next-intl%2Cintlify/vue-i18n%2Caymericzip/intlayer%2Copral/inlang&type=date&legend=top-left)](https://www.star-history.com/#formatjs/formatjs&i18next/react-i18next&i18next/i18next&i18next/next-i18next&lingui/js-lingui&amannn/next-intl&intlify/vue-i18n&opral/paraglide-js&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=formatjs/formatjs%2Ci18next/react-i18next%2Ci18next/i18next%2Ci18next/next-i18next%2Clingui/js-lingui%2Camannn/next-intl%2Cintlify/vue-i18n%2Caymericzip/intlayer%2Copral/inlang%2Ccodingcommons/typesafe-i18nopral/inlang&type=date&legend=top-lefttype=dateopral/inlang&type=date&legend=top-leftlegend=top-left)](https://www.star-history.com/#formatjs/formatjs&i18next/react-i18next&i18next/i18next&i18next/next-i18next&lingui/js-lingui&amannn/next-intl&intlify/vue-i18n&opral/paraglide-js&aymericzip/intlayer&codingcommons/typesafe-i18n)
 
 ---
 

@@ -223,7 +223,7 @@ Este enfoque te permite:
 
 Las estrellas de GitHub son un fuerte indicador de la popularidad de un proyecto, la confianza de la comunidad y la relevancia a largo plazo. Si bien no son una medida directa de la calidad técnica, reflejan cuántos desarrolladores encuentran útil el proyecto, siguen su progreso y es probable que lo adopten. Para estimar el valor de un proyecto, las estrellas ayudan a comparar la tracción entre alternativas y brindan información sobre el crecimiento del ecosistema.
 
-[![Star History Chart](https://api.star-history.com/chart?repos=formatjs/formatjs%2Ci18next/react-i18next%2Ci18next/i18next%2Ci18next/next-i18next%2Clingui/js-lingui%2Camannn/next-intl%2Cintlify/vue-i18n%2Caymericzip/intlayer%2Copral/inlang&type=date&legend=top-left)](https://www.star-history.com/#formatjs/formatjs&i18next/react-i18next&i18next/i18next&i18next/next-i18next&lingui/js-lingui&amannn/next-intl&intlify/vue-i18n&opral/paraglide-js&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=formatjs/formatjs%2Ci18next/react-i18next%2Ci18next/i18next%2Ci18next/next-i18next%2Clingui/js-lingui%2Camannn/next-intl%2Cintlify/vue-i18n%2Caymericzip/intlayer%2Copral/inlang%2Ccodingcommons/typesafe-i18nopral/inlang&type=date&legend=top-lefttype=dateopral/inlang&type=date&legend=top-leftlegend=top-left)](https://www.star-history.com/#formatjs/formatjs&i18next/react-i18next&i18next/i18next&i18next/next-i18next&lingui/js-lingui&amannn/next-intl&intlify/vue-i18n&opral/paraglide-js&aymericzip/intlayer&codingcommons/typesafe-i18n)
 
 ---
 
