@@ -31,6 +31,15 @@ vi.mock('@intlayer/config/built', () => ({
   },
 }));
 
+vi.mock('@intlayer/core/file', () => ({
+  fileContent: vi.fn((path: string) => ({
+    nodeType: 'file',
+    file: path,
+    content: '-',
+    fixedPath: path,
+  })),
+}));
+
 const file = (path: string) =>
   fileContent(path, `${process.cwd()}/src`, process.cwd());
 

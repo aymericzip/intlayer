@@ -407,10 +407,62 @@ export const extractBabelContentForComponents = (
 
       if (parent.isObjectProperty() && parent.node.key === path.node) return;
 
-      // Skip string values in named object properties (identifier key, e.g. `icon: 'Globe'`).
-      // These are technical mappings, not translatable text. String-keyed properties
-      // (e.g. `'translation-status': 'Translation Status'`) are still extracted.
-      if (parent.isObjectProperty() && t.isIdentifier(parent.node.key)) return;
+      // Skip string values in known technical/non-translatable object properties (e.g. `icon: 'Globe'`).
+      // String values in translatable object properties (e.g. `label: 'Language'`) are still extracted.
+      const TECHNICAL_KEYS = new Set([
+        'icon',
+        'className',
+        'class',
+        'id',
+        'type',
+        'variant',
+        'color',
+        'theme',
+        'size',
+        'align',
+        'placement',
+        'target',
+        'rel',
+        'method',
+        'mode',
+        'direction',
+        'orientation',
+        'scope',
+        'role',
+        'lang',
+        'locale',
+        'href',
+        'src',
+        'width',
+        'height',
+        'as',
+        'to',
+        'key',
+        'value',
+        'defaultValue',
+        'prop',
+        'property',
+        'state',
+        'action',
+        'event',
+        'handler',
+        'callback',
+        'url',
+        'uri',
+        'path',
+        'route',
+        'slug',
+        'endpoint',
+        'headers',
+        'contentType',
+      ]);
+      if (
+        parent.isObjectProperty() &&
+        t.isIdentifier(parent.node.key) &&
+        TECHNICAL_KEYS.has(parent.node.key.name)
+      ) {
+        return;
+      }
 
       if (parent.isMemberExpression() && parent.node.property === path.node)
         return;

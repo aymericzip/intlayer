@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { createApp, h } from 'vue';
-import { compileMarkdown } from './index';
+import { compileMarkdown } from './compiler';
 
 describe('Vue Markdown Compiler', () => {
   let container: HTMLDivElement;

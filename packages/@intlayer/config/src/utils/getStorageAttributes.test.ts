@@ -5,61 +5,51 @@ describe('getStorageAttributes', () => {
   it('should return empty arrays when storage is disabled (false)', () => {
     const result = getStorageAttributes(false);
 
-    expect(result).toEqual({
-      cookies: [],
-      headers: [],
-      localStorage: [],
-      sessionStorage: [],
-    });
+    expect(result).toEqual({});
   });
 
   it('should return empty arrays when storage is undefined', () => {
     const result = getStorageAttributes(undefined as any);
 
-    expect(result).toEqual({
-      cookies: [],
-      headers: [],
-      localStorage: [],
-      sessionStorage: [],
-    });
+    expect(result).toEqual({});
   });
 
   it('should handle single string "cookie"', () => {
     const result = getStorageAttributes('cookie');
 
     expect(result.cookies).toHaveLength(1);
-    expect(result.cookies[0].name).toBe('INTLAYER_LOCALE');
-    expect(result.localStorage).toHaveLength(0);
-    expect(result.sessionStorage).toHaveLength(0);
-    expect(result.headers).toHaveLength(0);
+    expect(result.cookies![0].name).toBe('INTLAYER_LOCALE');
+    expect(result.localStorage).toBeUndefined();
+    expect(result.sessionStorage).toBeUndefined();
+    expect(result.headers).toBeUndefined();
   });
 
   it('should handle single string "localStorage"', () => {
     const result = getStorageAttributes('localStorage');
 
-    expect(result.cookies).toHaveLength(0);
+    expect(result.cookies).toBeUndefined();
     expect(result.localStorage).toHaveLength(1);
-    expect(result.localStorage[0].name).toBe('INTLAYER_LOCALE');
-    expect(result.sessionStorage).toHaveLength(0);
+    expect(result.localStorage![0].name).toBe('INTLAYER_LOCALE');
+    expect(result.sessionStorage).toBeUndefined();
   });
 
   it('should handle single string "sessionStorage"', () => {
     const result = getStorageAttributes('sessionStorage');
 
-    expect(result.cookies).toHaveLength(0);
-    expect(result.localStorage).toHaveLength(0);
+    expect(result.cookies).toBeUndefined();
+    expect(result.localStorage).toBeUndefined();
     expect(result.sessionStorage).toHaveLength(1);
-    expect(result.sessionStorage[0].name).toBe('INTLAYER_LOCALE');
+    expect(result.sessionStorage![0].name).toBe('INTLAYER_LOCALE');
   });
 
   it('should handle array with multiple storage types - ["cookie", "localStorage"]', () => {
     const result = getStorageAttributes(['cookie', 'localStorage']);
 
     expect(result.cookies).toHaveLength(1);
-    expect(result.cookies[0].name).toBe('INTLAYER_LOCALE');
+    expect(result.cookies![0].name).toBe('INTLAYER_LOCALE');
     expect(result.localStorage).toHaveLength(1);
-    expect(result.localStorage[0].name).toBe('INTLAYER_LOCALE');
-    expect(result.sessionStorage).toHaveLength(0);
+    expect(result.localStorage![0].name).toBe('INTLAYER_LOCALE');
+    expect(result.sessionStorage).toBeUndefined();
   });
 
   it('should handle array with all storage types', () => {

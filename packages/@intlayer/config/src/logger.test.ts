@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { BEIGE, BLUE, GREY_DARK, GREY_LIGHT, RED, WHITE } from './colors';
+import { BEIGE, BLUE, GREY, GREY_DARK, GREY_LIGHT, RED, WHITE } from './colors';
 import { colorizeObject, removeColor } from './logger';
 
 describe('colorizeObject', () => {
@@ -41,14 +41,14 @@ describe('colorizeObject', () => {
     expect(removeColor(pathColored)).toBe('"/usr/bin/path"');
   });
 
-  it('should colorize hex identifiers and secrets with RED, short strings with BLUE', () => {
+  it('should colorize hex identifiers and secrets with GREY, short strings with BLUE', () => {
     const obj = {
       repository: 'intlayer-vite-react-cp',
       organizationId: '6890eb2a9843114d6fe7008a',
     };
     const objColored = colorizeObject(obj);
     expect(objColored).toContain(GREY_LIGHT); // Key name is colored with GREY_LIGHT
-    expect(objColored).toContain(RED); // Hex ID value is colored with RED
+    expect(objColored).toContain(GREY); // Hex ID value is colored with GREY
     expect(objColored).toContain(BLUE); // Short no-space string is colored with BLUE
   });
 

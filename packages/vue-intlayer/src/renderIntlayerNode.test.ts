@@ -10,7 +10,11 @@ const mockConfig = vi.hoisted(() => ({
   internationalization: { defaultLocale: 'en', locales: ['en'] },
 }));
 
-vi.mock('@intlayer/config/built', () => ({ default: mockConfig }));
+vi.mock('@intlayer/config/built', () => ({
+  default: mockConfig,
+  editor: mockConfig.editor,
+  internationalization: mockConfig.internationalization,
+}));
 
 // The editor module exports .vue components – mock the whole module.
 vi.mock('./editor', () => ({

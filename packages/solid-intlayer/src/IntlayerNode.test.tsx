@@ -1,4 +1,10 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+
+vi.hoisted(() => {
+  process.env['INTLAYER_NODE_TYPE_MARKDOWN'] = 'false';
+  process.env['INTLAYER_NODE_TYPE_HTML'] = 'false';
+});
+
 import { renderIntlayerNode } from './IntlayerNode';
 
 // ---------------------------------------------------------------------------
@@ -10,7 +16,11 @@ const mockConfig = vi.hoisted(() => ({
   internationalization: { defaultLocale: 'en', locales: ['en'] },
 }));
 
-vi.mock('@intlayer/config/built', () => ({ default: mockConfig }));
+vi.mock('@intlayer/config/built', () => ({
+  default: mockConfig,
+  editor: mockConfig.editor,
+  internationalization: mockConfig.internationalization,
+}));
 
 vi.mock('./editor', () => ({
   ContentSelector: () => null,

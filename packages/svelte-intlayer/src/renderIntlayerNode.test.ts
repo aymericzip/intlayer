@@ -9,7 +9,11 @@ const mockConfig = vi.hoisted(() => ({
   internationalization: { defaultLocale: 'en', locales: ['en'] },
 }));
 
-vi.mock('@intlayer/config/built', () => ({ default: mockConfig }));
+vi.mock('@intlayer/config/built', () => ({
+  default: mockConfig,
+  editor: mockConfig.editor,
+  internationalization: mockConfig.internationalization,
+}));
 
 // Mock the Svelte wrapper component so vitest doesn't try to parse it.
 vi.mock('./IntlayerNodeWrapper.svelte', () => ({

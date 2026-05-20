@@ -59,7 +59,14 @@ const ensureTsCheck = (ast: any, content: string, extension: string) => {
     ['js', 'mjs', 'cjs'].includes(extension) &&
     !content.includes('@ts-check')
   ) {
-    ast.program.body.unshift(b.commentLine(' @ts-check', true, false) as any);
+    const comment = b.commentLine(' @ts-check', true, false);
+    if (ast.program.body.length > 0) {
+      const firstNode = ast.program.body[0];
+      firstNode.comments = firstNode.comments || [];
+      firstNode.comments.unshift(comment);
+    } else {
+      ast.program.body.unshift(comment as any);
+    }
   }
 };
 

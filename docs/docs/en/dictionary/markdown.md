@@ -873,9 +873,9 @@ The Intlayer Markdown renderer is dynamically loaded. Although optimized, the un
 
 To prevent blocking the UI, Intlayer integrates with React's Suspense API. It fetches the parser in the background and throws a Promise during the download.
 
-Wrap any component rendering Intlayer Markdown in a <Suspense> boundary. This displays a localized fallback state while the chunk downloads, allowing the rest of your DOM to render immediately.
+Wrap any component rendering Intlayer Markdown in a `<Suspense>` boundary. This displays a localized fallback state while the chunk downloads, allowing the rest of your DOM to render immediately.
 
-Warning: If you do not provide a <Suspense> boundary, React will suspend at the root level or block the entire component tree from rendering until the 55kb chunk is fully loaded.
+Warning: If you do not provide a `<Suspense>` boundary, React will suspend at the root level or block the entire component tree from rendering until the 55kb chunk is fully loaded.
 
 <Tabs>
   <Tab label="Next.js" value="nextjs">

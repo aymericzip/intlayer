@@ -1,5 +1,11 @@
 import { Fragment, h } from 'preact';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+
+vi.hoisted(() => {
+  process.env['INTLAYER_NODE_TYPE_MARKDOWN'] = 'false';
+  process.env['INTLAYER_NODE_TYPE_HTML'] = 'false';
+});
+
 import { renderIntlayerNode } from './IntlayerNode';
 
 // ---------------------------------------------------------------------------
@@ -16,7 +22,11 @@ const mockConfig = vi.hoisted(() => ({
 // between test cases.
 const mockIsEnabled = vi.hoisted(() => ({ value: false }));
 
-vi.mock('@intlayer/config/built', () => ({ default: mockConfig }));
+vi.mock('@intlayer/config/built', () => ({
+  default: mockConfig,
+  internationalization: mockConfig.internationalization,
+  editor: mockConfig.editor,
+}));
 
 // Make isEnabled a live getter so beforeEach can flip it.
 vi.mock('@intlayer/editor/isEnabled', () => ({

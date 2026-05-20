@@ -10,7 +10,11 @@ const mockConfig = vi.hoisted(() => ({
   internationalization: { defaultLocale: 'en', locales: ['en'] },
 }));
 
-vi.mock('@intlayer/config/built', () => ({ default: mockConfig }));
+vi.mock('@intlayer/config/built', () => ({
+  default: mockConfig,
+  internationalization: mockConfig.internationalization,
+  editor: mockConfig.editor,
+}));
 
 // Mock the editor module (exports Angular components).
 vi.mock('./editor', () => ({
