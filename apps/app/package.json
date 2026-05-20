@@ -1,6 +1,6 @@
 {
   "name": "app",
-  "version": "8.10.0-canary.1",
+  "version": "8.10.0",
   "private": true,
   "description": "Intlayer app",
   "homepage": "https://intlayer.org",
