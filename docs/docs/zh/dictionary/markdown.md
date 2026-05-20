@@ -629,6 +629,7 @@ Markdown 渲染支持 **MDX** — 在您的 Markdown 中直接按名称使用任
     );
     ```
 
+
     > 支持 MDX — Markdown 内部使用的任何组件名称（例如 `<MyCustomJSXComponent />`）都会根据 `components` 映射进行解析。
 
     您还可以使用自己的 markdown 渲染器：
@@ -676,6 +677,9 @@ Markdown 渲染支持 **MDX** — 在您的 Markdown 中直接按名称使用任
     app.mount("#app");
     ```
 
+
+    > 支持 MDX — Markdown 内部使用的任何组件名称（例如 `<MyCustomJSXComponent />`）都会根据 `components` 映射进行解析。
+
     您还可以使用自己的 markdown 渲染器：
 
     ```typescript fileName="main.ts"
@@ -717,6 +721,9 @@ Markdown 渲染支持 **MDX** — 在您的 Markdown 中直接按名称使用任
     </MarkdownProvider>
     ```
 
+
+    > 支持 MDX — Markdown 内部使用的任何组件名称（例如 `<MyCustomJSXComponent />`）都会根据 `components` 映射进行解析。
+
     您还可以使用自己的 markdown 渲染器：
 
     ```svelte fileName="App.svelte"
@@ -753,6 +760,9 @@ Markdown 渲染支持 **MDX** — 在您的 Markdown 中直接按名称使用任
     );
     ```
 
+
+    > 支持 MDX — Markdown 内部使用的任何组件名称（例如 `<MyCustomJSXComponent />`）都会根据 `components` 映射进行解析。
+
     您还可以使用自己的 markdown 渲染器：
 
     ```tsx fileName="AppProvider.tsx"
@@ -788,6 +798,9 @@ Markdown 渲染支持 **MDX** — 在您的 Markdown 中直接按名称使用任
       </MarkdownProvider>
     );
     ```
+
+
+    > 支持 MDX — Markdown 内部使用的任何组件名称（例如 `<MyCustomJSXComponent />`）都会根据 `components` 映射进行解析。
 
     您还可以使用自己的 markdown 渲染器：
 

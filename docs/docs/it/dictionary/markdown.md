@@ -629,6 +629,7 @@ Il `MarkdownProvider` (o il suo equivalente nel framework) configura la pipeline
     );
     ```
 
+
     > MDX è supportato — qualsiasi nome di componente usato all'interno del tuo Markdown (es. `<MyCustomJSXComponent />`) viene risolto tramite la mappa `components`.
 
     Puoi anche usare il tuo renderer markdown:
@@ -676,6 +677,9 @@ Il `MarkdownProvider` (o il suo equivalente nel framework) configura la pipeline
     app.mount("#app");
     ```
 
+
+    > MDX è supportato — qualsiasi nome di componente usato all'interno del tuo Markdown (es. `<MyCustomJSXComponent />`) viene risolto tramite la mappa `components`.
+
     Puoi anche usare il tuo renderer markdown:
 
     ```typescript fileName="main.ts"
@@ -717,6 +721,9 @@ Il `MarkdownProvider` (o il suo equivalente nel framework) configura la pipeline
     </MarkdownProvider>
     ```
 
+
+    > MDX è supportato — qualsiasi nome di componente usato all'interno del tuo Markdown (es. `<MyCustomJSXComponent />`) viene risolto tramite la mappa `components`.
+
     Puoi anche usare il tuo renderer markdown:
 
     ```svelte fileName="App.svelte"
@@ -753,6 +760,9 @@ Il `MarkdownProvider` (o il suo equivalente nel framework) configura la pipeline
     );
     ```
 
+
+    > MDX è supportato — qualsiasi nome di componente usato all'interno del tuo Markdown (es. `<MyCustomJSXComponent />`) viene risolto tramite la mappa `components`.
+
     Puoi anche usare il tuo renderer markdown:
 
     ```tsx fileName="AppProvider.tsx"
@@ -788,6 +798,9 @@ Il `MarkdownProvider` (o il suo equivalente nel framework) configura la pipeline
       </MarkdownProvider>
     );
     ```
+
+
+    > MDX è supportato — qualsiasi nome di componente usato all'interno del tuo Markdown (es. `<MyCustomJSXComponent />`) viene risolto tramite la mappa `components`.
 
     Puoi anche usare il tuo renderer markdown:
 

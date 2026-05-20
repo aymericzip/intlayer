@@ -629,6 +629,7 @@ The `MarkdownProvider` (or its framework equivalent) configures the Markdown ren
     );
     ```
 
+
     > MDX is supported — any component name used inside your Markdown (e.g. `<MyCustomJSXComponent />`) is resolved against the `components` map.
 
     You can also use your own markdown renderer:
@@ -676,6 +677,9 @@ The `MarkdownProvider` (or its framework equivalent) configures the Markdown ren
     app.mount("#app");
     ```
 
+
+    > MDX is supported — any component name used inside your Markdown (e.g. `<MyCustomJSXComponent />`) is resolved against the `components` map.
+
     You can also use your own markdown renderer:
 
     ```typescript fileName="main.ts"
@@ -717,6 +721,9 @@ The `MarkdownProvider` (or its framework equivalent) configures the Markdown ren
     </MarkdownProvider>
     ```
 
+
+    > MDX is supported — any component name used inside your Markdown (e.g. `<MyCustomJSXComponent />`) is resolved against the `components` map.
+
     You can also use your own markdown renderer:
 
     ```svelte fileName="App.svelte"
@@ -753,6 +760,9 @@ The `MarkdownProvider` (or its framework equivalent) configures the Markdown ren
     );
     ```
 
+
+    > MDX is supported — any component name used inside your Markdown (e.g. `<MyCustomJSXComponent />`) is resolved against the `components` map.
+
     You can also use your own markdown renderer:
 
     ```tsx fileName="AppProvider.tsx"
@@ -788,6 +798,9 @@ The `MarkdownProvider` (or its framework equivalent) configures the Markdown ren
       </MarkdownProvider>
     );
     ```
+
+
+    > MDX is supported — any component name used inside your Markdown (e.g. `<MyCustomJSXComponent />`) is resolved against the `components` map.
 
     You can also use your own markdown renderer:
 

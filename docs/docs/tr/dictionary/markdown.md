@@ -629,6 +629,7 @@ Bu yardımcı programlar **yalnızca ham Markdown dizelerini** oluşturur ve `us
     );
     ```
 
+
     > MDX desteklenir — Markdown'ınızın içinde kullanılan herhangi bir bileşen adı (örn. `<MyCustomJSXComponent />`) `components` haritasına göre çözümlenir.
 
     Kendi markdown oluşturucunuzu da kullanabilirsiniz:
@@ -676,6 +677,9 @@ Bu yardımcı programlar **yalnızca ham Markdown dizelerini** oluşturur ve `us
     app.mount("#app");
     ```
 
+
+    > MDX desteklenir — Markdown'ınızın içinde kullanılan herhangi bir bileşen adı (örn. `<MyCustomJSXComponent />`) `components` haritasına göre çözümlenir.
+
     Kendi markdown oluşturucunuzu da kullanabilirsiniz:
 
     ```typescript fileName="main.ts"
@@ -717,6 +721,9 @@ Bu yardımcı programlar **yalnızca ham Markdown dizelerini** oluşturur ve `us
     </MarkdownProvider>
     ```
 
+
+    > MDX desteklenir — Markdown'ınızın içinde kullanılan herhangi bir bileşen adı (örn. `<MyCustomJSXComponent />`) `components` haritasına göre çözümlenir.
+
     Kendi markdown oluşturucunuzu da kullanabilirsiniz:
 
     ```svelte fileName="App.svelte"
@@ -753,6 +760,9 @@ Bu yardımcı programlar **yalnızca ham Markdown dizelerini** oluşturur ve `us
     );
     ```
 
+
+    > MDX desteklenir — Markdown'ınızın içinde kullanılan herhangi bir bileşen adı (örn. `<MyCustomJSXComponent />`) `components` haritasına göre çözümlenir.
+
     Kendi markdown oluşturucunuzu da kullanabilirsiniz:
 
     ```tsx fileName="AppProvider.tsx"
@@ -788,6 +798,9 @@ Bu yardımcı programlar **yalnızca ham Markdown dizelerini** oluşturur ve `us
       </MarkdownProvider>
     );
     ```
+
+
+    > MDX desteklenir — Markdown'ınızın içinde kullanılan herhangi bir bileşen adı (örn. `<MyCustomJSXComponent />`) `components` haritasına göre çözümlenir.
 
     Kendi markdown oluşturucunuzu da kullanabilirsiniz:
 

@@ -629,6 +629,7 @@ O `MarkdownProvider` (ou o seu equivalente do framework) configura o pipeline de
     );
     ```
 
+
     > O MDX é suportado — qualquer nome de componente usado dentro do seu Markdown (ex: `<MyCustomJSXComponent />`) é resolvido com base no mapa de `components`.
 
     Você também pode usar seu próprio renderizador de markdown:
@@ -676,6 +677,9 @@ O `MarkdownProvider` (ou o seu equivalente do framework) configura o pipeline de
     app.mount("#app");
     ```
 
+
+    > O MDX é suportado — qualquer nome de componente usado dentro do seu Markdown (ex: `<MyCustomJSXComponent />`) é resolvido com base no mapa de `components`.
+
     Você também pode usar seu próprio renderizador de markdown:
 
     ```typescript fileName="main.ts"
@@ -717,6 +721,9 @@ O `MarkdownProvider` (ou o seu equivalente do framework) configura o pipeline de
     </MarkdownProvider>
     ```
 
+
+    > O MDX é suportado — qualquer nome de componente usado dentro do seu Markdown (ex: `<MyCustomJSXComponent />`) é resolvido com base no mapa de `components`.
+
     Você também pode usar seu próprio renderizador de markdown:
 
     ```svelte fileName="App.svelte"
@@ -753,6 +760,9 @@ O `MarkdownProvider` (ou o seu equivalente do framework) configura o pipeline de
     );
     ```
 
+
+    > O MDX é suportado — qualquer nome de componente usado dentro do seu Markdown (ex: `<MyCustomJSXComponent />`) é resolvido com base no mapa de `components`.
+
     Você também pode usar seu próprio renderizador de markdown:
 
     ```tsx fileName="AppProvider.tsx"
@@ -788,6 +798,9 @@ O `MarkdownProvider` (ou o seu equivalente do framework) configura o pipeline de
       </MarkdownProvider>
     );
     ```
+
+
+    > O MDX é suportado — qualquer nome de componente usado dentro do seu Markdown (ex: `<MyCustomJSXComponent />`) é resolvido com base no mapa de `components`.
 
     Você também pode usar seu próprio renderizador de markdown:
 

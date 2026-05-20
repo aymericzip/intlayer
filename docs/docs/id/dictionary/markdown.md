@@ -629,6 +629,7 @@ Utilitas ini merender **hanya string Markdown mentah** dan independen dari `useI
     );
     ```
 
+
     > MDX didukung — nama komponen apa pun yang digunakan di dalam Markdown Anda (misalnya `<MyCustomJSXComponent />`) diselesaikan terhadap peta `components`.
 
     Anda juga dapat menggunakan perender markdown Anda sendiri:
@@ -676,6 +677,9 @@ Utilitas ini merender **hanya string Markdown mentah** dan independen dari `useI
     app.mount("#app");
     ```
 
+
+    > MDX didukung — nama komponen apa pun yang digunakan di dalam Markdown Anda (misalnya `<MyCustomJSXComponent />`) diselesaikan terhadap peta `components`.
+
     Anda juga dapat menggunakan perender markdown Anda sendiri:
 
     ```typescript fileName="main.ts"
@@ -717,6 +721,9 @@ Utilitas ini merender **hanya string Markdown mentah** dan independen dari `useI
     </MarkdownProvider>
     ```
 
+
+    > MDX didukung — nama komponen apa pun yang digunakan di dalam Markdown Anda (misalnya `<MyCustomJSXComponent />`) diselesaikan terhadap peta `components`.
+
     Anda juga dapat menggunakan perender markdown Anda sendiri:
 
     ```svelte fileName="App.svelte"
@@ -753,6 +760,9 @@ Utilitas ini merender **hanya string Markdown mentah** dan independen dari `useI
     );
     ```
 
+
+    > MDX didukung — nama komponen apa pun yang digunakan di dalam Markdown Anda (misalnya `<MyCustomJSXComponent />`) diselesaikan terhadap peta `components`.
+
     Anda juga dapat menggunakan perender markdown Anda sendiri:
 
     ```tsx fileName="AppProvider.tsx"
@@ -788,6 +798,9 @@ Utilitas ini merender **hanya string Markdown mentah** dan independen dari `useI
       </MarkdownProvider>
     );
     ```
+
+
+    > MDX didukung — nama komponen apa pun yang digunakan di dalam Markdown Anda (misalnya `<MyCustomJSXComponent />`) diselesaikan terhadap peta `components`.
 
     Anda juga dapat menggunakan perender markdown Anda sendiri:
 

@@ -629,6 +629,7 @@ Le `MarkdownProvider` (ou son équivalent dans un framework) configure le pipeli
     );
     ```
 
+
     > MDX est pris en charge — tout nom de composant utilisé dans votre Markdown (ex. `<MyCustomJSXComponent />`) est résolu par rapport à la correspondance dans `components`.
 
     Vous pouvez également utiliser votre propre rendu de markdown :
@@ -676,6 +677,9 @@ Le `MarkdownProvider` (ou son équivalent dans un framework) configure le pipeli
     app.mount("#app");
     ```
 
+
+    > MDX est pris en charge — tout nom de composant utilisé dans votre Markdown (ex. `<MyCustomJSXComponent />`) est résolu par rapport à la correspondance dans `components`.
+
     Vous pouvez également utiliser votre propre rendu de markdown :
 
     ```typescript fileName="main.ts"
@@ -717,6 +721,9 @@ Le `MarkdownProvider` (ou son équivalent dans un framework) configure le pipeli
     </MarkdownProvider>
     ```
 
+
+    > MDX est pris en charge — tout nom de composant utilisé dans votre Markdown (ex. `<MyCustomJSXComponent />`) est résolu par rapport à la correspondance dans `components`.
+
     Vous pouvez également utiliser votre propre rendu de markdown :
 
     ```svelte fileName="App.svelte"
@@ -753,6 +760,9 @@ Le `MarkdownProvider` (ou son équivalent dans un framework) configure le pipeli
     );
     ```
 
+
+    > MDX est pris en charge — tout nom de composant utilisé dans votre Markdown (ex. `<MyCustomJSXComponent />`) est résolu par rapport à la correspondance dans `components`.
+
     Vous pouvez également utiliser votre propre rendu de markdown :
 
     ```tsx fileName="AppProvider.tsx"
@@ -788,6 +798,9 @@ Le `MarkdownProvider` (ou son équivalent dans un framework) configure le pipeli
       </MarkdownProvider>
     );
     ```
+
+
+    > MDX est pris en charge — tout nom de composant utilisé dans votre Markdown (ex. `<MyCustomJSXComponent />`) est résolu par rapport à la correspondance dans `components`.
 
     Vous pouvez également utiliser votre propre rendu de markdown :
 

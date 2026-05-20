@@ -629,6 +629,7 @@ Estas utilidades renderizan **únicamente cadenas Markdown puras** y son indepen
     );
     ```
 
+
     > MDX es compatible — cualquier nombre de componente usado dentro de su Markdown (ej. `<MyCustomJSXComponent />`) se resuelve contra el mapeo de `components`.
 
     También puede usar su propio renderizador de markdown:
@@ -676,6 +677,9 @@ Estas utilidades renderizan **únicamente cadenas Markdown puras** y son indepen
     app.mount("#app");
     ```
 
+
+    > MDX es compatible — cualquier nombre de componente usado dentro de su Markdown (ej. `<MyCustomJSXComponent />`) se resuelve contra el mapeo de `components`.
+
     También puede usar su propio renderizador de markdown:
 
     ```typescript fileName="main.ts"
@@ -717,6 +721,9 @@ Estas utilidades renderizan **únicamente cadenas Markdown puras** y son indepen
     </MarkdownProvider>
     ```
 
+
+    > MDX es compatible — cualquier nombre de componente usado dentro de su Markdown (ej. `<MyCustomJSXComponent />`) se resuelve contra el mapeo de `components`.
+
     También puede usar su propio renderizador de markdown:
 
     ```svelte fileName="App.svelte"
@@ -753,6 +760,9 @@ Estas utilidades renderizan **únicamente cadenas Markdown puras** y son indepen
     );
     ```
 
+
+    > MDX es compatible — cualquier nombre de componente usado dentro de su Markdown (ej. `<MyCustomJSXComponent />`) se resuelve contra el mapeo de `components`.
+
     También puede usar su propio renderizador de markdown:
 
     ```tsx fileName="AppProvider.tsx"
@@ -788,6 +798,9 @@ Estas utilidades renderizan **únicamente cadenas Markdown puras** y son indepen
       </MarkdownProvider>
     );
     ```
+
+
+    > MDX es compatible — cualquier nombre de componente usado dentro de su Markdown (ej. `<MyCustomJSXComponent />`) se resuelve contra el mapeo de `components`.
 
     También puede usar su propio renderizador de markdown:
 

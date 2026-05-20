@@ -633,6 +633,7 @@ These utilities render **raw Markdown strings** and are independent of `useIntla
     );
     ```
 
+
     > MDX is supported — any component name used inside your Markdown (e.g. `<MyCustomJSXComponent />`) is resolved against the `components` map.
 
     You can also use your own markdown renderer:
@@ -680,6 +681,9 @@ These utilities render **raw Markdown strings** and are independent of `useIntla
     app.mount("#app");
     ```
 
+
+    > MDX is supported — any component name used inside your Markdown (e.g. `<MyCustomJSXComponent />`) is resolved against the `components` map.
+
     You can also use your own markdown renderer:
 
     ```typescript fileName="main.ts"
@@ -721,6 +725,9 @@ These utilities render **raw Markdown strings** and are independent of `useIntla
     </MarkdownProvider>
     ```
 
+
+    > MDX is supported — any component name used inside your Markdown (e.g. `<MyCustomJSXComponent />`) is resolved against the `components` map.
+
     You can also use your own markdown renderer:
 
     ```svelte fileName="App.svelte"
@@ -756,6 +763,9 @@ These utilities render **raw Markdown strings** and are independent of `useIntla
       </MarkdownProvider>
     );
     ```
+
+
+    > MDX is supported — any component name used inside your Markdown (e.g. `<MyCustomJSXComponent />`) is resolved against the `components` map.
 
     You can also use your own markdown renderer:
 
@@ -793,6 +803,9 @@ These utilities render **raw Markdown strings** and are independent of `useIntla
     );
     ```
 
+
+    > MDX is supported — any component name used inside your Markdown (e.g. `<MyCustomJSXComponent />`) is resolved against the `components` map.
+
     You can also use your own markdown renderer:
 
     ```tsx fileName="AppProvider.tsx"
@@ -828,6 +841,9 @@ These utilities render **raw Markdown strings** and are independent of `useIntla
       ],
     };
     ```
+
+
+    > MDX is supported — any component name used inside your Markdown (e.g. `<MyCustomJSXComponent />`) is resolved against the `components` map.
 
     You can also use your own markdown renderer:
 

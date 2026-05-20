@@ -629,6 +629,7 @@ Der `MarkdownProvider` (oder sein Framework-Äquivalent) konfiguriert die Markdo
     );
     ```
 
+
     > MDX wird unterstützt — jeder in Ihrem Markdown verwendete Komponentenname (z. B. `<MyCustomJSXComponent />`) wird mit dem `components`-Mapping aufgelöst.
 
     Sie können auch Ihren eigenen Markdown-Renderer verwenden:
@@ -676,6 +677,9 @@ Der `MarkdownProvider` (oder sein Framework-Äquivalent) konfiguriert die Markdo
     app.mount("#app");
     ```
 
+
+    > MDX wird unterstützt — jeder in Ihrem Markdown verwendete Komponentenname (z. B. `<MyCustomJSXComponent />`) wird mit dem `components`-Mapping aufgelöst.
+
     Sie können auch Ihren eigenen Markdown-Renderer verwenden:
 
     ```typescript fileName="main.ts"
@@ -717,6 +721,9 @@ Der `MarkdownProvider` (oder sein Framework-Äquivalent) konfiguriert die Markdo
     </MarkdownProvider>
     ```
 
+
+    > MDX wird unterstützt — jeder in Ihrem Markdown verwendete Komponentenname (z. B. `<MyCustomJSXComponent />`) wird mit dem `components`-Mapping aufgelöst.
+
     Sie können auch Ihren eigenen Markdown-Renderer verwenden:
 
     ```svelte fileName="App.svelte"
@@ -753,6 +760,9 @@ Der `MarkdownProvider` (oder sein Framework-Äquivalent) konfiguriert die Markdo
     );
     ```
 
+
+    > MDX wird unterstützt — jeder in Ihrem Markdown verwendete Komponentenname (z. B. `<MyCustomJSXComponent />`) wird mit dem `components`-Mapping aufgelöst.
+
     Sie können auch Ihren eigenen Markdown-Renderer verwenden:
 
     ```tsx fileName="AppProvider.tsx"
@@ -788,6 +798,9 @@ Der `MarkdownProvider` (oder sein Framework-Äquivalent) konfiguriert die Markdo
       </MarkdownProvider>
     );
     ```
+
+
+    > MDX wird unterstützt — jeder in Ihrem Markdown verwendete Komponentenname (z. B. `<MyCustomJSXComponent />`) wird mit dem `components`-Mapping aufgelöst.
 
     Sie können auch Ihren eigenen Markdown-Renderer verwenden:
 

@@ -629,6 +629,7 @@ history:
     );
     ```
 
+
     > MDX مدعوم — يتم حل أي اسم مكون يستخدم داخل Markdown الخاص بك (على سبيل المثال `<MyCustomJSXComponent />`) مقابل خريطة `components`.
 
     يمكنك أيضًا استخدام عارض markdown الخاص بك:
@@ -676,6 +677,9 @@ history:
     app.mount("#app");
     ```
 
+
+    > MDX مدعوم — يتم حل أي اسم مكون يستخدم داخل Markdown الخاص بك (على سبيل المثال `<MyCustomJSXComponent />`) مقابل خريطة `components`.
+
     يمكنك أيضًا استخدام عارض markdown الخاص بك:
 
     ```typescript fileName="main.ts"
@@ -717,6 +721,9 @@ history:
     </MarkdownProvider>
     ```
 
+
+    > MDX مدعوم — يتم حل أي اسم مكون يستخدم داخل Markdown الخاص بك (على سبيل المثال `<MyCustomJSXComponent />`) مقابل خريطة `components`.
+
     يمكنك أيضًا استخدام عارض markdown الخاص بك:
 
     ```svelte fileName="App.svelte"
@@ -753,6 +760,9 @@ history:
     );
     ```
 
+
+    > MDX مدعوم — يتم حل أي اسم مكون يستخدم داخل Markdown الخاص بك (على سبيل المثال `<MyCustomJSXComponent />`) مقابل خريطة `components`.
+
     يمكنك أيضًا استخدام عارض markdown الخاص بك:
 
     ```tsx fileName="AppProvider.tsx"
@@ -788,6 +798,9 @@ history:
       </MarkdownProvider>
     );
     ```
+
+
+    > MDX مدعوم — يتم حل أي اسم مكون يستخدم داخل Markdown الخاص بك (على سبيل المثال `<MyCustomJSXComponent />`) مقابل خريطة `components`.
 
     يمكنك أيضًا استخدام عارض markdown الخاص بك:
 
