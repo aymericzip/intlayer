@@ -66,9 +66,16 @@ const buildSuccessHtml = (message: string): string => `
 type LoginOptions = {
   cmsUrl?: string;
   configOptions?: GetConfigurationOptions;
+  /**
+   * When false, do not call process.exit(0) after a successful session-token
+   * login so the caller can continue (e.g. retry a command inline).
+   * Defaults to true to preserve existing standalone-login behaviour.
+   * Access-key login always exits because the user must configure .env first.
+   */
+  exitAfter?: boolean;
 };
 
-export const login = async (options: LoginOptions) => {
+export const login = async (options: LoginOptions = {}) => {
   const configuration = getConfiguration(options.configOptions);
   logConfigDetails(options?.configOptions);
 
@@ -126,7 +133,9 @@ export const login = async (options: LoginOptions) => {
 
           server.close(() => {
             resolve();
-            process.exit(0);
+            if (options.exitAfter !== false) {
+              process.exit(0);
+            }
           });
           return;
         }

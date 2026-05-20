@@ -42,15 +42,20 @@ const getMarkdownBody = (content: string): string => {
 
   if (endIndex === -1) return content;
 
-  return lines.slice(endIndex + 1).join('\n').trimStart();
+  return lines
+    .slice(endIndex + 1)
+    .join('\n')
+    .trimStart();
 };
 
-// Fields that are auto-generated or belong to the body, not the frontmatter
+// Fields that are auto-generated / internal and must not appear in frontmatter
 const EXCLUDED_FRONTMATTER_KEYS = new Set<string>([
   'content',
   '$schema',
-  'id',
   'filePath',
+  'localId',
+  'localIds',
+  'projectIds',
 ]);
 
 export const writeMarkdownFile = async (

@@ -81,20 +81,27 @@ const formatContentDeclaration = async (
 
   if (!isDictionaryFormat) return pluginFormatResult;
 
+  // Build result from the original dictionary so that extra user-defined fields
+  // (e.g. custom frontmatter in markdown files) are preserved.
+  // Strip internal-only fields that must never appear in persisted output.
+  const INTERNAL_FIELDS = new Set([
+    '$schema',
+    'filePath',
+    'localId',
+    'localIds',
+    'projectIds',
+  ]);
+
+  const preservedFields = Object.fromEntries(
+    Object.entries(dictionary as Record<string, unknown>).filter(
+      ([k]) => !INTERNAL_FIELDS.has(k)
+    )
+  );
+
   let result: Dictionary = {
-    key: dictionary.key,
-    id: dictionary.id,
-    title: dictionary.title,
-    description: dictionary.description,
-    tags: dictionary.tags,
-    locale: dictionary.locale,
-    fill: dictionary.fill,
-    filled: dictionary.filled,
-    priority: dictionary.priority,
-    importMode: dictionary.importMode,
-    version: dictionary.version,
+    ...preservedFields,
     content,
-  };
+  } as Dictionary;
 
   /**
    * Add $schema to JSON dictionaries
@@ -297,6 +304,21 @@ const writeFileWithDirectories = async (
       }
     }
 
+    return;
+  }
+
+  const knownJsExtensions = new Set([
+    '.ts',
+    '.tsx',
+    '.js',
+    '.jsx',
+    '.mjs',
+    '.cjs',
+  ]);
+
+  if (!knownJsExtensions.has(extension)) {
+    // Unknown extension (e.g. .po managed by a plugin) — skip; the plugin
+    // owns this file format and writeJSFile / prettier would corrupt it.
     return;
   }
 

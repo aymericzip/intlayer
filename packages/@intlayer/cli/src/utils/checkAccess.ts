@@ -4,6 +4,7 @@ import * as ANSIColors from '@intlayer/config/colors';
 import { colorize, getAppLogger } from '@intlayer/config/logger';
 import { extractErrorMessage } from '@intlayer/config/utils';
 import type { IntlayerConfig } from '@intlayer/types/config';
+import { login } from '../auth/login';
 import { type CliSessionData, readCliSessionToken } from '../auth/sessionToken';
 import { checkConfigConsistency } from './checkConfigConsistency';
 
@@ -45,9 +46,12 @@ const checkProjectConfigConsistency = (
         'Remote configuration is not up to date. The project configuration does not match the local configuration.',
         'You can push the configuration by running',
         colorize('npx intlayer configuration push', ANSIColors.CYAN),
-        colorize('(see doc:', ANSIColors.GREY_DARK),
-        colorize('https://intlayer.org/doc/concept/cli/push', ANSIColors.GREY),
-        colorize(')', ANSIColors.GREY_DARK),
+        colorize('(see doc:', ANSIColors.GREY_LIGHT),
+        colorize(
+          'https://intlayer.org/doc/concept/cli/push',
+          ANSIColors.GREY_DARK
+        ),
+        colorize(')', ANSIColors.GREY_LIGHT),
         '.',
       ],
       { level: 'warn' }
@@ -57,7 +61,8 @@ const checkProjectConfigConsistency = (
 
 export const checkCMSAuth = async (
   configuration: IntlayerConfig,
-  shouldCheckConfigConsistency: boolean = true
+  shouldCheckConfigConsistency: boolean = true,
+  shouldAutoLogin: boolean = true
 ): Promise<boolean> => {
   const appLogger = getAppLogger(configuration);
 
@@ -82,6 +87,14 @@ export const checkCMSAuth = async (
     } catch (error) {
       const message = extractErrorMessage(error);
       appLogger(message, { level: 'error' });
+      appLogger(
+        [
+          'Run',
+          colorize('npx intlayer login', ANSIColors.CYAN),
+          'to set up a new session.',
+        ],
+        { level: 'error' }
+      );
       return false;
     }
   }
@@ -90,18 +103,34 @@ export const checkCMSAuth = async (
   const hasCMSAuth =
     configuration.editor.clientId && configuration.editor.clientSecret;
   if (!hasCMSAuth) {
+    if (shouldAutoLogin) {
+      appLogger(
+        [
+          'No credentials found. Starting login...',
+          colorize('( Set', ANSIColors.GREY_LIGHT),
+          colorize('INTLAYER_CLIENT_ID', ANSIColors.BLUE),
+          colorize('and', ANSIColors.GREY_LIGHT),
+          colorize('INTLAYER_CLIENT_SECRET', ANSIColors.BLUE),
+          colorize('in your .env to skip this step)', ANSIColors.GREY_LIGHT),
+        ],
+        { level: 'warn' }
+      );
+      await login({ exitAfter: false });
+      return checkCMSAuth(configuration, shouldCheckConfigConsistency, false);
+    }
+
     appLogger(
       [
         'CMS auth not provided. Run',
         colorize('npx intlayer login', ANSIColors.CYAN),
         'to authenticate, or set',
-        colorize('INTLAYER_CLIENT_ID', ANSIColors.GREY_LIGHT),
+        colorize('INTLAYER_CLIENT_ID', ANSIColors.BLUE),
         'and',
-        colorize('INTLAYER_CLIENT_SECRET', ANSIColors.GREY_LIGHT),
+        colorize('INTLAYER_CLIENT_SECRET', ANSIColors.BLUE),
         'in your .env file',
-        colorize('(see doc:', ANSIColors.GREY_DARK),
-        colorize('https://intlayer.org/doc/concept/cms', ANSIColors.GREY),
-        colorize(')', ANSIColors.GREY_DARK),
+        colorize('(see doc:', ANSIColors.GREY_LIGHT),
+        colorize('https://intlayer.org/doc/concept/cms', ANSIColors.GREY_DARK),
+        colorize(')', ANSIColors.GREY_LIGHT),
         '.',
       ],
       { level: 'error' }
@@ -128,6 +157,14 @@ export const checkCMSAuth = async (
   } catch (error) {
     const message = extractErrorMessage(error);
     appLogger(message, { level: 'error' });
+    appLogger(
+      [
+        'Your access keys appear to be invalid. Run',
+        colorize('npx intlayer login', ANSIColors.CYAN),
+        'to set up new access keys.',
+      ],
+      { level: 'error' }
+    );
     return false;
   }
 
@@ -139,14 +176,6 @@ export const checkAIAccess = async (
   aiOptions?: AIOptions,
   shouldCheckConfigConsistency: boolean = true
 ): Promise<boolean> => {
-  const appLogger = getAppLogger(configuration);
-
-  const hasCMSAuth = Boolean(
-    configuration.editor.clientId && configuration.editor.clientSecret
-  );
-
-  const sessionData = await readCliSessionToken(configuration);
-  const hasSessionToken = Boolean(sessionData);
   const isOllama =
     configuration.ai?.provider === 'ollama' || aiOptions?.provider === 'ollama';
   const hasHisOwnAIAPIKey = Boolean(
@@ -157,27 +186,6 @@ export const checkAIAccess = async (
     return true;
   }
 
-  // User need to provide either his own AI API key or the CMS auth
-  if (!hasCMSAuth && !hasSessionToken) {
-    appLogger(
-      [
-        'AI options or API key not provided. Run',
-        colorize('npx intlayer login', ANSIColors.CYAN),
-        'to authenticate, or provide an API key',
-        colorize('(see doc:', ANSIColors.GREY_DARK),
-        colorize(
-          'https://intlayer.org/doc/concept/configuration',
-          ANSIColors.GREY
-        ),
-        colorize(')', ANSIColors.GREY_DARK),
-        '.',
-      ],
-      { level: 'error' }
-    );
-
-    return false;
-  }
-
-  // If the user do not have his own AI API key, we need to check the CMS auth
+  // No local AI key — delegate to CMS auth check (which will auto-login if needed)
   return await checkCMSAuth(configuration, shouldCheckConfigConsistency);
 };

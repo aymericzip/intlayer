@@ -162,6 +162,7 @@ export const colorizeObject = (
   if (typeof obj === 'string') {
     const isDateString = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/.test(obj);
     const isUrl = obj.startsWith('http://') || obj.startsWith('https://');
+    const isGlob = obj.includes('*') || obj.includes('?') || obj.includes('{');
     const isPath =
       obj.startsWith('/') ||
       obj.startsWith('./') ||
@@ -172,7 +173,9 @@ export const colorizeObject = (
     const hasSpaces = /\s/.test(obj);
 
     if (isDateString) return colorize(`"${obj}"`, BEIGE);
-    if (isUrl || isPath) return colorize(`"${obj}"`, GREY_DARK);
+    if (isUrl) return colorize(`"${obj}"`, GREY_DARK);
+    if (isGlob) return colorize(`"${obj}"`, GREY);
+    if (isPath) return colorize(`"${obj}"`, GREY_DARK);
     if (isSecret) return colorize(`"${obj}"`, GREY);
     if (hasSpaces) return colorize(`"${obj}"`, WHITE);
     return colorize(`"${obj}"`, BLUE);

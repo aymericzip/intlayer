@@ -1,5 +1,10 @@
 import { logConfigDetails } from '@intlayer/chokidar/cli';
-import { colorizeObject, getAppLogger } from '@intlayer/config/logger';
+import { CYAN, GREY_DARK } from '@intlayer/config/colors';
+import {
+  colorize,
+  colorizeObject,
+  getAppLogger,
+} from '@intlayer/config/logger';
 import {
   type GetConfigurationOptions,
   getConfiguration,
@@ -28,7 +33,7 @@ export const pushConfig = async (options?: PushOptions) => {
 
   if (!getDictionariesKeysResult.data) {
     appLogger(
-      `Error pushing project configuration. Run intlayer login command to authenticate.`,
+      `Error pushing project configuration. Run ${colorize('npx intlayer login', CYAN)} command to authenticate.`,
       {
         level: 'error',
       }
@@ -38,5 +43,7 @@ export const pushConfig = async (options?: PushOptions) => {
 
   appLogger('Project configuration pushed successfully');
 
-  appLogger(colorizeObject(getDictionariesKeysResult.data));
+  appLogger(colorize('--------------------------------', GREY_DARK));
+  appLogger(colorizeObject(getDictionariesKeysResult.data.configuration));
+  appLogger(colorize('--------------------------------', GREY_DARK));
 };

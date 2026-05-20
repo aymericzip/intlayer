@@ -88,41 +88,8 @@ export const push = async (options?: PushOptions): Promise<void> => {
       )
     ) as string[];
 
-    let selectedCustomLocations: string[] = [];
-
-    if (customLocations.length > 0) {
-      const { multiselect, confirm, isCancel } = await import('@clack/prompts');
-
-      if (customLocations.length === 1) {
-        const shouldPush = await confirm({
-          message: `Do you want to push dictionaries with custom location ${colorize(customLocations[0], ANSIColors.BLUE, ANSIColors.RESET)}?`,
-          initialValue: false,
-        });
-
-        if (isCancel(shouldPush)) {
-          return;
-        }
-
-        if (shouldPush) {
-          selectedCustomLocations = [customLocations[0]];
-        }
-      } else {
-        const selected = await multiselect({
-          message: 'Select custom locations to push:',
-          options: customLocations.map((location) => ({
-            value: location,
-            label: location,
-          })),
-          required: false,
-        });
-
-        if (isCancel(selected)) {
-          return;
-        }
-
-        selectedCustomLocations = selected as string[];
-      }
-    }
+    // Include all custom locations automatically — no interactive prompt needed.
+    const selectedCustomLocations: string[] = customLocations;
 
     let dictionaries: Dictionary[] = allDictionaries.filter((dictionary) => {
       const location =
