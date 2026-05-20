@@ -46,8 +46,7 @@ export const SignInForm: FC<{
     navigate({ to: getTarget() as any, replace: true });
   };
 
-  const onLogin = async () => {
-    await router.invalidate();
+  const onLogin = () => {
     navigate({ to: getTarget() as any, replace: true });
   };
 
