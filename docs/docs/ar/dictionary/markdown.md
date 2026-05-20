@@ -95,21 +95,6 @@ history:
     ```
 
   </Tab>
-  <Tab label="الاكتشاف التلقائي" value="automatic-detection">
-    إذا كانت السلسلة النصية تحتوي على مؤشرات Markdown شائعة (مثل العناوين والقوائم والروابط وما إلى ذلك) ، فسيقوم Intlayer بتحويلها تلقائيًا.
-
-    ```typescript fileName="markdownDictionary.content.ts"
-    export default {
-      key: "app",
-      contentAutoTransformation: true, // تمكين الاكتشاف التلقائي لمحتوى Markdown - يمكن تعيينه عالميًا في intlayer.config.ts
-      content: {
-        myMarkdownContent: "## عنواني \n\nLorem Ipsum",
-      },
-    };
-    ```
-
-  </Tab>
-
   <Tab label="الملفات الخارجية" value="external-files">
     قم باستيراد ملفات `.md` مباشرة باستخدام وظيفة `file`.
 
@@ -123,6 +108,21 @@ history:
           en: md(file("./myMarkdown.en.md")),
           ar: md(file("./myMarkdown.ar.md")),
         }),
+      },
+    };
+    ```
+
+  </Tab>
+
+  <Tab label="الاكتشاف التلقائي" value="automatic-detection">
+    إذا كانت السلسلة النصية تحتوي على مؤشرات Markdown شائعة (مثل العناوين والقوائم والروابط وما إلى ذلك) ، فسيقوم Intlayer بتحويلها تلقائيًا.
+
+    ```typescript fileName="markdownDictionary.content.ts"
+    export default {
+      key: "app",
+      contentAutoTransformation: true, // تمكين الاكتشاف التلقائي لمحتوى Markdown - يمكن تعيينه عالميًا في intlayer.config.ts
+      content: {
+        myMarkdownContent: "## عنواني \n\nLorem Ipsum",
       },
     };
     ```
@@ -643,6 +643,7 @@ history:
     export const AppProvider = ({ children }) => (
       <MarkdownProvider
         renderMarkdown={async (md) => {
+          // Use dynamic import to reduce the bundle size of your application
           const { renderMarkdown } = await import('react-intlayer/markdown');
           return renderMarkdown(md);
         }}

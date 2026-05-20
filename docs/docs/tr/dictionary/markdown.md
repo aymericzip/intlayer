@@ -95,21 +95,6 @@ Markdown içeriğini `md` işlevini kullanarak veya basitçe bir dize olarak (Ma
     ```
 
   </Tab>
-  <Tab label="Otomatik Algılama" value="automatic-detection">
-    Dize ortak Markdown göstergeleri (başlıklar, listeler, bağlantılar vb.) içeriyorsa, Intlayer bunu otomatik olarak dönüştürecektir.
-
-    ```typescript fileName="markdownDictionary.content.ts"
-    export default {
-      key: "app",
-      contentAutoTransformation: true, // Markdown içeriğinin otomatik algılanmasını etkinleştir - intlayer.config.ts dosyasında global olarak ayarlanabilir
-      content: {
-        myMarkdownContent: "## Başlığım \n\nLorem Ipsum",
-      },
-    };
-    ```
-
-  </Tab>
-
   <Tab label="Harici Dosyalar" value="external-files">
     `.md` dosyalarını doğrudan `file` işlevini kullanarak içe aktarın.
 
@@ -123,6 +108,21 @@ Markdown içeriğini `md` işlevini kullanarak veya basitçe bir dize olarak (Ma
           en: md(file("./myMarkdown.en.md")),
           tr: md(file("./myMarkdown.tr.md")),
         }),
+      },
+    };
+    ```
+
+  </Tab>
+
+  <Tab label="Otomatik Algılama" value="automatic-detection">
+    Dize ortak Markdown göstergeleri (başlıklar, listeler, bağlantılar vb.) içeriyorsa, Intlayer bunu otomatik olarak dönüştürecektir.
+
+    ```typescript fileName="markdownDictionary.content.ts"
+    export default {
+      key: "app",
+      contentAutoTransformation: true, // Markdown içeriğinin otomatik algılanmasını etkinleştir - intlayer.config.ts dosyasında global olarak ayarlanabilir
+      content: {
+        myMarkdownContent: "## Başlığım \n\nLorem Ipsum",
       },
     };
     ```
@@ -643,6 +643,7 @@ Bu yardımcı programlar **yalnızca ham Markdown dizelerini** oluşturur ve `us
     export const AppProvider = ({ children }) => (
       <MarkdownProvider
         renderMarkdown={async (md) => {
+          // Use dynamic import to reduce the bundle size of your application
           const { renderMarkdown } = await import('react-intlayer/markdown');
           return renderMarkdown(md);
         }}

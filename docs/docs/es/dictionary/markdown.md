@@ -95,21 +95,6 @@ Puede declarar contenido Markdown usando la función `md` o simplemente como una
     ```
 
   </Tab>
-  <Tab label="Detección Automática" value="automatic-detection">
-    Si la cadena contiene indicadores comunes de Markdown (como encabezados, listas, enlaces, etc.), Intlayer la transformará automáticamente.
-
-    ```typescript fileName="markdownDictionary.content.ts"
-    export default {
-      key: "app",
-      contentAutoTransformation: true, // Habilitar detección automática de contenido Markdown - Se puede configurar globalmente en intlayer.config.ts
-      content: {
-        myMarkdownContent: "## Mi título \n\nLorem Ipsum",
-      },
-    };
-    ```
-
-  </Tab>
-
   <Tab label="Archivos Externos" value="external-files">
     Importe archivos `.md` directamente usando la función `file`.
 
@@ -123,6 +108,21 @@ Puede declarar contenido Markdown usando la función `md` o simplemente como una
           en: md(file("./myMarkdown.en.md")),
           es: md(file("./myMarkdown.es.md")),
         }),
+      },
+    };
+    ```
+
+  </Tab>
+
+  <Tab label="Detección Automática" value="automatic-detection">
+    Si la cadena contiene indicadores comunes de Markdown (como encabezados, listas, enlaces, etc.), Intlayer la transformará automáticamente.
+
+    ```typescript fileName="markdownDictionary.content.ts"
+    export default {
+      key: "app",
+      contentAutoTransformation: true, // Habilitar detección automática de contenido Markdown - Se puede configurar globalmente en intlayer.config.ts
+      content: {
+        myMarkdownContent: "## Mi título \n\nLorem Ipsum",
       },
     };
     ```
@@ -643,6 +643,7 @@ Estas utilidades renderizan **únicamente cadenas Markdown puras** y son indepen
     export const AppProvider = ({ children }) => (
       <MarkdownProvider
         renderMarkdown={async (md) => {
+          // Use dynamic import to reduce the bundle size of your application
           const { renderMarkdown } = await import('react-intlayer/markdown');
           return renderMarkdown(md);
         }}

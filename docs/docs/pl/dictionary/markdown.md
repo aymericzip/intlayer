@@ -95,21 +95,6 @@ Możesz zadeklarować treść Markdown używając funkcji `md` lub po prostu jak
     ```
 
   </Tab>
-  <Tab label="Automatyczne wykrywanie" value="automatic-detection">
-    Jeśli ciąg znaków zawiera typowe wskaźniki Markdown (takie jak nagłówki, listy, linki itp.), Intlayer automatycznie je przekształci.
-
-    ```typescript fileName="markdownDictionary.content.ts"
-    export default {
-      key: "app",
-      contentAutoTransformation: true, // Włącz automatyczne wykrywanie treści Markdown - Można ustawić globalnie w intlayer.config.ts
-      content: {
-        myMarkdownContent: "## Mój tytuł \n\nLorem Ipsum",
-      },
-    };
-    ```
-
-  </Tab>
-
   <Tab label="Pliki zewnętrzne" value="external-files">
     Importuj pliki `.md` bezpośrednio za pomocą funkcji `file`.
 
@@ -123,6 +108,21 @@ Możesz zadeklarować treść Markdown używając funkcji `md` lub po prostu jak
           en: md(file("./myMarkdown.en.md")),
           pl: md(file("./myMarkdown.pl.md")),
         }),
+      },
+    };
+    ```
+
+  </Tab>
+
+  <Tab label="Automatyczne wykrywanie" value="automatic-detection">
+    Jeśli ciąg znaków zawiera typowe wskaźniki Markdown (takie jak nagłówki, listy, linki itp.), Intlayer automatycznie je przekształci.
+
+    ```typescript fileName="markdownDictionary.content.ts"
+    export default {
+      key: "app",
+      contentAutoTransformation: true, // Włącz automatyczne wykrywanie treści Markdown - Można ustawić globalnie w intlayer.config.ts
+      content: {
+        myMarkdownContent: "## Mój tytuł \n\nLorem Ipsum",
       },
     };
     ```
@@ -643,6 +643,7 @@ Te narzędzia renderują **tylko surowe ciągi znaków Markdown** i są niezale�
     export const AppProvider = ({ children }) => (
       <MarkdownProvider
         renderMarkdown={async (md) => {
+          // Use dynamic import to reduce the bundle size of your application
           const { renderMarkdown } = await import('react-intlayer/markdown');
           return renderMarkdown(md);
         }}

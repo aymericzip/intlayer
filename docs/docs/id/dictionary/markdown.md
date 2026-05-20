@@ -95,21 +95,6 @@ Anda dapat mendeklarasikan konten Markdown menggunakan fungsi `md` atau cukup se
     ```
 
   </Tab>
-  <Tab label="Deteksi Otomatis" value="automatic-detection">
-    Jika string mengandung indikator Markdown umum (seperti judul, daftar, tautan, dll.), Intlayer akan secara otomatis mengubahnya.
-
-    ```typescript fileName="markdownDictionary.content.ts"
-    export default {
-      key: "app",
-      contentAutoTransformation: true, // Mengaktifkan deteksi otomatis dari konten Markdown - Dapat diatur secara global di intlayer.config.ts
-      content: {
-        myMarkdownContent: "## Judul saya \n\nLorem Ipsum",
-      },
-    };
-    ```
-
-  </Tab>
-
   <Tab label="File Eksternal" value="external-files">
     Impor file `.md` secara langsung menggunakan fungsi `file`.
 
@@ -123,6 +108,21 @@ Anda dapat mendeklarasikan konten Markdown menggunakan fungsi `md` atau cukup se
           en: md(file("./myMarkdown.en.md")),
           id: md(file("./myMarkdown.id.md")),
         }),
+      },
+    };
+    ```
+
+  </Tab>
+
+  <Tab label="Deteksi Otomatis" value="automatic-detection">
+    Jika string mengandung indikator Markdown umum (seperti judul, daftar, tautan, dll.), Intlayer akan secara otomatis mengubahnya.
+
+    ```typescript fileName="markdownDictionary.content.ts"
+    export default {
+      key: "app",
+      contentAutoTransformation: true, // Mengaktifkan deteksi otomatis dari konten Markdown - Dapat diatur secara global di intlayer.config.ts
+      content: {
+        myMarkdownContent: "## Judul saya \n\nLorem Ipsum",
       },
     };
     ```
@@ -643,6 +643,7 @@ Utilitas ini merender **hanya string Markdown mentah** dan independen dari `useI
     export const AppProvider = ({ children }) => (
       <MarkdownProvider
         renderMarkdown={async (md) => {
+          // Use dynamic import to reduce the bundle size of your application
           const { renderMarkdown } = await import('react-intlayer/markdown');
           return renderMarkdown(md);
         }}

@@ -95,21 +95,6 @@ Sie können Markdown-Inhalte mithilfe der Funktion `md` oder einfach als Zeichen
     ```
 
   </Tab>
-  <Tab label="Automatische Erkennung" value="automatic-detection">
-    Wenn die Zeichenfolge gängige Markdown-Indikatoren (wie Überschriften, Listen, Links usw.) enthält, transformiert Intlayer sie automatisch.
-
-    ```typescript fileName="markdownDictionary.content.ts"
-    export default {
-      key: "app",
-      contentAutoTransformation: true, // Automatische Erkennung von Markdown-Inhalten aktivieren - Kann global in intlayer.config.ts konfiguriert werden
-      content: {
-        myMarkdownContent: "## Mein Titel \n\nLorem Ipsum",
-      },
-    };
-    ```
-
-  </Tab>
-
   <Tab label="Externe Dateien" value="external-files">
     Importieren Sie `.md`-Dateien direkt mit der `file`-Funktion.
 
@@ -123,6 +108,21 @@ Sie können Markdown-Inhalte mithilfe der Funktion `md` oder einfach als Zeichen
           en: md(file("./myMarkdown.en.md")),
           de: md(file("./myMarkdown.de.md")),
         }),
+      },
+    };
+    ```
+
+  </Tab>
+
+  <Tab label="Automatische Erkennung" value="automatic-detection">
+    Wenn die Zeichenfolge gängige Markdown-Indikatoren (wie Überschriften, Listen, Links usw.) enthält, transformiert Intlayer sie automatisch.
+
+    ```typescript fileName="markdownDictionary.content.ts"
+    export default {
+      key: "app",
+      contentAutoTransformation: true, // Automatische Erkennung von Markdown-Inhalten aktivieren - Kann global in intlayer.config.ts konfiguriert werden
+      content: {
+        myMarkdownContent: "## Mein Titel \n\nLorem Ipsum",
       },
     };
     ```
@@ -643,6 +643,7 @@ Der `MarkdownProvider` (oder sein Framework-Äquivalent) konfiguriert die Markdo
     export const AppProvider = ({ children }) => (
       <MarkdownProvider
         renderMarkdown={async (md) => {
+          // Use dynamic import to reduce the bundle size of your application
           const { renderMarkdown } = await import('react-intlayer/markdown');
           return renderMarkdown(md);
         }}

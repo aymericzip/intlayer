@@ -97,20 +97,6 @@ You can declare Markdown content using the `md` function or simply as a string (
     ```
 
   </Tab>
-  <Tab label="Automatic Detection" value="automatic-detection">
-    If the string contains common Markdown indicators (like headers, lists, links, etc.), Intlayer will automatically transform it.
-
-    ```typescript fileName="markdownDictionary.content.ts"
-    export default {
-      key: "app",
-      contentAutoTransformation: true, // Enable automatic detection of Markdown content - Can be set globally in intlayer.config.ts
-      content: {
-        myMarkdownContent: "## My title \n\nLorem Ipsum",
-      },
-    };
-    ```
-
-  </Tab>
 
   <Tab label="External Files" value="external-files">
     Import `.md` files directly using the `file` function.
@@ -130,6 +116,22 @@ You can declare Markdown content using the `md` function or simply as a string (
     ```
 
   </Tab>
+
+  <Tab label="Automatic Detection" value="automatic-detection">
+    If the string contains common Markdown indicators (like headers, lists, links, etc.), Intlayer will automatically transform it.
+
+    ```typescript fileName="markdownDictionary.content.ts"
+    export default {
+      key: "app",
+      contentAutoTransformation: true, // Enable automatic detection of Markdown content - Can be set globally in intlayer.config.ts
+      content: {
+        myMarkdownContent: "## My title \n\nLorem Ipsum",
+      },
+    };
+    ```
+
+  </Tab>
+
 </Tabs>
 
 ---
@@ -645,6 +647,7 @@ These utilities render **raw Markdown strings** and are independent of `useIntla
     export const AppProvider = ({ children }) => (
       <MarkdownProvider
         renderMarkdown={async (md) => {
+          // Use dynamic import to reduce the bundle size of your application
           const { renderMarkdown } = await import('react-intlayer/markdown');
           return renderMarkdown(md);
         }}
