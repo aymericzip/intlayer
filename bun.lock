@@ -928,6 +928,7 @@
       "dependencies": {
         "@ai-sdk/anthropic": "3.0.78",
         "@ai-sdk/google": "3.0.75",
+        "@ai-sdk/mcp": "^1.0.42",
         "@ai-sdk/openai": "3.0.64",
         "@intlayer/api": "workspace:*",
         "@intlayer/config": "workspace:*",
@@ -2314,6 +2315,8 @@
     "@ai-sdk/groq": ["@ai-sdk/groq@3.0.39", "", { "dependencies": { "@ai-sdk/provider": "3.0.10", "@ai-sdk/provider-utils": "4.0.27" }, "peerDependencies": { "zod": "^3.25.76 || ^4.1.8" } }, "sha512-BZAr6DjCbzWQ0Qn1/TSsHo/bmCt4JaAMb4A7HCSUZBQCAcOjne/03D0sVjHnQhUC3TpwcmYiv7tHAviK7BluRw=="],
 
     "@ai-sdk/huggingface": ["@ai-sdk/huggingface@1.0.49", "", { "dependencies": { "@ai-sdk/openai-compatible": "2.0.47", "@ai-sdk/provider": "3.0.10", "@ai-sdk/provider-utils": "4.0.27" }, "peerDependencies": { "zod": "^3.25.76 || ^4" } }, "sha512-FUHX3vKmpobYHTntTYBsjh8hBs/uvnLpqDf8S3EJu9gGkaoXreWz5fUmAnA3zlIfxuttacd0h+tLZm90fQ2cJA=="],
+
+    "@ai-sdk/mcp": ["@ai-sdk/mcp@1.0.42", "", { "dependencies": { "@ai-sdk/provider": "3.0.10", "@ai-sdk/provider-utils": "4.0.27", "pkce-challenge": "^5.0.0" }, "peerDependencies": { "zod": "^3.25.76 || ^4.1.8" } }, "sha512-ctRhX9vNLXvjGSFf+RlM+ZutIhlzIgMPWzo2BoJKfIW9JzLneA/57bZkkaUvWSdbYFu1FCyxMarNV/4D/pOUzA=="],
 
     "@ai-sdk/mistral": ["@ai-sdk/mistral@3.0.37", "", { "dependencies": { "@ai-sdk/provider": "3.0.10", "@ai-sdk/provider-utils": "4.0.27" }, "peerDependencies": { "zod": "^3.25.76 || ^4.1.8" } }, "sha512-KkdaMjs4C2y+vrZWJE990E3ZxBFiOTHQ94ZlquuIttpphcqJTMxNoIpnKT/4UzMVWXL0BUEE2vs+1UEVXkN8Kg=="],
 

@@ -74,6 +74,7 @@
   "dependencies": {
     "@ai-sdk/anthropic": "3.0.78",
     "@ai-sdk/google": "3.0.75",
+    "@ai-sdk/mcp": "^1.0.42",
     "@ai-sdk/openai": "3.0.64",
     "@intlayer/api": "workspace:*",
     "@intlayer/config": "workspace:*",
