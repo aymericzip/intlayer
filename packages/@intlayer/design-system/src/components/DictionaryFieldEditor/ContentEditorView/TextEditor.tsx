@@ -248,20 +248,7 @@ const TranslationTextEditor: FC<TextEditorProps> = ({
   renderSection,
 }: TextEditorProps) => {
   const { locale, defaultLocale } = useLocale();
-  const { selectedLocales, availableLocales } = useLocaleSwitcherContent();
-
-  const sectionContent = (section as TranslationContent<string>)[
-    NodeTypes.TRANSLATION
-  ] as Record<Locale, string>;
-
-  const sectionContentKeys = Object.keys(sectionContent) as LocalesValues[];
-
-  const isFiltered = availableLocales.length > selectedLocales.length;
-
-  const localesList = isFiltered
-    ? selectedLocales
-    : // If the translation include content in other locales, we display all of them
-      [...new Set([...availableLocales, ...sectionContentKeys])];
+  const { selectedLocales } = useLocaleSwitcherContent();
 
   const content: any = (section as TranslationContent<string>)[
     NodeTypes.TRANSLATION
@@ -270,7 +257,7 @@ const TranslationTextEditor: FC<TextEditorProps> = ({
   return (
     <table className="w-full">
       <tbody className="flex w-full flex-col gap-2">
-        {localesList.map((translationKey) => {
+        {selectedLocales.map((translationKey) => {
           const uniqueKey = `${JSON.stringify(keyPath)}-translation-${translationKey}`;
           return (
             <Fragment key={uniqueKey}>

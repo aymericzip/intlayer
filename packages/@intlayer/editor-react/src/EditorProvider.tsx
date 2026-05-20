@@ -53,6 +53,13 @@ export const EditorProvider: FC<PropsWithChildren<EditorProviderProps>> = ({
     };
   }, [manager]);
 
+  useEffect(() => {
+    if (!manager || !configuration || Object.keys(configuration).length === 0)
+      return;
+
+    manager.configuration.set(configuration);
+  }, [manager, configuration]);
+
   return (
     <EditorStateProvider manager={manager}>{children}</EditorStateProvider>
   );
