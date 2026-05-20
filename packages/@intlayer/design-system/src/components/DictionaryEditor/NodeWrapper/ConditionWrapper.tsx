@@ -3,7 +3,7 @@ import type { ContentNode } from '@intlayer/types/dictionary';
 import type { KeyPath } from '@intlayer/types/keyPath';
 import * as NodeTypes from '@intlayer/types/nodeType';
 import type { FC } from 'react';
-import { NodeWrapper, type NodeWrapperProps, traceKeys } from './index';
+import { NodeWrapper, type NodeWrapperProps } from './index';
 
 type ConditionWrapperProps = Omit<NodeWrapperProps, 'section'> & {
   section: ConditionContent<ContentNode>;
@@ -14,32 +14,30 @@ export const ConditionWrapper: FC<ConditionWrapperProps> = (props) => {
 
   return (
     <div className="ml-2 grid grid-cols-[auto,1fr] gap-2">
-      {Object.keys(section)
-        .filter((key) => !traceKeys.includes(key))
-        .map((key) => {
-          const newKeyPathEl: KeyPath = {
-            type: NodeTypes.CONDITION,
-            key,
-          };
-          const newKeyPath: KeyPath[] = [...keyPath, newKeyPathEl];
+      {Object.keys(section[NodeTypes.CONDITION]).map((key) => {
+        const newKeyPathEl: KeyPath = {
+          type: NodeTypes.CONDITION,
+          key,
+        };
+        const newKeyPath: KeyPath[] = [...keyPath, newKeyPathEl];
 
-          const subSection =
-            section[NodeTypes.CONDITION][
-              key as keyof (typeof section)[typeof NodeTypes.CONDITION]
-            ]!;
+        const subSection =
+          section[NodeTypes.CONDITION][
+            key as keyof (typeof section)[typeof NodeTypes.CONDITION]
+          ]!;
 
-          return (
-            <>
-              <span className="flex items-center font-bold">{key}</span>
-              <NodeWrapper
-                {...props}
-                key={key}
-                keyPath={newKeyPath}
-                section={subSection}
-              />
-            </>
-          );
-        })}
+        return (
+          <>
+            <span className="flex items-center font-bold">{key}</span>
+            <NodeWrapper
+              {...props}
+              key={key}
+              keyPath={newKeyPath}
+              section={subSection}
+            />
+          </>
+        );
+      })}
     </div>
   );
 };
