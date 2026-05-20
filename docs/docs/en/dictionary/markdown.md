@@ -134,8 +134,6 @@ You can declare Markdown content using the `md` function or simply as a string (
 
 </Tabs>
 
----
-
 ## Rendering Markdown
 
 Intlayer provides two independent ways to render Markdown:
@@ -612,8 +610,6 @@ These utilities render **raw Markdown strings** and are independent of `useIntla
   </Tab>
 </Tabs>
 
----
-
 ## Global Configuration with `MarkdownProvider`
 
 `MarkdownProvider` (or its framework equivalent) configures the Markdown rendering pipeline for your entire application. It applies to both the automatic `useIntlayer` rendering and the helper utilities. Options set here are the defaults — `.use()` overrides them at the node level.
@@ -855,7 +851,177 @@ These utilities render **raw Markdown strings** and are independent of `useIntla
   </Tab>
 </Tabs>
 
----
+## Suspense
+
+The Intlayer Markdown renderer is dynamically loaded. Although optimized, the underlying parser chunk is approximately 55kb. Loading this synchronously delays the initial page rendering and degrades First Contentful Paint (FCP).
+
+To prevent blocking the UI, Intlayer integrates with React's Suspense API. It fetches the parser in the background and throws a Promise during the download.
+
+Wrap any component rendering Intlayer Markdown in a <Suspense> boundary. This displays a localized fallback state while the chunk downloads, allowing the rest of your DOM to render immediately.
+
+Warning: If you do not provide a <Suspense> boundary, React will suspend at the root level or block the entire component tree from rendering until the 55kb chunk is fully loaded.
+
+<Tabs>
+  <Tab label="Next.js" value="nextjs">
+
+In Next.js App Router, you can use either React `Suspense` for client components or a `loading.tsx` file for server components.
+
+**Client Component:**
+
+```tsx fileName="components/MyComponent.tsx"
+"use client";
+import { useIntlayer } from "next-intlayer";
+import { Suspense } from "react";
+
+const MyComponent = () => {
+  const markdownContent = useIntlayer("my-markdown");
+
+  return (
+    <Suspense fallback={<div>Loading...</div>}>{markdownContent}</Suspense>
+  );
+};
+```
+
+**Server Component with `loading.tsx`:**
+
+```tsx fileName="app/loading.tsx"
+export default function Loading() {
+  return <div>Loading...</div>;
+}
+```
+
+```tsx fileName="app/page.tsx"
+import { useIntlayer } from "next-intlayer/server";
+
+const MyPage = () => {
+  const markdownContent = useIntlayer("my-markdown");
+  return <div>{markdownContent}</div>;
+};
+
+export default MyPage;
+```
+
+  </Tab>
+
+  <Tab label="React" value="react">
+
+```tsx
+import { useIntlayer } from "react-intlayer";
+import { Suspense } from "react";
+
+const MyComponent = () => {
+  const markdownContent = useIntlayer("my-markdown");
+
+  return (
+    <Suspense fallback={<div>Loading...</div>}>{markdownContent}</Suspense>
+  );
+};
+```
+
+  </Tab>
+ 
+  <Tab label="Vue" value="vue">
+
+Vue has a built-in `<Suspense>` component. Wrap the component rendering Markdown content in a `<Suspense>` boundary.
+
+```vue fileName="MyComponent.vue"
+<script setup>
+import { useIntlayer } from "vue-intlayer";
+
+const { markdownContent } = useIntlayer("my-markdown");
+</script>
+
+<template>
+  <Suspense>
+    <component :is="markdownContent" />
+    <template #fallback>
+      <div>Loading...</div>
+    </template>
+  </Suspense>
+</template>
+```
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+
+Svelte does not have a Suspense API equivalent. Use an `{#await}` block to handle async rendering of Markdown content.
+
+```svelte fileName="MyComponent.svelte"
+<script lang="ts">
+import { useIntlayer } from "svelte-intlayer";
+
+const content = useIntlayer("my-markdown");
+</script>
+
+{#await $content.markdownContent}
+  <div>Loading...</div>
+{:then rendered}
+  {@html rendered}
+{/await}
+```
+
+  </Tab>
+  <Tab label="Preact" value="preact">
+
+Preact supports React's Suspense API via `preact/compat`.
+
+```tsx fileName="MyComponent.tsx"
+import { useIntlayer } from "preact-intlayer";
+import { Suspense } from "preact/compat";
+
+const MyComponent = () => {
+  const markdownContent = useIntlayer("my-markdown");
+
+  return (
+    <Suspense fallback={<div>Loading...</div>}>{markdownContent}</Suspense>
+  );
+};
+```
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+Solid has its own `<Suspense>` component from `solid-js`.
+
+```tsx fileName="MyComponent.tsx"
+import { useIntlayer } from "solid-intlayer";
+import { Suspense } from "solid-js";
+
+const MyComponent = () => {
+  const { markdownContent } = useIntlayer("my-markdown");
+
+  return (
+    <Suspense fallback={<div>Loading...</div>}>{markdownContent}</Suspense>
+  );
+};
+```
+
+  </Tab>
+  <Tab label="Angular" value="angular">
+
+Angular does not have a Suspense API. Use Angular's deferrable views (`@defer`) to handle lazy-loaded Markdown content (requires Angular 17+).
+
+```typescript fileName="my.component.ts"
+import { Component } from "@angular/core";
+import { useIntlayer } from "angular-intlayer";
+
+@Component({
+  selector: "app-my",
+  template: `
+    @defer {
+      <div [innerHTML]="content().markdownContent"></div>
+    } @loading {
+      <div>Loading...</div>
+    }
+  `,
+})
+export class MyComponent {
+  content = useIntlayer("my-markdown");
+}
+```
+
+  </Tab>
+</Tabs>
 
 ## Options Reference
 

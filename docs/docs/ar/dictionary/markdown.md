@@ -130,8 +130,6 @@ history:
   </Tab>
 </Tabs>
 
----
-
 ## عرض Markdown
 
 يوفر Intlayer طريقتين مستقلتين لعرض Markdown:
@@ -608,8 +606,6 @@ history:
   </Tab>
 </Tabs>
 
----
-
 ## التكوين العالمي باستخدام `MarkdownProvider`
 
 يقوم `MarkdownProvider` (أو ما يعادله في إطار العمل) بتكوين خط أنابيب عرض Markdown لتطبيقك بالكامل. ينطبق هذا على كل من العرض التلقائي `useIntlayer` والأدوات المساعدة. الخيارات المعينة هنا هي الإعدادات الافتراضية — يتجاوزها `.use()` على مستوى العقدة.
@@ -836,3 +832,191 @@ history:
 
   </Tab>
 </Tabs>
+
+## التعليق (Suspense)
+
+يتم تحميل محرك Markdown في Intlayer ديناميكيًا. على الرغم من تحسينه، يبلغ حجم الجزء الأساسي للمحلل حوالي 55 كيلوبايت. يؤدي تحميل هذا بشكل متزامن إلى تأخير عرض الصفحة الأولي ويقلل من سرعة عرض المحتوى الأول (FCP).
+
+لمنع حظر واجهة المستخدم، يتكامل Intlayer مع واجهة برمجة تطبيقات React Suspense. حيث يقوم بجلب المحلل في الخلفية ويرمي Promise أثناء التنزيل.
+
+قم بتغليف أي مكون يعرض Intlayer Markdown في حدود `<Suspense>`. يعرض هذا حالة احتياطية محلية أثناء تنزيل الجزء، مما يسمح لبقية DOM الخاص بك بالعرض على الفور.
+
+تحذير: إذا لم تقم بتوفير حدود `<Suspense>`، سيقوم React بالتعليق على مستوى الجذر أو حظر شجرة المكونات بأكملها من العرض حتى يتم تحميل جزء الـ 55 كيلوبايت بالكامل.
+
+<Tabs>
+  <Tab label="Next.js" value="nextjs">
+
+في Next.js App Router، يمكنك استخدام إما React `Suspense` لمكونات العميل أو ملف `loading.tsx` لمكونات الخادم.
+
+**مكون العميل:**
+
+```tsx fileName="components/MyComponent.tsx"
+"use client";
+import { useIntlayer } from "next-intlayer";
+import { Suspense } from "react";
+
+const MyComponent = () => {
+  const markdownContent = useIntlayer("my-markdown");
+
+  return (
+    <Suspense fallback={<div>Loading...</div>}>{markdownContent}</Suspense>
+  );
+};
+```
+
+**مكون الخادم مع `loading.tsx`:**
+
+```tsx fileName="app/loading.tsx"
+export default function Loading() {
+  return <div>Loading...</div>;
+}
+```
+
+```tsx fileName="app/page.tsx"
+import { useIntlayer } from "next-intlayer/server";
+
+const MyPage = () => {
+  const markdownContent = useIntlayer("my-markdown");
+  return <div>{markdownContent}</div>;
+};
+
+export default MyPage;
+```
+
+  </Tab>
+
+  <Tab label="React" value="react">
+
+```tsx
+import { useIntlayer } from "react-intlayer";
+import { Suspense } from "react";
+
+const MyComponent = () => {
+  const markdownContent = useIntlayer("my-markdown");
+
+  return (
+    <Suspense fallback={<div>Loading...</div>}>{markdownContent}</Suspense>
+  );
+};
+```
+
+  </Tab>
+ 
+  <Tab label="Vue" value="vue">
+
+يحتوي Vue على مكون `<Suspense>` مضمن. قم بتغليف المكون الذي يعرض محتوى Markdown في حدود `<Suspense>`.
+
+```vue fileName="MyComponent.vue"
+<script setup>
+import { useIntlayer } from "vue-intlayer";
+
+const { markdownContent } = useIntlayer("my-markdown");
+</script>
+
+<template>
+  <Suspense>
+    <component :is="markdownContent" />
+    <template #fallback>
+      <div>Loading...</div>
+    </template>
+  </Suspense>
+</template>
+```
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+
+لا يحتوي Svelte على واجهة برمجة تطبيقات Suspense مماثلة. استخدم كتلة `{#await}` للتعامل مع العرض غير المتزامن لمحتوى Markdown.
+
+```svelte fileName="MyComponent.svelte"
+<script lang="ts">
+import { useIntlayer } from "svelte-intlayer";
+
+const content = useIntlayer("my-markdown");
+</script>
+
+{#await $content.markdownContent}
+  <div>Loading...</div>
+{:then rendered}
+  {@html rendered}
+{/await}
+```
+
+  </Tab>
+  <Tab label="Preact" value="preact">
+
+يدعم Preact واجهة برمجة تطبيقات Suspense الخاصة بـ React عبر `preact/compat`.
+
+```tsx fileName="MyComponent.tsx"
+import { useIntlayer } from "preact-intlayer";
+import { Suspense } from "preact/compat";
+
+const MyComponent = () => {
+  const markdownContent = useIntlayer("my-markdown");
+
+  return (
+    <Suspense fallback={<div>Loading...</div>}>{markdownContent}</Suspense>
+  );
+};
+```
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+يحتوي Solid على مكون `<Suspense>` الخاص به من `solid-js`.
+
+```tsx fileName="MyComponent.tsx"
+import { useIntlayer } from "solid-intlayer";
+import { Suspense } from "solid-js";
+
+const MyComponent = () => {
+  const { markdownContent } = useIntlayer("my-markdown");
+
+  return (
+    <Suspense fallback={<div>Loading...</div>}>{markdownContent}</Suspense>
+  );
+};
+```
+
+  </Tab>
+  <Tab label="Angular" value="angular">
+
+لا يحتوي Angular على واجهة برمجة تطبيقات Suspense. استخدم طرق العرض المؤجلة (`@defer`) للتعامل مع محتوى Markdown المحمل ببطء (يتطلب Angular 17+).
+
+```typescript fileName="my.component.ts"
+import { Component } from "@angular/core";
+import { useIntlayer } from "angular-intlayer";
+
+@Component({
+  selector: "app-my",
+  template: `
+    @defer {
+      <div [innerHTML]="content().markdownContent"></div>
+    } @loading {
+      <div>Loading...</div>
+    }
+  `,
+})
+export class MyComponent {
+  content = useIntlayer("my-markdown");
+}
+```
+
+  </Tab>
+</Tabs>
+
+---
+
+## مرجع الخيارات
+
+يمكن تمرير هذه الخيارات إلى `MarkdownProvider` و `MarkdownRenderer` و `useMarkdownRenderer` و `renderMarkdown`.
+
+| Option                | Type        | Default | الوصف                                                                                 |
+| :-------------------- | :---------- | :------ | :------------------------------------------------------------------------------------ |
+| `forceBlock`          | `boolean`   | `false` | يجبر الإخراج على الالتفاف في عنصر على مستوى الكتلة (مثل `<div>`).                     |
+| `forceInline`         | `boolean`   | `false` | يجبر الإخراج على الالتفاف في عنصر مضمن (مثل `<span>`).                                |
+| `tagfilter`           | `boolean`   | `true`  | يمكّن عامل تصفية علامات GitHub لتحسين الأمان عن طريق إزالة علامات HTML الخطيرة.       |
+| `preserveFrontmatter` | `boolean`   | `false` | إذا كان `true`، فلن يتم إزالة البيانات الأولية (frontmatter) في بداية سلسلة Markdown. |
+| `components`          | `Overrides` | `{}`    | خريطة لعلامات HTML إلى مكونات مخصصة (مثل `{ h1: MyHeading }`).                        |
+| `wrapper`             | `Component` | `null`  | مكون مخصص لتغليف Markdown المعروض.                                                    |
+| `renderMarkdown`      | `Function`  | `null`  | وظيفة عرض مخصصة لاستبدال مترجم Markdown الافتراضي بالكامل.                            |

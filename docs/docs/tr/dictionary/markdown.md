@@ -130,8 +130,6 @@ Markdown içeriğini `md` işlevini kullanarak veya basitçe bir dize olarak (Ma
   </Tab>
 </Tabs>
 
----
-
 ## Markdown'u İşleme (Rendering)
 
 Intlayer, Markdown'ı işlemek için iki bağımsız yol sağlar:
@@ -608,8 +606,6 @@ Bu yardımcı programlar **yalnızca ham Markdown dizelerini** oluşturur ve `us
   </Tab>
 </Tabs>
 
----
-
 ## `MarkdownProvider` ile Global Yapılandırma
 
 `MarkdownProvider` (veya çerçeve eşdeğeri), tüm uygulamanız için Markdown oluşturma işlem hattını yapılandırır. Bu hem otomatik `useIntlayer` oluşturma işlemleri hem de yardımcı araçlar için geçerlidir. Burada ayarlanan seçenekler varsayılanlardır — `.use()` bunları düğüm düzeyinde geçersiz kılar.
@@ -836,3 +832,191 @@ Bu yardımcı programlar **yalnızca ham Markdown dizelerini** oluşturur ve `us
 
   </Tab>
 </Tabs>
+
+## Suspense
+
+Intlayer Markdown oluşturucu dinamik olarak yüklenir. Optimize edilmiş olmasına rağmen, temel ayrıştırıcı parçası yaklaşık 55 kb'dir. Bunu senkron olarak yüklemek, ilk sayfa oluşturulmasını geciktirir ve First Contentful Paint'i (FCP) bozar.
+
+UI engellemesini önlemek için, Intlayer React'in Suspense API'si ile entegre olur. Arka planda ayrıştırıcıyı getirir ve indirme sırasında bir Promise fırlatır.
+
+Intlayer Markdown'ı oluşturan herhangi bir bileşeni bir `<Suspense>` sınırına sarın. Bu, parça indirilirken yerelleştirilmiş bir geri dönüş durumunu göstererek DOM'nizin geri kalanının anında oluşturulmasına izin verir.
+
+Uyarı: Bir `<Suspense>` sınırı sağlamazsanız, React 55 kb'lik parça tam olarak yüklenene kadar kök seviyesinde askıya alınır veya tüm bileşen ağacının oluşturulmasını engeller.
+
+<Tabs>
+  <Tab label="Next.js" value="nextjs">
+
+Next.js App Router'da, istemci bileşenleri için React `Suspense`'i veya sunucu bileşenleri için bir `loading.tsx` dosyası kullanabilirsiniz.
+
+**İstemci Bileşeni:**
+
+```tsx fileName="components/MyComponent.tsx"
+"use client";
+import { useIntlayer } from "next-intlayer";
+import { Suspense } from "react";
+
+const MyComponent = () => {
+  const markdownContent = useIntlayer("my-markdown");
+
+  return (
+    <Suspense fallback={<div>Loading...</div>}>{markdownContent}</Suspense>
+  );
+};
+```
+
+**`loading.tsx` ile Sunucu Bileşeni:**
+
+```tsx fileName="app/loading.tsx"
+export default function Loading() {
+  return <div>Loading...</div>;
+}
+```
+
+```tsx fileName="app/page.tsx"
+import { useIntlayer } from "next-intlayer/server";
+
+const MyPage = () => {
+  const markdownContent = useIntlayer("my-markdown");
+  return <div>{markdownContent}</div>;
+};
+
+export default MyPage;
+```
+
+  </Tab>
+
+  <Tab label="React" value="react">
+
+```tsx
+import { useIntlayer } from "react-intlayer";
+import { Suspense } from "react";
+
+const MyComponent = () => {
+  const markdownContent = useIntlayer("my-markdown");
+
+  return (
+    <Suspense fallback={<div>Loading...</div>}>{markdownContent}</Suspense>
+  );
+};
+```
+
+  </Tab>
+ 
+  <Tab label="Vue" value="vue">
+
+Vue, yerleşik bir `<Suspense>` bileşenine sahiptir. Markdown içeriğini oluşturan bileşeni bir `<Suspense>` sınırına sarın.
+
+```vue fileName="MyComponent.vue"
+<script setup>
+import { useIntlayer } from "vue-intlayer";
+
+const { markdownContent } = useIntlayer("my-markdown");
+</script>
+
+<template>
+  <Suspense>
+    <component :is="markdownContent" />
+    <template #fallback>
+      <div>Loading...</div>
+    </template>
+  </Suspense>
+</template>
+```
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+
+Svelte'nin bir Suspense API eşdeğeri yoktur. Markdown içeriğinin asenkron olarak oluşturulmasını işlemek için bir `{#await}` bloğu kullanın.
+
+```svelte fileName="MyComponent.svelte"
+<script lang="ts">
+import { useIntlayer } from "svelte-intlayer";
+
+const content = useIntlayer("my-markdown");
+</script>
+
+{#await $content.markdownContent}
+  <div>Loading...</div>
+{:then rendered}
+  {@html rendered}
+{/await}
+```
+
+  </Tab>
+  <Tab label="Preact" value="preact">
+
+Preact, `preact/compat` aracılığıyla React'in Suspense API'sini destekler.
+
+```tsx fileName="MyComponent.tsx"
+import { useIntlayer } from "preact-intlayer";
+import { Suspense } from "preact/compat";
+
+const MyComponent = () => {
+  const markdownContent = useIntlayer("my-markdown");
+
+  return (
+    <Suspense fallback={<div>Loading...</div>}>{markdownContent}</Suspense>
+  );
+};
+```
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+Solid, `solid-js`'den kendi `<Suspense>` bileşenine sahiptir.
+
+```tsx fileName="MyComponent.tsx"
+import { useIntlayer } from "solid-intlayer";
+import { Suspense } from "solid-js";
+
+const MyComponent = () => {
+  const { markdownContent } = useIntlayer("my-markdown");
+
+  return (
+    <Suspense fallback={<div>Loading...</div>}>{markdownContent}</Suspense>
+  );
+};
+```
+
+  </Tab>
+  <Tab label="Angular" value="angular">
+
+Angular'da bir Suspense API'si yoktur. Geç yüklenen Markdown içeriğini işlemek için Angular'ın ertelenebilir görünümlerini (`@defer`) kullanın (Angular 17+ gerektirir).
+
+```typescript fileName="my.component.ts"
+import { Component } from "@angular/core";
+import { useIntlayer } from "angular-intlayer";
+
+@Component({
+  selector: "app-my",
+  template: `
+    @defer {
+      <div [innerHTML]="content().markdownContent"></div>
+    } @loading {
+      <div>Loading...</div>
+    }
+  `,
+})
+export class MyComponent {
+  content = useIntlayer("my-markdown");
+}
+```
+
+  </Tab>
+</Tabs>
+
+---
+
+## Seçenek Referansı
+
+Bu seçenekler `MarkdownProvider`, `MarkdownRenderer`, `useMarkdownRenderer` ve `renderMarkdown`a iletilebilir.
+
+| Option                | Type        | Default | Açıklama                                                                                               |
+| :-------------------- | :---------- | :------ | :----------------------------------------------------------------------------------------------------- |
+| `forceBlock`          | `boolean`   | `false` | Çıktının bir blok düzeyinde öğeye (örn. `<div>`) sarılmasını zorlar.                                   |
+| `forceInline`         | `boolean`   | `false` | Çıktının bir satır içi öğeye (örn. `<span>`) sarılmasını zorlar.                                       |
+| `tagfilter`           | `boolean`   | `true`  | Tehlikeli HTML etiketlerini kaldırarak güvenliği artırmak için GitHub Etiket Filtresini etkinleştirir. |
+| `preserveFrontmatter` | `boolean`   | `false` | `true` ise, Markdown dizesinin başındaki frontmatter kaldırılmaz.                                      |
+| `components`          | `Overrides` | `{}`    | HTML etiketlerinden özel bileşenlere bir eşleme (örn. `{ h1: MyHeading }`).                            |
+| `wrapper`             | `Component` | `null`  | Oluşturulan Markdown'u sarmak için özel bir bileşen.                                                   |
+| `renderMarkdown`      | `Function`  | `null`  | Varsayılan Markdown derleyicisini tamamen değiştirmek için özel bir oluşturma işlevi.                  |

@@ -130,8 +130,6 @@ Sie können Markdown-Inhalte mithilfe der Funktion `md` oder einfach als Zeichen
   </Tab>
 </Tabs>
 
----
-
 ## Markdown rendern
 
 Intlayer bietet zwei unabhängige Möglichkeiten zum Rendern von Markdown:
@@ -608,8 +606,6 @@ Diese Dienstprogramme rendern **nur reine Markdown-Strings** und sind unabhängi
   </Tab>
 </Tabs>
 
----
-
 ## Globale Konfiguration mit `MarkdownProvider`
 
 Der `MarkdownProvider` (oder sein Framework-Äquivalent) konfiguriert die Markdown-Rendering-Pipeline für Ihre gesamte Anwendung. Dies gilt sowohl für das automatische Rendering von `useIntlayer` als auch für die Hilfsprogramme. Die hier konfigurierten Optionen sind die Standardeinstellungen — `.use()` überschreibt sie auf Knotenebene.
@@ -836,3 +832,191 @@ Der `MarkdownProvider` (oder sein Framework-Äquivalent) konfiguriert die Markdo
 
   </Tab>
 </Tabs>
+
+## Suspense
+
+Der Intlayer-Markdown-Renderer wird dynamisch geladen. Obwohl er optimiert ist, ist der zugrunde liegende Parser-Chunk etwa 55 KB groß. Das synchrone Laden verzögert das anfängliche Rendern der Seite und verschlechtert den First Contentful Paint (FCP).
+
+Um ein Blockieren der Benutzeroberfläche zu verhindern, ist Intlayer in die React-Suspense-API integriert. Es ruft den Parser im Hintergrund ab und wirft während des Downloads ein Promise.
+
+Umschließen Sie jede Komponente, die Intlayer Markdown rendert, mit einer `<Suspense>`-Grenze. Dies zeigt einen lokalisierten Fallback-Status an, während der Chunk heruntergeladen wird, sodass der Rest Ihres DOMs sofort gerendert werden kann.
+
+Warnung: Wenn Sie keine `<Suspense>`-Grenze angeben, wird React auf Root-Ebene ausgesetzt oder der gesamte Komponentenbaum vom Rendern blockiert, bis der 55-KB-Chunk vollständig geladen ist.
+
+<Tabs>
+  <Tab label="Next.js" value="nextjs">
+
+Im Next.js App Router können Sie entweder React `Suspense` für Client-Komponenten oder eine `loading.tsx`-Datei für Server-Komponenten verwenden.
+
+**Client-Komponente:**
+
+```tsx fileName="components/MyComponent.tsx"
+"use client";
+import { useIntlayer } from "next-intlayer";
+import { Suspense } from "react";
+
+const MyComponent = () => {
+  const markdownContent = useIntlayer("my-markdown");
+
+  return (
+    <Suspense fallback={<div>Loading...</div>}>{markdownContent}</Suspense>
+  );
+};
+```
+
+**Server-Komponente mit `loading.tsx`:**
+
+```tsx fileName="app/loading.tsx"
+export default function Loading() {
+  return <div>Loading...</div>;
+}
+```
+
+```tsx fileName="app/page.tsx"
+import { useIntlayer } from "next-intlayer/server";
+
+const MyPage = () => {
+  const markdownContent = useIntlayer("my-markdown");
+  return <div>{markdownContent}</div>;
+};
+
+export default MyPage;
+```
+
+  </Tab>
+
+  <Tab label="React" value="react">
+
+```tsx
+import { useIntlayer } from "react-intlayer";
+import { Suspense } from "react";
+
+const MyComponent = () => {
+  const markdownContent = useIntlayer("my-markdown");
+
+  return (
+    <Suspense fallback={<div>Loading...</div>}>{markdownContent}</Suspense>
+  );
+};
+```
+
+  </Tab>
+ 
+  <Tab label="Vue" value="vue">
+
+Vue hat eine eingebaute `<Suspense>`-Komponente. Umschließen Sie die Komponente, die Markdown-Inhalte rendert, in einer `<Suspense>`-Grenze.
+
+```vue fileName="MyComponent.vue"
+<script setup>
+import { useIntlayer } from "vue-intlayer";
+
+const { markdownContent } = useIntlayer("my-markdown");
+</script>
+
+<template>
+  <Suspense>
+    <component :is="markdownContent" />
+    <template #fallback>
+      <div>Loading...</div>
+    </template>
+  </Suspense>
+</template>
+```
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+
+Svelte hat kein Äquivalent zur Suspense-API. Verwenden Sie einen `{#await}`-Block, um asynchrones Rendern von Markdown-Inhalten zu verarbeiten.
+
+```svelte fileName="MyComponent.svelte"
+<script lang="ts">
+import { useIntlayer } from "svelte-intlayer";
+
+const content = useIntlayer("my-markdown");
+</script>
+
+{#await $content.markdownContent}
+  <div>Loading...</div>
+{:then rendered}
+  {@html rendered}
+{/await}
+```
+
+  </Tab>
+  <Tab label="Preact" value="preact">
+
+Preact unterstützt die React-Suspense-API über `preact/compat`.
+
+```tsx fileName="MyComponent.tsx"
+import { useIntlayer } from "preact-intlayer";
+import { Suspense } from "preact/compat";
+
+const MyComponent = () => {
+  const markdownContent = useIntlayer("my-markdown");
+
+  return (
+    <Suspense fallback={<div>Loading...</div>}>{markdownContent}</Suspense>
+  );
+};
+```
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+Solid hat eine eigene `<Suspense>`-Komponente aus `solid-js`.
+
+```tsx fileName="MyComponent.tsx"
+import { useIntlayer } from "solid-intlayer";
+import { Suspense } from "solid-js";
+
+const MyComponent = () => {
+  const { markdownContent } = useIntlayer("my-markdown");
+
+  return (
+    <Suspense fallback={<div>Loading...</div>}>{markdownContent}</Suspense>
+  );
+};
+```
+
+  </Tab>
+  <Tab label="Angular" value="angular">
+
+Angular hat keine Suspense-API. Verwenden Sie verzögerbare Ansichten (`@defer`) von Angular, um lazy-geladene Markdown-Inhalte zu verarbeiten (erfordert Angular 17+).
+
+```typescript fileName="my.component.ts"
+import { Component } from "@angular/core";
+import { useIntlayer } from "angular-intlayer";
+
+@Component({
+  selector: "app-my",
+  template: `
+    @defer {
+      <div [innerHTML]="content().markdownContent"></div>
+    } @loading {
+      <div>Loading...</div>
+    }
+  `,
+})
+export class MyComponent {
+  content = useIntlayer("my-markdown");
+}
+```
+
+  </Tab>
+</Tabs>
+
+---
+
+## Optionen-Referenz
+
+Diese Optionen können an `MarkdownProvider`, `MarkdownRenderer`, `useMarkdownRenderer` und `renderMarkdown` übergeben werden.
+
+| Option                | Type        | Default | Beschreibung                                                                                             |
+| :-------------------- | :---------- | :------ | :------------------------------------------------------------------------------------------------------- |
+| `forceBlock`          | `boolean`   | `false` | Erzwingt, dass die Ausgabe in ein Element auf Blockebene (z. B. `<div>`) eingeschlossen wird.            |
+| `forceInline`         | `boolean`   | `false` | Erzwingt, dass die Ausgabe in ein Inline-Element (z. B. `<span>`) eingeschlossen wird.                   |
+| `tagfilter`           | `boolean`   | `true`  | Aktiviert den GitHub-Tag-Filter für verbesserte Sicherheit, indem gefährliche HTML-Tags entfernt werden. |
+| `preserveFrontmatter` | `boolean`   | `false` | Wenn `true`, wird Frontmatter am Anfang der Markdown-Zeichenfolge nicht entfernt.                        |
+| `components`          | `Overrides` | `{}`    | Eine Zuordnung von HTML-Tags zu benutzerdefinierten Komponenten (z. B. `{ h1: MyHeading }`).             |
+| `wrapper`             | `Component` | `null`  | Eine benutzerdefinierte Komponente zum Umschließen des gerenderten Markdowns.                            |
+| `renderMarkdown`      | `Function`  | `null`  | Eine benutzerdefinierte Rendering-Funktion, um den Standard-Markdown-Compiler vollständig zu ersetzen.   |

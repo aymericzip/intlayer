@@ -130,8 +130,6 @@ Anda dapat mendeklarasikan konten Markdown menggunakan fungsi `md` atau cukup se
   </Tab>
 </Tabs>
 
----
-
 ## Merender Markdown
 
 Intlayer menyediakan dua cara independen untuk merender Markdown:
@@ -608,8 +606,6 @@ Utilitas ini merender **hanya string Markdown mentah** dan independen dari `useI
   </Tab>
 </Tabs>
 
----
-
 ## Konfigurasi Global dengan `MarkdownProvider`
 
 `MarkdownProvider` (atau padanan kerangka kerjanya) mengonfigurasi jalur rendering Markdown untuk seluruh aplikasi Anda. Ini berlaku baik untuk rendering `useIntlayer` otomatis maupun utilitas pembantu. Opsi yang ditetapkan di sini adalah default — `.use()` mengesampingkannya di tingkat simpul.
@@ -836,3 +832,191 @@ Utilitas ini merender **hanya string Markdown mentah** dan independen dari `useI
 
   </Tab>
 </Tabs>
+
+## Suspense
+
+Perender Markdown Intlayer dimuat secara dinamis. Meskipun dioptimalkan, ukuran parser dasarnya sekitar 55kb. Memuat ini secara sinkron menunda perenderan halaman awal dan menurunkan First Contentful Paint (FCP).
+
+Untuk mencegah pemblokiran UI, Intlayer terintegrasi dengan API Suspense dari React. Ia mengambil parser di latar belakang dan melempar Promise selama pengunduhan.
+
+Bungkus komponen apa pun yang merender Markdown Intlayer di dalam batasan `<Suspense>`. Ini menampilkan status fallback yang dilokalkan saat chunk diunduh, memungkinkan sisa DOM Anda segera dirender.
+
+Peringatan: Jika Anda tidak menyediakan batasan `<Suspense>`, React akan ditangguhkan pada tingkat root atau memblokir seluruh pohon komponen dari perenderan hingga chunk 55kb dimuat sepenuhnya.
+
+<Tabs>
+  <Tab label="Next.js" value="nextjs">
+
+Di Next.js App Router, Anda dapat menggunakan `Suspense` React untuk komponen klien atau file `loading.tsx` untuk komponen server.
+
+**Komponen Klien:**
+
+```tsx fileName="components/MyComponent.tsx"
+"use client";
+import { useIntlayer } from "next-intlayer";
+import { Suspense } from "react";
+
+const MyComponent = () => {
+  const markdownContent = useIntlayer("my-markdown");
+
+  return (
+    <Suspense fallback={<div>Loading...</div>}>{markdownContent}</Suspense>
+  );
+};
+```
+
+**Komponen Server dengan `loading.tsx`:**
+
+```tsx fileName="app/loading.tsx"
+export default function Loading() {
+  return <div>Loading...</div>;
+}
+```
+
+```tsx fileName="app/page.tsx"
+import { useIntlayer } from "next-intlayer/server";
+
+const MyPage = () => {
+  const markdownContent = useIntlayer("my-markdown");
+  return <div>{markdownContent}</div>;
+};
+
+export default MyPage;
+```
+
+  </Tab>
+
+  <Tab label="React" value="react">
+
+```tsx
+import { useIntlayer } from "react-intlayer";
+import { Suspense } from "react";
+
+const MyComponent = () => {
+  const markdownContent = useIntlayer("my-markdown");
+
+  return (
+    <Suspense fallback={<div>Loading...</div>}>{markdownContent}</Suspense>
+  );
+};
+```
+
+  </Tab>
+ 
+  <Tab label="Vue" value="vue">
+
+Vue memiliki komponen `<Suspense>` bawaan. Bungkus komponen yang merender konten Markdown dalam batasan `<Suspense>`.
+
+```vue fileName="MyComponent.vue"
+<script setup>
+import { useIntlayer } from "vue-intlayer";
+
+const { markdownContent } = useIntlayer("my-markdown");
+</script>
+
+<template>
+  <Suspense>
+    <component :is="markdownContent" />
+    <template #fallback>
+      <div>Loading...</div>
+    </template>
+  </Suspense>
+</template>
+```
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+
+Svelte tidak memiliki API Suspense yang setara. Gunakan blok `{#await}` untuk menangani perenderan asinkron dari konten Markdown.
+
+```svelte fileName="MyComponent.svelte"
+<script lang="ts">
+import { useIntlayer } from "svelte-intlayer";
+
+const content = useIntlayer("my-markdown");
+</script>
+
+{#await $content.markdownContent}
+  <div>Loading...</div>
+{:then rendered}
+  {@html rendered}
+{/await}
+```
+
+  </Tab>
+  <Tab label="Preact" value="preact">
+
+Preact mendukung API Suspense React melalui `preact/compat`.
+
+```tsx fileName="MyComponent.tsx"
+import { useIntlayer } from "preact-intlayer";
+import { Suspense } from "preact/compat";
+
+const MyComponent = () => {
+  const markdownContent = useIntlayer("my-markdown");
+
+  return (
+    <Suspense fallback={<div>Loading...</div>}>{markdownContent}</Suspense>
+  );
+};
+```
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+Solid memiliki komponen `<Suspense>` sendiri dari `solid-js`.
+
+```tsx fileName="MyComponent.tsx"
+import { useIntlayer } from "solid-intlayer";
+import { Suspense } from "solid-js";
+
+const MyComponent = () => {
+  const { markdownContent } = useIntlayer("my-markdown");
+
+  return (
+    <Suspense fallback={<div>Loading...</div>}>{markdownContent}</Suspense>
+  );
+};
+```
+
+  </Tab>
+  <Tab label="Angular" value="angular">
+
+Angular tidak memiliki API Suspense. Gunakan tampilan yang ditangguhkan (`@defer`) milik Angular untuk menangani konten Markdown yang dimuat secara lambat (membutuhkan Angular 17+).
+
+```typescript fileName="my.component.ts"
+import { Component } from "@angular/core";
+import { useIntlayer } from "angular-intlayer";
+
+@Component({
+  selector: "app-my",
+  template: `
+    @defer {
+      <div [innerHTML]="content().markdownContent"></div>
+    } @loading {
+      <div>Loading...</div>
+    }
+  `,
+})
+export class MyComponent {
+  content = useIntlayer("my-markdown");
+}
+```
+
+  </Tab>
+</Tabs>
+
+---
+
+## Referensi Opsi
+
+Opsi ini dapat diteruskan ke `MarkdownProvider`, `MarkdownRenderer`, `useMarkdownRenderer`, dan `renderMarkdown`.
+
+| Option                | Type        | Default | Deskripsi                                                                                            |
+| :-------------------- | :---------- | :------ | :--------------------------------------------------------------------------------------------------- |
+| `forceBlock`          | `boolean`   | `false` | Memaksa output untuk dibungkus dalam elemen tingkat blok (mis., `<div>`).                            |
+| `forceInline`         | `boolean`   | `false` | Memaksa output untuk dibungkus dalam elemen sebaris (mis., `<span>`).                                |
+| `tagfilter`           | `boolean`   | `true`  | Mengaktifkan GitHub Tag Filter untuk keamanan yang ditingkatkan dengan menghapus tag HTML berbahaya. |
+| `preserveFrontmatter` | `boolean`   | `false` | Jika `true`, frontmatter di awal string Markdown tidak akan dihapus.                                 |
+| `components`          | `Overrides` | `{}`    | Peta tag HTML ke komponen kustom (mis., `{ h1: MyHeading }`).                                        |
+| `wrapper`             | `Component` | `null`  | Komponen kustom untuk membungkus Markdown yang dirender.                                             |
+| `renderMarkdown`      | `Function`  | `null`  | Fungsi perenderan kustom untuk sepenuhnya menggantikan kompilator Markdown default.                  |
