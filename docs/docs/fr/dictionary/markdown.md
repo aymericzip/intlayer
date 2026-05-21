@@ -145,12 +145,63 @@ Le rendu Markdown prend en charge **MDX** — utilisez n'importe quel composant 
 ### 1. Rendu Automatique (via `useIntlayer`)
 
 <Tabs group="framework">
-  <Tab label="React / Next.js" value="react">
+  <Tab label="React" value="react">
     Les nœuds Markdown peuvent être rendus directement sous forme de JSX.
 
     ```tsx fileName="App.tsx"
     import { useIntlayer } from "react-intlayer";
     import { MarkdownProvider } from "react-intlayer/markdown";
+
+    const AppContent = () => {
+      const { myMarkdownContent } = useIntlayer("app");
+
+      return <div>{myMarkdownContent}</div>;
+    };
+
+    const App = () => (
+      <MarkdownProvider
+        components={{
+          h1: ({ children }) => <h1 style={{ color: "red" }}>{children}</h1>,
+          MyButton: (props) => <button {...props} />, // Composant MDX
+        }}
+      >
+        <AppContent />
+      </MarkdownProvider>
+    );
+    ```
+
+    > Si `MarkdownProvider` n'est pas présent, Intlayer rendra le markdown en utilisant le parser par défaut de Markdown vers JSX.
+
+    Vous pouvez également fournir des remplacements locaux pour des nœuds spécifiques en utilisant la méthode `.use()` :
+
+    ```tsx
+    {myMarkdownContent.use({
+      h1: ({ children }) => <h1 style={{ color: "red" }}>{children}</h1>,
+    })}
+    ```
+
+    Vous pouvez récupérer le Markdown sous forme de chaîne de caractères :
+
+    ```tsx
+    {myMarkdownContent.value}
+    {String(myMarkdownContent)}
+    {myMarkdownContent.toString()}
+    ```
+
+    Et vous pouvez accéder aux métadonnées de votre markdown comme ceci :
+
+    ```tsx
+    {myMarkdownContent.metadata}
+    {myMarkdownContent.metadata.title}
+    ```
+
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
+    Les nœuds Markdown peuvent être rendus directement sous forme de JSX.
+
+    ```tsx fileName="App.tsx"
+    import { useIntlayer } from "next-intlayer";
+    import { MarkdownProvider } from "next-intlayer/markdown";
 
     const AppContent = () => {
       const { myMarkdownContent } = useIntlayer("app");
@@ -439,7 +490,7 @@ Le rendu Markdown prend en charge **MDX** — utilisez n'importe quel composant 
 Ces utilitaires rendent **des chaînes Markdown brutes** et sont indépendants de `useIntlayer`. Utilisez-les lorsque vous devez afficher du Markdown provenant de sources autres que vos dictionnaires.
 
 <Tabs group="framework">
-  <Tab label="React / Next.js" value="react">
+  <Tab label="React" value="react">
   
     #### Composant `<MarkdownRenderer />`
 
@@ -473,6 +524,45 @@ Ces utilitaires rendent **des chaînes Markdown brutes** et sont indépendants d
 
     ```tsx
     import { renderMarkdown } from "react-intlayer/markdown";
+
+    const jsx = renderMarkdown("# Mon Titre", { forceBlock: true });
+    ```
+
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
+  
+    #### Composant `<MarkdownRenderer />`
+
+    Rend une chaîne Markdown avec des options spécifiques.
+
+    ```tsx
+    import { MarkdownRenderer } from "next-intlayer/markdown";
+
+    <MarkdownRenderer forceBlock={true} tagfilter={true}>
+      {"# Mon Titre"}
+    </MarkdownRenderer>
+    ```
+
+    #### Hook `useMarkdownRenderer()`
+
+    Obtenez une fonction de rendu préconfigurée.
+
+    ```tsx
+    import { useMarkdownRenderer } from "next-intlayer/markdown";
+
+    const renderMarkdown = useMarkdownRenderer({
+      forceBlock: true,
+      components: { h1: (props) => <h1 {...props} className="custom" /> }
+    });
+
+    return renderMarkdown("# Mon Titre");
+    ```
+
+    #### Utilitaire `renderMarkdown()`
+    Utilitaire autonome pour le rendu en dehors des composants.
+
+    ```tsx
+    import { renderMarkdown } from "next-intlayer/markdown";
 
     const jsx = renderMarkdown("# Mon Titre", { forceBlock: true });
     ```
@@ -611,7 +701,7 @@ Ces utilitaires rendent **des chaînes Markdown brutes** et sont indépendants d
 Le `MarkdownProvider` (ou son équivalent dans un framework) configure le pipeline de rendu Markdown pour toute votre application. Cela s'applique aussi bien au rendu automatique `useIntlayer` qu'aux utilitaires d'aide. Les options définies ici sont les options par défaut — `.use()` les remplace au niveau du nœud.
 
 <Tabs group="framework">
-  <Tab label="React / Next.js" value="react">
+  <Tab label="React" value="react">
 
     ```tsx fileName="AppProvider.tsx"
     import { MarkdownProvider } from "react-intlayer/markdown";
@@ -642,6 +732,48 @@ Le `MarkdownProvider` (ou son équivalent dans un framework) configure le pipeli
         renderMarkdown={async (md) => {
           // Use dynamic import to reduce the bundle size of your application
           const { renderMarkdown } = await import('react-intlayer/markdown');
+          return renderMarkdown(md);
+        }}
+      >
+        {children}
+      </MarkdownProvider>
+    );
+    ```
+
+    > L'import dynamique de votre système de rendu Markdown est un bon moyen de réduire la taille du bundle de votre application.
+
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
+
+    ```tsx fileName="AppProvider.tsx"
+    import { MarkdownProvider } from "next-intlayer/markdown";
+
+    export const AppProvider = ({ children }) => (
+      <MarkdownProvider
+        components={{
+          h1: (props) => <h1 style={{color: 'green'}} {...props} />,
+          a: ({ href, ...props }) => <a style={{color: 'red'}} {...props} />,
+          MyCustomJSXComponent: (props) => <span style={{color: 'red'}} {...props} />,
+        }}
+      >
+        {children}
+      </MarkdownProvider>
+    );
+    ```
+
+
+    > MDX est pris en charge — tout nom de composant utilisé dans votre Markdown (ex. `<MyCustomJSXComponent />`) est résolu par rapport à la correspondance dans `components`.
+
+    Vous pouvez également utiliser votre propre rendu de markdown :
+
+    ```tsx fileName="AppProvider.tsx"
+    import { MarkdownProvider } from "next-intlayer/markdown";
+
+    export const AppProvider = ({ children }) => (
+      <MarkdownProvider
+        renderMarkdown={async (md) => {
+          // Use dynamic import to reduce the bundle size of your application
+          const { renderMarkdown } = await import('next-intlayer/markdown');
           return renderMarkdown(md);
         }}
       >

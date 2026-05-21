@@ -145,12 +145,63 @@ Rendering Markdown mendukung **MDX** — gunakan komponen JSX/kerangka kerja apa
 ### 1. Rendering Otomatis (melalui `useIntlayer`)
 
 <Tabs group="framework">
-  <Tab label="React / Next.js" value="react">
+  <Tab label="React" value="react">
     Simpul Markdown dapat dirender langsung sebagai JSX.
 
     ```tsx fileName="App.tsx"
     import { useIntlayer } from "react-intlayer";
     import { MarkdownProvider } from "react-intlayer/markdown";
+
+    const AppContent = () => {
+      const { myMarkdownContent } = useIntlayer("app");
+
+      return <div>{myMarkdownContent}</div>;
+    };
+
+    const App = () => (
+      <MarkdownProvider
+        components={{
+          h1: ({ children }) => <h1 style={{ color: "red" }}>{children}</h1>,
+          MyButton: (props) => <button {...props} />, // Komponen MDX
+        }}
+      >
+        <AppContent />
+      </MarkdownProvider>
+    );
+    ```
+
+    > Jika `MarkdownProvider` tidak ada, Intlayer akan merender markdown menggunakan parser default Markdown ke JSX.
+
+    Anda juga dapat memberikan pengesampingan lokal untuk simpul tertentu menggunakan metode `.use()`:
+
+    ```tsx
+    {myMarkdownContent.use({
+      h1: ({ children }) => <h1 style={{ color: "red" }}>{children}</h1>,
+    })}
+    ```
+
+    Anda dapat mengambil Markdown sebagai sebuah string:
+
+    ```tsx
+    {myMarkdownContent.value}
+    {String(myMarkdownContent)}
+    {myMarkdownContent.toString()}
+    ```
+
+    Dan Anda dapat mengakses metadata markdown Anda seperti ini:
+
+    ```tsx
+    {myMarkdownContent.metadata}
+    {myMarkdownContent.metadata.title}
+    ```
+
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
+    Simpul Markdown dapat dirender langsung sebagai JSX.
+
+    ```tsx fileName="App.tsx"
+    import { useIntlayer } from "next-intlayer";
+    import { MarkdownProvider } from "next-intlayer/markdown";
 
     const AppContent = () => {
       const { myMarkdownContent } = useIntlayer("app");
@@ -439,7 +490,7 @@ Rendering Markdown mendukung **MDX** — gunakan komponen JSX/kerangka kerja apa
 Utilitas ini merender **hanya string Markdown mentah** dan independen dari `useIntlayer`. Gunakan utilitas ini saat Anda perlu merender Markdown dari sumber selain dari kamus Anda.
 
 <Tabs group="framework">
-  <Tab label="React / Next.js" value="react">
+  <Tab label="React" value="react">
   
     #### Komponen `<MarkdownRenderer />`
 
@@ -473,6 +524,45 @@ Utilitas ini merender **hanya string Markdown mentah** dan independen dari `useI
 
     ```tsx
     import { renderMarkdown } from "react-intlayer/markdown";
+
+    const jsx = renderMarkdown("# Judul Saya", { forceBlock: true });
+    ```
+
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
+  
+    #### Komponen `<MarkdownRenderer />`
+
+    Merender string Markdown dengan opsi tertentu.
+
+    ```tsx
+    import { MarkdownRenderer } from "next-intlayer/markdown";
+
+    <MarkdownRenderer forceBlock={true} tagfilter={true}>
+      {"# Judul Saya"}
+    </MarkdownRenderer>
+    ```
+
+    #### Hook `useMarkdownRenderer()`
+
+    Mendapatkan fungsi perender yang sudah dikonfigurasi sebelumnya.
+
+    ```tsx
+    import { useMarkdownRenderer } from "next-intlayer/markdown";
+
+    const renderMarkdown = useMarkdownRenderer({
+      forceBlock: true,
+      components: { h1: (props) => <h1 {...props} className="custom" /> }
+    });
+
+    return renderMarkdown("# Judul Saya");
+    ```
+
+    #### Utilitas `renderMarkdown()`
+    Utilitas mandiri untuk rendering di luar komponen.
+
+    ```tsx
+    import { renderMarkdown } from "next-intlayer/markdown";
 
     const jsx = renderMarkdown("# Judul Saya", { forceBlock: true });
     ```
@@ -611,7 +701,7 @@ Utilitas ini merender **hanya string Markdown mentah** dan independen dari `useI
 `MarkdownProvider` (atau padanan kerangka kerjanya) mengonfigurasi jalur rendering Markdown untuk seluruh aplikasi Anda. Ini berlaku baik untuk rendering `useIntlayer` otomatis maupun utilitas pembantu. Opsi yang ditetapkan di sini adalah default — `.use()` mengesampingkannya di tingkat simpul.
 
 <Tabs group="framework">
-  <Tab label="React / Next.js" value="react">
+  <Tab label="React" value="react">
 
     ```tsx fileName="AppProvider.tsx"
     import { MarkdownProvider } from "react-intlayer/markdown";
@@ -642,6 +732,48 @@ Utilitas ini merender **hanya string Markdown mentah** dan independen dari `useI
         renderMarkdown={async (md) => {
           // Use dynamic import to reduce the bundle size of your application
           const { renderMarkdown } = await import('react-intlayer/markdown');
+          return renderMarkdown(md);
+        }}
+      >
+        {children}
+      </MarkdownProvider>
+    );
+    ```
+
+    > Mengimpor perender Markdown Anda secara dinamis adalah cara yang bagus untuk mengurangi ukuran bundel aplikasi Anda.
+
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
+
+    ```tsx fileName="AppProvider.tsx"
+    import { MarkdownProvider } from "next-intlayer/markdown";
+
+    export const AppProvider = ({ children }) => (
+      <MarkdownProvider
+        components={{
+          h1: (props) => <h1 style={{color: 'green'}} {...props} />,
+          a: ({ href, ...props }) => <a style={{color: 'red'}} {...props} />,
+          MyCustomJSXComponent: (props) => <span style={{color: 'red'}} {...props} />,
+        }}
+      >
+        {children}
+      </MarkdownProvider>
+    );
+    ```
+
+
+    > MDX didukung — nama komponen apa pun yang digunakan di dalam Markdown Anda (misalnya `<MyCustomJSXComponent />`) diselesaikan terhadap peta `components`.
+
+    Anda juga dapat menggunakan perender markdown Anda sendiri:
+
+    ```tsx fileName="AppProvider.tsx"
+    import { MarkdownProvider } from "next-intlayer/markdown";
+
+    export const AppProvider = ({ children }) => (
+      <MarkdownProvider
+        renderMarkdown={async (md) => {
+          // Use dynamic import to reduce the bundle size of your application
+          const { renderMarkdown } = await import('next-intlayer/markdown');
           return renderMarkdown(md);
         }}
       >

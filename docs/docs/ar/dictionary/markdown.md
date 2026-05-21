@@ -145,12 +145,63 @@ history:
 ### 1. العرض التلقائي (عبر `useIntlayer`)
 
 <Tabs group="framework">
-  <Tab label="React / Next.js" value="react">
+  <Tab label="React" value="react">
     يمكن عرض عقد Markdown مباشرة كـ JSX.
 
     ```tsx fileName="App.tsx"
     import { useIntlayer } from "react-intlayer";
     import { MarkdownProvider } from "react-intlayer/markdown";
+
+    const AppContent = () => {
+      const { myMarkdownContent } = useIntlayer("app");
+
+      return <div>{myMarkdownContent}</div>;
+    };
+
+    const App = () => (
+      <MarkdownProvider
+        components={{
+          h1: ({ children }) => <h1 style={{ color: "red" }}>{children}</h1>,
+          MyButton: (props) => <button {...props} />, // مكون MDX
+        }}
+      >
+        <AppContent />
+      </MarkdownProvider>
+    );
+    ```
+
+    > إذا لم يكن `MarkdownProvider` موجودًا ، فسيقوم Intlayer بعرض markdown باستخدام المحلل اللغوي الافتراضي من Markdown إلى JSX.
+
+    يمكنك أيضًا توفير تجاوزات محلية لعقد معينة باستخدام طريقة `.use()`:
+
+    ```tsx
+    {myMarkdownContent.use({
+      h1: ({ children }) => <h1 style={{ color: "red" }}>{children}</h1>,
+    })}
+    ```
+
+    يمكنك استرداد Markdown كسلسلة نصية:
+
+    ```tsx
+    {myMarkdownContent.value}
+    {String(myMarkdownContent)}
+    {myMarkdownContent.toString()}
+    ```
+
+    ويمكنك الوصول إلى بيانات markdown الوصفية الخاصة بك على النحو التالي:
+
+    ```tsx
+    {myMarkdownContent.metadata}
+    {myMarkdownContent.metadata.title}
+    ```
+
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
+    يمكن عرض عقد Markdown مباشرة كـ JSX.
+
+    ```tsx fileName="App.tsx"
+    import { useIntlayer } from "next-intlayer";
+    import { MarkdownProvider } from "next-intlayer/markdown";
 
     const AppContent = () => {
       const { myMarkdownContent } = useIntlayer("app");
@@ -439,7 +490,7 @@ history:
 هذه الأدوات تعرض **فقط سلاسل Markdown الخام** وهي مستقلة عن `useIntlayer`. استخدمها عندما تحتاج إلى عرض Markdown من مصادر أخرى غير قواميسك.
 
 <Tabs group="framework">
-  <Tab label="React / Next.js" value="react">
+  <Tab label="React" value="react">
   
     #### مكون `<MarkdownRenderer />`
 
@@ -473,6 +524,45 @@ history:
 
     ```tsx
     import { renderMarkdown } from "react-intlayer/markdown";
+
+    const jsx = renderMarkdown("# عنواني", { forceBlock: true });
+    ```
+
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
+  
+    #### مكون `<MarkdownRenderer />`
+
+    يعرض سلسلة Markdown مع خيارات محددة.
+
+    ```tsx
+    import { MarkdownRenderer } from "next-intlayer/markdown";
+
+    <MarkdownRenderer forceBlock={true} tagfilter={true}>
+      {"# عنواني"}
+    </MarkdownRenderer>
+    ```
+
+    #### خطاف `useMarkdownRenderer()`
+
+    احصل على وظيفة عارض مكونة مسبقًا.
+
+    ```tsx
+    import { useMarkdownRenderer } from "next-intlayer/markdown";
+
+    const renderMarkdown = useMarkdownRenderer({
+      forceBlock: true,
+      components: { h1: (props) => <h1 {...props} className="custom" /> }
+    });
+
+    return renderMarkdown("# عنواني");
+    ```
+
+    #### أداة `renderMarkdown()`
+    أداة مستقلة للعرض خارج المكونات.
+
+    ```tsx
+    import { renderMarkdown } from "next-intlayer/markdown";
 
     const jsx = renderMarkdown("# عنواني", { forceBlock: true });
     ```
@@ -611,7 +701,7 @@ history:
 يقوم `MarkdownProvider` (أو ما يعادله في إطار العمل) بتكوين خط أنابيب عرض Markdown لتطبيقك بالكامل. ينطبق هذا على كل من العرض التلقائي `useIntlayer` والأدوات المساعدة. الخيارات المعينة هنا هي الإعدادات الافتراضية — يتجاوزها `.use()` على مستوى العقدة.
 
 <Tabs group="framework">
-  <Tab label="React / Next.js" value="react">
+  <Tab label="React" value="react">
 
     ```tsx fileName="AppProvider.tsx"
     import { MarkdownProvider } from "react-intlayer/markdown";
@@ -642,6 +732,48 @@ history:
         renderMarkdown={async (md) => {
           // Use dynamic import to reduce the bundle size of your application
           const { renderMarkdown } = await import('react-intlayer/markdown');
+          return renderMarkdown(md);
+        }}
+      >
+        {children}
+      </MarkdownProvider>
+    );
+    ```
+
+    > الاستيراد الديناميكي لعارض Markdown الخاص بك هو طريقة رائعة لتقليل حجم حزمة تطبيقك.
+
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
+
+    ```tsx fileName="AppProvider.tsx"
+    import { MarkdownProvider } from "next-intlayer/markdown";
+
+    export const AppProvider = ({ children }) => (
+      <MarkdownProvider
+        components={{
+          h1: (props) => <h1 style={{color: 'green'}} {...props} />,
+          a: ({ href, ...props }) => <a style={{color: 'red'}} {...props} />,
+          MyCustomJSXComponent: (props) => <span style={{color: 'red'}} {...props} />,
+        }}
+      >
+        {children}
+      </MarkdownProvider>
+    );
+    ```
+
+
+    > MDX مدعوم — يتم حل أي اسم مكون يستخدم داخل Markdown الخاص بك (على سبيل المثال `<MyCustomJSXComponent />`) مقابل خريطة `components`.
+
+    يمكنك أيضًا استخدام عارض markdown الخاص بك:
+
+    ```tsx fileName="AppProvider.tsx"
+    import { MarkdownProvider } from "next-intlayer/markdown";
+
+    export const AppProvider = ({ children }) => (
+      <MarkdownProvider
+        renderMarkdown={async (md) => {
+          // Use dynamic import to reduce the bundle size of your application
+          const { renderMarkdown } = await import('next-intlayer/markdown');
           return renderMarkdown(md);
         }}
       >

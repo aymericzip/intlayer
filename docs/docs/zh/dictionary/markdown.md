@@ -145,12 +145,63 @@ Markdown 渲染支持 **MDX** — 在您的 Markdown 中直接按名称使用任
 ### 1. 自动渲染（通过 `useIntlayer`）
 
 <Tabs group="framework">
-  <Tab label="React / Next.js" value="react">
+  <Tab label="React" value="react">
     Markdown 节点可以直接呈现为 JSX。
 
     ```tsx fileName="App.tsx"
     import { useIntlayer } from "react-intlayer";
     import { MarkdownProvider } from "react-intlayer/markdown";
+
+    const AppContent = () => {
+      const { myMarkdownContent } = useIntlayer("app");
+
+      return <div>{myMarkdownContent}</div>;
+    };
+
+    const App = () => (
+      <MarkdownProvider
+        components={{
+          h1: ({ children }) => <h1 style={{ color: "red" }}>{children}</h1>,
+          MyButton: (props) => <button {...props} />, // MDX 组件
+        }}
+      >
+        <AppContent />
+      </MarkdownProvider>
+    );
+    ```
+
+    > 如果没有提供 `MarkdownProvider`，Intlayer 将使用默认的 Markdown 转 JSX 解析器渲染 markdown。
+
+    您还可以使用 `.use()` 方法提供特定节点的局部覆盖：
+
+    ```tsx
+    {myMarkdownContent.use({
+      h1: ({ children }) => <h1 style={{ color: "red" }}>{children}</h1>,
+    })}
+    ```
+
+    您可以以字符串形式检索 Markdown：
+
+    ```tsx
+    {myMarkdownContent.value}
+    {String(myMarkdownContent)}
+    {myMarkdownContent.toString()}
+    ```
+
+    您可以像这样访问您的 markdown 元数据：
+
+    ```tsx
+    {myMarkdownContent.metadata}
+    {myMarkdownContent.metadata.title}
+    ```
+
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
+    Markdown 节点可以直接呈现为 JSX。
+
+    ```tsx fileName="App.tsx"
+    import { useIntlayer } from "next-intlayer";
+    import { MarkdownProvider } from "next-intlayer/markdown";
 
     const AppContent = () => {
       const { myMarkdownContent } = useIntlayer("app");
@@ -439,7 +490,7 @@ Markdown 渲染支持 **MDX** — 在您的 Markdown 中直接按名称使用任
 这些实用程序渲染 **仅限原始 Markdown 字符串** 且独立于 `useIntlayer`。当您需要从词典以外的来源渲染 Markdown 时使用它们。
 
 <Tabs group="framework">
-  <Tab label="React / Next.js" value="react">
+  <Tab label="React" value="react">
   
     #### `<MarkdownRenderer />` 组件
 
@@ -473,6 +524,45 @@ Markdown 渲染支持 **MDX** — 在您的 Markdown 中直接按名称使用任
 
     ```tsx
     import { renderMarkdown } from "react-intlayer/markdown";
+
+    const jsx = renderMarkdown("# 我的标题", { forceBlock: true });
+    ```
+
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
+  
+    #### `<MarkdownRenderer />` 组件
+
+    使用特定选项渲染 Markdown 字符串。
+
+    ```tsx
+    import { MarkdownRenderer } from "next-intlayer/markdown";
+
+    <MarkdownRenderer forceBlock={true} tagfilter={true}>
+      {"# 我的标题"}
+    </MarkdownRenderer>
+    ```
+
+    #### `useMarkdownRenderer()` 钩子
+
+    获取预配置的渲染器函数。
+
+    ```tsx
+    import { useMarkdownRenderer } from "next-intlayer/markdown";
+
+    const renderMarkdown = useMarkdownRenderer({
+      forceBlock: true,
+      components: { h1: (props) => <h1 {...props} className="custom" /> }
+    });
+
+    return renderMarkdown("# 我的标题");
+    ```
+
+    #### `renderMarkdown()` 实用程序
+    组件外部渲染的独立实用程序。
+
+    ```tsx
+    import { renderMarkdown } from "next-intlayer/markdown";
 
     const jsx = renderMarkdown("# 我的标题", { forceBlock: true });
     ```
@@ -611,7 +701,7 @@ Markdown 渲染支持 **MDX** — 在您的 Markdown 中直接按名称使用任
 `MarkdownProvider`（或其框架对应的组件）为整个应用程序配置 Markdown 渲染管道。它适用于自动 `useIntlayer` 渲染和辅助实用程序。此处设置的选项为默认值 — `.use()` 在节点级别将其覆盖。
 
 <Tabs group="framework">
-  <Tab label="React / Next.js" value="react">
+  <Tab label="React" value="react">
 
     ```tsx fileName="AppProvider.tsx"
     import { MarkdownProvider } from "react-intlayer/markdown";
@@ -642,6 +732,48 @@ Markdown 渲染支持 **MDX** — 在您的 Markdown 中直接按名称使用任
         renderMarkdown={async (md) => {
           // Use dynamic import to reduce the bundle size of your application
           const { renderMarkdown } = await import('react-intlayer/markdown');
+          return renderMarkdown(md);
+        }}
+      >
+        {children}
+      </MarkdownProvider>
+    );
+    ```
+
+    > 动态导入您的 Markdown 渲染器是减少应用程序包大小的好方法。
+
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
+
+    ```tsx fileName="AppProvider.tsx"
+    import { MarkdownProvider } from "next-intlayer/markdown";
+
+    export const AppProvider = ({ children }) => (
+      <MarkdownProvider
+        components={{
+          h1: (props) => <h1 style={{color: 'green'}} {...props} />,
+          a: ({ href, ...props }) => <a style={{color: 'red'}} {...props} />,
+          MyCustomJSXComponent: (props) => <span style={{color: 'red'}} {...props} />,
+        }}
+      >
+        {children}
+      </MarkdownProvider>
+    );
+    ```
+
+
+    > 支持 MDX — Markdown 内部使用的任何组件名称（例如 `<MyCustomJSXComponent />`）都会根据 `components` 映射进行解析。
+
+    您还可以使用自己的 markdown 渲染器：
+
+    ```tsx fileName="AppProvider.tsx"
+    import { MarkdownProvider } from "next-intlayer/markdown";
+
+    export const AppProvider = ({ children }) => (
+      <MarkdownProvider
+        renderMarkdown={async (md) => {
+          // Use dynamic import to reduce the bundle size of your application
+          const { renderMarkdown } = await import('next-intlayer/markdown');
           return renderMarkdown(md);
         }}
       >

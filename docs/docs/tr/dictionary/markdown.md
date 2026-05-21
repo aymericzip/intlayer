@@ -145,12 +145,63 @@ Markdown oluşturma **MDX**'i destekler — Markdown'ınızın içinde doğrudan
 ### 1. Otomatik İşleme (`useIntlayer` aracılığıyla)
 
 <Tabs group="framework">
-  <Tab label="React / Next.js" value="react">
+  <Tab label="React" value="react">
     Markdown düğümleri doğrudan JSX olarak işlenebilir.
 
     ```tsx fileName="App.tsx"
     import { useIntlayer } from "react-intlayer";
     import { MarkdownProvider } from "react-intlayer/markdown";
+
+    const AppContent = () => {
+      const { myMarkdownContent } = useIntlayer("app");
+
+      return <div>{myMarkdownContent}</div>;
+    };
+
+    const App = () => (
+      <MarkdownProvider
+        components={{
+          h1: ({ children }) => <h1 style={{ color: "red" }}>{children}</h1>,
+          MyButton: (props) => <button {...props} />, // MDX Bileşeni
+        }}
+      >
+        <AppContent />
+      </MarkdownProvider>
+    );
+    ```
+
+    > `MarkdownProvider` mevcut değilse, Intlayer varsayılan Markdown - JSX ayrıştırıcısını kullanarak markdown'ı oluşturacaktır.
+
+    Ayrıca `.use()` yöntemini kullanarak belirli düğümler için yerel geçersiz kılmalar sağlayabilirsiniz:
+
+    ```tsx
+    {myMarkdownContent.use({
+      h1: ({ children }) => <h1 style={{ color: "red" }}>{children}</h1>,
+    })}
+    ```
+
+    Markdown'ı bir dize olarak alabilirsiniz:
+
+    ```tsx
+    {myMarkdownContent.value}
+    {String(myMarkdownContent)}
+    {myMarkdownContent.toString()}
+    ```
+
+    Ve markdown meta verilerinize şu şekilde erişebilirsiniz:
+
+    ```tsx
+    {myMarkdownContent.metadata}
+    {myMarkdownContent.metadata.title}
+    ```
+
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
+    Markdown düğümleri doğrudan JSX olarak işlenebilir.
+
+    ```tsx fileName="App.tsx"
+    import { useIntlayer } from "next-intlayer";
+    import { MarkdownProvider } from "next-intlayer/markdown";
 
     const AppContent = () => {
       const { myMarkdownContent } = useIntlayer("app");
@@ -439,7 +490,7 @@ Markdown oluşturma **MDX**'i destekler — Markdown'ınızın içinde doğrudan
 Bu yardımcı programlar **yalnızca ham Markdown dizelerini** oluşturur ve `useIntlayer`'dan bağımsızdır. Markdown'ı sözlükleriniz dışındaki kaynaklardan oluşturmanız gerektiğinde bunları kullanın.
 
 <Tabs group="framework">
-  <Tab label="React / Next.js" value="react">
+  <Tab label="React" value="react">
   
     #### `<MarkdownRenderer />` Bileşeni
 
@@ -473,6 +524,45 @@ Bu yardımcı programlar **yalnızca ham Markdown dizelerini** oluşturur ve `us
 
     ```tsx
     import { renderMarkdown } from "react-intlayer/markdown";
+
+    const jsx = renderMarkdown("# Başlığım", { forceBlock: true });
+    ```
+
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
+  
+    #### `<MarkdownRenderer />` Bileşeni
+
+    Belirli seçeneklerle bir Markdown dizesini oluşturur.
+
+    ```tsx
+    import { MarkdownRenderer } from "next-intlayer/markdown";
+
+    <MarkdownRenderer forceBlock={true} tagfilter={true}>
+      {"# Başlığım"}
+    </MarkdownRenderer>
+    ```
+
+    #### `useMarkdownRenderer()` Kancası
+
+    Önceden yapılandırılmış bir oluşturucu işlevi alın.
+
+    ```tsx
+    import { useMarkdownRenderer } from "next-intlayer/markdown";
+
+    const renderMarkdown = useMarkdownRenderer({
+      forceBlock: true,
+      components: { h1: (props) => <h1 {...props} className="custom" /> }
+    });
+
+    return renderMarkdown("# Başlığım");
+    ```
+
+    #### `renderMarkdown()` Yardımcı Programı
+    Bileşenler dışında oluşturmak için bağımsız yardımcı program.
+
+    ```tsx
+    import { renderMarkdown } from "next-intlayer/markdown";
 
     const jsx = renderMarkdown("# Başlığım", { forceBlock: true });
     ```
@@ -611,7 +701,7 @@ Bu yardımcı programlar **yalnızca ham Markdown dizelerini** oluşturur ve `us
 `MarkdownProvider` (veya çerçeve eşdeğeri), tüm uygulamanız için Markdown oluşturma işlem hattını yapılandırır. Bu hem otomatik `useIntlayer` oluşturma işlemleri hem de yardımcı araçlar için geçerlidir. Burada ayarlanan seçenekler varsayılanlardır — `.use()` bunları düğüm düzeyinde geçersiz kılar.
 
 <Tabs group="framework">
-  <Tab label="React / Next.js" value="react">
+  <Tab label="React" value="react">
 
     ```tsx fileName="AppProvider.tsx"
     import { MarkdownProvider } from "react-intlayer/markdown";
@@ -642,6 +732,48 @@ Bu yardımcı programlar **yalnızca ham Markdown dizelerini** oluşturur ve `us
         renderMarkdown={async (md) => {
           // Use dynamic import to reduce the bundle size of your application
           const { renderMarkdown } = await import('react-intlayer/markdown');
+          return renderMarkdown(md);
+        }}
+      >
+        {children}
+      </MarkdownProvider>
+    );
+    ```
+
+    > Markdown oluşturucunuzu dinamik olarak içe aktarmak, uygulamanızın paket boyutunu azaltmanın harika bir yoludur.
+
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
+
+    ```tsx fileName="AppProvider.tsx"
+    import { MarkdownProvider } from "next-intlayer/markdown";
+
+    export const AppProvider = ({ children }) => (
+      <MarkdownProvider
+        components={{
+          h1: (props) => <h1 style={{color: 'green'}} {...props} />,
+          a: ({ href, ...props }) => <a style={{color: 'red'}} {...props} />,
+          MyCustomJSXComponent: (props) => <span style={{color: 'red'}} {...props} />,
+        }}
+      >
+        {children}
+      </MarkdownProvider>
+    );
+    ```
+
+
+    > MDX desteklenir — Markdown'ınızın içinde kullanılan herhangi bir bileşen adı (örn. `<MyCustomJSXComponent />`) `components` haritasına göre çözümlenir.
+
+    Kendi markdown oluşturucunuzu da kullanabilirsiniz:
+
+    ```tsx fileName="AppProvider.tsx"
+    import { MarkdownProvider } from "next-intlayer/markdown";
+
+    export const AppProvider = ({ children }) => (
+      <MarkdownProvider
+        renderMarkdown={async (md) => {
+          // Use dynamic import to reduce the bundle size of your application
+          const { renderMarkdown } = await import('next-intlayer/markdown');
           return renderMarkdown(md);
         }}
       >

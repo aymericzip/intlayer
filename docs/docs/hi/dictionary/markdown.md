@@ -145,12 +145,63 @@ Markdown रेंडरिंग **MDX** का समर्थन करता
 ### 1. स्वचालित रेंडरिंग (`useIntlayer` के माध्यम से)
 
 <Tabs group="framework">
-  <Tab label="React / Next.js" value="react">
+  <Tab label="React" value="react">
     Markdown नोड्स को सीधे JSX के रूप में रेंडर किया जा सकता है।
 
     ```tsx fileName="App.tsx"
     import { useIntlayer } from "react-intlayer";
     import { MarkdownProvider } from "react-intlayer/markdown";
+
+    const AppContent = () => {
+      const { myMarkdownContent } = useIntlayer("app");
+
+      return <div>{myMarkdownContent}</div>;
+    };
+
+    const App = () => (
+      <MarkdownProvider
+        components={{
+          h1: ({ children }) => <h1 style={{ color: "red" }}>{children}</h1>,
+          MyButton: (props) => <button {...props} />, // MDX घटक
+        }}
+      >
+        <AppContent />
+      </MarkdownProvider>
+    );
+    ```
+
+    > यदि `MarkdownProvider` मौजूद नहीं है, तो Intlayer डिफ़ॉल्ट Markdown से JSX पार्सर का उपयोग करके मार्कडाउन को रेंडर करेगा।
+
+    आप `.use()` विधि का उपयोग करके विशिष्ट नोड्स के लिए स्थानीय ओवरराइड भी प्रदान कर सकते हैं:
+
+    ```tsx
+    {myMarkdownContent.use({
+      h1: ({ children }) => <h1 style={{ color: "red" }}>{children}</h1>,
+    })}
+    ```
+
+    आप Markdown को एक स्ट्रिंग के रूप में प्राप्त कर सकते हैं:
+
+    ```tsx
+    {myMarkdownContent.value}
+    {String(myMarkdownContent)}
+    {myMarkdownContent.toString()}
+    ```
+
+    और आप अपने मार्कडाउन मेटाडेटा तक इस प्रकार पहुँच सकते हैं:
+
+    ```tsx
+    {myMarkdownContent.metadata}
+    {myMarkdownContent.metadata.title}
+    ```
+
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
+    Markdown नोड्स को सीधे JSX के रूप में रेंडर किया जा सकता है।
+
+    ```tsx fileName="App.tsx"
+    import { useIntlayer } from "next-intlayer";
+    import { MarkdownProvider } from "next-intlayer/markdown";
 
     const AppContent = () => {
       const { myMarkdownContent } = useIntlayer("app");
@@ -439,7 +490,7 @@ Markdown रेंडरिंग **MDX** का समर्थन करता
 ये यूटिलिटीज **केवल कच्चे Markdown स्ट्रिंग्स** को रेंडर करती हैं और `useIntlayer` से स्वतंत्र हैं। जब आपको अपने डिक्शनरी के अलावा अन्य स्रोतों से Markdown रेंडर करने की आवश्यकता हो, तो इनका उपयोग करें।
 
 <Tabs group="framework">
-  <Tab label="React / Next.js" value="react">
+  <Tab label="React" value="react">
   
     #### `<MarkdownRenderer />` घटक
 
@@ -473,6 +524,45 @@ Markdown रेंडरिंग **MDX** का समर्थन करता
 
     ```tsx
     import { renderMarkdown } from "react-intlayer/markdown";
+
+    const jsx = renderMarkdown("# मेरा शीर्षक", { forceBlock: true });
+    ```
+
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
+  
+    #### `<MarkdownRenderer />` घटक
+
+    विशिष्ट विकल्पों के साथ एक Markdown स्ट्रिंग रेंडर करता है।
+
+    ```tsx
+    import { MarkdownRenderer } from "next-intlayer/markdown";
+
+    <MarkdownRenderer forceBlock={true} tagfilter={true}>
+      {"# मेरा शीर्षक"}
+    </MarkdownRenderer>
+    ```
+
+    #### `useMarkdownRenderer()` हुक
+
+    पूर्व-कॉन्फ़िगर रेंडरर फ़ंक्शन प्राप्त करें।
+
+    ```tsx
+    import { useMarkdownRenderer } from "next-intlayer/markdown";
+
+    const renderMarkdown = useMarkdownRenderer({
+      forceBlock: true,
+      components: { h1: (props) => <h1 {...props} className="custom" /> }
+    });
+
+    return renderMarkdown("# मेरा शीर्षक");
+    ```
+
+    #### `renderMarkdown()` उपयोगिता
+    घटकों के बाहर रेंडरिंग के लिए स्टैंडअलोन उपयोगिता।
+
+    ```tsx
+    import { renderMarkdown } from "next-intlayer/markdown";
 
     const jsx = renderMarkdown("# मेरा शीर्षक", { forceBlock: true });
     ```
@@ -611,7 +701,7 @@ Markdown रेंडरिंग **MDX** का समर्थन करता
 `MarkdownProvider` (या इसके फ्रेमवर्क समतुल्य) आपके संपूर्ण एप्लिकेशन के लिए Markdown रेंडरिंग पाइपलाइन को कॉन्फ़िगर करता है। यह स्वचालित `useIntlayer` रेंडरिंग और हेल्पर यूटिलिटीज दोनों पर लागू होता है। यहाँ सेट किए गए विकल्प डिफ़ॉल्ट हैं — `.use()` उन्हें नोड स्तर पर ओवरराइड करता है।
 
 <Tabs group="framework">
-  <Tab label="React / Next.js" value="react">
+  <Tab label="React" value="react">
 
     ```tsx fileName="AppProvider.tsx"
     import { MarkdownProvider } from "react-intlayer/markdown";
@@ -642,6 +732,48 @@ Markdown रेंडरिंग **MDX** का समर्थन करता
         renderMarkdown={async (md) => {
           // Use dynamic import to reduce the bundle size of your application
           const { renderMarkdown } = await import('react-intlayer/markdown');
+          return renderMarkdown(md);
+        }}
+      >
+        {children}
+      </MarkdownProvider>
+    );
+    ```
+
+    > अपने Markdown रेंडरर को गतिशील रूप से आयात करना आपके एप्लिकेशन के बंडल आकार को कम करने का एक शानदार तरीका है।
+
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
+
+    ```tsx fileName="AppProvider.tsx"
+    import { MarkdownProvider } from "next-intlayer/markdown";
+
+    export const AppProvider = ({ children }) => (
+      <MarkdownProvider
+        components={{
+          h1: (props) => <h1 style={{color: 'green'}} {...props} />,
+          a: ({ href, ...props }) => <a style={{color: 'red'}} {...props} />,
+          MyCustomJSXComponent: (props) => <span style={{color: 'red'}} {...props} />,
+        }}
+      >
+        {children}
+      </MarkdownProvider>
+    );
+    ```
+
+
+    > MDX समर्थित है — आपके Markdown के अंदर उपयोग किए गए किसी भी घटक नाम (उदा. `<MyCustomJSXComponent />`) को `components` मानचित्र के विरुद्ध हल किया जाता है।
+
+    आप अपने स्वयं के मार्कडाउन रेंडरर का भी उपयोग कर सकते हैं:
+
+    ```tsx fileName="AppProvider.tsx"
+    import { MarkdownProvider } from "next-intlayer/markdown";
+
+    export const AppProvider = ({ children }) => (
+      <MarkdownProvider
+        renderMarkdown={async (md) => {
+          // Use dynamic import to reduce the bundle size of your application
+          const { renderMarkdown } = await import('next-intlayer/markdown');
           return renderMarkdown(md);
         }}
       >
