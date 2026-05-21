@@ -94,6 +94,7 @@ export const DictionaryListDashboardContent: FC = () => {
             size="sm"
             color="text"
             checked={row.getIsSelected()}
+            disabled={!row.getCanSelect()}
             onClick={(e: React.MouseEvent) => e.stopPropagation()}
             onChange={(e) => row.toggleSelected(e.target.checked)}
             aria-label={content.selectRow.value}
@@ -359,7 +360,8 @@ export const DictionaryListDashboardContent: FC = () => {
     onRowSelectionChange: dashboard.state.setRowSelection,
     onColumnVisibilityChange: dashboard.state.setColumnVisibility,
     getCoreRowModel: getCoreRowModel(),
-    getRowId: (row) => row.id!,
+    getRowId: (row) => row.id || row.key,
+    enableRowSelection: (row) => !!row.original.id,
   });
 
   return (

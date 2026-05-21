@@ -66,6 +66,22 @@ export const DictionaryModals: FC<DictionaryModalsProps> = ({ dashboard }) => {
               ? state.dictionaryToDelete.length
               : 1
           }
+          dictionaryKeys={
+            state.dictionaryToDelete
+              ? (Array.isArray(state.dictionaryToDelete)
+                  ? state.dictionaryToDelete
+                  : [state.dictionaryToDelete]
+                )
+                  .map((idOrKey) => {
+                    const dict = dashboard.data.dictionaries.find(
+                      (d) => d.id === idOrKey || d.key === idOrKey
+                    );
+                    return dict ? dict.key : idOrKey;
+                  })
+                  .filter(Boolean)
+                  .join(', ')
+              : ''
+          }
         />
       </Suspense>
 

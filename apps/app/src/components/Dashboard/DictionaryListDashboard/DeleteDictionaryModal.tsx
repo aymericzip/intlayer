@@ -1,6 +1,6 @@
 import { Form } from '@intlayer/design-system/form';
 import { Modal } from '@intlayer/design-system/modal';
-import type { FC } from 'react';
+import type { FC, ReactNode } from 'react';
 import { useIntlayer } from 'react-intlayer';
 
 type DeleteDictionaryModalProps = {
@@ -9,6 +9,7 @@ type DeleteDictionaryModalProps = {
   onConfirm: () => void;
   isDeleting?: boolean;
   count?: number;
+  dictionaryKeys?: ReactNode;
 };
 
 export const DeleteDictionaryModal: FC<DeleteDictionaryModalProps> = ({
@@ -17,6 +18,7 @@ export const DeleteDictionaryModal: FC<DeleteDictionaryModalProps> = ({
   isOpen,
   isDeleting,
   count = 1,
+  dictionaryKeys,
 }) => {
   const { confirmButton, cancelButton, description, title } = useIntlayer(
     'delete-dictionary-modal'
@@ -33,7 +35,7 @@ export const DeleteDictionaryModal: FC<DeleteDictionaryModalProps> = ({
     >
       <form className="size-full px-3">
         <p className="py-4 text-neutral text-sm">
-          {count > 1 ? description.bulk : description.single}
+          {description(count)({ keys: dictionaryKeys || '' })}
         </p>
         <div className="mt-12 flex justify-end gap-2 max-md:flex-col">
           <Form.Button

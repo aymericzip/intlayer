@@ -1,4 +1,4 @@
-import { type Dictionary, t } from 'intlayer';
+import { type Dictionary, enu, insert, t } from 'intlayer';
 
 const deleteDictionaryModalContent = {
   key: 'delete-dictionary-modal',
@@ -10,7 +10,7 @@ const deleteDictionaryModalContent = {
       'en-GB': 'Delete Dictionary',
       es: 'Eliminar diccionario',
       fr: 'Supprimer le dictionnaire',
-      hi: 'शब्दकोश हटाएं',
+      hi: 'शब्दкоश हटाएं',
       it: 'Elimina dizionario',
       ja: '辞書を削除',
       ko: '사전 삭제',
@@ -24,48 +24,54 @@ const deleteDictionaryModalContent = {
       uk: 'Видалити словник',
     }),
 
-    description: {
-      single: t({
-        ar: 'هل أنت متأكد من أنك تريد حذف هذا القاموس؟',
-        de: 'Sind Sie sicher, dass Sie dieses Wörterbuch löschen möchten?',
-        en: 'Are you sure you want to delete this dictionary?',
-        'en-GB': 'Are you sure you want to delete this dictionary?',
-        es: '¿Está seguro de que desea eliminar este diccionario?',
-        fr: 'Êtes-vous sûr de vouloir supprimer ce dictionnaire ?',
-        hi: 'क्या आप इस शब्दकोश को हटाना चाहते हैं?',
-        it: 'Sei sicuro di voler eliminare questo dizionario?',
-        ja: 'この辞書を削除してもよろしいですか？',
-        ko: '이 사전을 삭제하시겠습니까?',
-        pt: 'Tem certeza de que deseja excluir este dicionário?',
-        ru: 'Вы уверены, что хотите удалить этот словарь?',
-        tr: 'Bu sözlüğü silmek istediğinizden emin misiniz?',
-        zh: '您确定要删除此字典吗？',
-        pl: 'Czy na pewno chcesz usunąć ten słownik?',
-        id: 'Apakah Anda yakin ingin menghapus kamus ini?',
-        vi: 'Bạn có chắc muốn xóa từ điển này không?',
-        uk: 'Ви впевнені, що хочете видалити цей словник?',
-      }),
-      bulk: t({
-        ar: 'هل أنت متأكد من أنك تريد حذف القواميس المختارة؟',
-        de: 'Sind Sie sicher, dass Sie die ausgewählten Wörterbücher löschen möchten?',
-        en: 'Are you sure you want to delete the selected dictionaries?',
-        'en-GB': 'Are you sure you want to delete the selected dictionaries?',
-        es: '¿Está seguro de que desea eliminar los diccionarios seleccionados?',
-        fr: 'Êtes-vous sûr de vouloir supprimer les dictionnaires sélectionnés ?',
-        hi: 'क्या आप चयनित शब्दकोशों को हटाना चाहते हैं?',
-        it: 'Sei sicuro di voler eliminare i dizionari selezionati?',
-        ja: '選択した辞書を削除してもよろしいですか？',
-        ko: '선택한 사전을 삭제하시겠습니까?',
-        pt: 'Tem certeza de que deseja excluir os dicionários selecionados?',
-        ru: 'Вы уверены, что хотите удалить выбранные словари?',
-        tr: 'Seçilen sözlükleri silmek istediğinizden emin misiniz?',
-        zh: '您确定要删除所选字典吗？',
-        pl: 'Czy na pewno chcesz usunąć wybrane słowniki?',
-        id: 'Apakah Anda yakin ingin menghapus kamus yang dipilih?',
-        vi: 'Bạn có chắc muốn xóa các từ điển đã chọn không?',
-        uk: 'Ви впевнені, що хочете видалити вибрані словники?',
-      }),
-    },
+    description: enu({
+      '1': insert(
+        t({
+          ar: 'هل أنت متأكد من أنك تريد حذف هذا القاموس ({{keys}})؟',
+          de: 'Sind Sie sicher, dass Sie dieses Wörterbuch ({{keys}}) löschen möchten?',
+          en: 'Are you sure you want to delete this dictionary ({{keys}})?',
+          'en-GB':
+            'Are you sure you want to delete this dictionary ({{keys}})?',
+          es: '¿Está seguro de que desea eliminar este diccionario ({{keys}})?',
+          fr: 'Êtes-vous sûr de vouloir supprimer ce dictionnaire ({{keys}}) ?',
+          hi: 'क्या आप इस शब्दकोश ({{keys}}) को हटाना चाहते हैं?',
+          it: 'Sei sicuro di voler eliminare questo dizionario ({{keys}})?',
+          ja: 'この辞書（{{keys}}）を削除してもよろしいですか？',
+          ko: '이 사전({{keys}})을 삭제하시겠습니까?',
+          pt: 'Tem certeza de que deseja excluir este dicionário ({{keys}})?',
+          ru: 'Вы уверены, что хотите удалить этот словарь ({{keys}})?',
+          tr: 'Bu sözlüğü ({{keys}}) silmek istediğinizden emin misiniz?',
+          zh: '您确定要删除此字典（{{keys}}）吗？',
+          pl: 'Czy na pewno chcesz usunąć ten słownik ({{keys}})?',
+          id: 'Apakah Anda yakin ingin menghapus kamus ini ({{keys}})?',
+          vi: 'Bạn có chắc muốn xóa từ điển này ({{keys}}) không?',
+          uk: 'Ви впевнені, що хочете видалити цей словник ({{keys}})?',
+        })
+      ),
+      fallback: insert(
+        t({
+          ar: 'هل أنت متأكد من أنك تريد حذف القواميس المختارة ({{keys}})؟',
+          de: 'Sind Sie sicher, dass Sie die ausgewählten Wörterbücher ({{keys}}) löschen möchten?',
+          en: 'Are you sure you want to delete the selected dictionaries ({{keys}})?',
+          'en-GB':
+            'Are you sure you want to delete the selected dictionaries ({{keys}})?',
+          es: '¿Está seguro de que desea eliminar los diccionarios seleccionados ({{keys}})?',
+          fr: 'Êtes-vous sûr de vouloir supprimer les dictionnaires sélectionnés ({{keys}}) ?',
+          hi: 'क्या आप चयनित शब्दकोशों ({{keys}}) को हटाना चाहते हैं?',
+          it: 'Sei sicuro di voler eliminare i dizionari selezionati ({{keys}})?',
+          ja: '選択した辞書（{{keys}}）を削除してもよろしいですか？',
+          ko: '선택한 사전({{keys}})을 삭제하시겠습니까?',
+          pt: 'Tem certeza de que deseja excluir os dicionários seleccionados ({{keys}})?',
+          ru: 'Вы уверены, что хотите удалить выбранные словари ({{keys}})?',
+          tr: 'Seçilen sözlükleri ({{keys}}) silmek istediğinizden emin misiniz?',
+          zh: '您确定要删除所选字典（{{keys}}）吗？',
+          pl: 'Czy na pewno chcesz usunąć wybrane słowniki ({{keys}})?',
+          id: 'Apakah Anda yakin ingin menghapus kamus yang dipilih ({{keys}})?',
+          vi: 'Bạn có chắc muốn xóa các từ điển đã chọn ({{keys}}) không?',
+          uk: 'Ви впевнені, що хочете видалити вибрані словники ({{keys}})?',
+        })
+      ),
+    }),
 
     confirmButton: {
       text: t({

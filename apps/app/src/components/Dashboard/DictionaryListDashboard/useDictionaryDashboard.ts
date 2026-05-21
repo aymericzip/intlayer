@@ -8,7 +8,7 @@ import {
 import { useDictionariesRecord } from '@intlayer/editor-react';
 import type { Dictionary } from '@intlayer/types/dictionary';
 import type { RowSelectionState, VisibilityState } from '@tanstack/react-table';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useDashboardRightPanel } from '#hooks/useDashboardRightPanel';
 import { useSearchParamState } from '#hooks/useSearchParamState';
 import { useVisualEditorKeys } from '#hooks/useVisualEditorKeys';
@@ -91,6 +91,42 @@ export const useDictionaryDashboard = () => {
   const { mutateAsync: pushDicts, isPending: isMerging } =
     usePushDictionaries();
 
+  useEffect(() => {
+    if (isPending) return;
+
+    const selectedKeys = Object.keys(rowSelection).filter(
+      (key) => rowSelection[key]
+    );
+    if (selectedKeys.length === 0) return;
+
+    const visibleDicts =
+      params.page === 1
+        ? [...filteredLocaleOnlyDicts, ...(data?.data ?? [])]
+        : (data?.data ?? []);
+
+    const newRowSelection = { ...rowSelection };
+    let hasChanged = false;
+
+    for (const key of selectedKeys) {
+      const exists = visibleDicts.some((d) => d.id === key || d.key === key);
+      if (!exists) {
+        delete newRowSelection[key];
+        hasChanged = true;
+      }
+    }
+
+    if (hasChanged) {
+      setRowSelection(newRowSelection);
+    }
+  }, [
+    isPending,
+    data?.data,
+    filteredLocaleOnlyDicts,
+    params.page,
+    rowSelection,
+    setRowSelection,
+  ]);
+
   // Detect duplicate dictionary pairs (same key, at least one with undefined filePath)
   const duplicatePairs = useMemo<[Dictionary, Dictionary][]>(() => {
     const byKey = new Map<string, Dictionary[]>();
@@ -116,11 +152,29 @@ export const useDictionaryDashboard = () => {
     const ids = Array.isArray(dictionaryToDelete)
       ? dictionaryToDelete
       : [dictionaryToDelete];
-    await Promise.all(ids.map((id) => deleteDict({ dictionaryId: id })));
+    const allDicts = [...filteredLocaleOnlyDicts, ...(data?.data ?? [])];
+    await Promise.all(
+      ids.map((idOrKey) => {
+        const dict = allDicts.find(
+          (d) => d.id === idOrKey || d.key === idOrKey
+        );
+        if (dict?.id) {
+          return deleteDict({ dictionaryId: dict.id });
+        }
+        return Promise.resolve();
+      })
+    );
     setDictionaryToDelete(null);
     setRowSelection({});
     refetch();
-  }, [dictionaryToDelete, deleteDict, refetch, setRowSelection]);
+  }, [
+    dictionaryToDelete,
+    deleteDict,
+    refetch,
+    setRowSelection,
+    filteredLocaleOnlyDicts,
+    data?.data,
+  ]);
 
   // Each entry: target values win; source fills missing keys; source is deleted after
   const onConfirmMerge = useCallback(

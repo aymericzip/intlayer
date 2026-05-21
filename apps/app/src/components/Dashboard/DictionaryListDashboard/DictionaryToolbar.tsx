@@ -120,7 +120,7 @@ export const DictionaryToolbar: FC<DictionaryToolbarProps> = ({
             onClick={() => {
               const ids = table
                 .getSelectedRowModel()
-                .rows.map((r: any) => r.original.id);
+                .rows.map((r: any) => r.original.id || r.original.key);
               state.setDictionaryToDelete(ids);
             }}
           >
