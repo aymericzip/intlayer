@@ -4,7 +4,7 @@ import { Checkbox, SearchInput } from '@intlayer/design-system/input';
 import { PopoverStatic } from '@intlayer/design-system/popover';
 import type { Dictionary } from '@intlayer/types/dictionary';
 import type { Table } from '@tanstack/react-table';
-import { Columns, Filter, Plus, Trash2 } from 'lucide-react';
+import { Columns, Filter, GitMerge, Plus, Trash2 } from 'lucide-react';
 import type { FC } from 'react';
 import { useForm } from 'react-hook-form';
 import { useIntlayer } from 'react-intlayer';
@@ -127,6 +127,30 @@ export const DictionaryToolbar: FC<DictionaryToolbarProps> = ({
             {content.deleteSelectedButton.text} ({selectedCount})
           </Button>
         )}
+
+        {dashboard.data.duplicatePairs.length > 0 && (
+          <PopoverStatic identifier="merge-duplicates-toolbar">
+            <Button
+              Icon={GitMerge}
+              color="text"
+              variant="outline"
+              label={content.mergeDuplicatesButton.label.value}
+              onClick={() => state.setIsMergeModalOpen(true)}
+            >
+              {content.mergeDuplicatesButton.text} (
+              {dashboard.data.duplicatePairs.length})
+            </Button>
+            <PopoverStatic.Detail
+              xAlign="end"
+              identifier="merge-duplicates-toolbar"
+            >
+              <Container className="p-3">
+                <p>{content.mergeDuplicatesButton.popover}</p>
+              </Container>
+            </PopoverStatic.Detail>
+          </PopoverStatic>
+        )}
+
         <PopoverStatic identifier="create-dictionary-toolbar">
           <Button
             Icon={Plus}

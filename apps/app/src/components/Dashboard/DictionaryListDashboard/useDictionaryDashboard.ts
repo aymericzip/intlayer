@@ -1,7 +1,9 @@
+import { mergeDictionaries } from '@intlayer/core/dictionaryManipulator';
 import {
   useDeleteDictionary,
   useGetDictionaries,
   usePersistedStore,
+  usePushDictionaries,
 } from '@intlayer/design-system/hooks';
 import { useDictionariesRecord } from '@intlayer/editor-react';
 import type { Dictionary } from '@intlayer/types/dictionary';
@@ -57,6 +59,7 @@ export const useDictionaryDashboard = () => {
   const [dictionaryToDelete, setDictionaryToDelete] = useState<
     string | string[] | null
   >(null);
+  const [isMergeModalOpen, setIsMergeModalOpen] = useState(false);
 
   const [rowSelection, setRowSelection] = usePersistedStore<RowSelectionState>(
     'dict-selection',
@@ -85,6 +88,28 @@ export const useDictionaryDashboard = () => {
 
   const { mutateAsync: deleteDict, isPending: isDeleting } =
     useDeleteDictionary();
+  const { mutateAsync: pushDicts, isPending: isMerging } =
+    usePushDictionaries();
+
+  // Detect duplicate dictionary pairs (same key, at least one with undefined filePath)
+  const duplicatePairs = useMemo<[Dictionary, Dictionary][]>(() => {
+    const byKey = new Map<string, Dictionary[]>();
+    const allDicts: Dictionary[] = [
+      ...filteredLocaleOnlyDicts,
+      ...(data?.data ?? []),
+    ];
+    for (const dict of allDicts) {
+      const existing = byKey.get(dict.key) ?? [];
+      byKey.set(dict.key, [...existing, dict]);
+    }
+    const pairs: [Dictionary, Dictionary][] = [];
+    for (const [, group] of byKey) {
+      if (group.length >= 2 && group.some((d) => !d.filePath)) {
+        pairs.push([group[0], group[1]] as [Dictionary, Dictionary]);
+      }
+    }
+    return pairs;
+  }, [filteredLocaleOnlyDicts, data?.data]);
 
   const onConfirmDelete = useCallback(async () => {
     if (!dictionaryToDelete) return;
@@ -96,6 +121,31 @@ export const useDictionaryDashboard = () => {
     setRowSelection({});
     refetch();
   }, [dictionaryToDelete, deleteDict, refetch, setRowSelection]);
+
+  // Each entry: target values win; source fills missing keys; source is deleted after
+  const onConfirmMerge = useCallback(
+    async (pairs: { target: Dictionary; source: Dictionary }[]) => {
+      await Promise.all(
+        pairs.map(async ({ target, source }) => {
+          const merged = mergeDictionaries([target, source]);
+
+          if (target.id) {
+            await pushDicts({
+              dictionaries: [{ ...target, content: merged.content }],
+            });
+          }
+
+          if (source.id) {
+            await deleteDict({ dictionaryId: source.id });
+          }
+        })
+      );
+
+      setIsMergeModalOpen(false);
+      refetch();
+    },
+    [pushDicts, deleteDict, refetch]
+  );
 
   return {
     params,
@@ -110,11 +160,14 @@ export const useDictionaryDashboard = () => {
       setEditingDictionaryKey,
       dictionaryToDelete,
       setDictionaryToDelete,
+      isMergeModalOpen,
+      setIsMergeModalOpen,
       rowSelection,
       setRowSelection,
       columnVisibility,
       setColumnVisibility,
       isDeleting,
+      isMerging,
     },
     data: {
       // Locale-only dicts (no backend id) are prepended to the first page
@@ -125,7 +178,8 @@ export const useDictionaryDashboard = () => {
       totalItems: (data?.total_items ?? 0) + filteredLocaleOnlyDicts.length,
       totalPages: data?.total_pages ?? 1,
       isPending,
+      duplicatePairs,
     },
-    actions: { refetch, onConfirmDelete },
+    actions: { refetch, onConfirmDelete, onConfirmMerge },
   };
 };
