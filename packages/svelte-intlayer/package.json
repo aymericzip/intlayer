@@ -101,8 +101,8 @@
     "svelte-check": "4.4.8",
     "tsdown": "0.22.00",
     "typescript": "6.0.3",
-    "vite": "8.0.13",
-    "vitest": "4.1.6"
+    "vite": "8.0.14",
+    "vitest": "4.1.7"
   },
   "peerDependencies": {
     "svelte": ">=5.0.0"
