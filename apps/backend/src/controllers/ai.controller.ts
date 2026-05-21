@@ -468,7 +468,9 @@ export const askDocQuestion = async (
     try {
       aiConfig = await getAIConfig(
         {
-          userOptions: {},
+          userOptions: {
+            temperature: 0.2,
+          },
           projectOptions: projectAIOptions,
           accessType: ['public'],
         },

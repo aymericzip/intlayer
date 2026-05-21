@@ -43,7 +43,7 @@ import type {
 import { generateText as generateTextFn } from 'ai';
 
 const DEFAULT_PROVIDER = AiProviders.ANTHROPIC;
-const DEFAULT_MODEL = 'claude-haiku-4-5-20251001';
+const DEFAULT_MODEL = 'claude-haiku-4-5';
 const DEFAULT_API_KEY = process.env.ANTHROPIC_API_KEY;
 
 export { AiProviders as AIProvider };

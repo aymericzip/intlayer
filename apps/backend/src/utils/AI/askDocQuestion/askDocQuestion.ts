@@ -55,7 +55,7 @@ const vectorStore: VectorStoreEl[] = [];
 /*
  * Ask question AI configuration
  */
-const MAX_RELEVANT_CHUNKS_NB: number = 20; // Maximum number of relevant chunks to attach to chatGPT context
+const MAX_RELEVANT_CHUNKS_NB: number = 15; // Maximum number of relevant chunks to attach to chatGPT context
 const MIN_RELEVANT_CHUNKS_SIMILARITY: number = 0.42; // Minimum similarity required for a chunk to be considered relevant
 
 /*
@@ -358,9 +358,6 @@ export const askDocQuestion = async (
     ];
   }
 
-  // Format messages for AI SDK
-  const aiMessages = [...processedMessages];
-
   if (!aiConfig) {
     throw new Error('Failed to initialize AI configuration');
   }
@@ -370,7 +367,8 @@ export const askDocQuestion = async (
   const stream = streamText({
     ...aiConfig,
     system: systemPrompt,
-    messages: aiMessages,
+    messages: processedMessages,
+    maxOutputTokens: 500,
   });
 
   // Process the stream
