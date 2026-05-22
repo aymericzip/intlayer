@@ -1,5 +1,6 @@
 import { Container } from '@intlayer/design-system/container';
 import {
+  App_Admin_Affiliate_Path,
   App_Admin_Discussions_Path,
   App_Admin_Organizations_Path,
   App_Admin_Projects_Path,
@@ -11,7 +12,14 @@ import {
 } from '@intlayer/design-system/tab-selector';
 import { cn } from '@intlayer/design-system/utils';
 import { useLocation } from '@tanstack/react-router';
-import { Building2, FolderOpen, MessageCircle, Users } from 'lucide-react';
+import { getPathWithoutLocale } from 'intlayer';
+import {
+  Building2,
+  FolderOpen,
+  HandCoins,
+  MessageCircle,
+  Users,
+} from 'lucide-react';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { Link } from '#components/Link/Link';
@@ -53,12 +61,17 @@ export const AdminTabBar: FC<AdminTabBarProps> = ({ className }) => {
       label: navigation.management.discussions.label.value,
       title: navigation.management.discussions.title,
     },
+    {
+      key: 'affiliate',
+      href: App_Admin_Affiliate_Path,
+      icon: HandCoins,
+      label: 'Affiliate',
+      title: 'Affiliate',
+    },
   ];
+
   const isActiveRoute = (href: string) => {
-    if (href === '/admin') {
-      return pathname === '/admin';
-    }
-    return pathname.startsWith(href);
+    return getPathWithoutLocale(pathname).startsWith(href);
   };
 
   const activeItem = navigationItems.find((item) => isActiveRoute(item.href));

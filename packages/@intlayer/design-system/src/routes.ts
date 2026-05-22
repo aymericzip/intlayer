@@ -21,6 +21,7 @@ export const App_Dashboard_Profile_Path = '/profile' as const;
 export const App_Dashboard_IDE_Path = '/ide' as const;
 
 export const App_Pricing_Path = '/pricing' as const;
+export const App_Affiliation_Path = '/affiliation' as const;
 
 export const App_Auth_SignIn_Path = '/auth/login' as const;
 export const App_Auth_SignUp_Path = '/auth/register' as const;
@@ -37,6 +38,9 @@ export const App_Admin_Projects_Path = '/admin/projects' as const;
 export const App_Admin_Dashboard_Path = '/admin/dashboard' as const;
 export const App_Admin_Management_Path = '/admin/management' as const;
 export const App_Admin_Discussions_Path = '/admin/discussions' as const;
+export const App_Admin_Affiliate_Path = '/admin/affiliate' as const;
+export const getAppAdminAffiliateRoute = (id: string) =>
+  `${App_Admin_Affiliate_Path}/${id}` as const;
 
 export const App_Onboarding_Path = '/onboarding' as const;
 
@@ -71,6 +75,8 @@ export const App_Dashboard_IDE =
   `https://${App_Domain}${App_Dashboard_IDE_Path}` as const;
 
 export const App_Pricing = `https://${App_Domain}${App_Pricing_Path}` as const;
+export const App_Affiliation =
+  `https://${App_Domain}${App_Affiliation_Path}` as const;
 
 export const App_Auth_SignIn =
   `https://${App_Domain}${App_Auth_SignIn_Path}` as const;
@@ -98,6 +104,8 @@ export const App_Admin_Management =
   `https://${App_Domain}${App_Admin_Management_Path}` as const;
 export const App_Admin_Discussions =
   `https://${App_Domain}${App_Admin_Discussions_Path}` as const;
+export const App_Admin_Affiliate =
+  `https://${App_Domain}${App_Admin_Affiliate_Path}` as const;
 
 export const App_Onboarding =
   `https://${App_Domain}${App_Onboarding_Path}` as const;

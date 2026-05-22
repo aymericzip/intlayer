@@ -33,7 +33,7 @@ export const ErrorComponent = ({ error, reset }: ErrorComponentProps) => {
           type="button"
           color="text"
           variant="outline"
-          label=""
+          label={content.tryAgainLabel.value}
           size="xl"
         >
           {content.tryAgain}

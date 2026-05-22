@@ -1,3 +1,4 @@
+export * from './AffiliateInvitationEmail';
 export * from './InviteUserEmail';
 export * from './OAuthTokenCreatedEmail';
 export * from './PasswordChangeConfirmation';

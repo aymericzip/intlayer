@@ -328,7 +328,7 @@ export const DiscussionsAdminPageContent: FC = () => {
 
   return (
     <div className="flex flex-1 flex-col items-center p-4">
-      <div className="flex w-full flex-col gap-4 overflow-scroll">
+      <div className="flex size-full flex-col gap-4">
         <div className="mb-4 space-y-4">
           <SearchInput
             placeholder={searchPlaceholder.value}
@@ -346,8 +346,8 @@ export const DiscussionsAdminPageContent: FC = () => {
             </p>
           </div>
         ) : (
-          <div className="space-y-4">
-            <Table className="w-full border-separate border-spacing-0">
+          <div className="h-full flex-1 space-y-4">
+            <Table className="w-full border-separate border-spacing-0 overflow-scroll">
               <thead>
                 {table.getHeaderGroups().map((headerGroup) => (
                   <tr key={headerGroup.id}>

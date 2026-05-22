@@ -49,6 +49,8 @@
     "@intlayer/unmerged-dictionaries-entry": "workspace:*",
     "@monaco-editor/react": "4.7.0",
     "@posthog/react": "1.9.1",
+    "@stripe/connect-js": "^3.4.4",
+    "@stripe/react-connect-js": "^3.4.2",
     "@stripe/react-stripe-js": "6.4.0",
     "@stripe/stripe-js": "9.6.0",
     "@tailwindcss/aspect-ratio": "0.4.2",

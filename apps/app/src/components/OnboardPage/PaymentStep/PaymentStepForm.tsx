@@ -276,11 +276,15 @@ export const PaymentStepForm: FC<PaymentStepContentProps> = ({
   const navigate = useLocalizedNavigate();
   const search = useSearch({ strict: false }) as any;
   const promoCode = search.promoCode ?? undefined;
+  const referralCode = search.ref
+    ? String(search.ref).trim().toUpperCase()
+    : undefined;
   const priceId = retrievePriceId(plan, period);
 
   const { data, isLoading } = useGetSubscription({
     priceId: priceId!,
     promoCode,
+    referralCode,
   });
 
   if (!priceId) {

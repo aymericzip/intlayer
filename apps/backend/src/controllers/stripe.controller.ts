@@ -1,12 +1,24 @@
 import type { Locale } from '@intlayer/types/allLocales';
+import * as affiliateService from '@services/affiliate.service';
 import * as emailService from '@services/email.service';
 import * as subscriptionService from '@services/subscription.service';
 import { type AppError, ErrorHandler } from '@utils/errors';
+import {
+  type FiltersAndPagination,
+  getFiltersAndPaginationFromBody,
+} from '@utils/filtersAndPagination/getFiltersAndPaginationFromBody';
 import { isLifetimePriceId, retrievePlanInformation } from '@utils/plan';
-import { formatResponse, type ResponseData } from '@utils/responseData';
+import {
+  formatPaginatedResponse,
+  formatResponse,
+  type PaginatedResponse,
+  type ResponseData,
+} from '@utils/responseData';
 import type { FastifyReply, FastifyRequest } from 'fastify';
 import { t } from 'fastify-intlayer';
 import Stripe from 'stripe';
+import type { AffiliateAPI, AffiliateStats } from '@/types/affiliate.types';
+import type { AffiliateInvitationAPI } from '@/types/affiliateInvitation.types';
 import type { Organization } from '@/types/organization.types';
 
 export type GetPricingBody = {
@@ -44,6 +56,7 @@ export const getPricing = async (
 export type GetCheckoutSessionBody = {
   priceId: string;
   promoCode?: string;
+  referralCode?: string;
 };
 
 export type GetCheckoutSessionResult = ResponseData<{
@@ -64,7 +77,7 @@ export const getSubscription = async (
 
     // Extract organization and user from request locals (set by authentication middleware)
     const { organization, user } = request.session || {};
-    const { priceId, promoCode } = request.body;
+    const { priceId, promoCode, referralCode } = request.body;
 
     // Validate that the organization exists
     if (!organization) {
@@ -161,6 +174,16 @@ export const getSubscription = async (
         );
       }
 
+      if (referralCode) {
+        await affiliateService.trackReferral(
+          referralCode,
+          organization.id,
+          paymentIntent.id,
+          paymentIntent.amount,
+          paymentIntent.currency
+        );
+      }
+
       return reply.send(
         formatResponse<GetCheckoutSessionResult['data']>({
           data: {
@@ -216,6 +239,14 @@ export const getSubscription = async (
           organization,
           priceId,
         }
+      );
+    }
+
+    if (referralCode) {
+      await affiliateService.trackReferral(
+        referralCode,
+        organization.id,
+        subscription.id
       );
     }
 
@@ -459,6 +490,377 @@ export const createPortalSession = async (
     return reply.send(
       formatResponse<CreatePortalSessionResult['data']>({
         data: { url: session.url },
+      })
+    );
+  } catch (error) {
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
+  }
+};
+
+export type GrantAffiliateAccessBody = {
+  userId: string;
+  commissionRate?: number;
+  commissionType?: 'recurring' | 'one_time';
+  country?: string;
+};
+
+export type GrantAffiliateAccessResult = ResponseData<AffiliateAPI>;
+
+/**
+ * Admin-only: creates a Stripe Connect account and affiliate record for a user.
+ */
+export const grantAffiliateAccess = async (
+  request: FastifyRequest<{ Body: GrantAffiliateAccessBody }>,
+  reply: FastifyReply
+): Promise<void> => {
+  try {
+    const { user } = request.session || {};
+
+    if (!user || user.role !== 'admin') {
+      return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_FOUND');
+    }
+
+    const { userId, commissionRate, commissionType, country } = request.body;
+
+    const affiliate = await affiliateService.createAffiliate(userId as any, {
+      commissionRate,
+      commissionType,
+      country,
+    });
+
+    return reply.send(
+      formatResponse<GrantAffiliateAccessResult['data']>({
+        data: affiliate.toJSON() as AffiliateAPI,
+      })
+    );
+  } catch (error) {
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
+  }
+};
+
+export type GetAffiliatesParams = FiltersAndPagination<{ search?: string }>;
+export type GetAffiliatesResult = PaginatedResponse<AffiliateAPI>;
+
+/**
+ * Admin-only: returns a paginated list of all affiliate records.
+ */
+export const getAffiliates = async (
+  request: FastifyRequest<{ Querystring: GetAffiliatesParams }>,
+  reply: FastifyReply
+): Promise<void> => {
+  try {
+    const { user } = request.session || {};
+
+    if (!user || user.role !== 'admin') {
+      return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_FOUND');
+    }
+
+    const { filters, skip, pageSize, page, getNumberOfPages } =
+      getFiltersAndPaginationFromBody<{ search?: string }>(request);
+
+    const query: Record<string, unknown> = {};
+    if (filters.search) {
+      query.referralCode = { $regex: filters.search, $options: 'i' };
+    }
+
+    const affiliates = await affiliateService.findAffiliates(
+      query,
+      skip,
+      pageSize
+    );
+    const totalItems = await affiliateService.countAffiliates(query);
+
+    return reply.send(
+      formatPaginatedResponse<AffiliateAPI>({
+        data: affiliates.map((a) => a.toJSON() as AffiliateAPI),
+        page,
+        pageSize,
+        totalPages: getNumberOfPages(totalItems),
+        totalItems,
+      })
+    );
+  } catch (error) {
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
+  }
+};
+
+export type GetAffiliateByIdResult = ResponseData<AffiliateAPI | null>;
+
+/**
+ * Admin-only: returns a single affiliate by ID.
+ */
+export const getAffiliateById = async (
+  request: FastifyRequest<{ Params: { id: string } }>,
+  reply: FastifyReply
+): Promise<void> => {
+  try {
+    const { user } = request.session || {};
+
+    if (!user || user.role !== 'admin') {
+      return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_FOUND');
+    }
+
+    const affiliate = await affiliateService.getAffiliateById(
+      request.params.id
+    );
+
+    return reply.send(
+      formatResponse<GetAffiliateByIdResult['data']>({
+        data: affiliate ? (affiliate.toJSON() as AffiliateAPI) : null,
+      })
+    );
+  } catch (error) {
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
+  }
+};
+
+export type GetAffiliateResult = ResponseData<AffiliateAPI | null>;
+
+/**
+ * Returns the affiliate record for the authenticated user, or null if not an affiliate.
+ */
+export const getAffiliate = async (
+  request: FastifyRequest,
+  reply: FastifyReply
+): Promise<void> => {
+  try {
+    const { user } = request.session || {};
+
+    if (!user) {
+      return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_FOUND');
+    }
+
+    const affiliate = await affiliateService.getAffiliateByUserId(user.id);
+
+    return reply.send(
+      formatResponse<GetAffiliateResult['data']>({
+        data: affiliate ? (affiliate.toJSON() as AffiliateAPI) : null,
+      })
+    );
+  } catch (error) {
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
+  }
+};
+
+export type GetAffiliateAccountSessionResult = ResponseData<{
+  clientSecret: string;
+}>;
+
+/**
+ * Creates a Stripe Connect account session for the authenticated affiliate.
+ */
+export const getAffiliateAccountSession = async (
+  request: FastifyRequest,
+  reply: FastifyReply
+): Promise<void> => {
+  try {
+    const { user } = request.session || {};
+
+    if (!user) {
+      return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_FOUND');
+    }
+
+    const affiliate = await affiliateService.getAffiliateByUserId(user.id);
+
+    if (!affiliate?.stripeAccountId) {
+      return ErrorHandler.handleGenericErrorResponse(
+        reply,
+        'AFFILIATE_NOT_FOUND'
+      );
+    }
+
+    const clientSecret = await affiliateService.createAccountSession(
+      affiliate.stripeAccountId
+    );
+
+    return reply.send(
+      formatResponse<GetAffiliateAccountSessionResult['data']>({
+        data: { clientSecret },
+      })
+    );
+  } catch (error) {
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
+  }
+};
+
+export type GetAffiliateStatsResult = ResponseData<AffiliateStats | null>;
+
+/**
+ * Returns referral stats for the authenticated affiliate.
+ */
+export const getAffiliateStats = async (
+  request: FastifyRequest,
+  reply: FastifyReply
+): Promise<void> => {
+  try {
+    const { user } = request.session || {};
+
+    if (!user) {
+      return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_FOUND');
+    }
+
+    const stats = await affiliateService.getAffiliateStats(user.id);
+
+    return reply.send(
+      formatResponse<GetAffiliateStatsResult['data']>({ data: stats })
+    );
+  } catch (error) {
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
+  }
+};
+
+export type SendAffiliateInvitationBody = {
+  email: string;
+  commissionRate?: number;
+  commissionType?: 'recurring' | 'one_time';
+  country?: string;
+};
+
+export type SendAffiliateInvitationResult = ResponseData<{ sent: boolean }>;
+
+/**
+ * Admin-only: creates an affiliate invitation and sends the email.
+ */
+export const sendAffiliateInvitation = async (
+  request: FastifyRequest<{ Body: SendAffiliateInvitationBody }>,
+  reply: FastifyReply
+): Promise<void> => {
+  try {
+    const { user } = request.session || {};
+
+    if (!user || user.role !== 'admin') {
+      return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_FOUND');
+    }
+
+    const { email, commissionRate, commissionType, country } = request.body;
+    const appUrl = process.env.APP_URL ?? 'https://app.intlayer.org';
+
+    const invitation = await affiliateService.createAffiliateInvitation(
+      email,
+      user.id,
+      { commissionRate, commissionType, country }
+    );
+
+    const inviteLink = `${appUrl}/affiliation/${invitation.token}`;
+
+    await emailService.sendEmail({
+      type: 'affiliateInvitation',
+      to: email,
+      inviteLink,
+      commissionRate: invitation.commissionRate,
+    });
+
+    return reply.send(
+      formatResponse<SendAffiliateInvitationResult['data']>({
+        data: { sent: true },
+      })
+    );
+  } catch (error) {
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
+  }
+};
+
+export type GetAffiliateInvitationResult =
+  ResponseData<AffiliateInvitationAPI | null>;
+
+/**
+ * Public: returns invitation details by token (for rendering the landing page).
+ */
+export const getAffiliateInvitation = async (
+  request: FastifyRequest<{ Params: { token: string } }>,
+  reply: FastifyReply
+): Promise<void> => {
+  try {
+    const { token } = request.params;
+    const invitation =
+      await affiliateService.getAffiliateInvitationByToken(token);
+
+    if (!invitation) {
+      return ErrorHandler.handleGenericErrorResponse(
+        reply,
+        'AFFILIATE_INVITATION_NOT_FOUND'
+      );
+    }
+
+    return reply.send(
+      formatResponse<GetAffiliateInvitationResult['data']>({
+        data: invitation.toJSON() as AffiliateInvitationAPI,
+      })
+    );
+  } catch (error) {
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
+  }
+};
+
+export type UpdateAffiliateStatusBody = { status: 'active' | 'suspended' };
+export type UpdateAffiliateStatusResult = ResponseData<AffiliateAPI>;
+
+/**
+ * Admin-only: sets an affiliate's status to active or suspended.
+ */
+export const updateAffiliateStatus = async (
+  request: FastifyRequest<{
+    Params: { id: string };
+    Body: UpdateAffiliateStatusBody;
+  }>,
+  reply: FastifyReply
+): Promise<void> => {
+  try {
+    const { id } = request.params;
+    const { status } = request.body;
+
+    const affiliate = await affiliateService.setAffiliateStatus(id, status);
+
+    if (!affiliate) {
+      return ErrorHandler.handleGenericErrorResponse(
+        reply,
+        'AFFILIATE_NOT_FOUND'
+      );
+    }
+
+    return reply.send(
+      formatResponse<UpdateAffiliateStatusResult['data']>({
+        data: affiliate.toJSON() as AffiliateAPI,
+      })
+    );
+  } catch (error) {
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
+  }
+};
+
+export type AcceptAffiliateInvitationResult = ResponseData<AffiliateAPI>;
+
+/**
+ * Authenticated: accepts an invitation, creates the Stripe Connect account and affiliate record.
+ */
+export type AcceptAffiliateInvitationBody = { country?: string };
+
+export const acceptAffiliateInvitation = async (
+  request: FastifyRequest<{
+    Params: { token: string };
+    Body: AcceptAffiliateInvitationBody;
+  }>,
+  reply: FastifyReply
+): Promise<void> => {
+  try {
+    const { user } = request.session || {};
+
+    if (!user) {
+      return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_FOUND');
+    }
+
+    const { token } = request.params;
+    const { country } = request.body ?? {};
+
+    const affiliate = await affiliateService.acceptAffiliateInvitation(
+      token,
+      user.id,
+      country
+    );
+
+    return reply.send(
+      formatResponse<AcceptAffiliateInvitationResult['data']>({
+        data: affiliate.toJSON() as AffiliateAPI,
       })
     );
   } catch (error) {

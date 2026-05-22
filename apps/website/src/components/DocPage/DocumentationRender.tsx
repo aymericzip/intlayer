@@ -45,7 +45,6 @@ export const DocumentationRender: FC<DocumentationRenderProps> = ({
               underlined={true}
               locale={locale}
               {...props}
-              label=""
               href={props.href ?? ''}
             />
           ),

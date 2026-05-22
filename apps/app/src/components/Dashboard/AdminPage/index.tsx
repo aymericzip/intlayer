@@ -1,3 +1,5 @@
+export * from './AdminAffiliates/AffiliateAdminDetailPage';
+export * from './AdminAffiliates/AffiliatesAdminPage';
 export * from './AdminDiscussions/DiscussionAdminDetail';
 export * from './AdminDiscussions/DiscussionsAdminPage';
 export * from './AdminOrganizations/OrganizationAdminDetailPage';

@@ -64,6 +64,7 @@ export { getNewsletterRoutes } from '@routes/newsletter.routes';
 export { getOrganizationRoutes } from '@routes/organization.routes';
 export { getProjectRoutes } from '@routes/project.routes';
 export { getShowcaseProjectRoutes } from '@routes/showcaseProject.routes';
+export { getStripeRoutes } from '@routes/stripe.routes';
 export { getTranslationsRoutes } from '@routes/translate.routes';
 export { getUserRoutes } from '@routes/user.routes';
 // Audit types
@@ -74,6 +75,8 @@ export * from '@utils/httpStatusCodes';
 export * from '@utils/responseData';
 
 // Objects types
+export type * from '@/types/affiliate.types';
+export type * from '@/types/affiliateInvitation.types';
 export type * from '@/types/dictionary.types';
 export type * from '@/types/discussion.types';
 export type * from '@/types/oAuth2.types';

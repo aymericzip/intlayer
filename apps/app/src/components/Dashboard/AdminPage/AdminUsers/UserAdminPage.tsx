@@ -440,7 +440,7 @@ export const UsersAdminPageContent: FC = () => {
 
   return (
     <div className="flex flex-1 flex-col items-center p-4">
-      <div className="flex w-full flex-col gap-4 overflow-scroll">
+      <div className="flex h-full w-full flex-1 flex-col gap-4 overflow-scroll">
         <div className="space-y-4">
           <div className="flex flex-col gap-4 sm:flex-row">
             <SearchInput
@@ -479,7 +479,7 @@ export const UsersAdminPageContent: FC = () => {
             </p>
           </div>
         ) : (
-          <div className="space-y-4">
+          <div className="h-full flex-1 space-y-4">
             {selectedUserIds.length > 0 && (
               <div className="flex items-center justify-end gap-2">
                 <Button

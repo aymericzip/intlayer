@@ -207,7 +207,7 @@ const FrameworkFilterUI: FC<FrameworkFilterUIProps> = ({
         <div className="flex flex-col gap-3">
           <Button
             onClick={() => handleSelect(ALL_ID)}
-            label=""
+            label={allFrameworks.value}
             variant="hoverable"
             color="text"
             isActive={!selected || selected.length === 0}
@@ -223,7 +223,7 @@ const FrameworkFilterUI: FC<FrameworkFilterUIProps> = ({
               return (
                 <Button
                   key={framework.id}
-                  label=""
+                  label={framework.label}
                   type="button"
                   variant="hoverable"
                   isActive={isSelected}

@@ -1,0 +1,197 @@
+'use client';
+
+import type { AffiliateAPI } from '@intlayer/backend';
+import { Badge, BadgeColor, BadgeVariant } from '@intlayer/design-system/badge';
+import { Button } from '@intlayer/design-system/button';
+import { Container } from '@intlayer/design-system/container';
+import { CopyToClipboard } from '@intlayer/design-system/copy-to-clipboard';
+import {
+  useGetAffiliateById,
+  useGetUserById,
+  useUpdateAffiliateStatus,
+} from '@intlayer/design-system/hooks';
+import { Loader } from '@intlayer/design-system/loader';
+import { getAppAdminUserRoute } from '@intlayer/design-system/routes';
+import type { FC } from 'react';
+import { useIntlayer } from 'react-intlayer';
+import { Link } from '#components/Link/Link';
+
+const STATUS_COLOR: Record<AffiliateAPI['status'], BadgeColor> = {
+  pending: BadgeColor.NEUTRAL,
+  onboarding: BadgeColor.SECONDARY,
+  active: BadgeColor.SUCCESS,
+  suspended: BadgeColor.DESTRUCTIVE,
+};
+
+const UserField: FC<{ userId: string }> = ({ userId }) => {
+  const { data } = useGetUserById(userId);
+  const user = data?.data;
+  if (!user) return null;
+  return (
+    <Field label="User">
+      <Link
+        to={getAppAdminUserRoute(userId)}
+        label={user.name ?? user.email}
+        color="text"
+        variant="hoverable"
+      >
+        {user.name ?? user.email}
+      </Link>
+    </Field>
+  );
+};
+
+const Field: FC<{ label: string; children: React.ReactNode }> = ({
+  label,
+  children,
+}) => (
+  <div className="flex flex-col gap-1">
+    <span className="text-neutral/60 text-xs uppercase tracking-wide">
+      {label}
+    </span>
+    <div className="font-medium text-sm">{children}</div>
+  </div>
+);
+
+export const AffiliateAdminDetailPage: FC<{ affiliateId: string }> = ({
+  affiliateId,
+}) => {
+  const { data, isLoading } = useGetAffiliateById(affiliateId);
+  const affiliate = (data?.data as AffiliateAPI | undefined) ?? null;
+  const { mutate: updateStatus, isPending: isUpdatingStatus } =
+    useUpdateAffiliateStatus();
+  const {
+    affiliateDetailTitle,
+    affiliateNotFound,
+    id,
+    referralCode,
+    status,
+    commissionRate,
+    commissionType,
+    stripeAccount,
+    created,
+    updated,
+    enable,
+    suspend,
+  } = useIntlayer('affiliate-admin-detail-page');
+
+  if (isLoading) {
+    return (
+      <div className="flex flex-1 items-center justify-center">
+        <Loader />
+      </div>
+    );
+  }
+
+  if (!affiliate) {
+    return (
+      <div className="flex flex-1 items-center justify-center p-10 text-center">
+        <p className="text-neutral/60 text-sm">{affiliateNotFound}</p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="m-auto flex w-full max-w-3xl flex-col gap-6 p-8">
+      <h1 className="font-semibold text-2xl">{affiliateDetailTitle}</h1>
+
+      <Container
+        roundedSize="3xl"
+        padding="xl"
+        border
+        borderColor="neutral"
+        className="w-full"
+      >
+        <div className="grid grid-cols-2 gap-6 sm:grid-cols-3">
+          <Field label={id.value}>
+            <CopyToClipboard text={affiliate.id} size={10}>
+              <span className="font-mono">...{affiliate.id.slice(-8)}</span>
+            </CopyToClipboard>
+          </Field>
+
+          {affiliate.userId && (
+            <UserField userId={affiliate.userId as string} />
+          )}
+
+          <Field label={referralCode.value}>
+            <CopyToClipboard text={affiliate.referralCode} size={10}>
+              <span className="font-mono">{affiliate.referralCode}</span>
+            </CopyToClipboard>
+          </Field>
+
+          <Field label={status.value}>
+            <Badge
+              variant={BadgeVariant.OUTLINE}
+              className="capitalize"
+              color={STATUS_COLOR[affiliate.status]}
+            >
+              {affiliate.status}
+            </Badge>
+          </Field>
+
+          <Field label={commissionRate.value}>
+            {affiliate.commissionRate}%
+          </Field>
+
+          <Field label={commissionType.value}>
+            <span className="capitalize">
+              {affiliate.commissionType.replace('_', ' ')}
+            </span>
+          </Field>
+
+          {affiliate.stripeAccountId && (
+            <Field label={stripeAccount.value}>
+              <CopyToClipboard text={affiliate.stripeAccountId} size={10}>
+                <span className="font-mono text-xs">
+                  {affiliate.stripeAccountId}
+                </span>
+              </CopyToClipboard>
+            </Field>
+          )}
+
+          <Field label={created.value}>
+            {affiliate.createdAt
+              ? new Date(affiliate.createdAt).toLocaleDateString()
+              : '—'}
+          </Field>
+
+          <Field label={updated.value}>
+            {affiliate.updatedAt
+              ? new Date(affiliate.updatedAt).toLocaleDateString()
+              : '—'}
+          </Field>
+        </div>
+      </Container>
+
+      {(affiliate.status === 'active' ||
+        affiliate.status === 'onboarding' ||
+        affiliate.status === 'suspended') && (
+        <div className="flex gap-3">
+          {affiliate.status === 'suspended' ? (
+            <Button
+              label={enable.value}
+              isLoading={isUpdatingStatus}
+              onClick={() =>
+                updateStatus({ id: affiliateId, status: 'active' })
+              }
+            >
+              {enable}
+            </Button>
+          ) : (
+            <Button
+              label={suspend.value}
+              color="destructive"
+              variant="outline"
+              isLoading={isUpdatingStatus}
+              onClick={() =>
+                updateStatus({ id: affiliateId, status: 'suspended' })
+              }
+            >
+              {suspend}
+            </Button>
+          )}
+        </div>
+      )}
+    </div>
+  );
+};

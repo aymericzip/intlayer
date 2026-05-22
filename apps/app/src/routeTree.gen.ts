@@ -27,6 +27,7 @@ import { Route as Char123LocaleChar125DashboardIdeRouteImport } from './routes/{
 import { Route as Char123LocaleChar125DashboardAdminRouteRouteImport } from './routes/{-$locale}/_dashboard/_admin/route'
 import { Route as Char123LocaleChar125OtherOnboardingStepRouteImport } from './routes/{-$locale}/_other/onboarding.$step'
 import { Route as Char123LocaleChar125OtherAuthCliLoginRouteImport } from './routes/{-$locale}/_other/auth/cli-login'
+import { Route as Char123LocaleChar125OtherAffiliationInvitationIdRouteImport } from './routes/{-$locale}/_other/affiliation.$invitationId'
 import { Route as Char123LocaleChar125OtherAuthNotAuthenticatedRouteRouteImport } from './routes/{-$locale}/_other/auth/_not-authenticated/route'
 import { Route as Char123LocaleChar125OtherAuthAuthenticatedRouteRouteImport } from './routes/{-$locale}/_other/auth/_authenticated/route'
 import { Route as Char123LocaleChar125DashboardEditorContentRouteRouteImport } from './routes/{-$locale}/_dashboard/_editor/_content/route'
@@ -42,17 +43,20 @@ import { Route as Char123LocaleChar125DashboardAdminAdminDiscussionsRouteImport 
 import { Route as Char123LocaleChar125DashboardAdminAdminUsersRouteRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/users/route'
 import { Route as Char123LocaleChar125DashboardAdminAdminProjectsRouteRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/projects/route'
 import { Route as Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/organizations/route'
+import { Route as Char123LocaleChar125DashboardAdminAdminAffiliateRouteRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/affiliate/route'
 import { Route as Char123LocaleChar125DashboardEditorContentTagsIndexRouteImport } from './routes/{-$locale}/_dashboard/_editor/_content/tags.index'
 import { Route as Char123LocaleChar125DashboardEditorContentDictionaryIndexRouteImport } from './routes/{-$locale}/_dashboard/_editor/_content/dictionary.index'
 import { Route as Char123LocaleChar125DashboardAdminAdminUsersIndexRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/users/index'
 import { Route as Char123LocaleChar125DashboardAdminAdminProjectsIndexRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/projects/index'
 import { Route as Char123LocaleChar125DashboardAdminAdminOrganizationsIndexRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/organizations/index'
+import { Route as Char123LocaleChar125DashboardAdminAdminAffiliateIndexRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/affiliate/index'
 import { Route as Char123LocaleChar125OtherAuthAuthenticatedPasswordChangeRouteImport } from './routes/{-$locale}/_other/auth/_authenticated/password.change'
 import { Route as Char123LocaleChar125DashboardEditorContentTagsTagKeyRouteImport } from './routes/{-$locale}/_dashboard/_editor/_content/tags.$tagKey'
 import { Route as Char123LocaleChar125DashboardEditorContentDictionaryDictionaryKeyRouteImport } from './routes/{-$locale}/_dashboard/_editor/_content/dictionary.$dictionaryKey'
 import { Route as Char123LocaleChar125DashboardAdminAdminUsersIdRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/users/$id'
 import { Route as Char123LocaleChar125DashboardAdminAdminProjectsIdRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/projects/$id'
 import { Route as Char123LocaleChar125DashboardAdminAdminOrganizationsIdRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/organizations/$id'
+import { Route as Char123LocaleChar125DashboardAdminAdminAffiliateIdRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/affiliate/$id'
 
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
@@ -155,6 +159,12 @@ const Char123LocaleChar125OtherAuthCliLoginRoute =
     path: '/auth/cli-login',
     getParentRoute: () => Char123LocaleChar125OtherRouteRoute,
   } as any)
+const Char123LocaleChar125OtherAffiliationInvitationIdRoute =
+  Char123LocaleChar125OtherAffiliationInvitationIdRouteImport.update({
+    id: '/affiliation/$invitationId',
+    path: '/affiliation/$invitationId',
+    getParentRoute: () => Char123LocaleChar125OtherRouteRoute,
+  } as any)
 const Char123LocaleChar125OtherAuthNotAuthenticatedRouteRoute =
   Char123LocaleChar125OtherAuthNotAuthenticatedRouteRouteImport.update({
     id: '/auth/_not-authenticated',
@@ -247,6 +257,12 @@ const Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRoute =
     path: '/admin/organizations',
     getParentRoute: () => Char123LocaleChar125DashboardAdminRouteRoute,
   } as any)
+const Char123LocaleChar125DashboardAdminAdminAffiliateRouteRoute =
+  Char123LocaleChar125DashboardAdminAdminAffiliateRouteRouteImport.update({
+    id: '/admin/affiliate',
+    path: '/admin/affiliate',
+    getParentRoute: () => Char123LocaleChar125DashboardAdminRouteRoute,
+  } as any)
 const Char123LocaleChar125DashboardEditorContentTagsIndexRoute =
   Char123LocaleChar125DashboardEditorContentTagsIndexRouteImport.update({
     id: '/tags/',
@@ -279,6 +295,13 @@ const Char123LocaleChar125DashboardAdminAdminOrganizationsIndexRoute =
     path: '/',
     getParentRoute: () =>
       Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRoute,
+  } as any)
+const Char123LocaleChar125DashboardAdminAdminAffiliateIndexRoute =
+  Char123LocaleChar125DashboardAdminAdminAffiliateIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () =>
+      Char123LocaleChar125DashboardAdminAdminAffiliateRouteRoute,
   } as any)
 const Char123LocaleChar125OtherAuthAuthenticatedPasswordChangeRoute =
   Char123LocaleChar125OtherAuthAuthenticatedPasswordChangeRouteImport.update({
@@ -322,6 +345,13 @@ const Char123LocaleChar125DashboardAdminAdminOrganizationsIdRoute =
     getParentRoute: () =>
       Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRoute,
   } as any)
+const Char123LocaleChar125DashboardAdminAdminAffiliateIdRoute =
+  Char123LocaleChar125DashboardAdminAdminAffiliateIdRouteImport.update({
+    id: '/$id',
+    path: '/$id',
+    getParentRoute: () =>
+      Char123LocaleChar125DashboardAdminAdminAffiliateRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -338,8 +368,10 @@ export interface FileRoutesByFullPath {
   '/{-$locale}/pricing': typeof Char123LocaleChar125OtherPricingRoute
   '/{-$locale}/': typeof Char123LocaleChar125DashboardIndexRoute
   '/{-$locale}/auth': typeof Char123LocaleChar125OtherAuthNotAuthenticatedRouteRouteWithChildren
+  '/{-$locale}/affiliation/$invitationId': typeof Char123LocaleChar125OtherAffiliationInvitationIdRoute
   '/{-$locale}/auth/cli-login': typeof Char123LocaleChar125OtherAuthCliLoginRoute
   '/{-$locale}/onboarding/$step': typeof Char123LocaleChar125OtherOnboardingStepRoute
+  '/{-$locale}/admin/affiliate': typeof Char123LocaleChar125DashboardAdminAdminAffiliateRouteRouteWithChildren
   '/{-$locale}/admin/organizations': typeof Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRouteWithChildren
   '/{-$locale}/admin/projects': typeof Char123LocaleChar125DashboardAdminAdminProjectsRouteRouteWithChildren
   '/{-$locale}/admin/users': typeof Char123LocaleChar125DashboardAdminAdminUsersRouteRouteWithChildren
@@ -352,12 +384,14 @@ export interface FileRoutesByFullPath {
   '/{-$locale}/auth/password': typeof Char123LocaleChar125OtherAuthPasswordLayoutRoute
   '/{-$locale}/auth/password/ask-reset': typeof Char123LocaleChar125OtherAuthPasswordAskResetRoute
   '/{-$locale}/auth/password/reset': typeof Char123LocaleChar125OtherAuthPasswordResetRoute
+  '/{-$locale}/admin/affiliate/$id': typeof Char123LocaleChar125DashboardAdminAdminAffiliateIdRoute
   '/{-$locale}/admin/organizations/$id': typeof Char123LocaleChar125DashboardAdminAdminOrganizationsIdRoute
   '/{-$locale}/admin/projects/$id': typeof Char123LocaleChar125DashboardAdminAdminProjectsIdRoute
   '/{-$locale}/admin/users/$id': typeof Char123LocaleChar125DashboardAdminAdminUsersIdRoute
   '/{-$locale}/dictionary/$dictionaryKey': typeof Char123LocaleChar125DashboardEditorContentDictionaryDictionaryKeyRoute
   '/{-$locale}/tags/$tagKey': typeof Char123LocaleChar125DashboardEditorContentTagsTagKeyRoute
   '/{-$locale}/auth/password/change': typeof Char123LocaleChar125OtherAuthAuthenticatedPasswordChangeRoute
+  '/{-$locale}/admin/affiliate/': typeof Char123LocaleChar125DashboardAdminAdminAffiliateIndexRoute
   '/{-$locale}/admin/organizations/': typeof Char123LocaleChar125DashboardAdminAdminOrganizationsIndexRoute
   '/{-$locale}/admin/projects/': typeof Char123LocaleChar125DashboardAdminAdminProjectsIndexRoute
   '/{-$locale}/admin/users/': typeof Char123LocaleChar125DashboardAdminAdminUsersIndexRoute
@@ -378,6 +412,7 @@ export interface FileRoutesByTo {
   '/{-$locale}/projects': typeof Char123LocaleChar125DashboardProjectsRoute
   '/{-$locale}/pricing': typeof Char123LocaleChar125OtherPricingRoute
   '/{-$locale}/auth': typeof Char123LocaleChar125OtherAuthNotAuthenticatedRouteRouteWithChildren
+  '/{-$locale}/affiliation/$invitationId': typeof Char123LocaleChar125OtherAffiliationInvitationIdRoute
   '/{-$locale}/auth/cli-login': typeof Char123LocaleChar125OtherAuthCliLoginRoute
   '/{-$locale}/onboarding/$step': typeof Char123LocaleChar125OtherOnboardingStepRoute
   '/{-$locale}/admin/discussions': typeof Char123LocaleChar125DashboardAdminAdminDiscussionsRoute
@@ -389,12 +424,14 @@ export interface FileRoutesByTo {
   '/{-$locale}/auth/password': typeof Char123LocaleChar125OtherAuthPasswordLayoutRoute
   '/{-$locale}/auth/password/ask-reset': typeof Char123LocaleChar125OtherAuthPasswordAskResetRoute
   '/{-$locale}/auth/password/reset': typeof Char123LocaleChar125OtherAuthPasswordResetRoute
+  '/{-$locale}/admin/affiliate/$id': typeof Char123LocaleChar125DashboardAdminAdminAffiliateIdRoute
   '/{-$locale}/admin/organizations/$id': typeof Char123LocaleChar125DashboardAdminAdminOrganizationsIdRoute
   '/{-$locale}/admin/projects/$id': typeof Char123LocaleChar125DashboardAdminAdminProjectsIdRoute
   '/{-$locale}/admin/users/$id': typeof Char123LocaleChar125DashboardAdminAdminUsersIdRoute
   '/{-$locale}/dictionary/$dictionaryKey': typeof Char123LocaleChar125DashboardEditorContentDictionaryDictionaryKeyRoute
   '/{-$locale}/tags/$tagKey': typeof Char123LocaleChar125DashboardEditorContentTagsTagKeyRoute
   '/{-$locale}/auth/password/change': typeof Char123LocaleChar125OtherAuthAuthenticatedPasswordChangeRoute
+  '/{-$locale}/admin/affiliate': typeof Char123LocaleChar125DashboardAdminAdminAffiliateIndexRoute
   '/{-$locale}/admin/organizations': typeof Char123LocaleChar125DashboardAdminAdminOrganizationsIndexRoute
   '/{-$locale}/admin/projects': typeof Char123LocaleChar125DashboardAdminAdminProjectsIndexRoute
   '/{-$locale}/admin/users': typeof Char123LocaleChar125DashboardAdminAdminUsersIndexRoute
@@ -422,8 +459,10 @@ export interface FileRoutesById {
   '/{-$locale}/_dashboard/_editor/_content': typeof Char123LocaleChar125DashboardEditorContentRouteRouteWithChildren
   '/{-$locale}/_other/auth/_authenticated': typeof Char123LocaleChar125OtherAuthAuthenticatedRouteRouteWithChildren
   '/{-$locale}/_other/auth/_not-authenticated': typeof Char123LocaleChar125OtherAuthNotAuthenticatedRouteRouteWithChildren
+  '/{-$locale}/_other/affiliation/$invitationId': typeof Char123LocaleChar125OtherAffiliationInvitationIdRoute
   '/{-$locale}/_other/auth/cli-login': typeof Char123LocaleChar125OtherAuthCliLoginRoute
   '/{-$locale}/_other/onboarding/$step': typeof Char123LocaleChar125OtherOnboardingStepRoute
+  '/{-$locale}/_dashboard/_admin/admin/affiliate': typeof Char123LocaleChar125DashboardAdminAdminAffiliateRouteRouteWithChildren
   '/{-$locale}/_dashboard/_admin/admin/organizations': typeof Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRouteWithChildren
   '/{-$locale}/_dashboard/_admin/admin/projects': typeof Char123LocaleChar125DashboardAdminAdminProjectsRouteRouteWithChildren
   '/{-$locale}/_dashboard/_admin/admin/users': typeof Char123LocaleChar125DashboardAdminAdminUsersRouteRouteWithChildren
@@ -436,12 +475,14 @@ export interface FileRoutesById {
   '/{-$locale}/_other/auth/password/_layout': typeof Char123LocaleChar125OtherAuthPasswordLayoutRoute
   '/{-$locale}/_other/auth/password/ask-reset': typeof Char123LocaleChar125OtherAuthPasswordAskResetRoute
   '/{-$locale}/_other/auth/password/reset': typeof Char123LocaleChar125OtherAuthPasswordResetRoute
+  '/{-$locale}/_dashboard/_admin/admin/affiliate/$id': typeof Char123LocaleChar125DashboardAdminAdminAffiliateIdRoute
   '/{-$locale}/_dashboard/_admin/admin/organizations/$id': typeof Char123LocaleChar125DashboardAdminAdminOrganizationsIdRoute
   '/{-$locale}/_dashboard/_admin/admin/projects/$id': typeof Char123LocaleChar125DashboardAdminAdminProjectsIdRoute
   '/{-$locale}/_dashboard/_admin/admin/users/$id': typeof Char123LocaleChar125DashboardAdminAdminUsersIdRoute
   '/{-$locale}/_dashboard/_editor/_content/dictionary/$dictionaryKey': typeof Char123LocaleChar125DashboardEditorContentDictionaryDictionaryKeyRoute
   '/{-$locale}/_dashboard/_editor/_content/tags/$tagKey': typeof Char123LocaleChar125DashboardEditorContentTagsTagKeyRoute
   '/{-$locale}/_other/auth/_authenticated/password/change': typeof Char123LocaleChar125OtherAuthAuthenticatedPasswordChangeRoute
+  '/{-$locale}/_dashboard/_admin/admin/affiliate/': typeof Char123LocaleChar125DashboardAdminAdminAffiliateIndexRoute
   '/{-$locale}/_dashboard/_admin/admin/organizations/': typeof Char123LocaleChar125DashboardAdminAdminOrganizationsIndexRoute
   '/{-$locale}/_dashboard/_admin/admin/projects/': typeof Char123LocaleChar125DashboardAdminAdminProjectsIndexRoute
   '/{-$locale}/_dashboard/_admin/admin/users/': typeof Char123LocaleChar125DashboardAdminAdminUsersIndexRoute
@@ -465,8 +506,10 @@ export interface FileRouteTypes {
     | '/{-$locale}/pricing'
     | '/{-$locale}/'
     | '/{-$locale}/auth'
+    | '/{-$locale}/affiliation/$invitationId'
     | '/{-$locale}/auth/cli-login'
     | '/{-$locale}/onboarding/$step'
+    | '/{-$locale}/admin/affiliate'
     | '/{-$locale}/admin/organizations'
     | '/{-$locale}/admin/projects'
     | '/{-$locale}/admin/users'
@@ -479,12 +522,14 @@ export interface FileRouteTypes {
     | '/{-$locale}/auth/password'
     | '/{-$locale}/auth/password/ask-reset'
     | '/{-$locale}/auth/password/reset'
+    | '/{-$locale}/admin/affiliate/$id'
     | '/{-$locale}/admin/organizations/$id'
     | '/{-$locale}/admin/projects/$id'
     | '/{-$locale}/admin/users/$id'
     | '/{-$locale}/dictionary/$dictionaryKey'
     | '/{-$locale}/tags/$tagKey'
     | '/{-$locale}/auth/password/change'
+    | '/{-$locale}/admin/affiliate/'
     | '/{-$locale}/admin/organizations/'
     | '/{-$locale}/admin/projects/'
     | '/{-$locale}/admin/users/'
@@ -505,6 +550,7 @@ export interface FileRouteTypes {
     | '/{-$locale}/projects'
     | '/{-$locale}/pricing'
     | '/{-$locale}/auth'
+    | '/{-$locale}/affiliation/$invitationId'
     | '/{-$locale}/auth/cli-login'
     | '/{-$locale}/onboarding/$step'
     | '/{-$locale}/admin/discussions'
@@ -516,12 +562,14 @@ export interface FileRouteTypes {
     | '/{-$locale}/auth/password'
     | '/{-$locale}/auth/password/ask-reset'
     | '/{-$locale}/auth/password/reset'
+    | '/{-$locale}/admin/affiliate/$id'
     | '/{-$locale}/admin/organizations/$id'
     | '/{-$locale}/admin/projects/$id'
     | '/{-$locale}/admin/users/$id'
     | '/{-$locale}/dictionary/$dictionaryKey'
     | '/{-$locale}/tags/$tagKey'
     | '/{-$locale}/auth/password/change'
+    | '/{-$locale}/admin/affiliate'
     | '/{-$locale}/admin/organizations'
     | '/{-$locale}/admin/projects'
     | '/{-$locale}/admin/users'
@@ -548,8 +596,10 @@ export interface FileRouteTypes {
     | '/{-$locale}/_dashboard/_editor/_content'
     | '/{-$locale}/_other/auth/_authenticated'
     | '/{-$locale}/_other/auth/_not-authenticated'
+    | '/{-$locale}/_other/affiliation/$invitationId'
     | '/{-$locale}/_other/auth/cli-login'
     | '/{-$locale}/_other/onboarding/$step'
+    | '/{-$locale}/_dashboard/_admin/admin/affiliate'
     | '/{-$locale}/_dashboard/_admin/admin/organizations'
     | '/{-$locale}/_dashboard/_admin/admin/projects'
     | '/{-$locale}/_dashboard/_admin/admin/users'
@@ -562,12 +612,14 @@ export interface FileRouteTypes {
     | '/{-$locale}/_other/auth/password/_layout'
     | '/{-$locale}/_other/auth/password/ask-reset'
     | '/{-$locale}/_other/auth/password/reset'
+    | '/{-$locale}/_dashboard/_admin/admin/affiliate/$id'
     | '/{-$locale}/_dashboard/_admin/admin/organizations/$id'
     | '/{-$locale}/_dashboard/_admin/admin/projects/$id'
     | '/{-$locale}/_dashboard/_admin/admin/users/$id'
     | '/{-$locale}/_dashboard/_editor/_content/dictionary/$dictionaryKey'
     | '/{-$locale}/_dashboard/_editor/_content/tags/$tagKey'
     | '/{-$locale}/_other/auth/_authenticated/password/change'
+    | '/{-$locale}/_dashboard/_admin/admin/affiliate/'
     | '/{-$locale}/_dashboard/_admin/admin/organizations/'
     | '/{-$locale}/_dashboard/_admin/admin/projects/'
     | '/{-$locale}/_dashboard/_admin/admin/users/'
@@ -710,6 +762,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char123LocaleChar125OtherAuthCliLoginRouteImport
       parentRoute: typeof Char123LocaleChar125OtherRouteRoute
     }
+    '/{-$locale}/_other/affiliation/$invitationId': {
+      id: '/{-$locale}/_other/affiliation/$invitationId'
+      path: '/affiliation/$invitationId'
+      fullPath: '/{-$locale}/affiliation/$invitationId'
+      preLoaderRoute: typeof Char123LocaleChar125OtherAffiliationInvitationIdRouteImport
+      parentRoute: typeof Char123LocaleChar125OtherRouteRoute
+    }
     '/{-$locale}/_other/auth/_not-authenticated': {
       id: '/{-$locale}/_other/auth/_not-authenticated'
       path: '/auth'
@@ -815,6 +874,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRouteImport
       parentRoute: typeof Char123LocaleChar125DashboardAdminRouteRoute
     }
+    '/{-$locale}/_dashboard/_admin/admin/affiliate': {
+      id: '/{-$locale}/_dashboard/_admin/admin/affiliate'
+      path: '/admin/affiliate'
+      fullPath: '/{-$locale}/admin/affiliate'
+      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminAffiliateRouteRouteImport
+      parentRoute: typeof Char123LocaleChar125DashboardAdminRouteRoute
+    }
     '/{-$locale}/_dashboard/_editor/_content/tags/': {
       id: '/{-$locale}/_dashboard/_editor/_content/tags/'
       path: '/tags'
@@ -849,6 +915,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/{-$locale}/admin/organizations/'
       preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminOrganizationsIndexRouteImport
       parentRoute: typeof Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRoute
+    }
+    '/{-$locale}/_dashboard/_admin/admin/affiliate/': {
+      id: '/{-$locale}/_dashboard/_admin/admin/affiliate/'
+      path: '/'
+      fullPath: '/{-$locale}/admin/affiliate/'
+      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminAffiliateIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125DashboardAdminAdminAffiliateRouteRoute
     }
     '/{-$locale}/_other/auth/_authenticated/password/change': {
       id: '/{-$locale}/_other/auth/_authenticated/password/change'
@@ -892,8 +965,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminOrganizationsIdRouteImport
       parentRoute: typeof Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRoute
     }
+    '/{-$locale}/_dashboard/_admin/admin/affiliate/$id': {
+      id: '/{-$locale}/_dashboard/_admin/admin/affiliate/$id'
+      path: '/$id'
+      fullPath: '/{-$locale}/admin/affiliate/$id'
+      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminAffiliateIdRouteImport
+      parentRoute: typeof Char123LocaleChar125DashboardAdminAdminAffiliateRouteRoute
+    }
   }
 }
+
+interface Char123LocaleChar125DashboardAdminAdminAffiliateRouteRouteChildren {
+  Char123LocaleChar125DashboardAdminAdminAffiliateIdRoute: typeof Char123LocaleChar125DashboardAdminAdminAffiliateIdRoute
+  Char123LocaleChar125DashboardAdminAdminAffiliateIndexRoute: typeof Char123LocaleChar125DashboardAdminAdminAffiliateIndexRoute
+}
+
+const Char123LocaleChar125DashboardAdminAdminAffiliateRouteRouteChildren: Char123LocaleChar125DashboardAdminAdminAffiliateRouteRouteChildren =
+  {
+    Char123LocaleChar125DashboardAdminAdminAffiliateIdRoute:
+      Char123LocaleChar125DashboardAdminAdminAffiliateIdRoute,
+    Char123LocaleChar125DashboardAdminAdminAffiliateIndexRoute:
+      Char123LocaleChar125DashboardAdminAdminAffiliateIndexRoute,
+  }
+
+const Char123LocaleChar125DashboardAdminAdminAffiliateRouteRouteWithChildren =
+  Char123LocaleChar125DashboardAdminAdminAffiliateRouteRoute._addFileChildren(
+    Char123LocaleChar125DashboardAdminAdminAffiliateRouteRouteChildren,
+  )
 
 interface Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRouteChildren {
   Char123LocaleChar125DashboardAdminAdminOrganizationsIdRoute: typeof Char123LocaleChar125DashboardAdminAdminOrganizationsIdRoute
@@ -950,6 +1048,7 @@ const Char123LocaleChar125DashboardAdminAdminUsersRouteRouteWithChildren =
   )
 
 interface Char123LocaleChar125DashboardAdminRouteRouteChildren {
+  Char123LocaleChar125DashboardAdminAdminAffiliateRouteRoute: typeof Char123LocaleChar125DashboardAdminAdminAffiliateRouteRouteWithChildren
   Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRoute: typeof Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRouteWithChildren
   Char123LocaleChar125DashboardAdminAdminProjectsRouteRoute: typeof Char123LocaleChar125DashboardAdminAdminProjectsRouteRouteWithChildren
   Char123LocaleChar125DashboardAdminAdminUsersRouteRoute: typeof Char123LocaleChar125DashboardAdminAdminUsersRouteRouteWithChildren
@@ -958,6 +1057,8 @@ interface Char123LocaleChar125DashboardAdminRouteRouteChildren {
 
 const Char123LocaleChar125DashboardAdminRouteRouteChildren: Char123LocaleChar125DashboardAdminRouteRouteChildren =
   {
+    Char123LocaleChar125DashboardAdminAdminAffiliateRouteRoute:
+      Char123LocaleChar125DashboardAdminAdminAffiliateRouteRouteWithChildren,
     Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRoute:
       Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRouteWithChildren,
     Char123LocaleChar125DashboardAdminAdminProjectsRouteRoute:
@@ -1076,6 +1177,7 @@ interface Char123LocaleChar125OtherRouteRouteChildren {
   Char123LocaleChar125OtherPricingRoute: typeof Char123LocaleChar125OtherPricingRoute
   Char123LocaleChar125OtherAuthAuthenticatedRouteRoute: typeof Char123LocaleChar125OtherAuthAuthenticatedRouteRouteWithChildren
   Char123LocaleChar125OtherAuthNotAuthenticatedRouteRoute: typeof Char123LocaleChar125OtherAuthNotAuthenticatedRouteRouteWithChildren
+  Char123LocaleChar125OtherAffiliationInvitationIdRoute: typeof Char123LocaleChar125OtherAffiliationInvitationIdRoute
   Char123LocaleChar125OtherAuthCliLoginRoute: typeof Char123LocaleChar125OtherAuthCliLoginRoute
   Char123LocaleChar125OtherOnboardingStepRoute: typeof Char123LocaleChar125OtherOnboardingStepRoute
   Char123LocaleChar125OtherAuthPasswordLayoutRoute: typeof Char123LocaleChar125OtherAuthPasswordLayoutRoute
@@ -1091,6 +1193,8 @@ const Char123LocaleChar125OtherRouteRouteChildren: Char123LocaleChar125OtherRout
       Char123LocaleChar125OtherAuthAuthenticatedRouteRouteWithChildren,
     Char123LocaleChar125OtherAuthNotAuthenticatedRouteRoute:
       Char123LocaleChar125OtherAuthNotAuthenticatedRouteRouteWithChildren,
+    Char123LocaleChar125OtherAffiliationInvitationIdRoute:
+      Char123LocaleChar125OtherAffiliationInvitationIdRoute,
     Char123LocaleChar125OtherAuthCliLoginRoute:
       Char123LocaleChar125OtherAuthCliLoginRoute,
     Char123LocaleChar125OtherOnboardingStepRoute:

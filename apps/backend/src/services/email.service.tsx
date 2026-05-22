@@ -1,4 +1,24 @@
 import {
+  AffiliateInvitationEmailAR,
+  AffiliateInvitationEmailDE,
+  AffiliateInvitationEmailEN,
+  AffiliateInvitationEmailEN_GB,
+  AffiliateInvitationEmailES,
+  AffiliateInvitationEmailFR,
+  AffiliateInvitationEmailHI,
+  AffiliateInvitationEmailID,
+  AffiliateInvitationEmailIT,
+  AffiliateInvitationEmailJA,
+  AffiliateInvitationEmailKO,
+  AffiliateInvitationEmailPL,
+  AffiliateInvitationEmailPT,
+  AffiliateInvitationEmailRU,
+  AffiliateInvitationEmailTR,
+  AffiliateInvitationEmailUK,
+  AffiliateInvitationEmailVI,
+  AffiliateInvitationEmailZH,
+} from '@emails/AffiliateInvitationEmail';
+import {
   InviteUserEmailAR,
   InviteUserEmailDE,
   InviteUserEmailEN,
@@ -214,6 +234,32 @@ type EmailComponents = {
 
 const getEmailComponents = (locale?: Locale) =>
   ({
+    affiliateInvitation: {
+      template: t(
+        {
+          en: AffiliateInvitationEmailEN,
+          fr: AffiliateInvitationEmailFR,
+          es: AffiliateInvitationEmailES,
+          ru: AffiliateInvitationEmailRU,
+          ja: AffiliateInvitationEmailJA,
+          ko: AffiliateInvitationEmailKO,
+          zh: AffiliateInvitationEmailZH,
+          de: AffiliateInvitationEmailDE,
+          ar: AffiliateInvitationEmailAR,
+          it: AffiliateInvitationEmailIT,
+          'en-GB': AffiliateInvitationEmailEN_GB,
+          pt: AffiliateInvitationEmailPT,
+          hi: AffiliateInvitationEmailHI,
+          tr: AffiliateInvitationEmailTR,
+          pl: AffiliateInvitationEmailPL,
+          id: AffiliateInvitationEmailID,
+          vi: AffiliateInvitationEmailVI,
+          uk: AffiliateInvitationEmailUK,
+        },
+        locale
+      ),
+      subject: "You've been invited to the Intlayer Affiliate Program",
+    },
     invite: {
       template: t(
         {

@@ -1,5 +1,9 @@
 import type { Locale } from '@intlayer/types/allLocales';
 import { logger } from '@logger';
+import {
+  convertReferral,
+  markAffiliateActive,
+} from '@services/affiliate.service';
 import * as emailService from '@services/email.service';
 import { getOrganizationById } from '@services/organization.service';
 import {
@@ -256,6 +260,9 @@ export const stripeWebhook = async (
         'active'
       );
 
+      // Convert any pending referral tied to this charge
+      await convertReferral(charge.id, charge.amount, charge.currency);
+
       await emailService.sendEmail({
         type: 'subscriptionPaymentSuccess',
         to: user.email,
@@ -325,6 +332,19 @@ export const stripeWebhook = async (
         logger.info(`Handled event type ${event.type}`);
         // Handle charge events (e.g. one-time payments)
         await handleChargeEvent(event.data.object as Stripe.Charge);
+        break;
+      }
+      case 'account.updated': {
+        logger.info(`Handled event type ${event.type}`);
+        const account = event.data.object as Stripe.Account;
+        // Mark affiliate active when Stripe Connect onboarding is complete
+        if (
+          account.charges_enabled &&
+          account.details_submitted &&
+          account.id
+        ) {
+          await markAffiliateActive(account.id);
+        }
         break;
       }
       default:

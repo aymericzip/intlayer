@@ -23,6 +23,7 @@ import type {
   DeleteAccessKeyBody,
   DeleteDictionaryParam,
   DeleteTagParams,
+  GetAffiliatesParams,
   GetCheckoutSessionBody,
   GetDictionariesParams,
   GetDictionaryParams,
@@ -35,6 +36,7 @@ import type {
   GetShowcaseProjectsResult,
   GetTagsParams,
   GetUsersParams,
+  GrantAffiliateAccessBody,
   NewsletterSubscriptionBody,
   NewsletterUnsubscriptionBody,
   OtherShowcaseProjectsQuery,
@@ -44,6 +46,7 @@ import type {
   SearchDocUtilParams,
   SelectOrganizationParam,
   SelectProjectParam,
+  SendAffiliateInvitationBody,
   ShowcaseProjectsQuery,
   SubmitShowcaseProjectBody,
   TranslateDictionariesBody,
@@ -1816,5 +1819,149 @@ export const useResumeTranslationJob = () => {
     mutationKey: ['resume-translation-job'],
     mutationFn: (jobId: string) =>
       intlayerOAuth.translate.resumeTranslationJob(jobId),
+  });
+};
+
+/**
+ * Affiliate
+ */
+
+export const useGetAffiliates = (
+  params?: GetAffiliatesParams,
+  options?: Partial<UseQueryOptions>
+) => {
+  const intlayerOAuth = useIntlayerOAuth();
+
+  return useAppQuery({
+    queryKey: ['affiliates', params],
+    queryFn: ({ signal }) =>
+      intlayerOAuth.stripe.getAffiliates(params, { signal }),
+    requireUser: true,
+    ...options,
+  });
+};
+
+export const useGetAffiliateById = (
+  id: string,
+  options?: Partial<UseQueryOptions>
+) => {
+  const intlayerOAuth = useIntlayerOAuth();
+
+  return useAppQuery({
+    queryKey: ['affiliates', id],
+    queryFn: ({ signal }) =>
+      intlayerOAuth.stripe.getAffiliateById({ id }, { signal }),
+    requireUser: true,
+    enabled: Boolean(id),
+    ...options,
+  });
+};
+
+export const useGetAffiliate = (options?: Partial<UseQueryOptions>) => {
+  const intlayerOAuth = useIntlayerOAuth();
+
+  return useAppQuery({
+    queryKey: ['affiliate'],
+    queryFn: ({ signal }) => intlayerOAuth.stripe.getAffiliate({ signal }),
+    requireUser: true,
+    ...options,
+  });
+};
+
+export const useGetAffiliateAccountSession = (
+  options?: Partial<UseQueryOptions>
+) => {
+  const intlayerOAuth = useIntlayerOAuth();
+
+  return useAppQuery({
+    queryKey: ['affiliate', 'account-session'],
+    queryFn: () => intlayerOAuth.stripe.getAffiliateAccountSession(),
+    requireUser: true,
+    ...options,
+  });
+};
+
+export const useGetAffiliateStats = (options?: Partial<UseQueryOptions>) => {
+  const intlayerOAuth = useIntlayerOAuth();
+
+  return useAppQuery({
+    queryKey: ['affiliate', 'stats'],
+    queryFn: ({ signal }) => intlayerOAuth.stripe.getAffiliateStats({ signal }),
+    requireUser: true,
+    ...options,
+  });
+};
+
+export const useGrantAffiliateAccess = () => {
+  const intlayerOAuth = useIntlayerOAuth();
+
+  return useMutation({
+    mutationKey: ['affiliate', 'grant'],
+    mutationFn: (body: GrantAffiliateAccessBody) =>
+      intlayerOAuth.stripe.grantAffiliateAccess(body),
+    meta: {
+      invalidateQueries: [['affiliate']],
+    },
+  });
+};
+
+export const useSendAffiliateInvitation = () => {
+  const intlayerOAuth = useIntlayerOAuth();
+
+  return useMutation({
+    mutationKey: ['affiliate', 'invitation', 'send'],
+    mutationFn: (body: SendAffiliateInvitationBody) =>
+      intlayerOAuth.stripe.sendAffiliateInvitation(body),
+  });
+};
+
+export const useGetAffiliateInvitation = (
+  token: string,
+  options?: Partial<UseQueryOptions>
+) => {
+  const intlayerOAuth = useIntlayerOAuth();
+
+  return useQuery({
+    queryKey: ['affiliate', 'invitation', token],
+    queryFn: () => intlayerOAuth.stripe.getAffiliateInvitation({ token }),
+    enabled: Boolean(token),
+    ...options,
+  });
+};
+
+export const useAcceptAffiliateInvitation = () => {
+  const intlayerOAuth = useIntlayerOAuth();
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationKey: ['affiliate', 'invitation', 'accept'],
+    mutationFn: ({ token, country }: { token: string; country?: string }) =>
+      intlayerOAuth.stripe.acceptAffiliateInvitation({ token, country }),
+    onSuccess: (_data, { token }) => {
+      queryClient.invalidateQueries({
+        queryKey: ['affiliate', 'invitation', token],
+      });
+      queryClient.invalidateQueries({ queryKey: ['affiliate'] });
+    },
+  });
+};
+
+export const useUpdateAffiliateStatus = () => {
+  const intlayerOAuth = useIntlayerOAuth();
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationKey: ['affiliate', 'status'],
+    mutationFn: ({
+      id,
+      status,
+    }: {
+      id: string;
+      status: 'active' | 'suspended';
+    }) => intlayerOAuth.stripe.updateAffiliateStatus({ id }, { status }),
+    onSuccess: (_data, { id }) => {
+      queryClient.invalidateQueries({ queryKey: ['affiliates', id] });
+      queryClient.invalidateQueries({ queryKey: ['affiliates'] });
+    },
   });
 };
