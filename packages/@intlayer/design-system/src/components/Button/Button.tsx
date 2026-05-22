@@ -347,7 +347,7 @@ export type ButtonProps = DetailedHTMLProps<
 export const Button: FC<ButtonProps> = ({
   variant,
   size,
-  color,
+  color = 'text',
   children,
   Icon,
   IconRight,
