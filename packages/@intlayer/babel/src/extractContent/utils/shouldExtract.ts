@@ -49,7 +49,7 @@ export const shouldExtract = (text: string): boolean => {
   // where at least one token contains a hyphen is almost certainly a className
   // value, not translatable text.
   const cssClassTokenRegex =
-    /^!?([a-z][a-z0-9]*:)*[a-z][a-z0-9]*(-[a-z0-9[\].,%#/]+)*(\/[a-z0-9]+)?$/;
+    /^!?([a-z][a-z0-9-]*:)*[a-z][a-z0-9]*(-[a-z0-9[\].,%#/]+)*(\/[a-z0-9]+)?$/;
   if (wordCount > 1) {
     const tokens = trimmed.split(/\s+/);
     if (
