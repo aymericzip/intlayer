@@ -52,6 +52,7 @@ export type * from '@controllers/showcaseProject.controller';
 export type * from '@controllers/stripe.controller';
 export type * from '@controllers/tag.controller';
 export type * from '@controllers/translation.controller';
+export type * from '@controllers/translator.controller';
 export type * from '@controllers/user.controller';
 export { getAiRoutes } from '@routes/ai.routes';
 // Routes
@@ -66,6 +67,7 @@ export { getProjectRoutes } from '@routes/project.routes';
 export { getShowcaseProjectRoutes } from '@routes/showcaseProject.routes';
 export { getStripeRoutes } from '@routes/stripe.routes';
 export { getTranslationsRoutes } from '@routes/translate.routes';
+export { getTranslatorRoutes } from '@routes/translator.routes';
 export { getUserRoutes } from '@routes/user.routes';
 // Audit types
 export type { AuditEvent } from '@services/audit/types';
@@ -86,4 +88,5 @@ export type * from '@/types/project.types';
 export type * from '@/types/session.types';
 export type * from '@/types/showcaseProject.types';
 export type * from '@/types/tag.types';
+export type * from '@/types/translator.types';
 export type * from '@/types/user.types';

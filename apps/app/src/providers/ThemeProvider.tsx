@@ -1,5 +1,3 @@
-'use client';
-
 import {
   ThemeProvider as NextThemeProvider,
   useTheme as useNextTheme,

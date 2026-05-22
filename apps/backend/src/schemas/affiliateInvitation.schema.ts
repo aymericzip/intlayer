@@ -42,6 +42,16 @@ export const affiliateInvitationSchema = new Schema<AffiliateInvitationSchema>(
       type: String,
       required: false,
     },
+    category: {
+      type: String,
+      enum: [
+        'native_speaker',
+        'marketing_expert',
+        'copywriter',
+        'certified_translator',
+      ],
+      required: false,
+    },
     expiresAt: {
       type: Date,
       required: true,

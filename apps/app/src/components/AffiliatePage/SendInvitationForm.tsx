@@ -1,11 +1,14 @@
 'use client';
 
-import { Button } from '@intlayer/design-system/button';
+import { Form, useForm } from '@intlayer/design-system/form';
 import { useSendAffiliateInvitation } from '@intlayer/design-system/hooks';
-import { Input } from '@intlayer/design-system/input';
+import { Select } from '@intlayer/design-system/select';
 import type { FC } from 'react';
-import { useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
+import {
+  type SendInvitationFormData,
+  useSendInvitationFormSchema,
+} from './useSendInvitationFormSchema';
 
 type SendInvitationFormProps = {
   onSuccess?: () => void;
@@ -15,72 +18,80 @@ export const SendInvitationForm: FC<SendInvitationFormProps> = ({
   onSuccess,
 }) => {
   const content = useIntlayer('send-invitation-form');
-  const {
-    mutateAsync: sendInvitation,
-    isPending,
-    error,
-  } = useSendAffiliateInvitation();
+  const schema = useSendInvitationFormSchema();
+  const { form, isSubmitting } = useForm(schema, {
+    defaultValues: { commissionRate: 10 },
+  });
+  const { mutateAsync: sendInvitation, isPending } =
+    useSendAffiliateInvitation();
 
-  const [email, setEmail] = useState('');
-  const [commissionRate, setCommissionRate] = useState('10');
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async (data: SendInvitationFormData) => {
     await sendInvitation({
-      email,
-      commissionRate: Number(commissionRate),
+      email: data.email,
+      commissionRate: data.commissionRate,
       commissionType: 'recurring',
+      ...(data.category ? { category: data.category } : {}),
     });
-    setEmail('');
+    form.reset();
     onSuccess?.();
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-      <div className="flex flex-col gap-1">
-        <label htmlFor="invite-email" className="font-medium text-sm">
-          {content.emailAddress}
-        </label>
-        <Input
-          id="invite-email"
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder={content.partnerEmailPlaceholder.value}
-          required
-        />
-      </div>
+    <Form
+      schema={schema}
+      onSubmitSuccess={handleSubmit}
+      className="flex flex-col gap-6"
+      {...form}
+    >
+      <Form.Input
+        name="email"
+        type="email"
+        label={content.emailAddress.value}
+        placeholder={content.partnerEmailPlaceholder.value}
+        isRequired
+      />
 
-      <div className="flex flex-col gap-1">
-        <label htmlFor="invite-rate" className="font-medium text-sm">
-          {content.commissionRate}
-        </label>
-        <Input
-          id="invite-rate"
-          type="number"
-          min="1"
-          max="100"
-          value={commissionRate}
-          onChange={(e) => setCommissionRate(e.target.value)}
-          required
-        />
-      </div>
+      <Form.Input
+        name="commissionRate"
+        type="number"
+        label={content.commissionRate.value}
+        isRequired
+      />
 
-      {error && (
-        <p className="text-destructive text-sm">
-          {content.failedToSendInvitationPlease}
-        </p>
-      )}
+      <Form.Select
+        name="category"
+        label={content.categoryLabel.value}
+        description={content.selectCategory.value}
+      >
+        <Select.Trigger>
+          <Select.Value placeholder={content.selectCategory.value} />
+        </Select.Trigger>
+        <Select.Content>
+          <Select.Item value="native_speaker">
+            {content.categoryLabels.native_speaker}
+          </Select.Item>
+          <Select.Item value="marketing_expert">
+            {content.categoryLabels.marketing_expert}
+          </Select.Item>
+          <Select.Item value="copywriter">
+            {content.categoryLabels.copywriter}
+          </Select.Item>
+          <Select.Item value="certified_translator">
+            {content.categoryLabels.certified_translator}
+          </Select.Item>
+        </Select.Content>
+      </Form.Select>
 
-      <Button
+      <Form.Button
         type="submit"
-        isLoading={isPending}
-        disabled={isPending || !email}
         color="text"
+        isLoading={isSubmitting || isPending}
+        disabled={isSubmitting || isPending}
         label={content.sendInvitationLabel.value}
+        className="mt-2 w-full"
       >
         {isPending ? content.sending : content.sendInvitation}
-      </Button>
-    </form>
+      </Form.Button>
+    </Form>
   );
 };

@@ -44,6 +44,7 @@ import {
 import { stripeRoute, stripeRouter } from '@routes/stripe.routes';
 import { tagRoute, tagRouter } from '@routes/tags.routes';
 import { translateRoute, translationRouter } from '@routes/translate.routes';
+import { translatorRoute, translatorRouter } from '@routes/translator.routes';
 import { userRoute, userRouter } from '@routes/user.routes';
 import { processAuditJobs } from '@services/audit/recursiveAudit.service';
 import { startTranslationWorker } from '@services/translationWorker.service';
@@ -292,6 +293,7 @@ const startServer = async () => {
   await app.register(gitlabRouter, { prefix: gitlabRoute });
   await app.register(bitbucketRouter, { prefix: bitbucketRoute });
   await app.register(translationRouter, { prefix: translateRoute });
+  await app.register(translatorRouter, { prefix: translatorRoute });
   await app.register(showcaseProjectRouter, { prefix: showcaseProjectRoute });
   await app.register(auditRouter, { prefix: auditRoute });
 

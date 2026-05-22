@@ -213,6 +213,27 @@ const affiliatesAdminPageContent = {
       uk: 'Надіслати запрошення',
     }),
 
+    category: t({
+      en: 'Category',
+      ru: 'Категория',
+      ja: 'カテゴリ',
+      fr: 'Catégorie',
+      ko: '카테고리',
+      zh: '类别',
+      es: 'Categoría',
+      de: 'Kategorie',
+      ar: 'الفئة',
+      it: 'Categoria',
+      'en-GB': 'Category',
+      pt: 'Categoria',
+      hi: 'श्रेणी',
+      tr: 'Kategori',
+      pl: 'Kategoria',
+      id: 'Kategori',
+      vi: 'Danh mục',
+      uk: 'Категорія',
+    }),
+
     noAffiliatesYet: t({
       en: 'No affiliates yet.',
       ru: 'Пока нет партнеров.',

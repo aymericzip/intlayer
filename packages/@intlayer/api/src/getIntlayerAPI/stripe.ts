@@ -223,7 +223,7 @@ export const getStripeAPI = (
     );
 
   /**
-   * Admin-only: sets an affiliate's status to active or suspended.
+   * Admin-only: updates an affiliate's status and/or category.
    */
   const updateAffiliateStatus = async (
     { id }: { id: string },

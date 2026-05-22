@@ -57,6 +57,16 @@ export const affiliateSchema = new Schema<AffiliateSchema>(
       enum: ['recurring', 'one_time'],
       default: 'one_time',
     },
+    category: {
+      type: String,
+      enum: [
+        'native_speaker',
+        'marketing_expert',
+        'copywriter',
+        'certified_translator',
+      ],
+      required: false,
+    },
   },
   schemaOptions
 );

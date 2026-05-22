@@ -23,6 +23,11 @@ export const App_Dashboard_IDE_Path = '/ide' as const;
 export const App_Pricing_Path = '/pricing' as const;
 export const App_Affiliation_Path = '/affiliation' as const;
 
+export const App_TranslatorMarketplace_Path =
+  '/translator-marketplace' as const;
+export const App_TranslatorMarketplace_Dashboard_Path =
+  '/translator-marketplace/dashboard' as const;
+
 export const App_Auth_SignIn_Path = '/auth/login' as const;
 export const App_Auth_SignUp_Path = '/auth/register' as const;
 export const App_Auth_TwoFactor_Path = '/auth/2fa' as const;
@@ -77,6 +82,10 @@ export const App_Dashboard_IDE =
 export const App_Pricing = `https://${App_Domain}${App_Pricing_Path}` as const;
 export const App_Affiliation =
   `https://${App_Domain}${App_Affiliation_Path}` as const;
+export const App_TranslatorMarketplace =
+  `https://${App_Domain}${App_TranslatorMarketplace_Path}` as const;
+export const App_TranslatorMarketplace_Dashboard =
+  `https://${App_Domain}${App_TranslatorMarketplace_Dashboard_Path}` as const;
 
 export const App_Auth_SignIn =
   `https://${App_Domain}${App_Auth_SignIn_Path}` as const;

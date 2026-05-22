@@ -40,6 +40,7 @@ import { type FC, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { Link } from '#components/Link/Link';
 import { DashboardSidebarProfile } from './DashboardSidebarProfile';
+import { TranslatorMarketplaceBanner } from './TranslatorMarketplaceBanner';
 
 // Map icon names to components - must be done in client component
 export const iconMap: Record<string, LucideIcon> = {
@@ -252,7 +253,7 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
                   variant="invisible-link"
                   preload="intent"
                   className={cn(
-                    'relative flex w-full items-center justify-center rounded-lg px-2 py-2 aria-[current]:bg-current/0',
+                    'relative flex w-full items-center justify-center rounded-lg px-2 py-2 text-text/80 aria-[current]:bg-current/0',
                     !isCollapsed && 'justify-start gap-3 px-4',
                     // Indentation
                     !isCollapsed && isChild && 'pl-10'
@@ -263,9 +264,9 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
                   {!isCollapsed && isChild && (
                     <div className="absolute top-0 left-4 h-full w-4 scale-110">
                       <div className="pointer-events-none relative h-full w-4">
-                        <div className="absolute top-0 left-0 h-1/2 w-3 rounded-bl-lg border-neutral/80 border-b border-l" />
+                        <div className="absolute top-0 left-0 h-1/2 w-3 rounded-bl-lg border-neutral/70 border-b border-l" />
                         {!item.isLastChild && (
-                          <div className="absolute top-1/2 left-0 h-1/2 w-px bg-neutral/80" />
+                          <div className="absolute top-1/2 left-0 h-1/2 w-px bg-neutral/70" />
                         )}
                       </div>
                     </div>
@@ -311,6 +312,9 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
           />
         </nav>
 
+        {!isCollapsed && process.env.NODE_ENV === 'development' && (
+          <TranslatorMarketplaceBanner />
+        )}
         <div className="flex w-full justify-start">
           <PopoverStatic identifier="dashboard-nav-collapse" className="w-full">
             <Button
@@ -322,7 +326,7 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
                   )}
                 />
               )}
-              className="w-full"
+              className="w-full text-text/80"
               size={isCollapsed ? 'icon-lg' : 'md'}
               variant="hoverable"
               color="text"

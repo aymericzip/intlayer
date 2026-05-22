@@ -193,11 +193,45 @@ export class IntlayerContentSelectorWrapperElement extends _HTMLElement {
       return;
     }
     const keyPath = this._getFilteredKeyPath();
+    const wasSelected = this._isSelected;
     this._isSelected =
       focusedContent.dictionaryKey === this._dictionaryKey &&
       (focusedContent.keyPath?.length ?? 0) > 0 &&
       isSameKeyPath(focusedContent.keyPath ?? [], keyPath);
     this._updateSelectorAttr();
+
+    // Scroll into view when this element becomes selected and is not already
+    // visible in the iframe viewport. This covers the case where the editor
+    // focuses a content block that is off-screen in the client app.
+    if (this._isSelected && !wasSelected) {
+      this._scrollIntoViewIfNeeded();
+    }
+  }
+
+  private _scrollIntoViewIfNeeded(): void {
+    try {
+      const rect = this.getBoundingClientRect();
+      const viewportHeight =
+        window.innerHeight || document.documentElement.clientHeight;
+      const viewportWidth =
+        window.innerWidth || document.documentElement.clientWidth;
+
+      const isVisible =
+        rect.bottom > 0 &&
+        rect.right > 0 &&
+        rect.top < viewportHeight &&
+        rect.left < viewportWidth;
+
+      if (!isVisible) {
+        this.scrollIntoView({
+          behavior: 'smooth',
+          block: 'nearest',
+          inline: 'nearest',
+        });
+      }
+    } catch {
+      // scrollIntoView may not be available in all environments
+    }
   }
 
   private _updateSelectorAttr(): void {

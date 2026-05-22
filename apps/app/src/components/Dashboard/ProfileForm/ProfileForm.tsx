@@ -10,7 +10,6 @@ import {
   useUploadUserAvatar,
 } from '@intlayer/design-system/hooks';
 import { Modal } from '@intlayer/design-system/modal';
-import { cn } from '@intlayer/design-system/utils';
 import { LockIcon, PenIcon } from 'lucide-react';
 import {
   type ChangeEvent,

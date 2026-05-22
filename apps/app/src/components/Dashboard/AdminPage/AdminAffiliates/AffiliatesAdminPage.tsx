@@ -138,6 +138,19 @@ export const AffiliatesAdminPage: FC = () => {
       ),
     },
     {
+      accessorKey: 'category',
+      enableSorting: false,
+      header: () => content.category.value,
+      cell: ({ row }) =>
+        row.original.category ? (
+          <span className="text-sm capitalize">
+            {row.original.category.replace('_', ' ')}
+          </span>
+        ) : (
+          <span className="text-neutral/40 text-sm">—</span>
+        ),
+    },
+    {
       accessorKey: 'createdAt',
       enableSorting: true,
       header: ({ column }) => (

@@ -19,15 +19,18 @@ import type {
   AuditContentDeclarationMetadataBody,
   AuditTagBody,
   AutocompleteBody,
+  CreateMissionBody,
   CreateUserBody,
   DeleteAccessKeyBody,
   DeleteDictionaryParam,
   DeleteTagParams,
+  EstimateMissionBody,
   GetAffiliatesParams,
   GetCheckoutSessionBody,
   GetDictionariesParams,
   GetDictionaryParams,
   GetDictionaryQuery,
+  GetMarketplaceQuery,
   GetOrganizationsParams,
   GetPricingBody,
   GetPricingResult,
@@ -43,19 +46,23 @@ import type {
   PushDictionariesBody,
   PushProjectConfigurationBody,
   RefreshAccessKeyBody,
+  RegisterTranslatorBody,
   SearchDocUtilParams,
   SelectOrganizationParam,
   SelectProjectParam,
   SendAffiliateInvitationBody,
   ShowcaseProjectsQuery,
+  SubmitReviewBody,
   SubmitShowcaseProjectBody,
   TranslateDictionariesBody,
   TranslateJSONBody,
   UpdateDictionaryBody,
+  UpdateMissionStatusBody,
   UpdateOrganizationBody,
   UpdateOrganizationMembersBody,
   UpdateProjectBody,
   UpdateProjectMembersBody,
+  UpdateTranslatorBody,
   UpdateUserBody,
 } from '@intlayer/backend';
 
@@ -1951,17 +1958,281 @@ export const useUpdateAffiliateStatus = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationKey: ['affiliate', 'status'],
+    mutationKey: ['affiliate', 'update'],
     mutationFn: ({
       id,
       status,
+      category,
     }: {
       id: string;
-      status: 'active' | 'suspended';
-    }) => intlayerOAuth.stripe.updateAffiliateStatus({ id }, { status }),
+      status?: 'active' | 'suspended';
+      category?:
+        | 'native_speaker'
+        | 'marketing_expert'
+        | 'copywriter'
+        | 'certified_translator';
+    }) =>
+      intlayerOAuth.stripe.updateAffiliateStatus({ id }, { status, category }),
     onSuccess: (_data, { id }) => {
       queryClient.invalidateQueries({ queryKey: ['affiliates', id] });
       queryClient.invalidateQueries({ queryKey: ['affiliates'] });
+    },
+  });
+};
+
+/**
+ * Translator Marketplace
+ */
+
+export const useGetTranslatorMarketplace = (
+  params?: GetMarketplaceQuery,
+  options?: Partial<UseQueryOptions>
+) => {
+  const intlayerOAuth = useIntlayerOAuth();
+
+  return useAppQuery({
+    queryKey: ['translator', 'marketplace', params],
+    queryFn: ({ signal }) =>
+      intlayerOAuth.translator.getMarketplace(params, { signal }),
+    ...options,
+  });
+};
+
+export const useGetTranslatorById = (
+  translatorId: string | undefined,
+  options?: Partial<UseQueryOptions>
+) => {
+  const intlayerOAuth = useIntlayerOAuth();
+
+  return useAppQuery({
+    queryKey: ['translator', translatorId],
+    queryFn: ({ signal }) =>
+      intlayerOAuth.translator.getTranslatorById(translatorId!, { signal }),
+    enabled: Boolean(translatorId),
+    ...options,
+  });
+};
+
+export const useGetTranslatorReviews = (
+  translatorId: string | undefined,
+  params?: { page?: number; pageSize?: number },
+  options?: Partial<UseQueryOptions>
+) => {
+  const intlayerOAuth = useIntlayerOAuth();
+
+  return useAppQuery({
+    queryKey: ['translator', translatorId, 'reviews', params],
+    queryFn: ({ signal }) =>
+      intlayerOAuth.translator.getTranslatorReviews(translatorId!, params, {
+        signal,
+      }),
+    enabled: Boolean(translatorId),
+    ...options,
+  });
+};
+
+export const useGetMyTranslatorProfile = (
+  options?: Partial<UseQueryOptions>
+) => {
+  const intlayerOAuth = useIntlayerOAuth();
+
+  return useAppQuery({
+    queryKey: ['translator', 'me'],
+    queryFn: ({ signal }) =>
+      intlayerOAuth.translator.getMyTranslatorProfile({ signal }),
+    requireUser: true,
+    ...options,
+  });
+};
+
+export const useRegisterAsTranslator = () => {
+  const intlayerOAuth = useIntlayerOAuth();
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationKey: ['translator', 'register'],
+    mutationFn: (body: RegisterTranslatorBody) =>
+      intlayerOAuth.translator.registerAsTranslator(body),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['translator', 'me'] });
+      queryClient.invalidateQueries({
+        queryKey: ['translator', 'marketplace'],
+      });
+    },
+  });
+};
+
+export const useUpdateTranslatorProfile = () => {
+  const intlayerOAuth = useIntlayerOAuth();
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationKey: ['translator', 'update'],
+    mutationFn: (body: UpdateTranslatorBody) =>
+      intlayerOAuth.translator.updateTranslatorProfile(body),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['translator', 'me'] });
+    },
+  });
+};
+
+export const useUploadTranslatorMainPicture = () => {
+  const intlayerOAuth = useIntlayerOAuth();
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationKey: ['translator', 'picture', 'main'],
+    mutationFn: (file: File) =>
+      intlayerOAuth.translator.uploadMainPicture(file),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['translator', 'me'] });
+    },
+  });
+};
+
+export const useUploadTranslatorCoverPicture = () => {
+  const intlayerOAuth = useIntlayerOAuth();
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationKey: ['translator', 'picture', 'cover'],
+    mutationFn: (file: File) =>
+      intlayerOAuth.translator.uploadCoverPicture(file),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['translator', 'me'] });
+    },
+  });
+};
+
+export const useEstimateMission = () => {
+  const intlayerOAuth = useIntlayerOAuth();
+
+  return useMutation({
+    mutationKey: ['translator', 'mission', 'estimate'],
+    mutationFn: (body: EstimateMissionBody) =>
+      intlayerOAuth.translator.estimateMission(body),
+  });
+};
+
+export const useCreateMission = () => {
+  const intlayerOAuth = useIntlayerOAuth();
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationKey: ['translator', 'mission', 'create'],
+    mutationFn: (body: CreateMissionBody) =>
+      intlayerOAuth.translator.createMission(body),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['translator', 'missions'] });
+    },
+  });
+};
+
+export const useGetMyMissions = (
+  params?: { role?: 'client' | 'translator'; page?: number; pageSize?: number },
+  options?: Partial<UseQueryOptions>
+) => {
+  const intlayerOAuth = useIntlayerOAuth();
+
+  return useAppQuery({
+    queryKey: ['translator', 'missions', params],
+    queryFn: ({ signal }) =>
+      intlayerOAuth.translator.getMyMissions(params, { signal }),
+    requireUser: true,
+    ...options,
+  });
+};
+
+export const useGetMissionById = (
+  missionId: string | undefined,
+  options?: Partial<UseQueryOptions>
+) => {
+  const intlayerOAuth = useIntlayerOAuth();
+
+  return useAppQuery({
+    queryKey: ['translator', 'mission', missionId],
+    queryFn: ({ signal }) =>
+      intlayerOAuth.translator.getMissionById(missionId!, { signal }),
+    enabled: Boolean(missionId),
+    requireUser: true,
+    ...options,
+  });
+};
+
+export const useUpdateMissionStatus = () => {
+  const intlayerOAuth = useIntlayerOAuth();
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationKey: ['translator', 'mission', 'status'],
+    mutationFn: ({
+      missionId,
+      body,
+    }: {
+      missionId: string;
+      body: UpdateMissionStatusBody;
+    }) => intlayerOAuth.translator.updateMissionStatus(missionId, body),
+    onSuccess: (_data, { missionId }) => {
+      queryClient.invalidateQueries({
+        queryKey: ['translator', 'mission', missionId],
+      });
+      queryClient.invalidateQueries({ queryKey: ['translator', 'missions'] });
+    },
+  });
+};
+
+export const useSubmitReview = () => {
+  const intlayerOAuth = useIntlayerOAuth();
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationKey: ['translator', 'review'],
+    mutationFn: ({
+      missionId,
+      body,
+    }: {
+      missionId: string;
+      body: SubmitReviewBody;
+    }) => intlayerOAuth.translator.submitReview(missionId, body),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['translator'] });
+    },
+  });
+};
+
+export const useGetChatHistory = (
+  missionId: string | undefined,
+  options?: Partial<UseQueryOptions>
+) => {
+  const intlayerOAuth = useIntlayerOAuth();
+
+  return useAppQuery({
+    queryKey: ['translator', 'mission', missionId, 'chat'],
+    queryFn: ({ signal }) =>
+      intlayerOAuth.translator.getChatHistory(missionId!, { signal }),
+    enabled: Boolean(missionId),
+    requireUser: true,
+    ...options,
+  });
+};
+
+export const useSendTranslatorMessage = () => {
+  const intlayerOAuth = useIntlayerOAuth();
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationKey: ['translator', 'chat', 'send'],
+    mutationFn: ({
+      missionId,
+      content,
+    }: {
+      missionId: string;
+      content: string;
+    }) => intlayerOAuth.translator.sendMessage(missionId, { content }),
+    onSuccess: (_data, { missionId }) => {
+      queryClient.invalidateQueries({
+        queryKey: ['translator', 'mission', missionId, 'chat'],
+      });
     },
   });
 };

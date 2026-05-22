@@ -1,6 +1,6 @@
 import type { RenameId } from '@utils/mongoDB/types';
 import type { Document, Model, ObjectIdToString, Types } from 'mongoose';
-import type { CommissionType } from './affiliate.types';
+import type { AffiliateCategory, CommissionType } from './affiliate.types';
 import type { User } from './user.types';
 
 export type AffiliateInvitationStatus = 'pending' | 'accepted' | 'expired';
@@ -13,6 +13,7 @@ export type AffiliateInvitationData = {
   commissionRate: number;
   commissionType: CommissionType;
   country?: string;
+  category?: AffiliateCategory;
   expiresAt: Date;
 };
 
