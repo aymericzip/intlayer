@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/sync-po-plugin",
-  "version": "8.10.0",
+  "version": "8.10.1",
   "private": false,
   "description": "A plugin for Intlayer that syncs Portable Object (.po) files to dictionaries.",
   "keywords": [
