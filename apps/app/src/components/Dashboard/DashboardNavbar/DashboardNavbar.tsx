@@ -86,6 +86,8 @@ export const DashboardNavbar: FC<DashboardNavbarProps> = ({ items = [] }) => {
 
   return (
     <Container
+      role="banner"
+      aria-label={content.bannerAriaLabel.value}
       className="sticky top-0 z-50 flex w-full flex-col gap-3 px-4 pt-4 pb-2"
       roundedSize="none"
     >
@@ -99,16 +101,17 @@ export const DashboardNavbar: FC<DashboardNavbarProps> = ({ items = [] }) => {
             (organization || project) && (
               <div className="relative">
                 {isBreadcrumbOpen && (
-                  <div
-                    className="fixed inset-0 z-40"
-                    role="button"
+                  <button
+                    type="button"
+                    className="fixed inset-0 z-40 cursor-default appearance-none border-none bg-transparent"
                     tabIndex={0}
                     onClick={() => setIsBreadcrumbOpen(false)}
                     onKeyDown={(e) => {
-                      if (e.key === 'Enter' || e.key === ' ') {
+                      if (e.key === content.enter.value || e.key === ' ') {
                         setIsBreadcrumbOpen(false);
                       }
                     }}
+                    aria-label="Close breadcrumb"
                   />
                 )}
                 <Button
@@ -179,7 +182,10 @@ export const DashboardNavbar: FC<DashboardNavbarProps> = ({ items = [] }) => {
       </div>
 
       {isMobile && (
-        <nav className="fixed top-12 left-0 mt-4 flex w-full flex-col gap-2">
+        <nav
+          aria-label={content.mobileNavAriaLabel.value}
+          className="fixed top-12 left-0 mt-4 flex w-full flex-col gap-2"
+        >
           <MaxHeightSmoother isHidden={!isMenuOpen}>
             <Container
               className="h-screen w-full px-10 pt-10"
@@ -187,7 +193,7 @@ export const DashboardNavbar: FC<DashboardNavbarProps> = ({ items = [] }) => {
               transparency="xs"
               onClick={() => setIsMenuOpen(false)}
               onKeyDown={(e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
+                if (e.key === content.enter.value || e.key === ' ') {
                   setIsMenuOpen(false);
                 }
               }}

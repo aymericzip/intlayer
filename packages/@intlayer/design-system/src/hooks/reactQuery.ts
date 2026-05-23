@@ -46,7 +46,7 @@ import type {
   PushDictionariesBody,
   PushProjectConfigurationBody,
   RefreshAccessKeyBody,
-  RegisterTranslatorBody,
+  RegisterReviewerBody,
   SearchDocUtilParams,
   SelectOrganizationParam,
   SelectProjectParam,
@@ -62,7 +62,7 @@ import type {
   UpdateOrganizationMembersBody,
   UpdateProjectBody,
   UpdateProjectMembersBody,
-  UpdateTranslatorBody,
+  UpdateReviewerBody,
   UpdateUserBody,
 } from '@intlayer/backend';
 
@@ -1970,7 +1970,7 @@ export const useUpdateAffiliateStatus = () => {
         | 'native_speaker'
         | 'marketing_expert'
         | 'copywriter'
-        | 'certified_translator';
+        | 'certified_reviewer';
     }) =>
       intlayerOAuth.stripe.updateAffiliateStatus({ id }, { status, category }),
     onSuccess: (_data, { id }) => {
@@ -1981,125 +1981,156 @@ export const useUpdateAffiliateStatus = () => {
 };
 
 /**
- * Translator Marketplace
+ * Reviewer Marketplace
  */
 
-export const useGetTranslatorMarketplace = (
+export const useGetReviewerMarketplace = (
   params?: GetMarketplaceQuery,
   options?: Partial<UseQueryOptions>
 ) => {
   const intlayerOAuth = useIntlayerOAuth();
 
   return useAppQuery({
-    queryKey: ['translator', 'marketplace', params],
+    queryKey: ['reviewer', 'marketplace', params],
     queryFn: ({ signal }) =>
-      intlayerOAuth.translator.getMarketplace(params, { signal }),
+      intlayerOAuth.reviewer.getMarketplace(params, { signal }),
     ...options,
   });
 };
 
-export const useGetTranslatorById = (
-  translatorId: string | undefined,
+export const useGetReviewerPriceDistribution = (
+  params?: Pick<
+    GetMarketplaceQuery,
+    'fromLocale' | 'toLocale' | 'minRating' | 'categories'
+  >,
   options?: Partial<UseQueryOptions>
 ) => {
   const intlayerOAuth = useIntlayerOAuth();
 
   return useAppQuery({
-    queryKey: ['translator', translatorId],
+    queryKey: ['reviewer', 'marketplace', 'price-distribution', params],
     queryFn: ({ signal }) =>
-      intlayerOAuth.translator.getTranslatorById(translatorId!, { signal }),
-    enabled: Boolean(translatorId),
+      intlayerOAuth.reviewer.getPriceDistribution(params, { signal }),
     ...options,
   });
 };
 
-export const useGetTranslatorReviews = (
-  translatorId: string | undefined,
+export const useGetReviewerById = (
+  reviewerId: string | undefined,
+  options?: Partial<UseQueryOptions>
+) => {
+  const intlayerOAuth = useIntlayerOAuth();
+
+  return useAppQuery({
+    queryKey: ['reviewer', reviewerId],
+    queryFn: ({ signal }) =>
+      intlayerOAuth.reviewer.getReviewerById(reviewerId!, { signal }),
+    enabled: Boolean(reviewerId),
+    ...options,
+  });
+};
+
+export const useGetReviewerReviews = (
+  reviewerId: string | undefined,
   params?: { page?: number; pageSize?: number },
   options?: Partial<UseQueryOptions>
 ) => {
   const intlayerOAuth = useIntlayerOAuth();
 
   return useAppQuery({
-    queryKey: ['translator', translatorId, 'reviews', params],
+    queryKey: ['reviewer', reviewerId, 'reviews', params],
     queryFn: ({ signal }) =>
-      intlayerOAuth.translator.getTranslatorReviews(translatorId!, params, {
+      intlayerOAuth.reviewer.getReviewerReviews(reviewerId!, params, {
         signal,
       }),
-    enabled: Boolean(translatorId),
+    enabled: Boolean(reviewerId),
     ...options,
   });
 };
 
-export const useGetMyTranslatorProfile = (
+export const useGetMyReviewerProfile = (
   options?: Partial<UseQueryOptions>
 ) => {
   const intlayerOAuth = useIntlayerOAuth();
 
   return useAppQuery({
-    queryKey: ['translator', 'me'],
+    queryKey: ['reviewer', 'me'],
     queryFn: ({ signal }) =>
-      intlayerOAuth.translator.getMyTranslatorProfile({ signal }),
+      intlayerOAuth.reviewer.getMyReviewerProfile({ signal }),
     requireUser: true,
     ...options,
   });
 };
 
-export const useRegisterAsTranslator = () => {
+export const useRegisterAsReviewer = () => {
   const intlayerOAuth = useIntlayerOAuth();
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationKey: ['translator', 'register'],
-    mutationFn: (body: RegisterTranslatorBody) =>
-      intlayerOAuth.translator.registerAsTranslator(body),
+    mutationKey: ['reviewer', 'register'],
+    mutationFn: (body: RegisterReviewerBody) =>
+      intlayerOAuth.reviewer.registerAsReviewer(body),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['translator', 'me'] });
+      queryClient.invalidateQueries({ queryKey: ['reviewer', 'me'] });
       queryClient.invalidateQueries({
-        queryKey: ['translator', 'marketplace'],
+        queryKey: ['reviewer', 'marketplace'],
       });
     },
   });
 };
 
-export const useUpdateTranslatorProfile = () => {
+export const useUpdateReviewerProfile = () => {
   const intlayerOAuth = useIntlayerOAuth();
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationKey: ['translator', 'update'],
-    mutationFn: (body: UpdateTranslatorBody) =>
-      intlayerOAuth.translator.updateTranslatorProfile(body),
+    mutationKey: ['reviewer', 'update'],
+    mutationFn: (body: UpdateReviewerBody) =>
+      intlayerOAuth.reviewer.updateReviewerProfile(body),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['translator', 'me'] });
+      queryClient.invalidateQueries({ queryKey: ['reviewer', 'me'] });
     },
   });
 };
 
-export const useUploadTranslatorMainPicture = () => {
+export const useDeleteReviewerProfile = () => {
   const intlayerOAuth = useIntlayerOAuth();
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationKey: ['translator', 'picture', 'main'],
-    mutationFn: (file: File) =>
-      intlayerOAuth.translator.uploadMainPicture(file),
+    mutationKey: ['reviewer', 'delete'],
+    mutationFn: () => intlayerOAuth.reviewer.deleteReviewerProfile(),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['translator', 'me'] });
+      queryClient.invalidateQueries({ queryKey: ['reviewer', 'me'] });
+      queryClient.invalidateQueries({ queryKey: ['reviewer', 'marketplace'] });
     },
   });
 };
 
-export const useUploadTranslatorCoverPicture = () => {
+export const useUploadReviewerMainPicture = () => {
   const intlayerOAuth = useIntlayerOAuth();
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationKey: ['translator', 'picture', 'cover'],
+    mutationKey: ['reviewer', 'picture', 'main'],
     mutationFn: (file: File) =>
-      intlayerOAuth.translator.uploadCoverPicture(file),
+      intlayerOAuth.reviewer.uploadMainPicture(file),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['translator', 'me'] });
+      queryClient.invalidateQueries({ queryKey: ['reviewer', 'me'] });
+    },
+  });
+};
+
+export const useUploadReviewerCoverPicture = () => {
+  const intlayerOAuth = useIntlayerOAuth();
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationKey: ['reviewer', 'picture', 'cover'],
+    mutationFn: (file: File) =>
+      intlayerOAuth.reviewer.uploadCoverPicture(file),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['reviewer', 'me'] });
     },
   });
 };
@@ -2108,9 +2139,9 @@ export const useEstimateMission = () => {
   const intlayerOAuth = useIntlayerOAuth();
 
   return useMutation({
-    mutationKey: ['translator', 'mission', 'estimate'],
+    mutationKey: ['reviewer', 'mission', 'estimate'],
     mutationFn: (body: EstimateMissionBody) =>
-      intlayerOAuth.translator.estimateMission(body),
+      intlayerOAuth.reviewer.estimateMission(body),
   });
 };
 
@@ -2119,25 +2150,25 @@ export const useCreateMission = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationKey: ['translator', 'mission', 'create'],
+    mutationKey: ['reviewer', 'mission', 'create'],
     mutationFn: (body: CreateMissionBody) =>
-      intlayerOAuth.translator.createMission(body),
+      intlayerOAuth.reviewer.createMission(body),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['translator', 'missions'] });
+      queryClient.invalidateQueries({ queryKey: ['reviewer', 'missions'] });
     },
   });
 };
 
 export const useGetMyMissions = (
-  params?: { role?: 'client' | 'translator'; page?: number; pageSize?: number },
+  params?: { role?: 'client' | 'reviewer'; page?: number; pageSize?: number },
   options?: Partial<UseQueryOptions>
 ) => {
   const intlayerOAuth = useIntlayerOAuth();
 
   return useAppQuery({
-    queryKey: ['translator', 'missions', params],
+    queryKey: ['reviewer', 'missions', params],
     queryFn: ({ signal }) =>
-      intlayerOAuth.translator.getMyMissions(params, { signal }),
+      intlayerOAuth.reviewer.getMyMissions(params, { signal }),
     requireUser: true,
     ...options,
   });
@@ -2150,9 +2181,9 @@ export const useGetMissionById = (
   const intlayerOAuth = useIntlayerOAuth();
 
   return useAppQuery({
-    queryKey: ['translator', 'mission', missionId],
+    queryKey: ['reviewer', 'mission', missionId],
     queryFn: ({ signal }) =>
-      intlayerOAuth.translator.getMissionById(missionId!, { signal }),
+      intlayerOAuth.reviewer.getMissionById(missionId!, { signal }),
     enabled: Boolean(missionId),
     requireUser: true,
     ...options,
@@ -2164,19 +2195,19 @@ export const useUpdateMissionStatus = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationKey: ['translator', 'mission', 'status'],
+    mutationKey: ['reviewer', 'mission', 'status'],
     mutationFn: ({
       missionId,
       body,
     }: {
       missionId: string;
       body: UpdateMissionStatusBody;
-    }) => intlayerOAuth.translator.updateMissionStatus(missionId, body),
+    }) => intlayerOAuth.reviewer.updateMissionStatus(missionId, body),
     onSuccess: (_data, { missionId }) => {
       queryClient.invalidateQueries({
-        queryKey: ['translator', 'mission', missionId],
+        queryKey: ['reviewer', 'mission', missionId],
       });
-      queryClient.invalidateQueries({ queryKey: ['translator', 'missions'] });
+      queryClient.invalidateQueries({ queryKey: ['reviewer', 'missions'] });
     },
   });
 };
@@ -2186,16 +2217,16 @@ export const useSubmitReview = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationKey: ['translator', 'review'],
+    mutationKey: ['reviewer', 'review'],
     mutationFn: ({
       missionId,
       body,
     }: {
       missionId: string;
       body: SubmitReviewBody;
-    }) => intlayerOAuth.translator.submitReview(missionId, body),
+    }) => intlayerOAuth.reviewer.submitReview(missionId, body),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['translator'] });
+      queryClient.invalidateQueries({ queryKey: ['reviewer'] });
     },
   });
 };
@@ -2207,31 +2238,72 @@ export const useGetChatHistory = (
   const intlayerOAuth = useIntlayerOAuth();
 
   return useAppQuery({
-    queryKey: ['translator', 'mission', missionId, 'chat'],
+    queryKey: ['reviewer', 'mission', missionId, 'chat'],
     queryFn: ({ signal }) =>
-      intlayerOAuth.translator.getChatHistory(missionId!, { signal }),
+      intlayerOAuth.reviewer.getChatHistory(missionId!, { signal }),
     enabled: Boolean(missionId),
     requireUser: true,
     ...options,
   });
 };
 
-export const useSendTranslatorMessage = () => {
+export const useSendReviewerMessage = () => {
   const intlayerOAuth = useIntlayerOAuth();
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationKey: ['translator', 'chat', 'send'],
+    mutationKey: ['reviewer', 'chat', 'send'],
     mutationFn: ({
       missionId,
       content,
     }: {
       missionId: string;
       content: string;
-    }) => intlayerOAuth.translator.sendMessage(missionId, { content }),
+    }) => intlayerOAuth.reviewer.sendMessage(missionId, { content }),
     onSuccess: (_data, { missionId }) => {
       queryClient.invalidateQueries({
-        queryKey: ['translator', 'mission', missionId, 'chat'],
+        queryKey: ['reviewer', 'mission', missionId, 'chat'],
+      });
+    },
+  });
+};
+
+export const useContactReviewer = () => {
+  const intlayerOAuth = useIntlayerOAuth();
+  return useMutation({
+    mutationKey: ['reviewer', 'contact'],
+    mutationFn: ({ reviewerId, message }: { reviewerId: string; message: string }) =>
+      intlayerOAuth.reviewer.contactReviewer(reviewerId, { message }),
+  });
+};
+
+export const useGetAdminReviewers = (
+  params: { page?: number; pageSize?: number; status?: string } = {},
+  options?: Partial<UseQueryOptions>
+) => {
+  const intlayerOAuth = useIntlayerOAuth();
+
+  return useAppQuery({
+    queryKey: ['admin', 'reviewers', params],
+    queryFn: ({ signal }) =>
+      intlayerOAuth.reviewer.getAdminReviewers(params, { signal }),
+    requireUser: true,
+    ...options,
+  });
+};
+
+export const useValidateReviewerProfile = () => {
+  const intlayerOAuth = useIntlayerOAuth();
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationKey: ['admin', 'reviewer', 'validate'],
+    mutationFn: (reviewerId: string) =>
+      intlayerOAuth.reviewer.validateReviewerProfile(reviewerId),
+    onSuccess: (_data, reviewerId) => {
+      queryClient.invalidateQueries({ queryKey: ['admin', 'reviewers'] });
+      queryClient.invalidateQueries({
+        queryKey: ['reviewer', reviewerId],
       });
     },
   });

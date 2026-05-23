@@ -63,7 +63,7 @@ export const affiliateSchema = new Schema<AffiliateSchema>(
         'native_speaker',
         'marketing_expert',
         'copywriter',
-        'certified_translator',
+        'certified_reviewer',
       ],
       required: false,
     },

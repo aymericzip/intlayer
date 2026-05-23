@@ -1,4 +1,5 @@
 import { DeleteObjectCommand, PutObjectCommand } from '@aws-sdk/client-s3';
+import { resizeImage } from '@utils/image/resizeImage';
 import { getS3Client } from '@utils/s3/s3Client';
 
 const ALLOWED_MIME_TYPES = [
@@ -7,39 +8,39 @@ const ALLOWED_MIME_TYPES = [
   'image/webp',
   'image/gif',
 ];
-const MAX_SIZE_BYTES = 5 * 1024 * 1024; // 5 MB
+const MAX_SIZE_BYTES = 20 * 1024 * 1024; // 20 MB pre-resize
+
+export type AvatarValidationError = 'UNSUPPORTED_TYPE' | 'TOO_LARGE';
 
 export const validateAvatarUpload = (
   contentType: string,
   contentLength: number
-): string | null => {
-  if (!ALLOWED_MIME_TYPES.includes(contentType)) {
-    return `Unsupported image type: ${contentType}. Allowed: ${ALLOWED_MIME_TYPES.join(', ')}`;
-  }
-  if (contentLength > MAX_SIZE_BYTES) {
-    return `File too large (${contentLength} bytes). Max: ${MAX_SIZE_BYTES} bytes`;
-  }
+): AvatarValidationError | null => {
+  if (!ALLOWED_MIME_TYPES.includes(contentType)) return 'UNSUPPORTED_TYPE';
+  if (contentLength > MAX_SIZE_BYTES) return 'TOO_LARGE';
   return null;
 };
 
-const getAvatarKey = (userId: string, contentType: string): string => {
-  const ext = contentType.split('/')[1] ?? 'jpg';
-  return `avatars/${userId}.${ext}`;
-};
+const getAvatarKey = (userId: string): string => `avatars/${userId}.jpg`;
 
 export const uploadUserAvatar = async (
   buffer: Buffer,
   userId: string,
-  contentType: string
 ): Promise<string> => {
-  const key = getAvatarKey(userId, contentType);
+  const { buffer: resized, contentType } = await resizeImage(buffer, {
+    width: 256,
+    height: 256,
+    quality: 85,
+  });
+
+  const key = getAvatarKey(userId);
   const s3Client = getS3Client();
 
   await s3Client.send(
     new PutObjectCommand({
       Bucket: process.env.S3_BUCKET_NAME,
       Key: key,
-      Body: buffer,
+      Body: resized,
       ContentType: contentType,
     })
   );

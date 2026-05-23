@@ -19,6 +19,9 @@ import { Route as Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRoute
 import { Route as Char123LocaleChar125DashboardAdminAdminProjectsIdRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/projects/$id';
 import { Route as Char123LocaleChar125DashboardAdminAdminProjectsIndexRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/projects/index';
 import { Route as Char123LocaleChar125DashboardAdminAdminProjectsRouteRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/projects/route';
+import { Route as Char123LocaleChar125DashboardAdminAdminReviewersReviewerIdRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/reviewers/$reviewerId';
+import { Route as Char123LocaleChar125DashboardAdminAdminReviewersIndexRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/reviewers/index';
+import { Route as Char123LocaleChar125DashboardAdminAdminReviewersRouteRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/reviewers/route';
 import { Route as Char123LocaleChar125DashboardAdminAdminUsersIdRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/users/$id';
 import { Route as Char123LocaleChar125DashboardAdminAdminUsersIndexRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/users/index';
 import { Route as Char123LocaleChar125DashboardAdminAdminUsersRouteRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/users/route';
@@ -44,20 +47,22 @@ import { Route as Char123LocaleChar125OtherAuthNotAuthenticatedLoginRouteImport 
 import { Route as Char123LocaleChar125OtherAuthNotAuthenticatedRegisterRouteImport } from './routes/{-$locale}/_other/auth/_not-authenticated/register';
 import { Route as Char123LocaleChar125OtherAuthNotAuthenticatedRouteRouteImport } from './routes/{-$locale}/_other/auth/_not-authenticated/route';
 import { Route as Char123LocaleChar125OtherAuthCliLoginRouteImport } from './routes/{-$locale}/_other/auth/cli-login';
+import { Route as Char123LocaleChar125OtherAuthDemoRouteImport } from './routes/{-$locale}/_other/auth/demo';
 import { Route as Char123LocaleChar125OtherAuthPasswordLayoutRouteImport } from './routes/{-$locale}/_other/auth/password/_layout';
 import { Route as Char123LocaleChar125OtherAuthPasswordAskResetRouteImport } from './routes/{-$locale}/_other/auth/password/ask-reset';
 import { Route as Char123LocaleChar125OtherAuthPasswordResetRouteImport } from './routes/{-$locale}/_other/auth/password/reset';
+import { Route as Char123LocaleChar125OtherFindReviewerReviewerIdRouteImport } from './routes/{-$locale}/_other/find-reviewer/$reviewerId';
+import { Route as Char123LocaleChar125OtherFindReviewerDashboardIndexRouteImport } from './routes/{-$locale}/_other/find-reviewer/dashboard/index';
+import { Route as Char123LocaleChar125OtherFindReviewerDashboardMissionMissionIdRouteImport } from './routes/{-$locale}/_other/find-reviewer/dashboard/mission.$missionId';
+import { Route as Char123LocaleChar125OtherFindReviewerIndexRouteImport } from './routes/{-$locale}/_other/find-reviewer/index';
 import { Route as Char123LocaleChar125OtherOnboardingStepRouteImport } from './routes/{-$locale}/_other/onboarding.$step';
 import { Route as Char123LocaleChar125OtherPricingRouteImport } from './routes/{-$locale}/_other/pricing';
 import { Route as Char123LocaleChar125OtherRouteRouteImport } from './routes/{-$locale}/_other/route';
-import { Route as Char123LocaleChar125OtherTranslatorMarketplaceTranslatorIdRouteImport } from './routes/{-$locale}/_other/translator-marketplace/$translatorId';
-import { Route as Char123LocaleChar125OtherTranslatorMarketplaceDashboardIndexRouteImport } from './routes/{-$locale}/_other/translator-marketplace/dashboard/index';
-import { Route as Char123LocaleChar125OtherTranslatorMarketplaceDashboardMissionMissionIdRouteImport } from './routes/{-$locale}/_other/translator-marketplace/dashboard/mission.$missionId';
-import { Route as Char123LocaleChar125OtherTranslatorMarketplaceIndexRouteImport } from './routes/{-$locale}/_other/translator-marketplace/index';
 import { Route as Char123LocaleChar125SplatRouteImport } from './routes/{-$locale}/$';
 import { Route as Char123LocaleChar125404RouteImport } from './routes/{-$locale}/404';
 import { Route as Char123LocaleChar125PageRouteImport } from './routes/{-$locale}/page';
 import { Route as Char123LocaleChar125RouteRouteImport } from './routes/{-$locale}/route';
+import { Route as DemoRouteImport } from './routes/demo';
 import { Route as HealthzRouteImport } from './routes/healthz';
 import { Route as IndexRouteImport } from './routes/index';
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml';
@@ -70,6 +75,11 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
 const HealthzRoute = HealthzRouteImport.update({
   id: '/healthz',
   path: '/healthz',
+  getParentRoute: () => rootRouteImport,
+} as any);
+const DemoRoute = DemoRouteImport.update({
+  id: '/demo',
+  path: '/demo',
   getParentRoute: () => rootRouteImport,
 } as any);
 const Char123LocaleChar125RouteRoute =
@@ -151,22 +161,28 @@ const Char123LocaleChar125DashboardAdminRouteRoute =
     id: '/_admin',
     getParentRoute: () => Char123LocaleChar125DashboardRouteRoute,
   } as any);
-const Char123LocaleChar125OtherTranslatorMarketplaceIndexRoute =
-  Char123LocaleChar125OtherTranslatorMarketplaceIndexRouteImport.update({
-    id: '/translator-marketplace/',
-    path: '/translator-marketplace/',
-    getParentRoute: () => Char123LocaleChar125OtherRouteRoute,
-  } as any);
-const Char123LocaleChar125OtherTranslatorMarketplaceTranslatorIdRoute =
-  Char123LocaleChar125OtherTranslatorMarketplaceTranslatorIdRouteImport.update({
-    id: '/translator-marketplace/$translatorId',
-    path: '/translator-marketplace/$translatorId',
+const Char123LocaleChar125OtherFindReviewerIndexRoute =
+  Char123LocaleChar125OtherFindReviewerIndexRouteImport.update({
+    id: '/find-reviewer/',
+    path: '/find-reviewer/',
     getParentRoute: () => Char123LocaleChar125OtherRouteRoute,
   } as any);
 const Char123LocaleChar125OtherOnboardingStepRoute =
   Char123LocaleChar125OtherOnboardingStepRouteImport.update({
     id: '/onboarding/$step',
     path: '/onboarding/$step',
+    getParentRoute: () => Char123LocaleChar125OtherRouteRoute,
+  } as any);
+const Char123LocaleChar125OtherFindReviewerReviewerIdRoute =
+  Char123LocaleChar125OtherFindReviewerReviewerIdRouteImport.update({
+    id: '/find-reviewer/$reviewerId',
+    path: '/find-reviewer/$reviewerId',
+    getParentRoute: () => Char123LocaleChar125OtherRouteRoute,
+  } as any);
+const Char123LocaleChar125OtherAuthDemoRoute =
+  Char123LocaleChar125OtherAuthDemoRouteImport.update({
+    id: '/auth/demo',
+    path: '/auth/demo',
     getParentRoute: () => Char123LocaleChar125OtherRouteRoute,
   } as any);
 const Char123LocaleChar125OtherAuthCliLoginRoute =
@@ -198,14 +214,12 @@ const Char123LocaleChar125DashboardEditorContentRouteRoute =
     id: '/_editor/_content',
     getParentRoute: () => Char123LocaleChar125DashboardRouteRoute,
   } as any);
-const Char123LocaleChar125OtherTranslatorMarketplaceDashboardIndexRoute =
-  Char123LocaleChar125OtherTranslatorMarketplaceDashboardIndexRouteImport.update(
-    {
-      id: '/translator-marketplace/dashboard/',
-      path: '/translator-marketplace/dashboard/',
-      getParentRoute: () => Char123LocaleChar125OtherRouteRoute,
-    } as any
-  );
+const Char123LocaleChar125OtherFindReviewerDashboardIndexRoute =
+  Char123LocaleChar125OtherFindReviewerDashboardIndexRouteImport.update({
+    id: '/find-reviewer/dashboard/',
+    path: '/find-reviewer/dashboard/',
+    getParentRoute: () => Char123LocaleChar125OtherRouteRoute,
+  } as any);
 const Char123LocaleChar125OtherAuthPasswordResetRoute =
   Char123LocaleChar125OtherAuthPasswordResetRouteImport.update({
     id: '/auth/password/reset',
@@ -269,6 +283,12 @@ const Char123LocaleChar125DashboardAdminAdminUsersRouteRoute =
     path: '/admin/users',
     getParentRoute: () => Char123LocaleChar125DashboardAdminRouteRoute,
   } as any);
+const Char123LocaleChar125DashboardAdminAdminReviewersRouteRoute =
+  Char123LocaleChar125DashboardAdminAdminReviewersRouteRouteImport.update({
+    id: '/admin/reviewers',
+    path: '/admin/reviewers',
+    getParentRoute: () => Char123LocaleChar125DashboardAdminRouteRoute,
+  } as any);
 const Char123LocaleChar125DashboardAdminAdminProjectsRouteRoute =
   Char123LocaleChar125DashboardAdminAdminProjectsRouteRouteImport.update({
     id: '/admin/projects',
@@ -306,6 +326,13 @@ const Char123LocaleChar125DashboardAdminAdminUsersIndexRoute =
     getParentRoute: () =>
       Char123LocaleChar125DashboardAdminAdminUsersRouteRoute,
   } as any);
+const Char123LocaleChar125DashboardAdminAdminReviewersIndexRoute =
+  Char123LocaleChar125DashboardAdminAdminReviewersIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () =>
+      Char123LocaleChar125DashboardAdminAdminReviewersRouteRoute,
+  } as any);
 const Char123LocaleChar125DashboardAdminAdminProjectsIndexRoute =
   Char123LocaleChar125DashboardAdminAdminProjectsIndexRouteImport.update({
     id: '/',
@@ -327,11 +354,11 @@ const Char123LocaleChar125DashboardAdminAdminAffiliateIndexRoute =
     getParentRoute: () =>
       Char123LocaleChar125DashboardAdminAdminAffiliateRouteRoute,
   } as any);
-const Char123LocaleChar125OtherTranslatorMarketplaceDashboardMissionMissionIdRoute =
-  Char123LocaleChar125OtherTranslatorMarketplaceDashboardMissionMissionIdRouteImport.update(
+const Char123LocaleChar125OtherFindReviewerDashboardMissionMissionIdRoute =
+  Char123LocaleChar125OtherFindReviewerDashboardMissionMissionIdRouteImport.update(
     {
-      id: '/translator-marketplace/dashboard/mission/$missionId',
-      path: '/translator-marketplace/dashboard/mission/$missionId',
+      id: '/find-reviewer/dashboard/mission/$missionId',
+      path: '/find-reviewer/dashboard/mission/$missionId',
       getParentRoute: () => Char123LocaleChar125OtherRouteRoute,
     } as any
   );
@@ -363,6 +390,13 @@ const Char123LocaleChar125DashboardAdminAdminUsersIdRoute =
     getParentRoute: () =>
       Char123LocaleChar125DashboardAdminAdminUsersRouteRoute,
   } as any);
+const Char123LocaleChar125DashboardAdminAdminReviewersReviewerIdRoute =
+  Char123LocaleChar125DashboardAdminAdminReviewersReviewerIdRouteImport.update({
+    id: '/$reviewerId',
+    path: '/$reviewerId',
+    getParentRoute: () =>
+      Char123LocaleChar125DashboardAdminAdminReviewersRouteRoute,
+  } as any);
 const Char123LocaleChar125DashboardAdminAdminProjectsIdRoute =
   Char123LocaleChar125DashboardAdminAdminProjectsIdRouteImport.update({
     id: '/$id',
@@ -388,6 +422,7 @@ const Char123LocaleChar125DashboardAdminAdminAffiliateIdRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute;
   '/{-$locale}': typeof Char123LocaleChar125RouteRouteWithChildren;
+  '/demo': typeof DemoRoute;
   '/healthz': typeof HealthzRoute;
   '/sitemap.xml': typeof SitemapDotxmlRoute;
   '/{-$locale}/$': typeof Char123LocaleChar125SplatRoute;
@@ -402,12 +437,14 @@ export interface FileRoutesByFullPath {
   '/{-$locale}/auth': typeof Char123LocaleChar125OtherAuthNotAuthenticatedRouteRouteWithChildren;
   '/{-$locale}/affiliation/$invitationId': typeof Char123LocaleChar125OtherAffiliationInvitationIdRoute;
   '/{-$locale}/auth/cli-login': typeof Char123LocaleChar125OtherAuthCliLoginRoute;
+  '/{-$locale}/auth/demo': typeof Char123LocaleChar125OtherAuthDemoRoute;
+  '/{-$locale}/find-reviewer/$reviewerId': typeof Char123LocaleChar125OtherFindReviewerReviewerIdRoute;
   '/{-$locale}/onboarding/$step': typeof Char123LocaleChar125OtherOnboardingStepRoute;
-  '/{-$locale}/translator-marketplace/$translatorId': typeof Char123LocaleChar125OtherTranslatorMarketplaceTranslatorIdRoute;
-  '/{-$locale}/translator-marketplace/': typeof Char123LocaleChar125OtherTranslatorMarketplaceIndexRoute;
+  '/{-$locale}/find-reviewer/': typeof Char123LocaleChar125OtherFindReviewerIndexRoute;
   '/{-$locale}/admin/affiliate': typeof Char123LocaleChar125DashboardAdminAdminAffiliateRouteRouteWithChildren;
   '/{-$locale}/admin/organizations': typeof Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRouteWithChildren;
   '/{-$locale}/admin/projects': typeof Char123LocaleChar125DashboardAdminAdminProjectsRouteRouteWithChildren;
+  '/{-$locale}/admin/reviewers': typeof Char123LocaleChar125DashboardAdminAdminReviewersRouteRouteWithChildren;
   '/{-$locale}/admin/users': typeof Char123LocaleChar125DashboardAdminAdminUsersRouteRouteWithChildren;
   '/{-$locale}/admin/discussions': typeof Char123LocaleChar125DashboardAdminAdminDiscussionsRoute;
   '/{-$locale}/editor': typeof Char123LocaleChar125DashboardEditorContentEditorRoute;
@@ -418,18 +455,20 @@ export interface FileRoutesByFullPath {
   '/{-$locale}/auth/password': typeof Char123LocaleChar125OtherAuthPasswordLayoutRoute;
   '/{-$locale}/auth/password/ask-reset': typeof Char123LocaleChar125OtherAuthPasswordAskResetRoute;
   '/{-$locale}/auth/password/reset': typeof Char123LocaleChar125OtherAuthPasswordResetRoute;
-  '/{-$locale}/translator-marketplace/dashboard/': typeof Char123LocaleChar125OtherTranslatorMarketplaceDashboardIndexRoute;
+  '/{-$locale}/find-reviewer/dashboard/': typeof Char123LocaleChar125OtherFindReviewerDashboardIndexRoute;
   '/{-$locale}/admin/affiliate/$id': typeof Char123LocaleChar125DashboardAdminAdminAffiliateIdRoute;
   '/{-$locale}/admin/organizations/$id': typeof Char123LocaleChar125DashboardAdminAdminOrganizationsIdRoute;
   '/{-$locale}/admin/projects/$id': typeof Char123LocaleChar125DashboardAdminAdminProjectsIdRoute;
+  '/{-$locale}/admin/reviewers/$reviewerId': typeof Char123LocaleChar125DashboardAdminAdminReviewersReviewerIdRoute;
   '/{-$locale}/admin/users/$id': typeof Char123LocaleChar125DashboardAdminAdminUsersIdRoute;
   '/{-$locale}/dictionary/$dictionaryKey': typeof Char123LocaleChar125DashboardEditorContentDictionaryDictionaryKeyRoute;
   '/{-$locale}/tags/$tagKey': typeof Char123LocaleChar125DashboardEditorContentTagsTagKeyRoute;
   '/{-$locale}/auth/password/change': typeof Char123LocaleChar125OtherAuthAuthenticatedPasswordChangeRoute;
-  '/{-$locale}/translator-marketplace/dashboard/mission/$missionId': typeof Char123LocaleChar125OtherTranslatorMarketplaceDashboardMissionMissionIdRoute;
+  '/{-$locale}/find-reviewer/dashboard/mission/$missionId': typeof Char123LocaleChar125OtherFindReviewerDashboardMissionMissionIdRoute;
   '/{-$locale}/admin/affiliate/': typeof Char123LocaleChar125DashboardAdminAdminAffiliateIndexRoute;
   '/{-$locale}/admin/organizations/': typeof Char123LocaleChar125DashboardAdminAdminOrganizationsIndexRoute;
   '/{-$locale}/admin/projects/': typeof Char123LocaleChar125DashboardAdminAdminProjectsIndexRoute;
+  '/{-$locale}/admin/reviewers/': typeof Char123LocaleChar125DashboardAdminAdminReviewersIndexRoute;
   '/{-$locale}/admin/users/': typeof Char123LocaleChar125DashboardAdminAdminUsersIndexRoute;
   '/{-$locale}/dictionary/': typeof Char123LocaleChar125DashboardEditorContentDictionaryIndexRoute;
   '/{-$locale}/tags/': typeof Char123LocaleChar125DashboardEditorContentTagsIndexRoute;
@@ -437,6 +476,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute;
   '/{-$locale}': typeof Char123LocaleChar125DashboardIndexRoute;
+  '/demo': typeof DemoRoute;
   '/healthz': typeof HealthzRoute;
   '/sitemap.xml': typeof SitemapDotxmlRoute;
   '/{-$locale}/$': typeof Char123LocaleChar125SplatRoute;
@@ -450,9 +490,10 @@ export interface FileRoutesByTo {
   '/{-$locale}/auth': typeof Char123LocaleChar125OtherAuthNotAuthenticatedRouteRouteWithChildren;
   '/{-$locale}/affiliation/$invitationId': typeof Char123LocaleChar125OtherAffiliationInvitationIdRoute;
   '/{-$locale}/auth/cli-login': typeof Char123LocaleChar125OtherAuthCliLoginRoute;
+  '/{-$locale}/auth/demo': typeof Char123LocaleChar125OtherAuthDemoRoute;
+  '/{-$locale}/find-reviewer/$reviewerId': typeof Char123LocaleChar125OtherFindReviewerReviewerIdRoute;
   '/{-$locale}/onboarding/$step': typeof Char123LocaleChar125OtherOnboardingStepRoute;
-  '/{-$locale}/translator-marketplace/$translatorId': typeof Char123LocaleChar125OtherTranslatorMarketplaceTranslatorIdRoute;
-  '/{-$locale}/translator-marketplace': typeof Char123LocaleChar125OtherTranslatorMarketplaceIndexRoute;
+  '/{-$locale}/find-reviewer': typeof Char123LocaleChar125OtherFindReviewerIndexRoute;
   '/{-$locale}/admin/discussions': typeof Char123LocaleChar125DashboardAdminAdminDiscussionsRoute;
   '/{-$locale}/editor': typeof Char123LocaleChar125DashboardEditorContentEditorRoute;
   '/{-$locale}/translate': typeof Char123LocaleChar125DashboardEditorContentTranslateRoute;
@@ -462,18 +503,20 @@ export interface FileRoutesByTo {
   '/{-$locale}/auth/password': typeof Char123LocaleChar125OtherAuthPasswordLayoutRoute;
   '/{-$locale}/auth/password/ask-reset': typeof Char123LocaleChar125OtherAuthPasswordAskResetRoute;
   '/{-$locale}/auth/password/reset': typeof Char123LocaleChar125OtherAuthPasswordResetRoute;
-  '/{-$locale}/translator-marketplace/dashboard': typeof Char123LocaleChar125OtherTranslatorMarketplaceDashboardIndexRoute;
+  '/{-$locale}/find-reviewer/dashboard': typeof Char123LocaleChar125OtherFindReviewerDashboardIndexRoute;
   '/{-$locale}/admin/affiliate/$id': typeof Char123LocaleChar125DashboardAdminAdminAffiliateIdRoute;
   '/{-$locale}/admin/organizations/$id': typeof Char123LocaleChar125DashboardAdminAdminOrganizationsIdRoute;
   '/{-$locale}/admin/projects/$id': typeof Char123LocaleChar125DashboardAdminAdminProjectsIdRoute;
+  '/{-$locale}/admin/reviewers/$reviewerId': typeof Char123LocaleChar125DashboardAdminAdminReviewersReviewerIdRoute;
   '/{-$locale}/admin/users/$id': typeof Char123LocaleChar125DashboardAdminAdminUsersIdRoute;
   '/{-$locale}/dictionary/$dictionaryKey': typeof Char123LocaleChar125DashboardEditorContentDictionaryDictionaryKeyRoute;
   '/{-$locale}/tags/$tagKey': typeof Char123LocaleChar125DashboardEditorContentTagsTagKeyRoute;
   '/{-$locale}/auth/password/change': typeof Char123LocaleChar125OtherAuthAuthenticatedPasswordChangeRoute;
-  '/{-$locale}/translator-marketplace/dashboard/mission/$missionId': typeof Char123LocaleChar125OtherTranslatorMarketplaceDashboardMissionMissionIdRoute;
+  '/{-$locale}/find-reviewer/dashboard/mission/$missionId': typeof Char123LocaleChar125OtherFindReviewerDashboardMissionMissionIdRoute;
   '/{-$locale}/admin/affiliate': typeof Char123LocaleChar125DashboardAdminAdminAffiliateIndexRoute;
   '/{-$locale}/admin/organizations': typeof Char123LocaleChar125DashboardAdminAdminOrganizationsIndexRoute;
   '/{-$locale}/admin/projects': typeof Char123LocaleChar125DashboardAdminAdminProjectsIndexRoute;
+  '/{-$locale}/admin/reviewers': typeof Char123LocaleChar125DashboardAdminAdminReviewersIndexRoute;
   '/{-$locale}/admin/users': typeof Char123LocaleChar125DashboardAdminAdminUsersIndexRoute;
   '/{-$locale}/dictionary': typeof Char123LocaleChar125DashboardEditorContentDictionaryIndexRoute;
   '/{-$locale}/tags': typeof Char123LocaleChar125DashboardEditorContentTagsIndexRoute;
@@ -482,6 +525,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport;
   '/': typeof IndexRoute;
   '/{-$locale}': typeof Char123LocaleChar125RouteRouteWithChildren;
+  '/demo': typeof DemoRoute;
   '/healthz': typeof HealthzRoute;
   '/sitemap.xml': typeof SitemapDotxmlRoute;
   '/{-$locale}/_dashboard': typeof Char123LocaleChar125DashboardRouteRouteWithChildren;
@@ -501,12 +545,14 @@ export interface FileRoutesById {
   '/{-$locale}/_other/auth/_not-authenticated': typeof Char123LocaleChar125OtherAuthNotAuthenticatedRouteRouteWithChildren;
   '/{-$locale}/_other/affiliation/$invitationId': typeof Char123LocaleChar125OtherAffiliationInvitationIdRoute;
   '/{-$locale}/_other/auth/cli-login': typeof Char123LocaleChar125OtherAuthCliLoginRoute;
+  '/{-$locale}/_other/auth/demo': typeof Char123LocaleChar125OtherAuthDemoRoute;
+  '/{-$locale}/_other/find-reviewer/$reviewerId': typeof Char123LocaleChar125OtherFindReviewerReviewerIdRoute;
   '/{-$locale}/_other/onboarding/$step': typeof Char123LocaleChar125OtherOnboardingStepRoute;
-  '/{-$locale}/_other/translator-marketplace/$translatorId': typeof Char123LocaleChar125OtherTranslatorMarketplaceTranslatorIdRoute;
-  '/{-$locale}/_other/translator-marketplace/': typeof Char123LocaleChar125OtherTranslatorMarketplaceIndexRoute;
+  '/{-$locale}/_other/find-reviewer/': typeof Char123LocaleChar125OtherFindReviewerIndexRoute;
   '/{-$locale}/_dashboard/_admin/admin/affiliate': typeof Char123LocaleChar125DashboardAdminAdminAffiliateRouteRouteWithChildren;
   '/{-$locale}/_dashboard/_admin/admin/organizations': typeof Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRouteWithChildren;
   '/{-$locale}/_dashboard/_admin/admin/projects': typeof Char123LocaleChar125DashboardAdminAdminProjectsRouteRouteWithChildren;
+  '/{-$locale}/_dashboard/_admin/admin/reviewers': typeof Char123LocaleChar125DashboardAdminAdminReviewersRouteRouteWithChildren;
   '/{-$locale}/_dashboard/_admin/admin/users': typeof Char123LocaleChar125DashboardAdminAdminUsersRouteRouteWithChildren;
   '/{-$locale}/_dashboard/_admin/admin/discussions': typeof Char123LocaleChar125DashboardAdminAdminDiscussionsRoute;
   '/{-$locale}/_dashboard/_editor/_content/editor': typeof Char123LocaleChar125DashboardEditorContentEditorRoute;
@@ -517,18 +563,20 @@ export interface FileRoutesById {
   '/{-$locale}/_other/auth/password/_layout': typeof Char123LocaleChar125OtherAuthPasswordLayoutRoute;
   '/{-$locale}/_other/auth/password/ask-reset': typeof Char123LocaleChar125OtherAuthPasswordAskResetRoute;
   '/{-$locale}/_other/auth/password/reset': typeof Char123LocaleChar125OtherAuthPasswordResetRoute;
-  '/{-$locale}/_other/translator-marketplace/dashboard/': typeof Char123LocaleChar125OtherTranslatorMarketplaceDashboardIndexRoute;
+  '/{-$locale}/_other/find-reviewer/dashboard/': typeof Char123LocaleChar125OtherFindReviewerDashboardIndexRoute;
   '/{-$locale}/_dashboard/_admin/admin/affiliate/$id': typeof Char123LocaleChar125DashboardAdminAdminAffiliateIdRoute;
   '/{-$locale}/_dashboard/_admin/admin/organizations/$id': typeof Char123LocaleChar125DashboardAdminAdminOrganizationsIdRoute;
   '/{-$locale}/_dashboard/_admin/admin/projects/$id': typeof Char123LocaleChar125DashboardAdminAdminProjectsIdRoute;
+  '/{-$locale}/_dashboard/_admin/admin/reviewers/$reviewerId': typeof Char123LocaleChar125DashboardAdminAdminReviewersReviewerIdRoute;
   '/{-$locale}/_dashboard/_admin/admin/users/$id': typeof Char123LocaleChar125DashboardAdminAdminUsersIdRoute;
   '/{-$locale}/_dashboard/_editor/_content/dictionary/$dictionaryKey': typeof Char123LocaleChar125DashboardEditorContentDictionaryDictionaryKeyRoute;
   '/{-$locale}/_dashboard/_editor/_content/tags/$tagKey': typeof Char123LocaleChar125DashboardEditorContentTagsTagKeyRoute;
   '/{-$locale}/_other/auth/_authenticated/password/change': typeof Char123LocaleChar125OtherAuthAuthenticatedPasswordChangeRoute;
-  '/{-$locale}/_other/translator-marketplace/dashboard/mission/$missionId': typeof Char123LocaleChar125OtherTranslatorMarketplaceDashboardMissionMissionIdRoute;
+  '/{-$locale}/_other/find-reviewer/dashboard/mission/$missionId': typeof Char123LocaleChar125OtherFindReviewerDashboardMissionMissionIdRoute;
   '/{-$locale}/_dashboard/_admin/admin/affiliate/': typeof Char123LocaleChar125DashboardAdminAdminAffiliateIndexRoute;
   '/{-$locale}/_dashboard/_admin/admin/organizations/': typeof Char123LocaleChar125DashboardAdminAdminOrganizationsIndexRoute;
   '/{-$locale}/_dashboard/_admin/admin/projects/': typeof Char123LocaleChar125DashboardAdminAdminProjectsIndexRoute;
+  '/{-$locale}/_dashboard/_admin/admin/reviewers/': typeof Char123LocaleChar125DashboardAdminAdminReviewersIndexRoute;
   '/{-$locale}/_dashboard/_admin/admin/users/': typeof Char123LocaleChar125DashboardAdminAdminUsersIndexRoute;
   '/{-$locale}/_dashboard/_editor/_content/dictionary/': typeof Char123LocaleChar125DashboardEditorContentDictionaryIndexRoute;
   '/{-$locale}/_dashboard/_editor/_content/tags/': typeof Char123LocaleChar125DashboardEditorContentTagsIndexRoute;
@@ -538,6 +586,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/{-$locale}'
+    | '/demo'
     | '/healthz'
     | '/sitemap.xml'
     | '/{-$locale}/$'
@@ -552,12 +601,14 @@ export interface FileRouteTypes {
     | '/{-$locale}/auth'
     | '/{-$locale}/affiliation/$invitationId'
     | '/{-$locale}/auth/cli-login'
+    | '/{-$locale}/auth/demo'
+    | '/{-$locale}/find-reviewer/$reviewerId'
     | '/{-$locale}/onboarding/$step'
-    | '/{-$locale}/translator-marketplace/$translatorId'
-    | '/{-$locale}/translator-marketplace/'
+    | '/{-$locale}/find-reviewer/'
     | '/{-$locale}/admin/affiliate'
     | '/{-$locale}/admin/organizations'
     | '/{-$locale}/admin/projects'
+    | '/{-$locale}/admin/reviewers'
     | '/{-$locale}/admin/users'
     | '/{-$locale}/admin/discussions'
     | '/{-$locale}/editor'
@@ -568,18 +619,20 @@ export interface FileRouteTypes {
     | '/{-$locale}/auth/password'
     | '/{-$locale}/auth/password/ask-reset'
     | '/{-$locale}/auth/password/reset'
-    | '/{-$locale}/translator-marketplace/dashboard/'
+    | '/{-$locale}/find-reviewer/dashboard/'
     | '/{-$locale}/admin/affiliate/$id'
     | '/{-$locale}/admin/organizations/$id'
     | '/{-$locale}/admin/projects/$id'
+    | '/{-$locale}/admin/reviewers/$reviewerId'
     | '/{-$locale}/admin/users/$id'
     | '/{-$locale}/dictionary/$dictionaryKey'
     | '/{-$locale}/tags/$tagKey'
     | '/{-$locale}/auth/password/change'
-    | '/{-$locale}/translator-marketplace/dashboard/mission/$missionId'
+    | '/{-$locale}/find-reviewer/dashboard/mission/$missionId'
     | '/{-$locale}/admin/affiliate/'
     | '/{-$locale}/admin/organizations/'
     | '/{-$locale}/admin/projects/'
+    | '/{-$locale}/admin/reviewers/'
     | '/{-$locale}/admin/users/'
     | '/{-$locale}/dictionary/'
     | '/{-$locale}/tags/';
@@ -587,6 +640,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/{-$locale}'
+    | '/demo'
     | '/healthz'
     | '/sitemap.xml'
     | '/{-$locale}/$'
@@ -600,9 +654,10 @@ export interface FileRouteTypes {
     | '/{-$locale}/auth'
     | '/{-$locale}/affiliation/$invitationId'
     | '/{-$locale}/auth/cli-login'
+    | '/{-$locale}/auth/demo'
+    | '/{-$locale}/find-reviewer/$reviewerId'
     | '/{-$locale}/onboarding/$step'
-    | '/{-$locale}/translator-marketplace/$translatorId'
-    | '/{-$locale}/translator-marketplace'
+    | '/{-$locale}/find-reviewer'
     | '/{-$locale}/admin/discussions'
     | '/{-$locale}/editor'
     | '/{-$locale}/translate'
@@ -612,18 +667,20 @@ export interface FileRouteTypes {
     | '/{-$locale}/auth/password'
     | '/{-$locale}/auth/password/ask-reset'
     | '/{-$locale}/auth/password/reset'
-    | '/{-$locale}/translator-marketplace/dashboard'
+    | '/{-$locale}/find-reviewer/dashboard'
     | '/{-$locale}/admin/affiliate/$id'
     | '/{-$locale}/admin/organizations/$id'
     | '/{-$locale}/admin/projects/$id'
+    | '/{-$locale}/admin/reviewers/$reviewerId'
     | '/{-$locale}/admin/users/$id'
     | '/{-$locale}/dictionary/$dictionaryKey'
     | '/{-$locale}/tags/$tagKey'
     | '/{-$locale}/auth/password/change'
-    | '/{-$locale}/translator-marketplace/dashboard/mission/$missionId'
+    | '/{-$locale}/find-reviewer/dashboard/mission/$missionId'
     | '/{-$locale}/admin/affiliate'
     | '/{-$locale}/admin/organizations'
     | '/{-$locale}/admin/projects'
+    | '/{-$locale}/admin/reviewers'
     | '/{-$locale}/admin/users'
     | '/{-$locale}/dictionary'
     | '/{-$locale}/tags';
@@ -631,6 +688,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/{-$locale}'
+    | '/demo'
     | '/healthz'
     | '/sitemap.xml'
     | '/{-$locale}/_dashboard'
@@ -650,12 +708,14 @@ export interface FileRouteTypes {
     | '/{-$locale}/_other/auth/_not-authenticated'
     | '/{-$locale}/_other/affiliation/$invitationId'
     | '/{-$locale}/_other/auth/cli-login'
+    | '/{-$locale}/_other/auth/demo'
+    | '/{-$locale}/_other/find-reviewer/$reviewerId'
     | '/{-$locale}/_other/onboarding/$step'
-    | '/{-$locale}/_other/translator-marketplace/$translatorId'
-    | '/{-$locale}/_other/translator-marketplace/'
+    | '/{-$locale}/_other/find-reviewer/'
     | '/{-$locale}/_dashboard/_admin/admin/affiliate'
     | '/{-$locale}/_dashboard/_admin/admin/organizations'
     | '/{-$locale}/_dashboard/_admin/admin/projects'
+    | '/{-$locale}/_dashboard/_admin/admin/reviewers'
     | '/{-$locale}/_dashboard/_admin/admin/users'
     | '/{-$locale}/_dashboard/_admin/admin/discussions'
     | '/{-$locale}/_dashboard/_editor/_content/editor'
@@ -666,18 +726,20 @@ export interface FileRouteTypes {
     | '/{-$locale}/_other/auth/password/_layout'
     | '/{-$locale}/_other/auth/password/ask-reset'
     | '/{-$locale}/_other/auth/password/reset'
-    | '/{-$locale}/_other/translator-marketplace/dashboard/'
+    | '/{-$locale}/_other/find-reviewer/dashboard/'
     | '/{-$locale}/_dashboard/_admin/admin/affiliate/$id'
     | '/{-$locale}/_dashboard/_admin/admin/organizations/$id'
     | '/{-$locale}/_dashboard/_admin/admin/projects/$id'
+    | '/{-$locale}/_dashboard/_admin/admin/reviewers/$reviewerId'
     | '/{-$locale}/_dashboard/_admin/admin/users/$id'
     | '/{-$locale}/_dashboard/_editor/_content/dictionary/$dictionaryKey'
     | '/{-$locale}/_dashboard/_editor/_content/tags/$tagKey'
     | '/{-$locale}/_other/auth/_authenticated/password/change'
-    | '/{-$locale}/_other/translator-marketplace/dashboard/mission/$missionId'
+    | '/{-$locale}/_other/find-reviewer/dashboard/mission/$missionId'
     | '/{-$locale}/_dashboard/_admin/admin/affiliate/'
     | '/{-$locale}/_dashboard/_admin/admin/organizations/'
     | '/{-$locale}/_dashboard/_admin/admin/projects/'
+    | '/{-$locale}/_dashboard/_admin/admin/reviewers/'
     | '/{-$locale}/_dashboard/_admin/admin/users/'
     | '/{-$locale}/_dashboard/_editor/_content/dictionary/'
     | '/{-$locale}/_dashboard/_editor/_content/tags/';
@@ -686,6 +748,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute;
   Char123LocaleChar125RouteRoute: typeof Char123LocaleChar125RouteRouteWithChildren;
+  DemoRoute: typeof DemoRoute;
   HealthzRoute: typeof HealthzRoute;
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute;
 }
@@ -704,6 +767,13 @@ declare module '@tanstack/react-router' {
       path: '/healthz';
       fullPath: '/healthz';
       preLoaderRoute: typeof HealthzRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    '/demo': {
+      id: '/demo';
+      path: '/demo';
+      fullPath: '/demo';
+      preLoaderRoute: typeof DemoRouteImport;
       parentRoute: typeof rootRouteImport;
     };
     '/{-$locale}': {
@@ -804,18 +874,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char123LocaleChar125DashboardAdminRouteRouteImport;
       parentRoute: typeof Char123LocaleChar125DashboardRouteRoute;
     };
-    '/{-$locale}/_other/translator-marketplace/': {
-      id: '/{-$locale}/_other/translator-marketplace/';
-      path: '/translator-marketplace';
-      fullPath: '/{-$locale}/translator-marketplace/';
-      preLoaderRoute: typeof Char123LocaleChar125OtherTranslatorMarketplaceIndexRouteImport;
-      parentRoute: typeof Char123LocaleChar125OtherRouteRoute;
-    };
-    '/{-$locale}/_other/translator-marketplace/$translatorId': {
-      id: '/{-$locale}/_other/translator-marketplace/$translatorId';
-      path: '/translator-marketplace/$translatorId';
-      fullPath: '/{-$locale}/translator-marketplace/$translatorId';
-      preLoaderRoute: typeof Char123LocaleChar125OtherTranslatorMarketplaceTranslatorIdRouteImport;
+    '/{-$locale}/_other/find-reviewer/': {
+      id: '/{-$locale}/_other/find-reviewer/';
+      path: '/find-reviewer';
+      fullPath: '/{-$locale}/find-reviewer/';
+      preLoaderRoute: typeof Char123LocaleChar125OtherFindReviewerIndexRouteImport;
       parentRoute: typeof Char123LocaleChar125OtherRouteRoute;
     };
     '/{-$locale}/_other/onboarding/$step': {
@@ -823,6 +886,20 @@ declare module '@tanstack/react-router' {
       path: '/onboarding/$step';
       fullPath: '/{-$locale}/onboarding/$step';
       preLoaderRoute: typeof Char123LocaleChar125OtherOnboardingStepRouteImport;
+      parentRoute: typeof Char123LocaleChar125OtherRouteRoute;
+    };
+    '/{-$locale}/_other/find-reviewer/$reviewerId': {
+      id: '/{-$locale}/_other/find-reviewer/$reviewerId';
+      path: '/find-reviewer/$reviewerId';
+      fullPath: '/{-$locale}/find-reviewer/$reviewerId';
+      preLoaderRoute: typeof Char123LocaleChar125OtherFindReviewerReviewerIdRouteImport;
+      parentRoute: typeof Char123LocaleChar125OtherRouteRoute;
+    };
+    '/{-$locale}/_other/auth/demo': {
+      id: '/{-$locale}/_other/auth/demo';
+      path: '/auth/demo';
+      fullPath: '/{-$locale}/auth/demo';
+      preLoaderRoute: typeof Char123LocaleChar125OtherAuthDemoRouteImport;
       parentRoute: typeof Char123LocaleChar125OtherRouteRoute;
     };
     '/{-$locale}/_other/auth/cli-login': {
@@ -860,11 +937,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char123LocaleChar125DashboardEditorContentRouteRouteImport;
       parentRoute: typeof Char123LocaleChar125DashboardRouteRoute;
     };
-    '/{-$locale}/_other/translator-marketplace/dashboard/': {
-      id: '/{-$locale}/_other/translator-marketplace/dashboard/';
-      path: '/translator-marketplace/dashboard';
-      fullPath: '/{-$locale}/translator-marketplace/dashboard/';
-      preLoaderRoute: typeof Char123LocaleChar125OtherTranslatorMarketplaceDashboardIndexRouteImport;
+    '/{-$locale}/_other/find-reviewer/dashboard/': {
+      id: '/{-$locale}/_other/find-reviewer/dashboard/';
+      path: '/find-reviewer/dashboard';
+      fullPath: '/{-$locale}/find-reviewer/dashboard/';
+      preLoaderRoute: typeof Char123LocaleChar125OtherFindReviewerDashboardIndexRouteImport;
       parentRoute: typeof Char123LocaleChar125OtherRouteRoute;
     };
     '/{-$locale}/_other/auth/password/reset': {
@@ -937,6 +1014,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminUsersRouteRouteImport;
       parentRoute: typeof Char123LocaleChar125DashboardAdminRouteRoute;
     };
+    '/{-$locale}/_dashboard/_admin/admin/reviewers': {
+      id: '/{-$locale}/_dashboard/_admin/admin/reviewers';
+      path: '/admin/reviewers';
+      fullPath: '/{-$locale}/admin/reviewers';
+      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminReviewersRouteRouteImport;
+      parentRoute: typeof Char123LocaleChar125DashboardAdminRouteRoute;
+    };
     '/{-$locale}/_dashboard/_admin/admin/projects': {
       id: '/{-$locale}/_dashboard/_admin/admin/projects';
       path: '/admin/projects';
@@ -979,6 +1063,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminUsersIndexRouteImport;
       parentRoute: typeof Char123LocaleChar125DashboardAdminAdminUsersRouteRoute;
     };
+    '/{-$locale}/_dashboard/_admin/admin/reviewers/': {
+      id: '/{-$locale}/_dashboard/_admin/admin/reviewers/';
+      path: '/';
+      fullPath: '/{-$locale}/admin/reviewers/';
+      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminReviewersIndexRouteImport;
+      parentRoute: typeof Char123LocaleChar125DashboardAdminAdminReviewersRouteRoute;
+    };
     '/{-$locale}/_dashboard/_admin/admin/projects/': {
       id: '/{-$locale}/_dashboard/_admin/admin/projects/';
       path: '/';
@@ -1000,11 +1091,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminAffiliateIndexRouteImport;
       parentRoute: typeof Char123LocaleChar125DashboardAdminAdminAffiliateRouteRoute;
     };
-    '/{-$locale}/_other/translator-marketplace/dashboard/mission/$missionId': {
-      id: '/{-$locale}/_other/translator-marketplace/dashboard/mission/$missionId';
-      path: '/translator-marketplace/dashboard/mission/$missionId';
-      fullPath: '/{-$locale}/translator-marketplace/dashboard/mission/$missionId';
-      preLoaderRoute: typeof Char123LocaleChar125OtherTranslatorMarketplaceDashboardMissionMissionIdRouteImport;
+    '/{-$locale}/_other/find-reviewer/dashboard/mission/$missionId': {
+      id: '/{-$locale}/_other/find-reviewer/dashboard/mission/$missionId';
+      path: '/find-reviewer/dashboard/mission/$missionId';
+      fullPath: '/{-$locale}/find-reviewer/dashboard/mission/$missionId';
+      preLoaderRoute: typeof Char123LocaleChar125OtherFindReviewerDashboardMissionMissionIdRouteImport;
       parentRoute: typeof Char123LocaleChar125OtherRouteRoute;
     };
     '/{-$locale}/_other/auth/_authenticated/password/change': {
@@ -1034,6 +1125,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/{-$locale}/admin/users/$id';
       preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminUsersIdRouteImport;
       parentRoute: typeof Char123LocaleChar125DashboardAdminAdminUsersRouteRoute;
+    };
+    '/{-$locale}/_dashboard/_admin/admin/reviewers/$reviewerId': {
+      id: '/{-$locale}/_dashboard/_admin/admin/reviewers/$reviewerId';
+      path: '/$reviewerId';
+      fullPath: '/{-$locale}/admin/reviewers/$reviewerId';
+      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminReviewersReviewerIdRouteImport;
+      parentRoute: typeof Char123LocaleChar125DashboardAdminAdminReviewersRouteRoute;
     };
     '/{-$locale}/_dashboard/_admin/admin/projects/$id': {
       id: '/{-$locale}/_dashboard/_admin/admin/projects/$id';
@@ -1113,6 +1211,24 @@ const Char123LocaleChar125DashboardAdminAdminProjectsRouteRouteWithChildren =
     Char123LocaleChar125DashboardAdminAdminProjectsRouteRouteChildren
   );
 
+interface Char123LocaleChar125DashboardAdminAdminReviewersRouteRouteChildren {
+  Char123LocaleChar125DashboardAdminAdminReviewersReviewerIdRoute: typeof Char123LocaleChar125DashboardAdminAdminReviewersReviewerIdRoute;
+  Char123LocaleChar125DashboardAdminAdminReviewersIndexRoute: typeof Char123LocaleChar125DashboardAdminAdminReviewersIndexRoute;
+}
+
+const Char123LocaleChar125DashboardAdminAdminReviewersRouteRouteChildren: Char123LocaleChar125DashboardAdminAdminReviewersRouteRouteChildren =
+  {
+    Char123LocaleChar125DashboardAdminAdminReviewersReviewerIdRoute:
+      Char123LocaleChar125DashboardAdminAdminReviewersReviewerIdRoute,
+    Char123LocaleChar125DashboardAdminAdminReviewersIndexRoute:
+      Char123LocaleChar125DashboardAdminAdminReviewersIndexRoute,
+  };
+
+const Char123LocaleChar125DashboardAdminAdminReviewersRouteRouteWithChildren =
+  Char123LocaleChar125DashboardAdminAdminReviewersRouteRoute._addFileChildren(
+    Char123LocaleChar125DashboardAdminAdminReviewersRouteRouteChildren
+  );
+
 interface Char123LocaleChar125DashboardAdminAdminUsersRouteRouteChildren {
   Char123LocaleChar125DashboardAdminAdminUsersIdRoute: typeof Char123LocaleChar125DashboardAdminAdminUsersIdRoute;
   Char123LocaleChar125DashboardAdminAdminUsersIndexRoute: typeof Char123LocaleChar125DashboardAdminAdminUsersIndexRoute;
@@ -1135,6 +1251,7 @@ interface Char123LocaleChar125DashboardAdminRouteRouteChildren {
   Char123LocaleChar125DashboardAdminAdminAffiliateRouteRoute: typeof Char123LocaleChar125DashboardAdminAdminAffiliateRouteRouteWithChildren;
   Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRoute: typeof Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRouteWithChildren;
   Char123LocaleChar125DashboardAdminAdminProjectsRouteRoute: typeof Char123LocaleChar125DashboardAdminAdminProjectsRouteRouteWithChildren;
+  Char123LocaleChar125DashboardAdminAdminReviewersRouteRoute: typeof Char123LocaleChar125DashboardAdminAdminReviewersRouteRouteWithChildren;
   Char123LocaleChar125DashboardAdminAdminUsersRouteRoute: typeof Char123LocaleChar125DashboardAdminAdminUsersRouteRouteWithChildren;
   Char123LocaleChar125DashboardAdminAdminDiscussionsRoute: typeof Char123LocaleChar125DashboardAdminAdminDiscussionsRoute;
 }
@@ -1147,6 +1264,8 @@ const Char123LocaleChar125DashboardAdminRouteRouteChildren: Char123LocaleChar125
       Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRouteWithChildren,
     Char123LocaleChar125DashboardAdminAdminProjectsRouteRoute:
       Char123LocaleChar125DashboardAdminAdminProjectsRouteRouteWithChildren,
+    Char123LocaleChar125DashboardAdminAdminReviewersRouteRoute:
+      Char123LocaleChar125DashboardAdminAdminReviewersRouteRouteWithChildren,
     Char123LocaleChar125DashboardAdminAdminUsersRouteRoute:
       Char123LocaleChar125DashboardAdminAdminUsersRouteRouteWithChildren,
     Char123LocaleChar125DashboardAdminAdminDiscussionsRoute:
@@ -1263,14 +1382,15 @@ interface Char123LocaleChar125OtherRouteRouteChildren {
   Char123LocaleChar125OtherAuthNotAuthenticatedRouteRoute: typeof Char123LocaleChar125OtherAuthNotAuthenticatedRouteRouteWithChildren;
   Char123LocaleChar125OtherAffiliationInvitationIdRoute: typeof Char123LocaleChar125OtherAffiliationInvitationIdRoute;
   Char123LocaleChar125OtherAuthCliLoginRoute: typeof Char123LocaleChar125OtherAuthCliLoginRoute;
+  Char123LocaleChar125OtherAuthDemoRoute: typeof Char123LocaleChar125OtherAuthDemoRoute;
+  Char123LocaleChar125OtherFindReviewerReviewerIdRoute: typeof Char123LocaleChar125OtherFindReviewerReviewerIdRoute;
   Char123LocaleChar125OtherOnboardingStepRoute: typeof Char123LocaleChar125OtherOnboardingStepRoute;
-  Char123LocaleChar125OtherTranslatorMarketplaceTranslatorIdRoute: typeof Char123LocaleChar125OtherTranslatorMarketplaceTranslatorIdRoute;
-  Char123LocaleChar125OtherTranslatorMarketplaceIndexRoute: typeof Char123LocaleChar125OtherTranslatorMarketplaceIndexRoute;
+  Char123LocaleChar125OtherFindReviewerIndexRoute: typeof Char123LocaleChar125OtherFindReviewerIndexRoute;
   Char123LocaleChar125OtherAuthPasswordLayoutRoute: typeof Char123LocaleChar125OtherAuthPasswordLayoutRoute;
   Char123LocaleChar125OtherAuthPasswordAskResetRoute: typeof Char123LocaleChar125OtherAuthPasswordAskResetRoute;
   Char123LocaleChar125OtherAuthPasswordResetRoute: typeof Char123LocaleChar125OtherAuthPasswordResetRoute;
-  Char123LocaleChar125OtherTranslatorMarketplaceDashboardIndexRoute: typeof Char123LocaleChar125OtherTranslatorMarketplaceDashboardIndexRoute;
-  Char123LocaleChar125OtherTranslatorMarketplaceDashboardMissionMissionIdRoute: typeof Char123LocaleChar125OtherTranslatorMarketplaceDashboardMissionMissionIdRoute;
+  Char123LocaleChar125OtherFindReviewerDashboardIndexRoute: typeof Char123LocaleChar125OtherFindReviewerDashboardIndexRoute;
+  Char123LocaleChar125OtherFindReviewerDashboardMissionMissionIdRoute: typeof Char123LocaleChar125OtherFindReviewerDashboardMissionMissionIdRoute;
 }
 
 const Char123LocaleChar125OtherRouteRouteChildren: Char123LocaleChar125OtherRouteRouteChildren =
@@ -1285,22 +1405,24 @@ const Char123LocaleChar125OtherRouteRouteChildren: Char123LocaleChar125OtherRout
       Char123LocaleChar125OtherAffiliationInvitationIdRoute,
     Char123LocaleChar125OtherAuthCliLoginRoute:
       Char123LocaleChar125OtherAuthCliLoginRoute,
+    Char123LocaleChar125OtherAuthDemoRoute:
+      Char123LocaleChar125OtherAuthDemoRoute,
+    Char123LocaleChar125OtherFindReviewerReviewerIdRoute:
+      Char123LocaleChar125OtherFindReviewerReviewerIdRoute,
     Char123LocaleChar125OtherOnboardingStepRoute:
       Char123LocaleChar125OtherOnboardingStepRoute,
-    Char123LocaleChar125OtherTranslatorMarketplaceTranslatorIdRoute:
-      Char123LocaleChar125OtherTranslatorMarketplaceTranslatorIdRoute,
-    Char123LocaleChar125OtherTranslatorMarketplaceIndexRoute:
-      Char123LocaleChar125OtherTranslatorMarketplaceIndexRoute,
+    Char123LocaleChar125OtherFindReviewerIndexRoute:
+      Char123LocaleChar125OtherFindReviewerIndexRoute,
     Char123LocaleChar125OtherAuthPasswordLayoutRoute:
       Char123LocaleChar125OtherAuthPasswordLayoutRoute,
     Char123LocaleChar125OtherAuthPasswordAskResetRoute:
       Char123LocaleChar125OtherAuthPasswordAskResetRoute,
     Char123LocaleChar125OtherAuthPasswordResetRoute:
       Char123LocaleChar125OtherAuthPasswordResetRoute,
-    Char123LocaleChar125OtherTranslatorMarketplaceDashboardIndexRoute:
-      Char123LocaleChar125OtherTranslatorMarketplaceDashboardIndexRoute,
-    Char123LocaleChar125OtherTranslatorMarketplaceDashboardMissionMissionIdRoute:
-      Char123LocaleChar125OtherTranslatorMarketplaceDashboardMissionMissionIdRoute,
+    Char123LocaleChar125OtherFindReviewerDashboardIndexRoute:
+      Char123LocaleChar125OtherFindReviewerDashboardIndexRoute,
+    Char123LocaleChar125OtherFindReviewerDashboardMissionMissionIdRoute:
+      Char123LocaleChar125OtherFindReviewerDashboardMissionMissionIdRoute,
   };
 
 const Char123LocaleChar125OtherRouteRouteWithChildren =
@@ -1335,6 +1457,7 @@ const Char123LocaleChar125RouteRouteWithChildren =
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   Char123LocaleChar125RouteRoute: Char123LocaleChar125RouteRouteWithChildren,
+  DemoRoute: DemoRoute,
   HealthzRoute: HealthzRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
 };
@@ -1342,7 +1465,6 @@ export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>();
 
-import type { createStart } from '@tanstack/react-start';
 import type { getRouter } from './router.tsx';
 
 declare module '@tanstack/react-start' {

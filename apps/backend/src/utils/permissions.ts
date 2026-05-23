@@ -302,11 +302,10 @@ export const ROLE_POLICY = {
       ),
   },
   project_reviewer: {
+    'project:read': ({ user, project }: SessionContext) =>
+      (project as any)?.viewersIds?.map(String).includes(String(user?.id)),
     'dictionary:read': ({ user, project }: SessionContext) =>
-      project?.membersIds?.map(String).includes(String(user?.id)),
-    'dictionary:write': ({ user, project }: SessionContext) =>
-      project?.membersIds?.map(String).includes(String(user?.id)),
-
+      (project as any)?.viewersIds?.map(String).includes(String(user?.id)),
     'tag:read': () => true,
   },
 } as const satisfies RolePolicy;
@@ -368,12 +367,13 @@ export const getSessionRoles = (session?: SessionContext | null): Roles[] => {
     roles.push('project_user');
   }
 
-  //   const isProjectReviewer =
-  //      session.project?.reviewersIds?.includes(session.user!.id);
+  const isProjectReviewer = (project as any)?.viewersIds
+    ?.map(String)
+    .includes(String(user?.id));
 
-  //   if (isProjectReviewer) {
-  //     roles.push('project_reviewer');
-  //   }
+  if (isProjectReviewer) {
+    roles.push('project_reviewer');
+  }
 
   return roles;
 };

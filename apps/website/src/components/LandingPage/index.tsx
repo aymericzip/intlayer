@@ -3,6 +3,7 @@ import { CommonQuestionsSection } from '@components/LandingPage/CommonQuestionsS
 import { Loader } from '@intlayer/design-system/loader';
 import dynamic from 'next/dynamic';
 import type { FC } from 'react';
+import { useIntlayer } from 'next-intlayer';
 import { LandingSection } from './LandingSection';
 
 const DynamicAvailableTechnoSection = dynamic(
@@ -82,33 +83,59 @@ const DynamicFeatureFlagsSection = dynamic(
   }
 );
 
-export const LandingPage: FC = () => (
-  <>
-    <div className="flex flex-col gap-10">
-      <BackgroundLayout>
-        <LandingSection />
-        <DynamicFeaturesSection />
-      </BackgroundLayout>
+export const LandingPage: FC = () => {
+  const content = useIntlayer('landing-page');
 
-      <DynamicWhyToChoseIntlayerSection />
+  return (
+    <>
+      <main aria-label={content.landingMainTitle.value} className="flex flex-col gap-10">
+        <BackgroundLayout>
+          <section aria-label={content.heroSection.value}>
+            <LandingSection />
+          </section>
+          <section aria-label={content.keyFeaturesSection.value}>
+            <DynamicFeaturesSection />
+          </section>
+        </BackgroundLayout>
 
-      <div className="relative flex w-full flex-col gap-24 overflow-hidden bg-neutral/5 py-16 dark:bg-neutral-900/10">
-        <DynamicI18nBenchmarkSection />
+        <section aria-label={content.whyChooseIntlayerSection.value}>
+          <DynamicWhyToChoseIntlayerSection />
+        </section>
 
-        <DynamicLanguageSection />
+        <div className="relative flex w-full flex-col gap-24 overflow-hidden bg-neutral/5 py-16 dark:bg-neutral-900/10">
+          <section aria-label={content.benchmarkSection.value}>
+            <DynamicI18nBenchmarkSection />
+          </section>
 
-        <DynamicAuditSection />
-        <div className="pointer-events-none absolute inset-x-0 top-0 h-4 bg-background [clip-path:polygon(0_0,100%_0,0_100%)]" />
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-4 bg-background [clip-path:polygon(100%_0,100%_100%,0_100%)]" />
-      </div>
+          <section aria-label={content.supportedLanguagesSection.value}>
+            <DynamicLanguageSection />
+          </section>
 
-      <DynamicFeatureFlagsSection />
-      <DynamicAvailableTechnoSection />
-      <DynamicDemoSection />
-      <DynamicContributorSection />
-      <CommonQuestionsSection />
-    </div>
+          <section aria-label={content.codeAuditSection.value}>
+            <DynamicAuditSection />
+          </section>
+          <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 h-4 bg-background [clip-path:polygon(0_0,100%_0,0_100%)]" />
+          <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 bottom-0 h-4 bg-background [clip-path:polygon(100%_0,100%_100%,0_100%)]" />
+        </div>
 
-    <DynamicChatBotModal />
-  </>
-);
+        <section aria-label={content.productsSection.value}>
+          <DynamicFeatureFlagsSection />
+        </section>
+        <section aria-label={content.technologiesSection.value}>
+          <DynamicAvailableTechnoSection />
+        </section>
+        <section aria-label={content.liveDemoSection.value}>
+          <DynamicDemoSection />
+        </section>
+        <section aria-label={content.contributorsSection.value}>
+          <DynamicContributorSection />
+        </section>
+        <section aria-label={content.faqSection.value}>
+          <CommonQuestionsSection />
+        </section>
+      </main>
+
+      <DynamicChatBotModal />
+    </>
+  );
+};

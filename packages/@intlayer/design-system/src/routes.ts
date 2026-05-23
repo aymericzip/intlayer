@@ -23,14 +23,26 @@ export const App_Dashboard_IDE_Path = '/ide' as const;
 export const App_Pricing_Path = '/pricing' as const;
 export const App_Affiliation_Path = '/affiliation' as const;
 
-export const App_TranslatorMarketplace_Path =
-  '/translator-marketplace' as const;
-export const App_TranslatorMarketplace_Dashboard_Path =
-  '/translator-marketplace/dashboard' as const;
+export const App_Demo_Path = '/demo' as const;
+
+export const App_ReviewerMarketplace_Path =
+  '/find-reviewer' as const;
+export const App_ReviewerMarketplace_Dashboard_Path =
+  '/find-reviewer/dashboard' as const;
+export const App_ReviewerMarketplace_Reviewer_Path =
+  '/find-reviewer/$reviewerId' as const;
+export const App_ReviewerMarketplace_Dashboard_Mission_Path =
+  '/find-reviewer/dashboard/mission/$missionId' as const;
+
+export const getAppReviewerProfileRoute = (reviewerId: string) =>
+  `/find-reviewer/${reviewerId}` as const;
+export const getAppReviewerMissionRoute = (missionId: string) =>
+  `/find-reviewer/dashboard/mission/${missionId}` as const;
 
 export const App_Auth_SignIn_Path = '/auth/login' as const;
 export const App_Auth_SignUp_Path = '/auth/register' as const;
 export const App_Auth_TwoFactor_Path = '/auth/2fa' as const;
+export const App_Auth_Demo_Path = '/auth/demo' as const;
 export const App_Auth_AskResetPassword_Path =
   '/auth/password/ask-reset' as const;
 export const App_Auth_ResetPassword_Path = '/auth/password/reset' as const;
@@ -46,6 +58,10 @@ export const App_Admin_Discussions_Path = '/admin/discussions' as const;
 export const App_Admin_Affiliate_Path = '/admin/affiliate' as const;
 export const getAppAdminAffiliateRoute = (id: string) =>
   `${App_Admin_Affiliate_Path}/${id}` as const;
+
+export const App_Admin_Reviewers_Path = '/admin/reviewers' as const;
+export const getAppAdminReviewerRoute = (id: string) =>
+  `${App_Admin_Reviewers_Path}/${id}` as const;
 
 export const App_Onboarding_Path = '/onboarding' as const;
 
@@ -82,10 +98,12 @@ export const App_Dashboard_IDE =
 export const App_Pricing = `https://${App_Domain}${App_Pricing_Path}` as const;
 export const App_Affiliation =
   `https://${App_Domain}${App_Affiliation_Path}` as const;
-export const App_TranslatorMarketplace =
-  `https://${App_Domain}${App_TranslatorMarketplace_Path}` as const;
-export const App_TranslatorMarketplace_Dashboard =
-  `https://${App_Domain}${App_TranslatorMarketplace_Dashboard_Path}` as const;
+export const App_Demo = `https://${App_Domain}${App_Demo_Path}` as const;
+
+export const App_ReviewerMarketplace =
+  `https://${App_Domain}${App_ReviewerMarketplace_Path}` as const;
+export const App_ReviewerMarketplace_Dashboard =
+  `https://${App_Domain}${App_ReviewerMarketplace_Dashboard_Path}` as const;
 
 export const App_Auth_SignIn =
   `https://${App_Domain}${App_Auth_SignIn_Path}` as const;
@@ -115,6 +133,8 @@ export const App_Admin_Discussions =
   `https://${App_Domain}${App_Admin_Discussions_Path}` as const;
 export const App_Admin_Affiliate =
   `https://${App_Domain}${App_Admin_Affiliate_Path}` as const;
+export const App_Admin_Reviewers =
+  `https://${App_Domain}${App_Admin_Reviewers_Path}` as const;
 
 export const App_Onboarding =
   `https://${App_Domain}${App_Onboarding_Path}` as const;

@@ -37,6 +37,20 @@ export type Auth = ReturnType<typeof betterAuth>;
 // Check if we are in production based on the domain or NODE_ENV
 const isProd = process.env.DOMAIN !== 'localhost';
 
+let _authSingleton: Auth | null = null;
+
+export const initializeAuth = (dbClient: MongoClient): Auth => {
+  _authSingleton = getAuth(dbClient);
+  return _authSingleton;
+};
+
+export const getAuthSingleton = (): Auth => {
+  if (!_authSingleton) {
+    throw new Error('Auth not initialized. Call initializeAuth first.');
+  }
+  return _authSingleton;
+};
+
 export const formatSession = (session: SessionContext): OmitId<Session> => {
   const roles = getSessionRoles(session);
   let permissions = computeEffectivePermission(roles);

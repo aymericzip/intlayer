@@ -44,12 +44,13 @@ import {
 import { stripeRoute, stripeRouter } from '@routes/stripe.routes';
 import { tagRoute, tagRouter } from '@routes/tags.routes';
 import { translateRoute, translationRouter } from '@routes/translate.routes';
-import { translatorRoute, translatorRouter } from '@routes/translator.routes';
+import { demoRoute, demoRouter } from '@routes/demo.routes';
+import { reviewerRoute, reviewerRouter } from '@routes/reviewer.routes';
 import { userRoute, userRouter } from '@routes/user.routes';
 import { processAuditJobs } from '@services/audit/recursiveAudit.service';
 import { startTranslationWorker } from '@services/translationWorker.service';
 // Utils
-import { getAuth } from '@utils/auth/getAuth';
+import { initializeAuth } from '@utils/auth/getAuth';
 import { corsOptions } from '@utils/cors';
 import { connectDB } from '@utils/mongoDB/connectDB';
 import { ipLimiter } from '@utils/rateLimiter';
@@ -174,7 +175,7 @@ const startServer = async () => {
   });
 
   // Session Auth
-  const auth = getAuth(dbClient as any);
+  const auth = initializeAuth(dbClient as any);
 
   // Better Auth handler - Using Fetch API approach for Fastify compatibility
   app.route({
@@ -293,9 +294,10 @@ const startServer = async () => {
   await app.register(gitlabRouter, { prefix: gitlabRoute });
   await app.register(bitbucketRouter, { prefix: bitbucketRoute });
   await app.register(translationRouter, { prefix: translateRoute });
-  await app.register(translatorRouter, { prefix: translatorRoute });
+  await app.register(reviewerRouter, { prefix: reviewerRoute });
   await app.register(showcaseProjectRouter, { prefix: showcaseProjectRoute });
   await app.register(auditRouter, { prefix: auditRoute });
+  await app.register(demoRouter, { prefix: demoRoute });
 
   // Server
   await app.listen({

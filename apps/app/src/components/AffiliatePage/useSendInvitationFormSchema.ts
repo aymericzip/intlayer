@@ -9,7 +9,7 @@ export const useSendInvitationFormSchema = () =>
         'native_speaker',
         'marketing_expert',
         'copywriter',
-        'certified_translator',
+        'certified_reviewer',
       ])
       .optional(),
   });

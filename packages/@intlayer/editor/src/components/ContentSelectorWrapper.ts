@@ -210,20 +210,36 @@ export class IntlayerContentSelectorWrapperElement extends _HTMLElement {
 
   private _scrollIntoViewIfNeeded(): void {
     try {
-      const rect = this.getBoundingClientRect();
+      // this element has display:contents so getBoundingClientRect() returns
+      // all zeros. Use a Range over its children to get the real visual bounds.
+      let rect: DOMRect;
+      if (this.childNodes.length > 0) {
+        const range = document.createRange();
+        range.selectNode(this);
+        rect = range.getBoundingClientRect();
+      } else {
+        rect = this.getBoundingClientRect();
+      }
+
       const viewportHeight =
         window.innerHeight || document.documentElement.clientHeight;
       const viewportWidth =
         window.innerWidth || document.documentElement.clientWidth;
 
       const isVisible =
+        rect.width > 0 &&
+        rect.height > 0 &&
         rect.bottom > 0 &&
         rect.right > 0 &&
         rect.top < viewportHeight &&
         rect.left < viewportWidth;
 
       if (!isVisible) {
-        this.scrollIntoView({
+        // Scroll the first real child into view — display:contents hosts have no
+        // box of their own and browsers may ignore scrollIntoView on them.
+        const scrollTarget =
+          (this.firstElementChild as Element | null) ?? this;
+        scrollTarget.scrollIntoView({
           behavior: 'smooth',
           block: 'nearest',
           inline: 'nearest',

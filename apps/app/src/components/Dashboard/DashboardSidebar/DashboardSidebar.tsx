@@ -40,7 +40,7 @@ import { type FC, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { Link } from '#components/Link/Link';
 import { DashboardSidebarProfile } from './DashboardSidebarProfile';
-import { TranslatorMarketplaceBanner } from './TranslatorMarketplaceBanner';
+import { ReviewerMarketplaceBanner } from './ReviewerMarketplaceBanner';
 
 // Map icon names to components - must be done in client component
 export const iconMap: Record<string, LucideIcon> = {
@@ -183,7 +183,7 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
   className,
   items,
 }) => {
-  const { collapseButton } = useIntlayer('dashboard-sidebar');
+  const { collapseButton, dashboardNavigation, sidebarNavigation } = useIntlayer('dashboard-sidebar');
   const [isCollapsed, setIsCollapsed] = useState(false);
   const { isMobile } = useDevice();
   const { pathname } = useLocation();
@@ -223,6 +223,7 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
 
   return (
     <aside
+      aria-label={dashboardNavigation.value}
       className={cn(
         'sticky top-0 z-40 shrink-0 transition-all duration-300',
         isCollapsed ? 'w-16' : 'w-54',
@@ -234,7 +235,7 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
         roundedSize="none"
         transparency="none"
       >
-        <nav className="mt-20 flex-1 overflow-y-auto">
+        <nav id="dashboard-sidebar-nav" aria-label={sidebarNavigation.value} className="mt-20 flex-1 overflow-y-auto">
           <TabSelector
             selectedChoice={activeKey}
             key={flatNavItems.length}
@@ -313,7 +314,7 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
         </nav>
 
         {!isCollapsed && process.env.NODE_ENV === 'development' && (
-          <TranslatorMarketplaceBanner />
+          <ReviewerMarketplaceBanner />
         )}
         <div className="flex w-full justify-start">
           <PopoverStatic identifier="dashboard-nav-collapse" className="w-full">
@@ -331,6 +332,8 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
               variant="hoverable"
               color="text"
               label={collapseButton.label}
+              aria-expanded={!isCollapsed}
+              aria-controls="dashboard-sidebar-nav"
               onClick={() => setIsCollapsed((prev) => !prev)}
             >
               {!isCollapsed && (

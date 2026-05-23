@@ -56,7 +56,7 @@ export const translateDictionaries = async (
       0,
       validIds.length,
       undefined,
-      false
+      true
     );
 
     const dictionaryTargets: { dictionaryId: string; locales: Locale[] }[] = [];

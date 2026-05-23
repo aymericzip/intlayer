@@ -220,7 +220,7 @@ export const buttonVariants = cva(
     defaultVariants: {
       variant: `${ButtonVariant.DEFAULT}`,
       size: `${ButtonSize.MD}`,
-      color: `${ButtonColor.CUSTOM}`,
+      color: `${ButtonColor.TEXT}`,
       roundedSize: `${ButtonRoundedSize.MD}`,
       textAlign: `${ButtonTextAlign.CENTER}`,
       isFullWidth: false,
@@ -347,7 +347,7 @@ export type ButtonProps = DetailedHTMLProps<
 export const Button: FC<ButtonProps> = ({
   variant,
   size,
-  color = 'text',
+  color,
   children,
   Icon,
   IconRight,

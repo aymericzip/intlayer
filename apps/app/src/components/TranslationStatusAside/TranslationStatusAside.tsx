@@ -109,6 +109,9 @@ type JobCardContent = {
   retryJob: { value: string };
   restoreJob: { value: string };
   jobCancelled: { value: string };
+  translationJobProgress: {
+    insert: (args: { jobId: string; percentage: number }) => string;
+  };
 };
 
 const DictionaryRow: FC<{
@@ -393,12 +396,26 @@ const JobCard: FC<JobCardProps> = memo(
           </div>
         ) : (
           <div className="space-y-1.5">
-            <div className="flex justify-between text-neutral-500 text-xs">
+            <div
+              className="flex justify-between text-neutral-500 text-xs"
+              aria-hidden="true"
+            >
               <span>Progress</span>
               <span>{Math.round(percentage)}%</span>
             </div>
-            <div className="h-1.5 w-full overflow-hidden rounded-full bg-neutral/10">
+            <div
+              role="progressbar"
+              aria-valuenow={Math.round(percentage)}
+              aria-valuemin={0}
+              aria-valuemax={100}
+              aria-label={content.translationJobProgress.insert({
+                jobId: job.jobId,
+                percentage: Math.round(percentage),
+              })}
+              className="h-1.5 w-full overflow-hidden rounded-full bg-neutral/10"
+            >
               <div
+                aria-hidden="true"
                 className={cn(
                   'h-full transition-all duration-500 ease-out',
                   effectiveState === 'completed' && 'bg-success',
@@ -676,10 +693,6 @@ export const TranslationStatusAside: FC = () => {
     .filter((job) => job.dismissed)
     .sort((a, b) => (b.updatedAt ?? 0) - (a.updatedAt ?? 0));
 
-  const isProcessing = visibleJobs.some((job) =>
-    ['active', 'waiting', 'delayed'].includes(job.state)
-  );
-
   const hasUnseenChanges = visibleJobs.some(
     (job) =>
       ['completed', 'failed'].includes(job.state) &&
@@ -695,6 +708,7 @@ export const TranslationStatusAside: FC = () => {
     retryJob: content.retryJob,
     restoreJob: content.restoreJob,
     jobCancelled: content.jobCancelled,
+    translationJobProgress: content.translationJobProgress,
   };
 
   // ── Render ────────────────────────────────────────────────────────────────

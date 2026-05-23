@@ -81,6 +81,7 @@ export type ProjectData = {
   name: string;
   membersIds: User['id'][];
   adminsIds: User['id'][];
+  viewersIds?: User['id'][];
   creatorId: User['id'];
   configuration?: ProjectConfiguration;
   repository?: RepositoryConnection;

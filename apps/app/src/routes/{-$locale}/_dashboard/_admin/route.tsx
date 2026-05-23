@@ -1,3 +1,4 @@
+import { App_Admin_Users_Path } from '@intlayer/design-system/routes';
 import { createFileRoute, Outlet, useLocation } from '@tanstack/react-router';
 import { getIntlayer } from 'intlayer';
 import { useEffect } from 'react';
@@ -49,7 +50,7 @@ function AdminLayout() {
 
   useEffect(() => {
     if (pathname.endsWith('/admin')) {
-      void navigate({ to: '/admin/users' });
+      void navigate({ to: App_Admin_Users_Path });
     }
   }, [pathname, navigate]);
 

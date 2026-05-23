@@ -135,7 +135,7 @@ export const ElectronUpdater = () => {
       )}
 
       {update.status === 'error' && (
-        <p className="text-red-500 text-sm">
+        <p className="text-error text-sm">
           {updateErrorMessage.insert({
             message: update.message,
           })}

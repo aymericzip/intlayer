@@ -206,6 +206,43 @@
   --navbar-height: 64px;
 }
 
+/* Price range slider thumb styles */
+.price-range-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  pointer-events: none;
+  background: transparent;
+  outline: none;
+}
+.price-range-thumb::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  pointer-events: all;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--color-text);
+  border: 2px solid var(--color-card);
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+.price-range-thumb::-moz-range-thumb {
+  pointer-events: all;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--color-text);
+  border: 2px solid var(--color-card);
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+.price-range-thumb::-webkit-slider-runnable-track {
+  background: transparent;
+}
+.price-range-thumb::-moz-range-track {
+  background: transparent;
+}
+
 @plugin '@tailwindcss/aspect-ratio';
 
 @source "./src/**/*.{ts,tsx,svg}";

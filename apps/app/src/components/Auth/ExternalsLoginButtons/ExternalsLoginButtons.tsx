@@ -66,7 +66,7 @@ export const GoogleLoginButton: FC<ExternalsLoginButtonsProps> = ({
   return (
     <Button
       className={cn(
-        'bg-red-400 text-white ring-red-400/20 hover:bg-red-500',
+        'bg-red-400 text-white ring-red-400/20 hover:bg-error',
         className
       )}
       label={externalsLoginButtons.google.label.value}

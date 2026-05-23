@@ -2,6 +2,7 @@ import { type Dictionary, t } from 'intlayer';
 
 const chatBotContent = {
   key: 'dashboard-chat-bot',
+
   content: {
     firstMessage: t({
       en: 'Hey! How can I help you with your Intlayer project?',
@@ -42,6 +43,7 @@ const chatBotContent = {
       id: 'Buka asisten AI',
       vi: 'Mở trợ lý AI',
       uk: 'Відкрити AI-асистент',
+      'en-GB': 'Open AI assistant',
     }),
 
     aiAssistant: t({
@@ -62,8 +64,14 @@ const chatBotContent = {
       id: 'Asisten AI',
       vi: 'Trợ lý AI',
       uk: 'AI-асистент',
+      'en-GB': 'AI assistant',
     }),
   },
+
+  title: 'Dashboard chat bot',
+  description:
+    'Content dictionary for the dashboard chat bot component providing the initial message and assistant labels (OpenAI/AI assistant) for the Intlayer project.',
+  tags: ['component', 'dashboard', 'chatbot', 'assistant', 'content'],
 } satisfies Dictionary;
 
 export default chatBotContent;

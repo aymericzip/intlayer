@@ -471,15 +471,59 @@ export const uploadAvatar = async (
   });
 
   const validationError = validateAvatarUpload(contentType, contentLength);
-  if (validationError) {
-    logger.warn('uploadAvatar validation failed', {
-      validationError,
-      contentType,
-      contentLength,
-    });
-    return ErrorHandler.handleGenericErrorResponse(
-      reply,
-      'USER_INVALID_FIELDS'
+  if (validationError === 'UNSUPPORTED_TYPE') {
+    logger.warn('uploadAvatar: unsupported type', { contentType });
+    return reply.status(415).send(
+      formatResponse({
+        message: t({
+          en: 'Unsupported image type. Allowed: JPEG, PNG, WebP, GIF.',
+          fr: 'Type d\'image non supporté. Formats acceptés : JPEG, PNG, WebP, GIF.',
+          es: 'Tipo de imagen no admitido. Permitidos: JPEG, PNG, WebP, GIF.',
+          'en-GB': 'Unsupported image type. Allowed: JPEG, PNG, WebP, GIF.',
+          de: 'Nicht unterstützter Bildtyp. Erlaubt: JPEG, PNG, WebP, GIF.',
+          ja: '対応していない画像形式です。使用可能: JPEG, PNG, WebP, GIF。',
+          ko: '지원하지 않는 이미지 형식입니다. 허용: JPEG, PNG, WebP, GIF.',
+          zh: '不支持的图片格式。允许：JPEG、PNG、WebP、GIF。',
+          it: 'Tipo di immagine non supportato. Consentiti: JPEG, PNG, WebP, GIF.',
+          pt: 'Tipo de imagem não suportado. Permitidos: JPEG, PNG, WebP, GIF.',
+          hi: 'असमर्थित छवि प्रकार। अनुमत: JPEG, PNG, WebP, GIF।',
+          ar: 'نوع صورة غير مدعوم. المسموح به: JPEG، PNG، WebP، GIF.',
+          ru: 'Неподдерживаемый тип изображения. Разрешены: JPEG, PNG, WebP, GIF.',
+          tr: 'Desteklenmeyen görüntü türü. İzin verilenler: JPEG, PNG, WebP, GIF.',
+          pl: 'Nieobsługiwany typ obrazu. Dozwolone: JPEG, PNG, WebP, GIF.',
+          id: 'Tipe gambar tidak didukung. Diizinkan: JPEG, PNG, WebP, GIF.',
+          vi: 'Loại ảnh không được hỗ trợ. Được phép: JPEG, PNG, WebP, GIF.',
+          uk: 'Непідтримуваний тип зображення. Дозволено: JPEG, PNG, WebP, GIF.',
+        }),
+      })
+    );
+  }
+
+  if (validationError === 'TOO_LARGE') {
+    logger.warn('uploadAvatar: file too large', { contentLength });
+    return reply.status(413).send(
+      formatResponse({
+        message: t({
+          en: 'File too large. Maximum size is 20 MB.',
+          fr: 'Fichier trop volumineux. La taille maximale est de 20 Mo.',
+          es: 'Archivo demasiado grande. El tamaño máximo es de 20 MB.',
+          'en-GB': 'File too large. Maximum size is 20 MB.',
+          de: 'Datei zu groß. Maximale Größe: 20 MB.',
+          ja: 'ファイルが大きすぎます。最大サイズは20MBです。',
+          ko: '파일이 너무 큽니다. 최대 크기는 20MB입니다.',
+          zh: '文件过大。最大大小为 20 MB。',
+          it: 'File troppo grande. La dimensione massima è 20 MB.',
+          pt: 'Arquivo muito grande. O tamanho máximo é 20 MB.',
+          hi: 'फ़ाइल बहुत बड़ी है। अधिकतम आकार 20 MB है।',
+          ar: 'الملف كبير جدًا. الحجم الأقصى هو 20 ميغابايت.',
+          ru: 'Файл слишком большой. Максимальный размер: 20 МБ.',
+          tr: 'Dosya çok büyük. Maksimum boyut 20 MB.',
+          pl: 'Plik zbyt duży. Maksymalny rozmiar to 20 MB.',
+          id: 'File terlalu besar. Ukuran maksimum adalah 20 MB.',
+          vi: 'Tệp quá lớn. Kích thước tối đa là 20 MB.',
+          uk: 'Файл завеликий. Максимальний розмір: 20 МБ.',
+        }),
+      })
     );
   }
 
@@ -514,7 +558,7 @@ export const uploadAvatar = async (
       await deleteUserAvatar(user.image).catch(() => {});
     }
 
-    const imageUrl = await uploadUserAvatar(buffer, userId, contentType);
+    const imageUrl = await uploadUserAvatar(buffer, userId);
 
     const updatedUser = await userService.updateUserById(userId, {
       image: imageUrl,

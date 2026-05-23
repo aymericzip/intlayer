@@ -82,11 +82,11 @@ const OrganizationFormContent: FC = () => {
             onDelete={() => setIsDeletionModalOpen(false)}
           />
           <div className="flex items-start gap-6 px-4">
-            <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-red-500/10">
-              <TriangleAlert className="h-5 w-5 text-red-500" />
+            <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-error/10">
+              <TriangleAlert className="h-5 w-5 text-error" />
             </div>
             <div className="flex-1">
-              <h3 className="font-medium text-base text-red-500">
+              <h3 className="font-medium text-base text-error">
                 {dangerZoneTitle}
               </h3>
               <p className="mt-1 text-neutral text-sm">

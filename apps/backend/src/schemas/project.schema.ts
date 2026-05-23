@@ -159,6 +159,11 @@ export const projectSchema = new Schema<ProjectSchema>(
       required: true,
       minlength: MEMBERS_MIN_LENGTH,
     },
+    viewersIds: {
+      type: [Schema.Types.ObjectId],
+      ref: 'User',
+      default: [],
+    },
     creatorId: {
       type: Schema.Types.ObjectId,
       ref: 'User',

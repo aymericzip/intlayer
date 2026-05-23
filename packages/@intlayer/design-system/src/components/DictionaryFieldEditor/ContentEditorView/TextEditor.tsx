@@ -48,10 +48,8 @@ import type {
   TranslationContent,
 } from '@intlayer/core/transpiler';
 import { useConfiguration, useEditedContent } from '@intlayer/editor-react';
-import type { Locale } from '@intlayer/types/allLocales';
 import type { ContentNode, Dictionary } from '@intlayer/types/dictionary';
 import type { KeyPath } from '@intlayer/types/keyPath';
-import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import * as NodeTypes from '@intlayer/types/nodeType';
 import { Plus, Trash, WandSparkles } from 'lucide-react';
 import {

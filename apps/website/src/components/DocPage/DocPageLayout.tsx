@@ -22,15 +22,17 @@ export const DocPageLayout: FC<DocPageLayoutProps> = ({
   displayBreadCrumb = true,
 }) => {
   const docData: Section = getIntlayer('doc-data', locale);
+  const content = getIntlayer('doc-page-layout', locale);
 
   return (
     <Suspense fallback={<></>}>
       <div className="flex max-w-screen flex-1 bg-card max-md:flex-col">
-        <aside className="z-40 flex-none">
+        <aside aria-label={content.documentationNavigation.value} className="z-40 flex-none">
           <DocNavList docData={docData} activeSlugs={['doc', ...activeSlugs]} />
         </aside>
         <div className="flex flex-1 flex-row">
           <article
+            aria-label={content.documentationContent.value}
             className="relative mb-3 h-full max-h-screen w-auto flex-1 grow overflow-auto rounded-xl bg-background px-4 pb-24 max-md:pl-10 md:max-h-[calc(100vh-4.5rem)] md:px-10"
             id="content"
           >
@@ -47,7 +49,7 @@ export const DocPageLayout: FC<DocPageLayoutProps> = ({
             </div>
           </article>
 
-          <aside className="flex-none max-lg:hidden">
+          <aside aria-label={content.onThisPage.value} className="flex-none max-lg:hidden">
             {displayAsideNavigation && <AsideNavigation />}
           </aside>
         </div>

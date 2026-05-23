@@ -76,8 +76,8 @@ export const SendInvitationForm: FC<SendInvitationFormProps> = ({
           <Select.Item value="copywriter">
             {content.categoryLabels.copywriter}
           </Select.Item>
-          <Select.Item value="certified_translator">
-            {content.categoryLabels.certified_translator}
+          <Select.Item value="certified_reviewer">
+            {content.categoryLabels.certified_reviewer}
           </Select.Item>
         </Select.Content>
       </Form.Select>

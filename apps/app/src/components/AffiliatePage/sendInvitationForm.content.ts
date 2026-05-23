@@ -253,8 +253,8 @@ const sendInvitationFormContent = {
         vi: 'Người viết quảng cáo',
         uk: 'Копірайтер',
       }),
-      certified_translator: t({
-        en: 'Certified translator',
+      certified_reviewer: t({
+        en: 'Certified reviewer',
         ru: 'Сертифицированный переводчик',
         ja: '認定翻訳者',
         fr: 'Traducteur certifié',
@@ -264,7 +264,7 @@ const sendInvitationFormContent = {
         de: 'Zertifizierter Übersetzer',
         ar: 'مترجم معتمد',
         it: 'Traduttore certificato',
-        'en-GB': 'Certified translator',
+        'en-GB': 'Certified reviewer',
         pt: 'Tradutor certificado',
         hi: 'प्रमाणित अनुवादक',
         tr: 'Sertifikalı çevirmen',

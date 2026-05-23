@@ -215,7 +215,7 @@ const containerVariants = cva('w-fit backdrop-blur', {
       [`${TagColor.GREEN}`]:
         'border-green-500 bg-green-500/10 text-green-500 dark:text-green-300',
       [`${TagColor.RED}`]:
-        'border-red-500 bg-red-500/10 text-red-500 dark:text-red-300',
+        'border-error bg-error/10 text-error dark:text-red-300',
       [`${TagColor.ORANGE}`]:
         'border-orange-500 bg-orange-500/10 text-orange-500 dark:text-orange-300',
       [`${TagColor.PURPLE}`]:

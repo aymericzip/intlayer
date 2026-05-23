@@ -1,7 +1,8 @@
-import { type Dictionary, t } from 'intlayer';
+import { type Dictionary, insert, t } from 'intlayer';
 
 const translationStatusAsideContent = {
   key: 'translation-status-aside',
+
   content: {
     translationStatusButtonDescription: t({
       en: 'View translation job progress and status in real time',
@@ -43,6 +44,28 @@ const translationStatusAsideContent = {
       vi: 'Trạng thái dịch',
       uk: 'Статус перекладу',
     }),
+    translationJobProgress: insert(
+      t({
+        en: 'Translation job {{jobId}}: {{percentage}}% complete',
+        fr: 'Tâche de traduction {{jobId}} : {{percentage}}% terminée',
+        es: 'Tarea de traducción {{jobId}}: {{percentage}}% completada',
+        ru: 'Задача перевода {{jobId}}: выполнено {{percentage}}%',
+        ja: '翻訳ジョブ {{jobId}}: {{percentage}}% 完了',
+        ko: '번역 작업 {{jobId}}: {{percentage}}% 완료',
+        zh: '翻译任务 {{jobId}}：已完成 {{percentage}}%',
+        de: 'Übersetzungsauftrag {{jobId}}: {{percentage}}% abgeschlossen',
+        ar: 'مهمة الترجمة {{jobId}}: اكتملت بنسبة {{percentage}}%',
+        it: 'Lavoro di traduzione {{jobId}}: {{percentage}}% completato',
+        'en-GB': 'Translation job {{jobId}}: {{percentage}}% complete',
+        pt: 'Tarefa de tradução {{jobId}}: {{percentage}}% concluída',
+        hi: 'अनुवाद कार्य {{jobId}}: {{percentage}}% पूरा हुआ',
+        tr: 'Çeviri işi {{jobId}}: {{percentage}}% tamamlandı',
+        pl: 'Zadanie tłumaczeniowe {{jobId}}: {{percentage}}% ukończone',
+        id: 'Pekerjaan terjemahan {{jobId}}: {{percentage}}% selesai',
+        vi: 'Công việc dịch {{jobId}}: {{percentage}}% hoàn thành',
+        uk: 'Завдання перекладу {{jobId}}: виконано на {{percentage}}%',
+      })
+    ),
     errorParsingSseData: t({
       en: 'Error parsing SSE data',
       fr: 'Erreur lors de l’analyse des données SSE',
@@ -506,6 +529,11 @@ const translationStatusAsideContent = {
       uk: 'Усі словники вже перекладено',
     }),
   },
+
+  title: 'Translation Status Aside',
+  description:
+    'Content for the Translation Status Aside component providing UI labels, messages and controls to view and manage translation jobs, progress, errors, dictionary selection, and job actions.',
+  tags: ['translation', 'aside', 'translation-jobs', 'dictionaries', 'ui'],
 } satisfies Dictionary;
 
 export default translationStatusAsideContent;

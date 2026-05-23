@@ -261,10 +261,10 @@ export const ApplicationLayout: Story = {
               {/* Navigation */}
               <div className="flex-1 overflow-auto">
                 <nav className="p-2">
-                  {navItems.map((item, index) => (
-                    <a
-                      key={index}
-                      href="#"
+                  {navItems.map((item) => (
+                    <button
+                      key={item.label}
+                      type="button"
                       className={`flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors ${
                         item.active
                           ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/50 dark:text-blue-300'
@@ -273,7 +273,7 @@ export const ApplicationLayout: Story = {
                     >
                       <span className="text-lg">{item.icon}</span>
                       <span className="truncate">{item.label}</span>
-                    </a>
+                    </button>
                   ))}
                 </nav>
               </div>
@@ -311,12 +311,14 @@ export const ApplicationLayout: Story = {
 
                 <div className="flex gap-2">
                   <button
+                    type="button"
                     onClick={() => setCurrentWidth(240)}
                     className="rounded bg-gray-100 px-3 py-1 text-xs hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600"
                   >
                     Narrow
                   </button>
                   <button
+                    type="button"
                     onClick={() => setCurrentWidth(320)}
                     className="rounded bg-gray-100 px-3 py-1 text-xs hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600"
                   >
@@ -348,9 +350,9 @@ export const ApplicationLayout: Story = {
                     change: '-2.3%',
                     color: 'red',
                   },
-                ].map((stat, index) => (
+                ].map((stat) => (
                   <div
-                    key={index}
+                    key={stat.title}
                     className="rounded-lg bg-gray-50 p-4 dark:bg-gray-800"
                   >
                     <div className="flex items-center justify-between">
@@ -384,7 +386,10 @@ export const ApplicationLayout: Story = {
                 </h3>
                 <div className="space-y-3">
                   {Array.from({ length: 5 }, (_, i) => (
-                    <div key={i} className="flex items-center gap-3 py-2">
+                    <div
+                      key={`activity-${String(i)}`}
+                      className="flex items-center gap-3 py-2"
+                    >
                       <div className="h-2 w-2 rounded-full bg-blue-500"></div>
                       <div className="flex-1">
                         <div className="text-gray-900 text-sm dark:text-white">
@@ -428,7 +433,7 @@ export const CodeEditorLayout: Story = {
       {/* Editor Header */}
       <div className="flex h-10 items-center border-gray-700 border-b bg-gray-800 px-4">
         <div className="flex items-center gap-2">
-          <div className="h-3 w-3 rounded-full bg-red-500"></div>
+          <div className="h-3 w-3 rounded-full bg-error"></div>
           <div className="h-3 w-3 rounded-full bg-yellow-500"></div>
           <div className="h-3 w-3 rounded-full bg-green-500"></div>
         </div>
@@ -483,11 +488,13 @@ export const CodeEditorLayout: Story = {
                     <span className="text-purple-400">import</span>{' '}
                     <span className="text-blue-400">React</span>{' '}
                     <span className="text-purple-400">from</span>{' '}
-                    <span className="text-green-400">'react'</span>;
+                    <span className="text-green-400">'react'</span>
+                    <span>;</span>
                   </div>
                   <div>
                     <span className="text-purple-400">import</span>{' '}
-                    <span className="text-blue-400">'./App.css'</span>;
+                    <span className="text-blue-400">'./App.css'</span>
+                    <span>;</span>
                   </div>
                   <div className="mt-4"></div>
                   <div>
@@ -521,7 +528,8 @@ export const CodeEditorLayout: Story = {
                   <div>
                     <span className="text-purple-400">export</span>{' '}
                     <span className="text-purple-400">default</span>{' '}
-                    <span className="text-yellow-400">App</span>;
+                    <span className="text-yellow-400">App</span>
+                    <span>;</span>
                   </div>
                 </div>
               </div>
@@ -645,7 +653,7 @@ export const DashboardWidgets: Story = {
             <div className="h-48 space-y-3 overflow-auto">
               {Array.from({ length: 8 }, (_, i) => (
                 <div
-                  key={i}
+                  key={`feed-${String(i)}`}
                   className="flex items-start gap-3 rounded-lg bg-gray-50 p-2 dark:bg-gray-700"
                 >
                   <div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-500 font-bold text-white text-xs">
@@ -680,9 +688,9 @@ export const DashboardWidgets: Story = {
               { label: 'Sales Today', value: '$5,678', icon: '💰' },
               { label: 'Messages', value: '89', icon: '💬' },
               { label: 'Tasks', value: '12', icon: '✅' },
-            ].map((stat, index) => (
+            ].map((stat) => (
               <div
-                key={index}
+                key={stat.label}
                 className="rounded-lg bg-gray-50 p-3 text-center dark:bg-gray-700"
               >
                 <div className="mb-2 text-2xl">{stat.icon}</div>

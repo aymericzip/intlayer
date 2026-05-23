@@ -19,6 +19,24 @@ export type TextEdit = {
   replacement: string;
 };
 
+/**
+ * Returns true when a string literal sits inside a JSX child expression
+ * container (i.e. a React node slot), meaning content.key renders as an
+ * IntlayerNode and should NOT receive a .value suffix.
+ * Returns false for attribute-value containers and non-JSX contexts.
+ */
+const isInJsxNodeContext = (path: NodePath): boolean => {
+  let current: NodePath | null = path.parentPath;
+  while (current) {
+    if (current.isJSXExpressionContainer()) {
+      return !current.parentPath?.isJSXAttribute();
+    }
+    if (current.isFunction() || current.isProgram()) return false;
+    current = current.parentPath;
+  }
+  return false;
+};
+
 const traverse = (
   typeof _traverse === 'function' ? _traverse : (_traverse as any).default
 ) as typeof _traverse;
@@ -210,10 +228,11 @@ export const processTsxFile = (
         });
       }
     } else if (type === 'string-literal' && path.isStringLiteral()) {
+      const suffix = isInJsxNodeContext(path) ? '' : valueSuffix;
       textEdits.push({
         start: path.node.start!,
         end: path.node.end!,
-        replacement: `${contentAccessCode}${valueSuffix}`,
+        replacement: `${contentAccessCode}${suffix}`,
       });
     } else if (
       type === 'jsx-text-combined' &&

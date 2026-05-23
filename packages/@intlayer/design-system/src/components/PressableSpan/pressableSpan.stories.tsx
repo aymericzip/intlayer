@@ -239,7 +239,7 @@ export const ControlledState: Story = {
           </button>
           <button
             data-testid="deselect-button"
-            className="rounded bg-red-500 px-3 py-1 text-sm text-white"
+            className="rounded bg-error px-3 py-1 text-sm text-white"
             onClick={() => setIsSelected(false)}
           >
             Deselect Externally

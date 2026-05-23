@@ -3,6 +3,26 @@ import { type Dictionary, t } from 'intlayer';
 const docNavTitlesContent = {
   key: 'doc-nav-list',
   content: {
+    documentationSections: t({
+      en: 'Documentation sections',
+      fr: 'Sections de documentation',
+      es: 'Secciones de documentación',
+      'en-GB': 'Documentation sections',
+      de: 'Dokumentationsabschnitte',
+      ja: 'ドキュメントセクション',
+      ko: '문서 섹션',
+      zh: '文档部分',
+      it: 'Sezioni della documentazione',
+      pt: 'Seções de documentação',
+      hi: 'दस्तावेज़ीकरण अनुभाग',
+      ar: 'أقسام الوثائق',
+      ru: 'Разделы документации',
+      tr: 'Dokümantasyon bölümleri',
+      pl: 'Sekcje dokumentacji',
+      id: 'Bagian dokumentasi',
+      vi: 'Các mục tài liệu',
+      uk: 'Розділи документації',
+    }),
     collapseButton: {
       label: t({
         en: 'Collapse',

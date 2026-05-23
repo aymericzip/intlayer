@@ -15,8 +15,12 @@ export const shouldExtract = (text: string): boolean => {
   // Ignore emails
   if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmed)) return false;
 
-  // Ignore dynamic content patterns
-  if (trimmed.startsWith('{') || trimmed.startsWith('v-')) return false;
+  // Ignore dynamic content patterns, but allow {{placeholder}} which is intlayer's insertion format
+  if (
+    (trimmed.startsWith('{') && !trimmed.startsWith('{{')) ||
+    trimmed.startsWith('v-')
+  )
+    return false;
 
   // Ignore explicit code patterns (markers)
   if (

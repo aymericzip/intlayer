@@ -7,6 +7,7 @@ import { Container } from '@intlayer/design-system/container';
 import { H2 } from '@intlayer/design-system/headers';
 import { useGetTags } from '@intlayer/design-system/hooks';
 import { Loader } from '@intlayer/design-system/loader';
+import { App_Dashboard_Tags_Path } from '@intlayer/design-system/routes';
 import { ArrowLeft } from 'lucide-react';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
@@ -63,7 +64,7 @@ export const TagDetails: FC<TagDetailsProps> = ({ tagKey }) => {
     <div className="flex size-full flex-1 flex-col gap-10">
       <div className="flex items-center gap-2">
         <Button
-          onClick={() => navigate({ to: '/tags' })}
+          onClick={() => navigate({ to: App_Dashboard_Tags_Path })}
           variant={ButtonVariant.HOVERABLE}
           className="z-10 mr-auto ml-5"
           color={ButtonColor.TEXT}

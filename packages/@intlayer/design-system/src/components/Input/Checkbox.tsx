@@ -70,7 +70,7 @@ export const checkboxVariants = cva(
     },
     defaultVariants: {
       variant: 'default',
-      color: 'primary',
+      color: 'text',
       validationStyleEnabled: 'disabled',
       size: 'md',
     },

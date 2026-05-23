@@ -213,7 +213,7 @@ const SessionAuthSelector: FC<{
           </span>
         </div>
       </Container>
-      {error && <span className="text-red-500 text-sm">{error}</span>}
+      {error && <span className="text-error text-sm">{error}</span>}
       <Button
         className="w-full"
         color="text"
@@ -275,7 +275,7 @@ export const CliLoginFlow: FC<CliLoginFlowProps> = ({
   if (!port) {
     return (
       <Container className="flex h-screen w-screen items-center justify-center">
-        <span className="text-red-500">No port defined</span>
+        <span className="text-error">No port defined</span>
       </Container>
     );
   }

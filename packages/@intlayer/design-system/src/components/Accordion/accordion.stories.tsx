@@ -361,7 +361,7 @@ export const ControlledMode: Story = {
           </button>
           <button
             onClick={() => setIsOpen(false)}
-            className="rounded bg-red-500 px-3 py-1 text-white"
+            className="rounded bg-error px-3 py-1 text-white"
           >
             Close Accordion
           </button>

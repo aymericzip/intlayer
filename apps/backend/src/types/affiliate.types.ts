@@ -9,7 +9,7 @@ export type AffiliateCategory =
   | 'native_speaker'
   | 'marketing_expert'
   | 'copywriter'
-  | 'certified_translator';
+  | 'certified_reviewer';
 export type ConversionStatus =
   | 'pending'
   | 'converted'

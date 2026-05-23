@@ -16,7 +16,7 @@ export * from './getIntlayerAPI/search';
 export * from './getIntlayerAPI/stripe';
 export * from './getIntlayerAPI/tag';
 export * from './getIntlayerAPI/translate';
-export * from './getIntlayerAPI/translator';
+export * from './getIntlayerAPI/reviewer';
 export * from './getIntlayerAPI/user';
 export * from './proxy';
 export * from './types';

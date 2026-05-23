@@ -53,7 +53,7 @@ const emitProgress = async (
   await job.updateProgress(progress as unknown as number);
 };
 
-const processTranslationJob = async (job: Job<TranslationJobData>) => {
+export const processTranslationJob = async (job: Job<TranslationJobData>) => {
   const {
     dictionaryTargets,
     dictionaryIds,

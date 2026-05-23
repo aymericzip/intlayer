@@ -82,7 +82,7 @@ function DashboardLayout() {
   const { navigation } = useIntlayer('dashboard-sidebar');
   const { footerLinks } = useIntlayer('dashboard-footer-content');
 
-  const { translationStatus, aiAssistant, visualEditor, closePanel } =
+  const { translationStatus, aiAssistant, visualEditor, closePanel, mainContentAriaLabel, sidePanelAriaLabel } =
     useIntlayer('dashboard-route');
 
   const PANEL_TITLES: Record<string, string> = {
@@ -176,11 +176,15 @@ function DashboardLayout() {
         <DashboardNavbar items={navigationItems} />
         <div className="flex min-h-0 w-full flex-1">
           <DashboardSidebar items={navigationItems} />
-          <div className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-2xl border border-neutral/40 bg-background">
+          <main
+            id="main-content"
+            aria-label={mainContentAriaLabel.value}
+            className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-2xl border border-neutral/40 bg-background"
+          >
             <div className="flex flex-1 flex-col overflow-auto">
               <Outlet />
             </div>
-          </div>
+          </main>
           <WithResizer
             initialWidth={0}
             defaultOpenWidth={360}
@@ -189,9 +193,14 @@ function DashboardLayout() {
             style={false}
             className="min-w-2"
           >
-            <div className="ml-3 flex h-full min-h-0 flex-col overflow-hidden rounded-2xl border border-neutral/40 bg-background md:mr-2">
+            <aside
+              aria-label={
+                activePanel ? (PANEL_TITLES[activePanel] ?? activePanel) : sidePanelAriaLabel.value
+              }
+              className="ml-3 flex h-full min-h-0 flex-col overflow-hidden rounded-2xl border border-neutral/40 bg-background md:mr-2"
+            >
               <div className="flex shrink-0 items-center justify-between border-neutral/20 border-b px-3 py-2">
-                <span className="font-medium text-sm">
+                <span className="font-medium text-sm" aria-hidden="true">
                   {activePanel
                     ? (PANEL_TITLES[activePanel] ?? activePanel)
                     : ''}
@@ -209,7 +218,7 @@ function DashboardLayout() {
                 id="dashboard-right-panel"
                 className="relative flex-1 overflow-hidden"
               />
-            </div>
+            </aside>
           </WithResizer>
         </div>
         <DashboardFooter locale={locale} links={formattedFooterLinks} />

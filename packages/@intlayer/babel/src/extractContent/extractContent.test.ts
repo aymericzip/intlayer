@@ -140,8 +140,11 @@ export const Test = () => {
     expect(updatedCode).toContain(
       '<h1>{content.helloWorldShouldBeExtracted}</h1>'
     );
-    expect(updatedCode).toContain('content.clickedShouldBeExtracted.value');
-    expect(updatedCode).toContain('content.clickMeShouldBeExtracted.value');
+    // Ternary string literals inside JSX children are IntlayerNodes — no .value
+    expect(updatedCode).not.toContain('content.clickedShouldBeExtracted.value');
+    expect(updatedCode).toContain('content.clickedShouldBeExtracted');
+    expect(updatedCode).not.toContain('content.clickMeShouldBeExtracted.value');
+    expect(updatedCode).toContain('content.clickMeShouldBeExtracted');
     expect(updatedCode).toContain(
       'placeholder={content.thisIsThePlaceholderShould.value}'
     );
@@ -231,6 +234,32 @@ export const InsertionTest = () => {
 
     expect(updatedCode).toMatch(
       /<p>\s*\{content\.[a-zA-Z0-9_]+\(\{\s*count: count,\s*name: user\.name,?\s*\}\)\}\s*<\/p>/m
+    );
+  });
+
+  it('should extract JSX insertion when variable expression appears first', async () => {
+    const componentPath = join(tmpDir, 'LeadingVarInsertionTest.tsx');
+    const componentCode = `
+export const LeadingVarInsertionTest = ({ profile }: { profile: { totalMissions: number } }) => {
+  return (
+    <div>
+      <span>{profile.totalMissions} missions completed</span>
+    </div>
+  );
+};
+`;
+    writeFileSync(componentPath, componentCode);
+
+    await extractContent(componentPath, 'react-intlayer');
+
+    const updatedCode = readFileSync(componentPath, 'utf-8');
+
+    expect(updatedCode).toMatch(
+      /import \{ useIntlayer \} from ['"]react-intlayer(\/server)?['"];/
+    );
+    // The span children should be replaced with an insertion call
+    expect(updatedCode).toMatch(
+      /\{content\.[a-zA-Z0-9_]+\(\{\s*totalMissions:\s*profile\.totalMissions,?\s*\}\)\}/
     );
   });
 

@@ -440,7 +440,7 @@ export const I18nBenchmark = ({
                   {isLoading ? (
                     <Loader className="h-full min-h-40" />
                   ) : isError ? (
-                    <div className="flex h-full items-center justify-center text-red-500 text-sm">
+                    <div className="flex h-full items-center justify-center text-error text-sm">
                       {errorLoadingData}
                     </div>
                   ) : chartData.length === 0 ? (

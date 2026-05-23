@@ -1,6 +1,7 @@
 import { useLogin } from '@intlayer/design-system/hooks';
 import {
   App_Auth_AskResetPassword_Path,
+  App_Auth_SignUp_Path,
   App_Home_Path,
 } from '@intlayer/design-system/routes';
 import { useRouter, useSearch } from '@tanstack/react-router';
@@ -66,7 +67,7 @@ export const SignInForm: FC<{
 
     if (email) {
       navigate({
-        to: '/auth/password/ask-reset',
+        to: App_Auth_AskResetPassword_Path,
         search: {
           email,
         },
@@ -80,9 +81,9 @@ export const SignInForm: FC<{
     const email = getEmailContext();
 
     if (email) {
-      navigate({ to: '/auth/register', search: { email } });
+      navigate({ to: App_Auth_SignUp_Path, search: { email } });
     } else {
-      navigate({ to: '/auth/register' });
+      navigate({ to: App_Auth_SignUp_Path });
     }
   };
 

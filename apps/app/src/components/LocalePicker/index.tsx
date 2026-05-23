@@ -64,7 +64,7 @@ export const LocalePicker: FC<LocalePickerProps> = ({
         className="z-50"
       >
         <Container
-          className="max-h-64 min-w-52 border border-text/5"
+          className="max-h-84 min-w-64 border border-text/5"
           separator="y"
           roundedSize="2xl"
           transparency="xs"

@@ -105,6 +105,7 @@
     "react": "19.2.6",
     "react-email": "6.3.0",
     "resend": "6.12.3",
+    "sharp": "^0.34.5",
     "stripe": "22.1.1",
     "validator": "13.15.35",
     "winston": "3.19.0",

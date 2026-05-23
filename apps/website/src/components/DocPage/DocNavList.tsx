@@ -209,7 +209,7 @@ export const DocNavListContent: FC<DocNavListContentProps> = ({
   activeSlugs,
   selectedFramework,
 }) => {
-  const { blogButton, chatBotButton } = useIntlayer('doc-nav-list');
+  const { blogButton, chatBotButton, documentationSections } = useIntlayer('doc-nav-list');
   const navRef = useScrollPositionPersistence<HTMLElement>(
     'doc-nav-scroll-position'
   );
@@ -219,6 +219,7 @@ export const DocNavListContent: FC<DocNavListContentProps> = ({
   return (
     <nav
       ref={navRef}
+      aria-label={documentationSections.value}
       className="m-auto flex max-h-[calc(100vh-8.2rem)] min-w-40 max-w-xl flex-col gap-5 overflow-auto px-3 pt-8 pb-20"
     >
       {Object.keys(filteredDocData).map((key1) => {
@@ -418,6 +419,8 @@ export const DocNavList: FC<DocNavListProps> = ({ docData, activeSlugs }) => {
           variant="hoverable"
           color="text"
           label={collapseButton.label.value}
+          aria-expanded={false}
+          aria-controls="doc-nav-content"
           className="rotate-180"
           onClick={() => setIsHidden(false)}
         />
@@ -470,6 +473,8 @@ export const DocNavList: FC<DocNavListProps> = ({ docData, activeSlugs }) => {
                     variant="hoverable"
                     color="text"
                     label={collapseButton.label.value}
+                    aria-expanded={!isHidden}
+                    aria-controls="doc-nav-content"
                     className={cn([
                       'transition-transform',
                       isHidden && 'rotate-180',
@@ -493,7 +498,7 @@ export const DocNavList: FC<DocNavListProps> = ({ docData, activeSlugs }) => {
               </div>
             </Container>
 
-            <div className="sticky top-28 pt-0">
+            <div id="doc-nav-content" className="sticky top-28 pt-0">
               <MaxWidthSmoother isHidden={Boolean(isHidden)}>
                 <div className="relative overflow-hidden">
                   <DocNavListContent

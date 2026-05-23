@@ -54,6 +54,7 @@ const dashboardMetadataContent = {
           'i18n',
           'CMS',
         ],
+
         fr: [
           'Intlayer',
           'Tableau de bord',
@@ -62,6 +63,7 @@ const dashboardMetadataContent = {
           'i18n',
           'CMS',
         ],
+
         es: [
           'Intlayer',
           'Panel de control',
@@ -70,6 +72,7 @@ const dashboardMetadataContent = {
           'i18n',
           'CMS',
         ],
+
         de: [
           'Intlayer',
           'Dashboard',
@@ -78,6 +81,7 @@ const dashboardMetadataContent = {
           'i18n',
           'CMS',
         ],
+
         ja: [
           'Intlayer',
           'ダッシュボード',
@@ -86,8 +90,10 @@ const dashboardMetadataContent = {
           'i18n',
           'CMS',
         ],
+
         ko: ['Intlayer', '대시보드', '현지화', '국제화', 'i18n', 'CMS'],
         zh: ['Intlayer', '仪表板', '本地化', '国际化', 'i18n', 'CMS'],
+
         it: [
           'Intlayer',
           'Cruscotto',
@@ -96,6 +102,7 @@ const dashboardMetadataContent = {
           'i18n',
           'CMS',
         ],
+
         pt: [
           'Intlayer',
           'Painel',
@@ -104,8 +111,10 @@ const dashboardMetadataContent = {
           'i18n',
           'CMS',
         ],
+
         hi: ['Intlayer', 'डैशबोर्ड', 'स्थानीयकरण', 'अंतर्राष्ट्रीयकरण', 'i18n', 'CMS'],
         ar: ['Intlayer', 'لوحة التحكم', 'الترجمة', 'التدويل', 'i18n', 'CMS'],
+
         ru: [
           'Intlayer',
           'Приборная панель',
@@ -114,6 +123,7 @@ const dashboardMetadataContent = {
           'i18n',
           'CMS',
         ],
+
         tr: [
           'Intlayer',
           'Dashboard',
@@ -122,6 +132,7 @@ const dashboardMetadataContent = {
           'i18n',
           'CMS',
         ],
+
         pl: [
           'Intlayer',
           'Panel',
@@ -130,6 +141,7 @@ const dashboardMetadataContent = {
           'i18n',
           'CMS',
         ],
+
         id: [
           'Intlayer',
           'Dashboard',
@@ -138,6 +150,7 @@ const dashboardMetadataContent = {
           'i18n',
           'CMS',
         ],
+
         vi: [
           'Intlayer',
           'Dashboard',
@@ -146,6 +159,7 @@ const dashboardMetadataContent = {
           'i18n',
           'CMS',
         ],
+
         uk: [
           'Intlayer',
           'Панель керування',
@@ -154,6 +168,15 @@ const dashboardMetadataContent = {
           'i18n',
           'CMS',
         ],
+
+        "en-GB": [
+          "Intlayer",
+          "Dashboard",
+          "Localization",
+          "Internationalization",
+          "i18n",
+          "CMS"
+        ]
       }),
     },
   },

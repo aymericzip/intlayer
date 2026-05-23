@@ -5518,10 +5518,10 @@ export const errorData = {
     },
     statusCode: HttpStatusCodes.INTERNAL_SERVER_ERROR_500,
   },
-  TRANSLATOR_PROFILE_NOT_FOUND: {
+  REVIEWER_PROFILE_NOT_FOUND: {
     title: {
-      en: 'Translator not found',
-      'en-GB': 'Translator not found',
+      en: 'Reviewer not found',
+      'en-GB': 'Reviewer not found',
       fr: 'Traducteur introuvable',
       es: 'Traductor no encontrado',
       ru: 'Переводчик не найден',
@@ -5540,8 +5540,8 @@ export const errorData = {
       uk: 'Перекладача не знайдено',
     },
     message: {
-      en: 'No translator profile found.',
-      'en-GB': 'No translator profile found.',
+      en: 'No reviewer profile found.',
+      'en-GB': 'No reviewer profile found.',
       fr: 'Aucun profil de traducteur trouvé.',
       es: 'No se encontró ningún perfil de traductor.',
       ru: 'Профиль переводчика не найден.',
@@ -5561,10 +5561,10 @@ export const errorData = {
     },
     statusCode: HttpStatusCodes.NOT_FOUND_404,
   },
-  TRANSLATOR_PROFILE_ALREADY_EXISTS: {
+  REVIEWER_PROFILE_ALREADY_EXISTS: {
     title: {
-      en: 'Already registered as translator',
-      'en-GB': 'Already registered as translator',
+      en: 'Already registered as reviewer',
+      'en-GB': 'Already registered as reviewer',
       fr: 'Déjà enregistré comme traducteur',
       es: 'Ya registrado como traductor',
       ru: 'Уже зарегистрирован как переводчик',
@@ -5583,8 +5583,8 @@ export const errorData = {
       uk: 'Вже зареєстровано як перекладача',
     },
     message: {
-      en: 'This user is already registered as a translator.',
-      'en-GB': 'This user is already registered as a translator.',
+      en: 'This user is already registered as a reviewer.',
+      'en-GB': 'This user is already registered as a reviewer.',
       fr: 'Cet utilisateur est déjà enregistré en tant que traducteur.',
       es: 'Este usuario ya está registrado como traductor.',
       ru: 'Этот пользователь уже зарегистрирован как переводчик.',
@@ -5604,7 +5604,7 @@ export const errorData = {
     },
     statusCode: HttpStatusCodes.CONFLICT_409,
   },
-  TRANSLATOR_MISSION_NOT_FOUND: {
+  REVIEWER_MISSION_NOT_FOUND: {
     title: {
       en: 'Mission not found',
       'en-GB': 'Mission not found',
@@ -5647,7 +5647,7 @@ export const errorData = {
     },
     statusCode: HttpStatusCodes.NOT_FOUND_404,
   },
-  TRANSLATOR_MISSION_UNAUTHORIZED: {
+  REVIEWER_MISSION_UNAUTHORIZED: {
     title: {
       en: 'Unauthorized',
       'en-GB': 'Unauthorised',
@@ -5690,7 +5690,7 @@ export const errorData = {
     },
     statusCode: HttpStatusCodes.FORBIDDEN_403,
   },
-  TRANSLATOR_REVIEW_ALREADY_EXISTS: {
+  REVIEWER_REVIEW_ALREADY_EXISTS: {
     title: {
       en: 'Review already submitted',
       'en-GB': 'Review already submitted',
@@ -5733,7 +5733,7 @@ export const errorData = {
     },
     statusCode: HttpStatusCodes.CONFLICT_409,
   },
-  TRANSLATOR_REVIEW_MISSION_NOT_COMPLETED: {
+  REVIEWER_REVIEW_MISSION_NOT_COMPLETED: {
     title: {
       en: 'Mission not completed',
       'en-GB': 'Mission not completed',

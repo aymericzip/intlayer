@@ -25,8 +25,8 @@ export const DashboardFooter: FC<DashboardFooterProps> = ({ links }) => {
   const { isMobile } = useDevice('sm');
 
   return (
-    <footer className="z-90 flex flex-none flex-wrap items-center gap-4 px-6 pt-1 pb-2 max-md:pb-2 md:flex-row">
-      <div className="flex flex-row items-center justify-center gap-x-4 gap-y-2 max-md:max-w-1/4">
+    <footer className="z-90 flex flex-none flex-row flex-wrap items-center gap-4 px-6 pt-1 pb-2 max-md:pb-2">
+      <div className="flex flex-row items-center justify-center gap-x-4 gap-y-2 max-md:w-full">
         <Link to={github.url.value} label={github.label.value} color="text">
           <TechLogos.GITHUB width={20} />
         </Link>

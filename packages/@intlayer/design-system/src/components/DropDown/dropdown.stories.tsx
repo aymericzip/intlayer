@@ -365,7 +365,7 @@ export const AlignmentOptions: Story = {
       {/* End Aligned */}
       <DropDown identifier="end-aligned" className="w-48">
         <DropDown.Trigger identifier="end-aligned">
-          <div className="flex items-center gap-2 rounded bg-red-500 px-4 py-2 text-white hover:bg-red-600">
+          <div className="flex items-center gap-2 rounded bg-error px-4 py-2 text-white hover:bg-red-600">
             <span>End Aligned</span>
             <ChevronDown size={16} />
           </div>

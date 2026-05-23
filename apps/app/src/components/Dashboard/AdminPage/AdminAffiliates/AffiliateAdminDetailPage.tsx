@@ -21,7 +21,7 @@ const CATEGORIES: AffiliateCategory[] = [
   'native_speaker',
   'marketing_expert',
   'copywriter',
-  'certified_translator',
+  'certified_reviewer',
 ];
 
 const STATUS_COLOR: Record<AffiliateAPI['status'], BadgeColor> = {

@@ -32,7 +32,7 @@ type SpinnerProps = SVGProps<SVGSVGElement> & {
  * @example
  * Custom size:
  * ```tsx
- * <Spinner className="size-8 text-red-500" strokeWidth={2} />
+ * <Spinner className="size-8 text-error" strokeWidth={2} />
  * ```
  *
  * Features:

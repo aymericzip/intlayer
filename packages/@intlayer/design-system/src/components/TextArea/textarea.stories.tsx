@@ -470,9 +470,7 @@ export const InteractiveFormField: Story = {
 
             <span
               className={`text-sm ${
-                remainingChars < 20
-                  ? 'font-medium text-red-500'
-                  : 'text-gray-400'
+                remainingChars < 20 ? 'font-medium text-error' : 'text-gray-400'
               }`}
             >
               {remainingChars} remaining

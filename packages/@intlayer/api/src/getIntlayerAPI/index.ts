@@ -18,7 +18,7 @@ import { getShowcaseProjectAPI } from './showcaseProject';
 import { getStripeAPI } from './stripe';
 import { getTagAPI } from './tag';
 import { getTranslateAPI } from './translate';
-import { getTranslatorAPI } from './translator';
+import { getReviewerAPI } from './reviewer';
 import { getUserAPI } from './user';
 
 interface IntlayerAPIReturn {
@@ -39,7 +39,7 @@ interface IntlayerAPIReturn {
   bitbucket: ReturnType<typeof getBitbucketAPI>;
   showcaseProject: ReturnType<typeof getShowcaseProjectAPI>;
   translate: ReturnType<typeof getTranslateAPI>;
-  translator: ReturnType<typeof getTranslatorAPI>;
+  reviewer: ReturnType<typeof getReviewerAPI>;
 }
 
 export const getIntlayerAPI = (
@@ -66,7 +66,7 @@ export const getIntlayerAPI = (
     bitbucket: getBitbucketAPI(authAPIOptions, resolvedConfig),
     showcaseProject: getShowcaseProjectAPI(authAPIOptions, resolvedConfig),
     translate: getTranslateAPI(authAPIOptions, resolvedConfig),
-    translator: getTranslatorAPI(authAPIOptions, resolvedConfig),
+    reviewer: getReviewerAPI(authAPIOptions, resolvedConfig),
   };
 };
 

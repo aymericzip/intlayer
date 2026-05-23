@@ -4,6 +4,7 @@ import {
   App_Admin_Discussions_Path,
   App_Admin_Organizations_Path,
   App_Admin_Projects_Path,
+  App_Admin_Reviewers_Path,
   App_Admin_Users_Path,
 } from '@intlayer/design-system/routes';
 import {
@@ -17,6 +18,7 @@ import {
   Building2,
   FolderOpen,
   HandCoins,
+  Languages,
   MessageCircle,
   Users,
 } from 'lucide-react';
@@ -29,7 +31,7 @@ type AdminTabBarProps = {
 };
 
 export const AdminTabBar: FC<AdminTabBarProps> = ({ className }) => {
-  const { navigation } = useIntlayer('admin-sidebar');
+  const { navigation, adminSectionNavigation } = useIntlayer('admin-sidebar');
   const { pathname } = useLocation();
 
   const navigationItems = [
@@ -65,8 +67,15 @@ export const AdminTabBar: FC<AdminTabBarProps> = ({ className }) => {
       key: 'affiliate',
       href: App_Admin_Affiliate_Path,
       icon: HandCoins,
-      label: 'Affiliate',
-      title: 'Affiliate',
+      label: (navigation.management as any).affiliate.label.value,
+      title: (navigation.management as any).affiliate.title,
+    },
+    {
+      key: 'reviewers',
+      href: App_Admin_Reviewers_Path,
+      icon: Languages,
+      label: (navigation.management as any).reviewers.label.value,
+      title: (navigation.management as any).reviewers.title,
     },
   ];
 
@@ -90,13 +99,13 @@ export const AdminTabBar: FC<AdminTabBarProps> = ({ className }) => {
     >
       <item.icon className="size-4 min-w-4 shrink-0" />
       <span className="truncate transition-all duration-500 ease-in-out">
-        {item.title}
+        {item.title.value}
       </span>
     </Link>
   ));
 
   return (
-    <nav className="relative ml-auto">
+    <nav aria-label={adminSectionNavigation.value} className="relative ml-auto">
       <Container
         className={cn('m-auto flex w-auto self-start p-4', className)}
         roundedSize="none"

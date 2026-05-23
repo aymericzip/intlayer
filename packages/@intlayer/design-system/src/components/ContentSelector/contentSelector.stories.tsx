@@ -271,7 +271,7 @@ export const ControlledSelection: Story = {
             {selectedItems.length !== 1 ? 's' : ''}
           </span>
           <button
-            className="rounded bg-red-500 px-3 py-1 text-sm text-white hover:bg-red-600"
+            className="rounded bg-error px-3 py-1 text-sm text-white hover:bg-red-600"
             onClick={clearAllSelections}
           >
             Clear All
@@ -409,7 +409,7 @@ export const MultiSelectionInterface: Story = {
                   Archive Selected
                 </button>
                 <button
-                  className="rounded bg-red-500 px-3 py-1 text-sm text-white hover:bg-red-600"
+                  className="rounded bg-error px-3 py-1 text-sm text-white hover:bg-red-600"
                   onClick={() => batchOperation('Delete')}
                 >
                   Delete Selected

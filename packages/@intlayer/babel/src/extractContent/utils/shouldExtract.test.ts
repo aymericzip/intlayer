@@ -89,7 +89,7 @@ describe('shouldExtract', () => {
     expect(shouldExtract('flex flex-col gap-2 rounded-lg border p-4')).toBe(
       false
     );
-    expect(shouldExtract('!text-red-500 font-bold')).toBe(false);
+    expect(shouldExtract('!text-error font-bold')).toBe(false);
     expect(shouldExtract('text-sm/6 font-semibold')).toBe(false);
   });
 

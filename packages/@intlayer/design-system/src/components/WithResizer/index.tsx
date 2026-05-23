@@ -242,6 +242,7 @@ export const WithResizer: FC<PropsWithChildren<WithResizerProps>> = ({
         | React.MouseEvent<HTMLDivElement>
         | React.TouchEvent<HTMLDivElement>
     ) => {
+      if (isOpen === false) return;
       mouseDownEvent.preventDefault();
       const container = containerRef.current;
 
@@ -273,7 +274,7 @@ export const WithResizer: FC<PropsWithChildren<WithResizerProps>> = ({
       window.addEventListener('touchmove', resize, { passive: true });
       window.addEventListener('touchend', stopResizing);
     },
-    [resize, stopResizing]
+    [isOpen, resize, stopResizing]
   );
 
   useEffect(() => {
@@ -371,7 +372,8 @@ export const WithResizer: FC<PropsWithChildren<WithResizerProps>> = ({
       <div
         role="presentation"
         className={cn(
-          'absolute top-0 z-10 h-full w-3 cursor-ew-resize',
+          'absolute top-0 z-10 h-full w-3',
+          isOpen !== false ? 'cursor-ew-resize' : 'cursor-default',
           handlePosition === 'right' ? 'right-0' : 'left-0'
         )}
         onMouseDown={startResizing}

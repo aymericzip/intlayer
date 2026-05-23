@@ -279,7 +279,7 @@ export const ValidationStates: Story = {
                 aria-invalid={isInvalid}
                 className={
                   isInvalid
-                    ? 'border-red-500'
+                    ? 'border-error'
                     : isValid && showValidation
                       ? 'border-green-500'
                       : ''
@@ -299,9 +299,7 @@ export const ValidationStates: Story = {
             </Select>
 
             {isInvalid && (
-              <p className="mt-1 text-red-500 text-xs">
-                Please select a country
-              </p>
+              <p className="mt-1 text-error text-xs">Please select a country</p>
             )}
             {isValid && showValidation && (
               <p className="mt-1 text-green-500 text-xs">Valid selection ✓</p>
