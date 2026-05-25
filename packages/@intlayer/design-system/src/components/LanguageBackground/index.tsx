@@ -5,6 +5,7 @@ import {
   lazy,
   type PropsWithChildren,
   Suspense,
+  startTransition,
   useEffect,
   useState,
 } from 'react';
@@ -19,11 +20,16 @@ export const LanguageBackground: FC<PropsWithChildren> = ({ children }) => {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
+    // startTransition defers the background as a low-priority update so the
+    // sign-in form paints before React starts loading the flag section chunk.
+    startTransition(() => {
+      setMounted(true);
+    });
   }, []);
 
   return (
     <>
+      {children}
       <div className="absolute top-0 left-0 z-0 flex size-full items-center justify-center">
         {mounted && (
           <Suspense>
@@ -31,7 +37,6 @@ export const LanguageBackground: FC<PropsWithChildren> = ({ children }) => {
           </Suspense>
         )}
       </div>
-      {children}
     </>
   );
 };
