@@ -1,10 +1,12 @@
 import { TestBed } from '@angular/core/testing';
+import { provideIntlayer } from 'angular-intlayer';
 import { App } from './app';
 
 describe('App', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [App],
+      providers: [provideIntlayer()],
     }).compileComponents();
   });
 

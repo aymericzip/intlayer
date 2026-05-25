@@ -1,39 +1,52 @@
-import { type Dictionary, enu, html, insert, md, t } from 'intlayer';
+import { type Dictionary, t } from 'intlayer';
 
-const content = {
+const appContent = {
   key: 'app',
   content: {
-    title: t({
-      en: 'Welcome to Angular',
-      fr: 'Bienvenue sur Angular',
-      es: 'Bienvenido a Angular',
+    hello: t({
+      en: 'Hello',
+      fr: 'Bonjour',
+      es: 'Hola',
     }),
-    subtitle: t({
-      en: 'This is a sample app',
-      fr: 'Ceci est une application exemple',
-      es: 'Esta es una aplicación de muestra',
+    congratulations: t({
+      en: 'Congratulations! Your app is running. 🎉',
+      fr: "Félicitations ! Votre application est en cours d'exécution. 🎉",
+      es: '¡Felicidades! Tu aplicación está en ejecución. 🎉',
     }),
-    markdownContent: md(
-      t({
-        en: '### Markdown Test\n\nThis is **bold** and this is *italic*.',
-        fr: '### Test Markdown\n\nCeci est en **gras** et cela en *italique*.',
-        es: '### Prueba de Markdown\n\nEsto está en **negrita** et esto en *cursiva*.',
-      })
-    ),
-    htmlContent: html(
-      t({
-        en: '<strong>HTML</strong> test with <em>style</em>',
-        fr: 'Test <strong>HTML</strong> avec du <em>style</em>',
-        es: 'Prueba de <strong>HTML</strong> con <em>estilo</em>',
-      })
-    ),
-    enumeration: enu({
-      '0': 'No items',
-      '1': 'One item',
-      '>1': 'Many items',
+    exploreDocs: t({
+      en: 'Explore the Docs',
+      fr: 'Explorer les Docs',
+      es: 'Explorar los Docs',
     }),
-    insertion: insert('{{count}} items'),
+    learnWithTutorials: t({
+      en: 'Learn with Tutorials',
+      fr: 'Apprendre avec les Tutoriels',
+      es: 'Aprender con los Tutoriales',
+    }),
+    aiPromptBestPractices: t({
+      en: 'Prompt and best practices for AI',
+      fr: "Prompts et meilleures pratiques pour l'IA",
+      es: 'Instrucciones y mejores prácticas para la IA',
+    }),
+    cliDocs: t({
+      en: 'CLI Docs',
+      fr: 'Docs CLI',
+      es: 'Docs de CLI',
+    }),
+    angularLanguageService: t({
+      en: 'Angular Language Service',
+      fr: 'Service de Langage Angular',
+      es: 'Servicio de Lenguaje Angular',
+    }),
+    angularDevTools: t({
+      en: 'Angular DevTools',
+      fr: 'DevTools Angular',
+      es: 'DevTools de Angular',
+    }),
+    github: 'Github',
+    x: 'X (Twitter)',
+    youtube: 'Youtube',
   },
 } satisfies Dictionary;
 
-export default content;
+export default appContent;

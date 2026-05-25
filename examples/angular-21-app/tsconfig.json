@@ -1,5 +1,3 @@
-/* To learn more about Typescript configuration file: https://www.typescriptlang.org/docs/handbook/tsconfig-json.html. */
-/* To learn more about Angular compiler options: https://angular.dev/reference/configs/angular-compiler-options. */
 {
   "compileOnSave": false,
   "compilerOptions": {
@@ -13,7 +11,24 @@
     "experimentalDecorators": true,
     "importHelpers": true,
     "target": "ES2022",
-    "module": "preserve"
+    "module": "preserve",
+    "baseUrl": ".",
+    "paths": {
+      "@intlayer/dictionaries-entry": [".intlayer/main/dictionaries.mjs"],
+      "@intlayer/unmerged-dictionaries-entry": [
+        ".intlayer/main/unmerged_dictionaries.mjs"
+      ],
+      "@intlayer/remote-dictionaries-entry": [
+        ".intlayer/main/remote_dictionaries.mjs"
+      ],
+      "@intlayer/dynamic-dictionaries-entry": [
+        ".intlayer/main/dynamic_dictionaries.mjs"
+      ],
+      "@intlayer/fetch-dictionaries-entry": [
+        ".intlayer/main/fetch_dictionaries.mjs"
+      ],
+      "@intlayer/config/built": [".intlayer/config/configuration.mjs"]
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
