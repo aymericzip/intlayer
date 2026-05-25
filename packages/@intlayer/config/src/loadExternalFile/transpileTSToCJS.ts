@@ -1,4 +1,5 @@
 import { existsSync } from 'node:fs';
+import { createRequire } from 'node:module';
 import { dirname, extname, join } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import {
@@ -66,6 +67,23 @@ export const transpileTSToCJSSync = (
 
   const { esbuildInstance, ...buildOptions } = options ?? {};
   const esbuildBuildSync = esbuildInstance?.buildSync ?? buildSync;
+
+  // esbuild's worker thread service calls `new Worker(__filename, …)` on first use.
+  // In Vite's SSR module runner the SSR-optimised chunk is ESM and __filename is
+  // never declared (confirmed: accessing it throws ReferenceError, not undefined).
+  // Because there is no local declaration the bare `__filename` lookup falls
+  // through to globalThis, so we set it there to esbuild's own CJS entry-point –
+  // the exact path esbuild would use if it were loaded in a normal CJS context.
+  if (typeof (globalThis as Record<string, unknown>).__filename !== 'string') {
+    try {
+      const _require = createRequire(import.meta.url);
+      const esbuildEntry = _require.resolve('esbuild');
+      (globalThis as Record<string, unknown>).__filename = esbuildEntry;
+      (globalThis as Record<string, unknown>).__dirname = dirname(esbuildEntry);
+    } catch {
+      // Best-effort: if esbuild can't be resolved the caller's catch handles it
+    }
+  }
 
   const moduleResult: BuildResult = esbuildBuildSync({
     stdin: {

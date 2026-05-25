@@ -1270,16 +1270,21 @@ const docDataContent: Dictionary = {
           frameworks: ['lit', 'vite'],
         },
         angular: {
-          title: 'Angular',
-          default: getDocMetadata('./docs/en/intlayer_with_angular.md'),
+          title: 'Angular 21',
+          default: getDocMetadata('./docs/en/intlayer_with_angular_21.md'),
           subSections: {
+            19: {
+              title: 'Angular 19 (Webpack)',
+              default: getDocMetadata('./docs/en/intlayer_with_angular_19.md'),
+              frameworks: ['angular', 'webpack'],
+            },
             analog: {
               title: 'Analog',
               default: getDocMetadata('./docs/en/intlayer_with_analog.md'),
               frameworks: ['angular', 'vite'],
             },
           },
-          frameworks: ['angular', 'webpack'],
+          frameworks: ['angular', 'vite'],
         },
         'create-react-app': {
           title: 'React CRA',
