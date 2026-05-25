@@ -5,11 +5,6 @@ import type { User } from './user.types';
 
 export type AffiliateStatus = 'pending' | 'onboarding' | 'active' | 'suspended';
 export type CommissionType = 'recurring' | 'one_time';
-export type AffiliateCategory =
-  | 'native_speaker'
-  | 'marketing_expert'
-  | 'copywriter'
-  | 'certified_reviewer';
 export type ConversionStatus =
   | 'pending'
   | 'converted'
@@ -24,7 +19,6 @@ export type AffiliateData = {
   status: AffiliateStatus;
   commissionRate: number; // percentage (e.g. 20 for 20%)
   commissionType: CommissionType;
-  category?: AffiliateCategory;
 };
 
 export type Affiliate = AffiliateData & {

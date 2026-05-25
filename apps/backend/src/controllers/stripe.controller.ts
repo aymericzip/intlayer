@@ -17,11 +17,7 @@ import {
 import type { FastifyReply, FastifyRequest } from 'fastify';
 import { t } from 'fastify-intlayer';
 import Stripe from 'stripe';
-import type {
-  AffiliateAPI,
-  AffiliateCategory,
-  AffiliateStats,
-} from '@/types/affiliate.types';
+import type { AffiliateAPI, AffiliateStats } from '@/types/affiliate.types';
 import type { AffiliateInvitationAPI } from '@/types/affiliateInvitation.types';
 import type { Organization } from '@/types/organization.types';
 
@@ -506,7 +502,6 @@ export type GrantAffiliateAccessBody = {
   commissionRate?: number;
   commissionType?: 'recurring' | 'one_time';
   country?: string;
-  category?: AffiliateCategory;
 };
 
 export type GrantAffiliateAccessResult = ResponseData<AffiliateAPI>;
@@ -525,14 +520,12 @@ export const grantAffiliateAccess = async (
       return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_FOUND');
     }
 
-    const { userId, commissionRate, commissionType, country, category } =
-      request.body;
+    const { userId, commissionRate, commissionType, country } = request.body;
 
     const affiliate = await affiliateService.createAffiliate(userId as any, {
       commissionRate,
       commissionType,
       country,
-      category,
     });
 
     return reply.send(
@@ -721,7 +714,6 @@ export type SendAffiliateInvitationBody = {
   commissionRate?: number;
   commissionType?: 'recurring' | 'one_time';
   country?: string;
-  category?: AffiliateCategory;
 };
 
 export type SendAffiliateInvitationResult = ResponseData<{ sent: boolean }>;
@@ -740,14 +732,13 @@ export const sendAffiliateInvitation = async (
       return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_FOUND');
     }
 
-    const { email, commissionRate, commissionType, country, category } =
-      request.body;
+    const { email, commissionRate, commissionType, country } = request.body;
     const appUrl = process.env.APP_URL ?? 'https://app.intlayer.org';
 
     const invitation = await affiliateService.createAffiliateInvitation(
       email,
       user.id,
-      { commissionRate, commissionType, country, category }
+      { commissionRate, commissionType, country }
     );
 
     const inviteLink = `${appUrl}/affiliation/${invitation.token}`;
@@ -803,12 +794,11 @@ export const getAffiliateInvitation = async (
 
 export type UpdateAffiliateStatusBody = {
   status?: 'active' | 'suspended';
-  category?: AffiliateCategory;
 };
 export type UpdateAffiliateStatusResult = ResponseData<AffiliateAPI>;
 
 /**
- * Admin-only: updates an affiliate's status and/or category.
+ * Admin-only: updates an affiliate's status.
  */
 export const updateAffiliateStatus = async (
   request: FastifyRequest<{
@@ -819,11 +809,10 @@ export const updateAffiliateStatus = async (
 ): Promise<void> => {
   try {
     const { id } = request.params;
-    const { status, category } = request.body;
+    const { status } = request.body;
 
     const affiliate = await affiliateService.setAffiliateStatus(id, {
       status,
-      category,
     });
 
     if (!affiliate) {

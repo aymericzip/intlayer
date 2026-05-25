@@ -2,7 +2,6 @@
 
 import { Form, useForm } from '@intlayer/design-system/form';
 import { useSendAffiliateInvitation } from '@intlayer/design-system/hooks';
-import { Select } from '@intlayer/design-system/select';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import {
@@ -30,7 +29,6 @@ export const SendInvitationForm: FC<SendInvitationFormProps> = ({
       email: data.email,
       commissionRate: data.commissionRate,
       commissionType: 'recurring',
-      ...(data.category ? { category: data.category } : {}),
     });
     form.reset();
     onSuccess?.();
@@ -57,30 +55,6 @@ export const SendInvitationForm: FC<SendInvitationFormProps> = ({
         label={content.commissionRate.value}
         isRequired
       />
-
-      <Form.Select
-        name="category"
-        label={content.categoryLabel.value}
-        description={content.selectCategory.value}
-      >
-        <Select.Trigger>
-          <Select.Value placeholder={content.selectCategory.value} />
-        </Select.Trigger>
-        <Select.Content>
-          <Select.Item value="native_speaker">
-            {content.categoryLabels.native_speaker}
-          </Select.Item>
-          <Select.Item value="marketing_expert">
-            {content.categoryLabels.marketing_expert}
-          </Select.Item>
-          <Select.Item value="copywriter">
-            {content.categoryLabels.copywriter}
-          </Select.Item>
-          <Select.Item value="certified_reviewer">
-            {content.categoryLabels.certified_reviewer}
-          </Select.Item>
-        </Select.Content>
-      </Form.Select>
 
       <Form.Button
         type="submit"

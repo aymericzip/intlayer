@@ -1962,17 +1962,10 @@ export const useUpdateAffiliateStatus = () => {
     mutationFn: ({
       id,
       status,
-      category,
     }: {
       id: string;
       status?: 'active' | 'suspended';
-      category?:
-        | 'native_speaker'
-        | 'marketing_expert'
-        | 'copywriter'
-        | 'certified_reviewer';
-    }) =>
-      intlayerOAuth.stripe.updateAffiliateStatus({ id }, { status, category }),
+    }) => intlayerOAuth.stripe.updateAffiliateStatus({ id }, { status }),
     onSuccess: (_data, { id }) => {
       queryClient.invalidateQueries({ queryKey: ['affiliates', id] });
       queryClient.invalidateQueries({ queryKey: ['affiliates'] });
@@ -2048,9 +2041,7 @@ export const useGetReviewerReviews = (
   });
 };
 
-export const useGetMyReviewerProfile = (
-  options?: Partial<UseQueryOptions>
-) => {
+export const useGetMyReviewerProfile = (options?: Partial<UseQueryOptions>) => {
   const intlayerOAuth = useIntlayerOAuth();
 
   return useAppQuery({
@@ -2113,8 +2104,7 @@ export const useUploadReviewerMainPicture = () => {
 
   return useMutation({
     mutationKey: ['reviewer', 'picture', 'main'],
-    mutationFn: (file: File) =>
-      intlayerOAuth.reviewer.uploadMainPicture(file),
+    mutationFn: (file: File) => intlayerOAuth.reviewer.uploadMainPicture(file),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['reviewer', 'me'] });
     },
@@ -2127,8 +2117,7 @@ export const useUploadReviewerCoverPicture = () => {
 
   return useMutation({
     mutationKey: ['reviewer', 'picture', 'cover'],
-    mutationFn: (file: File) =>
-      intlayerOAuth.reviewer.uploadCoverPicture(file),
+    mutationFn: (file: File) => intlayerOAuth.reviewer.uploadCoverPicture(file),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['reviewer', 'me'] });
     },
@@ -2272,8 +2261,13 @@ export const useContactReviewer = () => {
   const intlayerOAuth = useIntlayerOAuth();
   return useMutation({
     mutationKey: ['reviewer', 'contact'],
-    mutationFn: ({ reviewerId, message }: { reviewerId: string; message: string }) =>
-      intlayerOAuth.reviewer.contactReviewer(reviewerId, { message }),
+    mutationFn: ({
+      reviewerId,
+      message,
+    }: {
+      reviewerId: string;
+      message: string;
+    }) => intlayerOAuth.reviewer.contactReviewer(reviewerId, { message }),
   });
 };
 

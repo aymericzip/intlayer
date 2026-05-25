@@ -8,7 +8,6 @@ import { GenericError } from '@utils/errors';
 import Stripe from 'stripe';
 import type {
   Affiliate,
-  AffiliateCategory,
   AffiliateDocument,
   AffiliateReferralDocument,
   AffiliateStats,
@@ -38,7 +37,6 @@ export const createAffiliate = async (
     commissionRate?: number;
     commissionType?: CommissionType;
     country?: string;
-    category?: AffiliateCategory;
   } = {}
 ): Promise<AffiliateDocument> => {
   const existing = await AffiliateModel.findOne({ userId });
@@ -69,7 +67,6 @@ export const createAffiliate = async (
     status: 'onboarding',
     commissionRate: options.commissionRate ?? 20,
     commissionType: options.commissionType ?? 'one_time',
-    ...(options.category ? { category: options.category } : {}),
   });
 
   return affiliate;
@@ -124,7 +121,7 @@ export const markAffiliateActive = async (
 
 export const setAffiliateStatus = async (
   affiliateId: string,
-  update: { status?: 'active' | 'suspended'; category?: AffiliateCategory }
+  update: { status?: 'active' | 'suspended' }
 ): Promise<AffiliateDocument | null> =>
   AffiliateModel.findByIdAndUpdate(affiliateId, update, { new: true });
 
@@ -216,7 +213,6 @@ export const createAffiliateInvitation = async (
     commissionRate?: number;
     commissionType?: CommissionType;
     country?: string;
-    category?: AffiliateCategory;
   } = {}
 ): Promise<AffiliateInvitationDocument> => {
   const token = randomUUID();
@@ -234,7 +230,6 @@ export const createAffiliateInvitation = async (
     commissionRate: options.commissionRate ?? 20,
     commissionType: options.commissionType ?? 'one_time',
     country: options.country,
-    category: options.category,
     expiresAt,
   });
 };
@@ -268,7 +263,6 @@ export const acceptAffiliateInvitation = async (
     commissionRate: invitation.commissionRate,
     commissionType: invitation.commissionType,
     country: country ?? invitation.country,
-    category: invitation.category,
   });
 
   invitation.status = 'accepted';
