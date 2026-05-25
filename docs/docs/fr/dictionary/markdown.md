@@ -66,13 +66,10 @@ Vous pouvez déclarer du contenu Markdown en utilisant la fonction `md` ou simpl
     Exemple de structure de fichiers :
 
     ```text
-    content/
-    ├── en/
-    │   └── markdown-file.en.content.md
-    ├── fr/
-    │   └── markdown-file.fr.content.md
-    └── es/
-        └── markdown-file.es.content.md
+    content
+    ├── markdown-file.en.content.md
+    ├── markdown-file.fr.content.md
+    └── markdown-file.es.content.md
     ```
 
     Vous pouvez ajouter dans le front-matter n'importe quelle propriété définie dans la [Définition du dictionnaire](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/content_file.md)

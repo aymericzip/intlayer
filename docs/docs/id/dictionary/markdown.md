@@ -66,13 +66,10 @@ Anda dapat mendeklarasikan konten Markdown menggunakan fungsi `md` atau cukup se
     Contoh struktur file:
 
     ```text
-    content/
-    ├── en/
-    │   └── markdown-file.en.content.md
-    ├── fr/
-    │   └── markdown-file.fr.content.md
-    └── es/
-        └── markdown-file.es.content.md
+    content
+    ├── markdown-file.en.content.md
+    ├── markdown-file.fr.content.md
+    └── markdown-file.es.content.md
     ```
 
     Anda dapat menambahkan properti apa pun yang didefinisikan dalam [Definisi Kamus](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/content_file.md) ke dalam front-matter

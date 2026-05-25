@@ -66,13 +66,10 @@ Sie können Markdown-Inhalte mithilfe der Funktion `md` oder einfach als Zeichen
     Beispiel für die Dateistruktur:
 
     ```text
-    content/
-    ├── en/
-    │   └── markdown-file.en.content.md
-    ├── fr/
-    │   └── markdown-file.fr.content.md
-    └── es/
-        └── markdown-file.es.content.md
+    content
+    ├── markdown-file.en.content.md
+    ├── markdown-file.fr.content.md
+    └── markdown-file.es.content.md
     ```
 
     Sie können im Frontmatter alle Eigenschaften hinzufügen, die in der [Wörterbuch-Definition](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/content_file.md) definiert sind.

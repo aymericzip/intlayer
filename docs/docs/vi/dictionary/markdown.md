@@ -66,13 +66,10 @@ Bạn có thể khai báo nội dung Markdown bằng cách sử dụng hàm `md`
     Ví dụ về cấu trúc tệp:
 
     ```text
-    content/
-    ├── en/
-    │   └── markdown-file.en.content.md
-    ├── fr/
-    │   └── markdown-file.fr.content.md
-    └── es/
-        └── markdown-file.es.content.md
+    content
+    ├── markdown-file.en.content.md
+    ├── markdown-file.fr.content.md
+    └── markdown-file.es.content.md
     ```
 
     Bạn có thể thêm vào front-matter bất kỳ thuộc tính nào được định nghĩa trong [Định nghĩa Từ điển](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/content_file.md)

@@ -66,13 +66,10 @@ history:
     مثال على بنية الملفات:
 
     ```text
-    content/
-    ├── en/
-    │   └── markdown-file.en.content.md
-    ├── fr/
-    │   └── markdown-file.fr.content.md
-    └── es/
-        └── markdown-file.es.content.md
+    content
+    ├── markdown-file.en.content.md
+    ├── markdown-file.fr.content.md
+    └── markdown-file.es.content.md
     ```
 
     يمكنك إضافة أي خصائص معرفة في [تعريف القاموس](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/content_file.md) في front-matter

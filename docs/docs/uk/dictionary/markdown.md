@@ -66,13 +66,10 @@ Intlayer підтримує вміст форматованого тексту, 
     Приклад структури файлів:
 
     ```text
-    content/
-    ├── en/
-    │   └── markdown-file.en.content.md
-    ├── fr/
-    │   └── markdown-file.fr.content.md
-    └── es/
-        └── markdown-file.es.content.md
+    content
+    ├── markdown-file.en.content.md
+    ├── markdown-file.fr.content.md
+    └── markdown-file.es.content.md
     ```
 
     У front-matter ви можете додати будь-які властивості, визначені у [Визначенні словника](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/content_file.md)

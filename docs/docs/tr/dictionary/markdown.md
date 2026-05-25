@@ -66,13 +66,10 @@ Markdown içeriğini `md` işlevini kullanarak veya basitçe bir dize olarak (Ma
     Dosya yapısı örneği:
 
     ```text
-    content/
-    ├── en/
-    │   └── markdown-file.en.content.md
-    ├── fr/
-    │   └── markdown-file.fr.content.md
-    └── es/
-        └── markdown-file.es.content.md
+    content
+    ├── markdown-file.en.content.md
+    ├── markdown-file.fr.content.md
+    └── markdown-file.es.content.md
     ```
 
     Ön maddeye [Sözlük Tanımı](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/content_file.md) bölümünde tanımlanan özellikleri ekleyebilirsiniz.
