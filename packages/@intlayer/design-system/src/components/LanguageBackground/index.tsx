@@ -30,7 +30,7 @@ export const LanguageBackground: FC<PropsWithChildren> = ({ children }) => {
   return (
     <>
       {children}
-      <div className="absolute top-0 left-0 z-0 flex size-full items-center justify-center">
+      <div className="absolute top-0 left-0 -z-1 flex size-full items-center justify-center">
         {mounted && (
           <Suspense>
             <LazyLanguageSection className="mt-[30%]" />
