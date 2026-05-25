@@ -733,7 +733,6 @@ export const sendAffiliateInvitation = async (
     }
 
     const { email, commissionRate, commissionType, country } = request.body;
-    const appUrl = process.env.APP_URL ?? 'https://app.intlayer.org';
 
     const invitation = await affiliateService.createAffiliateInvitation(
       email,
@@ -741,7 +740,7 @@ export const sendAffiliateInvitation = async (
       { commissionRate, commissionType, country }
     );
 
-    const inviteLink = `${appUrl}/affiliation/${invitation.token}`;
+    const inviteLink = `${process.env.APP_URL}/affiliation/${invitation.token}`;
 
     await emailService.sendEmail({
       type: 'affiliateInvitation',
@@ -861,6 +860,15 @@ export const acceptAffiliateInvitation = async (
       user.id,
       country
     );
+
+    const appUrl = process.env.APP_URL ?? 'https://app.intlayer.org';
+
+    await emailService.sendEmail({
+      type: 'affiliateWelcome',
+      to: user.email,
+      dashboardLink: `${appUrl}/affiliation/${token}`,
+      commissionRate: affiliate.commissionRate,
+    });
 
     return reply.send(
       formatResponse<AcceptAffiliateInvitationResult['data']>({

@@ -1,6 +1,6 @@
 'use client';
 
-import type { AffiliateAPI, AffiliateCategory } from '@intlayer/backend';
+import type { AffiliateAPI } from '@intlayer/backend';
 import { Badge, BadgeColor, BadgeVariant } from '@intlayer/design-system/badge';
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
@@ -12,17 +12,9 @@ import {
 } from '@intlayer/design-system/hooks';
 import { Loader } from '@intlayer/design-system/loader';
 import { getAppAdminUserRoute } from '@intlayer/design-system/routes';
-import { Select } from '@intlayer/design-system/select';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { Link } from '#components/Link/Link';
-
-const CATEGORIES: AffiliateCategory[] = [
-  'native_speaker',
-  'marketing_expert',
-  'copywriter',
-  'certified_reviewer',
-];
 
 const STATUS_COLOR: Record<AffiliateAPI['status'], BadgeColor> = {
   pending: BadgeColor.NEUTRAL,
@@ -81,9 +73,6 @@ export const AffiliateAdminDetailPage: FC<{ affiliateId: string }> = ({
     updated,
     enable,
     suspend,
-    category,
-    categoryLabels,
-    noCategory,
   } = useIntlayer('affiliate-admin-detail-page');
 
   if (isLoading) {
@@ -176,15 +165,6 @@ export const AffiliateAdminDetailPage: FC<{ affiliateId: string }> = ({
               ? new Date(affiliate.updatedAt).toLocaleDateString()
               : '—'}
           </Field>
-
-          <Field label={category.value}>
-            <span className="capitalize">
-              {affiliate.category
-                ? (categoryLabels[affiliate.category as AffiliateCategory]
-                    ?.value ?? affiliate.category.replace('_', ' '))
-                : noCategory.value}
-            </span>
-          </Field>
         </div>
       </Container>
 
@@ -196,32 +176,6 @@ export const AffiliateAdminDetailPage: FC<{ affiliateId: string }> = ({
         className="w-full"
       >
         <div className="flex flex-col gap-6">
-          <div className="flex flex-col gap-2">
-            <span className="text-neutral/60 text-xs uppercase tracking-wide">
-              {category.value}
-            </span>
-            <Select
-              value={affiliate.category ?? ''}
-              onValueChange={(val) =>
-                updateStatus({
-                  id: affiliateId,
-                  category: val as AffiliateCategory,
-                })
-              }
-            >
-              <Select.Trigger>
-                <Select.Value placeholder={noCategory.value} />
-              </Select.Trigger>
-              <Select.Content>
-                {CATEGORIES.map((cat) => (
-                  <Select.Item key={cat} value={cat}>
-                    {categoryLabels[cat]?.value ?? cat.replace('_', ' ')}
-                  </Select.Item>
-                ))}
-              </Select.Content>
-            </Select>
-          </div>
-
           {canToggleStatus && (
             <div className="flex justify-end">
               {affiliate.status === 'suspended' ? (

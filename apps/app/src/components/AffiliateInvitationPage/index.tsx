@@ -54,16 +54,19 @@ const AffiliationContent: FC<AffiliateInvitationPageProps> = ({ token }) => {
     );
   }
 
-  if (invitation.status === 'accepted') {
+  if (invitation.status === 'accepted' || accepted) {
     return (
       <Container roundedSize="2xl" padding="xl" border borderColor="neutral">
-        <div className="flex flex-1 flex-col items-center justify-center gap-4 p-10 text-center">
-          <p className="font-medium text-lg">
-            {content.invitationAlreadyAccepted}
-          </p>
-          <p className="max-w-md text-neutral/60 text-sm">
-            {content.thisInvitationHasAlreadyBeen}
-          </p>
+        <div className="flex flex-col gap-8">
+          <div className="flex flex-col gap-2">
+            <h1 className="font-semibold text-2xl">
+              {content.welcomeToTheAffiliateProgram}
+            </h1>
+            <p className="text-neutral/60 text-sm">
+              {content.completeTheSetupBelowTo}
+            </p>
+          </div>
+          <AffiliateOnboarding />
         </div>
       </Container>
     );
@@ -77,24 +80,6 @@ const AffiliationContent: FC<AffiliateInvitationPageProps> = ({ token }) => {
           <p className="max-w-md text-neutral/60 text-sm">
             {content.thisInvitationLinkHasExpired}
           </p>
-        </div>
-      </Container>
-    );
-  }
-
-  if (accepted) {
-    return (
-      <Container roundedSize="2xl" padding="xl" border borderColor="neutral">
-        <div className="flex flex-col gap-8">
-          <div className="flex flex-col gap-2">
-            <h1 className="font-semibold text-2xl">
-              {content.welcomeToTheAffiliateProgram}
-            </h1>
-            <p className="text-neutral/60 text-sm">
-              {content.completeTheSetupBelowTo}
-            </p>
-          </div>
-          <AffiliateOnboarding />
         </div>
       </Container>
     );

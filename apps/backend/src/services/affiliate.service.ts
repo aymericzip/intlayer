@@ -188,7 +188,7 @@ export const getAffiliateStats = async (
     0
   );
 
-  const appUrl = process.env.APP_URL ?? 'https://app.intlayer.org';
+  const appUrl = process.env.APP_URL;
   const referralLink = `${appUrl}/pricing?ref=${affiliate.referralCode}`;
 
   return {
