@@ -61,7 +61,7 @@
               "exclude": [
                 "intlayer",
                 "angular-intlayer",
-                "@intlayer/config/built",
+                "@intlayer/config",
                 "@intlayer/core"
               ]
             }
