@@ -210,14 +210,35 @@ export class IntlayerContentSelectorWrapperElement extends _HTMLElement {
 
   private _scrollIntoViewIfNeeded(): void {
     try {
-      // this element has display:contents so getBoundingClientRect() returns
-      // all zeros. Use a Range over its children to get the real visual bounds.
-      let rect: DOMRect;
-      if (this.childNodes.length > 0) {
+      let rect: DOMRect | undefined;
+
+      // Primary: the .wrapper span inside the selector's open shadow DOM has a
+      // real CSS box (display:inline-block) for both wrapped-text and wrapped-slot.
+      // This is the only reliable source for simple-string nodes where this host's
+      // light DOM is empty and this.getBoundingClientRect() returns zeros.
+      if (this._selector) {
+        const innerWrapper = this._selector.shadowRoot?.querySelector(
+          '.wrapper'
+        ) as HTMLElement | null;
+        if (innerWrapper) {
+          const r = innerWrapper.getBoundingClientRect();
+          if (r.width > 0 || r.height > 0) rect = r;
+        }
+      }
+
+      // Fallback: range over light-DOM children for wrapped-slot nodes rendered
+      // by a framework (React/markdown) before _selector is available.
+      if (!rect && this.childNodes.length > 0) {
         const range = document.createRange();
-        range.selectNode(this);
-        rect = range.getBoundingClientRect();
-      } else {
+
+        range.selectNodeContents(this);
+
+        const r = range.getBoundingClientRect();
+
+        if (r.width > 0 || r.height > 0) rect = r;
+      }
+
+      if (!rect) {
         rect = this.getBoundingClientRect();
       }
 
@@ -235,18 +256,16 @@ export class IntlayerContentSelectorWrapperElement extends _HTMLElement {
         rect.left < viewportWidth;
 
       if (!isVisible) {
-        // Scroll the first real child into view — display:contents hosts have no
-        // box of their own and browsers may ignore scrollIntoView on them.
-        const scrollTarget =
-          (this.firstElementChild as Element | null) ?? this;
-        scrollTarget.scrollIntoView({
+        // Scroll so the element lands at 25 % from the top of the viewport.
+        const scrollY = window.scrollY ?? document.documentElement.scrollTop;
+        const targetScrollY = rect.top + scrollY - viewportHeight * 0.25;
+        window.scrollTo({
+          top: Math.max(0, targetScrollY),
           behavior: 'smooth',
-          block: 'nearest',
-          inline: 'nearest',
         });
       }
     } catch {
-      // scrollIntoView may not be available in all environments
+      // scroll APIs may not be available in all environments
     }
   }
 
