@@ -50,15 +50,11 @@ export const useDictionaryEditionDrawer = (
     close: () => {
       closeDrawer(id);
 
-      setFocusedContent((prev) => {
-        if (prev?.dictionaryKey) {
-          return {
-            ...(prev as FileContent),
-            keyPath: [],
-          };
-        }
-        return prev;
-      });
+      setFocusedContent(
+        focusedContent?.dictionaryKey
+          ? { ...(focusedContent as FileContent), keyPath: [] }
+          : focusedContent
+      );
     },
   };
 };
