@@ -2,8 +2,8 @@ import { BackgroundLayout } from '@components/BackgroundLayout';
 import { CommonQuestionsSection } from '@components/LandingPage/CommonQuestionsSection/CommonQuestions';
 import { Loader } from '@intlayer/design-system/loader';
 import dynamic from 'next/dynamic';
+import { useIntlayer } from 'next-intlayer/server';
 import type { FC } from 'react';
-import { useIntlayer } from 'next-intlayer';
 import { LandingSection } from './LandingSection';
 
 const DynamicAvailableTechnoSection = dynamic(
@@ -88,7 +88,10 @@ export const LandingPage: FC = () => {
 
   return (
     <>
-      <main aria-label={content.landingMainTitle.value} className="flex flex-col gap-10">
+      <main
+        aria-label={content.landingMainTitle.value}
+        className="flex flex-col gap-10"
+      >
         <BackgroundLayout>
           <section aria-label={content.heroSection.value}>
             <LandingSection />
@@ -114,8 +117,14 @@ export const LandingPage: FC = () => {
           <section aria-label={content.codeAuditSection.value}>
             <DynamicAuditSection />
           </section>
-          <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 h-4 bg-background [clip-path:polygon(0_0,100%_0,0_100%)]" />
-          <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 bottom-0 h-4 bg-background [clip-path:polygon(100%_0,100%_100%,0_100%)]" />
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-x-0 top-0 h-4 bg-background [clip-path:polygon(0_0,100%_0,0_100%)]"
+          />
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-x-0 bottom-0 h-4 bg-background [clip-path:polygon(100%_0,100%_100%,0_100%)]"
+          />
         </div>
 
         <section aria-label={content.productsSection.value}>
