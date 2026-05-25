@@ -33,21 +33,13 @@ const organizationZodSchema = z.object({
       `Name must be at most ${NAME_MAX_LENGTH} characters long.`
     ),
   membersIds: z
-    .array(
-      z.string({
-        message: 'Members must contain only string elements.',
-      })
-    )
+    .array(z.coerce.string())
     .min(
       MEMBERS_MIN_LENGTH,
       `Members must be at least ${MEMBERS_MIN_LENGTH} items long.`
     ),
   adminsIds: z
-    .array(
-      z.string({
-        message: 'Members must contain only string elements.',
-      })
-    )
+    .array(z.coerce.string())
     .min(
       MEMBERS_MIN_LENGTH,
       `Members must be at least ${MEMBERS_MIN_LENGTH} items long.`

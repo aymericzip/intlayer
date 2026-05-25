@@ -390,7 +390,6 @@ export const addOrganizationMember = async (
 
     const updatedOrganization =
       await organizationService.updateOrganizationById(organization.id, {
-        ...organization,
         membersIds: [...organization.membersIds, newMember.id],
       });
 
