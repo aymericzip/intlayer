@@ -32,6 +32,7 @@
   "sideEffects": false,
   "exports": {
     ".": {
+      "browser": "./dist/esm/index.browser.mjs",
       "types": "./dist/types/index.d.ts",
       "require": "./dist/cjs/index.cjs",
       "import": "./dist/esm/index.mjs"

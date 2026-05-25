@@ -59,8 +59,10 @@
           "options": {
             "prebundle": {
               "exclude": [
+                "intlayer",
+                "angular-intlayer",
                 "@intlayer/config/built",
-                "@intlayer/dictionaries-entry"
+                "@intlayer/core"
               ]
             }
           },

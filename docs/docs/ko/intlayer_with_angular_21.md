@@ -13,8 +13,8 @@ slugs:
   - doc
   - environment
   - angular
-applicationTemplate: https://github.com/aymericzip/intlayer-angular-template
-applicationShowcase: https://intlayer-angular-template.vercel.app
+applicationTemplate: https://github.com/aymericzip/intlayer-angular-21-template
+applicationShowcase: https://intlayer-angular-21-template.vercel.app/
 history:
   - version: 8.9.0
     date: 2026-05-04
@@ -55,7 +55,7 @@ Intlayer를 통해 다음을 수행할 수 있습니다:
   <Tab label="코드" value="code">
 
 <iframe
-  src="https://ide.intlayer.org/aymericzip/intlayer-angular-template?file=intlayer.config.ts"
+  src="https://ide.intlayer.org/aymericzip/intlayer-angular-21-template?file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
   title="Demo CodeSandbox - Intlayer를 사용하여 애플리케이션을 국제화하는 방법"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
@@ -66,7 +66,7 @@ Intlayer를 통해 다음을 수행할 수 있습니다:
   <Tab label="데모" value="demo">
 
 <iframe
-  src="https://intlayer-angular-template.vercel.app"
+  src="https://intlayer-angular-21-template.vercel.app/"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
   title="Demo - intlayer-angular-template"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
@@ -76,7 +76,7 @@ Intlayer를 통해 다음을 수행할 수 있습니다:
   </Tab>
 </Tabs>
 
-GitHub에서 [애플리케이션 템플릿](https://github.com/aymericzip/intlayer-angular-template)을 확인하세요.
+GitHub에서 [애플리케이션 템플릿](https://github.com/aymericzip/intlayer-angular-21-template)을 확인하세요.
 
 ### 1단계: 종속성 설치
 
@@ -166,8 +166,12 @@ Intlayer를 Angular CLI와 통합하려면 사용자 지정 빌더를 사용해�
           "builder": "@angular-builders/custom-esbuild:dev-server", // replace "@angular/build:dev-server"
           "options": {
             "prebundle": {
-              "exclude": ["@intlayer/config/built"],
-            },
+              "exclude": [
+                "intlayer",
+                "angular-intlayer",
+                "@intlayer/config/built",
+                "@intlayer/core"
+              ]
           },
         },
       },

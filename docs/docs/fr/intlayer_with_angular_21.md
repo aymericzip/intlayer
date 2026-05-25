@@ -13,8 +13,8 @@ slugs:
   - doc
   - environment
   - angular
-applicationTemplate: https://github.com/aymericzip/intlayer-angular-template
-applicationShowcase: https://intlayer-angular-template.vercel.app
+applicationTemplate: https://github.com/aymericzip/intlayer-angular-21-template
+applicationShowcase: https://intlayer-angular-21-template.vercel.app/
 history:
   - version: 8.9.0
     date: 2026-05-04
@@ -55,7 +55,7 @@ Avec Intlayer, vous pouvez :
   <Tab label="Code" value="code">
 
 <iframe
-  src="https://ide.intlayer.org/aymericzip/intlayer-angular-template?file=intlayer.config.ts"
+  src="https://ide.intlayer.org/aymericzip/intlayer-angular-21-template?file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
   title="Démo CodeSandbox - Comment internationaliser votre application avec Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
@@ -66,7 +66,7 @@ Avec Intlayer, vous pouvez :
   <Tab label="Démo" value="demo">
 
 <iframe
-  src="https://intlayer-angular-template.vercel.app"
+  src="https://intlayer-angular-21-template.vercel.app/"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
   title="Démo - intlayer-angular-template"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
@@ -76,7 +76,7 @@ Avec Intlayer, vous pouvez :
   </Tab>
 </Tabs>
 
-Voir [Modèle d'Application](https://github.com/aymericzip/intlayer-angular-template) sur GitHub.
+Voir [Modèle d'Application](https://github.com/aymericzip/intlayer-angular-21-template) sur GitHub.
 
 ### Étape 1 : Installer les dépendances
 
@@ -166,8 +166,12 @@ D'abord, modifiez votre `angular.json` pour utiliser le builder esbuild personna
           "builder": "@angular-builders/custom-esbuild:dev-server", // replace "@angular/build:dev-server"
           "options": {
             "prebundle": {
-              "exclude": ["@intlayer/config/built"],
-            },
+              "exclude": [
+                "intlayer",
+                "angular-intlayer",
+                "@intlayer/config/built",
+                "@intlayer/core"
+              ]
           },
         },
       },

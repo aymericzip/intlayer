@@ -14,8 +14,8 @@ slugs:
   - environment
   - angular
   - 19
-applicationTemplate: https://github.com/aymericzip/intlayer-angular-template
-applicationShowcase: https://intlayer-angular-template.vercel.app
+applicationTemplate: https://github.com/aymericzip/intlayer-angular-19-template
+applicationShowcase: https://intlayer-angular-19-template.vercel.app
 history:
   - version: 8.9.0
     date: 2026-05-04
@@ -56,7 +56,7 @@ Intlayer के साथ, आप यह कर सकते हैं:
   <Tab label="Code" value="code">
 
 <iframe
-  src="https://ide.intlayer.org/aymericzip/intlayer-angular-template?file=intlayer.config.ts"
+  src="https://ide.intlayer.org/aymericzip/intlayer-angular-19-template?file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
   title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
@@ -67,7 +67,7 @@ Intlayer के साथ, आप यह कर सकते हैं:
   <Tab label="डेमो" value="demo">
 
 <iframe
-  src="https://intlayer-angular-template.vercel.app"
+  src="https://intlayer-angular-19-template.vercel.app"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
   title="डेमो - intlayer-angular-template"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
@@ -77,7 +77,7 @@ Intlayer के साथ, आप यह कर सकते हैं:
   </Tab>
 </Tabs>
 
-GitHub पर [एप्लिकेशन टेम्पलेट](https://github.com/aymericzip/intlayer-angular-template) देखें।
+GitHub पर [एप्लिकेशन टेम्पलेट](https://github.com/aymericzip/intlayer-angular-19-template) देखें।
 
 ### चरण 1: निर्भरताएँ स्थापित करें
 

@@ -14,8 +14,8 @@ slugs:
   - environment
   - angular
   - 19
-applicationTemplate: https://github.com/aymericzip/intlayer-angular-template
-applicationShowcase: https://intlayer-angular-template.vercel.app
+applicationTemplate: https://github.com/aymericzip/intlayer-angular-19-template
+applicationShowcase: https://intlayer-angular-19-template.vercel.app
 history:
   - version: 8.9.0
     date: 2026-05-04
@@ -53,7 +53,7 @@ Intlayerを使用すると、以下のことが可能です：
   <Tab label="コード" value="code">
 
 <iframe
-  src="https://ide.intlayer.org/aymericzip/intlayer-angular-template?file=intlayer.config.ts"
+  src="https://ide.intlayer.org/aymericzip/intlayer-angular-19-template?file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
   title="Demo CodeSandbox - Intlayerを使用してアプリケーションを国際化する方法"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
@@ -64,7 +64,7 @@ Intlayerを使用すると、以下のことが可能です：
   <Tab label="デモ" value="demo">
 
 <iframe
-  src="https://intlayer-angular-template.vercel.app"
+  src="https://intlayer-angular-19-template.vercel.app"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
   title="デモ - intlayer-angular-template"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
@@ -74,7 +74,7 @@ Intlayerを使用すると、以下のことが可能です：
   </Tab>
 </Tabs>
 
-GitHubで [アプリケーションテンプレート](https://github.com/aymericzip/intlayer-angular-template) を確認する。
+GitHubで [アプリケーションテンプレート](https://github.com/aymericzip/intlayer-angular-19-template) を確認する。
 
 ### ステップ 1: 依存関係のインストール
 
