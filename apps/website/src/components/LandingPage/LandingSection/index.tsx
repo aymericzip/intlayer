@@ -18,11 +18,11 @@ import {
 } from '@intlayer/design-system/routes';
 import { Tag, TagBorder, TagColor, TagSize } from '@intlayer/design-system/tag';
 import { motion } from 'framer-motion';
-import packageJSON from 'intlayer/package.json' with { type: 'json' };
 import { ArrowRight, Check, Copy } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import { useTheme } from 'next-themes';
 import type { FC } from 'react';
+import packageJSON from './mockPackage.json' with { type: 'json' };
 import { TechLogos } from './TechLogos';
 
 const SHOW_WHATS_NEW = true;
