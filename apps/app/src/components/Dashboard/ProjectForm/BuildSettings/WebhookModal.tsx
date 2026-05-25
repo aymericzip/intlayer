@@ -37,19 +37,13 @@ export const WebhookModal: FC<WebhookModalProps> = ({
     validationErrors.invalidUrl.value
   );
 
-  const defaultValues: WebhookFormData = {
-    name: '',
-    url: '',
-    secret: '',
-    enabled: true,
-  };
+  const { form, isSubmitting } = useForm(schema, {
+    defaultValues: initialValues,
+  });
 
-  const { form, isSubmitting } = useForm(schema);
-
-  // Reset form and refresh session when modal opens
   useEffect(() => {
     if (isOpen) {
-      form.reset(initialValues ?? defaultValues);
+      form.reset(initialValues ?? { enabled: true });
     }
   }, [isOpen, initialValues]);
 
