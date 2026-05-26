@@ -1,5 +1,8 @@
-import type { AffiliateAPI } from '@intlayer/backend';
-import { useGetAffiliates } from '@intlayer/design-system/api';
+import type { AffiliateAPI, AffiliateInvitationAPI } from '@intlayer/backend';
+import {
+  useGetAffiliateInvitations,
+  useGetAffiliates,
+} from '@intlayer/design-system/api';
 import { Badge, BadgeColor, BadgeVariant } from '@intlayer/design-system/badge';
 import { Button } from '@intlayer/design-system/button';
 import { CopyToClipboard } from '@intlayer/design-system/copy-to-clipboard';
@@ -20,7 +23,7 @@ import {
   useReactTable,
 } from '@tanstack/react-table';
 import { ChevronDown, ChevronUp } from 'lucide-react';
-import { type FC, useState } from 'react';
+import { type FC, useMemo, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { SendInvitationModal } from '#components/AffiliatePage/SendInvitationModal';
 import { Link } from '#components/Link/Link';
@@ -33,6 +36,95 @@ const STATUS_COLOR: Record<AffiliateAPI['status'], BadgeColor> = {
   suspended: BadgeColor.ERROR,
   onboarding: BadgeColor.SECONDARY,
   active: BadgeColor.SUCCESS,
+};
+
+const INVITATIONS_PARAMS = { page: 1, pageSize: 100 };
+
+const PendingInvitationsSection: FC = () => {
+  const content = useIntlayer('affiliates-admin-page');
+  const { data: invitationsData } =
+    useGetAffiliateInvitations(INVITATIONS_PARAMS);
+  const invitations = useMemo(
+    () =>
+      ((invitationsData?.data ?? []) as AffiliateInvitationAPI[]).filter(
+        (inv) => inv.status === 'pending'
+      ),
+    [invitationsData?.data]
+  );
+
+  if (invitations.length === 0) return null;
+
+  return (
+    <div className="flex flex-col gap-2">
+      <h2 className="font-medium text-neutral text-sm">
+        {content.pendingInvitations}
+      </h2>
+      <Table className="w-full border-separate border-spacing-0 overflow-scroll">
+        <thead>
+          <tr>
+            <th className="whitespace-nowrap px-4 py-3 text-left font-medium text-neutral">
+              {content.id.value}
+            </th>
+            <th className="whitespace-nowrap px-4 py-3 text-left font-medium text-neutral">
+              {content.email.value}
+            </th>
+            <th className="whitespace-nowrap px-4 py-3 text-left font-medium text-neutral">
+              {content.commission.value}
+            </th>
+            <th className="whitespace-nowrap px-4 py-3 text-left font-medium text-neutral">
+              {content.status.value}
+            </th>
+            <th className="whitespace-nowrap px-4 py-3 text-left font-medium text-neutral">
+              {content.created.value}
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {invitations.map((inv) => (
+            <tr
+              key={inv.id}
+              className="whitespace-nowrap rounded-xl border-card border-b transition-colors"
+            >
+              <td className="whitespace-nowrap px-4 py-3">
+                <CopyToClipboard text={inv.id} size={10}>
+                  <span className="font-mono text-sm">
+                    ...{inv.id.slice(-5)}
+                  </span>
+                </CopyToClipboard>
+              </td>
+              <td className="whitespace-nowrap px-4 py-3">
+                <span className="text-neutral/80 text-sm">{inv.email}</span>
+              </td>
+              <td className="whitespace-nowrap px-4 py-3">
+                <span className="text-sm">
+                  {inv.commissionRate}%{' '}
+                  <span className="text-neutral/50 text-xs">
+                    ({inv.commissionType})
+                  </span>
+                </span>
+              </td>
+              <td className="whitespace-nowrap px-4 py-3">
+                <Badge
+                  variant={BadgeVariant.OUTLINE}
+                  className="opacity-80"
+                  color={BadgeColor.SECONDARY}
+                >
+                  {content.invitationSent}
+                </Badge>
+              </td>
+              <td className="whitespace-nowrap px-4 py-3">
+                <span className="text-neutral-500 text-sm dark:text-neutral-400">
+                  {inv.createdAt
+                    ? new Date(inv.createdAt).toLocaleDateString()
+                    : '—'}
+                </span>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </Table>
+    </div>
+  );
 };
 
 export const AffiliatesAdminPage: FC = () => {
@@ -216,6 +308,8 @@ export const AffiliatesAdminPage: FC = () => {
             {content.sendInvitation}
           </Button>
         </div>
+
+        <PendingInvitationsSection />
 
         {isFetching && affiliates.length === 0 ? (
           <AffiliatesAdminSkeleton />
