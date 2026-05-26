@@ -106,7 +106,7 @@
     "@intlayer/types": "workspace:*",
     "@rolldown/plugin-babel": "^0.2.3",
     "@tailwindcss/vite": "4.3.0",
-    "@tanstack/react-query": "5.100.11",
+    "@tanstack/react-query": "5.100.14",
     "@types/node": "25.9.1",
     "@types/react": "19.2.15",
     "@types/react-dom": "19.2.3",
