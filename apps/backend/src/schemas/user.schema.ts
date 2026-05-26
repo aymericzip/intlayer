@@ -44,6 +44,11 @@ export const userSchema = new Schema<UserSchema>(
       },
       required: false,
     },
+    emailVerified: {
+      type: Boolean,
+      default: false,
+      required: false,
+    },
     role: {
       type: String,
       enum: ['admin', 'user'],

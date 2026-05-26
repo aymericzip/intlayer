@@ -1,17 +1,18 @@
 import { logger } from '@logger';
+import { AccountModel } from '@schemas/account.schema';
 import { OrganizationModel } from '@schemas/organization.schema';
 import { ProjectModel } from '@schemas/project.schema';
 import { UserModel } from '@schemas/user.schema';
 import { createDemoDictionaries } from '@services/dictionary.service';
-import { getUserByEmail } from '@services/user.service';
+import { createUser, getUserByEmail } from '@services/user.service';
 import { getAuthSingleton } from '@utils/auth/getAuth';
+import { hashPassword } from 'better-auth/crypto';
 import type { FastifyReply, FastifyRequest } from 'fastify';
 import { Types } from 'mongoose';
 
-const DEMO_ADMIN_EMAIL =
-  process.env.DEMO_ADMIN_EMAIL ?? 'demo-admin@intlayer.org';
-const DEMO_EMAIL = process.env.DEMO_USER_EMAIL ?? 'demo@intlayer.org';
-const DEMO_PASSWORD = process.env.DEMO_USER_PASSWORD ?? 'DemoIntlayer2024!';
+const DEMO_ADMIN_EMAIL = process.env.DEMO_ADMIN_EMAIL;
+const DEMO_EMAIL = process.env.DEMO_USER_EMAIL;
+const DEMO_PASSWORD = process.env.DEMO_USER_PASSWORD;
 
 let _initialized = false;
 let _demoOrgId: string | null = null;
@@ -25,55 +26,40 @@ const ensureDemoResources = async (): Promise<{
     return { demoOrgId: _demoOrgId, demoProjectId: _demoProjectId };
   }
 
-  const auth = getAuthSingleton();
-  const ctx = await (auth as any).$context;
+  if (!DEMO_ADMIN_EMAIL || !DEMO_EMAIL || !DEMO_PASSWORD) {
+    throw new Error(
+      '[demo] missing required env vars: DEMO_ADMIN_EMAIL, DEMO_USER_EMAIL, DEMO_USER_PASSWORD'
+    );
+  }
 
-  // ── 1. Demo admin (system user, no credentials) ────────────────────────────
+  // Demo admin (system user, no credentials)
   let demoAdmin = await getUserByEmail(DEMO_ADMIN_EMAIL);
   if (!demoAdmin) {
     logger.info('[demo] creating demo-admin user');
-    await ctx.db.create({
-      model: 'user',
-      data: {
-        email: DEMO_ADMIN_EMAIL,
-        emailVerified: true,
-        name: 'Demo Admin',
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
+    demoAdmin = await createUser({
+      email: DEMO_ADMIN_EMAIL,
+      emailVerified: true,
+      name: 'Demo Admin',
     });
-    demoAdmin = await getUserByEmail(DEMO_ADMIN_EMAIL);
   }
 
-  // ── 2. Demo user (with credentials) ────────────────────────────────────────
+  // Demo user (with credentials)
   let demoUser = await getUserByEmail(DEMO_EMAIL);
   if (!demoUser) {
     logger.info('[demo] creating demo user');
-    const baUser = await ctx.db.create({
-      model: 'user',
-      data: {
-        email: DEMO_EMAIL,
-        emailVerified: true,
-        name: 'Demo',
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
+    demoUser = await createUser({
+      email: DEMO_EMAIL,
+      emailVerified: true,
+      name: 'Demo',
     });
 
-    const hashedPassword = await ctx.password.hash(DEMO_PASSWORD);
-    await ctx.db.create({
-      model: 'account',
-      data: {
-        userId: baUser.id,
-        accountId: baUser.id,
-        providerId: 'credential',
-        password: hashedPassword,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
+    const hashedPassword = await hashPassword(DEMO_PASSWORD);
+    await AccountModel.create({
+      userId: String(demoUser._id),
+      accountId: String(demoUser._id),
+      providerId: 'credential',
+      password: hashedPassword,
     });
-
-    demoUser = await getUserByEmail(DEMO_EMAIL);
   }
 
   if (!demoAdmin || !demoUser) {
@@ -83,7 +69,7 @@ const ensureDemoResources = async (): Promise<{
   const demoAdminId = new Types.ObjectId(String(demoAdmin.id));
   const demoUserId = new Types.ObjectId(String(demoUser.id));
 
-  // ── 3. Demo organization ────────────────────────────────────────────────────
+  // Demo organization
   let demoOrg = await OrganizationModel.findOne({ creatorId: demoAdminId });
   if (!demoOrg) {
     logger.info('[demo] creating demo organization');
@@ -96,7 +82,6 @@ const ensureDemoResources = async (): Promise<{
       domain: '',
     });
   } else if (!demoOrg.membersIds.map(String).includes(String(demoUserId))) {
-    // Ensure demo user is a member (idempotent)
     await OrganizationModel.updateOne(
       { _id: demoOrg._id },
       { $addToSet: { membersIds: demoUserId } }
@@ -104,7 +89,7 @@ const ensureDemoResources = async (): Promise<{
     demoOrg = (await OrganizationModel.findById(demoOrg._id))!;
   }
 
-  // ── 4. Demo project ─────────────────────────────────────────────────────────
+  // Demo project
   let demoProject = await ProjectModel.findOne({ organizationId: demoOrg._id });
   if (!demoProject) {
     logger.info('[demo] creating demo project');
@@ -123,7 +108,6 @@ const ensureDemoResources = async (): Promise<{
       },
     });
 
-    // Seed demo dictionaries
     await createDemoDictionaries(
       [String(demoProject._id)],
       String(demoAdminId)
@@ -138,7 +122,7 @@ const ensureDemoResources = async (): Promise<{
     demoProject = (await ProjectModel.findById(demoProject._id))!;
   }
 
-  // ── 5. Keep demo user's last-active context up to date ────────────────────
+  // Keep demo user's last-active context up to date ────────────────────
   await UserModel.updateOne(
     { _id: demoUser.id },
     {
