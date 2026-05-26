@@ -181,20 +181,29 @@ export const payAffiliateCommission = async (
   const currency = (referral.commissionCurrency ?? 'usd').toLowerCase();
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
-  const transfer = await stripe.transfers.create({
-    amount: commissionAmount,
-    currency,
-    destination: affiliate.stripeAccountId,
-    metadata: {
-      affiliateId: String(affiliate.id),
-      referralId: String((referral as any)._id ?? referral.id),
-    },
-  });
+  try {
+    const transfer = await stripe.transfers.create({
+      amount: commissionAmount,
+      currency,
+      destination: affiliate.stripeAccountId,
+      metadata: {
+        affiliateId: String(affiliate.id),
+        referralId: String((referral as any)._id ?? referral.id),
+      },
+    });
 
-  await AffiliateReferralModel.findByIdAndUpdate(
-    (referral as any)._id ?? referral.id,
-    { payoutStatus: 'paid', payoutId: transfer.id }
-  );
+    await AffiliateReferralModel.findByIdAndUpdate(
+      (referral as any)._id ?? referral.id,
+      { payoutStatus: 'paid', payoutId: transfer.id }
+    );
+  } catch (err) {
+    // Mark payout as failed so it can be retried manually; do not throw
+    // so the webhook returns 200 and Stripe does not keep retrying.
+    await AffiliateReferralModel.findByIdAndUpdate(
+      (referral as any)._id ?? referral.id,
+      { payoutStatus: 'failed' }
+    );
+  }
 };
 
 export const setAffiliateStatus = async (
@@ -253,7 +262,7 @@ export const convertReferral = async (
   const bySubscription = await AffiliateReferralModel.findOneAndUpdate(
     { subscriptionId, conversionStatus: 'pending' },
     { conversionStatus: 'converted', commissionAmount, commissionCurrency },
-    { new: true }
+    { returnDocument: 'after' }
   );
   if (bySubscription) return bySubscription;
 
@@ -268,7 +277,7 @@ export const convertReferral = async (
       commissionAmount,
       commissionCurrency,
     },
-    { new: true }
+    { returnDocument: 'after' }
   );
 };
 

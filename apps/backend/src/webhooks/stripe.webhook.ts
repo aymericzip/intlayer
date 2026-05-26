@@ -82,8 +82,6 @@ export const stripeWebhook = async (
     return;
   }
 
-  console.log({ event });
-
   // Utility function to extract metadata from a Stripe customer
   const extractMetadata = async (customerId: string) => {
     const customer = await stripe.customers.retrieve(customerId); // Retrieve customer details from Stripe
@@ -400,11 +398,24 @@ export const stripeWebhook = async (
         await cancelSubscription(subscription.id, organizationId);
         break;
       }
-      case 'invoice.payment_succeeded':
+      case 'invoice.payment_succeeded': {
+        logger.info(`Handled event type ${event.type}`);
+        await handleInvoiceEvent(event.data.object as Stripe.Invoice, 'active');
+        break;
+      }
       case 'invoice_payment.paid': {
         logger.info(`Handled event type ${event.type}`);
-        // Handle successful invoice payment (both legacy and new Stripe event types)
-        await handleInvoiceEvent(event.data.object as Stripe.Invoice, 'active');
+        // The invoice_payment.paid object is InvoicePayment, not Invoice.
+        // Fetch the full invoice to reuse the same handler.
+        const invoicePayment = event.data.object as any;
+        const invoiceId =
+          typeof invoicePayment.invoice === 'string'
+            ? invoicePayment.invoice
+            : invoicePayment.invoice?.id;
+        if (invoiceId) {
+          const fullInvoice = await stripe.invoices.retrieve(invoiceId);
+          await handleInvoiceEvent(fullInvoice as Stripe.Invoice, 'active');
+        }
         break;
       }
       case 'invoice.payment_failed': {
