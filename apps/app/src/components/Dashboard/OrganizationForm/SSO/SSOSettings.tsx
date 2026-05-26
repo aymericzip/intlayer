@@ -1,13 +1,13 @@
 import { MaxHeightSmoother } from '@intlayer/design-system';
-import { Container } from '@intlayer/design-system/container';
-import { Form, useForm } from '@intlayer/design-system/form';
-import { H3 } from '@intlayer/design-system/headers';
 import {
   useDeleteSSOProvider,
   useListSSOProviders,
   useRegisterSSO,
   useSession,
-} from '@intlayer/design-system/hooks';
+} from '@intlayer/design-system/api';
+import { Container } from '@intlayer/design-system/container';
+import { Form, useForm } from '@intlayer/design-system/form';
+import { H3 } from '@intlayer/design-system/headers';
 import { Loader } from '@intlayer/design-system/loader';
 import { useToast } from '@intlayer/design-system/toaster';
 import { type FC, useEffect, useState } from 'react';

@@ -1,6 +1,6 @@
+import { useUser } from '@intlayer/design-system/api';
 import { Button } from '@intlayer/design-system/button';
 import { H2 } from '@intlayer/design-system/headers';
-import { useUser } from '@intlayer/design-system/hooks';
 import { App_Home_Path } from '@intlayer/design-system/routes';
 import { Check } from 'lucide-react';
 import type { FC } from 'react';

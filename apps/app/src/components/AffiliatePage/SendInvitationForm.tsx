@@ -1,5 +1,5 @@
+import { useSendAffiliateInvitation } from '@intlayer/design-system/api';
 import { Form, useForm } from '@intlayer/design-system/form';
-import { useSendAffiliateInvitation } from '@intlayer/design-system/hooks';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import {

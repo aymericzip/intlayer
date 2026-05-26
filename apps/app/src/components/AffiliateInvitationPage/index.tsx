@@ -1,10 +1,10 @@
-import { Button } from '@intlayer/design-system/button';
-import { Container } from '@intlayer/design-system/container';
 import {
   useAcceptAffiliateInvitation,
   useGetAffiliate,
   useGetAffiliateInvitation,
-} from '@intlayer/design-system/hooks';
+} from '@intlayer/design-system/api';
+import { Button } from '@intlayer/design-system/button';
+import { Container } from '@intlayer/design-system/container';
 import { Loader } from '@intlayer/design-system/loader';
 import { SwitchSelector } from '@intlayer/design-system/switch-selector';
 import type { FC } from 'react';

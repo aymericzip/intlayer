@@ -3,6 +3,7 @@
 import { OptionalLink } from '@components/DocPage/DocNavList';
 import { SearchTrigger } from '@components/DocPage/Search/SearchTrigger';
 import { Accordion } from '@intlayer/design-system/accordion';
+import {} from '@intlayer/design-system/api';
 import { Button } from '@intlayer/design-system/button';
 import { ClickOutsideDiv } from '@intlayer/design-system/click-outside-div';
 import { Container } from '@intlayer/design-system/container';

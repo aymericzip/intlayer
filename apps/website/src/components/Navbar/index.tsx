@@ -2,19 +2,20 @@
 
 import { Link } from '@components/Link/Link';
 import { LocaleSwitcher } from '@components/LocaleSwitcher/LocaleSwitcher';
+import { useUser } from '@intlayer/design-system/api';
 import { Avatar } from '@intlayer/design-system/avatar';
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
 import { DropDown } from '@intlayer/design-system/drop-down';
-import { useDevice, usePersistedStore, useUser } from '@intlayer/design-system/hooks';
+import { useDevice, usePersistedStore } from '@intlayer/design-system/hooks';
 import { LogoWithText } from '@intlayer/design-system/logo';
 import { Navbar as UINavBar } from '@intlayer/design-system/navbar';
-import { DiscordLogo } from '@intlayer/design-system/social-networks';
-import { TechLogos } from '@intlayer/design-system/tech-logo';
 import {
   App_Auth_Demo_Path,
   App_Dashboard,
 } from '@intlayer/design-system/routes';
+import { DiscordLogo } from '@intlayer/design-system/social-networks';
+import { TechLogos } from '@intlayer/design-system/tech-logo';
 import { Image, StarIcon, VectorSquare } from 'lucide-react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
@@ -224,9 +225,7 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
             color="text"
             variant="invisible-link"
             className="flex text-nowrap px-4 py-0.5 text-sm aria-[current]:bg-current/0"
-            onClick={
-              id?.value === 'dashboard' ? handleAppLinkClick : undefined
-            }
+            onClick={id?.value === 'dashboard' ? handleAppLinkClick : undefined}
           >
             {title}
           </Link>
@@ -244,9 +243,7 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
             color="text"
             variant="invisible-link"
             className="w-full text-nowrap p-3 text-center leading-10 transition hover:font-bold aria-selected:font-bold"
-            onClick={
-              id?.value === 'dashboard' ? handleAppLinkClick : undefined
-            }
+            onClick={id?.value === 'dashboard' ? handleAppLinkClick : undefined}
           >
             {title}
           </Link>

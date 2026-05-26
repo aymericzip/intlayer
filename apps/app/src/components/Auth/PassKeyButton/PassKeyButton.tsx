@@ -1,5 +1,5 @@
+import { useSession, useSignInPasskey } from '@intlayer/design-system/api';
 import { Button } from '@intlayer/design-system/button';
-import { useSession, useSignInPasskey } from '@intlayer/design-system/hooks';
 import { Key } from 'lucide-react';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';

@@ -1,6 +1,6 @@
+import { useIntlayerOAuth, useUser } from '@intlayer/design-system/api';
 import { Form, useForm } from '@intlayer/design-system/form';
 import { H2 } from '@intlayer/design-system/headers';
-import { useIntlayerOAuth, useUser } from '@intlayer/design-system/hooks';
 import { Loader } from '@intlayer/design-system/loader';
 import { useSearch } from '@tanstack/react-router';
 import { Check } from 'lucide-react';

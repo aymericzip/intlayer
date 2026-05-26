@@ -1,6 +1,7 @@
 'use client';
 
 import { Link } from '@components/Link/Link';
+import {} from '@intlayer/design-system/api';
 import { useGetElementById } from '@intlayer/design-system/hooks';
 import { useIntlayer, useLocale } from 'next-intlayer';
 import { type FC, useRef } from 'react';

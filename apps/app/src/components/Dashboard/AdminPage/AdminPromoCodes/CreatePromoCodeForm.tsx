@@ -1,5 +1,5 @@
+import { useCreatePromoCode } from '@intlayer/design-system/api';
 import { Form, useForm } from '@intlayer/design-system/form';
-import { useCreatePromoCode } from '@intlayer/design-system/hooks';
 import { Select } from '@intlayer/design-system/select';
 import { type FC, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
@@ -67,13 +67,13 @@ export const CreatePromoCodeForm: FC<CreatePromoCodeFormProps> = ({
   };
 
   const PRESETS: { value: ExpirationPreset; label: string }[] = [
-    { value: 'none', label: (content.expirationPresets as any).none.value },
-    { value: '1m', label: (content.expirationPresets as any)['1m'].value },
-    { value: '2m', label: (content.expirationPresets as any)['2m'].value },
-    { value: '3m', label: (content.expirationPresets as any)['3m'].value },
-    { value: '6m', label: (content.expirationPresets as any)['6m'].value },
-    { value: '1y', label: (content.expirationPresets as any)['1y'].value },
-    { value: 'custom', label: (content.expirationPresets as any).custom.value },
+    { value: 'none', label: content.expirationPresets.none.value },
+    { value: '1m', label: content.expirationPresets['1m'].value },
+    { value: '2m', label: content.expirationPresets['2m'].value },
+    { value: '3m', label: content.expirationPresets['3m'].value },
+    { value: '6m', label: content.expirationPresets['6m'].value },
+    { value: '1y', label: content.expirationPresets['1y'].value },
+    { value: 'custom', label: content.expirationPresets.custom.value },
   ];
 
   const handleSubmit = async (data: CreatePromoCodeFormData) => {

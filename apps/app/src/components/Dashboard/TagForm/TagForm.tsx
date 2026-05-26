@@ -1,6 +1,6 @@
 import type { GetTagsResult, TagAPI } from '@intlayer/backend';
+import { useGetTags } from '@intlayer/design-system/api';
 import { Container } from '@intlayer/design-system/container';
-import { useGetTags } from '@intlayer/design-system/hooks';
 import { Loader } from '@intlayer/design-system/loader';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';

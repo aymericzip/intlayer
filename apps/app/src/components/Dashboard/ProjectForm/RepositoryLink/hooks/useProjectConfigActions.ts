@@ -5,7 +5,7 @@ import {
   usePushProjectConfiguration,
   useSession,
   useUpdateProject,
-} from '@intlayer/design-system/hooks';
+} from '@intlayer/design-system/api';
 import { useToast } from '@intlayer/design-system/toaster';
 import { useMutation } from '@tanstack/react-query';
 import { createDefu } from 'defu';

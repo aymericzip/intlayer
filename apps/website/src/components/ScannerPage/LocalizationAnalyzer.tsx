@@ -1,6 +1,6 @@
 'use client';
 
-import { useSession } from '@intlayer/design-system/hooks';
+import { useSession } from '@intlayer/design-system/api';
 import { useIntlayer } from 'next-intlayer';
 import { type FC, useEffect, useMemo, useRef, useState } from 'react';
 import { useSearchParamState } from '@/hooks/useSearchParamState';

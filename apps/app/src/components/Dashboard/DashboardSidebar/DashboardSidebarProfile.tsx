@@ -1,8 +1,8 @@
+import { useUser } from '@intlayer/design-system/api';
 import { Avatar } from '@intlayer/design-system/avatar';
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
 import { DropDown } from '@intlayer/design-system/drop-down';
-import { useUser } from '@intlayer/design-system/hooks';
 import { App_Dashboard_Profile_Path } from '@intlayer/design-system/routes';
 import { cn } from '@intlayer/design-system/utils';
 import { LogOut, User2 } from 'lucide-react';

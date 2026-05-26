@@ -38,6 +38,96 @@
       "require": "./dist/cjs/index.cjs",
       "import": "./dist/esm/index.mjs"
     },
+    "./ai": {
+      "types": "./dist/types/getIntlayerAPI/ai.d.ts",
+      "require": "./dist/cjs/getIntlayerAPI/ai.cjs",
+      "import": "./dist/esm/getIntlayerAPI/ai.mjs"
+    },
+    "./audit": {
+      "types": "./dist/types/getIntlayerAPI/audit.d.ts",
+      "require": "./dist/cjs/getIntlayerAPI/audit.cjs",
+      "import": "./dist/esm/getIntlayerAPI/audit.mjs"
+    },
+    "./bitbucket": {
+      "types": "./dist/types/getIntlayerAPI/bitbucket.d.ts",
+      "require": "./dist/cjs/getIntlayerAPI/bitbucket.cjs",
+      "import": "./dist/esm/getIntlayerAPI/bitbucket.mjs"
+    },
+    "./dictionary": {
+      "types": "./dist/types/getIntlayerAPI/dictionary.d.ts",
+      "require": "./dist/cjs/getIntlayerAPI/dictionary.cjs",
+      "import": "./dist/esm/getIntlayerAPI/dictionary.mjs"
+    },
+    "./editor": {
+      "types": "./dist/types/getIntlayerAPI/editor.d.ts",
+      "require": "./dist/cjs/getIntlayerAPI/editor.cjs",
+      "import": "./dist/esm/getIntlayerAPI/editor.mjs"
+    },
+    "./github": {
+      "types": "./dist/types/getIntlayerAPI/github.d.ts",
+      "require": "./dist/cjs/getIntlayerAPI/github.cjs",
+      "import": "./dist/esm/getIntlayerAPI/github.mjs"
+    },
+    "./gitlab": {
+      "types": "./dist/types/getIntlayerAPI/gitlab.d.ts",
+      "require": "./dist/cjs/getIntlayerAPI/gitlab.cjs",
+      "import": "./dist/esm/getIntlayerAPI/gitlab.mjs"
+    },
+    "./newsletter": {
+      "types": "./dist/types/getIntlayerAPI/newsletter.d.ts",
+      "require": "./dist/cjs/getIntlayerAPI/newsletter.cjs",
+      "import": "./dist/esm/getIntlayerAPI/newsletter.mjs"
+    },
+    "./oAuth": {
+      "types": "./dist/types/getIntlayerAPI/oAuth.d.ts",
+      "require": "./dist/cjs/getIntlayerAPI/oAuth.cjs",
+      "import": "./dist/esm/getIntlayerAPI/oAuth.mjs"
+    },
+    "./organization": {
+      "types": "./dist/types/getIntlayerAPI/organization.d.ts",
+      "require": "./dist/cjs/getIntlayerAPI/organization.cjs",
+      "import": "./dist/esm/getIntlayerAPI/organization.mjs"
+    },
+    "./project": {
+      "types": "./dist/types/getIntlayerAPI/project.d.ts",
+      "require": "./dist/cjs/getIntlayerAPI/project.cjs",
+      "import": "./dist/esm/getIntlayerAPI/project.mjs"
+    },
+    "./search": {
+      "types": "./dist/types/getIntlayerAPI/search.d.ts",
+      "require": "./dist/cjs/getIntlayerAPI/search.cjs",
+      "import": "./dist/esm/getIntlayerAPI/search.mjs"
+    },
+    "./showcaseProject": {
+      "types": "./dist/types/getIntlayerAPI/showcaseProject.d.ts",
+      "require": "./dist/cjs/getIntlayerAPI/showcaseProject.cjs",
+      "import": "./dist/esm/getIntlayerAPI/showcaseProject.mjs"
+    },
+    "./stripe": {
+      "types": "./dist/types/getIntlayerAPI/stripe.d.ts",
+      "require": "./dist/cjs/getIntlayerAPI/stripe.cjs",
+      "import": "./dist/esm/getIntlayerAPI/stripe.mjs"
+    },
+    "./tag": {
+      "types": "./dist/types/getIntlayerAPI/tag.d.ts",
+      "require": "./dist/cjs/getIntlayerAPI/tag.cjs",
+      "import": "./dist/esm/getIntlayerAPI/tag.mjs"
+    },
+    "./translate": {
+      "types": "./dist/types/getIntlayerAPI/translate.d.ts",
+      "require": "./dist/cjs/getIntlayerAPI/translate.cjs",
+      "import": "./dist/esm/getIntlayerAPI/translate.mjs"
+    },
+    "./reviewer": {
+      "types": "./dist/types/getIntlayerAPI/reviewer.d.ts",
+      "require": "./dist/cjs/getIntlayerAPI/reviewer.cjs",
+      "import": "./dist/esm/getIntlayerAPI/reviewer.mjs"
+    },
+    "./user": {
+      "types": "./dist/types/getIntlayerAPI/user.d.ts",
+      "require": "./dist/cjs/getIntlayerAPI/user.cjs",
+      "import": "./dist/esm/getIntlayerAPI/user.mjs"
+    },
     "./package.json": "./package.json"
   },
   "main": "dist/cjs/index.cjs",
@@ -45,6 +135,60 @@
   "types": "dist/types/index.d.ts",
   "typesVersions": {
     "*": {
+      "ai": [
+        "./dist/types/getIntlayerAPI/ai.d.ts"
+      ],
+      "audit": [
+        "./dist/types/getIntlayerAPI/audit.d.ts"
+      ],
+      "bitbucket": [
+        "./dist/types/getIntlayerAPI/bitbucket.d.ts"
+      ],
+      "dictionary": [
+        "./dist/types/getIntlayerAPI/dictionary.d.ts"
+      ],
+      "editor": [
+        "./dist/types/getIntlayerAPI/editor.d.ts"
+      ],
+      "github": [
+        "./dist/types/getIntlayerAPI/github.d.ts"
+      ],
+      "gitlab": [
+        "./dist/types/getIntlayerAPI/gitlab.d.ts"
+      ],
+      "newsletter": [
+        "./dist/types/getIntlayerAPI/newsletter.d.ts"
+      ],
+      "oAuth": [
+        "./dist/types/getIntlayerAPI/oAuth.d.ts"
+      ],
+      "organization": [
+        "./dist/types/getIntlayerAPI/organization.d.ts"
+      ],
+      "project": [
+        "./dist/types/getIntlayerAPI/project.d.ts"
+      ],
+      "search": [
+        "./dist/types/getIntlayerAPI/search.d.ts"
+      ],
+      "showcaseProject": [
+        "./dist/types/getIntlayerAPI/showcaseProject.d.ts"
+      ],
+      "stripe": [
+        "./dist/types/getIntlayerAPI/stripe.d.ts"
+      ],
+      "tag": [
+        "./dist/types/getIntlayerAPI/tag.d.ts"
+      ],
+      "translate": [
+        "./dist/types/getIntlayerAPI/translate.d.ts"
+      ],
+      "reviewer": [
+        "./dist/types/getIntlayerAPI/reviewer.d.ts"
+      ],
+      "user": [
+        "./dist/types/getIntlayerAPI/user.d.ts"
+      ],
       "package.json": [
         "./package.json"
       ]

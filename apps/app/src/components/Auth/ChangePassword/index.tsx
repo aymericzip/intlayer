@@ -1,5 +1,5 @@
+import { useChangePassword, useUser } from '@intlayer/design-system/api';
 import { Button } from '@intlayer/design-system/button';
-import { useChangePassword, useUser } from '@intlayer/design-system/hooks';
 import { Modal } from '@intlayer/design-system/modal';
 import { App_Home_Path } from '@intlayer/design-system/routes';
 import { Check } from 'lucide-react';

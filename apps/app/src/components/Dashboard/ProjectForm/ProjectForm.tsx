@@ -1,6 +1,6 @@
+import { useSession } from '@intlayer/design-system/api';
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
-import { useSession } from '@intlayer/design-system/hooks';
 import { Trash, TriangleAlert } from 'lucide-react';
 import { type FC, Suspense, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';

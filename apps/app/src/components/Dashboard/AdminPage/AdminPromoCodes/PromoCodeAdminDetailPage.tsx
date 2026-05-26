@@ -1,13 +1,13 @@
 import type { PromoCodeAPI } from '@intlayer/backend';
-import { Badge, BadgeColor, BadgeVariant } from '@intlayer/design-system/badge';
-import { Button } from '@intlayer/design-system/button';
-import { Container } from '@intlayer/design-system/container';
-import { CopyToClipboard } from '@intlayer/design-system/copy-to-clipboard';
 import {
   useDeletePromoCode,
   useGetPromoCodeById,
   useUpdatePromoCode,
-} from '@intlayer/design-system/hooks';
+} from '@intlayer/design-system/api';
+import { Badge, BadgeColor, BadgeVariant } from '@intlayer/design-system/badge';
+import { Button } from '@intlayer/design-system/button';
+import { Container } from '@intlayer/design-system/container';
+import { CopyToClipboard } from '@intlayer/design-system/copy-to-clipboard';
 import { Loader } from '@intlayer/design-system/loader';
 import {
   App_Admin_PromoCodes_Path,

@@ -1,10 +1,10 @@
 import type { ReviewerProfileAPI } from '@intlayer/backend';
-import { Button } from '@intlayer/design-system/button';
-import { Container } from '@intlayer/design-system/container';
 import {
   useCreateMission,
   useGetDictionaries,
-} from '@intlayer/design-system/hooks';
+} from '@intlayer/design-system/api';
+import { Button } from '@intlayer/design-system/button';
+import { Container } from '@intlayer/design-system/container';
 import { Checkbox } from '@intlayer/design-system/input';
 import { Loader } from '@intlayer/design-system/loader';
 import { Modal } from '@intlayer/design-system/modal';

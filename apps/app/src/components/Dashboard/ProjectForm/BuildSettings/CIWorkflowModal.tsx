@@ -1,7 +1,7 @@
 import type { RepositoryProvider } from '@intlayer/backend';
+import { usePushCIConfig } from '@intlayer/design-system/api';
 import { Button } from '@intlayer/design-system/button';
 import { useCopyToClipboard } from '@intlayer/design-system/copy-to-clipboard';
-import { usePushCIConfig } from '@intlayer/design-system/hooks';
 import { CodeBlock } from '@intlayer/design-system/ide';
 import { Loader } from '@intlayer/design-system/loader';
 import { Modal } from '@intlayer/design-system/modal';

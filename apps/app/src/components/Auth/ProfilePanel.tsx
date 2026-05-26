@@ -1,5 +1,5 @@
+import { useUser } from '@intlayer/design-system/api';
 import { Button } from '@intlayer/design-system/button';
-import { useUser } from '@intlayer/design-system/hooks';
 import { App_Auth_ChangePassword_Path } from '@intlayer/design-system/routes';
 import type { FC } from 'react';
 import { useLocalizedNavigate } from '#hooks/useLocalizedNavigate.ts';

@@ -29,6 +29,7 @@
       "@utils/*": ["./src/utils/*"],
       "@libs/*": ["./src/libs/*"],
       "@hooks/*": ["./src/hooks/*"],
+      "@api/*": ["./src/api/*"],
       "@providers/*": ["./src/providers/*"],
       "@/*": ["./src/*"]
     }

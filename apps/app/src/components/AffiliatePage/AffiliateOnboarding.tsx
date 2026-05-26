@@ -1,5 +1,5 @@
+import { useIntlayerOAuth } from '@intlayer/design-system/api';
 import { Button } from '@intlayer/design-system/button';
-import { useIntlayerOAuth } from '@intlayer/design-system/hooks';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useIntlayer } from 'react-intlayer';

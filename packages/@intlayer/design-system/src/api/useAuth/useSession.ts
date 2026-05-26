@@ -1,12 +1,11 @@
 'use client';
 
-import { useQueryClient } from '@hooks/reactQuery';
 import type { SessionAPI } from '@intlayer/backend';
 import { default as defaultConfiguration } from '@intlayer/config/built';
 import { useConfiguration } from '@intlayer/editor-react';
 import type { IntlayerConfig } from '@intlayer/types/config';
-import { getAuthAPI } from '@libs/auth';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { getAuthAPI } from '../../libs/auth';
 
 export type UseSessionResult = {
   /** The current session: `undefined` while loading, `null` if fetched and no session, otherwise the session. */

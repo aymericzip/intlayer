@@ -1,6 +1,6 @@
 import type { TagAPI } from '@intlayer/backend';
+import { useDeleteTag, useGetTags } from '@intlayer/design-system/api';
 import { Button } from '@intlayer/design-system/button';
-import { useDeleteTag, useGetTags } from '@intlayer/design-system/hooks';
 import { Checkbox, SearchInput } from '@intlayer/design-system/input';
 import { Modal } from '@intlayer/design-system/modal';
 import {

@@ -1,4 +1,4 @@
-import { useSession } from '@intlayer/design-system/hooks';
+import { useSession } from '@intlayer/design-system/api';
 import { EditorProvider as EditorProviderComponent } from '@intlayer/editor-react';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import { useQuery } from '@tanstack/react-query';

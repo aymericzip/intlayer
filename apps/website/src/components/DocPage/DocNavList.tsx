@@ -3,6 +3,7 @@
 import { SearchTrigger } from '@components/DocPage/Search/SearchTrigger';
 import { Link } from '@components/Link/Link';
 import { Accordion } from '@intlayer/design-system/accordion';
+import {} from '@intlayer/design-system/api';
 import { Button } from '@intlayer/design-system/button';
 import { ClickOutsideDiv } from '@intlayer/design-system/click-outside-div';
 import { Container } from '@intlayer/design-system/container';
@@ -209,7 +210,8 @@ export const DocNavListContent: FC<DocNavListContentProps> = ({
   activeSlugs,
   selectedFramework,
 }) => {
-  const { blogButton, chatBotButton, documentationSections } = useIntlayer('doc-nav-list');
+  const { blogButton, chatBotButton, documentationSections } =
+    useIntlayer('doc-nav-list');
   const navRef = useScrollPositionPersistence<HTMLElement>(
     'doc-nav-scroll-position'
   );

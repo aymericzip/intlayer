@@ -1,8 +1,6 @@
+import { useAskDocQuestion } from '@intlayer/design-system/api';
 import { Container } from '@intlayer/design-system/container';
-import {
-  useAskDocQuestion,
-  usePersistedStore,
-} from '@intlayer/design-system/hooks';
+import { usePersistedStore } from '@intlayer/design-system/hooks';
 import { PopoverStatic } from '@intlayer/design-system/popover';
 import { App_Auth_SignIn_Path } from '@intlayer/design-system/routes';
 import { InfoIcon } from 'lucide-react';

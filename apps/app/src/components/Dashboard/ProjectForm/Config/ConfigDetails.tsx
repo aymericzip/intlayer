@@ -1,12 +1,12 @@
 import type { ProjectConfiguration } from '@intlayer/backend';
 import { CopyButton } from '@intlayer/design-system';
-import { Button } from '@intlayer/design-system/button';
-import { Container } from '@intlayer/design-system/container';
-import { H3, H4, H5 } from '@intlayer/design-system/headers';
 import {
   usePushProjectConfiguration,
   useSession,
-} from '@intlayer/design-system/hooks';
+} from '@intlayer/design-system/api';
+import { Button } from '@intlayer/design-system/button';
+import { Container } from '@intlayer/design-system/container';
+import { H3, H4, H5 } from '@intlayer/design-system/headers';
 import { CodeBlock } from '@intlayer/design-system/ide';
 import { PopoverStatic } from '@intlayer/design-system/popover';
 import { Website_Doc_IntlayerCMS } from '@intlayer/design-system/routes';

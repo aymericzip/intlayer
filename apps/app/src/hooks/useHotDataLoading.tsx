@@ -6,7 +6,7 @@ import {
   useGetProjects,
   useGetTags,
   useGetUsers,
-} from '@intlayer/design-system/hooks';
+} from '@intlayer/design-system/api';
 import { useQueryClient } from '@tanstack/react-query';
 import { useEffect } from 'react';
 

@@ -2,9 +2,9 @@ import { mergeDictionaries } from '@intlayer/core/dictionaryManipulator';
 import {
   useDeleteDictionary,
   useGetDictionaries,
-  usePersistedStore,
   usePushDictionaries,
-} from '@intlayer/design-system/hooks';
+} from '@intlayer/design-system/api';
+import { usePersistedStore } from '@intlayer/design-system/hooks';
 import { useDictionariesRecord } from '@intlayer/editor-react';
 import type { Dictionary } from '@intlayer/types/dictionary';
 import type { RowSelectionState, VisibilityState } from '@tanstack/react-table';

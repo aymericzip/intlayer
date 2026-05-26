@@ -44,6 +44,11 @@
       "import": "./dist/esm/hooks/index.mjs",
       "default": "./dist/esm/hooks/index.mjs"
     },
+    "./api": {
+      "types": "./dist/types/api/index.d.ts",
+      "import": "./dist/esm/api/index.mjs",
+      "default": "./dist/esm/api/index.mjs"
+    },
     "./providers": {
       "types": "./dist/types/providers/index.d.ts",
       "import": "./dist/esm/providers/index.mjs",

@@ -1,12 +1,12 @@
 import type { PromoCodeAPI } from '@intlayer/backend';
-import { Badge, BadgeColor, BadgeVariant } from '@intlayer/design-system/badge';
-import { Button } from '@intlayer/design-system/button';
-import { CopyToClipboard } from '@intlayer/design-system/copy-to-clipboard';
 import {
   useDeletePromoCode,
   useGetPromoCodes,
   useUpdatePromoCode,
-} from '@intlayer/design-system/hooks';
+} from '@intlayer/design-system/api';
+import { Badge, BadgeColor, BadgeVariant } from '@intlayer/design-system/badge';
+import { Button } from '@intlayer/design-system/button';
+import { CopyToClipboard } from '@intlayer/design-system/copy-to-clipboard';
 import { SearchInput } from '@intlayer/design-system/input';
 import {
   NumberItemsSelector,

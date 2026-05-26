@@ -1,15 +1,15 @@
 import type { AffiliateAPI, PromoCodeAPI } from '@intlayer/backend';
-import { Badge, BadgeColor, BadgeVariant } from '@intlayer/design-system/badge';
-import { Button } from '@intlayer/design-system/button';
-import { Container } from '@intlayer/design-system/container';
-import { CopyToClipboard } from '@intlayer/design-system/copy-to-clipboard';
 import {
   useGetAffiliateById,
   useGetPromoCodes,
   useGetUserById,
   useUpdateAffiliateStatus,
   useUpdatePromoCode,
-} from '@intlayer/design-system/hooks';
+} from '@intlayer/design-system/api';
+import { Badge, BadgeColor, BadgeVariant } from '@intlayer/design-system/badge';
+import { Button } from '@intlayer/design-system/button';
+import { Container } from '@intlayer/design-system/container';
+import { CopyToClipboard } from '@intlayer/design-system/copy-to-clipboard';
 import { Loader } from '@intlayer/design-system/loader';
 import { getAppAdminUserRoute } from '@intlayer/design-system/routes';
 import { Select } from '@intlayer/design-system/select';

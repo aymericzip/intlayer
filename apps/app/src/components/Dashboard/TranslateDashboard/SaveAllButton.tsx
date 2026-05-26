@@ -1,11 +1,11 @@
-import { Button } from '@intlayer/design-system/button';
-import { Container } from '@intlayer/design-system/container';
-import { DropDown } from '@intlayer/design-system/drop-down';
 import {
   useAuth,
   usePushDictionaries,
   useWriteDictionary,
-} from '@intlayer/design-system/hooks';
+} from '@intlayer/design-system/api';
+import { Button } from '@intlayer/design-system/button';
+import { Container } from '@intlayer/design-system/container';
+import { DropDown } from '@intlayer/design-system/drop-down';
 import {
   useDictionariesRecordActions,
   useEditedContent,

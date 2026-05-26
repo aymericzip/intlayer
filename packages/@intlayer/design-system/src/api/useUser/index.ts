@@ -1,6 +1,6 @@
 'use client';
 
-import { useLogout } from '../reactQuery';
+import { useLogout } from '../hooks/auth';
 import { useAuth } from '../useAuth';
 
 export const useUser = () => {

@@ -4,13 +4,10 @@ import type {
   GetUsersResult,
   UserAPI,
 } from '@intlayer/backend';
+import { useGetDiscussions, useGetUsers } from '@intlayer/design-system/api';
 import { Avatar } from '@intlayer/design-system/avatar';
 import { CopyToClipboard } from '@intlayer/design-system/copy-to-clipboard';
-import {
-  useGetDiscussions,
-  useGetUsers,
-  useSearch,
-} from '@intlayer/design-system/hooks';
+import { useSearch } from '@intlayer/design-system/hooks';
 import { SearchInput } from '@intlayer/design-system/input';
 
 import { Modal } from '@intlayer/design-system/modal';

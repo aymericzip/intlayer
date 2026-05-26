@@ -1,6 +1,6 @@
 import type { TagAPI } from '@intlayer/backend';
+import { useAuditTag, useUpdateTag } from '@intlayer/design-system/api';
 import { Form, useForm } from '@intlayer/design-system/form';
-import { useAuditTag, useUpdateTag } from '@intlayer/design-system/hooks';
 import { Save, WandSparkles, XCircle } from 'lucide-react';
 import { type FC, useState } from 'react';
 import { useWatch } from 'react-hook-form';

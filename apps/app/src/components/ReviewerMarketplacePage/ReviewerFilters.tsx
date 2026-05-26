@@ -1,7 +1,7 @@
 import type { GetMarketplaceQuery } from '@intlayer/backend';
+import { useGetReviewerPriceDistribution } from '@intlayer/design-system/api';
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
-import { useGetReviewerPriceDistribution } from '@intlayer/design-system/hooks';
 import { Checkbox } from '@intlayer/design-system/input';
 import { Select } from '@intlayer/design-system/select';
 import { X } from 'lucide-react';

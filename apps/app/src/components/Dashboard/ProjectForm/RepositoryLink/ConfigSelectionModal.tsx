@@ -1,10 +1,10 @@
-import { Button } from '@intlayer/design-system/button';
-import { containerVariants } from '@intlayer/design-system/container';
 import {
   useBitbucketGetConfigFile,
   useGithubGetConfigFile,
   useGitlabGetConfigFile,
-} from '@intlayer/design-system/hooks';
+} from '@intlayer/design-system/api';
+import { Button } from '@intlayer/design-system/button';
+import { containerVariants } from '@intlayer/design-system/container';
 import { Modal } from '@intlayer/design-system/modal';
 import { FileJson, FolderOpen } from 'lucide-react';
 import { type FC, useState } from 'react';

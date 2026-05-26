@@ -1,4 +1,4 @@
-import { useSession } from '@intlayer/design-system/hooks';
+import { useSession } from '@intlayer/design-system/api';
 import { getAuthAPI } from '@intlayer/design-system/libs';
 import { useToast } from '@intlayer/design-system/toaster';
 import { useCallback, useEffect, useState } from 'react';

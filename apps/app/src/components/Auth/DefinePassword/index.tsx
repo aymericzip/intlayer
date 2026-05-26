@@ -1,5 +1,5 @@
+import { useResetPassword } from '@intlayer/design-system/api';
 import { Button } from '@intlayer/design-system/button';
-import { useResetPassword } from '@intlayer/design-system/hooks';
 import { App_Home_Path } from '@intlayer/design-system/routes';
 import { useToast } from '@intlayer/design-system/toaster';
 import { useSearch } from '@tanstack/react-router';

@@ -1,5 +1,3 @@
-import { Button } from '@intlayer/design-system/button';
-import { Container } from '@intlayer/design-system/container';
 import {
   useFillAllTranslations,
   useGetDictionaries,
@@ -7,7 +5,9 @@ import {
   useResumeTranslationJob,
   useSession,
   useStopTranslationJob,
-} from '@intlayer/design-system/hooks';
+} from '@intlayer/design-system/api';
+import { Button } from '@intlayer/design-system/button';
+import { Container } from '@intlayer/design-system/container';
 import { Checkbox, SearchInput } from '@intlayer/design-system/input';
 import { Loader } from '@intlayer/design-system/loader';
 import { PopoverStatic } from '@intlayer/design-system/popover';

@@ -1,6 +1,6 @@
+import { useAddPasskey, useDeletePasskey } from '@intlayer/design-system/api';
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
-import { useAddPasskey, useDeletePasskey } from '@intlayer/design-system/hooks';
 import { type FC, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { AddPasskeyModal } from './AddPasskeyModal';

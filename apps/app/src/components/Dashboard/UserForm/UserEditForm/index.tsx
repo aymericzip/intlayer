@@ -1,13 +1,13 @@
 import type { UserAPI } from '@intlayer/backend';
-import { Container } from '@intlayer/design-system/container';
-import { Form, useForm } from '@intlayer/design-system/form';
-import { H3 } from '@intlayer/design-system/headers';
 import {
   useGetOrganizations,
   useGetUserById,
   useUpdateOrganizationMembersById,
   useUpdateUser,
-} from '@intlayer/design-system/hooks';
+} from '@intlayer/design-system/api';
+import { Container } from '@intlayer/design-system/container';
+import { Form, useForm } from '@intlayer/design-system/form';
+import { H3 } from '@intlayer/design-system/headers';
 import { Loader } from '@intlayer/design-system/loader';
 import { toast } from '@intlayer/design-system/toaster';
 import { type FC, useEffect, useMemo, useRef } from 'react';

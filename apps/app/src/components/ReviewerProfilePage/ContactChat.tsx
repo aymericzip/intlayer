@@ -1,7 +1,7 @@
 import type { ReviewerProfileAPI } from '@intlayer/backend';
+import { useContactReviewer } from '@intlayer/design-system/api';
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
-import { useContactReviewer } from '@intlayer/design-system/hooks';
 import { AutoSizedTextArea } from '@intlayer/design-system/text-area';
 import { Send } from 'lucide-react';
 import { type FC, useRef, useState } from 'react';

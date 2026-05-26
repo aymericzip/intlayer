@@ -1,10 +1,10 @@
 'use client';
 
+import { useAddDictionary, useGetProjects } from '@api/index';
+import { useSession } from '@api/useAuth';
 import { ButtonColor } from '@components/Button';
 import { Form, useForm } from '@components/Form';
 import { MultiSelect } from '@components/Select';
-import { useAddDictionary, useGetProjects } from '@hooks/reactQuery';
-import { useSession } from '@hooks/useAuth';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import {

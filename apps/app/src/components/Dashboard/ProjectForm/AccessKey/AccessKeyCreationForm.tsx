@@ -1,7 +1,7 @@
 import type { AddNewAccessKeyResponse } from '@intlayer/backend';
 import { Select } from '@intlayer/design-system';
+import { useAddNewAccessKey, useSession } from '@intlayer/design-system/api';
 import { Form, useForm } from '@intlayer/design-system/form';
-import { useAddNewAccessKey, useSession } from '@intlayer/design-system/hooks';
 import { type FC, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import {

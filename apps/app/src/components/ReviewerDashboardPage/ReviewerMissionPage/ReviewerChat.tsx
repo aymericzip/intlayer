@@ -1,10 +1,10 @@
 import type { ReviewerMessageAPI } from '@intlayer/backend';
-import { Button } from '@intlayer/design-system/button';
 import {
   useGetChatHistory,
   useIntlayerOAuth,
   useSendReviewerMessage,
-} from '@intlayer/design-system/hooks';
+} from '@intlayer/design-system/api';
+import { Button } from '@intlayer/design-system/button';
 import { Send } from 'lucide-react';
 import { type FC, useEffect, useRef, useState } from 'react';
 
@@ -106,9 +106,7 @@ export const ReviewerChat: FC<ReviewerChatProps> = ({
                 }`}
               >
                 <p>{msg.content}</p>
-                <p
-                  className="mt-0.5 text-[10px] text-neutral"
-                >
+                <p className="mt-0.5 text-[10px] text-neutral">
                   {new Date(msg.createdAt).toLocaleTimeString([], {
                     hour: '2-digit',
                     minute: '2-digit',

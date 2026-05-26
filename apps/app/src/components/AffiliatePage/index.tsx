@@ -1,7 +1,7 @@
 import {
   useGetAffiliate,
   useGetAffiliateStats,
-} from '@intlayer/design-system/hooks';
+} from '@intlayer/design-system/api';
 import { Loader } from '@intlayer/design-system/loader';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';

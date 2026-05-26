@@ -1,6 +1,6 @@
 'use client';
 
-import { useGetDictionaries } from '@intlayer/design-system/hooks';
+import { useGetDictionaries } from '@intlayer/design-system/api';
 import { useDictionariesRecord } from '@intlayer/editor-react';
 import type { Dictionary, LocalDictionaryId } from '@intlayer/types/dictionary';
 import { type FC, useEffect, useState } from 'react';

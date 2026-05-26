@@ -1,6 +1,6 @@
+import { useGetOrganizations, useSession } from '@intlayer/design-system/api';
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
-import { useGetOrganizations, useSession } from '@intlayer/design-system/hooks';
 import { Modal } from '@intlayer/design-system/modal';
 import { Trash, TriangleAlert } from 'lucide-react';
 import { type FC, Suspense, useState } from 'react';

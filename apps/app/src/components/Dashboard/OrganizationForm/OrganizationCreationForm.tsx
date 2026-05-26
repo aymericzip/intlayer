@@ -1,9 +1,9 @@
 import type { OrganizationAPI } from '@intlayer/backend';
-import { Form, useForm } from '@intlayer/design-system/form';
 import {
   useAddOrganization,
   useSelectOrganization,
-} from '@intlayer/design-system/hooks';
+} from '@intlayer/design-system/api';
+import { Form, useForm } from '@intlayer/design-system/form';
 import { Plus } from 'lucide-react';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';

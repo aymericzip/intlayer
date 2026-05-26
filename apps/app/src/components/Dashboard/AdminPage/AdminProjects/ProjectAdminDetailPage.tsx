@@ -1,7 +1,4 @@
-import {
-  useGetProjects,
-  useSelectProject,
-} from '@intlayer/design-system/hooks';
+import { useGetProjects, useSelectProject } from '@intlayer/design-system/api';
 import { Loader } from '@intlayer/design-system/loader';
 import { useEffect } from 'react';
 import { useIntlayer } from 'react-intlayer';

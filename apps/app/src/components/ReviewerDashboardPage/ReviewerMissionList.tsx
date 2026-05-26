@@ -1,8 +1,8 @@
 import type { TranslationMissionAPI } from '@intlayer/backend';
+import { useUpdateMissionStatus } from '@intlayer/design-system/api';
 import { Badge, BadgeColor, BadgeVariant } from '@intlayer/design-system/badge';
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
-import { useUpdateMissionStatus } from '@intlayer/design-system/hooks';
 import { App_ReviewerMarketplace_Dashboard_Mission_Path } from '@intlayer/design-system/routes';
 import { MessageSquare } from 'lucide-react';
 import type { FC } from 'react';

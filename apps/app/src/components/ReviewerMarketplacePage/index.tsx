@@ -1,4 +1,4 @@
-import { useGetReviewerMarketplace } from '@intlayer/design-system/hooks';
+import { useGetReviewerMarketplace } from '@intlayer/design-system/api';
 import { Loader } from '@intlayer/design-system/loader';
 import { App_ReviewerMarketplace_Reviewer_Path } from '@intlayer/design-system/routes';
 import { ChevronLeft, ChevronRight } from 'lucide-react';

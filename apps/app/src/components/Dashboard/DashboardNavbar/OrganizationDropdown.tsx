@@ -1,13 +1,13 @@
-import { Button } from '@intlayer/design-system/button';
-import { Container } from '@intlayer/design-system/container';
-import { DropDown } from '@intlayer/design-system/drop-down';
 import {
   useGetOrganizations,
   useSelectOrganization,
   useSession,
   useUnselectOrganization,
   useUnselectProject,
-} from '@intlayer/design-system/hooks';
+} from '@intlayer/design-system/api';
+import { Button } from '@intlayer/design-system/button';
+import { Container } from '@intlayer/design-system/container';
+import { DropDown } from '@intlayer/design-system/drop-down';
 import { Modal } from '@intlayer/design-system/modal';
 import { ChevronsUpDown } from 'lucide-react';
 import { type FC, useState } from 'react';

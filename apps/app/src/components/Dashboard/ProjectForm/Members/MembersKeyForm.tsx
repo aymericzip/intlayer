@@ -3,13 +3,13 @@ import type {
   UpdateProjectMembersBody,
   UserAPI,
 } from '@intlayer/backend';
-import { Form, useForm } from '@intlayer/design-system/form';
-import { H3 } from '@intlayer/design-system/headers';
 import {
   useGetUsers,
   useSession,
   useUpdateProjectMembers,
-} from '@intlayer/design-system/hooks';
+} from '@intlayer/design-system/api';
+import { Form, useForm } from '@intlayer/design-system/form';
+import { H3 } from '@intlayer/design-system/headers';
 import { Loader } from '@intlayer/design-system/loader';
 import { MultiSelect } from '@intlayer/design-system/select';
 import type { FC } from 'react';

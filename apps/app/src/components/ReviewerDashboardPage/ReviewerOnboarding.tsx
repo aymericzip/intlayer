@@ -1,8 +1,5 @@
 import type { ReviewerCategory, ReviewerProfileAPI } from '@intlayer/backend';
 import { AutoSizedTextArea } from '@intlayer/design-system';
-import { Avatar } from '@intlayer/design-system/avatar';
-import { Button } from '@intlayer/design-system/button';
-import { Container } from '@intlayer/design-system/container';
 import {
   useRegisterAsReviewer,
   useSession,
@@ -10,7 +7,10 @@ import {
   useUploadReviewerCoverPicture,
   useUploadReviewerMainPicture,
   useUploadUserAvatar,
-} from '@intlayer/design-system/hooks';
+} from '@intlayer/design-system/api';
+import { Avatar } from '@intlayer/design-system/avatar';
+import { Button } from '@intlayer/design-system/button';
+import { Container } from '@intlayer/design-system/container';
 import { Input } from '@intlayer/design-system/input';
 import { MarkdownRenderer } from '@intlayer/design-system/mark-down-render';
 import { ImageIcon, Plus, Trash2 } from 'lucide-react';

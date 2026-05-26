@@ -1,14 +1,14 @@
 import type { ProjectConfigCI, Webhook } from '@intlayer/backend';
-import { Button } from '@intlayer/design-system/button';
-import { Container } from '@intlayer/design-system/container';
-import { Form, useForm } from '@intlayer/design-system/form';
-import { H3, H4 } from '@intlayer/design-system/headers';
 import {
   useGetCIConfig,
   useSession,
   useTriggerBuild,
   useUpdateProject,
-} from '@intlayer/design-system/hooks';
+} from '@intlayer/design-system/api';
+import { Button } from '@intlayer/design-system/button';
+import { Container } from '@intlayer/design-system/container';
+import { Form, useForm } from '@intlayer/design-system/form';
+import { H3, H4 } from '@intlayer/design-system/headers';
 import { CheckCircle, Pencil, Play, Plus, Trash, XCircle } from 'lucide-react';
 import { type FC, useEffect, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';

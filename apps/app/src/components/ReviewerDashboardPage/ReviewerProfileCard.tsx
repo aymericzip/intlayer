@@ -1,9 +1,6 @@
 import type { ReviewerProfileAPI, ReviewerReviewAPI } from '@intlayer/backend';
+import { useGetReviewerReviews, useSession } from '@intlayer/design-system/api';
 import { Container } from '@intlayer/design-system/container';
-import {
-  useGetReviewerReviews,
-  useSession,
-} from '@intlayer/design-system/hooks';
 import { MarkdownRenderer } from '@intlayer/design-system/mark-down-render';
 import { Modal, ModalSize } from '@intlayer/design-system/modal';
 import { TechLogos } from '@intlayer/design-system/tech-logo';

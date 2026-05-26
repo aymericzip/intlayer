@@ -1,4 +1,4 @@
-import { useSession } from '@intlayer/design-system/hooks';
+import { useSession } from '@intlayer/design-system/api';
 import { Tag } from '@intlayer/design-system/tag';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';

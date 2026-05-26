@@ -1,6 +1,7 @@
+import { useSession } from '@intlayer/design-system/api';
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
-import { useDevice, useSession } from '@intlayer/design-system/hooks';
+import { useDevice } from '@intlayer/design-system/hooks';
 import { KeyboardShortcut } from '@intlayer/design-system/keyboard-shortcut';
 import { PopoverStatic } from '@intlayer/design-system/popover';
 import {
@@ -183,7 +184,8 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
   className,
   items,
 }) => {
-  const { collapseButton, dashboardNavigation, sidebarNavigation } = useIntlayer('dashboard-sidebar');
+  const { collapseButton, dashboardNavigation, sidebarNavigation } =
+    useIntlayer('dashboard-sidebar');
   const [isCollapsed, setIsCollapsed] = useState(false);
   const { isMobile } = useDevice();
   const { pathname } = useLocation();
@@ -235,7 +237,11 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
         roundedSize="none"
         transparency="none"
       >
-        <nav id="dashboard-sidebar-nav" aria-label={sidebarNavigation.value} className="mt-20 flex-1 overflow-y-auto">
+        <nav
+          id="dashboard-sidebar-nav"
+          aria-label={sidebarNavigation.value}
+          className="mt-20 flex-1 overflow-y-auto"
+        >
           <TabSelector
             selectedChoice={activeKey}
             key={flatNavItems.length}

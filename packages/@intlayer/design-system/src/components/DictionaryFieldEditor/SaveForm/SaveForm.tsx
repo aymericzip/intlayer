@@ -1,14 +1,14 @@
 'use client';
 
-import { ButtonColor, ButtonVariant } from '@components/Button';
-import { Form } from '@components/Form';
-import { Modal, ModalSize } from '@components/Modal';
 import {
   useAuth,
   useDeleteDictionary,
   usePushDictionaries,
   useWriteDictionary,
-} from '@hooks/index';
+} from '@api/index';
+import { ButtonColor, ButtonVariant } from '@components/Button';
+import { Form } from '@components/Form';
+import { Modal, ModalSize } from '@components/Modal';
 import type { Dictionary as DistantDictionary } from '@intlayer/backend';
 import {
   useDictionariesRecordActions,

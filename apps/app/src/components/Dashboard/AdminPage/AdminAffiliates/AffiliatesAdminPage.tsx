@@ -1,8 +1,8 @@
 import type { AffiliateAPI } from '@intlayer/backend';
+import { useGetAffiliates } from '@intlayer/design-system/api';
 import { Badge, BadgeColor, BadgeVariant } from '@intlayer/design-system/badge';
 import { Button } from '@intlayer/design-system/button';
 import { CopyToClipboard } from '@intlayer/design-system/copy-to-clipboard';
-import { useGetAffiliates } from '@intlayer/design-system/hooks';
 import { SearchInput } from '@intlayer/design-system/input';
 import {
   NumberItemsSelector,

@@ -1,14 +1,14 @@
 import type { OAuth2AccessAPI } from '@intlayer/backend';
+import {
+  useDeleteAccessKey,
+  useRefreshAccessKey,
+  useSession,
+} from '@intlayer/design-system/api';
 import { Container } from '@intlayer/design-system/container';
 import { CopyToClipboard } from '@intlayer/design-system/copy-to-clipboard';
 import { Form, useForm } from '@intlayer/design-system/form';
 import { H3 } from '@intlayer/design-system/headers';
 import { HideShow } from '@intlayer/design-system/hide-show';
-import {
-  useDeleteAccessKey,
-  useRefreshAccessKey,
-  useSession,
-} from '@intlayer/design-system/hooks';
 import { Modal } from '@intlayer/design-system/modal';
 import { KeyRound, RefreshCcw, Trash } from 'lucide-react';
 import { type FC, useState } from 'react';

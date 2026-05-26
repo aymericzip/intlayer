@@ -1,5 +1,6 @@
+import { useSignInSSO } from '@intlayer/design-system/api';
 import { Button } from '@intlayer/design-system/button';
-import { usePersistedStore, useSignInSSO } from '@intlayer/design-system/hooks';
+import { usePersistedStore } from '@intlayer/design-system/hooks';
 import { Input } from '@intlayer/design-system/input';
 import { Loader } from '@intlayer/design-system/loader';
 import { Modal } from '@intlayer/design-system/modal';

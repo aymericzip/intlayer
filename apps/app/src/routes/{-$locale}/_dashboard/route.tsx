@@ -1,5 +1,5 @@
+import { useSession } from '@intlayer/design-system/api';
 import { Button } from '@intlayer/design-system/button';
-import { useSession } from '@intlayer/design-system/hooks';
 import {
   App_Admin_Users_Path,
   App_Dashboard_Dictionaries_Path,
@@ -82,8 +82,14 @@ function DashboardLayout() {
   const { navigation } = useIntlayer('dashboard-sidebar');
   const { footerLinks } = useIntlayer('dashboard-footer-content');
 
-  const { translationStatus, aiAssistant, visualEditor, closePanel, mainContentAriaLabel, sidePanelAriaLabel } =
-    useIntlayer('dashboard-route');
+  const {
+    translationStatus,
+    aiAssistant,
+    visualEditor,
+    closePanel,
+    mainContentAriaLabel,
+    sidePanelAriaLabel,
+  } = useIntlayer('dashboard-route');
 
   const PANEL_TITLES: Record<string, string> = {
     'translation-status': translationStatus.value,
@@ -195,7 +201,9 @@ function DashboardLayout() {
           >
             <aside
               aria-label={
-                activePanel ? (PANEL_TITLES[activePanel] ?? activePanel) : sidePanelAriaLabel.value
+                activePanel
+                  ? (PANEL_TITLES[activePanel] ?? activePanel)
+                  : sidePanelAriaLabel.value
               }
               className="ml-3 flex h-full min-h-0 flex-col overflow-hidden rounded-2xl border border-neutral/40 bg-background md:mr-2"
             >

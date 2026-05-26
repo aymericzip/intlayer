@@ -3,11 +3,11 @@ import type {
   UpdateOrganizationMembersBody,
   UserAPI,
 } from '@intlayer/backend';
-import { Form } from '@intlayer/design-system/form';
 import {
   useGetUsers,
   useUpdateOrganizationMembers,
-} from '@intlayer/design-system/hooks';
+} from '@intlayer/design-system/api';
+import { Form } from '@intlayer/design-system/form';
 import { Loader } from '@intlayer/design-system/loader';
 import { Modal } from '@intlayer/design-system/modal';
 import { type FC, useEffect } from 'react';

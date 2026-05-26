@@ -1,6 +1,6 @@
+import { useDeleteUser, useUser } from '@intlayer/design-system/api';
 import { Button } from '@intlayer/design-system/button';
 import { Form, useForm } from '@intlayer/design-system/form';
-import { useDeleteUser, useUser } from '@intlayer/design-system/hooks';
 import { Modal } from '@intlayer/design-system/modal';
 import { Trash2, TriangleAlert } from 'lucide-react';
 import type { FC } from 'react';

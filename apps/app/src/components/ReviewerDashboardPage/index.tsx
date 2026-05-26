@@ -1,11 +1,11 @@
-import { Button } from '@intlayer/design-system/button';
-import { Container } from '@intlayer/design-system/container';
 import {
   useDeleteReviewerProfile,
   useGetMyMissions,
   useGetMyReviewerProfile,
   useUpdateReviewerProfile,
-} from '@intlayer/design-system/hooks';
+} from '@intlayer/design-system/api';
+import { Button } from '@intlayer/design-system/button';
+import { Container } from '@intlayer/design-system/container';
 import { Loader } from '@intlayer/design-system/loader';
 import { Modal } from '@intlayer/design-system/modal';
 import { Eye, EyeOff, Trash2, TriangleAlert } from 'lucide-react';

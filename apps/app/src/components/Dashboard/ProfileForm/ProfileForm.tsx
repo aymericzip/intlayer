@@ -1,14 +1,14 @@
-import { Avatar } from '@intlayer/design-system/avatar';
-import { Button } from '@intlayer/design-system/button';
-import { Container } from '@intlayer/design-system/container';
-import { Form, useForm } from '@intlayer/design-system/form';
-import { H3 } from '@intlayer/design-system/headers';
 import {
   useListPasskeys,
   useSession,
   useUpdateUser,
   useUploadUserAvatar,
-} from '@intlayer/design-system/hooks';
+} from '@intlayer/design-system/api';
+import { Avatar } from '@intlayer/design-system/avatar';
+import { Button } from '@intlayer/design-system/button';
+import { Container } from '@intlayer/design-system/container';
+import { Form, useForm } from '@intlayer/design-system/form';
+import { H3 } from '@intlayer/design-system/headers';
 import { Modal } from '@intlayer/design-system/modal';
 import { LockIcon, PenIcon } from 'lucide-react';
 import {

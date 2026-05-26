@@ -1,8 +1,8 @@
 import { getIntlayerAPI } from '@intlayer/api';
+import { useUser } from '@intlayer/design-system/api';
 import { Button } from '@intlayer/design-system/button';
 import { Form, useForm } from '@intlayer/design-system/form';
 import { H3 } from '@intlayer/design-system/headers';
-import { useUser } from '@intlayer/design-system/hooks';
 import { Loader } from '@intlayer/design-system/loader';
 import { useRouter } from '@tanstack/react-router';
 import { Check, RefreshCw } from 'lucide-react';

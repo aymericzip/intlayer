@@ -1,4 +1,4 @@
-import { useGetDictionaries } from '@intlayer/design-system/hooks';
+import { useGetDictionaries } from '@intlayer/design-system/api';
 import {
   useDictionariesRecord,
   useEditorStateManager,

@@ -1,5 +1,6 @@
 'use client';
 
+import { useAuditContentDeclarationField } from '@api/index';
 import { Accordion } from '@components/Accordion';
 import {
   Button,
@@ -29,7 +30,6 @@ import {
   type SwitchSelectorProps,
   SwitchSelectorSize,
 } from '@components/SwitchSelector';
-import { useAuditContentDeclarationField } from '@hooks/reactQuery';
 import { camelCaseToSentence } from '@intlayer/config/client';
 import {
   getEmptyNode,

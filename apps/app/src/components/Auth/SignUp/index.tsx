@@ -1,5 +1,6 @@
 import type { UserAPI } from '@intlayer/backend';
-import { usePersistedStore, useRegister } from '@intlayer/design-system/hooks';
+import { useRegister } from '@intlayer/design-system/api';
+import { usePersistedStore } from '@intlayer/design-system/hooks';
 import { App_Auth_SignIn_Path } from '@intlayer/design-system/routes';
 import { useSearch } from '@tanstack/react-router';
 import { type FC, useRef } from 'react';

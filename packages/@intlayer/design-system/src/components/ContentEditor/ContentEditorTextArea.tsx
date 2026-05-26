@@ -1,6 +1,6 @@
 'use client';
 
-import { useUser } from '@hooks/useUser';
+import { useUser } from '@api/useUser';
 import { Check, X } from 'lucide-react';
 import {
   type ChangeEventHandler,

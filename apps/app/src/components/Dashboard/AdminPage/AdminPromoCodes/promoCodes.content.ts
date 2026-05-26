@@ -712,7 +712,7 @@ const promoCodesContent = {
         vi: 'Không hết hạn',
         uk: 'Без терміну',
       }),
-      '1m': t({
+      oneMonth: t({
         en: '1 month',
         fr: '1 mois',
         es: '1 mes',
@@ -732,7 +732,7 @@ const promoCodesContent = {
         vi: '1 tháng',
         uk: '1 місяць',
       }),
-      '2m': t({
+      twoMonths: t({
         en: '2 months',
         fr: '2 mois',
         es: '2 meses',
@@ -752,7 +752,7 @@ const promoCodesContent = {
         vi: '2 tháng',
         uk: '2 місяці',
       }),
-      '3m': t({
+      threeMonths: t({
         en: '3 months',
         fr: '3 mois',
         es: '3 meses',
@@ -772,7 +772,7 @@ const promoCodesContent = {
         vi: '3 tháng',
         uk: '3 місяці',
       }),
-      '6m': t({
+      sixMonths: t({
         en: '6 months',
         fr: '6 mois',
         es: '6 meses',
@@ -792,7 +792,7 @@ const promoCodesContent = {
         vi: '6 tháng',
         uk: '6 місяців',
       }),
-      '1y': t({
+      oneYear: t({
         en: '1 year',
         fr: '1 an',
         es: '1 año',

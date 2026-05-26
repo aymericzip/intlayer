@@ -1,10 +1,10 @@
-import { Button } from '@intlayer/design-system/button';
-import { Form, useForm } from '@intlayer/design-system/form';
 import {
   useEnableTwoFactor,
   useSession,
   useVerifyTotp,
-} from '@intlayer/design-system/hooks';
+} from '@intlayer/design-system/api';
+import { Button } from '@intlayer/design-system/button';
+import { Form, useForm } from '@intlayer/design-system/form';
 import { Modal } from '@intlayer/design-system/modal';
 import type { FC } from 'react';
 import { useState } from 'react';

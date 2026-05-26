@@ -1,9 +1,7 @@
 import { getIntlayerAPI } from '@intlayer/api';
+import { useGetShowcaseProjects } from '@intlayer/design-system/api';
 import { Button } from '@intlayer/design-system/button';
-import {
-  useGetShowcaseProjects,
-  useSearch,
-} from '@intlayer/design-system/hooks';
+import { useSearch } from '@intlayer/design-system/hooks';
 import {
   NumberItemsSelector,
   Pagination,

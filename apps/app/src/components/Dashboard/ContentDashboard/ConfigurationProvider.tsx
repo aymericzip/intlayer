@@ -1,4 +1,4 @@
-import { useSession } from '@intlayer/design-system/hooks';
+import { useSession } from '@intlayer/design-system/api';
 import { EditorProvider } from '@intlayer/editor-react';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import type { FC, PropsWithChildren } from 'react';

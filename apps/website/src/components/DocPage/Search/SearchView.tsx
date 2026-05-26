@@ -1,11 +1,12 @@
 'use client';
 
 import { Link } from '@components/Link/Link';
+import { useSearchDoc } from '@intlayer/design-system/api';
 import {
   Breadcrumb,
   type BreadcrumbLink,
 } from '@intlayer/design-system/breadcrumb';
-import { useSearch, useSearchDoc } from '@intlayer/design-system/hooks';
+import { useSearch } from '@intlayer/design-system/hooks';
 import { Input } from '@intlayer/design-system/input';
 import { Loader } from '@intlayer/design-system/loader';
 import type { BlogMetadata, DocMetadata } from '@intlayer/docs';

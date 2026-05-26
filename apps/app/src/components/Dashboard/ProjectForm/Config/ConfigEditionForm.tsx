@@ -1,10 +1,10 @@
 import type { ProjectConfiguration } from '@intlayer/backend';
-import { Form, useForm } from '@intlayer/design-system/form';
-import { H4 } from '@intlayer/design-system/headers';
 import {
   usePushProjectConfiguration,
   useSession,
-} from '@intlayer/design-system/hooks';
+} from '@intlayer/design-system/api';
+import { Form, useForm } from '@intlayer/design-system/form';
+import { H4 } from '@intlayer/design-system/headers';
 import { Modal } from '@intlayer/design-system/modal';
 import { MultiSelect, Select } from '@intlayer/design-system/select';
 import { ALL_LOCALES } from '@intlayer/types/allLocales';

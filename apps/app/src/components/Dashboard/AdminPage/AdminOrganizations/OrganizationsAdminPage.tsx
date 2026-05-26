@@ -2,14 +2,14 @@ import type {
   GetOrganizationsResult,
   OrganizationAPI,
 } from '@intlayer/backend';
-import { Button } from '@intlayer/design-system/button';
-import { Container } from '@intlayer/design-system/container';
-import { CopyToClipboard } from '@intlayer/design-system/copy-to-clipboard';
 import {
   useDeleteOrganizationById,
   useGetOrganizations,
-  useSearch,
-} from '@intlayer/design-system/hooks';
+} from '@intlayer/design-system/api';
+import { Button } from '@intlayer/design-system/button';
+import { Container } from '@intlayer/design-system/container';
+import { CopyToClipboard } from '@intlayer/design-system/copy-to-clipboard';
+import { useSearch } from '@intlayer/design-system/hooks';
 import { Checkbox, SearchInput } from '@intlayer/design-system/input';
 
 import {

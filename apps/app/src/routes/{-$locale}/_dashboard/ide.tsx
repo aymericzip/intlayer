@@ -1,5 +1,5 @@
+import { useGithubToken, useSession } from '@intlayer/design-system/api';
 import { Container } from '@intlayer/design-system/container';
-import { useGithubToken, useSession } from '@intlayer/design-system/hooks';
 import {
   App_Dashboard,
   App_Dashboard_IDE_Path,

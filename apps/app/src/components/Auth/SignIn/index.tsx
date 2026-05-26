@@ -1,4 +1,4 @@
-import { useLogin } from '@intlayer/design-system/hooks';
+import { useLogin } from '@intlayer/design-system/api';
 import {
   App_Auth_AskResetPassword_Path,
   App_Auth_SignUp_Path,

@@ -1,10 +1,10 @@
 import type { ReviewerProfileAPI } from '@intlayer/backend';
-import { Badge, BadgeColor, BadgeVariant } from '@intlayer/design-system/badge';
-import { Button } from '@intlayer/design-system/button';
 import {
   useGetAdminReviewers,
   useValidateReviewerProfile,
-} from '@intlayer/design-system/hooks';
+} from '@intlayer/design-system/api';
+import { Badge, BadgeColor, BadgeVariant } from '@intlayer/design-system/badge';
+import { Button } from '@intlayer/design-system/button';
 import { getAppAdminReviewerRoute } from '@intlayer/design-system/routes';
 import { Select } from '@intlayer/design-system/select';
 import { CheckCircle, Globe } from 'lucide-react';

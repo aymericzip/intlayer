@@ -1,4 +1,4 @@
-import { useSession } from '@intlayer/design-system/hooks';
+import { useSession } from '@intlayer/design-system/api';
 import { Loader } from '@intlayer/design-system/loader';
 import { App_Home_Path } from '@intlayer/design-system/routes';
 import { useLocation, useNavigate } from '@tanstack/react-router';

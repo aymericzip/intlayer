@@ -12,7 +12,7 @@ import { AffiliatePage } from '#components/AffiliatePage';
 import { AuthenticationBarrier } from '#components/Auth/AuthenticationBarrier/AuthenticationBarrier';
 import { BackgroundLayout } from '#components/BackgroundLayout';
 
-export const Route = createFileRoute('/{-$locale}/_other/affiliation')({
+export const Route = createFileRoute('/{-$locale}/_other/affiliation/')({
   component: AffiliateDashboardPage,
   head: ({ params }) => {
     const { locale } = params;
@@ -56,6 +56,8 @@ function AffiliateDashboardPage() {
             className="w-full max-w-2xl"
             roundedSize="4xl"
             padding="xl"
+            border
+            borderColor="neutral"
             transparency="md"
           >
             <AffiliatePage />

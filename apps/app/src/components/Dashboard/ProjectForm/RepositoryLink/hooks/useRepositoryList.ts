@@ -5,7 +5,7 @@ import {
   useGithubRepos,
   useGitlabCheckConfig,
   useGitlabProjects,
-} from '@intlayer/design-system/hooks';
+} from '@intlayer/design-system/api';
 import { useToast } from '@intlayer/design-system/toaster';
 import { useState } from 'react';
 import { useIntlayer } from 'react-intlayer';

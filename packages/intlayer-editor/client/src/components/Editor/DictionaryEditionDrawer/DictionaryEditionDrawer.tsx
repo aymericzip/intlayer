@@ -1,12 +1,12 @@
 'use client';
 
+import { useGetEditorDictionaries } from '@intlayer/design-system/api';
 import { Button } from '@intlayer/design-system/button';
 import { DictionaryEditor } from '@intlayer/design-system/dictionary-editor';
 import {
   DictionaryFieldEditor,
   SaveForm,
 } from '@intlayer/design-system/dictionary-field-editor';
-import { useGetEditorDictionaries } from '@intlayer/design-system/hooks';
 import { Modal } from '@intlayer/design-system/modal';
 import { Popover } from '@intlayer/design-system/popover';
 import {

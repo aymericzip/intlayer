@@ -1,13 +1,13 @@
 import type { AddOrganizationMemberBody, UserAPI } from '@intlayer/backend';
-import { Container } from '@intlayer/design-system/container';
-import { Form, useForm } from '@intlayer/design-system/form';
-import { H3 } from '@intlayer/design-system/headers';
 import {
   useAddOrganizationMember,
   useGetUsers,
   useSession,
   useUpdateOrganizationMembers,
-} from '@intlayer/design-system/hooks';
+} from '@intlayer/design-system/api';
+import { Container } from '@intlayer/design-system/container';
+import { Form, useForm } from '@intlayer/design-system/form';
+import { H3 } from '@intlayer/design-system/headers';
 import { Loader } from '@intlayer/design-system/loader';
 import { MultiSelect } from '@intlayer/design-system/select';
 import { Plus, X } from 'lucide-react';

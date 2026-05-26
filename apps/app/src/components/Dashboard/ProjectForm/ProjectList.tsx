@@ -1,11 +1,8 @@
 import type { ProjectAPI } from '@intlayer/backend';
+import { useGetProjects, useSelectProject } from '@intlayer/design-system/api';
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
-import {
-  useGetProjects,
-  useSearch,
-  useSelectProject,
-} from '@intlayer/design-system/hooks';
+import { useSearch } from '@intlayer/design-system/hooks';
 import { SearchInput } from '@intlayer/design-system/input';
 import { Modal } from '@intlayer/design-system/modal';
 import {

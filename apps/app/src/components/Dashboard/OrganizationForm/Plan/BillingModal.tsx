@@ -1,10 +1,10 @@
 import type { CreatePortalSessionResult } from '@intlayer/backend';
-import { Button } from '@intlayer/design-system/button';
 import {
   useCreatePortalSession,
   useGetInvoices,
   useGetPaymentMethod,
-} from '@intlayer/design-system/hooks';
+} from '@intlayer/design-system/api';
+import { Button } from '@intlayer/design-system/button';
 import { Loader } from '@intlayer/design-system/loader';
 import { Modal } from '@intlayer/design-system/modal';
 import { CreditCard, Info } from 'lucide-react';

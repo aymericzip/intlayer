@@ -3,7 +3,7 @@ import {
   useGetAffiliatePromoCode,
   useGetPricing,
   useUser,
-} from '@intlayer/design-system/hooks';
+} from '@intlayer/design-system/api';
 import { cn } from '@intlayer/design-system/utils';
 import { useNavigate, useSearch } from '@tanstack/react-router';
 import React, {

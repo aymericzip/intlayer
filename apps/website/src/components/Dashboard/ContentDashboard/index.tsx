@@ -1,7 +1,7 @@
 'use client';
 
+import { useGetDictionary } from '@intlayer/design-system/api';
 import { DictionaryFieldEditor } from '@intlayer/design-system/dictionary-field-editor';
-import { useGetDictionary } from '@intlayer/design-system/hooks';
 import { Loader } from '@intlayer/design-system/loader';
 import { App_Dashboard_Dictionaries_Path } from '@intlayer/design-system/routes';
 import { useRouter } from 'next/navigation';

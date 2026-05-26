@@ -1,7 +1,8 @@
 import { Burger, MaxHeightSmoother } from '@intlayer/design-system';
+import { useSession } from '@intlayer/design-system/api';
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
-import { useDevice, useSession } from '@intlayer/design-system/hooks';
+import { useDevice } from '@intlayer/design-system/hooks';
 import { Logo } from '@intlayer/design-system/logo';
 import {
   App_Dashboard_Dictionaries_Path,

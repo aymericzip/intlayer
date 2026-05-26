@@ -5,19 +5,18 @@ import {
 } from '@intlayer/core/dictionaryManipulator';
 import { getLocaleName } from '@intlayer/core/localization';
 import { isSameKeyPath } from '@intlayer/core/utils';
+import {
+  useFillAllTranslations,
+  useInfiniteGetDictionaries,
+  useSession,
+} from '@intlayer/design-system/api';
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
 import {
   KeyPathBreadcrumb,
   TextEditor,
 } from '@intlayer/design-system/dictionary-field-editor';
-import {
-  useFillAllTranslations,
-  useInfiniteGetDictionaries,
-  usePersistedStore,
-  useSearch,
-  useSession,
-} from '@intlayer/design-system/hooks';
+import { usePersistedStore, useSearch } from '@intlayer/design-system/hooks';
 import { SearchInput } from '@intlayer/design-system/input';
 import { KeyboardShortcut } from '@intlayer/design-system/keyboard-shortcut';
 import {

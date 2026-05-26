@@ -2,15 +2,12 @@ import { getIntlayerAPI } from '@intlayer/api';
 import type { OAuth2AccessAPI } from '@intlayer/backend';
 import appConfig from '@intlayer/config/built';
 import { LanguageBackground } from '@intlayer/design-system';
+import { useSelectOrganization, useSession } from '@intlayer/design-system/api';
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
 import { CopyToClipboard } from '@intlayer/design-system/copy-to-clipboard';
 import { H2, H3 } from '@intlayer/design-system/headers';
 import { HideShow } from '@intlayer/design-system/hide-show';
-import {
-  useSelectOrganization,
-  useSession,
-} from '@intlayer/design-system/hooks';
 import { Loader } from '@intlayer/design-system/loader';
 import { Modal } from '@intlayer/design-system/modal';
 import { Check, Clock, KeyRound, Plus } from 'lucide-react';

@@ -2,7 +2,7 @@ import {
   useSession,
   useToggleShowcaseDownvote,
   useToggleShowcaseUpvote,
-} from '@intlayer/design-system/hooks';
+} from '@intlayer/design-system/api';
 import { App_Auth_SignIn } from '@intlayer/design-system/routes';
 import { useState } from 'react';
 import type { ShowcaseProject } from '#/utils/projectActions/types';

@@ -1,16 +1,16 @@
 'use client';
 
+import {
+  useAuditContentDeclarationMetadata,
+  useGetProjects,
+  useGetTags,
+} from '@api/index';
+import { useSession } from '@api/useAuth';
 import { ButtonColor, ButtonSize, ButtonVariant } from '@components/Button';
 import { Form, useForm } from '@components/Form';
 import { Checkbox } from '@components/Input';
 import { Loader } from '@components/Loader';
 import { MultiSelect, Select } from '@components/Select';
-import {
-  useAuditContentDeclarationMetadata,
-  useGetProjects,
-  useGetTags,
-} from '@hooks/reactQuery';
-import { useSession } from '@hooks/useAuth';
 import { useEditedContent } from '@intlayer/editor-react';
 import type { Dictionary, LocalDictionaryId } from '@intlayer/types/dictionary';
 import { AnimatePresence, motion } from 'framer-motion';

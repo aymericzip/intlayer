@@ -1,5 +1,5 @@
+import { useGetDictionary } from '@intlayer/design-system/api';
 import { DictionaryFieldEditor } from '@intlayer/design-system/dictionary-field-editor';
-import { useGetDictionary } from '@intlayer/design-system/hooks';
 import { Modal } from '@intlayer/design-system/modal';
 import type { FC } from 'react';
 import { useTheme } from '#/providers/ThemeProvider';

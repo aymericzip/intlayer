@@ -1,4 +1,4 @@
-import { useAuth } from '@intlayer/design-system/hooks';
+import { useAuth } from '@intlayer/design-system/api';
 import { useRef, useState } from 'react';
 import type { ScanStep, ShowcaseProject } from '#/utils/projectActions/types';
 

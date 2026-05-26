@@ -1,10 +1,10 @@
-import { Badge, BadgeColor, BadgeVariant } from '@intlayer/design-system/badge';
-import { Button } from '@intlayer/design-system/button';
 import {
   useGetReviewerById,
   useGetReviewerReviews,
   useValidateReviewerProfile,
-} from '@intlayer/design-system/hooks';
+} from '@intlayer/design-system/api';
+import { Badge, BadgeColor, BadgeVariant } from '@intlayer/design-system/badge';
+import { Button } from '@intlayer/design-system/button';
 import { Loader } from '@intlayer/design-system/loader';
 import { CheckCircle, Clock, Globe, Star } from 'lucide-react';
 import type { FC } from 'react';

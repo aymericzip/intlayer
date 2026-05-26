@@ -3,17 +3,17 @@ import type {
   GetUsersResult,
   UserAPI,
 } from '@intlayer/backend';
-import { Avatar } from '@intlayer/design-system/avatar';
-import { Badge, BadgeColor, BadgeVariant } from '@intlayer/design-system/badge';
-import { Button } from '@intlayer/design-system/button';
-import { CopyToClipboard } from '@intlayer/design-system/copy-to-clipboard';
 import {
   useDeleteUser,
   useGetOrganizations,
   useGetUsers,
-  useSearch,
   useUpdateUser,
-} from '@intlayer/design-system/hooks';
+} from '@intlayer/design-system/api';
+import { Avatar } from '@intlayer/design-system/avatar';
+import { Badge, BadgeColor, BadgeVariant } from '@intlayer/design-system/badge';
+import { Button } from '@intlayer/design-system/button';
+import { CopyToClipboard } from '@intlayer/design-system/copy-to-clipboard';
+import { useSearch } from '@intlayer/design-system/hooks';
 import { Checkbox, SearchInput } from '@intlayer/design-system/input';
 
 import {

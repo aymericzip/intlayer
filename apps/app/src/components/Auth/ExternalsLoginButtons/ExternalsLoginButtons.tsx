@@ -1,5 +1,5 @@
+import { useUser } from '@intlayer/design-system/api';
 import { Button } from '@intlayer/design-system/button';
-import { useUser } from '@intlayer/design-system/hooks';
 import { getAuthAPI } from '@intlayer/design-system/libs';
 import { TechLogos } from '@intlayer/design-system/tech-logo';
 import { cn } from '@intlayer/design-system/utils';

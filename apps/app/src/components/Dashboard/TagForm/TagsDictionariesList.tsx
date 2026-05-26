@@ -1,5 +1,5 @@
+import { useGetDictionaries } from '@intlayer/design-system/api';
 import { Button } from '@intlayer/design-system/button';
-import { useGetDictionaries } from '@intlayer/design-system/hooks';
 import { Loader } from '@intlayer/design-system/loader';
 import { useFocusUnmergedDictionary } from '@intlayer/editor-react';
 import { ChevronRight } from 'lucide-react';

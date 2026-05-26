@@ -1,6 +1,6 @@
+import { useGetTags } from '@intlayer/design-system/api';
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
-import { useGetTags } from '@intlayer/design-system/hooks';
 import { Checkbox, SearchInput } from '@intlayer/design-system/input';
 import { Modal } from '@intlayer/design-system/modal';
 import { type FC, useState } from 'react';

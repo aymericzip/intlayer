@@ -1,11 +1,11 @@
-import { Button } from '@intlayer/design-system/button';
-import { Container } from '@intlayer/design-system/container';
-import { H3 } from '@intlayer/design-system/headers';
 import {
   useLinkSocial,
   useListAccounts,
   useUnlinkAccount,
-} from '@intlayer/design-system/hooks';
+} from '@intlayer/design-system/api';
+import { Button } from '@intlayer/design-system/button';
+import { Container } from '@intlayer/design-system/container';
+import { H3 } from '@intlayer/design-system/headers';
 import { TechLogos } from '@intlayer/design-system/tech-logo';
 import { cn } from '@intlayer/design-system/utils';
 import { CircleCheck } from 'lucide-react';

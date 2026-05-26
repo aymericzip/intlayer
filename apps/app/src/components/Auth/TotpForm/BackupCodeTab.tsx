@@ -1,5 +1,5 @@
+import { useVerifyBackupCode } from '@intlayer/design-system/api';
 import { Form, useForm } from '@intlayer/design-system/form';
-import { useVerifyBackupCode } from '@intlayer/design-system/hooks';
 import { useSearch } from '@tanstack/react-router';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';

@@ -1,4 +1,4 @@
-import { useGetDiscussions } from '@intlayer/design-system/hooks';
+import { useGetDiscussions } from '@intlayer/design-system/api';
 import type { FC } from 'react';
 import { useEffect } from 'react';
 import { useIntlayer } from 'react-intlayer';

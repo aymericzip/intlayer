@@ -1,6 +1,6 @@
+import { useSession } from '@intlayer/design-system/api';
 import { Container } from '@intlayer/design-system/container';
 import { Form, useForm } from '@intlayer/design-system/form';
-import { useSession } from '@intlayer/design-system/hooks';
 import { Loader } from '@intlayer/design-system/loader';
 import { App_Auth_SignIn } from '@intlayer/design-system/routes';
 import { ArrowLeft } from 'lucide-react';

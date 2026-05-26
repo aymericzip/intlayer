@@ -1,5 +1,6 @@
+import { useChat } from '@intlayer/design-system/api';
 import { Button } from '@intlayer/design-system/button';
-import { useChat, usePersistedStore } from '@intlayer/design-system/hooks';
+import { usePersistedStore } from '@intlayer/design-system/hooks';
 import { PopoverStatic } from '@intlayer/design-system/popover';
 import { useQueryClient } from '@tanstack/react-query';
 import { MessageSquare } from 'lucide-react';

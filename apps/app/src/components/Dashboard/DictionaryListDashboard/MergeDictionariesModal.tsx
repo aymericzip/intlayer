@@ -31,8 +31,7 @@ export const MergeDictionariesModal: FC<MergeDictionariesModalProps> = ({
   onConfirm,
   isMerging,
 }) => {
-  const content = useIntlayer('dictionary-list');
-  const { mergeDictionariesModal } = content;
+  const { mergeDictionariesModal } = useIntlayer('dictionary-list');
 
   const [pairStates, setPairStates] = useState<PairState[]>(() =>
     pairs.map(() => ({ swapped: false, selected: true }))
