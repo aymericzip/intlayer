@@ -1,11 +1,8 @@
-import type { AffiliateAPI, AffiliateInvitationAPI } from '@intlayer/backend';
+import type { AffiliateAPI } from '@intlayer/backend';
 import { Badge, BadgeColor, BadgeVariant } from '@intlayer/design-system/badge';
 import { Button } from '@intlayer/design-system/button';
 import { CopyToClipboard } from '@intlayer/design-system/copy-to-clipboard';
-import {
-  useGetAffiliateInvitations,
-  useGetAffiliates,
-} from '@intlayer/design-system/hooks';
+import { useGetAffiliates } from '@intlayer/design-system/hooks';
 import { SearchInput } from '@intlayer/design-system/input';
 import {
   NumberItemsSelector,
@@ -33,13 +30,10 @@ import { AffiliatesAdminSkeleton } from './AffiliatesAdminSkeleton';
 
 const STATUS_COLOR: Record<AffiliateAPI['status'], BadgeColor> = {
   pending: BadgeColor.NEUTRAL,
+  suspended: BadgeColor.ERROR,
   onboarding: BadgeColor.SECONDARY,
   active: BadgeColor.SUCCESS,
 };
-
-type AffiliateRow = AffiliateAPI & { _rowType: 'affiliate' };
-type InvitationRow = AffiliateInvitationAPI & { _rowType: 'invitation' };
-type TableRow = AffiliateRow | InvitationRow;
 
 export const AffiliatesAdminPage: FC = () => {
   const content = useIntlayer('affiliates-admin-page');
@@ -57,37 +51,15 @@ export const AffiliatesAdminPage: FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useLocalizedNavigate();
 
-  const searchParam = params.search ? { search: params.search as string } : {};
-
-  const { data: affiliatesData, isFetching: isFetchingAffiliates } =
-    useGetAffiliates({
-      page: params.page,
-      pageSize: params.pageSize,
-      ...searchParam,
-    });
-
-  const { data: invitationsData, isFetching: isFetchingInvitations } =
-    useGetAffiliateInvitations({
-      page: 1,
-      pageSize: 100,
-      ...searchParam,
-    });
+  const { data: affiliatesData, isFetching } = useGetAffiliates({
+    page: params.page,
+    pageSize: params.pageSize,
+    ...(params.search ? { search: params.search as string } : {}),
+  });
 
   const affiliates = (affiliatesData?.data ?? []) as AffiliateAPI[];
-  const invitations = (invitationsData?.data ?? []) as AffiliateInvitationAPI[];
-
-  const rows: TableRow[] = [
-    ...invitations
-      .filter((inv) => inv.status === 'pending')
-      .map((inv) => ({ ...inv, _rowType: 'invitation' as const })),
-    ...affiliates.map((a) => ({ ...a, _rowType: 'affiliate' as const })),
-  ];
-
-  const isFetching = isFetchingAffiliates || isFetchingInvitations;
   const totalPages: number = affiliatesData?.total_pages ?? 1;
-  const totalItems: number =
-    (affiliatesData?.total_items ?? 0) +
-    invitations.filter((i) => i.status === 'pending').length;
+  const totalItems: number = affiliatesData?.total_items ?? 0;
   const currentPage: number = params.page;
   const itemsPerPage: number = params.pageSize;
 
@@ -95,7 +67,7 @@ export const AffiliatesAdminPage: FC = () => {
     ? [{ id: params.sortBy as string, desc: params.sortOrder === 'desc' }]
     : [];
 
-  const columns: ColumnDef<TableRow>[] = [
+  const columns: ColumnDef<AffiliateAPI>[] = [
     {
       accessorKey: 'id',
       enableSorting: false,
@@ -109,56 +81,50 @@ export const AffiliatesAdminPage: FC = () => {
       ),
     },
     {
-      id: 'emailOrCode',
-      enableSorting: false,
-      header: () => content.email.value,
-      cell: ({ row }) => {
-        if (row.original._rowType === 'invitation') {
-          return (
-            <span className="text-neutral/80 text-sm">
-              {row.original.email}
-            </span>
-          );
-        }
-        return (
-          <CopyToClipboard text={row.original.referralCode} size={10}>
-            <span className="font-medium font-mono">
-              {row.original.referralCode}
-            </span>
-          </CopyToClipboard>
-        );
-      },
+      accessorKey: 'referralCode',
+      enableSorting: true,
+      header: ({ column }) => (
+        <div className="group flex items-center gap-2">
+          {content.code}
+          <div
+            className={cn(
+              'opacity-0 transition-opacity duration-300 group-hover:opacity-100',
+              column.getIsSorted() && 'opacity-100'
+            )}
+          >
+            {column.getIsSorted() === 'asc' ? (
+              <ChevronUp className="h-3 w-3" />
+            ) : column.getIsSorted() === 'desc' ? (
+              <ChevronDown className="h-3 w-3" />
+            ) : null}
+          </div>
+        </div>
+      ),
+      cell: ({ row }) => (
+        <CopyToClipboard text={row.original.referralCode} size={10}>
+          <span className="font-medium font-mono">
+            {row.original.referralCode}
+          </span>
+        </CopyToClipboard>
+      ),
     },
     {
       accessorKey: 'status',
-      enableSorting: false,
+      enableSorting: true,
       header: () => content.status.value,
-      cell: ({ row }) => {
-        if (row.original._rowType === 'invitation') {
-          return (
-            <Badge
-              variant={BadgeVariant.OUTLINE}
-              className="opacity-80"
-              color={BadgeColor.SECONDARY}
-            >
-              {content.invitationSent}
-            </Badge>
-          );
-        }
-        return (
-          <Badge
-            variant={BadgeVariant.OUTLINE}
-            className="capitalize opacity-80"
-            color={STATUS_COLOR[row.original.status]}
-          >
-            {row.original.status}
-          </Badge>
-        );
-      },
+      cell: ({ row }) => (
+        <Badge
+          variant={BadgeVariant.OUTLINE}
+          className="capitalize opacity-80"
+          color={STATUS_COLOR[row.original.status]}
+        >
+          {row.original.status}
+        </Badge>
+      ),
     },
     {
       accessorKey: 'commissionRate',
-      enableSorting: false,
+      enableSorting: true,
       header: () => content.commission.value,
       cell: ({ row }) => (
         <span className="text-sm">
@@ -171,8 +137,24 @@ export const AffiliatesAdminPage: FC = () => {
     },
     {
       accessorKey: 'createdAt',
-      enableSorting: false,
-      header: () => content.created.value,
+      enableSorting: true,
+      header: ({ column }) => (
+        <div className="group flex items-center gap-2">
+          {content.created}
+          <div
+            className={cn(
+              'opacity-0 transition-opacity duration-300 group-hover:opacity-100',
+              column.getIsSorted() && 'opacity-100'
+            )}
+          >
+            {column.getIsSorted() === 'asc' ? (
+              <ChevronUp className="h-3 w-3" />
+            ) : column.getIsSorted() === 'desc' ? (
+              <ChevronDown className="h-3 w-3" />
+            ) : null}
+          </div>
+        </div>
+      ),
       cell: ({ row }) => (
         <span className="text-neutral-500 text-sm dark:text-neutral-400">
           {row.original.createdAt
@@ -185,23 +167,20 @@ export const AffiliatesAdminPage: FC = () => {
       id: 'actions',
       enableSorting: false,
       header: () => content.actions.value,
-      cell: ({ row }) => {
-        if (row.original._rowType === 'invitation') return <span>—</span>;
-        return (
-          <Link
-            to={getAppAdminAffiliateRoute(row.original.id)}
-            label={content.view.value}
-            color="text"
-          >
-            {content.view}
-          </Link>
-        );
-      },
+      cell: ({ row }) => (
+        <Link
+          to={getAppAdminAffiliateRoute(row.original.id)}
+          label={content.view.value}
+          color="text"
+        >
+          {content.view}
+        </Link>
+      ),
     },
   ];
 
   const table = useReactTable({
-    data: rows,
+    data: affiliates,
     columns,
     state: { sorting },
     manualSorting: true,
@@ -238,9 +217,9 @@ export const AffiliatesAdminPage: FC = () => {
           </Button>
         </div>
 
-        {isFetching && rows.length === 0 ? (
+        {isFetching && affiliates.length === 0 ? (
           <AffiliatesAdminSkeleton />
-        ) : rows.length === 0 ? (
+        ) : affiliates.length === 0 ? (
           <div className="flex size-full items-center justify-center py-12 text-center">
             <p className="text-neutral">{content.noAffiliatesYet}</p>
           </div>
@@ -280,16 +259,11 @@ export const AffiliatesAdminPage: FC = () => {
                 return (
                   <tr
                     key={row.id}
-                    className={cn(
-                      'whitespace-nowrap rounded-xl border-card border-b transition-colors hover:bg-card/30 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-card',
-                      row.original._rowType === 'affiliate' && 'cursor-pointer'
-                    )}
+                    className="cursor-pointer whitespace-nowrap rounded-xl border-card border-b transition-colors hover:bg-card/30 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-card"
                     onClick={() => {
-                      if (row.original._rowType === 'affiliate') {
-                        navigate({
-                          to: getAppAdminAffiliateRoute(row.original.id) as any,
-                        });
-                      }
+                      navigate({
+                        to: getAppAdminAffiliateRoute(row.original.id) as any,
+                      });
                     }}
                   >
                     {visibleCells.map((cell, cellIndex) => (
