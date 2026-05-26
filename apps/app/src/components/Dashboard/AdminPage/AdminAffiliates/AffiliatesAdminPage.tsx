@@ -63,19 +63,19 @@ const PendingInvitationsSection: FC = () => {
         <thead>
           <tr>
             <th className="whitespace-nowrap px-4 py-3 text-left font-medium text-neutral">
-              {content.id.value}
+              {content.id}
             </th>
             <th className="whitespace-nowrap px-4 py-3 text-left font-medium text-neutral">
-              {content.email.value}
+              {content.email}
             </th>
             <th className="whitespace-nowrap px-4 py-3 text-left font-medium text-neutral">
-              {content.commission.value}
+              {content.commission}
             </th>
             <th className="whitespace-nowrap px-4 py-3 text-left font-medium text-neutral">
-              {content.status.value}
+              {content.status}
             </th>
             <th className="whitespace-nowrap px-4 py-3 text-left font-medium text-neutral">
-              {content.created.value}
+              {content.created}
             </th>
           </tr>
         </thead>
@@ -203,7 +203,7 @@ export const AffiliatesAdminPage: FC = () => {
     {
       accessorKey: 'status',
       enableSorting: true,
-      header: () => content.status.value,
+      header: () => content.status,
       cell: ({ row }) => (
         <Badge
           variant={BadgeVariant.OUTLINE}
@@ -217,7 +217,7 @@ export const AffiliatesAdminPage: FC = () => {
     {
       accessorKey: 'commissionRate',
       enableSorting: true,
-      header: () => content.commission.value,
+      header: () => content.commission,
       cell: ({ row }) => (
         <span className="text-sm">
           {row.original.commissionRate}%{' '}
@@ -258,7 +258,7 @@ export const AffiliatesAdminPage: FC = () => {
     {
       id: 'actions',
       enableSorting: false,
-      header: () => content.actions.value,
+      header: () => content.actions,
       cell: ({ row }) => (
         <Link
           to={getAppAdminAffiliateRoute(row.original.id)}
