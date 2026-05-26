@@ -67,7 +67,7 @@ export const createAffiliate = async (
             transfers: { requested: true },
           },
           settings: {
-            payouts: { schedule: { interval: 'monthly' } },
+            payouts: { schedule: { interval: 'monthly', monthly_anchor: 1 } },
           },
         });
 
