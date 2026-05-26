@@ -217,7 +217,7 @@ export const RichContent: Story = {
                 Settings
               </Button>
               <Button
-                color={ButtonColor.DESTRUCTIVE}
+                color={ButtonColor.ERROR}
                 variant={ButtonVariant.OUTLINE}
                 size={ButtonSize.SM}
                 className="w-full"
@@ -272,7 +272,7 @@ export const ContextMenu: Story = {
             <hr className="my-1 border-neutral-200" />
             <button
               type="button"
-              className="flex w-full px-4 py-2 text-left text-destructive text-sm transition-colors hover:bg-destructive/10"
+              className="flex w-full px-4 py-2 text-left text-error text-sm transition-colors hover:bg-error/10"
             >
               Delete
             </button>

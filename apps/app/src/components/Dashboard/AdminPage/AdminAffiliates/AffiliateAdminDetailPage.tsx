@@ -1,18 +1,20 @@
-'use client';
-
-import type { AffiliateAPI } from '@intlayer/backend';
+import type { AffiliateAPI, PromoCodeAPI } from '@intlayer/backend';
 import { Badge, BadgeColor, BadgeVariant } from '@intlayer/design-system/badge';
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
 import { CopyToClipboard } from '@intlayer/design-system/copy-to-clipboard';
 import {
   useGetAffiliateById,
+  useGetPromoCodes,
   useGetUserById,
   useUpdateAffiliateStatus,
+  useUpdatePromoCode,
 } from '@intlayer/design-system/hooks';
 import { Loader } from '@intlayer/design-system/loader';
 import { getAppAdminUserRoute } from '@intlayer/design-system/routes';
-import type { FC } from 'react';
+import { Select } from '@intlayer/design-system/select';
+import { Unlink } from 'lucide-react';
+import { type FC, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { Link } from '#components/Link/Link';
 
@@ -20,7 +22,6 @@ const STATUS_COLOR: Record<AffiliateAPI['status'], BadgeColor> = {
   pending: BadgeColor.NEUTRAL,
   onboarding: BadgeColor.SECONDARY,
   active: BadgeColor.SUCCESS,
-  suspended: BadgeColor.DESTRUCTIVE,
 };
 
 const UserField: FC<{ userId: string }> = ({ userId }) => {
@@ -60,6 +61,15 @@ export const AffiliateAdminDetailPage: FC<{ affiliateId: string }> = ({
   const affiliate = (data?.data as AffiliateAPI | undefined) ?? null;
   const { mutate: updateStatus, isPending: isUpdatingStatus } =
     useUpdateAffiliateStatus();
+  const { data: attachedCodesData } = useGetPromoCodes({ affiliateId });
+  const attachedCodes = (attachedCodesData?.data ?? []) as PromoCodeAPI[];
+  const { data: allCodesData } = useGetPromoCodes({});
+  const allCodes = (allCodesData?.data ?? []) as PromoCodeAPI[];
+  const unattachedCodes = allCodes.filter((c) => c.active && !c.affiliateId);
+  const { mutateAsync: updatePromoCode, isPending: isAttaching } =
+    useUpdatePromoCode();
+  const [selectKey, setSelectKey] = useState(0);
+
   const {
     affiliateDetailTitle,
     affiliateNotFound,
@@ -71,6 +81,10 @@ export const AffiliateAdminDetailPage: FC<{ affiliateId: string }> = ({
     stripeAccount,
     created,
     updated,
+    promoCodes: promoCodesLabel,
+    addPromoCode,
+    noPromoCodesYet,
+    detachPromoCode,
     enable,
     suspend,
   } = useIntlayer('affiliate-admin-detail-page');
@@ -202,6 +216,99 @@ export const AffiliateAdminDetailPage: FC<{ affiliateId: string }> = ({
                   {suspend}
                 </Button>
               )}
+            </div>
+          )}
+        </div>
+      </Container>
+
+      <Container
+        roundedSize="3xl"
+        padding="xl"
+        border
+        borderColor="neutral"
+        className="w-full"
+      >
+        <div className="flex flex-col gap-4">
+          <h2 className="font-semibold text-lg">{promoCodesLabel}</h2>
+
+          <Select
+            key={selectKey}
+            disabled={isAttaching}
+            onValueChange={async (promoId) => {
+              await updatePromoCode({ id: promoId, affiliateId });
+              setSelectKey((k) => k + 1);
+            }}
+          >
+            <Select.Trigger>
+              <Select.Value placeholder={addPromoCode.value} />
+            </Select.Trigger>
+            <Select.Content>
+              {unattachedCodes.length === 0 ? (
+                <Select.Item value="_none" disabled>
+                  {noPromoCodesYet}
+                </Select.Item>
+              ) : (
+                unattachedCodes.map((promo) => (
+                  <Select.Item key={promo.id} value={promo.id}>
+                    <span className="font-medium font-mono">{promo.code}</span>
+                    <span className="ml-2 text-neutral/60 text-xs">
+                      {promo.discountType === 'percentage'
+                        ? `${promo.discountValue}%`
+                        : `$${promo.discountValue}`}
+                      {promo.expiresAt &&
+                        ` · exp ${new Date(promo.expiresAt).toLocaleDateString()}`}
+                    </span>
+                  </Select.Item>
+                ))
+              )}
+            </Select.Content>
+          </Select>
+
+          {attachedCodes.length === 0 ? (
+            <p className="text-neutral/60 text-sm">{noPromoCodesYet}</p>
+          ) : (
+            <div className="flex flex-col gap-2">
+              {attachedCodes.map((promo) => (
+                <div
+                  key={promo.id}
+                  className="flex items-center justify-between rounded-xl border border-neutral/20 px-4 py-3"
+                >
+                  <div className="flex items-center gap-3">
+                    <CopyToClipboard text={promo.code} size={10}>
+                      <span className="font-medium font-mono text-sm">
+                        {promo.code}
+                      </span>
+                    </CopyToClipboard>
+                    <Badge
+                      variant={BadgeVariant.OUTLINE}
+                      color={
+                        promo.active ? BadgeColor.SUCCESS : BadgeColor.NEUTRAL
+                      }
+                      className="text-xs"
+                    >
+                      {promo.discountType === 'percentage'
+                        ? `${promo.discountValue}%`
+                        : `$${promo.discountValue}`}
+                    </Badge>
+                    {promo.expiresAt && (
+                      <span className="text-neutral/60 text-xs">
+                        exp {new Date(promo.expiresAt).toLocaleDateString()}
+                      </span>
+                    )}
+                  </div>
+                  <Button
+                    label={detachPromoCode.value}
+                    color="text"
+                    variant="outline"
+                    className="h-auto p-2"
+                    onClick={() =>
+                      updatePromoCode({ id: promo.id, affiliateId: null })
+                    }
+                  >
+                    <Unlink className="size-4" />
+                  </Button>
+                </div>
+              ))}
             </div>
           )}
         </div>

@@ -1,5 +1,3 @@
-'use client';
-
 import { Button } from '@intlayer/design-system/button';
 import { Logo } from '@intlayer/design-system/logo';
 import {

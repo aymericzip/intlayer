@@ -2,7 +2,11 @@ import { Link } from '@intlayer/design-system';
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
 import { H2, H3 } from '@intlayer/design-system/headers';
-import { useGetSubscription, useSession } from '@intlayer/design-system/hooks';
+import {
+  useGetAffiliatePromoCode,
+  useGetSubscription,
+  useSession,
+} from '@intlayer/design-system/hooks';
 import { Label } from '@intlayer/design-system/label';
 import { Loader } from '@intlayer/design-system/loader';
 import { App_Pricing_Path } from '@intlayer/design-system/routes';
@@ -13,9 +17,9 @@ import {
   useStripe,
 } from '@stripe/react-stripe-js';
 import { type Appearance, loadStripe } from '@stripe/stripe-js';
-import { useSearch } from '@tanstack/react-router';
+import { useNavigate, useSearch } from '@tanstack/react-router';
 import { Check, ShoppingCart } from 'lucide-react';
-import { type FC, type SubmitEvent, useState } from 'react';
+import { type FC, type SubmitEvent, useEffect, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import type Stripe from 'stripe';
 import { useTheme } from '#/providers/ThemeProvider';
@@ -122,6 +126,7 @@ export const PaymentStepContent: FC<PaymentDetailsProps> = ({
   const [isLoading, setIsLoading] = useState(false);
   const [isPaymentElementReady, setIsPaymentElementReady] = useState(false);
   const navigate = useLocalizedNavigate();
+  const search = useSearch({ strict: false }) as any;
   const { session } = useSession();
 
   const stripe = useStripe();
@@ -200,9 +205,9 @@ export const PaymentStepContent: FC<PaymentDetailsProps> = ({
       >
         <Label>{paymentDetails.title}</Label>
         <Container
-          border={true}
+          border
           padding="xl"
-          roundedSize="2xl"
+          roundedSize="3xl"
           transparency="full"
           gap="xl"
         >
@@ -226,7 +231,12 @@ export const PaymentStepContent: FC<PaymentDetailsProps> = ({
               label={pickANewProductButton.label.value}
               color="text"
               Icon={ShoppingCart}
-              onClick={() => navigate({ to: App_Pricing_Path })}
+              onClick={() =>
+                navigate({
+                  to: App_Pricing_Path,
+                  search: { ref: search.ref, promoCode: search.promoCode },
+                })
+              }
             >
               {pickANewProductButton.text}
             </Button>
@@ -234,10 +244,10 @@ export const PaymentStepContent: FC<PaymentDetailsProps> = ({
         ) : (
           <div className="flex flex-col gap-3">
             <PaymentElement onReady={() => setIsPaymentElementReady(true)} />
-            {invoice?.hosted_invoice_url && (
+            {invoice?.hosted_invoice_url && nextUrl && (
               <Link
                 label={morePaymentOptions}
-                href={invoice.hosted_invoice_url}
+                href={`${invoice.hosted_invoice_url}?return_url=${encodeURIComponent(`${window.location.origin}${nextUrl}`)}`}
                 target="_blank"
                 rel="noreferrer"
                 color="text"
@@ -274,11 +284,28 @@ export const PaymentStepForm: FC<PaymentStepContentProps> = ({
 
   const { resolvedTheme } = useTheme();
   const navigate = useLocalizedNavigate();
+  const routerNavigate = useNavigate();
   const search = useSearch({ strict: false }) as any;
   const promoCode = search.promoCode ?? undefined;
   const referralCode = search.ref
     ? String(search.ref).trim().toUpperCase()
     : undefined;
+
+  const { data: affiliatePromo } = useGetAffiliatePromoCode(referralCode, {
+    enabled: Boolean(referralCode && !promoCode),
+  });
+
+  useEffect(() => {
+    if (affiliatePromo?.data && !promoCode) {
+      routerNavigate({
+        search: (prev: any) => ({
+          ...prev,
+          promoCode: affiliatePromo.data,
+        }),
+      });
+    }
+  }, [affiliatePromo, promoCode, routerNavigate]);
+
   const priceId = retrievePriceId(plan, period);
 
   const { data, isLoading } = useGetSubscription({
@@ -329,14 +356,19 @@ export const PaymentStepForm: FC<PaymentStepContentProps> = ({
             className="gap-6 p-6 text-error text-sm"
             background="none"
             border
-            roundedSize="xl"
+            roundedSize="3xl"
           >
             <span>{invalidPaymentRequestMessage}</span>
             <Button
               label={pickANewProductButton.label.value}
               color="text"
               Icon={ShoppingCart}
-              onClick={() => navigate({ to: App_Pricing_Path })}
+              onClick={() =>
+                navigate({
+                  to: App_Pricing_Path,
+                  search: { ref: search.ref, promoCode: search.promoCode },
+                })
+              }
             >
               {pickANewProductButton.text}
             </Button>

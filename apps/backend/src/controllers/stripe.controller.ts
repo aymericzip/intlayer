@@ -1,6 +1,8 @@
 import type { Locale } from '@intlayer/types/allLocales';
+import { PromoCodeModel } from '@schemas/promoCode.schema';
 import * as affiliateService from '@services/affiliate.service';
 import * as emailService from '@services/email.service';
+import * as promoCodeService from '@services/promoCode.service';
 import * as subscriptionService from '@services/subscription.service';
 import { type AppError, ErrorHandler } from '@utils/errors';
 import {
@@ -20,6 +22,7 @@ import Stripe from 'stripe';
 import type { AffiliateAPI, AffiliateStats } from '@/types/affiliate.types';
 import type { AffiliateInvitationAPI } from '@/types/affiliateInvitation.types';
 import type { Organization } from '@/types/organization.types';
+import type { PromoCodeAPI } from '@/types/promoCode.types';
 
 export type GetPricingBody = {
   priceIds: string[];
@@ -125,9 +128,18 @@ export const getSubscription = async (
       customerId = customer.id;
     }
 
-    const promoCodeId = promoCode
+    const { couponId: promoCodeId, affiliateId: promoAffiliateId } = promoCode
       ? await subscriptionService.getCouponId(promoCode)
-      : null;
+      : { couponId: null, affiliateId: undefined };
+
+    let referralCodeToUse = referralCode;
+    if (!referralCodeToUse && promoAffiliateId) {
+      const promoAffiliate =
+        await affiliateService.getAffiliateById(promoAffiliateId);
+      if (promoAffiliate) {
+        referralCodeToUse = promoAffiliate.referralCode;
+      }
+    }
 
     // Lifetime / one-time payment — handled with a PaymentIntent rather than a
     // recurring subscription so the price is charged once.
@@ -174,9 +186,9 @@ export const getSubscription = async (
         );
       }
 
-      if (referralCode) {
+      if (referralCodeToUse) {
         await affiliateService.trackReferral(
-          referralCode,
+          referralCodeToUse,
           organization.id,
           paymentIntent.id,
           paymentIntent.amount,
@@ -242,9 +254,9 @@ export const getSubscription = async (
       );
     }
 
-    if (referralCode) {
+    if (referralCodeToUse) {
       await affiliateService.trackReferral(
-        referralCode,
+        referralCodeToUse,
         organization.id,
         subscription.id
       );
@@ -683,6 +695,53 @@ export const getAffiliateAccountSession = async (
   }
 };
 
+export type GetAffiliateOnboardingLinkResult = ResponseData<{ url: string }>;
+
+/**
+ * Returns a Stripe-hosted onboarding URL for the authenticated affiliate.
+ * Accepts an optional `returnUrl` query param to redirect back after onboarding.
+ */
+export const getAffiliateOnboardingLink = async (
+  request: FastifyRequest<{ Querystring: { returnUrl?: string } }>,
+  reply: FastifyReply
+): Promise<void> => {
+  try {
+    const { user } = request.session || {};
+
+    if (!user) {
+      return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_FOUND');
+    }
+
+    const affiliate = await affiliateService.getAffiliateByUserId(user.id);
+
+    if (!affiliate?.stripeAccountId) {
+      return ErrorHandler.handleGenericErrorResponse(
+        reply,
+        'AFFILIATE_NOT_FOUND'
+      );
+    }
+
+    const appUrl = process.env.APP_URL;
+    const fallback = `${appUrl}/dashboard/affiliate`;
+    const returnUrl = request.query.returnUrl ?? fallback;
+    const refreshUrl = request.query.returnUrl ?? fallback;
+
+    const url = await affiliateService.createOnboardingLink(
+      affiliate.stripeAccountId,
+      returnUrl,
+      refreshUrl
+    );
+
+    return reply.send(
+      formatResponse<GetAffiliateOnboardingLinkResult['data']>({
+        data: { url },
+      })
+    );
+  } catch (error) {
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
+  }
+};
+
 export type GetAffiliateStatsResult = ResponseData<AffiliateStats | null>;
 
 /**
@@ -836,7 +895,10 @@ export type AcceptAffiliateInvitationResult = ResponseData<AffiliateAPI>;
 /**
  * Authenticated: accepts an invitation, creates the Stripe Connect account and affiliate record.
  */
-export type AcceptAffiliateInvitationBody = { country?: string };
+export type AcceptAffiliateInvitationBody = {
+  country?: string;
+  stripeAccountType?: 'express' | 'standard';
+};
 
 export const acceptAffiliateInvitation = async (
   request: FastifyRequest<{
@@ -853,15 +915,15 @@ export const acceptAffiliateInvitation = async (
     }
 
     const { token } = request.params;
-    const { country } = request.body ?? {};
+    const { country, stripeAccountType } = request.body ?? {};
 
     const affiliate = await affiliateService.acceptAffiliateInvitation(
       token,
       user.id,
-      country
+      { country, stripeAccountType, email: user.email }
     );
 
-    const appUrl = process.env.APP_URL ?? 'https://app.intlayer.org';
+    const appUrl = process.env.APP_URL;
 
     await emailService.sendEmail({
       type: 'affiliateWelcome',
@@ -873,6 +935,239 @@ export const acceptAffiliateInvitation = async (
     return reply.send(
       formatResponse<AcceptAffiliateInvitationResult['data']>({
         data: affiliate.toJSON() as AffiliateAPI,
+      })
+    );
+  } catch (error) {
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
+  }
+};
+
+export type GetPromoCodesQuerystring = GetAffiliatesParams & {
+  affiliateId?: string;
+};
+export type GetPromoCodesResult = PaginatedResponse<PromoCodeAPI>;
+
+export const getPromoCodes = async (
+  request: FastifyRequest<{ Querystring: GetPromoCodesQuerystring }>,
+  reply: FastifyReply
+): Promise<void> => {
+  try {
+    const { user } = request.session || {};
+
+    if (!user || user.role !== 'admin') {
+      return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_FOUND');
+    }
+
+    const { skip, pageSize, page, getNumberOfPages } =
+      getFiltersAndPaginationFromBody<{ search?: string }>(request);
+
+    const affiliateIdFilter = (request.query as GetPromoCodesQuerystring)
+      .affiliateId;
+
+    const promoCodes = await promoCodeService.getPromoCodes(
+      skip,
+      pageSize,
+      affiliateIdFilter
+    );
+    const totalItems =
+      await promoCodeService.countPromoCodes(affiliateIdFilter);
+
+    return reply.send(
+      formatPaginatedResponse<PromoCodeAPI>({
+        data: promoCodes.map((p) => p.toJSON() as PromoCodeAPI),
+        page,
+        pageSize,
+        totalPages: getNumberOfPages(totalItems),
+        totalItems,
+      })
+    );
+  } catch (error) {
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
+  }
+};
+
+export type GetPromoCodeByIdResult = ResponseData<PromoCodeAPI>;
+
+export const getPromoCodeById = async (
+  request: FastifyRequest<{ Params: { id: string } }>,
+  reply: FastifyReply
+): Promise<void> => {
+  try {
+    const { user } = request.session || {};
+
+    if (!user || user.role !== 'admin') {
+      return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_FOUND');
+    }
+
+    const { id } = request.params;
+    const promoCode = await promoCodeService.getPromoCodeById(id);
+
+    if (!promoCode) {
+      return reply.status(404).send({ error: 'Promo code not found' });
+    }
+
+    return reply.send(
+      formatResponse<PromoCodeAPI>(promoCode.toJSON() as PromoCodeAPI)
+    );
+  } catch (error) {
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
+  }
+};
+
+export type CreatePromoCodeBody = {
+  code: string;
+  discountType: 'percentage' | 'amount';
+  discountValue: number;
+  currency?: string;
+  affiliateId?: string;
+  maxRedemptions?: number;
+  expiresAt?: string;
+};
+export type CreatePromoCodeResult = ResponseData<PromoCodeAPI>;
+
+export const createPromoCode = async (
+  request: FastifyRequest<{ Body: CreatePromoCodeBody }>,
+  reply: FastifyReply
+): Promise<void> => {
+  try {
+    const { user } = request.session || {};
+
+    if (!user || user.role !== 'admin') {
+      return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_FOUND');
+    }
+
+    const {
+      code,
+      discountType,
+      discountValue,
+      currency,
+      affiliateId,
+      maxRedemptions,
+      expiresAt,
+    } = request.body;
+
+    const newPromo = await promoCodeService.createPromoCode({
+      code,
+      discountType,
+      discountValue,
+      currency,
+      affiliateId,
+      maxRedemptions,
+      expiresAt: expiresAt ? new Date(expiresAt) : undefined,
+    });
+
+    return reply.send(
+      formatResponse<PromoCodeAPI>({
+        data: newPromo.toJSON() as PromoCodeAPI,
+      })
+    );
+  } catch (error) {
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
+  }
+};
+
+export type UpdatePromoCodeBody = {
+  affiliateId?: string | null;
+  active?: boolean;
+  maxRedemptions?: number;
+  expiresAt?: string;
+};
+export type UpdatePromoCodeResult = ResponseData<PromoCodeAPI>;
+
+export const updatePromoCode = async (
+  request: FastifyRequest<{
+    Params: { id: string };
+    Body: UpdatePromoCodeBody;
+  }>,
+  reply: FastifyReply
+): Promise<void> => {
+  try {
+    const { user } = request.session || {};
+
+    if (!user || user.role !== 'admin') {
+      return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_FOUND');
+    }
+
+    const { id } = request.params;
+    const { affiliateId, active, maxRedemptions, expiresAt } = request.body;
+
+    const updated = await promoCodeService.updatePromoCode(id, {
+      affiliateId,
+      active,
+      maxRedemptions,
+      expiresAt: expiresAt ? new Date(expiresAt) : undefined,
+    });
+
+    if (!updated) {
+      return ErrorHandler.handleGenericErrorResponse(
+        reply,
+        'PROMO_CODE_NOT_FOUND'
+      );
+    }
+
+    return reply.send(
+      formatResponse<PromoCodeAPI>({
+        data: updated.toJSON() as PromoCodeAPI,
+      })
+    );
+  } catch (error) {
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
+  }
+};
+
+export type DeletePromoCodeResult = ResponseData<{ deleted: boolean }>;
+
+export const deletePromoCode = async (
+  request: FastifyRequest<{ Params: { id: string } }>,
+  reply: FastifyReply
+): Promise<void> => {
+  try {
+    const { user } = request.session || {};
+
+    if (!user || user.role !== 'admin') {
+      return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_FOUND');
+    }
+
+    const { id } = request.params;
+    const deleted = await promoCodeService.deletePromoCode(id);
+
+    if (!deleted) {
+      return ErrorHandler.handleGenericErrorResponse(
+        reply,
+        'PROMO_CODE_NOT_FOUND'
+      );
+    }
+
+    return reply.send(
+      formatResponse<DeletePromoCodeResult['data']>({
+        data: { deleted: true },
+      })
+    );
+  } catch (error) {
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
+  }
+};
+
+export const getAffiliatePromoCode = async (
+  request: FastifyRequest<{ Params: { referralCode: string } }>,
+  reply: FastifyReply
+): Promise<void> => {
+  try {
+    const { referralCode } = request.params;
+    const affiliate = await affiliateService.getAffiliateByCode(referralCode);
+
+    if (!affiliate) {
+      return reply.send(formatResponse<any>({ data: null }));
+    }
+
+    const promoCode = await PromoCodeModel.findOne({
+      affiliateId: affiliate._id,
+      active: true,
+    });
+
+    return reply.send(
+      formatResponse<any>({
+        data: promoCode ? promoCode.code : null,
       })
     );
   } catch (error) {

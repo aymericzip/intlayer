@@ -91,8 +91,8 @@ export const Label: FC<LabelProps> = ({
     {children}
     {required && (
       <span
-        className="ml-1 text-destructive"
-        aria-label="required"
+        className="ml-1 text-error"
+        aria-hidden="true"
         title="This field is required"
       >
         *

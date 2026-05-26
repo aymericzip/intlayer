@@ -25,8 +25,7 @@ export const App_Affiliation_Path = '/affiliation' as const;
 
 export const App_Demo_Path = '/demo' as const;
 
-export const App_ReviewerMarketplace_Path =
-  '/find-reviewer' as const;
+export const App_ReviewerMarketplace_Path = '/find-reviewer' as const;
 export const App_ReviewerMarketplace_Dashboard_Path =
   '/find-reviewer/dashboard' as const;
 export const App_ReviewerMarketplace_Reviewer_Path =
@@ -58,6 +57,9 @@ export const App_Admin_Discussions_Path = '/admin/discussions' as const;
 export const App_Admin_Affiliate_Path = '/admin/affiliate' as const;
 export const getAppAdminAffiliateRoute = (id: string) =>
   `${App_Admin_Affiliate_Path}/${id}` as const;
+export const App_Admin_PromoCodes_Path = '/admin/promo-code' as const;
+export const getAppAdminPromoCodeRoute = (id: string) =>
+  `${App_Admin_PromoCodes_Path}/${id}` as const;
 
 export const App_Admin_Reviewers_Path = '/admin/reviewers' as const;
 export const getAppAdminReviewerRoute = (id: string) =>
@@ -133,6 +135,8 @@ export const App_Admin_Discussions =
   `https://${App_Domain}${App_Admin_Discussions_Path}` as const;
 export const App_Admin_Affiliate =
   `https://${App_Domain}${App_Admin_Affiliate_Path}` as const;
+export const App_Admin_PromoCodes =
+  `https://${App_Domain}${App_Admin_PromoCodes_Path}` as const;
 export const App_Admin_Reviewers =
   `https://${App_Domain}${App_Admin_Reviewers_Path}` as const;
 

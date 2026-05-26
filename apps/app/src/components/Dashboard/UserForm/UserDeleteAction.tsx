@@ -64,7 +64,7 @@ export const UserDeleteAction: FC<{ userId: string }> = ({ userId }) => {
             roundedSize="3xl"
             padding="lg"
             border
-            borderColor="neutral"
+            borderColor="error"
             className="w-full"
           >
             <div className="flex items-start gap-6 px-4">

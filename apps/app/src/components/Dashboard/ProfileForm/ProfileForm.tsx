@@ -175,7 +175,8 @@ const ProfileFormContent: FC = () => {
         roundedSize="3xl"
         padding="lg"
         border
-        borderColor="neutral"
+        borderColor="error"
+        transparency="lg"
         className="w-full"
       >
         <DeleteUser />

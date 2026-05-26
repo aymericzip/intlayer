@@ -132,7 +132,7 @@ export const ReviewerDashboardPage: FC = () => {
               roundedSize="3xl"
               padding="lg"
               border
-              borderColor="neutral"
+              borderColor="error"
               className="w-full"
             >
               <Modal

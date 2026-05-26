@@ -17,7 +17,7 @@ export const MarkdownPreviewErrorState: FC<MarkdownPreviewErrorStateProps> = ({
   return (
     <Container padding="lg" className="mx-auto max-w-3xl py-16">
       <H1>{title}</H1>
-      <p className="mt-4 text-destructive" role="alert">
+      <p className="mt-4 text-error" role="alert">
         {message}
       </p>
     </Container>

@@ -37,32 +37,46 @@ export const createAffiliate = async (
     commissionRate?: number;
     commissionType?: CommissionType;
     country?: string;
+    stripeAccountType?: 'express' | 'standard';
+    email?: string;
   } = {}
 ): Promise<AffiliateDocument> => {
-  const existing = await AffiliateModel.findOne({ userId });
-  if (existing) throw new GenericError('AFFILIATE_ALREADY_EXISTS');
-
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
+  const accountType = options.stripeAccountType ?? 'express';
 
-  const account = await stripe.accounts.create({
-    controller: {
-      stripe_dashboard: { type: 'none' },
-      fees: { payer: 'application' },
-      losses: { payments: 'stripe' },
-      requirement_collection: 'stripe',
-    },
-    country: options.country ?? 'FR',
-    capabilities: {
-      card_payments: { requested: true },
-      transfers: { requested: true },
-    },
-  });
+  const account =
+    accountType === 'standard'
+      ? await stripe.accounts.create({
+          type: 'standard',
+          ...(options.email ? { email: options.email } : {}),
+        })
+      : await stripe.accounts.create({
+          controller: {
+            stripe_dashboard: { type: 'none' },
+            fees: { payer: 'application' },
+            losses: { payments: 'stripe' },
+            requirement_collection: 'stripe',
+          },
+          country: options.country ?? 'US',
+          business_type: 'individual',
+          business_profile: {
+            product_description: 'Intlayer Affiliate Program',
+          },
+          capabilities: {
+            card_payments: { requested: true },
+            transfers: { requested: true },
+          },
+          settings: {
+            payouts: { schedule: { interval: 'monthly' } },
+          },
+        });
 
   const referralCode = await ensureUniqueCode();
 
   const affiliate = await AffiliateModel.create({
     userId,
     stripeAccountId: account.id,
+    stripeAccountType: accountType,
     referralCode,
     status: 'onboarding',
     commissionRate: options.commissionRate ?? 20,
@@ -113,10 +127,74 @@ export const createAccountSession = async (
   return accountSession.client_secret;
 };
 
+export const createOnboardingLink = async (
+  stripeAccountId: string,
+  returnUrl: string,
+  refreshUrl: string
+): Promise<string> => {
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
+
+  const accountLink = await stripe.accountLinks.create({
+    account: stripeAccountId,
+    return_url: returnUrl,
+    refresh_url: refreshUrl,
+    type: 'account_onboarding',
+  });
+
+  await AffiliateModel.findOneAndUpdate(
+    { stripeAccountId },
+    { stripeOnboardingInitiated: true }
+  );
+
+  return accountLink.url;
+};
+
 export const markAffiliateActive = async (
-  stripeAccountId: string
+  stripeAccountId: string,
+  capabilities: { chargesEnabled: boolean; payoutsEnabled: boolean }
+): Promise<AffiliateDocument | null> =>
+  AffiliateModel.findOneAndUpdate(
+    { stripeAccountId, status: { $ne: 'active' } },
+    {
+      status: 'active',
+      chargesEnabled: capabilities.chargesEnabled,
+      payoutsEnabled: capabilities.payoutsEnabled,
+      activatedAt: new Date(),
+    },
+    { new: true }
+  );
+
+export const payAffiliateCommission = async (
+  referral: AffiliateReferralDocument
 ): Promise<void> => {
-  await AffiliateModel.updateOne({ stripeAccountId }, { status: 'active' });
+  const affiliate = await getAffiliateById(String(referral.affiliateId));
+  if (!affiliate?.stripeAccountId) return;
+
+  const fullAmount = referral.commissionAmount ?? 0;
+  if (fullAmount <= 0) return;
+
+  const commissionAmount = Math.round(
+    fullAmount * (affiliate.commissionRate / 100)
+  );
+  if (commissionAmount <= 0) return;
+
+  const currency = (referral.commissionCurrency ?? 'usd').toLowerCase();
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
+
+  const transfer = await stripe.transfers.create({
+    amount: commissionAmount,
+    currency,
+    destination: affiliate.stripeAccountId,
+    metadata: {
+      affiliateId: String(affiliate.id),
+      referralId: String((referral as any)._id ?? referral.id),
+    },
+  });
+
+  await AffiliateReferralModel.findByIdAndUpdate(
+    (referral as any)._id ?? referral.id,
+    { payoutStatus: 'paid', payoutId: transfer.id }
+  );
 };
 
 export const setAffiliateStatus = async (
@@ -139,7 +217,20 @@ export const trackReferral = async (
     affiliateId: affiliate.id,
     referredOrganizationId: String(organizationId),
   });
-  if (existing) return existing;
+
+  if (existing) {
+    // Keep the subscriptionId in sync with the latest attempt so the webhook
+    // can match the referral when invoice.payment_succeeded fires.
+    if (
+      subscriptionId &&
+      existing.subscriptionId !== subscriptionId &&
+      existing.conversionStatus === 'pending'
+    ) {
+      existing.subscriptionId = subscriptionId;
+      await existing.save();
+    }
+    return existing;
+  }
 
   return AffiliateReferralModel.create({
     affiliateId: affiliate.id,
@@ -155,15 +246,29 @@ export const trackReferral = async (
 export const convertReferral = async (
   subscriptionId: string,
   commissionAmount?: number,
-  commissionCurrency?: string
-): Promise<void> => {
-  await AffiliateReferralModel.updateOne(
+  commissionCurrency?: string,
+  organizationId?: string
+): Promise<AffiliateReferralDocument | null> => {
+  // Primary lookup: match by the exact subscription ID stored at tracking time.
+  const bySubscription = await AffiliateReferralModel.findOneAndUpdate(
     { subscriptionId, conversionStatus: 'pending' },
+    { conversionStatus: 'converted', commissionAmount, commissionCurrency },
+    { new: true }
+  );
+  if (bySubscription) return bySubscription;
+
+  // Fallback: the referral was created during a previous payment attempt and still
+  // holds an old subscriptionId. Match by organization and update to the current one.
+  if (!organizationId) return null;
+  return AffiliateReferralModel.findOneAndUpdate(
+    { referredOrganizationId: organizationId, conversionStatus: 'pending' },
     {
       conversionStatus: 'converted',
+      subscriptionId,
       commissionAmount,
       commissionCurrency,
-    }
+    },
+    { new: true }
   );
 };
 
@@ -177,14 +282,18 @@ export const getAffiliateStats = async (
     affiliateId: affiliate.id,
   });
 
-  const converted = referrals.filter((r) => r.conversionStatus === 'converted');
-  const pending = referrals.filter((r) => r.conversionStatus === 'pending');
+  const converted = referrals.filter(
+    (referral) => referral.conversionStatus === 'converted'
+  );
+  const pending = referrals.filter(
+    (referral) => referral.conversionStatus === 'pending'
+  );
   const totalEarned = converted.reduce(
-    (sum, r) => sum + (r.commissionAmount ?? 0),
+    (sum, referral) => sum + (referral.commissionAmount ?? 0),
     0
   );
   const pendingAmount = pending.reduce(
-    (sum, r) => sum + (r.commissionAmount ?? 0),
+    (sum, referral) => sum + (referral.commissionAmount ?? 0),
     0
   );
 
@@ -251,7 +360,11 @@ export const getAffiliateInvitationByToken = async (
 export const acceptAffiliateInvitation = async (
   token: string,
   userId: User['id'],
-  country?: string
+  options: {
+    country?: string;
+    stripeAccountType?: 'express' | 'standard';
+    email?: string;
+  } = {}
 ): Promise<AffiliateDocument> => {
   const invitation = await getAffiliateInvitationByToken(token);
 
@@ -262,7 +375,9 @@ export const acceptAffiliateInvitation = async (
   const affiliate = await createAffiliate(userId, {
     commissionRate: invitation.commissionRate,
     commissionType: invitation.commissionType,
-    country: country ?? invitation.country,
+    country: options.country ?? invitation.country,
+    stripeAccountType: options.stripeAccountType ?? 'express',
+    email: options.email,
   });
 
   invitation.status = 'accepted';

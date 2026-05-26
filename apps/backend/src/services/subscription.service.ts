@@ -1,4 +1,5 @@
 import { logger } from '@logger';
+import { PromoCodeModel } from '@schemas/promoCode.schema';
 import { GenericError } from '@utils/errors';
 import { retrievePlanInformation } from '@utils/plan';
 import Stripe from 'stripe';
@@ -226,20 +227,32 @@ export const changeSubscriptionStatus = async (
 
 export const getCouponId = async (
   promoCode: string
-): Promise<string | null> => {
-  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
+): Promise<{ couponId: string | null; affiliateId?: string }> => {
+  if (!promoCode) return { couponId: null };
 
   try {
-    // Retrieve the coupon details by name
-    const coupons = await stripe.coupons.list();
-    const matchingCoupon = coupons.data.find(
-      (coupon) => coupon.name === promoCode
-    );
+    // 1. Check our DB first
+    const dbCode = await PromoCodeModel.findOne({
+      code: promoCode.toUpperCase(),
+      active: true,
+    });
+    if (dbCode) {
+      return {
+        couponId: dbCode.stripeCouponId,
+        affiliateId: dbCode.affiliateId
+          ? String(dbCode.affiliateId)
+          : undefined,
+      };
+    }
 
-    return matchingCoupon ? matchingCoupon.id : null;
+    // 2. Fall back to direct Stripe lookup (backwards compat)
+    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
+    const coupons = await stripe.coupons.list();
+    const match = coupons.data.find((c) => c.name === promoCode);
+    return { couponId: match ? match.id : null };
   } catch (error) {
     logger.error('Error retrieving coupon:', error);
-    return null;
+    return { couponId: null };
   }
 };
 
@@ -290,19 +303,19 @@ export const getPricing = async (
     let discountType: 'amount' | 'percentage' | null = null;
 
     if (promoCode) {
-      const coupons = await stripe.coupons.list();
-      const matchingCoupons = coupons.data.find(
-        (coupon) => coupon.name === promoCode
-      );
-      if (matchingCoupons) {
-        if (matchingCoupons.amount_off) {
-          discountAmount = matchingCoupons.amount_off;
-          discountType = 'amount';
-        } else if (matchingCoupons.percent_off) {
-          // For a percentage discount, we won't store discountAmount as a raw number
-          // because each price line is discounted individually by the same percentage.
-          discountAmount = matchingCoupons.percent_off;
-          discountType = 'percentage';
+      const { couponId } = await getCouponId(promoCode);
+      if (couponId) {
+        try {
+          const coupon = await stripe.coupons.retrieve(couponId);
+          if (coupon.amount_off) {
+            discountAmount = coupon.amount_off;
+            discountType = 'amount';
+          } else if (coupon.percent_off) {
+            discountAmount = coupon.percent_off;
+            discountType = 'percentage';
+          }
+        } catch (err) {
+          logger.warn(`Failed to retrieve coupon ${couponId}: ${err}`);
         }
       }
     }

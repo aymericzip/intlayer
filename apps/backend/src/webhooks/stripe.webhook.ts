@@ -2,7 +2,9 @@ import type { Locale } from '@intlayer/types/allLocales';
 import { logger } from '@logger';
 import {
   convertReferral,
+  getAffiliateById,
   markAffiliateActive,
+  payAffiliateCommission,
 } from '@services/affiliate.service';
 import * as emailService from '@services/email.service';
 import { getOrganizationById } from '@services/organization.service';
@@ -147,6 +149,17 @@ export const stripeWebhook = async (
         planName: updatedPlan?.type ?? 'Unknown',
         billingLink: `${process.env.APP_URL}/organization`,
       });
+      await emailService.sendEmail({
+        type: 'subscriptionPaymentSuccess',
+        to: 'contact@intlayer.org',
+        email: user.email,
+        subscriptionStartDate: new Date().toLocaleDateString(),
+        manageSubscriptionLink: `${process.env.APP_URL}/organization`,
+        username: user.name,
+        organizationName: organization.name,
+        planName: updatedPlan?.type ?? 'Unknown',
+        billingLink: `${process.env.APP_URL}/organization`,
+      });
     }
     if (status === 'canceled') {
       await emailService.sendEmail({
@@ -218,6 +231,42 @@ export const stripeWebhook = async (
       userId,
       organizationId
     );
+
+    // 4. Convert affiliate referral and notify affiliate
+    if (status === 'active') {
+      const amountPaid =
+        typeof (invoice as any).amount_paid === 'number'
+          ? (invoice as any).amount_paid
+          : undefined;
+      const currency = invoice.currency ?? 'usd';
+
+      const referral = await convertReferral(
+        subscriptionId,
+        amountPaid,
+        currency,
+        organizationId
+      );
+
+      if (referral) {
+        const affiliate = await getAffiliateById(String(referral.affiliateId));
+        if (affiliate) {
+          const affiliateUser = await getUserById(String(affiliate.userId));
+          if (affiliateUser) {
+            const appUrl = process.env.APP_URL;
+            await emailService.sendEmail({
+              type: 'affiliateConversion',
+              to: affiliateUser.email,
+              commissionRate: affiliate.commissionRate,
+              commissionAmount: referral.commissionAmount ?? 0,
+              commissionCurrency: referral.commissionCurrency ?? currency,
+              organizationName: organization.name,
+              dashboardLink: `${appUrl}/affiliation`,
+            });
+          }
+        }
+        await payAffiliateCommission(referral);
+      }
+    }
   };
 
   // Handles charge-related events (one-time payments)
@@ -260,21 +309,60 @@ export const stripeWebhook = async (
         'active'
       );
 
-      // Convert any pending referral tied to this charge
-      await convertReferral(charge.id, charge.amount, charge.currency);
+      // Convert any pending referral — use payment_intent ID (matches what was stored in trackReferral)
+      const referralKey = (charge.payment_intent as string) ?? charge.id;
+      const referral = await convertReferral(
+        referralKey,
+        charge.amount,
+        charge.currency
+      );
+
+      const appUrl = process.env.APP_URL;
 
       await emailService.sendEmail({
         type: 'subscriptionPaymentSuccess',
         to: user.email,
         email: user.email,
         subscriptionStartDate: new Date().toLocaleDateString(),
-        manageSubscriptionLink: `${process.env.APP_URL}/organization`,
+        manageSubscriptionLink: `${appUrl}/organization`,
         username: user.name,
         organizationName: organization.name,
         planName: updatedPlan?.type ?? 'Unknown',
-        billingLink: `${process.env.APP_URL}/organization`,
+        billingLink: `${appUrl}/organization`,
         locale,
       });
+      await emailService.sendEmail({
+        type: 'subscriptionPaymentSuccess',
+        to: 'contact@intlayer.org',
+        email: user.email,
+        subscriptionStartDate: new Date().toLocaleDateString(),
+        manageSubscriptionLink: `${appUrl}/organization`,
+        username: user.name,
+        organizationName: organization.name,
+        planName: updatedPlan?.type ?? 'Unknown',
+        billingLink: `${appUrl}/organization`,
+        locale,
+      });
+
+      if (referral) {
+        const affiliate = await getAffiliateById(String(referral.affiliateId));
+        if (affiliate) {
+          const affiliateUser = await getUserById(String(affiliate.userId));
+          if (affiliateUser) {
+            await emailService.sendEmail({
+              type: 'affiliateConversion',
+              to: affiliateUser.email,
+              commissionRate: affiliate.commissionRate,
+              commissionAmount: referral.commissionAmount ?? 0,
+              commissionCurrency:
+                referral.commissionCurrency ?? charge.currency,
+              organizationName: organization.name,
+              dashboardLink: `${appUrl}/affiliation`,
+            });
+          }
+        }
+        await payAffiliateCommission(referral);
+      }
     }
   };
 
@@ -312,9 +400,10 @@ export const stripeWebhook = async (
         await cancelSubscription(subscription.id, organizationId);
         break;
       }
-      case 'invoice.payment_succeeded': {
+      case 'invoice.payment_succeeded':
+      case 'invoice_payment.paid': {
         logger.info(`Handled event type ${event.type}`);
-        // Handle successful invoice payment
+        // Handle successful invoice payment (both legacy and new Stripe event types)
         await handleInvoiceEvent(event.data.object as Stripe.Invoice, 'active');
         break;
       }
@@ -337,13 +426,31 @@ export const stripeWebhook = async (
       case 'account.updated': {
         logger.info(`Handled event type ${event.type}`);
         const account = event.data.object as Stripe.Account;
-        // Mark affiliate active when Stripe Connect onboarding is complete
         if (
           account.charges_enabled &&
           account.details_submitted &&
           account.id
         ) {
-          await markAffiliateActive(account.id);
+          const affiliate = await markAffiliateActive(account.id, {
+            chargesEnabled: account.charges_enabled,
+            payoutsEnabled: account.payouts_enabled ?? false,
+          });
+
+          if (affiliate) {
+            const user = await getUserById(String(affiliate.userId));
+            if (user) {
+              process.env.APP_URL;
+              const appUrl = process.env.APP_URL ?? 'https://app.intlayer.org';
+              const referralLink = `${appUrl}/pricing?ref=${affiliate.referralCode}`;
+              await emailService.sendEmail({
+                type: 'affiliateActivated',
+                to: user.email,
+                dashboardLink: `${appUrl}/affiliation`,
+                commissionRate: affiliate.commissionRate,
+                referralLink,
+              });
+            }
+          }
         }
         break;
       }

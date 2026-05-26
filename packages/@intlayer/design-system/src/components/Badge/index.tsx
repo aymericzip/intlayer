@@ -9,7 +9,6 @@ import type { HTMLAttributes } from 'react';
 export enum BadgeColor {
   PRIMARY = 'primary',
   SECONDARY = 'secondary',
-  DESTRUCTIVE = 'destructive',
   SUCCESS = 'success',
   ERROR = 'error',
   NEUTRAL = 'neutral',
@@ -53,8 +52,6 @@ export const badgeVariants = cva(
           'border-primary bg-primary text-primary hover:bg-primary-500',
         [`${BadgeColor.SECONDARY}`]:
           'border-secondary bg-secondary text-secondary hover:bg-secondary-300',
-        [`${BadgeColor.DESTRUCTIVE}`]:
-          'border-destructive bg-destructive text-destructive hover:bg-destructive-500',
         [`${BadgeColor.SUCCESS}`]:
           'border-success bg-success text-success hover:bg-success-500',
         [`${BadgeColor.ERROR}`]:
@@ -138,7 +135,7 @@ export type BadgeVariantProps = VariantProps<typeof badgeVariants>;
  * <Badge>New</Badge>
  *
  * // Colored badge
- * <Badge color={BadgeColor.DESTRUCTIVE}>Error</Badge>
+ * <Badge color={BadgeColor.ERROR}>Error</Badge>
  *
  * // Clickable badge
  * <Badge clickable onClick={() => console.log('clicked')}>

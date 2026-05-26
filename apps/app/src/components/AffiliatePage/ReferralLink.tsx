@@ -1,5 +1,3 @@
-'use client';
-
 import { CopyButton } from '@intlayer/design-system/copy-button';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';

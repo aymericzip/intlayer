@@ -118,7 +118,7 @@ export const Toast: FC<
  * ## Features
  * - **Accessibility**: Requires `altText` prop for screen readers
  * - **Visual States**: Hover, focus, and disabled state styling
- * - **Theme Integration**: Supports destructive and default themes
+ * - **Theme Integration**: Supports error and default themes
  * - **Keyboard Navigation**: Full keyboard accessibility support
  *
  * ## Usage Guidelines
@@ -151,7 +151,7 @@ export const ToastAction: FC<ComponentProps<typeof ToastPrimitives.Action>> = ({
 }) => (
   <ToastPrimitives.Action
     className={cn(
-      'inline-flex h-8 shrink-0 items-center justify-center rounded-md border bg-transparent px-3 font-medium text-sm transition-colors hover:bg-text focus:outline-hidden focus:ring-1 focus:ring-ring disabled:pointer-events-none disabled:opacity-50 group-[.destructive]:border-muted/40 group-[.destructive]:focus:ring-destructive group-[.destructive]:hover:border-destructive/30 group-[.destructive]:hover:bg-destructive group-[.destructive]:hover:text-destructive-foreground',
+      'inline-flex h-8 shrink-0 items-center justify-center rounded-md border bg-transparent px-3 font-medium text-sm transition-colors hover:bg-text focus:outline-hidden focus:ring-1 focus:ring-ring disabled:pointer-events-none disabled:opacity-50 group-[.error]:border-muted/40 group-[.error]:focus:ring-error group-[.error]:hover:border-error/30 group-[.error]:hover:bg-error group-[.error]:hover:text-error-foreground',
       className
     )}
     {...props}
@@ -164,7 +164,7 @@ export const ToastClose: FC<ComponentProps<typeof ToastPrimitives.Close>> = ({
 }) => (
   <ToastPrimitives.Close
     className={cn(
-      'absolute top-1 right-1 rounded-md p-1 text-text/50 opacity-0 transition-opacity hover:text-text/80 focus:opacity-100 focus:outline-hidden focus:ring-1 group-hover:opacity-100 group-[.destructive]:text-red-300 group-[.destructive]:focus:ring-red-400 group-[.destructive]:focus:ring-offset-red-600 group-[.destructive]:hover:text-red-50',
+      'absolute top-1 right-1 rounded-md p-1 text-text/50 opacity-0 transition-opacity hover:text-text/80 focus:opacity-100 focus:outline-hidden focus:ring-1 group-hover:opacity-100 group-[.error]:text-red-300 group-[.error]:focus:ring-red-400 group-[.error]:focus:ring-offset-red-600 group-[.error]:hover:text-red-50',
       className
     )}
     toast-close=""

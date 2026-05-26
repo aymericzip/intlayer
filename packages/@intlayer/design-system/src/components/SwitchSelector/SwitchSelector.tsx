@@ -19,7 +19,6 @@ export const defaultChoices: SwitchSelectorChoices<boolean> = [
 export enum SwitchSelectorColor {
   PRIMARY = 'primary',
   SECONDARY = 'secondary',
-  DESTRUCTIVE = 'destructive',
   NEUTRAL = 'neutral',
   LIGHT = 'light',
   DARK = 'dark',
@@ -56,8 +55,6 @@ export const switchSelectorVariant = cva(
       color: {
         [`${SwitchSelectorColor.PRIMARY}`]: 'border-primary text-primary',
         [`${SwitchSelectorColor.SECONDARY}`]: 'border-secondary text-secondary',
-        [`${SwitchSelectorColor.DESTRUCTIVE}`]:
-          'border-destructive bg-destructive text-destructive',
         [`${SwitchSelectorColor.NEUTRAL}`]: 'border-neutral text-neutral',
         [`${SwitchSelectorColor.LIGHT}`]: 'border-white text-white',
         [`${SwitchSelectorColor.DARK}`]: 'border-neutral-800 text-neutral-800',
@@ -69,7 +66,7 @@ export const switchSelectorVariant = cva(
       },
     },
     defaultVariants: {
-      color: `${SwitchSelectorColor.PRIMARY}`,
+      color: `${SwitchSelectorColor.TEXT}`,
       disabled: false,
     },
   }
@@ -101,8 +98,8 @@ export const indicatorVariant = cva(
           'bg-primary data-[indicator=true]:text-text',
         [`${SwitchSelectorColor.SECONDARY}`]:
           'bg-secondary data-[indicator=true]:text-text',
-        [`${SwitchSelectorColor.DESTRUCTIVE}`]:
-          'bg-destructive data-[indicator=true]:text-text',
+        [`${SwitchSelectorColor.ERROR}`]:
+          'bg-error data-[indicator=true]:text-text',
         [`${SwitchSelectorColor.NEUTRAL}`]:
           'bg-neutral data-[indicator=true]:text-white',
         [`${SwitchSelectorColor.LIGHT}`]:
@@ -127,7 +124,6 @@ export const SwitchSelector = <T,>(props: SwitchSelectorProps<T>) => {
     size = SwitchSelectorSize.MD,
     className,
     itemClassName,
-    ...baseProps
   } = props;
 
   const {

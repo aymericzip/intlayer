@@ -46,8 +46,6 @@ export const checkboxVariants = cva(
           'border-primary/30 text-primary ring-primary/20 checked:border-primary checked:bg-primary',
         secondary:
           'border-secondary/30 text-secondary ring-secondary/20 checked:border-secondary checked:bg-secondary',
-        destructive:
-          'border-destructive/30 text-destructive ring-destructive/20 checked:border-destructive checked:bg-destructive',
         neutral:
           'border-neutral/30 text-neutral ring-neutral/20 checked:border-neutral checked:bg-neutral',
         light:
@@ -87,7 +85,6 @@ export enum CheckboxSize {
 export enum CheckboxColor {
   PRIMARY = 'primary',
   SECONDARY = 'secondary',
-  DESTRUCTIVE = 'destructive',
   NEUTRAL = 'neutral',
   LIGHT = 'light',
   TEXT = 'text',

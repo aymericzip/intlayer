@@ -67,6 +67,11 @@ export const affiliateInvitationSchema = new Schema<AffiliateInvitationSchema>(
   }
 );
 
+affiliateInvitationSchema.index(
+  { createdAt: 1 },
+  { expireAfterSeconds: 2_592_000 } // 30 days
+);
+
 export const AffiliateInvitationModel = model<
   AffiliateInvitationSchema,
   AffiliateInvitationModelType

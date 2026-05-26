@@ -28,7 +28,6 @@ export const affiliateSchema = new Schema<AffiliateSchema>(
       type: Schema.Types.ObjectId,
       ref: 'user',
       required: true,
-      unique: true,
     },
     stripeAccountId: {
       type: String,
@@ -56,6 +55,19 @@ export const affiliateSchema = new Schema<AffiliateSchema>(
       type: String,
       enum: ['recurring', 'one_time'],
       default: 'one_time',
+    },
+    stripeAccountType: {
+      type: String,
+      enum: ['express', 'standard'],
+      required: false,
+    },
+    chargesEnabled: { type: Boolean, required: false },
+    payoutsEnabled: { type: Boolean, required: false },
+    activatedAt: { type: Date, required: false },
+    stripeOnboardingInitiated: {
+      type: Boolean,
+      required: false,
+      default: false,
     },
   },
   schemaOptions

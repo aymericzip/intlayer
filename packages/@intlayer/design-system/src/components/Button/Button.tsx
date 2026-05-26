@@ -59,7 +59,6 @@ export enum ButtonVariant {
 export enum ButtonColor {
   PRIMARY = 'primary',
   SECONDARY = 'secondary',
-  DESTRUCTIVE = 'destructive',
   NEUTRAL = 'neutral',
   LIGHT = 'light',
   DARK = 'dark',
@@ -104,8 +103,6 @@ export const buttonVariants = cva(
           'hover-primary-500/20 text-primary ring-primary-500/20 *:text-text-light',
         [`${ButtonColor.SECONDARY}`]:
           'hover-secondary-500/20 text-secondary ring-secondary-500/20 *:text-text-light',
-        [`${ButtonColor.DESTRUCTIVE}`]:
-          'hover-destructive-500/20 text-destructive ring-destructive-500/20 *:text-text-light',
         [`${ButtonColor.NEUTRAL}`]:
           'text-neutral ring-neutral-500/5 *:text-text-light',
         [`${ButtonColor.CARD}`]:
@@ -333,10 +330,10 @@ export type ButtonProps = DetailedHTMLProps<
  *   Save
  * </Button>
  *
- * // Destructive action button
+ * // Error action button
  * <Button
  *   variant={`${ButtonVariant.OUTLINE}`}
- *   color={ButtonColor.DESTRUCTIVE}
+ *   color={ButtonColor.ERROR}
  *   label="Delete item permanently"
  *   aria-describedby="delete-warning"
  * >

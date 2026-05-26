@@ -46,19 +46,6 @@
   --color-secondary-900: rgba(114, 58, 17);
   --color-secondary-950: rgba(67, 29, 5);
 
-  --color-destructive: rgba(251, 125, 60);
-  --color-destructive-50: rgba(255, 245, 237);
-  --color-destructive-100: rgba(255, 232, 213);
-  --color-destructive-200: rgba(254, 206, 170);
-  --color-destructive-300: rgba(253, 171, 116);
-  --color-destructive-400: rgba(251, 125, 60);
-  --color-destructive-500: rgba(249, 90, 22);
-  --color-destructive-600: rgba(234, 63, 12);
-  --color-destructive-700: rgba(194, 45, 12);
-  --color-destructive-800: rgba(154, 37, 18);
-  --color-destructive-900: rgba(124, 33, 18);
-  --color-destructive-950: rgba(67, 13, 7);
-
   --color-neutral: rgba(93, 93, 93);
   --color-neutral-50: rgba(249, 249, 249);
   --color-neutral-100: rgba(231, 231, 231);
@@ -156,7 +143,6 @@
 
   --color-primary: var(--color-text);
   --color-secondary: rgba(255, 230, 109);
-  --color-destructive: rgba(251, 125, 60);
   --color-neutral: rgba(93, 93, 93);
 
   --color-success: rgba(0, 204, 102);
@@ -181,8 +167,6 @@
   --muted-foreground: var(--color-neutral-600);
   --accent: var(--color-card);
   --accent-foreground: var(--color-text);
-  --destructive: var(--color-destructive);
-  --destructive-foreground: var(--color-white);
   --border: var(--color-neutral-200);
   --input: var(--color-neutral-200);
   --ring: var(--color-primary);
@@ -214,7 +198,6 @@
 
   --color-primary: var(--color-text);
   --color-secondary: rgba(255, 230, 109);
-  --color-destructive: rgba(251, 125, 60);
   --color-neutral: rgba(93, 93, 93);
 
   --color-success: rgba(0, 204, 102);
@@ -239,8 +222,6 @@
   --muted-foreground: rgba(176, 176, 176, 1);
   --accent: var(--color-card);
   --accent-foreground: var(--color-text);
-  --destructive: var(--color-destructive);
-  --destructive-foreground: var(--color-white);
   --border: rgba(79, 79, 79, 1);
   --input: rgba(79, 79, 79, 1);
   --ring: var(--color-primary);

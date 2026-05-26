@@ -18,8 +18,7 @@ const verticalSwitchSelectorVariant = cva(
       color: {
         [`${SwitchSelectorColor.PRIMARY}`]: 'border-primary text-primary',
         [`${SwitchSelectorColor.SECONDARY}`]: 'border-secondary text-secondary',
-        [`${SwitchSelectorColor.DESTRUCTIVE}`]:
-          'border-destructive bg-destructive text-destructive',
+        [`${SwitchSelectorColor.ERROR}`]: 'border-error bg-error text-error',
         [`${SwitchSelectorColor.NEUTRAL}`]: 'border-neutral text-neutral',
         [`${SwitchSelectorColor.LIGHT}`]: 'border-white text-white',
         [`${SwitchSelectorColor.DARK}`]: 'border-neutral-800 text-neutral-800',
@@ -62,8 +61,8 @@ const verticalIndicatorVariant = cva(
           'bg-primary data-[indicator=true]:text-text',
         [`${SwitchSelectorColor.SECONDARY}`]:
           'bg-secondary data-[indicator=true]:text-text',
-        [`${SwitchSelectorColor.DESTRUCTIVE}`]:
-          'bg-destructive data-[indicator=true]:text-text',
+        [`${SwitchSelectorColor.ERROR}`]:
+          'bg-error data-[indicator=true]:text-text',
         [`${SwitchSelectorColor.NEUTRAL}`]:
           'bg-neutral data-[indicator=true]:text-white',
         [`${SwitchSelectorColor.LIGHT}`]:
@@ -95,7 +94,6 @@ export const VerticalSwitchSelector = <T,>(
     size = SwitchSelectorSize.MD,
     className,
     itemClassName,
-    ...baseProps
   } = props;
 
   const {

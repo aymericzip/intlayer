@@ -1,5 +1,3 @@
-'use client';
-
 import type { AffiliateAPI } from '@intlayer/backend';
 import { Badge, BadgeColor, BadgeVariant } from '@intlayer/design-system/badge';
 import { Button } from '@intlayer/design-system/button';
@@ -34,7 +32,6 @@ const STATUS_COLOR: Record<AffiliateAPI['status'], BadgeColor> = {
   pending: BadgeColor.NEUTRAL,
   onboarding: BadgeColor.SECONDARY,
   active: BadgeColor.SUCCESS,
-  suspended: BadgeColor.DESTRUCTIVE,
 };
 
 export const AffiliatesAdminPage: FC = () => {

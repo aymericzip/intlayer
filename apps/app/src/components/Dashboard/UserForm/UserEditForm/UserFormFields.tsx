@@ -61,7 +61,7 @@ export const UserFormFields: FC<UserFormFieldsProps> = ({
                     {isLastMember && (
                       <Badge
                         variant={BadgeVariant.OUTLINE}
-                        color={BadgeColor.DESTRUCTIVE}
+                        color={BadgeColor.ERROR}
                         className="ml-2 text-xs"
                       >
                         {formLabels.lastMember}

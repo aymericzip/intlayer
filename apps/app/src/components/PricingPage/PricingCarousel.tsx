@@ -1,7 +1,11 @@
 import type { GetPricingResult } from '@intlayer/backend';
-import { useGetPricing, useUser } from '@intlayer/design-system/hooks';
+import {
+  useGetAffiliatePromoCode,
+  useGetPricing,
+  useUser,
+} from '@intlayer/design-system/hooks';
 import { cn } from '@intlayer/design-system/utils';
-import { useSearch } from '@tanstack/react-router';
+import { useNavigate, useSearch } from '@tanstack/react-router';
 import React, {
   type FC,
   type HTMLAttributes,
@@ -57,6 +61,29 @@ export const PricingCarousel: FC<PricingCarouselProps> = ({
 }) => {
   const { user } = useUser();
   const allParams = useSearch({ strict: false }) as any;
+  const navigate = useNavigate();
+
+  const referralCode = allParams.ref
+    ? String(allParams.ref).trim().toUpperCase()
+    : undefined;
+  const promoCode = allParams.promoCode
+    ? String(allParams.promoCode).trim().toUpperCase()
+    : undefined;
+
+  const { data: affiliatePromo } = useGetAffiliatePromoCode(referralCode, {
+    enabled: Boolean(referralCode && !promoCode),
+  });
+
+  useEffect(() => {
+    if (affiliatePromo?.data && !promoCode) {
+      navigate({
+        search: (prev: any) => ({
+          ...prev,
+          promoCode: affiliatePromo.data,
+        }),
+      });
+    }
+  }, [affiliatePromo, promoCode, navigate]);
 
   const { pricing: pricingContent, priceFrequency } = useIntlayer(
     'pricing'

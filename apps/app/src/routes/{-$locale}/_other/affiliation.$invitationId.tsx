@@ -1,17 +1,33 @@
 import { App_Affiliation } from '@intlayer/design-system/routes';
 import { createFileRoute } from '@tanstack/react-router';
-import { defaultLocale, getLocalizedUrl, localeMap } from 'intlayer';
+import {
+  defaultLocale,
+  getIntlayer,
+  getLocalizedUrl,
+  localeMap,
+} from 'intlayer';
 import { useLocale } from 'react-intlayer';
 import { AffiliateInvitationPage } from '#components/AffiliateInvitationPage';
 import { AuthenticationBarrier } from '#components/Auth/AuthenticationBarrier/AuthenticationBarrier';
 
+type AffiliationSearch = {
+  stripe_return?: string;
+};
+
 export const Route = createFileRoute(
   '/{-$locale}/_other/affiliation/$invitationId'
 )({
+  validateSearch: (search: Record<string, unknown>): AffiliationSearch => ({
+    stripe_return:
+      typeof search.stripe_return === 'string'
+        ? search.stripe_return
+        : undefined,
+  }),
   component: AffiliationPage,
   head: ({ params }) => {
     const { locale } = params;
     const path = App_Affiliation;
+    const content = getIntlayer('affiliation-invitation-page', locale);
 
     return {
       links: [
@@ -28,10 +44,10 @@ export const Route = createFileRoute(
         },
       ],
       meta: [
-        { title: 'Affiliate Invitation — Intlayer' },
+        { title: content.metadata.title },
         {
           name: 'description',
-          content: 'Accept your Intlayer affiliate program invitation.',
+          content: content.metadata.description,
         },
         { name: 'robots', content: 'noindex, nofollow' },
       ],
@@ -41,11 +57,15 @@ export const Route = createFileRoute(
 
 function AffiliationPage() {
   const { invitationId } = Route.useParams();
+  const { stripe_return } = Route.useSearch();
   const { locale } = useLocale();
 
   return (
     <AuthenticationBarrier accessRule="authenticated" locale={locale}>
-      <AffiliateInvitationPage token={invitationId} />
+      <AffiliateInvitationPage
+        token={invitationId}
+        stripeReturn={stripe_return === '1'}
+      />
     </AuthenticationBarrier>
   );
 }

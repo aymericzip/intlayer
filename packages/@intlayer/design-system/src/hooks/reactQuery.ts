@@ -20,6 +20,7 @@ import type {
   AuditTagBody,
   AutocompleteBody,
   CreateMissionBody,
+  CreatePromoCodeBody,
   CreateUserBody,
   DeleteAccessKeyBody,
   DeleteDictionaryParam,
@@ -62,6 +63,7 @@ import type {
   UpdateOrganizationMembersBody,
   UpdateProjectBody,
   UpdateProjectMembersBody,
+  UpdatePromoCodeBody,
   UpdateReviewerBody,
   UpdateUserBody,
 } from '@intlayer/backend';
@@ -1888,6 +1890,19 @@ export const useGetAffiliateAccountSession = (
   });
 };
 
+export const useGetAffiliateOnboardingLink = (
+  options?: Partial<UseQueryOptions>
+) => {
+  const intlayerOAuth = useIntlayerOAuth();
+
+  return useAppQuery({
+    queryKey: ['affiliate', 'onboarding-link'],
+    queryFn: () => intlayerOAuth.stripe.getAffiliateOnboardingLink(),
+    requireUser: true,
+    ...options,
+  });
+};
+
 export const useGetAffiliateStats = (options?: Partial<UseQueryOptions>) => {
   const intlayerOAuth = useIntlayerOAuth();
 
@@ -1942,8 +1957,20 @@ export const useAcceptAffiliateInvitation = () => {
 
   return useMutation({
     mutationKey: ['affiliate', 'invitation', 'accept'],
-    mutationFn: ({ token, country }: { token: string; country?: string }) =>
-      intlayerOAuth.stripe.acceptAffiliateInvitation({ token, country }),
+    mutationFn: ({
+      token,
+      country,
+      stripeAccountType,
+    }: {
+      token: string;
+      country?: string;
+      stripeAccountType?: 'express' | 'standard';
+    }) =>
+      intlayerOAuth.stripe.acceptAffiliateInvitation({
+        token,
+        country,
+        stripeAccountType,
+      }),
     onSuccess: (_data, { token }) => {
       queryClient.invalidateQueries({
         queryKey: ['affiliate', 'invitation', token],
@@ -1970,6 +1997,93 @@ export const useUpdateAffiliateStatus = () => {
       queryClient.invalidateQueries({ queryKey: ['affiliates', id] });
       queryClient.invalidateQueries({ queryKey: ['affiliates'] });
     },
+  });
+};
+
+export const useGetPromoCodeById = (
+  promoCodeId?: string,
+  options?: Partial<UseQueryOptions>
+) => {
+  const intlayerOAuth = useIntlayerOAuth();
+
+  return useAppQuery({
+    queryKey: ['promo-codes', promoCodeId],
+    queryFn: ({ signal }) =>
+      intlayerOAuth.stripe.getPromoCodeById(promoCodeId!, { signal }),
+    enabled: Boolean(promoCodeId),
+    requireUser: true,
+    ...options,
+  });
+};
+
+export const useGetPromoCodes = (
+  params: { affiliateId?: string } = {},
+  options?: Partial<UseQueryOptions>
+) => {
+  const intlayerOAuth = useIntlayerOAuth();
+
+  return useAppQuery({
+    queryKey: ['promo-codes', params.affiliateId ?? 'all'],
+    queryFn: ({ signal }) =>
+      intlayerOAuth.stripe.getPromoCodes(params, { signal }),
+    requireUser: true,
+    ...options,
+  });
+};
+
+export const useCreatePromoCode = () => {
+  const intlayerOAuth = useIntlayerOAuth();
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationKey: ['promo-codes', 'create'],
+    mutationFn: (body: CreatePromoCodeBody) =>
+      intlayerOAuth.stripe.createPromoCode(body),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['promo-codes'] });
+    },
+  });
+};
+
+export const useUpdatePromoCode = () => {
+  const intlayerOAuth = useIntlayerOAuth();
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationKey: ['promo-codes', 'update'],
+    mutationFn: ({ id, ...body }: { id: string } & UpdatePromoCodeBody) =>
+      intlayerOAuth.stripe.updatePromoCode({ id, ...body }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['promo-codes'] });
+    },
+  });
+};
+
+export const useDeletePromoCode = () => {
+  const intlayerOAuth = useIntlayerOAuth();
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationKey: ['promo-codes', 'delete'],
+    mutationFn: ({ id }: { id: string }) =>
+      intlayerOAuth.stripe.deletePromoCode({ id }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['promo-codes'] });
+    },
+  });
+};
+
+export const useGetAffiliatePromoCode = (
+  referralCode?: string,
+  options?: Partial<UseQueryOptions>
+) => {
+  const intlayerOAuth = useIntlayerOAuth();
+
+  return useQuery({
+    queryKey: ['affiliate-promo-code', referralCode],
+    queryFn: () => intlayerOAuth.stripe.getAffiliatePromoCode(referralCode!),
+    enabled: Boolean(referralCode),
+    ...options,
   });
 };
 

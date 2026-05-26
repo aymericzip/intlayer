@@ -1,5 +1,3 @@
-'use client';
-
 import type { ReviewerProfileAPI, ReviewerReviewAPI } from '@intlayer/backend';
 import { Container } from '@intlayer/design-system/container';
 import {

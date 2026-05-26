@@ -1,5 +1,3 @@
-'use client';
-
 import { Button } from '@intlayer/design-system/button';
 import { useEffect, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';

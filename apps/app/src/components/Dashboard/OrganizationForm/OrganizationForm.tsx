@@ -72,8 +72,9 @@ const OrganizationFormContent: FC = () => {
         <Container
           roundedSize="3xl"
           border
-          borderColor="neutral"
+          borderColor="error"
           padding="lg"
+          transparency="lg"
           className="z-10 w-full"
         >
           <DeleteOrganizationModal

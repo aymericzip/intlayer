@@ -402,7 +402,7 @@ export const InputWithAdditionalButtons: Story = {
         <Button
           label="Clear text"
           variant={ButtonVariant.OUTLINE}
-          color={ButtonColor.DESTRUCTIVE}
+          color={ButtonColor.ERROR}
           size={ButtonSize.SM}
           onClick={handleClear}
         >

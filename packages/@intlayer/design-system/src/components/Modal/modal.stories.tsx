@@ -155,11 +155,7 @@ export const SmallSize: Story = {
           Are you sure you want to delete this item?
         </p>
         <div className="mt-4 flex justify-center gap-2">
-          <Button
-            color={ButtonColor.DESTRUCTIVE}
-            size={ButtonSize.SM}
-            label="Delete"
-          >
+          <Button color={ButtonColor.ERROR} size={ButtonSize.SM} label="Delete">
             Delete
           </Button>
           <Button
@@ -302,12 +298,12 @@ export const ScrollableContent: Story = {
     children: (
       <Container className="p-6">
         <div className="space-y-4">
-          {Array.from({ length: 20 }, (_, i) => (
-            <p key={i} className="text-justify">
+          {Array.from({ length: 20 }, (_, i) => i).map((num) => (
+            <p key={`term-para-${num}`} className="text-justify">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
               enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Section {i + 1} of the
+              nisi ut aliquip ex ea commodo consequat. Section {num + 1} of the
               terms and conditions.
             </p>
           ))}

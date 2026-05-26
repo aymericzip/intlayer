@@ -10,7 +10,7 @@ import {
 import {
   type FC,
   type HTMLAttributes,
-  Suspense,
+  startTransition,
   useEffect,
   useState,
 } from 'react';
@@ -66,12 +66,12 @@ const LocalCardList: FC<{ localeList: string[]; className?: string }> = ({
       className={cn('inline-flex shrink-0 will-change-transform', className)}
     >
       {/* First set of cards */}
-      {localeList.map((locale, index) => (
-        <LocalCard key={`${locale}-first-${index}`} locale={locale} />
+      {localeList.map((locale) => (
+        <LocalCard key={`${locale}-first`} locale={locale} />
       ))}
       {/* Duplicate set for seamless loop */}
-      {localeList.map((locale, index) => (
-        <LocalCard key={`${locale}-second-${index}`} locale={locale} />
+      {localeList.map((locale) => (
+        <LocalCard key={`${locale}-second`} locale={locale} />
       ))}
     </div>
   </div>
@@ -92,7 +92,9 @@ export const LanguageSection: FC<HTMLAttributes<HTMLElement>> = ({
   const [firstPart, secondPart, thirdPart, fourthPart] = localeList;
 
   useEffect(() => {
-    setLocaleList(arrayOfLocale);
+    startTransition(() => {
+      setLocaleList(arrayOfLocale);
+    });
   }, []);
 
   return (
@@ -104,18 +106,10 @@ export const LanguageSection: FC<HTMLAttributes<HTMLElement>> = ({
       {...props}
     >
       <div className="relative flex w-full flex-col gap-5 py-3">
-        <Suspense>
-          <LocalCardList localeList={firstPart} className="horizontal-loop-1" />
-          <LocalCardList
-            localeList={secondPart}
-            className="horizontal-loop-2"
-          />
-          <LocalCardList localeList={thirdPart} className="horizontal-loop-1" />
-          <LocalCardList
-            localeList={fourthPart}
-            className="horizontal-loop-2"
-          />
-        </Suspense>
+        <LocalCardList localeList={firstPart} className="horizontal-loop-1" />
+        <LocalCardList localeList={secondPart} className="horizontal-loop-2" />
+        <LocalCardList localeList={thirdPart} className="horizontal-loop-1" />
+        <LocalCardList localeList={fourthPart} className="horizontal-loop-2" />
       </div>
     </section>
   );

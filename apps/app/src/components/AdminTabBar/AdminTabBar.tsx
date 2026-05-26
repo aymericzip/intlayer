@@ -4,6 +4,7 @@ import {
   App_Admin_Discussions_Path,
   App_Admin_Organizations_Path,
   App_Admin_Projects_Path,
+  App_Admin_PromoCodes_Path,
   App_Admin_Reviewers_Path,
   App_Admin_Users_Path,
 } from '@intlayer/design-system/routes';
@@ -20,6 +21,7 @@ import {
   HandCoins,
   Languages,
   MessageCircle,
+  Ticket,
   Users,
 } from 'lucide-react';
 import type { FC } from 'react';
@@ -69,6 +71,13 @@ export const AdminTabBar: FC<AdminTabBarProps> = ({ className }) => {
       icon: HandCoins,
       label: (navigation.management as any).affiliate.label.value,
       title: (navigation.management as any).affiliate.title,
+    },
+    {
+      key: 'promo-code',
+      href: App_Admin_PromoCodes_Path,
+      icon: Ticket,
+      label: (navigation.management as any).promoCodes.label.value,
+      title: (navigation.management as any).promoCodes.title,
     },
     {
       key: 'reviewers',

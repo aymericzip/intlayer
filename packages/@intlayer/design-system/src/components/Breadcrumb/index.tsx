@@ -56,7 +56,6 @@ const getColorClass = (color?: LinkColor | `${LinkColor}`): string => {
   const colorMap: Record<LinkColor, string> = {
     [LinkColor.PRIMARY]: 'text-primary',
     [LinkColor.SECONDARY]: 'text-secondary',
-    [LinkColor.DESTRUCTIVE]: 'text-destructive',
     [LinkColor.NEUTRAL]: 'text-neutral',
     [LinkColor.LIGHT]: 'text-white',
     [LinkColor.DARK]: 'text-neutral-800',

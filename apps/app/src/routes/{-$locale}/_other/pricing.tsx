@@ -36,11 +36,24 @@ const getPricingData = createServerFn().handler(async () => {
   return pricingDataResponse.data ?? null;
 });
 
+type PricingSearch = {
+  ref?: string;
+  promoCode?: string;
+};
+
 export const Route = createFileRoute('/{-$locale}/_other/pricing')({
   loader: async () => {
     const pricingData = await getPricingData();
     return { pricingData };
   },
+  validateSearch: (search: Record<string, unknown>): PricingSearch => ({
+    ref:
+      typeof search.ref === 'string'
+        ? search.ref.trim().toUpperCase()
+        : undefined,
+    promoCode:
+      typeof search.promoCode === 'string' ? search.promoCode : undefined,
+  }),
   component: PricingPage,
   head: ({ params }) => {
     const { locale } = params;

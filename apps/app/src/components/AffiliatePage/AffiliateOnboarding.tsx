@@ -1,53 +1,65 @@
-import { useGetAffiliateAccountSession } from '@intlayer/design-system/hooks';
-import { Loader } from '@intlayer/design-system/loader';
-import { loadConnectAndInitialize } from '@stripe/connect-js';
-import {
-  ConnectAccountOnboarding,
-  ConnectComponentsProvider,
-} from '@stripe/react-connect-js';
+import { Button } from '@intlayer/design-system/button';
+import { useIntlayerOAuth } from '@intlayer/design-system/hooks';
 import type { FC } from 'react';
-import { useMemo } from 'react';
+import { useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 
 export const AffiliateOnboarding: FC = () => {
   const content = useIntlayer('affiliate-onboarding');
-  const { data, isLoading, isError } = useGetAffiliateAccountSession();
+  const intlayerOAuth = useIntlayerOAuth();
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
 
-  const clientSecret = data?.data?.clientSecret ?? null;
+  const handleClick = async () => {
+    setIsLoading(true);
+    setIsError(false);
+    try {
+      const returnUrl = (() => {
+        if (typeof window === 'undefined') return undefined;
+        const url = new URL(window.location.href);
+        url.searchParams.set('stripe_return', '1');
+        return url.toString();
+      })();
+      const result = await intlayerOAuth.stripe.getAffiliateOnboardingLink(
+        returnUrl ? { returnUrl } : undefined
+      );
+      const url = result.data?.url;
+      if (url) {
+        window.location.href = url;
+      } else {
+        setIsError(true);
+      }
+    } catch {
+      setIsError(true);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
-  const stripeConnectInstance = useMemo(() => {
-    if (!clientSecret) return null;
-    return loadConnectAndInitialize({
-      publishableKey: import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY ?? '',
-      fetchClientSecret: async () => clientSecret,
-      appearance: {
-        overlays: 'dialog',
-        variables: {
-          colorPrimary: '#635bff',
-        },
-      },
-    });
-  }, [clientSecret]);
-
-  if (isLoading) {
+  if (isError) {
     return (
-      <div className="flex flex-1 items-center justify-center">
-        <Loader />
-      </div>
-    );
-  }
-
-  if (isError || !stripeConnectInstance) {
-    return (
-      <p className="text-destructive text-sm">
+      <p className="text-error text-sm">
         {content.failedToLoadOnboardingPlease}
       </p>
     );
   }
 
   return (
-    <ConnectComponentsProvider connectInstance={stripeConnectInstance}>
-      <ConnectAccountOnboarding onExit={() => window.location.reload()} />
-    </ConnectComponentsProvider>
+    <div className="flex flex-col items-start gap-4">
+      <p className="text-neutral/60 text-sm">
+        {content.completeYourPayoutSetup}
+      </p>
+      <p className="text-neutral/60 text-sm">
+        {content.onceCompletedReturnHereAnd}
+      </p>
+      <Button
+        label={content.completeOnboardingOnStripe.value}
+        onClick={handleClick}
+        isLoading={isLoading}
+        color="text"
+      >
+        {content.completeOnboardingOnStripe}
+      </Button>
+    </div>
   );
 };

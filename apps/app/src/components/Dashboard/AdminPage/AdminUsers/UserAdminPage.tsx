@@ -260,9 +260,7 @@ export const UsersAdminPageContent: FC = () => {
           <Badge
             variant={BadgeVariant.OUTLINE}
             className="opacity-70"
-            color={
-              user.emailVerified ? BadgeColor.SUCCESS : BadgeColor.DESTRUCTIVE
-            }
+            color={user.emailVerified ? BadgeColor.SUCCESS : BadgeColor.ERROR}
           >
             {user.emailVerified ? statusLabels.verified : statusLabels.pending}
           </Badge>
@@ -394,7 +392,7 @@ export const UsersAdminPageContent: FC = () => {
 
   const selectedUserIds = Object.keys(rowSelection)
     .filter((k) => rowSelection[k])
-    .map((idx) => users[parseInt(idx)]?.id)
+    .map((idx) => users[parseInt(idx, 10)]?.id)
     .filter(Boolean) as string[];
 
   const handleBulkDelete = async () => {

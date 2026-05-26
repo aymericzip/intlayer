@@ -18,7 +18,7 @@ import {
 export enum TabSelectorColor {
   PRIMARY = 'primary',
   SECONDARY = 'secondary',
-  DESTRUCTIVE = 'destructive',
+  ERROR = 'error',
   NEUTRAL = 'neutral',
   LIGHT = 'light',
   DARK = 'dark',
@@ -32,7 +32,7 @@ const tabSelectorVariant = cva(
       color: {
         primary: 'border-primary text-primary',
         secondary: 'border-secondary text-secondary',
-        destructive: 'border-destructive bg-destructive text-destructive',
+        error: 'border-error bg-error text-error',
         neutral: 'border-neutral text-neutral',
         light: 'border-white text-white',
         dark: 'border-neutral-800 text-neutral-800',
@@ -52,7 +52,7 @@ const indicatorVariant = cva(
       color: {
         primary: 'bg-primary/10 aria-selected:text-text',
         secondary: 'bg-secondary/10 aria-selected:text-text',
-        destructive: 'bg-destructive/10 aria-selected:text-text',
+        error: 'bg-error/10 aria-selected:text-text',
         neutral: 'bg-neutral/10 aria-selected:text-white/10',
         light: 'bg-white/10 aria-selected:text-black',
         dark: 'bg-neutral-800/10 aria-selected:text-white',

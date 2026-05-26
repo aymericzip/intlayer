@@ -1,5 +1,3 @@
-'use client';
-
 import { Badge, BadgeColor, BadgeVariant } from '@intlayer/design-system/badge';
 import { Button } from '@intlayer/design-system/button';
 import {

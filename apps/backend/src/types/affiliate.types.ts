@@ -12,13 +12,20 @@ export type ConversionStatus =
   | 'refunded';
 export type PayoutStatus = 'pending' | 'paid' | 'failed';
 
+export type StripeAccountType = 'express' | 'standard';
+
 export type AffiliateData = {
   userId: User['id'];
   stripeAccountId?: string;
+  stripeAccountType?: StripeAccountType;
   referralCode: string;
   status: AffiliateStatus;
   commissionRate: number; // percentage (e.g. 20 for 20%)
   commissionType: CommissionType;
+  chargesEnabled?: boolean;
+  payoutsEnabled?: boolean;
+  activatedAt?: Date;
+  stripeOnboardingInitiated?: boolean;
 };
 
 export type Affiliate = AffiliateData & {

@@ -1,9 +1,13 @@
 import type {
   AcceptAffiliateInvitationResult,
   CreatePortalSessionResult,
+  CreatePromoCodeBody,
+  CreatePromoCodeResult,
+  DeletePromoCodeResult,
   GetAffiliateAccountSessionResult,
   GetAffiliateByIdResult,
   GetAffiliateInvitationResult,
+  GetAffiliateOnboardingLinkResult,
   GetAffiliateResult,
   GetAffiliateStatsResult,
   GetAffiliatesParams,
@@ -14,12 +18,16 @@ import type {
   GetPaymentMethodResult,
   GetPricingBody,
   GetPricingResult,
+  GetPromoCodeByIdResult,
+  GetPromoCodesResult,
   GrantAffiliateAccessBody,
   GrantAffiliateAccessResult,
   SendAffiliateInvitationBody,
   SendAffiliateInvitationResult,
   UpdateAffiliateStatusBody,
   UpdateAffiliateStatusResult,
+  UpdatePromoCodeBody,
+  UpdatePromoCodeResult,
 } from '@intlayer/backend';
 import defaultConfiguration from '@intlayer/config/built';
 import type { IntlayerConfig } from '@intlayer/types/config';
@@ -184,6 +192,20 @@ export const getStripeAPI = (
     );
 
   /**
+   * Returns a Stripe-hosted onboarding URL for the authenticated affiliate.
+   */
+  const getAffiliateOnboardingLink = async (
+    params?: { returnUrl?: string },
+    otherOptions: FetcherOptions = {}
+  ) =>
+    await fetcher<GetAffiliateOnboardingLinkResult>(
+      `${STRIPE_API_ROUTE}/affiliate/onboarding-link`,
+      authAPIOptions,
+      otherOptions,
+      { method: 'GET', params }
+    );
+
+  /**
    * Returns referral stats for the authenticated affiliate.
    */
   const getAffiliateStats = async (otherOptions: FetcherOptions = {}) =>
@@ -241,14 +263,107 @@ export const getStripeAPI = (
    * Accepts an affiliate invitation and creates the affiliate account.
    */
   const acceptAffiliateInvitation = async (
-    { token, country }: { token: string; country?: string },
+    {
+      token,
+      country,
+      stripeAccountType,
+    }: {
+      token: string;
+      country?: string;
+      stripeAccountType?: 'express' | 'standard';
+    },
     otherOptions: FetcherOptions = {}
   ) =>
     await fetcher<AcceptAffiliateInvitationResult>(
       `${STRIPE_API_ROUTE}/affiliate/invitation/${token}/accept`,
       authAPIOptions,
       otherOptions,
-      { method: 'POST', body: { country } }
+      { method: 'POST', body: { country, stripeAccountType } }
+    );
+
+  /**
+   * Admin-only: returns a paginated list of all promo codes.
+   */
+  const getPromoCodeById = async (
+    id: string,
+    otherOptions: FetcherOptions = {}
+  ) =>
+    await fetcher<GetPromoCodeByIdResult>(
+      `${STRIPE_API_ROUTE}/promo-codes/${id}`,
+      authAPIOptions,
+      otherOptions,
+      { method: 'GET' }
+    );
+
+  const getPromoCodes = async (
+    params: { affiliateId?: string } = {},
+    otherOptions: FetcherOptions = {}
+  ) => {
+    const qs = params.affiliateId
+      ? `?affiliateId=${encodeURIComponent(params.affiliateId)}`
+      : '';
+    return await fetcher<GetPromoCodesResult>(
+      `${STRIPE_API_ROUTE}/promo-codes${qs}`,
+      authAPIOptions,
+      otherOptions,
+      { method: 'GET' }
+    );
+  };
+
+  /**
+   * Admin-only: creates a new promo code (Stripe coupon + promotion code).
+   */
+  const createPromoCode = async (
+    body: CreatePromoCodeBody,
+    otherOptions: FetcherOptions = {}
+  ) =>
+    await fetcher<CreatePromoCodeResult>(
+      `${STRIPE_API_ROUTE}/promo-codes`,
+      authAPIOptions,
+      otherOptions,
+      { method: 'POST', body }
+    );
+
+  /**
+   * Admin-only: updates a promo code.
+   */
+  const updatePromoCode = async (
+    { id, ...body }: { id: string } & UpdatePromoCodeBody,
+    otherOptions: FetcherOptions = {}
+  ) =>
+    await fetcher<UpdatePromoCodeResult>(
+      `${STRIPE_API_ROUTE}/promo-codes/${id}`,
+      authAPIOptions,
+      otherOptions,
+      { method: 'PATCH', body }
+    );
+
+  /**
+   * Admin-only: deactivates a promo code (sets active=false, disables Stripe promotion code).
+   */
+  const deletePromoCode = async (
+    { id }: { id: string },
+    otherOptions: FetcherOptions = {}
+  ) =>
+    await fetcher<DeletePromoCodeResult>(
+      `${STRIPE_API_ROUTE}/promo-codes/${id}`,
+      authAPIOptions,
+      otherOptions,
+      { method: 'DELETE' }
+    );
+
+  /**
+   * Retrieves the active promo code associated with a given affiliate referral code.
+   */
+  const getAffiliatePromoCode = async (
+    referralCode: string,
+    otherOptions: FetcherOptions = {}
+  ) =>
+    await fetcher<any>(
+      `${STRIPE_API_ROUTE}/affiliate-promo-code/${referralCode}`,
+      authAPIOptions,
+      otherOptions,
+      { method: 'GET' }
     );
 
   return {
@@ -263,10 +378,17 @@ export const getStripeAPI = (
     getAffiliateById,
     getAffiliate,
     getAffiliateAccountSession,
+    getAffiliateOnboardingLink,
     getAffiliateStats,
     sendAffiliateInvitation,
     getAffiliateInvitation,
     acceptAffiliateInvitation,
     updateAffiliateStatus,
+    getPromoCodeById,
+    getPromoCodes,
+    createPromoCode,
+    updatePromoCode,
+    deletePromoCode,
+    getAffiliatePromoCode,
   };
 };

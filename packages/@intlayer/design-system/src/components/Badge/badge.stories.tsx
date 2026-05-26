@@ -8,7 +8,7 @@ import { Badge, BadgeColor, BadgeSize, BadgeVariant } from '.';
  *
  * ## Features
  * - **Multiple variants**: Default, outline, hoverable, and none
- * - **Color themes**: Primary, secondary, destructive, neutral, light, dark, text, and custom
+ * - **Color themes**: Primary, secondary, ERROR, neutral, light, dark, text, and custom
  * - **Size options**: Small, medium, and large
  * - **Interactive features**: Clickable and dismissible badges
  * - **Accessibility**: Proper ARIA labels, keyboard navigation, and focus management
@@ -25,7 +25,7 @@ The Badge component is a versatile status indicator that can be used for labels,
 It follows accessibility best practices and provides comprehensive customization options.
 
 ### Usage Guidelines
-- Use appropriate colors to convey meaning (destructive for errors, neutral for info)
+- Use appropriate colors to convey meaning (ERROR for errors, neutral for info)
 - Provide meaningful content and aria-labels for screen readers
 - Consider interactive states for clickable badges
 - Use dismissible badges sparingly to avoid overwhelming users
@@ -368,7 +368,7 @@ export const AccessibilityExample: Story = {
           <Badge color={BadgeColor.PRIMARY} aria-label="Online status">
             Online
           </Badge>
-          <Badge color={BadgeColor.DESTRUCTIVE} aria-label="Error status">
+          <Badge color={BadgeColor.ERROR} aria-label="Error status">
             Error
           </Badge>
           <Badge color={BadgeColor.NEUTRAL} aria-label="Pending status">
@@ -450,7 +450,7 @@ export const UsageExamples: Story = {
         <h4 className="mb-2 font-medium">Notification Count</h4>
         <div className="flex items-center gap-2">
           <span>Messages</span>
-          <Badge color={BadgeColor.DESTRUCTIVE} size={BadgeSize.SMALL}>
+          <Badge color={BadgeColor.ERROR} size={BadgeSize.SMALL}>
             3
           </Badge>
         </div>
@@ -461,7 +461,7 @@ export const UsageExamples: Story = {
         <div className="flex gap-2">
           <Badge color={BadgeColor.PRIMARY}>Active</Badge>
           <Badge color={BadgeColor.NEUTRAL}>Inactive</Badge>
-          <Badge color={BadgeColor.DESTRUCTIVE}>Suspended</Badge>
+          <Badge color={BadgeColor.ERROR}>Suspended</Badge>
         </div>
       </div>
 
@@ -486,7 +486,7 @@ export const UsageExamples: Story = {
       <div>
         <h4 className="mb-2 font-medium">Priority Levels</h4>
         <div className="flex gap-2">
-          <Badge color={BadgeColor.DESTRUCTIVE} size={BadgeSize.SMALL}>
+          <Badge color={BadgeColor.ERROR} size={BadgeSize.SMALL}>
             High
           </Badge>
           <Badge color={BadgeColor.NEUTRAL} size={BadgeSize.SMALL}>

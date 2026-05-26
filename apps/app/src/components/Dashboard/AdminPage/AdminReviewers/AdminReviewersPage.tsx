@@ -1,5 +1,3 @@
-'use client';
-
 import type { ReviewerProfileAPI } from '@intlayer/backend';
 import { Badge, BadgeColor, BadgeVariant } from '@intlayer/design-system/badge';
 import { Button } from '@intlayer/design-system/button';
@@ -16,7 +14,7 @@ import { Link } from '#components/Link/Link';
 const STATUS_COLOR: Record<ReviewerProfileAPI['status'], BadgeColor> = {
   pending: BadgeColor.NEUTRAL,
   active: BadgeColor.SUCCESS,
-  suspended: BadgeColor.DESTRUCTIVE,
+  suspended: BadgeColor.ERROR,
 };
 
 export const AdminReviewersPage: FC = () => {

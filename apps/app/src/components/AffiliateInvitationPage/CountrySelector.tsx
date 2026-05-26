@@ -1,5 +1,3 @@
-'use client';
-
 import { Container } from '@intlayer/design-system/container';
 import { DropDown } from '@intlayer/design-system/drop-down';
 import { Input } from '@intlayer/design-system/input';
@@ -209,7 +207,6 @@ export const CountrySelector: FC<CountrySelectorProps> = ({
 
       <DropDown.Panel
         identifier={DROPDOWN_ID}
-        isOverable
         isFocusable
         className="z-50 w-full"
       >

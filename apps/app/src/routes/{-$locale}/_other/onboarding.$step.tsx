@@ -12,17 +12,25 @@ import { BackgroundLayout } from '#components/BackgroundLayout';
 import { OnboardFlow } from '#components/OnboardPage';
 import { getPlanDetails } from '#components/OnboardPage/getPlanDetails';
 
-// Only plan and period are search parameters now
 type OnboardingSearch = {
   plan?: string;
   period?: string;
+  ref?: string;
+  promoCode?: string;
+  origin?: string;
 };
 
-// Add $step back to the route path
 export const Route = createFileRoute('/{-$locale}/_other/onboarding/$step')({
   validateSearch: (search: Record<string, unknown>): OnboardingSearch => ({
     plan: typeof search.plan === 'string' ? search.plan : undefined,
     period: typeof search.period === 'string' ? search.period : undefined,
+    ref:
+      typeof search.ref === 'string'
+        ? search.ref.trim().toUpperCase()
+        : undefined,
+    promoCode:
+      typeof search.promoCode === 'string' ? search.promoCode : undefined,
+    origin: typeof search.origin === 'string' ? search.origin : undefined,
   }),
   component: OnboardingPage,
   head: ({ params }) => {
@@ -67,7 +75,6 @@ function OnboardingPage() {
   // Extract step from the path parameters (/onboarding/setup-organization)
   const { step } = Route.useParams();
 
-  // Extract plan and period from the query string (?plan=free&period=monthly)
   const { plan, period } = Route.useSearch();
 
   const details = [step, plan, period].filter(Boolean) as string[];

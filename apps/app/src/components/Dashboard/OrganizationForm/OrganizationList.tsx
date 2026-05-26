@@ -97,7 +97,7 @@ export const OrganizationList: FC<OrganizationListProps> = ({
                 >
                   <Container
                     padding="md"
-                    roundedSize="xl"
+                    roundedSize="2xl"
                     border
                     borderColor="neutral"
                     className="gap-3"

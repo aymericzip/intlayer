@@ -6,5 +6,7 @@ export * from './AdminOrganizations/OrganizationAdminDetailPage';
 export * from './AdminOrganizations/OrganizationsAdminPage';
 export * from './AdminProjects/ProjectAdminDetailPage';
 export * from './AdminProjects/ProjectsAdminPage';
+export * from './AdminPromoCodes/PromoCodesAdminPage';
+export * from './AdminPromoCodes/PromoCodesAdminSkeleton';
 export * from './AdminUsers/UserAdminDetailPage';
 export * from './AdminUsers/UserAdminPage';

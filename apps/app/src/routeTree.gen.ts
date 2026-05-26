@@ -21,6 +21,7 @@ import { Route as Char123LocaleChar125OtherRouteRouteImport } from './routes/{-$
 import { Route as Char123LocaleChar125DashboardRouteRouteImport } from './routes/{-$locale}/_dashboard/route'
 import { Route as Char123LocaleChar125DashboardIndexRouteImport } from './routes/{-$locale}/_dashboard/index'
 import { Route as Char123LocaleChar125OtherPricingRouteImport } from './routes/{-$locale}/_other/pricing'
+import { Route as Char123LocaleChar125OtherAffiliationRouteImport } from './routes/{-$locale}/_other/affiliation'
 import { Route as Char123LocaleChar125DashboardProjectsRouteImport } from './routes/{-$locale}/_dashboard/projects'
 import { Route as Char123LocaleChar125DashboardProfileRouteImport } from './routes/{-$locale}/_dashboard/profile'
 import { Route as Char123LocaleChar125DashboardOrganizationRouteImport } from './routes/{-$locale}/_dashboard/organization'
@@ -47,6 +48,7 @@ import { Route as Char123LocaleChar125DashboardEditorContentEditorRouteImport } 
 import { Route as Char123LocaleChar125DashboardAdminAdminDiscussionsRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/discussions'
 import { Route as Char123LocaleChar125DashboardAdminAdminUsersRouteRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/users/route'
 import { Route as Char123LocaleChar125DashboardAdminAdminReviewersRouteRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/reviewers/route'
+import { Route as Char123LocaleChar125DashboardAdminAdminPromoCodeRouteRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/promo-code/route'
 import { Route as Char123LocaleChar125DashboardAdminAdminProjectsRouteRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/projects/route'
 import { Route as Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/organizations/route'
 import { Route as Char123LocaleChar125DashboardAdminAdminAffiliateRouteRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/affiliate/route'
@@ -54,6 +56,7 @@ import { Route as Char123LocaleChar125DashboardEditorContentTagsIndexRouteImport
 import { Route as Char123LocaleChar125DashboardEditorContentDictionaryIndexRouteImport } from './routes/{-$locale}/_dashboard/_editor/_content/dictionary.index'
 import { Route as Char123LocaleChar125DashboardAdminAdminUsersIndexRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/users/index'
 import { Route as Char123LocaleChar125DashboardAdminAdminReviewersIndexRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/reviewers/index'
+import { Route as Char123LocaleChar125DashboardAdminAdminPromoCodeIndexRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/promo-code/index'
 import { Route as Char123LocaleChar125DashboardAdminAdminProjectsIndexRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/projects/index'
 import { Route as Char123LocaleChar125DashboardAdminAdminOrganizationsIndexRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/organizations/index'
 import { Route as Char123LocaleChar125DashboardAdminAdminAffiliateIndexRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/affiliate/index'
@@ -63,6 +66,7 @@ import { Route as Char123LocaleChar125DashboardEditorContentTagsTagKeyRouteImpor
 import { Route as Char123LocaleChar125DashboardEditorContentDictionaryDictionaryKeyRouteImport } from './routes/{-$locale}/_dashboard/_editor/_content/dictionary.$dictionaryKey'
 import { Route as Char123LocaleChar125DashboardAdminAdminUsersIdRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/users/$id'
 import { Route as Char123LocaleChar125DashboardAdminAdminReviewersReviewerIdRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/reviewers/$reviewerId'
+import { Route as Char123LocaleChar125DashboardAdminAdminPromoCodeIdRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/promo-code/$id'
 import { Route as Char123LocaleChar125DashboardAdminAdminProjectsIdRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/projects/$id'
 import { Route as Char123LocaleChar125DashboardAdminAdminOrganizationsIdRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/organizations/$id'
 import { Route as Char123LocaleChar125DashboardAdminAdminAffiliateIdRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/affiliate/$id'
@@ -132,6 +136,12 @@ const Char123LocaleChar125OtherPricingRoute =
     path: '/pricing',
     getParentRoute: () => Char123LocaleChar125OtherRouteRoute,
   } as any)
+const Char123LocaleChar125OtherAffiliationRoute =
+  Char123LocaleChar125OtherAffiliationRouteImport.update({
+    id: '/affiliation',
+    path: '/affiliation',
+    getParentRoute: () => Char123LocaleChar125OtherRouteRoute,
+  } as any)
 const Char123LocaleChar125DashboardProjectsRoute =
   Char123LocaleChar125DashboardProjectsRouteImport.update({
     id: '/projects',
@@ -193,9 +203,9 @@ const Char123LocaleChar125OtherAuthCliLoginRoute =
   } as any)
 const Char123LocaleChar125OtherAffiliationInvitationIdRoute =
   Char123LocaleChar125OtherAffiliationInvitationIdRouteImport.update({
-    id: '/affiliation/$invitationId',
-    path: '/affiliation/$invitationId',
-    getParentRoute: () => Char123LocaleChar125OtherRouteRoute,
+    id: '/$invitationId',
+    path: '/$invitationId',
+    getParentRoute: () => Char123LocaleChar125OtherAffiliationRoute,
   } as any)
 const Char123LocaleChar125OtherAuthNotAuthenticatedRouteRoute =
   Char123LocaleChar125OtherAuthNotAuthenticatedRouteRouteImport.update({
@@ -289,6 +299,12 @@ const Char123LocaleChar125DashboardAdminAdminReviewersRouteRoute =
     path: '/admin/reviewers',
     getParentRoute: () => Char123LocaleChar125DashboardAdminRouteRoute,
   } as any)
+const Char123LocaleChar125DashboardAdminAdminPromoCodeRouteRoute =
+  Char123LocaleChar125DashboardAdminAdminPromoCodeRouteRouteImport.update({
+    id: '/admin/promo-code',
+    path: '/admin/promo-code',
+    getParentRoute: () => Char123LocaleChar125DashboardAdminRouteRoute,
+  } as any)
 const Char123LocaleChar125DashboardAdminAdminProjectsRouteRoute =
   Char123LocaleChar125DashboardAdminAdminProjectsRouteRouteImport.update({
     id: '/admin/projects',
@@ -332,6 +348,13 @@ const Char123LocaleChar125DashboardAdminAdminReviewersIndexRoute =
     path: '/',
     getParentRoute: () =>
       Char123LocaleChar125DashboardAdminAdminReviewersRouteRoute,
+  } as any)
+const Char123LocaleChar125DashboardAdminAdminPromoCodeIndexRoute =
+  Char123LocaleChar125DashboardAdminAdminPromoCodeIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () =>
+      Char123LocaleChar125DashboardAdminAdminPromoCodeRouteRoute,
   } as any)
 const Char123LocaleChar125DashboardAdminAdminProjectsIndexRoute =
   Char123LocaleChar125DashboardAdminAdminProjectsIndexRouteImport.update({
@@ -397,6 +420,13 @@ const Char123LocaleChar125DashboardAdminAdminReviewersReviewerIdRoute =
     getParentRoute: () =>
       Char123LocaleChar125DashboardAdminAdminReviewersRouteRoute,
   } as any)
+const Char123LocaleChar125DashboardAdminAdminPromoCodeIdRoute =
+  Char123LocaleChar125DashboardAdminAdminPromoCodeIdRouteImport.update({
+    id: '/$id',
+    path: '/$id',
+    getParentRoute: () =>
+      Char123LocaleChar125DashboardAdminAdminPromoCodeRouteRoute,
+  } as any)
 const Char123LocaleChar125DashboardAdminAdminProjectsIdRoute =
   Char123LocaleChar125DashboardAdminAdminProjectsIdRouteImport.update({
     id: '/$id',
@@ -432,6 +462,7 @@ export interface FileRoutesByFullPath {
   '/{-$locale}/organization': typeof Char123LocaleChar125DashboardOrganizationRoute
   '/{-$locale}/profile': typeof Char123LocaleChar125DashboardProfileRoute
   '/{-$locale}/projects': typeof Char123LocaleChar125DashboardProjectsRoute
+  '/{-$locale}/affiliation': typeof Char123LocaleChar125OtherAffiliationRouteWithChildren
   '/{-$locale}/pricing': typeof Char123LocaleChar125OtherPricingRoute
   '/{-$locale}/': typeof Char123LocaleChar125DashboardIndexRoute
   '/{-$locale}/auth': typeof Char123LocaleChar125OtherAuthNotAuthenticatedRouteRouteWithChildren
@@ -444,6 +475,7 @@ export interface FileRoutesByFullPath {
   '/{-$locale}/admin/affiliate': typeof Char123LocaleChar125DashboardAdminAdminAffiliateRouteRouteWithChildren
   '/{-$locale}/admin/organizations': typeof Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRouteWithChildren
   '/{-$locale}/admin/projects': typeof Char123LocaleChar125DashboardAdminAdminProjectsRouteRouteWithChildren
+  '/{-$locale}/admin/promo-code': typeof Char123LocaleChar125DashboardAdminAdminPromoCodeRouteRouteWithChildren
   '/{-$locale}/admin/reviewers': typeof Char123LocaleChar125DashboardAdminAdminReviewersRouteRouteWithChildren
   '/{-$locale}/admin/users': typeof Char123LocaleChar125DashboardAdminAdminUsersRouteRouteWithChildren
   '/{-$locale}/admin/discussions': typeof Char123LocaleChar125DashboardAdminAdminDiscussionsRoute
@@ -459,6 +491,7 @@ export interface FileRoutesByFullPath {
   '/{-$locale}/admin/affiliate/$id': typeof Char123LocaleChar125DashboardAdminAdminAffiliateIdRoute
   '/{-$locale}/admin/organizations/$id': typeof Char123LocaleChar125DashboardAdminAdminOrganizationsIdRoute
   '/{-$locale}/admin/projects/$id': typeof Char123LocaleChar125DashboardAdminAdminProjectsIdRoute
+  '/{-$locale}/admin/promo-code/$id': typeof Char123LocaleChar125DashboardAdminAdminPromoCodeIdRoute
   '/{-$locale}/admin/reviewers/$reviewerId': typeof Char123LocaleChar125DashboardAdminAdminReviewersReviewerIdRoute
   '/{-$locale}/admin/users/$id': typeof Char123LocaleChar125DashboardAdminAdminUsersIdRoute
   '/{-$locale}/dictionary/$dictionaryKey': typeof Char123LocaleChar125DashboardEditorContentDictionaryDictionaryKeyRoute
@@ -468,6 +501,7 @@ export interface FileRoutesByFullPath {
   '/{-$locale}/admin/affiliate/': typeof Char123LocaleChar125DashboardAdminAdminAffiliateIndexRoute
   '/{-$locale}/admin/organizations/': typeof Char123LocaleChar125DashboardAdminAdminOrganizationsIndexRoute
   '/{-$locale}/admin/projects/': typeof Char123LocaleChar125DashboardAdminAdminProjectsIndexRoute
+  '/{-$locale}/admin/promo-code/': typeof Char123LocaleChar125DashboardAdminAdminPromoCodeIndexRoute
   '/{-$locale}/admin/reviewers/': typeof Char123LocaleChar125DashboardAdminAdminReviewersIndexRoute
   '/{-$locale}/admin/users/': typeof Char123LocaleChar125DashboardAdminAdminUsersIndexRoute
   '/{-$locale}/dictionary/': typeof Char123LocaleChar125DashboardEditorContentDictionaryIndexRoute
@@ -486,6 +520,7 @@ export interface FileRoutesByTo {
   '/{-$locale}/organization': typeof Char123LocaleChar125DashboardOrganizationRoute
   '/{-$locale}/profile': typeof Char123LocaleChar125DashboardProfileRoute
   '/{-$locale}/projects': typeof Char123LocaleChar125DashboardProjectsRoute
+  '/{-$locale}/affiliation': typeof Char123LocaleChar125OtherAffiliationRouteWithChildren
   '/{-$locale}/pricing': typeof Char123LocaleChar125OtherPricingRoute
   '/{-$locale}/auth': typeof Char123LocaleChar125OtherAuthNotAuthenticatedRouteRouteWithChildren
   '/{-$locale}/affiliation/$invitationId': typeof Char123LocaleChar125OtherAffiliationInvitationIdRoute
@@ -507,6 +542,7 @@ export interface FileRoutesByTo {
   '/{-$locale}/admin/affiliate/$id': typeof Char123LocaleChar125DashboardAdminAdminAffiliateIdRoute
   '/{-$locale}/admin/organizations/$id': typeof Char123LocaleChar125DashboardAdminAdminOrganizationsIdRoute
   '/{-$locale}/admin/projects/$id': typeof Char123LocaleChar125DashboardAdminAdminProjectsIdRoute
+  '/{-$locale}/admin/promo-code/$id': typeof Char123LocaleChar125DashboardAdminAdminPromoCodeIdRoute
   '/{-$locale}/admin/reviewers/$reviewerId': typeof Char123LocaleChar125DashboardAdminAdminReviewersReviewerIdRoute
   '/{-$locale}/admin/users/$id': typeof Char123LocaleChar125DashboardAdminAdminUsersIdRoute
   '/{-$locale}/dictionary/$dictionaryKey': typeof Char123LocaleChar125DashboardEditorContentDictionaryDictionaryKeyRoute
@@ -516,6 +552,7 @@ export interface FileRoutesByTo {
   '/{-$locale}/admin/affiliate': typeof Char123LocaleChar125DashboardAdminAdminAffiliateIndexRoute
   '/{-$locale}/admin/organizations': typeof Char123LocaleChar125DashboardAdminAdminOrganizationsIndexRoute
   '/{-$locale}/admin/projects': typeof Char123LocaleChar125DashboardAdminAdminProjectsIndexRoute
+  '/{-$locale}/admin/promo-code': typeof Char123LocaleChar125DashboardAdminAdminPromoCodeIndexRoute
   '/{-$locale}/admin/reviewers': typeof Char123LocaleChar125DashboardAdminAdminReviewersIndexRoute
   '/{-$locale}/admin/users': typeof Char123LocaleChar125DashboardAdminAdminUsersIndexRoute
   '/{-$locale}/dictionary': typeof Char123LocaleChar125DashboardEditorContentDictionaryIndexRoute
@@ -538,6 +575,7 @@ export interface FileRoutesById {
   '/{-$locale}/_dashboard/organization': typeof Char123LocaleChar125DashboardOrganizationRoute
   '/{-$locale}/_dashboard/profile': typeof Char123LocaleChar125DashboardProfileRoute
   '/{-$locale}/_dashboard/projects': typeof Char123LocaleChar125DashboardProjectsRoute
+  '/{-$locale}/_other/affiliation': typeof Char123LocaleChar125OtherAffiliationRouteWithChildren
   '/{-$locale}/_other/pricing': typeof Char123LocaleChar125OtherPricingRoute
   '/{-$locale}/_dashboard/': typeof Char123LocaleChar125DashboardIndexRoute
   '/{-$locale}/_dashboard/_editor/_content': typeof Char123LocaleChar125DashboardEditorContentRouteRouteWithChildren
@@ -552,6 +590,7 @@ export interface FileRoutesById {
   '/{-$locale}/_dashboard/_admin/admin/affiliate': typeof Char123LocaleChar125DashboardAdminAdminAffiliateRouteRouteWithChildren
   '/{-$locale}/_dashboard/_admin/admin/organizations': typeof Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRouteWithChildren
   '/{-$locale}/_dashboard/_admin/admin/projects': typeof Char123LocaleChar125DashboardAdminAdminProjectsRouteRouteWithChildren
+  '/{-$locale}/_dashboard/_admin/admin/promo-code': typeof Char123LocaleChar125DashboardAdminAdminPromoCodeRouteRouteWithChildren
   '/{-$locale}/_dashboard/_admin/admin/reviewers': typeof Char123LocaleChar125DashboardAdminAdminReviewersRouteRouteWithChildren
   '/{-$locale}/_dashboard/_admin/admin/users': typeof Char123LocaleChar125DashboardAdminAdminUsersRouteRouteWithChildren
   '/{-$locale}/_dashboard/_admin/admin/discussions': typeof Char123LocaleChar125DashboardAdminAdminDiscussionsRoute
@@ -567,6 +606,7 @@ export interface FileRoutesById {
   '/{-$locale}/_dashboard/_admin/admin/affiliate/$id': typeof Char123LocaleChar125DashboardAdminAdminAffiliateIdRoute
   '/{-$locale}/_dashboard/_admin/admin/organizations/$id': typeof Char123LocaleChar125DashboardAdminAdminOrganizationsIdRoute
   '/{-$locale}/_dashboard/_admin/admin/projects/$id': typeof Char123LocaleChar125DashboardAdminAdminProjectsIdRoute
+  '/{-$locale}/_dashboard/_admin/admin/promo-code/$id': typeof Char123LocaleChar125DashboardAdminAdminPromoCodeIdRoute
   '/{-$locale}/_dashboard/_admin/admin/reviewers/$reviewerId': typeof Char123LocaleChar125DashboardAdminAdminReviewersReviewerIdRoute
   '/{-$locale}/_dashboard/_admin/admin/users/$id': typeof Char123LocaleChar125DashboardAdminAdminUsersIdRoute
   '/{-$locale}/_dashboard/_editor/_content/dictionary/$dictionaryKey': typeof Char123LocaleChar125DashboardEditorContentDictionaryDictionaryKeyRoute
@@ -576,6 +616,7 @@ export interface FileRoutesById {
   '/{-$locale}/_dashboard/_admin/admin/affiliate/': typeof Char123LocaleChar125DashboardAdminAdminAffiliateIndexRoute
   '/{-$locale}/_dashboard/_admin/admin/organizations/': typeof Char123LocaleChar125DashboardAdminAdminOrganizationsIndexRoute
   '/{-$locale}/_dashboard/_admin/admin/projects/': typeof Char123LocaleChar125DashboardAdminAdminProjectsIndexRoute
+  '/{-$locale}/_dashboard/_admin/admin/promo-code/': typeof Char123LocaleChar125DashboardAdminAdminPromoCodeIndexRoute
   '/{-$locale}/_dashboard/_admin/admin/reviewers/': typeof Char123LocaleChar125DashboardAdminAdminReviewersIndexRoute
   '/{-$locale}/_dashboard/_admin/admin/users/': typeof Char123LocaleChar125DashboardAdminAdminUsersIndexRoute
   '/{-$locale}/_dashboard/_editor/_content/dictionary/': typeof Char123LocaleChar125DashboardEditorContentDictionaryIndexRoute
@@ -596,6 +637,7 @@ export interface FileRouteTypes {
     | '/{-$locale}/organization'
     | '/{-$locale}/profile'
     | '/{-$locale}/projects'
+    | '/{-$locale}/affiliation'
     | '/{-$locale}/pricing'
     | '/{-$locale}/'
     | '/{-$locale}/auth'
@@ -608,6 +650,7 @@ export interface FileRouteTypes {
     | '/{-$locale}/admin/affiliate'
     | '/{-$locale}/admin/organizations'
     | '/{-$locale}/admin/projects'
+    | '/{-$locale}/admin/promo-code'
     | '/{-$locale}/admin/reviewers'
     | '/{-$locale}/admin/users'
     | '/{-$locale}/admin/discussions'
@@ -623,6 +666,7 @@ export interface FileRouteTypes {
     | '/{-$locale}/admin/affiliate/$id'
     | '/{-$locale}/admin/organizations/$id'
     | '/{-$locale}/admin/projects/$id'
+    | '/{-$locale}/admin/promo-code/$id'
     | '/{-$locale}/admin/reviewers/$reviewerId'
     | '/{-$locale}/admin/users/$id'
     | '/{-$locale}/dictionary/$dictionaryKey'
@@ -632,6 +676,7 @@ export interface FileRouteTypes {
     | '/{-$locale}/admin/affiliate/'
     | '/{-$locale}/admin/organizations/'
     | '/{-$locale}/admin/projects/'
+    | '/{-$locale}/admin/promo-code/'
     | '/{-$locale}/admin/reviewers/'
     | '/{-$locale}/admin/users/'
     | '/{-$locale}/dictionary/'
@@ -650,6 +695,7 @@ export interface FileRouteTypes {
     | '/{-$locale}/organization'
     | '/{-$locale}/profile'
     | '/{-$locale}/projects'
+    | '/{-$locale}/affiliation'
     | '/{-$locale}/pricing'
     | '/{-$locale}/auth'
     | '/{-$locale}/affiliation/$invitationId'
@@ -671,6 +717,7 @@ export interface FileRouteTypes {
     | '/{-$locale}/admin/affiliate/$id'
     | '/{-$locale}/admin/organizations/$id'
     | '/{-$locale}/admin/projects/$id'
+    | '/{-$locale}/admin/promo-code/$id'
     | '/{-$locale}/admin/reviewers/$reviewerId'
     | '/{-$locale}/admin/users/$id'
     | '/{-$locale}/dictionary/$dictionaryKey'
@@ -680,6 +727,7 @@ export interface FileRouteTypes {
     | '/{-$locale}/admin/affiliate'
     | '/{-$locale}/admin/organizations'
     | '/{-$locale}/admin/projects'
+    | '/{-$locale}/admin/promo-code'
     | '/{-$locale}/admin/reviewers'
     | '/{-$locale}/admin/users'
     | '/{-$locale}/dictionary'
@@ -701,6 +749,7 @@ export interface FileRouteTypes {
     | '/{-$locale}/_dashboard/organization'
     | '/{-$locale}/_dashboard/profile'
     | '/{-$locale}/_dashboard/projects'
+    | '/{-$locale}/_other/affiliation'
     | '/{-$locale}/_other/pricing'
     | '/{-$locale}/_dashboard/'
     | '/{-$locale}/_dashboard/_editor/_content'
@@ -715,6 +764,7 @@ export interface FileRouteTypes {
     | '/{-$locale}/_dashboard/_admin/admin/affiliate'
     | '/{-$locale}/_dashboard/_admin/admin/organizations'
     | '/{-$locale}/_dashboard/_admin/admin/projects'
+    | '/{-$locale}/_dashboard/_admin/admin/promo-code'
     | '/{-$locale}/_dashboard/_admin/admin/reviewers'
     | '/{-$locale}/_dashboard/_admin/admin/users'
     | '/{-$locale}/_dashboard/_admin/admin/discussions'
@@ -730,6 +780,7 @@ export interface FileRouteTypes {
     | '/{-$locale}/_dashboard/_admin/admin/affiliate/$id'
     | '/{-$locale}/_dashboard/_admin/admin/organizations/$id'
     | '/{-$locale}/_dashboard/_admin/admin/projects/$id'
+    | '/{-$locale}/_dashboard/_admin/admin/promo-code/$id'
     | '/{-$locale}/_dashboard/_admin/admin/reviewers/$reviewerId'
     | '/{-$locale}/_dashboard/_admin/admin/users/$id'
     | '/{-$locale}/_dashboard/_editor/_content/dictionary/$dictionaryKey'
@@ -739,6 +790,7 @@ export interface FileRouteTypes {
     | '/{-$locale}/_dashboard/_admin/admin/affiliate/'
     | '/{-$locale}/_dashboard/_admin/admin/organizations/'
     | '/{-$locale}/_dashboard/_admin/admin/projects/'
+    | '/{-$locale}/_dashboard/_admin/admin/promo-code/'
     | '/{-$locale}/_dashboard/_admin/admin/reviewers/'
     | '/{-$locale}/_dashboard/_admin/admin/users/'
     | '/{-$locale}/_dashboard/_editor/_content/dictionary/'
@@ -839,6 +891,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char123LocaleChar125OtherPricingRouteImport
       parentRoute: typeof Char123LocaleChar125OtherRouteRoute
     }
+    '/{-$locale}/_other/affiliation': {
+      id: '/{-$locale}/_other/affiliation'
+      path: '/affiliation'
+      fullPath: '/{-$locale}/affiliation'
+      preLoaderRoute: typeof Char123LocaleChar125OtherAffiliationRouteImport
+      parentRoute: typeof Char123LocaleChar125OtherRouteRoute
+    }
     '/{-$locale}/_dashboard/projects': {
       id: '/{-$locale}/_dashboard/projects'
       path: '/projects'
@@ -911,10 +970,10 @@ declare module '@tanstack/react-router' {
     }
     '/{-$locale}/_other/affiliation/$invitationId': {
       id: '/{-$locale}/_other/affiliation/$invitationId'
-      path: '/affiliation/$invitationId'
+      path: '/$invitationId'
       fullPath: '/{-$locale}/affiliation/$invitationId'
       preLoaderRoute: typeof Char123LocaleChar125OtherAffiliationInvitationIdRouteImport
-      parentRoute: typeof Char123LocaleChar125OtherRouteRoute
+      parentRoute: typeof Char123LocaleChar125OtherAffiliationRoute
     }
     '/{-$locale}/_other/auth/_not-authenticated': {
       id: '/{-$locale}/_other/auth/_not-authenticated'
@@ -1021,6 +1080,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminReviewersRouteRouteImport
       parentRoute: typeof Char123LocaleChar125DashboardAdminRouteRoute
     }
+    '/{-$locale}/_dashboard/_admin/admin/promo-code': {
+      id: '/{-$locale}/_dashboard/_admin/admin/promo-code'
+      path: '/admin/promo-code'
+      fullPath: '/{-$locale}/admin/promo-code'
+      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminPromoCodeRouteRouteImport
+      parentRoute: typeof Char123LocaleChar125DashboardAdminRouteRoute
+    }
     '/{-$locale}/_dashboard/_admin/admin/projects': {
       id: '/{-$locale}/_dashboard/_admin/admin/projects'
       path: '/admin/projects'
@@ -1069,6 +1135,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/{-$locale}/admin/reviewers/'
       preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminReviewersIndexRouteImport
       parentRoute: typeof Char123LocaleChar125DashboardAdminAdminReviewersRouteRoute
+    }
+    '/{-$locale}/_dashboard/_admin/admin/promo-code/': {
+      id: '/{-$locale}/_dashboard/_admin/admin/promo-code/'
+      path: '/'
+      fullPath: '/{-$locale}/admin/promo-code/'
+      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminPromoCodeIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125DashboardAdminAdminPromoCodeRouteRoute
     }
     '/{-$locale}/_dashboard/_admin/admin/projects/': {
       id: '/{-$locale}/_dashboard/_admin/admin/projects/'
@@ -1132,6 +1205,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/{-$locale}/admin/reviewers/$reviewerId'
       preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminReviewersReviewerIdRouteImport
       parentRoute: typeof Char123LocaleChar125DashboardAdminAdminReviewersRouteRoute
+    }
+    '/{-$locale}/_dashboard/_admin/admin/promo-code/$id': {
+      id: '/{-$locale}/_dashboard/_admin/admin/promo-code/$id'
+      path: '/$id'
+      fullPath: '/{-$locale}/admin/promo-code/$id'
+      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminPromoCodeIdRouteImport
+      parentRoute: typeof Char123LocaleChar125DashboardAdminAdminPromoCodeRouteRoute
     }
     '/{-$locale}/_dashboard/_admin/admin/projects/$id': {
       id: '/{-$locale}/_dashboard/_admin/admin/projects/$id'
@@ -1211,6 +1291,24 @@ const Char123LocaleChar125DashboardAdminAdminProjectsRouteRouteWithChildren =
     Char123LocaleChar125DashboardAdminAdminProjectsRouteRouteChildren,
   )
 
+interface Char123LocaleChar125DashboardAdminAdminPromoCodeRouteRouteChildren {
+  Char123LocaleChar125DashboardAdminAdminPromoCodeIdRoute: typeof Char123LocaleChar125DashboardAdminAdminPromoCodeIdRoute
+  Char123LocaleChar125DashboardAdminAdminPromoCodeIndexRoute: typeof Char123LocaleChar125DashboardAdminAdminPromoCodeIndexRoute
+}
+
+const Char123LocaleChar125DashboardAdminAdminPromoCodeRouteRouteChildren: Char123LocaleChar125DashboardAdminAdminPromoCodeRouteRouteChildren =
+  {
+    Char123LocaleChar125DashboardAdminAdminPromoCodeIdRoute:
+      Char123LocaleChar125DashboardAdminAdminPromoCodeIdRoute,
+    Char123LocaleChar125DashboardAdminAdminPromoCodeIndexRoute:
+      Char123LocaleChar125DashboardAdminAdminPromoCodeIndexRoute,
+  }
+
+const Char123LocaleChar125DashboardAdminAdminPromoCodeRouteRouteWithChildren =
+  Char123LocaleChar125DashboardAdminAdminPromoCodeRouteRoute._addFileChildren(
+    Char123LocaleChar125DashboardAdminAdminPromoCodeRouteRouteChildren,
+  )
+
 interface Char123LocaleChar125DashboardAdminAdminReviewersRouteRouteChildren {
   Char123LocaleChar125DashboardAdminAdminReviewersReviewerIdRoute: typeof Char123LocaleChar125DashboardAdminAdminReviewersReviewerIdRoute
   Char123LocaleChar125DashboardAdminAdminReviewersIndexRoute: typeof Char123LocaleChar125DashboardAdminAdminReviewersIndexRoute
@@ -1251,6 +1349,7 @@ interface Char123LocaleChar125DashboardAdminRouteRouteChildren {
   Char123LocaleChar125DashboardAdminAdminAffiliateRouteRoute: typeof Char123LocaleChar125DashboardAdminAdminAffiliateRouteRouteWithChildren
   Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRoute: typeof Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRouteWithChildren
   Char123LocaleChar125DashboardAdminAdminProjectsRouteRoute: typeof Char123LocaleChar125DashboardAdminAdminProjectsRouteRouteWithChildren
+  Char123LocaleChar125DashboardAdminAdminPromoCodeRouteRoute: typeof Char123LocaleChar125DashboardAdminAdminPromoCodeRouteRouteWithChildren
   Char123LocaleChar125DashboardAdminAdminReviewersRouteRoute: typeof Char123LocaleChar125DashboardAdminAdminReviewersRouteRouteWithChildren
   Char123LocaleChar125DashboardAdminAdminUsersRouteRoute: typeof Char123LocaleChar125DashboardAdminAdminUsersRouteRouteWithChildren
   Char123LocaleChar125DashboardAdminAdminDiscussionsRoute: typeof Char123LocaleChar125DashboardAdminAdminDiscussionsRoute
@@ -1264,6 +1363,8 @@ const Char123LocaleChar125DashboardAdminRouteRouteChildren: Char123LocaleChar125
       Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRouteWithChildren,
     Char123LocaleChar125DashboardAdminAdminProjectsRouteRoute:
       Char123LocaleChar125DashboardAdminAdminProjectsRouteRouteWithChildren,
+    Char123LocaleChar125DashboardAdminAdminPromoCodeRouteRoute:
+      Char123LocaleChar125DashboardAdminAdminPromoCodeRouteRouteWithChildren,
     Char123LocaleChar125DashboardAdminAdminReviewersRouteRoute:
       Char123LocaleChar125DashboardAdminAdminReviewersRouteRouteWithChildren,
     Char123LocaleChar125DashboardAdminAdminUsersRouteRoute:
@@ -1340,6 +1441,21 @@ const Char123LocaleChar125DashboardRouteRouteWithChildren =
     Char123LocaleChar125DashboardRouteRouteChildren,
   )
 
+interface Char123LocaleChar125OtherAffiliationRouteChildren {
+  Char123LocaleChar125OtherAffiliationInvitationIdRoute: typeof Char123LocaleChar125OtherAffiliationInvitationIdRoute
+}
+
+const Char123LocaleChar125OtherAffiliationRouteChildren: Char123LocaleChar125OtherAffiliationRouteChildren =
+  {
+    Char123LocaleChar125OtherAffiliationInvitationIdRoute:
+      Char123LocaleChar125OtherAffiliationInvitationIdRoute,
+  }
+
+const Char123LocaleChar125OtherAffiliationRouteWithChildren =
+  Char123LocaleChar125OtherAffiliationRoute._addFileChildren(
+    Char123LocaleChar125OtherAffiliationRouteChildren,
+  )
+
 interface Char123LocaleChar125OtherAuthAuthenticatedRouteRouteChildren {
   Char123LocaleChar125OtherAuthAuthenticatedPasswordChangeRoute: typeof Char123LocaleChar125OtherAuthAuthenticatedPasswordChangeRoute
 }
@@ -1377,10 +1493,10 @@ const Char123LocaleChar125OtherAuthNotAuthenticatedRouteRouteWithChildren =
   )
 
 interface Char123LocaleChar125OtherRouteRouteChildren {
+  Char123LocaleChar125OtherAffiliationRoute: typeof Char123LocaleChar125OtherAffiliationRouteWithChildren
   Char123LocaleChar125OtherPricingRoute: typeof Char123LocaleChar125OtherPricingRoute
   Char123LocaleChar125OtherAuthAuthenticatedRouteRoute: typeof Char123LocaleChar125OtherAuthAuthenticatedRouteRouteWithChildren
   Char123LocaleChar125OtherAuthNotAuthenticatedRouteRoute: typeof Char123LocaleChar125OtherAuthNotAuthenticatedRouteRouteWithChildren
-  Char123LocaleChar125OtherAffiliationInvitationIdRoute: typeof Char123LocaleChar125OtherAffiliationInvitationIdRoute
   Char123LocaleChar125OtherAuthCliLoginRoute: typeof Char123LocaleChar125OtherAuthCliLoginRoute
   Char123LocaleChar125OtherAuthDemoRoute: typeof Char123LocaleChar125OtherAuthDemoRoute
   Char123LocaleChar125OtherFindReviewerReviewerIdRoute: typeof Char123LocaleChar125OtherFindReviewerReviewerIdRoute
@@ -1395,14 +1511,14 @@ interface Char123LocaleChar125OtherRouteRouteChildren {
 
 const Char123LocaleChar125OtherRouteRouteChildren: Char123LocaleChar125OtherRouteRouteChildren =
   {
+    Char123LocaleChar125OtherAffiliationRoute:
+      Char123LocaleChar125OtherAffiliationRouteWithChildren,
     Char123LocaleChar125OtherPricingRoute:
       Char123LocaleChar125OtherPricingRoute,
     Char123LocaleChar125OtherAuthAuthenticatedRouteRoute:
       Char123LocaleChar125OtherAuthAuthenticatedRouteRouteWithChildren,
     Char123LocaleChar125OtherAuthNotAuthenticatedRouteRoute:
       Char123LocaleChar125OtherAuthNotAuthenticatedRouteRouteWithChildren,
-    Char123LocaleChar125OtherAffiliationInvitationIdRoute:
-      Char123LocaleChar125OtherAffiliationInvitationIdRoute,
     Char123LocaleChar125OtherAuthCliLoginRoute:
       Char123LocaleChar125OtherAuthCliLoginRoute,
     Char123LocaleChar125OtherAuthDemoRoute:

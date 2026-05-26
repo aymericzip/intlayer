@@ -2,19 +2,26 @@ import {
   acceptAffiliateInvitation,
   cancelSubscription,
   createPortalSession,
+  createPromoCode,
+  deletePromoCode,
   getAffiliate,
   getAffiliateAccountSession,
   getAffiliateById,
   getAffiliateInvitation,
+  getAffiliateOnboardingLink,
+  getAffiliatePromoCode,
   getAffiliateStats,
   getAffiliates,
   getInvoices,
   getPaymentMethod,
   getPricing,
+  getPromoCodeById,
+  getPromoCodes,
   getSubscription,
   grantAffiliateAccess,
   sendAffiliateInvitation,
   updateAffiliateStatus,
+  updatePromoCode,
 } from '@controllers/stripe.controller';
 import type { FastifyInstance } from 'fastify';
 import type { Routes } from '@/types/Routes';
@@ -80,6 +87,11 @@ export const getStripeRoutes = () =>
       url: `${baseURL()}/affiliate/account-session`,
       method: 'POST',
     },
+    getAffiliateOnboardingLink: {
+      urlModel: '/affiliate/onboarding-link',
+      url: `${baseURL()}/affiliate/onboarding-link`,
+      method: 'GET',
+    },
     getAffiliateStats: {
       urlModel: '/affiliate/stats',
       url: `${baseURL()}/affiliate/stats`,
@@ -107,6 +119,37 @@ export const getStripeRoutes = () =>
       url: ({ id }: { id: string }) => `${baseURL()}/affiliates/${id}/status`,
       method: 'PATCH',
     },
+    getPromoCodes: {
+      urlModel: '/promo-codes',
+      url: `${baseURL()}/promo-codes`,
+      method: 'GET',
+    },
+    getPromoCodeById: {
+      urlModel: '/promo-codes/:id',
+      url: ({ id }: { id: string }) => `${baseURL()}/promo-codes/${id}`,
+      method: 'GET',
+    },
+    createPromoCode: {
+      urlModel: '/promo-codes',
+      url: `${baseURL()}/promo-codes`,
+      method: 'POST',
+    },
+    updatePromoCode: {
+      urlModel: '/promo-codes/:id',
+      url: ({ id }: { id: string }) => `${baseURL()}/promo-codes/${id}`,
+      method: 'PATCH',
+    },
+    deletePromoCode: {
+      urlModel: '/promo-codes/:id',
+      url: ({ id }: { id: string }) => `${baseURL()}/promo-codes/${id}`,
+      method: 'DELETE',
+    },
+    getAffiliatePromoCode: {
+      urlModel: '/affiliate-promo-code/:referralCode',
+      url: ({ referralCode }: { referralCode: string }) =>
+        `${baseURL()}/affiliate-promo-code/${referralCode}`,
+      method: 'GET',
+    },
   }) satisfies Routes;
 
 export const stripeRouter = async (fastify: FastifyInstance) => {
@@ -133,6 +176,10 @@ export const stripeRouter = async (fastify: FastifyInstance) => {
     getStripeRoutes().getAffiliateAccountSession.urlModel,
     getAffiliateAccountSession
   );
+  fastify.get(
+    getStripeRoutes().getAffiliateOnboardingLink.urlModel,
+    getAffiliateOnboardingLink
+  );
   fastify.get(getStripeRoutes().getAffiliateStats.urlModel, getAffiliateStats);
   fastify.post(
     getStripeRoutes().sendAffiliateInvitation.urlModel,
@@ -149,5 +196,14 @@ export const stripeRouter = async (fastify: FastifyInstance) => {
   fastify.patch(
     getStripeRoutes().updateAffiliateStatus.urlModel,
     updateAffiliateStatus
+  );
+  fastify.get(getStripeRoutes().getPromoCodes.urlModel, getPromoCodes);
+  fastify.get(getStripeRoutes().getPromoCodeById.urlModel, getPromoCodeById);
+  fastify.post(getStripeRoutes().createPromoCode.urlModel, createPromoCode);
+  fastify.patch(getStripeRoutes().updatePromoCode.urlModel, updatePromoCode);
+  fastify.delete(getStripeRoutes().deletePromoCode.urlModel, deletePromoCode);
+  fastify.get(
+    getStripeRoutes().getAffiliatePromoCode.urlModel,
+    getAffiliatePromoCode
   );
 };

@@ -1,5 +1,3 @@
-'use client';
-
 import { Modal } from '@intlayer/design-system/modal';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';

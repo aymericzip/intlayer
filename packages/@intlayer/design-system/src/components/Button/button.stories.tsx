@@ -703,8 +703,14 @@ export const FullWidthButton: Story = {
     (Story) => (
       <div className="mx-auto max-w-md rounded-lg border border-gray-200 p-4">
         <div className="mb-4">
-          <label className="mb-2 block font-medium text-sm">Email</label>
+          <label
+            htmlFor="full-width-email"
+            className="mb-2 block font-medium text-sm"
+          >
+            Email
+          </label>
           <input
+            id="full-width-email"
             type="email"
             className="w-full rounded border border-gray-300 p-2"
             placeholder="Enter your email"
@@ -1005,7 +1011,7 @@ export const FormButtons: Story = {
           type="button"
           label="Cancel form"
           variant={ButtonVariant.OUTLINE}
-          color={ButtonColor.DESTRUCTIVE}
+          color={ButtonColor.ERROR}
         >
           Cancel
         </Button>

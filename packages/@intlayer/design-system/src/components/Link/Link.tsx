@@ -28,7 +28,6 @@ export enum LinkVariant {
 export enum LinkColor {
   PRIMARY = 'primary',
   SECONDARY = 'secondary',
-  DESTRUCTIVE = 'destructive',
   NEUTRAL = 'neutral',
   LIGHT = 'light',
   DARK = 'dark',
@@ -102,7 +101,6 @@ export const linkVariants = cva(
       color: {
         [`${LinkColor.PRIMARY}`]: 'text-primary',
         [`${LinkColor.SECONDARY}`]: 'text-secondary',
-        [`${LinkColor.DESTRUCTIVE}`]: 'text-destructive',
         [`${LinkColor.NEUTRAL}`]: 'text-neutral',
         [`${LinkColor.LIGHT}`]: 'text-white',
         [`${LinkColor.DARK}`]: 'text-neutral-800',
@@ -178,11 +176,6 @@ export const linkVariants = cva(
         variant: [LinkVariant.BUTTON, LinkVariant.BUTTON_OUTLINED],
         color: LinkColor.SECONDARY,
         class: 'ring-secondary/20',
-      },
-      {
-        variant: [LinkVariant.BUTTON, LinkVariant.BUTTON_OUTLINED],
-        color: LinkColor.DESTRUCTIVE,
-        class: 'ring-destructive/20',
       },
       {
         variant: [LinkVariant.BUTTON, LinkVariant.BUTTON_OUTLINED],
