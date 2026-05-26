@@ -7,6 +7,7 @@ import type {
   GetAffiliateAccountSessionResult,
   GetAffiliateByIdResult,
   GetAffiliateInvitationResult,
+  GetAffiliateInvitationsResult,
   GetAffiliateOnboardingLinkResult,
   GetAffiliateResult,
   GetAffiliateStatsResult,
@@ -217,6 +218,26 @@ export const getStripeAPI = (
     );
 
   /**
+   * Admin-only: returns a paginated list of all affiliate invitations.
+   */
+  const getAffiliateInvitations = async (
+    params: GetAffiliatesParams = {},
+    otherOptions: FetcherOptions = {}
+  ) => {
+    const qs = new URLSearchParams();
+    if (params.page) qs.set('page', String(params.page));
+    if (params.pageSize) qs.set('pageSize', String(params.pageSize));
+    if (params.search) qs.set('search', params.search);
+    const query = qs.toString() ? `?${qs.toString()}` : '';
+    return await fetcher<GetAffiliateInvitationsResult>(
+      `${STRIPE_API_ROUTE}/affiliate/invitations${query}`,
+      authAPIOptions,
+      otherOptions,
+      { method: 'GET' }
+    );
+  };
+
+  /**
    * Sends an affiliate invitation email to the given address (admin only).
    */
   const sendAffiliateInvitation = async (
@@ -380,6 +401,7 @@ export const getStripeAPI = (
     getAffiliateAccountSession,
     getAffiliateOnboardingLink,
     getAffiliateStats,
+    getAffiliateInvitations,
     sendAffiliateInvitation,
     getAffiliateInvitation,
     acceptAffiliateInvitation,

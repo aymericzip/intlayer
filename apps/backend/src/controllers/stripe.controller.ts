@@ -584,7 +584,7 @@ export const getAffiliates = async (
 
     return reply.send(
       formatPaginatedResponse<AffiliateAPI>({
-        data: affiliates.map((a) => a.toJSON() as AffiliateAPI),
+        data: affiliates.map((affiliate) => affiliate.toJSON() as AffiliateAPI),
         page,
         pageSize,
         totalPages: getNumberOfPages(totalItems),
@@ -762,6 +762,53 @@ export const getAffiliateStats = async (
 
     return reply.send(
       formatResponse<GetAffiliateStatsResult['data']>({ data: stats })
+    );
+  } catch (error) {
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
+  }
+};
+
+export type GetAffiliateInvitationsResult =
+  PaginatedResponse<AffiliateInvitationAPI>;
+
+/**
+ * Admin-only: returns a paginated list of all affiliate invitations.
+ */
+export const getAffiliateInvitations = async (
+  request: FastifyRequest<{ Querystring: GetAffiliatesParams }>,
+  reply: FastifyReply
+): Promise<void> => {
+  try {
+    const { user } = request.session || {};
+    if (!user || user.role !== 'admin') {
+      return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_FOUND');
+    }
+
+    const { filters, skip, pageSize, page, getNumberOfPages } =
+      getFiltersAndPaginationFromBody<{ search?: string }>(request);
+
+    const query: Record<string, unknown> = {};
+    if (filters.search) {
+      query.email = { $regex: filters.search, $options: 'i' };
+    }
+
+    const invitations = await affiliateService.findAffiliateInvitations(
+      query,
+      skip,
+      pageSize
+    );
+    const totalItems = await affiliateService.countAffiliateInvitations(query);
+
+    return reply.send(
+      formatPaginatedResponse<AffiliateInvitationAPI>({
+        data: invitations.map(
+          (invitation) => invitation.toJSON() as AffiliateInvitationAPI
+        ),
+        page,
+        pageSize,
+        totalPages: getNumberOfPages(totalItems),
+        totalItems,
+      })
     );
   } catch (error) {
     return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
@@ -974,7 +1021,7 @@ export const getPromoCodes = async (
 
     return reply.send(
       formatPaginatedResponse<PromoCodeAPI>({
-        data: promoCodes.map((p) => p.toJSON() as PromoCodeAPI),
+        data: promoCodes.map((promoCode) => promoCode.toJSON() as PromoCodeAPI),
         page,
         pageSize,
         totalPages: getNumberOfPages(totalItems),
@@ -1007,7 +1054,7 @@ export const getPromoCodeById = async (
     }
 
     return reply.send(
-      formatResponse<PromoCodeAPI>(promoCode.toJSON() as PromoCodeAPI)
+      formatResponse<PromoCodeAPI>({ data: promoCode.toJSON() as PromoCodeAPI })
     );
   } catch (error) {
     return ErrorHandler.handleAppErrorResponse(reply, error as AppError);

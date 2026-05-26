@@ -8,6 +8,7 @@ import {
   getAffiliateAccountSession,
   getAffiliateById,
   getAffiliateInvitation,
+  getAffiliateInvitations,
   getAffiliateOnboardingLink,
   getAffiliatePromoCode,
   getAffiliateStats,
@@ -97,6 +98,11 @@ export const getStripeRoutes = () =>
       url: `${baseURL()}/affiliate/stats`,
       method: 'GET',
     },
+    getAffiliateInvitations: {
+      urlModel: '/affiliate/invitations',
+      url: `${baseURL()}/affiliate/invitations`,
+      method: 'GET',
+    },
     sendAffiliateInvitation: {
       urlModel: '/affiliate/invite',
       url: `${baseURL()}/affiliate/invite`,
@@ -181,6 +187,10 @@ export const stripeRouter = async (fastify: FastifyInstance) => {
     getAffiliateOnboardingLink
   );
   fastify.get(getStripeRoutes().getAffiliateStats.urlModel, getAffiliateStats);
+  fastify.get(
+    getStripeRoutes().getAffiliateInvitations.urlModel,
+    getAffiliateInvitations
+  );
   fastify.post(
     getStripeRoutes().sendAffiliateInvitation.urlModel,
     sendAffiliateInvitation

@@ -28,7 +28,7 @@ function OtherLayout() {
     <div
       className={cn(
         'relative flex min-h-screen flex-col',
-        isFindReviewer && 'lg:h-[100dvh] lg:overflow-hidden'
+        isFindReviewer && 'lg:h-dvh lg:overflow-hidden'
       )}
     >
       <Navbar />

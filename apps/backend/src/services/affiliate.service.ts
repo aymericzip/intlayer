@@ -352,6 +352,20 @@ export const createAffiliateInvitation = async (
   });
 };
 
+export const findAffiliateInvitations = async (
+  query: Record<string, unknown> = {},
+  skip = 0,
+  limit = 20
+): Promise<AffiliateInvitationDocument[]> =>
+  AffiliateInvitationModel.find(query)
+    .sort({ createdAt: -1 })
+    .skip(skip)
+    .limit(limit);
+
+export const countAffiliateInvitations = async (
+  query: Record<string, unknown> = {}
+): Promise<number> => AffiliateInvitationModel.countDocuments(query);
+
 export const getAffiliateInvitationByToken = async (
   token: string
 ): Promise<AffiliateInvitationDocument | null> => {

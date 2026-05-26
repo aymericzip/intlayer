@@ -1850,6 +1850,21 @@ export const useGetAffiliates = (
   });
 };
 
+export const useGetAffiliateInvitations = (
+  params?: GetAffiliatesParams,
+  options?: Partial<UseQueryOptions>
+) => {
+  const intlayerOAuth = useIntlayerOAuth();
+
+  return useAppQuery({
+    queryKey: ['affiliate-invitations', params],
+    queryFn: ({ signal }) =>
+      intlayerOAuth.stripe.getAffiliateInvitations(params, { signal }),
+    requireUser: true,
+    ...options,
+  });
+};
+
 export const useGetAffiliateById = (
   id: string,
   options?: Partial<UseQueryOptions>
@@ -1934,6 +1949,9 @@ export const useSendAffiliateInvitation = () => {
     mutationKey: ['affiliate', 'invitation', 'send'],
     mutationFn: (body: SendAffiliateInvitationBody) =>
       intlayerOAuth.stripe.sendAffiliateInvitation(body),
+    meta: {
+      invalidateQueries: [['affiliate-invitations']],
+    },
   });
 };
 

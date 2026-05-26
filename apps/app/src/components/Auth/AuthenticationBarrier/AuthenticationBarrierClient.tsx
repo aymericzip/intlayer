@@ -44,9 +44,12 @@ export const AuthenticationBarrierClient: FC<
     if (isEnabled === false) return;
     if (typeof sessionClient === 'undefined') return;
 
+    const redirectionPathname = redirectionRoute?.split('?')[0];
     const samePath =
       typeof window !== 'undefined' &&
-      (redirectionRoute === pathname || redirectionRoute === originUrl);
+      (redirectionRoute === pathname ||
+        redirectionPathname === pathname ||
+        redirectionRoute === originUrl);
 
     if (samePath) return;
 
