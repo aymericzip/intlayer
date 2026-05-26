@@ -46,7 +46,11 @@ export const useIntlayerOAuthOptions = (props?: UseIntlayerAuthProps) => {
     ...(props?.options ?? {}),
   };
 
-  const resolvedConfig = props?.intlayerConfiguration ?? configuration;
+  const rawConfig = props?.intlayerConfiguration ?? configuration;
+  // Only use the config if it's fully populated; an empty object (e.g. while
+  // the session is still loading) has no `editor` key and would crash API
+  // getters that do `intlayerConfig.editor.backendURL`.
+  const resolvedConfig = rawConfig?.editor ? rawConfig : undefined;
 
   return { options, resolvedConfig };
 };

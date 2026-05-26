@@ -3,27 +3,6 @@ import { type Dictionary, t } from 'intlayer';
 const userEditFormContent = {
   key: 'user-edit-form',
   content: {
-    title: t({
-      en: 'User Details',
-      fr: "Détails de l'utilisateur",
-      es: 'Detalles del usuario',
-      'en-GB': 'User Details',
-      de: 'Benutzerdetails',
-      ja: 'ユーザー詳細',
-      ko: '사용자 세부정보',
-      zh: '用户详情',
-      it: 'Dettagli utente',
-      pt: 'Detalhes do usuário',
-      hi: 'उपयोगकर्ता विवरण',
-      ar: 'تفاصيل المستخدم',
-      ru: 'Детали пользователя',
-      tr: 'Kullanıcı Detayları',
-      pl: 'Szczegóły użytkownika',
-      id: 'Detail Pengguna',
-      vi: 'Chi tiết người dùng',
-      uk: 'Деталі користувача',
-    }),
-
     statusLabels: {
       verified: t({
         en: 'Verified',

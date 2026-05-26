@@ -3,27 +3,6 @@ import { type Dictionary, t } from 'intlayer';
 const sendInvitationFormContent = {
   key: 'send-invitation-form',
   content: {
-    failedToSendInvitationPlease: t({
-      en: 'Failed to send invitation. Please try again.',
-      ru: 'Не удалось отправить приглашение. Пожалуйста, попробуйте еще раз.',
-      ja: '招待状の送信に失敗しました。もう一度お試しください。',
-      fr: "Échec de l'envoi de l'invitation. Veuillez réessayer.",
-      ko: '초대장을 보내지 못했습니다. 다시 시도해 주세요.',
-      zh: '发送邀请失败。请重试。',
-      es: 'Error al enviar la invitación. Por favor, inténtelo de nuevo.',
-      de: 'Fehler beim Senden der Einladung. Bitte versuchen Sie es erneut.',
-      ar: 'فشل في إرسال الدعوة. يرجى المحاولة مرة أخرى.',
-      it: "Impossibile inviare l'invito. Riprova.",
-      'en-GB': 'Failed to send invitation. Please try again.',
-      pt: 'Falha ao enviar o convite. Por favor, tente novamente.',
-      hi: 'निमंत्रण भेजने में विफल। कृपया पुनः प्रयास करें।',
-      tr: 'Davetiye gönderilemedi. Lütfen tekrar deneyin.',
-      pl: 'Nie udało się wysłać zaproszenia. Spróbuj ponownie.',
-      id: 'Gagal mengirim undangan. Silakan coba lagi.',
-      vi: 'Không thể gửi lời mời. Vui lòng thử lại.',
-      uk: 'Не вдалося надіслати запрошення. Будь ласка, спробуйте ще раз.',
-    }),
-
     emailAddress: t({
       en: 'Email address',
       ru: 'Адрес электронной почты',

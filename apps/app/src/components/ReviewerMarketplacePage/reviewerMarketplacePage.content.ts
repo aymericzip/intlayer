@@ -86,26 +86,6 @@ const reviewerMarketplacePageContent = {
       vi: 'Bộ lọc tìm kiếm người đánh giá',
       uk: 'Фільтри пошуку рецензентів',
     }),
-    filterFormAriaLabel: t({
-      en: 'Filter reviewers',
-      fr: 'Filtrer les traducteurs',
-      es: 'Filtrar traductores',
-      'en-GB': 'Filter reviewers',
-      de: 'Reviewer filtern',
-      ja: 'レビュアーをフィルター',
-      ko: '리뷰어 필터링',
-      zh: '筛选审稿人',
-      it: 'Filtra revisori',
-      pt: 'Filtrar revisores',
-      hi: 'समीक्षकों को फ़िल्टर करें',
-      ar: 'تصفية المراجعين',
-      ru: 'Фильтровать рецензентов',
-      tr: 'İnceleyicileri filtrele',
-      pl: 'Filtruj recenzentów',
-      id: 'Filter peninjau',
-      vi: 'Lọc người đánh giá',
-      uk: 'Фільтрувати рецензентів',
-    }),
     resultsAriaLabel: t({
       en: 'Reviewer results',
       fr: 'Résultats des traducteurs',
@@ -252,29 +232,6 @@ const reviewerMarketplacePageContent = {
         })
       ),
     }),
-    pageOfTotal: insert(
-      t({
-        en: 'Page {{page}} of {{totalPages}}',
-        fr: 'Page {{page}} sur {{totalPages}}',
-        es: 'Página {{page}} de {{totalPages}}',
-        'en-GB': 'Page {{page}} of {{totalPages}}',
-        de: 'Seite {{page}} von {{totalPages}}',
-        ja: '{{page}}/{{totalPages}}ページ',
-        ko: '{{totalPages}}페이지 중 {{page}}페이지',
-        zh: '第 {{page}} 页，共 {{totalPages}} 页',
-        it: 'Pagina {{page}} di {{totalPages}}',
-        pt: 'Página {{page}} de {{totalPages}}',
-        hi: 'पृष्ठ {{page}} / {{totalPages}}',
-        ar: 'الصفحة {{page}} من {{totalPages}}',
-        ru: 'Страница {{page}} из {{totalPages}}',
-        tr: '{{totalPages}} sayfadan {{page}}. sayfa',
-        pl: 'Strona {{page}} z {{totalPages}}',
-        id: 'Halaman {{page}} dari {{totalPages}}',
-        vi: 'Trang {{page}} / {{totalPages}}',
-        uk: 'Сторінка {{page}} з {{totalPages}}',
-      })
-    ),
-
     // ReviewerCard accessibility labels
     cardLanguagePairsAriaLabel: t({
       en: 'Language pairs',
