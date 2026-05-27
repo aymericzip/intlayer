@@ -3,7 +3,7 @@ export type {
   SitemapUrlEntry,
 } from './generateSitemap';
 export { generateSitemap, generateSitemapUrl } from './generateSitemap';
-export { getBrowserLocale, localeStorageOptions } from './getBrowserLocale';
+export { getBrowserLocale } from './getBrowserLocale';
 export { getHTMLTextDir } from './getHTMLTextDir';
 export { getLocale } from './getLocale';
 export { getLocaleFromPath } from './getLocaleFromPath';

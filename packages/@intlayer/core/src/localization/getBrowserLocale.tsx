@@ -1,10 +1,7 @@
 import { internationalization } from '@intlayer/config/built';
 import { DEFAULT_LOCALE } from '@intlayer/config/defaultValues';
 import type { Locale } from '@intlayer/types/allLocales';
-import {
-  getLocaleFromStorageClient,
-  type LocaleStorageClientOptions,
-} from '../utils/localeStorage';
+import { getLocaleFromStorageClient } from '../utils/localeStorage';
 import { localeDetector } from './localeDetector';
 
 export enum LanguageDetector {
@@ -13,32 +10,6 @@ export enum LanguageDetector {
   Navigator = 'navigator',
   HtmlTag = 'htmlTag',
 }
-
-export const localeStorageOptions: LocaleStorageClientOptions = {
-  getCookie: (name: string) =>
-    document.cookie
-      .split(';')
-      .find((c) => c.trim().startsWith(`${name}=`))
-      ?.split('=')[1],
-  getLocaleStorage: (name: string) => localStorage.getItem(name),
-  getSessionStorage: (name: string) => sessionStorage.getItem(name),
-  isCookieEnabled: true,
-  setCookieStore: (name, value, attributes) =>
-    cookieStore.set({
-      name,
-      value,
-      path: attributes.path,
-      domain: attributes.domain,
-      expires: attributes.expires,
-      sameSite: attributes.sameSite,
-    }),
-  setCookieString: (_name, cookie) => {
-    // biome-ignore lint/suspicious/noDocumentCookie: set cookie fallback
-    document.cookie = cookie;
-  },
-  setSessionStorage: (name, value) => sessionStorage.setItem(name, value),
-  setLocaleStorage: (name, value) => localStorage.setItem(name, value),
-};
 
 // Default settings for the language detector
 type LanguageDetectorOptions = {

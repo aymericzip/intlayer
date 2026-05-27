@@ -1,7 +1,7 @@
-import { localeStorageOptions } from '@intlayer/core/localization';
 import {
   getLocaleFromStorageClient,
   LocaleStorageClient,
+  localeStorageOptions,
   setLocaleInStorageClient as setLocaleInStorageCore,
 } from '@intlayer/core/utils';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
