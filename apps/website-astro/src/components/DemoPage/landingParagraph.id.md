@@ -1,0 +1,4 @@
+- **Delegasikan pengelolaan konten ke tim Anda** dengan mengubah aplikasi Anda menjadi CMS dengan satu klik.
+- **Permudah pemformatan konten** dengan dukungan Markdown, sehingga lebih mudah menyusun dan menata konten Anda.
+- **Tingkatkan produktivitas Anda dengan AI**, memanfaatkan saran cerdas dan otomatisasi untuk menyederhanakan pembuatan konten.
+- **Dukung banyak bahasa** tanpa kesulitan, memastikan lokalisasi yang mulus untuk audiens global.

@@ -1,0 +1,23 @@
+---
+import {
+  getLocaleFromPath,
+  getPrefix,
+  type LocalesValues,
+  localeMap,
+} from 'intlayer';
+import { BlogListIsland } from '@/components/islands/BlogListIsland';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+
+export const prerender = true;
+
+export const getStaticPaths = () =>
+  localeMap(({ locale }) => ({
+    params: { locale: getPrefix(locale).localePrefix },
+  }));
+
+const locale = getLocaleFromPath(Astro.url.pathname) as LocalesValues;
+---
+
+<BaseLayout locale={locale} title="Blog | Intlayer">
+  <BlogListIsland locale={locale} client:load />
+</BaseLayout>

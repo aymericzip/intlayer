@@ -43,23 +43,23 @@ const isValidDoc = (doc: DocMetadata) => {
     if (!doc) return false;
 
     if (typeof doc.title !== 'string') {
-      console.error('Invalid doc title:', doc);
+      console.debug('Skipping doc without valid title:', doc.docKey);
       return false;
     }
 
     if (doc.description && typeof doc.description !== 'string') {
-      console.error('Invalid doc description:', doc);
+      console.debug('Skipping doc without valid description:', doc.docKey);
       return false;
     }
 
     if (typeof doc.url !== 'string') {
-      console.error('Invalid doc url:', doc);
+      console.debug('Skipping doc without valid url:', doc.docKey);
       return false;
     }
 
     return true;
   } catch (error) {
-    console.error('Error validating doc:', error);
+    console.debug('Error validating doc:', error);
     return false;
   }
 };

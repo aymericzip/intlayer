@@ -1,0 +1,81 @@
+---
+import { Website_Doc_Path } from '@intlayer/design-system/routes';
+import {
+  type FrequentQuestionKey,
+  getFrequentQuestion,
+  getFrequentQuestionMetadataBySlug,
+} from '@intlayer/docs';
+import { urlRenamer } from '@utils/markdown';
+import {
+  getLocaleFromPath,
+  getPrefix,
+  type LocalesValues,
+  localeMap,
+} from 'intlayer';
+import { FrequentQuestionPageIsland } from '@/components/islands/FrequentQuestionPageIsland';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+
+export const prerender = true;
+
+export const getStaticPaths = async () => {
+  const fqMetadata = await getFrequentQuestionMetadataBySlug([]);
+  const paths = [];
+
+  for (const { locale } of localeMap(({ locale }) => ({ locale }))) {
+    for (const meta of fqMetadata) {
+      // meta.slugs starts with "frequent-questions" — strip it since it's already in the path.
+      const slugsParam = meta.slugs.slice(1).join('/');
+      paths.push({
+        params: {
+          locale: getPrefix(locale).localePrefix,
+          slugs: slugsParam,
+        },
+        props: { locale, slugs: meta.slugs.slice(1) },
+      });
+    }
+  }
+
+  return paths;
+};
+
+const { locale: localeProp, slugs: slugsProp } = Astro.props as {
+  locale: LocalesValues;
+  slugs: string[];
+};
+const locale =
+  localeProp ?? (getLocaleFromPath(Astro.url.pathname) as LocalesValues);
+const slugs =
+  slugsProp ??
+  (Astro.params.slugs ? String(Astro.params.slugs).split('/') : []);
+
+const frequentQuestionsData = await getFrequentQuestionMetadataBySlug(
+  slugs,
+  locale
+);
+const filteredData = frequentQuestionsData.filter(
+  (fq) => fq.slugs.length === slugs.length + 1
+);
+
+if (!filteredData || filteredData.length === 0) {
+  return Astro.redirect(Website_Doc_Path);
+}
+
+const frequentQuestionData = filteredData[0];
+const file = await getFrequentQuestion(
+  frequentQuestionData?.docKey as FrequentQuestionKey,
+  locale
+);
+const content = urlRenamer(file, locale);
+---
+
+<BaseLayout
+  locale={locale}
+  title={`${frequentQuestionData.title} | Intlayer`}
+  description={frequentQuestionData.description}
+>
+  <FrequentQuestionPageIsland
+    locale={locale}
+    content={content}
+    client:load
+  />
+</BaseLayout>

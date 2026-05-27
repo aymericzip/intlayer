@@ -115,10 +115,8 @@
   --radius-sm: calc(var(--radius) - 4px);
 }
 
-@variant dark 
-(
-:where([data-theme="dark"], [data-theme="dark"] *) &);
-@variant light (:where([data-theme="light"], [data-theme="light"] *) &);
+@custom-variant dark (:where([data-theme="dark"], [data-theme="dark"] *) &);
+@custom-variant light (:where([data-theme="light"], [data-theme="light"] *) &);
 
 :root,
 [data-theme="light"] {
@@ -234,4 +232,4 @@
 
 @plugin '@tailwindcss/aspect-ratio';
 
-@source "./src/**/*.{ts,tsx,svg}";
+@source "./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}";

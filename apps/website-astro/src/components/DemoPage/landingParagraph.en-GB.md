@@ -1,0 +1,4 @@
+- **Delegate content management to your teams** by transforming your application into a CMS with a single click.
+- **Simplify content formatting** with Markdown support, making it easier to structure and style your content.
+- **Boost your productivity with AI**, leveraging smart suggestions and automation to streamline content creation.
+- **Support multiple languages** effortlessly, ensuring seamless localization for global audiences.'

@@ -1,0 +1,29 @@
+---
+import {
+  getIntlayer,
+  getLocaleFromPath,
+  getPrefix,
+  type LocalesValues,
+  localeMap,
+} from 'intlayer';
+import { ScannerIsland } from '@/components/islands/ScannerIsland';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+
+export const prerender = true;
+
+export const getStaticPaths = () =>
+  localeMap(({ locale }) => ({
+    params: { locale: getPrefix(locale).localePrefix },
+  }));
+
+const locale = getLocaleFromPath(Astro.url.pathname) as LocalesValues;
+const { title, description } = getIntlayer('i18n-SEO-scanner', locale);
+---
+
+<BaseLayout
+  locale={locale}
+  title={String(title)}
+  description={String(description)}
+>
+  <ScannerIsland locale={locale} client:load />
+</BaseLayout>

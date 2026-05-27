@@ -110,6 +110,6 @@
   "optionalDependencies": {
     "cobe": "2.0.1",
     "intlayer-editor": "workspace:*",
-    "react-spring": "10.0.3"
+    "react-spring": "10.0.4"
   }
 }

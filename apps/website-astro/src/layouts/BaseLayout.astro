@@ -1,0 +1,168 @@
+---
+import '@/globals.css';
+import '@/shiki.css';
+import type { LocalesValues } from 'intlayer';
+import { getHTMLTextDir, getLocalizedUrl, getMultilingualUrls } from 'intlayer';
+
+interface Props {
+  locale: LocalesValues;
+  title?: string;
+  description?: string;
+  canonical?: string;
+  ogImage?: string;
+}
+
+const {
+  locale,
+  title = 'Intlayer',
+  description = '',
+  canonical,
+  ogImage = '/github-social-preview.png',
+} = Astro.props;
+const siteUrl = import.meta.env.PUBLIC_URL ?? 'https://intlayer.org';
+const canonicalUrl =
+  canonical ??
+  new URL(getLocalizedUrl(Astro.url.pathname, locale), siteUrl).href;
+
+const multilingualUrls = getMultilingualUrls(Astro.url.pathname);
+const hreflangEntries = Object.entries(multilingualUrls) as [string, string][];
+---
+
+<!doctype html>
+<html lang={locale} dir={getHTMLTextDir(locale)} suppressHydrationWarning>
+  <head>
+    <script is:inline>
+      (function () {
+        try {
+          var stored = localStorage.getItem('intlayer-theme');
+          var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          var theme = stored === 'dark' || stored === 'light' ? stored : (prefersDark ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', theme);
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/apple-touch-icon.png"
+    />
+    <link rel="manifest" href="/manifest.json" />
+    <meta
+      name="theme-color"
+      content="#FFFFFF"
+      media="(prefers-color-scheme: light)"
+    />
+    <meta
+      name="theme-color"
+      content="#000000"
+      media="(prefers-color-scheme: dark)"
+    />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+
+    <link rel="canonical" href={canonicalUrl} />
+
+    {
+      hreflangEntries.map(([lang, url]) => (
+        <link
+          rel="alternate"
+          hreflang={lang}
+          href={new URL(url, siteUrl).href}
+        />
+      ))
+    }
+    <link rel="alternate" hreflang="x-default" href={new URL('/', siteUrl).href} />
+
+    <link rel="alternate" type="application/rss+xml" href="/feed.xml" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:site_name" content="Intlayer" />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:site" content="@Intlayer183096" />
+    <meta name="twitter:image" content={ogImage} />
+
+    <link
+      rel="preconnect"
+      href="https://www.googletagmanager.com"
+      crossorigin=""
+    />
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    {
+      import.meta.env.PUBLIC_GOOGLE_TAG_MANAGER_ID && (
+        <script
+          is:inline
+          define:vars={{
+            gtmId: import.meta.env.PUBLIC_GOOGLE_TAG_MANAGER_ID,
+          }}
+        >
+          (function (w, d, s, l, i) {
+            w[l] = w[l] || [];
+            w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+            var f = d.getElementsByTagName(s)[0],
+              j = d.createElement(s),
+              dl = l != 'dataLayer' ? '&l=' + l : '';
+            j.async = true;
+            j.src =
+              'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+            f.parentNode.insertBefore(j, f);
+          })(window, document, 'script', 'dataLayer', gtmId);
+        </script>
+      )
+    }
+
+    {
+      import.meta.env.PUBLIC_GOOGLE_ANALYTICS_ID && (
+        <script
+          is:inline
+          define:vars={{ gaId: import.meta.env.PUBLIC_GOOGLE_ANALYTICS_ID }}
+        >
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', gaId);
+        </script>
+      )
+    }
+
+    {
+      import.meta.env.PUBLIC_AHREFS_KEY && (
+        <script
+          async
+          src="https://analytics.ahrefs.com/analytics.js"
+          data-key={import.meta.env.PUBLIC_AHREFS_KEY}
+        />
+      )
+    }
+  </head>
+  <body
+    class="relative flex size-full min-h-screen flex-col overflow-auto overflow-x-clip scroll-smooth bg-background leading-8 transition md:flex font-inter"
+  >
+    <slot />
+  </body>
+</html>

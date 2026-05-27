@@ -1,0 +1,29 @@
+---
+import {
+  getIntlayer,
+  getLocaleFromPath,
+  getPrefix,
+  type LocalesValues,
+  localeMap,
+} from 'intlayer';
+import { LandingIsland } from '@/components/islands/LandingIsland';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+
+export const prerender = true;
+
+export const getStaticPaths = () =>
+  localeMap(({ locale }) => ({
+    params: { locale: getPrefix(locale).localePrefix },
+  }));
+
+const locale = getLocaleFromPath(Astro.url.pathname) as LocalesValues;
+const { title, description } = getIntlayer('locale-metadata', locale);
+---
+
+<BaseLayout
+  locale={locale}
+  title={String(title)}
+  description={String(description)}
+>
+  <LandingIsland locale={locale} client:load />
+</BaseLayout>

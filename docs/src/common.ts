@@ -125,14 +125,20 @@ export const getFileMetadataRecord = async <
   files: F,
   locale: LocalesValues = defaultLocale as LocalesValues
 ): Promise<Record<keyof F, FileMetadata>> => {
-  const filesEntries = await Promise.all(
-    Object.entries(files).map(async ([key]) => [
-      key,
-      await getFileMetadata(files, key as keyof F, locale),
-    ])
+  const results = await Promise.allSettled(
+    Object.entries(files).map(async ([key]) => {
+      const metadata = await getFileMetadata(files, key as keyof F, locale);
+      return [key, metadata] as [string, FileMetadata];
+    })
   );
+  const filesEntries = results
+    .filter(
+      (r): r is PromiseFulfilledResult<[string, FileMetadata]> =>
+        r.status === 'fulfilled'
+    )
+    .map((r) => r.value);
   const filesResult = Object.fromEntries(filesEntries);
-  return filesResult;
+  return filesResult as Record<keyof F, FileMetadata>;
 };
 
 export const getFileMetadataBySlug = async <

@@ -120,7 +120,7 @@ style="border:none;"
 
 Зірки на GitHub є потужним індикатором популярності проекту, довіри спільноти та довгострокової актуальності. Хоча вони не є прямим показником технічної якості, вони відображають, скільки розробників вважають проект корисним, стежать за його розвитком і, ймовірно, впровадять його. Для оцінки цінності проекту зірки допомагають порівняти інтерес до альтернатив і дають уявлення про зростання екосистеми.
 
-[![Star History Chart](https://api.star-history.com/chart?repos=kaisermann%2Fsvelte-i18n%2Copral%2paraglide-js%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#kaisermann/svelte-i18n&opral/paraglide-js&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=kaisermann%2Fsvelte-i18n%2Copral%2Fparaglide-js%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#kaisermann/svelte-i18n&opral/paraglide-js&aymericzip/intlayer)
 
 ## Результати детально
 

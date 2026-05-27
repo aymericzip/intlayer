@@ -1,0 +1,39 @@
+import type { FrameworkKey } from './constants';
+
+const GITHUB_RAW_BASE_URL =
+  'https://raw.githubusercontent.com/intlayer-org/benchmark-i18n/main/report/scripts';
+
+export const fetchBenchmarkData = async (
+  framework: FrameworkKey,
+  category: 'static' | 'dynamic' | 'scoped-static' | 'scoped-dynamic'
+) => {
+  let mappedFramework: string;
+
+  switch (framework) {
+    case 'tanstack':
+      mappedFramework = 'tanstack';
+      break;
+    case 'vite-vue':
+      mappedFramework = 'vite_vue';
+      break;
+    case 'vite-solid':
+      mappedFramework = 'vite_solid';
+      break;
+    case 'vite-svelte':
+      mappedFramework = 'vite_svelte';
+      break;
+    default:
+      mappedFramework = 'nextjs';
+      break;
+  }
+
+  const url = `${GITHUB_RAW_BASE_URL}/summarize-${mappedFramework}-${category}.json`;
+
+  const response = await fetch(url);
+
+  if (!response.ok) {
+    throw new Error(`Failed to fetch benchmark data: ${response.statusText}`);
+  }
+
+  return response.json();
+};

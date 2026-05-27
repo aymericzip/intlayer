@@ -28,7 +28,7 @@ export const VisualEditorSection: FC = () => {
         <source src="/assets/visual_editor.mp4" type="video/mp4" />
         <source src="/assets/visual_editor.webm" type="video/webm" />
         <track
-          src="/assets/captions.vtt"
+          src="/assets/visual_editor.vtt"
           srcLang="en"
           kind="captions"
           label="English"

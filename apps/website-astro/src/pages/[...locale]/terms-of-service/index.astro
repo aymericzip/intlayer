@@ -1,0 +1,33 @@
+---
+import { getLegal, getLegalMetadata } from '@intlayer/docs';
+import {
+  getLocaleFromPath,
+  getPrefix,
+  type LocalesValues,
+  localeMap,
+} from 'intlayer';
+import { TermsIsland } from '@/components/islands/TermsIsland';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+
+export const prerender = true;
+
+export const getStaticPaths = () =>
+  localeMap(({ locale }) => ({
+    params: { locale: getPrefix(locale).localePrefix },
+  }));
+
+const locale = getLocaleFromPath(Astro.url.pathname) as LocalesValues;
+const { title, description } = await getLegalMetadata(
+  './legal/en/terms_of_service.md',
+  locale
+);
+const file = await getLegal('./legal/en/terms_of_service.md', locale);
+---
+
+<BaseLayout
+  locale={locale}
+  title={String(title)}
+  description={String(description)}
+>
+  <TermsIsland locale={locale} content={file} client:load />
+</BaseLayout>

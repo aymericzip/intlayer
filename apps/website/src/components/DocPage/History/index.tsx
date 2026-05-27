@@ -87,10 +87,10 @@ export const History: FC<HistoryProps> = ({
             {versionHistory.title}
           </h4>
           <ol className="divide-y divide-dashed divide-text/20 overflow-y-auto p-1">
-            {history.map(({ version, date, changes }) => (
+            {history.map(({ version, date, changes }, index) => (
               <li
                 className="flex flex-row items-center justify-between gap-3 px-2 py-1 pr-1.5"
-                key={`${version}-${date}`}
+                key={`${index}-${version}-${date}`}
               >
                 <span className="mt-1 text-text text-xs">{changes}</span>
                 <div className="flex flex-col items-end justify-between gap-1 px-2 py-1 text-neutral text-sm">

@@ -1,0 +1,33 @@
+---
+import { getLegal, getLegalMetadata } from '@intlayer/docs';
+import {
+  getLocaleFromPath,
+  getPrefix,
+  type LocalesValues,
+  localeMap,
+} from 'intlayer';
+import { PrivacyNoticeIsland } from '@/components/islands/PrivacyNoticeIsland';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+
+export const prerender = true;
+
+export const getStaticPaths = () =>
+  localeMap(({ locale }) => ({
+    params: { locale: getPrefix(locale).localePrefix },
+  }));
+
+const locale = getLocaleFromPath(Astro.url.pathname) as LocalesValues;
+const { title, description } = await getLegalMetadata(
+  './legal/en/privacy_notice.md',
+  locale
+);
+const file = await getLegal('./legal/en/privacy_notice.md', locale);
+---
+
+<BaseLayout
+  locale={locale}
+  title={String(title)}
+  description={String(description)}
+>
+  <PrivacyNoticeIsland locale={locale} content={file} client:load />
+</BaseLayout>

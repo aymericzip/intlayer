@@ -1,0 +1,8 @@
+---
+import { NotFoundIsland } from '@/components/islands/NotFoundIsland';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+---
+
+<BaseLayout locale="en" title="404 - Page not found" description="The requested page could not be found.">
+  <NotFoundIsland locale="en" client:load />
+</BaseLayout>
