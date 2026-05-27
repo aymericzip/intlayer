@@ -9,9 +9,10 @@ import { type FetcherOptions, fetcher } from '../fetcher';
 
 export const getNewsletterAPI = (
   authAPIOptions: FetcherOptions = {},
-  intlayerConfig: IntlayerConfig = config
+  intlayerConfig?: IntlayerConfig
 ) => {
-  const backendURL = intlayerConfig.editor.backendURL;
+  const backendURL =
+    intlayerConfig?.editor?.backendURL ?? config.editor.backendURL;
 
   const NEWSLETTER_API_ROUTE = `${backendURL}/api/newsletter`;
 

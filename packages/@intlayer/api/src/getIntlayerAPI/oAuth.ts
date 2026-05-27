@@ -10,10 +10,11 @@ import { type FetcherOptions, fetcher } from '../fetcher';
 
 export const getOAuthAPI = (
   authAPIOptions: FetcherOptions = {},
-  intlayerConfig: IntlayerConfig = config
+  intlayerConfig?: IntlayerConfig
 ) => {
-  const backendURL = intlayerConfig.editor.backendURL;
-  const { clientId, clientSecret } = intlayerConfig.editor;
+  const backendURL =
+    intlayerConfig?.editor?.backendURL ?? config.editor.backendURL;
+  const { clientId, clientSecret } = intlayerConfig?.editor ?? {};
 
   /**
    * Gets an oAuth2 accessToken via client_credentials grant

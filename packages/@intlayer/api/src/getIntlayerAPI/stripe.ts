@@ -151,7 +151,7 @@ export const getStripeAPI = (
       `${STRIPE_API_ROUTE}/affiliates`,
       authAPIOptions,
       otherOptions,
-      { method: 'GET', params }
+      { method: 'GET', params: params as Record<string, string> }
     );
 
   /**

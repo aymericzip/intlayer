@@ -8,9 +8,10 @@ import { type FetcherOptions, fetcher } from '../fetcher';
 
 export const getSearchAPI = (
   authAPIOptions: FetcherOptions = {},
-  intlayerConfig: IntlayerConfig = config
+  intlayerConfig?: IntlayerConfig
 ) => {
-  const backendURL = intlayerConfig.editor.backendURL;
+  const backendURL =
+    intlayerConfig?.editor?.backendURL ?? config.editor.backendURL;
 
   const AI_API_ROUTE = `${backendURL}/api/search`;
 

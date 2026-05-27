@@ -10,9 +10,10 @@ export type { TranslateDictionariesBody, TranslateDictionariesResult };
 
 export const getTranslateAPI = (
   authAPIOptions: FetcherOptions = {},
-  intlayerConfig: IntlayerConfig = config
+  intlayerConfig?: IntlayerConfig
 ) => {
-  const backendURL = intlayerConfig.editor.backendURL;
+  const backendURL =
+    intlayerConfig?.editor?.backendURL ?? config.editor.backendURL;
 
   const TRANSLATE_API_ROUTE = `${backendURL}/api/translate`;
 

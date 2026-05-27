@@ -69,9 +69,10 @@ export type GitLabGetAuthUrlResult = {
 
 export const getGitlabAPI = (
   authAPIOptions: FetcherOptions = {},
-  intlayerConfig: IntlayerConfig = config
+  intlayerConfig?: IntlayerConfig
 ) => {
-  const backendURL = intlayerConfig.editor.backendURL;
+  const backendURL =
+    intlayerConfig?.editor?.backendURL ?? config.editor.backendURL;
 
   const GITLAB_API_ROUTE = `${backendURL}/api/gitlab`;
 

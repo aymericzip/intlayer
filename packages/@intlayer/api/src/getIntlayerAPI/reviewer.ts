@@ -23,9 +23,10 @@ import { type FetcherOptions, fetcher } from '../fetcher';
 
 export const getReviewerAPI = (
   authAPIOptions: FetcherOptions = {},
-  intlayerConfig: IntlayerConfig = config
+  intlayerConfig?: IntlayerConfig
 ) => {
-  const backendURL = intlayerConfig.editor.backendURL;
+  const backendURL =
+    intlayerConfig?.editor?.backendURL ?? config.editor.backendURL;
   const BASE = `${backendURL}/api/reviewer`;
 
   // ── Marketplace ────────────────────────────────────────────────────────────
@@ -46,6 +47,7 @@ export const getReviewerAPI = (
       }
     }
     const query = searchParams.toString();
+
     return fetcher<PaginatedResponse<ReviewerProfileAPI>>(
       `${BASE}/marketplace${query ? `?${query}` : ''}`,
       authAPIOptions,
@@ -65,7 +67,9 @@ export const getReviewerAPI = (
     for (const [key, value] of Object.entries(params)) {
       if (value === undefined) continue;
       if (Array.isArray(value)) {
-        value.forEach((item) => searchParams.append(key, String(item)));
+        value.forEach((item) => {
+          searchParams.append(key, String(item));
+        });
       } else {
         searchParams.append(key, String(value));
       }
@@ -143,12 +147,9 @@ export const getReviewerAPI = (
     );
 
   const deleteReviewerProfile = (otherOptions: FetcherOptions = {}) =>
-    fetcher<ResponseData<null>>(
-      `${BASE}/`,
-      authAPIOptions,
-      otherOptions,
-      { method: 'DELETE' }
-    );
+    fetcher<ResponseData<null>>(BASE, authAPIOptions, otherOptions, {
+      method: 'DELETE',
+    });
 
   // ── Contact ────────────────────────────────────────────────────────────────
 

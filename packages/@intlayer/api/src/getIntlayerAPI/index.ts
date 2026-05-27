@@ -13,12 +13,12 @@ import { getNewsletterAPI } from './newsletter';
 import { getOAuthAPI } from './oAuth';
 import { getOrganizationAPI } from './organization';
 import { getProjectAPI } from './project';
+import { getReviewerAPI } from './reviewer';
 import { getSearchAPI } from './search';
 import { getShowcaseProjectAPI } from './showcaseProject';
 import { getStripeAPI } from './stripe';
 import { getTagAPI } from './tag';
 import { getTranslateAPI } from './translate';
-import { getReviewerAPI } from './reviewer';
 import { getUserAPI } from './user';
 
 interface IntlayerAPIReturn {
@@ -44,7 +44,7 @@ interface IntlayerAPIReturn {
 
 export const getIntlayerAPI = (
   authAPIOptions: FetcherOptions = {},
-  intlayerConfig: IntlayerConfig = config
+  intlayerConfig?: IntlayerConfig
 ): IntlayerAPIReturn => {
   const resolvedConfig = defu(intlayerConfig ?? {}, config) as IntlayerConfig;
 

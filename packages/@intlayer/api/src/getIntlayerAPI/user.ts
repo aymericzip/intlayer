@@ -21,9 +21,10 @@ type GetUserByAccountResult = import('@intlayer/backend').ResponseData<UserAPI>;
 
 export const getUserAPI = (
   authAPIOptions: FetcherOptions = {},
-  intlayerConfig: IntlayerConfig = config
+  intlayerConfig?: IntlayerConfig
 ) => {
-  const backendURL = intlayerConfig.editor.backendURL;
+  const backendURL =
+    intlayerConfig?.editor?.backendURL ?? config.editor.backendURL;
 
   const USER_API_ROUTE = `${backendURL}/api/user`;
 
