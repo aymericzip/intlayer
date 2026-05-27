@@ -192,6 +192,16 @@ export default [intlayerEsbuildPlugin()];
 
 > `intlayerEsbuildPlugin` 函數負責使用Intlayer配置esbuild。它注入插件來處理內容宣告文件，並針對最佳性能進行了設置。
 
+> **NX 用戶**：NX 的 Angular 建構器透過 Node 的原生 ESM 解析載入外掛程式檔案，且不會即時編譯 TypeScript 外掛程式檔案。請改用 `.mjs` 檔案，並相應地更新 `angular.json` 中的 `plugins` 參照：
+>
+> ```javascript fileName="esbuild.plugins.mjs"
+> import { intlayerEsbuildPlugin } from "angular-intlayer/esbuild";
+>
+> export default [intlayerEsbuildPlugin()];
+> ```
+>
+> 然後在 `angular.json` 中指向 `"./esbuild.plugins.mjs"`，而不是 `"./esbuild.plugins.ts"`。
+
 ### 步驟 4：宣告您的內容
 
 創建並管理您的內容宣告文件以存儲翻譯：

@@ -192,6 +192,16 @@ export default [intlayerEsbuildPlugin()];
 
 > `intlayerEsbuildPlugin`関数はesbuildにIntlayerを設定します。コンテンツ宣言ファイルを処理するプラグインを注入し、最適なパフォーマンスのためのエイリアスを設定します。
 
+> **NX ユーザー**: NX の Angular ビルダーは、Node のネイティブ ESM 解決を介してプラグインファイルをロードし、TypeScript プラグインファイルをその場でコンパイルしません。代わりに `.mjs` ファイルを使用し、それに応じて `angular.json` の `plugins` 参照を更新してください：
+>
+> ```javascript fileName="esbuild.plugins.mjs"
+> import { intlayerEsbuildPlugin } from "angular-intlayer/esbuild";
+>
+> export default [intlayerEsbuildPlugin()];
+> ```
+>
+> その後、`angular.json` で `"./esbuild.plugins.ts"` の代わりに `"./esbuild.plugins.mjs"` を指定します。
+
 ### ステップ4：コンテンツの宣言
 
 翻訳を保存するためにコンテンツ宣言を作成および管理します：

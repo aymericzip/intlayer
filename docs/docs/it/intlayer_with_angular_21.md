@@ -192,6 +192,16 @@ export default [intlayerEsbuildPlugin()];
 
 > La funzione `intlayerEsbuildPlugin` configura esbuild con Intlayer. Inietta il plugin per gestire i file di dichiarazione dei contenuti e imposta le configurazioni per prestazioni ottimali.
 
+> **Utenti NX**: I builder Angular di NX caricano i file dei plugin tramite la risoluzione ESM nativa di Node e non compilano i file dei plugin TypeScript al volo. Utilizza invece un file `.mjs` e aggiorna di conseguenza il riferimento `plugins` in `angular.json`:
+>
+> ```javascript fileName="esbuild.plugins.mjs"
+> import { intlayerEsbuildPlugin } from "angular-intlayer/esbuild";
+>
+> export default [intlayerEsbuildPlugin()];
+> ```
+>
+> Quindi in `angular.json` punta a `"./esbuild.plugins.mjs"` invece di `"./esbuild.plugins.ts"`.
+
 ### Passo 4: Dichiara i tuoi Contenuti
 
 Crea e gestisci le tue dichiarazioni di contenuto per memorizzare le traduzioni:

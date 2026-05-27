@@ -192,6 +192,16 @@ export default [intlayerEsbuildPlugin()];
 
 > Функція `intlayerEsbuildPlugin` конфігурує esbuild з Intlayer. Вона впроваджує плагін для обробки файлів декларацій контенту та встановлює налаштування для оптимальної продуктивності.
 
+> **Користувачі NX**: Збірники Angular в NX завантажують файли плагінів через власне вирішення ESM у Node і не компілюють файли плагінів TypeScript на льоту. Використовуйте замість цього файл `.mjs` і відповідно оновіть посилання `plugins` в `angular.json`:
+>
+> ```javascript fileName="esbuild.plugins.mjs"
+> import { intlayerEsbuildPlugin } from "angular-intlayer/esbuild";
+>
+> export default [intlayerEsbuildPlugin()];
+> ```
+>
+> Потім в `angular.json` вкажіть `"./esbuild.plugins.mjs"` замість `"./esbuild.plugins.ts"`.
+
 ### Крок 4: Оголосіть свій контент
 
 Створюйте та керуйте деклараціями вашого контенту для зберігання перекладів:

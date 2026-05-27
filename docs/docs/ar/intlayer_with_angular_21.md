@@ -192,6 +192,16 @@ export default [intlayerEsbuildPlugin()];
 
 > تقوم وظيفة `intlayerEsbuildPlugin` بتكوين esbuild مع Intlayer. حيث تقوم بإدخال الإضافة (plugin) للتعامل مع ملفات تصريح المحتوى وتعد إعدادات الأداء الأمثل.
 
+> **مستخدمو NX**: تقوم أدوات بناء Angular الخاصة بـ NX بتحميل ملفات المكونات الإضافية عبر دقة ESM الأصلية لـ Node ولا تقوم بترجمة ملفات المكونات الإضافية TypeScript تلقائيًا. استخدم ملف `.mjs` بدلاً من ذلك وقم بتحديث مرجع `plugins` في `angular.json` وفقًا لذلك:
+>
+> ```javascript fileName="esbuild.plugins.mjs"
+> import { intlayerEsbuildPlugin } from "angular-intlayer/esbuild";
+>
+> export default [intlayerEsbuildPlugin()];
+> ```
+>
+> ثم في `angular.json` قم بالإشارة إلى `"./esbuild.plugins.mjs"` بدلاً من `"./esbuild.plugins.ts"`.
+
 ### الخطوة 4: صرح عن محتواك
 
 أنشئ وأدِر تصريحات محتواك لتخزين الترجمات:

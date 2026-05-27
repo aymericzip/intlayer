@@ -192,6 +192,16 @@ export default [intlayerEsbuildPlugin()];
 
 > Funkce `intlayerEsbuildPlugin` nastavuje esbuild s Intlayer. Injikuje plugin k obsluze souborů deklarací obsahu a nastavuje konfigurace pro optimální výkon.
 
+> **Uživatelé NX**: Angular buildery od NX načítají soubory pluginů přes nativní ESM rozlišení Node a nekompilují TypeScript soubory pluginů za běhu. Použijte místo toho soubor `.mjs` a odpovídajícím způsobem aktualizujte referenci `plugins` v `angular.json`:
+>
+> ```javascript fileName="esbuild.plugins.mjs"
+> import { intlayerEsbuildPlugin } from "angular-intlayer/esbuild";
+>
+> export default [intlayerEsbuildPlugin()];
+> ```
+>
+> Poté v `angular.json` nasměrujte na `"./esbuild.plugins.mjs"` místo `"./esbuild.plugins.ts"`.
+
 ### Krok 4: Deklarace vašeho obsahu
 
 Vytvářejte a spravujte své deklarace obsahu pro uložení překladů:

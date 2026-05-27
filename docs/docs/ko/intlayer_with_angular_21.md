@@ -192,6 +192,16 @@ export default [intlayerEsbuildPlugin()];
 
 > `intlayerEsbuildPlugin` 함수는 esbuild를 Intlayer로 구성합니다. 콘텐츠 선언 파일을 처리하는 플러그인을 주입하고 최적의 성능을 위한 구성을 설정합니다.
 
+> **NX 사용자**: NX의 Angular 빌더는 Node의 네이티브 ESM 해상도를 통해 플러그인 파일을 로드하며 TypeScript 플러그인 파일을 즉석에서 컴파일하지 않습니다. 대신 `.mjs` 파일을 사용하고 이에 따라 `angular.json`에서 `plugins` 참조를 업데이트하십시오:
+>
+> ```javascript fileName="esbuild.plugins.mjs"
+> import { intlayerEsbuildPlugin } from "angular-intlayer/esbuild";
+>
+> export default [intlayerEsbuildPlugin()];
+> ```
+>
+> 그런 다음 `angular.json`에서 `"./esbuild.plugins.ts"` 대신 `"./esbuild.plugins.mjs"`를 가리킵니다.
+
 ### 4단계: 콘텐츠 선언
 
 번역을 저장하기 위해 콘텐츠 선언을 만들고 관리합니다:

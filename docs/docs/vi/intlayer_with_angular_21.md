@@ -192,6 +192,16 @@ export default [intlayerEsbuildPlugin()];
 
 > Hàm `intlayerEsbuildPlugin` sẽ cấu hình esbuild cho Intlayer. Nó nhúng plugin để xử lý các tập tin khai báo nội dung và thiết lập các cấu hình tối ưu hiệu suất.
 
+> **Người dùng NX**: Các trình xây dựng Angular của NX tải các tệp plugin thông qua độ phân giải ESM gốc của Node và không biên dịch các tệp plugin TypeScript trực tiếp. Thay vào đó, hãy sử dụng tệp `.mjs` và cập nhật tham chiếu `plugins` trong `angular.json` tương ứng:
+>
+> ```javascript fileName="esbuild.plugins.mjs"
+> import { intlayerEsbuildPlugin } from "angular-intlayer/esbuild";
+>
+> export default [intlayerEsbuildPlugin()];
+> ```
+>
+> Sau đó, trong `angular.json`, hãy trỏ đến `"./esbuild.plugins.mjs"` thay vì `"./esbuild.plugins.ts"`.
+
 ### Bước 4: Khai báo nội dung của bạn
 
 Tạo và quản lý các khai báo nội dung của bạn để lưu trữ bản dịch:

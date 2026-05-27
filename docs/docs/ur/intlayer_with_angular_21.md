@@ -192,6 +192,16 @@ export default [intlayerEsbuildPlugin()];
 
 > `intlayerEsbuildPlugin` فنکشن esbuild کو Intlayer کے ساتھ کنفیگر کرتا ہے۔ یہ مواد کی تعریفی فائلوں کو سنبھالنے کے لیے پلگ ان داخل کرتا ہے اور بہترین کارکردگی کے لیے ترتیب دیتا ہے۔
 
+> **NX صارفین**: NX کے Angular بلڈرز پلگ ان فائلوں کو Node کی مقامی ESM ریزولیوشن کے ذریعے لوڈ کرتے ہیں اور پرواز کے دوران TypeScript پلگ ان فائلوں کو مرتب نہیں کرتے ہیں۔ اس کے بجائے ایک `.mjs` فائل استعمال کریں اور اسی کے مطابق `angular.json` میں `plugins` کا حوالہ اپ ڈیٹ کریں:
+>
+> ```javascript fileName="esbuild.plugins.mjs"
+> import { intlayerEsbuildPlugin } from "angular-intlayer/esbuild";
+>
+> export default [intlayerEsbuildPlugin()];
+> ```
+>
+> پھر `angular.json` میں `"./esbuild.plugins.ts"` کے بجائے `"./esbuild.plugins.mjs"` کی طرف اشارہ کریں۔
+
 ### مرحلہ 4: اپنے مواد کا اعلان کریں
 
 تراجم کو ذخیرہ کرنے کے لیے اپنے مواد کے اعلانات بنائیں اور ان کا نظم کریں:

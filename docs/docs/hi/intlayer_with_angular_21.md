@@ -192,6 +192,16 @@ export default [intlayerEsbuildPlugin()];
 
 > `intlayerEsbuildPlugin` फ़ंक्शन Intlayer के साथ esbuild को कॉन्फ़िगर करता है। यह सामग्री घोषणा फ़ाइलों को संभालने के लिए प्लगइन इंजेक्ट करता है और इष्टतम प्रदर्शन के लिए कॉन्फ़िगरेशन सेट करता है।
 
+> **NX उपयोगकर्ता**: NX के Angular बिल्डर्स Node के मूल ESM रिज़ॉल्यूशन के माध्यम से प्लगइन फ़ाइलों को लोड करते हैं और तुरंत TypeScript प्लगइन फ़ाइलों को संकलित नहीं करते हैं। इसके बजाय `.mjs` फ़ाइल का उपयोग करें और तदनुसार `angular.json` में `plugins` संदर्भ को अपडेट करें:
+>
+> ```javascript fileName="esbuild.plugins.mjs"
+> import { intlayerEsbuildPlugin } from "angular-intlayer/esbuild";
+>
+> export default [intlayerEsbuildPlugin()];
+> ```
+>
+> फिर `angular.json` में `"./esbuild.plugins.ts"` के बजाय `"./esbuild.plugins.mjs"` को इंगित करें।
+
 ### चरण 4: अपनी सामग्री की घोषणा करें
 
 अनुवाद संग्रहीत करने के लिए अपनी सामग्री घोषणाएँ बनाएँ और प्रबंधित करें:

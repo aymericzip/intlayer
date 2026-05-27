@@ -192,6 +192,16 @@ export default [intlayerEsbuildPlugin()];
 
 > `intlayerEsbuildPlugin` ফাংশন esbuild কে Intlayer এর সাথে কনফিগার করে। এটি কন্টেন্ট ডিক্লেরেশন ফাইলগুলোকে হ্যান্ডেল করার জন্য প্লাগইনটি ইনজেক্ট করে এবং সর্বোত্তম পারফরম্যান্সের জন্য কনফিগারেশন সেটআপ করে।
 
+> **NX ব্যবহারকারীরা**: NX-এর Angular বিল্ডাররা Node-এর নেটিভ ESM রেজোলিউশনের মাধ্যমে প্লাগইন ফাইলগুলি লোড করে এবং ফ্লাইতে TypeScript প্লাগইন ফাইলগুলি কম্পাইল করে না। পরিবর্তে একটি `.mjs` ফাইল ব্যবহার করুন এবং তদনুসারে `angular.json`-এ `plugins` রেফারেন্স আপডেট করুন:
+>
+> ```javascript fileName="esbuild.plugins.mjs"
+> import { intlayerEsbuildPlugin } from "angular-intlayer/esbuild";
+>
+> export default [intlayerEsbuildPlugin()];
+> ```
+>
+> তারপর `angular.json`-এ `"./esbuild.plugins.ts"`-এর পরিবর্তে `"./esbuild.plugins.mjs"` নির্দেশ করুন।
+
 ### ধাপ ৪: আপনার কন্টেন্ট ডিক্লেয়ার করুন
 
 অনুবাদ জমা করার জন্য আপনার কন্টেন্ট ডিক্লেরেশন তৈরি ও পরিচালনা করুন:

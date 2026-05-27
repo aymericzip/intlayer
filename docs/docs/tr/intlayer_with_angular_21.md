@@ -192,6 +192,16 @@ export default [intlayerEsbuildPlugin()];
 
 > `intlayerEsbuildPlugin` işlevi, esbuild'i Intlayer ile yapılandırır. İçerik beyan dosyalarını işlemek için eklentiyi yerleştirir ve optimum performans için takma adlar kurar.
 
+> **NX kullanıcıları**: NX'in Angular derleyicileri, eklenti dosyalarını Node'un yerel ESM çözünürlüğü aracılığıyla yükler ve TypeScript eklenti dosyalarını anında derlemez. Bunun yerine bir `.mjs` dosyası kullanın ve `angular.json` dosyasındaki `plugins` referansını buna göre güncelleyin:
+>
+> ```javascript fileName="esbuild.plugins.mjs"
+> import { intlayerEsbuildPlugin } from "angular-intlayer/esbuild";
+>
+> export default [intlayerEsbuildPlugin()];
+> ```
+>
+> Ardından `angular.json` içinde `"./esbuild.plugins.ts"` yerine `"./esbuild.plugins.mjs"` değerini gösterin.
+
 ### Adım 4: İçeriğinizi Bildirin
 
 Çevirileri depolamak için içerik bildirimlerinizi oluşturun ve yönetin:
