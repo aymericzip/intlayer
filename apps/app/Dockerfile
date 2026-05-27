@@ -37,8 +37,6 @@ COPY \
     --exclude=packages/hono-intlayer \
     --exclude=packages/adonis-intlayer \
     --exclude=apps/website \
-    --exclude=apps/website-astro \
-    --exclude=apps/website-astro \
     --exclude=apps/showcase \
     --exclude=apps/doc \
     --exclude=plugins \

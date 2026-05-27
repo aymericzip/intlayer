@@ -65,7 +65,6 @@ COPY \
     --exclude=packages/hono-intlayer \
     --exclude=packages/adonis-intlayer \
     --exclude=apps/app \
-    --exclude=apps/website-astro \
     --exclude=apps/showcase \
     --exclude=apps/doc \
     --exclude=plugins \
