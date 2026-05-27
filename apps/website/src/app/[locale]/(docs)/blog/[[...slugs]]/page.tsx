@@ -54,6 +54,7 @@ const BlogPage = async ({ params }: LocalPromiseParams<BlogProps>) => {
   return (
     <IntlayerServerProvider locale={locale}>
       <CreativeWorkHeader
+        type="BlogPosting"
         creativeWorkName={blogData.title}
         creativeWorkDescription={blogData.description}
         creativeWorkContent={blogContent}

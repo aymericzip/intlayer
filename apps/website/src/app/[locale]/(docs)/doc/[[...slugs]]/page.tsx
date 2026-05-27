@@ -61,6 +61,7 @@ const DocumentationPage = async ({ params }: LocalPromiseParams<DocProps>) => {
   return (
     <IntlayerServerProvider locale={locale}>
       <CreativeWorkHeader
+        type="TechArticle"
         creativeWorkName={docData.title}
         creativeWorkDescription={docData.description}
         creativeWorkContent={docContent}

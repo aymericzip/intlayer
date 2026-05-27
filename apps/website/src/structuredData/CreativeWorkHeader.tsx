@@ -2,6 +2,7 @@ import Script from 'next/script';
 import { useIntlayer } from 'next-intlayer/server';
 
 type DocHeaderProps = {
+  type?: 'CreativeWork' | 'TechArticle' | 'Article' | 'BlogPosting' | 'WebPage';
   creativeWorkName: string;
   creativeWorkDescription: string;
   creativeWorkContent: string;
@@ -27,6 +28,7 @@ const formatDate = (date: Date): string => {
 };
 
 export const CreativeWorkHeader = ({
+  type = 'CreativeWork',
   creativeWorkName,
   creativeWorkDescription,
   creativeWorkContent,
@@ -38,7 +40,7 @@ export const CreativeWorkHeader = ({
   const { audienceType } = useIntlayer('creative-work-structured-data');
   const creativeWork = {
     '@context': 'https://schema.org',
-    '@type': 'CreativeWork',
+    '@type': type,
     creator: {
       '@type': 'Person',
       name: 'Aymeric Pineau',
