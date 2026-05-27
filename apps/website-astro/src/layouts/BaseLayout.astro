@@ -1,6 +1,7 @@
 ---
 import '@/globals.css';
 import '@/shiki.css';
+import { ClientRouter } from 'astro:transitions';
 import type { LocalesValues } from 'intlayer';
 import { getHTMLTextDir, getLocalizedUrl, getMultilingualUrls } from 'intlayer';
 
@@ -31,6 +32,7 @@ const hreflangEntries = Object.entries(multilingualUrls) as [string, string][];
 <!doctype html>
 <html lang={locale} dir={getHTMLTextDir(locale)} suppressHydrationWarning>
   <head>
+    <ClientRouter />
     <script is:inline>
       (function () {
         try {

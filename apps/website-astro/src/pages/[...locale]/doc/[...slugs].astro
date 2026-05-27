@@ -109,6 +109,15 @@ const serializedDocData = {
   })),
   slugs: docData.slugs,
 };
+const docPageProps = {
+  locale,
+  slugs,
+  docData: serializedDocData,
+  defaultUpdatedAt: String(defaultDocData.updatedAt),
+  docContent,
+  nextDoc,
+  prevDoc,
+};
 ---
 
 <BaseLayout
@@ -116,14 +125,15 @@ const serializedDocData = {
   title={`${docData.title} | Intlayer`}
   description={docData.description}
 >
-      <DocPageIsland
-        locale={locale}
-        slugs={slugs}
-        docData={serializedDocData}
-        defaultUpdatedAt={String(defaultDocData.updatedAt)}
-        docContent={docContent}
-        nextDoc={nextDoc}
-        prevDoc={prevDoc}
-        client:load
-      />
+  <script
+    id="doc-page-props"
+    type="application/json"
+    set:html={JSON.stringify(docPageProps).replace(/<\//g, '<\\/')}
+  />
+  <div transition:persist="doc-page-island" class="contents">
+    <DocPageIsland
+      {...docPageProps}
+      client:load
+    />
+  </div>
 </BaseLayout>

@@ -10,6 +10,7 @@ import { DocumentationRender } from '@components/DocPage/DocumentationRender';
 import { CreativeWorkHeader } from '@structuredData/CreativeWorkHeader';
 import type { LocalesValues } from 'intlayer';
 import type { FC } from 'react';
+import { useEffect, useState } from 'react';
 import { WebsiteIslandWrapper } from './WebsiteIslandWrapper';
 
 type DocPageIslandProps = {
@@ -32,34 +33,61 @@ type DocPageIslandProps = {
   prevDoc?: { title: string; url: string };
 };
 
-export const DocPageIsland: FC<DocPageIslandProps> = ({
-  locale,
-  slugs,
-  docData,
-  defaultUpdatedAt,
-  docContent,
-  nextDoc,
-  prevDoc,
-}) => (
-  <WebsiteIslandWrapper locale={locale} footer={<></>}>
-    <DocPageLayout activeSlugs={slugs} locale={locale}>
-      <CreativeWorkHeader
-        creativeWorkName={docData.title}
-        creativeWorkDescription={docData.description}
-        creativeWorkContent={docContent}
-        keywords={docData.keywords.join(', ')}
-        dateModified={new Date(docData.updatedAt)}
-        datePublished={new Date(docData.createdAt)}
-        url={docData.url}
-      />
-      <DocHeader
-        {...(docData as any)}
-        markdownContent={docContent}
-        baseUpdatedAt={defaultUpdatedAt}
-        history={docData.history ?? []}
-      />
-      <DocumentationRender>{docContent}</DocumentationRender>
-      <DocPageNavigation nextDoc={nextDoc} prevDoc={prevDoc} />
-    </DocPageLayout>
-  </WebsiteIslandWrapper>
-);
+export const DocPageIsland: FC<DocPageIslandProps> = (initialProps) => {
+  const [currentProps, setCurrentProps] =
+    useState<DocPageIslandProps>(initialProps);
+
+  useEffect(() => {
+    const handleBeforeSwap = (e: Event) => {
+      const event = e as any;
+      const script = event.newDocument.getElementById('doc-page-props');
+      if (script) {
+        try {
+          const newProps = JSON.parse(script.textContent);
+          setCurrentProps(newProps);
+        } catch (err) {
+          console.error('Failed to parse new doc props', err);
+        }
+      }
+    };
+
+    document.addEventListener('astro:before-swap', handleBeforeSwap);
+    return () => {
+      document.removeEventListener('astro:before-swap', handleBeforeSwap);
+    };
+  }, []);
+
+  const {
+    locale,
+    slugs,
+    docData,
+    defaultUpdatedAt,
+    docContent,
+    nextDoc,
+    prevDoc,
+  } = currentProps;
+
+  return (
+    <WebsiteIslandWrapper locale={locale} footer={<></>}>
+      <DocPageLayout activeSlugs={slugs} locale={locale}>
+        <CreativeWorkHeader
+          creativeWorkName={docData.title}
+          creativeWorkDescription={docData.description}
+          creativeWorkContent={docContent}
+          keywords={docData.keywords.join(', ')}
+          dateModified={new Date(docData.updatedAt)}
+          datePublished={new Date(docData.createdAt)}
+          url={docData.url}
+        />
+        <DocHeader
+          {...(docData as any)}
+          markdownContent={docContent}
+          baseUpdatedAt={defaultUpdatedAt}
+          history={docData.history ?? []}
+        />
+        <DocumentationRender>{docContent}</DocumentationRender>
+        <DocPageNavigation nextDoc={nextDoc} prevDoc={prevDoc} />
+      </DocPageLayout>
+    </WebsiteIslandWrapper>
+  );
+};
