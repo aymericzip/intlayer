@@ -1,3 +1,4 @@
+import { Website_Domain } from '@intlayer/design-system/routes';
 import Script from 'next/script';
 import type { FC } from 'react';
 
@@ -24,7 +25,7 @@ export const BreadcrumbsHeader: FC<BreadcrumbsHeaderProps> = ({
           '@type': 'ListItem',
           position: index + 1,
           name: item.name,
-          item: item.url,
+          item: item.url.startsWith('http') ? item.url : `https://${Website_Domain}${item.url}`,
         })),
       }),
     }}
