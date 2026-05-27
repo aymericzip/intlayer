@@ -10,6 +10,7 @@ import {
   App_Dashboard_Tags_Path,
   App_Dashboard_Translate_Path,
 } from '@intlayer/design-system/routes';
+import { cn } from '@intlayer/design-system/utils';
 import { WithResizer } from '@intlayer/design-system/with-resizer';
 import { createFileRoute, Outlet, useLocation } from '@tanstack/react-router';
 import { getIntlayer, getPathWithoutLocale } from 'intlayer';
@@ -180,7 +181,7 @@ function DashboardLayout() {
         style={{ fontSize: '75%' }}
       >
         <DashboardNavbar items={navigationItems} />
-        <div className="flex min-h-0 w-full flex-1">
+        <div className="relative flex min-h-0 w-full flex-1">
           <DashboardSidebar items={navigationItems} />
           <main
             id="main-content"
@@ -197,7 +198,11 @@ function DashboardLayout() {
             isOpen={activePanel !== null}
             handlePosition="left"
             style={false}
-            className="min-w-2"
+            className={cn(
+              'md:min-w-2',
+              activePanel !== null &&
+                'max-md:!absolute max-md:!w-full max-md:!max-w-none max-md:inset-y-0 max-md:right-0 max-md:z-50'
+            )}
           >
             <aside
               aria-label={
