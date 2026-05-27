@@ -28,5 +28,5 @@ export type Next15LayoutIntlayer<T = {}> = (
 ) => ReactNode | Promise<ReactNode>;
 
 export type NextLayoutIntlayer<T = {}> = (
-  props: PropsWithChildren<LocalPromiseParams> & T
+  props: PropsWithChildren<LocalPromiseParams<T>>
 ) => ReactNode | Promise<ReactNode>;
