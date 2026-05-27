@@ -66,6 +66,7 @@ COPY \
     --exclude=docs/legal \
     --exclude=examples \
     --exclude=apps/website \
+    --exclude=apps/website-astro \
     --exclude=apps/showcase \
     --exclude=apps/app \
     --exclude=apps/doc \
