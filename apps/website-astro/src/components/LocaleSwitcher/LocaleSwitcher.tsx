@@ -106,13 +106,15 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
                 ({ locale: localeItem, currentLocaleName, ownLocaleName }) => (
                   <li className="py-1 pr-3" key={localeItem}>
                     <Link
-                      label={switchTo({ locale: localeItem }).value}
+                      label={
+                        switchTo({ locale: getLocaleName(localeItem, locale) })
+                          .value
+                      }
                       href={pathWithoutLocale}
                       locale={localeItem}
                       isActive={locale === localeItem} // Add aria-current="page" for accessibility
                       variant="hoverable"
                       color="text"
-                      replace // Will ensure that the "go back" browser button will redirect to the previous page
                       onClick={() => setLocale(localeItem)}
                     >
                       <div className="flex flex-row items-center justify-between gap-3 px-2 py-1">

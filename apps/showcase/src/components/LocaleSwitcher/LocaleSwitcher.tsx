@@ -2,7 +2,7 @@ import { Container } from '@intlayer/design-system/container';
 import { DropDown, type PanelProps } from '@intlayer/design-system/drop-down';
 import { Input } from '@intlayer/design-system/input';
 import { Link, useLocation } from '@tanstack/react-router';
-import { getHTMLTextDir, getLocalizedUrl } from 'intlayer';
+import { getHTMLTextDir, getLocaleName, getLocalizedUrl } from 'intlayer';
 import { MoveVertical } from 'lucide-react';
 import { type FC, useRef } from 'react';
 import { useIntlayer, useLocale } from 'react-intlayer';
@@ -87,7 +87,10 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({ panelProps }) => {
                 ({ locale: localeItem, currentLocaleName, ownLocaleName }) => (
                   <li className="py-1" key={localeItem}>
                     <Link
-                      aria-label={switchTo({ locale: localeItem }).value}
+                      aria-label={
+                        switchTo({ locale: getLocaleName(localeItem, locale) })
+                          .value
+                      }
                       to={getLocalizedUrl(location.pathname, localeItem)}
                       aria-current={locale === localeItem ? 'true' : undefined}
                       replace // Will ensure that the "go back" browser button will redirect to the previous page
