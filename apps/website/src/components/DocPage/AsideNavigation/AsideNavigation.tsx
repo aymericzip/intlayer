@@ -11,17 +11,25 @@ import { PopoverStatic } from '@intlayer/design-system/popover';
 import { SocialNetworks } from '@intlayer/design-system/social-networks';
 import { cn } from '@intlayer/design-system/utils';
 import { ArrowRightToLine, MoveDiagonal } from 'lucide-react';
-import { useSearchParams } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
-import { type FC, useState } from 'react';
+import { type FC, useEffect, useState } from 'react';
 import { NavTitles } from '../NavTitles/NavTitles';
 
 export const AsideNavigation: FC = (props) => {
   const { title, collapseButton } = useIntlayer('aside-navigation');
-  const isFocus = useSearchParams().get('focus') === 'true';
 
-  const [isHidden, setIsHidden] = useState(isFocus);
+  const [isHidden, setIsHidden] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const isFocus =
+        new URLSearchParams(window.location.search).get('focus') === 'true';
+      if (isFocus) {
+        setIsHidden(true);
+      }
+    }
+  }, []);
   const { button } = useIntlayer('chatbot-modal');
 
   return (

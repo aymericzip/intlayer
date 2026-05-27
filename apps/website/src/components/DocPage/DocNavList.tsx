@@ -17,9 +17,8 @@ import {
 } from '@intlayer/design-system/routes';
 import { cn } from '@intlayer/design-system/utils';
 import { ArrowLeftToLine, Bot } from 'lucide-react';
-import { useSearchParams } from 'next/navigation';
 import { useIntlayer } from 'next-intlayer';
-import { type ComponentProps, type FC, useState } from 'react';
+import { type ComponentProps, type FC, useEffect, useState } from 'react';
 import { useScrollPositionPersistence } from '@/hooks/useScrollPositionPersistence';
 import {
   FrameworkFilter,
@@ -401,10 +400,19 @@ export const DocNavListContent: FC<DocNavListContentProps> = ({
 
 export const DocNavList: FC<DocNavListProps> = ({ docData, activeSlugs }) => {
   const { isMobile } = useDevice();
-  const isFocus = useSearchParams().get('focus') === 'true';
-  const [isHidden, setIsHidden] = useState(isMobile || isFocus);
+  const [isHidden, setIsHidden] = useState(isMobile);
   const { collapseButton } = useIntlayer('doc-nav-list');
   const [selectedFramework, setSelectedFramework] = useFrameworkFilter();
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const isFocus =
+        new URLSearchParams(window.location.search).get('focus') === 'true';
+      if (isFocus) {
+        setIsHidden(true);
+      }
+    }
+  }, []);
 
   return (
     <>

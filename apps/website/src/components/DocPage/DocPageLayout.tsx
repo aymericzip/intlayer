@@ -1,6 +1,6 @@
 import { EmailRegistrationToast } from '@components/EmailRegistrationToast';
 import { getIntlayer, type LocalesValues } from 'intlayer';
-import { type FC, type ReactNode, Suspense } from 'react';
+import type { FC, ReactNode } from 'react';
 import { AsideNavigation } from './AsideNavigation/AsideNavigation';
 import { DocBreadCrumb } from './DocBreadCrumb';
 import { DocNavList } from './DocNavList';
@@ -25,9 +25,12 @@ export const DocPageLayout: FC<DocPageLayoutProps> = ({
   const content = getIntlayer('doc-page-layout', locale);
 
   return (
-    <Suspense fallback={<></>}>
+    <>
       <div className="flex max-w-screen flex-1 bg-card max-md:flex-col">
-        <aside aria-label={content.documentationNavigation.value} className="z-40 flex-none">
+        <aside
+          aria-label={content.documentationNavigation.value}
+          className="z-40 flex-none"
+        >
           <DocNavList docData={docData} activeSlugs={['doc', ...activeSlugs]} />
         </aside>
         <div className="flex flex-1 flex-row">
@@ -49,12 +52,15 @@ export const DocPageLayout: FC<DocPageLayoutProps> = ({
             </div>
           </article>
 
-          <aside aria-label={content.onThisPage.value} className="flex-none max-lg:hidden">
+          <aside
+            aria-label={content.onThisPage.value}
+            className="flex-none max-lg:hidden"
+          >
             {displayAsideNavigation && <AsideNavigation />}
           </aside>
         </div>
         <EmailRegistrationToast />
       </div>
-    </Suspense>
+    </>
   );
 };
