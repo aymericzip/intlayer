@@ -1,4 +1,4 @@
 {
-  "version": "8.11.0-canary.0",
+  "version": "8.11.0",
   "name": "This json is a mock package.json to avoid importing a full package.json while importing it"
 }
