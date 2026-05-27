@@ -7,7 +7,7 @@
 # https://github.com/oven-sh/bun/issues/4795
 FROM node:26-alpine AS builder
 
-RUN npm install -g bun@1.3.11
+RUN npm install -g bun@1.3.14
 
 ARG INTLAYER_CLIENT_ID
 ARG INTLAYER_CLIENT_SECRET
@@ -65,7 +65,8 @@ COPY \
     --exclude=packages/hono-intlayer \
     --exclude=packages/adonis-intlayer \
     --exclude=apps/app \
-        --exclude=apps/showcase \
+    --exclude=apps/website-astro \
+    --exclude=apps/showcase \
     --exclude=apps/doc \
     --exclude=plugins \
     --exclude=docs/assets \
