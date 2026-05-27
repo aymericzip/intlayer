@@ -33,7 +33,7 @@ export const handleAdditionalContentDeclarationFile = async (
     isVerbose: true,
   });
 
-  createModuleAugmentation(config);
+  await createModuleAugmentation(config);
 
   appLogger('Module augmentation built', {
     isVerbose: true,

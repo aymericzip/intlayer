@@ -1,3 +1,6 @@
+import { existsSync } from 'node:fs';
+import { readFile, writeFile } from 'node:fs/promises';
+import { join } from 'node:path';
 import { getAppLogger } from '@intlayer/config/logger';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import { buildDictionary } from './buildIntlayerDictionary/buildIntlayerDictionary';
@@ -43,8 +46,29 @@ export const handleContentDeclarationFileChange = async (
       !allDictionariesPaths.includes(updatedDictionaryPath)
   );
 
-  // Rebuild Entry Point & Module Augmentation
-  // These only need to be updated if the *list* of dictionaries changed (Add/Remove/Rename)
+  // Rebuild Types first — types must be ready before anything triggers a bundler rebuild.
+  // esbuild (used by Angular, Vite, etc.) only watches files in its JS bundle graph; it does
+  // NOT watch .intlayer/types/*.ts (TypeScript-only files). Generating types here, before
+  // updating the entry point, guarantees that when the entry point write below fires esbuild's
+  // file watcher the types are already up-to-date.
+  const dictionariesToBuild = updatedDictionaries.map(
+    (dictionary) => dictionary.dictionary
+  );
+
+  await createTypes(dictionariesToBuild, config);
+  appLogger('TypeScript types built', {
+    isVerbose: true,
+  });
+
+  // Always regenerate the module augmentation so that structural changes to existing
+  // dictionaries (new content keys, type changes) are reflected in intlayer.d.ts.
+  await createModuleAugmentation(config);
+  appLogger('Module augmentation built', {
+    isVerbose: true,
+  });
+
+  // Rebuild Entry Point
+  // Only needed when the *list* of dictionaries changed (Add/Remove/Rename).
   if (hasRebuilt || hasNewDictionaries) {
     // If hasRebuilt is true, cleanRemovedContentDeclaration has already updated the entry point
     // to remove the old keys (and it likely included the new ones if they were already on disk).
@@ -57,23 +81,19 @@ export const handleContentDeclarationFileChange = async (
     }
   }
 
-  // Rebuild Types
-  // Always regenerate types when a file changes, as the content structure (interface) might have changed
-  // even if the key is the same.
-  const dictionariesToBuild = updatedDictionaries.map(
-    (dictionary) => dictionary.dictionary
-  );
+  // Force-write the entry point files so esbuild detects a change and triggers a fresh rebuild
+  // now that all types are ready. Without this, the only rebuild esbuild sees is the one
+  // triggered by buildDictionary's JSON writes above — which races against type generation
+  // and often runs before the new .intlayer/types/*.ts files are on disk.
+  const { mainDir } = config.system;
 
-  await createTypes(dictionariesToBuild, config);
-  appLogger('TypeScript types built', {
-    isVerbose: true,
-  });
+  for (const extension of config.build.outputFormat) {
+    const entryPointPath = join(mainDir, `dictionaries.${extension}`);
 
-  if (hasNewDictionaries) {
-    await createModuleAugmentation(config);
-    appLogger('Module augmentation built', {
-      isVerbose: true,
-    });
+    if (existsSync(entryPointPath)) {
+      const content = await readFile(entryPointPath, 'utf-8');
+      await writeFile(entryPointPath, content);
+    }
   }
 
   // Plugin transformation
