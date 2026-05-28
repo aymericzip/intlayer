@@ -210,7 +210,16 @@ const nextConfig: NextConfig = {
   serverExternalPackages: ['@intlayer/backend', '@intlayer/docs'],
   transpilePackages: ['@intlayer/design-system', 'shiki'],
   experimental: {
-    optimizePackageImports: ['@intlayer/design-system'],
+    optimizePackageImports: [
+      '@intlayer/design-system',
+      'lucide-react',
+      'framer-motion',
+      'chart.js',
+      '@intlayer/editor-react',
+      'next-intlayer',
+      'zod',
+    ],
+    cssChunking: 'strict',
   },
   outputFileTracingRoot: join(process.cwd(), '../../'),
   reactCompiler: true,
@@ -254,7 +263,6 @@ const nextConfig: NextConfig = {
     // your project has type errors.
     ignoreBuildErrors: true,
   },
-
   compiler: {
     removeConsole: isProd,
   },

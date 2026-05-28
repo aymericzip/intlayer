@@ -1,18 +1,26 @@
 import { BackgroundLayout } from '@components/BackgroundLayout';
 import { DashboardContentLayout } from '@components/Dashboard/DashboardContentLayout';
-import { Editor } from '@components/Dashboard/Editor';
 import { DictionaryLoaderPlayground } from '@components/Dashboard/Editor/DictionaryLoaderPlayground';
 import * as baseConfiguration from '@intlayer/config/built';
+import { Loader } from '@intlayer/design-system/loader';
 import { Website_Demo_Path } from '@intlayer/design-system/routes';
 import { ConfigurationProvider } from '@intlayer/editor-react';
 import { OrganizationHeader } from '@structuredData/OrganizationHeader';
 import { SoftwareApplicationHeader } from '@structuredData/SoftwareApplication';
 import { WebsiteHeader } from '@structuredData/WebsiteHeader';
+import dynamic from 'next/dynamic';
 import type { NextPageIntlayer } from 'next-intlayer';
 import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
 import type { FC } from 'react';
 
 export { generateMetadata } from './metadata';
+
+const Editor = dynamic(
+  () => import('@components/Dashboard/Editor').then((mod) => mod.Editor),
+  {
+    loading: () => <Loader />,
+  }
+);
 
 const PlaygroundContent: FC = () => {
   const { title, description } = useIntlayer('playground-page');
