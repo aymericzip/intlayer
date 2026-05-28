@@ -3,7 +3,7 @@
 import { External_Github, Website_Home } from '@intlayer/design-system/routes';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import packageJson from '../../package.json' with { type: 'json' };
+import packageJson from '../../package_mock.json' with { type: 'json' };
 
 export const TranslateSoftwareApplicationHeader: FC = () => {
   const { description } = useIntlayer('translate-software-structured-data');
