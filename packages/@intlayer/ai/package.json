@@ -72,9 +72,9 @@
     "typecheck": "tsc --noEmit --project tsconfig.types.json"
   },
   "dependencies": {
-    "@ai-sdk/anthropic": "3.0.79",
-    "@ai-sdk/google": "3.0.79",
-    "@ai-sdk/openai": "3.0.65",
+    "@ai-sdk/anthropic": "3.0.80",
+    "@ai-sdk/google": "3.0.80",
+    "@ai-sdk/openai": "3.0.66",
     "@intlayer/api": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
@@ -85,10 +85,10 @@
   },
   "devDependencies": {
     "@ai-sdk/alibaba": "1.0.25",
-    "@ai-sdk/amazon-bedrock": "4.0.108",
+    "@ai-sdk/amazon-bedrock": "4.0.110",
     "@ai-sdk/deepseek": "2.0.35",
     "@ai-sdk/fireworks": "2.0.53",
-    "@ai-sdk/google": "3.0.79",
+    "@ai-sdk/google": "3.0.80",
     "@ai-sdk/google-vertex": "^4.0.137",
     "@ai-sdk/groq": "3.0.39",
     "@ai-sdk/huggingface": "1.0.50",

@@ -496,7 +496,7 @@
   },
   "peerDependencies": {
     "@better-fetch/fetch": "1.1.21",
-    "@hookform/resolvers": "5.4.0",
+    "@hookform/resolvers": "^5.4.0",
     "@intlayer/backend": "workspace:*",
     "@monaco-editor/react": "4.7.0",
     "@shikijs/transformers": "4.1.0",
