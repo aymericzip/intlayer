@@ -75,22 +75,24 @@ COPY \
     --exclude=**/*.stories.* \
     . .
 
-
-# Install all dependencies (dev + prod) (frozen for reproducible builds)
+# Install all dependencies (dev + prod)
 RUN bun install
 
-# Build every package in the workspace (uses the root "build" script)
-RUN bun x turbo run build:ci --filter=./apps/website
+# Build workspace package dependencies (packages/* and docs) that this app depends on
+RUN bun x turbo run build:ci --filter=./packages/** --filter=./docs
 
-# Set working directory to the website package and build it
-WORKDIR /workspace/apps/website
+# Set working directory to the react-router website package and build it
+WORKDIR /workspace/apps/website-react-router
 
 ENV NODE_ENV=production
 
-# Build the Next.js website
-RUN bun run --bun next build && bun scripts/generate-sw.ts && bun scripts/baidu-push.ts && bun run preserve
+# Build the React Router website 
+# (Note: postbuild script in package.json will auto-trigger generate-sw.ts)
+RUN bun run build && bun scripts/baidu-push.ts && bun run preserve
 
-# Runner
+# ---------------------------------------------------------
+# Runner Stage
+# ---------------------------------------------------------
 FROM oven/bun:1.3.14-alpine AS runner
 
 WORKDIR /app
@@ -101,21 +103,17 @@ ENV HOSTNAME=0.0.0.0
 # Create non-root user
 RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 
-# Turbopack SSR resolves module paths with a /ROOT/ prefix that maps to the
-# standalone root. Symlinking /ROOT -> /app lets find-up locate package.json
-# when searching up from /ROOT/docs/dist/esm/generated.
-RUN ln -s /app /ROOT
+# Copy workspace dependencies to ensure monorepo resolutions work
+COPY --from=builder --chown=appuser:appgroup /workspace/node_modules ./node_modules
+COPY --from=builder --chown=appuser:appgroup /workspace/packages ./packages
 
-# Copy only the standalone output and necessary static files from builder.
-# In a monorepo standalone build, static/public files live under apps/website/
-# to match where server.js (running from __dirname) expects them.
-COPY --from=builder --chown=appuser:appgroup /workspace/apps/website/.next/standalone ./
-COPY --from=builder --chown=appuser:appgroup /workspace/apps/website/public ./apps/website/public
-COPY --from=builder --chown=appuser:appgroup /workspace/apps/website/.next/static ./apps/website/.next/static
+# Copy the built React Router app
+COPY --from=builder --chown=appuser:appgroup /workspace/apps/website-react-router/package.json ./apps/website/package.json
+COPY --from=builder --chown=appuser:appgroup /workspace/apps/website-react-router/node_modules ./apps/website/node_modules
+COPY --from=builder --chown=appuser:appgroup /workspace/apps/website-react-router/build ./apps/website/build
+COPY --from=builder --chown=appuser:appgroup /workspace/apps/website-react-router/public ./apps/website/public
 
-# The Turbopack SSR runtime resolves /ROOT/ to the standalone root (/app/).
-# @intlayer/docs is a serverExternalPackage loaded at /ROOT/docs/... at runtime,
-# so its dist, package.json, and markdown content must live at /app/docs/.
+# Copy required docs content
 COPY --from=builder --chown=appuser:appgroup /workspace/docs/dist ./docs/dist
 COPY --from=builder --chown=appuser:appgroup /workspace/docs/package.json ./docs/package.json
 COPY --from=builder --chown=appuser:appgroup /workspace/docs/blog ./docs/blog
@@ -123,14 +121,14 @@ COPY --from=builder --chown=appuser:appgroup /workspace/docs/docs ./docs/docs
 COPY --from=builder --chown=appuser:appgroup /workspace/docs/frequent_questions ./docs/frequent_questions
 COPY --from=builder --chown=appuser:appgroup /workspace/docs/legal ./docs/legal
 
-
 USER appuser
 
 EXPOSE 3000
 
-# Use bun (always present) to make the HTTP request — avoids BusyBox wget edge cases.
+# Healthcheck
 HEALTHCHECK --interval=30s --timeout=10s --start-period=15s --retries=3 \
   CMD bun -e "const r = await fetch('http://localhost:3000/api/health'); process.exit(r.ok ? 0 : 1)"
 
-# Execute the standalone server
-CMD ["bun", "apps/website/server.js"]
+# Execute the React Router server
+WORKDIR /app/apps/website
+CMD ["bun", "run", "start"]
