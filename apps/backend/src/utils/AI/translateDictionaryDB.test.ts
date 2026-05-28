@@ -9,6 +9,7 @@ vi.mock('@logger', () => ({
 }));
 
 import { translateJSON } from './translateJSON';
+
 const mockTranslateJSON = translateJSON as ReturnType<typeof vi.fn>;
 
 const AI_CONFIG = {} as any;
@@ -73,7 +74,9 @@ describe('translateDictionaryDB', () => {
     const outputLocales = calls.map((c) => c[0].outputLocale);
     expect(outputLocales).toContain('fr');
     expect(outputLocales).toContain('ja');
-    calls.forEach((c) => expect(c[0].entryLocale).toBe('en'));
+    calls.forEach((c) => {
+      expect(c[0].entryLocale).toBe('en');
+    });
   });
 
   it('passes dictionaryDescription to every translateJSON call', async () => {
@@ -130,7 +133,9 @@ describe('translateDictionaryDB', () => {
     expect(calls[0]).toMatchObject({ locale: 'fr', chunkIndex: 0 });
     expect(calls[0].totalChunks).toBeGreaterThan(1);
     // Indices are sequential
-    calls.forEach((c, i) => expect(c.chunkIndex).toBe(i));
+    calls.forEach((c, i) => {
+      expect(c.chunkIndex).toBe(i);
+    });
     // All keys present after merge
     expect(Object.keys(result['fr']!).length).toBe(Object.keys(content).length);
   });
@@ -197,7 +202,9 @@ describe('translateDictionaryDB', () => {
     await expect(promise).rejects.toThrow(AbortError);
     expect(firstLocaleStarted).toBe(true);
     // Because the abort throws out of the outer locale loop, only fr was attempted
-    const outputLocales = mockTranslateJSON.mock.calls.map((c) => c[0].outputLocale);
+    const outputLocales = mockTranslateJSON.mock.calls.map(
+      (c) => c[0].outputLocale
+    );
     expect(outputLocales).not.toContain('es');
     expect(outputLocales).not.toContain('de');
   });

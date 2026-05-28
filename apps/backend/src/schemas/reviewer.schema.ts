@@ -1,13 +1,13 @@
 import { model, Schema } from 'mongoose';
 import type {
-  TranslationMissionModelType,
-  TranslationMissionSchema,
   ReviewerMessageModelType,
   ReviewerMessageSchema,
   ReviewerProfileModelType,
   ReviewerProfileSchema,
   ReviewerReviewModelType,
   ReviewerReviewSchema,
+  TranslationMissionModelType,
+  TranslationMissionSchema,
 } from '@/types/reviewer.types';
 
 const toJSONTransform = (_doc: any, ret: any) => {
@@ -50,7 +50,13 @@ export const reviewerProfileSchema = new Schema<ReviewerProfileSchema>(
     languagePairs: { type: [languagePairSchema], default: [] },
     categories: {
       type: [String],
-      enum: ['copywriter', 'translator', 'proofreader', 'technical_writer', 'marketing'],
+      enum: [
+        'copywriter',
+        'translator',
+        'proofreader',
+        'technical_writer',
+        'marketing',
+      ],
       default: [],
     },
     pricePerHour: { type: Number, required: true, default: 0 },
@@ -146,11 +152,6 @@ export const reviewerReviewSchema = new Schema<ReviewerReviewSchema>(
       ref: 'translationMission',
       required: true,
       unique: true,
-    },
-    reviewerId: {
-      type: Schema.Types.ObjectId,
-      ref: 'user',
-      required: true,
     },
     reviewerId: {
       type: Schema.Types.ObjectId,

@@ -9,7 +9,9 @@ import {
 
 import { TagList } from '#components/Dashboard/TagForm/TagList';
 
-export const Route = createFileRoute('/{-$locale}/_dashboard/_editor/_content/tags/')({
+export const Route = createFileRoute(
+  '/{-$locale}/_dashboard/_editor/_content/tags/'
+)({
   component: TagsPage,
   head: ({ params }) => {
     const { locale } = params;

@@ -35,7 +35,7 @@ const reviewerCardContent = {
         ja: '料金：{{price}}/時間',
         ko: '가격: 시간당 {{price}}',
         zh: '价格：每小时 {{price}}',
-        it: 'Prezzo: {{price}} all\'ora',
+        it: "Prezzo: {{price}} all'ora",
         pt: 'Preço: {{price}} por hora',
         hi: 'मूल्य: {{price}} प्रति घंटा',
         ar: 'السعر: {{price}} في الساعة',

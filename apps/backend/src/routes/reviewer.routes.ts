@@ -201,10 +201,21 @@ export const reviewerRouter = async (fastify: FastifyInstance) => {
   // Authenticated profile
   fastify.post(routes.registerAsReviewer.urlModel, registerAsReviewer);
   fastify.put(routes.updateReviewerProfile.urlModel, updateReviewerProfile);
-  fastify.delete(routes.deleteReviewerProfile.urlModel, deleteMyReviewerProfile);
+  fastify.delete(
+    routes.deleteReviewerProfile.urlModel,
+    deleteMyReviewerProfile
+  );
   const pictureRouteOpts = { bodyLimit: 20 * 1024 * 1024 };
-  fastify.post(routes.uploadMainPicture.urlModel, pictureRouteOpts, uploadReviewerMainPicture);
-  fastify.post(routes.uploadCoverPicture.urlModel, pictureRouteOpts, uploadReviewerCoverPicture);
+  fastify.post(
+    routes.uploadMainPicture.urlModel,
+    pictureRouteOpts,
+    uploadReviewerMainPicture
+  );
+  fastify.post(
+    routes.uploadCoverPicture.urlModel,
+    pictureRouteOpts,
+    uploadReviewerCoverPicture
+  );
 
   // Missions — specific routes before parameterized ones
   fastify.post(routes.estimateMission.urlModel, estimateMission);
@@ -231,8 +242,5 @@ export const reviewerRouter = async (fastify: FastifyInstance) => {
 
   // Admin
   fastify.get(routes.getAdminReviewers.urlModel, getAdminReviewers);
-  fastify.put(
-    routes.validateReviewerProfile.urlModel,
-    validateReviewerProfile
-  );
+  fastify.put(routes.validateReviewerProfile.urlModel, validateReviewerProfile);
 };

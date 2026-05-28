@@ -1,8 +1,9 @@
-import { App_Auth_SignIn_Path } from '@intlayer/design-system/routes';
 import { Loader } from '@intlayer/design-system/loader';
+import { App_Auth_SignIn_Path } from '@intlayer/design-system/routes';
 import { useQueryClient } from '@tanstack/react-query';
-import { createFileRoute, useNavigate } from '@tanstack/react-router';
+import { createFileRoute } from '@tanstack/react-router';
 import { useEffect } from 'react';
+import { useLocalizedNavigate } from '#/hooks/useLocalizedNavigate';
 import { sessionQueryOptions } from '#utils/auth';
 
 export const Route = createFileRoute('/{-$locale}/_other/auth/demo')({
@@ -10,7 +11,7 @@ export const Route = createFileRoute('/{-$locale}/_other/auth/demo')({
 });
 
 function DemoPage() {
-  const navigate = useNavigate();
+  const navigate = useLocalizedNavigate();
   const queryClient = useQueryClient();
 
   useEffect(() => {

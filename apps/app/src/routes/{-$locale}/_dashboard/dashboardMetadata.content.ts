@@ -169,14 +169,14 @@ const dashboardMetadataContent = {
           'CMS',
         ],
 
-        "en-GB": [
-          "Intlayer",
-          "Dashboard",
-          "Localization",
-          "Internationalization",
-          "i18n",
-          "CMS"
-        ]
+        'en-GB': [
+          'Intlayer',
+          'Dashboard',
+          'Localization',
+          'Internationalization',
+          'i18n',
+          'CMS',
+        ],
       }),
     },
   },

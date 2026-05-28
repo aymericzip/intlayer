@@ -12,7 +12,10 @@ const ALLOWED_MIME_TYPES = [
 ];
 const MAX_SIZE_BYTES = 20 * 1024 * 1024; // 20 MB pre-resize
 
-const RESIZE_CONFIG: Record<ReviewerPictureKind, { width: number; height: number; quality: number }> = {
+const RESIZE_CONFIG: Record<
+  ReviewerPictureKind,
+  { width: number; height: number; quality: number }
+> = {
   main: { width: 1280, height: 720, quality: 82 },
   cover: { width: 1500, height: 500, quality: 80 },
 };
@@ -34,7 +37,7 @@ const getPictureKey = (reviewerId: string, kind: ReviewerPictureKind): string =>
 export const uploadReviewerPicture = async (
   buffer: Buffer,
   reviewerId: string,
-  kind: ReviewerPictureKind,
+  kind: ReviewerPictureKind
 ): Promise<string> => {
   const cfg = RESIZE_CONFIG[kind];
   const { buffer: resized, contentType } = await resizeImage(buffer, cfg);

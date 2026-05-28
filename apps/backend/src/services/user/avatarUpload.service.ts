@@ -25,7 +25,7 @@ const getAvatarKey = (userId: string): string => `avatars/${userId}.jpg`;
 
 export const uploadUserAvatar = async (
   buffer: Buffer,
-  userId: string,
+  userId: string
 ): Promise<string> => {
   const { buffer: resized, contentType } = await resizeImage(buffer, {
     width: 256,

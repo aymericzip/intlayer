@@ -1,3 +1,4 @@
+/** biome-ignore-all lint/security/noDangerouslySetInnerHtml: No choice */
 import Script from 'next/script';
 import type { FC } from 'react';
 

@@ -52,7 +52,7 @@ export const ReviewerContactEmailEN = ({
               {message}
             </Text>
           </Container>
-          <Text className="text-[14px] text-[#666] leading-[24px]">
+          <Text className="text-[#666] text-[14px] leading-[24px]">
             Log in to Intlayer to reply to this message.
           </Text>
         </Container>

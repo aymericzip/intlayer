@@ -1,4 +1,4 @@
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 // ─── mocks ────────────────────────────────────────────────────────────────────
 
@@ -50,10 +50,12 @@ vi.mock('@intlayer/core/plugins', () => ({
     key: _dict.key,
     content: { label: 'Source text' },
   })),
-  insertContentInDictionary: vi.fn((dict: any, content: any, locale: string) => ({
-    ...dict,
-    content: { ...dict.content, [locale]: content },
-  })),
+  insertContentInDictionary: vi.fn(
+    (dict: any, content: any, locale: string) => ({
+      ...dict,
+      content: { ...dict.content, [locale]: content },
+    })
+  ),
 }));
 
 vi.mock('@logger', () => ({
@@ -70,31 +72,40 @@ vi.mock('bullmq', () => ({
 
 // ─── imports after mocks ──────────────────────────────────────────────────────
 
+import { getPerLocaleDictionary } from '@intlayer/core/plugins';
+import * as dictionaryService from '@services/dictionary.service';
+import * as projectService from '@services/project.service';
+import * as userService from '@services/user.service';
 import {
   AbortError,
   translateDictionaryDB,
 } from '@utils/AI/translateDictionaryDB';
-import * as dictionaryService from '@services/dictionary.service';
-import * as userService from '@services/user.service';
-import * as projectService from '@services/project.service';
-import {
-  getPerLocaleDictionary,
-} from '@intlayer/core/plugins';
 import {
   isTranslationJobCancelled,
   isTranslationJobPaused,
 } from './translationQueue.service';
 import { processTranslationJob } from './translationWorker.service';
 
-const mockTranslateDictionaryDB = translateDictionaryDB as ReturnType<typeof vi.fn>;
-const mockGetDictionaryById = dictionaryService.getDictionaryById as ReturnType<typeof vi.fn>;
-const mockUpdateDictionaryById = dictionaryService.updateDictionaryById as ReturnType<typeof vi.fn>;
-const mockIncrementVersion = dictionaryService.incrementVersion as ReturnType<typeof vi.fn>;
+const mockTranslateDictionaryDB = translateDictionaryDB as ReturnType<
+  typeof vi.fn
+>;
+const mockGetDictionaryById = dictionaryService.getDictionaryById as ReturnType<
+  typeof vi.fn
+>;
+const mockUpdateDictionaryById =
+  dictionaryService.updateDictionaryById as ReturnType<typeof vi.fn>;
+const mockIncrementVersion = dictionaryService.incrementVersion as ReturnType<
+  typeof vi.fn
+>;
 const mockGetUserById = userService.getUserById as ReturnType<typeof vi.fn>;
-const mockGetProjectById = projectService.getProjectById as ReturnType<typeof vi.fn>;
+const mockGetProjectById = projectService.getProjectById as ReturnType<
+  typeof vi.fn
+>;
 const mockIsPaused = isTranslationJobPaused as ReturnType<typeof vi.fn>;
 const mockIsCancelled = isTranslationJobCancelled as ReturnType<typeof vi.fn>;
-const mockGetPerLocaleDictionary = getPerLocaleDictionary as ReturnType<typeof vi.fn>;
+const mockGetPerLocaleDictionary = getPerLocaleDictionary as ReturnType<
+  typeof vi.fn
+>;
 
 // ─── helpers ──────────────────────────────────────────────────────────────────
 
@@ -102,7 +113,16 @@ const mockGetPerLocaleDictionary = getPerLocaleDictionary as ReturnType<typeof v
 const makeFakeDict = (id: string, key: string) => ({
   id,
   key,
-  content: new Map([['v1', { content: { label: { nodeType: 'translation', translation: { en: 'Source' } } } }]]),
+  content: new Map([
+    [
+      'v1',
+      {
+        content: {
+          label: { nodeType: 'translation', translation: { en: 'Source' } },
+        },
+      },
+    ],
+  ]),
   description: `${key} description`,
 });
 
@@ -140,7 +160,10 @@ describe('processTranslationJob', () => {
   it('completes a single dictionary with all target locales', async () => {
     const dict = makeFakeDict('d1', 'common');
     mockGetDictionaryById.mockResolvedValue(dict);
-    mockTranslateDictionaryDB.mockResolvedValue({ fr: { label: 'Bonjour' }, es: { label: 'Hola' } });
+    mockTranslateDictionaryDB.mockResolvedValue({
+      fr: { label: 'Bonjour' },
+      es: { label: 'Hola' },
+    });
 
     const job = makeJob('job-1', {
       dictionaryTargets: [{ dictionaryId: 'd1', locales: ['fr', 'es'] }],
@@ -150,7 +173,9 @@ describe('processTranslationJob', () => {
 
     await processTranslationJob(job);
 
-    const progressCalls: any[] = job.updateProgress.mock.calls.map((c: any) => c[0]);
+    const progressCalls: any[] = job.updateProgress.mock.calls.map(
+      (c: any) => c[0]
+    );
     const final = progressCalls[progressCalls.length - 1];
     expect(final.completedKeys).toContain('common');
     expect(final.failedKeys).toHaveLength(0);
@@ -162,8 +187,7 @@ describe('processTranslationJob', () => {
     mockGetDictionaryById.mockResolvedValue(dict);
 
     // Simulate: fr already complete (getPerLocaleDictionary returns empty content)
-    mockGetPerLocaleDictionary
-      .mockReturnValueOnce({ key: 'nav', content: {} }); // fr: nothing to translate
+    mockGetPerLocaleDictionary.mockReturnValueOnce({ key: 'nav', content: {} }); // fr: nothing to translate
 
     mockTranslateDictionaryDB.mockResolvedValue({});
 
@@ -215,8 +239,12 @@ describe('processTranslationJob', () => {
     expect(final.percentage).toBe(100);
 
     // Dict A → only fr; Dict B → only es
-    expect(mockTranslateDictionaryDB.mock.calls[0][0].targetLocales).toEqual(['fr']);
-    expect(mockTranslateDictionaryDB.mock.calls[1][0].targetLocales).toEqual(['es']);
+    expect(mockTranslateDictionaryDB.mock.calls[0][0].targetLocales).toEqual([
+      'fr',
+    ]);
+    expect(mockTranslateDictionaryDB.mock.calls[1][0].targetLocales).toEqual([
+      'es',
+    ]);
   });
 
   it('3 dicts each missing different locales — each gets the right locale set', async () => {
@@ -226,16 +254,20 @@ describe('processTranslationJob', () => {
 
     // Each dict: 1 read + 1 re-fetch-before-write = 2 calls per dict
     mockGetDictionaryById
-      .mockResolvedValueOnce(dictA).mockResolvedValueOnce(dictA)
-      .mockResolvedValueOnce(dictB).mockResolvedValueOnce(dictB)
-      .mockResolvedValueOnce(dictC).mockResolvedValueOnce(dictC).mockResolvedValueOnce(dictC);
+      .mockResolvedValueOnce(dictA)
+      .mockResolvedValueOnce(dictA)
+      .mockResolvedValueOnce(dictB)
+      .mockResolvedValueOnce(dictB)
+      .mockResolvedValueOnce(dictC)
+      .mockResolvedValueOnce(dictC)
+      .mockResolvedValueOnce(dictC);
 
     // Worker sends one locale per call: dA/fr, dB/es, dC/fr, dC/es = 4 calls
     mockTranslateDictionaryDB
-      .mockResolvedValueOnce({ fr: {} })   // dA
-      .mockResolvedValueOnce({ es: {} })   // dB
-      .mockResolvedValueOnce({ fr: {} })   // dC/fr
-      .mockResolvedValueOnce({ es: {} });  // dC/es
+      .mockResolvedValueOnce({ fr: {} }) // dA
+      .mockResolvedValueOnce({ es: {} }) // dB
+      .mockResolvedValueOnce({ fr: {} }) // dC/fr
+      .mockResolvedValueOnce({ es: {} }); // dC/es
 
     const job = makeJob('job-1', {
       dictionaryTargets: [
@@ -257,10 +289,18 @@ describe('processTranslationJob', () => {
 
     // Worker iterates one locale per call — dict C (fr+es) = 2 separate calls
     // Call order: dictA/fr, dictB/es, dictC/fr, dictC/es
-    expect(mockTranslateDictionaryDB.mock.calls[0][0].targetLocales).toEqual(['fr']);
-    expect(mockTranslateDictionaryDB.mock.calls[1][0].targetLocales).toEqual(['es']);
-    expect(mockTranslateDictionaryDB.mock.calls[2][0].targetLocales).toEqual(['fr']);
-    expect(mockTranslateDictionaryDB.mock.calls[3][0].targetLocales).toEqual(['es']);
+    expect(mockTranslateDictionaryDB.mock.calls[0][0].targetLocales).toEqual([
+      'fr',
+    ]);
+    expect(mockTranslateDictionaryDB.mock.calls[1][0].targetLocales).toEqual([
+      'es',
+    ]);
+    expect(mockTranslateDictionaryDB.mock.calls[2][0].targetLocales).toEqual([
+      'fr',
+    ]);
+    expect(mockTranslateDictionaryDB.mock.calls[3][0].targetLocales).toEqual([
+      'es',
+    ]);
   });
 
   // ── failure handling ─────────────────────────────────────────────────────
@@ -356,7 +396,9 @@ describe('processTranslationJob', () => {
       userId: 'user-1',
     });
 
-    await expect(processTranslationJob(job)).rejects.toThrow('Cancelled by user');
+    await expect(processTranslationJob(job)).rejects.toThrow(
+      'Cancelled by user'
+    );
     expect(mockTranslateDictionaryDB).not.toHaveBeenCalled();
   });
 
@@ -379,8 +421,12 @@ describe('processTranslationJob', () => {
     // dict-b was never attempted
     expect(mockTranslateDictionaryDB).toHaveBeenCalledTimes(1);
     // dict-a was aborted mid-chunk — not in failedKeys
-    const progressCalls: any[] = job.updateProgress.mock.calls.map((c: any) => c[0]);
-    const anyFailed = progressCalls.some((p: any) => p.failedKeys?.includes('dict-a'));
+    const progressCalls: any[] = job.updateProgress.mock.calls.map(
+      (c: any) => c[0]
+    );
+    const anyFailed = progressCalls.some((p: any) =>
+      p.failedKeys?.includes('dict-a')
+    );
     expect(anyFailed).toBe(false);
   });
 
@@ -391,8 +437,10 @@ describe('processTranslationJob', () => {
     const dictB = makeFakeDict('dB', 'footer');
 
     mockGetDictionaryById
-      .mockResolvedValueOnce(dictA).mockResolvedValueOnce(dictA)
-      .mockResolvedValueOnce(dictB).mockResolvedValueOnce(dictB);
+      .mockResolvedValueOnce(dictA)
+      .mockResolvedValueOnce(dictA)
+      .mockResolvedValueOnce(dictB)
+      .mockResolvedValueOnce(dictB);
 
     mockTranslateDictionaryDB
       .mockResolvedValueOnce({ fr: {} })
@@ -430,7 +478,9 @@ describe('processTranslationJob', () => {
 
     await processTranslationJob(job);
 
-    const progressCalls: any[] = (job.updateProgress.mock.calls as any[]).map((c) => c[0]);
+    const progressCalls: any[] = (job.updateProgress.mock.calls as any[]).map(
+      (c) => c[0]
+    );
     expect(progressCalls[0].percentage).toBe(0);
     expect(progressCalls[progressCalls.length - 1].percentage).toBe(100);
   });
@@ -445,7 +495,10 @@ describe('processTranslationJob', () => {
     mockTranslateDictionaryDB.mockResolvedValue({ fr: {} });
 
     const job = makeJob('job-1', {
-      dictionaryTargets: dicts.map((d) => ({ dictionaryId: d.id, locales: ['fr'] })),
+      dictionaryTargets: dicts.map((d) => ({
+        dictionaryId: d.id,
+        locales: ['fr'],
+      })),
       projectId: 'proj-1',
       userId: 'user-1',
     });
@@ -488,8 +541,10 @@ describe('processTranslationJob', () => {
     const dictB = makeFakeDict('dB', 'beta');
 
     mockGetDictionaryById
-      .mockResolvedValueOnce(dictA).mockResolvedValueOnce(dictA)
-      .mockResolvedValueOnce(dictB).mockResolvedValueOnce(dictB);
+      .mockResolvedValueOnce(dictA)
+      .mockResolvedValueOnce(dictA)
+      .mockResolvedValueOnce(dictB)
+      .mockResolvedValueOnce(dictB);
 
     mockTranslateDictionaryDB
       .mockResolvedValueOnce({ fr: {}, es: {} })

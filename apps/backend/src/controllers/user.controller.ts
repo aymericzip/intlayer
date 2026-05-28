@@ -477,7 +477,7 @@ export const uploadAvatar = async (
       formatResponse({
         message: t({
           en: 'Unsupported image type. Allowed: JPEG, PNG, WebP, GIF.',
-          fr: 'Type d\'image non supporté. Formats acceptés : JPEG, PNG, WebP, GIF.',
+          fr: "Type d'image non supporté. Formats acceptés : JPEG, PNG, WebP, GIF.",
           es: 'Tipo de imagen no admitido. Permitidos: JPEG, PNG, WebP, GIF.',
           'en-GB': 'Unsupported image type. Allowed: JPEG, PNG, WebP, GIF.',
           de: 'Nicht unterstützter Bildtyp. Erlaubt: JPEG, PNG, WebP, GIF.',
@@ -495,6 +495,7 @@ export const uploadAvatar = async (
           vi: 'Loại ảnh không được hỗ trợ. Được phép: JPEG, PNG, WebP, GIF.',
           uk: 'Непідтримуваний тип зображення. Дозволено: JPEG, PNG, WebP, GIF.',
         }),
+        data: null,
       })
     );
   }
@@ -523,6 +524,7 @@ export const uploadAvatar = async (
           vi: 'Tệp quá lớn. Kích thước tối đa là 20 MB.',
           uk: 'Файл завеликий. Максимальний розмір: 20 МБ.',
         }),
+        data: null,
       })
     );
   }

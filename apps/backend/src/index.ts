@@ -23,6 +23,7 @@ import { authMiddleware } from '@middlewares/sessionAuth.middleware';
 import { aiRoute, aiRouter } from '@routes/ai.routes';
 import { auditRoute, auditRouter } from '@routes/audit.routes';
 import { bitbucketRoute, bitbucketRouter } from '@routes/bitbucket.routes';
+import { demoRoute, demoRouter } from '@routes/demo.routes';
 import { dictionaryRoute, dictionaryRouter } from '@routes/dictionary.routes';
 import {
   eventListenerRoute,
@@ -36,6 +37,7 @@ import {
   organizationRouter,
 } from '@routes/organization.routes';
 import { projectRoute, projectRouter } from '@routes/project.routes';
+import { reviewerRoute, reviewerRouter } from '@routes/reviewer.routes';
 import { searchRoute, searchRouter } from '@routes/search.routes';
 import {
   showcaseProjectRoute,
@@ -44,8 +46,6 @@ import {
 import { stripeRoute, stripeRouter } from '@routes/stripe.routes';
 import { tagRoute, tagRouter } from '@routes/tags.routes';
 import { translateRoute, translationRouter } from '@routes/translate.routes';
-import { demoRoute, demoRouter } from '@routes/demo.routes';
-import { reviewerRoute, reviewerRouter } from '@routes/reviewer.routes';
 import { userRoute, userRouter } from '@routes/user.routes';
 import { processAuditJobs } from '@services/audit/recursiveAudit.service';
 import { startTranslationWorker } from '@services/translationWorker.service';

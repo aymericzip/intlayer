@@ -230,6 +230,6 @@
   --monaco-border: rgba(79, 79, 79, 1);
 }
 
-@plugin '@tailwindcss/aspect-ratio';
+@plugin "@tailwindcss/aspect-ratio";
 
 @source "./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}";

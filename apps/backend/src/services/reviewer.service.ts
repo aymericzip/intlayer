@@ -14,7 +14,11 @@ export const findReviewerProfiles = async (
   skip = 0,
   limit = 20
 ): Promise<ReviewerProfileDocument[]> =>
-  ReviewerProfileModel.find({ status: 'active', isHidden: { $ne: true }, ...query })
+  ReviewerProfileModel.find({
+    status: 'active',
+    isHidden: { $ne: true },
+    ...query,
+  })
     .sort({ averageRating: -1, totalMissions: -1 })
     .skip(skip)
     .limit(limit) as unknown as ReviewerProfileDocument[];
@@ -22,7 +26,11 @@ export const findReviewerProfiles = async (
 export const countReviewerProfiles = async (
   query: Record<string, any> = {}
 ): Promise<number> =>
-  ReviewerProfileModel.countDocuments({ status: 'active', isHidden: { $ne: true }, ...query });
+  ReviewerProfileModel.countDocuments({
+    status: 'active',
+    isHidden: { $ne: true },
+    ...query,
+  });
 
 export const findReviewerProfilesAdmin = async (
   query: Record<string, any> = {},

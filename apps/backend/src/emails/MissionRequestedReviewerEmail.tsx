@@ -58,7 +58,8 @@ export const MissionRequestedReviewerEmailEN = ({
           <Text className="text-[14px] text-black leading-[24px]">
             <strong>From:</strong> {sourceLocale.toUpperCase()}
             <br />
-            <strong>To:</strong> {targetLocales.map((l) => l.toUpperCase()).join(', ')}
+            <strong>To:</strong>{' '}
+            {targetLocales.map((locale) => locale.toUpperCase()).join(', ')}
             {notes && (
               <>
                 <br />
@@ -126,7 +127,8 @@ export const MissionRequestedReviewerEmailFR = ({
           <Text className="text-[14px] text-black leading-[24px]">
             <strong>De :</strong> {sourceLocale.toUpperCase()}
             <br />
-            <strong>Vers :</strong> {targetLocales.map((l) => l.toUpperCase()).join(', ')}
+            <strong>Vers :</strong>{' '}
+            {targetLocales.map((l) => l.toUpperCase()).join(', ')}
             {notes && (
               <>
                 <br />
@@ -194,7 +196,8 @@ export const MissionRequestedReviewerEmailES = ({
           <Text className="text-[14px] text-black leading-[24px]">
             <strong>De:</strong> {sourceLocale.toUpperCase()}
             <br />
-            <strong>A:</strong> {targetLocales.map((l) => l.toUpperCase()).join(', ')}
+            <strong>A:</strong>{' '}
+            {targetLocales.map((l) => l.toUpperCase()).join(', ')}
             {notes && (
               <>
                 <br />
@@ -233,7 +236,8 @@ export const MissionRequestedReviewerEmailZH = MissionRequestedReviewerEmailEN;
 export const MissionRequestedReviewerEmailDE = MissionRequestedReviewerEmailEN;
 export const MissionRequestedReviewerEmailAR = MissionRequestedReviewerEmailEN;
 export const MissionRequestedReviewerEmailIT = MissionRequestedReviewerEmailEN;
-export const MissionRequestedReviewerEmailEN_GB = MissionRequestedReviewerEmailEN;
+export const MissionRequestedReviewerEmailEN_GB =
+  MissionRequestedReviewerEmailEN;
 export const MissionRequestedReviewerEmailPT = MissionRequestedReviewerEmailEN;
 export const MissionRequestedReviewerEmailHI = MissionRequestedReviewerEmailEN;
 export const MissionRequestedReviewerEmailTR = MissionRequestedReviewerEmailEN;

@@ -48,9 +48,9 @@ export const ReviewerApprovedEmailEN = ({
               Hello {username},
             </Text>
             <Text className="text-[14px] text-black leading-[24px]">
-              Great news! Your reviewer profile on <strong>Intlayer</strong>{' '}
-              has been reviewed and approved. You are now listed on the
-              marketplace and can start receiving translation missions.
+              Great news! Your reviewer profile on <strong>Intlayer</strong> has
+              been reviewed and approved. You are now listed on the marketplace
+              and can start receiving translation missions.
             </Text>
             <Section className="my-[32px] text-center">
               <Button
@@ -669,9 +669,9 @@ export const ReviewerApprovedEmailEN_GB = ({
               Hello {username},
             </Text>
             <Text className="text-[14px] text-black leading-[24px]">
-              Great news! Your reviewer profile on <strong>Intlayer</strong>{' '}
-              has been reviewed and approved. You are now listed on the
-              marketplace and can start receiving translation missions.
+              Great news! Your reviewer profile on <strong>Intlayer</strong> has
+              been reviewed and approved. You are now listed on the marketplace
+              and can start receiving translation missions.
             </Text>
             <Section className="my-[32px] text-center">
               <Button
