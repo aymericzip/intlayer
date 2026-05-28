@@ -12,7 +12,8 @@
     "typescript",
     "react",
     "vite",
-    "json"
+    "json",
+    "tanstack-intent"
   ],
   "homepage": "https://intlayer.org",
   "bugs": {
