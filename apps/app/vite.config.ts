@@ -71,7 +71,7 @@ const localizedPages = localeFlatMap(({ urlPrefix }) =>
 );
 
 export default defineConfig(({ mode }) => {
-  const env = loadEnv(mode, process.cwd(), '');
+  const env = loadEnv(mode, process.cwd(), 'VITE_');
 
   const domain = new URL(env.VITE_SITE_URL).hostname;
   const appUrl = env.VITE_SITE_URL;
