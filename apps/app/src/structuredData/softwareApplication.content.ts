@@ -26,7 +26,7 @@ export default {
     description: t({
       en: 'i18n library with AI integration and flexible content management. Reduce your page size by up to 50% while building multilingual sites easily. Comes with a suite of tools: CLI for translation in CI, TMS, CMS and more.',
       fr: "Bibliothèque i18n avec intégration de l'IA et gestion de contenu flexible. Réduisez la taille de votre page jusqu'à 50 % tout en créant facilement des sites multilingues.",
-      es: 'Biblioteca i18n con integración de IA y gestión de contenido flexible. Reduzca el tamaño de su página hasta en un 50% al crear sitios multilingües fácilmente.',
+      es: 'Biblioteca i18n con integración de IA y gestão de conteúdo flexível. Reduza o tamanho da sua página em até 50% enquanto cria sites multilíngues facilmente.',
       'en-GB':
         'i18n library with AI integration and flexible content management. Reduce your page size by up to 50% while building multilingual sites easily. Comes with a suite of tools: CLI for translation in CI, TMS, CMS and more.',
       de: 'i18n-Bibliothek mit KI-Integration und flexiblem Content-Management. Reduzieren Sie Ihre Seitengröße um bis zu 50%, während Sie problemlos mehrsprachige Websites erstellen.',
@@ -35,7 +35,7 @@ export default {
       ko: 'AI 통합 및 유연한 콘텐츠 관리를 갖춘 i18n 라이브러리. 다국어 사이트를 쉽게 구축하면서 페이지 크기를 최대 50%까지 줄이세요.',
       zh: '带有 AI 集成和灵活内容管理的 i18n 库。轻松构建多语言网站的同时，将页面大小减少多达 50%。',
       pt: 'Biblioteca i18n com integração de IA e gestão de conteúdo flexível. Reduza o tamanho da sua página em até 50% enquanto cria sites multilíngues facilmente.',
-      hi: 'AI एकीकरण और लचीले सामग्री प्रबंधन के साथ i18n लाइब्रेरी। आसानी से बहुभाषी साइटें बनाते समय अपने पृष्ठ का आकार 50% तक कम करें।',
+      hi: 'AI एकीकरण और लचीले सामग्री प्रबंधन के साथ i18n लाइब्रेरी। आसानी से बहुभाषी साइटें बनाते সময় अपने पृष्ठ का आकार 50% तक कम करें।',
       ar: 'مكتبة i18n مع دمج الذكاء الاصطناعي وإدارة المحتوى المرنة. قلل حجم صفحتك بنسبة تصل إلى 50٪ مع بناء مواقع متعددة اللغات بسهولة.',
       ru: 'Библиотека i18n с интеграцией ИИ и гибким управлением контентом. Уменьшите размер страницы до 50%, легко создавая многоязычные сайты.',
       tr: "Yapay zeka entegrasyonu ve esnek içerik yönetimi ile i18n kütüphanesi. Kolayca çok dilli siteler oluştururken sayfa boyutunuzu %50'ye kadar azaltın.",

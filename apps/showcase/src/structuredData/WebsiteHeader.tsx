@@ -1,14 +1,13 @@
 /** biome-ignore-all lint/security/noDangerouslySetInnerHtml: No choice */
-
 import { internationalization } from '@intlayer/config/built';
 import {
   Website_Doc_Search,
   Website_Home,
 } from '@intlayer/design-system/routes';
-
+import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
 
-export const WebsiteHeader = () => {
+export const WebsiteHeader: FC = () => {
   const { keywords } = useIntlayer('website-structured-data');
 
   const website = {

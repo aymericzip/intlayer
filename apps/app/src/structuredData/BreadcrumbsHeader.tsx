@@ -1,5 +1,4 @@
 /** biome-ignore-all lint/security/noDangerouslySetInnerHtml: No choice */
-
 import { Website_Domain } from '@intlayer/design-system/routes';
 import type { FC } from 'react';
 

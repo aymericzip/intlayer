@@ -1,14 +1,18 @@
 /** biome-ignore-all lint/security/noDangerouslySetInnerHtml: No choice */
 
+import type { GetPricingResult } from '@intlayer/backend';
 import { App_Dashboard } from '@intlayer/design-system/routes';
 import Script from 'next/script';
 import { useIntlayer } from 'next-intlayer/server';
-import { formatStructuredDataOffers, getPricing } from '../utils/stripe';
+import { formatStructuredDataOffers } from '../utils/stripe';
 
-export const TMSProductHeader = async () => {
+export const TMSProductHeader = ({
+  pricings,
+}: {
+  pricings: GetPricingResult['data'];
+}) => {
   const { description } = useIntlayer('tms-product-header-structured-data');
 
-  const pricings = await getPricing();
   const offers = formatStructuredDataOffers(pricings);
 
   const product = {

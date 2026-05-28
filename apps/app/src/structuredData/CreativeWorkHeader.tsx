@@ -1,5 +1,3 @@
-/** biome-ignore-all lint/security/noDangerouslySetInnerHtml: No choice */
-
 import { useIntlayer } from 'react-intlayer';
 
 type DocHeaderProps = {
@@ -14,17 +12,14 @@ type DocHeaderProps = {
 };
 
 const formatDate = (date: Date): string => {
-  // Ensure the input is a Date object
   if (!(date instanceof Date)) {
     throw new Error('Input must be a valid Date object');
   }
 
-  // Extract the parts of the date
-  const day = String(date.getDate()).padStart(2, '0'); // Ensure 2 digits
-  const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
+  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, '0');
   const year = date.getFullYear();
 
-  // Combine them in the desired format
   return `${day}-${month}-${year}`;
 };
 

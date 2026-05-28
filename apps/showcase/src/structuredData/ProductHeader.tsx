@@ -1,15 +1,18 @@
 /** biome-ignore-all lint/security/noDangerouslySetInnerHtml: No choice */
-
-import {
-  App_Dashboard,
-  App_Pricing,
-  Website_Home,
-} from '@intlayer/design-system/routes';
+import { App_Dashboard } from '@intlayer/design-system/routes';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
+import { formatStructuredDataOffers } from '../utils/stripe';
 
-export const ProductHeader: FC = () => {
+type ProductHeaderProps = {
+  pricings: any;
+};
+
+export const ProductHeader: FC<ProductHeaderProps> = ({ pricings }) => {
   const { description } = useIntlayer('product-header-structured-data');
+
+  const offers = formatStructuredDataOffers(pricings);
+
   const product = {
     '@context': 'https://schema.org',
     '@type': 'Product',
@@ -17,108 +20,12 @@ export const ProductHeader: FC = () => {
     name: 'Intlayer CMS',
     description: description.value,
     image:
-      'https://raw.githubusercontent.com/aymericzip/intlayer/main/docs/assets/CMS.png', // Example image URL for the product
-    // sku: 'INTLAYER-CMS-001', // Example SKU (replace with actual)
+      'https://raw.githubusercontent.com/aymericzip/intlayer/main/docs/assets/CMS.png',
     brand: {
       '@type': 'Brand',
       name: 'Intlayer',
     },
-    offers: [
-      // Free Pricing Offer
-      {
-        '@type': 'Offer',
-        url: App_Pricing,
-        priceCurrency: 'USD',
-        price: '0.00',
-        // priceValidUntil: '2024-08-26',
-        availability: 'http://schema.org/InStock',
-        itemCondition: 'http://schema.org/NewCondition',
-        seller: {
-          '@type': 'Organization',
-          name: 'Intlayer',
-          url: Website_Home,
-        },
-        category: 'Free Plan', // Indicating it's a Free plan
-      },
-      // Monthly Pricing Offer
-      {
-        '@type': 'Offer',
-        url: App_Dashboard,
-        priceCurrency: 'USD',
-        price: '18.99', // Monthly price for premium
-        // priceValidUntil: '2024-12-31',
-        itemCondition: 'https://schema.org/NewCondition',
-        availability: 'https://schema.org/InStock',
-        // eligibleRegion: {
-        //   '@type': 'Place',
-        //   name: 'US',
-        // },
-        seller: {
-          '@type': 'Organization',
-          name: 'Intlayer Inc.',
-          url: Website_Home,
-        },
-        category: 'Premium Monthly Plan', // Indicating it's a Premium plan
-      },
-      {
-        '@type': 'Offer',
-        url: App_Dashboard,
-        priceCurrency: 'USD',
-        price: '34.99', // Monthly price for enterprise
-        // priceValidUntil: '2024-12-31',
-        itemCondition: 'https://schema.org/NewCondition',
-        availability: 'https://schema.org/InStock',
-        // eligibleRegion: {
-        //   '@type': 'Place',
-        //   name: 'US',
-        // },
-        seller: {
-          '@type': 'Organization',
-          name: 'Intlayer Inc.',
-          url: Website_Home,
-        },
-        category: 'Enterprise Monthly Plan', // Indicating it's an Enterprise plan
-      },
-      // Yearly Pricing Offer
-      {
-        '@type': 'Offer',
-        url: App_Dashboard,
-        priceCurrency: 'USD',
-        price: '178.88', // Yearly price for premium (7.99 * 12)
-        // priceValidUntil: '2024-12-31',
-        itemCondition: 'https://schema.org/NewCondition',
-        availability: 'https://schema.org/InStock',
-        // eligibleRegion: {
-        //   '@type': 'Place',
-        //   name: 'US',
-        // },
-        seller: {
-          '@type': 'Organization',
-          name: 'Intlayer Inc.',
-          url: Website_Home,
-        },
-        category: 'Premium Yearly Plan', // Indicating it's a Premium plan
-      },
-      {
-        '@type': 'Offer',
-        url: App_Dashboard,
-        priceCurrency: 'USD',
-        price: '359.88', // Yearly price for enterprise (16.99 * 12)
-        // priceValidUntil: '2024-12-31',
-        itemCondition: 'https://schema.org/NewCondition',
-        availability: 'https://schema.org/InStock',
-        // eligibleRegion: {
-        //   '@type': 'Place',
-        //   name: 'US',
-        // },
-        seller: {
-          '@type': 'Organization',
-          name: 'Intlayer Inc.',
-          url: Website_Home,
-        },
-        category: 'Enterprise Yearly Plan', // Indicating it's an Enterprise plan
-      },
-    ],
+    offers,
   };
 
   return (

@@ -26,7 +26,7 @@ export default {
     description: t({
       en: 'i18n library with AI integration and flexible content management. Reduce your page size by up to 50% while building multilingual sites easily. Comes with a suite of tools: CLI for translation in CI, TMS, CMS and more.',
       fr: "Bibliothèque i18n avec intégration de l'IA et gestion de contenu flexible. Réduisez la taille de votre page jusqu'à 50 % tout en créant facilement des sites multilingues.",
-      es: 'Biblioteca i18n con integração de IA y gestión de contenido flexible. Reduzca el tamaño de su página hasta en un 50% al crear sites multilingües fácilmente.',
+      es: 'Biblioteca i18n con integración de IA y gestión de contenido flexible. Reduzca el tamaño de su página hasta en un 50% al crear sitios multilingües fácilmente.',
       'en-GB':
         'i18n library with AI integration and flexible content management. Reduce your page size by up to 50% while building multilingual sites easily. Comes with a suite of tools: CLI for translation in CI, TMS, CMS and more.',
       de: 'i18n-Bibliothek mit KI-Integration und flexiblem Content-Management. Reduzieren Sie Ihre Seitengröße um bis zu 50%, während Sie problemlos mehrsprachige Websites erstellen.',
