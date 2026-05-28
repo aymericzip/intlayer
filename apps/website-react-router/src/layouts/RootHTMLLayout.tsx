@@ -42,10 +42,10 @@ export const RootHTMLLayout: FC<LocalParams> = ({
       {/* Preconnect and DNS Prefetch for your first-party backend */}
       <link
         rel="preconnect"
-        href={process.env.NEXT_PUBLIC_BACKEND_URL}
+        href={import.meta.env.VITE_BACKEND_URL}
         crossOrigin=""
       />
-      <link rel="dns-prefetch" href={process.env.NEXT_PUBLIC_BACKEND_URL} />
+      <link rel="dns-prefetch" href={import.meta.env.VITE_BACKEND_URL} />
     </>
     <body
       className={cn(

@@ -13,6 +13,7 @@ import {
 } from 'intlayer';
 import { Suspense } from 'react';
 import { useIntlayer } from 'react-intlayer';
+import { getScannerHeaders } from '@/security-headers';
 
 import type { Route } from './+types/i18n-seo-scanner';
 
@@ -55,6 +56,15 @@ export const meta: Route.MetaFunction = ({ data }) => {
     ),
   ];
 };
+
+/**
+ * Scanner-specific headers: overrides the default CSP to allow any image and
+ * connect source (so the scanner can analyse arbitrary third-party sites).
+ * Mirrors the `scannerHeaders` block in next.config.ts.
+ */
+export function headers(): Record<string, string> {
+  return getScannerHeaders();
+}
 
 export async function loader({ request }: Route.LoaderArgs) {
   const locale = getLocaleFromPath(request.url);

@@ -12,7 +12,7 @@ import {
 import type { NextConfig } from 'next';
 import { createSecureHeaders } from 'next-secure-headers';
 
-const isProd = process.env.NODE_ENV === 'production';
+const isProd = import.meta.env.NODE_ENV === 'production';
 
 const secureHeaders = {
   contentSecurityPolicy: {
@@ -22,7 +22,7 @@ const secureHeaders = {
         "'self'",
         "'unsafe-inline'",
         "'report-sample'",
-        `*.${process.env.NEXT_PUBLIC_DOMAIN}`,
+        `*.${import.meta.env.VITE_DOMAIN}`,
         'static.cloudflareinsights.com',
         'fonts.googleapis.com',
         "'unsafe-inline'",
@@ -30,7 +30,7 @@ const secureHeaders = {
       styleSrcElem: [
         "'self'",
         "'report-sample'",
-        `*.${process.env.NEXT_PUBLIC_DOMAIN}`,
+        `*.${import.meta.env.VITE_DOMAIN}`,
         'static.cloudflareinsights.com',
         'fonts.googleapis.com',
         'cdn.jsdelivr.net',
@@ -47,7 +47,7 @@ const secureHeaders = {
         'data:',
         "'report-sample'",
         "'unsafe-inline'",
-        `blob: *.${process.env.NEXT_PUBLIC_DOMAIN}`,
+        `blob: *.${import.meta.env.VITE_DOMAIN}`,
         'static.cloudflareinsights.com',
         '*.google-analytics.com',
         '*.googletagmanager.com',
@@ -59,9 +59,9 @@ const secureHeaders = {
       connectSrc: [
         "'self'",
         'data:',
-        `*.${process.env.NEXT_PUBLIC_DOMAIN}`,
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}`,
-        `${process.env.NEXT_PUBLIC_SCANNER_API_URL}`,
+        `*.${import.meta.env.VITE_DOMAIN}`,
+        `${import.meta.env.VITE_BACKEND_URL}`,
+        `${import.meta.env.VITE_SCANNER_API_URL}`,
         'fonts.googleapis.com',
         'static.cloudflareinsights.com',
         '*.google-analytics.com',
@@ -84,11 +84,11 @@ const secureHeaders = {
         'static.cloudflareinsights.com',
         '*.googleusercontent.com',
         '*.githubusercontent.com',
-        process.env.NEXT_PUBLIC_BACKEND_URL!,
+        import.meta.env.VITE_BACKEND_URL!,
       ],
       workerSrc: [
-        `${process.env.NEXT_PUBLIC_URL}`,
-        `blob: *.${process.env.NEXT_PUBLIC_DOMAIN}`,
+        `${import.meta.env.VITE_URL}`,
+        `blob: *.${import.meta.env.VITE_DOMAIN}`,
       ],
       mediaSrc: ["'self'"],
       formAction: ["'self'"],
@@ -98,11 +98,7 @@ const secureHeaders = {
         'static.cloudflareinsights.com',
         'cdn.jsdelivr.net',
       ],
-      objectSrc: [
-        "'self'",
-        'data:',
-        `blob: *.${process.env.NEXT_PUBLIC_DOMAIN}`,
-      ],
+      objectSrc: ["'self'", 'data:', `blob: *.${import.meta.env.VITE_DOMAIN}`],
       frameSrc: [
         "'self'",
         '*.youtube.com',
@@ -112,7 +108,7 @@ const secureHeaders = {
         'github.com',
         '*.github.com',
         '*.vercel.app',
-        `*.${process.env.NEXT_PUBLIC_DOMAIN}`,
+        `*.${import.meta.env.VITE_DOMAIN}`,
       ],
       frameAncestors: [
         "'self'",

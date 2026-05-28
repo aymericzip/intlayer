@@ -1,8 +1,8 @@
 import { getLocalizedUrl, Locales } from 'intlayer';
 
 const pushToBaidu = async () => {
-  const token = process.env.NEXT_PUBLIC_BAIDU_PUSH_TOKEN;
-  const site = process.env.NEXT_PUBLIC_URL;
+  const token = import.meta.env.VITE_BAIDU_PUSH_TOKEN;
+  const site = import.meta.env.VITE_URL;
 
   if (!token || !site) {
     console.warn('Baidu push not configured');

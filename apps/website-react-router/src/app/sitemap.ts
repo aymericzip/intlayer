@@ -22,8 +22,8 @@ import { generateSitemap, type SitemapUrlEntry } from 'intlayer';
 
 const siteUrl = (
   import.meta.env?.VITE_SITE_URL ??
-  process.env.VITE_SITE_URL ??
-  process.env.NEXT_PUBLIC_URL ??
+  import.meta.env.VITE_SITE_URL ??
+  import.meta.env.VITE_URL ??
   'https://intlayer.org'
 ).replace(/\/$/, '');
 

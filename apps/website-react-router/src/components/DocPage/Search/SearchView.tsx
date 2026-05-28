@@ -96,7 +96,7 @@ const SearchResultItem: FC<{
       variant="hoverable"
       color="text"
       id={doc.url}
-      to={doc.url.replace(process.env.NEXT_PUBLIC_URL ?? '', '')}
+      to={doc.url.replace(import.meta.env.VITE_URL ?? '', '')}
       className="w-full max-w-full"
       isActive={isSelected}
       onClick={onClickLink}
@@ -207,7 +207,7 @@ const SearchViewContent: FC<{
 
   const handleNavigate = useCallback(
     (doc: DocMetadata) => {
-      const href = doc.url.replace(process.env.NEXT_PUBLIC_URL ?? '', '');
+      const href = doc.url.replace(import.meta.env.VITE_URL ?? '', '');
       router(href);
       onClickLink();
     },

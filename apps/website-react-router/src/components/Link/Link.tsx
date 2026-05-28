@@ -19,7 +19,7 @@ import {
 
 export type LinkProps = LinkUIProps & ReactRouterLinkProps;
 
-const URL = process.env.NEXT_PUBLIC_URL;
+const URL = import.meta.env.VITE_URL;
 
 export const Link: FC<LinkProps> = (props) => {
   const {

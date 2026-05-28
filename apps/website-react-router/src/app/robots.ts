@@ -11,10 +11,10 @@ const robots = (): MetadataRoute.Robots => ({
     allow: ['/'],
     disallow: getAllUrls([Website_NotFound_Path]),
   },
-  host: process.env.NEXT_PUBLIC_URL,
+  host: import.meta.env.VITE_URL,
   sitemap: [
-    `${process.env.NEXT_PUBLIC_URL}/sitemap.xml`,
-    `${process.env.NEXT_PUBLIC_CMS_URL}/sitemap.xml`,
+    `${import.meta.env.VITE_URL}/sitemap.xml`,
+    `${import.meta.env.VITE_CMS_URL}/sitemap.xml`,
   ],
 });
 

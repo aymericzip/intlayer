@@ -29,7 +29,7 @@ const fetchProductHuntData = async (): Promise<ProductHuntData | null> => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${process.env.NEXT_PUBLIC_PRODUCTHUNT_TOKEN}`,
+        Authorization: `Bearer ${import.meta.env.VITE_PRODUCTHUNT_TOKEN}`,
       },
       body: JSON.stringify({
         query: `

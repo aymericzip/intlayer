@@ -125,7 +125,7 @@ describe('formatRegExp', () => {
 describe('urlRenamer', () => {
   beforeAll(() => {
     // The util requires this env var to be defined (non-null assertion).
-    process.env.NEXT_PUBLIC_DOMAIN = 'intlayer.org';
+    import.meta.env.VITE_DOMAIN = 'intlayer.org';
   });
 
   it('rewrites GitHub & localized URLs to in-site routes (English)', () => {

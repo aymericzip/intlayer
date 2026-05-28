@@ -24,7 +24,7 @@ export const locales: Locale[] = [
   Locales.UKRAINIAN,
 ];
 export const defaultLocale =
-  (process.env.NEXT_PUBLIC_DEFAULT_LOCALE as Locale) || Locales.ENGLISH;
+  (import.meta.env.VITE_DEFAULT_LOCALE as Locale) || Locales.ENGLISH;
 
 const config: CustomIntlayerConfig = {
   internationalization: {
@@ -89,12 +89,12 @@ const config: CustomIntlayerConfig = {
     enabled: true,
     liveSync: false,
     dictionaryPriorityStrategy: 'local_first',
-    applicationURL: process.env.NEXT_PUBLIC_URL,
-    editorURL: process.env.NEXT_PUBLIC_EDITOR_URL,
-    cmsURL: process.env.NEXT_PUBLIC_CMS_URL,
-    backendURL: process.env.NEXT_PUBLIC_BACKEND_URL,
-    // clientId: process.env.INTLAYER_CLIENT_ID,
-    // clientSecret: process.env.INTLAYER_CLIENT_SECRET,
+    applicationURL: import.meta.env.VITE_URL,
+    editorURL: import.meta.env.VITE_EDITOR_URL,
+    cmsURL: import.meta.env.VITE_CMS_URL,
+    backendURL: import.meta.env.VITE_BACKEND_URL,
+    // clientId: import.meta.env.INTLAYER_CLIENT_ID,
+    // clientSecret: import.meta.env.INTLAYER_CLIENT_SECRET,
   },
   dictionary: {
     importMode: 'dynamic',
@@ -102,7 +102,7 @@ const config: CustomIntlayerConfig = {
   ai: {
     provider: 'openai',
     model: 'gpt-5-mini',
-    apiKey: process.env.OPENAI_API_KEY,
+    apiKey: import.meta.env.OPENAI_API_KEY,
     applicationContext: [
       'Intlayer is a developer-friendly internationalization (i18n) solution combined with a multilingual CMS.',
       'This application contains a landing page, documentation, and the CMS within the dashboard.',

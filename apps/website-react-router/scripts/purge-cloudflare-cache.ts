@@ -1,5 +1,5 @@
-const ZONE_ID = process.env.CLOUDFLARE_ZONE_ID;
-const API_TOKEN = process.env.CLOUDFLARE_API_TOKEN;
+const ZONE_ID = import.meta.env.CLOUDFLARE_ZONE_ID;
+const API_TOKEN = import.meta.env.CLOUDFLARE_API_TOKEN;
 
 if (!ZONE_ID || !API_TOKEN) {
   console.error(
@@ -10,7 +10,7 @@ if (!ZONE_ID || !API_TOKEN) {
 
 console.log(`Purging Cloudflare cache for zone ${ZONE_ID}...`);
 
-const url = process.env.NEXT_PUBLIC_URL;
+const url = import.meta.env.VITE_URL;
 let hosts: string[] | undefined;
 
 if (url) {

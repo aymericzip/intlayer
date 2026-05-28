@@ -15,11 +15,11 @@ export const AppProviders: FC<PropsWithChildren> = ({ children }) => {
       <ReactQueryProvider>
         <Toaster />
         {/* Google Analytics & Tag Manager would go here via standard scripts */}
-        {process.env.NEXT_PUBLIC_AHREFS_KEY && (
+        {import.meta.env.VITE_AHREFS_KEY && (
           <script
             async
             src="https://analytics.ahrefs.com/analytics.js"
-            data-key={process.env.NEXT_PUBLIC_AHREFS_KEY}
+            data-key={import.meta.env.VITE_AHREFS_KEY}
           />
         )}
         <FirstConsultationProvider>{children}</FirstConsultationProvider>

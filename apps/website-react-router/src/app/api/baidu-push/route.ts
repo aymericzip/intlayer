@@ -12,14 +12,13 @@ export async function action({ request }: ActionFunctionArgs) {
       );
     }
 
-    const token = process.env.NEXT_PUBLIC_BAIDU_PUSH_TOKEN;
-    const site = process.env.NEXT_PUBLIC_URL;
+    const token = import.meta.env.VITE_BAIDU_PUSH_TOKEN;
+    const site = import.meta.env.VITE_URL;
 
     if (!token || !site) {
       return Response.json(
         {
-          error:
-            'Missing BAIDU_PUSH_TOKEN or NEXT_PUBLIC_URL environment variable.',
+          error: 'Missing BAIDU_PUSH_TOKEN or VITE_URL environment variable.',
         },
         { status: 500 }
       );
@@ -43,9 +42,6 @@ export async function action({ request }: ActionFunctionArgs) {
     // Baidu returns status 200 with an object containing { success: number, remain: number } on success
     return Response.json({ success: response.ok, baiduResponse: data });
   } catch {
-    return Response.json(
-      { error: 'Internal Server Error' },
-      { status: 500 }
-    );
+    return Response.json({ error: 'Internal Server Error' }, { status: 500 });
   }
 }

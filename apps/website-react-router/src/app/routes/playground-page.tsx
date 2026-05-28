@@ -84,7 +84,7 @@ export default function PlaygroundPage({ loaderData }: Route.ComponentProps) {
   const origin =
     typeof window !== 'undefined'
       ? window.location.origin
-      : (process.env.NEXT_PUBLIC_URL ??
+      : (import.meta.env.VITE_URL ??
         import.meta.env?.VITE_PUBLIC_URL ??
         'http://localhost:5174');
   const applicationURL = `${origin}${Website_Demo_Path}`;

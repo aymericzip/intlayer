@@ -11,12 +11,22 @@ import {
   ScrollRestoration,
   useLoaderData,
 } from 'react-router';
+import { getDefaultHeaders } from '@/security-headers';
 
 import type { Route } from './+types/root';
 
 import '@/globals.css';
 import '@/shiki.css';
 import { AppProviders } from '@/providers/AppProviders';
+
+/**
+ * Global HTTP response headers — mirrors next.config.ts `headers()` for the
+ * catch-all page routes.  Route-specific files (e.g. scanner) override these
+ * by exporting their own `headers` function.
+ */
+export function headers(): Record<string, string> {
+  return getDefaultHeaders();
+}
 
 export const links: Route.LinksFunction = () => [
   { href: 'https://fonts.googleapis.com', rel: 'preconnect' },
@@ -108,10 +118,10 @@ export function Layout({
         {/* Preconnect and DNS Prefetch for your first-party backend */}
         <link
           rel="preconnect"
-          href={process.env.NEXT_PUBLIC_BACKEND_URL}
+          href={import.meta.env.VITE_BACKEND_URL}
           crossOrigin=""
         />
-        <link rel="dns-prefetch" href={process.env.NEXT_PUBLIC_BACKEND_URL} />
+        <link rel="dns-prefetch" href={import.meta.env.VITE_BACKEND_URL} />
         <meta charSet="utf-8" />
         <meta content="width=device-width, initial-scale=1" name="viewport" />
         <Meta />
