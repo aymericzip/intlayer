@@ -1,25 +1,21 @@
 /** biome-ignore-all lint/security/noDangerouslySetInnerHtml: No choice */
 
-import type { GetPricingResult } from '@intlayer/backend';
 import { App_Dashboard } from '@intlayer/design-system/routes';
-import type { FC } from 'react';
-import { useIntlayer } from 'react-intlayer';
-import { formatStructuredDataOffers } from '../utils/stripe';
+import Script from 'next/script';
+import { useIntlayer } from 'next-intlayer/server';
+import { formatStructuredDataOffers, getPricing } from '../utils/stripe';
 
-type ProductHeaderProps = {
-  pricings?: GetPricingResult['data'];
-};
+export const TMSProductHeader = async () => {
+  const { description } = useIntlayer('tms-product-header-structured-data');
 
-export const ProductHeader: FC<ProductHeaderProps> = ({ pricings }) => {
-  const { description } = useIntlayer('product-header-structured-data');
-
+  const pricings = await getPricing();
   const offers = formatStructuredDataOffers(pricings);
 
   const product = {
     '@context': 'https://schema.org',
     '@type': 'Product',
     url: App_Dashboard,
-    name: 'Intlayer CMS',
+    name: 'Intlayer TMS',
     description: description.value,
     image:
       'https://raw.githubusercontent.com/aymericzip/intlayer/main/docs/assets/CMS.png',
@@ -31,8 +27,9 @@ export const ProductHeader: FC<ProductHeaderProps> = ({ pricings }) => {
   };
 
   return (
-    <script
+    <Script
       type="application/ld+json"
+      strategy="afterInteractive"
       dangerouslySetInnerHTML={{
         __html: JSON.stringify(product),
       }}

@@ -4,18 +4,21 @@ import { External_Github, Website_Home } from '@intlayer/design-system/routes';
 import Script from 'next/script';
 import { useIntlayer } from 'next-intlayer/server';
 import type { FC } from 'react';
-import packageJson from '../../package_mock.json' with { type: 'json' };
+import packageJson from '../../../../../apps/website/package.json' with {
+  type: 'json',
+};
 
-export const SoftwareApplicationHeader: FC = () => {
-  const { description, keywords, audienceType } = useIntlayer(
+export const TranslateSoftwareApplicationHeader: FC = () => {
+  const { description } = useIntlayer('translate-software-structured-data');
+  const { keywords, audienceType } = useIntlayer(
     'software-application-structured-data'
   );
 
   const softwareApplication = {
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',
-    name: 'Intlayer',
-    url: Website_Home,
+    name: 'Intlayer Translate CLI',
+    url: `${Website_Home}/translate`,
     description: description.value,
     softwareVersion: packageJson.version,
     license:
@@ -42,13 +45,18 @@ export const SoftwareApplicationHeader: FC = () => {
     applicationCategory: 'DeveloperApplication',
     applicationSubCategory: 'Developer Tools',
     image: `${Website_Home}/cover.png`,
-    operatingSystem: 'Web, iOS, Android',
+    operatingSystem: 'Mac, Windows, Linux',
     datePublished: '2024-08-26',
     audience: {
       '@type': 'Audience',
       audienceType: audienceType.value,
     },
-    mainEntityOfPage: Website_Home,
+    mainEntityOfPage: `${Website_Home}/translate`,
+    offers: {
+      '@type': 'Offer',
+      price: '0.00',
+      priceCurrency: 'USD',
+    },
   };
 
   return (

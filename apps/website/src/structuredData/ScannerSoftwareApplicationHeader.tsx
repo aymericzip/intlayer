@@ -6,16 +6,17 @@ import { useIntlayer } from 'next-intlayer/server';
 import type { FC } from 'react';
 import packageJson from '../../package_mock.json' with { type: 'json' };
 
-export const SoftwareApplicationHeader: FC = () => {
-  const { description, keywords, audienceType } = useIntlayer(
+export const ScannerSoftwareApplicationHeader: FC = () => {
+  const { description } = useIntlayer('scanner-software-structured-data');
+  const { keywords, audienceType } = useIntlayer(
     'software-application-structured-data'
   );
 
   const softwareApplication = {
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',
-    name: 'Intlayer',
-    url: Website_Home,
+    name: 'Intlayer I18n SEO Scanner',
+    url: `${Website_Home}/i18n-seo-scanner`,
     description: description.value,
     softwareVersion: packageJson.version,
     license:
@@ -42,13 +43,13 @@ export const SoftwareApplicationHeader: FC = () => {
     applicationCategory: 'DeveloperApplication',
     applicationSubCategory: 'Developer Tools',
     image: `${Website_Home}/cover.png`,
-    operatingSystem: 'Web, iOS, Android',
+    operatingSystem: 'Web',
     datePublished: '2024-08-26',
     audience: {
       '@type': 'Audience',
       audienceType: audienceType.value,
     },
-    mainEntityOfPage: Website_Home,
+    mainEntityOfPage: `${Website_Home}/i18n-seo-scanner`,
   };
 
   return (

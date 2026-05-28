@@ -3,6 +3,8 @@ import {
   type Contributor,
   ContributorsList,
 } from '@components/Contributors/ContributorsList';
+import { OrganizationHeader } from '@structuredData/OrganizationHeader';
+import { WebsiteHeader } from '@structuredData/WebsiteHeader';
 import type { LocalesValues } from 'intlayer';
 import type { NextPageIntlayer } from 'next-intlayer';
 import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
@@ -43,6 +45,8 @@ const ContributorsPage: NextPageIntlayer = async ({ params }) => {
 
   return (
     <IntlayerServerProvider locale={locale}>
+      <WebsiteHeader key={locale} />
+      <OrganizationHeader />
       <ContributorsPageContent locale={locale}>
         <ContributorsList contributors={contributors} />
       </ContributorsPageContent>

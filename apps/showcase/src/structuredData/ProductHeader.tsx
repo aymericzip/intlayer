@@ -17,7 +17,7 @@ export const ProductHeader: FC = () => {
     name: 'Intlayer CMS',
     description: description.value,
     image:
-      'https://github.com/aymericzip/intlayer/blob/main/docs/assets/intlayer_editor_ui.png', // Example image URL for the product
+      'https://raw.githubusercontent.com/aymericzip/intlayer/main/docs/assets/CMS.png', // Example image URL for the product
     // sku: 'INTLAYER-CMS-001', // Example SKU (replace with actual)
     brand: {
       '@type': 'Brand',

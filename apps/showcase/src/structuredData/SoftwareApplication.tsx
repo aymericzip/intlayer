@@ -3,7 +3,7 @@
 import { External_Github, Website_Home } from '@intlayer/design-system/routes';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import packageJson from '../../../../package.json' with { type: 'json' };
+import packageJson from '../../package_mock.json' with { type: 'json' };
 
 export const SoftwareApplicationHeader: FC = () => {
   const { description, keywords, audienceType } = useIntlayer(
@@ -38,11 +38,10 @@ export const SoftwareApplicationHeader: FC = () => {
       name: 'Aymeric PINEAU',
       url: 'https://github.com/aymericzip',
     },
-    applicationCategory: 'BusinessApplication',
+    applicationCategory: 'DeveloperApplication',
     applicationSubCategory: 'Developer Tools',
     image: `${Website_Home}/cover.png`,
     operatingSystem: 'Web, iOS, Android',
-    platform: 'Web, React, nextjs, Vite',
     datePublished: '2024-08-26',
     audience: {
       '@type': 'Audience',

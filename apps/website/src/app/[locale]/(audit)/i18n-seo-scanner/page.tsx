@@ -1,5 +1,8 @@
 import { BackgroundLayout } from '@components/BackgroundLayout';
 import { LocalizationAnalyzer } from '@components/ScannerPage';
+import { OrganizationHeader } from '@structuredData/OrganizationHeader';
+import { ScannerSoftwareApplicationHeader } from '@structuredData/ScannerSoftwareApplicationHeader';
+import { WebsiteHeader } from '@structuredData/WebsiteHeader';
 import type { NextPageIntlayer } from 'next-intlayer';
 import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
 import { type FC, Suspense } from 'react';
@@ -30,6 +33,9 @@ const AuditPage: NextPageIntlayer = async ({ params }) => {
 
   return (
     <IntlayerServerProvider locale={locale}>
+      <WebsiteHeader key={locale} />
+      <OrganizationHeader />
+      <ScannerSoftwareApplicationHeader />
       <AuditContent />
     </IntlayerServerProvider>
   );

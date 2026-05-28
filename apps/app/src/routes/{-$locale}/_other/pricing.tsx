@@ -1,8 +1,6 @@
-import { getStripeAPI } from '@intlayer/api';
 import type { GetPricingResult } from '@intlayer/backend';
 import { App_Pricing, Website_Home } from '@intlayer/design-system/routes';
 import { createFileRoute } from '@tanstack/react-router';
-import { createServerFn } from '@tanstack/react-start';
 import {
   defaultLocale,
   getIntlayer,
@@ -15,26 +13,7 @@ import { ProductHeader } from '#/structuredData/ProductHeader';
 import { BackgroundLayout } from '#components/BackgroundLayout';
 import { PricingPage as PricingPageContent } from '#components/PricingPage';
 import { PricingSkeleton } from '#components/PricingPage/PricingSkeleton';
-
-const priceIds = [
-  process.env.VITE_STRIPE_PREMIUM_YEARLY_PRICE_ID,
-  process.env.VITE_STRIPE_PREMIUM_MONTHLY_PRICE_ID,
-  process.env.VITE_STRIPE_ENTERPRISE_YEARLY_PRICE_ID,
-  process.env.VITE_STRIPE_ENTERPRISE_MONTHLY_PRICE_ID,
-  process.env.VITE_STRIPE_ONE_TIME_PAYMENT_PRICE_ID,
-].filter(Boolean) as string[];
-
-const getPricingData = createServerFn().handler(async () => {
-  if (
-    !process.env.VITE_STRIPE_PUBLISHABLE_KEY ||
-    process.env.VITE_STRIPE_PUBLISHABLE_KEY.length === 0
-  ) {
-    return null;
-  }
-
-  const pricingDataResponse = await getStripeAPI().getPricing({ priceIds });
-  return pricingDataResponse.data ?? null;
-});
+import { getPricingData } from '#utils/stripe';
 
 type PricingSearch = {
   ref?: string;
@@ -111,7 +90,7 @@ function PricingPage() {
           },
         ]}
       />
-      <ProductHeader />
+      <ProductHeader pricings={pricingData as GetPricingResult['data']} />
       <Suspense fallback={<PricingSkeleton />}>
         <PricingPageContent
           pricings={pricingData as GetPricingResult['data']}

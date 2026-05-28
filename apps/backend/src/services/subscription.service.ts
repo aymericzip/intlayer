@@ -264,27 +264,40 @@ export type PricingResult = Record<
     discountType: 'amount' | 'percentage' | null;
     finalTotal: number;
     currency: string;
+    planType: 'premium' | 'enterprise' | 'one_time' | 'unknown';
+    period: 'monthly' | 'yearly' | 'one_time' | 'unknown';
   }
 >;
 
 export const getPricing = async (
-  priceIds: string[],
+  priceIds?: string[],
   promoCode?: string
 ): Promise<PricingResult> => {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
   try {
-    // 1. Fetch all price objects, skipping any that fail (e.g. unset / invalid
+    const idsToFetch =
+      priceIds && priceIds.length > 0
+        ? priceIds
+        : ([
+            process.env.STRIPE_PREMIUM_YEARLY_PRICE_ID,
+            process.env.STRIPE_PREMIUM_MONTHLY_PRICE_ID,
+            process.env.STRIPE_ENTERPRISE_YEARLY_PRICE_ID,
+            process.env.STRIPE_ENTERPRISE_MONTHLY_PRICE_ID,
+            process.env.STRIPE_ONE_TIME_PAYMENT_PRICE_ID,
+          ].filter(Boolean) as string[]);
+
+    // Fetch all price objects, skipping any that fail (e.g. unset / invalid
     // env IDs). One bad ID should not break pricing for the entire page.
     const priceResults = await Promise.allSettled(
-      priceIds.map((priceId) => stripe.prices.retrieve(priceId))
+      idsToFetch.map((priceId) => stripe.prices.retrieve(priceId))
     );
 
     const prices = priceResults
       .map((result, index) => {
         if (result.status === 'fulfilled') return result.value;
         logger.warn(
-          `Skipping price ${priceIds[index]} — retrieval failed: ${
+          `Skipping price ${idsToFetch[index]} — retrieval failed: ${
             (result.reason as Error)?.message ?? 'unknown error'
           }`
         );
@@ -294,11 +307,11 @@ export const getPricing = async (
 
     // Calculate the total amount before discount (to help with proportional distribution if needed)
     const totalAmount = prices.reduce(
-      (sum, price) => sum + (price.unit_amount ?? 0),
+      (sum, price) => sum + (price?.unit_amount ?? 0),
       0
     );
 
-    // 2. Retrieve the discount (if promo code is provided)
+    // Retrieve the discount (if promo code is provided)
     let discountAmount = 0;
     let discountType: 'amount' | 'percentage' | null = null;
 
@@ -320,15 +333,15 @@ export const getPricing = async (
       }
     }
 
-    // 3. Build the result for each priceId
+    // Build the result for each priceId
     const results: PricingResult = {};
 
     for (const price of prices) {
-      if (!price.id || !price.unit_amount) {
+      if (!price?.id || !price?.unit_amount) {
         continue; // Skip any invalid price
       }
 
-      const originalTotal = price.unit_amount;
+      const originalTotal = price?.unit_amount;
       let appliedDiscount = 0;
       let finalTotal = originalTotal;
 
@@ -351,12 +364,35 @@ export const getPricing = async (
       // Prevent final total from going negative due to rounding
       finalTotal = Math.max(finalTotal, 0);
 
+      let planType: 'premium' | 'enterprise' | 'one_time' | 'unknown' =
+        'unknown';
+      let period: 'monthly' | 'yearly' | 'one_time' | 'unknown' = 'unknown';
+
+      if (price.id === process.env.STRIPE_PREMIUM_YEARLY_PRICE_ID) {
+        planType = 'premium';
+        period = 'yearly';
+      } else if (price.id === process.env.STRIPE_PREMIUM_MONTHLY_PRICE_ID) {
+        planType = 'premium';
+        period = 'monthly';
+      } else if (price.id === process.env.STRIPE_ENTERPRISE_YEARLY_PRICE_ID) {
+        planType = 'enterprise';
+        period = 'yearly';
+      } else if (price.id === process.env.STRIPE_ENTERPRISE_MONTHLY_PRICE_ID) {
+        planType = 'enterprise';
+        period = 'monthly';
+      } else if (price.id === process.env.STRIPE_ONE_TIME_PAYMENT_PRICE_ID) {
+        planType = 'one_time';
+        period = 'one_time';
+      }
+
       results[price.id] = {
         originalTotal: originalTotal,
         discountApplied: appliedDiscount,
         discountType,
         finalTotal: finalTotal,
         currency: price.currency,
+        planType,
+        period,
       };
     }
 

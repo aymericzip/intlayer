@@ -22,7 +22,7 @@ import { ArrowRight, Check, Copy } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import { useTheme } from 'next-themes';
 import type { FC } from 'react';
-import packageJSON from './mockPackage.json' with { type: 'json' };
+import packageJSON from '../../../../package_mock.json' with { type: 'json' };
 import { TechLogos } from './TechLogos';
 
 const SHOW_WHATS_NEW = true;

@@ -5,6 +5,9 @@ import { DictionaryLoaderPlayground } from '@components/Dashboard/Editor/Diction
 import * as baseConfiguration from '@intlayer/config/built';
 import { Website_Demo_Path } from '@intlayer/design-system/routes';
 import { ConfigurationProvider } from '@intlayer/editor-react';
+import { OrganizationHeader } from '@structuredData/OrganizationHeader';
+import { SoftwareApplicationHeader } from '@structuredData/SoftwareApplication';
+import { WebsiteHeader } from '@structuredData/WebsiteHeader';
 import type { NextPageIntlayer } from 'next-intlayer';
 import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
 import type { FC } from 'react';
@@ -49,6 +52,9 @@ const Playground: NextPageIntlayer = async ({ params }) => {
 
   return (
     <IntlayerServerProvider locale={locale}>
+      <WebsiteHeader key={locale} />
+      <OrganizationHeader />
+      <SoftwareApplicationHeader />
       <PlaygroundContent />
     </IntlayerServerProvider>
   );

@@ -12,7 +12,11 @@ import {
   getDocMetadata,
   getDocMetadataBySlug,
 } from '@intlayer/docs';
+import { BreadcrumbsHeader } from '@structuredData/BreadcrumbsHeader';
 import { CreativeWorkHeader } from '@structuredData/CreativeWorkHeader';
+import { OrganizationHeader } from '@structuredData/OrganizationHeader';
+import { SoftwareApplicationHeader } from '@structuredData/SoftwareApplication';
+import { WebsiteHeader } from '@structuredData/WebsiteHeader';
 import { urlRenamer } from '@utils/markdown';
 import { getLocalizedUrl } from 'intlayer';
 import { redirect } from 'next/navigation';
@@ -58,8 +62,18 @@ const DocumentationPage = async ({ params }: LocalPromiseParams<DocProps>) => {
       }
     : undefined;
 
+  const breadcrumbs = [
+    { name: 'Home', url: '/' },
+    { name: 'Docs', url: Website_Doc_Path },
+    { name: docData.title, url: docData.url },
+  ];
+
   return (
     <IntlayerServerProvider locale={locale}>
+      <WebsiteHeader key={locale} />
+      <OrganizationHeader />
+      <SoftwareApplicationHeader />
+      <BreadcrumbsHeader breadcrumbs={breadcrumbs} />
       <CreativeWorkHeader
         type="TechArticle"
         creativeWorkName={docData.title}

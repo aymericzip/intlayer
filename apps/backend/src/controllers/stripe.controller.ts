@@ -25,7 +25,7 @@ import type { Organization } from '@/types/organization.types';
 import type { PromoCodeAPI } from '@/types/promoCode.types';
 
 export type GetPricingBody = {
-  priceIds: string[];
+  priceIds?: string[];
   promoCode?: string;
 };
 
@@ -528,7 +528,7 @@ export const grantAffiliateAccess = async (
   try {
     const { user } = request.session || {};
 
-    if (!user || user.role !== 'admin') {
+    if (user?.role !== 'admin') {
       return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_FOUND');
     }
 
@@ -563,7 +563,7 @@ export const getAffiliates = async (
   try {
     const { user } = request.session || {};
 
-    if (!user || user.role !== 'admin') {
+    if (user?.role !== 'admin') {
       return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_FOUND');
     }
 
@@ -608,7 +608,7 @@ export const getAffiliateById = async (
   try {
     const { user } = request.session || {};
 
-    if (!user || user.role !== 'admin') {
+    if (user?.role !== 'admin') {
       return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_FOUND');
     }
 
@@ -780,7 +780,7 @@ export const getAffiliateInvitations = async (
 ): Promise<void> => {
   try {
     const { user } = request.session || {};
-    if (!user || user.role !== 'admin') {
+    if (user?.role !== 'admin') {
       return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_FOUND');
     }
 
@@ -834,7 +834,7 @@ export const sendAffiliateInvitation = async (
   try {
     const { user } = request.session || {};
 
-    if (!user || user.role !== 'admin') {
+    if (user?.role !== 'admin') {
       return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_FOUND');
     }
 
@@ -1001,7 +1001,7 @@ export const getPromoCodes = async (
   try {
     const { user } = request.session || {};
 
-    if (!user || user.role !== 'admin') {
+    if (user?.role !== 'admin') {
       return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_FOUND');
     }
 
@@ -1042,7 +1042,7 @@ export const getPromoCodeById = async (
   try {
     const { user } = request.session || {};
 
-    if (!user || user.role !== 'admin') {
+    if (user?.role !== 'admin') {
       return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_FOUND');
     }
 
@@ -1079,7 +1079,7 @@ export const createPromoCode = async (
   try {
     const { user } = request.session || {};
 
-    if (!user || user.role !== 'admin') {
+    if (user?.role !== 'admin') {
       return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_FOUND');
     }
 
@@ -1131,7 +1131,7 @@ export const updatePromoCode = async (
   try {
     const { user } = request.session || {};
 
-    if (!user || user.role !== 'admin') {
+    if (user?.role !== 'admin') {
       return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_FOUND');
     }
 
@@ -1171,7 +1171,7 @@ export const deletePromoCode = async (
   try {
     const { user } = request.session || {};
 
-    if (!user || user.role !== 'admin') {
+    if (user?.role !== 'admin') {
       return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_FOUND');
     }
 

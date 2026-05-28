@@ -1,4 +1,7 @@
 import { DocumentationRender } from '@components/DocPage/DocumentationRender';
+import { OrganizationHeader } from '@structuredData/OrganizationHeader';
+import { SoftwareApplicationHeader } from '@structuredData/SoftwareApplication';
+import { WebsiteHeader } from '@structuredData/WebsiteHeader';
 import { urlRenamer } from '@utils/markdown';
 import { assertSafeRemoteMarkdownUrl } from '@utils/remoteMarkdownUrl';
 import { getIntlayer, type LocalesValues } from 'intlayer';
@@ -43,6 +46,9 @@ const MarkdownPreviewPage = async ({
   if (!rawUrl) {
     return (
       <IntlayerServerProvider locale={locale}>
+        <WebsiteHeader key={locale} />
+        <OrganizationHeader />
+        <SoftwareApplicationHeader />
         <MarkdownPreviewEmptyState />
       </IntlayerServerProvider>
     );
@@ -63,6 +69,9 @@ const MarkdownPreviewPage = async ({
     const message = err instanceof Error ? err.message : unknownLoadError;
     return (
       <IntlayerServerProvider locale={locale}>
+        <WebsiteHeader key={locale} />
+        <OrganizationHeader />
+        <SoftwareApplicationHeader />
         <MarkdownPreviewErrorState message={message} />
       </IntlayerServerProvider>
     );
@@ -70,6 +79,9 @@ const MarkdownPreviewPage = async ({
 
   return (
     <IntlayerServerProvider locale={locale}>
+      <WebsiteHeader key={locale} />
+      <OrganizationHeader />
+      <SoftwareApplicationHeader />
       <div className="mx-auto max-w-2xl px-10">
         <DocumentationRender>{markdown}</DocumentationRender>
       </div>
