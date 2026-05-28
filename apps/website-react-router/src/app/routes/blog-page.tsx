@@ -1,17 +1,22 @@
-import { BlogPageLayout } from '@components/BlogPage/BlogPageLayout';
-import { getPreviousNextBlogData } from '@components/BlogPage/blogData';
-import { DocHeader } from '@components/DocPage/DocHeader/DocHeader';
+import { Website_Blog_Path } from '@intlayer/design-system/routes';
+import { type BlogKey, getBlog, getBlogMetadataBySlug } from '@intlayer/docs';
+import {
+  defaultLocale,
+  getLocaleFromPath,
+  getLocalizedUrl,
+  getMultilingualUrls,
+} from 'intlayer';
+import { redirect } from 'react-router';
+import { BlogPageLayout } from '~/components/BlogPage/BlogPageLayout';
+import { getPreviousNextBlogData } from '~/components/BlogPage/blogData';
+import { DocHeader } from '~/components/DocPage/DocHeader/DocHeader';
 import {
   DocPageNavigation,
   type DocPageNavigationProps,
-} from '@components/DocPage/DocPageNavigation/DocPageNavigation';
-import { DocumentationRender } from '@components/DocPage/DocumentationRender';
-import { Website_Blog_Path } from '@intlayer/design-system/routes';
-import { type BlogKey, getBlog, getBlogMetadataBySlug } from '@intlayer/docs';
-import { CreativeWorkHeader } from '@structuredData/CreativeWorkHeader';
-import { urlRenamer } from '@utils/markdown';
-import { defaultLocale, getLocaleFromPath, getLocalizedUrl, getMultilingualUrls } from 'intlayer';
-import { redirect } from 'react-router';
+} from '~/components/DocPage/DocPageNavigation/DocPageNavigation';
+import { DocumentationRender } from '~/components/DocPage/DocumentationRender';
+import { CreativeWorkHeader } from '~/structuredData/CreativeWorkHeader';
+import { urlRenamer } from '~/utils/markdown';
 
 import type { Route } from './+types/blog-page';
 
@@ -25,7 +30,10 @@ export const meta: Route.MetaFunction = ({ data }) => {
   return [
     { title: `${blogData.title} | Intlayer` },
     { name: 'description', content: blogData.description },
-    { name: 'keywords', content: Array.isArray(keywords) ? keywords.join(', ') : (keywords || '') },
+    {
+      name: 'keywords',
+      content: Array.isArray(keywords) ? keywords.join(', ') : keywords || '',
+    },
     { property: 'og:url', content: getLocalizedUrl(absoluteUrl, locale!) },
     { property: 'og:title', content: `${blogData.title} | Intlayer` },
     { property: 'og:description', content: blogData.description },
@@ -48,7 +56,6 @@ export const meta: Route.MetaFunction = ({ data }) => {
     })),
   ];
 };
-
 
 export async function loader({ request, params }: Route.LoaderArgs) {
   const locale = getLocaleFromPath(request.url);
@@ -197,7 +204,11 @@ export default function BlogPage({ loaderData }: Route.ComponentProps) {
         creativeWorkName={blogData.title}
         creativeWorkDescription={blogData.description}
         creativeWorkContent={blogContent}
-        keywords={Array.isArray(blogData.keywords) ? blogData.keywords.join(', ') : (blogData.keywords || '')}
+        keywords={
+          Array.isArray(blogData.keywords)
+            ? blogData.keywords.join(', ')
+            : blogData.keywords || ''
+        }
         dateModified={new Date(blogData.updatedAt)}
         datePublished={new Date(blogData.createdAt)}
         url={blogData.url}

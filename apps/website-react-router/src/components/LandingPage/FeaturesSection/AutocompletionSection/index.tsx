@@ -1,5 +1,3 @@
-'use client';
-
 import { Container } from '@intlayer/design-system/container';
 import { AutoCompleteTextarea } from '@intlayer/design-system/text-area';
 import { type FC, useState } from 'react';

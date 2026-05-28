@@ -1,7 +1,3 @@
-'use client';
-
-import { SearchTrigger } from '@components/DocPage/Search/SearchTrigger';
-import { Link } from '@components/Link/Link';
 import { Accordion } from '@intlayer/design-system/accordion';
 import { Button } from '@intlayer/design-system/button';
 import { ClickOutsideDiv } from '@intlayer/design-system/click-outside-div';
@@ -18,7 +14,9 @@ import { cn } from '@intlayer/design-system/utils';
 import { ArrowLeftToLine, Bot } from 'lucide-react';
 import { type ComponentProps, type FC, useEffect, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { useScrollPositionPersistence } from '@/hooks/useScrollPositionPersistence';
+import { SearchTrigger } from '~/components/DocPage/Search/SearchTrigger';
+import { Link } from '~/components/Link/Link';
+import { useScrollPositionPersistence } from '~/hooks/useScrollPositionPersistence';
 import {
   FrameworkFilter,
   FrameworkLogo,

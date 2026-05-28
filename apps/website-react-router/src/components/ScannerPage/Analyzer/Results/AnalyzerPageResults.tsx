@@ -1,12 +1,10 @@
-'use client';
-
-import { Link } from '@components/Link/Link';
 import { Code, type CodeLanguage } from '@intlayer/design-system/ide';
 import { FileText, Globe, Link as LinkIcon } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import type { FC, HTMLProps, ReactNode } from 'react';
 import { memo } from 'react';
 import { useIntlayer } from 'react-intlayer';
+import { Link } from '~/components/Link/Link';
 import { FieldItem } from './FieldItem';
 import type { AuditDataList, MergedData } from './types';
 

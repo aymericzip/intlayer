@@ -1,4 +1,4 @@
-import { Link } from '@components/Link/Link';
+import { Link } from '~/components/Link/Link';
 import { Avatar } from '@intlayer/design-system/avatar';
 import { Container } from '@intlayer/design-system/container';
 import { ArrowUpRight } from 'lucide-react';

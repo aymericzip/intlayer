@@ -1,4 +1,4 @@
-import { EmailRegistrationToast } from '@components/EmailRegistrationToast';
+import { EmailRegistrationToast } from '~/components/EmailRegistrationToast';
 import { defaultLocale, getIntlayer, type LocalesValues } from 'intlayer';
 import type { FC, ReactNode } from 'react';
 import { AsideNavigation } from './AsideNavigation/AsideNavigation';

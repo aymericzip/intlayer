@@ -1,5 +1,3 @@
-'use client';
-
 import { Container } from '@intlayer/design-system/container';
 import { m } from 'framer-motion';
 import { Check, Minus } from 'lucide-react';

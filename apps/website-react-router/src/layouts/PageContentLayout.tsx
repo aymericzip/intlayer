@@ -1,7 +1,7 @@
 import { cn } from '@intlayer/design-system/utils';
 import type { DetailedHTMLProps, FC, HTMLAttributes, ReactNode } from 'react';
-import { Footer } from '@/components/Footer';
-import { Navbar } from '@/components/Navbar';
+import { Footer } from '~/components/Footer';
+import { Navbar } from '~/components/Navbar';
 
 export type PageContentLayoutProps = DetailedHTMLProps<
   HTMLAttributes<HTMLElement>,

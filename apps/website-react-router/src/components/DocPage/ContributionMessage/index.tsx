@@ -1,4 +1,4 @@
-import { Link } from '@components/Link/Link';
+import { Link } from '~/components/Link/Link';
 import { PopoverStatic } from '@intlayer/design-system/popover';
 import { Edit } from 'lucide-react';
 import type { FC } from 'react';

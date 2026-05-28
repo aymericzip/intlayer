@@ -1,5 +1,5 @@
-import { EmailRegistrationToast } from '@components/EmailRegistrationToast';
-import { PageLayout } from '@layouts/PageLayout';
+import { EmailRegistrationToast } from '~/components/EmailRegistrationToast';
+import { PageLayout } from '~/layouts/PageLayout';
 import { Suspense } from 'react';
 import { Outlet } from 'react-router';
 

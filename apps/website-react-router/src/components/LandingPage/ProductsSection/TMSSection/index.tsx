@@ -1,5 +1,3 @@
-'use client';
-
 import { Website_TMS_Path } from '@intlayer/design-system/routes';
 import { GlobeIcon } from 'lucide-react';
 import type { FC } from 'react';

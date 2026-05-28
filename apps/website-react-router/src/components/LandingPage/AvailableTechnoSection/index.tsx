@@ -1,6 +1,3 @@
-'use client';
-
-import { Link } from '@components/Link/Link';
 import {} from '@intlayer/design-system/api';
 import { useDevice, useScreenWidth } from '@intlayer/design-system/hooks';
 import {
@@ -25,6 +22,7 @@ import {
 import type { CSSProperties, FC } from 'react';
 import { useRef, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
+import { Link } from '~/components/Link/Link';
 
 const BASE_SCREEN_WIDTH = 1500;
 

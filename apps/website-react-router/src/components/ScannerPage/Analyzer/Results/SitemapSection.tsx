@@ -1,5 +1,3 @@
-'use client';
-
 import { Globe, Link as LinkIcon, Map as MapIcon } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import type { FC } from 'react';

@@ -1,7 +1,3 @@
-'use client';
-
-import { OptionalLink } from '@components/DocPage/DocNavList';
-import { SearchTrigger } from '@components/DocPage/Search/SearchTrigger';
 import { Accordion } from '@intlayer/design-system/accordion';
 import {} from '@intlayer/design-system/api';
 import { Button } from '@intlayer/design-system/button';
@@ -16,7 +12,9 @@ import { cn } from '@intlayer/design-system/utils';
 import { ArrowLeftToLine } from 'lucide-react';
 import { type FC, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { useScrollPositionPersistence } from '@/hooks/useScrollPositionPersistence';
+import { OptionalLink } from '~/components/DocPage/DocNavList';
+import { SearchTrigger } from '~/components/DocPage/Search/SearchTrigger';
+import { useScrollPositionPersistence } from '~/hooks/useScrollPositionPersistence';
 import type { Section } from './types';
 
 type BlogNavListProps = {

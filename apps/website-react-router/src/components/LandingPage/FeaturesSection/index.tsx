@@ -1,10 +1,7 @@
-'use client';
-
 import { useDevice } from '@intlayer/design-system/hooks';
 import { Loader } from '@intlayer/design-system/loader';
 import { cn } from '@intlayer/design-system/utils';
 import { motion } from 'framer-motion';
-import dynamic from '@utils/dynamic';
 import {
   type FC,
   type PropsWithChildren,
@@ -15,6 +12,7 @@ import {
   useState,
 } from 'react';
 import { type IntlayerNode, useIntlayer } from 'react-intlayer';
+import dynamic from '~/utils/dynamic';
 import { FrameworkProvider } from './FrameworkContext';
 
 /* -------------------------------------------------------------------------- */

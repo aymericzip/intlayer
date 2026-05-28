@@ -1,18 +1,16 @@
-'use client';
-
-import type { FrameworkKey } from '@components/I18nBenchmark';
-import { Link } from '@components/Link/Link';
-import { TableOfContents } from '@components/TableOfContents';
 import { MarkdownRenderer } from '@intlayer/design-system/mark-down-render';
-import dynamic from '@utils/dynamic';
 import { useTheme } from 'next-themes';
 import type { ComponentProps, FC } from 'react';
 import { useLocale } from 'react-intlayer';
+import type { FrameworkKey } from '~/components/I18nBenchmark';
+import { Link } from '~/components/Link/Link';
+import { TableOfContents } from '~/components/TableOfContents';
+import dynamic from '~/utils/dynamic';
 import { ClickToOpenIframe } from './ClickToOpenIframe';
 import { SectionScroller } from './SectionScroller';
 
 const I18nBenchmark = dynamic(
-  () => import('@components/I18nBenchmark').then((mod) => mod.I18nBenchmark),
+  () => import('~/components/I18nBenchmark').then((mod) => mod.I18nBenchmark),
   { ssr: false }
 );
 

@@ -1,5 +1,3 @@
-'use client';
-
 import { Website_CMS_Path } from '@intlayer/design-system/routes';
 import { DatabaseIcon } from 'lucide-react';
 import type { FC } from 'react';

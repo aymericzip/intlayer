@@ -1,5 +1,3 @@
-'use client';
-
 import { Website_Translate_Path } from '@intlayer/design-system/routes';
 import { Sparkles } from 'lucide-react';
 import type { FC } from 'react';

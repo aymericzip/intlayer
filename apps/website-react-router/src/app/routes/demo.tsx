@@ -1,16 +1,16 @@
-import { BackgroundLayout } from '@components/BackgroundLayout';
-import { DemoPage } from '@components/DemoPage';
 import { Website_Demo } from '@intlayer/design-system/routes';
-import { PageLayout } from '@layouts/PageLayout';
-import { OrganizationHeader } from '@structuredData/OrganizationHeader';
-import { SoftwareApplicationHeader } from '@structuredData/SoftwareApplication';
-import { WebsiteHeader } from '@structuredData/WebsiteHeader';
 import {
   getIntlayer,
   getLocaleFromPath,
   getLocalizedUrl,
   getMultilingualUrls,
 } from 'intlayer';
+import { BackgroundLayout } from '~/components/BackgroundLayout';
+import { DemoPage } from '~/components/DemoPage';
+import { PageLayout } from '~/layouts/PageLayout';
+import { OrganizationHeader } from '~/structuredData/OrganizationHeader';
+import { SoftwareApplicationHeader } from '~/structuredData/SoftwareApplication';
+import { WebsiteHeader } from '~/structuredData/WebsiteHeader';
 
 import type { Route } from './+types/demo';
 

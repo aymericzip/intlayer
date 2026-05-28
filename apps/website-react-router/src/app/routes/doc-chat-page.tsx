@@ -1,8 +1,8 @@
-import { ChatBot } from '@components/ChatBot';
-import { DocPageLayout } from '@components/DocPage/DocPageLayout';
+import { ChatBot } from '~/components/ChatBot';
+import { DocPageLayout } from '~/components/DocPage/DocPageLayout';
 import { Container } from '@intlayer/design-system/container';
 import { H1 } from '@intlayer/design-system/headers';
-import { WebsiteHeader } from '@structuredData/WebsiteHeader';
+import { WebsiteHeader } from '~/structuredData/WebsiteHeader';
 import { getLocaleFromPath } from 'intlayer';
 import { useIntlayer } from 'react-intlayer';
 import type { Route } from './+types/doc-chat-page';

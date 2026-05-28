@@ -1,5 +1,3 @@
-'use client';
-
 import { Container } from '@intlayer/design-system/container';
 import { Loader } from '@intlayer/design-system/loader';
 import { useTheme } from 'next-themes';

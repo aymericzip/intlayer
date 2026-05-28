@@ -1,6 +1,3 @@
-'use client';
-
-import { Link } from '@components/Link/Link';
 import {
   Button,
   ButtonColor,
@@ -22,6 +19,7 @@ import { ArrowRight, Check, Copy } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
+import { Link } from '~/components/Link/Link';
 import packageJSON from '../../../../package_mock.json' with { type: 'json' };
 import { TechLogos } from './TechLogos';
 

@@ -1,12 +1,12 @@
-import { BackgroundLayout } from '@components/BackgroundLayout';
+import { BackgroundLayout } from '~/components/BackgroundLayout';
 import {
   type Contributor,
   ContributorsList,
-} from '@components/Contributors/ContributorsList';
+} from '~/components/Contributors/ContributorsList';
 import { Website_Contributors } from '@intlayer/design-system/routes';
-import { PageLayout } from '@layouts/PageLayout';
-import { OrganizationHeader } from '@structuredData/OrganizationHeader';
-import { WebsiteHeader } from '@structuredData/WebsiteHeader';
+import { PageLayout } from '~/layouts/PageLayout';
+import { OrganizationHeader } from '~/structuredData/OrganizationHeader';
+import { WebsiteHeader } from '~/structuredData/WebsiteHeader';
 import {
   getIntlayer,
   getLocaleFromPath,

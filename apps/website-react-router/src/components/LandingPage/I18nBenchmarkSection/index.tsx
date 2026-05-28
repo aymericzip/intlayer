@@ -1,4 +1,4 @@
-import { I18nBenchmark } from '@components/I18nBenchmark';
+import { I18nBenchmark } from '~/components/I18nBenchmark';
 import type { FC } from 'react';
 
 export const I18nBenchmarkSection: FC = () => (

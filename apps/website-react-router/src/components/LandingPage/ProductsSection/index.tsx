@@ -1,5 +1,3 @@
-'use client';
-
 import { Carousel } from '@intlayer/design-system/carousel';
 import { Container } from '@intlayer/design-system/container';
 import type { FC } from 'react';

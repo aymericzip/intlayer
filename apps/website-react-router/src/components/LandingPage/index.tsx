@@ -1,9 +1,9 @@
-import { BackgroundLayout } from '@components/BackgroundLayout';
-import { CommonQuestionsSection } from '@components/LandingPage/CommonQuestionsSection/CommonQuestions';
 import { Loader } from '@intlayer/design-system/loader';
-import dynamic from '@utils/dynamic';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
+import { BackgroundLayout } from '~/components/BackgroundLayout';
+import { CommonQuestionsSection } from '~/components/LandingPage/CommonQuestionsSection/CommonQuestions';
+import dynamic from '~/utils/dynamic';
 import { LandingSection } from './LandingSection';
 
 const DynamicAvailableTechnoSection = dynamic(

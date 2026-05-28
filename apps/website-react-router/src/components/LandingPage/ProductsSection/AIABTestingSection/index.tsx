@@ -1,5 +1,3 @@
-'use client';
-
 import { External_AI_Landing_Page } from '@intlayer/design-system/routes';
 import { TestTubeIcon } from 'lucide-react';
 import type { FC } from 'react';

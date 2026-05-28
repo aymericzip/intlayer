@@ -1,9 +1,9 @@
-import { DocPageLayout } from '@components/DocPage/DocPageLayout';
-import { SearchView } from '@components/DocPage/Search/SearchView';
+import { DocPageLayout } from '~/components/DocPage/DocPageLayout';
+import { SearchView } from '~/components/DocPage/Search/SearchView';
 import { Container } from '@intlayer/design-system/container';
 import { H1 } from '@intlayer/design-system/headers';
 import { Loader } from '@intlayer/design-system/loader';
-import { WebsiteHeader } from '@structuredData/WebsiteHeader';
+import { WebsiteHeader } from '~/structuredData/WebsiteHeader';
 import { getLocaleFromPath } from 'intlayer';
 import { Suspense } from 'react';
 import { useIntlayer } from 'react-intlayer';

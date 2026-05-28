@@ -1,6 +1,3 @@
-'use client';
-
-import { Link } from '@components/Link/Link';
 import { useSearchDoc } from '@intlayer/design-system/api';
 import {
   Breadcrumb,
@@ -24,6 +21,7 @@ import {
 } from 'react';
 import { useIntlayer, useLocale } from 'react-intlayer';
 import { useNavigate as useRouter, useSearchParams } from 'react-router-dom';
+import { Link } from '~/components/Link/Link';
 
 // Fuse.js options
 const fuseOptions: IFuseOptions<DocMetadata> = {

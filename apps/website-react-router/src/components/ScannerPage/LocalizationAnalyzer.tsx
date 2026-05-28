@@ -1,9 +1,7 @@
-'use client';
-
 import { useSession } from '@intlayer/design-system/api';
 import { type FC, useEffect, useMemo, useRef, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { useSearchParamState } from '@/hooks/useSearchParamState';
+import { useSearchParamState } from '~/hooks/useSearchParamState';
 import { AnalyzerLoading } from './Analyzer/AnalyzerLoading';
 import { AnalyzerForm } from './Analyzer/Form/AnalyzerForm';
 import { useAnalyzerUrlSchema } from './Analyzer/Form/useAnalyzerUrlSchema';

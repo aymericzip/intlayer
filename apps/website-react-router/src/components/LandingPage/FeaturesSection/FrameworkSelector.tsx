@@ -1,5 +1,3 @@
-'use client';
-
 import { SwitchSelector } from '@intlayer/design-system/switch-selector';
 import { TechLogo, TechLogoName } from '@intlayer/design-system/tech-logo';
 import { cn } from '@intlayer/design-system/utils';

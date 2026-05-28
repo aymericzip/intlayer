@@ -1,5 +1,5 @@
-import dynamic from '@utils/dynamic';
 import type { FC } from 'react';
+import dynamic from '~/utils/dynamic';
 
 const HeroSection = dynamic(() =>
   import('./HeroSection').then((module) => module.HeroSection)
@@ -23,12 +23,12 @@ const CTASection = dynamic(() =>
   import('./CTASection').then((module) => module.CTASection)
 );
 const ProductsSection = dynamic(() =>
-  import('@components/LandingPage/ProductsSection').then(
+  import('~/components/LandingPage/ProductsSection').then(
     (module) => module.ProductsSection
   )
 );
 const ContributorSection = dynamic(() =>
-  import('@components/LandingPage/ContributorSection').then(
+  import('~/components/LandingPage/ContributorSection').then(
     (module) => module.ContributorSection
   )
 );

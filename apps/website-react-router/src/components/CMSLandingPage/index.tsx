@@ -1,6 +1,6 @@
-import { BackgroundLayout } from '@components/BackgroundLayout';
-import dynamic from '@utils/dynamic';
 import type { FC } from 'react';
+import { BackgroundLayout } from '~/components/BackgroundLayout';
+import dynamic from '~/utils/dynamic';
 
 const HeroSection = dynamic(() =>
   import('./HeroSection').then((module) => module.HeroSection)
@@ -21,12 +21,12 @@ const FinalCTASection = dynamic(() =>
   import('./FinalCTASection').then((module) => module.FinalCTASection)
 );
 const ProductsSection = dynamic(() =>
-  import('@components/LandingPage/ProductsSection').then(
+  import('~/components/LandingPage/ProductsSection').then(
     (module) => module.ProductsSection
   )
 );
 const ContributorSection = dynamic(() =>
-  import('@components/LandingPage/ContributorSection').then(
+  import('~/components/LandingPage/ContributorSection').then(
     (module) => module.ContributorSection
   )
 );

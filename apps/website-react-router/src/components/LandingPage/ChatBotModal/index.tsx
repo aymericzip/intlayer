@@ -1,5 +1,3 @@
-'use client';
-
 import { Button } from '@intlayer/design-system/button';
 import { Loader } from '@intlayer/design-system/loader';
 import { Modal } from '@intlayer/design-system/modal';
@@ -8,7 +6,7 @@ import { type FC, lazy, Suspense, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 
 const ChatBot = lazy(() =>
-  import('@components/ChatBot').then((module) => ({ default: module.ChatBot }))
+  import('~/components/ChatBot').then((module) => ({ default: module.ChatBot }))
 );
 
 export const ChatBotModal: FC = () => {

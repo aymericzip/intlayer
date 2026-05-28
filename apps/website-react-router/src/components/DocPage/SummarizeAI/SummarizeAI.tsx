@@ -1,5 +1,3 @@
-'use client';
-
 import { usePersistedStore } from '@intlayer/design-system/hooks';
 import { Link } from '@intlayer/design-system/link';
 import { Popover } from '@intlayer/design-system/popover';

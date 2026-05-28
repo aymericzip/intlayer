@@ -1,5 +1,3 @@
-'use client';
-
 import { cn } from '@intlayer/design-system/utils';
 import { motion, type Variants } from 'framer-motion';
 import type { FC } from 'react';

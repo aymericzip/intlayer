@@ -1,6 +1,3 @@
-'use client';
-
-import { Link } from '@components/Link/Link';
 import { Container } from '@intlayer/design-system/container';
 import { MaxHeightSmoother } from '@intlayer/design-system/max-height-smoother';
 import { Website_FrequentQuestions_Path } from '@intlayer/design-system/routes';
@@ -8,6 +5,7 @@ import { cn } from '@intlayer/design-system/utils';
 import { ArrowRight } from 'lucide-react';
 import { type FC, useMemo, useSyncExternalStore } from 'react';
 import { type IntlayerNode, useIntlayer } from 'react-intlayer';
+import { Link } from '~/components/Link/Link';
 
 const QuestionItem: FC<{
   question: IntlayerNode;

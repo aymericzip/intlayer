@@ -20,14 +20,7 @@ const rawMarkdownPlugin = {
 export default defineConfig({
   resolve: {
     alias: {
-      '~': resolve(__dirname, 'src/app'),
-      '@components': resolve(__dirname, 'src/components'),
-      '@structuredData': resolve(__dirname, 'src/structuredData'),
-      '@utils': resolve(__dirname, 'src/utils'),
-      '@hooks': resolve(__dirname, 'src/hooks'),
-      '@layouts': resolve(__dirname, 'src/layouts'),
-      '@assets': resolve(__dirname, 'src/assets'),
-      '@': resolve(__dirname, 'src'),
+      '~': resolve(__dirname, 'src'),
     },
   },
   plugins: [

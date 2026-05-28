@@ -1,5 +1,3 @@
-'use client';
-
 import { Container } from '@intlayer/design-system/container';
 import { Tag } from '@intlayer/design-system/tag';
 import { m, type Variants } from 'framer-motion';

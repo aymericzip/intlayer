@@ -1,5 +1,3 @@
-'use client';
-
 import { useIntlayer } from 'react-intlayer';
 import { z } from 'zod/v4';
 

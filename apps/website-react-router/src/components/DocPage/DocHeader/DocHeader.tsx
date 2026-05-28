@@ -1,5 +1,3 @@
-'use client';
-
 import {} from '@intlayer/design-system/api';
 import { Container } from '@intlayer/design-system/container';
 import { useDevice } from '@intlayer/design-system/hooks';

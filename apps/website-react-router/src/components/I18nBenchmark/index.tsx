@@ -1,4 +1,4 @@
-import { Link } from '@components/Link/Link';
+import { Link } from '~/components/Link/Link';
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
 import { H2, H3, H4 } from '@intlayer/design-system/headers';

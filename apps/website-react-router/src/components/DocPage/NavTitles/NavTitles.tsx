@@ -1,11 +1,9 @@
-'use client';
-
-import { Link } from '@components/Link/Link';
 import { getPathWithoutLocale } from '@intlayer/core/localization';
 import { useGetElementById } from '@intlayer/design-system/hooks';
 import { type FC, useRef } from 'react';
 import { useIntlayer, useLocale } from 'react-intlayer';
 import { useLocation } from 'react-router-dom';
+import { Link } from '~/components/Link/Link';
 import { useActiveSection } from '../useActiveSection';
 import { useTitlesTree } from '../useTitlesTree';
 

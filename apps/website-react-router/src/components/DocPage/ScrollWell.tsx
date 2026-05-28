@@ -1,5 +1,3 @@
-'use client';
-
 import { useGetElementById, useScrollY } from '@intlayer/design-system/hooks';
 import type { FC, SVGProps } from 'react';
 import { useActiveSection } from './useActiveSection';

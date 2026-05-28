@@ -1,4 +1,4 @@
-import { Link } from '@components/Link/Link';
+import { Link } from '~/components/Link/Link';
 import { PopoverStatic } from '@intlayer/design-system/popover';
 import { Website_Doc, Website_Doc_MCP } from '@intlayer/design-system/routes';
 import type { FC } from 'react';

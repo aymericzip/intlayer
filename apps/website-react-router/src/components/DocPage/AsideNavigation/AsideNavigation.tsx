@@ -1,6 +1,3 @@
-'use client';
-
-import { ChatBot } from '@components/ChatBot';
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
 import { HeightResizer } from '@intlayer/design-system/height-resizer';
@@ -13,6 +10,7 @@ import { cn } from '@intlayer/design-system/utils';
 import { ArrowRightToLine, MoveDiagonal } from 'lucide-react';
 import { type FC, useEffect, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
+import { ChatBot } from '~/components/ChatBot';
 import { NavTitles } from '../NavTitles/NavTitles';
 
 export const AsideNavigation: FC = (props) => {

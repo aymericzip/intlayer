@@ -1,12 +1,10 @@
-'use client';
-
-import { Link } from '@components/Link/Link';
-import { AnalyzerForm } from '@components/ScannerPage/Analyzer/Form/AnalyzerForm';
 import { getLocalizedUrl } from '@intlayer/core/localization';
 import { Website_Scanner_Path } from '@intlayer/design-system/routes';
 import type { FC } from 'react';
 import { useIntlayer, useLocale } from 'react-intlayer';
 import { useNavigate as useRouter } from 'react-router-dom';
+import { Link } from '~/components/Link/Link';
+import { AnalyzerForm } from '~/components/ScannerPage/Analyzer/Form/AnalyzerForm';
 
 export const AuditSection: FC = () => {
   const { title, description, goToScanner } = useIntlayer('audit-page');

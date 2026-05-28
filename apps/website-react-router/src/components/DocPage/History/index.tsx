@@ -1,6 +1,3 @@
-'use client';
-
-import { Link } from '@components/Link/Link';
 import { Container } from '@intlayer/design-system/container';
 import { Popover } from '@intlayer/design-system/popover';
 import { cn } from '@intlayer/design-system/utils';
@@ -9,6 +6,7 @@ import { Clock } from 'lucide-react';
 import type { FC } from 'react';
 import { useIntlayer, useLocale } from 'react-intlayer';
 import { useDate } from 'react-intlayer/format';
+import { Link } from '~/components/Link/Link';
 
 type HistoryProps = {
   pageUrl: string;

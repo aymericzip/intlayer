@@ -1,6 +1,6 @@
-import { AsideNavigation } from '@components/DocPage/AsideNavigation/AsideNavigation';
 import type { LocalesValues } from 'intlayer';
 import { type FC, type ReactNode, Suspense } from 'react';
+import { AsideNavigation } from '~/components/DocPage/AsideNavigation/AsideNavigation';
 import { BlogBreadCrumb } from './BlogBreadCrumb';
 import { BlogNavList } from './BlogNavList';
 import { getBlogData } from './blogData';

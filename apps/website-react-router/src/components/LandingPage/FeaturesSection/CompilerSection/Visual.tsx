@@ -1,5 +1,3 @@
-'use client';
-
 import { H3 } from '@intlayer/design-system/headers';
 import { Select } from '@intlayer/design-system/select';
 import { getLocaleName, Locales } from 'intlayer';

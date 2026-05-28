@@ -1,6 +1,3 @@
-'use client';
-
-import { Link } from '@components/Link/Link';
 import {
   getHTMLTextDir,
   getLocaleName,
@@ -13,6 +10,7 @@ import { MoveVertical } from 'lucide-react';
 import { type FC, useRef } from 'react';
 import { useIntlayer, useLocale } from 'react-intlayer';
 import { useLocation } from 'react-router-dom';
+import { Link } from '~/components/Link/Link';
 import { useLocaleSearch } from './useLocaleSearch';
 
 export type LocaleSwitcherProps = {

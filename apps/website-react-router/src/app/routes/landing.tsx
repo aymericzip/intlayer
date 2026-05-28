@@ -1,11 +1,11 @@
-import { EmailRegistrationToast } from '@components/EmailRegistrationToast';
-import { LandingPage as LandingPageContent } from '@components/LandingPage';
-import { PageLayout } from '@layouts/PageLayout';
-import { OrganizationHeader } from '@structuredData/OrganizationHeader';
-import { ProductHeader } from '@structuredData/ProductHeader';
-import { SoftwareApplicationHeader } from '@structuredData/SoftwareApplication';
-import { WebsiteHeader } from '@structuredData/WebsiteHeader';
-import { getPricing } from '@utils/stripe';
+import { EmailRegistrationToast } from '~/components/EmailRegistrationToast';
+import { LandingPage as LandingPageContent } from '~/components/LandingPage';
+import { PageLayout } from '~/layouts/PageLayout';
+import { OrganizationHeader } from '~/structuredData/OrganizationHeader';
+import { ProductHeader } from '~/structuredData/ProductHeader';
+import { SoftwareApplicationHeader } from '~/structuredData/SoftwareApplication';
+import { WebsiteHeader } from '~/structuredData/WebsiteHeader';
+import { getPricing } from '~/utils/stripe';
 import {
   getIntlayer,
   getLocaleFromPath,

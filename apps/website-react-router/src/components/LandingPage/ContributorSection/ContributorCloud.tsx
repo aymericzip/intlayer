@@ -1,7 +1,3 @@
-'use client';
-
-import type { Contributor } from '@components/Contributors/ContributorsList';
-import { Link } from '@components/Link/Link';
 import { Avatar } from '@intlayer/design-system/avatar';
 import { H2 } from '@intlayer/design-system/headers';
 import {
@@ -21,6 +17,8 @@ import {
   useState,
 } from 'react';
 import { useIntlayer, useLocale } from 'react-intlayer';
+import type { Contributor } from '~/components/Contributors/ContributorsList';
+import { Link } from '~/components/Link/Link';
 
 type ContributorCloudProps = {
   contributors: Contributor[];

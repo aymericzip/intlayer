@@ -1,12 +1,12 @@
-import { BlogPageLayout } from '@components/BlogPage/BlogPageLayout';
-import { SearchView } from '@components/DocPage/Search/SearchView';
 import { Container } from '@intlayer/design-system/container';
 import { H1 } from '@intlayer/design-system/headers';
 import { Loader } from '@intlayer/design-system/loader';
-import { WebsiteHeader } from '@structuredData/WebsiteHeader';
 import { getLocaleFromPath } from 'intlayer';
 import { Suspense } from 'react';
 import { useIntlayer } from 'react-intlayer';
+import { BlogPageLayout } from '~/components/BlogPage/BlogPageLayout';
+import { SearchView } from '~/components/DocPage/Search/SearchView';
+import { WebsiteHeader } from '~/structuredData/WebsiteHeader';
 
 import type { Route } from './+types/blog-search-page';
 

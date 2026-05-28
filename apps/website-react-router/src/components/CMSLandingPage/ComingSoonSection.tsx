@@ -1,5 +1,3 @@
-'use client';
-
 import { Building, Sparkles, Webhook } from 'lucide-react';
 import type { FC, ReactNode } from 'react';
 import { useIntlayer } from 'react-intlayer';

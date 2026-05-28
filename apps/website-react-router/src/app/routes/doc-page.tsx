@@ -1,11 +1,11 @@
-import { DocHeader } from '@components/DocPage/DocHeader/DocHeader';
-import { DocPageLayout } from '@components/DocPage/DocPageLayout';
+import { DocHeader } from '~/components/DocPage/DocHeader/DocHeader';
+import { DocPageLayout } from '~/components/DocPage/DocPageLayout';
 import {
   DocPageNavigation,
   type DocPageNavigationProps,
-} from '@components/DocPage/DocPageNavigation/DocPageNavigation';
-import { DocumentationRender } from '@components/DocPage/DocumentationRender';
-import { getPreviousNextDocMetadata } from '@components/DocPage/docData';
+} from '~/components/DocPage/DocPageNavigation/DocPageNavigation';
+import { DocumentationRender } from '~/components/DocPage/DocumentationRender';
+import { getPreviousNextDocMetadata } from '~/components/DocPage/docData';
 import { Website_Doc_Path } from '@intlayer/design-system/routes';
 import {
   type DocKey,
@@ -13,12 +13,12 @@ import {
   getDocMetadata,
   getDocMetadataBySlug,
 } from '@intlayer/docs';
-import { BreadcrumbsHeader } from '@structuredData/BreadcrumbsHeader';
-import { CreativeWorkHeader } from '@structuredData/CreativeWorkHeader';
-import { OrganizationHeader } from '@structuredData/OrganizationHeader';
-import { SoftwareApplicationHeader } from '@structuredData/SoftwareApplication';
-import { WebsiteHeader } from '@structuredData/WebsiteHeader';
-import { urlRenamer } from '@utils/markdown';
+import { BreadcrumbsHeader } from '~/structuredData/BreadcrumbsHeader';
+import { CreativeWorkHeader } from '~/structuredData/CreativeWorkHeader';
+import { OrganizationHeader } from '~/structuredData/OrganizationHeader';
+import { SoftwareApplicationHeader } from '~/structuredData/SoftwareApplication';
+import { WebsiteHeader } from '~/structuredData/WebsiteHeader';
+import { urlRenamer } from '~/utils/markdown';
 import {
   defaultLocale,
   getLocaleFromPath,

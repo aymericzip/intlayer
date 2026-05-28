@@ -1,11 +1,11 @@
-import { DocumentationRender } from '@components/DocPage/DocumentationRender';
+import { DocumentationRender } from '~/components/DocPage/DocumentationRender';
 import { Website_Doc_Path } from '@intlayer/design-system/routes';
 import {
   type FrequentQuestionKey,
   getFrequentQuestion,
   getFrequentQuestionMetadataBySlug,
 } from '@intlayer/docs';
-import { urlRenamer } from '@utils/markdown';
+import { urlRenamer } from '~/utils/markdown';
 import {
   getLocaleFromPath,
   getLocalizedUrl,

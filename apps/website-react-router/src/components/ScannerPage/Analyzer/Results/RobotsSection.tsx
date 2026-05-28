@@ -1,5 +1,3 @@
-'use client';
-
 import { Bot, FileText } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import type { FC } from 'react';

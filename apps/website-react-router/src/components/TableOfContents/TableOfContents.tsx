@@ -1,5 +1,3 @@
-'use client';
-
 import { Link } from '@intlayer/design-system/link';
 import { cn } from '@intlayer/design-system/utils';
 import type { FC } from 'react';

@@ -1,5 +1,3 @@
-'use client';
-
 import { getLocalizedUrl } from '@intlayer/core/localization';
 import {
   checkIsExternalLink,

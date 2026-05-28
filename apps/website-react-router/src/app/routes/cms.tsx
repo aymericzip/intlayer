@@ -1,11 +1,11 @@
-import { CMSLandingPage } from '@components/CMSLandingPage';
+import { CMSLandingPage } from '~/components/CMSLandingPage';
 import { Website_CMS } from '@intlayer/design-system/routes';
-import { PageLayout } from '@layouts/PageLayout';
-import { OrganizationHeader } from '@structuredData/OrganizationHeader';
-import { ProductHeader } from '@structuredData/ProductHeader';
-import { SoftwareApplicationHeader } from '@structuredData/SoftwareApplication';
-import { WebsiteHeader } from '@structuredData/WebsiteHeader';
-import { getPricing } from '@utils/stripe';
+import { PageLayout } from '~/layouts/PageLayout';
+import { OrganizationHeader } from '~/structuredData/OrganizationHeader';
+import { ProductHeader } from '~/structuredData/ProductHeader';
+import { SoftwareApplicationHeader } from '~/structuredData/SoftwareApplication';
+import { WebsiteHeader } from '~/structuredData/WebsiteHeader';
+import { getPricing } from '~/utils/stripe';
 import {
   getIntlayer,
   getLocaleFromPath,

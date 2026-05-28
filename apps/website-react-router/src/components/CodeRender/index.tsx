@@ -1,5 +1,3 @@
-'use client';
-
 import { Container } from '@intlayer/design-system/container';
 import { MarkdownRenderer } from '@intlayer/design-system/mark-down-render';
 import { useTheme } from 'next-themes';

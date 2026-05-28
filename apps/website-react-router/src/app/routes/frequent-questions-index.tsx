@@ -1,7 +1,6 @@
 import { Container } from '@intlayer/design-system/container';
 import { Website_FrequentQuestions } from '@intlayer/design-system/routes';
 import { getFrequentQuestionMetadataRecord } from '@intlayer/docs';
-import { FAQPageHeader } from '@structuredData/FAQPageHeader';
 import {
   getIntlayer,
   getLocaleFromPath,
@@ -11,7 +10,8 @@ import {
 import { ArrowRight } from 'lucide-react';
 import { Suspense } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { Link } from '@/components/Link/Link';
+import { Link } from '~/components/Link/Link';
+import { FAQPageHeader } from '~/structuredData/FAQPageHeader';
 
 import type { Route } from './+types/frequent-questions-index';
 

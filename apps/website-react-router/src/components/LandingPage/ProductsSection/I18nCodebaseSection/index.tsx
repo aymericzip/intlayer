@@ -1,5 +1,3 @@
-'use client';
-
 import { Website_Doc_Path } from '@intlayer/design-system/routes';
 import { Code2Icon } from 'lucide-react';
 import type { FC } from 'react';

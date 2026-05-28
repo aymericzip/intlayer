@@ -1,5 +1,3 @@
-'use client';
-
 import { Container } from '@intlayer/design-system/container';
 import { Input } from '@intlayer/design-system/input';
 import { Label } from '@intlayer/design-system/label';

@@ -1,5 +1,3 @@
-'use client';
-
 import type { EmailsList } from '@intlayer/backend';
 import { useSubscribeToNewsletter, useUser } from '@intlayer/design-system/api';
 import { Container } from '@intlayer/design-system/container';

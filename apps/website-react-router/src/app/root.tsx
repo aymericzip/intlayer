@@ -11,13 +11,13 @@ import {
   ScrollRestoration,
   useLoaderData,
 } from 'react-router';
-import { getDefaultHeaders } from '@/security-headers';
+import { getDefaultHeaders } from '~/app/security-headers';
 
 import type { Route } from './+types/root';
 
-import '@/globals.css';
-import '@/shiki.css';
-import { AppProviders } from '@/providers/AppProviders';
+import '~/globals.css';
+import '~/shiki.css';
+import { AppProviders } from '~/providers/AppProviders';
 
 /**
  * Global HTTP response headers — mirrors next.config.ts `headers()` for the

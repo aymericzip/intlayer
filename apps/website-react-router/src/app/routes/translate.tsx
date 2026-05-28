@@ -1,9 +1,9 @@
-import { AiTranslationLandingCore } from '@components/TranslationLandingPage';
+import { AiTranslationLandingCore } from '~/components/TranslationLandingPage';
 import { Website_Translate } from '@intlayer/design-system/routes';
-import { PageLayout } from '@layouts/PageLayout';
-import { OrganizationHeader } from '@structuredData/OrganizationHeader';
-import { TranslateSoftwareApplicationHeader } from '@structuredData/TranslateSoftwareApplicationHeader';
-import { WebsiteHeader } from '@structuredData/WebsiteHeader';
+import { PageLayout } from '~/layouts/PageLayout';
+import { OrganizationHeader } from '~/structuredData/OrganizationHeader';
+import { TranslateSoftwareApplicationHeader } from '~/structuredData/TranslateSoftwareApplicationHeader';
+import { WebsiteHeader } from '~/structuredData/WebsiteHeader';
 import {
   getIntlayer,
   getLocaleFromPath,

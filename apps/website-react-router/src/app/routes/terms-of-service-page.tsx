@@ -1,12 +1,12 @@
-import { DocumentationRender } from '@components/DocPage/DocumentationRender';
 import { Website_TermsOfService } from '@intlayer/design-system/routes';
 import { getLegal, getLegalMetadata } from '@intlayer/docs';
-import { CreativeWorkHeader } from '@structuredData/CreativeWorkHeader';
 import {
   getLocaleFromPath,
   getLocalizedUrl,
   getMultilingualUrls,
 } from 'intlayer';
+import { DocumentationRender } from '~/components/DocPage/DocumentationRender';
+import { CreativeWorkHeader } from '~/structuredData/CreativeWorkHeader';
 
 import type { Route } from './+types/terms-of-service-page';
 

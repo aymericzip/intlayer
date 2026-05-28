@@ -18,13 +18,7 @@
     "downlevelIteration": true,
     "types": ["node", "vite/client"],
     "paths": {
-      "~/*": ["./src/app/*"],
-      "@components/*": ["./src/components/*"],
-      "@structuredData/*": ["./src/structuredData/*"],
-      "@utils/*": ["./src/utils/*"],
-      "@hooks/*": ["./src/hooks/*"],
-      "@assets/*": ["./src/assets/*"],
-      "@/*": ["./src/*"]
+      "~/*": ["./src/*"]
     }
   },
   "include": [

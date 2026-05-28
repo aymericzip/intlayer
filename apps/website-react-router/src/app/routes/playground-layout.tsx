@@ -1,4 +1,4 @@
-import { PageLayout } from '@layouts/PageLayout';
+import { PageLayout } from '~/layouts/PageLayout';
 import { Outlet } from 'react-router';
 
 export default function PlaygroundLayout() {

@@ -1,5 +1,3 @@
-'use client';
-
 import { Button } from '@intlayer/design-system/button';
 import { DictionaryEditor } from '@intlayer/design-system/dictionary-editor';
 import {

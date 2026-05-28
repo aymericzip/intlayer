@@ -1,6 +1,6 @@
 'use server';
 
-import type { Contributor } from '@components/Contributors/ContributorsList';
+import type { Contributor } from '~/components/Contributors/ContributorsList';
 
 export const getContributors = async () => {
   let contributors: Contributor[] = [];

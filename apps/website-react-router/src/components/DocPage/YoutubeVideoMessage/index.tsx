@@ -1,4 +1,4 @@
-import { Link } from '@components/Link/Link';
+import { Link } from '~/components/Link/Link';
 import { PopoverStatic } from '@intlayer/design-system/popover';
 import { YoutubeLogo } from '@intlayer/design-system/social-networks';
 import type { FC } from 'react';

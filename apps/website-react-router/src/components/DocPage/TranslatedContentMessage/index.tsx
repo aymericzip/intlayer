@@ -1,11 +1,9 @@
-'use client';
-
-import { Link } from '@components/Link/Link';
 import { Popover } from '@intlayer/design-system/popover';
 import { getLocalizedUrl } from 'intlayer';
 import { Languages } from 'lucide-react';
 import type { FC } from 'react';
 import { useIntlayer, useLocale, useLocaleStorage } from 'react-intlayer';
+import { Link } from '~/components/Link/Link';
 
 type TranslatedContentMessageProps = {
   pageUrl: string;

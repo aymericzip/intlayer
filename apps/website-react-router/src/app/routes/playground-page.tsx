@@ -1,6 +1,3 @@
-import { BackgroundLayout } from '@components/BackgroundLayout';
-import { DashboardContentLayout } from '@components/Dashboard/DashboardContentLayout';
-import { DictionaryLoaderPlayground } from '@components/Dashboard/Editor/DictionaryLoaderPlayground';
 import * as baseConfiguration from '@intlayer/config/built';
 import { Loader } from '@intlayer/design-system/loader';
 import {
@@ -8,10 +5,6 @@ import {
   Website_Playground,
 } from '@intlayer/design-system/routes';
 import { ConfigurationProvider } from '@intlayer/editor-react';
-import { OrganizationHeader } from '@structuredData/OrganizationHeader';
-import { SoftwareApplicationHeader } from '@structuredData/SoftwareApplication';
-import { WebsiteHeader } from '@structuredData/WebsiteHeader';
-import dynamic from '@utils/dynamic';
 import {
   getIntlayer,
   getLocaleFromPath,
@@ -19,6 +12,13 @@ import {
   getMultilingualUrls,
 } from 'intlayer';
 import { useIntlayer } from 'react-intlayer';
+import { BackgroundLayout } from '~/components/BackgroundLayout';
+import { DashboardContentLayout } from '~/components/Dashboard/DashboardContentLayout';
+import { DictionaryLoaderPlayground } from '~/components/Dashboard/Editor/DictionaryLoaderPlayground';
+import { OrganizationHeader } from '~/structuredData/OrganizationHeader';
+import { SoftwareApplicationHeader } from '~/structuredData/SoftwareApplication';
+import { WebsiteHeader } from '~/structuredData/WebsiteHeader';
+import dynamic from '~/utils/dynamic';
 
 import type { Route } from './+types/playground-page';
 
@@ -71,7 +71,7 @@ export async function loader({ request }: Route.LoaderArgs) {
 }
 
 const Editor = dynamic(
-  () => import('@components/Dashboard/Editor').then((mod) => mod.Editor),
+  () => import('~/components/Dashboard/Editor').then((mod) => mod.Editor),
   {
     loading: () => <Loader />,
   }

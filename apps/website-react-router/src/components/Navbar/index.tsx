@@ -1,7 +1,3 @@
-'use client';
-
-import { Link } from '@components/Link/Link';
-import { LocaleSwitcher } from '@components/LocaleSwitcher/LocaleSwitcher';
 import { getPathWithoutLocale } from '@intlayer/core/localization';
 import { useUser } from '@intlayer/design-system/api';
 import { Avatar } from '@intlayer/design-system/avatar';
@@ -17,15 +13,17 @@ import {
 } from '@intlayer/design-system/routes';
 import { DiscordLogo } from '@intlayer/design-system/social-networks';
 import { TechLogos } from '@intlayer/design-system/tech-logo';
-import dynamic from '@utils/dynamic';
 import { Image, StarIcon, VectorSquare } from 'lucide-react';
 import type { FC, MouseEvent } from 'react';
 import { useIntlayer, useLocale } from 'react-intlayer';
 import { useLocation, useRevalidator } from 'react-router-dom';
+import { Link } from '~/components/Link/Link';
+import { LocaleSwitcher } from '~/components/LocaleSwitcher/LocaleSwitcher';
+import dynamic from '~/utils/dynamic';
 
 const SwitchThemeSwitcher = dynamic(
   () =>
-    import('@components/ThemeSwitcherDropDown/SwitchThemeSwitcher').then(
+    import('~/components/ThemeSwitcherDropDown/SwitchThemeSwitcher').then(
       (mod) => mod.SwitchThemeSwitcher
     ),
   { ssr: false }

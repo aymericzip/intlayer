@@ -1,4 +1,4 @@
-import { Link } from '@components/Link/Link';
+import { Link } from '~/components/Link/Link';
 import {
   Website_Doc_Environment_Angular,
   Website_Doc_Environment_Astro,

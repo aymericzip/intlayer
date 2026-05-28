@@ -1,6 +1,3 @@
-'use client';
-
-import { Link } from '@components/Link/Link';
 import {
   Container,
   ContainerPadding,
@@ -25,6 +22,7 @@ import {
 import { useTheme } from 'next-themes';
 import type { FC, ReactNode } from 'react';
 import { useIntlayer } from 'react-intlayer';
+import { Link } from '~/components/Link/Link';
 
 type CodeBlockWrapperProps = {
   title: ReactNode;

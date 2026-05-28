@@ -1,5 +1,3 @@
-'use client';
-
 import { usePersistedStore } from '@intlayer/design-system/hooks';
 import {
   createContext,

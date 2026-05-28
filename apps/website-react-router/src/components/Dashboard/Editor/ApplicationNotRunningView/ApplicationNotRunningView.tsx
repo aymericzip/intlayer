@@ -1,4 +1,4 @@
-import { Link } from '@components/Link/Link';
+import { Link } from '~/components/Link/Link';
 import { Container } from '@intlayer/design-system/container';
 import { H3 } from '@intlayer/design-system/headers';
 import { Website_Doc_IntlayerCMS_Path } from '@intlayer/design-system/routes';

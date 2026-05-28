@@ -1,12 +1,10 @@
-'use client';
-
-import { Link } from '@components/Link/Link';
 import { LinkColor, LinkVariant } from '@intlayer/design-system/link';
 import { App_Dashboard_Projects } from '@intlayer/design-system/routes';
 import { m } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
+import { Link } from '~/components/Link/Link';
 
 const fadeUp = {
   initial: { opacity: 0, y: 24 },

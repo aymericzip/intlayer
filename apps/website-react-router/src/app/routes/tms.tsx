@@ -1,11 +1,11 @@
-import { TMSLandingPage } from '@components/TMSLandingPage';
+import { TMSLandingPage } from '~/components/TMSLandingPage';
 import { Website_TMS } from '@intlayer/design-system/routes';
-import { PageLayout } from '@layouts/PageLayout';
-import { OrganizationHeader } from '@structuredData/OrganizationHeader';
-import { SoftwareApplicationHeader } from '@structuredData/SoftwareApplication';
-import { TMSProductHeader } from '@structuredData/TMSProductHeader';
-import { WebsiteHeader } from '@structuredData/WebsiteHeader';
-import { getPricing } from '@utils/stripe';
+import { PageLayout } from '~/layouts/PageLayout';
+import { OrganizationHeader } from '~/structuredData/OrganizationHeader';
+import { SoftwareApplicationHeader } from '~/structuredData/SoftwareApplication';
+import { TMSProductHeader } from '~/structuredData/TMSProductHeader';
+import { WebsiteHeader } from '~/structuredData/WebsiteHeader';
+import { getPricing } from '~/utils/stripe';
 import {
   getIntlayer,
   getLocaleFromPath,

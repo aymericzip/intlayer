@@ -1,6 +1,3 @@
-'use client';
-
-import { Link } from '@components/Link/Link';
 import { Container } from '@intlayer/design-system/container';
 import { LinkColor, LinkVariant } from '@intlayer/design-system/link';
 import {
@@ -19,6 +16,7 @@ import { ArrowRight } from 'lucide-react';
 import type { FC } from 'react';
 import { useRef } from 'react';
 import { useIntlayer } from 'react-intlayer';
+import { Link } from '~/components/Link/Link';
 import TMSScreenshot from './TMS_screenshot.png';
 
 const MotionContainer = m.create(Container);

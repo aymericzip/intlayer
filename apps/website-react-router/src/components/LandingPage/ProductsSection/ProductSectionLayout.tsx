@@ -1,10 +1,8 @@
-'use client';
-
-import { Link } from '@components/Link/Link';
 import { LinkColor, LinkVariant } from '@intlayer/design-system/link';
 import { Tag, TagBorder, TagColor, TagSize } from '@intlayer/design-system/tag';
 import { ArrowRightIcon } from 'lucide-react';
 import type { FC, ReactNode } from 'react';
+import { Link } from '~/components/Link/Link';
 
 export interface ProductSectionLayoutProps {
   tag: ReactNode;

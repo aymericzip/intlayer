@@ -1,10 +1,4 @@
-import { BackgroundLayout } from '@components/BackgroundLayout';
-import { LocalizationAnalyzer } from '@components/ScannerPage';
 import { Website_Scanner } from '@intlayer/design-system/routes';
-import { PageLayout } from '@layouts/PageLayout';
-import { OrganizationHeader } from '@structuredData/OrganizationHeader';
-import { ScannerSoftwareApplicationHeader } from '@structuredData/ScannerSoftwareApplicationHeader';
-import { WebsiteHeader } from '@structuredData/WebsiteHeader';
 import {
   getIntlayer,
   getLocaleFromPath,
@@ -13,7 +7,13 @@ import {
 } from 'intlayer';
 import { Suspense } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { getScannerHeaders } from '@/security-headers';
+import { getScannerHeaders } from '~/app/security-headers';
+import { BackgroundLayout } from '~/components/BackgroundLayout';
+import { LocalizationAnalyzer } from '~/components/ScannerPage';
+import { PageLayout } from '~/layouts/PageLayout';
+import { OrganizationHeader } from '~/structuredData/OrganizationHeader';
+import { ScannerSoftwareApplicationHeader } from '~/structuredData/ScannerSoftwareApplicationHeader';
+import { WebsiteHeader } from '~/structuredData/WebsiteHeader';
 
 import type { Route } from './+types/i18n-seo-scanner';
 

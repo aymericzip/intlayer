@@ -1,7 +1,7 @@
-import { DocumentationRender } from '@components/DocPage/DocumentationRender';
+import { DocumentationRender } from '~/components/DocPage/DocumentationRender';
 import { Website_PrivacyPolicy } from '@intlayer/design-system/routes';
 import { getLegal, getLegalMetadata } from '@intlayer/docs';
-import { CreativeWorkHeader } from '@structuredData/CreativeWorkHeader';
+import { CreativeWorkHeader } from '~/structuredData/CreativeWorkHeader';
 import {
   getLocaleFromPath,
   getLocalizedUrl,
