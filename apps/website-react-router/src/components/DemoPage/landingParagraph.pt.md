@@ -1,0 +1,4 @@
+- **Delegue a gestão de conteúdo para suas equipes** transformando seu aplicativo em um CMS com um único clique.
+- **Simplifique a formatação de conteúdo** com suporte a Markdown, facilitando a estruturação e o estilo do seu conteúdo.
+- **Aumente sua produtividade com IA**, aproveitando sugestões inteligentes e automação para simplificar a criação de conteúdo.
+- **Suporte vários idiomas** sem esforço, garantindo uma localização perfeita para públicos globais。'

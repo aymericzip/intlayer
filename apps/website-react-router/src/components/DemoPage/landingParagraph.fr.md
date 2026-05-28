@@ -1,0 +1,4 @@
+- **Déléguez la gestion de contenu à vos équipes** en transformant votre application en CMS avec un seul clic.
+- **Simplifiez la mise en forme du contenu** avec le support Markdown, facilitant la structure et la mise en forme de votre contenu.
+- **Améliorez votre productivité avec l'IA**, en utilisant des suggestions intelligentes et une automatisation pour streamliner la création de contenu.
+- **Soutenez plusieurs langues** de manière fluide, garantissant une localisation fluide pour les audiences mondiales.

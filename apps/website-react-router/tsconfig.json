@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "@utils/ts-config",
+  "compilerOptions": {
+    "lib": ["dom", "dom.iterable", "esnext", "webworker"],
+    "allowJs": true,
+    "skipLibCheck": false,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "react-jsx",
+    "rootDirs": [".", "./.react-router/types"],
+    "incremental": true,
+    "downlevelIteration": true,
+    "types": ["node", "vite/client"],
+    "paths": {
+      "~/*": ["./src/app/*"],
+      "@components/*": ["./src/components/*"],
+      "@structuredData/*": ["./src/structuredData/*"],
+      "@utils/*": ["./src/utils/*"],
+      "@hooks/*": ["./src/hooks/*"],
+      "@assets/*": ["./src/assets/*"],
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": [
+    "**/*",
+    "**/.server/**/*",
+    "**/.client/**/*",
+    ".react-router/types/**/*",
+    ".intlayer/**/*.ts",
+    ".intlayer/types/**/*.ts",
+    "../../packages/@intlayer/design-system/src/components/LanguageSection"
+  ],
+  "exclude": ["node_modules", ".react-router", "build", "public/sw.js"]
+}

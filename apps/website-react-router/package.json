@@ -1,0 +1,120 @@
+{
+  "name": "website",
+  "version": "8.11.1",
+  "private": true,
+  "description": "Intlayer Website include the landing page and the documentation of the intlayer project.",
+  "keywords": [
+    "intlayer",
+    "website",
+    "application",
+    "editor",
+    "typescript",
+    "javascript",
+    "json",
+    "file"
+  ],
+  "homepage": "https://intlayer.org",
+  "bugs": {
+    "url": "https://github.com/aymericzip/intlayer/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aymericzip/intlayer.git"
+  },
+  "license": "Apache-2.0",
+  "author": {
+    "name": "Aymeric PINEAU",
+    "url": "https://github.com/aymericzip"
+  },
+  "contributors": [
+    {
+      "name": "Aymeric Pineau",
+      "email": "ay.pineau@gmail.com",
+      "url": "https://github.com/aymericzip"
+    }
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "baidu-push": "bun --env-file=.env.production.local ./scripts/baidu-push.ts",
+    "build": "react-router build",
+    "postbuild": "bun scripts/generate-sw.ts",
+    "dev": "react-router dev",
+    "editor": "intlayer-editor start --bun",
+    "generate-pwa-assets": "pwa-asset-generator --preset minimal ../../packages/@intlayer/design-system/src/components/Logo/logo_circle_wite.svg ./public/assets/",
+    "prettier": "prettier . --check",
+    "prettier:fix": "prettier . --write",
+    "preserve": "bun --env-file=.env.production ./scripts/purge-cloudflare-cache.ts",
+    "serve": "npx intlayer serve --bun",
+    "start": "react-router-serve ./build/server/index.js",
+    "start:editor": "bun intlayer-editor start --with 'react-router dev'",
+    "test": "bun --bun vitest run"
+  },
+  "dependencies": {
+    "@intlayer/api": "workspace:*",
+    "@intlayer/config": "workspace:*",
+    "@intlayer/core": "workspace:*",
+    "@intlayer/design-system": "workspace:*",
+    "@intlayer/dictionaries-entry": "workspace:*",
+    "@intlayer/docs": "workspace:*",
+    "@intlayer/editor-react": "workspace:*",
+    "@intlayer/types": "workspace:*",
+    "@intlayer/unmerged-dictionaries-entry": "workspace:*",
+    "@react-router/node": "7.14.0",
+    "@react-router/serve": "7.14.0",
+    "@tanstack/react-query": "5.100.14",
+    "babel-plugin-react-compiler": "1.0.0",
+    "chart.js": "^4.5.1",
+    "defu": "6.1.7",
+    "framer-motion": "12.40.0",
+    "fuse.js": "7.3.0",
+    "intlayer": "workspace:*",
+    "isbot": "^5",
+    "lucide-react": "1.17.0",
+    "next-themes": "0.4.6",
+    "posthog-js": "1.376.3",
+    "react": "19.2.6",
+    "react-dom": "19.2.6",
+    "react-intlayer": "workspace:*",
+    "react-router": "7.14.0",
+    "react-router-dom": "7.14.0",
+    "react-virtuoso": "^4.18.7",
+    "rss": "^1.2.2",
+    "sharp": "0.34.5",
+    "zod": "4.4.3"
+  },
+  "devDependencies": {
+    "@react-router/dev": "7.14.0",
+    "@react-router/fs-routes": "7.14.0",
+    "@tailwindcss/postcss": "4.3.0",
+    "@tailwindcss/vite": "^4.3.0",
+    "@types/node": "25.9.1",
+    "@types/react": "19.2.15",
+    "@types/react-dom": "19.2.3",
+    "@types/rss": "^0.0.32",
+    "@utils/ts-config": "workspace:*",
+    "@utils/ts-config-types": "workspace:*",
+    "@utils/tsdown-config": "workspace:*",
+    "glob": "^13.0.6",
+    "postcss": "8.5.15",
+    "pwa-asset-generator": "8.1.4",
+    "raw-loader": "4.0.2",
+    "tailwindcss": "4.3.0",
+    "typescript": "6.0.3",
+    "vite": "8.0.14",
+    "vite-intlayer": "^8.11.1",
+    "workbox-build": "7.4.1"
+  },
+  "peerDependencies": {
+    "@intlayer/backend": "workspace:*"
+  },
+  "peerDependenciesMeta": {
+    "@intlayer/backend": {
+      "optional": true
+    }
+  },
+  "optionalDependencies": {
+    "cobe": "2.0.1",
+    "intlayer-editor": "workspace:*",
+    "react-spring": "10.0.4"
+  }
+}

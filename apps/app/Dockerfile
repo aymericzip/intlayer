@@ -36,8 +36,8 @@ COPY \
     --exclude=packages/express-intlayer \
     --exclude=packages/hono-intlayer \
     --exclude=packages/adonis-intlayer \
-    --exclude=apps/website \
-    --exclude=apps/showcase \
+    --exclude=apps/website \ 
+    --exclude=apps/website-react-router \    --exclude=apps/showcase \
     --exclude=apps/doc \
     --exclude=plugins \
     --exclude=docs/assets \
