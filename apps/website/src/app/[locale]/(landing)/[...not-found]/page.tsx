@@ -30,6 +30,18 @@ const NotFountPage: NextPageIntlayer = async ({ params }) => {
     <IntlayerServerProvider locale={locale}>
       <Suspense>
         <NotFountPageContent />
+        <a
+          href="https://postyourstartup.co/startup/intlayer?ref=badge"
+          target="_blank"
+          rel="noopener"
+        >
+          <img
+            src="https://postyourstartup.co/api/badge/intlayer?theme=light"
+            alt="Featured on PostYourStartup"
+            width="212"
+            height="55"
+          />
+        </a>
       </Suspense>
     </IntlayerServerProvider>
   );
