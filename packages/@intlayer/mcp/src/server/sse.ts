@@ -63,12 +63,9 @@ const startServer = async () => {
     }
   });
 
-  app.get('/', async (request, reply) => {
-    const sessionId = request.headers['mcp-session-id'] as string | undefined;
-    if (!sessionId || !sessions.has(sessionId)) {
-      return reply.status(400).send({ messages: 'Bad session id.' });
-    }
-    return reply.status(200).send();
+  app.get('/', async (_request, reply) => {
+    reply.header('Allow', 'POST, DELETE');
+    return reply.status(405).send();
   });
 
   app.delete('/', async (request, reply) => {
