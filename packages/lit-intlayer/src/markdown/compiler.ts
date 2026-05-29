@@ -8,8 +8,12 @@
 import {
   type CompileOptions,
   compileWithOptions,
+  parseMarkdown as coreParseMarkdown,
+  renderMarkdownAst as coreRenderMarkdownAst,
   sanitizer as defaultSanitizer,
   slugify as defaultSlugify,
+  type MarkdownContext,
+  type ParsedMarkdown,
   RuleType,
 } from '@intlayer/core/markdown';
 import { litRuntime } from './runtime';
@@ -38,10 +42,57 @@ export type MarkdownCompilerOptions = CompileOptions;
  * }
  * ```
  */
-export const compileMarkdown = (
-  markdown = '',
+export type { ParsedMarkdown };
+
+export const parseMarkdown = (
+  markdown: string = '',
   options: MarkdownCompilerOptions = {}
-): string => compileWithOptions(markdown, litRuntime, options) as string;
+): ParsedMarkdown => {
+  const {
+    components,
+    namedCodesToUnicode,
+    sanitizer,
+    slugify,
+    ...compilerOptions
+  } = options;
+
+  const ctx: MarkdownContext<any> = {
+    runtime: litRuntime,
+    components,
+    namedCodesToUnicode,
+    sanitizer: sanitizer as any,
+    slugify,
+  };
+
+  return coreParseMarkdown(markdown, ctx, compilerOptions);
+};
+
+export const compileMarkdown = (
+  input: string | ParsedMarkdown = '',
+  options: MarkdownCompilerOptions = {}
+): string => {
+  if (typeof input === 'string') {
+    return compileWithOptions(input, litRuntime, options) as string;
+  }
+
+  const {
+    components,
+    namedCodesToUnicode,
+    sanitizer,
+    slugify,
+    ...compilerOptions
+  } = options;
+
+  const ctx: MarkdownContext<any> = {
+    runtime: litRuntime,
+    components,
+    namedCodesToUnicode,
+    sanitizer: sanitizer as any,
+    slugify,
+  };
+
+  return coreRenderMarkdownAst(input, ctx, compilerOptions) as string;
+};
 
 // Aliases for consistency with other adapters
 export const compiler = compileMarkdown;

@@ -10,3 +10,4 @@ export {
   renderMarkdown,
   useMarkdownRenderer,
 } from './MarkdownRenderer';
+export * from './processor';

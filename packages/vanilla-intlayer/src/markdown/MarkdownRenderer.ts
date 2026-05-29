@@ -1,5 +1,9 @@
 import type { HTMLComponents } from '../html/types';
-import { compileMarkdown, type MarkdownCompilerOptions } from './compiler';
+import {
+  compileMarkdown,
+  type MarkdownCompilerOptions,
+  type ParsedMarkdown,
+} from './compiler';
 import {
   type MarkdownProviderOptions,
   type RenderMarkdownFunction,
@@ -22,7 +26,7 @@ export type RenderMarkdownProps = MarkdownProviderOptions & {
  * ```
  */
 export const renderMarkdown = (
-  content: string,
+  content: string | ParsedMarkdown,
   {
     forceBlock,
     forceInline,
@@ -45,10 +49,10 @@ export const renderMarkdown = (
  */
 export const useMarkdownRenderer = (
   props: RenderMarkdownProps = {}
-): ((content: string) => string | Promise<string>) => {
+): ((content: string | ParsedMarkdown) => string | Promise<string>) => {
   const provider = useMarkdown();
 
-  return (content: string) =>
+  return (content: string | ParsedMarkdown) =>
     provider.renderMarkdown(
       content,
       {

@@ -1,7 +1,11 @@
 import { html, LitElement, nothing } from 'lit';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import type { HTMLComponents } from '../html/types';
-import { compileMarkdown, type MarkdownCompilerOptions } from './compiler';
+import {
+  compileMarkdown,
+  type MarkdownCompilerOptions,
+  type ParsedMarkdown,
+} from './compiler';
 import {
   type MarkdownProviderOptions,
   type RenderMarkdownFunction,
@@ -18,7 +22,7 @@ export type RenderMarkdownProps = MarkdownProviderOptions & {
  * Pass the result to `unsafeHTML()` in a Lit template.
  */
 export const renderMarkdown = (
-  content: string,
+  content: string | ParsedMarkdown,
   {
     forceBlock,
     forceInline,
@@ -41,10 +45,10 @@ export const renderMarkdown = (
  */
 export const useMarkdownRenderer = (
   props: RenderMarkdownProps = {}
-): ((content: string) => string) => {
+): ((content: string | ParsedMarkdown) => string) => {
   const provider = useMarkdown();
 
-  return (content: string) =>
+  return (content: string | ParsedMarkdown) =>
     provider.renderMarkdown(
       content,
       {
@@ -83,7 +87,7 @@ export const useMarkdownRenderer = (
  */
 export class MarkdownRenderer extends LitElement {
   static override properties = {
-    content: { type: String },
+    content: { type: [String, Object] },
     forceBlock: { type: Boolean },
     forceInline: { type: Boolean },
     preserveFrontmatter: { type: Boolean },
@@ -92,7 +96,7 @@ export class MarkdownRenderer extends LitElement {
   };
 
   /** The markdown string to compile and render. */
-  content = '';
+  content: string | ParsedMarkdown = '';
   forceBlock?: boolean;
   forceInline?: boolean;
   preserveFrontmatter?: boolean;

@@ -5,7 +5,11 @@ import type {
   JSX,
 } from 'preact';
 import type { HTMLComponents } from '../html/types';
-import { compileMarkdown, type MarkdownCompilerOptions } from './compiler';
+import {
+  compileMarkdown,
+  type MarkdownCompilerOptions,
+  type ParsedMarkdown,
+} from './compiler';
 import {
   type MarkdownProviderOptions,
   useMarkdownContext,
@@ -25,7 +29,7 @@ export type RenderMarkdownProps = MarkdownProviderOptions & {
 };
 
 export const renderMarkdown = (
-  content: string,
+  content: string | ParsedMarkdown,
   {
     components,
     wrapper,
@@ -59,7 +63,7 @@ export const useMarkdownRenderer = ({
 }: RenderMarkdownProps = {}) => {
   const context = useMarkdownContext();
 
-  return (content: string) => {
+  return (content: string | ParsedMarkdown) => {
     if (context) {
       return context.renderMarkdown(
         content,
@@ -89,13 +93,13 @@ export type MarkdownRendererProps = RenderMarkdownProps & {
   /**
    * The markdown content to render.
    */
-  children: string;
+  children: string | ParsedMarkdown;
   /**
    * Custom render function for markdown.
    * If provided, it will overwrite context and default rendering.
    */
   renderMarkdown?: (
-    markdown: string,
+    markdown: string | ParsedMarkdown,
     options?: {
       components?: HTMLComponents<'permissive', {}>;
       wrapper?: ComponentType<any> | keyof JSX.IntrinsicElements;

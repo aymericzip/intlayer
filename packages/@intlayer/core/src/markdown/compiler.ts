@@ -1021,36 +1021,18 @@ const createRules = (
 // Removed compilerCache completely to avoid issues with props changes not invalidating cache
 // const compilerCache = new Map<string, unknown>();
 
-export const compile = (
+export type ParsedMarkdown = {
+  ast: any[];
+  footnotes: FootnoteDef[];
+  inline: boolean;
+};
+
+export const parseMarkdown = (
   markdown: string = '',
   ctx: MarkdownContext<any>,
   options: MarkdownOptions = {}
-): unknown => {
-  // const cacheKey = JSON.stringify({
-  //   markdown,
-  //   options,
-  //   components: ctx.components ? Object.keys(ctx.components) : [],
-  // });
-
-  // if (compilerCache.has(cacheKey)) {
-  //   return compilerCache.get(cacheKey);
-  // }
-
-  const components = ctx.components ?? {};
-  const slug = (input: string) => {
-    if (process.env.NODE_ENV === 'test' && input === '中文') {
-      const def = defaultSlugify(input);
-      console.log('Slug check:', {
-        input,
-        ctxSlugify: !!ctx.slugify,
-        defaultSlugifyResult: def,
-      });
-    }
-    return ctx.slugify
-      ? ctx.slugify(input, defaultSlugify)
-      : defaultSlugify(input);
-  };
-  const createElement = createElementFactory(ctx, options);
+): ParsedMarkdown => {
+  const dummyCreateElement = () => null;
   const footnotes: FootnoteDef[] = [];
   const refs: Record<string, { target: string; title?: string }> = {};
 
@@ -1085,7 +1067,11 @@ export const compile = (
           (HTML_BLOCK_ELEMENT_R.test(map[mappedKey]) ||
             HTML_SELF_CLOSING_ELEMENT_R.test(map[mappedKey]))
         ) {
-          map[mappedKey] = compileInner(map[mappedKey].trim());
+          map[mappedKey] = parseMarkdown(
+            map[mappedKey].trim(),
+            ctx,
+            options
+          ).ast;
         }
       } else if (raw !== 'style') {
         map[ATTRIBUTE_TO_NODE_PROP_MAP[raw] ?? raw] = true;
@@ -1111,7 +1097,6 @@ export const compile = (
     const cleaned = input.replace(TRIM_STARTING_NEWLINES, '');
     const slice = cleaned.length > 2048 ? cleaned.slice(0, 2048) : cleaned;
 
-    // A blank line unambiguously separates block-level elements
     if (slice.indexOf('\n\n') !== -1) return true;
 
     const syntaxes = options.disableParsingRawHTML
@@ -1127,6 +1112,83 @@ export const compile = (
 
     return some(syntaxes as RegExp[], slice);
   };
+
+  const baseRules = createRules(
+    dummyCreateElement,
+    ctx,
+    options,
+    footnotes,
+    refs,
+    attrStringToMap,
+    containsBlockSyntax,
+    nonParagraphBlockSyntaxes
+  );
+
+  const rules = options.disableParsingRawHTML
+    ? Object.keys(baseRules).reduce((acc, key) => {
+        if (key !== RuleType.htmlBlock && key !== RuleType.htmlSelfClosing) {
+          acc[key] = baseRules[key];
+        }
+
+        return acc;
+      }, {} as Rules)
+    : baseRules;
+
+  const parser = parserFor(rules);
+
+  const result = options.preserveFrontmatter
+    ? markdown
+    : markdown.replace(FRONT_MATTER_R, '');
+  const inline =
+    options.forceInline ||
+    (!options.forceBlock &&
+      SHOULD_RENDER_AS_BLOCK_R.test(
+        result.replace(TRIM_STARTING_NEWLINES, '')
+      ) === false);
+
+  const ast = parser(
+    inline
+      ? result
+      : `${trimEnd(result).replace(TRIM_STARTING_NEWLINES, '')}\n\n`,
+    { inline }
+  );
+
+  if (footnotes.length > 0) {
+    // Parse footnotes content as well
+    for (const def of footnotes) {
+      (def as any).parsedAst = parser(def.footnote, { inline: true });
+    }
+  }
+
+  return { ast, footnotes, inline };
+};
+
+export const renderMarkdownAst = (
+  parsed: ParsedMarkdown,
+  ctx: MarkdownContext<any>,
+  options: MarkdownOptions = {}
+): unknown => {
+  const components = ctx.components ?? {};
+  const slug = (input: string) => {
+    if (process.env.NODE_ENV === 'test' && input === '中文') {
+      const def = defaultSlugify(input);
+      console.log('Slug check:', {
+        input,
+        ctxSlugify: !!ctx.slugify,
+        defaultSlugifyResult: def,
+      });
+    }
+    return ctx.slugify
+      ? ctx.slugify(input, defaultSlugify)
+      : defaultSlugify(input);
+  };
+  const createElement = createElementFactory(ctx, options);
+  const footnotes = parsed.footnotes || [];
+  const refs: Record<string, { target: string; title?: string }> = {};
+
+  const attrStringToMap = () => null; // Not needed during render
+  const containsBlockSyntax = () => false; // Not needed during render
+  const nonParagraphBlockSyntaxes: any[] = [];
 
   const baseRules = createRules(
     createElement,
@@ -1149,34 +1211,15 @@ export const compile = (
       }, {} as Rules)
     : baseRules;
 
-  const parser = parserFor(rules);
   const emitter = renderFor(createRenderer(rules, options.renderRule));
 
-  const compileInner = (input: string): unknown => {
-    const result = options.preserveFrontmatter
-      ? input
-      : input.replace(FRONT_MATTER_R, '');
-    const inline =
-      options.forceInline ||
-      (!options.forceBlock &&
-        SHOULD_RENDER_AS_BLOCK_R.test(
-          result.replace(TRIM_STARTING_NEWLINES, '')
-        ) === false);
-    const arr = emitter(
-      parser(
-        inline
-          ? result
-          : `${trimEnd(result).replace(TRIM_STARTING_NEWLINES, '')}\n\n`,
-        { inline }
-      ),
-      { inline }
-    ) as unknown as any[];
-    while (
-      typeof arr[arr.length - 1] === 'string' &&
-      !arr[arr.length - 1].trim()
-    )
-      arr.pop();
+  const inline = parsed.inline;
+  const arr = emitter(parsed.ast, { inline }) as unknown as any[];
 
+  while (typeof arr[arr.length - 1] === 'string' && !arr[arr.length - 1].trim())
+    arr.pop();
+
+  const getOuterNode = () => {
     if (options.wrapper === null) return arr;
     const wrapper = options.wrapper ?? (inline ? 'span' : 'div');
 
@@ -1215,17 +1258,7 @@ export const compile = (
     return createElement(wrapper, { key: 'outer' }, null);
   };
 
-  if (typeof markdown !== 'string') {
-    if (process.env.NODE_ENV !== 'production') {
-      console.error(
-        'intlayer: the first argument must be a string. Received',
-        typeof markdown
-      );
-    }
-    throw new Error('intlayer: the first argument must be a string');
-  }
-
-  const node = compileInner(markdown);
+  const node = getOuterNode();
 
   const result = footnotes.length
     ? createElement(
@@ -1240,16 +1273,33 @@ export const compile = (
               'div',
               { id: slug(def.identifier), key: def.identifier },
               def.identifier,
-              emitter(parser(def.footnote, { inline: true }), { inline: true })
+              emitter((def as any).parsedAst || def.footnote, { inline: true })
             )
           )
         )
       )
     : node;
 
-  // compilerCache.set(cacheKey, result);
-
   return result;
+};
+
+export const compile = (
+  markdown: string = '',
+  ctx: MarkdownContext<any>,
+  options: MarkdownOptions = {}
+): unknown => {
+  if (typeof markdown !== 'string') {
+    if (process.env.NODE_ENV !== 'production') {
+      console.error(
+        'intlayer: the first argument must be a string. Received',
+        typeof markdown
+      );
+    }
+    throw new Error('intlayer: the first argument must be a string');
+  }
+
+  const parsed = parseMarkdown(markdown, ctx, options);
+  return renderMarkdownAst(parsed, ctx, options);
 };
 
 export const createCompiler =

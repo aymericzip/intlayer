@@ -6,8 +6,10 @@ export {
   setMarkdownContext as setIntlayerMarkdown,
 } from './context';
 
-import { compileMarkdown } from './compiler';
+import { compileMarkdown, type ParsedMarkdown } from './compiler';
 import { getMarkdownContext, type RenderMarkdownOptions } from './context';
+
+export * from './compiler';
 
 export { default as MarkdownMetadataRenderer } from './MarkdownMetadataRenderer.svelte';
 export { default as MarkdownProvider } from './MarkdownProvider.svelte';
@@ -19,5 +21,6 @@ export const renderMarkdown = compileMarkdown;
 
 export const useMarkdownRenderer = (options: RenderMarkdownProps = {}) => {
   const context = getMarkdownContext();
-  return (content: string) => context.renderMarkdown(content, options);
+  return (content: string | ParsedMarkdown) =>
+    context.renderMarkdown(content, options);
 };

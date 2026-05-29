@@ -1,17 +1,18 @@
-import { DocumentationRender } from '~/components/DocPage/DocumentationRender';
 import { Website_Doc_Path } from '@intlayer/design-system/routes';
 import {
   type FrequentQuestionKey,
   getFrequentQuestion,
   getFrequentQuestionMetadataBySlug,
 } from '@intlayer/docs';
-import { urlRenamer } from '~/utils/markdown';
 import {
   getLocaleFromPath,
   getLocalizedUrl,
   getMultilingualUrls,
 } from 'intlayer';
+import { parseMarkdown } from 'react-intlayer/markdown';
 import { redirect } from 'react-router';
+import { DocumentationRender } from '~/components/DocPage/DocumentationRender';
+import { urlRenamer } from '~/utils/markdown';
 
 import type { Route } from './+types/frequent-questions-slug';
 
@@ -79,18 +80,19 @@ export async function loader({ request, params }: Route.LoaderArgs) {
   );
 
   const blogContent = urlRenamer(file, locale!);
+  const blogParsed = parseMarkdown(blogContent);
 
-  return { blogContent, frequentQuestionData, locale };
+  return { blogContent, blogParsed, frequentQuestionData, locale };
 }
 
 export default function FrequentQuestionPage({
   loaderData,
 }: Route.ComponentProps) {
-  const { blogContent } = loaderData;
+  const { blogParsed } = loaderData;
 
   return (
     <div className="mx-auto max-w-2xl">
-      <DocumentationRender>{blogContent}</DocumentationRender>
+      <DocumentationRender>{blogParsed}</DocumentationRender>
     </div>
   );
 }

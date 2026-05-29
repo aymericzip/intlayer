@@ -5,8 +5,12 @@
 import {
   type CompileOptions,
   compileWithOptions,
+  parseMarkdown as coreParseMarkdown,
+  renderMarkdownAst as coreRenderMarkdownAst,
   sanitizer as defaultSanitizer,
   slugify as defaultSlugify,
+  type MarkdownContext,
+  type ParsedMarkdown,
   RuleType,
 } from '@intlayer/core/markdown';
 import { vueRuntime } from './runtime';
@@ -20,10 +24,57 @@ export type MarkdownCompilerOptions = CompileOptions;
  * Compile markdown to Vue VNodes.
  * This is the primary export - use this for new code.
  */
-export const compileMarkdown = (
+export type { ParsedMarkdown };
+
+export const parseMarkdown = (
   markdown: string = '',
   options: MarkdownCompilerOptions = {}
-) => compileWithOptions(markdown, vueRuntime, options);
+): ParsedMarkdown => {
+  const {
+    components,
+    namedCodesToUnicode,
+    sanitizer,
+    slugify,
+    ...compilerOptions
+  } = options;
+
+  const ctx: MarkdownContext<any> = {
+    runtime: vueRuntime,
+    components,
+    namedCodesToUnicode,
+    sanitizer: sanitizer as any,
+    slugify,
+  };
+
+  return coreParseMarkdown(markdown, ctx, compilerOptions);
+};
+
+export const compileMarkdown = (
+  input: string | ParsedMarkdown = '',
+  options: MarkdownCompilerOptions = {}
+) => {
+  if (typeof input === 'string') {
+    return compileWithOptions(input, vueRuntime, options);
+  }
+
+  const {
+    components,
+    namedCodesToUnicode,
+    sanitizer,
+    slugify,
+    ...compilerOptions
+  } = options;
+
+  const ctx: MarkdownContext<any> = {
+    runtime: vueRuntime,
+    components,
+    namedCodesToUnicode,
+    sanitizer: sanitizer as any,
+    slugify,
+  };
+
+  return coreRenderMarkdownAst(input, ctx, compilerOptions);
+};
 
 // Aliases for consistency with React adapter
 export const compiler = compileMarkdown;

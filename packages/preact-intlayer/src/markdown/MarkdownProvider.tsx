@@ -7,7 +7,7 @@ import {
 } from 'preact';
 import { useContext } from 'preact/hooks';
 import type { HTMLComponents } from '../html/types';
-import { compileMarkdown } from './compiler';
+import { compileMarkdown, type ParsedMarkdown } from './compiler';
 
 type PropsWithChildren<P = {}> = P & { children?: ComponentChildren };
 
@@ -42,7 +42,7 @@ type RenderMarkdownOptions = MarkdownProviderOptions & {
 type MarkdownContextValue = {
   components?: HTMLComponents<'permissive', {}>;
   renderMarkdown: (
-    markdown: string,
+    markdown: string | ParsedMarkdown,
     options?: MarkdownProviderOptions,
     components?: HTMLComponents<'permissive', {}>,
     wrapper?: ComponentType<any> | keyof JSX.IntrinsicElements
@@ -64,7 +64,7 @@ type MarkdownProviderProps = PropsWithChildren<
      * If provided, it will overwrite all rules and default rendering.
      */
     renderMarkdown?: (
-      markdown: string,
+      markdown: string | ParsedMarkdown,
       options?: MarkdownProviderOptions,
       components?: HTMLComponents<'permissive', {}>,
       wrapper?: ComponentType<any> | keyof JSX.IntrinsicElements
@@ -120,7 +120,7 @@ export const MarkdownProvider: FunctionComponent<MarkdownProviderProps> = ({
 
   // Standard internal renderer
   const defaultRenderMarkdown = (
-    markdown: string,
+    markdown: string | ParsedMarkdown,
     options?: MarkdownProviderOptions,
     componentsOverride?: HTMLComponents<'permissive', {}>,
     wrapperOverride?: ComponentType<any> | keyof JSX.IntrinsicElements
@@ -138,7 +138,7 @@ export const MarkdownProvider: FunctionComponent<MarkdownProviderProps> = ({
   // Wrapper for user-provided custom renderer
   // Note: We wrap in a clean Provider to prevent infinite recursion
   const customRenderMarkdownWrapper = (
-    markdown: string,
+    markdown: string | ParsedMarkdown,
     options?: MarkdownProviderOptions,
     componentsOverride?: HTMLComponents<'permissive', {}>,
     wrapperOverride?: ComponentType<any> | keyof JSX.IntrinsicElements

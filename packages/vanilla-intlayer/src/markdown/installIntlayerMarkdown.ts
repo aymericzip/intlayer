@@ -1,5 +1,9 @@
 import type { HTMLComponents } from '../html/types';
-import { compileMarkdown, type MarkdownCompilerOptions } from './compiler';
+import {
+  compileMarkdown,
+  type MarkdownCompilerOptions,
+  type ParsedMarkdown,
+} from './compiler';
 
 export type MarkdownProviderOptions = {
   /** Forces the compiler to always output content with a block-level wrapper. */
@@ -18,7 +22,7 @@ export type RenderMarkdownOptions = MarkdownProviderOptions & {
 };
 
 export type RenderMarkdownFunction = (
-  markdown: string,
+  markdown: string | ParsedMarkdown,
   options?: MarkdownProviderOptions,
   components?: HTMLComponents<'permissive', {}>,
   wrapper?: string
@@ -123,7 +127,8 @@ export const useMarkdown = (): IntlayerMarkdownProvider => {
   if (instance) return instance;
 
   return {
-    renderMarkdown: (markdown) => compileMarkdown(markdown),
+    renderMarkdown: (markdown) =>
+      compileMarkdown(markdown as string | ParsedMarkdown),
   };
 };
 

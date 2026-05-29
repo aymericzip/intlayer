@@ -1,4 +1,7 @@
-import { MarkdownRenderer } from '@intlayer/design-system/mark-down-render';
+import {
+  MarkdownRenderer,
+  type ParsedMarkdown,
+} from '@intlayer/design-system/mark-down-render';
 import { useTheme } from 'next-themes';
 import type { ComponentProps, FC } from 'react';
 import { lazy, Suspense } from 'react';
@@ -16,7 +19,7 @@ const I18nBenchmark = lazy(() =>
 );
 
 type DocumentationRenderProps = {
-  children: string;
+  children: string | ParsedMarkdown;
   /** Array of heading levels to display in TOC (e.g., [2, 3, 4] for h2, h3, h4) */
   tocLevels?: number[];
   /** Maximum depth of nested headings to show in TOC */

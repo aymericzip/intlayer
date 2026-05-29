@@ -1,12 +1,4 @@
-import { BackgroundLayout } from '~/components/BackgroundLayout';
-import {
-  type Contributor,
-  ContributorsList,
-} from '~/components/Contributors/ContributorsList';
 import { Website_Contributors } from '@intlayer/design-system/routes';
-import { PageLayout } from '~/layouts/PageLayout';
-import { OrganizationHeader } from '~/structuredData/OrganizationHeader';
-import { WebsiteHeader } from '~/structuredData/WebsiteHeader';
 import {
   getIntlayer,
   getLocaleFromPath,
@@ -14,6 +6,14 @@ import {
   getMultilingualUrls,
 } from 'intlayer';
 import { useIntlayer } from 'react-intlayer';
+import { BackgroundLayout } from '~/components/BackgroundLayout';
+import {
+  type Contributor,
+  ContributorsList,
+} from '~/components/Contributors/ContributorsList';
+import { PageLayout } from '~/layouts/PageLayout';
+import { OrganizationHeader } from '~/structuredData/OrganizationHeader';
+import { WebsiteHeader } from '~/structuredData/WebsiteHeader';
 
 import type { Route } from './+types/contributors';
 

@@ -7,7 +7,7 @@ import {
   type ValidComponent,
 } from 'solid-js';
 import type { HTMLComponents } from '../html/types';
-import { compileMarkdown } from './compiler';
+import { compileMarkdown, type ParsedMarkdown } from './compiler';
 
 export type MarkdownProviderOptions = {
   /** Forces the compiler to always output content with a block-level wrapper. */
@@ -26,7 +26,7 @@ type RenderMarkdownOptions = MarkdownProviderOptions & {
 type MarkdownProviderValue = {
   components?: HTMLComponents<'permissive', {}>;
   renderMarkdown: (
-    content: string,
+    content: string | ParsedMarkdown,
     options?: MarkdownProviderOptions,
     components?: HTMLComponents<'permissive', {}>,
     wrapper?: ValidComponent
@@ -42,7 +42,7 @@ export type MarkdownProviderProps = ParentProps<{
   preserveFrontmatter?: boolean;
   tagfilter?: boolean;
   renderMarkdown?: (
-    content: string,
+    content: string | ParsedMarkdown,
     options?: MarkdownProviderOptions,
     components?: HTMLComponents<'permissive', {}>,
     wrapper?: ValidComponent
@@ -51,7 +51,7 @@ export type MarkdownProviderProps = ParentProps<{
 
 export const MarkdownProvider: Component<MarkdownProviderProps> = (props) => {
   const defaultRenderMarkdown = (
-    content: string,
+    content: string | ParsedMarkdown,
     options?: MarkdownProviderOptions,
     componentsOverride?: HTMLComponents<'permissive', {}>,
     wrapperOverride?: ValidComponent

@@ -5,7 +5,7 @@ import {
   type VNodeChild,
 } from 'vue';
 import type { HTMLComponents } from '../html/types';
-import type { MarkdownCompilerOptions } from './compiler';
+import type { MarkdownCompilerOptions, ParsedMarkdown } from './compiler';
 import {
   type MarkdownPluginOptions,
   type RenderMarkdownFunction,
@@ -29,7 +29,7 @@ export type RenderMarkdownProps = MarkdownPluginOptions & {
  * hook if you want to leverage provider context.
  */
 export const renderMarkdown = async (
-  content: string,
+  content: string | ParsedMarkdown,
   {
     components,
     wrapper,
@@ -73,7 +73,7 @@ export const useMarkdownRenderer = ({
       renderMarkdown: contextRenderMarkdown,
       components: contextComponents,
     } = useMarkdown();
-    return (content: string) => {
+    return (content: string | ParsedMarkdown) => {
       return contextRenderMarkdown(
         content,
         {
@@ -91,7 +91,7 @@ export const useMarkdownRenderer = ({
     };
   } catch {
     // Fallback if not wrapped in MarkdownProvider
-    return (content: string) =>
+    return (content: string | ParsedMarkdown) =>
       renderMarkdown(content, {
         components,
         wrapper,
@@ -104,7 +104,7 @@ export const useMarkdownRenderer = ({
 };
 
 export type MarkdownRendererProps = RenderMarkdownProps & {
-  content?: string;
+  content?: string | ParsedMarkdown;
   renderMarkdown?: RenderMarkdownFunction;
 };
 
@@ -112,7 +112,7 @@ export const MarkdownRenderer = defineComponent({
   name: 'Markdown',
   props: {
     content: {
-      type: String,
+      type: [String, Object] as PropType<string | ParsedMarkdown>,
       default: '',
     },
     components: {

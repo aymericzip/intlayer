@@ -6,7 +6,7 @@ import {
   type VNodeChild,
 } from 'vue';
 import type { HTMLComponents } from '../html/types';
-import { compileMarkdown } from './compiler';
+import { compileMarkdown, type ParsedMarkdown } from './compiler';
 
 export const INTLAYER_MARKDOWN_SYMBOL = Symbol('intlayerMarkdown');
 
@@ -27,7 +27,7 @@ export type RenderMarkdownOptions = MarkdownProviderOptions & {
 };
 
 export type RenderMarkdownFunction = (
-  markdown: string,
+  markdown: string | ParsedMarkdown,
   options?: MarkdownProviderOptions,
   components?: HTMLComponents<'permissive', {}>,
   wrapper?: Component | string
@@ -217,7 +217,7 @@ export const intlayerMarkdown: {
 
 export const useMarkdown = () => {
   const provider = inject<IntlayerMarkdownProvider>(INTLAYER_MARKDOWN_SYMBOL, {
-    renderMarkdown: (markdown) => markdown,
+    renderMarkdown: (markdown) => markdown as any,
   });
 
   if (!provider) {

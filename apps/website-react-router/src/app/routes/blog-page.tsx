@@ -6,6 +6,7 @@ import {
   getLocalizedUrl,
   getMultilingualUrls,
 } from 'intlayer';
+import { parseMarkdown } from 'react-intlayer/markdown';
 import { redirect } from 'react-router';
 import { BlogPageLayout } from '~/components/BlogPage/BlogPageLayout';
 import { getPreviousNextBlogData } from '~/components/BlogPage/blogData';
@@ -169,6 +170,7 @@ export async function loader({ request, params }: Route.LoaderArgs) {
   const file = await getBlog(blogData?.docKey as BlogKey, locale);
 
   const blogContent = urlRenamer(file, locale!);
+  const blogParsed = parseMarkdown(blogContent);
 
   const nextBlog: DocPageNavigationProps['nextDoc'] = nextBlogData?.blogs
     ? {
@@ -188,14 +190,22 @@ export async function loader({ request, params }: Route.LoaderArgs) {
     slugs,
     blogData,
     blogContent,
+    blogParsed,
     nextBlog,
     prevBlog,
   };
 }
 
 export default function BlogPage({ loaderData }: Route.ComponentProps) {
-  const { locale, slugs, blogData, blogContent, nextBlog, prevBlog } =
-    loaderData;
+  const {
+    locale,
+    slugs,
+    blogData,
+    blogContent,
+    blogParsed,
+    nextBlog,
+    prevBlog,
+  } = loaderData;
 
   return (
     <BlogPageLayout activeSlugs={slugs} locale={locale ?? defaultLocale}>
@@ -215,7 +225,7 @@ export default function BlogPage({ loaderData }: Route.ComponentProps) {
       />
       <DocHeader {...blogData} markdownContent={blogContent} />
 
-      <DocumentationRender>{blogContent}</DocumentationRender>
+      <DocumentationRender>{blogParsed}</DocumentationRender>
 
       <DocPageNavigation nextDoc={nextBlog} prevDoc={prevBlog} />
     </BlogPageLayout>

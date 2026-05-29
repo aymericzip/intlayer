@@ -13,7 +13,7 @@ import {
   type ValidComponent,
 } from 'solid-js';
 import type { HTMLComponents } from '../html/types';
-import { compileMarkdown } from './compiler';
+import { compileMarkdown, type ParsedMarkdown } from './compiler';
 import { MarkdownContext, useMarkdown } from './MarkdownProvider';
 
 export type RenderMarkdownOptions = {
@@ -25,7 +25,7 @@ export type RenderMarkdownOptions = {
 };
 
 export const renderMarkdown = (
-  content: string,
+  content: string | ParsedMarkdown,
   options: RenderMarkdownOptions = {}
 ): Promise<JSX.Element> => {
   return compileMarkdown(content, options as any);
@@ -34,7 +34,7 @@ export const renderMarkdown = (
 export const useMarkdownRenderer = (options: RenderMarkdownOptions = {}) => {
   const context = useContext(MarkdownContext);
 
-  return (content: string): Promise<JSX.Element> => {
+  return (content: string | ParsedMarkdown): Promise<JSX.Element> => {
     if (context) {
       return context.renderMarkdown(
         content,
@@ -55,7 +55,7 @@ export type MarkdownRendererProps = RenderMarkdownOptions & {
   dictionaryKey: string;
   keyPath: KeyPath[];
   locale?: LocalesValues;
-  children: string;
+  children: string | ParsedMarkdown;
 };
 
 export const MarkdownRenderer = (props: MarkdownRendererProps): JSX.Element => {

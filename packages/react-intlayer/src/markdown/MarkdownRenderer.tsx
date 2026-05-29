@@ -6,7 +6,11 @@ import {
   type MarkdownProviderOptions,
   useMarkdownContext,
 } from './MarkdownProvider';
-import { compiler, type MarkdownRendererOptions } from './processor';
+import {
+  compiler,
+  type MarkdownRendererOptions,
+  type ParsedMarkdown,
+} from './processor';
 
 /**
  * Props for rendering markdown content.
@@ -80,7 +84,7 @@ export type RenderMarkdownProps = MarkdownProviderOptions & {
  * ```
  */
 export const renderMarkdown = (
-  content: string,
+  content: string | ParsedMarkdown,
   {
     components,
     wrapper,
@@ -159,10 +163,10 @@ export const useMarkdownRenderer = ({
 }: RenderMarkdownProps = {}) => {
   const context = useMarkdownContext();
 
-  return (content: string) => {
+  return (content: string | ParsedMarkdown) => {
     if (context) {
       return context.renderMarkdown(
-        content,
+        content as any, // Context assumes string for now but we'll pass AST through
         {
           forceBlock,
           forceInline,
@@ -211,7 +215,7 @@ export type MarkdownRendererProps = RenderMarkdownProps & {
    * </MarkdownRenderer>
    * ```
    */
-  children: string;
+  children: string | ParsedMarkdown;
   /**
    * Custom render function for markdown.
    * If provided, it will overwrite context and default rendering.
@@ -233,7 +237,7 @@ export type MarkdownRendererProps = RenderMarkdownProps & {
    * ```
    */
   renderMarkdown?: (
-    markdown: string,
+    markdown: string | ParsedMarkdown,
     options?: {
       components?: HTMLComponents<'permissive', {}>;
       wrapper?: FC;

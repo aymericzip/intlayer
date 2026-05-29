@@ -6,11 +6,14 @@
 
 import {
   compile as coreCompile,
+  parseMarkdown as coreParseMarkdown,
+  renderMarkdownAst as coreRenderMarkdownAst,
   sanitizer as defaultSanitizer,
   slugify as defaultSlugify,
   type MarkdownContext,
   type MarkdownOptions,
   type MarkdownRuntime,
+  type ParsedMarkdown,
   type RenderRuleHook,
   RuleType,
 } from '@intlayer/core/markdown';
@@ -133,8 +136,53 @@ const DEFAULT_RUNTIME: MarkdownRuntime = {
  * Compile markdown to React elements.
  * This is the primary export - use this for new code.
  */
-export const compileMarkdown = (
+export type { ParsedMarkdown };
+
+export const parseMarkdown = (
   markdown: string = '',
+  options: MarkdownRendererOptions = {}
+): ParsedMarkdown => {
+  const {
+    disableAutoLink,
+    disableParsingRawHTML,
+    enforceAtxHeadings,
+    forceBlock,
+    forceInline,
+    forceWrapper,
+    namedCodesToUnicode,
+    components,
+    sanitizer,
+    slugify,
+    wrapper,
+    preserveFrontmatter,
+    tagfilter,
+  } = options;
+
+  const ctx: MarkdownContext<HTMLComponents> = {
+    runtime: DEFAULT_RUNTIME,
+    components,
+    namedCodesToUnicode,
+    sanitizer: sanitizer as any,
+    slugify,
+  };
+
+  const compilerOptions: MarkdownOptions = {
+    disableAutoLink,
+    disableParsingRawHTML,
+    enforceAtxHeadings,
+    forceBlock,
+    forceInline,
+    forceWrapper,
+    wrapper,
+    preserveFrontmatter,
+    tagfilter,
+  };
+
+  return coreParseMarkdown(markdown, ctx, compilerOptions);
+};
+
+export const compileMarkdown = (
+  input: string | ParsedMarkdown = '',
   options: MarkdownRendererOptions = {}
 ): JSX.Element => {
   const {
@@ -180,7 +228,11 @@ export const compileMarkdown = (
     tagfilter,
   };
 
-  return coreCompile(markdown, ctx, compilerOptions) as JSX.Element;
+  if (typeof input === 'string') {
+    return coreCompile(input, ctx, compilerOptions) as JSX.Element;
+  }
+
+  return coreRenderMarkdownAst(input, ctx, compilerOptions) as JSX.Element;
 };
 
 // Backward compatibility aliases

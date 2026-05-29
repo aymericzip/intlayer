@@ -1,3 +1,17 @@
+import { Website_Doc_Path } from '@intlayer/design-system/routes';
+import {
+  type DocKey,
+  getDoc,
+  getDocMetadata,
+  getDocMetadataBySlug,
+} from '@intlayer/docs';
+import {
+  getLocaleFromPath,
+  getLocalizedUrl,
+  getMultilingualUrls,
+} from 'intlayer';
+import { parseMarkdown } from 'react-intlayer/markdown';
+import { redirect } from 'react-router';
 import { DocHeader } from '~/components/DocPage/DocHeader/DocHeader';
 import { DocPageLayout } from '~/components/DocPage/DocPageLayout';
 import {
@@ -6,27 +20,12 @@ import {
 } from '~/components/DocPage/DocPageNavigation/DocPageNavigation';
 import { DocumentationRender } from '~/components/DocPage/DocumentationRender';
 import { getPreviousNextDocMetadata } from '~/components/DocPage/docData';
-import { Website_Doc_Path } from '@intlayer/design-system/routes';
-import {
-  type DocKey,
-  getDoc,
-  getDocMetadata,
-  getDocMetadataBySlug,
-} from '@intlayer/docs';
 import { BreadcrumbsHeader } from '~/structuredData/BreadcrumbsHeader';
 import { CreativeWorkHeader } from '~/structuredData/CreativeWorkHeader';
 import { OrganizationHeader } from '~/structuredData/OrganizationHeader';
 import { SoftwareApplicationHeader } from '~/structuredData/SoftwareApplication';
 import { WebsiteHeader } from '~/structuredData/WebsiteHeader';
 import { urlRenamer } from '~/utils/markdown';
-import {
-  defaultLocale,
-  getLocaleFromPath,
-  getLocalizedUrl,
-  getMultilingualUrls,
-  Locales,
-} from 'intlayer';
-import { redirect } from 'react-router';
 import type { Route } from './+types/doc-page';
 
 export const meta: Route.MetaFunction = ({ data }) => {
@@ -38,7 +37,12 @@ export const meta: Route.MetaFunction = ({ data }) => {
   return [
     { title: `${docData.title} | Intlayer` },
     { name: 'description', content: docData.description },
-    { name: 'keywords', content: Array.isArray(docData.keywords) ? docData.keywords.join(', ') : (docData.keywords || '') },
+    {
+      name: 'keywords',
+      content: Array.isArray(docData.keywords)
+        ? docData.keywords.join(', ')
+        : docData.keywords || '',
+    },
     { property: 'og:url', content: getLocalizedUrl(absoluteUrl, locale!) },
 
     { property: 'og:title', content: `${docData.title} | Intlayer` },
@@ -66,7 +70,7 @@ export const meta: Route.MetaFunction = ({ data }) => {
 export async function loader({ request, params }: Route.LoaderArgs) {
   const locale = getLocaleFromPath(request.url);
   const slugsStr = params['*'] || '';
-  let slugs = slugsStr ? slugsStr.split('/') : [];
+  const slugs = slugsStr ? slugsStr.split('/') : [];
 
   const isMd = slugsStr.endsWith('.md');
   if (isMd) {
@@ -101,6 +105,7 @@ export async function loader({ request, params }: Route.LoaderArgs) {
 
   const file = await getDoc(docData?.docKey as DocKey, locale);
   const docContent = urlRenamer(file, locale!);
+  const docParsed = parseMarkdown(docContent);
 
   const nextDoc: DocPageNavigationProps['nextDoc'] = nextDocData?.docs
     ? {
@@ -121,6 +126,7 @@ export async function loader({ request, params }: Route.LoaderArgs) {
     docData,
     defaultDocData,
     docContent,
+    docParsed,
     nextDoc,
     prevDoc,
   };
@@ -129,10 +135,21 @@ export async function loader({ request, params }: Route.LoaderArgs) {
 export default function DocumentationPage({
   loaderData,
 }: Route.ComponentProps) {
-  if (!loaderData || typeof loaderData !== 'object' || !('docData' in loaderData)) {
+  if (
+    !loaderData ||
+    typeof loaderData !== 'object' ||
+    !('docData' in loaderData)
+  ) {
     if (typeof loaderData === 'string') {
       return (
-        <pre style={{ whiteSpace: 'pre-wrap', fontFamily: 'monospace', lineHeight: 1.5, padding: '20px' }}>
+        <pre
+          style={{
+            whiteSpace: 'pre-wrap',
+            fontFamily: 'monospace',
+            lineHeight: 1.5,
+            padding: '20px',
+          }}
+        >
           {loaderData}
         </pre>
       );
@@ -146,6 +163,7 @@ export default function DocumentationPage({
     docData,
     defaultDocData,
     docContent,
+    docParsed,
     nextDoc,
     prevDoc,
   } = loaderData;
@@ -169,7 +187,11 @@ export default function DocumentationPage({
         creativeWorkName={docData.title}
         creativeWorkDescription={docData.description}
         creativeWorkContent={docContent}
-        keywords={Array.isArray(docData.keywords) ? docData.keywords.join(', ') : (docData.keywords || '')}
+        keywords={
+          Array.isArray(docData.keywords)
+            ? docData.keywords.join(', ')
+            : docData.keywords || ''
+        }
         dateModified={new Date(docData.updatedAt)}
         datePublished={new Date(docData.createdAt)}
         url={docData.url}
@@ -181,7 +203,7 @@ export default function DocumentationPage({
         history={docData.history ?? []}
       />
 
-      <DocumentationRender>{docContent}</DocumentationRender>
+      <DocumentationRender>{docParsed}</DocumentationRender>
       <DocPageNavigation nextDoc={nextDoc} prevDoc={prevDoc} />
     </DocPageLayout>
   );

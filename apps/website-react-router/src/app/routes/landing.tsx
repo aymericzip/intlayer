@@ -1,3 +1,9 @@
+import {
+  getIntlayer,
+  getLocaleFromPath,
+  getLocalizedUrl,
+  getMultilingualUrls,
+} from 'intlayer';
 import { EmailRegistrationToast } from '~/components/EmailRegistrationToast';
 import { LandingPage as LandingPageContent } from '~/components/LandingPage';
 import { PageLayout } from '~/layouts/PageLayout';
@@ -6,12 +12,6 @@ import { ProductHeader } from '~/structuredData/ProductHeader';
 import { SoftwareApplicationHeader } from '~/structuredData/SoftwareApplication';
 import { WebsiteHeader } from '~/structuredData/WebsiteHeader';
 import { getPricing } from '~/utils/stripe';
-import {
-  getIntlayer,
-  getLocaleFromPath,
-  getLocalizedUrl,
-  getMultilingualUrls,
-} from 'intlayer';
 import type { Route } from './+types/landing';
 
 export const meta: Route.MetaFunction = ({ data }) => {

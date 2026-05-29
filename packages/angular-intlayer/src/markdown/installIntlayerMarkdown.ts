@@ -4,8 +4,16 @@ import {
   inject,
   type TemplateRef,
 } from '@angular/core';
-import type { MarkdownRuntime } from '@intlayer/core/markdown';
-import { compile } from '@intlayer/core/markdown';
+import type {
+  MarkdownContext,
+  MarkdownRuntime,
+  ParsedMarkdown,
+} from '@intlayer/core/markdown';
+import {
+  compile,
+  parseMarkdown as coreParseMarkdown,
+  renderMarkdownAst as coreRenderMarkdownAst,
+} from '@intlayer/core/markdown';
 
 export const INTLAYER_MARKDOWN_TOKEN =
   new InjectionToken<IntlayerMarkdownProvider>('intlayerMarkdown');
@@ -17,7 +25,7 @@ type RenderMarkdownOptions = {
 };
 
 type RenderMarkdownFunction = (
-  markdown: string,
+  markdown: string | ParsedMarkdown,
   overrides?: any | RenderMarkdownOptions
 ) => string | TemplateRef<any> | Promise<string | TemplateRef<any>>;
 
@@ -75,11 +83,64 @@ export const htmlRuntime: MarkdownRuntime = {
   Fragment: Symbol('Fragment'),
 };
 
+export type { ParsedMarkdown };
+
+export const parseMarkdown = (
+  markdown: string = '',
+  options: any = {}
+): ParsedMarkdown => {
+  const {
+    components,
+    namedCodesToUnicode,
+    sanitizer,
+    slugify,
+    ...compilerOptions
+  } = options;
+
+  const ctx: MarkdownContext<any> = {
+    runtime: htmlRuntime,
+    components,
+    namedCodesToUnicode,
+    sanitizer: sanitizer as any,
+    slugify,
+  };
+
+  return coreParseMarkdown(markdown, ctx, compilerOptions);
+};
+
+export const compileMarkdown = (
+  input: string | ParsedMarkdown = '',
+  options: any = {}
+): string => {
+  if (typeof input === 'string') {
+    return compile(input, { ...options, runtime: htmlRuntime }) as string;
+  }
+
+  const {
+    components,
+    namedCodesToUnicode,
+    sanitizer,
+    slugify,
+    ...compilerOptions
+  } = options;
+
+  const ctx: MarkdownContext<any> = {
+    runtime: htmlRuntime,
+    components,
+    namedCodesToUnicode,
+    sanitizer: sanitizer as any,
+    slugify,
+  };
+
+  return coreRenderMarkdownAst(input, ctx, compilerOptions) as string;
+};
+
 /**
  * Default markdown renderer that converts markdown to HTML string
  */
-const defaultMarkdownRenderer: RenderMarkdownFunction = (markdown: string) =>
-  compile(markdown, { runtime: htmlRuntime }) as string;
+const defaultMarkdownRenderer: RenderMarkdownFunction = (
+  markdown: string | ParsedMarkdown
+) => compileMarkdown(markdown) as string;
 
 /**
  * Create IntlayerMarkdown provider configuration
@@ -105,11 +166,11 @@ export class IntlayerMarkdownService {
   });
 
   renderMarkdown(
-    markdown: string,
+    markdown: string | ParsedMarkdown,
     overrides?: any
   ): string | TemplateRef<any> | Promise<string | TemplateRef<any>> {
     if (!this.markdownProvider) {
-      return markdown; // Fallback to returning markdown as is
+      return typeof markdown === 'string' ? markdown : ''; // Fallback to returning markdown as is
     }
     return this.markdownProvider.renderMarkdown(markdown, overrides);
   }

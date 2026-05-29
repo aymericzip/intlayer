@@ -1,17 +1,17 @@
-import { CMSLandingPage } from '~/components/CMSLandingPage';
 import { Website_CMS } from '@intlayer/design-system/routes';
-import { PageLayout } from '~/layouts/PageLayout';
-import { OrganizationHeader } from '~/structuredData/OrganizationHeader';
-import { ProductHeader } from '~/structuredData/ProductHeader';
-import { SoftwareApplicationHeader } from '~/structuredData/SoftwareApplication';
-import { WebsiteHeader } from '~/structuredData/WebsiteHeader';
-import { getPricing } from '~/utils/stripe';
 import {
   getIntlayer,
   getLocaleFromPath,
   getLocalizedUrl,
   getMultilingualUrls,
 } from 'intlayer';
+import { CMSLandingPage } from '~/components/CMSLandingPage';
+import { PageLayout } from '~/layouts/PageLayout';
+import { OrganizationHeader } from '~/structuredData/OrganizationHeader';
+import { ProductHeader } from '~/structuredData/ProductHeader';
+import { SoftwareApplicationHeader } from '~/structuredData/SoftwareApplication';
+import { WebsiteHeader } from '~/structuredData/WebsiteHeader';
+import { getPricing } from '~/utils/stripe';
 import type { Route } from './+types/cms';
 
 export const meta: Route.MetaFunction = ({ data }) => {

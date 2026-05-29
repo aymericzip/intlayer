@@ -4,8 +4,12 @@ import type { ComponentProps, ComponentPropsWithoutRef, FC } from 'react';
 import { memo } from 'react';
 import {
   type MarkdownRenderer as MarkdownRendererIntlayer,
+  type ParsedMarkdown,
   renderMarkdown,
 } from 'react-intlayer/markdown';
+
+export type { ParsedMarkdown };
+
 import type { BundledLanguage } from 'shiki/bundle/web';
 import { H1, H2, H3, H4, H5, H6 } from '../Headers';
 import { Code } from '../IDE/Code';
@@ -218,7 +222,7 @@ const createMarkdownComponents = (
 export const baseMarkdownComponents = staticMarkdownComponents;
 
 type MarkdownRendererProps = {
-  children: string;
+  children: string | ParsedMarkdown;
   isDarkMode?: boolean;
   locale?: LocalesValues;
   forceBlock?: boolean;

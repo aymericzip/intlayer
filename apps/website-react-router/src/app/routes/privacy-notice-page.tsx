@@ -1,12 +1,13 @@
-import { DocumentationRender } from '~/components/DocPage/DocumentationRender';
 import { Website_PrivacyPolicy } from '@intlayer/design-system/routes';
 import { getLegal, getLegalMetadata } from '@intlayer/docs';
-import { CreativeWorkHeader } from '~/structuredData/CreativeWorkHeader';
 import {
   getLocaleFromPath,
   getLocalizedUrl,
   getMultilingualUrls,
 } from 'intlayer';
+import { parseMarkdown } from 'react-intlayer/markdown';
+import { DocumentationRender } from '~/components/DocPage/DocumentationRender';
+import { CreativeWorkHeader } from '~/structuredData/CreativeWorkHeader';
 
 import type { Route } from './+types/privacy-notice-page';
 
@@ -53,15 +54,32 @@ export async function loader({ request }: Route.LoaderArgs) {
   const file = await getLegal('./legal/en/privacy_notice.md', locale);
   const { title, description, keywords, updatedAt, createdAt } =
     await getLegalMetadata('./legal/en/privacy_notice.md', locale);
+  const fileParsed = parseMarkdown(file);
 
-  return { locale, file, title, description, keywords, updatedAt, createdAt };
+  return {
+    locale,
+    file,
+    fileParsed,
+    title,
+    description,
+    keywords,
+    updatedAt,
+    createdAt,
+  };
 }
 
 export default function PrivacyNoticePage({
   loaderData,
 }: Route.ComponentProps) {
-  const { file, title, description, keywords, updatedAt, createdAt } =
-    loaderData;
+  const {
+    file,
+    fileParsed,
+    title,
+    description,
+    keywords,
+    updatedAt,
+    createdAt,
+  } = loaderData;
 
   return (
     <>
@@ -78,7 +96,7 @@ export default function PrivacyNoticePage({
       />
 
       <div className="m-auto max-w-2xl">
-        <DocumentationRender>{file}</DocumentationRender>
+        <DocumentationRender>{fileParsed}</DocumentationRender>
       </div>
     </>
   );
