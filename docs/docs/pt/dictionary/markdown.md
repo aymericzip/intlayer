@@ -18,6 +18,7 @@ slugs:
   - markdown
 history:
   - version: 8.11.0
+    date: 2026-05-28
     changes: "Permitir a pré-análise do AST do Markdown para SSR / hidratação"
   - version: 8.10.0
     date: 2026-05-19

@@ -18,6 +18,7 @@ slugs:
   - markdown
 history:
   - version: 8.11.0
+    date: 2026-05-28
     changes: "SSR / हाइड्रेशन के लिए मार्कडाउन एएसटी के पूर्व-पार्सिंग की अनुमति दें"
   - version: 8.10.0
     date: 2026-05-19

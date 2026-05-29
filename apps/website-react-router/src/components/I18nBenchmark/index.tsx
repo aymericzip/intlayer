@@ -1,7 +1,6 @@
-import { Link } from '~/components/Link/Link';
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
-import { H2, H3, H4 } from '@intlayer/design-system/headers';
+import { H2 } from '@intlayer/design-system/headers';
 import { CodeBlock } from '@intlayer/design-system/ide';
 import { Loader } from '@intlayer/design-system/loader';
 import {
@@ -21,6 +20,7 @@ import { ChevronRight } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { useEffect, useMemo, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
+import { Link } from '~/components/Link/Link';
 import { fetchBenchmarkData } from './benchmarkData';
 import { ChartComponent, useLogoImages } from './ChartComponent';
 import {
@@ -253,7 +253,9 @@ export const I18nBenchmark = ({
             {/* Framework selector */}
             {!initialFramework && (
               <div>
-                <H3 className="mb-10 text-neutral">{frameworkLabel}</H3>
+                <p className="mb-10 font-bold text-base text-neutral">
+                  {frameworkLabel}
+                </p>
                 <VerticalSwitchSelector
                   size="sm"
                   choices={[
@@ -349,7 +351,7 @@ export const I18nBenchmark = ({
                   className="flex items-start justify-between gap-4"
                 >
                   <div>
-                    <H4>{label}</H4>
+                    <p className="font-bold text-lg">{label}</p>
                     <p className="text-neutral text-sm leading-snug">{desc}</p>
                   </div>
                   <SwitchSelector
@@ -533,23 +535,21 @@ export const I18nBenchmark = ({
                 >
                   <div className="flex flex-col gap-6">
                     <div className="flex flex-col gap-2">
-                      <H4>{whatIsThisMetric}</H4>
+                      <p className="font-bold text-lg">{whatIsThisMetric}</p>
                       <p className="text-neutral-500 text-xs leading-relaxed dark:text-neutral">
                         {selectedMetric?.whatIsIt}
                       </p>
                     </div>
 
                     <div className="flex flex-col gap-2">
-                      <H4>{whyItsImportant}</H4>
+                      <p className="font-bold text-lg">{whyItsImportant}</p>
                       <p className="text-neutral-500 text-xs leading-relaxed dark:text-neutral">
                         {selectedMetric?.whyItsImportant}
                       </p>
                     </div>
                   </div>
                   <div className="mt-6 flex flex-col gap-2 border-neutral/20 border-t pt-2 dark:border-neutral/10">
-                    <H4 className="font-semibold text-sm">
-                      {renderLabel.value}
-                    </H4>
+                    <p className="font-semibold text-sm">{renderLabel}</p>
                     <SwitchSelector
                       size="sm"
                       choices={[

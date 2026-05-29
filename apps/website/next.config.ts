@@ -96,6 +96,7 @@ const secureHeaders = {
       fontSrc: [
         "'self'",
         'data:',
+        'fonts.gstatic.com',
         'static.cloudflareinsights.com',
         'cdn.jsdelivr.net',
       ],

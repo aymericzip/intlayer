@@ -28,23 +28,6 @@ export const RootHTMLLayout: FC<LocalParams> = ({
     suppressHydrationWarning
     {...props}
   >
-    <>
-      {/* Preconnect and DNS Prefetch for Google Tag Manager */}
-      <link
-        rel="preconnect"
-        href="https://www.googletagmanager.com"
-        crossOrigin=""
-      />
-      <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
-
-      {/* Preconnect and DNS Prefetch for your first-party backend */}
-      <link
-        rel="preconnect"
-        href={process.env.NEXT_PUBLIC_BACKEND_URL}
-        crossOrigin=""
-      />
-      <link rel="dns-prefetch" href={process.env.NEXT_PUBLIC_BACKEND_URL} />
-    </>
     <body
       className={cn(
         'relative flex size-full min-h-screen flex-col overflow-auto overflow-x-clip scroll-smooth bg-background leading-8 transition md:flex',

@@ -28,9 +28,6 @@ export default defineConfig({
       '~': resolve(__dirname, 'src'),
     },
   },
-  ssr: {
-    external: ['shiki'],
-  },
 
   plugins: [
     rawMarkdownPlugin,

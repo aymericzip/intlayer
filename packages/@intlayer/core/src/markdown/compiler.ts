@@ -433,8 +433,6 @@ const createRules = (
           ? `${attrs.className} ${langClass}`
           : langClass;
 
-        if (node.lang && !attrs.lang) attrs.lang = node.lang;
-
         return createElement(
           'pre',
           { key: state.key },

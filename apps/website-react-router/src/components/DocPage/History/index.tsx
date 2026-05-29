@@ -93,7 +93,9 @@ export const History: FC<HistoryProps> = ({
                 <span className="mt-1 text-text text-xs">{changes}</span>
                 <div className="flex flex-col items-end justify-between gap-1 px-2 py-1 text-neutral text-sm">
                   <span className="text-nowrap">v{version}</span>
-                  <span className="text-nowrap">{formatDate(date)}</span>
+                  {date && (
+                    <span className="text-nowrap">{formatDate(date)}</span>
+                  )}
                 </div>
               </li>
             ))}

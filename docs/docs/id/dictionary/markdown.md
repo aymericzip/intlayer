@@ -18,6 +18,7 @@ slugs:
   - markdown
 history:
   - version: 8.11.0
+    date: 2026-05-28
     changes: "Mengizinkan pra-parsing AST Markdown untuk SSR / hidrasi"
   - version: 8.10.0
     date: 2026-05-19

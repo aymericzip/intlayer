@@ -18,6 +18,7 @@ slugs:
   - markdown
 history:
   - version: 8.11.0
+    date: 2026-05-28
     changes: "SSR / 하이드레이션을 위한 Markdown AST 사전 파싱 허용"
   - version: 8.10.0
     date: 2026-05-19

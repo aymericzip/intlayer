@@ -18,6 +18,7 @@ slugs:
   - markdown
 history:
   - version: 8.11.0
+    date: 2026-05-28
     changes: "Allow pre parsing of Markdown ast parsing for SSR / hydration"
   - version: 8.10.0
     date: 2026-05-19

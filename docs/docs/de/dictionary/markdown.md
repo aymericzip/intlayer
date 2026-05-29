@@ -18,6 +18,7 @@ slugs:
   - markdown
 history:
   - version: 8.11.0
+    date: 2026-05-28
     changes: "Ermöglicht das Vorab-Parsen des Markdown-AST für SSR / Hydratisierung"
   - version: 8.10.0
     date: 2026-05-19

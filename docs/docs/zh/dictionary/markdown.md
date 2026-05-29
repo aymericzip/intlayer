@@ -18,6 +18,7 @@ slugs:
   - markdown
 history:
   - version: 8.11.0
+    date: 2026-05-28
     changes: "允许为 SSR / 注水（hydration）预解析 Markdown AST"
   - version: 8.10.0
     date: 2026-05-19
