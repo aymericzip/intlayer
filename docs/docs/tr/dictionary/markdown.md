@@ -17,6 +17,8 @@ slugs:
   - content
   - markdown
 history:
+  - version: 8.11.0
+    changes: "SSR / hidrasyon için Markdown AST'sinin önceden ayrıştırılmasına izin ver"
   - version: 8.10.0
     date: 2026-05-19
     changes: "`.content.md` dosyaları için destek eklendi"
@@ -1148,6 +1150,164 @@ export class MyComponent {
 </Tabs>
 
 ---
+
+## Sunucu Tarafı İşleme (SSR) ve Hidrasyon
+
+Remark / rehype gibi diğer Markdown ayrıştırıcılarıyla karşılaştırıldığında, Intlayer Markdown bağımlılık içermez ve hem istemci hem de sunucu tarafında çalışır.
+
+Ancak Intlayer, Sunucu Tarafı İşleme (SSR) çerçeveleri (Next.js App Router, React Router, Nuxt, SvelteKit vb. gibi) için ayrıştırmayı optimize etmiştir.
+
+Ham Markdown dizelerini istemciye göndermek ve tarayıcıda ayrıştırmak (bu da performans kaybına neden olur) yerine, Intlayer, Markdown'u sunucuda bir Soyut Sözdizimi Ağacı (AST) olarak önceden ayrıştırmanıza olanak tanır.
+
+Serileştirilebilir bir AST (`ParsedMarkdown` nesnesi) oluşturmak için sunucu tarafında çerçevenizin Intlayer paketindeki `parseMarkdown` işlevini kullanabilir ve bunu doğrudan ön uca aktarabilirsiniz. Tüm Intlayer işleme yardımcı programları ( `<MarkdownRenderer>`, `useMarkdownRenderer` vb. gibi) bu AST nesnesini otomatik olarak kabul eder ve sorunsuz bir şekilde işler.
+
+### Sunucu/İstemci Mimarisinde Örnek
+
+<Tabs group="framework">
+  <Tab label="React Router" value="react">
+
+    ```tsx fileName="server.ts"
+    import { parseMarkdown } from "react-intlayer/markdown";
+
+    // 1. Sunucuda: Markdown'u serileştirilebilir bir AST'ye ayrıştırın
+    export const loader = async () => {
+      const markdownString = "## My title \n\nLorem Ipsum";
+      const ast = parseMarkdown(markdownString);
+
+      // AST'yi istemciye JSON olarak döndürün
+      return Response.json({ content: ast });
+    };
+    ```
+
+    ```tsx fileName="client.tsx"
+    import { useLoaderData } from "react-router";
+    import { MarkdownRenderer } from "react-intlayer/markdown";
+
+    // 2. İstemcide: AST'yi yeniden ayrıştırmadan doğrudan işleyin
+    export default function Page() {
+      const { content } = useLoaderData();
+
+      // İşleyici, ham bir dizeyi veya ayrıştırılmış AST'yi kabul eder
+      return <MarkdownRenderer content={content} />;
+    }
+    ```
+
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
+
+    ```tsx fileName="app/page.tsx"
+    import { parseMarkdown } from "next-intlayer/markdown";
+    import { MarkdownRenderer } from "next-intlayer/markdown";
+
+    export default async function Page() {
+      // 1. Sunucuda Markdown'u serileştirilebilir bir AST'ye ayrıştırın
+      const markdownString = "## My title \n\nLorem Ipsum";
+      const ast = parseMarkdown(markdownString);
+
+      // 2. AST'yi doğrudan işleyin
+      // Bir Server Component içinde bu sorunsuz çalışır ve gerekirse AST'yi
+    // doğrudan alt istemci bileşenlerine iletir.
+      return <MarkdownRenderer content={ast} />;
+    }
+    ```
+
+  </Tab>
+  <Tab label="Vue / Nuxt" value="vue">
+
+    ```vue fileName="pages/index.vue"
+    <script setup lang="ts">
+    import { parseMarkdown } from "vue-intlayer/markdown";
+    import { MarkdownRenderer } from "vue-intlayer/markdown";
+
+    // 1. Sunucuda markdown'u getirin ve bir AST'ye ayrıştırın
+    const { data: ast } = await useAsyncData('markdown', () => {
+      const markdownString = "## My title \n\nLorem Ipsum";
+      return parseMarkdown(markdownString);
+    });
+    </script>
+
+    <template>
+      <!-- 2. İstemcide: AST'yi yeniden ayrıştırmadan doğrudan işleyin -->
+      <MarkdownRenderer :content="ast" />
+    </template>
+    ```
+
+  </Tab>
+  <Tab label="SvelteKit" value="svelte">
+
+    ```typescript fileName="+page.server.ts"
+    import { parseMarkdown } from "svelte-intlayer/markdown";
+
+    // 1. Sunucuda: Markdown'u serileştirilebilir bir AST'ye ayrıştırın
+    export const load = async () => {
+      const markdownString = "## My title \n\nLorem Ipsum";
+      const ast = parseMarkdown(markdownString);
+
+      // AST'yi istemciye döndürün
+      return { content: ast };
+    };
+    ```
+
+    ```svelte fileName="+page.svelte"
+    <script lang="ts">
+      import { MarkdownRenderer } from "svelte-intlayer/markdown";
+      export let data;
+    </script>
+
+    <!-- 2. İstemcide: AST'yi yeniden ayrıştırmadan doğrudan işleyin -->
+    <MarkdownRenderer value={data.content} />
+    ```
+
+  </Tab>
+  <Tab label="Angular" value="angular">
+
+    Angular SSR, verileri genellikle ilk yükleme sırasında sunucuda çözümler ve istemcide hidrasyon gerçekleştirir. AST'yi iletmek için çözümleyiciler (resolvers) kullanabilirsiniz.
+
+    ```typescript fileName="app.resolver.ts"
+    import { Injectable } from "@angular/core";
+    import { Resolve } from "@angular/router";
+    import { parseMarkdown, type ParsedMarkdown } from "angular-intlayer/markdown";
+
+    @Injectable({ providedIn: "root" })
+    export class MarkdownResolver implements Resolve<ParsedMarkdown> {
+      resolve(): ParsedMarkdown {
+        const markdownString = "## My title \n\nLorem Ipsum";
+        // 1. Sunucuda: Markdown'u serileştirilebilir bir AST'ye ayrıştırın
+        return parseMarkdown(markdownString);
+      }
+    }
+    ```
+
+    ```typescript fileName="app.component.ts"
+    import { Component } from "@angular/core";
+    import { ActivatedRoute } from "@angular/router";
+    import { IntlayerMarkdownService, type ParsedMarkdown } from "angular-intlayer/markdown";
+
+    @Component({
+      selector: "app-root",
+      template: `<div [innerHTML]="renderedMarkdown"></div>`,
+    })
+    export class AppComponent {
+      renderedMarkdown: string = "";
+
+      constructor(
+        private route: ActivatedRoute,
+        private markdownService: IntlayerMarkdownService
+      ) {
+        // 2. İstemcide: AST'yi yeniden ayrıştırmadan doğrudan işleyin
+        this.route.data.subscribe((data) => {
+          this.renderedMarkdown = this.markdownService.renderMarkdown(
+            data.markdownAst
+          ) as string;
+        });
+      }
+    }
+    ```
+
+  </Tab>
+</Tabs>
+
+Bu model, Markdown ayrıştırma mantığının tamamen sunucuda çalıştırılmasını sağlayarak istemci tarafındaki yürütme süresini önemli ölçüde azaltır ve ilk hidrasyon hızını artırır.
 
 ## Seçenek Referansı
 

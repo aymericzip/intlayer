@@ -17,6 +17,8 @@ slugs:
   - content
   - markdown
 history:
+  - version: 8.11.0
+    changes: "允许为 SSR / 注水（hydration）预解析 Markdown AST"
   - version: 8.10.0
     date: 2026-05-19
     changes: "添加对 `.content.md` 文件的支持"
@@ -1148,6 +1150,164 @@ export class MyComponent {
 </Tabs>
 
 ---
+
+## 服务端渲染 (SSR) 与 注水 (Hydration)
+
+与其他 Markdown 解析器（如 remark / rehype）相比，Intlayer Markdown 无依赖关系，且既可以在客户端运行，也可以在服务端运行。
+
+但是 Intlayer 针对服务端渲染 (SSR) 框架（如 Next.js App Router, React Router, Nuxt, SvelteKit 等）进行了解析优化。
+
+Intlayer 允许您在服务端将 Markdown 预解析为抽象语法树 (AST)，而不是将原始 Markdown 字符串发送到客户端并在浏览器中解析（这会带来性能损失）。
+
+您可以在服务端使用框架的 Intlayer 包中的 `parseMarkdown` 函数来生成可序列化的 AST（`ParsedMarkdown` 对象），并将其直接传递给前端。所有 Intlayer 渲染工具（如 `<MarkdownRenderer>`、`useMarkdownRenderer` 等）都会自动接受此 AST 对象并无缝渲染它。
+
+### 服务端/客户端架构中的示例
+
+<Tabs group="framework">
+  <Tab label="React Router" value="react">
+
+    ```tsx fileName="server.ts"
+    import { parseMarkdown } from "react-intlayer/markdown";
+
+    // 1. 在服务端：将 markdown 解析为可序列化的 AST
+    export const loader = async () => {
+      const markdownString = "## My title \n\nLorem Ipsum";
+      const ast = parseMarkdown(markdownString);
+
+      // 将 AST 作为 JSON 返回给客户端
+      return Response.json({ content: ast });
+    };
+    ```
+
+    ```tsx fileName="client.tsx"
+    import { useLoaderData } from "react-router";
+    import { MarkdownRenderer } from "react-intlayer/markdown";
+
+    // 2. 在客户端：直接渲染 AST，无需重新解析
+    export default function Page() {
+      const { content } = useLoaderData();
+
+      // 渲染器既接受原始字符串，也接受解析后的 AST
+      return <MarkdownRenderer content={content} />;
+    }
+    ```
+
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
+
+    ```tsx fileName="app/page.tsx"
+    import { parseMarkdown } from "next-intlayer/markdown";
+    import { MarkdownRenderer } from "next-intlayer/markdown";
+
+    export default async function Page() {
+      // 1. 在服务端将 markdown 解析为可序列化的 AST
+      const markdownString = "## My title \n\nLorem Ipsum";
+      const ast = parseMarkdown(markdownString);
+
+      // 2. 直接渲染 AST
+      // 在服务端组件（Server Component）中，这可以无缝工作，并在需要时
+    // 直接将 AST 传递给底层的客户端组件。
+      return <MarkdownRenderer content={ast} />;
+    }
+    ```
+
+  </Tab>
+  <Tab label="Vue / Nuxt" value="vue">
+
+    ```vue fileName="pages/index.vue"
+    <script setup lang="ts">
+    import { parseMarkdown } from "vue-intlayer/markdown";
+    import { MarkdownRenderer } from "vue-intlayer/markdown";
+
+    // 1. 在服务端获取并解析 markdown 为 AST
+    const { data: ast } = await useAsyncData('markdown', () => {
+      const markdownString = "## My title \n\nLorem Ipsum";
+      return parseMarkdown(markdownString);
+    });
+    </script>
+
+    <template>
+      <!-- 2. 在客户端：直接渲染 AST，无需重新解析 -->
+      <MarkdownRenderer :content="ast" />
+    </template>
+    ```
+
+  </Tab>
+  <Tab label="SvelteKit" value="svelte">
+
+    ```typescript fileName="+page.server.ts"
+    import { parseMarkdown } from "svelte-intlayer/markdown";
+
+    // 1. 在服务端：将 markdown 解析为可序列化的 AST
+    export const load = async () => {
+      const markdownString = "## My title \n\nLorem Ipsum";
+      const ast = parseMarkdown(markdownString);
+
+      // 将 AST 返回给客户端
+      return { content: ast };
+    };
+    ```
+
+    ```svelte fileName="+page.svelte"
+    <script lang="ts">
+      import { MarkdownRenderer } from "svelte-intlayer/markdown";
+      export let data;
+    </script>
+
+    <!-- 2. 在客户端：直接渲染 AST，无需重新解析 -->
+    <MarkdownRenderer value={data.content} />
+    ```
+
+  </Tab>
+  <Tab label="Angular" value="angular">
+
+    Angular SSR 通常在初始加载期间在服务端解析数据，并在客户端进行注水。您可以使用解析器（resolvers）来传递 AST。
+
+    ```typescript fileName="app.resolver.ts"
+    import { Injectable } from "@angular/core";
+    import { Resolve } from "@angular/router";
+    import { parseMarkdown, type ParsedMarkdown } from "angular-intlayer/markdown";
+
+    @Injectable({ providedIn: "root" })
+    export class MarkdownResolver implements Resolve<ParsedMarkdown> {
+      resolve(): ParsedMarkdown {
+        const markdownString = "## My title \n\nLorem Ipsum";
+        // 1. 在服务端：将 markdown 解析为可序列化的 AST
+        return parseMarkdown(markdownString);
+      }
+    }
+    ```
+
+    ```typescript fileName="app.component.ts"
+    import { Component } from "@angular/core";
+    import { ActivatedRoute } from "@angular/router";
+    import { IntlayerMarkdownService, type ParsedMarkdown } from "angular-intlayer/markdown";
+
+    @Component({
+      selector: "app-root",
+      template: `<div [innerHTML]="renderedMarkdown"></div>`,
+    })
+    export class AppComponent {
+      renderedMarkdown: string = "";
+
+      constructor(
+        private route: ActivatedRoute,
+        private markdownService: IntlayerMarkdownService
+      ) {
+        // 2. 在客户端：直接渲染 AST，无需重新解析
+        this.route.data.subscribe((data) => {
+          this.renderedMarkdown = this.markdownService.renderMarkdown(
+            data.markdownAst
+          ) as string;
+        });
+      }
+    }
+    ```
+
+  </Tab>
+</Tabs>
+
+这种模式确保 Markdown 解析逻辑完全在服务端执行，从而显著减少客户端执行时间，并提高初始注水速度。
 
 ## 选项参考
 

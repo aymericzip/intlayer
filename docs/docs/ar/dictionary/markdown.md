@@ -17,6 +17,8 @@ slugs:
   - content
   - markdown
 history:
+  - version: 8.11.0
+    changes: "السماح بالتحليل المسبق لـ Markdown AST من أجل SSR / الترطيب"
   - version: 8.10.0
     date: 2026-05-19
     changes: "تمت إضافة دعم لملفات `.content.md`"
@@ -1148,6 +1150,164 @@ export class MyComponent {
 </Tabs>
 
 ---
+
+## العرض من جانب الخادم (SSR) والترطيب (Hydration)
+
+بالمقارنة مع محللات Markdown الأخرى مثل remark / rehype، فإن Intlayer Markdown خالي من الاعتماديات ويعمل على جانب العميل وجانب الخادم على حد سواء.
+
+ولكن قامت Intlayer بتحسين التحليل لإطارات عمل العرض من جانب الخادم (SSR) (مثل Next.js App Router و React Router و Nuxt و SvelteKit وما إلى ذلك).
+
+بدلاً من إرسال سلاسل Markdown الخام إلى العميل وتحليلها في المتصفح (مما يؤدي إلى تراجع الأداء)، تتيح لك Intlayer تحليل Markdown مسبقًا إلى شجرة لغة مجردة (AST) على الخادم.
+
+يمكنك استخدام دالة `parseMarkdown` من حزمة Intlayer الخاصة بإطار العمل لديك على جانب الخادم لإنشاء AST قابل للتسلسل (كائن `ParsedMarkdown`)، وتمريره مباشرة إلى الواجهة الأمامية. تقبل جميع أدوات عرض Intlayer (مثل `<MarkdownRenderer>` و `useMarkdownRenderer` وما إلى ذلك) كائن AST هذا تلقائيًا وتعرضه بسلاسة.
+
+### مثال في بنية خادم/عميل
+
+<Tabs group="framework">
+  <Tab label="React Router" value="react">
+
+    ```tsx fileName="server.ts"
+    import { parseMarkdown } from "react-intlayer/markdown";
+
+    // 1. على الخادم: تحليل markdown إلى AST قابل للتسلسل
+    export const loader = async () => {
+      const markdownString = "## My title \n\nLorem Ipsum";
+      const ast = parseMarkdown(markdownString);
+
+      // إرجاع AST كـ JSON إلى العميل
+      return Response.json({ content: ast });
+    };
+    ```
+
+    ```tsx fileName="client.tsx"
+    import { useLoaderData } from "react-router";
+    import { MarkdownRenderer } from "react-intlayer/markdown";
+
+    // 2. على العميل: عرض AST مباشرة دون إعادة تحليل
+    export default function Page() {
+      const { content } = useLoaderData();
+
+      // يقبل العارض إما سلسلة خام أو AST الذي تم تحليله
+      return <MarkdownRenderer content={content} />;
+    }
+    ```
+
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
+
+    ```tsx fileName="app/page.tsx"
+    import { parseMarkdown } from "next-intlayer/markdown";
+    import { MarkdownRenderer } from "next-intlayer/markdown";
+
+    export default async function Page() {
+      // 1. تحليل markdown إلى AST قابل للتسلسل على الخادم
+      const markdownString = "## My title \n\nLorem Ipsum";
+      const ast = parseMarkdown(markdownString);
+
+      // 2. عرض AST مباشرة
+      // في مكون الخادم (Server Component)، يعمل هذا بسلاسة ويمرر AST
+    // مباشرة إلى مكونات العميل الأساسية إذا لزم الأمر.
+      return <MarkdownRenderer content={ast} />;
+    }
+    ```
+
+  </Tab>
+  <Tab label="Vue / Nuxt" value="vue">
+
+    ```vue fileName="pages/index.vue"
+    <script setup lang="ts">
+    import { parseMarkdown } from "vue-intlayer/markdown";
+    import { MarkdownRenderer } from "vue-intlayer/markdown";
+
+    // 1. جلب وتحليل markdown إلى AST على الخادم
+    const { data: ast } = await useAsyncData('markdown', () => {
+      const markdownString = "## My title \n\nLorem Ipsum";
+      return parseMarkdown(markdownString);
+    });
+    </script>
+
+    <template>
+      <!-- 2. على العميل: عرض AST مباشرة دون إعادة تحليل -->
+      <MarkdownRenderer :content="ast" />
+    </template>
+    ```
+
+  </Tab>
+  <Tab label="SvelteKit" value="svelte">
+
+    ```typescript fileName="+page.server.ts"
+    import { parseMarkdown } from "svelte-intlayer/markdown";
+
+    // 1. على الخادم: تحليل markdown إلى AST قابل للتسلسل
+    export const load = async () => {
+      const markdownString = "## My title \n\nLorem Ipsum";
+      const ast = parseMarkdown(markdownString);
+
+      // إرجاع AST إلى العميل
+      return { content: ast };
+    };
+    ```
+
+    ```svelte fileName="+page.svelte"
+    <script lang="ts">
+      import { MarkdownRenderer } from "svelte-intlayer/markdown";
+      export let data;
+    </script>
+
+    <!-- 2. على العميل: عرض AST مباشرة دون إعادة تحليل -->
+    <MarkdownRenderer value={data.content} />
+    ```
+
+  </Tab>
+  <Tab label="Angular" value="angular">
+
+    يعمل Angular SSR عادةً على حل البيانات على الخادم أثناء التحميل الأولي وترطيبها على العميل. يمكنك استخدام أدوات الحل (resolvers) لتمرير AST.
+
+    ```typescript fileName="app.resolver.ts"
+    import { Injectable } from "@angular/core";
+    import { Resolve } from "@angular/router";
+    import { parseMarkdown, type ParsedMarkdown } from "angular-intlayer/markdown";
+
+    @Injectable({ providedIn: "root" })
+    export class MarkdownResolver implements Resolve<ParsedMarkdown> {
+      resolve(): ParsedMarkdown {
+        const markdownString = "## My title \n\nLorem Ipsum";
+        // 1. على الخادم: تحليل markdown إلى AST قابل للتسلسل
+        return parseMarkdown(markdownString);
+      }
+    }
+    ```
+
+    ```typescript fileName="app.component.ts"
+    import { Component } from "@angular/core";
+    import { ActivatedRoute } from "@angular/router";
+    import { IntlayerMarkdownService, type ParsedMarkdown } from "angular-intlayer/markdown";
+
+    @Component({
+      selector: "app-root",
+      template: `<div [innerHTML]="renderedMarkdown"></div>`,
+    })
+    export class AppComponent {
+      renderedMarkdown: string = "";
+
+      constructor(
+        private route: ActivatedRoute,
+        private markdownService: IntlayerMarkdownService
+      ) {
+        // 2. على العميل: عرض AST مباشرة دون إعادة تحليل
+        this.route.data.subscribe((data) => {
+          this.renderedMarkdown = this.markdownService.renderMarkdown(
+            data.markdownAst
+          ) as string;
+        });
+      }
+    }
+    ```
+
+  </Tab>
+</Tabs>
+
+يضمن هذا النمط تنفيذ منطق تحليل Markdown بالكامل على الخادم، مما يقلل بشكل كبير من وقت التنفيذ من جانب العميل ويحسن سرعة الترطيب الأولية.
 
 ## مرجع الخيارات
 

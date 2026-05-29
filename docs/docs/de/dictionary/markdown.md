@@ -17,6 +17,8 @@ slugs:
   - content
   - markdown
 history:
+  - version: 8.11.0
+    changes: "Ermöglicht das Vorab-Parsen des Markdown-AST für SSR / Hydratisierung"
   - version: 8.10.0
     date: 2026-05-19
     changes: "Unterstützung für `.content.md`-Dateien hinzugefügt"
@@ -1148,6 +1150,164 @@ export class MyComponent {
 </Tabs>
 
 ---
+
+## Serverseitiges Rendern (SSR) und Hydratisierung
+
+Im Vergleich zu anderen Markdown-Parsern wie remark / rehype ist Intlayer Markdown frei von Abhängigkeiten und läuft sowohl auf dem Client als auch auf dem Server.
+
+Intlayer optimiert jedoch das Parsen für serverseitig gerenderte (SSR) Frameworks (wie Next.js App Router, React Router, Nuxt, SvelteKit etc.).
+
+Anstatt rohe Markdown-Strings an den Client zu senden und sie im Browser zu parsen (was zu Leistungseinbußen führt), ermöglicht Intlayer das Vorab-Parsen des Markdowns in einen Abstract Syntax Tree (AST) auf dem Server.
+
+Sie können die Funktion `parseMarkdown` aus dem Intlayer-Paket Ihres Frameworks auf der Serverseite verwenden, um einen serialisierbaren AST (das Objekt `ParsedMarkdown`) zu erzeugen und diesen direkt an das Frontend zu übergeben. Alle Rendering-Dienstprogramme von Intlayer (wie `<MarkdownRenderer>`, `useMarkdownRenderer` usw.) akzeptieren dieses AST-Objekt automatisch und rendern es nahtlos.
+
+### Beispiel in einer Server-/Client-Architektur
+
+<Tabs group="framework">
+  <Tab label="React Router" value="react">
+
+    ```tsx fileName="server.ts"
+    import { parseMarkdown } from "react-intlayer/markdown";
+
+    // 1. Auf dem Server: Parsen Sie das Markdown in einen serialisierbaren AST
+    export const loader = async () => {
+      const markdownString = "## My title \n\nLorem Ipsum";
+      const ast = parseMarkdown(markdownString);
+
+      // Senden Sie den AST als JSON an den Client
+      return Response.json({ content: ast });
+    };
+    ```
+
+    ```tsx fileName="client.tsx"
+    import { useLoaderData } from "react-router";
+    import { MarkdownRenderer } from "react-intlayer/markdown";
+
+    // 2. Auf dem Client: Rendern Sie den AST direkt ohne erneutes Parsen
+    export default function Page() {
+      const { content } = useLoaderData();
+
+      // Der Renderer akzeptiert entweder einen rohen String oder den geparsten AST
+      return <MarkdownRenderer content={content} />;
+    }
+    ```
+
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
+
+    ```tsx fileName="app/page.tsx"
+    import { parseMarkdown } from "next-intlayer/markdown";
+    import { MarkdownRenderer } from "next-intlayer/markdown";
+
+    export default async function Page() {
+      // 1. Parsen Sie das Markdown auf dem Server in einen serialisierbaren AST
+      const markdownString = "## My title \n\nLorem Ipsum";
+      const ast = parseMarkdown(markdownString);
+
+      // 2. Rendern Sie den AST direkt
+      // In einer Serverkomponente funktioniert dies nahtlos und übergibt den AST
+    // bei Bedarf direkt an die zugrunde liegenden Clientkomponenten.
+      return <MarkdownRenderer content={ast} />;
+    }
+    ```
+
+  </Tab>
+  <Tab label="Vue / Nuxt" value="vue">
+
+    ```vue fileName="pages/index.vue"
+    <script setup lang="ts">
+    import { parseMarkdown } from "vue-intlayer/markdown";
+    import { MarkdownRenderer } from "vue-intlayer/markdown";
+
+    // 1. Abrufen und Parsen des Markdowns in einen AST auf dem Server
+    const { data: ast } = await useAsyncData('markdown', () => {
+      const markdownString = "## My title \n\nLorem Ipsum";
+      return parseMarkdown(markdownString);
+    });
+    </script>
+
+    <template>
+      <!-- 2. Auf dem Client: Rendern Sie den AST direkt ohne erneutes Parsen -->
+      <MarkdownRenderer :content="ast" />
+    </template>
+    ```
+
+  </Tab>
+  <Tab label="SvelteKit" value="svelte">
+
+    ```typescript fileName="+page.server.ts"
+    import { parseMarkdown } from "svelte-intlayer/markdown";
+
+    // 1. Auf dem Server: Parsen Sie das Markdown in einen serialisierbaren AST
+    export const load = async () => {
+      const markdownString = "## My title \n\nLorem Ipsum";
+      const ast = parseMarkdown(markdownString);
+
+      // Senden Sie den AST an den Client
+      return { content: ast };
+    };
+    ```
+
+    ```svelte fileName="+page.svelte"
+    <script lang="ts">
+      import { MarkdownRenderer } from "svelte-intlayer/markdown";
+      export let data;
+    </script>
+
+    <!-- 2. Auf dem Client: Rendern Sie den AST direkt ohne erneutes Parsen -->
+    <MarkdownRenderer value={data.content} />
+    ```
+
+  </Tab>
+  <Tab label="Angular" value="angular">
+
+    Angular-SSR löst die Daten normalerweise während des ersten Ladens auf dem Server auf und hydratisiert sie auf dem Client. Sie können Resolver verwenden, um den AST zu übergeben.
+
+    ```typescript fileName="app.resolver.ts"
+    import { Injectable } from "@angular/core";
+    import { Resolve } from "@angular/router";
+    import { parseMarkdown, type ParsedMarkdown } from "angular-intlayer/markdown";
+
+    @Injectable({ providedIn: "root" })
+    export class MarkdownResolver implements Resolve<ParsedMarkdown> {
+      resolve(): ParsedMarkdown {
+        const markdownString = "## My title \n\nLorem Ipsum";
+        // 1. Auf dem Server: Parsen Sie das Markdown in einen serialisierbaren AST
+        return parseMarkdown(markdownString);
+      }
+    }
+    ```
+
+    ```typescript fileName="app.component.ts"
+    import { Component } from "@angular/core";
+    import { ActivatedRoute } from "@angular/router";
+    import { IntlayerMarkdownService, type ParsedMarkdown } from "angular-intlayer/markdown";
+
+    @Component({
+      selector: "app-root",
+      template: `<div [innerHTML]="renderedMarkdown"></div>`,
+    })
+    export class AppComponent {
+      renderedMarkdown: string = "";
+
+      constructor(
+        private route: ActivatedRoute,
+        private markdownService: IntlayerMarkdownService
+      ) {
+        // 2. Auf dem Client: Rendern Sie den AST direkt ohne erneutes Parsen
+        this.route.data.subscribe((data) => {
+          this.renderedMarkdown = this.markdownService.renderMarkdown(
+            data.markdownAst
+          ) as string;
+        });
+      }
+    }
+    ```
+
+  </Tab>
+</Tabs>
+
+Dieses Muster stellt sicher, dass die Markdown-Parsing-Logik vollständig auf dem Server ausgeführt wird, was die clientseitige Ausführungszeit erheblich verkürzt und die anfängliche Hydratisierungsgeschwindigkeit verbessert.
 
 ## Optionen-Referenz
 

@@ -17,6 +17,8 @@ slugs:
   - content
   - markdown
 history:
+  - version: 8.11.0
+    changes: "Дозволити попередній синтаксичний аналіз AST Markdown для SSR / гідратації"
   - version: 8.10.0
     date: 2026-05-19
     changes: "Додано підтримку файлів `.content.md`"
@@ -1148,6 +1150,164 @@ export class MyComponent {
 </Tabs>
 
 ---
+
+## Рендеринг на стороні сервера (SSR) та гідратація
+
+У порівнянні з іншими парсерами Markdown, такими як remark / rehype, Intlayer Markdown не має залежностей і працює як на клієнті, так і на сервері.
+
+Однак Intlayer оптимізує синтаксичний аналіз для фреймворків серверного рендерингу (SSR) (таких як Next.js App Router, React Router, Nuxt, SvelteKit тощо).
+
+Замість надсилання необроблених рядків Markdown клієнту та їх аналізу в браузері (що призводить до зниження продуктивності), Intlayer дозволяє попередньо проаналізувати Markdown в абстрактне синтаксичне дерево (AST) на сервері.
+
+Ви можете використовувати функцію `parseMarkdown` з пакету Intlayer вашого фреймворку на стороні сервера для генерації серіалізованого AST (об'єкта `ParsedMarkdown`) і передачі його безпосередньо на фронтенд. Всі утиліти рендерингу Intlayer (такі як `<MarkdownRenderer>`, `useMarkdownRenderer` тощо) автоматично приймають цей об'єкт AST і плавно рендерять його.
+
+### Приклад в архітектурі Сервер/Клієнт
+
+<Tabs group="framework">
+  <Tab label="React Router" value="react">
+
+    ```tsx fileName="server.ts"
+    import { parseMarkdown } from "react-intlayer/markdown";
+
+    // 1. На сервері: перетворити markdown на серіалізоване AST
+    export const loader = async () => {
+      const markdownString = "## My title \n\nLorem Ipsum";
+      const ast = parseMarkdown(markdownString);
+
+      // Повернути AST клієнту у форматі JSON
+      return Response.json({ content: ast });
+    };
+    ```
+
+    ```tsx fileName="client.tsx"
+    import { useLoaderData } from "react-router";
+    import { MarkdownRenderer } from "react-intlayer/markdown";
+
+    // 2. На клієнті: відрендерити AST безпосередньо без повторного аналізу
+    export default function Page() {
+      const { content } = useLoaderData();
+
+      // Рендерер приймає або необроблений рядок, або проаналізоване AST
+      return <MarkdownRenderer content={content} />;
+    }
+    ```
+
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
+
+    ```tsx fileName="app/page.tsx"
+    import { parseMarkdown } from "next-intlayer/markdown";
+    import { MarkdownRenderer } from "next-intlayer/markdown";
+
+    export default async function Page() {
+      // 1. Перетворити markdown на серіалізоване AST на сервері
+      const markdownString = "## My title \n\nLorem Ipsum";
+      const ast = parseMarkdown(markdownString);
+
+      // 2. Відрендерити AST безпосередньо
+      // У серверному компоненті це працює безшовно і передає AST
+    // безпосередньо в базові клієнтські компоненти, якщо це необхідно.
+      return <MarkdownRenderer content={ast} />;
+    }
+    ```
+
+  </Tab>
+  <Tab label="Vue / Nuxt" value="vue">
+
+    ```vue fileName="pages/index.vue"
+    <script setup lang="ts">
+    import { parseMarkdown } from "vue-intlayer/markdown";
+    import { MarkdownRenderer } from "vue-intlayer/markdown";
+
+    // 1. Отримати та перетворити markdown на AST на сервері
+    const { data: ast } = await useAsyncData('markdown', () => {
+      const markdownString = "## My title \n\nLorem Ipsum";
+      return parseMarkdown(markdownString);
+    });
+    </script>
+
+    <template>
+      <!-- 2. На клієнті: відрендерити AST безпосередньо без повторного аналізу -->
+      <MarkdownRenderer :content="ast" />
+    </template>
+    ```
+
+  </Tab>
+  <Tab label="SvelteKit" value="svelte">
+
+    ```typescript fileName="+page.server.ts"
+    import { parseMarkdown } from "svelte-intlayer/markdown";
+
+    // 1. На сервері: перетворити markdown на серіалізоване AST
+    export const load = async () => {
+      const markdownString = "## My title \n\nLorem Ipsum";
+      const ast = parseMarkdown(markdownString);
+
+      // Повернути AST клієнту
+      return { content: ast };
+    };
+    ```
+
+    ```svelte fileName="+page.svelte"
+    <script lang="ts">
+      import { MarkdownRenderer } from "svelte-intlayer/markdown";
+      export let data;
+    </script>
+
+    <!-- 2. На клієнті: відрендерити AST безпосередньо без повторного аналізу -->
+    <MarkdownRenderer value={data.content} />
+    ```
+
+  </Tab>
+  <Tab label="Angular" value="angular">
+
+    Angular SSR зазвичай отримує дані на сервері під час початкового завантаження та виконує гідратацію на клієнті. Ви можете використовувати резолвери для передачі AST.
+
+    ```typescript fileName="app.resolver.ts"
+    import { Injectable } from "@angular/core";
+    import { Resolve } from "@angular/router";
+    import { parseMarkdown, type ParsedMarkdown } from "angular-intlayer/markdown";
+
+    @Injectable({ providedIn: "root" })
+    export class MarkdownResolver implements Resolve<ParsedMarkdown> {
+      resolve(): ParsedMarkdown {
+        const markdownString = "## My title \n\nLorem Ipsum";
+        // 1. На сервері: перетворити markdown на серіалізоване AST
+        return parseMarkdown(markdownString);
+      }
+    }
+    ```
+
+    ```typescript fileName="app.component.ts"
+    import { Component } from "@angular/core";
+    import { ActivatedRoute } from "@angular/router";
+    import { IntlayerMarkdownService, type ParsedMarkdown } from "angular-intlayer/markdown";
+
+    @Component({
+      selector: "app-root",
+      template: `<div [innerHTML]="renderedMarkdown"></div>`,
+    })
+    export class AppComponent {
+      renderedMarkdown: string = "";
+
+      constructor(
+        private route: ActivatedRoute,
+        private markdownService: IntlayerMarkdownService
+      ) {
+        // 2. На клієнті: відрендерити AST безпосередньо без повторного аналізу
+        this.route.data.subscribe((data) => {
+          this.renderedMarkdown = this.markdownService.renderMarkdown(
+            data.markdownAst
+          ) as string;
+        });
+      }
+    }
+    ```
+
+  </Tab>
+</Tabs>
+
+Цей підхід гарантує, що логіка аналізу Markdown повністю виконується на сервері, що значно скорочує час виконання на стороні клієнта та підвищує швидкість початкової гідратації.
 
 ## Довідник опцій
 

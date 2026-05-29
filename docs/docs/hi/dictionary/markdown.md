@@ -17,6 +17,8 @@ slugs:
   - content
   - markdown
 history:
+  - version: 8.11.0
+    changes: "SSR / हाइड्रेशन के लिए मार्कडाउन एएसटी के पूर्व-पार्सिंग की अनुमति दें"
   - version: 8.10.0
     date: 2026-05-19
     changes: "`.content.md` फ़ाइलों के लिए समर्थन जोड़ा गया"
@@ -1148,6 +1150,164 @@ export class MyComponent {
 </Tabs>
 
 ---
+
+## सर्वर-साइड रेंडरिंग (SSR) और हाइड्रेशन
+
+अन्य मार्कडाउन पार्सर जैसे remark / rehype की तुलना में, Intlayer Markdown पूरी तरह से निर्भरता-मुक्त है और क्लाइंट तथा सर्वर दोनों साइड पर चलता है।
+
+लेकिन Intlayer ने सर्वर-साइड रेंडरिंग (SSR) फ्रेमवर्क (जैसे Next.js App Router, React Router, Nuxt, SvelteKit, आदि) के लिए पार्सिंग को अनुकूलित किया है।
+
+क्लाइंट को रॉ मार्कडाउन स्ट्रिंग्स भेजने और ब्राउज़र पर उन्हें पार्स करने के बजाय (जिससे प्रदर्शन प्रभावित होता है), Intlayer आपको सर्वर पर ही मार्कडाउन को एब्सट्रैक्ट सिंटैक्स ट्री (AST) में प्री-पार्स करने की अनुमति देता है।
+
+आप सर्वर साइड पर अपने फ्रेमवर्क के Intlayer पैकेज से `parseMarkdown` फ़ंक्शन का उपयोग करके एक सीरियलाइज़ेबल AST (`ParsedMarkdown` ऑब्जेक्ट) बना सकते हैं, और इसे सीधे फ़्रंटएंड पर पास कर सकते हैं। सभी Intlayer रेंडरिंग उपयोगिताएँ (जैसे `<MarkdownRenderer>`, `useMarkdownRenderer`, आदि) स्वचालित रूप से इस AST ऑब्जेक्ट को स्वीकार करती हैं और इसे बिना किसी बाधा के रेंडर करती हैं।
+
+### सर्वर/क्लाइंट आर्किटेक्चर में उदाहरण
+
+<Tabs group="framework">
+  <Tab label="React Router" value="react">
+
+    ```tsx fileName="server.ts"
+    import { parseMarkdown } from "react-intlayer/markdown";
+
+    // 1. सर्वर पर: मार्कडाउन को एक सीरियलाइज़ेबल AST में पार्स करें
+    export const loader = async () => {
+      const markdownString = "## My title \n\nLorem Ipsum";
+      const ast = parseMarkdown(markdownString);
+
+      // AST को JSON के रूप में क्लाइंट को वापस करें
+      return Response.json({ content: ast });
+    };
+    ```
+
+    ```tsx fileName="client.tsx"
+    import { useLoaderData } from "react-router";
+    import { MarkdownRenderer } from "react-intlayer/markdown";
+
+    // 2. क्लाइंट पर: बिना री-पार्स किए सीधे AST रेंडर करें
+    export default function Page() {
+      const { content } = useLoaderData();
+
+      // रेंडरर रॉ स्ट्रिंग या पार्स किए गए AST दोनों को स्वीकार करता है
+      return <MarkdownRenderer content={content} />;
+    }
+    ```
+
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
+
+    ```tsx fileName="app/page.tsx"
+    import { parseMarkdown } from "next-intlayer/markdown";
+    import { MarkdownRenderer } from "next-intlayer/markdown";
+
+    export default async function Page() {
+      // 1. सर्वर पर मार्कडाउन को सीरियलाइज़ेबल AST में पार्स करें
+      const markdownString = "## My title \n\nLorem Ipsum";
+      const ast = parseMarkdown(markdownString);
+
+      // 2. सीधे AST को रेंडर करें
+      // सर्वर कंपोनेंट में, यह बिना किसी समस्या के काम करता है और यदि आवश्यक हो
+    // तो सीधे अंतर्निहित क्लाइंट कंपोनेंट्स में AST को पास करता है।
+      return <MarkdownRenderer content={ast} />;
+    }
+    ```
+
+  </Tab>
+  <Tab label="Vue / Nuxt" value="vue">
+
+    ```vue fileName="pages/index.vue"
+    <script setup lang="ts">
+    import { parseMarkdown } from "vue-intlayer/markdown";
+    import { MarkdownRenderer } from "vue-intlayer/markdown";
+
+    // 1. सर्वर पर मार्कडाउन प्राप्त करें और उसे AST में पार्स करें
+    const { data: ast } = await useAsyncData('markdown', () => {
+      const markdownString = "## My title \n\nLorem Ipsum";
+      return parseMarkdown(markdownString);
+    });
+    </script>
+
+    <template>
+      <!-- 2. क्लाइंट पर: बिना री-पार्स किए सीधे AST रेंडर करें -->
+      <MarkdownRenderer :content="ast" />
+    </template>
+    ```
+
+  </Tab>
+  <Tab label="SvelteKit" value="svelte">
+
+    ```typescript fileName="+page.server.ts"
+    import { parseMarkdown } from "svelte-intlayer/markdown";
+
+    // 1. सर्वर पर: मार्कडाउन को एक सीरियलाइज़ेबल AST में पार्स करें
+    export const load = async () => {
+      const markdownString = "## My title \n\nLorem Ipsum";
+      const ast = parseMarkdown(markdownString);
+
+      // AST को क्लाइंट को लौटाएं
+      return { content: ast };
+    };
+    ```
+
+    ```svelte fileName="+page.svelte"
+    <script lang="ts">
+      import { MarkdownRenderer } from "svelte-intlayer/markdown";
+      export let data;
+    </script>
+
+    <!-- 2. क्लाइंट पर: बिना री-पार्स किए सीधे AST रेंडर करें -->
+    <MarkdownRenderer value={data.content} />
+    ```
+
+  </Tab>
+  <Tab label="Angular" value="angular">
+
+    Angular SSR आमतौर पर प्रारंभिक लोड के दौरान सर्वर पर डेटा हल करता है और क्लाइंट पर हाइड्रेट करता है। आप AST पास करने के लिए रिज़ॉल्वर का उपयोग कर सकते हैं।
+
+    ```typescript fileName="app.resolver.ts"
+    import { Injectable } from "@angular/core";
+    import { Resolve } from "@angular/router";
+    import { parseMarkdown, type ParsedMarkdown } from "angular-intlayer/markdown";
+
+    @Injectable({ providedIn: "root" })
+    export class MarkdownResolver implements Resolve<ParsedMarkdown> {
+      resolve(): ParsedMarkdown {
+        const markdownString = "## My title \n\nLorem Ipsum";
+        // 1. सर्वर पर: मार्कडाउन को एक सीरियलाइज़ेबल AST में पार्स करें
+        return parseMarkdown(markdownString);
+      }
+    }
+    ```
+
+    ```typescript fileName="app.component.ts"
+    import { Component } from "@angular/core";
+    import { ActivatedRoute } from "@angular/router";
+    import { IntlayerMarkdownService, type ParsedMarkdown } from "angular-intlayer/markdown";
+
+    @Component({
+      selector: "app-root",
+      template: `<div [innerHTML]="renderedMarkdown"></div>`,
+    })
+    export class AppComponent {
+      renderedMarkdown: string = "";
+
+      constructor(
+        private route: ActivatedRoute,
+        private markdownService: IntlayerMarkdownService
+      ) {
+        // 2. क्लाइंट पर: बिना री-पार्स किए सीधे AST रेंडर करें
+        this.route.data.subscribe((data) => {
+          this.renderedMarkdown = this.markdownService.renderMarkdown(
+            data.markdownAst
+          ) as string;
+        });
+      }
+    }
+    ```
+
+  </Tab>
+</Tabs>
+
+यह पैटर्न यह सुनिश्चित करता है कि मार्कडाउन पार्सिंग लॉजिक पूरी तरह से सर्वर पर निष्पादित हो, जिससे क्लाइंट-साइड निष्पादन समय काफी कम हो जाता है और प्रारंभिक हाइड्रेशन गति में सुधार होता है।
 
 ## विकल्प संदर्भ
 

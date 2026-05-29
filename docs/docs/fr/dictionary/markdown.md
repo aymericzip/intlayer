@@ -17,6 +17,8 @@ slugs:
   - content
   - markdown
 history:
+  - version: 8.11.0
+    changes: "Permettre la pré-analyse de l'AST Markdown pour le SSR / l'hydratation"
   - version: 8.10.0
     date: 2026-05-19
     changes: "Ajout de la prise en charge des fichiers `.content.md`"
@@ -1148,6 +1150,164 @@ export class MyComponent {
 </Tabs>
 
 ---
+
+## Rendu Côté Serveur (SSR) et Hydratation
+
+En comparaison avec d'autres parseurs Markdown tels que remark / rehype, Intlayer Markdown est sans dépendance et s'exécute aussi bien côté client que côté serveur.
+
+Cependant, Intlayer optimise l'analyse pour les frameworks de rendu côté serveur (SSR) (tels que Next.js App Router, React Router, Nuxt, SvelteKit, etc.).
+
+Au lieu d'envoyer des chaînes Markdown brutes au client et de les analyser dans le navigateur (ce qui entraîne une pénalité de performance), Intlayer vous permet de pré-analyser le Markdown en un arbre de syntaxe abstraite (AST) sur le serveur.
+
+Vous pouvez utiliser la fonction `parseMarkdown` du package Intlayer de votre framework côté serveur pour générer un AST sérialisable (objet `ParsedMarkdown`), et le transmettre directement au frontend. Tous les utilitaires de rendu Intlayer (comme `<MarkdownRenderer>`, `useMarkdownRenderer`, etc.) acceptent automatiquement cet objet AST et le rendent de manière transparente.
+
+### Exemple dans une architecture Serveur/Client
+
+<Tabs group="framework">
+  <Tab label="React Router" value="react">
+
+    ```tsx fileName="server.ts"
+    import { parseMarkdown } from "react-intlayer/markdown";
+
+    // 1. Sur le serveur : Analyser le markdown en un AST sérialisable
+    export const loader = async () => {
+      const markdownString = "## My title \n\nLorem Ipsum";
+      const ast = parseMarkdown(markdownString);
+
+      // Renvoyer l'AST au client sous forme de JSON
+      return Response.json({ content: ast });
+    };
+    ```
+
+    ```tsx fileName="client.tsx"
+    import { useLoaderData } from "react-router";
+    import { MarkdownRenderer } from "react-intlayer/markdown";
+
+    // 2. Sur le client : Rendre l'AST directement sans ré-analyse
+    export default function Page() {
+      const { content } = useLoaderData();
+
+      // Le renderer accepte soit une chaîne brute, soit l'AST analysé
+      return <MarkdownRenderer content={content} />;
+    }
+    ```
+
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
+
+    ```tsx fileName="app/page.tsx"
+    import { parseMarkdown } from "next-intlayer/markdown";
+    import { MarkdownRenderer } from "next-intlayer/markdown";
+
+    export default async function Page() {
+      // 1. Analyser le markdown en un AST sérialisable sur le serveur
+      const markdownString = "## My title \n\nLorem Ipsum";
+      const ast = parseMarkdown(markdownString);
+
+      // 2. Rendre l'AST directement
+      // Dans un composant serveur, cela fonctionne de manière transparente et transmet l'AST
+    // directement aux composants clients sous-jacents si nécessaire.
+      return <MarkdownRenderer content={ast} />;
+    }
+    ```
+
+  </Tab>
+  <Tab label="Vue / Nuxt" value="vue">
+
+    ```vue fileName="pages/index.vue"
+    <script setup lang="ts">
+    import { parseMarkdown } from "vue-intlayer/markdown";
+    import { MarkdownRenderer } from "vue-intlayer/markdown";
+
+    // 1. Récupérer et analyser le markdown en un AST sur le serveur
+    const { data: ast } = await useAsyncData('markdown', () => {
+      const markdownString = "## My title \n\nLorem Ipsum";
+      return parseMarkdown(markdownString);
+    });
+    </script>
+
+    <template>
+      <!-- 2. Sur le client : Rendre l'AST directement sans ré-analyse -->
+      <MarkdownRenderer :content="ast" />
+    </template>
+    ```
+
+  </Tab>
+  <Tab label="SvelteKit" value="svelte">
+
+    ```typescript fileName="+page.server.ts"
+    import { parseMarkdown } from "svelte-intlayer/markdown";
+
+    // 1. Sur le serveur : Analyser le markdown en un AST sérialisable
+    export const load = async () => {
+      const markdownString = "## My title \n\nLorem Ipsum";
+      const ast = parseMarkdown(markdownString);
+
+      // Renvoyer l'AST au client
+      return { content: ast };
+    };
+    ```
+
+    ```svelte fileName="+page.svelte"
+    <script lang="ts">
+      import { MarkdownRenderer } from "svelte-intlayer/markdown";
+      export let data;
+    </script>
+
+    <!-- 2. Sur le client : Rendre l'AST directement sans ré-analyse -->
+    <MarkdownRenderer value={data.content} />
+    ```
+
+  </Tab>
+  <Tab label="Angular" value="angular">
+
+    L'SSR d'Angular résout généralement les données sur le serveur lors du chargement initial et s'hydrate sur le client. Vous pouvez utiliser des résolveurs pour transmettre l'AST.
+
+    ```typescript fileName="app.resolver.ts"
+    import { Injectable } from "@angular/core";
+    import { Resolve } from "@angular/router";
+    import { parseMarkdown, type ParsedMarkdown } from "angular-intlayer/markdown";
+
+    @Injectable({ providedIn: "root" })
+    export class MarkdownResolver implements Resolve<ParsedMarkdown> {
+      resolve(): ParsedMarkdown {
+        const markdownString = "## My title \n\nLorem Ipsum";
+        // 1. Sur le serveur : Analyser le markdown en un AST sérialisable
+        return parseMarkdown(markdownString);
+      }
+    }
+    ```
+
+    ```typescript fileName="app.component.ts"
+    import { Component } from "@angular/core";
+    import { ActivatedRoute } from "@angular/router";
+    import { IntlayerMarkdownService, type ParsedMarkdown } from "angular-intlayer/markdown";
+
+    @Component({
+      selector: "app-root",
+      template: `<div [innerHTML]="renderedMarkdown"></div>`,
+    })
+    export class AppComponent {
+      renderedMarkdown: string = "";
+
+      constructor(
+        private route: ActivatedRoute,
+        private markdownService: IntlayerMarkdownService
+      ) {
+        // 2. Sur le client : Rendre l'AST directement sans ré-analyse
+        this.route.data.subscribe((data) => {
+          this.renderedMarkdown = this.markdownService.renderMarkdown(
+            data.markdownAst
+          ) as string;
+        });
+      }
+    }
+    ```
+
+  </Tab>
+</Tabs>
+
+Ce modèle garantit que la logique d'analyse Markdown est entièrement exécutée sur le serveur, ce qui réduit considérablement le temps d'exécution côté client et améliore la vitesse d'hydratation initiale.
 
 ## Référence des options
 

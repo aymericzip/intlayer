@@ -17,6 +17,8 @@ slugs:
   - content
   - markdown
 history:
+  - version: 8.11.0
+    changes: "Cho phép phân tích cú pháp trước AST Markdown cho SSR / hydrat hóa"
   - version: 8.10.0
     date: 2026-05-19
     changes: "Thêm hỗ trợ cho các tệp `.content.md`"
@@ -1148,6 +1150,164 @@ export class MyComponent {
 </Tabs>
 
 ---
+
+## Render Phía Server (SSR) và Hydrat Hóa
+
+So với các trình phân tích cú pháp Markdown khác như remark / rehype, Intlayer Markdown không phụ thuộc và chạy trên cả client lẫn server.
+
+Nhưng Intlayer tối ưu hóa việc phân tích cú pháp cho các framework Server-Side Rendering (SSR) (như Next.js App Router, React Router, Nuxt, SvelteKit, v.v.).
+
+Thay vì gửi chuỗi Markdown thô đến client và phân tích cú pháp trên trình duyệt (gây giảm hiệu suất), Intlayer cho phép bạn phân tích cú pháp trước Markdown thành Cây Cú Pháp Trừu Tượng (AST) trên server.
+
+Bạn có thể sử dụng hàm `parseMarkdown` từ gói Intlayer của framework phía server để tạo ra một AST có thể tuần tự hóa (đối tượng `ParsedMarkdown`), và chuyển trực tiếp đến frontend. Tất cả các tiện ích render của Intlayer (như `<MarkdownRenderer>`, `useMarkdownRenderer`, v.v.) tự động chấp nhận đối tượng AST này và hiển thị nó một cách liền mạch.
+
+### Ví dụ trong Kiến Trúc Server/Client
+
+<Tabs group="framework">
+  <Tab label="React Router" value="react">
+
+    ```tsx fileName="server.ts"
+    import { parseMarkdown } from "react-intlayer/markdown";
+
+    // 1. Trên server: Phân tích cú pháp markdown thành AST có thể tuần tự hóa
+    export const loader = async () => {
+      const markdownString = "## My title \n\nLorem Ipsum";
+      const ast = parseMarkdown(markdownString);
+
+      // Trả về AST dưới dạng JSON cho client
+      return Response.json({ content: ast });
+    };
+    ```
+
+    ```tsx fileName="client.tsx"
+    import { useLoaderData } from "react-router";
+    import { MarkdownRenderer } from "react-intlayer/markdown";
+
+    // 2. Trên client: Hiển thị trực tiếp AST mà không cần phân tích cú pháp lại
+    export default function Page() {
+      const { content } = useLoaderData();
+
+      // Trình kết xuất chấp nhận chuỗi thô hoặc AST đã được phân tích cú pháp
+      return <MarkdownRenderer content={content} />;
+    }
+    ```
+
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
+
+    ```tsx fileName="app/page.tsx"
+    import { parseMarkdown } from "next-intlayer/markdown";
+    import { MarkdownRenderer } from "next-intlayer/markdown";
+
+    export default async function Page() {
+      // 1. Phân tích cú pháp markdown thành AST có thể tuần tự hóa trên server
+      const markdownString = "## My title \n\nLorem Ipsum";
+      const ast = parseMarkdown(markdownString);
+
+      // 2. Hiển thị trực tiếp AST
+      // Trong một Server Component, hoạt động này diễn ra liền mạch và chuyển AST
+    // trực tiếp đến các client component bên dưới nếu cần.
+      return <MarkdownRenderer content={ast} />;
+    }
+    ```
+
+  </Tab>
+  <Tab label="Vue / Nuxt" value="vue">
+
+    ```vue fileName="pages/index.vue"
+    <script setup lang="ts">
+    import { parseMarkdown } from "vue-intlayer/markdown";
+    import { MarkdownRenderer } from "vue-intlayer/markdown";
+
+    // 1. Lấy và phân tích cú pháp markdown thành AST trên server
+    const { data: ast } = await useAsyncData('markdown', () => {
+      const markdownString = "## My title \n\nLorem Ipsum";
+      return parseMarkdown(markdownString);
+    });
+    </script>
+
+    <template>
+      <!-- 2. Trên client: Hiển thị trực tiếp AST mà không cần phân tích cú pháp lại -->
+      <MarkdownRenderer :content="ast" />
+    </template>
+    ```
+
+  </Tab>
+  <Tab label="SvelteKit" value="svelte">
+
+    ```typescript fileName="+page.server.ts"
+    import { parseMarkdown } from "svelte-intlayer/markdown";
+
+    // 1. Trên server: Phân tích cú pháp markdown thành AST có thể tuần tự hóa
+    export const load = async () => {
+      const markdownString = "## My title \n\nLorem Ipsum";
+      const ast = parseMarkdown(markdownString);
+
+      // Trả về AST cho client
+      return { content: ast };
+    };
+    ```
+
+    ```svelte fileName="+page.svelte"
+    <script lang="ts">
+      import { MarkdownRenderer } from "svelte-intlayer/markdown";
+      export let data;
+    </script>
+
+    <!-- 2. Trên client: Hiển thị trực tiếp AST mà không cần phân tích cú pháp lại -->
+    <MarkdownRenderer value={data.content} />
+    ```
+
+  </Tab>
+  <Tab label="Angular" value="angular">
+
+    Angular SSR thường giải quyết dữ liệu trên server trong lần tải đầu tiên và hydrat hóa trên client. Bạn có thể sử dụng resolver để truyền AST.
+
+    ```typescript fileName="app.resolver.ts"
+    import { Injectable } from "@angular/core";
+    import { Resolve } from "@angular/router";
+    import { parseMarkdown, type ParsedMarkdown } from "angular-intlayer/markdown";
+
+    @Injectable({ providedIn: "root" })
+    export class MarkdownResolver implements Resolve<ParsedMarkdown> {
+      resolve(): ParsedMarkdown {
+        const markdownString = "## My title \n\nLorem Ipsum";
+        // 1. Trên server: Phân tích cú pháp markdown thành AST có thể tuần tự hóa
+        return parseMarkdown(markdownString);
+      }
+    }
+    ```
+
+    ```typescript fileName="app.component.ts"
+    import { Component } from "@angular/core";
+    import { ActivatedRoute } from "@angular/router";
+    import { IntlayerMarkdownService, type ParsedMarkdown } from "angular-intlayer/markdown";
+
+    @Component({
+      selector: "app-root",
+      template: `<div [innerHTML]="renderedMarkdown"></div>`,
+    })
+    export class AppComponent {
+      renderedMarkdown: string = "";
+
+      constructor(
+        private route: ActivatedRoute,
+        private markdownService: IntlayerMarkdownService
+      ) {
+        // 2. Trên client: Hiển thị trực tiếp AST mà không cần phân tích cú pháp lại
+        this.route.data.subscribe((data) => {
+          this.renderedMarkdown = this.markdownService.renderMarkdown(
+            data.markdownAst
+          ) as string;
+        });
+      }
+    }
+    ```
+
+  </Tab>
+</Tabs>
+
+Mẫu này đảm bảo logic phân tích cú pháp Markdown được thực thi hoàn toàn trên server, giảm đáng kể thời gian thực thi phía client và cải thiện tốc độ hydrat hóa ban đầu.
 
 ## Tham chiếu tùy chọn
 

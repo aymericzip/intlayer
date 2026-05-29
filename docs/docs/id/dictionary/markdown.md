@@ -17,6 +17,8 @@ slugs:
   - content
   - markdown
 history:
+  - version: 8.11.0
+    changes: "Mengizinkan pra-parsing AST Markdown untuk SSR / hidrasi"
   - version: 8.10.0
     date: 2026-05-19
     changes: "Menambahkan dukungan untuk file `.content.md`"
@@ -1148,6 +1150,164 @@ export class MyComponent {
 </Tabs>
 
 ---
+
+## Rendering Sisi Server (SSR) dan Hidrasi
+
+Dibandingkan dengan parser Markdown lainnya seperti remark / rehype, Intlayer Markdown bebas ketergantungan dan berjalan di sisi klien maupun server.
+
+Namun Intlayer mengoptimalkan parsing untuk framework Server-Side Rendering (SSR) (seperti Next.js App Router, React Router, Nuxt, SvelteKit, dll.).
+
+Hidrasi di browser memakan waktu, sehingga Intlayer memungkinkan Anda untuk mem-parsing Markdown terlebih dahulu ke dalam Abstract Syntax Tree (AST) di server, lalu mengirimkannya sebagai objek JSON yang dapat diserialisasi ke frontend.
+
+Anda dapat menggunakan fungsi `parseMarkdown` dari paket Intlayer framework Anda di sisi server untuk menghasilkan AST yang dapat diserialisasi (objek `ParsedMarkdown`), dan meneruskannya secara langsung ke frontend. Semua utilitas rendering Intlayer (seperti `<MarkdownRenderer>`, `useMarkdownRenderer`, dll.) secara otomatis menerima objek AST ini dan merendernya dengan lancar.
+
+### Contoh dalam Arsitektur Server/Klien
+
+<Tabs group="framework">
+  <Tab label="React Router" value="react">
+
+    ```tsx fileName="server.ts"
+    import { parseMarkdown } from "react-intlayer/markdown";
+
+    // 1. Di server: Parsing markdown ke dalam AST yang dapat diserialisasi
+    export const loader = async () => {
+      const markdownString = "## My title \n\nLorem Ipsum";
+      const ast = parseMarkdown(markdownString);
+
+      // Kembalikan AST sebagai JSON ke klien
+      return Response.json({ content: ast });
+    };
+    ```
+
+    ```tsx fileName="client.tsx"
+    import { useLoaderData } from "react-router";
+    import { MarkdownRenderer } from "react-intlayer/markdown";
+
+    // 2. Di klien: Render AST secara langsung tanpa mem-parsing ulang
+    export default function Page() {
+      const { content } = useLoaderData();
+
+      // Renderer menerima string mentah atau AST hasil parsing
+      return <MarkdownRenderer content={content} />;
+    }
+    ```
+
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
+
+    ```tsx fileName="app/page.tsx"
+    import { parseMarkdown } from "next-intlayer/markdown";
+    import { MarkdownRenderer } from "next-intlayer/markdown";
+
+    export default async function Page() {
+      // 1. Parsing markdown ke dalam AST yang dapat diserialisasi di server
+      const markdownString = "## My title \n\nLorem Ipsum";
+      const ast = parseMarkdown(markdownString);
+
+      // 2. Render AST secara langsung
+      // Dalam Server Component, ini bekerja dengan lancar dan meneruskan AST
+    // secara langsung ke komponen klien di bawahnya jika diperlukan.
+      return <MarkdownRenderer content={ast} />;
+    }
+    ```
+
+  </Tab>
+  <Tab label="Vue / Nuxt" value="vue">
+
+    ```vue fileName="pages/index.vue"
+    <script setup lang="ts">
+    import { parseMarkdown } from "vue-intlayer/markdown";
+    import { MarkdownRenderer } from "vue-intlayer/markdown";
+
+    // 1. Ambil dan parsing markdown ke dalam AST di server
+    const { data: ast } = await useAsyncData('markdown', () => {
+      const markdownString = "## My title \n\nLorem Ipsum";
+      return parseMarkdown(markdownString);
+    });
+    </script>
+
+    <template>
+      <!-- 2. Di klien: Render AST secara langsung tanpa mem-parsing ulang -->
+      <MarkdownRenderer :content="ast" />
+    </template>
+    ```
+
+  </Tab>
+  <Tab label="SvelteKit" value="svelte">
+
+    ```typescript fileName="+page.server.ts"
+    import { parseMarkdown } from "svelte-intlayer/markdown";
+
+    // 1. Di server: Parsing markdown ke dalam AST yang dapat diserialisasi
+    export const load = async () => {
+      const markdownString = "## My title \n\nLorem Ipsum";
+      const ast = parseMarkdown(markdownString);
+
+      // Kembalikan AST ke klien
+      return { content: ast };
+    };
+    ```
+
+    ```svelte fileName="+page.svelte"
+    <script lang="ts">
+      import { MarkdownRenderer } from "svelte-intlayer/markdown";
+      export let data;
+    </script>
+
+    <!-- 2. Di klien: Render AST secara langsung tanpa mem-parsing ulang -->
+    <MarkdownRenderer value={data.content} />
+    ```
+
+  </Tab>
+  <Tab label="Angular" value="angular">
+
+    Angular SSR biasanya menyelesaikan data di server selama pemuatan awal dan menghidrasi di klien. Anda dapat menggunakan resolver untuk meneruskan AST.
+
+    ```typescript fileName="app.resolver.ts"
+    import { Injectable } from "@angular/core";
+    import { Resolve } from "@angular/router";
+    import { parseMarkdown, type ParsedMarkdown } from "angular-intlayer/markdown";
+
+    @Injectable({ providedIn: "root" })
+    export class MarkdownResolver implements Resolve<ParsedMarkdown> {
+      resolve(): ParsedMarkdown {
+        const markdownString = "## My title \n\nLorem Ipsum";
+        // 1. Di server: Parsing markdown ke dalam AST yang dapat diserialisasi
+        return parseMarkdown(markdownString);
+      }
+    }
+    ```
+
+    ```typescript fileName="app.component.ts"
+    import { Component } from "@angular/core";
+    import { ActivatedRoute } from "@angular/router";
+    import { IntlayerMarkdownService, type ParsedMarkdown } from "angular-intlayer/markdown";
+
+    @Component({
+      selector: "app-root",
+      template: `<div [innerHTML]="renderedMarkdown"></div>`,
+    })
+    export class AppComponent {
+      renderedMarkdown: string = "";
+
+      constructor(
+        private route: ActivatedRoute,
+        private markdownService: IntlayerMarkdownService
+      ) {
+        // 2. Di klien: Render AST secara langsung tanpa mem-parsing ulang
+        this.route.data.subscribe((data) => {
+          this.renderedMarkdown = this.markdownService.renderMarkdown(
+            data.markdownAst
+          ) as string;
+        });
+      }
+    }
+    ```
+
+  </Tab>
+</Tabs>
+
+Pola ini memastikan bahwa logika parsing Markdown dieksekusi sepenuhnya di server, secara signifikan mengurangi waktu eksekusi di sisi klien dan meningkatkan kecepatan hidrasi awal.
 
 ## Referensi Opsi
 

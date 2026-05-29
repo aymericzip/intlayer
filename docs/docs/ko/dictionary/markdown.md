@@ -17,6 +17,8 @@ slugs:
   - content
   - markdown
 history:
+  - version: 8.11.0
+    changes: "SSR / 하이드레이션을 위한 Markdown AST 사전 파싱 허용"
   - version: 8.10.0
     date: 2026-05-19
     changes: "`.content.md` 파일 지원 추가"
@@ -1148,6 +1150,164 @@ export class MyComponent {
 </Tabs>
 
 ---
+
+## 서버 사이드 렌더링 (SSR) 및 하이드레이션
+
+remark / rehype와 같은 다른 마크다운 파서와 비교할 때, Intlayer 마크다운은 의존성이 없으며 클라이언트와 서버 사이드 모두에서 실행됩니다.
+
+그러나 Intlayer는 서버 사이드 렌더링(SSR) 프레임워크(Next.js App Router, React Router, Nuxt, SvelteKit 등)를 위해 파싱을 최적화했습니다.
+
+원시 마크다운 문자열을 클라이언트에 전송하고 브라우저에서 파싱하는 방식(성능 저하를 유발함) 대신, Intlayer는 서버에서 마크다운을 추상 구문 트리(AST)로 사전 파싱할 수 있도록 지원합니다.
+
+서버 사이드에서 해당 프레임워크의 Intlayer 패키지에 있는 `parseMarkdown` 함수를 사용하여 직렬화 가능한 AST(`ParsedMarkdown` 객체)를 생성하고, 이를 프론트엔드로 직접 전달할 수 있습니다. 모든 Intlayer 렌더링 유틸리티(`<MarkdownRenderer>`, `useMarkdownRenderer` 등)는 이 AST 객체를 자동으로 수용하여 원활하게 렌더링합니다.
+
+### 서버/클라이언트 아키텍처 예시
+
+<Tabs group="framework">
+  <Tab label="React Router" value="react">
+
+    ```tsx fileName="server.ts"
+    import { parseMarkdown } from "react-intlayer/markdown";
+
+    // 1. 서버에서: 마크다운을 직렬화 가능한 AST로 파싱
+    export const loader = async () => {
+      const markdownString = "## My title \n\nLorem Ipsum";
+      const ast = parseMarkdown(markdownString);
+
+      // AST를 JSON으로 클라이언트에 반환
+      return Response.json({ content: ast });
+    };
+    ```
+
+    ```tsx fileName="client.tsx"
+    import { useLoaderData } from "react-router";
+    import { MarkdownRenderer } from "react-intlayer/markdown";
+
+    // 2. 클라이언트에서: 재파싱 없이 AST를 직접 렌더링
+    export default function Page() {
+      const { content } = useLoaderData();
+
+      // 렌더러는 원시 문자열 또는 파싱된 AST를 모두 수용합니다
+      return <MarkdownRenderer content={content} />;
+    }
+    ```
+
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
+
+    ```tsx fileName="app/page.tsx"
+    import { parseMarkdown } from "next-intlayer/markdown";
+    import { MarkdownRenderer } from "next-intlayer/markdown";
+
+    export default async function Page() {
+      // 1. 서버에서 마크다운을 직렬화 가능한 AST로 파싱
+      const markdownString = "## My title \n\nLorem Ipsum";
+      const ast = parseMarkdown(markdownString);
+
+      // 2. AST를 직접 렌더링
+      // 서버 컴포넌트(Server Component) 내에서 원활하게 작동하며, 필요한 경우
+    // 하위 클라이언트 컴포넌트로 AST를 직접 전달합니다.
+      return <MarkdownRenderer content={ast} />;
+    }
+    ```
+
+  </Tab>
+  <Tab label="Vue / Nuxt" value="vue">
+
+    ```vue fileName="pages/index.vue"
+    <script setup lang="ts">
+    import { parseMarkdown } from "vue-intlayer/markdown";
+    import { MarkdownRenderer } from "vue-intlayer/markdown";
+
+    // 1. 서버에서 마크다운을 가져오고 AST로 파싱
+    const { data: ast } = await useAsyncData('markdown', () => {
+      const markdownString = "## My title \n\nLorem Ipsum";
+      return parseMarkdown(markdownString);
+    });
+    </script>
+
+    <template>
+      <!-- 2. 클라이언트에서: 재파싱 없이 AST를 직접 렌더링 -->
+      <MarkdownRenderer :content="ast" />
+    </template>
+    ```
+
+  </Tab>
+  <Tab label="SvelteKit" value="svelte">
+
+    ```typescript fileName="+page.server.ts"
+    import { parseMarkdown } from "svelte-intlayer/markdown";
+
+    // 1. 서버에서: 마크다운을 직렬화 가능한 AST로 파싱
+    export const load = async () => {
+      const markdownString = "## My title \n\nLorem Ipsum";
+      const ast = parseMarkdown(markdownString);
+
+      // AST를 클라이언트에 반환
+      return { content: ast };
+    };
+    ```
+
+    ```svelte fileName="+page.svelte"
+    <script lang="ts">
+      import { MarkdownRenderer } from "svelte-intlayer/markdown";
+      export let data;
+    </script>
+
+    <!-- 2. 클라이언트에서: 재파싱 없이 AST를 직접 렌더링 -->
+    <MarkdownRenderer value={data.content} />
+    ```
+
+  </Tab>
+  <Tab label="Angular" value="angular">
+
+    Angular SSR은 일반적으로 초기 로드 시 서버에서 데이터를 확인하고 클라이언트에서 하이드레이션을 수행합니다. 확인자(resolvers)를 사용하여 AST를 전달할 수 있습니다.
+
+    ```typescript fileName="app.resolver.ts"
+    import { Injectable } from "@angular/core";
+    import { Resolve } from "@angular/router";
+    import { parseMarkdown, type ParsedMarkdown } from "angular-intlayer/markdown";
+
+    @Injectable({ providedIn: "root" })
+    export class MarkdownResolver implements Resolve<ParsedMarkdown> {
+      resolve(): ParsedMarkdown {
+        const markdownString = "## My title \n\nLorem Ipsum";
+        // 1. 서버에서: 마크다운을 직렬화 가능한 AST로 파싱
+        return parseMarkdown(markdownString);
+      }
+    }
+    ```
+
+    ```typescript fileName="app.component.ts"
+    import { Component } from "@angular/core";
+    import { ActivatedRoute } from "@angular/router";
+    import { IntlayerMarkdownService, type ParsedMarkdown } from "angular-intlayer/markdown";
+
+    @Component({
+      selector: "app-root",
+      template: `<div [innerHTML]="renderedMarkdown"></div>`,
+    })
+    export class AppComponent {
+      renderedMarkdown: string = "";
+
+      constructor(
+        private route: ActivatedRoute,
+        private markdownService: IntlayerMarkdownService
+      ) {
+        // 2. 클라이언트에서: 재파싱 없이 AST를 직접 렌더링
+        this.route.data.subscribe((data) => {
+          this.renderedMarkdown = this.markdownService.renderMarkdown(
+            data.markdownAst
+          ) as string;
+        });
+      }
+    }
+    ```
+
+  </Tab>
+</Tabs>
+
+이 패턴을 통해 마크다운 파싱 로직을 서버에서 완벽히 실행함으로써 클라이언트 사이드 실행 시간을 크게 단축하고 초기 하이드레이션 속도를 개선할 수 있습니다.
 
 ## 옵션 참조
 

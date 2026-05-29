@@ -17,6 +17,8 @@ slugs:
   - content
   - markdown
 history:
+  - version: 8.11.0
+    changes: "Allow pre parsing of Markdown ast parsing for SSR / hydration"
   - version: 8.10.0
     date: 2026-05-19
     changes: "Added support for `.content.md` files"
@@ -1151,6 +1153,164 @@ export class MyComponent {
 </Tabs>
 
 ---
+
+## Server-Side Rendering (SSR) and Hydration
+
+In comparison of other Markdown parser such as remark / rehype, the Intlayer Markdown is dependency free and run on client as server side.
+
+But Intlayer optimized the parsing for Server-Side Rendering (SSR) frameworks (such as Next.js App Router, React Router, Nuxt, SvelteKit, etc.).
+
+Instead of sending raw Markdown strings to the client and parsing them on the browser (which incurs a performance penalty), Intlayer allows you to pre-parse the Markdown into an Abstract Syntax Tree (AST) on the server.
+
+You can use the `parseMarkdown` function from your framework's Intlayer package on the server side to generate a serializable AST (`ParsedMarkdown` object), and pass it directly to the frontend. All Intlayer rendering utilities (like `<MarkdownRenderer>`, `useMarkdownRenderer`, etc.) automatically accept this AST object and render it seamlessly.
+
+### Example in a Server/Client Architecture
+
+<Tabs group="framework">
+  <Tab label="React Router" value="react">
+
+    ```tsx fileName="server.ts"
+    import { parseMarkdown } from "react-intlayer/markdown";
+
+    // 1. On the server: Parse the markdown into a serializable AST
+    export const loader = async () => {
+      const markdownString = "## My title \n\nLorem Ipsum";
+      const ast = parseMarkdown(markdownString);
+
+      // Return the AST as JSON to the client
+      return Response.json({ content: ast });
+    };
+    ```
+
+    ```tsx fileName="client.tsx"
+    import { useLoaderData } from "react-router";
+    import { MarkdownRenderer } from "react-intlayer/markdown";
+
+    // 2. On the client: Render the AST directly without re-parsing
+    export default function Page() {
+      const { content } = useLoaderData();
+
+      // The renderer accepts either a raw string or the parsed AST
+      return <MarkdownRenderer content={content} />;
+    }
+    ```
+
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
+
+    ```tsx fileName="app/page.tsx"
+    import { parseMarkdown } from "next-intlayer/markdown";
+    import { MarkdownRenderer } from "next-intlayer/markdown";
+
+    export default async function Page() {
+      // 1. Parse the markdown into a serializable AST on the server
+      const markdownString = "## My title \n\nLorem Ipsum";
+      const ast = parseMarkdown(markdownString);
+
+      // 2. Render the AST directly
+      // In a Server Component, this works seamlessly and passes the AST
+    // directly to the underlying client components if needed.
+      return <MarkdownRenderer content={ast} />;
+    }
+    ```
+
+  </Tab>
+  <Tab label="Vue / Nuxt" value="vue">
+
+    ```vue fileName="pages/index.vue"
+    <script setup lang="ts">
+    import { parseMarkdown } from "vue-intlayer/markdown";
+    import { MarkdownRenderer } from "vue-intlayer/markdown";
+
+    // 1. Fetch and parse the markdown into an AST on the server
+    const { data: ast } = await useAsyncData('markdown', () => {
+      const markdownString = "## My title \n\nLorem Ipsum";
+      return parseMarkdown(markdownString);
+    });
+    </script>
+
+    <template>
+      <!-- 2. On the client: Render the AST directly without re-parsing -->
+      <MarkdownRenderer :content="ast" />
+    </template>
+    ```
+
+  </Tab>
+  <Tab label="SvelteKit" value="svelte">
+
+    ```typescript fileName="+page.server.ts"
+    import { parseMarkdown } from "svelte-intlayer/markdown";
+
+    // 1. On the server: Parse the markdown into a serializable AST
+    export const load = async () => {
+      const markdownString = "## My title \n\nLorem Ipsum";
+      const ast = parseMarkdown(markdownString);
+
+      // Return the AST to the client
+      return { content: ast };
+    };
+    ```
+
+    ```svelte fileName="+page.svelte"
+    <script lang="ts">
+      import { MarkdownRenderer } from "svelte-intlayer/markdown";
+      export let data;
+    </script>
+
+    <!-- 2. On the client: Render the AST directly without re-parsing -->
+    <MarkdownRenderer value={data.content} />
+    ```
+
+  </Tab>
+  <Tab label="Angular" value="angular">
+
+    Angular SSR typically resolves the data on the server during the initial load and hydrates on the client. You can use resolvers to pass the AST.
+
+    ```typescript fileName="app.resolver.ts"
+    import { Injectable } from "@angular/core";
+    import { Resolve } from "@angular/router";
+    import { parseMarkdown, type ParsedMarkdown } from "angular-intlayer/markdown";
+
+    @Injectable({ providedIn: "root" })
+    export class MarkdownResolver implements Resolve<ParsedMarkdown> {
+      resolve(): ParsedMarkdown {
+        const markdownString = "## My title \n\nLorem Ipsum";
+        // 1. On the server: Parse the markdown into a serializable AST
+        return parseMarkdown(markdownString);
+      }
+    }
+    ```
+
+    ```typescript fileName="app.component.ts"
+    import { Component } from "@angular/core";
+    import { ActivatedRoute } from "@angular/router";
+    import { IntlayerMarkdownService, type ParsedMarkdown } from "angular-intlayer/markdown";
+
+    @Component({
+      selector: "app-root",
+      template: `<div [innerHTML]="renderedMarkdown"></div>`,
+    })
+    export class AppComponent {
+      renderedMarkdown: string = "";
+
+      constructor(
+        private route: ActivatedRoute,
+        private markdownService: IntlayerMarkdownService
+      ) {
+        // 2. On the client: Render the AST directly without re-parsing
+        this.route.data.subscribe((data) => {
+          this.renderedMarkdown = this.markdownService.renderMarkdown(
+            data.markdownAst
+          ) as string;
+        });
+      }
+    }
+    ```
+
+  </Tab>
+</Tabs>
+
+This pattern ensures that the Markdown parsing logic is executed entirely on the server, significantly reducing the client-side execution time and improving the initial hydration speed.
 
 ## Options Reference
 
