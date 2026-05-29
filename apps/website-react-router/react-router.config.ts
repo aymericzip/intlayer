@@ -54,7 +54,7 @@ export default {
         ])
       );
 
-      return []; // Test without paths to speed up the build
+      return allPaths;
     },
     unstable_concurrency: 5,
   },
