@@ -73,6 +73,7 @@ export const Code: FC<CodeCompProps> = ({
   codeFormat: rawCodeFormat,
   contentDeclarationFormat: rawContentDeclarationFormat,
   isRollable = true,
+  lang, // Destructure html lang prop to prevent passing invalid BCP-47 language tag to Code component
   ...props
 }) => {
   const {

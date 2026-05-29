@@ -94,7 +94,9 @@ RUN bun run build && bun scripts/baidu-push.ts
 # ---------------------------------------------------------
 # Runner Stage
 # ---------------------------------------------------------
-FROM oven/bun:1.3.14-alpine AS runner
+FROM node:26-alpine AS runner
+
+RUN npm install -g bun@1.3.14
 
 WORKDIR /app
 

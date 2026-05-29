@@ -245,14 +245,6 @@ export function Layout({
   return (
     <html lang={locale} dir={getHTMLTextDir(locale)} suppressHydrationWarning>
       <head>
-        {/* Preconnect and DNS Prefetch for Google Tag Manager */}
-        <link
-          rel="preconnect"
-          href="https://www.googletagmanager.com"
-          crossOrigin=""
-        />
-        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
-
         {/* Preconnect and DNS Prefetch for your first-party backend */}
         <link
           rel="preconnect"

@@ -48,6 +48,7 @@ const MemoizedCodeBlock = memo(
     className,
     children,
     isDarkMode,
+    lang, // Destructure html lang prop to prevent passing invalid BCP-47 language tag to Code component
     ...rest
   }: ComponentProps<'code'> & { isDarkMode?: boolean }) => {
     const content = String(children ?? '').replace(/\n$/, '');
