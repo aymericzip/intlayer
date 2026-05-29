@@ -34,7 +34,7 @@ const sitemap = async (): Promise<SitemapUrlEntry[]> => {
   const frequentQuestions = await getFrequentQuestionMetadataBySlug([]);
 
   const legalSitemap: SitemapUrlEntry[] = legal.map((legal) => ({
-    path: legal.url,
+    path: legal.relativeUrl,
     lastmod:
       (legal.updatedAt as Date | string) instanceof Date
         ? (legal.updatedAt as any as Date).toISOString()
@@ -44,7 +44,7 @@ const sitemap = async (): Promise<SitemapUrlEntry[]> => {
   }));
 
   const docSitemap: SitemapUrlEntry[] = docs.map((doc) => ({
-    path: doc.url,
+    path: doc.relativeUrl,
     lastmod:
       (doc.updatedAt as Date | string) instanceof Date
         ? (doc.updatedAt as any as Date).toISOString()
@@ -54,7 +54,7 @@ const sitemap = async (): Promise<SitemapUrlEntry[]> => {
   }));
 
   const blogSitemap: SitemapUrlEntry[] = blob.map((blog) => ({
-    path: blog.url,
+    path: blog.relativeUrl,
     lastmod:
       (blog.updatedAt as Date | string) instanceof Date
         ? (blog.updatedAt as any as Date).toISOString()
@@ -65,7 +65,7 @@ const sitemap = async (): Promise<SitemapUrlEntry[]> => {
 
   const frequentQuestionSitemap: SitemapUrlEntry[] = frequentQuestions.map(
     (frequentQuestion) => ({
-      path: frequentQuestion.url,
+      path: frequentQuestion.relativeUrl,
       lastmod:
         (frequentQuestion.updatedAt as Date | string) instanceof Date
           ? (frequentQuestion.updatedAt as any as Date).toISOString()

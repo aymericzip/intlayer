@@ -328,6 +328,7 @@
       "devDependencies": {
         "@react-router/dev": "7.14.0",
         "@react-router/fs-routes": "7.14.0",
+        "@rolldown/plugin-babel": "^0.2.3",
         "@tailwindcss/postcss": "4.3.0",
         "@tailwindcss/vite": "^4.3.0",
         "@types/node": "25.9.1",
@@ -344,7 +345,7 @@
         "tailwindcss": "4.3.0",
         "typescript": "6.0.3",
         "vite": "8.0.14",
-        "vite-intlayer": "^8.11.1",
+        "vite-intlayer": "workspace:*",
         "workbox-build": "7.4.1",
       },
       "optionalDependencies": {

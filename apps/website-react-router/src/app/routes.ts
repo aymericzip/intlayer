@@ -24,6 +24,7 @@ export const resourceRoutes = [
   '/sitemap.xml',
   '/feed.xml',
   '/posts.json',
+  '/robots.txt',
 ] as const;
 
 const routes: RouteConfig = [
@@ -82,6 +83,7 @@ const routes: RouteConfig = [
   route('sitemap.xml', 'sitemap.ts', { id: 'sitemap-xml' }),
   route('feed.xml', 'feed.xml/route.ts', { id: 'feed-xml' }),
   route('posts.json', 'posts.json/route.ts', { id: 'posts-json' }),
+  route('robots.txt', 'robots.ts', { id: 'robots-txt' }),
   route('api/health', 'api/health/route.ts', { id: 'api-health' }),
   route('api/baidu-push', 'api/baidu-push/route.ts', { id: 'api-baidu-push' }),
 ];

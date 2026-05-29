@@ -1,74 +1,106 @@
-import type { FC } from 'react';
-import dynamic from '~/utils/dynamic';
+import { type FC, lazy, Suspense } from 'react';
 
-const HeroSection = dynamic(() =>
-  import('./HeroSection').then((module) => module.HeroSection)
+const HeroSection = lazy(() =>
+  import('./HeroSection').then((module) => ({ default: module.HeroSection }))
 );
-const ProvidersCarousel = dynamic(() =>
-  import('./ProvidersCarousel').then((module) => module.ProvidersCarousel)
+const ProvidersCarousel = lazy(() =>
+  import('./ProvidersCarousel').then((module) => ({
+    default: module.ProvidersCarousel,
+  }))
 );
-const CommandsSection = dynamic(() =>
-  import('./CommandsSection').then((module) => module.CommandsSection)
+const CommandsSection = lazy(() =>
+  import('./CommandsSection').then((module) => ({
+    default: module.CommandsSection,
+  }))
 );
-const KeyPointsSection = dynamic(() =>
-  import('./KeyPointsSection').then((module) => module.KeyPointsSection)
+const KeyPointsSection = lazy(() =>
+  import('./KeyPointsSection').then((module) => ({
+    default: module.KeyPointsSection,
+  }))
 );
-const LocalVsServerSection = dynamic(() =>
-  import('./LocalVsServerSection').then((module) => module.LocalVsServerSection)
+const LocalVsServerSection = lazy(() =>
+  import('./LocalVsServerSection').then((module) => ({
+    default: module.LocalVsServerSection,
+  }))
 );
-const HowItWorksSection = dynamic(() =>
-  import('./HowItWorksSection').then((module) => module.HowItWorksSection)
+const HowItWorksSection = lazy(() =>
+  import('./HowItWorksSection').then((module) => ({
+    default: module.HowItWorksSection,
+  }))
 );
-const CTASection = dynamic(() =>
-  import('./CTASection').then((module) => module.CTASection)
+const CTASection = lazy(() =>
+  import('./CTASection').then((module) => ({ default: module.CTASection }))
 );
-const ProductsSection = dynamic(() =>
-  import('~/components/LandingPage/ProductsSection').then(
-    (module) => module.ProductsSection
-  )
+const ProductsSection = lazy(() =>
+  import('~/components/LandingPage/ProductsSection').then((module) => ({
+    default: module.ProductsSection,
+  }))
 );
-const ContributorSection = dynamic(() =>
-  import('~/components/LandingPage/ContributorSection').then(
-    (module) => module.ContributorSection
-  )
+const ContributorSection = lazy(() =>
+  import('~/components/LandingPage/ContributorSection').then((module) => ({
+    default: module.ContributorSection,
+  }))
 );
-const LanguageSection = dynamic(() =>
-  import('@intlayer/design-system').then((module) => module.LanguageSection)
+const LanguageSection = lazy(() =>
+  import('@intlayer/design-system').then((module) => ({
+    default: module.LanguageSection,
+  }))
 );
 
 export const AiTranslationLandingCore: FC = () => {
   return (
     <div>
       {/* Hero Section with ambient effects */}
-      <HeroSection />
+      <Suspense fallback={null}>
+        <HeroSection />
+      </Suspense>
+
       {/* Providers Carousel */}
-      <ProvidersCarousel />
+      <Suspense fallback={null}>
+        <ProvidersCarousel />
+      </Suspense>
 
       {/* Commands Section */}
-      <CommandsSection />
+      <Suspense fallback={null}>
+        <CommandsSection />
+      </Suspense>
 
       {/* Key Points Section */}
-      <KeyPointsSection />
+      <Suspense fallback={null}>
+        <KeyPointsSection />
+      </Suspense>
 
       {/* Local vs Server Section */}
-      <LocalVsServerSection />
+      <Suspense fallback={null}>
+        <LocalVsServerSection />
+      </Suspense>
 
       {/* Language Section (from design-system, not lazy) */}
-      <LanguageSection />
+      <Suspense fallback={null}>
+        <LanguageSection />
+      </Suspense>
 
       {/* How It Works Section */}
-      <HowItWorksSection />
+      <Suspense fallback={null}>
+        <HowItWorksSection />
+      </Suspense>
 
       {/* Products Section */}
-      <ProductsSection />
+      <Suspense fallback={null}>
+        <ProductsSection />
+      </Suspense>
 
       {/* Community Section */}
       <section>
-        <ContributorSection />
+        <Suspense fallback={null}>
+          <ContributorSection />
+        </Suspense>
       </section>
 
       {/* CTA Section */}
-      <CTASection />
+      <Suspense fallback={null}>
+        <CTASection />
+      </Suspense>
     </div>
   );
 };

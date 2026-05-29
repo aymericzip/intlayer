@@ -46,7 +46,7 @@ export const MarkDownIframe: FC<ComponentProps<'iframe'>> = (props) => {
           className
         )}
       />
-      <div className="flex items-center justify-between gap-3 border-neutral/30 border-t bg-card/40 px-3 py-1">
+      <div className="flex items-center justify-between gap-3 px-3 py-1">
         {href ? (
           <Link
             href={href}

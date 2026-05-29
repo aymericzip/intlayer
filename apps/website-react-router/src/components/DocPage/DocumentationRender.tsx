@@ -1,17 +1,18 @@
 import { MarkdownRenderer } from '@intlayer/design-system/mark-down-render';
 import { useTheme } from 'next-themes';
 import type { ComponentProps, FC } from 'react';
+import { lazy, Suspense } from 'react';
 import { useLocale } from 'react-intlayer';
 import type { FrameworkKey } from '~/components/I18nBenchmark';
 import { Link } from '~/components/Link/Link';
 import { TableOfContents } from '~/components/TableOfContents';
-import dynamic from '~/utils/dynamic';
 import { ClickToOpenIframe } from './ClickToOpenIframe';
 import { SectionScroller } from './SectionScroller';
 
-const I18nBenchmark = dynamic(
-  () => import('~/components/I18nBenchmark').then((mod) => mod.I18nBenchmark),
-  { ssr: false }
+const I18nBenchmark = lazy(() =>
+  import('~/components/I18nBenchmark').then((mod) => ({
+    default: mod.I18nBenchmark,
+  }))
 );
 
 type DocumentationRenderProps = {
@@ -54,7 +55,9 @@ export const DocumentationRender: FC<DocumentationRenderProps> = ({
             />
           ),
           I18nBenchmark: (props: { framework?: FrameworkKey }) => (
-            <I18nBenchmark initialFramework={props.framework} />
+            <Suspense fallback={null}>
+              <I18nBenchmark initialFramework={props.framework} />
+            </Suspense>
           ),
           ClickToOpenIframe,
         }}

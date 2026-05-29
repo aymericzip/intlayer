@@ -1,31 +1,38 @@
-import type { FC } from 'react';
+import { type FC, lazy, Suspense } from 'react';
 import { BackgroundLayout } from '~/components/BackgroundLayout';
-import dynamic from '~/utils/dynamic';
 
-const HeroSection = dynamic(() =>
-  import('./HeroSection').then((module) => module.HeroSection)
+const HeroSection = lazy(() =>
+  import('./HeroSection').then((module) => ({ default: module.HeroSection }))
 );
-const PainPointsSection = dynamic(() =>
-  import('./PainPointsSection').then((module) => module.PainPointsSection)
+const PainPointsSection = lazy(() =>
+  import('./PainPointsSection').then((module) => ({
+    default: module.PainPointsSection,
+  }))
 );
-const ComparisonSection = dynamic(() =>
-  import('./ComparisonSection').then((module) => module.ComparisonSection)
+const ComparisonSection = lazy(() =>
+  import('./ComparisonSection').then((module) => ({
+    default: module.ComparisonSection,
+  }))
 );
-const FeaturesSection = dynamic(() =>
-  import('./FeaturesSection').then((module) => module.FeaturesSection)
+const FeaturesSection = lazy(() =>
+  import('./FeaturesSection').then((module) => ({
+    default: module.FeaturesSection,
+  }))
 );
-const FinalCTASection = dynamic(() =>
-  import('./FinalCTASection').then((module) => module.FinalCTASection)
+const FinalCTASection = lazy(() =>
+  import('./FinalCTASection').then((module) => ({
+    default: module.FinalCTASection,
+  }))
 );
-const ProductsSection = dynamic(() =>
-  import('~/components/LandingPage/ProductsSection').then(
-    (module) => module.ProductsSection
-  )
+const ProductsSection = lazy(() =>
+  import('~/components/LandingPage/ProductsSection').then((module) => ({
+    default: module.ProductsSection,
+  }))
 );
-const ContributorSection = dynamic(() =>
-  import('~/components/LandingPage/ContributorSection').then(
-    (module) => module.ContributorSection
-  )
+const ContributorSection = lazy(() =>
+  import('~/components/LandingPage/ContributorSection').then((module) => ({
+    default: module.ContributorSection,
+  }))
 );
 
 export const TMSLandingPage: FC = () => {
@@ -33,28 +40,42 @@ export const TMSLandingPage: FC = () => {
     <div className="flex flex-col">
       {/* Hero Section */}
       <BackgroundLayout>
-        <HeroSection />
+        <Suspense fallback={null}>
+          <HeroSection />
+        </Suspense>
       </BackgroundLayout>
 
       {/* Pain Points Section */}
-      <PainPointsSection />
+      <Suspense fallback={null}>
+        <PainPointsSection />
+      </Suspense>
 
       {/* Comparison Table Section */}
-      <ComparisonSection />
+      <Suspense fallback={null}>
+        <ComparisonSection />
+      </Suspense>
 
       {/* Features Grid */}
-      <FeaturesSection />
+      <Suspense fallback={null}>
+        <FeaturesSection />
+      </Suspense>
 
       {/* Products Section */}
-      <ProductsSection />
+      <Suspense fallback={null}>
+        <ProductsSection />
+      </Suspense>
 
       {/* Community Section */}
       <section>
-        <ContributorSection />
+        <Suspense fallback={null}>
+          <ContributorSection />
+        </Suspense>
       </section>
 
       {/* Final CTA */}
-      <FinalCTASection />
+      <Suspense fallback={null}>
+        <FinalCTASection />
+      </Suspense>
     </div>
   );
 };

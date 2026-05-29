@@ -17,12 +17,13 @@ export const IntlayerMarkdownProvider: FC<PropsWithChildren> = ({
       {...markdownOptions}
       components={{
         ...markdownOptions.components,
-        a: ({ href, to, ...props }: ComponentProps<typeof Link>) => (
+        a: ({ href, ...props }: ComponentProps<'a'>) => (
           <Link
+            // @ts-expect-error
             color="neutral"
             underlined={true}
             {...props}
-            to={to ?? href}
+            to={href!}
             prefetch="viewport"
           />
         ),

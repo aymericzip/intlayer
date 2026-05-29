@@ -1,86 +1,60 @@
 import { Loader } from '@intlayer/design-system/loader';
-import type { FC } from 'react';
+import { type FC, lazy, Suspense } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { BackgroundLayout } from '~/components/BackgroundLayout';
 import { CommonQuestionsSection } from '~/components/LandingPage/CommonQuestionsSection/CommonQuestions';
-import dynamic from '~/utils/dynamic';
-import { LandingSection } from './LandingSection';
+import { HeroSection } from './HeroSection';
 
-const DynamicAvailableTechnoSection = dynamic(
-  () =>
-    import('./AvailableTechnoSection').then(
-      (mod) => mod.AvailableTechnoSection
-    ),
-  {
-    loading: () => <Loader />,
-  }
+const AvailableTechnoSection = lazy(() =>
+  import('./AvailableTechnoSection').then((mod) => ({
+    default: mod.AvailableTechnoSection,
+  }))
 );
 
-const DynamicLanguageSection = dynamic(
-  () => import('@intlayer/design-system').then((mod) => mod.LanguageSection),
-  {
-    loading: () => <Loader />,
-  }
+const LanguageSection = lazy(() =>
+  import('@intlayer/design-system').then((mod) => ({
+    default: mod.LanguageSection,
+  }))
 );
 
-const DynamicWhyToChoseIntlayerSection = dynamic(
-  () =>
-    import('./WhyToChoseIntlayerSection').then(
-      (mod) => mod.WhyToChoseIntlayerSection
-    ),
-  {
-    loading: () => <Loader />,
-  }
+const WhyToChoseIntlayerSection = lazy(() =>
+  import('./WhyToChoseIntlayerSection').then((mod) => ({
+    default: mod.WhyToChoseIntlayerSection,
+  }))
 );
 
-const DynamicFeaturesSection = dynamic(
-  () => import('./FeaturesSection').then((mod) => mod.FeaturesSection),
-  {
-    loading: () => <Loader />,
-  }
+const FeaturesSection = lazy(() =>
+  import('./FeaturesSection').then((mod) => ({ default: mod.FeaturesSection }))
 );
 
-const DynamicI18nBenchmarkSection = dynamic(
-  () =>
-    import('./I18nBenchmarkSection').then((mod) => mod.I18nBenchmarkSection),
-  {
-    loading: () => <Loader />,
-  }
+const I18nBenchmarkSection = lazy(() =>
+  import('./I18nBenchmarkSection').then((mod) => ({
+    default: mod.I18nBenchmarkSection,
+  }))
 );
 
-const DynamicAuditSection = dynamic(
-  () => import('./AuditSection').then((mod) => mod.AuditSection),
-  {
-    loading: () => <Loader />,
-  }
+const AuditSection = lazy(() =>
+  import('./AuditSection').then((mod) => ({ default: mod.AuditSection }))
 );
 
-const DynamicDemoSection = dynamic(
-  () => import('./DemoSection').then((mod) => mod.DemoSection),
-  {
-    loading: () => <Loader />,
-  }
+const DemoSection = lazy(() =>
+  import('./DemoSection').then((mod) => ({ default: mod.DemoSection }))
 );
 
-const DynamicChatBotModal = dynamic(
-  () => import('./ChatBotModal').then((mod) => mod.ChatBotModal),
-  {
-    loading: () => <Loader />,
-  }
+const ChatBotModal = lazy(() =>
+  import('./ChatBotModal').then((mod) => ({ default: mod.ChatBotModal }))
 );
 
-const DynamicContributorSection = dynamic(
-  () => import('./ContributorSection').then((mod) => mod.ContributorSection),
-  {
-    loading: () => <Loader />,
-  }
+const ContributorSection = lazy(() =>
+  import('./ContributorSection').then((mod) => ({
+    default: mod.ContributorSection,
+  }))
 );
 
-const DynamicFeatureFlagsSection = dynamic(
-  () => import('./ProductsSection/index').then((mod) => mod.ProductsSection),
-  {
-    loading: () => <Loader />,
-  }
+const ProductsSection = lazy(() =>
+  import('./ProductsSection/index').then((mod) => ({
+    default: mod.ProductsSection,
+  }))
 );
 
 export const LandingPage: FC = () => {
@@ -94,28 +68,38 @@ export const LandingPage: FC = () => {
       >
         <BackgroundLayout>
           <section aria-label={content.heroSection.value}>
-            <LandingSection />
+            <HeroSection />
           </section>
           <section aria-label={content.keyFeaturesSection.value}>
-            <DynamicFeaturesSection />
+            <Suspense fallback={<Loader />}>
+              <FeaturesSection />
+            </Suspense>
           </section>
         </BackgroundLayout>
 
         <section aria-label={content.whyChooseIntlayerSection.value}>
-          <DynamicWhyToChoseIntlayerSection />
+          <Suspense fallback={<Loader />}>
+            <WhyToChoseIntlayerSection />
+          </Suspense>
         </section>
 
         <div className="relative flex w-full flex-col gap-24 overflow-hidden bg-neutral/5 py-16 dark:bg-neutral-900/10">
           <section aria-label={content.benchmarkSection.value}>
-            <DynamicI18nBenchmarkSection />
+            <Suspense fallback={<Loader />}>
+              <I18nBenchmarkSection />
+            </Suspense>
           </section>
 
           <section aria-label={content.supportedLanguagesSection.value}>
-            <DynamicLanguageSection />
+            <Suspense fallback={<Loader />}>
+              <LanguageSection />
+            </Suspense>
           </section>
 
           <section aria-label={content.codeAuditSection.value}>
-            <DynamicAuditSection />
+            <Suspense fallback={<Loader />}>
+              <AuditSection />
+            </Suspense>
           </section>
           <div
             aria-hidden="true"
@@ -128,23 +112,33 @@ export const LandingPage: FC = () => {
         </div>
 
         <section aria-label={content.productsSection.value}>
-          <DynamicFeatureFlagsSection />
+          <Suspense fallback={<Loader />}>
+            <ProductsSection />
+          </Suspense>
         </section>
         <section aria-label={content.technologiesSection.value}>
-          <DynamicAvailableTechnoSection />
+          <Suspense fallback={<Loader />}>
+            <AvailableTechnoSection />
+          </Suspense>
         </section>
         <section aria-label={content.liveDemoSection.value}>
-          <DynamicDemoSection />
+          <Suspense fallback={<Loader />}>
+            <DemoSection />
+          </Suspense>
         </section>
         <section aria-label={content.contributorsSection.value}>
-          <DynamicContributorSection />
+          <Suspense fallback={<Loader />}>
+            <ContributorSection />
+          </Suspense>
         </section>
         <section aria-label={content.faqSection.value}>
           <CommonQuestionsSection />
         </section>
       </main>
 
-      <DynamicChatBotModal />
+      <Suspense fallback={<Loader />}>
+        <ChatBotModal />
+      </Suspense>
     </>
   );
 };

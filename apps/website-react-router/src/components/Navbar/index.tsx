@@ -15,18 +15,16 @@ import { DiscordLogo } from '@intlayer/design-system/social-networks';
 import { TechLogos } from '@intlayer/design-system/tech-logo';
 import { Image, StarIcon, VectorSquare } from 'lucide-react';
 import type { FC, MouseEvent } from 'react';
+import { lazy, Suspense } from 'react';
 import { useIntlayer, useLocale } from 'react-intlayer';
 import { useLocation, useRevalidator } from 'react-router-dom';
 import { Link } from '~/components/Link/Link';
 import { LocaleSwitcher } from '~/components/LocaleSwitcher/LocaleSwitcher';
-import dynamic from '~/utils/dynamic';
 
-const SwitchThemeSwitcher = dynamic(
-  () =>
-    import('~/components/ThemeSwitcherDropDown/SwitchThemeSwitcher').then(
-      (mod) => mod.SwitchThemeSwitcher
-    ),
-  { ssr: false }
+const SwitchThemeSwitcher = lazy(() =>
+  import('~/components/ThemeSwitcherDropDown/SwitchThemeSwitcher').then(
+    (mod) => ({ default: mod.SwitchThemeSwitcher })
+  )
 );
 
 const getCleanChoice = (path?: string): string => {
@@ -224,7 +222,7 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
             isExternalLink={false}
             isActive={selectedChoice === getCleanChoice(url.value)}
             color="text"
-            prefetch="viewport"
+            prefetch="intent"
             variant="invisible-link"
             className="flex text-nowrap px-4 py-0.5 text-sm aria-[current]:bg-current/0"
             onClick={id?.value === 'dashboard' ? handleAppLinkClick : undefined}
@@ -243,7 +241,7 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
             isActive={selectedChoice === getCleanChoice(url.value)}
             label={label.value}
             color="text"
-            prefetch="viewport"
+            prefetch="intent"
             variant="invisible-link"
             className="w-full text-nowrap p-3 text-center leading-10 transition hover:font-bold aria-selected:font-bold"
             onClick={id?.value === 'dashboard' ? handleAppLinkClick : undefined}
@@ -258,7 +256,7 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
             label={github.label.value}
             to={github.url.value}
             variant="button-outlined"
-            prefetch="viewport"
+            prefetch="intent"
             color="text"
             className="group/github rounded-2xl! leading-6"
           >
@@ -296,7 +294,9 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
       rightItemsMobile={
         <div className="flex gap-2">
           <LocaleSwitcher />
-          <SwitchThemeSwitcher />
+          <Suspense fallback={null}>
+            <SwitchThemeSwitcher />
+          </Suspense>
           {isAuthenticated && (
             <Avatar
               isLoggedIn={isAuthenticated}
@@ -309,14 +309,16 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
       rightItemsDesktop={
         <>
           <LocaleSwitcher />
-          <SwitchThemeSwitcher />
+          <Suspense fallback={null}>
+            <SwitchThemeSwitcher />
+          </Suspense>
           <Link
             label={discord.label.value}
             to={discord.url.value}
             target="_blank"
             color="text"
             variant="button-outlined"
-            prefetch="viewport"
+            prefetch="intent"
             roundedSize="full"
             rel="noopener noreferrer nofollow"
             className="flex cursor-pointer items-center gap-2 rounded-full border-[1.3px] p-1.5"

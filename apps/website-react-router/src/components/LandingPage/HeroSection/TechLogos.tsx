@@ -1,4 +1,3 @@
-import { Link } from '~/components/Link/Link';
 import {
   Website_Doc_Environment_Angular,
   Website_Doc_Environment_Astro,
@@ -20,6 +19,7 @@ import {
 import { TechLogo, TechLogoName } from '@intlayer/design-system/tech-logo';
 import { cn } from '@intlayer/design-system/utils';
 import type { FC } from 'react';
+import { Link } from '~/components/Link/Link';
 
 // Animated Technology logos
 const logos = [

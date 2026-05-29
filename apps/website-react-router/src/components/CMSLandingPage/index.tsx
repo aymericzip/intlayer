@@ -1,34 +1,39 @@
-import type { FC } from 'react';
+import { type FC, lazy, Suspense } from 'react';
 import { BackgroundLayout } from '~/components/BackgroundLayout';
-import dynamic from '~/utils/dynamic';
 
-const HeroSection = dynamic(() =>
-  import('./HeroSection').then((module) => module.HeroSection)
+const HeroSection = lazy(() =>
+  import('./HeroSection').then((module) => ({ default: module.HeroSection }))
 );
 
-const ContentDeliverySection = dynamic(() =>
-  import('./ContentDeliverySection').then(
-    (module) => module.ContentDeliverySection
-  )
+const ContentDeliverySection = lazy(() =>
+  import('./ContentDeliverySection').then((module) => ({
+    default: module.ContentDeliverySection,
+  }))
 );
-const FeaturesSection = dynamic(() =>
-  import('./FeaturesSection').then((module) => module.FeaturesSection)
+const FeaturesSection = lazy(() =>
+  import('./FeaturesSection').then((module) => ({
+    default: module.FeaturesSection,
+  }))
 );
-const ComingSoonSection = dynamic(() =>
-  import('./ComingSoonSection').then((module) => module.ComingSoonSection)
+const ComingSoonSection = lazy(() =>
+  import('./ComingSoonSection').then((module) => ({
+    default: module.ComingSoonSection,
+  }))
 );
-const FinalCTASection = dynamic(() =>
-  import('./FinalCTASection').then((module) => module.FinalCTASection)
+const FinalCTASection = lazy(() =>
+  import('./FinalCTASection').then((module) => ({
+    default: module.FinalCTASection,
+  }))
 );
-const ProductsSection = dynamic(() =>
-  import('~/components/LandingPage/ProductsSection').then(
-    (module) => module.ProductsSection
-  )
+const ProductsSection = lazy(() =>
+  import('~/components/LandingPage/ProductsSection').then((module) => ({
+    default: module.ProductsSection,
+  }))
 );
-const ContributorSection = dynamic(() =>
-  import('~/components/LandingPage/ContributorSection').then(
-    (module) => module.ContributorSection
-  )
+const ContributorSection = lazy(() =>
+  import('~/components/LandingPage/ContributorSection').then((module) => ({
+    default: module.ContributorSection,
+  }))
 );
 
 export const CMSLandingPage: FC = () => {
@@ -36,28 +41,42 @@ export const CMSLandingPage: FC = () => {
     <div className="flex flex-col">
       {/* Hero Section */}
       <BackgroundLayout>
-        <HeroSection />
+        <Suspense fallback={null}>
+          <HeroSection />
+        </Suspense>
       </BackgroundLayout>
 
       {/* Content Delivery Section */}
-      <ContentDeliverySection />
+      <Suspense fallback={null}>
+        <ContentDeliverySection />
+      </Suspense>
 
       {/* Features Grid Section */}
-      <FeaturesSection />
+      <Suspense fallback={null}>
+        <FeaturesSection />
+      </Suspense>
 
       {/* Coming Soon Section */}
-      <ComingSoonSection />
+      <Suspense fallback={null}>
+        <ComingSoonSection />
+      </Suspense>
 
       {/* Products Section */}
-      <ProductsSection />
+      <Suspense fallback={null}>
+        <ProductsSection />
+      </Suspense>
 
       {/* Community Section */}
       <section>
-        <ContributorSection />
+        <Suspense fallback={null}>
+          <ContributorSection />
+        </Suspense>
       </section>
 
       {/* Final CTA Section */}
-      <FinalCTASection />
+      <Suspense fallback={null}>
+        <FinalCTASection />
+      </Suspense>
     </div>
   );
 };

@@ -88,7 +88,8 @@ ENV NODE_ENV=production
 
 # Build the React Router website 
 # (Note: postbuild script in package.json will auto-trigger generate-sw.ts)
-RUN bun run build && bun scripts/baidu-push.ts && bun run preserve
+RUN bun run build && bun scripts/baidu-push.ts 
+# && bun run preserve ## preserve clean cloudflare cache
 
 # ---------------------------------------------------------
 # Runner Stage

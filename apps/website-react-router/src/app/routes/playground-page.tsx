@@ -11,6 +11,7 @@ import {
   getLocalizedUrl,
   getMultilingualUrls,
 } from 'intlayer';
+import { lazy, Suspense } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { BackgroundLayout } from '~/components/BackgroundLayout';
 import { DashboardContentLayout } from '~/components/Dashboard/DashboardContentLayout';
@@ -18,7 +19,6 @@ import { DictionaryLoaderPlayground } from '~/components/Dashboard/Editor/Dictio
 import { OrganizationHeader } from '~/structuredData/OrganizationHeader';
 import { SoftwareApplicationHeader } from '~/structuredData/SoftwareApplication';
 import { WebsiteHeader } from '~/structuredData/WebsiteHeader';
-import dynamic from '~/utils/dynamic';
 
 import type { Route } from './+types/playground-page';
 
@@ -70,11 +70,10 @@ export async function loader({ request }: Route.LoaderArgs) {
   return { locale };
 }
 
-const Editor = dynamic(
-  () => import('~/components/Dashboard/Editor').then((mod) => mod.Editor),
-  {
-    loading: () => <Loader />,
-  }
+const Editor = lazy(() =>
+  import('~/components/Dashboard/Editor').then((mod) => ({
+    default: mod.Editor,
+  }))
 );
 
 export default function PlaygroundPage({ loaderData }: Route.ComponentProps) {
@@ -111,10 +110,12 @@ export default function PlaygroundPage({ loaderData }: Route.ComponentProps) {
         </p>
         <div className="relative flex flex-1 flex-col items-center px-10 pb-5">
           <ConfigurationProvider configuration={configuration}>
-            <Editor
-              configuration={configuration}
-              DictionariesLoader={DictionaryLoaderPlayground}
-            />
+            <Suspense fallback={<Loader />}>
+              <Editor
+                configuration={configuration}
+                DictionariesLoader={DictionaryLoaderPlayground}
+              />
+            </Suspense>
           </ConfigurationProvider>
         </div>
       </DashboardContentLayout>
