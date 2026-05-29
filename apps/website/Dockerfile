@@ -91,7 +91,7 @@ ENV NODE_ENV=production
 RUN bun run --bun next build && bun scripts/generate-sw.ts && bun scripts/baidu-push.ts && bun run preserve
 
 # Runner
-FROM oven/bun:1.3.14-alpine AS runner
+FROM node:26-alpine AS runner
 
 WORKDIR /app
 
