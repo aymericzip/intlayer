@@ -26,31 +26,36 @@ export default {
   future: {
     v8_middleware: true,
   },
-  prerender: async () => {
-    const staticPaths = localeFlatMap(({ urlPrefix }) =>
-      staticRoutes.map((route) => `${urlPrefix}${route}`)
-    );
+  prerender: {
+    paths: async () => {
+      const staticPaths = localeFlatMap(({ urlPrefix }) =>
+        staticRoutes.map((route) => `${urlPrefix}${route}`)
+      );
 
-    const resourcePaths = [...resourceRoutes];
+      const resourcePaths = [...resourceRoutes];
 
-    const docs = await getDocMetadataBySlug([]);
-    const blogs = await getBlogMetadataBySlug([]);
-    const FAQs = await getFrequentQuestionMetadataBySlug([]);
+      const [docs, blogs, FAQs] = await Promise.all([
+        getDocMetadataBySlug([]),
+        getBlogMetadataBySlug([]),
+        getFrequentQuestionMetadataBySlug([]),
+      ]);
 
-    const docPaths = docs.flatMap((doc) => getPathsFromUrl(doc.url));
-    const blogPaths = blogs.flatMap((blog) => getPathsFromUrl(blog.url));
-    const faqPaths = FAQs.flatMap((faq) => getPathsFromUrl(faq.url));
+      const docPaths = docs.flatMap((doc) => getPathsFromUrl(doc.url));
+      const blogPaths = blogs.flatMap((blog) => getPathsFromUrl(blog.url));
+      const faqPaths = FAQs.flatMap((faq) => getPathsFromUrl(faq.url));
 
-    const allPaths = Array.from(
-      new Set([
-        ...staticPaths,
-        ...resourcePaths,
-        ...docPaths,
-        ...blogPaths,
-        ...faqPaths,
-      ])
-    );
+      const allPaths = Array.from(
+        new Set([
+          ...staticPaths,
+          ...resourcePaths,
+          ...docPaths,
+          ...blogPaths,
+          ...faqPaths,
+        ])
+      );
 
-    return allPaths;
+      return allPaths;
+    },
+    unstable_concurrency: 5,
   },
 } satisfies Config;
