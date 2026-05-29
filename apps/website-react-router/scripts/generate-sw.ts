@@ -11,8 +11,18 @@ async function buildSW() {
     // Target the React Router v7 client build output
     globDirectory: 'build/client',
 
-    // Precache Vite-generated assets
-    globPatterns: ['**/*.{js,css,html,ico,png,svg,webp,json}'],
+    // Precache critical application shell assets
+    globPatterns: [
+      'index.html',
+      'manifest.json',
+      'favicon.ico',
+      'logo.svg',
+      'android-chrome-192x192.png',
+      'android-chrome-512x512.png',
+      'assets/root-*.css',
+      'assets/entry.client-*.js',
+      'assets/root-*.js',
+    ],
     globIgnores: ['**/node_modules/**/*', '**/*.map'],
 
     runtimeCaching: [
