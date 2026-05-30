@@ -40,8 +40,9 @@ export const Form = <T extends ZodObject>({
   className,
   children,
   autoComplete,
+  method,
   ...props
-}: FormProps<T>) => {
+}: FormProps<T> & { method?: string }) => {
   const onSubmit = async (values: z.infer<T>) => {
     const parsedValues = schema?.safeParse(values) ?? {
       success: true,
@@ -71,6 +72,7 @@ export const Form = <T extends ZodObject>({
         onSubmit={props.handleSubmit(onSubmit)}
         autoComplete={autoComplete ? 'on' : 'off'}
         noValidate
+        method={method}
       >
         {children}
       </form>

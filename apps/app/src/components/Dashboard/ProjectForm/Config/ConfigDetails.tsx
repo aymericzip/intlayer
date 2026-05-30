@@ -272,7 +272,7 @@ export const ConfigDetails: FC<ConfigDetailsProps> = ({ projectConfig }) => {
             <H4>{editorSection.title}</H4>
             <p className="text-neutral text-xs">{editorSection.description}</p>
           </div>
-          <div className="mt-4 grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-4">
+          <div className="mt-4 grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-4">
             <div className="flex flex-col gap-2">
               <H5>{editorSection.applicationURL.title}</H5>
               <div className="flex">

@@ -245,6 +245,13 @@ export function Layout({
   return (
     <html lang={locale} dir={getHTMLTextDir(locale)} suppressHydrationWarning>
       <head>
+        {/* Preconnect and DNS Prefetch for your first-party backend */}
+        <link
+          rel="preconnect"
+          href={import.meta.env.VITE_BACKEND_URL}
+          crossOrigin=""
+        />
+        <link rel="dns-prefetch" href={import.meta.env.VITE_BACKEND_URL} />
         <meta charSet="utf-8" />
         <meta content="width=device-width, initial-scale=1" name="viewport" />
         <Meta />

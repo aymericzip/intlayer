@@ -1,4 +1,3 @@
-import {} from '@intlayer/design-system/api';
 import { Form, useForm } from '@intlayer/design-system/form';
 import { usePersistedStore } from '@intlayer/design-system/hooks';
 import type { FC, RefObject } from 'react';
@@ -76,6 +75,7 @@ export const SignInForm: FC<SignInFormProps> = ({
         onSubmitSuccess={onSubmitSuccess}
         onSubmitError={onSubmitError}
         autoComplete
+        method="post"
         className="gap-y-0"
         {...form}
       >
