@@ -4,7 +4,6 @@ import {
   getLocalizedUrl,
   getMultilingualUrls,
 } from 'intlayer';
-import { EmailRegistrationToast } from '~/components/EmailRegistrationToast';
 import { LandingPage as LandingPageContent } from '~/components/LandingPage';
 import { PageLayout } from '~/layouts/PageLayout';
 import { OrganizationHeader } from '~/structuredData/OrganizationHeader';
@@ -54,7 +53,6 @@ export default function LandingPage({ loaderData }: Route.ComponentProps) {
 
   return (
     <PageLayout>
-      <EmailRegistrationToast />
       <WebsiteHeader />
       <OrganizationHeader />
       <SoftwareApplicationHeader />

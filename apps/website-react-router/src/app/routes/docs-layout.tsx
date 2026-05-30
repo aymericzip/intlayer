@@ -1,15 +1,10 @@
-import { EmailRegistrationToast } from '~/components/EmailRegistrationToast';
-import { PageLayout } from '~/layouts/PageLayout';
-import { Suspense } from 'react';
 import { Outlet } from 'react-router';
+import { PageLayout } from '~/layouts/PageLayout';
 
 export default function DocsLayout() {
   return (
-    <Suspense>
-      <PageLayout className="bg-card" mobileRollable={false} footer={<></>}>
-        <EmailRegistrationToast />
-        <Outlet />
-      </PageLayout>
-    </Suspense>
+    <PageLayout className="bg-card" mobileRollable={false} footer={<></>}>
+      <Outlet />
+    </PageLayout>
   );
 }
