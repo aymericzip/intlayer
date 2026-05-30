@@ -30,7 +30,7 @@ export const Footer: FC = () => {
   return (
     <UIFooter
       links={links}
-      footerText={isChinese ? '沪ICP备2026000734号-2' : undefined}
+      footerText={isChinese ? '沪ICP备2026006672号-2' : undefined}
     />
   );
 };
