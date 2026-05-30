@@ -1,10 +1,10 @@
 /** biome-ignore-all lint/security/noDangerouslySetInnerHtml: No choice */
 
-import { internationalization } from '@intlayer/config/built';
 import {
   Website_Doc_Search,
   Website_Home,
 } from '@intlayer/design-system/routes';
+import { locales } from 'intlayer';
 import { useIntlayer } from 'react-intlayer';
 
 export const WebsiteHeader = () => {
@@ -20,7 +20,7 @@ export const WebsiteHeader = () => {
       target: `${Website_Doc_Search}?search={search_term_string}`,
       'query-input': 'required name=search_term_string',
     },
-    inLanguage: internationalization.locales,
+    inLanguage: locales,
     keywords: keywords.map((keyword) => keyword.value),
   };
 

@@ -4,26 +4,15 @@ import {
   App_Pricing,
   Website_Home,
 } from '@intlayer/design-system/routes';
-import { cache } from 'react';
-
-/**
- * Fetches pricing dynamically. Cached to run only once per build/request.
- */
-export const getPricing = cache(async () => {
+export const getPricing = async () => {
   try {
-    // Force cache ensures it runs only once at build time in Next.js
-    const pricingDataResponse = await getStripeAPI().getPricing(
-      {},
-      {
-        cache: 'force-cache',
-      }
-    );
+    const pricingDataResponse = await getStripeAPI().getPricing({});
     return pricingDataResponse.data;
   } catch (error) {
     console.error('Failed to fetch pricing:', error);
     return null;
   }
-});
+};
 
 /**
  * Formatter utility to format the pricing data into Schema.org Offer objects.

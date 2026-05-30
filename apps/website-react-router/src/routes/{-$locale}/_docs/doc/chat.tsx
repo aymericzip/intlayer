@@ -1,0 +1,41 @@
+import { Container } from '@intlayer/design-system/container';
+import { H1 } from '@intlayer/design-system/headers';
+import { createFileRoute } from '@tanstack/react-router';
+import { defaultLocale } from 'intlayer';
+import { useIntlayer } from 'react-intlayer';
+import { ChatBot } from '~/components/ChatBot';
+import { DocPageLayout } from '~/components/DocPage/DocPageLayout';
+import { WebsiteHeader } from '~/structuredData/WebsiteHeader';
+
+export const Route = createFileRoute('/{-$locale}/_docs/doc/chat')({
+  loader: ({ params }) => {
+    const locale = params.locale ?? defaultLocale;
+    return { locale };
+  },
+  head: () => ({
+    title: 'Chat with Documentation | Intlayer',
+  }),
+  component: DocumentationChatPage,
+});
+
+function DocumentationChatPage() {
+  const { locale } = Route.useLoaderData();
+  const { title } = useIntlayer('doc-chat-page');
+
+  return (
+    <DocPageLayout locale={locale} displayAsideNavigation={false}>
+      <WebsiteHeader />
+      <div className="flex size-full flex-1 flex-col gap-20 p-10">
+        <H1>{title}</H1>
+        <Container
+          roundedSize="2xl"
+          border
+          padding="lg"
+          className="relative m-auto h-[calc(100vh-100px)] w-full max-w-2xl overflow-hidden"
+        >
+          <ChatBot />
+        </Container>
+      </div>
+    </DocPageLayout>
+  );
+}

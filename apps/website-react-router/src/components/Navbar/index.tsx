@@ -13,11 +13,11 @@ import {
 } from '@intlayer/design-system/routes';
 import { DiscordLogo } from '@intlayer/design-system/social-networks';
 import { TechLogos } from '@intlayer/design-system/tech-logo';
+import { useLocation, useRouter } from '@tanstack/react-router';
 import { Image, StarIcon, VectorSquare } from 'lucide-react';
 import type { FC, MouseEvent } from 'react';
 import { lazy, Suspense } from 'react';
 import { useIntlayer, useLocale } from 'react-intlayer';
-import { useLocation, useRevalidator } from 'react-router-dom';
 import { Link } from '~/components/Link/Link';
 import { LocaleSwitcher } from '~/components/LocaleSwitcher/LocaleSwitcher';
 
@@ -60,7 +60,7 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
   const { pathname } = useLocation();
   const pathWithoutLocale = getPathWithoutLocale(pathname, availableLocales);
   const { isMobile } = useDevice();
-  const revalidator = useRevalidator();
+  const router = useRouter();
   const [hasVisitedApp, setHasVisitedApp] = usePersistedStore<boolean>(
     'hasVisitedApp',
     false
@@ -78,7 +78,7 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
 
   const handleLogOut = () => {
     logout()
-      .then(() => revalidator.revalidate())
+      .then(() => router.invalidate())
       .catch((err) => console.error(err));
   };
 

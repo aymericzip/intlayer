@@ -1,166 +1,574 @@
 {
-  "/_next/static/chunks/0tivjmp.v2gbx.js": {
-    "raw": 30338,
-    "gzip": 9402
-  },
-  "/_next/static/chunks/00dlz.~5g8r4f.js": {
-    "raw": 52201,
-    "gzip": 10843
-  },
-  "/_next/static/chunks/10ao34mmx1kyd.js": {
-    "raw": 226653,
-    "gzip": 71690
-  },
-  "/_next/static/chunks/0~_oqeydg84wj.js": {
-    "raw": 137752,
-    "gzip": 37862
-  },
-  "/_next/static/chunks/turbopack-15fof94ac1im9.js": {
-    "raw": 10624,
-    "gzip": 4202
-  },
-  "/_next/static/chunks/12_-g3~mcl~qb.js": {
-    "raw": 3421,
-    "gzip": 1497
-  },
-  "/_next/static/chunks/063jsjp3~edzl.js": {
-    "raw": 54808,
-    "gzip": 13019
-  },
-  "/_next/static/chunks/0gmro8qqzn2x0.js": {
-    "raw": 27468,
-    "gzip": 8674
-  },
-  "/_next/static/chunks/0.8ve2tqm02o9.js": {
-    "raw": 35280,
-    "gzip": 12442
-  },
-  "/_next/static/chunks/00qwo94iab5-v.js": {
-    "raw": 43497,
-    "gzip": 16395
-  },
-  "/_next/static/chunks/0ks-xa297tsim.js": {
-    "raw": 39833,
-    "gzip": 13743
-  },
-  "/_next/static/chunks/0wk4zd~g7gr0-.js": {
-    "raw": 46139,
-    "gzip": 15209
-  },
-  "/_next/static/chunks/06o.t6e11r-yp.js": {
-    "raw": 8447,
-    "gzip": 3917
-  },
-  "/_next/static/chunks/0c~c-5trptdmz.js": {
-    "raw": 34312,
-    "gzip": 12181
-  },
-  "/_next/static/chunks/0xpxwzd36nstl.js": {
-    "raw": 22011,
-    "gzip": 8519
-  },
-  "/_next/static/chunks/0fezi0~xo00.7.js": {
-    "raw": 16984,
-    "gzip": 6926
-  },
-  "/_next/static/chunks/0w~db9t8gif3o.js": {
-    "raw": 22740,
-    "gzip": 8374
-  },
-  "/_next/static/chunks/05f261vt.g-az.js": {
-    "raw": 25275,
-    "gzip": 9378
-  },
-  "/_next/static/chunks/04ermmc7kz464.js": {
-    "raw": 34237,
-    "gzip": 13240
-  },
-  "/_next/static/chunks/0te4vre~1n.21.js": {
-    "raw": 26332,
-    "gzip": 8562
-  },
-  "/_next/static/chunks/051h7lz9k-3k-.js": {
-    "raw": 65836,
-    "gzip": 23039
-  },
-  "/_next/static/chunks/0fb34g6d1h.5b.js": {
-    "raw": 65236,
-    "gzip": 23020
-  },
-  "/_next/static/chunks/14l7iuwjf4_qk.js": {
-    "raw": 9948,
-    "gzip": 2610
-  },
-  "/_next/static/chunks/0~ihlt6yxpm4x.js": {
-    "raw": 7226461,
-    "gzip": 1110287
-  },
-  "/_next/static/chunks/07yww~-ecraiu.js": {
-    "raw": 48751,
-    "gzip": 14488
-  },
-  "/_next/static/chunks/03~p3i.sp.qpm.js": {
-    "raw": 379825,
-    "gzip": 94831
-  },
-  "/_next/static/chunks/0~esx7to3rg6t.js": {
-    "raw": 70872,
-    "gzip": 28820
-  },
-  "/_next/static/chunks/0ckw6j9e8mz~t.js": {
-    "raw": 50991,
-    "gzip": 17510
-  },
-  "/_next/static/chunks/15t0ccli-h1hv.js": {
-    "raw": 34240,
-    "gzip": 11413
-  },
-  "/_next/static/chunks/17_lo1diytw-1.js": {
-    "raw": 24436,
-    "gzip": 8942
-  },
-  "/_next/static/chunks/0c7882j1ww2a8.js": {
-    "raw": 161358,
-    "gzip": 52156
-  },
-  "/_next/static/chunks/0mg1_3qp5m9.e.js": {
-    "raw": 103237,
-    "gzip": 30977
-  },
-  "/_next/static/chunks/0~bbikrlz2sc3.js": {
-    "raw": 217534,
-    "gzip": 76312
-  },
   "https://analytics.ahrefs.com/analytics.js": {
     "raw": 6947,
     "gzip": 2705
   },
-  "/_next/static/chunks/07yihoaxdd2cs.js": {
-    "raw": 9775,
-    "gzip": 2687
+  "/assets/entry.client-Dlk_Hpn3.js": {
+    "raw": 183290,
+    "gzip": 58080
   },
-  "/_next/static/chunks/15fywie4mni03.js": {
-    "raw": 8756,
-    "gzip": 2834
+  "/assets/chunk-Cyuzqnbw.js": {
+    "raw": 826,
+    "gzip": 471
   },
-  "/_next/static/chunks/0foejb~fhp7a..js": {
-    "raw": 2069,
-    "gzip": 1109
+  "/assets/react-dom-CS572x87.js": {
+    "raw": 3615,
+    "gzip": 1394
   },
-  "/_next/static/chunks/0mngkdapchp46.js": {
-    "raw": 2267,
-    "gzip": 1269
+  "/assets/chunk-QFMPRPBF-G6ndMi1N.js": {
+    "raw": 118690,
+    "gzip": 38880
   },
-  "/_next/static/chunks/052qbk82~su-5.js": {
-    "raw": 974,
-    "gzip": 694
+  "/assets/jsx-runtime-CXk3X59i.js": {
+    "raw": 473,
+    "gzip": 341
   },
-  "/_next/static/chunks/03~yq9q893hmn.js": {
-    "raw": 112594,
-    "gzip": 39961
+  "/assets/react-BUkzSlLQ.js": {
+    "raw": 7564,
+    "gzip": 2916
   },
-  "https://ide.intlayer.org/aymericzip/intlayer-next-16-template?embed=1&amp;file=intlayer.config.ts&amp;theme=undefined&amp;framework=Next.js": {
-    "raw": 1670,
-    "gzip": 659
+  "/assets/preload-helper-zJ_50EbN.js": {
+    "raw": 1193,
+    "gzip": 682
+  },
+  "/assets/root-CO4OcKCv.js": {
+    "raw": 20079,
+    "gzip": 7040
+  },
+  "/assets/Toaster-CtHiqgj5.js": {
+    "raw": 14719,
+    "gzip": 5436
+  },
+  "/assets/IsRestoringProvider-I_972BTR.js": {
+    "raw": 15389,
+    "gzip": 5377
+  },
+  "/assets/mutation-D5pRiE7u.js": {
+    "raw": 3435,
+    "gzip": 1175
+  },
+  "/assets/features-animation-Cq_kBKG-.js": {
+    "raw": 717,
+    "gzip": 453
+  },
+  "/assets/compiler-runtime-DPJxwj-B.js": {
+    "raw": 308,
+    "gzip": 265
+  },
+  "/assets/esm-IkRlZ3V6.js": {
+    "raw": 13784,
+    "gzip": 5289
+  },
+  "/assets/getHTMLTextDir-C8-9aPEx.js": {
+    "raw": 362,
+    "gzip": 271
+  },
+  "/assets/usePersistedStore-DfjrxLAQ.js": {
+    "raw": 1292,
+    "gzip": 710
+  },
+  "/assets/dist-CRqSt0dy.js": {
+    "raw": 9947,
+    "gzip": 3770
+  },
+  "/assets/dist-sgRkP_i3.js": {
+    "raw": 2130,
+    "gzip": 965
+  },
+  "/assets/dist-BlKQxgFq.js": {
+    "raw": 680,
+    "gzip": 431
+  },
+  "/assets/cn-SXa2TCS8.js": {
+    "raw": 27287,
+    "gzip": 8728
+  },
+  "/assets/x-68znAk18.js": {
+    "raw": 193,
+    "gzip": 186
+  },
+  "/assets/createLucideIcon-DhPyH9tq.js": {
+    "raw": 1461,
+    "gzip": 834
+  },
+  "/assets/is-svg-component-DzvstPt2.js": {
+    "raw": 31914,
+    "gzip": 11597
+  },
+  "/assets/gestures-DLPtQuJu.js": {
+    "raw": 39316,
+    "gzip": 14958
+  },
+  "/assets/getDictionary-DQ1BARGd.js": {
+    "raw": 11439,
+    "gzip": 4450
+  },
+  "/assets/MarkdownProvider-BR_daTod.js": {
+    "raw": 23592,
+    "gzip": 8892
+  },
+  "/assets/docs-layout-DirzbIai.js": {
+    "raw": 697,
+    "gzip": 451
+  },
+  "/assets/EmailRegistrationToast-BYZTY02Z.js": {
+    "raw": 6040,
+    "gzip": 2808
+  },
+  "/assets/PageLayout-C_zTzz7W.js": {
+    "raw": 20328,
+    "gzip": 7274
+  },
+  "/assets/useIntlayerAPI-HOa4A9bB.js": {
+    "raw": 59275,
+    "gzip": 18959
+  },
+  "/assets/schemas-A7U3MnrR.js": {
+    "raw": 143523,
+    "gzip": 44821
+  },
+  "/assets/useUser-Nv1JOfxo.js": {
+    "raw": 1066,
+    "gzip": 614
+  },
+  "/assets/Container-BxYBXudn.js": {
+    "raw": 2972,
+    "gzip": 1124
+  },
+  "/assets/useQuery-f4V9nUgq.js": {
+    "raw": 8855,
+    "gzip": 3274
+  },
+  "/assets/ConfigurationContext-CaITsDX-.js": {
+    "raw": 1131,
+    "gzip": 622
+  },
+  "/assets/Select-B6kjly9Y.js": {
+    "raw": 64330,
+    "gzip": 22813
+  },
+  "/assets/check-DXf0x1Xr.js": {
+    "raw": 167,
+    "gzip": 174
+  },
+  "/assets/eye-off-C-4n3_Ig.js": {
+    "raw": 475,
+    "gzip": 312
+  },
+  "/assets/eye-DbRkIA2M.js": {
+    "raw": 297,
+    "gzip": 240
+  },
+  "/assets/minus-BsWPGVLI.js": {
+    "raw": 160,
+    "gzip": 170
+  },
+  "/assets/pencil-C5FUQqLa.js": {
+    "raw": 320,
+    "gzip": 262
+  },
+  "/assets/Button-DzTNVEi3.js": {
+    "raw": 6247,
+    "gzip": 2161
+  },
+  "/assets/Checkbox-CAHopnOt.js": {
+    "raw": 2638,
+    "gzip": 1069
+  },
+  "/assets/Input-Cta137oJ.js": {
+    "raw": 1230,
+    "gzip": 645
+  },
+  "/assets/Label-DrqA_H68.js": {
+    "raw": 592,
+    "gzip": 401
+  },
+  "/assets/SwitchSelector-BOVGqeI0.js": {
+    "raw": 4965,
+    "gzip": 2296
+  },
+  "/assets/useItemSelector-CuWtEoml.js": {
+    "raw": 2979,
+    "gzip": 1307
+  },
+  "/assets/Loader-DL6KYs5L.js": {
+    "raw": 2025,
+    "gzip": 747
+  },
+  "/assets/Link-Cda0-oK8.js": {
+    "raw": 2636,
+    "gzip": 1471
+  },
+  "/assets/fuse-CexWHJmK.js": {
+    "raw": 23889,
+    "gzip": 8520
+  },
+  "/assets/DropDown-YfpU9WH_.js": {
+    "raw": 1734,
+    "gzip": 874
+  },
+  "/assets/Avatar-CZnzf7LC.js": {
+    "raw": 3112,
+    "gzip": 1526
+  },
+  "/assets/dist-B2gIsmm2.js": {
+    "raw": 3346,
+    "gzip": 1502
+  },
+  "/assets/getLocalizedUrl-81QakrSy.js": {
+    "raw": 2629,
+    "gzip": 1194
+  },
+  "/assets/getLocaleName-DaxGwke6.js": {
+    "raw": 179,
+    "gzip": 175
+  },
+  "/assets/techLogos-Dk8SI_0_.js": {
+    "raw": 3189,
+    "gzip": 1523
+  },
+  "/assets/Navbar-8AfqgZNB.js": {
+    "raw": 54956,
+    "gzip": 18635
+  },
+  "/assets/MarkDownRender-AENuu2OR.js": {
+    "raw": 11489,
+    "gzip": 4716
+  },
+  "/assets/SocialNetworks-DZggxlvs.js": {
+    "raw": 8445,
+    "gzip": 3398
+  },
+  "/assets/useDevice-YoTLu3KX.js": {
+    "raw": 1558,
+    "gzip": 853
+  },
+  "/assets/routes-CzZilZmk.js": {
+    "raw": 4510,
+    "gzip": 1567
+  },
+  "/assets/esm-C_pBjNfu.js": {
+    "raw": 10923,
+    "gzip": 4557
+  },
+  "/assets/Link-BFlY7lcM.js": {
+    "raw": 5419,
+    "gzip": 2012
+  },
+  "/assets/MaxHeightSmoother-BwP05cSH.js": {
+    "raw": 847,
+    "gzip": 478
+  },
+  "/assets/intl-GhJnHNta.js": {
+    "raw": 795,
+    "gzip": 391
+  },
+  "/assets/Adonis-3OsR7PPE.js": {
+    "raw": 1472,
+    "gzip": 689
+  },
+  "/assets/Angular-BC4EgnSV.js": {
+    "raw": 814,
+    "gzip": 471
+  },
+  "/assets/Anthropic-BJH9SZVg.js": {
+    "raw": 657,
+    "gzip": 435
+  },
+  "/assets/Astro-DPlTC3FP.js": {
+    "raw": 2556,
+    "gzip": 1016
+  },
+  "/assets/Bitbucket-BY0dkIbc.js": {
+    "raw": 1148,
+    "gzip": 691
+  },
+  "/assets/ChatGPT-CETw36zH.js": {
+    "raw": 1950,
+    "gzip": 1079
+  },
+  "/assets/Claude-Cu5DvEyC.js": {
+    "raw": 2132,
+    "gzip": 1186
+  },
+  "/assets/DeepSeek-BlxS71He.js": {
+    "raw": 2324,
+    "gzip": 1288
+  },
+  "/assets/Express-BaD1Q-5d.js": {
+    "raw": 1265,
+    "gzip": 793
+  },
+  "/assets/Fastify-CogLc5Mn.js": {
+    "raw": 1445,
+    "gzip": 878
+  },
+  "/assets/Gemini-sGnOpWgX.js": {
+    "raw": 433,
+    "gzip": 321
+  },
+  "/assets/GitHub-DKgvJJrV.js": {
+    "raw": 1442,
+    "gzip": 795
+  },
+  "/assets/GitLab-DkzLI83H.js": {
+    "raw": 1088,
+    "gzip": 542
+  },
+  "/assets/Google-nzWVLA6O.js": {
+    "raw": 561,
+    "gzip": 427
+  },
+  "/assets/GoogleAI-Bj8GkYS4.js": {
+    "raw": 721,
+    "gzip": 508
+  },
+  "/assets/Grok-DLKin4iR.js": {
+    "raw": 887,
+    "gzip": 605
+  },
+  "/assets/Hono-r9SumLFT.js": {
+    "raw": 1127,
+    "gzip": 725
+  },
+  "/assets/LinkedIn-D2Hf-bgk.js": {
+    "raw": 1251,
+    "gzip": 624
+  },
+  "/assets/Lit-BMYIFGP-.js": {
+    "raw": 668,
+    "gzip": 436
+  },
+  "/assets/Lynx-CfGN3b93.js": {
+    "raw": 2154,
+    "gzip": 1186
+  },
+  "/assets/Mistral-CBFbGQMl.js": {
+    "raw": 551,
+    "gzip": 377
+  },
+  "/assets/NestJS-CwvUJHRp.js": {
+    "raw": 11816,
+    "gzip": 4497
+  },
+  "/assets/Nextjs-DQ3uFxyA.js": {
+    "raw": 2586,
+    "gzip": 1415
+  },
+  "/assets/Node-CVXfH7Sm.js": {
+    "raw": 3045,
+    "gzip": 969
+  },
+  "/assets/Nuxt-DPMnsq9i.js": {
+    "raw": 1531,
+    "gzip": 821
+  },
+  "/assets/Ollama-CGISf5zo.js": {
+    "raw": 595,
+    "gzip": 386
+  },
+  "/assets/OpenAI-OWC5ATBz.js": {
+    "raw": 1843,
+    "gzip": 1026
+  },
+  "/assets/Perplexity-BVNt9DdR.js": {
+    "raw": 1001,
+    "gzip": 588
+  },
+  "/assets/Preact-BMceqpAD.js": {
+    "raw": 702,
+    "gzip": 400
+  },
+  "/assets/Reactjs-CZjoBs9-.js": {
+    "raw": 2858,
+    "gzip": 1487
+  },
+  "/assets/Solid-DgzB-tho.js": {
+    "raw": 2771,
+    "gzip": 904
+  },
+  "/assets/Svelte-BGucMPnw.js": {
+    "raw": 1715,
+    "gzip": 905
+  },
+  "/assets/Tanstack-DagqfueU.js": {
+    "raw": 10842,
+    "gzip": 5529
+  },
+  "/assets/Vanilla-BAWjAIZO.js": {
+    "raw": 1228,
+    "gzip": 753
+  },
+  "/assets/Vitejs-DI_hO3Ua.js": {
+    "raw": 1819,
+    "gzip": 995
+  },
+  "/assets/Vuejs-CMGYn8p1.js": {
+    "raw": 708,
+    "gzip": 427
+  },
+  "/assets/proxy-DCCPgEtD.js": {
+    "raw": 110,
+    "gzip": 122
+  },
+  "/assets/Modal-C6M4GZvm.js": {
+    "raw": 5225,
+    "gzip": 2307
+  },
+  "/assets/TabSelector-BEHq8EO1.js": {
+    "raw": 2062,
+    "gzip": 992
+  },
+  "/assets/create-proxy-BfxbB1is.js": {
+    "raw": 7408,
+    "gzip": 3225
+  },
+  "/assets/proxy-DenVfziG.js": {
+    "raw": 45031,
+    "gzip": 13440
+  },
+  "/assets/Headers-Dv0MJfKr.js": {
+    "raw": 2370,
+    "gzip": 1007
+  },
+  "/assets/resize-B0wrVRb1.js": {
+    "raw": 1118,
+    "gzip": 611
+  },
+  "/assets/Code-GgbUfUJS.js": {
+    "raw": 10923,
+    "gzip": 3508
+  },
+  "/assets/SmartTable-Uuk-3z3P.js": {
+    "raw": 4881,
+    "gzip": 2084
+  },
+  "/assets/CopyButton-CMwczEMF.js": {
+    "raw": 2733,
+    "gzip": 1193
+  },
+  "/assets/ExpandCollapse-BENTYJuD.js": {
+    "raw": 2535,
+    "gzip": 1093
+  },
+  "/assets/CodeBlockClient-CmhEjYj4.js": {
+    "raw": 1413,
+    "gzip": 687
+  },
+  "/assets/dynamic-DE5od98f.js": {
+    "raw": 3541,
+    "gzip": 1462
+  },
+  "/assets/doc-page-DWYCwxQs.js": {
+    "raw": 4245,
+    "gzip": 2074
+  },
+  "/assets/DocPageLayout-BdRVL4t1.js": {
+    "raw": 1977537,
+    "gzip": 252531
+  },
+  "/assets/DocPageNavigation-DVFQr4RY.js": {
+    "raw": 34842,
+    "gzip": 9674
+  },
+  "/assets/DocumentationRender-DFcURFD3.js": {
+    "raw": 8764,
+    "gzip": 3652
+  },
+  "/assets/CreativeWorkHeader-DxIgVs59.js": {
+    "raw": 2799,
+    "gzip": 1292
+  },
+  "/assets/OrganizationHeader-CRZKFFY4.js": {
+    "raw": 2482,
+    "gzip": 1143
+  },
+  "/assets/WebsiteHeader-Dn4QfbLR.js": {
+    "raw": 2317,
+    "gzip": 1055
+  },
+  "/assets/SoftwareApplication-gaggLTHq.js": {
+    "raw": 1763,
+    "gzip": 968
+  },
+  "/assets/getMultilingualUrls-Dz1j_NG0.js": {
+    "raw": 217,
+    "gzip": 204
+  },
+  "/assets/DocNavList-DWTdHAcx.js": {
+    "raw": 3532246,
+    "gzip": 410851
+  },
+  "/assets/ClickOutsideDiv-Dj8D0FKZ.js": {
+    "raw": 7868,
+    "gzip": 3214
+  },
+  "/assets/ChatBot-Ds8dRGxQ.js": {
+    "raw": 76467,
+    "gzip": 24979
+  },
+  "/assets/chatbot-modal-CqAYg1a2.js": {
+    "raw": 1260,
+    "gzip": 425
+  },
+  "/assets/useTitlesTree-BlBXVUvL.js": {
+    "raw": 2598,
+    "gzip": 1083
+  },
+  "/assets/arrow-right-DBdv2JFw.js": {
+    "raw": 214,
+    "gzip": 197
+  },
+  "/assets/bot-A6T0zvyj.js": {
+    "raw": 369,
+    "gzip": 265
+  },
+  "/assets/HeightResizer-BdmZshJF.js": {
+    "raw": 2509,
+    "gzip": 1134
+  },
+  "/assets/KeyboardShortcut-DfbuM_MT.js": {
+    "raw": 3727,
+    "gzip": 1787
+  },
+  "/assets/TechLogo-CuS-SZTW.js": {
+    "raw": 6812,
+    "gzip": 2210
+  },
+  "/assets/useSearch-CDrQJPPq.js": {
+    "raw": 1156,
+    "gzip": 701
+  },
+  "/assets/chevron-right-CnP1RbHq.js": {
+    "raw": 181,
+    "gzip": 176
+  },
+  "/assets/info-Cjpej0vR.js": {
+    "raw": 246,
+    "gzip": 216
+  },
+  "/assets/ai-BdpUetEr.js": {
+    "raw": 895,
+    "gzip": 361
+  },
+  "/assets/Tag-O5KvX6VU.js": {
+    "raw": 2415,
+    "gzip": 993
+  },
+  "/assets/chevron-left-_2nPK1OB.js": {
+    "raw": 180,
+    "gzip": 181
+  },
+  "/assets/globe-y-68TkMz.js": {
+    "raw": 285,
+    "gzip": 230
+  },
+  "/assets/languages-BQTdIJRP.js": {
+    "raw": 363,
+    "gzip": 256
+  },
+  "/assets/software-application-structured-data-BgW2oHMo.js": {
+    "raw": 1414,
+    "gzip": 519
   }
 }

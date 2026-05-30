@@ -7,6 +7,7 @@ import { useSearch } from '@intlayer/design-system/hooks';
 import { Input } from '@intlayer/design-system/input';
 import { Loader } from '@intlayer/design-system/loader';
 import type { BlogMetadata, DocMetadata } from '@intlayer/docs';
+import { useLocation, useNavigate } from '@tanstack/react-router';
 import Fuse, { type IFuseOptions } from 'fuse.js';
 import { getIntlayer } from 'intlayer';
 import { ArrowRight, Search } from 'lucide-react';
@@ -20,7 +21,6 @@ import {
   useState,
 } from 'react';
 import { useIntlayer, useLocale } from 'react-intlayer';
-import { useNavigate as useRouter, useSearchParams } from 'react-router-dom';
 import { Link } from '~/components/Link/Link';
 
 // Fuse.js options
@@ -116,9 +116,9 @@ const SearchViewContent: FC<{
   isOpen?: boolean;
 }> = ({ onClickLink = () => {}, isOpen = false }) => {
   const inputRef = useRef<HTMLInputElement>(null);
-  const router = useRouter();
-  const [searchParams] = useSearchParams();
-  const searchQueryParam = searchParams.get('search');
+  const navigate = useNavigate();
+  const location = useLocation();
+  const searchQueryParam = new URLSearchParams(location.search).get('search');
   const [selectedIndex, setSelectedIndex] = useState<number>(-1);
   const [frontendResults, setFrontendResults] = useState<DocMetadata[]>([]);
 
@@ -206,10 +206,10 @@ const SearchViewContent: FC<{
   const handleNavigate = useCallback(
     (doc: DocMetadata) => {
       const href = doc.url.replace(import.meta.env.VITE_URL ?? '', '');
-      router(href);
+      navigate({ to: href });
       onClickLink();
     },
-    [router, onClickLink]
+    [navigate, onClickLink]
   );
 
   // Handle keyboard navigation

@@ -7,31 +7,37 @@ import {
   linkVariants,
 } from '@intlayer/design-system/link';
 import { cn } from '@intlayer/design-system/utils';
+import {
+  Link as TanStackLink,
+  type LinkProps as TanStackLinkProps,
+} from '@tanstack/react-router';
 import { ExternalLink } from 'lucide-react';
 import type { FC } from 'react';
 import { useLocale } from 'react-intlayer';
-import {
-  Link as ReactRouterLink,
-  type LinkProps as ReactRouterLinkProps,
-} from 'react-router';
 
-export type LinkProps = LinkUIProps & ReactRouterLinkProps;
+export type LinkProps = LinkUIProps &
+  Omit<TanStackLinkProps, 'to'> & {
+    to?: string | { pathname?: string; search?: string };
+  };
 
 const URL = import.meta.env.VITE_URL;
 
 interface LinkInfo {
   isExternalLink: boolean;
   isAsset: boolean;
-  href: ReactRouterLinkProps['to'];
+  href: string;
 }
 
 const getLinkInfo = (
-  toProp: ReactRouterLinkProps['to'],
+  toProp: string | { pathname?: string; search?: string } | undefined,
   locale: string | undefined,
   isExternalLinkProp: boolean | undefined
 ): LinkInfo => {
-  // Normalize internal links: convert https://intlayer.org/xxx to /xxx
-  let normalizedHref = toProp;
+  let normalizedHref:
+    | string
+    | { pathname?: string; search?: string }
+    | undefined = toProp;
+
   if (typeof toProp === 'string' && URL && toProp.startsWith(URL)) {
     normalizedHref = toProp.replace(URL, '') || '/';
   } else if (
@@ -54,7 +60,6 @@ const getLinkInfo = (
         ? normalizedHref.pathname
         : undefined;
 
-  // Check if external link or asset using normalized href
   const isExternalLink =
     isExternalLinkProp ??
     (typeof pathnameString === 'string'
@@ -77,18 +82,12 @@ const getLinkInfo = (
         : typeof normalizedHref === 'object' &&
             normalizedHref !== null &&
             typeof pathnameString === 'string'
-          ? {
-              ...normalizedHref,
-              pathname: getLocalizedUrl(pathnameString, locale),
-            }
-          : normalizedHref
-      : normalizedHref;
+          ? getLocalizedUrl(pathnameString, locale)
+          : (pathnameString ?? '/')
+      : (pathnameString ??
+        (typeof normalizedHref === 'string' ? normalizedHref : '/'));
 
-  return {
-    isExternalLink,
-    isAsset,
-    href: href as ReactRouterLinkProps['to'],
-  };
+  return { isExternalLink, isAsset, href };
 };
 
 export const Link: FC<LinkProps> = (props) => {
@@ -101,7 +100,6 @@ export const Link: FC<LinkProps> = (props) => {
     isActive,
     underlined,
     locale: localeProp,
-    prefetch,
     isExternalLink: isExternalLinkProp,
     to: toProp,
     roundedSize,
@@ -122,17 +120,42 @@ export const Link: FC<LinkProps> = (props) => {
     variant === LinkVariant.BUTTON || variant === LinkVariant.BUTTON_OUTLINED;
 
   const rel = isExternalLink ? 'noopener noreferrer' : undefined;
-
   const target = isExternalLink ? '_blank' : '_self';
 
+  if (isAsset) {
+    return (
+      <a
+        href={href}
+        aria-label={label}
+        rel={rel}
+        target={target}
+        aria-current={isActive ? 'page' : undefined}
+        className={cn(
+          linkVariants({
+            variant,
+            color,
+            underlined,
+            roundedSize,
+            size,
+            className,
+          })
+        )}
+        {...(otherProps as any)}
+      >
+        {isButton && isChildrenString ? <span>{children}</span> : children}
+        {isExternalLink && isChildrenString && (
+          <ExternalLink className="ml-2 inline-block size-4" />
+        )}
+      </a>
+    );
+  }
+
   return (
-    <ReactRouterLink
+    <TanStackLink
       aria-label={label}
       rel={rel}
       target={target}
-      reloadDocument={isAsset}
       aria-current={isActive ? 'page' : undefined}
-      prefetch={isExternalLink || isAsset ? undefined : (prefetch ?? 'intent')}
       className={cn(
         linkVariants({
           variant,
@@ -143,14 +166,13 @@ export const Link: FC<LinkProps> = (props) => {
           className,
         })
       )}
-      {...otherProps}
+      {...(otherProps as any)}
       to={href}
     >
       {isButton && isChildrenString ? <span>{children}</span> : children}
-
       {isExternalLink && isChildrenString && (
         <ExternalLink className="ml-2 inline-block size-4" />
       )}
-    </ReactRouterLink>
+    </TanStackLink>
   );
 };

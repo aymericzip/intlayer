@@ -1,0 +1,186 @@
+import { Website_Doc_Path } from '@intlayer/design-system/routes';
+import {
+  type DocKey,
+  getDoc,
+  getDocMetadata,
+  getDocMetadataBySlug,
+} from '@intlayer/docs';
+import { createFileRoute, redirect } from '@tanstack/react-router';
+import { defaultLocale, getLocalizedUrl, localeMap } from 'intlayer';
+import { parseMarkdown } from 'react-intlayer/markdown';
+import { DocHeader } from '~/components/DocPage/DocHeader/DocHeader';
+import { DocPageLayout } from '~/components/DocPage/DocPageLayout';
+import {
+  DocPageNavigation,
+  type DocPageNavigationProps,
+} from '~/components/DocPage/DocPageNavigation/DocPageNavigation';
+import { DocumentationRender } from '~/components/DocPage/DocumentationRender';
+import { getPreviousNextDocMetadata } from '~/components/DocPage/docData';
+import { BreadcrumbsHeader } from '~/structuredData/BreadcrumbsHeader';
+import { CreativeWorkHeader } from '~/structuredData/CreativeWorkHeader';
+import { OrganizationHeader } from '~/structuredData/OrganizationHeader';
+import { SoftwareApplicationHeader } from '~/structuredData/SoftwareApplication';
+import { WebsiteHeader } from '~/structuredData/WebsiteHeader';
+import { urlRenamer } from '~/utils/markdown';
+
+export const Route = createFileRoute('/{-$locale}/_docs/doc/$')({
+  loader: async ({ params }) => {
+    const locale = (params.locale as string) ?? defaultLocale;
+    const slugsStr = (params as any)['*'] || '';
+    const slugs = slugsStr ? slugsStr.split('/') : [];
+
+    const isMd = slugsStr.endsWith('.md');
+    if (isMd) {
+      const cleanSlug = slugsStr.slice(0, -3);
+      throw redirect({
+        to: getLocalizedUrl(`/doc/raw/${cleanSlug}`, locale) as any,
+        statusCode: 301,
+      });
+    }
+
+    const docsData = await getDocMetadataBySlug(
+      ['doc', ...slugs],
+      locale,
+      true
+    );
+
+    const exactMatch = docsData.find(
+      (doc) => doc.slugs.join('/') === ['doc', ...slugs].join('/')
+    );
+
+    if (!exactMatch) {
+      if (docsData.length > 0) {
+        throw redirect({ to: getLocalizedUrl(docsData[0].url, locale) as any });
+      }
+      throw redirect({ to: getLocalizedUrl(Website_Doc_Path, locale) as any });
+    }
+
+    const docData = exactMatch;
+    const { prevDocData, nextDocData } = getPreviousNextDocMetadata(
+      docData.docKey as DocKey,
+      locale
+    );
+    const defaultDocData = await getDocMetadata(docData.docKey as DocKey);
+
+    const file = await getDoc(docData?.docKey as DocKey, locale);
+    const docContent = urlRenamer(file, locale);
+    const docParsed = parseMarkdown(docContent);
+
+    const nextDoc: DocPageNavigationProps['nextDoc'] = nextDocData?.docs
+      ? {
+          title: nextDocData.title,
+          url: getLocalizedUrl(nextDocData.docs.relativeUrl, locale),
+        }
+      : undefined;
+    const prevDoc: DocPageNavigationProps['prevDoc'] = prevDocData?.docs
+      ? {
+          title: prevDocData.title,
+          url: getLocalizedUrl(prevDocData.docs.relativeUrl, locale),
+        }
+      : undefined;
+
+    return {
+      locale,
+      slugs,
+      docData,
+      defaultDocData,
+      docContent,
+      docParsed,
+      nextDoc,
+      prevDoc,
+    };
+  },
+  head: ({ loaderData }) => {
+    if (!loaderData?.docData) return {};
+    const { docData, locale } = loaderData;
+    const absoluteUrl = docData.url;
+
+    return {
+      title: `${docData.title} | Intlayer`,
+      meta: [
+        { name: 'description', content: docData.description },
+        {
+          name: 'keywords',
+          content: Array.isArray(docData.keywords)
+            ? docData.keywords.join(', ')
+            : docData.keywords || '',
+        },
+        { property: 'og:url', content: getLocalizedUrl(absoluteUrl, locale) },
+        { property: 'og:title', content: `${docData.title} | Intlayer` },
+        { property: 'og:description', content: docData.description },
+      ],
+      links: [
+        { rel: 'canonical', href: getLocalizedUrl(absoluteUrl, locale) },
+        { rel: 'alternate', hrefLang: 'x-default', href: absoluteUrl },
+        ...localeMap(({ locale: mapLocale }) => ({
+          rel: 'alternate',
+          hrefLang: mapLocale,
+          href: getLocalizedUrl(absoluteUrl, mapLocale),
+        })),
+      ],
+    };
+  },
+  component: DocumentationPage,
+});
+
+function DocumentationPage() {
+  const loaderData = Route.useLoaderData();
+
+  if (
+    !loaderData ||
+    typeof loaderData !== 'object' ||
+    !('docData' in loaderData)
+  ) {
+    return null;
+  }
+
+  const {
+    locale,
+    slugs,
+    docData,
+    defaultDocData,
+    docContent,
+    docParsed,
+    nextDoc,
+    prevDoc,
+  } = loaderData;
+
+  if (!docData || !defaultDocData) return null;
+
+  const breadcrumbs = [
+    { name: 'Home', url: '/' },
+    { name: 'Docs', url: Website_Doc_Path },
+    { name: docData.title, url: docData.url },
+  ];
+
+  return (
+    <DocPageLayout activeSlugs={slugs} locale={locale}>
+      <WebsiteHeader key={locale} />
+      <OrganizationHeader />
+      <SoftwareApplicationHeader />
+      <BreadcrumbsHeader breadcrumbs={breadcrumbs} />
+      <CreativeWorkHeader
+        type="TechArticle"
+        creativeWorkName={docData.title}
+        creativeWorkDescription={docData.description}
+        creativeWorkContent={docContent}
+        keywords={
+          Array.isArray(docData.keywords)
+            ? docData.keywords.join(', ')
+            : docData.keywords || ''
+        }
+        dateModified={new Date(docData.updatedAt)}
+        datePublished={new Date(docData.createdAt)}
+        url={docData.url}
+      />
+      <DocHeader
+        {...docData}
+        markdownContent={docContent}
+        baseUpdatedAt={defaultDocData.updatedAt}
+        history={docData.history ?? []}
+      />
+      <DocumentationRender>{docParsed}</DocumentationRender>
+      <DocPageNavigation nextDoc={nextDoc} prevDoc={prevDoc} />
+    </DocPageLayout>
+  );
+}

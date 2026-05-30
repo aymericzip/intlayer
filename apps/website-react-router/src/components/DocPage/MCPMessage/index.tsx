@@ -1,9 +1,9 @@
-import { Link } from '~/components/Link/Link';
 import { PopoverStatic } from '@intlayer/design-system/popover';
 import { Website_Doc, Website_Doc_MCP } from '@intlayer/design-system/routes';
+import { useLocation } from '@tanstack/react-router';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { useLocation } from 'react-router-dom';
+import { Link } from '~/components/Link/Link';
 import { McpLogo } from './McpLogo';
 
 export const MCPMessage: FC = () => {

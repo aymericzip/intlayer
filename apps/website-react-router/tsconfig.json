@@ -1,34 +1,32 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
-  "extends": "@utils/ts-config",
   "compilerOptions": {
-    "lib": ["dom", "dom.iterable", "esnext", "webworker"],
+    "target": "ES2022",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "allowJs": true,
-    "skipLibCheck": false,
+    "skipLibCheck": true,
     "strict": true,
     "noEmit": true,
     "esModuleInterop": true,
-    "module": "esnext",
+    "module": "ESNext",
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "react-jsx",
-    "rootDirs": [".", "./.react-router/types"],
     "incremental": true,
     "downlevelIteration": true,
     "types": ["node", "vite/client"],
     "paths": {
       "~/*": ["./src/*"]
-    }
+    },
+    "verbatimModuleSyntax": false
   },
   "include": [
-    "**/*",
-    "**/.server/**/*",
-    "**/.client/**/*",
-    ".react-router/types/**/*",
+    "**/*.ts",
+    "**/*.tsx",
     ".intlayer/**/*.ts",
     ".intlayer/types/**/*.ts",
     "../../packages/@intlayer/design-system/src/components/LanguageSection"
   ],
-  "exclude": ["node_modules", ".react-router", "build", "public/sw.js"]
+  "exclude": ["node_modules", "build", ".output", "public/sw.js"]
 }
