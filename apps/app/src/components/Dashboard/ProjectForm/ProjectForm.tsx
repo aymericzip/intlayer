@@ -139,7 +139,7 @@ export const ProjectFormContent: FC = () => {
           className="w-full"
         >
           {!project.imageUrl ? (
-            <div className="flex w-full flex-col gap-6 md:flex-row md:items-center md:justify-between">
+            <div className="flex w-full flex-col gap-12 md:flex-row md:items-center md:justify-between">
               {nameAndUsers}
               {repositoryInfo}
             </div>
