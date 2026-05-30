@@ -124,7 +124,7 @@
     "react-intlayer": "workspace:*",
     "react-router-dom": "7.15.0",
     "tailwindcss": "4.3.0",
-    "tsdown": "0.22.00",
+    "tsdown": "0.22.1",
     "typescript": "6.0.3",
     "vite": "8.0.14",
     "vite-intlayer": "workspace:*",
