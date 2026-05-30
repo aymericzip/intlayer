@@ -144,7 +144,7 @@ export const ProjectFormContent: FC = () => {
               {repositoryInfo}
             </div>
           ) : (
-            <div className="flex w-full flex-col gap-6 md:flex-row md:items-center">
+            <div className="flex w-full flex-col gap-12 md:flex-row md:items-center">
               {projectImage}
               <div className="flex h-full flex-1 flex-col justify-between gap-4">
                 {nameAndUsers}

@@ -463,36 +463,36 @@ export const askDocQuestion = async (
   let aiConfig: AIConfig;
 
   // Wrap EVERYTHING in a main try/catch block
+  // Auth Check
   try {
-    // Auth Check
-    try {
-      aiConfig = await getAIConfig(
-        {
-          userOptions: {
-            temperature: 0.2,
-          },
-          projectOptions: projectAIOptions,
-          accessType: ['public'],
+    aiConfig = await getAIConfig(
+      {
+        userOptions: {
+          temperature: 0.2,
         },
-        !!user
-      );
-    } catch (error) {
-      console.error(error);
+        projectOptions: projectAIOptions,
+        accessType: ['public'],
+      },
+      !!user
+    );
+  } catch (error) {
+    console.error(error);
 
-      // Manually handle this specific error case
-      const errorPayload = {
-        code: 'AI_ACCESS_DENIED',
-        title: 'Access Denied',
-        message: 'Unable to configure AI access.',
-      };
-      reply.raw.write(
-        `event: error\ndata: ${JSON.stringify(errorPayload)}\n\n`
-      );
+    // Manually handle this specific error case
+    const errorPayload = {
+      code: 'AI_ACCESS_DENIED',
+      title: 'Access Denied',
+      message: 'Unable to configure AI access.',
+    };
+    reply.raw.write(`event: error\ndata: ${JSON.stringify(errorPayload)}\n\n`);
 
-      reply.raw.end();
-      return;
-    }
+    reply.raw.end();
+    return;
+  }
 
+  console.log({ projectAIOptions, aiConfig });
+
+  try {
     // Set Stream Headers & Flush
     reply.raw.setHeader('Content-Type', 'text/event-stream; charset=utf-8');
     reply.raw.setHeader('Cache-Control', 'no-cache, no-transform');

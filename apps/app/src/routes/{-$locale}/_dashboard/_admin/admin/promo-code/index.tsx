@@ -1,4 +1,4 @@
-import { App_Admin_PromoCodes_Path } from '@intlayer/design-system/routes';
+import { App_Admin_PromoCodes } from '@intlayer/design-system/routes';
 import { createFileRoute } from '@tanstack/react-router';
 import { defaultLocale, getLocalizedUrl, localeMap } from 'intlayer';
 import { PromoCodesAdminPage } from '#components/Dashboard/AdminPage/AdminPromoCodes/PromoCodesAdminPage';
@@ -9,7 +9,7 @@ export const Route = createFileRoute(
   component: PromoCodeAdminPage,
   head: ({ params }) => {
     const { locale } = params;
-    const path = App_Admin_PromoCodes_Path;
+    const path = App_Admin_PromoCodes;
 
     return {
       links: [

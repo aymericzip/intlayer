@@ -1,5 +1,5 @@
 import { Container } from '@intlayer/design-system/container';
-import { App_Affiliation_Path } from '@intlayer/design-system/routes';
+import { App_Affiliation } from '@intlayer/design-system/routes';
 import { createFileRoute } from '@tanstack/react-router';
 import {
   defaultLocale,
@@ -16,7 +16,7 @@ export const Route = createFileRoute('/{-$locale}/_other/affiliation/')({
   component: AffiliateDashboardPage,
   head: ({ params }) => {
     const { locale } = params;
-    const path = App_Affiliation_Path;
+    const path = App_Affiliation;
     const content = getIntlayer('affiliation-page', locale);
 
     return {

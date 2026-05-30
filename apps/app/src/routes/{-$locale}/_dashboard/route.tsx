@@ -7,6 +7,7 @@ import {
   App_Dashboard_IDE_Path,
   App_Dashboard_Organization_Path,
   App_Dashboard_Projects_Path,
+  App_Dashboard_Scanner_Path,
   App_Dashboard_Tags_Path,
   App_Dashboard_Translate_Path,
 } from '@intlayer/design-system/routes';
@@ -135,6 +136,13 @@ function DashboardLayout() {
           title: navigation.tags.title.value,
         },
       ],
+    },
+    {
+      key: 'scanner',
+      href: App_Dashboard_Scanner_Path,
+      icon: 'ScanLine',
+      label: navigation.scanner.label.value,
+      title: navigation.scanner.title.value,
     },
     {
       key: 'ide',

@@ -32,6 +32,7 @@ import {
   type LucideIcon,
   MessageSquare,
   PenTool,
+  ScanLine,
   Shield,
   SquareCode,
   Tags,
@@ -55,6 +56,7 @@ export const iconMap: Record<string, LucideIcon> = {
   User,
   Shield,
   Globe,
+  ScanLine,
   SquareCode,
   MessageSquare,
 };

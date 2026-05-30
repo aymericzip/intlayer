@@ -444,7 +444,7 @@ export const Browser = ({
             >
               <Container
                 className="min-w-28 rounded-md!"
-                roundedSize="sm"
+                roundedSize="xl"
                 border
                 borderColor="neutral"
               >

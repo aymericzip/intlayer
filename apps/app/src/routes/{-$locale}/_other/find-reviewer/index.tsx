@@ -1,4 +1,4 @@
-import { App_ReviewerMarketplace_Path } from '@intlayer/design-system/routes';
+import { App_ReviewerMarketplace } from '@intlayer/design-system/routes';
 import { createFileRoute } from '@tanstack/react-router';
 import {
   defaultLocale,
@@ -12,7 +12,7 @@ export const Route = createFileRoute('/{-$locale}/_other/find-reviewer/')({
   component: MarketplacePage,
   head: ({ params }) => {
     const { locale } = params;
-    const path = App_ReviewerMarketplace_Path;
+    const path = App_ReviewerMarketplace;
     const content = getIntlayer('find-reviewer-page', locale);
 
     return {

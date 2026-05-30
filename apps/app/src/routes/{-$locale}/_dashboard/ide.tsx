@@ -2,6 +2,7 @@ import { useGithubToken, useSession } from '@intlayer/design-system/api';
 import { Container } from '@intlayer/design-system/container';
 import {
   App_Dashboard,
+  App_Dashboard_IDE,
   App_Dashboard_IDE_Path,
 } from '@intlayer/design-system/routes';
 import { createFileRoute } from '@tanstack/react-router';
@@ -22,7 +23,7 @@ export const Route = createFileRoute('/{-$locale}/_dashboard/ide')({
   component: IDEPage,
   head: ({ params }) => {
     const { locale } = params;
-    const path = App_Dashboard_IDE_Path;
+    const path = App_Dashboard_IDE;
     const content = getIntlayer('ide-dashboard-page', locale);
 
     return {
