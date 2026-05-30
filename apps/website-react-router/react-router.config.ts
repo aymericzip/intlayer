@@ -36,26 +36,26 @@ export default {
 
       const [docs, blogs, FAQs] = await Promise.all([
         getDocMetadataBySlug([]),
-        getBlogMetadataBySlug([]),
-        getFrequentQuestionMetadataBySlug([]),
+        // getBlogMetadataBySlug([]),
+        // getFrequentQuestionMetadataBySlug([]),
       ]);
 
       const docPaths = docs.flatMap((doc) => getPathsFromUrl(doc.url));
-      const blogPaths = blogs.flatMap((blog) => getPathsFromUrl(blog.url));
-      const faqPaths = FAQs.flatMap((faq) => getPathsFromUrl(faq.url));
+      // const blogPaths = blogs.flatMap((blog) => getPathsFromUrl(blog.url));
+      // const faqPaths = FAQs.flatMap((faq) => getPathsFromUrl(faq.url));
 
       const allPaths = Array.from(
         new Set([
           ...staticPaths,
           ...resourcePaths,
           ...docPaths,
-          ...blogPaths,
-          ...faqPaths,
+          // ...blogPaths,
+          // ...faqPaths,
         ])
       );
 
       return allPaths;
     },
-    unstable_concurrency: 5,
+    unstable_concurrency: 10,
   },
 } satisfies Config;
