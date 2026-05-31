@@ -5,23 +5,23 @@ async function buildSW() {
   console.log('🏗️  Generating Service Worker...');
 
   const { count, size } = await generateSW({
-    // Output directly to the client build directory after the Vite build completes
-    swDest: path.join(process.cwd(), 'build/client/sw.js'),
+    // Output to the TanStack Start / Nitro public output directory
+    swDest: path.join(process.cwd(), '.output/public/sw.js'),
 
-    // Target the React Router v7 client build output
-    globDirectory: 'build/client',
+    // Target the TanStack Start / Nitro client build output
+    globDirectory: '.output/public',
 
     // Precache critical application shell assets
     globPatterns: [
-      'index.html',
       'manifest.json',
       'favicon.ico',
       'logo.svg',
       'android-chrome-192x192.png',
       'android-chrome-512x512.png',
-      'assets/root-*.css',
-      'assets/entry.client-*.js',
-      'assets/root-*.js',
+      'assets/*.css',
+      'assets/__root-*.js',
+      'assets/entry-*.js',
+      'assets/index-*.js',
     ],
     globIgnores: ['**/node_modules/**/*', '**/*.map'],
 

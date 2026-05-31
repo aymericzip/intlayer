@@ -1,19 +1,5 @@
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import {
-  Website_Blog_Search_Path,
-  Website_CMS_Path,
-  Website_Contributors_Path,
-  Website_Demo_Path,
-  Website_Doc_Chat_Path,
-  Website_Doc_Path,
-  Website_Doc_Search_Path,
-  Website_FrequentQuestions_Path,
-  Website_Home_Path,
-  Website_Playground_Path,
-  Website_Scanner_Path,
-  Website_TMS_Path,
-} from '@intlayer/design-system/routes';
 import babel from '@rolldown/plugin-babel';
 import tailwindcss from '@tailwindcss/vite';
 import { tanstackStart } from '@tanstack/react-start/plugin/vite';
@@ -23,27 +9,10 @@ import { nitro } from 'nitro/vite';
 import { defineConfig, loadEnv } from 'vite';
 import { intlayer, intlayerProxy } from 'vite-intlayer';
 import wasm from 'vite-plugin-wasm';
+import { staticRoutes } from './src/app/routes';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-
-const staticRoutes = [
-  Website_Home_Path,
-  Website_Doc_Path,
-  Website_Doc_Chat_Path,
-  Website_Doc_Search_Path,
-  Website_Blog_Search_Path,
-  Website_CMS_Path,
-  Website_TMS_Path,
-  Website_Demo_Path,
-  Website_Contributors_Path,
-  Website_Scanner_Path,
-  Website_Playground_Path,
-  Website_FrequentQuestions_Path,
-  '/translate',
-  '/privacy-notice',
-  '/terms-of-service',
-];
 
 const localizedPages = localeFlatMap(({ urlPrefix }) =>
   staticRoutes.map((path) => ({
@@ -66,11 +35,10 @@ const rawMarkdownPlugin = {
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), 'VITE_');
 
-  const domain = env.VITE_PUBLIC_DOMAIN ?? env.VITE_DOMAIN ?? '';
-  const appUrl = env.VITE_SITE_URL ?? env.VITE_URL ?? 'https://intlayer.org';
-  const backendUrl = env.VITE_BACKEND_URL ?? '';
-  const scannerApiUrl = env.VITE_SCANNER_API_URL ?? '';
-  const publicUrl = env.VITE_URL ?? 'https://intlayer.org';
+  const domain = env.VITE_PUBLIC_DOMAIN;
+  const backendUrl = env.VITE_BACKEND_URL;
+  const scannerApiUrl = env.VITE_SCANNER_API_URL;
+  const publicUrl = env.VITE_URL;
 
   const cspDirectives = {
     'default-src': ["'self'"],

@@ -23,8 +23,7 @@ export const locales: Locale[] = [
   Locales.VIETNAMESE,
   Locales.UKRAINIAN,
 ];
-export const defaultLocale =
-  (import.meta.env.VITE_DEFAULT_LOCALE as Locale) || Locales.ENGLISH;
+export const defaultLocale = Locales.ENGLISH;
 
 const config: CustomIntlayerConfig = {
   internationalization: {
@@ -89,26 +88,26 @@ const config: CustomIntlayerConfig = {
     enabled: true,
     liveSync: false,
     dictionaryPriorityStrategy: 'local_first',
-    applicationURL: import.meta.env.VITE_URL,
-    editorURL: import.meta.env.VITE_EDITOR_URL,
-    cmsURL: import.meta.env.VITE_CMS_URL,
-    backendURL: import.meta.env.VITE_BACKEND_URL,
+    // applicationURL: import.meta.env.VITE_URL,
+    // editorURL: import.meta.env.VITE_EDITOR_URL,
+    // cmsURL: import.meta.env.VITE_CMS_URL,
+    // backendURL: import.meta.env.VITE_BACKEND_URL,
     // clientId: import.meta.env.INTLAYER_CLIENT_ID,
     // clientSecret: import.meta.env.INTLAYER_CLIENT_SECRET,
   },
   dictionary: {
     importMode: 'dynamic',
   },
-  ai: {
-    provider: 'openai',
-    model: 'gpt-5-mini',
-    apiKey: import.meta.env.OPENAI_API_KEY,
-    applicationContext: [
-      'Intlayer is a developer-friendly internationalization (i18n) solution combined with a multilingual CMS.',
-      'This application contains a landing page, documentation, and the CMS within the dashboard.',
-      'It is intended for developers, so do not hesitate to use technical terms, and keep anglicisms in English. Example: "codebase" instead of "base de code" or "package" instead of "paquets".',
-    ].join('\n'),
-  },
+  // ai: {
+  //   provider: 'openai',
+  //   model: 'gpt-5-mini',
+  //   apiKey: import.meta.env.OPENAI_API_KEY,
+  //   applicationContext: [
+  //     'Intlayer is a developer-friendly internationalization (i18n) solution combined with a multilingual CMS.',
+  //     'This application contains a landing page, documentation, and the CMS within the dashboard.',
+  //     'It is intended for developers, so do not hesitate to use technical terms, and keep anglicisms in English. Example: "codebase" instead of "base de code" or "package" instead of "paquets".',
+  //   ].join('\n'),
+  // },
   log: {
     // mode: 'verbose',
   },
