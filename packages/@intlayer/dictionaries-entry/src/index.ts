@@ -6,7 +6,7 @@
 
 import { existsSync } from 'node:fs';
 import { join } from 'node:path';
-import { default as defaultConfiguration } from '@intlayer/config/built';
+import { build, system } from '@intlayer/config/built';
 import { configESMxCJSRequire } from '@intlayer/config/utils';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import type { DictionaryRegistry } from '@intlayer/types/module_augmentation';
@@ -14,7 +14,7 @@ import type { DictionaryRegistry } from '@intlayer/types/module_augmentation';
 type GetDictionaries = (configuration?: IntlayerConfig) => DictionaryRegistry;
 
 export const getDictionaries: GetDictionaries = (
-  configuration: IntlayerConfig = defaultConfiguration
+  configuration: Pick<IntlayerConfig, 'system' | 'build'> = { system, build }
 ) => {
   const { system, build } = configuration;
 

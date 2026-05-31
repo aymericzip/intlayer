@@ -1,6 +1,6 @@
 import { getIntlayerAPI } from '@intlayer/api';
 import type { OAuth2AccessAPI } from '@intlayer/backend';
-import appConfig from '@intlayer/config/built';
+import { editor } from '@intlayer/config/built';
 import { LanguageBackground } from '@intlayer/design-system';
 import { useSelectOrganization, useSession } from '@intlayer/design-system/api';
 import { Button } from '@intlayer/design-system/button';
@@ -168,8 +168,7 @@ const SessionAuthSelector: FC<{
     try {
       const resolvedConfig = backendUrl
         ? {
-            ...appConfig,
-            editor: { ...appConfig.editor, backendURL: backendUrl },
+            editor: { ...editor, backendURL: backendUrl },
           }
         : appConfig;
       const result = await getIntlayerAPI(

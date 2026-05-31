@@ -29,11 +29,9 @@ export const generateConfigurationContent = (
   fileContent += `const dictionary = ${JSON.stringify(dictionary, null, 2)};\n`;
   fileContent += `const build = ${JSON.stringify(build, null, 2)};\n`;
   fileContent += `const compiler = ${JSON.stringify(compiler, null, 2)};\n`;
-  fileContent += `const configuration = { internationalization, routing, editor, log, system, content, ai, dictionary, build, compiler };\n`;
 
   if (format === 'esm') {
-    fileContent += `\nexport { internationalization, routing, editor, log, system, content, ai, dictionary, build, compiler, configuration };\n`;
-    fileContent += `export default configuration;\n`;
+    fileContent += `\nexport { internationalization, routing, editor, log, system, content, ai, dictionary, build, compiler };\n`;
   } else {
     fileContent += `\nmodule.exports.internationalization = internationalization;\n`;
     fileContent += `module.exports.routing = routing;\n`;
@@ -45,7 +43,6 @@ export const generateConfigurationContent = (
     fileContent += `module.exports.dictionary = dictionary;\n`;
     fileContent += `module.exports.build = build;\n`;
     fileContent += `module.exports.compiler = compiler;\n`;
-    fileContent += `module.exports = configuration;\n`;
   }
 
   return fileContent;

@@ -11,7 +11,7 @@ import { type FC, type PropsWithChildren, useEffect, useRef } from 'react';
 import { EditorStateProvider } from './EditorStateContext';
 
 export type EditorProviderProps = {
-  configuration: IntlayerConfig;
+  configuration: Pick<IntlayerConfig, 'editor' | 'internationalization'>;
   postMessage: (data: any) => void;
   allowedOrigins: string[];
 };

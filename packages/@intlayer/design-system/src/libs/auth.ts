@@ -1,6 +1,6 @@
 import { passkeyClient } from '@better-auth/passkey/client';
 import { ssoClient } from '@better-auth/sso/client';
-import { default as configuration } from '@intlayer/config/built';
+import { editor } from '@intlayer/config/built';
 import { BACKEND_URL } from '@intlayer/config/defaultValues';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import { createAuthClient } from 'better-auth/client';
@@ -74,13 +74,13 @@ export interface AuthAPI {
   signInSSO: AuthClient['signIn']['sso'];
 }
 
-export const getAuthAPI = (intlayerConfig?: IntlayerConfig): AuthAPI => {
-  let backendURL =
-    intlayerConfig?.editor?.backendURL ?? configuration?.editor?.backendURL;
+export const getAuthAPI = (
+  intlayerConfig?: Pick<IntlayerConfig, 'editor'>
+): AuthAPI => {
+  let backendURL = intlayerConfig?.editor?.backendURL ?? editor?.backendURL;
 
   if (!backendURL) {
     backendURL = BACKEND_URL;
-    console.dir({ intlayerConfig, configuration }, { depth: null });
     console.error('Backend URL is not defined in the Intlayer configuration.');
   }
 

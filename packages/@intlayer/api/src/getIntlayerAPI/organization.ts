@@ -16,7 +16,7 @@ import type {
   UpdateOrganizationMembersResult,
   UpdateOrganizationResult,
 } from '@intlayer/backend';
-import config from '@intlayer/config/built';
+import { editor } from '@intlayer/config/built';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import { type FetcherOptions, fetcher } from '../fetcher';
 
@@ -24,8 +24,7 @@ export const getOrganizationAPI = (
   authAPIOptions: FetcherOptions = {},
   intlayerConfig?: IntlayerConfig
 ) => {
-  const backendURL =
-    intlayerConfig?.editor?.backendURL ?? config.editor.backendURL;
+  const backendURL = intlayerConfig?.editor?.backendURL ?? editor.backendURL;
 
   const ORGANIZATION_API_ROUTE = `${backendURL}/api/organization`;
 

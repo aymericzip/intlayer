@@ -1,5 +1,5 @@
 import { getIntlayerAPI } from '@intlayer/api';
-import { default as config } from '@intlayer/config/built';
+import { editor } from '@intlayer/config/built';
 import z from 'zod';
 import type { McpServer } from './docs';
 
@@ -21,8 +21,8 @@ const authSchema = {
 };
 
 const getAPI = async (clientId?: string, clientSecret?: string) => {
-  const resolvedClientId = clientId ?? config.editor.clientId;
-  const resolvedClientSecret = clientSecret ?? config.editor.clientSecret;
+  const resolvedClientId = clientId ?? editor.clientId;
+  const resolvedClientSecret = clientSecret ?? editor.clientSecret;
 
   if (!resolvedClientId || !resolvedClientSecret) {
     throw new Error(
@@ -31,9 +31,8 @@ const getAPI = async (clientId?: string, clientSecret?: string) => {
   }
 
   const configWithCreds = {
-    ...config,
     editor: {
-      ...config.editor,
+      ...editor,
       clientId: resolvedClientId,
       clientSecret: resolvedClientSecret,
     },
@@ -51,7 +50,7 @@ const getAPI = async (clientId?: string, clientSecret?: string) => {
 
   return getIntlayerAPI(
     { headers: { Authorization: `Bearer ${token}` } },
-    config
+    { editor }
   );
 };
 

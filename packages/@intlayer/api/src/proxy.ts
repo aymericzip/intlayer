@@ -57,7 +57,7 @@ let pendingRefresh: Promise<void> | undefined;
  */
 export const getIntlayerAPIProxy = (
   baseAuthOptions: FetcherOptions = {},
-  intlayerConfig?: IntlayerConfig,
+  intlayerConfig?: Pick<IntlayerConfig, 'editor'>,
   sessionToken?: string
 ): IntlayerAPI => {
   // Use a shared mutable auth options object captured by the API closures.

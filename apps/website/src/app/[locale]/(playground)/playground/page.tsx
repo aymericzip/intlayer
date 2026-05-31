@@ -1,10 +1,14 @@
 import { BackgroundLayout } from '@components/BackgroundLayout';
 import { DashboardContentLayout } from '@components/Dashboard/DashboardContentLayout';
 import { DictionaryLoaderPlayground } from '@components/Dashboard/Editor/DictionaryLoaderPlayground';
-import * as baseConfiguration from '@intlayer/config/built';
+import {
+  editor,
+  internationalization,
+  log,
+  routing,
+} from '@intlayer/config/built';
 import { Loader } from '@intlayer/design-system/loader';
 import { Website_Demo_Path } from '@intlayer/design-system/routes';
-import { ConfigurationProvider } from '@intlayer/editor-react';
 import { OrganizationHeader } from '@structuredData/OrganizationHeader';
 import { SoftwareApplicationHeader } from '@structuredData/SoftwareApplication';
 import { WebsiteHeader } from '@structuredData/WebsiteHeader';
@@ -28,10 +32,12 @@ const PlaygroundContent: FC = () => {
   const applicationURL = `${process.env.NEXT_PUBLIC_URL}${Website_Demo_Path}`;
 
   const configuration = {
-    ...baseConfiguration,
+    internationalization,
+    routing,
+    log,
     ...{
       editor: {
-        ...(baseConfiguration.editor ?? {}),
+        ...editor,
         applicationURL,
       },
     },
@@ -44,12 +50,10 @@ const PlaygroundContent: FC = () => {
         {description}
       </p>
       <div className="relative flex flex-1 flex-col items-center px-10 pb-5">
-        <ConfigurationProvider configuration={configuration}>
-          <Editor
-            configuration={configuration}
-            DictionariesLoader={DictionaryLoaderPlayground}
-          />
-        </ConfigurationProvider>
+        <Editor
+          configuration={configuration}
+          DictionariesLoader={DictionaryLoaderPlayground}
+        />
       </div>
     </DashboardContentLayout>
   );

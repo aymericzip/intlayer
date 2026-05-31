@@ -1,4 +1,4 @@
-import config from '@intlayer/config/built';
+import { editor } from '@intlayer/config/built';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import { defu } from 'defu';
 import type { FetcherOptions } from '../fetcher';
@@ -44,9 +44,11 @@ interface IntlayerAPIReturn {
 
 export const getIntlayerAPI = (
   authAPIOptions: FetcherOptions = {},
-  intlayerConfig?: IntlayerConfig
+  intlayerConfig?: Pick<IntlayerConfig, 'editor'>
 ): IntlayerAPIReturn => {
-  const resolvedConfig = defu(intlayerConfig ?? {}, config) as IntlayerConfig;
+  const resolvedConfig = defu(intlayerConfig ?? {}, {
+    editor,
+  }) as IntlayerConfig;
 
   return {
     organization: getOrganizationAPI(authAPIOptions, resolvedConfig),

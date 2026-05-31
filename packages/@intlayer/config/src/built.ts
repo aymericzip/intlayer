@@ -8,17 +8,17 @@ import { getConfiguration } from './configFile/getConfiguration';
 
 const configuration: IntlayerConfig = getConfiguration();
 
-export const internationalization = configuration.internationalization;
-export const dictionary = configuration.dictionary;
-export const routing = configuration.routing;
-export const content = configuration.content;
-export const system = configuration.system;
-export const editor = configuration.editor;
-export const log = configuration.log;
-export const ai = configuration.ai;
-export const build = configuration.build;
-export const compiler = configuration.compiler;
-export const schemas = configuration.schemas;
-export const plugins = configuration.plugins;
+const parsedJSONConfig = JSON.parse(JSON.stringify(configuration));
 
-export default configuration;
+export const internationalization = parsedJSONConfig.internationalization;
+export const dictionary = parsedJSONConfig.dictionary;
+export const routing = parsedJSONConfig.routing;
+export const content = parsedJSONConfig.content;
+export const system = parsedJSONConfig.system;
+export const editor = parsedJSONConfig.editor;
+export const log = parsedJSONConfig.log;
+export const ai = parsedJSONConfig.ai;
+export const build = parsedJSONConfig.build;
+export const compiler = parsedJSONConfig.compiler;
+export const schemas = parsedJSONConfig.schemas;
+export const plugins = parsedJSONConfig.plugins;

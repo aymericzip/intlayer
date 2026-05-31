@@ -1,4 +1,4 @@
-import { default as configuration, editor } from '@intlayer/config/built';
+import { editor, internationalization } from '@intlayer/config/built';
 import { defineIntlayerElements } from '../components';
 import type { MessengerConfig } from './CrossFrameMessenger';
 import { EditorStateManager } from './EditorStateManager';
@@ -41,7 +41,7 @@ export const initEditorClient = (): EditorStateManager => {
   const manager = new EditorStateManager({
     mode: 'client',
     messenger: buildClientMessengerConfig(),
-    configuration,
+    configuration: { editor },
   });
 
   setGlobalEditorManager(manager);

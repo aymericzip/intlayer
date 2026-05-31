@@ -33,6 +33,8 @@ import { UrlStateManager } from './UrlStateManager';
 
 export type DictionaryContent = Record<LocalDictionaryId, Dictionary>;
 
+type EditorConfig = Pick<IntlayerConfig, 'editor'>;
+
 export type FileContent = {
   dictionaryKey: string;
   dictionaryLocalId?: LocalDictionaryId;
@@ -45,7 +47,7 @@ export type EditorStateManagerConfig = {
   /** Cross-frame messaging configuration */
   messenger: MessengerConfig;
   /** Optional initial Intlayer configuration to broadcast */
-  configuration?: IntlayerConfig;
+  configuration?: EditorConfig;
 };
 
 /**
@@ -62,14 +64,14 @@ export class EditorStateManager {
   readonly focusedContent: CrossFrameStateManager<FileContent | null>;
   readonly localeDictionaries: CrossFrameStateManager<DictionaryContent>;
   readonly editedContent: CrossFrameStateManager<DictionaryContent>;
-  readonly configuration: CrossFrameStateManager<IntlayerConfig>;
+  readonly configuration: CrossFrameStateManager<EditorConfig>;
   readonly currentLocale: CrossFrameStateManager<Locale | undefined>;
   readonly displayedDictionaryKeys: CrossFrameStateManager<string[]>;
 
   private readonly _urlManager: UrlStateManager;
   private readonly _iframeInterceptor: IframeClickInterceptor;
   private readonly _mode: 'editor' | 'client';
-  private readonly _configuration: IntlayerConfig | undefined;
+  private readonly _configuration: EditorConfig | undefined;
 
   // Client-mode handshake subscribers
   private _unsubAreYouThere: (() => void) | null = null;
@@ -120,7 +122,7 @@ export class EditorStateManager {
       this.messenger
     );
 
-    this.configuration = new CrossFrameStateManager<IntlayerConfig>(
+    this.configuration = new CrossFrameStateManager<EditorConfig>(
       MessageKey.INTLAYER_CONFIGURATION,
       this.messenger,
       {

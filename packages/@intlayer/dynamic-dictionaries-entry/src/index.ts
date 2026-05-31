@@ -6,7 +6,7 @@
 
 import { existsSync } from 'node:fs';
 import { join } from 'node:path';
-import { default as defaultConfiguration } from '@intlayer/config/built';
+import { build, system } from '@intlayer/config/built';
 import { configESMxCJSRequire } from '@intlayer/config/utils';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import type { Dictionary } from '@intlayer/types/dictionary';
@@ -19,7 +19,7 @@ type GetUnmergedDictionaries = (
 ) => UnmergedDictionaries;
 
 export const getUnmergedDictionaries: GetUnmergedDictionaries = (
-  configuration: IntlayerConfig = defaultConfiguration
+  configuration: Pick<IntlayerConfig, 'system' | 'build'> = { system, build }
 ) => {
   const { system, build } = configuration;
 

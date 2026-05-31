@@ -1,21 +1,21 @@
 'use client';
 
 import { getOAuthAPI } from '@intlayer/api';
-import { default as defaultConfiguration } from '@intlayer/config/built';
+import { editor } from '@intlayer/config/built';
 import { useConfiguration } from '@intlayer/editor-react';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import { useQuery } from '@tanstack/react-query';
 import { defu } from 'defu';
 
-export const useOAuth2 = (intlayerConfiguration?: IntlayerConfig) => {
+export const useOAuth2 = (
+  intlayerConfiguration?: Pick<IntlayerConfig, 'editor'>
+) => {
   const configuration = useConfiguration();
-  const config = defu(
-    intlayerConfiguration,
-    configuration,
-    defaultConfiguration
-  );
+  const config = defu(intlayerConfiguration, configuration, {
+    editor,
+  }) as IntlayerConfig;
 
-  const intlayerAPI = getOAuthAPI(config);
+  const intlayerAPI = getOAuthAPI(undefined, config);
 
   const { data } = useQuery({
     queryKey: ['oAuth2AccessToken'],

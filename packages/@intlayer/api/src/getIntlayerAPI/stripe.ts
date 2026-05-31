@@ -30,15 +30,15 @@ import type {
   UpdatePromoCodeBody,
   UpdatePromoCodeResult,
 } from '@intlayer/backend';
-import defaultConfiguration from '@intlayer/config/built';
+import { editor } from '@intlayer/config/built';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import { type FetcherOptions, fetcher } from '../fetcher';
 
 export const getStripeAPI = (
   authAPIOptions: FetcherOptions = {},
-  intlayerConfig: IntlayerConfig = defaultConfiguration
+  intlayerConfig: IntlayerConfig
 ) => {
-  const backendURL = intlayerConfig?.editor?.backendURL;
+  const backendURL = intlayerConfig?.editor?.backendURL ?? editor.backendURL;
 
   const STRIPE_API_ROUTE = `${backendURL}/api/stripe`;
 

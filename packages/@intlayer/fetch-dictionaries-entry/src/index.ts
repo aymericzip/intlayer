@@ -6,8 +6,7 @@
 
 import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { basename, extname, join } from 'node:path';
-import { default as builtConfiguration } from '@intlayer/config/built';
-
+import { system } from '@intlayer/config/built';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import type { Dictionary } from '@intlayer/types/dictionary';
 import type {
@@ -25,7 +24,7 @@ type GetFetchDictionaries = (
 ) => FetchDictionaries;
 
 export const getDynamicDictionaries: GetFetchDictionaries = (
-  configuration: IntlayerConfig = builtConfiguration
+  configuration: Pick<IntlayerConfig, 'system'> = { system }
 ) => {
   const { system } = configuration;
   const { fetchDictionariesDir } = system;

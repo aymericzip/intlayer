@@ -11,7 +11,7 @@ import { NoApplicationURLView } from './NoApplicationURLView/NoApplicationURLVie
 
 type EditorProviderProps = {
   iframeRef: RefObject<HTMLIFrameElement | null>;
-  configuration?: IntlayerConfig;
+  configuration?: Pick<IntlayerConfig, 'editor' | 'internationalization'>;
 };
 
 /**

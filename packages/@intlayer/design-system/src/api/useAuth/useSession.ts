@@ -1,7 +1,7 @@
 'use client';
 
 import type { SessionAPI } from '@intlayer/backend';
-import { default as defaultConfiguration } from '@intlayer/config/built';
+import { editor } from '@intlayer/config/built';
 import { useConfiguration } from '@intlayer/editor-react';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
@@ -24,8 +24,7 @@ export const useSession = (
 ): UseSessionResult => {
   const configuration = useConfiguration();
   const config = (intlayerConfiguration ??
-    configuration ??
-    defaultConfiguration) as IntlayerConfig;
+    configuration ?? { editor }) as IntlayerConfig;
 
   const queryClient = useQueryClient();
 

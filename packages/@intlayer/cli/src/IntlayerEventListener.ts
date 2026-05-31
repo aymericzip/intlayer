@@ -1,7 +1,7 @@
 import { getIntlayerAPIProxy } from '@intlayer/api';
 // @ts-ignore: @intlayer/backend is not built yet
 import type { DictionaryAPI, MessageEventData } from '@intlayer/backend';
-import { default as configuration } from '@intlayer/config/built';
+import { editor, log } from '@intlayer/config/built';
 import { getAppLogger } from '@intlayer/config/logger';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import { EventSource } from 'eventsource';
@@ -33,7 +33,7 @@ export type IntlayerMessageEvent = MessageEvent;
  *   };
  */
 export class IntlayerEventListener {
-  private appLogger = getAppLogger(configuration);
+  private appLogger = getAppLogger({ log });
 
   private eventSource: EventSource | null = null;
   private reconnectAttempts = 0;
@@ -67,7 +67,12 @@ export class IntlayerEventListener {
    */
   public onConnectionError?: (error: Event) => any;
 
-  constructor(private intlayerConfig: IntlayerConfig = configuration) {
+  constructor(
+    private intlayerConfig: Pick<IntlayerConfig, 'log' | 'editor'> = {
+      log,
+      editor,
+    }
+  ) {
     this.appLogger = getAppLogger(this.intlayerConfig);
   }
 

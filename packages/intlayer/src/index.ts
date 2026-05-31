@@ -1,6 +1,6 @@
 /** biome-ignore-all lint/suspicious/noEmptyInterface: Intlayer module augmentation registries */
 
-import type { CustomIntlayerConfig as IntlayerConfig } from '@intlayer/types/config';
+import type { IntlayerConfig } from '@intlayer/types/config';
 import type { Dictionary as DictionaryCore } from '@intlayer/types/dictionary';
 import type { SchemaKeys } from '@intlayer/types/module_augmentation';
 
@@ -42,32 +42,51 @@ export type {
 
 export type { DeclarationContent, Dictionary, IntlayerConfig };
 
-import { default as configuration } from '@intlayer/config/built';
+import {
+  /**
+   * The editor configuration defined in the configuration.
+   */
+  editor,
+  internationalization,
+  log,
+  routing,
+} from '@intlayer/config/built';
+
+/**
+ * The locales defined in the configuration.
+ */
+const locales = internationalization.locales;
+
+/**
+ * The required locales defined in the configuration.
+ */
+const requiredLocales = internationalization.requiredLocales;
+
+/**
+ * The default locale defined in the configuration.
+ */
+const defaultLocale = internationalization.defaultLocale;
+
+/**
+ * @deprecated Use `defaultLocale`, `locales`, `requiredLocales` or `editor` instead.
+ *
+ * Configuration of Intlayer.
+ *
+ */
+const configuration: Pick<
+  IntlayerConfig,
+  'editor' | 'internationalization' | 'log' | 'routing'
+> = {
+  editor,
+  internationalization,
+  log,
+  routing,
+};
 
 /**
  * Returns the configuration of Intlayer.
  */
 const getConfiguration = () => configuration;
-
-/**
- * The locales defined in the configuration.
- */
-const locales = configuration.internationalization.locales;
-
-/**
- * The required locales defined in the configuration.
- */
-const requiredLocales = configuration.internationalization.requiredLocales;
-
-/**
- * The default locale defined in the configuration.
- */
-const defaultLocale = configuration.internationalization.defaultLocale;
-
-/**
- * The editor configuration defined in the configuration.
- */
-const editor = configuration.editor;
 
 export { file } from '@intlayer/core/file'; // Include specific export for browser because of node js function that can't be used in browser
 export {
@@ -151,9 +170,13 @@ export {
   setLocaleInStorageClient,
   setLocaleInStorageServer,
 } from '@intlayer/core/utils';
+
 // Reexport here for CJS compatibility
 // Fix ReferenceError: Cannot access 'xxx' before initialization
 export {
+  /**
+   * @deprecated Use `defaultLocale`, `locales`, `requiredLocales` or `editor` instead.
+   */
   configuration,
   defaultLocale,
   editor,
