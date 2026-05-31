@@ -9,7 +9,23 @@ import { nitro } from 'nitro/vite';
 import { defineConfig, loadEnv } from 'vite';
 import { intlayer, intlayerProxy } from 'vite-intlayer';
 import wasm from 'vite-plugin-wasm';
-import { staticRoutes } from './src/app/routes';
+
+const staticRoutes = [
+  '/',
+  '/translate',
+  '/tms',
+  '/cms',
+  '/demo',
+  '/contributors',
+  '/i18n-seo-scanner',
+  '/playground',
+  '/doc/chat',
+  '/doc/search',
+  '/blog/search',
+  '/frequent-questions',
+  '/privacy-notice',
+  '/terms-of-service',
+] as const;
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
