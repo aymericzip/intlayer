@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-01-16
-updatedAt: 2025-06-29
-title: أفضل أدوات التدويل (i18n) للإنترات
-description: تعرف على أفضل حلول التدويل (i18n) لـ React Native لتجاوز تحديات الترجمة، وتعزيز SEO، وتقديم تجربة ويب عالمية سلسة.
+updatedAt: 2026-05-31
+title: "أفضل أدوات التدويل (i18n) للإنترات - الدليل الكامل لترجمة React Native i18n 2026: Best Tools for Expo & TypeScript"
+description: أفضل حل لحجم الحزمة وتحسين محركات البحث والأداء والصيانة. اجعل React Native تطبيق الجوال متعدد اللغات في 2026، ترجمة LLM، Agent Skills & MCP.
 keywords:
   - React Native
   - i18n

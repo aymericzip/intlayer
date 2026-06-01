@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-01-16
-updatedAt: 2025-06-29
-title: Najlepsze narzędzia do internacjonalizacji (i18n) dla Svelte
-description: Odkryj najlepsze rozwiązania i18n dla Svelte, które pomogą rozwiązać problemy z tłumaczeniami, poprawić SEO i zapewnić płynne globalne doświadczenie w sieci.
+updatedAt: 2026-05-31
+title: Najlepsze narzędzia do internacjonalizacji (i18n) dla Svelte - Kompletny przewodnik po tłumaczeniu Best Svelte i18n Libraries 2026 — Compared by DX & Bundle
+description: Najlepsze rozwiązanie dla rozmiaru bundle, SEO, wydajności & utrzymania. Uczyń swój Svelte aplikację wielojęzycznym w 2026, tłumaczenie LLM, Agent Skills & MCP.
 keywords:
   - Svelte
   - i18n

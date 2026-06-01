@@ -740,7 +740,7 @@ Bu yardımcı programlar **yalnızca ham Markdown dizelerini** oluşturur ve `us
     );
     ```
 
-    > Markdown oluşturucunuzu dinamik olarak içe aktarmak, uygulamanızın paket boyutunu azaltmanın harika bir yoludur.
+    > Markdown oluşturucunuzu dinamik olarak içe aktarmak, uygulamanızın bundle boyutunu azaltmanın harika bir yoludur.
 
   </Tab>
   <Tab label="Next.js" value="nextjs">
@@ -782,7 +782,7 @@ Bu yardımcı programlar **yalnızca ham Markdown dizelerini** oluşturur ve `us
     );
     ```
 
-    > Markdown oluşturucunuzu dinamik olarak içe aktarmak, uygulamanızın paket boyutunu azaltmanın harika bir yoludur.
+    > Markdown oluşturucunuzu dinamik olarak içe aktarmak, uygulamanızın bundle boyutunu azaltmanın harika bir yoludur.
 
   </Tab>
   <Tab label="Vue" value="vue">
@@ -833,7 +833,7 @@ Bu yardımcı programlar **yalnızca ham Markdown dizelerini** oluşturur ve `us
     app.mount("#app");
     ```
 
-    > Markdown oluşturucunuzu dinamik olarak içe aktarmak, uygulamanızın paket boyutunu azaltmanın harika bir yoludur.
+    > Markdown oluşturucunuzu dinamik olarak içe aktarmak, uygulamanızın bundle boyutunu azaltmanın harika bir yoludur.
 
   </Tab>
   <Tab label="Svelte" value="svelte">
@@ -873,7 +873,7 @@ Bu yardımcı programlar **yalnızca ham Markdown dizelerini** oluşturur ve `us
     </MarkdownProvider>
     ```
 
-    > Markdown oluşturucunuzu dinamik olarak içe aktarmak, uygulamanızın paket boyutunu azaltmanın harika bir yoludur.
+    > Markdown oluşturucunuzu dinamik olarak içe aktarmak, uygulamanızın bundle boyutunu azaltmanın harika bir yoludur.
 
   </Tab>
   <Tab label="Preact" value="preact">
@@ -912,7 +912,7 @@ Bu yardımcı programlar **yalnızca ham Markdown dizelerini** oluşturur ve `us
     );
     ```
 
-    > Markdown oluşturucunuzu dinamik olarak içe aktarmak, uygulamanızın paket boyutunu azaltmanın harika bir yoludur.
+    > Markdown oluşturucunuzu dinamik olarak içe aktarmak, uygulamanızın bundle boyutunu azaltmanın harika bir yoludur.
 
   </Tab>
   <Tab label="Solid" value="solid">
@@ -951,7 +951,7 @@ Bu yardımcı programlar **yalnızca ham Markdown dizelerini** oluşturur ve `us
     );
     ```
 
-    > Markdown oluşturucunuzu dinamik olarak içe aktarmak, uygulamanızın paket boyutunu azaltmanın harika bir yoludur.
+    > Markdown oluşturucunuzu dinamik olarak içe aktarmak, uygulamanızın bundle boyutunu azaltmanın harika bir yoludur.
 
   </Tab>
   <Tab label="Angular" value="angular">
@@ -973,7 +973,7 @@ Bu yardımcı programlar **yalnızca ham Markdown dizelerini** oluşturur ve `us
     export class AppModule {}
     ```
 
-    > Markdown oluşturucunuzu dinamik olarak içe aktarmak, uygulamanızın paket boyutunu azaltmanın harika bir yoludur.
+    > Markdown oluşturucunuzu dinamik olarak içe aktarmak, uygulamanızın bundle boyutunu azaltmanın harika bir yoludur.
 
   </Tab>
 </Tabs>

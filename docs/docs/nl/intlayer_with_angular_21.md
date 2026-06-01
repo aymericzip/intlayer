@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-05-06
-title: Angular i18n - Hoe een Angular 21 app (Vite) te vertalen in 2026
-description: Ontdek hoe u uw Angular website meertalig kunt maken. Volg de documentatie om het te internationaliseren (i18n) en te vertalen.
+updatedAt: 2026-05-31
+title: Angular i18n - Volledige gids voor het vertalen van Angular 21
+description: Beste oplossing voor bundle-grootte, SEO, prestaties & onderhoudbaarheid. Maak uw Angular 21 app meertalig in 2026, LLM-vertaling, Agent Skills & MCP.
 keywords:
   - Internationalisatie
   - Documentatie

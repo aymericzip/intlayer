@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-05-06
-title: Hono i18n - 2026 میں Hono ایپ کا ترجمہ کیسے کریں
-description: دریافت کریں کہ اپنے Hono بیک اینڈ کو کثیر لسانی کیسے بنایا جائے۔ اسے بین الاقوامی بنانے (i18n) اور ترجمہ کرنے کے لیے دستاویزات پر عمل کریں۔
+updatedAt: 2026-05-31
+title: "Hono i18n - ترجمے کا مکمل رہنما: Hono"
+description: بنڈل سائز، SEO، کارکردگی اور برقراری کے لیے بہترین حل۔ 2026 میں اپنے Hono بیک اینڈ کو کثیر لسانی بنائیں، LLM ترجمہ، Agent Skills & MCP۔
 keywords:
   - Internationalization
   - Documentation

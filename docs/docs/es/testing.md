@@ -29,7 +29,7 @@ Esta guía muestra cómo verificar automáticamente que tus diccionarios estén 
 
 - **Traducciones faltantes**: falla en CI si faltan locales requeridos en cualquier diccionario.
 - **Renderizado de UI localizada**: renderiza componentes con un proveedor de locales específico y verifica el texto/atributos visibles.
-- **Auditorías en tiempo de compilación**: ejecuta una auditoría rápida localmente vía CLI.
+- **Auditorías en tiempo de compilación (build time)**: ejecuta una auditoría rápida localmente vía CLI.
 
 ---
 

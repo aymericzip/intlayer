@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-11-20
-updatedAt: 2026-05-06
-title: SvelteKit i18n - SvelteKit uygulamasını çevirme 2026
-description: SvelteKit web sitenizi çok dilli hale nasıl getireceğinizi keşfedin. Server-Side Rendering (SSR) kullanarak uluslararasılaştırma (i18n) ve çeviri yapmak için dokümantasyonu takip edin.
+updatedAt: 2026-05-31
+title: "SvelteKit i18n - Eksiksiz çeviri rehberi: SvelteKit"
+description: Bundle boyutu, SEO, performans ve sürdürülebilirlik için en iyi çözüm. SvelteKit web sitesini'ınızı 2026'da çok dilli yapın, LLM çevirisi, Agent Skills & MCP.
 keywords:
   - Uluslararasılaştırma
   - Dokümantasyon
@@ -59,16 +59,37 @@ history:
 
 <TOC/>
 
-## Intlayer nedir?
+## Neden alternatifler yerine Intlayer?
 
-**Intlayer**, modern web uygulamalarında çok dilli desteği basitleştirmek için tasarlanmış yenilikçi, açık kaynaklı bir uluslararasılaştırma (i18n) kütüphanesidir. **SvelteKit'in** Server-Side Rendering (SSR) yetenekleriyle sorunsuz çalışır.
+"svelte-i18n" veya "i18next" gibi ana çözümlerle karşılaştırıldığında Intlayer, aşağıdaki gibi entegre optimizasyonlarla gelen bir çözümdür:
 
-Intlayer ile şunları yapabilirsiniz:
+**Tam SvelteKit kapsamı**
 
-- **Bileşen seviyesinde deklaratif sözlükler kullanarak çevirileri kolayca yönetin.**
-- **Meta verileri, rotaları ve içeriği dinamik olarak yerelleştirin.**
-- **Otomatik oluşturulan tiplerle TypeScript desteğini sağlayın.**
-- **SEO dostu uluslararasılaştırma için SvelteKit'in SSR'sinden yararlanın.**
+Intlayer, **çok dilli yönlendirme**, **SSR desteği** ve uluslararasılaştırmayı (i18n) ölçeklendirmek için gereken tüm özellikleri sunarak SvelteKit ile mükemmel çalışacak şekilde optimize edilmiştir.
+
+**Bundle boyutu**
+
+Sayfalarınıza çok büyük JSON dosyaları yüklemek yerine yalnızca gerekli içeriği yükleyin. Intlayer **bundle ve sayfa boyutlarınızı %50'ye kadar azaltmanıza** yardımcı olur.
+
+**Sürdürülebilirlik**
+
+Uygulamanızın içeriğinin kapsamını belirlemek, büyük ölçekli uygulamalar için **bakımı kolaylaştırır**. İçerik kod tabanınızın tamamını gözden geçirmenin zihinsel yükü olmadan, tek bir özellik klasörünü çoğaltabilir veya silebilirsiniz. Ayrıca Intlayer, içeriğinizin doğruluğunu sağlamak için **tamamen tiplendirilmiş (fully typed)tır**.
+
+**Yapay Zeka Temsilcisi**
+
+İçeriğin bir arada konumlandırılması **Büyük Dil Modellerinin (LLM'ler) ihtiyaç duyduğu bağlamı azaltır**. Intlayer ayrıca eksik çevirileri test etmek için **CLI** gibi bir araç paketiyle birlikte gelir**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** ve **[aracı becerileri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, geliştirici deneyimini (DX) yapay zeka için daha da sorunsuz hale getirmek için ajanlar.
+
+**Otomasyon**
+
+Maliyeti AI sağlayıcınıza ait olmak üzere seçtiğiniz LLM'yi kullanarak CI/CD işlem hattınızda çeviri yapmak için otomasyonu kullanın. Intlayer ayrıca içerik çıkarmayı otomatikleştirmek için bir **derleyici** ve **arka planda çeviri yapmaya** yardımcı olacak bir [web platformu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) sunar.
+
+**Performans**
+
+Büyük JSON dosyalarını bileşenlere bağlamak performans ve tepkime sorunlarına yol açabilir. Intlayer, içerik yüklemenizi derleme sırasında optimize eder.
+
+**Non-dev ile ölçeklendirme**
+
+Bir i18n çözümünden çok daha fazlası olan Intlayer, **kendi kendine barındırılan bir [görsel düzenleyici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** ve **[tam CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** çok dilli içeriğinizi **gerçek zamanlı** olarak yönetmenize yardımcı olarak çevirmenler, metin yazarları ve diğer ekip üyeleriyle işbirliğini kusursuz hale getirir. İçerik yerel olarak ve/veya uzaktan depolanabilir.
 
 ---
 
@@ -206,7 +227,7 @@ Artık `useIntlayer` fonksiyonunu herhangi bir Svelte bileşeninde kullanabilirs
 
 > **Not:** `useIntlayer` bir Svelte store döner, bu yüzden reaktif değerine erişmek için `---
 > createdAt: 2025-11-20
-> updatedAt: 2026-05-06
+> updatedAt: 2026-05-31
 > title: SvelteKit uygulamanızı nasıl çevirirsiniz – i18n rehberi 2026
 > description: SvelteKit web sitenizi çok dilli hale nasıl getireceğinizi keşfedin. Server-Side Rendering (SSR) kullanarak uluslararasılaştırma (i18n) ve çeviri yapmak için dokümantasyonu takip edin.
 > keywords:

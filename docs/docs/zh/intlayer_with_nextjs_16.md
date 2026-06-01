@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-12-06
-updatedAt: 2026-05-06
-title: Next.js i18n - 如何翻译Next.js 16 应用 2026
-description: 了解如何让您的 Next.js 16 网站支持多语言。按照文档进行国际化 (i18n) 并对其进行翻译。
+updatedAt: 2026-05-31
+title: Next.js i18n - 完整翻译指南： Next.js 16
+description: 最佳的包体积、SEO、性能和可维护性解决方案。让您的 Next.js 16 网站在 2026 年实现多语言化，LLM 翻译，Agent Skills & MCP。
 keywords:
   - 国际化
   - 文档
@@ -70,21 +70,41 @@ history:
 
 <TOC/>
 
-## 什么是 Intlayer？
+## 为什么选择 Inlayer 而不是替代品？
 
-**Intlayer** 是一个创新的、开源的国际化 (i18n) 库，旨在简化现代 Web 应用程序的多语言支持。Intlayer 无缝集成了最新的 **Next.js 16** 框架，包括其强大的 **App Router**。它针对 **Server Components** 进行了优化，以实现高效渲染，并且完全兼容 [**Turbopack**](https://nextjs.org/docs/architecture/turbopack)。
+与“next-intl”或“i18next”等主要解决方案相比，Intlayer是一个具有集成优化的解决方案，例如：
 
-使用 Intlayer，您可以：
+**完整的 Next.js 覆盖**
 
-- **轻松管理翻译**，在组件级别使用声明式字典。
-- **动态本地化元数据**、路由和内容。
-- **在客户端和服务器端组件中访问翻译**。
-- **确保 TypeScript 支持**，通过自动生成的类型改进自动补全和错误检测。
-- **享受高级功能**，例如动态语言环境检测和切换。
+Intlayer 经过优化，可以与 **服务器组件** 配合使用，以实现高效渲染，并且与 [**Turbopack**](https://nextjs.org/docs/architecture/turbopack) 完全兼容。它不会阻止静态渲染，并提供中间件以及扩展国际化 (i18n) 所需的所有功能。
 
-> Intlayer 兼容 Next.js 12、13、14 和 16。如果您使用的是 Next.js Page Router，可以参考此[指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_page_router.md)。
-> 语言环境路由（Locale routing）对 SEO、包大小和性能很有用。如果您不需要它，可以参考此[指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_no_locale_path.md)。
-> 对于使用 App Router 的 Next.js 12、13、14，请参考此[指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_14.md)。
+> Intlayer 兼容 Next.js 12、13、14、15 和 16。如果您使用 Next.js Pages Router，可以参考此[指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_page_router.md)。
+> 区域设置路由对于 SEO、Bundle 大小和性能很有用。如果不需要，可以参考这个[指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_no_locale_path.md)。
+> 对于带有 App Router 的 Next.js 12、13、14 和 15，请参阅此[指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_14.md)。
+
+**捆绑尺寸**
+
+不要将大量 JSON 文件加载到页面中，而只需加载必要的内容。 Intlayer 有助于**将捆绑包和页面大小减少多达 50%**。
+
+**可维护性**
+
+确定应用程序内容的范围**有利于大型应用程序的维护**。您可以复制或删除单个功能文件夹，而无需承担检查整个内容代码库的精神负担。此外，Intlayer 具有**完全类型化 (fully typed)**，以确保您的内容的准确性。
+
+**人工智能代理**
+
+共置内容**减少大型语言模型 (LLM) 所需的上下文**。 Intlayer 还附带了一套工具，例如用于测试缺失翻译的 **CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** 和 **[agent技能](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**，使 AI 代理的开发者体验 (DX) 更加流畅。
+
+**自动化**
+
+使用您选择的法学硕士，通过自动化在 CI/CD 管道中进行翻译，而费用由您的 AI 提供商承担。 Intlayer 还提供了一个**编译器**来自动提取内容，以及一个[网络平台](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)来帮助**在后台翻译**。
+
+**表现**
+
+将大量 JSON 文件连接到组件可能会导致性能和反应性问题。 Intlayer 可在构建时 (build time)优化您的内容加载。
+
+**无需开发即可扩展**
+
+Intlayer 不仅仅是一个 i18n 解决方案，还提供了一个**自托管的[可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)**和一个**[完整的 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** 来帮助您管理多语言内容**实时**，与译员、文案人员和其他团队成员无缝协作。内容可以本地和/或远程存储。
 
 ---
 
@@ -821,9 +841,9 @@ export const myServerAction = async () => {
 >
 > 这确保了根据可用上下文选择最合适的语言环境。
 
-### （可选）第 13 步：优化您的包大小
+### （可选）第 13 步：优化您的Bundle 大小
 
-使用 `next-intlayer` 时，默认情况下每个页面的包中都会包含字典。为了优化包大小，Intlayer 提供了一个可选的 SWC 插件，该插件可以使用宏智能地替换 `useIntlayer` 调用。这确保了字典仅包含在实际使用它们的页面的包中。
+使用 `next-intlayer` 时，默认情况下每个页面的包中都会包含字典。为了优化Bundle 大小，Intlayer 提供了一个可选的 SWC 插件，该插件可以使用宏智能地替换 `useIntlayer` 调用。这确保了字典仅包含在实际使用它们的页面的包中。
 
 要启用此优化，请安装 `@intlayer/swc` 包。安装后，`next-intlayer` 将自动检测并使用该插件：
 

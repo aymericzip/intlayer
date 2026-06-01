@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-05-06
-title: Tanstack Start i18n - Tanstack Startアプリの翻訳方法 2026
-description: Intlayerを使用してTanStack Startアプリケーションに国際化（i18n）を追加する方法を学びます。ロケール対応のルーティングでアプリを多言語化するための包括的なガイドに従ってください。
+updatedAt: 2026-05-31
+title: Tanstack Start i18n - 完全な翻訳ガイド： TanStack Start
+description: バンドルサイズ、SEO、パフォーマンス、保守性のための最良のソリューション。2026年にTanStack Start アプリを多言語化しましょう。LLM翻訳、Agent Skills & MCP。
 keywords:
   - 国際化
   - ドキュメント
@@ -58,17 +58,37 @@ history:
 
 このガイドでは、ロケール対応のルーティング、TypeScriptサポート、および最新の開発手法を使用して、TanStack Startプロジェクトに**Intlayer**をシームレスに統合し、国際化を実現する方法を説明します。
 
-## Intlayerとは？
+## 代替手段ではなく Interlayer を使用する理由
 
-**Intlayer**は、最新のウェブアプリケーションでの多言語サポートを簡素化するために設計された、革新的なオープンソースの国際化（i18n）ライブラリです。
+「react-i18next」、「use-intl」、または「paraglide」などの主要なソリューションと比較して、Intlayer は次のような統合された最適化を備えたソリューションです。
 
-Intlayerを使用すると、以下のことが可能になります：
+**TanStack Start を完全にカバー**
 
-- **コンポーネントレベルでの宣言的な辞書**を使用して、翻訳を簡単に管理できます。
-- **メタデータ、ルート、およびコンテンツを動的にローカライズ**できます。
-- **自動生成された型**によるTypeScriptサポートを確保し、オートコンプリートとエラー検出を向上させます。
-- **動的なロケール検出および切り替え**などの高度な機能を利用できます。
-- **TanStack Startのファイルベースのルーティングシステム**を使用して、ロケール対応のルーティングを有効にできます。
+Intlayer は TanStack Start 用に完全に最適化されており、**多言語ルーティング**、**Cookie 管理**、**サイトマップ生成**、**動的コンテンツ読み込み**、および国際化 (i18n) の取り組みを拡張するために必要なすべての機能を提供します。
+
+**バンドルサイズ**
+
+大量の JSON ファイルをページにロードするのではなく、必要なコンテンツのみをロードします。 Intlayer は、**バンドルとページのサイズを最大 50% 削減**するのに役立ちます。
+
+**保守性**
+
+アプリケーションのコンテンツのスコープを設定すると、大規模なアプリケーションの **メンテナンスが容易になります**。コンテンツ コードベース全体を確認するという精神的な負担を負うことなく、単一の機能フォルダーを複製または削除できます。さらに、Intlayer は**完全に型指定**されており、コンテンツの正確性を保証します。
+
+**AI エージェント**
+
+コンテンツを同じ場所に配置すると、大規模言語モデル (LLM) によって **必要なコンテキストが削減**されます。 Intlayer には、翻訳の欠落をテストする **CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** などのツール スイートも付属しています。および **[エージェント スキル](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)** により、AI エージェントの開発者エクスペリエンス (DX) がさらにスムーズになります。
+
+**オートメーション**
+
+AI プロバイダーの費用で、選択した LLM を使用して CI/CD パイプラインで自動化を変換します。 Intlayer は、コンテンツ抽出を自動化する **コンパイラー** と、**バックグラウンドでの翻訳**を支援する [Web プラットフォーム](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) も提供します。
+
+**パフォーマンス**
+
+大量の JSON ファイルをコンポーネントに接続すると、パフォーマンスと反応性の問題が発生する可能性があります。 Intlayer は、ビルド時のコンテンツの読み込みを最適化します。
+
+**非開発によるスケーリング**
+
+Intlayer は単なる i18n ソリューションではなく、**自己ホスト型 [ビジュアル エディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** と **[完全な CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** を提供します。 **リアルタイム**で多言語コンテンツを管理できるようになり、翻訳者、コピーライター、その他のチーム メンバーとのコラボレーションがシームレスになります。コンテンツはローカルおよび/またはリモートに保存できます。
 
 ---
 

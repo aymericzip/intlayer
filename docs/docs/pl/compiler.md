@@ -42,7 +42,7 @@ history:
 - **Automatyzacja**: Eliminuje ręczne kopiowanie i wklejanie treści do słowników.
 - **Szybkość**: Optymalizowane wydobywanie treści zapewnia szybki proces budowania.
 - **Doświadczenie programisty**: Zachowaj deklaracje treści dokładnie tam, gdzie są używane, co poprawia utrzymanie kodu.
-- **Aktualizacje na żywo**: Obsługuje Hot Module Replacement (HMR) dla natychmiastowej informacji zwrotnej podczas tworzenia aplikacji.
+- **Aktualizacje na żywo**: Obsługuje Hot Module Replacement (HMR) dla natychmiastowej informacji zwrotnej podczas budowania (build time) (build time) aplikacji.
 
 Zobacz wpis na blogu [Compiler vs. Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/pl/compiler_vs_declarative_i18n.md) dla głębszego porównania.
 

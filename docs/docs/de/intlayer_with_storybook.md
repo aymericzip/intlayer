@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-03-20
-updatedAt: 2026-05-06
+updatedAt: 2026-05-31
 title: So richten Sie Intlayer mit Storybook ein
 description: Erfahren Sie, wie Sie Ihr Design-System mit Intlayer und Storybook mehrsprachig gestalten - Inhaltsdeklarationen kompilieren, einen Sprachumschalter hinzufügen und eine Vorschau Ihrer Komponenten in jeder Sprache anzeigen.
 keywords:
@@ -31,16 +31,37 @@ history:
 
 <TOC/>
 
-## Was ist Intlayer?
+## Warum Intlayer gegenüber Alternativen?
 
-**Intlayer** ist eine innovative Open-Source-Internationalisierungsbibliothek (i18n), die entwickelt wurde, um die mehrsprachige Unterstützung in modernen Webanwendungen zu vereinfachen. Sie arbeitet auf **Komponentenebene** - jede Komponente besitzt ihre eigenen Inhaltsdeklarationen -, sodass Übersetzungen direkt dort gespeichert werden, wo sie verwendet werden.
+Im Vergleich zu Hauptlösungen wie „storybook-react-i18next“ oder „i18next“ ist Intlayer eine Lösung, die über integrierte Optimierungen verfügt wie:
 
-Mit Intlayer können Sie:
+**Vollständige Storybook-Abdeckung**
 
-- **Übersetzungen deklarativ verwalten** mit Inhaltsdateien pro Komponente.
-- **Vollständige TypeScript-Unterstützung erhalten** durch automatisch generierte Typen und IDE-Autovervollständigung.
-- **Sprachen zur Laufzeit wechseln**, ohne die Seite neu zu laden.
-- **Automatisch übersetzen** mit integrierten KI-Anbieter-Integrationen.
+Intlayer ist für die perfekte Zusammenarbeit mit Storybook optimiert, indem es **mehrsprachige Story-Dekoratoren**, **Gebietsschemaumschaltung** und alle Funktionen bietet, die für die Skalierung der Internationalisierung (i18n) in Ihrem gesamten Designsystem erforderlich sind.
+
+**Bundle-Größe**
+
+Anstatt riesige JSON-Dateien in Ihre Seiten zu laden, laden Sie nur den erforderlichen Inhalt. Intlayer hilft **Ihre Bundle- und Seitengröße um bis zu 50 % zu reduzieren**.
+
+**Wartbarkeit**
+
+Durch die Festlegung des Inhaltsbereichs Ihrer Anwendung wird die Wartung für umfangreiche Anwendungen erleichtert. Sie können einen einzelnen Feature-Ordner duplizieren oder löschen, ohne die mentale Belastung durch die Überprüfung Ihrer gesamten Inhaltscodebasis auf sich nehmen zu müssen. Darüber hinaus ist Intlayer **vollständig typisiert (fully typed)**, um die Genauigkeit Ihrer Inhalte sicherzustellen.
+
+**KI-Agent**
+
+Durch die gemeinsame Platzierung von Inhalten **reduziert sich der von Large Language Models (LLMs) benötigte Kontext**. Intlayer verfügt außerdem über eine Reihe von Tools, wie zum Beispiel eine **CLI** zum Testen auf fehlende Übersetzungen,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** und **[agent Fähigkeiten](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, um die Entwicklererfahrung (DX) für KI-Agenten noch reibungsloser zu gestalten.
+
+**Automatisierung**
+
+Nutzen Sie die Automatisierung, um Ihre CI/CD-Pipeline mit dem LLM Ihrer Wahl auf Kosten Ihres KI-Anbieters zu übersetzen. Intlayer bietet außerdem einen **Compiler** zur Automatisierung der Inhaltsextraktion sowie eine [Webplattform](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) zur Unterstützung der **Übersetzung im Hintergrund**.
+
+**Leistung**
+
+Das Verbinden großer JSON-Dateien mit Komponenten kann zu Leistungs- und Reaktivitätsproblemen führen. Intlayer optimiert das Laden Ihrer Inhalte zur Erstellungszeit.
+
+**Skalierung mit Nicht-Entwickler**
+
+Intlayer ist mehr als nur eine i18n-Lösung. Es bietet einen **selbstgehosteten [visuellen Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** und ein **[vollständiges CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)**, um Ihnen zu helfen Verwalten Sie Ihre mehrsprachigen Inhalte in **Echtzeit** und gestalten Sie die Zusammenarbeit mit Übersetzern, Textern und anderen Teammitgliedern reibungslos. Inhalte können lokal und/oder remote gespeichert werden.
 
 ---
 

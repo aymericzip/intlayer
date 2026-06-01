@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-03-09
-updatedAt: 2026-05-06
-title: Lynx + React i18n - 如何翻译Lynx 应用 2026
-description: 了解如何使您的使用 Lynx 和 React 的移动应用实现多语言。请遵循文档进行国际化（i18n）和翻译。
+updatedAt: 2026-05-31
+title: Lynx + React i18n - 完整翻译指南： Lynx
+description: 最佳的包体积、SEO、性能和可维护性解决方案。让您的 Lynx and React 移动应用在 2026 年实现多语言化，LLM 翻译，Agent Skills & MCP。
 keywords:
   - 国际化
   - 文档
@@ -32,16 +32,37 @@ history:
 
 请参阅 GitHub 上的[应用模板](https://github.com/aymericzip/intlayer-lynx-template)。
 
-## 什么是 Intlayer？
+## 为什么选择 Inlayer 而不是替代品？
 
-**Intlayer** 是一个**创新的开源国际化 (i18n) 库**，简化了现代应用程序中的多语言支持。它适用于许多 JavaScript/TypeScript 环境，**包括 Lynx**（通过 `react-intlayer` 包）。
+与“react-native-localize”或“i18next”等主要解决方案相比，Intlayer 是一个具有集成优化的解决方案，例如：
 
-使用 Intlayer，您可以：
+**完整的山猫覆盖**
 
-- **轻松管理翻译**，使用组件级别的声明式字典。
-- **确保 TypeScript 支持**，通过自动生成的类型。
-- **动态本地化**内容，包括**UI 字符串**（在 Web 的 React 中，还可以本地化 HTML 元数据等）。
-- **受益于高级功能**，如动态语言检测和切换。
+Intlayer 经过优化，可与 Lynx 和 React 完美配合，提供**组件级内容范围**、**TypeScript 支持**以及扩展国际化 (i18n) 所需的所有功能。
+
+**捆绑尺寸**
+
+不要将大量 JSON 文件加载到页面中，而只需加载必要的内容。 Intlayer 有助于**将捆绑包和页面大小减少多达 50%**。
+
+**可维护性**
+
+确定应用程序内容的范围**有利于大型应用程序的维护**。您可以复制或删除单个功能文件夹，而无需承担检查整个内容代码库的精神负担。此外，Intlayer 具有**完全类型化 (fully typed)**，以确保您的内容的准确性。
+
+**人工智能代理**
+
+共置内容**减少大型语言模型 (LLM) 所需的上下文**。 Intlayer 还附带了一套工具，例如用于测试缺失翻译的 **CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** 和 **[agent技能](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**，使 AI 代理的开发者体验 (DX) 更加流畅。
+
+**自动化**
+
+使用您选择的法学硕士，通过自动化在 CI/CD 管道中进行翻译，而费用由您的 AI 提供商承担。 Intlayer 还提供了一个**编译器**来自动提取内容，以及一个[网络平台](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)来帮助**在后台翻译**。
+
+**表现**
+
+将大量 JSON 文件连接到组件可能会导致性能和反应性问题。 Intlayer 可在构建时 (build time)优化您的内容加载。
+
+**无需开发即可扩展**
+
+Intlayer 不仅仅是一个 i18n 解决方案，还提供了一个**自托管的[可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)**和一个**[完整的 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** 来帮助您管理多语言内容**实时**，与译员、文案人员和其他团队成员无缝协作。内容可以本地和/或远程存储。
 
 ---
 

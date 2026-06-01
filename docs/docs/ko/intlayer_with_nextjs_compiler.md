@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-01-10
-updatedAt: 2026-05-06
-title: Next.js i18n - 기존 Next.js 앱을 다국어 앱으로 변환하기 2026
-description: Intlayer Compiler를 사용하여 기존 Next.js 애플리케이션을 다국어로 만드는 방법을 알아보세요. 문서를 따라 국제화(i18n)하고 AI로 번역하세요.
+updatedAt: 2026-05-31
+title: "Next.js i18n - 완전한 번역 가이드: Complete"
+description: 번들 크기, SEO, 성능 및 유지보수성을 위한 최고의 솔루션. 2026년에 existing Next.js 웹사이트를 다국어로 만드세요, LLM 번역, Agent Skills & MCP.
 keywords:
   - 국제화
   - 문서

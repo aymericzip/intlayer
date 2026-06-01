@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-08-23
+updatedAt: 2026-05-31
 title: Pengenalan
 description: Temukan bagaimana Intlayer bekerja. Lihat langkah-langkah yang digunakan oleh Intlayer dalam aplikasi Anda. Lihat apa fungsi berbagai paket yang berbeda.
 keywords:
@@ -22,139 +22,32 @@ history:
 
 Selamat datang di dokumentasi resmi Intlayer! Di sini, Anda akan menemukan segala yang Anda butuhkan untuk mengintegrasikan, mengonfigurasi, dan menguasai Intlayer untuk semua kebutuhan internasionalisasi (i18n) Anda, baik Anda bekerja dengan Next.js, React, Vite, Express, atau lingkungan JavaScript lainnya.
 
-## Pengenalan
+## Mengapa Intlayer dibandingkan alternatif?
 
-### Apa itu Intlayer?
+Dibandingkan dengan solusi utama seperti `next-intl` atau `i18next`, Intlayer adalah solusi yang hadir dengan pengoptimalan terintegrasi seperti:
 
-**Intlayer** adalah pustaka internasionalisasi yang dirancang khusus untuk pengembang JavaScript. Ini memungkinkan deklarasi konten Anda di mana saja dalam kode Anda. Ini mengubah deklarasi konten multibahasa menjadi kamus terstruktur agar mudah diintegrasikan dalam kode Anda. Dengan menggunakan TypeScript, **Intlayer** membuat pengembangan Anda menjadi lebih kuat dan lebih efisien.
+**Ukuran bundle**
 
-Intlayer juga menyediakan editor visual opsional yang memungkinkan Anda dengan mudah mengedit dan mengelola konten Anda. Editor ini sangat berguna bagi pengembang yang lebih suka antarmuka visual untuk manajemen konten, atau untuk tim yang menghasilkan konten tanpa harus khawatir tentang kode.
+Daripada memuat file JSON berukuran besar ke halaman Anda, muat saja konten yang diperlukan. Intlayer membantu **mengurangi ukuran bundle dan halaman Anda hingga 50%**.
 
-### Contoh penggunaan
+**Kemampuan Pemeliharaan**
 
-```bash
-.
-└── Components
-    └── MyComponent
-        ├── index.content.ts
-        └── index.tsx
-```
+Mencakup konten aplikasi Anda **memfasilitasi pemeliharaan** untuk aplikasi berskala besar. Anda dapat menduplikasi atau menghapus satu folder fitur tanpa beban mental untuk meninjau seluruh basis kode konten Anda. Selain itu, Intlayer **diketik sepenuhnya** untuk memastikan keakuratan konten Anda.
 
-```tsx fileName="src/components/MyComponent/index.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
-import { t, type Dictionary } from "intlayer";
+**Agen AI**
 
-const componentContent = {
-  key: "component-key",
-  content: {
-    myTranslatedContent: t({
-      en: "Hello World",
-      es: "Hola Mundo",
-      fr: "Bonjour le monde",
-    }),
-  },
-} satisfies Dictionary;
+Menempatkan konten bersama **mengurangi konteks yang diperlukan** dengan Model Bahasa Besar (LLM). Intlayer juga dilengkapi dengan serangkaian alat, seperti **CLI** untuk menguji terjemahan yang hilang,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)**, dan **[agent skill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, untuk menjadikan pengalaman pengembang (DX) lebih lancar bagi agen AI.
 
-// Ekspor konten komponen sebagai default
-export default componentContent;
-```
+**Otomatisasi**
 
-```json fileName="src/components/MyComponent/index.content.json" contentDeclarationFormat="json"
-{
-  "$schema": "https://intlayer.org/schema.json",
-  "key": "component-key",
-  "content": {
-    "myTranslatedContent": {
-      "nodeType": "translation",
-      "translation": {
-        "en": "Hello World",
-        "fr": "Bonjour le monde",
-        "es": "Hola Mundo"
-      }
-    }
-  }
-}
-```
+Gunakan otomatisasi untuk menerjemahkan dalam saluran CI/CD Anda menggunakan LLM pilihan Anda dengan biaya penyedia AI Anda. Intlayer juga menawarkan **compiler** untuk mengotomatiskan ekstraksi konten, serta [platform web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) untuk membantu **menerjemahkan di latar belakang**.
 
-```tsx fileName="src/components/MyComponent/index.tsx" codeFormat={["typescript", "esm"]}
-import type { FC } from "react";
-import { useIntlayer } from "react-intlayer";
+**Pertunjukan**
 
-export const MyComponent: FC = () => {
-  const { myTranslatedContent } = useIntlayer("component-key");
+Menghubungkan file JSON berukuran besar ke komponen dapat menyebabkan masalah kinerja dan reaktivitas. Intlayer mengoptimalkan pemuatan konten Anda pada waktu pembuatan.
 
-  return <span>{myTranslatedContent}</span>;
-};
-```
+**Menskalakan tanpa pengembang**
 
-## Fitur Utama
-
-Intlayer menawarkan berbagai fitur yang disesuaikan untuk memenuhi kebutuhan pengembangan web modern. Berikut adalah fitur utama, dengan tautan ke dokumentasi rinci untuk masing-masing:
-
-- **Dukungan Internasionalisasi**: Tingkatkan jangkauan global aplikasi Anda dengan dukungan bawaan untuk internasionalisasi.
-- **Editor Visual**: Tingkatkan alur kerja pengembangan Anda dengan plugin editor yang dirancang untuk Intlayer. Lihat [Panduan Editor Visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md).
-- **Fleksibilitas Konfigurasi**: Sesuaikan pengaturan Anda dengan opsi konfigurasi yang luas yang dijelaskan secara rinci dalam [Panduan Konfigurasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md).
-- **Alat CLI Lanjutan**: Kelola proyek Anda dengan efisien menggunakan antarmuka baris perintah Intlayer. Jelajahi kemampuannya dalam [Dokumentasi Alat CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/index.md).
-
-## Konsep Inti
-
-### Kamus
-
-Atur konten multibahasa Anda dekat dengan kode Anda untuk menjaga semuanya tetap konsisten dan mudah dipelihara.
-
-- **[Memulai](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/content_file.md)**  
-  Pelajari dasar-dasar mendeklarasikan konten Anda di Intlayer.
-
-- **[Terjemahan](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/translation.md)**  
-  Pahami bagaimana terjemahan dibuat, disimpan, dan digunakan dalam aplikasi Anda.
-
-- **[Enumerasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/enumeration.md)**  
-  Kelola dengan mudah data yang berulang atau tetap di berbagai bahasa.
-
-- **[Kondisi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/condition.md)**  
-  Pelajari cara menggunakan logika kondisional di Intlayer untuk membuat konten dinamis.
-
-- **[Penyisipan](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/insertion.md)**  
-  Temukan cara menyisipkan nilai dalam string menggunakan placeholder penyisipan.
-
-- **[Pengambilan Fungsi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/function_fetching.md)**  
-  Lihat bagaimana mengambil konten secara dinamis dengan logika khusus untuk menyesuaikan alur kerja proyek Anda.
-
-- **[Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/markdown.md)**  
-  Pelajari cara menggunakan Markdown di Intlayer untuk membuat konten yang kaya.
-
-- **[Penyematan File](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/file.md)**  
-  Temukan cara menyematkan file eksternal di Intlayer untuk digunakan dalam editor konten.
-
-- **[Nesting](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/nesting.md)**  
-  Pahami cara menyusun konten secara bersarang di Intlayer untuk membuat struktur yang kompleks.
-
-### Lingkungan & Integrasi
-
-Kami membangun Intlayer dengan fleksibilitas dalam pikiran, menawarkan integrasi mulus di berbagai framework populer dan alat build:
-
-- **[Intlayer dengan Next.js 16](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nextjs_16.md)**
-- **[Intlayer dengan Next.js 15](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nextjs_15.md)**
-- **[Intlayer dengan Next.js 14 (App Router)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nextjs_14.md)**
-- **[Intlayer dengan Next.js Page Router](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nextjs_page_router.md)**
-- **[Intlayer dengan React CRA](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_create_react_app.md)**
-- **[Intlayer dengan Vite + React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_vite+react.md)**
-- **[Intlayer dengan React Router v7](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_react_router_v7.md)**
-- **[Intlayer dengan Tanstack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_tanstack.md)**
-- **[Intlayer dengan React Native dan Expo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_react_native+expo.md)**
-- **[Intlayer dengan Lynx dan React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_lynx+react.md)**
-- **[Intlayer dengan Vite + Preact](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_vite+preact.md)**
-- **[Intlayer dengan Vite + Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_vite+vue.md)**
-- **[Intlayer dengan Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nuxt.md)**
-- **[Intlayer dengan Express](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_express.md)**
-- **[Intlayer dengan NestJS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nestjs.md)**
-- **[Intlayer dengan Angular](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_angular.md)**
-
-Setiap panduan integrasi mencakup praktik terbaik untuk menggunakan fitur Intlayer, seperti **server-side rendering**, **dynamic routing**, atau **client-side rendering**, sehingga Anda dapat mempertahankan aplikasi yang cepat, ramah SEO, dan sangat skalabel.
-
-## Kontribusi & Masukan
-
-Kami menghargai kekuatan pengembangan open-source dan yang digerakkan oleh komunitas. Jika Anda ingin mengusulkan perbaikan, menambahkan panduan baru, atau memperbaiki masalah apa pun dalam dokumentasi kami, jangan ragu untuk mengirimkan Pull Request atau membuka isu di [repositori GitHub kami](https://github.com/aymericzip/intlayer/blob/main/docs/docs).
-
-**Siap untuk menerjemahkan aplikasi Anda dengan lebih cepat dan efisien?** Jelajahi dokumentasi kami untuk mulai menggunakan Intlayer hari ini. Rasakan pendekatan internasionalisasi yang kuat dan terstruktur yang menjaga konten Anda tetap terorganisir dan tim Anda menjadi lebih produktif.
+Lebih dari sekedar solusi i18n, Intlayer menyediakan **[editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** yang dihosting sendiri dan **[CMS lengkap](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** untuk membantu Anda mengelola konten multibahasa secara **real-time**, membuat kolaborasi dengan penerjemah, copywriter, dan anggota tim lainnya menjadi lancar. Konten dapat disimpan secara lokal dan/atau jarak jauh.
 
 ---

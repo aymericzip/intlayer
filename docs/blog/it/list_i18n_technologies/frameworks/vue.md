@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-01-16
-updatedAt: 2025-06-29
-title: Migliori strumenti di internazionalizzazione (i18n) per Vue
-description: Scopri i migliori strumenti di internazionalizzazione (i18n) per Vue per affrontare i sfide di traduzione, migliorare la ricerca sul web e fornire un'esperienza web globale senza problemi.
+updatedAt: 2026-05-31
+title: Migliori strumenti di internazionalizzazione (i18n) per Vue - Guida completa per tradurre Best Vue i18n Libraries 2026 — Compared by DX & Bundle
+description: La migliore soluzione per dimensione del bundle, SEO, prestazioni & manutenibilità. Rendi il tuo Vue applicazione multilingue nel 2026, traduzione LLM, Agent Skills & MCP.
 keywords:
   - Vue
   - i18n

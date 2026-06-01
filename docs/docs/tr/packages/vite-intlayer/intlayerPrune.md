@@ -25,7 +25,7 @@ history:
 
 # intlayerPrune Vite Eklentisi Dokümantasyonu
 
-`intlayerPrune` Vite eklentisi, uygulama paketinizden kullanılmayan sözlükleri tree-shake edip budamak için kullanılır. Bu, yalnızca gerekli çokdilli içeriği dahil ederek son paket boyutunu azaltmaya yardımcı olur.
+`intlayerPrune` Vite eklentisi, uygulama paketinizden kullanılmayan sözlükleri tree-shake edip budamak için kullanılır. Bu, yalnızca gerekli çokdilli içeriği dahil ederek son bundle boyutunu azaltmaya yardımcı olur.
 
 ## Kullanım
 

@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-05-06
-title: Create React App i18n - كيفية ترجمة تطبيق React في 2026
-description: اكتشف كيفية جعل موقع Create React App (CRA) الخاص بك متعدد اللغات. اتبع الوثائق لتدويله (i18n) وترجمته.
+updatedAt: 2026-05-31
+title: Create React App i18n - الدليل الكامل لترجمة React
+description: أفضل حل لحجم البندل وتحسين محركات البحث والأداء والصيانة. اجعل Create React App موقع ويب متعدد اللغات في 2026، ترجمة LLM، Agent Skills & MCP.
 keywords:
   - التدويل
   - توثيق

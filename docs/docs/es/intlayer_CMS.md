@@ -236,7 +236,7 @@ Luego podrás ver y gestionar tu diccionario en el [Intlayer CMS](https://app.in
 
 ## Sincronización en vivo
 
-La sincronización en vivo permite que tu aplicación refleje los cambios de contenido del CMS en tiempo de ejecución. No se requiere reconstrucción ni redepliegue. Cuando está habilitada, las actualizaciones se transmiten a un servidor de sincronización en vivo que actualiza los diccionarios que tu aplicación lee.
+La sincronización en vivo permite que tu aplicación refleje los cambios de contenido del CMS en runtime. No se requiere reconstrucción ni redepliegue. Cuando está habilitada, las actualizaciones se transmiten a un servidor de sincronización en vivo que actualiza los diccionarios que tu aplicación lee.
 
 > Live Sync requiere una conexión continua al servidor y está disponible en el plan enterprise.
 
@@ -363,14 +363,14 @@ Esta configuración envuelve tu servidor de desarrollo con el servidor Live Sync
 Notas y restricciones:
 
 - Añade el origen de live sync a la política de seguridad de tu sitio (CSP). Asegúrate de que la URL de live sync esté permitida en `connect-src` (y en `frame-ancestors` si es relevante).
-- Live Sync no funciona con salida estática. Para Next.js, la página debe ser dinámica para recibir actualizaciones en tiempo de ejecución (por ejemplo, usa `generateStaticParams`, `generateMetadata`, `getServerSideProps` o `getStaticProps` adecuadamente para evitar restricciones de solo estático).
+- Live Sync no funciona con salida estática. Para Next.js, la página debe ser dinámica para recibir actualizaciones en runtime (por ejemplo, usa `generateStaticParams`, `generateMetadata`, `getServerSideProps` o `getStaticProps` adecuadamente para evitar restricciones de solo estático).
 
 Esta configuración envuelve tu servidor de desarrollo con el servidor Live Sync, obtiene diccionarios remotos al iniciar y transmite actualizaciones desde el CMS vía SSE. Actualiza la página para ver los cambios.
 
 Notas y restricciones:
 
 - Añade el origen de live sync a la política de seguridad de tu sitio (CSP). Asegúrate de que la URL de live sync esté permitida en `connect-src` (y en `frame-ancestors` si es relevante).
-- Live Sync no funciona con salida estática. Para Next.js, la página debe ser dinámica para recibir actualizaciones en tiempo de ejecución (por ejemplo, usa `generateStaticParams`, `generateMetadata`, `getServerSideProps` o `getStaticProps` adecuadamente para evitar restricciones de solo estático).
+- Live Sync no funciona con salida estática. Para Next.js, la página debe ser dinámica para recibir actualizaciones en runtime (por ejemplo, usa `generateStaticParams`, `generateMetadata`, `getServerSideProps` o `getStaticProps` adecuadamente para evitar restricciones de solo estático).
 - La URL de la aplicación debe coincidir con la que configuraste en la configuración del editor (`applicationURL`).
 - La URL del CMS
 

@@ -27,7 +27,7 @@ Uno de los desafíos más comunes con las soluciones i18n tradicionales que depe
 
 Por ejemplo, una aplicación con 10 páginas traducidas a 10 idiomas podría resultar en que un usuario descargue el contenido de 100 páginas, aunque solo necesite **una** (la página actual en el idioma actual). Esto conduce a un desperdicio de ancho de banda y tiempos de carga más lentos.
 
-**Intlayer resuelve este problema a través de la optimización en tiempo de compilación.** Analiza su código para detectar qué diccionarios se usan realmente por componente y reinyecta solo el contenido necesario en su bundle.
+**Intlayer resuelve este problema a través de la optimización en tiempo de compilación (build time).** Analiza su código para detectar qué diccionarios se usan realmente por componente y reinyecta solo el contenido necesario en su bundle.
 
 ## Tabla de contenidos
 

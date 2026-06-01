@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-01-10
-updatedAt: 2026-05-06
-title: Next.js i18n - Transformar una aplicación Next.js existente en una aplicación multilingüe en 2026
-description: Descubra cómo hacer que su aplicación Next.js existente sea multilingüe utilizando el Compilador Intlayer. Siga la documentación para internacionalizar (i18n) y traducir su aplicación mediante Inteligencia Artificial (IA).
+updatedAt: 2026-05-31
+title: Next.js i18n - Guía completa para traducir Complete
+description: La mejor solución para el tamaño del bundle, SEO, rendimiento & mantenibilidad. Haga multilingüe su existing Next.js sitio web en 2026, traducción LLM, Agent Skills & MCP.
 keywords:
   - Internacionalización
   - Documentación
@@ -73,7 +73,7 @@ Luego, modifica su código durante la compilación para inyectar los hooks i18n 
 
 ### Limitaciones
 
-Dado que el compilador realiza el análisis y la transformación del código (inyectando hooks y generando diccionarios) durante el **tiempo de compilación**, puede **ralentizar el proceso de build** de su aplicación.
+Dado que el compilador realiza el análisis y la transformación del código (inyectando hooks y generando diccionarios) durante el **tiempo de compilación (build time)**, puede **ralentizar el proceso de build** de su aplicación.
 
 Para mitigar este impacto durante el desarrollo, puede configurar el compilador en su modo [`'build-only'`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/configuration.md) o deshabilitarlo cuando no lo necesite.
 
@@ -259,7 +259,7 @@ export default RootLayout;
 
 Con el compilador habilitado, **ya no necesita** declarar manualmente los diccionarios de contenido (como los archivos `.content.ts`).
 
-En su lugar, puede escribir su contenido directamente en su código como cadenas de texto. Intlayer analizará su código, generará las traducciones utilizando el proveedor de IA configurado y reemplazará las cadenas con contenido localizado en tiempo de compilación.
+En su lugar, puede escribir su contenido directamente en su código como cadenas de texto. Intlayer analizará su código, generará las traducciones utilizando el proveedor de IA configurado y reemplazará las cadenas con contenido localizado en tiempo de compilación (build time).
 
 Simplemente escriba sus componentes con cadenas de texto codificadas en su idioma predeterminado. El compilador se encarga del resto.
 

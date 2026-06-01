@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-09-29
-title: next-i18next vs next-intl vs Intlayer
-description: Next.jsアプリの国際化（i18n）におけるnext-i18next、next-intl、Intlayerの比較
+updatedAt: 2026-05-31
+title: "next-i18next vs next-intl vs Intlayer - 完全な翻訳ガイド： next-i18next vs next-intl vs Intlayer: 2026 Comparison"
+description: バンドルサイズ、SEO、パフォーマンス、保守性のための最良のソリューション。2026年にNext.js ウェブサイトを多言語化しましょう。LLM翻訳、Agent Skills & MCP。
 keywords:
   - next-intl
   - next-i18next

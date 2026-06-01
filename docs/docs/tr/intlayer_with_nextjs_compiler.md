@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-01-10
-updatedAt: 2026-05-06
-title: Next.js i18n - Mevcut bir Next.js uygulamasını çok dilli bir uygulamaya dönüştürün 2026
-description: Intlayer Derleyicisi'ni kullanarak mevcut Next.js uygulamanızı nasıl çok dilli yapacağınızı keşfedin. Uygulamanızı uluslararasılaştırmak (i18n) ve AI ile çevirmek için kılavuzu takip edin.
+updatedAt: 2026-05-31
+title: "Next.js i18n - Eksiksiz çeviri rehberi: Complete"
+description: Bundle boyutu, SEO, performans ve sürdürülebilirlik için en iyi çözüm. existing Next.js web sitesini'ınızı 2026'da çok dilli yapın, LLM çevirisi, Agent Skills & MCP.
 keywords:
   - Uluslararasılaştırma
   - Belgelendirme
@@ -456,7 +456,7 @@ export const LocaleSwitcher: FC = () => {
 
 ### (İsteğe Bağlı) Adım 10: Bundle Boyutunu Optimize Etme
 
-`next-intlayer` kullanıldığında, sözlükler varsayılan olarak her sayfanın paketi (bundle) içinde yer alır. Paket boyutunu optimize etmek için Intlayer, makroları kullanarak `useIntlayer` çağrılarını akıllıca değiştiren isteğe bağlı bir SWC eklentisi sağlar. Bu, sözlüklerin yalnızca onları gerçekten kullanan sayfaların paketlerine dahil edilmesini sağlar.
+`next-intlayer` kullanıldığında, sözlükler varsayılan olarak her sayfanın paketi (bundle) içinde yer alır. bundle boyutunu optimize etmek için Intlayer, makroları kullanarak `useIntlayer` çağrılarını akıllıca değiştiren isteğe bağlı bir SWC eklentisi sağlar. Bu, sözlüklerin yalnızca onları gerçekten kullanan sayfaların paketlerine dahil edilmesini sağlar.
 
 Bu optimizasyonu etkinleştirmek için `@intlayer/swc` paketini yükleyin. Yüklendikten sonra `next-intlayer` eklentiyi otomatik olarak algılayacak ve kullanacaktır:
 

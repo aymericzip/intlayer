@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-03-31
-updatedAt: 2026-05-06
-title: Vanilla JS i18n - 2026 yılında bir Vanilla JS uygulaması nasıl çevrilir?
-description: Vanilla JS web sitenizi nasıl çok dilli hale getireceğinizi keşfedin. Uluslararasılaştırma (i18n) ve çeviri için belgeleri takip edin.
+updatedAt: 2026-05-31
+title: "Vanilla JS i18n - Eksiksiz çeviri rehberi: Vanilla JS"
+description: Bundle boyutu, SEO, performans ve sürdürülebilirlik için en iyi çözüm. Vanilla JS web sitesini'ınızı 2026'da çok dilli yapın, LLM çevirisi, Agent Skills & MCP.
 keywords:
   - Uluslararasılaştırma
   - Belgeler
@@ -57,22 +57,37 @@ history:
 
 <TOC/>
 
-## Intlayer nedir?
+## Neden alternatifler yerine Intlayer?
 
-**Intlayer**, modern web uygulamalarında çok dilli desteği basitleştirmek için tasarlanmış yenilikçi, açık kaynaklı bir uluslararasılaştırma (i18n) kütüphanesidir.
+'i18next' veya 'i18n.js' gibi ana çözümlerle karşılaştırıldığında Intlayer, aşağıdaki gibi entegre optimizasyonlarla gelen bir çözümdür:
 
-Intlayer ile şunları yapabilirsiniz:
+**Tam Vanilla JS kapsamı**
 
-- **Çevirileri kolayca yönetin**: Bileşen düzeyinde bildirimsel sözlükler kullanın.
-- **Meta verileri, rotaları ve içeriği dinamik olarak yerelleştirin**.
-- **TypeScript desteğini garanti edin**: Otomatik olarak oluşturulan türlerle otomatik tamamlama ve hata algılamayı iyileştirin.
-- **Gelişmiş özelliklerden yararlanın**: Dinamik dil algılama ve değiştirme gibi.
+Intlayer, **çerçeveden bağımsız içerik yönetimi**, **TypeScript desteği** ve uluslararasılaştırmayı (i18n) ölçeklendirmek için gereken tüm özellikleri sunarak Vanilla JavaScript ile mükemmel çalışacak şekilde optimize edilmiştir.
 
-Bu kılavuz, bir **paket yöneticisi veya paketleyici** (Vite, Webpack vb.) kullanmadan bir Vanilla JavaScript uygulamasında Intlayer'ın nasıl kullanılacağını gösterir.
+**Bundle boyutu**
 
-Uygulamanız bir paketleyici (Vite gibi) kullanıyorsa, bunun yerine [Vite + Vanilla JS Kılavuzu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_vite+vanilla.md)'nu takip etmenizi öneririz.
+Sayfalarınıza çok büyük JSON dosyaları yüklemek yerine yalnızca gerekli içeriği yükleyin. Intlayer **bundle ve sayfa boyutlarınızı %50'ye kadar azaltmanıza** yardımcı olur.
 
-Bağımsız paketi (standalone bundle) kullanarak, Intlayer'ı tek bir JavaScript dosyası aracılığıyla doğrudan HTML dosyalarınıza aktarabilirsiniz; bu da onu eski projeler veya basit statik siteler için mükemmel kılar.
+**Sürdürülebilirlik**
+
+Uygulamanızın içeriğinin kapsamını belirlemek, büyük ölçekli uygulamalar için **bakımı kolaylaştırır**. İçerik kod tabanınızın tamamını gözden geçirmenin zihinsel yükü olmadan, tek bir özellik klasörünü çoğaltabilir veya silebilirsiniz. Ayrıca Intlayer, içeriğinizin doğruluğunu sağlamak için **tamamen tiplendirilmiş (fully typed)tır**.
+
+**Yapay Zeka Temsilcisi**
+
+İçeriğin bir arada konumlandırılması **Büyük Dil Modellerinin (LLM'ler) ihtiyaç duyduğu bağlamı azaltır**. Intlayer ayrıca eksik çevirileri test etmek için **CLI** gibi bir araç paketiyle birlikte gelir**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** ve **[aracı becerileri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, geliştirici deneyimini (DX) yapay zeka için daha da sorunsuz hale getirmek için ajanlar.
+
+**Otomasyon**
+
+Maliyeti AI sağlayıcınıza ait olmak üzere seçtiğiniz LLM'yi kullanarak CI/CD işlem hattınızda çeviri yapmak için otomasyonu kullanın. Intlayer ayrıca içerik çıkarmayı otomatikleştirmek için bir **derleyici** ve **arka planda çeviri yapmaya** yardımcı olacak bir [web platformu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) sunar.
+
+**Performans**
+
+Büyük JSON dosyalarını bileşenlere bağlamak performans ve tepkime sorunlarına yol açabilir. Intlayer, içerik yüklemenizi derleme sırasında optimize eder.
+
+**Non-dev ile ölçeklendirme**
+
+Bir i18n çözümünden çok daha fazlası olan Intlayer, **kendi kendine barındırılan bir [görsel düzenleyici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** ve **[tam CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** çok dilli içeriğinizi **gerçek zamanlı** olarak yönetmenize yardımcı olarak çevirmenler, metin yazarları ve diğer ekip üyeleriyle işbirliğini kusursuz hale getirir. İçerik yerel olarak ve/veya uzaktan depolanabilir.
 
 ---
 

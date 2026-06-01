@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-03-31
-updatedAt: 2026-05-06
-title: Vanilla JS i18n - Jak přeložit aplikaci Vanilla JS v roce 2026
-description: Objevte, jak učinit svůj web Vanilla JS vícejazyčným. Postupujte podle dokumentace pro internacionalizaci (i18n) a překlad.
+updatedAt: 2026-05-31
+title: Vanilla JS i18n - Kompletní průvodce překladem Vanilla JS
+description: Nejlepší řešení pro velikost bundlu, SEO, výkon & udržovatelnost. Udělejte svůj Vanilla JS webovou stránku vícejazyčným v 2026, překlad LLM, Agent Skills & MCP.
 keywords:
   - Internacionalizace
   - Dokumentace

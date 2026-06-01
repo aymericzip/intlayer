@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-11-01
-updatedAt: 2025-11-01
-title: Як інтернаціоналізувати ваш додаток Next.js за допомогою next-i18next
-description: Налаштуйте i18n з next-i18next, найкращі практики та поради з SEO для багатомовних застосунків Next.js, що охоплюють інтернаціоналізацію, організацію контенту та технічне налаштування.
+updatedAt: 2026-05-31
+title: Як інтернаціоналізувати ваш додаток Next.js за допомогою next-i18next - Повний посібник з перекладу Translate Next.js 16 with next-i18next — App Router Setup
+description: Найкраще рішення для розміру бандлу, SEO, продуктивності & підтримуваності. Зробіть Next.js 16 сайт багатомовним у 2026, переклад LLM, Agent Skills & MCP.
 keywords:
   - next-i18next
   - i18next

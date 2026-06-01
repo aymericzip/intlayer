@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-10-05
-updatedAt: 2025-10-05
-title: next-intl - Cách dịch ứng dụng Next.js (i18n) vào năm 2026
-description: Khám phá cách làm cho website Next.js 15 App Router của bạn đa ngôn ngữ. Theo dõi tài liệu để quốc tế hóa (i18n) và dịch nó.
+updatedAt: 2026-05-31
+title: next-intl - Hướng dẫn đầy đủ để dịch Next.js
+description: Giải pháp tốt nhất cho kích thước bundle, SEO, hiệu suất & khả năng bảo trì. Làm cho Next.js 15 App Router trang web của bạn đa ngôn ngữ vào năm 2026, dịch thuật LLM, Agent Skills & MCP.
 keywords:
   - Quốc tế hóa
   - Tài liệu

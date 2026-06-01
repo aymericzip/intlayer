@@ -27,7 +27,7 @@ JSON dosyalarına dayalı geleneksel i18n çözümlerindeki en yaygın zorluklar
 
 Örneğin, 10 dilde çevrilmiş 10 sayfası olan bir uygulama, kullanıcının sadece **bir** sayfaya (mevcut dildeki mevcut sayfa) ihtiyacı olmasına rağmen 100 sayfalık içerik indirmesine neden olabilir. Bu durum bant genişliği israfına ve daha yavaş yükleme sürelerine yol açar.
 
-**Intlayer bu sorunu derleme zamanı optimizasyonu ile çözer.** Her bileşen başına hangi sözlüklerin gerçekten kullanıldığını tespit etmek için kodunuzu analiz eder ve bundle'ınıza yalnızca gerekli içeriği yeniden yerleştirir.
+**Intlayer bu sorunu build zamanı optimizasyonu ile çözer.** Her bileşen başına hangi sözlüklerin gerçekten kullanıldığını tespit etmek için kodunuzu analiz eder ve bundle'ınıza yalnızca gerekli içeriği yeniden yerleştirir.
 
 ## İçindekiler
 

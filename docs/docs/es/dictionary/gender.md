@@ -26,7 +26,7 @@ history:
 
 ## Cómo Funciona el Género
 
-En Intlayer, el contenido basado en género se logra mediante la función `gender`, que asigna valores específicos de género ('male', 'female') a su contenido correspondiente. Este enfoque te permite seleccionar dinámicamente el contenido según un género dado. Cuando se integra con React Intlayer o Next Intlayer, el contenido apropiado se selecciona automáticamente según el género proporcionado en tiempo de ejecución.
+En Intlayer, el contenido basado en género se logra mediante la función `gender`, que asigna valores específicos de género ('male', 'female') a su contenido correspondiente. Este enfoque te permite seleccionar dinámicamente el contenido según un género dado. Cuando se integra con React Intlayer o Next Intlayer, el contenido apropiado se selecciona automáticamente según el género proporcionado en runtime.
 
 ## Configuración de Contenido Basado en Género
 

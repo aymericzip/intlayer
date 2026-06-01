@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-06-18
-updatedAt: 2026-05-06
-title: Expo + React Native i18n - 如何翻译React Native 应用 2026
-description: 了解如何使你的 React Native 和 Expo 网站支持多语言。按照文档进行国际化（i18n）和翻译。
+updatedAt: 2026-05-31
+title: Expo + React Native i18n - 完整翻译指南： React Native
+description: 最佳的包体积、SEO、性能和可维护性解决方案。让您的 Expo and React Native 移动应用在 2026 年实现多语言化，LLM 翻译，Agent Skills & MCP。
 keywords:
   - 国际化
   - 文档
@@ -57,16 +57,78 @@ history:
 
 请参阅 GitHub 上的[应用模板](https://github.com/aymericzip/intlayer-react-native-template)。
 
-## 什么是 Intlayer？
+## 为什么选择 Inlayer 而不是替代品？
 
-**Intlayer** 是一个**创新的开源国际化（i18n）库**，简化了现代应用中的多语言支持。它适用于多种 JavaScript/TypeScript 环境，**包括 React Native**（通过 `react-intlayer` 包）。
+与“react-native-localize”或“i18next”等主要解决方案相比，Intlayer 是一个具有集成优化的解决方案，例如：
 
-使用 Intlayer，你可以：
+**完整的 React Native 覆盖**
 
-- **通过声明式字典在组件级别轻松管理翻译**。
-- **通过自动生成的类型确保 TypeScript 支持**。
-- **动态本地化**内容，包括**UI 字符串**（在 React Web 中，还可以本地化 HTML 元数据等）。
-- **享受高级功能**，如动态语言环境检测和切换。
+Intlayer 经过优化，可与 React Native 和 Expo 完美配合，提供**组件级内容范围**、**TypeScript 支持**以及移动应用中扩展国际化 (i18n) 所需的所有功能。
+
+**可维护性**
+
+确定应用程序内容的范围**有利于大型应用程序的维护**。您可以复制或删除单个功能文件夹，而无需承担检查整个内容代码库的精神负担。此外，Intlayer 具有**完全类型化 (fully typed)**，以确保您的内容的准确性。
+
+**人工智能代理**
+
+共置内容**减少大型语言模型 (LLM) 所需的上下文**。 Intlayer 还附带了一套工具，例如用于测试缺失翻译的 **CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** 和 **[agent技能](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**，使 AI 代理的开发者体验 (DX) 更加流畅。
+
+**自动化**
+
+使用您选择的法学硕士，通过自动化在 CI/CD 管道中进行翻译，而费用由您的 AI 提供商承担。 Intlayer 还提供了一个**编译器**来自动提取内容，以及一个[网络平台](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)来帮助**在后台翻译**。
+
+**表现**
+
+将大量 JSON 文件连接到组件可能会导致性能和反应性问题。 Intlayer 可在构建时 (build time)优化您的内容加载。
+
+**无需开发即可扩展**
+
+Intlayer 不仅仅是一个 i18n 解决方案，还提供了一个**自托管的[可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)**和一个**[完整的 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** 来帮助您管理多语言内容**实时**，与译员、文案人员和其他团队成员无缝协作。内容可以本地和/或远程存储。
+
+**捆绑尺寸**
+
+不要将大量 JSON 文件加载到页面中，而只需加载必要的内容。 Intlayer 有助于**将捆绑包和视图大小减少多达 50%**。
+
+## 第 1 步：安装依赖项
+
+请参阅 GitHub 上的[应用程序模板](https://github.com/aymericzip/intlayer-react-native-template)。
+
+从您的 React Native 项目中，安装以下软件包：
+
+```bash packageManager =“npm”
+npm install intlayer React-intlayer
+npm install --save-dev react-native-intlayer
+npx 层初始化
+```
+
+```bash packageManager="pnpm"
+pnpm 添加 intlayer 反应 inlayer
+pnpm add --save-dev react-native-intlayer
+pnpm 内层初始化
+```
+
+```bash packageManager =“纱线”
+纱线添加内层反应内层
+纱线添加--save-dev反应-native-intlayer
+纱线内层初始化
+```
+
+```bash packageManager =“bun”
+面包添加内层反应内层
+Bun 添加 --dev React-Native-intlayer
+面包x内层初始化
+```
+
+### 套餐
+
+- **内层**  
+  用于配置、字典内容、类型生成和 CLI 命令的核心 i18n 工具包。
+
+- **反应内层**  
+  React 集成提供了上下文提供程序和 React 挂钩，您将在 React Native 中使用它们来获取和切换语言环境。
+
+- **react-native-intlayer**  
+  React Native 集成提供了 Metro 插件，用于将 Intlayer 与 React Native 捆绑器集成。
 
 ---
 

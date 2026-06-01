@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-14
-updatedAt: 2025-09-27
+updatedAt: 2026-05-31
 title: Interest of Intlayer
 description: Discover the benefits and advantages of using Intlayer in your projects. Understand why Intlayer stands out among other frameworks.
 keywords:
@@ -13,6 +13,9 @@ slugs:
   - doc
   - why
 history:
+  - version: 8.11.2
+    date: 2026-05-31
+    changes: "Add Why Intlayer over alternatives section"
   - version: 7.3.1
     date: 2025-11-27
     changes: "Release Compiler"
@@ -25,6 +28,44 @@ history:
 ---
 
 # Why you should consider Intlayer?
+
+## Why Intlayer over alternatives?
+
+Compared to main solutions like `next-intl` or `i18next`, Intlayer is a solution that comes with integrated optimizations such as:
+
+**Bundle size**
+
+Instead of loading massive JSON files into your pages, load only the necessary content. Intlayer helps **reduce your bundle and page sizes by up to 50%**.
+
+**Maintainability**
+
+Scoping your application's content **facilitates maintenance** for large-scale applications. You can duplicate or delete a single feature folder without the mental burden of reviewing your entire content codebase. Additionally, Intlayer is **fully typed** to ensure your content's accuracy.
+
+**AI Agent**
+
+Co-locating content **reduces the context needed** by Large Language Models (LLMs). Intlayer also comes with a suite of tools, such as a **CLI** to test for missing translations,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)**, and **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, to make the developer experience (DX) even smoother for AI agents.
+
+**Feature**
+
+Intlayer offers a bench of additional features that other i18n solutions do not have, such as [Markdown support](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/markdown.md), [fetching external content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/function_fetching.md), [file content loading](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/file.md), [live content update](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/live.md), [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) and more.
+
+**Automation**
+
+Use automation to translate in your CI/CD pipeline using the LLM of your choice at the cost of your AI provider. Intlayer also offers a **compiler** to automate content extraction, as well as a [web platform](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) to help **translate in the background**.
+
+**Performance**
+
+Connecting massive JSON files to components can lead to performance and reactivity issues. Intlayer optimizes your content loading at build time.
+
+**Scaling with none-dev**
+
+More than just an i18n solution, Intlayer provides an **self-hosted [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** and a **[full CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** to help you manage your multilingual content in **real-time**, making collaboration with translators, copywriters, and other team members seamless. Content can be stored locally and/or remotely.
+
+**Cross framework design**
+
+If you use different frameworks for different part of your application (e.g., React, React-native, Vue, Angular, Svelte, etc.), Intlayer provides a way to **use a common synatax and implementation across all main frontend frameworks**. You will also be able to share your content declaration across your design-system, apps, backend etc.
+
+---
 
 ## What is Intlayer?
 
@@ -217,8 +258,6 @@ This approach allows you to:
 | **Lazy loading**                              | ✅ Yes, per-locale / per-dictionary                                                                                                 | ✅ Yes (e.g., backends/namespaces on demand)                                                             | ✅ Yes (split locale bundles)                                                                                                    | ✅ Yes (dynamic catalog imports)                      | ✅ Yes (per-route/per-locale), need mamespace management                                                 | ✅ Yes (per-route/per-locale), need mamespace management                                                 | ✅ Yes (async locale messages)                               |
 | **Purge unused content**                      | ✅ Yes, per-dictionary at build time                                                                                                | ❌ No, only via manual namespace segmentation                                                            | ❌ No, all declared messages are bundled                                                                                         | ✅ Yes, unused keys detected & dropped at build       | ❌ No, can be managed manually with namespace management                                                 | ❌ No, can be managed manually with namespace management                                                 | ❌ No, only possible via manual lazy-loading                 |
 | **Management of Large Projects**              | ✅ Encourages modular, suited for design-system                                                                                     | ⚠️ Needs good file discipline                                                                            | ⚠️ Central catalogs can get large                                                                                                | ⚠️ May get complex                                    | ✅ Modular with setup                                                                                    | ✅ Modular with setup                                                                                    | ✅ Modular with Vue Router/Nuxt i18n setup                   |
-
----
 
 ## GitHub STARs
 

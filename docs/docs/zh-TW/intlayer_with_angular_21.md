@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-05-06
-title: Angular i18n - 2026年如何翻譯一個Angular 21應用程式（Vite）
-description: 了解如何使您的Angular網站支援多語言。按照文件進行國際化（i18n）和翻譯。
+updatedAt: 2026-05-31
+title: Angular i18n - 完整翻譯指南： Angular 21
+description: 最佳的包體積、SEO、效能和可維護性解決方案。讓您的 Angular 21 應用程式在 2026 年實現多語言化，LLM 翻譯，Agent Skills & MCP。
 keywords:
   - 國際化
   - 文件

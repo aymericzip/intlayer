@@ -90,7 +90,7 @@ Limitaciones técnicas de estos enfoques:
 
 Incluso cuando declaras rutas como `[locale]/page.tsx`, con Webpack o Turbopack, e incluso si se define `generateStaticParams`, el bundler no trata `locale` como una constante estática. Eso significa que puede incluir el contenido de todos los idiomas en cada página. La forma principal de limitar esto es cargar el contenido a través de un import dinámico (por ejemplo, `import('./locales/${locale}.json')`).
 
-Lo que sucede en tiempo de compilación es que Next.js emite un bundle JS por idioma (por ejemplo, `./locales_fr_12345.js`). Una vez que el sitio se envía al cliente, cuando la página se ejecuta, el navegador realiza una petición HTTP adicional para el archivo JS necesario (por ejemplo, `./locales_fr_12345.js`).
+Lo que sucede en tiempo de compilación (build time) es que Next.js emite un bundle JS por idioma (por ejemplo, `./locales_fr_12345.js`). Una vez que el sitio se envía al cliente, cuando la página se ejecuta, el navegador realiza una petición HTTP adicional para el archivo JS necesario (por ejemplo, `./locales_fr_12345.js`).
 
 > Otra forma de abordar el mismo problema es usar `fetch()` para cargar el JSON dinámicamente. Así es como funciona `Tolgee` cuando el JSON reside en `/public`, o `next-translate`, que se basa en `getStaticProps` para cargar el contenido. El flujo es el mismo: el navegador realiza una petición HTTP adicional para cargar el recurso.
 
@@ -102,7 +102,7 @@ Para mitigar esto, algunas librerías te piden declarar por página qué namespa
 
 Por el contrario, `Paraglide` añade un paso adicional antes de la compilación para convertir el JSON en símbolos planos como `const en_my_var = () => 'mi valor'`. En teoría, esto permite el tree-shaking del contenido no utilizado en la página. Como veremos, este método todavía tiene sus compromisos.
 
-Finalmente, `Intlayer` aplica una optimización en tiempo de compilación para que `useIntlayer('mi-clave')` se reemplace directamente con el contenido correspondiente.
+Finalmente, `Intlayer` aplica una optimización en tiempo de compilación (build time) para que `useIntlayer('mi-clave')` se reemplace directamente con el contenido correspondiente.
 
 ## Metodología
 
@@ -207,7 +207,7 @@ Finalmente, en comparación con otras soluciones, Paraglide no usa un almacén (
 
 **(Tolgee)** (`@tolgee/react@7.0.0`):
 
-`Tolgee` aborda muchos de los problemas mencionados anteriormente. Me resultó más difícil de adoptar que herramientas similares. No proporciona seguridad de tipos (type safety), lo que también dificulta detectar claves faltantes en tiempo de compilación. Tuve que envolver las funciones de Tolgee con las mías propias para añadir la detección de claves faltantes.
+`Tolgee` aborda muchos de los problemas mencionados anteriormente. Me resultó más difícil de adoptar que herramientas similares. No proporciona seguridad de tipos (type safety), lo que también dificulta detectar claves faltantes en tiempo de compilación (build time). Tuve que envolver las funciones de Tolgee con las mías propias para añadir la detección de claves faltantes.
 
 **(Next Intl)** (`next-intl@4.9.1`):
 

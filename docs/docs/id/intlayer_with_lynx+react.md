@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-03-09
-updatedAt: 2026-05-06
-title: Lynx + React i18n - Cara menerjemahkan aplikasi Lynx di 2026
-description: Temukan cara membuat aplikasi mobile Lynx dan React Anda menjadi multibahasa. Ikuti dokumentasi untuk melakukan internasionalisasi (i18n) dan menerjemahkannya.
+updatedAt: 2026-05-31
+title: Lynx + React i18n - Panduan lengkap menerjemahkan Lynx
+description: Solusi terbaik untuk ukuran bundle, SEO, performa & keterpeliharaan. Jadikan Lynx and React aplikasi mobile Anda multibahasa di 2026, terjemahan LLM, Agent Skills & MCP.
 keywords:
   - Internasionalisasi
   - Dokumentasi
@@ -40,16 +40,37 @@ Lihat [Application Template](https://github.com/aymericzip/intlayer-lynx-templat
   loading="lazy"
 />
 
-## Apa itu Intlayer?
+## Mengapa Intlayer dibandingkan alternatif?
 
-**Intlayer** adalah **perpustakaan internasionalisasi (i18n) open-source yang inovatif** yang mempermudah dukungan multibahasa dalam aplikasi modern. Ini bekerja di banyak lingkungan JavaScript/TypeScript, **termasuk Lynx** (melalui paket `react-intlayer`).
+Dibandingkan dengan solusi utama seperti `react-native-localize` atau `i18next`, Intlayer adalah solusi yang hadir dengan pengoptimalan terintegrasi seperti:
 
-Dengan Intlayer, Anda dapat:
+**Cakupan Lynx penuh**
 
-- **Kelola terjemahan dengan mudah** menggunakan kamus deklaratif di tingkat komponen.
-- **Pastikan dukungan TypeScript** dengan tipe yang dihasilkan secara otomatis.
-- **Lokalisisasi konten secara dinamis**, termasuk **string UI** (dan di React untuk web, juga dapat melokalisasi metadata HTML, dll.).
-- **Manfaatkan fitur canggih**, seperti deteksi dan pergantian locale secara dinamis.
+Intlayer dioptimalkan untuk bekerja sempurna dengan Lynx dan React dengan menawarkan **pelingkupan konten tingkat komponen**, **dukungan TypeScript**, dan semua fitur yang diperlukan untuk penskalaan internasionalisasi (i18n).
+
+**Ukuran bundle**
+
+Daripada memuat file JSON berukuran besar ke halaman Anda, muat saja konten yang diperlukan. Intlayer membantu **mengurangi ukuran bundle dan halaman Anda hingga 50%**.
+
+**Kemampuan Pemeliharaan**
+
+Mencakup konten aplikasi Anda **memfasilitasi pemeliharaan** untuk aplikasi berskala besar. Anda dapat menduplikasi atau menghapus satu folder fitur tanpa beban mental untuk meninjau seluruh basis kode konten Anda. Selain itu, Intlayer **diketik sepenuhnya** untuk memastikan keakuratan konten Anda.
+
+**Agen AI**
+
+Menempatkan konten bersama **mengurangi konteks yang diperlukan** dengan Model Bahasa Besar (LLM). Intlayer juga dilengkapi dengan serangkaian alat, seperti **CLI** untuk menguji terjemahan yang hilang,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)**, dan **[agent skill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, untuk menjadikan pengalaman pengembang (DX) lebih lancar bagi agen AI.
+
+**Otomatisasi**
+
+Gunakan otomatisasi untuk menerjemahkan dalam saluran CI/CD Anda menggunakan LLM pilihan Anda dengan biaya penyedia AI Anda. Intlayer juga menawarkan **compiler** untuk mengotomatiskan ekstraksi konten, serta [platform web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) untuk membantu **menerjemahkan di latar belakang**.
+
+**Pertunjukan**
+
+Menghubungkan file JSON berukuran besar ke komponen dapat menyebabkan masalah kinerja dan reaktivitas. Intlayer mengoptimalkan pemuatan konten Anda pada waktu pembuatan.
+
+**Menskalakan tanpa pengembang**
+
+Lebih dari sekedar solusi i18n, Intlayer menyediakan **[editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** yang dihosting sendiri dan **[CMS lengkap](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** untuk membantu Anda mengelola konten multibahasa secara **real-time**, membuat kolaborasi dengan penerjemah, copywriter, dan anggota tim lainnya menjadi lancar. Konten dapat disimpan secara lokal dan/atau jarak jauh.
 
 ---
 

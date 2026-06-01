@@ -239,7 +239,7 @@ Los nodos de contenido son los bloques de construcción del contenido del diccio
 
 - **Valores primitivos**: cadenas, números, booleanos, null, undefined
 - **Nodos tipados**: Tipos especiales de contenido como traducciones, condiciones, markdown, etc.
-- **Funciones**: Contenido dinámico que puede evaluarse en tiempo de ejecución [ver Obtención de Funciones](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/function_fetching.md)
+- **Funciones**: Contenido dinámico que puede evaluarse en runtime [ver Obtención de Funciones](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/function_fetching.md)
 - **Contenido Plural**: Ver Contenido Plural [Ver Contenido Plural](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/plural.md)
 - **Contenido anidado**: Referencias a otros diccionarios
 
@@ -502,8 +502,8 @@ Identificador de versión para diccionarios remotos. Ayuda a rastrear qué versi
 
 El modo de importación determina cómo se importa tu diccionario en tu aplicación.
 
-- `'static'`: El diccionario se importa estáticamente en tiempo de compilación. Este es el modo predeterminado.
-- `'dynamic'`: El diccionario se importa dinámicamente en tiempo de ejecución usando la API de suspense.
+- `'static'`: El diccionario se importa estáticamente en tiempo de compilación (build time). Este es el modo predeterminado.
+- `'dynamic'`: El diccionario se importa dinámicamente en runtime usando la API de suspense.
 - `'fetch'`: El diccionario se importa dinámicamente usando la API de sincronización en vivo.
 
 Si se establece, esta propiedad anula el `importMode` global definido en `la propiedad `dictionary`de`intlayer.config.ts``.
@@ -1055,4 +1055,4 @@ export default {
 3. **Rendimiento**:
    - Ajusta la configuración del contenido para limitar el alcance de los archivos observados
    - Usa diccionarios en vivo solo cuando sean necesarias actualizaciones en tiempo real (por ejemplo, pruebas A/B, etc.)
-   - Asegúrate de que el plugin de transformación de compilación (`@intlayer/swc` o `@intlayer/babel`) esté habilitado para optimizar el diccionario en tiempo de compilación
+   - Asegúrate de que el plugin de transformación de compilación (`@intlayer/swc` o `@intlayer/babel`) esté habilitado para optimizar el diccionario en tiempo de compilación (build time)

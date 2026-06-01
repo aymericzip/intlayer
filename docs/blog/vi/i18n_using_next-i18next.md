@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-11-01
-updatedAt: 2025-11-01
-title: Cách quốc tế hóa ứng dụng Next.js của bạn bằng next-i18next
-description: Thiết lập i18n với next-i18next -  các thực hành tốt nhất và mẹo SEO cho ứng dụng Next.js đa ngôn ngữ, bao gồm quốc tế hóa, tổ chức nội dung và thiết lập kỹ thuật.
+updatedAt: 2026-05-31
+title: Cách quốc tế hóa ứng dụng Next.js của bạn bằng next-i18next - Hướng dẫn đầy đủ để dịch Translate Next.js 16 with next-i18next — App Router Setup
+description: Giải pháp tốt nhất cho kích thước bundle, SEO, hiệu suất & khả năng bảo trì. Làm cho Next.js 16 trang web của bạn đa ngôn ngữ vào năm 2026, dịch thuật LLM, Agent Skills & MCP.
 keywords:
   - next-i18next
   - i18next

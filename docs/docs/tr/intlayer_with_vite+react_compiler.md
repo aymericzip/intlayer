@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2026-05-06
-title: Vite + React i18n - Mevcut bir uygulamayı çok dilli bir uygulamaya dönüştürün 2026
-description: Intlayer Compiler kullanarak mevcut Vite ve React uygulamanızı nasıl çok dilli hale getireceğinizi keşfedin. Uluslararasılaştırma (i18n) ve AI ile çeviri için belgeleri takip edin.
+updatedAt: 2026-05-31
+title: "Vite + React i18n - Eksiksiz çeviri rehberi: Complete"
+description: Bundle boyutu, SEO, performans ve sürdürülebilirlik için en iyi çözüm. existing Vite and React uygulamayı'ınızı 2026'da çok dilli yapın, LLM çevirisi, Agent Skills & MCP.
 keywords:
   - Uluslararasılaştırma
   - Belgeler
@@ -84,7 +84,7 @@ Ardından, gerekli i18n kancalarını enjekte etmek için derleme sırasında ko
 
 ### Sınırlamalar
 
-Derleyici, **derleme zamanında** kod analizi ve dönüşümü (kancaların yerleştirilmesi ve sözlüklerin oluşturulması) gerçekleştirdiği için uygulamanızın **derleme sürecini yavaşlatabilir**.
+Derleyici, **build zamanında** kod analizi ve dönüşümü (kancaların yerleştirilmesi ve sözlüklerin oluşturulması) gerçekleştirdiği için uygulamanızın **derleme sürecini yavaşlatabilir**.
 
 Geliştirme sırasında bu etkiyi azaltmak için derleyiciyi [`'build-only'`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md) modunda çalışacak şekilde yapılandırabilir veya gerekmediğinde devre dışı bırakabilirsiniz.
 
@@ -407,7 +407,7 @@ bun x intlayer fill         # Eksik çevirileri doldurun
 
 > Daha fazla ayrıntı için [CLI belgelerine](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/ci.md) bakın.
 
-### (İsteğe bağlı) Sitemap ve robots.txt (derleme zamanı üretimi)
+### (İsteğe bağlı) Sitemap ve robots.txt (build zamanı üretimi)
 
 Intlayer, `generateSitemap` ve `getMultilingualUrls` ile tarayıcılar için çok dilli `sitemap.xml` ve `robots.txt` üretip bunları `public/` klasörüne otomatik yazmanıza yardımcı olur. Genelde Vite’tan **önce** küçük bir Node betiği çalıştırılır (ör. npm `predev` / `prebuild` kancaları).
 

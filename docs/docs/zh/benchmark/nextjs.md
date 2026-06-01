@@ -90,7 +90,7 @@ Intlayer 尝试在这些维度上进行优化。
 
 即使你使用 Webpack 或 Turbopack 声明了类似 `[locale]/page.tsx` 的路由，并且定义了 `generateStaticParams`，打包工具也不会将 `locale` 视为静态常量。这意味着它可能会将所有语言的内容都拉入每个页面。限制这种情况的主要方法是通过动态导入（例如 `import('./locales/${locale}.json')`）加载内容。
 
-在构建时，Next.js 会为每个语言环境生成一个 JS 包（例如 `./locales_fr_12345.js`）。当站点发送到客户端并运行时，浏览器会为所需的 JS 文件发出额外的 HTTP 请求。
+在构建时 (build time)，Next.js 会为每个语言环境生成一个 JS 包（例如 `./locales_fr_12345.js`）。当站点发送到客户端并运行时，浏览器会为所需的 JS 文件发出额外的 HTTP 请求。
 
 > 解决同一问题的另一种方法是使用 `fetch()` 动态加载 JSON。这就是当 JSON 存储在 `/public` 下时 `Tolgee` 的工作方式，或者是依赖 `getStaticProps` 加载内容的 `next-translate` 的工作方式。流程是一样的：浏览器会发起额外的 HTTP 请求来下载资源。
 

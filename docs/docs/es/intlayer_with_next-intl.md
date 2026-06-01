@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-10-05
-updatedAt: 2025-10-05
-title: next-intl - Cómo traducir una aplicación Next.js (i18n) en 2026
-description: Descubre cómo hacer tu sitio web Next.js 15 App Router multilingüe. Sigue la documentación para internacionalizar (i18n) y traducirlo.
+updatedAt: 2026-05-31
+title: next-intl - Guía completa para traducir Next.js
+description: La mejor solución para el tamaño del bundle, SEO, rendimiento & mantenibilidad. Haga multilingüe su Next.js 15 App Router sitio web en 2026, traducción LLM, Agent Skills & MCP.
 keywords:
   - Internacionalización
   - Documentación
@@ -362,9 +362,9 @@ export default function robots(): MetadataRoute.Robots {
 }
 ```
 
-### Middleware para el enrutamiento de locales
+### Middleware para el enrutamiento por locales
 
-Agrega un middleware para manejar la detección y el enrutamiento de locales:
+Agrega un middleware para manejar la detección y el enrutamiento por locales:
 
 ```ts fileName="src/middleware.ts"
 import createMiddleware from "next-intl/middleware";

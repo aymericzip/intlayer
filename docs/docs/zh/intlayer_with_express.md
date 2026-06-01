@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-05-06
-title: Express i18n - 如何翻译Express 应用 2026
-description: 了解如何使您的 Express 后端实现多语言。请遵循文档进行国际化（i18n）和翻译。
+updatedAt: 2026-05-31
+title: Express i18n - 完整翻译指南： Express
+description: 最佳的包体积、SEO、性能和可维护性解决方案。让您的 Express 后端在 2026 年实现多语言化，LLM 翻译，Agent Skills & MCP。
 keywords:
   - 国际化
   - 文档

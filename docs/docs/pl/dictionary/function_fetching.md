@@ -24,7 +24,7 @@ history:
 
 # Pobieranie funkcji
 
-Intlayer pozwala na deklarowanie funkcji zawartości w Twoich modułach zawartości, które mogą być zarówno synchroniczne, jak i asynchroniczne. Podczas budowania aplikacji Intlayer wykonuje te funkcje, aby uzyskać wynik funkcji. Wartość zwracana musi być obiektem JSON lub prostą wartością, taką jak string lub liczba.
+Intlayer pozwala na deklarowanie funkcji zawartości w Twoich modułach zawartości, które mogą być zarówno synchroniczne, jak i asynchroniczne. Podczas budowania (build time) aplikacji Intlayer wykonuje te funkcje, aby uzyskać wynik funkcji. Wartość zwracana musi być obiektem JSON lub prostą wartością, taką jak string lub liczba.
 
 > Uwaga: pobieranie funkcji jest obecnie niedostępne w deklaracjach zawartości JSON oraz w plikach zdalnych deklaracji zawartości.
 

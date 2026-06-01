@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-05-06
-title: Vite + Vue i18n - Como traduzir uma aplicação Vue em 2026
-description: Descubra como tornar seu site Vite e Vue multilíngue. Siga a documentação para internacionalizar (i18n) e traduzir.
+updatedAt: 2026-05-31
+title: Vite + Vue i18n - Guia completo para traduzir Vue
+description: A melhor solução para tamanho de bundle, SEO, desempenho & manutenibilidade. Torne seu Vite and Vue aplicativo multilíngue em 2026, tradução LLM, Agent Skills & MCP.
 keywords:
   - Internacionalização
   - Documentação
@@ -30,16 +30,37 @@ history:
 
 Veja o [Modelo de Aplicação](https://github.com/aymericzip/intlayer-vite-vue-template) no GitHub.
 
-## O que é Intlayer?
+## Por que Intlayer em vez de alternativas?
 
-**Intlayer** é uma biblioteca inovadora e de código aberto para internacionalização (i18n) projetada para simplificar o suporte multilíngue em aplicações web modernas.
+Comparado com soluções principais como `vue-i18n` ou `i18next`, Intlayer é uma solução que vem com otimizações integradas como:
 
-Com o Intlayer, você pode:
+**Cobertura completa do Vue**
 
-- **Gerenciar traduções facilmente** usando dicionários declarativos no nível do componente.
-- **Localizar dinamicamente metadados**, rotas e conteúdo.
-- **Garantir suporte ao TypeScript** com tipos gerados automaticamente, melhorando o autocompletar e a detecção de erros.
-- **Aproveitar recursos avançados**, como detecção e troca dinâmica de localidade.
+O Intlayer é otimizado para funcionar perfeitamente com Vue, oferecendo **escopo de conteúdo em nível de componente**, **traduções reativas** e todos os recursos necessários para dimensionar a internacionalização (i18n).
+
+**Tamanho do bundle**
+
+Em vez de carregar arquivos JSON enormes em suas páginas, carregue apenas o conteúdo necessário. O Intlayer ajuda a **reduzir o tamanho do bundle e das páginas em até 50%**.
+
+**Manutenção**
+
+Definir o escopo do conteúdo do seu aplicativo **facilita a manutenção** de aplicativos de grande escala. Você pode duplicar ou excluir uma única pasta de recursos sem o fardo mental de revisar toda a base de código de seu conteúdo. Além disso, o Intlayer é **totalmente tipado (fully typed)** para garantir a precisão do seu conteúdo.
+
+**Agente de IA**
+
+A co-localização de conteúdo **reduz o contexto necessário** pelos Large Language Models (LLMs). O Intlayer também vem com um conjunto de ferramentas, como uma **CLI** para testar traduções ausentes,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)**, e **[habilidades do agente](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, para tornar a experiência do desenvolvedor (DX) ainda mais tranquila para os agentes de IA.
+
+**Automação**
+
+Use a automação para traduzir seu pipeline de CI/CD usando o LLM de sua escolha às custas de seu provedor de IA. O Intlayer também oferece um **compilador** para automatizar a extração de conteúdo, bem como uma [plataforma web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) para ajudar a **traduzir em segundo plano**.
+
+**Desempenho**
+
+Conectar arquivos JSON enormes a componentes pode levar a problemas de desempenho e reatividade. O Intlayer otimiza o carregamento do seu conteúdo no momento da construção.
+
+**Escalonamento sem nenhum desenvolvedor**
+
+Mais do que apenas uma solução i18n, o Intlayer fornece um **[editor visual] auto-hospedado(https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** e um **[CMS completo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** para ajudá-lo a gerenciar seu conteúdo multilíngue em **tempo real**, facilitando a colaboração com tradutores, redatores e outros membros da equipe. O conteúdo pode ser armazenado local e/ou remotamente.
 
 ---
 
@@ -427,9 +448,9 @@ const content = useIntlayer("app"); // Criar arquivo de declaração intlayer re
 </template>
 ```
 
-### (Opcional) Passo 7: Adicione roteamento localizado à sua aplicação
+### (Opcional) Passo 7: Adicione roteamento por localeizado à sua aplicação
 
-Adicionar roteamento localizado em uma aplicação Vue normalmente envolve o uso do Vue Router com prefixos de localidade. Isso cria rotas únicas para cada idioma, o que é útil para SEO e URLs amigáveis para SEO.
+Adicionar roteamento por localeizado em uma aplicação Vue normalmente envolve o uso do Vue Router com prefixos de localidade. Isso cria rotas únicas para cada idioma, o que é útil para SEO e URLs amigáveis para SEO.
 
 Exemplo:
 

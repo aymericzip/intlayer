@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-01-16
-updatedAt: 2025-06-29
-title: Найкращі інструменти i18n для Svelte
-description: Дізнайтеся про провідні рішення i18n для Svelte, щоб вирішувати проблеми перекладу, підвищити SEO і забезпечити безшовний глобальний веб-досвід.
+updatedAt: 2026-05-31
+title: Найкращі інструменти i18n для Svelte - Повний посібник з перекладу Best Svelte i18n Libraries 2026 — Compared by DX & Bundle
+description: Найкраще рішення для розміру бандлу, SEO, продуктивності & підтримуваності. Зробіть Svelte застосунок багатомовним у 2026, переклад LLM, Agent Skills & MCP.
 keywords:
   - Svelte
   - i18n

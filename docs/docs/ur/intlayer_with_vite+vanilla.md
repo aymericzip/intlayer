@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-03-23
-updatedAt: 2026-05-06
-title: i18n Vite + Vanilla JS - 2026 میں ونیلا جے ایس ایپ کا ترجمہ کیسے کریں
-description: دریافت کریں کہ اپنی Vite اور Vanilla JS ویب سائٹ کو کثیر لسانی کیسے بنایا جائے۔ بین الاقوامی کاری (i18n) اور ترجمے کے لیے دستاویزی معلومات پر عمل کریں۔
+updatedAt: 2026-05-31
+title: "i18n Vite + Vanilla JS - ترجمے کا مکمل رہنما: Vanilla JS"
+description: بنڈل سائز، SEO، کارکردگی اور برقراری کے لیے بہترین حل۔ 2026 میں اپنے Vite and Vanilla JS ایپ کو کثیر لسانی بنائیں، LLM ترجمہ، Agent Skills & MCP۔
 keywords:
   - بین الاقوامی کاری
   - دستاویزات

@@ -740,7 +740,7 @@ Markdown 渲染支持 **MDX** — 在您的 Markdown 中直接按名称使用任
     );
     ```
 
-    > 动态导入您的 Markdown 渲染器是减少应用程序包大小的好方法。
+    > 动态导入您的 Markdown 渲染器是减少应用程序Bundle 大小的好方法。
 
   </Tab>
   <Tab label="Next.js" value="nextjs">
@@ -782,7 +782,7 @@ Markdown 渲染支持 **MDX** — 在您的 Markdown 中直接按名称使用任
     );
     ```
 
-    > 动态导入您的 Markdown 渲染器是减少应用程序包大小的好方法。
+    > 动态导入您的 Markdown 渲染器是减少应用程序Bundle 大小的好方法。
 
   </Tab>
   <Tab label="Vue" value="vue">
@@ -833,7 +833,7 @@ Markdown 渲染支持 **MDX** — 在您的 Markdown 中直接按名称使用任
     app.mount("#app");
     ```
 
-    > 动态导入您的 Markdown 渲染器是减少应用程序包大小的好方法。
+    > 动态导入您的 Markdown 渲染器是减少应用程序Bundle 大小的好方法。
 
   </Tab>
   <Tab label="Svelte" value="svelte">
@@ -873,7 +873,7 @@ Markdown 渲染支持 **MDX** — 在您的 Markdown 中直接按名称使用任
     </MarkdownProvider>
     ```
 
-    > 动态导入您的 Markdown 渲染器是减少应用程序包大小的好方法。
+    > 动态导入您的 Markdown 渲染器是减少应用程序Bundle 大小的好方法。
 
   </Tab>
   <Tab label="Preact" value="preact">
@@ -912,7 +912,7 @@ Markdown 渲染支持 **MDX** — 在您的 Markdown 中直接按名称使用任
     );
     ```
 
-    > 动态导入您的 Markdown 渲染器是减少应用程序包大小的好方法。
+    > 动态导入您的 Markdown 渲染器是减少应用程序Bundle 大小的好方法。
 
   </Tab>
   <Tab label="Solid" value="solid">
@@ -951,7 +951,7 @@ Markdown 渲染支持 **MDX** — 在您的 Markdown 中直接按名称使用任
     );
     ```
 
-    > 动态导入您的 Markdown 渲染器是减少应用程序包大小的好方法。
+    > 动态导入您的 Markdown 渲染器是减少应用程序Bundle 大小的好方法。
 
   </Tab>
   <Tab label="Angular" value="angular">
@@ -973,7 +973,7 @@ Markdown 渲染支持 **MDX** — 在您的 Markdown 中直接按名称使用任
     export class AppModule {}
     ```
 
-    > 动态导入您的 Markdown 渲染器是减少应用程序包大小的好方法。
+    > 动态导入您的 Markdown 渲染器是减少应用程序Bundle 大小的好方法。
 
   </Tab>
 </Tabs>

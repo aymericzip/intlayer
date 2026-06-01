@@ -45,7 +45,7 @@ Usa Intlayer como un complemento para tu stack i18n existente. Este plugin manti
 Notas y alcance actual:
 
 - La externalización al CMS funciona para traducciones y texto clásico.
-- Aún no hay soporte para inserciones, plurales/ICU, o funciones avanzadas en tiempo de ejecución de otras bibliotecas.
+- Aún no hay soporte para inserciones, plurales/ICU, o funciones avanzadas en runtime de otras bibliotecas.
 - El editor visual aún no es compatible con salidas i18n de terceros.
 
 ### Cuándo usar este plugin

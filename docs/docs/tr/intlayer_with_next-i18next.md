@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-10-05
-updatedAt: 2025-10-05
-title: next-i18next - 2026'da bir Next.js (i18n) uygulaması nasıl çevrilir
-description: next-i18next/next-i18next ile Next.js 15 App Router uygulamasını uluslararasılaştırmak için pratik, üretime hazır bir rehber ve Intlayer ile geliştirme.
+updatedAt: 2026-05-31
+title: "next-i18next - Eksiksiz çeviri rehberi: Next.js"
+description: Bundle boyutu, SEO, performans ve sürdürülebilirlik için en iyi çözüm. Next.js 15 App Router web sitesini'ınızı 2026'da çok dilli yapın, LLM çevirisi, Agent Skills & MCP.
 keywords:
   - Uluslararasılaştırma
   - Dokümantasyon

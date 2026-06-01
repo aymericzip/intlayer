@@ -29,7 +29,7 @@ history:
 
 ## Cómo Funciona la Inserción
 
-En Intlayer, el contenido de inserción se logra mediante la función `insertion`, que identifica campos de marcador de posición en una cadena (como `{{name}}` o `{{age}}`) que pueden ser reemplazados dinámicamente en tiempo de ejecución. Este enfoque te permite crear cadenas flexibles, similares a plantillas, donde partes específicas del contenido se determinan por los datos proporcionados desde tu aplicación.
+En Intlayer, el contenido de inserción se logra mediante la función `insertion`, que identifica campos de marcador de posición en una cadena (como `{{name}}` o `{{age}}`) que pueden ser reemplazados dinámicamente en runtime. Este enfoque te permite crear cadenas flexibles, similares a plantillas, donde partes específicas del contenido se determinan por los datos proporcionados desde tu aplicación.
 
 Cuando se integra con React Intlayer o Next Intlayer, simplemente puedes proporcionar el objeto de datos que contiene los valores para cada marcador de posición, y Intlayer renderizará automáticamente el contenido con los marcadores reemplazados.
 

@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-11-01
-updatedAt: 2025-11-01
-title: next-i18next kullanarak Next.js uygulamanızı nasıl uluslararasılaştırırsınız
-description: "next-i18next ile i18n kurulumu: çok dilli Next.js uygulamaları için en iyi uygulamalar ve SEO ipuçları, uluslararasılaştırma, içerik organizasyonu ve teknik kurulum konularını kapsar."
+updatedAt: 2026-05-31
+title: "next-i18next kullanarak Next.js uygulamanızı nasıl uluslararasılaştırırsınız - Eksiksiz çeviri rehberi: Translate Next.js 16 with next-i18next — App Router Setup"
+description: Bundle boyutu, SEO, performans ve sürdürülebilirlik için en iyi çözüm. Next.js 16 web sitesini'ınızı 2026'da çok dilli yapın, LLM çevirisi, Agent Skills & MCP.
 keywords:
   - next-i18next
   - i18next

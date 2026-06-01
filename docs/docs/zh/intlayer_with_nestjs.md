@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-05-06
-title: NestJS i18n - 如何翻译NestJS 应用 2026
-description: 了解如何使你的 NestJS 后端支持多语言。按照文档进行国际化（i18n）和翻译。
+updatedAt: 2026-05-31
+title: NestJS i18n - 完整翻译指南： NestJS
+description: 最佳的包体积、SEO、性能和可维护性解决方案。让您的 NestJS 后端在 2026 年实现多语言化，LLM 翻译，Agent Skills & MCP。
 keywords:
   - 国际化
   - 文档

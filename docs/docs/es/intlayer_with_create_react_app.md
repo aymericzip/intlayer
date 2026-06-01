@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-05-06
-title: Create React App i18n - Cómo traducir una aplicación React en 2026
-description: Descubre cómo hacer que tu sitio web de Create React App (CRA) sea multilingüe. Sigue la documentación para internacionalizar (i18n) y traducirlo.
+updatedAt: 2026-05-31
+title: Create React App i18n - Guía completa para traducir React
+description: La mejor solución para el tamaño del bundle, SEO, rendimiento & mantenibilidad. Haga multilingüe su Create React App sitio web en 2026, traducción LLM, Agent Skills & MCP.
 keywords:
   - Internacionalización
   - Documentación
@@ -263,7 +263,7 @@ const LocaleSwitcher = () => {
 
 > Para aprender más sobre el hook `useLocale`, consulta la [documentación](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/react-intlayer/useLocale.md).
 
-### (Opcional) Paso 7: Añadir enrutamiento localizado a tu aplicación
+### (Opcional) Paso 7: Añadir enrutamiento por localeizado a tu aplicación
 
 El propósito de este paso es crear rutas únicas para cada idioma. Esto es útil para SEO y URLs amigables con SEO.
 Ejemplo:
@@ -276,7 +276,7 @@ Ejemplo:
 
 > Por defecto, las rutas no tienen prefijo para la configuración regional predeterminada. Si deseas agregar un prefijo para la configuración regional predeterminada, puedes establecer la opción `middleware.prefixDefault` en `true` en tu configuración. Consulta la [documentación de configuración](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/configuration.md) para más información.
 
-Para agregar enrutamiento localizado a tu aplicación, puedes crear un componente `LocaleRouter` que envuelva las rutas de tu aplicación y gestione el enrutamiento basado en la configuración regional. Aquí tienes un ejemplo usando [React Router](https://reactrouter.com/home):
+Para agregar enrutamiento por localeizado a tu aplicación, puedes crear un componente `LocaleRouter` que envuelva las rutas de tu aplicación y gestione el enrutamiento basado en la configuración regional. Aquí tienes un ejemplo usando [React Router](https://reactrouter.com/home):
 
 ```tsx fileName="src/components/LocaleRouter.tsx" codeFormat={["typescript", "esm"]}
 // Importando las dependencias y funciones necesarias

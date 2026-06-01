@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-01-10
-updatedAt: 2026-05-06
-title: Next.js i18n - كيفية ترجمة تطبيق Next.js 16 (بدون [locale] في مسار الصفحة) في 2026
-description: اكتشف كيفية جعل موقع Next.js 16 متعدد اللغات بدون [locale] في مسار الصفحة. اتبع الوثائق لعمل تدويل (i18n) وترجمته.
+updatedAt: 2026-05-31
+title: Next.js i18n - الدليل الكامل لترجمة Next.js 16 app (no locale prefix)
+description: أفضل حل لحجم البندل وتحسين محركات البحث والأداء والصيانة. اجعل Next.js 16 موقع ويب متعدد اللغات في 2026، ترجمة LLM، Agent Skills & MCP.
 keywords:
   - التدويل
   - الوثائق
@@ -53,19 +53,41 @@ history:
 
 <TOC/>
 
-## ما هو Intlayer؟
+## لماذا Intlayer على البدائل؟
 
-**Intlayer** هي مكتبة مبتكرة ومفتوحة المصدر للتدويل (i18n) مصممة لتبسيط دعم متعدد اللغات في تطبيقات الويب الحديثة. يتكامل **Intlayer** بسلاسة مع إطار **Next.js 16** الأحدث، بما في ذلك **App Router** القوي. وهي مُحسّنة للعمل مع **Server Components** من أجل عرض فعال ومتوافقة تمامًا مع [**Turbopack**](https://nextjs.org/docs/architecture/turbopack).
+بالمقارنة مع الحلول الرئيسية مثل `next-intl` أو `i18next`، يعد Intlayer حلاً يأتي مزودًا بتحسينات متكاملة مثل:
 
-مع Intlayer، يمكنك:
+**تغطية Next.js الكاملة**
 
-- **إدارة الترجمات بسهولة** باستخدام قواميس تصريحية على مستوى المكوّن.
-- **توطين البيانات الوصفية بشكل ديناميكي**، والمسارات، والمحتوى.
-- **الوصول إلى الترجمات في مكوّنات جانب العميل وجانب الخادم على حد سواء**.
-- **ضمان دعم TypeScript** بأنواع مُولّدة تلقائيًا، مما يحسّن الإكمال التلقائي واكتشاف الأخطاء.
-  /// **الاستفادة من ميزات متقدمة** مثل الكشف الديناميكي عن اللغة وتبديلها.
+تم تحسين Intlayer للعمل مع **مكونات الخادم** من أجل العرض الفعال وهو متوافق تمامًا مع [**Turbopack**](https://nextjs.org/docs/architecture/turbopack). إنه لا يمنع العرض الثابت ويوفر برامج وسيطة بالإضافة إلى جميع الميزات اللازمة لتوسيع نطاق التدويل (i18n).
 
-> يتوافق Intlayer مع Next.js 12 و13 و14 و16. إذا كنت تستخدم Next.js Page Router، يمكنك الاطلاع على هذا [الدليل](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_page_router.md). بالنسبة لـ Next.js 12 و13 و14 مع App Router، اطلع على هذا [الدليل](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_14.md).
+> يتوافق Intlayer مع Next.js 12 و13 و14 و15 و16. إذا كنت تستخدم جهاز توجيه الصفحات Next.js، فيمكنك الرجوع إلى هذا [الدليل](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_page_router.md).
+> يعد التوجيه المحلي مفيدًا لتحسين محركات البحث وحجم البندل والأداء. إذا لم تكن بحاجة إليه، يمكنك الرجوع إلى هذا [الدليل](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_no_locale_path.md).
+> بالنسبة إلى Next.js 12 و13 و14 و15 مع جهاز توجيه التطبيقات، راجع هذا [الدليل](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_14.md).
+
+**حجم البندل**
+
+بدلاً من تحميل ملفات JSON ضخمة إلى صفحاتك، قم بتحميل المحتوى الضروري فقط. يساعد Intlayer **في تقليل أحجام البندل وصفحاتك بنسبة تصل إلى 50%**.
+
+** الصيانة **
+
+يؤدي تحديد نطاق محتوى تطبيقك ** إلى تسهيل الصيانة ** للتطبيقات واسعة النطاق. يمكنك تكرار أو حذف مجلد ميزات واحد دون العبء العقلي لمراجعة قاعدة بيانات المحتوى بالكامل. بالإضافة إلى ذلك، تتم كتابة Intlayer **بالكامل** لضمان دقة المحتوى الخاص بك.
+
+** وكيل الذكاء الاصطناعي **
+
+يؤدي تحديد موقع المحتوى المشترك ** إلى تقليل السياق المطلوب ** بواسطة نماذج اللغات الكبيرة (LLMs). يأتي Intlayer أيضًا مزودًا بمجموعة من الأدوات، مثل **CLI** لاختبار الترجمات المفقودة،**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**، **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** و**[مهارات الوكيل](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**، لجعل تجربة المطور (DX) أكثر سلاسة للذكاء الاصطناعي وكلاء.
+
+**الأتمتة**
+
+استخدم الأتمتة للترجمة في مسار CI/CD الخاص بك باستخدام LLM من اختيارك على حساب مزود الذكاء الاصطناعي الخاص بك. يقدم Intlayer أيضًا **مترجمًا** لأتمتة استخراج المحتوى، بالإضافة إلى [منصة ويب](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) للمساعدة في **الترجمة في الخلفية**.
+
+**أداء**
+
+يمكن أن يؤدي ربط ملفات JSON الضخمة بالمكونات إلى حدوث مشكلات في الأداء والتفاعل. يعمل Intlayer على تحسين تحميل المحتوى الخاص بك في وقت الإنشاء.
+
+**التحجيم مع عدم وجود مطور**
+
+أكثر من مجرد حل i18n، يوفر Intlayer **[محررًا مرئيًا] مستضافًا ذاتيًا](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** و**[كامل CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** لمساعدتك في إدارة المحتوى متعدد اللغات في **الوقت الفعلي**، مما يجعل التعاون مع المترجمين ومؤلفي النصوص وأعضاء الفريق الآخرين سلسًا. يمكن تخزين المحتوى محليًا و/أو عن بعد.
 
 ---
 
@@ -559,7 +581,7 @@ export const myServerAction = async () => {
 >
 > هذا يضمن اختيار الـlocale الأنسب بناءً على السياق المتاح.
 
-### (اختياري) الخطوة 10: تحسين حجم الحزمة
+### (اختياري) الخطوة 10: تحسين حجم البندل
 
 عند استخدام `next-intlayer`، يتم تضمين القواميس في كل bundle لكل صفحة بشكل افتراضي. لتقليل حجم الـbundle، يوفر Intlayer ملحق SWC اختياري يستبدل استدعاءات `useIntlayer` بذكاء باستخدام الماكروز. هذا يضمن تضمين القواميس فقط في الحزم الخاصة بالصفحات التي تستخدمها فعليًا.
 

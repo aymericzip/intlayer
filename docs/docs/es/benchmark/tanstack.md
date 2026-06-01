@@ -90,7 +90,7 @@ Con la carga dinámica, aceptas un compromiso: menos JS inicial, pero a veces un
 
 **División de contenido (Content splitting)**
 
-Las sintaxis basadas en `const t = useTranslation()` + `t('a.b.c')` son muy cómodas pero a menudo fomentan el mantenimiento de grandes objetos JSON en tiempo de ejecución. Ese modelo dificulta el tree-shaking a menos que la librería ofrezca una estrategia real de división por página.
+Las sintaxis basadas en `const t = useTranslation()` + `t('a.b.c')` son muy cómodas pero a menudo fomentan el mantenimiento de grandes objetos JSON en runtime. Ese modelo dificulta el tree-shaking a menos que la librería ofrezca una estrategia real de división por página.
 
 ## Metodología
 
@@ -170,7 +170,7 @@ La idea detrás de `Wuchale` es interesante pero todavía no es una solución vi
 
 **(Tolgee)** (`@tolgee/react@7.0.0`):
 
-`Tolgee` aborda muchos de los problemas mencionados anteriormente. Me resultó más difícil empezar con ella que con otras herramientas con enfoques similares. No proporciona seguridad de tipos, lo que también dificulta mucho detectar claves faltantes en tiempo de compilación. Tuve que envolver las API de Tolgee con las mías propias para añadir la detección de claves faltantes.
+`Tolgee` aborda muchos de los problemas mencionados anteriormente. Me resultó más difícil empezar con ella que con otras herramientas con enfoques similares. No proporciona seguridad de tipos, lo que también dificulta mucho detectar claves faltantes en tiempo de compilación (build time). Tuve que envolver las API de Tolgee con las mías propias para añadir la detección de claves faltantes.
 
 En TanStack Start también tuve problemas de reactividad: al cambiar de idioma, tuve que forzar el renderizado del proveedor y suscribirme a eventos de cambio de idioma para que la carga en otro idioma se comportara correctamente.
 

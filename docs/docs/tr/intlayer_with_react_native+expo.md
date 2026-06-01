@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-09-07
-updatedAt: 2026-05-06
-title: Expo + React Native i18n - React Native uygulamasını çevirme 2026
-description: React Native ve Expo web sitenizi çok dilli hale getirmeyi öğrenin. Uluslararasılaştırma (i18n) ve çeviri yapmak için dokümantasyonu takip edin.
+updatedAt: 2026-05-31
+title: "Expo + React Native i18n - Eksiksiz çeviri rehberi: React Native"
+description: Bundle boyutu, SEO, performans ve sürdürülebilirlik için en iyi çözüm. Expo and React Native mobil uygulamayı'ınızı 2026'da çok dilli yapın, LLM çevirisi, Agent Skills & MCP.
 keywords:
   - Uluslararasılaştırma
   - Dokümantasyon
@@ -57,16 +57,78 @@ history:
 
 GitHub'da [Uygulama Şablonu](https://github.com/aymericzip/intlayer-react-native-template)na bakın.
 
-## Intlayer Nedir?
+## Neden alternatifler yerine Intlayer?
 
-**Intlayer**, modern uygulamalarda çok dilli desteği basitleştirmek için tasarlanmış **yenilikçi, açık kaynaklı bir uluslararasılaştırma (i18n) kütüphanesidir**. Birçok JavaScript/TypeScript ortamında çalışır, **React Native** dahil (`react-intlayer` paketi aracılığıyla).
+'React-native-localize' veya 'i18next' gibi ana çözümlerle karşılaştırıldığında Intlayer, aşağıdaki gibi entegre optimizasyonlarla gelen bir çözümdür:
 
-Intlayer ile şunları yapabilirsiniz:
+**Tam React Native kapsamı**
 
-- **Bileşen düzeyinde bildirimsel sözlükler kullanarak çevirileri kolayca yönetin**.
-- **Otomatik olarak oluşturulan türlerle TypeScript desteği sağlayın**.
-- **UI dizelerini içeren içeriği dinamik olarak yerelleştirin** (ve web için React'te, HTML meta verilerini de yerelleştirebilir, vb.).
-- **Dinamik yerel algılama ve anahtarlama gibi gelişmiş özelliklerden yararlanın**.
+Intlayer, **bileşen düzeyinde içerik kapsamı**, **TypeScript desteği** ve mobil uygulamalarda uluslararasılaştırmayı (i18n) ölçeklendirmek için gereken tüm özellikleri sunarak React Native ve Expo ile mükemmel çalışacak şekilde optimize edilmiştir.
+
+**Sürdürülebilirlik**
+
+Uygulamanızın içeriğinin kapsamını belirlemek, büyük ölçekli uygulamalar için **bakımı kolaylaştırır**. İçerik kod tabanınızın tamamını gözden geçirmenin zihinsel yükü olmadan, tek bir özellik klasörünü çoğaltabilir veya silebilirsiniz. Ayrıca Intlayer, içeriğinizin doğruluğunu sağlamak için **tamamen tiplendirilmiş (fully typed)tır**.
+
+**Yapay Zeka Temsilcisi**
+
+İçeriğin bir arada konumlandırılması **Büyük Dil Modellerinin (LLM'ler) ihtiyaç duyduğu bağlamı azaltır**. Intlayer ayrıca eksik çevirileri test etmek için **CLI** gibi bir araç paketiyle birlikte gelir**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** ve **[aracı becerileri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, geliştirici deneyimini (DX) yapay zeka için daha da sorunsuz hale getirmek için ajanlar.
+
+**Otomasyon**
+
+Maliyeti AI sağlayıcınıza ait olmak üzere seçtiğiniz LLM'yi kullanarak CI/CD işlem hattınızda çeviri yapmak için otomasyonu kullanın. Intlayer ayrıca içerik çıkarmayı otomatikleştirmek için bir **derleyici** ve **arka planda çeviri yapmaya** yardımcı olacak bir [web platformu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) sunar.
+
+**Performans**
+
+Büyük JSON dosyalarını bileşenlere bağlamak performans ve tepkime sorunlarına yol açabilir. Intlayer, içerik yüklemenizi derleme sırasında optimize eder.
+
+**Non-dev ile ölçeklendirme**
+
+Bir i18n çözümünden çok daha fazlası olan Intlayer, **kendi kendine barındırılan bir [görsel düzenleyici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** ve **[tam CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** çok dilli içeriğinizi **gerçek zamanlı** olarak yönetmenize yardımcı olarak çevirmenler, metin yazarları ve diğer ekip üyeleriyle işbirliğini kusursuz hale getirir. İçerik yerel olarak ve/veya uzaktan depolanabilir.
+
+**Bundle boyutu**
+
+Sayfalarınıza çok büyük JSON dosyaları yüklemek yerine yalnızca gerekli içeriği yükleyin. Intlayer **paketinizi ve görüntüleme boyutlarınızı %50'ye kadar azaltmanıza** yardımcı olur.
+
+## 1. Adım: Bağımlılıkları Kurun
+
+GitHub'da [Uygulama Şablonu](https://github.com/aymericzip/intlayer-react-native-template) konusuna bakın.
+
+React Native projenizden aşağıdaki paketleri yükleyin:
+
+````bash packageManager = "npm"
+npm intlayer tepki-intlayer'ı kurun
+npm kurulumu --save-dev react-native-intlayer
+npx katman içi başlatma
+''''
+
+```bash packageManager = "pnpm"
+pnpm ara katman ekle tepki-ara katman
+pnpm add --save-dev react-native-intlayer
+pnpm katman içi başlatma
+''''
+
+```bash packageManager = "iplik"
+iplik ekleme ara katman reaksiyon-ara katman
+iplik ekleme --save-dev react-native-intlayer
+iplik ara katmanı başlangıcı
+''''
+
+```bash packageManager = "topuz"
+topuz ekle ara katman reaksiyon-ara katman
+topuz ekle --dev react-native-intlayer
+bun x ara katman başlatma
+''''
+
+### Paketler
+
+- **ara katman**
+  Yapılandırma, sözlük içeriği, tür oluşturma ve CLI komutları için temel i18n araç seti.
+
+- **tepki katmanı**
+  Yerel ayarları edinmek ve değiştirmek için React Native'de kullanacağınız içerik sağlayıcıları ve React kancalarını sağlayan React entegrasyonu.
+
+- **tepki-yerel-intlayer**
+  Intlayer'ı React Native paketleyiciyle entegre etmek için Metro eklentisini sağlayan React Native entegrasyonu.
 
 ---
 
@@ -78,7 +140,7 @@ React Native projenizden aşağıdaki paketleri kurun:
 npm install intlayer react-intlayer
 npm install --save-dev react-native-intlayer
 npx intlayer init
-```
+````
 
 ```bash packageManager="pnpm"
 pnpm add intlayer react-intlayer

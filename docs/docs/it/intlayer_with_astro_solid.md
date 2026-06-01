@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-04-24
-updatedAt: 2026-05-06
-title: Astro + Solid i18n - Come tradurre un'applicazione Astro + Solid nel 2026
-description: Scopri come aggiungere l'internazionalizzazione (i18n) al tuo sito Astro + Solid con Intlayer. Segui questa guida per rendere il tuo sito multilingue.
+updatedAt: 2026-05-31
+title: Astro + Solid i18n - Guida completa per tradurre Astro + Solid
+description: La migliore soluzione per dimensione del bundle, SEO, prestazioni & manutenibilità. Rendi il tuo Astro and Solid sito web multilingue nel 2026, traduzione LLM, Agent Skills & MCP.
 keywords:
   - internazionalizzazione
   - documentazione
@@ -58,16 +58,37 @@ history:
 
 <TOC/>
 
-## Cos'è Intlayer?
+## Perché Intlayer rispetto alle alternative?
 
-**Intlayer** è una libreria di internazionalizzazione (i18n) innovativa e open-source progettata per semplificare il supporto multilingue nelle moderne applicazioni web.
+Rispetto alle soluzioni principali come `astro-i18n` o `i18next`, Intlayer è una soluzione dotata di ottimizzazioni integrate come:
 
-Con Intlayer puoi:
+**Copertura Astro completa**
 
-- **Gestire le traduzioni facilmente**: Utilizzando dizionari dichiarativi a livello di componente.
-- **Localizzare metadati, percorsi e contenuti dinamicamente**.
-- **Garantire il supporto TypeScript**: Con tipi autogenerati per migliorare l'autocompletamento e il rilevamento degli errori.
-- **Beneficiare di funzioni avanzate**: Come il rilevamento dinamico della lingua e il cambio di lingua.
+Intlayer è ottimizzato per funzionare perfettamente con Astro offrendo **routing multilingue**, **mappa del sito** e tutte le funzionalità necessarie per scalare l'internazionalizzazione (i18n).
+
+**Dimensione del bundle**
+
+Invece di caricare enormi file JSON nelle tue pagine, carica solo il contenuto necessario. Intlayer aiuta a **ridurre le dimensioni del bundle e della pagina fino al 50%**.
+
+**Manutenibilità**
+
+L'ambito del contenuto dell'applicazione **facilita la manutenzione** per applicazioni su larga scala. Puoi duplicare o eliminare una singola cartella di funzionalità senza l'onere mentale di rivedere l'intera codebase dei contenuti. Inoltre, Intlayer è **completamente tipizzato (fully typed)** per garantire l'accuratezza dei tuoi contenuti.
+
+**Agente IA**
+
+La co-localizzazione dei contenuti **riduce il contesto necessario** dai Large Language Models (LLM). Intlayer viene fornito anche con una suite di strumenti, come una **CLI** per verificare le traduzioni mancanti,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** e **[capacità dell'agente](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, per rendere l'esperienza dello sviluppatore (DX) ancora più fluida per gli agenti IA.
+
+**Automazione**
+
+Utilizza l'automazione per tradurre nella tua pipeline CI/CD utilizzando il LLM di tua scelta al costo del tuo provider di intelligenza artificiale. Intlayer offre anche un **compilatore** per automatizzare l'estrazione dei contenuti, nonché una [piattaforma web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) per aiutare a **tradurre in background**.
+
+**Prestazione**
+
+La connessione di enormi file JSON ai componenti può portare a problemi di prestazioni e reattività. Intlayer ottimizza il caricamento dei contenuti in fase di compilazione.
+
+**Scalabilità con nessuno sviluppatore**
+
+Più di una semplice soluzione i18n, Intlayer fornisce un **[editor visivo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** self-hosted e un **[CMS completo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** per aiutarti gestisci i tuoi contenuti multilingue in **tempo reale**, semplificando la collaborazione con traduttori, copywriter e altri membri del team. I contenuti possono essere archiviati localmente e/o in remoto.
 
 ---
 

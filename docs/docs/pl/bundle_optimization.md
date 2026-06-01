@@ -92,7 +92,7 @@ bun next experimental-analyze
 
 ### Next.js (Webpack)
 
-Jeśli używasz domyślnego bundlera Webpack w Next.js, skorzystaj z oficjalnego analizatora bundle'a. Uruchom go, ustawiając zmienną środowiskową podczas budowania.
+Jeśli używasz domyślnego bundlera Webpack w Next.js, skorzystaj z oficjalnego analizatora bundle'a. Uruchom go, ustawiając zmienną środowiskową podczas budowania (build time).
 
 ```bash packageManager='npm'
 npm install -D @next/bundle-analyzer

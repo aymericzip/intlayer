@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-09-07
-updatedAt: 2026-05-06
-title: Create React App i18n - React uygulamasını çevirme 2026
-description: Create React App (CRA) web sitenizi çok dilli hale getirmeyi keşfedin. Dokümantasyonu takip ederek uluslararasılaştırma (i18n) yapın ve çevirin.
+updatedAt: 2026-05-31
+title: "Create React App i18n - Eksiksiz çeviri rehberi: React"
+description: Bundle boyutu, SEO, performans ve sürdürülebilirlik için en iyi çözüm. Create React App web sitesini'ınızı 2026'da çok dilli yapın, LLM çevirisi, Agent Skills & MCP.
 keywords:
   - Uluslararasılaştırma
   - Dokümantasyon

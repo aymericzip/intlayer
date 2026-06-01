@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-03-09
-updatedAt: 2026-05-06
-title: Lynx + React i18n - Cách dịch ứng dụng Lynx năm 2026
-description: Khám phá cách làm cho ứng dụng di động Lynx và React của bạn đa ngôn ngữ. Theo dõi tài liệu để quốc tế hóa (i18n) và dịch nó.
+updatedAt: 2026-05-31
+title: Lynx + React i18n - Hướng dẫn đầy đủ để dịch Lynx
+description: Giải pháp tốt nhất cho kích thước bundle, SEO, hiệu suất & khả năng bảo trì. Làm cho Lynx and React ứng dụng di động của bạn đa ngôn ngữ vào năm 2026, dịch thuật LLM, Agent Skills & MCP.
 keywords:
   - Quốc tế hóa
   - Tài liệu
@@ -40,16 +40,37 @@ Xem [Application Template](https://github.com/aymericzip/intlayer-lynx-template)
   loading="lazy"
 />
 
-## Intlayer là gì?
+## Tại sao Intlayer thay thế các lựa chọn thay thế?
 
-**Intlayer** là một **thư viện quốc tế hóa (i18n) mã nguồn mở, sáng tạo** giúp đơn giản hóa việc hỗ trợ đa ngôn ngữ trong các ứng dụng hiện đại. Nó hoạt động trong nhiều môi trường JavaScript/TypeScript, **bao gồm cả Lynx** (thông qua gói `react-intlayer`).
+So với các giải pháp chính như `react-native-localize` hay `i18next`, Intlayer là giải pháp đi kèm với các tính năng tối ưu hóa tích hợp như:
 
-Với Intlayer, bạn có thể:
+**Bảo hiểm Lynx đầy đủ**
 
-- **Dễ dàng quản lý bản dịch** bằng cách sử dụng các từ điển khai báo ở cấp độ component.
-- **Đảm bảo hỗ trợ TypeScript** với các kiểu được tự động tạo.
-- **Địa phương hóa nội dung một cách động**, bao gồm **chuỗi giao diện người dùng** (và trong React cho web, nó cũng có thể địa phương hóa metadata HTML, v.v.).
-- **Hưởng lợi từ các tính năng nâng cao**, như phát hiện và chuyển đổi ngôn ngữ động.
+Intlayer được tối ưu hóa để hoạt động hoàn hảo với Lynx và React bằng cách cung cấp **phạm vi nội dung cấp thành phần**, **hỗ trợ TypeScript** và tất cả các tính năng cần thiết để mở rộng quy mô quốc tế hóa (i18n).
+
+**Kích thước bundle**
+
+Thay vì tải các tệp JSON lớn vào trang của bạn, hãy chỉ tải nội dung cần thiết. Intlayer giúp **giảm tới 50% kích thước bundle và kích thước trang**.
+
+**Khả năng bảo trì**
+
+Xác định phạm vi nội dung ứng dụng của bạn **tạo điều kiện bảo trì** cho các ứng dụng quy mô lớn. Bạn có thể sao chép hoặc xóa một thư mục tính năng mà không phải lo lắng về việc xem lại toàn bộ cơ sở mã nội dung của mình. Ngoài ra, Intlayer **được nhập đầy đủ** để đảm bảo tính chính xác cho nội dung của bạn.
+
+**Đại lý AI**
+
+Nội dung cùng định vị **giảm ngữ cảnh cần thiết** của Mô hình ngôn ngữ lớn (LLM). Intlayer cũng đi kèm một bộ công cụ, chẳng hạn như **CLI** để kiểm tra các bản dịch bị thiếu,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** và **[agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, để giúp trải nghiệm của nhà phát triển (DX) trở nên mượt mà hơn nữa đối với các tác nhân AI.
+
+**Tự động hóa**
+
+Sử dụng tính năng tự động hóa để dịch trong quy trình CI/CD của bạn bằng cách sử dụng LLM mà bạn chọn với chi phí do nhà cung cấp AI của bạn chi trả. Intlayer cũng cung cấp **trình biên dịch** để tự động trích xuất nội dung cũng như [nền tảng web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) để giúp **dịch ở chế độ nền**.
+
+**Hiệu suất**
+
+Việc kết nối các tệp JSON lớn với các thành phần có thể dẫn đến các vấn đề về hiệu suất và khả năng phản hồi. Intlayer tối ưu hóa việc tải nội dung của bạn tại thời điểm build.
+
+**Mở rộng quy mô không có nhà phát triển**
+
+Không chỉ là giải pháp i18n, Intlayer còn cung cấp **[trình chỉnh sửa trực quan](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** và **[CMS đầy đủ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** để giúp bạn quản lý nội dung đa ngôn ngữ của mình trong **thời gian thực**, giúp việc cộng tác với người dịch, người viết quảng cáo và các thành viên khác trong nhóm trở nên liền mạch. Nội dung có thể được lưu trữ cục bộ và/hoặc từ xa.
 
 ---
 

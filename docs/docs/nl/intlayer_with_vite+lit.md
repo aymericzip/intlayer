@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-03-23
-updatedAt: 2026-05-06
-title: Vite + Lit i18n - Hoe vertaal je een Lit-app in 2026
-description: Ontdek hoe je je Vite- en Lit-website meertalig kunt maken. Volg de documentatie voor internationalisering (i18n) en vertaling.
+updatedAt: 2026-05-31
+title: Vite + Lit i18n - Volledige gids voor het vertalen van Lit
+description: Beste oplossing voor bundle-grootte, SEO, prestaties & onderhoudbaarheid. Maak uw Vite and Lit app meertalig in 2026, LLM-vertaling, Agent Skills & MCP.
 keywords:
   - Internationalisering
   - Documentatie

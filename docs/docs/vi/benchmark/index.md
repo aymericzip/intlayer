@@ -2,7 +2,7 @@
 createdAt: 2026-04-20
 updatedAt: 2026-04-20
 title: Điểm chuẩn các thư viện i18n
-description: Tìm hiểu cách Intlayer so sánh với các thư viện i18n khác về hiệu năng và kích thước gói bundle.
+description: Tìm hiểu cách Intlayer so sánh với các thư viện i18n khác về hiệu năng và kích thước bundle bundle.
 keywords:
   - benchmark
   - i18n

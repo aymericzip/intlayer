@@ -72,7 +72,7 @@ npx skills add aymericzip/intlayer-skills
 
 **intlayer-astro**
 
-- Proporciona al agente el conocimiento necesario para manejar las traducciones del lado del servidor y los patrones de enrutamiento localizados únicos en el ecosistema de Astro.
+- Proporciona al agente el conocimiento necesario para manejar las traducciones del lado del servidor y los patrones de enrutamiento por localeizados únicos en el ecosistema de Astro.
 
 **intlayer-content**
 
@@ -80,7 +80,7 @@ npx skills add aymericzip/intlayer-skills
 
 **intlayer-next-js**
 
-- Da al agente la profundidad necesaria para implementar i18n en los componentes de Servidor y Cliente de Next.js, asegurando la optimización SEO y un enrutamiento localizado sin problemas.
+- Da al agente la profundidad necesaria para implementar i18n en los componentes de Servidor y Cliente de Next.js, asegurando la optimización SEO y un enrutamiento por localeizado sin problemas.
 
 **intlayer-react**
 

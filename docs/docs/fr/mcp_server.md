@@ -247,6 +247,28 @@ Chemin du fichier de configuration :
 
 ---
 
+## Configuration dans Claude Code (CLI)
+
+Suivez la [documentation officielle](https://modelcontextprotocol.io/quickstart/user) pour configurer le serveur MCP dans Claude Code.
+
+### Serveur local (stdio) (recommandé)
+
+Pour connecter le serveur MCP Intlayer à Claude Code en utilisant stdio :
+
+```bash
+claude mcp add intlayer npx -y @intlayer/mcp
+```
+
+### Serveur distant (Streamable HTTP)
+
+Pour connecter le serveur MCP Intlayer à Claude Code en utilisant Streamable HTTP (SSE) :
+
+```bash
+claude mcp add intlayer https://mcp.intlayer.org -t http
+```
+
+---
+
 ## Utilisation du serveur MCP via la CLI
 
 Vous pouvez également exécuter le serveur MCP Intlayer directement depuis la ligne de commande pour des tests, du débogage ou une intégration avec d'autres outils.

@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-01-16
-updatedAt: 2025-06-29
-title: Alat Internasionalisasi (i18n) Terbaik untuk Vue
-description: Temukan solusi i18n Vue teratas untuk mengatasi tantangan terjemahan, meningkatkan SEO, dan memberikan pengalaman web global yang mulus.
+updatedAt: 2026-05-31
+title: Alat Internasionalisasi (i18n) Terbaik untuk Vue - Panduan lengkap menerjemahkan Best Vue i18n Libraries 2026 — Compared by DX & Bundle
+description: Solusi terbaik untuk ukuran bundle, SEO, performa & keterpeliharaan. Jadikan Vue aplikasi Anda multibahasa di 2026, terjemahan LLM, Agent Skills & MCP.
 keywords:
   - Vue
   - i18n

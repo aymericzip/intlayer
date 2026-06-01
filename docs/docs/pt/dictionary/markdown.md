@@ -740,7 +740,7 @@ O `MarkdownProvider` (ou o seu equivalente do framework) configura o pipeline de
     );
     ```
 
-    > Importar dinamicamente o seu renderizador de Markdown é uma ótima maneira de reduzir o tamanho do pacote da sua aplicação.
+    > Importar dinamicamente o seu renderizador de Markdown é uma ótima maneira de reduzir o tamanho do bundle da sua aplicação.
 
   </Tab>
   <Tab label="Next.js" value="nextjs">
@@ -782,7 +782,7 @@ O `MarkdownProvider` (ou o seu equivalente do framework) configura o pipeline de
     );
     ```
 
-    > Importar dinamicamente o seu renderizador de Markdown é uma ótima maneira de reduzir o tamanho do pacote da sua aplicação.
+    > Importar dinamicamente o seu renderizador de Markdown é uma ótima maneira de reduzir o tamanho do bundle da sua aplicação.
 
   </Tab>
   <Tab label="Vue" value="vue">
@@ -833,7 +833,7 @@ O `MarkdownProvider` (ou o seu equivalente do framework) configura o pipeline de
     app.mount("#app");
     ```
 
-    > Importar dinamicamente o seu renderizador de Markdown é uma ótima maneira de reduzir o tamanho do pacote da sua aplicação.
+    > Importar dinamicamente o seu renderizador de Markdown é uma ótima maneira de reduzir o tamanho do bundle da sua aplicação.
 
   </Tab>
   <Tab label="Svelte" value="svelte">
@@ -873,7 +873,7 @@ O `MarkdownProvider` (ou o seu equivalente do framework) configura o pipeline de
     </MarkdownProvider>
     ```
 
-    > Importar dinamicamente o seu renderizador de Markdown é uma ótima maneira de reduzir o tamanho do pacote da sua aplicação.
+    > Importar dinamicamente o seu renderizador de Markdown é uma ótima maneira de reduzir o tamanho do bundle da sua aplicação.
 
   </Tab>
   <Tab label="Preact" value="preact">
@@ -912,7 +912,7 @@ O `MarkdownProvider` (ou o seu equivalente do framework) configura o pipeline de
     );
     ```
 
-    > Importar dinamicamente o seu renderizador de Markdown é uma ótima maneira de reduzir o tamanho do pacote da sua aplicação.
+    > Importar dinamicamente o seu renderizador de Markdown é uma ótima maneira de reduzir o tamanho do bundle da sua aplicação.
 
   </Tab>
   <Tab label="Solid" value="solid">
@@ -951,7 +951,7 @@ O `MarkdownProvider` (ou o seu equivalente do framework) configura o pipeline de
     );
     ```
 
-    > Importar dinamicamente o seu renderizador de Markdown é uma ótima maneira de reduzir o tamanho do pacote da sua aplicação.
+    > Importar dinamicamente o seu renderizador de Markdown é uma ótima maneira de reduzir o tamanho do bundle da sua aplicação.
 
   </Tab>
   <Tab label="Angular" value="angular">
@@ -973,7 +973,7 @@ O `MarkdownProvider` (ou o seu equivalente do framework) configura o pipeline de
     export class AppModule {}
     ```
 
-    > Importar dinamicamente o seu renderizador de Markdown é uma ótima maneira de reduzir o tamanho do pacote da sua aplicação.
+    > Importar dinamicamente o seu renderizador de Markdown é uma ótima maneira de reduzir o tamanho do bundle da sua aplicação.
 
   </Tab>
 </Tabs>

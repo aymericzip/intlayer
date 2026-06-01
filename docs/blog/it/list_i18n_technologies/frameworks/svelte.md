@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-01-16
-updatedAt: 2025-06-29
-title: Migliori strumenti di internazionalizzazione (i18n) per Svelte
-description: Scopri i migliori strumenti di internazionalizzazione (i18n) per Svelte per affrontare i sfide di traduzione, migliorare la ricerca sul web e fornire un'esperienza web globale senza problemi.
+updatedAt: 2026-05-31
+title: Migliori strumenti di internazionalizzazione (i18n) per Svelte - Guida completa per tradurre Best Svelte i18n Libraries 2026 — Compared by DX & Bundle
+description: La migliore soluzione per dimensione del bundle, SEO, prestazioni & manutenibilità. Rendi il tuo Svelte applicazione multilingue nel 2026, traduzione LLM, Agent Skills & MCP.
 keywords:
   - Svelte
   - i18n

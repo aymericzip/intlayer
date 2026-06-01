@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-05-06
-title: Create React App i18n - React ऐप कैसे अनुवाद करें 2026 में
-description: जानें कि कैसे अपनी Create React App (CRA) वेबसाइट को बहुभाषी बनाया जाए। इसे अंतर्राष्ट्रीय बनाने (i18n) और अनुवाद करने के लिए दस्तावेज़ का पालन करें।
+updatedAt: 2026-05-31
+title: "Create React App i18n - अनुवाद का पूर्ण गाइड: React"
+description: बंडल साइज़, SEO, परफॉर्मेंस & मेंटेनेबिलिटी के लिए सबसे अच्छा समाधान। 2026 में अपने Create React App वेबसाइट को बहुभाषी बनाएं, LLM ट्रांसलेशन, Agent Skills & MCP.
 keywords:
   - अंतर्राष्ट्रीयकरण
   - डॉक्यूमेंटेशन

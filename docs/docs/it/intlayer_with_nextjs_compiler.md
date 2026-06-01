@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-01-10
-updatedAt: 2026-05-06
-title: Next.js i18n - Trasforma un'app Next.js esistente in un'app multilingue nel 2026
-description: Scopri come rendere multilingue la tua applicazione Next.js esistente utilizzando Intlayer Compiler. Segui la documentazione per internazionalizzarla (i18n) e tradurla con l'IA.
+updatedAt: 2026-05-31
+title: Next.js i18n - Guida completa per tradurre Complete
+description: La migliore soluzione per dimensione del bundle, SEO, prestazioni & manutenibilità. Rendi il tuo existing Next.js sito web multilingue nel 2026, traduzione LLM, Agent Skills & MCP.
 keywords:
   - Internazionalizzazione
   - Documentazione

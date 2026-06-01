@@ -2,7 +2,7 @@
 createdAt: 2026-04-20
 updatedAt: 2026-05-18
 title: La mejor solución i18n para Solid en 2026 - Informe de Benchmark
-description: Compara bibliotecas de internacionalización (i18n) para Solid como solid-primitives, solid-i18next e Intlayer. Informe de rendimiento detallado sobre el tamaño del paquete, fugas y reactividad.
+description: Compara bibliotecas de internacionalización (i18n) para Solid como solid-primitives, solid-i18next e Intlayer. Informe de rendimiento detallado sobre el tamaño del bundle, fugas y reactividad.
 keywords:
   - benchmark
   - i18n
@@ -90,7 +90,7 @@ Con la carga dinámica, se acepta un compromiso: menos JS inicial, pero a veces 
 
 **División de contenido (Splitting)**
 
-Las sintaxis construidas en torno a `t('a.b.c')` son muy convenientes pero a menudo fomentan el mantenimiento de grandes objetos JSON en tiempo de ejecución. Ese modelo dificulta el tree-shaking a menos que la biblioteca ofrezca una estrategia real de división por página.
+Las sintaxis construidas en torno a `t('a.b.c')` son muy convenientes pero a menudo fomentan el mantenimiento de grandes objetos JSON en runtime. Ese modelo dificulta el tree-shaking a menos que la biblioteca ofrezca una estrategia real de división por página.
 
 ## Metodología
 
@@ -113,7 +113,7 @@ Comparamos **quatro estrategias de carga**:
 
 ## Resumen de estrategias
 
-- **Static**: Simple; sin latencia de red después de la carga inicial. Desventaja: gran tamaño del paquete.
+- **Static**: Simple; sin latencia de red después de la carga inicial. Desventaja: gran tamaño del bundle.
 - **Dynamic**: Reduce el peso inicial (lazy-loading). Ideal cuando se tienen muchos idiomas.
 - **Scoped static**: Mantiene el código organizado (separación lógica) sin solicitudes de red adicionales complejas.
 - **Scoped dynamic**: El mejor enfoque para el _code splitting_ y el rendimiento. Minimiza la memoria cargando solo lo que la vista actual y el idioma activo necesitan.

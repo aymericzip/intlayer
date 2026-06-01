@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-01-16
-updatedAt: 2025-06-29
-title: Vueのための最適な国際化ツール
-description: 翻訳のチャレンジを解決するためのトップのVueのi18nソリューションを発見し、SEOを向上させ、グローバルなウェブエクスペリエンスを提供する。
+updatedAt: 2026-05-31
+title: Vueのための最適な国際化ツール - 完全な翻訳ガイド： Best Vue i18n Libraries 2026 — Compared by DX & Bundle
+description: バンドルサイズ、SEO、パフォーマンス、保守性のための最良のソリューション。2026年にVue アプリを多言語化しましょう。LLM翻訳、Agent Skills & MCP。
 keywords:
   - Vue
   - i18n

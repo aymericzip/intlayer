@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2026-05-06
-title: Vite + React i18n - Reactアプリの翻訳方法 2026
-description: Intlayerを使ってViteとReactアプリケーションに国際化（i18n）を追加する方法を学びます。このガイドに従ってアプリを多言語対応にしましょう。
+updatedAt: 2026-05-31
+title: Vite + React i18n - 完全な翻訳ガイド： React
+description: バンドルサイズ、SEO、パフォーマンス、保守性のための最良のソリューション。2026年にVite and React アプリを多言語化しましょう。LLM翻訳、Agent Skills & MCP。
 keywords:
   - 国際化
   - ドキュメント
@@ -36,129 +36,37 @@ history:
 
 <TOC/>
 
-## Intlayerとは？
+## 代替手段ではなく Interlayer を使用する理由
 
-**Intlayer**は、最新のウェブアプリケーションにおける多言語対応を簡素化するために設計された革新的なオープンソースの国際化（i18n）ライブラリです。
+「react-i18next」や「i18next」などの主要なソリューションと比較して、Intlayer は次のような統合された最適化を備えたソリューションです。
 
-Intlayerを使うと、以下が可能です：
+**Vite と React を完全にカバー**
 
-- **コンポーネントレベルで宣言的な辞書を使って** 翻訳を簡単に管理できます。
-- **メタデータ、ルート、コンテンツを動的にローカライズ** できます。
-- **自動生成された型によりTypeScriptサポートを保証** し、オートコンプリートやエラー検出を向上させます。
-- **動的なロケール検出や切り替えなどの高度な機能を活用** できます。
+Intlayer は、**コンポーネント レベルのコンテンツ スコープ**、**遅延読み込み翻訳**、および国際化のスケーリング (i18n) に必要なすべての機能を提供することにより、Vite および React と完全に連携するように最適化されています。
 
-### (オプション) ステップ 1 : コンポーネントのコンテンツを抽出する
+**バンドルサイズ**
 
-既存のコードベースがある場合、数千のファイルを変換するのは時間がかかることがあります。
+大量の JSON ファイルをページにロードするのではなく、必要なコンテンツのみをロードします。 Intlayer は、**バンドルとページのサイズを最大 50% 削減**するのに役立ちます。
 
-このプロセスを容易にするために、Intlayerは、コンポーネントを変換しコンテンツを抽出するための [コンパイラ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md) / [エクストラクタ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/extract.md) を提案しています。
+**保守性**
 
-セットアップするには、`intlayer.config.ts` ファイルに `compiler` セクションを追加します。
+アプリケーションのコンテンツのスコープを設定すると、大規模なアプリケーションの **メンテナンスが容易になります**。コンテンツ コードベース全体を確認するという精神的な負担を負うことなく、単一の機能フォルダーを複製または削除できます。さらに、Intlayer は**完全に型指定**されており、コンテンツの正確性を保証します。
 
-```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
-import { type IntlayerConfig } from "intlayer";
+**AI エージェント**
 
-const config: IntlayerConfig = {
-  // ... 他の構成
-  compiler: {
-    /**
-     * コンパイラを有効にするかどうかを指定します。
-     */
-    enabled: true,
+コンテンツを同じ場所に配置すると、大規模言語モデル (LLM) によって **必要なコンテキストが削減**されます。 Intlayer には、翻訳の欠落をテストする **CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** などのツール スイートも付属しています。および **[エージェント スキル](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)** により、AI エージェントの開発者エクスペリエンス (DX) がさらにスムーズになります。
 
-    /**
-     * 出力ファイルのパスを定義します。
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
+**オートメーション**
 
-    /**
-     * 変換後にコンポーネントを保存するかどうかを指定します。これにより、コンパイラを一度だけ実行してアプリを変換し、その後削除することができます。
-     */
-    saveComponents: false,
+AI プロバイダーの費用で、選択した LLM を使用して CI/CD パイプラインで自動化を変換します。 Intlayer は、コンテンツ抽出を自動化する **コンパイラー** と、**バックグラウンドでの翻訳**を支援する [Web プラットフォーム](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) も提供します。
 
-    /**
-     * 辞書キーの接頭辞
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
+**パフォーマンス**
 
-export default config;
-```
+大量の JSON ファイルをコンポーネントに接続すると、パフォーマンスと反応性の問題が発生する可能性があります。 Intlayer は、ビルド時のコンテンツの読み込みを最適化します。
 
-<Tabs>
- <Tab value='抽出コマンド'>
+**非開発によるスケーリング**
 
-コンポーネントを変換してコンテンツを抽出するためにエクストラクタを実行します
-
-```bash packageManager="npm"
-npx intlayer extract
-```
-
-```bash packageManager="pnpm"
-pnpm intlayer extract
-```
-
-```bash packageManager="yarn"
-yarn intlayer extract
-```
-
-```bash packageManager="bun"
-bun x intlayer extract
-```
-
- </Tab>
- <Tab value='Babelコンパイラ'>
-
-```bash packageManager="npm"
-npm install @intlayer/babel --save-dev
-```
-
-```bash packageManager="pnpm"
-pnpm add @intlayer/babel --save-dev
-```
-
-```bash packageManager="yarn"
-yarn add @intlayer/babel --save-dev
-```
-
-```bash packageManager="bun"
-bun add @intlayer/babel --dev
-```
-
-```js fileName="babel.config.js"
-const {
-  intlayerExtractBabelPlugin,
-  getExtractPluginOptions,
-} = require("@intlayer/babel");
-
-module.exports = {
-  presets: ["next/babel"],
-  plugins: [
-    // コンポーネントから辞書へコンテンツを抽出する
-    [intlayerExtractBabelPlugin, getExtractPluginOptions()],
-  ],
-};
-```
-
-```bash packageManager="npm"
-npm run build # または npm run dev
-```
-
-```bash packageManager="pnpm"
-pnpm run build # または pnpm run dev
-```
-
-```bash packageManager="yarn"
-yarn build # または yarn dev
-```
-
-```bash packageManager="bun"
-bun run build # Or bun run dev
-```
-
- </Tab>
-</Tabs>
+Intlayer は単なる i18n ソリューションではなく、**自己ホスト型 [ビジュアル エディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** と **[完全な CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** を提供します。 **リアルタイム**で多言語コンテンツを管理できるようになり、翻訳者、コピーライター、その他のチーム メンバーとのコラボレーションがシームレスになります。コンテンツはローカルおよび/またはリモートに保存できます。
 
 ---
 

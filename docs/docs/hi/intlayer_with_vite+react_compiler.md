@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2026-05-06
-title: Vite + React i18n - एक मौजूदा ऐप को बहुभाषी ऐप में बदलें 2026 में
-description: जानें कि Intlayer Compiler का उपयोग करके अपने मौजूदा Vite और React एप्लिकेशन को बहुभाषी कैसे बनाया जाए। अंतर्राष्ट्रीयकरण (i18n) और AI के साथ अनुवाद करने के लिए दस्तावेज़ों का पालन करें।
+updatedAt: 2026-05-31
+title: "Vite + React i18n - अनुवाद का पूर्ण गाइड: Complete"
+description: बंडल साइज़, SEO, परफॉर्मेंस & मेंटेनेबिलिटी के लिए सबसे अच्छा समाधान। 2026 में अपने existing Vite and React ऐप को बहुभाषी बनाएं, LLM ट्रांसलेशन, Agent Skills & MCP.
 keywords:
   - अंतर्राष्ट्रीयकरण
   - दस्तावेज़ीकरण

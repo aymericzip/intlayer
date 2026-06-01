@@ -97,7 +97,7 @@ export default openingsContent;
 
 > Las categorías admitidas son `zero`, `one`, `two`, `few`, `many`, `other`. Solo necesitas declarar las categorías que utiliza tu idioma de destino; Intlayer recurre a `other` cuando no coincide ninguna categoría específica.
 >
-> El marcador de posición `{{count}}` se reemplaza automáticamente con el conteo que pases en tiempo de ejecución. También puedes incluir otros marcadores de posición (consulta [Marcadores de posición personalizados](#custom-placeholders) a continuación).
+> El marcador de posición `{{count}}` se reemplaza automáticamente con el conteo que pases en runtime. También puedes incluir otros marcadores de posición (consulta [Marcadores de posición personalizados](#custom-placeholders) a continuación).
 
 ## Uso de contenido en plural con React Intlayer
 

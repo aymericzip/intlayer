@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-05-06
-title: Analog i18n - Analogアプリの翻訳方法 2026
-description: Analogアプリを多言語化する方法をご紹介します。ドキュメントに従って、国際化（i18n）と翻訳を実装してください。
+updatedAt: 2026-05-31
+title: Analog i18n - 完全な翻訳ガイド： Analog
+description: バンドルサイズ、SEO、パフォーマンス、保守性のための最良のソリューション。2026年にAnalog アプリを多言語化しましょう。LLM翻訳、Agent Skills & MCP。
 keywords:
   - 国際化
   - ドキュメント
@@ -56,16 +56,37 @@ history:
 
 <TOC/>
 
-## Intlayerとは？
+## 代替手段ではなく Interlayer を使用する理由
 
-**Intlayer**は、現代的なWebアプリケーションにおける多言語サポートを簡素化するために設計された、革新的でオープンソースな国際化（i18n）ライブラリです。
+「ngx-translate」や「​​angular-l10n」などの主要なソリューションと比較して、Intlayer は次のような統合された最適化を備えたソリューションです。
 
-With Intlayer, you can:
+**アナログを完全にカバー**
 
-- **翻訳の簡単な管理**: コンポーネントレベルで宣言的な辞書を使用します。
-- **メタデータ、ルート、コンテンツの動的なローカライズ**。
-- **TypeScriptサポートの確保**: 自動生成された型により、オートコンプリートとエラー検出が向上します。
-- **高度な機能の活用**: 動的なロケール検出や切り替えなど。
+Intlayer は、**多言語ルーティング**、**SSR サポート**、およびスケーリング国際化 (i18n) に必要なすべての機能を提供することで、Analog と完全に連携するように最適化されています。
+
+**バンドルサイズ**
+
+大量の JSON ファイルをページにロードするのではなく、必要なコンテンツのみをロードします。 Intlayer は、**バンドルとページのサイズを最大 50% 削減**するのに役立ちます。
+
+**保守性**
+
+アプリケーションのコンテンツのスコープを設定すると、大規模なアプリケーションの **メンテナンスが容易になります**。コンテンツ コードベース全体を確認するという精神的な負担を負うことなく、単一の機能フォルダーを複製または削除できます。さらに、Intlayer は**完全に型指定**されており、コンテンツの正確性を保証します。
+
+**AI エージェント**
+
+コンテンツを同じ場所に配置すると、大規模言語モデル (LLM) によって **必要なコンテキストが削減**されます。 Intlayer には、翻訳の欠落をテストする **CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** などのツール スイートも付属しています。および **[エージェント スキル](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)** により、AI エージェントの開発者エクスペリエンス (DX) がさらにスムーズになります。
+
+**オートメーション**
+
+AI プロバイダーの費用で、選択した LLM を使用して CI/CD パイプラインで自動化を変換します。 Intlayer は、コンテンツ抽出を自動化する **コンパイラー** と、**バックグラウンドでの翻訳**を支援する [Web プラットフォーム](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) も提供します。
+
+**パフォーマンス**
+
+大量の JSON ファイルをコンポーネントに接続すると、パフォーマンスと反応性の問題が発生する可能性があります。 Intlayer は、ビルド時のコンテンツの読み込みを最適化します。
+
+**非開発によるスケーリング**
+
+Intlayer は単なる i18n ソリューションではなく、**自己ホスト型 [ビジュアル エディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** と **[完全な CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** を提供します。 **リアルタイム**で多言語コンテンツを管理できるようになり、翻訳者、コピーライター、その他のチーム メンバーとのコラボレーションがシームレスになります。コンテンツはローカルおよび/またはリモートに保存できます。
 
 ---
 

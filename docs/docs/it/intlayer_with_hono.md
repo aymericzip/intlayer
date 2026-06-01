@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-05-06
-title: i18n Hono - Come tradurre un'app Hono nel 2026
-description: Scopri come rendere multilingue il tuo backend Hono. Segui la documentazione per internazionalizzarlo (i18n) e tradurlo.
+updatedAt: 2026-05-31
+title: i18n Hono - Guida completa per tradurre Hono
+description: La migliore soluzione per dimensione del bundle, SEO, prestazioni & manutenibilità. Rendi il tuo Hono backend multilingue nel 2026, traduzione LLM, Agent Skills & MCP.
 keywords:
   - Internazionalizzazione
   - Documentazione

@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-10-05
-updatedAt: 2025-10-05
-title: next-i18next - 2026년에 Next.js (i18n) 앱을 번역하는 방법
-description: i18next/next-i18next로 Next.js 15 App Router 앱을 국제화하고 Intlayer로 향상시키는 실용적이고 프로덕션 준비된 가이드입니다.
+updatedAt: 2026-05-31
+title: "next-i18next - 완전한 번역 가이드: Next.js"
+description: 번들 크기, SEO, 성능 및 유지보수성을 위한 최고의 솔루션. 2026년에 Next.js 15 App Router 웹사이트를 다국어로 만드세요, LLM 번역, Agent Skills & MCP.
 keywords:
   - 국제화
   - 문서

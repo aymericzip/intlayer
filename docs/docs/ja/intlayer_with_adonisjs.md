@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-05-06
-title: AdonisJS i18n - AdonisJS アプリを翻訳する方法 2026
-description: AdonisJS バックエンドを多言語化する方法をご紹介します。ドキュメントに従って国際化 (i18n) と翻訳を行いましょう。
+updatedAt: 2026-05-31
+title: AdonisJS i18n - 完全な翻訳ガイド： AdonisJS
+description: バンドルサイズ、SEO、パフォーマンス、保守性のための最良のソリューション。2026年にAdonisJS バックエンドを多言語化しましょう。LLM翻訳、Agent Skills & MCP。
 keywords:
   - 国際化
   - ドキュメント

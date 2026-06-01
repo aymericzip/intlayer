@@ -35,7 +35,7 @@ history:
 
 # Contenido HTML / HTML en Intlayer
 
-Intlayer admite contenido HTML, lo que permite incrustar contenido enriquecido y estructurado dentro de los diccionarios. Este contenido se puede renderizar con etiquetas HTML estándar o reemplazarse por componentes personalizados en tiempo de ejecución.
+Intlayer admite contenido HTML, lo que permite incrustar contenido enriquecido y estructurado dentro de los diccionarios. Este contenido se puede renderizar con etiquetas HTML estándar o reemplazarse por componentes personalizados en runtime.
 
 ## Declarar contenido HTML
 
@@ -277,7 +277,7 @@ Puedes configurar el renderizado de HTML de forma global para toda tu aplicació
     );
     ```
 
-    > Importar dinámicamente su renderizador de HTML es una buena manera de reducir el tamaño del paquete de su aplicación.
+    > Importar dinámicamente su renderizador de HTML es una buena manera de reducir el tamaño del bundle de su aplicación.
 
   </Tab>
   <Tab label="Vue" value="vue">
@@ -322,7 +322,7 @@ Puedes configurar el renderizado de HTML de forma global para toda tu aplicació
     app.mount("#app");
     ```
 
-    > Importar dinámicamente su renderizador de HTML es una buena manera de reducir el tamaño del paquete de su aplicación.
+    > Importar dinámicamente su renderizador de HTML es una buena manera de reducir el tamaño del bundle de su aplicación.
 
   </Tab>
   <Tab label="Svelte" value="svelte">
@@ -359,7 +359,7 @@ Puedes configurar el renderizado de HTML de forma global para toda tu aplicació
     </HTMLProvider>
     ```
 
-    > Importar dinámicamente su renderizador de HTML es una buena manera de reducir el tamaño del paquete de su aplicación.
+    > Importar dinámicamente su renderizador de HTML es una buena manera de reducir el tamaño del bundle de su aplicación.
 
   </Tab>
   <Tab label="Preact" value="preact">
@@ -395,7 +395,7 @@ Puedes configurar el renderizado de HTML de forma global para toda tu aplicació
     );
     ```
 
-    > Importar dinámicamente su renderizador de HTML es una buena manera de reducir el tamaño del paquete de su aplicación.
+    > Importar dinámicamente su renderizador de HTML es una buena manera de reducir el tamaño del bundle de su aplicación.
 
   </Tab>
   <Tab label="Solid" value="solid">
@@ -431,7 +431,7 @@ Puedes configurar el renderizado de HTML de forma global para toda tu aplicació
     );
     ```
 
-    > Importar dinámicamente su renderizador de HTML es una buena manera de reducir el tamaño del paquete de su aplicación.
+    > Importar dinámicamente su renderizador de HTML es una buena manera de reducir el tamaño del bundle de su aplicación.
 
   </Tab>
   <Tab label="Angular" value="angular">
@@ -468,7 +468,7 @@ Puedes configurar el renderizado de HTML de forma global para toda tu aplicació
     };
     ```
 
-    > Importar dinámicamente su renderizador de HTML es una buena manera de reducir el tamaño del paquete de su aplicación.
+    > Importar dinámicamente su renderizador de HTML es una buena manera de reducir el tamaño del bundle de su aplicación.
 
   </Tab>
 </Tabs>

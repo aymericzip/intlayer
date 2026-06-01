@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-03-31
-updatedAt: 2026-05-06
-title: Vanilla JS i18n - Hoe vertaal je een Vanilla JS app in 2026
-description: Ontdek hoe je je Vanilla JS-website meertalig maakt. Volg de documentatie om deze te internationaliseren (i18n) en te vertalen.
+updatedAt: 2026-05-31
+title: Vanilla JS i18n - Volledige gids voor het vertalen van Vanilla JS
+description: Beste oplossing voor bundle-grootte, SEO, prestaties & onderhoudbaarheid. Maak uw Vanilla JS website meertalig in 2026, LLM-vertaling, Agent Skills & MCP.
 keywords:
   - Internationalisering
   - Documentatie

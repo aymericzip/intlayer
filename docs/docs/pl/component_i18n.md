@@ -170,7 +170,7 @@ Wskazówka: Dla metadanych strony i SEO możesz również pobierać zawartość 
 - **Kolokacja**: Deklaracje treści znajdują się blisko komponentów, co zmniejsza rozbieżności i poprawia ponowne wykorzystanie w systemach projektowych.
 - **Bezpieczeństwo typów**: Klucze i struktury są silnie typowane; brakujące tłumaczenia ujawniają się podczas kompilacji, a nie w czasie wykonywania.
 - **Server-first**: Działa natywnie w komponentach serwerowych dla lepszego bezpieczeństwa i wydajności; hooki klienta pozostają ergonomiczne.
-- **Tree-shaking**: Do bundla trafia tylko zawartość używana przez komponent, co utrzymuje rozmiar pakietu mały w dużych aplikacjach.
+- **Tree-shaking**: Do bundla trafia tylko zawartość używana przez komponent, co utrzymuje rozmiar bundle'a mały w dużych aplikacjach.
 - **DX i narzędzia**: Wbudowane middleware, pomocniki SEO oraz opcjonalny Visual Editor/tłumaczenia AI usprawniają codzienną pracę.
 
 Zobacz porównania i wzorce w przeglądzie skupionym na Next.js: https://intlayer.org/blog/next-i18next-vs-next-intl-vs-intlayer

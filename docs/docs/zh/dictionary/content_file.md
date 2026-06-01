@@ -520,7 +520,7 @@ export default aboutPageMetaContent;
 
 导入模式决定字典在应用程序中的导入方式。
 
-- `'static'`: 字典在构建时静态导入。这是默认模式。
+- `'static'`: 字典在构建时 (build time)静态导入。这是默认模式。
 - `'dynamic'`: 字典在运行时使用 suspense API 动态导入。
 - `'fetch'`: 字典使用实时同步 API 动态导入。
 
@@ -1079,4 +1079,4 @@ export default {
 3. **性能**：
    - 调整内容配置以限制监视文件的范围
    - 仅在需要实时更新时使用实时字典（例如 A/B 测试等）
-   - 确保启用构建转换插件（`@intlayer/swc` 或 `@intlayer/babel`）以在构建时优化字典
+   - 确保启用构建转换插件（`@intlayer/swc` 或 `@intlayer/babel`）以在构建时 (build time)优化字典

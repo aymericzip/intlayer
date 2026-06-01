@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-01-16
-updatedAt: 2025-06-29
-title: React Native的最佳国际化工具
-description: 发现最佳的React Native i18n解决方案来解决翻译挑战、提高SEO，并提供无比的全球网络体验。
+updatedAt: 2026-05-31
+title: "React Native的最佳国际化工具 - 完整翻译指南： React Native i18n 2026: Best Tools for Expo & TypeScript"
+description: 最佳的包体积、SEO、性能和可维护性解决方案。让您的 React Native 移动应用在 2026 年实现多语言化，LLM 翻译，Agent Skills & MCP。
 keywords:
   - React Native
   - i18n

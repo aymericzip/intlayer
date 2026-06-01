@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-01-16
-updatedAt: 2025-06-29
-title: أفضل أدوات التدويل (i18n) للإنترات
-description: تعرف على أفضل حلول التدويل (i18n) لـ Svelte لتجاوز تحديات الترجمة، وتعزيز SEO، وتقديم تجربة ويب عالمية سلسة.
+updatedAt: 2026-05-31
+title: أفضل أدوات التدويل (i18n) للإنترات - الدليل الكامل لترجمة Best Svelte i18n Libraries 2026 — Compared by DX & Bundle
+description: أفضل حل لحجم الحزمة وتحسين محركات البحث والأداء والصيانة. اجعل Svelte تطبيق متعدد اللغات في 2026، ترجمة LLM، Agent Skills & MCP.
 keywords:
   - Svelte
   - i18n

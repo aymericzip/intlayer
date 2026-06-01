@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-10-05
-updatedAt: 2025-10-05
-title: next-i18next - Як перекласти додаток Next.js (i18n) у 2026 році
-description: Практичне керівництво, готове до продакшену, з інтернаціоналізації застосунку Next.js 15 (App Router) за допомогою i18next/next-i18next та покращення його за допомогою Intlayer.
+updatedAt: 2026-05-31
+title: next-i18next - Повний посібник з перекладу Next.js
+description: Найкраще рішення для розміру бандлу, SEO, продуктивності & підтримуваності. Зробіть Next.js 15 App Router сайт багатомовним у 2026, переклад LLM, Agent Skills & MCP.
 keywords:
   - Інтернаціоналізація
   - Документація

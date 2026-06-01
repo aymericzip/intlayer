@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-03-09
-updatedAt: 2026-05-06
-title: Lynx + React i18n - Lynxアプリの翻訳方法 2026
-description: LynxとReactを使用してPage Routerを利用したウェブサイトを多言語化する方法を見つけましょう。国際化（i18n）して翻訳するためにドキュメントに従ってください。
+updatedAt: 2026-05-31
+title: Lynx + React i18n - 完全な翻訳ガイド： Lynx
+description: バンドルサイズ、SEO、パフォーマンス、保守性のための最良のソリューション。2026年にLynx and React モバイルアプリを多言語化しましょう。LLM翻訳、Agent Skills & MCP。
 keywords:
   - 国際化
   - ドキュメンテーション
@@ -32,16 +32,37 @@ history:
 
 [アプリケーションテンプレート](https://github.com/aymericzip/intlayer-lynx-template)をGitHubで見る。
 
-## Intlayerとは？
+## 代替手段ではなく Interlayer を使用する理由
 
-**Intlayer**は、モダンアプリケーションにおける多言語対応を簡素化する**革新的なオープンソースの国際化（i18n）ライブラリ**です。これは多くのJavaScript/TypeScript環境で動作し、**Lynx**（`react-intlayer`パッケージを介して）も含まれます。
+「react-native-localize」や「i18next」などの主要なソリューションと比較して、Intlayer は次のような統合された最適化を備えたソリューションです。
 
-Intlayerを使用すると、以下が可能です：
+**Lynx を完全にカバー**
 
-- **コンポーネントレベルで宣言的な辞書を使用して翻訳を簡単に管理**できます。
-- **自動生成された型でTypeScriptサポートを確保**できます。
-- **UI文字列を含むコンテンツを動的にローカライズ**できます（React for webではHTMLメタデータなどもローカライズ可能）。
-- **動的なロケール検出や切り替え**などの高度な機能を利用できます。
+Intlayer は、**コンポーネント レベルのコンテンツ スコープ**、**TypeScript サポート**、および国際化 (i18n) のスケーリングに必要なすべての機能を提供することにより、Lynx および React と完全に連携するように最適化されています。
+
+**バンドルサイズ**
+
+大量の JSON ファイルをページにロードするのではなく、必要なコンテンツのみをロードします。 Intlayer は、**バンドルとページのサイズを最大 50% 削減**するのに役立ちます。
+
+**保守性**
+
+アプリケーションのコンテンツのスコープを設定すると、大規模なアプリケーションの **メンテナンスが容易になります**。コンテンツ コードベース全体を確認するという精神的な負担を負うことなく、単一の機能フォルダーを複製または削除できます。さらに、Intlayer は**完全に型指定**されており、コンテンツの正確性を保証します。
+
+**AI エージェント**
+
+コンテンツを同じ場所に配置すると、大規模言語モデル (LLM) によって **必要なコンテキストが削減**されます。 Intlayer には、翻訳の欠落をテストする **CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** などのツール スイートも付属しています。および **[エージェント スキル](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)** により、AI エージェントの開発者エクスペリエンス (DX) がさらにスムーズになります。
+
+**オートメーション**
+
+AI プロバイダーの費用で、選択した LLM を使用して CI/CD パイプラインで自動化を変換します。 Intlayer は、コンテンツ抽出を自動化する **コンパイラー** と、**バックグラウンドでの翻訳**を支援する [Web プラットフォーム](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) も提供します。
+
+**パフォーマンス**
+
+大量の JSON ファイルをコンポーネントに接続すると、パフォーマンスと反応性の問題が発生する可能性があります。 Intlayer は、ビルド時のコンテンツの読み込みを最適化します。
+
+**非開発によるスケーリング**
+
+Intlayer は単なる i18n ソリューションではなく、**自己ホスト型 [ビジュアル エディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** と **[完全な CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** を提供します。 **リアルタイム**で多言語コンテンツを管理できるようになり、翻訳者、コピーライター、その他のチーム メンバーとのコラボレーションがシームレスになります。コンテンツはローカルおよび/またはリモートに保存できます。
 
 ---
 

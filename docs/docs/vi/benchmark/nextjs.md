@@ -2,7 +2,7 @@
 createdAt: 2026-04-20
 updatedAt: 2026-05-18
 title: Giải pháp i18n tốt nhất cho Next.js năm 2026 - Báo cáo Benchmark
-description: So sánh các thư viện quốc tế hóa (i18n) cho Next.js như next-intl, next-i18next và Intlayer. Báo cáo hiệu năng chi tiết về kích thước gói bundle, rò rỉ dữ liệu và tính phản ứng.
+description: So sánh các thư viện quốc tế hóa (i18n) cho Next.js như next-intl, next-i18next và Intlayer. Báo cáo hiệu năng chi tiết về kích thước bundle bundle, rò rỉ dữ liệu và tính phản ứng.
 keywords:
   - benchmark
   - i18n
@@ -54,7 +54,7 @@ Xem kho lưu trữ benchmark đầy đủ [tại đây](https://github.com/intla
 
 Các thư viện quốc tế hóa có tác động nặng nề đến ứng dụng của bạn. Rủi ro chính là tải nội dung cho mọi trang và mọi ngôn ngữ ngay cả khi người dùng chỉ truy cập một trang duy nhất.
 
-Khi ứng dụng của bạn phát triển, kích thước gói bundle có thể tăng theo cấp số nhân, điều này có thể làm giảm hiệu năng một cách rõ rệt.
+Khi ứng dụng của bạn phát triển, kích thước bundle bundle có thể tăng theo cấp số nhân, điều này có thể làm giảm hiệu năng một cách rõ rệt.
 
 Ví dụ, trong những trường hợp xấu nhất, sau khi triển khai đa ngôn ngữ, trang của bạn có thể nặng hơn gần 4 lần.
 
@@ -134,7 +134,7 @@ Tôi đã so sánh **bốn chiến lược tải**:
 
 ## Tóm tắt chiến lược
 
-- **Static**: Đơn giản; không có độ trễ mạng sau lần tải đầu tiên. Nhược điểm: kích thước gói bundle lớn.
+- **Static**: Đơn giản; không có độ trễ mạng sau lần tải đầu tiên. Nhược điểm: kích thước bundle bundle lớn.
 - **Dynamic**: Giảm bớt gánh nặng ban đầu (lazy-loading). Lý tưởng khi bạn có nhiều ngôn ngữ.
 - **Scoped static**: Giữ cho mã được tổ chức (tách biệt logic) mà không cần các yêu cầu mạng bổ sung phức tạp.
 - **Scoped dynamic**: Phương pháp tốt nhất cho việc _chia tách mã_ (code splitting) và hiệu năng. Giảm thiểu bộ nhớ bằng cách chỉ tải những gì cần thiết cho chế độ xem hiện tại và ngôn ngữ đang hoạt động.
@@ -151,7 +151,7 @@ Tôi đã chạy cùng một ứng dụng đa ngôn ngữ trên trình duyệt t
 
 - **Rò rỉ từ các route khác**: Ý tưởng tương tự cho **các màn hình khác** trong ứng dụng: liệu văn bản của chúng có đi kèm khi bạn chỉ mở một trang (ví dụ: nội dung trang `/en/about` nằm trong gói bundle của trang `/en/contact`). Điểm số cao cho thấy việc chia tách yếu hoặc các gói bundle quá rộng.
 
-- **Kích thước gói bundle trung bình cho component**: Các thành phần giao diện người dùng (UI) phổ biến được đo lường **từng cái một** thay vì ẩn bên trong một con số khổng lồ của ứng dụng. Nó cho thấy liệu việc quốc tế hóa có âm thầm làm phồng các component hàng ngày hay không. Ví dụ, nếu component của bạn render lại, nó sẽ tải toàn bộ dữ liệu đó từ bộ nhớ. Việc đính kèm một tệp JSON khổng lồ vào bất kỳ component nào giống như việc kết nối một kho lưu trữ lớn các dữ liệu không dùng đến sẽ làm chậm hiệu năng của component của bạn.
+- **Kích thước bundle bundle trung bình cho component**: Các thành phần giao diện người dùng (UI) phổ biến được đo lường **từng cái một** thay vì ẩn bên trong một con số khổng lồ của ứng dụng. Nó cho thấy liệu việc quốc tế hóa có âm thầm làm phồng các component hàng ngày hay không. Ví dụ, nếu component của bạn render lại, nó sẽ tải toàn bộ dữ liệu đó từ bộ nhớ. Việc đính kèm một tệp JSON khổng lồ vào bất kỳ component nào giống như việc kết nối một kho lưu trữ lớn các dữ liệu không dùng đến sẽ làm chậm hiệu năng của component của bạn.
 
 - **Khả năng phản ứng khi chuyển đổi ngôn ngữ**: Tôi chuyển đổi ngôn ngữ bằng bộ điều khiển của chính ứng dụng và đo thời gian cho đến khi trang được chuyển đổi rõ ràng - những gì một khách truy cập sẽ nhận thấy, không phải là một bước vi mô trong phòng thí nghiệm.
 
@@ -222,7 +222,7 @@ Các định dạng thông báo cũng khác nhau: `next-intl` sử dụng ICU Me
 
 **(Next International)** (`next-international@1.3.1`):
 
-`next-international` cũng giải quyết các vấn đề trên nhưng không khác nhiều so với `next-intl` hay `next-i18next`. Nó bao gồm `scopedT()` cho các bản dịch cụ thể theo namespace, nhưng việc sử dụng nó về cơ bản không ảnh hưởng đến kích thước gói bundle.
+`next-international` cũng giải quyết các vấn đề trên nhưng không khác nhiều so với `next-intl` hay `next-i18next`. Nó bao gồm `scopedT()` cho các bản dịch cụ thể theo namespace, nhưng việc sử dụng nó về cơ bản không ảnh hưởng đến kích thước bundle bundle.
 
 **(Lingui)** (`@lingui/core@5.3.0`):
 

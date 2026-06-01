@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-05-06
-title: Create React App i18n - Reactアプリの翻訳方法 2026
-description: Create React App (CRA) を使用したウェブサイトを多言語化する方法を見つけましょう。国際化（i18n）して翻訳するためにドキュメントに従ってください。
+updatedAt: 2026-05-31
+title: Create React App i18n - 完全な翻訳ガイド： React
+description: バンドルサイズ、SEO、パフォーマンス、保守性のための最良のソリューション。2026年にCreate React App ウェブサイトを多言語化しましょう。LLM翻訳、Agent Skills & MCP。
 keywords:
   - 国際化
   - 文書

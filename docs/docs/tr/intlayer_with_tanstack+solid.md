@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-03-25
-updatedAt: 2026-05-06
-title: Tanstack Start i18n - 2026'da Solid.js kullanarak Tanstack Start Uygulamasını Çevirme
-description: Intlayer ve Solid.js kullanarak Tanstack Start uygulamanıza nasıl uluslararasılaştırma (i18n) ekleyeceğinizi öğrenin. Uygulamanızı yerel ayara duyarlı yönlendirme ile çok dilli hale getirmek için bu kapsamlı kılavuzu izleyin.
+updatedAt: 2026-05-31
+title: "Tanstack Start i18n - Eksiksiz çeviri rehberi: TanStack Start"
+description: Bundle boyutu, SEO, performans ve sürdürülebilirlik için en iyi çözüm. TanStack Start and Solid uygulamayı'ınızı 2026'da çok dilli yapın, LLM çevirisi, Agent Skills & MCP.
 keywords:
   - Uluslararasılaştırma
   - Dokümantasyon
@@ -37,17 +37,37 @@ history:
 
 Bu kılavuz, Solid.js içeren Tanstack Start projelerinde sorunsuz uluslararasılaştırma, yerel ayara duyarlı yönlendirme, TypeScript desteği ve modern geliştirme uygulamaları için **Intlayer**'ı nasıl entegre edeceğinizi gösterir.
 
-## Intlayer Nedir?
+## Neden alternatifler yerine Intlayer?
 
-**Intlayer**, modern web uygulamalarında çok dilli desteği basitleştirmek için tasarlanmış yenilikçi, açık kaynaklı bir uluslararasılaştırma (i18n) kütüphanesidir.
+'React-i18next' veya 'i18next' gibi ana çözümlerle karşılaştırıldığında Intlayer, aşağıdaki gibi entegre optimizasyonlarla gelen bir çözümdür:
 
-Intlayer ile şunları yapabilirsiniz:
+**Tam TanStack Start kapsamı**
 
-- Bileşen düzeyinde bildirimsel sözlükler kullanarak **çevirileri kolayca yönetebilirsiniz**.
-- **Meta verileri, rotaları ve içeriği dinamik olarak yerelleştirebilirsiniz**.
-- Otomatik olarak oluşturulan türlerle **TypeScript desteği sağlayabilir**, otomatik tamamlamayı ve hata tespitini iyileştirebilirsiniz.
-- Dinamik yerel ayar algılama ve değiştirme gibi **gelişmiş özelliklerden yararlanabilirsiniz**.
-- Tanstack Start'ın dosya tabanlı yönlendirme sistemi ile **yerel ayara duyarlı yönlendirmeyi etkinleştirebilirsiniz**.
+Intlayer, **çok dilli yönlendirme**, **site haritası** ve uluslararasılaştırmayı (i18n) ölçeklendirmek için gereken tüm özellikleri sunarak TanStack Start ve Solid ile mükemmel çalışacak şekilde optimize edilmiştir.
+
+**Bundle boyutu**
+
+Sayfalarınıza çok büyük JSON dosyaları yüklemek yerine yalnızca gerekli içeriği yükleyin. Intlayer **bundle ve sayfa boyutlarınızı %50'ye kadar azaltmanıza** yardımcı olur.
+
+**Sürdürülebilirlik**
+
+Uygulamanızın içeriğinin kapsamını belirlemek, büyük ölçekli uygulamalar için **bakımı kolaylaştırır**. İçerik kod tabanınızın tamamını gözden geçirmenin zihinsel yükü olmadan, tek bir özellik klasörünü çoğaltabilir veya silebilirsiniz. Ayrıca Intlayer, içeriğinizin doğruluğunu sağlamak için **tamamen tiplendirilmiş (fully typed)tır**.
+
+**Yapay Zeka Temsilcisi**
+
+İçeriğin bir arada konumlandırılması **Büyük Dil Modellerinin (LLM'ler) ihtiyaç duyduğu bağlamı azaltır**. Intlayer ayrıca eksik çevirileri test etmek için **CLI** gibi bir araç paketiyle birlikte gelir**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** ve **[aracı becerileri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, geliştirici deneyimini (DX) yapay zeka için daha da sorunsuz hale getirmek için ajanlar.
+
+**Otomasyon**
+
+Maliyeti AI sağlayıcınıza ait olmak üzere seçtiğiniz LLM'yi kullanarak CI/CD işlem hattınızda çeviri yapmak için otomasyonu kullanın. Intlayer ayrıca içerik çıkarmayı otomatikleştirmek için bir **derleyici** ve **arka planda çeviri yapmaya** yardımcı olacak bir [web platformu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) sunar.
+
+**Performans**
+
+Büyük JSON dosyalarını bileşenlere bağlamak performans ve tepkime sorunlarına yol açabilir. Intlayer, içerik yüklemenizi derleme sırasında optimize eder.
+
+**Non-dev ile ölçeklendirme**
+
+Bir i18n çözümünden çok daha fazlası olan Intlayer, **kendi kendine barındırılan bir [görsel düzenleyici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** ve **[tam CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** çok dilli içeriğinizi **gerçek zamanlı** olarak yönetmenize yardımcı olarak çevirmenler, metin yazarları ve diğer ekip üyeleriyle işbirliğini kusursuz hale getirir. İçerik yerel olarak ve/veya uzaktan depolanabilir.
 
 ---
 

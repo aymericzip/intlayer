@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-05-06
-title: NestJS i18n - NestJS uygulamasını çevirme 2026
-description: NestJS backend'inizi çok dilli hale getirmeyi öğrenin. Dokümantasyonu takip ederek uluslararasılaştırma (i18n) yapın ve çevirin.
+updatedAt: 2026-05-31
+title: "NestJS i18n - Eksiksiz çeviri rehberi: NestJS"
+description: Bundle boyutu, SEO, performans ve sürdürülebilirlik için en iyi çözüm. NestJS backend'i'ınızı 2026'da çok dilli yapın, LLM çevirisi, Agent Skills & MCP.
 keywords:
   - Uluslararasılaştırma
   - Dokümantasyon

@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-05-06
-title: NestJS i18n - How to translate an NestJS app in 2026
-description: Discover how to make your NestJS backend multilingual. Follow the documentation to internationalise (i18n) and translate it.
+updatedAt: 2026-05-31
+title: NestJS i18n - Complete guide to translate NestJS
+description: Best solution for bundle size, SEO, performances & maintainability. Make your NestJS backend multilingual in 2026, LLM translation, Agent Skills & MCP.
 keywords:
   - Internationalisation
   - Documentation

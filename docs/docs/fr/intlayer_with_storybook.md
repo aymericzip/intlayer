@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-03-20
-updatedAt: 2026-05-06
+updatedAt: 2026-05-31
 title: Comment configurer Intlayer avec Storybook
 description: Apprenez à rendre votre système de conception multilingue en utilisant Intlayer avec Storybook - compilez les déclarations de contenu, ajoutez un sélecteur de langue et prévisualisez vos composants dans n'importe quelle langue.
 keywords:
@@ -31,16 +31,37 @@ history:
 
 <TOC/>
 
-## Qu'est-ce qu'Intlayer ?
+## Pourquoi Intlayer plutôt que des alternatives ?
 
-**Intlayer** est une bibliothèque d'internationalisation (i18n) innovante et open-source conçue pour simplifier le support multilingue dans les applications web modernes. Elle fonctionne au **niveau du composant** - chaque composant possède ses propres déclarations de contenu - gardant les traductions colocalisées avec le code qui les utilise.
+Par rapport aux solutions principales telles que `storybook-react-i18next` ou `i18next`, Intlayer est une solution dotée d'optimisations intégrées telles que :
 
-Avec Intlayer, vous pouvez :
+**Couverture complète du livre d'histoires**
 
-- **Gérer les traductions de manière déclarative** avec des fichiers de contenu par composant.
-- **Bénéficier d'un support TypeScript complet** grâce aux types auto-générés et à l'autocomplétion de l'IDE.
-- **Changer de langue au moment de l'exécution** sans recharger la page.
-- **Traduire automatiquement** avec des intégrations intégrées de fournisseurs d'IA.
+Intlayer est optimisé pour fonctionner parfaitement avec Storybook en proposant des **décorateurs d'histoires multilingues**, un **changement de paramètres régionaux** et toutes les fonctionnalités nécessaires à la mise à l'échelle de l'internationalisation (i18n) dans votre système de conception.
+
+**Taille du bundle**
+
+Au lieu de charger de lourds fichiers JSON dans vos pages, ne chargez que le contenu strictement nécessaire. Intlayer vous aide à **réduire la taille de votre bundle et de vos pages jusqu'à 50 %**.
+
+**Maintenabilité**
+
+Déclarer le contenu directement au plus près de vos composants **facilite la maintenance** des applications de grande envergure. Vous pouvez dupliquer ou supprimer le dossier d'une fonctionnalité sans le fardeau mental de devoir passer en revue toute votre base de code de contenu. De plus, Intlayer est **entièrement typé** pour garantir l'exactitude de vos traductions.
+
+**Prêt pour les agents IA**
+
+La colocalisation du contenu **réduit le contexte nécessaire** aux grands modèles de langage (LLM). Intlayer est également livré avec une suite d'outils, tels qu'une **CLI** pour vérifier les traductions manquantes, un **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/lsp.md)**, un **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/mcp_server.md)** et des **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/agent_skills.md)**, afin de rendre l'expérience développeur (DX) encore plus fluide pour les agents IA.
+
+**Automatisation**
+
+Automatisez les traductions dans votre pipeline CI/CD en utilisant le LLM de votre choix au coût de votre propre fournisseur d'IA. Intlayer propose également un **compilateur** pour automatiser l'extraction de contenu, ainsi qu'une [plateforme web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_CMS.md) pour vous aider à **traduire en arrière-plan**.
+
+**Performances**
+
+Associer de gros fichiers JSON à vos composants peut ralentir les performances et impacter la réactivité. Intlayer optimise le chargement du contenu directement au moment du **build**.
+
+**Collaboration avec les non-développeurs**
+
+Bien plus qu'une simple solution i18n, Intlayer propose un **[éditeur visuel](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_visual_editor.md)** auto-hébergé et un **[CMS complet](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_CMS.md)** pour gérer votre contenu multilingue en **temps réel**. Cela rend la collaboration avec les traducteurs, concepteurs-rédacteurs et autres membres de l'équipe extrêmement simple. Le contenu peut être stocké localement et/ou à distance.
 
 ---
 

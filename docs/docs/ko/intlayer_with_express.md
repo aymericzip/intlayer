@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2026-05-06
-title: Express i18n - Express 앱 번역 방법 2026
-description: Express 백엔드를 다국어로 만드는 방법을 알아보세요. 국제화(i18n)하고 번역하려면 문서를 따르세요.
+updatedAt: 2026-05-31
+title: "Express i18n - 완전한 번역 가이드: Express"
+description: 번들 크기, SEO, 성능 및 유지보수성을 위한 최고의 솔루션. 2026년에 Express 백엔드를 다국어로 만드세요, LLM 번역, Agent Skills & MCP.
 keywords:
   - 국제화
   - 문서

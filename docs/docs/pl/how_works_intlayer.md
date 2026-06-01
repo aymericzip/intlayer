@@ -108,7 +108,7 @@ Po stronie edytora, edytor nasłuchuje tych wiadomości i symuluje rzeczywistą 
 
 Aby zoptymalizować rozmiar paczki Twojej aplikacji, Intlayer dostarcza dwa wtyczki do optymalizacji budowania aplikacji: wtyczki `@intlayer/babel` oraz `@intlayer/swc`.
 
-Wtyczki Babel i SWC działają poprzez analizę Abstrakcyjnego Drzewa Składni (AST) Twojej aplikacji, aby zastąpić wywołania funkcji Intlayer zoptymalizowanym kodem. Proces ten sprawia, że ostateczny pakiet jest lżejszy w produkcji, zapewniając importowanie tylko tych słowników, które są faktycznie używane, optymalizując podział na części i zmniejszając rozmiar pakietu.
+Wtyczki Babel i SWC działają poprzez analizę Abstrakcyjnego Drzewa Składni (AST) Twojej aplikacji, aby zastąpić wywołania funkcji Intlayer zoptymalizowanym kodem. Proces ten sprawia, że ostateczny pakiet jest lżejszy w produkcji, zapewniając importowanie tylko tych słowników, które są faktycznie używane, optymalizując podział na części i zmniejszając rozmiar bundle'a.
 
 W trybie deweloperskim Intlayer używa scentralizowanego statycznego importu słowników, aby uprościć proces tworzenia aplikacji.
 

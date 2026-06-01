@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-06-18
-updatedAt: 2026-05-06
-title: Expo + React Native i18n - Como traduzir uma aplicação React Native em 2026
-description: Descubra como tornar seu site React Native e Expo multilíngue. Siga a documentação para internacionalizar (i18n) e traduzir.
+updatedAt: 2026-05-31
+title: Expo + React Native i18n - Guia completo para traduzir React Native
+description: A melhor solução para tamanho de bundle, SEO, desempenho & manutenibilidade. Torne seu Expo and React Native aplicativo móvel multilíngue em 2026, tradução LLM, Agent Skills & MCP.
 keywords:
   - Internacionalização
   - Documentação
@@ -57,16 +57,78 @@ history:
 
 Veja o [Modelo de Aplicação](https://github.com/aymericzip/intlayer-react-native-template) no GitHub.
 
-## O que é o Intlayer?
+## Por que Intlayer em vez de alternativas?
 
-**Intlayer** é uma **biblioteca inovadora e open-source de internacionalização (i18n)** que simplifica o suporte multilíngue em aplicações modernas. Ela funciona em diversos ambientes JavaScript/TypeScript, **incluindo React Native** (via o pacote `react-intlayer`).
+Comparado com soluções principais como `react-native-localize` ou `i18next`, Intlayer é uma solução que vem com otimizações integradas como:
 
-Com o Intlayer, você pode:
+**Cobertura completa do React Native**
 
-- **Gerenciar traduções facilmente** usando dicionários declarativos no nível do componente.
-- **Garantir suporte ao TypeScript** com tipos gerados automaticamente.
-- **Localizar dinamicamente** o conteúdo, incluindo **strings da interface do usuário** (e no React para web, também pode localizar metadados HTML, etc.).
-- **Aproveitar recursos avançados**, como detecção e troca dinâmica de localidade.
+O Intlayer é otimizado para funcionar perfeitamente com React Native e Expo, oferecendo **escopo de conteúdo em nível de componente**, **suporte a TypeScript** e todos os recursos necessários para dimensionar a internacionalização (i18n) em aplicativos móveis.
+
+**Manutenção**
+
+Definir o escopo do conteúdo do seu aplicativo **facilita a manutenção** de aplicativos de grande escala. Você pode duplicar ou excluir uma única pasta de recursos sem o fardo mental de revisar toda a base de código de seu conteúdo. Além disso, o Intlayer é **totalmente tipado (fully typed)** para garantir a precisão do seu conteúdo.
+
+**Agente de IA**
+
+A co-localização de conteúdo **reduz o contexto necessário** pelos Large Language Models (LLMs). O Intlayer também vem com um conjunto de ferramentas, como uma **CLI** para testar traduções ausentes,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)**, e **[habilidades do agente](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, para tornar a experiência do desenvolvedor (DX) ainda mais tranquila para os agentes de IA.
+
+**Automação**
+
+Use a automação para traduzir seu pipeline de CI/CD usando o LLM de sua escolha às custas de seu provedor de IA. O Intlayer também oferece um **compilador** para automatizar a extração de conteúdo, bem como uma [plataforma web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) para ajudar a **traduzir em segundo plano**.
+
+**Desempenho**
+
+Conectar arquivos JSON enormes a componentes pode levar a problemas de desempenho e reatividade. O Intlayer otimiza o carregamento do seu conteúdo no momento da construção.
+
+**Escalonamento sem nenhum desenvolvedor**
+
+Mais do que apenas uma solução i18n, o Intlayer fornece um **[editor visual] auto-hospedado(https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** e um **[CMS completo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** para ajudá-lo a gerenciar seu conteúdo multilíngue em **tempo real**, facilitando a colaboração com tradutores, redatores e outros membros da equipe. O conteúdo pode ser armazenado local e/ou remotamente.
+
+**Tamanho do bundle**
+
+Em vez de carregar arquivos JSON enormes em suas páginas, carregue apenas o conteúdo necessário. O Intlayer ajuda a **reduzir o tamanho do seu pacote e visualização em até 50%**.
+
+## Etapa 1: instalar dependências
+
+Consulte [Modelo de aplicativo](https://github.com/aymericzip/intlayer-react-native-template) no GitHub.
+
+No seu projeto React Native, instale os seguintes pacotes:
+
+```bash packageManager="npm"
+npm instalar camada interna reagir-intlayer
+npm install --save-dev react-native-intlayer
+inicialização da camada interna npx
+```
+
+```bash packageManager="pnpm"
+pnpm adicionar camada interna reagir-intlayer
+pnpm add --save-dev react-native-intlayer
+inicialização da camada interna pnpm
+```
+
+```bash packageManager="yarn"
+fio adicionar camada interna reagir camada interna
+fio adicionar --save-dev reagir-nativo-intlayer
+inicialização da camada interna do fio
+```
+
+```bash packageManager="bun"
+bun adicionar camada interna reagir-intlayer
+bun add --dev react-native-intlayer
+bun x intlayer init
+```
+
+### Pacotes
+
+- **camada interna**  
+  O kit de ferramentas principal i18n para configuração, conteúdo de dicionário, geração de tipos e comandos CLI.
+
+- **react-intlayer**  
+  Integração React que fornece os provedores de contexto e ganchos React que você usará no React Native para obter e alternar localidades.
+
+- **react-native-intlayer**  
+  Integração React Native que fornece o plugin Metro para integração do Intlayer com o empacotador React Native.
 
 ---
 

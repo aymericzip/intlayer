@@ -62,7 +62,7 @@ Inny wpływ dotyczy doświadczenia programisty (DX): sposobu deklarowania treśc
 
 ## TL;DR
 
-- **Intlayer**: Zapewnia najlepszą wydajność i najmniejszy rozmiar pakietu (v8.7.12) dla TanStack Start.
+- **Intlayer**: Zapewnia najlepszą wydajność i najmniejszy rozmiar bundle'a (v8.7.12) dla TanStack Start.
 - **react-i18next** & **use-intl**: Dojrzałe alternatywy z dużymi ekosystemami, ale znacznie cięższe i bardziej złożone w optymalizacji.
 - **Paraglide**: Innowacyjny pomysł na tree-shaking, który nie działa w praktyce. Skomplikowane DX i narzut reaktywności w TanStack Start.
 - **Unikaj**: **General Translation (GT)** i **Lingo.dev** ze względu na poważne problemy z wydajnością, limity AI i uzależnienie od dostawcy (vendor lock-in).
@@ -119,7 +119,7 @@ Porównaliśmy **cztery strategie ładowania**:
 
 ## Podsumowanie strategii
 
-- **Static**: Prosta; brak opóźnień sieciowych po początkowym załadowaniu. Minus: duży rozmiar pakietu.
+- **Static**: Prosta; brak opóźnień sieciowych po początkowym załadowaniu. Minus: duży rozmiar bundle'a.
 - **Dynamic**: Redukuje początkową wagę (lazy-loading). Idealna w przypadku wielu lokalizacji.
 - **Scoped static**: Utrzymuje porządek w kodzie (separacja logiczna) bez skomplikowanych dodatkowych żądań sieciowych.
 - **Scoped dynamic**: Najlepsze podejście pod kątem dzielenia kodu (code splitting) i wydajności. Minimalizuje zużycie pamięci, ładując tylko to, czego potrzebuje bieżący widok i aktywna lokalizacja.
@@ -151,7 +151,7 @@ Napotkane problemy:
 - Przekroczenie limitu AI (lub blokująca zależność serwerowa), co sprawia, że budowanie / produkcja są ryzykowne bez płacenia.
 - Kompilator pomijał niemal 40% przetłumaczonej treści. Musiałem przepisać wszystkie struktury `.map` na płaskie bloki komponentów, aby go uruchomić.
 - Ich CLI jest zabugowane i miało tendencję do resetowania pliku konfiguracyjnego bez powodu.
-- Podczas budowania całkowicie wymazywało wygenerowane pliki JSON, gdy dodawana była nowa treść. W rezultacie kilka kluczy mogło wymazać setki istniejących kluczy.
+- Podczas budowania (build time) całkowicie wymazywało wygenerowane pliki JSON, gdy dodawana była nowa treść. W rezultacie kilka kluczy mogło wymazać setki istniejących kluczy.
 - Napotkałem problemy z reaktywnością biblioteki w TanStack Start: przy zmianie lokalizacji musiałem wymusić ponowne renderowanie dostawcy, aby działała.
 
 ### 2 - Rozwiązania eksperymentalne

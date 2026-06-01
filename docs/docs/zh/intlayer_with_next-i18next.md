@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-10-05
-updatedAt: 2025-10-05
-title: next-i18next - 如何在 2026 年翻译 Next.js (i18n) 应用
-description: 一个实用且适用于生产环境的指南，教你如何使用 i18next/next-i18next 国际化 Next.js 15 App Router 应用，并通过 Intlayer 进行增强。
+updatedAt: 2026-05-31
+title: next-i18next - 完整翻译指南： Next.js
+description: 最佳的包体积、SEO、性能和可维护性解决方案。让您的 Next.js 15 App Router 网站在 2026 年实现多语言化，LLM 翻译，Agent Skills & MCP。
 keywords:
   - 国际化
   - 文档

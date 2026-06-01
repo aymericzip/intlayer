@@ -40,10 +40,10 @@ npm install vite-intlayer
 import "vite-intlayer";
 ```
 
-| Функция              | Описание                                                                            | Связанная документация                                                                                                 |
-| -------------------- | ----------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
-| `intlayer`           | Основной плагин Vite, который интегрирует Intlayer в процесс сборки.                | [intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/vite-intlayer/intlayer.md)           |
-| `intlayerPlugin`     | (**Устаревший**) Псевдоним для `intlayer`.                                          | [intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/vite-intlayer/intlayer.md)           |
-| `intlayerProxy`      | Плагин middleware для разработки, отвечающий за определение локали и маршрутизацию. | -                                                                                                                      |
-| `intlayerMiddleware` | (**Устаревший**) Псевдоним для `intlayerProxy`.                                     | -                                                                                                                      |
-| `intlayerPrune`      | Плагин для tree-shaking и удаления неиспользуемых словарей во время сборки.         | [intlayerPrune](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/vite-intlayer/intlayerPrune.md) |
+| Функция              | Описание                                                                                 | Связанная документация                                                                                                 |
+| -------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| `intlayer`           | Основной плагин Vite, который интегрирует Intlayer в процесс сборки.                     | [intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/vite-intlayer/intlayer.md)           |
+| `intlayerPlugin`     | (**Устаревший**) Псевдоним для `intlayer`.                                               | [intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/vite-intlayer/intlayer.md)           |
+| `intlayerProxy`      | Плагин middleware для разработки, отвечающий за определение локали и маршрутизацию.      | -                                                                                                                      |
+| `intlayerMiddleware` | (**Устаревший**) Псевдоним для `intlayerProxy`.                                          | -                                                                                                                      |
+| `intlayerPrune`      | Плагин для tree-shaking и удаления неиспользуемых словарей во время сборки (build time). | [intlayerPrune](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/vite-intlayer/intlayerPrune.md) |

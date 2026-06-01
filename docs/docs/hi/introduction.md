@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-06-29
+updatedAt: 2026-05-31
 title: परिचय
 description: जानिए कि Intlayer कैसे काम करता है। अपने एप्लिकेशन में Intlayer द्वारा उपयोग किए गए चरण देखें। जानिए विभिन्न पैकेज क्या करते हैं।
 keywords:
@@ -22,131 +22,32 @@ history:
 
 आधिकारिक Intlayer प्रलेखन में आपका स्वागत है! यहां, आपको वह सब कुछ मिलेगा जो आपको Intlayer को एकीकृत, कॉन्फ़िगर और मास्टर करने के लिए चाहिए, चाहे आप Next.js, React, Vite, Express, या किसी अन्य जावास्क्रिप्ट वातावरण के साथ काम कर रहे हों, सभी अंतरराष्ट्रीयकरण (i18n) आवश्यकताओं के लिए।
 
-## परिचय
+## विकल्पों पर इन्टलेयर क्यों?
 
-### Intlayer क्या है?
+`नेक्स्ट-इंटल` या `आई18नेक्स्ट` जैसे मुख्य समाधानों की तुलना में, इंटलेयर एक ऐसा समाधान है जो एकीकृत अनुकूलन के साथ आता है जैसे:
 
-**Intlayer** एक अंतरराष्ट्रीयकरण पुस्तकालय है जो विशेष रूप से जावास्क्रिप्ट डेवलपर्स के लिए डिज़ाइन किया गया है। यह आपको आपके कोड में कहीं भी अपनी सामग्री घोषित करने की अनुमति देता है। यह बहुभाषी सामग्री की घोषणा को संरचित शब्दकोशों में परिवर्तित करता है ताकि इसे आपके कोड में आसानी से एकीकृत किया जा सके। TypeScript का उपयोग करते हुए, **Intlayer** आपके विकास को मजबूत और अधिक कुशल बनाता है।
+**बंडल का आकार**
 
-Intlayer एक वैकल्पिक दृश्य संपादक भी प्रदान करता है जो आपको अपनी सामग्री को आसानी से संपादित और प्रबंधित करने की अनुमति देता है। यह संपादक उन डेवलपर्स के लिए विशेष रूप से उपयोगी है जो सामग्री प्रबंधन के लिए एक दृश्य इंटरफ़ेस पसंद करते हैं, या उन टीमों के लिए जो बिना कोड की चिंता किए सामग्री उत्पन्न कर रही हैं।
+अपने पृष्ठों में विशाल JSON फ़ाइलें लोड करने के बजाय, केवल आवश्यक सामग्री लोड करें। इंटलेयर आपके बंडल और पृष्ठ आकार को 50% तक कम करने में मदद करता है।
 
-### उपयोग का उदाहरण
+**रखरखाव**
 
-```bash
-.
-└── Components
-    └── MyComponent
-        ├── index.content.ts
-        └── index.tsx
-```
+आपके एप्लिकेशन की सामग्री का दायरा बड़े पैमाने के अनुप्रयोगों के लिए **रखरखाव की सुविधा प्रदान करता है**। आप अपने संपूर्ण सामग्री कोडबेस की समीक्षा करने के मानसिक बोझ के बिना किसी एक फीचर फ़ोल्डर की नकल कर सकते हैं या उसे हटा सकते हैं। इसके अतिरिक्त, आपकी सामग्री की सटीकता सुनिश्चित करने के लिए Intlayer **पूरी तरह से टाइप किया गया** है।
 
-```tsx fileName="src/components/MyComponent/index.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
-import { t, type Dictionary } from "intlayer";
+**एआई एजेंट**
 
-const componentContent = {
-  key: "component-key",
-  content: {
-    myTranslatedContent: t({
-      en: "Hello World",
-      es: "Hola Mundo",
-      fr: "Bonjour le monde",
-    }),
-  },
-} satisfies Dictionary;
+सामग्री का सह-स्थानीकरण **बड़े भाषा मॉडल (एलएलएम) द्वारा आवश्यक संदर्भ को कम करता है**। इंटलेयर टूल के एक सूट के साथ भी आता है, जैसे **CLI** ताकि लापता अनुवादों का परीक्षण किया जा सके,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)**, और **[एजेंट कौशल](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, AI एजेंटों के लिए डेवलपर अनुभव (DX) को और भी आसान बनाने के लिए।
 
-export default componentContent;
-```
+**स्वचालन**
 
-```json fileName="src/components/MyComponent/index.content.json" contentDeclarationFormat="json"
-{
-  "$schema": "https://intlayer.org/schema.json",
-  "key": "component-key",
-  "content": {
-    "myTranslatedContent": {
-      "nodeType": "translation",
-      "translation": {
-        "en": "Hello World",
-        "fr": "Bonjour le monde",
-        "es": "Hola Mundo"
-      }
-    }
-  }
-}
-```
+अपने एआई प्रदाता की कीमत पर अपनी पसंद के एलएलएम का उपयोग करके अपने सीआई/सीडी पाइपलाइन में अनुवाद करने के लिए स्वचालन का उपयोग करें। इंटलेयर सामग्री निष्कर्षण को स्वचालित करने के लिए एक **कंपाइलर** के साथ-साथ **पृष्ठभूमि में अनुवाद** में मदद करने के लिए एक [वेब प्लेटफ़ॉर्म](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) भी प्रदान करता है।
 
-```tsx fileName="src/components/MyComponent/index.tsx" codeFormat={["typescript", "esm"]}
-import type { FC } from "react";
-import { useIntlayer } from "react-intlayer";
+**प्रदर्शन**
 
-// MyComponent एक फ़ंक्शनल कंपोनेंट है जो Intlayer से अनुवादित सामग्री प्राप्त करता है और उसे प्रदर्शित करता है
-export const MyComponent: FC = () => {
-  const { myTranslatedContent } = useIntlayer("component-key");
+बड़े पैमाने पर JSON फ़ाइलों को घटकों से जोड़ने से प्रदर्शन और प्रतिक्रियाशीलता संबंधी समस्याएं हो सकती हैं। इंटलेयर बिल्ड समय पर आपकी सामग्री लोडिंग को अनुकूलित करता है।
 
-  return <span>{myTranslatedContent}</span>;
-};
-```
+**किसी भी देव के साथ स्केलिंग**
 
-## मुख्य विशेषताएँ
-
-Intlayer आधुनिक वेब विकास की आवश्यकताओं को पूरा करने के लिए विभिन्न विशेषताएँ प्रदान करता है। नीचे प्रमुख विशेषताएँ दी गई हैं, प्रत्येक के लिए विस्तृत दस्तावेज़ीकरण के लिंक के साथ:
-
-- **अंतरराष्ट्रीयकरण समर्थन**: आपके एप्लिकेशन की वैश्विक पहुंच को अंतर्निर्मित अंतरराष्ट्रीयकरण समर्थन के साथ बढ़ाएं।
-- **विज़ुअल एडिटर**: Intlayer के लिए डिज़ाइन किए गए एडिटर प्लगइन्स के साथ अपने विकास कार्यप्रवाह में सुधार करें। [विज़ुअल एडिटर गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md) देखें।
-- **कॉन्फ़िगरेशन लचीलापन**: व्यापक कॉन्फ़िगरेशन विकल्पों के साथ अपनी सेटअप को अनुकूलित करें, जिनका विवरण [कॉन्फ़िगरेशन गाइड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md) में दिया गया है।
-- **उन्नत CLI उपकरण**: Intlayer के कमांड लाइन इंटरफ़ेस का उपयोग करके अपने प्रोजेक्ट्स को कुशलतापूर्वक प्रबंधित करें। क्षमताओं का अन्वेषण करें [CLI टूल्स दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/index.md) में।
-
-## मुख्य अवधारणाएँ
-
-### शब्दकोश
-
-अपने बहुभाषी सामग्री को अपने कोड के करीब व्यवस्थित करें ताकि सब कुछ सुसंगत और रखरखाव योग्य रहे।
-
-- **[शुरू करें](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/content_file.md)**  
-  Intlayer में अपनी सामग्री घोषित करने के मूल बातें सीखें।
-
-- **[अनुवाद](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/translation.md)**  
-  समझें कि आपके एप्लिकेशन में अनुवाद कैसे उत्पन्न, संग्रहीत और उपयोग किए जाते हैं।
-
-- **[सूचीकरण](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/enumeration.md)**  
-  विभिन्न भाषाओं में बार-बार आने वाले या निश्चित डेटा सेट को आसानी से प्रबंधित करें।
-
-- **[शर्त](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/condition.md)**  
-  Intlayer में गतिशील सामग्री बनाने के लिए शर्तीय तर्क का उपयोग करना सीखें।
-
-- **[सम्मिलन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/insertion.md)**  
-  सम्मिलन प्लेसहोल्डर का उपयोग करके स्ट्रिंग में मान कैसे डाले जाएं, यह जानें।
-
-- **[फ़ंक्शन फ़ेचिंग](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/function_fetching.md)**  
-  देखें कि कैसे अपनी परियोजना के कार्यप्रवाह के अनुसार कस्टम लॉजिक के साथ गतिशील रूप से सामग्री प्राप्त करें।
-
-- **[मार्कडाउन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/markdown.md)**  
-  जानें कि Intlayer में समृद्ध सामग्री बनाने के लिए मार्कडाउन का उपयोग कैसे करें।
-
-- **[फ़ाइल एम्बेडिंग](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/file.md)**  
-  जानें कि Intlayer में बाहरी फ़ाइलों को एम्बेड कैसे करें ताकि उन्हें सामग्री संपादक में उपयोग किया जा सके।
-
-- **[नेस्टिंग](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/nesting.md)**  
-  समझें कि Intlayer में जटिल संरचनाएँ बनाने के लिए सामग्री को नेस्ट कैसे करें।
-
-### पर्यावरण और एकीकरण
-
-हमने Intlayer को लचीलापन ध्यान में रखकर बनाया है, जो लोकप्रिय फ्रेमवर्क और बिल्ड टूल्स के साथ सहज एकीकरण प्रदान करता है:
-
-- **[Next.js 15 के साथ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_nextjs_15.md)**
-- **[Next.js 14 (ऐप राउटर) के साथ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_nextjs_14.md)**
-- **[Next.js पेज राउटर के साथ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_nextjs_page_router.md)**
-- **[React CRA के साथ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_create_react_app.md)**
-- **[Vite + React के साथ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_vite+react.md)**
-- **[React Native और Expo के साथ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_react_native+expo.md)**
-- **[Lynx और React के साथ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_lynx+react.md)**
-- **[Express के साथ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_with_express.md)**
-
-प्रत्येक एकीकरण गाइड में Intlayer की विशेषताओं का उपयोग करने के लिए सर्वोत्तम प्रथाएँ शामिल हैं, जैसे कि **सर्वर-साइड रेंडरिंग**, **डायनामिक रूटिंग**, या **क्लाइंट-साइड रेंडरिंग**, ताकि आप एक तेज़, SEO-अनुकूल, और अत्यधिक स्केलेबल एप्लिकेशन बनाए रख सकें।
-
-## योगदान और प्रतिक्रिया
-
-हम ओपन-सोर्स और समुदाय-चालित विकास की शक्ति को महत्व देते हैं। यदि आप सुधार प्रस्तावित करना चाहते हैं, एक नया गाइड जोड़ना चाहते हैं, या हमारे दस्तावेज़ों में किसी भी समस्या को ठीक करना चाहते हैं, तो कृपया एक पुल रिक्वेस्ट सबमिट करें या हमारे [GitHub रिपॉजिटरी](https://github.com/aymericzip/intlayer/blob/main/docs/docs) पर एक इश्यू खोलें।
-
-**क्या आप अपनी एप्लिकेशन का अनुवाद तेज़ और अधिक कुशलता से करना चाहते हैं?** आज ही Intlayer का उपयोग शुरू करने के लिए हमारे दस्तावेज़ों में गोता लगाएँ। एक मजबूत, सुव्यवस्थित अंतरराष्ट्रीयकरण दृष्टिकोण का अनुभव करें जो आपकी सामग्री को व्यवस्थित रखता है और आपकी टीम को अधिक उत्पादक बनाता है।
+सिर्फ एक i18n समाधान से अधिक, Intlayer एक **स्व-होस्टेड [विज़ुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** और एक **[पूर्ण] प्रदान करता है सीएमएस](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** आपकी बहुभाषी सामग्री को **वास्तविक समय** में प्रबंधित करने में मदद करता है, जिससे अनुवादकों, कॉपीराइटरों और टीम के अन्य सदस्यों के साथ सहयोग सहज हो जाता है। सामग्री को स्थानीय और/या दूरस्थ रूप से संग्रहीत किया जा सकता है।
 
 ---

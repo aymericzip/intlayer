@@ -2,7 +2,7 @@
 createdAt: 2026-04-02
 updatedAt: 2026-04-02
 title: Dominios personalizados
-description: Aprenda a configurar el enrutamiento de locales basado en dominios en Intlayer para servir diferentes locales desde nombres de host dedicados.
+description: Aprenda a configurar el enrutamiento por locales basado en dominios en Intlayer para servir diferentes locales desde nombres de host dedicados.
 keywords:
   - Dominios personalizados
   - Enrutamiento por dominio
@@ -16,12 +16,12 @@ slugs:
 history:
   - version: 8.5.0
     date: 2026-04-02
-    changes: "Se agregó el enrutamiento de locales basado en dominios a través de la configuración routing.domains."
+    changes: "Se agregó el enrutamiento por locales basado en dominios a través de la configuración routing.domains."
 ---
 
 # Dominios personalizados
 
-Intlayer admite el enrutamiento de locales basado en dominios, lo que le permite servir locales específicos desde nombres de host dedicados. Por ejemplo, los visitantes chinos pueden ser dirigidos a `intlayer.zh` en lugar de `intlayer.org/zh`.
+Intlayer admite el enrutamiento por locales basado en dominios, lo que le permite servir locales específicos desde nombres de host dedicados. Por ejemplo, los visitantes chinos pueden ser dirigidos a `intlayer.zh` en lugar de `intlayer.org/zh`.
 
 ## Cómo funciona
 

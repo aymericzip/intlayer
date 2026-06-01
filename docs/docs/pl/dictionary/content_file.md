@@ -1130,4 +1130,4 @@ export default {
 3. **Wydajność**:
    - Dostosuj konfigurację treści, aby ograniczyć zakres obserwowanych plików
    - Używaj słowników na żywo tylko wtedy, gdy są potrzebne aktualizacje w czasie rzeczywistym (np. testy A/B itp.)
-   - Upewnij się, że wtyczka transformacji podczas budowania (`@intlayer/swc` lub `@intlayer/babel`) jest włączona, aby zoptymalizować słownik podczas kompilacji
+   - Upewnij się, że wtyczka transformacji podczas budowania (build time) (`@intlayer/swc` lub `@intlayer/babel`) jest włączona, aby zoptymalizować słownik podczas kompilacji

@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-05-06
-title: AdonisJS i18n - Jak przetłumaczyć aplikację AdonisJS w 2026
-description: Dowiedz się, jak uczynić swój backend AdonisJS wielojęzycznym. Postępuj zgodnie z dokumentacją, aby go umiędzynarodowić (i18n) i przetłumaczyć.
+updatedAt: 2026-05-31
+title: AdonisJS i18n - Kompletny przewodnik po tłumaczeniu AdonisJS
+description: Najlepsze rozwiązanie dla rozmiaru bundle, SEO, wydajności & utrzymania. Uczyń swój AdonisJS backend wielojęzycznym w 2026, tłumaczenie LLM, Agent Skills & MCP.
 keywords:
   - Międzynarodowienie
   - Dokumentacja

@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-03-31
-updatedAt: 2026-05-06
-title: Vanilla JS i18n - 2026 میں Vanilla JS ایپ کا ترجمہ کیسے کریں
-description: دریافت کریں کہ اپنی Vanilla JS ویب سائٹ کو کثیر لسانی کیسے بنایا جائے۔ بین الاقوامی کاری (i18n) اور ترجمہ کے لیے دستاویزات پر عمل کریں۔
+updatedAt: 2026-05-31
+title: "Vanilla JS i18n - ترجمے کا مکمل رہنما: Vanilla JS"
+description: بنڈل سائز، SEO، کارکردگی اور برقراری کے لیے بہترین حل۔ 2026 میں اپنے Vanilla JS ویب سائٹ کو کثیر لسانی بنائیں، LLM ترجمہ، Agent Skills & MCP۔
 keywords:
   - بین الاقوامی کاری
   - دستاویزات

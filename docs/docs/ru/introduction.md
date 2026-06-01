@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-08-23
+updatedAt: 2026-05-31
 title: Введение
 description: Узнайте, как работает Intlayer. Посмотрите шаги, используемые Intlayer в вашем приложении. Узнайте, что делают разные пакеты.
 keywords:
@@ -22,131 +22,32 @@ history:
 
 Добро пожаловать в официальную документацию Intlayer! Здесь вы найдете все необходимое для интеграции, настройки и освоения Intlayer для всех ваших задач интернационализации (i18n), будь то работа с Next.js, React, Vite, Express или другой средой JavaScript.
 
-## Введение
+## Почему Intlayer лучше альтернатив?
 
-### Что такое Intlayer?
+По сравнению с основными решениями, такими как next-intl или i18next, Intlayer представляет собой решение со встроенными оптимизациями, такими как:
 
-**Intlayer** - это библиотека интернационализации, разработанная специально для JavaScript-разработчиков. Она позволяет объявлять ваш контент в любом месте вашего кода. Она преобразует объявления многоязычного контента в структурированные словари для легкой интеграции в ваш код. Используя TypeScript, **Intlayer** делает вашу разработку более надежной и эффективной.
+**Размер бандла**
 
-Intlayer также предоставляет опциональный визуальный редактор, который позволяет легко редактировать и управлять вашим контентом. Этот редактор особенно полезен для разработчиков, предпочитающих визуальный интерфейс для управления контентом, или для команд, создающих контент без необходимости беспокоиться о коде.
+Вместо загрузки огромных файлов JSON на свои страницы загружайте только необходимый контент. Intlayer помогает **уменьшить размер бандла и страниц до 50 %**.
 
-### Пример использования
+**Удобство обслуживания**
 
-```bash
-.
-└── Components
-    └── MyComponent
-        ├── index.content.ts
-        └── index.tsx
-```
+Определение области содержимого вашего приложения **облегчает обслуживание** крупномасштабных приложений. Вы можете дублировать или удалить отдельную папку функций, не утруждав себя мысленным бременем проверки всей кодовой базы контента. Кроме того, Intlayer **полностью типизирован**, что обеспечивает точность вашего контента.
 
-```tsx fileName="src/components/MyComponent/index.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
-import { t, type Dictionary } from "intlayer";
+**Агент ИИ**
 
-const componentContent = {
-  key: "component-key",
-  content: {
-    myTranslatedContent: t({
-      en: "Hello World",
-      es: "Hola Mundo",
-      fr: "Bonjour le monde",
-    }),
-  },
-} satisfies Dictionary;
+Совместное размещение контента **уменьшает контекст, необходимый** для моделей большого языка (LLM). Intlayer также поставляется с набором инструментов, таких как **CLI** для проверки отсутствия переводов,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)**, и **[навыки агента](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, чтобы сделать работу разработчика (DX) еще более удобной для агентов ИИ.
 
-// Экспорт содержимого компонента по умолчанию
-export default componentContent;
-```
+**Автоматизация**
 
-```json fileName="src/components/MyComponent/index.content.json" contentDeclarationFormat="json"
-{
-  "$schema": "https://intlayer.org/schema.json",
-  "key": "component-key",
-  "content": {
-    "myTranslatedContent": {
-      "nodeType": "translation",
-      "translation": {
-        "en": "Hello World",
-        "fr": "Bonjour le monde",
-        "es": "Hola Mundo"
-      }
-    }
-  }
-}
-```
+Используйте автоматизацию для перевода в своем конвейере CI/CD, используя LLM по вашему выбору за счет вашего поставщика ИИ. Intlayer также предлагает **компилятор** для автоматизации извлечения контента, а также [веб-платформу](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md), которая помогает **переводить в фоновом режиме**.
 
-```tsx fileName="src/components/MyComponent/index.tsx" codeFormat={["typescript", "esm"]}
-import type { FC } from "react";
-import { useIntlayer } from "react-intlayer";
+**Производительность**
 
-export const MyComponent: FC = () => {
-  const { myTranslatedContent } = useIntlayer("component-key");
+Подключение больших файлов JSON к компонентам может привести к проблемам с производительностью и реактивностью. Intlayer оптимизирует загрузку контента во время сборки (build time).
 
-  return <span>{myTranslatedContent}</span>;
-};
-```
+**Масштабирование с помощью не-разработчиками**
 
-## Основные возможности
-
-Intlayer предлагает множество функций, адаптированных для современных веб-разработок. Ниже приведены ключевые возможности с ссылками на подробную документацию по каждой из них:
-
-- **Поддержка интернационализации**: Расширьте глобальный охват вашего приложения с помощью встроенной поддержки интернационализации.
-- **Визуальный редактор**: Улучшите свой рабочий процесс разработки с помощью плагинов редактора, разработанных для Intlayer. Ознакомьтесь с [Руководством по визуальному редактору](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md).
-- **Гибкость конфигурации**: Настраивайте вашу систему с помощью обширных опций конфигурации, подробно описанных в [Руководстве по конфигурации](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/configuration.md).
-- **Расширенные инструменты CLI**: Эффективно управляйте своими проектами с помощью командной строки Intlayer. Изучите возможности в [Документации по инструментам CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/cli/index.md).
-
-## Основные концепции
-
-### Словарь
-
-Организуйте ваш многоязычный контент рядом с кодом, чтобы всё оставалось последовательным и удобным для поддержки.
-
-- **[Начало работы](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/content_file.md)**  
-  Изучите основы объявления вашего контента в Intlayer.
-
-- **[Перевод](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/translation.md)**  
-  Поймите, как создаются, хранятся и используются переводы в вашем приложении.
-
-- **[Перечисление](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/enumeration.md)**  
-  Легко управляйте повторяющимися или фиксированными наборами данных на разных языках.
-
-- **[Условие](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/condition.md)**  
-  Узнайте, как использовать условную логику в Intlayer для создания динамического контента.
-
-- **[Вставка](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/insertion.md)**  
-  Узнайте, как вставлять значения в строку с помощью заполнителей вставки.
-
-- **[Получение функций](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/function_fetching.md)**  
-  Узнайте, как динамически получать контент с помощью пользовательской логики, чтобы соответствовать рабочему процессу вашего проекта.
-
-- **[Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/markdown.md)**  
-  Изучите, как использовать Markdown в Intlayer для создания насыщенного контента.
-
-- **[Встраивание файлов](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/file.md)**  
-  Узнайте, как встраивать внешние файлы в Intlayer для использования их в редакторе контента.
-
-- **[Вложенность](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/nesting.md)**  
-  Поймите, как создавать вложенный контент в Intlayer для построения сложных структур.
-
-### Окружения и интеграции
-
-Мы создали Intlayer с учетом гибкости, предлагая бесшовную интеграцию с популярными фреймворками и инструментами сборки:
-
-- **[Intlayer с Next.js 15](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_nextjs_15.md)**
-- **[Intlayer с Next.js 14 (App Router)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_nextjs_14.md)**
-- **[Intlayer с Next.js Page Router](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_nextjs_page_router.md)**
-- **[Intlayer с React CRA](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_create_react_app.md)**
-- **[Intlayer с Vite + React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_vite+react.md)**
-- **[Intlayer с React Native и Expo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_react_native+expo.md)**
-- **[Intlayer с Lynx и React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_lynx+react.md)**
-- **[Intlayer с Express](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_with_express.md)**
-
-Каждое руководство по интеграции включает лучшие практики использования возможностей Intlayer, таких как **рендеринг на стороне сервера**, **динамическая маршрутизация** или **рендеринг на стороне клиента**, чтобы вы могли поддерживать быстрое, SEO-дружественное и высокомасштабируемое приложение.
-
-## Вклад и обратная связь
-
-Мы ценим силу открытого исходного кода и разработки, управляемой сообществом. Если вы хотите предложить улучшения, добавить новое руководство или исправить любые ошибки в нашей документации, не стесняйтесь отправить Pull Request или открыть issue в нашем [репозитории на GitHub](https://github.com/aymericzip/intlayer/blob/main/docs/docs).
-
-**Готовы переводить ваше приложение быстрее и эффективнее?** Погрузитесь в нашу документацию и начните использовать Intlayer уже сегодня. Ощутите надежный и упрощённый подход к интернационализации, который помогает организовать ваш контент и повысить продуктивность вашей команды.
+Intlayer — это больше, чем просто решение i18n. Он предоставляет **автономный [визуальный редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** и **[полный CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)**, чтобы помочь вам управлять многоязычным контентом в **реальном времени**, упрощая сотрудничество с переводчиками, копирайтерами и другими членами команды. Контент может храниться локально и/или удаленно.
 
 ---

@@ -51,7 +51,7 @@ Consulta el artículo del blog [Compiler vs. Declarative i18n](https://github.co
 Si bien el compilador ofrece una excelente experiencia de "funciona sin más", también introduce algunos compromisos de los que debes ser consciente:
 
 - **Ambigüedad heurística**: El compilador debe adivinar qué es contenido orientado al usuario frente a la lógica de la aplicación (por ejemplo, `className="active"`, códigos de estado, IDs de productos). En bases de código complejas, esto puede llevar a falsos positivos o cadenas omitidas que requieren anotaciones manuales y excepciones.
-- **Extracción solo estática**: La extracción basada en compilador se basa en análisis estático. Las cadenas que solo existen en tiempo de ejecución (códigos de error de API, campos CMS, etc.) no pueden ser descubiertas o traducidas por el compilador solo, por lo que aún necesitas una estrategia i18n de tiempo de ejecución complementaria.
+- **Extracción solo estática**: La extracción basada en compilador se basa en análisis estático. Las cadenas que solo existen en runtime (códigos de error de API, campos CMS, etc.) no pueden ser descubiertas o traducidas por el compilador solo, por lo que aún necesitas una estrategia i18n de tiempo de ejecución complementaria.
 
 Para una comparación arquitectónica más profunda, consulta el artículo del blog [Compiler vs. Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/es/compiler_vs_declarative_i18n.md).
 

@@ -156,7 +156,7 @@ Para ver cómo configurar los locales disponibles u otros parámetros, consulte 
 ### Editor y Sincronización en vivo
 
 - **[Comandos del editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/cli/editor.md)** - Use los comandos del editor de Intlayer
-- **[Comandos de sincronización en vivo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/cli/live.md)** - Use Live Sync para reflejar los cambios de contenido del CMS en tiempo de ejecución
+- **[Comandos de sincronización en vivo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/cli/live.md)** - Use Live Sync para reflejar los cambios de contenido del CMS en runtime
 
 ### CI/CD y Automatización
 

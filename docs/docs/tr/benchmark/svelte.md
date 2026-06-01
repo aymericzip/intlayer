@@ -2,7 +2,7 @@
 createdAt: 2026-04-20
 updatedAt: 2026-05-18
 title: 2026'da Svelte için En İyi i18n Çözümü - Benchmark Raporu
-description: svelte-i18n, Paraglide ve Intlayer gibi Svelte uluslararasılaştırma (i18n) kütüphanelerini karşılaştırın. Paket boyutu, sızıntı ve reaktivite üzerine ayrıntılı performans raporu.
+description: svelte-i18n, Paraglide ve Intlayer gibi Svelte uluslararasılaştırma (i18n) kütüphanelerini karşılaştırın. Bundle boyutu, sızıntı ve reaktivite üzerine ayrıntılı performans raporu.
 keywords:
   - benchmark
   - i18n
@@ -111,7 +111,7 @@ Framework, **10 sayfa** ve **10 dilden** oluşan çok dilli bir uygulamaya sahip
 
 ## Strateji özeti
 
-- **Static**: Basit; başlangıç yüklemesinden sonra ağ gecikmesi yok. Dezavantajı: büyük paket boyutu.
+- **Static**: Basit; başlangıç yüklemesinden sonra ağ gecikmesi yok. Dezavantajı: büyük bundle boyutu.
 - **Dynamic**: Başlangıç ağırlığını azaltır (lazy-loading). Birçok diliniz olduğunda idealdir.
 - **Scoped static**: Karmaşık ek ağ istekleri olmadan kodu düzenli tutar (mantıksal ayrım).
 - **Scoped dynamic**: _Kod bölme_ ve performans için en iyi yaklaşım. Yalnızca geçerli görünüm ve aktif dil için gerekenleri yükleyerek belleği minimize eder.

@@ -380,7 +380,7 @@ Uwagi i ograniczenia:
 - Dodaj pochodzenie live sync do polityki bezpieczeństwa swojej strony (CSP). Upewnij się, że adres URL live sync jest dozwolony w `connect-src` (oraz `frame-ancestors`, jeśli ma to zastosowanie).
 - Live Sync nie działa ze statycznym outputem. W Next.js strona musi być dynamiczna, aby otrzymywać aktualizacje w czasie wykonywania (np. użyj `generateStaticParams`, `generateMetadata`, `getServerSideProps` lub `getStaticProps` odpowiednio, aby uniknąć pełnych ograniczeń statycznych).
 - W CMS każdy słownik ma flagę `live`. Tylko słowniki z `live=true` są pobierane przez API live sync; pozostałe są importowane dynamicznie i pozostają niezmienione w czasie wykonywania.
-- Flaga `live` jest oceniana dla każdego słownika podczas budowania. Jeśli zdalna zawartość nie była oznaczona jako `live=true` podczas budowania, musisz przebudować projekt, aby włączyć Live Sync dla tego słownika.
+- Flaga `live` jest oceniana dla każdego słownika podczas budowania (build time). Jeśli zdalna zawartość nie była oznaczona jako `live=true` podczas budowania (build time), musisz przebudować projekt, aby włączyć Live Sync dla tego słownika.
 - Serwer live sync musi mieć możliwość zapisu do `.intlayer`. W kontenerach upewnij się, że masz dostęp do zapisu do `/.intlayer`.
 
 ## Debug

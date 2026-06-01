@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-11-01
-updatedAt: 2025-11-01
-title: Cómo internacionalizar tu aplicación Next.js usando next-intl
-description: Configura i18n con next-intl - mejores prácticas y consejos SEO para aplicaciones Next.js multilingües, cubriendo internacionalización, organización de contenido y configuración técnica.
+updatedAt: 2026-05-31
+title: Cómo internacionalizar tu aplicación Next.js usando next-intl - Guía completa para traducir Translate Next.js 16 with next-intl — App Router Setup
+description: La mejor solución para el tamaño del bundle, SEO, rendimiento & mantenibilidad. Haga multilingüe su Next.js 16 sitio web en 2026, traducción LLM, Agent Skills & MCP.
 keywords:
   - next-intl
   - Internationalization

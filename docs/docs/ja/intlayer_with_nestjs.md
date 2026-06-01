@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-05-06
-title: NestJS i18n - NestJSアプリの翻訳方法 2026
-description: NestJSバックエンドを多言語対応にする方法を紹介します。国際化（i18n）と翻訳のためのドキュメントに従ってください。
+updatedAt: 2026-05-31
+title: NestJS i18n - 完全な翻訳ガイド： NestJS
+description: バンドルサイズ、SEO、パフォーマンス、保守性のための最良のソリューション。2026年にNestJS バックエンドを多言語化しましょう。LLM翻訳、Agent Skills & MCP。
 keywords:
   - 国際化
   - ドキュメント

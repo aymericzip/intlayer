@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-09-29
-title: next-i18next vs next-intl vs Intlayer
-description: So sánh next-i18next với next-intl và Intlayer cho việc quốc tế hóa (i18n) của ứng dụng Next.js
+updatedAt: 2026-05-31
+title: "next-i18next vs next-intl vs Intlayer - Hướng dẫn đầy đủ để dịch next-i18next vs next-intl vs Intlayer: 2026 Comparison"
+description: Giải pháp tốt nhất cho kích thước bundle, SEO, hiệu suất & khả năng bảo trì. Làm cho Next.js trang web của bạn đa ngôn ngữ vào năm 2026, dịch thuật LLM, Agent Skills & MCP.
 keywords:
   - next-intl
   - next-i18next

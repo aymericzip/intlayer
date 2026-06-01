@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-05-06
-title: Angular i18n - Jak přeložit aplikaci Angular 21 (Vite) v roce 2026
-description: Objevte, jak udělat váš web v Angularu vícejazyčným. Postupujte podle dokumentace, abyste jej internacionalizovali (i18n) a přeložili.
+updatedAt: 2026-05-31
+title: Angular i18n - Kompletní průvodce překladem Angular 21
+description: Nejlepší řešení pro velikost bundlu, SEO, výkon & udržovatelnost. Udělejte svůj Angular 21 aplikaci vícejazyčným v 2026, překlad LLM, Agent Skills & MCP.
 keywords:
   - Internacionalizace
   - Dokumentace

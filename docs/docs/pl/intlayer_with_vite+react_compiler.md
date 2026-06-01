@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2026-05-06
-title: Vite + React i18n - Przekształć istniejącą aplikację w wielojęzyczną w 2026
-description: Odkryj, jak uczynić swoją istniejącą aplikację Vite i React wielojęzyczną przy użyciu Intlayer Compiler. Postępuj zgodnie z dokumentacją, aby ją umiędzynarodowić (i18n) i przetłumaczyć za pomocą AI.
+updatedAt: 2026-05-31
+title: Vite + React i18n - Kompletny przewodnik po tłumaczeniu Complete
+description: Najlepsze rozwiązanie dla rozmiaru bundle, SEO, wydajności & utrzymania. Uczyń swój existing Vite and React aplikację wielojęzycznym w 2026, tłumaczenie LLM, Agent Skills & MCP.
 keywords:
   - Internacjonalizacja
   - Dokumentacja
@@ -78,7 +78,7 @@ Następnie przychodzi ryzykowna część: zastąpienie całego tego tekstu hooka
 ## Co to jest Intlayer Compiler?
 
 **Intlayer Compiler** został stworzony, aby pominąć tę ręczną, żmudną pracę. Zamiast ręcznego wyodrębniania ciągów znaków, kompilator robi to za Ciebie. Skanuje Twój kod, znajduje tekst i używa AI do generowania słowników w tle.
-Następnie modyfikuje Twój kod podczas budowania, aby wstrzyknąć niezbędne hooki i18n. Zasadniczo piszesz aplikację tak, jakby była jednojęzyczna, a kompilator automatycznie zajmuje się wielojęzyczną transformacją.
+Następnie modyfikuje Twój kod podczas budowania (build time), aby wstrzyknąć niezbędne hooki i18n. Zasadniczo piszesz aplikację tak, jakby była jednojęzyczna, a kompilator automatycznie zajmuje się wielojęzyczną transformacją.
 
 > Dokumentacja kompilatora: [https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compiler.md](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compiler.md)
 

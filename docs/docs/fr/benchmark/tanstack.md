@@ -2,7 +2,7 @@
 createdAt: 2026-04-20
 updatedAt: 2026-05-18
 title: La meilleure solution i18n pour TanStack Start en 2026 - Rapport de Benchmark
-description: Comparez les bibliothèques d'internationalisation pour TanStack Start comme react-i18next, use-intl et Intlayer. Rapport de performance détaillé sur la taille du bundle, les fuites et la réactivité.
+description: Comparez les bibliothèques d'internationalisation pour TanStack Start comme react-i18next, next-intl et Intlayer. Rapport de performance détaillé sur la taille du bundle, les fuites et la réactivité.
 keywords:
   - benchmark
   - i18n
@@ -63,7 +63,7 @@ L'autre impact concerne l'expérience développeur (DX) : la façon dont vous d�
 ## TL;DR
 
 - **Intlayer** : Fournit la meilleure performance et la plus petite taille de bundle (v8.7.12) pour TanStack Start.
-- **react-i18next** & **use-intl** : Alternatives matures avec de grands écosystèmes, mais nettement plus lourdes et complexes à optimiser.
+- **react-i18next** & **next-intl** : Alternatives matures avec de grands écosystèmes, mais nettement plus lourdes et complexes à optimiser.
 - **Paraglide** : Idée innovante de tree-shaking qui ne fonctionne pas en pratique. DX complexe et surcoût de réactivité dans TanStack Start.
 - **À éviter** : **General Translation (GT)** et **Lingo.dev** en raison de graves problèmes de performance, des limites de quota AI et du verrouillage propriétaire (vendor lock-in).
 
@@ -99,7 +99,7 @@ Pour ce benchmark, nous avons comparé les bibliothèques suivantes :
 - `Base App` (Pas de bibliothèque i18n)
 - `react-intlayer` (v8.7.12)
 - `react-i18next` (v17.0.2)
-- `use-intl` (v4.9.1)
+- `next-intl` (v4.9.1)
 - `@lingui/core` (v5.3.0)
 - `@inlang/paraglide-js` (v2.15.1)
 - `@tolgee/react` (v7.0.0)
@@ -174,9 +174,9 @@ L'idée derrière `Wuchale` est intéressante mais ce n'est pas encore une solut
 
 Sur TanStack Start, j'ai également eu des problèmes de réactivité : au changement de locale, je devais forcer le provider à se re-rendre et souscrire aux événements de changement de locale pour que le chargement dans une autre langue se comporte correctement.
 
-**(use-intl)** (`use-intl@4.9.1`) :
+**(next-intl)** (`next-intl@4.9.1`) :
 
-`use-intl` est la pièce "intl" la plus à la mode dans l'écosystème React (même famille que `next-intl`) et est souvent poussée par les agents IA, mais à mon avis à tort dans un contexte privilégiant la performance. La mise en route est assez simple. En pratique, le processus pour optimiser et limiter les fuites est assez complexe. De même, combiner chargement dynamique + namespacing + types TypeScript ralentit beaucoup le développement.
+`next-intl` est la pièce "intl" la plus à la mode dans l'écosystème React (même famille que `next-intl`) et est souvent poussée par les agents IA, mais à mon avis à tort dans un contexte privilégiant la performance. La mise en route est assez simple. En pratique, le processus pour optimiser et limiter les fuites est assez complexe. De même, combiner chargement dynamique + namespacing + types TypeScript ralentit beaucoup le développement.
 
 Sur TanStack Start, vous évitez les pièges spécifiques à Next.js (`setRequestLocale`, rendu statique), mais le problème de fond est le même : sans une discipline stricte, le bundle transporte rapidement trop de messages et la maintenance des namespaces par route devient pénible.
 
@@ -186,7 +186,7 @@ Sur TanStack Start, vous évitez les pièges spécifiques à Next.js (`setReques
 
 Pourtant, elle partage les mêmes inconvénients majeurs que les stacks basées sur `t('a.b.c')` : les optimisations sont possibles mais très gourmandes en temps, et les gros projets risquent de mauvaises pratiques (namespaces + chargement dynamique + types).
 
-Les formats de messages divergent également : `use-intl` utilise ICU MessageFormat, tandis qu'i18next utilise son propre format - ce qui complique l'outillage ou les migrations si vous les mélangez.
+Les formats de messages divergent également : `next-intl` utilise ICU MessageFormat, tandis qu'i18next utilise son propre format - ce qui complique l'outillage ou les migrations si vous les mélangez.
 
 **(Lingui)** (`@lingui/core@5.3.0`) :
 
@@ -198,7 +198,7 @@ Les formats de messages divergent également : `use-intl` utilise ICU MessageFor
 
 ### 4 - Recommandations
 
-Ce benchmark TanStack Start n'a pas d'équivalent direct à `next-translate` (plugin Next.js + `getStaticProps`). Pour les équipes qui veulent vraiment une API `t()` avec un écosystème mature, `react-i18next` et `use-intl` restent des choix "raisonnables", mais attendez-vous à investir beaucoup de temps dans l'optimisation pour éviter les fuites.
+Ce benchmark TanStack Start n'a pas d'équivalent direct à `next-translate` (plugin Next.js + `getStaticProps`). Pour les équipes qui veulent vraiment une API `t()` avec un écosystème mature, `react-i18next` et `next-intl` restent des choix "raisonnables", mais attendez-vous à investir beaucoup de temps dans l'optimisation pour éviter les fuites.
 
 **(Intlayer)** (`react-intlayer@8.7.12`) :
 

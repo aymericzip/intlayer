@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-09-07
-updatedAt: 2025-09-07
-title: Vue İçin En İyi Uluslararasılaştırma (i18n) Araçları
-description: Çeviri zorluklarını aşmak, SEO'yu artırmak ve sorunsuz bir küresel web deneyimi sunmak için en iyi Vue i18n çözümlerini keşfedin.
+updatedAt: 2026-05-31
+title: "Vue İçin En İyi Uluslararasılaştırma (i18n) Araçları - Eksiksiz çeviri rehberi: Best Vue i18n Libraries 2026 — Compared by DX & Bundle"
+description: Bundle boyutu, SEO, performans ve sürdürülebilirlik için en iyi çözüm. Vue uygulamayı'ınızı 2026'da çok dilli yapın, LLM çevirisi, Agent Skills & MCP.
 keywords:
   - Vue
   - i18n

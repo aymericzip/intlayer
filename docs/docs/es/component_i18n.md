@@ -168,7 +168,7 @@ Consejo: Para metadatos de página y SEO, también puedes obtener contenido con 
 ## Por qué el enfoque de componentes de Intlayer es el mejor
 
 - Colocación: Las declaraciones de contenido viven cerca de los componentes, reduciendo la deriva y mejorando la reutilización en los sistemas de diseño.
-- Seguridad de tipos: Las claves y estructuras están fuertemente tipadas; las traducciones faltantes aparecen en tiempo de build en lugar de en tiempo de ejecución.
+- Seguridad de tipos: Las claves y estructuras están fuertemente tipadas; las traducciones faltantes aparecen en tiempo de build en lugar de en runtime.
 - Server-first: Funciona de forma nativa en componentes de servidor para mejor seguridad y rendimiento; los hooks de cliente siguen siendo ergonómicos.
 - Tree-shaking: Solo se incluye el contenido usado por el componente, manteniendo cargas pequeñas en aplicaciones grandes.
 - DX y herramientas: Middleware incorporado, asistentes de SEO y traducciones opcionales mediante Editor Visual/IA agilizan el trabajo diario.

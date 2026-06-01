@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-05-06
-title: Hono i18n - ২০২৬ সালে কীভাবে একটি Hono অ্যাপ অনুবাদ করবেন
-description: কীভাবে আপনার Hono ব্যাকএন্ডকে বহুভাষিক করবেন তা আবিষ্কার করুন। এটিকে আন্তর্জাতিকীকরণ (i18n) এবং অনুবাদ করতে ডকুমেন্টেশন অনুসরণ করুন।
+updatedAt: 2026-05-31
+title: "Hono i18n - অনুবাদের সম্পূর্ণ গাইড: Hono"
+description: বান্ডেল সাইজ, SEO, পারফরম্যান্স ও মেইনটেইনেবিলিটির জন্য সেরা সমাধান। ২০২৬ সালে আপনার Hono ব্যাকএন্ড কে বহুভাষিক করুন, LLM অনুবাদ, Agent Skills & MCP।
 keywords:
   - Internationalization
   - Documentation

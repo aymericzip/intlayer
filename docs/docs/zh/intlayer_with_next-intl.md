@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-10-05
-updatedAt: 2025-10-05
-title: next-intl - 如何在 2026 年翻译 Next.js (i18n) 应用
-description: 了解如何使你的 Next.js 15 App Router 网站实现多语言。按照文档进行国际化 (i18n) 和翻译。
+updatedAt: 2026-05-31
+title: next-intl - 完整翻译指南： Next.js
+description: 最佳的包体积、SEO、性能和可维护性解决方案。让您的 Next.js 15 App Router 网站在 2026 年实现多语言化，LLM 翻译，Agent Skills & MCP。
 keywords:
   - 国际化
   - 文档

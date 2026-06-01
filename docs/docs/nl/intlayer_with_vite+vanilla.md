@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-03-23
-updatedAt: 2026-05-06
-title: i18n Vite + Vanilla JS - Hoe een Vanilla JS-app te vertalen in 2026
-description: Ontdek hoe u uw Vite- en Vanilla JS-website meertalig kunt maken. Volg de documentatie voor internationalisering (i18n) en vertaling.
+updatedAt: 2026-05-31
+title: i18n Vite + Vanilla JS - Volledige gids voor het vertalen van Vanilla JS
+description: Beste oplossing voor bundle-grootte, SEO, prestaties & onderhoudbaarheid. Maak uw Vite and Vanilla JS app meertalig in 2026, LLM-vertaling, Agent Skills & MCP.
 keywords:
   - Internationalisering
   - Documentatie

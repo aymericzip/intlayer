@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-11-01
-updatedAt: 2025-11-01
-title: 如何使用 next-i18next 国际化您的 Next.js 应用
-description: 使用 next-i18next 设置国际化：多语言 Next.js 应用的最佳实践和 SEO 技巧，涵盖国际化、内容组织和技术设置。
+updatedAt: 2026-05-31
+title: 如何使用 next-i18next 国际化您的 Next.js 应用 - 完整翻译指南： Translate Next.js 16 with next-i18next — App Router Setup
+description: 最佳的包体积、SEO、性能和可维护性解决方案。让您的 Next.js 16 网站在 2026 年实现多语言化，LLM 翻译，Agent Skills & MCP。
 keywords:
   - next-i18next
   - i18next

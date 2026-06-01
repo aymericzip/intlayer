@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-03-31
-updatedAt: 2026-05-06
-title: i18n Vanilla JS - Cómo traducir una aplicación Vanilla JS en 2026
-description: Descubre cómo hacer que tu sitio web Vanilla JS sea multilingüe. Sigue la documentación para internacionalizarlo (i18n) y traducirlo.
+updatedAt: 2026-05-31
+title: i18n Vanilla JS - Guía completa para traducir Vanilla JS
+description: La mejor solución para el tamaño del bundle, SEO, rendimiento & mantenibilidad. Haga multilingüe su Vanilla JS sitio web en 2026, traducción LLM, Agent Skills & MCP.
 keywords:
   - Internacionalización
   - Documentación
@@ -57,22 +57,37 @@ history:
 
 <TOC/>
 
-## ¿Qué es Intlayer?
+## ¿Por qué Intlayer en lugar de alternativas?
 
-**Intlayer** es una biblioteca de internacionalización (i18n) innovadora y de código abierto diseñada para simplificar el soporte multilingüe en aplicaciones web modernas.
+En comparación con soluciones principales como `i18next` o `i18n.js`, Intlayer es una solución que viene con optimizaciones integradas como:
 
-Con Intlayer, puedes:
+**Soporte completo de Vanilla JS**
 
-- **Gestionar fácilmente las traducciones** usando diccionarios declarativos a nivel de componente.
-- **Localizar dinámicamente metadatos**, rutas y contenido.
-- **Asegurar el soporte de TypeScript** con tipos autogenerados, mejorando el autocompletado y la detección de errores.
-- **Beneficiarte de funciones avanzadas**, como la detección y el cambio dinámico de idioma.
+Intlayer está optimizado para funcionar perfectamente con Vanilla JavaScript al ofrecer **administración de contenido independiente del marco**, **compatibilidad con TypeScript** y todas las funciones necesarias para escalar la internacionalización (i18n).
 
-Esta guía demuestra cómo usar Intlayer en una aplicación de Vanilla JavaScript **sin usar un gestor de paquetes o un empaquetador** (como Vite, Webpack, etc.).
+**Tamaño del bundle**
 
-Si tu aplicación usa un empaquetador (como Vite), te recomendamos seguir la [Guía de Vite + Vanilla JS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_vite+vanilla.md) en su lugar.
+En lugar de cargar archivos JSON masivos en sus páginas, cargue solo el contenido necesario. Intlayer ayuda a **reducir el tamaño de su bundle y de sus páginas hasta en un 50%**.
 
-Usando el paquete independiente (standalone), puedes importar Intlayer directamente en tus archivos HTML mediante un único archivo JavaScript, lo que lo hace perfecto para proyectos heredados o sitios estáticos simples.
+**Mantenibilidad**
+
+Determinar el alcance del contenido de su aplicación **facilita el mantenimiento** para aplicaciones a gran escala. Puede duplicar o eliminar una sola carpeta de funciones sin la carga mental de revisar todo el código base de contenido. Además, Intlayer está **completamente escrito** para garantizar la precisión de su contenido.
+
+**Agente de IA**
+
+La ubicación conjunta de contenido **reduce el contexto necesario** para los modelos de lenguajes grandes (LLM). Intlayer también viene con un conjunto de herramientas, como una **CLI** para comprobar si faltan traducciones,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** y **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, para que la experiencia del desarrollador (DX) sea aún más fluida para los agentes de IA.
+
+**Automatización**
+
+Utilice la automatización para traducir su canal de CI/CD utilizando el LLM de su elección al costo de su proveedor de IA. Intlayer también ofrece un **compilador** para automatizar la extracción de contenido, así como una [plataforma web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) para ayudar a **traducir en segundo plano**.
+
+**Actuación**
+
+La conexión de archivos JSON masivos a componentes puede provocar problemas de rendimiento y reactividad. Intlayer optimiza la carga de su contenido en el momento de la compilación.
+
+**Escalando sin ningún desarrollador**
+
+Más que una simple solución i18n, Intlayer proporciona un **[editor visual] autohospedado(https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** y un **[CMS completo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** para ayudarle a administrar su contenido multilingüe en **tiempo real**, lo que facilita la colaboración con traductores, redactores y otros miembros del equipo. El contenido se puede almacenar de forma local y/o remota.
 
 ---
 

@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-12-30
-updatedAt: 2026-05-06
-title: Fastify i18n - 2026'da Bir Fastify Uygulaması Nasıl Çevrilir?
-description: Fastify backend'inizi nasıl çok dilli hale getireceğinizi keşfedin. Uluslararasılaştırma (i18n) ve çeviri için belgeleri takip edin.
+updatedAt: 2026-05-31
+title: "Fastify i18n - Eksiksiz çeviri rehberi: Fastify"
+description: Bundle boyutu, SEO, performans ve sürdürülebilirlik için en iyi çözüm. Fastify backend'i'ınızı 2026'da çok dilli yapın, LLM çevirisi, Agent Skills & MCP.
 keywords:
   - Uluslararasılaştırma
   - Belgeler

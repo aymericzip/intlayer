@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-03-31
-updatedAt: 2026-05-06
-title: Vanilla JS i18n - Cara menerjemahkan aplikasi Vanilla JS di tahun 2026
-description: Temukan cara membuat situs web Vanilla JS Anda multibahasa. Ikuti dokumentasi untuk internasionalisasi (i18n) dan menerjemahkannya.
+updatedAt: 2026-05-31
+title: Vanilla JS i18n - Panduan lengkap menerjemahkan Vanilla JS
+description: Solusi terbaik untuk ukuran bundle, SEO, performa & keterpeliharaan. Jadikan Vanilla JS situs web Anda multibahasa di 2026, terjemahan LLM, Agent Skills & MCP.
 keywords:
   - Internasionalisasi
   - Dokumentasi
@@ -57,22 +57,37 @@ history:
 
 <TOC/>
 
-## Apa itu Intlayer?
+## Mengapa Intlayer dibandingkan alternatif?
 
-**Intlayer** adalah pustaka internasionalisasi (i18n) sumber terbuka yang inovatif yang dirancang untuk menyederhanakan dukungan multibahasa dalam aplikasi web modern.
+Dibandingkan dengan solusi utama seperti `i18next` atau `i18n.js`, Intlayer adalah solusi yang hadir dengan pengoptimalan terintegrasi seperti:
 
-Dengan Intlayer, Anda dapat:
+**Cakupan penuh Vanilla JS**
 
-- **Mengelola terjemahan dengan mudah** menggunakan kamus deklaratif di tingkat komponen.
-- **Melokalkan metadata, rute, dan konten secara dinamis**.
-- **Memastikan dukungan TypeScript** dengan tipe data yang dibuat secara otomatis, meningkatkan pelengkapan otomatis dan deteksi kesalahan.
-- **Manfaatkan fitur-fitur canggih**, seperti deteksi dan pengalihan bahasa dinamis.
+Intlayer dioptimalkan agar berfungsi sempurna dengan Vanilla JavaScript dengan menawarkan **manajemen konten tanpa kerangka kerja**, **dukungan TypeScript**, dan semua fitur yang diperlukan untuk meningkatkan internasionalisasi (i18n).
 
-Panduan ini menunjukkan cara menggunakan Intlayer dalam aplikasi Vanilla JavaScript **tanpa menggunakan manajer paket atau bundler** (seperti Vite, Webpack, dsb.).
+**Ukuran bundle**
 
-Jika aplikasi Anda menggunakan bundler (seperti Vite), kami menyarankan untuk mengikuti [Panduan Vite + Vanilla JS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_vite+vanilla.md) sebagai gantinya.
+Daripada memuat file JSON berukuran besar ke halaman Anda, muat saja konten yang diperlukan. Intlayer membantu **mengurangi ukuran bundle dan halaman Anda hingga 50%**.
 
-Menggunakan bundel mandiri, Anda dapat mengimpor Intlayer secara langsung ke dalam file HTML Anda melalui file JavaScript tunggal, menjadikannya sempurna untuk proyek lama atau situs statis sederhana.
+**Kemampuan Pemeliharaan**
+
+Mencakup konten aplikasi Anda **memfasilitasi pemeliharaan** untuk aplikasi berskala besar. Anda dapat menduplikasi atau menghapus satu folder fitur tanpa beban mental untuk meninjau seluruh basis kode konten Anda. Selain itu, Intlayer **diketik sepenuhnya** untuk memastikan keakuratan konten Anda.
+
+**Agen AI**
+
+Menempatkan konten bersama **mengurangi konteks yang diperlukan** dengan Model Bahasa Besar (LLM). Intlayer juga dilengkapi dengan serangkaian alat, seperti **CLI** untuk menguji terjemahan yang hilang,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)**, dan **[agent skill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, untuk menjadikan pengalaman pengembang (DX) lebih lancar bagi agen AI.
+
+**Otomatisasi**
+
+Gunakan otomatisasi untuk menerjemahkan dalam saluran CI/CD Anda menggunakan LLM pilihan Anda dengan biaya penyedia AI Anda. Intlayer juga menawarkan **compiler** untuk mengotomatiskan ekstraksi konten, serta [platform web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) untuk membantu **menerjemahkan di latar belakang**.
+
+**Pertunjukan**
+
+Menghubungkan file JSON berukuran besar ke komponen dapat menyebabkan masalah kinerja dan reaktivitas. Intlayer mengoptimalkan pemuatan konten Anda pada waktu pembuatan.
+
+**Menskalakan tanpa pengembang**
+
+Lebih dari sekedar solusi i18n, Intlayer menyediakan **[editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** yang dihosting sendiri dan **[CMS lengkap](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** untuk membantu Anda mengelola konten multibahasa secara **real-time**, membuat kolaborasi dengan penerjemah, copywriter, dan anggota tim lainnya menjadi lancar. Konten dapat disimpan secara lokal dan/atau jarak jauh.
 
 ---
 

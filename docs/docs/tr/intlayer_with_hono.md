@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-05-06
-title: Hono i18n - Hono uygulamasını çevirme 2026
-description: Hono arka ucunuzu nasıl çok dilli hale getireceğinizi keşfedin. Uluslararasılaştırmak (i18n) ve çevirmek için dokümantasyonu izleyin.
+updatedAt: 2026-05-31
+title: "Hono i18n - Eksiksiz çeviri rehberi: Hono"
+description: Bundle boyutu, SEO, performans ve sürdürülebilirlik için en iyi çözüm. Hono backend'i'ınızı 2026'da çok dilli yapın, LLM çevirisi, Agent Skills & MCP.
 keywords:
   - Uluslararasılaştırma
   - Dokümantasyon

@@ -280,7 +280,7 @@ HTML render'lamasını tüm uygulamanız için global olarak yapılandırabilirs
     );
     ```
 
-    > HTML oluşturucunuzu dinamik olarak içe aktarmak, uygulamanızın paket boyutunu azaltmanın iyi bir yoludur.
+    > HTML oluşturucunuzu dinamik olarak içe aktarmak, uygulamanızın bundle boyutunu azaltmanın iyi bir yoludur.
 
   </Tab>
   <Tab label="Vue" value="vue">
@@ -325,7 +325,7 @@ HTML render'lamasını tüm uygulamanız için global olarak yapılandırabilirs
     app.mount("#app");
     ```
 
-    > HTML oluşturucunuzu dinamik olarak içe aktarmak, uygulamanızın paket boyutunu azaltmanın iyi bir yoludur.
+    > HTML oluşturucunuzu dinamik olarak içe aktarmak, uygulamanızın bundle boyutunu azaltmanın iyi bir yoludur.
 
   </Tab>
   <Tab label="Svelte" value="svelte">
@@ -379,7 +379,7 @@ HTML render'lamasını tüm uygulamanız için global olarak yapılandırabilirs
     );
     ```
 
-    > HTML oluşturucunuzu dinamik olarak içe aktarmak, uygulamanızın paket boyutunu azaltmanın iyi bir yoludur.
+    > HTML oluşturucunuzu dinamik olarak içe aktarmak, uygulamanızın bundle boyutunu azaltmanın iyi bir yoludur.
 
   </Tab>
   <Tab label="Solid" value="solid">
@@ -415,7 +415,7 @@ HTML render'lamasını tüm uygulamanız için global olarak yapılandırabilirs
     );
     ```
 
-    > HTML oluşturucunuzu dinamik olarak içe aktarmak, uygulamanızın paket boyutunu azaltmanın iyi bir yoludur.
+    > HTML oluşturucunuzu dinamik olarak içe aktarmak, uygulamanızın bundle boyutunu azaltmanın iyi bir yoludur.
 
   </Tab>
   <Tab label="Angular" value="angular">
@@ -452,7 +452,7 @@ HTML render'lamasını tüm uygulamanız için global olarak yapılandırabilirs
     };
     ```
 
-    > HTML oluşturucunuzu dinamik olarak içe aktarmak, uygulamanızın paket boyutunu azaltmanın iyi bir yoludur.
+    > HTML oluşturucunuzu dinamik olarak içe aktarmak, uygulamanızın bundle boyutunu azaltmanın iyi bir yoludur.
 
   </Tab>
 </Tabs>

@@ -362,7 +362,7 @@ Notlar ve kısıtlamalar:
 - Live sync kaynağını site güvenlik politikanıza (CSP) ekleyin. Live sync URL'sinin `connect-src` içinde (ve ilgili ise `frame-ancestors` içinde) izinli olduğundan emin olun.
 - Live Sync statik çıktı ile çalışmaz. Next.js için, sayfa çalışma zamanında güncellemeleri alabilmek için dinamik olmalıdır (örneğin, tam statik kısıtlamalardan kaçınmak için `generateStaticParams`, `generateMetadata`, `getServerSideProps` veya `getStaticProps` uygun şekilde kullanılmalıdır).
 - CMS'de, her sözlüğün bir `live` bayrağı vardır. Yalnızca `live=true` olan sözlükler live sync API'si aracılığıyla alınır; diğerleri dinamik olarak içe aktarılır ve çalışma zamanında değişmeden kalır.
-- `live` bayrağı her sözlük için derleme zamanında değerlendirilir. Uzaktaki içerik derleme sırasında `live=true` olarak işaretlenmemişse, o sözlük için Live Sync'i etkinleştirmek üzere yeniden derleme yapmanız gerekir.
+- `live` bayrağı her sözlük için build zamanında değerlendirilir. Uzaktaki içerik derleme sırasında `live=true` olarak işaretlenmemişse, o sözlük için Live Sync'i etkinleştirmek üzere yeniden derleme yapmanız gerekir.
 - Live sync sunucusunun `.intlayer` dosyasına yazabilmesi gerekir. Konteynerlerde, `/.intlayer` dosyasına yazma erişiminin olduğundan emin olun.
 
 ## Hata Ayıklama

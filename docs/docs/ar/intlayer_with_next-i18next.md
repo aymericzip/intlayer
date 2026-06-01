@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-10-05
-updatedAt: 2025-10-05
-title: next-i18next - كيفية ترجمة تطبيق Next.js (i18n) في عام 2026
-description: دليل عملي وجاهز للإنتاج لتعريب تطبيق Next.js 15 App Router باستخدام i18next/next-i18next وتعزيزه بـ Intlayer.
+updatedAt: 2026-05-31
+title: next-i18next - الدليل الكامل لترجمة Next.js
+description: أفضل حل لحجم البندل وتحسين محركات البحث والأداء والصيانة. اجعل Next.js 15 App Router موقع ويب متعدد اللغات في 2026، ترجمة LLM، Agent Skills & MCP.
 keywords:
   - التدويل
   - التوثيق

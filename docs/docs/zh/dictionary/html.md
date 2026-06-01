@@ -277,7 +277,7 @@ const myContent = html(
     );
     ```
 
-    > 动态导入 HTML 渲染器是减小应用程序包大小的好方法。
+    > 动态导入 HTML 渲染器是减小应用程序Bundle 大小的好方法。
 
   </Tab>
   <Tab label="Vue" value="vue">
@@ -322,7 +322,7 @@ const myContent = html(
     app.mount("#app");
     ```
 
-    > 动态导入 HTML 渲染器是减小应用程序包大小的好方法。
+    > 动态导入 HTML 渲染器是减小应用程序Bundle 大小的好方法。
 
   </Tab>
   <Tab label="Svelte" value="svelte">
@@ -359,7 +359,7 @@ const myContent = html(
     </HTMLProvider>
     ```
 
-    > 动态导入 HTML 渲染器是减小应用程序包大小的好方法。
+    > 动态导入 HTML 渲染器是减小应用程序Bundle 大小的好方法。
 
   </Tab>
   <Tab label="Preact" value="preact">
@@ -395,7 +395,7 @@ const myContent = html(
     );
     ```
 
-    > 动态导入 HTML 渲染器是减小应用程序包大小的好方法。
+    > 动态导入 HTML 渲染器是减小应用程序Bundle 大小的好方法。
 
   </Tab>
   <Tab label="Solid" value="solid">
@@ -431,7 +431,7 @@ const myContent = html(
     );
     ```
 
-    > 动态导入 HTML 渲染器是减小应用程序包大小的好方法。
+    > 动态导入 HTML 渲染器是减小应用程序Bundle 大小的好方法。
 
   </Tab>
   <Tab label="Angular" value="angular">
@@ -468,7 +468,7 @@ const myContent = html(
     };
     ```
 
-    > 动态导入 HTML 渲染器是减小应用程序包大小的好方法。
+    > 动态导入 HTML 渲染器是减小应用程序Bundle 大小的好方法。
 
   </Tab>
 </Tabs>

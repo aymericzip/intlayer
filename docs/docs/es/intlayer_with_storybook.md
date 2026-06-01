@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-03-20
-updatedAt: 2026-05-06
+updatedAt: 2026-05-31
 title: Cómo configurar Intlayer con Storybook
 description: Aprenda a hacer que su sistema de diseño sea multilingüe usando Intlayer con Storybook - compile declaraciones de contenido, agregue un selector de idioma y previsualice sus componentes en cualquier idioma.
 keywords:
@@ -31,16 +31,37 @@ history:
 
 <TOC/>
 
-## ¿Qué es Intlayer?
+## ¿Por qué Intlayer en lugar de alternativas?
 
-**Intlayer** es una biblioteca de internacionalización (i18n) innovadora y de código abierto diseñada para simplificar el soporte multilingüe en aplicaciones web modernas. Funciona a **nivel de componente**: cada componente posee sus propias declaraciones de contenido, manteniendo las traducciones ubicadas junto al código que las utiliza.
+En comparación con soluciones principales como `storybook-react-i18next` o `i18next`, Intlayer es una solución que viene con optimizaciones integradas como:
 
-Con Intlayer puedes:
+**Cobertura completa del libro de cuentos**
 
-- **Gestionar traducciones de forma declarativa** con archivos de contenido por componente.
-- **Obtener soporte completo de TypeScript** a través de tipos generados automáticamente y autocompletado en el IDE.
-- **Cambiar de idioma en tiempo de ejecución** sin recargar la página.
-- **Traducir automáticamente** con integraciones integradas de proveedores de IA.
+Intlayer está optimizado para funcionar perfectamente con Storybook al ofrecer **decoradores de historias multilingües**, **cambio de configuración regional** y todas las funciones necesarias para escalar la internacionalización (i18n) en todo su sistema de diseño.
+
+**Tamaño del bundle**
+
+En lugar de cargar archivos JSON masivos en sus páginas, cargue solo el contenido necesario. Intlayer ayuda a **reducir el tamaño de su bundle y de sus páginas hasta en un 50%**.
+
+**Mantenibilidad**
+
+Determinar el alcance del contenido de su aplicación **facilita el mantenimiento** para aplicaciones a gran escala. Puede duplicar o eliminar una sola carpeta de funciones sin la carga mental de revisar todo el código base de contenido. Además, Intlayer está **completamente escrito** para garantizar la precisión de su contenido.
+
+**Agente de IA**
+
+La ubicación conjunta de contenido **reduce el contexto necesario** para los modelos de lenguajes grandes (LLM). Intlayer también viene con un conjunto de herramientas, como una **CLI** para comprobar si faltan traducciones,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** y **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, para que la experiencia del desarrollador (DX) sea aún más fluida para los agentes de IA.
+
+**Automatización**
+
+Utilice la automatización para traducir su canal de CI/CD utilizando el LLM de su elección al costo de su proveedor de IA. Intlayer también ofrece un **compilador** para automatizar la extracción de contenido, así como una [plataforma web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) para ayudar a **traducir en segundo plano**.
+
+**Actuación**
+
+La conexión de archivos JSON masivos a componentes puede provocar problemas de rendimiento y reactividad. Intlayer optimiza la carga de su contenido en el momento de la compilación.
+
+**Escalando sin ningún desarrollador**
+
+Más que una simple solución i18n, Intlayer proporciona un **[editor visual] autohospedado(https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** y un **[CMS completo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** para ayudarle a administrar su contenido multilingüe en **tiempo real**, lo que facilita la colaboración con traductores, redactores y otros miembros del equipo. El contenido se puede almacenar de forma local y/o remota.
 
 ---
 

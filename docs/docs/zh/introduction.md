@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-06-29
+updatedAt: 2026-05-31
 title: 介绍
 description: 了解 Intlayer 的工作原理。查看 Intlayer 在您的应用程序中使用的步骤。了解不同包的功能。
 keywords:
@@ -22,130 +22,32 @@ history:
 
 欢迎来到官方 Intlayer 文档！在这里，您将找到集成、配置和掌握 Intlayer 所需的一切，无论您使用的是 Next.js、React、Vite、Express 还是其他 JavaScript 环境，满足您所有的国际化（i18n）需求。
 
-## 介绍
+## 为什么选择 Inlayer 而不是替代品？
 
-### 什么是 Intlayer？
+与“next-intl”或“i18next”等主要解决方案相比，Intlayer是一个具有集成优化的解决方案，例如：
 
-**Intlayer** 是一个专为 JavaScript 开发者设计的国际化库。它允许您在代码中的任何地方声明内容。它将多语言内容的声明转换为结构化的字典，方便您轻松地集成到代码中。通过使用 TypeScript，**Intlayer** 使您的开发更加稳健和高效。
+**捆绑尺寸**
 
-Intlayer 还提供了一个可选的可视化编辑器，允许您轻松编辑和管理内容。这个编辑器对于喜欢使用可视化界面进行内容管理的开发者，或者不想担心代码的团队来说尤其有用。
+不要将大量 JSON 文件加载到页面中，而只需加载必要的内容。 Intlayer 有助于**将捆绑包和页面大小减少多达 50%**。
 
-### 使用示例
+**可维护性**
 
-```bash
-.
-└── Components
-    └── MyComponent
-        ├── index.content.ts
-        └── index.tsx
-```
+确定应用程序内容的范围**有利于大型应用程序的维护**。您可以复制或删除单个功能文件夹，而无需承担检查整个内容代码库的精神负担。此外，Intlayer 具有**完全类型化 (fully typed)**，以确保您的内容的准确性。
 
-```tsx fileName="src/components/MyComponent/index.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
-import { t, type Dictionary } from "intlayer";
+**人工智能代理**
 
-const componentContent = {
-  key: "component-key",
-  content: {
-    myTranslatedContent: t({
-      en: "Hello World",
-      es: "Hola Mundo",
-      fr: "Bonjour le monde",
-    }),
-  },
-} satisfies Dictionary; // 满足 Dictionary 类型
+共置内容**减少大型语言模型 (LLM) 所需的上下文**。 Intlayer 还附带了一套工具，例如用于测试缺失翻译的 **CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** 和 **[agent技能](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**，使 AI 代理的开发者体验 (DX) 更加流畅。
 
-export default componentContent;
-```
+**自动化**
 
-```json fileName="src/components/MyComponent/index.content.json" contentDeclarationFormat="json"
-{
-  "$schema": "https://intlayer.org/schema.json",
-  "key": "component-key",
-  "content": {
-    "myTranslatedContent": {
-      "nodeType": "translation",
-      "translation": {
-        "en": "Hello World",
-        "fr": "Bonjour le monde",
-        "es": "Hola Mundo"
-      }
-    }
-  }
-}
-```
+使用您选择的法学硕士，通过自动化在 CI/CD 管道中进行翻译，而费用由您的 AI 提供商承担。 Intlayer 还提供了一个**编译器**来自动提取内容，以及一个[网络平台](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)来帮助**在后台翻译**。
 
-```tsx fileName="src/components/MyComponent/index.tsx" codeFormat={["typescript", "esm"]}
-import type { FC } from "react";
-import { useIntlayer } from "react-intlayer";
+**表现**
 
-export const MyComponent: FC = () => {
-  const { myTranslatedContent } = useIntlayer("component-key");
+将大量 JSON 文件连接到组件可能会导致性能和反应性问题。 Intlayer 可在构建时 (build time)优化您的内容加载。
 
-  return <span>{myTranslatedContent}</span>;
-};
-```
+**无需开发即可扩展**
 
-## 主要功能
-
-Intlayer 提供了多种功能，专为满足现代网页开发的需求而设计。以下是主要功能，并附有详细文档链接：
-
-- **国际化支持**：通过内置的国际化支持，提升您的应用程序的全球影响力。
-- **可视化编辑器**：使用为 Intlayer 设计的编辑器插件，优化您的开发工作流程。请查看 [可视化编辑器指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)。
-- **配置灵活性**：通过详尽的配置选项自定义您的设置，详见[配置指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)。
-- **高级命令行工具**：使用 Intlayer 的命令行界面高效管理您的项目。探索其功能请参阅[命令行工具文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)。
-
-## 核心概念
-
-### 字典
-
-将您的多语言内容组织在代码附近，保持内容一致且易于维护。
-
-- **[入门指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)**  
-  学习在 Intlayer 中声明内容的基础知识。
-
-- **[翻译](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/translation.md)**  
-  了解翻译内容如何在您的应用中生成、存储和使用。
-
-- **[枚举](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/enumeration.md)**  
-  轻松管理跨多语言的重复或固定数据集。
-
-- **[条件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/condition.md)**  
-  学习如何在 Intlayer 中使用条件逻辑来创建动态内容。
-
-- **[插入](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/insertion.md)**  
-  了解如何使用插入占位符在字符串中插入值。
-
-- **[函数获取](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/function_fetching.md)**  
-  了解如何使用自定义逻辑动态获取内容，以匹配您的项目工作流程。
-
-- **[Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/markdown.md)**  
-  学习如何在 Intlayer 中使用 Markdown 创建丰富的内容。
-
-- **[文件嵌入](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/file.md)**  
-  发现如何在 Intlayer 中嵌入外部文件，以便在内容编辑器中使用它们。
-
-- **[嵌套](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/nesting.md)**  
-  理解如何在 Intlayer 中嵌套内容，以创建复杂的结构。
-
-### 环境与集成
-
-我们在设计 Intlayer 时充分考虑了灵活性，提供了与流行框架和构建工具的无缝集成：
-
-- **[Intlayer 与 Next.js 15 集成](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_15.md)**
-- **[Intlayer 与 Next.js 14（App Router）集成](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_14.md)**
-- **[Intlayer 与 Next.js 页面路由集成](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_page_router.md)**
-- **[Intlayer 与 React CRA 集成](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_create_react_app.md)**
-- **[Intlayer 与 Vite + React 集成](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_vite+react.md)**
-- **[Intlayer 与 React Native 和 Expo 集成](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_react_native+expo.md)**
-- **[Intlayer 与 Lynx 和 React 集成](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_lynx+react.md)**
-- **[Intlayer 与 Express 集成](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_express.md)**
-
-每个集成指南都包含使用 Intlayer 功能的最佳实践，如 **服务器端渲染**、**动态路由** 或 **客户端渲染**，帮助您保持应用的高速、SEO 友好且高度可扩展。
-
-## 贡献与反馈
-
-我们重视开源和社区驱动开发的力量。如果您想提出改进建议、添加新的指南，或纠正文档中的任何问题，欢迎随时提交 Pull Request 或在我们的 [GitHub 仓库](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh) 中打开 issue。
-
-**准备好更快更高效地翻译您的应用了吗？** 立即深入阅读我们的文档，开始使用 Intlayer。体验一种强大且简化的国际化方法，帮助您保持内容有序，提高团队生产力。
+Intlayer 不仅仅是一个 i18n 解决方案，还提供了一个**自托管的[可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)**和一个**[完整的 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** 来帮助您管理多语言内容**实时**，与译员、文案人员和其他团队成员无缝协作。内容可以本地和/或远程存储。
 
 ---

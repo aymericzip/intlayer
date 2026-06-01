@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-12-30
-updatedAt: 2026-05-06
-title: Fastify i18n - Cara menerjemahkan aplikasi Fastify pada tahun 2026
-description: Temukan cara membuat backend Fastify Anda multibahasa. Ikuti dokumentasi untuk internasionalisasi (i18n) dan terjemahannya.
+updatedAt: 2026-05-31
+title: Fastify i18n - Panduan lengkap menerjemahkan Fastify
+description: Solusi terbaik untuk ukuran bundle, SEO, performa & keterpeliharaan. Jadikan Fastify backend Anda multibahasa di 2026, terjemahan LLM, Agent Skills & MCP.
 keywords:
   - Internasionalisasi
   - Dokumentasi

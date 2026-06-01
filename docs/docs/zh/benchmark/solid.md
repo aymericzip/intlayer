@@ -2,7 +2,7 @@
 createdAt: 2026-04-20
 updatedAt: 2026-05-18
 title: 2026 年 Solid 最佳 i18n 解决方案 - 基准报告
-description: 比较 Solid 国际化（i18n）库，如 solid-primitives、solid-i18next 和 Intlayer。关于包大小、泄漏和反应性的详细性能报告。
+description: 比较 Solid 国际化（i18n）库，如 solid-primitives、solid-i18next 和 Intlayer。关于Bundle 大小、泄漏和反应性的详细性能报告。
 keywords:
   - benchmark
   - i18n

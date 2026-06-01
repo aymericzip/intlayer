@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-09-07
-updatedAt: 2026-05-06
-title: Express i18n - Express uygulamasını çevirme 2026
-description: Express arka ucunuzu çok dilli hale getirmeyi keşfedin. Dokümantasyonu takip ederek uluslararasılaştırma (i18n) yapın ve çevirin.
+updatedAt: 2026-05-31
+title: "Express i18n - Eksiksiz çeviri rehberi: Express"
+description: Bundle boyutu, SEO, performans ve sürdürülebilirlik için en iyi çözüm. Express backend'i'ınızı 2026'da çok dilli yapın, LLM çevirisi, Agent Skills & MCP.
 keywords:
   - Uluslararasılaştırma
   - Dokümantasyon

@@ -91,7 +91,7 @@ app.get("/", (_req, res) => {
 
 - **Detección de idioma**: El middleware `intlayer` procesa las solicitudes entrantes para detectar el idioma preferido del usuario basándose en encabezados, cookies u otros métodos configurados.
 - **Contexto de traducción**: Configura el contexto necesario para que la función `t` opere correctamente, asegurando que las traducciones se devuelvan en el idioma correcto.
-- **Prevención de errores**: Sin este middleware, el uso de la función `t` resultará en errores en tiempo de ejecución porque no estará disponible la información necesaria del idioma.
+- **Prevención de errores**: Sin este middleware, el uso de la función `t` resultará en errores en runtime porque no estará disponible la información necesaria del idioma.
 
 ---
 

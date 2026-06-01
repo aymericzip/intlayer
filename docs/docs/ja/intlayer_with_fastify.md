@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-12-30
-updatedAt: 2026-05-06
-title: Fastify i18n - 2026年にFastifyアプリを翻訳する方法
-description: Fastifyバックエンドを多言語化する方法をご紹介します。国際化(i18n)と翻訳の手順については、ドキュメントに従ってください。
+updatedAt: 2026-05-31
+title: Fastify i18n - 完全な翻訳ガイド： Fastify
+description: バンドルサイズ、SEO、パフォーマンス、保守性のための最良のソリューション。2026年にFastify バックエンドを多言語化しましょう。LLM翻訳、Agent Skills & MCP。
 keywords:
   - 国際化
   - ドキュメント

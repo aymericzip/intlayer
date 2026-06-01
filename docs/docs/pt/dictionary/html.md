@@ -280,7 +280,7 @@ Você pode configurar a renderização de HTML globalmente para toda a sua aplic
     );
     ```
 
-    > Importar dinamicamente o seu renderizador de HTML é uma boa maneira de reduzir o tamanho do pacote da sua aplicação.
+    > Importar dinamicamente o seu renderizador de HTML é uma boa maneira de reduzir o tamanho do bundle da sua aplicação.
 
   </Tab>
   <Tab label="Vue" value="vue">
@@ -325,7 +325,7 @@ Você pode configurar a renderização de HTML globalmente para toda a sua aplic
     app.mount("#app");
     ```
 
-    > Importar dinamicamente o seu renderizador de HTML é uma boa maneira de reduzir o tamanho do pacote da sua aplicação.
+    > Importar dinamicamente o seu renderizador de HTML é uma boa maneira de reduzir o tamanho do bundle da sua aplicação.
 
   </Tab>
   <Tab label="Svelte" value="svelte">
@@ -379,7 +379,7 @@ Você pode configurar a renderização de HTML globalmente para toda a sua aplic
     );
     ```
 
-    > Importar dinamicamente o seu renderizador de HTML é uma boa maneira de reduzir o tamanho do pacote da sua aplicação.
+    > Importar dinamicamente o seu renderizador de HTML é uma boa maneira de reduzir o tamanho do bundle da sua aplicação.
 
   </Tab>
   <Tab label="Solid" value="solid">
@@ -415,7 +415,7 @@ Você pode configurar a renderização de HTML globalmente para toda a sua aplic
     );
     ```
 
-    > Importar dinamicamente o seu renderizador de HTML é uma boa maneira de reduzir o tamanho do pacote da sua aplicação.
+    > Importar dinamicamente o seu renderizador de HTML é uma boa maneira de reduzir o tamanho do bundle da sua aplicação.
 
   </Tab>
   <Tab label="Angular" value="angular">
@@ -452,7 +452,7 @@ Você pode configurar a renderização de HTML globalmente para toda a sua aplic
     };
     ```
 
-    > Importar dinamicamente o seu renderizador de HTML é uma boa maneira de reduzir o tamanho do pacote da sua aplicação.
+    > Importar dinamicamente o seu renderizador de HTML é uma boa maneira de reduzir o tamanho do bundle da sua aplicação.
 
   </Tab>
 </Tabs>

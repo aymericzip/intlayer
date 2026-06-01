@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-01-16
-updatedAt: 2025-06-29
-title: Angular용 최상의 국제화 도구
-description: 번역 문제를 해결하기 위해 최상의 Angular i18n 솔루션을 발견하고 SEO를 향상시키고 전세계 웹 경험을 제공합니다.
+updatedAt: 2026-05-31
+title: "Angular용 최상의 국제화 도구 - 완전한 번역 가이드: Best Angular i18n Libraries 2026 — Compared by DX & Bundle"
+description: 번들 크기, SEO, 성능 및 유지보수성을 위한 최고의 솔루션. 2026년에 Angular 앱를 다국어로 만드세요, LLM 번역, Agent Skills & MCP.
 keywords:
   - Angular
   - i18n

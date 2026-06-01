@@ -108,7 +108,7 @@ Intlayer proporciona varios métodos para insertar y gestionar contenido dinámi
 
    Intlayer permite declarar contenido como funciones, habilitando la obtención de contenido tanto síncrona como asíncrona.
 
-   Funciones Síncronas: El contenido se genera dinámicamente en tiempo de compilación.
+   Funciones Síncronas: El contenido se genera dinámicamente en tiempo de compilación (build time).
 
    Funciones Asíncronas: Obtienen datos de fuentes externas (por ejemplo, APIs, bases de datos) de forma dinámica.
 

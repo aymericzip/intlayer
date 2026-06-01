@@ -22,7 +22,7 @@ slugs:
 
 ## Cómo Funciona la Condición
 
-En Intlayer, el contenido condicional se logra a través de la función `cond`, que asigna condiciones específicas (típicamente valores booleanos) a su contenido correspondiente. Este enfoque permite seleccionar dinámicamente el contenido basado en una condición dada. Cuando se integra con React Intlayer o Next Intlayer, el contenido apropiado se elige automáticamente según la condición proporcionada en tiempo de ejecución.
+En Intlayer, el contenido condicional se logra a través de la función `cond`, que asigna condiciones específicas (típicamente valores booleanos) a su contenido correspondiente. Este enfoque permite seleccionar dinámicamente el contenido basado en una condición dada. Cuando se integra con React Intlayer o Next Intlayer, el contenido apropiado se elige automáticamente según la condición proporcionada en runtime.
 
 ## Configuración de Contenido Condicional
 

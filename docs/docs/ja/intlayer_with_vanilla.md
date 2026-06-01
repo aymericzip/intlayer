@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-03-31
-updatedAt: 2026-05-06
-title: Vanilla JS i18n - 2026年にVanilla JSアプリを翻訳する方法
-description: Vanilla JSウェブサイトを多言語化する方法をご紹介します。ドキュメントに従って、国際化 (i18n) と翻訳を行ってください。
+updatedAt: 2026-05-31
+title: Vanilla JS i18n - 完全な翻訳ガイド： Vanilla JS
+description: バンドルサイズ、SEO、パフォーマンス、保守性のための最良のソリューション。2026年にVanilla JS ウェブサイトを多言語化しましょう。LLM翻訳、Agent Skills & MCP。
 keywords:
   - 国際化
   - ドキュメント
@@ -57,22 +57,37 @@ history:
 
 <TOC/>
 
-## Intlayerとは？
+## 代替手段ではなく Interlayer を使用する理由
 
-**Intlayer**は、現代的なウェブアプリケーションにおける多言語サポートを簡素化するために設計された、革新的なオープンソースの国際化 (i18n) ライブラリです。
+「i18next」や「i18n.js」などの主要なソリューションと比較して、Intlayer は次のような統合された最適化を備えたソリューションです。
 
-Intlayerを使用すると、次のことが可能になります：
+**Vanilla JS を完全にカバー**
 
-- **翻訳の簡単な管理**: コンポーネントレベルで宣言的なディクショナリを使用します。
-- **メタデータ、ルート、コンテンツの動的なローカライズ**。
-- **TypeScriptのサポートの確保**: 自動生成された型により、オートコンプリートとエラー検出が向上します。
-- **高度な機能の活用**: 動的なロケール検出や切り替えなど。
+Intlayer は、**フレームワークに依存しないコンテンツ管理**、**TypeScript サポート**、および国際化 (i18n) の拡張に必要なすべての機能を提供することにより、Vanilla JavaScript と完全に連携するように最適化されています。
 
-このガイドでは、**パッケージマネージャーやバンドラー** (Vite、Webpackなど) を使用せずに、Vanilla JavaScriptアプリケーションでIntlayerを使用する方法を説明します。
+**バンドルサイズ**
 
-アプリケーションでViteなどのバンドラーを使用している場合は、代わりに [Vite + Vanilla JSガイド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_with_vite+vanilla.md) を参照することをお勧めします。
+大量の JSON ファイルをページにロードするのではなく、必要なコンテンツのみをロードします。 Intlayer は、**バンドルとページのサイズを最大 50% 削減**するのに役立ちます。
 
-スタンドアロンバンドルを使用すると、1つのJavaScriptファイルを介してHTMLファイルにIntlayerを直接インポートできます。これは、レガシープロジェクトやシンプルな静的サイトに最適です。
+**保守性**
+
+アプリケーションのコンテンツのスコープを設定すると、大規模なアプリケーションの **メンテナンスが容易になります**。コンテンツ コードベース全体を確認するという精神的な負担を負うことなく、単一の機能フォルダーを複製または削除できます。さらに、Intlayer は**完全に型指定**されており、コンテンツの正確性を保証します。
+
+**AI エージェント**
+
+コンテンツを同じ場所に配置すると、大規模言語モデル (LLM) によって **必要なコンテキストが削減**されます。 Intlayer には、翻訳の欠落をテストする **CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** などのツール スイートも付属しています。および **[エージェント スキル](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)** により、AI エージェントの開発者エクスペリエンス (DX) がさらにスムーズになります。
+
+**オートメーション**
+
+AI プロバイダーの費用で、選択した LLM を使用して CI/CD パイプラインで自動化を変換します。 Intlayer は、コンテンツ抽出を自動化する **コンパイラー** と、**バックグラウンドでの翻訳**を支援する [Web プラットフォーム](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) も提供します。
+
+**パフォーマンス**
+
+大量の JSON ファイルをコンポーネントに接続すると、パフォーマンスと反応性の問題が発生する可能性があります。 Intlayer は、ビルド時のコンテンツの読み込みを最適化します。
+
+**非開発によるスケーリング**
+
+Intlayer は単なる i18n ソリューションではなく、**自己ホスト型 [ビジュアル エディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** と **[完全な CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** を提供します。 **リアルタイム**で多言語コンテンツを管理できるようになり、翻訳者、コピーライター、その他のチーム メンバーとのコラボレーションがシームレスになります。コンテンツはローカルおよび/またはリモートに保存できます。
 
 ---
 
