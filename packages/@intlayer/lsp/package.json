@@ -1,0 +1,111 @@
+{
+  "name": "@intlayer/lsp",
+  "version": "8.11.2",
+  "private": false,
+  "description": "Intlayer Language Server. Handle LSP to help IDE and AI agent to use Intlayer",
+  "keywords": [
+    "intlayer",
+    "lsp",
+    "ide",
+    "ai",
+    "agent"
+  ],
+  "homepage": "https://intlayer.org",
+  "bugs": {
+    "url": "https://github.com/aymericzip/intlayer/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aymericzip/intlayer.git"
+  },
+  "license": "Apache-2.0",
+  "author": {
+    "name": "Aymeric PINEAU",
+    "url": "https://github.com/aymericzip"
+  },
+  "contributors": [
+    {
+      "name": "Aymeric Pineau",
+      "email": "ay.pineau@gmail.com",
+      "url": "https://github.com/aymericzip"
+    }
+  ],
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "require": "./dist/esm/index.mjs",
+      "import": "./dist/esm/index.mjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "dist/esm/index.mjs",
+  "module": "dist/esm/index.mjs",
+  "types": "dist/types/index.d.ts",
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./dist/types/index.d.ts"
+      ],
+      "package.json": [
+        "./package.json"
+      ]
+    }
+  },
+  "bin": {
+    "intlayer-lsp": "./dist/esm/index.mjs"
+  },
+  "files": [
+    "./dist",
+    "./package.json"
+  ],
+  "scripts": {
+    "build": "bun --bun tsdown --config tsdown.config.ts",
+    "build:ci": "bun --bun tsdown --config tsdown.config.ts",
+    "clean": "bun --bun rimraf ./dist .turbo",
+    "dev": "bun --bun tsdown --config tsdown.config.ts --watch",
+    "format": "bun --bun biome format . --check",
+    "format:fix": "bun --bun biome format --write .",
+    "lint": "bun --bun biome lint .",
+    "lint:fix": "bun --bun biome lint --write .",
+    "manange:permissions": "bun -e \"require('fs').chmodSync('dist/esm/index.mjs', 0o755)\"",
+    "process-files": "ts-node src/transpiler/processFilesCLI.ts --dir $npm_config_dir --extension $npm_config_extension --no-node-snapshot",
+    "prepublish": "cp -f ../../../README.md ./README.md",
+    "publish": "bun publish || true",
+    "publish:canary": "bun publish --access public --tag canary || true",
+    "publish:latest": "bun publish --access public --tag latest || true",
+    "start": "bun start:stdio",
+    "start:client": "bun dist/esm/client/sse.mjs",
+    "start:docker": "docker run --rm -p 3000:3000 --name intlayer-mcp-app intlayer-mcp",
+    "start:inspector": "npx @modelcontextprotocol/inspector bun dist/esm/server/stdio.mjs",
+    "start:inspector:sse": "npx @modelcontextprotocol/inspector bun dist/esm/server/sse.mjs",
+    "start:sse": "bun dist/esm/server/sse.mjs",
+    "start:stdio": "bun dist/esm/server/stdio.mjs",
+    "test": "bun --bun vitest run",
+    "test:watch": "bun --bun vitest",
+    "typecheck": "tsc --noEmit --project tsconfig.types.json"
+  },
+  "dependencies": {
+    "@intlayer/config": "workspace:*",
+    "@intlayer/types": "workspace:*",
+    "@intlayer/unmerged-dictionaries-entry": "workspace:*",
+    "vscode-languageserver": "^9.0.1",
+    "vscode-languageserver-textdocument": "^1.0.12"
+  },
+  "devDependencies": {
+    "@types/node": "25.9.1",
+    "@utils/ts-config": "workspace:*",
+    "@utils/ts-config-types": "workspace:*",
+    "@utils/tsdown-config": "workspace:*",
+    "rimraf": "6.1.3",
+    "tsdown": "0.22.1",
+    "typescript": "6.0.3",
+    "vitest": "4.1.7"
+  },
+  "engines": {
+    "node": ">=14.18"
+  },
+  "bug": {
+    "url": "https://github.com/aymericzip/intlayer/issues"
+  }
+}
