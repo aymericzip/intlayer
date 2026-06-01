@@ -50,7 +50,7 @@ import {
  * </template>
  * ```
  */
-export const useIntlayer = <T extends DictionaryKeys>(
+export const useIntlayer = <const T extends DictionaryKeys>(
   key: T,
   locale?: MaybeRefOrGetter<LocalesValues | null | undefined>
 ): DeepTransformContent<DictionaryRegistryContent<T>> => {

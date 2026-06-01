@@ -13,8 +13,8 @@ import { getServerContext } from './serverContext';
  * If the locale is not provided, it will use the locale from the server context
  */
 export const useDictionary = <
-  T extends Dictionary,
-  L extends LocalesValues = DeclaredLocales,
+  const T extends Dictionary,
+  const L extends LocalesValues = DeclaredLocales,
 >(
   dictionary: T,
   locale?: L,

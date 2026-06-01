@@ -13,8 +13,8 @@ import { type DeepTransformContent, getPlugins } from './plugins';
  * @returns Transformed dictionary content optimized for Svelte
  */
 export const getDictionary = <
-  T extends Dictionary,
-  L extends LocalesValues = DeclaredLocales,
+  const T extends Dictionary,
+  const L extends LocalesValues = DeclaredLocales,
 >(
   dictionary: T,
   locale?: L

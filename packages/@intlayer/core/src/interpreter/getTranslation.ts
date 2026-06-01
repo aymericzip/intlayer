@@ -73,7 +73,7 @@ const deepMerge = (target: any, source: any): any => {
  * // 'Bonjour'
  * ```
  */
-export const getTranslation = <Content = string>(
+export const getTranslation = <const Content = string>(
   languageContent: StrictModeLocaleMap<Content>,
   locale: LocalesValues,
   fallback?: LocalesValues

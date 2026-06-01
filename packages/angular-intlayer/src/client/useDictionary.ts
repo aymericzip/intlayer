@@ -5,7 +5,7 @@ import { getDictionary } from '../getDictionary';
 import type { DeepTransformContent } from '../plugins';
 import { INTLAYER_TOKEN, type IntlayerProvider } from './installIntlayer';
 
-export const useDictionary = <T extends Dictionary>(
+export const useDictionary = <const T extends Dictionary>(
   dictionary: T,
   locale?: LocalesValues
 ): Signal<DeepTransformContent<T['content']>> => {

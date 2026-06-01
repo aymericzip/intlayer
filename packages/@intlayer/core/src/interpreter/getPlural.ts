@@ -21,7 +21,7 @@ import type {
  * // '{{count}} items'
  * ```
  */
-export const getPlural = <L extends LocalesValues = DeclaredLocales>(
+export const getPlural = <const L extends LocalesValues = DeclaredLocales>(
   pluralContent: PluralContentState<string>,
   count: number,
   locale: L

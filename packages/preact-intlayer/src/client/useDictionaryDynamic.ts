@@ -15,8 +15,8 @@ import { useLoadDynamic } from './useLoadDynamic';
  * If the locale is not provided, it will use the locale from the client context
  */
 export const useDictionaryDynamic = <
-  T extends Dictionary,
-  K extends DictionaryKeys,
+  const T extends Dictionary,
+  const K extends DictionaryKeys,
 >(
   dictionaryPromise: StrictModeLocaleMap<() => Promise<T>>,
   key: K,

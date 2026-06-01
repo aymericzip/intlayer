@@ -28,7 +28,7 @@ import { intlayerStore } from './intlayerStore';
  * <div>{$content.myField.value}</div>
  * ```
  */
-export const useIntlayer = <T extends DictionaryKeys>(
+export const useIntlayer = <const T extends DictionaryKeys>(
   key: T,
   locale?: LocalesValues
 ): Readable<DeepTransformContent<DictionaryRegistryContent<T>>> => {

@@ -30,7 +30,7 @@ const getGenderEntry = (gender: GenderEntry): Gender => {
  * }, undefined);
  * // 'The gender is validated'
  */
-export const getGender = <Content>(
+export const getGender = <const Content>(
   genderContent: GenderContentStates<Content>,
   gender: GenderEntry
 ): Content => {

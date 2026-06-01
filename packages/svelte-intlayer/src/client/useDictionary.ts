@@ -12,7 +12,7 @@ import { intlayerStore } from './intlayerStore';
  * @param locale The target locale (optional, uses context or store locale)
  * @returns Reactive store with transformed dictionary content
  */
-export const useDictionary = <T extends Dictionary>(
+export const useDictionary = <const T extends Dictionary>(
   dictionary: T,
   locale?: LocalesValues
 ): Readable<DeepTransformContent<T['content']>> => {

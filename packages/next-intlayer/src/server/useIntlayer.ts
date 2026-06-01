@@ -33,8 +33,8 @@ export const safeUseLocale = (): Locale | undefined => {
  * If the locale is not provided, it will use the locale from the server context
  */
 export const useIntlayer = <
-  T extends DictionaryKeys,
-  L extends DeclaredLocales = DeclaredLocales,
+  const T extends DictionaryKeys,
+  const L extends DeclaredLocales = DeclaredLocales,
 >(
   key: T,
   locale?: L

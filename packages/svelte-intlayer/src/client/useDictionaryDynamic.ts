@@ -35,7 +35,7 @@ const recursiveProxy: any = new Proxy(() => {}, {
  * @param locale - Optional fixed locale. If not provided, follows the global intlayerStore.
  * @returns Readable store with the loaded dictionary content
  */
-export function useDictionaryDynamic<T extends Dictionary>(
+export function useDictionaryDynamic<const T extends Dictionary>(
   dictionaryPromise: StrictModeLocaleMap<() => Promise<T>>,
   _key: DictionaryKeys,
   locale?: LocalesValues

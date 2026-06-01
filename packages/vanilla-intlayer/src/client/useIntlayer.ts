@@ -53,7 +53,7 @@ import type { WithOnChange } from './useDictionary';
  * });
  * ```
  */
-export const useIntlayer = <T extends DictionaryKeys>(
+export const useIntlayer = <const T extends DictionaryKeys>(
   key: T,
   locale?: LocalesValues
 ): WithOnChange<DeepTransformContent<DictionaryRegistryContent<T>>> => {

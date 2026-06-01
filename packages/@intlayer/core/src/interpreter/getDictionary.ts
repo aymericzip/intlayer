@@ -20,8 +20,8 @@ import { getBasePlugins, getContent } from './getContent/getContent';
  *                      If omitted, we’ll use a default set of plugins.
  */
 export const getDictionary = <
-  T extends Dictionary,
-  L extends LocalesValues = DeclaredLocales,
+  const T extends Dictionary,
+  const L extends LocalesValues = DeclaredLocales,
 >(
   dictionary: T,
   locale?: L,

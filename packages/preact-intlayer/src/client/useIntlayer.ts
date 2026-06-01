@@ -28,7 +28,10 @@ import { IntlayerClientContext } from './IntlayerProvider';
  * };
  * ```
  */
-export const useIntlayer = <T extends DictionaryKeys, L extends LocalesValues>(
+export const useIntlayer = <
+  const T extends DictionaryKeys,
+  const L extends LocalesValues,
+>(
   key: T,
   locale?: L
 ) => {

@@ -32,8 +32,8 @@ import { IntlayerClientContext } from './IntlayerProvider';
  * ```
  */
 export const useIntlayer = <
-  T extends DictionaryKeys,
-  L extends LocalesValues = DeclaredLocales,
+  const T extends DictionaryKeys,
+  const L extends LocalesValues = DeclaredLocales,
 >(
   key: T,
   locale?: L

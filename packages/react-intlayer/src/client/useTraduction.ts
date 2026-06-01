@@ -24,7 +24,7 @@ import { IntlayerClientContext } from './IntlayerProvider';
  * - this function will require each locale to be defined if defined in the project configuration.
  * - If a locale is missing, it will make each existing locale optional and raise an error if the locale is not found.
  */
-export const useTranslation = <Content = string>(
+export const useTranslation = <const Content = string>(
   languageContent: StrictModeLocaleMap<Content>
 ): Content => {
   const { locale } = useContext(IntlayerClientContext) ?? {};

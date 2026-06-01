@@ -90,9 +90,9 @@ const recursiveProxy: any = new Proxy(
  * ```
  */
 export const useDictionaryDynamic = <
-  T extends Dictionary,
-  K extends DictionaryKeys,
-  L extends LocalesValues = LocalesValues,
+  const T extends Dictionary,
+  const K extends DictionaryKeys,
+  const L extends LocalesValues = LocalesValues,
 >(
   dictionaryPromise: StrictModeLocaleMap<() => Promise<T>>,
   key: K,

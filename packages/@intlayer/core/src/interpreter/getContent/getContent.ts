@@ -43,8 +43,8 @@ export const getBasePlugins = (
  * @param locale The locale to use if your transformers need it (e.g. for translations).
  */
 export const getContent = <
-  T extends ContentNode,
-  L extends LocalesValues = DeclaredLocales,
+  const T extends ContentNode,
+  const L extends LocalesValues = DeclaredLocales,
 >(
   node: T,
   nodeProps: NodeProps,

@@ -33,7 +33,7 @@ export type GetNestingResult<
  * // 'Save'
  * ```
  */
-export const getNesting = <K extends DictionaryKeys, P>(
+export const getNesting = <const K extends DictionaryKeys, const P>(
   dictionaryKey: K,
   path?: P extends ValidDotPathsFor<K> ? P : never,
   props?: NodeProps

@@ -14,7 +14,7 @@ import { intlayerStore } from './intlayerStore';
  * @param locale Target locale (optional)
  * @returns Reactive store with loaded dictionary content
  */
-export const useDictionaryAsync = async <T extends Dictionary>(
+export const useDictionaryAsync = async <const T extends Dictionary>(
   dictionaryPromise: StrictModeLocaleMap<() => Promise<T>>,
   locale?: LocalesValues
 ): Promise<Readable<T | null>> => {

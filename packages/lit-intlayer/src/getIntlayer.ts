@@ -8,8 +8,8 @@ import type {
 import { type DeepTransformContent, getPlugins } from './plugins';
 
 export const getIntlayer = <
-  T extends DictionaryKeys,
-  L extends LocalesValues = DeclaredLocales,
+  const T extends DictionaryKeys,
+  const L extends LocalesValues = DeclaredLocales,
 >(
   key: T,
   locale?: L

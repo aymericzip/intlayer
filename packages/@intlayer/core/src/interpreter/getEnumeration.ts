@@ -27,7 +27,7 @@ import type { EnterFormat, EnumerationContentState } from '../transpiler';
  *
  * If no keys match, the default key is '1'.
  */
-export const findMatchingCondition = <Content>(
+export const findMatchingCondition = <const Content>(
   enumerationContent: EnumerationContentState<Content>,
   quantity: number
 ): EnterFormat | undefined => {
@@ -85,7 +85,7 @@ export const findMatchingCondition = <Content>(
  * // 'Many items'
  * ```
  */
-export const getEnumeration = <Content>(
+export const getEnumeration = <const Content>(
   enumerationContent: EnumerationContentState<Content>,
   quantity: number
 ): Content => {

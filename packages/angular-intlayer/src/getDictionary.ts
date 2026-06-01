@@ -7,8 +7,8 @@ import type {
 import { getPlugins } from './plugins';
 
 export const getDictionary = <
-  T extends Dictionary,
-  L extends LocalesValues = DeclaredLocales,
+  const T extends Dictionary,
+  const L extends LocalesValues = DeclaredLocales,
 >(
   dictionary: T,
   locale?: L

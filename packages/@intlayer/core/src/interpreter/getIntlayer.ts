@@ -50,8 +50,8 @@ const dictionaryCache = new Map<string, any>();
 const warnedMissingDictionaries = new Set<string>();
 
 export const getIntlayer = <
-  T extends DictionaryKeys,
-  L extends LocalesValues = DeclaredLocales,
+  const T extends DictionaryKeys,
+  const L extends LocalesValues = DeclaredLocales,
 >(
   key: T,
   locale?: L,

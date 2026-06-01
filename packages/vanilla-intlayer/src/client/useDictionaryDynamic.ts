@@ -63,9 +63,9 @@ const loadDictionary = <T extends Dictionary>(
  * ```
  */
 export const useDictionaryDynamic = <
-  T extends Dictionary,
-  K extends DictionaryKeys,
-  L extends LocalesValues = LocalesValues,
+  const T extends Dictionary,
+  const K extends DictionaryKeys,
+  const L extends LocalesValues = LocalesValues,
 >(
   dictionaryLoaders: StrictModeLocaleMap<() => Promise<T>>,
   key: K,

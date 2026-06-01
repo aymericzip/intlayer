@@ -27,7 +27,7 @@ import { getIntlayerClient } from './installIntlayer';
  * In non-optimized builds (dev without babel) the content is re-fetched from
  * `getIntlayer` on every property access, caching by locale.
  */
-export const useIntlayer = <T extends DictionaryKeys>(
+export const useIntlayer = <const T extends DictionaryKeys>(
   key: T,
   locale?: LocalesValues
 ): IntlayerLitProxy<DeepTransformContent<DictionaryRegistryContent<T>>> => {

@@ -13,7 +13,7 @@ import { useDictionary } from './useDictionary';
  *
  * If the locale is not provided, it will use the locale from the client context
  */
-export const useDictionaryAsync = async <T extends Dictionary>(
+export const useDictionaryAsync = async <const T extends Dictionary>(
   dictionaryPromise: StrictModeLocaleMap<() => Promise<T>>,
   locale?: MaybeRefOrGetter<LocalesValues>
 ) => {

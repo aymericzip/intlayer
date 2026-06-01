@@ -12,8 +12,8 @@ import { safeUseLocale } from './useIntlayer';
  * If the locale is not provided, it will use the locale from the server context
  */
 export const useDictionaryDynamic = <
-  T extends Dictionary,
-  L extends DeclaredLocales = DeclaredLocales,
+  const T extends Dictionary,
+  const L extends DeclaredLocales = DeclaredLocales,
 >(
   dictionaryPromise: StrictModeLocaleMap<() => Promise<T>>,
   key: string,

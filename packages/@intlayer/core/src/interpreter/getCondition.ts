@@ -16,7 +16,7 @@ import type { ConditionContentStates } from '../transpiler';
  * // 'The condition is validated'
  * ```
  */
-export const getCondition = <Content>(
+export const getCondition = <const Content>(
   conditionContent: ConditionContentStates<Content>,
   state?: boolean
 ): Content => {

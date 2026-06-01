@@ -116,8 +116,8 @@ export const createIntlayerLeafProxy = (leafRef: ComputedRef<any>) => {
 };
 
 export const useDictionary = <
-  T extends Dictionary,
-  L extends LocalesValues = DeclaredLocales,
+  const T extends Dictionary,
+  const L extends LocalesValues = DeclaredLocales,
 >(
   dictionary: MaybeRefOrGetter<T>,
   locale?: MaybeRefOrGetter<L>

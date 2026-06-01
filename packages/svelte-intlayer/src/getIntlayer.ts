@@ -14,8 +14,8 @@ import { type DeepTransformContent, getPlugins } from './plugins';
  * @returns Transformed dictionary content optimized for Svelte
  */
 export const getIntlayer = <
-  T extends DictionaryKeys,
-  L extends LocalesValues = DeclaredLocales,
+  const T extends DictionaryKeys,
+  const L extends LocalesValues = DeclaredLocales,
 >(
   key: T,
   locale?: L
