@@ -14,7 +14,6 @@ slugs:
   - doc
   - environment
   - nest
-applicationTemplate: https://github.com/aymericzip/intlayer-nestjs-template
 author: AydinTheFirst
 history:
   - version: 8.9.0
@@ -51,16 +50,6 @@ Backend'inizi uluslararasılaştırmak, küresel bir kitleye etkili bir şekilde
 Backend'i uluslararasılaştırarak, uygulamanız sadece kültürel farklılıklara saygı göstermez, aynı zamanda küresel pazar ihtiyaçlarına daha iyi uyum sağlar ve hizmetlerinizi dünya çapında ölçeklendirmenin anahtar adımı haline gelir.
 
 ## Başlarken
-
-<iframe
-  src="https://ide.intlayer.org/aymericzip/intlayer-nestjs-template?file=intlayer.config.ts"
-  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
-  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-  loading="lazy"
-/>
-
-See [Application Template](https://github.com/aymericzip/intlayer-nestjs-template) on GitHub.
 
 ### Yeni Bir NestJS Projesi Oluşturun
 

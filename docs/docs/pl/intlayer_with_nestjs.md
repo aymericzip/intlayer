@@ -48,16 +48,6 @@ Dzięki internacjonalizacji backendu Twoja aplikacja nie tylko szanuje różnice
 
 ## Pierwsze kroki
 
-<iframe
-  src="https://ide.intlayer.org/aymericzip/intlayer-nestjs-template?file=intlayer.config.ts"
-  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo CodeSandbox - Jak internacjonalizować swoją aplikację za pomocą Intlayer"
-  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-  loading="lazy"
-/>
-
-Zobacz [Szablon aplikacji](https://github.com/aymericzip/intlayer-nestjs-template) na GitHub.
-
 ### Utwórz nowy projekt NestJS
 
 ```bash packageManager="npm"

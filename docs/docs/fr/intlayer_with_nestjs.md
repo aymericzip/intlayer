@@ -14,7 +14,6 @@ slugs:
   - doc
   - environment
   - nest
-applicationTemplate: https://github.com/aymericzip/intlayer-nestjs-template
 author: AydinTheFirst
 history:
   - version: 8.9.0
@@ -51,16 +50,6 @@ Internationaliser votre backend est essentiel pour servir efficacement une audie
 En internationalisant le backend, votre application respecte non seulement les différences culturelles, mais s'aligne également mieux sur les besoins du marché mondial, ce qui en fait une étape clé pour étendre vos services à l'échelle mondiale.
 
 ## Pour commencer
-
-<iframe
-  src="https://ide.intlayer.org/aymericzip/intlayer-nestjs-template?file=intlayer.config.ts"
-  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Démo CodeSandbox - Comment internationaliser votre application avec Intlayer"
-  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-  loading="lazy"
-/>
-
-Voir le [Modèle d’Application](https://github.com/aymericzip/intlayer-nestjs-template) sur GitHub.
 
 ### Créer un nouveau projet NestJS
 
