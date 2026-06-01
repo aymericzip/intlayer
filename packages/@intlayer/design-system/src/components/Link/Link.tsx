@@ -235,18 +235,49 @@ export type LinkProps = DetailedHTMLProps<
     locale?: LocalesValues;
   };
 
-export const checkIsExternalLink = ({
-  href,
-  isExternalLink: isExternalLinkProp,
-}: Pick<LinkProps, 'href' | 'isExternalLink'>): boolean => {
-  const isValidHref = typeof href === 'string' && href.trim() !== '';
-  const isExternalLink =
-    isExternalLinkProp === true ||
-    (typeof isExternalLinkProp === 'undefined' &&
-      isValidHref &&
-      /^https?:\/\//.test(href));
+export const checkIsExternalLink = (
+  {
+    href,
+    isExternalLink: isExternalLinkProp,
+  }: Pick<LinkProps, 'href' | 'isExternalLink'>,
+  url?: string
+): boolean => {
+  // Explicit prop override takes precedence
+  if (typeof isExternalLinkProp === 'boolean') {
+    return isExternalLinkProp;
+  }
 
-  return isExternalLink;
+  const isValidHref = typeof href === 'string' && href.trim() !== '';
+
+  if (!isValidHref) return false;
+
+  // Relative URLs (e.g., '/about') are always internal
+  if (!/^https?:\/\//.test(href)) {
+    return false;
+  }
+
+  // Compare base domains
+  if (url) {
+    try {
+      const hrefHost = new URL(href).hostname;
+      // Ensure the reference url has a protocol so URL() can parse it correctly
+      const currentHost = new URL(
+        url.startsWith('http') ? url : `https://${url}`
+      ).hostname;
+
+      // Extract the root domain (e.g., 'app.intlayer.org' -> 'intlayer.org')
+      const getBaseDomain = (host: string) =>
+        host.split('.').slice(-2).join('.');
+
+      return getBaseDomain(hrefHost) !== getBaseDomain(currentHost);
+    } catch {
+      // If URL parsing fails for any reason, default to treating it as external
+      return true;
+    }
+  }
+
+  // Absolute URL with no comparison URL provided
+  return true;
 };
 
 export const isTextChildren = (children: ReactNode): boolean => {
