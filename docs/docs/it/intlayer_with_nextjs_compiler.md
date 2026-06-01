@@ -81,7 +81,9 @@ Per mitigare l'impatto durante lo sviluppo, puoi configurare il compilatore in m
 
 ## Guida passo dopo passo per configurare Intlayer in un'applicazione Next.js
 
-### Passo 1: Installare le dipendenze
+<Steps>
+
+<Step number={1} title="Installare le dipendenze">
 
 Installa i pacchetti necessari utilizzando npm:
 
@@ -117,7 +119,9 @@ bun x intlayer init
 
   Il pacchetto che integra Intlayer con Next.js. Fornisce context provider e hook per l'internazionalizzazione di Next.js. Include inoltre il plugin Next.js per integra web Intlayer con [Webpack](https://webpack.js.org/) o [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack), oltre a un proxy per rilevare la lingua preferita dell'utente, gestire i cookie e i reindirizzamenti URL.
 
-### Passo 2: Configurare il progetto
+</Step>
+
+<Step number={2} title="Configurare il progetto">
 
 Crea un file di configurazione per definire le lingue dell'applicazione:
 
@@ -174,7 +178,9 @@ export default config;
 
 > Tramite questo file, puoi configurare URL localizzati, reindirizzamenti proxy, nomi dei cookie, posizione ed estensione delle dichiarazioni di contenuto, disabilitare i log di Intlayer e altro. Per l'elenco completo dei parametri, consulta la [documentazione della configurazione](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/configuration.md).
 
-### Passo 3: Integrare Intlayer nella configurazione Next.js
+</Step>
+
+<Step number={3} title="Integrare Intlayer nella configurazione Next.js">
 
 Configura il setup Next.js per usare Intlayer:
 
@@ -191,7 +197,9 @@ export default withIntlayer(nextConfig);
 
 > Il plugin `withIntlayer()` integra Intlayer con Next.js. Assicura la creazione dei file di dichiarazione dei contenuti e li monitora in modalità sviluppo. Definisce le variabili d'ambiente Intlayer negli ambienti [Webpack](https://webpack.js.org/) o [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack). Inoltre, fornisce alias per ottimizzare le prestazioni e garantisce compatibilità con i Server Components.
 
-### Passo 4: Configurare Babel
+</Step>
+
+<Step number={4} title="Configurare Babel">
 
 L'Intlayer Compiler richiede Babel per estrarre e ottimizzare i contenuti. Aggiorna il file `babel.config.js` (o `babel.config.json`) per includere i plugin Intlayer:
 
@@ -212,7 +220,9 @@ module.exports = {
 };
 ```
 
-### Passo 5: Rilevare la lingua nelle pagine
+</Step>
+
+<Step number={5} title="Rilevare la lingua nelle pagine">
 
 Rimuovi tutto dal `RootLayout` e sostituiscilo con questo codice:
 
@@ -255,7 +265,9 @@ const RootLayout = async ({
 export default RootLayout;
 ```
 
-### Passo 6: Compilare i componenti
+</Step>
+
+<Step number={6} title="Compilare i componenti">
 
 Con il compilatore abilitato, **non devi più** dichiarare manualmente i dizionari (come i file `.content.ts`).
 
@@ -351,7 +363,9 @@ export default async function Page() {
 
   > Layout and page cannot share a common server context because the server context system is based on a per-request data store (via [React's cache](https://react.dev/reference/react/cache) mechanism), causing each "context" to be re-created for different segments of the application. Placing the provider in a shared layout would break this isolation, preventing the correct propagation of the server context values to your server components.
 
-### (Opzionale) Passo 7: Completare le traduzioni mancanti
+</Step>
+
+<Step number={7} title="Completare le traduzioni mancanti" isOptional={true}>
 
 Intlayer offre uno strumento CLI per completare le traduzioni mancanti. Usa il comando `intlayer` per testare e riempire le lacune nel codice.
 
@@ -389,7 +403,9 @@ bun x intlayer fill         # Completa traduzioni mancanti
 
 > Per maggiori dettagli, fare riferimento alla [documentazione CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/cli/ci.md)
 
-### (Opzionale) Passo 8: Configurare il Proxy per il rilevamento lingua
+</Step>
+
+<Step number={8} title="Configurare il Proxy per il rilevamento lingua" isOptional={true}>
 
 Imposta un proxy per rilevare la lingua preferita dall'utente:
 
@@ -404,7 +420,9 @@ export const config = {
 
 > `intlayerProxy` rileva la lingua dell'utente e reindirizza all'URL corretto basandosi sulla [configurazione](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/configuration.md). Consente anche di salvare la preferenza in un cookie.
 
-### (Opzionale) Passo 8: Cambiare la lingua del contenuto
+</Step>
+
+<Step number={8} title="Cambiare la lingua del contenuto" isOptional={true}>
 
 Per cambiare lingua in Next.js, si consiglia di usare il componente `Link` per reindirizzare alla pagina localizzata. `Link` permette il prefetching, evitando il ricaricamento completo della pagina.
 
@@ -454,7 +472,9 @@ export const LocaleSwitcher: FC = () => {
 
 > In alternativa, puoi usare `setLocale` dall'hook `useLocale`, ma non permetterà il prefetching. Consulta la [documentazione di `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/next-intlayer/useLocale.md).
 
-### (Opzionale) Passo 10: Ottimizzare il bundle
+</Step>
+
+<Step number={10} title="Ottimizzare il bundle" isOptional={true}>
 
 Con `next-intlayer`, i dizionari sono inclusi di default in ogni pagina. Per ottimizzare il bundle, Intlayer offre un plugin SWC opzionale che sostituisce le chiamate `useIntlayer` con macro. Così i dizionari appaiono solo dove servono davvero.
 
@@ -528,7 +548,9 @@ Caratteristiche:
 
 Consulta la [documentazione dell'estensione](https://intlayer.org/doc/vs-code-extension) per i dettagli.
 
-### (Opzionale) Passaggio 1 : Estrarre il contenuto dei tuoi componenti
+</Step>
+
+<Step number={1} title="Estrarre il contenuto dei tuoi componenti" isOptional={true}>
 
 Se hai una base di codice esistente, trasformare migliaia di file può richiedere molto tempo.
 
@@ -644,3 +666,7 @@ bun run build # Or bun run dev
 ### Vai oltre
 
 Puoi implementare l' [editor visuale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_visual_editor.md) o esternalizzare i contenuti col [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_CMS.md).
+
+</Step>
+
+</Steps>

@@ -32,7 +32,7 @@ export const ClickToOpenIframe: FC<ComponentProps<'iframe'>> = ({
       className="relative overflow-hidden"
     >
       <div
-        className="absolute top-0 left-0 z-10 flex size-full h-full w-full cursor-pointer items-center justify-center bg-text/10 backdrop-blur"
+        className="absolute top-0 left-0 z-10 flex size-full size-full cursor-pointer items-center justify-center bg-text/10 backdrop-blur"
         role="button"
         tabIndex={0}
         onClick={() => setIsShown(true)}

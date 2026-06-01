@@ -81,7 +81,9 @@ Aby ograniczyć ten wpływ podczas programowania (development), możesz ustawić
 
 ## Przewodnik krok po kroku, jak skonfigurować Intlayer w aplikacji Next.js
 
-### Krok 1: Instalacja zależności
+<Steps>
+
+<Step number={1} title="Instalacja zależności">
 
 Zainstaluj potrzebne pakiety za pomocą npm:
 
@@ -117,7 +119,9 @@ bun x intlayer init
 
   Pakiet integrujący Intlayer z frameworkiem Next.js. Dostarcza context providery oraz hooki dla Next.js. Ponadto zawiera wtyczkę Next.js pozwalającą połączyć Intlayer z [Webpackiem](https://webpack.js.org/) lub [Turbopackiem](https://nextjs.org/docs/app/api-reference/turbopack), a także middleware do wykrywania języka, zarządzania cookies i obsługi przekierowań URL.
 
-### Krok 2: Konfiguracja projektu
+</Step>
+
+<Step number={2} title="Konfiguracja projektu">
 
 Utwórz plik konfiguracyjny, by zdefiniować dostępne języki aplikacji:
 
@@ -174,7 +178,9 @@ export default config;
 
 > Za pomocą tego pliku konfiguracyjnego możesz ustawić zlokalizowane adresy URL, przekierowania proxy, nazwy ciasteczek, lokalizację i rozszerzenie deklaracji treści, wyłączyć logi konsoli Intlayer i wiele więcej. Pełną listę parametrów znajdziesz w [dokumentacji konfiguracji](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/configuration.md).
 
-### Krok 3: Integracja Intlayer z konfiguracją Next.js
+</Step>
+
+<Step number={3} title="Integracja Intlayer z konfiguracją Next.js">
 
 Skonfiguruj swoje ustawienia Next.js, aby używać Intlayer:
 
@@ -191,7 +197,9 @@ export default withIntlayer(nextConfig);
 
 > Plugin `withIntlayer()` służy do integracji Intlayer z Next.js. Zapewnia budowanie plików słowników i monitoruje je w trybie deweloperskim. Definiuje zmienne środowiskowe Intlayer w środowiskach [Webpack](https://webpack.js.org/) lub [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack). Ponadto dostarcza aliasy w celu optymalizacji wydajności i zapewnia pełną współpracę z Server Components.
 
-### Krok 4: Konfiguracja Babel
+</Step>
+
+<Step number={4} title="Konfiguracja Babel">
 
 Kompilator Intlayer wymaga Babel do wyodrębniania i optymalizacji treści. Zaktualizuj swój plik `babel.config.js` (lub `babel.config.json`), aby zawierał wtyczki Intlayer:
 
@@ -212,7 +220,9 @@ module.exports = {
 };
 ```
 
-### Krok 5: Wykrywanie języka na stronach
+</Step>
+
+<Step number={5} title="Wykrywanie języka na stronach">
 
 Wyczyść zawartość swojego `RootLayout` i zastąp ją poniższym przykładem:
 
@@ -255,7 +265,9 @@ const RootLayout = async ({
 export default RootLayout;
 ```
 
-### Krok 6: Kompilacja komponentów
+</Step>
+
+<Step number={6} title="Kompilacja komponentów">
 
 Z włączonym kompilatorem absolutnie **nie masz wymogu** ręcznego deklarowania słowników treści (takich jak pliki `.content.ts`).
 
@@ -351,7 +363,9 @@ export default async function Page() {
 
   > Layout and page cannot share a common server context because the server context system is based on a per-request data store (via [React's cache](https://react.dev/reference/react/cache) mechanism), causing each "context" to be re-created for different segments of the application. Placing the provider in a shared layout would break this isolation, preventing the correct propagation of the server context values to your server components.
 
-### (Opcjonalnie) Krok 7: Uzupełnij brakujące tłumaczenia
+</Step>
+
+<Step number={7} title="Uzupełnij brakujące tłumaczenia" isOptional={true}>
 
 Intlayer udostępnia narzędzie CLI, które pomaga uzupełnić brakujące tłumaczenia. Możesz użyć polecenia `intlayer`, aby przetestować i uzupełnić brakujące tłumaczenia ze swojego kodu.
 
@@ -389,7 +403,9 @@ bun x intlayer fill         # Uzupełnij brakujące tłumaczenia
 
 > Więcej szczegółów znajdziesz w [dokumentacji CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/ci.md)
 
-### (Opcjonalnie) Krok 8: Konfiguracja Proxy do wykrywania języka
+</Step>
+
+<Step number={8} title="Konfiguracja Proxy do wykrywania języka" isOptional={true}>
 
 Skonfiguruj proxy w celu automatycznego wykrywania preferowanego języka użytkownika:
 
@@ -404,7 +420,9 @@ export const config = {
 
 > `intlayerProxy` służy do wykrywania preferowanego języka użytkownika i przekierowywania go na odpowiedni adres URL, zgodnie z ustawieniami w [pliku konfiguracyjnym](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/configuration.md). Dodatkowo umożliwia zapisanie preferowanego języka w ciasteczku (cookie).
 
-### (Opcjonalnie) Krok 8: Zmiana języka treści
+</Step>
+
+<Step number={8} title="Zmiana języka treści" isOptional={true}>
 
 Aby zmienić język treści w Next.js, zalecanym sposobem jest użycie komponentu `Link` w celu przekierowania użytkowników na odpowiednią zlokalizowaną stronę. Komponent `Link` umożliwia prefetching stron, co pomaga uniknąć pełnego odświeżenia witryny.
 
@@ -454,7 +472,9 @@ export const LocaleSwitcher: FC = () => {
 
 > Alternatywnym sposobem jest użycie funkcji `setLocale` dostarczanej przez hook `useLocale`. Ta funkcja nie pozwala na prefetching strony. Więcej szczegółów znajdziesz w [dokumentacji hooka `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/next-intlayer/useLocale.md).
 
-### (Opcjonalnie) Krok 10: Optymalizacja rozmiaru bundle'a
+</Step>
+
+<Step number={10} title="Optymalizacja rozmiaru bundle'a" isOptional={true}>
 
 Podczas korzystania z `next-intlayer` słowniki są domyślnie dołączane do bundle'a dla każdej strony. Aby zoptymalizować rozmiar bundle'a, Intlayer udostępnia opcjonalną wtyczkę SWC, która inteligentnie zastępuje wywołania `useIntlayer` za pomocą makr. Zapewnia to, że słowniki są dołączane tylko do bundle'i stron, które faktycznie z nich korzystają.
 
@@ -528,7 +548,9 @@ To rozszerzenie zapewnia:
 
 Więcej szczegółów na temat korzystania z rozszerzenia znajdziesz w [dokumentacji rozszerzenia Intlayer dla VS Code](https://intlayer.org/doc/vs-code-extension).
 
-### (Opcjonalnie) Krok 11 : Wyodrębnij zawartość swoich komponentów
+</Step>
+
+<Step number={11} title="Wyodrębnij zawartość swoich komponentów" isOptional={true}>
 
 Jeśli masz istniejącą bazę kodu, transformacja tysięcy plików może być czasochłonna.
 
@@ -644,3 +666,7 @@ bun run build # Or bun run dev
 ### Idź dalej
 
 Aby pójść o krok dalej, możesz wdrożyć [edytor wizualny](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_visual_editor.md) lub wyeksportować swoją treść za pomocą [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md).
+
+</Step>
+
+</Steps>

@@ -94,7 +94,9 @@ Intlayer は単なる i18n ソリューションではなく、**自己ホスト
 
 GitHubで[アプリケーションテンプレート](https://github.com/aymericzip/intlayer-analog-template)を確認する。
 
-### ステップ1: 依存関係のインストール
+<Steps>
+
+<Step number={1} title="依存関係のインストール">
 
 npmを使用して必要なパッケージをインストールします：
 
@@ -128,7 +130,9 @@ bun x intlayer init
 - **vite-intlayer**
   IntlayerをViteと統合するパッケージ。コンテンツ宣言ファイルを処理するプラグインを提供し、最適なパフォーマンスのためのエイリアスを設定します。
 
-### ステップ2: プロジェクトの設定
+</Step>
+
+<Step number={2} title="プロジェクトの設定">
 
 アプリケーションの言語を設定するための設定ファイルを作成します：
 
@@ -152,7 +156,9 @@ export default config;
 
 > この設定ファイルを通じて、ローカライズされたURL、ミドルウェアのリダイレクト、クッキー名、コンテンツ宣言の場所と拡張子の設定、コンソールでのIntlayerログの無効化などが可能です。利用可能なパラメータの全リストについては、[設定ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md)を参照してください。
 
-### ステップ3: Vite設定へのIntlayerの統合
+</Step>
+
+<Step number={3} title="Vite設定へのIntlayerの統合">
 
 AnalogとIntlayerを統合するには、`vite-intlayer`プラグインを使用する必要があります。
 
@@ -174,7 +180,9 @@ export default defineConfig(() => ({
 
 > `intlayer()`プラグインは、Intlayerを使用してViteを設定します。コンテンツ宣言ファイルを処理し、最適なパフォーマンスのためのエイリアスを設定します。
 
-### ステップ4: コンテンツの宣言
+</Step>
+
+<Step number={4} title="コンテンツの宣言">
 
 翻訳を保存するためのコンテンツ宣言を作成・管理します：
 
@@ -206,7 +214,9 @@ export default appContent;
 
 > 詳細については、[コンテンツ宣言のドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md)を参照してください。
 
-### ステップ5: コード内でのIntlayerの利用
+</Step>
+
+<Step number={5} title="コード内でのIntlayerの利用">
 
 Analogアプリケーション全体でIntlayerの国際化機能を利用するには、アプリケーション設定でIntlayerを提供する必要があります。
 
@@ -244,7 +254,9 @@ export default class HomeComponent {
 
 Intlayerのコンテンツは`Signal`として返されるため、シグナルを呼び出すことで値にアクセスします：`content().title`。
 
-### (オプション) ステップ6: コンテンツの言語を変更する
+</Step>
+
+<Step number={6} title="コンテンツの言語を変更する" isOptional={true}>
 
 コンテンツの言語を変更するには、`useLocale`関数によって提供される`setLocale`関数を使用できます。これにより、アプリケーションのロケールを設定し、それに応じてコンテンツを更新できます。
 
@@ -350,3 +362,7 @@ Intlayerでの開発体験を向上させるために、公式の**Intlayer VS C
 - 翻訳を簡単に作成・更新するための**クイックアクション**。
 
 拡張機能の使用方法の詳細については、[Intlayer VS Code Extensionのドキュメント](https://intlayer.org/doc/vs-code-extension)を参照してください。
+
+</Step>
+
+</Steps>

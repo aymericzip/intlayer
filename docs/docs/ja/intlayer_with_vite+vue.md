@@ -101,7 +101,9 @@ Intlayer は単なる i18n ソリューションではなく、**自己ホスト
 
 GitHub の [アプリケーションテンプレート](https://github.com/aymericzip/intlayer-vite-vue-template) を参照してください。
 
-### ステップ 1: 依存パッケージのインストール
+<Steps>
+
+<Step number={1} title="依存パッケージのインストール">
 
 npm を使って必要なパッケージをインストールします：
 
@@ -140,7 +142,9 @@ bun x intlayer init
 
 Viteバンドラー（[Vite bundler](https://vite.dev/guide/why.html#why-bundle-for-production)）とIntlayerを統合するためのViteプラグイン、およびユーザーの優先ロケールの検出、クッキー管理、URLリダイレクト処理のためのミドルウェアを含みます。
 
-### ステップ2: プロジェクトの設定
+</Step>
+
+<Step number={2} title="プロジェクトの設定">
 
 アプリケーションの言語を設定するための設定ファイルを作成します：
 
@@ -164,7 +168,9 @@ export default config;
 
 > この設定ファイルを通じて、ローカライズされたURL、ミドルウェアのリダイレクション、クッキー名、コンテンツ宣言の場所と拡張子、コンソールでのIntlayerログの無効化などを設定できます。利用可能なパラメータの完全なリストについては、[設定ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)を参照してください。
 
-### ステップ3: Vite設定にIntlayerを統合する
+</Step>
+
+<Step number={3} title="Vite設定にIntlayerを統合する">
 
 intlayerプラグインを設定に追加します。
 
@@ -181,7 +187,9 @@ export default defineConfig({
 
 > `intlayer()` Viteプラグインは、IntlayerをViteと統合するために使用されます。これにより、コンテンツ宣言ファイルのビルドが保証され、開発モードでそれらを監視します。また、Viteアプリケーション内でIntlayerの環境変数を定義します。さらに、パフォーマンスを最適化するためのエイリアスも提供します。
 
-### ステップ4: コンテンツを宣言する
+</Step>
+
+<Step number={4} title="コンテンツを宣言する">
 
 翻訳を格納するためのコンテンツ宣言を作成および管理します：
 
@@ -312,7 +320,9 @@ export default helloWorldContent;
 
 > 詳細については、[コンテンツ宣言のドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/content_file.md)を参照してください。
 
-### ステップ5: コード内でIntlayerを利用する
+</Step>
+
+<Step number={5} title="コード内でIntlayerを利用する">
 
 Vueアプリケーション全体でIntlayerの国際化機能を利用するには、まずメインファイルでIntlayerのシングルトンインスタンスを登録する必要があります。このステップは非常に重要で、アプリケーション内のすべてのコンポーネントに国際化コンテキストを提供し、コンポーネントツリーのどこからでも翻訳にアクセスできるようにします。
 
@@ -404,7 +414,9 @@ Intlayerは、コンテンツにアクセスするためのさまざまなAPIを
 
 > アプリケーションが既に存在する場合は、[Intlayer コンパイラ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md) と [抽出コマンド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/extract.md) を組み合わせて、1 秒で何千ものコンポーネントを変換できます。
 
-### （オプション）ステップ6: コンテンツの言語を変更する
+</Step>
+
+<Step number={6} title="コンテンツの言語を変更する">
 
 コンテンツの言語を変更するには、`useLocale` コンポーザブルが提供する `setLocale` 関数を使用します。この関数により、アプリケーションのロケールを設定し、それに応じてコンテンツを更新できます。
 
@@ -471,7 +483,9 @@ const content = useIntlayer("app"); // 関連するintlayer宣言ファイルを
 </template>
 ```
 
-### （オプション）ステップ7: アプリケーションにローカライズされたルーティングを追加する
+</Step>
+
+<Step number={7} title="アプリケーションにローカライズされたルーティングを追加する">
 
 Vueアプリケーションにローカライズされたルーティングを追加するには、通常、ロケールプレフィックス付きのVue Routerを使用します。これにより、各言語ごとにユニークなルートが作成され、SEOやSEOに適したURLに役立ちます。
 
@@ -602,7 +616,9 @@ export default defineConfig({
 });
 ```
 
-### （オプション）ステップ8: ロケール変更時にURLを変更する
+</Step>
+
+<Step number={8} title="ロケール変更時にURLを変更する">
 
 ユーザーが言語を変更したときにURLを自動的に更新するには、`LocaleSwitcher` コンポーネントを Vue Router を使うように変更できます。
 
@@ -692,7 +708,9 @@ watch(
 </ol>
 ```
 
-### （オプション）ステップ9：HTMLの言語属性と方向属性を切り替える
+</Step>
+
+<Step number={9} title="HTMLの言語属性と方向属性を切り替える">
 
 アプリケーションが複数の言語をサポートしている場合、`<html>`タグの`lang`属性と`dir`属性を現在のロケールに合わせて更新することが非常に重要です。これにより以下が保証されます：
 
@@ -751,7 +769,9 @@ useI18nHTMLAttributes();
 </template>
 ```
 
-### （オプション）ステップ10：ローカライズされたリンクコンポーネントの作成
+</Step>
+
+<Step number={10} title="ローカライズされたリンクコンポーネントの作成">
 
 アプリケーションのナビゲーションが現在のロケールを尊重するようにするために、カスタムの `Link` コンポーネントを作成できます。このコンポーネントは内部のURLに自動的に現在の言語をプレフィックスとして付加します。例えば、フランス語を話すユーザーが「About」ページへのリンクをクリックすると、`/about` ではなく `/fr/about` にリダイレクトされます。
 
@@ -850,7 +870,9 @@ import RouterLink from "@components/RouterLink.vue";
 </script>
 ```
 
-### （オプション）ステップ11：Markdownのレンダリング
+</Step>
+
+<Step number={11} title="Markdownのレンダリング">
 
 Intlayerは、Vueアプリケーション内でMarkdownコンテンツを直接レンダリングすることをサポートしています。デフォルトでは、Markdownはプレーンテキストとして扱われます。MarkdownをリッチなHTMLに変換するには、Markdownパーサーである[markdown-it](https://github.com/markdown-it/markdown-it)を統合できます。
 
@@ -946,7 +968,9 @@ Intlayerでの開発体験を向上させるために、公式の**Intlayer VS C
 
 ---
 
-### (オプション) ステップ 1 : コンポーネントのコンテンツを抽出する
+</Step>
+
+<Step number={1} title="コンポーネントのコンテンツを抽出する" isOptional={true}>
 
 既存のコードベースがある場合、数千のファイルを変換するのは時間がかかることがあります。
 
@@ -1121,3 +1145,7 @@ pnpm や yarn を使う場合はコマンドを読み替えてください。CI 
 さらに進むには、[ビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)を実装するか、[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)を使用してコンテンツを外部化することができます。
 
 ---
+
+</Step>
+
+</Steps>

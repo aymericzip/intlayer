@@ -65,33 +65,43 @@ history:
 
 Dibandingkan dengan solusi utama seperti `astro-i18n` atau `i18next`, Intlayer adalah solusi yang hadir dengan pengoptimalan terintegrasi seperti:
 
-**Cakupan Astro penuh**
+<AccordionGroup>
+<Accordion header="Cakupan Astro penuh">
 
 Intlayer dioptimalkan untuk bekerja sempurna dengan Astro dengan menawarkan **perutean multibahasa**, **peta situs**, dan semua fitur yang diperlukan untuk penskalaan internasionalisasi (i18n).
 
-**Ukuran bundle**
+</Accordion>
+<Accordion header="Ukuran bundle">
 
 Daripada memuat file JSON berukuran besar ke halaman Anda, muat saja konten yang diperlukan. Intlayer membantu **mengurangi ukuran bundle dan halaman Anda hingga 50%**.
 
-**Kemampuan Pemeliharaan**
+</Accordion>
+<Accordion header="Kemampuan Pemeliharaan">
 
 Mencakup konten aplikasi Anda **memfasilitasi pemeliharaan** untuk aplikasi berskala besar. Anda dapat menduplikasi atau menghapus satu folder fitur tanpa beban mental untuk meninjau seluruh basis kode konten Anda. Selain itu, Intlayer **diketik sepenuhnya** untuk memastikan keakuratan konten Anda.
 
-**Agen AI**
+</Accordion>
+<Accordion header="Agen AI">
 
 Menempatkan konten bersama **mengurangi konteks yang diperlukan** dengan Model Bahasa Besar (LLM). Intlayer juga dilengkapi dengan serangkaian alat, seperti **CLI** untuk menguji terjemahan yang hilang,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)**, dan **[agent skill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, untuk menjadikan pengalaman pengembang (DX) lebih lancar bagi agen AI.
 
-**Otomatisasi**
+</Accordion>
+<Accordion header="Otomatisasi">
 
 Gunakan otomatisasi untuk menerjemahkan dalam saluran CI/CD Anda menggunakan LLM pilihan Anda dengan biaya penyedia AI Anda. Intlayer juga menawarkan **compiler** untuk mengotomatiskan ekstraksi konten, serta [platform web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) untuk membantu **menerjemahkan di latar belakang**.
 
-**Pertunjukan**
+</Accordion>
+<Accordion header="Pertunjukan">
 
 Menghubungkan file JSON berukuran besar ke komponen dapat menyebabkan masalah kinerja dan reaktivitas. Intlayer mengoptimalkan pemuatan konten Anda pada waktu pembuatan.
 
-**Menskalakan tanpa pengembang**
+</Accordion>
+<Accordion header="Menskalakan tanpa pengembang">
 
 Lebih dari sekedar solusi i18n, Intlayer menyediakan **[editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** yang dihosting sendiri dan **[CMS lengkap](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** untuk membantu Anda mengelola konten multibahasa secara **real-time**, membuat kolaborasi dengan penerjemah, copywriter, dan anggota tim lainnya menjadi lancar. Konten dapat disimpan secara lokal dan/atau jarak jauh.
+
+</Accordion>
+</AccordionGroup>
 
 ---
 
@@ -99,7 +109,9 @@ Lebih dari sekedar solusi i18n, Intlayer menyediakan **[editor visual](https://g
 
 Lihat [templat aplikasi](https://github.com/aymericzip/intlayer-astro-template) di GitHub.
 
-### Langkah 1: Instal Dependensi
+<Steps>
+
+<Step number={1} title="Instal Dependensi">
 
 Instal paket yang diperlukan menggunakan manajer paket pilihan Anda:
 
@@ -142,7 +154,9 @@ bun x intlayer init
 - **@astrojs/react**
   Integrasi resmi Astro yang memungkinkan penggunaan island komponen React.
 
-### Langkah 2: Konfigurasikan Proyek Anda
+</Step>
+
+<Step number={2} title="Konfigurasikan Proyek Anda">
 
 Buat file konfigurasi untuk menentukan bahasa aplikasi Anda:
 
@@ -167,7 +181,9 @@ export default config;
 
 > Melalui file konfigurasi ini, Anda dapat mengatur URL yang dilokalkan, pengalihan middleware, nama cookie, lokasi dan ekstensi deklarasi konten, menonaktifkan log Intlayer di konsole, dan banyak lagi. Untuk daftar lengkap parameter yang tersedia, lihat [dokumentasi konfigurasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md).
 
-### Langkah 3: Integrasikan Intlayer ke dalam konfigurasi Astro Anda
+</Step>
+
+<Step number={3} title="Integrasikan Intlayer ke dalam konfigurasi Astro Anda">
 
 Tambahkan plugin `intlayer` ke konfigurasi Astro Anda dan integrasi React.
 
@@ -188,7 +204,9 @@ export default defineConfig({
 
 > Integrasi `react()` memungkinkan penggunaan island komponen React melalui `client:only="react"`.
 
-### Langkah 4: Deklarasikan Konten Anda
+</Step>
+
+<Step number={4} title="Deklarasikan Konten Anda">
 
 Buat dan kelola deklarasi konten Anda untuk menyimpan terjemahan:
 
@@ -215,7 +233,9 @@ export default appContent;
 
 > Untuk informasi selengkapnya, lihat [dokumentasi deklarasi konten](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/content_file.md).
 
-### Langkah 5: Menggunakan Konten di Astro
+</Step>
+
+<Step number={5} title="Menggunakan Konten di Astro">
 
 Anda dapat mengonsumsi kamus langsung di file `.astro` menggunakan pembantu inti yang diekspor dari `intlayer`. Anda juga harus menambahkan metadata SEO (seperti hreflang dan tautan kanonikal) di setiap halaman dan memperkenalkan island React untuk konten interaktif di sisi klien.
 
@@ -303,7 +323,9 @@ const { title } = getIntlayer("app", locale);
 > - **`prefix-all`:** Semua URL mendapatkan awalan bahasa. Anda dapat menggunakan `[locale]` standar jika tidak perlu menangani root secara terpisah.
 > - **`search-param` atau `no-prefix`:** Direktori bahasa tidak diperlukan. Bahasa dikelola melalui parameter kueri atau cookie.
 
-### Langkah 6: Membuat Komponen Island React
+</Step>
+
+<Step number={6} title="Membuat Komponen Island React">
 
 Buat komponen island yang membungkus aplikasi React Anda dan menerima bahasa yang dideteksi server:
 
@@ -335,7 +357,9 @@ export function ReactIsland({ locale }: { locale: LocalesValues }) {
 
 > Prop `locale` diteruskan dari halaman Astro (deteksi sisi server) ke `IntlayerProvider`, yang berfungsi sebagai bahasa awal untuk semua hook React di dalam pohon.
 
-### Langkah 7: Menambahkan Pengalih Bahasa
+</Step>
+
+<Step number={7} title="Menambahkan Pengalih Bahasa">
 
 Buat komponen React `LocaleSwitcher` yang membaca bahasa yang tersedia dan menavigasi ke URL yang dilokalkan saat pengguna memilih bahasa baru:
 
@@ -384,7 +408,9 @@ export function LocaleSwitcher() {
 
 > `LocaleSwitcher` harus dirender di dalam `IntlayerProvider` - gunakan ini di komponen island Anda (seperti yang ditunjukkan pada Langkah 6).
 
-### Langkah 8: Sitemap dan Robots.txt
+</Step>
+
+<Step number={8} title="Sitemap dan Robots.txt">
 
 Intlayer menawarkan utilitas untuk secara dinamis membuat peta situs yang dilokalkan dan file robots.txt Anda.
 
@@ -492,7 +518,9 @@ Untuk informasi selengkapnya tentang cara menggunakan ekstensi, lihat [dokumenta
 
 ---
 
-### (Opsional) Langkah 1 : Ekstrak konten komponen Anda
+</Step>
+
+<Step number={1} title="Ekstrak konten komponen Anda" isOptional={true}>
 
 Jika Anda memiliki basis kode yang ada, mengubah ribuan file bisa memakan waktu lama.
 
@@ -593,3 +621,7 @@ bun run build # Or bun run dev
 ### Perdalam Pengetahuan Anda
 
 Jika Anda ingin mempelajari lebih lanjut, Anda juga dapat menerapkan [Editor Visual](https://github.com/aymericzip/intlayer/blob/main/docs/id/intlayer_visual_editor.md) atau menggunakan [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/id/intlayer_CMS.md) untuk mengeksternalisasi konten Anda.
+
+</Step>
+
+</Steps>

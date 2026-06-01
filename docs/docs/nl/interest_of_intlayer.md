@@ -37,37 +37,48 @@ history:
 
 Vergeleken met belangrijke oplossingen zoals `next-intl` of `i18next`, is Intlayer een oplossing die wordt geleverd met geïntegreerde optimalisaties zoals:
 
-**Pakketgrootte (Bundle size)**
+<AccordionGroup>
+<Accordion header="Pakketgrootte (Bundle size)">
 
 In plaats van enorme JSON-bestanden in uw pagina's te laden, laadt u alleen de strikt noodzakelijke inhoud. Intlayer helpt **uw pakket- en paginagrootte tot wel 50% te verminderen**.
 
-**Onderhoudbaarheid**
+</Accordion>
+<Accordion header="Onderhoudbaarheid">
 
 Het afbakenen van de inhoud van uw applicatie op componentniveau **vergemakkelijkt het onderhoud** voor grootschalige applicaties. U kunt een enkele functionaliteitsmap kopiëren of verwijderen zonder de mentale belasting van het controleren van uw gehele inhoud-codebase. Bovendien is Intlayer **volledig getypeerd** om de nauwkeurigheid van uw inhoud te garanderen.
 
-**AI-agenten**
+</Accordion>
+<Accordion header="AI-agenten">
 
 Het samen plaatsen van code en inhoud (Co-location) **vermindert de benodigde context** voor Large Language Models (LLM's). Intlayer wordt ook geleverd met een reeks tools, zoals een **CLI** om te testen op ontbrekende vertalingen, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/mcp_server.md)** en **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/agent_skills.md)**, om de ontwikkelaarservaring (DX) voor AI-agenten nog soepeler te maken.
 
-**Functies**
+</Accordion>
+<Accordion header="Functies">
 
 Intlayer biedt een reeks extra functies die andere i18n-oplossingen niet hebben, zoals [Markdown-ondersteuning](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/dictionary/markdown.md), [externe inhoud ophalen](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/dictionary/function_fetching.md), [bestandsinhoud laden](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/dictionary/file.md), [live-inhoudsupdate](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/cli/live.md), [visuele editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/intlayer_visual_editor.md) en meer.
 
-**Automatisering**
+</Accordion>
+<Accordion header="Automatisering">
 
 Gebruik automatisering om te vertalen in uw CI/CD-pipeline met behulp van de LLM van uw keuze tegen de directe kosten van uw AI-provider. Intlayer biedt ook een **compiler** om inhoudsextractie te automatiseren, evenals een [webplatform](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/intlayer_CMS.md) om te helpen **vertalen op de achtergrond**.
 
-**Prestaties**
+</Accordion>
+<Accordion header="Prestaties">
 
 Het verbinden van enorme JSON-bestanden met componenten kan leiden tot prestatie- en reactiviteitsproblemen. Intlayer optimaliseert het laden van uw inhoud al tijdens de build-tijd.
 
-**Schalen met niet-ontwikkelaars**
+</Accordion>
+<Accordion header="Schalen met niet-ontwikkelaars">
 
 Meer dan alleen een i18n-oplossing biedt Intlayer een **zelfgehoste [visuele editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/intlayer_visual_editor.md)** en een **[volledig CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/intlayer_CMS.md)** om u te helpen uw meertalige inhoud in **realtime** te beheren. Dit maakt de samenwerking met vertalers, copywriters en andere teamleden naadloos. Inhoud kan lokaal en/of extern worden opgeslagen.
 
-**Cross-framework ontwerp**
+</Accordion>
+<Accordion header="Cross-framework ontwerp">
 
 Als u verschillende frameworks gebruikt voor verschillende delen van uw applicatie (bijv. React, React-native, Vue, Angular, Svelte, enz.), biedt Intlayer een manier om **een gemeenschappelijke syntaxis en implementatie te gebruiken over alle belangrijke frontend-frameworks**. U kunt uw inhoudsdeclaratie ook delen in uw design-system, apps, backend, enz.
+
+</Accordion>
+</AccordionGroup>
 
 ## Waarom is Intlayer gemaakt?
 

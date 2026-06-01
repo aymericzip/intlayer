@@ -415,7 +415,9 @@ const AppContent: Component = () => {
 };
 ```
 
-### （可选）步骤 10：创建本地化链接组件
+<Steps>
+
+<Step number={10} title="创建本地化链接组件">
 
 创建一个自定义 `Link` 组件，自动为内部 URL 添加当前语言的前缀。
 
@@ -436,7 +438,9 @@ export const Link: ParentComponent<AnchorProps> = (props) => {
 };
 ```
 
-### （可选）步骤 11：渲染 Markdown
+</Step>
+
+<Step number={11} title="渲染 Markdown">
 
 Intlayer 支持使用其自己的内部解析器直接在您的 Solid 应用程序中渲染 Markdown 内容。默认情况下，Markdown 被视为纯文本。要将其渲染为富 HTML，请用 `MarkdownProvider` 包装您的应用程序。
 
@@ -515,7 +519,9 @@ const MyComponent = () => {
 
 ---
 
-### (可选) 步骤 1 : 提取组件内容
+</Step>
+
+<Step number={1} title="提取组件内容" isOptional={true}>
 
 如果您有现有的代码库，转换数千个文件可能会非常耗时。
 
@@ -690,3 +696,7 @@ console.log("SEO files generated successfully.");
 要进一步使用，您可以实现[可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)或使用[内容管理系统（CMS）](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)将内容外部化。
 
 ---
+
+</Step>
+
+</Steps>

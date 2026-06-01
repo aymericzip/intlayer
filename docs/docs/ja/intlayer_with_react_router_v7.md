@@ -179,7 +179,9 @@ To go further, you can implement the [visual editor](https://github.com/aymericz
 
 This comprehensive guide provides everything you need to integrate Intlayer with React Router v7 for a fully internationalized application with locale-aware routing and TypeScript support.
 
-### ステップ11: ミドルウェアを追加する（オプション）
+<Steps>
+
+<Step number={11} title="ミドルウェアを追加する（オプション）">
 
 `intlayerProxy` を使用して、アプリケーションにサーバーサイドルーティングを追加することもできます。このプラグインは、URL に基づいて現在のロケールを自動的に検出し、適切なロケールクッキーを設定します。ロケールが指定されていない場合、プラグインはユーザーのブラウザの言語設定に基づいて最も適切なロケールを判断します。ロケールが検出されない場合は、デフォルトのロケールにリダイレクトします。
 
@@ -200,7 +202,9 @@ export default defineConfig({
 });
 ```
 
-### (オプション) ステップ 12 : コンポーネントのコンテンツを抽出する
+</Step>
+
+<Step number={12} title="コンポーネントのコンテンツを抽出する" isOptional={true}>
 
 既存のコードベースがある場合、数千のファイルを変換するのは時間がかかることがあります。
 
@@ -314,6 +318,10 @@ bun run build # Or bun run dev
 </Tabs>
 
 ---
+
+</Step>
+
+</Steps>
 
 ## TypeScriptの設定
 

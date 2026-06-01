@@ -68,39 +68,51 @@ See [Application Template](https://github.com/aymericzip/intlayer-vite-preact-te
 
 Compared to main solutions like `preact-i18n` or `i18next`, Intlayer is a solution that comes with integrated optimizations such as:
 
-**Full Preact coverage**
+<AccordionGroup>
+<Accordion header="Full Preact coverage">
 
 Intlayer is optimized to work perfectly with Preact by offering **component-level content scoping**, **lazy-loaded translations**, and all the features needed for scaling internationalization (i18n).
 
-**Bundle size**
+</Accordion>
+<Accordion header="Bundle size">
 
 Instead of loading massive JSON files into your pages, load only the necessary content. Intlayer helps **reduce your bundle and page sizes by up to 50%**.
 
-**Maintainability**
+</Accordion>
+<Accordion header="Maintainability">
 
 Scoping your application's content **facilitates maintenance** for large-scale applications. You can duplicate or delete a single feature folder without the mental burden of reviewing your entire content codebase. Additionally, Intlayer is **fully typed** to ensure your content's accuracy.
 
-**AI Agent**
+</Accordion>
+<Accordion header="AI Agent">
 
 Co-locating content **reduces the context needed** by Large Language Models (LLMs). Intlayer also comes with a suite of tools, such as a **CLI** to test for missing translations,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)**, and **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, to make the developer experience (DX) even smoother for AI agents.
 
-**Automation**
+</Accordion>
+<Accordion header="Automation">
 
 Use automation to translate in your CI/CD pipeline using the LLM of your choice at the cost of your AI provider. Intlayer also offers a **compiler** to automate content extraction, as well as a [web platform](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) to help **translate in the background**.
 
-**Performance**
+</Accordion>
+<Accordion header="Performance">
 
 Connecting massive JSON files to components can lead to performance and reactivity issues. Intlayer optimizes your content loading at build time.
 
-**Scaling with none-dev**
+</Accordion>
+<Accordion header="Scaling with none-dev">
 
 More than just an i18n solution, Intlayer provides an **self-hosted [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** and a **[full CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** to help you manage your multilingual content in **real-time**, making collaboration with translators, copywriters, and other team members seamless. Content can be stored locally and/or remotely.
+
+</Accordion>
+</AccordionGroup>
 
 ---
 
 ## Step-by-Step Guide to Set Up Intlayer in a Vite and Preact Application
 
-### Step 1: Install Dependencies
+<Steps>
+
+<Step number={1} title="Install Dependencies">
 
 Install the necessary packages using npm:
 
@@ -138,7 +150,9 @@ The core package that provides internationalisation tools for configuration mana
 - **vite-intlayer**
   Includes the Vite plugin for integrating Intlayer with the [Vite bundler](https://vite.dev/guide/why.html#why-bundle-for-production), as well as middleware for detecting the user's preferred locale, managing cookies, and handling URL redirection.
 
-### Step 2: Configuration of your project
+</Step>
+
+<Step number={2} title="Configuration of your project">
 
 Create a config file to configure the languages of your application:
 
@@ -166,7 +180,9 @@ export default config;
 
 > Through this configuration file, you can set up localised URLs, routing modes, storage options, cookie names, the location and extension of your content declarations, disable Intlayer logs in the console, and more. For a complete list of available parameters, refer to the [configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/configuration.md).
 
-### Step 3: Integrate Intlayer in Your Vite Configuration
+</Step>
+
+<Step number={3} title="Integrate Intlayer in Your Vite Configuration">
 
 Add the intlayer plugin into your configuration.
 
@@ -183,7 +199,9 @@ export default defineConfig({
 
 > The `intlayer()` Vite plugin is used to integrate Intlayer with Vite. It ensures the building of content declaration files and monitors them in development mode. It defines Intlayer environment variables within the Vite application. Additionally, it provides aliases to optimise performance.
 
-### Step 4: Declare Your Content
+</Step>
+
+<Step number={4} title="Declare Your Content">
 
 Create and manage your content declarations to store translations:
 
@@ -305,7 +323,9 @@ export default appContent;
 
 > If your content file includes TSX code, you might need to import `import { h } from "preact";` or ensure your JSX pragma is correctly set for Preact.
 
-### Step 5: Utilise Intlayer in Your Code
+</Step>
+
+<Step number={5} title="Utilise Intlayer in Your Code">
 
 Access your content dictionaries throughout your application:
 
@@ -375,7 +395,9 @@ export default App;
 
 > To learn more about the `useIntlayer` hook, refer to the [documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/react-intlayer/useIntlayer.md) (The API is similar for `preact-intlayer`).
 
-### (Optional) Step 6: Change the language of your content
+</Step>
+
+<Step number={6} title="Change the language of your content" isOptional={true}>
 
 To change the language of your content, you can use the `setLocale` function provided by the `useLocale` hook. This function allows you to set the locale of the application and update the content accordingly.
 
@@ -399,7 +421,9 @@ export default LocaleSwitcher;
 
 > To learn more about the `useLocale` hook, refer to the [documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/react-intlayer/useLocale.md) (The API is similar for `preact-intlayer`).
 
-### (Optional) Step 7: Add localised Routing to your application
+</Step>
+
+<Step number={7} title="Add localised Routing to your application" isOptional={true}>
 
 The purpose of this step is to make unique routes for each language. This is useful for SEO and SEO-friendly URLs.
 Example:
@@ -462,7 +486,9 @@ const App: FunctionalComponent = () => (
 export default App;
 ```
 
-### (Optional) Step 8: Change the URL when the locale changes
+</Step>
+
+<Step number={8} title="Change the URL when the locale changes" isOptional={true}>
 
 To change the URL when the locale changes, you can use the `onLocaleChange` prop provided by the `useLocale` hook. In parallel, you can use the `route` method from `useLocation` of `preact-iso` to update the URL path.
 
@@ -536,7 +562,9 @@ export default LocaleSwitcher;
 >
 > > - [`useLocale` hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/react-intlayer/useLocale.md) (API is similar for `preact-intlayer`)> - [`getLocaleName` hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/intlayer/getLocaleName.md)> - [`getLocalizedUrl` hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/intlayer/getLocalizedUrl.md)> - [`getHTMLTextDir` hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/intlayer/getHTMLTextDir.md)> - [`hreflang` attribute](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=fr)> - [`lang` attribute](https://developer.mozilla.org/en-GB/docs/Web/HTML/Global_attributes/lang)> - [`dir` attribute](https://developer.mozilla.org/en-GB/docs/Web/HTML/Global_attributes/dir)> - [`aria-current` attribute](https://developer.mozilla.org/en-GB/docs/Web/Accessibility/ARIA/Attributes/aria-current)> - [Popover API](https://developer.mozilla.org/en-GB/docs/Web/API/Popover_API)
 
-### (Optional) Step 9: Switch the HTML Language and Direction Attributes
+</Step>
+
+<Step number={9} title="Switch the HTML Language and Direction Attributes" isOptional={true}>
 
 When your application supports multiple languages, it's crucial to update the `<html>` tag's `lang` and `dir` attributes to match the current locale. Doing so ensures:
 
@@ -603,7 +631,9 @@ const App: FunctionalComponent = () => (
 export default App;
 ```
 
-### (Optional) Step 10: Creating a Localised Link Component
+</Step>
+
+<Step number={10} title="Creating a Localised Link Component" isOptional={true}>
 
 To ensure that your application's navigation respects the current locale, you can create a custom `Link` component. This component automatically prefixes internal URLs with the current language.
 
@@ -668,7 +698,9 @@ Link.displayName = "Link";
 - **Returning the Link**:  
   The component returns an `<a>` element with the localised URL, ensuring that navigation is consistent with the locale.
 
-### (Optional) Step 11: Render Markdown and HTML
+</Step>
+
+<Step number={11} title="Render Markdown and HTML" isOptional={true}>
 
 Intlayer supports rendering Markdown and HTML content in Preact.
 
@@ -837,3 +869,7 @@ For more details on how to use the extension, refer to the [Intlayer VS Code Ext
 To go further, you can implement the [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_visual_editor.md) or externalise your content using the [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_CMS.md).
 
 ---
+
+</Step>
+
+</Steps>

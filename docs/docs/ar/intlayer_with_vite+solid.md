@@ -96,7 +96,9 @@ history:
 
 <TOC/>
 
-### الخطوة 1: تثبيت التبعيات
+<Steps>
+
+<Step number={1} title="تثبيت التبعيات">
 
 قم بتثبيت الحزم اللازمة باستخدام npm:
 
@@ -134,7 +136,9 @@ bun x intlayer init
 - **vite-intlayer**
   تتضمن إضافة Vite لدمج Intlayer مع [مجمّع Vite](https://vite.dev/guide/why.html#why-bundle-for-production)، بالإضافة إلى وسيط للكشف عن اللغة المفضلة للمستخدم، وإدارة ملفات تعريف الارتباط، والتعامل مع إعادة توجيه عناوين URL.
 
-### الخطوة 2: تكوين مشروعك
+</Step>
+
+<Step number={2} title="تكوين مشروعك">
 
 قم بإنشاء ملف تكوين لتكوين لغات تطبيقك:
 
@@ -158,7 +162,9 @@ export default config;
 
 > من خلال ملف التكوين هذا، يمكنك إعداد عناوين URL محلية، إعادة توجيه الوسيط، أسماء ملفات تعريف الارتباط، موقع وامتداد إعلانات المحتوى الخاصة بك، تعطيل سجلات Intlayer في وحدة التحكم، والمزيد. للحصول على قائمة كاملة بالمعلمات المتاحة، راجع [توثيق التكوين](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md).
 
-### الخطوة 3: دمج Intlayer في تكوين Vite الخاص بك
+</Step>
+
+<Step number={3} title="دمج Intlayer في تكوين Vite الخاص بك">
 
 أضف مكون intlayer الإضافي إلى تكوينك.
 
@@ -175,7 +181,9 @@ export default defineConfig({
 
 > يتم استخدام مكون Vite الإضافي `intlayer()` لدمج Intlayer مع Vite. يضمن بناء ملفات إعلان المحتوى ويراقبها في وضع التطوير. كما يعرّف متغيرات بيئة Intlayer داخل تطبيق Vite. بالإضافة إلى ذلك، يوفر أسماء مستعارة لتحسين الأداء.
 
-### الخطوة 4: إعلان المحتوى الخاص بك
+</Step>
+
+<Step number={4} title="إعلان المحتوى الخاص بك">
 
 قم بإنشاء وإدارة إعلانات المحتوى الخاصة بك لتخزين الترجمات:
 
@@ -202,7 +210,9 @@ export default appContent;
 
 > لمزيد من التفاصيل، راجع [توثيق إعلان المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/content_file.md).
 
-### الخطوة 5: استخدام Intlayer في الكود الخاص بك
+</Step>
+
+<Step number={5} title="استخدام Intlayer في الكود الخاص بك">
 
 الوصول إلى قواميس المحتوى الخاصة بك في جميع أنحاء التطبيق:
 
@@ -262,7 +272,9 @@ export default App;
 > <img src="{String(content.image.src)}" alt="{String(content.image)}" />
 > ```
 
-### (اختياري) الخطوة 6: تغيير لغة المحتوى الخاص بك
+</Step>
+
+<Step number={6} title="تغيير لغة المحتوى الخاص بك" isOptional={true}>
 
 لتغيير لغة المحتوى الخاص بك، يمكنك استخدام دالة `setLocale` المقدمة من hook `useLocale`. تسمح لك هذه الدالة بتعيين locale التطبيق وتحديث المحتوى وفقًا لذلك.
 
@@ -291,7 +303,9 @@ const LocaleSwitcher: Component = () => {
 };
 ```
 
-### (اختياري) الخطوة 7: إضافة التوجيه المحلي إلى تطبيقك
+</Step>
+
+<Step number={7} title="إضافة التوجيه المحلي إلى تطبيقك" isOptional={true}>
 
 الغرض من هذه الخطوة هو إنشاء مسارات فريدة لكل لغة. هذا مفيد لـ SEO وعناوين URL الصديقة لـ SEO.
 مثال:
@@ -356,7 +370,9 @@ const App: Component = () => (
 export default App;
 ```
 
-### (اختياري) الخطوة 8: تغيير عنوان URL عند تغيير اللغة
+</Step>
+
+<Step number={8} title="تغيير عنوان URL عند تغيير اللغة" isOptional={true}>
 
 لتغيير عنوان URL عند تغيير locale، يمكنك استخدام prop `onLocaleChange` المقدمة من hook `useLocale`. يمكنك استخدام hooks `useNavigate` و `useLocation` من `@solidjs/router` لتحديث مسار URL.
 
@@ -393,7 +409,9 @@ const LocaleSwitcher: Component = () => {
 };
 ```
 
-### (اختياري) الخطوة 9: تبديل لغة HTML وسمات الاتجاه
+</Step>
+
+<Step number={9} title="تبديل لغة HTML وسمات الاتجاه" isOptional={true}>
 
 قم بتحديث سمات `lang` و `dir` لعلامة `<html>` لتطابق locale الحالي لإمكانية الوصول و SEO.
 
@@ -416,7 +434,9 @@ const AppContent: Component = () => {
 };
 ```
 
-### (اختياري) الخطوة 10: إنشاء مكون رابط محلي
+</Step>
+
+<Step number={10} title="إنشاء مكون رابط محلي" isOptional={true}>
 
 قم بإنشاء مكون `Link` مخصص يضيف تلقائيًا بادئة لعناوين URL الداخلية باللغة الحالية.
 
@@ -437,7 +457,9 @@ export const Link: ParentComponent<AnchorProps> = (props) => {
 };
 ```
 
-### (اختياري) الخطوة 11: عرض Markdown
+</Step>
+
+<Step number={11} title="عرض Markdown" isOptional={true}>
 
 يدعم Intlayer عرض محتوى Markdown مباشرة في تطبيق Solid الخاص بك باستخدام محلل داخلي خاص به. افتراضيًا، يتم التعامل مع Markdown كنص عادي. لعرضه كـ HTML غني، لف تطبيقك بـ `MarkdownProvider`.
 
@@ -499,7 +521,9 @@ const MyComponent = () => {
 .intlayer
 ```
 
-### (اختياري) خطوة 1 : استخراج محتوى مكوناتك
+</Step>
+
+<Step number={1} title="استخراج محتوى مكوناتك" isOptional={true}>
 
 إذا كان لديك قاعدة بيانات كود موجودة، فقد يكون تحويل آلاف الملفات مستهلكًا للوقت.
 
@@ -708,3 +732,7 @@ console.log("SEO files generated successfully.");
 للتقدم أكثر، يمكنك تنفيذ [المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) أو إخراج محتواك باستخدام [نظام إدارة المحتوى (CMS)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md).
 
 ---
+
+</Step>
+
+</Steps>

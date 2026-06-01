@@ -94,7 +94,9 @@ Więcej niż tylko rozwiązanie i18n, Intlayer zapewnia **samodzielny [edytor wi
 
 Zobacz [Szablon aplikacji](https://github.com/aymericzip/intlayer-analog-template) na GitHubie.
 
-### Krok 1: Instalacja zależności
+<Steps>
+
+<Step number={1} title="Instalacja zależności">
 
 Zainstaluj niezbędne pakiety za pomocą npm:
 
@@ -128,7 +130,9 @@ bun x intlayer init
 - **vite-intlayer**
   Pakiet integrujący Intlayer z Vite. Dostarcza wtyczkę (plugin) do obsługi plików deklaracji treści i ustawia aliasy dla optymalnej wydajności.
 
-### Krok 2: Konfiguracja projektu
+</Step>
+
+<Step number={2} title="Konfiguracja projektu">
 
 Utwórz plik konfiguracyjny, aby skonfigurować języki swojej aplikacji:
 
@@ -152,7 +156,9 @@ export default config;
 
 > Za pomocą tego pliku konfiguracyjnego możesz ustawić zlokalizowane adresy URL, przekierowania middleware, nazwy ciasteczek, lokalizację i rozszerzenie deklaracji treści, wyłączyć logi Intlayer w konsoli i wiele więcej. Pełną listę dostępnych parametrów znajdziesz w [dokumentacji konfiguracji](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/configuration.md).
 
-### Krok 3: Zintegruj Intlayer w konfiguracji Vite
+</Step>
+
+<Step number={3} title="Zintegruj Intlayer w konfiguracji Vite">
 
 Aby zintegrować Intlayer z Analog, musisz użyć wtyczki `vite-intlayer`.
 
@@ -174,7 +180,9 @@ export default defineConfig(() => ({
 
 > Wtyczka `intlayer()` konfiguruje Vite do pracy z Intlayer. Obsługuje pliki deklaracji treści i ustawia aliasy dla optymalnej wydajności.
 
-### Krok 4: Zadeklaruj swoją treść
+</Step>
+
+<Step number={4} title="Zadeklaruj swoją treść">
 
 Twórz i zarządzaj deklaracjami treści, aby przechowywać tłumaczenia:
 
@@ -206,7 +214,9 @@ export default appContent;
 
 > Więcej szczegółów znajdziesz w [dokumentacji deklaracji treści](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/content_file.md).
 
-### Krok 5: Użyj Intlayer w kodzie
+</Step>
+
+<Step number={5} title="Użyj Intlayer w kodzie">
 
 Aby korzystać z funkcji internacjonalizacji Intlayer w całej aplikacji Analog, musisz dodać Intlayer do konfiguracji aplikacji.
 
@@ -244,7 +254,9 @@ export default class HomeComponent {
 
 Treść Intlayer jest zwracana jako `Signal`, więc dostęp do wartości uzyskujesz wywołując sygnał: `content().title`.
 
-### (Opcjonalnie) Krok 6: Zmiana języka treści
+</Step>
+
+<Step number={6} title="Zmiana języka treści" isOptional={true}>
 
 Aby zmienić język treści, możesz użyć funkcji `setLocale` dostarczonej przez funkcję `useLocale`. Pozwala to ustawić język aplikacji i odpowiednio zaktualizować treść.
 
@@ -356,3 +368,7 @@ Więcej szczegółów na temat korzystania z rozszerzenia znajdziesz w [dokument
 ### Dowiedz się więcej
 
 Aby pójść dalej, możesz zaimplementować [edytor wizualny](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_visual_editor.md) lub wyeksportować treść do zewnętrznego systemu za pomocą [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md).
+
+</Step>
+
+</Steps>

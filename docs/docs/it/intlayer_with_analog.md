@@ -60,33 +60,43 @@ history:
 
 Rispetto alle soluzioni principali come `ngx-translate` o `angular-l10n`, Intlayer è una soluzione dotata di ottimizzazioni integrate come:
 
-**Copertura analogica completa**
+<AccordionGroup>
+<Accordion header="Copertura analogica completa">
 
 Intlayer è ottimizzato per funzionare perfettamente con Analog offrendo **routing multilingue**, **supporto SSR** e tutte le funzionalità necessarie per scalare l'internazionalizzazione (i18n).
 
-**Dimensione del bundle**
+</Accordion>
+<Accordion header="Dimensione del bundle">
 
 Invece di caricare enormi file JSON nelle tue pagine, carica solo il contenuto necessario. Intlayer aiuta a **ridurre le dimensioni del bundle e della pagina fino al 50%**.
 
-**Manutenibilità**
+</Accordion>
+<Accordion header="Manutenibilità">
 
 L'ambito del contenuto dell'applicazione **facilita la manutenzione** per applicazioni su larga scala. Puoi duplicare o eliminare una singola cartella di funzionalità senza l'onere mentale di rivedere l'intera codebase dei contenuti. Inoltre, Intlayer è **completamente tipizzato (fully typed)** per garantire l'accuratezza dei tuoi contenuti.
 
-**Agente IA**
+</Accordion>
+<Accordion header="Agente IA">
 
 La co-localizzazione dei contenuti **riduce il contesto necessario** dai Large Language Models (LLM). Intlayer viene fornito anche con una suite di strumenti, come una **CLI** per verificare le traduzioni mancanti,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** e **[capacità dell'agente](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, per rendere l'esperienza dello sviluppatore (DX) ancora più fluida per gli agenti IA.
 
-**Automazione**
+</Accordion>
+<Accordion header="Automazione">
 
 Utilizza l'automazione per tradurre nella tua pipeline CI/CD utilizzando il LLM di tua scelta al costo del tuo provider di intelligenza artificiale. Intlayer offre anche un **compilatore** per automatizzare l'estrazione dei contenuti, nonché una [piattaforma web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) per aiutare a **tradurre in background**.
 
-**Prestazione**
+</Accordion>
+<Accordion header="Prestazione">
 
 La connessione di enormi file JSON ai componenti può portare a problemi di prestazioni e reattività. Intlayer ottimizza il caricamento dei contenuti in fase di compilazione.
 
-**Scalabilità con nessuno sviluppatore**
+</Accordion>
+<Accordion header="Scalabilità con nessuno sviluppatore">
 
 Più di una semplice soluzione i18n, Intlayer fornisce un **[editor visivo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** self-hosted e un **[CMS completo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** per aiutarti gestisci i tuoi contenuti multilingue in **tempo reale**, semplificando la collaborazione con traduttori, copywriter e altri membri del team. I contenuti possono essere archiviati localmente e/o in remoto.
+
+</Accordion>
+</AccordionGroup>
 
 ---
 
@@ -94,7 +104,9 @@ Più di una semplice soluzione i18n, Intlayer fornisce un **[editor visivo](http
 
 Vedi il [Template dell'Applicazione](https://github.com/aymericzip/intlayer-analog-template) su GitHub.
 
-### Passaggio 1: Installa le Dipendenze
+<Steps>
+
+<Step number={1} title="Installa le Dipendenze">
 
 Installa i pacchetti necessari utilizzando npm:
 
@@ -128,7 +140,9 @@ bun x intlayer init
 - **vite-intlayer**
   Il pacchetto che integra Intlayer con Vite. Fornisce un plugin per gestire i file di dichiarazione dei contenuti e imposta gli alias per prestazioni ottimali.
 
-### Passaggio 2: Configurazione del tuo Progetto
+</Step>
+
+<Step number={2} title="Configurazione del tuo Progetto">
 
 Crea un file di configurazione per configurare le lingue della tua applicazione:
 
@@ -152,7 +166,9 @@ export default config;
 
 > Attraverso questo file di configurazione, puoi impostare URL localizzati, reindirizzamento middleware, nomi dei cookie, la posizione e l'estensione delle tue dichiarazioni di contenuto, disabilitare i log di Intlayer nella console e altro ancora. Per un elenco completo dei parametri disponibili, consulta la [documentazione della configurazione](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/configuration.md).
 
-### Passaggio 3: Integra Intlayer nella tua Configurazione Vite
+</Step>
+
+<Step number={3} title="Integra Intlayer nella tua Configurazione Vite">
 
 Per integrare Intlayer con Analog, devi utilizzare il plugin `vite-intlayer`.
 
@@ -174,7 +190,9 @@ export default defineConfig(() => ({
 
 > Il plugin `intlayer()` configura Vite con Intlayer. Gestisce i file di dichiarazione dei contenuti e imposta gli alias per prestazioni ottimali.
 
-### Passaggio 4: Dichiarazione dei Contenuti
+</Step>
+
+<Step number={4} title="Dichiarazione dei Contenuti">
 
 Crea e gestisci le tue dichiarazioni di contenuto per memorizzare le traduzioni:
 
@@ -206,7 +224,9 @@ export default appContent;
 
 > Per maggiori dettagli, fai riferimento alla [documentazione sulla dichiarazione dei contenuti](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/content_file.md).
 
-### Passaggio 5: Utilizza Intlayer nel tuo Codice
+</Step>
+
+<Step number={5} title="Utilizza Intlayer nel tuo Codice">
 
 Per utilizzare le funzionalità di internazionalizzazione di Intlayer in tutta la tua applicazione Analog, devi fornire Intlayer nella configurazione dell'applicazione.
 
@@ -244,7 +264,9 @@ export default class HomeComponent {
 
 Il contenuto di Intlayer viene restituito come un `Signal`, quindi accedi ai valori chiamando il segnale: `content().title`.
 
-### (Opzionale) Passaggio 6: Cambia la lingua del tuo contenuto
+</Step>
+
+<Step number={6} title="Cambia la lingua del tuo contenuto" isOptional={true}>
 
 Per cambiare la lingua del tuo contenuto, puoi utilizzare la funzione `setLocale` fornita dalla funzione `useLocale`. Ciò ti consente di impostare la localizzazione dell'applicazione e aggiornare il contenuto di conseguenza.
 
@@ -356,3 +378,7 @@ Per maggiori dettagli su come utilizzare l'estensione, consulta la [documentazio
 ### Approfondimenti
 
 Per andare oltre, puoi implementare l'[editor visuale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_visual_editor.md) o esternalizzare i tuoi contenuti utilizzando il [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_CMS.md).
+
+</Step>
+
+</Steps>

@@ -60,33 +60,43 @@ history:
 
 Par rapport aux solutions principales telles que `@solid-primitives/i18n` ou `i18next`, Intlayer est une solution dotée d'optimisations intégrées telles que :
 
-**Couverture complète solide**
+<AccordionGroup>
+<Accordion header="Couverture complète solide">
 
 Intlayer est optimisé pour fonctionner parfaitement avec Solid en offrant une **portée du contenu au niveau des composants**, des **traductions réactives** et toutes les fonctionnalités nécessaires à la mise à l'échelle de l'internationalisation (i18n).
 
-**Taille du bundle**
+</Accordion>
+<Accordion header="Taille du bundle">
 
 Au lieu de charger de lourds fichiers JSON dans vos pages, ne chargez que le contenu strictement nécessaire. Intlayer vous aide à **réduire la taille de votre bundle et de vos pages jusqu'à 50 %**.
 
-**Maintenabilité**
+</Accordion>
+<Accordion header="Maintenabilité">
 
 Déclarer le contenu directement au plus près de vos composants **facilite la maintenance** des applications de grande envergure. Vous pouvez dupliquer ou supprimer le dossier d'une fonctionnalité sans le fardeau mental de devoir passer en revue toute votre base de code de contenu. De plus, Intlayer est **entièrement typé** pour garantir l'exactitude de vos traductions.
 
-**Prêt pour les agents IA**
+</Accordion>
+<Accordion header="Prêt pour les agents IA">
 
 La colocalisation du contenu **réduit le contexte nécessaire** aux grands modèles de langage (LLM). Intlayer est également livré avec une suite d'outils, tels qu'une **CLI** pour vérifier les traductions manquantes, un **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/lsp.md)**, un **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/mcp_server.md)** et des **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/agent_skills.md)**, afin de rendre l'expérience développeur (DX) encore plus fluide pour les agents IA.
 
-**Automatisation**
+</Accordion>
+<Accordion header="Automatisation">
 
 Automatisez les traductions dans votre pipeline CI/CD en utilisant le LLM de votre choix au coût de votre propre fournisseur d'IA. Intlayer propose également un **compilateur** pour automatiser l'extraction de contenu, ainsi qu'une [plateforme web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_CMS.md) pour vous aider à **traduire en arrière-plan**.
 
-**Performances**
+</Accordion>
+<Accordion header="Performances">
 
 Associer de gros fichiers JSON à vos composants peut ralentir les performances et impacter la réactivité. Intlayer optimise le chargement du contenu directement au moment du **build**.
 
-**Collaboration avec les non-développeurs**
+</Accordion>
+<Accordion header="Collaboration avec les non-développeurs">
 
 Bien plus qu'une simple solution i18n, Intlayer propose un **[éditeur visuel](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_visual_editor.md)** auto-hébergé et un **[CMS complet](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_CMS.md)** pour gérer votre contenu multilingue en **temps réel**. Cela rend la collaboration avec les traducteurs, concepteurs-rédacteurs et autres membres de l'équipe extrêmement simple. Le contenu peut être stocké localement et/ou à distance.
+
+</Accordion>
+</AccordionGroup>
 
 ---
 
@@ -96,7 +106,9 @@ Bien plus qu'une simple solution i18n, Intlayer propose un **[éditeur visuel](h
 
 <TOC/>
 
-### Étape 1 : Installer les dépendances
+<Steps>
+
+<Step number={1} title="Installer les dépendances">
 
 Installez les paquets nécessaires avec npm :
 
@@ -134,7 +146,9 @@ bun x intlayer init
 - **vite-intlayer**
   Comprend le plugin Vite pour intégrer Intlayer avec le [bundler Vite](https://vite.dev/guide/why.html#why-bundle-for-production), ainsi qu'un middleware pour détecter la locale préférée de l'utilisateur, gérer les cookies, et gérer la redirection des URL.
 
-### Étape 2 : Configuration de votre projet
+</Step>
+
+<Step number={2} title="Configuration de votre projet">
 
 Créez un fichier de configuration pour configurer les langues de votre application :
 
@@ -158,7 +172,9 @@ export default config;
 
 > Grâce à ce fichier de configuration, vous pouvez configurer les URLs localisées, la redirection via middleware, les noms des cookies, l'emplacement et l'extension de vos déclarations de contenu, désactiver les logs Intlayer dans la console, et bien plus encore. Pour une liste complète des paramètres disponibles, consultez la [documentation de configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/configuration.md).
 
-### Étape 3 : Intégrer Intlayer dans votre configuration Vite
+</Step>
+
+<Step number={3} title="Intégrer Intlayer dans votre configuration Vite">
 
 Ajoutez le plugin intlayer dans votre configuration.
 
@@ -175,7 +191,9 @@ export default defineConfig({
 
 > Le plugin Vite `intlayer()` est utilisé pour intégrer Intlayer avec Vite. Il assure la construction des fichiers de déclaration de contenu et les surveille en mode développement. Il définit les variables d'environnement Intlayer au sein de l'application Vite. De plus, il fournit des alias pour optimiser les performances.
 
-### Étape 4 : Déclarez votre contenu
+</Step>
+
+<Step number={4} title="Déclarez votre contenu">
 
 Créez et gérez vos déclarations de contenu pour stocker les traductions :
 
@@ -202,7 +220,9 @@ export default appContent;
 
 > Pour plus de détails, référez-vous à la [documentation sur la déclaration de contenu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/content_file.md).
 
-### Étape 5 : Utiliser Intlayer dans votre code
+</Step>
+
+<Step number={5} title="Utiliser Intlayer dans votre code">
 
 Accédez à vos dictionnaires de contenu dans toute votre application :
 
@@ -262,7 +282,9 @@ export default App;
 > <img src="{String(content.image.src)}" alt="{String(content.image)}" />
 > ```
 
-### (Optionnel) Étape 6 : Changer la langue de votre contenu
+</Step>
+
+<Step number={6} title="Changer la langue de votre contenu" isOptional={true}>
 
 Pour changer la langue de votre contenu, vous pouvez utiliser la fonction `setLocale` fournie par le hook `useLocale`. Cette fonction vous permet de définir la locale de l'application et de mettre à jour le contenu en conséquence.
 
@@ -291,7 +313,9 @@ const LocaleSwitcher: Component = () => {
 };
 ```
 
-### (Optionnel) Étape 7 : Ajouter un routage localisé à votre application
+</Step>
+
+<Step number={7} title="Ajouter un routage localisé à votre application" isOptional={true}>
 
 L'objectif de cette étape est de créer des routes uniques pour chaque langue. C'est utile pour le SEO et les URL conviviales pour le SEO.
 Exemple :
@@ -356,7 +380,9 @@ const App: Component = () => (
 export default App;
 ```
 
-### (Optionnel) Étape 8 : Changer l'URL lorsque la locale change
+</Step>
+
+<Step number={8} title="Changer l'URL lorsque la locale change" isOptional={true}>
 
 Pour changer l'URL lorsque la locale change, vous pouvez utiliser la prop `onLocaleChange` fournie par le hook `useLocale`. Vous pouvez utiliser les hooks `useNavigate` et `useLocation` de `@solidjs/router` pour mettre à jour le chemin de l'URL.
 
@@ -393,7 +419,9 @@ const LocaleSwitcher: Component = () => {
 };
 ```
 
-### (Optionnel) Étape 9 : Modifier les attributs Langue et Direction du HTML
+</Step>
+
+<Step number={9} title="Modifier les attributs Langue et Direction du HTML" isOptional={true}>
 
 Mettez à jour les attributs `lang` et `dir` de la balise `<html>` pour correspondre à la locale actuelle pour l'accessibilité et le SEO.
 
@@ -416,7 +444,9 @@ const AppContent: Component = () => {
 };
 ```
 
-### (Optionnel) Étape 10 : Création d'un composant de lien localisé
+</Step>
+
+<Step number={10} title="Création d'un composant de lien localisé" isOptional={true}>
 
 Créez un composant `Link` personnalisé qui préfixe automatiquement les URL internes avec la langue actuelle.
 
@@ -437,7 +467,9 @@ export const Link: ParentComponent<AnchorProps> = (props) => {
 };
 ```
 
-### (Optionnel) Étape 11 : Rendre le Markdown
+</Step>
+
+<Step number={11} title="Rendre le Markdown" isOptional={true}>
 
 Intlayer prend en charge le rendu du contenu Markdown directement dans votre application Solid en utilisant son propre analyseur interne. Par défaut, Markdown est traité comme du texte brut. Pour le rendre en HTML riche, enveloppez votre application avec le `MarkdownProvider`.
 
@@ -475,7 +507,9 @@ const MyComponent = () => {
 };
 ```
 
-### (Optionnel) Étape 12 : Extraire le contenu de vos composants
+</Step>
+
+<Step number={12} title="Extraire le contenu de vos composants" isOptional={true}>
 
 Si vous avez une base de code existante, transformer des milliers de fichiers peut prendre beaucoup de temps.
 
@@ -691,3 +725,7 @@ Pour plus de détails sur l'utilisation de l'extension, consultez la [documentat
 Pour aller plus loin, vous pouvez implémenter l’[éditeur visuel](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_visual_editor.md) ou externaliser votre contenu en utilisant le [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_CMS.md).
 
 ---
+
+</Step>
+
+</Steps>

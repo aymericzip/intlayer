@@ -81,7 +81,9 @@ Um diese Auswirkungen während der Entwicklung zu mildern, können Sie den Compi
 
 ## Schritt-für-Schritt-Anleitung
 
-### (Optional) Schritt 1 : Inhalt Ihrer Komponenten extrahieren
+<Steps>
+
+<Step number={1} title="Inhalt Ihrer Komponenten extrahieren" isOptional={true}>
 
 Wenn Sie eine bestehende Codebasis haben, kann die Transformation von Tausenden von Dateien zeitaufwendig sein.
 
@@ -204,3 +206,7 @@ zur Einrichtung von Intlayer in einer Next.js-Anwendung
 ### Weiterführende Informationen
 
 Um noch weiter zu gehen, können Sie den [Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_visual_editor.md) implementieren oder Ihre Inhalte mit dem [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_CMS.md) externalisieren.
+
+</Step>
+
+</Steps>

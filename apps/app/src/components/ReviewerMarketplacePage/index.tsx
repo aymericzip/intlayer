@@ -62,7 +62,7 @@ export const ReviewerMarketplacePage: FC = () => {
   };
 
   return (
-    <div className="m-auto flex h-full w-full flex-1 flex-col gap-8 p-8">
+    <div className="m-auto flex size-full flex-1 flex-col gap-8 p-8">
       <header>
         <h1 className="font-bold text-3xl">{title}</h1>
         <p className="text-neutral text-sm">{description}</p>

@@ -93,7 +93,9 @@ Intlayer は単なる i18n ソリューションではなく、**自己ホスト
 
 ## ViteとLitアプリケーションでIntlayerをセットアップするためのステップバイステップガイド
 
-### ステップ 1: 依存関係のインストール
+<Steps>
+
+<Step number={1} title="依存関係のインストール">
 
 npmを使用して必要なパッケージをインストールします：
 
@@ -131,7 +133,9 @@ bun x intlayer init
 - **vite-intlayer**
   Intlayerを[Viteバンドラー](https://vite.dev/guide/why.html#why-bundle-for-production)と統合するためのViteプラグイン、およびユーザーの優先言語の検出、クッキーの管理、URLリダイレクトの処理のためのミドルウェアが含まれています。
 
-### ステップ 2: プロジェクトの設定
+</Step>
+
+<Step number={2} title="プロジェクトの設定">
 
 アプリケーションの言語を設定するための設定ファイルを作成します：
 
@@ -155,7 +159,9 @@ export default config;
 
 > この設定ファイルを通じて、ローカライズされたURL、ミドルウェアのリダイレクト、クッキー名、コンテンツ宣言の場所と拡張子、コンソールでのIntlayerログの無効化などを設定できます。利用可能なパラメータの完全なリストについては、[設定ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)を参照してください。
 
-### ステップ 3: Vite設定にIntlayerを統合する
+</Step>
+
+<Step number={3} title="Vite設定にIntlayerを統合する">
 
 Vite設定にintlayerプラグインを追加します。
 
@@ -171,7 +177,9 @@ export default defineConfig({
 
 > `intlayer()` Viteプラグインは、IntlayerをViteと統合するために使用されます。コンテンツ宣言ファイルのビルドを確実にし、開発モードでそれらを監視します。Viteアプリケーション内でIntlayer環境変数を定義します。さらに、パフォーマンスを最適化するためのエイリアスを提供します。
 
-### ステップ 4: エントリポイントでIntlayerをブートストラップする
+</Step>
+
+<Step number={4} title="エントリポイントでIntlayerをブートストラップする">
 
 最初の要素が接続されるときにグローバルロケールシングルトンが準備できているように、カスタム要素が登録される**前に** `installIntlayer()` を呼び出します。
 
@@ -196,7 +204,9 @@ installIntlayerMarkdown();
 import "./my-element.js";
 ```
 
-### ステップ 5: コンテンツの宣言
+</Step>
+
+<Step number={5} title="コンテンツの宣言">
 
 翻訳を保存するためのコンテンツ宣言を作成および管理します：
 
@@ -282,7 +292,9 @@ export default appContent;
 >
 > 詳細については、[コンテンツ宣言のドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/content_file.md)を参照してください。
 
-### ステップ 6: LitElementでIntlayerを活用する
+</Step>
+
+<Step number={6} title="LitElementでIntlayerを活用する">
 
 `LitElement` 内で `useIntlayer` を使用します。これは、アクティブなロケールが変更されるたびに自動的に再レンダリングをトリガーする `ReactiveController` プロキシを返します。追加の設定は不要です。
 
@@ -327,7 +339,9 @@ export class MyElement extends LitElement {
 > html`<img alt=${String(content.viteLogo)} />`;
 > ```
 
-### (任意) ステップ 7: コンテンツの言語を変更する
+</Step>
+
+<Step number={7} title="コンテンツの言語を変更する" isOptional={true}>
 
 コンテンツの言語を変更するには、`useLocale` コントローラーによって公開されている `setLocale` メソッドを使用します。
 
@@ -362,7 +376,9 @@ export class LocaleSwitcher extends LitElement {
 }
 ```
 
-### (任意) ステップ 8: MarkdownとHTMLコンテンツのレンダリング
+</Step>
+
+<Step number={8} title="MarkdownとHTMLコンテンツのレンダリング" isOptional={true}>
 
 Intlayerは `md()` および `html()` コンテンツ宣言をサポートしています。Litでは、コンパイルされた出力は `unsafeHTML` ディレクティブを介して生HTMLとして挿入されます。
 
@@ -412,7 +428,9 @@ export class MyElement extends LitElement {
 > [!TIP]
 > `String(content.editNote)` は、生のMarkdown文字列を返す `IntlayerNode` の `toString()` を呼び出します。それを `compileMarkdown` に渡してHTML文字列を取得し、Litの `unsafeHTML` ディレクティブでレンダリングします。
 
-### (任意) ステップ 9: アプリケーションにローカライズされたルーティングを追加する
+</Step>
+
+<Step number={9} title="アプリケーションにローカライズされたルーティングを追加する" isOptional={true}>
 
 言語ごとに固有のルートを作成するには（SEOに有用）、クライアントサイドのルーターをIntlayerの `localeMap` / `localeFlatMap` ヘルパー、およびサーバーサイドの言語検出用の `intlayerProxy` Viteプラグインと共に使用できます。
 
@@ -432,7 +450,9 @@ export default defineConfig({
 });
 ```
 
-### (任意) ステップ 10: 言語が変更されたときにURLを変更する
+</Step>
+
+<Step number={10} title="言語が変更されたときにURLを変更する" isOptional={true}>
 
 言語が変更されたときにブラウザのURLを更新するには、ロケールスイッチャーと共に `useRewriteURL` を使用します：
 
@@ -470,7 +490,9 @@ export class LocaleSwitcher extends LitElement {
 }
 ```
 
-### (任意) ステップ 11: HTMLの言語と方向属性を切り替える
+</Step>
+
+<Step number={11} title="HTMLの言語と方向属性を切り替える" isOptional={true}>
 
 アクセシビリティとSEOのために、現在の言語に合わせて `<html>` タグの `lang` および `dir` 属性を更新します。
 
@@ -495,7 +517,9 @@ export class MyElement extends LitElement {
 }
 ```
 
-### (任意) ステップ 12: コンポーネントのコンテンツを抽出する
+</Step>
+
+<Step number={12} title="コンポーネントのコンテンツを抽出する" isOptional={true}>
 
 既存のコードベースがある場合、数千ものファイルを変換するのは時間がかかる場合があります。
 
@@ -657,3 +681,7 @@ Intlayerでの開発体験を向上させるために、公式の **Intlayer VS 
 ### さらに詳しく
 
 さらに詳しく知りたい場合は、[ビジュアルエディタ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)を実装したり、[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)を使用してコンテンツを外部化したりすることができます。
+
+</Step>
+
+</Steps>

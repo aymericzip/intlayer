@@ -93,7 +93,9 @@ history:
 
 ## دليل خطوة بخطوة لإعداد Intlayer في تطبيق Next.js
 
-### الخطوة 1: تثبيت التبعيات
+<Steps>
+
+<Step number={1} title="تثبيت التبعيات">
 
 قم بتثبيت الحزم اللازمة باستخدام npm:
 
@@ -125,7 +127,9 @@ bun x intlayer init
 
 الحزمة التي تدمج Intlayer مع Next.js. توفر مزودات السياق (context providers) والـ hooks لدعم التدويل في Next.js. بالإضافة إلى ذلك، تتضمن مكون Next.js الإضافي (plugin) لربط Intlayer مع [Webpack](https://webpack.js.org/) أو [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack)، وكذلك بروكسي لاكتشاف لغة المستخدم المفضلة، وإدارة الكوكيز، ومعالجة إعادة توجيه URL.
 
-### الخطوة 2: تكوين مشروعك
+</Step>
+
+<Step number={2} title="تكوين مشروعك">
 
 فيما يلي البنية النهائية التي سننشئها:
 
@@ -180,7 +184,9 @@ export default config;
 
 > من خلال ملف التكوين هذا، يمكنك إعداد عناوين URL محلية، وإعادة توجيه البروكسي، وأسماء ملفات تعريف الارتباط، وموقع وامتداد تعريفات المحتوى الخاصة بك، وتعطيل سجلات Intlayer في وحدة التحكم، والمزيد. لقائمة كاملة بالمعلمات المتاحة، راجع [توثيق التكوين](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md).
 
-### الخطوة 3: دمج Intlayer في تكوين Next.js الخاص بك
+</Step>
+
+<Step number={3} title="دمج Intlayer في تكوين Next.js الخاص بك">
 
 قم بتكوين إعداد Next.js الخاص بك لاستخدام Intlayer:
 
@@ -223,7 +229,9 @@ export default withIntlayer(nextConfig);
 > withRspack(withIntlayer(nextConfig, { enableTurbopack: false }));
 > ```
 
-### الخطوة 4: تعريف مسارات اللغة الديناميكية
+</Step>
+
+<Step number={4} title="تعريف مسارات اللغة الديناميكية">
 
 أزل كل شيء من `RootLayout` واستبدله بالشيفرة التالية:
 
@@ -266,7 +274,9 @@ const RootLayout = async ({
 export default RootLayout;
 ```
 
-### الخطوة 5: أعلن محتواك
+</Step>
+
+<Step number={5} title="أعلن محتواك">
 
 قم بإنشاء وإدارة تصريحات المحتوى الخاصة بك لتخزين الترجمات:
 
@@ -383,7 +393,9 @@ export default pageContent;
 
 > لمزيد من التفاصيل، راجع [توثيق إعلان المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/content_file.md).
 
-### الخطوة 6: استخدام المحتوى في الشيفرة الخاصة بك
+</Step>
+
+<Step number={6} title="استخدام المحتوى في الشيفرة الخاصة بك">
 
 الوصول إلى قواميس المحتوى في جميع أنحاء تطبيقك:
 
@@ -495,7 +507,9 @@ import { customProxy } from "@utils/customProxy";
 export const proxy = multipleProxies([intlayerProxy, customProxy]);
 ```
 
-### (اختياري) الخطوة 8: تغيير لغة المحتوى الخاص بك
+</Step>
+
+<Step number={8} title="تغيير لغة المحتوى الخاص بك" isOptional={true}>
 
 لتغيير لغة المحتوى في Next.js، الطريقة الموصى بها هي استخدام مكوّن Link لإعادة توجيه المستخدمين إلى الصفحة المحلية المناسبة. يتيح مكوّن Link إمكانية التحميل المسبق للصفحة (prefetching)، مما يساعد على تجنّب إعادة تحميل الصفحة بالكامل.
 
@@ -556,7 +570,9 @@ export const LocaleSwitcher: FC = () => {
 > - [`dir` الخاصية](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir)
 > - [`aria-current` الخاصية](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)
 
-### (اختياري) الخطوة 9: الحصول على اللغة الحالية في Server Actions
+</Step>
+
+<Step number={9} title="الحصول على اللغة الحالية في Server Actions" isOptional={true}>
 
 إذا احتجت إلى الـ locale النشط داخل Server Action (مثلًا، لتوطين رسائل البريد الإلكتروني أو لتنفيذ منطق يتعامل مع اللغة)، استدعِ `getLocale` من `next-intlayer/server`:
 
@@ -581,7 +597,9 @@ export const myServerAction = async () => {
 >
 > هذا يضمن اختيار الـlocale الأنسب بناءً على السياق المتاح.
 
-### (اختياري) الخطوة 10: تحسين حجم البندل
+</Step>
+
+<Step number={10} title="تحسين حجم البندل" isOptional={true}>
 
 عند استخدام `next-intlayer`، يتم تضمين القواميس في كل bundle لكل صفحة بشكل افتراضي. لتقليل حجم الـbundle، يوفر Intlayer ملحق SWC اختياري يستبدل استدعاءات `useIntlayer` بذكاء باستخدام الماكروز. هذا يضمن تضمين القواميس فقط في الحزم الخاصة بالصفحات التي تستخدمها فعليًا.
 
@@ -676,3 +694,7 @@ bun add @intlayer/swc --dev
 ### التوسع
 
 للتوسع، يمكنك تنفيذ [المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) أو إخراج محتواك باستخدام [نظام إدارة المحتوى (CMS)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md).
+
+</Step>
+
+</Steps>

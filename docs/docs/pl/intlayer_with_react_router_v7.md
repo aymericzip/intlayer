@@ -84,7 +84,9 @@ Więcej niż tylko rozwiązanie i18n, Intlayer zapewnia **samodzielny [edytor wi
 
 ## Przewodnik krok po kroku, jak skonfigurować Intlayer w aplikacji React Router v7
 
-### Krok 1: Zainstaluj zależności
+<Steps>
+
+<Step number={1} title="Zainstaluj zależności">
 
 Zainstaluj niezbędne pakiety, używając preferowanego menedżera pakietów:
 
@@ -122,7 +124,13 @@ bun x intlayer init
 - **vite-intlayer**
   Zawiera wtyczkę Vite do integracji Intlayer z [bundlerem Vite](https://vite.dev/guide/why.html#why-bundle-for-production), a także middleware do wykrywania preferowanego języka użytkownika, zarządzania ciasteczkami oraz obsługi przekierowań URL.
 
-### Krok 2: Konfiguracja Twojego projektu
+</Step>
+
+<Step number={2} title="Konfiguracja Twojego projektu">
+
+</Step>
+
+</Steps>
 
 ## Przewodnik krok po kroku dotyczący konfiguracji Intlayer w aplikacji React Router v7 z trasami opartymi na systemie plików
 
@@ -175,7 +183,9 @@ export default config;
 
 > Za pomocą tego pliku konfiguracyjnego możesz ustawić lokalizowane adresy URL, przekierowania w middleware, nazwy ciasteczek, lokalizację i rozszerzenie deklaracji zawartości, wyłączyć logi Intlayer w konsoli i wiele więcej. Pełną listę dostępnych parametrów znajdziesz w [dokumentacji konfiguracyjnej](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/configuration.md).
 
-### Krok 3: Integracja Intlayer w konfiguracji Vite
+<Steps>
+
+<Step number={3} title="Integracja Intlayer w konfiguracji Vite">
 
 Dodaj wtyczkę intlayer do swojej konfiguracji:
 
@@ -191,7 +201,9 @@ export default defineConfig({
 
 > Wtyczka Vite `intlayer()` służy do integracji Intlayer z Vite. Zapewnia budowanie plików deklaracji zawartości i monitoruje je w trybie deweloperskim. Definiuje zmienne środowiskowe Intlayer w aplikacji Vite. Dodatkowo dostarcza aliasy w celu optymalizacji wydajności.
 
-### Krok 4: Konfiguracja tras React Router v7
+</Step>
+
+<Step number={4} title="Konfiguracja tras React Router v7">
 
 Skonfiguruj routing z trasami uwzględniającymi lokalizację:
 
@@ -204,7 +216,9 @@ export default [
 ] satisfies RouteConfig;
 ```
 
-### Krok 5: Tworzenie komponentów layoutu
+</Step>
+
+<Step number={5} title="Tworzenie komponentów layoutu">
 
 Skonfiguruj swój główny layout oraz layouty specyficzne dla lokalizacji:
 
@@ -258,7 +272,9 @@ export function Layout({
 }
 ```
 
-### Krok 6: Zadeklaruj swoją zawartość
+</Step>
+
+<Step number={6} title="Zadeklaruj swoją zawartość">
 
 Utwórz i zarządzaj deklaracjami zawartości, aby przechowywać tłumaczenia:
 
@@ -301,7 +317,9 @@ export default pageContent;
 
 > Po więcej szczegółów odsyłamy do [dokumentacji deklaracji treści](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/content_file.md).
 
-### Krok 7: Tworzenie komponentów uwzględniających lokalizację
+</Step>
+
+<Step number={7} title="Tworzenie komponentów uwzględniających lokalizację">
 
 Utwórz komponent `LocalizedLink` do nawigacji uwzględniającej lokalizację:
 
@@ -364,7 +382,9 @@ export const useLocalizedNavigate = () => {
 };
 ```
 
-### Krok 8: Wykorzystaj Intlayer na swoich stronach
+</Step>
+
+<Step number={8} title="Wykorzystaj Intlayer na swoich stronach">
 
 Uzyskaj dostęp do swoich słowników treści w całej aplikacji:
 
@@ -393,7 +413,9 @@ export default function Page() {
 
 > Jeśli Twoja aplikacja już istnieje, możesz użyć [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compiler.md) w połączeniu z [poleceniem extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/extract.md), aby przekonwertować tysiące komponentów w jedną sekundę.
 
-### Krok 9: Utwórz komponent przełącznika języka
+</Step>
+
+<Step number={9} title="Utwórz komponent przełącznika języka">
 
 Utwórz komponent, który pozwoli użytkownikom zmieniać języki:
 
@@ -454,7 +476,9 @@ export const LocaleSwitcher: FC = () => {
 
 > Aby dowiedzieć się więcej o hooku `useLocale`, zapoznaj się z [dokumentacją](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/react-intlayer/useLocale.md).
 
-### Krok 10: Dodaj zarządzanie atrybutami HTML (opcjonalnie)
+</Step>
+
+<Step number={10} title="Dodaj zarządzanie atrybutami HTML">
 
 Utwórz hook do zarządzania atrybutami lang i dir w HTML:
 
@@ -492,7 +516,9 @@ export default function RootLayout() {
 }
 ```
 
-### (Opcjonalnie) Krok 12 : Wyodrębnij zawartość swoich komponentów
+</Step>
+
+<Step number={12} title="Wyodrębnij zawartość swoich komponentów" isOptional={true}>
 
 Jeśli masz istniejącą bazę kodu, transformacja tysięcy plików może być czasochłonna.
 
@@ -590,6 +616,10 @@ bun run build # Or bun run dev
 
 ---
 
+</Step>
+
+</Steps>
+
 ## Configure TypeScript
 
 Intlayer uses module augmentation to get benefits of TypeScript and make your codebase stronger.
@@ -655,7 +685,9 @@ To go further, you can implement the [visual editor](https://github.com/aymericz
 
 This comprehensive guide provides everything you need to integrate Intlayer with React Router v7 for a fully internationalized application with locale-aware routing and TypeScript support.
 
-### Krok 11: Dodaj middleware (opcjonalnie)
+<Steps>
+
+<Step number={11} title="Dodaj middleware">
 
 Możesz również użyć `intlayerProxy`, aby dodać routing po stronie serwera do swojej aplikacji. Ten plugin automatycznie wykryje aktualny locale na podstawie URL i ustawi odpowiedni cookie locale. Jeśli locale nie jest określone, plugin wybierze najbardziej odpowiedni locale na podstawie preferencji językowych przeglądarki użytkownika. Jeśli nie zostanie wykryty żaden locale, nastąpi przekierowanie do domyślnego locale.
 
@@ -677,6 +709,10 @@ export default defineConfig({
 ```
 
 ---
+
+</Step>
+
+</Steps>
 
 ## Konfiguracja TypeScript
 

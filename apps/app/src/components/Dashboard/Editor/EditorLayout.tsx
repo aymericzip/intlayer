@@ -36,7 +36,7 @@ export const EditorLayout: FC<EditorLayoutProps> = ({
           <LongPressMessage />
         </div>
       </Container>
-      <Suspense fallback={null}>
+      <Suspense>
         {!suppressEditionDrawer && (
           <DictionaryEditionDrawerController
             isDarkMode={resolvedTheme === 'dark'}

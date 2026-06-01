@@ -81,7 +81,9 @@ Do trình biên dịch thực hiện phân tích và chuyển đổi mã (chèn 
 
 ## Hướng dẫn từng bước thiết lập Intlayer vào trong ứng dụng Next.js
 
-### Bước 1: Cài đặt các thư viện phụ thuộc
+<Steps>
+
+<Step number={1} title="Cài đặt các thư viện phụ thuộc">
 
 Cài đặt các gói cần thiết bằng trình quản lý gói ưa thích của bạn:
 
@@ -117,7 +119,9 @@ bun x intlayer init
 
   Gói tích hợp Intlayer với Next.js. Nó cung cấp các context provider và hook cho quốc tế hóa Next.js. Ngoài ra, nó bao gồm Next.js plugin để tích hợp Intlayer với [Webpack](https://webpack.js.org/) hoặc [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack), cũng như middleware để phát hiện locale ưu tiên của người dùng, quản lý cookie và xử lý chuyển hướng URL.
 
-### Bước 2: Cấu hình cho dự án của bạn
+</Step>
+
+<Step number={2} title="Cấu hình cho dự án của bạn">
 
 Tạo một tệp cấu hình để xác định các ngôn ngữ của ứng dụng:
 
@@ -174,7 +178,9 @@ export default config;
 
 > Qua tệp cấu hình này, bạn có thể thiết lập URL đã được bản địa hóa, chuyển hướng proxy, mapping cookie, vị trí và phần mở rộng của các khai báo nội dung, tắt log Intlayer trong console, và nhiều hơn nữa. Để biết danh sách đầy đủ các tham số có sẵn, hãy kiểm tra [tài liệu cấu hình](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md).
 
-### Bước 3: Tích hợp Intlayer vào cấu hình Next.js của bạn
+</Step>
+
+<Step number={3} title="Tích hợp Intlayer vào cấu hình Next.js của bạn">
 
 Cấu hình thiết lập Next.js của bạn để sử dụng Intlayer:
 
@@ -212,7 +218,9 @@ module.exports = {
 };
 ```
 
-### Bước 4: Phát hiện ngôn ngữ trên trang của bạn
+</Step>
+
+<Step number={4} title="Phát hiện ngôn ngữ trên trang của bạn">
 
 Dọn dẹp nội dung `RootLayout` của bạn và thay thế bằng ví dụ bên dưới:
 
@@ -255,7 +263,9 @@ const RootLayout = async ({
 export default RootLayout;
 ```
 
-### Bước 5: Khai báo nội dung của bạn (Tự động)
+</Step>
+
+<Step number={5} title="Khai báo nội dung của bạn">
 
 Khi trình biên dịch được bật, bạn **không còn cần** khai báo các từ điển nội dung (ví dụ: tệp `.content.ts`) một cách thủ công.
 
@@ -351,7 +361,9 @@ export default async function Page() {
 
   > Layout and page cannot share a common server context because the server context system is based on a per-request data store (via [React's cache](https://react.dev/reference/react/cache) mechanism), causing each "context" to be re-created for different segments of the application. Placing the provider in a shared layout would break this isolation, preventing the correct propagation of the server context values to your server components.
 
-### (Tùy chọn) Bước 7: Điền các bản dịch còn thiếu
+</Step>
+
+<Step number={7} title="Điền các bản dịch còn thiếu" isOptional={true}>
 
 Intlayer cung cấp một công cụ CLI để giúp bạn điền các bản dịch còn thiếu. Bạn có thể sử dụng lệnh `intlayer` để kiểm tra và điền các bản dịch còn thiếu từ mã của mình.
 
@@ -389,7 +401,9 @@ bun x intlayer fill         # Điền các bản dịch còn thiếu
 
 > Để biết thêm chi tiết, vui lòng tham khảo [tài liệu CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/ci.md)
 
-### (Không bắt buộc) Bước 8: Middleware Proxy cho Router Localized
+</Step>
+
+<Step number={8} title="Middleware Proxy cho Router Localized" isOptional={true}>
 
 Nếu bạn muốn tự động chuyển hướng người dùng đến ngôn ngữ ưu thích của họ, hãy thiết lập một middleware proxy:
 
@@ -404,7 +418,9 @@ export const config = {
 
 > `intlayerProxy` được sử dụng để phát hiện ngôn ngữ ưu tiên của người dùng và chuyển hướng họ đến URL thích hợp như được xác định trong [các thiết lập của tệp cấu hình](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md). Thêm vào đó, nó cho phép lưu trữ ngôn ngữ ưu tiên của người dùng trong cookie.
 
-### (Không bắt buộc) Bước 9: Thay đổi ngôn ngữ nội dung
+</Step>
+
+<Step number={9} title="Thay đổi ngôn ngữ nội dung" isOptional={true}>
 
 Cách khuyên dùng nhất để thay đổi ngôn ngữ nội dung trong Next.js là sử dụng thành phần `Link` để hướng người dùng đến route với ngôn ngữ tương ứng. Điều này tận dụng tính năng prefetch của Next.js và tránh việc tải lại trang một cách cưỡng ép.
 
@@ -454,7 +470,9 @@ export const LocaleSwitcher: FC = () => {
 
 > Ngoài ra, bạn có thể sử dụng hàm `setLocale` được cung cấp bởi hook `useLocale`. Hàm này không cho phép prefetch trang. Kiểm tra [tài liệu hook `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/next-intlayer/useLocale.md) để biết thêm chi tiết.
 
-### (Không bắt buộc) Bước 10: Tối ưu hóa kích thước Bundle
+</Step>
+
+<Step number={10} title="Tối ưu hóa kích thước Bundle" isOptional={true}>
 
 Khi sử dụng `next-intlayer`, các từ điển mặc định được bao gồm trong bundle cho từng trang. Để tối ưu hóa kích thước bundle, Intlayer cung cấp một plugin SWC tùy chọn giúp thay thế một cách thông minh các lệnh gọi `useIntlayer` bằng macro. Điều này đảm bảo rằng các từ điển chỉ được bao gồm trong bundle của những trang thực sự sử dụng chúng.
 
@@ -528,7 +546,9 @@ Tiện ích mở rộng này cung cấp:
 
 Đọc [tài liệu Tiện ích mở rộng VS Code của Intlayer](https://intlayer.org/doc/vs-code-extension) để biết hướng dẫn chi tiết về cách sử dụng tiện ích mở rộng.
 
-### (Tùy chọn) Bước 1 : Trích xuất nội dung các thành phần của bạn
+</Step>
+
+<Step number={1} title="Trích xuất nội dung các thành phần của bạn" isOptional={true}>
 
 Nếu bạn có một cơ sở mã hiện có, việc chuyển đổi hàng nghìn tệp có thể tốn nhiều thời gian.
 
@@ -644,3 +664,7 @@ bun run build # Or bun run dev
 ### Đi xa hơn
 
 Để tiến xa hơn, bạn có thể triển khai [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md) hoặc ngoại hóa nội dung của mình bằng cách sử dụng [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md).
+
+</Step>
+
+</Steps>

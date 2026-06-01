@@ -64,10 +64,7 @@ export const ProductsSection: FC = () => {
           </Carousel.Item>
         ))}
 
-        <Carousel.Indicators
-          className="bottom-0"
-          disableKeyboardShortcuts={!isActionEnabled}
-        />
+        <Carousel.Indicators disableKeyboardShortcuts={!isActionEnabled} />
       </Carousel>
     </div>
   );

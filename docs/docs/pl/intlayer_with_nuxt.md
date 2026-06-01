@@ -103,7 +103,9 @@ Więcej niż tylko rozwiązanie i18n, Intlayer zapewnia **samodzielny [edytor wi
 
 Zobacz [Szablon aplikacji](https://github.com/aymericzip/intlayer-nuxt-4-template) na GitHub.
 
-### Krok 1: Zainstaluj zależności
+<Steps>
+
+<Step number={1} title="Zainstaluj zależności">
 
 Zainstaluj niezbędne pakiety za pomocą npm:
 
@@ -141,7 +143,9 @@ bun x intlayer init
 - **nuxt-intlayer**
   Moduł Nuxt, który integruje Intlayer z aplikacjami Nuxt. Zapewnia automatyczną konfigurację, middleware do wykrywania lokalizacji, zarządzanie ciasteczkami oraz przekierowania URL.
 
-### Krok 2: Konfiguracja Twojego projektu
+</Step>
+
+<Step number={2} title="Konfiguracja Twojego projektu">
 
 Utwórz plik konfiguracyjny, aby skonfigurować języki swojej aplikacji:
 
@@ -165,7 +169,9 @@ export default config;
 
 > Poprzez ten plik konfiguracyjny możesz ustawić lokalizowane adresy URL, przekierowania w middleware, nazwy ciasteczek, lokalizację i rozszerzenie deklaracji zawartości, wyłączyć logi Intlayer w konsoli i wiele więcej. Aby uzyskać pełną listę dostępnych parametrów, zapoznaj się z [dokumentacją konfiguracji](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/configuration.md).
 
-### Krok 3: Zintegruj Intlayer w swojej konfiguracji Nuxt
+</Step>
+
+<Step number={3} title="Zintegruj Intlayer w swojej konfiguracji Nuxt">
 
 Dodaj moduł intlayer do swojej konfiguracji Nuxt:
 
@@ -180,7 +186,9 @@ export default defineNuxtConfig({
 
 > Moduł `nuxt-intlayer` automatycznie obsługuje integrację Intlayer z Nuxt. Konfiguruje budowanie deklaracji zawartości, monitoruje pliki w trybie deweloperskim, dostarcza middleware do wykrywania lokalizacji oraz zarządza lokalizowanym routingiem.
 
-### Krok 4: Zadeklaruj swoją zawartość
+</Step>
+
+<Step number={4} title="Zadeklaruj swoją zawartość">
 
 Twórz i zarządzaj swoimi deklaracjami zawartości, aby przechowywać tłumaczenia:
 
@@ -215,7 +223,9 @@ export default content;
 
 > Aby uzyskać więcej szczegółów, zapoznaj się z [dokumentacją deklaracji zawartości](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/content_file.md).
 
-### Krok 5: Wykorzystaj Intlayer w swoim kodzie
+</Step>
+
+<Step number={5} title="Wykorzystaj Intlayer w swoim kodzie">
 
 Uzyskaj dostęp do swoich słowników zawartości w całej aplikacji Nuxt, korzystając z kompozycji `useIntlayer`:
 
@@ -284,7 +294,9 @@ Intlayer oferuje różne API do dostępu do Twojej zawartości:
   - Użyj `const content = useIntlayer("myContent");` oraz `{{ content.myContent }}` / `<content.myContent />`.
   - Lub użyj `const { myContent } = useIntlayer("myContent");` oraz `{{ myContent}}` / `<myContent/>`, aby zdestrukturyzować zawartość.
 
-### (Opcjonalny) Krok 6: Zmień język swojej zawartości
+</Step>
+
+<Step number={6} title="Zmień język swojej zawartości" isOptional={true}>
 
 Aby zmienić język swojej zawartości, możesz użyć funkcji `setLocale` dostarczonej przez kompozycję `useLocale`. Funkcja ta pozwala ustawić lokalizację aplikacji i odpowiednio zaktualizować zawartość.
 
@@ -355,7 +367,9 @@ import LocaleSwitcher from "~/components/LocaleSwitcher.vue";
 
 Komponent `Links` (pokazany poniżej) zapewnia, że wewnętrzne linki nawigacyjne są automatycznie lokalizowane.
 
-### (Opcjonalny) Krok 7: Dodaj lokalizowane routingi do swojej aplikacji
+</Step>
+
+<Step number={7} title="Dodaj lokalizowane routingi do swojej aplikacji" isOptional={true}>
 
 Nuxt automatycznie obsługuje lokalizowane routingi podczas korzystania z modułu `nuxt-intlayer`. Tworzy to trasy dla każdego języka automatycznie na podstawie struktury katalogu stron.
 
@@ -429,7 +443,9 @@ Moduł `nuxt-intlayer` automatycznie:
 - Zarządza ciasteczkami językowymi
 - Przekierowuje użytkowników do odpowiedniego zlokalizowanego URL
 
-### (Opcjonalny) Krok 8: Tworzenie lokalizowanego komponentu Linków
+</Step>
+
+<Step number={8} title="Tworzenie lokalizowanego komponentu Linków" isOptional={true}>
 
 Aby zapewnić, że nawigacja Twojej aplikacji respektuje bieżący język, możesz utworzyć niestandardowy komponent `Links`. Komponent ten automatycznie dodaje przedrostek z aktualnym językiem do wewnętrznych adresów URL, co jest niezbędne dla **SEO i odnajdywalności stron**.
 
@@ -497,7 +513,9 @@ import LocaleSwitcher from "~/components/LocaleSwitcher.vue";
 > - Użytkownicy mogą bezpośrednio udostępniać lokalizowane URL-e
 > - Historia przeglądarki działa poprawnie z URL-ami poprzedzonymi prefiksem języka
 
-### (Opcjonalny) Krok 9: Obsługa Metadanych i SEO
+</Step>
+
+<Step number={9} title="Obsługa Metadanych i SEO" isOptional={true}>
 
 Nuxt oferuje doskonałe możliwości SEO za pomocą kompozycji `useHead` (auto-importowanej). Możesz użyć Intlayer do obsługi lokalizowanych metadanych, korzystając z akcesora `.raw` lub `.value`, aby uzyskać prymitywną wartość łańcuchową:
 
@@ -629,3 +647,7 @@ Aby uzyskać więcej informacji na temat korzystania z rozszerzenia, zapoznaj si
 ### Idź dalej
 
 Aby pójść dalej, możesz zaimplementować [edytor wizualny](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_visual_editor.md) lub wyeksportować swoją zawartość, korzystając z [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md).
+
+</Step>
+
+</Steps>

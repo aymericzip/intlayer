@@ -81,7 +81,9 @@ history:
 
 ## دليل خطوة بخطوة لإعداد Intlayer في تطبيق Next.js
 
-### الخطوة 1: تثبيت التبعيات
+<Steps>
+
+<Step number={1} title="تثبيت التبعيات">
 
 قم بتثبيت الحزم اللازمة باستخدام npm:
 
@@ -117,7 +119,9 @@ bun x intlayer init
 
   الحزمة التي تدمج Intlayer مع Next.js. وتوفر موفري السياق (context providers) والخطافات للتدويل في Next.js. بالإضافة إلى ذلك، تتضمن الملحق لـ Next.js لدمج Intlayer مع [Webpack](https://webpack.js.org/) أو [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack)، بالإضافة إلى وسيط (middleware) لاكتشاف اللغة المفضلة للمستخدم، وإدارة ملفات تعريف الارتباط، ومعالجة إعادة توجيه عناوين URL.
 
-### الخطوة 2: تهيئة مشروعك
+</Step>
+
+<Step number={2} title="تهيئة مشروعك">
 
 قم بإنشاء ملف تهيئة لتحديد لغات تطبيقك:
 
@@ -174,7 +178,9 @@ export default config;
 
 > من خلال ملف التهيئة هذا، يمكنك إعداد عناوين URL المحلية، وعمليات إعادة توجيه الوكيل، وأسماء ملفات تعريف الارتباط، وموقع وامتداد إعلانات المحتوى الخاصة بك، وتعطيل سجلات Intlayer في وحدة التحكم، والمزيد. للحصول على قائمة كاملة بالمعلمات المتاحة، راجع [توثيق التهيئة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md).
 
-### الخطوة 3: دمج Intlayer في تهيئة Next.js الخاصة بك
+</Step>
+
+<Step number={3} title="دمج Intlayer في تهيئة Next.js الخاصة بك">
 
 قم بتهيئة إعداد Next.js الخاص بك لاستخدام Intlayer:
 
@@ -191,7 +197,9 @@ export default withIntlayer(nextConfig);
 
 > يُستخدم ملحق Next.js `withIntlayer()` لدمج Intlayer مع Next.js. وهو يضمن بناء ملفات إعلام المحتوى ومراقبتها في وضع التطوير. يحدد متغيرات بيئة Intlayer داخل بيئات [Webpack](https://webpack.js.org/) أو [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack). بالإضافة إلى ذلك، يوفر أسماء مستعارة لتحسين الأداء ويضمن التوافق التام مع مكونات الخادم.
 
-### الخطوة 4: تكوين Babel
+</Step>
+
+<Step number={4} title="تكوين Babel">
 
 يتطلب مترجم Intlayer استخدام Babel لاستخراج المحتوى الخاص بك وتحسينه. قم بتحديث `babel.config.js` (أو `babel.config.json`) لتضمين إضافات Intlayer:
 
@@ -212,7 +220,9 @@ module.exports = {
 };
 ```
 
-### الخطوة 5: اكتشاف اللغة في صفحاتك
+</Step>
+
+<Step number={5} title="اكتشاف اللغة في صفحاتك">
 
 قم بإخلاء محتوى `RootLayout` الخاص بك واستبدله بالمثال التالي:
 
@@ -255,7 +265,9 @@ const RootLayout = async ({
 export default RootLayout;
 ```
 
-### الخطوة 6: ترجمة مكوناتك برمجياً
+</Step>
+
+<Step number={6} title="ترجمة مكوناتك برمجياً">
 
 مع تمكين المترجم، **لم تعد بحاجة** للإعلان عن قواميس المحتوى يدويًا (مثل ملفات `.content.ts`).
 
@@ -351,7 +363,9 @@ export default async function Page() {
 
   > Layout and page cannot share a common server context because the server context system is based on a per-request data store (via [React's cache](https://react.dev/reference/react/cache) mechanism), causing each "context" to be re-created for different segments of the application. Placing the provider in a shared layout would break this isolation, preventing the correct propagation of the server context values to your server components.
 
-### (اختياري) الخطوة 7: ملء الترجمات المفقودة
+</Step>
+
+<Step number={7} title="ملء الترجمات المفقودة" isOptional={true}>
 
 يوفر Intlayer أداة CLI لمساعدتك في ملء الترجمات المفقودة. يمكنك استخدام الأمر `intlayer` لاختبار وملء الترجمات المفقودة من التعليمات البرمجية الخاصة بك.
 
@@ -389,7 +403,9 @@ bun x intlayer fill         # ملء الترجمات المفقودة
 
 > لمزيد من التفاصيل، راجع [وثائق CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/ci.md)
 
-### (اختياري) الخطوة 8: تهيئة وكيل التوجيه لاكتشاف اللغة
+</Step>
+
+<Step number={8} title="تهيئة وكيل التوجيه لاكتشاف اللغة" isOptional={true}>
 
 قم بتهيئة وسيط (middleware) للوكيل لاكتشاف لغة المستخدم المفضلة تلقائياً:
 
@@ -404,7 +420,9 @@ export const config = {
 
 > يستخدم `intlayerProxy` لاكتشاف اللغة المفضلة للمستخدم وإعادة توجيهه إلى عنوان URL المناسب كما هو محدد في [إعدادات ملف التهيئة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md). بالإضافة إلى ذلك، فإنه يتيح حفظ لغة المستخدم المفضلة في ملف تعريف ارتباط (cookie).
 
-### (اختياري) الخطوة 8: تغيير لغة المحتوى الخاص بك
+</Step>
+
+<Step number={8} title="تغيير لغة المحتوى الخاص بك" isOptional={true}>
 
 لتغيير لغة المحتوى في Next.js، الطريقة الموصى بها هي استخدام مكون `Link` لإعادة توجيه المستخدمين إلى الصفحة المحلية المقابلة. يسمح مكون `Link` بالتحميل المسبق (prefetching) للصفحة، مما يساعد على تجنب تحديث الصفحة بالكامل.
 
@@ -454,7 +472,9 @@ export const LocaleSwitcher: FC = () => {
 
 > الطريقة البديلة هي استخدام وظيفة `setLocale` التي يوفرها خطاف `useLocale`. لن تسمح هذه الوظيفة بالتحميل المسبق للصفحة. راجع [وثائق خطاف `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/next-intlayer/useLocale.md) لمزيد من التفاصيل.
 
-### (اختياري) الخطوة 10: تحسين حجم البندل الخاصة بك
+</Step>
+
+<Step number={10} title="تحسين حجم البندل الخاصة بك" isOptional={true}>
 
 عند استخدام `next-intlayer` ، يتم تضمين القواميس في الحزمة لكل صفحة بشكل افتراضي. لتحسين حجم البندل ، يوفر Intlayer ملحق SWC اختيارياً يستبدل بذكاء استدعاءات `useIntlayer` باستخدام الماكرو. يضمن ذلك تضمين القواميس فقط في حزم الصفحات التي تستخدمها بالفعل.
 
@@ -513,7 +533,9 @@ bun add @intlayer/swc --dev
 .intlayer
 ```
 
-### (اختياري) خطوة 1 : استخراج محتوى مكوناتك
+</Step>
+
+<Step number={1} title="استخراج محتوى مكوناتك" isOptional={true}>
 
 إذا كان لديك قاعدة بيانات كود موجودة، فقد يكون تحويل آلاف الملفات مستهلكًا للوقت.
 
@@ -644,3 +666,7 @@ bun run build # Or bun run dev
 ### اذهب أبعد من ذلك
 
 للذهاب إلى أبعد من ذلك، يمكنك تنفيذ [المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) أو إضفاء الطابع الخارجي على المحتوى الخاص بك باستخدام [نظام إدارة المحتوى (CMS)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md).
+
+</Step>
+
+</Steps>

@@ -98,7 +98,9 @@ history:
 
 تحقق من [نموذج التطبيق](https://github.com/aymericzip/intlayer-astro-template) على GitHub.
 
-### الخطوة 1: تثبيت التبعيات
+<Steps>
+
+<Step number={1} title="تثبيت التبعيات">
 
 قم بتثبيت الحزم اللازمة باستخدام مدير الحزم المفضل لديك:
 
@@ -126,7 +128,9 @@ yarn add react react-dom react-intlayer @astrojs/react
 - **astro-intlayer**
   تتضمن إضافة تكامل Astro لربط Intlayer بـ [Vite bundler](https://vite.dev/guide/why.html#why-bundle-for-production)، بالإضافة إلى وسيط (middleware) لاكتشاف لغة المستخدم المفضلة، وإدارة ملفات تعريف الارتباط (cookies)، والتعامل مع إعادة توجيه الروابط.
 
-### الخطوة 2: تهيئة مشروعك
+</Step>
+
+<Step number={2} title="تهيئة مشروعك">
 
 أنشئ ملف تكوين لتحديد لغات تطبيقك:
 
@@ -150,7 +154,9 @@ export default config;
 
 > من خلال ملف التكوين هذا، يمكنك تهيئة الروابط المترجمة، وإعادة توجيه الوسيط، وأسماء الكوكيز، وموقع وامتدادات تعريفات المحتوى، وتعطيل سجلات Intlayer في وحدة التحكم، والمزيد. للحصول على قائمة كاملة بالمعلمات المتاحة، راجع [توثيق التهيئة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md).
 
-### الخطوة 3: دمج Intlayer في تكوين Astro الخاص بك
+</Step>
+
+<Step number={3} title="دمج Intlayer في تكوين Astro الخاص بك">
 
 أضف إضافة `intlayer` إلى تكوين Astro الخاص بك.
 
@@ -168,7 +174,9 @@ export default defineConfig({
 
 > تُستخدم إضافة `intlayer()` لدمج Intlayer مع Astro. وهي تضمن إنشاء ملفات تعريف المحتوى ومراقبتها في وضع التطوير. وتعرّف متغيرات بيئة Intlayer داخل تطبيق Astro وتوفر أسماء مستعارة لتحسين الأداء.
 
-### الخطوة 4: تعريف المحتوى الخاص بك
+</Step>
+
+<Step number={4} title="تعريف المحتوى الخاص بك">
 
 أنشئ وأدِر تعريفات المحتوى لتخزين الترجمات:
 
@@ -195,7 +203,9 @@ export default appContent;
 
 > لمزيد من المعلومات، راجع [توثيق تعريف المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/content_file.md).
 
-### الخطوة 5: استخدام المحتوى في Astro
+</Step>
+
+<Step number={5} title="استخدام المحتوى في Astro">
 
 يمكنك استهلاك القواميس مباشرة في ملفات `.astro` الخاصة بك باستخدام المساعدين الأساسيين المصدرين من `intlayer`.
 
@@ -268,7 +278,9 @@ const { title } = getIntlayer("app", locale);
 </html>
 ```
 
-### الخطوة 6: التوجيه المترجم (Localized Routing)
+</Step>
+
+<Step number={6} title="التوجيه المترجم">
 
 أنشئ أجزاء مسار ديناميكية لخدمة الصفحات المترجمة (مثل `src/pages/[locale]/index.astro`):
 
@@ -284,7 +296,9 @@ const { title } = getIntlayer('app');
 
 يضيف تكامل Astro وسيط Vite الذي يساعد في التوجيه الحساس للغة وتعريفات البيئة أثناء التطوير. يمكنك أيضًا إنشاء روابط عبر اللغات باستخدام منطقك الخاص أو أدوات `intlayer` مثل `getLocalizedUrl`.
 
-### الخطوة 7: استمر في استخدام إطارات العمل المفضلة لديك
+</Step>
+
+<Step number={7} title="استمر في استخدام إطارات العمل المفضلة لديك">
 
 استمر في بناء تطبيقك باستخدام إطار العمل الذي تختاره.
 
@@ -342,7 +356,9 @@ const { title } = getIntlayer('app');
 
 ---
 
-### (Optional) Step 15: Extract the content of your components
+</Step>
+
+<Step number={15} title="Extract the content of your components" isOptional={true}>
 
 If you have an existing codebase, transforming thousands of files can be time-consuming.
 
@@ -447,3 +463,7 @@ bun run build # Or bun run dev
 ### تعمق أكثر
 
 إذا كنت تريد معرفة المزيد، يمكنك أيضًا تنفيذ [المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) أو استخدام [نظام إدارة المحتوى (CMS)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md) لإخراج محتواك خارجيًا.
+
+</Step>
+
+</Steps>

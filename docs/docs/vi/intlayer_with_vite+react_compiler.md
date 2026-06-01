@@ -92,7 +92,9 @@ Vì trình biên dịch thực hiện phân tích và chuyển đổi mã (chèn
 
 ## Hướng dẫn từng bước để thiết lập Intlayer trong ứng dụng Vite và React
 
-### Bước 1: Cài đặt các gói phụ thuộc
+<Steps>
+
+<Step number={1} title="Cài đặt các gói phụ thuộc">
 
 Cài đặt các gói cần thiết bằng npm:
 
@@ -129,7 +131,9 @@ bun x intlayer init
 - **vite-intlayer**
   Bao gồm plugin Vite để tích hợp Intlayer với [Vite bundler](https://vite.dev/guide/why.html#why-bundle-for-production), cũng như middleware để phát hiện ngôn ngữ ưa thích của người dùng, quản lý cookie và xử lý chuyển hướng URL.
 
-### Bước 2: Cấu hình dự án của bạn
+</Step>
+
+<Step number={2} title="Cấu hình dự án của bạn">
 
 Tạo một tệp cấu hình để thiết lập các ngôn ngữ cho ứng dụng của bạn:
 
@@ -183,7 +187,9 @@ export default config;
 
 > Thông qua tệp cấu hình này, bạn có thể thiết lập các URL được bản địa hóa, chuyển hướng middleware, tên cookie, vị trí và phần mở rộng của các khai báo nội dung, tắt nhật ký Intlayer trong console, v.v. Để biết danh sách đầy đủ các tham số có sẵn, hãy tham khảo [tài liệu cấu hình](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md).
 
-### Bước 3: Tích hợp Intlayer trong cấu hình Vite của bạn
+</Step>
+
+<Step number={3} title="Tích hợp Intlayer trong cấu hình Vite của bạn">
 
 Thêm plugin intlayer vào cấu hình của bạn.
 
@@ -202,7 +208,9 @@ export default defineConfig({
 
 > Plugin Vite `intlayerCompiler()` được sử dụng để trích xuất nội dung từ component và ghi các tệp `.content`.
 
-### Bước 4: Biên dịch mã của bạn
+</Step>
+
+<Step number={4} title="Biên dịch mã của bạn">
 
 Chỉ cần viết các component của bạn với các chuỗi ký tự được mã hóa cứng (hardcoded) bằng ngôn ngữ mặc định của bạn. Trình biên dịch sẽ xử lý phần còn lại.
 
@@ -341,7 +349,9 @@ export default App;
 
 - **`IntlayerProvider`** được sử dụng để cung cấp ngôn ngữ cho các component con.
 
-### (Tùy chọn) Bước 6: Thay đổi ngôn ngữ của nội dung
+</Step>
+
+<Step number={6} title="Thay đổi ngôn ngữ của nội dung" isOptional={true}>
 
 Để thay đổi ngôn ngữ của nội dung, bạn có thể sử dụng hàm `setLocale` được cung cấp bởi hook `useLocale`. Hàm này cho phép bạn thiết lập ngôn ngữ của ứng dụng và cập nhật nội dung tương ứng.
 
@@ -363,7 +373,9 @@ const LocaleSwitcher: FC = () => {
 
 > Để tìm hiểu thêm về hook `useLocale`, hãy tham khảo [tài liệu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useLocale.md).
 
-### (Tùy chọn) Bước 7: Điền các bản dịch còn thiếu
+</Step>
+
+<Step number={7} title="Điền các bản dịch còn thiếu" isOptional={true}>
 
 Intlayer cung cấp một công cụ CLI để giúp bạn điền các bản dịch còn thiếu. Bạn có thể sử dụng lệnh `intlayer` để kiểm tra và điền các bản dịch còn thiếu từ mã nguồn của bạn.
 
@@ -504,3 +516,7 @@ Tiện ích này cung cấp:
 ### Đi xa hơn
 
 Để tìm hiểu sâu hơn, bạn có thể triển khai [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) hoặc bên thứ ba hóa nội dung của bạn bằng [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md).
+
+</Step>
+
+</Steps>

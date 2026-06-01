@@ -61,39 +61,51 @@ history:
 
 'lit-localize' veya 'i18next' gibi ana çözümlerle karşılaştırıldığında Intlayer, aşağıdaki gibi entegre optimizasyonlarla gelen bir çözümdür:
 
-**Tam Işık kapsamı**
+<AccordionGroup>
+<Accordion header="Tam Işık kapsamı">
 
 Intlayer, **Web Bileşeni düzeyinde içerik kapsamı**, **TypeScript desteği** ve ölçeklendirme uluslararasılaştırması (i18n) için gereken tüm özellikleri sunarak Lit ile mükemmel çalışacak şekilde optimize edilmiştir.
 
-**Bundle boyutu**
+</Accordion>
+<Accordion header="Bundle boyutu">
 
 Sayfalarınıza çok büyük JSON dosyaları yüklemek yerine yalnızca gerekli içeriği yükleyin. Intlayer **bundle ve sayfa boyutlarınızı %50'ye kadar azaltmanıza** yardımcı olur.
 
-**Sürdürülebilirlik**
+</Accordion>
+<Accordion header="Sürdürülebilirlik">
 
 Uygulamanızın içeriğinin kapsamını belirlemek, büyük ölçekli uygulamalar için **bakımı kolaylaştırır**. İçerik kod tabanınızın tamamını gözden geçirmenin zihinsel yükü olmadan, tek bir özellik klasörünü çoğaltabilir veya silebilirsiniz. Ayrıca Intlayer, içeriğinizin doğruluğunu sağlamak için **tamamen tiplendirilmiş (fully typed)tır**.
 
-**Yapay Zeka Temsilcisi**
+</Accordion>
+<Accordion header="Yapay Zeka Temsilcisi">
 
 İçeriğin bir arada konumlandırılması **Büyük Dil Modellerinin (LLM'ler) ihtiyaç duyduğu bağlamı azaltır**. Intlayer ayrıca eksik çevirileri test etmek için **CLI** gibi bir araç paketiyle birlikte gelir**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** ve **[aracı becerileri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, geliştirici deneyimini (DX) yapay zeka için daha da sorunsuz hale getirmek için ajanlar.
 
-**Otomasyon**
+</Accordion>
+<Accordion header="Otomasyon">
 
 Maliyeti AI sağlayıcınıza ait olmak üzere seçtiğiniz LLM'yi kullanarak CI/CD işlem hattınızda çeviri yapmak için otomasyonu kullanın. Intlayer ayrıca içerik çıkarmayı otomatikleştirmek için bir **derleyici** ve **arka planda çeviri yapmaya** yardımcı olacak bir [web platformu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) sunar.
 
-**Performans**
+</Accordion>
+<Accordion header="Performans">
 
 Büyük JSON dosyalarını bileşenlere bağlamak performans ve tepkime sorunlarına yol açabilir. Intlayer, içerik yüklemenizi derleme sırasında optimize eder.
 
-**Non-dev ile ölçeklendirme**
+</Accordion>
+<Accordion header="Non-dev ile ölçeklendirme">
 
 Bir i18n çözümünden çok daha fazlası olan Intlayer, **kendi kendine barındırılan bir [görsel düzenleyici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** ve **[tam CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** çok dilli içeriğinizi **gerçek zamanlı** olarak yönetmenize yardımcı olarak çevirmenler, metin yazarları ve diğer ekip üyeleriyle işbirliğini kusursuz hale getirir. İçerik yerel olarak ve/veya uzaktan depolanabilir.
+
+</Accordion>
+</AccordionGroup>
 
 ---
 
 ## Vite ve Lit Uygulamasında Intlayer Kurulumu İçin Adım Adım Kılavuz
 
-### Adım 1: Bağımlılıkları Yükleyin
+<Steps>
+
+<Step number={1} title="Bağımlılıkları Yükleyin">
 
 Gerekli paketleri npm kullanarak yükleyin:
 
@@ -131,7 +143,9 @@ bun x intlayer init
 - **vite-intlayer**
   Intlayer'ı [Vite paketleyici](https://vite.dev/guide/why.html#why-bundle-for-production) ile entegre etmek için Vite eklentisini ve kullanıcının tercih ettiği dili algılamayı, çerezleri yönetmeyi ve URL yönlendirmesini işlemeyi sağlayan ara yazılımı içerir.
 
-### Adım 2: Projenizin Yapılandırılması
+</Step>
+
+<Step number={2} title="Projenizin Yapılandırılması">
 
 Uygulamanızın dillerini yapılandırmak için bir yapılandırma dosyası oluşturun:
 
@@ -155,7 +169,9 @@ export default config;
 
 > Bu yapılandırma dosyası aracılığıyla, yerelleştirilmiş URL'ler, ara yazılım yönlendirmesi, çerez adları, içerik bildirimlerinizin konumu ve uzantısı, konsoldaki Intlayer günlüklerini devre dışı bırakma ve daha fazlasını ayarlayabilirsiniz. Kullanılabilir parametrelerin tam listesi için [yapılandırma belgelerine](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md) bakın.
 
-### Adım 3: Intlayer'ı Vite Yapılandırmanıza Entegre Edin
+</Step>
+
+<Step number={3} title="Intlayer'ı Vite Yapılandırmanıza Entegre Edin">
 
 Yapılandırmanıza intlayer eklentisini ekleyin.
 
@@ -171,7 +187,9 @@ export default defineConfig({
 
 > `intlayer()` Vite eklentisi, Intlayer'ı Vite ile entegre etmek için kullanılır. İçerik bildirimi dosyalarının oluşturulmasını sağlar ve bunları geliştirme modunda izler. Vite uygulaması içinde Intlayer ortam değişkenlerini tanımlar. Ayrıca performansı optimize etmek için takma adlar (aliases) sağlar.
 
-### Adım 4: Giriş Noktasında Intlayer'ı Başlatın
+</Step>
+
+<Step number={4} title="Giriş Noktasında Intlayer'ı Başlatın">
 
 Herhangi bir özel öğe kaydedilmeden **önce** `installIntlayer()` işlevini çağırın, böylece ilk öğe bağlandığında küresel dil tekili hazır olur.
 
@@ -196,7 +214,9 @@ installIntlayerMarkdown();
 import "./my-element.js";
 ```
 
-### Adım 5: İçeriğinizi Bildirin
+</Step>
+
+<Step number={5} title="İçeriğinizi Bildirin">
 
 Çevirileri saklamak için içerik bildirimlerinizi oluşturun ve yönetin:
 
@@ -282,7 +302,9 @@ export default appContent;
 >
 > Daha fazla ayrıntı için [içerik bildirimi belgelerine](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/content_file.md) bakın.
 
-### Adım 6: LitElement'inizde Intlayer'ı Kullanın
+</Step>
+
+<Step number={6} title="LitElement'inizde Intlayer'ı Kullanın">
 
 Bir `LitElement` içinde `useIntlayer` kullanın. Aktif dil değiştiğinde otomatik olarak yeniden oluşturma işlemini tetikleyen bir `ReactiveController` proxy'si döndürür - ekstra kurulum gerekmez.
 
@@ -327,7 +349,9 @@ export class MyElement extends LitElement {
 > html`<img alt=${String(content.viteLogo)} />`;
 > ```
 
-### (İsteğe Bağlı) Adım 7: İçeriğinizin Dilini Değiştirin
+</Step>
+
+<Step number={7} title="İçeriğinizin Dilini Değiştirin" isOptional={true}>
 
 İçeriğinizin dilini değiştirmek için `useLocale` denetleyicisi tarafından sunulan `setLocale` yöntemini kullanın.
 
@@ -362,7 +386,9 @@ export class LocaleSwitcher extends LitElement {
 }
 ```
 
-### (İsteğe Bağlı) Adım 8: Markdown ve HTML İçeriğini Oluşturun
+</Step>
+
+<Step number={8} title="Markdown ve HTML İçeriğini Oluşturun" isOptional={true}>
 
 Intlayer `md()` ve `html()` içerik bildirimlerini destekler. Lit'te, derlenmiş çıktı `unsafeHTML` yönergesi aracılığıyla ham HTML olarak enjekte edilir.
 
@@ -412,7 +438,9 @@ export class MyElement extends LitElement {
 > [!TIP]
 > `String(content.editNote)`, `IntlayerNode` üzerinde ham Markdown dizesini döndüren `toString()` işlevini çağırır. Bir HTML dizesi almak için bunu `compileMarkdown` işlevine geçirin, ardından Lit'in `unsafeHTML` yönergesiyle oluşturun.
 
-### (İsteğe Bağlı) Adım 9: Uygulamanıza Yerelleştirilmiş Yönlendirme Ekleyin
+</Step>
+
+<Step number={9} title="Uygulamanıza Yerelleştirilmiş Yönlendirme Ekleyin" isOptional={true}>
 
 Her dil için benzersiz rotalar oluşturmak (SEO için yararlıdır), Intlayer'ın `localeMap` / `localeFlatMap` yardımcılarını ve sunucu tarafı dil algılama için `intlayerProxy` Vite eklentisini içeren bir istemci tarafı yönlendirici kullanabilirsiniz.
 
@@ -429,7 +457,9 @@ export default defineConfig({
 });
 ```
 
-### (İsteğe Bağlı) Adım 10: Dil Değiştiğinde URL'yi Değiştirin
+</Step>
+
+<Step number={10} title="Dil Değiştiğinde URL'yi Değiştirin" isOptional={true}>
 
 Dil değiştiğinde tarayıcı URL'sini güncellemek için dil değiştiriciyle birlikte `useRewriteURL` kullanın:
 
@@ -467,7 +497,9 @@ export class LocaleSwitcher extends LitElement {
 }
 ```
 
-### (İsteğe Bağlı) Adım 11: HTML Dil ve Yön Özniteliklerini Değiştirin
+</Step>
+
+<Step number={11} title="HTML Dil ve Yön Özniteliklerini Değiştirin" isOptional={true}>
 
 Erişilebilirlik ve SEO için `<html>` etiketinin `lang` ve `dir` özniteliklerini geçerli dille eklenecek şekilde güncelleyin.
 
@@ -492,7 +524,9 @@ export class MyElement extends LitElement {
 }
 ```
 
-### (İsteğe Bağlı) Adım 12: Bileşenlerinizin İçeriğini Çıkarın
+</Step>
+
+<Step number={12} title="Bileşenlerinizin İçeriğini Çıkarın" isOptional={true}>
 
 Mevcut bir kod tabanınız varsa, binlerce dosyayı dönüştürmek zaman alıcı olabilir.
 
@@ -654,3 +688,7 @@ Uzantının nasıl kullanılacağı hakkında daha fazla ayrıntı için [Intlay
 ### Daha Fazlasına Gidin
 
 Daha ileri gitmek için [görsel düzenleyiciyi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md) uygulayabilir veya [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md) kullanarak içeriğinizi dışsallaştırabilirsiniz.
+
+</Step>
+
+</Steps>

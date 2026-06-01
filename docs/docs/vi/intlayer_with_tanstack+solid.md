@@ -41,33 +41,43 @@ Hướng dẫn này trình bày cách tích hợp **Intlayer** để đa ngôn n
 
 So với các giải pháp chính như `react-i18next` hay `i18next`, Intlayer là giải pháp đi kèm với các tính năng tối ưu hóa tích hợp như:
 
-**Phạm vi bảo hiểm đầy đủ của TanStack Start**
+<AccordionGroup>
+<Accordion header="Phạm vi bảo hiểm đầy đủ của TanStack Start">
 
 Intlayer được tối ưu hóa để hoạt động hoàn hảo với TanStack Start và Solid bằng cách cung cấp **định tuyến đa ngôn ngữ**, **sơ đồ trang web** và tất cả các tính năng cần thiết để mở rộng quy mô quốc tế hóa (i18n).
 
-**Kích thước bundle**
+</Accordion>
+<Accordion header="Kích thước bundle">
 
 Thay vì tải các tệp JSON lớn vào trang của bạn, hãy chỉ tải nội dung cần thiết. Intlayer giúp **giảm tới 50% kích thước bundle và kích thước trang**.
 
-**Khả năng bảo trì**
+</Accordion>
+<Accordion header="Khả năng bảo trì">
 
 Xác định phạm vi nội dung ứng dụng của bạn **tạo điều kiện bảo trì** cho các ứng dụng quy mô lớn. Bạn có thể sao chép hoặc xóa một thư mục tính năng mà không phải lo lắng về việc xem lại toàn bộ cơ sở mã nội dung của mình. Ngoài ra, Intlayer **được nhập đầy đủ** để đảm bảo tính chính xác cho nội dung của bạn.
 
-**Đại lý AI**
+</Accordion>
+<Accordion header="Đại lý AI">
 
 Nội dung cùng định vị **giảm ngữ cảnh cần thiết** của Mô hình ngôn ngữ lớn (LLM). Intlayer cũng đi kèm một bộ công cụ, chẳng hạn như **CLI** để kiểm tra các bản dịch bị thiếu,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** và **[agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, để giúp trải nghiệm của nhà phát triển (DX) trở nên mượt mà hơn nữa đối với các tác nhân AI.
 
-**Tự động hóa**
+</Accordion>
+<Accordion header="Tự động hóa">
 
 Sử dụng tính năng tự động hóa để dịch trong quy trình CI/CD của bạn bằng cách sử dụng LLM mà bạn chọn với chi phí do nhà cung cấp AI của bạn chi trả. Intlayer cũng cung cấp **trình biên dịch** để tự động trích xuất nội dung cũng như [nền tảng web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) để giúp **dịch ở chế độ nền**.
 
-**Hiệu suất**
+</Accordion>
+<Accordion header="Hiệu suất">
 
 Việc kết nối các tệp JSON lớn với các thành phần có thể dẫn đến các vấn đề về hiệu suất và khả năng phản hồi. Intlayer tối ưu hóa việc tải nội dung của bạn tại thời điểm build.
 
-**Mở rộng quy mô không có nhà phát triển**
+</Accordion>
+<Accordion header="Mở rộng quy mô không có nhà phát triển">
 
 Không chỉ là giải pháp i18n, Intlayer còn cung cấp **[trình chỉnh sửa trực quan](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** và **[CMS đầy đủ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** để giúp bạn quản lý nội dung đa ngôn ngữ của mình trong **thời gian thực**, giúp việc cộng tác với người dịch, người viết quảng cáo và các thành viên khác trong nhóm trở nên liền mạch. Nội dung có thể được lưu trữ cục bộ và/hoặc từ xa.
+
+</Accordion>
+</AccordionGroup>
 
 ---
 
@@ -105,11 +115,15 @@ Không chỉ là giải pháp i18n, Intlayer còn cung cấp **[trình chỉnh s
 
 Xem [Mẫu ứng dụng](https://github.com/aymericzip/intlayer-tanstack-start-solid-template) trên GitHub.
 
-### Bước 1: Tạo dự án
+<Steps>
+
+<Step number={1} title="Tạo dự án">
 
 Đầu tiên, tạo một dự án TanStack Start mới theo hướng dẫn [Bắt đầu dự án mới](https://tanstack.com/start/latest/docs/framework/solid/quick-start) trên trang web TanStack Start.
 
-### Bước 2: Cài đặt các gói Intlayer
+</Step>
+
+<Step number={2} title="Cài đặt các gói Intlayer">
 
 Cài đặt các gói cần thiết bằng trình quản lý gói ưa thích của bạn:
 
@@ -147,7 +161,9 @@ bun x intlayer init
 - **vite-intlayer**
   Bao gồm plugin Vite để tích hợp Intlayer với [Vite bundler](https://vite.dev/guide/why.html#why-bundle-for-production), cũng như middleware để phát hiện ngôn ngữ ưa thích của người dùng, quản lý cookie và xử lý chuyển hướng URL.
 
-### Bước 3: Cấu hình dự án của bạn
+</Step>
+
+<Step number={3} title="Cấu hình dự án của bạn">
 
 Tạo tệp cấu hình để thiết lập các ngôn ngữ trong ứng dụng của bạn:
 
@@ -168,7 +184,9 @@ export default config;
 
 > Thông qua tệp cấu hình này, bạn có thể cấu hình các URL đa ngôn ngữ, chuyển hướng middleware, tên cookie, vị trí và phần mở rộng của các khai báo nội dung, tắt log của Intlayer trong console, v.v. Để biết danh sách đầy đủ các tham số khả dụng, hãy tham khảo [tài liệu cấu hình](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md).
 
-### Bước 4: Tích hợp Intlayer vào cấu hình Vite
+</Step>
+
+<Step number={4} title="Tích hợp Intlayer vào cấu hình Vite">
 
 Thêm plugin intlayer vào cấu hình của bạn:
 
@@ -196,7 +214,9 @@ export default defineConfig({
 
 > Plugin Vite `intlayer()` được sử dụng để tích hợp Intlayer với Vite. Nó đảm bảo việc xây dựng các tệp khai báo nội dung và theo dõi chúng trong chế độ phát triển. Nó định nghĩa các biến môi trường Intlayer trong ứng dụng Vite. Ngoài ra, nó cung cấp các alias để giảm chi phí hiệu năng.
 
-### Bước 5: Tạo Root Layout
+</Step>
+
+<Step number={5} title="Tạo Root Layout">
 
 Cấu hình layout gốc của bạn để hỗ trợ đa ngôn ngữ bằng cách sử dụng `useParams` để phát hiện ngôn ngữ hiện tại và thiết lập các thuộc tính `lang` và `dir` trên thẻ `html`.
 
@@ -237,7 +257,9 @@ const RootComponent: ParentComponent = (props) => {
 };
 ```
 
-### Bước 6: Tạo Locale Layout (Tùy chọn)
+</Step>
+
+<Step number={6} title="Tạo Locale Layout">
 
 Tạo một layout để xử lý tiền tố ngôn ngữ và thực hiện kiểm tra tính hợp lệ. Layout này sẽ đảm bảo chỉ các ngôn ngữ hợp lệ mới được xử lý.
 
@@ -272,7 +294,9 @@ export const Route = createFileRoute("/{-$locale}")({
 > Đối với chế độ `'prefix-all'`, bạn có thể thích chuyển slot thành `$locale`.
 > Đối với chế độ `'no-prefix'` hoặc `'search-params'`, bạn có thể xóa hoàn toàn slot này.
 
-### Bước 7: Khai báo nội dung của bạn
+</Step>
+
+<Step number={7} title="Khai báo nội dung của bạn">
 
 Tạo và quản lý các khai báo nội dung để lưu trữ bản dịch:
 
@@ -318,7 +342,9 @@ export default appContent;
 
 > Để biết thêm chi tiết, hãy tham khảo [tài liệu khai báo nội dung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/content_file.md).
 
-### Bước 8: Sử dụng các Component và Hook theo ngôn ngữ
+</Step>
+
+<Step number={8} title="Sử dụng các Component và Hook theo ngôn ngữ">
 
 Tạo một component `LocalizedLink` để điều hướng theo ngôn ngữ:
 
@@ -397,7 +423,9 @@ export const useLocalizedNavigate = () => {
 };
 ```
 
-### Bước 9: Sử dụng Intlayer trong các trang của bạn
+</Step>
+
+<Step number={9} title="Sử dụng Intlayer trong các trang của bạn">
 
 Truy cập các từ điển nội dung của bạn trong toàn bộ ứng dụng:
 
@@ -440,7 +468,9 @@ function RouteComponent() {
 >
 > Để tìm hiểu thêm về hook `useIntlayer`, hãy tham khảo [tài liệu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/solid-intlayer/useIntlayer.md).
 
-### Bước 10: Tạo Component Chuyển đổi Ngôn ngữ
+</Step>
+
+<Step number={10} title="Tạo Component Chuyển đổi Ngôn ngữ">
 
 Tạo một component để cho phép người dùng thay đổi ngôn ngữ:
 
@@ -484,7 +514,9 @@ export default LocaleSwitcher;
 >
 > Để tìm hiểu thêm về hook `useLocale`, hãy tham khảo [tài liệu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/solid-intlayer/useLocale.md).
 
-### Bước 11: Quản lý các thuộc tính HTML
+</Step>
+
+<Step number={11} title="Quản lý các thuộc tính HTML">
 
 Như đã thấy ở Bước 5, bạn có thể quản lý các thuộc tính `lang` và `dir` của thẻ `html` bằng cách sử dụng `useParams` trong component gốc của mình. Điều này đảm bảo rằng các thuộc tính chính xác được thiết lập trên cả server và client.
 
@@ -503,7 +535,9 @@ const RootComponent: ParentComponent = (props) => {
 
 ---
 
-### Bước 12: Thêm Middleware (Tùy chọn)
+</Step>
+
+<Step number={12} title="Thêm Middleware">
 
 Bạn cũng có thể sử dụng `intlayerProxy` để thêm điều hướng phía server cho ứng dụng của mình. Plugin này sẽ tự động phát hiện ngôn ngữ hiện tại dựa trên URL và thiết lập cookie ngôn ngữ phù hợp. Nếu không có ngôn ngữ nào được chỉ định, plugin sẽ xác định ngôn ngữ phù hợp nhất dựa trên tùy chọn ngôn ngữ trình duyệt của người dùng. Nếu không phát hiện được ngôn ngữ nào, nó sẽ chuyển hướng về ngôn ngữ mặc định.
 
@@ -534,7 +568,9 @@ export default defineConfig({
 
 ---
 
-### Bước 13: Đa ngôn ngữ hóa Metadata của bạn (Tùy chọn)
+</Step>
+
+<Step number={13} title="Đa ngôn ngữ hóa Metadata của bạn">
 
 Bạn cũng có thể sử dụng hàm `getIntlayer` để truy cập các từ điển nội dung của mình trong hàm load `head` cho metadata theo ngôn ngữ:
 
@@ -581,7 +617,9 @@ export const Route = createFileRoute("/{-$locale}/")({
 
 ---
 
-### Bước 14: Lấy ngôn ngữ trong các server action của bạn (Tùy chọn)
+</Step>
+
+<Step number={14} title="Lấy ngôn ngữ trong các server action của bạn">
 
 Bạn có thể muốn truy cập ngôn ngữ hiện tại từ bên trong các server action hoặc API endpoint của mình.
 Bạn có thể làm điều này bằng cách sử dụng helper `getLocale` từ `intlayer`.
@@ -618,7 +656,9 @@ export const getLocaleServer = createServerFn().handler(async () => {
 
 ---
 
-### Bước 15: Quản lý các trang không tìm thấy (404) (Tùy chọn)
+</Step>
+
+<Step number={15} title="Quản lý các trang không tìm thấy (404)" isOptional={true}>
 
 Khi một người dùng truy cập vào một trang không tồn tại, bạn có thể hiển thị một trang không tìm thấy tùy chỉnh và tiền tố ngôn ngữ có thể ảnh hưởng đến cách trang không tìm thấy được kích hoạt.
 
@@ -692,7 +732,9 @@ export const Route = createFileRoute("/{-$locale}/$")({
 });
 ```
 
-### (Tùy chọn) Bước 16: Trích xuất nội dung từ các component của bạn
+</Step>
+
+<Step number={16} title="Trích xuất nội dung từ các component của bạn" isOptional={true}>
 
 Nếu bạn có một codebase hiện tại, việc chuyển đổi hàng nghìn tệp có thể tốn nhiều thời gian.
 
@@ -805,7 +847,9 @@ bun run build # Hoặc bun run dev
 
 ---
 
-### Bước 17: Cấu hình TypeScript (Tùy chọn)
+</Step>
+
+<Step number={17} title="Cấu hình TypeScript">
 
 Intlayer sử dụng module augmentation để tận dụng các lợi ích của TypeScript và giúp codebase của bạn mạnh mẽ hơn.
 
@@ -835,6 +879,10 @@ Khuyên bạn nên bỏ qua các tệp do Intlayer tạo ra. Điều này cho ph
 ```
 
 ---
+
+</Step>
+
+</Steps>
 
 ## Tiện ích mở rộng VS Code
 

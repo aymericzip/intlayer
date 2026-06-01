@@ -57,7 +57,7 @@ export const ProjectCard = ({ project, ...props }: ProjectCardProps) => {
             alt={`${project.title} screenshot`}
             width={1280}
             height={720}
-            className={`h-full w-full object-cover transition-all duration-500 ease-out group-hover:scale-105 ${
+            className={`size-full object-cover transition-all duration-500 ease-out group-hover:scale-105 ${
               isImageLoaded ? 'opacity-100' : 'opacity-0'
             }`}
             src={project.imageUrl}
@@ -76,7 +76,7 @@ export const ProjectCard = ({ project, ...props }: ProjectCardProps) => {
               )}
               <img
                 alt={`${project.title} favicon`}
-                className={`h-full w-full object-cover transition-opacity duration-300 ${
+                className={`size-full object-cover transition-opacity duration-300 ${
                   isFaviconLoaded ? 'opacity-100' : 'opacity-0'
                 }`}
                 src={faviconUrl}

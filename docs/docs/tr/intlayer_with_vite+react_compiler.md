@@ -92,7 +92,9 @@ Geliştirme sırasında bu etkiyi azaltmak için derleyiciyi [`'build-only'`](ht
 
 ## Vite ve React Uygulamasında Intlayer Kurulumu İçin Adım Adım Kılavuz
 
-### Adım 1: Bağımlılıkları Yükleyin
+<Steps>
+
+<Step number={1} title="Bağımlılıkları Yükleyin">
 
 Gerekli paketleri npm kullanarak yükleyin:
 
@@ -129,7 +131,9 @@ bun x intlayer init
 - **vite-intlayer**
   Intlayer'ı [Vite paketleyici](https://vite.dev/guide/why.html#why-bundle-for-production) ile entegre etmek için Vite eklentisinin yanı sıra kullanıcının tercih ettiği dili algılamak, çerezleri yönetmek ve URL yönlendirmesini işlemek için ara yazılımı (middleware) içerir.
 
-### Adım 2: Projenizi Yapılandırın
+</Step>
+
+<Step number={2} title="Projenizi Yapılandırın">
 
 Uygulamanızın dillerini yapılandırmak için bir yapılandırma dosyası oluşturun:
 
@@ -188,7 +192,9 @@ export default config;
 
 > Bu yapılandırma dosyası aracılığıyla yerelleştirilmiş URL'ler, ara yazılım yönlendirmesi, çerez adları, içerik bildirimlerinizin konumu ve uzantısı gibi ayarları yapabilir, konsoldaki Intlayer günlüklerini devre dışı bırakabilir ve daha fazlasını yapabilirsiniz. Mevcut parametrelerin tam listesi için [yapılandırma belgelerine](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md) bakın.
 
-### Adım 3: Intlayer'ı Vite Yapılandırmanıza Entegre Edin
+</Step>
+
+<Step number={3} title="Intlayer'ı Vite Yapılandırmanıza Entegre Edin">
 
 Yapılandırmanıza intlayer eklentisini ekleyin.
 
@@ -207,7 +213,9 @@ export default defineConfig({
 
 > `intlayerCompiler()` Vite eklentisi, bileşenden içerik çıkarmak ve `.content` dosyalarını yazmak için kullanılır.
 
-### Adım 4: Kodunuzu Derleyin
+</Step>
+
+<Step number={4} title="Kodunuzu Derleyin">
 
 Sadece bileşenlerinizi varsayılan dilinizde sabit kodlu dizelerle yazın. Derleyici gerisini halleder.
 
@@ -347,7 +355,9 @@ export default App;
 
 - **`IntlayerProvider`**, alt bileşenlere dili sağlamak için kullanılır.
 
-### (İsteğe Bağlı) Adım 6: İçeriğinizin dilini değiştirin
+</Step>
+
+<Step number={6} title="İçeriğinizin dilini değiştirin" isOptional={true}>
 
 İçeriğinizin dilini değiştirmek için `useLocale` kancası tarafından sağlanan `setLocale` işlevini kullanabilirsiniz. Bu işlev, uygulamanın dilini ayarlamanıza ve içeriği buna göre güncellemenize olanak tanır.
 
@@ -369,7 +379,9 @@ const LocaleSwitcher: FC = () => {
 
 > `useLocale` kancası hakkında daha fazla bilgi edinmek için [belgelere](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useLocale.md) bakın.
 
-### (İsteğe Bağlı) Adım 7: Eksik çevirileri doldur
+</Step>
+
+<Step number={7} title="Eksik çevirileri doldur" isOptional={true}>
 
 Intlayer, eksik çevirileri doldurmanıza yardımcı olacak bir CLI aracı sağlar. Kodunuzdaki eksik çevirileri test etmek ve doldurmak için `intlayer` komutunu kullanabilirsiniz.
 
@@ -510,3 +522,7 @@ Eklentinin nasıl kullanılacağına ilişkin daha fazla ayrıntı için [Intlay
 ### Daha Fazlası
 
 Daha ileri gitmek için [görsel düzenleyiciyi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) uygulayabilir veya [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) kullanarak içeriğinizi dışsallaştırabilirsiniz.
+
+</Step>
+
+</Steps>

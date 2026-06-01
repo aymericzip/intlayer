@@ -103,7 +103,9 @@ Intlayer は単なる i18n ソリューションではなく、**自己ホスト
 
 GitHubの[アプリケーションテンプレート](https://github.com/aymericzip/intlayer-nuxt-4-template)を参照してください。
 
-### ステップ1: 依存関係のインストール
+<Steps>
+
+<Step number={1} title="依存関係のインストール">
 
 npmを使って必要なパッケージをインストールします:
 
@@ -141,7 +143,9 @@ bun x intlayer init
 - **nuxt-intlayer**
   NuxtアプリケーションとIntlayerを統合するNuxtモジュールです。自動セットアップ、ロケール検出のためのミドルウェア、クッキー管理、URLリダイレクトを提供します。
 
-### ステップ2: プロジェクトの設定
+</Step>
+
+<Step number={2} title="プロジェクトの設定">
 
 アプリケーションの言語を設定するための設定ファイルを作成します。
 
@@ -165,7 +169,9 @@ export default config;
 
 > この設定ファイルを通じて、ローカライズされたURL、ミドルウェアのリダイレクション、クッキー名、コンテンツ宣言の場所と拡張子、Intlayerのコンソールログの無効化などを設定できます。利用可能なパラメータの完全なリストについては、[設定ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)を参照してください。
 
-### ステップ3: Nuxt設定にIntlayerを統合する
+</Step>
+
+<Step number={3} title="Nuxt設定にIntlayerを統合する">
 
 Nuxtの設定にintlayerモジュールを追加します:
 
@@ -180,7 +186,9 @@ export default defineNuxtConfig({
 
 > `nuxt-intlayer` モジュールは、Intlayer と Nuxt の統合を自動的に処理します。コンテンツ宣言のビルドを設定し、開発モードでファイルを監視し、ロケール検出のためのミドルウェアを提供し、ローカライズされたルーティングを管理します。
 
-### ステップ 4: コンテンツを宣言する
+</Step>
+
+<Step number={4} title="コンテンツを宣言する">
 
 翻訳を格納するためのコンテンツ宣言を作成および管理します：
 
@@ -215,7 +223,9 @@ export default content;
 
 > 詳細については、[コンテンツ宣言ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/content_file.md)を参照してください。
 
-### ステップ5: コード内でIntlayerを利用する
+</Step>
+
+<Step number={5} title="コード内でIntlayerを利用する">
 
 `useIntlayer`コンポーザブルを使って、Nuxtアプリケーション全体でコンテンツ辞書にアクセスします:
 
@@ -284,7 +294,9 @@ IntlayerはコンテンツにアクセスするためのさまざまなAPIを提
   - `const content = useIntlayer("myContent");` を使用し、`{{ content.myContent }}` / `<content.myContent />` としてレンダリングします。
   - または、`const { myContent } = useIntlayer("myContent");` を使用してコンテンツを分割代入し、`{{ myContent }}` / `<myContent/>` としてレンダリングします。
 
-### （オプション）ステップ6: コンテンツの言語を変更する
+</Step>
+
+<Step number={6} title="コンテンツの言語を変更する">
 
 コンテンツの言語を変更するには、`useLocale` コンポーザブルが提供する `setLocale` 関数を使用します。この関数により、アプリケーションのロケールを設定し、それに応じてコンテンツを更新できます。
 
@@ -355,7 +367,9 @@ import LocaleSwitcher from "~/components/LocaleSwitcher.vue";
 
 `Links` コンポーネント（以下に示す）は、内部ナビゲーションリンクが自動的にローカライズされることを保証します。
 
-### （オプション）ステップ7: アプリケーションにローカライズされたルーティングを追加する
+</Step>
+
+<Step number={7} title="アプリケーションにローカライズされたルーティングを追加する">
 
 `nuxt-intlayer` モジュールを使用すると、Nuxtはローカライズされたルーティングを自動的に処理します。これは、ページのディレクトリ構造に基づいて各言語のルートを自動的に作成します。
 
@@ -429,7 +443,9 @@ useHead({
 - ロケールクッキーの管理
 - ユーザーを適切なローカライズされた URL にリダイレクト
 
-### （オプション）ステップ8：ローカライズされたリンクコンポーネントの作成
+</Step>
+
+<Step number={8} title="ローカライズされたリンクコンポーネントの作成">
 
 アプリケーションのナビゲーションが現在のロケールを尊重するようにするために、カスタムの `Links` コンポーネントを作成できます。このコンポーネントは内部URLに自動的に現在の言語をプレフィックスとして付加し、これは**SEOおよびページの発見性**に不可欠です。
 
@@ -497,7 +513,9 @@ import LocaleSwitcher from "~/components/LocaleSwitcher.vue";
 > - ユーザーがローカライズされたURLを直接共有できる
 > - ブラウザの履歴がロケール接頭辞付きURLで正しく動作する
 
-### （オプション）ステップ9：メタデータとSEOの処理
+</Step>
+
+<Step number={9} title="メタデータとSEOの処理">
 
 Nuxtは `useHead` コンポーザブル（自動インポート）を通じて優れたSEO機能を提供します。Intlayerを使って、`.raw` または `.value` アクセサを用いてプリミティブな文字列値を取得し、ローカライズされたメタデータを扱うことができます：
 
@@ -629,3 +647,7 @@ Intlayerでの開発体験を向上させるために、公式の**Intlayer VS C
 ### さらに進む
 
 さらに進めるには、[ビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)を実装するか、[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)を使用してコンテンツを外部化することができます。
+
+</Step>
+
+</Steps>

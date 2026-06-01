@@ -80,7 +80,9 @@ Storybookは、UIコンポーネントを分離して開発およびドキュメ
 <Tabs>
 <Tab value="Vite Setup">
 
-### ステップ 1: 依存関係のインストール
+<Steps>
+
+<Step number={1} title="依存関係のインストール">
 
 ```bash packageManager="npm"
 npm install intlayer react-intlayer
@@ -110,7 +112,9 @@ bun add vite-intlayer --dev
 
 ---
 
-### ステップ 2: Intlayer設定の作成
+</Step>
+
+<Step number={2} title="Intlayer設定の作成">
 
 プロジェクトのルート（またはデザインシステムパッケージ内）に `intlayer.config.ts` を作成します：
 
@@ -139,7 +143,9 @@ export default config;
 
 ---
 
-### ステップ 3: StorybookにViteプラグインを追加する
+</Step>
+
+<Step number={3} title="StorybookにViteプラグインを追加する">
 
 Storybookの `viteFinal` フックを使用して、内部のVite設定を拡張できます。そこで `intlayer()` プラグインをインポートして追加します：
 
@@ -180,7 +186,9 @@ export default config;
 
 ---
 
-### ステップ 4: `IntlayerProvider` デコレーターとロケールツールバーの追加
+</Step>
+
+<Step number={4} title="`IntlayerProvider` デコレーターとロケールツールバーの追加">
 
 Storybookの `preview` ファイルは、すべてのストーリーを `IntlayerProvider` でラップし、ツールバーにロケールスイッチャーを表示するのに最適な場所です：
 
@@ -237,7 +245,9 @@ export default preview;
 </Tab>
 <Tab value="Webpack Setup">
 
-### ステップ 1: 依存関係のインストール
+</Step>
+
+<Step number={1} title="依存関係のインストール">
 
 ```bash packageManager="npm"
 npm install intlayer react-intlayer
@@ -261,7 +271,9 @@ bun add @intlayer/webpack --dev
 
 ---
 
-### ステップ 2: Intlayer設定の作成
+</Step>
+
+<Step number={2} title="Intlayer設定の作成">
 
 プロジェクトのルートに `intlayer.config.ts` を作成します：
 
@@ -283,7 +295,9 @@ export default config;
 
 ---
 
-### ステップ 3: StorybookのWebpackを設定する
+</Step>
+
+<Step number={3} title="StorybookのWebpackを設定する">
 
 WebpackベースのStorybookセットアップ（例: `@storybook/react-webpack5`）の場合、`webpackFinal` を介してwebpack設定を拡張し、Intlayerエイリアスとローダーを追加します：
 
@@ -310,7 +324,9 @@ export default config;
 
 ---
 
-### ステップ 4: `IntlayerProvider` デコレーターとロケールツールバーの追加
+</Step>
+
+<Step number={4} title="`IntlayerProvider` デコレーターとロケールツールバーの追加">
 
 Viteセットアップと同様に、デコレーターとグローバルロケール型を `.storybook/preview.tsx` に追加します：
 
@@ -355,6 +371,10 @@ export default preview;
 </Tabs>
 
 ---
+
+</Step>
+
+</Steps>
 
 ## コンテンツの宣言
 

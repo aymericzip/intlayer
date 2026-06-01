@@ -99,7 +99,9 @@ Intlayer は単なる i18n ソリューションではなく、**自己ホスト
 
 GitHubで[アプリケーションテンプレート](https://github.com/aymericzip/intlayer-angular-21-template)を参照してください。
 
-### ステップ1：依存関係のインストール
+<Steps>
+
+<Step number={1} title="依存関係のインストール">
 
 npmを使用して必要なパッケージをインストールします：
 
@@ -137,7 +139,9 @@ bun x intlayer init
 - **@angular-builders/custom-esbuild**
   Angular CLIのesbuild構成をカスタマイズするために必要です。
 
-### ステップ2：プロジェクトの構成
+</Step>
+
+<Step number={2} title="プロジェクトの構成">
 
 アプリケーションの言語を構成するための構成ファイルを作成します：
 
@@ -161,7 +165,9 @@ export default config;
 
 > この設定ファイルを通じて、ローカライズされたURL、ミドルウェアのリダイレクト、Cookie名、コンテンツ宣言の場所と拡張子、コンソールでのIntlayerログの無効化などを設定できます。利用可能なパラメーターの完全なリストについては、[設定ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)を参照してください。
 
-### ステップ3：Angular構成へのIntlayerの統合
+</Step>
+
+<Step number={3} title="Angular構成へのIntlayerの統合">
 
 IntlayerをAngular CLIと統合するには、カスタムビルダーを使用する必要があります。このガイドでは、Vite/esbuild（Angular 21プロジェクトのデフォルト）を使用していることを前提としています。
 
@@ -223,7 +229,9 @@ export default [intlayerEsbuildPlugin()];
 >
 > その後、`angular.json` で `"./esbuild.plugins.ts"` の代わりに `"./esbuild.plugins.mjs"` を指定します。
 
-### ステップ4：コンテンツの宣言
+</Step>
+
+<Step number={4} title="コンテンツの宣言">
 
 翻訳を保存するためにコンテンツ宣言を作成および管理します：
 
@@ -273,7 +281,9 @@ export default appContent;
 
 > 詳細については、[コンテンツ宣言のドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/content_file.md)を参照してください。
 
-### ステップ5：コードでIntlayerを活用する
+</Step>
+
+<Step number={5} title="コードでIntlayerを活用する">
 
 Angularアプリケーション全体でIntlayerの国際化機能を活用するには、アプリケーションの構成でIntlayerを提供する必要があります。
 
@@ -321,7 +331,9 @@ export class AppComponent {
 
 Intlayerのコンテンツは`Signal`として返されるため、シグナルを呼び出すことで値にアクセスします：`content().title`。
 
-### （オプション）ステップ6：コンテンツの言語を変更する
+</Step>
+
+<Step number={6} title="コンテンツの言語を変更する">
 
 コンテンツの言語を変更するには、`useLocale`関数によって提供される`setLocale`関数を使用できます。これにより、アプリケーションのロケールを設定し、それに応じてコンテンツを更新できます。
 
@@ -431,3 +443,7 @@ Intlayerでの開発エクスペリエンスを向上させるために、公式
 さらに進むには、[ビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)を実装したり、[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)を使用してコンテンツを外部化したりできます。
 
 ---
+
+</Step>
+
+</Steps>

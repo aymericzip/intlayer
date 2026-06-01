@@ -64,7 +64,8 @@ history:
 
 'Next-intl' veya 'i18next' gibi ana çözümlerle karşılaştırıldığında Intlayer, aşağıdaki gibi entegre optimizasyonlarla gelen bir çözümdür:
 
-**Tam Next.js kapsamı**
+<AccordionGroup>
+<Accordion header="Tam Next.js kapsamı">
 
 Intlayer, verimli işleme için **Sunucu Bileşenleri** ile çalışacak şekilde optimize edilmiştir ve [**Turbopack**](https://nextjs.org/docs/architecture/turbopack) ile tamamen uyumludur. Statik oluşturmayı engellemez ve ara yazılımların yanı sıra uluslararasılaştırmayı (i18n) ölçeklendirmek için gereken tüm özellikleri sunar.
 
@@ -72,35 +73,46 @@ Intlayer, verimli işleme için **Sunucu Bileşenleri** ile çalışacak şekild
 > Yerel yönlendirme SEO, bundle boyutu ve performans açısından faydalıdır. İhtiyacınız yoksa bu [rehbere](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_no_locale_path.md) başvurabilirsiniz.
 > Uygulama Yönlendiricili Next.js 12, 13, 14 ve 15 için bu [kılavuz](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_14.md) bakın.
 
-**Bundle boyutu**
+</Accordion>
+<Accordion header="Bundle boyutu">
 
 Sayfalarınıza çok büyük JSON dosyaları yüklemek yerine yalnızca gerekli içeriği yükleyin. Intlayer **bundle ve sayfa boyutlarınızı %50'ye kadar azaltmanıza** yardımcı olur.
 
-**Sürdürülebilirlik**
+</Accordion>
+<Accordion header="Sürdürülebilirlik">
 
 Uygulamanızın içeriğinin kapsamını belirlemek, büyük ölçekli uygulamalar için **bakımı kolaylaştırır**. İçerik kod tabanınızın tamamını gözden geçirmenin zihinsel yükü olmadan, tek bir özellik klasörünü çoğaltabilir veya silebilirsiniz. Ayrıca Intlayer, içeriğinizin doğruluğunu sağlamak için **tamamen tiplendirilmiş (fully typed)tır**.
 
-**Yapay Zeka Temsilcisi**
+</Accordion>
+<Accordion header="Yapay Zeka Temsilcisi">
 
 İçeriğin bir arada konumlandırılması **Büyük Dil Modellerinin (LLM'ler) ihtiyaç duyduğu bağlamı azaltır**. Intlayer ayrıca eksik çevirileri test etmek için **CLI** gibi bir araç paketiyle birlikte gelir**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** ve **[aracı becerileri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, geliştirici deneyimini (DX) yapay zeka için daha da sorunsuz hale getirmek için ajanlar.
 
-**Otomasyon**
+</Accordion>
+<Accordion header="Otomasyon">
 
 Maliyeti AI sağlayıcınıza ait olmak üzere seçtiğiniz LLM'yi kullanarak CI/CD işlem hattınızda çeviri yapmak için otomasyonu kullanın. Intlayer ayrıca içerik çıkarmayı otomatikleştirmek için bir **derleyici** ve **arka planda çeviri yapmaya** yardımcı olacak bir [web platformu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) sunar.
 
-**Performans**
+</Accordion>
+<Accordion header="Performans">
 
 Büyük JSON dosyalarını bileşenlere bağlamak performans ve tepkime sorunlarına yol açabilir. Intlayer, içerik yüklemenizi derleme sırasında optimize eder.
 
-**Non-dev ile ölçeklendirme**
+</Accordion>
+<Accordion header="Non-dev ile ölçeklendirme">
 
 Bir i18n çözümünden çok daha fazlası olan Intlayer, **kendi kendine barındırılan bir [görsel düzenleyici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** ve **[tam CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** çok dilli içeriğinizi **gerçek zamanlı** olarak yönetmenize yardımcı olarak çevirmenler, metin yazarları ve diğer ekip üyeleriyle işbirliğini kusursuz hale getirir. İçerik yerel olarak ve/veya uzaktan depolanabilir.
+
+</Accordion>
+</AccordionGroup>
 
 ---
 
 ## Sayfa Yönlendirici Kullanarak Next.js Uygulamasında Intlayer Kurulumu Adım Adım Kılavuzu
 
-### Adım 1: Bağımlılıkları Kurma
+<Steps>
+
+<Step number={1} title="Bağımlılıkları Kurma">
 
 Tercih ettiğiniz paket yöneticisini kullanarak gerekli paketleri kurun:
 
@@ -132,7 +144,9 @@ bun x intlayer init
 
   Intlayer'ı Next.js ile entegre eden paket. Next.js için bağlam sağlayıcıları ve kancalar sağlar. Ayrıca, Intlayer'ı [Webpack](https://webpack.js.org/) veya [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack) ile entegre etmek için Next.js eklentisini içerir, ayrıca kullanıcının tercih ettiği yerel ayarı algılamak, çerezleri yönetmek ve URL yönlendirmesini işlemek için middleware içerir.
 
-### Adım 2: Projenizi Yapılandırma
+</Step>
+
+<Step number={2} title="Projenizi Yapılandırma">
 
 Uygulamanızın desteklediği dilleri tanımlamak için bir yapılandırma dosyası oluşturun:
 
@@ -156,7 +170,9 @@ export default config;
 
 > Bu yapılandırma dosyası aracılığıyla, yerelleştirilmiş URL'ler, middleware yönlendirmesi, çerez adları, içerik bildirimlerinizin konumu ve uzantısı, Intlayer günlüklerinin konsolda devre dışı bırakılması ve daha fazlasını ayarlayabilirsiniz. Kullanılabilir parametrelerin tam listesi için [yapılandırma dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md) bakın.
 
-### Adım 3: Next.js Yapılandırmasında Intlayer'ı Entegre Etme
+</Step>
+
+<Step number={3} title="Next.js Yapılandırmasında Intlayer'ı Entegre Etme">
 
 Next.js kurulumunuzu Intlayer ile uyumlu hale getirin:
 
@@ -174,7 +190,9 @@ export default withIntlayer(nextConfig);
 > `withIntlayer()` Next.js eklentisi, Intlayer'ı Next.js ile entegre etmek için kullanılır. İçerik bildirim dosyalarının oluşturulmasını sağlar ve bunları geliştirme modunda izler. Intlayer ortam değişkenlerini [Webpack](https://webpack.js.org/) veya [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack) ortamlarında tanımlar. Ayrıca, performansı optimize etmek ve sunucu bileşenleriyle uyumluluğu sağlamak için takma adlar sağlar.
 > `withIntlayer()` Next.js eklentisi promise tabanlı bir fonksiyondur.
 
-### Adım 4: Yerel Algılama için Middleware Kurulumu
+</Step>
+
+<Step number={4} title="Yerel Algılama için Middleware Kurulumu">
 
 Kullanıcının tercih ettiği yerel ayarı otomatik olarak algılamak ve işlemek için middleware kurun:
 
@@ -189,7 +207,9 @@ export const config = {
 
 > Eşleştirici parametresini uygulamanızın rotalarına uyacak şekilde uyarlayın. Daha fazla detay için [Next.js dokümantasyonunda eşleştiriciyi yapılandırma](https://nextjs.org/docs/app/building-your-application/routing/middleware) bölümüne bakın.
 
-### Adım 5: Dinamik Yerel Rotalar Tanımlama
+</Step>
+
+<Step number={5} title="Dinamik Yerel Rotalar Tanımlama">
 
 Kullanıcının yerel ayarına göre yerelleştirilmiş içerik sunmak için dinamik yönlendirmeyi uygulayın.
 
@@ -346,7 +366,9 @@ Kullanıcının yerel ayarına göre yerelleştirilmiş içerik sunmak için din
 
 > `getStaticPaths` ve `getStaticProps`, Next.js Sayfa Yönlendirici'de uygulamanızın tüm yerel ayarlar için gerekli sayfaları önceden oluşturmasını sağlar. Bu yaklaşım, çalışma zamanı hesaplamasını azaltır ve iyileştirilmiş bir kullanıcı deneyimi sağlar. Daha fazla detay için Next.js'in [`getStaticPaths`](https://nextjs.org/docs/pages/building-your-application/data-fetching/get-static-paths) ve [`getStaticProps`](https://nextjs.org/docs/pages/building-your-application/data-fetching/get-static-props) dokümantasyonuna bakın.
 
-### Adım 6: İçeriğinizi Bildirin
+</Step>
+
+<Step number={6} title="İçeriğinizi Bildirin">
 
 Çevirileri depolamak için içerik bildirimlerinizi oluşturun ve yönetin.
 
@@ -399,7 +421,9 @@ export default homeContent;
 
 İçerik bildirim hakkında daha fazla bilgi için [içerik bildirim kılavuzuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md) bakın.
 
-### Adım 7: Kodunuzda İçeriği Kullanın
+</Step>
+
+<Step number={7} title="Kodunuzda İçeriği Kullanın">
 
 Çevirilmiş içerik görüntülemek için uygulamanız boyunca içerik sözlüklerinize erişin.
 
@@ -452,7 +476,9 @@ export const ComponentExample: FC = () => {
 
 > `useIntlayer` kancası hakkında daha fazla bilgi edinmek için [dokümantasyona](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/useIntlayer.md) bakın.
 
-### (İsteğe Bağlı) Adım 8: Meta verilerinizin uluslararasılaştırılması
+</Step>
+
+<Step number={8} title="Meta verilerinizin uluslararasılaştırılması" isOptional={true}>
 
 Sayfanızın başlığı gibi meta verilerinizi uluslararasılaştırmak istiyorsanız, Next.js Sayfa Yönlendirici tarafından sağlanan `getStaticProps` fonksiyonunu kullanabilirsiniz. İçinde, meta verilerinizi çevirmek için `getIntlayer` fonksiyonundan içeriği alabilirsiniz.
 
@@ -694,7 +720,9 @@ export default HomePage;
 
 > Meta veri optimizasyonu hakkında daha fazla bilgi edinmek için resmi [Next.js dokümantasyonuna](https://nextjs.org/docs/pages/building-your-application/optimizing/metadata) bakın.
 
-### (İsteğe Bağlı) Adım 9: İçeriğinizin dilini değiştirme
+</Step>
+
+<Step number={9} title="İçeriğinizin dilini değiştirme" isOptional={true}>
 
 Next.js'te içeriğinizin dilini değiştirmek için, kullanıcıları uygun yerelleştirilmiş sayfaya yönlendirmek için `Link` bileşenini kullanmak önerilen yoldur. `Link` bileşeni, sayfa ön yüklemesini etkinleştirir, bu da tam sayfa yeniden yüklemeden kaçınmaya yardımcı olur.
 
@@ -785,7 +813,9 @@ return (
 > - [`dir` özelliği](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir)
 > - [`aria-current` özelliği](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)
 
-### (İsteğe Bağlı) Adım 10: Yerelleştirilmiş Bağlantı Bileşeni Oluşturma
+</Step>
+
+<Step number={10} title="Yerelleştirilmiş Bağlantı Bileşeni Oluşturma" isOptional={true}>
 
 Uygulamanızın navigasyonunun mevcut yerel ayarı saygı göstermesini sağlamak için, özel bir `Link` bileşeni oluşturabilirsiniz. Bu bileşen, dahili URL'leri otomatik olarak mevcut dille önekler, böylece örneğin Fransızca konuşan bir kullanıcı "Hakkında" sayfasına bir bağlantıya tıkladığında, `/fr/hakkinda` yerine `/hakkinda`ya yönlendirilir.
 
@@ -854,7 +884,9 @@ Link.displayName = "Link";
 
 Bu `Link` bileşenini uygulamanız boyunca entegre ederek, tutarlı ve dil bilincine sahip bir kullanıcı deneyimi sürdürürsünüzken aynı zamanda gelişmiş SEO ve kullanılabilirlikten de yararlanırsınız.
 
-### (İsteğe Bağlı) Adım 11: bundle boyutunuzu Optimize Edin
+</Step>
+
+<Step number={11} title="bundle boyutunuzu Optimize Edin" isOptional={true}>
 
 `next-intlayer` kullanırken, sözlükler varsayılan olarak her sayfa için pakete dahil edilir. bundle boyutunu optimize etmek için, Intlayer isteğe bağlı bir SWC eklentisi sağlar ki bu, `useIntlayer` çağrılarını akıllıca makrolar kullanarak değiştirir. Bu, sözlüklerin sadece onları gerçekten kullanan sayfalar için paketlere dahil edilmesini sağlar.
 
@@ -925,6 +957,10 @@ Bu uzantı şunları sağlar:
 - **Çevirileri kolayca oluşturmak ve güncellemek için hızlı eylemler**.
 
 Uzantının nasıl kullanılacağı hakkında daha fazla detay için, [Intlayer VS Code Uzantısı dokümantasyonu](https://intlayer.org/doc/vs-code-extension)na bakın.
+
+</Step>
+
+</Steps>
 
 ## Ek Kaynaklar
 

@@ -66,33 +66,43 @@ history:
 
 "svelte-i18n" veya "i18next" gibi ana çözümlerle karşılaştırıldığında Intlayer, aşağıdaki gibi entegre optimizasyonlarla gelen bir çözümdür:
 
-**Tam Svelte kapsamı**
+<AccordionGroup>
+<Accordion header="Tam Svelte kapsamı">
 
 Intlayer, **bileşen düzeyinde içerik kapsamı**, **reaktif çeviriler** ve uluslararasılaştırmayı (i18n) ölçeklendirmek için gereken tüm özellikleri sunarak Svelte ile mükemmel çalışacak şekilde optimize edilmiştir.
 
-**Bundle boyutu**
+</Accordion>
+<Accordion header="Bundle boyutu">
 
 Sayfalarınıza çok büyük JSON dosyaları yüklemek yerine yalnızca gerekli içeriği yükleyin. Intlayer **bundle ve sayfa boyutlarınızı %50'ye kadar azaltmanıza** yardımcı olur.
 
-**Sürdürülebilirlik**
+</Accordion>
+<Accordion header="Sürdürülebilirlik">
 
 Uygulamanızın içeriğinin kapsamını belirlemek, büyük ölçekli uygulamalar için **bakımı kolaylaştırır**. İçerik kod tabanınızın tamamını gözden geçirmenin zihinsel yükü olmadan, tek bir özellik klasörünü çoğaltabilir veya silebilirsiniz. Ayrıca Intlayer, içeriğinizin doğruluğunu sağlamak için **tamamen tiplendirilmiş (fully typed)tır**.
 
-**Yapay Zeka Temsilcisi**
+</Accordion>
+<Accordion header="Yapay Zeka Temsilcisi">
 
 İçeriğin bir arada konumlandırılması **Büyük Dil Modellerinin (LLM'ler) ihtiyaç duyduğu bağlamı azaltır**. Intlayer ayrıca eksik çevirileri test etmek için **CLI** gibi bir araç paketiyle birlikte gelir**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** ve **[aracı becerileri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, geliştirici deneyimini (DX) yapay zeka için daha da sorunsuz hale getirmek için ajanlar.
 
-**Otomasyon**
+</Accordion>
+<Accordion header="Otomasyon">
 
 Maliyeti AI sağlayıcınıza ait olmak üzere seçtiğiniz LLM'yi kullanarak CI/CD işlem hattınızda çeviri yapmak için otomasyonu kullanın. Intlayer ayrıca içerik çıkarmayı otomatikleştirmek için bir **derleyici** ve **arka planda çeviri yapmaya** yardımcı olacak bir [web platformu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) sunar.
 
-**Performans**
+</Accordion>
+<Accordion header="Performans">
 
 Büyük JSON dosyalarını bileşenlere bağlamak performans ve tepkime sorunlarına yol açabilir. Intlayer, içerik yüklemenizi derleme sırasında optimize eder.
 
-**Non-dev ile ölçeklendirme**
+</Accordion>
+<Accordion header="Non-dev ile ölçeklendirme">
 
 Bir i18n çözümünden çok daha fazlası olan Intlayer, **kendi kendine barındırılan bir [görsel düzenleyici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** ve **[tam CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** çok dilli içeriğinizi **gerçek zamanlı** olarak yönetmenize yardımcı olarak çevirmenler, metin yazarları ve diğer ekip üyeleriyle işbirliğini kusursuz hale getirir. İçerik yerel olarak ve/veya uzaktan depolanabilir.
+
+</Accordion>
+</AccordionGroup>
 
 ---
 
@@ -108,7 +118,9 @@ Bir i18n çözümünden çok daha fazlası olan Intlayer, **kendi kendine barın
 
 GitHub'da [Uygulama Şablonuna](https://github.com/aymericzip/intlayer-vite-svelte-template) bakın.
 
-### Adım 1: Bağımlılıkları Yükleyin
+<Steps>
+
+<Step number={1} title="Bağımlılıkları Yükleyin">
 
 Gerekli paketleri npm kullanarak yükleyin:
 
@@ -146,7 +158,9 @@ bun x intlayer init
 - **vite-intlayer**  
   Intlayer'ı [Vite bundler](https://vite.dev/guide/why.html#why-bundle-for-production) ile entegre etmek için Vite eklentisini içerir; ayrıca kullanıcının tercih ettiği dili tespit etmek, çerezleri yönetmek ve URL yönlendirmelerini işlemek için middleware sağlar.
 
-### Adım 2: Projenizin Konfigürasyonu
+</Step>
+
+<Step number={2} title="Projenizin Konfigürasyonu">
 
 Uygulamanızın dillerini yapılandırmak için bir konfigürasyon dosyası oluşturun:
 
@@ -170,7 +184,9 @@ export default config;
 
 > Bu konfigürasyon dosyası aracılığıyla, yerelleştirilmiş URL'ler, middleware yönlendirmesi, çerez isimleri, içerik beyanlarınızın konumu ve uzantısı, Intlayer loglarının konsolda devre dışı bırakılması ve daha fazlasını ayarlayabilirsiniz. Mevcut parametrelerin tam listesi için [konfigürasyon dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md) bakınız.
 
-### Adım 3: Intlayer'ı Vite Konfigürasyonunuza Entegre Edin
+</Step>
+
+<Step number={3} title="Intlayer'ı Vite Konfigürasyonunuza Entegre Edin">
 
 Konfigürasyonunuza intlayer eklentisini ekleyin.
 
@@ -187,7 +203,9 @@ export default defineConfig({
 
 > `intlayer()` Vite eklentisi, Intlayer'ı Vite ile entegre etmek için kullanılır. İçerik beyan dosyalarının oluşturulmasını sağlar ve geliştirme modunda bunları izler. Vite uygulaması içinde Intlayer ortam değişkenlerini tanımlar. Ayrıca, performansı optimize etmek için takma adlar (alias) sağlar.
 
-### Adım 4: İçeriğinizi Beyan Edin
+</Step>
+
+<Step number={4} title="İçeriğinizi Beyan Edin">
 
 Çevirileri depolamak için içerik beyanlarınızı oluşturun ve yönetin:
 
@@ -229,7 +247,9 @@ export default appContent;
 
 > Daha fazla detay için, [içerik bildirim dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/content_file.md) bakabilirsiniz.
 
-### Adım 5: Kodunuzda Intlayer'ı Kullanın
+</Step>
+
+<Step number={5} title="Kodunuzda Intlayer'ı Kullanın">
 
 ```svelte fileName="src/App.svelte"
 <script>
@@ -253,7 +273,9 @@ export default appContent;
 > Eğer uygulamanız zaten mevcutsa, binlerce bileşeni bir saniye içinde dönüştürmek için [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md)'ı [extract komutu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/extract.md) ile birlikte kullanabilirsiniz.
 ```
 
-### (İsteğe bağlı) Adım 6: İçeriğinizin dilini değiştirin
+</Step>
+
+<Step number={6} title="İçeriğinizin dilini değiştirin" isOptional={true}>
 
 ```svelte fileName="src/App.svelte"
 <script lang="ts">
@@ -282,7 +304,9 @@ const changeLocale = (event: Event) => {
 </div>
 ```
 
-### (İsteğe bağlı) Adım 7: Markdown Render Etme
+</Step>
+
+<Step number={7} title="Markdown Render Etme" isOptional={true}>
 
 Intlayer, Markdown içeriğini doğrudan Svelte uygulamanızda render etmeyi destekler. Varsayılan olarak, Markdown düz metin olarak işlenir. Markdown'u zengin HTML'ye dönüştürmek için `@humanspeak/svelte-markdown` veya başka bir markdown ayrıştırıcı entegre edebilirsiniz.
 
@@ -303,13 +327,17 @@ Intlayer, Markdown içeriğini doğrudan Svelte uygulamanızda render etmeyi des
 
 > Markdown front-matter verilerinize `content.markdownContent.metadata.xxx` özelliğini kullanarak da erişebilirsiniz.
 
-### (İsteğe bağlı) Adım 8: intlayer editör / CMS kurulumu
+</Step>
+
+<Step number={8} title="intlayer editör / CMS kurulumu" isOptional={true}>
 
 intlayer editörünü kurmak için [intlayer editör dokümantasyonunu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md) takip etmelisiniz.
 
 intlayer CMS'i kurmak için [intlayer CMS dokümantasyonunu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md) takip etmelisiniz.
 
-### (İsteğe bağlı) Adım 7: Uygulamanıza yerelleştirilmiş Yönlendirme ekleyin
+</Step>
+
+<Step number={7} title="Uygulamanıza yerelleştirilmiş Yönlendirme ekleyin" isOptional={true}>
 
 Svelte uygulamanızda yerelleştirilmiş yönlendirmeyi yönetmek için, `svelte-spa-router` paketini ve Intlayer'ın `localeFlatMap` fonksiyonunu kullanarak her locale için rotalar oluşturabilirsiniz.
 
@@ -413,7 +441,9 @@ import { intlayer, intlayerProxy } from "vite-intlayer";
 });
 ```
 
-### (İsteğe Bağlı) Adım 8: Dil değiştiğinde URL'yi değiştirme
+</Step>
+
+<Step number={8} title="Dil değiştiğinde URL'yi değiştirme" isOptional={true}>
 
 Kullanıcıların dilleri değiştirmesine ve URL'yi buna göre güncellemesine izin vermek için bir `LocaleSwitcher` bileşeni oluşturabilirsiniz. Bu bileşen, `intlayer`'dan `getLocalizedUrl` ve `svelte-spa-router`'dan `push` fonksiyonlarını kullanacaktır.
 
@@ -477,7 +507,9 @@ Eklentinin nasıl kullanılacağı hakkında daha fazla bilgi için [Intlayer VS
 
 ---
 
-### (İsteğe bağlı) Adım 9 : Bileşenlerinizin içeriğini çıkarın
+</Step>
+
+<Step number={9} title="Bileşenlerinizin içeriğini çıkarın" isOptional={true}>
 
 Mevcut bir kod tabanınız varsa, binlerce dosyayı dönüştürmek zaman alıcı olabilir.
 
@@ -650,3 +682,7 @@ pnpm veya yarn kullanıyorsanız komutları uyarlayın. CI’dan da çağrılabi
 ### Daha İleri Gitmek
 
 Daha ileri gitmek için, [görsel editörü](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md) uygulayabilir veya içeriğinizi [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md) kullanarak dışa aktarabilirsiniz.
+
+</Step>
+
+</Steps>

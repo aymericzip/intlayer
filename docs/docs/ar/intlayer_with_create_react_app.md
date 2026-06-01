@@ -45,7 +45,9 @@ history:
 
 ## دليل خطوة بخطوة لإعداد Intlayer في تطبيق React
 
-### الخطوة 1: تثبيت التبعيات
+<Steps>
+
+<Step number={1} title="تثبيت التبعيات">
 
 قم بتثبيت الحزم الضرورية باستخدام npm:
 
@@ -81,7 +83,9 @@ bun x intlayer init
 
 تتضمن أوامر ومكونات `react-scripts-intlayer` لتكامل Intlayer مع تطبيق يعتمد على Create React App. تعتمد هذه المكونات على [craco](https://craco.js.org/) وتتضمن تكوينًا إضافيًا لمجمع [Webpack](https://webpack.js.org/).
 
-### الخطوة 2: تكوين مشروعك
+</Step>
+
+<Step number={2} title="تكوين مشروعك">
 
 قم بإنشاء ملف تكوين لتحديد لغات تطبيقك:
 
@@ -105,7 +109,9 @@ export default config;
 
 > من خلال ملف التكوين هذا، يمكنك إعداد عناوين URL المحلية، إعادة التوجيه عبر الوسيط، أسماء ملفات تعريف الارتباط، موقع وامتداد إعلانات المحتوى الخاصة بك، تعطيل سجلات Intlayer في وحدة التحكم، والمزيد. للحصول على قائمة كاملة بالمعلمات المتاحة، راجع [وثائق التكوين](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md).
 
-### الخطوة 3: دمج Intlayer في تكوين CRA الخاص بك
+</Step>
+
+<Step number={3} title="دمج Intlayer في تكوين CRA الخاص بك">
 
 قم بتغيير السكربتات لاستخدام react-intlayer
 
@@ -119,7 +125,9 @@ export default config;
 
 > تعتمد سكربتات `react-scripts-intlayer` على [CRACO](https://craco.js.org/). يمكنك أيضًا تنفيذ إعدادك الخاص بناءً على مكون intlayer craco. [انظر المثال هنا](https://github.com/aymericzip/intlayer/blob/main/examples/react-app/craco.config.js).
 
-### الخطوة 4: إعلان المحتوى الخاص بك
+</Step>
+
+<Step number={4} title="إعلان المحتوى الخاص بك">
 
 قم بإنشاء وإدارة إعلانات المحتوى الخاصة بك لتخزين الترجمات:
 
@@ -168,7 +176,9 @@ export default appContent;
 
 > إذا كان ملف المحتوى الخاص بك يتضمن كود TSX، يجب أن تفكر في استيراد `import React from "react";` في ملف المحتوى الخاص بك.
 
-### الخطوة 5: استخدام Intlayer في الكود الخاص بك
+</Step>
+
+<Step number={5} title="استخدام Intlayer في الكود الخاص بك">
 
 الوصول إلى قواميس المحتوى الخاصة بك في جميع أنحاء تطبيقك:
 
@@ -225,7 +235,9 @@ const App = () => (
 >
 > لمعرفة المزيد عن الخطاف `useIntlayer`، راجع [التوثيق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/react-intlayer/useIntlayer.md).
 
-### (اختياري) الخطوة 6: تغيير لغة المحتوى الخاص بك
+</Step>
+
+<Step number={6} title="تغيير لغة المحتوى الخاص بك" isOptional={true}>
 
 لتغيير لغة المحتوى الخاص بك، يمكنك استخدام وظيفة `setLocale` المقدمة من الخطاف `useLocale`. تتيح لك هذه الوظيفة تعيين اللغة للتطبيق وتحديث المحتوى وفقًا لذلك.
 
@@ -246,7 +258,9 @@ const LocaleSwitcher = () => {
 
 > لمعرفة المزيد عن الخطاف `useLocale`، راجع [التوثيق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/react-intlayer/useLocale.md).
 
-### (اختياري) الخطوة 7: إضافة التوجيه المحلي إلى تطبيقك
+</Step>
+
+<Step number={7} title="إضافة التوجيه المحلي إلى تطبيقك" isOptional={true}>
 
 الغرض من هذه الخطوة هو إنشاء مسارات فريدة لكل لغة. هذا مفيد لتحسين محركات البحث (SEO) وعناوين URL الصديقة لمحركات البحث.
 مثال:
@@ -503,7 +517,9 @@ const App: FC = () => (
 );
 ```
 
-### (اختياري) الخطوة 8: تغيير عنوان URL عند تغيير اللغة
+</Step>
+
+<Step number={8} title="تغيير عنوان URL عند تغيير اللغة" isOptional={true}>
 
 لتغيير عنوان URL عند تغيير اللغة، يمكنك استخدام الخاصية `onLocaleChange` التي يوفرها الخطاف `useLocale`. وبالتوازي، يمكنك استخدام الخطافين `useLocation` و `useNavigate` من مكتبة `react-router-dom` لتحديث مسار URL.
 
@@ -583,7 +599,9 @@ const LocaleSwitcher: FC = () => {
 > - [`dir` attribute`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir)
 > - [`aria-current` attribute`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)
 
-### (اختياري) الخطوة 9: تغيير سمات اللغة والاتجاه في HTML
+</Step>
+
+<Step number={9} title="تغيير سمات اللغة والاتجاه في HTML" isOptional={true}>
 
 عندما يدعم تطبيقك لغات متعددة، من الضروري تحديث سمات `lang` و`dir` في علامة `<html>` لتتوافق مع اللغة المحلية الحالية. يضمن ذلك:
 
@@ -716,3 +734,7 @@ export default App;
 ### التوسع أكثر
 
 للتوسع أكثر، يمكنك تنفيذ [المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) أو إخراج المحتوى الخاص بك باستخدام [نظام إدارة المحتوى (CMS)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md).
+
+</Step>
+
+</Steps>

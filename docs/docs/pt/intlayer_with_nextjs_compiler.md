@@ -81,7 +81,9 @@ Para mitigar este impacto durante o desenvolvimento, você pode definir o compil
 
 ## Guia passo a passo para configurar o Intlayer em uma aplicação Next.js
 
-### Etapa 1: Instale as dependências
+<Steps>
+
+<Step number={1} title="Instale as dependências">
 
 Instale os pacotes necessários usando npm:
 
@@ -117,7 +119,9 @@ bun x intlayer init
 
   O pacote que integra o Intlayer no Next.js. Ele fornece hooks e context providers para internacionalização no Next.js. Além disso, ele inclui o plugin Next.js para integrar o Intlayer com o [Webpack](https://webpack.js.org/) ou [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack), bem como um proxy para detetar a preferência de idioma do usuário, gerir cookies e tratar redirecionamentos de URL.
 
-### Etapa 2: Configure o seu projeto
+</Step>
+
+<Step number={2} title="Configure o seu projeto">
 
 Crie um ficheiro de configuração para configurar as línguas da sua aplicação:
 
@@ -174,7 +178,9 @@ export default config;
 
 > Através deste ficheiro de configuração, pode configurar URLs localizadas, redirecionamentos de proxy, nomes de cookies, a localização e extensão das suas declarações de conteúdo, desativar os logs do Intlayer na consola e muito mais. Para uma lista completa dos parâmetros disponíveis, consulte a [documentação de configuração](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/configuration.md).
 
-### Etapa 3: Integrar o Intlayer na sua configuração do Next.js
+</Step>
+
+<Step number={3} title="Integrar o Intlayer na sua configuração do Next.js">
 
 Configure a sua configuração do Next.js para usar o Intlayer:
 
@@ -191,7 +197,9 @@ export default withIntlayer(nextConfig);
 
 > O plugin Next.js `withIntlayer()` é usado para integrar o Intlayer com o Next.js. Ele garante a construção dos ficheiros de declaração de conteúdo e monitoriza-os no modo de desenvolvimento. Define variáveis de ambiente do Intlayer nos ambientes [Webpack](https://webpack.js.org/) ou [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack). Além disso, fornece aliases para otimizar o desempenho e garantir a compatibilidade com componentes de servidor.
 
-### Etapa 4: Configurar o Babel
+</Step>
+
+<Step number={4} title="Configurar o Babel">
 
 O compilador Intlayer precisa do Babel para extrair e otimizar o seu conteúdo. Atualize o seu `babel.config.js` (ou `babel.config.json`) para incluir os plugins do Intlayer:
 
@@ -212,7 +220,9 @@ module.exports = {
 };
 ```
 
-### Etapa 5: Detetar Locale nas suas páginas
+</Step>
+
+<Step number={5} title="Detetar Locale nas suas páginas">
 
 Remova tudo do `RootLayout` e substitua pelo seguinte código:
 
@@ -255,7 +265,9 @@ const RootLayout = async ({
 export default RootLayout;
 ```
 
-### Etapa 6: Compile os seus componentes
+</Step>
+
+<Step number={6} title="Compile os seus componentes">
 
 Com o compilador ativado, você **não precisa mais** declarar manualmente os dicionários de conteúdo (como os ficheiros `.content.ts`).
 
@@ -351,7 +363,9 @@ export default async function Page() {
 
   > Layout and page cannot share a common server context because the server context system is based on a per-request data store (via [React's cache](https://react.dev/reference/react/cache) mechanism), causing each "context" to be re-created for different segments of the application. Placing the provider in a shared layout would break this isolation, preventing the correct propagation of the server context values to your server components.
 
-### (Opcional) Passo 7: Preencher traduções em falta
+</Step>
+
+<Step number={7} title="Preencher traduções em falta" isOptional={true}>
 
 O Intlayer fornece uma ferramenta CLI para ajudar a preencher traduções em falta. Pode usar o comando `intlayer` para testar e preencher as traduções em falta do seu código.
 
@@ -389,7 +403,9 @@ bun x intlayer fill         # Preencher traduções em falta
 
 > Para mais detalhes, consulte a [documentação da CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/ci.md)
 
-### (Opcional) Etapa 8: Configurar Proxy para Deteção de Locale
+</Step>
+
+<Step number={8} title="Configurar Proxy para Deteção de Locale" isOptional={true}>
 
 Configure um proxy para detetar o locale preferido do usuário:
 
@@ -404,7 +420,9 @@ export const config = {
 
 > O `intlayerProxy` é usado para detetar o locale preferido do usuário e redirecioná-lo para o URL apropriado, conforme especificado na [configuração](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/configuration.md). Além disso, permite guardar o locale preferido do usuário num cookie.
 
-### (Opcional) Etapa 8: Alterar o idioma do seu conteúdo
+</Step>
+
+<Step number={8} title="Alterar o idioma do seu conteúdo" isOptional={true}>
 
 Para alterar o idioma do seu conteúdo no Next.js, a forma recomendada é usar o componente `Link` para redirecionar os usuários para a página localizada correspondente. O componente `Link` permite o prefetching da página, o que ajuda a evitar um recarregamento total da página.
 
@@ -454,7 +472,9 @@ export const LocaleSwitcher: FC = () => {
 
 > Uma forma alternativa é usar a função `setLocale` fornecida pelo hook `useLocale`. Esta função não permitirá o prefetching da página. Consulte a [documentação do hook `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/next-intlayer/useLocale.md) para mais detalhes.
 
-### (Opcional) Etapa 10: Otimize o tamanho do seu bundle
+</Step>
+
+<Step number={10} title="Otimize o tamanho do seu bundle" isOptional={true}>
 
 Ao usar o `next-intlayer`, os dicionários são incluídos no bundle para cada página por padrão. Para otimizar o tamanho do bundle, o Intlayer fornece um plugin SWC opcional que substitui de forma inteligente as chamadas `useIntlayer` usando macros. Isso garante que os dicionários sejam apenas incluídos nos bundles das páginas que realmente os utilizam.
 
@@ -482,7 +502,9 @@ bun add @intlayer/swc --dev
 
 > Nota: Se definir a opção como `importMode: 'dynamic'` ou `importMode: 'fetch'` (na configuração `dictionary`), ele dependerá de Suspense, pelo que terá de envolver as suas chamadas `useIntlayer` numa boundary de `Suspense`. Isso significa que não poderá usar o `useIntlayer` diretamente no nível superior do seu componente Página / Layout.
 
-### (Opcional) Etapa 11 : Extrair o conteúdo dos seus componentes
+</Step>
+
+<Step number={11} title="Extrair o conteúdo dos seus componentes" isOptional={true}>
 
 Se você tiver uma base de código existente, transformar milhares de arquivos pode ser demorado.
 
@@ -644,3 +666,7 @@ Para mais detalhes sobre como usar a extensão, consulte a [documentação da Ex
 ### Ir mais além
 
 Para ir mais além, pode implementar o [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_visual_editor.md) ou externalizar o seu conteúdo usando o [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_CMS.md).
+
+</Step>
+
+</Steps>

@@ -48,33 +48,43 @@ Bu rehber, React Router v7 projelerinde **dosya sistemi tabanlı yönlendirme** 
 
 'React-i18next' veya 'i18next' gibi ana çözümlerle karşılaştırıldığında Intlayer, aşağıdaki gibi entegre optimizasyonlarla gelen bir çözümdür:
 
-**Tam React Router kapsamı**
+<AccordionGroup>
+<Accordion header="Tam React Router kapsamı">
 
 Intlayer, **yerel duyarlı yönlendirme**, **yerel algılama için ara yazılım** ve ölçeklendirme uluslararasılaştırması (i18n) için gereken tüm özellikleri sunarak React Router ile mükemmel çalışacak şekilde optimize edilmiştir.
 
-**Bundle boyutu**
+</Accordion>
+<Accordion header="Bundle boyutu">
 
 Sayfalarınıza çok büyük JSON dosyaları yüklemek yerine yalnızca gerekli içeriği yükleyin. Intlayer **bundle ve sayfa boyutlarınızı %50'ye kadar azaltmanıza** yardımcı olur.
 
-**Sürdürülebilirlik**
+</Accordion>
+<Accordion header="Sürdürülebilirlik">
 
 Uygulamanızın içeriğinin kapsamını belirlemek, büyük ölçekli uygulamalar için **bakımı kolaylaştırır**. İçerik kod tabanınızın tamamını gözden geçirmenin zihinsel yükü olmadan, tek bir özellik klasörünü çoğaltabilir veya silebilirsiniz. Ayrıca Intlayer, içeriğinizin doğruluğunu sağlamak için **tamamen tiplendirilmiş (fully typed)tır**.
 
-**Yapay Zeka Temsilcisi**
+</Accordion>
+<Accordion header="Yapay Zeka Temsilcisi">
 
 İçeriğin bir arada konumlandırılması **Büyük Dil Modellerinin (LLM'ler) ihtiyaç duyduğu bağlamı azaltır**. Intlayer ayrıca eksik çevirileri test etmek için **CLI** gibi bir araç paketiyle birlikte gelir**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** ve **[aracı becerileri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, geliştirici deneyimini (DX) yapay zeka için daha da sorunsuz hale getirmek için ajanlar.
 
-**Otomasyon**
+</Accordion>
+<Accordion header="Otomasyon">
 
 Maliyeti AI sağlayıcınıza ait olmak üzere seçtiğiniz LLM'yi kullanarak CI/CD işlem hattınızda çeviri yapmak için otomasyonu kullanın. Intlayer ayrıca içerik çıkarmayı otomatikleştirmek için bir **derleyici** ve **arka planda çeviri yapmaya** yardımcı olacak bir [web platformu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) sunar.
 
-**Performans**
+</Accordion>
+<Accordion header="Performans">
 
 Büyük JSON dosyalarını bileşenlere bağlamak performans ve tepkime sorunlarına yol açabilir. Intlayer, içerik yüklemenizi derleme sırasında optimize eder.
 
-**Non-dev ile ölçeklendirme**
+</Accordion>
+<Accordion header="Non-dev ile ölçeklendirme">
 
 Bir i18n çözümünden çok daha fazlası olan Intlayer, **kendi kendine barındırılan bir [görsel düzenleyici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** ve **[tam CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** çok dilli içeriğinizi **gerçek zamanlı** olarak yönetmenize yardımcı olarak çevirmenler, metin yazarları ve diğer ekip üyeleriyle işbirliğini kusursuz hale getirir. İçerik yerel olarak ve/veya uzaktan depolanabilir.
+
+</Accordion>
+</AccordionGroup>
 
 ---
 
@@ -112,7 +122,9 @@ Bir i18n çözümünden çok daha fazlası olan Intlayer, **kendi kendine barın
 
 See [Application Template](https://github.com/aymericzip/intlayer-react-router-v7-fs-routes-template) on GitHub.
 
-### Adım 1: Bağımlılıkları Yükleyin
+<Steps>
+
+<Step number={1} title="Bağımlılıkları Yükleyin">
 
 Tercih ettiğiniz paket yöneticisini kullanarak gerekli paketleri yükleyin:
 
@@ -149,7 +161,9 @@ bun x intlayer init
 - **@react-router/fs-routes**
   React Router v7 için dosya sistemi tabanlı yönlendirmeyi etkinleştiren paket.
 
-### Adım 2: Projenizin Yapılandırması
+</Step>
+
+<Step number={2} title="Projenizin Yapılandırması">
 
 Uygulamanızın dillerini yapılandırmak için bir yapılandırma dosyası oluşturun:
 
@@ -168,7 +182,9 @@ export default config;
 
 > Bu yapılandırma dosyası aracılığıyla, yerelleştirilmiş URL'leri, ara yazılım yönlendirmesini, çerez isimlerini, içerik bildirimlerinizin konumunu ve uzantısını ayarlayabilir, Intlayer günlüklerini konsolda devre dışı bırakabilir ve daha fazlasını yapabilirsiniz. Mevcut parametrelerin tam listesi için [yapılandırma dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md) bakınız.
 
-### Adım 3: Intlayer'ı Vite Yapılandırmanıza Entegre Edin
+</Step>
+
+<Step number={3} title="Intlayer'ı Vite Yapılandırmanıza Entegre Edin">
 
 Yapılandırmanıza intlayer eklentisini ekleyin:
 
@@ -184,7 +200,9 @@ export default defineConfig({
 
 > `intlayer()` Vite eklentisi, Intlayer'ı Vite ile entegre etmek için kullanılır. İçerik bildirim dosyalarının oluşturulmasını sağlar ve geliştirme modunda bunları izler. Vite uygulaması içinde Intlayer ortam değişkenlerini tanımlar. Ayrıca, performansı optimize etmek için takma adlar sağlar.
 
-### Adım 4: React Router v7 Dosya Sistemi Rotalarını Yapılandırma
+</Step>
+
+<Step number={4} title="React Router v7 Dosya Sistemi Rotalarını Yapılandırma">
 
 Yönlendirme yapılandırmanızı `flatRoutes` ile dosya sistemi tabanlı rotalar kullanacak şekilde ayarlayın:
 
@@ -205,7 +223,9 @@ export default routes;
 
 > `@react-router/fs-routes`'tan gelen `flatRoutes` işlevi, `routes/` dizinindeki dosya yapısının uygulamanızın rotalarını belirlediği dosya sistemi tabanlı yönlendirmeyi etkinleştirir. `ignoredRouteFiles` seçeneği, Intlayer içerik bildirimi dosyalarının (`.content.ts`, vb.) rota dosyaları olarak işlenmemesini sağlar.
 
-### Adım 5: Dosya Sistemi Kuralları ile Rota Dosyaları Oluşturun
+</Step>
+
+<Step number={5} title="Dosya Sistemi Kuralları ile Rota Dosyaları Oluşturun">
 
 Dosya sistemi yönlendirmesi ile, noktalar (`.`) yol segmentlerini temsil eden ve parantezler `()` isteğe bağlı segmentleri belirten düz bir adlandırma kuralı kullanırsınız.
 
@@ -374,7 +394,9 @@ export default function AboutPage() {
 
 > Eğer uygulamanız zaten mevcutsa, binlerce bileşeni bir saniye içinde dönüştürmek için [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md)'ı [extract komutu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/extract.md) ile birlikte kullanabilirsiniz.
 
-### Adım 6: İçeriğinizi Bildirin
+</Step>
+
+<Step number={6} title="İçeriğinizi Bildirin">
 
 Çevirileri depolamak için içerik bildirimlerinizi oluşturun ve yönetin. İçerik dosyalarını rota dosyalarınızın yanına yerleştirin:
 
@@ -436,7 +458,9 @@ export default aboutContent;
 
 > Daha fazla detay için [içerik bildirim dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/content_file.md) bakınız.
 
-### Adım 7: Yerel Duyarlı Bileşenler Oluşturun
+</Step>
+
+<Step number={7} title="Yerel Duyarlı Bileşenler Oluşturun">
 
 Yerel duyarlı gezinme için bir `LocalizedLink` bileşeni oluşturun:
 
@@ -499,7 +523,9 @@ export const useLocalizedNavigate = () => {
 };
 ```
 
-### Adım 8: Bir Dil Değiştirici Bileşeni Oluşturun
+</Step>
+
+<Step number={8} title="Bir Dil Değiştirici Bileşeni Oluşturun">
 
 Kullanıcıların dilleri değiştirmesine izin veren bir bileşen oluşturun:
 
@@ -560,7 +586,9 @@ export const LocaleSwitcher: FC = () => {
 
 > `useLocale` hook'u hakkında daha fazla bilgi edinmek için [belgelere](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/react-intlayer/useLocale.md) bakınız.
 
-### Adım 10: HTML Öznitelikleri Yönetimi Ekleme (İsteğe Bağlı)
+</Step>
+
+<Step number={10} title="HTML Öznitelikleri Yönetimi Ekleme">
 
 HTML lang ve dir özniteliklerini yönetmek için bir hook oluşturun:
 
@@ -581,7 +609,9 @@ export const useI18nHTMLAttributes = () => {
 
 Bu hook, Adım 5'te gösterilen layout bileşeninde (`root.tsx`) zaten kullanılmaktadır.
 
-### (İsteğe bağlı) Adım 11 : Bileşenlerinizin içeriğini çıkarın
+</Step>
+
+<Step number={11} title="Bileşenlerinizin içeriğini çıkarın" isOptional={true}>
 
 Mevcut bir kod tabanınız varsa, binlerce dosyayı dönüştürmek zaman alıcı olabilir.
 
@@ -679,6 +709,10 @@ bun run build # Or bun run dev
 
 ---
 
+</Step>
+
+</Steps>
+
 ## Configure TypeScript
 
 Intlayer uses module augmentation to get benefits of TypeScript and make your codebase stronger.
@@ -745,7 +779,9 @@ To go further, you can implement the [visual editor](https://github.com/aymericz
 
 This comprehensive guide provides everything you need to integrate Intlayer with React Router v7 using file-system based routing for a fully internationalized application with locale-aware routing and TypeScript support.
 
-### Adım 10: Middleware ekleyin (İsteğe bağlı)
+<Steps>
+
+<Step number={10} title="Middleware ekleyin">
 
 Ayrıca uygulamanıza sunucu tarafı yönlendirme eklemek için `intlayerProxy` kullanabilirsiniz. Bu eklenti, URL'ye göre geçerli yerel ayarı otomatik olarak algılar ve uygun yerel ayar çerezini ayarlar. Hiçbir yerel ayar belirtilmemişse, eklenti kullanıcının tarayıcı dil tercihlerine göre en uygun yerel ayarı belirler. Hiçbir yerel ayar algılanmazsa, varsayılan yerel ayara yönlendirme yapar.
 
@@ -767,6 +803,10 @@ export default defineConfig({
 ```
 
 ---
+
+</Step>
+
+</Steps>
 
 ## TypeScript'i Yapılandırma
 

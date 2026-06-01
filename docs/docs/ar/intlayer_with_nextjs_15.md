@@ -62,8 +62,6 @@ history:
   </Tab>
 </Tabs>
 
-<iframe title="أفضل حل للتدويل في Next.js؟ اكتشف Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/e_PPG7PTqGU?autoplay=0&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
-
 شاهد [قالب التطبيق](https://github.com/aymericzip/intlayer-next-15-template) على GitHub.
 
 ## لماذا Intlayer على البدائل؟
@@ -106,7 +104,9 @@ history:
 
 ## دليل خطوة بخطوة لإعداد Intlayer في تطبيق Next.js
 
-### الخطوة 1: تثبيت التبعيات
+<Steps>
+
+<Step number={1} title="تثبيت التبعيات">
 
 قم بتثبيت الحزم اللازمة باستخدام npm:
 
@@ -138,7 +138,9 @@ bun x intlayer init
 
 الحزمة التي تدمج Intlayer مع Next.js. توفر موفري السياق والهوكات لتدويل Next.js. بالإضافة إلى ذلك، تتضمن مكون Next.js الإضافي لدمج Intlayer مع [Webpack](https://webpack.js.org/) أو [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack)، وكذلك وسيطًا لاكتشاف اللغة المفضلة للمستخدم، وإدارة الكوكيز، والتعامل مع إعادة توجيه URL.
 
-### الخطوة 2: تكوين مشروعك
+</Step>
+
+<Step number={2} title="تكوين مشروعك">
 
 Here is the final structure that we will make:
 
@@ -190,7 +192,9 @@ export default config;
 
 > من خلال ملف التكوين هذا، يمكنك إعداد عناوين URL محلية، إعادة توجيه الوسيط، أسماء ملفات تعريف الارتباط، موقع وامتداد إعلانات المحتوى الخاصة بك، تعطيل سجلات Intlayer في وحدة التحكم، والمزيد. للحصول على قائمة كاملة بالمعلمات المتاحة، راجع [توثيق التكوين](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md).
 
-### الخطوة 3: دمج Intlayer في تكوين Next.js الخاص بك
+</Step>
+
+<Step number={3} title="دمج Intlayer في تكوين Next.js الخاص بك">
 
 قم بتكوين إعداد Next.js الخاص بك لاستخدام Intlayer:
 
@@ -207,7 +211,9 @@ export default withIntlayer(nextConfig);
 
 > يتم استخدام مكون الإضافة `withIntlayer()` الخاص بـ Next.js لدمج Intlayer مع Next.js. فهو يضمن بناء ملفات إعلان المحتوى ويراقبها في وضع التطوير. كما يعرّف متغيرات بيئة Intlayer ضمن بيئات [Webpack](https://webpack.js.org/) أو [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack). بالإضافة إلى ذلك، يوفر أسماء مستعارة لتحسين الأداء ويضمن التوافق مع مكونات الخادم.
 
-### الخطوة 4: تعريف مسارات اللغة الديناميكية
+</Step>
+
+<Step number={4} title="تعريف مسارات اللغة الديناميكية">
 
 قم بإزالة كل شيء من `RootLayout` واستبداله بالكود التالي:
 
@@ -265,7 +271,9 @@ export default LocaleLayout;
 
 > يضمن `generateStaticParams` أن يقوم تطبيقك ببناء الصفحات اللازمة لجميع اللغات مسبقًا، مما يقلل من حسابات وقت التشغيل ويحسن تجربة المستخدم. لمزيد من التفاصيل، راجع [توثيق Next.js حول generateStaticParams](https://nextjs.org/docs/app/building-your-application/rendering/static-and-dynamic-rendering#generate-static-params).
 
-### الخطوة 5: إعلان المحتوى الخاص بك
+</Step>
+
+<Step number={5} title="إعلان المحتوى الخاص بك">
 
 قم بإنشاء وإدارة إعلانات المحتوى الخاصة بك لتخزين الترجمات:
 
@@ -312,7 +320,9 @@ export default pageContent;
 
 > لمزيد من التفاصيل، راجع [توثيق إعلان المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/content_file.md).
 
-### الخطوة 6: استخدام المحتوى في الكود الخاص بك
+</Step>
+
+<Step number={6} title="استخدام المحتوى في الكود الخاص بك">
 
 يمكنك الوصول إلى قواميس المحتوى الخاصة بك في جميع أنحاء تطبيقك:
 
@@ -400,7 +410,9 @@ export const ServerComponentExample: FC = () => {
 
 > لمعرفة المزيد عن الخطاف `useIntlayer`، راجع [التوثيق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/next-intlayer/useIntlayer.md).
 
-### (اختياري) الخطوة 7: تكوين الوسيط لاكتشاف اللغة
+</Step>
+
+<Step number={7} title="تكوين الوسيط لاكتشاف اللغة" isOptional={true}>
 
 قم بإعداد وسيط لاكتشاف اللغة المفضلة للمستخدم:
 
@@ -415,7 +427,9 @@ export const config = {
 
 > يُستخدم `intlayerMiddleware` لاكتشاف اللغة المفضلة للمستخدم وإعادة توجيهه إلى عنوان URL المناسب كما هو محدد في [التكوين](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md). بالإضافة إلى ذلك، يتيح حفظ اللغة المفضلة للمستخدم في ملف تعريف الارتباط.
 
-### (اختياري) الخطوة 8: تدويل بيانات التعريف الخاصة بك
+</Step>
+
+<Step number={8} title="تدويل بيانات التعريف الخاصة بك" isOptional={true}>
 
 في حال رغبت في تدويل بيانات التعريف الخاصة بك، مثل عنوان الصفحة، يمكنك استخدام دالة `generateMetadata` المقدمة من Next.js. بداخلها، يمكنك استرجاع المحتوى من دالة `getIntlayer` لترجمة بيانات التعريف الخاصة بك.
 
@@ -551,7 +565,9 @@ export const generateMetadata = async ({
 
 > تعرّف على المزيد حول تحسين البيانات الوصفية [في الوثائق الرسمية لـ Next.js](https://nextjs.org/docs/app/building-your-application/optimizing/metadata).
 
-### (اختياري) الخطوة 9: تعريب ملف sitemap.xml و robots.txt الخاص بك
+</Step>
+
+<Step number={9} title="تعريب ملف sitemap.xml و robots.txt الخاص بك" isOptional={true}>
 
 لتعريب ملفي `sitemap.xml` و `robots.txt`، يمكنك استخدام دالة `getMultilingualUrls` المقدمة من Intlayer. تتيح لك هذه الدالة إنشاء روابط متعددة اللغات لخريطة الموقع الخاصة بك.
 
@@ -615,7 +631,9 @@ export default robots;
 
 > تعرّف أكثر على تحسين خريطة الموقع [في الوثائق الرسمية لـ Next.js](https://nextjs.org/docs/app/api-reference/file-conventions/metadata/sitemap). تعرّف أكثر على تحسين ملف robots.txt [في الوثائق الرسمية لـ Next.js](https://nextjs.org/docs/app/api-reference/file-conventions/metadata/robots).
 
-### (اختياري) الخطوة 10: تغيير لغة المحتوى الخاص بك
+</Step>
+
+<Step number={10} title="تغيير لغة المحتوى الخاص بك" isOptional={true}>
 
 لتغيير لغة المحتوى الخاص بك في Next.js، الطريقة الموصى بها هي استخدام مكون `Link` لإعادة توجيه المستخدمين إلى الصفحة المحلية المناسبة. يتيح مكون `Link` التحميل المسبق للصفحة، مما يساعد على تجنب إعادة تحميل الصفحة بالكامل.
 
@@ -710,7 +728,9 @@ return (
 > - [`خاصية dir`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir)
 > - [`خاصية aria-current`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)
 
-### (اختياري) الخطوة 11: إنشاء مكون رابط محلي (Localized Link Component)
+</Step>
+
+<Step number={11} title="إنشاء مكون رابط محلي" isOptional={true}>
 
 لضمان أن تحترم تنقلات تطبيقك اللغة الحالية، يمكنك إنشاء مكون `Link` مخصص. يقوم هذا المكون تلقائيًا بإضافة بادئة اللغة الحالية إلى عناوين URL الداخلية، بحيث، على سبيل المثال، عندما ينقر مستخدم يتحدث الفرنسية على رابط لصفحة "حول"، يتم توجيهه إلى `/fr/about` بدلاً من `/about`.
 
@@ -779,7 +799,9 @@ export const Link: FC<PropsWithChildren<NextLinkProps>> = ({
 
 من خلال دمج مكون `Link` هذا في تطبيقك، تحافظ على تجربة مستخدم متماسكة وواعية باللغة، مع الاستفادة أيضًا من تحسين محركات البحث وسهولة الاستخدام.
 
-### (اختياري) الخطوة 12: تحسين حجم البندل
+</Step>
+
+<Step number={12} title="تحسين حجم البندل" isOptional={true}>
 
 عند استخدام `next-intlayer`، يتم تضمين القواميس في الحزمة لكل صفحة بشكل افتراضي. لتحسين حجم البندل، يوفر Intlayer مكون SWC اختياري يقوم بذكاء باستبدال استدعاءات `useIntlayer` باستخدام الماكروز. هذا يضمن تضمين القواميس فقط في الحزم الخاصة بالصفحات التي تستخدمها فعليًا.
 
@@ -854,3 +876,7 @@ bun add @intlayer/swc --dev
 ### التقدم أكثر
 
 للتقدم أكثر، يمكنك تنفيذ [المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) أو إخراج محتواك باستخدام [نظام إدارة المحتوى (CMS)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md).
+
+</Step>
+
+</Steps>

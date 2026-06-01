@@ -99,7 +99,9 @@ Więcej niż tylko rozwiązanie i18n, Intlayer zapewnia **samodzielny [edytor wi
 
 Zobacz [Szablon Aplikacji](https://github.com/aymericzip/intlayer-angular-21-template) na GitHubie.
 
-### Krok 1: Zainstaluj Zależności
+<Steps>
+
+<Step number={1} title="Zainstaluj Zależności">
 
 Zainstaluj niezbędne pakiety używając npm:
 
@@ -137,7 +139,9 @@ bun x intlayer init
 - **@angular-builders/custom-esbuild**
   Wymagane do dostosowania konfiguracji esbuild w Angular CLI.
 
-### Krok 2: Konfiguracja twojego projektu
+</Step>
+
+<Step number={2} title="Konfiguracja twojego projektu">
 
 Utwórz plik konfiguracyjny, aby skonfigurować języki swojej aplikacji:
 
@@ -161,7 +165,9 @@ export default config;
 
 > Poprzez ten plik konfiguracyjny możesz ustawić zlokalizowane adresy URL, przekierowania oprogramowania pośredniczącego (middleware), nazwy plików cookie, lokalizację i rozszerzenie deklaracji treści, wyłączyć logi Intlayer w konsoli i wiele więcej. Aby zapoznać się z pełną listą dostępnych parametrów, zapoznaj się z [dokumentacją konfiguracji](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/configuration.md).
 
-### Krok 3: Integracja Intlayer w Konfiguracji Angular
+</Step>
+
+<Step number={3} title="Integracja Intlayer w Konfiguracji Angular">
 
 Aby zintegrować Intlayer z Angular CLI, musisz użyć niestandardowego buildera. Niniejszy przewodnik zakłada, że używasz Vite/esbuild (domyślnego w projektach Angular 21).
 
@@ -223,7 +229,9 @@ export default [intlayerEsbuildPlugin()];
 >
 > Następnie w `angular.json` wskaż `"./esbuild.plugins.mjs"` zamiast `"./esbuild.plugins.ts"`.
 
-### Krok 4: Zadeklaruj swoją Treść
+</Step>
+
+<Step number={4} title="Zadeklaruj swoją Treść">
 
 Twórz i zarządzaj swoimi deklaracjami treści, aby przechowywać tłumaczenia:
 
@@ -273,7 +281,9 @@ export default appContent;
 
 > Po więcej szczegółów zapoznaj się z [dokumentacją deklaracji treści](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/content_file.md).
 
-### Krok 5: Wykorzystaj Intlayer w Kodzie
+</Step>
+
+<Step number={5} title="Wykorzystaj Intlayer w Kodzie">
 
 Aby korzystać z funkcji umiędzynarodowienia w całej aplikacji Angular, musisz dostarczyć Intlayer w konfiguracji swojej aplikacji.
 
@@ -321,7 +331,9 @@ A w twoim szablonie:
 
 Treść z Intlayer jest zwracana jako `Signal`, więc masz dostęp do jej wartości po wywołaniu sygnału: `content().title`.
 
-### (Opcjonalnie) Krok 6: Zmień język treści
+</Step>
+
+<Step number={6} title="Zmień język treści" isOptional={true}>
 
 Aby zmienić język treści, możesz użyć funkcji `setLocale` udostępnianej przez `useLocale`. Dzięki temu możesz ustawić język aplikacji, a treść zostanie odpowiednio zaktualizowana.
 
@@ -431,3 +443,7 @@ Więcej informacji na temat korzystania z rozszerzenia można znaleźć w [Dokum
 By osiągnąć jeszcze więcej, możesz zaimplementować [edytor wizualny](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_visual_editor.md) lub uzewnętrznić swoje treści przy pomocy [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md).
 
 ---
+
+</Step>
+
+</Steps>

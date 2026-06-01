@@ -80,7 +80,9 @@ Storybook to standardowe narzędzie branżowe do tworzenia i dokumentowania komp
 <Tabs>
 <Tab value="Vite Setup">
 
-### Krok 1: Instalacja zależności
+<Steps>
+
+<Step number={1} title="Instalacja zależności">
 
 ```bash packageManager="npm"
 npm install intlayer react-intlayer
@@ -110,7 +112,9 @@ bun add vite-intlayer --dev
 
 ---
 
-### Krok 2: Tworzenie konfiguracji Intlayer
+</Step>
+
+<Step number={2} title="Tworzenie konfiguracji Intlayer">
 
 Utwórz plik `intlayer.config.ts` w katalogu głównym projektu (lub wewnątrz pakietu systemu projektowania):
 
@@ -139,7 +143,9 @@ export default config;
 
 ---
 
-### Krok 3: Dodawanie wtyczki Vite do Storybook
+</Step>
+
+<Step number={3} title="Dodawanie wtyczki Vite do Storybook">
 
 Hook `viteFinal` w Storybook pozwala na rozszerzenie wewnętrznej konfiguracji Vite. Zaimportuj i dodaj wtyczkę `intlayer()` w tym miejscu:
 
@@ -180,7 +186,9 @@ Wtyczka `intlayer()` monitoruje pliki `*.content.ts` i automatycznie przebudowuj
 
 ---
 
-### Krok 4: Dodawanie dekoratora `IntlayerProvider` i przełącznika języków
+</Step>
+
+<Step number={4} title="Dodawanie dekoratora `IntlayerProvider` i przełącznika języków">
 
 Plik `preview` w Storybook to odpowiednie miejsce, aby opakować każdą historię w `IntlayerProvider` i udostępnić przełącznik języków na pasku narzędzi:
 
@@ -237,7 +245,9 @@ export default preview;
 </Tab>
 <Tab value="Webpack Setup">
 
-### Krok 1: Instalacja zależności
+</Step>
+
+<Step number={1} title="Instalacja zależności">
 
 ```bash packageManager="npm"
 npm install intlayer react-intlayer
@@ -261,7 +271,9 @@ bun add @intlayer/webpack --dev
 
 ---
 
-### Krok 2: Tworzenie konfiguracji Intlayer
+</Step>
+
+<Step number={2} title="Tworzenie konfiguracji Intlayer">
 
 Utwórz plik `intlayer.config.ts` w katalogu głównym projektu:
 
@@ -283,7 +295,9 @@ export default config;
 
 ---
 
-### Krok 3: Konfiguracja Webpack dla Storybook
+</Step>
+
+<Step number={3} title="Konfiguracja Webpack dla Storybook">
 
 W przypadku konfiguracji Storybook opartych na Webpack (np. `@storybook/react-webpack5`), rozszerz konfigurację za pomocą `webpackFinal`, aby dodać aliasy i loader Intlayer:
 
@@ -310,7 +324,9 @@ export default config;
 
 ---
 
-### Krok 4: Dodawanie dekoratora `IntlayerProvider` i przełącznika języków
+</Step>
+
+<Step number={4} title="Dodawanie dekoratora `IntlayerProvider` i przełącznika języków">
 
 Podobnie jak w przypadku konfiguracji Vite - dodaj dekorator i globalny typ języka w `.storybook/preview.tsx`:
 
@@ -355,6 +371,10 @@ export default preview;
 </Tabs>
 
 ---
+
+</Step>
+
+</Steps>
 
 ## Deklarowanie treści
 

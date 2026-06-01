@@ -62,33 +62,43 @@ history:
 
 So với các giải pháp chính như `astro-i18n` hay `i18next`, Intlayer là giải pháp đi kèm với các tính năng tối ưu hóa tích hợp như:
 
-**Bảo hiểm đầy đủ của Astro**
+<AccordionGroup>
+<Accordion header="Bảo hiểm đầy đủ của Astro">
 
 Intlayer được tối ưu hóa để hoạt động hoàn hảo với Astro bằng cách cung cấp **định tuyến đa ngôn ngữ**, **sơ đồ trang web** và tất cả các tính năng cần thiết để mở rộng quy mô quốc tế hóa (i18n).
 
-**Kích thước bundle**
+</Accordion>
+<Accordion header="Kích thước bundle">
 
 Thay vì tải các tệp JSON lớn vào trang của bạn, hãy chỉ tải nội dung cần thiết. Intlayer giúp **giảm tới 50% kích thước bundle và kích thước trang**.
 
-**Khả năng bảo trì**
+</Accordion>
+<Accordion header="Khả năng bảo trì">
 
 Xác định phạm vi nội dung ứng dụng của bạn **tạo điều kiện bảo trì** cho các ứng dụng quy mô lớn. Bạn có thể sao chép hoặc xóa một thư mục tính năng mà không phải lo lắng về việc xem lại toàn bộ cơ sở mã nội dung của mình. Ngoài ra, Intlayer **được nhập đầy đủ** để đảm bảo tính chính xác cho nội dung của bạn.
 
-**Đại lý AI**
+</Accordion>
+<Accordion header="Đại lý AI">
 
 Nội dung cùng định vị **giảm ngữ cảnh cần thiết** của Mô hình ngôn ngữ lớn (LLM). Intlayer cũng đi kèm một bộ công cụ, chẳng hạn như **CLI** để kiểm tra các bản dịch bị thiếu,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** và **[agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, để giúp trải nghiệm của nhà phát triển (DX) trở nên mượt mà hơn nữa đối với các tác nhân AI.
 
-**Tự động hóa**
+</Accordion>
+<Accordion header="Tự động hóa">
 
 Sử dụng tính năng tự động hóa để dịch trong quy trình CI/CD của bạn bằng cách sử dụng LLM mà bạn chọn với chi phí do nhà cung cấp AI của bạn chi trả. Intlayer cũng cung cấp **trình biên dịch** để tự động trích xuất nội dung cũng như [nền tảng web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) để giúp **dịch ở chế độ nền**.
 
-**Hiệu suất**
+</Accordion>
+<Accordion header="Hiệu suất">
 
 Việc kết nối các tệp JSON lớn với các thành phần có thể dẫn đến các vấn đề về hiệu suất và khả năng phản hồi. Intlayer tối ưu hóa việc tải nội dung của bạn tại thời điểm build.
 
-**Mở rộng quy mô không có nhà phát triển**
+</Accordion>
+<Accordion header="Mở rộng quy mô không có nhà phát triển">
 
 Không chỉ là giải pháp i18n, Intlayer còn cung cấp **[trình chỉnh sửa trực quan](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** và **[CMS đầy đủ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** để giúp bạn quản lý nội dung đa ngôn ngữ của mình trong **thời gian thực**, giúp việc cộng tác với người dịch, người viết quảng cáo và các thành viên khác trong nhóm trở nên liền mạch. Nội dung có thể được lưu trữ cục bộ và/hoặc từ xa.
+
+</Accordion>
+</AccordionGroup>
 
 ---
 
@@ -96,7 +106,9 @@ Không chỉ là giải pháp i18n, Intlayer còn cung cấp **[trình chỉnh s
 
 Xem [mẫu ứng dụng](https://github.com/aymericzip/intlayer-astro-template) trên GitHub.
 
-### Bước 1: Cài đặt các phụ thuộc
+<Steps>
+
+<Step number={1} title="Cài đặt các phụ thuộc">
 
 Cài đặt các gói cần thiết bằng trình quản lý gói ưa thích của bạn:
 
@@ -133,7 +145,9 @@ bun x intlayer init
 - **vanilla-intlayer**
   Gói để tích hợp Intlayer vào các ứng dụng Vanilla JavaScript / TypeScript. Nó cung cấp singleton Pub/Sub (`IntlayerClient`) và các hàm hỗ trợ dựa trên callback (`useIntlayer`, `useLocale`, v.v.) để bất kỳ phần nào trong `<script>` Astro của bạn cũng có thể phản ứng với các thay đổi ngôn ngữ mà không cần framework UI.
 
-### Bước 2: Cấu hình dự án của bạn
+</Step>
+
+<Step number={2} title="Cấu hình dự án của bạn">
 
 Tạo một file cấu hình để xác định các ngôn ngữ của ứng dụng:
 
@@ -158,7 +172,9 @@ export default config;
 
 > Thông qua file cấu hình này, bạn có thể thiết lập các URL bản địa hóa, chuyển hướng middleware, tên cookie, vị trí và phần mở rộng của các khai báo nội dung, tắt log Intlayer trong console, v.v. Để biết danh sách đầy đủ các tham số có sẵn, hãy xem [tài liệu cấu hình](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md).
 
-### Bước 3: Tích hợp Intlayer vào cấu hình Astro của bạn
+</Step>
+
+<Step number={3} title="Tích hợp Intlayer vào cấu hình Astro của bạn">
 
 Thêm plugin `intlayer` vào cấu hình Astro của bạn. Không cần tích hợp thêm framework UI nào cho Vanilla JS.
 
@@ -176,7 +192,9 @@ export default defineConfig({
 
 > Plugin tích hợp `intlayer()` được sử dụng để tích hợp Intlayer với Astro. Nó đảm bảo việc tạo các file khai báo nội dung và theo dõi chúng trong chế độ phát triển. Nó xác định các biến môi trường Intlayer bên trong ứng dụng Astro và cung cấp các alias để tối ưu hóa hiệu suất.
 
-### Bước 4: Khai báo nội dung của bạn
+</Step>
+
+<Step number={4} title="Khai báo nội dung của bạn">
 
 Tạo và quản lý các khai báo nội dung của bạn để lưu trữ các bản dịch:
 
@@ -214,7 +232,9 @@ export default appContent;
 
 > Để biết thêm thông tin, hãy xem [tài liệu khai báo nội dung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/content_file.md).
 
-### Bước 5: Sử dụng nội dung trong Astro
+</Step>
+
+<Step number={5} title="Sử dụng nội dung trong Astro">
 
 Với Vanilla JS, tất cả các quá trình render phía máy chủ (SSR) diễn ra trực tiếp trong các file `.astro` bằng cách sử dụng `getIntlayer`. Sau đó, ở phía client, khối `<script>` khởi tạo thư viện `vanilla-intlayer` để cho phép chuyển đổi ngôn ngữ.
 
@@ -323,7 +343,9 @@ const { greeting, description, switchLocale } = getIntlayer("app", locale);
 > - **`prefix-all`:** Tất cả các URL đều có tiền tố ngôn ngữ. Bạn có thể sử dụng `[locale]` tiêu chuẩn nếu không cần xử lý root riêng biệt.
 > - **`search-param` hoặc `no-prefix`:** Không yêu cầu các thư mục ngôn ngữ. Ngôn ngữ được quản lý qua tham số truy vấn hoặc cookie.
 
-### Bước 6: Thêm bộ chuyển đổi ngôn ngữ
+</Step>
+
+<Step number={6} title="Thêm bộ chuyển đổi ngôn ngữ">
 
 Trong Astro với Vanilla JS, bộ chuyển đổi ngôn ngữ được tạo trên máy chủ dưới dạng các liên kết thông thường và được kích hoạt ở phía client thông qua khối `<script>`. Khi người dùng nhấp vào liên kết ngôn ngữ, `vanilla-intlayer` sẽ thiết lập cookie ngôn ngữ thông qua `setLocale` trước khi điều hướng đến URL bản địa hóa.
 
@@ -364,7 +386,9 @@ Trong Astro với Vanilla JS, bộ chuyển đổi ngôn ngữ được tạo tr
 > **Lưu ý về Progressive Enhancement:**
 > Các liên kết trong bộ chuyển đổi ngôn ngữ sẽ hoạt động như mã `<a>` tiêu chuẩn ngay cả khi không có JavaScript. Khi có JavaScript, lệnh gọi `setLocale` sẽ cập nhật cookie trước khi chuyển hướng, đảm bảo middleware xử lý đúng lựa chọn ngôn ngữ.
 
-### Bước 7: Sitemap và Robots.txt
+</Step>
+
+<Step number={7} title="Sitemap và Robots.txt">
 
 Intlayer cung cấp các tiện ích để tự động tạo sơ đồ trang web (sitemap) bản địa hóa và file robots.txt của bạn.
 
@@ -472,7 +496,9 @@ Tiện ích này sẽ cung cấp:
 
 ---
 
-### (Tùy chọn) Bước 1 : Trích xuất nội dung các thành phần của bạn
+</Step>
+
+<Step number={1} title="Trích xuất nội dung các thành phần của bạn" isOptional={true}>
 
 Nếu bạn có một cơ sở mã hiện có, việc chuyển đổi hàng nghìn tệp có thể tốn nhiều thời gian.
 
@@ -573,3 +599,7 @@ bun run build # Or bun run dev
 ### Tìm hiểu sâu hơn
 
 Nếu bạn muốn tìm hiểu thêm, bạn cũng có thể triển khai [Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md) hoặc sử dụng [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md) để quản lý nội dung bên ngoài.
+
+</Step>
+
+</Steps>

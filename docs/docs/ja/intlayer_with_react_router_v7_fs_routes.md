@@ -112,7 +112,9 @@ Intlayer は単なる i18n ソリューションではなく、**自己ホスト
 
 See [Application Template](https://github.com/aymericzip/intlayer-react-router-v7-fs-routes-template) on GitHub.
 
-### ステップ1: 依存パッケージのインストール
+<Steps>
+
+<Step number={1} title="依存パッケージのインストール">
 
 お好みのパッケージマネージャーを使って必要なパッケージをインストールします：
 
@@ -150,7 +152,9 @@ bun x intlayer init
 - **@react-router/fs-routes**
   React Router v7のファイルシステムベースのルーティングを有効にするパッケージ。
 
-### ステップ 2: プロジェクトの設定
+</Step>
+
+<Step number={2} title="プロジェクトの設定">
 
 アプリケーションの言語を設定するための設定ファイルを作成します：
 
@@ -169,7 +173,9 @@ export default config;
 
 > この設定ファイルを通じて、ローカライズされたURL、ミドルウェアのリダイレクション、クッキー名、コンテンツ宣言の場所と拡張子、コンソールでのIntlayerログの無効化などを設定できます。利用可能なパラメータの完全なリストについては、[設定ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)を参照してください。
 
-### ステップ3: Vite設定にIntlayerを統合する
+</Step>
+
+<Step number={3} title="Vite設定にIntlayerを統合する">
 
 設定にintlayerプラグインを追加します：
 
@@ -185,7 +191,9 @@ export default defineConfig({
 
 > `intlayer()` Viteプラグインは、IntlayerをViteと統合するために使用されます。これにより、コンテンツ宣言ファイルのビルドが保証され、開発モードで監視されます。また、Viteアプリケーション内でIntlayerの環境変数を定義します。さらに、パフォーマンスを最適化するためのエイリアスも提供します。
 
-### ステップ4: React Router v7のファイルシステムルートを設定する
+</Step>
+
+<Step number={4} title="React Router v7のファイルシステムルートを設定する">
 
 `flatRoutes`を使用してファイルシステムベースのルートを使用するようにルーティング設定を行います：
 
@@ -206,7 +214,9 @@ export default routes;
 
 > `@react-router/fs-routes`の`flatRoutes`関数は、`routes/`ディレクトリ内のファイル構造がアプリケーションのルートを決定するファイルシステムベースのルーティングを有効にします。`ignoredRouteFiles`オプションは、Intlayerコンテンツ宣言ファイル（`.content.ts`など）がルートファイルとして扱われないようにします。
 
-### ステップ5: ファイルシステム規則でルートファイルを作成する
+</Step>
+
+<Step number={5} title="ファイルシステム規則でルートファイルを作成する">
 
 ファイルシステムルーティングでは、ドット（`.`）がパスセグメントを表し、括弧`()`がオプションセグメントを示すフラットな命名規則を使用します。
 
@@ -373,7 +383,9 @@ export default function AboutPage() {
 }
 ```
 
-### ステップ 6: コンテンツを宣言する
+</Step>
+
+<Step number={6} title="コンテンツを宣言する">
 
 翻訳を格納するためのコンテンツ宣言を作成および管理します。コンテンツファイルをルートファイルの横に配置します：
 
@@ -437,7 +449,9 @@ export default aboutContent;
 
 > アプリケーションが既に存在する場合は、[Intlayer コンパイラ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md) と [抽出コマンド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/extract.md) を組み合わせて、1 秒で何千ものコンポーネントを変換できます。
 
-### ステップ7: ロケール対応コンポーネントの作成
+</Step>
+
+<Step number={7} title="ロケール対応コンポーネントの作成">
 
 ロケール対応のナビゲーション用に `LocalizedLink` コンポーネントを作成します：
 
@@ -501,7 +515,9 @@ export const useLocalizedNavigate = () => {
 };
 ```
 
-### ステップ8：ロケールスイッチャーコンポーネントを作成する
+</Step>
+
+<Step number={8} title="ロケールスイッチャーコンポーネントを作成する">
 
 ユーザーが言語を変更できるコンポーネントを作成します：
 
@@ -562,7 +578,9 @@ export const LocaleSwitcher: FC = () => {
 
 > `useLocale` フックの詳細については、[ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/react-intlayer/useLocale.md)を参照してください。
 
-### ステップ10: HTML属性の管理を追加（オプション）
+</Step>
+
+<Step number={10} title="HTML属性の管理を追加（オプション）">
 
 HTMLのlang属性とdir属性を管理するフックを作成します：
 
@@ -583,7 +601,9 @@ export const useI18nHTMLAttributes = () => {
 
 このフックは、ステップ5で示したレイアウトコンポーネント（`root.tsx`）で既に使用されています。
 
-### (オプション) ステップ 1 : コンポーネントのコンテンツを抽出する
+</Step>
+
+<Step number={1} title="コンポーネントのコンテンツを抽出する" isOptional={true}>
 
 既存のコードベースがある場合、数千のファイルを変換するのは時間がかかることがあります。
 
@@ -681,6 +701,10 @@ bun run build # Or bun run dev
 
 ---
 
+</Step>
+
+</Steps>
+
 ## Configure TypeScript
 
 Intlayer uses module augmentation to get benefits of TypeScript and make your codebase stronger.
@@ -747,7 +771,9 @@ To go further, you can implement the [visual editor](https://github.com/aymericz
 
 This comprehensive guide provides everything you need to integrate Intlayer with React Router v7 using file-system based routing for a fully internationalized application with locale-aware routing and TypeScript support.
 
-### ステップ10: ミドルウェアを追加する（オプション）
+<Steps>
+
+<Step number={10} title="ミドルウェアを追加する（オプション）">
 
 `intlayerProxy` を使用して、アプリケーションにサーバーサイドルーティングを追加することもできます。このプラグインは、URL に基づいて現在のロケールを自動的に検出し、適切なロケールクッキーを設定します。ロケールが指定されていない場合、プラグインはユーザーのブラウザの言語設定に基づいて最も適切なロケールを判断します。ロケールが検出されない場合は、デフォルトのロケールにリダイレクトします。
 
@@ -769,6 +795,10 @@ export default defineConfig({
 ```
 
 ---
+
+</Step>
+
+</Steps>
 
 ## TypeScriptの設定
 

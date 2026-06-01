@@ -110,7 +110,9 @@ GitHub पर [एप्लिकेशन टेम्प्लेट](https://
 
 ## Next.js एप्लिकेशन में Intlayer सेटअप करने के लिए चरण-दर-चरण मार्गदर्शिका
 
-### चरण 1: निर्भरताएँ स्थापित करें
+<Steps>
+
+<Step number={1} title="निर्भरताएँ स्थापित करें">
 
 npm का उपयोग करके आवश्यक पैकेज स्थापित करें:
 
@@ -142,7 +144,9 @@ bun x intlayer init
 
   वह पैकेज जो Intlayer को Next.js के साथ एकीकृत करता है। यह Next.js अंतरराष्ट्रीयकरण के लिए संदर्भ प्रदाता और हुक प्रदान करता है। इसके अतिरिक्त, इसमें Next.js प्लगइन शामिल है जो Intlayer को [Webpack](https://webpack.js.org/) या [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack) के साथ एकीकृत करता है, साथ ही उपयोगकर्ता की पसंदीदा भाषा का पता लगाने, कुकीज़ प्रबंधित करने, और URL पुनर्निर्देशन को संभालने के लिए प्रॉक्सी भी शामिल है।
 
-### चरण 2: अपने प्रोजेक्ट को कॉन्फ़िगर करें
+</Step>
+
+<Step number={2} title="अपने प्रोजेक्ट को कॉन्फ़िगर करें">
 
 यहाँ अंतिम संरचना है जो हम बनाएंगे:
 
@@ -194,7 +198,9 @@ export default config;
 
 > इस कॉन्फ़िगरेशन फ़ाइल के माध्यम से, आप स्थानीयकृत URL, प्रॉक्सी पुनर्निर्देशन, कुकी नाम, आपकी सामग्री घोषणाओं का स्थान और एक्सटेंशन सेट कर सकते हैं, कंसोल में Intlayer लॉग को अक्षम कर सकते हैं, और भी बहुत कुछ। उपलब्ध सभी पैरामीटरों की पूरी सूची के लिए, [कॉन्फ़िगरेशन दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md) देखें।
 
-### चरण 3: अपने Next.js कॉन्फ़िगरेशन में Intlayer को एकीकृत करें
+</Step>
+
+<Step number={3} title="अपने Next.js कॉन्फ़िगरेशन में Intlayer को एकीकृत करें">
 
 अपने Next.js सेटअप को Intlayer का उपयोग करने के लिए कॉन्फ़िगर करें:
 
@@ -237,7 +243,9 @@ export default withIntlayer(nextConfig);
 > withRspack(withIntlayer(nextConfig, { enableTurbopack: false }));
 > ```
 
-### चरण 4: डायनामिक लोकल रूट्स परिभाषित करें
+</Step>
+
+<Step number={4} title="डायनामिक लोकल रूट्स परिभाषित करें">
 
 `RootLayout` से सब कुछ हटा दें और इसे निम्नलिखित कोड से बदलें:
 
@@ -300,7 +308,9 @@ export default LocaleLayout;
 
 > Intlayer `export const dynamic = 'force-static';` के साथ काम करता है ताकि यह सुनिश्चित किया जा सके कि पृष्ठ सभी लोकल के लिए पूर्व-निर्मित हों।
 
-### चरण 5: अपनी सामग्री घोषित करें
+</Step>
+
+<Step number={5} title="अपनी सामग्री घोषित करें">
 
 अनुवाद संग्रहीत करने के लिए अपनी सामग्री घोषणाएँ बनाएं और प्रबंधित करें:
 
@@ -346,7 +356,9 @@ export default pageContent;
 
 > अधिक विवरण के लिए, [सामग्री घोषणा प्रलेखन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/content_file.md) देखें।
 
-### चरण 6: अपने कोड में सामग्री का उपयोग करें
+</Step>
+
+<Step number={6} title="अपने कोड में सामग्री का उपयोग करें">
 
 अपने एप्लिकेशन में अपनी सामग्री शब्दकोशों तक पहुँचें:
 
@@ -435,7 +447,9 @@ export const ServerComponentExample: FC = () => {
 
 > यदि आपका ऐप पहले से मौजूद है, तो आप हजारों घटकों को एक सेकंड में बदलने के लिए [Intlayer कंपाइलर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compiler.md) को [एक्सट्रैक्ट कमांड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/extract.md) के साथ उपयोग कर सकते हैं।
 
-### (वैकल्पिक) चरण 7: लोकल डिटेक्शन के लिए प्रॉक्सी कॉन्फ़िगर करें
+</Step>
+
+<Step number={7} title="लोकल डिटेक्शन के लिए प्रॉक्सी कॉन्फ़िगर करें" isOptional={true}>
 
 उपयोगकर्ता की पसंदीदा लोकल का पता लगाने के लिए प्रॉक्सी सेट करें:
 
@@ -459,7 +473,9 @@ import { customProxy } from "@utils/customProxy";
 export const proxy = multipleProxies([intlayerProxy, customProxy]);
 ```
 
-### (वैकल्पिक) चरण 8: अपने मेटाडेटा का अंतरराष्ट्रीयकरण
+</Step>
+
+<Step number={8} title="अपने मेटाडेटा का अंतरराष्ट्रीयकरण" isOptional={true}>
 
 यदि आप अपने मेटाडेटा का अंतरराष्ट्रीयकरण करना चाहते हैं, जैसे कि आपके पृष्ठ का शीर्षक, तो आप Next.js द्वारा प्रदान की गई `generateMetadata` फ़ंक्शन का उपयोग कर सकते हैं। इसके अंदर, आप अपने मेटाडेटा का अनुवाद करने के लिए `getIntlayer` फ़ंक्शन से सामग्री प्राप्त कर सकते हैं।
 
@@ -594,7 +610,9 @@ export const generateMetadata = async ({
 
 > आधिकारिक Next.js दस्तावेज़ में मेटाडेटा अनुकूलन के बारे में अधिक जानें [यहाँ](https://nextjs.org/docs/app/building-your-application/optimizing/metadata)।
 
-### (वैकल्पिक) चरण 9: अपने sitemap.xml और robots.txt का अंतरराष्ट्रीयकरण
+</Step>
+
+<Step number={9} title="अपने sitemap.xml और robots.txt का अंतरराष्ट्रीयकरण" isOptional={true}>
 
 अपने `sitemap.xml` और `robots.txt` का अंतरराष्ट्रीयकरण करने के लिए, आप Intlayer द्वारा प्रदान की गई `getMultilingualUrls` फ़ंक्शन का उपयोग कर सकते हैं। यह फ़ंक्शन आपको अपने साइटमैप के लिए बहुभाषी URL उत्पन्न करने की अनुमति देता है।
 
@@ -657,7 +675,9 @@ export default robots;
 
 > आधिकारिक Next.js दस्तावेज़ में साइटमैप अनुकूलन के बारे में अधिक जानें [यहाँ](https://nextjs.org/docs/app/api-reference/file-conventions/metadata/sitemap)। आधिकारिक Next.js दस्तावेज़ में robots.txt अनुकूलन के बारे में अधिक जानें [यहाँ](https://nextjs.org/docs/app/api-reference/file-conventions/metadata/robots)।
 
-### (वैकल्पिक) चरण 10: अपनी सामग्री की भाषा बदलें
+</Step>
+
+<Step number={10} title="अपनी सामग्री की भाषा बदलें" isOptional={true}>
 
 Next.js में अपनी सामग्री की भाषा बदलने के लिए, अनुशंसित तरीका `Link` कॉम्पोनेंट का उपयोग करके उपयोगकर्ताओं को उपयुक्त स्थानीयकृत पृष्ठ पर पुनर्निर्देशित करना है। `Link` कॉम्पोनेंट पृष्ठ के प्रीफ़ेचिंग को सक्षम करता है, जो पूर्ण पृष्ठ पुनः लोड से बचने में मदद करता है।
 
@@ -750,7 +770,9 @@ return (
 > - [`dir` attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir)
 > - [`aria-current` attribute](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)
 
-### (वैकल्पिक) कदम 1 : अपने घटकों की सामग्री निकालें
+</Step>
+
+<Step number={1} title="अपने घटकों की सामग्री निकालें" isOptional={true}>
 
 यदि आपके पास मौजूदा कोडबेस है, तो हजारों फ़ाइलों को बदलना समय लेने वाला हो सकता है।
 
@@ -863,7 +885,9 @@ bun run build # Or bun run dev
  </Tab>
 </Tabs>
 
-### (वैकल्पिक) चरण 11: एक स्थानीयकृत लिंक कॉम्पोनेंट बनाना
+</Step>
+
+<Step number={11} title="एक स्थानीयकृत लिंक कॉम्पोनेंट बनाना" isOptional={true}>
 
 यह सुनिश्चित करने के लिए कि आपके एप्लिकेशन का नेविगेशन वर्तमान लोकल का सम्मान करता है, आप एक कस्टम `Link` कॉम्पोनेंट बना सकते हैं। यह कॉम्पोनेंट स्वचालित रूप से आंतरिक URL को वर्तमान भाषा के साथ प्रीफ़िक्स करता है। उदाहरण के लिए, जब कोई फ़्रेंच भाषी उपयोगकर्ता "About" पृष्ठ के लिंक पर क्लिक करता है, तो उन्हें `/about` के बजाय `/fr/about` पर पुनर्निर्देशित किया जाता है।
 
@@ -930,3 +954,7 @@ export const Link: FC<PropsWithChildren<NextLinkProps>> = ({
   कॉम्पोनेंट स्थानीयकृत URL के साथ एक `<a>` तत्व लौटाता है, यह सुनिश्चित करते हुए कि नेविगेशन लोकल के अनुरूप है।
 
 अपने एप्लिकेशन में इस `Link` कॉम्पोनेंट को एकीकृत करके, आप एक सुसंगत और भाषा-जागरूक उपयोगकर्ता अनुभव बनाए रखते हैं और बेहतर SEO और उपयोगिता से भी लाभान्वित होते हैं।
+
+</Step>
+
+</Steps>

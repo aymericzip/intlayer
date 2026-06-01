@@ -39,33 +39,43 @@ history:
 
 So với các giải pháp chính như `@nuxtjs/i18n` hay `i18next`, Intlayer là giải pháp đi kèm với các tính năng tối ưu hóa tích hợp như:
 
-**Bảo hiểm đầy đủ của Nuxt**
+<AccordionGroup>
+<Accordion header="Bảo hiểm đầy đủ của Nuxt">
 
 Intlayer được tối ưu hóa để hoạt động hoàn hảo với Nuxt bằng cách cung cấp **định tuyến đa ngôn ngữ**, **phần mềm trung gian để phát hiện ngôn ngữ**, **sơ đồ trang web** và tất cả các tính năng cần thiết để mở rộng quy mô quốc tế hóa (i18n).
 
-**Kích thước bundle**
+</Accordion>
+<Accordion header="Kích thước bundle">
 
 Thay vì tải các tệp JSON lớn vào trang của bạn, hãy chỉ tải nội dung cần thiết. Intlayer giúp **giảm tới 50% kích thước bundle và kích thước trang**.
 
-**Khả năng bảo trì**
+</Accordion>
+<Accordion header="Khả năng bảo trì">
 
 Xác định phạm vi nội dung ứng dụng của bạn **tạo điều kiện bảo trì** cho các ứng dụng quy mô lớn. Bạn có thể sao chép hoặc xóa một thư mục tính năng mà không phải lo lắng về việc xem lại toàn bộ cơ sở mã nội dung của mình. Ngoài ra, Intlayer **được nhập đầy đủ** để đảm bảo tính chính xác cho nội dung của bạn.
 
-**Đại lý AI**
+</Accordion>
+<Accordion header="Đại lý AI">
 
 Nội dung cùng định vị **giảm ngữ cảnh cần thiết** của Mô hình ngôn ngữ lớn (LLM). Intlayer cũng đi kèm một bộ công cụ, chẳng hạn như **CLI** để kiểm tra các bản dịch bị thiếu,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** và **[agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, để giúp trải nghiệm của nhà phát triển (DX) trở nên mượt mà hơn nữa đối với các tác nhân AI.
 
-**Tự động hóa**
+</Accordion>
+<Accordion header="Tự động hóa">
 
 Sử dụng tính năng tự động hóa để dịch trong quy trình CI/CD của bạn bằng cách sử dụng LLM mà bạn chọn với chi phí do nhà cung cấp AI của bạn chi trả. Intlayer cũng cung cấp **trình biên dịch** để tự động trích xuất nội dung cũng như [nền tảng web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) để giúp **dịch ở chế độ nền**.
 
-**Hiệu suất**
+</Accordion>
+<Accordion header="Hiệu suất">
 
 Việc kết nối các tệp JSON lớn với các thành phần có thể dẫn đến các vấn đề về hiệu suất và khả năng phản hồi. Intlayer tối ưu hóa việc tải nội dung của bạn tại thời điểm build.
 
-**Mở rộng quy mô không có nhà phát triển**
+</Accordion>
+<Accordion header="Mở rộng quy mô không có nhà phát triển">
 
 Không chỉ là giải pháp i18n, Intlayer còn cung cấp **[trình chỉnh sửa trực quan](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** và **[CMS đầy đủ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** để giúp bạn quản lý nội dung đa ngôn ngữ của mình trong **thời gian thực**, giúp việc cộng tác với người dịch, người viết quảng cáo và các thành viên khác trong nhóm trở nên liền mạch. Nội dung có thể được lưu trữ cục bộ và/hoặc từ xa.
+
+</Accordion>
+</AccordionGroup>
 
 ---
 
@@ -103,7 +113,9 @@ Không chỉ là giải pháp i18n, Intlayer còn cung cấp **[trình chỉnh s
 
 Xem [Application Template](https://github.com/aymericzip/intlayer-nuxt-4-template) trên GitHub.
 
-### Bước 1: Cài đặt các phụ thuộc
+<Steps>
+
+<Step number={1} title="Cài đặt các phụ thuộc">
 
 Cài đặt các gói cần thiết bằng npm:
 
@@ -141,7 +153,9 @@ bun x intlayer init
 - **nuxt-intlayer**
   Mô-đun Nuxt tích hợp Intlayer với các ứng dụng Nuxt. Nó cung cấp thiết lập tự động, middleware để phát hiện locale, quản lý cookie, và chuyển hướng URL.
 
-### Bước 2: Cấu hình dự án của bạn
+</Step>
+
+<Step number={2} title="Cấu hình dự án của bạn">
 
 Tạo một file cấu hình để cấu hình các ngôn ngữ của ứng dụng của bạn:
 
@@ -165,7 +179,9 @@ export default config;
 
 > Thông qua tệp cấu hình này, bạn có thể thiết lập các URL địa phương hóa, chuyển hướng middleware, tên cookie, vị trí và phần mở rộng của các khai báo nội dung của bạn, tắt các log của Intlayer trên console, và nhiều hơn nữa. Để xem danh sách đầy đủ các tham số có sẵn, hãy tham khảo [tài liệu cấu hình](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md).
 
-### Bước 3: Tích hợp Intlayer vào cấu hình Nuxt của bạn
+</Step>
+
+<Step number={3} title="Tích hợp Intlayer vào cấu hình Nuxt của bạn">
 
 Thêm module intlayer vào cấu hình Nuxt của bạn:
 
@@ -180,7 +196,9 @@ export default defineNuxtConfig({
 
 > Module `nuxt-intlayer` tự động xử lý việc tích hợp Intlayer với Nuxt. Nó thiết lập việc xây dựng khai báo nội dung, giám sát các tệp trong chế độ phát triển, cung cấp middleware để phát hiện locale, và quản lý định tuyến theo locale.
 
-### Bước 4: Khai báo Nội dung của Bạn
+</Step>
+
+<Step number={4} title="Khai báo Nội dung của Bạn">
 
 Tạo và quản lý các khai báo nội dung để lưu trữ bản dịch:
 
@@ -215,7 +233,9 @@ export default content;
 
 > Để biết thêm chi tiết, hãy tham khảo [tài liệu khai báo nội dung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/content_file.md).
 
-### Bước 5: Sử dụng Intlayer trong Mã của Bạn
+</Step>
+
+<Step number={5} title="Sử dụng Intlayer trong Mã của Bạn">
 
 Truy cập các từ điển nội dung của bạn trong toàn bộ ứng dụng Nuxt bằng cách sử dụng composable `useIntlayer`:
 
@@ -284,7 +304,9 @@ Intlayer cung cấp các API khác nhau để truy cập nội dung của bạn:
   - Sử dụng `const content = useIntlayer("myContent");` và `{{ content.myContent }}` / `<content.myContent />`.
   - Hoặc sử dụng `const { myContent } = useIntlayer("myContent");` và `{{ myContent}}` / `<myContent/>` để phân rã nội dung.
 
-### (Tùy chọn) Bước 6: Thay đổi ngôn ngữ của nội dung
+</Step>
+
+<Step number={6} title="Thay đổi ngôn ngữ của nội dung" isOptional={true}>
 
 Để thay đổi ngôn ngữ của nội dung, bạn có thể sử dụng hàm `setLocale` được cung cấp bởi composable `useLocale`. Hàm này cho phép bạn thiết lập locale của ứng dụng và cập nhật nội dung tương ứng.
 
@@ -355,7 +377,9 @@ import LocaleSwitcher from "~/components/LocaleSwitcher.vue";
 
 Thành phần `Links` (được hiển thị bên dưới) đảm bảo rằng các liên kết điều hướng nội bộ được tự động địa phương hóa.
 
-### (Tùy chọn) Bước 7: Thêm định tuyến địa phương hóa vào ứng dụng của bạn
+</Step>
+
+<Step number={7} title="Thêm định tuyến địa phương hóa vào ứng dụng của bạn" isOptional={true}>
 
 Nuxt tự động xử lý định tuyến địa phương hóa khi sử dụng module `nuxt-intlayer`. Điều này tạo các tuyến đường cho mỗi ngôn ngữ tự động dựa trên cấu trúc thư mục trang của bạn.
 
@@ -429,7 +453,9 @@ Module `nuxt-intlayer` sẽ tự động:
 - Quản lý cookie ngôn ngữ
 - Chuyển hướng người dùng đến URL địa phương hóa phù hợp
 
-### (Tùy chọn) Bước 8: Tạo một Component Liên kết Địa phương hóa
+</Step>
+
+<Step number={8} title="Tạo một Component Liên kết Địa phương hóa" isOptional={true}>
 
 Để đảm bảo điều hướng trong ứng dụng của bạn tuân thủ ngôn ngữ hiện tại, bạn có thể tạo một component `Links` tùy chỉnh. Component này tự động thêm tiền tố ngôn ngữ hiện tại vào các URL nội bộ, điều này rất quan trọng cho **SEO và khả năng tìm thấy trang**.
 
@@ -497,7 +523,9 @@ import LocaleSwitcher from "~/components/LocaleSwitcher.vue";
 > - Người dùng có thể chia sẻ trực tiếp các URL đã được địa phương hóa
 > - Lịch sử trình duyệt hoạt động chính xác với các URL có tiền tố ngôn ngữ
 
-### (Tùy chọn) Bước 9: Xử lý Metadata và SEO
+</Step>
+
+<Step number={9} title="Xử lý Metadata và SEO" isOptional={true}>
 
 Nuxt cung cấp khả năng SEO tuyệt vời thông qua composable `useHead` (tự động import). Bạn có thể sử dụng Intlayer để xử lý metadata đã được địa phương hóa bằng cách sử dụng accessor `.raw` hoặc `.value` để lấy giá trị chuỗi nguyên thủy:
 
@@ -625,3 +653,7 @@ Tiện ích mở rộng này cung cấp:
 ### Đi xa hơn
 
 Để đi xa hơn, bạn có thể triển khai [trình chỉnh sửa trực quan](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md) hoặc tách nội dung của bạn ra bên ngoài bằng cách sử dụng [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md).
+
+</Step>
+
+</Steps>

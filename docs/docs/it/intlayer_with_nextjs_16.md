@@ -74,7 +74,8 @@ Vedi [Template Applicazione](https://github.com/aymericzip/intlayer-next-16-temp
 
 Rispetto alle soluzioni principali come `next-intl` o `i18next`, Intlayer è una soluzione dotata di ottimizzazioni integrate come:
 
-**Copertura completa di Next.js**
+<AccordionGroup>
+<Accordion header="Copertura completa di Next.js">
 
 Intlayer è ottimizzato per funzionare con **Componenti server** per un rendering efficiente ed è completamente compatibile con [**Turbopack**](https://nextjs.org/docs/architecture/turbopack). Non blocca il rendering statico e offre middleware e tutte le funzionalità necessarie per scalare l'internazionalizzazione (i18n).
 
@@ -82,35 +83,46 @@ Intlayer è ottimizzato per funzionare con **Componenti server** per un renderin
 > Il routing per locale è utile per SEO, dimensioni del pacchetto e prestazioni. Se non ti serve, puoi fare riferimento a questa [guida](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_no_locale_path.md).
 > Per Next.js 12, 13, 14 e 15 con App Router, fare riferimento a questa [guida](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_14.md).
 
-**Dimensione del bundle**
+</Accordion>
+<Accordion header="Dimensione del bundle">
 
 Invece di caricare enormi file JSON nelle tue pagine, carica solo il contenuto necessario. Intlayer aiuta a **ridurre le dimensioni del bundle e della pagina fino al 50%**.
 
-**Manutenibilità**
+</Accordion>
+<Accordion header="Manutenibilità">
 
 L'ambito del contenuto dell'applicazione **facilita la manutenzione** per applicazioni su larga scala. Puoi duplicare o eliminare una singola cartella di funzionalità senza l'onere mentale di rivedere l'intera codebase dei contenuti. Inoltre, Intlayer è **completamente tipizzato (fully typed)** per garantire l'accuratezza dei tuoi contenuti.
 
-**Agente IA**
+</Accordion>
+<Accordion header="Agente IA">
 
 La co-localizzazione dei contenuti **riduce il contesto necessario** dai Large Language Models (LLM). Intlayer viene fornito anche con una suite di strumenti, come una **CLI** per verificare le traduzioni mancanti,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** e **[capacità dell'agente](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, per rendere l'esperienza dello sviluppatore (DX) ancora più fluida per gli agenti IA.
 
-**Automazione**
+</Accordion>
+<Accordion header="Automazione">
 
 Utilizza l'automazione per tradurre nella tua pipeline CI/CD utilizzando il LLM di tua scelta al costo del tuo provider di intelligenza artificiale. Intlayer offre anche un **compilatore** per automatizzare l'estrazione dei contenuti, nonché una [piattaforma web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) per aiutare a **tradurre in background**.
 
-**Prestazione**
+</Accordion>
+<Accordion header="Prestazione">
 
 La connessione di enormi file JSON ai componenti può portare a problemi di prestazioni e reattività. Intlayer ottimizza il caricamento dei contenuti in fase di compilazione.
 
-**Scalabilità con nessuno sviluppatore**
+</Accordion>
+<Accordion header="Scalabilità con nessuno sviluppatore">
 
 Più di una semplice soluzione i18n, Intlayer fornisce un **[editor visivo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** self-hosted e un **[CMS completo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** per aiutarti gestisci i tuoi contenuti multilingue in **tempo reale**, semplificando la collaborazione con traduttori, copywriter e altri membri del team. I contenuti possono essere archiviati localmente e/o in remoto.
+
+</Accordion>
+</AccordionGroup>
 
 ---
 
 ## Guida passo-passo per configurare Intlayer in un'applicazione Next.js
 
-### Passo 1: Installa le dipendenze
+<Steps>
+
+<Step number={1} title="Installa le dipendenze">
 
 Installa i pacchetti necessari usando npm:
 
@@ -142,7 +154,9 @@ bun x intlayer init
 
   Il pacchetto che integra Intlayer con Next.js. Fornisce provider di contesto e hook per l'internazionalizzazione in Next.js. Inoltre, include il plugin Next.js per integrare Intlayer con [Webpack](https://webpack.js.org/) o [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack), così come un proxy per rilevare la lingua preferita dall'utente, gestire i cookie e gestire il reindirizzamento degli URL.
 
-### Passo 2: Configura il tuo progetto
+</Step>
+
+<Step number={2} title="Configura il tuo progetto">
 
 Ecco la struttura finale che andremo a creare:
 
@@ -194,7 +208,9 @@ export default config;
 
 > Attraverso questo file di configurazione, puoi impostare URL localizzati, il reindirizzamento proxy, i nomi dei cookie, la posizione e l'estensione delle tue dichiarazioni di contenuto, disabilitare i log di Intlayer nella console e altro ancora. Per un elenco completo dei parametri disponibili, consulta la [documentazione di configurazione](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/configuration.md).
 
-### Passo 3: Integra Intlayer nella tua configurazione Next.js
+</Step>
+
+<Step number={3} title="Integra Intlayer nella tua configurazione Next.js">
 
 Configura il tuo setup Next.js per utilizzare Intlayer:
 
@@ -237,7 +253,9 @@ export default withIntlayer(nextConfig);
 > withRspack(withIntlayer(nextConfig, { enableTurbopack: false }));
 > ```
 
-### Passo 4: Definire le Rotte Dinamiche per le Localizzazioni
+</Step>
+
+<Step number={4} title="Definire le Rotte Dinamiche per le Localizzazioni">
 
 Rimuovi tutto da `RootLayout` e sostituiscilo con il seguente codice:
 
@@ -300,7 +318,9 @@ export default LocaleLayout;
 
 > Intlayer funziona con `export const dynamic = 'force-static';` per assicurare che le pagine siano precompilate per tutte le localizzazioni.
 
-### Passo 5: Dichiara il Tuo Contenuto
+</Step>
+
+<Step number={5} title="Dichiara il Tuo Contenuto">
 
 Crea e gestisci le tue dichiarazioni di contenuto per memorizzare le traduzioni:
 
@@ -346,7 +366,9 @@ export default pageContent;
 
 > Per maggiori dettagli, consulta la [documentazione sulla dichiarazione del contenuto](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/content_file.md).
 
-### Passo 6: Utilizza il Contenuto nel Tuo Codice
+</Step>
+
+<Step number={6} title="Utilizza il Contenuto nel Tuo Codice">
 
 Accedi ai tuoi dizionari di contenuto in tutta l'applicazione:
 
@@ -435,7 +457,9 @@ export const ServerComponentExample: FC = () => {
 
 > Se la tua app esiste già, puoi utilizzare l' [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/compiler.md) in combinazione con il [comando extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/cli/extract.md) per convertire migliaia di componenti in un secondo.
 
-### (Opzionale) Passo 7: Configurare il Proxy per il Rilevamento della Lingua
+</Step>
+
+<Step number={7} title="Configurare il Proxy per il Rilevamento della Lingua" isOptional={true}>
 
 Configura il proxy per rilevare la lingua preferita dall'utente:
 
@@ -459,7 +483,9 @@ import { customProxy } from "@utils/customProxy";
 export const proxy = multipleProxies([intlayerProxy, customProxy]);
 ```
 
-### (Opzionale) Passo 8: Internazionalizzazione dei tuoi metadata
+</Step>
+
+<Step number={8} title="Internazionalizzazione dei tuoi metadata" isOptional={true}>
 
 Nel caso tu voglia internazionalizzare i tuoi metadata, come il titolo della tua pagina, puoi usare la funzione `generateMetadata` fornita da Next.js. All'interno, puoi recuperare il contenuto dalla funzione `getIntlayer` per tradurre i tuoi metadata.
 
@@ -594,7 +620,9 @@ export const generateMetadata = async ({
 
 > Scopri di più sull'ottimizzazione dei metadata [nella documentazione ufficiale di Next.js](https://nextjs.org/docs/app/building-your-application/optimizing/metadata).
 
-### (Opzionale) Passo 9: Internazionalizzazione del tuo sitemap.xml e robots.txt
+</Step>
+
+<Step number={9} title="Internazionalizzazione del tuo sitemap.xml e robots.txt" isOptional={true}>
 
 Per internazionalizzare il tuo `sitemap.xml` e `robots.txt`, puoi utilizzare la funzione `getMultilingualUrls` fornita da Intlayer. Questa funzione ti permette di generare URL multilingue per la tua sitemap.
 
@@ -657,7 +685,9 @@ export default robots;
 
 > Scopri di più sull'ottimizzazione della sitemap [nella documentazione ufficiale di Next.js](https://nextjs.org/docs/app/api-reference/file-conventions/metadata/sitemap). Scopri di più sull'ottimizzazione del robots.txt [nella documentazione ufficiale di Next.js](https://nextjs.org/docs/app/api-reference/file-conventions/metadata/robots).
 
-### (Opzionale) Passo 10: Cambiare la lingua del tuo contenuto
+</Step>
+
+<Step number={10} title="Cambiare la lingua del tuo contenuto" isOptional={true}>
 
 Per cambiare la lingua del tuo contenuto in Next.js, il modo consigliato è utilizzare il componente `Link` per reindirizzare gli utenti alla pagina localizzata appropriata. Il componente `Link` permette il prefetching della pagina, il che aiuta a evitare un ricaricamento completo della pagina.
 
@@ -750,7 +780,9 @@ return (
 > - [`dir` attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir)
 > - [`aria-current` attribute](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)
 
-### (Opzionale) Passaggio 1 : Estrarre il contenuto dei tuoi componenti
+</Step>
+
+<Step number={1} title="Estrarre il contenuto dei tuoi componenti" isOptional={true}>
 
 Se hai una base di codice esistente, trasformare migliaia di file può richiedere molto tempo.
 
@@ -863,7 +895,9 @@ bun run build # Or bun run dev
  </Tab>
 </Tabs>
 
-### (Opzionale) Passo 11: Creazione di un componente Link localizzato
+</Step>
+
+<Step number={11} title="Creazione di un componente Link localizzato" isOptional={true}>
 
 Per garantire che la navigazione della tua applicazione rispetti la lingua corrente, puoi creare un componente `Link` personalizzato. Questo componente aggiunge automaticamente il prefisso della lingua corrente agli URL interni. Ad esempio, quando un utente francofono clicca su un link alla pagina "About", viene reindirizzato a `/fr/about` invece che a `/about`.
 
@@ -930,3 +964,7 @@ export const Link: FC<PropsWithChildren<NextLinkProps>> = ({
   Il componente restituisce un elemento `<a>` con l'URL localizzato, garantendo che la navigazione sia coerente con la locale.
 
 Integrando questo componente `Link` in tutta la tua applicazione, manterrai un'esperienza utente coerente e consapevole della lingua, beneficiando al contempo di una migliore SEO e usabilità.
+
+</Step>
+
+</Steps>

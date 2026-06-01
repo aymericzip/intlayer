@@ -94,7 +94,9 @@ history:
 
 ## دليل خطوة بخطوة لإعداد Intlayer في تطبيق Vite و Vanilla JS
 
-### الخطوة 1: تثبيت الاعتماديات
+<Steps>
+
+<Step number={1} title="تثبيت الاعتماديات">
 
 قم بتثبيت الحزم اللازمة باستخدام npm:
 
@@ -131,7 +133,9 @@ bun x intlayer init
 - **vite-intlayer**
   تتضمن ملحق Vite لدمج Intlayer مع [Vite bundler](https://vite.dev/guide/why.html#why-bundle-for-production)، بالإضافة إلى برمجية وسيطة لاكتشاف اللغة المفضلة للمستخدم، وإدارة ملفات تعريف الارتباط، ومعالجة إعادة توجيه عناوين URL.
 
-### الخطوة 2: تكوين مشروعك
+</Step>
+
+<Step number={2} title="تكوين مشروعك">
 
 قم بإنشاء ملف تكوين لتهيئة لغات تطبيقك:
 
@@ -155,7 +159,9 @@ export default config;
 
 > من خلال ملف التكوين هذا، يمكنك إعداد عناوين URL الموطنة، وإعادة توجيه البرمجيات الوسيطة، وأسماء ملفات تعريف الارتباط، وموقع وامتداد إعلانات المحتوى الخاصة بك، وتعطيل سجلات Intlayer في وحدة التحكم، والمزيد. للحصول على قائمة كاملة بالمعلمات المتاحة، ارجع إلى [توثيق التكوين](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md).
 
-### الخطوة 3: دمج Intlayer في تكوين Vite الخاص بك
+</Step>
+
+<Step number={3} title="دمج Intlayer في تكوين Vite الخاص بك">
 
 أضف ملحق intlayer إلى التكوين الخاص بك.
 
@@ -171,7 +177,9 @@ export default defineConfig({
 
 > يستخدم ملحق Vite `intlayer()` لدمج Intlayer مع Vite. يضمن بناء ملفات إعلان المحتوى ومراقبتها في وضع التطوير. يحدد متغيرات بيئة Intlayer داخل تطبيق Vite. بالإضافة إلى ذلك، فإنه يوفر أسماء مستعارة لتحسين الأداء.
 
-### الخطوة 4: تهيئة Intlayer في نقطة الدخول الخاصة بك
+</Step>
+
+<Step number={4} title="تهيئة Intlayer في نقطة الدخول الخاصة بك">
 
 استدعِ `installIntlayer()` **قبل** عرض أي محتوى بحيث يكون نموذج اللغة العالمي المفرد جاهزًا.
 
@@ -196,7 +204,9 @@ installIntlayerMarkdown();
 import "./app.js";
 ```
 
-### الخطوة 5: إعلان المحتوى الخاص بك
+</Step>
+
+<Step number={5} title="إعلان المحتوى الخاص بك">
 
 قم بإنشاء وإدارة إعلانات المحتوى الخاصة بك لتخزين الترجمات:
 
@@ -274,7 +284,9 @@ export default appContent;
 >
 > لمزيد من التفاصيل، راجع [توثيق إعلان المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/content_file.md).
 
-### الخطوة 6: استخدام Intlayer في JavaScript الخاص بك
+</Step>
+
+<Step number={6} title="استخدام Intlayer في JavaScript الخاص بك">
 
 تعكس `vanilla-intlayer` واجهة برمجة تطبيقات `react-intlayer`: `useIntlayer(key, locale?)` تعيد المحتوى المترجم مباشرة. قم بربط `.onChange()` مع النتيجة للاشتراك في تغييرات اللغة - المعادل الصريح لإعادة العرض في React.
 
@@ -310,7 +322,9 @@ document.querySelector<HTMLParagraphElement>(".read-the-docs")!.textContent =
 > img.alt = content.viteLogoLabel.value;
 > ```
 
-### (اختياري) الخطوة 7: تغيير لغة المحتوى الخاص بك
+</Step>
+
+<Step number={7} title="تغيير لغة المحتوى الخاص بك" isOptional={true}>
 
 لتغيير لغة المحتوى الخاص بك، استخدم وظيفة `setLocale` التي كشفت عنها `useLocale`.
 
@@ -345,7 +359,9 @@ export function setupLocaleSwitcher(container: HTMLElement): () => void {
 }
 ```
 
-### (اختياري) الخطوة 8: عرض محتوى Markdown و HTML
+</Step>
+
+<Step number={8} title="عرض محتوى Markdown و HTML" isOptional={true}>
 
 يدعم Intlayer إعلانات المحتوى `md()` و `html()`. في vanilla JS، يتم إدراج المخرج المترجم كـ HTML خام عبر `innerHTML`.
 
@@ -404,7 +420,9 @@ document.querySelector<HTMLDivElement>(".edit-note")!.innerHTML =
 > });
 > ```
 
-### (اختياري) الخطوة 9: إضافة التوجيه الموطن إلى تطبيقك
+</Step>
+
+<Step number={9} title="إضافة التوجيه الموطن إلى تطبيقك" isOptional={true}>
 
 لإنشاء مسارات فريدة لكل لغة (مفيد لتحسين محركات البحث)، يمكنك استخدام `intlayerProxy` في تكوين Vite الخاص بك لاكتشاف اللغة من جانب الخادم.
 
@@ -424,7 +442,9 @@ export default defineConfig({
 });
 ```
 
-### (اختياري) الخطوة 10: تغيير عنوان URL عند تغيير اللغة
+</Step>
+
+<Step number={10} title="تغيير عنوان URL عند تغيير اللغة" isOptional={true}>
 
 لتحديث عنوان URL للمتصفح عند تغيير اللغة، استدعِ `useRewriteURL()` بعد تثبيت Intlayer:
 
@@ -438,7 +458,9 @@ installIntlayer();
 const stopRewriteURL = useRewriteURL();
 ```
 
-### (اختياري) الخطوة 11: تبديل سمات لغة HTML والاتجاه
+</Step>
+
+<Step number={11} title="تبديل سمات لغة HTML والاتجاه" isOptional={true}>
 
 قم بتحديث سمات `lang` و `dir` لعلامة `<html>` لتتوافق مع اللغة الحالية لسهولة الاستخدام وتحسين محركات البحث.
 
@@ -456,7 +478,9 @@ useLocale({
 });
 ```
 
-### (اختياري) الخطوة 12: تحميل القواميس ببطء حسب اللغة
+</Step>
+
+<Step number={12} title="تحميل القواميس ببطء حسب اللغة" isOptional={true}>
 
 للتطبيقات الكبيرة، قد ترغب في تقسيم قاموس كل لغة إلى قطعة خاصة به. استخدم `useDictionaryDynamic` جنبًا إلى جنب مع `import()` الديناميكي من Vite:
 
@@ -479,7 +503,9 @@ const unsubscribe = useDictionaryDynamic(
 
 > يتم جلب حزمة كل لغة فقط عندما تصبح تلك اللغة نشطة ويتم تخزين النتيجة مؤقتًا - التبديلات اللاحقة لنفس اللغة تكون فورية.
 
-### (اختياري) الخطوة 13: استخراج محتوى مكوناتك
+</Step>
+
+<Step number={13} title="استخراج محتوى مكوناتك" isOptional={true}>
 
 إذا كان لديك كود موجود مسبقًا، فقد يستغرق تحويل آلاف الملفات وقتًا طويلاً.
 
@@ -694,3 +720,7 @@ console.log("SEO files generated successfully.");
 ### اذهب أبعد من ذلك
 
 للذهاب أبعد من ذلك، يمكنك تنفيذ [المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) أو استخراج محتواك باستخدام [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md).
+
+</Step>
+
+</Steps>

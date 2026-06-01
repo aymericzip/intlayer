@@ -2,7 +2,7 @@
 createdAt: 2025-08-23
 updatedAt: 2025-08-23
 title: Introductie
-description: Ontdek hoe Intlayer werkt. Bekijk de stappen die Intlayer gebruikt in uw applicatie. Bekijk wat de verschillende pakketten doen.
+description: Ontdek hoe Intlayer werkt. Bekijk de stappen die Intlayer in uw applicatie gebruikt. Ontdek wat de verschillende pakketten doen.
 keywords:
   - Introductie
   - Aan de slag
@@ -15,20 +15,20 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: "Geschiedenis geïnitialiseerd"
+    changes: "Init history"
 ---
 
 # Intlayer Documentatie
 
-Welkom bij de officiële Intlayer-documentatie! Hier vindt u alles wat u nodig hebt om Intlayer te integreren, configureren en beheersen voor al uw internationaliseringsbehoeften (i18n), of u nu werkt met Next.js, React, Vite, Express of een andere JavaScript-omgeving.
+Welkom bij de officiële Intlayer-documentatie! Hier vindt u alles wat u nodig hebt om Intlayer te integreren, configureren en te beheersen voor al uw behoeften op het gebied van internationalisering (i18n), of u nu werkt met Next.js, React, Vite, Express of een andere JavaScript-omgeving.
 
 ## Introductie
 
 ### Wat is Intlayer?
 
-**Intlayer** is een internationaliseringsbibliotheek die speciaal is ontworpen voor JavaScript-ontwikkelaars. Hiermee kunt u uw inhoud overal in uw code declareren. Het zet declaraties van meertalige inhoud om in gestructureerde woordenboeken die eenvoudig in uw code te integreren zijn. Door gebruik te maken van TypeScript maakt **Intlayer** uw ontwikkeling krachtiger en efficiënter.
+**Intlayer** is een bibliotheek voor internationalisering die speciaal is ontworpen voor JavaScript-ontwikkelaars. Het maakt de declaratie van uw content overal in uw code mogelijk. Het zet de declaratie van meertalige content om in gestructureerde woordenboeken om deze eenvoudig in uw code te integreren. Door TypeScript te gebruiken, maakt **Intlayer** uw ontwikkeling robuuster en efficiënter.
 
-Intlayer biedt ook een optionele visuele editor waarmee u uw inhoud eenvoudig kunt bewerken en beheren. Deze editor is vooral handig voor ontwikkelaars die de voorkeur geven aan een visuele interface voor inhoudsbeheer, of voor teams die inhoud genereren zonder zich zorgen te hoeven maken over code.
+Intlayer biedt ook een optionele visuele editor waarmee u uw content eenvoudig kunt bewerken en beheren. Deze editor is met name handig voor ontwikkelaars die de voorkeur geven aan een visuele interface voor contentbeheer, of voor teams die content genereren zonder zich zorgen te hoeven maken over code.
 
 ### Gebruiksvoorbeeld
 
@@ -50,6 +50,7 @@ const componentContent = {
       en: "Hello World",
       es: "Hola Mundo",
       fr: "Bonjour le monde",
+      nl: "Hallo Wereld",
     }),
   },
 } satisfies Dictionary;
@@ -67,7 +68,8 @@ export default componentContent;
       "translation": {
         "en": "Hello World",
         "fr": "Bonjour le monde",
-        "es": "Hola Mundo"
+        "es": "Hola Mundo",
+        "nl": "Hallo Wereld"
       }
     }
   }
@@ -85,58 +87,60 @@ export const MyComponent: FC = () => {
 };
 ```
 
-## Belangrijkste kenmerken
+## Belangrijkste Kenmerken
 
 Intlayer biedt een verscheidenheid aan functies die zijn afgestemd op de behoeften van moderne webontwikkeling. Hieronder staan de belangrijkste functies, met links naar gedetailleerde documentatie voor elk:
 
 - **Internationaliseringsondersteuning**: Vergroot het wereldwijde bereik van uw applicatie met ingebouwde ondersteuning voor internationalisering.
-- **Visuele editor**: Verbeter uw ontwikkelingsworkflow met editor-plugins die zijn ontworpen voor Intlayer. Bekijk de [Gids voor de visuele editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/intlayer_visual_editor.md).
-- **Flexibiliteit in configuratie**: Pas uw installatie aan met uitgebreide configuratie-opties die worden beschreven in de [Configuratiegids](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/configuration.md).
-- **Geavanceerde CLI-tools**: Beheer uw projecten efficiënt met de opdrachtregelinterface van Intlayer. Verken de mogelijkheden in de [Documentatie voor CLI-tools](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/cli/index.md).
+- **Visuele Editor**: Verbeter uw ontwikkelingsworkflow met editor-plugins die zijn ontworpen voor Intlayer. Bekijk de [Visuele Editor Gids](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/intlayer_visual_editor.md).
+- **Configuratieflexibiliteit**: Pas uw setup aan met uitgebreide configuratieopties, beschreven in de [Configuratiegids](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/configuration.md).
+- **Geavanceerde CLI Tools**: Beheer uw projecten efficiënt met de command-line interface van Intlayer. Ontdek de mogelijkheden in de [CLI Tools Documentatie](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/cli/index.md).
 
-## Kernbegrippen
+## Kernconcepten
 
 ### Woordenboek (Dictionary)
 
-Organiseer uw meertalige inhoud dicht bij uw code om alles consistent en onderhoudbaar te houden.
+Organiseer uw meertalige content dicht bij uw code om alles consistent en onderhoudbaar te houden.
 
 - **[Aan de slag](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/dictionary/content_file.md)**  
-  Leer de basisprincipes van het declareren van uw inhoud in Intlayer.
+  Leer de basisprincipes van het declareren van uw content in Intlayer.
 
-- **[Vertaling](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/dictionary/translation.md)**  
+- **[Vertaling (Translation)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/dictionary/translation.md)**  
   Begrijp hoe vertalingen worden gegenereerd, opgeslagen en gebruikt in uw applicatie.
 
 - **[Opsomming (Enumeration)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/dictionary/enumeration.md)**  
-  Beheer eenvoudig herhaalde of vaste sets gegevens in verschillende talen.
+  Beheer eenvoudig herhalende of vaste datasets in verschillende talen.
 
-- **[Voorwaarde (Condition)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/dictionary/condition.md)**  
-  Leer hoe u voorwaardelijke logica in Intlayer gebruikt om dynamische inhoud te maken.
+- **[Conditie (Condition)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/dictionary/condition.md)**  
+  Leer hoe u voorwaardelijke logica in Intlayer kunt gebruiken om dynamische content te creëren.
 
-- **[Invoeging (Insertion)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/dictionary/insertion.md)**
-  Ontdek hoe u waarden in een string kunt invoegen met behulp van plaatshouders.
+- **[Invoegen (Insertion)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/dictionary/insertion.md)**  
+  Ontdek hoe u waarden in een string kunt invoegen met behulp van invoeg-placeholders.
 
-- **[Functie ophalen (Function Fetching)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/dictionary/function_fetching.md)**  
-  Zie hoe u dynamisch inhoud kunt ophalen met aangepaste logica die past bij de workflow van uw project.
+- **[Functies Ophalen (Function Fetching)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/dictionary/function_fetching.md)**  
+  Bekijk hoe u dynamisch content kunt ophalen met aangepaste logica die past bij de workflow van uw project.
 
 - **[Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/dictionary/markdown.md)**  
-  Leer hoe u Markdown in Intlayer gebruikt om rijke inhoud te maken.
+  Leer hoe u Markdown in Intlayer kunt gebruiken om rijke content te creëren.
 
-- **[Bestand-embeddings (File embeddings)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/dictionary/file.md)**  
-  Ontdek hoe u externe bestanden in Intlayer kunt insluiten voor gebruik in de inhoudseditor.
+- **[Bestandsinsluitingen (File Embeddings)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/dictionary/file.md)**  
+  Ontdek hoe u externe bestanden in Intlayer kunt insluiten voor gebruik in de content-editor.
 
-- **[Nesting](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/dictionary/nesting.md)**  
-  Begrijp hoe u inhoud in Intlayer kunt nesten om complexe structuren te creëren.
+- **[Nesten (Nesting)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/dictionary/nesting.md)**  
+  Begrijp hoe u content in Intlayer kunt nesten om complexe structuren te creëren.
 
-### Omgevingen en integraties
+### Omgevingen & Integraties
 
-We hebben Intlayer gebouwd met flexibiliteit in het achterhoofd, en bieden naadloze integratie met populaire frameworks en buildtools:
+We hebben Intlayer gebouwd met flexibiliteit in gedachten, en bieden een naadloze integratie met populaire frameworks en build-tools:
 
 - **[Intlayer met Next.js 16](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/intlayer_with_nextjs_16.md)**
 - **[Intlayer met Next.js 15](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/intlayer_with_nextjs_15.md)**
 - **[Intlayer met Next.js 14 (App Router)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/intlayer_with_nextjs_14.md)**
 - **[Intlayer met Next.js Page Router](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/intlayer_with_nextjs_page_router.md)**
 - **[Intlayer met React CRA](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/intlayer_with_create_react_app.md)**
-- **[Intlayer met Vite + React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/intlayer_with_tanstack.md)**
+- **[Intlayer met Vite + React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/intlayer_with_vite+react.md)**
+- **[Intlayer met React Router v7](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/intlayer_with_react_router_v7.md)**
+- **[Intlayer met Tanstack Start](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/intlayer_with_tanstack.md)**
 - **[Intlayer met React Native en Expo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/intlayer_with_react_native+expo.md)**
 - **[Intlayer met Lynx en React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/intlayer_with_lynx+react.md)**
 - **[Intlayer met Vite + Preact](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/intlayer_with_vite+preact.md)**
@@ -147,12 +151,40 @@ We hebben Intlayer gebouwd met flexibiliteit in het achterhoofd, en bieden naadl
 - **[Intlayer met Express](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/intlayer_with_express.md)**
 - **[Intlayer met NestJS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/intlayer_with_nestjs.md)**
 - **[Intlayer met Hono](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/intlayer_with_hono.md)**
-- **[Intlayer met Angular](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/intlayer_with_angular.md)**
+- **[Intlayer met Angular](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/intlayer_with_angular_21.md)**
 
-Elke integratiegids bevat best practices voor het gebruik van de functies van Intlayer, zoals **server-side rendering**, **dynamische routering** of **client-side rendering**, zodat u een snelle, SEO-vriendelijke en zeer schaalbare applicatie kunt onderhouden.
+Elke integratiegids bevat best practices voor het gebruik van de functies van Intlayer, zoals **server-side rendering (SSR)**, **dynamische routering** of **client-side rendering**, zodat u een snelle, SEO-vriendelijke en zeer schaalbare applicatie kunt behouden.
 
-## Bijdragen en feedback
+## Bijdragen & Feedback
 
-We waarderen de kracht van open-source en community-gedreven ontwikkeling. Als u verbeteringen wilt voorstellen, een nieuwe gids wilt toevoegen of problemen in onze documentatie wilt corrigeren, stuur dan gerust een Pull Request of open een issue op onze [GitHub-repository](https://github.com/aymericzip/intlayer/blob/main/docs/docs).
+We waarderen de kracht van open-source en community-gedreven ontwikkeling. Als u verbeteringen wilt voorstellen, een nieuwe gids wilt toevoegen of problemen in onze documenten wilt corrigeren, stuur dan gerust een Pull Request in of open een Issue op onze [GitHub repository](https://github.com/aymericzip/intlayer/blob/main/docs/docs).
 
-**Klaar om uw applicatie sneller en efficiënter te vertalen?** Duik in onze documentatie om Intlayer vandaag nog te gaan gebruiken. Ervaar een robuuste, gestroomlijnde aanpak van internationalisering die uw inhoud georganiseerd houdt en uw team productiever maakt.
+**Klaar om uw applicatie sneller en efficiënter te vertalen?** Duik in onze documentatie om vandaag nog met Intlayer te beginnen. Ervaar een robuuste, gestroomlijnde benadering van internationalisering die uw content georganiseerd houdt en uw team productiever maakt.
+
+### Waarom Intlayer boven alternatieven?
+
+Vergeleken met grote oplossingen zoals `next-intl` of `i18next`, is Intlayer een oplossing met geïntegreerde optimalisaties zoals:
+
+**Bundelgrootte (Bundle size)**
+
+Laad in plaats van enorme JSON-bestanden naar uw pagina's alleen de benodigde content. Intlayer helpt **uw bundel- en paginagroottes met wel 50% te verkleinen**.
+
+**Onderhoudbaarheid (Maintainability)**
+
+Het afbakenen (scoping) van de content van uw applicatie **vergemakkelijkt het onderhoud** voor grootschalige applicaties. U kunt een enkele feature-map dupliceren of verwijderen zonder de mentale last om uw hele content-codebase te moeten doorzoeken. Bovendien is Intlayer **volledig getypeerd (fully typed)** om de nauwkeurigheid van uw content te garanderen.
+
+**AI Agent**
+
+Co-locatie van content **vermindert de benodigde context** door grote taalmodellen (LLM's). Intlayer wordt ook geleverd met een reeks tools, zoals een **CLI** om te testen op ontbrekende vertalingen, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/mcp_server.md)** en **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/agent_skills.md)**, om de ontwikkelaarservaring (DX) voor AI-agenten nog soepeler te maken.
+
+**Automatisering**
+
+Gebruik automatisering om te vertalen in uw CI/CD-pijplijn met behulp van de LLM van uw keuze, ten koste van uw AI-provider. Intlayer biedt ook een **compiler** om contentextractie te automatiseren, evenals een [webplatform](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/intlayer_CMS.md) om u te helpen **op de achtergrond te vertalen**.
+
+**Prestaties (Performance)**
+
+Het verbinden van enorme JSON-bestanden aan componenten kan leiden tot prestatie- en reactiviteitsproblemen. Intlayer optimaliseert het laden van uw content op bouwtijd (build time).
+
+**Schalen zonder ontwikkelaars (Scaling with non-dev)**
+
+Intlayer is veel meer dan alleen een i18n-oplossing en biedt een **[zelf-gehoste visuele editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/intlayer_visual_editor.md)** en een **[volledig CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/intlayer_CMS.md)** om u te helpen uw meertalige content in **real-time** te beheren. Dit maakt de samenwerking met vertalers, tekstschrijvers en andere teamleden naadloos. Content kan lokaal en/of op afstand worden opgeslagen.

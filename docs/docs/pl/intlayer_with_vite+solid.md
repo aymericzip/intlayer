@@ -96,7 +96,9 @@ Więcej niż tylko rozwiązanie i18n, Intlayer zapewnia **samodzielny [edytor wi
 
 <TOC/>
 
-### Krok 1: Instalacja zależności
+<Steps>
+
+<Step number={1} title="Instalacja zależności">
 
 Zainstaluj niezbędne pakiety za pomocą npm:
 
@@ -134,7 +136,9 @@ bun x intlayer init
 - **vite-intlayer**
   Zawiera wtyczkę Vite do integracji Intlayer z [bundlerem Vite](https://vite.dev/guide/why.html#why-bundle-for-production), a także middleware do wykrywania preferowanej lokalizacji użytkownika, zarządzania ciasteczkami oraz obsługi przekierowań URL.
 
-### Krok 2: Konfiguracja projektu
+</Step>
+
+<Step number={2} title="Konfiguracja projektu">
 
 Utwórz plik konfiguracyjny do konfiguracji języków Twojej aplikacji:
 
@@ -158,7 +162,9 @@ export default config;
 
 > Poprzez ten plik konfiguracyjny możesz ustawić lokalizowane adresy URL, przekierowania w middleware, nazwy ciasteczek, lokalizację i rozszerzenie deklaracji zawartości, wyłączyć logi Intlayer w konsoli i wiele więcej. Pełną listę dostępnych parametrów znajdziesz w [dokumentacji konfiguracyjnej](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/configuration.md).
 
-### Krok 3: Zintegruj Intlayer w swojej konfiguracji Vite
+</Step>
+
+<Step number={3} title="Zintegruj Intlayer w swojej konfiguracji Vite">
 
 Dodaj wtyczkę intlayer do swojej konfiguracji.
 
@@ -175,7 +181,9 @@ export default defineConfig({
 
 > Wtyczka Vite `intlayer()` służy do integracji Intlayer z Vite. Zapewnia budowanie plików deklaracji treści oraz monitoruje je w trybie deweloperskim. Definiuje zmienne środowiskowe Intlayer w aplikacji Vite. Dodatkowo dostarcza aliasy optymalizujące wydajność.
 
-### Krok 4: Zadeklaruj swoją treść
+</Step>
+
+<Step number={4} title="Zadeklaruj swoją treść">
 
 Twórz i zarządzaj deklaracjami treści, aby przechowywać tłumaczenia:
 
@@ -202,7 +210,9 @@ export default appContent;
 
 > Aby uzyskać więcej szczegółów, zapoznaj się z [dokumentacją deklaracji zawartości](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/content_file.md).
 
-### Krok 5: Wykorzystaj Intlayer w swoim kodzie
+</Step>
+
+<Step number={5} title="Wykorzystaj Intlayer w swoim kodzie">
 
 Uzyskaj dostęp do swoich słowników treści w całej aplikacji:
 
@@ -262,7 +272,9 @@ export default App;
 > <img src="{String(content.image.src)}" alt="{String(content.image)}" />
 > ```
 
-### (Opcjonalnie) Krok 6: Zmień język swojej zawartości
+</Step>
+
+<Step number={6} title="Zmień język swojej zawartości" isOptional={true}>
 
 Aby zmienić język swojej zawartości, możesz użyć funkcji `setLocale` dostarczonej przez hook `useLocale`. Ta funkcja pozwala ustawić lokalizację aplikacji i odpowiednio zaktualizować zawartość.
 
@@ -291,7 +303,9 @@ const LocaleSwitcher: Component = () => {
 };
 ```
 
-### (Opcjonalnie) Krok 7: Dodaj lokalizowane routingi do swojej aplikacji
+</Step>
+
+<Step number={7} title="Dodaj lokalizowane routingi do swojej aplikacji" isOptional={true}>
 
 Celem tego kroku jest utworzenie unikalnych tras dla każdego języka. Jest to przydatne dla SEO i przyjaznych dla SEO adresów URL.
 Przykład:
@@ -356,7 +370,9 @@ const App: Component = () => (
 export default App;
 ```
 
-### (Opcjonalnie) Krok 8: Zmień URL przy zmianie lokalizacji
+</Step>
+
+<Step number={8} title="Zmień URL przy zmianie lokalizacji" isOptional={true}>
 
 Aby zmienić URL przy zmianie lokalizacji, możesz użyć właściwości `onLocaleChange` dostarczonej przez hook `useLocale`. Możesz użyć hooków `useNavigate` i `useLocation` z `@solidjs/router` do aktualizacji ścieżki URL.
 
@@ -393,7 +409,9 @@ const LocaleSwitcher: Component = () => {
 };
 ```
 
-### (Opcjonalnie) Krok 9: Zmień atrybuty języka i kierunku HTML
+</Step>
+
+<Step number={9} title="Zmień atrybuty języka i kierunku HTML" isOptional={true}>
 
 Zaktualizuj atrybuty `lang` i `dir` tagu `<html>`, aby pasowały do bieżącej lokalizacji dla dostępności i SEO.
 
@@ -416,7 +434,9 @@ const AppContent: Component = () => {
 };
 ```
 
-### (Opcjonalnie) Krok 10: Tworzenie lokalizowanego komponentu Link
+</Step>
+
+<Step number={10} title="Tworzenie lokalizowanego komponentu Link" isOptional={true}>
 
 Utwórz niestandardowy komponent `Link`, który automatycznie dodaje prefiks wewnętrznych URL z bieżącym językiem.
 
@@ -437,7 +457,9 @@ export const Link: ParentComponent<AnchorProps> = (props) => {
 };
 ```
 
-### (Opcjonalnie) Krok 11: Renderuj Markdown
+</Step>
+
+<Step number={11} title="Renderuj Markdown" isOptional={true}>
 
 Intlayer obsługuje renderowanie treści Markdown bezpośrednio w aplikacji Solid przy użyciu własnego wewnętrznego parsera. Domyślnie Markdown jest traktowany jako zwykły tekst. Aby renderować go jako bogaty HTML, owiń swoją aplikację w `MarkdownProvider`.
 
@@ -516,7 +538,9 @@ Aby uzyskać więcej szczegółów na temat korzystania z rozszerzenia, zapoznaj
 
 ---
 
-### (Opcjonalnie) Krok 12 : Wyodrębnij zawartość swoich komponentów
+</Step>
+
+<Step number={12} title="Wyodrębnij zawartość swoich komponentów" isOptional={true}>
 
 Jeśli masz istniejącą bazę kodu, transformacja tysięcy plików może być czasochłonna.
 
@@ -691,3 +715,7 @@ Dostosuj polecenia dla pnpm lub yarn. Możesz też wywołać skrypt z CI.
 Aby pójść dalej, możesz zaimplementować [edytor wizualny](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_visual_editor.md) lub wyeksportować swoją zawartość, korzystając z [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md).
 
 ---
+
+</Step>
+
+</Steps>

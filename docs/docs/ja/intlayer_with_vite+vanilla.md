@@ -94,7 +94,9 @@ Intlayer は単なる i18n ソリューションではなく、**自己ホスト
 
 ## ViteおよびVanilla JSアプリケーションでIntlayerをセットアップするためのステップバイステップガイド
 
-### ステップ 1: 依存関係のインストール
+<Steps>
+
+<Step number={1} title="依存関係のインストール">
 
 npmを使用して必要なパッケージをインストールします：
 
@@ -131,7 +133,9 @@ bun x intlayer init
 - **vite-intlayer**
   Intlayerを[Vite バンドラー](https://vite.dev/guide/why.html Japan#why-bundle-for-production)と統合するためのViteプラグイン、およびユーザーの優先言語の検出、クッキーの管理、URLリダイレクトの処理のためのミドルウェアが含まれています。
 
-### ステップ 2: プロジェクトの設定
+</Step>
+
+<Step number={2} title="プロジェクトの設定">
 
 アプリケーションの言語を設定するための設定ファイルを作成します。
 
@@ -155,7 +159,9 @@ export default config;
 
 > この設定ファイルを通じて、ローカライズされたURL、ミドルウェアのリダイレクト、クッキー名、コンテンツ宣言の場所と拡張子、コンソールでのIntlayerログの無効化などを設定できます。利用可能なパラメータの全リストについては、[設定ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)を参照してください。
 
-### ステップ 3: Vite設定へのIntlayerの統合
+</Step>
+
+<Step number={3} title="Vite設定へのIntlayerの統合">
 
 設定にintlayerプラグインを追加します。
 
@@ -171,7 +177,9 @@ export default defineConfig({
 
 > `intlayer()` Viteプラグインは、IntlayerをViteと統合するために使用されます。コンテンツ宣言ファイルの構築を確実にし、開発モードでそれらを監視します。Viteアプリケーション内でIntlayer環境変数を定義します。さらに、パフォーマンスを最適化するためのエイリアスを提供します。
 
-### ステップ 4: エントリーポイントでのIntlayerのブートストラップ
+</Step>
+
+<Step number={4} title="エントリーポイントでのIntlayerのブートストラップ">
 
 グローバルな言語シングルトンの準備ができるように、コンテンツがレンダリングされる**前**に `installIntlayer()` を呼び出します。
 
@@ -196,7 +204,9 @@ installIntlayerMarkdown();
 import "./app.js";
 ```
 
-### ステップ 5: コンテンツの宣言
+</Step>
+
+<Step number={5} title="コンテンツの宣言">
 
 翻訳を保存するためのコンテンツ宣言を作成および管理します。
 
@@ -274,7 +284,9 @@ export default appContent;
 >
 > 詳細については、[コンテンツ宣言ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/content_file.md)を参照してください。
 
-### ステップ 6: JavaScriptでのIntlayerの使用
+</Step>
+
+<Step number={6} title="JavaScriptでのIntlayerの使用">
 
 `vanilla-intlayer` は `react-intlayer` のサーフェスAPIを反映しています：`useIntlayer(key, locale?)` は翻訳されたコンテンツを直接返します。結果に対して `.onChange()` をチェーンして言語の変更を購読します（これはReactの再レンダリングと同じ明示的な効果を持ちます）。
 
@@ -310,7 +322,9 @@ document.querySelector<HTMLParagraphElement>(".read-the-docs")!.textContent =
 > img.alt = content.viteLogoLabel.value;
 > ```
 
-### (任意) ステップ 7: コンテンツの言語を変更する
+</Step>
+
+<Step number={7} title="コンテンツの言語を変更する" isOptional={true}>
 
 コンテンツの言語を変更するには、`useLocale` によって公開される `setLocale` 関数を使用します。
 
@@ -345,7 +359,9 @@ export function setupLocaleSwitcher(container: HTMLElement): () => void {
 }
 ```
 
-### (任意) ステップ 8: MarkdownおよびHTMLコンテンツのレンダリング
+</Step>
+
+<Step number={8} title="MarkdownおよびHTMLコンテンツのレンダリング" isOptional={true}>
 
 Intlayerは `md()` および `html()` コンテンツ宣言をサポートしています。Vanilla JSでは、コンパイルされた出力は `innerHTML` を介して生のHTMLとして挿入されます。
 
@@ -404,7 +420,9 @@ document.querySelector<HTMLDivElement>(".edit-note")!.innerHTML =
 > });
 > ```
 
-### (任意) ステップ 9: アプリケーションへのローカライズされたルーティングの追加
+</Step>
+
+<Step number={9} title="アプリケーションへのローカライズされたルーティングの追加" isOptional={true}>
 
 言語ごとにユニークなルートを作成するには（SEOに有用）、Vite設定で `intlayerProxy` を使用してサーバーサイドの言語検出を行うことができます。
 
@@ -424,7 +442,9 @@ export default defineConfig({
 });
 ```
 
-### (任意) ステップ 10: 言語変更時のURL変更
+</Step>
+
+<Step number={10} title="言語変更時のURL変更" isOptional={true}>
 
 言語が変更されたときにブラウザのURLを更新するには、Intlayerのインストール後に `useRewriteURL()` を呼び出します。
 
@@ -438,7 +458,9 @@ installIntlayer();
 const stopRewriteURL = useRewriteURL();
 ```
 
-### (任意) ステップ 11: HTML 言語属性とテキスト方向属性の切り替え
+</Step>
+
+<Step number={11} title="HTML 言語属性とテキスト方向属性の切り替え" isOptional={true}>
 
 アクセシビリティとSEOのために、`<html>` タグの `lang` および `dir` 属性を現在の言語に合わせて更新します。
 
@@ -456,7 +478,9 @@ useLocale({
 });
 ```
 
-### (任意) ステップ 12: 言語ごとの辞書の遅延ロード
+</Step>
+
+<Step number={12} title="言語ごとの辞書の遅延ロード" isOptional={true}>
 
 大規模なアプリの場合、各言語の辞書を独自のチャンクに分割したい場合があります。Viteの動的 `import()` と併せて `useDictionaryDynamic` を使用します：
 
@@ -479,7 +503,9 @@ const unsubscribe = useDictionaryDynamic(
 
 > 各言語のバンドルは、その言語がアクティブになったときにのみ取得され、結果はキャッシュされます。同じ言語へのその後の切り替えは瞬時に行われます。
 
-### (任意) ステップ 13: コンポーネントのコンテンツの抽出
+</Step>
+
+<Step number={13} title="コンポーネントのコンテンツの抽出" isOptional={true}>
 
 既存のコードベースがある場合、数千のファイルを変換するのは時間がかかる場合があります。
 
@@ -694,3 +720,7 @@ Intlayer での開発体験を向上させるために、公式の **Intlayer VS
 ### 次のステップ
 
 さらに進むには、[ビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)を実装したり、[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)を使用してコンテンツを外部化したりできます。
+
+</Step>
+
+</Steps>

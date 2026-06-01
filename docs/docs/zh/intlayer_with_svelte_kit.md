@@ -419,7 +419,9 @@ export default heroContent;
 <div aria-label={String($content.title)}></div>
 ```
 
-### （可选）步骤6：设置路由
+<Steps>
+
+<Step number={6} title="设置路由">
 
 以下步骤展示了如何在 SvelteKit 中设置基于语言环境的路由。这允许您的 URL 包含语言环境前缀（例如 `/en/about`，`/fr/about`），以提升 SEO 和用户体验。
 
@@ -656,7 +658,9 @@ export const prerender = true;
 </style>
 ```
 
-### （可选）步骤 8：国际化链接
+</Step>
+
+<Step number={8} title="国际化链接">
 
 为了SEO，建议在路由前加上语言前缀（例如 `/en/about`，`/fr/about`）。该组件会自动为任何链接添加当前语言的前缀。
 
@@ -689,7 +693,9 @@ const localizedPath = getLocalizedUrl("/about", $locale);
 goto(localizedPath); // 根据语言环境导航到 /en/about 或 /fr/about
 ```
 
-### （可选）步骤 9：语言切换器
+</Step>
+
+<Step number={9} title="语言切换器">
 
 为了允许用户切换语言，更新 URL。
 
@@ -730,7 +736,9 @@ goto(localizedPath); // 根据语言环境导航到 /en/about 或 /fr/about
 </style>
 ```
 
-### （可选）步骤 10：添加后端代理
+</Step>
+
+<Step number={10} title="添加后端代理">
 
 要为您的 SvelteKit 应用添加后端代理，可以使用 `vite-intlayer` 插件提供的 `intlayerProxy` 函数。该插件将根据 URL、Cookie 和浏览器语言偏好自动检测用户的最佳语言环境。
 
@@ -749,7 +757,9 @@ export default defineConfig({
 });
 ```
 
-### （可选）步骤 11：设置 intlayer 编辑器 / CMS
+</Step>
+
+<Step number={11} title="设置 intlayer 编辑器 / CMS">
 
 要设置 intlayer 编辑器，您必须遵循 [intlayer 编辑器文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)。
 
@@ -785,7 +795,9 @@ export default defineConfig({
 
 ---
 
-### (可选) 步骤 1 : 提取组件内容
+</Step>
+
+<Step number={1} title="提取组件内容" isOptional={true}>
 
 如果您有现有的代码库，转换数千个文件可能会非常耗时。
 
@@ -885,3 +897,7 @@ bun run build # Or bun run dev
 
 - **可视化编辑器**：集成[Intlayer 可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)，以便直接从用户界面编辑翻译内容。
 - **CMS**：使用[Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)实现内容管理的外部化。
+
+</Step>
+
+</Steps>

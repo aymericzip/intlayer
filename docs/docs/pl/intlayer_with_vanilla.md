@@ -93,7 +93,9 @@ Więcej niż tylko rozwiązanie i18n, Intlayer zapewnia **samodzielny [edytor wi
 
 ## Przewodnik krok po kroku konfiguracji Intlayer w aplikacji Vanilla JS
 
-### Krok 1: Instalacja zależności
+<Steps>
+
+<Step number={1} title="Instalacja zależności">
 
 Zainstaluj niezbędne pakiety za pomocą npm:
 
@@ -153,7 +155,9 @@ bun x intlayer build
 
 > Eksport bundlingu z CLI `intlayer standalone` generuje zoptymalizowaną kompilację dzięki usuwaniu nieużywanych kodów (tree-shaking) nieużywanych pakietów, lokalizacji i nieistotnej logiki (takiej jak przekierowania lub prefiksy), specyficznych dla Twojej konfiguracji.
 
-### Krok 2: Konfiguracja Twojego projektu
+</Step>
+
+<Step number={2} title="Konfiguracja Twojego projektu">
 
 Utwórz plik konfiguracyjny, aby skonfigurować języki Twojej aplikacji:
 
@@ -177,7 +181,9 @@ export default config;
 
 > Za pomocą tego pliku konfiguracyjnego możesz ustawić zlokalizowane adresy URL, przekierowania middleware, nazwy ciasteczek, lokalizację i rozszerzenie deklaracji treści, wyłączyć logi Intlayer w konsoli i wiele więcej. Pełną listę dostępnych parametrów znajdziesz w [dokumentacji konfiguracji](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/configuration.md).
 
-### Krok 3: Zaimportuj pakiet do HTML
+</Step>
+
+<Step number={3} title="Zaimportuj pakiet do HTML">
 
 Po wygenerowaniu pakietu `intlayer.js`, możesz go zaimportować do swojego pliku HTML:
 
@@ -201,7 +207,9 @@ Po wygenerowaniu pakietu `intlayer.js`, możesz go zaimportować do swojego plik
 
 Pakiet udostępnia `Intlayer` i `VanillaIntlayer` jako obiekty globalne na `window`.
 
-### Krok 4: Uruchom Intlayer w punkcie wejścia (entry point)
+</Step>
+
+<Step number={4} title="Uruchom Intlayer w punkcie wejścia">
 
 W swoim `src/main.js` wywołaj `installIntlayer()` **zanim** jakakolwiek treść zostanie wyrenderowana, aby globalny singleton języka był gotowy.
 
@@ -221,7 +229,9 @@ installIntlayer();
 installIntlayerMarkdown();
 ```
 
-### Krok 5: Zadeklaruj swoje treści
+</Step>
+
+<Step number={5} title="Zadeklaruj swoje treści">
 
 Twórz i zarządzaj swoimi deklaracjami treści, aby przechowywać tłumaczenia:
 
@@ -299,7 +309,9 @@ export default appContent;
 >
 > Więcej szczegółów znajdziesz w [dokumentacji deklaracji treści](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/content_file.md).
 
-### Krok 6: Użyj Intlayer w swoim JavaScript
+</Step>
+
+<Step number={6} title="Użyj Intlayer w swoim JavaScript">
 
 Obiekt `window.VanillaIntlayer` dostarcza pomocników API: `useIntlayer(key, locale?)` zwraca przetłumaczoną treść dla danego klucza.
 
@@ -333,7 +345,9 @@ document.querySelector(".read-the-docs").textContent = String(
 > img.alt = content.viteLogoLabel.value;
 > ```
 
-### (Opcjonalnie) Krok 7: Zmień język swojej treści
+</Step>
+
+<Step number={7} title="Zmień język swojej treści" isOptional={true}>
 
 Aby zmienić język treści, użyj funkcji `setLocale` udostępnianej przez `useLocale`.
 
@@ -368,7 +382,9 @@ export function setupLocaleSwitcher(container) {
 }
 ```
 
-### (Opcjonalnie) Krok 8: Przełącz atrybuty języka i kierunku HTML
+</Step>
+
+<Step number={8} title="Przełącz atrybuty języka i kierunku HTML" isOptional={true}>
 
 Zaktualizuj atrybuty `lang` i `dir` tagu `<html>`, aby pasowały do bieżącego języka dla dostępności i SEO.
 
@@ -386,7 +402,9 @@ useLocale({
 });
 ```
 
-### (Opcjonalnie) Krok 9: Leniwe ładowanie słowników na język (lazy load)
+</Step>
+
+<Step number={9} title="Leniwe ładowanie słowników na język" isOptional={true}>
 
 Jeśli chcesz leniwie ładować słowniki dla każdego języka, możesz użyć `useDictionaryDynamic`. Jest to przydatne, jeśli nie chcesz pakować wszystkich tłumaczeń w początkowym pliku `intlayer.js`.
 
@@ -442,3 +460,7 @@ Więcej szczegółów na temat korzystania z rozszerzenia znajdziesz w [dokument
 ### Idź dalej
 
 Aby pójść dalej, możesz zaimplementować [edytor wizualny](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_visual_editor.md) lub wyeksportować swoje treści za pomocą [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md).
+
+</Step>
+
+</Steps>

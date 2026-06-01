@@ -47,39 +47,51 @@ Este guia demonstra como integrar o **Intlayer** para uma internacionalização 
 
 Comparado com soluções principais como `react-i18next` ou `i18next`, Intlayer é uma solução que vem com otimizações integradas como:
 
-**Cobertura completa do roteador React**
+<AccordionGroup>
+<Accordion header="Cobertura completa do roteador React">
 
 O Intlayer é otimizado para funcionar perfeitamente com o React Router, oferecendo **roteamento com reconhecimento de localidade**, **middleware para detecção de localidade** e todos os recursos necessários para dimensionar a internacionalização (i18n).
 
-**Tamanho do bundle**
+</Accordion>
+<Accordion header="Tamanho do bundle">
 
 Em vez de carregar arquivos JSON enormes em suas páginas, carregue apenas o conteúdo necessário. O Intlayer ajuda a **reduzir o tamanho do bundle e das páginas em até 50%**.
 
-**Manutenção**
+</Accordion>
+<Accordion header="Manutenção">
 
 Definir o escopo do conteúdo do seu aplicativo **facilita a manutenção** de aplicativos de grande escala. Você pode duplicar ou excluir uma única pasta de recursos sem o fardo mental de revisar toda a base de código de seu conteúdo. Além disso, o Intlayer é **totalmente tipado (fully typed)** para garantir a precisão do seu conteúdo.
 
-**Agente de IA**
+</Accordion>
+<Accordion header="Agente de IA">
 
 A co-localização de conteúdo **reduz o contexto necessário** pelos Large Language Models (LLMs). O Intlayer também vem com um conjunto de ferramentas, como uma **CLI** para testar traduções ausentes,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)**, e **[habilidades do agente](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, para tornar a experiência do desenvolvedor (DX) ainda mais tranquila para os agentes de IA.
 
-**Automação**
+</Accordion>
+<Accordion header="Automação">
 
 Use a automação para traduzir seu pipeline de CI/CD usando o LLM de sua escolha às custas de seu provedor de IA. O Intlayer também oferece um **compilador** para automatizar a extração de conteúdo, bem como uma [plataforma web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) para ajudar a **traduzir em segundo plano**.
 
-**Desempenho**
+</Accordion>
+<Accordion header="Desempenho">
 
 Conectar arquivos JSON enormes a componentes pode levar a problemas de desempenho e reatividade. O Intlayer otimiza o carregamento do seu conteúdo no momento da construção.
 
-**Escalonamento sem nenhum desenvolvedor**
+</Accordion>
+<Accordion header="Escalonamento sem nenhum desenvolvedor">
 
 Mais do que apenas uma solução i18n, o Intlayer fornece um **[editor visual] auto-hospedado(https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** e um **[CMS completo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** para ajudá-lo a gerenciar seu conteúdo multilíngue em **tempo real**, facilitando a colaboração com tradutores, redatores e outros membros da equipe. O conteúdo pode ser armazenado local e/ou remotamente.
+
+</Accordion>
+</AccordionGroup>
 
 ---
 
 ## Guia Passo a Passo para Configurar o Intlayer em uma Aplicação React Router v7
 
-### Passo 1: Instalar Dependências
+<Steps>
+
+<Step number={1} title="Instalar Dependências">
 
 Instale os pacotes necessários usando seu gerenciador de pacotes preferido:
 
@@ -117,7 +129,13 @@ bun x intlayer init
 - **vite-intlayer**
   Inclui o plugin do Vite para integrar o Intlayer com o [empacotador Vite](https://vite.dev/guide/why.html#why-bundle-for-production), bem como middleware para detectar a localidade preferida do usuário, gerenciar cookies e lidar com redirecionamento de URL.
 
-### Passo 2: Configuração do seu projeto
+</Step>
+
+<Step number={2} title="Configuração do seu projeto">
+
+</Step>
+
+</Steps>
 
 ## Guia passo a passo para configurar Intlayer em uma aplicação React Router v7 com rotas baseadas em sistema de arquivos
 
@@ -162,7 +180,9 @@ export default config;
 
 > Através deste arquivo de configuração, você pode configurar URLs localizadas, redirecionamento via middleware, nomes de cookies, a localização e extensão das suas declarações de conteúdo, desabilitar logs do Intlayer no console, e muito mais. Para uma lista completa dos parâmetros disponíveis, consulte a [documentação de configuração](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/configuration.md).
 
-### Passo 3: Configurar Rotas do React Router v7
+<Steps>
+
+<Step number={3} title="Configurar Rotas do React Router v7">
 
 Configure sua configuração de rotas com rotas que reconhecem o idioma:
 
@@ -175,7 +195,9 @@ export default [
 ] satisfies RouteConfig;
 ```
 
-### Passo 4: Integrar Intlayer na sua Configuração Vite
+</Step>
+
+<Step number={4} title="Integrar Intlayer na sua Configuração Vite">
 
 Adicione o plugin intlayer na sua configuração:
 
@@ -196,7 +218,9 @@ export default defineConfig({
 
 > O plugin Vite `intlayer()` é usado para integrar o Intlayer com o Vite. Ele garante a construção dos arquivos de declaração de conteúdo e os monitora no modo de desenvolvimento. Define variáveis de ambiente do Intlayer dentro da aplicação Vite. Além disso, fornece aliases para otimizar o desempenho.
 
-### Passo 5: Criar Componentes de Layout
+</Step>
+
+<Step number={5} title="Criar Componentes de Layout">
 
 Configure seu layout raiz e layouts específicos para cada localidade:
 
@@ -250,7 +274,9 @@ export function Layout({
 }
 ```
 
-### Passo 6: Declare Seu Conteúdo
+</Step>
+
+<Step number={6} title="Declare Seu Conteúdo">
 
 Crie e gerencie suas declarações de conteúdo para armazenar traduções:
 
@@ -286,7 +312,9 @@ export default pageContent;
 
 > Para mais detalhes, consulte a [documentação de declaração de conteúdo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/content_file.md).
 
-### Passo 7: Crie Componentes Sensíveis ao Locale
+</Step>
+
+<Step number={7} title="Crie Componentes Sensíveis ao Locale">
 
 Crie um componente `LocalizedLink` para navegação sensível ao idioma:
 
@@ -335,7 +363,9 @@ export default function LocalizedLink({ to, ...props }: RouterLinkProps) {
 }
 ```
 
-### Passo 8: Utilize o Intlayer nas Suas Páginas
+</Step>
+
+<Step number={8} title="Utilize o Intlayer nas Suas Páginas">
 
 Acesse seus dicionários de conteúdo em toda a sua aplicação:
 
@@ -389,7 +419,9 @@ export default function Page() {
 
 > Se a sua aplicação já existe, você pode usar o [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/compiler.md) em conjunto com o [comando extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/extract.md) para converter milhares de componentes em um segundo.
 
-### Passo 9: Crie um Componente de Seletor de Idioma
+</Step>
+
+<Step number={9} title="Crie um Componente de Seletor de Idioma">
 
 Crie um componente para permitir que os usuários mudem de idioma:
 
@@ -434,7 +466,9 @@ export default function LocaleSwitcher() {
 
 > Para saber mais sobre o hook `useLocale`, consulte a [documentação](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/react-intlayer/useLocale.md).
 
-### Passo 10: Adicionar Gerenciamento de Atributos HTML (Opcional)
+</Step>
+
+<Step number={10} title="Adicionar Gerenciamento de Atributos HTML">
 
 Crie um hook para gerenciar os atributos lang e dir do HTML:
 
@@ -474,7 +508,9 @@ export default function RootLayout() {
 }
 ```
 
-### Passo 11: Compile e Execute Sua Aplicação
+</Step>
+
+<Step number={11} title="Compile e Execute Sua Aplicação">
 
 Construa os dicionários de conteúdo e execute sua aplicação:
 
@@ -502,7 +538,9 @@ yarn intlayer:build
 yarn dev
 ```
 
-### Passo 12: Configurar TypeScript (Opcional)
+</Step>
+
+<Step number={12} title="Configurar TypeScript">
 
 O Intlayer utiliza a ampliação de módulos para aproveitar os benefícios do TypeScript e tornar sua base de código mais robusta.
 
@@ -520,7 +558,9 @@ Certifique-se de que sua configuração do TypeScript inclua os tipos gerados au
 }
 ```
 
-### (Opcional) Etapa 1 : Extrair o conteúdo dos seus componentes
+</Step>
+
+<Step number={1} title="Extrair o conteúdo dos seus componentes" isOptional={true}>
 
 Se você tiver uma base de código existente, transformar milhares de arquivos pode ser demorado.
 
@@ -617,6 +657,10 @@ bun run build # Or bun run dev
 </Tabs>
 
 ---
+
+</Step>
+
+</Steps>
 
 ## Configure TypeScript
 

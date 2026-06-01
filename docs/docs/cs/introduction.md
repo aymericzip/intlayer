@@ -2,7 +2,7 @@
 createdAt: 2025-08-23
 updatedAt: 2025-08-23
 title: Úvod
-description: Zjistěte, jak Intlayer funguje. Podívejte se na kroky používané Intlayer ve vaší aplikaci. Podívejte se, co dělají různé balíčky.
+description: Zjistěte, jak Intlayer funguje. Podívejte se na kroky, které Intlayer ve vaší aplikaci používá. Objevte, co dělají různé balíčky.
 keywords:
   - Úvod
   - Začínáme
@@ -15,20 +15,20 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: "Iniciace historie"
+    changes: "Init history"
 ---
 
 # Dokumentace Intlayer
 
-Vítejte v oficiální dokumentaci Intlayer! Zde najdete vše, co potřebujete k integraci, konfiguraci a ovládnutí Intlayer pro všechny vaše potřeby internacionalizace (i18n), ať už pracujete s Next.js, React, Vite, Express nebo jiným prostředím JavaScriptu.
+Vítejte v oficiální dokumentaci Intlayer! Zde najdete vše, co potřebujete k integraci, konfiguraci a ovládnutí Intlayer pro všechny vaše potřeby internacionalizace (i18n), ať už pracujete s Next.js, React, Vite, Express nebo jiným JavaScriptovým prostředím.
 
 ## Úvod
 
-### Co je Intlayer?
+### Co je to Intlayer?
 
-**Intlayer** je knihovna pro internacionalizaci navržená speciálně pro JavaScriptové vývojáře. Umožňuje deklaraci vašeho obsahu kdekoli ve vašem kódu. Převádí deklaraci vícejazyčného obsahu do strukturovaných slovníků, které lze snadno integrovat do vašeho kódu. S využitím TypeScriptu dělá **Intlayer** váš vývoj silnějším a efektivnějším.
+**Intlayer** je knihovna pro internacionalizaci navržená speciálně pro vývojáře JavaScriptu. Umožňuje deklaraci vašeho obsahu kdekoli ve vašem kódu. Převádí deklarace vícejazyčného obsahu do strukturovaných slovníků, které se snadno integrují do vašeho kódu. Díky použití TypeScriptu činí **Intlayer** váš vývoj robustnějším a efektivnějším.
 
-Intlayer také poskytuje volitelný vizuální editor, který vám umožní snadno upravovat a spravovat váš obsah. Tento editor je užitečný zejména pro vývojáře, kteří preferují vizuální rozhraní pro správu obsahu, nebo pro týmy generující obsah, aniž by se musely starat o kód.
+Intlayer také poskytuje volitelný vizuální editor, který vám umožní snadno upravovat a spravovat váš obsah. Tento editor je obzvláště užitečný pro vývojáře, kteří preferují vizuální rozhraní pro správu obsahu, nebo pro týmy vytvářející obsah bez nutnosti starat se o kód.
 
 ### Příklad použití
 
@@ -50,6 +50,7 @@ const componentContent = {
       en: "Hello World",
       es: "Hola Mundo",
       fr: "Bonjour le monde",
+      cs: "Ahoj světe",
     }),
   },
 } satisfies Dictionary;
@@ -67,7 +68,8 @@ export default componentContent;
       "translation": {
         "en": "Hello World",
         "fr": "Bonjour le monde",
-        "es": "Hola Mundo"
+        "es": "Hola Mundo",
+        "cs": "Ahoj světe"
       }
     }
   }
@@ -89,47 +91,47 @@ export const MyComponent: FC = () => {
 
 Intlayer nabízí řadu funkcí přizpůsobených potřebám moderního webového vývoje. Níže jsou uvedeny klíčové funkce s odkazy na podrobnou dokumentaci pro každou z nich:
 
-- **Podpora internacionalizace**: Zvyšte globální dosah své aplikace s vestavěnou podporou internacionalizace.
-- **Vizuální editor**: Vylepšete svůj vývojový proces pomocí pluginů editoru navržených pro Intlayer. Podívejte se na [Průvodce vizuálním editorem](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/intlayer_visual_editor.md).
-- **Flexibilita konfigurace**: Přizpůsobte si nastavení pomocí rozsáhlých možností konfigurace popsaných v [Průvodci konfigurací](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/configuration.md).
-- **Pokročilé CLI nástroje**: Spravujte své projekty efektivně pomocí příkazového řádku Intlayeru. Prozkoumejte možnosti v [Dokumentaci pro CLI nástroje](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/index.md).
+- **Podpora internacionalizace**: Zvyšte globální dosah své aplikace pomocí integrované podpory pro internacionalizaci.
+- **Vizuální editor**: Vylepšete svůj vývojový pracovní postup pomocí pluginů editoru navržených pro Intlayer. Podívejte se na [Průvodce vizuálním editorem](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/intlayer_visual_editor.md).
+- **Flexibilita konfigurace**: Přizpůsobte si nastavení pomocí rozsáhlých možností konfigurace podrobně popsaných v [Průvodci konfigurací](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/configuration.md).
+- **Pokročilé nástroje CLI**: Spravujte své projekty efektivně pomocí rozhraní příkazového řádku Intlayer. Objevte možnosti v [Dokumentaci k nástrojům CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/index.md).
 
-## Základní pojmy
+## Klíčové koncepty
 
 ### Slovník (Dictionary)
 
-Organizujte svůj vícejazyčný obsah v blízkosti svého kódu, aby bylo vše konzistentní a udržovatelné.
+Uspořádejte svůj vícejazyčný obsah blízko kódu, abyste udrželi vše konzistentní a snadno udržovatelné.
 
 - **[Začínáme](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/dictionary/content_file.md)**  
-  Naučte se základy deklarace obsahu v Intlayeru.
+  Naučte se základy deklarace vašeho obsahu v Intlayer.
 
-- **[Překlad](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/dictionary/translation.md)**  
-  Pochopte, jak jsou překlady generovány, ukládány a používány ve vaší aplikaci.
+- **[Překlad (Translation)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/dictionary/translation.md)**  
+  Pochopte, jak jsou překlady generovány, ukládány a využívány ve vaší aplikaci.
 
 - **[Výčet (Enumeration)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/dictionary/enumeration.md)**  
-  Snadno spravujte opakované nebo pevné sady dat napříč různými jazyky.
+  Snadno spravujte opakující se nebo pevné datové sady v různých jazycích.
 
 - **[Podmínka (Condition)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/dictionary/condition.md)**  
-  Naučte se používat podmíněnou logiku v Intlayeru k vytváření dynamického obsahu.
+  Naučte se používat podmíněnou logiku v Intlayer k vytvoření dynamického obsahu.
 
-- **[Vkládání (Insertion)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/dictionary/insertion.md)**
-  Zjistěte, jak vkládat hodnoty do řetězce pomocí zástupných symbolů pro vkládání.
+- **[Vkládání (Insertion)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/dictionary/insertion.md)**  
+  Objevte, jak vkládat hodnoty do řetězce pomocí zástupných znaků (placeholders) pro vkládání.
 
-- **[Získávání funkcí (Function Fetching)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/dictionary/function_fetching.md)**  
-  Podívejte se, jak dynamicky získávat obsah pomocí vlastní logiky tak, aby odpovídal pracovnímu postupu vašeho projektu.
+- **[Získávání pomocí funkcí (Function Fetching)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/dictionary/function_fetching.md)**  
+  Podívejte se, jak dynamicky získávat obsah s vlastní logikou, aby to odpovídalo pracovnímu postupu vašeho projektu.
 
 - **[Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/dictionary/markdown.md)**  
-  Naučte se používat Markdown v Intlayeru k vytváření bohatého obsahu.
+  Naučte se používat Markdown v Intlayer k vytvoření bohatého obsahu.
 
 - **[Vkládání souborů (File embeddings)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/dictionary/file.md)**  
-  Zjistěte, jak vkládat externí soubory do Intlayeru a používat je v editoru obsahu.
+  Objevte, jak vložit externí soubory do Intlayer a použít je v editoru obsahu.
 
-- **[Vnořování (Nesting)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/dictionary/nesting.md)**  
-  Pochopte, jak vnořovat obsah v Intlayeru a vytvářet složité struktury.
+- **[Vnoření (Nesting)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/dictionary/nesting.md)**  
+  Pochopte, jak vnořit obsah do Intlayer pro vytvoření složitých struktur.
 
 ### Prostředí a integrace
 
-Intlayer jsme vytvořili s ohledem na flexibilitu a nabízíme bezproblémovou integraci napříč populárními frameworky a nástroji pro sestavení:
+Vybudovali jsme Intlayer s ohledem na flexibilitu a nabízíme bezproblémovou integraci napříč populárními frameworky a nástroji pro sestavení:
 
 - **[Intlayer s Next.js 16](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/intlayer_with_nextjs_16.md)**
 - **[Intlayer s Next.js 15](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/intlayer_with_nextjs_15.md)**
@@ -149,12 +151,40 @@ Intlayer jsme vytvořili s ohledem na flexibilitu a nabízíme bezproblémovou i
 - **[Intlayer s Express](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/intlayer_with_express.md)**
 - **[Intlayer s NestJS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/intlayer_with_nestjs.md)**
 - **[Intlayer s Hono](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/intlayer_with_hono.md)**
-- **[Intlayer s Angular](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/intlayer_with_angular.md)**
+- **[Intlayer s Angular](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/intlayer_with_angular_21.md)**
 
-Každý průvodce integrací obsahuje osvědčené postupy pro používání funkcí Intlayer, jako je **server-side rendering**, **dynamické směrování** nebo **client-side rendering**, abyste mohli udržovat rychlou aplikaci vhodnou pro SEO a s vysokou škálovatelností.
+Každý průvodce integrací obsahuje osvědčené postupy pro využívání funkcí Intlayer, jako je **vykreslování na straně serveru (SSR)**, **dynamické směrování** nebo **vykreslování na straně klienta**, abyste mohli udržovat rychlou, vysoce škálovatelnou aplikaci přátelskou pro SEO.
 
 ## Přispívání a zpětná vazba
 
-Vážíme si síly open-source a vývoje řízeného komunitou. Pokud byste chtěli navrhnout vylepšení, přidat nového průvodce nebo opravit jakékoli problémy v našich dokumentech, neváhejte odeslat Pull Request nebo otevřít problém v našem [GitHub repozitáři](https://github.com/aymericzip/intlayer/blob/main/docs/docs).
+Ceníme si síly open-source a vývoje řízeného komunitou. Pokud byste chtěli navrhnout vylepšení, přidat nového průvodce nebo opravit jakékoli problémy v naší dokumentaci, neváhejte odeslat Pull Request nebo otevřít Issue v našem [repozitáři na GitHubu](https://github.com/aymericzip/intlayer/blob/main/docs/docs).
 
-**Jste připraveni překládat svou aplikaci rychleji a efektivněji?** Ponořte se do našich dokumentů a začněte používat Intlayer ještě dnes. Zažijte robustní, efektivní přístup k internacionalizaci, který udržuje váš obsah uspořádaný a váš tým produktivnější.
+**Jste připraveni překládat svou aplikaci rychleji a efektivněji?** Ponořte se do naší dokumentace a začněte Intlayer používat ještě dnes. Vyzkoušejte robustní a zjednodušený přístup k internacionalizaci, který udrží váš obsah uspořádaný a váš tým produktivnější.
+
+### Proč Intlayer místo alternativ?
+
+Ve srovnání s hlavními řešeními, jako je `next-intl` nebo `i18next`, je Intlayer řešením, které přináší integrované optimalizace, jako jsou:
+
+**Velikost balíčku (Bundle size)**
+
+Místo načítání obrovských JSON souborů na vaše stránky načtěte pouze potřebný obsah. Intlayer pomáhá **snížit velikost vašeho balíčku a stránek až o 50 %**.
+
+**Udržovatelnost (Maintainability)**
+
+Zapouzdření obsahu vaší aplikace do scope blízko komponent **usnadňuje údržbu** u velkých aplikací. Můžete duplikovat nebo smazat složku s jedinou funkcí (feature) bez psychické zátěže plynoucí z nutnosti procházet celou kódovou základnu obsahu. Intlayer je navíc **plně typovaný (fully typed)**, aby zajistil přesnost vašeho obsahu.
+
+**Agent AI**
+
+Umístění obsahu na stejném místě (co-locating) **snižuje potřebný kontext** pro velké jazykové modely (LLM). Intlayer je také dodáván se sadou nástrojů, jako je **CLI** pro testování chybějících překladů, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/mcp_server.md)** a **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/agent_skills.md)**, aby byl vývojářský zážitek (DX) pro AI agenty ještě plynulejší.
+
+**Automatizace**
+
+Využijte automatizaci k překladům ve vašem CI/CD pipeline pomocí libovolného LLM dle vašeho výběru na náklady vašeho poskytovatele AI. Intlayer nabízí také **kompilátor (compiler)** pro automatizaci extrakce obsahu a [webovou platformu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/intlayer_CMS.md), která vám pomůže s **překladem na pozadí**.
+
+**Výkon (Performance)**
+
+Propojování masivních souborů JSON ke komponentám může vést k problémům s výkonem a reaktivitou. Intlayer optimalizuje načítání obsahu během sestavování (build time).
+
+**Škálování bez vývojářů (Scaling with non-dev)**
+
+Víc než jen i18n řešení, Intlayer poskytuje **samostatně hostovatelný (self-hosted) [vizuální editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/intlayer_visual_editor.md)** a **[kompletní CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/intlayer_CMS.md)**, který vám pomůže spravovat vícejazyčný obsah v **reálném čase**. Díky tomu je spolupráce s překladateli, copywritery a dalšími členy týmu bezproblémová. Obsah lze ukládat lokálně a/nebo vzdáleně.

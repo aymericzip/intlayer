@@ -105,7 +105,9 @@ Więcej niż tylko rozwiązanie i18n, Intlayer zapewnia **samodzielny [edytor wi
 
 Zobacz [Szablon aplikacji](https://github.com/aymericzip/intlayer-vite-preact-template) na GitHub.
 
-### Krok 1: Instalacja zależności
+<Steps>
+
+<Step number={1} title="Instalacja zależności">
 
 Zainstaluj niezbędne pakiety za pomocą npm:
 
@@ -143,7 +145,9 @@ bun x intlayer init
 - **vite-intlayer**
   Zawiera wtyczkę Vite do integracji Intlayer z [bundlerem Vite](https://vite.dev/guide/why.html#why-bundle-for-production), a także middleware do wykrywania preferowanego języka użytkownika, zarządzania ciasteczkami oraz obsługi przekierowań URL.
 
-### Krok 2: Konfiguracja Twojego projektu
+</Step>
+
+<Step number={2} title="Konfiguracja Twojego projektu">
 
 Utwórz plik konfiguracyjny, aby skonfigurować języki swojej aplikacji:
 
@@ -171,7 +175,9 @@ export default config;
 
 > Dzięki temu plikowi konfiguracyjnemu możesz ustawić lokalizowane adresy URL, tryby routingu, opcje przechowywania, nazwy ciasteczek, lokalizację i rozszerzenie deklaracji zawartości, wyłączyć logi Intlayer w konsoli i wiele więcej. Pełną listę dostępnych parametrów znajdziesz w [dokumentacji konfiguracji](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/configuration.md).
 
-### Krok 3: Zintegruj Intlayer w swojej konfiguracji Vite
+</Step>
+
+<Step number={3} title="Zintegruj Intlayer w swojej konfiguracji Vite">
 
 Dodaj wtyczkę intlayer do swojej konfiguracji.
 
@@ -188,7 +194,9 @@ export default defineConfig({
 
 > Wtyczka Vite `intlayer()` służy do integracji Intlayer z Vite. Zapewnia budowanie plików deklaracji treści oraz monitoruje je w trybie deweloperskim. Definiuje zmienne środowiskowe Intlayer w aplikacji Vite. Dodatkowo dostarcza aliasy optymalizujące wydajność.
 
-### Krok 4: Zadeklaruj swoją treść
+</Step>
+
+<Step number={4} title="Zadeklaruj swoją treść">
 
 Utwórz i zarządzaj deklaracjami treści, aby przechowywać tłumaczenia:
 
@@ -310,7 +318,9 @@ export default appContent;
 
 > Jeśli Twój plik treści zawiera kod TSX, może być konieczne zaimportowanie `import { h } from "preact";` lub upewnienie się, że pragma JSX jest poprawnie ustawiona dla Preact.
 
-### Krok 5: Wykorzystaj Intlayer w swoim kodzie
+</Step>
+
+<Step number={5} title="Wykorzystaj Intlayer w swoim kodzie">
 
 Uzyskaj dostęp do swoich słowników treści w całej aplikacji:
 
@@ -382,7 +392,9 @@ export default App;
 
 > Jeśli Twoja aplikacja już istnieje, możesz użyć [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compiler.md) w połączeniu z [poleceniem extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/extract.md), aby przekonwertować tysiące komponentów w jedną sekundę.
 
-### (Opcjonalnie) Krok 6: Zmień język swojej zawartości
+</Step>
+
+<Step number={6} title="Zmień język swojej zawartości" isOptional={true}>
 
 Aby zmienić język swojej zawartości, możesz użyć funkcji `setLocale` dostarczonej przez hook `useLocale`. Funkcja ta pozwala ustawić lokalizację aplikacji i odpowiednio zaktualizować zawartość.
 
@@ -406,7 +418,9 @@ export default LocaleSwitcher;
 
 > Aby dowiedzieć się więcej o hooku `useLocale`, zapoznaj się z [dokumentacją](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/react-intlayer/useLocale.md) (API jest podobne dla `preact-intlayer`).
 
-### (Opcjonalnie) Krok 7: Dodaj zlokalizowane routowanie do swojej aplikacji
+</Step>
+
+<Step number={7} title="Dodaj zlokalizowane routowanie do swojej aplikacji" isOptional={true}>
 
 Celem tego kroku jest stworzenie unikalnych tras dla każdego języka. Jest to przydatne dla SEO oraz przyjaznych dla SEO adresów URL.
 Przykład:
@@ -469,7 +483,9 @@ const App: FunctionalComponent = () => (
 export default App;
 ```
 
-### (Opcjonalnie) Krok 8: Zmień adres URL, gdy zmieni się język
+</Step>
+
+<Step number={8} title="Zmień adres URL, gdy zmieni się język" isOptional={true}>
 
 Aby zmienić adres URL, gdy zmieni się język, możesz użyć właściwości `onLocaleChange` dostarczonej przez hook `useLocale`. Równocześnie możesz użyć metody `route` z `useLocation` z `preact-iso`, aby zaktualizować ścieżkę adresu URL.
 
@@ -543,7 +559,9 @@ export default LocaleSwitcher;
 >
 > > - [Hook `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/react-intlayer/useLocale.md) (API jest podobne dla `preact-intlayer`)> - [Hook `getLocaleName`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/intlayer/getLocaleName.md)> - [Hook `getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/intlayer/getLocalizedUrl.md)> - [Hook `getHTMLTextDir`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/intlayer/getHTMLTextDir.md)> - [atrybut `hreflang`](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=fr)> - [atrybut `lang`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang)> - [atrybut `dir`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir)> - [atrybut `aria-current`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)> - [Popover API](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API)
 
-### (Opcjonalnie) Krok 9: Przełącz atrybuty języka i kierunku HTML
+</Step>
+
+<Step number={9} title="Przełącz atrybuty języka i kierunku HTML" isOptional={true}>
 
 Gdy Twoja aplikacja obsługuje wiele języków, kluczowe jest zaktualizowanie atrybutów `lang` i `dir` tagu `<html>`, aby pasowały do bieżącej lokalizacji. Zapewnia to:
 
@@ -610,7 +628,9 @@ const App: FunctionalComponent = () => (
 export default App;
 ```
 
-### (Opcjonalnie) Krok 10: Tworzenie zlokalizowanego komponentu linku
+</Step>
+
+<Step number={10} title="Tworzenie zlokalizowanego komponentu linku" isOptional={true}>
 
 Aby zapewnić, że nawigacja w Twojej aplikacji szanuje bieżący język, możesz utworzyć niestandardowy komponent `Link`. Ten komponent automatycznie poprzedza wewnętrzne adresy URL bieżącym językiem.
 
@@ -675,7 +695,9 @@ Link.displayName = "Link";
 - **Zwracanie linku**:  
   Komponent zwraca element `<a>` ze zlokalizowanym adresem URL, zapewniając, że nawigacja jest spójna z językiem.
 
-### (Opcjonalnie) Krok 11: Renderowanie Markdown i HTML
+</Step>
+
+<Step number={11} title="Renderowanie Markdown i HTML" isOptional={true}>
 
 Intlayer obsługuje renderowanie zawartości Markdown i HTML w Preact.
 
@@ -765,7 +787,9 @@ Więcej szczegółów na temat korzystania z rozszerzenia znajdziesz w [dokument
 
 ---
 
-### (Opcjonalnie) Krok 12 : Wyodrębnij zawartość swoich komponentów
+</Step>
+
+<Step number={12} title="Wyodrębnij zawartość swoich komponentów" isOptional={true}>
 
 Jeśli masz istniejącą bazę kodu, transformacja tysięcy plików może być czasochłonna.
 
@@ -940,3 +964,7 @@ Dostosuj polecenia dla pnpm lub yarn. Możesz też wywołać skrypt z CI.
 Aby pójść dalej, możesz zaimplementować [edytor wizualny](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_visual_editor.md) lub wyeksportować swoją treść za pomocą [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md).
 
 ---
+
+</Step>
+
+</Steps>

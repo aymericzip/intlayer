@@ -93,7 +93,9 @@ Więcej niż tylko rozwiązanie i18n, Intlayer zapewnia **samodzielny [edytor wi
 
 ## Krok po kroku: konfiguracja Intlayer w aplikacji Next.js
 
-### Krok 1: Zainstaluj zależności
+<Steps>
+
+<Step number={1} title="Zainstaluj zależności">
 
 Zainstaluj niezbędne pakiety używając npm:
 
@@ -125,7 +127,9 @@ bun x intlayer init
 
 Pakiet integrujący Intlayer z Next.js. Zapewnia context providers i hooki do internacjonalizacji w Next.js. Dodatkowo zawiera plugin Next.js do integracji Intlayer z [Webpack](https://webpack.js.org/) lub [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack), a także proxy do wykrywania preferowanej lokalizacji użytkownika, zarządzania cookie i obsługi przekierowań URL.
 
-### Krok 2: Skonfiguruj swój projekt
+</Step>
+
+<Step number={2} title="Skonfiguruj swój projekt">
 
 Oto końcowa struktura, którą utworzymy:
 
@@ -180,7 +184,9 @@ export default config;
 
 > Poprzez ten plik konfiguracyjny możesz ustawić lokalizowane adresy URL, przekierowania proxy, nazwy ciasteczek, lokalizację i rozszerzenie deklaracji treści, wyłączyć logi Intlayer w konsoli i inne. Aby uzyskać pełną listę dostępnych parametrów, zapoznaj się z [dokumentacją konfiguracji](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/configuration.md).
 
-### Krok 3: Integracja Intlayer z konfiguracją Next.js
+</Step>
+
+<Step number={3} title="Integracja Intlayer z konfiguracją Next.js">
 
 Skonfiguruj swoje środowisko Next.js, aby używało Intlayer:
 
@@ -223,7 +229,9 @@ export default withIntlayer(nextConfig);
 > withRspack(withIntlayer(nextConfig, { enableTurbopack: false }));
 > ```
 
-### Krok 4: Zdefiniuj dynamiczne trasy lokalizacji
+</Step>
+
+<Step number={4} title="Zdefiniuj dynamiczne trasy lokalizacji">
 
 Usuń całą zawartość `RootLayout` i zastąp ją następującym kodem:
 
@@ -266,7 +274,9 @@ const RootLayout = async ({
 export default RootLayout;
 ```
 
-### Krok 5: Zadeklaruj swoje treści
+</Step>
+
+<Step number={5} title="Zadeklaruj swoje treści">
 
 Utwórz i zarządzaj deklaracjami treści, aby przechowywać tłumaczenia:
 
@@ -383,7 +393,9 @@ export default pageContent;
 
 > Po więcej informacji odwołaj się do [dokumentacji pliku deklaracji zawartości](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/content_file.md).
 
-### Krok 6: Wykorzystanie zawartości w kodzie
+</Step>
+
+<Step number={6} title="Wykorzystanie zawartości w kodzie">
 
 Uzyskaj dostęp do swoich słowników zawartości w całej aplikacji:
 
@@ -471,7 +483,9 @@ export const ServerComponentExample: FC = () => {
 
 > Aby dowiedzieć się więcej o hooku `useIntlayer`, zapoznaj się z [dokumentacją](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/next-intlayer/useIntlayer.md).
 
-### (Opcjonalnie) Krok 7: Skonfiguruj proxy do wykrywania preferowanej lokalizacji użytkownika
+</Step>
+
+<Step number={7} title="Skonfiguruj proxy do wykrywania preferowanej lokalizacji użytkownika" isOptional={true}>
 
 Skonfiguruj proxy, aby wykrywało preferowaną lokalizację użytkownika:
 
@@ -495,7 +509,9 @@ import { customProxy } from "@utils/customProxy";
 export const proxy = multipleProxies([intlayerProxy, customProxy]);
 ```
 
-### (Opcjonalnie) Krok 8: Zmień język swojej zawartości
+</Step>
+
+<Step number={8} title="Zmień język swojej zawartości" isOptional={true}>
 
 Aby zmienić język treści w Next.js, zalecanym sposobem jest użycie komponentu `Link` do przekierowania użytkowników na odpowiednio zlokalizowaną stronę. Komponent `Link` umożliwia prefetching, co pomaga uniknąć pełnego przeładowania strony.
 
@@ -556,7 +572,9 @@ export const LocaleSwitcher: FC = () => {
 > - [`dir` atrybut](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir)
 > - [`aria-current` atrybut](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)
 
-### (Opcjonalnie) Krok 9: Pobierz bieżący locale w Server Actions
+</Step>
+
+<Step number={9} title="Pobierz bieżący locale w Server Actions" isOptional={true}>
 
 Jeśli potrzebujesz aktywnego locale wewnątrz Server Action (np. do lokalizowania e-maili lub uruchamiania logiki zależnej od locale), wywołaj `getLocale` z `next-intlayer/server`:
 
@@ -581,7 +599,9 @@ export const myServerAction = async () => {
 >
 > Zapewnia to wybór najbardziej odpowiedniej lokalizacji w oparciu na dostępnym kontekście.
 
-### (Opcjonalnie) Krok 10: Optymalizacja rozmiaru bundla
+</Step>
+
+<Step number={10} title="Optymalizacja rozmiaru bundla" isOptional={true}>
 
 Podczas używania `next-intlayer`, słowniki są domyślnie dołączane do bundla dla każdej strony. Aby zoptymalizować rozmiar bundla, Intlayer udostępnia opcjonalny plugin SWC, który inteligentnie zastępuje wywołania `useIntlayer` za pomocą makr. Dzięki temu słowniki są dołączane tylko do bundli stron, które faktycznie ich używają.
 
@@ -676,3 +696,7 @@ Aby uzyskać więcej informacji o korzystaniu z rozszerzenia, zapoznaj się z do
 ### Dalsze kroki
 
 Aby pójść dalej, możesz wdrożyć [edytor wizualny](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_visual_editor.md) lub zewnętrznie przechowywać swoją zawartość za pomocą [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md).
+
+</Step>
+
+</Steps>

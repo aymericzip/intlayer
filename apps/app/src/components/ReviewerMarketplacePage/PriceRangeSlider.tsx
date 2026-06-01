@@ -125,7 +125,7 @@ export const PriceRangeSlider: FC<PriceRangeSliderProps> = ({
         <input
           type="range"
           aria-labelledby={minLabelId}
-          className="price-range-thumb absolute inset-0 h-full w-full"
+          className="price-range-thumb absolute inset-0 size-full"
           min={globalMin}
           max={globalMax}
           step={100}
@@ -137,7 +137,7 @@ export const PriceRangeSlider: FC<PriceRangeSliderProps> = ({
         <input
           type="range"
           aria-labelledby={maxLabelId}
-          className="price-range-thumb absolute inset-0 h-full w-full"
+          className="price-range-thumb absolute inset-0 size-full"
           min={globalMin}
           max={globalMax}
           step={100}

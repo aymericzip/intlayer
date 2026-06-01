@@ -52,39 +52,51 @@ history:
 
 Порівняно з основними рішеннями, такими як `react-i18next` або `i18next`, Intlayer — це рішення, яке має такі інтегровані оптимізації, як:
 
-**Повна підтримка React Router**
+<AccordionGroup>
+<Accordion header="Повна підтримка React Router">
 
 Intlayer оптимізовано для ідеальної роботи з React Router, пропонуючи **маршрутизацію з урахуванням локалі**, **проміжне програмне забезпечення для визначення локалі** та всі функції, необхідні для інтернаціоналізації масштабування (i18n).
 
-**Розмір бандлу**
+</Accordion>
+<Accordion header="Розмір бандлу">
 
 Замість того, щоб завантажувати великі файли JSON на свої сторінки, завантажуйте лише необхідний вміст. Intlayer допомагає **зменшити розмір бандлу і сторінок до 50%**.
 
-**Підтримуваність**
+</Accordion>
+<Accordion header="Підтримуваність">
 
 Організація вмісту за окремими областями (scoping) **полегшує технічне обслуговування** великомасштабних програм. Ви можете скопіювати або видалити окрему папку функцій без розумового навантаження перегляду всієї кодової бази вмісту. Крім того, Intlayer **повністю типізований (fully typed)**, щоб забезпечити точність вашого вмісту.
 
-**Агент AI**
+</Accordion>
+<Accordion header="Агент AI">
 
 Спільне розміщення вмісту **зменшує контекст, необхідний** для великих мовних моделей (LLM). Intlayer також постачається з набором інструментів, наприклад **CLI** для перевірки відсутніх перекладів,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** і **[навички агента](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, щоб зробити роботу розробника (DX) ще зручнішою для агентів ШІ.
 
-**Автоматизація**
+</Accordion>
+<Accordion header="Автоматизація">
 
 Використовуйте автоматизацію для перекладу в конвеєрі CI/CD за допомогою LLM за вашим вибором за рахунок вашого постачальника штучного інтелекту. Intlayer також пропонує **компілятор** для автоматизації екстракція вмісту, а також [веб-платформу](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md), щоб допомогти **перекладати у фоновому режимі**.
 
-**Продуктивність**
+</Accordion>
+<Accordion header="Продуктивність">
 
 Підключення великих файлів JSON до компонентів може призвести до проблем з продуктивністю та реакцією. Intlayer оптимізує завантаження вмісту під час збірки (build time).
 
-**Співпраця з не-розробниками**
+</Accordion>
+<Accordion header="Співпраця з не-розробниками">
 
 Більше ніж просто рішення i18n, Intlayer пропонує **власний [візуальний редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** і **[повний CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)**, щоб допомогти вам керувати своїм багатомовним вмістом у **реальному часі**, спрощуючи співпрацю з перекладачами, копірайтерами та іншими членами команди. Контент можна зберігати локально та/або віддалено.
+
+</Accordion>
+</AccordionGroup>
 
 ---
 
 ## Покрокове керівництво з налаштування Intlayer у застосунку на React Router v7
 
-### Крок 1: Встановлення залежностей
+<Steps>
+
+<Step number={1} title="Встановлення залежностей">
 
 Встановіть необхідні пакети, використовуючи ваш улюблений package manager:
 
@@ -122,7 +134,13 @@ bun x intlayer init
 - **vite-intlayer**
   Містить Vite-плагін для інтеграції Intlayer з [зборщиком Vite](https://vite.dev/guide/why.html#why-bundle-for-production), а також middleware для визначення переважної локалі користувача, керування cookie та обробки перенаправлень URL.
 
-### Крок 2: Конфігурація вашого проєкту
+</Step>
+
+<Step number={2} title="Конфігурація вашого проєкту">
+
+</Step>
+
+</Steps>
 
 ## Покроковий посібник зі встановлення Intlayer у застосунок React Router v7 із маршрутами на основі файлової системи
 
@@ -175,7 +193,9 @@ export default config;
 
 > Через цей файл конфігурації ви можете налаштувати локалізовані URL-адреси, перенаправлення через middleware, назви cookie, розташування та розширення ваших декларацій контенту, вимкнути логи Intlayer в консолі та інше. Для повного переліку доступних параметрів див. [документацію з конфігурації](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/configuration.md).
 
-### Крок 3: Інтеграція Intlayer у вашу конфігурацію Vite
+<Steps>
+
+<Step number={3} title="Інтеграція Intlayer у вашу конфігурацію Vite">
 
 Додайте плагін intlayer у вашу конфігурацію:
 
@@ -191,7 +211,9 @@ export default defineConfig({
 
 > Плагін Vite `intlayer()` використовується для інтеграції Intlayer з Vite. Він забезпечує побудову файлів декларацій контенту та відстежує їх у режимі розробки. Він визначає змінні середовища Intlayer у застосунку Vite. Додатково надає aliases для оптимізації продуктивності.
 
-### Крок 4: Налаштуйте маршрути React Router v7
+</Step>
+
+<Step number={4} title="Налаштуйте маршрути React Router v7">
 
 Налаштуйте конфігурацію маршрутизації для маршрутів, які враховують локаль:
 
@@ -204,7 +226,9 @@ export default [
 ] satisfies RouteConfig;
 ```
 
-### Крок 5: Створіть компоненти layout
+</Step>
+
+<Step number={5} title="Створіть компоненти layout">
 
 Налаштуйте свій root layout та layout-и для кожної локалі:
 
@@ -258,7 +282,9 @@ export function Layout({
 }
 ```
 
-### Крок 6: Оголосіть ваш контент
+</Step>
+
+<Step number={6} title="Оголосіть ваш контент">
 
 Створіть і керуйте деклараціями контенту для збереження перекладів:
 
@@ -302,7 +328,9 @@ export default pageContent;
 
 > Для докладнішої інформації див. [документацію з декларацій контенту](https://github.com/aymericzip/intlayer/blob/main/docs/docs/{{locale}}/dictionary/content_file.md).
 
-### Крок 7: Створіть компоненти, які враховують локаль
+</Step>
+
+<Step number={7} title="Створіть компоненти, які враховують локаль">
 
 Створіть компонент `LocalizedLink` для навігації з урахуванням локалі:
 
@@ -363,7 +391,9 @@ export const useLocalizedNavigate = () => {
 };
 ```
 
-### Крок 8: Використання Intlayer на ваших сторінках
+</Step>
+
+<Step number={8} title="Використання Intlayer на ваших сторінках">
 
 Отримуйте доступ до словників контенту у всьому вашому застосунку:
 
@@ -417,7 +447,9 @@ export default function Page() {
 
 > Якщо ваш застосунок уже існує, ви можете скористатися [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compiler.md) у поєднанні з [командой extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/extract.md), щоб перетворити тисячі компонентів за одну секунду.
 
-### Крок 9: Створіть компонент перемикача локалі
+</Step>
+
+<Step number={9} title="Створіть компонент перемикача локалі">
 
 Створіть компонент, який дозволить користувачам змінювати мову:
 
@@ -477,7 +509,9 @@ export const LocaleSwitcher: FC = () => {
 
 > Щоб дізнатися більше про хук `useLocale`, зверніться до [документації](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/react-intlayer/useLocale.md).
 
-### Крок 10: Додати керування атрибутами HTML (необов'язково)
+</Step>
+
+<Step number={10} title="Додати керування атрибутами HTML">
 
 Створіть хук для керування атрибутами lang та dir у HTML:
 
@@ -515,7 +549,9 @@ export default function RootLayout() {
 }
 ```
 
-### (Необов'язково) Крок 1 : Витягніть вміст ваших компонентів
+</Step>
+
+<Step number={1} title="Витягніть вміст ваших компонентів" isOptional={true}>
 
 Якщо у вас є існуюча кодова база, перетворення тисяч файлів може зайняти багато часу.
 
@@ -613,6 +649,10 @@ bun run build # Or bun run dev
 
 ---
 
+</Step>
+
+</Steps>
+
 ## Configure TypeScript
 
 Intlayer uses module augmentation to get benefits of TypeScript and make your codebase stronger.
@@ -678,7 +718,9 @@ To go further, you can implement the [visual editor](https://github.com/aymericz
 
 This comprehensive guide provides everything you need to integrate Intlayer with React Router v7 for a fully internationalized application with locale-aware routing and TypeScript support.
 
-### Крок 11: Додати middleware (необов'язково)
+<Steps>
+
+<Step number={11} title="Додати middleware">
 
 Ви також можете використовувати `intlayerProxy` для додавання маршрутизації на серверній стороні у ваш застосунок. Цей плагін автоматично визначає поточну locale на основі URL і встановлює відповідний cookie для locale. Якщо locale не вказано, плагін визначить найбільш підходящу locale на основі мовних налаштувань браузера користувача. Якщо ж жодну locale не буде виявлено, відбудеться перенаправлення на локаль за замовчуванням.
 
@@ -700,6 +742,10 @@ export default defineConfig({
 ```
 
 ---
+
+</Step>
+
+</Steps>
 
 ## Налаштування TypeScript
 

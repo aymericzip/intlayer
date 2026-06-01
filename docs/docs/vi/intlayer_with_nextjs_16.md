@@ -74,7 +74,8 @@ Xem [Mẫu Ứng dụng](https://github.com/aymericzip/intlayer-next-16-template
 
 So với các giải pháp chính như `next-intl` hay `i18next`, Intlayer là giải pháp đi kèm với các tính năng tối ưu hóa tích hợp như:
 
-**Phạm vi bảo hiểm đầy đủ của Next.js**
+<AccordionGroup>
+<Accordion header="Phạm vi bảo hiểm đầy đủ của Next.js">
 
 Intlayer được tối ưu hóa để hoạt động với **Thành phần máy chủ** nhằm hiển thị hiệu quả và hoàn toàn tương thích với [**Turbopack**](https://nextjs.org/docs/architecture/turbopack). Nó không chặn hiển thị tĩnh và cung cấp phần mềm trung gian cũng như tất cả các tính năng cần thiết để mở rộng quy mô quốc tế hóa (i18n).
 
@@ -82,35 +83,46 @@ Intlayer được tối ưu hóa để hoạt động với **Thành phần máy
 > Định tuyến ngôn ngữ rất hữu ích cho SEO, kích thước bundle và hiệu suất. Nếu không cần, bạn có thể tham khảo [hướng dẫn] này(https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_no_locale_path.md).
 > Đối với Next.js 12, 13, 14 và 15 với Bộ định tuyến ứng dụng, hãy tham khảo [hướng dẫn] này (https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_14.md).
 
-**Kích thước bundle**
+</Accordion>
+<Accordion header="Kích thước bundle">
 
 Thay vì tải các tệp JSON lớn vào trang của bạn, hãy chỉ tải nội dung cần thiết. Intlayer giúp **giảm tới 50% kích thước bundle và kích thước trang**.
 
-**Khả năng bảo trì**
+</Accordion>
+<Accordion header="Khả năng bảo trì">
 
 Xác định phạm vi nội dung ứng dụng của bạn **tạo điều kiện bảo trì** cho các ứng dụng quy mô lớn. Bạn có thể sao chép hoặc xóa một thư mục tính năng mà không phải lo lắng về việc xem lại toàn bộ cơ sở mã nội dung của mình. Ngoài ra, Intlayer **được nhập đầy đủ** để đảm bảo tính chính xác cho nội dung của bạn.
 
-**Đại lý AI**
+</Accordion>
+<Accordion header="Đại lý AI">
 
 Nội dung cùng định vị **giảm ngữ cảnh cần thiết** của Mô hình ngôn ngữ lớn (LLM). Intlayer cũng đi kèm một bộ công cụ, chẳng hạn như **CLI** để kiểm tra các bản dịch bị thiếu,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** và **[agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, để giúp trải nghiệm của nhà phát triển (DX) trở nên mượt mà hơn nữa đối với các tác nhân AI.
 
-**Tự động hóa**
+</Accordion>
+<Accordion header="Tự động hóa">
 
 Sử dụng tính năng tự động hóa để dịch trong quy trình CI/CD của bạn bằng cách sử dụng LLM mà bạn chọn với chi phí do nhà cung cấp AI của bạn chi trả. Intlayer cũng cung cấp **trình biên dịch** để tự động trích xuất nội dung cũng như [nền tảng web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) để giúp **dịch ở chế độ nền**.
 
-**Hiệu suất**
+</Accordion>
+<Accordion header="Hiệu suất">
 
 Việc kết nối các tệp JSON lớn với các thành phần có thể dẫn đến các vấn đề về hiệu suất và khả năng phản hồi. Intlayer tối ưu hóa việc tải nội dung của bạn tại thời điểm build.
 
-**Mở rộng quy mô không có nhà phát triển**
+</Accordion>
+<Accordion header="Mở rộng quy mô không có nhà phát triển">
 
 Không chỉ là giải pháp i18n, Intlayer còn cung cấp **[trình chỉnh sửa trực quan](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** và **[CMS đầy đủ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** để giúp bạn quản lý nội dung đa ngôn ngữ của mình trong **thời gian thực**, giúp việc cộng tác với người dịch, người viết quảng cáo và các thành viên khác trong nhóm trở nên liền mạch. Nội dung có thể được lưu trữ cục bộ và/hoặc từ xa.
+
+</Accordion>
+</AccordionGroup>
 
 ---
 
 ## Hướng dẫn từng bước để thiết lập Intlayer trong ứng dụng Next.js
 
-### Bước 1: Cài đặt các phụ thuộc
+<Steps>
+
+<Step number={1} title="Cài đặt các phụ thuộc">
 
 Cài đặt các gói cần thiết bằng npm:
 
@@ -142,7 +154,9 @@ bun x intlayer init
 
   Gói tích hợp Intlayer với Next.js. Nó cung cấp các nhà cung cấp ngữ cảnh (context providers) và các hook cho việc quốc tế hóa Next.js. Ngoài ra, nó bao gồm plugin Next.js để tích hợp Intlayer với [Webpack](https://webpack.js.org/) hoặc [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack), cũng như proxy để phát hiện ngôn ngữ ưu tiên của người dùng, quản lý cookie và xử lý chuyển hướng URL.
 
-### Bước 2: Cấu hình Dự án của Bạn
+</Step>
+
+<Step number={2} title="Cấu hình Dự án của Bạn">
 
 Đây là cấu trúc cuối cùng mà chúng ta sẽ thực hiện:
 
@@ -194,7 +208,9 @@ export default config;
 
 > Thông qua tệp cấu hình này, bạn có thể thiết lập các URL được bản địa hóa, chuyển hướng proxy, tên cookie, vị trí và phần mở rộng của các khai báo nội dung, tắt nhật ký Intlayer trong bảng điều khiển và hơn thế nữa. Để biết danh sách đầy đủ các tham số có sẵn, hãy tham khảo [tài liệu cấu hình](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md).
 
-### Bước 3: Tích hợp Intlayer vào Cấu hình Next.js của Bạn
+</Step>
+
+<Step number={3} title="Tích hợp Intlayer vào Cấu hình Next.js của Bạn">
 
 Định cấu hình thiết lập Next.js của bạn để sử dụng Intlayer:
 
@@ -237,7 +253,9 @@ export default withIntlayer(nextConfig);
 > withRspack(withIntlayer(nextConfig, { enableTurbopack: false }));
 > ```
 
-### Bước 4: Định nghĩa các Tuyến đường Ngôn ngữ Động
+</Step>
+
+<Step number={4} title="Định nghĩa các Tuyến đường Ngôn ngữ Động">
 
 Xóa mọi thứ khỏi `RootLayout` và thay thế bằng mã sau:
 
@@ -300,7 +318,9 @@ export default LocaleLayout;
 
 > Intlayer hoạt động với `export const dynamic = 'force-static';` để đảm bảo rằng các trang được xây dựng trước cho tất cả các ngôn ngữ.
 
-### Bước 5: Khai báo Nội dung của Bạn
+</Step>
+
+<Step number={5} title="Khai báo Nội dung của Bạn">
 
 Tạo và quản lý các khai báo nội dung của bạn để lưu trữ các bản dịch:
 
@@ -346,7 +366,9 @@ export default pageContent;
 
 > Để biết thêm chi tiết, hãy tham khảo [tài liệu khai báo nội dung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/content_file.md).
 
-### Bước 6: Sử dụng Nội dung trong Mã của Bạn
+</Step>
+
+<Step number={6} title="Sử dụng Nội dung trong Mã của Bạn">
 
 Truy cập từ điển nội dung của bạn trong toàn bộ ứng dụng:
 
@@ -435,7 +457,9 @@ export const ServerComponentExample: FC = () => {
 
 > Nếu ứng dụng của bạn đã tồn tại, bạn có thể sử dụng [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compiler.md) kết hợp với [lệnh extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/extract.md) để chuyển đổi hàng nghìn component chỉ trong một giây.
 
-### (Tùy chọn) Bước 7: Cấu hình Proxy để Phát hiện Ngôn ngữ
+</Step>
+
+<Step number={7} title="Cấu hình Proxy để Phát hiện Ngôn ngữ" isOptional={true}>
 
 Thiết lập proxy để phát hiện ngôn ngữ ưu tiên của người dùng:
 
@@ -459,7 +483,9 @@ import { customProxy } from "@utils/customProxy";
 export const proxy = multipleProxies([intlayerProxy, customProxy]);
 ```
 
-### (Tùy chọn) Bước 8: Quốc tế hóa metadata của bạn
+</Step>
+
+<Step number={8} title="Quốc tế hóa metadata của bạn" isOptional={true}>
 
 Trong trường hợp bạn muốn quốc tế hóa metadata của mình, chẳng hạn như tiêu đề trang, bạn có thể sử dụng hàm `generateMetadata` do Next.js cung cấp. Bên trong đó, bạn có thể truy xuất nội dung từ hàm `getIntlayer` để dịch metadata của mình.
 
@@ -594,7 +620,9 @@ export const generateMetadata = async ({
 
 > Tìm hiểu thêm về tối ưu hóa metadata [trên tài liệu chính thức của Next.js](https://nextjs.org/docs/app/building-your-application/optimizing/metadata).
 
-### (Tùy chọn) Bước 9: Quốc tế hóa sitemap.xml và robots.txt của bạn
+</Step>
+
+<Step number={9} title="Quốc tế hóa sitemap.xml và robots.txt của bạn" isOptional={true}>
 
 Để quốc tế hóa `sitemap.xml` và `robots.txt` của bạn, bạn có thể sử dụng hàm `getMultilingualUrls` do Intlayer cung cấp. Hàm này cho phép bạn tạo các URL đa ngôn ngữ cho sitemap của mình.
 
@@ -657,7 +685,9 @@ export default robots;
 
 > Tìm hiểu thêm về tối ưu hóa sitemap [trên tài liệu chính thức của Next.js](https://nextjs.org/docs/app/api-reference/file-conventions/metadata/sitemap). Tìm hiểu thêm về tối ưu hóa robots.txt [trên tài liệu chính thức của Next.js](https://nextjs.org/docs/app/api-reference/file-conventions/metadata/robots).
 
-### (Tùy chọn) Bước 10: Thay đổi ngôn ngữ của nội dung của bạn
+</Step>
+
+<Step number={10} title="Thay đổi ngôn ngữ của nội dung của bạn" isOptional={true}>
 
 Để thay đổi ngôn ngữ của nội dung trong Next.js, cách được khuyến nghị là sử dụng thành phần `Link` để chuyển hướng người dùng đến trang bản địa hóa thích hợp. Thành phần `Link` cho phép tải trước trang, giúp tránh việc tải lại toàn bộ trang.
 
@@ -752,7 +782,9 @@ return (
 > - [thuộc tính `dir`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir)
 > - [thuộc tính `aria-current`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)
 
-### (Tùy chọn) Bước 11: Tạo một thành phần Link được bản địa hóa
+</Step>
+
+<Step number={11} title="Tạo một thành phần Link được bản địa hóa" isOptional={true}>
 
 Để đảm bảo rằng việc điều hướng của ứng dụng tôn trọng ngôn ngữ hiện tại, bạn có thể tạo một thành phần `Link` tùy chỉnh. Thành phần này tự động thêm tiền tố ngôn ngữ hiện tại vào các URL nội bộ. Ví dụ: khi một người dùng nói tiếng Pháp nhấp vào liên kết đến trang "Giới thiệu", họ sẽ được chuyển hướng đến `/fr/about` thay vì `/about`.
 
@@ -820,7 +852,9 @@ export const Link: FC<PropsWithChildren<NextLinkProps>> = ({
 
 Bằng cách tích hợp thành phần `Link` này trong toàn bộ ứng dụng của mình, bạn duy trì một trải nghiệm người dùng nhất quán và nhận biết ngôn ngữ đồng thời được hưởng lợi từ việc cải thiện SEO và khả năng sử dụng.
 
-### (Tùy chọn) Bước 12: Lấy ngôn ngữ hiện tại trong Server Actions
+</Step>
+
+<Step number={12} title="Lấy ngôn ngữ hiện tại trong Server Actions" isOptional={true}>
 
 Nếu bạn cần ngôn ngữ hoạt động bên trong một Server Action (ví dụ: để bản địa hóa email hoặc chạy logic nhận biết ngôn ngữ), hãy gọi `getLocale` từ `next-intlayer/server`:
 
@@ -845,7 +879,9 @@ export const myServerAction = async () => {
 >
 > Điều này đảm bảo rằng ngôn ngữ thích hợp nhất được chọn dựa trên ngữ cảnh có sẵn.
 
-### (Tùy chọn) Bước 13: Tối ưu hóa kích thước bundle của bạn
+</Step>
+
+<Step number={13} title="Tối ưu hóa kích thước bundle của bạn" isOptional={true}>
 
 Khi sử dụng `next-intlayer`, các từ điển được đưa vào gói cho mỗi trang theo mặc định. Để tối ưu hóa kích thước bundle, Intlayer cung cấp một plugin SWC tùy chọn giúp thay thế các cuộc gọi `useIntlayer` một cách thông minh bằng các macro. Điều này đảm bảo các từ điển chỉ được đưa vào gói cho các trang thực sự sử dụng chúng.
 
@@ -937,7 +973,9 @@ Tiện ích mở rộng này cung cấp:
 
 Để biết thêm chi tiết về cách sử dụng tiện ích mở rộng, hãy tham khảo [tài liệu Tiện ích mở rộng Intlayer VS Code](https://intlayer.org/doc/vs-code-extension).
 
-### (Tùy chọn) Bước 1 : Trích xuất nội dung các thành phần của bạn
+</Step>
+
+<Step number={1} title="Trích xuất nội dung các thành phần của bạn" isOptional={true}>
 
 Nếu bạn có một cơ sở mã hiện có, việc chuyển đổi hàng nghìn tệp có thể tốn nhiều thời gian.
 
@@ -1053,3 +1091,7 @@ bun run build # Or bun run dev
 ### Đi Xa Hơn
 
 Để đi xa hơn, bạn có thể triển khai [trình chỉnh sửa trực quan](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md) hoặc bên ngoài hóa nội dung của bạn bằng cách sử dụng [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md).
+
+</Step>
+
+</Steps>

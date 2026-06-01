@@ -103,7 +103,9 @@ history:
 
 راجع [قالب التطبيق](https://github.com/aymericzip/intlayer-nuxt-4-template) على GitHub.
 
-### الخطوة 1: تثبيت التبعيات
+<Steps>
+
+<Step number={1} title="تثبيت التبعيات">
 
 قم بتثبيت الحزم اللازمة باستخدام npm:
 
@@ -141,7 +143,9 @@ bun x intlayer init
 - **nuxt-intlayer**
   وحدة Nuxt التي تدمج Intlayer مع تطبيقات Nuxt. توفر إعدادًا تلقائيًا، وmiddleware لاكتشاف اللغة، وإدارة الكوكيز، وإعادة توجيه URL.
 
-### الخطوة 2: تكوين مشروعك
+</Step>
+
+<Step number={2} title="تكوين مشروعك">
 
 أنشئ ملف تكوين لتحديد لغات تطبيقك:
 
@@ -165,7 +169,9 @@ export default config;
 
 > من خلال ملف التكوين هذا، يمكنك إعداد عناوين URL محلية، إعادة توجيه الوسيط، أسماء الكوكيز، موقع وامتداد إعلانات المحتوى الخاصة بك، تعطيل سجلات Intlayer في وحدة التحكم، والمزيد. للحصول على قائمة كاملة بالمعلمات المتاحة، راجع [توثيق التكوين](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md).
 
-### الخطوة 3: دمج Intlayer في تكوين Nuxt الخاص بك
+</Step>
+
+<Step number={3} title="دمج Intlayer في تكوين Nuxt الخاص بك">
 
 أضف وحدة intlayer إلى تكوين Nuxt الخاص بك:
 
@@ -180,7 +186,9 @@ export default defineNuxtConfig({
 
 > تقوم وحدة `nuxt-intlayer` تلقائيًا بالتعامل مع دمج Intlayer مع Nuxt. فهي تقوم بإعداد بناء إعلان المحتوى، ومراقبة الملفات في وضع التطوير، وتوفير middleware لاكتشاف اللغة، وإدارة التوجيه المحلي.
 
-### الخطوة 4: إعلان المحتوى الخاص بك
+</Step>
+
+<Step number={4} title="إعلان المحتوى الخاص بك">
 
 قم بإنشاء وإدارة إعلانات المحتوى الخاصة بك لتخزين الترجمات:
 
@@ -215,7 +223,9 @@ export default content;
 
 > لمزيد من التفاصيل، راجع [توثيق إعلان المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/content_file.md).
 
-### الخطوة 5: استخدام Intlayer في كودك
+</Step>
+
+<Step number={5} title="استخدام Intlayer في كودك">
 
 يمكنك الوصول إلى قواميس المحتوى الخاصة بك في جميع أنحاء تطبيق Nuxt الخاص بك باستخدام الـ `useIntlayer` composable:
 
@@ -284,7 +294,9 @@ const countRef = ref(0);
   - استخدم `const content = useIntlayer("myContent");` و `{{ content.myContent }}` / `<content.myContent />`.
   - أو استخدم `const { myContent } = useIntlayer("myContent");` و `{{ myContent}}` / `<myContent/>` لتفكيك المحتوى.
 
-### (اختياري) الخطوة 6: تغيير لغة المحتوى الخاص بك
+</Step>
+
+<Step number={6} title="تغيير لغة المحتوى الخاص بك" isOptional={true}>
 
 لتغيير لغة المحتوى الخاص بك، يمكنك استخدام الدالة `setLocale` المقدمة من الدالة القابلة للاستخدام `useLocale`. تتيح لك هذه الدالة تعيين لغة التطبيق وتحديث المحتوى وفقًا لذلك.
 
@@ -355,7 +367,9 @@ import LocaleSwitcher from "~/components/LocaleSwitcher.vue";
 
 مكون `Links` (الموضح أدناه) يضمن أن روابط التنقل الداخلية تتم ترجمتها تلقائيًا.
 
-### (اختياري) الخطوة 7: إضافة التوجيه المحلي إلى تطبيقك
+</Step>
+
+<Step number={7} title="إضافة التوجيه المحلي إلى تطبيقك" isOptional={true}>
 
 يتولى Nuxt تلقائيًا التعامل مع التوجيه المحلي عند استخدام وحدة `nuxt-intlayer`. هذا ينشئ مسارات لكل لغة تلقائيًا بناءً على هيكل دليل الصفحات الخاص بك.
 
@@ -429,7 +443,9 @@ useHead({
 - إدارة ملفات تعريف الارتباط الخاصة باللغة
 - إعادة توجيه المستخدمين إلى عنوان URL المحلي المناسب
 
-### (اختياري) الخطوة 8: إنشاء مكون رابط محلي اللغة
+</Step>
+
+<Step number={8} title="إنشاء مكون رابط محلي اللغة" isOptional={true}>
 
 لضمان أن تنقل تطبيقك يحترم اللغة الحالية، يمكنك إنشاء مكون مخصص `Links`. يقوم هذا المكون تلقائيًا بإضافة بادئة للروابط الداخلية باستخدام اللغة الحالية، وهو أمر ضروري لـ **تحسين محركات البحث (SEO) وقابلية اكتشاف الصفحات**.
 
@@ -497,7 +513,9 @@ import LocaleSwitcher from "~/components/LocaleSwitcher.vue";
 > - يمكن للمستخدمين مشاركة عناوين URL المترجمة مباشرة
 > - يعمل سجل المتصفح بشكل صحيح مع عناوين URL التي تحتوي على بادئة اللغة
 
-### (اختياري) الخطوة 9: التعامل مع البيانات الوصفية وتحسين محركات البحث (SEO)
+</Step>
+
+<Step number={9} title="التعامل مع البيانات الوصفية وتحسين محركات البحث" isOptional={true}>
 
 يوفر Nuxt قدرات ممتازة لتحسين محركات البحث عبر الـ `useHead` composable (يتم استيراده تلقائيًا). يمكنك استخدام Intlayer للتعامل مع البيانات الوصفية المترجمة باستخدام accessor `.raw` أو `.value` للحصول على القيمة النصية الأولية:
 
@@ -628,3 +646,7 @@ export default aboutPageContent;
 ### التعمق أكثر
 
 للتقدم أكثر، يمكنك تنفيذ [المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) أو تعريض محتواك باستخدام [نظام إدارة المحتوى (CMS)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md).
+
+</Step>
+
+</Steps>

@@ -284,7 +284,9 @@ Intlayer 提供了多种 API 来访问您的内容：
   - 使用 `const content = useIntlayer("myContent");` 以及 `{{ content.myContent }}` / `<content.myContent />`。
   - 或者使用 `const { myContent } = useIntlayer("myContent");` 以及 `{{ myContent}}` / `<myContent/>` 来解构内容。
 
-### （可选）步骤6：更改内容语言
+<Steps>
+
+<Step number={6} title="更改内容语言">
 
 要更改内容的语言，可以使用 `useLocale` 组合函数提供的 `setLocale` 函数。该函数允许您设置应用程序的语言环境并相应地更新内容。
 
@@ -355,7 +357,9 @@ import LocaleSwitcher from "~/components/LocaleSwitcher.vue";
 
 `Links` 组件（如下所示）确保内部导航链接会自动本地化。
 
-### （可选）步骤 7：为您的应用添加本地化路由
+</Step>
+
+<Step number={7} title="为您的应用添加本地化路由">
 
 当使用 `nuxt-intlayer` 模块时，Nuxt 会自动处理本地化路由。它会根据您的页面目录结构自动为每种语言创建路由。
 
@@ -429,7 +433,9 @@ useHead({
 - 管理语言环境 Cookie
 - 将用户重定向到相应的本地化 URL
 
-### （可选）步骤 8：创建本地化链接组件
+</Step>
+
+<Step number={8} title="创建本地化链接组件">
 
 为了确保您的应用程序导航遵循当前的语言环境，您可以创建一个自定义的 `Links` 组件。该组件会自动为内部 URL 添加当前语言前缀，这对于 **SEO 和页面可发现性** 至关重要。
 
@@ -497,7 +503,9 @@ import LocaleSwitcher from "~/components/LocaleSwitcher.vue";
 > - 用户可以直接分享本地化的 URL
 > - 浏览器历史记录能正确处理带有语言前缀的 URL
 
-### （可选）步骤 9：处理元数据和 SEO
+</Step>
+
+<Step number={9} title="处理元数据和 SEO">
 
 Nuxt 通过 `useHead` 组合式函数（自动导入）提供了出色的 SEO 功能。您可以使用 Intlayer 处理本地化的元数据，使用 `.raw` 或 `.value` 访问器获取原始字符串值：
 
@@ -625,3 +633,7 @@ export default aboutPageContent;
 ### 更进一步
 
 要进一步提升，您可以实现[可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)或使用[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)将内容外部化。
+
+</Step>
+
+</Steps>

@@ -37,37 +37,48 @@ history:
 
 `next-intl`이나 `i18next`와 같은 주요 솔루션과 비교할 때, Intlayer는 다음과 같은 통합된 최적화를 제공합니다:
 
-**번들 크기**
+<AccordionGroup>
+<Accordion header="번들 크기">
 
 페이지에 대용량 JSON 파일을 로드하는 대신, 꼭 필요한 콘텐츠만 로드합니다. Intlayer는 **번들 및 페이지 크기를 최대 50%까지 줄이는 데** 기여합니다.
 
-**유지보수성**
+</Accordion>
+<Accordion header="유지보수성">
 
 애플리케이션 콘텐츠의 범위를 컴포넌트 단위로 분할하여 **대규모 애플리케이션의 유지보수를 원활하게** 합니다. 전체 콘텐츠 코드베이스를 전부 검토해야 하는 인지적 부담 없이 단일 기능 폴더를 간편하게 복제하거나 삭제할 수 있습니다. 또한, Intlayer는 **완전한 타입 지원**을 통해 콘텐츠 선언의 정확성을 보장합니다.
 
-**AI 에이전트**
+</Accordion>
+<Accordion header="AI 에이전트">
 
 콘텐츠 선언을 컴포넌트와 동일한 위치에 두는 것(Co-location)은 대형 언어 모델(LLM)에 필요한 **콘텍스트 크기를 크게 줄여줍니다**. Intlayer는 번역 누락을 테스트하기 위한 **CLI**, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/mcp_server.md)** 및 **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/agent_skills.md)** 등 일련의 도구를 지원하여 AI 에이전트를 위한 개발자 경험(DX)을 더욱 매끄럽게 만듭니다.
 
-**기능성**
+</Accordion>
+<Accordion header="기능성">
 
 Intlayer는 다른 i18n 솔루션에는 없는 [Markdown 지원](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/markdown.md), [외부 콘텐츠 가져오기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/function_fetching.md), [파일 콘텐츠 로드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/file.md), [실시간 콘텐츠 업데이트](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/live.md), [비주얼 에디터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md) 등 폭넓은 추가 기능을 제공합니다.
 
-**자동화**
+</Accordion>
+<Accordion header="자동화">
 
 CI/CD 파이프라인에서 원하는 LLM을 사용하여 AI 제공업체의 직접 비용 수준으로 손쉽게 자동 번역을 적용할 수 있습니다. Intlayer는 콘텐츠 추출을 자동화하는 **컴파일러**와 함께 **백그라운드에서 편리하게 번역할 수 있는** [웹 플랫폼](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)도 제공합니다.
 
-**성능**
+</Accordion>
+<Accordion header="성능">
 
 대규모 JSON 파일을 컴포넌트에 직접 연결하는 작업은 성능 저하와 반응성 문제를 초래할 수 있습니다. Intlayer는 빌드 시점에 콘텐츠 로드를 최적화하여 이를 해결합니다.
 
-**비개발 팀과의 협업 확장**
+</Accordion>
+<Accordion header="비개발 팀과의 협업 확장">
 
 단순한 i18n 솔루션 이상의 가치를 제공하기 위해, Intlayer는 직접 호스팅 가능한 **[비주얼 에디터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)**와 **[전체 기능을 제공하는 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)**를 지원합니다. 이를 통해 번역가, 카피라이터 및 기타 협업 부서와 **실시간**으로 다국어 콘텐츠를 매끄럽게 관리할 수 있습니다. 콘텐츠는 로컬 또는 원격으로 유연하게 저장될 수 있습니다.
 
-**크로스 프레임워크 디자인**
+</Accordion>
+<Accordion header="크로스 프레임워크 디자인">
 
 애플리케이션의 여러 영역에서 서로 다른 프레임워크를 사용하고 있는 경우(예: React, React-native, Vue, Angular, Svelte 등), Intlayer는 **모든 주요 프론트엔드 프레임워크에서 범용 구문과 구현을 사용하는 방법**을 제공합니다. 디자인 시스템, 모바일 앱, 백엔드 서비스 전반에 걸쳐 콘텐츠 선언을 손쉽게 공유할 수 있습니다.
+
+</Accordion>
+</AccordionGroup>
 
 ## 왜 Intlayer가 만들어졌나요?
 

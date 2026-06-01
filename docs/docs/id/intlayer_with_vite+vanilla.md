@@ -62,39 +62,51 @@ history:
 
 Dibandingkan dengan solusi utama seperti `i18next` atau `i18n.js`, Intlayer adalah solusi yang hadir dengan pengoptimalan terintegrasi seperti:
 
-**Cakupan Vite penuh**
+<AccordionGroup>
+<Accordion header="Cakupan Vite penuh">
 
 Intlayer dioptimalkan untuk bekerja sempurna dengan Vite dengan menawarkan **manajemen konten tanpa kerangka kerja**, **dukungan TypeScript**, dan semua fitur yang diperlukan untuk meningkatkan internasionalisasi (i18n).
 
-**Ukuran bundle**
+</Accordion>
+<Accordion header="Ukuran bundle">
 
 Daripada memuat file JSON berukuran besar ke halaman Anda, muat saja konten yang diperlukan. Intlayer membantu **mengurangi ukuran bundle dan halaman Anda hingga 50%**.
 
-**Kemampuan Pemeliharaan**
+</Accordion>
+<Accordion header="Kemampuan Pemeliharaan">
 
 Mencakup konten aplikasi Anda **memfasilitasi pemeliharaan** untuk aplikasi berskala besar. Anda dapat menduplikasi atau menghapus satu folder fitur tanpa beban mental untuk meninjau seluruh basis kode konten Anda. Selain itu, Intlayer **diketik sepenuhnya** untuk memastikan keakuratan konten Anda.
 
-**Agen AI**
+</Accordion>
+<Accordion header="Agen AI">
 
 Menempatkan konten bersama **mengurangi konteks yang diperlukan** dengan Model Bahasa Besar (LLM). Intlayer juga dilengkapi dengan serangkaian alat, seperti **CLI** untuk menguji terjemahan yang hilang,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)**, dan **[agent skill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, untuk menjadikan pengalaman pengembang (DX) lebih lancar bagi agen AI.
 
-**Otomatisasi**
+</Accordion>
+<Accordion header="Otomatisasi">
 
 Gunakan otomatisasi untuk menerjemahkan dalam saluran CI/CD Anda menggunakan LLM pilihan Anda dengan biaya penyedia AI Anda. Intlayer juga menawarkan **compiler** untuk mengotomatiskan ekstraksi konten, serta [platform web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) untuk membantu **menerjemahkan di latar belakang**.
 
-**Pertunjukan**
+</Accordion>
+<Accordion header="Pertunjukan">
 
 Menghubungkan file JSON berukuran besar ke komponen dapat menyebabkan masalah kinerja dan reaktivitas. Intlayer mengoptimalkan pemuatan konten Anda pada waktu pembuatan.
 
-**Menskalakan tanpa pengembang**
+</Accordion>
+<Accordion header="Menskalakan tanpa pengembang">
 
 Lebih dari sekedar solusi i18n, Intlayer menyediakan **[editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** yang dihosting sendiri dan **[CMS lengkap](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** untuk membantu Anda mengelola konten multibahasa secara **real-time**, membuat kolaborasi dengan penerjemah, copywriter, dan anggota tim lainnya menjadi lancar. Konten dapat disimpan secara lokal dan/atau jarak jauh.
+
+</Accordion>
+</AccordionGroup>
 
 ---
 
 ## Panduan Langkah-demi-Langkah untuk Menyiapkan Intlayer dalam Aplikasi Vite dan Vanilla JS
 
-### Langkah 1: Instal Dependensi
+<Steps>
+
+<Step number={1} title="Instal Dependensi">
 
 Instal paket yang diperlukan menggunakan npm:
 
@@ -131,7 +143,9 @@ bun x intlayer init
 - **vite-intlayer**
   Menyertakan plugin Vite untuk mengintegrasikan Intlayer dengan [Vite bundler](https://vite.dev/guide/why.html#why-bundle-for-production), serta middleware untuk mendeteksi lokal pilihan pengguna, mengelola cookie, dan menangani pengalihan URL.
 
-### Langkah 2: Konfigurasi Proyek Anda
+</Step>
+
+<Step number={2} title="Konfigurasi Proyek Anda">
 
 Buat file konfigurasi untuk mengatur bahasa aplikasi Anda:
 
@@ -155,7 +169,9 @@ export default config;
 
 > Melalui file konfigurasi ini, Anda dapat mengatur URL yang dilokalkan, pengalihan middleware, nama cookie, lokasi dan ekstensi deklarasi konten Anda, menonaktifkan log Intlayer di konsol, dan banyak lagi. Untuk daftar lengkap parameter yang tersedia, lihat [dokumentasi konfigurasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md).
 
-### Langkah 3: Integrasikan Intlayer ke dalam Konfigurasi Vite Anda
+</Step>
+
+<Step number={3} title="Integrasikan Intlayer ke dalam Konfigurasi Vite Anda">
 
 Tambahkan plugin intlayer ke konfigurasi Anda.
 
@@ -171,7 +187,9 @@ export default defineConfig({
 
 > Plugin Vite `intlayer()` digunakan untuk mengintegrasikan Intlayer dengan Vite. Plugin ini memastikan pembuatan file deklarasi konten dan memantaunya dalam mode pengembangan. Plugin ini mendefinisikan variabel lingkungan Intlayer di dalam aplikasi Vite. Selain itu, plugin ini menyediakan alias untuk mengoptimalkan kinerja.
 
-### Langkah 4: Bootstrap Intlayer di Titik Masuk Anda
+</Step>
+
+<Step number={4} title="Bootstrap Intlayer di Titik Masuk Anda">
 
 Panggil `installIntlayer()` **sebelum** merender konten apa pun sehingga singleton lokal global siap digunakan.
 
@@ -196,7 +214,9 @@ installIntlayerMarkdown();
 import "./app.js";
 ```
 
-### Langkah 5: Deklarasikan Konten Anda
+</Step>
+
+<Step number={5} title="Deklarasikan Konten Anda">
 
 Buat dan kelola deklarasi konten Anda untuk menyimpan terjemahan:
 
@@ -274,7 +294,9 @@ export default appContent;
 >
 > Untuk detail lebih lanjut, lihat [dokumentasi deklarasi konten](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/content_file.md).
 
-### Langkah 6: Gunakan Intlayer di JavaScript Anda
+</Step>
+
+<Step number={6} title="Gunakan Intlayer di JavaScript Anda">
 
 `vanilla-intlayer` mencerminkan API permukaan `react-intlayer`: `useIntlayer(key, locale?)` mengembalikan konten yang diterjemahkan secara langsung. Rantai `.onChange()` pada hasilnya untuk berlangganan perubahan lokal - padanan eksplisit dari render ulang React.
 
@@ -310,7 +332,9 @@ document.querySelector<HTMLParagraphElement>(".read-the-docs")!.textContent =
 > img.alt = content.viteLogoLabel.value;
 > ```
 
-### (Opsional) Langkah 7: Ubah Bahasa Konten Anda
+</Step>
+
+<Step number={7} title="Ubah Bahasa Konten Anda" isOptional={true}>
 
 Untuk mengubah bahasa konten, gunakan fungsi `setLocale` yang disediakan oleh `useLocale`.
 
@@ -345,7 +369,9 @@ export function setupLocaleSwitcher(container: HTMLElement): () => void {
 }
 ```
 
-### (Opsional) Langkah 8: Render Konten Markdown dan HTML
+</Step>
+
+<Step number={8} title="Render Konten Markdown dan HTML" isOptional={true}>
 
 Intlayer mendukung deklarasi konten `md()` dan `html()`. Dalam Vanilla JS, output yang dikompilasi dimasukkan sebagai HTML mentah melalui `innerHTML`.
 
@@ -404,7 +430,9 @@ document.querySelector<HTMLDivElement>(".edit-note")!.innerHTML =
 > });
 > ```
 
-### (Opsional) Langkah 9: Tambahkan Localized Routing ke aplikasi Anda
+</Step>
+
+<Step number={9} title="Tambahkan Localized Routing ke aplikasi Anda" isOptional={true}>
 
 Untuk membuat rute unik untuk setiap bahasa (berguna untuk SEO), Anda dapat menggunakan `intlayerProxy` dalam konfigurasi Vite untuk deteksi lokal sisi server.
 
@@ -424,7 +452,9 @@ export default defineConfig({
 });
 ```
 
-### (Opsional) Langkah 10: Ubah URL ketika lokal berubah
+</Step>
+
+<Step number={10} title="Ubah URL ketika lokal berubah" isOptional={true}>
 
 Untuk memperbarui URL browser saat lokal berubah, panggil `useRewriteURL()` setelah menginstal Intlayer:
 
@@ -438,7 +468,9 @@ installIntlayer();
 const stopRewriteURL = useRewriteURL();
 ```
 
-### (Opsional) Langkah 11: Alihkan Atribut Bahasa dan Arah HTML
+</Step>
+
+<Step number={11} title="Alihkan Atribut Bahasa dan Arah HTML" isOptional={true}>
 
 Perbarui atribut `lang` dan `dir` dari tag `<html>` agar sesuai dengan lokal saat ini demi aksesibilitas dan SEO.
 
@@ -456,7 +488,9 @@ useLocale({
 });
 ```
 
-### (Opsional) Langkah 12: Lazy-load kamus per lokal
+</Step>
+
+<Step number={12} title="Lazy-load kamus per lokal" isOptional={true}>
 
 Untuk aplikasi besar, Anda mungkin ingin membagi kamus setiap lokal ke dalam penggalannya sendiri. Gunakan `useDictionaryDynamic` bersama dengan `import()` dinamis Vite:
 
@@ -479,7 +513,9 @@ const unsubscribe = useDictionaryDynamic(
 
 > Bundel masing-masing lokal hanya diambil ketika lokal tersebut menjadi aktif dan hasilnya disimpan di cache - pengalihan berikutnya ke lokal yang sama bersifat instan.
 
-### (Opsional) Langkah 13: Ekstrak konten komponen Anda
+</Step>
+
+<Step number={13} title="Ekstrak konten komponen Anda" isOptional={true}>
 
 Jika Anda memiliki kode dasar yang sudah ada, mengubah ribuan file bisa memakan waktu.
 
@@ -694,3 +730,7 @@ Untuk detail lebih lanjut tentang cara menggunakan ekstensi, lihat [dokumentasi 
 ### Melangkah Lebih Jauh
 
 Untuk melangkah lebih jauh, Anda dapat mengimplementasikan [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md) atau mengeksternalisasi konten Anda menggunakan [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md).
+
+</Step>
+
+</Steps>

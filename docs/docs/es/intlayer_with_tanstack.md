@@ -59,33 +59,43 @@ Esta guía demuestra cómo integrar **Intlayer** para una internacionalización 
 
 En comparación con soluciones principales como `react-i18next` o `use-intl`, o `paraglide`, Intlayer es una solución que viene con optimizaciones integradas como:
 
-**Soporte completo de TanStack Start**
+<AccordionGroup>
+<Accordion header="Soporte completo de TanStack Start">
 
 Intlayer está completamente optimizado para TanStack Start y proporciona **enrutamiento multilingüe**, **administración de cookies**, **generación de mapas de sitio**, **carga de contenido dinámico** y todas las funciones necesarias para escalar sus esfuerzos de internacionalización (i18n).
 
-**Tamaño del bundle**
+</Accordion>
+<Accordion header="Tamaño del bundle">
 
 En lugar de cargar archivos JSON masivos en sus páginas, cargue solo el contenido necesario. Intlayer ayuda a **reducir el tamaño de su bundle y de sus páginas hasta en un 50%**.
 
-**Mantenibilidad**
+</Accordion>
+<Accordion header="Mantenibilidad">
 
 Determinar el alcance del contenido de su aplicación **facilita el mantenimiento** para aplicaciones a gran escala. Puede duplicar o eliminar una sola carpeta de funciones sin la carga mental de revisar todo el código base de contenido. Además, Intlayer está **completamente escrito** para garantizar la precisión de su contenido.
 
-**Agente de IA**
+</Accordion>
+<Accordion header="Agente de IA">
 
 La ubicación conjunta de contenido **reduce el contexto necesario** para los modelos de lenguajes grandes (LLM). Intlayer también viene con un conjunto de herramientas, como una **CLI** para comprobar si faltan traducciones,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** y **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, para que la experiencia del desarrollador (DX) sea aún más fluida para los agentes de IA.
 
-**Automatización**
+</Accordion>
+<Accordion header="Automatización">
 
 Utilice la automatización para traducir su canal de CI/CD utilizando el LLM de su elección al costo de su proveedor de IA. Intlayer también ofrece un **compilador** para automatizar la extracción de contenido, así como una [plataforma web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) para ayudar a **traducir en segundo plano**.
 
-**Actuación**
+</Accordion>
+<Accordion header="Actuación">
 
 La conexión de archivos JSON masivos a componentes puede provocar problemas de rendimiento y reactividad. Intlayer optimiza la carga de su contenido en el momento de la compilación.
 
-**Escalando sin ningún desarrollador**
+</Accordion>
+<Accordion header="Escalando sin ningún desarrollador">
 
 Más que una simple solución i18n, Intlayer proporciona un **[editor visual] autohospedado(https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** y un **[CMS completo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** para ayudarle a administrar su contenido multilingüe en **tiempo real**, lo que facilita la colaboración con traductores, redactores y otros miembros del equipo. El contenido se puede almacenar de forma local y/o remota.
+
+</Accordion>
+</AccordionGroup>
 
 ---
 
@@ -123,11 +133,15 @@ Más que una simple solución i18n, Intlayer proporciona un **[editor visual] au
 
 Consulta la [Plantilla de Aplicación](https://github.com/aymericzip/intlayer-tanstack-start-template) en GitHub.
 
-### Paso 1: Crear proyecto
+<Steps>
+
+<Step number={1} title="Crear proyecto">
 
 Comienza creando un nuevo proyecto TanStack Start siguiendo la guía [Start new project](https://tanstack.com/start/latest/docs/framework/react/quick-start) en el sitio web de TanStack Start.
 
-### Paso 2: Instalar paquetes de Intlayer
+</Step>
+
+<Step number={2} title="Instalar paquetes de Intlayer">
 
 Instala los paquetes necesarios utilizando tu gestor de paquetes preferido:
 
@@ -165,7 +179,9 @@ bun x intlayer init
 - **vite-intlayer**
   Incluye el plugin de Vite para integrar Intlayer con el [empaquetador Vite](https://vite.dev/guide/why.html#why-bundle-for-production), así como el middleware para detectar la configuración regional preferida del usuario, gestionar cookies y manejar la redirección de URL.
 
-### Paso 3: Configuración de tu proyecto
+</Step>
+
+<Step number={3} title="Configuración de tu proyecto">
 
 Crea un archivo de configuración para configurar los idiomas de tu aplicación:
 
@@ -186,7 +202,9 @@ export default config;
 
 > A través de este archivo de configuración, puedes establecer URLs localizadas, redirección de middleware, nombres de cookies, la ubicación y extensión de tus declaraciones de contenido, desactivar los registros de Intlayer en la consola y más. Para obtener una lista completa de los parámetros disponibles, consulta la [documentación de configuración](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/configuration.md).
 
-### Paso 4: Integrar Intlayer en tu configuración de Vite
+</Step>
+
+<Step number={4} title="Integrar Intlayer en tu configuración de Vite">
 
 Añade el plugin intlayer en tu configuración:
 
@@ -216,7 +234,9 @@ export default config;
 
 > El plugin de Vite `intlayer()` se utiliza para integrar Intlayer con Vite. Asegura la construcción de los archivos de declaración de contenido y los monitorea en modo desarrollo. Define variables de entorno de Intlayer dentro de la aplicación Vite. Además, proporciona alias para optimizar el rendimiento.
 
-### Paso 5: Crear el diseño raíz (Root Layout)
+</Step>
+
+<Step number={5} title="Crear el diseño raíz">
 
 Configura tu diseño raíz para admitir la internacionalización mediante el uso de `useParams` para detectar la configuración regional actual y estableciendo los atributos `lang` y `dir` en la etiqueta `html`.
 
@@ -276,7 +296,9 @@ function RootDocument({ children }: { children: ReactNode }) {
 > <img src="{String(content.image.src)}" alt="{String(content.image)}" />
 > ```
 
-### Paso 6: Crear el diseño de configuración regional (Locale Layout)
+</Step>
+
+<Step number={6} title="Crear el diseño de configuración regional">
 
 Crea un diseño que maneje el prefijo de configuración regional y realice la validación.
 
@@ -308,7 +330,9 @@ export const Route = createFileRoute("/{-$locale}")({
 > Para el modo `'prefix-all'`, es posible que prefieras cambiar el espacio a `$locale` en su lugar.
 > Para el modo `'no-prefix'` o `'search-params'`, puedes eliminar el espacio por completo.
 
-### Paso 7: Declarar tu contenido
+</Step>
+
+<Step number={7} title="Declarar tu contenido">
 
 Crea y gestiona tus declaraciones de contenido para almacenar traducciones:
 
@@ -354,7 +378,9 @@ export default appContent;
 
 > Para más detalles, consulta la [documentación de declaración de contenido](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/content_file.md).
 
-### Paso 7: Crear componentes y hooks conscientes de la configuración regional
+</Step>
+
+<Step number={7} title="Crear componentes y hooks conscientes de la configuración regional">
 
 Crea un componente `LocalizedLink` para la navegación consciente de la configuración regional:
 
@@ -458,7 +484,9 @@ export const useLocalizedNavigate = () => {
 };
 ```
 
-### Paso 8: Utilizar Intlayer en tus páginas
+</Step>
+
+<Step number={8} title="Utilizar Intlayer en tus páginas">
 
 Accede a tus diccionarios de contenido en toda tu aplicación:
 
@@ -506,7 +534,9 @@ function RouteComponent() {
 
 > Para obtener más información sobre el hook `useIntlayer`, consulta la [documentación](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/react-intlayer/useIntlayer.md).
 
-### Paso 9: Crear un componente selector de idioma (Locale Switcher)
+</Step>
+
+<Step number={9} title="Crear un componente selector de idioma">
 
 Crea un componente para permitir a los usuarios cambiar de idioma:
 
@@ -567,7 +597,9 @@ export const LocaleSwitcher: FC = () => {
 
 > Para obtener más información sobre el hook `useLocale`, consulta la [documentación](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/react-intlayer/useLocale.md).
 
-### Paso 10: Gestión de atributos HTML
+</Step>
+
+<Step number={10} title="Gestión de atributos HTML">
 
 Como se vio en el Paso 5, puedes gestionar los atributos `lang` y `dir` de la etiqueta `html` utilizando `useParams` en tu componente raíz. Esto garantiza que los atributos correctos se establezcan en el servidor y el cliente.
 
@@ -586,7 +618,9 @@ function RootDocument({ children }: { children: ReactNode }) {
 
 ---
 
-### Paso 11: Añadir middleware (Opcional)
+</Step>
+
+<Step number={11} title="Añadir middleware">
 
 También puedes usar el `intlayerProxy` para añadir enrutamiento del lado del servidor a tu aplicación. Este plugin detectará automáticamente la configuración regional actual basada en la URL y establecerá la cookie de configuración regional adecuada. Si no se especifica ninguna configuración regional, el plugin determinará la más adecuada según las preferencias de idioma del navegador del usuario. Si no se detecta ninguna, redirigirá a la configuración regional predeterminada.
 
@@ -617,7 +651,9 @@ export default defineConfig({
 
 ---
 
-### Paso 12: Internacionalizar tus metadatos (Opcional)
+</Step>
+
+<Step number={12} title="Internacionalizar tus metadatos">
 
 También puedes usar el hook `getIntlayer` para acceder a tus diccionarios de contenido en toda tu aplicación:
 
@@ -664,7 +700,9 @@ export const Route = createFileRoute("/{-$locale}/")({
 
 ---
 
-### Paso 13: Recuperar la configuración regional en tus acciones del servidor (Opcional)
+</Step>
+
+<Step number={13} title="Recuperar la configuración regional en tus acciones del servidor">
 
 Es posible que desees acceder a la configuración regional actual desde dentro de tus acciones del servidor o endpoints de la API.
 Puedes hacerlo utilizando el asistente `getLocale` de `intlayer`.
@@ -701,7 +739,9 @@ export const getLocaleServer = createServerFn().handler(async () => {
 
 ---
 
-### Paso 14: Gestionar páginas no encontradas (Opcional)
+</Step>
+
+<Step number={14} title="Gestionar páginas no encontradas">
 
 Cuando un usuario visita una página que no existe, puedes mostrar una página de no encontrado personalizada y el prefijo de configuración regional puede afectar la forma en que se activa la página de no encontrado.
 
@@ -777,7 +817,9 @@ export const Route = createFileRoute("/{-$locale}/$")({
 
 ---
 
-### (Opcional) Paso 15 : Extraer el contenido de tus componentes
+</Step>
+
+<Step number={15} title="Extraer el contenido de tus componentes" isOptional={true}>
 
 Si tienes una base de código existente, transformar miles de archivos puede llevar mucho tiempo.
 
@@ -875,7 +917,9 @@ bun run build # Or bun run dev
 
 ---
 
-### Paso 16: Generar un Sitemap (Opcional)
+</Step>
+
+<Step number={16} title="Generar un Sitemap">
 
 Intlayer viene con un generador de sitemap integrado para ayudarte a crear fácilmente un sitemap para tu aplicación. Maneja las rutas localizadas y agrega los metadatos necesarios para los motores de búsqueda.
 
@@ -950,7 +994,9 @@ export const Route = createFileRoute("/sitemap.xml")({
 
 ---
 
-### Paso 17: Configurar TypeScript (Opcional)
+</Step>
+
+<Step number={17} title="Configurar TypeScript">
 
 Intlayer utiliza la ampliación de módulos para obtener los beneficios de TypeScript y fortalecer tu base de código.
 
@@ -980,6 +1026,10 @@ Para ello, puedes añadir las siguientes instrucciones a tu archivo `.gitignore`
 ```
 
 ---
+
+</Step>
+
+</Steps>
 
 ## Extensión de VS Code
 

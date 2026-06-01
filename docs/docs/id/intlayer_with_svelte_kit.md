@@ -63,33 +63,43 @@ history:
 
 Dibandingkan dengan solusi utama seperti `svelte-i18n` atau `i18next`, Intlayer adalah solusi yang hadir dengan pengoptimalan terintegrasi seperti:
 
-**Cakupan penuh SvelteKit**
+<AccordionGroup>
+<Accordion header="Cakupan penuh SvelteKit">
 
 Intlayer dioptimalkan untuk bekerja sempurna dengan SvelteKit dengan menawarkan **perutean multibahasa**, **dukungan SSR**, dan semua fitur yang diperlukan untuk penskalaan internasionalisasi (i18n).
 
-**Ukuran bundle**
+</Accordion>
+<Accordion header="Ukuran bundle">
 
 Daripada memuat file JSON berukuran besar ke halaman Anda, muat saja konten yang diperlukan. Intlayer membantu **mengurangi ukuran bundle dan halaman Anda hingga 50%**.
 
-**Kemampuan Pemeliharaan**
+</Accordion>
+<Accordion header="Kemampuan Pemeliharaan">
 
 Mencakup konten aplikasi Anda **memfasilitasi pemeliharaan** untuk aplikasi berskala besar. Anda dapat menduplikasi atau menghapus satu folder fitur tanpa beban mental untuk meninjau seluruh basis kode konten Anda. Selain itu, Intlayer **diketik sepenuhnya** untuk memastikan keakuratan konten Anda.
 
-**Agen AI**
+</Accordion>
+<Accordion header="Agen AI">
 
 Menempatkan konten bersama **mengurangi konteks yang diperlukan** dengan Model Bahasa Besar (LLM). Intlayer juga dilengkapi dengan serangkaian alat, seperti **CLI** untuk menguji terjemahan yang hilang,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)**, dan **[agent skill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, untuk menjadikan pengalaman pengembang (DX) lebih lancar bagi agen AI.
 
-**Otomatisasi**
+</Accordion>
+<Accordion header="Otomatisasi">
 
 Gunakan otomatisasi untuk menerjemahkan dalam saluran CI/CD Anda menggunakan LLM pilihan Anda dengan biaya penyedia AI Anda. Intlayer juga menawarkan **compiler** untuk mengotomatiskan ekstraksi konten, serta [platform web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) untuk membantu **menerjemahkan di latar belakang**.
 
-**Pertunjukan**
+</Accordion>
+<Accordion header="Pertunjukan">
 
 Menghubungkan file JSON berukuran besar ke komponen dapat menyebabkan masalah kinerja dan reaktivitas. Intlayer mengoptimalkan pemuatan konten Anda pada waktu pembuatan.
 
-**Menskalakan tanpa pengembang**
+</Accordion>
+<Accordion header="Menskalakan tanpa pengembang">
 
 Lebih dari sekedar solusi i18n, Intlayer menyediakan **[editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** yang dihosting sendiri dan **[CMS lengkap](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** untuk membantu Anda mengelola konten multibahasa secara **real-time**, membuat kolaborasi dengan penerjemah, copywriter, dan anggota tim lainnya menjadi lancar. Konten dapat disimpan secara lokal dan/atau jarak jauh.
+
+</Accordion>
+</AccordionGroup>
 
 ---
 
@@ -137,7 +147,9 @@ Untuk memulai, buat proyek SvelteKit baru. Berikut adalah struktur akhir yang ak
 └── vite.config.ts
 ```
 
-### Langkah 1: Instalasi Dependencies
+<Steps>
+
+<Step number={1} title="Instalasi Dependencies">
 
 Instal paket yang diperlukan menggunakan npm:
 
@@ -169,7 +181,9 @@ bun x intlayer init
 - **svelte-intlayer**: Menyediakan context providers dan stores untuk Svelte/SvelteKit.
 - **vite-intlayer**: Plugin Vite untuk mengintegrasikan deklarasi konten dengan proses build.
 
-### Langkah 2: Konfigurasi proyek Anda
+</Step>
+
+<Step number={2} title="Konfigurasi proyek Anda">
 
 Buat file konfigurasi di root proyek Anda:
 
@@ -186,7 +200,9 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-### Langkah 3: Integrasikan Intlayer dalam Konfigurasi Vite Anda
+</Step>
+
+<Step number={3} title="Integrasikan Intlayer dalam Konfigurasi Vite Anda">
 
 Perbarui `vite.config.ts` Anda untuk menyertakan plugin Intlayer. Plugin ini menangani transpile file konten Anda.
 
@@ -200,7 +216,9 @@ export default defineConfig({
 });
 ```
 
-### Langkah 4: Deklarasikan Konten Anda
+</Step>
+
+<Step number={4} title="Deklarasikan Konten Anda">
 
 Buat file deklarasi konten Anda di mana saja dalam folder `src` Anda (misalnya, `src/lib/content` atau di samping komponen Anda). File-file ini mendefinisikan konten yang dapat diterjemahkan untuk aplikasi Anda menggunakan fungsi `t()` untuk setiap locale.
 
@@ -221,7 +239,9 @@ const heroContent = {
 export default heroContent;
 ```
 
-### Langkah 5: Gunakan Intlayer dalam Komponen Anda
+</Step>
+
+<Step number={5} title="Gunakan Intlayer dalam Komponen Anda">
 
 Sekarang Anda dapat menggunakan fungsi `useIntlayer` di komponen Svelte mana pun. Fungsi ini mengembalikan store reaktif yang secara otomatis diperbarui saat locale berubah. Fungsi ini akan secara otomatis menghormati locale saat ini (baik selama SSR maupun navigasi sisi klien).
 
@@ -251,6 +271,10 @@ Sekarang Anda dapat menggunakan fungsi `useIntlayer` di komponen Svelte mana pun
 ---
 
 # Terjemahkan situs web SvelteKit Anda menggunakan Intlayer | Internasionalisasi (i18n)
+
+</Step>
+
+</Steps>
 
 ## Daftar Isi
 
@@ -313,7 +337,9 @@ Untuk memulai, buat proyek SvelteKit baru. Berikut adalah struktur akhir yang ak
 └── vite.config.ts
 ```
 
-### Langkah 1: Instalasi Dependencies
+<Steps>
+
+<Step number={1} title="Instalasi Dependencies">
 
 Instal paket yang diperlukan menggunakan npm:
 
@@ -345,7 +371,9 @@ bun x intlayer init
 - **svelte-intlayer**: Menyediakan context providers dan stores untuk Svelte/SvelteKit.
 - **vite-intlayer**: Plugin Vite untuk mengintegrasikan deklarasi konten dengan proses build.
 
-### Langkah 2: Konfigurasi proyek Anda
+</Step>
+
+<Step number={2} title="Konfigurasi proyek Anda">
 
 Buat file konfigurasi di root proyek Anda:
 
@@ -362,7 +390,9 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-### Langkah 3: Integrasikan Intlayer dalam Konfigurasi Vite Anda
+</Step>
+
+<Step number={3} title="Integrasikan Intlayer dalam Konfigurasi Vite Anda">
 
 Perbarui `vite.config.ts` Anda untuk menyertakan plugin Intlayer. Plugin ini menangani transpile file konten Anda.
 
@@ -376,7 +406,9 @@ export default defineConfig({
 });
 ```
 
-### Langkah 4: Deklarasikan Konten Anda
+</Step>
+
+<Step number={4} title="Deklarasikan Konten Anda">
 
 Buat file deklarasi konten Anda di mana saja dalam folder `src` Anda (misalnya, `src/lib/content` atau di samping komponen Anda). File-file ini mendefinisikan konten yang dapat diterjemahkan untuk aplikasi Anda menggunakan fungsi `t()` untuk setiap locale.
 
@@ -397,7 +429,9 @@ const heroContent = {
 export default heroContent;
 ```
 
-### Langkah 5: Gunakan Intlayer dalam Komponen Anda
+</Step>
+
+<Step number={5} title="Gunakan Intlayer dalam Komponen Anda">
 
 untuk mengakses nilai reaktifnya (misalnya, `$content.title`).
 
@@ -419,7 +453,9 @@ untuk mengakses nilai reaktifnya (misalnya, `$content.title`).
 <div aria-label={String($content.title)}></div>
 ```
 
-### (Opsional) Langkah 6: Atur routing
+</Step>
+
+<Step number={6} title="Atur routing" isOptional={true}>
 
 Langkah-langkah berikut menunjukkan cara mengatur routing berbasis locale di SvelteKit. Ini memungkinkan URL Anda menyertakan prefix locale (misalnya, `/en/about`, `/fr/about`) untuk SEO yang lebih baik dan pengalaman pengguna yang lebih baik.
 
@@ -444,7 +480,9 @@ Langkah-langkah berikut menunjukkan cara mengatur routing berbasis locale di Sve
         └── +layout.svelte         # Tata letak root untuk font dan gaya global
 ```
 
-### Langkah 7: Tangani Deteksi Locale di Server (Hooks)
+</Step>
+
+<Step number={7} title="Tangani Deteksi Locale di Server">
 
 Di SvelteKit, server perlu mengetahui locale pengguna untuk merender konten yang benar selama SSR. Kita menggunakan `hooks.server.ts` untuk mendeteksi locale dari URL atau cookie.
 
@@ -656,7 +694,9 @@ export const prerender = true;
 </style>
 ```
 
-### (Opsional) Langkah 8: Tautan Internasionalisasi
+</Step>
+
+<Step number={8} title="Tautan Internasionalisasi" isOptional={true}>
 
 Untuk SEO, disarankan untuk menambahkan prefix locale pada rute Anda (misalnya, `/en/about`, `/fr/about`). Komponen ini secara otomatis menambahkan prefix locale saat ini pada setiap tautan.
 
@@ -689,7 +729,9 @@ const localizedPath = getLocalizedUrl("/about", $locale);
 goto(localizedPath); // Menavigasi ke /en/about atau /fr/about tergantung locale
 ```
 
-### (Opsional) Langkah 9: Pengalih Bahasa
+</Step>
+
+<Step number={9} title="Pengalih Bahasa" isOptional={true}>
 
 Untuk memungkinkan pengguna mengganti bahasa, perbarui URL.
 
@@ -730,7 +772,9 @@ Untuk memungkinkan pengguna mengganti bahasa, perbarui URL.
 </style>
 ```
 
-### (Opsional) Langkah 10: Tambahkan proxy backend
+</Step>
+
+<Step number={10} title="Tambahkan proxy backend" isOptional={true}>
 
 Untuk menambahkan proxy backend ke aplikasi SvelteKit Anda, Anda dapat menggunakan fungsi `intlayerProxy` yang disediakan oleh plugin `vite-intlayer`. Plugin ini akan secara otomatis mendeteksi locale terbaik untuk pengguna berdasarkan URL, cookie, dan preferensi bahasa browser.
 
@@ -749,7 +793,9 @@ export default defineConfig({
 });
 ```
 
-### (Opsional) Langkah 11: Mengatur editor / CMS intlayer
+</Step>
+
+<Step number={11} title="Mengatur editor / CMS intlayer" isOptional={true}>
 
 Untuk mengatur editor intlayer, Anda harus mengikuti [dokumentasi editor intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md).
 
@@ -785,7 +831,9 @@ Disarankan untuk mengabaikan file-file yang dihasilkan oleh Intlayer.
 
 ---
 
-### (Opsional) Langkah 1 : Ekstrak konten komponen Anda
+</Step>
+
+<Step number={1} title="Ekstrak konten komponen Anda" isOptional={true}>
 
 Jika Anda memiliki basis kode yang ada, mengubah ribuan file bisa memakan waktu lama.
 
@@ -885,3 +933,7 @@ bun run build # Or bun run dev
 
 - **Editor Visual**: Integrasikan [Intlayer Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md) untuk mengedit terjemahan langsung dari UI.
 - **CMS**: Eksternalisasi manajemen konten Anda menggunakan [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md).
+
+</Step>
+
+</Steps>

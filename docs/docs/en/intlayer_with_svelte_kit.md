@@ -63,33 +63,43 @@ history:
 
 Compared to main solutions like `svelte-i18n` or `i18next`, Intlayer is a solution that comes with integrated optimizations such as:
 
-**Full SvelteKit coverage**
+<AccordionGroup>
+<Accordion header="Full SvelteKit coverage">
 
 Intlayer is optimized to work perfectly with SvelteKit by offering **multilingual routing**, **SSR support**, and all the features needed for scaling internationalization (i18n).
 
-**Bundle size**
+</Accordion>
+<Accordion header="Bundle size">
 
 Instead of loading massive JSON files into your pages, load only the necessary content. Intlayer helps **reduce your bundle and page sizes by up to 50%**.
 
-**Maintainability**
+</Accordion>
+<Accordion header="Maintainability">
 
 Scoping your application's content **facilitates maintenance** for large-scale applications. You can duplicate or delete a single feature folder without the mental burden of reviewing your entire content codebase. Additionally, Intlayer is **fully typed** to ensure your content's accuracy.
 
-**AI Agent**
+</Accordion>
+<Accordion header="AI Agent">
 
 Co-locating content **reduces the context needed** by Large Language Models (LLMs). Intlayer also comes with a suite of tools, such as a **CLI** to test for missing translations,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)**, and **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, to make the developer experience (DX) even smoother for AI agents.
 
-**Automation**
+</Accordion>
+<Accordion header="Automation">
 
 Use automation to translate in your CI/CD pipeline using the LLM of your choice at the cost of your AI provider. Intlayer also offers a **compiler** to automate content extraction, as well as a [web platform](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) to help **translate in the background**.
 
-**Performance**
+</Accordion>
+<Accordion header="Performance">
 
 Connecting massive JSON files to components can lead to performance and reactivity issues. Intlayer optimizes your content loading at build time.
 
-**Scaling with none-dev**
+</Accordion>
+<Accordion header="Scaling with none-dev">
 
 More than just an i18n solution, Intlayer provides an **self-hosted [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** and a **[full CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** to help you manage your multilingual content in **real-time**, making collaboration with translators, copywriters, and other team members seamless. Content can be stored locally and/or remotely.
+
+</Accordion>
+</AccordionGroup>
 
 ---
 
@@ -139,7 +149,9 @@ To get started, create a new SvelteKit project. Here is the final structure that
 └── vite.config.ts
 ```
 
-### Step 1: Install Dependencies
+<Steps>
+
+<Step number={1} title="Install Dependencies">
 
 Install the necessary packages using npm:
 
@@ -171,7 +183,9 @@ bun x intlayer init
 - **svelte-intlayer**: Provides context providers and stores for Svelte/SvelteKit.
 - **vite-intlayer**: The Vite plugin to integrate content declarations with the build process.
 
-### Step 2: Configuration of your project
+</Step>
+
+<Step number={2} title="Configuration of your project">
 
 Create a config file in your project root:
 
@@ -188,7 +202,9 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-### Step 3: Integrate Intlayer in Your Vite Configuration
+</Step>
+
+<Step number={3} title="Integrate Intlayer in Your Vite Configuration">
 
 Update your `vite.config.ts` to include the Intlayer plugin. This plugin handles the transpilation of your content files.
 
@@ -202,7 +218,9 @@ export default defineConfig({
 });
 ```
 
-### Step 4: Declare Your Content
+</Step>
+
+<Step number={4} title="Declare Your Content">
 
 Create your content declaration files anywhere in your `src` folder (e.g., `src/lib/content` or alongside your components). These files define the translatable content for your application using the `t()` function for each locale.
 
@@ -223,7 +241,9 @@ const heroContent = {
 export default heroContent;
 ```
 
-### Step 5: Utilize Intlayer in Your Components
+</Step>
+
+<Step number={5} title="Utilize Intlayer in Your Components">
 
 Now you can use the `useIntlayer` function in any Svelte component. It returns a reactive store that automatically updates when the locale changes. The function will automatically respect the current locale (both during SSR and client-side navigation).
 
@@ -247,7 +267,9 @@ Now you can use the `useIntlayer` function in any Svelte component. It returns a
 <div aria-label={String($content.title)}></div>
 ```
 
-### (Optional) Step 6: Set up routing
+</Step>
+
+<Step number={6} title="Set up routing" isOptional={true}>
 
 The following steps show how to set up locale-based routing in SvelteKit. This allows your URLs to include the locale prefix (e.g., `/en/about`, `/fr/about`) for better SEO and user experience.
 
@@ -272,7 +294,9 @@ The following steps show how to set up locale-based routing in SvelteKit. This a
         └── +layout.svelte         # Root layout for fonts and global styles
 ```
 
-### Step 7: Handle Server-Side Locale Detection (Hooks)
+</Step>
+
+<Step number={7} title="Handle Server-Side Locale Detection">
 
 In SvelteKit, the server needs to know the user's locale to render the correct content during SSR. We use `hooks.server.ts` to detect the locale from the URL or cookies.
 
@@ -484,7 +508,9 @@ export const prerender = true;
 </style>
 ```
 
-### (Optional) Step 8: Internationalized Links
+</Step>
+
+<Step number={8} title="Internationalized Links" isOptional={true}>
 
 For SEO, it is recommended to prefix your routes with the locale (e.g., `/en/about`, `/fr/about`). This component automatically prefixes any link with the current locale.
 
@@ -517,7 +543,9 @@ const localizedPath = getLocalizedUrl("/about", $locale);
 goto(localizedPath); // Navigates to /en/about or /fr/about depending on locale
 ```
 
-### (Optional) Step 9: Language Switcher
+</Step>
+
+<Step number={9} title="Language Switcher" isOptional={true}>
 
 To allow users to switch languages, update the URL.
 
@@ -558,7 +586,9 @@ To allow users to switch languages, update the URL.
 </style>
 ```
 
-### (Optional) Step 10: Add backend proxy
+</Step>
+
+<Step number={10} title="Add backend proxy" isOptional={true}>
 
 To add a backend proxy to your SvelteKit application, you can use the `intlayerProxy` function provided by the `vite-intlayer` plugin. This plugin will automatically detect the best locale for the user based on the URL, cookies, and browser language preferences.
 
@@ -577,7 +607,9 @@ export default defineConfig({
 });
 ```
 
-### (Optional) Step 11: Set up the intlayer editor / CMS
+</Step>
+
+<Step number={11} title="Set up the intlayer editor / CMS" isOptional={true}>
 
 To set up the intlayer editor, you must follow the [intlayer editor documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md).
 
@@ -602,7 +634,9 @@ To be able to visualize the intlayer editor selector, you will have to use the c
 </div>
 ```
 
-### (Optional) Step 12: Extract the content of your components
+</Step>
+
+<Step number={12} title="Extract the content of your components" isOptional={true}>
 
 If you have an existing codebase, transforming thousands of files can be time-consuming.
 
@@ -717,3 +751,7 @@ It is recommended to ignore the files generated by Intlayer.
 
 - **Visual Editor**: Integrate the [Intlayer Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) to edit translations directly from the UI.
 - **CMS**: Externalize your content management using the [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md).
+
+</Step>
+
+</Steps>

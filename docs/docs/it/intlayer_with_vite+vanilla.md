@@ -62,39 +62,51 @@ history:
 
 Rispetto alle soluzioni principali come `i18next` o `i18n.js`, Intlayer è una soluzione dotata di ottimizzazioni integrate come:
 
-**Copertura completa di Vite**
+<AccordionGroup>
+<Accordion header="Copertura completa di Vite">
 
 Intlayer è ottimizzato per funzionare perfettamente con Vite offrendo **gestione dei contenuti indipendente dal framework**, **supporto TypeScript** e tutte le funzionalità necessarie per scalare l'internazionalizzazione (i18n).
 
-**Dimensione del bundle**
+</Accordion>
+<Accordion header="Dimensione del bundle">
 
 Invece di caricare enormi file JSON nelle tue pagine, carica solo il contenuto necessario. Intlayer aiuta a **ridurre le dimensioni del bundle e della pagina fino al 50%**.
 
-**Manutenibilità**
+</Accordion>
+<Accordion header="Manutenibilità">
 
 L'ambito del contenuto dell'applicazione **facilita la manutenzione** per applicazioni su larga scala. Puoi duplicare o eliminare una singola cartella di funzionalità senza l'onere mentale di rivedere l'intera codebase dei contenuti. Inoltre, Intlayer è **completamente tipizzato (fully typed)** per garantire l'accuratezza dei tuoi contenuti.
 
-**Agente IA**
+</Accordion>
+<Accordion header="Agente IA">
 
 La co-localizzazione dei contenuti **riduce il contesto necessario** dai Large Language Models (LLM). Intlayer viene fornito anche con una suite di strumenti, come una **CLI** per verificare le traduzioni mancanti,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** e **[capacità dell'agente](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, per rendere l'esperienza dello sviluppatore (DX) ancora più fluida per gli agenti IA.
 
-**Automazione**
+</Accordion>
+<Accordion header="Automazione">
 
 Utilizza l'automazione per tradurre nella tua pipeline CI/CD utilizzando il LLM di tua scelta al costo del tuo provider di intelligenza artificiale. Intlayer offre anche un **compilatore** per automatizzare l'estrazione dei contenuti, nonché una [piattaforma web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) per aiutare a **tradurre in background**.
 
-**Prestazione**
+</Accordion>
+<Accordion header="Prestazione">
 
 La connessione di enormi file JSON ai componenti può portare a problemi di prestazioni e reattività. Intlayer ottimizza il caricamento dei contenuti in fase di compilazione.
 
-**Scalabilità con nessuno sviluppatore**
+</Accordion>
+<Accordion header="Scalabilità con nessuno sviluppatore">
 
 Più di una semplice soluzione i18n, Intlayer fornisce un **[editor visivo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** self-hosted e un **[CMS completo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** per aiutarti gestisci i tuoi contenuti multilingue in **tempo reale**, semplificando la collaborazione con traduttori, copywriter e altri membri del team. I contenuti possono essere archiviati localmente e/o in remoto.
+
+</Accordion>
+</AccordionGroup>
 
 ---
 
 ## Guida passo-passo per configurare Intlayer in un'applicazione Vite e Vanilla JS
 
-### Passaggio 1: Installa le dipendenze
+<Steps>
+
+<Step number={1} title="Installa le dipendenze">
 
 Installa i pacchetti necessari utilizzando npm:
 
@@ -131,7 +143,9 @@ bun x intlayer init
 - **vite-intlayer**
   Include il plugin Vite per l'integrazione di Intlayer con il [bundler Vite](https://vite.dev/guide/why.html#why-bundle-for-production), oltre a un middleware per rilevare la lingua preferita dell'utente, gestire i cookie e gestire il reindirizzamento degli URL.
 
-### Passaggio 2: Configurazione del progetto
+</Step>
+
+<Step number={2} title="Configurazione del progetto">
 
 Crea un file di configurazione per impostare le lingue della tua applicazione:
 
@@ -155,7 +169,9 @@ export default config;
 
 > Attraverso questo file di configurazione, puoi impostare URL localizzati, reindirizzamento middleware, nomi dei cookie, la posizione e l'estensione delle tue dichiarazioni di contenuto, disabilitare i log di Intlayer nella console e altro ancora. Per un elenco completo dei parametri disponibili, consulta la [documentazione sulla configurazione](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/configuration.md).
 
-### Passaggio 3: Integra Intlayer nella tua configurazione Vite
+</Step>
+
+<Step number={3} title="Integra Intlayer nella tua configurazione Vite">
 
 Aggiungi il plugin intlayer nella tua configurazione.
 
@@ -171,7 +187,9 @@ export default defineConfig({
 
 > Il plugin Vite `intlayer()` viene utilizzato per integrare Intlayer con Vite. Garantisce la creazione dei file di dichiarazione del contenuto e li monitora in modalità sviluppo. Definisce le variabili di ambiente Intlayer all'interno dell'applicazione Vite. Inoltre, fornisce alias per ottimizzare le prestazioni.
 
-### Passaggio 4: Bootstrap di Intlayer nel tuo punto di ingresso
+</Step>
+
+<Step number={4} title="Bootstrap di Intlayer nel tuo punto di ingresso">
 
 Chiama `installIntlayer()` **prima** che qualsiasi contenuto venga renderizzato in modo che il singleton della lingua globale sia pronto.
 
@@ -196,7 +214,9 @@ installIntlayerMarkdown();
 import "./app.js";
 ```
 
-### Passaggio 5: Dichiarazione del contenuto
+</Step>
+
+<Step number={5} title="Dichiarazione del contenuto">
 
 Crea e gestisci le tue dichiarazioni di contenuto per memorizzare le traduzioni:
 
@@ -274,7 +294,9 @@ export default appContent;
 >
 > Per maggiori dettagli, consulta la [documentazione sulla dichiarazione dei contenuti](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/content_file.md).
 
-### Passaggio 6: Usa Intlayer nel tuo JavaScript
+</Step>
+
+<Step number={6} title="Usa Intlayer nel tuo JavaScript">
 
 `vanilla-intlayer` rispecchia l'API di superficie di `react-intlayer`: `useIntlayer(key, locale?)` restituisce direttamente il contenuto tradotto. Collega `.onChange()` sul risultato per iscriverti ai cambiamenti di lingua - l'equivalente esplicito di un re-render di React.
 
@@ -310,7 +332,9 @@ document.querySelector<HTMLParagraphElement>(".read-the-docs")!.textContent =
 > img.alt = content.viteLogoLabel.value;
 > ```
 
-### (Opzionale) Passaggio 7: Cambia la lingua dei tuoi contenuti
+</Step>
+
+<Step number={7} title="Cambia la lingua dei tuoi contenuti" isOptional={true}>
 
 Per cambiare la lingua del tuo contenuto, usa la funzione `setLocale` esposta da `useLocale`.
 
@@ -345,7 +369,9 @@ export function setupLocaleSwitcher(container: HTMLElement): () => void {
 }
 ```
 
-### (Opzionale) Passaggio 8: Renderizza contenuti Markdown e HTML
+</Step>
+
+<Step number={8} title="Renderizza contenuti Markdown e HTML" isOptional={true}>
 
 Intlayer supporta le dichiarazioni di contenuto `md()` e `html()`. In vanilla JS, l'output compilato viene inserito come HTML grezzo tramite `innerHTML`.
 
@@ -404,7 +430,9 @@ document.querySelector<HTMLDivElement>(".edit-note")!.innerHTML =
 > });
 > ```
 
-### (Opzionale) Passaggio 9: Aggiungi il routing localizzato alla tua applicazione
+</Step>
+
+<Step number={9} title="Aggiungi il routing localizzato alla tua applicazione" isOptional={true}>
 
 Per creare percorsi unici per ogni lingua (utile per il SEO), puoi utilizzare `intlayerProxy` nella tua configurazione Vite per il rilevamento della lingua lato server.
 
@@ -424,7 +452,9 @@ export default defineConfig({
 });
 ```
 
-### (Opzionale) Passaggio 10: Cambia l'URL quando cambia la lingua
+</Step>
+
+<Step number={10} title="Cambia l'URL quando cambia la lingua" isOptional={true}>
 
 Per aggiornare l'URL del browser quando cambia la lingua, chiama `useRewriteURL()` dopo aver installato Intlayer:
 
@@ -438,7 +468,9 @@ installIntlayer();
 const stopRewriteURL = useRewriteURL();
 ```
 
-### (Opzionale) Passaggio 11: Passa agli attributi HTML della lingua e della direzione
+</Step>
+
+<Step number={11} title="Passa agli attributi HTML della lingua e della direzione" isOptional={true}>
 
 Aggiorna gli attributi `lang` e `dir` del tag `<html>` per corrispondere alla lingua corrente per l'accessibilità e il SEO.
 
@@ -456,7 +488,9 @@ useLocale({
 });
 ```
 
-### (Opzionale) Passaggio 12: Caricamento differito dei dizionari per lingua
+</Step>
+
+<Step number={12} title="Caricamento differito dei dizionari per lingua" isOptional={true}>
 
 Per le app di grandi dimensioni potresti voler dividere il dizionario di ogni lingua nel proprio chunk. Usa `useDictionaryDynamic` insieme all'`import()` dinamico di Vite:
 
@@ -479,7 +513,9 @@ const unsubscribe = useDictionaryDynamic(
 
 > Il bundle di ogni lingua viene recuperato solo quando quella lingua diventa attiva e il risultato viene memorizzato nella cache - i successivi passaggi alla stessa lingua sono istantanei.
 
-### (Opzionale) Passaggio 13: Estract il contenuto dei tuoi componenti
+</Step>
+
+<Step number={13} title="Estract il contenuto dei tuoi componenti" isOptional={true}>
 
 Se hai una base di codice esistente, trasformare migliaia di file può richiedere molto tempo.
 
@@ -694,3 +730,7 @@ Per maggiori dettagli su come utilizzare l'estensione, consulta la [documentazio
 ### Vai oltre
 
 Per andare oltre, puoi implementare l'[editor visuale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_visual_editor.md) o esternalizzare il tuo contenuto utilizzando il [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_CMS.md).
+
+</Step>
+
+</Steps>

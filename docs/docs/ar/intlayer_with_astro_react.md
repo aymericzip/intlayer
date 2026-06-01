@@ -99,7 +99,9 @@ history:
 
 تحقق من [نموذج التطبيق](https://github.com/aymericzip/intlayer-astro-template) على GitHub.
 
-### الخطوة 1: تثبيت التبعيات
+<Steps>
+
+<Step number={1} title="تثبيت التبعيات">
 
 قم بتثبيت الحزم اللازمة باستخدام مدير الحزم المفضل لديك:
 
@@ -142,7 +144,9 @@ bun x intlayer init
 - **@astrojs/react**
   إضافة Astro الرسمية التي تتيح استخدام جزر (islands) مكونات React.
 
-### الخطوة 2: تهيئة مشروعك
+</Step>
+
+<Step number={2} title="تهيئة مشروعك">
 
 أنشئ ملف تكوين لتحديد لغات تطبيقك:
 
@@ -167,7 +171,9 @@ export default config;
 
 > من خلال ملف التكوين هذا، يمكنك تهيئة الروابط المترجمة، وإعادة توجيه الوسيط، وأسماء الكوكيز، وموقع وامتدادات تعريفات المحتوى، وتعطيل سجلات Intlayer في وحدة التحكم، والمزيد. للحصول على قائمة كاملة بالمعلمات المتاحة، راجع [توثيق التهيئة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md).
 
-### الخطوة 3: دمج Intlayer في تكوين Astro الخاص بك
+</Step>
+
+<Step number={3} title="دمج Intlayer في تكوين Astro الخاص بك">
 
 أضف إضافة `intlayer` وتكامل React إلى تكوين Astro الخاص بك.
 
@@ -188,7 +194,9 @@ export default defineConfig({
 
 > يتيح تكامل `react()` استخدام جزر مكونات React عبر `client:only="react"`.
 
-### الخطوة 4: تعريف المحتوى الخاص بك
+</Step>
+
+<Step number={4} title="تعريف المحتوى الخاص بك">
 
 أنشئ وأدِر تعريفات المحتوى لتخزين الترجمات:
 
@@ -215,7 +223,9 @@ export default appContent;
 
 > لمزيد من المعلومات، راجع [توثيق تعريف المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/content_file.md).
 
-### الخطوة 5: استخدام المحتوى في Astro
+</Step>
+
+<Step number={5} title="استخدام المحتوى في Astro">
 
 يمكنك استهلاك القواميس مباشرة في ملفات `.astro` الخاصة بك باستخدام المساعدين الأساسيين المصدرين من `intlayer`. يجب عليك أيضًا إضافة ميتا داتا SEO (مثل hreflang وروابط canonical) لكل صفحة وتقديم جزيرة React للمحتوى التفاعلي في جانب العميل.
 
@@ -303,7 +313,9 @@ const { title } = getIntlayer("app", locale);
 > - **`prefix-all`:** تحصل جميع الروابط على بادئة لغة. يمكنك استخدام `[locale]` القياسي إذا كنت لا تحتاج إلى معالجة الجذر بشكل منفصل.
 > - **`search-param` أو `no-prefix`:** لا يلزم وجود أدلة لغة. يتم التعامل مع اللغة عبر معلمات الاستعلام أو ملفات تعريف الارتباط.
 
-### الخطوة 6: إنشاء مكون جزيرة React
+</Step>
+
+<Step number={6} title="إنشاء مكون جزيرة React">
 
 أنشئ مكون جزيرة يلف تطبيق React الخاص بك ويستلم اللغة المكتشفة من الخادم:
 
@@ -335,7 +347,9 @@ export function ReactIsland({ locale }: { locale: LocalesValues }) {
 
 > يتم تمرير خاصية `locale` من صفحة Astro (اكتشاف الخادم) إلى `IntlayerProvider` ، مما يجعلها اللغة الأولية لجميع خطافات React داخل الشجرة.
 
-### الخطوة 7: إضافة مبدل اللغة
+</Step>
+
+<Step number={7} title="إضافة مبدل اللغة">
 
 أنشئ مكون React `LocaleSwitcher` يقرأ اللغات المتاحة وينتقل إلى الرابط المترجم عندما يختار المستخدم لغة جديدة:
 
@@ -384,7 +398,9 @@ export function LocaleSwitcher() {
 
 > يجب رندر `LocaleSwitcher` داخل `IntlayerProvider` - استخدمه داخل مكون الجزيرة الخاص بك (كما هو موضح في الخطوة 6).
 
-### الخطوة 8: خريطة الموقع وRobots.txt
+</Step>
+
+<Step number={8} title="خريطة الموقع وRobots.txt">
 
 توفر Intlayer أدوات لإنشاء خريطة موقع مترجمة وملفات robots.txt ديناميكيًا.
 
@@ -492,7 +508,9 @@ export const GET: APIRoute = ({ site }) => {
 
 ---
 
-### (Optional) Step 15: Extract the content of your components
+</Step>
+
+<Step number={15} title="Extract the content of your components" isOptional={true}>
 
 If you have an existing codebase, transforming thousands of files can be time-consuming.
 
@@ -597,3 +615,7 @@ bun run build # Or bun run dev
 ### تعمق أكثر
 
 إذا كنت تريد معرفة المزيد، يمكنك أيضًا تنفيذ [المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) أو استخدام [نظام إدارة المحتوى (CMS)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md) لإخراج محتواك خارجيًا.
+
+</Step>
+
+</Steps>

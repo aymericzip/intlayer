@@ -277,10 +277,10 @@ export const ReviewerOnboarding: FC<ReviewerOnboardingProps> = ({
                   <img
                     src={existingProfile.mainPicture}
                     alt={content.uploadMainPicture.value}
-                    className="h-full w-full max-w-lg cursor-pointer object-cover"
+                    className="size-full max-w-lg cursor-pointer object-cover"
                   />
                 ) : (
-                  <div className="flex h-full w-full items-center justify-center border border-neutral/30 border-dashed">
+                  <div className="flex size-full items-center justify-center border border-neutral/30 border-dashed">
                     <ImageIcon size={20} className="text-neutral/40" />
                   </div>
                 )}
@@ -310,10 +310,10 @@ export const ReviewerOnboarding: FC<ReviewerOnboardingProps> = ({
                   <img
                     src={existingProfile.coverPicture}
                     alt="Cover"
-                    className="h-full w-full cursor-pointer object-cover"
+                    className="size-full cursor-pointer object-cover"
                   />
                 ) : (
-                  <div className="flex h-full w-full items-center justify-center border border-neutral/30 border-dashed">
+                  <div className="flex size-full items-center justify-center border border-neutral/30 border-dashed">
                     <ImageIcon size={20} className="text-neutral/40" />
                   </div>
                 )}

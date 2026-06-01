@@ -41,40 +41,40 @@ export const CMSLandingPage: FC = () => {
     <div className="flex flex-col">
       {/* Hero Section */}
       <BackgroundLayout>
-        <Suspense fallback={null}>
+        <Suspense>
           <HeroSection />
         </Suspense>
       </BackgroundLayout>
 
       {/* Content Delivery Section */}
-      <Suspense fallback={null}>
+      <Suspense>
         <ContentDeliverySection />
       </Suspense>
 
       {/* Features Grid Section */}
-      <Suspense fallback={null}>
+      <Suspense>
         <FeaturesSection />
       </Suspense>
 
       {/* Coming Soon Section */}
-      <Suspense fallback={null}>
+      <Suspense>
         <ComingSoonSection />
       </Suspense>
 
       {/* Products Section */}
-      <Suspense fallback={null}>
+      <Suspense>
         <ProductsSection />
       </Suspense>
 
       {/* Community Section */}
       <section>
-        <Suspense fallback={null}>
+        <Suspense>
           <ContributorSection />
         </Suspense>
       </section>
 
       {/* Final CTA Section */}
-      <Suspense fallback={null}>
+      <Suspense>
         <FinalCTASection />
       </Suspense>
     </div>

@@ -82,7 +82,9 @@ history:
 
 ## React Router v7 एप्लिकेशन में Intlayer सेटअप करने के लिए चरण-दर-चरण मार्गदर्शिका
 
-### चरण 1: निर्भरताएँ स्थापित करें
+<Steps>
+
+<Step number={1} title="निर्भरताएँ स्थापित करें">
 
 अपनी पसंदीदा पैकेज मैनेजर का उपयोग करके आवश्यक पैकेज स्थापित करें:
 
@@ -121,7 +123,13 @@ bun x intlayer init
 - **vite-intlayer**  
   इसमें Vite प्लगइन शामिल है जो Intlayer को [Vite बंडलर](https://vite.dev/guide/why.html#why-bundle-for-production) के साथ एकीकृत करता है, साथ ही उपयोगकर्ता की पसंदीदा भाषा का पता लगाने, कुकीज़ प्रबंधित करने, और URL पुनर्निर्देशन को संभालने के लिए मिडलवेयर भी शामिल है।
 
-### चरण 2: अपने प्रोजेक्ट का कॉन्फ़िगरेशन
+</Step>
+
+<Step number={2} title="अपने प्रोजेक्ट का कॉन्फ़िगरेशन">
+
+</Step>
+
+</Steps>
 
 ## फ़ाइल-सिस्टम आधारित रूट्स के साथ React Router v7 एप्लिकेशन में Intlayer सेटअप करने के लिए चरण-दर-चरण मार्गदर्शिका
 
@@ -174,7 +182,9 @@ export default config;
 
 > इस कॉन्फ़िगरेशन फ़ाइल के माध्यम से, आप स्थानीयकृत URL, मिडलवेयर पुनर्निर्देशन, कुकी नाम, आपकी सामग्री घोषणाओं का स्थान और एक्सटेंशन, कंसोल में Intlayer लॉग को अक्षम करना, और भी बहुत कुछ सेट कर सकते हैं। उपलब्ध सभी पैरामीटर की पूरी सूची के लिए, [कॉन्फ़िगरेशन दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md) देखें।
 
-### चरण 3: अपने Vite कॉन्फ़िगरेशन में Intlayer को एकीकृत करें
+<Steps>
+
+<Step number={3} title="अपने Vite कॉन्फ़िगरेशन में Intlayer को एकीकृत करें">
 
 अपने कॉन्फ़िगरेशन में intlayer प्लगइन जोड़ें:
 
@@ -190,7 +200,9 @@ export default defineConfig({
 
 > `intlayer()` Vite प्लगइन का उपयोग Intlayer को Vite के साथ एकीकृत करने के लिए किया जाता है। यह सामग्री घोषणा फ़ाइलों के निर्माण को सुनिश्चित करता है और विकास मोड में उनकी निगरानी करता है। यह Vite एप्लिकेशन के भीतर Intlayer पर्यावरण चर को परिभाषित करता है। इसके अतिरिक्त, यह प्रदर्शन को अनुकूलित करने के लिए उपनाम प्रदान करता है।
 
-### चरण 4: React Router v7 रूट्स कॉन्फ़िगर करें
+</Step>
+
+<Step number={4} title="React Router v7 रूट्स कॉन्फ़िगर करें">
 
 अपने रूटिंग कॉन्फ़िगरेशन को स्थानीय-जानकारी वाले रूट्स के साथ सेट करें:
 
@@ -203,7 +215,9 @@ export default [
 ] satisfies RouteConfig;
 ```
 
-### चरण 5: लेआउट कंपोनेंट बनाएं
+</Step>
+
+<Step number={5} title="लेआउट कंपोनेंट बनाएं">
 
 अपने रूट लेआउट और स्थानीय-विशिष्ट लेआउट सेट करें:
 
@@ -257,7 +271,9 @@ export function Layout({
 }
 ```
 
-### चरण 6: अपनी सामग्री घोषित करें
+</Step>
+
+<Step number={6} title="अपनी सामग्री घोषित करें">
 
 अपनी अनुवादों को संग्रहीत करने के लिए अपनी सामग्री घोषणाएँ बनाएं और प्रबंधित करें:
 
@@ -297,7 +313,9 @@ export default pageContent;
 
 > अधिक विवरण के लिए, [सामग्री घोषणा प्रलेखन](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/content_file.md) देखें।
 
-### चरण 7: स्थानीय-जानकारी वाले घटक बनाएँ
+</Step>
+
+<Step number={7} title="स्थानीय-जानकारी वाले घटक बनाएँ">
 
 स्थानीय-जानकारी वाले नेविगेशन के लिए `LocalizedLink` घटक बनाएँ:
 
@@ -361,7 +379,9 @@ export const useLocalizedNavigate = () => {
 };
 ```
 
-### चरण 8: अपने पृष्ठों में Intlayer का उपयोग करें
+</Step>
+
+<Step number={8} title="अपने पृष्ठों में Intlayer का उपयोग करें">
 
 अपने एप्लिकेशन में अपने कंटेंट डिक्शनरीज़ तक पहुँचें:
 
@@ -415,7 +435,9 @@ export default function Page() {
 
 > यदि आपका ऐप पहले से मौजूद है, तो आप हजारों घटकों को एक सेकंड में बदलने के लिए [Intlayer कंपाइलर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/compiler.md) को [एक्सट्रैक्ट कमांड](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/extract.md) के साथ उपयोग कर सकते हैं।
 
-### चरण 9: एक लोकल स्विचर कंपोनेंट बनाएं
+</Step>
+
+<Step number={9} title="एक लोकल स्विचर कंपोनेंट बनाएं">
 
 उपयोगकर्ताओं को भाषाएँ बदलने की अनुमति देने के लिए एक कॉम्पोनेंट बनाएं:
 
@@ -476,7 +498,9 @@ export const LocaleSwitcher: FC = () => {
 
 > `useLocale` हुक के बारे में अधिक जानने के लिए, कृपया [दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/react-intlayer/useLocale.md) देखें।
 
-### चरण 10: HTML एट्रिब्यूट्स प्रबंधन जोड़ें (वैकल्पिक)
+</Step>
+
+<Step number={10} title="HTML एट्रिब्यूट्स प्रबंधन जोड़ें">
 
 HTML lang और dir एट्रिब्यूट्स को प्रबंधित करने के लिए एक हुक बनाएं:
 
@@ -514,7 +538,9 @@ export default function RootLayout() {
 }
 ```
 
-### (वैकल्पिक) कदम 1 : अपने घटकों की सामग्री निकालें
+</Step>
+
+<Step number={1} title="अपने घटकों की सामग्री निकालें" isOptional={true}>
 
 यदि आपके पास मौजूदा कोडबेस है, तो हजारों फ़ाइलों को बदलना समय लेने वाला हो सकता है।
 
@@ -612,6 +638,10 @@ bun run build # Or bun run dev
 
 ---
 
+</Step>
+
+</Steps>
+
 ## Configure TypeScript
 
 Intlayer uses module augmentation to get benefits of TypeScript and make your codebase stronger.
@@ -677,7 +707,9 @@ To go further, you can implement the [visual editor](https://github.com/aymericz
 
 This comprehensive guide provides everything you need to integrate Intlayer with React Router v7 for a fully internationalized application with locale-aware routing and TypeScript support.
 
-### चरण 11: मिडलवेयर जोड़ें (वैकल्पिक)
+<Steps>
+
+<Step number={11} title="मिडलवेयर जोड़ें">
 
 आप अपने एप्लिकेशन में सर्वर-साइड रूटिंग जोड़ने के लिए `intlayerProxy` का भी उपयोग कर सकते हैं। यह प्लगइन URL के आधार पर वर्तमान लोकल का स्वचालित रूप से पता लगाएगा और उपयुक्त लोकल कुकी सेट करेगा। यदि कोई लोकल निर्दिष्ट नहीं है, तो प्लगइन उपयोगकर्ता के ब्राउज़र भाषा प्राथमिकताओं के आधार पर सबसे उपयुक्त लोकल निर्धारित करेगा। यदि कोई लोकल पता नहीं चलता है, तो यह डिफ़ॉल्ट लोकल पर पुनः निर्देशित करेगा।
 
@@ -699,6 +731,10 @@ export default defineConfig({
 ```
 
 ---
+
+</Step>
+
+</Steps>
 
 ## टाइपस्क्रिप्ट कॉन्फ़िगर करें
 

@@ -97,7 +97,9 @@ history:
 
 ## دليل خطوة بخطوة لإعداد Intlayer في تطبيق Next.js باستخدام Page Router
 
-### الخطوة 1: تثبيت التبعيات
+<Steps>
+
+<Step number={1} title="تثبيت التبعيات">
 
 قم بتثبيت الحزم اللازمة باستخدام مدير الحزم المفضل لديك:
 
@@ -129,7 +131,9 @@ bun x intlayer init
 
   الحزمة التي تدمج Intlayer مع Next.js. توفر موفري السياق والخطافات (hooks) لتدويل Next.js. بالإضافة إلى ذلك، تتضمن إضافة Next.js لدمج Intlayer مع [Webpack](https://webpack.js.org/) أو [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack)، وكذلك وسيط (middleware) لاكتشاف اللغة المفضلة للمستخدم، وإدارة ملفات تعريف الارتباط (الكوكيز)، والتعامل مع إعادة توجيه عناوين URL.
 
-### الخطوة 2: تكوين مشروعك
+</Step>
+
+<Step number={2} title="تكوين مشروعك">
 
 قم بإنشاء ملف تكوين لتعريف اللغات المدعومة من تطبيقك:
 
@@ -153,7 +157,9 @@ export default config;
 
 > من خلال ملف التكوين هذا، يمكنك إعداد عناوين URL محلية، وإعادة توجيه الوسيط، وأسماء ملفات تعريف الارتباط، وموقع وامتداد إعلانات المحتوى الخاصة بك، وتعطيل سجلات Intlayer في وحدة التحكم، والمزيد. للحصول على قائمة كاملة بالمعلمات المتاحة، راجع [وثائق التكوين](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md).
 
-### الخطوة 3: دمج Intlayer مع تكوين Next.js
+</Step>
+
+<Step number={3} title="دمج Intlayer مع تكوين Next.js">
 
 قم بتعديل تكوين Next.js الخاص بك لدمج Intlayer:
 
@@ -170,7 +176,9 @@ export default withIntlayer(nextConfig);
 
 > يُستخدم مكون Next.js الإضافي `withIntlayer()` لدمج Intlayer مع Next.js. يضمن بناء ملفات إعلان المحتوى ومراقبتها في وضع التطوير. كما يعرّف متغيرات بيئة Intlayer ضمن بيئات [Webpack](https://webpack.js.org/) أو [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack). بالإضافة إلى ذلك، يوفر أسماء مستعارة لتحسين الأداء ويضمن التوافق مع مكونات الخادم.
 
-### الخطوة 4: تكوين الوسيط لاكتشاف اللغة
+</Step>
+
+<Step number={4} title="تكوين الوسيط لاكتشاف اللغة">
 
 قم بإعداد الوسيط لاكتشاف ومعالجة اللغة المفضلة للمستخدم تلقائيًا:
 
@@ -185,7 +193,9 @@ export const config = {
 
 > قم بتعديل معامل `matcher` ليتناسب مع مسارات تطبيقك. لمزيد من التفاصيل، راجع [وثائق Next.js حول تكوين matcher](https://nextjs.org/docs/app/building-your-application/routing/middleware).
 
-### الخطوة 5: تعريف مسارات اللغة الديناميكية
+</Step>
+
+<Step number={5} title="تعريف مسارات اللغة الديناميكية">
 
 قم بتنفيذ التوجيه الديناميكي لتقديم محتوى محلي بناءً على لغة المستخدم.
 
@@ -342,7 +352,9 @@ export const config = {
 
 > يضمن `getStaticPaths` و `getStaticProps` أن يقوم تطبيقك ببناء الصفحات اللازمة مسبقًا لجميع اللغات في موجه الصفحات Next.js. تقلل هذه الطريقة من الحسابات أثناء وقت التشغيل وتؤدي إلى تحسين تجربة المستخدم. لمزيد من التفاصيل، راجع توثيق Next.js حول [`getStaticPaths`](https://nextjs.org/docs/pages/building-your-application/data-fetching/get-static-paths) و [`getStaticProps`](https://nextjs.org/docs/pages/building-your-application/data-fetching/get-static-props).
 
-### الخطوة 6: إعلان المحتوى الخاص بك
+</Step>
+
+<Step number={6} title="إعلان المحتوى الخاص بك">
 
 قم بإنشاء وإدارة إعلانات المحتوى الخاصة بك لتخزين الترجمات.
 
@@ -399,7 +411,9 @@ export default homeContent;
 
 لمزيد من المعلومات حول إعلان المحتوى، راجع [دليل إعلان المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/content_file.md).
 
-### الخطوة 7: استخدام المحتوى في الكود الخاص بك
+</Step>
+
+<Step number={7} title="استخدام المحتوى في الكود الخاص بك">
 
 قم بالوصول إلى قواميس المحتوى الخاصة بك في جميع أنحاء تطبيقك لعرض المحتوى المترجم.
 
@@ -454,7 +468,9 @@ export const ComponentExample: FC = () => {
 
 > لمعرفة المزيد عن الخطاف `useIntlayer`، راجع [التوثيق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/next-intlayer/useIntlayer.md).
 
-### (اختياري) الخطوة 8: تدويل بيانات التعريف الخاصة بك
+</Step>
+
+<Step number={8} title="تدويل بيانات التعريف الخاصة بك" isOptional={true}>
 
 في حال رغبتك في تدويل بيانات التعريف الخاصة بك، مثل عنوان الصفحة، يمكنك استخدام دالة `getStaticProps` التي يوفرها Next.js Page Router. بداخلها، يمكنك استرجاع المحتوى من دالة `getIntlayer` لترجمة بيانات التعريف الخاصة بك.
 
@@ -673,7 +689,9 @@ export default HomePage;
 
 > تعرّف على المزيد حول تحسين البيانات الوصفية [في الوثائق الرسمية لـ Next.js](https://nextjs.org/docs/pages/building-your-application/optimizing/metadata).
 
-### (اختياري) الخطوة 9: تغيير لغة المحتوى الخاص بك
+</Step>
+
+<Step number={9} title="تغيير لغة المحتوى الخاص بك" isOptional={true}>
 
 لتغيير لغة المحتوى الخاص بك في Next.js، الطريقة الموصى بها هي استخدام مكون `Link` لإعادة توجيه المستخدمين إلى الصفحة المحلية المناسبة. يتيح مكون `Link` التحميل المسبق للصفحة، مما يساعد على تجنب إعادة تحميل الصفحة بالكامل.
 
@@ -766,7 +784,9 @@ return (
 > - [`dir` attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir)
 > - [`aria-current` attribute](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)
 
-### (اختياري) الخطوة 10: إنشاء مكون رابط محلي
+</Step>
+
+<Step number={10} title="إنشاء مكون رابط محلي" isOptional={true}>
 
 لضمان أن يتوافق تنقل تطبيقك مع اللغة الحالية، يمكنك إنشاء مكون `Link` مخصص. يقوم هذا المكون تلقائيًا بإضافة بادئة اللغة الحالية إلى عناوين URL الداخلية، بحيث عندما ينقر مستخدم يتحدث الفرنسية على رابط لصفحة "حول"، يتم توجيهه إلى `/fr/about` بدلاً من `/about`.
 
@@ -836,7 +856,9 @@ Link.displayName = "Link";
 
 من خلال دمج هذا المكون `Link` في جميع أنحاء تطبيقك، تحافظ على تجربة مستخدم متسقة وواعية باللغة، مع الاستفادة أيضًا من تحسين محركات البحث وسهولة الاستخدام.
 
-### (اختياري) الخطوة 11: تحسين حجم البندل الخاصة بك
+</Step>
+
+<Step number={11} title="تحسين حجم البندل الخاصة بك" isOptional={true}>
 
 عند استخدام `next-intlayer`، يتم تضمين القواميس في الحزمة لكل صفحة بشكل افتراضي. لتحسين حجم البندل، يوفر Intlayer إضافة SWC اختيارية تستبدل بشكل ذكي استدعاءات `useIntlayer` باستخدام الماكروز. هذا يضمن تضمين القواميس فقط في الحزم الخاصة بالصفحات التي تستخدمها فعليًا.
 
@@ -907,6 +929,10 @@ bun add @intlayer/swc --dev
 - **إجراءات سريعة** لإنشاء وتحديث الترجمات بسهولة.
 
 لمزيد من التفاصيل حول كيفية استخدام الإضافة، راجع [توثيق إضافة Intlayer لـ VS Code](https://intlayer.org/doc/vs-code-extension).
+
+</Step>
+
+</Steps>
 
 ## موارد إضافية
 

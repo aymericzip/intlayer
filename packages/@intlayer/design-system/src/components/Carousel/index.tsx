@@ -108,17 +108,15 @@ type CarouselItemProps = HTMLAttributes<HTMLDivElement> & {
   children: ReactNode;
 };
 
-const CarouselItem: FC<CarouselItemProps> = ({
-  children,
-  className,
-  ...props
-}) => {
-  return (
-    <div className={cn('h-full w-full', className)} {...props}>
-      {children}
-    </div>
+const CarouselItem: FC<CarouselItemProps> & { isCarouselItem: true } =
+  Object.assign(
+    ({ children, className, ...props }: CarouselItemProps) => (
+      <div className={cn('size-full', className)} {...props}>
+        {children}
+      </div>
+    ),
+    { isCarouselItem: true as const }
   );
-};
 
 // ------------------------------------------------------------------
 // Sub-Component: Indicators (Controller)
@@ -146,7 +144,7 @@ const CarouselIndicators: FC<CarouselIndicatorsProps> = ({
   return (
     <div
       className={cn(
-        'absolute bottom-4 left-1/2 z-50 flex -translate-x-1/2 flex-row items-center gap-2',
+        'absolute bottom-0 left-1/2 z-50 flex -translate-x-1/2 flex-row items-center gap-2 pb-4',
         className
       )}
       {...props}
@@ -249,7 +247,11 @@ const partitionCarouselChildren = (
   const others: ReactNode[] = [];
 
   children.forEach((child) => {
-    if (isValidElement(child) && child.type === CarouselItem) {
+    if (
+      isValidElement(child) &&
+      (child.type === CarouselItem ||
+        (child.type as { isCarouselItem?: boolean }).isCarouselItem === true)
+    ) {
       slides.push(child);
     } else {
       others.push(child);
@@ -352,10 +354,10 @@ const CarouselRoot: FC<CarouselProps> = ({
   const handleDragEnd = () => setIsDragging(false);
   const handleTouchStart: TouchEventHandler<HTMLDivElement> = (e) => {
     setIsDragging(true);
-    setStartX(e.touches[0].clientX);
+    setStartX(e.touches[0]!.clientX);
   };
   const handleTouchMove: TouchEventHandler<HTMLDivElement> = (e) => {
-    if (isDragging) handleSwitchItem(e.touches[0].clientX - startX);
+    if (isDragging) handleSwitchItem(e.touches[0]!.clientX - startX);
   };
 
   // Effects

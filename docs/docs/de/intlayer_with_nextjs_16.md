@@ -74,7 +74,8 @@ Siehe [Application Template](https://github.com/aymericzip/intlayer-next-16-temp
 
 Im Vergleich zu Hauptlösungen wie „next-intl“ oder „i18next“ ist Intlayer eine Lösung, die über integrierte Optimierungen verfügt wie:
 
-**Vollständige Next.js-Abdeckung**
+<AccordionGroup>
+<Accordion header="Vollständige Next.js-Abdeckung">
 
 Intlayer ist für die Zusammenarbeit mit **Serverkomponenten** für effizientes Rendern optimiert und vollständig kompatibel mit [**Turbopack**](https://nextjs.org/docs/architecture/turbopack). Es blockiert kein statisches Rendering und bietet Middleware sowie alle für die Skalierung der Internationalisierung erforderlichen Funktionen (i18n).
 
@@ -82,35 +83,46 @@ Intlayer ist für die Zusammenarbeit mit **Serverkomponenten** für effizientes 
 > Das Locale-Routing ist nützlich für SEO, Bundle-Größe und Leistung. Wenn Sie es nicht benötigen, können Sie auf diesen [Leitfaden] (https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_no_locale_path.md) verweisen.
 > Informationen zu Next.js 12, 13, 14 und 15 mit dem App Router finden Sie in dieser [Anleitung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_14.md).
 
-**Bundle-Größe**
+</Accordion>
+<Accordion header="Bundle-Größe">
 
 Anstatt riesige JSON-Dateien in Ihre Seiten zu laden, laden Sie nur den erforderlichen Inhalt. Intlayer hilft **Ihre Bundle- und Seitengröße um bis zu 50 % zu reduzieren**.
 
-**Wartbarkeit**
+</Accordion>
+<Accordion header="Wartbarkeit">
 
 Durch die Festlegung des Inhaltsbereichs Ihrer Anwendung wird die Wartung für umfangreiche Anwendungen erleichtert. Sie können einen einzelnen Feature-Ordner duplizieren oder löschen, ohne die mentale Belastung durch die Überprüfung Ihrer gesamten Inhaltscodebasis auf sich nehmen zu müssen. Darüber hinaus ist Intlayer **vollständig typisiert (fully typed)**, um die Genauigkeit Ihrer Inhalte sicherzustellen.
 
-**KI-Agent**
+</Accordion>
+<Accordion header="KI-Agent">
 
 Durch die gemeinsame Platzierung von Inhalten **reduziert sich der von Large Language Models (LLMs) benötigte Kontext**. Intlayer verfügt außerdem über eine Reihe von Tools, wie zum Beispiel eine **CLI** zum Testen auf fehlende Übersetzungen,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** und **[agent Fähigkeiten](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, um die Entwicklererfahrung (DX) für KI-Agenten noch reibungsloser zu gestalten.
 
-**Automatisierung**
+</Accordion>
+<Accordion header="Automatisierung">
 
 Nutzen Sie die Automatisierung, um Ihre CI/CD-Pipeline mit dem LLM Ihrer Wahl auf Kosten Ihres KI-Anbieters zu übersetzen. Intlayer bietet außerdem einen **Compiler** zur Automatisierung der Inhaltsextraktion sowie eine [Webplattform](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) zur Unterstützung der **Übersetzung im Hintergrund**.
 
-**Leistung**
+</Accordion>
+<Accordion header="Leistung">
 
 Das Verbinden großer JSON-Dateien mit Komponenten kann zu Leistungs- und Reaktivitätsproblemen führen. Intlayer optimiert das Laden Ihrer Inhalte zur Erstellungszeit.
 
-**Skalierung mit Nicht-Entwickler**
+</Accordion>
+<Accordion header="Skalierung mit Nicht-Entwickler">
 
 Intlayer ist mehr als nur eine i18n-Lösung. Es bietet einen **selbstgehosteten [visuellen Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** und ein **[vollständiges CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)**, um Ihnen zu helfen Verwalten Sie Ihre mehrsprachigen Inhalte in **Echtzeit** und gestalten Sie die Zusammenarbeit mit Übersetzern, Textern und anderen Teammitgliedern reibungslos. Inhalte können lokal und/oder remote gespeichert werden.
+
+</Accordion>
+</AccordionGroup>
 
 ---
 
 ## Schritt-für-Schritt-Anleitung zur Einrichtung von Intlayer in einer Next.js-Anwendung
 
-### Schritt 1: Abhängigkeiten installieren
+<Steps>
+
+<Step number={1} title="Abhängigkeiten installieren">
 
 Installieren Sie die notwendigen Pakete mit npm:
 
@@ -142,7 +154,9 @@ bun x intlayer init
 
   Das Paket, das Intlayer mit Next.js integriert. Es stellt Kontextanbieter und Hooks für die Internationalisierung in Next.js bereit. Zusätzlich enthält es das Next.js-Plugin zur Integration von Intlayer mit [Webpack](https://webpack.js.org/) oder [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack) sowie einen Proxy zur Erkennung der bevorzugten Sprache des Benutzers, zur Verwaltung von Cookies und zur Handhabung von URL-Weiterleitungen.
 
-### Schritt 2: Konfigurieren Sie Ihr Projekt
+</Step>
+
+<Step number={2} title="Konfigurieren Sie Ihr Projekt">
 
 Here is the final structure that we will make:
 
@@ -194,7 +208,9 @@ export default config;
 
 > Durch diese Konfigurationsdatei können Sie lokalisierte URLs, Proxy-Weiterleitungen, Cookie-Namen, den Speicherort und die Erweiterung Ihrer Inhaltsdeklarationen einrichten, Intlayer-Logs in der Konsole deaktivieren und vieles mehr. Für eine vollständige Liste der verfügbaren Parameter lesen Sie bitte die [Konfigurationsdokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/configuration.md).
 
-### Schritt 3: Integrieren Sie Intlayer in Ihre Next.js-Konfiguration
+</Step>
+
+<Step number={3} title="Integrieren Sie Intlayer in Ihre Next.js-Konfiguration">
 
 Konfigurieren Sie Ihre Next.js-Umgebung, um Intlayer zu verwenden:
 
@@ -237,7 +253,9 @@ export default withIntlayer(nextConfig);
 > withRspack(withIntlayer(nextConfig, { enableTurbopack: false }));
 > ```
 
-### Schritt 4: Definieren Sie dynamische Locale-Routen
+</Step>
+
+<Step number={4} title="Definieren Sie dynamische Locale-Routen">
 
 Entfernen Sie alles aus `RootLayout` und ersetzen Sie es durch den folgenden Code:
 
@@ -354,7 +372,9 @@ module.exports = { default: LocaleLayout, generateStaticParams };
 >
 > Intlayer arbeitet mit `export const dynamic = 'force-static';`, um sicherzustellen, dass die Seiten für alle Sprachen vorab erstellt werden.
 
-### Schritt 5: Deklarieren Sie Ihre Inhalte
+</Step>
+
+<Step number={5} title="Deklarieren Sie Ihre Inhalte">
 
 Erstellen und verwalten Sie Ihre Inhaltsdeklarationen, um Übersetzungen zu speichern:
 
@@ -400,7 +420,9 @@ export default pageContent;
 
 > Für weitere Details siehe die [Dokumentation zur Inhaltsdeklaration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/content_file.md).
 
-### Schritt 6: Inhalte in Ihrem Code verwenden
+</Step>
+
+<Step number={6} title="Inhalte in Ihrem Code verwenden">
 
 Greifen Sie in Ihrer gesamten Anwendung auf Ihre Inhaltswörterbücher zu:
 
@@ -492,7 +514,9 @@ export const ServerComponentExample: FC = () => {
 
 > Wenn Ihre App bereits existiert, können Sie den [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/compiler.md) sowie den [Extraktionsbefehl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/cli/extract.md) verwenden, um Tausende von Komponenten in einer Sekunde zu transformieren.
 
-### (Optional) Schritt 7: Proxy für die Lokalerkennung konfigurieren
+</Step>
+
+<Step number={7} title="Proxy für die Lokalerkennung konfigurieren" isOptional={true}>
 
 Richten Sie einen Proxy ein, um die bevorzugte Sprache des Benutzers zu erkennen:
 
@@ -516,7 +540,9 @@ import { customProxy } from "@utils/customProxy";
 export const proxy = multipleProxies([intlayerProxy, customProxy]);
 ```
 
-### (Optional) Schritt 8: Internationalisierung Ihrer Metadaten
+</Step>
+
+<Step number={8} title="Internationalisierung Ihrer Metadaten" isOptional={true}>
 
 Falls Sie Ihre Metadaten internationalisieren möchten, wie zum Beispiel den Titel Ihrer Seite, können Sie die von Next.js bereitgestellte Funktion `generateMetadata` verwenden. Innerhalb dieser Funktion können Sie den Inhalt aus der Funktion `getIntlayer` abrufen, um Ihre Metadaten zu übersetzen.
 
@@ -653,7 +679,9 @@ export const generateMetadata = async ({
 
 > Erfahren Sie mehr über die Optimierung von Metadaten [in der offiziellen Next.js-Dokumentation](https://nextjs.org/docs/app/building-your-application/optimizing/metadata).
 
-### (Optional) Schritt 9: Internationalisierung Ihrer sitemap.xml und robots.txt
+</Step>
+
+<Step number={9} title="Internationalisierung Ihrer sitemap.xml und robots.txt" isOptional={true}>
 
 Um Ihre `sitemap.xml` und `robots.txt` zu internationalisieren, können Sie die von Intlayer bereitgestellte Funktion `getMultilingualUrls` verwenden. Diese Funktion ermöglicht es Ihnen, mehrsprachige URLs für Ihre Sitemap zu generieren.
 
@@ -717,7 +745,9 @@ export default robots;
 
 > Erfahren Sie mehr über die Sitemap-Optimierung [in der offiziellen Next.js-Dokumentation](https://nextjs.org/docs/app/api-reference/file-conventions/metadata/sitemap). Erfahren Sie mehr über die robots.txt-Optimierung [in der offiziellen Next.js-Dokumentation](https://nextjs.org/docs/app/api-reference/file-conventions/metadata/robots).
 
-### (Optional) Schritt 10: Ändern Sie die Sprache Ihres Inhalts
+</Step>
+
+<Step number={10} title="Ändern Sie die Sprache Ihres Inhalts" isOptional={true}>
 
 Um die Sprache Ihres Inhalts in Next.js zu ändern, wird empfohlen, die `Link`-Komponente zu verwenden, um Benutzer auf die entsprechende lokalisierte Seite weiterzuleiten. Die `Link`-Komponente ermöglicht das Vorladen der Seite, was hilft, ein vollständiges Neuladen der Seite zu vermeiden.
 
@@ -812,7 +842,9 @@ return (
 > - [`dir` Attribut](https://developer.mozilla.org/de/docs/Web/HTML/Global_attributes/dir)
 > - [`aria-current` Attribut](https://developer.mozilla.org/de/docs/Web/Accessibility/ARIA/Attributes/aria-current)
 
-### (Optional) Schritt 11: Erstellen einer lokalisierten Link-Komponente
+</Step>
+
+<Step number={11} title="Erstellen einer lokalisierten Link-Komponente" isOptional={true}>
 
 Um sicherzustellen, dass die Navigation Ihrer Anwendung die aktuelle Sprache berücksichtigt, können Sie eine benutzerdefinierte `Link`-Komponente erstellen. Diese Komponente fügt internen URLs automatisch das aktuelle Sprachpräfix hinzu. Zum Beispiel wird ein französischsprachiger Benutzer, der auf einen Link zur "Über uns"-Seite klickt, zu `/fr/about` anstelle von `/about` weitergeleitet.
 
@@ -880,7 +912,9 @@ export const Link: FC<PropsWithChildren<NextLinkProps>> = ({
 
 Durch die Integration dieser `Link`-Komponente in Ihre gesamte Anwendung gewährleisten Sie eine kohärente und sprachbewusste Benutzererfahrung und profitieren gleichzeitig von verbesserter SEO und Benutzerfreundlichkeit.
 
-### (Optional) Schritt 12: Die aktuelle Locale in Server Actions abrufen
+</Step>
+
+<Step number={12} title="Die aktuelle Locale in Server Actions abrufen" isOptional={true}>
 
 Wenn Sie die aktive Locale innerhalb einer Server Action benötigen (z. B. um E-Mails zu lokalisieren oder locale-spezifische Logik auszuführen), rufen Sie `getLocale` aus `next-intlayer/server` auf:
 
@@ -905,7 +939,9 @@ export const myServerAction = async () => {
 >
 > Dies stellt sicher, dass basierend auf dem verfügbaren Kontext das passendste Locale ausgewählt wird.
 
-### (Optional) Schritt 13: Optimieren Sie Ihre Bundle-Größe
+</Step>
+
+<Step number={13} title="Optimieren Sie Ihre Bundle-Größe" isOptional={true}>
 
 Beim Verwenden von `next-intlayer` werden Wörterbücher standardmäßig in das Bundle für jede Seite aufgenommen. Um die Bundle-Größe zu optimieren, bietet Intlayer ein optionales SWC-Plugin an, das `useIntlayer`-Aufrufe mithilfe von Makros intelligent ersetzt. Dies stellt sicher, dass Wörterbücher nur in Bundles für Seiten enthalten sind, die sie tatsächlich verwenden.
 
@@ -997,7 +1033,9 @@ Diese Erweiterung bietet:
 
 Für weitere Details zur Nutzung der Erweiterung siehe die [Intlayer VS Code Extension Dokumentation](https://intlayer.org/doc/vs-code-extension).
 
-### (Optional) Schritt 14 : Inhalt Ihrer Komponenten extrahieren
+</Step>
+
+<Step number={14} title="Inhalt Ihrer Komponenten extrahieren" isOptional={true}>
 
 Wenn Sie eine bestehende Codebasis haben, kann die Transformation von Tausenden von Dateien zeitaufwendig sein.
 
@@ -1115,3 +1153,7 @@ zur Einrichtung von Intlayer in einer Next.js-Anwendung
 ### Weiterführende Schritte
 
 Um weiterzugehen, können Sie den [visuellen Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_visual_editor.md) implementieren oder Ihre Inhalte mit dem [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_CMS.md) auslagern.
+
+</Step>
+
+</Steps>

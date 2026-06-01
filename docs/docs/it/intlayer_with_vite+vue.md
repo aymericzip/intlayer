@@ -34,33 +34,43 @@ Consulta il [Template dell'Applicazione](https://github.com/aymericzip/intlayer-
 
 Rispetto alle soluzioni principali come `vue-i18n` o `i18next`, Intlayer è una soluzione dotata di ottimizzazioni integrate come:
 
-**Copertura completa di Vue**
+<AccordionGroup>
+<Accordion header="Copertura completa di Vue">
 
 Intlayer è ottimizzato per funzionare perfettamente con Vue offrendo **ambito del contenuto a livello di componente**, **traduzioni reattive** e tutte le funzionalità necessarie per ridimensionare l'internazionalizzazione (i18n).
 
-**Dimensione del bundle**
+</Accordion>
+<Accordion header="Dimensione del bundle">
 
 Invece di caricare enormi file JSON nelle tue pagine, carica solo il contenuto necessario. Intlayer aiuta a **ridurre le dimensioni del bundle e della pagina fino al 50%**.
 
-**Manutenibilità**
+</Accordion>
+<Accordion header="Manutenibilità">
 
 L'ambito del contenuto dell'applicazione **facilita la manutenzione** per applicazioni su larga scala. Puoi duplicare o eliminare una singola cartella di funzionalità senza l'onere mentale di rivedere l'intera codebase dei contenuti. Inoltre, Intlayer è **completamente tipizzato (fully typed)** per garantire l'accuratezza dei tuoi contenuti.
 
-**Agente IA**
+</Accordion>
+<Accordion header="Agente IA">
 
 La co-localizzazione dei contenuti **riduce il contesto necessario** dai Large Language Models (LLM). Intlayer viene fornito anche con una suite di strumenti, come una **CLI** per verificare le traduzioni mancanti,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** e **[capacità dell'agente](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, per rendere l'esperienza dello sviluppatore (DX) ancora più fluida per gli agenti IA.
 
-**Automazione**
+</Accordion>
+<Accordion header="Automazione">
 
 Utilizza l'automazione per tradurre nella tua pipeline CI/CD utilizzando il LLM di tua scelta al costo del tuo provider di intelligenza artificiale. Intlayer offre anche un **compilatore** per automatizzare l'estrazione dei contenuti, nonché una [piattaforma web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) per aiutare a **tradurre in background**.
 
-**Prestazione**
+</Accordion>
+<Accordion header="Prestazione">
 
 La connessione di enormi file JSON ai componenti può portare a problemi di prestazioni e reattività. Intlayer ottimizza il caricamento dei contenuti in fase di compilazione.
 
-**Scalabilità con nessuno sviluppatore**
+</Accordion>
+<Accordion header="Scalabilità con nessuno sviluppatore">
 
 Più di una semplice soluzione i18n, Intlayer fornisce un **[editor visivo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** self-hosted e un **[CMS completo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** per aiutarti gestisci i tuoi contenuti multilingue in **tempo reale**, semplificando la collaborazione con traduttori, copywriter e altri membri del team. I contenuti possono essere archiviati localmente e/o in remoto.
+
+</Accordion>
+</AccordionGroup>
 
 ---
 
@@ -87,7 +97,9 @@ Più di una semplice soluzione i18n, Intlayer fornisce un **[editor visivo](http
 
 Vedi il [Modello di Applicazione](https://github.com/aymericzip/intlayer-vite-vue-template) su GitHub.
 
-### Passo 1: Installa le dipendenze
+<Steps>
+
+<Step number={1} title="Installa le dipendenze">
 
 Installa i pacchetti necessari usando npm:
 
@@ -125,7 +137,9 @@ bun x intlayer init
 - **vite-intlayer**
   Include il plugin Vite per integrare Intlayer con il [bundler Vite](https://vite.dev/guide/why.html#why-bundle-for-production), oltre a middleware per rilevare la lingua preferita dall'utente, gestire i cookie e gestire il reindirizzamento degli URL.
 
-### Passo 2: Configurazione del tuo progetto
+</Step>
+
+<Step number={2} title="Configurazione del tuo progetto">
 
 Crea un file di configurazione per configurare le lingue della tua applicazione:
 
@@ -149,7 +163,9 @@ export default config;
 
 > Attraverso questo file di configurazione, puoi impostare URL localizzati, reindirizzamenti middleware, nomi dei cookie, la posizione e l'estensione delle tue dichiarazioni di contenuto, disabilitare i log di Intlayer nella console e altro ancora. Per un elenco completo dei parametri disponibili, consulta la [documentazione di configurazione](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/configuration.md).
 
-### Passo 3: Integra Intlayer nella tua configurazione Vite
+</Step>
+
+<Step number={3} title="Integra Intlayer nella tua configurazione Vite">
 
 Aggiungi il plugin intlayer nella tua configurazione.
 
@@ -166,7 +182,9 @@ export default defineConfig({
 
 > Il plugin Vite `intlayer()` viene utilizzato per integrare Intlayer con Vite. Garantisce la creazione dei file di dichiarazione dei contenuti e li monitora in modalità sviluppo. Definisce le variabili d'ambiente di Intlayer all'interno dell'applicazione Vite. Inoltre, fornisce alias per ottimizzare le prestazioni.
 
-### Passo 4: Dichiara il Tuo Contenuto
+</Step>
+
+<Step number={4} title="Dichiara il Tuo Contenuto">
 
 Crea e gestisci le tue dichiarazioni di contenuto per memorizzare le traduzioni:
 
@@ -292,7 +310,9 @@ export default helloWorldContent;
 
 > Per maggiori dettagli, consulta la [documentazione sulle dichiarazioni di contenuto](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/content_file.md).
 
-### Passo 5: Utilizzare Intlayer nel tuo Codice
+</Step>
+
+<Step number={5} title="Utilizzare Intlayer nel tuo Codice">
 
 Per utilizzare le funzionalità di internazionalizzazione di Intlayer in tutta la tua applicazione Vue, devi prima registrare l'istanza singleton di Intlayer nel tuo file principale. Questo passaggio è cruciale in quanto fornisce il contesto di internazionalizzazione a tutti i componenti della tua applicazione, rendendo le traduzioni accessibili ovunque nel tuo albero dei componenti.
 
@@ -384,7 +404,9 @@ Intlayer offre diverse API per accedere ai tuoi contenuti:
 
 > Se la tua app esiste già, puoi utilizzare l' [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/compiler.md) in combinazione con il [comando extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/cli/extract.md) per convertire migliaia di componenti in un secondo.
 
-### (Opzionale) Passo 6: Cambiare la lingua del tuo contenuto
+</Step>
+
+<Step number={6} title="Cambiare la lingua del tuo contenuto" isOptional={true}>
 
 Per cambiare la lingua del tuo contenuto, puoi usare la funzione `setLocale` fornita dal composable `useLocale`. Questa funzione ti permette di impostare la localizzazione dell'applicazione e aggiornare di conseguenza il contenuto.
 
@@ -451,7 +473,9 @@ const content = useIntlayer("app"); // Crea il file di dichiarazione intlayer co
 </template>
 ```
 
-### (Opzionale) Passo 7: Aggiungi il Routing localizzato alla tua applicazione
+</Step>
+
+<Step number={7} title="Aggiungi il Routing localizzato alla tua applicazione" isOptional={true}>
 
 Aggiungere il routing localizzato in un'applicazione Vue generalmente comporta l'uso di Vue Router con prefissi di localizzazione. Questo crea percorsi unici per ogni lingua, utile per la SEO e URL amichevoli per i motori di ricerca.
 
@@ -582,7 +606,9 @@ export default defineConfig({
 });
 ```
 
-### (Opzionale) Passo 8: Cambiare l'URL quando la lingua cambia
+</Step>
+
+<Step number={8} title="Cambiare l'URL quando la lingua cambia" isOptional={true}>
 
 Per aggiornare automaticamente l'URL quando l'utente cambia lingua, puoi modificare il componente `LocaleSwitcher` per usare Vue Router:
 
@@ -672,7 +698,9 @@ Suggerimento: Per una migliore SEO e accessibilità, usa tag come `<a href="/fr/
 </ol>
 ```
 
-### (Opzionale) Passo 9: Cambiare gli attributi di lingua e direzione dell'HTML
+</Step>
+
+<Step number={9} title="Cambiare gli attributi di lingua e direzione dell'HTML" isOptional={true}>
 
 Quando la tua applicazione supporta più lingue, è fondamentale aggiornare gli attributi `lang` e `dir` del tag `<html>` per corrispondere alla locale corrente. Questo garantisce:
 
@@ -732,7 +760,9 @@ useI18nHTMLAttributes();
 </template>
 ```
 
-### (Opzionale) Passo 10: Creare un Componente Link Localizzato
+</Step>
+
+<Step number={10} title="Creare un Componente Link Localizzato" isOptional={true}>
 
 Per garantire che la navigazione della tua applicazione rispetti la lingua corrente, puoi creare un componente `Link` personalizzato. Questo componente aggiunge automaticamente il prefisso della lingua corrente agli URL interni. Ad esempio, quando un utente francofono clicca su un link alla pagina "About", viene reindirizzato a `/fr/about` invece che a `/about`.
 
@@ -831,7 +861,9 @@ import RouterLink from "@components/RouterLink.vue";
 </script>
 ```
 
-### (Opzionale) Passo 11: Renderizzare Markdown
+</Step>
+
+<Step number={11} title="Renderizzare Markdown" isOptional={true}>
 
 Intlayer supporta il rendering del contenuto Markdown direttamente nella tua applicazione Vue. Per impostazione predefinita, il Markdown viene trattato come testo semplice. Per convertire il Markdown in HTML ricco, puoi integrare [markdown-it](https://github.com/markdown-it/markdown-it), un parser Markdown.
 
@@ -949,7 +981,9 @@ Per maggiori dettagli su come utilizzare l’estensione, consulta la [documentaz
 
 ---
 
-### (Opzionale) Passaggio 1 : Estrarre il contenuto dei tuoi componenti
+</Step>
+
+<Step number={1} title="Estrarre il contenuto dei tuoi componenti" isOptional={true}>
 
 Se hai una base di codice esistente, trasformare migliaia di file può richiedere molto tempo.
 
@@ -1124,3 +1158,7 @@ Adatta i comandi se usi pnpm o yarn. Puoi anche richiamare lo script dalla CI o 
 Per approfondire, puoi implementare l’[editor visuale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_visual_editor.md) oppure esternalizzare i tuoi contenuti utilizzando il [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_CMS.md).
 
 ---
+
+</Step>
+
+</Steps>

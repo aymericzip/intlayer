@@ -110,7 +110,9 @@ history:
 
 ## دليل خطوة بخطوة لإعداد Intlayer في تطبيق Next.js
 
-### الخطوة 1: تثبيت التبعيات
+<Steps>
+
+<Step number={1} title="تثبيت التبعيات">
 
 قم بتثبيت الحزم اللازمة باستخدام npm:
 
@@ -142,7 +144,9 @@ bun x intlayer init
 
   الحزمة التي تدمج Intlayer مع Next.js. توفر موفري السياق وخطافات (hooks) للتدويل في Next.js. بالإضافة إلى ذلك، تتضمن إضافة Next.js لدمج Intlayer مع [Webpack](https://webpack.js.org/) أو [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack)، بالإضافة إلى وكيل لاكتشاف اللغة المفضلة للمستخدم، وإدارة ملفات تعريف الارتباط، والتعامل مع إعادة توجيه عناوين URL.
 
-### الخطوة 2: تكوين مشروعك
+</Step>
+
+<Step number={2} title="تكوين مشروعك">
 
 إليك الهيكل النهائي الذي سنقوم بإنشائه:
 
@@ -194,7 +198,9 @@ export default config;
 
 > من خلال ملف التهيئة هذا، يمكنك إعداد عناوين URL محلية، إعادة توجيه البروكسي، أسماء ملفات تعريف الارتباط، موقع وامتداد إعلانات المحتوى الخاصة بك، تعطيل سجلات Intlayer في وحدة التحكم، والمزيد. للحصول على قائمة كاملة بالمعلمات المتاحة، راجع [توثيق التهيئة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md).
 
-### الخطوة 3: دمج Intlayer في تهيئة Next.js الخاصة بك
+</Step>
+
+<Step number={3} title="دمج Intlayer في تهيئة Next.js الخاصة بك">
 
 قم بتكوين إعداد Next.js الخاص بك لاستخدام Intlayer:
 
@@ -237,7 +243,9 @@ export default withIntlayer(nextConfig);
 > withRspack(withIntlayer(nextConfig, { enableTurbopack: false }));
 > ```
 
-### الخطوة 4: تعريف مسارات اللغة الديناميكية
+</Step>
+
+<Step number={4} title="تعريف مسارات اللغة الديناميكية">
 
 قم بإزالة كل شيء من `RootLayout` واستبداله بالكود التالي:
 
@@ -300,7 +308,9 @@ export default LocaleLayout;
 
 > يعمل Intlayer مع `export const dynamic = 'force-static';` لضمان بناء الصفحات مسبقًا لجميع اللغات.
 
-### الخطوة 5: إعلان المحتوى الخاص بك
+</Step>
+
+<Step number={5} title="إعلان المحتوى الخاص بك">
 
 قم بإنشاء وإدارة إعلانات المحتوى الخاصة بك لتخزين الترجمات:
 
@@ -346,7 +356,9 @@ export default pageContent;
 
 > لمزيد من التفاصيل، راجع [توثيق إعلان المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/content_file.md).
 
-### الخطوة 6: استخدام المحتوى في كودك
+</Step>
+
+<Step number={6} title="استخدام المحتوى في كودك">
 
 يمكنك الوصول إلى قواميس المحتوى الخاصة بك في جميع أنحاء تطبيقك:
 
@@ -435,7 +447,9 @@ export const ServerComponentExample: FC = () => {
 
 > إذا كان تطبيقك موجودًا بالفعل، يمكنك استخدام [مترجم Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compiler.md)، بالإضافة إلى [أمر الاستخراج](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/extract.md)، لتحويل آلاف المكونات في ثانية واحدة.
 
-### (اختياري) الخطوة 7: تكوين الوكيل لاكتشاف اللغة
+</Step>
+
+<Step number={7} title="تكوين الوكيل لاكتشاف اللغة" isOptional={true}>
 
 قم بإعداد وكيل لاكتشاف اللغة المفضلة للمستخدم:
 
@@ -459,7 +473,9 @@ import { customProxy } from "@utils/customProxy";
 export const proxy = multipleProxies([intlayerProxy, customProxy]);
 ```
 
-### (اختياري) الخطوة 8: تدويل بيانات التعريف الخاصة بك
+</Step>
+
+<Step number={8} title="تدويل بيانات التعريف الخاصة بك" isOptional={true}>
 
 في حال رغبتك في تدويل بيانات التعريف الخاصة بك، مثل عنوان الصفحة، يمكنك استخدام دالة `generateMetadata` المقدمة من Next.js. بداخلها، يمكنك استرجاع المحتوى من دالة `getIntlayer` لترجمة بيانات التعريف الخاصة بك.
 
@@ -594,7 +610,9 @@ export const generateMetadata = async ({
 
 > تعرّف على المزيد حول تحسين بيانات التعريف [في الوثائق الرسمية لـ Next.js](https://nextjs.org/docs/app/building-your-application/optimizing/metadata).
 
-### (اختياري) الخطوة 9: تعريب ملف sitemap.xml و robots.txt الخاص بك
+</Step>
+
+<Step number={9} title="تعريب ملف sitemap.xml و robots.txt الخاص بك" isOptional={true}>
 
 لتعريب ملفي `sitemap.xml` و `robots.txt`، يمكنك استخدام دالة `getMultilingualUrls` المقدمة من Intlayer. تتيح لك هذه الدالة إنشاء روابط متعددة اللغات لخريطة الموقع الخاصة بك.
 
@@ -657,7 +675,9 @@ export default robots;
 
 > تعرّف على المزيد حول تحسين خريطة الموقع [في الوثائق الرسمية لـ Next.js](https://nextjs.org/docs/app/api-reference/file-conventions/metadata/sitemap). تعرّف على المزيد حول تحسين ملف robots.txt [في الوثائق الرسمية لـ Next.js](https://nextjs.org/docs/app/api-reference/file-conventions/metadata/robots).
 
-### (اختياري) الخطوة 10: تغيير لغة المحتوى الخاص بك
+</Step>
+
+<Step number={10} title="تغيير لغة المحتوى الخاص بك" isOptional={true}>
 
 لتغيير لغة المحتوى الخاص بك في Next.js، الطريقة الموصى بها هي استخدام مكون `Link` لإعادة توجيه المستخدمين إلى الصفحة المحلية المناسبة. يتيح مكون `Link` التحميل المسبق للصفحة، مما يساعد على تجنب إعادة تحميل الصفحة بالكامل.
 
@@ -752,7 +772,9 @@ return (
 > - [`dir` attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir)
 > - [`aria-current` attribute](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)
 
-### (اختياري) الخطوة 11: إنشاء مكون رابط محلي (Localized Link Component)
+</Step>
+
+<Step number={11} title="إنشاء مكون رابط محلي" isOptional={true}>
 
 للتأكد من أن التنقل في تطبيقك يحترم اللغة الحالية، يمكنك إنشاء مكون `Link` مخصص. يقوم هذا المكون تلقائيًا ببادئة عناوين URL الداخلية باللغة الحالية. على سبيل المثال، عندما ينقر مستخدم يتحدث الفرنسية على رابط لصفحة "حول"، يتم توجيهه إلى `/fr/about` بدلاً من `/about`.
 
@@ -804,7 +826,9 @@ export const Link: FC<PropsWithChildren<NextLinkProps>> = ({
 };
 ```
 
-### (اختياري) خطوة 1 : استخراج محتوى مكوناتك
+</Step>
+
+<Step number={1} title="استخراج محتوى مكوناتك" isOptional={true}>
 
 إذا كان لديك قاعدة بيانات كود موجودة، فقد يكون تحويل آلاف الملفات مستهلكًا للوقت.
 
@@ -932,3 +956,7 @@ bun run build # Or bun run dev
   يعيد المكون عنصر `<a>` مع عنوان URL المحلي، مما يضمن أن التنقل يتوافق مع اللغة.
 
 من خلال دمج مكون `Link` هذا عبر تطبيقك، فإنك تحافظ على تجربة مستخدم متماسكة وواعية باللغة مع الاستفادة أيضًا من تحسين محركات البحث وسهولة الاستخدام.
+
+</Step>
+
+</Steps>

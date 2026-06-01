@@ -157,7 +157,7 @@ export const SwitchSelector = <T,>(props: SwitchSelectorProps<T>) => {
       role="tablist"
       aria-disabled={disabled ? 'true' : undefined}
     >
-      <div className="relative flex h-full w-full flex-row items-center justify-center">
+      <div className="relative flex size-full flex-row items-center justify-center">
         {choices.map((choice, index) => {
           const { content, value, ...buttonProps } = choice;
 

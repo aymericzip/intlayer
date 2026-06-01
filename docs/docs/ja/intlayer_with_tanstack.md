@@ -126,11 +126,15 @@ Intlayer は単なる i18n ソリューションではなく、**自己ホスト
 
 GitHubの[アプリケーションテンプレート](https://github.com/aymericzip/intlayer-tanstack-start-template)を参照してください。
 
-### ステップ 1: プロジェクトの作成
+<Steps>
+
+<Step number={1} title="プロジェクトの作成">
 
 まず、TanStack Startウェブサイトの[プロジェクトの開始](https://tanstack.com/start/latest/docs/framework/react/quick-start)ガイドに従って、新しいTanStack Startプロジェクトを作成します。
 
-### ステップ 2: Intlayerパッケージのインストール
+</Step>
+
+<Step number={2} title="Intlayerパッケージのインストール">
 
 好みのパッケージマネージャーを使用して、必要なパッケージをインストールします：
 
@@ -168,7 +172,9 @@ bun x intlayer init
 - **vite-intlayer**
   Intlayerを[Viteバンミラー](https://vite.dev/guide/why.html#why-bundle-for-production)と統合するためのViteプラグイン、およびユーザーの優先ロケールの検出、クッキーの管理、URLリダイレクトの処理のためのミドルウェアが含まれています。
 
-### ステップ 3: プロジェクトの構成
+</Step>
+
+<Step number={3} title="プロジェクトの構成">
 
 アプリケーションの言語を構成するための設定ファイルを作成します：
 
@@ -189,7 +195,9 @@ export default config;
 
 > この構成ファイルを通じて、ローカライズされたURL、ミドルウェアのリダイレクト、クッキー名、コンテンツ宣言の場所と拡張子、コンソールでのIntlayerログの無効化などを設定できます。利用可能なパラメータの完全なリストについては、[構成ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)を参照してください。
 
-### ステップ 4: Vite構成へのIntlayerの統合
+</Step>
+
+<Step number={4} title="Vite構成へのIntlayerの統合">
 
 構成にintlayerプラグインを追加します：
 
@@ -219,7 +227,9 @@ export default config;
 
 > `intlayer()` Viteプラグインは、IntlayerをViteと統合するために使用されます。コンテンツ宣言ファイルの構築を確実にし、開発モードでそれらを監視します。Viteアプリケーション内でIntlayer環境変数を定義します。さらに、パフォーマンスを最適化するためのエイリアスを提供します。
 
-### ステップ 5: ルートレイアウトの作成
+</Step>
+
+<Step number={5} title="ルートレイアウトの作成">
 
 `useParams`を使用して現在のロケールを検出し、`html`タグに`lang`および`dir`属性を設定することで、国際化をサポートするようにルートレイアウトを構成します。
 
@@ -279,7 +289,9 @@ function RootDocument({ children }: { children: ReactNode }) {
 > <img src="{String(content.image.src)}" alt="{String(content.image)}" />
 > ```
 
-### ステップ 6: ロケールレイアウトの作成
+</Step>
+
+<Step number={6} title="ロケールレイアウトの作成">
 
 ロケール接頭辞を処理し、検証を実行するレイアウトを作成します。
 
@@ -311,7 +323,9 @@ export const Route = createFileRoute("/{-$locale}")({
 > `'prefix-all'`モードの場合、スロットを`$locale`に切り替えることをお勧めします。
 > `'no-prefix'`または`'search-params'`モードの場合、スロットを完全に削除できます。
 
-### ステップ 7: コンテンツの宣言
+</Step>
+
+<Step number={7} title="コンテンツの宣言">
 
 翻訳を保存するためのコンテンツ宣言を作成および管理します：
 
@@ -361,7 +375,9 @@ export default appContent;
 
 > 詳細については、[コンテンツ宣言ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/content_file.md)を参照してください。
 
-### ステップ 8: ロケール対応コンポーネントとフックの作成
+</Step>
+
+<Step number={8} title="ロケール対応コンポーネントとフックの作成">
 
 ロケール対応のナビゲーションのための `LocalizedLink` コンポーネントを作成します：
 
@@ -465,7 +481,9 @@ export const useLocalizedNavigate = () => {
 };
 ```
 
-### ステップ 9: ページでのIntlayerの利用
+</Step>
+
+<Step number={9} title="ページでのIntlayerの利用">
 
 アプリケーション全体でコンテンツ辞書にアクセスします：
 
@@ -550,7 +568,9 @@ function RouteComponent() {
 
 > `useIntlayer`フックの詳細については、[ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/react-intlayer/useIntlayer.md)を参照してください。
 
-### ステップ 10: ロケールスイッチャーコンポーネントの作成
+</Step>
+
+<Step number={10} title="ロケールスイッチャーコンポーネントの作成">
 
 ユーザーが言語を変更できるようにするコンポーネントを作成します：
 
@@ -611,7 +631,9 @@ export const LocaleSwitcher: FC = () => {
 
 > `useLocale`フックの詳細については、[ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/react-intlayer/useLocale.md)を参照してください。
 
-### ステップ 11: HTML属性の管理
+</Step>
+
+<Step number={11} title="HTML属性の管理">
 
 ステップ 5 で見たように、ルートコンポーネントで `useParams` を使用して `html` タグの `lang` および `dir` 属性を管理できます。これにより、サーバーとクライアントで正しい属性が設定されるようになります。
 
@@ -630,7 +652,9 @@ function RootDocument({ children }: { children: ReactNode }) {
 
 ---
 
-### ステップ 12: ミドルウェアの追加 (オプション)
+</Step>
+
+<Step number={12} title="ミドルウェアの追加">
 
 `intlayerProxy`を使用して、アプリケーションにサーバーサイドのルーティングを追加することもできます。このプラグインは、URLに基づいて現在のロケールを自動的に検出し、適切なロケールクッキーを設定します。ロケールが指定されていない場合、ユーザーのブラウザの言語設定に基づいて最も適切なロケールを決定します。ロケールが検出されない場合は、デフォルトのロケールにリダイレクトされます。
 
@@ -661,7 +685,9 @@ export default defineConfig({
 
 ---
 
-### ステップ 12: メタデータの国際化 (オプション)
+</Step>
+
+<Step number={12} title="メタデータの国際化">
 
 `getIntlayer`フックを使用して、アプリケーション全体でコンテンツ辞書にアクセスすることもできます：
 
@@ -708,7 +734,9 @@ export const Route = createFileRoute("/{-$locale}/")({
 
 ---
 
-### ステップ 13: サーバーアクションでのロケールの取得 (オプション)
+</Step>
+
+<Step number={13} title="サーバーアクションでのロケールの取得">
 
 サーバーアクションやAPIエンドポイント内から現在のロケールにアクセスしたい場合があります。
 Intlayerの `getLocale` ヘルパーを使用してこれを行うことができます。
@@ -745,7 +773,9 @@ export const getLocaleServer = createServerFn().handler(async () => {
 
 ---
 
-### ステップ 14: 「見つかりませんでした」ページの管理 (オプション)
+</Step>
+
+<Step number={14} title="「見つかりませんでした」ページの管理">
 
 ユーザーが存在しないページにアクセスしたときにカスタムの404ページを表示できます。ロケール接頭辞は、404ページがトリガーされる方法に影響を与える可能性があります。
 
@@ -821,7 +851,9 @@ export const Route = createFileRoute("/{-$locale}/$")({
 
 ---
 
-### (オプション) ステップ 15: コンポーネントのコンテンツを抽出する
+</Step>
+
+<Step number={15} title="コンポーネントのコンテンツを抽出する" isOptional={true}>
 
 既存のコードベースがある場合、数千のファイルを変換するのは時間がかかることがあります。
 
@@ -916,7 +948,9 @@ export default defineConfig({
  </Tab>
 </Tabs>
 
-### ステップ 16: サイトマップの生成 (オプション)
+</Step>
+
+<Step number={16} title="サイトマップの生成">
 
 Intlayer には、アプリケーションのサイトマップを簡単に作成できるサイトマップ ジェネレーターが組み込まれています。ローカライズされたルートを処理し、検索エンジンに必要なメタデータを追加します。
 
@@ -991,7 +1025,9 @@ export const Route = createFileRoute("/sitemap.xml")({
 
 ---
 
-### ステップ 17: TypeScriptの構成 (オプション)
+</Step>
+
+<Step number={17} title="TypeScriptの構成">
 
 Intlayerはモジュール拡張機能を利用して、TypeScriptの利点を活用し、コードベースを強化します。
 
@@ -1021,6 +1057,10 @@ Intlayerによって生成されたファイルは無視することをお勧め
 ```
 
 ---
+
+</Step>
+
+</Steps>
 
 ## VS Code拡張機能
 

@@ -64,33 +64,43 @@ history:
 
 'astro-i18n' veya 'i18next' gibi ana çözümlerle karşılaştırıldığında Intlayer, aşağıdaki gibi entegre optimizasyonlarla gelen bir çözümdür:
 
-**Tam Astro kapsamı**
+<AccordionGroup>
+<Accordion header="Tam Astro kapsamı">
 
 Intlayer, **çok dilli yönlendirme**, **site haritası** ve uluslararasılaştırmayı (i18n) ölçeklendirmek için gereken tüm özellikleri sunarak Astro ile mükemmel çalışacak şekilde optimize edilmiştir.
 
-**Bundle boyutu**
+</Accordion>
+<Accordion header="Bundle boyutu">
 
 Sayfalarınıza çok büyük JSON dosyaları yüklemek yerine yalnızca gerekli içeriği yükleyin. Intlayer **bundle ve sayfa boyutlarınızı %50'ye kadar azaltmanıza** yardımcı olur.
 
-**Sürdürülebilirlik**
+</Accordion>
+<Accordion header="Sürdürülebilirlik">
 
 Uygulamanızın içeriğinin kapsamını belirlemek, büyük ölçekli uygulamalar için **bakımı kolaylaştırır**. İçerik kod tabanınızın tamamını gözden geçirmenin zihinsel yükü olmadan, tek bir özellik klasörünü çoğaltabilir veya silebilirsiniz. Ayrıca Intlayer, içeriğinizin doğruluğunu sağlamak için **tamamen tiplendirilmiş (fully typed)tır**.
 
-**Yapay Zeka Temsilcisi**
+</Accordion>
+<Accordion header="Yapay Zeka Temsilcisi">
 
 İçeriğin bir arada konumlandırılması **Büyük Dil Modellerinin (LLM'ler) ihtiyaç duyduğu bağlamı azaltır**. Intlayer ayrıca eksik çevirileri test etmek için **CLI** gibi bir araç paketiyle birlikte gelir**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** ve **[aracı becerileri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, geliştirici deneyimini (DX) yapay zeka için daha da sorunsuz hale getirmek için ajanlar.
 
-**Otomasyon**
+</Accordion>
+<Accordion header="Otomasyon">
 
 Maliyeti AI sağlayıcınıza ait olmak üzere seçtiğiniz LLM'yi kullanarak CI/CD işlem hattınızda çeviri yapmak için otomasyonu kullanın. Intlayer ayrıca içerik çıkarmayı otomatikleştirmek için bir **derleyici** ve **arka planda çeviri yapmaya** yardımcı olacak bir [web platformu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) sunar.
 
-**Performans**
+</Accordion>
+<Accordion header="Performans">
 
 Büyük JSON dosyalarını bileşenlere bağlamak performans ve tepkime sorunlarına yol açabilir. Intlayer, içerik yüklemenizi derleme sırasında optimize eder.
 
-**Non-dev ile ölçeklendirme**
+</Accordion>
+<Accordion header="Non-dev ile ölçeklendirme">
 
 Bir i18n çözümünden çok daha fazlası olan Intlayer, **kendi kendine barındırılan bir [görsel düzenleyici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** ve **[tam CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** çok dilli içeriğinizi **gerçek zamanlı** olarak yönetmenize yardımcı olarak çevirmenler, metin yazarları ve diğer ekip üyeleriyle işbirliğini kusursuz hale getirir. İçerik yerel olarak ve/veya uzaktan depolanabilir.
+
+</Accordion>
+</AccordionGroup>
 
 ---
 
@@ -98,7 +108,9 @@ Bir i18n çözümünden çok daha fazlası olan Intlayer, **kendi kendine barın
 
 GitHub'daki [uygulama şablonuna](https://github.com/aymericzip/intlayer-astro-template) göz atın.
 
-### Adım 1: Bağımlılıkları Yükleyin
+<Steps>
+
+<Step number={1} title="Bağımlılıkları Yükleyin">
 
 Tercih ettiğiniz paket yöneticisini kullanarak gerekli paketleri yükleyin:
 
@@ -126,7 +138,9 @@ yarn add react react-dom react-intlayer @astrojs/react
 - **astro-intlayer**
   Intlayer'ı [Vite paketleyici](https://vite.dev/guide/why.html#why-bundle-for-production) ile bağlamak için Astro entegrasyon eklentisi; ayrıca kullanıcının tercih ettiği dili algılamak, çerezleri yönetmek ve URL yönlendirmelerini işlemek için ara yazılım (middleware) içerir.
 
-### Adım 2: Projenizi Yapılandırın
+</Step>
+
+<Step number={2} title="Projenizi Yapılandırın">
 
 Uygulamanızın dillerini tanımlamak için bir konfigürasyon dosyası oluşturun:
 
@@ -151,7 +165,9 @@ export default config;
 
 > Bu konfigürasyon dosyası aracılığıyla yerelleştirilmiş URL'leri, ara yazılım yönlendirmelerini, çerez adlarını, içerik deklarasyonlarının konumunu ve uzantılarını yapılandırabilir, konsoldaki Intlayer günlüklerini devre dışı bırakabilir ve daha fazlasını yapabilirsiniz. Kullanılabilir parametrelerin tam listesi için [konfigürasyon dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md) bakın.
 
-### Adım 3: Intlayer'ı Astro konfigürasyonunuza entegre edin
+</Step>
+
+<Step number={3} title="Intlayer'ı Astro konfigürasyonunuza entegre edin">
 
 Astro konfigürasyonunuza `intlayer` eklentisini ekleyin.
 
@@ -169,7 +185,9 @@ export default defineConfig({
 
 > `intlayer()` entegrasyon eklentisi, Intlayer'ı Astro ile entegre etmek için kullanılır. İçerik deklarasyon dosyalarının oluşturulmasını sağlar ve bunları geliştirme modunda izler. Astro uygulaması içinde Intlayer ortam değişkenlerini tanımlar ve performansı optimize etmek için takma adlar (aliases) sağlar.
 
-### Adım 4: İçeriğinizi Deklare Edin
+</Step>
+
+<Step number={4} title="İçeriğinizi Deklare Edin">
 
 Çevirileri saklamak için içerik deklarasyonlarınızı oluşturun ve yönetin:
 
@@ -196,7 +214,9 @@ export default appContent;
 
 > Daha fazla bilgi için [içerik deklarasyon dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/content_file.md) bakın.
 
-### Adım 5: Astro'da İçeriği Kullanma
+</Step>
+
+<Step number={5} title="Astro'da İçeriği Kullanma">
 
 Sözlükleri doğrudan `.astro` dosyalarınızda, `intlayer`'dan dışa aktarılan temel yardımcıları kullanarak tüketebilirsiniz.
 
@@ -269,7 +289,9 @@ const { title } = getIntlayer("app", locale);
 </html>
 ```
 
-### Adım 6: Yerelleştirilmiş Yönlendirme
+</Step>
+
+<Step number={6} title="Yerelleştirilmiş Yönlendirme">
 
 Yerelleştirilmiş sayfaları sunmak için dinamik rota segmentleri oluşturun (örneğin `src/pages/[locale]/index.astro`):
 
@@ -285,7 +307,9 @@ const { title } = getIntlayer('app');
 
 Astro entegrasyonu, geliştirme sırasında dile duyarlı yönlendirme ve ortam tanımlamalarına yardımcı olan bir Vite ara yazılımı ekler. Ayrıca diller arasında bağlantı kurmak için kendi mantığınızı veya `intlayer` araçlarını (örneğin `getLocalizedUrl`) kullanabilirsiniz.
 
-### Adım 7: Favori Framework'ünüzü Kullanmaya Devam Edin
+</Step>
+
+<Step number={7} title="Favori Framework'ünüzü Kullanmaya Devam Edin">
 
 Seçtiğiniz framework'ü kullanarak uygulamanızı oluşturmaya devam edin.
 
@@ -343,7 +367,9 @@ Uzantı kullanımı hakkında daha fazla bilgi için [VS Code Uzantısı doküma
 
 ---
 
-### (İsteğe bağlı) Adım 17 : Bileşenlerinizin içeriğini çıkarın
+</Step>
+
+<Step number={17} title="Bileşenlerinizin içeriğini çıkarın" isOptional={true}>
 
 Mevcut bir kod tabanınız varsa, binlerce dosyayı dönüştürmek zaman alıcı olabilir.
 
@@ -444,3 +470,7 @@ bun run build # Or bun run dev
 ### Bilginizi Derinleştirin
 
 Daha fazlasını öğrenmek isterseniz, içeriğinizi dış kaynaklara aktarmak için [Görsel Editör](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md)'ü uygulayabilir veya [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md) kullanabilirsiniz.
+
+</Step>
+
+</Steps>

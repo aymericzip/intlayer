@@ -435,7 +435,7 @@ export const I18nBenchmark = ({
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.12 }}
-                  className="h-full w-full"
+                  className="size-full"
                 >
                   {isLoading ? (
                     <Loader className="h-full min-h-40" />
@@ -454,7 +454,7 @@ export const I18nBenchmark = ({
                       logoImages={logoImagesReady}
                     />
                   ) : renderMode === 'table' ? (
-                    <div className="h-full w-full overflow-auto text-sm">
+                    <div className="size-full overflow-auto text-sm">
                       <SmartTable isInteractive displayModal>
                         <thead>
                           <tr>
@@ -501,7 +501,7 @@ export const I18nBenchmark = ({
                       </SmartTable>
                     </div>
                   ) : (
-                    <div className="h-full w-full overflow-auto">
+                    <div className="size-full overflow-auto">
                       <CodeBlock
                         lang="json"
                         isDarkMode={isDarkMode}

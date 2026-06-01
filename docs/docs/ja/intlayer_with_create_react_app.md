@@ -45,7 +45,9 @@ Intlayerを使用すると、以下が可能です：
 
 ## ReactアプリケーションでのIntlayerセットアップ手順
 
-### ステップ1: 依存関係をインストール
+<Steps>
+
+<Step number={1} title="依存関係をインストール">
 
 npmを使用して必要なパッケージをインストールします：
 
@@ -81,7 +83,9 @@ bun x intlayer init
 
 Create React AppベースのアプリケーションにIntlayerを統合するための`react-scripts-intlayer`コマンドとプラグインを含みます。これらのプラグインは[craco](https://craco.js.org/)に基づいており、[Webpack](https://webpack.js.org/)バンドラーの追加設定を含みます。
 
-### ステップ2: プロジェクトの設定
+</Step>
+
+<Step number={2} title="プロジェクトの設定">
 
 アプリケーションの言語を設定するための設定ファイルを作成します：
 
@@ -105,7 +109,9 @@ export default config;
 
 > この設定ファイルを通じて、ローカライズされたURL、ミドルウェアリダイレクション、クッキー名、コンテンツ宣言の場所と拡張子、コンソールでのIntlayerログの無効化などを設定できます。利用可能なパラメータの完全なリストについては、[設定ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)を参照してください。
 
-### ステップ3: CRA設定へのIntlayerの統合
+</Step>
+
+<Step number={3} title="CRA設定へのIntlayerの統合">
 
 スクリプトをreact-intlayerを使用するように変更します：
 
@@ -119,7 +125,9 @@ export default config;
 
 > `react-scripts-intlayer`スクリプトは[CRACO](https://craco.js.org/)に基づいています。Intlayer cracoプラグインに基づいて独自のセットアップを実装することもできます。[こちらの例を参照](https://github.com/aymericzip/intlayer/blob/main/examples/react-app/craco.config.js)。
 
-### ステップ4: コンテンツの宣言
+</Step>
+
+<Step number={4} title="コンテンツの宣言">
 
 翻訳を保存するためのコンテンツ宣言を作成および管理します：
 
@@ -168,7 +176,9 @@ export default appContent;
 
 > コンテンツファイルにTSXコードが含まれている場合は、`import React from "react";`をコンテンツファイルにインポートすることを検討してください。
 
-### ステップ5: コード内でIntlayerを利用
+</Step>
+
+<Step number={5} title="コード内でIntlayerを利用">
 
 アプリケーション全体でコンテンツ辞書にアクセスします：
 
@@ -217,7 +227,9 @@ export default App;
 >
 > `useIntlayer`フックの詳細については、[ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/react-intlayer/useIntlayer.md)を参照してください。
 
-### (オプション) ステップ6: コンテンツの言語を変更する
+</Step>
+
+<Step number={6} title="コンテンツの言語を変更する" isOptional={true}>
 
 コンテンツの言語を変更するには、`useLocale`フックが提供する`setLocale`関数を使用します。この関数を使うことで、アプリケーションのロケールを設定し、それに応じてコンテンツを更新できます。
 
@@ -238,7 +250,9 @@ const LocaleSwitcher = () => {
 
 > `useLocale`フックの詳細については、[ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/react-intlayer/useLocale.md)を参照してください。
 
-### (オプション) ステップ7: アプリケーションにローカライズされたルーティングを追加
+</Step>
+
+<Step number={7} title="アプリケーションにローカライズされたルーティングを追加" isOptional={true}>
 
 このステップの目的は、各言語にユニークなルートを作成することです。これはSEOやSEOフレンドリーなURLに役立ちます。
 例：
@@ -604,7 +618,9 @@ const App: FC = () => (
 );
 ```
 
-### (オプション) ステップ8: ロケール変更時にURLを変更
+</Step>
+
+<Step number={8} title="ロケール変更時にURLを変更" isOptional={true}>
 
 ロケール変更時にURLを変更するには、`useLocale`フックが提供する`onLocaleChange`プロップを使用できます。同時に、`react-router-dom`の`useLocation`と`useNavigate`フックを使用してURLパスを更新できます。
 
@@ -684,7 +700,9 @@ const LocaleSwitcher: FC = () => {
 > - [`dir`属性](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir)
 > - [`aria-current`属性](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)
 
-### （オプション）ステップ9：HTMLの言語と言語方向属性を切り替える
+</Step>
+
+<Step number={9} title="HTMLの言語と言語方向属性を切り替える">
 
 アプリケーションが複数の言語をサポートしている場合、`<html>`タグの`lang`属性と`dir`属性を現在のロケールに合わせて更新することが非常に重要です。これにより、以下のことが保証されます：
 
@@ -872,3 +890,7 @@ Intlayerでの開発体験を向上させるために、公式の**Intlayer VS C
 ### さらに進むには
 
 さらに進みたい場合は、[ビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)を実装するか、[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)を使ってコンテンツを外部化することができます。
+
+</Step>
+
+</Steps>

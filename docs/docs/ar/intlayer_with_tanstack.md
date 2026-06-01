@@ -122,11 +122,15 @@ history:
 
 انظر [قالب التطبيق](https://github.com/aymericzip/intlayer-tanstack-start-template) على GitHub.
 
-### الخطوة 1: إنشاء المشروع
+<Steps>
+
+<Step number={1} title="إنشاء المشروع">
 
 ابدأ بإنشاء مشروع TanStack Start جديد باتباع دليل [بدء مشروع جديد](https://tanstack.com/start/latest/docs/framework/react/quick-start) على موقع TanStack Start.
 
-### الخطوة 2: تثبيت حزم Intlayer
+</Step>
+
+<Step number={2} title="تثبيت حزم Intlayer">
 
 قم بتثبيت الحزم اللازمة باستخدام مدير الحزم المفضل لديك:
 
@@ -164,7 +168,9 @@ bun x intlayer init
 - **vite-intlayer**
   تتضمن إضافة Vite لدمج Intlayer مع [مجمّع Vite](https://vite.dev/guide/why.html#why-bundle-for-production)، بالإضافة إلى وسيط لاكتشاف اللغة المفضلة للمستخدم، وإدارة ملفات تعريف الارتباط، والتعامل مع إعادة توجيه URL.
 
-### الخطوة 3: تكوين مشروعك
+</Step>
+
+<Step number={3} title="تكوين مشروعك">
 
 أنشئ ملف تكوين لتكوين لغات تطبيقك:
 
@@ -185,7 +191,9 @@ export default config;
 
 > من خلال ملف التكوين هذا، يمكنك إعداد عناوين URL المترجمة، وإعادة توجيه الوسيط، وأسماء ملفات تعريف الارتباط، وموقع وامتداد إعلانات المحتوى الخاصة بك، وتعطيل سجلات Intlayer في وحدة التحكم، والمزيد. للحصول على قائمة كاملة بالمعلمات المتاحة، راجع [توثيق التكوين](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md).
 
-### الخطوة 4: دمج Intlayer في تكوين Vite الخاص بك
+</Step>
+
+<Step number={4} title="دمج Intlayer في تكوين Vite الخاص بك">
 
 أضف إضافة intlayer إلى تكوينك:
 
@@ -215,7 +223,9 @@ export default config;
 
 > تُستخدم إضافة `intlayer()` لـ Vite لدمج Intlayer مع Vite. تضمن بناء ملفات إعلان المحتوى ومراقبتها في وضع التطوير. كما تُعرف متغيرات بيئة Intlayer داخل تطبيق Vite. بالإضافة إلى ذلك، توفر أسماء مستعارة لتحسين الأداء.
 
-### الخطوة 5: إنشاء التخطيط الجذري
+</Step>
+
+<Step number={5} title="إنشاء التخطيط الجذري">
 
 قم بتكوين التخطيط الجذري الخاص بك لدعم التدويل باستخدام `useParams` للكشف عن اللغة الحالية وتعيين سمات `lang` و `dir` على علامة `html`.
 
@@ -275,7 +285,9 @@ function RootDocument({ children }: { children: ReactNode }) {
 > <img src="{String(content.image.src)}" alt="{String(content.image)}" />
 > ```
 
-### الخطوة 6: إنشاء تخطيط اللغة
+</Step>
+
+<Step number={6} title="إنشاء تخطيط اللغة">
 
 أنشئ تخطيطًا يتعامل مع بادئة اللغة ويقوم بالتحقق من الصحة.
 
@@ -307,7 +319,9 @@ export const Route = createFileRoute("/{-$locale}")({
 > بالنسبة لوضع `'prefix-all'`، قد تفضل تبديل الجزء إلى `$locale` بدلاً من ذلك.
 > بالنسبة لوضع `'no-prefix'` أو `'search-params'`، يمكنك إزالة الجزء تمامًا.
 
-### الخطوة 7: إعلان المحتوى الخاص بك
+</Step>
+
+<Step number={7} title="إعلان المحتوى الخاص بك">
 
 قم بإنشاء وإدارة إعلانات المحتوى الخاصة بك لتخزين الترجمات:
 
@@ -353,7 +367,9 @@ export default appContent;
 
 > لمزيد من التفاصيل، راجع [توثيق إعلان المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/content_file.md).
 
-### الخطوة 8: إنشاء مكونات وخطافات مدركة للغة
+</Step>
+
+<Step number={8} title="إنشاء مكونات وخطافات مدركة للغة">
 
 أنشئ مكون `LocalizedLink` للتنقل المدرك للغة:
 
@@ -457,7 +473,9 @@ export const useLocalizedNavigate = () => {
 };
 ```
 
-### الخطوة 9: استخدام Intlayer في صفحاتك
+</Step>
+
+<Step number={9} title="استخدام Intlayer في صفحاتك">
 
 قم بالوصول إلى قواميس المحتوى الخاصة بك في جميع أنحاء تطبيقك:
 
@@ -505,7 +523,9 @@ function RouteComponent() {
 
 > لمعرفة المزيد حول خطاف `useIntlayer` ، راجع [التوثيق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/react-intlayer/useIntlayer.md).
 
-### الخطوة 10: إنشاء مكون لتبديل اللغة
+</Step>
+
+<Step number={10} title="إنشاء مكون لتبديل اللغة">
 
 أنشئ مكونًا للسماح للمستخدمين بتغيير اللغات:
 
@@ -566,7 +586,9 @@ export const LocaleSwitcher: FC = () => {
 
 > لمعرفة المزيد حول خطاف `useLocale` ، راجع [التوثيق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/react-intlayer/useLocale.md).
 
-### الخطوة 11: إدارة سمات HTML
+</Step>
+
+<Step number={11} title="إدارة سمات HTML">
 
 كما رأينا في الخطوة 5، يمكنك إدارة سمات `lang` و `dir` لعلامة `html` باستخدام `useParams` في مكونك الجذري. يضمن هذا تعيين السمات الصحيحة على الخادم والعميل.
 
@@ -585,7 +607,9 @@ function RootDocument({ children }: { children: ReactNode }) {
 
 ---
 
-### الخطوة 12: إضافة وسيط (اختياري)
+</Step>
+
+<Step number={12} title="إضافة وسيط">
 
 يمكنك أيضًا استخدام `intlayerProxy` لإضافة توجيه من جانب الخادم إلى تطبيقك. ستقوم هذه الإضافة تلقائيًا باكتشاف اللغة الحالية بناءً على عنوان URL وتعيين ملف تعريف ارتباط اللغة المناسب. إذا لم يتم تحديد لغة، فستحدد الإضافة اللغة الأكثر ملاءمة بناءً على تفضيلات لغة متصفح المستخدم. إذا لم يتم اكتشاف لغة، فسيتم إعادة التوجيه إلى اللغة الافتراضية.
 
@@ -616,7 +640,9 @@ export default defineConfig({
 
 ---
 
-### الخطوة 13: تدويل البيانات الوصفية الخاصة بك (اختياري)
+</Step>
+
+<Step number={13} title="تدويل البيانات الوصفية الخاصة بك">
 
 يمكنك أيضًا استخدام خطاف `getIntlayer` للوصول إلى قواميس المحتوى الخاصة بك في جميع أنحاء تطبيقك:
 
@@ -663,7 +689,9 @@ export const Route = createFileRoute("/{-$locale}/")({
 
 ---
 
-### الخطوة 14: جلب اللغة في إجراءات الخادم الخاصة بك (اختياري)
+</Step>
+
+<Step number={14} title="جلب اللغة في إجراءات الخادم الخاصة بك">
 
 قد ترغب في الوصول إلى اللغة الحالية من داخل إجراءات الخادم أو نقاط نهاية API الخاصة بك.
 يمكنك القيام بذلك باستخدام مساعد `getLocale` من `intlayer`.
@@ -700,7 +728,9 @@ export const getLocaleServer = createServerFn().handler(async () => {
 
 ---
 
-### الخطوة 15: إدارة الصفحات غير الموجودة (اختياري)
+</Step>
+
+<Step number={15} title="إدارة الصفحات غير الموجودة">
 
 عندما يزور المستخدم صفحة غير موجودة، يمكنك عرض صفحة مخصصة "غير موجودة" وقد تؤثر بادئة اللغة على الطريقة التي يتم بها تشغيل صفحة "غير موجودة".
 
@@ -776,7 +806,9 @@ export const Route = createFileRoute("/{-$locale}/$")({
 
 ---
 
-### الخطوة 16: تكوين TypeScript (اختياري)
+</Step>
+
+<Step number={16} title="تكوين TypeScript">
 
 يستخدم Intlayer توسيع الوحدات (module augmentation) للحصول على فوائد TypeScript وجعل قاعدة الكود الخاصة بك أقوى.
 
@@ -805,7 +837,9 @@ export const Route = createFileRoute("/{-$locale}/$")({
 .intlayer
 ```
 
-### (اختياري) خطوة 1 : استخراج محتوى مكوناتك
+</Step>
+
+<Step number={1} title="استخراج محتوى مكوناتك" isOptional={true}>
 
 إذا كان لديك قاعدة بيانات كود موجودة، فقد يكون تحويل آلاف الملفات مستهلكًا للوقت.
 
@@ -919,6 +953,10 @@ bun run build # Or bun run dev
 </Tabs>
 
 ---
+
+</Step>
+
+</Steps>
 
 ## إضافة VS Code
 

@@ -98,7 +98,9 @@ Intlayer は単なる i18n ソリューションではなく、**自己ホスト
 
 ## Next.jsアプリケーションでIntlayerをセットアップするステップバイステップガイド
 
-### ステップ1：依存関係のインストール
+<Steps>
+
+<Step number={1} title="依存関係のインストール">
 
 npmを使って必要なパッケージをインストールします：
 
@@ -130,7 +132,9 @@ bun x intlayer init
 
 IntlayerをNext.jsと統合するパッケージです。Next.jsの国際化のためのコンテキストプロバイダーやフックを提供します。さらに、Intlayerを[Webpack](https://webpack.js.org/)や[Turbopack](https://nextjs.org/docs/app/api-reference/turbopack)と統合するためのNext.jsプラグイン、およびユーザーの優先ロケールの検出、クッキー管理、URLリダイレクトの処理を行うミドルウェアも含まれています。
 
-### ステップ2: プロジェクトの設定
+</Step>
+
+<Step number={2} title="プロジェクトの設定">
 
 Here is the final structure that we will make:
 
@@ -182,7 +186,9 @@ export default config;
 
 > この設定ファイルを通じて、ローカライズされたURL、ミドルウェアのリダイレクション、クッキー名、コンテンツ宣言の場所と拡張子、コンソールでのIntlayerログの無効化などを設定できます。利用可能なパラメータの完全なリストについては、[設定ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)を参照してください。
 
-### ステップ3: Next.js設定にIntlayerを統合する
+</Step>
+
+<Step number={3} title="Next.js設定にIntlayerを統合する">
 
 Next.jsのセットアップをIntlayerを使うように設定します:
 
@@ -197,7 +203,9 @@ export default withIntlayer(nextConfig);
 
 > `withIntlayer()` は Next.js と Intlayer を統合するための Next.js プラグインです。これにより、コンテンツ宣言ファイルのビルドが保証され、開発モードでの監視が行われます。また、[Webpack](https://webpack.js.org/) や [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack) 環境内で Intlayer の環境変数を定義します。さらに、パフォーマンスを最適化するためのエイリアスを提供し、サーバーコンポーネントとの互換性も確保します。
 
-### ステップ4: ロケール検出のためのミドルウェアを設定する
+</Step>
+
+<Step number={4} title="ロケール検出のためのミドルウェアを設定する">
 
 ユーザーの好みのロケールを検出するためのミドルウェアを設定します:
 
@@ -214,7 +222,9 @@ export const config = {
 
 > `matcher` パラメータは、アプリケーションのルートに合わせて調整してください。詳細については、[Next.js の matcher 設定に関するドキュメント](https://nextjs.org/docs/app/building-your-application/routing/middleware)を参照してください。
 
-### ステップ5: 動的ロケールルートの定義
+</Step>
+
+<Step number={5} title="動的ロケールルートの定義">
 
 `RootLayout` の内容をすべて削除し、以下のコードに置き換えます。
 
@@ -278,7 +288,9 @@ export default LocaleLayout;
 
 > `generateStaticParams` は、アプリケーションがすべてのロケールに対して必要なページを事前にビルドすることを保証し、実行時の計算を削減し、ユーザーエクスペリエンスを向上させます。詳細については、[Next.js の generateStaticParams に関するドキュメント](https://nextjs.org/docs/app/building-your-application/rendering/static-and-dynamic-rendering#generate-static-params)を参照してください。
 
-### ステップ6: コンテンツの宣言
+</Step>
+
+<Step number={6} title="コンテンツの宣言">
 
 翻訳を格納するためのコンテンツ宣言を作成および管理します:
 
@@ -333,7 +345,9 @@ export default pageContent;
 
 > 詳細については、[コンテンツ宣言のドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/content_file.md)を参照してください。
 
-### ステップ7: コード内でコンテンツを利用する
+</Step>
+
+<Step number={7} title="コード内でコンテンツを利用する">
 
 アプリケーション全体でコンテンツ辞書にアクセスします:
 
@@ -413,7 +427,9 @@ const ServerComponentExample: FC = () => {
 
 > `useIntlayer` フックの詳細については、[ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/next-intlayer/useIntlayer.md)を参照してください。
 
-### （オプション）ステップ8：メタデータの国際化
+</Step>
+
+<Step number={8} title="メタデータの国際化">
 
 ページのタイトルなどのメタデータを国際化したい場合は、Next.js が提供する `generateMetadata` 関数を使用できます。その中で、`getIntlayer` 関数からコンテンツを取得してメタデータを翻訳できます。
 
@@ -625,7 +641,9 @@ export const generateMetadata = ({
 
 > メタデータの最適化について詳しくは、[公式Next.jsドキュメント](https://nextjs.org/docs/app/building-your-application/optimizing/metadata)をご覧ください。
 
-### （オプション）ステップ9：sitemap.xmlとrobots.txtの多言語対応
+</Step>
+
+<Step number={9} title="sitemap.xmlとrobots.txtの多言語対応">
 
 `sitemap.xml`と`robots.txt`を多言語対応にするには、Intlayerが提供する`getMultilingualUrls`関数を使用できます。この関数を使うことで、サイトマップ用の多言語URLを生成できます。
 
@@ -681,7 +699,9 @@ export default robots;
 
 > サイトマップの最適化については、[公式Next.jsドキュメント](https://nextjs.org/docs/app/api-reference/file-conventions/metadata/sitemap)をご覧ください。robots.txtの最適化については、[公式Next.jsドキュメント](https://nextjs.org/docs/app/api-reference/file-conventions/metadata/robots)をご覧ください。
 
-### （オプション）ステップ10：コンテンツの言語を変更する
+</Step>
+
+<Step number={10} title="コンテンツの言語を変更する">
 
 Next.jsでコンテンツの言語を変更するには、推奨される方法として`Link`コンポーネントを使用してユーザーを適切なローカライズされたページにリダイレクトする方法があります。`Link`コンポーネントはページのプリフェッチを可能にし、完全なページリロードを回避するのに役立ちます。
 
@@ -774,7 +794,9 @@ return (
 > - [`dir` 属性](https://developer.mozilla.org/ja/docs/Web/HTML/Global_attributes/dir)
 > - [`aria-current` 属性](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)
 
-### （オプション）ステップ11：ローカライズされたリンクコンポーネントの作成
+</Step>
+
+<Step number={11} title="ローカライズされたリンクコンポーネントの作成">
 
 アプリケーションのナビゲーションが現在のロケールを尊重するようにするために、カスタムの `Link` コンポーネントを作成できます。このコンポーネントは内部URLに自動的に現在の言語をプレフィックスとして付加します。例えば、フランス語を話すユーザーが「About」ページへのリンクをクリックすると、`/about` ではなく `/fr/about` にリダイレクトされます。
 
@@ -843,7 +865,9 @@ Link.displayName = "Link";
 
 この `Link` コンポーネントをアプリケーション全体に統合することで、一貫性のある言語対応のユーザー体験を維持しつつ、SEOや使いやすさの向上も実現できます。
 
-### （オプション）ステップ12: バンドルサイズの最適化
+</Step>
+
+<Step number={12} title="バンドルサイズの最適化">
 
 `next-intlayer` を使用すると、辞書はデフォルトですべてのページのバンドルに含まれます。バンドルサイズを最適化するために、Intlayer はマクロを使用して `useIntlayer` の呼び出しをインテリジェントに置き換えるオプションの SWC プラグインを提供しています。これにより、辞書は実際に使用されているページのバンドルにのみ含まれるようになります。
 
@@ -918,3 +942,7 @@ Intlayerでの開発体験を向上させるために、公式の**Intlayer VS C
 ### さらに進む
 
 さらに進むために、[ビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)を実装するか、[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)を使用してコンテンツを外部化することができます。
+
+</Step>
+
+</Steps>

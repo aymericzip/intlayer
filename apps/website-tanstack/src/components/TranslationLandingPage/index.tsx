@@ -51,54 +51,54 @@ export const AiTranslationLandingCore: FC = () => {
   return (
     <div>
       {/* Hero Section with ambient effects */}
-      <Suspense fallback={null}>
+      <Suspense>
         <HeroSection />
       </Suspense>
 
       {/* Providers Carousel */}
-      <Suspense fallback={null}>
+      <Suspense>
         <ProvidersCarousel />
       </Suspense>
 
       {/* Commands Section */}
-      <Suspense fallback={null}>
+      <Suspense>
         <CommandsSection />
       </Suspense>
 
       {/* Key Points Section */}
-      <Suspense fallback={null}>
+      <Suspense>
         <KeyPointsSection />
       </Suspense>
 
       {/* Local vs Server Section */}
-      <Suspense fallback={null}>
+      <Suspense>
         <LocalVsServerSection />
       </Suspense>
 
       {/* Language Section (from design-system, not lazy) */}
-      <Suspense fallback={null}>
+      <Suspense>
         <LanguageSection />
       </Suspense>
 
       {/* How It Works Section */}
-      <Suspense fallback={null}>
+      <Suspense>
         <HowItWorksSection />
       </Suspense>
 
       {/* Products Section */}
-      <Suspense fallback={null}>
+      <Suspense>
         <ProductsSection />
       </Suspense>
 
       {/* Community Section */}
       <section>
-        <Suspense fallback={null}>
+        <Suspense>
           <ContributorSection />
         </Suspense>
       </section>
 
       {/* CTA Section */}
-      <Suspense fallback={null}>
+      <Suspense>
         <CTASection />
       </Suspense>
     </div>

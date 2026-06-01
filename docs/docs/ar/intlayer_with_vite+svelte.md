@@ -108,7 +108,9 @@ history:
 
 راجع [قالب التطبيق](https://github.com/aymericzip/intlayer-vite-svelte-template) على GitHub.
 
-### الخطوة 1: تثبيت التبعيات
+<Steps>
+
+<Step number={1} title="تثبيت التبعيات">
 
 قم بتثبيت الحزم اللازمة باستخدام npm:
 
@@ -146,7 +148,9 @@ bun x intlayer init
 - **vite-intlayer**
   يتضمن إضافة Vite لدمج Intlayer مع [مجمّع Vite](https://vite.dev/guide/why.html#why-bundle-for-production)، بالإضافة إلى وسيط للكشف عن اللغة المفضلة للمستخدم، وإدارة الكوكيز، والتعامل مع إعادة توجيه URL.
 
-### الخطوة 2: تكوين مشروعك
+</Step>
+
+<Step number={2} title="تكوين مشروعك">
 
 أنشئ ملف تكوين لتحديد لغات تطبيقك:
 
@@ -170,7 +174,9 @@ export default config;
 
 > من خلال ملف التكوين هذا، يمكنك إعداد عناوين URL محلية، وإعادة توجيه الوسيط، وأسماء الكوكيز، وموقع وامتداد إعلانات المحتوى الخاصة بك، وتعطيل سجلات Intlayer في وحدة التحكم، والمزيد. للحصول على قائمة كاملة بالمعلمات المتاحة، راجع [توثيق التكوين](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md).
 
-### الخطوة 3: دمج Intlayer في تكوين Vite الخاص بك
+</Step>
+
+<Step number={3} title="دمج Intlayer في تكوين Vite الخاص بك">
 
 أضف مكون intlayer الإضافي إلى تكوينك.
 
@@ -187,7 +193,9 @@ export default defineConfig({
 
 > يُستخدم مكون Vite الإضافي `intlayer()` لدمج Intlayer مع Vite. يضمن بناء ملفات إعلان المحتوى ويراقبها في وضع التطوير. كما يعرّف متغيرات بيئة Intlayer داخل تطبيق Vite. بالإضافة إلى ذلك، يوفر ألقابًا لتحسين الأداء.
 
-### الخطوة 4: إعلان المحتوى الخاص بك
+</Step>
+
+<Step number={4} title="إعلان المحتوى الخاص بك">
 
 قم بإنشاء وإدارة إعلانات المحتوى الخاصة بك لتخزين الترجمات:
 
@@ -229,7 +237,9 @@ export default appContent;
 
 > لمزيد من التفاصيل، راجع [توثيق إعلان المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/content_file.md).
 
-### الخطوة 5: استخدام Intlayer في الكود الخاص بك
+</Step>
+
+<Step number={5} title="استخدام Intlayer في الكود الخاص بك">
 
 ```svelte fileName="src/App.svelte"
 <script>
@@ -253,7 +263,9 @@ export default appContent;
 
 > إذا كان تطبيقك موجودًا بالفعل، يمكنك استخدام [مترجم Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compiler.md)، بالإضافة إلى [أمر الاستخراج](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/extract.md)، لتحويل آلاف المكونات في ثانية واحدة.
 
-### (اختياري) الخطوة 6: تغيير لغة المحتوى الخاص بك
+</Step>
+
+<Step number={6} title="تغيير لغة المحتوى الخاص بك" isOptional={true}>
 
 ```svelte fileName="src/App.svelte"
 <script lang="ts">
@@ -282,7 +294,9 @@ const changeLocale = (event: Event) => {
 </div>
 ```
 
-### (اختياري) الخطوة 7: عرض Markdown
+</Step>
+
+<Step number={7} title="عرض Markdown" isOptional={true}>
 
 يدعم Intlayer عرض محتوى Markdown مباشرة في تطبيق Svelte الخاص بك. بشكل افتراضي، يتم التعامل مع Markdown كنص عادي. لتحويل Markdown إلى HTML غني، يمكنك دمج `@humanspeak/svelte-markdown`، أو أي محلل Markdown آخر.
 
@@ -303,13 +317,17 @@ const changeLocale = (event: Event) => {
 
 > يمكنك أيضًا الوصول إلى بيانات الـ front-matter الخاصة بالماركداون باستخدام الخاصية `content.markdownContent.metadata.xxx`.
 
-### (اختياري) الخطوة 8: إعداد محرر intlayer / نظام إدارة المحتوى (CMS)
+</Step>
+
+<Step number={8} title="إعداد محرر intlayer / نظام إدارة المحتوى" isOptional={true}>
 
 لإعداد محرر intlayer، يجب عليك اتباع [توثيق محرر intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md).
 
 لإعداد نظام إدارة المحتوى (CMS) الخاص بـ intlayer، يجب عليك اتباع [توثيق نظام إدارة المحتوى intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md).
 
-### (اختياري) الخطوة 7: إضافة التوجيه المحلي (localized Routing) لتطبيقك
+</Step>
+
+<Step number={7} title="إضافة التوجيه المحلي (localized Routing) لتطبيقك" isOptional={true}>
 
 للتعامل مع التوجيه المحلي في تطبيق Svelte الخاص بك، يمكنك استخدام `svelte-spa-router` مع `localeFlatMap` من Intlayer لتوليد المسارات لكل لغة.
 
@@ -420,7 +438,9 @@ export default defineConfig({
 });
 ```
 
-### (اختياري) الخطوة 8: تغيير عنوان URL عند تغيير اللغة
+</Step>
+
+<Step number={8} title="تغيير عنوان URL عند تغيير اللغة" isOptional={true}>
 
 للسماح للمستخدمين بتغيير اللغة وتحديث عنوان URL وفقًا لذلك، يمكنك إنشاء مكون `LocaleSwitcher`. سيستخدم هذا المكون `getLocalizedUrl` من `intlayer` و `push` من `svelte-spa-router`.
 
@@ -467,7 +487,9 @@ const changeLocale = (event: Event) => {
 .intlayer
 ```
 
-### (اختياري) خطوة 1 : استخراج محتوى مكوناتك
+</Step>
+
+<Step number={1} title="استخراج محتوى مكوناتك" isOptional={true}>
 
 إذا كان لديك قاعدة بيانات كود موجودة، فقد يكون تحويل آلاف الملفات مستهلكًا للوقت.
 
@@ -674,3 +696,7 @@ console.log("SEO files generated successfully.");
 ### التعمق أكثر
 
 للمضي قدمًا، يمكنك تنفيذ [المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) أو إخراج محتواك باستخدام [نظام إدارة المحتوى (CMS)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md).
+
+</Step>
+
+</Steps>

@@ -62,33 +62,43 @@ history:
 
 Comparado com soluções principais como `astro-i18n` ou `i18next`, Intlayer é uma solução que vem com otimizações integradas como:
 
-**Cobertura completa do Astro**
+<AccordionGroup>
+<Accordion header="Cobertura completa do Astro">
 
 O Intlayer é otimizado para funcionar perfeitamente com o Astro, oferecendo **roteamento multilíngue**, **mapa do site** e todos os recursos necessários para dimensionar a internacionalização (i18n).
 
-**Tamanho do bundle**
+</Accordion>
+<Accordion header="Tamanho do bundle">
 
 Em vez de carregar arquivos JSON enormes em suas páginas, carregue apenas o conteúdo necessário. O Intlayer ajuda a **reduzir o tamanho do bundle e das páginas em até 50%**.
 
-**Manutenção**
+</Accordion>
+<Accordion header="Manutenção">
 
 Definir o escopo do conteúdo do seu aplicativo **facilita a manutenção** de aplicativos de grande escala. Você pode duplicar ou excluir uma única pasta de recursos sem o fardo mental de revisar toda a base de código de seu conteúdo. Além disso, o Intlayer é **totalmente tipado (fully typed)** para garantir a precisão do seu conteúdo.
 
-**Agente de IA**
+</Accordion>
+<Accordion header="Agente de IA">
 
 A co-localização de conteúdo **reduz o contexto necessário** pelos Large Language Models (LLMs). O Intlayer também vem com um conjunto de ferramentas, como uma **CLI** para testar traduções ausentes,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)**, e **[habilidades do agente](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, para tornar a experiência do desenvolvedor (DX) ainda mais tranquila para os agentes de IA.
 
-**Automação**
+</Accordion>
+<Accordion header="Automação">
 
 Use a automação para traduzir seu pipeline de CI/CD usando o LLM de sua escolha às custas de seu provedor de IA. O Intlayer também oferece um **compilador** para automatizar a extração de conteúdo, bem como uma [plataforma web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) para ajudar a **traduzir em segundo plano**.
 
-**Desempenho**
+</Accordion>
+<Accordion header="Desempenho">
 
 Conectar arquivos JSON enormes a componentes pode levar a problemas de desempenho e reatividade. O Intlayer otimiza o carregamento do seu conteúdo no momento da construção.
 
-**Escalonamento sem nenhum desenvolvedor**
+</Accordion>
+<Accordion header="Escalonamento sem nenhum desenvolvedor">
 
 Mais do que apenas uma solução i18n, o Intlayer fornece um **[editor visual] auto-hospedado(https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** e um **[CMS completo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** para ajudá-lo a gerenciar seu conteúdo multilíngue em **tempo real**, facilitando a colaboração com tradutores, redatores e outros membros da equipe. O conteúdo pode ser armazenado local e/ou remotamente.
+
+</Accordion>
+</AccordionGroup>
 
 ---
 
@@ -96,7 +106,9 @@ Mais do que apenas uma solução i18n, o Intlayer fornece um **[editor visual] a
 
 Confira o [modelo da aplicação](https://github.com/aymericzip/intlayer-astro-template) no GitHub.
 
-### Passo 1: Instalar Dependências
+<Steps>
+
+<Step number={1} title="Instalar Dependências">
 
 Instale os pacotes necessários usando seu gerenciador de pacotes preferido:
 
@@ -139,7 +151,9 @@ bun x intlayer init
 - **@astrojs/svelte**
   Integração oficial do Astro que permite o uso de islands de componentes Svelte.
 
-### Passo 2: Configurar seu Projeto
+</Step>
+
+<Step number={2} title="Configurar seu Projeto">
 
 Crie um arquivo de configuração para definir os idiomas da sua aplicação:
 
@@ -164,7 +178,9 @@ export default config;
 
 > Através deste arquivo de configuração, você pode configurar URLs localizadas, redirecionamentos de middleware, nomes de cookies, localização e extensões de declarações de conteúdo, desativar logs do Intlayer no console e muito mais. Para uma lista completa de parâmetros disponíveis, consulte a [documentação de configuração](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/configuration.md).
 
-### Passo 3: Integrar o Intlayer na sua configuração do Astro
+</Step>
+
+<Step number={3} title="Integrar o Intlayer na sua configuração do Astro">
 
 Adicione o plugin `intlayer` e a integração do Svelte à sua configuração do Astro.
 
@@ -185,7 +201,9 @@ export default defineConfig({
 
 > A integração `svelte()` permite o uso de islands de componentes Svelte via `client:only="svelte"`.
 
-### Passo 4: Declarar seu conteúdo
+</Step>
+
+<Step number={4} title="Declarar seu conteúdo">
 
 Crie e gerencie suas declarações de conteúdo para armazenar traduções:
 
@@ -211,7 +229,9 @@ export default appContent;
 
 > Para mais informações, consulte a [documentação de declaração de conteúdo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/content_file.md).
 
-### Passo 5: Usar o conteúdo no Astro
+</Step>
+
+<Step number={5} title="Usar o conteúdo no Astro">
 
 Você pode consumir os dicionários diretamente nos seus arquivos `.astro` usando os ajudantes principais exportados do `intlayer`. Você também deve adicionar metadados de SEO (como hreflang e links canônicos) a cada página e introduzir uma island de Svelte para conteúdo interativo no lado do cliente.
 
@@ -299,7 +319,9 @@ const { title } = getIntlayer("app", locale);
 > - **`prefix-all`:** todos os URLs recebem um prefixo de idioma. Você pode usar o padrão `[locale]` se não precisar lidar com a raiz separadamente.
 > - **`search-param` ou `no-prefix`:** não são necessários diretórios de idioma. O idioma é tratado via parâmetros de consulta ou cookies.
 
-### Passo 6: Criar um componente Island de Svelte
+</Step>
+
+<Step number={6} title="Criar um componente Island de Svelte">
 
 Crie um componente de island que envolva sua aplicação Svelte. Você deve chamar o `setupIntlayer` com a localidade detectada pelo servidor antes de acessar os stores.
 
@@ -344,7 +366,9 @@ Crie um componente de island que envolva sua aplicação Svelte. Você deve cham
 
 > A prop `locale` é passada da página Astro (detecção no servidor) e usada para inicializar o `setupIntlayer`, definindo o idioma inicial para todos os stores no componente.
 
-### Passo 7: Adicionar um Seletor de Idioma
+</Step>
+
+<Step number={7} title="Adicionar um Seletor de Idioma">
 
 A funcionalidade de troca de idioma está integrada diretamente na island de Svelte (veja o passo 6 acima). Ela usa o store `useLocale` do `svelte-intlayer` e navega para a URL localizada quando um usuário seleciona um novo idioma:
 
@@ -388,7 +412,9 @@ A funcionalidade de troca de idioma está integrada diretamente na island de Sve
 > **Nota sobre persistência:**
 > O uso de `onLocaleChange` para redirecionar via `window.location.href` garante que a nova URL linguística seja visitada, permitindo que o middleware do Intlayer defina o cookie de idioma e lembre da preferência do usuário em visitas futuras.
 
-### Passo 8: Sitemap e Robots.txt
+</Step>
+
+<Step number={8} title="Sitemap e Robots.txt">
 
 O Intlayer oferece utilitários para criar dinamicamente o seu sitemap localizado e os arquivos robots.txt.
 
@@ -496,7 +522,9 @@ Para mais informações sobre o uso da extensão, consulte a [documentação da 
 
 ---
 
-### (Opcional) Passo 15: Extrair o conteúdo dos seus componentes
+</Step>
+
+<Step number={15} title="Extrair o conteúdo dos seus componentes" isOptional={true}>
 
 Se você tiver uma base de código existente, transformar milhares de arquivos pode ser demorado.
 
@@ -597,3 +625,7 @@ bun run build # Or bun run dev
 ### Aprofunde seu conhecimento
 
 Se quiser saber mais, você também pode implementar o [Editor Visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_visual_editor.md) ou usar o [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_CMS.md) para externalizar seu conteúdo.
+
+</Step>
+
+</Steps>

@@ -63,33 +63,43 @@ history:
 
 Im Vergleich zu Hauptlösungen wie „astro-i18n“ oder „i18next“ ist Intlayer eine Lösung, die über integrierte Optimierungen verfügt wie:
 
-**Vollständige Astro-Abdeckung**
+<AccordionGroup>
+<Accordion header="Vollständige Astro-Abdeckung">
 
 Intlayer ist für die perfekte Zusammenarbeit mit Astro optimiert, indem es **mehrsprachiges Routing**, **Sitemap** und alle Funktionen bietet, die für die Skalierung der Internationalisierung (i18n) erforderlich sind.
 
-**Bundle-Größe**
+</Accordion>
+<Accordion header="Bundle-Größe">
 
 Anstatt riesige JSON-Dateien in Ihre Seiten zu laden, laden Sie nur den erforderlichen Inhalt. Intlayer hilft **Ihre Bundle- und Seitengröße um bis zu 50 % zu reduzieren**.
 
-**Wartbarkeit**
+</Accordion>
+<Accordion header="Wartbarkeit">
 
 Durch die Festlegung des Inhaltsbereichs Ihrer Anwendung wird die Wartung für umfangreiche Anwendungen erleichtert. Sie können einen einzelnen Feature-Ordner duplizieren oder löschen, ohne die mentale Belastung durch die Überprüfung Ihrer gesamten Inhaltscodebasis auf sich nehmen zu müssen. Darüber hinaus ist Intlayer **vollständig typisiert (fully typed)**, um die Genauigkeit Ihrer Inhalte sicherzustellen.
 
-**KI-Agent**
+</Accordion>
+<Accordion header="KI-Agent">
 
 Durch die gemeinsame Platzierung von Inhalten **reduziert sich der von Large Language Models (LLMs) benötigte Kontext**. Intlayer verfügt außerdem über eine Reihe von Tools, wie zum Beispiel eine **CLI** zum Testen auf fehlende Übersetzungen,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** und **[agent Fähigkeiten](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, um die Entwicklererfahrung (DX) für KI-Agenten noch reibungsloser zu gestalten.
 
-**Automatisierung**
+</Accordion>
+<Accordion header="Automatisierung">
 
 Nutzen Sie die Automatisierung, um Ihre CI/CD-Pipeline mit dem LLM Ihrer Wahl auf Kosten Ihres KI-Anbieters zu übersetzen. Intlayer bietet außerdem einen **Compiler** zur Automatisierung der Inhaltsextraktion sowie eine [Webplattform](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) zur Unterstützung der **Übersetzung im Hintergrund**.
 
-**Leistung**
+</Accordion>
+<Accordion header="Leistung">
 
 Das Verbinden großer JSON-Dateien mit Komponenten kann zu Leistungs- und Reaktivitätsproblemen führen. Intlayer optimiert das Laden Ihrer Inhalte zur Erstellungszeit.
 
-**Skalierung mit Nicht-Entwickler**
+</Accordion>
+<Accordion header="Skalierung mit Nicht-Entwickler">
 
 Intlayer ist mehr als nur eine i18n-Lösung. Es bietet einen **selbstgehosteten [visuellen Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** und ein **[vollständiges CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)**, um Ihnen zu helfen Verwalten Sie Ihre mehrsprachigen Inhalte in **Echtzeit** und gestalten Sie die Zusammenarbeit mit Übersetzern, Textern und anderen Teammitgliedern reibungslos. Inhalte können lokal und/oder remote gespeichert werden.
+
+</Accordion>
+</AccordionGroup>
 
 ---
 
@@ -97,7 +107,9 @@ Intlayer ist mehr als nur eine i18n-Lösung. Es bietet einen **selbstgehosteten 
 
 Sehen Sie sich das [Anwendungstemplate](https://github.com/aymericzip/intlayer-astro-template) auf GitHub an.
 
-### Schritt 1: Abhängigkeiten installieren
+<Steps>
+
+<Step number={1} title="Abhängigkeiten installieren">
 
 Installieren Sie die erforderlichen Pakete mit Ihrem bevorzugten Paketmanager:
 
@@ -140,7 +152,9 @@ bun x intlayer init
 - **@astrojs/lit**
   Offizielle Astro-Integration, die die Verwendung von Lit-Custom-Elements innerhalb von Astro-Seiten ermöglicht.
 
-### Schritt 2: Konfigurieren Sie Ihr Projekt
+</Step>
+
+<Step number={2} title="Konfigurieren Sie Ihr Projekt">
 
 Erstellen Sie eine Konfigurationsdatei, um die Sprachen Ihrer Anwendung zu definieren:
 
@@ -165,7 +179,9 @@ export default config;
 
 > Über diese Konfigurationsdatei können Sie lokalisierte URLs, Middleware-Weiterleitungen, Cookie-Namen, Speicherort und Erweiterungen der Inhaltsdeklarationen konfigurieren, Intlayer-Logs in der Konsole deaktivieren und vieles mehr. Eine vollständige Liste der verfügbaren Parameter finden Sie in der [Konfigurationsdokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/configuration.md).
 
-### Schritt 3: Integrieren Sie Intlayer in Ihre Astro-Konfiguration
+</Step>
+
+<Step number={3} title="Integrieren Sie Intlayer in Ihre Astro-Konfiguration">
 
 Fügen Sie das `intlayer`-Plugin und die Lit-Integration zu Ihrer Astro-Konfiguration hinzu.
 
@@ -186,7 +202,9 @@ export default defineConfig({
 
 > Die `lit()`-Integration ermöglicht es Ihnen, Lit-Custom-Elements innerhalb von Astro-Seiten zu verwenden.
 
-### Schritt 4: Deklarieren Sie Ihren Inhalt
+</Step>
+
+<Step number={4} title="Deklarieren Sie Ihren Inhalt">
 
 Erstellen und verwalten Sie Ihre Inhaltsdeklarationen, um Übersetzungen zu speichern:
 
@@ -218,7 +236,9 @@ export default litDemoContent;
 
 > Weitere Informationen finden Sie in der [Inhaltsdeklarations-Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/content_file.md).
 
-### Schritt 5: Inhalt in Astro verwenden
+</Step>
+
+<Step number={5} title="Inhalt in Astro verwenden">
 
 Sie können die Wörterbücher direkt in Ihren `.astro`-Dateien verwenden, indem Sie die von `intlayer` exportierten Kern-Helfer nutzen. Sie sollten außerdem SEO-Metadaten (wie hreflang und Canonical-Links) zu jeder Seite hinzufügen. Lit-Custom-Elements werden über ein Client-`<script>` importiert und im Body platziert.
 
@@ -308,7 +328,9 @@ const { greeting } = getIntlayer("lit-demo", locale);
 > - **`prefix-all`:** Alle URLs erhalten ein Sprachpräfix. Sie können das standardmäßige `[locale]` verwenden, wenn Sie den Stamm nicht separat behandeln müssen.
 > - **`search-param` oder `no-prefix`:** Es werden keine Sprachverzeichnisse benötigt. Die Sprache wird über Abfrageparameter oder Cookies verwaltet.
 
-### Schritt 6: Erstellen Sie ein Lit-Custom-Element
+</Step>
+
+<Step number={6} title="Erstellen Sie ein Lit-Custom-Element">
 
 Erstellen Sie ein Lit-Custom-Element. Rufen Sie `installIntlayer` im `connectedCallback` unter Verwendung des serverbasierten `locale`-Attributs auf, um das clientseitige Übersetzungssingleton zu initialisieren.
 
@@ -387,7 +409,9 @@ customElements.define("lit-demo", LitDemo);
 
 > `useIntlayer` wird als `ReactiveController` registriert. Es fordert automatisch ein Re-Rendering des Elements an, wenn sich die Sprache ändert, sodass keine zusätzliche Subscription-Logik erforderlich ist.
 
-### Schritt 7: Fügen Sie einen Sprachumschalter hinzu
+</Step>
+
+<Step number={7} title="Fügen Sie einen Sprachumschalter hinzu">
 
 Die Funktionalität zum Sprachwechsel ist direkt in der `render()`-Methode des Lit-Custom-Elements integriert (siehe Schritt 6 oben). Sie verwendet `useLocale` von `lit-intlayer` und navigiert bei Auswahl einer neuen Sprache durch den Benutzer zur lokalisierten URL:
 
@@ -433,7 +457,9 @@ override render() {
 > **Hinweis zur Beständigkeit:**
 > Die Verwendung von `onLocaleChange` zur Weiterleitung über `window.location.href` stellt sicher, dass die URL der neuen Sprache besucht wird, sodass die Intlayer-Middleware das Sprach-Cookie setzen kann und die Präferenz des Benutzers bei zukünftigen Besuchen erhalten bleibt.
 
-### Schritt 8: Sitemap und Robots.txt
+</Step>
+
+<Step number={8} title="Sitemap und Robots.txt">
 
 Intlayer bietet Dienstprogramme zum dynamischen Erstellen Ihrer lokalisierten Sitemap und Robots.txt-Dateien.
 
@@ -545,7 +571,9 @@ Weitere Informationen zur Verwendung der Erweiterung finden Sie in der [Dokument
 
 ---
 
-### (Optional) Schritt 15 : Inhalt Ihrer Komponenten extrahieren
+</Step>
+
+<Step number={15} title="Inhalt Ihrer Komponenten extrahieren" isOptional={true}>
 
 Wenn Sie eine bestehende Codebasis haben, kann die Transformation von Tausenden von Dateien zeitaufwendig sein.
 
@@ -646,3 +674,7 @@ bun run build # Or bun run dev
 ### Vertiefen Sie Ihr Wissen
 
 Wenn Sie mehr erfahren möchten, können Sie auch den [Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_visual_editor.md) implementieren oder das [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_CMS.md) verwenden, um Ihre Inhalte zu externalisieren.
+
+</Step>
+
+</Steps>

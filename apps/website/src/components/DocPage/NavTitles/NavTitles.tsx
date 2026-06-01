@@ -32,7 +32,7 @@ const NavTitles2: FC<NavTitles2Props> = ({ title2, activeSectionsId }) => {
               color="text"
               variant="hoverable"
               roundedSize="lg"
-              className="flex text-wrap p-2 text-sm transition-colors"
+              className="flex text-wrap p-2 text-sm text-text/80 transition-colors"
             >
               {h3.innerText}
             </Link>
@@ -81,7 +81,7 @@ export const NavTitles: FC = () => {
                 roundedSize="lg"
                 variant="hoverable"
                 isActive={isActive}
-                className="flex text-wrap p-2 text-sm transition-colors"
+                className="flex text-wrap p-2 text-sm text-text/80 transition-colors"
               >
                 {h2.innerText}
               </Link>

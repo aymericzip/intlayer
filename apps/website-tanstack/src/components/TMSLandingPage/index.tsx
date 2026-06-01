@@ -40,40 +40,40 @@ export const TMSLandingPage: FC = () => {
     <div className="flex flex-col">
       {/* Hero Section */}
       <BackgroundLayout>
-        <Suspense fallback={null}>
+        <Suspense>
           <HeroSection />
         </Suspense>
       </BackgroundLayout>
 
       {/* Pain Points Section */}
-      <Suspense fallback={null}>
+      <Suspense>
         <PainPointsSection />
       </Suspense>
 
       {/* Comparison Table Section */}
-      <Suspense fallback={null}>
+      <Suspense>
         <ComparisonSection />
       </Suspense>
 
       {/* Features Grid */}
-      <Suspense fallback={null}>
+      <Suspense>
         <FeaturesSection />
       </Suspense>
 
       {/* Products Section */}
-      <Suspense fallback={null}>
+      <Suspense>
         <ProductsSection />
       </Suspense>
 
       {/* Community Section */}
       <section>
-        <Suspense fallback={null}>
+        <Suspense>
           <ContributorSection />
         </Suspense>
       </section>
 
       {/* Final CTA */}
-      <Suspense fallback={null}>
+      <Suspense>
         <FinalCTASection />
       </Suspense>
     </div>

@@ -61,39 +61,51 @@ history:
 
 Rispetto alle soluzioni principali come `lit-localize` o `i18next`, Intlayer è una soluzione dotata di ottimizzazioni integrate come:
 
-**Copertura completamente illuminata**
+<AccordionGroup>
+<Accordion header="Copertura completamente illuminata">
 
 Intlayer è ottimizzato per funzionare perfettamente con Lit offrendo **ambito del contenuto a livello di componente Web**, **supporto TypeScript** e tutte le funzionalità necessarie per ridimensionare l'internazionalizzazione (i18n).
 
-**Dimensione del bundle**
+</Accordion>
+<Accordion header="Dimensione del bundle">
 
 Invece di caricare enormi file JSON nelle tue pagine, carica solo il contenuto necessario. Intlayer aiuta a **ridurre le dimensioni del bundle e della pagina fino al 50%**.
 
-**Manutenibilità**
+</Accordion>
+<Accordion header="Manutenibilità">
 
 L'ambito del contenuto dell'applicazione **facilita la manutenzione** per applicazioni su larga scala. Puoi duplicare o eliminare una singola cartella di funzionalità senza l'onere mentale di rivedere l'intera codebase dei contenuti. Inoltre, Intlayer è **completamente tipizzato (fully typed)** per garantire l'accuratezza dei tuoi contenuti.
 
-**Agente IA**
+</Accordion>
+<Accordion header="Agente IA">
 
 La co-localizzazione dei contenuti **riduce il contesto necessario** dai Large Language Models (LLM). Intlayer viene fornito anche con una suite di strumenti, come una **CLI** per verificare le traduzioni mancanti,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** e **[capacità dell'agente](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, per rendere l'esperienza dello sviluppatore (DX) ancora più fluida per gli agenti IA.
 
-**Automazione**
+</Accordion>
+<Accordion header="Automazione">
 
 Utilizza l'automazione per tradurre nella tua pipeline CI/CD utilizzando il LLM di tua scelta al costo del tuo provider di intelligenza artificiale. Intlayer offre anche un **compilatore** per automatizzare l'estrazione dei contenuti, nonché una [piattaforma web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) per aiutare a **tradurre in background**.
 
-**Prestazione**
+</Accordion>
+<Accordion header="Prestazione">
 
 La connessione di enormi file JSON ai componenti può portare a problemi di prestazioni e reattività. Intlayer ottimizza il caricamento dei contenuti in fase di compilazione.
 
-**Scalabilità con nessuno sviluppatore**
+</Accordion>
+<Accordion header="Scalabilità con nessuno sviluppatore">
 
 Più di una semplice soluzione i18n, Intlayer fornisce un **[editor visivo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** self-hosted e un **[CMS completo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** per aiutarti gestisci i tuoi contenuti multilingue in **tempo reale**, semplificando la collaborazione con traduttori, copywriter e altri membri del team. I contenuti possono essere archiviati localmente e/o in remoto.
+
+</Accordion>
+</AccordionGroup>
 
 ---
 
 ## Guida passo-passo per configurare Intlayer in un'applicazione Vite e Lit
 
-### Passaggio 1: Installare le dipendenze
+<Steps>
+
+<Step number={1} title="Installare le dipendenze">
 
 Installa i pacchetti necessari utilizzando npm:
 
@@ -131,7 +143,9 @@ bun x intlayer init
 - **vite-intlayer**
   Include il plugin Vite per integrare Intlayer con il [bundler Vite](https://vite.dev/guide/why.html#why-bundle-for-production), oltre al middleware per rilevare la lingua preferita dell'utente, gestire i cookie e gestire il reindirizzamento degli URL.
 
-### Passaggio 2: Configurazione del progetto
+</Step>
+
+<Step number={2} title="Configurazione del progetto">
 
 Crea un file di configurazione per impostare le lingue della tua applicazione:
 
@@ -155,7 +169,9 @@ export default config;
 
 > Attraverso questo file di configurazione, puoi impostare URL localizzati, reindirizzamento middleware, nomi dei cookie, la posizione e l'estensione delle tue dichiarazioni di contenuto, disabilitare i log di Intlayer nella console e altro ancora. Per un elenco completo dei parametri disponibili, consulta la [documentazione sulla configurazione](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/configuration.md).
 
-### Passaggio 3: Integrare Intlayer nella configurazione di Vite
+</Step>
+
+<Step number={3} title="Integrare Intlayer nella configurazione di Vite">
 
 Aggiungi il plugin intlayer nella tua configurazione.
 
@@ -171,7 +187,9 @@ export default defineConfig({
 
 > Il plugin Vite `intlayer()` viene utilizzato per integrare Intlayer con Vite. Garantisce la creazione dei file di dichiarazione dei contenuti e li monitora in modalità di sviluppo. Definisce le variabili d'ambiente Intlayer all'interno dell'applicazione Vite. Inoltre, fornisce alias per ottimizzare le prestazioni.
 
-### Passaggio 4: Bootstrap di Intlayer nel tuo punto di ingresso
+</Step>
+
+<Step number={4} title="Bootstrap di Intlayer nel tuo punto di ingresso">
 
 Chiama `installIntlayer()` **prima** che vengano registrati elementi personalizzati, in modo che il singleton globale della lingua sia pronto quando il primo elemento si connette.
 
@@ -196,7 +214,9 @@ installIntlayerMarkdown();
 import "./my-element.js";
 ```
 
-### Passaggio 5: Dichiarare il contenuto
+</Step>
+
+<Step number={5} title="Dichiarare il contenuto">
 
 Crea e gestisci le tue dichiarazioni di contenuto per memorizzare le traduzioni:
 
@@ -282,7 +302,9 @@ export default appContent;
 >
 > Per ulteriori dettagli, consulta la [documentazione sulla dichiarazione dei contenuti](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/content_file.md).
 
-### Passaggio 6: Utilizzare Intlayer nel tuo LitElement
+</Step>
+
+<Step number={6} title="Utilizzare Intlayer nel tuo LitElement">
 
 Usa `useIntlayer` all'interno di un `LitElement`. Restituisce un proxy `ReactiveController` che attiva automaticamente i re-render ogni volta che la lingua attiva cambia: non è richiesta alcuna configurazione aggiuntiva.
 
@@ -327,7 +349,9 @@ export class MyElement extends LitElement {
 > html`<img alt=${String(content.viteLogo)} />`;
 > ```
 
-### (Opzionale) Passaggio 7: Cambiare la lingua del contenuto
+</Step>
+
+<Step number={7} title="Cambiare la lingua del contenuto" isOptional={true}>
 
 Per cambiare la lingua del contenuto, usa il metodo `setLocale` esposto dal controller `useLocale`.
 
@@ -362,7 +386,9 @@ export class LocaleSwitcher extends LitElement {
 }
 ```
 
-### (Opzionale) Passaggio 8: Renderizzare contenuti Markdown e HTML
+</Step>
+
+<Step number={8} title="Renderizzare contenuti Markdown e HTML" isOptional={true}>
 
 Intlayer supporta le dichiarazioni di contenuto `md()` e `html()`. In Lit, l'output compilato viene iniettato come HTML grezzo tramite la direttiva `unsafeHTML`.
 
@@ -412,7 +438,9 @@ export class MyElement extends LitElement {
 > [!TIP]
 > `String(content.editNote)` chiama `toString()` sull'`IntlayerNode`, che restituisce la stringa Markdown grezza. Passala a `compileMarkdown` per ottenere una stringa HTML, quindi caricala con la direttiva `unsafeHTML` di Lit.
 
-### (Opzionale) Passaggio 9: Aggiungere il routing localizzato alla tua applicazione
+</Step>
+
+<Step number={9} title="Aggiungere il routing localizzato alla tua applicazione" isOptional={true}>
 
 Per creare rotte uniche per ogni lingua (utile per la SEO), puoi utilizzare un router lato client insieme agli helper `localeMap` / `localeFlatMap` di Intlayer e al plugin Vite `intlayerProxy` per il rilevamento della lingua lato server.
 
@@ -432,7 +460,9 @@ export default defineConfig({
 });
 ```
 
-### (Opzionale) Passaggio 10: Cambiare l'URL quando la lingua cambia
+</Step>
+
+<Step number={10} title="Cambiare l'URL quando la lingua cambia" isOptional={true}>
 
 Per aggiornare l'URL del browser quando la lingua cambia, utilizza `useRewriteURL` insieme al selettore di lingua:
 
@@ -470,7 +500,9 @@ export class LocaleSwitcher extends LitElement {
 }
 ```
 
-### (Opzionale) Passaggio 11: Commutare gli attributi di lingua e direzione HTML
+</Step>
+
+<Step number={11} title="Commutare gli attributi di lingua e direzione HTML" isOptional={true}>
 
 Aggiorna gli attributi `lang` e `dir` del tag `<html>` per farli corrispondere alla lingua corrente per l'accessibilità e la SEO.
 
@@ -495,7 +527,9 @@ export class MyElement extends LitElement {
 }
 ```
 
-### (Opzionale) Passaggio 12: Estrarre il contenuto dei tuoi componenti
+</Step>
+
+<Step number={12} title="Estrarre il contenuto dei tuoi componenti" isOptional={true}>
 
 Se hai una base di codice esistente, trasformare migliaia di file può richiedere molto tempo.
 
@@ -657,3 +691,7 @@ Per maggiori dettagli su come utilizzare l'estensione, consulta la [documentazio
 ### Vai oltre
 
 Per approfondire, puoi implementare l'[editor visuale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_visual_editor.md) o esternalizzare i tuoi contenuti utilizzando il [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_CMS.md).
+
+</Step>
+
+</Steps>

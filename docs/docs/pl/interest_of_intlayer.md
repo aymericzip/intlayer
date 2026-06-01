@@ -37,37 +37,48 @@ history:
 
 W porównaniu do głównych rozwiązań, takich jak `next-intl` czy `i18next`, Intlayer jest rozwiązaniem, które oferuje wbudowane optymalizacje, takie jak:
 
-**Rozmiar paczki (Bundle size)**
+<AccordionGroup>
+<Accordion header="Rozmiar paczki (Bundle size)">
 
 Zamiast ładować ogromne pliki JSON na swoje strony, ładuj tylko niezbędną treść. Intlayer pomaga **zmniejszyć rozmiar paczki i stron nawet o 50%**.
 
-**Łatwość konserwacji**
+</Accordion>
+<Accordion header="Łatwość konserwacji">
 
 Ograniczenie zakresu treści aplikacji do poziomu komponentów **ułatwia konserwację** w przypadku aplikacji na dużą skalę. Możesz zduplikować lub usunąć pojedynczy folder z funkcjonalnością bez obciążenia psychicznego związanego z przeglądaniem całego kodu treści. Dodatkowo Intlayer jest **w pełni typowany**, aby zapewnić dokładność Twoich treści.
 
-**Agent AI**
+</Accordion>
+<Accordion header="Agent AI">
 
 Umieszczenie treści bezpośrednio przy komponentach (co-location) **zmniejsza kontekst** wymagany przez duże modele językowe (LLM). Intlayer jest również wyposażony w zestaw narzędzi, takich jak **CLI** do testowania brakujących tłumaczeń, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/mcp_server.md)** oraz **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/agent_skills.md)**, aby uczynić środowisko programistyczne (DX) jeszcze bardziej płynnym dla agentów AI.
 
-**Funkcje**
+</Accordion>
+<Accordion header="Funkcje">
 
 Intlayer oferuje szereg dodatkowych funkcji, których inne rozwiązania i18n nie posiadają, takich jak [obsługa Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/markdown.md), [pobieranie treści zewnętrznych](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/function_fetching.md), [ładowanie treści z plików](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/file.md), [aktualizacja treści na żywo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/live.md), [wizualny edytor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_visual_editor.md) i wiele więcej.
 
-**Automatyzacja**
+</Accordion>
+<Accordion header="Automatyzacja">
 
 Skorzystaj z automatyzacji tłumaczeń w swoim rurociągu CI/CD, używając wybranego modelu LLM po kosztach bezpośrednich u Twojego dostawcy AI. Intlayer oferuje również **kompilator** do automatycznego wyodrębniania treści, a także [platformę internetową](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md) wspierającą **tłumaczenie w tle**.
 
-**Wydajność**
+</Accordion>
+<Accordion header="Wydajność">
 
 Podłączanie potężnych plików JSON do komponentów może prowadzić do problemów z wydajnością i reaktywnością. Intlayer optymalizuje ładowanie treści już na etapie budowania (build).
 
-**Współpraca z osobami nietechnicznymi**
+</Accordion>
+<Accordion header="Współpraca z osobami nietechnicznymi">
 
 Intlayer to coś więcej niż tylko rozwiązanie i18n — udostępnia on **[wizualny edytor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_visual_editor.md) z możliwością własnego hostowania** oraz **[pełny CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md)**, który ułatwia zarządzanie wielojęzyczną treścią w **czasie rzeczywistym**. Dzięki temu współpraca z tłumaczami, copywriterami i innymi członkami zespołu jest bezproblemowa. Treści mogą być przechowywane lokalnie i/lub zdalnie.
 
-**Architektura wieloframeworkowa**
+</Accordion>
+<Accordion header="Architektura wieloframeworkowa">
 
 Jeśli używasz różnych frameworków dla różnych części swojej aplikacji (np. React, React-native, Vue, Angular, Svelte itp.), Intlayer zapewnia sposób na **stosowanie wspólnej składni i implementacji we wszystkich głównych frameworkach frontendowych**. Będziesz także mógł udostępniać swoje deklaracje treści w swoim design systemie, aplikacjach, backendzie itd.
+
+</Accordion>
+</AccordionGroup>
 
 ## Dlaczego powstał Intlayer?
 

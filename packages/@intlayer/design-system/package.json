@@ -332,6 +332,11 @@
       "import": "./dist/esm/components/SocialNetworks/index.mjs",
       "default": "./dist/esm/components/SocialNetworks/index.mjs"
     },
+    "./steps": {
+      "types": "./dist/types/components/Steps/index.d.ts",
+      "import": "./dist/esm/components/Steps/index.mjs",
+      "default": "./dist/esm/components/Steps/index.mjs"
+    },
     "./switch-selector": {
       "types": "./dist/types/components/SwitchSelector/index.d.ts",
       "import": "./dist/esm/components/SwitchSelector/index.mjs",

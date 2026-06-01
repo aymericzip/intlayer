@@ -2,10 +2,10 @@
 createdAt: 2025-08-23
 updatedAt: 2025-08-23
 title: Wprowadzenie
-description: Odkryj, jak działa Intlayer. Zobacz kroki używane przez Intlayer w Twojej aplikacji. Dowiedz się, co robią różne pakiety.
+description: Dowiedz się, jak działa Intlayer. Zobacz kroki, których używa Intlayer w Twojej aplikacji. Sprawdź, co robią poszczególne pakiety.
 keywords:
   - Wprowadzenie
-  - Pierwsze kroki
+  - Jak zacząć
   - Intlayer
   - Aplikacja
   - Pakiety
@@ -15,20 +15,20 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: "Inicjalizacja historii"
+    changes: "Init history"
 ---
 
 # Dokumentacja Intlayer
 
-Witamy w oficjalnej dokumentacji Intlayer! Znajdziesz tutaj wszystko, czego potrzebujesz, aby zintegrować, skonfigurować i opanować Intlayer dla wszystkich Twoich potrzeb związanych z internacjonalizacją (i18n), niezależnie od tego, czy pracujesz z Next.js, React, Vite, Express czy innym środowiskiem JavaScript.
+Witamy w oficjalnej dokumentacji Intlayer! Tutaj znajdziesz wszystko, czego potrzebujesz, aby zintegrować, skonfigurować i opanować Intlayer dla wszystkich Twoich potrzeb związanych z internacjonalizacją (i18n), niezależnie od tego, czy pracujesz z Next.js, React, Vite, Express, czy w innym środowisku JavaScript.
 
 ## Wprowadzenie
 
 ### Czym jest Intlayer?
 
-**Intlayer** to biblioteka do internacjonalizacji zaprojektowana specjalnie dla programistów JavaScript. Pozwala na deklarowanie Twoich treści w dowolnym miejscu w kodzie. Przekształca deklaracje wielojęzycznych treści w ustrukturyzowane słowniki, które można łatwo zintegrować w Twoim kodzie. Korzystając z TypeScript, **Intlayer** sprawia, że Twój rozwój jest silniejszy i bardziej efektywny.
+**Intlayer** to biblioteka internacjonalizacji zaprojektowana specjalnie dla programistów JavaScript. Pozwala ona na deklarowanie treści w dowolnym miejscu Twojego kodu. Przekształca deklaracje wielojęzycznych treści w ustrukturyzowane słowniki w celu ich łatwej integracji z Twoim kodem. Wykorzystując TypeScript, **Intlayer** sprawia, że Twoje tworzenie oprogramowania jest solidniejsze i bardziej wydajne.
 
-Intlayer oferuje również opcjonalny edytor wizualny, który pozwala łatwo edytować i zarządzać Twoimi treściami. Ten edytor jest szczególnie przydatny dla programistów, którzy wolą wizualny interfejs do zarządzania treścią, lub dla zespołów generujących treści bez konieczności martwienia się o kod.
+Intlayer udostępnia również opcjonalny edytor wizualny, który pozwala w prosty sposób edytować i zarządzać treścią. Ten edytor jest szczególnie przydatny dla programistów, którzy preferują wizualny interfejs do zarządzania treścią, lub dla zespołów generujących treści bez konieczności przejmowania się kodem.
 
 ### Przykład użycia
 
@@ -50,11 +50,12 @@ const componentContent = {
       en: "Hello World",
       es: "Hola Mundo",
       fr: "Bonjour le monde",
+      pl: "Witaj świecie",
     }),
   },
-} satisfies Dictionary; // spełnia typ Dictionary (słownik)
+} satisfies Dictionary;
 
-export default componentContent; // eksportuje zawartość komponentu
+export default componentContent;
 ```
 
 ```json fileName="src/components/MyComponent/index.content.json" contentDeclarationFormat="json"
@@ -67,7 +68,8 @@ export default componentContent; // eksportuje zawartość komponentu
       "translation": {
         "en": "Hello World",
         "fr": "Bonjour le monde",
-        "es": "Hola Mundo"
+        "es": "Hola Mundo",
+        "pl": "Witaj świecie"
       }
     }
   }
@@ -90,46 +92,46 @@ export const MyComponent: FC = () => {
 Intlayer oferuje szereg funkcji dostosowanych do potrzeb nowoczesnego tworzenia stron internetowych. Poniżej znajdują się kluczowe funkcje wraz z linkami do szczegółowej dokumentacji dla każdej z nich:
 
 - **Wsparcie dla internacjonalizacji**: Zwiększ globalny zasięg swojej aplikacji dzięki wbudowanemu wsparciu dla internacjonalizacji.
-- **Edytor wizualny**: Ulepsz swój proces tworzenia dzięki wtyczkom do edytorów zaprojektowanym dla Intlayer. Sprawdź [Przewodnik po edytorze wizualnym](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_visual_editor.md).
-- **Elastyczność konfiguracji**: Dostosuj swoje środowisko za pomocą rozbudowanych opcji konfiguracyjnych opisanych w [Przewodniku po konfiguracji](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/configuration.md).
-- **Zaawansowane narzędzia CLI**: Zarządzaj swoimi projektami efektywnie, korzystając z interfejsu wiersza poleceń Intlayer. Poznaj możliwości w [Dokumentacji narzędzi CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/index.md).
+- **Edytor Wizualny**: Usprawnij swój przepływ pracy za pomocą wtyczek edytora zaprojektowanych dla Intlayer. Sprawdź [Przewodnik po Edytorze Wizualnym](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_visual_editor.md).
+- **Elastyczność Konfiguracji**: Dostosuj swoją konfigurację za pomocą rozbudowanych opcji konfiguracyjnych, wyszczególnonych w [Przewodniku po konfiguracji](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/configuration.md).
+- **Zaawansowane Narzędzia CLI**: Zarządzaj efektywnie swoimi projektami przy użyciu interfejsu wiersza poleceń Intlayer. Odkryj możliwości w [Dokumentacji Narzędzi CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/index.md).
 
-## Podstawowe koncepcje
+## Kluczowe Koncepcje
 
-### Słownik
+### Słownik (Dictionary)
 
-Organizuj swoje wielojęzyczne treści blisko kodu, aby wszystko było spójne i łatwe w utrzymaniu.
+Organizuj swoje wielojęzyczne treści w pobliżu kodu, aby zachować spójność i łatwość w utrzymaniu.
 
-- **[Pierwsze kroki](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/content_file.md)**  
+- **[Rozpocznij](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/content_file.md)**  
   Poznaj podstawy deklarowania treści w Intlayer.
 
-- **[Tłumaczenie](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/translation.md)**  
+- **[Tłumaczenie (Translation)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/translation.md)**  
   Zrozum, jak tłumaczenia są generowane, przechowywane i wykorzystywane w Twojej aplikacji.
 
-- **[Enumeracja](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/enumeration.md)**  
-  Łatwo zarządzaj powtarzającymi się lub stałymi zestawami danych w różnych językach.
+- **[Wyliczenie (Enumeration)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/enumeration.md)**  
+  Łatwo zarządzaj powtarzalnymi lub stałymi zestawami danych w różnych językach.
 
-- **[Warunek](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/condition.md)**  
-  Naucz się, jak używać logiki warunkowej w Intlayer, aby tworzyć dynamiczne treści.
+- **[Warunek (Condition)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/condition.md)**  
+  Dowiedz się, jak stosować logikę warunkową w Intlayer, aby tworzyć dynamiczne treści.
 
-- **[Wstawianie](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/insertion.md)**  
-  Odkryj, jak wstawiać wartości do ciągu znaków za pomocą symboli zastępczych wstawiania.
+- **[Wstawianie (Insertion)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/insertion.md)**  
+  Odkryj, jak wstawiać wartości w łańcuch znaków przy użyciu znaczników (placeholders).
 
-- **[Pobieranie funkcji](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/function_fetching.md)**  
-  Zobacz, jak dynamicznie pobierać zawartość za pomocą niestandardowej logiki, aby dopasować ją do przepływu pracy Twojego projektu.
+- **[Pobieranie przez Funkcje (Function Fetching)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/function_fetching.md)**  
+  Zobacz, jak dynamicznie pobierać treść za pomocą niestandardowej logiki, aby dopasować ją do przepływu pracy Twojego projektu.
 
 - **[Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/markdown.md)**  
-  Naucz się, jak używać Markdown w Intlayer do tworzenia bogatej zawartości.
+  Dowiedz się, jak używać Markdown w Intlayer, aby tworzyć wzbogacone teksty.
 
-- **[Osadzanie plików](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/file.md)**  
-  Odkryj, jak osadzać zewnętrzne pliki w Intlayer, aby używać ich w edytorze treści.
+- **[Osadzanie Plików (File embeddings)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/file.md)**  
+  Odkryj, jak osadzać zewnętrzne pliki w Intlayer, aby korzystać z nich w edytorze treści.
 
-- **[Zagnieżdżanie](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/nesting.md)**  
-  Zrozum, jak zagnieżdżać zawartość w Intlayer, aby tworzyć złożone struktury.
+- **[Zagnieżdżanie (Nesting)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/nesting.md)**  
+  Zrozum, jak zagnieżdżać treści w Intlayer, aby budować złożone struktury.
 
-### Środowiska i integracje
+### Środowiska i Integracje
 
-Intlayer został zaprojektowany z myślą o elastyczności, oferując bezproblemową integrację z popularnymi frameworkami i narzędziami do budowania:
+Zbudowaliśmy Intlayer z myślą o elastyczności, oferując płynną integrację w obrębie popularnych frameworków i narzędzi do budowania:
 
 - **[Intlayer z Next.js 16](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_nextjs_16.md)**
 - **[Intlayer z Next.js 15](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_nextjs_15.md)**
@@ -144,20 +146,45 @@ Intlayer został zaprojektowany z myślą o elastyczności, oferując bezproblem
 - **[Intlayer z Vite + Preact](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_vite+preact.md)**
 - **[Intlayer z Vite + Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_vite+vue.md)**
 - **[Intlayer z Nuxt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_nuxt.md)**
+- **[Intlayer z Vite + Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_vite+svelte.md)**
+- **[Intlayer z SvelteKit](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_svelte_kit.md)**
 - **[Intlayer z Express](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_express.md)**
 - **[Intlayer z NestJS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_nestjs.md)**
-- **[Intlayer z Angular](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_angular.md)**
+- **[Intlayer z Hono](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_hono.md)**
+- **[Intlayer z Angular](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_angular_21.md)**
 
-Każdy przewodnik integracyjny zawiera najlepsze praktyki korzystania z funkcji Intlayer, takich jak **renderowanie po stronie serwera**, **dynamiczne routowanie** czy **renderowanie po stronie klienta**, dzięki czemu możesz utrzymać szybką, przyjazną dla SEO i wysoce skalowalną aplikację.
+Każdy przewodnik integracyjny zawiera najlepsze praktyki korzystania z funkcji Intlayer, takich jak **renderowanie po stronie serwera (SSR)**, **dynamiczne routowanie**, czy **renderowanie po stronie klienta**, dzięki czemu możesz utrzymać szybką, przyjazną dla SEO i wysoce skalowalną aplikację.
 
-## Współtworzenie i opinie
+## Wnoszenie Wkładu i Opinie
 
-Cenimy siłę open-source i rozwój oparty na społeczności. Jeśli chcesz zaproponować ulepszenia, dodać nowy przewodnik lub poprawić jakiekolwiek problemy w naszej dokumentacji, śmiało zgłoś Pull Request lub otwórz issue w naszym [repozytorium GitHub](https://github.com/aymericzip/intlayer/blob/main/docs/docs).
+Cenimy siłę open-source i tworzenia oprogramowania opartego o społeczność. Jeśli chciałbyś zaproponować usprawnienia, dodać nowy poradnik lub poprawić błędy w naszych dokumentach, śmiało wyślij Pull Request lub otwórz Issue w naszym [repozytorium GitHub](https://github.com/aymericzip/intlayer/blob/main/docs/docs).
 
-Każdy przewodnik integracji zawiera najlepsze praktyki dotyczące korzystania z funkcji Intlayer, takich jak **renderowanie po stronie serwera**, **dynamiczne routowanie** czy **renderowanie po stronie klienta**, dzięki czemu możesz utrzymać szybką, przyjazną dla SEO i wysoce skalowalną aplikację.
+**Gotowy, aby tłumaczyć swoją aplikację szybciej i wydajniej?** Zanurz się w naszej dokumentacji, aby rozpocząć korzystanie z Intlayer już dziś. Doświadcz solidnego, zoptymalizowanego podejścia do internacjonalizacji, które sprawi, że Twoje treści będą uporządkowane, a Twój zespół bardziej produktywny.
 
-## Współtworzenie i opinie
+### Dlaczego Intlayer, a nie alternatywy?
 
-Cenimy siłę open-source i rozwój oparty na społeczności. Jeśli chcesz zaproponować ulepszenia, dodać nowy przewodnik lub poprawić jakiekolwiek błędy w naszej dokumentacji, śmiało zgłoś Pull Request lub otwórz issue w naszym [repozytorium GitHub](https://github.com/aymericzip/intlayer/blob/main/docs/docs).
+W porównaniu do wiodących rozwiązań takich jak `next-intl` lub `i18next`, Intlayer to rozwiązanie, które ma zintegrowane optymalizacje, takie jak:
 
-**Gotowy, aby tłumaczyć swoją aplikację szybciej i efektywniej?** Zanurz się w naszej dokumentacji i zacznij korzystać z Intlayer już dziś. Doświadcz solidnego, usprawnionego podejścia do internacjonalizacji, które pozwala utrzymać porządek w treściach i zwiększa produktywność Twojego zespołu.
+**Rozmiar paczki (Bundle size)**
+
+Zamiast pobierać ogromne pliki JSON do Twoich stron, ładuj tylko niezbędną treść. Intlayer pomaga **zmniejszyć rozmiary Twojego kodu wynikowego oraz stron nawet o 50%**.
+
+**Łatwość w utrzymaniu (Maintainability)**
+
+Ograniczanie zasięgu (scoping) treści Twojej aplikacji **ułatwia utrzymanie** dużych projektów. Możesz skopiować lub usunąć folder pojedynczej funkcjonalności bez obciążania umysłu koniecznością przeglądania całej bazy kodu treści. Ponadto, Intlayer jest **w pełni zadeklarowany statycznie (fully typed)**, co gwarantuje poprawność Twojej treści.
+
+**Agent AI**
+
+Wspólne umiejscowienie (co-locating) kodu i treści **zmniejsza kontekst wymagany** przez duże modele językowe (LLM). Intlayer jest również dostarczany z pakietem narzędzi, takim jak **CLI** służącym do testowania pod kątem brakujących tłumaczeń, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/mcp_server.md)** oraz **[umiejętności agentów (agent skills)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/agent_skills.md)**, dzięki czemu środowisko programistyczne (DX) dla agentów AI staje się znacznie wygodniejsze.
+
+**Automatyzacja**
+
+Skorzystaj z automatyzacji, by tłumaczyć w Twoim potoku CI/CD, używając wybranego modelu LLM zgodnie z kosztem Twojego dostawcy AI. Intlayer oferuje również **kompilator**, aby automatyzować wyciąganie treści, a także [platformę webową](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md), by pomóc **tłumaczyć w tle**.
+
+**Wydajność (Performance)**
+
+Podłączanie ogromnych plików JSON do komponentów może prowadzić do problemów z wydajnością i reaktywnością. Intlayer optymalizuje proces ładowania Twojej treści w fazie budowania (build time).
+
+**Skalowanie bez angażowania programistów (Scaling with non-dev)**
+
+Więcej niż rozwiązanie i18n — Intlayer dostarcza **samodzielnie hostowany [edytor wizualny](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_visual_editor.md)** oraz **[w pełni wyposażony system CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md)**, który pomaga zarządzać Twoimi wielojęzycznymi treściami **w czasie rzeczywistym**, umożliwiając bezproblemową współpracę między tłumaczami, twórcami treści i pozostałymi członkami zespołu. Treść można przechowywać lokalnie i/lub zdalnie.

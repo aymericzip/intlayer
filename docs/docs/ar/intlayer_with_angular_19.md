@@ -100,7 +100,9 @@ history:
 
 راجع [قالب التطبيق](https://github.com/aymericzip/intlayer-angular-19-template) على GitHub.
 
-### الخطوة 1: تثبيت التبعيات
+<Steps>
+
+<Step number={1} title="تثبيت التبعيات">
 
 قم بتثبيت الحزم اللازمة باستخدام npm:
 
@@ -138,7 +140,9 @@ bun x intlayer init
 - **@angular-builders/custom-webpack**
   مطلوب لتخصيص تكوين Webpack لـ Angular CLI.
 
-### الخطوة 2: تكوين مشروعك
+</Step>
+
+<Step number={2} title="تكوين مشروعك">
 
 أنشئ ملف تكوين لتهيئة لغات تطبيقك:
 
@@ -162,7 +166,9 @@ export default config;
 
 > من خلال ملف التكوين هذا، يمكنك إعداد عناوين URL الموطنة، وإعادة توجيه البرمجيات الوسيطة، وأسماء ملفات تعريف الارتباط، وموقع وامتداد إعلانات المحتوى الخاصة بك، وتعطيل سجلات Intlayer في وحدة التحكم، والمزيد. للحصول على قائمة كاملة بالمعلمات المتاحة، ارجع إلى [وثائق التكوين](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md).
 
-### الخطوة 3: دمج Intlayer في تكوين Angular الخاص بك
+</Step>
+
+<Step number={3} title="دمج Intlayer في تكوين Angular الخاص بك">
 
 لدمج Intlayer مع Angular CLI، تحتاج إلى استخدام منشئ مخصص. يفترض هذا الدليل أنك تستخدم Webpack (الافتراضي للعديد من مشاريع Angular).
 
@@ -205,7 +211,9 @@ export default mergeConfig({});
 
 > تقوم دالة `mergeConfig` بتكوين Webpack مع Intlayer. حيث تقوم بحقن `IntlayerPlugin` (للتعامل مع ملفات إعلان المحتوى) وتعيين الأسماء المستعارة لتحقيق الأداء الأمثل.
 
-### الخطوة 4: إعلان المحتوى الخاص بك
+</Step>
+
+<Step number={4} title="إعلان المحتوى الخاص بك">
 
 قم بإنشاء وإدارة إعلانات المحتوى لتخزين الترجمات:
 
@@ -255,7 +263,9 @@ export default appContent;
 
 > لمزيد من التفاصيل، راجع [وثائق إعلان المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md).
 
-### الخطوة 5: استخدام Intlayer في كودك
+</Step>
+
+<Step number={5} title="استخدام Intlayer في كودك">
 
 لاستخدام ميزات التدويل في Intlayer عبر تطبيق Angular الخاص بك، تحتاج إلى توفير Intlayer في تكوين تطبيقك.
 
@@ -303,7 +313,9 @@ export class AppComponent {
 
 يتم إرجاع محتوى Intlayer كـ `Signal` ، لذا يمكنك الوصول إلى القيم عن طريق استدعاء الإشارة: `content().title`.
 
-### (اختياري) الخطوة 6: تغيير لغة المحتوى الخاص بك
+</Step>
+
+<Step number={6} title="تغيير لغة المحتوى الخاص بك" isOptional={true}>
 
 لتغيير لغة المحتوى الخاص بك، يمكنك استخدام دالة `setLocale` التي توفرها دالة `useLocale`. يتيح لك هذا تعيين لغة التطبيق وتحديث المحتوى وفقًا لذلك.
 
@@ -413,3 +425,7 @@ export class AppComponent {
 للمضي قدمًا، يمكنك تنفيذ [المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) أو إخراج المحتوى الخاص بك باستخدام [نظام إدارة المحتوى (CMS)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md).
 
 ---
+
+</Step>
+
+</Steps>

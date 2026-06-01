@@ -41,33 +41,43 @@ This guide demonstrates how to integrate **Intlayer** for seamless international
 
 Compared to main solutions like `react-i18next` or `i18next`, Intlayer is a solution that comes with integrated optimizations such as:
 
-**Full TanStack Start coverage**
+<AccordionGroup>
+<Accordion header="Full TanStack Start coverage">
 
 Intlayer is optimized to work perfectly with TanStack Start and Solid by offering **multilingual routing**, **sitemap**, and all the features needed for scaling internationalization (i18n).
 
-**Bundle size**
+</Accordion>
+<Accordion header="Bundle size">
 
 Instead of loading massive JSON files into your pages, load only the necessary content. Intlayer helps **reduce your bundle and page sizes by up to 50%**.
 
-**Maintainability**
+</Accordion>
+<Accordion header="Maintainability">
 
 Scoping your application's content **facilitates maintenance** for large-scale applications. You can duplicate or delete a single feature folder without the mental burden of reviewing your entire content codebase. Additionally, Intlayer is **fully typed** to ensure your content's accuracy.
 
-**AI Agent**
+</Accordion>
+<Accordion header="AI Agent">
 
 Co-locating content **reduces the context needed** by Large Language Models (LLMs). Intlayer also comes with a suite of tools, such as a **CLI** to test for missing translations,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)**, and **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, to make the developer experience (DX) even smoother for AI agents.
 
-**Automation**
+</Accordion>
+<Accordion header="Automation">
 
 Use automation to translate in your CI/CD pipeline using the LLM of your choice at the cost of your AI provider. Intlayer also offers a **compiler** to automate content extraction, as well as a [web platform](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) to help **translate in the background**.
 
-**Performance**
+</Accordion>
+<Accordion header="Performance">
 
 Connecting massive JSON files to components can lead to performance and reactivity issues. Intlayer optimizes your content loading at build time.
 
-**Scaling with none-dev**
+</Accordion>
+<Accordion header="Scaling with none-dev">
 
 More than just an i18n solution, Intlayer provides an **self-hosted [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** and a **[full CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** to help you manage your multilingual content in **real-time**, making collaboration with translators, copywriters, and other team members seamless. Content can be stored locally and/or remotely.
+
+</Accordion>
+</AccordionGroup>
 
 ---
 
@@ -105,11 +115,15 @@ More than just an i18n solution, Intlayer provides an **self-hosted [visual edit
 
 See the [Application Template](https://github.com/aymericzip/intlayer-tanstack-start-solid-template) on GitHub.
 
-### Step 1: Project Creation
+<Steps>
+
+<Step number={1} title="Project Creation">
 
 First, create a new TanStack Start project following the [Start New Project](https://tanstack.com/start/latest/docs/framework/solid/quick-start) guide on the TanStack Start website.
 
-### Step 2: Install Intlayer Packages
+</Step>
+
+<Step number={2} title="Install Intlayer Packages">
 
 Install the necessary packages using your preferred package manager:
 
@@ -147,7 +161,9 @@ bun x intlayer init
 - **vite-intlayer**
   Includes the Vite plugin to integrate Intlayer with the [Vite bundler](https://vite.dev/guide/why.html#why-bundle-for-production), as well as middleware to detect the user's preferred locale, manage cookies, and handle URL redirection.
 
-### Step 3: Configuration of your project
+</Step>
+
+<Step number={3} title="Configuration of your project">
 
 Create a configuration file to set up the languages of your application:
 
@@ -168,7 +184,9 @@ export default config;
 
 > Through this configuration file, you can configure localised URLs, middleware redirection, cookie names, the location and extension of your content declarations, disable Intlayer logs in the console, and more. For a complete list of available parameters, refer to the [configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/configuration.md).
 
-### Step 4: Integrate Intlayer in your Vite Configuration
+</Step>
+
+<Step number={4} title="Integrate Intlayer in your Vite Configuration">
 
 Add the intlayer plugin in your configuration:
 
@@ -196,7 +214,9 @@ export default defineConfig({
 
 > The `intlayer()` Vite plugin is used to integrate Intlayer with Vite. It ensures the building of content declaration files and monitors them in development mode. It defines the Intlayer environment variables within the Vite application. Additionally, it provides aliases to reduce performance overhead.
 
-### Step 5: Create the Root Layout
+</Step>
+
+<Step number={5} title="Create the Root Layout">
 
 Configure your root layout to support internationalisation by using `useParams` to detect the current locale and setting the `lang` and `dir` attributes on the `html` tag.
 
@@ -237,7 +257,9 @@ const RootComponent: ParentComponent = (props) => {
 };
 ```
 
-### Step 6: Create the Locale Layout (Optional)
+</Step>
+
+<Step number={6} title="Create the Locale Layout">
 
 Create a layout that handles the locale prefix and performs validation. This layout will ensure only valid locales are processed.
 
@@ -272,7 +294,9 @@ export const Route = createFileRoute("/{-$locale}")({
 > For `'prefix-all'` mode, you might prefer switching the slot to `$locale`.
 > For `'no-prefix'` or `'search-params'` mode, you can remove the slot entirely.
 
-### Step 7: Declare Your Content
+</Step>
+
+<Step number={7} title="Declare Your Content">
 
 Create and manage your content declarations to store translations:
 
@@ -318,7 +342,9 @@ export default appContent;
 
 > For more details, refer to the [content declaration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/content_file.md).
 
-### Step 8: Utilise Locale-Aware Components and Hooks
+</Step>
+
+<Step number={8} title="Utilise Locale-Aware Components and Hooks">
 
 Create a `LocalizedLink` component for locale-aware navigation:
 
@@ -398,7 +424,9 @@ export const useLocalizedNavigate = () => {
 };
 ```
 
-### Step 9: Use Intlayer in Your Pages
+</Step>
+
+<Step number={9} title="Use Intlayer in Your Pages">
 
 Access your content dictionaries throughout your application:
 
@@ -441,7 +469,9 @@ function RouteComponent() {
 >
 > To learn more about the `useIntlayer` hook, refer to the [documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/solid-intlayer/useIntlayer.md).
 
-### Step 10: Create a Locale Switcher Component
+</Step>
+
+<Step number={10} title="Create a Locale Switcher Component">
 
 Create a component to allow users to change languages:
 
@@ -485,7 +515,9 @@ export default LocaleSwitcher;
 >
 > To learn more about the `useLocale` hook, refer to the [documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/solid-intlayer/useLocale.md).
 
-### Step 11: Management of HTML Attributes
+</Step>
+
+<Step number={11} title="Management of HTML Attributes">
 
 As seen in Step 5, you can manage the `lang` and `dir` attributes of the `html` tag by using `useParams` in your root component. This ensures that the correct attributes are set on both the server and client.
 
@@ -504,7 +536,9 @@ const RootComponent: ParentComponent = (props) => {
 
 ---
 
-### Step 12: Add Middleware (Optional)
+</Step>
+
+<Step number={12} title="Add Middleware">
 
 You can also use the `intlayerProxy` to add server-side routing to your application. This plugin will automatically detect the current locale based on the URL and set the appropriate locale cookie. If no locale is specified, the plugin will determine the most appropriate locale based on the user's browser language preferences. If no locale is detected, it will redirect to the default locale.
 
@@ -535,7 +569,9 @@ export default defineConfig({
 
 ---
 
-### Step 13: Internationalise Your Metadata (Optional)
+</Step>
+
+<Step number={13} title="Internationalise Your Metadata">
 
 You can also use the `getIntlayer` function to access your content dictionaries within the `head` loader for locale-aware metadata:
 
@@ -582,7 +618,9 @@ export const Route = createFileRoute("/{-$locale}/")({
 
 ---
 
-### Step 14: Retrieve the locale in your server actions (Optional)
+</Step>
+
+<Step number={14} title="Retrieve the locale in your server actions">
 
 You may want to access the current locale from within your server actions or API endpoints.
 You can do this using the `getLocale` helper from `intlayer`.
@@ -619,7 +657,9 @@ export const getLocaleServer = createServerFn().handler(async () => {
 
 ---
 
-### Step 15: Manage not found pages (Optional)
+</Step>
+
+<Step number={15} title="Manage not found pages">
 
 When a user visits a non-existent page, you can display a custom not found page and the locale prefix can impact the way the not found page is triggered.
 
@@ -693,7 +733,9 @@ export const Route = createFileRoute("/{-$locale}/$")({
 });
 ```
 
-### (Optional) Step 16: Extract the content from your components
+</Step>
+
+<Step number={16} title="Extract the content from your components" isOptional={true}>
 
 If you have an existing codebase, transforming thousands of files can be time-consuming.
 
@@ -806,7 +848,9 @@ bun run build # Or bun run dev
 
 ---
 
-### Step 16: Generate Sitemap (Optional)
+</Step>
+
+<Step number={16} title="Generate Sitemap">
 
 Intlayer comes with a built-in sitemap generator to help you create a sitemap for your application easily. It handles localised routes and adds the necessary metadata for search engines.
 
@@ -877,7 +921,9 @@ export const Route = createFileRoute("/sitemap.xml")({
 
 ---
 
-### Step 17: Configure TypeScript (Optional)
+</Step>
+
+<Step number={17} title="Configure TypeScript">
 
 Intlayer uses module augmentation to get the benefits of TypeScript and make your codebase stronger.
 
@@ -907,6 +953,10 @@ To do this, you can add the following instructions to your `.gitignore` file:
 ```
 
 ---
+
+</Step>
+
+</Steps>
 
 ## VS Code Extension
 

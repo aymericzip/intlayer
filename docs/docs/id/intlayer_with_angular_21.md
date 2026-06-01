@@ -40,33 +40,43 @@ history:
 
 Dibandingkan dengan solusi utama seperti `ngx-translate` atau `angular-l10n`, Intlayer adalah solusi yang hadir dengan pengoptimalan terintegrasi seperti:
 
-**Cakupan Sudut Penuh**
+<AccordionGroup>
+<Accordion header="Cakupan Sudut Penuh">
 
 Intlayer dioptimalkan agar berfungsi sempurna dengan Angular dengan menawarkan **pelingkupan konten tingkat komponen**, **terjemahan yang lambat dimuat**, dan semua fitur yang diperlukan untuk penskalaan internasionalisasi (i18n).
 
-**Ukuran bundle**
+</Accordion>
+<Accordion header="Ukuran bundle">
 
 Daripada memuat file JSON berukuran besar ke halaman Anda, muat saja konten yang diperlukan. Intlayer membantu **mengurangi ukuran bundle dan halaman Anda hingga 50%**.
 
-**Kemampuan Pemeliharaan**
+</Accordion>
+<Accordion header="Kemampuan Pemeliharaan">
 
 Mencakup konten aplikasi Anda **memfasilitasi pemeliharaan** untuk aplikasi berskala besar. Anda dapat menduplikasi atau menghapus satu folder fitur tanpa beban mental untuk meninjau seluruh basis kode konten Anda. Selain itu, Intlayer **diketik sepenuhnya** untuk memastikan keakuratan konten Anda.
 
-**Agen AI**
+</Accordion>
+<Accordion header="Agen AI">
 
 Menempatkan konten bersama **mengurangi konteks yang diperlukan** dengan Model Bahasa Besar (LLM). Intlayer juga dilengkapi dengan serangkaian alat, seperti **CLI** untuk menguji terjemahan yang hilang,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)**, dan **[agent skill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, untuk menjadikan pengalaman pengembang (DX) lebih lancar bagi agen AI.
 
-**Otomatisasi**
+</Accordion>
+<Accordion header="Otomatisasi">
 
 Gunakan otomatisasi untuk menerjemahkan dalam saluran CI/CD Anda menggunakan LLM pilihan Anda dengan biaya penyedia AI Anda. Intlayer juga menawarkan **compiler** untuk mengotomatiskan ekstraksi konten, serta [platform web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) untuk membantu **menerjemahkan di latar belakang**.
 
-**Pertunjukan**
+</Accordion>
+<Accordion header="Pertunjukan">
 
 Menghubungkan file JSON berukuran besar ke komponen dapat menyebabkan masalah kinerja dan reaktivitas. Intlayer mengoptimalkan pemuatan konten Anda pada waktu pembuatan.
 
-**Menskalakan tanpa pengembang**
+</Accordion>
+<Accordion header="Menskalakan tanpa pengembang">
 
 Lebih dari sekedar solusi i18n, Intlayer menyediakan **[editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** yang dihosting sendiri dan **[CMS lengkap](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** untuk membantu Anda mengelola konten multibahasa secara **real-time**, membuat kolaborasi dengan penerjemah, copywriter, dan anggota tim lainnya menjadi lancar. Konten dapat disimpan secara lokal dan/atau jarak jauh.
+
+</Accordion>
+</AccordionGroup>
 
 ---
 
@@ -99,7 +109,9 @@ Lebih dari sekedar solusi i18n, Intlayer menyediakan **[editor visual](https://g
 
 Lihat [Templat Aplikasi](https://github.com/aymericzip/intlayer-angular-21-template) di GitHub.
 
-### Langkah 1: Instal Dependensi
+<Steps>
+
+<Step number={1} title="Instal Dependensi">
 
 Instal paket yang diperlukan menggunakan npm:
 
@@ -137,7 +149,9 @@ bun x intlayer init
 - **@angular-builders/custom-esbuild**
   Diperlukan untuk menyesuaikan konfigurasi esbuild dari Angular CLI.
 
-### Langkah 2: Konfigurasi proyek Anda
+</Step>
+
+<Step number={2} title="Konfigurasi proyek Anda">
 
 Buat file konfigurasi untuk mengonfigurasi bahasa aplikasi Anda:
 
@@ -161,7 +175,9 @@ export default config;
 
 > Melalui file konfigurasi ini, Anda dapat mengatur URL yang dilokalkan, pengalihan middleware, nama cookie, lokasi dan ekstensi deklarasi konten Anda, menonaktifkan log Intlayer di konsol, dan banyak lagi. Untuk daftar lengkap parameter yang tersedia, rujuk ke [dokumentasi konfigurasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md).
 
-### Langkah 3: Integrasikan Intlayer dalam Konfigurasi Angular Anda
+</Step>
+
+<Step number={3} title="Integrasikan Intlayer dalam Konfigurasi Angular Anda">
 
 Untuk mengintegrasikan Intlayer dengan Angular CLI, Anda perlu menggunakan pembuat (builder) kustom. Panduan ini mengasumsikan Anda menggunakan Vite/esbuild (default untuk proyek Angular 21).
 
@@ -223,7 +239,9 @@ export default [intlayerEsbuildPlugin()];
 >
 > Kemudian di `angular.json` arahkan ke `"./esbuild.plugins.mjs"` alih-alih `"./esbuild.plugins.ts"`.
 
-### Langkah 4: Deklarasikan Konten Anda
+</Step>
+
+<Step number={4} title="Deklarasikan Konten Anda">
 
 Buat dan kelola deklarasi konten Anda untuk menyimpan terjemahan:
 
@@ -273,7 +291,9 @@ export default appContent;
 
 > Untuk detail lebih lanjut, rujuk ke [dokumentasi deklarasi konten](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/content_file.md).
 
-### Langkah 5: Manfaatkan Intlayer dalam Kode Anda
+</Step>
+
+<Step number={5} title="Manfaatkan Intlayer dalam Kode Anda">
 
 Untuk memanfaatkan fitur internasionalisasi Intlayer di seluruh aplikasi Angular Anda, Anda perlu menyediakan Intlayer di konfigurasi aplikasi Anda.
 
@@ -321,7 +341,9 @@ Dan di template Anda:
 
 Konten Intlayer dikembalikan sebagai `Signal`, jadi Anda mengakses nilai-nilainya dengan memanggil sinyal: `content().title`.
 
-### (Opsional) Langkah 6: Ubah bahasa konten Anda
+</Step>
+
+<Step number={6} title="Ubah bahasa konten Anda" isOptional={true}>
 
 Untuk mengubah bahasa konten Anda, Anda dapat menggunakan fungsi `setLocale` yang disediakan oleh fungsi `useLocale`. Ini memungkinkan Anda untuk mengatur lokal aplikasi dan memperbarui konten sesuai dengan hal itu.
 
@@ -431,3 +453,7 @@ Untuk detail lebih lanjut tentang cara menggunakan ekstensi ini, rujuk ke [dokum
 Untuk melangkah lebih jauh, Anda dapat mengimplementasikan [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md) atau mengeksternalisasi konten Anda menggunakan [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md).
 
 ---
+
+</Step>
+
+</Steps>

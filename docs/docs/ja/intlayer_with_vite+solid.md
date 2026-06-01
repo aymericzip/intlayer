@@ -96,7 +96,9 @@ Intlayer は単なる i18n ソリューションではなく、**自己ホスト
 
 <TOC/>
 
-### ステップ1: 依存関係のインストール
+<Steps>
+
+<Step number={1} title="依存関係のインストール">
 
 npmを使って必要なパッケージをインストールします：
 
@@ -134,7 +136,9 @@ bun x intlayer init
 - **vite-intlayer**
   Intlayerを[Viteバンドラー](https://vite.dev/guide/why.html#why-bundle-for-production)と統合するためのViteプラグイン、およびユーザーの優先ロケール検出、クッキー管理、URLリダイレクト処理のためのミドルウェアを含みます。
 
-### ステップ 2: プロジェクトの設定
+</Step>
+
+<Step number={2} title="プロジェクトの設定">
 
 アプリケーションの言語を設定するための設定ファイルを作成します：
 
@@ -158,7 +162,9 @@ export default config;
 
 > この設定ファイルを通じて、ローカライズされたURL、ミドルウェアのリダイレクション、クッキー名、コンテンツ宣言の場所と拡張子、コンソールでのIntlayerログの無効化などを設定できます。利用可能なパラメータの完全なリストについては、[設定ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)を参照してください。
 
-### ステップ3: Vite設定にIntlayerを統合する
+</Step>
+
+<Step number={3} title="Vite設定にIntlayerを統合する">
 
 intlayerプラグインを設定に追加します。
 
@@ -173,7 +179,9 @@ export default defineConfig({
 });
 ```
 
-### ステップ 3: Vite 設定に Intlayer を統合する
+</Step>
+
+<Step number={3} title="Vite 設定に Intlayer を統合する">
 
 intlayer プラグインを設定に追加します。
 
@@ -190,7 +198,9 @@ export default defineConfig({
 
 > `intlayer()` は Vite プラグインで、Intlayer を Vite に統合するために使用されます。コンテンツ宣言ファイルのビルドを保証し、開発モードでそれらを監視します。Vite アプリケーション内で Intlayer の環境変数を定義します。さらに、パフォーマンス最適化のためのエイリアスも提供します。
 
-### ステップ 4: コンテンツを宣言する
+</Step>
+
+<Step number={4} title="コンテンツを宣言する">
 
 翻訳を格納するためのコンテンツ宣言を作成および管理します。
 
@@ -220,7 +230,9 @@ export default appContent;
 
 > 詳細については、[コンテンツ宣言のドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/content_file.md)を参照してください。
 
-### ステップ5: Intlayerをコードで利用する
+</Step>
+
+<Step number={5} title="Intlayerをコードで利用する">
 
 アプリケーション全体でコンテンツ辞書にアクセスします：
 
@@ -280,7 +292,9 @@ export default App;
 > <img src="{String(content.image.src)}" alt="{String(content.image)}" />
 > ```
 
-### （オプション）ステップ6: コンテンツの言語を変更する
+</Step>
+
+<Step number={6} title="コンテンツの言語を変更する">
 
 コンテンツの言語を変更するには、`useLocale`フックによって提供される`setLocale`関数を使用できます。この関数により、アプリケーションのロケールを設定し、それに応じてコンテンツを更新できます。
 
@@ -309,7 +323,9 @@ const LocaleSwitcher: Component = () => {
 };
 ```
 
-### （オプション）ステップ7: アプリケーションにローカライズされたルーティングを追加する
+</Step>
+
+<Step number={7} title="アプリケーションにローカライズされたルーティングを追加する">
 
 このステップの目的は、各言語に対して一意のルートを作成することです。これはSEOとSEOフレンドリーなURLに役立ちます。
 例：
@@ -374,7 +390,9 @@ const App: Component = () => (
 export default App;
 ```
 
-### （オプション）ステップ8: ロケール変更時にURLを変更する
+</Step>
+
+<Step number={8} title="ロケール変更時にURLを変更する">
 
 ロケールが変更されたときにURLを変更するには、`useLocale`フックによって提供される`onLocaleChange`プロップを使用できます。`@solidjs/router`の`useNavigate`と`useLocation`フックを使用して、URLパスを更新できます。
 
@@ -411,7 +429,9 @@ const LocaleSwitcher: Component = () => {
 };
 ```
 
-### （オプション）ステップ9: HTMLの言語属性と言語方向属性を切り替える
+</Step>
+
+<Step number={9} title="HTMLの言語属性と言語方向属性を切り替える">
 
 アクセシビリティとSEOのために、`<html>`タグの`lang`と`dir`属性を現在のロケールに合わせて更新します。
 
@@ -434,7 +454,9 @@ const AppContent: Component = () => {
 };
 ```
 
-### （オプション）ステップ10：ローカライズされたリンクコンポーネントの作成
+</Step>
+
+<Step number={10} title="ローカライズされたリンクコンポーネントの作成">
 
 内部URLを現在の言語で自動的にプレフィックスするカスタム`Link`コンポーネントを作成します。
 
@@ -455,7 +477,9 @@ export const Link: ParentComponent<AnchorProps> = (props) => {
 };
 ```
 
-### （オプション）ステップ11: Markdownをレンダリングする
+</Step>
+
+<Step number={11} title="Markdownをレンダリングする">
 
 Intlayerは、独自の内部パーサーを使用して、SolidアプリケーションでMarkdownコンテンツを直接レンダリングすることをサポートしています。デフォルトでは、Markdownはプレーンテキストとして扱われます。リッチHTMLとしてレンダリングするには、アプリケーションを`MarkdownProvider`でラップします。
 
@@ -534,7 +558,9 @@ Intlayerでの開発体験を向上させるために、公式の**Intlayer VS C
 
 ---
 
-### (オプション) ステップ 1 : コンポーネントのコンテンツを抽出する
+</Step>
+
+<Step number={1} title="コンポーネントのコンテンツを抽出する" isOptional={true}>
 
 既存のコードベースがある場合、数千のファイルを変換するのは時間がかかることがあります。
 
@@ -709,3 +735,7 @@ pnpm や yarn を使う場合はコマンドを読み替えてください。CI 
 さらに進みたい場合は、[ビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)を実装するか、[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)を使用してコンテンツを外部化することができます。
 
 ---
+
+</Step>
+
+</Steps>

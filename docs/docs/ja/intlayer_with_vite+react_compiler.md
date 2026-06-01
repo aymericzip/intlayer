@@ -92,7 +92,9 @@ GitHub で [アプリケーションテンプレート](https://github.com/aymer
 
 ## Vite および React アプリケーションに Intlayer を設定するためのステップバイステップガイド
 
-### ステップ 1: 依存関係のインストール
+<Steps>
+
+<Step number={1} title="依存関係のインストール">
 
 npm を使用して必要なパッケージをインストールします。
 
@@ -129,7 +131,9 @@ bun x intlayer init
 - **vite-intlayer**
   Intlayer を [Vite バンドラー](https://vite.dev/guide/why.html#why-bundle-for-production) と統合するための Vite プラグイン、およびユーザーの優先ロケールの検出、クッキーの管理、URL リダイレクトの処理のためのミドルウェアが含まれています。
 
-### ステップ 2: プロジェクトの構成
+</Step>
+
+<Step number={2} title="プロジェクトの構成">
 
 アプリケーションの言語を構成するための構成ファイルを作成します。
 
@@ -183,7 +187,9 @@ export default config;
 
 > この構成ファイルを通じて、ローカライズされた URL、ミドルウェアのリダイレクト、クッキー名、コンテンツ宣言の場所と拡張子、コンソールでの Intlayer ログの無効化などを設定できます。利用可能なパラメータの完全なリストについては、[構成ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md) を参照してください。
 
-### ステップ 3: Vite 構成に Intlayer を統合する
+</Step>
+
+<Step number={3} title="Vite 構成に Intlayer を統合する">
 
 構成に intlayer プラグインを追加します。
 
@@ -202,7 +208,9 @@ export default defineConfig({
 
 > `intlayerCompiler()` Vite プラグインは、コンポーネントからコンテンツを抽出し、`.content` ファイルを書き出すために使用されます。
 
-### ステップ 4: コードをコンパイルする
+</Step>
+
+<Step number={4} title="コードをコンパイルする">
 
 デフォルトのロケールでハードコードされた文字列を使用してコンポーネントを記述するだけです。残りはコンパイラが処理します。
 
@@ -341,7 +349,9 @@ export default App;
 
 - **`IntlayerProvider`** は、ネストされたコンポーネントにロケールを提供するために使用されます。
 
-### (オプション) ステップ 6: コンテンツの言語を変更する
+</Step>
+
+<Step number={6} title="コンテンツの言語を変更する" isOptional={true}>
 
 コンテンツの言語を変更するには、`useLocale` フックによって提供される `setLocale` 関数を使用できます。この関数を使用すると、アプリケーションのロケールを設定し、それに応じてコンテンツを更新できます。
 
@@ -363,7 +373,9 @@ const LocaleSwitcher: FC = () => {
 
 > `useLocale` フックの詳細については、[ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/react-intlayer/useLocale.md) を参照してください。
 
-### (オプション) ステップ 7: 欠落した翻訳を埋める
+</Step>
+
+<Step number={7} title="欠落した翻訳を埋める" isOptional={true}>
 
 Intlayerは、欠落した翻訳を埋めるためのCLIツールを提供しています。`intlayer`コマンドを使用して、コードから欠落した翻訳をテストおよび埋めることができます。
 
@@ -504,3 +516,7 @@ Intlayer での開発体験を向上させるために、公式の **Intlayer VS
 ### さらに進む
 
 さらに進むには、[ビジュアルエディタ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md) を実装するか、[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md) を使用してコンテンツを外部化できます。
+
+</Step>
+
+</Steps>

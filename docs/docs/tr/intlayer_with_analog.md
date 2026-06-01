@@ -60,33 +60,43 @@ history:
 
 'ngx-translate' veya 'angular-l10n' gibi ana çözümlerle karşılaştırıldığında Intlayer, aşağıdaki gibi entegre optimizasyonlarla gelen bir çözümdür:
 
-**Tam Analog kapsamı**
+<AccordionGroup>
+<Accordion header="Tam Analog kapsamı">
 
 Intlayer, **çok dilli yönlendirme**, **SSR desteği** ve ölçeklendirme uluslararasılaştırması (i18n) için gereken tüm özellikleri sunarak Analog ile mükemmel çalışacak şekilde optimize edilmiştir.
 
-**Bundle boyutu**
+</Accordion>
+<Accordion header="Bundle boyutu">
 
 Sayfalarınıza çok büyük JSON dosyaları yüklemek yerine yalnızca gerekli içeriği yükleyin. Intlayer **bundle ve sayfa boyutlarınızı %50'ye kadar azaltmanıza** yardımcı olur.
 
-**Sürdürülebilirlik**
+</Accordion>
+<Accordion header="Sürdürülebilirlik">
 
 Uygulamanızın içeriğinin kapsamını belirlemek, büyük ölçekli uygulamalar için **bakımı kolaylaştırır**. İçerik kod tabanınızın tamamını gözden geçirmenin zihinsel yükü olmadan, tek bir özellik klasörünü çoğaltabilir veya silebilirsiniz. Ayrıca Intlayer, içeriğinizin doğruluğunu sağlamak için **tamamen tiplendirilmiş (fully typed)tır**.
 
-**Yapay Zeka Temsilcisi**
+</Accordion>
+<Accordion header="Yapay Zeka Temsilcisi">
 
 İçeriğin bir arada konumlandırılması **Büyük Dil Modellerinin (LLM'ler) ihtiyaç duyduğu bağlamı azaltır**. Intlayer ayrıca eksik çevirileri test etmek için **CLI** gibi bir araç paketiyle birlikte gelir**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** ve **[aracı becerileri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, geliştirici deneyimini (DX) yapay zeka için daha da sorunsuz hale getirmek için ajanlar.
 
-**Otomasyon**
+</Accordion>
+<Accordion header="Otomasyon">
 
 Maliyeti AI sağlayıcınıza ait olmak üzere seçtiğiniz LLM'yi kullanarak CI/CD işlem hattınızda çeviri yapmak için otomasyonu kullanın. Intlayer ayrıca içerik çıkarmayı otomatikleştirmek için bir **derleyici** ve **arka planda çeviri yapmaya** yardımcı olacak bir [web platformu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) sunar.
 
-**Performans**
+</Accordion>
+<Accordion header="Performans">
 
 Büyük JSON dosyalarını bileşenlere bağlamak performans ve tepkime sorunlarına yol açabilir. Intlayer, içerik yüklemenizi derleme sırasında optimize eder.
 
-**Non-dev ile ölçeklendirme**
+</Accordion>
+<Accordion header="Non-dev ile ölçeklendirme">
 
 Bir i18n çözümünden çok daha fazlası olan Intlayer, **kendi kendine barındırılan bir [görsel düzenleyici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** ve **[tam CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** çok dilli içeriğinizi **gerçek zamanlı** olarak yönetmenize yardımcı olarak çevirmenler, metin yazarları ve diğer ekip üyeleriyle işbirliğini kusursuz hale getirir. İçerik yerel olarak ve/veya uzaktan depolanabilir.
+
+</Accordion>
+</AccordionGroup>
 
 ---
 
@@ -94,7 +104,9 @@ Bir i18n çözümünden çok daha fazlası olan Intlayer, **kendi kendine barın
 
 GitHub üzerindeki [Uygulama Şablonuna](https://github.com/aymericzip/intlayer-analog-template) bakın.
 
-### Adım 1: Bağımlılıkları Yükleyin
+<Steps>
+
+<Step number={1} title="Bağımlılıkları Yükleyin">
 
 Gerekli paketleri npm kullanarak yükleyin:
 
@@ -128,7 +140,9 @@ bun x intlayer init
 - **vite-intlayer**
   Intlayer'ı Vite ile entegre eden paket. İçerik bildirim dosyalarını işlemek için bir eklenti sağlar ve optimum performans için takma adlar ayarlar.
 
-### Adım 2: Projenizin Yapılandırılması
+</Step>
+
+<Step number={2} title="Projenizin Yapılandırılması">
 
 Uygulamanızın dillerini yapılandırmak için bir yapılandırma dosyası oluşturun:
 
@@ -152,7 +166,9 @@ export default config;
 
 > Bu yapılandırma dosyası aracılığıyla yerelleştirilmiş URL'ler, ara yazılım yeniden yönlendirmesi, çerez adları, içerik bildirimlerinizin konumu ve uzantısı, konsoldaki Intlayer günlüklerini devre dışı bırakma ve daha fazlasını ayarlayabilirsiniz. Mevcut parametrelerin tam listesi için [yapılandırma dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md) bakın.
 
-### Adım 3: Intlayer'ı Vite Yapılandırmanıza Entegre Edin
+</Step>
+
+<Step number={3} title="Intlayer'ı Vite Yapılandırmanıza Entegre Edin">
 
 Intlayer'ı Analog ile entegre etmek için `vite-intlayer` eklentisini kullanmanız gerekir.
 
@@ -174,7 +190,9 @@ export default defineConfig(() => ({
 
 > `intlayer()` eklentisi Vite'ı Intlayer ile yapılandırır. İçerik bildirim dosyalarını işler ve optimum performans için takma adlar ayarlar.
 
-### Adım 4: İçeriğinizi Bildirin
+</Step>
+
+<Step number={4} title="İçeriğinizi Bildirin">
 
 Çevirileri saklamak için içerik bildirimlerinizi oluşturun ve yönetin:
 
@@ -206,7 +224,9 @@ export default appContent;
 
 > Daha fazla ayrıntı için [içerik bildirimi dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/content_file.md) bakın.
 
-### Adım 5: Kodunuzda Intlayer'ı Kullanın
+</Step>
+
+<Step number={5} title="Kodunuzda Intlayer'ı Kullanın">
 
 Intlayer'ın uluslararasılaştırma özelliklerini Analog uygulamanız boyunca kullanmak için, uygulama yapılandırmanızda Intlayer'ı sağlamanız gerekir.
 
@@ -244,7 +264,9 @@ export default class HomeComponent {
 
 Intlayer içeriği bir `Signal` olarak döndürülür, bu nedenle sinyali çağırarak değerlere erişirsiniz: `content().title`.
 
-### (İsteğe Bağlı) Adım 6: İçeriğinizin dilini değiştirin
+</Step>
+
+<Step number={6} title="İçeriğinizin dilini değiştirin" isOptional={true}>
 
 İçeriğinizin dilini değiştirmek için `useLocale` fonksiyonu tarafından sağlanan `setLocale` fonksiyonunu kullanabilirsiniz. Bu, uygulamanın yerel ayarını ayarlamanıza ve içeriği buna göre güncellemenize olanak tanır.
 
@@ -350,3 +372,7 @@ Bu eklenti şunları sağlar:
 - Kolayca çeviri oluşturmak ve güncellemek için **hızlı eylemler**.
 
 Eklentinin nasıl kullanılacağına dair daha fazla ayrıntı için [Intlayer VS Code Eklentisi dokümantasyonuna](https://intlayer.org/doc/vs-code-extension) bakın.
+
+</Step>
+
+</Steps>

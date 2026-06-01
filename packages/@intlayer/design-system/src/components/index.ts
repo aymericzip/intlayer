@@ -48,6 +48,7 @@ export * from './PressableSpan';
 export * from './RightDrawer';
 export * from './Select';
 export * from './SocialNetworks';
+export * from './Steps';
 export * from './SwitchSelector';
 export * from './Tab';
 export * from './Table';

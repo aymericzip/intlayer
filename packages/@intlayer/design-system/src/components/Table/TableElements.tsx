@@ -26,5 +26,8 @@ export const Td = ({ className, ...props }: ComponentProps<'td'>) => (
 );
 
 export const Hr = ({ className, ...props }: ComponentProps<'hr'>) => (
-  <hr className={cn('mx-6 mt-16 text-neutral', className)} {...props} />
+  <hr
+    className={cn('mx-6 mt-16 border-dashed text-neutral', className)}
+    {...props}
+  />
 );

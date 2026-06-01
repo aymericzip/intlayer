@@ -110,7 +110,9 @@ Intlayer は単なる i18n ソリューションではなく、**自己ホスト
 
 ## Next.jsアプリケーションでIntlayerをセットアップするステップバイステップガイド
 
-### ステップ1：依存関係のインストール
+<Steps>
+
+<Step number={1} title="依存関係のインストール">
 
 npmを使って必要なパッケージをインストールします：
 
@@ -142,7 +144,9 @@ bun x intlayer init
 
   IntlayerをNext.jsと統合するパッケージです。Next.jsの国際化のためのコンテキストプロバイダーやフックを提供します。さらに、Intlayerを[Webpack](https://webpack.js.org/)や[Turbopack](https://nextjs.org/docs/app/api-reference/turbopack)と統合するためのNext.jsプラグイン、ユーザーの優先ロケール検出、クッキー管理、URLリダイレクト処理のためのプロキシも含まれています。
 
-### ステップ2: プロジェクトの設定
+</Step>
+
+<Step number={2} title="プロジェクトの設定">
 
 最終的な構成は以下のようになります：
 
@@ -194,7 +198,9 @@ export default config;
 
 > この設定ファイルを通じて、ローカライズされたURLの設定、プロキシリダイレクト、クッキー名、コンテンツ宣言の場所と拡張子の指定、コンソールでのIntlayerログの無効化などが行えます。利用可能なパラメータの完全なリストについては、[設定ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)を参照してください。
 
-### ステップ3: Next.jsの設定にIntlayerを統合する
+</Step>
+
+<Step number={3} title="Next.jsの設定にIntlayerを統合する">
 
 Next.jsのセットアップをIntlayerを使うように設定します:
 
@@ -237,7 +243,9 @@ export default withIntlayer(nextConfig);
 > withRspack(withIntlayer(nextConfig, { enableTurbopack: false }));
 > ```
 
-### ステップ4: 動的ロケールルートの定義
+</Step>
+
+<Step number={4} title="動的ロケールルートの定義">
 
 `RootLayout` の内容をすべて削除し、以下のコードに置き換えます：
 
@@ -300,7 +308,9 @@ export default LocaleLayout;
 
 > Intlayer は `export const dynamic = 'force-static';` と連携して、すべてのロケールのページが事前にビルドされることを保証します。
 
-### ステップ5: コンテンツの宣言
+</Step>
+
+<Step number={5} title="コンテンツの宣言">
 
 翻訳を格納するためのコンテンツ宣言を作成・管理します：
 
@@ -346,7 +356,9 @@ export default pageContent;
 
 > 詳細については、[コンテンツ宣言のドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/content_file.md)を参照してください。
 
-### ステップ6: コード内でコンテンツを利用する
+</Step>
+
+<Step number={6} title="コード内でコンテンツを利用する">
 
 アプリケーション全体でコンテンツ辞書にアクセスします：
 
@@ -435,7 +447,9 @@ export const ServerComponentExample: FC = () => {
 
 > アプリケーションが既に存在する場合は、[Intlayer コンパイラ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md) と [抽出コマンド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/extract.md) を組み合わせて、1 秒で何千ものコンポーネントを変換できます。
 
-### （任意）ステップ7: ロケール検出のためのプロキシ設定
+</Step>
+
+<Step number={7} title="ロケール検出のためのプロキシ設定">
 
 ユーザーの優先ロケールを検出するためのプロキシを設定します：
 
@@ -459,7 +473,9 @@ import { customProxy } from "@utils/customProxy";
 export const proxy = multipleProxies([intlayerProxy, customProxy]);
 ```
 
-### （任意）ステップ8: メタデータの国際化
+</Step>
+
+<Step number={8} title="メタデータの国際化">
 
 ページのタイトルなどのメタデータを国際化したい場合は、Next.jsが提供する `generateMetadata` 関数を使用できます。その中で、`getIntlayer` 関数からコンテンツを取得してメタデータを翻訳できます。
 
@@ -594,7 +610,9 @@ export const generateMetadata = async ({
 
 > メタデータの最適化について詳しくは、[公式Next.jsドキュメント](https://nextjs.org/docs/app/building-your-application/optimizing/metadata)をご覧ください。
 
-### （オプション）ステップ9: sitemap.xml と robots.txt の多言語対応
+</Step>
+
+<Step number={9} title="sitemap.xml と robots.txt の多言語対応">
 
 `sitemap.xml` と `robots.txt` を多言語対応にするには、Intlayer が提供する `getMultilingualUrls` 関数を使用できます。この関数を使うことで、サイトマップ用の多言語 URL を生成できます。
 
@@ -657,7 +675,9 @@ export default robots;
 
 > サイトマップの最適化については、[公式の Next.js ドキュメント](https://nextjs.org/docs/app/api-reference/file-conventions/metadata/sitemap)をご覧ください。robots.txt の最適化については、[公式の Next.js ドキュメント](https://nextjs.org/docs/app/api-reference/file-conventions/metadata/robots)をご覧ください。
 
-### （オプション）ステップ10: コンテンツの言語を変更する
+</Step>
+
+<Step number={10} title="コンテンツの言語を変更する">
 
 Next.js でコンテンツの言語を変更するには、推奨される方法として `Link` コンポーネントを使用してユーザーを適切なローカライズされたページにリダイレクトする方法があります。 `Link` コンポーネントはページのプリフェッチを可能にし、完全なページリロードを回避するのに役立ちます。
 
@@ -750,7 +770,9 @@ return (
 > - [`dir` 属性](https://developer.mozilla.org/ja/docs/Web/HTML/Global_attributes/dir)
 > - [`aria-current` 属性](https://developer.mozilla.org/ja/docs/Web/Accessibility/ARIA/Attributes/aria-current)
 
-### (オプション) ステップ 1 : コンポーネントのコンテンツを抽出する
+</Step>
+
+<Step number={1} title="コンポーネントのコンテンツを抽出する" isOptional={true}>
 
 既存のコードベースがある場合、数千のファイルを変換するのは時間がかかることがあります。
 
@@ -863,7 +885,9 @@ bun run build # Or bun run dev
  </Tab>
 </Tabs>
 
-### （オプション）ステップ11：ローカライズされたリンクコンポーネントの作成
+</Step>
+
+<Step number={11} title="ローカライズされたリンクコンポーネントの作成">
 
 アプリケーションのナビゲーションが現在のロケールを尊重するようにするために、カスタムの `Link` コンポーネントを作成できます。このコンポーネントは内部のURLに自動的に現在の言語をプレフィックスとして付加します。例えば、フランス語ユーザーが「About」ページへのリンクをクリックすると、 `/about` ではなく `/fr/about` にリダイレクトされます。
 
@@ -930,3 +954,7 @@ export const Link: FC<PropsWithChildren<NextLinkProps>> = ({
   コンポーネントはローカライズされた URL を持つ `<a>` 要素を返し、ナビゲーションがロケールと一致するようにします。
 
 この `Link` コンポーネントをアプリケーション全体に統合することで、一貫性のある言語対応のユーザー体験を維持しつつ、SEO やユーザビリティの向上というメリットも得られます。
+
+</Step>
+
+</Steps>

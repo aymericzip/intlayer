@@ -61,39 +61,51 @@ history:
 
 Rispetto alle soluzioni principali come `i18next` o `i18n.js`, Intlayer è una soluzione dotata di ottimizzazioni integrate come:
 
-**Copertura completa Vanilla JS**
+<AccordionGroup>
+<Accordion header="Copertura completa Vanilla JS">
 
 Intlayer è ottimizzato per funzionare perfettamente con Vanilla JavaScript offrendo **gestione dei contenuti indipendente dal framework**, **supporto TypeScript** e tutte le funzionalità necessarie per scalare l'internazionalizzazione (i18n).
 
-**Dimensione del bundle**
+</Accordion>
+<Accordion header="Dimensione del bundle">
 
 Invece di caricare enormi file JSON nelle tue pagine, carica solo il contenuto necessario. Intlayer aiuta a **ridurre le dimensioni del bundle e della pagina fino al 50%**.
 
-**Manutenibilità**
+</Accordion>
+<Accordion header="Manutenibilità">
 
 L'ambito del contenuto dell'applicazione **facilita la manutenzione** per applicazioni su larga scala. Puoi duplicare o eliminare una singola cartella di funzionalità senza l'onere mentale di rivedere l'intera codebase dei contenuti. Inoltre, Intlayer è **completamente tipizzato (fully typed)** per garantire l'accuratezza dei tuoi contenuti.
 
-**Agente IA**
+</Accordion>
+<Accordion header="Agente IA">
 
 La co-localizzazione dei contenuti **riduce il contesto necessario** dai Large Language Models (LLM). Intlayer viene fornito anche con una suite di strumenti, come una **CLI** per verificare le traduzioni mancanti,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** e **[capacità dell'agente](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, per rendere l'esperienza dello sviluppatore (DX) ancora più fluida per gli agenti IA.
 
-**Automazione**
+</Accordion>
+<Accordion header="Automazione">
 
 Utilizza l'automazione per tradurre nella tua pipeline CI/CD utilizzando il LLM di tua scelta al costo del tuo provider di intelligenza artificiale. Intlayer offre anche un **compilatore** per automatizzare l'estrazione dei contenuti, nonché una [piattaforma web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) per aiutare a **tradurre in background**.
 
-**Prestazione**
+</Accordion>
+<Accordion header="Prestazione">
 
 La connessione di enormi file JSON ai componenti può portare a problemi di prestazioni e reattività. Intlayer ottimizza il caricamento dei contenuti in fase di compilazione.
 
-**Scalabilità con nessuno sviluppatore**
+</Accordion>
+<Accordion header="Scalabilità con nessuno sviluppatore">
 
 Più di una semplice soluzione i18n, Intlayer fornisce un **[editor visivo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** self-hosted e un **[CMS completo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** per aiutarti gestisci i tuoi contenuti multilingue in **tempo reale**, semplificando la collaborazione con traduttori, copywriter e altri membri del team. I contenuti possono essere archiviati localmente e/o in remoto.
+
+</Accordion>
+</AccordionGroup>
 
 ---
 
 ## Guida passo-passo per configurare Intlayer in un'applicazione Vanilla JS
 
-### Passaggio 1: Installazione delle dipendenze
+<Steps>
+
+<Step number={1} title="Installazione delle dipendenze">
 
 Installa i pacchetti necessari utilizzando npm:
 
@@ -153,7 +165,9 @@ bun x intlayer build
 
 > L'esportazione del raggruppamento (bundling) della CLI `intlayer standalone` produce una build ottimizzata mediante il tree-shaking dei pacchetti non utilizzati, delle lingue e della logica non essenziale (come reindirizzamenti o prefissi) specifica per la tua configurazione.
 
-### Passaggio 2: Configurazione del progetto
+</Step>
+
+<Step number={2} title="Configurazione del progetto">
 
 Crea un file di configurazione per configurare le lingue della tua applicazione:
 
@@ -177,7 +191,9 @@ export default config;
 
 > Attraverso questo file di configurazione, puoi impostare URL localizzati, reindirizzamento middleware, nomi dei cookie, la posizione e l'estensione delle tue dichiarazioni di contenuto, disabilitare i log di Intlayer nella console e altro ancora. Per un elenco completo dei parametri disponibili, fai riferimento alla [documentazione di configurazione](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/configuration.md).
 
-### Passaggio 3: Importare il bundle nel tuo HTML
+</Step>
+
+<Step number={3} title="Importare il bundle nel tuo HTML">
 
 Una volta generato il bundle `intlayer.js`, puoi importarlo nel tuo file HTML:
 
@@ -201,7 +217,9 @@ Una volta generato il bundle `intlayer.js`, puoi importarlo nel tuo file HTML:
 
 Il bundle espone `Intlayer` e `VanillaIntlayer` come oggetti globali su `window`.
 
-### Passaggio 4: Bootstrap Intlayer nel tuo punto di ingresso
+</Step>
+
+<Step number={4} title="Bootstrap Intlayer nel tuo punto di ingresso">
 
 Nel tuo `src/main.js`, chiama `installIntlayer()` **prima** che venga renderizzato qualsiasi contenuto, in modo che il singleton globale della lingua sia pronto.
 
@@ -221,7 +239,9 @@ installIntlayer();
 installIntlayerMarkdown();
 ```
 
-### Passaggio 5: Dichiarare il Contenuto
+</Step>
+
+<Step number={5} title="Dichiarare il Contenuto">
 
 Crea e gestisci le tue dichiarazioni di contenuto per memorizzare le traduzioni:
 
@@ -299,7 +319,9 @@ export default appContent;
 >
 > Per maggiori dettagli, fai riferimento alla [documentazione sulla dichiarazione dei contenuti](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/content_file.md).
 
-### Passaggio 6: Utilizzare Intlayer nel tuo JavaScript
+</Step>
+
+<Step number={6} title="Utilizzare Intlayer nel tuo JavaScript">
 
 L'oggetto `window.VanillaIntlayer` fornisce helper API: `useIntlayer(key, locale?)` restituisce il contenuto tradotto per una data chiave.
 
@@ -333,7 +355,9 @@ document.querySelector(".read-the-docs").textContent = String(
 > img.alt = content.viteLogoLabel.value;
 > ```
 
-### (Opzionale) Passaggio 7: Cambiare la lingua del tuo contenuto
+</Step>
+
+<Step number={7} title="Cambiare la lingua del tuo contenuto" isOptional={true}>
 
 Per cambiare la lingua del tuo contenuto, usa la funzione `setLocale` esposta da `useLocale`.
 
@@ -368,7 +392,9 @@ export function setupLocaleSwitcher(container) {
 }
 ```
 
-### (Opzionale) Passaggio 8: Cambiare gli attributi HTML di lingua e direzione
+</Step>
+
+<Step number={8} title="Cambiare gli attributi HTML di lingua e direzione" isOptional={true}>
 
 Aggiorna gli attributi `lang` e `dir` del tag `<html>` per corrispondere alla lingua corrente per l'accessibilità e la SEO.
 
@@ -386,7 +412,9 @@ useLocale({
 });
 ```
 
-### (Opzionale) Passaggio 9: Caricamento lazy dei dizionari per lingua
+</Step>
+
+<Step number={9} title="Caricamento lazy dei dizionari per lingua" isOptional={true}>
 
 Se desideri caricare i dizionari in modo lazy per lingua, puoi usare `useDictionaryDynamic`. Questo è utile se non vuoi raggruppare tutte le traduzioni nel file iniziale `intlayer.js`.
 
@@ -442,3 +470,7 @@ Per maggiori dettagli su come utilizzare l'estensione, fai riferimento alla [doc
 ### Vai oltre
 
 Per approfondire, puoi implementare l'[editor visuale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_visual_editor.md) o esternalizzare i tuoi contenuti utilizzando il [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_CMS.md).
+
+</Step>
+
+</Steps>

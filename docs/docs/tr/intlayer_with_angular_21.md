@@ -40,33 +40,43 @@ history:
 
 'ngx-translate' veya 'angular-l10n' gibi ana çözümlerle karşılaştırıldığında Intlayer, aşağıdaki gibi entegre optimizasyonlarla gelen bir çözümdür:
 
-**Tam Açısal kapsama**
+<AccordionGroup>
+<Accordion header="Tam Açısal kapsama">
 
 Intlayer, **bileşen düzeyinde içerik kapsamı**, **tembel yüklü çeviriler** ve uluslararasılaştırmayı (i18n) ölçeklendirmek için gereken tüm özellikleri sunarak Angular ile mükemmel çalışacak şekilde optimize edilmiştir.
 
-**Bundle boyutu**
+</Accordion>
+<Accordion header="Bundle boyutu">
 
 Sayfalarınıza çok büyük JSON dosyaları yüklemek yerine yalnızca gerekli içeriği yükleyin. Intlayer **bundle ve sayfa boyutlarınızı %50'ye kadar azaltmanıza** yardımcı olur.
 
-**Sürdürülebilirlik**
+</Accordion>
+<Accordion header="Sürdürülebilirlik">
 
 Uygulamanızın içeriğinin kapsamını belirlemek, büyük ölçekli uygulamalar için **bakımı kolaylaştırır**. İçerik kod tabanınızın tamamını gözden geçirmenin zihinsel yükü olmadan, tek bir özellik klasörünü çoğaltabilir veya silebilirsiniz. Ayrıca Intlayer, içeriğinizin doğruluğunu sağlamak için **tamamen tiplendirilmiş (fully typed)tır**.
 
-**Yapay Zeka Temsilcisi**
+</Accordion>
+<Accordion header="Yapay Zeka Temsilcisi">
 
 İçeriğin bir arada konumlandırılması **Büyük Dil Modellerinin (LLM'ler) ihtiyaç duyduğu bağlamı azaltır**. Intlayer ayrıca eksik çevirileri test etmek için **CLI** gibi bir araç paketiyle birlikte gelir**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** ve **[aracı becerileri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, geliştirici deneyimini (DX) yapay zeka için daha da sorunsuz hale getirmek için ajanlar.
 
-**Otomasyon**
+</Accordion>
+<Accordion header="Otomasyon">
 
 Maliyeti AI sağlayıcınıza ait olmak üzere seçtiğiniz LLM'yi kullanarak CI/CD işlem hattınızda çeviri yapmak için otomasyonu kullanın. Intlayer ayrıca içerik çıkarmayı otomatikleştirmek için bir **derleyici** ve **arka planda çeviri yapmaya** yardımcı olacak bir [web platformu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) sunar.
 
-**Performans**
+</Accordion>
+<Accordion header="Performans">
 
 Büyük JSON dosyalarını bileşenlere bağlamak performans ve tepkime sorunlarına yol açabilir. Intlayer, içerik yüklemenizi derleme sırasında optimize eder.
 
-**Non-dev ile ölçeklendirme**
+</Accordion>
+<Accordion header="Non-dev ile ölçeklendirme">
 
 Bir i18n çözümünden çok daha fazlası olan Intlayer, **kendi kendine barındırılan bir [görsel düzenleyici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** ve **[tam CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** çok dilli içeriğinizi **gerçek zamanlı** olarak yönetmenize yardımcı olarak çevirmenler, metin yazarları ve diğer ekip üyeleriyle işbirliğini kusursuz hale getirir. İçerik yerel olarak ve/veya uzaktan depolanabilir.
+
+</Accordion>
+</AccordionGroup>
 
 ---
 
@@ -99,7 +109,9 @@ Bir i18n çözümünden çok daha fazlası olan Intlayer, **kendi kendine barın
 
 GitHub'da [Uygulama Şablonunu](https://github.com/aymericzip/intlayer-angular-21-template) görüntüleyin.
 
-### Adım 1: Bağımlılıkları Yükleyin
+<Steps>
+
+<Step number={1} title="Bağımlılıkları Yükleyin">
 
 Gerekli paketleri npm kullanarak kurun:
 
@@ -137,7 +149,9 @@ bun x intlayer init
 - **@angular-builders/custom-esbuild**
   Angular CLI'nin esbuild yapılandırmasını özelleştirmek için gereklidir.
 
-### Adım 2: Projenizin Yapılandırması
+</Step>
+
+<Step number={2} title="Projenizin Yapılandırması">
 
 Uygulamanızın dillerini yapılandırmak için bir yapılandırma dosyası oluşturun:
 
@@ -161,7 +175,9 @@ export default config;
 
 > Bu yapılandırma dosyası aracılığıyla yerelleştirilmiş URL'ler, ara yazılım yönlendirmesi, çerez adları, içerik bildirimlerinizin konumu ve uzantısı oluşturabilir, konsoldaki Intlayer günlüklerini devre dışı bırakabilir ve daha fazlasını yapabilirsiniz. Kullanılabilir parametrelerin tam listesi için [yapılandırma belgelerine](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md) başvurun.
 
-### Adım 3: Intlayer'ı Angular Yapılandırmanıza Entegre Edin
+</Step>
+
+<Step number={3} title="Intlayer'ı Angular Yapılandırmanıza Entegre Edin">
 
 Intlayer'ı Angular CLI ile bütünleştirmek için özel bir oluşturucu (builder) kullanmanız gerekir. Bu kılavuz, Vite/esbuild kullandığınızı (Angular 21 projeleri için varsayılan) varsaymaktadır.
 
@@ -223,7 +239,9 @@ export default [intlayerEsbuildPlugin()];
 >
 > Ardından `angular.json` içinde `"./esbuild.plugins.ts"` yerine `"./esbuild.plugins.mjs"` değerini gösterin.
 
-### Adım 4: İçeriğinizi Bildirin
+</Step>
+
+<Step number={4} title="İçeriğinizi Bildirin">
 
 Çevirileri depolamak için içerik bildirimlerinizi oluşturun ve yönetin:
 
@@ -273,7 +291,9 @@ export default appContent;
 
 > Daha fazla ayrıntı için [içerik bildirimi belgelerine](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/content_file.md) bakın.
 
-### Adım 5: Kodunuzda Intlayer'dan Yararlanın
+</Step>
+
+<Step number={5} title="Kodunuzda Intlayer'dan Yararlanın">
 
 Tüm Angular uygulamanız boyunca Intlayer'ın uluslararasılaştırma özelliklerinden yararlanmak için, Intlayer'ı uygulamanızın yapılandırmasında sağlamanız gerekir.
 
@@ -321,7 +341,9 @@ Ve şablonunuzda:
 
 Intlayer içeriği bir `Signal` olarak döndürülür, böylece değerlere sinyali çağırarak erişebilirsiniz: `content().title`.
 
-### (İsteğe Bağlı) Adım 6: İçeriğinizin dilini değiştirin
+</Step>
+
+<Step number={6} title="İçeriğinizin dilini değiştirin" isOptional={true}>
 
 İçeriğinizin dilini değiştirmek için, `useLocale` işlevinin sağladığı `setLocale` işlevini kullanabilirsiniz. Bu, uygulamanın yerel ayarını belirlemenize ve içeriği buna göre güncellemenize olanak tanır.
 
@@ -431,3 +453,7 @@ Uzantının nasıl kullanılacağına dair daha fazla ayrıntı için [Intlayer 
 Daha ileri gitmek için [görsel düzenleyiciyi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md) uygulayabilir veya [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md) kullanarak içeriğinizi dışsallaştırabilirsiniz.
 
 ---
+
+</Step>
+
+</Steps>

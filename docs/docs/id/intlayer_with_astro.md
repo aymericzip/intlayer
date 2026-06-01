@@ -64,33 +64,43 @@ history:
 
 Dibandingkan dengan solusi utama seperti `astro-i18n` atau `i18next`, Intlayer adalah solusi yang hadir dengan pengoptimalan terintegrasi seperti:
 
-**Cakupan Astro penuh**
+<AccordionGroup>
+<Accordion header="Cakupan Astro penuh">
 
 Intlayer dioptimalkan untuk bekerja sempurna dengan Astro dengan menawarkan **perutean multibahasa**, **peta situs**, dan semua fitur yang diperlukan untuk penskalaan internasionalisasi (i18n).
 
-**Ukuran bundle**
+</Accordion>
+<Accordion header="Ukuran bundle">
 
 Daripada memuat file JSON berukuran besar ke halaman Anda, muat saja konten yang diperlukan. Intlayer membantu **mengurangi ukuran bundle dan halaman Anda hingga 50%**.
 
-**Kemampuan Pemeliharaan**
+</Accordion>
+<Accordion header="Kemampuan Pemeliharaan">
 
 Mencakup konten aplikasi Anda **memfasilitasi pemeliharaan** untuk aplikasi berskala besar. Anda dapat menduplikasi atau menghapus satu folder fitur tanpa beban mental untuk meninjau seluruh basis kode konten Anda. Selain itu, Intlayer **diketik sepenuhnya** untuk memastikan keakuratan konten Anda.
 
-**Agen AI**
+</Accordion>
+<Accordion header="Agen AI">
 
 Menempatkan konten bersama **mengurangi konteks yang diperlukan** dengan Model Bahasa Besar (LLM). Intlayer juga dilengkapi dengan serangkaian alat, seperti **CLI** untuk menguji terjemahan yang hilang,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)**, dan **[agent skill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, untuk menjadikan pengalaman pengembang (DX) lebih lancar bagi agen AI.
 
-**Otomatisasi**
+</Accordion>
+<Accordion header="Otomatisasi">
 
 Gunakan otomatisasi untuk menerjemahkan dalam saluran CI/CD Anda menggunakan LLM pilihan Anda dengan biaya penyedia AI Anda. Intlayer juga menawarkan **compiler** untuk mengotomatiskan ekstraksi konten, serta [platform web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) untuk membantu **menerjemahkan di latar belakang**.
 
-**Pertunjukan**
+</Accordion>
+<Accordion header="Pertunjukan">
 
 Menghubungkan file JSON berukuran besar ke komponen dapat menyebabkan masalah kinerja dan reaktivitas. Intlayer mengoptimalkan pemuatan konten Anda pada waktu pembuatan.
 
-**Menskalakan tanpa pengembang**
+</Accordion>
+<Accordion header="Menskalakan tanpa pengembang">
 
 Lebih dari sekedar solusi i18n, Intlayer menyediakan **[editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** yang dihosting sendiri dan **[CMS lengkap](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** untuk membantu Anda mengelola konten multibahasa secara **real-time**, membuat kolaborasi dengan penerjemah, copywriter, dan anggota tim lainnya menjadi lancar. Konten dapat disimpan secara lokal dan/atau jarak jauh.
+
+</Accordion>
+</AccordionGroup>
 
 ---
 
@@ -98,7 +108,9 @@ Lebih dari sekedar solusi i18n, Intlayer menyediakan **[editor visual](https://g
 
 Lihat [templat aplikasi](https://github.com/aymericzip/intlayer-astro-template) di GitHub.
 
-### Langkah 1: Instal Dependensi
+<Steps>
+
+<Step number={1} title="Instal Dependensi">
 
 Instal paket yang diperlukan menggunakan manajer paket pilihan Anda:
 
@@ -126,7 +138,9 @@ yarn add react react-dom react-intlayer @astrojs/react
 - **astro-intlayer**
   Plugin integrasi Astro untuk menghubungkan Intlayer dengan [bundler Vite](https://vite.dev/guide/why.html#why-bundle-for-production); juga mencakup middleware untuk mendeteksi bahasa pilihan pengguna, mengelola cookie, dan menangani pengalihan URL.
 
-### Langkah 2: Konfigurasikan Proyek Anda
+</Step>
+
+<Step number={2} title="Konfigurasikan Proyek Anda">
 
 Buat file konfigurasi untuk menentukan bahasa aplikasi Anda:
 
@@ -151,7 +165,9 @@ export default config;
 
 > Melalui file konfigurasi ini, Anda dapat mengatur URL yang dilokalkan, pengalihan middleware, nama cookie, lokasi dan ekstensi deklarasi konten, menonaktifkan log Intlayer di konsol, dan banyak lagi. Untuk daftar lengkap parameter yang tersedia, lihat [dokumentasi konfigurasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md).
 
-### Langkah 3: Integrasikan Intlayer ke dalam konfigurasi Astro Anda
+</Step>
+
+<Step number={3} title="Integrasikan Intlayer ke dalam konfigurasi Astro Anda">
 
 Tambahkan plugin `intlayer` ke konfigurasi Astro Anda.
 
@@ -169,7 +185,9 @@ export default defineConfig({
 
 > Plugin integrasi `intlayer()` digunakan untuk mengintegrasikan Intlayer dengan Astro. Plugin ini memastikan pembuatan file deklarasi konten dan memantaunya dalam mode pengembangan. Plugin ini mendefinisikan variabel lingkungan Intlayer di dalam aplikasi Astro dan menyediakan alias untuk mengoptimalkan kinerja.
 
-### Langkah 4: Deklarasikan Konten Anda
+</Step>
+
+<Step number={4} title="Deklarasikan Konten Anda">
 
 Buat dan kelola deklarasi konten Anda untuk menyimpan terjemahan:
 
@@ -196,7 +214,9 @@ export default appContent;
 
 > Untuk informasi selengkapnya, lihat [dokumentasi deklarasi konten](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/content_file.md).
 
-### Langkah 5: Menggunakan Konten di Astro
+</Step>
+
+<Step number={5} title="Menggunakan Konten di Astro">
 
 Anda dapat mengonsumsi kamus langsung di file `.astro` menggunakan pembantu inti yang diekspor dari `intlayer`.
 
@@ -269,7 +289,9 @@ const { title } = getIntlayer("app", locale);
 </html>
 ```
 
-### Langkah 6: Perutean yang Dilokalkan
+</Step>
+
+<Step number={6} title="Perutean yang Dilokalkan">
 
 Buat segmen rute dinamis (misalnya, `src/pages/[locale]/index.astro`) untuk melayani halaman yang dilokalkan:
 
@@ -285,7 +307,9 @@ const { title } = getIntlayer('app');
 
 Integrasi Astro menambahkan middleware Vite yang membantu perutean yang sadar bahasa dan definisi lingkungan selama pengembangan. Anda juga dapat menggunakan logika Anda sendiri atau alat `intlayer` seperti `getLocalizedUrl` untuk menautkan lintas bahasa.
 
-### Langkah 7: Terus Gunakan Framework Favorit Anda
+</Step>
+
+<Step number={7} title="Terus Gunakan Framework Favorit Anda">
 
 Lanjutkan membangun aplikasi Anda menggunakan framework pilihan Anda.
 
@@ -343,7 +367,9 @@ Untuk informasi selengkapnya tentang cara menggunakan ekstensi, lihat [dokumenta
 
 ---
 
-### (Opsional) Langkah 1 : Ekstrak konten komponen Anda
+</Step>
+
+<Step number={1} title="Ekstrak konten komponen Anda" isOptional={true}>
 
 Jika Anda memiliki basis kode yang ada, mengubah ribuan file bisa memakan waktu lama.
 
@@ -444,3 +470,7 @@ bun run build # Or bun run dev
 ### Perdalam Pengetahuan Anda
 
 Jika Anda ingin mempelajari lebih lanjut, Anda juga dapat menerapkan [Editor Visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md) atau menggunakan [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md) untuk mengeksternalisasi konten Anda.
+
+</Step>
+
+</Steps>

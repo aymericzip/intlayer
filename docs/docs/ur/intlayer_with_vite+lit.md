@@ -72,7 +72,9 @@ Intlayer کے ساتھ، آپ:
 
 ## Vite اور Lit ایپلی کیشن میں Intlayer سیٹ کرنے کے لیے مرحلہ وار گائیڈ
 
-### مرحلہ 1: انحصار (Dependencies) انسٹال کریں
+<Steps>
+
+<Step number={1} title="انحصار (Dependencies) انسٹال کریں">
 
 npm کا استعمال کرتے ہوئے ضروری پیکجز انسٹال کریں:
 
@@ -110,7 +112,9 @@ bun x intlayer init
 - **vite-intlayer**
   اس میں [Vite بنڈلر](https://vite.dev/guide/why.html#why-bundle-for-production) کے ساتھ Intlayer کو مربوط کرنے کے لیے Vite پلگ ان، نیز صارف کے پسندیدہ مقام کا پتہ لگانے، کوکیز کو منظم کرنے اور URL ری ڈائریکشن کو سنبھالنے کے لیے مڈل ویئر شامل ہے۔
 
-### مرحلہ 2: اپنے پروجیکٹ کی کنفیگریشن
+</Step>
+
+<Step number={2} title="اپنے پروجیکٹ کی کنفیگریشن">
 
 اپنی ایپلی کیشن کی زبانوں کو کنفیگر کرنے کے لیے ایک کنفیگ فائل بنائیں:
 
@@ -134,7 +138,9 @@ export default config;
 
 > اس کنفیگریشن فائل کے ذریعے، آپ مقامی URLs، مڈل ویئر ری ڈائریکشن، کوکی کے نام، اپنے مواد کے اعلانات کا مقام اور ایکسٹینشن سیٹ کر سکتے ہیں، کنسول میں Intlayer لاگز بند کر سکتے ہیں، اور بہت کچھ۔ دستیاب پیرامیٹرز کی مکمل فہرست کے لیے، [کنفیگریشن دستاویزات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/configuration.md) دیکھیں۔
 
-### مرحلہ 3: اپنی Vite کنفیگریشن میں Intlayer کو مربوط کریں
+</Step>
+
+<Step number={3} title="اپنی Vite کنفیگریشن میں Intlayer کو مربوط کریں">
 
 اپنی کنفیگریشن میں intlayer پلگ ان شامل کریں۔
 
@@ -150,7 +156,9 @@ export default defineConfig({
 
 > `intlayer()` Vite پلگ ان کا استعمال Intlayer کو Vite کے ساتھ مربوط کرنے کے لیے کیا جاتا ہے۔ یہ مواد کے اعلامیہ فائلوں کی تعمیر کو یقینی بناتا ہے اور ترقی کے موڈ میں ان کی نگرانی کرتا ہے۔ یہ Vite ایپلی کیشن کے اندر Intlayer ماحول کے تغیرات (environment variables) کی وضاحت کرتا ہے۔ مزید برآں، یہ کارکردگی کو بہتر کرنے کے لیے عرف (aliases) فراہم کرتا ہے۔
 
-### مرحلہ 4: اپنے انٹری پوائنٹ میں Intlayer کو شروع کریں
+</Step>
+
+<Step number={4} title="اپنے انٹری پوائنٹ میں Intlayer کو شروع کریں">
 
 کسی بھی حسب ضرورت اجزاء (custom elements) کے رجسٹر ہونے سے **پہلے** `installIntlayer()` کو کال کریں تاکہ پہلا جزو جڑتے وقت عالمی مقام کا سنگلٹن تیار ہو۔
 
@@ -175,7 +183,9 @@ installIntlayerMarkdown();
 import "./my-element.js";
 ```
 
-### مرحلہ 5: اپنے مواد کا اعلان کریں (Declare Your Content)
+</Step>
+
+<Step number={5} title="اپنے مواد کا اعلان کریں">
 
 ترجمہ محفوظ کرنے کے لیے اپنے مواد کے اعلانات بنائیں اور ان کا انتظام کریں:
 
@@ -261,7 +271,9 @@ export default appContent;
 >
 > مزید تفصیلات کے لیے، [مواد کے اعلامیہ کی دستاویزات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/dictionary/content_file.md) دیکھیں۔
 
-### مرحلہ 6: اپنے LitElement میں Intlayer کا استعمال کریں
+</Step>
+
+<Step number={6} title="اپنے LitElement میں Intlayer کا استعمال کریں">
 
 ایک `LitElement` کے اندر `useIntlayer` کا استعمال کریں۔ یہ ایک `ReactiveController` پراکسی واپس کرتا ہے جو فعال مقام تبدیل ہونے پر خود بخود دوبارہ رینڈرنگ شروع کر دیتا ہے - کسی اضافی سیٹ اپ کی ضرورت نہیں ہے۔
 
@@ -306,7 +318,9 @@ export class MyElement extends LitElement {
 > html`<img alt=${String(content.viteLogo)} />`;
 > ```
 
-### (اختیاری) مرحلہ 7: اپنے مواد کی زبان تبدیل کریں
+</Step>
+
+<Step number={7} title="اپنے مواد کی زبان تبدیل کریں" isOptional={true}>
 
 اپنے مواد کی زبان تبدیل کرنے کے لیے، `useLocale` کنٹرولر کے ذریعے فراہم کردہ `setLocale` طریقہ استعمال کریں۔
 
@@ -341,7 +355,9 @@ export class LocaleSwitcher extends LitElement {
 }
 ```
 
-### (اختیاری) مرحلہ 8: مارک ڈاؤن اور HTML مواد رینڈر کریں
+</Step>
+
+<Step number={8} title="مارک ڈاؤن اور HTML مواد رینڈر کریں" isOptional={true}>
 
 Intlayer `md()` اور `html()` مواد کے اعلانات کی حمایت کرتا ہے۔ Lit میں، مرتب شدہ آؤٹ پٹ کو `unsafeHTML` ہدایت کے ذریعے کچے HTML کے طور پر انجیکٹ کیا جاتا ہے۔
 
@@ -391,7 +407,9 @@ export class MyElement extends LitElement {
 > [!TIP]
 > `String(content.editNote)` `IntlayerNode` پر `toString()` کال کرتا ہے، جو کچا مارک ڈاؤن سٹرنگ واپس کرتا ہے۔ HTML سٹرنگ حاصل کرنے کے لیے اسے `compileMarkdown` پر منتقل کریں، پھر اسے Lit کی `unsafeHTML` ہدایت کے ساتھ رینڈر کریں۔
 
-### (اختیاری) مرحلہ 9: اپنی ایپلی کیشن میں مقامی روٹنگ شامل کریں
+</Step>
+
+<Step number={9} title="اپنی ایپلی کیشن میں مقامی روٹنگ شامل کریں" isOptional={true}>
 
 ہر زبان کے لیے منفرد روٹس بنانے کے لیے (جو SEO کے لیے مفید ہے)، آپ Intlayer کے `localeMap` / `localeFlatMap` ہیلپرز کے ساتھ ایک کلائنٹ سائیڈ راؤٹر استعمال کر سکتے ہیں، اور سرور سائیڈ مقام کی نشاندہی کے لیے `intlayerProxy` Vite پلگ ان استعمال کر سکتے ہیں۔
 
@@ -408,7 +426,9 @@ export default defineConfig({
 });
 ```
 
-### (اختیاری) مرحلہ 10: مقام تبدیل ہونے پر URL تبدیل کریں
+</Step>
+
+<Step number={10} title="مقام تبدیل ہونے پر URL تبدیل کریں" isOptional={true}>
 
 مقام تبدیل ہونے پر براؤزر URL کو اپ ڈیٹ کرنے کے لیے مقام سوئچر کے ساتھ `useRewriteURL` استعمال کریں:
 
@@ -446,7 +466,9 @@ export class LocaleSwitcher extends LitElement {
 }
 ```
 
-### (اختیاری) مرحلہ 11: HTML زبان اور سمت کے ایٹریبیوٹس تبدیل کریں
+</Step>
+
+<Step number={11} title="HTML زبان اور سمت کے ایٹریبیوٹس تبدیل کریں" isOptional={true}>
 
 رسائی (accessibility) اور SEO کے لیے موجودہ مقام سے مطابقت رکھنے کے لیے `<html>` ٹیگ کے `lang` اور `dir` ایٹریبیوٹس کو اپ ڈیٹ کریں۔
 
@@ -471,7 +493,9 @@ export class MyElement extends LitElement {
 }
 ```
 
-### (اختیاری) مرحلہ 12: اپنے اجزاء کا مواد نکالیں (Extract content)
+</Step>
+
+<Step number={12} title="اپنے اجزاء کا مواد نکالیں" isOptional={true}>
 
 اگر آپ کے پاس موجودہ کوڈ بیس ہے، تو ہزاروں فائلوں کو تبدیل کرنا وقت طلب ہو سکتا ہے۔
 
@@ -633,3 +657,7 @@ Intlayer کے ذریعے اپنے ترقیاتی تجربے کو بہتر بنا
 ### مزید آگے بڑھیں
 
 مزید آگے بڑھنے کے لیے، آپ [وژول ایڈیٹر](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_visual_editor.md) لاگو کر سکتے ہیں یا [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_CMS.md) استعمال کر کے اپنے مواد کو بیرونی بنا سکتے ہیں۔
+
+</Step>
+
+</Steps>

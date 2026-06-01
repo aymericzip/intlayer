@@ -45,7 +45,9 @@ Con Intlayer, puedes:
 
 ## Guía paso a paso para configurar Intlayer en una aplicación React
 
-### Paso 1: Instalar dependencias
+<Steps>
+
+<Step number={1} title="Instalar dependencias">
 
 Instala los paquetes necesarios usando npm:
 
@@ -81,7 +83,9 @@ bun x intlayer init
 
 Incluye los comandos y complementos `react-scripts-intlayer` para integrar Intlayer con aplicaciones basadas en Create React App. Estos complementos están basados en [craco](https://craco.js.org/) e incluyen configuración adicional para el empaquetador [Webpack](https://webpack.js.org/).
 
-### Paso 2: Configuración de tu proyecto
+</Step>
+
+<Step number={2} title="Configuración de tu proyecto">
 
 Crea un archivo de configuración para configurar los idiomas de tu aplicación:
 
@@ -105,7 +109,9 @@ export default config;
 
 > A través de este archivo de configuración, puedes configurar URLs localizadas, redirección de middleware, nombres de cookies, la ubicación y extensión de tus declaraciones de contenido, desactivar los logs de Intlayer en la consola y más. Para una lista completa de parámetros disponibles, consulta la [documentación de configuración](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/configuration.md).
 
-### Paso 3: Integrar Intlayer en tu configuración de CRA
+</Step>
+
+<Step number={3} title="Integrar Intlayer en tu configuración de CRA">
 
 Cambia tus scripts para usar react-intlayer
 
@@ -119,7 +125,9 @@ Cambia tus scripts para usar react-intlayer
 
 > Los scripts `react-scripts-intlayer` están basados en [CRACO](https://craco.js.org/). También puedes implementar tu propia configuración basada en el complemento craco de Intlayer. [Ver ejemplo aquí](https://github.com/aymericzip/intlayer/blob/main/examples/react-app/craco.config.js).
 
-### Paso 4: Declarar tu contenido
+</Step>
+
+<Step number={4} title="Declarar tu contenido">
 
 Crea y gestiona tus declaraciones de contenido para almacenar traducciones:
 
@@ -193,7 +201,9 @@ module.exports = appContent;
 
 > Si tu archivo de contenido incluye código TSX, deberías considerar importar `import React from "react";` en tu archivo de contenido.
 
-### Paso 5: Utilizar Intlayer en tu código
+</Step>
+
+<Step number={5} title="Utilizar Intlayer en tu código">
 
 Accede a tus diccionarios de contenido en toda tu aplicación:
 
@@ -242,7 +252,9 @@ export default App;
 >
 > Para aprender más sobre el hook `useIntlayer`, consulta la [documentación](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/react-intlayer/useIntlayer.md).
 
-### (Opcional) Paso 6: Cambiar el idioma de tu contenido
+</Step>
+
+<Step number={6} title="Cambiar el idioma de tu contenido" isOptional={true}>
 
 Para cambiar el idioma de tu contenido, puedes usar la función `setLocale` proporcionada por el hook `useLocale`. Esta función te permite establecer el local de la aplicación y actualizar el contenido en consecuencia.
 
@@ -263,7 +275,9 @@ const LocaleSwitcher = () => {
 
 > Para aprender más sobre el hook `useLocale`, consulta la [documentación](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/react-intlayer/useLocale.md).
 
-### (Opcional) Paso 7: Añadir enrutamiento por localeizado a tu aplicación
+</Step>
+
+<Step number={7} title="Añadir enrutamiento por localeizado a tu aplicación" isOptional={true}>
 
 El propósito de este paso es crear rutas únicas para cada idioma. Esto es útil para SEO y URLs amigables con SEO.
 Ejemplo:
@@ -408,7 +422,9 @@ const App: FC = () => (
 );
 ```
 
-### (Opcional) Paso 8: Cambiar la URL cuando cambia el local
+</Step>
+
+<Step number={8} title="Cambiar la URL cuando cambia el local" isOptional={true}>
 
 Para cambiar la URL cuando cambia el local, puedes usar la prop `onLocaleChange` proporcionada por el hook `useLocale`. Paralelamente, puedes usar los hooks `useLocation` y `useNavigate` de `react-router-dom` para actualizar la ruta URL.
 
@@ -488,7 +504,9 @@ const LocaleSwitcher: FC = () => {
 > - [`atributo dir`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir)
 > - [`atributo aria-current`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)
 
-### (Opcional) Paso 9: Cambiar los atributos de idioma y dirección en el HTML
+</Step>
+
+<Step number={9} title="Cambiar los atributos de idioma y dirección en el HTML" isOptional={true}>
 
 Cuando tu aplicación soporta múltiples idiomas, es crucial actualizar los atributos `lang` y `dir` de la etiqueta `<html>` para que coincidan con la configuración regional actual. Hacer esto garantiza:
 
@@ -607,3 +625,7 @@ Para más detalles sobre cómo usar la extensión, consulta la [documentación d
 ### Ir más allá
 
 Para ir más allá, puedes implementar el [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_visual_editor.md) o externalizar tu contenido usando el [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_CMS.md).
+
+</Step>
+
+</Steps>

@@ -65,33 +65,43 @@ history:
 
 Compared to main solutions like `astro-i18n` or `i18next`, Intlayer is a solution that comes with integrated optimizations such as:
 
-**Full Astro coverage**
+<AccordionGroup>
+<Accordion header="Full Astro coverage">
 
 Intlayer is optimized to work perfectly with Astro by offering **multilingual routing**, **sitemap**, and all the features needed for scaling internationalization (i18n).
 
-**Bundle size**
+</Accordion>
+<Accordion header="Bundle size">
 
 Instead of loading massive JSON files into your pages, load only the necessary content. Intlayer helps **reduce your bundle and page sizes by up to 50%**.
 
-**Maintainability**
+</Accordion>
+<Accordion header="Maintainability">
 
 Scoping your application's content **facilitates maintenance** for large-scale applications. You can duplicate or delete a single feature folder without the mental burden of reviewing your entire content codebase. Additionally, Intlayer is **fully typed** to ensure your content's accuracy.
 
-**AI Agent**
+</Accordion>
+<Accordion header="AI Agent">
 
 Co-locating content **reduces the context needed** by Large Language Models (LLMs). Intlayer also comes with a suite of tools, such as a **CLI** to test for missing translations,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)**, and **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, to make the developer experience (DX) even smoother for AI agents.
 
-**Automation**
+</Accordion>
+<Accordion header="Automation">
 
 Use automation to translate in your CI/CD pipeline using the LLM of your choice at the cost of your AI provider. Intlayer also offers a **compiler** to automate content extraction, as well as a [web platform](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) to help **translate in the background**.
 
-**Performance**
+</Accordion>
+<Accordion header="Performance">
 
 Connecting massive JSON files to components can lead to performance and reactivity issues. Intlayer optimizes your content loading at build time.
 
-**Scaling with none-dev**
+</Accordion>
+<Accordion header="Scaling with none-dev">
 
 More than just an i18n solution, Intlayer provides an **self-hosted [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** and a **[full CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** to help you manage your multilingual content in **real-time**, making collaboration with translators, copywriters, and other team members seamless. Content can be stored locally and/or remotely.
+
+</Accordion>
+</AccordionGroup>
 
 ---
 
@@ -99,7 +109,9 @@ More than just an i18n solution, Intlayer provides an **self-hosted [visual edit
 
 See [Application Template](https://github.com/aymericzip/intlayer-astro-template) on GitHub.
 
-### Step 1: Install Dependencies
+<Steps>
+
+<Step number={1} title="Install Dependencies">
 
 Install the necessary packages using your package manager:
 
@@ -142,7 +154,9 @@ bun x intlayer init
 - **@astrojs/react**
   The official Astro integration that enables React component islands.
 
-### Step 2: Configuration of your project
+</Step>
+
+<Step number={2} title="Configuration of your project">
 
 Create a config file to configure the languages of your application:
 
@@ -166,7 +180,9 @@ export default config;
 
 > Through this configuration file, you can set up localized URLs, middleware redirection, cookie names, the location and extension of your content declarations, disable Intlayer logs in the console, and more. For a complete list of available parameters, refer to the [configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md).
 
-### Step 3: Integrate Intlayer in Your Astro Configuration
+</Step>
+
+<Step number={3} title="Integrate Intlayer in Your Astro Configuration">
 
 Add the intlayer plugin and the React integration into your configuration.
 
@@ -187,7 +203,9 @@ export default defineConfig({
 
 > The `react()` integration enables React component islands via `client:only="react"`.
 
-### Step 4: Declare Your Content
+</Step>
+
+<Step number={4} title="Declare Your Content">
 
 Create and manage your content declarations to store translations:
 
@@ -213,7 +231,9 @@ export default appContent;
 
 > For more details, refer to the [content declaration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md).
 
-### Step 5: Use your content in Astro
+</Step>
+
+<Step number={5} title="Use your content in Astro">
 
 You can consume dictionaries directly in `.astro` files using the core helpers exported by `intlayer`. You should also add SEO metadata like hreflang and canonical links to each page, and embed the React island for interactive client-side content.
 
@@ -301,7 +321,9 @@ const { title } = getIntlayer("app", locale);
 > - **`prefix-all`:** All URLs are prefixed with the locale. You can use standard `[locale]` if you don't need to handle the root separately.
 > - **`search-param` or `no-prefix`:** No locale folder is needed. The locale is handled via search parameters or cookies.
 
-### Step 6: Create the React Island component
+</Step>
+
+<Step number={6} title="Create the React Island component">
 
 Create the island component that wraps your React app and receives the server-detected locale:
 
@@ -333,7 +355,9 @@ export function ReactIsland({ locale }: { locale: LocalesValues }) {
 
 > The `locale` prop is passed from the Astro page (server-detected) into `IntlayerProvider`, which makes it the initial locale for all React hooks in the tree.
 
-### Step 7: Add a Locale Switcher
+</Step>
+
+<Step number={7} title="Add a Locale Switcher">
 
 Create a `LocaleSwitcher` React component that reads the available locales and navigates to the localized URL when the user picks a new language:
 
@@ -382,7 +406,9 @@ export function LocaleSwitcher() {
 
 > The `LocaleSwitcher` must be rendered inside `IntlayerProvider` - use it inside your island component (as shown in Step 6).
 
-### Step 8: Sitemap and Robots.txt
+</Step>
+
+<Step number={8} title="Sitemap and Robots.txt">
 
 Intlayer provides utilities to generate localized sitemaps and robots.txt files dynamically.
 
@@ -490,7 +516,9 @@ For more details on how to use the extension, refer to the [Intlayer VS Code Ext
 
 ---
 
-### (Optional) Step 15: Extract the content of your components
+</Step>
+
+<Step number={15} title="Extract the content of your components" isOptional={true}>
 
 If you have an existing codebase, transforming thousands of files can be time-consuming.
 
@@ -595,3 +623,7 @@ bun run build # Or bun run dev
 ### Go Further
 
 To go further, you can implement the [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) or externalize your content using the [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md).
+
+</Step>
+
+</Steps>

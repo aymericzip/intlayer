@@ -88,7 +88,7 @@ export const MarkdownRenderer = (props: MarkdownRendererProps): JSX.Element => {
       )
   );
 
-  return <Suspense fallback={null}>{rendered()}</Suspense>;
+  return <Suspense>{rendered()}</Suspense>;
 };
 
 export type MarkdownMetadataRendererProps = MarkdownRendererProps & {

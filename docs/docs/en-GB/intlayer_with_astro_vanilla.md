@@ -62,33 +62,43 @@ history:
 
 Compared to main solutions like `astro-i18n` or `i18next`, Intlayer is a solution that comes with integrated optimizations such as:
 
-**Full Astro coverage**
+<AccordionGroup>
+<Accordion header="Full Astro coverage">
 
 Intlayer is optimized to work perfectly with Astro by offering **multilingual routing**, **sitemap**, and all the features needed for scaling internationalization (i18n).
 
-**Bundle size**
+</Accordion>
+<Accordion header="Bundle size">
 
 Instead of loading massive JSON files into your pages, load only the necessary content. Intlayer helps **reduce your bundle and page sizes by up to 50%**.
 
-**Maintainability**
+</Accordion>
+<Accordion header="Maintainability">
 
 Scoping your application's content **facilitates maintenance** for large-scale applications. You can duplicate or delete a single feature folder without the mental burden of reviewing your entire content codebase. Additionally, Intlayer is **fully typed** to ensure your content's accuracy.
 
-**AI Agent**
+</Accordion>
+<Accordion header="AI Agent">
 
 Co-locating content **reduces the context needed** by Large Language Models (LLMs). Intlayer also comes with a suite of tools, such as a **CLI** to test for missing translations,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)**, and **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, to make the developer experience (DX) even smoother for AI agents.
 
-**Automation**
+</Accordion>
+<Accordion header="Automation">
 
 Use automation to translate in your CI/CD pipeline using the LLM of your choice at the cost of your AI provider. Intlayer also offers a **compiler** to automate content extraction, as well as a [web platform](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) to help **translate in the background**.
 
-**Performance**
+</Accordion>
+<Accordion header="Performance">
 
 Connecting massive JSON files to components can lead to performance and reactivity issues. Intlayer optimizes your content loading at build time.
 
-**Scaling with none-dev**
+</Accordion>
+<Accordion header="Scaling with none-dev">
 
 More than just an i18n solution, Intlayer provides an **self-hosted [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** and a **[full CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** to help you manage your multilingual content in **real-time**, making collaboration with translators, copywriters, and other team members seamless. Content can be stored locally and/or remotely.
+
+</Accordion>
+</AccordionGroup>
 
 ---
 
@@ -96,7 +106,9 @@ More than just an i18n solution, Intlayer provides an **self-hosted [visual edit
 
 Check out the [application template](https://github.com/aymericzip/intlayer-astro-template) on GitHub.
 
-### Step 1: Install Dependencies
+<Steps>
+
+<Step number={1} title="Install Dependencies">
 
 Install the necessary packages using your preferred package manager:
 
@@ -133,7 +145,9 @@ bun x intlayer init
 - **vanilla-intlayer**
   A package to integrate Intlayer into Vanilla JavaScript / TypeScript applications. It provides a Pub/Sub singleton (`IntlayerClient`) and callback-based helpers (`useIntlayer`, `useLocale`, etc.), allowing any part of your Astro `<script>` tags to respond to language changes without the need for a UI framework.
 
-### Step 2: Configure Your Project
+</Step>
+
+<Step number={2} title="Configure Your Project">
 
 Create a configuration file to define your application's languages:
 
@@ -158,7 +172,9 @@ export default config;
 
 > Through this configuration file, you can configure localised URLs, middleware redirects, cookie names, location and extensions of content declarations, disable Intlayer logs in the console, and more. For a full list of available parameters, refer to the [configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/configuration.md).
 
-### Step 3: Integrate Intlayer into Your Astro Configuration
+</Step>
+
+<Step number={3} title="Integrate Intlayer into Your Astro Configuration">
 
 Add the `intlayer` plugin to your Astro configuration. For Vanilla JS, no additional UI framework integration is required.
 
@@ -176,7 +192,9 @@ export default defineConfig({
 
 > The `intlayer()` integration plugin is used to integrate Intlayer with Astro. It ensures the generation of the content declaration files and monitors them in development mode. It defines Intlayer environment variables within the Astro application and provides aliases to optimise performance.
 
-### Step 4: Declare Your Content
+</Step>
+
+<Step number={4} title="Declare Your Content">
 
 Create and manage your content declarations to store translations:
 
@@ -214,7 +232,9 @@ export default appContent;
 
 > For more information, refer to the [content declaration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/content_file.md).
 
-### Step 5: Using Content in Astro
+</Step>
+
+<Step number={5} title="Using Content in Astro">
 
 With Vanilla JS, all server-side rendering happens directly in `.astro` files using `getIntlayer`. Subsequently, a `<script>` block initialises `vanilla-intlayer` on the client to enable language switching.
 
@@ -323,7 +343,9 @@ const { greeting, description, switchLocale } = getIntlayer("app", locale);
 > - **`prefix-all`:** all URLs get a language prefix. You can use standard `[locale]` if you don't need to handle the root separately.
 > - **`search-param` or `no-prefix`:** no language directories are needed. The language is handled via query parameters or cookies.
 
-### Step 6: Adding a Language Switcher
+</Step>
+
+<Step number={6} title="Adding a Language Switcher">
 
 In Astro with Vanilla JS, the language switcher is rendered on the server as regular links and hydrated on the client via a `<script>` block. When a user clicks a language link, `vanilla-intlayer` sets the language cookie via `setLocale` before navigating to the localised URL.
 
@@ -364,7 +386,9 @@ In Astro with Vanilla JS, the language switcher is rendered on the server as reg
 > **Note on Progressive Enhancement:**
 > The links in the language switcher will work as standard `<a>` tags even without JavaScript. When JavaScript is available, calls to `setLocale` will update the cookie before navigating, ensuring the middleware performs the correct redirect.
 
-### Step 7: Sitemap and Robots.txt
+</Step>
+
+<Step number={7} title="Sitemap and Robots.txt">
 
 Intlayer offers utilities to dynamically create your localised sitemap and robots.txt files.
 
@@ -472,7 +496,9 @@ For more information on using the extension, refer to the [VS Code Extension doc
 
 ---
 
-### (Optional) Step 15: Extract the content of your components
+</Step>
+
+<Step number={15} title="Extract the content of your components" isOptional={true}>
 
 If you have an existing codebase, transforming thousands of files can be time-consuming.
 
@@ -577,3 +603,7 @@ bun run build # Or bun run dev
 ### Deepen Your Knowledge
 
 If you want to learn more, you can also implement the [Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_visual_editor.md) or use the [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_CMS.md) to externalise your content.
+
+</Step>
+
+</Steps>

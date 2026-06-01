@@ -81,7 +81,9 @@ history:
 
 ## 在 Next.js 应用程序中设置 Intlayer 的分步指南
 
-### 步骤 1：安装依赖项
+<Steps>
+
+<Step number={1} title="安装依赖项">
 
 使用您偏好的包管理器安装必要的包：
 
@@ -117,7 +119,9 @@ bun x intlayer init
 
   将 Intlayer 与 Next.js 集成的包。它为 Next.js 国际化提供上下文提供程序和钩子。此外，它还包括用于将 Intlayer 与 [Webpack](https://webpack.js.org/) 或 [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack) 集成的 Next.js 插件，以及用于检测用户首选语言环境、管理 cookie 和处理 URL 重定向的中间件。
 
-### 步骤 2：配置您的项目
+</Step>
+
+<Step number={2} title="配置您的项目">
 
 创建一个配置文件来定义应用程序的语言：
 
@@ -174,7 +178,9 @@ export default config;
 
 > 通过此配置文件，您可以设置本地化的 URL、代理重定向、cookie 映射、内容声明的位置和扩展名、在控制台中禁用 Intlayer 日志等等。有关可用参数的完整列表，请参阅[配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)。
 
-### 步骤 3：将 Intlayer 集成到 Next.js 配置中
+</Step>
+
+<Step number={3} title="将 Intlayer 集成到 Next.js 配置中">
 
 配置您的 Next.js 设置以使用 Intlayer：
 
@@ -212,7 +218,9 @@ module.exports = {
 };
 ```
 
-### 步骤 4：页面中的语言环境检测
+</Step>
+
+<Step number={4} title="页面中的语言环境检测">
 
 清空 `RootLayout` 的内容，并将其替换为以下示例：
 
@@ -255,7 +263,9 @@ const RootLayout = async ({
 export default RootLayout;
 ```
 
-### 步骤 5：声明您的内容（自动）
+</Step>
+
+<Step number={5} title="声明您的内容（自动）">
 
 启用编译器后，您**不再需要**手动声明内容字典（例如 `.content.ts` 文件）。
 
@@ -389,7 +399,9 @@ bun x intlayer fill         # 填写缺失的翻译
 
 > 有关更多详细信息，请参阅 [CLI 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/ci.md)
 
-### (可选) 步骤 8：本地化路由代理中间件
+</Step>
+
+<Step number={8} title="本地化路由代理中间件" isOptional={true}>
 
 如果您希望自动将用户重定向到其偏好的语言环境，请建立代理解析中间件：
 
@@ -528,7 +540,9 @@ Intlayer 使用模块扩展 (module augmentation) 来利用 TypeScript 的优势
 
 阅读 [Intlayer VS Code 扩展文档](https://intlayer.org/doc/vs-code-extension) 以了解更多关于扩展使用的详细说明。
 
-### (可选) 步骤 1 : 提取组件内容
+</Step>
+
+<Step number={1} title="提取组件内容" isOptional={true}>
 
 如果您有现有的代码库，转换数千个文件可能会非常耗时。
 
@@ -644,3 +658,7 @@ bun run build # Or bun run dev
 ### 进一步深入
 
 您可以实现 [可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md) 或使用 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md) 来实现内容的外部管理。
+
+</Step>
+
+</Steps>

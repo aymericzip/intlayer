@@ -80,7 +80,9 @@ Storybook هو الأداة القياسية في الصناعة لتطوير و
 <Tabs>
 <Tab value="Vite Setup">
 
-### الخطوة 1: تثبيت التبعيات
+<Steps>
+
+<Step number={1} title="تثبيت التبعيات">
 
 ```bash packageManager="npm"
 npm install intlayer react-intlayer
@@ -110,7 +112,9 @@ bun add vite-intlayer --dev
 
 ---
 
-### الخطوة 2: إنشاء تكوين Intlayer
+</Step>
+
+<Step number={2} title="إنشاء تكوين Intlayer">
 
 أنشئ ملف `intlayer.config.ts` في جذر مشروعك (أو داخل حزمة نظام التصميم الخاص بك):
 
@@ -139,7 +143,9 @@ export default config;
 
 ---
 
-### الخطوة 3: إضافة إضافة Vite إلى Storybook
+</Step>
+
+<Step number={3} title="إضافة إضافة Vite إلى Storybook">
 
 تتيح لك وظيفة `viteFinal` في Storybook توسيع تكوين Vite الداخلي. قم باستيراد وإضافة إضافة `intlayer()` هناك:
 
@@ -180,7 +186,9 @@ export default config;
 
 ---
 
-### الخطوة 4: إضافة `IntlayerProvider` ومبدل اللغة في شريط الأدوات
+</Step>
+
+<Step number={4} title="إضافة `IntlayerProvider` ومبدل اللغة في شريط الأدوات">
 
 ملف `preview` في Storybook هو المكان المناسب لتغليف كل قصة (story) بـ `IntlayerProvider` وعرض مبدل اللغة في شريط الأدوات:
 
@@ -237,7 +245,9 @@ export default preview;
 </Tab>
 <Tab value="Webpack Setup">
 
-### الخطوة 1: تثبيت التبعيات
+</Step>
+
+<Step number={1} title="تثبيت التبعيات">
 
 ```bash packageManager="npm"
 npm install intlayer react-intlayer
@@ -261,7 +271,9 @@ bun add @intlayer/webpack --dev
 
 ---
 
-### الخطوة 2: إنشاء تكوين Intlayer
+</Step>
+
+<Step number={2} title="إنشاء تكوين Intlayer">
 
 أنشئ ملف `intlayer.config.ts` في جذر مشروعك:
 
@@ -283,7 +295,9 @@ export default config;
 
 ---
 
-### الخطوة 3: تكوين Webpack لـ Storybook
+</Step>
+
+<Step number={3} title="تكوين Webpack لـ Storybook">
 
 بالنسبة لإعدادات Storybook القائمة على Webpack (مثل `@storybook/react-webpack5`)، قم بتوسيع تكوين webpack عبر `webpackFinal` لإضافة أسماء Intlayer البديلة والـ loader:
 
@@ -310,7 +324,9 @@ export default config;
 
 ---
 
-### الخطوة 4: إضافة `IntlayerProvider` ومبدل اللغة في شريط الأدوات
+</Step>
+
+<Step number={4} title="إضافة `IntlayerProvider` ومبدل اللغة في شريط الأدوات">
 
 كما هو الحال في إعداد Vite - أضف الـ decorator ونوع اللغة العالمي في `.storybook/preview.tsx`:
 
@@ -355,6 +371,10 @@ export default preview;
 </Tabs>
 
 ---
+
+</Step>
+
+</Steps>
 
 ## إعلان المحتوى
 

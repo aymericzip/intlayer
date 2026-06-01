@@ -97,7 +97,9 @@ Więcej niż tylko rozwiązanie i18n, Intlayer zapewnia **samodzielny [edytor wi
 
 Sprawdź [szablon aplikacji](https://github.com/aymericzip/intlayer-astro-template) na GitHubie.
 
-### Krok 1: Zainstaluj zależności
+<Steps>
+
+<Step number={1} title="Zainstaluj zależności">
 
 Zainstaluj niezbędne pakiety za pomocą preferowanego menedżera pakietów:
 
@@ -140,7 +142,9 @@ bun x intlayer init
 - **@astrojs/lit**
   Oficjalna integracja Astro pozwalająca na używanie elementów niestandardowych (custom elements) Lit wewnątrz stron Astro.
 
-### Krok 2: Skonfiguruj swój projekt
+</Step>
+
+<Step number={2} title="Skonfiguruj swój projekt">
 
 Utwórz plik konfiguracyjny, aby zdefiniować języki swojej aplikacji:
 
@@ -165,7 +169,9 @@ export default config;
 
 > Za pośrednictwem tego pliku konfiguracyjnego możesz ustawić zlokalizowane adresy URL, przekierowania oprogramowania pośredniczącego, nazwy plików cookie, lokalizację i rozszerzenia deklaracji treści, wyłączyć dzienniki Intlayer w konsoli i wiele więcej. Pełną listę dostępnych parametrów znajdziesz w [dokumentacji konfiguracji](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/configuration.md).
 
-### Krok 3: Zintegruj Intlayer ze swoją konfiguracją Astro
+</Step>
+
+<Step number={3} title="Zintegruj Intlayer ze swoją konfiguracją Astro">
 
 Dodaj wtyczkę `intlayer` do konfiguracji Astro oraz integrację Lit.
 
@@ -186,7 +192,9 @@ export default defineConfig({
 
 > Integracja `lit()` pozwala na używanie elementów niestandardowych Lit wewnątrz stron Astro.
 
-### Krok 4: Zadeklaruj swoją treść
+</Step>
+
+<Step number={4} title="Zadeklaruj swoją treść">
 
 Twórz i zarządzaj swoimi deklaracjami treści, aby przechowywać tłumaczenia:
 
@@ -218,7 +226,9 @@ export default litDemoContent;
 
 > Więcej informacji znajdziesz w [dokumentacji deklaracji treści](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/content_file.md).
 
-### Krok 5: Korzystanie z treści w Astro
+</Step>
+
+<Step number={5} title="Korzystanie z treści w Astro">
 
 Możesz konsumować słowniki bezpośrednio w swoich plikach `.astro`, używając podstawowych pomocników wyeksportowanych z `intlayer`. Powinieneś również dodać metadane SEO (takie jak linki hreflang i kanoniczne) na każdej stronie. Elementy niestandardowe Lit są importowane za pomocą bloku `<script>` po stronie klienta i umieszczane w body.
 
@@ -308,7 +318,9 @@ const { greeting } = getIntlayer("lit-demo", locale);
 > - **`prefix-all`:** Wszystkie adresy URL otrzymują prefiks języka. Możesz użyć standardowego `[locale]`, jeśli nie musisz traktować katalogu głównego oddzielnie.
 > - **`search-param` lub `no-prefix`:** Katalogi językowe nie są wymagane. Język jest zarządzany za pomocą parametrów zapytania lub plików cookie.
 
-### Krok 6: Utworzenie elementu niestandardowego Lit (Custom Element)
+</Step>
+
+<Step number={6} title="Utworzenie elementu niestandardowego Lit">
 
 Utwórz element niestandardowy Lit. Wywołaj `installIntlayer` w `connectedCallback`, używając atrybutu `locale` opartego na serwerze, aby zainicjować singleton tłumaczeń po stronie klienta.
 
@@ -387,7 +399,9 @@ customElements.define("lit-demo", LitDemo);
 
 > `useIntlayer` jest zarejestrowany jako `ReactiveController`. Automatycznie instruuje on komponent o konieczności ponownego renderowania (re-render) przy zmianie języka, więc nie jest wymagana żadna dodatkowa logika subskrypcji.
 
-### Krok 7: Dodanie przełącznika języków
+</Step>
+
+<Step number={7} title="Dodanie przełącznika języków">
 
 Funkcjonalność przełączania języków jest zintegrowana bezpośrednio z metodą `render()` elementu niestandardowego Lit (patrz krok 6 powyżej). Wykorzystuje ona `useLocale` z `lit-intlayer` i przechodzi do zlokalizowanego adresu URL, gdy użytkownik wybierze nowy język:
 
@@ -433,7 +447,9 @@ override render() {
 > **Uwaga na temat trwałości:**
 > Użycie `onLocaleChange` do przekierowania przez `window.location.href` zapewnia, że nowy adres URL z prefiksem językowym zostanie odwiedzony. Pozwala to oprogramowaniu pośredniczącemu Intlayer ustawić plik cookie języka i zapamiętać preferencje użytkownika przy przyszłych wizytach.
 
-### Krok 8: Sitemap i Robots.txt
+</Step>
+
+<Step number={8} title="Sitemap i Robots.txt">
 
 Intlayer oferuje narzędzia do dynamicznego generowania zlokalizowanej mapy witryny oraz pliku robots.txt.
 
@@ -545,7 +561,9 @@ Więcej informacji na temat korzystania z rozszerzenia znajdziesz w [dokumentacj
 
 ---
 
-### (Opcjonalnie) Krok 17 : Wyodrębnij zawartość swoich komponentów
+</Step>
+
+<Step number={17} title="Wyodrębnij zawartość swoich komponentów" isOptional={true}>
 
 Jeśli masz istniejącą bazę kodu, transformacja tysięcy plików może być czasochłonna.
 
@@ -646,3 +664,7 @@ bun run build # Or bun run dev
 ### Pogłębiaj swoją wiedzę
 
 Jeśli chcesz dowiedzieć się więcej, możesz również wdrożyć [Edytor Wizualny](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_visual_editor.md) lub użyć [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md), aby wyeksternalizować swoją treść.
+
+</Step>
+
+</Steps>

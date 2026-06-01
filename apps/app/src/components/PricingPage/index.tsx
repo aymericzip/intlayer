@@ -42,7 +42,7 @@ export const PricingPage: FC<PricingPageProps> = ({ pricings }) => {
           />
         </Suspense>
       ) : (
-        <div className="m-auto flex h-full w-full items-center justify-center">
+        <div className="m-auto flex size-full items-center justify-center">
           <p className="text-neutral text-sm">
             Failed to fetch pricing data. Please try again later.
           </p>

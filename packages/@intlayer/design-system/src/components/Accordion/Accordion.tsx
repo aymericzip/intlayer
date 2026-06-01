@@ -131,8 +131,8 @@ export const Accordion: FC<AccordionProps> = ({
   return (
     <div className="w-full">
       <Button
-        variant={ButtonVariant.HOVERABLE}
-        color={ButtonColor.TEXT}
+        variant="hoverable"
+        color="text"
         onClick={handleToggle}
         onKeyDown={handleKeyDown}
         disabled={disabled}

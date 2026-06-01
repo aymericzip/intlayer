@@ -68,33 +68,43 @@ history:
 
 'preact-i18n' veya 'i18next' gibi ana çözümlerle karşılaştırıldığında Intlayer, aşağıdaki gibi entegre optimizasyonlarla gelen bir çözümdür:
 
-**Tam Preact kapsamı**
+<AccordionGroup>
+<Accordion header="Tam Preact kapsamı">
 
 Intlayer, **bileşen düzeyinde içerik kapsamı**, **tembel yüklü çeviriler** ve uluslararasılaştırmayı (i18n) ölçeklendirmek için gereken tüm özellikleri sunarak Preact ile mükemmel çalışacak şekilde optimize edilmiştir.
 
-**Bundle boyutu**
+</Accordion>
+<Accordion header="Bundle boyutu">
 
 Sayfalarınıza çok büyük JSON dosyaları yüklemek yerine yalnızca gerekli içeriği yükleyin. Intlayer **bundle ve sayfa boyutlarınızı %50'ye kadar azaltmanıza** yardımcı olur.
 
-**Sürdürülebilirlik**
+</Accordion>
+<Accordion header="Sürdürülebilirlik">
 
 Uygulamanızın içeriğinin kapsamını belirlemek, büyük ölçekli uygulamalar için **bakımı kolaylaştırır**. İçerik kod tabanınızın tamamını gözden geçirmenin zihinsel yükü olmadan, tek bir özellik klasörünü çoğaltabilir veya silebilirsiniz. Ayrıca Intlayer, içeriğinizin doğruluğunu sağlamak için **tamamen tiplendirilmiş (fully typed)tır**.
 
-**Yapay Zeka Temsilcisi**
+</Accordion>
+<Accordion header="Yapay Zeka Temsilcisi">
 
 İçeriğin bir arada konumlandırılması **Büyük Dil Modellerinin (LLM'ler) ihtiyaç duyduğu bağlamı azaltır**. Intlayer ayrıca eksik çevirileri test etmek için **CLI** gibi bir araç paketiyle birlikte gelir**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** ve **[aracı becerileri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, geliştirici deneyimini (DX) yapay zeka için daha da sorunsuz hale getirmek için ajanlar.
 
-**Otomasyon**
+</Accordion>
+<Accordion header="Otomasyon">
 
 Maliyeti AI sağlayıcınıza ait olmak üzere seçtiğiniz LLM'yi kullanarak CI/CD işlem hattınızda çeviri yapmak için otomasyonu kullanın. Intlayer ayrıca içerik çıkarmayı otomatikleştirmek için bir **derleyici** ve **arka planda çeviri yapmaya** yardımcı olacak bir [web platformu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) sunar.
 
-**Performans**
+</Accordion>
+<Accordion header="Performans">
 
 Büyük JSON dosyalarını bileşenlere bağlamak performans ve tepkime sorunlarına yol açabilir. Intlayer, içerik yüklemenizi derleme sırasında optimize eder.
 
-**Non-dev ile ölçeklendirme**
+</Accordion>
+<Accordion header="Non-dev ile ölçeklendirme">
 
 Bir i18n çözümünden çok daha fazlası olan Intlayer, **kendi kendine barındırılan bir [görsel düzenleyici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** ve **[tam CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** çok dilli içeriğinizi **gerçek zamanlı** olarak yönetmenize yardımcı olarak çevirmenler, metin yazarları ve diğer ekip üyeleriyle işbirliğini kusursuz hale getirir. İçerik yerel olarak ve/veya uzaktan depolanabilir.
+
+</Accordion>
+</AccordionGroup>
 
 ---
 
@@ -102,7 +112,9 @@ Bir i18n çözümünden çok daha fazlası olan Intlayer, **kendi kendine barın
 
 GitHub'daki [Uygulama Şablonu](https://github.com/aymericzip/intlayer-vite-preact-template)'na bakın.
 
-### Adım 1: Bağımlılıkları Kurun
+<Steps>
+
+<Step number={1} title="Bağımlılıkları Kurun">
 
 Gerekli paketleri npm kullanarak kurun:
 
@@ -142,7 +154,9 @@ bun x intlayer init
 
   Intlayer'ı [Vite paketleyici](https://vite.dev/guide/why.html#why-bundle-for-production) ile entegre etmek için Vite eklentisinin yanı sıra kullanıcının tercih ettiği yerel ayarı algılamak, çerezleri yönetmek ve URL yönlendirmesini işlemek için ara yazılımı içerir.
 
-### Adım 2: Projenizi Yapılandırın
+</Step>
+
+<Step number={2} title="Projenizi Yapılandırın">
 
 Uygulamanızın dillerini yapılandırmak için bir yapılandırma dosyası oluşturun:
 
@@ -170,7 +184,9 @@ export default config;
 
 > Bu yapılandırma dosyası aracılığıyla yerelleştirilmiş URL'leri, yönlendirme modlarını, depolama seçeneklerini, çerez adlarını, içerik bildirimlerinizin konumunu ve uzantısını ayarlayabilir, konsoldaki Intlayer günlüklerini devre dışı bırakabilir ve daha fazlasını yapabilirsiniz. Mevcut parametrelerin tam listesi için [yapılandırma belgelerine](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md) bakın.
 
-### Adım 3: Intlayer'ı Vite Yapılandırmanıza Entegre Edin
+</Step>
+
+<Step number={3} title="Intlayer'ı Vite Yapılandırmanıza Entegre Edin">
 
 Yapılandırmanıza intlayer eklentisini ekleyin.
 
@@ -187,7 +203,9 @@ export default defineConfig({
 
 > `intlayer()` Vite eklentisi, Intlayer'ı Vite ile entegre etmek için kullanılır. İçerik bildirim dosyalarının oluşturulmasını sağlar ve bunları geliştirme modunda izler. Vite uygulaması içinde Intlayer ortam değişkenlerini tanımlar. Ayrıca, performansı optimize etmek için takma adlar sağlar.
 
-### Adım 4: İçeriğinizi Bildirin
+</Step>
+
+<Step number={4} title="İçeriğinizi Bildirin">
 
 Çevirileri saklamak için içerik bildirimlerinizi oluşturun ve yönetin:
 
@@ -309,7 +327,9 @@ export default appContent;
 
 > İçerik dosyanız TSX kodu içeriyorsa `import { h } from "preact";` içe aktarmanız gerekebilir veya JSX pragma'nızın Preact için doğru ayarlandığından emin olun.
 
-### Adım 5: Kodunuzda Intlayer'ı Kullanın
+</Step>
+
+<Step number={5} title="Kodunuzda Intlayer'ı Kullanın">
 
 Uygulamanız boyunca içerik sözlüklerinize erişin:
 
@@ -381,7 +401,9 @@ export default App;
 
 > Eğer uygulamanız zaten mevcutsa, binlerce bileşeni bir saniye içinde dönüştürmek için [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md)'ı [extract komutu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/extract.md) ile birlikte kullanabilirsiniz.
 
-### (İsteğe Bağlı) Adım 6: İçeriğinizin dilini değiştirin
+</Step>
+
+<Step number={6} title="İçeriğinizin dilini değiştirin" isOptional={true}>
 
 İçeriğinizin dilini değiştirmek için `useLocale` kancası tarafından sağlanan `setLocale` işlevini kullanabilirsiniz. Bu işlev, uygulamanın yerel ayarını yapmanıza ve içeriği buna göre güncellemenize olanak tanır.
 
@@ -405,7 +427,9 @@ export default LocaleSwitcher;
 
 > `useLocale` kancası hakkında daha fazla bilgi edinmek için [belgelere](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/react-intlayer/useLocale.md) bakın (`preact-intlayer` için API benzerdir).
 
-### (İsteğe Bağlı) Adım 7: Uygulamanıza yerelleştirilmiş yönlendirme ekleyin
+</Step>
+
+<Step number={7} title="Uygulamanıza yerelleştirilmiş yönlendirme ekleyin" isOptional={true}>
 
 Bu adımın amacı her dil için benzersiz rotalar oluşturmaktır. Bu, SEO ve SEO dostu URL'ler için faydalıdır.
 Örnek:
@@ -468,7 +492,9 @@ const App: FunctionalComponent = () => (
 export default App;
 ```
 
-### (İsteğe Bağlı) Adım 8: Yerel ayar değiştiğinde URL'yi değiştirin
+</Step>
+
+<Step number={8} title="Yerel ayar değiştiğinde URL'yi değiştirin" isOptional={true}>
 
 Yerel ayar değiştiğinde URL'yi değiştirmek için `useLocale` kancası tarafından sağlanan `onLocaleChange` prop'unu kullanabilirsiniz. Paralel olarak, URL yolunu güncellemek için `preact-iso`'nun `useLocation` içindeki `route` yöntemini kullanabilirsiniz.
 
@@ -542,7 +568,9 @@ export default LocaleSwitcher;
 >
 > > - [`useLocale` kancası](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/react-intlayer/useLocale.md) (API `preact-intlayer` için benzerdir)> - [`getLocaleName` kancası](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getLocaleName.md)> - [`getLocalizedUrl` kancası](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getLocalizedUrl.md)> - [`getHTMLTextDir` kancası](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getHTMLTextDir.md)> - [`hreflang` niteliği](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=tr)> - [`lang` niteliği](https://developer.mozilla.org/tr/docs/Web/HTML/Global_attributes/lang)> - [`dir` niteliği](https://developer.mozilla.org/tr/docs/Web/HTML/Global_attributes/dir)> - [`aria-current` niteliği](https://developer.mozilla.org/tr/docs/Web/Accessibility/ARIA/Attributes/aria-current)> - [Popover API](https://developer.mozilla.org/tr/docs/Web/API/Popover_API)
 
-### (İsteğe Bağlı) Adım 9: HTML Dil ve Yön Niteliklerini Değiştirin
+</Step>
+
+<Step number={9} title="HTML Dil ve Yön Niteliklerini Değiştirin" isOptional={true}>
 
 Uygulamanız birden fazla dili desteklediğinde, `<html>` etiketinin `lang` ve `dir` niteliklerini mevcut yerel ayara uyacak şekilde güncellemek çok önemlidir. Bunu yapmak şunları sağlar:
 
@@ -609,7 +637,9 @@ const App: FunctionalComponent = () => (
 export default App;
 ```
 
-### (İsteğe Bağlı) Adım 10: Yerelleştirilmiş Bağlantı Bileşeni Oluşturma
+</Step>
+
+<Step number={10} title="Yerelleştirilmiş Bağlantı Bileşeni Oluşturma" isOptional={true}>
 
 Uygulamanızın gezinmesinin mevcut yerel ayara saygı göstermesini sağlamak için özel bir `Link` bileşeni oluşturabilirsiniz. Bu bileşen, dahili URL'lerin önüne otomatik olarak mevcut dili ekler.
 
@@ -674,7 +704,9 @@ Link.displayName = "Link";
 - **Bağlantıyı Döndürme**:  
   Bileşen, yerelleştirilmiş URL ile bir `<a>` öğesi döndürür ve gezinmenin yerel ayar ile tutarlı olmasını sağlar.
 
-### (İsteğe Bağlı) Adım 11: Markdown ve HTML İşleme
+</Step>
+
+<Step number={11} title="Markdown ve HTML İşleme" isOptional={true}>
 
 Intlayer, Preact'te Markdown ve HTML içeriğinin işlenmesini destekler.
 
@@ -764,7 +796,9 @@ Uzantının nasıl kullanılacağı hakkında daha fazla ayrıntı için [Intlay
 
 ---
 
-### (İsteğe bağlı) Adım 12 : Bileşenlerinizin içeriğini çıkarın
+</Step>
+
+<Step number={12} title="Bileşenlerinizin içeriğini çıkarın" isOptional={true}>
 
 Mevcut bir kod tabanınız varsa, binlerce dosyayı dönüştürmek zaman alıcı olabilir.
 
@@ -939,3 +973,7 @@ pnpm veya yarn kullanıyorsanız komutları uyarlayın. CI’dan da çağrılabi
 Daha fazla ilerlemek için [görsel düzenleyiciyi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md) uygulayabilir veya [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md) kullanarak içeriğinizi dışa aktarabilirsiniz.
 
 ---
+
+</Step>
+
+</Steps>

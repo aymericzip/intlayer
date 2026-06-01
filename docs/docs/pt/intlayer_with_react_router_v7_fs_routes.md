@@ -48,33 +48,43 @@ Para roteamento do lado do cliente, consulte o guia [Intlayer com React Router v
 
 Comparado com soluções principais como `react-i18next` ou `i18next`, Intlayer é uma solução que vem com otimizações integradas como:
 
-**Cobertura completa do roteador React**
+<AccordionGroup>
+<Accordion header="Cobertura completa do roteador React">
 
 O Intlayer é otimizado para funcionar perfeitamente com o React Router, oferecendo **roteamento com reconhecimento de localidade**, **middleware para detecção de localidade** e todos os recursos necessários para dimensionar a internacionalização (i18n).
 
-**Tamanho do bundle**
+</Accordion>
+<Accordion header="Tamanho do bundle">
 
 Em vez de carregar arquivos JSON enormes em suas páginas, carregue apenas o conteúdo necessário. O Intlayer ajuda a **reduzir o tamanho do bundle e das páginas em até 50%**.
 
-**Manutenção**
+</Accordion>
+<Accordion header="Manutenção">
 
 Definir o escopo do conteúdo do seu aplicativo **facilita a manutenção** de aplicativos de grande escala. Você pode duplicar ou excluir uma única pasta de recursos sem o fardo mental de revisar toda a base de código de seu conteúdo. Além disso, o Intlayer é **totalmente tipado (fully typed)** para garantir a precisão do seu conteúdo.
 
-**Agente de IA**
+</Accordion>
+<Accordion header="Agente de IA">
 
 A co-localização de conteúdo **reduz o contexto necessário** pelos Large Language Models (LLMs). O Intlayer também vem com um conjunto de ferramentas, como uma **CLI** para testar traduções ausentes,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)**, e **[habilidades do agente](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, para tornar a experiência do desenvolvedor (DX) ainda mais tranquila para os agentes de IA.
 
-**Automação**
+</Accordion>
+<Accordion header="Automação">
 
 Use a automação para traduzir seu pipeline de CI/CD usando o LLM de sua escolha às custas de seu provedor de IA. O Intlayer também oferece um **compilador** para automatizar a extração de conteúdo, bem como uma [plataforma web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) para ajudar a **traduzir em segundo plano**.
 
-**Desempenho**
+</Accordion>
+<Accordion header="Desempenho">
 
 Conectar arquivos JSON enormes a componentes pode levar a problemas de desempenho e reatividade. O Intlayer otimiza o carregamento do seu conteúdo no momento da construção.
 
-**Escalonamento sem nenhum desenvolvedor**
+</Accordion>
+<Accordion header="Escalonamento sem nenhum desenvolvedor">
 
 Mais do que apenas uma solução i18n, o Intlayer fornece um **[editor visual] auto-hospedado(https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** e um **[CMS completo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** para ajudá-lo a gerenciar seu conteúdo multilíngue em **tempo real**, facilitando a colaboração com tradutores, redatores e outros membros da equipe. O conteúdo pode ser armazenado local e/ou remotamente.
+
+</Accordion>
+</AccordionGroup>
 
 ---
 
@@ -112,7 +122,9 @@ Mais do que apenas uma solução i18n, o Intlayer fornece um **[editor visual] a
 
 Veja o [Application Template](https://github.com/aymericzip/intlayer-react-router-v7-fs-routes-template) no GitHub.
 
-### Passo 1: Instalar Dependências
+<Steps>
+
+<Step number={1} title="Instalar Dependências">
 
 Instale os pacotes necessários usando seu gerenciador de pacotes preferido:
 
@@ -149,7 +161,9 @@ bun x intlayer init
 - **@react-router/fs-routes**
   O pacote que habilita roteamento baseado em sistema de arquivos para React Router v7.
 
-### Passo 2: Configuração do seu projeto
+</Step>
+
+<Step number={2} title="Configuração do seu projeto">
 
 Crie um arquivo de configuração para configurar os idiomas da sua aplicação:
 
@@ -168,7 +182,9 @@ export default config;
 
 > Através deste arquivo de configuração, você pode configurar URLs localizadas, redirecionamento de middleware, nomes de cookies, a localização e extensão das suas declarações de conteúdo, desabilitar os logs do Intlayer no console e mais. Para uma lista completa dos parâmetros disponíveis, consulte a [documentação de configuração](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/configuration.md).
 
-### Passo 3: Integrar o Intlayer na sua Configuração do Vite
+</Step>
+
+<Step number={3} title="Integrar o Intlayer na sua Configuração do Vite">
 
 Adicione o plugin intlayer na sua configuração:
 
@@ -184,7 +200,9 @@ export default defineConfig({
 
 > O plugin Vite `intlayer()` é usado para integrar o Intlayer com o Vite. Ele garante a construção dos arquivos de declaração de conteúdo e os monitora em modo de desenvolvimento. Ele define variáveis de ambiente do Intlayer dentro da aplicação Vite. Além disso, fornece aliases para otimizar o desempenho.
 
-### Passo 4: Configurar Rotas File-System do React Router v7
+</Step>
+
+<Step number={4} title="Configurar Rotas File-System do React Router v7">
 
 Configure sua configuração de rotas para usar rotas baseadas em sistema de arquivos com `flatRoutes`:
 
@@ -205,7 +223,9 @@ export default routes;
 
 > A função `flatRoutes` do `@react-router/fs-routes` habilita roteamento baseado em sistema de arquivos, onde a estrutura de arquivos no diretório `routes/` determina as rotas da sua aplicação. A opção `ignoredRouteFiles` garante que os arquivos de declaração de conteúdo do Intlayer (`.content.ts`, etc.) não sejam tratados como arquivos de rota.
 
-### Passo 5: Criar Arquivos de Rota com Convenções File-System
+</Step>
+
+<Step number={5} title="Criar Arquivos de Rota com Convenções File-System">
 
 Com roteamento baseado em sistema de arquivos, você usa uma convenção de nomenclatura plana onde pontos (`.`) representam segmentos de caminho e parênteses `()` denotam segmentos opcionais.
 
@@ -370,7 +390,9 @@ export default function AboutPage() {
 
 > Se a sua aplicação já existe, você pode usar o [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/compiler.md) em conjunto com o [comando extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/extract.md) para converter milhares de componentes em um segundo.
 
-### Passo 6: Declarar seu Conteúdo
+</Step>
+
+<Step number={6} title="Declarar seu Conteúdo">
 
 Crie e gerencie suas declarações de conteúdo para armazenar traduções. Coloque os arquivos de conteúdo ao lado dos seus arquivos de rota:
 
@@ -432,7 +454,9 @@ export default aboutContent;
 
 > Para mais detalhes, consulte a [documentação de declaração de conteúdo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/content_file.md).
 
-### Passo 7: Criar Componentes Locale-Aware
+</Step>
+
+<Step number={7} title="Criar Componentes Locale-Aware">
 
 Crie um componente `LocalizedLink` para navegação consciente de localidade:
 
@@ -493,7 +517,9 @@ export const useLocalizedNavigate = () => {
 };
 ```
 
-### Passo 8: Criar um Componente de Alternância de Locale
+</Step>
+
+<Step number={8} title="Criar um Componente de Alternância de Locale">
 
 Crie um componente para permitir que os usuários alterem idiomas:
 
@@ -554,7 +580,9 @@ export const LocaleSwitcher: FC = () => {
 
 > Para saber mais sobre o hook `useLocale`, consulte a [documentação](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/react-intlayer/useLocale.md).
 
-### Passo 9: Adicionar Gerenciamento de Atributos HTML (Opcional)
+</Step>
+
+<Step number={9} title="Adicionar Gerenciamento de Atributos HTML">
 
 Crie um hook para gerenciar os atributos HTML lang e dir:
 
@@ -575,7 +603,9 @@ export const useI18nHTMLAttributes = () => {
 
 Este hook já é usado no componente de layout (`root.tsx`) mostrado no Passo 5.
 
-### (Opcional) Etapa 1 : Extrair o conteúdo dos seus componentes
+</Step>
+
+<Step number={1} title="Extrair o conteúdo dos seus componentes" isOptional={true}>
 
 Se você tiver uma base de código existente, transformar milhares de arquivos pode ser demorado.
 
@@ -673,6 +703,10 @@ bun run build # Or bun run dev
 
 ---
 
+</Step>
+
+</Steps>
+
 ## Configure TypeScript
 
 Intlayer uses module augmentation to get benefits of TypeScript and make your codebase stronger.
@@ -739,7 +773,9 @@ To go further, you can implement the [visual editor](https://github.com/aymericz
 
 This comprehensive guide provides everything you need to integrate Intlayer with React Router v7 using file-system based routing for a fully internationalized application with locale-aware routing and TypeScript support.
 
-### Passo 10: Adicionar middleware (Opcional)
+<Steps>
+
+<Step number={10} title="Adicionar middleware">
 
 Você também pode usar o `intlayerProxy` para adicionar roteamento do lado do servidor à sua aplicação. Este plugin detectará automaticamente a localidade atual com base na URL e definirá o cookie de localidade apropriado. Se nenhuma localidade for especificada, o plugin determinará a localidade mais adequada com base nas preferências de idioma do navegador do usuário. Se nenhuma localidade for detectada, ele redirecionará para a localidade padrão.
 
@@ -761,6 +797,10 @@ export default defineConfig({
 ```
 
 ---
+
+</Step>
+
+</Steps>
 
 ## Configurar TypeScript
 

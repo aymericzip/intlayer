@@ -81,7 +81,9 @@ history:
 
 ## Пошаговое руководство по настройке Intlayer в приложении Next.js
 
-### Шаг 1: Установка зависимостей
+<Steps>
+
+<Step number={1} title="Установка зависимостей">
 
 Установите необходимые пакеты с помощью npm:
 
@@ -117,7 +119,9 @@ bun x intlayer init
 
   Пакет, интегрирующий Intlayer в Next.js. Он предоставляет контекстные провайдеры и хуки для интернационализации Next.js. Кроме того, он включает плагин Next.js для интеграции Intlayer с [Webpack](https://webpack.js.org/) или [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack), а также прокси для определения предпочтительного языка пользователя, управления файлами cookie и обработки перенаправлений URL.
 
-### Шаг 2: Настройка проекта
+</Step>
+
+<Step number={2} title="Настройка проекта">
 
 Создайте файл конфигурации для настройки языков вашего приложения:
 
@@ -174,7 +178,9 @@ export default config;
 
 > С помощью этого конфигурационного файла вы можете настроить локализованные URL-адреса, перенаправление прокси, названия куки, расположение и расширение ваших объявлений контента, отключить логи Intlayer в консоли и многое другое. Полный список доступных параметров см. в [документации по конфигурации](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/configuration.md).
 
-### Шаг 3: Интеграция Intlayer в конфигурацию Next.js
+</Step>
+
+<Step number={3} title="Интеграция Intlayer в конфигурацию Next.js">
 
 Настройте параметры Next.js для использования Intlayer:
 
@@ -191,7 +197,9 @@ export default withIntlayer(nextConfig);
 
 > Плагин Next.js `withIntlayer()` используется для интеграции Intlayer с Next.js. Он обеспечивает сборку файлов объявления контента и отслеживает их изменения в режиме разработки. Он определяет переменные среды Intlayer в средах [Webpack](https://webpack.js.org/) или [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack). Кроме того, он предоставляет алиасы для оптимизации производительности и обеспечивает совместимость с серверными компонентами.
 
-### Шаг 4: Настройка Babel
+</Step>
+
+<Step number={4} title="Настройка Babel">
 
 Компилятору Intlayer требуется Babel для извлечения и оптимизации вашего контента. Обновите ваш `babel.config.js` (или `babel.config.json`), чтобы включить плагины Intlayer:
 
@@ -212,7 +220,9 @@ module.exports = {
 };
 ```
 
-### Шаг 5: Определение языка на ваших страницах
+</Step>
+
+<Step number={5} title="Определение языка на ваших страницах">
 
 Удалите все содержимое из `RootLayout` и замените его следующим кодом:
 
@@ -255,7 +265,9 @@ const RootLayout = async ({
 export default RootLayout;
 ```
 
-### Шаг 6: Компиляция компонентов
+</Step>
+
+<Step number={6} title="Компиляция компонентов">
 
 При включенном компиляторе вам **больше не нужно** вручную объявлять словари контента (такие как файлы `.content.ts`).
 
@@ -351,7 +363,9 @@ export default async function Page() {
 
   > Layout and page cannot share a common server context because the server context system is based on a per-request data store (via [React's cache](https://react.dev/reference/react/cache) mechanism), causing each "context" to be re-created for different segments of the application. Placing the provider in a shared layout would break this isolation, preventing the correct propagation of the server context values to your server components.
 
-### (Необязательно) Шаг 7: Заполнение недостающих переводов
+</Step>
+
+<Step number={7} title="Заполнение недостающих переводов" isOptional={true}>
 
 Intlayer предоставляет инструмент CLI, помогающий заполнить недостающие переводы. Вы можете использовать команду `intlayer` для проверки и заполнения недостающих переводов в вашем коде.
 
@@ -389,7 +403,9 @@ bun x intlayer fill         # Заполнить недостающие пере
 
 > Для получения более подробной информации обратитесь к [документации CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/cli/ci.md)
 
-### (Необязательно) Шаг 8: Настройка прокси для определения языка
+</Step>
+
+<Step number={8} title="Настройка прокси для определения языка" isOptional={true}>
 
 Настройте прокси для определения предпочтительного языка пользователя:
 
@@ -404,7 +420,9 @@ export const config = {
 
 > `intlayerProxy` используется для определения предпочтительного языка пользователя и перенаправления его на соответствующий URL, как указано в [конфигурации](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/configuration.md). Кроме того, он позволяет сохранять предпочтительный язык пользователя в куки.
 
-### (Необязательно) Шаг 8: Изменение языка контента
+</Step>
+
+<Step number={8} title="Изменение языка контента" isOptional={true}>
 
 Для изменения языка контента в Next.js рекомендуется использовать компонент `Link` для перенаправления пользователей на соответствующую локализованную страницу. Компонент `Link` обеспечивает предзагрузку страницы, что помогает избежать полной перезагрузки.
 
@@ -454,7 +472,9 @@ export const LocaleSwitcher: FC = () => {
 
 > Альтернативный способ, использовать функцию `setLocale`, предоставляемую хуком `useLocale`. Эта функция не позволит предзагружать страницу. См. [документацию хука `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/next-intlayer/useLocale.md) для получения подробной информации.
 
-### (Необязательно) Шаг 10: Оптимизация размера бандла
+</Step>
+
+<Step number={10} title="Оптимизация размера бандла" isOptional={true}>
 
 При использовании `next-intlayer` словари по умолчанию включаются в бандл для каждой страницы. Для оптимизации размера бандла Intlayer предоставляет дополнительный плагин SWC, который интеллектуально заменяет вызовы `useIntlayer` макросами. Это гарантирует, что словари включаются только в те бандлы страниц, которые их действительно используют.
 
@@ -528,7 +548,9 @@ Intlayer использует расширение модулей (module augmen
 
 Для получения подробной информации об использовании расширения см. [документацию расширения Intlayer для VS Code](https://intlayer.org/doc/vs-code-extension).
 
-### (Опционально) Шаг 1 : Извлечение содержимого ваших компонентов
+</Step>
+
+<Step number={1} title="Извлечение содержимого ваших компонентов" isOptional={true}>
 
 Если у вас есть существующая кодовая база, преобразование тысяч файлов может занять много времени.
 
@@ -644,3 +666,7 @@ bun run build # Or bun run dev
 ### Идите дальше
 
 Чтобы пойти еще дальше, вы можете внедрить [визуальный редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md) или вынести свой контент во внешнюю среду с помощью [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_CMS.md).
+
+</Step>
+
+</Steps>

@@ -104,7 +104,9 @@ history:
 
 انظر [نموذج التطبيق](https://github.com/aymericzip/intlayer-vite-react-template) على GitHub.
 
-### الخطوة 1: تثبيت التبعيات
+<Steps>
+
+<Step number={1} title="تثبيت التبعيات">
 
 قم بتثبيت الحزم اللازمة باستخدام npm:
 
@@ -141,7 +143,9 @@ bun x intlayer init
 - **vite-intlayer**
   تتضمن إضافة Vite لدمج Intlayer مع [مجمّع Vite](https://vite.dev/guide/why.html#why-bundle-for-production)، بالإضافة إلى وسيط (middleware) لاكتشاف اللغة المفضلة للمستخدم، وإدارة الكوكيز، والتعامل مع إعادة توجيه URL.
 
-### الخطوة 2: تكوين مشروعك
+</Step>
+
+<Step number={2} title="تكوين مشروعك">
 
 قم بإنشاء ملف تكوين لتحديد لغات تطبيقك:
 
@@ -165,7 +169,9 @@ export default config;
 
 > من خلال ملف التهيئة هذا، يمكنك إعداد عناوين URL محلية، وإعادة توجيه الوسيط، وأسماء ملفات تعريف الارتباط، وموقع وامتداد إعلانات المحتوى الخاصة بك، وتعطيل سجلات Intlayer في وحدة التحكم، والمزيد. للحصول على قائمة كاملة بالمعلمات المتاحة، راجع [توثيق التهيئة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md).
 
-### الخطوة 3: دمج Intlayer في تهيئة Vite الخاصة بك
+</Step>
+
+<Step number={3} title="دمج Intlayer في تهيئة Vite الخاصة بك">
 
 أضف مكون intlayer الإضافي إلى تهيئتك.
 
@@ -182,7 +188,9 @@ export default defineConfig({
 
 يتم استخدام مكون Vite الإضافي `intlayer()` لدمج Intlayer مع Vite. يضمن بناء ملفات إعلان المحتوى ويراقبها في وضع التطوير. كما يعرّف متغيرات بيئة Intlayer داخل تطبيق Vite. بالإضافة إلى ذلك، يوفر أسماء مستعارة لتحسين الأداء.
 
-### الخطوة 4: إعلان المحتوى الخاص بك
+</Step>
+
+<Step number={4} title="إعلان المحتوى الخاص بك">
 
 قم بإنشاء وإدارة إعلانات المحتوى الخاصة بك لتخزين الترجمات:
 
@@ -309,7 +317,9 @@ export default appContent;
 
 > إذا كان ملف المحتوى الخاص بك يتضمن كود TSX، يجب أن تفكر في استيراد `import React from "react";` في ملف المحتوى الخاص بك.
 
-### الخطوة 5: استخدام Intlayer في الكود الخاص بك
+</Step>
+
+<Step number={5} title="استخدام Intlayer في الكود الخاص بك">
 
 قم بالوصول إلى قواميس المحتوى الخاصة بك في جميع أنحاء تطبيقك:
 
@@ -372,7 +382,9 @@ export default App;
 
 > إذا كان تطبيقك موجودًا بالفعل، يمكنك استخدام [مترجم Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compiler.md)، بالإضافة إلى [أمر الاستخراج](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/extract.md)، لتحويل آلاف المكونات في ثانية واحدة.
 
-### (اختياري) الخطوة 6: تغيير لغة المحتوى الخاص بك
+</Step>
+
+<Step number={6} title="تغيير لغة المحتوى الخاص بك" isOptional={true}>
 
 لتغيير لغة المحتوى الخاص بك، يمكنك استخدام الدالة `setLocale` المقدمة من الخطاف `useLocale`. تتيح لك هذه الدالة تعيين لغة التطبيق وتحديث المحتوى وفقًا لذلك.
 
@@ -394,7 +406,9 @@ const LocaleSwitcher: FC = () => {
 
 > لمعرفة المزيد عن الخطاف `useLocale`، راجع [التوثيق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useLocale.md).
 
-### (اختياري) الخطوة 7: إضافة التوجيه المحلي إلى تطبيقك
+</Step>
+
+<Step number={7} title="إضافة التوجيه المحلي إلى تطبيقك" isOptional={true}>
 
 الغرض من هذه الخطوة هو إنشاء مسارات فريدة لكل لغة. هذا مفيد لتحسين محركات البحث (SEO) ولعناوين URL الصديقة لمحركات البحث.
 مثال:
@@ -473,7 +487,9 @@ export default defineConfig({
 });
 ```
 
-### (اختياري) الخطوة 8: تغيير عنوان URL عند تغيير اللغة
+</Step>
+
+<Step number={8} title="تغيير عنوان URL عند تغيير اللغة" isOptional={true}>
 
 لتغيير عنوان URL عند تغيير اللغة، يمكنك استخدام الخاصية `onLocaleChange` المقدمة من الخطاف `useLocale`. وبالتوازي، يمكنك استخدام الخطافين `useLocation` و `useNavigate` من مكتبة `react-router-dom` لتحديث مسار عنوان URL.
 
@@ -557,7 +573,9 @@ const LocaleSwitcher: FC = () => {
 
 ---
 
-### (اختياري) الخطوة 9: تبديل سمات اللغة والاتجاه في وسم HTML
+</Step>
+
+<Step number={9} title="تبديل سمات اللغة والاتجاه في وسم HTML" isOptional={true}>
 
 عندما يدعم تطبيقك لغات متعددة، من الضروري تحديث سمات `lang` و `dir` في وسم `<html>` لتتوافق مع اللغة الحالية. يضمن ذلك:
 
@@ -628,7 +646,9 @@ export default App;
 - ضبط **اتجاه النص** (`dir`) وفقًا للغة المحلية، مما يعزز من قابلية القراءة وسهولة الاستخدام للغات ذات اتجاهات قراءة مختلفة.
 - توفير تجربة أكثر **سهولة في الوصول**، حيث تعتمد تقنيات المساعدة على هذه الخصائص لتعمل بشكل مثالي.
 
-### (اختياري) الخطوة 10: إنشاء مكون رابط محلي
+</Step>
+
+<Step number={10} title="إنشاء مكون رابط محلي" isOptional={true}>
 
 لضمان أن تحترم تنقلات تطبيقك اللغة الحالية، يمكنك إنشاء مكون `Link` مخصص. يقوم هذا المكون تلقائيًا بإضافة بادئة اللغة الحالية إلى عناوين URL الداخلية، بحيث عند نقر مستخدم يتحدث الفرنسية على رابط لصفحة "حول"، يتم توجيهه إلى `/fr/about` بدلاً من `/about`.
 
@@ -733,7 +753,9 @@ Link.displayName = "Link";
 .intlayer
 ```
 
-### (اختياري) خطوة 1 : استخراج محتوى مكوناتك
+</Step>
+
+<Step number={1} title="استخراج محتوى مكوناتك" isOptional={true}>
 
 إذا كان لديك قاعدة بيانات كود موجودة، فقد يكون تحويل آلاف الملفات مستهلكًا للوقت.
 
@@ -940,3 +962,7 @@ console.log("SEO files generated successfully.");
 ### التقدم أكثر
 
 للتقدم أكثر، يمكنك تنفيذ [المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) أو إخراج محتواك باستخدام [نظام إدارة المحتوى (CMS)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md).
+
+</Step>
+
+</Steps>

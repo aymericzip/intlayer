@@ -209,5 +209,5 @@ export const ChartComponent: FC<{
     };
   }, [data, unit, logoImages]);
 
-  return <canvas ref={canvasRef} className="h-full w-full" />;
+  return <canvas ref={canvasRef} className="size-full" />;
 };

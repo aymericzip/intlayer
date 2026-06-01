@@ -60,33 +60,43 @@ history:
 
 Par rapport aux solutions principales telles que `ngx-translate` ou `angular-l10n`, Intlayer est une solution dotée d'optimisations intégrées telles que :
 
-**Support complet de analogique**
+<AccordionGroup>
+<Accordion header="Support complet de analogique">
 
 Intlayer est optimisé pour fonctionner parfaitement avec Analog en offrant un **routage multilingue**, une **prise en charge SSR** et toutes les fonctionnalités nécessaires à l'internationalisation (i18n).
 
-**Taille du bundle**
+</Accordion>
+<Accordion header="Taille du bundle">
 
 Au lieu de charger de lourds fichiers JSON dans vos pages, ne chargez que le contenu strictement nécessaire. Intlayer vous aide à **réduire la taille de votre bundle et de vos pages jusqu'à 50 %**.
 
-**Maintenabilité**
+</Accordion>
+<Accordion header="Maintenabilité">
 
 Déclarer le contenu directement au plus près de vos composants **facilite la maintenance** des applications de grande envergure. Vous pouvez dupliquer ou supprimer le dossier d'une fonctionnalité sans le fardeau mental de devoir passer en revue toute votre base de code de contenu. De plus, Intlayer est **entièrement typé** pour garantir l'exactitude de vos traductions.
 
-**Prêt pour les agents IA**
+</Accordion>
+<Accordion header="Prêt pour les agents IA">
 
 La colocalisation du contenu **réduit le contexte nécessaire** aux grands modèles de langage (LLM). Intlayer est également livré avec une suite d'outils, tels qu'une **CLI** pour vérifier les traductions manquantes, un **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/lsp.md)**, un **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/mcp_server.md)** et des **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/agent_skills.md)**, afin de rendre l'expérience développeur (DX) encore plus fluide pour les agents IA.
 
-**Automatisation**
+</Accordion>
+<Accordion header="Automatisation">
 
 Automatisez les traductions dans votre pipeline CI/CD en utilisant le LLM de votre choix au coût de votre propre fournisseur d'IA. Intlayer propose également un **compilateur** pour automatiser l'extraction de contenu, ainsi qu'une [plateforme web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_CMS.md) pour vous aider à **traduire en arrière-plan**.
 
-**Performances**
+</Accordion>
+<Accordion header="Performances">
 
 Associer de gros fichiers JSON à vos composants peut ralentir les performances et impacter la réactivité. Intlayer optimise le chargement du contenu directement au moment du **build**.
 
-**Collaboration avec les non-développeurs**
+</Accordion>
+<Accordion header="Collaboration avec les non-développeurs">
 
 Bien plus qu'une simple solution i18n, Intlayer propose un **[éditeur visuel](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_visual_editor.md)** auto-hébergé et un **[CMS complet](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_CMS.md)** pour gérer votre contenu multilingue en **temps réel**. Cela rend la collaboration avec les traducteurs, concepteurs-rédacteurs et autres membres de l'équipe extrêmement simple. Le contenu peut être stocké localement et/ou à distance.
+
+</Accordion>
+</AccordionGroup>
 
 ---
 
@@ -94,7 +104,9 @@ Bien plus qu'une simple solution i18n, Intlayer propose un **[éditeur visuel](h
 
 Voir le [Modèle d'application](https://github.com/aymericzip/intlayer-analog-template) sur GitHub.
 
-### Étape 1 : Installer les dépendances
+<Steps>
+
+<Step number={1} title="Installer les dépendances">
 
 Installez les packages nécessaires à l'aide de npm :
 
@@ -128,7 +140,9 @@ bun x intlayer init
 - **vite-intlayer**
   Le package qui intègre Intlayer avec Vite. Il fournit un plugin pour gérer les fichiers de déclaration de contenu et configure des alias pour des performances optimales.
 
-### Étape 2 : Configuration de votre projet
+</Step>
+
+<Step number={2} title="Configuration de votre projet">
 
 Créez un fichier de configuration pour configurer les langues de votre application :
 
@@ -152,7 +166,9 @@ export default config;
 
 > Grâce à ce fichier de configuration, vous pouvez configurer des URL localisées, la redirection de middleware, les noms de cookies, l'emplacement et l'extension de vos déclarations de contenu, désactiver les logs Intlayer dans la console, et plus encore. Pour une liste complète des paramètres disponibles, reportez-vous à la [documentation de configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/configuration.md).
 
-### Étape 3 : Intégrer Intlayer dans votre configuration Vite
+</Step>
+
+<Step number={3} title="Intégrer Intlayer dans votre configuration Vite">
 
 Pour intégrer Intlayer avec Analog, vous devez utiliser le plugin `vite-intlayer`.
 
@@ -174,7 +190,9 @@ export default defineConfig(() => ({
 
 > Le plugin `intlayer()` configure Vite avec Intlayer. Il gère les fichiers de déclaration de contenu et configure des alias pour des performances optimales.
 
-### Étape 4 : Déclarer votre contenu
+</Step>
+
+<Step number={4} title="Déclarer votre contenu">
 
 Créez et gérez vos déclarations de contenu pour stocker les traductions :
 
@@ -204,7 +222,9 @@ export default appContent;
 
 > Pour plus de détails, reportez-vous à la [documentation de déclaration de contenu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/content_file.md).
 
-### Étape 5 : Utiliser Intlayer dans votre code
+</Step>
+
+<Step number={5} title="Utiliser Intlayer dans votre code">
 
 Pour utiliser les fonctionnalités d'internationalisation d'Intlayer dans toute votre application Analog, vous devez fournir Intlayer dans la configuration de votre application.
 
@@ -242,7 +262,9 @@ export default class HomeComponent {
 
 Le contenu Intlayer est retourné sous forme de `Signal`, vous accédez donc aux valeurs en appelant le signal : `content().title`.
 
-### (Optionnel) Étape 6 : Changer la langue de votre contenu
+</Step>
+
+<Step number={6} title="Changer la langue de votre contenu" isOptional={true}>
 
 Pour changer la langue de votre contenu, vous pouvez utiliser la fonction `setLocale` fournie par la fonction `useLocale`. Cela vous permet de définir la locale de l'application et de mettre à jour le contenu en conséquence.
 
@@ -354,3 +376,7 @@ Pour plus de détails sur l'utilisation de l'extension, reportez-vous à la [doc
 ### Aller plus loin
 
 Pour aller plus loin, vous pouvez implémenter l'[éditeur visuel](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_visual_editor.md) ou externaliser votre contenu à l'aide du [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_CMS.md).
+
+</Step>
+
+</Steps>

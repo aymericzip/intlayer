@@ -66,33 +66,43 @@ history:
 
 Dibandingkan dengan solusi utama seperti `svelte-i18n` atau `i18next`, Intlayer adalah solusi yang hadir dengan pengoptimalan terintegrasi seperti:
 
-**Cakupan Ramping Penuh**
+<AccordionGroup>
+<Accordion header="Cakupan Ramping Penuh">
 
 Intlayer dioptimalkan untuk bekerja sempurna dengan Svelte dengan menawarkan **pelingkupan konten tingkat komponen**, **terjemahan reaktif**, dan semua fitur yang diperlukan untuk meningkatkan internasionalisasi (i18n).
 
-**Ukuran bundle**
+</Accordion>
+<Accordion header="Ukuran bundle">
 
 Daripada memuat file JSON berukuran besar ke halaman Anda, muat saja konten yang diperlukan. Intlayer membantu **mengurangi ukuran bundle dan halaman Anda hingga 50%**.
 
-**Kemampuan Pemeliharaan**
+</Accordion>
+<Accordion header="Kemampuan Pemeliharaan">
 
 Mencakup konten aplikasi Anda **memfasilitasi pemeliharaan** untuk aplikasi berskala besar. Anda dapat menduplikasi atau menghapus satu folder fitur tanpa beban mental untuk meninjau seluruh basis kode konten Anda. Selain itu, Intlayer **diketik sepenuhnya** untuk memastikan keakuratan konten Anda.
 
-**Agen AI**
+</Accordion>
+<Accordion header="Agen AI">
 
 Menempatkan konten bersama **mengurangi konteks yang diperlukan** dengan Model Bahasa Besar (LLM). Intlayer juga dilengkapi dengan serangkaian alat, seperti **CLI** untuk menguji terjemahan yang hilang,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)**, dan **[agent skill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, untuk menjadikan pengalaman pengembang (DX) lebih lancar bagi agen AI.
 
-**Otomatisasi**
+</Accordion>
+<Accordion header="Otomatisasi">
 
 Gunakan otomatisasi untuk menerjemahkan dalam saluran CI/CD Anda menggunakan LLM pilihan Anda dengan biaya penyedia AI Anda. Intlayer juga menawarkan **compiler** untuk mengotomatiskan ekstraksi konten, serta [platform web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) untuk membantu **menerjemahkan di latar belakang**.
 
-**Pertunjukan**
+</Accordion>
+<Accordion header="Pertunjukan">
 
 Menghubungkan file JSON berukuran besar ke komponen dapat menyebabkan masalah kinerja dan reaktivitas. Intlayer mengoptimalkan pemuatan konten Anda pada waktu pembuatan.
 
-**Menskalakan tanpa pengembang**
+</Accordion>
+<Accordion header="Menskalakan tanpa pengembang">
 
 Lebih dari sekedar solusi i18n, Intlayer menyediakan **[editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** yang dihosting sendiri dan **[CMS lengkap](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** untuk membantu Anda mengelola konten multibahasa secara **real-time**, membuat kolaborasi dengan penerjemah, copywriter, dan anggota tim lainnya menjadi lancar. Konten dapat disimpan secara lokal dan/atau jarak jauh.
+
+</Accordion>
+</AccordionGroup>
 
 ---
 
@@ -108,7 +118,9 @@ Lebih dari sekedar solusi i18n, Intlayer menyediakan **[editor visual](https://g
 
 Lihat [Template Aplikasi](https://github.com/aymericzip/intlayer-vite-svelte-template) di GitHub.
 
-### Langkah 1: Instalasi Dependensi
+<Steps>
+
+<Step number={1} title="Instalasi Dependensi">
 
 Instal paket yang diperlukan menggunakan npm:
 
@@ -146,7 +158,9 @@ bun x intlayer init
 - **vite-intlayer**  
   Termasuk plugin Vite untuk mengintegrasikan Intlayer dengan [Vite bundler](https://vite.dev/guide/why.html#why-bundle-for-production), serta middleware untuk mendeteksi locale yang dipilih pengguna, mengelola cookie, dan menangani pengalihan URL.
 
-### Langkah 2: Konfigurasi proyek Anda
+</Step>
+
+<Step number={2} title="Konfigurasi proyek Anda">
 
 Buat file konfigurasi untuk mengatur bahasa aplikasi Anda:
 
@@ -170,7 +184,9 @@ export default config;
 
 > Melalui file konfigurasi ini, Anda dapat mengatur URL yang dilokalkan, pengalihan middleware, nama cookie, lokasi dan ekstensi deklarasi konten Anda, menonaktifkan log Intlayer di konsol, dan lainnya. Untuk daftar lengkap parameter yang tersedia, lihat [dokumentasi konfigurasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md).
 
-### Langkah 3: Integrasikan Intlayer dalam Konfigurasi Vite Anda
+</Step>
+
+<Step number={3} title="Integrasikan Intlayer dalam Konfigurasi Vite Anda">
 
 Tambahkan plugin intlayer ke dalam konfigurasi Anda.
 
@@ -187,7 +203,9 @@ export default defineConfig({
 
 > Plugin Vite `intlayer()` digunakan untuk mengintegrasikan Intlayer dengan Vite. Plugin ini memastikan pembuatan file deklarasi konten dan memantau file tersebut dalam mode pengembangan. Plugin ini juga mendefinisikan variabel lingkungan Intlayer dalam aplikasi Vite. Selain itu, plugin ini menyediakan alias untuk mengoptimalkan performa.
 
-### Langkah 4: Deklarasikan Konten Anda
+</Step>
+
+<Step number={4} title="Deklarasikan Konten Anda">
 
 Buat dan kelola deklarasi konten Anda untuk menyimpan terjemahan:
 
@@ -229,7 +247,9 @@ export default appContent;
 
 > Untuk detail lebih lanjut, lihat [dokumentasi deklarasi konten](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/content_file.md).
 
-### Langkah 5: Gunakan Intlayer dalam Kode Anda
+</Step>
+
+<Step number={5} title="Gunakan Intlayer dalam Kode Anda">
 
 ```svelte fileName="src/App.svelte"
 <script>
@@ -253,7 +273,9 @@ export default appContent;
 
 > Jika aplikasi Anda sudah ada, Anda dapat menggunakan [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compiler.md) secara kombinasi dengan [perintah extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/extract.md) untuk mengonversi ribuan komponen dalam satu detik.
 
-### (Opsional) Langkah 6: Ubah bahasa konten Anda
+</Step>
+
+<Step number={6} title="Ubah bahasa konten Anda" isOptional={true}>
 
 ```svelte fileName="src/App.svelte"
 <script lang="ts">
@@ -282,7 +304,9 @@ const changeLocale = (event: Event) => {
 </div>
 ```
 
-### (Opsional) Langkah 7: Render Markdown
+</Step>
+
+<Step number={7} title="Render Markdown" isOptional={true}>
 
 Intlayer mendukung rendering konten Markdown langsung di aplikasi Svelte Anda. Secara default, Markdown diperlakukan sebagai teks biasa. Untuk mengubah Markdown menjadi HTML kaya, Anda dapat mengintegrasikan `@humanspeak/svelte-markdown`, atau parser markdown lainnya.
 
@@ -303,13 +327,17 @@ Intlayer mendukung rendering konten Markdown langsung di aplikasi Svelte Anda. S
 
 > Anda juga dapat mengakses data front-matter markdown Anda menggunakan properti `content.markdownContent.metadata.xxx`.
 
-### (Opsional) Langkah 8: Siapkan editor / CMS intlayer
+</Step>
+
+<Step number={8} title="Siapkan editor / CMS intlayer" isOptional={true}>
 
 Untuk menyiapkan editor intlayer, Anda harus mengikuti [dokumentasi editor intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md).
 
 Untuk menyiapkan CMS intlayer, Anda harus mengikuti [dokumentasi CMS intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md).
 
-### (Opsional) Langkah 7: Tambahkan Routing yang dilokalkan ke aplikasi Anda
+</Step>
+
+<Step number={7} title="Tambahkan Routing yang dilokalkan ke aplikasi Anda" isOptional={true}>
 
 Untuk menangani routing yang dilokalkan dalam aplikasi Svelte Anda, Anda dapat menggunakan `svelte-spa-router` bersama dengan `localeFlatMap` dari Intlayer untuk menghasilkan rute untuk setiap locale.
 
@@ -420,7 +448,9 @@ export default defineConfig({
 });
 ```
 
-### (Opsional) Langkah 8: Ubah URL saat locale berubah
+</Step>
+
+<Step number={8} title="Ubah URL saat locale berubah" isOptional={true}>
 
 Untuk memungkinkan pengguna mengganti bahasa dan memperbarui URL sesuai, Anda dapat membuat komponen `LocaleSwitcher`. Komponen ini akan menggunakan `getLocalizedUrl` dari `intlayer` dan `push` dari `svelte-spa-router`.
 
@@ -484,7 +514,9 @@ Untuk detail lebih lanjut tentang cara menggunakan ekstensi ini, lihat [dokument
 
 ---
 
-### (Opsional) Langkah 1 : Ekstrak konten komponen Anda
+</Step>
+
+<Step number={1} title="Ekstrak konten komponen Anda" isOptional={true}>
 
 Jika Anda memiliki basis kode yang ada, mengubah ribuan file bisa memakan waktu lama.
 
@@ -657,3 +689,7 @@ Sesuaikan perintah jika memakai pnpm atau yarn. Skrip juga bisa dipanggil dari C
 ### Melangkah Lebih Jauh
 
 Untuk melangkah lebih jauh, Anda dapat mengimplementasikan [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md) atau mengeksternalisasi konten Anda menggunakan [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md).
+
+</Step>
+
+</Steps>

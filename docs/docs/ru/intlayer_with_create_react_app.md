@@ -45,7 +45,9 @@ history:
 
 ## Пошаговое руководство по настройке Intlayer в React-приложении
 
-### Шаг 1: Установка зависимостей
+<Steps>
+
+<Step number={1} title="Установка зависимостей">
 
 Установите необходимые пакеты с помощью npm:
 
@@ -81,7 +83,9 @@ bun x intlayer init
 
 Включает команды и плагины `react-scripts-intlayer` для интеграции Intlayer с приложением на основе Create React App. Эти плагины основаны на [craco](https://craco.js.org/) и включают дополнительную конфигурацию для сборщика [Webpack](https://webpack.js.org/).
 
-### Шаг 2: Конфигурация вашего проекта
+</Step>
+
+<Step number={2} title="Конфигурация вашего проекта">
 
 Создайте файл конфигурации для настройки языков вашего приложения:
 
@@ -105,7 +109,9 @@ export default config;
 
 > Через этот файл конфигурации вы можете настроить локализованные URL-адреса, перенаправление через middleware, имена cookie, расположение и расширение ваших деклараций контента, отключить логи Intlayer в консоли и многое другое. Для полного списка доступных параметров обратитесь к [документации по конфигурации](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/configuration.md).
 
-### Шаг 3: Интеграция Intlayer в конфигурацию CRA
+</Step>
+
+<Step number={3} title="Интеграция Intlayer в конфигурацию CRA">
 
 Измените ваши скрипты для использования react-intlayer
 
@@ -119,7 +125,9 @@ export default config;
 
 > Скрипты `react-scripts-intlayer` основаны на [CRACO](https://craco.js.org/). Вы также можете реализовать собственную настройку на основе плагина intlayer для craco. [См. пример здесь](https://github.com/aymericzip/intlayer/blob/main/examples/react-app/craco.config.js).
 
-### Шаг 4: Декларация вашего контента
+</Step>
+
+<Step number={4} title="Декларация вашего контента">
 
 Создайте и управляйте декларациями контента для хранения переводов:
 
@@ -173,7 +181,9 @@ export default appContent;
 
 > Если ваш файл контента включает код TSX, вам следует импортировать `import React from "react";` в ваш файл контента.
 
-### Шаг 5: Использование Intlayer в вашем коде
+</Step>
+
+<Step number={5} title="Использование Intlayer в вашем коде">
 
 Получите доступ к вашим словарям контента по всему приложению:
 
@@ -254,7 +264,9 @@ const App = () => (
 >
 > Чтобы узнать больше о хуке `useIntlayer`, обратитесь к [документации](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/react-intlayer/useIntlayer.md).
 
-### (Опционально) Шаг 6: Изменение языка вашего контента
+</Step>
+
+<Step number={6} title="Изменение языка вашего контента" isOptional={true}>
 
 Чтобы изменить язык вашего контента, вы можете использовать функцию `setLocale`, предоставляемую хуком `useLocale`. Эта функция позволяет установить локаль приложения и обновить контент соответствующим образом.
 
@@ -275,7 +287,9 @@ const LocaleSwitcher = () => {
 
 > Чтобы узнать больше о хуке `useLocale`, обратитесь к [документации](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/react-intlayer/useLocale.md).
 
-### (Опционально) Шаг 7: Добавьте локализованную маршрутизацию в ваше приложение
+</Step>
+
+<Step number={7} title="Добавьте локализованную маршрутизацию в ваше приложение" isOptional={true}>
 
 Цель этого шага - создать уникальные маршруты для каждого языка. Это полезно для SEO и удобных для SEO URL.
 Пример:
@@ -420,7 +434,9 @@ const App: FC = () => (
 );
 ```
 
-### (Необязательно) Шаг 8: Изменение URL при смене локали
+</Step>
+
+<Step number={8} title="Изменение URL при смене локали" isOptional={true}>
 
 Чтобы изменить URL при смене локали, вы можете использовать проп `onLocaleChange`, предоставляемый хуком `useLocale`. Параллельно можно использовать хуки `useLocation` и `useNavigate` из `react-router-dom` для обновления пути URL.
 
@@ -500,7 +516,9 @@ const LocaleSwitcher: FC = () => {
 > - [`dir` attribute`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir)
 > - [`aria-current` attribute](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)
 
-### (Необязательно) Шаг 9: Переключение атрибутов языка и направления в HTML
+</Step>
+
+<Step number={9} title="Переключение атрибутов языка и направления в HTML" isOptional={true}>
 
 Когда ваше приложение поддерживает несколько языков, крайне важно обновлять атрибуты `lang` и `dir` тега `<html>`, чтобы они соответствовали текущей локали. Это обеспечивает:
 
@@ -619,3 +637,7 @@ Intlayer использует расширение модулей (module augmen
 ### Продвинутые возможности
 
 Для расширения возможностей вы можете реализовать [визуальный редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md) или вынести ваш контент во внешний [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_CMS.md).
+
+</Step>
+
+</Steps>

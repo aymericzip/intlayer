@@ -93,7 +93,9 @@ Intlayer は単なる i18n ソリューションではなく、**自己ホスト
 
 ## Next.js アプリケーションで Intlayer をセットアップする手順
 
-### ステップ 1: 依存関係をインストール
+<Steps>
+
+<Step number={1} title="依存関係をインストール">
 
 npm を使用して必要なパッケージをインストールします：
 
@@ -125,7 +127,9 @@ bun x intlayer init
 
 IntlayerをNext.jsと統合するパッケージです。Next.js向けの国際化のためのコンテキストプロバイダーとフックを提供します。さらに、[Webpack](https://webpack.js.org/)や[Turbopack](https://nextjs.org/docs/app/api-reference/turbopack)とIntlayerを統合するためのNext.jsプラグイン、およびユーザーの優先ロケールの検出、クッキー管理、URLリダイレクト処理のためのプロキシも含まれます。
 
-### ステップ 2: プロジェクトを設定する
+</Step>
+
+<Step number={2} title="プロジェクトを設定する">
 
 以下が作成する最終的な構成です:
 
@@ -180,7 +184,9 @@ export default config;
 
 > この設定ファイルを使って、ローカライズされた URL、プロキシリダイレクト、クッキー名、コンテンツ宣言の場所と拡張子、コンソール上の Intlayer ログの無効化などを設定できます。利用可能なパラメータの完全な一覧は、[設定ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md) を参照してください。
 
-### ステップ 3: Next.js の設定に Intlayer を統合する
+</Step>
+
+<Step number={3} title="Next.js の設定に Intlayer を統合する">
 
 Intlayer を使用するよう Next.js の設定を構成します:
 
@@ -223,7 +229,9 @@ export default withIntlayer(nextConfig);
 > withRspack(withIntlayer(nextConfig, { enableTurbopack: false }));
 > ```
 
-### ステップ 4: 動的ロケールルートを定義する
+</Step>
+
+<Step number={4} title="動的ロケールルートを定義する">
 
 `RootLayout` の中身をすべて削除し、次のコードに置き換えてください:
 
@@ -379,7 +387,9 @@ export default pageContent;
 
 > 詳細は、[コンテンツ宣言のドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/content_file.md) を参照してください。
 
-### ステップ6: コード内でコンテンツを利用する
+</Step>
+
+<Step number={6} title="コード内でコンテンツを利用する">
 
 アプリケーション全体からコンテンツ辞書にアクセスします:
 
@@ -475,7 +485,9 @@ export const ServerComponentExample: FC = () => {
 
 > `useIntlayer` フックの詳細は[ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/next-intlayer/useIntlayer.md)を参照してください。
 
-### （オプション）ステップ7: ロケール検出のためにプロキシを設定
+</Step>
+
+<Step number={7} title="ロケール検出のためにプロキシを設定">
 
 ユーザーの優先ロケールを検出するようにプロキシを設定します:
 
@@ -499,7 +511,9 @@ import { customProxy } from "@utils/customProxy";
 export const proxy = multipleProxies([intlayerProxy, customProxy]);
 ```
 
-### （オプション）ステップ 8: コンテンツの言語を変更する
+</Step>
+
+<Step number={8} title="コンテンツの言語を変更する">
 
 Next.jsでコンテンツの言語を切り替えるには、推奨される方法は`Link`コンポーネントを使用してユーザーを適切なローカライズされたページにリダイレクトすることです。`Link`コンポーネントはページのプリフェッチを可能にし、フルページのリロードを回避するのに役立ちます。
 
@@ -580,7 +594,9 @@ export const LocaleSwitcher: FC = () => {
 - [`dir` 属性](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir)
 - [`aria-current` 属性](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)
 
-### （任意）ステップ 9: Server Actions で現在のロケールを取得する
+</Step>
+
+<Step number={9} title="Server Actions で現在のロケールを取得する">
 
 Server Action の内部でアクティブなロケールが必要な場合（例: メールのローカライズやロケール対応のロジックを実行する場合）、`next-intlayer/server` から `getLocale` を呼び出してください:
 
@@ -605,7 +621,9 @@ export const myServerAction = async () => {
 >
 > これにより、利用可能なコンテキストに基づいて最も適切なロケールが選択されます。
 
-### （任意）ステップ10：バンドルサイズを最適化する
+</Step>
+
+<Step number={10} title="バンドルサイズを最適化する">
 
 `next-intlayer` を使用すると、辞書はデフォルトで各ページのバンドルに含まれます。バンドルサイズを最適化するために、Intlayer はマクロを使用して `useIntlayer` の呼び出しをインテリジェントに置き換えるオプションの SWC プラグインを提供しています。これにより、辞書は実際にそれらを使用するページのバンドルにのみ含まれるようになります。
 
@@ -700,3 +718,7 @@ Intlayer の開発体験を向上させるために、公式の **Intlayer VS Co
 ### さらに進む
 
 さらに進むには、[ビジュアルエディタ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md) を実装するか、[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md) を使用してコンテンツを外部化できます。
+
+</Step>
+
+</Steps>

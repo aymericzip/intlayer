@@ -78,7 +78,9 @@ S Intlayer můžete:
 
 Podívejte se na [šablonu aplikace](https://github.com/aymericzip/intlayer-angular-21-template) na GitHubu.
 
-### Krok 1: Instalace závislostí
+<Steps>
+
+<Step number={1} title="Instalace závislostí">
 
 Nainstalujte potřebné balíčky pomocí npm:
 
@@ -116,7 +118,9 @@ bun x intlayer init
 - **@angular-builders/custom-esbuild**
   Požadováno k přizpůsobení konfigurace esbuild v Angular CLI.
 
-### Krok 2: Konfigurace vašeho projektu
+</Step>
+
+<Step number={2} title="Konfigurace vašeho projektu">
 
 Vytvořte konfigurační soubor k nastavení jazyků vaší aplikace:
 
@@ -140,7 +144,9 @@ export default config;
 
 > Prostřednictvím tohoto konfiguračního souboru můžete nastavit lokalizované adresy URL, přesměrování middleware, názvy souborů cookie, umístění a rozšíření vašich deklarací obsahu, zakázat logování Intlayer v konzoli a další. Pro úplný seznam dostupných parametrů se podívejte na [dokumentaci ke konfiguraci](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/configuration.md).
 
-### Krok 3: Integrace Intlayer do vaší konfigurace Angular
+</Step>
+
+<Step number={3} title="Integrace Intlayer do vaší konfigurace Angular">
 
 K integraci Intlayer s Angular CLI je nutné použít vlastní builder. Tento průvodce předpokládá, že používáte Vite/esbuild (výchozí pro projekty Angular 21).
 
@@ -202,7 +208,9 @@ export default [intlayerEsbuildPlugin()];
 >
 > Poté v `angular.json` nasměrujte na `"./esbuild.plugins.mjs"` místo `"./esbuild.plugins.ts"`.
 
-### Krok 4: Deklarace vašeho obsahu
+</Step>
+
+<Step number={4} title="Deklarace vašeho obsahu">
 
 Vytvářejte a spravujte své deklarace obsahu pro uložení překladů:
 
@@ -252,7 +260,9 @@ export default appContent;
 
 > Další podrobnosti najdete v [dokumentaci k deklaraci obsahu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/dictionary/content_file.md).
 
-### Krok 5: Využití Intlayer ve vašem kódu
+</Step>
+
+<Step number={5} title="Využití Intlayer ve vašem kódu">
 
 K využití funkcí internacionalizace Intlayer v celé vaší aplikaci Angular je třeba poskytnout Intlayer v konfiguraci aplikace.
 
@@ -300,7 +310,9 @@ A ve vaší šabloně:
 
 Obsah Intlayer je vrácen jako `Signal`, takže přístup k hodnotám získáte voláním signálu: `content().title`.
 
-### (Volitelné) Krok 6: Změna jazyka vašeho obsahu
+</Step>
+
+<Step number={6} title="Změna jazyka vašeho obsahu" isOptional={true}>
 
 K přepínání jazyka obsahu můžete použít funkci `setLocale`, kterou poskytuje `useLocale`. Umožňuje vám nastavit lokalizaci aplikace a odpovídajícím způsobem aktualizovat obsah.
 
@@ -410,3 +422,7 @@ Další informace o tom, jak používat rozšíření, najdete v [dokumentaci In
 Abyste šli ještě dále, můžete implementovat [vizuální editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/intlayer_visual_editor.md) nebo externalizovat obsah s využitím [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/intlayer_CMS.md).
 
 ---
+
+</Step>
+
+</Steps>

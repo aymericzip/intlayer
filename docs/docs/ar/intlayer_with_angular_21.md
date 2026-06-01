@@ -99,7 +99,9 @@ history:
 
 راجع [قالب التطبيق](https://github.com/aymericzip/intlayer-angular-21-template) على GitHub.
 
-### الخطوة 1: تثبيت التبعيات
+<Steps>
+
+<Step number={1} title="تثبيت التبعيات">
 
 قم بتثبيت الحزم اللازمة باستخدام npm:
 
@@ -137,7 +139,9 @@ bun x intlayer init
 - **@angular-builders/custom-esbuild**
   مطلوبة لتخصيص تكوين esbuild الخاص بـ Angular CLI.
 
-### الخطوة 2: تكوين مشروعك
+</Step>
+
+<Step number={2} title="تكوين مشروعك">
 
 قم بإنشاء ملف تكوين لتكوين لغات تطبيقك:
 
@@ -161,7 +165,9 @@ export default config;
 
 > من خلال ملف التكوين هذا، يمكنك إعداد عناوين URL المترجمة، وإعادة التوجيه للبرمجيات الوسيطة، وأسماء ملفات تعريف الارتباط، وموقع وامتداد تصريحات المحتوى الخاصة بك، وتعطيل سجلات Intlayer في وحدة التحكم، والمزيد. للحصول على قائمة كاملة بالمعلمات المتاحة، راجع [وثائق التكوين](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md).
 
-### الخطوة 3: دمج Intlayer في تكوين Angular الخاص بك
+</Step>
+
+<Step number={3} title="دمج Intlayer في تكوين Angular الخاص بك">
 
 لدمج Intlayer مع Angular CLI، تحتاج إلى استخدام باني مخصص (custom builder). يفترض هذا الدليل أنك تستخدم Vite/esbuild (الافتراضي لمشاريع Angular 21).
 
@@ -223,7 +229,9 @@ export default [intlayerEsbuildPlugin()];
 >
 > ثم في `angular.json` قم بالإشارة إلى `"./esbuild.plugins.mjs"` بدلاً من `"./esbuild.plugins.ts"`.
 
-### الخطوة 4: صرح عن محتواك
+</Step>
+
+<Step number={4} title="صرح عن محتواك">
 
 أنشئ وأدِر تصريحات محتواك لتخزين الترجمات:
 
@@ -273,7 +281,9 @@ export default appContent;
 
 > لمزيد من التفاصيل، راجع [وثائق تصريح المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/content_file.md).
 
-### الخطوة 5: استخدم Intlayer في كودك
+</Step>
+
+<Step number={5} title="استخدم Intlayer في كودك">
 
 لاستخدام ميزات التدويل الخاصة بـ Intlayer في جميع أنحاء تطبيق Angular الخاص بك، يجب عليك توفير Intlayer في تكوين التطبيق.
 
@@ -321,7 +331,9 @@ export class AppComponent {
 
 يتم إرجاع محتوى Intlayer كـ `Signal`، لذا يمكنك الوصول إلى القيم باستدعاء الإشارة: `content().title`.
 
-### (اختياري) الخطوة 6: تغيير لغة محتواك
+</Step>
+
+<Step number={6} title="تغيير لغة محتواك" isOptional={true}>
 
 لتغيير لغة محتواك، يمكنك استخدام وظيفة `setLocale` التي توفرها وظيفة `useLocale`. يتيح لك هذا تعيين لغة التطبيق وتحديث المحتوى وفقًا لذلك.
 
@@ -431,3 +443,7 @@ export class AppComponent {
 للذهاب إلى أبعد من ذلك، يمكنك تنفيذ [المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) أو الاستعانة بمصادر خارجية لمحتواك باستخدام [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md).
 
 ---
+
+</Step>
+
+</Steps>

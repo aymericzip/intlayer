@@ -94,7 +94,9 @@ history:
 
 انظر [قالب التطبيق](https://github.com/aymericzip/intlayer-analog-template) على GitHub.
 
-### الخطوة 1: تثبيت التبعيات
+<Steps>
+
+<Step number={1} title="تثبيت التبعيات">
 
 قم بتثبيت الحزم اللازمة باستخدام npm:
 
@@ -128,7 +130,9 @@ bun x intlayer init
 - **vite-intlayer**
   الحزمة التي تدمج Intlayer مع Vite. توفر مكونًا إضافيًا للتعامل مع ملفات إعلان المحتوى وتعد المسارات البديلة (aliases) لتحقيق الأداء الأمثل.
 
-### الخطوة 2: تكوين مشروعك
+</Step>
+
+<Step number={2} title="تكوين مشروعك">
 
 أنشئ ملف تكوين لتكوين لغات تطبيقك:
 
@@ -152,7 +156,9 @@ export default config;
 
 > من خلال ملف التكوين هذا، يمكنك إعداد عناوين URL الموطنة، وإعادة توجيه البرامج الوسيطة، وأسماء ملفات تعريف الارتباط، وموقع وامتداد إعلانات المحتوى الخاصة بك، وتعطيل سجلات Intlayer في وحدة التحكم، والمزيد. للحصول على قائمة كاملة بالمعلمات المتاحة، راجع [توثيق التكوين](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md).
 
-### الخطوة 3: دمج Intlayer في تكوين Vite الخاص بك
+</Step>
+
+<Step number={3} title="دمج Intlayer في تكوين Vite الخاص بك">
 
 لدمج Intlayer مع Analog، تحتاج إلى استخدام مكون `vite-intlayer` الإضافي.
 
@@ -174,7 +180,9 @@ export default defineConfig(() => ({
 
 > يقوم مكون `intlayer()` الإضافي بتكوين Vite مع Intlayer. يتعامل مع ملفات إعلان المحتوى ويقوم بإعداد المسارات البديلة (aliases) لتحقيق الأداء الأمثل.
 
-### الخطوة 4: الإعلان عن المحتوى الخاص بك
+</Step>
+
+<Step number={4} title="الإعلان عن المحتوى الخاص بك">
 
 قم بإنشاء وإدارة إعلانات المحتوى الخاصة بك لتخزين الترجمات:
 
@@ -206,7 +214,9 @@ export default appContent;
 
 > لمزيد من التفاصيل، راجع [توثيق إعلان المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/content_file.md).
 
-### الخطوة 5: استخدام Intlayer في كودك
+</Step>
+
+<Step number={5} title="استخدام Intlayer في كودك">
 
 لاستخدام ميزات التدويل الخاصة بـ Intlayer في تطبيق Analog الخاص بك، تحتاج إلى توفير Intlayer في تكوين تطبيقك.
 
@@ -244,7 +254,9 @@ export default class HomeComponent {
 
 يتم إرجاع محتوى Intlayer كـ `Signal` ، لذا يمكنك الوصول إلى القيم عن طريق استدعاء الإشارة: `content().title`.
 
-### (اختياري) الخطوة 6: تغيير لغة المحتوى الخاص بك
+</Step>
+
+<Step number={6} title="تغيير لغة المحتوى الخاص بك" isOptional={true}>
 
 لتغيير لغة المحتوى الخاص بك، يمكنك استخدام وظيفة `setLocale` التي توفرها وظيفة `useLocale`. يتيح لك هذا تعيين لغة التطبيق وتحديث المحتوى وفقًا لذلك.
 
@@ -356,3 +368,7 @@ export default class HomeComponent {
 ### اذهب أبعد من ذلك
 
 للمضي قدمًا، يمكنك تنفيذ [المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) أو استخراج محتواك باستخدام [نظام إدارة المحتوى (CMS)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md).
+
+</Step>
+
+</Steps>

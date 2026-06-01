@@ -62,39 +62,51 @@ history:
 
 So với các giải pháp chính như `i18next` hay `i18n.js`, Intlayer là giải pháp đi kèm với các tính năng tối ưu hóa tích hợp như:
 
-**Phủ sóng toàn bộ Vite**
+<AccordionGroup>
+<Accordion header="Phủ sóng toàn bộ Vite">
 
 Intlayer được tối ưu hóa để hoạt động hoàn hảo với Vite bằng cách cung cấp **quản lý nội dung không phụ thuộc vào khung**, **hỗ trợ TypeScript** và tất cả các tính năng cần thiết để mở rộng quy mô quốc tế hóa (i18n).
 
-**Kích thước bundle**
+</Accordion>
+<Accordion header="Kích thước bundle">
 
 Thay vì tải các tệp JSON lớn vào trang của bạn, hãy chỉ tải nội dung cần thiết. Intlayer giúp **giảm tới 50% kích thước bundle và kích thước trang**.
 
-**Khả năng bảo trì**
+</Accordion>
+<Accordion header="Khả năng bảo trì">
 
 Xác định phạm vi nội dung ứng dụng của bạn **tạo điều kiện bảo trì** cho các ứng dụng quy mô lớn. Bạn có thể sao chép hoặc xóa một thư mục tính năng mà không phải lo lắng về việc xem lại toàn bộ cơ sở mã nội dung của mình. Ngoài ra, Intlayer **được nhập đầy đủ** để đảm bảo tính chính xác cho nội dung của bạn.
 
-**Đại lý AI**
+</Accordion>
+<Accordion header="Đại lý AI">
 
 Nội dung cùng định vị **giảm ngữ cảnh cần thiết** của Mô hình ngôn ngữ lớn (LLM). Intlayer cũng đi kèm một bộ công cụ, chẳng hạn như **CLI** để kiểm tra các bản dịch bị thiếu,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** và **[agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, để giúp trải nghiệm của nhà phát triển (DX) trở nên mượt mà hơn nữa đối với các tác nhân AI.
 
-**Tự động hóa**
+</Accordion>
+<Accordion header="Tự động hóa">
 
 Sử dụng tính năng tự động hóa để dịch trong quy trình CI/CD của bạn bằng cách sử dụng LLM mà bạn chọn với chi phí do nhà cung cấp AI của bạn chi trả. Intlayer cũng cung cấp **trình biên dịch** để tự động trích xuất nội dung cũng như [nền tảng web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) để giúp **dịch ở chế độ nền**.
 
-**Hiệu suất**
+</Accordion>
+<Accordion header="Hiệu suất">
 
 Việc kết nối các tệp JSON lớn với các thành phần có thể dẫn đến các vấn đề về hiệu suất và khả năng phản hồi. Intlayer tối ưu hóa việc tải nội dung của bạn tại thời điểm build.
 
-**Mở rộng quy mô không có nhà phát triển**
+</Accordion>
+<Accordion header="Mở rộng quy mô không có nhà phát triển">
 
 Không chỉ là giải pháp i18n, Intlayer còn cung cấp **[trình chỉnh sửa trực quan](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** và **[CMS đầy đủ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** để giúp bạn quản lý nội dung đa ngôn ngữ của mình trong **thời gian thực**, giúp việc cộng tác với người dịch, người viết quảng cáo và các thành viên khác trong nhóm trở nên liền mạch. Nội dung có thể được lưu trữ cục bộ và/hoặc từ xa.
+
+</Accordion>
+</AccordionGroup>
 
 ---
 
 ## Hướng dẫn từng bước để thiết lập Intlayer trong ứng dụng Vite và Vanilla JS
 
-### Bước 1: Cài đặt các phụ thuộc
+<Steps>
+
+<Step number={1} title="Cài đặt các phụ thuộc">
 
 Cài đặt các gói cần thiết bằng npm:
 
@@ -131,7 +143,9 @@ bun x intlayer init
 - **vite-intlayer**
   Bao gồm plugin Vite để tích hợp Intlayer với [Vite bundler](https://vite.dev/guide/why.html#why-bundle-for-production), cũng như middleware để phát hiện ngôn ngữ ưa thích của người dùng, quản lý cookie và xử lý chuyển hướng URL.
 
-### Bước 2: Cấu hình dự án của bạn
+</Step>
+
+<Step number={2} title="Cấu hình dự án của bạn">
 
 Tạo một tệp cấu hình để thiết lập các ngôn ngữ cho ứng dụng của bạn:
 
@@ -155,7 +169,9 @@ export default config;
 
 > Thông qua tệp cấu hình này, bạn có thể thiết lập URL được bản địa hóa, chuyển hướng middleware, tên cookie, vị trí và phần mở rộng của các khai báo nội dung, tắt log Intlayer trong console, và nhiều hơn nữa. Để biết danh sách đầy đủ các tham số khả dụng, hãy tham khảo [tài liệu cấu hình](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md).
 
-### Bước 3: Tích hợp Intlayer vào cấu hình Vite của bạn
+</Step>
+
+<Step number={3} title="Tích hợp Intlayer vào cấu hình Vite của bạn">
 
 Thêm plugin intlayer vào cấu hình của bạn.
 
@@ -171,7 +187,9 @@ export default defineConfig({
 
 > Plugin Vite `intlayer()` được sử dụng để tích hợp Intlayer với Vite. Nó đảm bảo việc xây dựng các tệp khai báo nội dung và theo dõi chúng trong chế độ phát triển. Nó định nghĩa các biến môi trường Intlayer trong ứng dụng Vite. Ngoài ra, nó cung cấp các alias để tối ưu hóa hiệu suất.
 
-### Bước 4: Khởi tạo Intlayer trong entry point của bạn
+</Step>
+
+<Step number={4} title="Khởi tạo Intlayer trong entry point của bạn">
 
 Gọi `installIntlayer()` **trước khi** bất kỳ nội dung nào được render để ngôn ngữ singleton toàn cầu sẵn sàng.
 
@@ -196,7 +214,9 @@ installIntlayerMarkdown();
 import "./app.js";
 ```
 
-### Bước 5: Khai báo nội dung của bạn
+</Step>
+
+<Step number={5} title="Khai báo nội dung của bạn">
 
 Tạo và quản lý các khai báo nội dung để lưu trữ các bản dịch:
 
@@ -274,7 +294,9 @@ export default appContent;
 >
 > Để biết thêm chi tiết, hãy tham khảo [tài liệu khai báo nội dung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/content_file.md).
 
-### Bước 6: Sử dụng Intlayer trong JavaScript của bạn
+</Step>
+
+<Step number={6} title="Sử dụng Intlayer trong JavaScript của bạn">
 
 `vanilla-intlayer` ánh xạ API của `react-intlayer`: `useIntlayer(key, locale?)` trả về nội dung đã dịch trực tiếp. Chuỗi hàm `.onChange()` vào kết quả để đăng ký theo dõi các thay đổi ngôn ngữ - tương đương với việc re-render trong React.
 
@@ -310,7 +332,9 @@ document.querySelector<HTMLParagraphElement>(".read-the-docs")!.textContent =
 > img.alt = content.viteLogoLabel.value;
 > ```
 
-### (Tùy chọn) Bước 7: Thay đổi ngôn ngữ nội dung của bạn
+</Step>
+
+<Step number={7} title="Thay đổi ngôn ngữ nội dung của bạn" isOptional={true}>
 
 Để thay đổi ngôn ngữ nội dung, hãy sử dụng hàm `setLocale` được cung cấp bởi `useLocale`.
 
@@ -345,7 +369,9 @@ export function setupLocaleSwitcher(container: HTMLElement): () => void {
 }
 ```
 
-### (Tùy chọn) Bước 8: Render nội dung Markdown và HTML
+</Step>
+
+<Step number={8} title="Render nội dung Markdown và HTML" isOptional={true}>
 
 Intlayer hỗ trợ khai báo nội dung dưới dạng `md()` và `html()`. Trong Vanilla JS, đầu ra đã biên dịch được chèn dưới dạng HTML thô qua `innerHTML`.
 
@@ -404,7 +430,9 @@ document.querySelector<HTMLDivElement>(".edit-note")!.innerHTML =
 > });
 > ```
 
-### (Tùy chọn) Bước 9: Thêm Localized Routing vào ứng dụng của bạn
+</Step>
+
+<Step number={9} title="Thêm Localized Routing vào ứng dụng của bạn" isOptional={true}>
 
 Để tạo các route duy nhất cho mỗi ngôn ngữ (hữu ích cho SEO), bạn có thể sử dụng `intlayerProxy` trong cấu hình Vite của mình để phát hiện ngôn ngữ ở phía server.
 
@@ -424,7 +452,9 @@ export default defineConfig({
 });
 ```
 
-### (Tùy chọn) Bước 10: Thay đổi URL khi ngôn ngữ thay đổi
+</Step>
+
+<Step number={10} title="Thay đổi URL khi ngôn ngữ thay đổi" isOptional={true}>
 
 Để cập nhật URL trình duyệt khi ngôn ngữ thay đổi, hãy gọi `useRewriteURL()` sau khi cài đặt Intlayer:
 
@@ -438,7 +468,9 @@ installIntlayer();
 const stopRewriteURL = useRewriteURL();
 ```
 
-### (Tùy chọn) Bước 11: Chuyển đổi thuộc tính Language và Direction của HTML
+</Step>
+
+<Step number={11} title="Chuyển đổi thuộc tính Language và Direction của HTML" isOptional={true}>
 
 Cập nhật các thuộc tính `lang` và `dir` của thẻ `<html>` để khớp với ngôn ngữ hiện tại nhằm hỗ trợ truy cập và SEO.
 
@@ -456,7 +488,9 @@ useLocale({
 });
 ```
 
-### (Tùy chọn) Bước 12: Lazy-load từ điển theo ngôn ngữ
+</Step>
+
+<Step number={12} title="Lazy-load từ điển theo ngôn ngữ" isOptional={true}>
 
 Đối với các ứng dụng lớn, bạn có thể muốn chia từ điển của mỗi ngôn ngữ thành một phần (chunk) riêng. Sử dụng `useDictionaryDynamic` cùng với `import()` động của Vite:
 
@@ -479,7 +513,9 @@ const unsubscribe = useDictionaryDynamic(
 
 > Mỗi bundle ngôn ngữ chỉ được tải khi ngôn ngữ đó được kích hoạt và kết quả được lưu vào cache - các lần chuyển đổi sau đó sang cùng một ngôn ngữ sẽ diễn ra tức thì.
 
-### (Tùy chọn) Bước 13: Trích xuất nội dung từ các thành phần của bạn
+</Step>
+
+<Step number={13} title="Trích xuất nội dung từ các thành phần của bạn" isOptional={true}>
 
 Nếu bạn có một codebase hiện có, việc chuyển đổi hàng ngàn tệp có thể tốn thời gian.
 
@@ -694,3 +730,7 @@ Extension này cung cấp:
 ### Đi xa hơn
 
 Để tìm hiểu sâu hơn, bạn có thể triển khai [trình soạn thảo trực quan](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md) hoặc bên ngoài hóa nội dung của bạn bằng [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md).
+
+</Step>
+
+</Steps>

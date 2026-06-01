@@ -92,7 +92,9 @@ Aby złagodzić ten wpływ podczas programowania, możesz skonfigurować kompila
 
 ## Przewodnik krok po kroku po konfiguracji Intlayer w aplikacji Vite i React
 
-### Krok 1: Instalacja zależności
+<Steps>
+
+<Step number={1} title="Instalacja zależności">
 
 Zainstaluj niezbędne pakiety za pomocą npm:
 
@@ -129,7 +131,9 @@ bun x intlayer init
 - **vite-intlayer**
   Zawiera wtyczkę Vite do integracji Intlayer z [bundlerem Vite](https://vite.dev/guide/why.html#why-bundle-for-production), a także middleware do wykrywania preferowanego języka użytkownika, zarządzania plikami cookie i obsługi przekierowań URL.
 
-### Krok 2: Skonfiguruj swój projekt
+</Step>
+
+<Step number={2} title="Skonfiguruj swój projekt">
 
 Utwórz plik konfiguracyjny, aby ustawić języki Twojej aplikacji:
 
@@ -183,7 +187,9 @@ export default config;
 
 > Poprzez ten plik konfiguracyjny możesz skonfigurować zlokalizowane adresy URL, przekierowania middleware, nazwy plików cookie, lokalizację i rozszerzenia deklaracji treści, wyłączyć logi Intlayer w konsoli i wiele więcej. Pełną listę dostępnych parametrów znajdziesz w [dokumentacji konfiguracji](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md).
 
-### Krok 3: Zintegruj Intlayer w konfiguracji Vite
+</Step>
+
+<Step number={3} title="Zintegruj Intlayer w konfiguracji Vite">
 
 Dodaj wtyczkę intlayer do swojej konfiguracji.
 
@@ -202,7 +208,9 @@ export default defineConfig({
 
 > Wtyczka Vite `intlayerCompiler()` służy do wyodrębniania treści z komponentów i zapisywania plików `.content`.
 
-### Krok 4: Skompiluj swój kod
+</Step>
+
+<Step number={4} title="Skompiluj swój kod">
 
 Po prostu pisz swoje komponenty z zakodowanymi na sztywno ciągami znaków w domyślnym języku. Kompilator zajmie się resztą.
 
@@ -341,7 +349,9 @@ export default App;
 
 - **`IntlayerProvider`** służy do dostarczania ustawień regionalnych do zagnieżdżonych komponentów.
 
-### (Opcjonalnie) Krok 6: Zmiana języka treści
+</Step>
+
+<Step number={6} title="Zmiana języka treści" isOptional={true}>
 
 Aby zmienić język treści, możesz użyć funkcji `setLocale` dostarczonej przez hook `useLocale`. Funkcja ta pozwala ustawić język aplikacji i odpowiednio zaktualizować treść.
 
@@ -363,7 +373,9 @@ const LocaleSwitcher: FC = () => {
 
 > Aby dowiedzieć się więcej o hooku `useLocale`, zapoznaj się z [dokumentacją](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useLocale.md).
 
-### (Opcjonalnie) Krok 7: Uzupełnij brakujące tłumaczenia
+</Step>
+
+<Step number={7} title="Uzupełnij brakujące tłumaczenia" isOptional={true}>
 
 Intlayer udostępnia narzędzie CLI, które pomaga uzupełnić brakujące tłumaczenia. Możesz użyć polecenia `intlayer`, aby przetestować i uzupełnić brakujące tłumaczenia w swoim kodzie.
 
@@ -504,3 +516,7 @@ Więcej szczegółów na temat korzystania z rozszerzenia znajdziesz w [dokument
 ### Idź dalej
 
 Aby pójść dalej, możesz zaimplementować [edytor wizualny](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) lub wyeksportować treść za pomocą [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md).
+
+</Step>
+
+</Steps>

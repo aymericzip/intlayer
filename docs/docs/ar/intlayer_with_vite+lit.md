@@ -93,7 +93,9 @@ history:
 
 ## دليل خطوة بخطوة لإعداد Intlayer في تطبيق Vite و Lit
 
-### الخطوة 1: تثبيت التبعيات
+<Steps>
+
+<Step number={1} title="تثبيت التبعيات">
 
 قم بتثبيت الحزم اللازمة باستخدام npm:
 
@@ -131,7 +133,9 @@ bun x intlayer init
 - **vite-intlayer**
   تتضمن إضافة Vite لدمج Intlayer مع [أداة حزم Vite](https://vite.dev/guide/why.html#why-bundle-for-production)، كمال توفر برمجيات وسيطة لاكتشاف اللغة المفضلة للمستخدم، وإدارة ملفات تعريف الارتباط، والتعامل مع إعادة توجيه عناوين URL.
 
-### الخطوة 2: تكوين مشروعك
+</Step>
+
+<Step number={2} title="تكوين مشروعك">
 
 أنشئ ملف تكوين لتكوين لغات تطبيقك:
 
@@ -155,7 +159,9 @@ export default config;
 
 > من خلال ملف التكوين هذا، يمكنك إعداد عناوين URL الموطنة، وإعادة توجيه البرمجيات الوسيطة، وأسماء ملفات تعريف الارتباط، وموقع وامتداد إعلانات المحتوى الخاصة بك، وتعطيل سجلات Intlayer في وحدة التحكم، والمزيد. للحصول على قائمة كاملة بالمعلمات المتاحة، ارجع إلى [توثيق التكوين](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md).
 
-### الخطوة 3: دمج Intlayer في تكوين Vite الخاص بك
+</Step>
+
+<Step number={3} title="دمج Intlayer في تكوين Vite الخاص بك">
 
 أضف إضافة intlayer في التكوين الخاص بك.
 
@@ -171,7 +177,9 @@ export default defineConfig({
 
 > تُستخدم إضافة `intlayer()` لـ Vite لدمج Intlayer مع Vite. تضمن بناء ملفات إعلان المحتوى ومراقبتها في وضع التطوير. كما تحدد متغيرات بيئة Intlayer داخل تطبيق Vite. بالإضافة إلى ذلك، توفر أسماء مستعارة لتحسين الأداء.
 
-### الخطوة 4: تشغيل Intlayer في نقطة الإدخال الخاصة بك
+</Step>
+
+<Step number={4} title="تشغيل Intlayer في نقطة الإدخال الخاصة بك">
 
 استدعِ `installIntlayer()` **قبل** تسجيل أي عناصر مخصصة بحيث يكون الكائن المنفرد للغة العالمية جاهزًا عند اتصال العنصر الأول.
 
@@ -196,7 +204,9 @@ installIntlayerMarkdown();
 import "./my-element.js";
 ```
 
-### الخطوة 5: إعلان المحتوى الخاص بك
+</Step>
+
+<Step number={5} title="إعلان المحتوى الخاص بك">
 
 قم بإنشاء وإدارة إعلانات المحتوى الخاصة بك لتخزين الترجمات:
 
@@ -282,7 +292,9 @@ export default appContent;
 >
 > لمزيد من التفاصيل، ارجع إلى [توثيق إعلان المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/content_file.md).
 
-### الخطوة 6: استخدام Intlayer في LitElement الخاص بك
+</Step>
+
+<Step number={6} title="استخدام Intlayer في LitElement الخاص بك">
 
 استخدم `useIntlayer` داخل `LitElement`. يقوم بإرجاع وكيل `ReactiveController` يقوم تلقائيًا بإعادة الصيرورة كلما تغيرت اللغة النشطة - لا يلزم إعداد إضافي.
 
@@ -327,7 +339,9 @@ export class MyElement extends LitElement {
 > html`<img alt=${String(content.viteLogo)} />`;
 > ```
 
-### (اختياري) الخطوة 7: تغيير لغة المحتوى الخاص بك
+</Step>
+
+<Step number={7} title="تغيير لغة المحتوى الخاص بك" isOptional={true}>
 
 لتغيير لغة المحتوى الخاص بك، استخدم أسلوب `setLocale` الذي يوفره متحكم `useLocale`.
 
@@ -362,7 +376,9 @@ export class LocaleSwitcher extends LitElement {
 }
 ```
 
-### (اختياري) الخطوة 8: عرض محتوى Markdown و HTML
+</Step>
+
+<Step number={8} title="عرض محتوى Markdown و HTML" isOptional={true}>
 
 يدعم Intlayer إعلانات محتوى `md()` و `html()`. في Lit، يتم حقن المخرجات المجمعة كـ HTML خام عبر توجيه `unsafeHTML`.
 
@@ -412,7 +428,9 @@ export class MyElement extends LitElement {
 > [!TIP]
 > يستدعي `String(content.editNote)` الدالة `toString()` على `IntlayerNode` التي تعيد سلسلة Markdown الخام. مررها إلى `compileMarkdown` للحصول على سلسلة HTML، ثم قم بالصيرورة باستخدام توجيه `unsafeHTML` الخاص بـ Lit.
 
-### (اختياري) الخطوة 9: إضافة توجيه محلي (Routing) إلى تطبيقك
+</Step>
+
+<Step number={9} title="إضافة توجيه محلي (Routing) إلى تطبيقك" isOptional={true}>
 
 لإنشاء مسارات فريدة لكل لغة (مفيد لـ SEO)، يمكنك استخدام موجه من جانب العميل بجوار أدوات Intlayer المساعدة `localeMap` / `localeFlatMap` وإضافة Vite `intlayerProxy` لاكتشاف اللغة من جانب الخادم.
 
@@ -429,7 +447,9 @@ export default defineConfig({
 });
 ```
 
-### (اختياري) الخطوة 10: تغيير عنوان URL عند تغيير اللغة
+</Step>
+
+<Step number={10} title="تغيير عنوان URL عند تغيير اللغة" isOptional={true}>
 
 لتحديث عنوان URL للمتصفح عند تغيير اللغة، استخدم `useRewriteURL` بجانب مبدل اللغة:
 
@@ -467,7 +487,9 @@ export class LocaleSwitcher extends LitElement {
 }
 ```
 
-### (اختياري) الخطوة 11: تبديل سمات اللغة والاتجاه في HTML
+</Step>
+
+<Step number={11} title="تبديل سمات اللغة والاتجاه في HTML" isOptional={true}>
 
 قم بتحديث سمات `lang` و `dir` لعلامة `<html>` لتتوافق مع اللغة الحالية من أجل إمكانية الوصول و SEO.
 
@@ -492,7 +514,9 @@ export class MyElement extends LitElement {
 }
 ```
 
-### (اختياري) الخطوة 12: استخراج محتوى مكوناتك
+</Step>
+
+<Step number={12} title="استخراج محتوى مكوناتك" isOptional={true}>
 
 إذا كان لديك كود برمجي موجود، فقد يكون تحويل آلاف الملفات مستهلكًا للوقت.
 
@@ -654,3 +678,7 @@ console.log("SEO files generated successfully.");
 ### اذهب أبعد من ذلك
 
 للذهاب أبعد من ذلك، يمكنك تنفيذ [المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) أو إضفاء طابع خارجي على محتواك باستخدام [نظام إدارة المحتوى (CMS)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md).
+
+</Step>
+
+</Steps>

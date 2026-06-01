@@ -39,33 +39,43 @@ history:
 
 Im Vergleich zu Hauptlösungen wie „@nuxtjs/i18n“ oder „i18next“ ist Intlayer eine Lösung, die über integrierte Optimierungen verfügt wie:
 
-**Vollständige Nuxt-Abdeckung**
+<AccordionGroup>
+<Accordion header="Vollständige Nuxt-Abdeckung">
 
 Intlayer ist für die perfekte Zusammenarbeit mit Nuxt optimiert, indem es **mehrsprachiges Routing**, **Middleware zur Lokalisierungserkennung**, **Sitemap** und alle Funktionen bietet, die für die Skalierung der Internationalisierung (i18n) erforderlich sind.
 
-**Bundle-Größe**
+</Accordion>
+<Accordion header="Bundle-Größe">
 
 Anstatt riesige JSON-Dateien in Ihre Seiten zu laden, laden Sie nur den erforderlichen Inhalt. Intlayer hilft **Ihre Bundle- und Seitengröße um bis zu 50 % zu reduzieren**.
 
-**Wartbarkeit**
+</Accordion>
+<Accordion header="Wartbarkeit">
 
 Durch die Festlegung des Inhaltsbereichs Ihrer Anwendung wird die Wartung für umfangreiche Anwendungen erleichtert. Sie können einen einzelnen Feature-Ordner duplizieren oder löschen, ohne die mentale Belastung durch die Überprüfung Ihrer gesamten Inhaltscodebasis auf sich nehmen zu müssen. Darüber hinaus ist Intlayer **vollständig typisiert (fully typed)**, um die Genauigkeit Ihrer Inhalte sicherzustellen.
 
-**KI-Agent**
+</Accordion>
+<Accordion header="KI-Agent">
 
 Durch die gemeinsame Platzierung von Inhalten **reduziert sich der von Large Language Models (LLMs) benötigte Kontext**. Intlayer verfügt außerdem über eine Reihe von Tools, wie zum Beispiel eine **CLI** zum Testen auf fehlende Übersetzungen,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** und **[agent Fähigkeiten](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, um die Entwicklererfahrung (DX) für KI-Agenten noch reibungsloser zu gestalten.
 
-**Automatisierung**
+</Accordion>
+<Accordion header="Automatisierung">
 
 Nutzen Sie die Automatisierung, um Ihre CI/CD-Pipeline mit dem LLM Ihrer Wahl auf Kosten Ihres KI-Anbieters zu übersetzen. Intlayer bietet außerdem einen **Compiler** zur Automatisierung der Inhaltsextraktion sowie eine [Webplattform](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) zur Unterstützung der **Übersetzung im Hintergrund**.
 
-**Leistung**
+</Accordion>
+<Accordion header="Leistung">
 
 Das Verbinden großer JSON-Dateien mit Komponenten kann zu Leistungs- und Reaktivitätsproblemen führen. Intlayer optimiert das Laden Ihrer Inhalte zur Erstellungszeit.
 
-**Skalierung mit Nicht-Entwickler**
+</Accordion>
+<Accordion header="Skalierung mit Nicht-Entwickler">
 
 Intlayer ist mehr als nur eine i18n-Lösung. Es bietet einen **selbstgehosteten [visuellen Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** und ein **[vollständiges CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)**, um Ihnen zu helfen Verwalten Sie Ihre mehrsprachigen Inhalte in **Echtzeit** und gestalten Sie die Zusammenarbeit mit Übersetzern, Textern und anderen Teammitgliedern reibungslos. Inhalte können lokal und/oder remote gespeichert werden.
+
+</Accordion>
+</AccordionGroup>
 
 ---
 
@@ -103,7 +113,9 @@ Intlayer ist mehr als nur eine i18n-Lösung. Es bietet einen **selbstgehosteten 
 
 Siehe [Application Template](https://github.com/aymericzip/intlayer-nuxt-4-template) auf GitHub.
 
-### Schritt 1: Abhängigkeiten installieren
+<Steps>
+
+<Step number={1} title="Abhängigkeiten installieren">
 
 Installieren Sie die notwendigen Pakete mit npm:
 
@@ -141,7 +153,9 @@ bun x intlayer init
 - **nuxt-intlayer**
   Das Nuxt-Modul, das Intlayer mit Nuxt-Anwendungen integriert. Es bietet automatische Einrichtung, Middleware zur Lokalerkennung, Cookie-Verwaltung und URL-Weiterleitung.
 
-### Schritt 2: Konfiguration Ihres Projekts
+</Step>
+
+<Step number={2} title="Konfiguration Ihres Projekts">
 
 Erstellen Sie eine Konfigurationsdatei, um die Sprachen Ihrer Anwendung zu konfigurieren:
 
@@ -165,7 +179,9 @@ export default config;
 
 > Durch diese Konfigurationsdatei können Sie lokalisierte URLs, Middleware-Weiterleitungen, Cookie-Namen, den Speicherort und die Erweiterung Ihrer Inhaltsdeklarationen einrichten, Intlayer-Logs in der Konsole deaktivieren und vieles mehr. Für eine vollständige Liste der verfügbaren Parameter konsultieren Sie bitte die [Konfigurationsdokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/configuration.md).
 
-### Schritt 3: Integrieren Sie Intlayer in Ihre Nuxt-Konfiguration
+</Step>
+
+<Step number={3} title="Integrieren Sie Intlayer in Ihre Nuxt-Konfiguration">
 
 Fügen Sie das Intlayer-Modul zu Ihrer Nuxt-Konfiguration hinzu:
 
@@ -180,7 +196,9 @@ export default defineNuxtConfig({
 
 > Das `nuxt-intlayer`-Modul übernimmt automatisch die Integration von Intlayer mit Nuxt. Es richtet den Aufbau der Inhaltsdeklarationen ein, überwacht Dateien im Entwicklungsmodus, stellt Middleware zur Lokalerkennung bereit und verwaltet die lokalisierte Routing.
 
-### Schritt 4: Deklarieren Sie Ihre Inhalte
+</Step>
+
+<Step number={4} title="Deklarieren Sie Ihre Inhalte">
 
 Erstellen und verwalten Sie Ihre Inhaltsdeklarationen, um Übersetzungen zu speichern:
 
@@ -215,7 +233,9 @@ export default content;
 
 > Für weitere Details siehe die [Dokumentation zur Inhaltsdeklaration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/content_file.md).
 
-### Schritt 5: Intlayer in Ihrem Code verwenden
+</Step>
+
+<Step number={5} title="Intlayer in Ihrem Code verwenden">
 
 Greifen Sie in Ihrer gesamten Nuxt-Anwendung mit dem Composable `useIntlayer` auf Ihre Inhaltswörterbücher zu:
 
@@ -284,7 +304,9 @@ Intlayer bietet verschiedene APIs, um auf Ihre Inhalte zuzugreifen:
   - Verwenden Sie `const content = useIntlayer("myContent");` und `{{ content.myContent }}` / `<content.myContent />`.
   - Oder verwenden Sie `const { myContent } = useIntlayer("myContent");` und `{{ myContent}}` / `<myContent/>`, um den Inhalt zu destrukturieren.
 
-### (Optional) Schritt 6: Ändern Sie die Sprache Ihres Inhalts
+</Step>
+
+<Step number={6} title="Ändern Sie die Sprache Ihres Inhalts" isOptional={true}>
 
 Um die Sprache Ihres Inhalts zu ändern, können Sie die Funktion `setLocale` verwenden, die vom `useLocale` Composable bereitgestellt wird. Diese Funktion ermöglicht es Ihnen, die Locale der Anwendung festzulegen und den Inhalt entsprechend zu aktualisieren.
 
@@ -355,7 +377,9 @@ import LocaleSwitcher from "~/components/LocaleSwitcher.vue";
 
 Die `Links`-Komponente (siehe unten) stellt sicher, dass interne Navigationslinks automatisch lokalisiert werden.
 
-### (Optional) Schritt 7: Lokalisierte Routen zu Ihrer Anwendung hinzufügen
+</Step>
+
+<Step number={7} title="Lokalisierte Routen zu Ihrer Anwendung hinzufügen" isOptional={true}>
 
 Nuxt verwaltet lokalisierte Routen automatisch, wenn das `nuxt-intlayer` Modul verwendet wird. Dies erstellt Routen für jede Sprache automatisch basierend auf der Struktur Ihres Seitenverzeichnisses.
 
@@ -429,7 +453,9 @@ Das `nuxt-intlayer`-Modul wird automatisch:
 - Sprach-Cookies verwalten
 - Benutzer zur entsprechenden lokalisierten URL weiterleiten
 
-### (Optional) Schritt 8: Erstellen einer lokalisierten Link-Komponente
+</Step>
+
+<Step number={8} title="Erstellen einer lokalisierten Link-Komponente" isOptional={true}>
 
 Um sicherzustellen, dass die Navigation Ihrer Anwendung die aktuelle Locale berücksichtigt, können Sie eine benutzerdefinierte `Links`-Komponente erstellen. Diese Komponente fügt automatisch interne URLs mit der aktuellen Sprache als Präfix hinzu, was für **SEO und die Auffindbarkeit von Seiten** unerlässlich ist.
 
@@ -497,7 +523,9 @@ import LocaleSwitcher from "~/components/LocaleSwitcher.vue";
 > - Benutzer lokalisierten URLs direkt teilen können
 > - Der Browserverlauf korrekt mit sprachpräfixierten URLs funktioniert
 
-### (Optional) Schritt 9: Metadaten und SEO verwalten
+</Step>
+
+<Step number={9} title="Metadaten und SEO verwalten" isOptional={true}>
 
 Nuxt bietet hervorragende SEO-Fähigkeiten über den `useHead` Composable (automatisch importiert). Sie können Intlayer verwenden, um lokalisierte Metadaten zu verwalten, indem Sie den `.raw` oder `.value` Zugriff verwenden, um den primitiven String-Wert zu erhalten:
 
@@ -627,3 +655,7 @@ Für weitere Details zur Verwendung der Erweiterung lesen Sie bitte die [Intlaye
 ### Weiterführende Schritte
 
 Um weiterzugehen, können Sie den [visuellen Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_visual_editor.md) implementieren oder Ihre Inhalte mit dem [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_CMS.md) auslagern.
+
+</Step>
+
+</Steps>

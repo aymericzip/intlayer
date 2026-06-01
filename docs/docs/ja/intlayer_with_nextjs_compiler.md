@@ -81,7 +81,9 @@ GitHubで[アプリケーションテンプレート](https://github.com/aymeric
 
 ## Next.jsアプリケーションでのIntlayer設定ステップバイステップガイド
 
-### ステップ1: 依存関係のインストール
+<Steps>
+
+<Step number={1} title="依存関係のインストール">
 
 好みのパッケージマネージャーを使用して必要なパッケージをインストールします：
 
@@ -117,7 +119,9 @@ bun x intlayer init
 
   IntlayerをNext.jsと統合するパッケージ。Next.jsの国際化のためのコンテキストプロバイダーとフックを提供します。さらに、Intlayerを[Webpack](https://webpack.js.org/)または[Turbopack](https://nextjs.org/docs/app/api-reference/turbopack)と統合するためのNext.jsプラグイン、ユーザーの優先ロケールを検出、Cookie管理、URLリダイレクトを処理するためのミドルウェアが含まれています。
 
-### ステップ2: プロジェクトの構成
+</Step>
+
+<Step number={2} title="プロジェクトの構成">
 
 アプリケーションの言語を定義するための設定ファイルを作成します：
 
@@ -174,7 +178,9 @@ export default config;
 
 > この設定ファイルを使用して、ローカライズされたURL、プロキシリダイレクト、Cookieマッピング、コンテンツ宣言の場所と拡張子の設定、コンソールでのIntlayerログの無効化などを行えます。使用可能なパラメータの完全なリストについては、[設定ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)を参照してください。
 
-### ステップ3: Next.jsの設定にIntlayerを統合する
+</Step>
+
+<Step number={3} title="Next.jsの設定にIntlayerを統合する">
 
 Next.jsのセットアップをIntlayerを使用するように構成します：
 
@@ -212,7 +218,9 @@ module.exports = {
 };
 ```
 
-### ステップ4: ページでのロケール検出
+</Step>
+
+<Step number={4} title="ページでのロケール検出">
 
 `RootLayout` の内容をクリアし、以下の例に置き換えます：
 
@@ -255,7 +263,9 @@ const RootLayout = async ({
 export default RootLayout;
 ```
 
-### ステップ5: コンテンツを宣言する（自動）
+</Step>
+
+<Step number={5} title="コンテンツを宣言する（自動）">
 
 コンパイラを有効にすると、コンテンツ辞書（`.content.ts`ファイルなど）を**手動で宣言する必要がなくなります**。
 
@@ -351,7 +361,9 @@ export default async function Page() {
 
   > Layout and page cannot share a common server context because the server context system is based on a per-request data store (via [React's cache](https://react.dev/reference/react/cache) mechanism), causing each "context" to be re-created for different segments of the application. Placing the provider in a shared layout would break this isolation, preventing the correct propagation of the server context values to your server components.
 
-### (オプション) ステップ 7: 不足している翻訳を埋める
+</Step>
+
+<Step number={7} title="不足している翻訳を埋める" isOptional={true}>
 
 Intlayerは、不足している翻訳を埋めるためのCLIツールを提供しています。 `intlayer` コマンドを使用して、コード内の不足している翻訳をテストして埋めることができます。
 
@@ -389,7 +401,9 @@ bun x intlayer fill         # 不足している翻訳を埋める
 
 > 詳細については、[CLIドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/ci.md)を参照してください。
 
-### (オプション) ステップ 8: ローカライズされたルーティングプロキシミドルウェア
+</Step>
+
+<Step number={8} title="ローカライズされたルーティングプロキシミドルウェア" isOptional={true}>
 
 ユーザーを優先ロケールに自動的にリダイレクトしたい場合は、プロキシミドルウェアを設定します：
 
@@ -404,7 +418,9 @@ export const config = {
 
 > `intlayerProxy` は、ユーザーの優先ロケールを検出し、[設定ファイルのセッティング](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)に従って適切なURLにリダイレクトするために使用されます。また、ユーザーの優先ロケールをCookieに保存することも可能です。
 
-### (オプション) ステップ 9: コンテンツの言語を変更する
+</Step>
+
+<Step number={9} title="コンテンツの言語を変更する" isOptional={true}>
 
 Next.js内でコンテンツの言語を変更する最も推奨される方法は、 `Link` コンポーネントを使用してユーザーを適切な言語ルートに誘導することです。これにより、Next.jsのプリフェッチ機能を活用し、ページ全体がハードリフレッシュされるのを防ぐことができます。
 
@@ -454,7 +470,9 @@ export const LocaleSwitcher: FC = () => {
 
 > 別の方法として、 `useLocale` フックの `setLocale` 関数を使用することもできますが、こちらはページプリフェッチを許可しません。詳細については、 [`useLocale` フックのドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/next-intlayer/useLocale.md) を参照してください。
 
-### (オプション) ステップ 10: バンドルサイズの最適化
+</Step>
+
+<Step number={10} title="バンドルサイズの最適化" isOptional={true}>
 
 `next-intlayer` を使用する場合、デフォルトで各ページのバンドルに辞書が含まれます。バンドルサイズを最適化するために、Intlayerはマクロを使用して `useIntlayer` コールを賢く置き換えるオプションのSWCプラグインを提供しています。これにより、辞書は実際に使用されるページのバンドルにのみ含まれるようになります。
 
@@ -528,7 +546,9 @@ Intlayerでの開発体験を向上させるために、**公式の Intlayer VS 
 
 拡張機能の使用方法の詳細については、 [Intlayer VS Code 拡張機能のドキュメント](https://intlayer.org/doc/vs-code-extension) を参照してください。
 
-### (オプション) ステップ 1 : コンポーネントのコンテンツを抽出する
+</Step>
+
+<Step number={1} title="コンポーネントのコンテンツを抽出する" isOptional={true}>
 
 既存のコードベースがある場合、数千のファイルを変換するのは時間がかかることがあります。
 
@@ -644,3 +664,7 @@ bun run build # Or bun run dev
 ### さらに進む
 
 さらに進めるには、 [ビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md) を実装したり、 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md) を使用してコンテンツを外部管理化したりできます。
+
+</Step>
+
+</Steps>

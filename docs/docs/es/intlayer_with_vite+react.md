@@ -40,33 +40,43 @@ history:
 
 En comparación con soluciones principales como `react-i18next` o `i18next`, Intlayer es una solución que viene con optimizaciones integradas como:
 
-**Soporte completo de Vite y React**
+<AccordionGroup>
+<Accordion header="Soporte completo de Vite y React">
 
 Intlayer está optimizado para funcionar perfectamente con Vite y React al ofrecer **alcance del contenido a nivel de componente**, **traducciones cargadas de forma diferida** y todas las funciones necesarias para escalar la internacionalización (i18n).
 
-**Tamaño del bundle**
+</Accordion>
+<Accordion header="Tamaño del bundle">
 
 En lugar de cargar archivos JSON masivos en sus páginas, cargue solo el contenido necesario. Intlayer ayuda a **reducir el tamaño de su bundle y de sus páginas hasta en un 50%**.
 
-**Mantenibilidad**
+</Accordion>
+<Accordion header="Mantenibilidad">
 
 Determinar el alcance del contenido de su aplicación **facilita el mantenimiento** para aplicaciones a gran escala. Puede duplicar o eliminar una sola carpeta de funciones sin la carga mental de revisar todo el código base de contenido. Además, Intlayer está **completamente escrito** para garantizar la precisión de su contenido.
 
-**Agente de IA**
+</Accordion>
+<Accordion header="Agente de IA">
 
 La ubicación conjunta de contenido **reduce el contexto necesario** para los modelos de lenguajes grandes (LLM). Intlayer también viene con un conjunto de herramientas, como una **CLI** para comprobar si faltan traducciones,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** y **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, para que la experiencia del desarrollador (DX) sea aún más fluida para los agentes de IA.
 
-**Automatización**
+</Accordion>
+<Accordion header="Automatización">
 
 Utilice la automatización para traducir su canal de CI/CD utilizando el LLM de su elección al costo de su proveedor de IA. Intlayer también ofrece un **compilador** para automatizar la extracción de contenido, así como una [plataforma web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) para ayudar a **traducir en segundo plano**.
 
-**Actuación**
+</Accordion>
+<Accordion header="Actuación">
 
 La conexión de archivos JSON masivos a componentes puede provocar problemas de rendimiento y reactividad. Intlayer optimiza la carga de su contenido en el momento de la compilación.
 
-**Escalando sin ningún desarrollador**
+</Accordion>
+<Accordion header="Escalando sin ningún desarrollador">
 
 Más que una simple solución i18n, Intlayer proporciona un **[editor visual] autohospedado(https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** y un **[CMS completo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** para ayudarle a administrar su contenido multilingüe en **tiempo real**, lo que facilita la colaboración con traductores, redactores y otros miembros del equipo. El contenido se puede almacenar de forma local y/o remota.
+
+</Accordion>
+</AccordionGroup>
 
 ---
 
@@ -104,7 +114,9 @@ Más que una simple solución i18n, Intlayer proporciona un **[editor visual] au
 
 Consulta la [Plantilla de Aplicación](https://github.com/aymericzip/intlayer-vite-react-template) en GitHub.
 
-### Paso 1: Instalar dependencias
+<Steps>
+
+<Step number={1} title="Instalar dependencias">
 
 Instala los paquetes necesarios usando npm:
 
@@ -141,7 +153,9 @@ bun x intlayer init
 - **vite-intlayer**
   Incluye el plugin de Vite para integrar Intlayer con el [empaquetador Vite](https://vite.dev/guide/why.html#why-bundle-for-production), así como middleware para detectar la configuración regional preferida del usuario, gestionar cookies y manejar redirecciones de URL.
 
-### Paso 2: Configuración de tu proyecto
+</Step>
+
+<Step number={2} title="Configuración de tu proyecto">
 
 Crea un archivo de configuración para configurar los idiomas de tu aplicación:
 
@@ -165,7 +179,9 @@ export default config;
 
 > A través de este archivo de configuración, puedes configurar URLs localizadas, redirección de middleware, nombres de cookies, la ubicación y extensión de tus declaraciones de contenido, desactivar los registros de Intlayer en la consola, y más. Para una lista completa de los parámetros disponibles, consulta la [documentación de configuración](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md).
 
-### Paso 3: Integra Intlayer en tu configuración de Vite
+</Step>
+
+<Step number={3} title="Integra Intlayer en tu configuración de Vite">
 
 Agrega el plugin intlayer en tu configuración.
 
@@ -182,7 +198,9 @@ export default defineConfig({
 
 > El plugin `intlayer()` de Vite se utiliza para integrar Intlayer con Vite. Garantiza la construcción de archivos de declaración de contenido y los supervisa en modo de desarrollo. Define variables de entorno de Intlayer dentro de la aplicación Vite. Además, proporciona alias para optimizar el rendimiento.
 
-### Paso 4: Declara Tu Contenido
+</Step>
+
+<Step number={4} title="Declara Tu Contenido">
 
 Crea y administra tus declaraciones de contenido para almacenar traducciones:
 
@@ -304,7 +322,9 @@ export default appContent;
 
 > Si su archivo de contenido incluye código TSX, debería considerar importar `import React from "react";` en su archivo de contenido.
 
-### Paso 5: Utilice Intlayer en su Código
+</Step>
+
+<Step number={5} title="Utilice Intlayer en su Código">
 
 Acceda a sus diccionarios de contenido en toda su aplicación:
 
@@ -367,7 +387,9 @@ export default App;
 
 > Si su aplicación ya existe, puede utilizar el [Compilador Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/compiler.md), así como el [comando de extracción](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/cli/extract.md), para transformar miles de componentes en un segundo.
 
-### (Opcional) Paso 6: Cambiar el idioma de tu contenido
+</Step>
+
+<Step number={6} title="Cambiar el idioma de tu contenido" isOptional={true}>
 
 Para cambiar el idioma de tu contenido, puedes usar la función `setLocale` proporcionada por el hook `useLocale`. Esta función te permite establecer la configuración regional de la aplicación y actualizar el contenido en consecuencia.
 
@@ -389,7 +411,9 @@ const LocaleSwitcher: FC = () => {
 
 > Para aprender más sobre el hook `useLocale`, consulte la [documentación](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/react-intlayer/useLocale.md).
 
-### (Opcional) Paso 7: Agregar enrutamiento por localeizado a su aplicación
+</Step>
+
+<Step number={7} title="Agregar enrutamiento por localeizado a su aplicación" isOptional={true}>
 
 El propósito de este paso es crear rutas únicas para cada idioma. Esto es útil para SEO y URLs amigables con SEO.
 Ejemplo:
@@ -468,7 +492,9 @@ export default defineConfig({
 });
 ```
 
-### (Opcional) Paso 8: Cambiar la URL cuando cambia la configuración regional
+</Step>
+
+<Step number={8} title="Cambiar la URL cuando cambia la configuración regional" isOptional={true}>
 
 Para cambiar la URL cuando cambia la configuración regional, puedes usar la propiedad `onLocaleChange` proporcionada por el hook `useLocale`. Paralelamente, puedes usar los hooks `useLocation` y `useNavigate` de `react-router-dom` para actualizar la ruta de la URL.
 
@@ -552,7 +578,9 @@ A continuación se muestra el **Paso 9** actualizado con explicaciones añadidas
 
 ---
 
-### (Opcional) Paso 9: Cambiar los atributos de idioma y dirección en el HTML
+</Step>
+
+<Step number={9} title="Cambiar los atributos de idioma y dirección en el HTML" isOptional={true}>
 
 Cuando tu aplicación soporta múltiples idiomas, es crucial actualizar los atributos `lang` y `dir` de la etiqueta `<html>` para que coincidan con la configuración regional actual. Hacer esto garantiza:
 
@@ -623,7 +651,9 @@ Al aplicar estos cambios, tu aplicación:
 - Ajustar la **dirección del texto** (`dir`) según la configuración regional, mejorando la legibilidad y usabilidad para idiomas con diferentes órdenes de lectura.
 - Proporcionar una experiencia más **accesible**, ya que las tecnologías de asistencia dependen de estos atributos para funcionar de manera óptima.
 
-### (Opcional) Paso 10: Crear un Componente de Enlace Localizado
+</Step>
+
+<Step number={10} title="Crear un Componente de Enlace Localizado" isOptional={true}>
 
 Para asegurar que la navegación de su aplicación respete la configuración regional actual, puede crear un componente personalizado `Link`. Este componente antepone automáticamente a las URLs internas el idioma actual. Por ejemplo, cuando un usuario francófono hace clic en un enlace a la página "Acerca de", es redirigido a `/fr/about` en lugar de `/about`.
 
@@ -697,7 +727,9 @@ Link.displayName = "Link";
 
 Al integrar este componente `Link` en toda su aplicación, mantiene una experiencia de usuario coherente y consciente del idioma, además de beneficiarse de una mejor SEO y usabilidad.
 
-### (Opcional) Paso 11 : Extraer el contenido de tus componentes
+</Step>
+
+<Step number={11} title="Extraer el contenido de tus componentes" isOptional={true}>
 
 Si tienes una base de código existente, transformar miles de archivos puede llevar mucho tiempo.
 
@@ -918,3 +950,7 @@ Para más detalles sobre cómo usar la extensión, consulta la [documentación d
 ### Ir más allá
 
 Para ir más allá, puedes implementar el [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_visual_editor.md) o externalizar tu contenido usando el [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_CMS.md).
+
+</Step>
+
+</Steps>

@@ -10,7 +10,7 @@ export const DemoYoutube: FC = () => {
     <div className="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0">
       <iframe
         title={howToInternationalize.value}
-        className="h-full w-full"
+        className="size-full"
         allow="autoplay; gyroscope;"
         loading="lazy"
         src={`https://www.youtube.com/embed/${videoIdEN}`}

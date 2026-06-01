@@ -137,7 +137,9 @@ Intlayer は単なる i18n ソリューションではなく、**自己ホスト
 └── vite.config.ts
 ```
 
-### (オプション) ステップ 1 : コンポーネントのコンテンツを抽出する
+<Steps>
+
+<Step number={1} title="コンポーネントのコンテンツを抽出する" isOptional={true}>
 
 既存のコードベースがある場合、数千のファイルを変換するのは時間がかかることがあります。
 
@@ -254,3 +256,7 @@ bun run build # Or bun run dev
 
 - **ビジュアルエディター**: UIから直接翻訳を編集するために、[Intlayer Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)を統合します。
 - **CMS**: コンテンツ管理を外部化するために、[Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)を使用します。
+
+</Step>
+
+</Steps>

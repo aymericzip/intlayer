@@ -73,7 +73,9 @@ Met Intlayer kunt u:
 
 ## Stap-voor-stap gids om Intlayer in te stellen in een Vite- en Vanilla JS-applicatie
 
-### Stap 1: Afhankelijkheden installeren
+<Steps>
+
+<Step number={1} title="Afhankelijkheden installeren">
 
 Installeer de benodigde pakketten met npm:
 
@@ -110,7 +112,9 @@ bun x intlayer init
 - **vite-intlayer**
   Bevat de Vite-plugin voor het integreren van Intlayer met de [Vite-bundler](https://vite.dev/guide/why.html#why-bundle-for-production), evenals middleware voor het detecteren van de voorkeurstaal van de gebruiker, het beheren van cookies en het afhandelen van URL-omleidingen.
 
-### Stap 2: Configuratie van uw project
+</Step>
+
+<Step number={2} title="Configuratie van uw project">
 
 Maak een configuratiebestand om de talen van uw applicatie te configureren:
 
@@ -134,7 +138,9 @@ export default config;
 
 > Via dit configuratiebestand kunt u gelokaliseerde URL's, middleware-omleidingen, cookienamen, de locatie en extensie van uw inhoudsverklaringen instellen, Intlayer-logboeken in de console uitschakelen en meer. Raadpleeg de [configuratiedocumentatie](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/configuration.md) voor een volledige lijst met beschikbare parameters.
 
-### Stap 3: Integreer Intlayer in uw Vite-configuratie
+</Step>
+
+<Step number={3} title="Integreer Intlayer in uw Vite-configuratie">
 
 Voeg de intlayer-plugin toe aan uw configuratie.
 
@@ -150,7 +156,9 @@ export default defineConfig({
 
 > De `intlayer()` Vite-plugin wordt gebruikt om Intlayer met Vite te integreren. Het zorgt voor het bouwen van inhoudsverklaringsbestanden en bewaakt deze in ontwikkelingsmodus. Het definieert Intlayer-omgevingsvariabelen binnen de Vite-applicatie. Bovendien biedt het aliassen om de prestaties te optimaliseren.
 
-### Stap 4: Bootstrap Intlayer in uw toegangspunt
+</Step>
+
+<Step number={4} title="Bootstrap Intlayer in uw toegangspunt">
 
 Roep `installIntlayer()` aan **voordat** enige inhoud wordt gerenderd, zodat de globale taal-singleton gereed is.
 
@@ -175,7 +183,9 @@ installIntlayerMarkdown();
 import "./app.js";
 ```
 
-### Stap 5: Declareer uw inhoud
+</Step>
+
+<Step number={5} title="Declareer uw inhoud">
 
 Maak en beheer uw inhoudsverklaringen om vertalingen op te slaan:
 
@@ -253,7 +263,9 @@ export default appContent;
 >
 > Raadpleeg de [inhoudsverklaringsdocumentatie](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/dictionary/content_file.md) voor meer informatie.
 
-### Stap 6: Gebruik Intlayer in uw JavaScript
+</Step>
+
+<Step number={6} title="Gebruik Intlayer in uw JavaScript">
 
 `vanilla-intlayer` spiegelt de `react-intlayer` surface API: `useIntlayer(key, locale?)` retourneert de vertaalde inhoud rechtstreeks. Koppel `.onChange()` aan het resultaat om u te abonneren op taalveranderingen - het expliciete equivalent van een React re-render.
 
@@ -289,7 +301,9 @@ document.querySelector<HTMLParagraphElement>(".read-the-docs")!.textContent =
 > img.alt = content.viteLogoLabel.value;
 > ```
 
-### (Optioneel) Stap 7: De taal van uw inhoud wijzigen
+</Step>
+
+<Step number={7} title="De taal van uw inhoud wijzigen" isOptional={true}>
 
 Gebruik de functie `setLocale` van `useLocale` om de taal van uw inhoud te wijzigen.
 
@@ -324,7 +338,9 @@ export function setupLocaleSwitcher(container: HTMLElement): () => void {
 }
 ```
 
-### (Optioneel) Stap 8: Markdown- en HTML-inhoud renderen
+</Step>
+
+<Step number={8} title="Markdown- en HTML-inhoud renderen" isOptional={true}>
 
 Intlayer ondersteunt `md()` en `html()` inhoudsverklaringen. In pure JS wordt gecompileerde uitvoer ingevoegd als onbewerkte HTML via `innerHTML`.
 
@@ -383,7 +399,9 @@ document.querySelector<HTMLDivElement>(".edit-note")!.innerHTML =
 > });
 > ```
 
-### (Optioneel) Stap 9: Gelokaliseerde Routering toevoegen aan uw applicatie
+</Step>
+
+<Step number={9} title="Gelokaliseerde Routering toevoegen aan uw applicatie" isOptional={true}>
 
 Om unieke routes voor elke taal te maken (nuttig voor SEO), kunt u `intlayerProxy` gebruiken in uw Vite-configuratie voor taaldetectie aan de serverzijde.
 
@@ -403,7 +421,9 @@ export default defineConfig({
 });
 ```
 
-### (Optioneel) Stap 10: De URL wijzigen wanneer de taal verandert
+</Step>
+
+<Step number={10} title="De URL wijzigen wanneer de taal verandert" isOptional={true}>
 
 Roep `useRewriteURL()` aan na het installeren van Intlayer om de browser-URL bij te werken wanneer de taal verandert:
 
@@ -417,7 +437,9 @@ installIntlayer();
 const stopRewriteURL = useRewriteURL();
 ```
 
-### (Optioneel) Stap 11: De HTML-taal- en richtingskenmerken wisselen
+</Step>
+
+<Step number={11} title="De HTML-taal- en richtingskenmerken wisselen" isOptional={true}>
 
 Werk de kenmerken `lang` en `dir` van de `<html>`-tag bij zodat deze overeenkomen met de huidige taal voor toegankelijkheid en SEO.
 
@@ -435,7 +457,9 @@ useLocale({
 });
 ```
 
-### (Optioneel) Stap 12: Woordenboeken per taal lazyloaden
+</Step>
+
+<Step number={12} title="Woordenboeken per taal lazyloaden" isOptional={true}>
 
 Bij grote apps wilt u misschien het woordenboek van elke taal in een eigen chunk opsplitsen. Gebruik `useDictionaryDynamic` naast de dynamische `import()` van Vite:
 
@@ -458,7 +482,9 @@ const unsubscribe = useDictionaryDynamic(
 
 > De bundel van elke taal wordt alleen opgehaald wanneer die taal actief wordt en het resultaat wordt in de cache opgeslagen - volgende overschakelingen naar dezelfde taal zijn onmiddellijk.
 
-### (Optioneel) Stap 13: De inhoud van uw componenten extraheren
+</Step>
+
+<Step number={13} title="De inhoud van uw componenten extraheren" isOptional={true}>
 
 Als u een bestaande codebase heeft, kan het transformeren van duizenden bestanden tijdrovend zijn.
 
@@ -673,3 +699,7 @@ Raadpleeg de [documentatie van de Intlayer VS Code-extensie](https://intlayer.or
 ### Ga verder
 
 Om verder te gaan, kunt u de [visuele editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/intlayer_visual_editor.md) implementeren of uw inhoud externaliseren met behulp van het [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/intlayer_CMS.md).
+
+</Step>
+
+</Steps>

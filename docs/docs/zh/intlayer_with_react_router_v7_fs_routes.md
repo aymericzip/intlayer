@@ -455,7 +455,9 @@ export default function RootLayout() {
 }
 ```
 
-### (可选) 步骤 1 : 提取组件内容
+<Steps>
+
+<Step number={1} title="提取组件内容" isOptional={true}>
 
 如果您有现有的代码库，转换数千个文件可能会非常耗时。
 
@@ -552,6 +554,10 @@ bun run build # Or bun run dev
 </Tabs>
 
 ---
+
+</Step>
+
+</Steps>
 
 ## Configure TypeScript
 

@@ -104,7 +104,9 @@ Więcej niż tylko rozwiązanie i18n, Intlayer zapewnia **samodzielny [edytor wi
 
 Zobacz [Application Template](https://github.com/aymericzip/intlayer-vite-react-template) na GitHub.
 
-### Krok 1: Instalacja zależności
+<Steps>
+
+<Step number={1} title="Instalacja zależności">
 
 Zainstaluj niezbędne pakiety za pomocą npm:
 
@@ -141,7 +143,9 @@ bun x intlayer init
 - **vite-intlayer**
   Zawiera wtyczkę Vite do integracji Intlayer z [bundlerem Vite](https://vite.dev/guide/why.html#why-bundle-for-production), a także middleware do wykrywania preferowanego języka użytkownika, zarządzania ciasteczkami oraz obsługi przekierowań URL.
 
-### Krok 2: Konfiguracja projektu
+</Step>
+
+<Step number={2} title="Konfiguracja projektu">
 
 Utwórz plik konfiguracyjny, aby skonfigurować języki swojej aplikacji:
 
@@ -165,7 +169,9 @@ export default config;
 
 > Poprzez ten plik konfiguracyjny możesz ustawić zlokalizowane adresy URL, przekierowania middleware, nazwy ciasteczek, lokalizację i rozszerzenie deklaracji treści, wyłączyć logi Intlayer w konsoli i wiele więcej. Aby uzyskać pełną listę dostępnych parametrów, zapoznaj się z [dokumentacją konfiguracji](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/configuration.md).
 
-### Krok 3: Zintegruj Intlayer w swojej konfiguracji Vite
+</Step>
+
+<Step number={3} title="Zintegruj Intlayer w swojej konfiguracji Vite">
 
 Dodaj wtyczkę intlayer do swojej konfiguracji.
 
@@ -182,7 +188,9 @@ export default defineConfig({
 
 > Wtyczka Vite `intlayer()` służy do integracji Intlayer z Vite. Zapewnia budowanie plików deklaracji treści oraz monitoruje je w trybie deweloperskim. Definiuje zmienne środowiskowe Intlayer w aplikacji Vite. Dodatkowo dostarcza aliasy w celu optymalizacji wydajności.
 
-### Krok 4: Zadeklaruj swoją treść
+</Step>
+
+<Step number={4} title="Zadeklaruj swoją treść">
 
 Utwórz i zarządzaj deklaracjami treści, aby przechowywać tłumaczenia:
 
@@ -315,7 +323,9 @@ export default appContent;
 
 > Jeśli Twój plik zawartości zawiera kod TSX, powinieneś rozważyć import `import React from "react";` w swoim pliku zawartości.
 
-### Krok 5: Wykorzystaj Intlayer w swoim kodzie
+</Step>
+
+<Step number={5} title="Wykorzystaj Intlayer w swoim kodzie">
 
 Uzyskaj dostęp do swoich słowników treści w całej aplikacji:
 
@@ -378,7 +388,9 @@ export default App;
 
 > Jeśli Twoja aplikacja już istnieje, możesz użyć [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compiler.md) w połączeniu z [poleceniem extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/extract.md), aby przekonwertować tysiące komponentów w jedną sekundę.
 
-### (Opcjonalny) Krok 6: Zmień język swojej zawartości
+</Step>
+
+<Step number={6} title="Zmień język swojej zawartości" isOptional={true}>
 
 Aby zmienić język swojej zawartości, możesz użyć funkcji `setLocale` dostarczonej przez hook `useLocale`. Funkcja ta pozwala ustawić lokalizację aplikacji i odpowiednio zaktualizować zawartość.
 
@@ -400,7 +412,9 @@ const LocaleSwitcher: FC = () => {
 
 > Aby dowiedzieć się więcej o hooku `useLocale`, zapoznaj się z [dokumentacją](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/react-intlayer/useLocale.md).
 
-### (Opcjonalny) Krok 7: Dodaj lokalizowane routingi do swojej aplikacji
+</Step>
+
+<Step number={7} title="Dodaj lokalizowane routingi do swojej aplikacji" isOptional={true}>
 
 Celem tego kroku jest utworzenie unikalnych ścieżek dla każdego języka. Jest to przydatne dla SEO oraz przyjaznych dla SEO adresów URL.
 Przykład:
@@ -479,7 +493,9 @@ export default defineConfig({
 });
 ```
 
-### (Opcjonalny) Krok 8: Zmiana URL po zmianie lokalizacji
+</Step>
+
+<Step number={8} title="Zmiana URL po zmianie lokalizacji" isOptional={true}>
 
 Aby zmienić URL po zmianie lokalizacji, możesz użyć właściwości `onLocaleChange` dostarczanej przez hook `useLocale`. Równolegle możesz użyć hooków `useLocation` i `useNavigate` z `react-router-dom`, aby zaktualizować ścieżkę URL.
 
@@ -563,7 +579,9 @@ Poniżej znajduje się zaktualizowany **Krok 9** z dodatkowymi wyjaśnieniami i 
 
 ---
 
-### (Opcjonalny) Krok 9: Zmiana atrybutów języka i kierunku w elemencie HTML
+</Step>
+
+<Step number={9} title="Zmiana atrybutów języka i kierunku w elemencie HTML" isOptional={true}>
 
 Gdy Twoja aplikacja obsługuje wiele języków, kluczowe jest zaktualizowanie atrybutów `lang` i `dir` w tagu `<html>`, aby odpowiadały bieżącej lokalizacji. Zapewnia to:
 
@@ -634,7 +652,9 @@ Wprowadzając te zmiany, twoja aplikacja:
 - Dostosuj **kierunek tekstu** (`dir`) zgodnie z lokalizacją, poprawiając czytelność i użyteczność dla języków o różnych kierunkach czytania.
 - Zapewnij bardziej **dostępne** doświadczenie, ponieważ technologie wspomagające polegają na tych atrybutach, aby działać optymalnie.
 
-### (Opcjonalny) Krok 10: Tworzenie lokalizowanego komponentu Link
+</Step>
+
+<Step number={10} title="Tworzenie lokalizowanego komponentu Link" isOptional={true}>
 
 Aby zapewnić, że nawigacja w Twojej aplikacji respektuje aktualny język, możesz stworzyć niestandardowy komponent `Link`. Komponent ten automatycznie dodaje prefiks z aktualnym językiem do wewnętrznych adresów URL. Na przykład, gdy użytkownik mówiący po francusku kliknie link do strony "About", zostanie przekierowany na `/fr/about` zamiast na `/about`.
 
@@ -756,7 +776,9 @@ Aby uzyskać więcej informacji na temat korzystania z rozszerzenia, zapoznaj si
 
 ---
 
-### (Opcjonalnie) Krok 11 : Wyodrębnij zawartość swoich komponentów
+</Step>
+
+<Step number={11} title="Wyodrębnij zawartość swoich komponentów" isOptional={true}>
 
 Jeśli masz istniejącą bazę kodu, transformacja tysięcy plików może być czasochłonna.
 
@@ -929,3 +951,7 @@ Dostosuj polecenia dla pnpm lub yarn. Możesz też wywołać skrypt z CI.
 ### Idź dalej
 
 Aby pójść dalej, możesz zaimplementować [edytor wizualny](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_visual_editor.md) lub wyodrębnić swoją zawartość, korzystając z [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md).
+
+</Step>
+
+</Steps>

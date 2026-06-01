@@ -45,7 +45,9 @@ Con Intlayer, puoi:
 
 ## Guida passo-passo per configurare Intlayer in un'applicazione React
 
-### Passo 1: Installa le dipendenze
+<Steps>
+
+<Step number={1} title="Installa le dipendenze">
 
 Installa i pacchetti necessari utilizzando npm:
 
@@ -80,7 +82,9 @@ bun x intlayer init
 - **react-scripts-intlayer**
   Include i comandi e i plugin `react-scripts-intlayer` per integrare Intlayer con l'applicazione basata su Create React App. Questi plugin sono basati su [craco](https://craco.js.org/) e includono configurazioni aggiuntive per il bundler [Webpack](https://webpack.js.org/).
 
-### Passo 2: Configurazione del progetto
+</Step>
+
+<Step number={2} title="Configurazione del progetto">
 
 Crea un file di configurazione per configurare le lingue della tua applicazione:
 
@@ -104,7 +108,9 @@ export default config;
 
 > Tramite questo file di configurazione, puoi configurare URL localizzati, reindirizzamenti middleware, nomi dei cookie, la posizione e l'estensione delle dichiarazioni dei contenuti, disabilitare i log di Intlayer nella console e altro. Per un elenco completo dei parametri disponibili, consulta la [documentazione di configurazione](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/configuration.md).
 
-### Passo 3: Integra Intlayer nella configurazione CRA
+</Step>
+
+<Step number={3} title="Integra Intlayer nella configurazione CRA">
 
 Modifica i tuoi script per utilizzare react-intlayer
 
@@ -118,13 +124,17 @@ Modifica i tuoi script per utilizzare react-intlayer
 
 > Gli script `react-scripts-intlayer` sono basati su [CRACO](https://craco.js.org/). Puoi anche implementare la tua configurazione basata sul plugin craco di Intlayer. [Vedi esempio qui](https://github.com/aymericzip/intlayer/blob/main/examples/react-app/craco.config.js).
 
-### Passo 4: Dichiarare i tuoi contenuti
+</Step>
+
+<Step number={4} title="Dichiarare i tuoi contenuti">
 
 Crea e gestisci le dichiarazioni dei tuoi contenuti per memorizzare le traduzioni:
 
 > Gli script `react-scripts-intlayer` sono basati su [CRACO](https://craco.js.org/). Puoi anche implementare la tua configurazione basata sul plugin craco di Intlayer. [Vedi esempio qui](https://github.com/aymericzip/intlayer/blob/main/examples/react-app/craco.config.js).
 
-### Passo 4: Dichiarare i tuoi contenuti
+</Step>
+
+<Step number={4} title="Dichiarare i tuoi contenuti">
 
 Crea e gestisci le dichiarazioni dei tuoi contenuti per memorizzare le traduzioni:
 
@@ -200,7 +210,9 @@ module.exports = appContent;
 
 > Se il tuo file di contenuti include codice TSX, considera di importare `import React from "react";` nel tuo file di contenuti.
 
-### Passo 5: Utilizza Intlayer nel tuo codice
+</Step>
+
+<Step number={5} title="Utilizza Intlayer nel tuo codice">
 
 Accedi ai tuoi dizionari di contenuti in tutta l'applicazione:
 
@@ -249,7 +261,9 @@ export default App;
 >
 > Per saperne di più sull'hook `useIntlayer`, consulta la [documentazione](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/react-intlayer/useIntlayer.md).
 
-### (Opzionale) Passo 6: Cambia la lingua dei tuoi contenuti
+</Step>
+
+<Step number={6} title="Cambia la lingua dei tuoi contenuti" isOptional={true}>
 
 Per cambiare la lingua dei tuoi contenuti, puoi utilizzare la funzione `setLocale` fornita dall'hook `useLocale`. Questa funzione ti consente di impostare la lingua dell'applicazione e aggiornare i contenuti di conseguenza.
 
@@ -270,7 +284,9 @@ const LocaleSwitcher = () => {
 
 > Per saperne di più sull'hook `useLocale`, consulta la [documentazione](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/react-intlayer/useLocale.md).
 
-### (Opzionale) Passo 7: Aggiungi routing localizzato alla tua applicazione
+</Step>
+
+<Step number={7} title="Aggiungi routing localizzato alla tua applicazione" isOptional={true}>
 
 Lo scopo di questo passaggio è creare percorsi univoci per ogni lingua. Questo è utile per la SEO e per URL SEO-friendly.
 Esempio:
@@ -415,7 +431,9 @@ const App: FC = () => (
 );
 ```
 
-### (Opzionale) Passo 8: Cambiare l'URL quando la lingua cambia
+</Step>
+
+<Step number={8} title="Cambiare l'URL quando la lingua cambia" isOptional={true}>
 
 Per cambiare l'URL quando la lingua cambia, puoi usare la proprietà `onLocaleChange` fornita dall'hook `useLocale`. Parallelamente, puoi usare gli hook `useLocation` e `useNavigate` di `react-router-dom` per aggiornare il percorso URL.
 
@@ -497,7 +515,9 @@ const LocaleSwitcher: FC = () => {
 > - [`dir` attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir)
 > - [`aria-current` attribute](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)
 
-### (Opzionale) Passo 9: Modificare gli attributi di lingua e direzione dell’HTML
+</Step>
+
+<Step number={9} title="Modificare gli attributi di lingua e direzione dell’HTML" isOptional={true}>
 
 Quando la tua applicazione supporta più lingue, è fondamentale aggiornare gli attributi `lang` e `dir` del tag `<html>` per farli corrispondere alla locale corrente. Questo garantisce:
 
@@ -630,3 +650,7 @@ Per maggiori dettagli su come utilizzare l'estensione, consulta la [documentazio
 ### Approfondimenti
 
 Per approfondire, puoi implementare l’[editor visuale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_visual_editor.md) o esternalizzare i tuoi contenuti usando il [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_CMS.md).
+
+</Step>
+
+</Steps>

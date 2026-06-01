@@ -63,33 +63,43 @@ history:
 
 Compared to main solutions like `astro-i18n` or `i18next`, Intlayer is a solution that comes with integrated optimizations such as:
 
-**Full Astro coverage**
+<AccordionGroup>
+<Accordion header="Full Astro coverage">
 
 Intlayer is optimized to work perfectly with Astro by offering **multilingual routing**, **sitemap**, and all the features needed for scaling internationalization (i18n).
 
-**Bundle size**
+</Accordion>
+<Accordion header="Bundle size">
 
 Instead of loading massive JSON files into your pages, load only the necessary content. Intlayer helps **reduce your bundle and page sizes by up to 50%**.
 
-**Maintainability**
+</Accordion>
+<Accordion header="Maintainability">
 
 Scoping your application's content **facilitates maintenance** for large-scale applications. You can duplicate or delete a single feature folder without the mental burden of reviewing your entire content codebase. Additionally, Intlayer is **fully typed** to ensure your content's accuracy.
 
-**AI Agent**
+</Accordion>
+<Accordion header="AI Agent">
 
 Co-locating content **reduces the context needed** by Large Language Models (LLMs). Intlayer also comes with a suite of tools, such as a **CLI** to test for missing translations,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)**, and **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, to make the developer experience (DX) even smoother for AI agents.
 
-**Automation**
+</Accordion>
+<Accordion header="Automation">
 
 Use automation to translate in your CI/CD pipeline using the LLM of your choice at the cost of your AI provider. Intlayer also offers a **compiler** to automate content extraction, as well as a [web platform](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) to help **translate in the background**.
 
-**Performance**
+</Accordion>
+<Accordion header="Performance">
 
 Connecting massive JSON files to components can lead to performance and reactivity issues. Intlayer optimizes your content loading at build time.
 
-**Scaling with none-dev**
+</Accordion>
+<Accordion header="Scaling with none-dev">
 
 More than just an i18n solution, Intlayer provides an **self-hosted [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** and a **[full CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** to help you manage your multilingual content in **real-time**, making collaboration with translators, copywriters, and other team members seamless. Content can be stored locally and/or remotely.
+
+</Accordion>
+</AccordionGroup>
 
 ---
 
@@ -97,7 +107,9 @@ More than just an i18n solution, Intlayer provides an **self-hosted [visual edit
 
 Check out the [application template](https://github.com/aymericzip/intlayer-astro-template) on GitHub.
 
-### Step 1: Install Dependencies
+<Steps>
+
+<Step number={1} title="Install Dependencies">
 
 Install the necessary packages using your preferred package manager:
 
@@ -140,7 +152,9 @@ bun x intlayer init
 - **@astrojs/lit**
   Official Astro integration that allows the use of Lit custom elements within Astro pages.
 
-### Step 2: Configure Your Project
+</Step>
+
+<Step number={2} title="Configure Your Project">
 
 Create a configuration file to define your application's languages:
 
@@ -165,7 +179,9 @@ export default config;
 
 > Through this configuration file, you can configure localised URLs, middleware redirects, cookie names, location and extensions of content declarations, disable Intlayer logs in the console, and more. For a full list of available parameters, refer to the [configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/configuration.md).
 
-### Step 3: Integrate Intlayer into Your Astro Configuration
+</Step>
+
+<Step number={3} title="Integrate Intlayer into Your Astro Configuration">
 
 Add the `intlayer` plugin and Lit integration to your Astro configuration.
 
@@ -186,7 +202,9 @@ export default defineConfig({
 
 > The `lit()` integration allows for using Lit custom elements within Astro pages.
 
-### Step 4: Declare Your Content
+</Step>
+
+<Step number={4} title="Declare Your Content">
 
 Create and manage your content declarations to store translations:
 
@@ -218,7 +236,9 @@ export default litDemoContent;
 
 > For more information, refer to the [content declaration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/content_file.md).
 
-### Step 5: Using Content in Astro
+</Step>
+
+<Step number={5} title="Using Content in Astro">
 
 You can consume the dictionaries directly in your `.astro` files using the core helpers exported from `intlayer`. You should also add SEO metadata (such as hreflang and canonical links) to every page. Lit custom elements are imported via a client `<script>` and placed in the body.
 
@@ -308,7 +328,9 @@ const { greeting } = getIntlayer("lit-demo", locale);
 > - **`prefix-all`:** all URLs get a language prefix. You can use standard `[locale]` if you don't need to handle the root separately.
 > - **`search-param` or `no-prefix`:** no language directories are needed. The language is handled via query parameters or cookies.
 
-### Step 6: Create a Lit Custom Element Component
+</Step>
+
+<Step number={6} title="Create a Lit Custom Element Component">
 
 Create a Lit custom element. Call `installIntlayer` in the `connectedCallback` using the server-based `locale` attribute to initialise the client-side translation singleton.
 
@@ -387,7 +409,9 @@ customElements.define("lit-demo", LitDemo);
 
 > `useIntlayer` is registered as a `ReactiveController`. It automatically requests an element re-render when the language changes, so no additional subscription logic is required.
 
-### Step 7: Add a Language Switcher
+</Step>
+
+<Step number={7} title="Add a Language Switcher">
 
 The language switching functionality is integrated directly within the Lit custom element's `render()` method (see step 6 above). It uses `useLocale` from `lit-intlayer` and navigates to the localised URL when a user selects a new language:
 
@@ -433,7 +457,9 @@ override render() {
 > **Note on persistence:**
 > Using `onLocaleChange` to redirect via `window.location.href` ensures the new linguistic URL is visited, allowing the Intlayer middleware to set the language cookie and remember the user's preference in future visits.
 
-### Step 8: Sitemap and Robots.txt
+</Step>
+
+<Step number={8} title="Sitemap and Robots.txt">
 
 Intlayer offers utilities to dynamically create your localised sitemap and robots.txt files.
 
@@ -545,7 +571,9 @@ For more information on using the extension, refer to the [VS Code Extension doc
 
 ---
 
-### (Optional) Step 15: Extract the content of your components
+</Step>
+
+<Step number={15} title="Extract the content of your components" isOptional={true}>
 
 If you have an existing codebase, transforming thousands of files can be time-consuming.
 
@@ -650,3 +678,7 @@ bun run build # Or bun run dev
 ### Deepen Your Knowledge
 
 If you want to learn more, you can also implement the [Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_visual_editor.md) or use the [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_CMS.md) to externalise your content.
+
+</Step>
+
+</Steps>

@@ -73,7 +73,9 @@ Intlayer کے ساتھ، آپ:
 
 ## Vite اور Vanilla JS ایپلی کیشن میں Intlayer ترتیب دینے کے لیے مرحلہ وار گائیڈ
 
-### مرحلہ 1: انحصار انسٹال کریں
+<Steps>
+
+<Step number={1} title="انحصار انسٹال کریں">
 
 npm کا استعمال کرتے ہوئے ضروری پیکجز انسٹال کریں:
 
@@ -110,7 +112,9 @@ bun x intlayer init
 - **vite-intlayer**
   Intlayer کو [Vite bundler](https://vite.dev/guide/why.html#why-bundle-for-production) کے ساتھ مربوط کرنے کے لیے Vite پلگ ان، نیز صارف کے ترجیحی لوکل کا پتہ لگانے، کوکیز کو منظم کرنے اور URL ری ڈائرکشن کو سنبھالنے کے لیے مڈل ویئر شامل ہے۔
 
-### مرحلہ 2: اپنے پروجیکٹ کی ترتیب
+</Step>
+
+<Step number={2} title="اپنے پروجیکٹ کی ترتیب">
 
 اپنی ایپلی کیشن کی زبانیں ترتیب دینے کے لیے ایک کنفیگریشن فائل بنائیں:
 
@@ -134,7 +138,9 @@ export default config;
 
 > اس ترتیباتی فائل کے ذریعے، آپ مقامی URLs، مڈل ویئر ری ڈائرکشن، کوکی کے نام، اپنے مواد کے اعلانات کا مقام اور توسیع ترتیب دے سکتے ہیں، کنسول میں Intlayer لاگز کو غیر فعال کر سکتے ہیں، اور بہت کچھ۔ دستیاب پیرامیٹرز کی مکمل فہرست کے لیے، [کنفیگریشن دستاویزی معلومات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/configuration.md) دیکھیں۔
 
-### مرحلہ 3: اپنی Vite کنفیگریشن میں Intlayer شامل کریں
+</Step>
+
+<Step number={3} title="اپنی Vite کنفیگریشن میں Intlayer شامل کریں">
 
 اپنی کنفیگریشن میں intlayer پلگ ان شامل کریں۔
 
@@ -150,7 +156,9 @@ export default defineConfig({
 
 > `intlayer()` Vite پلگ ان Intlayer کو Vite کے ساتھ مربوط کرنے کے لیے استعمال ہوتا ہے۔ یہ مواد کے اعلان کی فائلوں کی تیاری کو یقینی بناتا ہے اور ترقیاتی موڈ میں ان پر نظر رکھتا ہے۔ یہ Vite ایپلی کیشن کے اندر Intlayer کے ماحولیاتی متغیرات کی تعریف کرتا ہے۔ مزید برآں، یہ کارکردگی کو بہتر بنانے کے لیے عرفی نام (aliases) فراہم کرتا ہے۔
 
-### مرحلہ 4: اپنے انٹری پوائنٹ میں Intlayer بوٹسٹریپ کریں
+</Step>
+
+<Step number={4} title="اپنے انٹری پوائنٹ میں Intlayer بوٹسٹریپ کریں">
 
 کسی بھی مواد کو رینڈر کرنے سے **پہلے** `installIntlayer()` کو کال کریں تاکہ عالمی لوکل سنگلٹن تیار ہو جائے۔
 
@@ -175,7 +183,9 @@ installIntlayerMarkdown();
 import "./app.js";
 ```
 
-### مرحلہ 5: اپنے مواد کا اعلان کریں
+</Step>
+
+<Step number={5} title="اپنے مواد کا اعلان کریں">
 
 ترجموں کو محفوظ کرنے کے لیے اپنے مواد کے اعلانات بنائیں اور ان کا انتظام کریں:
 
@@ -253,7 +263,9 @@ export default appContent;
 >
 > مزید تفصیلات کے لیے، [مواد کے اعلان کی دستاویزی معلومات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/dictionary/content_file.md) دیکھیں۔
 
-### مرحلہ 6: اپنے JavaScript میں Intlayer کا استعمال کریں
+</Step>
+
+<Step number={6} title="اپنے JavaScript میں Intlayer کا استعمال کریں">
 
 `vanilla-intlayer` لائبریری `react-intlayer` کے سرفیس API کی عکاسی کرتی ہے: `useIntlayer(key, locale?)` براہ راست ترجمہ شدہ مواد واپس کرتا ہے۔ لوکل کی تبدیلیوں کو سبسکرائب کرنے کے لیے نتیجے پر `.onChange()` کو جوڑیں - جو کہ React ری رینڈر کا واضح متبادل ہے۔
 
@@ -289,7 +301,9 @@ document.querySelector<HTMLParagraphElement>(".read-the-docs")!.textContent =
 > img.alt = content.viteLogoLabel.value;
 > ```
 
-### (اختیاری) مرحلہ 7: اپنے مواد کی زبان تبدیل کریں
+</Step>
+
+<Step number={7} title="اپنے مواد کی زبان تبدیل کریں" isOptional={true}>
 
 اپنے مواد کی زبان تبدیل کرنے کے لیے، `useLocale` کے فراہم کردہ `setLocale` فنکشن کا استعمال کریں۔
 
@@ -324,7 +338,9 @@ export function setupLocaleSwitcher(container: HTMLElement): () => void {
 }
 ```
 
-### (اختیاری) مرحلہ 8: مارک ڈاؤن اور HTML مواد رینڈر کریں
+</Step>
+
+<Step number={8} title="مارک ڈاؤن اور HTML مواد رینڈر کریں" isOptional={true}>
 
 Intlayer `md()` اور `html()` مواد کے اعلانات کی حمایت کرتا ہے۔ Vanilla JS میں، کمپائل شدہ آؤٹ پٹ خام HTML کے طور پر `innerHTML` کے ذریعے داخل کیا جاتا ہے۔
 
@@ -383,7 +399,9 @@ document.querySelector<HTMLDivElement>(".edit-note")!.innerHTML =
 > });
 > ```
 
-### (اختیاری) مرحلہ 9: اپنی ایپلی کیشن میں مقامی راؤٹنگ (Localized Routing) شامل کریں
+</Step>
+
+<Step number={9} title="اپنی ایپلی کیشن میں مقامی راؤٹنگ (Localized Routing) شامل کریں" isOptional={true}>
 
 ہر زبان کے لیے منفرد راستے بنانے کے لیے (SEO کے لیے مفید)، آپ سرور سائیڈ لوکل کی شناخت کے لیے اپنی Vite کنفیگریشن میں `intlayerProxy` استعمال کر سکتے ہیں۔
 
@@ -403,7 +421,9 @@ export default defineConfig({
 });
 ```
 
-### (اختیاری) مرحلہ 10: لوکل کی تبدیلی پر URL تبدیل کریں
+</Step>
+
+<Step number={10} title="لوکل کی تبدیلی پر URL تبدیل کریں" isOptional={true}>
 
 لوکل کی تبدیلی پر براؤزر URL کو اپ ڈیٹ کرنے کے لیے، Intlayer انسٹال کرنے کے بعد `useRewriteURL()` کو کال کریں:
 
@@ -417,7 +437,9 @@ installIntlayer();
 const stopRewriteURL = useRewriteURL();
 ```
 
-### (اختیاری) مرحلہ 11: HTML لینگویج اور ڈائریکشن ایٹریبیوٹس تبدیل کریں
+</Step>
+
+<Step number={11} title="HTML لینگویج اور ڈائریکشن ایٹریبیوٹس تبدیل کریں" isOptional={true}>
 
 رسائی (Accessibility) اور SEO کے لیے `<html>` ٹیگ کے `lang` اور `dir` ایٹریبیوٹس کو موجودہ لوکل کے مطابق اپ ڈیٹ کریں۔
 
@@ -435,7 +457,9 @@ useLocale({
 });
 ```
 
-### (اختیاری) مرحلہ 12: ہر لوکل کے لیے لغات لیزی لوڈ (Lazy-load) کریں
+</Step>
+
+<Step number={12} title="ہر لوکل کے لیے لغات لیزی لوڈ (Lazy-load) کریں" isOptional={true}>
 
 بڑی ایپس کے لیے آپ ہر لوکل کی لغت کو اس کے اپنے ٹکڑے (chunk) میں تقسیم کرنا چاہیں گے۔ Vite کے متحرک `import()` کے ساتھ `useDictionaryDynamic` استعمال کریں:
 
@@ -458,7 +482,9 @@ const unsubscribe = useDictionaryDynamic(
 
 > ہر لوکل کا بنڈل صرف اس وقت حاصل کیا جاتا ہے جب وہ لوکل فعال ہو جائے اور نتیجہ کیش کر دیا جاتا ہے - اسی لوکل پر بعد کی تبدیلیاں فوری ہوتی ہیں۔
 
-### (اختیاری) مرحلہ 13: اپنے اجزاء سے مواد نکالیں (Extract)
+</Step>
+
+<Step number={13} title="اپنے اجزاء سے مواد نکالیں" isOptional={true}>
 
 اگر آپ کے پاس پہلے سے موجود کوڈ بیس ہے، تو ہزاروں فائلوں کو تبدیل کرنا وقت طلب ہو سکتا ہے۔
 
@@ -673,3 +699,7 @@ Intlayer کے ساتھ اپنے ترقیاتی تجربے کو بہتر بنان
 ### مزید آگے بڑھیں
 
 مزید گہرائی میں جانے کے لیے، آپ [بصری ایڈیٹر](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_visual_editor.md) لاگو کر سکتے ہیں یا [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_CMS.md) کا استعمال کرتے ہوئے اپنے مواد کو ایکسٹرنل بنا سکتے ہیں۔
+
+</Step>
+
+</Steps>

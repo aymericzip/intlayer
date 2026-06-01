@@ -96,7 +96,9 @@ history:
 
 تحقق من [نموذج التطبيق](https://github.com/aymericzip/intlayer-astro-template) على GitHub.
 
-### الخطوة 1: تثبيت التبعيات
+<Steps>
+
+<Step number={1} title="تثبيت التبعيات">
 
 قم بتثبيت الحزم اللازمة باستخدام مدير الحزم المفضل لديك:
 
@@ -133,7 +135,9 @@ bun x intlayer init
 - **vanilla-intlayer**
   حزمة لدمج Intlayer في تطبيقات Vanilla JavaScript / TypeScript. توفر كائن Pub/Sub أحادي (`IntlayerClient`) ومساعدين يعتمدون على الاستدعاءات (`useIntlayer`, `useLocale`, إلخ)، مما يسمح لأي جزء من وسوم `<script>` في Astro بالاستجابة لتغييرات اللغة دون الحاجة إلى إطار عمل واجهة مستخدم.
 
-### الخطوة 2: تهيئة مشروعك
+</Step>
+
+<Step number={2} title="تهيئة مشروعك">
 
 أنشئ ملف تكوين لتحديد لغات تطبيقك:
 
@@ -158,7 +162,9 @@ export default config;
 
 > من خلال ملف التكوين هذا، يمكنك تهيئة الروابط المترجمة، وإعادة توجيه الوسيط، وأسماء الكوكيز، وموقع وامتدادات تعريفات المحتوى، وتعطيل سجلات Intlayer في وحدة التحكم، والمزيد. للحصول على قائمة كاملة بالمعلمات المتاحة، راجع [توثيق التهيئة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md).
 
-### الخطوة 3: دمج Intlayer في تكوين Astro الخاص بك
+</Step>
+
+<Step number={3} title="دمج Intlayer في تكوين Astro الخاص بك">
 
 أضف إضافة `intlayer` إلى تكوين Astro الخاص بك. بالنسبة لـ Vanilla JS، لا يلزم وجود تكامل إضافي لإطار عمل واجهة مستخدم.
 
@@ -176,7 +182,9 @@ export default defineConfig({
 
 > تُستخدم إضافة `intlayer()` لدمج Intlayer مع Astro. وهي تضمن إنشاء ملفات تعريف المحتوى ومراقبتها في وضع التطوير. وتعرّف متغيرات بيئة Intlayer داخل تطبيق Astro وتوفر أسماء مستعارة لتحسين الأداء.
 
-### الخطوة 4: تعريف المحتوى الخاص بك
+</Step>
+
+<Step number={4} title="تعريف المحتوى الخاص بك">
 
 أنشئ وأدِر تعريفات المحتوى لتخزين الترجمات:
 
@@ -214,7 +222,9 @@ export default appContent;
 
 > لمزيد من المعلومات، راجع [توثيق تعريف المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/content_file.md).
 
-### الخطوة 5: استخدام المحتوى في Astro
+</Step>
+
+<Step number={5} title="استخدام المحتوى في Astro">
 
 مع Vanilla JS، يتم إجراء جميع عمليات الرندر في جانب الخادم مباشرة داخل ملفات `.astro` باستخدام `getIntlayer`. بعد ذلك، تقوم كتلة `<script>` بتهيئة `vanilla-intlayer` على العميل لتمكين تبديل اللغة.
 
@@ -323,7 +333,9 @@ const { greeting, description, switchLocale } = getIntlayer("app", locale);
 > - **`prefix-all`:** تحصل جميع الروابط على بادئة لغة. يمكنك استخدام `[locale]` القياسي إذا كنت لا تحتاج إلى معالجة الجذر بشكل منفصل.
 > - **`search-param` أو `no-prefix`:** لا يلزم وجود أدلة لغة. يتم التعامل مع اللغة عبر معلمات الاستعلام أو ملفات تعريف الارتباط.
 
-### الخطوة 6: إضافة تبديل اللغة
+</Step>
+
+<Step number={6} title="إضافة تبديل اللغة">
 
 في Astro مع Vanilla JS، يتم رندر مبدل اللغة على الخادم كروابط عادية ويتم تفعيله (hydrated) على العميل عبر كتلة `<script>`. عندما ينقر المستخدم على رابط لغة، يقوم `vanilla-intlayer` بتعيين كوكيز اللغة عبر `setLocale` قبل الانتقال إلى الرابط المترجم.
 
@@ -364,7 +376,9 @@ const { greeting, description, switchLocale } = getIntlayer("app", locale);
 > **ملاحظة حول التحسين التدريجي (Progressive Enhancement):**
 > ستعمل الروابط في مبدل اللغة كعناصر `<a>` عادية حتى بدون جافا سكريبت. عند توفر جافا سكريبت، ستقوم استدعاءات `setLocale` بتحديث الكوكيز قبل الانتقال، مما يضمن قيام الوسيط بالتوجيه الصحيح.
 
-### الخطوة 7: خريطة الموقع وRobots.txt
+</Step>
+
+<Step number={7} title="خريطة الموقع وRobots.txt">
 
 توفر Intlayer أدوات لإنشاء خريطة موقع (sitemap) مترجمة وملفات robots.txt ديناميكيًا.
 
@@ -472,7 +486,9 @@ export const GET: APIRoute = ({ site }) => {
 
 ---
 
-### (Optional) Step 15: Extract the content of your components
+</Step>
+
+<Step number={15} title="Extract the content of your components" isOptional={true}>
 
 If you have an existing codebase, transforming thousands of files can be time-consuming.
 
@@ -577,3 +593,7 @@ bun run build # Or bun run dev
 ### تعمق أكثر
 
 إذا كنت تريد معرفة المزيد، يمكنك أيضًا تنفيذ [المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) أو استخدام [نظام إدارة المحتوى (CMS)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md) لإخراج محتواك خارجيًا.
+
+</Step>
+
+</Steps>

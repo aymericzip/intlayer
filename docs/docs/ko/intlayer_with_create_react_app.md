@@ -217,7 +217,9 @@ export default App;
 >
 > `useIntlayer` 훅에 대해 더 알아보려면 [문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/react-intlayer/useIntlayer.md)를 참조하세요.
 
-### (선택 사항) 단계 6: 콘텐츠 언어 변경
+<Steps>
+
+<Step number={6} title="콘텐츠 언어 변경" isOptional={true}>
 
 콘텐츠의 언어를 변경하려면 `useLocale` 훅에서 제공하는 `setLocale` 함수를 사용할 수 있습니다. 이 함수는 애플리케이션의 로케일을 설정하고 콘텐츠를 업데이트합니다.
 
@@ -238,7 +240,9 @@ const LocaleSwitcher = () => {
 
 > `useLocale` 훅에 대해 더 알아보려면 [문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/react-intlayer/useLocale.md)를 참조하세요.
 
-### (선택 사항) 단계 7: 애플리케이션에 로컬화된 라우팅 추가
+</Step>
+
+<Step number={7} title="애플리케이션에 로컬화된 라우팅 추가" isOptional={true}>
 
 이 단계의 목적은 각 언어에 대해 고유한 경로를 만드는 것입니다. 이는 SEO 및 SEO 친화적인 URL에 유용합니다.
 예시:
@@ -382,7 +386,9 @@ const App: FC = () => (
 );
 ```
 
-### (선택 사항) 단계 8: 로케일 변경 시 URL 변경
+</Step>
+
+<Step number={8} title="로케일 변경 시 URL 변경" isOptional={true}>
 
 로케일이 변경될 때 URL을 변경하려면 `useLocale` 훅에서 제공하는 `onLocaleChange` 속성을 사용할 수 있습니다. 동시에, `react-router-dom`의 `useLocation` 및 `useNavigate` 훅을 사용하여 URL 경로를 업데이트할 수 있습니다.
 
@@ -462,7 +468,9 @@ const LocaleSwitcher: FC = () => {
 > - [`dir` 속성](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir)
 > - [`aria-current` 속성](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)
 
-### (선택 사항) 단계 9: HTML 언어 및 방향 속성 전환
+</Step>
+
+<Step number={9} title="HTML 언어 및 방향 속성 전환" isOptional={true}>
 
 애플리케이션이 여러 언어를 지원할 때, `<html>` 태그의 `lang` 및 `dir` 속성을 현재 로케일에 맞게 업데이트하는 것이 중요합니다. 이를 통해 다음을 보장할 수 있습니다:
 
@@ -595,3 +603,7 @@ Intlayer와 함께 개발 경험을 향상시키려면 공식 **Intlayer VS Code
 ### 더 나아가기
 
 더 나아가려면 [비주얼 에디터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)를 구현하거나 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)를 사용하여 콘텐츠를 외부화할 수 있습니다.
+
+</Step>
+
+</Steps>

@@ -45,7 +45,9 @@ Intlayer ile şunları yapabilirsiniz:
 
 ## React Uygulamasında Intlayer'ı Kurmak İçin Adım Adım Kılavuz
 
-### Adım 1: Bağımlılıkları Yükleyin
+<Steps>
+
+<Step number={1} title="Bağımlılıkları Yükleyin">
 
 Gerekli paketleri npm kullanarak yükleyin:
 
@@ -81,7 +83,9 @@ bun x intlayer init
 
   Create React App tabanlı uygulama ile Intlayer'ı entegre etmek için `react-scripts-intlayer` komutlarını ve eklentileri içerir. Bu eklentiler [craco](https://craco.js.org/) tabanlıdır ve [Webpack](https://webpack.js.org/) paketleyici için ek yapılandırma içerir.
 
-### Adım 2: Projenizi Yapılandırın
+</Step>
+
+<Step number={2} title="Projenizi Yapılandırın">
 
 Uygulamanızın dillerini yapılandırmak için bir yapılandırma dosyası oluşturun:
 
@@ -105,7 +109,9 @@ export default config;
 
 > Bu yapılandırma dosyası aracılığıyla, yerelleştirilmiş URL'ler, ara yazılım yönlendirmesi, çerez adları, içerik bildirimlerinizin konumu ve uzantısı ayarlayabilir, Intlayer günlüklerini konsolda devre dışı bırakabilir ve daha fazlasını yapabilirsiniz. Kullanılabilir parametrelerin tam listesi için [yapılandırma dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md) bakın.
 
-### Adım 3: Intlayer'ı CRA Yapılandırmanızda Entegre Edin
+</Step>
+
+<Step number={3} title="Intlayer'ı CRA Yapılandırmanızda Entegre Edin">
 
 Betiklerinizi Intlayer kullanacak şekilde değiştirin
 
@@ -119,7 +125,9 @@ Betiklerinizi Intlayer kullanacak şekilde değiştirin
 
 > `react-scripts-intlayer` betikleri [CRACO](https://craco.js.org/) tabanlıdır. Kendi kurulumunuzu CRACO'nun intlayer eklentisi temel alarak da uygulayabilirsiniz. [Örneğe buradan bakın](https://github.com/aymericzip/intlayer/blob/main/examples/react-app/craco.config.js).
 
-### Adım 4: İçeriğinizi Bildirin
+</Step>
+
+<Step number={4} title="İçeriğinizi Bildirin">
 
 Çevirileri depolamak için içerik bildirimlerinizi oluşturun ve yönetin:
 
@@ -167,7 +175,9 @@ export default appContent;
 
 > Eğer içerik dosyanız TSX kodu içeriyorsa, içerik dosyanıza `import React from "react";` içe aktarmayı düşünün.
 
-### Adım 5: Kodunuzda Intlayer'ı Kullanın
+</Step>
+
+<Step number={5} title="Kodunuzda Intlayer'ı Kullanın">
 
 İçerik sözlüklerinize uygulamanız genelinde erişin:
 
@@ -216,7 +226,9 @@ export default App;
 
 > `useIntlayer` hook'u hakkında daha fazla bilgi için [dokümantasyona](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useIntlayer.md) bakın.
 
-### (İsteğe Bağlı) Adım 6: İçeriğinizin Dilini Değiştirin
+</Step>
+
+<Step number={6} title="İçeriğinizin Dilini Değiştirin" isOptional={true}>
 
 İçeriğinizin dilini değiştirmek için, `useLocale` hook'u tarafından sağlanan `setLocale` fonksiyonunu kullanabilirsiniz. Bu fonksiyon, uygulamanın yerel ayarını ayarlamanıza ve içeriği buna göre güncellemenize izin verir.
 
@@ -237,7 +249,9 @@ const LocaleSwitcher = () => {
 
 > `useLocale` hook'u hakkında daha fazla bilgi için [dokümantasyona](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useLocale.md) bakın.
 
-### (İsteğe Bağlı) Adım 7: Uygulamanıza Yerelleştirilmiş Yönlendirme Ekleyin
+</Step>
+
+<Step number={7} title="Uygulamanıza Yerelleştirilmiş Yönlendirme Ekleyin" isOptional={true}>
 
 Bu adımın amacı, her dil için benzersiz rotalar oluşturmaktır. Bu, SEO ve SEO dostu URL'ler için yararlıdır.
 Örnek:
@@ -382,7 +396,9 @@ const App: FC = () => (
 );
 ```
 
-### (İsteğe Bağlı) Adım 8: Yerel Ayar Değiştiğinde URL'yi Değiştirin
+</Step>
+
+<Step number={8} title="Yerel Ayar Değiştiğinde URL'yi Değiştirin" isOptional={true}>
 
 Yerel ayar değiştiğinde URL'yi değiştirmek için, `useLocale` hook'u tarafından sağlanan `onLocaleChange` prop'unu kullanabilirsiniz. Paralel olarak, URL yolunu güncellemek için `react-router-dom`'dan `useLocation` ve `useNavigate` hook'larını kullanabilirsiniz.
 
@@ -462,7 +478,9 @@ const LocaleSwitcher: FC = () => {
 > - [`dir` özniteliği](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir)
 > - [`aria-current` özniteliği](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)
 
-### (İsteğe Bağlı) Adım 9: HTML Dil ve Yön Özniteliklerini Değiştirin
+</Step>
+
+<Step number={9} title="HTML Dil ve Yön Özniteliklerini Değiştirin" isOptional={true}>
 
 Uygulamanız birden fazla dili desteklediğinde, `<html>` etiketinin `lang` ve `dir` özniteliklerini geçerli yerel ayarla eşleşecek şekilde güncellemek çok önemlidir.
 
@@ -578,3 +596,7 @@ Uzantının nasıl kullanılacağı hakkında daha fazla detay için [Intlayer V
 ### Daha Fazla Gidin
 
 Daha fazla gitmek için [görsel düzenleyiciyi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) uygulayabilir veya içeriğinizi [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) kullanarak harici hale getirebilirsiniz.
+
+</Step>
+
+</Steps>

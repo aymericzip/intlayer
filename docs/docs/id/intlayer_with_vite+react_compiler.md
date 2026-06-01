@@ -92,7 +92,9 @@ Untuk mengurangi dampak ini selama pengembangan, Anda dapat mengonfigurasi kompi
 
 ## Panduan Langkah-demi-Langkah untuk Menyiapkan Intlayer dalam Aplikasi Vite dan React
 
-### Langkah 1: Instal Dependensi
+<Steps>
+
+<Step number={1} title="Instal Dependensi">
 
 Instal paket-paket yang diperlukan menggunakan npm:
 
@@ -129,7 +131,9 @@ bun x intlayer init
 - **vite-intlayer**
   Termasuk plugin Vite untuk mengintegrasikan Intlayer dengan [Vite bundler](https://vite.dev/guide/why.html#why-bundle-for-production), serta middleware untuk mendeteksi lokal pilihan pengguna, mengelola cookie, dan menangani pengalihan URL.
 
-### Langkah 2: Konfigurasi Proyek Anda
+</Step>
+
+<Step number={2} title="Konfigurasi Proyek Anda">
 
 Buat file konfigurasi untuk mengatur bahasa aplikasi Anda:
 
@@ -183,7 +187,9 @@ export default config;
 
 > Melalui file konfigurasi ini, Anda dapat mengatur URL yang dilokalkan, pengalihan middleware, nama cookie, lokasi dan ekstensi deklarasi konten Anda, menonaktifkan log Intlayer di konsol, dan banyak lagi. Untuk daftar lengkap parameter yang tersedia, lihat [dokumentasi konfigurasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md).
 
-### Langkah 3: Integrasikan Intlayer dalam Konfigurasi Vite Anda
+</Step>
+
+<Step number={3} title="Integrasikan Intlayer dalam Konfigurasi Vite Anda">
 
 Tambahkan plugin intlayer ke dalam konfigurasi Anda.
 
@@ -202,7 +208,9 @@ export default defineConfig({
 
 > Plugin Vite `intlayerCompiler()` digunakan untuk mengekstrak konten dari komponen dan menulis file `.content`.
 
-### Langkah 4: Kompilasi kode Anda
+</Step>
+
+<Step number={4} title="Kompilasi kode Anda">
 
 Cukup tulis komponen Anda dengan string yang dikodekan secara keras dalam lokal default Anda. Kompilator menangani sisanya.
 
@@ -341,7 +349,9 @@ export default App;
 
 - **`IntlayerProvider`** digunakan untuk menyediakan lokal ke komponen bersarang.
 
-### (Opsional) Langkah 6: Ubah bahasa konten Anda
+</Step>
+
+<Step number={6} title="Ubah bahasa konten Anda" isOptional={true}>
 
 Untuk mengubah bahasa konten Anda, Anda dapat menggunakan fungsi `setLocale` yang disediakan oleh hook `useLocale`. Fungsi ini memungkinkan Anda untuk mengatur lokal aplikasi dan memperbarui konten yang sesuai.
 
@@ -363,7 +373,9 @@ const LocaleSwitcher: FC = () => {
 
 > Untuk mempelajari lebih lanjut tentang hook `useLocale`, lihat [dokumentasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useLocale.md).
 
-### (Opsional) Langkah 7: Isi terjemahan yang hilang
+</Step>
+
+<Step number={7} title="Isi terjemahan yang hilang" isOptional={true}>
 
 Intlayer menyediakan alat CLI untuk membantu Anda mengisi terjemahan yang hilang. Anda dapat menggunakan perintah `intlayer` untuk menguji dan mengisi terjemahan yang hilang dari kode Anda.
 
@@ -504,3 +516,7 @@ Untuk detail lebih lanjut tentang cara menggunakan ekstensi, lihat [dokumentasi 
 ### Melangkah Lebih Jauh
 
 Untuk melangkah lebih jauh, Anda dapat mengimplementasikan [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) atau mengeksternalisasi konten Anda menggunakan [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md).
+
+</Step>
+
+</Steps>

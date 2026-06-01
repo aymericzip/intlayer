@@ -92,7 +92,9 @@ history:
 
 ## دليل خطوة بخطوة لإعداد Intlayer في تطبيق Vite و React
 
-### الخطوة 1: تثبيت التبعيات
+<Steps>
+
+<Step number={1} title="تثبيت التبعيات">
 
 ثبّت الحزم اللازمة باستخدام npm:
 
@@ -129,7 +131,9 @@ bun x intlayer init
 - **vite-intlayer**
   تتضمن مكون Vite الإضافي لدمج Intlayer مع [حزمة Vite](https://vite.dev/guide/why.html#why-bundle-for-production)، بالإضافة إلى وسيط (middleware) لاكتشاف اللغة المفضلة للمستخدم، وإدارة ملفات تعريف الارتباط، ومعالجة إعادة توجيه URL.
 
-### الخطوة 2: تكوين مشروعك
+</Step>
+
+<Step number={2} title="تكوين مشروعك">
 
 أنشئ ملف تكوين لتحديد لغات تطبيقك:
 
@@ -183,7 +187,9 @@ export default config;
 
 > من خلال ملف التكوين هذا، يمكنك إعداد عناوين URL المترجمة، وإعادة توجيه الوسيط، وأسماء ملفات تعريف الارتباط، وموقع وامتداد إعلانات المحتوى الخاصة بك، وتعطيل سجلات Intlayer في وحدة التحكم، والمزيد. للحصول على قائمة كاملة بالمعلمات المتاحة، ارجع إلى [وثائق التكوين](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md).
 
-### الخطوة 3: دمج Intlayer في تكوين Vite الخاص بك
+</Step>
+
+<Step number={3} title="دمج Intlayer في تكوين Vite الخاص بك">
 
 أضف مكون intlayer الإضافي إلى التكوين الخاص بك.
 
@@ -202,7 +208,9 @@ export default defineConfig({
 
 > يُستخدم مكون `intlayerCompiler()` الإضافي لـ Vite لاستخراج المحتوى من المكون وكتابة ملفات `.content`.
 
-### الخطوة 4: ترجمة الكود الخاص بك
+</Step>
+
+<Step number={4} title="ترجمة الكود الخاص بك">
 
 فقط اكتب مكوناتك بسلاسل نصية ثابتة بلغتك الافتراضية. يتولى المترجم الباقي.
 
@@ -341,7 +349,9 @@ export default App;
 
 - يُستخدم **`IntlayerProvider`** لتوفير اللغة للمكونات المتداخلة.
 
-### (اختياري) الخطوة 6: تغيير لغة المحتوى الخاص بك
+</Step>
+
+<Step number={6} title="تغيير لغة المحتوى الخاص بك" isOptional={true}>
 
 لتغيير لغة المحتوى الخاص بك، يمكنك استخدام وظيفة `setLocale` التي يوفرها خطاف `useLocale`. تسمح لك هذه الوظيفة بضبط لغة التطبيق وتحديث المحتوى وفقًا لذلك.
 
@@ -363,7 +373,9 @@ const LocaleSwitcher: FC = () => {
 
 > لمعرفة المزيد حول خطاف `useLocale` ، راجع [الوثائق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/react-intlayer/useLocale.md).
 
-### (اختياري) المرحلة 7: ملء الترجمات المفقودة
+</Step>
+
+<Step number={7} title="ملء الترجمات المفقودة" isOptional={true}>
 
 يوفر Intlayer أداة CLI لمساعدتك في ملء الترجمات المفقودة. يمكنك استخدام الأمر `intlayer` لاختبار وملء الترجمات المفقودة من التعليمات البرمجية الخاصة بك.
 
@@ -504,3 +516,7 @@ console.log("SEO files generated successfully.");
 ### اذهب أبعد من ذلك
 
 للمضي قدمًا، يمكنك تنفيذ [المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) أو جعل محتواك خارجيًا باستخدام [نظام إدارة المحتوى (CMS)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md).
+
+</Step>
+
+</Steps>

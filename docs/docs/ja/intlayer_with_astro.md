@@ -98,7 +98,9 @@ Intlayer は単なる i18n ソリューションではなく、**自己ホスト
 
 GitHubで[アプリケーションテンプレート](https://github.com/aymericzip/intlayer-astro-template)を表示。
 
-### ステップ1: 依存関係のインストール
+<Steps>
+
+<Step number={1} title="依存関係のインストール">
 
 お好みのパッケージマネージャーを使用して、必要なパッケージをインストールします：
 
@@ -126,7 +128,9 @@ yarn add react react-dom react-intlayer @astrojs/react
 - **astro-intlayer**
   Intlayerを[Viteバンドラー](https://vite.dev/guide/why.html#why-bundle-for-production)と統合するためのAstro統合プラグイン、およびユーザーの優先ロケールの検出、クッキーの管理、URLリダイレクトの処理を行うミドルウェアが含まれています。
 
-### ステップ2: プロジェクトの設定
+</Step>
+
+<Step number={2} title="プロジェクトの設定">
 
 アプリケーションの言語を設定するための設定ファイルを作成します：
 
@@ -150,7 +154,9 @@ export default config;
 
 > この設定ファイルを使用して、ローカライズされたURL、ミドルウェアのリダイレクト、クッキー名、コンテンツ宣言の場所と拡張子、コンソールでのIntlayerログの無効化などを設定できます。利用可能なパラメータの全リストについては、[設定ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)を参照してください。
 
-### ステップ3: Astro設定へのIntlayerの統合
+</Step>
+
+<Step number={3} title="Astro設定へのIntlayerの統合">
 
 Astroの設定にintlayerプラグインを追加します。
 
@@ -168,7 +174,9 @@ export default defineConfig({
 
 > Astro統合プラグイン `intlayer()` は、IntlayerをAstroと統合するために使用されます。コンテンツ宣言ファイルの構築を確実にし、開発モードで監視します。Astroアプリケーション内でIntlayerの環境変数を定義し、パフォーマンス最適化のためのエイリアスを提供します。
 
-### ステップ4: コンテンツの宣言
+</Step>
+
+<Step number={4} title="コンテンツの宣言">
 
 翻訳を保存するためのコンテンツ宣言を作成・管理します：
 
@@ -195,7 +203,9 @@ export default appContent;
 
 > 詳細については、[コンテンツ宣言のドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/content_file.md)を参照してください。
 
-### ステップ5: Astroでのコンテンツの使用
+</Step>
+
+<Step number={5} title="Astroでのコンテンツの使用">
 
 `intlayer`からエクスポートされたコアヘルパーを使用して、`.astro`ファイル内で直接辞書を消費できます。
 
@@ -268,7 +278,9 @@ const { title } = getIntlayer("app", locale);
 </html>
 ```
 
-### ステップ6: ローカライズされたルーティング
+</Step>
+
+<Step number={6} title="ローカライズされたルーティング">
 
 ローカライズされたページを提供するための動的なルートセグメントを作成します（例：`src/pages/[locale]/index.astro`）：
 
@@ -285,7 +297,9 @@ const { title } = getIntlayer('app');
 
 Astro統合により、開発中に言語認識ルーティングや環境定義を支援するViteミドルウェアが追加されます。独自のロジックや `intlayer` の `getLocalizedUrl` などのユーティリティを使用して、言語間のリンクを作成することもできます。
 
-### ステップ7: お好みのフレームワークの使用を続ける
+</Step>
+
+<Step number={7} title="お好みのフレームワークの使用を続ける">
 
 お好みのフレームワークを使用してアプリケーションを構築し続けましょう。
 
@@ -343,7 +357,9 @@ Intlayerを使用した開発体験を向上させるために、**公式のIntl
 
 ---
 
-### (Optional) Step 15: Extract the content of your components
+</Step>
+
+<Step number={15} title="Extract the content of your components" isOptional={true}>
 
 If you have an existing codebase, transforming thousands of files can be time-consuming.
 
@@ -448,3 +464,7 @@ bun run build # Or bun run dev
 ### さらに詳しく
 
 さらに詳しく知りたい場合は、[ビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)を実装したり、[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)を使用してコンテンツを外部化したりすることもできます。
+
+</Step>
+
+</Steps>

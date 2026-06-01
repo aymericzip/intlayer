@@ -155,7 +155,7 @@ export const ReviewerProfileCard: FC<ReviewerProfileCardProps> = ({
           <img
             src={profile.coverPicture}
             alt={content.cover.value}
-            className="aspect-16/5 h-full w-full object-cover"
+            className="aspect-16/5 size-full object-cover"
           />
         )}
         {/* Main picture — aspect-video service preview (md/lg only) */}
@@ -178,7 +178,7 @@ export const ReviewerProfileCard: FC<ReviewerProfileCardProps> = ({
                 <img
                   src={profile.mainPicture}
                   alt={content.service.value}
-                  className="h-full w-full max-w-228 object-cover"
+                  className="size-full max-w-228 object-cover"
                 />
               </Container>
             </button>
@@ -207,11 +207,11 @@ export const ReviewerProfileCard: FC<ReviewerProfileCardProps> = ({
             <img
               src={displayAvatar}
               alt={displayName ?? content.reviewer.value}
-              className="h-full w-full object-cover"
+              className="size-full object-cover"
             />
           ) : (
             <div
-              className={`flex h-full w-full items-center justify-center bg-neutral/10 font-semibold ${sc.avatarFontSize} text-neutral uppercase`}
+              className={`flex size-full items-center justify-center bg-neutral/10 font-semibold ${sc.avatarFontSize} text-neutral uppercase`}
             >
               {displayName?.[0] ?? '?'}
             </div>

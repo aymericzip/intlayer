@@ -59,7 +59,9 @@ Storybook is de industriestandaard tool voor het in isolatie ontwikkelen en docu
 <Tabs>
 <Tab value="Vite Setup">
 
-### Stap 1: Afhankelijkheden installeren
+<Steps>
+
+<Step number={1} title="Afhankelijkheden installeren">
 
 ```bash packageManager="npm"
 npm install intlayer react-intlayer
@@ -89,7 +91,9 @@ bun add vite-intlayer --dev
 
 ---
 
-### Stap 2: Een Intlayer-configuratie aanmaken
+</Step>
+
+<Step number={2} title="Een Intlayer-configuratie aanmaken">
 
 Maak `intlayer.config.ts` aan in de root van uw project (of in uw design-system pakket):
 
@@ -118,7 +122,9 @@ export default config;
 
 ---
 
-### Stap 3: De Vite-plugin toevoegen aan Storybook
+</Step>
+
+<Step number={3} title="De Vite-plugin toevoegen aan Storybook">
 
 Met de `viteFinal` hook van Storybook kunt u de interne Vite-configuratie uitbreiden. Importeer en voeg de `intlayer()` plugin daar toe:
 
@@ -159,7 +165,9 @@ De `intlayer()` plugin bewaakt uw `*.content.ts` bestanden and bouwt automatisch
 
 ---
 
-### Stap 4: De `IntlayerProvider` decorator en een locale-werkbalk toevoegen
+</Step>
+
+<Step number={4} title="De `IntlayerProvider` decorator en een locale-werkbalk toevoegen">
 
 Het `preview` bestand van Storybook is de juiste plek om elke story te omhullen met de `IntlayerProvider` en een taalschakelaar in de werkbalk te tonen:
 
@@ -216,7 +224,9 @@ export default preview;
 </Tab>
 <Tab value="Webpack Setup">
 
-### Stap 1: Afhankelijkheden installeren
+</Step>
+
+<Step number={1} title="Afhankelijkheden installeren">
 
 ```bash packageManager="npm"
 npm install intlayer react-intlayer
@@ -240,7 +250,9 @@ bun add @intlayer/webpack --dev
 
 ---
 
-### Stap 2: Een Intlayer-configuratie aanmaken
+</Step>
+
+<Step number={2} title="Een Intlayer-configuratie aanmaken">
 
 Maak `intlayer.config.ts` aan in de root van uw project:
 
@@ -262,7 +274,9 @@ export default config;
 
 ---
 
-### Stap 3: Webpack van Storybook configureren
+</Step>
+
+<Step number={3} title="Webpack van Storybook configureren">
 
 Breid voor op Webpack gebaseerde Storybook-instellingen (bijv. `@storybook/react-webpack5`) de webpack-configuratie uit via `webpackFinal` om de Intlayer-aliassen en loader toe te voegen:
 
@@ -289,7 +303,9 @@ export default config;
 
 ---
 
-### Stap 4: De `IntlayerProvider` decorator en een locale-werkbalk toevoegen
+</Step>
+
+<Step number={4} title="De `IntlayerProvider` decorator en een locale-werkbalk toevoegen">
 
 Hetzelfde als de Vite-instelling - voeg de decorator en het globale locale-type toe in `.storybook/preview.tsx`:
 
@@ -334,6 +350,10 @@ export default preview;
 </Tabs>
 
 ---
+
+</Step>
+
+</Steps>
 
 ## Inhoud declareren
 

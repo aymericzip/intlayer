@@ -72,7 +72,9 @@ Met Intlayer kun je:
 
 ## Stap-voor-stap handleiding om Intlayer in te stellen in een Vite- en Lit-applicatie
 
-### Stap 1: Afhankelijkheden installeren
+<Steps>
+
+<Step number={1} title="Afhankelijkheden installeren">
 
 Installeer de benodigde pakketten met npm:
 
@@ -110,7 +112,9 @@ bun x intlayer init
 - **vite-intlayer**
   Bevat de Vite-plugin voor het integreren van Intlayer met de [Vite-bundler](https://vite.dev/guide/why.html#why-bundle-for-production), evenals middleware voor het detecteren van de voorkeurstaal van de gebruiker, het beheren van cookies en het afhandelen van URL-omleidingen.
 
-### Stap 2: Configuratie van je project
+</Step>
+
+<Step number={2} title="Configuratie van je project">
 
 Maak een configuratiebestand om de talen van je applicatie te configureren:
 
@@ -134,7 +138,9 @@ export default config;
 
 > Via dit configuratiebestand kun je gelokaliseerde URL's, middleware-omleidingen, cookienamen, de locatie en extensie van je inhoudsdeclaraties instellen, Intlayer-logs in de console uitschakelen, en meer. Raadpleeg de [configuratiedocumentatie](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/configuration.md) voor een volledige lijst van beschikbare parameters.
 
-### Stap 3: Intlayer integreren in je Vite-configuratie
+</Step>
+
+<Step number={3} title="Intlayer integreren in je Vite-configuratie">
 
 Voeg de intlayer-plugin toe aan je configuratie.
 
@@ -150,7 +156,9 @@ export default defineConfig({
 
 > De `intlayer()` Vite-plugin wordt gebruikt om Intlayer met Vite te integreren. Het zorgt voor het bouwen van inhoudsdeclaratiebestanden en bewaakt deze in de ontwikkelmodus. Het definieert Intlayer-omgevingsvariabelen binnen de Vite-applicatie. Bovendien biedt het aliassen om de prestaties te optimaliseren.
 
-### Stap 4: Bootstrap Intlayer in je toegangspunt
+</Step>
+
+<Step number={4} title="Bootstrap Intlayer in je toegangspunt">
 
 Roep `installIntlayer()` aan **vóórdat** er aangepaste elementen worden geregistreerd, zodat de globale locale singleton gereed is wanneer het eerste element verbinding maakt.
 
@@ -175,7 +183,9 @@ installIntlayerMarkdown();
 import "./my-element.js";
 ```
 
-### Stap 5: Declareer je inhoud
+</Step>
+
+<Step number={5} title="Declareer je inhoud">
 
 Maak en beheer je inhoudsdeclaraties om vertalingen op te slaan:
 
@@ -261,7 +271,9 @@ export default appContent;
 >
 > Raadpleeg de [inhoudsdeclaratiedocumentatie](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/dictionary/content_file.md) voor meer details.
 
-### Stap 6: Gebruik Intlayer in je LitElement
+</Step>
+
+<Step number={6} title="Gebruik Intlayer in je LitElement">
 
 Gebruik `useIntlayer` binnen een `LitElement`. Het retourneert een `ReactiveController`-proxy die automatisch herrenders activeert wanneer de actieve taal verandert - er is geen extra configuratie vereist.
 
@@ -306,7 +318,9 @@ export class MyElement extends LitElement {
 > html`<img alt=${String(content.viteLogo)} />`;
 > ```
 
-### (Optioneel) Stap 7: De taal van je inhoud wijzigen
+</Step>
+
+<Step number={7} title="De taal van je inhoud wijzigen" isOptional={true}>
 
 Gebruik de `setLocale`-methode van de `useLocale`-controller om de taal van je inhoud te wijzigen.
 
@@ -341,7 +355,9 @@ export class LocaleSwitcher extends LitElement {
 }
 ```
 
-### (Optioneel) Stap 8: Markdown- en HTML-inhoud renderen
+</Step>
+
+<Step number={8} title="Markdown- en HTML-inhoud renderen" isOptional={true}>
 
 Intlayer ondersteunt `md()` en `html()` inhoudsdeclaraties. In Lit wordt de gecompileerde output geïnjecteerd als ruwe HTML via de `unsafeHTML`-richtlijn.
 
@@ -391,7 +407,9 @@ export class MyElement extends LitElement {
 > [!TIP]
 > `String(content.editNote)` roept `toString()` aan op de `IntlayerNode`, wat de ruwe Markdown-string retourneert. Geef deze door aan `compileMarkdown` om een HTML-string te krijgen, en render deze vervolgens met de `unsafeHTML`-richtlijn van Lit.
 
-### (Optioneel) Stap 9: Gelokaliseerde routing toevoegen aan je applicatie
+</Step>
+
+<Step number={9} title="Gelokaliseerde routing toevoegen aan je applicatie" isOptional={true}>
 
 Om unieke routes voor elke taal te maken (nuttig voor SEO), kun je een client-side router gebruiken samen met Intlayer's `localeMap` / `localeFlatMap` helpers, en de `intlayerProxy` Vite-plugin voor taaldetectie aan de serverzijde.
 
@@ -408,7 +426,9 @@ export default defineConfig({
 });
 ```
 
-### (Optioneel) Stap 10: De URL wijzigen wanneer de taal verandert
+</Step>
+
+<Step number={10} title="De URL wijzigen wanneer de taal verandert" isOptional={true}>
 
 Gebruik `useRewriteURL` samen met de taalschakelaar om de browser-URL bij te werken wanneer de taal verandert:
 
@@ -446,7 +466,9 @@ export class LocaleSwitcher extends LitElement {
 }
 ```
 
-### (Optioneel) Stap 11: De HTML taal- en richtingsattributen omschakelen
+</Step>
+
+<Step number={11} title="De HTML taal- en richtingsattributen omschakelen" isOptional={true}>
 
 Werk de `lang`- en `dir`-attributen van de `<html>`-tag bij zodat deze overeenkomen met de huidige taal voor toegankelijkheid en SEO.
 
@@ -471,7 +493,9 @@ export class MyElement extends LitElement {
 }
 ```
 
-### (Optioneel) Stap 12: De inhoud van je componenten extraheren
+</Step>
+
+<Step number={12} title="De inhoud van je componenten extraheren" isOptional={true}>
 
 Als je een bestaande codebase hebt, kan het transformeren van duizenden bestanden tijdrovend zijn.
 
@@ -633,3 +657,7 @@ Raadpleeg de [documentatie van de Intlayer VS Code-extensie](https://intlayer.or
 ### Verder gaan
 
 Om verder te gaan, kun je de [visuele editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/intlayer_visual_editor.md) implementeren of je inhoud externaliseren met behulp van het [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/intlayer_CMS.md).
+
+</Step>
+
+</Steps>

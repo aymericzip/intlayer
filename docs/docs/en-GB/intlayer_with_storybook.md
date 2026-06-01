@@ -35,33 +35,43 @@ history:
 
 Compared to main solutions like `storybook-react-i18next` or `i18next`, Intlayer is a solution that comes with integrated optimizations such as:
 
-**Full Storybook coverage**
+<AccordionGroup>
+<Accordion header="Full Storybook coverage">
 
 Intlayer is optimized to work perfectly with Storybook by offering **multilingual story decorators**, **locale switching**, and all the features needed for scaling internationalization (i18n) across your design system.
 
-**Bundle size**
+</Accordion>
+<Accordion header="Bundle size">
 
 Instead of loading massive JSON files into your pages, load only the necessary content. Intlayer helps **reduce your bundle and page sizes by up to 50%**.
 
-**Maintainability**
+</Accordion>
+<Accordion header="Maintainability">
 
 Scoping your application's content **facilitates maintenance** for large-scale applications. You can duplicate or delete a single feature folder without the mental burden of reviewing your entire content codebase. Additionally, Intlayer is **fully typed** to ensure your content's accuracy.
 
-**AI Agent**
+</Accordion>
+<Accordion header="AI Agent">
 
 Co-locating content **reduces the context needed** by Large Language Models (LLMs). Intlayer also comes with a suite of tools, such as a **CLI** to test for missing translations,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)**, and **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, to make the developer experience (DX) even smoother for AI agents.
 
-**Automation**
+</Accordion>
+<Accordion header="Automation">
 
 Use automation to translate in your CI/CD pipeline using the LLM of your choice at the cost of your AI provider. Intlayer also offers a **compiler** to automate content extraction, as well as a [web platform](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) to help **translate in the background**.
 
-**Performance**
+</Accordion>
+<Accordion header="Performance">
 
 Connecting massive JSON files to components can lead to performance and reactivity issues. Intlayer optimizes your content loading at build time.
 
-**Scaling with none-dev**
+</Accordion>
+<Accordion header="Scaling with none-dev">
 
 More than just an i18n solution, Intlayer provides an **self-hosted [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** and a **[full CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** to help you manage your multilingual content in **real-time**, making collaboration with translators, copywriters, and other team members seamless. Content can be stored locally and/or remotely.
+
+</Accordion>
+</AccordionGroup>
 
 ---
 
@@ -80,7 +90,9 @@ Storybook is the industry-standard tool for developing and documenting UI compon
 <Tabs>
 <Tab value="Vite Setup">
 
-### Step 1: Install Dependencies
+<Steps>
+
+<Step number={1} title="Install Dependencies">
 
 ```bash packageManager="npm"
 npm install intlayer react-intlayer
@@ -110,7 +122,9 @@ bun add vite-intlayer --dev
 
 ---
 
-### Step 2: Create an Intlayer Configuration
+</Step>
+
+<Step number={2} title="Create an Intlayer Configuration">
 
 Create `intlayer.config.ts` at the root of your project (or inside your design-system package):
 
@@ -139,7 +153,9 @@ export default config;
 
 ---
 
-### Step 3: Add the Vite Plugin to Storybook
+</Step>
+
+<Step number={3} title="Add the Vite Plugin to Storybook">
 
 Storybook's `viteFinal` hook lets you extend the internal Vite config. Import and add the `intlayer()` plugin there:
 
@@ -180,7 +196,9 @@ The `intlayer()` plugin watches your `*.content.ts` files and rebuilds dictionar
 
 ---
 
-### Step 4: Add the `IntlayerProvider` Decorator and a Locale Toolbar
+</Step>
+
+<Step number={4} title="Add the `IntlayerProvider` Decorator and a Locale Toolbar">
 
 Storybook's `preview` file is the right place to wrap every story with the `IntlayerProvider` and expose a locale switcher in the toolbar:
 
@@ -237,7 +255,9 @@ export default preview;
 </Tab>
 <Tab value="Webpack Setup">
 
-### Step 1: Install Dependencies
+</Step>
+
+<Step number={1} title="Install Dependencies">
 
 ```bash packageManager="npm"
 npm install intlayer react-intlayer
@@ -261,7 +281,9 @@ bun add @intlayer/webpack --dev
 
 ---
 
-### Step 2: Create an Intlayer Configuration
+</Step>
+
+<Step number={2} title="Create an Intlayer Configuration">
 
 Create `intlayer.config.ts` at the root of your project:
 
@@ -283,7 +305,9 @@ export default config;
 
 ---
 
-### Step 3: Configure Storybook's Webpack
+</Step>
+
+<Step number={3} title="Configure Storybook's Webpack">
 
 For Webpack-based Storybook setups (e.g. `@storybook/react-webpack5`), extend the webpack config via `webpackFinal` to add the Intlayer aliases and loader:
 
@@ -310,7 +334,9 @@ export default config;
 
 ---
 
-### Step 4: Add the `IntlayerProvider` Decorator and a Locale Toolbar
+</Step>
+
+<Step number={4} title="Add the `IntlayerProvider` Decorator and a Locale Toolbar">
 
 Same as the Vite setup - add the decorator and global locale type in `.storybook/preview.tsx`:
 
@@ -355,6 +381,10 @@ export default preview;
 </Tabs>
 
 ---
+
+</Step>
+
+</Steps>
 
 ## Declaring Content
 

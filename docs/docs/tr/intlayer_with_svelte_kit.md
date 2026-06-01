@@ -63,33 +63,43 @@ history:
 
 "svelte-i18n" veya "i18next" gibi ana çözümlerle karşılaştırıldığında Intlayer, aşağıdaki gibi entegre optimizasyonlarla gelen bir çözümdür:
 
-**Tam SvelteKit kapsamı**
+<AccordionGroup>
+<Accordion header="Tam SvelteKit kapsamı">
 
 Intlayer, **çok dilli yönlendirme**, **SSR desteği** ve uluslararasılaştırmayı (i18n) ölçeklendirmek için gereken tüm özellikleri sunarak SvelteKit ile mükemmel çalışacak şekilde optimize edilmiştir.
 
-**Bundle boyutu**
+</Accordion>
+<Accordion header="Bundle boyutu">
 
 Sayfalarınıza çok büyük JSON dosyaları yüklemek yerine yalnızca gerekli içeriği yükleyin. Intlayer **bundle ve sayfa boyutlarınızı %50'ye kadar azaltmanıza** yardımcı olur.
 
-**Sürdürülebilirlik**
+</Accordion>
+<Accordion header="Sürdürülebilirlik">
 
 Uygulamanızın içeriğinin kapsamını belirlemek, büyük ölçekli uygulamalar için **bakımı kolaylaştırır**. İçerik kod tabanınızın tamamını gözden geçirmenin zihinsel yükü olmadan, tek bir özellik klasörünü çoğaltabilir veya silebilirsiniz. Ayrıca Intlayer, içeriğinizin doğruluğunu sağlamak için **tamamen tiplendirilmiş (fully typed)tır**.
 
-**Yapay Zeka Temsilcisi**
+</Accordion>
+<Accordion header="Yapay Zeka Temsilcisi">
 
 İçeriğin bir arada konumlandırılması **Büyük Dil Modellerinin (LLM'ler) ihtiyaç duyduğu bağlamı azaltır**. Intlayer ayrıca eksik çevirileri test etmek için **CLI** gibi bir araç paketiyle birlikte gelir**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** ve **[aracı becerileri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, geliştirici deneyimini (DX) yapay zeka için daha da sorunsuz hale getirmek için ajanlar.
 
-**Otomasyon**
+</Accordion>
+<Accordion header="Otomasyon">
 
 Maliyeti AI sağlayıcınıza ait olmak üzere seçtiğiniz LLM'yi kullanarak CI/CD işlem hattınızda çeviri yapmak için otomasyonu kullanın. Intlayer ayrıca içerik çıkarmayı otomatikleştirmek için bir **derleyici** ve **arka planda çeviri yapmaya** yardımcı olacak bir [web platformu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) sunar.
 
-**Performans**
+</Accordion>
+<Accordion header="Performans">
 
 Büyük JSON dosyalarını bileşenlere bağlamak performans ve tepkime sorunlarına yol açabilir. Intlayer, içerik yüklemenizi derleme sırasında optimize eder.
 
-**Non-dev ile ölçeklendirme**
+</Accordion>
+<Accordion header="Non-dev ile ölçeklendirme">
 
 Bir i18n çözümünden çok daha fazlası olan Intlayer, **kendi kendine barındırılan bir [görsel düzenleyici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** ve **[tam CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** çok dilli içeriğinizi **gerçek zamanlı** olarak yönetmenize yardımcı olarak çevirmenler, metin yazarları ve diğer ekip üyeleriyle işbirliğini kusursuz hale getirir. İçerik yerel olarak ve/veya uzaktan depolanabilir.
+
+</Accordion>
+</AccordionGroup>
 
 ---
 
@@ -137,7 +147,9 @@ Başlamak için yeni bir SvelteKit projesi oluşturun. İşte oluşturacağımı
 └── vite.config.ts
 ```
 
-### Adım 1: Bağımlılıkları Yükleyin
+<Steps>
+
+<Step number={1} title="Bağımlılıkları Yükleyin">
 
 Gerekli paketleri npm kullanarak yükleyin:
 
@@ -169,7 +181,9 @@ bun x intlayer init
 - **svelte-intlayer**: Svelte/SvelteKit için context sağlayıcıları ve store'lar sunar.
 - **vite-intlayer**: İçerik bildirimlerini build süreciyle entegre eden Vite eklentisi.
 
-### Adım 2: Projenizin Yapılandırması
+</Step>
+
+<Step number={2} title="Projenizin Yapılandırması">
 
 Proje kök dizininizde bir yapılandırma dosyası oluşturun:
 
@@ -186,7 +200,9 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-### Adım 3: Intlayer'ı Vite Konfigürasyonunuza Entegre Edin
+</Step>
+
+<Step number={3} title="Intlayer'ı Vite Konfigürasyonunuza Entegre Edin">
 
 `vite.config.ts` dosyanızı, Intlayer eklentisini içerecek şekilde güncelleyin. Bu eklenti, içerik dosyalarınızın transpile edilmesini yönetir.
 
@@ -200,7 +216,9 @@ export default defineConfig({
 });
 ```
 
-### Adım 4: İçeriğinizi Bildirin
+</Step>
+
+<Step number={4} title="İçeriğinizi Bildirin">
 
 `src` klasörünüzde istediğiniz herhangi bir yerde içerik bildirim dosyalarınızı oluşturun (örneğin, `src/lib/content` veya bileşenlerinizin yanında). Bu dosyalar, uygulamanız için çevrilebilir içeriği her locale için `t()` fonksiyonunu kullanarak tanımlar.
 
@@ -221,7 +239,9 @@ const heroContent = {
 export default heroContent;
 ```
 
-### Adım 5: Bileşenlerinizde Intlayer'ı Kullanın
+</Step>
+
+<Step number={5} title="Bileşenlerinizde Intlayer'ı Kullanın">
 
 Artık `useIntlayer` fonksiyonunu herhangi bir Svelte bileşeninde kullanabilirsiniz. Bu fonksiyon, locale değiştiğinde otomatik olarak güncellenen reaktif bir store döner. Fonksiyon, mevcut locale'yi otomatik olarak dikkate alır (hem SSR sırasında hem de istemci tarafı gezinmede).
 
@@ -251,6 +271,10 @@ Artık `useIntlayer` fonksiyonunu herhangi bir Svelte bileşeninde kullanabilirs
 ---
 
 # Intlayer kullanarak SvelteKit web sitenizi çevirin | Uluslararasılaştırma (i18n)
+
+</Step>
+
+</Steps>
 
 ## İçindekiler
 
@@ -313,7 +337,9 @@ Başlamak için yeni bir SvelteKit projesi oluşturun. İşte oluşturacağımı
 └── vite.config.ts
 ```
 
-### Adım 1: Bağımlılıkları Yükleyin
+<Steps>
+
+<Step number={1} title="Bağımlılıkları Yükleyin">
 
 Gerekli paketleri npm kullanarak yükleyin:
 
@@ -345,7 +371,9 @@ bun x intlayer init
 - **svelte-intlayer**: Svelte/SvelteKit için context sağlayıcıları ve store'lar sunar.
 - **vite-intlayer**: İçerik bildirimlerini build süreciyle entegre eden Vite eklentisi.
 
-### Adım 2: Projenizin Yapılandırması
+</Step>
+
+<Step number={2} title="Projenizin Yapılandırması">
 
 Proje kök dizininizde bir yapılandırma dosyası oluşturun:
 
@@ -362,7 +390,9 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-### Adım 3: Intlayer'ı Vite Konfigürasyonunuza Entegre Edin
+</Step>
+
+<Step number={3} title="Intlayer'ı Vite Konfigürasyonunuza Entegre Edin">
 
 `vite.config.ts` dosyanızı, Intlayer eklentisini içerecek şekilde güncelleyin. Bu eklenti, içerik dosyalarınızın transpile edilmesini yönetir.
 
@@ -376,7 +406,9 @@ export default defineConfig({
 });
 ```
 
-### Adım 4: İçeriğinizi Bildirin
+</Step>
+
+<Step number={4} title="İçeriğinizi Bildirin">
 
 `src` klasörünüzde istediğiniz herhangi bir yerde içerik bildirim dosyalarınızı oluşturun (örneğin, `src/lib/content` veya bileşenlerinizin yanında). Bu dosyalar, uygulamanız için çevrilebilir içeriği her locale için `t()` fonksiyonunu kullanarak tanımlar.
 
@@ -397,7 +429,9 @@ const heroContent = {
 export default heroContent;
 ```
 
-### Adım 5: Bileşenlerinizde Intlayer'ı Kullanın
+</Step>
+
+<Step number={5} title="Bileşenlerinizde Intlayer'ı Kullanın">
 
 ön ekini kullanmanız gerekir (örneğin, `$content.title`).
 
@@ -419,7 +453,9 @@ export default heroContent;
 <div aria-label={String($content.title)}></div>
 ```
 
-### (İsteğe bağlı) Adım 6: Yönlendirmeyi ayarlama
+</Step>
+
+<Step number={6} title="Yönlendirmeyi ayarlama" isOptional={true}>
 
 Aşağıdaki adımlar, SvelteKit'te locale tabanlı yönlendirmeyi nasıl ayarlayacağınızı gösterir. Bu, URL'lerinizin locale önekini içermesine olanak tanır (örneğin, `/en/about`, `/fr/about`) ve böylece SEO ve kullanıcı deneyimini iyileştirir.
 
@@ -444,7 +480,9 @@ Aşağıdaki adımlar, SvelteKit'te locale tabanlı yönlendirmeyi nasıl ayarla
         └── +layout.svelte         # Yazı tipleri ve genel stiller için kök düzen
 ```
 
-### Adım 7: Sunucu Tarafı Dil Algılama (Hooks) İşlemi
+</Step>
+
+<Step number={7} title="Sunucu Tarafı Dil Algılama (Hooks) İşlemi">
 
 SvelteKit'te, SSR sırasında doğru içeriği render etmek için sunucunun kullanıcının dilini bilmesi gerekir. URL veya çerezlerden dili algılamak için `hooks.server.ts` kullanılır.
 
@@ -656,7 +694,9 @@ export const prerender = true;
 </style>
 ```
 
-### (İsteğe Bağlı) Adım 8: Uluslararasılaştırılmış Bağlantılar
+</Step>
+
+<Step number={8} title="Uluslararasılaştırılmış Bağlantılar" isOptional={true}>
 
 SEO için, rotalarınızı locale ile öneklemeniz önerilir (örneğin, `/en/about`, `/fr/about`). Bu bileşen, herhangi bir bağlantıyı otomatik olarak mevcut locale ile önekler.
 
@@ -689,7 +729,9 @@ const localizedPath = getLocalizedUrl("/about", $locale);
 goto(localizedPath); // Yerel dile bağlı olarak /en/about veya /fr/about adresine gider
 ```
 
-### (İsteğe Bağlı) Adım 9: Dil Değiştirici
+</Step>
+
+<Step number={9} title="Dil Değiştirici" isOptional={true}>
 
 Kullanıcıların dilleri değiştirmesine izin vermek için URL'yi güncelleyin.
 
@@ -730,7 +772,9 @@ Kullanıcıların dilleri değiştirmesine izin vermek için URL'yi güncelleyin
 </style>
 ```
 
-### (İsteğe Bağlı) Adım 10: Backend proxy ekleme
+</Step>
+
+<Step number={10} title="Backend proxy ekleme" isOptional={true}>
 
 SvelteKit uygulamanıza bir backend proxy eklemek için, `vite-intlayer` eklentisi tarafından sağlanan `intlayerProxy` fonksiyonunu kullanabilirsiniz. Bu eklenti, URL, çerezler ve tarayıcı dil tercihleri temelinde kullanıcı için en iyi yereli otomatik olarak algılar.
 
@@ -749,7 +793,9 @@ export default defineConfig({
 });
 ```
 
-### (İsteğe Bağlı) Adım 11: intlayer editör / CMS kurulumu
+</Step>
+
+<Step number={11} title="intlayer editör / CMS kurulumu" isOptional={true}>
 
 intlayer editörünü kurmak için, [intlayer editör dokümantasyonunu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md) takip etmelisiniz.
 
@@ -785,7 +831,9 @@ Intlayer tarafından oluşturulan dosyaların göz ardı edilmesi önerilir.
 
 ---
 
-### (İsteğe bağlı) Adım 12 : Bileşenlerinizin içeriğini çıkarın
+</Step>
+
+<Step number={12} title="Bileşenlerinizin içeriğini çıkarın" isOptional={true}>
 
 Mevcut bir kod tabanınız varsa, binlerce dosyayı dönüştürmek zaman alıcı olabilir.
 
@@ -885,3 +933,7 @@ bun run build # Or bun run dev
 
 - **Görsel Editör**: Çevirileri doğrudan kullanıcı arayüzünden düzenlemek için [Intlayer Görsel Editör](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md) ile entegre olun.
 - **CMS**: İçerik yönetiminizi dışa aktararak [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md) kullanın.
+
+</Step>
+
+</Steps>

@@ -53,7 +53,9 @@ Dengan Intlayer, Anda dapat:
 
 ## Panduan Langkah demi Langkah untuk Mengatur Intlayer di Aplikasi React
 
-### Langkah 1: Instalasi Dependensi
+<Steps>
+
+<Step number={1} title="Instalasi Dependensi">
 
 Instal paket yang diperlukan menggunakan npm:
 
@@ -89,7 +91,9 @@ bun x intlayer init
 
   Termasuk perintah `react-scripts-intlayer` dan plugin untuk mengintegrasikan Intlayer dengan aplikasi berbasis Create React App. Plugin ini berbasis pada [craco](https://craco.js.org/) dan mencakup konfigurasi tambahan untuk bundler [Webpack](https://webpack.js.org/).
 
-### Langkah 2: Konfigurasi proyek Anda
+</Step>
+
+<Step number={2} title="Konfigurasi proyek Anda">
 
 Buat file konfigurasi untuk mengatur bahasa aplikasi Anda:
 
@@ -113,7 +117,9 @@ export default config;
 
 > Melalui file konfigurasi ini, Anda dapat mengatur URL yang dilokalkan, pengalihan middleware, nama cookie, lokasi dan ekstensi deklarasi konten Anda, menonaktifkan log Intlayer di konsol, dan lainnya. Untuk daftar lengkap parameter yang tersedia, lihat [dokumentasi konfigurasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md).
 
-### Langkah 3: Integrasikan Intlayer dalam Konfigurasi CRA Anda
+</Step>
+
+<Step number={3} title="Integrasikan Intlayer dalam Konfigurasi CRA Anda">
 
 Ubah skrip Anda untuk menggunakan react-intlayer
 
@@ -127,7 +133,9 @@ Ubah skrip Anda untuk menggunakan react-intlayer
 
 > Skrip `react-scripts-intlayer` didasarkan pada [CRACO](https://craco.js.org/). Anda juga dapat mengimplementasikan pengaturan Anda sendiri berdasarkan plugin craco intlayer. [Lihat contoh di sini](https://github.com/aymericzip/intlayer/blob/main/examples/react-app/craco.config.js).
 
-### Langkah 4: Deklarasikan Konten Anda
+</Step>
+
+<Step number={4} title="Deklarasikan Konten Anda">
 
 Buat dan kelola deklarasi konten Anda untuk menyimpan terjemahan:
 
@@ -175,7 +183,9 @@ export default appContent;
 
 > Jika file konten Anda menyertakan kode TSX, Anda harus mempertimbangkan untuk mengimpor `import React from "react";` di file konten Anda.
 
-### Langkah 5: Gunakan Intlayer dalam Kode Anda
+</Step>
+
+<Step number={5} title="Gunakan Intlayer dalam Kode Anda">
 
 Akses kamus konten Anda di seluruh aplikasi Anda:
 
@@ -224,7 +234,9 @@ export default App;
 
 > Untuk mempelajari lebih lanjut tentang hook `useIntlayer`, lihat [dokumentasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/react-intlayer/useIntlayer.md).
 
-### (Opsional) Langkah 6: Ubah bahasa konten Anda
+</Step>
+
+<Step number={6} title="Ubah bahasa konten Anda" isOptional={true}>
 
 Untuk mengubah bahasa konten Anda, Anda dapat menggunakan fungsi `setLocale` yang disediakan oleh hook `useLocale`. Fungsi ini memungkinkan Anda untuk mengatur locale aplikasi dan memperbarui konten sesuai dengan locale tersebut.
 
@@ -245,7 +257,9 @@ const LocaleSwitcher = () => {
 
 > Untuk mempelajari lebih lanjut tentang hook `useLocale`, lihat [dokumentasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/react-intlayer/useLocale.md).
 
-### (Opsional) Langkah 7: Tambahkan Routing yang Dilokalkan ke aplikasi Anda
+</Step>
+
+<Step number={7} title="Tambahkan Routing yang Dilokalkan ke aplikasi Anda" isOptional={true}>
 
 Tujuan dari langkah ini adalah untuk membuat rute unik untuk setiap bahasa. Ini berguna untuk SEO dan URL yang ramah SEO.
 Contoh:
@@ -390,7 +404,9 @@ const App: FC = () => (
 );
 ```
 
-### (Opsional) Langkah 8: Ubah URL saat locale berubah
+</Step>
+
+<Step number={8} title="Ubah URL saat locale berubah" isOptional={true}>
 
 Untuk mengubah URL saat locale berubah, Anda dapat menggunakan properti `onLocaleChange` yang disediakan oleh hook `useLocale`. Secara paralel, Anda dapat menggunakan hook `useLocation` dan `useNavigate` dari `react-router-dom` untuk memperbarui path URL.
 
@@ -470,7 +486,9 @@ const LocaleSwitcher: FC = () => {
 > - [`atribut dir`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir)
 > - [`atribut aria-current`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)
 
-### (Opsional) Langkah 9: Mengubah Atribut Bahasa dan Arah pada HTML
+</Step>
+
+<Step number={9} title="Mengubah Atribut Bahasa dan Arah pada HTML" isOptional={true}>
 
 Ketika aplikasi Anda mendukung banyak bahasa, sangat penting untuk memperbarui atribut `lang` dan `dir` pada tag `<html>` agar sesuai dengan lokal saat ini. Melakukan hal ini memastikan:
 
@@ -590,3 +608,7 @@ Untuk detail lebih lanjut tentang cara menggunakan ekstensi ini, lihat [dokument
 ### Melangkah Lebih Jauh
 
 Untuk melangkah lebih jauh, Anda dapat mengimplementasikan [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md) atau mengeksternalisasi konten Anda menggunakan [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md).
+
+</Step>
+
+</Steps>

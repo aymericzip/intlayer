@@ -68,7 +68,8 @@ history:
 
 Compared to main solutions like `next-intl` or `i18next`, Intlayer is a solution that comes with integrated optimizations such as:
 
-**Full Next.js coverage**
+<AccordionGroup>
+<Accordion header="Full Next.js coverage">
 
 Intlayer is optimized to work with **Server Components** for efficient rendering and is fully compatible with [**Turbopack**](https://nextjs.org/docs/architecture/turbopack). It does not block static rendering and offers middleware as well as all the features needed for scaling internationalization (i18n).
 
@@ -76,35 +77,46 @@ Intlayer is optimized to work with **Server Components** for efficient rendering
 > Locale routing is useful for SEO, bundle size, and performance. If you don't need it, you can refer to this [guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_no_locale_path.md).
 > For Next.js 12, 13, 14, and 15 with the App Router, refer to this [guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_14.md).
 
-**Bundle size**
+</Accordion>
+<Accordion header="Bundle size">
 
 Instead of loading massive JSON files into your pages, load only the necessary content. Intlayer helps **reduce your bundle and page sizes by up to 50%**.
 
-**Maintainability**
+</Accordion>
+<Accordion header="Maintainability">
 
 Scoping your application's content **facilitates maintenance** for large-scale applications. You can duplicate or delete a single feature folder without the mental burden of reviewing your entire content codebase. Additionally, Intlayer is **fully typed** to ensure your content's accuracy.
 
-**AI Agent**
+</Accordion>
+<Accordion header="AI Agent">
 
 Co-locating content **reduces the context needed** by Large Language Models (LLMs). Intlayer also comes with a suite of tools, such as a **CLI** to test for missing translations,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)**, and **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, to make the developer experience (DX) even smoother for AI agents.
 
-**Automation**
+</Accordion>
+<Accordion header="Automation">
 
 Use automation to translate in your CI/CD pipeline using the LLM of your choice at the cost of your AI provider. Intlayer also offers a **compiler** to automate content extraction, as well as a [web platform](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) to help **translate in the background**.
 
-**Performance**
+</Accordion>
+<Accordion header="Performance">
 
 Connecting massive JSON files to components can lead to performance and reactivity issues. Intlayer optimizes your content loading at build time.
 
-**Scaling with none-dev**
+</Accordion>
+<Accordion header="Scaling with none-dev">
 
 More than just an i18n solution, Intlayer provides an **self-hosted [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** and a **[full CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** to help you manage your multilingual content in **real-time**, making collaboration with translators, copywriters, and other team members seamless. Content can be stored locally and/or remotely.
+
+</Accordion>
+</AccordionGroup>
 
 ---
 
 ## Step-by-Step Guide to Set Up Intlayer in a Next.js Application Using Page Router
 
-### Step 1: Install Dependencies
+<Steps>
+
+<Step number={1} title="Install Dependencies">
 
 Install the necessary packages using your preferred package manager:
 
@@ -136,7 +148,9 @@ bun x intlayer init
 
   The package that integrates Intlayer with Next.js. It provides context providers and hooks for Next.js internationalization. Additionally, it includes the Next.js plugin for integrating Intlayer with [Webpack](https://webpack.js.org/) or [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack), as well as middleware for detecting the user's preferred locale, managing cookies, and handling URL redirection.
 
-### Step 2: Configure Your Project
+</Step>
+
+<Step number={2} title="Configure Your Project">
 
 Create a configuration file to define the languages supported by your application:
 
@@ -160,7 +174,9 @@ export default config;
 
 > Through this configuration file, you can set up localized URLs, middleware redirection, cookie names, the location and extension of your content declarations, disable Intlayer logs in the console, and more. For a complete list of available parameters, refer to the [configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md).
 
-### Step 3: Integrate Intlayer with Next.js Configuration
+</Step>
+
+<Step number={3} title="Integrate Intlayer with Next.js Configuration">
 
 Modify your Next.js configuration to incorporate Intlayer:
 
@@ -186,7 +202,9 @@ export default withIntlayer(nextConfig);
 > export default nextConfigWithOtherPlugins;
 > ```
 
-### Step 4: Configure Middleware for Locale Detection
+</Step>
+
+<Step number={4} title="Configure Middleware for Locale Detection">
 
 Set up middleware to automatically detect and handle the user's preferred locale:
 
@@ -201,7 +219,9 @@ export const config = {
 
 > Adapt the `matcher` parameter to match the routes of your application. For more details, refer to the [Next.js documentation on configuring the matcher](https://nextjs.org/docs/app/building-your-application/routing/middleware).
 
-### Step 5: Define Dynamic Locale Routes
+</Step>
+
+<Step number={5} title="Define Dynamic Locale Routes">
 
 Implement dynamic routing to serve localized content based on the user's locale.
 
@@ -358,7 +378,9 @@ Implement dynamic routing to serve localized content based on the user's locale.
 
 > `getStaticPaths` and `getStaticProps` ensure that your application pre-builds the necessary pages for all locales in Next.js Page Router. This approach reduces runtime computation and leads to an improved user experience. For more details, refer to the Next.js documentation on [`getStaticPaths`](https://nextjs.org/docs/pages/building-your-application/data-fetching/get-static-paths) and [`getStaticProps`](https://nextjs.org/docs/pages/building-your-application/data-fetching/get-static-props).
 
-### Step 6: Declare Your Content
+</Step>
+
+<Step number={6} title="Declare Your Content">
 
 Create and manage your content declarations to store translations.
 
@@ -411,7 +433,9 @@ export default homeContent;
 
 For more information on declaring content, refer to the [content declaration guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md).
 
-### Step 7: Utilize Content in Your Code
+</Step>
+
+<Step number={7} title="Utilize Content in Your Code">
 
 Access your content dictionaries throughout your application to display translated content.
 
@@ -466,7 +490,9 @@ export const ComponentExample: FC = () => {
 
 > To Learn more about the `useIntlayer` hook, refer to the [documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/next-intlayer/useIntlayer.md).
 
-### (Optional) Step 8: Internationalization of your metadata
+</Step>
+
+<Step number={8} title="Internationalization of your metadata" isOptional={true}>
 
 In the case you want to internationalize your metadata, such as the title of your page, you can use the `getStaticProps` function provided by Next.js Page Router. Inside, you can retrieve the content from the `getIntlayer` function to translate your metadata.
 
@@ -685,7 +711,9 @@ export default HomePage;
 
 > Learn more about the metadata optimization [on the official Next.js documentation](https://nextjs.org/docs/pages/building-your-application/optimizing/metadata).
 
-### (Optional) Step 9: Change the language of your content
+</Step>
+
+<Step number={9} title="Change the language of your content" isOptional={true}>
 
 To change the language of your content in Next.js, the recommended way is to use the `Link` component to redirect users to the appropriate localized page. The `Link` component enables prefetching of the page, which helps avoid a full page reload.
 
@@ -776,7 +804,9 @@ return (
 > - [`dir` attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir)
 > - [`aria-current` attribute](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)
 
-### (Optional) Step 10: Creating a Localized Link Component
+</Step>
+
+<Step number={10} title="Creating a Localized Link Component" isOptional={true}>
 
 To ensure that your application’s navigation respects the current locale, you can create a custom `Link` component. This component automatically prefixes internal URLs with the current language, so that. For example, when a French-speaking user clicks on a link to the "About" page, they are redirected to `/fr/about` instead of `/about`.
 
@@ -845,7 +875,9 @@ Link.displayName = "Link";
 
 By integrating this `Link` component across your application, you maintain a coherent and language-aware user experience while also benefitting from improved SEO and usability.
 
-### (Optional) Step 11: Optimize your bundle size
+</Step>
+
+<Step number={11} title="Optimize your bundle size" isOptional={true}>
 
 When using `next-intlayer`, dictionaries are included in the bundle for every page by default. To optimize bundle size, Intlayer provides an optional SWC plugin that intelligently replace `useIntlayer` calls using macros. This ensures dictionaries are only included in bundles for pages that actually use them.
 
@@ -916,6 +948,10 @@ This extension provides:
 - **Quick actions** to easily create and update translations.
 
 For more details on how to use the extension, refer to the [Intlayer VS Code Extension documentation](https://intlayer.org/doc/vs-code-extension).
+
+</Step>
+
+</Steps>
 
 ## Additional Resources
 

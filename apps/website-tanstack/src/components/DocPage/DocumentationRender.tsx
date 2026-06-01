@@ -1,16 +1,30 @@
 import {
+  Accordion as AccordionBase,
+  type AccordionProps,
+} from '@intlayer/design-system/accordion';
+import { Container } from '@intlayer/design-system/container';
+import {
   MarkdownRenderer,
   type ParsedMarkdown,
 } from '@intlayer/design-system/mark-down-render';
+import { Step, Steps } from '@intlayer/design-system/steps';
 import { useTheme } from 'next-themes';
-import type { ComponentProps, FC } from 'react';
-import { lazy, Suspense } from 'react';
+import {
+  type ComponentProps,
+  type FC,
+  type HTMLAttributes,
+  lazy,
+  Suspense,
+} from 'react';
 import { useLocale } from 'react-intlayer';
 import type { FrameworkKey } from '~/components/I18nBenchmark';
 import { Link } from '~/components/Link/Link';
 import { TableOfContents } from '~/components/TableOfContents';
 import { ClickToOpenIframe } from './ClickToOpenIframe';
-import { SectionScroller } from './SectionScroller';
+
+const SectionScroller = lazy(() =>
+  import('./SectionScroller').then((mod) => ({ default: mod.SectionScroller }))
+);
 
 const I18nBenchmark = lazy(() =>
   import('~/components/I18nBenchmark').then((mod) => ({
@@ -18,11 +32,38 @@ const I18nBenchmark = lazy(() =>
   }))
 );
 
+const Accordion = ({ children, ...props }: AccordionProps) => (
+  <AccordionBase
+    {...props}
+    headerClassName="text-lg! font-bold!"
+    contentClassName="divide-y divide-neutral"
+  >
+    <div className="mb-8 flex flex-col gap-6 px-4 pt-6 text-sm text-text/80">
+      {children}
+    </div>
+  </AccordionBase>
+);
+
+const AccordionGroup = ({
+  children,
+  ...props
+}: HTMLAttributes<HTMLDivElement>) => (
+  <Container
+    padding="sm"
+    roundedSize="2xl"
+    background="none"
+    border
+    borderColor="neutral"
+    className="flex flex-col gap-1 overflow-hidden"
+    {...props}
+  >
+    {children}
+  </Container>
+);
+
 type DocumentationRenderProps = {
   children: string | ParsedMarkdown;
-  /** Array of heading levels to display in TOC (e.g., [2, 3, 4] for h2, h3, h4) */
   tocLevels?: number[];
-  /** Maximum depth of nested headings to show in TOC */
   tocMaxDepth?: number;
 };
 
@@ -37,12 +78,13 @@ export const DocumentationRender: FC<DocumentationRenderProps> = ({
   const isDarkMode = resolvedTheme === 'dark';
 
   return (
-    <div className="m-auto flex max-w-3xl flex-col gap-8 p-10 text-text/90 max-md:px-0">
+    <div className="m-auto flex max-w-2xl flex-col gap-8 p-4 text-text/90 max-md:px-0">
       <MarkdownRenderer
         isDarkMode={isDarkMode}
         locale={locale}
         components={{
-          a: (props) => (
+          script: () => null,
+          a: (props: ComponentProps<'a'>) => (
             <Link
               underlined={true}
               locale={locale}
@@ -58,15 +100,21 @@ export const DocumentationRender: FC<DocumentationRenderProps> = ({
             />
           ),
           I18nBenchmark: (props: { framework?: FrameworkKey }) => (
-            <Suspense fallback={null}>
+            <Suspense>
               <I18nBenchmark initialFramework={props.framework} />
             </Suspense>
           ),
           ClickToOpenIframe,
+          Step,
+          Steps,
+          Accordion,
+          AccordionGroup,
         }}
         wrapper={(props) => (
           <>
-            <SectionScroller />
+            <Suspense>
+              <SectionScroller />
+            </Suspense>
             <div className="flex flex-col gap-8 py-10" {...props} />
           </>
         )}

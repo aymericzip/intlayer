@@ -512,7 +512,9 @@ return (
 > - [`dir` özelliği](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir)
 > - [`aria-current` özelliği](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)
 
-### (İsteğe Bağlı) Adım 12: Yerelleştirilmiş Bağlantı Bileşeni Oluşturma
+<Steps>
+
+<Step number={12} title="Yerelleştirilmiş Bağlantı Bileşeni Oluşturma" isOptional={true}>
 
 Uygulamanızın navigasyonunun mevcut yerel ayarı saygı göstermesini sağlamak için, özel bir `Link` bileşeni oluşturabilirsiniz. Bu bileşen, dahili URL'leri otomatik olarak mevcut dille önekler, böylece örneğin Fransızca konuşan bir kullanıcı "Hakkında" sayfasına bir bağlantıya tıkladığında, `/fr/hakkinda` yerine `/hakkinda`ya yönlendirilir.
 
@@ -581,7 +583,9 @@ Link.displayName = "Link";
 
 Bu `Link` bileşenini uygulamanız boyunca entegre ederek, tutarlı ve dil bilincine sahip bir kullanıcı deneyimi sürdürürsünüzken aynı zamanda gelişmiş SEO ve kullanılabilirlikten de yararlanırsınız.
 
-### (İsteğe Bağlı) Adım 13: bundle boyutunuzu Optimize Edin
+</Step>
+
+<Step number={13} title="bundle boyutunuzu Optimize Edin" isOptional={true}>
 
 `next-intlayer` kullanırken, sözlükler varsayılan olarak her sayfa için pakete dahil edilir. bundle boyutunu optimize etmek için, Intlayer isteğe bağlı bir SWC eklentisi sağlar ki bu, `useIntlayer` çağrılarını akıllıca makrolar kullanarak değiştirir. Bu, sözlüklerin sadece onları gerçekten kullanan sayfalar için paketlere dahil edilmesini sağlar.
 
@@ -656,3 +660,7 @@ Uzantının nasıl kullanılacağı hakkında daha fazla detay için, [Intlayer 
 ### Daha Fazla Bilgi Edinin
 
 Daha fazla ilerlemek için, [görsel düzenleyici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)yi uygulayabilir veya içeriğinizi [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) kullanarak harici hale getirebilirsiniz.
+
+</Step>
+
+</Steps>

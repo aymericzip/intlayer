@@ -522,7 +522,9 @@ Intlayer를 사용한 개발 환경을 개선하기 위해 **공식 Intlayer VS 
 
 익스텐션 사용법에 대한 자세한 내용은 [Intlayer VS Code 익스텐션 문서](https://intlayer.org/doc/vs-code-extension)를 참조하세요.
 
-### (선택 사항) 단계 1 : 컴포넌트 콘텐츠 추출
+<Steps>
+
+<Step number={1} title="컴포넌트 콘텐츠 추출" isOptional={true}>
 
 기존 코드베이스가 있는 경우 수천 개의 파일을 변환하는 데 시간이 많이 걸릴 수 있습니다.
 
@@ -638,3 +640,7 @@ bun run build # Or bun run dev
 ### 더 알아보기
 
 더 나아가려면 [비주얼 에디터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)를 구현하거나 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)를 사용하여 콘텐츠를 외부화할 수 있습니다.
+
+</Step>
+
+</Steps>

@@ -41,33 +41,43 @@ Panduan ini mendemonstrasikan cara mengintegrasikan **Intlayer** untuk internasi
 
 Dibandingkan dengan solusi utama seperti `react-i18next` atau `i18next`, Intlayer adalah solusi yang hadir dengan pengoptimalan terintegrasi seperti:
 
-**Cakupan TanStack Start penuh**
+<AccordionGroup>
+<Accordion header="Cakupan TanStack Start penuh">
 
 Intlayer dioptimalkan untuk bekerja sempurna dengan TanStack Start dan Solid dengan menawarkan **perutean multibahasa**, **peta situs**, dan semua fitur yang diperlukan untuk penskalaan internasionalisasi (i18n).
 
-**Ukuran bundle**
+</Accordion>
+<Accordion header="Ukuran bundle">
 
 Daripada memuat file JSON berukuran besar ke halaman Anda, muat saja konten yang diperlukan. Intlayer membantu **mengurangi ukuran bundle dan halaman Anda hingga 50%**.
 
-**Kemampuan Pemeliharaan**
+</Accordion>
+<Accordion header="Kemampuan Pemeliharaan">
 
 Mencakup konten aplikasi Anda **memfasilitasi pemeliharaan** untuk aplikasi berskala besar. Anda dapat menduplikasi atau menghapus satu folder fitur tanpa beban mental untuk meninjau seluruh basis kode konten Anda. Selain itu, Intlayer **diketik sepenuhnya** untuk memastikan keakuratan konten Anda.
 
-**Agen AI**
+</Accordion>
+<Accordion header="Agen AI">
 
 Menempatkan konten bersama **mengurangi konteks yang diperlukan** dengan Model Bahasa Besar (LLM). Intlayer juga dilengkapi dengan serangkaian alat, seperti **CLI** untuk menguji terjemahan yang hilang,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)**, dan **[agent skill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, untuk menjadikan pengalaman pengembang (DX) lebih lancar bagi agen AI.
 
-**Otomatisasi**
+</Accordion>
+<Accordion header="Otomatisasi">
 
 Gunakan otomatisasi untuk menerjemahkan dalam saluran CI/CD Anda menggunakan LLM pilihan Anda dengan biaya penyedia AI Anda. Intlayer juga menawarkan **compiler** untuk mengotomatiskan ekstraksi konten, serta [platform web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) untuk membantu **menerjemahkan di latar belakang**.
 
-**Pertunjukan**
+</Accordion>
+<Accordion header="Pertunjukan">
 
 Menghubungkan file JSON berukuran besar ke komponen dapat menyebabkan masalah kinerja dan reaktivitas. Intlayer mengoptimalkan pemuatan konten Anda pada waktu pembuatan.
 
-**Menskalakan tanpa pengembang**
+</Accordion>
+<Accordion header="Menskalakan tanpa pengembang">
 
 Lebih dari sekedar solusi i18n, Intlayer menyediakan **[editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** yang dihosting sendiri dan **[CMS lengkap](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** untuk membantu Anda mengelola konten multibahasa secara **real-time**, membuat kolaborasi dengan penerjemah, copywriter, dan anggota tim lainnya menjadi lancar. Konten dapat disimpan secara lokal dan/atau jarak jauh.
+
+</Accordion>
+</AccordionGroup>
 
 ---
 
@@ -105,11 +115,15 @@ Lebih dari sekedar solusi i18n, Intlayer menyediakan **[editor visual](https://g
 
 Lihat [Templat Aplikasi](https://github.com/aymericzip/intlayer-tanstack-start-solid-template) di GitHub.
 
-### Langkah 1: Pembuatan Proyek
+<Steps>
+
+<Step number={1} title="Pembuatan Proyek">
 
 Pertama, buat proyek TanStack Start baru mengikuti panduan [Memulai Proyek Baru](https://tanstack.com/start/latest/docs/framework/solid/quick-start) di situs web TanStack Start.
 
-### Langkah 2: Instal Paket Intlayer
+</Step>
+
+<Step number={2} title="Instal Paket Intlayer">
 
 Instal paket-paket yang diperlukan menggunakan pengelola paket pilihan Anda:
 
@@ -147,7 +161,9 @@ bun x intlayer init
 - **vite-intlayer**
   Menyertakan plugin Vite untuk mengintegrasikan Intlayer dengan [Vite bundler](https://vite.dev/guide/why.html#why-bundle-for-production), serta middleware untuk mendeteksi lokal pilihan pengguna, mengelola cookie, dan menangani pengalihan URL.
 
-### Langkah 3: Konfigurasi Proyek Anda
+</Step>
+
+<Step number={3} title="Konfigurasi Proyek Anda">
 
 Buat file konfigurasi untuk mengatur bahasa aplikasi Anda:
 
@@ -168,7 +184,9 @@ export default config;
 
 > Melalui file konfigurasi ini, Anda dapat mengonfigurasi URL yang dilokalisasi, pengalihan middleware, nama cookie, lokasi dan ekstensi deklarasi konten Anda, menonaktifkan log Intlayer di konsol, dan banyak lagi. Untuk daftar lengkap parameter yang tersedia, lihat [dokumentasi konfigurasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md).
 
-### Langkah 4: Integrasikan Intlayer dalam Konfigurasi Vite Anda
+</Step>
+
+<Step number={4} title="Integrasikan Intlayer dalam Konfigurasi Vite Anda">
 
 Tambahkan plugin intlayer dalam konfigurasi Anda:
 
@@ -196,7 +214,9 @@ export default defineConfig({
 
 > Plugin Vite `intlayer()` digunakan untuk mengintegrasikan Intlayer dengan Vite. Plugin ini memastikan pembuatan file deklarasi konten dan memantaunya dalam mode pengembangan. Plugin ini mendefinisikan variabel lingkungan Intlayer dalam aplikasi Vite. Selain itu, ia menyediakan alias untuk mengurangi beban performa.
 
-### Langkah 5: Buat Root Layout
+</Step>
+
+<Step number={5} title="Buat Root Layout">
 
 Konfigurasikan root layout Anda untuk mendukung internasionalisasi dengan menggunakan `useParams` untuk mendeteksi lokal saat ini dan mengatur atribut `lang` serta `dir` pada tag `html`.
 
@@ -237,7 +257,9 @@ const RootComponent: ParentComponent = (props) => {
 };
 ```
 
-### Langkah 6: Buat Locale Layout (Opsional)
+</Step>
+
+<Step number={6} title="Buat Locale Layout">
 
 Buat layout yang menangani prefiks lokal dan melakukan validasi. Layout ini akan memastikan hanya lokal yang valid yang diproses.
 
@@ -272,7 +294,9 @@ export const Route = createFileRoute("/{-$locale}")({
 > Untuk mode `'prefix-all'`, Anda mungkin lebih suka mengganti slot tersebut menjadi `$locale`.
 > Untuk mode `'no-prefix'` atau `'search-params'`, Anda dapat menghapus slot tersebut sepenuhnya.
 
-### Langkah 7: Deklarasikan Konten Anda
+</Step>
+
+<Step number={7} title="Deklarasikan Konten Anda">
 
 Buat dan kelola deklarasi konten Anda untuk menyimpan terjemahan:
 
@@ -318,7 +342,9 @@ export default appContent;
 
 > Untuk detail lebih lanjut, lihat [dokumentasi deklarasi konten](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/content_file.md).
 
-### Langkah 8: Gunakan Komponen dan Hook yang Sadar akan Lokal
+</Step>
+
+<Step number={8} title="Gunakan Komponen dan Hook yang Sadar akan Lokal">
 
 Buat komponen `LocalizedLink` untuk navigasi yang sadar akan lokal:
 
@@ -397,7 +423,9 @@ export const useLocalizedNavigate = () => {
 };
 ```
 
-### Langkah 9: Gunakan Intlayer di Halaman Anda
+</Step>
+
+<Step number={9} title="Gunakan Intlayer di Halaman Anda">
 
 Akses kamus konten Anda di seluruh aplikasi:
 
@@ -440,7 +468,9 @@ function RouteComponent() {
 >
 > Untuk mempelajari lebih lanjut tentang hook `useIntlayer`, lihat [dokumentasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/solid-intlayer/useIntlayer.md).
 
-### Langkah 10: Buat Komponen Locale Switcher
+</Step>
+
+<Step number={10} title="Buat Komponen Locale Switcher">
 
 Buat komponen yang memungkinkan pengguna untuk mengubah bahasa:
 
@@ -484,7 +514,9 @@ export default LocaleSwitcher;
 >
 > Untuk mempelajari lebih lanjut tentang hook `useLocale`, lihat [dokumentasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/solid-intlayer/useLocale.md).
 
-### Langkah 11: Pengelolaan Atribut HTML
+</Step>
+
+<Step number={11} title="Pengelolaan Atribut HTML">
 
 Seperti yang terlihat pada Langkah 5, Anda dapat mengelola atribut `lang` dan `dir` dari tag `html` dengan menggunakan `useParams` di root component Anda. Ini memastikan atribut yang benar disetel baik di server maupun klien.
 
@@ -503,7 +535,9 @@ const RootComponent: ParentComponent = (props) => {
 
 ---
 
-### Langkah 12: Tambahkan Middleware (Opsional)
+</Step>
+
+<Step number={12} title="Tambahkan Middleware">
 
 Anda juga dapat menggunakan `intlayerProxy` untuk menambahkan perutean sisi server ke aplikasi Anda. Plugin ini secara otomatis akan mendeteksi lokal saat ini berdasarkan URL dan mengatur cookie lokal yang sesuai. Jika tidak ada lokal yang ditentukan, plugin akan menentukan lokal yang paling tepat berdasarkan preferensi bahasa browser pengguna. Jika tidak ada lokal yang terdeteksi, ia akan mengalihkan ke lokal default.
 
@@ -534,7 +568,9 @@ export default defineConfig({
 
 ---
 
-### Langkah 13: Internasionalisasi Metadata Anda (Opsional)
+</Step>
+
+<Step number={13} title="Internasionalisasi Metadata Anda">
 
 Anda juga dapat menggunakan fungsi `getIntlayer` untuk mengakses kamus konten Anda dalam `head` loader untuk metadata yang sadar akan lokal:
 
@@ -581,7 +617,9 @@ export const Route = createFileRoute("/{-$locale}/")({
 
 ---
 
-### Langkah 14: Ambil lokal di server action Anda (Opsional)
+</Step>
+
+<Step number={14} title="Ambil lokal di server action Anda">
 
 Anda mungkin ingin mengakses lokal saat ini dari dalam server action atau titik akhir API Anda.
 Anda dapat melakukan ini menggunakan helper `getLocale` dari `intlayer`.
@@ -618,7 +656,9 @@ export const getLocaleServer = createServerFn().handler(async () => {
 
 ---
 
-### Langkah 15: Mengelola halaman "not found" (Opsional)
+</Step>
+
+<Step number={15} title="Mengelola halaman &quot;not found&quot;">
 
 Saat pengguna mengunjungi halaman yang tidak ada, Anda dapat menampilkan halaman kustom "not found" dan prefiks lokal dapat memengaruhi cara halaman "not found" tersebut dipicu.
 
@@ -692,7 +732,9 @@ export const Route = createFileRoute("/{-$locale}/$")({
 });
 ```
 
-### (Opsional) Langkah 16: Ekstrak konten dari komponen Anda
+</Step>
+
+<Step number={16} title="Ekstrak konten dari komponen Anda" isOptional={true}>
 
 Jika Anda memiliki basis kode yang sudah ada, mengubah ribuan file bisa memakan waktu lama.
 
@@ -805,7 +847,9 @@ bun run build # Atau bun run dev
 
 ---
 
-### Langkah 17: Konfigurasi TypeScript (Opsional)
+</Step>
+
+<Step number={17} title="Konfigurasi TypeScript">
 
 Intlayer menggunakan module augmentation untuk mendapatkan manfaat TypeScript dan membuat basis kode Anda lebih kuat.
 
@@ -835,6 +879,10 @@ Untuk melakukan ini, Anda dapat menambahkan instruksi berikut ke file `.gitignor
 ```
 
 ---
+
+</Step>
+
+</Steps>
 
 ## Ekstensi VS Code
 

@@ -41,33 +41,43 @@ Bu kılavuz, Solid.js içeren Tanstack Start projelerinde sorunsuz uluslararası
 
 'React-i18next' veya 'i18next' gibi ana çözümlerle karşılaştırıldığında Intlayer, aşağıdaki gibi entegre optimizasyonlarla gelen bir çözümdür:
 
-**Tam TanStack Start kapsamı**
+<AccordionGroup>
+<Accordion header="Tam TanStack Start kapsamı">
 
 Intlayer, **çok dilli yönlendirme**, **site haritası** ve uluslararasılaştırmayı (i18n) ölçeklendirmek için gereken tüm özellikleri sunarak TanStack Start ve Solid ile mükemmel çalışacak şekilde optimize edilmiştir.
 
-**Bundle boyutu**
+</Accordion>
+<Accordion header="Bundle boyutu">
 
 Sayfalarınıza çok büyük JSON dosyaları yüklemek yerine yalnızca gerekli içeriği yükleyin. Intlayer **bundle ve sayfa boyutlarınızı %50'ye kadar azaltmanıza** yardımcı olur.
 
-**Sürdürülebilirlik**
+</Accordion>
+<Accordion header="Sürdürülebilirlik">
 
 Uygulamanızın içeriğinin kapsamını belirlemek, büyük ölçekli uygulamalar için **bakımı kolaylaştırır**. İçerik kod tabanınızın tamamını gözden geçirmenin zihinsel yükü olmadan, tek bir özellik klasörünü çoğaltabilir veya silebilirsiniz. Ayrıca Intlayer, içeriğinizin doğruluğunu sağlamak için **tamamen tiplendirilmiş (fully typed)tır**.
 
-**Yapay Zeka Temsilcisi**
+</Accordion>
+<Accordion header="Yapay Zeka Temsilcisi">
 
 İçeriğin bir arada konumlandırılması **Büyük Dil Modellerinin (LLM'ler) ihtiyaç duyduğu bağlamı azaltır**. Intlayer ayrıca eksik çevirileri test etmek için **CLI** gibi bir araç paketiyle birlikte gelir**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** ve **[aracı becerileri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, geliştirici deneyimini (DX) yapay zeka için daha da sorunsuz hale getirmek için ajanlar.
 
-**Otomasyon**
+</Accordion>
+<Accordion header="Otomasyon">
 
 Maliyeti AI sağlayıcınıza ait olmak üzere seçtiğiniz LLM'yi kullanarak CI/CD işlem hattınızda çeviri yapmak için otomasyonu kullanın. Intlayer ayrıca içerik çıkarmayı otomatikleştirmek için bir **derleyici** ve **arka planda çeviri yapmaya** yardımcı olacak bir [web platformu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) sunar.
 
-**Performans**
+</Accordion>
+<Accordion header="Performans">
 
 Büyük JSON dosyalarını bileşenlere bağlamak performans ve tepkime sorunlarına yol açabilir. Intlayer, içerik yüklemenizi derleme sırasında optimize eder.
 
-**Non-dev ile ölçeklendirme**
+</Accordion>
+<Accordion header="Non-dev ile ölçeklendirme">
 
 Bir i18n çözümünden çok daha fazlası olan Intlayer, **kendi kendine barındırılan bir [görsel düzenleyici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** ve **[tam CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** çok dilli içeriğinizi **gerçek zamanlı** olarak yönetmenize yardımcı olarak çevirmenler, metin yazarları ve diğer ekip üyeleriyle işbirliğini kusursuz hale getirir. İçerik yerel olarak ve/veya uzaktan depolanabilir.
+
+</Accordion>
+</AccordionGroup>
 
 ---
 
@@ -105,11 +115,15 @@ Bir i18n çözümünden çok daha fazlası olan Intlayer, **kendi kendine barın
 
 GitHub'daki [Uygulama Şablonu](https://github.com/aymericzip/intlayer-tanstack-start-solid-template)na göz atın.
 
-### Adım 1: Proje Oluşturma
+<Steps>
+
+<Step number={1} title="Proje Oluşturma">
 
 Öncelikle, TanStack Start web sitesindeki [Yeni Proje Başlat](https://tanstack.com/start/latest/docs/framework/solid/quick-start) kılavuzunu izleyerek yeni bir TanStack Start projesi oluşturun.
 
-### Adım 2: Intlayer Paketlerini Kurun
+</Step>
+
+<Step number={2} title="Intlayer Paketlerini Kurun">
 
 Tercih ettiğiniz paket yöneticisini kullanarak gerekli paketleri kurun:
 
@@ -147,7 +161,9 @@ bun x intlayer init
 - **vite-intlayer**
   Intlayer'ı [Vite paketleyici](https://vite.dev/guide/why.html#why-bundle-for-production) ile entegre etmek için Vite eklentisini ve kullanıcının tercih ettiği yerel ayarı algılamak, çerezleri yönetmek ve URL yönlendirmesini işlemek için ara yazılımı (middleware) içerir.
 
-### Adım 3: Projenizin Yapılandırılması
+</Step>
+
+<Step number={3} title="Projenizin Yapılandırılması">
 
 Uygulamanızın dillerini ayarlamak için bir yapılandırma dosyası oluşturun:
 
@@ -168,7 +184,9 @@ export default config;
 
 > Bu yapılandırma dosyası aracılığıyla, yerelleştirilmiş URL'leri, ara yazılım yönlendirmesini, çerez adlarını, içerik bildirimlerinizin konumunu ve uzantısını yapılandırabilir, konsoldaki Intlayer günlüklerini devre dışı bırakabilir ve daha fazlasını yapabilirsiniz. Kullanılabilir parametrelerin tam listesi için [yapılandırma dokümantasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md)na bakın.
 
-### Adım 4: Intlayer'ı Vite Yapılandırmanıza Entegre Edin
+</Step>
+
+<Step number={4} title="Intlayer'ı Vite Yapılandırmanıza Entegre Edin">
 
 Bite yapılandırmanıza intlayer eklentisini ekleyin:
 
@@ -196,7 +214,9 @@ export default defineConfig({
 
 > `intlayer()` Vite eklentisi, Intlayer'ı Vite ile entegre etmek için kullanılır. İçerik bildirim dosyalarının oluşturulmasını sağlar ve geliştirme modunda bunları izler. Vite uygulaması içinde Intlayer ortam değişkenlerini tanımlar. Ayrıca, performans yükünü azaltmak için takma adlar (aliases) sağlar.
 
-### Adım 5: Kök Düzeni (Root Layout) Oluşturma
+</Step>
+
+<Step number={5} title="Kök Düzeni (Root Layout) Oluşturma">
 
 Geçerli yerel ayarı algılamak için `useParams` kullanarak ve `html` etiketinde `lang` ve `dir` özelliklerini ayarlayarak kök düzeninizi uluslararasılaştırmayı destekleyecek şekilde yapılandırın.
 
@@ -237,7 +257,9 @@ const RootComponent: ParentComponent = (props) => {
 };
 ```
 
-### Adım 6: Yerel Ayar Düzeni Oluşturma (İsteğe Bağlı)
+</Step>
+
+<Step number={6} title="Yerel Ayar Düzeni Oluşturma">
 
 Yerel ayar önekini işleyen ve doğrulama gerçekleştiren bir düzen oluşturun. Bu düzen, yalnızca geçerli yerel ayarların işlenmesini sağlayacaktır.
 
@@ -272,7 +294,9 @@ export const Route = createFileRoute("/{-$locale}")({
 > `'prefix-all'` modu için slotu `$locale` olarak değiştirmeyi tercih edebilirsiniz.
 > `'no-prefix'` veya `'search-params'` modu için slotu tamamen kaldırabilirsiniz.
 
-### Adım 7: İçeriğinizi Bildirin
+</Step>
+
+<Step number={7} title="İçeriğinizi Bildirin">
 
 Çevirileri depolamak için içerik bildirimlerinizi oluşturun ve yönetin:
 
@@ -318,7 +342,9 @@ export default appContent;
 
 > Daha fazla ayrıntı için [içerik bildirimi dokümantasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/content_file.md)na bakın.
 
-### Adım 8: Yerel Ayara Duyarlı Bileşenleri ve Hook'ları Kullanın
+</Step>
+
+<Step number={8} title="Yerel Ayara Duyarlı Bileşenleri ve Hook'ları Kullanın">
 
 Yerel ayara duyarlı navigasyon için bir `LocalizedLink` bileşeni oluşturun:
 
@@ -398,7 +424,9 @@ export const useLocalizedNavigate = () => {
 };
 ```
 
-### Adım 9: Sayfalarınızda Intlayer'ı Kullanın
+</Step>
+
+<Step number={9} title="Sayfalarınızda Intlayer'ı Kullanın">
 
 Uygulamanız genelinde içerik sözlüklerinize erişin:
 
@@ -441,7 +469,9 @@ function RouteComponent() {
 >
 > `useIntlayer` hook'u hakkında daha fazla bilgi edinmek için [dokümantasyon](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/solid-intlayer/useIntlayer.md)a bakın.
 
-### Adım 10: Yerel Ayar Değiştirici Bileşeni Oluşturma
+</Step>
+
+<Step number={10} title="Yerel Ayar Değiştirici Bileşeni Oluşturma">
 
 Kullanıcıların dilleri değiştirmesine olanak tanıyan bir bileşen oluşturun:
 
@@ -485,7 +515,9 @@ export default LocaleSwitcher;
 >
 > `useLocale` hook'u hakkında daha fazla bilgi edinmek için [dokümantasyon](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/solid-intlayer/useLocale.md)a bakın.
 
-### Adım 11: HTML Özniteliklerinin Yönetimi
+</Step>
+
+<Step number={11} title="HTML Özniteliklerinin Yönetimi">
 
 Adım 5'te görüldüğü gibi, kök bileşeninizde `useParams` kullanarak `html` etiketinin `lang` ve `dir` özniteliklerini yönetebilirsiniz. Bu, hem sunucuda hem de istemcide doğru özniteliklerin ayarlanmasını sağlar.
 
@@ -504,7 +536,9 @@ const RootComponent: ParentComponent = (props) => {
 
 ---
 
-### Adım 12: Ara Yazılım Ekleme (İsteğe Bağlı)
+</Step>
+
+<Step number={12} title="Ara Yazılım Ekleme">
 
 Uygulamanıza sunucu tarafı yönlendirmesi eklemek için `intlayerProxy`yi de kullanabilirsiniz. Bu eklenti, URL'ye göre geçerli yerel ayarı otomatik olarak algılayacak ve uygun yerel ayar çerezini ayarlayacaktır. Herhangi bir yerel ayar belirtilmemişse, eklenti kullanıcının tarayıcı dili tercihlerine göre en uygun yerel ayarı belirleyecektir. Hiçbir yerel ayar algılanmazsa varsayılan yerel ayara yönlendirecektir.
 
@@ -535,7 +569,9 @@ export default defineConfig({
 
 ---
 
-### Adım 13: Meta Verilerinizi Uluslararasılaştırın (İsteğe Bağlı)
+</Step>
+
+<Step number={13} title="Meta Verilerinizi Uluslararasılaştırın">
 
 Yerel ayara duyarlı meta veriler için `head` yükleyicisi içindeki içerik sözlüklerinize erişmek için `getIntlayer` fonksiyonunu da kullanabilirsiniz:
 
@@ -582,7 +618,9 @@ export const Route = createFileRoute("/{-$locale}/")({
 
 ---
 
-### Adım 14: Sunucu aksiyonlarınızda yerel ayarı alın (İsteğe Bağlı)
+</Step>
+
+<Step number={14} title="Sunucu aksiyonlarınızda yerel ayarı alın">
 
 Sunucu aksiyonlarınızın veya API uç noktalarınızın içinden geçerli yerel ayara erişmek isteyebilirsiniz.
 Bunu `intlayer`dan `getLocale` yardımcısını kullanarak yapabilirsiniz.
@@ -619,7 +657,9 @@ export const getLocaleServer = createServerFn().handler(async () => {
 
 ---
 
-### Adım 15: Bulunamayan sayfaları yönetme (İsteğe Bağlı)
+</Step>
+
+<Step number={15} title="Bulunamayan sayfaları yönetme">
 
 Bir kullanıcı var olmayan bir sayfayı ziyaret ettiğinde, özel bir bulunamadı sayfası görüntüleyebilirsiniz ve yerel ayar öneki bulunamadı sayfasının tetiklenme şeklini etkileyebilir.
 
@@ -693,7 +733,9 @@ export const Route = createFileRoute("/{-$locale}/$")({
 });
 ```
 
-### (İsteğe Bağlı) Adım 16: Bileşenlerinizden içeriği çıkartın
+</Step>
+
+<Step number={16} title="Bileşenlerinizden içeriği çıkartın" isOptional={true}>
 
 Mevcut bir kod tabanınız varsa, binlerce dosyayı dönüştürmek zaman alıcı olabilir.
 
@@ -806,7 +848,9 @@ bun run build # veya bun run dev
 
 ---
 
-### Adım 17: TypeScript'i Yapılandırın (İsteğe Bağlı)
+</Step>
+
+<Step number={17} title="TypeScript'i Yapılandırın">
 
 Intlayer, TypeScript'in avantajlarından yararlanmak ve kod tabanınızı daha güçlü hale getirmek için modül genişletme (module augmentation) kullanır.
 
@@ -836,6 +880,10 @@ Bunu yapmak için `.gitignore` dosyanıza aşağıdaki talimatları ekleyebilirs
 ```
 
 ---
+
+</Step>
+
+</Steps>
 
 ## VS Code Uzantısı
 

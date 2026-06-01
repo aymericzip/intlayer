@@ -93,7 +93,9 @@ Intlayer は単なる i18n ソリューションではなく、**自己ホスト
 
 ## Vanilla JSアプリケーションでIntlayerをセットアップするためのステップバイステップガイド
 
-### ステップ1：依存関係のインストール
+<Steps>
+
+<Step number={1} title="依存関係のインストール">
 
 npmを使用して必要なパッケージをインストールします：
 
@@ -153,7 +155,9 @@ bun x intlayer build
 
 > `intlayer standalone` CLIによるバンドリングエクスポートは、設定に特化した未使用のパッケージ、ロケール、および非本質的なロジック（リダイレクトやプレフィックスなど）をツリーシェイキング（不要なコードの削除）することで、最適化されたビルドを生成します。
 
-### ステップ2：プロジェクトの設定
+</Step>
+
+<Step number={2} title="プロジェクトの設定">
 
 アプリケーションの言語を設定するための設定ファイルを作成します：
 
@@ -177,7 +181,9 @@ export default config;
 
 > この設定ファイルを通じて、ローカライズされたURL、ミドルウェアのリダイレクト、クッキー名、コンテンツ宣言の場所と拡張子、コンソールでのIntlayerログの無効化などを設定できます。利用可能なパラメータの完全なリストについては、[設定ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)を参照してください。
 
-### ステップ3：HTMLへのバンドルのインポート
+</Step>
+
+<Step number={3} title="HTMLへのバンドルのインポート">
 
 `intlayer.js` バンドルを生成したら、それをHTMLファイルにインポートできます：
 
@@ -201,7 +207,9 @@ export default config;
 
 バンドルは、`window` 上にグローバルオブジェクトとして `Intlayer` と `VanillaIntlayer` を公開します。
 
-### ステップ4：エントリポイントでのIntlayerのブートストラップ
+</Step>
+
+<Step number={4} title="エントリポイントでのIntlayerのブートストラップ">
 
 `src/main.js` で、コンテンツがレンダリングされる**前**に `installIntlayer()` を呼び出し、グローバルロケールシングルトンの準備を整えます。
 
@@ -221,7 +229,9 @@ installIntlayer();
 installIntlayerMarkdown();
 ```
 
-### ステップ5：コンテンツの宣言
+</Step>
+
+<Step number={5} title="コンテンツの宣言">
 
 翻訳を保存するためのコンテンツ宣言を作成および管理します：
 
@@ -299,7 +309,9 @@ export default appContent;
 >
 > 詳細については、[コンテンツ宣言のドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/content_file.md)を参照してください。
 
-### ステップ6：JavaScriptでIntlayerを使用する
+</Step>
+
+<Step number={6} title="JavaScriptでIntlayerを使用する">
 
 `window.VanillaIntlayer` オブジェクトは API ヘルパーを提供します：`useIntlayer(key, locale?)` は、指定されたキーに対応する翻訳済みコンテンツを返します。
 
@@ -333,7 +345,9 @@ document.querySelector(".read-the-docs").textContent = String(
 > img.alt = content.viteLogoLabel.value;
 > ```
 
-### （オプション）ステップ7：コンテンツの言語を変更する
+</Step>
+
+<Step number={7} title="コンテンツの言語を変更する">
 
 コンテンツの言語を変更するには、`useLocale` によって公開される `setLocale` 関数を使用します。
 
@@ -368,7 +382,9 @@ export function setupLocaleSwitcher(container) {
 }
 ```
 
-### （オプション）ステップ8：HTMLの言語および方向属性の切り替え
+</Step>
+
+<Step number={8} title="HTMLの言語および方向属性の切り替え">
 
 アクセシビリティとSEOのために、`<html>` タグの `lang` および `dir` 属性を現在のロケールに合わせて更新します。
 
@@ -386,7 +402,9 @@ useLocale({
 });
 ```
 
-### （オプション）ステップ9：ロケールごとのディクショナリの遅延読み込み
+</Step>
+
+<Step number={9} title="ロケールごとのディクショナリの遅延読み込み">
 
 ロケールごとにディクショナリを遅延読み込みしたい場合は、`useDictionaryDynamic` を使用できます。これは、初期の `intlayer.js` ファイルにすべての翻訳をバンドルしたくない場合に便利です。
 
@@ -442,3 +460,7 @@ Intlayerでの開発体験を向上させるために、公式の **Intlayer VS 
 ### さらに詳しく
 
 さらに詳しく知るには、[ビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)を実装したり、[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)を使用してコンテンツを外部化したりできます。
+
+</Step>
+
+</Steps>

@@ -62,33 +62,43 @@ history:
 
 Par rapport aux solutions principales telles que `astro-i18n` ou `i18next`, Intlayer est une solution dotée d'optimisations intégrées telles que :
 
-**Support complet d'Astro**
+<AccordionGroup>
+<Accordion header="Support complet d'Astro">
 
 Intlayer est optimisé pour s'intégrer parfaitement avec Astro en proposant le **routage multilingue**, la génération de **sitemap** et toutes les fonctionnalités nécessaires pour mettre à l'échelle votre internationalisation (i18n).
 
-**Taille du bundle**
+</Accordion>
+<Accordion header="Taille du bundle">
 
 Au lieu de charger de lourds fichiers JSON dans vos pages, ne chargez que le contenu strictement nécessaire. Intlayer vous aide à **réduire la taille de votre bundle et de vos pages jusqu'à 50 %**.
 
-**Maintenabilité**
+</Accordion>
+<Accordion header="Maintenabilité">
 
 Déclarer le contenu directement au plus près de vos composants **facilite la maintenance** des applications de grande envergure. Vous pouvez dupliquer ou supprimer le dossier d'une fonctionnalité sans le fardeau mental de devoir passer en revue toute votre base de code de contenu. De plus, Intlayer est **entièrement typé** pour garantir l'exactitude de vos traductions.
 
-**Prêt pour les agents IA**
+</Accordion>
+<Accordion header="Prêt pour les agents IA">
 
 La colocalisation du contenu **réduit le contexte nécessaire** aux grands modèles de langage (LLM). Intlayer est également livré avec une suite d'outils, tels qu'une **CLI** pour vérifier les traductions manquantes, un **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/lsp.md)**, un **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/mcp_server.md)** et des **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/agent_skills.md)**, afin de rendre l'expérience développeur (DX) encore plus fluide pour les agents IA.
 
-**Automatisation**
+</Accordion>
+<Accordion header="Automatisation">
 
 Automatisez les traductions dans votre pipeline CI/CD en utilisant le LLM de votre choix au coût de votre propre fournisseur d'IA. Intlayer propose également un **compilateur** pour automatiser l'extraction de contenu, ainsi qu'une [plateforme web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_CMS.md) pour vous aider à **traduire en arrière-plan**.
 
-**Performances**
+</Accordion>
+<Accordion header="Performances">
 
 Associer de gros fichiers JSON à vos composants peut ralentir les performances et impacter la réactivité. Intlayer optimise le chargement du contenu directement au moment du **build**.
 
-**Collaboration avec les non-développeurs**
+</Accordion>
+<Accordion header="Collaboration avec les non-développeurs">
 
 Bien plus qu'une simple solution i18n, Intlayer propose un **[éditeur visuel](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_visual_editor.md)** auto-hébergé et un **[CMS complet](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_CMS.md)** pour gérer votre contenu multilingue en **temps réel**. Cela rend la collaboration avec les traducteurs, concepteurs-rédacteurs et autres membres de l'équipe extrêmement simple. Le contenu peut être stocké localement et/ou à distance.
+
+</Accordion>
+</AccordionGroup>
 
 ---
 
@@ -96,7 +106,9 @@ Bien plus qu'une simple solution i18n, Intlayer propose un **[éditeur visuel](h
 
 Voir le [Modèle d'application](https://github.com/aymericzip/intlayer-astro-template) sur GitHub.
 
-### Étape 1 : Installer les dépendances
+<Steps>
+
+<Step number={1} title="Installer les dépendances">
 
 Installez les packages nécessaires en utilisant votre gestionnaire de packages préféré :
 
@@ -139,7 +151,9 @@ bun x intlayer init
 - **@astrojs/vue**
   L'intégration Astro officielle qui permet d'utiliser des îles (islands) de composants Vue.
 
-### Étape 2 : Configurer votre projet
+</Step>
+
+<Step number={2} title="Configurer votre projet">
 
 Créez un fichier de configuration pour définir les langues de votre application :
 
@@ -163,7 +177,9 @@ export default config;
 
 > Via ce fichier de configuration, vous pouvez configurer les URL localisées, les redirections du middleware, les noms des cookies, l'emplacement et l'extension de vos déclarations de contenu, désactiver les logs Intlayer dans la console, et plus encore. Pour une liste complète des paramètres disponibles, consultez la [documentation de configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/configuration.md).
 
-### Étape 3 : Intégrer Intlayer dans votre configuration Astro
+</Step>
+
+<Step number={3} title="Intégrer Intlayer dans votre configuration Astro">
 
 Ajoutez le plugin intlayer et l'intégration Vue à votre configuration Astro.
 
@@ -184,7 +200,9 @@ export default defineConfig({
 
 > L'intégration `vue()` permet d'utiliser des îles de composants Vue via `client:only="vue"`.
 
-### Étape 4 : Déclarer votre contenu
+</Step>
+
+<Step number={4} title="Déclarer votre contenu">
 
 Créez et gérez vos déclarations de contenu pour stocker vos traductions :
 
@@ -209,7 +227,9 @@ export default appContent;
 
 > Pour plus d'informations, consultez la [documentation de déclaration de contenu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/content_file.md).
 
-### Étape 5 : Utiliser le contenu dans Astro
+</Step>
+
+<Step number={5} title="Utiliser le contenu dans Astro">
 
 Vous pouvez consommer les dictionnaires directement dans vos fichiers `.astro` en utilisant les helpers de base exportés par `intlayer`. Vous devez également ajouter des métadonnées SEO, telles que hreflang et des liens canoniques, sur chaque page et intégrer une île Vue pour le contenu interactif côté client.
 
@@ -289,7 +309,9 @@ const { title } = getIntlayer("app", locale);
 > - **`prefix-all` :** Toutes les URL ont un préfixe de langue. Vous pouvez utiliser un `[locale]` standard si vous n'avez pas besoin de gérer la racine séparément.
 > - **`search-param` ou `no-prefix` :** Pas besoin de dossier de locale. La locale est gérée via les paramètres de recherche ou les cookies.
 
-### Étape 6 : Créer le composant Île Vue
+</Step>
+
+<Step number={6} title="Créer le composant Île Vue">
 
 Créez un composant île qui enveloppe votre application Vue et reçoit la locale détectée par le serveur. Vous devez appeler `installIntlayer` pour enregistrer le plugin Intlayer dans l'instance Vue avant d'utiliser les composables.
 
@@ -348,7 +370,9 @@ const { title } = useIntlayer("app");
 
 > La prop `locale` est transmise de la page Astro (détection serveur) et utilisée pour initialiser `installIntlayer`, ce qui en fait la locale par défaut pour tous les composables de l'arbre de composants.
 
-### Étape 7 : Ajouter un sélecteur de langue
+</Step>
+
+<Step number={7} title="Ajouter un sélecteur de langue">
 
 La fonctionnalité de changement de langue est directement intégrée dans le template de l'île Vue (voir Étape 6 ci-dessus). Elle utilise le composable `useLocale` de `vue-intlayer` et navigue vers l'URL localisée lorsqu'un utilisateur sélectionne une nouvelle langue :
 
@@ -396,7 +420,9 @@ const {
 > **Note sur la persistance :**
 > L’utilisation de `onLocaleChange` pour rediriger via `window.location.href` garantit que la nouvelle URL de langue est bien visitée, permettant au middleware Intlayer de définir le cookie de langue et de mémoriser la préférence de l’utilisateur pour les visites futures.
 
-### Étape 8 : Sitemap et Robots.txt
+</Step>
+
+<Step number={8} title="Sitemap et Robots.txt">
 
 Intlayer fournit des utilitaires pour créer dynamiquement vos sitemaps localisés et fichiers robots.txt.
 
@@ -504,7 +530,9 @@ Pour plus d'informations sur l'utilisation de l'extension, consultez la [documen
 
 ---
 
-### (Optionnel) Étape 15 : Extraer le contenu de vos composants
+</Step>
+
+<Step number={15} title="Extraer le contenu de vos composants" isOptional={true}>
 
 Si vous avez une base de code existante, transformer des milliers de fichiers peut prendre beaucoup de temps.
 
@@ -605,3 +633,7 @@ bun run build # Or bun run dev
 ### Aller plus loin
 
 Vous pouvez également implémenter l'[éditeur visuel](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_visual_editor.md) ou externaliser votre contenu en utilisant un [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_CMS.md).
+
+</Step>
+
+</Steps>

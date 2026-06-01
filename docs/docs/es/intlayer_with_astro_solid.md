@@ -62,33 +62,43 @@ history:
 
 En comparación con soluciones principales como `astro-i18n` o `i18next`, Intlayer es una solución que viene con optimizaciones integradas como:
 
-**Soporte completo de Astro**
+<AccordionGroup>
+<Accordion header="Soporte completo de Astro">
 
 Intlayer está optimizado para funcionar perfectamente con Astro al ofrecer **enrutamiento multilingüe**, **mapa del sitio** y todas las funciones necesarias para escalar la internacionalización (i18n).
 
-**Tamaño del bundle**
+</Accordion>
+<Accordion header="Tamaño del bundle">
 
 En lugar de cargar archivos JSON masivos en sus páginas, cargue solo el contenido necesario. Intlayer ayuda a **reducir el tamaño de su bundle y de sus páginas hasta en un 50%**.
 
-**Mantenibilidad**
+</Accordion>
+<Accordion header="Mantenibilidad">
 
 Determinar el alcance del contenido de su aplicación **facilita el mantenimiento** para aplicaciones a gran escala. Puede duplicar o eliminar una sola carpeta de funciones sin la carga mental de revisar todo el código base de contenido. Además, Intlayer está **completamente escrito** para garantizar la precisión de su contenido.
 
-**Agente de IA**
+</Accordion>
+<Accordion header="Agente de IA">
 
 La ubicación conjunta de contenido **reduce el contexto necesario** para los modelos de lenguajes grandes (LLM). Intlayer también viene con un conjunto de herramientas, como una **CLI** para comprobar si faltan traducciones,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** y **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, para que la experiencia del desarrollador (DX) sea aún más fluida para los agentes de IA.
 
-**Automatización**
+</Accordion>
+<Accordion header="Automatización">
 
 Utilice la automatización para traducir su canal de CI/CD utilizando el LLM de su elección al costo de su proveedor de IA. Intlayer también ofrece un **compilador** para automatizar la extracción de contenido, así como una [plataforma web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) para ayudar a **traducir en segundo plano**.
 
-**Actuación**
+</Accordion>
+<Accordion header="Actuación">
 
 La conexión de archivos JSON masivos a componentes puede provocar problemas de rendimiento y reactividad. Intlayer optimiza la carga de su contenido en el momento de la compilación.
 
-**Escalando sin ningún desarrollador**
+</Accordion>
+<Accordion header="Escalando sin ningún desarrollador">
 
 Más que una simple solución i18n, Intlayer proporciona un **[editor visual] autohospedado(https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** y un **[CMS completo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** para ayudarle a administrar su contenido multilingüe en **tiempo real**, lo que facilita la colaboración con traductores, redactores y otros miembros del equipo. El contenido se puede almacenar de forma local y/o remota.
+
+</Accordion>
+</AccordionGroup>
 
 ---
 
@@ -96,7 +106,9 @@ Más que una simple solución i18n, Intlayer proporciona un **[editor visual] au
 
 Consulta la [plantilla de aplicación](https://github.com/aymericzip/intlayer-astro-template) en GitHub.
 
-### Paso 1: Instalar dependencias
+<Steps>
+
+<Step number={1} title="Instalar dependencias">
 
 Instala los paquetes necesarios utilizando tu gestor de paquetes preferido:
 
@@ -139,7 +151,9 @@ bun x intlayer init
 - **@astrojs/solid-js**
   Integración oficial de Astro que permite el uso de islas (islands) de componentes Solid.
 
-### Paso 2: Configurar tu proyecto
+</Step>
+
+<Step number={2} title="Configurar tu proyecto">
 
 Crea un archivo de configuración para definir los idiomas de tu aplicación:
 
@@ -163,7 +177,9 @@ export default config;
 
 > A través de este archivo de configuración, puedes configurar URLs localizadas, redirecciones de middleware, nombres de cookies, ubicación y extensiones de las declaraciones de contenido, desactivar los logs de Intlayer en la consola, y más. Para una lista completa de los parámetros disponibles, consulta la [documentación de configuración](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/configuration.md).
 
-### Paso 3: Integrar Intlayer en tu configuración de Astro
+</Step>
+
+<Step number={3} title="Integrar Intlayer en tu configuración de Astro">
 
 Añade el plugin `intlayer` y la integración de Solid a tu configuración de Astro.
 
@@ -184,7 +200,9 @@ export default defineConfig({
 
 > La integración `solid()` permite usar islas de componentes Solid a través de `client:only="solid-js"`.
 
-### Paso 4: Declarar tu contenido
+</Step>
+
+<Step number={4} title="Declarar tu contenido">
 
 Crea y gestiona tus declaraciones de contenido para almacenar traducciones:
 
@@ -209,7 +227,9 @@ export default appContent;
 
 > Para más información, consulta la [documentación de declaración de contenido](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/content_file.md).
 
-### Paso 5: Usar el contenido en Astro
+</Step>
+
+<Step number={5} title="Usar el contenido en Astro">
 
 Puedes consumir los diccionarios directamente en tus archivos `.astro` utilizando los helpers core exportados por `intlayer`. También deberías añadir metadatos SEO (como hreflang y enlaces canónicos) a cada página e introducir una isla de Solid para el contenido interactivo del lado del cliente.
 
@@ -297,7 +317,9 @@ const { title } = getIntlayer("app", locale);
 > - **`prefix-all`:** todos los URLs tienen prefijo de idioma. Puedes usar el estándar `[locale]` si no necesitas manejar la raíz por separado.
 > - **`search-param` o `no-prefix`:** no se necesitan directorios de idioma. El idioma se maneja a través de parámetros de consulta o cookies.
 
-### Paso 6: Crear un componente de isla de Solid
+</Step>
+
+<Step number={6} title="Crear un componente de isla de Solid">
 
 Crea un componente de isla que envuelva tu aplicación Solid y reciba el idioma detectado por el servidor:
 
@@ -331,7 +353,9 @@ export function SolidIsland({ locale }: { locale: LocalesValues }) {
 
 > En Solid, `useIntlayer` devuelve una función **accessor** (ej: `content.). Debes llamar a esta función para acceder al contenido reactivo.
 
-### Paso 7: Añadir un selector de idioma
+</Step>
+
+<Step number={7} title="Añadir un selector de idioma">
 
 Crea un componente de Solid `LocaleSwitcher` que lea los idiomas disponibles y navegue a la URL localizada cuando el usuario seleccione un nuevo idioma:
 
@@ -382,7 +406,9 @@ export function LocaleSwitcher() {
 
 > El `LocaleSwitcher` debe renderizarse dentro del `IntlayerProvider` - úsalo dentro de tu componente de isla (como se muestra en el Paso 6).
 
-### Paso 8: Sitemap y Robots.txt
+</Step>
+
+<Step number={8} title="Sitemap y Robots.txt">
 
 Intlayer ofrece utilidades para crear dinámicamente tu sitemap localizado y tus archivos robots.txt.
 
@@ -490,7 +516,9 @@ Para más información sobre el uso de la extensión, consulta la [documentació
 
 ---
 
-### (Opcional) Paso 15 : Extraer el contenido de tus componentes
+</Step>
+
+<Step number={15} title="Extraer el contenido de tus componentes" isOptional={true}>
 
 Si tienes una base de código existente, transformar miles de archivos puede llevar mucho tiempo.
 
@@ -591,3 +619,7 @@ bun run build # Or bun run dev
 ### Profundiza más
 
 Si quieres saber más, también puedes implementar el [Editor Visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_visual_editor.md) o usar el [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_CMS.md) para externalizar tus contenidos.
+
+</Step>
+
+</Steps>

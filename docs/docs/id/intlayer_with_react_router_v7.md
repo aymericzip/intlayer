@@ -50,39 +50,51 @@ Panduan ini menunjukkan cara mengintegrasikan **Intlayer** untuk internasionalis
 
 Dibandingkan dengan solusi utama seperti `react-i18next` atau `i18next`, Intlayer adalah solusi yang hadir dengan pengoptimalan terintegrasi seperti:
 
-**Cakupan React Router Penuh**
+<AccordionGroup>
+<Accordion header="Cakupan React Router Penuh">
 
 Intlayer dioptimalkan untuk bekerja sempurna dengan React Router dengan menawarkan **perutean sadar lokal**, **middleware untuk deteksi lokal**, dan semua fitur yang diperlukan untuk penskalaan internasionalisasi (i18n).
 
-**Ukuran bundle**
+</Accordion>
+<Accordion header="Ukuran bundle">
 
 Daripada memuat file JSON berukuran besar ke halaman Anda, muat saja konten yang diperlukan. Intlayer membantu **mengurangi ukuran bundle dan halaman Anda hingga 50%**.
 
-**Kemampuan Pemeliharaan**
+</Accordion>
+<Accordion header="Kemampuan Pemeliharaan">
 
 Mencakup konten aplikasi Anda **memfasilitasi pemeliharaan** untuk aplikasi berskala besar. Anda dapat menduplikasi atau menghapus satu folder fitur tanpa beban mental untuk meninjau seluruh basis kode konten Anda. Selain itu, Intlayer **diketik sepenuhnya** untuk memastikan keakuratan konten Anda.
 
-**Agen AI**
+</Accordion>
+<Accordion header="Agen AI">
 
 Menempatkan konten bersama **mengurangi konteks yang diperlukan** dengan Model Bahasa Besar (LLM). Intlayer juga dilengkapi dengan serangkaian alat, seperti **CLI** untuk menguji terjemahan yang hilang,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)**, dan **[agent skill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, untuk menjadikan pengalaman pengembang (DX) lebih lancar bagi agen AI.
 
-**Otomatisasi**
+</Accordion>
+<Accordion header="Otomatisasi">
 
 Gunakan otomatisasi untuk menerjemahkan dalam saluran CI/CD Anda menggunakan LLM pilihan Anda dengan biaya penyedia AI Anda. Intlayer juga menawarkan **compiler** untuk mengotomatiskan ekstraksi konten, serta [platform web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) untuk membantu **menerjemahkan di latar belakang**.
 
-**Pertunjukan**
+</Accordion>
+<Accordion header="Pertunjukan">
 
 Menghubungkan file JSON berukuran besar ke komponen dapat menyebabkan masalah kinerja dan reaktivitas. Intlayer mengoptimalkan pemuatan konten Anda pada waktu pembuatan.
 
-**Menskalakan tanpa pengembang**
+</Accordion>
+<Accordion header="Menskalakan tanpa pengembang">
 
 Lebih dari sekedar solusi i18n, Intlayer menyediakan **[editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** yang dihosting sendiri dan **[CMS lengkap](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** untuk membantu Anda mengelola konten multibahasa secara **real-time**, membuat kolaborasi dengan penerjemah, copywriter, dan anggota tim lainnya menjadi lancar. Konten dapat disimpan secara lokal dan/atau jarak jauh.
+
+</Accordion>
+</AccordionGroup>
 
 ---
 
 ## Panduan Langkah demi Langkah untuk Mengatur Intlayer dalam Aplikasi React Router v7
 
-### Langkah 1: Pasang Dependencies
+<Steps>
+
+<Step number={1} title="Pasang Dependencies">
 
 Pasang paket yang diperlukan menggunakan manajer paket pilihan Anda:
 
@@ -120,7 +132,13 @@ bun x intlayer init
 - **vite-intlayer**
   Menyertakan plugin Vite untuk mengintegrasikan Intlayer dengan [Vite bundler](https://vite.dev/guide/why.html#why-bundle-for-production), serta middleware untuk mendeteksi locale yang dipilih pengguna, mengelola cookie, dan menangani pengalihan URL.
 
-### Langkah 2: Konfigurasi proyek Anda
+</Step>
+
+<Step number={2} title="Konfigurasi proyek Anda">
+
+</Step>
+
+</Steps>
 
 ## Panduan Langkah demi Langkah untuk Mengatur Intlayer dalam Aplikasi React Router v7 dengan Rute Berbasis Sistem File
 
@@ -173,7 +191,9 @@ export default config;
 
 > Melalui file konfigurasi ini, Anda dapat mengatur URL yang dilokalkan, pengalihan middleware, nama cookie, lokasi dan ekstensi deklarasi konten Anda, menonaktifkan log Intlayer di konsol, dan lainnya. Untuk daftar lengkap parameter yang tersedia, lihat [dokumentasi konfigurasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md).
 
-### Langkah 3: Integrasikan Intlayer dalam Konfigurasi Vite Anda
+<Steps>
+
+<Step number={3} title="Integrasikan Intlayer dalam Konfigurasi Vite Anda">
 
 Tambahkan plugin intlayer ke dalam konfigurasi Anda:
 
@@ -189,7 +209,9 @@ export default defineConfig({
 
 > Plugin Vite `intlayer()` digunakan untuk mengintegrasikan Intlayer dengan Vite. Plugin ini memastikan pembuatan file deklarasi konten dan memantau file tersebut dalam mode pengembangan. Plugin ini juga mendefinisikan variabel lingkungan Intlayer di dalam aplikasi Vite. Selain itu, plugin ini menyediakan alias untuk mengoptimalkan performa.
 
-### Langkah 4: Konfigurasikan Rute React Router v7
+</Step>
+
+<Step number={4} title="Konfigurasikan Rute React Router v7">
 
 Atur konfigurasi routing Anda dengan rute yang mendukung lokal:
 
@@ -202,7 +224,9 @@ export default [
 ] satisfies RouteConfig;
 ```
 
-### Langkah 5: Buat Komponen Layout
+</Step>
+
+<Step number={5} title="Buat Komponen Layout">
 
 Atur layout root Anda dan layout spesifik lokal:
 
@@ -256,7 +280,9 @@ export function Layout({
 }
 ```
 
-### Langkah 6: Deklarasikan Konten Anda
+</Step>
+
+<Step number={6} title="Deklarasikan Konten Anda">
 
 Buat dan kelola deklarasi konten Anda untuk menyimpan terjemahan:
 
@@ -296,7 +322,9 @@ export default pageContent;
 
 > Untuk detail lebih lanjut, lihat [dokumentasi deklarasi konten](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/content_file.md).
 
-### Langkah 7: Buat Komponen yang Menyadari Locale
+</Step>
+
+<Step number={7} title="Buat Komponen yang Menyadari Locale">
 
 Buat komponen `LocalizedLink` untuk navigasi yang menyadari locale:
 
@@ -357,7 +385,9 @@ export const useLocalizedNavigate = () => {
 };
 ```
 
-### Langkah 8: Gunakan Intlayer di Halaman Anda
+</Step>
+
+<Step number={8} title="Gunakan Intlayer di Halaman Anda">
 
 Akses kamus konten Anda di seluruh aplikasi:
 
@@ -411,7 +441,9 @@ export default function Page() {
 
 > Jika aplikasi Anda sudah ada, Anda dapat menggunakan [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compiler.md) secara kombinasi dengan [perintah extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/extract.md) untuk mengonversi ribuan komponen dalam satu detik.
 
-### Langkah 9: Buat Komponen Locale Switcher
+</Step>
+
+<Step number={9} title="Buat Komponen Locale Switcher">
 
 Buat komponen untuk memungkinkan pengguna mengganti bahasa:
 
@@ -472,7 +504,9 @@ export const LocaleSwitcher: FC = () => {
 
 > Untuk mempelajari lebih lanjut tentang hook `useLocale`, lihat [dokumentasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/react-intlayer/useLocale.md).
 
-### Langkah 10: Tambahkan Manajemen Atribut HTML (Opsional)
+</Step>
+
+<Step number={10} title="Tambahkan Manajemen Atribut HTML">
 
 Buat hook untuk mengelola atribut lang dan dir HTML:
 
@@ -510,7 +544,9 @@ export default function RootLayout() {
 }
 ```
 
-### (Opsional) Langkah 1 : Ekstrak konten komponen Anda
+</Step>
+
+<Step number={1} title="Ekstrak konten komponen Anda" isOptional={true}>
 
 Jika Anda memiliki basis kode yang ada, mengubah ribuan file bisa memakan waktu lama.
 
@@ -608,6 +644,10 @@ bun run build # Or bun run dev
 
 ---
 
+</Step>
+
+</Steps>
+
 ## Configure TypeScript
 
 Intlayer uses module augmentation to get benefits of TypeScript and make your codebase stronger.
@@ -673,7 +713,9 @@ To go further, you can implement the [visual editor](https://github.com/aymericz
 
 This comprehensive guide provides everything you need to integrate Intlayer with React Router v7 for a fully internationalized application with locale-aware routing and TypeScript support.
 
-### Langkah 11: Tambahkan middleware (Opsional)
+<Steps>
+
+<Step number={11} title="Tambahkan middleware">
 
 Anda juga dapat menggunakan `intlayerProxy` untuk menambahkan routing sisi server ke aplikasi Anda. Plugin ini akan secara otomatis mendeteksi locale saat ini berdasarkan URL dan mengatur cookie locale yang sesuai. Jika tidak ada locale yang ditentukan, plugin akan menentukan locale yang paling sesuai berdasarkan preferensi bahasa browser pengguna. Jika tidak ada locale yang terdeteksi, maka akan mengarahkan ulang ke locale default.
 
@@ -695,6 +737,10 @@ export default defineConfig({
 ```
 
 ---
+
+</Step>
+
+</Steps>
 
 ## Konfigurasi TypeScript
 

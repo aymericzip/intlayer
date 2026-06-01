@@ -137,7 +137,9 @@ history:
 └── vite.config.ts
 ```
 
-### الخطوة 1: تثبيت التبعيات
+<Steps>
+
+<Step number={1} title="تثبيت التبعيات">
 
 قم بتثبيت الحزم اللازمة باستخدام npm:
 
@@ -169,7 +171,9 @@ bun x intlayer init
 - **svelte-intlayer**: يوفر موفري السياق والمخازن لـ Svelte/SvelteKit.
 - **vite-intlayer**: إضافة Vite لدمج إعلانات المحتوى مع عملية البناء.
 
-### الخطوة 2: تكوين مشروعك
+</Step>
+
+<Step number={2} title="تكوين مشروعك">
 
 قم بإنشاء ملف تكوين في جذر مشروعك:
 
@@ -186,7 +190,9 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-### الخطوة 3: دمج Intlayer في تكوين Vite الخاص بك
+</Step>
+
+<Step number={3} title="دمج Intlayer في تكوين Vite الخاص بك">
 
 قم بتحديث ملف `vite.config.ts` الخاص بك ليشمل إضافة Intlayer. تتولى هذه الإضافة تحويل ملفات المحتوى الخاصة بك.
 
@@ -200,7 +206,9 @@ export default defineConfig({
 });
 ```
 
-### الخطوة 4: إعلان المحتوى الخاص بك
+</Step>
+
+<Step number={4} title="إعلان المحتوى الخاص بك">
 
 قم بإنشاء ملفات إعلان المحتوى في أي مكان داخل مجلد `src` الخاص بك (مثلًا، `src/lib/content` أو بجانب مكوناتك). تقوم هذه الملفات بتعريف المحتوى القابل للترجمة لتطبيقك باستخدام دالة `t()` لكل لغة.
 
@@ -221,7 +229,9 @@ const heroContent = {
 export default heroContent;
 ```
 
-### الخطوة 5: استخدام Intlayer في مكوناتك
+</Step>
+
+<Step number={5} title="استخدام Intlayer في مكوناتك">
 
 الآن يمكنك استخدام دالة `useIntlayer` في أي مكون Svelte. فهي تُرجع مخزنًا تفاعليًا يتم تحديثه تلقائيًا عند تغيير اللغة. ستلتزم الدالة تلقائيًا باللغة الحالية (سواء أثناء SSR أو التنقل على جانب العميل).
 
@@ -251,6 +261,10 @@ export default heroContent;
 ---
 
 # ترجمة موقع SvelteKit الخاص بك باستخدام Intlayer | التدويل (i18n)
+
+</Step>
+
+</Steps>
 
 ## جدول المحتويات
 
@@ -313,7 +327,9 @@ export default heroContent;
 └── vite.config.ts
 ```
 
-### الخطوة 1: تثبيت التبعيات
+<Steps>
+
+<Step number={1} title="تثبيت التبعيات">
 
 قم بتثبيت الحزم اللازمة باستخدام npm:
 
@@ -345,7 +361,9 @@ bun x intlayer init
 - **svelte-intlayer**: يوفر موفري السياق والمخازن لـ Svelte/SvelteKit.
 - **vite-intlayer**: إضافة Vite لدمج إعلانات المحتوى مع عملية البناء.
 
-### الخطوة 2: تكوين مشروعك
+</Step>
+
+<Step number={2} title="تكوين مشروعك">
 
 قم بإنشاء ملف تكوين في جذر مشروعك:
 
@@ -362,7 +380,9 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-### الخطوة 3: دمج Intlayer في تكوين Vite الخاص بك
+</Step>
+
+<Step number={3} title="دمج Intlayer في تكوين Vite الخاص بك">
 
 قم بتحديث ملف `vite.config.ts` الخاص بك ليشمل إضافة Intlayer. تتولى هذه الإضافة تحويل ملفات المحتوى الخاصة بك.
 
@@ -376,7 +396,9 @@ export default defineConfig({
 });
 ```
 
-### الخطوة 4: إعلان المحتوى الخاص بك
+</Step>
+
+<Step number={4} title="إعلان المحتوى الخاص بك">
 
 قم بإنشاء ملفات إعلان المحتوى في أي مكان داخل مجلد `src` الخاص بك (مثلًا، `src/lib/content` أو بجانب مكوناتك). تقوم هذه الملفات بتعريف المحتوى القابل للترجمة لتطبيقك باستخدام دالة `t()` لكل لغة.
 
@@ -397,7 +419,9 @@ const heroContent = {
 export default heroContent;
 ```
 
-### الخطوة 5: استخدام Intlayer في مكوناتك
+</Step>
+
+<Step number={5} title="استخدام Intlayer في مكوناتك">
 
 للوصول إلى قيمته التفاعلية (مثلًا، `$content.title`).
 
@@ -419,7 +443,9 @@ export default heroContent;
 <div aria-label={String($content.title)}></div>
 ```
 
-### (اختياري) الخطوة 6: إعداد التوجيه
+</Step>
+
+<Step number={6} title="إعداد التوجيه" isOptional={true}>
 
 توضح الخطوات التالية كيفية إعداد التوجيه بناءً على اللغة في SvelteKit. يتيح هذا لعناوين URL الخاصة بك أن تتضمن بادئة اللغة (مثل `/en/about`، `/fr/about`) لتحسين تحسين محركات البحث وتجربة المستخدم.
 
@@ -444,7 +470,9 @@ export default heroContent;
         └── +layout.svelte         # التخطيط الجذري للخطوط والأنماط العامة
 ```
 
-### الخطوة 7: التعامل مع اكتشاف اللغة على جانب الخادم (Hooks)
+</Step>
+
+<Step number={7} title="التعامل مع اكتشاف اللغة على جانب الخادم">
 
 في SvelteKit، يحتاج الخادم إلى معرفة لغة المستخدم لعرض المحتوى الصحيح أثناء العرض من جانب الخادم (SSR). نستخدم `hooks.server.ts` لاكتشاف اللغة من عنوان URL أو ملفات تعريف الارتباط.
 
@@ -656,7 +684,9 @@ export const prerender = true;
 </style>
 ```
 
-### (اختياري) الخطوة 8: الروابط الدولية
+</Step>
+
+<Step number={8} title="الروابط الدولية" isOptional={true}>
 
 من أجل تحسين محركات البحث (SEO)، يُنصح بإضافة بادئة اللغة إلى مساراتك (على سبيل المثال، `/en/about`، `/fr/about`). يقوم هذا المكون تلقائيًا بإضافة بادئة اللغة الحالية لأي رابط.
 
@@ -689,7 +719,9 @@ const localizedPath = getLocalizedUrl("/about", $locale);
 goto(localizedPath); // ينتقل إلى /en/about أو /fr/about حسب اللغة
 ```
 
-### (اختياري) الخطوة 9: مبدل اللغة
+</Step>
+
+<Step number={9} title="مبدل اللغة" isOptional={true}>
 
 للسماح للمستخدمين بتغيير اللغة، قم بتحديث عنوان URL.
 
@@ -730,7 +762,9 @@ goto(localizedPath); // ينتقل إلى /en/about أو /fr/about حسب الل
 </style>
 ```
 
-### (اختياري) الخطوة 10: إضافة وكيل خلفي (backend proxy)
+</Step>
+
+<Step number={10} title="إضافة وكيل خلفي" isOptional={true}>
 
 لإضافة وكيل خلفي إلى تطبيق SvelteKit الخاص بك، يمكنك استخدام دالة `intlayerProxy` المقدمة من إضافة `vite-intlayer`. ستقوم هذه الإضافة بالكشف تلقائيًا عن أفضل لغة للمستخدم بناءً على عنوان URL، والكوكيز، وتفضيلات لغة المتصفح.
 
@@ -749,7 +783,9 @@ export default defineConfig({
 });
 ```
 
-### (اختياري) الخطوة 11: إعداد محرر / نظام إدارة محتوى intlayer
+</Step>
+
+<Step number={11} title="إعداد محرر / نظام إدارة محتوى intlayer" isOptional={true}>
 
 لإعداد محرر intlayer، يجب عليك اتباع [توثيق محرر intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md).
 
@@ -783,7 +819,9 @@ export default defineConfig({
 .intlayer
 ```
 
-### (اختياري) خطوة 1 : استخراج محتوى مكوناتك
+</Step>
+
+<Step number={1} title="استخراج محتوى مكوناتك" isOptional={true}>
 
 إذا كان لديك قاعدة بيانات كود موجودة، فقد يكون تحويل آلاف الملفات مستهلكًا للوقت.
 
@@ -902,3 +940,7 @@ bun run build # Or bun run dev
 
 - **المحرر المرئي**: دمج [المحرر المرئي لـ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) لتحرير الترجمات مباشرة من واجهة المستخدم.
 - **نظام إدارة المحتوى (CMS)**: قم بفصل إدارة المحتوى الخاصة بك باستخدام [نظام إدارة المحتوى Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md).
+
+</Step>
+
+</Steps>

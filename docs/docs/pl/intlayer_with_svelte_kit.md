@@ -137,7 +137,9 @@ Aby rozpocząć, utwórz nowy projekt SvelteKit. Oto końcowa struktura, którą
 └── vite.config.ts
 ```
 
-### Krok 1: Instalacja zależności
+<Steps>
+
+<Step number={1} title="Instalacja zależności">
 
 Zainstaluj niezbędne pakiety za pomocą npm:
 
@@ -169,7 +171,9 @@ bun x intlayer init
 - **svelte-intlayer**: Zapewnia dostawców kontekstu i sklepy dla Svelte/SvelteKit.
 - **vite-intlayer**: Wtyczka Vite do integracji deklaracji treści z procesem budowania.
 
-### Krok 2: Konfiguracja projektu
+</Step>
+
+<Step number={2} title="Konfiguracja projektu">
 
 Utwórz plik konfiguracyjny w katalogu głównym projektu:
 
@@ -186,7 +190,9 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-### Krok 3: Integracja Intlayer w konfiguracji Vite
+</Step>
+
+<Step number={3} title="Integracja Intlayer w konfiguracji Vite">
 
 Zaktualizuj swój plik `vite.config.ts`, aby uwzględnić wtyczkę Intlayer. Ta wtyczka obsługuje transpileację Twoich plików z treścią.
 
@@ -200,7 +206,9 @@ export default defineConfig({
 });
 ```
 
-### Krok 4: Zadeklaruj swoją treść
+</Step>
+
+<Step number={4} title="Zadeklaruj swoją treść">
 
 Utwórz pliki deklaracji treści w dowolnym miejscu w folderze `src` (np. `src/lib/content` lub obok swoich komponentów). Pliki te definiują tłumaczoną treść dla Twojej aplikacji, używając funkcji `t()` dla każdego języka.
 
@@ -221,9 +229,13 @@ const heroContent = {
 export default heroContent;
 ```
 
-### Krok 5: Wykorzystaj Intlayer w swoich komponentach
+</Step>
 
-### Krok 5: Wykorzystaj Intlayer w swoich komponentach
+<Step number={5} title="Wykorzystaj Intlayer w swoich komponentach">
+
+</Step>
+
+<Step number={5} title="Wykorzystaj Intlayer w swoich komponentach">
 
 Teraz możesz użyć funkcji `useIntlayer` w dowolnym komponencie Svelte. Zwraca ona reaktywny store, który automatycznie aktualizuje się, gdy zmienia się lokalizacja. Funkcja automatycznie uwzględnia aktualną lokalizację (zarówno podczas SSR, jak i nawigacji po stronie klienta).
 
@@ -253,6 +265,10 @@ Teraz możesz użyć funkcji `useIntlayer` w dowolnym komponencie Svelte. Zwraca
 ---
 
 # Przetłumacz swoją stronę SvelteKit za pomocą Intlayer | Internacjonalizacja (i18n)
+
+</Step>
+
+</Steps>
 
 ## Spis treści
 
@@ -315,7 +331,9 @@ Aby rozpocząć, utwórz nowy projekt SvelteKit. Oto końcowa struktura, którą
 └── vite.config.ts
 ```
 
-### Krok 1: Instalacja zależności
+<Steps>
+
+<Step number={1} title="Instalacja zależności">
 
 Zainstaluj niezbędne pakiety za pomocą npm:
 
@@ -347,7 +365,9 @@ bun x intlayer init
 - **svelte-intlayer**: Zapewnia dostawców kontekstu i sklepy dla Svelte/SvelteKit.
 - **vite-intlayer**: Wtyczka Vite do integracji deklaracji treści z procesem budowania.
 
-### Krok 2: Konfiguracja projektu
+</Step>
+
+<Step number={2} title="Konfiguracja projektu">
 
 Utwórz plik konfiguracyjny w katalogu głównym projektu:
 
@@ -364,7 +384,9 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-### Krok 3: Integracja Intlayer w konfiguracji Vite
+</Step>
+
+<Step number={3} title="Integracja Intlayer w konfiguracji Vite">
 
 Zaktualizuj swój plik `vite.config.ts`, aby uwzględnić wtyczkę Intlayer. Ta wtyczka obsługuje transpileację Twoich plików z treścią.
 
@@ -378,7 +400,9 @@ export default defineConfig({
 });
 ```
 
-### Krok 4: Zadeklaruj swoją treść
+</Step>
+
+<Step number={4} title="Zadeklaruj swoją treść">
 
 Utwórz pliki deklaracji treści w dowolnym miejscu w folderze `src` (np. `src/lib/content` lub obok swoich komponentów). Pliki te definiują tłumaczoną treść dla Twojej aplikacji, używając funkcji `t()` dla każdego języka.
 
@@ -399,7 +423,9 @@ const heroContent = {
 export default heroContent;
 ```
 
-### Krok 5: Wykorzystaj Intlayer w swoich komponentach
+</Step>
+
+<Step number={5} title="Wykorzystaj Intlayer w swoich komponentach">
 
 , aby uzyskać dostęp do jego reaktywnej wartości (np. `$content.title`).
 
@@ -421,7 +447,9 @@ export default heroContent;
 <div aria-label={String($content.title)}></div>
 ```
 
-### (Opcjonalny) Krok 6: Skonfiguruj routing
+</Step>
+
+<Step number={6} title="Skonfiguruj routing" isOptional={true}>
 
 Poniższe kroki pokazują, jak skonfigurować routing oparty na lokalizacji w SvelteKit. Pozwala to na dodanie prefiksu lokalizacji do adresów URL (np. `/en/about`, `/fr/about`) dla lepszego SEO i doświadczenia użytkownika.
 
@@ -446,7 +474,9 @@ Poniższe kroki pokazują, jak skonfigurować routing oparty na lokalizacji w Sv
         └── +layout.svelte         # Główny layout dla fontów i stylów globalnych
 ```
 
-### Krok 7: Obsługa wykrywania lokalizacji po stronie serwera (Hooks)
+</Step>
+
+<Step number={7} title="Obsługa wykrywania lokalizacji po stronie serwera">
 
 W SvelteKit serwer musi znać lokalizację użytkownika, aby wyrenderować odpowiednią zawartość podczas SSR. Używamy `hooks.server.ts` do wykrywania lokalizacji z URL lub ciasteczek.
 
@@ -658,7 +688,9 @@ export const prerender = true;
 </style>
 ```
 
-### (Opcjonalny) Krok 8: Linki z internacjonalizacją
+</Step>
+
+<Step number={8} title="Linki z internacjonalizacją" isOptional={true}>
 
 Dla SEO zaleca się poprzedzanie swoich ścieżek lokalizacją (np. `/en/about`, `/fr/about`). Ten komponent automatycznie dodaje prefiks lokalizacji do każdego linku.
 
@@ -691,7 +723,9 @@ const localizedPath = getLocalizedUrl("/about", $locale);
 goto(localizedPath); // Nawiguje do /en/about lub /fr/about w zależności od lokalizacji
 ```
 
-### (Opcjonalny) Krok 9: Przełącznik języka
+</Step>
+
+<Step number={9} title="Przełącznik języka" isOptional={true}>
 
 Aby umożliwić użytkownikom zmianę języka, zaktualizuj URL.
 
@@ -732,7 +766,9 @@ Aby umożliwić użytkownikom zmianę języka, zaktualizuj URL.
 </style>
 ```
 
-### (Opcjonalny) Krok 10: Dodaj backend proxy
+</Step>
+
+<Step number={10} title="Dodaj backend proxy" isOptional={true}>
 
 Aby dodać backend proxy do swojej aplikacji SvelteKit, możesz użyć funkcji `intlayerProxy` dostarczonej przez wtyczkę `vite-intlayer`. Ta wtyczka automatycznie wykryje najlepszy locale dla użytkownika na podstawie URL, ciasteczek i preferencji językowych przeglądarki.
 
@@ -751,7 +787,9 @@ export default defineConfig({
 });
 ```
 
-### (Opcjonalny) Krok 11: Konfiguracja edytora intlayer / CMS
+</Step>
+
+<Step number={11} title="Konfiguracja edytora intlayer / CMS" isOptional={true}>
 
 Aby skonfigurować edytor intlayer, należy postępować zgodnie z [dokumentacją edytora intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_visual_editor.md).
 
@@ -787,7 +825,9 @@ Zaleca się ignorowanie plików generowanych przez Intlayer.
 
 ---
 
-### (Opcjonalnie) Krok 12 : Wyodrębnij zawartość swoich komponentów
+</Step>
+
+<Step number={12} title="Wyodrębnij zawartość swoich komponentów" isOptional={true}>
 
 Jeśli masz istniejącą bazę kodu, transformacja tysięcy plików może być czasochłonna.
 
@@ -887,3 +927,7 @@ bun run build # Or bun run dev
 
 - **Edytor wizualny**: Zintegruj [Intlayer Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_visual_editor.md), aby edytować tłumaczenia bezpośrednio z interfejsu użytkownika.
 - **CMS**: Zewnętrz zarządzanie treścią, korzystając z [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md).
+
+</Step>
+
+</Steps>

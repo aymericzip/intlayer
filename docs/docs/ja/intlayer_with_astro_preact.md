@@ -96,7 +96,9 @@ Intlayer は単なる i18n ソリューションではなく、**自己ホスト
 
 GitHubで[アプリケーションテンプレート](https://github.com/aymericzip/intlayer-astro-template)を表示。
 
-### ステップ1: 依存関係のインストール
+<Steps>
+
+<Step number={1} title="依存関係のインストール">
 
 お好みのパッケージマネージャーを使用して、必要なパッケージをインストールします：
 
@@ -139,7 +141,9 @@ bun x intlayer init
 - **@astrojs/preact**
   Preactコンポーネントアイランドの使用を可能にする公式のAstro統合。
 
-### ステップ2: プロジェクトの設定
+</Step>
+
+<Step number={2} title="プロジェクトの設定">
 
 アプリケーションの言語を設定するための設定ファイルを作成します：
 
@@ -163,7 +167,9 @@ export default config;
 
 > この設定ファイルを使用して、ローカライズされたURL、ミドルウェアのリダイレクト、クッキー名、コンテンツ宣言の場所と拡張子、コンソールでのIntlayerログの無効化などを設定できます。利用可能なパラメータの全リストについては、[設定ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)を参照してください。
 
-### ステップ3: Astro設定へのIntlayerの統合
+</Step>
+
+<Step number={3} title="Astro設定へのIntlayerの統合">
 
 Astroの設定にintlayerプラグインとPreact統合を追加します。
 
@@ -184,7 +190,9 @@ export default defineConfig({
 
 > `preact()` 統合により、`client:only="preact"` を通じてPreactコンポーネントアイランドを使用できるようになります。
 
-### ステップ4: コンテンツの宣言
+</Step>
+
+<Step number={4} title="コンテンツの宣言">
 
 翻訳を保存するためのコンテンツ宣言を作成・管理します：
 
@@ -213,7 +221,9 @@ export default appContent;
 
 > コンテンツファイルにTSXコードが含まれている場合は、 `import { h } from "preact";` をインポートするか、JSXプラグマがPreact用に正しく設定されていることを確認してください。
 
-### ステップ5: Astroでのコンテンツの使用
+</Step>
+
+<Step number={5} title="Astroでのコンテンツの使用">
 
 `intlayer`からエクスポートされたコアヘルパーを使用して、`.astro`ファイル内で直接辞書を消費できます。また、各ページにhreflangや正規リンクなどのSEOメタデータを追加し、クライアントサイドのインタラクティブなコンテンツのためにPreactアイランドを組み込む必要があります。
 
@@ -301,7 +311,9 @@ const { title } = getIntlayer("app", locale);
 > - **`prefix-all`:** すべてのURLに言語プレフィックスが付きます。ルートを個別に処理する必要がない場合は、標準の `[locale]` を使用できます。
 > - **`search-param` または `no-prefix`:** ロケールフォルダは不要です。ロケールは検索パラメータまたはクッキーを通じて処理されます。
 
-### ステップ6: Preactアイランドコンポーネントの作成
+</Step>
+
+<Step number={6} title="Preactアイランドコンポーネントの作成">
 
 Preactアプリケーションをラップし、サーバーによって検出されたロケールを受け取るアイランドコンポーネントを作成します：
 
@@ -336,7 +348,9 @@ export const PreactIsland: FunctionalComponent<{ locale: LocalesValues }> = ({
 
 > 注意 : Preactでは、HTML属性に `className` ではなく `class` を使用します。
 
-### ステップ7: 言語切り替え機能の追加
+</Step>
+
+<Step number={7} title="言語切り替え機能の追加">
 
 利用可能なロケールを読み取り、ユーザーが新しい言語を選択したときにローカライズされたURLに移動するPreactコンポーネント `LocaleSwitcher` を作成します：
 
@@ -386,7 +400,9 @@ export const LocaleSwitcher: FunctionalComponent = () => {
 
 > `LocaleSwitcher` は `IntlayerProvider` 内でレンダリングされる必要があります。アイランドコンポーネント内で使用してください（ステップ6参照）。
 
-### ステップ8: サイトマップとRobots.txt
+</Step>
+
+<Step number={8} title="サイトマップとRobots.txt">
 
 Intlayerは、動的にローカライズされたサイトマップとrobots.txtファイルを生成するためのユーティリティを提供します。
 
@@ -498,7 +514,9 @@ Intlayerを使用した開発体験を向上させるために、**公式のIntl
 
 ---
 
-### (Optional) Step 15: Extract the content of your components
+</Step>
+
+<Step number={15} title="Extract the content of your components" isOptional={true}>
 
 If you have an existing codebase, transforming thousands of files can be time-consuming.
 
@@ -603,3 +621,7 @@ bun run build # Or bun run dev
 ### さらに詳しく
 
 さらに詳しく知りたい場合は、[ビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)を実装したり、[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)を使用してコンテンツを外部化したりすることもできます。
+
+</Step>
+
+</Steps>

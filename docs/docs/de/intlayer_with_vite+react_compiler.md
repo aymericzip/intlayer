@@ -92,7 +92,9 @@ Um diese Auswirkungen während der Entwicklung abzumildern, können Sie den Comp
 
 ## Schritt-für-Schritt-Anleitung zur Einrichtung von Intlayer in einer Vite- und React-Anwendung
 
-### Schritt 1: Abhängigkeiten installieren
+<Steps>
+
+<Step number={1} title="Abhängigkeiten installieren">
 
 Installieren Sie die erforderlichen Pakete mit npm:
 
@@ -129,7 +131,9 @@ bun x intlayer init
 - **vite-intlayer**
   Enthält das Vite-Plugin zur Integration von Intlayer in den [Vite-Bundler](https://vite.dev/guide/why.html#why-bundle-for-production) sowie Middleware zur Erkennung des bevorzugten Gebietsschemas des Benutzers, zur Verwaltung von Cookies und zur Handhabung von URL-Umleitungen.
 
-### Schritt 2: Konfigurieren Sie Ihr Projekt
+</Step>
+
+<Step number={2} title="Konfigurieren Sie Ihr Projekt">
 
 Erstellen Sie eine Konfigurationsdatei, um die Sprachen Ihrer Anwendung zu konfigurieren:
 
@@ -183,7 +187,9 @@ export default config;
 
 > Über diese Konfigurationsdatei können Sie lokalisierte URLs, Middleware-Umleitungen, Cookie-Namen, den Speicherort und die Erweiterung Ihrer Inhaltsdeklarationen festlegen, Intlayer-Protokolle in der Konsole deaktivieren und vieles mehr. Eine vollständige Liste der verfügbaren Parameter finden Sie in der [Konfigurationsdokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/configuration.md).
 
-### Schritt 3: Intlayer in Ihre Vite-Konfiguration integrieren
+</Step>
+
+<Step number={3} title="Intlayer in Ihre Vite-Konfiguration integrieren">
 
 Fügen Sie das Intlayer-Plugin zu Ihrer Konfiguration hinzu.
 
@@ -202,7 +208,9 @@ export default defineConfig({
 
 > Das `intlayerCompiler()`-Vite-Plugin wird verwendet, um Inhalte aus Komponenten zu extrahieren und `.content`-Dateien zu schreiben.
 
-### Schritt 4: Kompilieren Sie Ihren Code
+</Step>
+
+<Step number={4} title="Kompilieren Sie Ihren Code">
 
 Schreiben Sie Ihre Komponenten einfach mit fest codierten Zeichenfolgen in Ihrem Standard-Gebietsschema. Der Compiler kümmert sich um den Rest.
 
@@ -341,7 +349,9 @@ export default App;
 
 - **`IntlayerProvider`** wird verwendet, um das Gebietsschema für verschachtelte Komponenten bereitzustellen.
 
-### (Optional) Schritt 6: Die Sprache Ihres Inhalts ändern
+</Step>
+
+<Step number={6} title="Die Sprache Ihres Inhalts ändern" isOptional={true}>
 
 Um die Sprache Ihres Inhalts zu ändern, können Sie die Funktion `setLocale` verwenden, die vom Hook `useLocale` bereitgestellt wird. Mit dieser Funktion können Sie das Gebietsschema der Anwendung festlegen und den Inhalt entsprechend aktualisieren.
 
@@ -363,7 +373,9 @@ const LocaleSwitcher: FC = () => {
 
 > Um mehr über den Hook `useLocale` zu erfahren, lesen Sie die [Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/react-intlayer/useLocale.md).
 
-### (Optional) Schritt 7: Fehlende Übersetzungen ausfüllen
+</Step>
+
+<Step number={7} title="Fehlende Übersetzungen ausfüllen" isOptional={true}>
 
 Intlayer bietet ein CLI-Tool an, mit dem Sie fehlende Übersetzungen ausfüllen können. Sie können den Befehl `intlayer` verwenden, um fehlende Übersetzungen in Ihrem Code zu testen und auszufüllen.
 
@@ -504,3 +516,7 @@ Weitere Details zur Verwendung der Erweiterung finden Sie in der [Dokumentation 
 ### Weiterführendes
 
 Um weiterzugehen, können Sie den [visuellen Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_visual_editor.md) implementieren oder Ihre Inhalte mit dem [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_CMS.md) extern verwalten.
+
+</Step>
+
+</Steps>

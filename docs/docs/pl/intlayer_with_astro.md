@@ -98,7 +98,9 @@ Więcej niż tylko rozwiązanie i18n, Intlayer zapewnia **samodzielny [edytor wi
 
 Sprawdź [szablon aplikacji](https://github.com/aymericzip/intlayer-astro-template) na GitHubie.
 
-### Krok 1: Zainstaluj zależności
+<Steps>
+
+<Step number={1} title="Zainstaluj zależności">
 
 Zainstaluj niezbędne pakiety za pomocą preferowanego menedżera pakietów:
 
@@ -126,7 +128,9 @@ yarn add react react-dom react-intlayer @astrojs/react
 - **astro-intlayer**
   Wtyczka integracyjna Astro służąca do połączenia Intlayer z [bundlerem Vite](https://vite.dev/guide/why.html#why-bundle-for-production); zawiera również oprogramowanie pośredniczące (middleware) do wykrywania preferowanego języka użytkownika, zarządzania plikami cookie i obsługi przekierowań URL.
 
-### Krok 2: Skonfiguruj swój projekt
+</Step>
+
+<Step number={2} title="Skonfiguruj swój projekt">
 
 Utwórz plik konfiguracyjny, aby zdefiniować języki swojej aplikacji:
 
@@ -151,7 +155,9 @@ export default config;
 
 > Za pośrednictwem tego pliku konfiguracyjnego możesz ustawić zlokalizowane adresy URL, przekierowania oprogramowania pośredniczącego, nazwy plików cookie, lokalizację i rozszerzenia deklaracji treści, wyłączyć dzienniki Intlayer w konsoli i wiele więcej. Pełną listę dostępnych parametrów znajdziesz w [dokumentacji konfiguracji](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/configuration.md).
 
-### Krok 3: Zintegruj Intlayer ze swoją konfiguracją Astro
+</Step>
+
+<Step number={3} title="Zintegruj Intlayer ze swoją konfiguracją Astro">
 
 Dodaj wtyczkę `intlayer` do konfiguracji Astro.
 
@@ -169,7 +175,9 @@ export default defineConfig({
 
 > Wtyczka integracyjna `intlayer()` służy do integracji Intlayer z Astro. Zapewnia ona generowanie plików deklaracji treści i monitoruje je w trybie deweloperskim. Definiuje zmienne środowiskowe Intlayer w aplikacji Astro i udostępnia aliasy w celu optymalizacji wydajności.
 
-### Krok 4: Zadeklaruj swoją treść
+</Step>
+
+<Step number={4} title="Zadeklaruj swoją treść">
 
 Twórz i zarządzaj swoimi deklaracjami treści, aby przechowywać tłumaczenia:
 
@@ -196,7 +204,9 @@ export default appContent;
 
 > Więcej informacji znajdziesz w [dokumentacji deklaracji treści](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/content_file.md).
 
-### Krok 5: Korzystanie z treści w Astro
+</Step>
+
+<Step number={5} title="Korzystanie z treści w Astro">
 
 Możesz konsumować słowniki bezpośrednio w swoich plikach `.astro`, używając podstawowych pomocników wyeksportowanych z `intlayer`.
 
@@ -269,7 +279,9 @@ const { title } = getIntlayer("app", locale);
 </html>
 ```
 
-### Krok 6: Zlokalizowany routing
+</Step>
+
+<Step number={6} title="Zlokalizowany routing">
 
 Twórz dynamiczne segmenty tras (np. `src/pages/[locale]/index.astro`), aby serwować zlokalizowane strony:
 
@@ -285,7 +297,9 @@ const { title } = getIntlayer('app');
 
 Integracja z Astro dodaje oprogramowanie pośredniczące Vite, które pomaga w routingu uwzględniającym język i definiowaniu środowiska podczas programowania. Możesz również użyć własnej logiki lub narzędzi `intlayer`, takich jak `getLocalizedUrl`, aby tworzyć linki między językami.
 
-### Krok 7: Kontynuuj korzystanie ze swojego ulubionego frameworka
+</Step>
+
+<Step number={7} title="Kontynuuj korzystanie ze swojego ulubionego frameworka">
 
 Kontynuuj budowanie swojej aplikacji, korzystając z wybranego frameworka.
 
@@ -343,7 +357,9 @@ Więcej informacji na temat korzystania z rozszerzenia znajdziesz w [dokumentacj
 
 ---
 
-### (Opcjonalnie) Krok 17 : Wyodrębnij zawartość swoich komponentów
+</Step>
+
+<Step number={17} title="Wyodrębnij zawartość swoich komponentów" isOptional={true}>
 
 Jeśli masz istniejącą bazę kodu, transformacja tysięcy plików może być czasochłonna.
 
@@ -444,3 +460,7 @@ bun run build # Or bun run dev
 ### Pogłębiaj swoją wiedzę
 
 Jeśli chcesz dowiedzieć się więcej, możesz również wdrożyć [Edytor Wizualny](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_visual_editor.md) lub użyć [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md), aby wyeksternalizować swoją treść.
+
+</Step>
+
+</Steps>

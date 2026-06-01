@@ -81,7 +81,9 @@ Aktif geliştirme sırasında (dev modu) bu etkiyi sınırlamak için derleyiciy
 
 ## Next.js uygulamasında Intlayer Kurulumu için Adım Adım Kılavuz
 
-### Adım 1: Bağımlılıkları Yükleyin
+<Steps>
+
+<Step number={1} title="Bağımlılıkları Yükleyin">
 
 Tercih ettiğiniz paket yöneticisini kullanarak gerekli paketleri yükleyin:
 
@@ -117,7 +119,9 @@ bun x intlayer init
 
   Intlayer'ı Next.js ile entegre eden pakettir. Next.js uluslararasılaştırması için bağlam sağlayıcıları ve hook'lar sunar. Ayrıca Intlayer'ı [Webpack](https://webpack.js.org/) veya [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack) ile entegre etmek için Next.js eklentisinin yanı sıra kullanıcının tercih ettiği dili algılamak, çerezleri yönetmek ve URL yönlendirmelerini idare etmek için ara yazılım (middleware) içerir.
 
-### Adım 2: Projenizi Yapılandırın
+</Step>
+
+<Step number={2} title="Projenizi Yapılandırın">
 
 Uygulamanızın dillerini tanımlamak için bir yapılandırma dosyası oluşturun:
 
@@ -174,7 +178,9 @@ export default config;
 
 > Bu yapılandırma dosyası ile yerelleştirilmiş URL'leri, vekil yönlendirmelerini, çerez eşlemelerini, içerik dosyalarınızın konumu ve uzantısını ayarlayabilir, konsoldaki Intlayer günlüklerini devre dışı bırakabilir ve daha fazlasını yapabilirsiniz. Kullanılabilir parametrelerin tam listesi için [yapılandırma belgelerine](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md) göz atın.
 
-### Adım 3: Intlayer'ı Next.js Yapılandırmanıza Entegre Edin
+</Step>
+
+<Step number={3} title="Intlayer'ı Next.js Yapılandırmanıza Entegre Edin">
 
 Next.js kurulumunuzu Intlayer kullanacak şekilde yapılandırın:
 
@@ -212,7 +218,9 @@ module.exports = {
 };
 ```
 
-### Adım 4: Sayfanızda Dil Algılama
+</Step>
+
+<Step number={4} title="Sayfanızda Dil Algılama">
 
 `RootLayout` bileşeninizin içeriğini temizleyin ve aşağıdaki örnekle değiştirin:
 
@@ -255,7 +263,9 @@ const RootLayout = async ({
 export default RootLayout;
 ```
 
-### Adım 5: İçeriğinizi Tanımlayın (Otomatik)
+</Step>
+
+<Step number={5} title="İçeriğinizi Tanımlayın">
 
 Derleyici etkinken artık içerik sözlüklerini (örn. `.content.ts` dosyaları) **manuel olarak tanımlamanıza gerek kalmaz**.
 
@@ -351,7 +361,9 @@ export default async function Page() {
 
   > Layout and page cannot share a common server context because the server context system is based on a per-request data store (via [React's cache](https://react.dev/reference/react/cache) mechanism), causing each "context" to be re-created for different segments of the application. Placing the provider in a shared layout would break this isolation, preventing the correct propagation of the server context values to your server components.
 
-### (İsteğe bağlı) Adım 7: Eksik çevirileri doldurma
+</Step>
+
+<Step number={7} title="Eksik çevirileri doldurma" isOptional={true}>
 
 Intlayer, eksik çevirileri doldurmanıza yardımcı olacak bir CLI aracı sağlar. Kodunuzdaki eksik çevirileri test etmek ve doldurmak için `intlayer` komutunu kullanabilirsiniz.
 
@@ -389,7 +401,9 @@ bun x intlayer fill         # Eksik çevirileri doldur
 
 > Daha fazla ayrıntı için [CLI belgelerine](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/ci.md) bakın.
 
-### (İsteğe Bağlı) Adım 8: Yerelleştirilmiş Yönlendirme Proxy Ara Yazılımı
+</Step>
+
+<Step number={8} title="Yerelleştirilmiş Yönlendirme Proxy Ara Yazılımı" isOptional={true}>
 
 Kullanıcıları otomatik olarak tercih ettikleri dildeki URL'ye yönlendirmek istiyorsanız, bir proxy ara yazılımı (middleware) kurun:
 
@@ -404,7 +418,9 @@ export const config = {
 
 > `intlayerProxy`, kullanıcının tercih ettiği dili algılamak ve [yapılandırma dosyası ayarlarında](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md) belirtildiği gibi uygun URL'ye yönlendirmek için kullanılır. Ek olarak, kullanıcının tercih ettiği dilin bir çerezde saklanmasına olanak tanır.
 
-### (İsteğe Bağlı) Adım 9: İçerik Dilini Değiştirme
+</Step>
+
+<Step number={9} title="İçerik Dilini Değiştirme" isOptional={true}>
 
 Next.js içinde içerik dilini değiştirmenin en önerilen yolu, kullanıcıları uygun dildeki rotaya yönlendirmek için `Link` bileşenini kullanmaktır. Bu, Next.js'in önceden getirme (prefetch) özelliğinden yararlanır ve sayfanın zorla yenilenmesini önler.
 
@@ -454,7 +470,9 @@ export const LocaleSwitcher: FC = () => {
 
 > Alternatif olarak, `useLocale` hook'u tarafından sağlanan `setLocale` fonksiyonunu kullanabilirsiniz. Bu fonksiyon sayfanın önceden getirilmesine izin vermez. Daha fazla ayrıntı için [`useLocale` hook belgelerine](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/next-intlayer/useLocale.md) göz atın.
 
-### (İsteğe Bağlı) Adım 10: Bundle Boyutunu Optimize Etme
+</Step>
+
+<Step number={10} title="Bundle Boyutunu Optimize Etme" isOptional={true}>
 
 `next-intlayer` kullanıldığında, sözlükler varsayılan olarak her sayfanın paketi (bundle) içinde yer alır. bundle boyutunu optimize etmek için Intlayer, makroları kullanarak `useIntlayer` çağrılarını akıllıca değiştiren isteğe bağlı bir SWC eklentisi sağlar. Bu, sözlüklerin yalnızca onları gerçekten kullanan sayfaların paketlerine dahil edilmesini sağlar.
 
@@ -528,7 +546,9 @@ Bu eklenti şunları sağlar:
 
 Eklenti kullanımıyla ilgili detaylı talimatlar için [Intlayer VS Code eklentisi belgelerini](https://intlayer.org/doc/vs-code-extension) okuyun.
 
-### (İsteğe bağlı) Adım 11 : Bileşenlerinizin içeriğini çıkarın
+</Step>
+
+<Step number={11} title="Bileşenlerinizin içeriğini çıkarın" isOptional={true}>
 
 Mevcut bir kod tabanınız varsa, binlerce dosyayı dönüştürmek zaman alıcı olabilir.
 
@@ -644,3 +664,7 @@ bun run build # Or bun run dev
 ### Daha Fazlası
 
 Daha ileri gitmek için [görsel düzenleyiciyi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md) uygulayabilir veya [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md) kullanarak içeriğinizi dışsallaştırabilirsiniz.
+
+</Step>
+
+</Steps>

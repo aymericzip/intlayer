@@ -92,7 +92,9 @@ Per mitigare questo impatto durante lo sviluppo, puoi configurare il compilatore
 
 ## Guida Passo dopo Passo per Configurare Intlayer in un'Applicazione Vite e React
 
-### Passaggio 1: Installare le Dipendenze
+<Steps>
+
+<Step number={1} title="Installare le Dipendenze">
 
 Installa i pacchetti necessari utilizzando npm:
 
@@ -129,7 +131,9 @@ bun x intlayer init
 - **vite-intlayer**
   Include il plugin Vite per l'integrazione di Intlayer con il [bundler Vite](https://vite.dev/guide/why.html#why-bundle-for-production), oltre al middleware per rilevare la lingua preferita dell'utente, gestire i cookie e gestire il reindirizzamento degli URL.
 
-### Passaggio 2: Configurare il Progetto
+</Step>
+
+<Step number={2} title="Configurare il Progetto">
 
 Crea un file di configurazione per impostare le lingue della tua applicazione:
 
@@ -188,7 +192,9 @@ export default config;
 
 > Attraverso questo file di configurazione, puoi impostare URL localizzati, reindirizzamenti middleware, nomi dei cookie, la posizione e l'estensione delle tue dichiarazioni di contenuto, disabilitare i log di Intlayer nella console e altro ancora. Per un elenco completo dei parametri disponibili, consulta la [documentazione della configurazione](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md).
 
-### Passaggio 3: Integrare Intlayer nella Configurazione di Vite
+</Step>
+
+<Step number={3} title="Integrare Intlayer nella Configurazione di Vite">
 
 Aggiungi il plugin intlayer nella tua configurazione.
 
@@ -207,7 +213,9 @@ export default defineConfig({
 
 > Il plugin Vite `intlayerCompiler()` viene utilizzato per estrarre il contenuto dai componenti e scrivere i file `.content`.
 
-### Passaggio 4: Compilare il Codice
+</Step>
+
+<Step number={4} title="Compilare il Codice">
 
 Scrivi semplicemente i tuoi componenti con stringhe codificate nella tua lingua predefinita. Il compilatore gestisce il resto.
 
@@ -346,7 +354,9 @@ export default App;
 
 - **`IntlayerProvider`** viene utilizzato per fornire la lingua ai componenti annidati.
 
-### (Opzionale) Passaggio 6: Cambiare la lingua del contenuto
+</Step>
+
+<Step number={6} title="Cambiare la lingua del contenuto" isOptional={true}>
 
 Per cambiare la lingua del tuo contenuto, puoi utilizzare la funzione `setLocale` fornita dall'hook `useLocale`. Questa funzione ti consente di impostare la lingua dell'applicazione e aggiornare il contenuto di conseguenza.
 
@@ -368,7 +378,9 @@ const LocaleSwitcher: FC = () => {
 
 > Per saperne di più sull'hook `useLocale`, consulta la [documentazione](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useLocale.md).
 
-### (Opzionale) Passaggio 7: Riempire le traduzioni mancanti
+</Step>
+
+<Step number={7} title="Riempire le traduzioni mancanti" isOptional={true}>
 
 Intlayer fornisce uno strumento CLI per aiutarti a riempire le traduzioni mancanti. Puoi usare il comando `intlayer` per testare e riempire le traduzioni mancanti dal tuo codice.
 
@@ -509,3 +521,7 @@ Per maggiori dettagli su come utilizzare l'estensione, consulta la [documentazio
 ### Approfondimenti
 
 Per approfondire, puoi implementare l'[editor visuale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) o esternalizzare i tuoi contenuti utilizzando il [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md).
+
+</Step>
+
+</Steps>

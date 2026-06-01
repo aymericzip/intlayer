@@ -35,33 +35,43 @@ history:
 
 'storybook-react-i18next' veya 'i18next' gibi ana çözümlerle karşılaştırıldığında Intlayer, aşağıdaki gibi entegre optimizasyonlarla gelen bir çözümdür:
 
-**Tam Hikaye Kitabı kapsamı**
+<AccordionGroup>
+<Accordion header="Tam Hikaye Kitabı kapsamı">
 
 Intlayer, **çok dilli hikaye dekoratörleri**, **yerel değiştirme** ve tasarım sisteminizde uluslararasılaştırmayı (i18n) ölçeklendirmek için gereken tüm özellikleri sunarak Storybook ile mükemmel çalışacak şekilde optimize edilmiştir.
 
-**Bundle boyutu**
+</Accordion>
+<Accordion header="Bundle boyutu">
 
 Sayfalarınıza çok büyük JSON dosyaları yüklemek yerine yalnızca gerekli içeriği yükleyin. Intlayer **bundle ve sayfa boyutlarınızı %50'ye kadar azaltmanıza** yardımcı olur.
 
-**Sürdürülebilirlik**
+</Accordion>
+<Accordion header="Sürdürülebilirlik">
 
 Uygulamanızın içeriğinin kapsamını belirlemek, büyük ölçekli uygulamalar için **bakımı kolaylaştırır**. İçerik kod tabanınızın tamamını gözden geçirmenin zihinsel yükü olmadan, tek bir özellik klasörünü çoğaltabilir veya silebilirsiniz. Ayrıca Intlayer, içeriğinizin doğruluğunu sağlamak için **tamamen tiplendirilmiş (fully typed)tır**.
 
-**Yapay Zeka Temsilcisi**
+</Accordion>
+<Accordion header="Yapay Zeka Temsilcisi">
 
 İçeriğin bir arada konumlandırılması **Büyük Dil Modellerinin (LLM'ler) ihtiyaç duyduğu bağlamı azaltır**. Intlayer ayrıca eksik çevirileri test etmek için **CLI** gibi bir araç paketiyle birlikte gelir**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** ve **[aracı becerileri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, geliştirici deneyimini (DX) yapay zeka için daha da sorunsuz hale getirmek için ajanlar.
 
-**Otomasyon**
+</Accordion>
+<Accordion header="Otomasyon">
 
 Maliyeti AI sağlayıcınıza ait olmak üzere seçtiğiniz LLM'yi kullanarak CI/CD işlem hattınızda çeviri yapmak için otomasyonu kullanın. Intlayer ayrıca içerik çıkarmayı otomatikleştirmek için bir **derleyici** ve **arka planda çeviri yapmaya** yardımcı olacak bir [web platformu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) sunar.
 
-**Performans**
+</Accordion>
+<Accordion header="Performans">
 
 Büyük JSON dosyalarını bileşenlere bağlamak performans ve tepkime sorunlarına yol açabilir. Intlayer, içerik yüklemenizi derleme sırasında optimize eder.
 
-**Non-dev ile ölçeklendirme**
+</Accordion>
+<Accordion header="Non-dev ile ölçeklendirme">
 
 Bir i18n çözümünden çok daha fazlası olan Intlayer, **kendi kendine barındırılan bir [görsel düzenleyici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** ve **[tam CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** çok dilli içeriğinizi **gerçek zamanlı** olarak yönetmenize yardımcı olarak çevirmenler, metin yazarları ve diğer ekip üyeleriyle işbirliğini kusursuz hale getirir. İçerik yerel olarak ve/veya uzaktan depolanabilir.
+
+</Accordion>
+</AccordionGroup>
 
 ---
 
@@ -80,7 +90,9 @@ Storybook, UI bileşenlerini izole bir şekilde geliştirmek ve belgelemek için
 <Tabs>
 <Tab value="Vite Setup">
 
-### Adım 1: Bağımlılıkları Yükleyin
+<Steps>
+
+<Step number={1} title="Bağımlılıkları Yükleyin">
 
 ```bash packageManager="npm"
 npm install intlayer react-intlayer
@@ -110,7 +122,9 @@ bun add vite-intlayer --dev
 
 ---
 
-### Adım 2: Bir Intlayer Yapılandırması Oluşturun
+</Step>
+
+<Step number={2} title="Bir Intlayer Yapılandırması Oluşturun">
 
 Projenizin kök dizinine (veya tasarım sistemi paketinizin içine) `intlayer.config.ts` dosyasını oluşturun:
 
@@ -139,7 +153,9 @@ export default config;
 
 ---
 
-### Adım 3: Storybook'a Vite Eklentisini Ekleyin
+</Step>
+
+<Step number={3} title="Storybook'a Vite Eklentisini Ekleyin">
 
 Storybook'un `viteFinal` kancası, dahili Vite yapılandırmasını genişletmenize olanak tanır. Oraya `intlayer()` eklentisini içe aktarın ve ekleyin:
 
@@ -180,7 +196,9 @@ export default config;
 
 ---
 
-### Adım 4: `IntlayerProvider` Dekoratörünü ve Bir Yerel Araç Çubuğunu Ekleyin
+</Step>
+
+<Step number={4} title="`IntlayerProvider` Dekoratörünü ve Bir Yerel Araç Çubuğunu Ekleyin">
 
 Storybook'un `preview` dosyası, her hikayeyi `IntlayerProvider` ile sarmalamak ve araç çubuğunda bir dil değiştirici göstermek için doğru yerdir:
 
@@ -237,7 +255,9 @@ export default preview;
 </Tab>
 <Tab value="Webpack Setup">
 
-### Adım 1: Bağımlılıkları Yükleyin
+</Step>
+
+<Step number={1} title="Bağımlılıkları Yükleyin">
 
 ```bash packageManager="npm"
 npm install intlayer react-intlayer
@@ -261,7 +281,9 @@ bun add @intlayer/webpack --dev
 
 ---
 
-### Adım 2: Bir Intlayer Yapılandırması Oluşturun
+</Step>
+
+<Step number={2} title="Bir Intlayer Yapılandırması Oluşturun">
 
 Projenizin kök dizinine `intlayer.config.ts` dosyasını oluşturun:
 
@@ -283,7 +305,9 @@ export default config;
 
 ---
 
-### Adım 3: Storybook'un Webpack'ini Yapılandırın
+</Step>
+
+<Step number={3} title="Storybook'un Webpack'ini Yapılandırın">
 
 Webpack tabanlı Storybook kurulumları için (örneğin `@storybook/react-webpack5`), Intlayer takma adlarını ve yükleyiciyi eklemek için `webpackFinal` aracılığıyla webpack yapılandırmasını genişletin:
 
@@ -310,7 +334,9 @@ export default config;
 
 ---
 
-### Adım 4: `IntlayerProvider` Dekoratörünü ve Bir Yerel Araç Çubuğunu Ekleyin
+</Step>
+
+<Step number={4} title="`IntlayerProvider` Dekoratörünü ve Bir Yerel Araç Çubuğunu Ekleyin">
 
 Vite kurulumuyla aynıdır - dekoratörü ve genel dil türünü `.storybook/preview.tsx` dosyasına ekleyin:
 
@@ -355,6 +381,10 @@ export default preview;
 </Tabs>
 
 ---
+
+</Step>
+
+</Steps>
 
 ## İçerik Bildirme
 

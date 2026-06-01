@@ -102,7 +102,9 @@ history:
 
 راجع [قالب التطبيق](https://github.com/aymericzip/intlayer-vite-preact-template) على GitHub.
 
-### الخطوة 1: تثبيت التبعيات
+<Steps>
+
+<Step number={1} title="تثبيت التبعيات">
 
 قم بتثبيت الحزم اللازمة باستخدام npm:
 
@@ -142,7 +144,9 @@ bun x intlayer init
 
   تتضمن إضافة Vite لدمج Intlayer مع [أداة تجميع Vite](https://vite.dev/guide/why.html#why-bundle-for-production)، بالإضافة إلى وسيط لاكتشاف اللغة المفضلة للمستخدم وإدارة ملفات تعريف الارتباط والتعامل مع إعادة توجيه عناوين URL.
 
-### الخطوة 2: تكوين مشروعك
+</Step>
+
+<Step number={2} title="تكوين مشروعك">
 
 أنشئ ملف تكوين لتحديد لغات تطبيقك:
 
@@ -170,7 +174,9 @@ export default config;
 
 > من خلال ملف التكوين هذا، يمكنك إعداد عناوين URL الموطنة، وأوضاع التوجيه، وخيارات التخزين، وأسماء ملفات تعريف الارتباط، وموقع وامتداد إعلانات المحتوى الخاصة بك، وتعطيل سجلات Intlayer في وحدة التحكم، والمزيد. للحصول على قائمة كاملة بالمعلمات المتاحة، راجع [وثائق التكوين](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md).
 
-### الخطوة 3: دمج Intlayer في تكوين Vite الخاص بك
+</Step>
+
+<Step number={3} title="دمج Intlayer في تكوين Vite الخاص بك">
 
 أضف المكون الإضافي intlayer إلى تكوينك.
 
@@ -187,7 +193,9 @@ export default defineConfig({
 
 > يُستخدم المكون الإضافي Vite `intlayer()` لدمج Intlayer مع Vite. يضمن بناء ملفات إعلان المحتوى ويراقبها في وضع التطوير. كما يحدد متغيرات بيئة Intlayer داخل تطبيق Vite. بالإضافة إلى ذلك، فإنه يوفر أسماء مستعارة لتحسين الأداء.
 
-### الخطوة 4: إعلان المحتوى الخاص بك
+</Step>
+
+<Step number={4} title="إعلان المحتوى الخاص بك">
 
 أنشئ وأدر إعلانات المحتوى الخاصة بك لتخزين الترجمات:
 
@@ -309,7 +317,9 @@ export default appContent;
 
 > إذا كان ملف المحتوى الخاص بك يتضمن كود TSX، فقد تحتاج إلى استيراد `import { h } from "preact";` أو التأكد من ضبط براغما JSX بشكل صحيح لـ Preact.
 
-### الخطوة 5: استخدام Intlayer في كودك
+</Step>
+
+<Step number={5} title="استخدام Intlayer في كودك">
 
 قم بالوصول إلى قواميس المحتوى الخاصة بك في جميع أنحاء تطبيقك:
 
@@ -381,7 +391,9 @@ export default App;
 
 > إذا كان تطبيقك موجودًا بالفعل، يمكنك استخدام [مترجم Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compiler.md)، بالإضافة إلى [أمر الاستخراج](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/extract.md)، لتحويل آلاف المكونات في ثانية واحدة.
 
-### (اختياري) الخطوة 6: تغيير لغة المحتوى الخاص بك
+</Step>
+
+<Step number={6} title="تغيير لغة المحتوى الخاص بك" isOptional={true}>
 
 لتغيير لغة المحتوى الخاص بك ، يمكنك استخدام وظيفة `setLocale` التي يوفرها خطاف `useLocale`. تتيح لك هذه الوظيفة تعيين لغة التطبيق وتحديث المحتوى وفقًا لذلك.
 
@@ -405,7 +417,9 @@ export default LocaleSwitcher;
 
 > لمعرفة المزيد حول الخطاف `useLocale` ، راجع [الوثائق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/react-intlayer/useLocale.md) (واجهة برمجة التطبيقات مماثلة لـ `preact-intlayer`).
 
-### (اختياري) الخطوة 7: إضافة توجيه محلي إلى تطبيقك
+</Step>
+
+<Step number={7} title="إضافة توجيه محلي إلى تطبيقك" isOptional={true}>
 
 الغرض من هذه الخطوة هو إنشاء مسارات فريدة لكل لغة. هذا مفيد لتحسين محركات البحث (SEO) وعناوين URL الصديقة لمحركات البحث.
 مثال:
@@ -468,7 +482,9 @@ const App: FunctionalComponent = () => (
 export default App;
 ```
 
-### (اختياري) الخطوة 8: تغيير عنوان URL عند تغيير اللغة
+</Step>
+
+<Step number={8} title="تغيير عنوان URL عند تغيير اللغة" isOptional={true}>
 
 لتغيير عنوان URL عند تغيير اللغة، يمكنك استخدام خاصية `onLocaleChange` التي يوفرها خطاف `useLocale`. بالتوازي، يمكنك استخدام طريقة `route` من `useLocation` في `preact-iso` لتحديث مسار URL.
 
@@ -542,7 +558,9 @@ export default LocaleSwitcher;
 >
 > > - [خطاف `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/react-intlayer/useLocale.md) (واجهة برمجة التطبيقات مماثلة لـ `preact-intlayer`)> - [خطاف `getLocaleName`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getLocaleName.md)> - [خطاف `getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getLocalizedUrl.md)> - [خطاف `getHTMLTextDir`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getHTMLTextDir.md)> - [خاصية `hreflang`](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=ar)> - [خاصية `lang`](https://developer.mozilla.org/ar/docs/Web/HTML/Global_attributes/lang)> - [خاصية `dir`](https://developer.mozilla.org/ar/docs/Web/HTML/Global_attributes/dir)> - [خاصية `aria-current`](https://developer.mozilla.org/ar/docs/Web/Accessibility/ARIA/Attributes/aria-current)> - [واجهة برمجة تطبيقات Popover](https://developer.mozilla.org/ar/docs/Web/API/Popover_API)
 
-### (اختياري) الخطوة 9: تبديل سمات اللغة والاتجاه لـ HTML
+</Step>
+
+<Step number={9} title="تبديل سمات اللغة والاتجاه لـ HTML" isOptional={true}>
 
 عندما يدعم تطبيقك لغات متعددة، من الضروري تحديث سمتي `lang` و `dir` في وسم `<html>` لتتوافق مع اللغة الحالية. القيام بذلك يضمن:
 
@@ -609,7 +627,9 @@ const App: FunctionalComponent = () => (
 export default App;
 ```
 
-### (اختياري) الخطوة 10: إنشاء مكون رابط محلي
+</Step>
+
+<Step number={10} title="إنشاء مكون رابط محلي" isOptional={true}>
 
 لضمان أن تنقل تطبيقك يحترم اللغة الحالية، يمكنك إنشاء مكون `Link` مخصص. يقوم هذا المكون تلقائيًا بإضافة بادئة اللغة الحالية إلى عناوين URL الداخلية.
 
@@ -674,7 +694,9 @@ Link.displayName = "Link";
 - **إرجاع الرابط**:  
   يعيد المكون عنصر `<a>` مع عنوان URL المحلي، مما يضمن أن التنقل متسق مع اللغة.
 
-### (اختياري) الخطوة 11: عرض Markdown و HTML
+</Step>
+
+<Step number={11} title="عرض Markdown و HTML" isOptional={true}>
 
 يدعم Intlayer عرض محتوى Markdown و HTML في Preact.
 
@@ -747,7 +769,9 @@ return (
 .intlayer
 ```
 
-### (اختياري) خطوة 1 : استخراج محتوى مكوناتك
+</Step>
+
+<Step number={1} title="استخراج محتوى مكوناتك" isOptional={true}>
 
 إذا كان لديك قاعدة بيانات كود موجودة، فقد يكون تحويل آلاف الملفات مستهلكًا للوقت.
 
@@ -956,3 +980,7 @@ console.log("SEO files generated successfully.");
 للذهاب أبعد من ذلك، يمكنك تنفيذ [المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) أو توفير المحتوى الخاص بك خارجيًا باستخدام [نظام إدارة المحتوى (CMS)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md).
 
 ---
+
+</Step>
+
+</Steps>

@@ -100,7 +100,9 @@ Intlayer は単なる i18n ソリューションではなく、**自己ホスト
 
 ## Vite と Preact アプリケーションで Intlayer をセットアップするステップバイステップガイド
 
-### (オプション) ステップ 1 : コンポーネントのコンテンツを抽出する
+<Steps>
+
+<Step number={1} title="コンポーネントのコンテンツを抽出する" isOptional={true}>
 
 既存のコードベースがある場合、数千のファイルを変換するのは時間がかかることがあります。
 
@@ -292,3 +294,7 @@ pnpm や yarn を使う場合はコマンドを読み替えてください。CI 
 さらに進むには、[ビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)を実装するか、[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md) を使用してコンテンツを外部化できます。
 
 ---
+
+</Step>
+
+</Steps>

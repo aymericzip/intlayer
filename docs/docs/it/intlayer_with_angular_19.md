@@ -38,33 +38,43 @@ history:
 
 Rispetto alle soluzioni principali come `ngx-translate` o `angular-l10n`, Intlayer è una soluzione dotata di ottimizzazioni integrate come:
 
-**Copertura angolare completa**
+<AccordionGroup>
+<Accordion header="Copertura angolare completa">
 
 Intlayer è ottimizzato per funzionare perfettamente con Angular offrendo **ambito del contenuto a livello di componente**, **traduzioni caricate lazy** e tutte le funzionalità necessarie per scalare l'internazionalizzazione (i18n).
 
-**Dimensione del bundle**
+</Accordion>
+<Accordion header="Dimensione del bundle">
 
 Invece di caricare enormi file JSON nelle tue pagine, carica solo il contenuto necessario. Intlayer aiuta a **ridurre le dimensioni del bundle e della pagina fino al 50%**.
 
-**Manutenibilità**
+</Accordion>
+<Accordion header="Manutenibilità">
 
 L'ambito del contenuto dell'applicazione **facilita la manutenzione** per applicazioni su larga scala. Puoi duplicare o eliminare una singola cartella di funzionalità senza l'onere mentale di rivedere l'intera codebase dei contenuti. Inoltre, Intlayer è **completamente tipizzato (fully typed)** per garantire l'accuratezza dei tuoi contenuti.
 
-**Agente IA**
+</Accordion>
+<Accordion header="Agente IA">
 
 La co-localizzazione dei contenuti **riduce il contesto necessario** dai Large Language Models (LLM). Intlayer viene fornito anche con una suite di strumenti, come una **CLI** per verificare le traduzioni mancanti,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** e **[capacità dell'agente](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, per rendere l'esperienza dello sviluppatore (DX) ancora più fluida per gli agenti IA.
 
-**Automazione**
+</Accordion>
+<Accordion header="Automazione">
 
 Utilizza l'automazione per tradurre nella tua pipeline CI/CD utilizzando il LLM di tua scelta al costo del tuo provider di intelligenza artificiale. Intlayer offre anche un **compilatore** per automatizzare l'estrazione dei contenuti, nonché una [piattaforma web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) per aiutare a **tradurre in background**.
 
-**Prestazione**
+</Accordion>
+<Accordion header="Prestazione">
 
 La connessione di enormi file JSON ai componenti può portare a problemi di prestazioni e reattività. Intlayer ottimizza il caricamento dei contenuti in fase di compilazione.
 
-**Scalabilità con nessuno sviluppatore**
+</Accordion>
+<Accordion header="Scalabilità con nessuno sviluppatore">
 
 Più di una semplice soluzione i18n, Intlayer fornisce un **[editor visivo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** self-hosted e un **[CMS completo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** per aiutarti gestisci i tuoi contenuti multilingue in **tempo reale**, semplificando la collaborazione con traduttori, copywriter e altri membri del team. I contenuti possono essere archiviati localmente e/o in remoto.
+
+</Accordion>
+</AccordionGroup>
 
 ---
 
@@ -97,7 +107,9 @@ Più di una semplice soluzione i18n, Intlayer fornisce un **[editor visivo](http
 
 Vedi il [Modello di Applicazione](https://github.com/aymericzip/intlayer-angular-19-template) su GitHub.
 
-### Passaggio 1: Installa le dipendenze
+<Steps>
+
+<Step number={1} title="Installa le dipendenze">
 
 Installa i pacchetti necessari usando npm:
 
@@ -135,7 +147,9 @@ bun x intlayer init
 - **@angular-builders/custom-webpack**
   Richiesto per personalizzare la configurazione Webpack di Angular CLI.
 
-### Passaggio 2: Configurazione del progetto
+</Step>
+
+<Step number={2} title="Configurazione del progetto">
 
 Crea un file di configurazione per impostare le lingue della tua applicazione:
 
@@ -159,7 +173,9 @@ export default config;
 
 > Attraverso questo file di configurazione, puoi impostare URL localizzati, reindirizzamenti middleware, nomi dei cookie, la posizione e l'estensione delle dichiarazioni dei contenuti, disabilitare i log di Intlayer nella console e altro ancora. Per un elenco completo dei parametri disponibili, consulta la [documentazione della configurazione](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md).
 
-### Passaggio 3: Integrare Intlayer nella configurazione Angular
+</Step>
+
+<Step number={3} title="Integrare Intlayer nella configurazione Angular">
 
 Per integrare Intlayer con Angular CLI, è necessario utilizzare un builder personalizzato. Questa guida presuppone l'utilizzo di Webpack (predefinito per molti progetti Angular).
 
@@ -202,7 +218,9 @@ export default mergeConfig({});
 
 > La funzione `mergeConfig` configura Webpack con Intlayer. Inietta l'`IntlayerPlugin` (per gestire i file di dichiarazione dei contenuti) e imposta gli alias per prestazioni ottimali.
 
-### Passaggio 4: Dichiarare i contenuti
+</Step>
+
+<Step number={4} title="Dichiarare i contenuti">
 
 Crea e gestisci le tue dichiarazioni di contenuto per memorizzare le traduzioni:
 
@@ -252,7 +270,9 @@ export default appContent;
 
 > Per maggiori dettagli, consulta la [documentazione sulla dichiarazione dei contenuti](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md).
 
-### Passaggio 5: Utilizzare Intlayer nel codice
+</Step>
+
+<Step number={5} title="Utilizzare Intlayer nel codice">
 
 Per utilizzare le funzionalità di internazionalizzazione di Intlayer in tutta la tua applicazione Angular, devi fornire Intlayer nella configurazione dell'applicazione.
 
@@ -300,7 +320,9 @@ E nel tuo template:
 
 Il contenuto di Intlayer viene restituito come un `Signal`, quindi si accede ai valori chiamando il segnale: `content().title`.
 
-### (Opzionale) Passaggio 6: Cambiare la lingua dei contenuti
+</Step>
+
+<Step number={6} title="Cambiare la lingua dei contenuti" isOptional={true}>
 
 Per cambiare la lingua dei contenuti, puoi usare la funzione `setLocale` fornita dalla funzione `useLocale`. Questo ti permette di impostare la lingua dell'applicazione e aggiornare il contenuto di conseguenza.
 
@@ -410,3 +432,7 @@ Per maggiori dettagli su come utilizzare l'estensione, consulta la [documentazio
 Per approfondire, puoi implementare l'[editor visuale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) o esternalizzare i tuoi contenuti utilizzando il [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md).
 
 ---
+
+</Step>
+
+</Steps>

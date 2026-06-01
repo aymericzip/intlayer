@@ -93,7 +93,9 @@ history:
 
 ## دليل خطوة بخطوة لإعداد Intlayer في تطبيق Vanilla JS
 
-### الخطوة 1: تثبيت التبعيات
+<Steps>
+
+<Step number={1} title="تثبيت التبعيات">
 
 قم بتثبيت الحزم اللازمة باستخدام npm:
 
@@ -153,7 +155,9 @@ bun x intlayer build
 
 > ينتج تصدير الربط (bundling) من واجهة سطر أوامر `intlayer standalone` بناءً محسّناً من خلال تقليم الشجرة (tree-shaking) للحزم غير المستخدمة، واللغات، والمنطق غير الأساسي (مثل عمليات إعادة التوجيه أو البوادئ) الخاصة بتكوينك.
 
-### الخطوة 2: تكوين مشروعك
+</Step>
+
+<Step number={2} title="تكوين مشروعك">
 
 قم بإنشاء ملف تكوين لتكوين لغات تطبيقك:
 
@@ -177,7 +181,9 @@ export default config;
 
 > من خلال ملف التكوين هذا، يمكنك إعداد عناوين URL الموطنة، وإعادة توجيه البرامج الوسيطة، وأسماء ملفات تعريف الارتباط، وموقع وامتداد تصريحات المحتوى الخاصة بك، وتعطيل سجلات Intlayer في وحدة التحكم، والمزيد. للحصول على قائمة كاملة بالمعلمات المتاحة، راجع [وثائق التكوين](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md).
 
-### الخطوة 3: استيراد الحزمة في HTML الخاص بك
+</Step>
+
+<Step number={3} title="استيراد الحزمة في HTML الخاص بك">
 
 بمجرد إنشاء حزمة `intlayer.js` ، يمكنك استيرادها في ملف HTML الخاص بك:
 
@@ -201,7 +207,9 @@ export default config;
 
 تكشف الحزمة عن `Intlayer` و `VanillaIntlayer` ككائنات عالمية على `window`.
 
-### الخطوة 4: تهيئة Intlayer في نقطة الدخول الخاصة بك
+</Step>
+
+<Step number={4} title="تهيئة Intlayer في نقطة الدخول الخاصة بك">
 
 في ملف `src/main.js` ، قم باستدعاء `installIntlayer()` **قبل** عرض أي محتوى بحيث يكون الكائن المنفرد للغة العالمية جاهزًا.
 
@@ -221,7 +229,9 @@ installIntlayer();
 installIntlayerMarkdown();
 ```
 
-### الخطوة 5: التصريح عن المحتوى الخاص بك
+</Step>
+
+<Step number={5} title="التصريح عن المحتوى الخاص بك">
 
 قم بإنشاء وإدارة تصريحات المحتوى الخاصة بك لتخزين الترجمات:
 
@@ -299,7 +309,9 @@ export default appContent;
 >
 > لمزيد من التفاصيل ، راجع [وثائق تصريح المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/content_file.md).
 
-### الخطوة 6: استخدام Intlayer في JavaScript الخاص بك
+</Step>
+
+<Step number={6} title="استخدام Intlayer في JavaScript الخاص بك">
 
 يوفر كائن `window.VanillaIntlayer` مساعدين لواجهة البرمجة: `useIntlayer(key, locale?)` يعيد المحتوى المترجم لمفتاح معين.
 
@@ -333,7 +345,9 @@ document.querySelector(".read-the-docs").textContent = String(
 > img.alt = content.viteLogoLabel.value;
 > ```
 
-### (اختياري) الخطوة 7: تغيير لغة المحتوى الخاص بك
+</Step>
+
+<Step number={7} title="تغيير لغة المحتوى الخاص بك" isOptional={true}>
 
 لتغيير لغة المحتوى الخاص بك ، استخدم وظيفة `setLocale` التي كشفت عنها `useLocale`.
 
@@ -368,7 +382,9 @@ export function setupLocaleSwitcher(container) {
 }
 ```
 
-### (اختياري) الخطوة 8: تبديل سمات لغة HTML والاتجاه
+</Step>
+
+<Step number={8} title="تبديل سمات لغة HTML والاتجاه" isOptional={true}>
 
 قم بتحديث سمات `lang` و `dir` لعلامة `<html>` لمطابقة اللغة الحالية لتسهيل الوصول وتحسين محركات البحث.
 
@@ -386,7 +402,9 @@ useLocale({
 });
 ```
 
-### (اختياري) الخطوة 9: تحميل القواميس بكسل لكل لغة
+</Step>
+
+<Step number={9} title="تحميل القواميس بكسل لكل لغة" isOptional={true}>
 
 إذا كنت ترغب في تحميل القواميس بكسل (lazy-load) لكل لغة ، يمكنك استخدام `useDictionaryDynamic`. هذا مفيد إذا كنت لا تريد حزم جميع الترجمات في ملف `intlayer.js` الأولي.
 
@@ -442,3 +460,7 @@ const unsubscribe = useDictionaryDynamic(
 ### اذهب أبعد من ذلك
 
 للذهاب إلى أبعد من ذلك ، يمكنك تنفيذ [المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) أو استضافة محتواك خارجيًا باستخدام [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md).
+
+</Step>
+
+</Steps>

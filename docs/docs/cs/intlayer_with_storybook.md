@@ -59,7 +59,9 @@ Storybook je standardní nástroj pro vývoj a dokumentaci UI komponent v izolac
 <Tabs>
 <Tab value="Vite Setup">
 
-### Krok 1: Instalace závislostí
+<Steps>
+
+<Step number={1} title="Instalace závislostí">
 
 ```bash packageManager="npm"
 npm install intlayer react-intlayer
@@ -89,7 +91,9 @@ bun add vite-intlayer --dev
 
 ---
 
-### Krok 2: Vytvoření konfigurace Intlayer
+</Step>
+
+<Step number={2} title="Vytvoření konfigurace Intlayer">
 
 Vytvořte `intlayer.config.ts` v kořenovém adresáři vašeho projektu (nebo uvnitř vašeho design-system balíčku):
 
@@ -118,7 +122,9 @@ export default config;
 
 ---
 
-### Krok 3: Přidání Vite pluginu do Storybooku
+</Step>
+
+<Step number={3} title="Přidání Vite pluginu do Storybooku">
 
 Hook `viteFinal` ve Storybooku vám umožní rozšířit interní konfiguraci Vite. Zde importujte a přidejte plugin `intlayer()`:
 
@@ -159,7 +165,9 @@ Plugin `intlayer()` sleduje vaše soubory `*.content.ts` a automaticky znovu ses
 
 ---
 
-### Krok 4: Přidání dekorátoru `IntlayerProvider` a nástrojové lišty jazyků
+</Step>
+
+<Step number={4} title="Přidání dekorátoru `IntlayerProvider` a nástrojové lišty jazyků">
 
 Soubor `preview` ve Storybooku je správným místem pro obalení každého příběhu (story) pomocí `IntlayerProvider` a vystavení přepínače jazyků v nástrojové liště:
 
@@ -216,7 +224,9 @@ export default preview;
 </Tab>
 <Tab value="Webpack Setup">
 
-### Krok 1: Instalace závislostí
+</Step>
+
+<Step number={1} title="Instalace závislostí">
 
 ```bash packageManager="npm"
 npm install intlayer react-intlayer
@@ -240,7 +250,9 @@ bun add @intlayer/webpack --dev
 
 ---
 
-### Krok 2: Vytvoření konfigurace Intlayer
+</Step>
+
+<Step number={2} title="Vytvoření konfigurace Intlayer">
 
 Vytvořte `intlayer.config.ts` v kořenovém adresáři vašeho projektu:
 
@@ -262,7 +274,9 @@ export default config;
 
 ---
 
-### Krok 3: Konfigurace Webpacku pro Storybook
+</Step>
+
+<Step number={3} title="Konfigurace Webpacku pro Storybook">
 
 U Storybooků založených na Webpacku (např. `@storybook/react-webpack5`) rozšiřte konfiguraci webpacku přes `webpackFinal` a přidejte Intlayer aliasy a loader:
 
@@ -289,7 +303,9 @@ export default config;
 
 ---
 
-### Krok 4: Přidání dekorátoru `IntlayerProvider` a nástrojové lišty jazyků
+</Step>
+
+<Step number={4} title="Přidání dekorátoru `IntlayerProvider` a nástrojové lišty jazyků">
 
 Stejné jako u nastavení Vite - přidejte dekorátor a globální typ lokality v `.storybook/preview.tsx`:
 
@@ -334,6 +350,10 @@ export default preview;
 </Tabs>
 
 ---
+
+</Step>
+
+</Steps>
 
 ## Deklarování obsahu
 

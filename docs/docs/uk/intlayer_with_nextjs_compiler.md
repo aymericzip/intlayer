@@ -81,7 +81,9 @@ history:
 
 ## Покрокова інструкція з налаштування Intlayer в додатку Next.js
 
-### Крок 1: Встановлення залежностей
+<Steps>
+
+<Step number={1} title="Встановлення залежностей">
 
 Встановіть необхідні пакети за допомогою бажаного менеджера пакетів:
 
@@ -117,7 +119,9 @@ bun x intlayer init
 
   Пакет, що інтегрує Intlayer з Next.js. Він надає контекст-провайдери та хуки для інтернаціоналізації Next.js. Крім того, він включає плагін Next.js для інтеграції Intlayer з [Webpack](https://webpack.js.org/) або [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack), а також прошарок (middleware) для виявлення бажаної мови користувача, управління файлами cookie та обробки перенаправлення URL.
 
-### Крок 2: Налаштування вашого проєкту
+</Step>
+
+<Step number={2} title="Налаштування вашого проєкту">
 
 Створіть конфігураційний файл, щоб визначити мови вашого додатку:
 
@@ -174,7 +178,9 @@ export default config;
 
 > За допомогою цього конфігураційного файлу ви можете налаштувати локалізовані URL-адреси, проксі-перенаправлення, мапінг файлів cookie, розташування та розширення ваших декларацій контенту, вимкнути логи Intlayer в консолі та багато іншого. Для ознайомлення з повним списком доступних параметрів, перегляньте [документацію до конфігурацій](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/configuration.md).
 
-### Крок 3: Інтегруйте Intlayer до вашої конфігурації Next.js
+</Step>
+
+<Step number={3} title="Інтегруйте Intlayer до вашої конфігурації Next.js">
 
 Налаштуйте ваш Next.js для використання Intlayer:
 
@@ -212,7 +218,9 @@ module.exports = {
 };
 ```
 
-### Крок 4: Виявлення мови на ваших сторінках
+</Step>
+
+<Step number={4} title="Виявлення мови на ваших сторінках">
 
 Очистіть контент `RootLayout` та замініть його прикладом нижче:
 
@@ -255,7 +263,9 @@ const RootLayout = async ({
 export default RootLayout;
 ```
 
-### Крок 5: Декларування вашого контенту (Автоматично)
+</Step>
+
+<Step number={5} title="Декларування вашого контенту">
 
 З увімкненим компілятором вам **більше не потрібно** декларувати словники контенту вручну (наприклад, файли `.content.ts`).
 
@@ -351,7 +361,9 @@ export default async function Page() {
 
   > Layout and page cannot share a common server context because the server context system is based on a per-request data store (via [React's cache](https://react.dev/reference/react/cache) mechanism), causing each "context" to be re-created for different segments of the application. Placing the provider in a shared layout would break this isolation, preventing the correct propagation of the server context values to your server components.
 
-### (Опціонально) Крок 7: Заповнення відсутніх перекладів
+</Step>
+
+<Step number={7} title="Заповнення відсутніх перекладів" isOptional={true}>
 
 Intlayer надає CLI-інструмент, щоб допомогти вам заповнити відсутні переклади. Ви можете використовувати команду `intlayer` для перевірки та заповнення відсутніх перекладів із вашого коду.
 
@@ -389,7 +401,9 @@ bun x intlayer fill         # Заповнити відсутні перекла
 
 > Для отримання більш детальної інформації зверніться до [документації CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/ci.md)
 
-### (Необов'язково) Крок 8: Middleware для проксі-маршрутизації мов
+</Step>
+
+<Step number={8} title="Middleware для проксі-маршрутизації мов" isOptional={true}>
 
 Якщо ви хочете автоматично перенаправляти користувачів на їхню улюблену мову, налаштуйте проксі middleware:
 
@@ -404,7 +418,9 @@ export const config = {
 
 > `intlayerProxy` використовується для виявлення обраної мови користувача та його перенаправлення на відповідну URL-адресу, як це визначено у [файлі конфігурації](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/configuration.md). Крім того, це дозволяє зберігати бажану мову користувача у cookie.
 
-### (Необов'язково) Крок 9: Зміна мови контенту
+</Step>
+
+<Step number={9} title="Зміна мови контенту" isOptional={true}>
 
 Найбільш рекомендований спосіб зміни мови контенту в Next.js, використання компонента `Link` для направлення користувача на маршрут з відповідною мовою. Це використовує функцію prefetch фреймворку Next.js і дозволяє уникнути жорсткого перезавантаження сторінки.
 
@@ -454,7 +470,9 @@ export const LocaleSwitcher: FC = () => {
 
 > Альтернативним варіантом є використання функції `setLocale`, яка надається хуком `useLocale`. Ця функція не підтримує prefetch сторінок. Більше деталей дивіться у [документації до хука `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/next-intlayer/useLocale.md).
 
-### (Необов'язково) Крок 10: Оптимізація розміру Bundle
+</Step>
+
+<Step number={10} title="Оптимізація розміру Bundle" isOptional={true}>
 
 При використанні `next-intlayer`, словники за замовчуванням включаються в bundle для кожної сторінки. Для оптимізації розміру bundle Intlayer надає опціональний SWC-плагін, який інтелектуально замінює виклики `useIntlayer` за допомогою макросів. Це гарантує, що словники включаються лише в bundle тих сторінок, які їх дійсно використовують.
 
@@ -528,7 +546,9 @@ Intlayer використовує розширення модулів (module au
 
 Прочитайте [документацію до розширення VS Code Intlayer](https://intlayer.org/doc/vs-code-extension) для отримання детальних інструкцій щодо використання розширення.
 
-### (Необов'язково) Крок 1 : Витягніть вміст ваших компонентів
+</Step>
+
+<Step number={1} title="Витягніть вміст ваших компонентів" isOptional={true}>
 
 Якщо у вас є існуюча кодова база, перетворення тисяч файлів може зайняти багато часу.
 
@@ -644,3 +664,7 @@ bun run build # Or bun run dev
 ### Йдемо далі
 
 Для подальшого розвитку ви можете впровадити [візуальний редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md) або винести ваш контент назовні за допомогою [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md).
+
+</Step>
+
+</Steps>

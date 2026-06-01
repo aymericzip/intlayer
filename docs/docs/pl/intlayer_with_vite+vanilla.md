@@ -94,7 +94,9 @@ Więcej niż tylko rozwiązanie i18n, Intlayer zapewnia **samodzielny [edytor wi
 
 ## Przewodnik krok po kroku dotyczący konfiguracji Intlayer w aplikacji Vite i Vanilla JS
 
-### Krok 1: Instalacja zależności
+<Steps>
+
+<Step number={1} title="Instalacja zależności">
 
 Zainstaluj niezbędne pakiety za pomocą npm:
 
@@ -131,7 +133,9 @@ bun x intlayer init
 - **vite-intlayer**
   Zawiera plugin Vite do integracji Intlayer z [Vite bundler](https://vite.dev/guide/why.html#why-bundle-for-production), a także middleware do wykrywania preferowanego języka użytkownika, zarządzania plikami cookie i obsługi przekierowań adresów URL.
 
-### Krok 2: Konfiguracja projektu
+</Step>
+
+<Step number={2} title="Konfiguracja projektu">
 
 Utwórz plik konfiguracyjny, aby skonfigurować języki aplikacji:
 
@@ -155,7 +159,9 @@ export default config;
 
 > Poprzez ten plik konfiguracyjny możesz skonfigurować zlokalizowane adresy URL, przekierowania middleware, nazwy plików cookie, lokalizację i rozszerzenie deklaracji treści, wyłączyć logi Intlayer w konsoli i wiele więcej. Pełną listę dostępnych parametrów znajdziesz w [dokumentacji konfiguracji](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/configuration.md).
 
-### Krok 3: Integracja Intlayer w konfiguracji Vite
+</Step>
+
+<Step number={3} title="Integracja Intlayer w konfiguracji Vite">
 
 Dodaj wtyczkę intlayer do swojej konfiguracji.
 
@@ -171,7 +177,9 @@ export default defineConfig({
 
 > Wtyczka `intlayer()` Vite jest używana do integracji Intlayer z Vite. Zapewnia budowanie plików deklaracji treści i monitoruje je w trybie deweloperskim. Definiuje zmienne środowiskowe Intlayer w aplikacji Vite. Ponadto udostępnia aliasy w celu optymalizacji wydajności.
 
-### Krok 4: Uruchomienie Intlayer w punkcie wejścia
+</Step>
+
+<Step number={4} title="Uruchomienie Intlayer w punkcie wejścia">
 
 Wywołaj `installIntlayer()` **przed** wyrenderowaniem jakiejkolwiek treści, aby globalny singleton języka był gotowy.
 
@@ -196,7 +204,9 @@ installIntlayerMarkdown();
 import "./app.js";
 ```
 
-### Krok 5: Deklaracja treści
+</Step>
+
+<Step number={5} title="Deklaracja treści">
 
 Twórz i zarządzaj swoimi deklaracjami treści, aby przechowywać tłumaczenia:
 
@@ -274,7 +284,9 @@ export default appContent;
 >
 > Więcej szczegółów znajdziesz w [dokumentacji deklaracji treści](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/content_file.md).
 
-### Krok 6: Użycie Intlayer w JavaScript
+</Step>
+
+<Step number={6} title="Użycie Intlayer w JavaScript">
 
 `vanilla-intlayer` odzwierciedla API powierzchniowe `react-intlayer`: `useIntlayer(key, locale?)` zwraca przetłumaczoną treść bezpośrednio. Wywołaj `.onChange()` na wyniku, aby zasubskrybować zmiany języka - co jest jawnym odpowiednikiem re-renderu w React.
 
@@ -310,7 +322,9 @@ document.querySelector<HTMLParagraphElement>(".read-the-docs")!.textContent =
 > img.alt = content.viteLogoLabel.value;
 > ```
 
-### (Opcjonalnie) Krok 7: Zmiana języka treści
+</Step>
+
+<Step number={7} title="Zmiana języka treści" isOptional={true}>
 
 Aby zmienić język treści, użyj funkcji `setLocale` udostępnionej przez `useLocale`.
 
@@ -345,7 +359,9 @@ export function setupLocaleSwitcher(container: HTMLElement): () => void {
 }
 ```
 
-### (Opcjonalnie) Krok 8: Renderowanie treści Markdown i HTML
+</Step>
+
+<Step number={8} title="Renderowanie treści Markdown i HTML" isOptional={true}>
 
 Intlayer obsługuje deklaracje treści `md()` i `html()`. W czystym JS skompilowana treść jest wstawiana jako surowy HTML za pomocą `innerHTML`.
 
@@ -404,7 +420,9 @@ document.querySelector<HTMLDivElement>(".edit-note")!.innerHTML =
 > });
 > ```
 
-### (Opcjonalnie) Krok 9: Dodawanie zlokalizowanego routingu do aplikacji
+</Step>
+
+<Step number={9} title="Dodawanie zlokalizowanego routingu do aplikacji" isOptional={true}>
 
 Aby stworzyć unikalne trasy dla każdego języka (przydatne dla SEO), możesz użyć `intlayerProxy` w konfiguracji Vite do wykrywania języka po stronie serwera.
 
@@ -424,7 +442,9 @@ export default defineConfig({
 });
 ```
 
-### (Opcjonalnie) Krok 10: Zmiana adresu URL przy zmianie języka
+</Step>
+
+<Step number={10} title="Zmiana adresu URL przy zmianie języka" isOptional={true}>
 
 Aby aktualizować adres URL w przeglądarce przy zmianie języka, wywołaj `useRewriteURL()` po zainstalowaniu Intlayer:
 
@@ -438,7 +458,9 @@ installIntlayer();
 const stopRewriteURL = useRewriteURL();
 ```
 
-### (Opcjonalnie) Krok 11: Przełączanie atrybutów języka i kierunku tekstu HTML
+</Step>
+
+<Step number={11} title="Przełączanie atrybutów języka i kierunku tekstu HTML" isOptional={true}>
 
 Zaktualizuj atrybuty `lang` i `dir` tagu `<html>`, aby odpowiadały aktualnemu językowi w celu ułatwienia dostępu i SEO.
 
@@ -456,7 +478,9 @@ useLocale({
 });
 ```
 
-### (Opcjonalnie) Krok 12: Leniwe ładowanie słowników na język
+</Step>
+
+<Step number={12} title="Leniwe ładowanie słowników na język" isOptional={true}>
 
 W przypadku dużych aplikacji możesz chcieć podzielić słownik każdego języka na osobny fragment. Użyj `useDictionaryDynamic` wraz z dynamicznym `import()` z Vite:
 
@@ -479,7 +503,9 @@ const unsubscribe = useDictionaryDynamic(
 
 > Pakiet każdego języka jest pobierany tylko wtedy, gdy ten język stanie się aktywny, a wynik jest buforowany - kolejne przełączenia na ten sam język są natychmiastowe.
 
-### (Opcjonalnie) Krok 13: Wyodrębnianie treści komponentów
+</Step>
+
+<Step number={13} title="Wyodrębnianie treści komponentów" isOptional={true}>
 
 Jeśli masz istniejącą bazę kodu, przekształcanie tysięcy plików może być czasochłonne.
 
@@ -694,3 +720,7 @@ Więcej szczegółów na temat korzystania z rozszerzenia znajdziesz w [dokument
 ### Idź dalej
 
 Aby pójść dalej, możesz zaimplementować [edytor wizualny](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_visual_editor.md) lub wyeksportować treść za pomocą [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md).
+
+</Step>
+
+</Steps>

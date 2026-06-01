@@ -78,7 +78,9 @@ Met Intlayer kunt u:
 
 Zie de [Applicatiesjabloon](https://github.com/aymericzip/intlayer-angular-21-template) op GitHub.
 
-### Stap 1: Afhankelijkheden installeren
+<Steps>
+
+<Step number={1} title="Afhankelijkheden installeren">
 
 Installeer de benodigde pakketten via npm:
 
@@ -116,7 +118,9 @@ bun x intlayer init
 - **@angular-builders/custom-esbuild**
   Vereist om de esbuild-configuratie van Angular CLI aan te passen.
 
-### Stap 2: Configuratie van uw project
+</Step>
+
+<Step number={2} title="Configuratie van uw project">
 
 Maak een configuratiebestand aan om de talen van uw applicatie te configureren:
 
@@ -140,7 +144,9 @@ export default config;
 
 > Via dit configuratiebestand kunt u gelokaliseerde URL's instellen, middleware-omleidingen, cookienamen, de locatie en extensie van uw inhoudsdeclaraties instellen, Intlayer-logs in de console uitschakelen, en nog veel meer. Zie de [configuratiedocumentatie](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/configuration.md) voor een volledige lijst met beschikbare parameters.
 
-### Stap 3: Intlayer integreren in uw Angular-configuratie
+</Step>
+
+<Step number={3} title="Intlayer integreren in uw Angular-configuratie">
 
 Om Intlayer met de Angular CLI te integreren, moet u een aangepaste builder gebruiken. Deze handleiding gaat ervan uit dat u Vite/esbuild gebruikt (standaard voor Angular 21-projecten).
 
@@ -202,7 +208,9 @@ export default [intlayerEsbuildPlugin()];
 >
 > Verwijs vervolgens in `angular.json` naar `"./esbuild.plugins.mjs"` in plaats van `"./esbuild.plugins.ts"`.
 
-### Stap 4: Verklaar uw Inhoud
+</Step>
+
+<Step number={4} title="Verklaar uw Inhoud">
 
 Maak en beheer uw inhoudsdeclaraties om vertalingen op te slaan:
 
@@ -252,7 +260,9 @@ export default appContent;
 
 > Zie voor meer informatie de [documentatie over inhoudsdeclaratie](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/dictionary/content_file.md).
 
-### Stap 5: Gebruik Intlayer in uw Code
+</Step>
+
+<Step number={5} title="Gebruik Intlayer in uw Code">
 
 Om de internationalisatiefuncties van Intlayer in uw hele Angular-applicatie te gebruiken, moet u Intlayer toevoegen aan de applicatieconfiguratie.
 
@@ -300,7 +310,9 @@ En in uw template:
 
 Intlayer-inhoud wordt geretourneerd als een `Signal`, dus u hebt toegang tot de waarden door de signaal aan te roepen: `content().title`.
 
-### (Optioneel) Stap 6: Verander de taal van uw inhoud
+</Step>
+
+<Step number={6} title="Verander de taal van uw inhoud" isOptional={true}>
 
 Om de taal van uw inhoud te wijzigen, kunt u de functie `setLocale` gebruiken die wordt aangeboden door de functie `useLocale`. Hiermee kunt u de taal van de applicatie instellen en de inhoud dienovereenkomstig bijwerken.
 
@@ -410,3 +422,7 @@ Voor meer informatie over hoe u de extensie kunt gebruiken, zie de [Intlayer VS 
 Om nog verder te gaan, kunt u de [visuele editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/intlayer_visual_editor.md) implementeren of uw inhoud externaliseren met behulp van de [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/intlayer_CMS.md).
 
 ---
+
+</Step>
+
+</Steps>

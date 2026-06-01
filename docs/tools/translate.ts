@@ -7,14 +7,7 @@ import type { Locale } from '@intlayer/types/allLocales';
 import * as Locales from '@intlayer/types/locales';
 import { defaultLocale, locales } from '../intlayer.config';
 
-// Fill the list of files to audit if you want to audit only a subset of the files
-// If empty list is provided, the audit will run on all markdown files present in the /en folder
-const DOC_PATTERN: string[] = [
-  './docs/en/**/*.md',
-  './blog/en/**/*.md',
-  './frequent_questions/en/**/*.md',
-  './legal/en/**/*.md',
-];
+const DOC_PATTERN: string[] = ['./docs/en/introduction.md'];
 const EXCLUDED_GLOB_PATTEN: string[] = [
   '**/_*',
   '**/node_modules/**',
@@ -59,7 +52,7 @@ const translate = async () => {
       skipIfModifiedBefore: SKIP_IF_MODIFIED_BEFORE,
       skipIfModifiedAfter: SKIP_IF_MODIFIED_AFTER,
       gitOptions: GIT_OPTIONS,
-      skipIfExists: true,
+      skipIfExists: false,
     });
   }
 };

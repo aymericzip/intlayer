@@ -294,7 +294,7 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
       rightItemsMobile={
         <div className="flex gap-2">
           <LocaleSwitcher />
-          <Suspense fallback={null}>
+          <Suspense>
             <SwitchThemeSwitcher />
           </Suspense>
           {isAuthenticated && (
@@ -309,7 +309,7 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
       rightItemsDesktop={
         <>
           <LocaleSwitcher />
-          <Suspense fallback={null}>
+          <Suspense>
             <SwitchThemeSwitcher />
           </Suspense>
           <Link

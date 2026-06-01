@@ -53,7 +53,9 @@ Với Intlayer, bạn có thể:
 
 ## Hướng dẫn từng bước để thiết lập Intlayer trong ứng dụng React
 
-### Bước 1: Cài đặt các phụ thuộc
+<Steps>
+
+<Step number={1} title="Cài đặt các phụ thuộc">
 
 Cài đặt các gói cần thiết bằng npm:
 
@@ -89,7 +91,9 @@ Gói cốt lõi cung cấp các công cụ quốc tế hóa cho quản lý cấu
 
   Bao gồm các lệnh `react-scripts-intlayer` và các plugin để tích hợp Intlayer với ứng dụng dựa trên Create React App. Các plugin này dựa trên [craco](https://craco.js.org/) và bao gồm cấu hình bổ sung cho bộ đóng gói [Webpack](https://webpack.js.org/).
 
-### Bước 2: Cấu hình dự án của bạn
+</Step>
+
+<Step number={2} title="Cấu hình dự án của bạn">
 
 Tạo một file cấu hình để cấu hình các ngôn ngữ cho ứng dụng của bạn:
 
@@ -113,7 +117,9 @@ export default config;
 
 > Thông qua tệp cấu hình này, bạn có thể thiết lập URL địa phương hóa, chuyển hướng middleware, tên cookie, vị trí và phần mở rộng của các khai báo nội dung của bạn, tắt các log của Intlayer trong console, và nhiều hơn nữa. Để xem danh sách đầy đủ các tham số có sẵn, hãy tham khảo [tài liệu cấu hình](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md).
 
-### Bước 3: Tích hợp Intlayer vào Cấu hình CRA của Bạn
+</Step>
+
+<Step number={3} title="Tích hợp Intlayer vào Cấu hình CRA của Bạn">
 
 Thay đổi các script của bạn để sử dụng react-intlayer
 
@@ -127,7 +133,9 @@ Thay đổi các script của bạn để sử dụng react-intlayer
 
 > Các script `react-scripts-intlayer` dựa trên [CRACO](https://craco.js.org/). Bạn cũng có thể tự thiết lập dựa trên plugin craco của intlayer. [Xem ví dụ tại đây](https://github.com/aymericzip/intlayer/blob/main/examples/react-app/craco.config.js).
 
-### Bước 4: Khai báo Nội dung của Bạn
+</Step>
+
+<Step number={4} title="Khai báo Nội dung của Bạn">
 
 Tạo và quản lý các khai báo nội dung để lưu trữ bản dịch:
 
@@ -175,7 +183,9 @@ export default appContent;
 
 > Nếu tệp nội dung của bạn bao gồm mã TSX, bạn nên cân nhắc nhập `import React from "react";` trong tệp nội dung của bạn.
 
-### Bước 5: Sử dụng Intlayer trong Mã của Bạn
+</Step>
+
+<Step number={5} title="Sử dụng Intlayer trong Mã của Bạn">
 
 Truy cập các từ điển nội dung của bạn trong toàn bộ ứng dụng:
 
@@ -224,7 +234,9 @@ export default App;
 
 > Để tìm hiểu thêm về hook `useIntlayer`, hãy tham khảo [tài liệu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/react-intlayer/useIntlayer.md).
 
-### (Tùy chọn) Bước 6: Thay đổi ngôn ngữ của nội dung
+</Step>
+
+<Step number={6} title="Thay đổi ngôn ngữ của nội dung" isOptional={true}>
 
 Để thay đổi ngôn ngữ của nội dung, bạn có thể sử dụng hàm `setLocale` được cung cấp bởi hook `useLocale`. Hàm này cho phép bạn thiết lập locale của ứng dụng và cập nhật nội dung tương ứng.
 
@@ -245,7 +257,9 @@ const LocaleSwitcher = () => {
 
 > Để tìm hiểu thêm về hook `useLocale`, hãy tham khảo [tài liệu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/react-intlayer/useLocale.md).
 
-### (Tùy chọn) Bước 7: Thêm định tuyến theo ngôn ngữ vào ứng dụng của bạn
+</Step>
+
+<Step number={7} title="Thêm định tuyến theo ngôn ngữ vào ứng dụng của bạn" isOptional={true}>
 
 Mục đích của bước này là tạo các đường dẫn duy nhất cho mỗi ngôn ngữ. Điều này hữu ích cho SEO và các URL thân thiện với SEO.
 Ví dụ:
@@ -390,7 +404,9 @@ const App: FC = () => (
 );
 ```
 
-### (Tùy chọn) Bước 8: Thay đổi URL khi locale thay đổi
+</Step>
+
+<Step number={8} title="Thay đổi URL khi locale thay đổi" isOptional={true}>
 
 Để thay đổi URL khi locale thay đổi, bạn có thể sử dụng prop `onLocaleChange` được cung cấp bởi hook `useLocale`. Đồng thời, bạn có thể sử dụng các hook `useLocation` và `useNavigate` từ `react-router-dom` để cập nhật đường dẫn URL.
 
@@ -470,7 +486,9 @@ const LocaleSwitcher: FC = () => {
 > - [`dir` attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir)
 > - [`aria-current` attribute](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)
 
-### (Tùy chọn) Bước 9: Chuyển đổi Thuộc tính Ngôn ngữ và Hướng của HTML
+</Step>
+
+<Step number={9} title="Chuyển đổi Thuộc tính Ngôn ngữ và Hướng của HTML" isOptional={true}>
 
 Khi ứng dụng của bạn hỗ trợ nhiều ngôn ngữ, việc cập nhật các thuộc tính `lang` và `dir` của thẻ `<html>` để phù hợp với locale hiện tại là điều rất quan trọng. Việc này đảm bảo:
 
@@ -590,3 +608,7 @@ Tiện ích mở rộng này cung cấp:
 ### Đi xa hơn
 
 Để đi xa hơn, bạn có thể triển khai [trình soạn thảo trực quan](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md) hoặc tách nội dung của bạn ra bên ngoài bằng cách sử dụng [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md).
+
+</Step>
+
+</Steps>

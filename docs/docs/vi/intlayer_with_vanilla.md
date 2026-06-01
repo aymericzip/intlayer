@@ -61,39 +61,51 @@ history:
 
 So với các giải pháp chính như `i18next` hay `i18n.js`, Intlayer là giải pháp đi kèm với các tính năng tối ưu hóa tích hợp như:
 
-**Phạm vi bảo hiểm đầy đủ của Vanilla JS**
+<AccordionGroup>
+<Accordion header="Phạm vi bảo hiểm đầy đủ của Vanilla JS">
 
 Intlayer được tối ưu hóa để hoạt động hoàn hảo với Vanilla JavaScript bằng cách cung cấp **quản lý nội dung không phụ thuộc vào khung**, **hỗ trợ TypeScript** và tất cả các tính năng cần thiết để mở rộng quy mô quốc tế hóa (i18n).
 
-**Kích thước bundle**
+</Accordion>
+<Accordion header="Kích thước bundle">
 
 Thay vì tải các tệp JSON lớn vào trang của bạn, hãy chỉ tải nội dung cần thiết. Intlayer giúp **giảm tới 50% kích thước bundle và kích thước trang**.
 
-**Khả năng bảo trì**
+</Accordion>
+<Accordion header="Khả năng bảo trì">
 
 Xác định phạm vi nội dung ứng dụng của bạn **tạo điều kiện bảo trì** cho các ứng dụng quy mô lớn. Bạn có thể sao chép hoặc xóa một thư mục tính năng mà không phải lo lắng về việc xem lại toàn bộ cơ sở mã nội dung của mình. Ngoài ra, Intlayer **được nhập đầy đủ** để đảm bảo tính chính xác cho nội dung của bạn.
 
-**Đại lý AI**
+</Accordion>
+<Accordion header="Đại lý AI">
 
 Nội dung cùng định vị **giảm ngữ cảnh cần thiết** của Mô hình ngôn ngữ lớn (LLM). Intlayer cũng đi kèm một bộ công cụ, chẳng hạn như **CLI** để kiểm tra các bản dịch bị thiếu,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** và **[agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, để giúp trải nghiệm của nhà phát triển (DX) trở nên mượt mà hơn nữa đối với các tác nhân AI.
 
-**Tự động hóa**
+</Accordion>
+<Accordion header="Tự động hóa">
 
 Sử dụng tính năng tự động hóa để dịch trong quy trình CI/CD của bạn bằng cách sử dụng LLM mà bạn chọn với chi phí do nhà cung cấp AI của bạn chi trả. Intlayer cũng cung cấp **trình biên dịch** để tự động trích xuất nội dung cũng như [nền tảng web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) để giúp **dịch ở chế độ nền**.
 
-**Hiệu suất**
+</Accordion>
+<Accordion header="Hiệu suất">
 
 Việc kết nối các tệp JSON lớn với các thành phần có thể dẫn đến các vấn đề về hiệu suất và khả năng phản hồi. Intlayer tối ưu hóa việc tải nội dung của bạn tại thời điểm build.
 
-**Mở rộng quy mô không có nhà phát triển**
+</Accordion>
+<Accordion header="Mở rộng quy mô không có nhà phát triển">
 
 Không chỉ là giải pháp i18n, Intlayer còn cung cấp **[trình chỉnh sửa trực quan](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** và **[CMS đầy đủ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** để giúp bạn quản lý nội dung đa ngôn ngữ của mình trong **thời gian thực**, giúp việc cộng tác với người dịch, người viết quảng cáo và các thành viên khác trong nhóm trở nên liền mạch. Nội dung có thể được lưu trữ cục bộ và/hoặc từ xa.
+
+</Accordion>
+</AccordionGroup>
 
 ---
 
 ## Hướng dẫn từng bước để thiết lập Intlayer trong ứng dụng Vanilla JS
 
-### Bước 1: Cài đặt các phần phụ thuộc
+<Steps>
+
+<Step number={1} title="Cài đặt các phần phụ thuộc">
 
 Cài đặt các gói cần thiết bằng npm:
 
@@ -153,7 +165,9 @@ bun x intlayer build
 
 > Việc xuất đóng gói (bundling) từ CLI `intlayer standalone` tạo ra một bản dựng được tối ưu hóa thông qua cơ chế loại bỏ mã thừa (tree-shaking) cho các gói, ngôn ngữ không sử dụng và logic không thiết yếu (như chuyển hướng hoặc tiền tố) cụ thể cho cấu hình của bạn.
 
-### Bước 2: Cấu hình dự án của bạn
+</Step>
+
+<Step number={2} title="Cấu hình dự án của bạn">
 
 Tạo một tệp cấu hình để định cấu hình các ngôn ngữ của ứng dụng:
 
@@ -177,7 +191,9 @@ export default config;
 
 > Thông qua tệp cấu hình này, bạn có thể thiết lập các URL được bản địa hóa, chuyển hướng phần mềm trung gian, tên cookie, vị trí và phần mở rộng của các khai báo nội dung của mình, tắt nhật ký Intlayer trong console, v.v. Để biết danh sách đầy đủ các tham số có sẵn, hãy tham khảo [tài liệu cấu hình](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md).
 
-### Bước 3: Nhập bundle vào HTML của bạn
+</Step>
+
+<Step number={3} title="Nhập bundle vào HTML của bạn">
 
 Sau khi bạn đã tạo bundle `intlayer.js`, bạn có thể nhập nó vào tệp HTML của mình:
 
@@ -201,7 +217,9 @@ Sau khi bạn đã tạo bundle `intlayer.js`, bạn có thể nhập nó vào t
 
 Bundle này cung cấp `Intlayer` và `VanillaIntlayer` dưới dạng các đối tượng toàn cục trên `window`.
 
-### Bước 4: Khởi động Intlayer tại điểm bắt đầu
+</Step>
+
+<Step number={4} title="Khởi động Intlayer tại điểm bắt đầu">
 
 Trong `src/main.js` của bạn, hãy gọi `installIntlayer()` **trước khi** bất kỳ nội dung nào được render để singleton ngôn ngữ toàn cục đã sẵn sàng.
 
@@ -221,7 +239,9 @@ installIntlayer();
 installIntlayerMarkdown();
 ```
 
-### Bước 5: Khai báo nội dung của bạn
+</Step>
+
+<Step number={5} title="Khai báo nội dung của bạn">
 
 Tạo và quản lý các khai báo nội dung của bạn để lưu trữ các bản dịch:
 
@@ -299,7 +319,9 @@ export default appContent;
 >
 > Để biết thêm chi tiết, hãy tham khảo [tài liệu khai báo nội dung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/content_file.md).
 
-### Bước 6: Sử dụng Intlayer trong JavaScript của bạn
+</Step>
+
+<Step number={6} title="Sử dụng Intlayer trong JavaScript của bạn">
 
 Đối tượng `window.VanillaIntlayer` cung cấp các API hỗ trợ: `useIntlayer(key, locale?)` trả về nội dung đã dịch cho một khóa nhất định.
 
@@ -333,7 +355,9 @@ document.querySelector(".read-the-docs").textContent = String(
 > img.alt = content.viteLogoLabel.value;
 > ```
 
-### (Tùy chọn) Bước 7: Thay đổi ngôn ngữ nội dung của bạn
+</Step>
+
+<Step number={7} title="Thay đổi ngôn ngữ nội dung của bạn" isOptional={true}>
 
 Để thay đổi ngôn ngữ của nội dung, hãy sử dụng hàm `setLocale` được cung cấp bởi `useLocale`.
 
@@ -368,7 +392,9 @@ export function setupLocaleSwitcher(container) {
 }
 ```
 
-### (Tùy chọn) Bước 8: Chuyển đổi ngôn ngữ HTML và các thuộc tính hướng văn bản
+</Step>
+
+<Step number={8} title="Chuyển đổi ngôn ngữ HTML và các thuộc tính hướng văn bản" isOptional={true}>
 
 Cập nhật các thuộc tính `lang` và `dir` của thẻ `<html>` để khớp với ngôn ngữ hiện tại phục vụ mục đích hỗ trợ người khuyết tật và SEO.
 
@@ -386,7 +412,9 @@ useLocale({
 });
 ```
 
-### (Tùy chọn) Bước 9: Tải từ điển theo kiểu trì hoãn (Lazy-load) theo ngôn ngữ
+</Step>
+
+<Step number={9} title="Tải từ điển theo kiểu trì hoãn (Lazy-load) theo ngôn ngữ" isOptional={true}>
 
 Nếu bạn muốn tải từ điển theo kiểu trì hoãn cho từng ngôn ngữ, bạn có thể sử dụng `useDictionaryDynamic`. Điều này hữu ích nếu bạn không muốn gộp tất cả các bản dịch vào tệp `intlayer.js` ban đầu.
 
@@ -442,3 +470,7 @@ Tiện ích mở rộng này cung cấp:
 ### Tìm hiểu sâu hơn
 
 Để tìm hiểu sâu hơn, bạn có thể triển khai [trình chỉnh sửa trực quan](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md) hoặc sử dụng [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md) để quản lý nội dung từ bên ngoài.
+
+</Step>
+
+</Steps>

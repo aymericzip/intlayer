@@ -96,7 +96,9 @@ Więcej niż tylko rozwiązanie i18n, Intlayer zapewnia **samodzielny [edytor wi
 
 Sprawdź [szablon aplikacji](https://github.com/aymericzip/intlayer-astro-template) na GitHubie.
 
-### Krok 1: Zainstaluj zależności
+<Steps>
+
+<Step number={1} title="Zainstaluj zależności">
 
 Zainstaluj niezbędne pakiety za pomocą preferowanego menedżera pakietów:
 
@@ -139,7 +141,9 @@ bun x intlayer init
 - **@astrojs/svelte**
   Oficjalna integracja Astro pozwalająca na używanie islandów komponentów Svelte.
 
-### Krok 2: Skonfiguruj swój projekt
+</Step>
+
+<Step number={2} title="Skonfiguruj swój projekt">
 
 Utwórz plik konfiguracyjny, aby zdefiniować języki swojej aplikacji:
 
@@ -164,7 +168,9 @@ export default config;
 
 > Za pośrednictwem tego pliku konfiguracyjnego możesz ustawić zlokalizowane adresy URL, przekierowania oprogramowania pośredniczącego, nazwy plików cookie, lokalizację i rozszerzenia deklaracji treści, wyłączyć dzienniki Intlayer w konsoli i wiele więcej. Pełną listę dostępnych parametrów znajdziesz w [dokumentacji konfiguracji](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/configuration.md).
 
-### Krok 3: Zintegruj Intlayer ze swoją konfiguracją Astro
+</Step>
+
+<Step number={3} title="Zintegruj Intlayer ze swoją konfiguracją Astro">
 
 Dodaj wtyczkę `intlayer` do konfiguracji Astro oraz integrację Svelte.
 
@@ -185,7 +191,9 @@ export default defineConfig({
 
 > Integracja `svelte()` pozwala na używanie islandów komponentów Svelte poprzez `client:only="svelte"`.
 
-### Krok 4: Zadeklaruj swoją treść
+</Step>
+
+<Step number={4} title="Zadeklaruj swoją treść">
 
 Twórz i zarządzaj swoimi deklaracjami treści, aby przechowywać tłumaczenia:
 
@@ -211,7 +219,9 @@ export default appContent;
 
 > Więcej informacji znajdziesz w [dokumentacji deklaracji treści](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/content_file.md).
 
-### Krok 5: Korzystanie z treści w Astro
+</Step>
+
+<Step number={5} title="Korzystanie z treści w Astro">
 
 Możesz konsumować słowniki bezpośrednio w swoich plikach `.astro`, używając podstawowych pomocników wyeksportowanych z `intlayer`. Powinieneś również dodać metadane SEO (takie jak linki hreflang i kanoniczne) na każdej stronie oraz wprowadzić island Svelte dla interaktywnej treści po stronie klienta.
 
@@ -299,7 +309,9 @@ const { title } = getIntlayer("app", locale);
 > - **`prefix-all`:** Wszystkie adresy URL otrzymują prefiks języka. Możesz użyć standardowego `[locale]`, jeśli nie musisz traktować katalogu głównego oddzielnie.
 > - **`search-param` lub `no-prefix`:** Katalogi językowe nie są wymagane. Język jest zarządzany za pomocą parametrów zapytania lub plików cookie.
 
-### Krok 6: Utworzenie komponentu Svelte Island
+</Step>
+
+<Step number={6} title="Utworzenie komponentu Svelte Island">
 
 Utwórz komponent island, który opakowuje Twoją aplikację Svelte. Musisz wywołać `setupIntlayer` z językiem wykrytym przez serwer przed uzyskaniem dostępu do store'ów.
 
@@ -344,7 +356,9 @@ Utwórz komponent island, który opakowuje Twoją aplikację Svelte. Musisz wywo
 
 > Prop `locale` jest przekazywany ze strony Astro (wykrywanie po stronie serwera) i służy do zainicjowania `setupIntlayer`, ustawiając początkowy język dla wszystkich store'ów w komponencie.
 
-### Krok 7: Dodanie przełącznika języków
+</Step>
+
+<Step number={7} title="Dodanie przełącznika języków">
 
 Funkcjonalność przełączania języków jest zintegrowana bezpośrednio z island Svelte (patrz krok 6 powyżej). Wykorzystuje store `useLocale` z `svelte-intlayer` i przechodzi do zlokalizowanego adresu URL, gdy użytkownik wybierze nowy język:
 
@@ -388,7 +402,9 @@ Funkcjonalność przełączania języków jest zintegrowana bezpośrednio z isla
 > **Uwaga na temat trwałości:**
 > Użycie `onLocaleChange` do przekierowania przez `window.location.href` zapewnia, że nowy adres URL z prefiksem językowym zostanie odwiedzony. Pozwala to oprogramowaniu pośredniczącemu Intlayer ustawić plik cookie języka i zapamiętać preferencje użytkownika przy przyszłych wizytach.
 
-### Krok 8: Sitemap i Robots.txt
+</Step>
+
+<Step number={8} title="Sitemap i Robots.txt">
 
 Intlayer oferuje narzędzia do dynamicznego generowania zlokalizowanej mapy witryny oraz pliku robots.txt.
 
@@ -496,7 +512,9 @@ Więcej informacji na temat korzystania z rozszerzenia znajdziesz w [dokumentacj
 
 ---
 
-### (Opcjonalnie) Krok 17 : Wyodrębnij zawartość swoich komponentów
+</Step>
+
+<Step number={17} title="Wyodrębnij zawartość swoich komponentów" isOptional={true}>
 
 Jeśli masz istniejącą bazę kodu, transformacja tysięcy plików może być czasochłonna.
 
@@ -597,3 +615,7 @@ bun run build # Or bun run dev
 ### Pogłębiaj swoją wiedzę
 
 Jeśli chcesz dowiedzieć się więcej, możesz również wdrożyć [Edytor Wizualny](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_visual_editor.md) lub użyć [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md), aby wyeksternalizować swoją treść.
+
+</Step>
+
+</Steps>

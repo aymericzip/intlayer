@@ -81,7 +81,9 @@ Untuk membatasi dampak ini selama pengembangan aktif (dev mode), Anda dapat meng
 
 ## Panduan selangkah demi selangkah untuk mengatur Intlayer dalam aplikasi Next.js
 
-### Langkah 1: Instal dependensi
+<Steps>
+
+<Step number={1} title="Instal dependensi">
 
 Instal paket-paket yang diperlukan menggunakan pengelola paket favorit Anda:
 
@@ -117,7 +119,9 @@ bun x intlayer init
 
   Paket yang mengintegrasikan Intlayer dengan Next.js. Ia menyediakan penyedia konteks dan hook untuk internasionalisasi Next.js. Selain itu, paket ini mencakup plugin Next.js untuk mengintegrasikan Intlayer dengan [Webpack](https://webpack.js.org/) atau [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack), serta middleware untuk mendeteksi preferensi bahasa pengguna, mengelola cookie, dan menangani pengalihan URL.
 
-### Langkah 2: Konfigurasi proyek Anda
+</Step>
+
+<Step number={2} title="Konfigurasi proyek Anda">
 
 Buat file konfigurasi untuk mendefinisikan bahasa aplikasi Anda:
 
@@ -174,7 +178,9 @@ export default config;
 
 > Melalui file konfigurasi ini, Anda dapat menyiapkan URL yang dilokalkan, pengalihan proxy, pemetaan cookie, lokasi dan ekstensi deklarasi konten Anda, menonaktifkan log Intlayer di konsol, dan banyak lagi. Untuk daftar lengkap parameter yang tersedia, periksa dokumentasi [konfigurasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md).
 
-### Langkah 3: Integrasikan Intlayer ke dalam konfigurasi Next.js Anda
+</Step>
+
+<Step number={3} title="Integrasikan Intlayer ke dalam konfigurasi Next.js Anda">
 
 Konfigurasikan pengaturan Next.js Anda untuk menggunakan Intlayer:
 
@@ -212,7 +218,9 @@ module.exports = {
 };
 ```
 
-### Langkah 4: Deteksi Bahasa di Halaman Anda
+</Step>
+
+<Step number={4} title="Deteksi Bahasa di Halaman Anda">
 
 Kosongkan konten `RootLayout` Anda dan ganti dengan contoh di bawah ini:
 
@@ -255,7 +263,9 @@ const RootLayout = async ({
 export default RootLayout;
 ```
 
-### Langkah 5: Deklarasikan Konten Anda (Otomatis)
+</Step>
+
+<Step number={5} title="Deklarasikan Konten Anda">
 
 Dengan Kompiler diaktifkan, Anda **tidak lagi perlu** mendeklarasikan kamus konten (misalnya file `.content.ts`) secara manual.
 
@@ -351,7 +361,9 @@ export default async function Page() {
 
   > Layout and page cannot share a common server context because the server context system is based on a per-request data store (via [React's cache](https://react.dev/reference/react/cache) mechanism), causing each "context" to be re-created for different segments of the application. Placing the provider in a shared layout would break this isolation, preventing the correct propagation of the server context values to your server components.
 
-### (Opsional) Langkah 7: Isi terjemahan yang hilang
+</Step>
+
+<Step number={7} title="Isi terjemahan yang hilang" isOptional={true}>
 
 Intlayer menyediakan alat CLI untuk membantu Anda mengisi terjemahan yang hilang. Anda dapat menggunakan perintah `intlayer` untuk menguji dan mengisi terjemahan yang hilang dari kode Anda.
 
@@ -389,7 +401,9 @@ bun x intlayer fill         # Isi terjemahan yang hilang
 
 > Untuk detail lebih lanjut, silakan merujuk ke [dokumentasi CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/ci.md)
 
-### (Opsional) Langkah 8: Middleware Proxy Rute Lokal
+</Step>
+
+<Step number={8} title="Middleware Proxy Rute Lokal" isOptional={true}>
 
 Jika Anda ingin secara otomatis mengalihkan pengguna ke bahasa pilihan mereka, buat middleware proxy:
 
@@ -404,7 +418,9 @@ export const config = {
 
 > `intlayerProxy` digunakan untuk mendeteksi bahasa pilihan pengguna dan mengalihkannya ke URL yang sesuai seperti yang ditentukan dalam [pengaturan file konfigurasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md). Selain itu, ini memungkinkan penyimpanan bahasa pilihan pengguna di cookie.
 
-### (Opsional) Langkah 9: Ubah Bahasa Konten
+</Step>
+
+<Step number={9} title="Ubah Bahasa Konten" isOptional={true}>
 
 Cara paling direkomendasikan untuk mengubah bahasa konten Anda di Next.js adalah dengan menggunakan komponen `Link` untuk mengalihkan pengguna ke rute dengan bahasa yang sesuai. Ini memanfaatkan fitur prefetch Next.js dan menghindari penyegaran halaman secara paksa.
 
@@ -454,7 +470,9 @@ export const LocaleSwitcher: FC = () => {
 
 > Secara alternatif, Anda dapat menggunakan fungsi `setLocale` yang disediakan oleh hook `useLocale`. Fungsi ini tidak mengizinkan prefetch halaman. Periksa [dokumentasi hook `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/next-intlayer/useLocale.md) untuk detail lebih lanjut.
 
-### (Opsional) Langkah 10: Optimalkan Ukuran Bundle
+</Step>
+
+<Step number={10} title="Optimalkan Ukuran Bundle" isOptional={true}>
 
 Saat menggunakan `next-intlayer`, kamus disertakan dalam bundle untuk setiap halaman secara default. Untuk mengoptimalkan ukuran bundle, Intlayer menyediakan plugin SWC opsional yang secara cerdas mengganti panggilan `useIntlayer` menggunakan makro. Ini memastikan bahwa kamus hanya disertakan dalam bundle halaman yang benar-benar menggunakannya.
 
@@ -528,7 +546,9 @@ Ekstensi ini menyediakan:
 
 Baca [dokumentasi Ekstensi VS Code Intlayer](https://intlayer.org/doc/vs-code-extension) untuk instruksi mendetail tentang penggunaan ekstensi.
 
-### (Opsional) Langkah 1 : Ekstrak konten komponen Anda
+</Step>
+
+<Step number={1} title="Ekstrak konten komponen Anda" isOptional={true}>
 
 Jika Anda memiliki basis kode yang ada, mengubah ribuan file bisa memakan waktu lama.
 
@@ -644,3 +664,7 @@ bun run build # Or bun run dev
 ### Melangkah Lebih Jauh
 
 Untuk melangkah lebih jauh, Anda dapat mengimplementasikan [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md) atau mengeksternalisasikan konten Anda menggunakan [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md).
+
+</Step>
+
+</Steps>

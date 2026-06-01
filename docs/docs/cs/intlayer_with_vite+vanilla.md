@@ -73,7 +73,9 @@ S Intlayer můžete:
 
 ## Průvodce krok za krokem pro nastavení Intlayer v aplikaci Vite a Vanilla JS
 
-### Krok 1: Instalace závislostí
+<Steps>
+
+<Step number={1} title="Instalace závislostí">
 
 Nainstalujte potřebné balíčky pomocí npm:
 
@@ -110,7 +112,9 @@ bun x intlayer init
 - **vite-intlayer**
   Zahrnuje Vite plugin pro integraci Intlayer do [Vite bundleru](https://vite.dev/guide/why.html#why-bundle-for-production), stejně jako middleware pro detekci preferované lokality uživatele, správu cookies a zpracování přesměrování URL.
 
-### Krok 2: Konfigurace vašeho projektu
+</Step>
+
+<Step number={2} title="Konfigurace vašeho projektu">
 
 Vytvořte konfigurační soubor pro nastavení jazyků vaší aplikace:
 
@@ -134,7 +138,9 @@ export default config;
 
 > Prostřednictvím tohoto konfiguračního souboru můžete nastavit lokalizované URL, přesměrování middleware, názvy cookies, umístění a příponu vašich deklarací obsahu, zakázat logy Intlayer v konzoli a další. Kompletní seznam dostupných parametrů naleznete v [dokumentaci ke konfiguraci](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/configuration.md).
 
-### Krok 3: Integrace Intlayer do vaší konfigurace Vite
+</Step>
+
+<Step number={3} title="Integrace Intlayer do vaší konfigurace Vite">
 
 Přidejte plugin intlayer do své konfigurace.
 
@@ -150,7 +156,9 @@ export default defineConfig({
 
 > Vite plugin `intlayer()` se používá k integraci Intlayer do Vite. Zajišťuje sestavení souborů deklarace obsahu a monitoruje je v režimu vývoje. Definuje proměnné prostředí Intlayer v aplikaci Vite. Navíc poskytuje aliasy pro optimalizaci výkonu.
 
-### Krok 4: Bootstrap Intlayer ve vašem vstupním bodě
+</Step>
+
+<Step number={4} title="Bootstrap Intlayer ve vašem vstupním bodě">
 
 Zavolejte `installIntlayer()` **před** vykreslením jakéhokoli obsahu, aby byl globální lokální singleton připraven.
 
@@ -175,7 +183,9 @@ installIntlayerMarkdown();
 import "./app.js";
 ```
 
-### Krok 5: Deklarace vašeho obsahu
+</Step>
+
+<Step number={5} title="Deklarace vašeho obsahu">
 
 Vytvářejte a spravujte své deklarace obsahu pro uložení překladů:
 
@@ -253,7 +263,9 @@ export default appContent;
 >
 > Více podrobností naleznete v [dokumentaci k deklaraci obsahu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/dictionary/content_file.md).
 
-### Krok 6: Použití Intlayer v JavaScriptu
+</Step>
+
+<Step number={6} title="Použití Intlayer v JavaScriptu">
 
 `vanilla-intlayer` zrcadlí povrchové API `react-intlayer`: `useIntlayer(key, locale?)` vrací přeložený obsah přímo. Na výsledek připojte `.onChange()`, abyste se přihlásili k odběru změn lokality - explicitní ekvivalent re-renderu v Reactu.
 
@@ -289,7 +301,9 @@ document.querySelector<HTMLParagraphElement>(".read-the-docs")!.textContent =
 > img.alt = content.viteLogoLabel.value;
 > ```
 
-### (Volitelné) Krok 7: Změna jazyka vašeho obsahu
+</Step>
+
+<Step number={7} title="Změna jazyka vašeho obsahu" isOptional={true}>
 
 Chcete-li změnit jazyk svého obsahu, použijte funkci `setLocale` vystavenou funkcí `useLocale`.
 
@@ -324,7 +338,9 @@ export function setupLocaleSwitcher(container: HTMLElement): () => void {
 }
 ```
 
-### (Volitelné) Krok 8: Vykreslení obsahu Markdown a HTML
+</Step>
+
+<Step number={8} title="Vykreslení obsahu Markdown a HTML" isOptional={true}>
 
 Intlayer podporuje deklarace obsahu `md()` a `html()`. V čistém JS je kompilovaný výstup vložen jako surové HTML přes `innerHTML`.
 
@@ -383,7 +399,9 @@ document.querySelector<HTMLDivElement>(".edit-note")!.innerHTML =
 > });
 > ```
 
-### (Volitelné) Krok 9: Přidání lokalizovaného směrování do aplikace
+</Step>
+
+<Step number={9} title="Přidání lokalizovaného směrování do aplikace" isOptional={true}>
 
 Chcete-li vytvořit jedinečné trasy pro každý jazyk (užitečné pro SEO), můžete použít `intlayerProxy` ve vaší konfiguraci Vite pro detekci lokality na straně serveru.
 
@@ -403,7 +421,9 @@ export default defineConfig({
 });
 ```
 
-### (Volitelné) Krok 10: Změna URL při změně lokality
+</Step>
+
+<Step number={10} title="Změna URL při změně lokality" isOptional={true}>
 
 Chcete-li aktualizovat URL prohlížeče při změně lokality, zavolejte `useRewriteURL()` po instalaci Intlayer:
 
@@ -417,7 +437,9 @@ installIntlayer();
 const stopRewriteURL = useRewriteURL();
 ```
 
-### (Volitelné) Krok 11: Přepínání atributů HTML Language a Direction
+</Step>
+
+<Step number={11} title="Přepínání atributů HTML Language a Direction" isOptional={true}>
 
 Aktualizujte atributy `lang` a `dir` tagu `<html>` tak, aby odpovídaly aktuální lokalitě pro usnadnění přístupu a SEO.
 
@@ -435,7 +457,9 @@ useLocale({
 });
 ```
 
-### (Volitelné) Krok 12: Líné načítání (Lazy-load) slovníků podle lokality
+</Step>
+
+<Step number={12} title="Líné načítání (Lazy-load) slovníků podle lokality" isOptional={true}>
 
 U velkých aplikací můžete chtít rozdělit slovník každé lokality do vlastního bloku. Použijte `useDictionaryDynamic` spolu s dynamickým `import()` z Vite:
 
@@ -458,7 +482,9 @@ const unsubscribe = useDictionaryDynamic(
 
 > Balíček každé lokality se načte pouze tehdy, když se daná lokalita stane aktivní, a výsledek se uloží do mezipaměti - následné přepnutí na stejnou lokalitu je okamžité.
 
-### (Volitelné) Krok 13: Extrakce obsahu vašich komponent
+</Step>
+
+<Step number={13} title="Extrakce obsahu vašich komponent" isOptional={true}>
 
 Pokud máte existující kódovou základnu, transformace tisíců souborů může být časově náročná.
 
@@ -673,3 +699,7 @@ Další podrobnosti o tom, jak rozšíření používat, naleznete v [dokumentac
 ### Jděte dál
 
 Chcete-li jít dál, můžete implementovat [vizuální editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/intlayer_visual_editor.md) nebo externalizovat svůj obsah pomocí [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/intlayer_CMS.md).
+
+</Step>
+
+</Steps>
