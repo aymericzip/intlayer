@@ -484,7 +484,7 @@ export const GET: APIRoute = ({ site }) => {
 
 </Step>
 
-<Step number={15} title="Extraer le contenu de vos composants" isOptional={true}>
+<Step number={15} title="Extracter le contenu de vos composants" isOptional={true}>
 
 Si vous avez une base de code existante, transformer des milliers de fichiers peut prendre beaucoup de temps.
 

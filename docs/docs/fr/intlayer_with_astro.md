@@ -319,7 +319,7 @@ Continuez à construire votre application en utilisant vos frameworks préféré
 - Intlayer + Preact : [Intlayer avec Preact](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_vite+preact.md)
   </Step>
 
-<Step number={15} title="Extraer le contenu de vos composants" isOptional={true}>
+<Step number={15} title="Extracter le contenu de vos composants" isOptional={true}>
 
 Si vous avez une base de code existante, transformer des milliers de fichiers peut prendre beaucoup de temps.
 
