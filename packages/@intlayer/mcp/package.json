@@ -9,7 +9,9 @@
     "mcp-server",
     "mcp-proxy",
     "documentation",
-    "cli"
+    "cli",
+    "mcp-lsp",
+    "mcp-language-server"
   ],
   "homepage": "https://intlayer.org",
   "bugs": {

@@ -6,6 +6,7 @@ import z from 'zod';
 import { loadAPITools } from '../tools/api';
 import { loadCLITools } from '../tools/cli';
 import { loadDocsTools } from '../tools/docs';
+import { loadInstallLSPTool } from '../tools/installLSP';
 import { loadInstallSkillsTool } from '../tools/installSkills';
 
 export const dirname: string = isESModule
@@ -156,6 +157,7 @@ export const loadServer: LoadServer = ({ isLocal }) => {
     try {
       loadCLITools(server);
       loadInstallSkillsTool(server);
+      loadInstallLSPTool(server);
     } catch (error) {
       console.error('Error loading CLI tools:', error);
     }

@@ -17,29 +17,7 @@ import {
   TextDocuments,
 } from 'vscode-languageserver/node.js';
 import { TextDocument } from 'vscode-languageserver-textdocument';
-
-/**
- * Intlayer content getters that take a dictionary key as their first argument.
- * They are exported (under the same names) by every `*-intlayer` package, so we
- * only need to match the call name + the string-literal key to support all of:
- *   next-intlayer, react-intlayer, vue-intlayer, svelte-intlayer,
- *   preact-intlayer, solid-intlayer, angular-intlayer, lit-intlayer,
- *   express-intlayer, hono-intlayer, fastify-intlayer, adonis-intlayer, intlayer
- */
-const INTLAYER_GETTERS = [
-  'useIntlayer',
-  'getIntlayer',
-  'useDictionary',
-  'getDictionary',
-] as const;
-
-// Matches e.g. `useIntlayer("homepage")`, `getIntlayer<T>('homepage', locale)`
-// Capture group 3 is the dictionary key.
-const buildGetterRegex = () =>
-  new RegExp(
-    `\\b(${INTLAYER_GETTERS.join('|')})\\b\\s*(?:<[^<>()]*>)?\\s*\\(\\s*(['"\`])([^'"\`]+)\\2`,
-    'g'
-  );
+import { findKeyAtOffset } from './findKeyAtOffset';
 
 // Create a connection for the server, using Node's IPC as a transport.
 // Also include all preview / proposed LSP features.
@@ -150,18 +128,10 @@ connection.onDefinition((params) => {
   const text = document.getText();
   const offset = document.offsetAt(params.position);
 
-  const regex = buildGetterRegex();
-
-  for (const match of text.matchAll(regex)) {
-    const start = match.index;
-    const end = start + match[0].length;
-
-    // Only resolve the call the cursor is actually inside of.
-    if (offset >= start && offset <= end) {
-      const key = match[3];
-      const locations = getContentDeclarationLocations(key);
-      return locations.length ? locations : null;
-    }
+  const key = findKeyAtOffset(text, offset);
+  if (key) {
+    const locations = getContentDeclarationLocations(key);
+    return locations.length ? locations : null;
   }
 
   return null;

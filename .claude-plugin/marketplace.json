@@ -1,0 +1,37 @@
+{
+  "$schema": "https://www.schemastore.org/claude-code-marketplace.json",
+  "name": "intlayer",
+  "description": "Intlayer plugins for Claude Code — LSP-powered i18n intelligence for TypeScript, JavaScript, Vue, and Svelte projects",
+  "owner": {
+    "name": "Intlayer",
+    "url": "https://intlayer.org"
+  },
+  "plugins": [
+    {
+      "name": "intlayer-lsp",
+      "description": "Intlayer language server: Go-to-Definition for useIntlayer / getIntlayer / useDictionary / getDictionary keys across all *-intlayer packages",
+      "version": "8.11.2",
+      "author": {
+        "name": "Intlayer",
+        "url": "https://intlayer.org"
+      },
+      "source": "./claude-plugins/intlayer-lsp",
+      "category": "development",
+      "strict": false,
+      "lspServers": {
+        "intlayer": {
+          "command": "intlayer-lsp",
+          "extensionToLanguage": {
+            ".ts": "typescript",
+            ".tsx": "typescriptreact",
+            ".js": "javascript",
+            ".jsx": "javascriptreact",
+            ".vue": "vue",
+            ".astro": "astro",
+            ".svelte": "svelte"
+          }
+        }
+      }
+    }
+  ]
+}

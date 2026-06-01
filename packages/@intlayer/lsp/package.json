@@ -8,7 +8,9 @@
     "lsp",
     "ide",
     "ai",
-    "agent"
+    "agent",
+    "mcp-lsp",
+    "mcp-language-server"
   ],
   "homepage": "https://intlayer.org",
   "bugs": {

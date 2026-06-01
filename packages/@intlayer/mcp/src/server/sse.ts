@@ -64,8 +64,7 @@ const startServer = async () => {
   });
 
   app.get('/', async (_request, reply) => {
-    reply.header('Allow', 'POST, DELETE');
-    return reply.status(405).send();
+    return reply.status(200).send('OK');
   });
 
   app.delete('/', async (request, reply) => {

@@ -48,6 +48,9 @@ const DocumentationRouter = {
   Fastify: 'https://intlayer.org/doc/environment/fastify.md',
   Default: 'https://intlayer.org/doc/get-started',
 
+  // Intlayer Language Server (Go-to-Definition from getter keys to .content files)
+  LSP: 'https://intlayer.org/doc/lsp.md',
+
   // Check for competitors libs
   NextIntl: 'https://intlayer.org/blog/intlayer-with-next-intl.md',
   ReactI18Next: 'https://intlayer.org/blog/intlayer-with-react-i18next.md',
@@ -246,6 +249,52 @@ export const initIntlayer = async (rootDir: string, options?: InitOptions) => {
   } catch {
     logger(
       `${x} Could not update ${colorizePath(extensionsJsonPath)}. You may need to add ${colorize(extensionId, ANSIColors.MAGENTA)} manually.`,
+      { level: 'warn' }
+    );
+  }
+
+  // CHECK VS CODE LSP SETTINGS
+  const settingsJsonPath = join(vscodeDir, 'settings.json');
+
+  try {
+    let settingsConfig: Record<string, unknown> = {};
+
+    if (await exists(rootDir, settingsJsonPath)) {
+      const content = await readFileFromRoot(rootDir, settingsJsonPath);
+      settingsConfig = parseJSONWithComments(content);
+    } else {
+      await ensureDirectory(rootDir, vscodeDir);
+    }
+
+    let settingsUpdated = false;
+
+    if (!settingsConfig['intlayer.languageServer.command']) {
+      settingsConfig['intlayer.languageServer.command'] = 'npx';
+      settingsUpdated = true;
+    }
+
+    if (!settingsConfig['intlayer.languageServer.args']) {
+      settingsConfig['intlayer.languageServer.args'] = ['@intlayer/lsp'];
+      settingsUpdated = true;
+    }
+
+    if (settingsUpdated) {
+      await writeFileToRoot(
+        rootDir,
+        settingsJsonPath,
+        JSON.stringify(settingsConfig, null, 2)
+      );
+      logger(
+        `${v} Updated ${colorizePath(settingsJsonPath)} with LSP configuration`
+      );
+    } else {
+      logger(
+        `${v} ${colorizePath(settingsJsonPath)} already includes LSP configuration`
+      );
+    }
+  } catch {
+    logger(
+      `${x} Could not update ${colorizePath(settingsJsonPath)}. You may need to add the LSP settings manually.`,
       { level: 'warn' }
     );
   }
@@ -577,5 +626,24 @@ export const initIntlayer = async (rootDir: string, options?: InitOptions) => {
       ANSIColors.GREY_LIGHT
     ),
     colorizePath(guideUrl),
+  ]);
+
+  // INTLAYER LSP — instruction for the AI agent running `intlayer init`.
+  // The Intlayer Language Server (`@intlayer/lsp`) provides Go-to-Definition
+  // from `useIntlayer` / `getIntlayer` keys to their `.content` files, for both
+  // IDEs and AI agents. Setup is editor-specific (VS Code, Cursor, Windsurf,
+  // Zed, Neovim, Claude Code, …), so we don't scaffold anything here — instead
+  // we point to the doc and ask the agent to confirm the target platform.
+  logger([
+    colorize('Intlayer LSP →', ANSIColors.MAGENTA),
+    colorize(
+      'The Intlayer Language Server is available via the `@intlayer/lsp` package. It lets IDEs and AI agents jump from `useIntlayer`/`getIntlayer` keys to their `.content` files.',
+      ANSIColors.GREY_LIGHT
+    ),
+    colorize(
+      'Ask the user which platform/editor they want to enable it on (VS Code, Cursor, Windsurf, Zed, Neovim, Claude Code, …), then follow the matching setup instructions:',
+      ANSIColors.GREY_LIGHT
+    ),
+    colorizePath(DocumentationRouter.LSP),
   ]);
 };
