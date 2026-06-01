@@ -327,6 +327,10 @@ export default class HomeComponent {
 }
 ```
 
+</Step>
+
+</Steps>
+
 ### Configurar TypeScript
 
 O Intlayer usa o aumento de módulo (module augmentation) para obter benefícios do TypeScript e tornar sua base de código mais robusta.
@@ -378,7 +382,3 @@ Para mais detalhes sobre como usar a extensão, consulte a [documentação da Ex
 ### Indo Além
 
 Para ir além, você pode implementar o [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_visual_editor.md) ou externalizar seu conteúdo usando o [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_CMS.md).
-
-</Step>
-
-</Steps>

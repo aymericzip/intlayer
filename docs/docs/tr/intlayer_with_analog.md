@@ -327,6 +327,10 @@ export default class HomeComponent {
 }
 ```
 
+</Step>
+
+</Steps>
+
 ### TypeScript'i Yapılandırın
 
 Intlayer, TypeScript'in avantajlarından yararlanmak ve kod tabanınızı daha güçlü hale getirmek için modül büyütme (module augmentation) kullanır.
@@ -372,7 +376,3 @@ Bu eklenti şunları sağlar:
 - Kolayca çeviri oluşturmak ve güncellemek için **hızlı eylemler**.
 
 Eklentinin nasıl kullanılacağına dair daha fazla ayrıntı için [Intlayer VS Code Eklentisi dokümantasyonuna](https://intlayer.org/doc/vs-code-extension) bakın.
-
-</Step>
-
-</Steps>

@@ -507,47 +507,6 @@ const MyComponent = () => {
 };
 ```
 
-### Налаштування TypeScript
-
-Переконайтеся, що ваша конфігурація TypeScript включає автоматично згенеровані типи.
-
-```json5 fileName="tsconfig.json"
-{
-  "compilerOptions": {
-    // ...
-  },
-  "include": ["src", ".intlayer/**/*.ts"],
-}
-```
-
-### Конфігурація Git
-
-Рекомендується ігнорувати файли, згенеровані Intlayer. Це дозволить уникнути їх додавання до вашого Git-репозиторію.
-
-Для цього можна додати такі інструкції до файлу `.gitignore`:
-
-```bash
-#  Ігнорувати файли, згенеровані Intlayer
-.intlayer
-```
-
-### Розширення VS Code
-
-Щоб покращити досвід розробки з Intlayer, ви можете встановити офіційне розширення **Intlayer VS Code Extension**.
-
-[Встановити з VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
-
-Це розширення надає:
-
-- **Автодоповнення** для ключів перекладу.
-- **Виявлення помилок у реальному часі** для відсутніх перекладів.
-- **Вбудовані попередні перегляди** перекладеного вмісту.
-- **Швидкі дії** для простого створення та оновлення перекладів.
-
-Для детальнішої інформації про те, як користуватися розширенням, зверніться до [документації Intlayer VS Code Extension](https://intlayer.org/doc/vs-code-extension).
-
----
-
 </Step>
 
 <Step number={1} title="Витягніть вміст ваших компонентів" isOptional={true}>
@@ -645,6 +604,50 @@ bun run build # Or bun run dev
 
  </Tab>
 </Tabs>
+</Step>
+
+</Steps>
+
+### Налаштування TypeScript
+
+Переконайтеся, що ваша конфігурація TypeScript включає автоматично згенеровані типи.
+
+```json5 fileName="tsconfig.json"
+{
+  "compilerOptions": {
+    // ...
+  },
+  "include": ["src", ".intlayer/**/*.ts"],
+}
+```
+
+### Конфігурація Git
+
+Рекомендується ігнорувати файли, згенеровані Intlayer. Це дозволить уникнути їх додавання до вашого Git-репозиторію.
+
+Для цього можна додати такі інструкції до файлу `.gitignore`:
+
+```bash
+#  Ігнорувати файли, згенеровані Intlayer
+.intlayer
+```
+
+### Розширення VS Code
+
+Щоб покращити досвід розробки з Intlayer, ви можете встановити офіційне розширення **Intlayer VS Code Extension**.
+
+[Встановити з VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+Це розширення надає:
+
+- **Автодоповнення** для ключів перекладу.
+- **Виявлення помилок у реальному часі** для відсутніх перекладів.
+- **Вбудовані попередні перегляди** перекладеного вмісту.
+- **Швидкі дії** для простого створення та оновлення перекладів.
+
+Для детальнішої інформації про те, як користуватися розширенням, зверніться до [документації Intlayer VS Code Extension](https://intlayer.org/doc/vs-code-extension).
+
+---
 
 ### (Опційно) Sitemap і robots.txt (генерація під час збірки)
 
@@ -725,7 +728,3 @@ console.log("SEO files generated successfully.");
 Щоб піти далі, ви можете реалізувати [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md) або винести свій вміст, використовуючи [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md).
 
 ---
-
-</Step>
-
-</Steps>

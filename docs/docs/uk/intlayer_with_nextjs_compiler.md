@@ -196,29 +196,7 @@ export default withIntlayer(nextConfig);
 ```
 
 > Плагін Next.js `withIntlayer()` використовується для інтеграції Intlayer із Next.js. Він забезпечує побудову файлів словників і слідкує за ними у режимі dev. Він визначає змінні середовища Intlayer у середовищах [Webpack](https://webpack.js.org/) або [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack). Більше того, він надає псевдоніми для оптимізації продуктивності та повноцінно працює із Серверними Компонентами.
-
-### Налаштування Babel
-
-Компілятор Intlayer вимагає Babel для витягування та оптимізації вашого контенту. Оновіть ваш `babel.config.js` (або `babel.config.json`), щоб додати плагіни Intlayer:
-
-```typescript fileName="babel.config.js"
-const {
-  intlayerExtractBabelPlugin,
-  intlayerOptimizeBabelPlugin,
-  getExtractPluginOptions,
-  getOptimizePluginOptions,
-} = require("@intlayer/babel");
-
-module.exports = {
-  presets: ["next/babel"],
-  plugins: [
-    [intlayerExtractBabelPlugin, getExtractPluginOptions()],
-    [intlayerOptimizeBabelPlugin, getOptimizePluginOptions()],
-  ],
-};
-```
-
-</Step>
+> </Step>
 
 <Step number={4} title="Виявлення мови на ваших сторінках">
 
@@ -499,54 +477,7 @@ bun add @intlayer/swc --dev
 > Примітка: Цей пакет не встановлюється за замовчуванням, оскільки SWC-плагіни все ще експериментальні в Next.js. Це може змінитися в майбутньому.
 
 > Примітка: Якщо ви встановили опцію (у конфігурації словника) `importMode: 'dynamic'` або `importMode: 'fetch'`, вона залежатиме від Suspense, тому вам потрібно буде обгорнути виклики `useIntlayer` у межу `Suspense`. Це означає, що ви не зможете використовувати `useIntlayer` безпосередньо на верхньому рівні ваших компонентів Сторінки / Layout.
-
-### Конфігурація TypeScript
-
-Intlayer використовує розширення модулів (module augmentation), щоб скористатися перевагами TypeScript і зробити вашу базу коду міцнішою.
-
-![Автодоповнення](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
-
-![Помилка перекладу](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
-
-Переконайтеся, що конфігурація TypeScript включає автоматично згенеровані типи.
-
-```json5 fileName="tsconfig.json"
-{
-  // ... Ваші існуючі конфігурації TypeScript
-  "include": [
-    // ... Ваші існуючі конфігурації TypeScript
-    ".intlayer/**/*.ts", // Включити автоматично згенеровані типи
-  ],
-}
-```
-
-### Конфігурація Git
-
-Рекомендовано ігнорувати файли, згенеровані Intlayer. Це дозволяє уникнути їх завантаження до вашого Git-репозиторію.
-
-Для цього ви можете додати наступні інструкції до вашого файлу `.gitignore`:
-
-```plaintext fileName=".gitignore"
-# Ігнорувати файли, згенеровані Intlayer
-.intlayer
-```
-
-### Розширення VS Code
-
-Для покращення досвіду розробки з Intlayer ви можете встановити **офіційне розширення Intlayer для VS Code**.
-
-[Встановити з VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
-
-Це розширення забезпечує:
-
-- **Автодоповнення** для ключів перекладу.
-- **Виявлення помилок у реальному часі** для відсутніх перекладів.
-- **Вбудований попередній перегляд** перекладеного контенту.
-- **Швидкі дії (Quick actions)** для легкого створення та оновлення перекладів.
-
-Прочитайте [документацію до розширення VS Code Intlayer](https://intlayer.org/doc/vs-code-extension) для отримання детальних інструкцій щодо використання розширення.
-
-</Step>
+> </Step>
 
 <Step number={1} title="Витягніть вміст ваших компонентів" isOptional={true}>
 
@@ -660,11 +591,77 @@ bun run build # Or bun run dev
 
  </Tab>
 </Tabs>
+</Step>
+
+</Steps>
+
+### Налаштування Babel
+
+Компілятор Intlayer вимагає Babel для витягування та оптимізації вашого контенту. Оновіть ваш `babel.config.js` (або `babel.config.json`), щоб додати плагіни Intlayer:
+
+```typescript fileName="babel.config.js"
+const {
+  intlayerExtractBabelPlugin,
+  intlayerOptimizeBabelPlugin,
+  getExtractPluginOptions,
+  getOptimizePluginOptions,
+} = require("@intlayer/babel");
+
+module.exports = {
+  presets: ["next/babel"],
+  plugins: [
+    [intlayerExtractBabelPlugin, getExtractPluginOptions()],
+    [intlayerOptimizeBabelPlugin, getOptimizePluginOptions()],
+  ],
+};
+```
+
+### Конфігурація TypeScript
+
+Intlayer використовує розширення модулів (module augmentation), щоб скористатися перевагами TypeScript і зробити вашу базу коду міцнішою.
+
+![Автодоповнення](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
+
+![Помилка перекладу](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+
+Переконайтеся, що конфігурація TypeScript включає автоматично згенеровані типи.
+
+```json5 fileName="tsconfig.json"
+{
+  // ... Ваші існуючі конфігурації TypeScript
+  "include": [
+    // ... Ваші існуючі конфігурації TypeScript
+    ".intlayer/**/*.ts", // Включити автоматично згенеровані типи
+  ],
+}
+```
+
+### Конфігурація Git
+
+Рекомендовано ігнорувати файли, згенеровані Intlayer. Це дозволяє уникнути їх завантаження до вашого Git-репозиторію.
+
+Для цього ви можете додати наступні інструкції до вашого файлу `.gitignore`:
+
+```plaintext fileName=".gitignore"
+# Ігнорувати файли, згенеровані Intlayer
+.intlayer
+```
+
+### Розширення VS Code
+
+Для покращення досвіду розробки з Intlayer ви можете встановити **офіційне розширення Intlayer для VS Code**.
+
+[Встановити з VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+Це розширення забезпечує:
+
+- **Автодоповнення** для ключів перекладу.
+- **Виявлення помилок у реальному часі** для відсутніх перекладів.
+- **Вбудований попередній перегляд** перекладеного контенту.
+- **Швидкі дії (Quick actions)** для легкого створення та оновлення перекладів.
+
+Прочитайте [документацію до розширення VS Code Intlayer](https://intlayer.org/doc/vs-code-extension) для отримання детальних інструкцій щодо використання розширення.
 
 ### Йдемо далі
 
 Для подальшого розвитку ви можете впровадити [візуальний редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md) або винести ваш контент назовні за допомогою [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md).
-
-</Step>
-
-</Steps>

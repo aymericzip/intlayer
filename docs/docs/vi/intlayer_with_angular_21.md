@@ -400,6 +400,10 @@ export class AppComponent {
 }
 ```
 
+</Step>
+
+</Steps>
+
 ### Cấu hình TypeScript
 
 Intlayer tận dụng Module Augmentation để nhận được những lợi ích từ TypeScript và làm cho cơ sở mã của bạn mạnh mẽ hơn.
@@ -453,7 +457,3 @@ Tiện ích này cung cấp:
 Để đi xa hơn nữa, bạn có thể triển khai [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md) hoặc externalize (đưa ra ngoài) nội dung của bạn bằng [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md).
 
 ---
-
-</Step>
-
-</Steps>

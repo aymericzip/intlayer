@@ -1070,6 +1070,9 @@ bun run build # Or bun run dev
 
  </Tab>
 </Tabs>
+</Step>
+
+</Steps>
 
 ### Surveiller les modifications des dictionnaires avec Turbopack
 
@@ -1138,7 +1141,3 @@ Pour plus de détails sur l'utilisation de l'extension, consultez la [documentat
 ### Aller plus loin
 
 Pour aller plus loin, vous pouvez implémenter l’[éditeur visuel](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_visual_editor.md) ou externaliser votre contenu en utilisant le [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_CMS.md).
-
-</Step>
-
-</Steps>

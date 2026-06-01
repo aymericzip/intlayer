@@ -611,6 +611,9 @@ bun run build # Або bun run dev
 
  </Tab>
 </Tabs>
+</Step>
+
+</Steps>
 
 ### (Опційно) Sitemap і robots.txt (генерація під час збірки)
 
@@ -730,7 +733,3 @@ console.log("SEO files generated successfully.");
 ### Йдіть далі
 
 Щоб піти далі, ви можете впровадити [візуальний редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md) або винести свій контент за допомогою [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md).
-
-</Step>
-
-</Steps>

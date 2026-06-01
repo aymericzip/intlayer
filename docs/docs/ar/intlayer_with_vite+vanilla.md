@@ -601,6 +601,9 @@ bun run build # أو bun run dev
 
  </Tab>
 </Tabs>
+</Step>
+
+</Steps>
 
 ### (اختياري) خريطة الموقع و robots.txt (توليد وقت البناء)
 
@@ -720,7 +723,3 @@ console.log("SEO files generated successfully.");
 ### اذهب أبعد من ذلك
 
 للذهاب أبعد من ذلك، يمكنك تنفيذ [المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) أو استخراج محتواك باستخدام [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md).
-
-</Step>
-
-</Steps>

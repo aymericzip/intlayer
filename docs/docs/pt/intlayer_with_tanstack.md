@@ -1013,6 +1013,10 @@ Certifique-se de que sua configuração do TypeScript inclua os tipos gerados au
 
 ---
 
+</Step>
+
+</Steps>
+
 ### Configuração do Git
 
 É recomendado ignorar os arquivos gerados pelo Intlayer. Isso permite evitar que eles sejam comitados no seu repositório Git.
@@ -1025,10 +1029,6 @@ Para isso, você pode adicionar as seguintes instruções ao seu arquivo `.gitig
 ```
 
 ---
-
-</Step>
-
-</Steps>
 
 ## Extensão VS Code
 

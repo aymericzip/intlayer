@@ -369,6 +369,10 @@ export class AppComponent {
 }
 ```
 
+</Step>
+
+</Steps>
+
 ### TypeScript کو کنفیگر کریں
 
 Intlayer TypeScript کے فوائد حاصل کرنے اور آپ کے کوڈ بیس کو مضبوط بنانے کے لیے Module Augmentation کا استعمال کرتا ہے۔
@@ -422,7 +426,3 @@ Intlayer کے ساتھ اپنے ترقیاتی تجربے کو بہتر بنان
 مزید آگے جانے کے لیے، آپ [بصری ایڈیٹر](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_visual_editor.md) کو لاگو کر سکتے ہیں یا [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_CMS.md) کا استعمال کرتے ہوئے اپنے مواد کو آؤٹ سورس کر سکتے ہیں۔
 
 ---
-
-</Step>
-
-</Steps>

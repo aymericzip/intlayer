@@ -726,55 +726,6 @@ Link.displayName = "Link";
   Bileşen, yerelleştirilmiş URL ile bir `<a>` etiketi döndürür, böylece navigasyon yerel ayar ile tutarlı kalır.
 
 Bu `Link` bileşenini uygulamanız boyunca entegre ederek, dil farkındalığı olan tutarlı bir kullanıcı deneyimi sağlarsınız ve aynı zamanda iyileştirilmiş SEO ve kullanılabilirlik avantajlarından yararlanırsınız.
-
-### TypeScript Yapılandırın
-
-Intlayer, modül genişletmesi kullanarak TypeScript avantajlarından yararlanır ve kod tabanınızı daha güçlü hale getirir.
-
-![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
-
-![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
-
-Otomatik oluşturulan türleri TypeScript yapılandırmanıza dahil edin.
-
-```json5 fileName="tsconfig.json"
-{
-  // ... Mevcut TypeScript yapılandırmalarınız
-  "include": [
-    // ... Mevcut TypeScript yapılandırmalarınız
-    ".intlayer/**/*.ts", // Otomatik oluşturulan türleri dahil et
-  ],
-}
-```
-
-### Git Yapılandırması
-
-Intlayer tarafından oluşturulan dosyaların yok sayılması önerilir. Bu, bu dosyaların Git deponuza işlenmesini önlemenize olanak tanır.
-
-Bunu yapmak için `.gitignore` dosyanıza aşağıdaki talimatları ekleyebilirsiniz:
-
-```bash
-#  Intlayer tarafından oluşturulan dosyaları yok say
-.intlayer
-```
-
-### VS Code Uzantısı
-
-Intlayer ile geliştirme deneyiminizi iyileştirmek için resmi **Intlayer VS Code Uzantısı**'nı kurabilirsiniz.
-
-[VS Code Marketplace'ten yükleyin](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
-
-Bu uzantı şunları sağlar:
-
-- **Çeviri anahtarları için otomatik tamamlama**.
-- **Eksik çeviriler için gerçek zamanlı hata tespiti**.
-- **Çevrilmiş içeriğin satır içi önizlemeleri**.
-- **Çevirileri kolayca oluşturmak ve güncellemek için hızlı işlemler**.
-
-Uzantının nasıl kullanılacağına dair daha fazla ayrıntı için [Intlayer VS Code Uzantısı dokümantasyonuna](https://intlayer.org/doc/vs-code-extension) bakın.
-
----
-
 </Step>
 
 <Step number={11} title="Bileşenlerinizin içeriğini çıkarın" isOptional={true}>
@@ -872,6 +823,57 @@ bun run build # Or bun run dev
 
  </Tab>
 </Tabs>
+</Step>
+
+</Steps>
+
+### TypeScript Yapılandırın
+
+Intlayer, modül genişletmesi kullanarak TypeScript avantajlarından yararlanır ve kod tabanınızı daha güçlü hale getirir.
+
+![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
+
+![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+
+Otomatik oluşturulan türleri TypeScript yapılandırmanıza dahil edin.
+
+```json5 fileName="tsconfig.json"
+{
+  // ... Mevcut TypeScript yapılandırmalarınız
+  "include": [
+    // ... Mevcut TypeScript yapılandırmalarınız
+    ".intlayer/**/*.ts", // Otomatik oluşturulan türleri dahil et
+  ],
+}
+```
+
+### Git Yapılandırması
+
+Intlayer tarafından oluşturulan dosyaların yok sayılması önerilir. Bu, bu dosyaların Git deponuza işlenmesini önlemenize olanak tanır.
+
+Bunu yapmak için `.gitignore` dosyanıza aşağıdaki talimatları ekleyebilirsiniz:
+
+```bash
+#  Intlayer tarafından oluşturulan dosyaları yok say
+.intlayer
+```
+
+### VS Code Uzantısı
+
+Intlayer ile geliştirme deneyiminizi iyileştirmek için resmi **Intlayer VS Code Uzantısı**'nı kurabilirsiniz.
+
+[VS Code Marketplace'ten yükleyin](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+Bu uzantı şunları sağlar:
+
+- **Çeviri anahtarları için otomatik tamamlama**.
+- **Eksik çeviriler için gerçek zamanlı hata tespiti**.
+- **Çevrilmiş içeriğin satır içi önizlemeleri**.
+- **Çevirileri kolayca oluşturmak ve güncellemek için hızlı işlemler**.
+
+Uzantının nasıl kullanılacağına dair daha fazla ayrıntı için [Intlayer VS Code Uzantısı dokümantasyonuna](https://intlayer.org/doc/vs-code-extension) bakın.
+
+---
 
 ### (İsteğe bağlı) Sitemap ve robots.txt (build zamanı üretimi)
 
@@ -950,7 +952,3 @@ pnpm veya yarn kullanıyorsanız komutları uyarlayın. CI’dan da çağrılabi
 ### Daha Fazla İlerle
 
 Daha ileri gitmek için [görsel düzenleyiciyi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md) uygulayabilir veya içeriğinizi [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md) kullanarak dışa aktarabilirsiniz.
-
-</Step>
-
-</Steps>

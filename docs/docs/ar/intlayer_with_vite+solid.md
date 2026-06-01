@@ -497,30 +497,6 @@ const MyComponent = () => {
 };
 ```
 
-### تكوين TypeScript
-
-تأكد من أن تكوين TypeScript الخاص بك يتضمن الأنواع المولدة تلقائيًا.
-
-```json5 fileName="tsconfig.json"
-{
-  "compilerOptions": {
-    // ...
-  },
-  "include": ["src", ".intlayer/**/*.ts"],
-}
-```
-
-### تكوين Git
-
-يوصى بتجاهل الملفات التي يتم إنشاؤها بواسطة Intlayer. هذا يسمح لك بتجنب الالتزام بها في مستودع Git الخاص بك.
-
-للقيام بذلك، يمكنك إضافة التعليمات التالية إلى ملف `.gitignore` الخاص بك:
-
-```bash
-#  تجاهل الملفات التي تم إنشاؤها بواسطة Intlayer
-.intlayer
-```
-
 </Step>
 
 <Step number={1} title="استخراج محتوى مكوناتك" isOptional={true}>
@@ -635,6 +611,33 @@ bun run build # Or bun run dev
 
  </Tab>
 </Tabs>
+</Step>
+
+</Steps>
+
+### تكوين TypeScript
+
+تأكد من أن تكوين TypeScript الخاص بك يتضمن الأنواع المولدة تلقائيًا.
+
+```json5 fileName="tsconfig.json"
+{
+  "compilerOptions": {
+    // ...
+  },
+  "include": ["src", ".intlayer/**/*.ts"],
+}
+```
+
+### تكوين Git
+
+يوصى بتجاهل الملفات التي يتم إنشاؤها بواسطة Intlayer. هذا يسمح لك بتجنب الالتزام بها في مستودع Git الخاص بك.
+
+للقيام بذلك، يمكنك إضافة التعليمات التالية إلى ملف `.gitignore` الخاص بك:
+
+```bash
+#  تجاهل الملفات التي تم إنشاؤها بواسطة Intlayer
+.intlayer
+```
 
 ### (اختياري) خريطة الموقع و robots.txt (توليد وقت البناء)
 
@@ -732,7 +735,3 @@ console.log("SEO files generated successfully.");
 للتقدم أكثر، يمكنك تنفيذ [المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) أو إخراج محتواك باستخدام [نظام إدارة المحتوى (CMS)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md).
 
 ---
-
-</Step>
-
-</Steps>

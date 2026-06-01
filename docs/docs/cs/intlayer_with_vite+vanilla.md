@@ -580,6 +580,9 @@ bun run build # Nebo bun run dev
 
  </Tab>
 </Tabs>
+</Step>
+
+</Steps>
 
 ### (Volitelné) Sitemap a robots.txt (generování při buildu)
 
@@ -699,7 +702,3 @@ Další podrobnosti o tom, jak rozšíření používat, naleznete v [dokumentac
 ### Jděte dál
 
 Chcete-li jít dál, můžete implementovat [vizuální editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/intlayer_visual_editor.md) nebo externalizovat svůj obsah pomocí [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/intlayer_CMS.md).
-
-</Step>
-
-</Steps>

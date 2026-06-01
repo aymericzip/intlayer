@@ -833,6 +833,9 @@ bun add @intlayer/swc --dev
 > Nota: Esta optimización solo está disponible para Next.js 13 y versiones superiores.
 
 > Nota: Este paquete no se instala por defecto porque los plugins SWC aún son experimentales en Next.js. Esto podría cambiar en el futuro.
+> </Step>
+
+</Steps>
 
 ### Configurar TypeScript
 
@@ -883,7 +886,3 @@ Para más detalles sobre cómo usar la extensión, consulta la [documentación d
 ### Ir más allá
 
 Para ir más allá, puedes implementar el [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_visual_editor.md) o externalizar tu contenido usando el [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_CMS.md).
-
-</Step>
-
-</Steps>

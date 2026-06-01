@@ -350,33 +350,6 @@ Sonra, `app.vue` dosyanızı layout kullanacak şekilde ayarlayın:
 </template>
 ```
 
-### (İsteğe Bağlı) Adım 6b: Navigasyonlu Bir Layout Oluşturun
-
-Nuxt layout'ları, sayfalarınız için ortak bir yapı tanımlamanıza olanak tanır. Dil değiştirici ve navigasyonu içeren varsayılan bir layout oluşturun:
-
-```vue fileName="layouts/default.vue"
-<script setup lang="ts">
-import Links from "~/components/Links.vue";
-import LocaleSwitcher from "~/components/LocaleSwitcher.vue";
-</script>
-
-<template>
-  <div>
-    <header>
-      <LocaleSwitcher />
-    </header>
-    <main>
-      <slot />
-    </main>
-
-    <Links href="/">Ana Sayfa</Links>
-    <Links href="/about">Hakkında</Links>
-  </div>
-</template>
-```
-
-`Links` bileşeni (aşağıda gösterilmiştir), dahili navigasyon bağlantılarının otomatik olarak yerelleştirilmesini sağlar.
-
 </Step>
 
 <Step number={7} title="Uygulamanıza yerelleştirilmiş Yönlendirme ekleyin" isOptional={true}>
@@ -624,6 +597,37 @@ export default aboutPageContent;
 }
 ```
 
+</Step>
+
+</Steps>
+
+### (İsteğe Bağlı) Adım 6b: Navigasyonlu Bir Layout Oluşturun
+
+Nuxt layout'ları, sayfalarınız için ortak bir yapı tanımlamanıza olanak tanır. Dil değiştirici ve navigasyonu içeren varsayılan bir layout oluşturun:
+
+```vue fileName="layouts/default.vue"
+<script setup lang="ts">
+import Links from "~/components/Links.vue";
+import LocaleSwitcher from "~/components/LocaleSwitcher.vue";
+</script>
+
+<template>
+  <div>
+    <header>
+      <LocaleSwitcher />
+    </header>
+    <main>
+      <slot />
+    </main>
+
+    <Links href="/">Ana Sayfa</Links>
+    <Links href="/about">Hakkında</Links>
+  </div>
+</template>
+```
+
+`Links` bileşeni (aşağıda gösterilmiştir), dahili navigasyon bağlantılarının otomatik olarak yerelleştirilmesini sağlar.
+
 ### Git Yapılandırması
 
 Intlayer tarafından oluşturulan dosyaların göz ardı edilmesi önerilir. Bu, bu dosyaların Git deposuna commit edilmesini önler.
@@ -655,7 +659,3 @@ Uzantının nasıl kullanılacağı hakkında daha fazla bilgi için [Intlayer V
 ### Daha İleri Gitmek
 
 Daha ileri gitmek için, [görsel editörü](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md) uygulayabilir veya içeriğinizi [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md) kullanarak dışa aktarabilirsiniz.
-
-</Step>
-
-</Steps>

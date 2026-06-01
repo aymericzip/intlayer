@@ -611,6 +611,9 @@ bun run build # O bun run dev
 
  </Tab>
 </Tabs>
+</Step>
+
+</Steps>
 
 ### (Opcional) Sitemap y robots.txt (generación en el build)
 
@@ -730,7 +733,3 @@ Para obtener más detalles sobre cómo usar la extensión, consulta la [document
 ### Ir más allá
 
 Para ir más allá, puedes implementar el [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_visual_editor.md) o externalizar tu contenido usando el [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_CMS.md).
-
-</Step>
-
-</Steps>

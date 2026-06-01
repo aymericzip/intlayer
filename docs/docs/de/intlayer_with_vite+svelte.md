@@ -513,34 +513,6 @@ const changeLocale = (event: Event) => {
 </div>
 ```
 
-### Git-Konfiguration
-
-Es wird empfohlen, die von Intlayer generierten Dateien zu ignorieren. Dadurch vermeiden Sie, diese versehentlich in Ihr Git-Repository zu committen.
-
-Fügen Sie dazu die folgenden Anweisungen in Ihre `.gitignore`-Datei ein:
-
-```bash
-#  Ignoriere die von Intlayer generierten Dateien
-.intlayer
-```
-
-### VS Code Erweiterung
-
-Um Ihre Entwicklungserfahrung mit Intlayer zu verbessern, können Sie die offizielle **Intlayer VS Code Extension** installieren.
-
-[Im VS Code Marketplace installieren](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
-
-Diese Erweiterung bietet:
-
-- **Autovervollständigung** für Übersetzungsschlüssel.
-- **Echtzeit-Fehlererkennung** für fehlende Übersetzungen.
-- **Inline-Vorschauen** des übersetzten Inhalts.
-- **Schnellaktionen**, um Übersetzungen einfach zu erstellen und zu aktualisieren.
-
-Für weitere Details zur Verwendung der Erweiterung lesen Sie die [Intlayer VS Code Extension Dokumentation](https://intlayer.org/doc/vs-code-extension).
-
----
-
 </Step>
 
 <Step number={9} title="Inhalt Ihrer Komponenten extrahieren" isOptional={true}>
@@ -638,6 +610,37 @@ bun run build # Or bun run dev
 
  </Tab>
 </Tabs>
+</Step>
+
+</Steps>
+
+### Git-Konfiguration
+
+Es wird empfohlen, die von Intlayer generierten Dateien zu ignorieren. Dadurch vermeiden Sie, diese versehentlich in Ihr Git-Repository zu committen.
+
+Fügen Sie dazu die folgenden Anweisungen in Ihre `.gitignore`-Datei ein:
+
+```bash
+#  Ignoriere die von Intlayer generierten Dateien
+.intlayer
+```
+
+### VS Code Erweiterung
+
+Um Ihre Entwicklungserfahrung mit Intlayer zu verbessern, können Sie die offizielle **Intlayer VS Code Extension** installieren.
+
+[Im VS Code Marketplace installieren](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+Diese Erweiterung bietet:
+
+- **Autovervollständigung** für Übersetzungsschlüssel.
+- **Echtzeit-Fehlererkennung** für fehlende Übersetzungen.
+- **Inline-Vorschauen** des übersetzten Inhalts.
+- **Schnellaktionen**, um Übersetzungen einfach zu erstellen und zu aktualisieren.
+
+Für weitere Details zur Verwendung der Erweiterung lesen Sie die [Intlayer VS Code Extension Dokumentation](https://intlayer.org/doc/vs-code-extension).
+
+---
 
 ### (Optional) Sitemap und robots.txt (Build-Zeit)
 
@@ -716,7 +719,3 @@ Bei pnpm oder yarn die Befehle anpassen. Aufruf aus der CI ist ebenfalls möglic
 ### Weiterführende Schritte
 
 Um weiterzugehen, können Sie den [visuellen Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_visual_editor.md) implementieren oder Ihre Inhalte mit dem [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_CMS.md) auslagern.
-
-</Step>
-
-</Steps>

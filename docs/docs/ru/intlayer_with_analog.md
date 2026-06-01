@@ -327,6 +327,10 @@ export default class HomeComponent {
 }
 ```
 
+</Step>
+
+</Steps>
+
 ### Настройка TypeScript
 
 Intlayer использует расширение модулей (module augmentation) для получения преимуществ TypeScript и усиления вашей кодовой базы.
@@ -378,7 +382,3 @@ Intlayer использует расширение модулей (module augmen
 ### Идите дальше
 
 Чтобы пойти дальше, вы можете внедрить [визуальный редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md) или вынести ваш контент во внешнюю систему с помощью [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_CMS.md).
-
-</Step>
-
-</Steps>

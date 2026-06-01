@@ -317,6 +317,10 @@ export default class HomeComponent {
 }
 ```
 
+</Step>
+
+</Steps>
+
 ### TypeScriptの設定
 
 Intlayerは、TypeScriptの利点を活かしてコードベースを強力にするためにモジュール拡張を使用します。
@@ -362,7 +366,3 @@ Intlayerでの開発体験を向上させるために、公式の**Intlayer VS C
 - 翻訳を簡単に作成・更新するための**クイックアクション**。
 
 拡張機能の使用方法の詳細については、[Intlayer VS Code Extensionのドキュメント](https://intlayer.org/doc/vs-code-extension)を参照してください。
-
-</Step>
-
-</Steps>

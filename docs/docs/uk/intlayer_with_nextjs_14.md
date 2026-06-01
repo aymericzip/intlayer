@@ -910,6 +910,9 @@ bun add @intlayer/swc --dev
 > Примітка: Цей пакет не встановлюється за замовчуванням, оскільки плагіни SWC все ще є експериментальними в Next.js. Це може змінитися в майбутньому.
 
 > Примітка: Якщо ви встановите опцію як `importMode: 'dynamic'` або `importMode: 'fetch'` (in the `dictionary` configuration), це буде залежати від Suspense, тому вам доведеться обгорнути виклики `useIntlayer` у межі `Suspense`. Це означає, що ви не зможете використовувати `useIntlayer` безпосередньо на верхньому рівні компоненту Page / Layout.
+> </Step>
+
+</Steps>
 
 ### Налаштування TypeScript
 
@@ -960,7 +963,3 @@ Intlayer використовує module augmentation, щоб скористат
 ### Подальші кроки
 
 Щоб піти далі, ви можете реалізувати [візуальний редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md) або винести свій контент зовнішньо, використовуючи [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md).
-
-</Step>
-
-</Steps>

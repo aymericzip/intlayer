@@ -556,6 +556,10 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
+</Step>
+
+</Steps>
+
 ### (Opcjonalnie) Sitemap i robots.txt (generacja przy buildzie)
 
 Intlayer udostępnia `generateSitemap` i `getMultilingualUrls` - narzędzia do formatowania wielojęzycznych plików `sitemap.xml` i `robots.txt` dla crawlerów i automatycznego zapisu do `public/`. Zwykle uruchamia się mały skrypt Node **przed** Vite (np. hooki npm `predev` / `prebuild`).
@@ -678,7 +682,3 @@ Więcej szczegółów na temat korzystania z rozszerzenia znajdziesz w [dokument
 ### Dowiedz się więcej
 
 Aby dowiedzieć się więcej, możesz zaimplementować [edytor wizualny](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_visual_editor.md) lub wyeksportować treść za pomocą [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md).
-
-</Step>
-
-</Steps>

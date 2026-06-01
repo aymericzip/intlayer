@@ -390,6 +390,10 @@ export class AppComponent {
 }
 ```
 
+</Step>
+
+</Steps>
+
 ### TypeScriptの設定
 
 Intlayerは、TypeScriptの利便性を高め、コードベースをより堅牢にするためにモジュール拡張を使用します。
@@ -443,7 +447,3 @@ Intlayerでの開発エクスペリエンスを向上させるために、公式
 さらに進むには、[ビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)を実装したり、[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)を使用してコンテンツを外部化したりできます。
 
 ---
-
-</Step>
-
-</Steps>

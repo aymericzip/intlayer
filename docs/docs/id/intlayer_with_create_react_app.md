@@ -558,6 +558,9 @@ Dengan menerapkan perubahan ini, aplikasi Anda akan:
 - Memastikan atribut **bahasa** (`lang`) mencerminkan locale saat ini dengan benar, yang penting untuk SEO dan perilaku browser.
 - Menyesuaikan **arah teks** (`dir`) sesuai dengan locale, meningkatkan keterbacaan dan kegunaan untuk bahasa dengan urutan baca yang berbeda.
 - Memberikan pengalaman yang lebih **aksesibel**, karena teknologi bantu bergantung pada atribut ini untuk berfungsi secara optimal.
+  </Step>
+
+</Steps>
 
 ### Konfigurasi TypeScript
 
@@ -608,7 +611,3 @@ Untuk detail lebih lanjut tentang cara menggunakan ekstensi ini, lihat [dokument
 ### Melangkah Lebih Jauh
 
 Untuk melangkah lebih jauh, Anda dapat mengimplementasikan [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md) atau mengeksternalisasi konten Anda menggunakan [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md).
-
-</Step>
-
-</Steps>

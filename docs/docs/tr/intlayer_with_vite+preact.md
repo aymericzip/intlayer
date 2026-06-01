@@ -740,62 +740,6 @@ return (
 );
 ```
 
-### TypeScript'i Yapılandırın
-
-Intlayer, TypeScript'in avantajlarından yararlanmak ve kod tabanınızı daha güçlü hale getirmek için modül genişletmesini kullanır.
-
-![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
-
-![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
-
-TypeScript yapılandırmanızın otomatik olarak oluşturulan türleri içerdiğinden emin olun.
-
-```json5 fileName="tsconfig.json"
-{
-  // ... Mevcut TypeScript yapılandırmalarınız
-  "compilerOptions": {
-    // ...
-    "jsx": "react-jsx",
-    "jsxImportSource": "preact", // Preact 10+ için önerilir
-    // ...
-  },
-  "include": [
-    // ... Mevcut TypeScript yapılandırmalarınız
-    ".intlayer/**/*.ts", // Otomatik oluşturulan türleri dahil et
-  ],
-}
-```
-
-> `tsconfig.json` dosyanızın Preact için ayarlandığından emin olun, özellikle `jsx` ve `jsxImportSource` veya `preset-vite` varsayılanlarını kullanmıyorsanız eski Preact sürümleri için `jsxFactory`/`jsxFragmentFactory`.
-
-### Git Yapılandırması
-
-Intlayer tarafından oluşturulan dosyaları yok saymanız önerilir. Bu, onları Git deponuza göndermenizi önlemenizi sağlar.
-
-Bunu yapmak için `.gitignore` dosyanıza aşağıdaki talimatları ekleyebilirsiniz:
-
-```bash
-#  Intlayer tarafından oluşturulan dosyaları yoksay
-.intlayer
-```
-
-### VS Code Uzantısı
-
-Intlayer ile geliştirme deneyiminizi iyileştirmek için resmi **Intlayer VS Code Uzantısını** yükleyebilirsiniz.
-
-[VS Code Marketplace'ten yükleyin](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
-
-Bu uzantı şunları sağlar:
-
-- Çeviri anahtarları için **otomatik tamamlama**.
-- Eksik çeviriler için **gerçek zamanlı hata algılama**.
-- Çevrilmiş içeriğin **satır içi önizlemeleri**.
-- Çevirileri kolayca oluşturmak ve güncellemek için **hızlı eylemler**.
-
-Uzantının nasıl kullanılacağı hakkında daha fazla ayrıntı için [Intlayer VS Code Uzantısı belgelerine](https://intlayer.org/doc/vs-code-extension) bakın.
-
----
-
 </Step>
 
 <Step number={12} title="Bileşenlerinizin içeriğini çıkarın" isOptional={true}>
@@ -893,6 +837,65 @@ bun run build # Or bun run dev
 
  </Tab>
 </Tabs>
+</Step>
+
+</Steps>
+
+### TypeScript'i Yapılandırın
+
+Intlayer, TypeScript'in avantajlarından yararlanmak ve kod tabanınızı daha güçlü hale getirmek için modül genişletmesini kullanır.
+
+![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
+
+![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+
+TypeScript yapılandırmanızın otomatik olarak oluşturulan türleri içerdiğinden emin olun.
+
+```json5 fileName="tsconfig.json"
+{
+  // ... Mevcut TypeScript yapılandırmalarınız
+  "compilerOptions": {
+    // ...
+    "jsx": "react-jsx",
+    "jsxImportSource": "preact", // Preact 10+ için önerilir
+    // ...
+  },
+  "include": [
+    // ... Mevcut TypeScript yapılandırmalarınız
+    ".intlayer/**/*.ts", // Otomatik oluşturulan türleri dahil et
+  ],
+}
+```
+
+> `tsconfig.json` dosyanızın Preact için ayarlandığından emin olun, özellikle `jsx` ve `jsxImportSource` veya `preset-vite` varsayılanlarını kullanmıyorsanız eski Preact sürümleri için `jsxFactory`/`jsxFragmentFactory`.
+
+### Git Yapılandırması
+
+Intlayer tarafından oluşturulan dosyaları yok saymanız önerilir. Bu, onları Git deponuza göndermenizi önlemenizi sağlar.
+
+Bunu yapmak için `.gitignore` dosyanıza aşağıdaki talimatları ekleyebilirsiniz:
+
+```bash
+#  Intlayer tarafından oluşturulan dosyaları yoksay
+.intlayer
+```
+
+### VS Code Uzantısı
+
+Intlayer ile geliştirme deneyiminizi iyileştirmek için resmi **Intlayer VS Code Uzantısını** yükleyebilirsiniz.
+
+[VS Code Marketplace'ten yükleyin](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+Bu uzantı şunları sağlar:
+
+- Çeviri anahtarları için **otomatik tamamlama**.
+- Eksik çeviriler için **gerçek zamanlı hata algılama**.
+- Çevrilmiş içeriğin **satır içi önizlemeleri**.
+- Çevirileri kolayca oluşturmak ve güncellemek için **hızlı eylemler**.
+
+Uzantının nasıl kullanılacağı hakkında daha fazla ayrıntı için [Intlayer VS Code Uzantısı belgelerine](https://intlayer.org/doc/vs-code-extension) bakın.
+
+---
 
 ### (İsteğe bağlı) Sitemap ve robots.txt (build zamanı üretimi)
 
@@ -973,7 +976,3 @@ pnpm veya yarn kullanıyorsanız komutları uyarlayın. CI’dan da çağrılabi
 Daha fazla ilerlemek için [görsel düzenleyiciyi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md) uygulayabilir veya [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md) kullanarak içeriğinizi dışa aktarabilirsiniz.
 
 ---
-
-</Step>
-
-</Steps>

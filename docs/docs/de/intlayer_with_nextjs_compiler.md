@@ -202,11 +202,10 @@ zur Einrichtung von Intlayer in einer Next.js-Anwendung
 - **`IntlayerServerProvider`** wird verwendet, um die Sprache für Server-Kinder bereitzustellen.
 
   > Layout and page cannot share a common server context because the server context system is based on a per-request data store (via [React's cache](https://react.dev/reference/react/cache) mechanism), causing each "context" to be re-created for different segments of the application. Placing the provider in a shared layout would break this isolation, preventing the correct propagation of the server context values to your server components.
+  > </Step>
+
+</Steps>
 
 ### Weiterführende Informationen
 
 Um noch weiter zu gehen, können Sie den [Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_visual_editor.md) implementieren oder Ihre Inhalte mit dem [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_CMS.md) externalisieren.
-
-</Step>
-
-</Steps>

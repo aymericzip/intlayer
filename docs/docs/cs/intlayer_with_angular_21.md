@@ -369,6 +369,10 @@ export class AppComponent {
 }
 ```
 
+</Step>
+
+</Steps>
+
 ### Konfigurace TypeScriptu
 
 Intlayer používá Module Augmentation, aby získal výhody TypeScriptu a vaše kódová základna byla silnější.
@@ -422,7 +426,3 @@ Další informace o tom, jak používat rozšíření, najdete v [dokumentaci In
 Abyste šli ještě dále, můžete implementovat [vizuální editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/intlayer_visual_editor.md) nebo externalizovat obsah s využitím [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/intlayer_CMS.md).
 
 ---
-
-</Step>
-
-</Steps>

@@ -943,6 +943,10 @@ Stellen Sie sicher, dass Ihre TypeScript-Konfiguration die automatisch generiert
 
 ---
 
+</Step>
+
+</Steps>
+
 ### Git-Konfiguration
 
 Es wird empfohlen, die von Intlayer generierten Dateien zu ignorieren. Dies ermöglicht es Ihnen, zu vermeiden, sie in Ihr Git-Repository zu committen.
@@ -955,10 +959,6 @@ Dazu können Sie die folgenden Anweisungen zu Ihrer `.gitignore`-Datei hinzufüg
 ```
 
 ---
-
-</Step>
-
-</Steps>
 
 ## VS Code Erweiterung
 

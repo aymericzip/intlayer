@@ -350,33 +350,6 @@ Richten Sie anschließend Ihre `app.vue` so ein, dass Layouts verwendet werden:
 </template>
 ```
 
-### (Optional) Schritt 6b: Erstellen Sie ein Layout mit Navigation
-
-Nuxt-Layouts ermöglichen es Ihnen, eine gemeinsame Struktur für Ihre Seiten zu definieren. Erstellen Sie ein Standard-Layout, das den Sprachumschalter und die Navigation enthält:
-
-```vue fileName="layouts/default.vue"
-<script setup lang="ts">
-import Links from "~/components/Links.vue";
-import LocaleSwitcher from "~/components/LocaleSwitcher.vue";
-</script>
-
-<template>
-  <div>
-    <header>
-      <LocaleSwitcher />
-    </header>
-    <main>
-      <slot />
-    </main>
-
-    <Links href="/">Startseite</Links>
-    <Links href="/about">Über</Links>
-  </div>
-</template>
-```
-
-Die `Links`-Komponente (siehe unten) stellt sicher, dass interne Navigationslinks automatisch lokalisiert werden.
-
 </Step>
 
 <Step number={7} title="Lokalisierte Routen zu Ihrer Anwendung hinzufügen" isOptional={true}>
@@ -624,6 +597,37 @@ export default aboutPageContent;
 }
 ```
 
+</Step>
+
+</Steps>
+
+### (Optional) Schritt 6b: Erstellen Sie ein Layout mit Navigation
+
+Nuxt-Layouts ermöglichen es Ihnen, eine gemeinsame Struktur für Ihre Seiten zu definieren. Erstellen Sie ein Standard-Layout, das den Sprachumschalter und die Navigation enthält:
+
+```vue fileName="layouts/default.vue"
+<script setup lang="ts">
+import Links from "~/components/Links.vue";
+import LocaleSwitcher from "~/components/LocaleSwitcher.vue";
+</script>
+
+<template>
+  <div>
+    <header>
+      <LocaleSwitcher />
+    </header>
+    <main>
+      <slot />
+    </main>
+
+    <Links href="/">Startseite</Links>
+    <Links href="/about">Über</Links>
+  </div>
+</template>
+```
+
+Die `Links`-Komponente (siehe unten) stellt sicher, dass interne Navigationslinks automatisch lokalisiert werden.
+
 ### Git-Konfiguration
 
 Es wird empfohlen, die von Intlayer generierten Dateien zu ignorieren. So vermeiden Sie, diese versehentlich in Ihr Git-Repository zu committen.
@@ -655,7 +659,3 @@ Für weitere Details zur Verwendung der Erweiterung lesen Sie bitte die [Intlaye
 ### Weiterführende Schritte
 
 Um weiterzugehen, können Sie den [visuellen Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_visual_editor.md) implementieren oder Ihre Inhalte mit dem [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_CMS.md) auslagern.
-
-</Step>
-
-</Steps>

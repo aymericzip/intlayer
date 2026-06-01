@@ -411,6 +411,9 @@ const unsubscribe = useDictionaryDynamic(
 ```
 
 > Opmerking: `useDictionaryDynamic` vereist dat de woordenboeken beschikbaar zijn als afzonderlijke ESM-bestanden. Deze aanpak wordt doorgaans gebruikt als je een webserver hebt die de woordenboeken serveert.
+> </Step>
+
+</Steps>
 
 ### TypeScript configureren
 
@@ -445,7 +448,3 @@ Raadpleeg de [Intlayer VS Code-extensie documentatie](https://intlayer.org/doc/v
 ### Ga verder
 
 Om verder te gaan, kun je de [visuele editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/intlayer_visual_editor.md) implementeren of je inhoud externaliseren met behulp van de [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/intlayer_CMS.md).
-
-</Step>
-
-</Steps>

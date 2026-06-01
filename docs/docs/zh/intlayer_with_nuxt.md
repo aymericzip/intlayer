@@ -330,33 +330,6 @@ const { locale, availableLocales, setLocale } = useLocale();
 </template>
 ```
 
-### （可选）步骤 6b：创建带导航的布局
-
-Nuxt 布局允许您为页面定义一个通用结构。创建一个包含语言切换器和导航的默认布局：
-
-```vue fileName="layouts/default.vue"
-<script setup lang="ts">
-import Links from "~/components/Links.vue";
-import LocaleSwitcher from "~/components/LocaleSwitcher.vue";
-</script>
-
-<template>
-  <div>
-    <header>
-      <LocaleSwitcher />
-    </header>
-    <main>
-      <slot />
-    </main>
-
-    <Links href="/">首页</Links>
-    <Links href="/about">关于</Links>
-  </div>
-</template>
-```
-
-`Links` 组件（如下所示）确保内部导航链接会自动本地化。
-
 </Step>
 
 <Step number={7} title="为您的应用添加本地化路由">
@@ -602,6 +575,37 @@ export default aboutPageContent;
 }
 ```
 
+</Step>
+
+</Steps>
+
+### （可选）步骤 6b：创建带导航的布局
+
+Nuxt 布局允许您为页面定义一个通用结构。创建一个包含语言切换器和导航的默认布局：
+
+```vue fileName="layouts/default.vue"
+<script setup lang="ts">
+import Links from "~/components/Links.vue";
+import LocaleSwitcher from "~/components/LocaleSwitcher.vue";
+</script>
+
+<template>
+  <div>
+    <header>
+      <LocaleSwitcher />
+    </header>
+    <main>
+      <slot />
+    </main>
+
+    <Links href="/">首页</Links>
+    <Links href="/about">关于</Links>
+  </div>
+</template>
+```
+
+`Links` 组件（如下所示）确保内部导航链接会自动本地化。
+
 ### Git 配置
 
 建议忽略 Intlayer 生成的文件。这样可以避免将它们提交到您的 Git 仓库中。
@@ -633,7 +637,3 @@ export default aboutPageContent;
 ### 更进一步
 
 要进一步提升，您可以实现[可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)或使用[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)将内容外部化。
-
-</Step>
-
-</Steps>

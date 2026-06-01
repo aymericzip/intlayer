@@ -558,6 +558,9 @@ Bằng cách áp dụng những thay đổi này, ứng dụng của bạn sẽ:
 - Đảm bảo thuộc tính **ngôn ngữ** (`lang`) phản ánh chính xác locale hiện tại, điều này quan trọng cho SEO và hành vi của trình duyệt.
 - Điều chỉnh **hướng văn bản** (`dir`) theo locale, nâng cao khả năng đọc và sử dụng cho các ngôn ngữ có thứ tự đọc khác nhau.
 - Cung cấp trải nghiệm **dễ tiếp cận** hơn, vì các công nghệ hỗ trợ phụ thuộc vào các thuộc tính này để hoạt động tối ưu.
+  </Step>
+
+</Steps>
 
 ### Cấu hình TypeScript
 
@@ -608,7 +611,3 @@ Tiện ích mở rộng này cung cấp:
 ### Đi xa hơn
 
 Để đi xa hơn, bạn có thể triển khai [trình soạn thảo trực quan](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md) hoặc tách nội dung của bạn ra bên ngoài bằng cách sử dụng [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md).
-
-</Step>
-
-</Steps>

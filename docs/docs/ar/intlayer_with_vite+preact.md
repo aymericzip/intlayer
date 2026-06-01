@@ -730,45 +730,6 @@ return (
 );
 ```
 
-### تكوين TypeScript
-
-يستخدم Intlayer توسيع الوحدات (module augmentation) للحصول على فوائد TypeScript وجعل قاعدة الكود الخاصة بك أقوى.
-
-![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
-
-![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
-
-تأكد من أن تكوين TypeScript الخاص بك يتضمن الأنواع التي تم إنشاؤها تلقائيًا.
-
-```json5 fileName="tsconfig.json"
-{
-  // ... تكوينات TypeScript الحالية الخاصة بك
-  "compilerOptions": {
-    // ...
-    "jsx": "react-jsx",
-    "jsxImportSource": "preact", // موصى به لـ Preact 10+
-    // ...
-  },
-  "include": [
-    // ... تكوينات TypeScript الحالية الخاصة بك
-    ".intlayer/**/*.ts", // تضمين الأنواع التي تم إنشاؤها تلقائيًا
-  ],
-}
-```
-
-> تأكد من إعداد `tsconfig.json` الخاص بك لـ Preact، خاصةً `jsx` و `jsxImportSource` أو `jsxFactory`/`jsxFragmentFactory` لإصدارات Preact الأقدم إذا لم تستخدم إعدادات `preset-vite` الافتراضية.
-
-### تكوين Git
-
-يوصى بتجاهل الملفات التي تم إنشاؤها بواسطة Intlayer. يتيح لك ذلك تجنب الالتزام بها في مستودع Git الخاص بك.
-
-للقيام بذلك، يمكنك إضافة التعليمات التالية إلى ملف `.gitignore` الخاص بك:
-
-```bash
-#  تجاهل الملفات التي تم إنشاؤها بواسطة Intlayer
-.intlayer
-```
-
 </Step>
 
 <Step number={1} title="استخراج محتوى مكوناتك" isOptional={true}>
@@ -883,6 +844,48 @@ bun run build # Or bun run dev
 
  </Tab>
 </Tabs>
+</Step>
+
+</Steps>
+
+### تكوين TypeScript
+
+يستخدم Intlayer توسيع الوحدات (module augmentation) للحصول على فوائد TypeScript وجعل قاعدة الكود الخاصة بك أقوى.
+
+![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
+
+![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+
+تأكد من أن تكوين TypeScript الخاص بك يتضمن الأنواع التي تم إنشاؤها تلقائيًا.
+
+```json5 fileName="tsconfig.json"
+{
+  // ... تكوينات TypeScript الحالية الخاصة بك
+  "compilerOptions": {
+    // ...
+    "jsx": "react-jsx",
+    "jsxImportSource": "preact", // موصى به لـ Preact 10+
+    // ...
+  },
+  "include": [
+    // ... تكوينات TypeScript الحالية الخاصة بك
+    ".intlayer/**/*.ts", // تضمين الأنواع التي تم إنشاؤها تلقائيًا
+  ],
+}
+```
+
+> تأكد من إعداد `tsconfig.json` الخاص بك لـ Preact، خاصةً `jsx` و `jsxImportSource` أو `jsxFactory`/`jsxFragmentFactory` لإصدارات Preact الأقدم إذا لم تستخدم إعدادات `preset-vite` الافتراضية.
+
+### تكوين Git
+
+يوصى بتجاهل الملفات التي تم إنشاؤها بواسطة Intlayer. يتيح لك ذلك تجنب الالتزام بها في مستودع Git الخاص بك.
+
+للقيام بذلك، يمكنك إضافة التعليمات التالية إلى ملف `.gitignore` الخاص بك:
+
+```bash
+#  تجاهل الملفات التي تم إنشاؤها بواسطة Intlayer
+.intlayer
+```
 
 ### (اختياري) خريطة الموقع و robots.txt (توليد وقت البناء)
 
@@ -980,7 +983,3 @@ console.log("SEO files generated successfully.");
 للذهاب أبعد من ذلك، يمكنك تنفيذ [المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) أو توفير المحتوى الخاص بك خارجيًا باستخدام [نظام إدارة المحتوى (CMS)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md).
 
 ---
-
-</Step>
-
-</Steps>

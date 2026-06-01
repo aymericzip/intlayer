@@ -501,54 +501,7 @@ bun add @intlayer/swc --dev
 > नोट: यह पैकेज डिफ़ॉल्ट रूप से स्थापित नहीं है क्योंकि Next.js SWC प्लगइन्स अभी भी प्रयोगात्मक हैं। भविष्य में यह बदल सकता है।
 
 > नोट: यदि आप `importMode: 'dynamic'` या `importMode: 'fetch'` (डिक्शनरी कॉन्फ़िगरेशन में) विकल्प सेट करते हैं, तो यह Suspense पर निर्भर करेगा, इसलिए आपको `useIntlayer` कॉल्स को `Suspense` सीमा में लपेटना होगा। इसका मतलब है कि आप अपने पेज / लेआउट घटक के शीर्ष स्तर पर सीधे `useIntlayer` का उपयोग नहीं कर पाएंगे।
-
-### TypeScript कॉन्फ़िगरेशन
-
-Intlayer TypeScript लाभ प्राप्त करने और आपकी कोडबेस को अधिक मजबूत बनाने के लिए मॉड्यूल ऑगमेंटेशन (module augmentation) का उपयोग करता है।
-
-![ऑटोकम्पलीट](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
-
-![अनुवाद त्रुटि](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
-
-सुनिश्चित करें कि आपकी TypeScript कॉन्फ़िगरेशन में ऑटो-जेनरेटेड टाइप शामिल हैं।
-
-```json5 fileName="tsconfig.json"
-{
-  // ... आपके मौजूदा TypeScript कॉन्फ़िगरेशन
-  "include": [
-    // ... आपके मौजूदा TypeScript कॉन्फ़िगरेशन
-    ".intlayer/**/*.ts", // ऑटो-जेनरेटेड टाइप शामिल करें
-  ],
-}
-```
-
-### Git कॉन्फ़िगरेशन
-
-Intlayer द्वारा उत्पन्न फ़ाइलों को अनदेखा करने की अनुशंसा की जाती है। यह उन्हें आपके Git रिपॉजिटरी में कमिट करने से बचने की अनुमति देता है।
-
-ऐसा करने के लिए, आप अपनी `.gitignore` फ़ाइल में निम्न निर्देश जोड़ सकते हैं:
-
-```plaintext fileName=".gitignore"
-# Intlayer द्वारा उत्पन्न फ़ाइलों को अनदेखा करें
-.intlayer
-```
-
-### VS Code एक्सटेंशन
-
-Intlayer के साथ आपके विकास के अनुभव को बेहतर बनाने के लिए, आप **आधिकारिक Intlayer VS Code एक्सटेंशन** स्थापित कर सकते हैं।
-
-[VS Code Marketplace से स्थापित करें](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
-
-यह एक्सटेंशन प्रदान करता है:
-
-- अनुवाद कुंजियों के लिए **ऑटोकम्पलीट**।
-- छूटे हुए अनुवादों के लिए **रीयल-टाइम त्रुटि डिटेक्शन**।
-- अनुवादित सामग्री के **इनलाइन प्रीव्यू**।
-- अनुवादों को आसानी से बनाने और अपडेट करने के लिए **त्वरित क्रियाएं (Quick actions)**।
-
-एक्सटेंशन का उपयोग करने के बारे में अधिक विवरण के लिए [Intlayer VS Code एक्सटेंशन दस्तावेज़](https://intlayer.org/doc/vs-code-extension) पढ़ें।
-
-</Step>
+> </Step>
 
 <Step number={1} title="अपने घटकों की सामग्री निकालें" isOptional={true}>
 
@@ -662,11 +615,56 @@ bun run build # Or bun run dev
 
  </Tab>
 </Tabs>
+</Step>
+
+</Steps>
+
+### TypeScript कॉन्फ़िगरेशन
+
+Intlayer TypeScript लाभ प्राप्त करने और आपकी कोडबेस को अधिक मजबूत बनाने के लिए मॉड्यूल ऑगमेंटेशन (module augmentation) का उपयोग करता है।
+
+![ऑटोकम्पलीट](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
+
+![अनुवाद त्रुटि](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+
+सुनिश्चित करें कि आपकी TypeScript कॉन्फ़िगरेशन में ऑटो-जेनरेटेड टाइप शामिल हैं।
+
+```json5 fileName="tsconfig.json"
+{
+  // ... आपके मौजूदा TypeScript कॉन्फ़िगरेशन
+  "include": [
+    // ... आपके मौजूदा TypeScript कॉन्फ़िगरेशन
+    ".intlayer/**/*.ts", // ऑटो-जेनरेटेड टाइप शामिल करें
+  ],
+}
+```
+
+### Git कॉन्फ़िगरेशन
+
+Intlayer द्वारा उत्पन्न फ़ाइलों को अनदेखा करने की अनुशंसा की जाती है। यह उन्हें आपके Git रिपॉजिटरी में कमिट करने से बचने की अनुमति देता है।
+
+ऐसा करने के लिए, आप अपनी `.gitignore` फ़ाइल में निम्न निर्देश जोड़ सकते हैं:
+
+```plaintext fileName=".gitignore"
+# Intlayer द्वारा उत्पन्न फ़ाइलों को अनदेखा करें
+.intlayer
+```
+
+### VS Code एक्सटेंशन
+
+Intlayer के साथ आपके विकास के अनुभव को बेहतर बनाने के लिए, आप **आधिकारिक Intlayer VS Code एक्सटेंशन** स्थापित कर सकते हैं।
+
+[VS Code Marketplace से स्थापित करें](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+यह एक्सटेंशन प्रदान करता है:
+
+- अनुवाद कुंजियों के लिए **ऑटोकम्पलीट**।
+- छूटे हुए अनुवादों के लिए **रीयल-टाइम त्रुटि डिटेक्शन**।
+- अनुवादित सामग्री के **इनलाइन प्रीव्यू**।
+- अनुवादों को आसानी से बनाने और अपडेट करने के लिए **त्वरित क्रियाएं (Quick actions)**।
+
+एक्सटेंशन का उपयोग करने के बारे में अधिक विवरण के लिए [Intlayer VS Code एक्सटेंशन दस्तावेज़](https://intlayer.org/doc/vs-code-extension) पढ़ें।
 
 ### आगे बढ़ें
 
 आगे बढ़ने के लिए, आप [विज़ुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md) लागू कर सकते हैं या [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md) का उपयोग करके अपनी सामग्री को बाहरी बना सकते हैं।
-
-</Step>
-
-</Steps>

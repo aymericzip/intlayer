@@ -867,6 +867,10 @@ Pastikan konfigurasi TypeScript Anda menyertakan tipe yang dihasilkan secara oto
 
 ---
 
+</Step>
+
+</Steps>
+
 ### Konfigurasi Git
 
 Disarankan untuk mengabaikan file yang dihasilkan oleh Intlayer. Ini memungkinkan Anda untuk menghindari melakukan komit file tersebut ke repositori Git Anda.
@@ -879,10 +883,6 @@ Untuk melakukan ini, Anda dapat menambahkan instruksi berikut ke file `.gitignor
 ```
 
 ---
-
-</Step>
-
-</Steps>
 
 ## Ekstensi VS Code
 

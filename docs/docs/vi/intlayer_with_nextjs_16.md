@@ -908,72 +908,7 @@ bun add @intlayer/swc --dev
 > Lưu ý: Gói này không được cài đặt theo mặc định vì các plugin SWC vẫn đang trong quá trình thử nghiệm trên Next.js. Nó có thể thay đổi trong tương lai.
 
 > Lưu ý: Nếu bạn đặt tùy chọn thành `importMode: 'dynamic'` hoặc `importMode: 'fetch'` (trong cấu hình `dictionary`), nó sẽ dựa trên Suspense, vì vậy bạn sẽ phải bao bọc các cuộc gọi `useIntlayer` của mình trong một ranh giới `Suspense`. Điều đó có nghĩa là, bạn sẽ không thể sử dụng `useIntlayer` trực tiếp ở cấp cao nhất của thành phần Trang / Bố cục của mình.
-
-### Theo dõi các thay đổi từ điển trên Turbopack
-
-Khi sử dụng Turbopack làm máy chủ phát triển của bạn với lệnh `next dev`, các thay đổi từ điển sẽ không được tự động phát hiện theo mặc định.
-
-Hạn chế này xảy ra vì Turbopack không thể chạy các plugin webpack song song để theo dõi các thay đổi trong tệp nội dung của bạn. Để giải quyết vấn đề này, bạn sẽ cần sử dụng lệnh `intlayer watch` để chạy đồng thời cả máy chủ phát triển và trình theo dõi xây dựng Intlayer.
-
-```json5 fileName="package.json"
-{
-  // ... Các cấu hình package.json hiện có của bạn
-  "scripts": {
-    // ... Các cấu hình scripts hiện có của bạn
-    "dev": "intlayer watch --with 'next dev'",
-  },
-}
-```
-
-> Nếu bạn đang sử dụng next-intlayer@<=6.x.x, bạn cần giữ cờ `--turbopack` để ứng dụng Next.js 16 hoạt động chính xác với Turbopack. Chúng tôi khuyên bạn nên sử dụng next-intlayer@>=7.x.x để tránh hạn chế này.
-
-### Cấu hình TypeScript
-
-Intlayer sử dụng tăng cường mô-đun (module augmentation) để nhận được các lợi ích của TypeScript và làm cho cơ sở mã của bạn mạnh mẽ hơn.
-
-![Tự động hoàn thành](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
-
-![Lỗi dịch](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
-
-Đảm bảo cấu hình TypeScript của bạn bao gồm các kiểu được tạo tự động.
-
-```json5 fileName="tsconfig.json"
-{
-  // ... Các cấu hình TypeScript hiện có của bạn
-  "include": [
-    // ... Các cấu hình TypeScript hiện có của bạn
-    ".intlayer/**/*.ts", // Bao gồm các kiểu được tạo tự động
-  ],
-}
-```
-
-### Cấu hình Git
-
-Khuyến nghị bỏ qua các tệp được tạo bởi Intlayer. Điều này cho phép bạn tránh cam kết chúng vào kho lưu trữ Git của mình.
-
-Để thực hiện việc này, bạn có thể thêm các hướng dẫn sau vào tệp `.gitignore` của mình:
-
-```plaintext fileName=".gitignore"
-# Bỏ qua các tệp được tạo bởi Intlayer
-.intlayer
-```
-
-### Tiện ích mở rộng VS Code
-
-Để cải thiện trải nghiệm phát triển của bạn với Intlayer, bạn có thể cài đặt **Tiện ích mở rộng Intlayer VS Code** chính thức.
-
-[Cài đặt từ VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
-
-Tiện ích mở rộng này cung cấp:
-
-- **Tự động hoàn thành** cho các khóa bản dịch.
-- **Phát hiện lỗi thời gian thực** cho các bản dịch bị thiếu.
-- **Xem trước nội tuyến** nội dung đã dịch.
-- **Các hành động nhanh** để dễ dàng tạo và cập nhật các bản dịch.
-
-Để biết thêm chi tiết về cách sử dụng tiện ích mở rộng, hãy tham khảo [tài liệu Tiện ích mở rộng Intlayer VS Code](https://intlayer.org/doc/vs-code-extension).
-
-</Step>
+> </Step>
 
 <Step number={1} title="Trích xuất nội dung các thành phần của bạn" isOptional={true}>
 
@@ -1087,11 +1022,74 @@ bun run build # Or bun run dev
 
  </Tab>
 </Tabs>
+</Step>
+
+</Steps>
+
+### Theo dõi các thay đổi từ điển trên Turbopack
+
+Khi sử dụng Turbopack làm máy chủ phát triển của bạn với lệnh `next dev`, các thay đổi từ điển sẽ không được tự động phát hiện theo mặc định.
+
+Hạn chế này xảy ra vì Turbopack không thể chạy các plugin webpack song song để theo dõi các thay đổi trong tệp nội dung của bạn. Để giải quyết vấn đề này, bạn sẽ cần sử dụng lệnh `intlayer watch` để chạy đồng thời cả máy chủ phát triển và trình theo dõi xây dựng Intlayer.
+
+```json5 fileName="package.json"
+{
+  // ... Các cấu hình package.json hiện có của bạn
+  "scripts": {
+    // ... Các cấu hình scripts hiện có của bạn
+    "dev": "intlayer watch --with 'next dev'",
+  },
+}
+```
+
+> Nếu bạn đang sử dụng next-intlayer@<=6.x.x, bạn cần giữ cờ `--turbopack` để ứng dụng Next.js 16 hoạt động chính xác với Turbopack. Chúng tôi khuyên bạn nên sử dụng next-intlayer@>=7.x.x để tránh hạn chế này.
+
+### Cấu hình TypeScript
+
+Intlayer sử dụng tăng cường mô-đun (module augmentation) để nhận được các lợi ích của TypeScript và làm cho cơ sở mã của bạn mạnh mẽ hơn.
+
+![Tự động hoàn thành](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
+
+![Lỗi dịch](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+
+Đảm bảo cấu hình TypeScript của bạn bao gồm các kiểu được tạo tự động.
+
+```json5 fileName="tsconfig.json"
+{
+  // ... Các cấu hình TypeScript hiện có của bạn
+  "include": [
+    // ... Các cấu hình TypeScript hiện có của bạn
+    ".intlayer/**/*.ts", // Bao gồm các kiểu được tạo tự động
+  ],
+}
+```
+
+### Cấu hình Git
+
+Khuyến nghị bỏ qua các tệp được tạo bởi Intlayer. Điều này cho phép bạn tránh cam kết chúng vào kho lưu trữ Git của mình.
+
+Để thực hiện việc này, bạn có thể thêm các hướng dẫn sau vào tệp `.gitignore` của mình:
+
+```plaintext fileName=".gitignore"
+# Bỏ qua các tệp được tạo bởi Intlayer
+.intlayer
+```
+
+### Tiện ích mở rộng VS Code
+
+Để cải thiện trải nghiệm phát triển của bạn với Intlayer, bạn có thể cài đặt **Tiện ích mở rộng Intlayer VS Code** chính thức.
+
+[Cài đặt từ VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+Tiện ích mở rộng này cung cấp:
+
+- **Tự động hoàn thành** cho các khóa bản dịch.
+- **Phát hiện lỗi thời gian thực** cho các bản dịch bị thiếu.
+- **Xem trước nội tuyến** nội dung đã dịch.
+- **Các hành động nhanh** để dễ dàng tạo và cập nhật các bản dịch.
+
+Để biết thêm chi tiết về cách sử dụng tiện ích mở rộng, hãy tham khảo [tài liệu Tiện ích mở rộng Intlayer VS Code](https://intlayer.org/doc/vs-code-extension).
 
 ### Đi Xa Hơn
 
 Để đi xa hơn, bạn có thể triển khai [trình chỉnh sửa trực quan](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md) hoặc bên ngoài hóa nội dung của bạn bằng cách sử dụng [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md).
-
-</Step>
-
-</Steps>

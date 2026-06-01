@@ -412,6 +412,9 @@ bun x intlayer fill         # Заповнити відсутні перекла
 ```
 
 > Для отримання більш детальної інформації зверніться до [документації CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/ci.md)
+> </Step>
+
+</Steps>
 
 ### (Опційно) Sitemap і robots.txt (генерація під час збірки)
 
@@ -516,7 +519,3 @@ console.log("SEO files generated successfully.");
 ### Йти далі
 
 Щоб піти далі, ви можете впровадити [візуальний редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) або винести свій вміст назовні за допомогою [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md).
-
-</Step>
-
-</Steps>

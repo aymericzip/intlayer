@@ -908,72 +908,7 @@ bun add @intlayer/swc --dev
 > Примітка: Цей пакет не встановлюється за замовчуванням, оскільки плагіни SWC все ще є експериментальними в Next.js. Це може змінитися в майбутньому.
 
 > Примітка: Якщо ви встановите опцію `importMode: 'dynamic'` або `importMode: 'fetch'` (у конфігурації `dictionary`), вона буде покладатися на Suspense, тому вам доведеться обгорнути ваші виклики `useIntlayer` в межу `Suspense`. Це означає, що ви не зможете використовувати `useIntlayer` безпосередньо на верхньому рівні вашого компонента Page / Layout.
-
-### Відстеження змін словників у Turbopack
-
-При використанні Turbopack як сервера розробки за допомогою команди `next dev` зміни в словниках за замовчуванням не будуть виявлятися автоматично.
-
-Це обмеження виникає через те, що Turbopack не може запускати плагіни webpack паралельно для моніторингу змін у ваших файлах контенту. Щоб обійти це, вам потрібно буде використовувати команду `intlayer watch`, щоб одночасно запустити сервер розробки та спостерігач за збіркою Intlayer.
-
-```json5 fileName="package.json"
-{
-  // ... Ваші існуючі конфігурації package.json
-  "scripts": {
-    // ... Ваші існуючі конфігурації скриптів
-    "dev": "intlayer watch --with 'next dev'",
-  },
-}
-```
-
-> Якщо ви використовуєте next-intlayer@<=6.x.x, вам потрібно залишити прапор `--turbopack`, щоб додаток Next.js 16 коректно працював із Turbopack. Ми рекомендуємо використовувати next-intlayer@>=7.x.x, щоб уникнути цього обмеження.
-
-### Налаштування TypeScript
-
-Intlayer використовує розширення модулів (module augmentation), щоб отримати переваги TypeScript і зробити вашу кодову базу надійнішою.
-
-![Автодоповнення](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
-
-![Помилка перекладу](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
-
-Переконайтеся, що ваша конфігурація TypeScript включає автоматично згенеровані типи.
-
-```json5 fileName="tsconfig.json"
-{
-  // ... Ваші існуючі конфігурації TypeScript
-  "include": [
-    // ... Ваші існуючі конфігурації TypeScript
-    ".intlayer/**/*.ts", // Включити автоматично згенеровані типи
-  ],
-}
-```
-
-### Конфігурація Git
-
-Рекомендується ігнорувати файли, створені Intlayer. Це дозволяє уникнути їх коміту у ваш Git-репозиторій.
-
-Для цього ви можете додати наступні інструкції у ваш файл `.gitignore`:
-
-```plaintext fileName=".gitignore"
-# Ігнорувати файли, створені Intlayer
-.intlayer
-```
-
-### Розширення VS Code
-
-Щоб покращити ваш досвід розробки з Intlayer, ви можете встановити офіційне **розширення Intlayer для VS Code**.
-
-[Встановити з VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
-
-Це розширення надає:
-
-- **Автодоповнення** для ключів перекладу.
-- **Виявлення помилок у реальному часі** для відсутніх перекладів.
-- **Вбудований попередній перегляд** перекладеного контенту.
-- **Швидкі дії** для легкого створення та оновлення перекладів.
-
-Більш детальну інформацію про те, як користуватися розширенням, можна знайти в [документації розширення Intlayer для VS Code](https://intlayer.org/doc/vs-code-extension).
-
-</Step>
+> </Step>
 
 <Step number={1} title="Витягніть вміст ваших компонентів" isOptional={true}>
 
@@ -1087,11 +1022,74 @@ bun run build # Or bun run dev
 
  </Tab>
 </Tabs>
+</Step>
+
+</Steps>
+
+### Відстеження змін словників у Turbopack
+
+При використанні Turbopack як сервера розробки за допомогою команди `next dev` зміни в словниках за замовчуванням не будуть виявлятися автоматично.
+
+Це обмеження виникає через те, що Turbopack не може запускати плагіни webpack паралельно для моніторингу змін у ваших файлах контенту. Щоб обійти це, вам потрібно буде використовувати команду `intlayer watch`, щоб одночасно запустити сервер розробки та спостерігач за збіркою Intlayer.
+
+```json5 fileName="package.json"
+{
+  // ... Ваші існуючі конфігурації package.json
+  "scripts": {
+    // ... Ваші існуючі конфігурації скриптів
+    "dev": "intlayer watch --with 'next dev'",
+  },
+}
+```
+
+> Якщо ви використовуєте next-intlayer@<=6.x.x, вам потрібно залишити прапор `--turbopack`, щоб додаток Next.js 16 коректно працював із Turbopack. Ми рекомендуємо використовувати next-intlayer@>=7.x.x, щоб уникнути цього обмеження.
+
+### Налаштування TypeScript
+
+Intlayer використовує розширення модулів (module augmentation), щоб отримати переваги TypeScript і зробити вашу кодову базу надійнішою.
+
+![Автодоповнення](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
+
+![Помилка перекладу](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+
+Переконайтеся, що ваша конфігурація TypeScript включає автоматично згенеровані типи.
+
+```json5 fileName="tsconfig.json"
+{
+  // ... Ваші існуючі конфігурації TypeScript
+  "include": [
+    // ... Ваші існуючі конфігурації TypeScript
+    ".intlayer/**/*.ts", // Включити автоматично згенеровані типи
+  ],
+}
+```
+
+### Конфігурація Git
+
+Рекомендується ігнорувати файли, створені Intlayer. Це дозволяє уникнути їх коміту у ваш Git-репозиторій.
+
+Для цього ви можете додати наступні інструкції у ваш файл `.gitignore`:
+
+```plaintext fileName=".gitignore"
+# Ігнорувати файли, створені Intlayer
+.intlayer
+```
+
+### Розширення VS Code
+
+Щоб покращити ваш досвід розробки з Intlayer, ви можете встановити офіційне **розширення Intlayer для VS Code**.
+
+[Встановити з VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+Це розширення надає:
+
+- **Автодоповнення** для ключів перекладу.
+- **Виявлення помилок у реальному часі** для відсутніх перекладів.
+- **Вбудований попередній перегляд** перекладеного контенту.
+- **Швидкі дії** для легкого створення та оновлення перекладів.
+
+Більш детальну інформацію про те, як користуватися розширенням, можна знайти в [документації розширення Intlayer для VS Code](https://intlayer.org/doc/vs-code-extension).
 
 ### Йдіть далі
 
 Щоб піти далі, ви можете впровадити [візуальний редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md) або екстерналізувати ваш контент за допомогою [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md).
-
-</Step>
-
-</Steps>

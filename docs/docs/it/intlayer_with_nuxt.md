@@ -351,33 +351,6 @@ Quindi, configura il tuo `app.vue` per utilizzare i layout:
 </template>
 ```
 
-### (Opzionale) Passo 6b: Crea un Layout con Navigazione
-
-I layout di Nuxt ti permettono di definire una struttura comune per le tue pagine. Crea un layout di default che includa il selettore di lingua e la navigazione:
-
-```vue fileName="layouts/default.vue"
-<script setup lang="ts">
-import Links from "~/components/Links.vue";
-import LocaleSwitcher from "~/components/LocaleSwitcher.vue";
-</script>
-
-<template>
-  <div>
-    <header>
-      <LocaleSwitcher />
-    </header>
-    <main>
-      <slot />
-    </main>
-
-    <Links href="/">Home</Links>
-    <Links href="/about">About</Links>
-  </div>
-</template>
-```
-
-Il componente `Links` (mostrato di seguito) garantisce che i link di navigazione interna siano automaticamente localizzati.
-
 </Step>
 
 <Step number={7} title="Aggiungi il Routing localizzato alla tua applicazione" isOptional={true}>
@@ -629,6 +602,37 @@ export default aboutPageContent;
 }
 ```
 
+</Step>
+
+</Steps>
+
+### (Opzionale) Passo 6b: Crea un Layout con Navigazione
+
+I layout di Nuxt ti permettono di definire una struttura comune per le tue pagine. Crea un layout di default che includa il selettore di lingua e la navigazione:
+
+```vue fileName="layouts/default.vue"
+<script setup lang="ts">
+import Links from "~/components/Links.vue";
+import LocaleSwitcher from "~/components/LocaleSwitcher.vue";
+</script>
+
+<template>
+  <div>
+    <header>
+      <LocaleSwitcher />
+    </header>
+    <main>
+      <slot />
+    </main>
+
+    <Links href="/">Home</Links>
+    <Links href="/about">About</Links>
+  </div>
+</template>
+```
+
+Il componente `Links` (mostrato di seguito) garantisce che i link di navigazione interna siano automaticamente localizzati.
+
 ### Configurazione Git
 
 Si consiglia di ignorare i file generati da Intlayer. Questo ti permette di evitare di committarli nel tuo repository Git.
@@ -660,7 +664,3 @@ Per maggiori dettagli su come utilizzare l'estensione, consulta la [documentazio
 ### Vai oltre
 
 Per andare oltre, puoi implementare l'[editor visuale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_visual_editor.md) o esternalizzare i tuoi contenuti utilizzando il [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_CMS.md).
-
-</Step>
-
-</Steps>

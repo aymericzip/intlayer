@@ -820,17 +820,6 @@ export default defineConfig({
 </div>
 ```
 
-### Cấu hình Git
-
-Khuyến nghị bỏ qua các tệp được tạo bởi Intlayer.
-
-```plaintext fileName=".gitignore"
-# Bỏ qua các tệp được tạo bởi Intlayer
-.intlayer
-```
-
----
-
 </Step>
 
 <Step number={1} title="Trích xuất nội dung các thành phần của bạn" isOptional={true}>
@@ -928,12 +917,22 @@ bun run build # Or bun run dev
 
  </Tab>
 </Tabs>
+</Step>
+
+</Steps>
+
+### Cấu hình Git
+
+Khuyến nghị bỏ qua các tệp được tạo bởi Intlayer.
+
+```plaintext fileName=".gitignore"
+# Bỏ qua các tệp được tạo bởi Intlayer
+.intlayer
+```
+
+---
 
 ### Đi xa hơn
 
 - **Trình chỉnh sửa trực quan**: Tích hợp [Trình chỉnh sửa trực quan Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md) để chỉnh sửa bản dịch trực tiếp từ giao diện người dùng.
 - **CMS**: Đưa việc quản lý nội dung của bạn ra bên ngoài bằng cách sử dụng [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md).
-
-</Step>
-
-</Steps>

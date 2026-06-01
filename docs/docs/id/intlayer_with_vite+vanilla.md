@@ -611,6 +611,9 @@ bun run build # Atau bun run dev
 
  </Tab>
 </Tabs>
+</Step>
+
+</Steps>
 
 ### (Opsional) Sitemap dan robots.txt (generate saat build)
 
@@ -730,7 +733,3 @@ Untuk detail lebih lanjut tentang cara menggunakan ekstensi, lihat [dokumentasi 
 ### Melangkah Lebih Jauh
 
 Untuk melangkah lebih jauh, Anda dapat mengimplementasikan [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md) atau mengeksternalisasi konten Anda menggunakan [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md).
-
-</Step>
-
-</Steps>

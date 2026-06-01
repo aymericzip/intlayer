@@ -379,6 +379,10 @@ export class AppComponent {
 }
 ```
 
+</Step>
+
+</Steps>
+
 ### Cấu hình TypeScript
 
 Intlayer sử dụng tăng cường mô-đun (module augmentation) để tận dụng lợi ích của TypeScript và giúp mã nguồn của bạn mạnh mẽ hơn.
@@ -432,7 +436,3 @@ Tiện ích mở rộng này cung cấp:
 Để tìm hiểu thêm, bạn có thể triển khai [trình chỉnh sửa trực quan (visual editor)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) hoặc xuất nội dung của bạn bằng cách sử dụng [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md).
 
 ---
-
-</Step>
-
-</Steps>

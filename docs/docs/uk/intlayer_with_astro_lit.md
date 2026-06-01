@@ -519,58 +519,6 @@ export const GET: APIRoute = ({ site }) => {
 };
 ```
 
-### Конфігурація TypeScript
-
-Intlayer використовує розширення модулів (module augmentation), щоб отримати переваги від TypeScript, роблячи вашу кодову базу надійнішою. Якщо ви використовуєте синтаксис декораторів, переконайтеся, що ви ввімкнули `experimentalDecorators` в опціях компилятора.
-
-![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
-
-![Translation Error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
-
-Переконайтеся, що ваша конфігурація TypeScript включає автоматично згенеровані типи.
-
-```json5 fileName="tsconfig.json"
-{
-  compilerOptions: {
-    // ...
-    experimentalDecorators: true,
-    useDefineForClassFields: false, // Необхідно для підтримки декораторів у Lit
-  },
-  "include": [
-    // ... ваша існуюча конфігурація TypeScript
-    ".intlayer/**/*.ts", // Включити автоматично згенеровані типи
-  ],
-}
-```
-
-### Конфігурація Git
-
-Ми рекомендуємо ігнорувати файли, згенеровані Intlayer. Це запобігає їх потраплянню до вашого Git-репозиторію.
-
-Для цього додайте наступні інструкції до вашого файлу `.gitignore`:
-
-```bash
-# Ігнорувати файли, згенеровані Intlayer
-.intlayer
-```
-
-### Розширення для VS Code
-
-Щоб покращити ваш досвід розробки з Intlayer, ви можете встановити **офіційне розширення Intlayer для VS Code**.
-
-[Встановити з VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
-
-Це розширення забезпечує:
-
-- **Автозаповнення** ключів перекладу.
-- **Виявлення помилок у реальному часі** для відсутніх перекладів.
-- **Попередній перегляд** перекладеного вмісту.
-- **Швидкі дії** для легкого створення та оновлення перекладів.
-
-Для отримання додаткової інформації про використання розширення дивіться [документацію розширення VS Code](https://intlayer.org/doc/vs-code-extension).
-
----
-
 </Step>
 
 <Step number={1} title="Витягніть вміст ваших компонентів" isOptional={true}>
@@ -671,10 +619,62 @@ bun run build # Or bun run dev
 
 ---
 
-### Поглиблюйте свої знання
-
-Якщо ви хочете дізнатися більше, ви також можете впровадити [Візуальний редактор](https://github.com/aymericzip/intlayer/blob/main/docs/uk/intlayer_visual_editor.md) або використовувати [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/uk/intlayer_CMS.md), щоб винести ваш вміст назовні.
-
 </Step>
 
 </Steps>
+
+### Конфігурація TypeScript
+
+Intlayer використовує розширення модулів (module augmentation), щоб отримати переваги від TypeScript, роблячи вашу кодову базу надійнішою. Якщо ви використовуєте синтаксис декораторів, переконайтеся, що ви ввімкнули `experimentalDecorators` в опціях компилятора.
+
+![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
+
+![Translation Error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+
+Переконайтеся, що ваша конфігурація TypeScript включає автоматично згенеровані типи.
+
+```json5 fileName="tsconfig.json"
+{
+  compilerOptions: {
+    // ...
+    experimentalDecorators: true,
+    useDefineForClassFields: false, // Необхідно для підтримки декораторів у Lit
+  },
+  "include": [
+    // ... ваша існуюча конфігурація TypeScript
+    ".intlayer/**/*.ts", // Включити автоматично згенеровані типи
+  ],
+}
+```
+
+### Конфігурація Git
+
+Ми рекомендуємо ігнорувати файли, згенеровані Intlayer. Це запобігає їх потраплянню до вашого Git-репозиторію.
+
+Для цього додайте наступні інструкції до вашого файлу `.gitignore`:
+
+```bash
+# Ігнорувати файли, згенеровані Intlayer
+.intlayer
+```
+
+### Розширення для VS Code
+
+Щоб покращити ваш досвід розробки з Intlayer, ви можете встановити **офіційне розширення Intlayer для VS Code**.
+
+[Встановити з VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+Це розширення забезпечує:
+
+- **Автозаповнення** ключів перекладу.
+- **Виявлення помилок у реальному часі** для відсутніх перекладів.
+- **Попередній перегляд** перекладеного вмісту.
+- **Швидкі дії** для легкого створення та оновлення перекладів.
+
+Для отримання додаткової інформації про використання розширення дивіться [документацію розширення VS Code](https://intlayer.org/doc/vs-code-extension).
+
+---
+
+### Поглиблюйте свої знання
+
+Якщо ви хочете дізнатися більше, ви також можете впровадити [Візуальний редактор](https://github.com/aymericzip/intlayer/blob/main/docs/uk/intlayer_visual_editor.md) або використовувати [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/uk/intlayer_CMS.md), щоб винести ваш вміст назовні.

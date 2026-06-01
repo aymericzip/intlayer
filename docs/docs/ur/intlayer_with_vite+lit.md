@@ -535,6 +535,10 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
+</Step>
+
+</Steps>
+
 ### (Optional) Sitemap and robots.txt (build-time)
 
 Intlayer includes formatters such as `generateSitemap` and `getMultilingualUrls` that produce crawler-ready multilingual `sitemap.xml` and `robots.txt` output you can write into your project’s `public/` folder. In practice you run a small Node script **before** Vite (for example `predev` / `prebuild` npm hooks) so those files exist when you build or serve the app.
@@ -657,7 +661,3 @@ Intlayer کے ذریعے اپنے ترقیاتی تجربے کو بہتر بنا
 ### مزید آگے بڑھیں
 
 مزید آگے بڑھنے کے لیے، آپ [وژول ایڈیٹر](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_visual_editor.md) لاگو کر سکتے ہیں یا [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_CMS.md) استعمال کر کے اپنے مواد کو بیرونی بنا سکتے ہیں۔
-
-</Step>
-
-</Steps>

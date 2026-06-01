@@ -196,29 +196,7 @@ export default withIntlayer(nextConfig);
 ```
 
 > Plugin Next.js `withIntlayer()` digunakan untuk mengintegrasikan Intlayer dengan Next.js. Ini memastikan pembuatan file kamus dan memantaunya dalam mode dev. Ini mendefinisikan variabel lingkungan Intlayer di dalam lingkungan [Webpack](https://webpack.js.org/) atau [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack). Terlebih lagi, ini menyediakan alias untuk mengoptimalkan kinerja dan bekerja secara menyeluruh dengan Komponen Server.
-
-### Konfigurasi Babel
-
-Kompilator Intlayer memerlukan Babel untuk mengekstrak dan mengoptimalkan konten Anda. Perbarui `babel.config.js` (atau `babel.config.json`) Anda untuk menyertakan plugin Intlayer:
-
-```typescript fileName="babel.config.js"
-const {
-  intlayerExtractBabelPlugin,
-  intlayerOptimizeBabelPlugin,
-  getExtractPluginOptions,
-  getOptimizePluginOptions,
-} = require("@intlayer/babel");
-
-module.exports = {
-  presets: ["next/babel"],
-  plugins: [
-    [intlayerExtractBabelPlugin, getExtractPluginOptions()],
-    [intlayerOptimizeBabelPlugin, getOptimizePluginOptions()],
-  ],
-};
-```
-
-</Step>
+> </Step>
 
 <Step number={4} title="Deteksi Bahasa di Halaman Anda">
 
@@ -499,54 +477,7 @@ bun add @intlayer/swc --dev
 > Catatan: Paket ini tidak diinstal secara default karena plugin SWC masih eksperimental di Next.js. Ini mungkin berubah di masa depan.
 
 > Catatan: Jika Anda menyetel opsi sebagai `importMode: 'dynamic'` atau `importMode: 'fetch'` (dalam konfigurasi kamus), ini akan bergantung pada Suspense, jadi Anda perlu membungkus panggilan `useIntlayer` Anda dalam batas `Suspense`. Ini berarti Anda tidak dapat menggunakan `useIntlayer` secara langsung di tingkat atas komponen Halaman / Layout Anda.
-
-### Konfigurasi TypeScript
-
-Intlayer menggunakan augmentasi modul untuk memanfaatkan keunggulan TypeScript dan membuat basis kode Anda lebih kuat.
-
-![Autocomplete](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
-
-![Error Terjemahan](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
-
-Pastikan konfigurasi TypeScript Anda menyertakan tipe yang dihasilkan secara otomatis.
-
-```json5 fileName="tsconfig.json"
-{
-  // ... konfigurasi TypeScript Anda yang sudah ada
-  "include": [
-    // ... konfigurasi TypeScript Anda yang sudah ada
-    ".intlayer/**/*.ts", // Sertakan tipe yang dihasilkan secara otomatis
-  ],
-}
-```
-
-### Konfigurasi Git
-
-Disarankan untuk mengabaikan file yang dihasilkan oleh Intlayer. Ini memungkinkan Anda untuk menghindari mengunggahnya ke repositori Git Anda.
-
-Untuk melakukan ini, Anda dapat menambahkan instruksi berikut ke file `.gitignore` Anda:
-
-```plaintext fileName=".gitignore"
-# Abaikan file yang dihasilkan oleh Intlayer
-.intlayer
-```
-
-### Ekstensi VS Code
-
-Untuk meningkatkan pengalaman pengembangan Anda dengan Intlayer, Anda dapat menginstal **Ekstensi VS Code resmi Intlayer**.
-
-[Instal dari VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
-
-Ekstensi ini menyediakan:
-
-- **Autocomplete** untuk kunci terjemahan.
-- **Deteksi kesalahan waktu nyata** untuk terjemahan yang hilang.
-- **Pratinjau inline** dari konten yang diterjemahkan.
-- **Quick actions** untuk membuat dan memperbarui terjemahan dengan mudah.
-
-Baca [dokumentasi Ekstensi VS Code Intlayer](https://intlayer.org/doc/vs-code-extension) untuk instruksi mendetail tentang penggunaan ekstensi.
-
-</Step>
+> </Step>
 
 <Step number={1} title="Ekstrak konten komponen Anda" isOptional={true}>
 
@@ -660,11 +591,77 @@ bun run build # Or bun run dev
 
  </Tab>
 </Tabs>
+</Step>
+
+</Steps>
+
+### Konfigurasi Babel
+
+Kompilator Intlayer memerlukan Babel untuk mengekstrak dan mengoptimalkan konten Anda. Perbarui `babel.config.js` (atau `babel.config.json`) Anda untuk menyertakan plugin Intlayer:
+
+```typescript fileName="babel.config.js"
+const {
+  intlayerExtractBabelPlugin,
+  intlayerOptimizeBabelPlugin,
+  getExtractPluginOptions,
+  getOptimizePluginOptions,
+} = require("@intlayer/babel");
+
+module.exports = {
+  presets: ["next/babel"],
+  plugins: [
+    [intlayerExtractBabelPlugin, getExtractPluginOptions()],
+    [intlayerOptimizeBabelPlugin, getOptimizePluginOptions()],
+  ],
+};
+```
+
+### Konfigurasi TypeScript
+
+Intlayer menggunakan augmentasi modul untuk memanfaatkan keunggulan TypeScript dan membuat basis kode Anda lebih kuat.
+
+![Autocomplete](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
+
+![Error Terjemahan](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+
+Pastikan konfigurasi TypeScript Anda menyertakan tipe yang dihasilkan secara otomatis.
+
+```json5 fileName="tsconfig.json"
+{
+  // ... konfigurasi TypeScript Anda yang sudah ada
+  "include": [
+    // ... konfigurasi TypeScript Anda yang sudah ada
+    ".intlayer/**/*.ts", // Sertakan tipe yang dihasilkan secara otomatis
+  ],
+}
+```
+
+### Konfigurasi Git
+
+Disarankan untuk mengabaikan file yang dihasilkan oleh Intlayer. Ini memungkinkan Anda untuk menghindari mengunggahnya ke repositori Git Anda.
+
+Untuk melakukan ini, Anda dapat menambahkan instruksi berikut ke file `.gitignore` Anda:
+
+```plaintext fileName=".gitignore"
+# Abaikan file yang dihasilkan oleh Intlayer
+.intlayer
+```
+
+### Ekstensi VS Code
+
+Untuk meningkatkan pengalaman pengembangan Anda dengan Intlayer, Anda dapat menginstal **Ekstensi VS Code resmi Intlayer**.
+
+[Instal dari VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+Ekstensi ini menyediakan:
+
+- **Autocomplete** untuk kunci terjemahan.
+- **Deteksi kesalahan waktu nyata** untuk terjemahan yang hilang.
+- **Pratinjau inline** dari konten yang diterjemahkan.
+- **Quick actions** untuk membuat dan memperbarui terjemahan dengan mudah.
+
+Baca [dokumentasi Ekstensi VS Code Intlayer](https://intlayer.org/doc/vs-code-extension) untuk instruksi mendetail tentang penggunaan ekstensi.
 
 ### Melangkah Lebih Jauh
 
 Untuk melangkah lebih jauh, Anda dapat mengimplementasikan [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md) atau mengeksternalisasikan konten Anda menggunakan [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md).
-
-</Step>
-
-</Steps>

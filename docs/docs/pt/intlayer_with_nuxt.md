@@ -350,33 +350,6 @@ Em seguida, configure seu `app.vue` para usar layouts:
 </template>
 ```
 
-### (Opcional) Passo 6b: Criar um Layout com Navegação
-
-Os layouts do Nuxt permitem definir uma estrutura comum para suas páginas. Crie um layout padrão que inclua o seletor de idioma e a navegação:
-
-```vue fileName="layouts/default.vue"
-<script setup lang="ts">
-import Links from "~/components/Links.vue";
-import LocaleSwitcher from "~/components/LocaleSwitcher.vue";
-</script>
-
-<template>
-  <div>
-    <header>
-      <LocaleSwitcher />
-    </header>
-    <main>
-      <slot />
-    </main>
-
-    <Links href="/">Início</Links>
-    <Links href="/about">Sobre</Links>
-  </div>
-</template>
-```
-
-O componente `Links` (mostrado abaixo) garante que os links de navegação interna sejam automaticamente localizados.
-
 </Step>
 
 <Step number={7} title="Adicionar Roteamento Localizado à sua aplicação" isOptional={true}>
@@ -622,6 +595,37 @@ export default aboutPageContent;
 }
 ```
 
+</Step>
+
+</Steps>
+
+### (Opcional) Passo 6b: Criar um Layout com Navegação
+
+Os layouts do Nuxt permitem definir uma estrutura comum para suas páginas. Crie um layout padrão que inclua o seletor de idioma e a navegação:
+
+```vue fileName="layouts/default.vue"
+<script setup lang="ts">
+import Links from "~/components/Links.vue";
+import LocaleSwitcher from "~/components/LocaleSwitcher.vue";
+</script>
+
+<template>
+  <div>
+    <header>
+      <LocaleSwitcher />
+    </header>
+    <main>
+      <slot />
+    </main>
+
+    <Links href="/">Início</Links>
+    <Links href="/about">Sobre</Links>
+  </div>
+</template>
+```
+
+O componente `Links` (mostrado abaixo) garante que os links de navegação interna sejam automaticamente localizados.
+
 ### Configuração do Git
 
 É recomendado ignorar os arquivos gerados pelo Intlayer. Isso permite que você evite comitá-los no seu repositório Git.
@@ -653,7 +657,3 @@ Para mais detalhes sobre como usar a extensão, consulte a [documentação da In
 ### Ir Além
 
 Para ir mais longe, você pode implementar o [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_visual_editor.md) ou externalizar seu conteúdo usando o [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_CMS.md).
-
-</Step>
-
-</Steps>

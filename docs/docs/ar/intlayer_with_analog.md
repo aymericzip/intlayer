@@ -317,6 +317,10 @@ export default class HomeComponent {
 }
 ```
 
+</Step>
+
+</Steps>
+
 ### تكوين TypeScript
 
 يستخدم Intlayer تعزيز الوحدات (module augmentation) للاستفادة من مزايا TypeScript وجعل كودك أقوى.
@@ -368,7 +372,3 @@ export default class HomeComponent {
 ### اذهب أبعد من ذلك
 
 للمضي قدمًا، يمكنك تنفيذ [المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) أو استخراج محتواك باستخدام [نظام إدارة المحتوى (CMS)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md).
-
-</Step>
-
-</Steps>

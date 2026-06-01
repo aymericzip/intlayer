@@ -917,6 +917,9 @@ bun run build # Or bun run dev
 
  </Tab>
 </Tabs>
+</Step>
+
+</Steps>
 
 ### Configuración de Git
 
@@ -933,7 +936,3 @@ Se recomienda ignorar los archivos generados por Intlayer.
 
 - **Editor Visual**: Integra el [Editor Visual de Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_visual_editor.md) para editar las traducciones directamente desde la interfaz de usuario.
 - **CMS**: Externaliza la gestión de tu contenido usando el [CMS de Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_CMS.md).
-
-</Step>
-
-</Steps>

@@ -519,58 +519,6 @@ export const GET: APIRoute = ({ site }) => {
 };
 ```
 
-### TypeScript-Konfiguration
-
-Intlayer verwendet die Modulerweiterung (Module Augmentation), um TypeScript zu nutzen und Ihre Codebasis robuster zu machen. Wenn Sie die Decorator-Syntax verwenden, stellen Sie sicher, dass Sie `experimentalDecorators` in Ihren Compiler-Optionen aktivieren.
-
-![Autovervollständigung](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
-
-![Übersetzungsfehler](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
-
-Stellen Sie sicher, dass Ihre TypeScript-Konfiguration die automatisch generierten Typen enthält.
-
-```json5 fileName="tsconfig.json"
-{
-  compilerOptions: {
-    // ...
-    experimentalDecorators: true,
-    useDefineForClassFields: false, // Erforderlich für die Decorator-Unterstützung in Lit
-  },
-  include: [
-    // ... Ihre bestehende TypeScript-Konfiguration
-    ".intlayer/**/*.ts", // Automatisch generierte Typen einbeziehen
-  ],
-}
-```
-
-### Git-Konfiguration
-
-Es wird empfohlen, von Intlayer generierte Dateien zu ignorieren. Dies verhindert, dass sie in Ihr Git-Repository eingecheckt werden.
-
-Fügen Sie dazu die folgenden Anweisungen zu Ihrer `.gitignore`-Datei hinzu:
-
-```bash
-# Von Intlayer generierte Dateien ignorieren
-.intlayer
-```
-
-### VS Code Erweiterung
-
-Um Ihr Entwicklungserlebnis mit Intlayer zu verbessern, können Sie die **offizielle Intlayer VS Code Erweiterung** installieren.
-
-[Installation über den VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
-
-Diese Erweiterung bietet:
-
-- **Autovervollständigung** für Übersetzungsschlüssel.
-- **Echtzeit-Fehlererkennung** für fehlende Übersetzungen.
-- **Inline-Vorschau** von übersetzten Inhalten.
-- **Schnelle Aktionen** zum einfachen Erstellen und Aktualisieren von Übersetzungen.
-
-Weitere Informationen zur Verwendung der Erweiterung finden Sie in der [Dokumentation zur VS Code Erweiterung](https://intlayer.org/doc/vs-code-extension).
-
----
-
 </Step>
 
 <Step number={15} title="Inhalt Ihrer Komponenten extrahieren" isOptional={true}>
@@ -671,10 +619,62 @@ bun run build # Or bun run dev
 
 ---
 
-### Vertiefen Sie Ihr Wissen
-
-Wenn Sie mehr erfahren möchten, können Sie auch den [Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_visual_editor.md) implementieren oder das [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_CMS.md) verwenden, um Ihre Inhalte zu externalisieren.
-
 </Step>
 
 </Steps>
+
+### TypeScript-Konfiguration
+
+Intlayer verwendet die Modulerweiterung (Module Augmentation), um TypeScript zu nutzen und Ihre Codebasis robuster zu machen. Wenn Sie die Decorator-Syntax verwenden, stellen Sie sicher, dass Sie `experimentalDecorators` in Ihren Compiler-Optionen aktivieren.
+
+![Autovervollständigung](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
+
+![Übersetzungsfehler](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+
+Stellen Sie sicher, dass Ihre TypeScript-Konfiguration die automatisch generierten Typen enthält.
+
+```json5 fileName="tsconfig.json"
+{
+  compilerOptions: {
+    // ...
+    experimentalDecorators: true,
+    useDefineForClassFields: false, // Erforderlich für die Decorator-Unterstützung in Lit
+  },
+  include: [
+    // ... Ihre bestehende TypeScript-Konfiguration
+    ".intlayer/**/*.ts", // Automatisch generierte Typen einbeziehen
+  ],
+}
+```
+
+### Git-Konfiguration
+
+Es wird empfohlen, von Intlayer generierte Dateien zu ignorieren. Dies verhindert, dass sie in Ihr Git-Repository eingecheckt werden.
+
+Fügen Sie dazu die folgenden Anweisungen zu Ihrer `.gitignore`-Datei hinzu:
+
+```bash
+# Von Intlayer generierte Dateien ignorieren
+.intlayer
+```
+
+### VS Code Erweiterung
+
+Um Ihr Entwicklungserlebnis mit Intlayer zu verbessern, können Sie die **offizielle Intlayer VS Code Erweiterung** installieren.
+
+[Installation über den VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+Diese Erweiterung bietet:
+
+- **Autovervollständigung** für Übersetzungsschlüssel.
+- **Echtzeit-Fehlererkennung** für fehlende Übersetzungen.
+- **Inline-Vorschau** von übersetzten Inhalten.
+- **Schnelle Aktionen** zum einfachen Erstellen und Aktualisieren von Übersetzungen.
+
+Weitere Informationen zur Verwendung der Erweiterung finden Sie in der [Dokumentation zur VS Code Erweiterung](https://intlayer.org/doc/vs-code-extension).
+
+---
+
+### Vertiefen Sie Ihr Wissen
+
+Wenn Sie mehr erfahren möchten, können Sie auch den [Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_visual_editor.md) implementieren oder das [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_CMS.md) verwenden, um Ihre Inhalte zu externalisieren.

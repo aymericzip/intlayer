@@ -617,6 +617,9 @@ bun run build # Ou bun run dev
 
  </Tab>
 </Tabs>
+</Step>
+
+</Steps>
 
 ### Configurer TypeScript
 
@@ -667,7 +670,3 @@ Pour plus de détails sur l'utilisation de l'extension, consultez la [documentat
 ### Aller plus loin
 
 Pour aller plus loin, vous pouvez installer l'[éditeur visuel](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_visual_editor.md) ou externaliser votre contenu via le [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_CMS.md).
-
-</Step>
-
-</Steps>

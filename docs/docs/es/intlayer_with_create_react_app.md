@@ -576,6 +576,9 @@ Al aplicar estos cambios, tu aplicación:
 - Garantizará que el atributo **idioma** (`lang`) refleje correctamente el local actual, lo cual es importante para SEO y el comportamiento del navegador.
 - Ajustará la **dirección del texto** (`dir`) según el local, mejorando la legibilidad y usabilidad para idiomas con diferentes órdenes de lectura.
 - Proporcionará una experiencia más **accesible**, ya que las tecnologías asistivas dependen de estos atributos para funcionar de manera óptima.
+  </Step>
+
+</Steps>
 
 ### Configurar TypeScript
 
@@ -625,7 +628,3 @@ Para más detalles sobre cómo usar la extensión, consulta la [documentación d
 ### Ir más allá
 
 Para ir más allá, puedes implementar el [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_visual_editor.md) o externalizar tu contenido usando el [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_CMS.md).
-
-</Step>
-
-</Steps>

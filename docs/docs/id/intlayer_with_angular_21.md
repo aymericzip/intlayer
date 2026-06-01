@@ -400,6 +400,10 @@ export class AppComponent {
 }
 ```
 
+</Step>
+
+</Steps>
+
 ### Konfigurasi TypeScript
 
 Intlayer menggunakan Augmentasi Modul (Module Augmentation) untuk mendapatkan manfaat dari TypeScript dan membuat basis kode Anda lebih kuat.
@@ -453,7 +457,3 @@ Untuk detail lebih lanjut tentang cara menggunakan ekstensi ini, rujuk ke [dokum
 Untuk melangkah lebih jauh, Anda dapat mengimplementasikan [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md) atau mengeksternalisasi konten Anda menggunakan [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md).
 
 ---
-
-</Step>
-
-</Steps>

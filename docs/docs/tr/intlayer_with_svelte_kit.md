@@ -820,17 +820,6 @@ intlayer editör seçicisini görselleştirebilmek için, intlayer içeriğinizd
 </div>
 ```
 
-### Git Yapılandırması
-
-Intlayer tarafından oluşturulan dosyaların göz ardı edilmesi önerilir.
-
-```plaintext fileName=".gitignore"
-# Intlayer tarafından oluşturulan dosyaları göz ardı et
-.intlayer
-```
-
----
-
 </Step>
 
 <Step number={12} title="Bileşenlerinizin içeriğini çıkarın" isOptional={true}>
@@ -928,12 +917,22 @@ bun run build # Or bun run dev
 
  </Tab>
 </Tabs>
+</Step>
+
+</Steps>
+
+### Git Yapılandırması
+
+Intlayer tarafından oluşturulan dosyaların göz ardı edilmesi önerilir.
+
+```plaintext fileName=".gitignore"
+# Intlayer tarafından oluşturulan dosyaları göz ardı et
+.intlayer
+```
+
+---
 
 ### Daha İleri Gitmek İçin
 
 - **Görsel Editör**: Çevirileri doğrudan kullanıcı arayüzünden düzenlemek için [Intlayer Görsel Editör](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md) ile entegre olun.
 - **CMS**: İçerik yönetiminizi dışa aktararak [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md) kullanın.
-
-</Step>
-
-</Steps>

@@ -943,6 +943,10 @@ Assurez-vous que votre configuration TypeScript inclut les types autogénérés 
 
 ---
 
+</Step>
+
+</Steps>
+
 ### Configuration Git
 
 Il est recommandé d'ignorer les fichiers générés par Intlayer. Cela vous permet d'éviter de les commettre dans votre dépôt Git.
@@ -955,10 +959,6 @@ Pour ce faire, vous pouvez ajouter les instructions suivantes à votre fichier `
 ```
 
 ---
-
-</Step>
-
-</Steps>
 
 ## Extension VS Code
 

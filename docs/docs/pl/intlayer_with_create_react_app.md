@@ -558,6 +558,9 @@ Wprowadzając te zmiany, Twoja aplikacja:
 - Zapewni, że atrybut **language** (`lang`) poprawnie odzwierciedla bieżącą lokalizację, co jest ważne dla SEO i zachowania przeglądarki.
 - Dostosuje **kierunek tekstu** (`dir`) zgodnie z lokalizacją, poprawiając czytelność i użyteczność dla języków o różnych kierunkach czytania.
 - Zapewni bardziej **dostępne** doświadczenie, ponieważ technologie wspomagające polegają na tych atrybutach, aby działać optymalnie.
+  </Step>
+
+</Steps>
 
 ### Konfiguracja TypeScript
 
@@ -608,7 +611,3 @@ Aby uzyskać więcej informacji na temat korzystania z rozszerzenia, zapoznaj si
 ### Idź dalej
 
 Aby pójść dalej, możesz zaimplementować [edytor wizualny](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_visual_editor.md) lub wyeksportować swoją zawartość, korzystając z [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md).
-
-</Step>
-
-</Steps>

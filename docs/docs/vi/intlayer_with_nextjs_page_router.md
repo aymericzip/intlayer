@@ -843,6 +843,9 @@ bun add @intlayer/swc --dev
 > Lưu ý: Tối ưu hóa này chỉ có sẵn cho Next.js 13 trở lên.
 
 > Lưu ý: Gói này không được cài đặt mặc định vì các plugin SWC vẫn đang trong giai đoạn thử nghiệm trên Next.js. Điều này có thể thay đổi trong tương lai.
+> </Step>
+
+</Steps>
 
 ### Cấu hình TypeScript
 
@@ -889,10 +892,6 @@ Tiện ích mở rộng này cung cấp:
 - **Hành động nhanh** để dễ dàng tạo và cập nhật các bản dịch.
 
 Để biết thêm chi tiết về cách sử dụng tiện ích mở rộng, hãy tham khảo [tài liệu Tiện ích mở rộng Intlayer cho VS Code](https://intlayer.org/doc/vs-code-extension).
-
-</Step>
-
-</Steps>
 
 ## Tài nguyên bổ sung
 

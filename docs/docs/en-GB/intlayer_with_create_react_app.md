@@ -688,6 +688,9 @@ By applying these changes, your application will:
 - Ensure the **language** (`lang`) attribute correctly reflects the current locale, which is important for SEO and browser behaviour.
 - Adjust the **text direction** (`dir`) according to the locale, enhancing readability and usability for languages with different reading orders.
 - Provide a more **accessible** experience, as assistive technologies depend on these attributes to function optimally.
+  </Step>
+
+</Steps>
 
 ### Configure TypeScript
 
@@ -753,7 +756,3 @@ For more details on how to use the extension, refer to the [Intlayer VS Code Ext
 ### Go Further
 
 To go further, you can implement the [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_visual_editor.md) or externalise your content using the [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_CMS.md).
-
-</Step>
-
-</Steps>

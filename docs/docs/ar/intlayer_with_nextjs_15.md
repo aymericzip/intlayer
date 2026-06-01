@@ -826,6 +826,9 @@ bun add @intlayer/swc --dev
 > ملاحظة: هذا التحسين متاح فقط لـ Next.js 13 وما فوق.
 
 > ملاحظة: هذه الحزمة غير مثبتة بشكل افتراضي لأن إضافات SWC لا تزال تجريبية في Next.js. قد يتغير ذلك في المستقبل.
+> </Step>
+
+</Steps>
 
 ### تكوين TypeScript
 
@@ -876,7 +879,3 @@ bun add @intlayer/swc --dev
 ### التقدم أكثر
 
 للتقدم أكثر، يمكنك تنفيذ [المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) أو إخراج محتواك باستخدام [نظام إدارة المحتوى (CMS)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md).
-
-</Step>
-
-</Steps>

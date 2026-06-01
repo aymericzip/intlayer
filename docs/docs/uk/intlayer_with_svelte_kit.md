@@ -635,17 +635,6 @@ export default defineConfig({
 </div>
 ```
 
-### Налаштування Git
-
-Рекомендується ігнорувати файли, згенеровані Intlayer.
-
-```plaintext fileName=".gitignore"
-# Ігнорувати файли, згенеровані Intlayer
-.intlayer
-```
-
----
-
 </Step>
 
 <Step number={1} title="Витягніть вміст ваших компонентів" isOptional={true}>
@@ -743,12 +732,22 @@ bun run build # Or bun run dev
 
  </Tab>
 </Tabs>
+</Step>
+
+</Steps>
+
+### Налаштування Git
+
+Рекомендується ігнорувати файли, згенеровані Intlayer.
+
+```plaintext fileName=".gitignore"
+# Ігнорувати файли, згенеровані Intlayer
+.intlayer
+```
+
+---
 
 ### Далі
 
 - **Visual Editor**: Інтегруйте [Intlayer Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md), щоб редагувати переклади безпосередньо з UI.
 - **CMS**: Виносьте керування вмістом назовні, використовуючи [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md).
-
-</Step>
-
-</Steps>

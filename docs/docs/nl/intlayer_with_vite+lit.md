@@ -535,6 +535,10 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
+</Step>
+
+</Steps>
+
 ### (Optioneel) Sitemap en robots.txt (buildtijdgeneratie)
 
 Intlayer biedt `generateSitemap` en `getMultilingualUrls` om meertalige `sitemap.xml` en `robots.txt` voor crawlers te formatteren en automatisch naar `public/` te schrijven. Meestal draait u een klein Node-script **vóór** Vite (bijv. npm-hooks `predev` / `prebuild`).
@@ -657,7 +661,3 @@ Raadpleeg de [documentatie van de Intlayer VS Code-extensie](https://intlayer.or
 ### Verder gaan
 
 Om verder te gaan, kun je de [visuele editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/intlayer_visual_editor.md) implementeren of je inhoud externaliseren met behulp van het [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/intlayer_CMS.md).
-
-</Step>
-
-</Steps>

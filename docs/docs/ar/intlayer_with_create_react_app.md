@@ -671,6 +671,9 @@ export default App;
 - ضمان أن تعكس سمة **اللغة** (`lang`) اللغة الحالية بشكل صحيح، وهو أمر مهم لتحسين محركات البحث وسلوك المتصفح.
 - ضبط **اتجاه النص** (`dir`) وفقًا للغة، مما يعزز قابلية القراءة وسهولة الاستخدام للغات ذات اتجاهات قراءة مختلفة.
 - توفير تجربة أكثر **وصولًا**، حيث تعتمد تقنيات المساعدة على هذه السمات لتعمل بشكل مثالي.
+  </Step>
+
+</Steps>
 
 ### إعداد TypeScript
 
@@ -734,7 +737,3 @@ export default App;
 ### التوسع أكثر
 
 للتوسع أكثر، يمكنك تنفيذ [المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) أو إخراج المحتوى الخاص بك باستخدام [نظام إدارة المحتوى (CMS)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md).
-
-</Step>
-
-</Steps>

@@ -470,34 +470,6 @@ const changeLocale = (event: Event) => {
 </div>
 ```
 
-### Konfiguracja Git
-
-Zaleca się ignorowanie plików generowanych przez Intlayer. Pozwala to uniknąć ich zatwierdzania do repozytorium Git.
-
-Aby to zrobić, możesz dodać następujące instrukcje do pliku `.gitignore`:
-
-```bash
-#  Ignoruj pliki generowane przez Intlayer
-.intlayer
-```
-
-### Rozszerzenie VS Code
-
-Aby poprawić swoje doświadczenie w pracy z Intlayer, możesz zainstalować oficjalne **rozszerzenie Intlayer dla VS Code**.
-
-[Zainstaluj z VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
-
-To rozszerzenie oferuje:
-
-- **Autouzupełnianie** kluczy tłumaczeń.
-- **Wykrywanie błędów w czasie rzeczywistym** dla brakujących tłumaczeń.
-- **Podglądy w linii** przetłumaczonej zawartości.
-- **Szybkie akcje** umożliwiające łatwe tworzenie i aktualizowanie tłumaczeń.
-
-Aby uzyskać więcej informacji na temat korzystania z rozszerzenia, zapoznaj się z [dokumentacją rozszerzenia Intlayer dla VS Code](https://intlayer.org/doc/vs-code-extension).
-
----
-
 </Step>
 
 <Step number={9} title="Wyodrębnij zawartość swoich komponentów" isOptional={true}>
@@ -595,6 +567,37 @@ bun run build # Or bun run dev
 
  </Tab>
 </Tabs>
+</Step>
+
+</Steps>
+
+### Konfiguracja Git
+
+Zaleca się ignorowanie plików generowanych przez Intlayer. Pozwala to uniknąć ich zatwierdzania do repozytorium Git.
+
+Aby to zrobić, możesz dodać następujące instrukcje do pliku `.gitignore`:
+
+```bash
+#  Ignoruj pliki generowane przez Intlayer
+.intlayer
+```
+
+### Rozszerzenie VS Code
+
+Aby poprawić swoje doświadczenie w pracy z Intlayer, możesz zainstalować oficjalne **rozszerzenie Intlayer dla VS Code**.
+
+[Zainstaluj z VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+To rozszerzenie oferuje:
+
+- **Autouzupełnianie** kluczy tłumaczeń.
+- **Wykrywanie błędów w czasie rzeczywistym** dla brakujących tłumaczeń.
+- **Podglądy w linii** przetłumaczonej zawartości.
+- **Szybkie akcje** umożliwiające łatwe tworzenie i aktualizowanie tłumaczeń.
+
+Aby uzyskać więcej informacji na temat korzystania z rozszerzenia, zapoznaj się z [dokumentacją rozszerzenia Intlayer dla VS Code](https://intlayer.org/doc/vs-code-extension).
+
+---
 
 ### (Opcjonalnie) Sitemap i robots.txt (generacja przy buildzie)
 
@@ -673,7 +676,3 @@ Dostosuj polecenia dla pnpm lub yarn. Możesz też wywołać skrypt z CI.
 ### Idź dalej
 
 Aby pójść dalej, możesz zaimplementować [edytor wizualny](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_visual_editor.md) lub wyeksportować swoją zawartość, korzystając z [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md).
-
-</Step>
-
-</Steps>

@@ -791,27 +791,6 @@ Link.displayName = "Link";
   Il componente restituisce un elemento `<a>` con l'URL localizzato, garantendo che la navigazione sia coerente con la lingua.
 
 Integrando questo componente `Link` in tutta la tua applicazione, mantieni un'esperienza utente coerente e consapevole della lingua, beneficiando anche di un miglior SEO e usabilità.
-
-### Configura TypeScript
-
-Intlayer utilizza l'augmentazione dei moduli per ottenere i vantaggi di TypeScript e rendere il tuo codice più robusto.
-
-![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
-
-![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
-
-Assicurati che la configurazione di TypeScript includa i tipi autogenerati.
-
-```json5 fileName="tsconfig.json"
-{
-  // ... Le tue configurazioni TypeScript esistenti
-  "include": [
-    // ... Le tue configurazioni TypeScript esistenti
-    ".intlayer/**/*.ts", // Includi i tipi autogenerati
-  ],
-}
-```
-
 </Step>
 
 <Step number={12} title="Ottimizza la dimensione del tuo bundle" isOptional={true}>
@@ -839,6 +818,29 @@ bun add @intlayer/swc --dev
 > Nota: Questa ottimizzazione è disponibile solo per Next.js 13 e versioni successive.
 
 > Nota: Questo pacchetto non è installato di default perché i plugin SWC sono ancora sperimentali su Next.js. Potrebbe cambiare in futuro.
+> </Step>
+
+</Steps>
+
+### Configura TypeScript
+
+Intlayer utilizza l'augmentazione dei moduli per ottenere i vantaggi di TypeScript e rendere il tuo codice più robusto.
+
+![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
+
+![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+
+Assicurati che la configurazione di TypeScript includa i tipi autogenerati.
+
+```json5 fileName="tsconfig.json"
+{
+  // ... Le tue configurazioni TypeScript esistenti
+  "include": [
+    // ... Le tue configurazioni TypeScript esistenti
+    ".intlayer/**/*.ts", // Includi i tipi autogenerati
+  ],
+}
+```
 
 ### Configurazione Git
 
@@ -854,7 +856,3 @@ Per fare ciò, puoi aggiungere le seguenti istruzioni al tuo file `.gitignore`:
 ### Approfondisci
 
 Per approfondire, puoi implementare l'[editor visivo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_visual_editor.md) o esternalizzare i tuoi contenuti utilizzando il [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_CMS.md).
-
-</Step>
-
-</Steps>

@@ -729,54 +729,6 @@ Link.displayName = "Link";
   Компонент возвращает элемент `<a>` с локализованным URL, обеспечивая согласованную навигацию в соответствии с выбранной локалью.
 
 Интегрируя этот компонент `Link` по всему вашему приложению, вы поддерживаете последовательный и ориентированный на язык пользовательский опыт, а также получаете преимущества улучшенного SEO и удобства использования.
-
-### Настройка TypeScript
-
-Intlayer использует расширение модулей (module augmentation), чтобы использовать преимущества TypeScript и сделать вашу кодовую базу более надежной.
-
-![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
-
-![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
-
-Убедитесь, что ваша конфигурация TypeScript включает автоматически сгенерированные типы.
-
-```json5 fileName="tsconfig.json"
-{
-  // ... Ваши существующие настройки TypeScript
-  "include": [
-    // ... Ваши существующие конфигурации TypeScript
-    ".intlayer/**/*.ts", // Включить автоматически сгенерированные типы
-  ],
-}
-```
-
-### Конфигурация Git
-
-Рекомендуется игнорировать файлы, сгенерированные Intlayer. Это позволит избежать их коммита в ваш репозиторий Git.
-
-Для этого вы можете добавить следующие инструкции в ваш файл `.gitignore`:
-
-```# Игнорировать файлы, сгенерированные Intlayer
-.intlayer
-```
-
-### Расширение VS Code
-
-Для улучшения вашего опыта разработки с Intlayer вы можете установить официальное **расширение Intlayer для VS Code**.
-
-[Установить из магазина расширений VS Code](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
-
-Это расширение предоставляет:
-
-- **Автодополнение** для ключей переводов.
-- **Обнаружение ошибок в реальном времени** для отсутствующих переводов.
-- **Встроенный просмотр** переведенного контента.
-- **Быстрые действия** для удобного создания и обновления переводов.
-
-Для получения дополнительной информации о том, как использовать расширение, обратитесь к [документации расширения Intlayer для VS Code](https://intlayer.org/doc/vs-code-extension).
-
----
-
 </Step>
 
 <Step number={1} title="Извлечение содержимого ваших компонентов" isOptional={true}>
@@ -874,6 +826,56 @@ bun run build # Or bun run dev
 
  </Tab>
 </Tabs>
+</Step>
+
+</Steps>
+
+### Настройка TypeScript
+
+Intlayer использует расширение модулей (module augmentation), чтобы использовать преимущества TypeScript и сделать вашу кодовую базу более надежной.
+
+![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
+
+![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+
+Убедитесь, что ваша конфигурация TypeScript включает автоматически сгенерированные типы.
+
+```json5 fileName="tsconfig.json"
+{
+  // ... Ваши существующие настройки TypeScript
+  "include": [
+    // ... Ваши существующие конфигурации TypeScript
+    ".intlayer/**/*.ts", // Включить автоматически сгенерированные типы
+  ],
+}
+```
+
+### Конфигурация Git
+
+Рекомендуется игнорировать файлы, сгенерированные Intlayer. Это позволит избежать их коммита в ваш репозиторий Git.
+
+Для этого вы можете добавить следующие инструкции в ваш файл `.gitignore`:
+
+```# Игнорировать файлы, сгенерированные Intlayer
+.intlayer
+```
+
+### Расширение VS Code
+
+Для улучшения вашего опыта разработки с Intlayer вы можете установить официальное **расширение Intlayer для VS Code**.
+
+[Установить из магазина расширений VS Code](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+Это расширение предоставляет:
+
+- **Автодополнение** для ключей переводов.
+- **Обнаружение ошибок в реальном времени** для отсутствующих переводов.
+- **Встроенный просмотр** переведенного контента.
+- **Быстрые действия** для удобного создания и обновления переводов.
+
+Для получения дополнительной информации о том, как использовать расширение, обратитесь к [документации расширения Intlayer для VS Code](https://intlayer.org/doc/vs-code-extension).
+
+---
 
 ### (Опционально) Sitemap и robots.txt (генерация на сборке)
 
@@ -952,7 +954,3 @@ console.log("SEO files generated successfully.");
 ### Продвинутые возможности
 
 Для расширения возможностей вы можете реализовать [визуальный редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md) или вынести ваш контент во внешний [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_CMS.md).
-
-</Step>
-
-</Steps>

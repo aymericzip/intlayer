@@ -587,6 +587,9 @@ Applicando queste modifiche, la tua applicazione:
 - Garantirà che l'attributo **language** (`lang`) rifletta correttamente la locale corrente, cosa importante per la SEO e il comportamento del browser.
 - Adatterà la **direzione del testo** (`dir`) in base alla locale, migliorando la leggibilità e l'usabilità per le lingue con ordini di lettura diversi.
 - Fornirà un'esperienza più **accessibile**, poiché le tecnologie assistive dipendono da questi attributi per funzionare al meglio.
+  </Step>
+
+</Steps>
 
 ### Configurare TypeScript
 
@@ -650,7 +653,3 @@ Per maggiori dettagli su come utilizzare l'estensione, consulta la [documentazio
 ### Approfondimenti
 
 Per approfondire, puoi implementare l’[editor visuale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_visual_editor.md) o esternalizzare i tuoi contenuti usando il [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_CMS.md).
-
-</Step>
-
-</Steps>

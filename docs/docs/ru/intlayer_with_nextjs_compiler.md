@@ -501,54 +501,7 @@ bun add @intlayer/swc --dev
 > Примечание: Этот пакет не устанавливается по умолчанию, так как плагины SWC в Next.js все еще являются экспериментальными. Это может измениться в будущем.
 
 > Примечание: Если вы установите параметр `importMode: 'dynamic'` или `importMode: 'fetch'` (в конфигурации `dictionary`), он будет полагаться на Suspense, поэтому вам придется обернуть вызовы `useIntlayer` в границу `Suspense`. Это означает, что вы не сможете использовать `useIntlayer` непосредственно на верхнем уровне вашего компонента Страницы / Лейаута.
-
-### Настройка TypeScript
-
-Intlayer использует расширение модулей (module augmentation), чтобы использовать преимущества TypeScript и сделать вашу кодовую базу более надежной.
-
-![Автодополнение](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
-
-![Ошибка перевода](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
-
-Убедитесь, что ваша конфигурация TypeScript включает автоматически созданные типы.
-
-```json5 fileName="tsconfig.json"
-{
-  // ... Ваши существующие конфигурации TypeScript
-  "include": [
-    // ... Ваши существующие конфигурации TypeScript
-    ".intlayer/**/*.ts", // Включить автоматически созданные типы
-  ],
-}
-```
-
-### Конфигурация Git
-
-Рекомендуется игнорировать файлы, созданные Intlayer. Это позволит избежать их добавления в ваш Git-репозиторий.
-
-Для этого добавьте следующие инструкции в файл `.gitignore`:
-
-```plaintext fileName=".gitignore"
-# Игнорировать файлы, созданные Intlayer
-.intlayer
-```
-
-### Расширение для VS Code
-
-Чтобы улучшить процесс разработки с Intlayer, вы можете установить официальное **расширение Intlayer для VS Code**.
-
-[Установить из VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
-
-Это расширение предоставляет:
-
-- **Автодополнение** для ключей перевода.
-- **Обнаружение ошибок в реальном времени** для отсутствующих переводов.
-- **Инлайновое превью** переведенного контента.
-- **Быстрые действия** для легкого создания и обновления переводов.
-
-Для получения подробной информации об использовании расширения см. [документацию расширения Intlayer для VS Code](https://intlayer.org/doc/vs-code-extension).
-
-</Step>
+> </Step>
 
 <Step number={1} title="Извлечение содержимого ваших компонентов" isOptional={true}>
 
@@ -662,11 +615,56 @@ bun run build # Or bun run dev
 
  </Tab>
 </Tabs>
+</Step>
+
+</Steps>
+
+### Настройка TypeScript
+
+Intlayer использует расширение модулей (module augmentation), чтобы использовать преимущества TypeScript и сделать вашу кодовую базу более надежной.
+
+![Автодополнение](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
+
+![Ошибка перевода](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+
+Убедитесь, что ваша конфигурация TypeScript включает автоматически созданные типы.
+
+```json5 fileName="tsconfig.json"
+{
+  // ... Ваши существующие конфигурации TypeScript
+  "include": [
+    // ... Ваши существующие конфигурации TypeScript
+    ".intlayer/**/*.ts", // Включить автоматически созданные типы
+  ],
+}
+```
+
+### Конфигурация Git
+
+Рекомендуется игнорировать файлы, созданные Intlayer. Это позволит избежать их добавления в ваш Git-репозиторий.
+
+Для этого добавьте следующие инструкции в файл `.gitignore`:
+
+```plaintext fileName=".gitignore"
+# Игнорировать файлы, созданные Intlayer
+.intlayer
+```
+
+### Расширение для VS Code
+
+Чтобы улучшить процесс разработки с Intlayer, вы можете установить официальное **расширение Intlayer для VS Code**.
+
+[Установить из VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+Это расширение предоставляет:
+
+- **Автодополнение** для ключей перевода.
+- **Обнаружение ошибок в реальном времени** для отсутствующих переводов.
+- **Инлайновое превью** переведенного контента.
+- **Быстрые действия** для легкого создания и обновления переводов.
+
+Для получения подробной информации об использовании расширения см. [документацию расширения Intlayer для VS Code](https://intlayer.org/doc/vs-code-extension).
 
 ### Идите дальше
 
 Чтобы пойти еще дальше, вы можете внедрить [визуальный редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md) или вынести свой контент во внешнюю среду с помощью [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_CMS.md).
-
-</Step>
-
-</Steps>

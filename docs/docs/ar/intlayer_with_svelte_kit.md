@@ -810,15 +810,6 @@ export default defineConfig({
 </div>
 ```
 
-### إعدادات Git
-
-يوصى بتجاهل الملفات التي يتم إنشاؤها بواسطة Intlayer.
-
-```plaintext fileName=".gitignore"
-# تجاهل الملفات التي تم إنشاؤها بواسطة Intlayer
-.intlayer
-```
-
 </Step>
 
 <Step number={1} title="استخراج محتوى مكوناتك" isOptional={true}>
@@ -936,11 +927,20 @@ bun run build # Or bun run dev
 
 ---
 
+</Step>
+
+</Steps>
+
+### إعدادات Git
+
+يوصى بتجاهل الملفات التي يتم إنشاؤها بواسطة Intlayer.
+
+```plaintext fileName=".gitignore"
+# تجاهل الملفات التي تم إنشاؤها بواسطة Intlayer
+.intlayer
+```
+
 ### التعمق أكثر
 
 - **المحرر المرئي**: دمج [المحرر المرئي لـ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) لتحرير الترجمات مباشرة من واجهة المستخدم.
 - **نظام إدارة المحتوى (CMS)**: قم بفصل إدارة المحتوى الخاصة بك باستخدام [نظام إدارة المحتوى Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md).
-
-</Step>
-
-</Steps>

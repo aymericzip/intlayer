@@ -820,17 +820,6 @@ Untuk dapat memvisualisasikan selector editor intlayer, Anda harus menggunakan s
 </div>
 ```
 
-### Konfigurasi Git
-
-Disarankan untuk mengabaikan file-file yang dihasilkan oleh Intlayer.
-
-```plaintext fileName=".gitignore"
-# Abaikan file-file yang dihasilkan oleh Intlayer
-.intlayer
-```
-
----
-
 </Step>
 
 <Step number={1} title="Ekstrak konten komponen Anda" isOptional={true}>
@@ -928,12 +917,22 @@ bun run build # Or bun run dev
 
  </Tab>
 </Tabs>
+</Step>
+
+</Steps>
+
+### Konfigurasi Git
+
+Disarankan untuk mengabaikan file-file yang dihasilkan oleh Intlayer.
+
+```plaintext fileName=".gitignore"
+# Abaikan file-file yang dihasilkan oleh Intlayer
+.intlayer
+```
+
+---
 
 ### Melangkah Lebih Jauh
 
 - **Editor Visual**: Integrasikan [Intlayer Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md) untuk mengedit terjemahan langsung dari UI.
 - **CMS**: Eksternalisasi manajemen konten Anda menggunakan [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md).
-
-</Step>
-
-</Steps>

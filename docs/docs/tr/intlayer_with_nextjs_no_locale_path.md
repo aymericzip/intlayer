@@ -641,6 +641,9 @@ bun add @intlayer/swc --dev
 > Not: Bu paket varsayılan olarak yüklenmez çünkü SWC eklentileri Next.js üzerinde hâlâ deneysel durumdadır. İleride değişebilir.
 
 > Not: Eğer seçeneği `importMode: 'dynamic'` veya `importMode: 'fetch'` (`dictionary` yapılandırmasında) olarak ayarlarsanız, bu Suspense'e dayanır; bu nedenle `useIntlayer` çağrılarınızı bir `Suspense` sınırı içine almanız gerekir. Bu, `useIntlayer`'ı Sayfa / Layout bileşeninizin en üst düzeyinde doğrudan kullanamayacağınız anlamına gelir.
+> </Step>
+
+</Steps>
 
 ### Turbopack'ta sözlük değişikliklerini izleme
 
@@ -709,7 +712,3 @@ Daha fazla ayrıntı için uzantının nasıl kullanılacağına dair [Intlayer 
 ### Daha İleri
 
 Daha ileri gitmek için [görsel editörü](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md) uygulayabilir veya içeriğinizi [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md) kullanarak dışsallaştırabilirsiniz.
-
-</Step>
-
-</Steps>

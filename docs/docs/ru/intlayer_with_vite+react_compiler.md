@@ -412,6 +412,9 @@ bun x intlayer fill         # Заполнить недостающие пере
 ```
 
 > Для получения более подробной информации обратитесь к [документации CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/cli/ci.md)
+> </Step>
+
+</Steps>
 
 ### (Опционально) Sitemap и robots.txt (генерация на сборке)
 
@@ -516,7 +519,3 @@ console.log("SEO files generated successfully.");
 ### Идите дальше
 
 Чтобы пойти дальше, вы можете внедрить [визуальный редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md) или вынести свой контент с помощью [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_CMS.md).
-
-</Step>
-
-</Steps>

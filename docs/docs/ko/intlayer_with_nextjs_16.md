@@ -872,6 +872,9 @@ bun run build # Or bun run dev
 
  </Tab>
 </Tabs>
+</Step>
+
+</Steps>
 
 ### (선택 사항) 11단계: 지역화된 링크 컴포넌트 생성하기
 
@@ -940,7 +943,3 @@ export const Link: FC<PropsWithChildren<NextLinkProps>> = ({
   컴포넌트는 현지화된 URL을 가진 `<a>` 요소를 반환하여 내비게이션이 로케일과 일치하도록 보장합니다.
 
 이 `Link` 컴포넌트를 애플리케이션 전반에 통합함으로써, 일관성 있고 언어를 인식하는 사용자 경험을 유지하는 동시에 향상된 SEO 및 사용성 이점을 누릴 수 있습니다.
-
-</Step>
-
-</Steps>

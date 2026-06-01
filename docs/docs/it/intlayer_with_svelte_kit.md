@@ -820,49 +820,6 @@ Per poter visualizzare il selettore dell'editor intlayer, dovrai utilizzare la s
 </div>
 ```
 
-### Configurazione Git
-
-Si consiglia di ignorare i file generati da Intlayer.
-
-```plaintext fileName=".gitignore"
-# Ignora i file generati da Intlayer
-.intlayer
-```
-
----
-
-### Approfondimenti
-
-Per poter visualizzare il selettore dell'editor intlayer, dovrai utilizzare la sintassi del componente nel tuo contenuto intlayer.
-
-```svelte fileName="Component.svelte"
-<script lang="ts">
-  import { useIntlayer } from "svelte-intlayer";
-
-  const content = useIntlayer("component");
-</script>
-
-<div>
-
-  <!-- Renderizza il contenuto come contenuto semplice  -->
-  <h1>{$content.title}</h1>
-
-  <!-- Renderizza il contenuto come componente (richiesto dall'editor) -->
-  {@const Component = $content.component}<Component />
-</div>
-```
-
-### Configurazione Git
-
-Si consiglia di ignorare i file generati da Intlayer.
-
-```plaintext fileName=".gitignore"
-# Ignora i file generati da Intlayer
-.intlayer
-```
-
----
-
 </Step>
 
 <Step number={1} title="Estrarre il contenuto dei tuoi componenti" isOptional={true}>
@@ -960,12 +917,54 @@ bun run build # Or bun run dev
 
  </Tab>
 </Tabs>
+</Step>
+
+</Steps>
+
+### Configurazione Git
+
+Si consiglia di ignorare i file generati da Intlayer.
+
+```plaintext fileName=".gitignore"
+# Ignora i file generati da Intlayer
+.intlayer
+```
+
+---
+
+### Approfondimenti
+
+Per poter visualizzare il selettore dell'editor intlayer, dovrai utilizzare la sintassi del componente nel tuo contenuto intlayer.
+
+```svelte fileName="Component.svelte"
+<script lang="ts">
+  import { useIntlayer } from "svelte-intlayer";
+
+  const content = useIntlayer("component");
+</script>
+
+<div>
+
+  <!-- Renderizza il contenuto come contenuto semplice  -->
+  <h1>{$content.title}</h1>
+
+  <!-- Renderizza il contenuto come componente (richiesto dall'editor) -->
+  {@const Component = $content.component}<Component />
+</div>
+```
+
+### Configurazione Git
+
+Si consiglia di ignorare i file generati da Intlayer.
+
+```plaintext fileName=".gitignore"
+# Ignora i file generati da Intlayer
+.intlayer
+```
+
+---
 
 ### Vai oltre
 
 - **Visual Editor**: integra il [Visual Editor di Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_visual_editor.md) per modificare le traduzioni direttamente dall'interfaccia utente.
 - **CMS**: esternalizza la gestione dei tuoi contenuti utilizzando il [CMS di Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_CMS.md).
-
-</Step>
-
-</Steps>

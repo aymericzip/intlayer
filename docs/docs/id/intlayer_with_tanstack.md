@@ -936,6 +936,10 @@ bun run build # Or bun run dev
 
 ---
 
+</Step>
+
+</Steps>
+
 ### Konfigurasi Git
 
 Disarankan untuk mengabaikan file yang dihasilkan oleh Intlayer. Ini memungkinkan Anda menghindari melakukan commit ke repositori Git Anda.
@@ -948,10 +952,6 @@ Untuk melakukan ini, Anda dapat menambahkan instruksi berikut ke file `.gitignor
 ```
 
 ---
-
-</Step>
-
-</Steps>
 
 ## Ekstensi VS Code
 

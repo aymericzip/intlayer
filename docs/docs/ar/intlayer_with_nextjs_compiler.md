@@ -501,39 +501,7 @@ bun add @intlayer/swc --dev
 > ملاحظة: لا يتم تثبيت هذه الحزمة بشكل افتراضي لأن ملحقات SWC لا تزال تجريبية في Next.js. قد يتغير هذا في المستقبل.
 
 > ملاحظة: إذا قمت بتعيين الخيار كـ `importMode: 'dynamic'` أو `importMode: 'fetch'` (في تهيئة `dictionary`) ، فسوف يعتمد على Suspense ، لذا سيتعين عليك لف استدعاءات `useIntlayer` بحدود `Suspense`. هذا يعني أنك لن تكون قادرًا على استخدام `useIntlayer` مباشرة في المستوى العلوي لمكون الصفحة / التخطيط الخاص بك.
-
-### إعداد TypeScript
-
-يستخدم Intlayer ميزة "توسيع الوحدات" (module augmentation) للاستفادة من مزايا TypeScript وجعل قاعدة الكود الخاصة بك أكثر قوة.
-
-![منشئ التعليمات البرمجية](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
-
-![توضيحات إبراز الخطأ في الكود](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
-
-تأكد من أن تهيئة TypeScript الخاصة بك تتضمن الأنواع التي تم إنشاؤها تلقائياً.
-
-```json5 fileName="tsconfig.json"
-{
-  // ... تهيئات TypeScript الحالية
-  "include": [
-    // ... تهيئات TypeScript الحالية
-    ".intlayer/**/*.ts", // تضمين الأنواع المنشأة تلقائياً
-  ],
-}
-```
-
-### تهيئة Git
-
-من المستحسن تجاهل الملفات التي تم إنشاؤها بواسطة Intlayer. يتيح لك ذلك تجنب إضافتها إلى مستودع Git الخاص بك.
-
-للقيام بذلك ، يمكنك إضافة التعليمات التالية إلى ملف `.gitignore` الخاص بك:
-
-```plaintext fileName=".gitignore"
-# تجاهل الملفات المنشأة بواسطة Intlayer
-.intlayer
-```
-
-</Step>
+> </Step>
 
 <Step number={1} title="استخراج محتوى مكوناتك" isOptional={true}>
 
@@ -647,6 +615,40 @@ bun run build # Or bun run dev
 
  </Tab>
 </Tabs>
+</Step>
+
+</Steps>
+
+### إعداد TypeScript
+
+يستخدم Intlayer ميزة "توسيع الوحدات" (module augmentation) للاستفادة من مزايا TypeScript وجعل قاعدة الكود الخاصة بك أكثر قوة.
+
+![منشئ التعليمات البرمجية](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
+
+![توضيحات إبراز الخطأ في الكود](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+
+تأكد من أن تهيئة TypeScript الخاصة بك تتضمن الأنواع التي تم إنشاؤها تلقائياً.
+
+```json5 fileName="tsconfig.json"
+{
+  // ... تهيئات TypeScript الحالية
+  "include": [
+    // ... تهيئات TypeScript الحالية
+    ".intlayer/**/*.ts", // تضمين الأنواع المنشأة تلقائياً
+  ],
+}
+```
+
+### تهيئة Git
+
+من المستحسن تجاهل الملفات التي تم إنشاؤها بواسطة Intlayer. يتيح لك ذلك تجنب إضافتها إلى مستودع Git الخاص بك.
+
+للقيام بذلك ، يمكنك إضافة التعليمات التالية إلى ملف `.gitignore` الخاص بك:
+
+```plaintext fileName=".gitignore"
+# تجاهل الملفات المنشأة بواسطة Intlayer
+.intlayer
+```
 
 ### ملحق VS Code
 
@@ -666,7 +668,3 @@ bun run build # Or bun run dev
 ### اذهب أبعد من ذلك
 
 للذهاب إلى أبعد من ذلك، يمكنك تنفيذ [المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) أو إضفاء الطابع الخارجي على المحتوى الخاص بك باستخدام [نظام إدارة المحتوى (CMS)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md).
-
-</Step>
-
-</Steps>

@@ -936,6 +936,10 @@ bun run build # Or bun run dev
 
 ---
 
+</Step>
+
+</Steps>
+
 ### Cấu hình Git
 
 Khuyến nghị bạn nên bỏ qua các file được tạo bởi Intlayer. Điều này giúp bạn tránh việc commit chúng vào kho Git của mình.
@@ -948,10 +952,6 @@ Khuyến nghị bạn nên bỏ qua các file được tạo bởi Intlayer. Đi
 ```
 
 ---
-
-</Step>
-
-</Steps>
 
 ## Tiện ích mở rộng VS Code
 

@@ -727,55 +727,6 @@ Link.displayName = "Link";
   Komponent zwraca element `<a>` z zlokalizowanym URL, zapewniając, że nawigacja jest spójna z wybraną lokalizacją.
 
 Integrując ten komponent `Link` w całej aplikacji, utrzymujesz spójne i świadome językowo doświadczenie użytkownika, jednocześnie korzystając z poprawy SEO i użyteczności.
-
-### Konfiguracja TypeScript
-
-Intlayer wykorzystuje rozszerzenie modułów (module augmentation), aby korzystać z zalet TypeScript i wzmocnić Twoją bazę kodu.
-
-![Autouzupełnianie](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
-
-![Błąd tłumaczenia](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
-
-Upewnij się, że Twoja konfiguracja TypeScript zawiera automatycznie generowane typy.
-
-```json5 fileName="tsconfig.json"
-{
-  // ... Twoje istniejące konfiguracje TypeScript
-  "include": [
-    // ... Twoje istniejące konfiguracje TypeScript
-    ".intlayer/**/*.ts", // Dołącz automatycznie generowane typy
-  ],
-}
-```
-
-### Konfiguracja Git
-
-Zaleca się ignorowanie plików generowanych przez Intlayer. Pozwala to uniknąć ich zatwierdzania do repozytorium Git.
-
-Aby to zrobić, możesz dodać następujące instrukcje do pliku `.gitignore`:
-
-```bash
-#  Ignoruj pliki generowane przez Intlayer
-.intlayer
-```
-
-### Rozszerzenie VS Code
-
-Aby poprawić swoje doświadczenie programistyczne z Intlayer, możesz zainstalować oficjalne **rozszerzenie Intlayer dla VS Code**.
-
-[Zainstaluj z Marketplace VS Code](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
-
-To rozszerzenie zapewnia:
-
-- **Autouzupełnianie** kluczy tłumaczeń.
-- **Wykrywanie błędów w czasie rzeczywistym** dla brakujących tłumaczeń.
-- **Podglądy w linii** przetłumaczonej zawartości.
-- **Szybkie akcje** umożliwiające łatwe tworzenie i aktualizowanie tłumaczeń.
-
-Aby uzyskać więcej informacji na temat korzystania z rozszerzenia, zapoznaj się z [dokumentacją rozszerzenia Intlayer VS Code](https://intlayer.org/doc/vs-code-extension).
-
----
-
 </Step>
 
 <Step number={11} title="Wyodrębnij zawartość swoich komponentów" isOptional={true}>
@@ -873,6 +824,57 @@ bun run build # Or bun run dev
 
  </Tab>
 </Tabs>
+</Step>
+
+</Steps>
+
+### Konfiguracja TypeScript
+
+Intlayer wykorzystuje rozszerzenie modułów (module augmentation), aby korzystać z zalet TypeScript i wzmocnić Twoją bazę kodu.
+
+![Autouzupełnianie](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
+
+![Błąd tłumaczenia](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+
+Upewnij się, że Twoja konfiguracja TypeScript zawiera automatycznie generowane typy.
+
+```json5 fileName="tsconfig.json"
+{
+  // ... Twoje istniejące konfiguracje TypeScript
+  "include": [
+    // ... Twoje istniejące konfiguracje TypeScript
+    ".intlayer/**/*.ts", // Dołącz automatycznie generowane typy
+  ],
+}
+```
+
+### Konfiguracja Git
+
+Zaleca się ignorowanie plików generowanych przez Intlayer. Pozwala to uniknąć ich zatwierdzania do repozytorium Git.
+
+Aby to zrobić, możesz dodać następujące instrukcje do pliku `.gitignore`:
+
+```bash
+#  Ignoruj pliki generowane przez Intlayer
+.intlayer
+```
+
+### Rozszerzenie VS Code
+
+Aby poprawić swoje doświadczenie programistyczne z Intlayer, możesz zainstalować oficjalne **rozszerzenie Intlayer dla VS Code**.
+
+[Zainstaluj z Marketplace VS Code](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+To rozszerzenie zapewnia:
+
+- **Autouzupełnianie** kluczy tłumaczeń.
+- **Wykrywanie błędów w czasie rzeczywistym** dla brakujących tłumaczeń.
+- **Podglądy w linii** przetłumaczonej zawartości.
+- **Szybkie akcje** umożliwiające łatwe tworzenie i aktualizowanie tłumaczeń.
+
+Aby uzyskać więcej informacji na temat korzystania z rozszerzenia, zapoznaj się z [dokumentacją rozszerzenia Intlayer VS Code](https://intlayer.org/doc/vs-code-extension).
+
+---
 
 ### (Opcjonalnie) Sitemap i robots.txt (generacja przy buildzie)
 
@@ -951,7 +953,3 @@ Dostosuj polecenia dla pnpm lub yarn. Możesz też wywołać skrypt z CI.
 ### Idź dalej
 
 Aby pójść dalej, możesz zaimplementować [edytor wizualny](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_visual_editor.md) lub wyodrębnić swoją zawartość, korzystając z [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md).
-
-</Step>
-
-</Steps>

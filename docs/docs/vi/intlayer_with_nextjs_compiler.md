@@ -196,29 +196,7 @@ export default withIntlayer(nextConfig);
 ```
 
 > Plugin Next.js `withIntlayer()` được sử dụng để tích hợp Intlayer với Next.js. Nó đảm bảo việc xây dựng các tệp từ điển và theo dõi chúng trong chế độ dev. Nó xác định các biến môi trường Intlayer bên trong môi trường [Webpack](https://webpack.js.org/) hoặc [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack). Ngoài ra, nó cung cấp các alias để tối ưu hóa hiệu suất và hoạt động mượt mà với Server Components.
-
-### Cấu hình Babel
-
-Trình biên dịch Intlayer yêu cầu Babel để trích xuất và tối ưu hóa nội dung của bạn. Cập nhật `babel.config.js` (hoặc `babel.config.json`) của bạn để bao gồm các plugin Intlayer:
-
-```typescript fileName="babel.config.js"
-const {
-  intlayerExtractBabelPlugin,
-  intlayerOptimizeBabelPlugin,
-  getExtractPluginOptions,
-  getOptimizePluginOptions,
-} = require("@intlayer/babel");
-
-module.exports = {
-  presets: ["next/babel"],
-  plugins: [
-    [intlayerExtractBabelPlugin, getExtractPluginOptions()],
-    [intlayerOptimizeBabelPlugin, getOptimizePluginOptions()],
-  ],
-};
-```
-
-</Step>
+> </Step>
 
 <Step number={4} title="Phát hiện ngôn ngữ trên trang của bạn">
 
@@ -499,54 +477,7 @@ bun add @intlayer/swc --dev
 > Lưu ý: Gói này không được cài đặt mặc định vì các plugin SWC vẫn đang ở giai đoạn thử nghiệm trong Next.js. Điều này có thể thay đổi trong tương lai.
 
 > Lưu ý: Nếu bạn thiết lập tùy chọn (trong cấu hình từ điển) `importMode: 'dynamic'` hoặc `importMode: 'fetch'`, nó sẽ phụ thuộc vào Suspense, vì vậy bạn sẽ cần bọc các lệnh gọi `useIntlayer` trong một ranh giới `Suspense`. Điều này có nghĩa là bạn không thể sử dụng `useIntlayer` trực tiếp ở cấp cao nhất của thành phần Page / Layout.
-
-### Cấu hình TypeScript
-
-Intlayer sử dụng module augmentation để tận dụng các ưu điểm của TypeScript và làm cho cơ sở mã của bạn mạnh mẽ hơn.
-
-![Autocomplete](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
-
-![Lỗi bản dịch](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
-
-Đảm bảo cấu hình TypeScript của bạn bao gồm các kiểu được tạo tự động.
-
-```json5 fileName="tsconfig.json"
-{
-  // ... cấu hình TypeScript hiện tại của bạn
-  "include": [
-    // ... cấu hình TypeScript hiện tại của bạn
-    ".intlayer/**/*.ts", // Bao gồm các kiểu được tạo tự động
-  ],
-}
-```
-
-### Cấu hình Git
-
-Khuyên dùng việc bỏ qua các tệp được tạo bởi Intlayer. Điều này cho phép bạn tránh việc tải chúng lên kho lưu trữ Git của mình.
-
-Để thực hiện việc này, bạn có thể thêm các hướng dẫn sau vào tệp `.gitignore` của mình:
-
-```plaintext fileName=".gitignore"
-# Bỏ qua các tệp được tạo bởi Intlayer
-.intlayer
-```
-
-### Tiện ích mở rộng VS Code
-
-Để nâng cao trải nghiệm phát triển của bạn với Intlayer, bạn có thể cài đặt **Tiện ích mở rộng VS Code chính thức của Intlayer**.
-
-[Cài đặt từ VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
-
-Tiện ích mở rộng này cung cấp:
-
-- **Tự động hoàn thành** cho các khóa bản dịch.
-- **Phát hiện lỗi thời gian thực** cho các bản dịch còn thiếu.
-- **Xem trước inline** nội dung đã dịch.
-- **Quick actions** để dễ dàng tạo và cập nhật các bản dịch.
-
-Đọc [tài liệu Tiện ích mở rộng VS Code của Intlayer](https://intlayer.org/doc/vs-code-extension) để biết hướng dẫn chi tiết về cách sử dụng tiện ích mở rộng.
-
-</Step>
+> </Step>
 
 <Step number={1} title="Trích xuất nội dung các thành phần của bạn" isOptional={true}>
 
@@ -660,11 +591,77 @@ bun run build # Or bun run dev
 
  </Tab>
 </Tabs>
+</Step>
+
+</Steps>
+
+### Cấu hình Babel
+
+Trình biên dịch Intlayer yêu cầu Babel để trích xuất và tối ưu hóa nội dung của bạn. Cập nhật `babel.config.js` (hoặc `babel.config.json`) của bạn để bao gồm các plugin Intlayer:
+
+```typescript fileName="babel.config.js"
+const {
+  intlayerExtractBabelPlugin,
+  intlayerOptimizeBabelPlugin,
+  getExtractPluginOptions,
+  getOptimizePluginOptions,
+} = require("@intlayer/babel");
+
+module.exports = {
+  presets: ["next/babel"],
+  plugins: [
+    [intlayerExtractBabelPlugin, getExtractPluginOptions()],
+    [intlayerOptimizeBabelPlugin, getOptimizePluginOptions()],
+  ],
+};
+```
+
+### Cấu hình TypeScript
+
+Intlayer sử dụng module augmentation để tận dụng các ưu điểm của TypeScript và làm cho cơ sở mã của bạn mạnh mẽ hơn.
+
+![Autocomplete](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
+
+![Lỗi bản dịch](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+
+Đảm bảo cấu hình TypeScript của bạn bao gồm các kiểu được tạo tự động.
+
+```json5 fileName="tsconfig.json"
+{
+  // ... cấu hình TypeScript hiện tại của bạn
+  "include": [
+    // ... cấu hình TypeScript hiện tại của bạn
+    ".intlayer/**/*.ts", // Bao gồm các kiểu được tạo tự động
+  ],
+}
+```
+
+### Cấu hình Git
+
+Khuyên dùng việc bỏ qua các tệp được tạo bởi Intlayer. Điều này cho phép bạn tránh việc tải chúng lên kho lưu trữ Git của mình.
+
+Để thực hiện việc này, bạn có thể thêm các hướng dẫn sau vào tệp `.gitignore` của mình:
+
+```plaintext fileName=".gitignore"
+# Bỏ qua các tệp được tạo bởi Intlayer
+.intlayer
+```
+
+### Tiện ích mở rộng VS Code
+
+Để nâng cao trải nghiệm phát triển của bạn với Intlayer, bạn có thể cài đặt **Tiện ích mở rộng VS Code chính thức của Intlayer**.
+
+[Cài đặt từ VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+Tiện ích mở rộng này cung cấp:
+
+- **Tự động hoàn thành** cho các khóa bản dịch.
+- **Phát hiện lỗi thời gian thực** cho các bản dịch còn thiếu.
+- **Xem trước inline** nội dung đã dịch.
+- **Quick actions** để dễ dàng tạo và cập nhật các bản dịch.
+
+Đọc [tài liệu Tiện ích mở rộng VS Code của Intlayer](https://intlayer.org/doc/vs-code-extension) để biết hướng dẫn chi tiết về cách sử dụng tiện ích mở rộng.
 
 ### Đi xa hơn
 
 Để tiến xa hơn, bạn có thể triển khai [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md) hoặc ngoại hóa nội dung của mình bằng cách sử dụng [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md).
-
-</Step>
-
-</Steps>

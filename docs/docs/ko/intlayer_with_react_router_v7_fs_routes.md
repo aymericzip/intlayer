@@ -216,6 +216,110 @@ export default [
 ] satisfies RouteConfig;
 ```
 
+</Step>
+
+<Step number={5} title="컴포넌트 콘텐츠 추출" isOptional={true}>
+
+기존 코드베이스가 있는 경우 수천 개의 파일을 변환하는 데 시간이 많이 걸릴 수 있습니다.
+
+이 프로세스를 용이하게 하기 위해 Intlayer는 컴포넌트를 변환하고 콘텐츠를 추출하기 위한 [컴파일러](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compiler.md) / [추출기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/extract.md)를 제안합니다.
+
+설정하려면 `intlayer.config.ts` 파일에 `compiler` 섹션을 추가할 수 있습니다.
+
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import { type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  // ... 나머지 구성
+  compiler: {
+    /**
+     * 컴파일러 활성화 여부를 나타냅니다.
+     */
+    enabled: true,
+
+    /**
+     * 출력 파일 경로를 정의합니다.
+     */
+    output: ({ fileName, extension }) => `./${fileName}${extension}`,
+
+    /**
+     * 변환 후 컴포넌트를 저장할지 여부를 나타냅니다. 그렇게 하면 컴파일러를 한 번만 실행하여 앱을 변환한 다음 제거할 수 있습니다.
+     */
+    saveComponents: false,
+
+    /**
+     * 사전 키 접두사
+     */
+    dictionaryKeyPrefix: "",
+  },
+};
+
+export default config;
+```
+
+<Tabs>
+ <Tab value='추출 명령'>
+
+컴포넌트를 변환하고 콘텐츠를 추출하기 위해 추출기를 실행합니다
+
+```bash packageManager="npm"
+npx intlayer extract
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer extract
+```
+
+```bash packageManager="yarn"
+yarn intlayer extract
+```
+
+```bash packageManager="bun"
+bun x intlayer extract
+```
+
+ </Tab>
+ <Tab value='Babel 컴파일러'>
+
+`vite.config.ts`를 업데이트하여 `intlayerCompiler` 플러그인을 포함합니다.
+
+```ts fileName="vite.config.ts"
+import { defineConfig } from "vite";
+import { intlayer, intlayerCompiler } from "vite-intlayer";
+
+export default defineConfig({
+  plugins: [
+    intlayer(),
+    intlayerCompiler(), // 컴파일러 플러그인을 추가합니다
+  ],
+});
+```
+
+```bash packageManager="npm"
+npm run build # 또는 npm run dev
+```
+
+```bash packageManager="pnpm"
+pnpm run build # 또는 pnpm run dev
+```
+
+```bash packageManager="yarn"
+yarn build # 또는 yarn dev
+```
+
+```bash packageManager="bun"
+bun run build # Or bun run dev
+```
+
+ </Tab>
+</Tabs>
+
+---
+
+</Step>
+
+</Steps>
+
 ### 5단계: 레이아웃 컴포넌트 생성
 
 루트 레이아웃과 로케일별 레이아웃을 설정하세요:
@@ -466,110 +570,6 @@ export default function RootLayout() {
   );
 }
 ```
-
-</Step>
-
-<Step number={5} title="컴포넌트 콘텐츠 추출" isOptional={true}>
-
-기존 코드베이스가 있는 경우 수천 개의 파일을 변환하는 데 시간이 많이 걸릴 수 있습니다.
-
-이 프로세스를 용이하게 하기 위해 Intlayer는 컴포넌트를 변환하고 콘텐츠를 추출하기 위한 [컴파일러](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compiler.md) / [추출기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/extract.md)를 제안합니다.
-
-설정하려면 `intlayer.config.ts` 파일에 `compiler` 섹션을 추가할 수 있습니다.
-
-```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
-import { type IntlayerConfig } from "intlayer";
-
-const config: IntlayerConfig = {
-  // ... 나머지 구성
-  compiler: {
-    /**
-     * 컴파일러 활성화 여부를 나타냅니다.
-     */
-    enabled: true,
-
-    /**
-     * 출력 파일 경로를 정의합니다.
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * 변환 후 컴포넌트를 저장할지 여부를 나타냅니다. 그렇게 하면 컴파일러를 한 번만 실행하여 앱을 변환한 다음 제거할 수 있습니다.
-     */
-    saveComponents: false,
-
-    /**
-     * 사전 키 접두사
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-export default config;
-```
-
-<Tabs>
- <Tab value='추출 명령'>
-
-컴포넌트를 변환하고 콘텐츠를 추출하기 위해 추출기를 실행합니다
-
-```bash packageManager="npm"
-npx intlayer extract
-```
-
-```bash packageManager="pnpm"
-pnpm intlayer extract
-```
-
-```bash packageManager="yarn"
-yarn intlayer extract
-```
-
-```bash packageManager="bun"
-bun x intlayer extract
-```
-
- </Tab>
- <Tab value='Babel 컴파일러'>
-
-`vite.config.ts`를 업데이트하여 `intlayerCompiler` 플러그인을 포함합니다.
-
-```ts fileName="vite.config.ts"
-import { defineConfig } from "vite";
-import { intlayer, intlayerCompiler } from "vite-intlayer";
-
-export default defineConfig({
-  plugins: [
-    intlayer(),
-    intlayerCompiler(), // 컴파일러 플러그인을 추가합니다
-  ],
-});
-```
-
-```bash packageManager="npm"
-npm run build # 또는 npm run dev
-```
-
-```bash packageManager="pnpm"
-pnpm run build # 또는 pnpm run dev
-```
-
-```bash packageManager="yarn"
-yarn build # 또는 yarn dev
-```
-
-```bash packageManager="bun"
-bun run build # Or bun run dev
-```
-
- </Tab>
-</Tabs>
-
----
-
-</Step>
-
-</Steps>
 
 ## Configure TypeScript
 

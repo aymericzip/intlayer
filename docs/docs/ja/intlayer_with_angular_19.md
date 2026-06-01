@@ -369,6 +369,10 @@ export class AppComponent {
 }
 ```
 
+</Step>
+
+</Steps>
+
 ### TypeScriptの構成
 
 Intlayerはモジュール拡張（Module Augmentation）を使用して、TypeScriptの利点を活用し、コードベースをより強力にします。
@@ -422,7 +426,3 @@ Intlayerでの開発体験を向上させるために、公式の **Intlayer VS 
 さらに詳しく知るには、[ビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) を実装するか、[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) を使用してコンテンツを外部化することができます。
 
 ---
-
-</Step>
-
-</Steps>

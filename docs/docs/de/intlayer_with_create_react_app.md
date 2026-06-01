@@ -549,6 +549,9 @@ Durch die Anwendung dieser Änderungen wird Ihre Anwendung:
 - Sicherstellen, dass das **Sprachattribut** (`lang`) korrekt die aktuelle Lokalisierung widerspiegelt, was für SEO und Browserverhalten wichtig ist.
 - Die **Textrichtung** (`dir`) entsprechend der Lokalisierung anpassen, wodurch die Lesbarkeit und Benutzerfreundlichkeit für Sprachen mit unterschiedlichen Leserichtungen verbessert wird.
 - Ein barrierefreieres Erlebnis bieten, da unterstützende Technologien auf diese Attribute angewiesen sind, um optimal zu funktionieren.
+  </Step>
+
+</Steps>
 
 ### TypeScript konfigurieren
 
@@ -584,7 +587,3 @@ Fügen Sie dazu die folgenden Anweisungen zu Ihrer `.gitignore`-Datei hinzu:
 ### Weiterführende Schritte
 
 Um weiterzugehen, können Sie den [visuellen Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_visual_editor.md) implementieren oder Ihre Inhalte mithilfe des [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_CMS.md) auslagern.
-
-</Step>
-
-</Steps>

@@ -827,6 +827,9 @@ export default App;
 - **言語**（`lang`）属性が現在のロケールを正しく反映し、SEOやブラウザの動作に重要な役割を果たします。
 - **テキスト方向**（`dir`）がロケールに応じて調整され、異なる読み順を持つ言語の可読性と使いやすさを向上させます。
 - **アクセシビリティ**が向上し、支援技術がこれらの属性に依存して最適に機能します。
+  </Step>
+
+</Steps>
 
 ### TypeScriptの設定
 
@@ -890,7 +893,3 @@ Intlayerでの開発体験を向上させるために、公式の**Intlayer VS C
 ### さらに進むには
 
 さらに進みたい場合は、[ビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)を実装するか、[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)を使ってコンテンツを外部化することができます。
-
-</Step>
-
-</Steps>

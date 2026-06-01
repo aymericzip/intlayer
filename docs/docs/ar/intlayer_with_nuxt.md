@@ -340,33 +340,6 @@ const { locale, availableLocales, setLocale } = useLocale();
 </template>
 ```
 
-### (اختياري) الخطوة 6ب: إنشاء تخطيط مع التنقل
-
-تسمح تخطيطات Nuxt بتعريف هيكل مشترك لصفحاتك. قم بإنشاء تخطيط افتراضي يتضمن مفتاح تبديل اللغة والتنقل:
-
-```vue fileName="layouts/default.vue"
-<script setup lang="ts">
-import Links from "~/components/Links.vue";
-import LocaleSwitcher from "~/components/LocaleSwitcher.vue";
-</script>
-
-<template>
-  <div>
-    <header>
-      <LocaleSwitcher />
-    </header>
-    <main>
-      <slot />
-    </main>
-
-    <Links href="/">الرئيسية</Links>
-    <Links href="/about">حول</Links>
-  </div>
-</template>
-```
-
-مكون `Links` (الموضح أدناه) يضمن أن روابط التنقل الداخلية تتم ترجمتها تلقائيًا.
-
 </Step>
 
 <Step number={7} title="إضافة التوجيه المحلي إلى تطبيقك" isOptional={true}>
@@ -615,6 +588,37 @@ export default aboutPageContent;
 }
 ```
 
+</Step>
+
+</Steps>
+
+### (اختياري) الخطوة 6ب: إنشاء تخطيط مع التنقل
+
+تسمح تخطيطات Nuxt بتعريف هيكل مشترك لصفحاتك. قم بإنشاء تخطيط افتراضي يتضمن مفتاح تبديل اللغة والتنقل:
+
+```vue fileName="layouts/default.vue"
+<script setup lang="ts">
+import Links from "~/components/Links.vue";
+import LocaleSwitcher from "~/components/LocaleSwitcher.vue";
+</script>
+
+<template>
+  <div>
+    <header>
+      <LocaleSwitcher />
+    </header>
+    <main>
+      <slot />
+    </main>
+
+    <Links href="/">الرئيسية</Links>
+    <Links href="/about">حول</Links>
+  </div>
+</template>
+```
+
+مكون `Links` (الموضح أدناه) يضمن أن روابط التنقل الداخلية تتم ترجمتها تلقائيًا.
+
 ### تكوين Git
 
 يوصى بتجاهل الملفات التي يتم إنشاؤها بواسطة Intlayer. هذا يسمح لك بتجنب الالتزام بها في مستودع Git الخاص بك.
@@ -646,7 +650,3 @@ export default aboutPageContent;
 ### التعمق أكثر
 
 للتقدم أكثر، يمكنك تنفيذ [المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) أو تعريض محتواك باستخدام [نظام إدارة المحتوى (CMS)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md).
-
-</Step>
-
-</Steps>

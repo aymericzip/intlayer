@@ -327,6 +327,10 @@ export default class HomeComponent {
 }
 ```
 
+</Step>
+
+</Steps>
+
 ### Налаштування TypeScript
 
 Intlayer використовує розширення модулів (module augmentation), щоб скористатися перевагами TypeScript і зробити вашу кодову базу надійнішою.
@@ -372,7 +376,3 @@ Intlayer використовує розширення модулів (module au
 - **Швидкі дії** для легкого створення та оновлення перекладів.
 
 Докладнішу інформацію про використання розширення дивіться в [документації розширення Intlayer для VS Code](https://intlayer.org/doc/vs-code-extension).
-
-</Step>
-
-</Steps>

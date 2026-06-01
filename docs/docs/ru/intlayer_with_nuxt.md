@@ -350,33 +350,6 @@ const { locale, availableLocales, setLocale } = useLocale();
 </template>
 ```
 
-### (Необязательно) Шаг 6b: Создайте Layout с навигацией
-
-Layouts в Nuxt позволяют определить общую структуру для ваших страниц. Создайте layout по умолчанию, который включает переключатель локали и навигацию:
-
-```vue fileName="layouts/default.vue"
-<script setup lang="ts">
-import Links from "~/components/Links.vue";
-import LocaleSwitcher from "~/components/LocaleSwitcher.vue";
-</script>
-
-<template>
-  <div>
-    <header>
-      <LocaleSwitcher />
-    </header>
-    <main>
-      <slot />
-    </main>
-
-    <Links href="/">Главная</Links>
-    <Links href="/about">О нас</Links>
-  </div>
-</template>
-```
-
-Компонент `Links` (показан ниже) гарантирует, что внутренние навигационные ссылки автоматически локализуются.
-
 </Step>
 
 <Step number={7} title="Добавьте локализованный роутинг в ваше приложение" isOptional={true}>
@@ -623,6 +596,37 @@ export default aboutPageContent;
 }
 ```
 
+</Step>
+
+</Steps>
+
+### (Необязательно) Шаг 6b: Создайте Layout с навигацией
+
+Layouts в Nuxt позволяют определить общую структуру для ваших страниц. Создайте layout по умолчанию, который включает переключатель локали и навигацию:
+
+```vue fileName="layouts/default.vue"
+<script setup lang="ts">
+import Links from "~/components/Links.vue";
+import LocaleSwitcher from "~/components/LocaleSwitcher.vue";
+</script>
+
+<template>
+  <div>
+    <header>
+      <LocaleSwitcher />
+    </header>
+    <main>
+      <slot />
+    </main>
+
+    <Links href="/">Главная</Links>
+    <Links href="/about">О нас</Links>
+  </div>
+</template>
+```
+
+Компонент `Links` (показан ниже) гарантирует, что внутренние навигационные ссылки автоматически локализуются.
+
 ### Конфигурация Git
 
 Рекомендуется игнорировать файлы, сгенерированные Intlayer. Это позволит избежать их коммита в ваш Git-репозиторий.
@@ -654,7 +658,3 @@ export default aboutPageContent;
 ### Продвинуться дальше
 
 Чтобы продвинуться дальше, вы можете реализовать [визуальный редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md) или вынести ваш контент, используя [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_CMS.md).
-
-</Step>
-
-</Steps>

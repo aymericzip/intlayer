@@ -904,59 +904,6 @@ const { myMarkdownContent } = useIntlayer("my-component");
 </script>
 ```
 
-### تكوين TypeScript
-
-يستخدم Intlayer تعزيز الوحدات (module augmentation) للاستفادة من TypeScript وجعل قاعدة الشيفرة الخاصة بك أكثر قوة.
-
-![نص بديل](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png)
-
-![نص بديل](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png)
-
-تأكد من أن تكوين TypeScript الخاص بك يشمل الأنواع التي تم إنشاؤها تلقائيًا.
-
-```json5 fileName="tsconfig.json"
-{
-  // ... تكوينات TypeScript الحالية الخاصة بك
-  "include": [
-    // ... تكوينات TypeScript الحالية الخاصة بك
-    ".intlayer/**/*.ts", // تضمين الأنواع التي تم إنشاؤها تلقائيًا
-  ],
-}
-```
-
-### تكوين Git
-
-يوصى بتجاهل الملفات التي يتم إنشاؤها بواسطة Intlayer. هذا يسمح لك بتجنب الالتزام بها في مستودع Git الخاص بك.
-
-للقيام بذلك، يمكنك إضافة التعليمات التالية إلى ملف `.gitignore` الخاص بك:
-
-```bash
-#  تجاهل الملفات التي تم إنشاؤها بواسطة Intlayer
-.intlayer
-```
-
-### امتداد VS Code
-
-لتحسين تجربة التطوير الخاصة بك مع Intlayer، يمكنك تثبيت **امتداد Intlayer الرسمي لـ VS Code**.
-
-[التثبيت من سوق VS Code](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
-
-يوفر هذا الامتداد:
-
-- **الإكمال التلقائي** لمفاتيح الترجمة.
-- **كشف الأخطاء في الوقت الحقيقي** للترجمات المفقودة.
-- **معاينات داخلية** للمحتوى المترجم.
-- **إجراءات سريعة** لإنشاء وتحديث الترجمات بسهولة.
-
-يوصى بتجاهل الملفات التي يتم إنشاؤها بواسطة Intlayer. يتيح لك ذلك تجنب الالتزام بها في مستودع Git الخاص بك.
-
-للقيام بذلك، يمكنك إضافة التعليمات التالية إلى ملف `.gitignore` الخاص بك:
-
-```bash
-#  تجاهل الملفات التي يتم إنشاؤها بواسطة Intlayer
-.intlayer
-```
-
 </Step>
 
 <Step number={1} title="استخراج محتوى مكوناتك" isOptional={true}>
@@ -1071,6 +1018,62 @@ bun run build # Or bun run dev
 
  </Tab>
 </Tabs>
+</Step>
+
+</Steps>
+
+### تكوين TypeScript
+
+يستخدم Intlayer تعزيز الوحدات (module augmentation) للاستفادة من TypeScript وجعل قاعدة الشيفرة الخاصة بك أكثر قوة.
+
+![نص بديل](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png)
+
+![نص بديل](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png)
+
+تأكد من أن تكوين TypeScript الخاص بك يشمل الأنواع التي تم إنشاؤها تلقائيًا.
+
+```json5 fileName="tsconfig.json"
+{
+  // ... تكوينات TypeScript الحالية الخاصة بك
+  "include": [
+    // ... تكوينات TypeScript الحالية الخاصة بك
+    ".intlayer/**/*.ts", // تضمين الأنواع التي تم إنشاؤها تلقائيًا
+  ],
+}
+```
+
+### تكوين Git
+
+يوصى بتجاهل الملفات التي يتم إنشاؤها بواسطة Intlayer. هذا يسمح لك بتجنب الالتزام بها في مستودع Git الخاص بك.
+
+للقيام بذلك، يمكنك إضافة التعليمات التالية إلى ملف `.gitignore` الخاص بك:
+
+```bash
+#  تجاهل الملفات التي تم إنشاؤها بواسطة Intlayer
+.intlayer
+```
+
+### امتداد VS Code
+
+لتحسين تجربة التطوير الخاصة بك مع Intlayer، يمكنك تثبيت **امتداد Intlayer الرسمي لـ VS Code**.
+
+[التثبيت من سوق VS Code](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+يوفر هذا الامتداد:
+
+- **الإكمال التلقائي** لمفاتيح الترجمة.
+- **كشف الأخطاء في الوقت الحقيقي** للترجمات المفقودة.
+- **معاينات داخلية** للمحتوى المترجم.
+- **إجراءات سريعة** لإنشاء وتحديث الترجمات بسهولة.
+
+يوصى بتجاهل الملفات التي يتم إنشاؤها بواسطة Intlayer. يتيح لك ذلك تجنب الالتزام بها في مستودع Git الخاص بك.
+
+للقيام بذلك، يمكنك إضافة التعليمات التالية إلى ملف `.gitignore` الخاص بك:
+
+```bash
+#  تجاهل الملفات التي يتم إنشاؤها بواسطة Intlayer
+.intlayer
+```
 
 ### (اختياري) خريطة الموقع و robots.txt (توليد وقت البناء)
 
@@ -1168,7 +1171,3 @@ console.log("SEO files generated successfully.");
 للتعمق أكثر، يمكنك تنفيذ [المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) أو إخراج المحتوى الخاص بك باستخدام [نظام إدارة المحتوى (CMS)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md).
 
 ---
-
-</Step>
-
-</Steps>

@@ -479,34 +479,6 @@ const changeLocale = (event: Event) => {
 </div>
 ```
 
-### Git Yapılandırması
-
-Intlayer tarafından oluşturulan dosyaların göz ardı edilmesi önerilir. Bu, bu dosyaların Git deposuna eklenmesini önlemenizi sağlar.
-
-Bunu yapmak için `.gitignore` dosyanıza aşağıdaki talimatları ekleyebilirsiniz:
-
-```bash
-#  Intlayer tarafından oluşturulan dosyaları göz ardı et
-.intlayer
-```
-
-### VS Code Eklentisi
-
-Intlayer ile geliştirme deneyiminizi iyileştirmek için resmi **Intlayer VS Code Eklentisi**ni yükleyebilirsiniz.
-
-[VS Code Marketplace'ten Yükleyin](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
-
-Bu eklenti şunları sağlar:
-
-- Çeviri anahtarları için **Otomatik tamamlama**.
-- Eksik çeviriler için **Gerçek zamanlı hata tespiti**.
-- Çevrilmiş içeriğin **Satır içi önizlemeleri**.
-- Çevirileri kolayca oluşturup güncellemek için **Hızlı işlemler**.
-
-Eklentinin nasıl kullanılacağı hakkında daha fazla bilgi için [Intlayer VS Code Eklentisi dokümantasyonuna](https://intlayer.org/doc/vs-code-extension) bakabilirsiniz.
-
----
-
 </Step>
 
 <Step number={9} title="Bileşenlerinizin içeriğini çıkarın" isOptional={true}>
@@ -604,6 +576,37 @@ bun run build # Or bun run dev
 
  </Tab>
 </Tabs>
+</Step>
+
+</Steps>
+
+### Git Yapılandırması
+
+Intlayer tarafından oluşturulan dosyaların göz ardı edilmesi önerilir. Bu, bu dosyaların Git deposuna eklenmesini önlemenizi sağlar.
+
+Bunu yapmak için `.gitignore` dosyanıza aşağıdaki talimatları ekleyebilirsiniz:
+
+```bash
+#  Intlayer tarafından oluşturulan dosyaları göz ardı et
+.intlayer
+```
+
+### VS Code Eklentisi
+
+Intlayer ile geliştirme deneyiminizi iyileştirmek için resmi **Intlayer VS Code Eklentisi**ni yükleyebilirsiniz.
+
+[VS Code Marketplace'ten Yükleyin](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+Bu eklenti şunları sağlar:
+
+- Çeviri anahtarları için **Otomatik tamamlama**.
+- Eksik çeviriler için **Gerçek zamanlı hata tespiti**.
+- Çevrilmiş içeriğin **Satır içi önizlemeleri**.
+- Çevirileri kolayca oluşturup güncellemek için **Hızlı işlemler**.
+
+Eklentinin nasıl kullanılacağı hakkında daha fazla bilgi için [Intlayer VS Code Eklentisi dokümantasyonuna](https://intlayer.org/doc/vs-code-extension) bakabilirsiniz.
+
+---
 
 ### (İsteğe bağlı) Sitemap ve robots.txt (build zamanı üretimi)
 
@@ -682,7 +685,3 @@ pnpm veya yarn kullanıyorsanız komutları uyarlayın. CI’dan da çağrılabi
 ### Daha İleri Gitmek
 
 Daha ileri gitmek için, [görsel editörü](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md) uygulayabilir veya içeriğinizi [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md) kullanarak dışa aktarabilirsiniz.
-
-</Step>
-
-</Steps>

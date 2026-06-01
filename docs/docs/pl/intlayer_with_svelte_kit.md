@@ -814,17 +814,6 @@ Aby móc wizualizować selektor edytora intlayer, musisz użyć składni kompone
 </div>
 ```
 
-### Konfiguracja Git
-
-Zaleca się ignorowanie plików generowanych przez Intlayer.
-
-```plaintext fileName=".gitignore"
-# Ignoruj pliki generowane przez Intlayer
-.intlayer
-```
-
----
-
 </Step>
 
 <Step number={12} title="Wyodrębnij zawartość swoich komponentów" isOptional={true}>
@@ -922,12 +911,22 @@ bun run build # Or bun run dev
 
  </Tab>
 </Tabs>
+</Step>
+
+</Steps>
+
+### Konfiguracja Git
+
+Zaleca się ignorowanie plików generowanych przez Intlayer.
+
+```plaintext fileName=".gitignore"
+# Ignoruj pliki generowane przez Intlayer
+.intlayer
+```
+
+---
 
 ### Idź dalej
 
 - **Edytor wizualny**: Zintegruj [Intlayer Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_visual_editor.md), aby edytować tłumaczenia bezpośrednio z interfejsu użytkownika.
 - **CMS**: Zewnętrz zarządzanie treścią, korzystając z [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md).
-
-</Step>
-
-</Steps>

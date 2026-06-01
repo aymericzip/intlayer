@@ -412,6 +412,9 @@ bun x intlayer fill         # ملء الترجمات المفقودة
 ```
 
 > لمزيد من التفاصيل، راجع [وثائق CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/ci.md)
+> </Step>
+
+</Steps>
 
 ### (اختياري) خريطة الموقع و robots.txt (توليد وقت البناء)
 
@@ -516,7 +519,3 @@ console.log("SEO files generated successfully.");
 ### اذهب أبعد من ذلك
 
 للمضي قدمًا، يمكنك تنفيذ [المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) أو جعل محتواك خارجيًا باستخدام [نظام إدارة المحتوى (CMS)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md).
-
-</Step>
-
-</Steps>

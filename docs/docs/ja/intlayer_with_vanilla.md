@@ -426,6 +426,9 @@ const unsubscribe = useDictionaryDynamic(
 ```
 
 > 注意: `useDictionaryDynamic` には、ディクショナリが個別の ESM ファイルとして利用可能である必要があります。このアプローチは通常、ディクショナリを配信するウェブサーバーがある場合に使用されます。
+> </Step>
+
+</Steps>
 
 ### TypeScriptの設定
 
@@ -460,7 +463,3 @@ Intlayerでの開発体験を向上させるために、公式の **Intlayer VS 
 ### さらに詳しく
 
 さらに詳しく知るには、[ビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)を実装したり、[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)を使用してコンテンツを外部化したりできます。
-
-</Step>
-
-</Steps>

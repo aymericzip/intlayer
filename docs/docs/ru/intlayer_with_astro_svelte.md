@@ -473,54 +473,6 @@ export const GET: APIRoute = ({ site }) => {
 };
 ```
 
-### Настройка TypeScript
-
-Intlayer использует расширение модулей, чтобы воспользоваться преимуществами TypeScript и сделать вашу кодовую базу более надежной.
-
-![Автодополнение](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
-
-![Ошибка перевода](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
-
-Убедитесь, что ваша конфигурация TypeScript включает автогенерируемые типы.
-
-```json5 fileName="tsconfig.json"
-{
-  // ... Ваши существующие конфигурации TypeScript
-  include: [
-    // ... Ваши существующие конфигурации TypeScript
-    ".intlayer/**/*.ts", // Включить автогенерируемые типы
-  ],
-}
-```
-
-### Настройка Git
-
-Рекомендуется игнорировать файлы, созданные Intlayer. Это позволит избежать их добавления в ваш Git-репозиторий.
-
-Для этого вы можете добавить следующие инструкции в ваш файл `.gitignore`:
-
-```bash
-# Игнорировать файлы, созданные Intlayer
-.intlayer
-```
-
-### Расширение для VS Code
-
-Для улучшения процесса разработки с помощью Intlayer вы можете установить официальное **расширение Intlayer для VS Code**.
-
-[Установить из VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
-
-Это расширение предоставляет:
-
-- **Автодополнение** для ключей перевода.
-- **Обнаружение ошибок в реальном времени** для отсутствующих переводов.
-- **Встроенный предпросмотр** переведенного контента.
-- **Быстрые действия** для легкого создания и обновления переводов.
-
-Для получения более подробной информации об использовании расширения см. [документацию расширения Intlayer для VS Code](https://intlayer.org/doc/vs-code-extension).
-
----
-
 </Step>
 
 <Step number={15} title="Извлечение содержимого ваших компонентов" isOptional={true}>
@@ -621,10 +573,58 @@ bun run build # Or bun run dev
 
 ---
 
-### Дальнейшие шаги
-
-Вы также можете внедрить [визуальный редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md) или вынести ваш контент во внешнюю [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_CMS.md).
-
 </Step>
 
 </Steps>
+
+### Настройка TypeScript
+
+Intlayer использует расширение модулей, чтобы воспользоваться преимуществами TypeScript и сделать вашу кодовую базу более надежной.
+
+![Автодополнение](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
+
+![Ошибка перевода](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+
+Убедитесь, что ваша конфигурация TypeScript включает автогенерируемые типы.
+
+```json5 fileName="tsconfig.json"
+{
+  // ... Ваши существующие конфигурации TypeScript
+  include: [
+    // ... Ваши существующие конфигурации TypeScript
+    ".intlayer/**/*.ts", // Включить автогенерируемые типы
+  ],
+}
+```
+
+### Настройка Git
+
+Рекомендуется игнорировать файлы, созданные Intlayer. Это позволит избежать их добавления в ваш Git-репозиторий.
+
+Для этого вы можете добавить следующие инструкции в ваш файл `.gitignore`:
+
+```bash
+# Игнорировать файлы, созданные Intlayer
+.intlayer
+```
+
+### Расширение для VS Code
+
+Для улучшения процесса разработки с помощью Intlayer вы можете установить официальное **расширение Intlayer для VS Code**.
+
+[Установить из VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+Это расширение предоставляет:
+
+- **Автодополнение** для ключей перевода.
+- **Обнаружение ошибок в реальном времени** для отсутствующих переводов.
+- **Встроенный предпросмотр** переведенного контента.
+- **Быстрые действия** для легкого создания и обновления переводов.
+
+Для получения более подробной информации об использовании расширения см. [документацию расширения Intlayer для VS Code](https://intlayer.org/doc/vs-code-extension).
+
+---
+
+### Дальнейшие шаги
+
+Вы также можете внедрить [визуальный редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md) или вынести ваш контент во внешнюю [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_CMS.md).

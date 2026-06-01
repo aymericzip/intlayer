@@ -936,6 +936,10 @@ bun run build # Or bun run dev
 
 ---
 
+</Step>
+
+</Steps>
+
 ### Git Yapılandırması
 
 Intlayer tarafından oluşturulan dosyaların göz ardı edilmesi önerilir. Bu, bu dosyaların Git deposuna eklenmesini önlemenizi sağlar.
@@ -948,10 +952,6 @@ Bunu yapmak için, `.gitignore` dosyanıza aşağıdaki talimatları ekleyebilir
 ```
 
 ---
-
-</Step>
-
-</Steps>
 
 ## VS Code Eklentisi
 

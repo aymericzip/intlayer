@@ -436,6 +436,9 @@ const unsubscribe = useDictionaryDynamic(
 ```
 
 > Not: `useDictionaryDynamic`, sözlüklerin ayrı ESM dosyaları olarak mevcut olmasını gerektirir. Bu yaklaşım genellikle sözlükleri sunan bir web sunucunuz varsa kullanılır.
+> </Step>
+
+</Steps>
 
 ### TypeScript'i Yapılandırın
 
@@ -470,7 +473,3 @@ Uzantının nasıl kullanılacağına ilişkin daha fazla ayrıntı için [Intla
 ### Daha İleri Gidin
 
 Daha ileri gitmek için [görsel düzenleyiciyi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md) uygulayabilir veya [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md) kullanarak içeriğinizi dışsallaştırabilirsiniz.
-
-</Step>
-
-</Steps>

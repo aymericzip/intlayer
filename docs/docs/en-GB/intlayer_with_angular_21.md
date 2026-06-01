@@ -400,6 +400,10 @@ export class AppComponent {
 }
 ```
 
+</Step>
+
+</Steps>
+
 ### Configure TypeScript
 
 Intlayer uses Module Augmentation to get the benefits of TypeScript and make your codebase stronger.
@@ -453,7 +457,3 @@ For more details on how to use the extension, refer to the [Intlayer VS Code Ext
 To go further, you can implement the [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_visual_editor.md) or externalise your content using the [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_CMS.md).
 
 ---
-
-</Step>
-
-</Steps>

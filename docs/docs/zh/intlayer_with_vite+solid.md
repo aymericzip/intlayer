@@ -478,47 +478,6 @@ const MyComponent = () => {
 };
 ```
 
-### 配置 TypeScript
-
-确保您的 TypeScript 配置包含自动生成的类型。
-
-```json5 fileName="tsconfig.json"
-{
-  "compilerOptions": {
-    // ...
-  },
-  "include": ["src", ".intlayer/**/*.ts"],
-}
-```
-
-### Git 配置
-
-建议忽略 Intlayer 生成的文件。这样可以避免将它们提交到您的 Git 仓库中。
-
-为此，您可以将以下指令添加到您的 `.gitignore` 文件中：
-
-```bash
-#  忽略 Intlayer 生成的文件
-.intlayer
-```
-
-### VS Code 扩展
-
-为了提升您使用 Intlayer 的开发体验，您可以安装官方的 **Intlayer VS Code 扩展**。
-
-[从 VS Code 市场安装](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
-
-该扩展提供：
-
-- 翻译键的**自动补全**。
-- 缺失翻译的**实时错误检测**。
-- **已翻译内容的内联预览**。
-- **快速操作**，轻松创建和更新翻译。
-
-有关如何使用该扩展的更多详细信息，请参阅[Intlayer VS Code 扩展文档](https://intlayer.org/doc/vs-code-extension)。
-
----
-
 </Step>
 
 <Step number={1} title="提取组件内容" isOptional={true}>
@@ -616,6 +575,50 @@ bun run build # Or bun run dev
 
  </Tab>
 </Tabs>
+</Step>
+
+</Steps>
+
+### 配置 TypeScript
+
+确保您的 TypeScript 配置包含自动生成的类型。
+
+```json5 fileName="tsconfig.json"
+{
+  "compilerOptions": {
+    // ...
+  },
+  "include": ["src", ".intlayer/**/*.ts"],
+}
+```
+
+### Git 配置
+
+建议忽略 Intlayer 生成的文件。这样可以避免将它们提交到您的 Git 仓库中。
+
+为此，您可以将以下指令添加到您的 `.gitignore` 文件中：
+
+```bash
+#  忽略 Intlayer 生成的文件
+.intlayer
+```
+
+### VS Code 扩展
+
+为了提升您使用 Intlayer 的开发体验，您可以安装官方的 **Intlayer VS Code 扩展**。
+
+[从 VS Code 市场安装](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+该扩展提供：
+
+- 翻译键的**自动补全**。
+- 缺失翻译的**实时错误检测**。
+- **已翻译内容的内联预览**。
+- **快速操作**，轻松创建和更新翻译。
+
+有关如何使用该扩展的更多详细信息，请参阅[Intlayer VS Code 扩展文档](https://intlayer.org/doc/vs-code-extension)。
+
+---
 
 ### （可选）站点地图与 robots.txt（构建时生成）
 
@@ -696,7 +699,3 @@ console.log("SEO files generated successfully.");
 要进一步使用，您可以实现[可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)或使用[内容管理系统（CMS）](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)将内容外部化。
 
 ---
-
-</Step>
-
-</Steps>

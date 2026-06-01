@@ -412,6 +412,9 @@ bun x intlayer fill         # Điền các bản dịch còn thiếu
 ```
 
 > Để biết thêm chi tiết, vui lòng tham khảo [tài liệu CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/ci.md)
+> </Step>
+
+</Steps>
 
 ### (Tuỳ chọn) Sitemap và robots.txt (sinh lúc build)
 
@@ -516,7 +519,3 @@ Tiện ích này cung cấp:
 ### Đi xa hơn
 
 Để tìm hiểu sâu hơn, bạn có thể triển khai [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) hoặc bên thứ ba hóa nội dung của bạn bằng [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md).
-
-</Step>
-
-</Steps>

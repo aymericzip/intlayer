@@ -906,26 +906,7 @@ bun add @intlayer/swc --dev
 > Nota: Este pacote não é instalado por padrão porque os plugins SWC ainda são experimentais no Next.js. Pode mudar no futuro.
 
 > Nota: Se você definir a opção como `importMode: 'dynamic'` ou `importMode: 'fetch'` (na configuração do `dictionary`), ela dependerá do Suspense, portanto você terá que envolver suas chamadas `useIntlayer` em uma fronteira `Suspense`. Isso significa que você não poderá usar o `useIntlayer` diretamente no nível superior do seu componente Page / Layout.
-
-### Monitorar mudanças de dicionários no Turbopack
-
-Ao usar o Turbopack como servidor de desenvolvimento com o comando `next dev`, as mudanças nos dicionários não serão detectadas automaticamente por padrão.
-
-Esta limitação ocorre porque o Turbopack não consegue executar plugins do webpack em paralelo para monitorar mudanças nos seus arquivos de conteúdo. Para contornar isso, você precisará usar o comando `intlayer watch` para executar o servidor de desenvolvimento e o observador de build do Intlayer simultaneamente.
-
-```json5 fileName="package.json"
-{
-  // ... Suas configurações existentes do package.json
-  "scripts": {
-    // ... Suas configurações de scripts existentes
-    "dev": "intlayer watch --with 'next dev'",
-  },
-}
-```
-
-> Se estiver a usar next-intlayer@<=6.x.x, deve manter a flag `--turbopack` para que a aplicação Next.js 16 funcione corretamente com o Turbopack. Recomendamos usar next-intlayer@>=7.x.x para evitar esta limitação.
-
-</Step>
+> </Step>
 
 <Step number={1} title="Extrair o conteúdo dos seus componentes" isOptional={true}>
 
@@ -1039,6 +1020,27 @@ bun run build # Or bun run dev
 
  </Tab>
 </Tabs>
+</Step>
+
+</Steps>
+
+### Monitorar mudanças de dicionários no Turbopack
+
+Ao usar o Turbopack como servidor de desenvolvimento com o comando `next dev`, as mudanças nos dicionários não serão detectadas automaticamente por padrão.
+
+Esta limitação ocorre porque o Turbopack não consegue executar plugins do webpack em paralelo para monitorar mudanças nos seus arquivos de conteúdo. Para contornar isso, você precisará usar o comando `intlayer watch` para executar o servidor de desenvolvimento e o observador de build do Intlayer simultaneamente.
+
+```json5 fileName="package.json"
+{
+  // ... Suas configurações existentes do package.json
+  "scripts": {
+    // ... Suas configurações de scripts existentes
+    "dev": "intlayer watch --with 'next dev'",
+  },
+}
+```
+
+> Se estiver a usar next-intlayer@<=6.x.x, deve manter a flag `--turbopack` para que a aplicação Next.js 16 funcione corretamente com o Turbopack. Recomendamos usar next-intlayer@>=7.x.x para evitar esta limitação.
 
 ### Configurar TypeScript
 
@@ -1089,7 +1091,3 @@ Para mais detalhes sobre como usar a extensão, consulte a [documentação da Ex
 ### Ir Além
 
 Para ir além, você pode implementar o [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_visual_editor.md) ou externalizar seu conteúdo usando o [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_CMS.md).
-
-</Step>
-
-</Steps>

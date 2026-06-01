@@ -906,6 +906,9 @@ bun add @intlayer/swc --dev
 > Lưu ý: Gói này không được cài đặt mặc định vì các plugin SWC vẫn đang trong giai đoạn thử nghiệm trên Next.js. Điều này có thể thay đổi trong tương lai.
 
 > Lưu ý: Nếu bạn đặt tùy chọn là `importMode: 'dynamic'` hoặc `importMode: 'fetch'` (in the `dictionary` configuration), nó sẽ dựa vào Suspense, vì vậy bạn sẽ phải bao bọc các lệnh gọi `useIntlayer` của mình trong một vùng `Suspense`. Điều đó có nghĩa là bạn sẽ không thể sử dụng `useIntlayer` trực tiếp ở cấp trên cùng của thành phần Page / Layout của bạn.
+> </Step>
+
+</Steps>
 
 ### Cấu hình TypeScript
 
@@ -956,7 +959,3 @@ Tiện ích mở rộng này cung cấp:
 ### Tiến xa hơn
 
 Để tiến xa hơn, bạn có thể triển khai [trình soạn thảo trực quan](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md) hoặc tách nội dung của bạn ra bên ngoài bằng cách sử dụng [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md).
-
-</Step>
-
-</Steps>

@@ -626,6 +626,9 @@ bun add @intlayer/swc --dev
 > ملاحظة: هذه الحزمة غير مثبتة افتراضيًا لأن إضافات SWC لا تزال تجريبية في Next.js. قد يتغير ذلك في المستقبل.
 
 > ملاحظة: إذا قمت بتعيين الخيار إلى `importMode: 'dynamic'` أو `importMode: 'fetch'`، فسيعتمد ذلك على Suspense، لذا سيتوجب عليك تغليف استدعاءات `useIntlayer` ضمن حدّ `Suspense`. هذا يعني أنك لن تتمكن من استخدام `useIntlayer` مباشرةً على المستوى العلوي لمكوّن الصفحة / التخطيط الخاص بك.
+> </Step>
+
+</Steps>
 
 ### مراقبة تغيّرات القواميس على Turbopack
 
@@ -694,7 +697,3 @@ bun add @intlayer/swc --dev
 ### التوسع
 
 للتوسع، يمكنك تنفيذ [المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) أو إخراج محتواك باستخدام [نظام إدارة المحتوى (CMS)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md).
-
-</Step>
-
-</Steps>

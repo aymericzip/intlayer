@@ -826,17 +826,6 @@ export const Route = createFileRoute("/{-$locale}/$")({
 
 ---
 
-### تكوين Git
-
-يوصى بتجاهل الملفات الناتجة عن Intlayer. يتيح لك هذا تجنب الالتزام بها في مستودع Git الخاص بك.
-
-للقيام بذلك، يمكنك إضافة التعليمات التالية إلى ملف `.gitignore` الخاص بك:
-
-```plaintext fileName=".gitignore"
-# تجاهل الملفات الناتجة عن Intlayer
-.intlayer
-```
-
 </Step>
 
 <Step number={1} title="استخراج محتوى مكوناتك" isOptional={true}>
@@ -957,6 +946,17 @@ bun run build # Or bun run dev
 </Step>
 
 </Steps>
+
+### تكوين Git
+
+يوصى بتجاهل الملفات الناتجة عن Intlayer. يتيح لك هذا تجنب الالتزام بها في مستودع Git الخاص بك.
+
+للقيام بذلك، يمكنك إضافة التعليمات التالية إلى ملف `.gitignore` الخاص بك:
+
+```plaintext fileName=".gitignore"
+# تجاهل الملفات الناتجة عن Intlayer
+.intlayer
+```
 
 ## إضافة VS Code
 

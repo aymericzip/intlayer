@@ -540,6 +540,9 @@ export default App;
 - **언어**(`lang`) 속성이 현재 로케일을 정확히 반영하여 SEO 및 브라우저 동작에 중요합니다.
 - 로케일에 따라 **텍스트 방향**(`dir`)을 조정하여 다른 읽기 순서를 가진 언어의 가독성과 사용성을 향상시킵니다.
 - **접근성**을 개선하여 보조 기술이 이러한 속성에 의존해 최적의 기능을 수행할 수 있도록 합니다.
+  </Step>
+
+</Steps>
 
 ### TypeScript 구성
 
@@ -603,7 +606,3 @@ Intlayer와 함께 개발 경험을 향상시키려면 공식 **Intlayer VS Code
 ### 더 나아가기
 
 더 나아가려면 [비주얼 에디터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)를 구현하거나 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)를 사용하여 콘텐츠를 외부화할 수 있습니다.
-
-</Step>
-
-</Steps>

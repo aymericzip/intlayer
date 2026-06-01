@@ -857,6 +857,10 @@ bun run build # أو bun run dev
 
 ---
 
+</Step>
+
+</Steps>
+
 ### إعدادات Git
 
 يوصى بتجاهل الملفات التي تم إنشاؤها بواسطة Intlayer. يتيح لك ذلك تجنب إرسالها إلى مستودع Git الخاص بك.
@@ -869,10 +873,6 @@ bun run build # أو bun run dev
 ```
 
 ---
-
-</Step>
-
-</Steps>
 
 ## إضافة VS Code
 

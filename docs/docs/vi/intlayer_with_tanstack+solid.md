@@ -867,6 +867,10 @@ Intlayer sử dụng module augmentation để tận dụng các lợi ích củ
 
 ---
 
+</Step>
+
+</Steps>
+
 ### Cấu hình Git
 
 Khuyên bạn nên bỏ qua các tệp do Intlayer tạo ra. Điều này cho phép bạn tránh việc commit chúng vào kho lưu trữ Git của mình.
@@ -879,10 +883,6 @@ Khuyên bạn nên bỏ qua các tệp do Intlayer tạo ra. Điều này cho ph
 ```
 
 ---
-
-</Step>
-
-</Steps>
 
 ## Tiện ích mở rộng VS Code
 

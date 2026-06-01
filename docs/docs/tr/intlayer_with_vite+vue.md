@@ -951,54 +951,6 @@ const { myMarkdownContent } = useIntlayer("my-component");
 </script>
 ```
 
-### TypeScript Yapılandırın
-
-Intlayer, modül genişletmesi kullanarak TypeScript avantajlarından yararlanır.
-
-![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
-
-![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
-
-Otomatik oluşturulan türleri TypeScript yapılandırmanıza dahil edin.
-
-```json5 fileName="tsconfig.json"
-{
-  // ... Mevcut TypeScript yapılandırmalarınız
-  "include": [
-    // ... Mevcut TypeScript yapılandırmalarınız
-    ".intlayer/**/*.ts", // Otomatik oluşturulan türleri dahil et
-  ],
-}
-```
-
-### Git Yapılandırması
-
-Intlayer tarafından oluşturulan dosyaları Git deponuza kaydetmekten kaçınmak için bunları yok saymanız önerilir. Bu, bunları Git deponuza kaydetmekten kaçınmanıza olanak tanır.
-
-Bunu yapmak için `.gitignore` dosyanıza aşağıdaki talimatları ekleyin:
-
-```bash
-#  Intlayer tarafından oluşturulan dosyaları yok say
-.intlayer
-```
-
-### VS Code Uzantısı
-
-Intlayer ile geliştirme deneyiminizi iyileştirmek için resmi **Intlayer VS Code Uzantısı**'nı kurun.
-
-[VS Code Marketplace'ten yükleyin](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
-
-Bu uzantı şunları sağlar:
-
-- **Çeviri anahtarları için otomatik tamamlama**.
-- **Eksik çeviriler için gerçek zamanlı hata algılama**.
-- **Çevrilmiş içeriğin satır içi önizlemeleri**.
-- **Çevirileri kolayca oluşturmak ve güncellemek için hızlı eylemler**.
-
-Uzantıyı kullanma hakkında daha fazla ayrıntı için [Intlayer VS Code Uzantısı dokümantasyonuna](https://intlayer.org/doc/vs-code-extension) bakın.
-
----
-
 </Step>
 
 <Step number={12} title="Bileşenlerinizin içeriğini çıkarın" isOptional={true}>
@@ -1096,6 +1048,57 @@ bun run build # Or bun run dev
 
  </Tab>
 </Tabs>
+</Step>
+
+</Steps>
+
+### TypeScript Yapılandırın
+
+Intlayer, modül genişletmesi kullanarak TypeScript avantajlarından yararlanır.
+
+![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
+
+![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+
+Otomatik oluşturulan türleri TypeScript yapılandırmanıza dahil edin.
+
+```json5 fileName="tsconfig.json"
+{
+  // ... Mevcut TypeScript yapılandırmalarınız
+  "include": [
+    // ... Mevcut TypeScript yapılandırmalarınız
+    ".intlayer/**/*.ts", // Otomatik oluşturulan türleri dahil et
+  ],
+}
+```
+
+### Git Yapılandırması
+
+Intlayer tarafından oluşturulan dosyaları Git deponuza kaydetmekten kaçınmak için bunları yok saymanız önerilir. Bu, bunları Git deponuza kaydetmekten kaçınmanıza olanak tanır.
+
+Bunu yapmak için `.gitignore` dosyanıza aşağıdaki talimatları ekleyin:
+
+```bash
+#  Intlayer tarafından oluşturulan dosyaları yok say
+.intlayer
+```
+
+### VS Code Uzantısı
+
+Intlayer ile geliştirme deneyiminizi iyileştirmek için resmi **Intlayer VS Code Uzantısı**'nı kurun.
+
+[VS Code Marketplace'ten yükleyin](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+Bu uzantı şunları sağlar:
+
+- **Çeviri anahtarları için otomatik tamamlama**.
+- **Eksik çeviriler için gerçek zamanlı hata algılama**.
+- **Çevrilmiş içeriğin satır içi önizlemeleri**.
+- **Çevirileri kolayca oluşturmak ve güncellemek için hızlı eylemler**.
+
+Uzantıyı kullanma hakkında daha fazla ayrıntı için [Intlayer VS Code Uzantısı dokümantasyonuna](https://intlayer.org/doc/vs-code-extension) bakın.
+
+---
 
 ### (İsteğe bağlı) Sitemap ve robots.txt (build zamanı üretimi)
 
@@ -1176,7 +1179,3 @@ pnpm veya yarn kullanıyorsanız komutları uyarlayın. CI’dan da çağrılabi
 Daha fazla ilerlemek için [görsel düzenleyici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) veya içeriğinizi [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) kullanarak dışa aktarmayı uygulayabilirsiniz.
 
 ---
-
-</Step>
-
-</Steps>

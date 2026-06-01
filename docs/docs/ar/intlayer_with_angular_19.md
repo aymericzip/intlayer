@@ -372,6 +372,10 @@ export class AppComponent {
 }
 ```
 
+</Step>
+
+</Steps>
+
 ### تكوين TypeScript
 
 يستخدم Intlayer ميزة زيادة الوحدات (module augmentation) للاستفادة من مزايا TypeScript وجعل قاعدة الكود الخاصة بك أقوى.
@@ -425,7 +429,3 @@ export class AppComponent {
 للمضي قدمًا، يمكنك تنفيذ [المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) أو إخراج المحتوى الخاص بك باستخدام [نظام إدارة المحتوى (CMS)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md).
 
 ---
-
-</Step>
-
-</Steps>

@@ -892,12 +892,11 @@ bun run build # Or bun run dev
 
  </Tab>
 </Tabs>
+</Step>
+
+</Steps>
 
 ### 더 나아가기
 
 - **비주얼 에디터**: UI에서 직접 번역을 편집할 수 있도록 [Intlayer 비주얼 에디터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)를 통합하세요.
 - **CMS**: [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)를 사용하여 콘텐츠 관리를 외부화하세요.
-
-</Step>
-
-</Steps>

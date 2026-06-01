@@ -509,34 +509,6 @@ const changeLocale = (event: Event) => {
 </a>
 ```
 
-### Конфігурація Git
-
-Рекомендується ігнорувати файли, згенеровані Intlayer. Це дозволяє уникнути їх коміту до вашого Git-репозиторію.
-
-Для цього можна додати наступні інструкції до файлу `.gitignore`:
-
-```bash
-#  Ігнорувати файли, згенеровані Intlayer
-.intlayer
-```
-
-### Розширення VS Code
-
-Щоб покращити ваш досвід розробки з Intlayer, ви можете встановити офіційне **Intlayer VS Code Extension**.
-
-[Встановити з VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
-
-Це розширення надає:
-
-- **Автозаповнення** для ключів перекладу.
-- **Виявлення помилок у реальному часі** для відсутніх перекладів.
-- **Вбудовані попередні перегляди** перекладеного контенту.
-- **Швидкі дії** для швидкого створення й оновлення перекладів.
-
-Для детальнішої інформації про використання розширення зверніться до документації [розширення Intlayer для VS Code](https://intlayer.org/doc/vs-code-extension).
-
----
-
 </Step>
 
 <Step number={1} title="Витягніть вміст ваших компонентів" isOptional={true}>
@@ -634,6 +606,37 @@ bun run build # Or bun run dev
 
  </Tab>
 </Tabs>
+</Step>
+
+</Steps>
+
+### Конфігурація Git
+
+Рекомендується ігнорувати файли, згенеровані Intlayer. Це дозволяє уникнути їх коміту до вашого Git-репозиторію.
+
+Для цього можна додати наступні інструкції до файлу `.gitignore`:
+
+```bash
+#  Ігнорувати файли, згенеровані Intlayer
+.intlayer
+```
+
+### Розширення VS Code
+
+Щоб покращити ваш досвід розробки з Intlayer, ви можете встановити офіційне **Intlayer VS Code Extension**.
+
+[Встановити з VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+Це розширення надає:
+
+- **Автозаповнення** для ключів перекладу.
+- **Виявлення помилок у реальному часі** для відсутніх перекладів.
+- **Вбудовані попередні перегляди** перекладеного контенту.
+- **Швидкі дії** для швидкого створення й оновлення перекладів.
+
+Для детальнішої інформації про використання розширення зверніться до документації [розширення Intlayer для VS Code](https://intlayer.org/doc/vs-code-extension).
+
+---
 
 ### (Опційно) Sitemap і robots.txt (генерація під час збірки)
 
@@ -712,7 +715,3 @@ console.log("SEO files generated successfully.");
 ### Розширені можливості
 
 Щоб рухатися далі, ви можете реалізувати [візуальний редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md) або винести свій контент у зовнішню систему за допомогою [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md).
-
-</Step>
-
-</Steps>

@@ -926,6 +926,10 @@ bun run build # Or bun run dev
 
 ---
 
+</Step>
+
+</Steps>
+
 ### Konfiguracja Git
 
 Zaleca się ignorowanie plików generowanych przez Intlayer. Pozwala to uniknąć ich zatwierdzania do repozytorium Git.
@@ -938,10 +942,6 @@ Aby to zrobić, możesz dodać następujące instrukcje do pliku `.gitignore`:
 ```
 
 ---
-
-</Step>
-
-</Steps>
 
 ## Rozszerzenie VS Code
 

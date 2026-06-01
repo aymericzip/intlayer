@@ -411,6 +411,9 @@ const unsubscribe = useDictionaryDynamic(
 ```
 
 > Poznámka: `useDictionaryDynamic` vyžaduje, aby slovníky byly dostupné jako samostatné soubory ESM. Tento přístup se obvykle používá, pokud máte webový server obsluhující slovníky.
+> </Step>
+
+</Steps>
 
 ### Konfigurace TypeScriptu
 
@@ -445,7 +448,3 @@ Další podrobnosti o tom, jak rozšíření používat, naleznete v [dokumentac
 ### Jděte dále
 
 Chcete-li jít dále, můžete implementovat [vizuální editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/intlayer_visual_editor.md) nebo externalizovat svůj obsah pomocí [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/intlayer_CMS.md).
-
-</Step>
-
-</Steps>

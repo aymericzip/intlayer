@@ -920,54 +920,6 @@ const { myMarkdownContent } = useIntlayer("my-component");
 </script>
 ```
 
-### TypeScriptの設定
-
-Intlayerはモジュール拡張を利用して、TypeScriptの利点を活かし、コードベースをより強固にします。
-
-![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
-
-![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
-
-TypeScriptの設定に自動生成された型定義が含まれていることを確認してください。
-
-```json5 fileName="tsconfig.json"
-{
-  // ... 既存のTypeScript設定
-  "include": [
-    // ... 既存のTypeScript設定
-    ".intlayer/**/*.ts", // 自動生成された型定義を含める
-  ],
-}
-```
-
-### Gitの設定
-
-Intlayerによって生成されたファイルは無視することを推奨します。これにより、それらのファイルをGitリポジトリにコミットするのを避けることができます。
-
-これを行うには、以下の指示を`.gitignore`ファイルに追加してください。
-
-```bash
-#  Intlayerによって生成されたファイルを無視する
-.intlayer
-```
-
-### VS Code拡張機能
-
-Intlayerでの開発体験を向上させるために、公式の**Intlayer VS Code拡張機能**をインストールできます。
-
-[VS Codeマーケットプレイスからインストール](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
-
-この拡張機能は以下を提供します：
-
-- 翻訳キーの**オートコンプリート**。
-- 欠落している翻訳の**リアルタイムエラー検出**。
-- 翻訳されたコンテンツの**インラインプレビュー**。
-- 翻訳を簡単に作成・更新できる**クイックアクション**。
-
-拡張機能の使用方法の詳細については、[Intlayer VS Code Extension ドキュメント](https://intlayer.org/doc/vs-code-extension)を参照してください。
-
----
-
 </Step>
 
 <Step number={1} title="コンポーネントのコンテンツを抽出する" isOptional={true}>
@@ -1065,6 +1017,57 @@ bun run build # Or bun run dev
 
  </Tab>
 </Tabs>
+</Step>
+
+</Steps>
+
+### TypeScriptの設定
+
+Intlayerはモジュール拡張を利用して、TypeScriptの利点を活かし、コードベースをより強固にします。
+
+![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
+
+![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+
+TypeScriptの設定に自動生成された型定義が含まれていることを確認してください。
+
+```json5 fileName="tsconfig.json"
+{
+  // ... 既存のTypeScript設定
+  "include": [
+    // ... 既存のTypeScript設定
+    ".intlayer/**/*.ts", // 自動生成された型定義を含める
+  ],
+}
+```
+
+### Gitの設定
+
+Intlayerによって生成されたファイルは無視することを推奨します。これにより、それらのファイルをGitリポジトリにコミットするのを避けることができます。
+
+これを行うには、以下の指示を`.gitignore`ファイルに追加してください。
+
+```bash
+#  Intlayerによって生成されたファイルを無視する
+.intlayer
+```
+
+### VS Code拡張機能
+
+Intlayerでの開発体験を向上させるために、公式の**Intlayer VS Code拡張機能**をインストールできます。
+
+[VS Codeマーケットプレイスからインストール](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+この拡張機能は以下を提供します：
+
+- 翻訳キーの**オートコンプリート**。
+- 欠落している翻訳の**リアルタイムエラー検出**。
+- 翻訳されたコンテンツの**インラインプレビュー**。
+- 翻訳を簡単に作成・更新できる**クイックアクション**。
+
+拡張機能の使用方法の詳細については、[Intlayer VS Code Extension ドキュメント](https://intlayer.org/doc/vs-code-extension)を参照してください。
+
+---
 
 ### （任意）サイトマップと robots.txt（ビルド時生成）
 
@@ -1145,7 +1148,3 @@ pnpm や yarn を使う場合はコマンドを読み替えてください。CI 
 さらに進むには、[ビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)を実装するか、[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)を使用してコンテンツを外部化することができます。
 
 ---
-
-</Step>
-
-</Steps>

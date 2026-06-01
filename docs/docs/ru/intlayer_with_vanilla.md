@@ -436,6 +436,9 @@ const unsubscribe = useDictionaryDynamic(
 ```
 
 > Примечание: `useDictionaryDynamic` требует, чтобы словари были доступны в виде отдельных файлов ESM. Этот подход обычно используется, если у вас есть веб-сервер, раздающий словари.
+> </Step>
+
+</Steps>
 
 ### Настройка TypeScript
 
@@ -470,7 +473,3 @@ const unsubscribe = useDictionaryDynamic(
 ### Идите дальше
 
 Чтобы пойти дальше, вы можете внедрить [визуальный редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md) или вынести ваш контент во внешнюю среду с помощью [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_CMS.md).
-
-</Step>
-
-</Steps>

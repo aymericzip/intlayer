@@ -936,6 +936,10 @@ bun run build # Or bun run dev
 
 ---
 
+</Step>
+
+</Steps>
+
 ### Налаштування Git
 
 Рекомендується ігнорувати файли, згенеровані Intlayer. Це дозволить уникнути їх коміту в ваш Git-репозиторій.
@@ -948,10 +952,6 @@ bun run build # Or bun run dev
 ```
 
 ---
-
-</Step>
-
-</Steps>
 
 ## Розширення VS Code
 

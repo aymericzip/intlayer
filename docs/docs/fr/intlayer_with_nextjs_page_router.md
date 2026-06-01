@@ -886,6 +886,9 @@ bun add @intlayer/swc --dev
 > Remarque : Cette optimisation est uniquement disponible pour Next.js 13 et versions supérieures.
 
 > Remarque : Ce package n'est pas installé par défaut car les plugins SWC sont encore expérimentaux sur Next.js. Cela pourrait changer à l'avenir.
+> </Step>
+
+</Steps>
 
 ### Configurer TypeScript
 
@@ -932,10 +935,6 @@ Cette extension offre :
 - **Actions rapides** pour créer et mettre à jour facilement les traductions.
 
 Pour plus de détails sur l'utilisation de l'extension, consultez la [documentation de l'extension Intlayer pour VS Code](https://intlayer.org/doc/vs-code-extension).
-
-</Step>
-
-</Steps>
 
 ## Ressources supplémentaires
 

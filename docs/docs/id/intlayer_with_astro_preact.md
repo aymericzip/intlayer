@@ -474,52 +474,6 @@ export const GET: APIRoute = ({ site }) => {
 };
 ```
 
-### Konfigurasi TypeScript
-
-Intlayer menggunakan augmentasi modul (module augmentation) untuk memanfaatkan TypeScript, membuat basis kode Anda lebih kuat. Pastikan konfigurasi TypeScript Anda menyertakan tipe yang dibuat secara otomatis dan dikonfigurasi untuk Preact:
-
-```json5 fileName="tsconfig.json"
-{
-  compilerOptions: {
-    // ...
-    jsx: "react-jsx",
-    jsxImportSource: "preact", // Direkomendasikan untuk Preact 10+
-  },
-  "include": [
-    // ... konfigurasi TypeScript Anda yang sudah ada
-    ".intlayer/**/*.ts", // Sertakan tipe yang dibuat secara otomatis
-  ],
-}
-```
-
-### Konfigurasi Git
-
-Disarankan untuk mengabaikan file yang dihasilkan oleh Intlayer. Ini mencegah file tersebut di-commit ke repositori Git Anda.
-
-Untuk melakukannya, tambahkan instruksi berikut ke file `.gitignore` Anda:
-
-```bash
-# Abaikan file yang dihasilkan oleh Intlayer
-.intlayer
-```
-
-### Ekstensi VS Code
-
-Untuk meningkatkan pengalaman pengembangan Anda dengan Intlayer, Anda dapat menginstal **ekstensi resmi Intlayer untuk VS Code**.
-
-[Instalasi dari VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
-
-Ekstensi ini menyediakan:
-
-- **Autocompletion** untuk kunci terjemahan.
-- **Deteksi kesalahan waktu nyata** untuk terjemahan yang hilang.
-- **Pratinjau inline** untuk konten yang diterjemahkan.
-- **Tindakan cepat** untuk membuat dan memperbarui terjemahan dengan mudah.
-
-Untuk informasi selengkapnya tentang cara menggunakan ekstensi, lihat [dokumentasi ekstensi VS Code](https://intlayer.org/doc/vs-code-extension).
-
----
-
 </Step>
 
 <Step number={1} title="Ekstrak konten komponen Anda" isOptional={true}>
@@ -620,10 +574,56 @@ bun run build # Or bun run dev
 
 ---
 
-### Perdalam Pengetahuan Anda
-
-Jika Anda ingin mempelajari lebih lanjut, Anda juga dapat menerapkan [Editor Visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md) atau menggunakan [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md) untuk mengeksternalisasi konten Anda.
-
 </Step>
 
 </Steps>
+
+### Konfigurasi TypeScript
+
+Intlayer menggunakan augmentasi modul (module augmentation) untuk memanfaatkan TypeScript, membuat basis kode Anda lebih kuat. Pastikan konfigurasi TypeScript Anda menyertakan tipe yang dibuat secara otomatis dan dikonfigurasi untuk Preact:
+
+```json5 fileName="tsconfig.json"
+{
+  compilerOptions: {
+    // ...
+    jsx: "react-jsx",
+    jsxImportSource: "preact", // Direkomendasikan untuk Preact 10+
+  },
+  "include": [
+    // ... konfigurasi TypeScript Anda yang sudah ada
+    ".intlayer/**/*.ts", // Sertakan tipe yang dibuat secara otomatis
+  ],
+}
+```
+
+### Konfigurasi Git
+
+Disarankan untuk mengabaikan file yang dihasilkan oleh Intlayer. Ini mencegah file tersebut di-commit ke repositori Git Anda.
+
+Untuk melakukannya, tambahkan instruksi berikut ke file `.gitignore` Anda:
+
+```bash
+# Abaikan file yang dihasilkan oleh Intlayer
+.intlayer
+```
+
+### Ekstensi VS Code
+
+Untuk meningkatkan pengalaman pengembangan Anda dengan Intlayer, Anda dapat menginstal **ekstensi resmi Intlayer untuk VS Code**.
+
+[Instalasi dari VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+Ekstensi ini menyediakan:
+
+- **Autocompletion** untuk kunci terjemahan.
+- **Deteksi kesalahan waktu nyata** untuk terjemahan yang hilang.
+- **Pratinjau inline** untuk konten yang diterjemahkan.
+- **Tindakan cepat** untuk membuat dan memperbarui terjemahan dengan mudah.
+
+Untuk informasi selengkapnya tentang cara menggunakan ekstensi, lihat [dokumentasi ekstensi VS Code](https://intlayer.org/doc/vs-code-extension).
+
+---
+
+### Perdalam Pengetahuan Anda
+
+Jika Anda ingin mempelajari lebih lanjut, Anda juga dapat menerapkan [Editor Visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md) atau menggunakan [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md) untuk mengeksternalisasi konten Anda.

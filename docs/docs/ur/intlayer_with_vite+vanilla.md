@@ -580,6 +580,9 @@ bun run build # یا bun run dev
 
  </Tab>
 </Tabs>
+</Step>
+
+</Steps>
 
 ### (Optional) Sitemap and robots.txt (build-time)
 
@@ -699,7 +702,3 @@ Intlayer کے ساتھ اپنے ترقیاتی تجربے کو بہتر بنان
 ### مزید آگے بڑھیں
 
 مزید گہرائی میں جانے کے لیے، آپ [بصری ایڈیٹر](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_visual_editor.md) لاگو کر سکتے ہیں یا [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_CMS.md) کا استعمال کرتے ہوئے اپنے مواد کو ایکسٹرنل بنا سکتے ہیں۔
-
-</Step>
-
-</Steps>

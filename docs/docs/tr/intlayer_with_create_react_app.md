@@ -546,6 +546,9 @@ Bu değişiklikleri uygulayarak, uygulamanız:
 - **Dil** (`lang`) özniteliğinin SEO ve tarayıcı davranışı için doğru geçerli yerel ayarı yansıtmasını sağlar.
 - **Metin yönü** (`dir`) özniteliğini yerel ayara göre ayarlar, Arapça veya İbranice gibi farklı okuma sırasına sahip diller için okunabilirliği geliştirir.
 - Daha **erişilebilir** bir deneyim sağlar, çünkü yardımcı teknolojiler bu özniteliklere optimum şekilde çalışmak için güvenir.
+  </Step>
+
+</Steps>
 
 ### TypeScript'i Yapılandırın
 
@@ -596,7 +599,3 @@ Uzantının nasıl kullanılacağı hakkında daha fazla detay için [Intlayer V
 ### Daha Fazla Gidin
 
 Daha fazla gitmek için [görsel düzenleyiciyi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) uygulayabilir veya içeriğinizi [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) kullanarak harici hale getirebilirsiniz.
-
-</Step>
-
-</Steps>

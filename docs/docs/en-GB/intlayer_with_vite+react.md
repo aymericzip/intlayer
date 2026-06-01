@@ -825,6 +825,9 @@ Link.displayName = "Link";
   The component returns an `<a>` element with the localised URL, ensuring that navigation is consistent with the locale.
 
 By integrating this `Link` component across your application, you maintain a coherent and language-aware user experience while also benefiting from improved SEO and usability.
+</Step>
+
+</Steps>
 
 ### (Optional) Sitemap and robots.txt (build-time)
 
@@ -951,7 +954,3 @@ For more details on how to use the extension, refer to the [Intlayer VS Code Ext
 ### Go Further
 
 To go further, you can implement the [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_visual_editor.md) or externalise your content using the [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_CMS.md).
-
-</Step>
-
-</Steps>

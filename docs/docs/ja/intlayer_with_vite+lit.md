@@ -559,6 +559,10 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
+</Step>
+
+</Steps>
+
 ### （任意）サイトマップと robots.txt（ビルド時生成）
 
 Intlayer は `generateSitemap` と `getMultilingualUrls` により、クローラ向けに整形した多言語の `sitemap.xml` と `robots.txt` を `public/` に自動で書き出せます。通常は Vite より**前**に小さな Node スクリプトを走らせます（例: npm の `predev` / `prebuild`）。
@@ -681,7 +685,3 @@ Intlayerでの開発体験を向上させるために、公式の **Intlayer VS 
 ### さらに詳しく
 
 さらに詳しく知りたい場合は、[ビジュアルエディタ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)を実装したり、[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)を使用してコンテンツを外部化したりすることができます。
-
-</Step>
-
-</Steps>

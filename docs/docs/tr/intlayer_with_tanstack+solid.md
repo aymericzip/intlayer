@@ -868,6 +868,10 @@ TypeScript yapılandırmanızın otomatik olarak oluşturulan türleri içerdiğ
 
 ---
 
+</Step>
+
+</Steps>
+
 ### Git Yapılandırması
 
 Intlayer tarafından oluşturulan dosyaların yoksayılması önerilir. Bu, bunları Git deponuza göndermenizi engeller.
@@ -880,10 +884,6 @@ Bunu yapmak için `.gitignore` dosyanıza aşağıdaki talimatları ekleyebilirs
 ```
 
 ---
-
-</Step>
-
-</Steps>
 
 ## VS Code Uzantısı
 

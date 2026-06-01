@@ -492,6 +492,9 @@ export const ServerComponentExample: FC = () => {
 > ```
 >
 > `useIntlayer` 훅에 대해 자세히 알아보려면 [문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/next-intlayer/useIntlayer.md)를 참조하세요.
+> </Step>
+
+</Steps>
 
 ### (선택) 7단계: 로케일 감지를 위한 프록시 구성
 
@@ -698,7 +701,3 @@ Intlayer로 개발 환경을 개선하려면 공식 **Intlayer VS Code Extension
 ### 더 나아가기
 
 더 나아가, [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)를 구현하거나 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)를 사용해 콘텐츠를 외부화할 수 있습니다.
-
-</Step>
-
-</Steps>

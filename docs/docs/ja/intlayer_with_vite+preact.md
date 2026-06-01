@@ -214,6 +214,9 @@ bun run build # Or bun run dev
 
  </Tab>
 </Tabs>
+</Step>
+
+</Steps>
 
 ### （任意）サイトマップと robots.txt（ビルド時生成）
 
@@ -294,7 +297,3 @@ pnpm や yarn を使う場合はコマンドを読み替えてください。CI 
 さらに進むには、[ビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)を実装するか、[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md) を使用してコンテンツを外部化できます。
 
 ---
-
-</Step>
-
-</Steps>

@@ -820,17 +820,6 @@ Um den Intlayer-Editor-Selektor visualisieren zu können, müssen Sie die Kompon
 </div>
 ```
 
-### Git-Konfiguration
-
-Es wird empfohlen, die von Intlayer generierten Dateien zu ignorieren.
-
-```plaintext fileName=".gitignore"
-# Ignoriere die von Intlayer generierten Dateien
-.intlayer
-```
-
----
-
 </Step>
 
 <Step number={12} title="Inhalt Ihrer Komponenten extrahieren" isOptional={true}>
@@ -928,12 +917,22 @@ bun run build # Or bun run dev
 
  </Tab>
 </Tabs>
+</Step>
+
+</Steps>
+
+### Git-Konfiguration
+
+Es wird empfohlen, die von Intlayer generierten Dateien zu ignorieren.
+
+```plaintext fileName=".gitignore"
+# Ignoriere die von Intlayer generierten Dateien
+.intlayer
+```
+
+---
 
 ### Weiterführende Informationen
 
 - **Visueller Editor**: Integrieren Sie den [Intlayer Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_visual_editor.md), um Übersetzungen direkt über die Benutzeroberfläche zu bearbeiten.
 - **CMS**: Externalisieren Sie Ihr Content-Management mit dem [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_CMS.md).
-
-</Step>
-
-</Steps>

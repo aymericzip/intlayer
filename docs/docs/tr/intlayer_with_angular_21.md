@@ -400,6 +400,10 @@ export class AppComponent {
 }
 ```
 
+</Step>
+
+</Steps>
+
 ### TypeScript'i Yapılandırın
 
 Intlayer, TypeScript'in faydalarından yararlanmak ve kod tabanınızı daha güçlü kılmak için modül büyütme (Module Augmentation) kullanır.
@@ -453,7 +457,3 @@ Uzantının nasıl kullanılacağına dair daha fazla ayrıntı için [Intlayer 
 Daha ileri gitmek için [görsel düzenleyiciyi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md) uygulayabilir veya [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md) kullanarak içeriğinizi dışsallaştırabilirsiniz.
 
 ---
-
-</Step>
-
-</Steps>

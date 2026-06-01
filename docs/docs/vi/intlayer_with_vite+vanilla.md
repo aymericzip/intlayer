@@ -611,6 +611,9 @@ bun run build # Hoặc bun run dev
 
  </Tab>
 </Tabs>
+</Step>
+
+</Steps>
 
 ### (Tuỳ chọn) Sitemap và robots.txt (sinh lúc build)
 
@@ -730,7 +733,3 @@ Extension này cung cấp:
 ### Đi xa hơn
 
 Để tìm hiểu sâu hơn, bạn có thể triển khai [trình soạn thảo trực quan](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md) hoặc bên ngoài hóa nội dung của bạn bằng [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md).
-
-</Step>
-
-</Steps>

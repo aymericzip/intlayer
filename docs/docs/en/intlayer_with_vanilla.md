@@ -436,6 +436,9 @@ const unsubscribe = useDictionaryDynamic(
 ```
 
 > Note: `useDictionaryDynamic` requires the dictionaries to be available as separate ESM files. This approach is typically used if you have a web server serving the dictionaries.
+> </Step>
+
+</Steps>
 
 ### Configure TypeScript
 
@@ -470,7 +473,3 @@ For more details on how to use the extension, refer to the [Intlayer VS Code Ext
 ### Go Further
 
 To go further, you can implement the [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) or externalize your content using the [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md).
-
-</Step>
-
-</Steps>

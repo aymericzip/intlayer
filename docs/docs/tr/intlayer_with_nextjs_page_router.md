@@ -911,6 +911,9 @@ bun add @intlayer/swc --dev
 > Not: Bu optimizasyon sadece Next.js 13 ve üzeri için kullanılabilir.
 
 > Not: Bu paket varsayılan olarak kurulmaz çünkü SWC eklentileri Next.js'te hala deneyseldir. Gelecekte değişebilir.
+> </Step>
+
+</Steps>
 
 ### TypeScript Yapılandırma
 
@@ -957,10 +960,6 @@ Bu uzantı şunları sağlar:
 - **Çevirileri kolayca oluşturmak ve güncellemek için hızlı eylemler**.
 
 Uzantının nasıl kullanılacağı hakkında daha fazla detay için, [Intlayer VS Code Uzantısı dokümantasyonu](https://intlayer.org/doc/vs-code-extension)na bakın.
-
-</Step>
-
-</Steps>
 
 ## Ek Kaynaklar
 

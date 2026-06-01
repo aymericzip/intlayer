@@ -517,47 +517,6 @@ const MyComponent = () => {
 };
 ```
 
-### TypeScriptを設定する
-
-TypeScript設定に自動生成された型が含まれていることを確認してください。
-
-```json5 fileName="tsconfig.json"
-{
-  "compilerOptions": {
-    // ...
-  },
-  "include": ["src", ".intlayer/**/*.ts"],
-}
-```
-
-### Git設定
-
-Intlayerによって生成されたファイルは、Gitリポジトリにコミットしないように無視することを推奨します。
-
-これを行うには、`.gitignore`ファイルに以下の指示を追加してください。
-
-```bash
-#  Intlayerによって生成されたファイルを無視する
-.intlayer
-```
-
-### VS Code拡張機能
-
-Intlayerでの開発体験を向上させるために、公式の**Intlayer VS Code拡張機能**をインストールできます。
-
-[VS Codeマーケットプレイスからインストール](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
-
-この拡張機能は以下を提供します：
-
-- 翻訳キーの**オートコンプリート**。
-- 欠落している翻訳の**リアルタイムエラー検出**。
-- **翻訳されたコンテンツのインラインプレビュー**。
-- **翻訳を簡単に作成・更新するためのクイックアクション**。
-
-拡張機能の使い方の詳細については、[Intlayer VS Code 拡張機能のドキュメント](https://intlayer.org/doc/vs-code-extension)を参照してください。
-
----
-
 </Step>
 
 <Step number={1} title="コンポーネントのコンテンツを抽出する" isOptional={true}>
@@ -655,6 +614,50 @@ bun run build # Or bun run dev
 
  </Tab>
 </Tabs>
+</Step>
+
+</Steps>
+
+### TypeScriptを設定する
+
+TypeScript設定に自動生成された型が含まれていることを確認してください。
+
+```json5 fileName="tsconfig.json"
+{
+  "compilerOptions": {
+    // ...
+  },
+  "include": ["src", ".intlayer/**/*.ts"],
+}
+```
+
+### Git設定
+
+Intlayerによって生成されたファイルは、Gitリポジトリにコミットしないように無視することを推奨します。
+
+これを行うには、`.gitignore`ファイルに以下の指示を追加してください。
+
+```bash
+#  Intlayerによって生成されたファイルを無視する
+.intlayer
+```
+
+### VS Code拡張機能
+
+Intlayerでの開発体験を向上させるために、公式の**Intlayer VS Code拡張機能**をインストールできます。
+
+[VS Codeマーケットプレイスからインストール](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+この拡張機能は以下を提供します：
+
+- 翻訳キーの**オートコンプリート**。
+- 欠落している翻訳の**リアルタイムエラー検出**。
+- **翻訳されたコンテンツのインラインプレビュー**。
+- **翻訳を簡単に作成・更新するためのクイックアクション**。
+
+拡張機能の使い方の詳細については、[Intlayer VS Code 拡張機能のドキュメント](https://intlayer.org/doc/vs-code-extension)を参照してください。
+
+---
 
 ### （任意）サイトマップと robots.txt（ビルド時生成）
 
@@ -735,7 +738,3 @@ pnpm や yarn を使う場合はコマンドを読み替えてください。CI 
 さらに進みたい場合は、[ビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)を実装するか、[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)を使用してコンテンツを外部化することができます。
 
 ---
-
-</Step>
-
-</Steps>

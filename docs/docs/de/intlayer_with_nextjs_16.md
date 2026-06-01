@@ -968,72 +968,7 @@ bun add @intlayer/swc --dev
 > Hinweis: Dieses Paket ist nicht standardmäßig installiert, da SWC-Plugins in Next.js noch experimentell sind. Dies kann sich in Zukunft ändern.
 >
 > Hinweis: Wenn Sie die Option `importMode: 'dynamic'` oder `importMode: 'fetch'` (in der Dictionary-Konfiguration) setzen, basiert dies auf Suspense. Daher müssen Sie Ihre `useIntlayer`-Aufrufe in eine `Suspense`-Begrenzung umschließen. Das bedeutet, dass Sie `useIntlayer` nicht direkt auf der obersten Ebene Ihrer Page-/Layout-Komponente verwenden können.
-
-### Überwachen von Wörterbuchänderungen mit Turbopack
-
-Wenn Sie Turbopack als Entwicklungsserver mit dem Befehl `next dev` verwenden, werden Wörterbuchänderungen standardmäßig nicht automatisch erkannt.
-
-Diese Einschränkung besteht, weil Turbopack keine Webpack-Plugins parallel ausführen kann, um Änderungen in Ihren Inhaltsdateien zu überwachen. Um dies zu umgehen, müssen Sie den Befehl `intlayer watch` verwenden, um sowohl den Entwicklungsserver als auch den Intlayer-Build-Watcher gleichzeitig auszuführen.
-
-```json5 fileName="package.json"
-{
-  // ... Ihre bestehenden package.json-Konfigurationen
-  "scripts": {
-    // ... Ihre bestehenden Skript-Konfigurationen
-    "dev": "intlayer watch --with 'next dev'",
-  },
-}
-```
-
-> Wenn Sie next-intlayer@<=6.x.x verwenden, müssen Sie das Flag `--turbopack` beibehalten, damit die Next.js 16-Anwendung korrekt mit Turbopack funktioniert. Wir empfehlen die Verwendung von next-intlayer@>=7.x.x, um diese Einschränkung zu vermeiden.
-
-### TypeScript konfigurieren
-
-Intlayer verwendet Module Augmentation, um die Vorteile von TypeScript zu nutzen und Ihren Code robuster zu machen.
-
-![Autovervollständigung](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
-
-![Übersetzungsfehler](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
-
-Stellen Sie sicher, dass Ihre TypeScript-Konfiguration die automatisch generierten Typen einschließt.
-
-```json5 fileName="tsconfig.json"
-{
-  // ... Ihre bestehenden TypeScript-Konfigurationen
-  "include": [
-    // ... Ihre bestehenden TypeScript-Konfigurationen
-    ".intlayer/**/*.ts", // Enthält die automatisch generierten Typen
-  ],
-}
-```
-
-### Git-Konfiguration
-
-Es wird empfohlen, die von Intlayer generierten Dateien zu ignorieren. Dadurch vermeiden Sie, dass diese Dateien in Ihr Git-Repository übernommen werden.
-
-Fügen Sie dazu die folgenden Anweisungen in Ihre `.gitignore`-Datei ein:
-
-```plaintext fileName=".gitignore"
-# Ignoriere die von Intlayer generierten Dateien
-.intlayer
-```
-
-### VS Code Erweiterung
-
-Um Ihre Entwicklungserfahrung mit Intlayer zu verbessern, können Sie die offizielle **Intlayer VS Code Erweiterung** installieren.
-
-[Installation aus dem VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
-
-Diese Erweiterung bietet:
-
-- **Autovervollständigung** für Übersetzungsschlüssel.
-- **Echtzeit-Fehlererkennung** für fehlende Übersetzungen.
-- **Inline-Vorschauen** der übersetzten Inhalte.
-- **Schnellaktionen**, um Übersetzungen einfach zu erstellen und zu aktualisieren.
-
-Für weitere Details zur Nutzung der Erweiterung siehe die [Intlayer VS Code Extension Dokumentation](https://intlayer.org/doc/vs-code-extension).
-
-</Step>
+> </Step>
 
 <Step number={14} title="Inhalt Ihrer Komponenten extrahieren" isOptional={true}>
 
@@ -1149,11 +1084,74 @@ bun run build # Or bun run dev
 </Tabs>
 
 zur Einrichtung von Intlayer in einer Next.js-Anwendung
+</Step>
+
+</Steps>
+
+### Überwachen von Wörterbuchänderungen mit Turbopack
+
+Wenn Sie Turbopack als Entwicklungsserver mit dem Befehl `next dev` verwenden, werden Wörterbuchänderungen standardmäßig nicht automatisch erkannt.
+
+Diese Einschränkung besteht, weil Turbopack keine Webpack-Plugins parallel ausführen kann, um Änderungen in Ihren Inhaltsdateien zu überwachen. Um dies zu umgehen, müssen Sie den Befehl `intlayer watch` verwenden, um sowohl den Entwicklungsserver als auch den Intlayer-Build-Watcher gleichzeitig auszuführen.
+
+```json5 fileName="package.json"
+{
+  // ... Ihre bestehenden package.json-Konfigurationen
+  "scripts": {
+    // ... Ihre bestehenden Skript-Konfigurationen
+    "dev": "intlayer watch --with 'next dev'",
+  },
+}
+```
+
+> Wenn Sie next-intlayer@<=6.x.x verwenden, müssen Sie das Flag `--turbopack` beibehalten, damit die Next.js 16-Anwendung korrekt mit Turbopack funktioniert. Wir empfehlen die Verwendung von next-intlayer@>=7.x.x, um diese Einschränkung zu vermeiden.
+
+### TypeScript konfigurieren
+
+Intlayer verwendet Module Augmentation, um die Vorteile von TypeScript zu nutzen und Ihren Code robuster zu machen.
+
+![Autovervollständigung](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
+
+![Übersetzungsfehler](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+
+Stellen Sie sicher, dass Ihre TypeScript-Konfiguration die automatisch generierten Typen einschließt.
+
+```json5 fileName="tsconfig.json"
+{
+  // ... Ihre bestehenden TypeScript-Konfigurationen
+  "include": [
+    // ... Ihre bestehenden TypeScript-Konfigurationen
+    ".intlayer/**/*.ts", // Enthält die automatisch generierten Typen
+  ],
+}
+```
+
+### Git-Konfiguration
+
+Es wird empfohlen, die von Intlayer generierten Dateien zu ignorieren. Dadurch vermeiden Sie, dass diese Dateien in Ihr Git-Repository übernommen werden.
+
+Fügen Sie dazu die folgenden Anweisungen in Ihre `.gitignore`-Datei ein:
+
+```plaintext fileName=".gitignore"
+# Ignoriere die von Intlayer generierten Dateien
+.intlayer
+```
+
+### VS Code Erweiterung
+
+Um Ihre Entwicklungserfahrung mit Intlayer zu verbessern, können Sie die offizielle **Intlayer VS Code Erweiterung** installieren.
+
+[Installation aus dem VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+Diese Erweiterung bietet:
+
+- **Autovervollständigung** für Übersetzungsschlüssel.
+- **Echtzeit-Fehlererkennung** für fehlende Übersetzungen.
+- **Inline-Vorschauen** der übersetzten Inhalte.
+- **Schnellaktionen**, um Übersetzungen einfach zu erstellen und zu aktualisieren.
+
+Für weitere Details zur Nutzung der Erweiterung siehe die [Intlayer VS Code Extension Dokumentation](https://intlayer.org/doc/vs-code-extension).
 
 ### Weiterführende Schritte
 
 Um weiterzugehen, können Sie den [visuellen Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_visual_editor.md) implementieren oder Ihre Inhalte mit dem [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_CMS.md) auslagern.
-
-</Step>
-
-</Steps>

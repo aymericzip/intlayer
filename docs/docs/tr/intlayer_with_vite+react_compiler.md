@@ -418,6 +418,9 @@ bun x intlayer fill         # Eksik çevirileri doldurun
 ```
 
 > Daha fazla ayrıntı için [CLI belgelerine](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/ci.md) bakın.
+> </Step>
+
+</Steps>
 
 ### (İsteğe bağlı) Sitemap ve robots.txt (build zamanı üretimi)
 
@@ -522,7 +525,3 @@ Eklentinin nasıl kullanılacağına ilişkin daha fazla ayrıntı için [Intlay
 ### Daha Fazlası
 
 Daha ileri gitmek için [görsel düzenleyiciyi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) uygulayabilir veya [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) kullanarak içeriğinizi dışsallaştırabilirsiniz.
-
-</Step>
-
-</Steps>

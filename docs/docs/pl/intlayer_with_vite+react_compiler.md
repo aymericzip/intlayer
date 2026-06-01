@@ -412,6 +412,9 @@ bun x intlayer fill         # Uzupełnij brakujące tłumaczenia
 ```
 
 > Więcej szczegółów znajdziesz w [dokumentacji CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/ci.md)
+> </Step>
+
+</Steps>
 
 ### (Opcjonalnie) Sitemap i robots.txt (generacja przy buildzie)
 
@@ -516,7 +519,3 @@ Więcej szczegółów na temat korzystania z rozszerzenia znajdziesz w [dokument
 ### Idź dalej
 
 Aby pójść dalej, możesz zaimplementować [edytor wizualny](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) lub wyeksportować treść za pomocą [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md).
-
-</Step>
-
-</Steps>

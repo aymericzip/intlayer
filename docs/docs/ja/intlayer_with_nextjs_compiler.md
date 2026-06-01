@@ -196,29 +196,7 @@ export default withIntlayer(nextConfig);
 ```
 
 > `withIntlayer()` Next.jsプラグインは、IntlayerとNext.jsを統合するために使用されます。これにより辞書ファイルがビルドされ、devモードで監視されます。[Webpack](https://webpack.js.org/)または[Turbopack](https://nextjs.org/docs/app/api-reference/turbopack)環境内でIntlayer環境変数を定義します。さらに、パフォーマンスを最適化するためのエイリアスを提供し、Server Componentsと完全に連携します。
-
-### Babel の構成
-
-Intlayerコンパイラは、コンテンツを抽出し最適化するためにBabelを必要とします。 `babel.config.js`（または `babel.config.json`）を更新してIntlayerプラグインを含めます：
-
-```typescript fileName="babel.config.js"
-const {
-  intlayerExtractBabelPlugin,
-  intlayerOptimizeBabelPlugin,
-  getExtractPluginOptions,
-  getOptimizePluginOptions,
-} = require("@intlayer/babel");
-
-module.exports = {
-  presets: ["next/babel"],
-  plugins: [
-    [intlayerExtractBabelPlugin, getExtractPluginOptions()],
-    [intlayerOptimizeBabelPlugin, getOptimizePluginOptions()],
-  ],
-};
-```
-
-</Step>
+> </Step>
 
 <Step number={4} title="ページでのロケール検出">
 
@@ -499,54 +477,7 @@ bun add @intlayer/swc --dev
 > 注: Next.js の SWC プラグインはまだ試験段階であるため、このパッケージはデフォルトではインストールされていません。これは将来的に変更される可能性があります。
 
 > 注: （辞書設定で） `importMode: 'dynamic'` または `importMode: 'fetch'` を設定した場合、Suspense に依存するため、 `useIntlayer` コールを `Suspense` 境界で囲む必要があります。そのため、ページ / レイアウトコンポーネントのトップレベルで直接 `useIntlayer` を使用することはできなくなります。
-
-### TypeScript 設定
-
-Intlayerは、TypeScriptの利点を活用し、コードベースをより堅牢にするためにモジュール拡張（module augmentation）を使用しています。
-
-![自動補完](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
-
-![翻訳エラー](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
-
-TypeScriptの設定に自動生成された型が含まれていることを確認してください。
-
-```json5 fileName="tsconfig.json"
-{
-  // ... 既存の TypeScript 設定
-  "include": [
-    // ... 既存の TypeScript 設定
-    ".intlayer/**/*.ts", // 自動生成された型を含める
-  ],
-}
-```
-
-### Git 設定
-
-Intlayerによって生成されたファイルを無視することを推奨します。これにより、Gitリポジトリにコミットされるのを防ぎます。
-
-これを行うには、 `.gitignore` ファイルに以下の指示を追加します：
-
-```plaintext fileName=".gitignore"
-# Intlayerによって生成されたファイルを無視
-.intlayer
-```
-
-### VS Code 拡張機能
-
-Intlayerでの開発体験を向上させるために、**公式の Intlayer VS Code 拡張機能** をインストールできます。
-
-[VS Code Marketplace からインストール](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
-
-この拡張機能は以下を提供します：
-
-- 翻訳キーの **自動補完**。
-- 不足している翻訳の **リアルタイムエラー検出**。
-- 翻訳されたコンテンツの **インラインプレビュー**。
-- 翻訳を簡単に作成・更新できる **クイックアクション**。
-
-拡張機能の使用方法の詳細については、 [Intlayer VS Code 拡張機能のドキュメント](https://intlayer.org/doc/vs-code-extension) を参照してください。
-
-</Step>
+> </Step>
 
 <Step number={1} title="コンポーネントのコンテンツを抽出する" isOptional={true}>
 
@@ -660,11 +591,77 @@ bun run build # Or bun run dev
 
  </Tab>
 </Tabs>
+</Step>
+
+</Steps>
+
+### Babel の構成
+
+Intlayerコンパイラは、コンテンツを抽出し最適化するためにBabelを必要とします。 `babel.config.js`（または `babel.config.json`）を更新してIntlayerプラグインを含めます：
+
+```typescript fileName="babel.config.js"
+const {
+  intlayerExtractBabelPlugin,
+  intlayerOptimizeBabelPlugin,
+  getExtractPluginOptions,
+  getOptimizePluginOptions,
+} = require("@intlayer/babel");
+
+module.exports = {
+  presets: ["next/babel"],
+  plugins: [
+    [intlayerExtractBabelPlugin, getExtractPluginOptions()],
+    [intlayerOptimizeBabelPlugin, getOptimizePluginOptions()],
+  ],
+};
+```
+
+### TypeScript 設定
+
+Intlayerは、TypeScriptの利点を活用し、コードベースをより堅牢にするためにモジュール拡張（module augmentation）を使用しています。
+
+![自動補完](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
+
+![翻訳エラー](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+
+TypeScriptの設定に自動生成された型が含まれていることを確認してください。
+
+```json5 fileName="tsconfig.json"
+{
+  // ... 既存の TypeScript 設定
+  "include": [
+    // ... 既存の TypeScript 設定
+    ".intlayer/**/*.ts", // 自動生成された型を含める
+  ],
+}
+```
+
+### Git 設定
+
+Intlayerによって生成されたファイルを無視することを推奨します。これにより、Gitリポジトリにコミットされるのを防ぎます。
+
+これを行うには、 `.gitignore` ファイルに以下の指示を追加します：
+
+```plaintext fileName=".gitignore"
+# Intlayerによって生成されたファイルを無視
+.intlayer
+```
+
+### VS Code 拡張機能
+
+Intlayerでの開発体験を向上させるために、**公式の Intlayer VS Code 拡張機能** をインストールできます。
+
+[VS Code Marketplace からインストール](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+この拡張機能は以下を提供します：
+
+- 翻訳キーの **自動補完**。
+- 不足している翻訳の **リアルタイムエラー検出**。
+- 翻訳されたコンテンツの **インラインプレビュー**。
+- 翻訳を簡単に作成・更新できる **クイックアクション**。
+
+拡張機能の使用方法の詳細については、 [Intlayer VS Code 拡張機能のドキュメント](https://intlayer.org/doc/vs-code-extension) を参照してください。
 
 ### さらに進む
 
 さらに進めるには、 [ビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md) を実装したり、 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md) を使用してコンテンツを外部管理化したりできます。
-
-</Step>
-
-</Steps>

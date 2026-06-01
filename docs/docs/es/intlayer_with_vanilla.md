@@ -436,6 +436,9 @@ const unsubscribe = useDictionaryDynamic(
 ```
 
 > Nota: `useDictionaryDynamic` requiere que los diccionarios estén disponibles como archivos ESM separados. Este enfoque se usa típicamente si tienes un servidor web que sirve los diccionarios.
+> </Step>
+
+</Steps>
 
 ### Configurar TypeScript
 
@@ -470,7 +473,3 @@ Para más detalles sobre cómo usar la extensión, consulta la [documentación d
 ### Ir más allá
 
 Para ir más allá, puedes implementar el [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_visual_editor.md) o externalizar tu contenido usando el [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_CMS.md).
-
-</Step>
-
-</Steps>

@@ -359,33 +359,6 @@ const { locale, availableLocales, setLocale } = useLocale();
 </template>
 ```
 
-### (Необов'язково) Крок 6b: Створіть layout з навігацією
-
-Nuxt layouts дозволяють визначити спільну структуру для ваших сторінок. Створіть default layout, який включає locale switcher та навігацію:
-
-```vue fileName="layouts/default.vue"
-<script setup lang="ts">
-import Links from "~/components/Links.vue";
-import LocaleSwitcher from "~/components/LocaleSwitcher.vue";
-</script>
-
-<template>
-  <div>
-    <header>
-      <LocaleSwitcher />
-    </header>
-    <main>
-      <slot />
-    </main>
-
-    <Links href="/">Головна</Links>
-    <Links href="/about">Про нас</Links>
-  </div>
-</template>
-```
-
-Компонент `Links` (показаний нижче) забезпечує автоматичну локалізацію внутрішніх навігаційних посилань.
-
 </Step>
 
 <Step number={7} title="Додайте локалізовану маршрутизацію до вашого застосунку" isOptional={true}>
@@ -640,6 +613,37 @@ export default aboutPageContent;
 }
 ```
 
+</Step>
+
+</Steps>
+
+### (Необов'язково) Крок 6b: Створіть layout з навігацією
+
+Nuxt layouts дозволяють визначити спільну структуру для ваших сторінок. Створіть default layout, який включає locale switcher та навігацію:
+
+```vue fileName="layouts/default.vue"
+<script setup lang="ts">
+import Links from "~/components/Links.vue";
+import LocaleSwitcher from "~/components/LocaleSwitcher.vue";
+</script>
+
+<template>
+  <div>
+    <header>
+      <LocaleSwitcher />
+    </header>
+    <main>
+      <slot />
+    </main>
+
+    <Links href="/">Головна</Links>
+    <Links href="/about">Про нас</Links>
+  </div>
+</template>
+```
+
+Компонент `Links` (показаний нижче) забезпечує автоматичну локалізацію внутрішніх навігаційних посилань.
+
 ### Конфігурація Git
 
 Рекомендується ігнорувати файли, згенеровані Intlayer. Це дозволяє уникнути їх коміту в ваш репозиторій Git.
@@ -671,7 +675,3 @@ export default aboutPageContent;
 ### Далі
 
 Щоб просунутися далі, ви можете реалізувати [візуальний редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md) або винести свій контент, використовуючи [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md).
-
-</Step>
-
-</Steps>

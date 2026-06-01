@@ -327,6 +327,10 @@ export default class HomeComponent {
 }
 ```
 
+</Step>
+
+</Steps>
+
 ### Cấu hình TypeScript
 
 Intlayer sử dụng module augmentation để tận dụng các lợi ích của TypeScript và làm cho mã nguồn của bạn mạnh mẽ hơn.
@@ -372,7 +376,3 @@ Tiện ích mở rộng này cung cấp:
 - **Các hành động nhanh** để dễ dàng tạo và cập nhật các bản dịch.
 
 Để biết thêm chi tiết về cách sử dụng tiện ích mở rộng, hãy tham khảo [tài liệu Tiện ích mở rộng Intlayer VS Code](https://intlayer.org/doc/vs-code-extension).
-
-</Step>
-
-</Steps>

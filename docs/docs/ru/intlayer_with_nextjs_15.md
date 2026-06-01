@@ -858,6 +858,9 @@ bun add @intlayer/swc --dev
 > Примечание: Эта оптимизация доступна только для Next.js версии 13 и выше.
 
 > Примечание: Этот пакет не устанавливается по умолчанию, так как плагины SWC в Next.js всё ещё находятся в экспериментальной стадии. В будущем это может измениться.
+> </Step>
+
+</Steps>
 
 ### Настройка TypeScript
 
@@ -908,7 +911,3 @@ Intlayer использует расширение модулей (module augmen
 ### Продвинутые возможности
 
 Для расширения возможностей вы можете реализовать [визуальный редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md) или вынести ваш контент с помощью [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_CMS.md).
-
-</Step>
-
-</Steps>

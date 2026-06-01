@@ -196,29 +196,7 @@ export default withIntlayer(nextConfig);
 ```
 
 > Next.js 插件 `withIntlayer()` 用于将 Intlayer 与 Next.js 集成。它确保字典文件的构建，并在开发模式下监视它们。它在 [Webpack](https://webpack.js.org/) 或 [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack) 环境中定义 Intlayer 环境变量。此外，它还提供别名以优化性能，并保留与服务器组件的兼容性。
-
-### 配置 Babel
-
-Intlayer 编译器需要 Babel 来提取和优化您的内容。更新您的 `babel.config.js`（或 `babel.config.json`）以包含 Intlayer 插件：
-
-```typescript fileName="babel.config.js"
-const {
-  intlayerExtractBabelPlugin,
-  intlayerOptimizeBabelPlugin,
-  getExtractPluginOptions,
-  getOptimizePluginOptions,
-} = require("@intlayer/babel");
-
-module.exports = {
-  presets: ["next/babel"],
-  plugins: [
-    [intlayerExtractBabelPlugin, getExtractPluginOptions()],
-    [intlayerOptimizeBabelPlugin, getOptimizePluginOptions()],
-  ],
-};
-```
-
-</Step>
+> </Step>
 
 <Step number={4} title="页面中的语言环境检测">
 
@@ -360,6 +338,160 @@ export default async function Page() {
 - 而 **`IntlayerServerProvider`** 用于在服务器端向子组件提供语言环境。
 
   > Layout and page cannot share a common server context because the server context system is based on a per-request data store (via [React's cache](https://react.dev/reference/react/cache) mechanism), causing each "context" to be re-created for different segments of the application. Placing the provider in a shared layout would break this isolation, preventing the correct propagation of the server context values to your server components.
+  > </Step>
+
+<Step number={8} title="本地化路由代理中间件" isOptional={true}>
+
+如果您希望自动将用户重定向到其偏好的语言环境，请建立代理解析中间件：
+
+```typescript fileName="src/proxy.ts"
+export { intlayerProxy as proxy } from "next-intlayer/proxy";
+
+export const config = {
+  matcher:
+    "/((?!api|static|assets|robots|sitemap|sw|service-worker|manifest|.*\\..*|_next).*)",
+};
+```
+
+> `intlayerProxy` 用于检测用户的首选语言环境，并根据 [配置文件设置](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md) 将其重定向到适当的 URL。此外，它还支持将用户的首选语言环境保存在 cookie 中。
+> </Step>
+
+<Step number={1} title="提取组件内容" isOptional={true}>
+
+如果您有现有的代码库，转换数千个文件可能会非常耗时。
+
+为了简化此过程，Intlayer 提出了 [编译器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md) / [提取器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/extract.md) 来转换您的组件并提取内容。
+
+要进行设置，您可以在 `intlayer.config.ts` 文件中添加 `compiler` 部分：
+
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import { type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  // ... 您的其他配置
+  compiler: {
+    /**
+     * 指示是否应启用编译器。
+     */
+    enabled: true,
+
+    /**
+     * 定义输出文件路径
+     */
+    output: ({ fileName, extension }) => `./${fileName}${extension}`,
+
+    /**
+     * 指示在转换后是否应保存组件。这样，编译器只需运行一次即可转换应用程序，然后即可将其删除。
+     */
+    saveComponents: false,
+
+    /**
+     * 字典键前缀
+     */
+    dictionaryKeyPrefix: "",
+  },
+};
+
+export default config;
+```
+
+<Tabs>
+ <Tab value='提取命令'>
+
+运行提取器以转换组件并提取内容
+
+```bash packageManager="npm"
+npx intlayer extract
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer extract
+```
+
+```bash packageManager="yarn"
+yarn intlayer extract
+```
+
+```bash packageManager="bun"
+bun x intlayer extract
+```
+
+ </Tab>
+ <Tab value='Babel 编译器'>
+
+```bash packageManager="npm"
+npm install @intlayer/babel --save-dev
+```
+
+```bash packageManager="pnpm"
+pnpm add @intlayer/babel --save-dev
+```
+
+```bash packageManager="yarn"
+yarn add @intlayer/babel --save-dev
+```
+
+```bash packageManager="bun"
+bun add @intlayer/babel --dev
+```
+
+```js fileName="babel.config.js"
+const {
+  intlayerExtractBabelPlugin,
+  getExtractPluginOptions,
+} = require("@intlayer/babel");
+
+module.exports = {
+  presets: ["next/babel"],
+  plugins: [
+    // 将组件内容提取到字典中
+    [intlayerExtractBabelPlugin, getExtractPluginOptions()],
+  ],
+};
+```
+
+```bash packageManager="npm"
+npm run build # 或 npm run dev
+```
+
+```bash packageManager="pnpm"
+pnpm run build # 或 pnpm run dev
+```
+
+```bash packageManager="yarn"
+yarn build # 或 yarn dev
+```
+
+```bash packageManager="bun"
+bun run build # Or bun run dev
+```
+
+ </Tab>
+</Tabs>
+</Step>
+
+</Steps>
+
+### 配置 Babel
+
+Intlayer 编译器需要 Babel 来提取和优化您的内容。更新您的 `babel.config.js`（或 `babel.config.json`）以包含 Intlayer 插件：
+
+```typescript fileName="babel.config.js"
+const {
+  intlayerExtractBabelPlugin,
+  intlayerOptimizeBabelPlugin,
+  getExtractPluginOptions,
+  getOptimizePluginOptions,
+} = require("@intlayer/babel");
+
+module.exports = {
+  presets: ["next/babel"],
+  plugins: [
+    [intlayerExtractBabelPlugin, getExtractPluginOptions()],
+    [intlayerOptimizeBabelPlugin, getOptimizePluginOptions()],
+  ],
+};
+```
 
 ### (可选) 第 7 步：填写缺失的翻译
 
@@ -398,23 +530,6 @@ bun x intlayer fill         # 填写缺失的翻译
 ```
 
 > 有关更多详细信息，请参阅 [CLI 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/ci.md)
-
-</Step>
-
-<Step number={8} title="本地化路由代理中间件" isOptional={true}>
-
-如果您希望自动将用户重定向到其偏好的语言环境，请建立代理解析中间件：
-
-```typescript fileName="src/proxy.ts"
-export { intlayerProxy as proxy } from "next-intlayer/proxy";
-
-export const config = {
-  matcher:
-    "/((?!api|static|assets|robots|sitemap|sw|service-worker|manifest|.*\\..*|_next).*)",
-};
-```
-
-> `intlayerProxy` 用于检测用户的首选语言环境，并根据 [配置文件设置](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md) 将其重定向到适当的 URL。此外，它还支持将用户的首选语言环境保存在 cookie 中。
 
 ### (可选) 第 9 步：更改内容语言环境
 
@@ -540,125 +655,6 @@ Intlayer 使用模块扩展 (module augmentation) 来利用 TypeScript 的优势
 
 阅读 [Intlayer VS Code 扩展文档](https://intlayer.org/doc/vs-code-extension) 以了解更多关于扩展使用的详细说明。
 
-</Step>
-
-<Step number={1} title="提取组件内容" isOptional={true}>
-
-如果您有现有的代码库，转换数千个文件可能会非常耗时。
-
-为了简化此过程，Intlayer 提出了 [编译器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md) / [提取器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/extract.md) 来转换您的组件并提取内容。
-
-要进行设置，您可以在 `intlayer.config.ts` 文件中添加 `compiler` 部分：
-
-```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
-import { type IntlayerConfig } from "intlayer";
-
-const config: IntlayerConfig = {
-  // ... 您的其他配置
-  compiler: {
-    /**
-     * 指示是否应启用编译器。
-     */
-    enabled: true,
-
-    /**
-     * 定义输出文件路径
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * 指示在转换后是否应保存组件。这样，编译器只需运行一次即可转换应用程序，然后即可将其删除。
-     */
-    saveComponents: false,
-
-    /**
-     * 字典键前缀
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-export default config;
-```
-
-<Tabs>
- <Tab value='提取命令'>
-
-运行提取器以转换组件并提取内容
-
-```bash packageManager="npm"
-npx intlayer extract
-```
-
-```bash packageManager="pnpm"
-pnpm intlayer extract
-```
-
-```bash packageManager="yarn"
-yarn intlayer extract
-```
-
-```bash packageManager="bun"
-bun x intlayer extract
-```
-
- </Tab>
- <Tab value='Babel 编译器'>
-
-```bash packageManager="npm"
-npm install @intlayer/babel --save-dev
-```
-
-```bash packageManager="pnpm"
-pnpm add @intlayer/babel --save-dev
-```
-
-```bash packageManager="yarn"
-yarn add @intlayer/babel --save-dev
-```
-
-```bash packageManager="bun"
-bun add @intlayer/babel --dev
-```
-
-```js fileName="babel.config.js"
-const {
-  intlayerExtractBabelPlugin,
-  getExtractPluginOptions,
-} = require("@intlayer/babel");
-
-module.exports = {
-  presets: ["next/babel"],
-  plugins: [
-    // 将组件内容提取到字典中
-    [intlayerExtractBabelPlugin, getExtractPluginOptions()],
-  ],
-};
-```
-
-```bash packageManager="npm"
-npm run build # 或 npm run dev
-```
-
-```bash packageManager="pnpm"
-pnpm run build # 或 pnpm run dev
-```
-
-```bash packageManager="yarn"
-yarn build # 或 yarn dev
-```
-
-```bash packageManager="bun"
-bun run build # Or bun run dev
-```
-
- </Tab>
-</Tabs>
-
 ### 进一步深入
 
 您可以实现 [可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md) 或使用 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md) 来实现内容的外部管理。
-
-</Step>
-
-</Steps>

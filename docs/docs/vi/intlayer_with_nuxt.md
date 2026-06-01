@@ -350,33 +350,6 @@ Sau đó, thiết lập `app.vue` của bạn để sử dụng layouts:
 </template>
 ```
 
-### (Tùy chọn) Bước 6b: Tạo một Layout với Điều hướng
-
-Layouts của Nuxt cho phép bạn định nghĩa một cấu trúc chung cho các trang của bạn. Tạo một layout mặc định bao gồm bộ chuyển đổi ngôn ngữ và điều hướng:
-
-```vue fileName="layouts/default.vue"
-<script setup lang="ts">
-import Links from "~/components/Links.vue";
-import LocaleSwitcher from "~/components/LocaleSwitcher.vue";
-</script>
-
-<template>
-  <div>
-    <header>
-      <LocaleSwitcher />
-    </header>
-    <main>
-      <slot />
-    </main>
-
-    <Links href="/">Trang chủ</Links>
-    <Links href="/about">Giới thiệu</Links>
-  </div>
-</template>
-```
-
-Thành phần `Links` (được hiển thị bên dưới) đảm bảo rằng các liên kết điều hướng nội bộ được tự động địa phương hóa.
-
 </Step>
 
 <Step number={7} title="Thêm định tuyến địa phương hóa vào ứng dụng của bạn" isOptional={true}>
@@ -622,6 +595,37 @@ export default aboutPageContent;
 }
 ```
 
+</Step>
+
+</Steps>
+
+### (Tùy chọn) Bước 6b: Tạo một Layout với Điều hướng
+
+Layouts của Nuxt cho phép bạn định nghĩa một cấu trúc chung cho các trang của bạn. Tạo một layout mặc định bao gồm bộ chuyển đổi ngôn ngữ và điều hướng:
+
+```vue fileName="layouts/default.vue"
+<script setup lang="ts">
+import Links from "~/components/Links.vue";
+import LocaleSwitcher from "~/components/LocaleSwitcher.vue";
+</script>
+
+<template>
+  <div>
+    <header>
+      <LocaleSwitcher />
+    </header>
+    <main>
+      <slot />
+    </main>
+
+    <Links href="/">Trang chủ</Links>
+    <Links href="/about">Giới thiệu</Links>
+  </div>
+</template>
+```
+
+Thành phần `Links` (được hiển thị bên dưới) đảm bảo rằng các liên kết điều hướng nội bộ được tự động địa phương hóa.
+
 ### Cấu hình Git
 
 Khuyến nghị bỏ qua các tệp được tạo bởi Intlayer. Điều này giúp bạn tránh việc commit chúng vào kho Git của mình.
@@ -653,7 +657,3 @@ Tiện ích mở rộng này cung cấp:
 ### Đi xa hơn
 
 Để đi xa hơn, bạn có thể triển khai [trình chỉnh sửa trực quan](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md) hoặc tách nội dung của bạn ra bên ngoài bằng cách sử dụng [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md).
-
-</Step>
-
-</Steps>

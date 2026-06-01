@@ -412,6 +412,9 @@ bun x intlayer fill         # 欠落した翻訳を埋める
 ```
 
 > 詳細については、[CLIドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/ci.md)を参照してください。
+> </Step>
+
+</Steps>
 
 ### （任意）サイトマップと robots.txt（ビルド時生成）
 
@@ -516,7 +519,3 @@ Intlayer での開発体験を向上させるために、公式の **Intlayer VS
 ### さらに進む
 
 さらに進むには、[ビジュアルエディタ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md) を実装するか、[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md) を使用してコンテンツを外部化できます。
-
-</Step>
-
-</Steps>

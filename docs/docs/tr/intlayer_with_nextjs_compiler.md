@@ -196,29 +196,7 @@ export default withIntlayer(nextConfig);
 ```
 
 > `withIntlayer()` Next.js eklentisi, Intlayer'ı Next.js ile entegre etmek için kullanılır. Sözlük dosyalarının oluşturulmasını sağlar ve dev modunda onları izler. Intlayer ortam değişkenlerini [Webpack](https://webpack.js.org/) veya [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack) ortamları içinde tanımlar. Dahası, performansı optimize etmek için takma adlar sağlar ve Sunucu Bileşenleriyle tam uyumlu çalışır.
-
-### Babel'i Yapılandır
-
-Intlayer derleyicisi, içeriğinizi çıkarmak ve optimize etmek için Babel gerektirir. Intlayer eklentilerini içerecek şekilde `babel.config.js` (veya `babel.config.json`) dosyanızı güncelleyin:
-
-```typescript fileName="babel.config.js"
-const {
-  intlayerExtractBabelPlugin,
-  intlayerOptimizeBabelPlugin,
-  getExtractPluginOptions,
-  getOptimizePluginOptions,
-} = require("@intlayer/babel");
-
-module.exports = {
-  presets: ["next/babel"],
-  plugins: [
-    [intlayerExtractBabelPlugin, getExtractPluginOptions()],
-    [intlayerOptimizeBabelPlugin, getOptimizePluginOptions()],
-  ],
-};
-```
-
-</Step>
+> </Step>
 
 <Step number={4} title="Sayfanızda Dil Algılama">
 
@@ -499,54 +477,7 @@ bun add @intlayer/swc --dev
 > Not: Bu paket varsayılan olarak yüklü değildir çünkü SWC eklentileri Next.js'de hala deneysel aşamadadır. Bu durum gelecekte değişebilir.
 
 > Not: Eğer seçeneği (sözlük yapılandırmasında) `importMode: 'dynamic'` veya `importMode: 'fetch'` olarak ayarlarsanız, bu Suspense'e bağlı olacaktır, bu nedenle `useIntlayer` çağrılarınızı bir `Suspense` sınırı ile sarmalamanız gerekecektir. Bu, `useIntlayer`'ı doğrudan Sayfa / Layout bileşeninizin en üst düzeyinde kullanamayacağınız anlamına gelir.
-
-### TypeScript Yapılandırması
-
-Intlayer, TypeScript'in avantajlarından yararlanmak ve kod tabanınızı daha sağlam hale getirmek için modül genişletmesini (module augmentation) kullanır.
-
-![Otomatik tamamlama](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
-
-![Çeviri hatası](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
-
-TypeScript yapılandırmanızın otomatik olarak oluşturulan türleri içerdiğinden emin olun.
-
-```json5 fileName="tsconfig.json"
-{
-  // ... Mevcut TypeScript yapılandırmalarınız
-  "include": [
-    // ... Mevcut TypeScript yapılandırmalarınız
-    ".intlayer/**/*.ts", // Otomatik oluşturulan türleri dahil edin
-  ],
-}
-```
-
-### Git Yapılandırması
-
-Intlayer tarafından oluşturulan dosyaların göz ardı edilmesi önerilir. Bu, onları Git deponuza yüklemekten kaçınmanıza olanak tanır.
-
-Bunu yapmak için `.gitignore` dosyanıza aşağıdaki yönergeleri ekleyebilirsiniz:
-
-```plaintext fileName=".gitignore"
-# Intlayer tarafından oluşturulan dosyaları yoksay
-.intlayer
-```
-
-### VS Code Eklentisi
-
-Intlayer ile geliştirme deneyiminizi artırmak için **resmi Intlayer VS Code eklentisini** yükleyebilirsiniz.
-
-[VS Code Marketplace'ten yükleyin](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
-
-Bu eklenti şunları sağlar:
-
-- Çeviri anahtarları için **otomatik tamamlama**.
-- Eksik çeviriler için **gerçek zamanlı hata algılama**.
-- Çevrilmiş içeriğin **satır içi önizlemeleri**.
-- Çevirileri kolayca oluşturmak ve güncellemek için **hızlı eylemler (Quick actions)**.
-
-Eklenti kullanımıyla ilgili detaylı talimatlar için [Intlayer VS Code eklentisi belgelerini](https://intlayer.org/doc/vs-code-extension) okuyun.
-
-</Step>
+> </Step>
 
 <Step number={11} title="Bileşenlerinizin içeriğini çıkarın" isOptional={true}>
 
@@ -660,11 +591,77 @@ bun run build # Or bun run dev
 
  </Tab>
 </Tabs>
+</Step>
+
+</Steps>
+
+### Babel'i Yapılandır
+
+Intlayer derleyicisi, içeriğinizi çıkarmak ve optimize etmek için Babel gerektirir. Intlayer eklentilerini içerecek şekilde `babel.config.js` (veya `babel.config.json`) dosyanızı güncelleyin:
+
+```typescript fileName="babel.config.js"
+const {
+  intlayerExtractBabelPlugin,
+  intlayerOptimizeBabelPlugin,
+  getExtractPluginOptions,
+  getOptimizePluginOptions,
+} = require("@intlayer/babel");
+
+module.exports = {
+  presets: ["next/babel"],
+  plugins: [
+    [intlayerExtractBabelPlugin, getExtractPluginOptions()],
+    [intlayerOptimizeBabelPlugin, getOptimizePluginOptions()],
+  ],
+};
+```
+
+### TypeScript Yapılandırması
+
+Intlayer, TypeScript'in avantajlarından yararlanmak ve kod tabanınızı daha sağlam hale getirmek için modül genişletmesini (module augmentation) kullanır.
+
+![Otomatik tamamlama](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
+
+![Çeviri hatası](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+
+TypeScript yapılandırmanızın otomatik olarak oluşturulan türleri içerdiğinden emin olun.
+
+```json5 fileName="tsconfig.json"
+{
+  // ... Mevcut TypeScript yapılandırmalarınız
+  "include": [
+    // ... Mevcut TypeScript yapılandırmalarınız
+    ".intlayer/**/*.ts", // Otomatik oluşturulan türleri dahil edin
+  ],
+}
+```
+
+### Git Yapılandırması
+
+Intlayer tarafından oluşturulan dosyaların göz ardı edilmesi önerilir. Bu, onları Git deponuza yüklemekten kaçınmanıza olanak tanır.
+
+Bunu yapmak için `.gitignore` dosyanıza aşağıdaki yönergeleri ekleyebilirsiniz:
+
+```plaintext fileName=".gitignore"
+# Intlayer tarafından oluşturulan dosyaları yoksay
+.intlayer
+```
+
+### VS Code Eklentisi
+
+Intlayer ile geliştirme deneyiminizi artırmak için **resmi Intlayer VS Code eklentisini** yükleyebilirsiniz.
+
+[VS Code Marketplace'ten yükleyin](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+Bu eklenti şunları sağlar:
+
+- Çeviri anahtarları için **otomatik tamamlama**.
+- Eksik çeviriler için **gerçek zamanlı hata algılama**.
+- Çevrilmiş içeriğin **satır içi önizlemeleri**.
+- Çevirileri kolayca oluşturmak ve güncellemek için **hızlı eylemler (Quick actions)**.
+
+Eklenti kullanımıyla ilgili detaylı talimatlar için [Intlayer VS Code eklentisi belgelerini](https://intlayer.org/doc/vs-code-extension) okuyun.
 
 ### Daha Fazlası
 
 Daha ileri gitmek için [görsel düzenleyiciyi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md) uygulayabilir veya [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md) kullanarak içeriğinizi dışsallaştırabilirsiniz.
-
-</Step>
-
-</Steps>

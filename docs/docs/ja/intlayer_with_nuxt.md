@@ -340,33 +340,6 @@ const { locale, availableLocales, setLocale } = useLocale();
 </template>
 ```
 
-### （オプション）ステップ6b：ナビゲーション付きレイアウトの作成
-
-Nuxtのレイアウトを使うと、ページの共通構造を定義できます。ロケールスイッチャーとナビゲーションを含むデフォルトレイアウトを作成しましょう：
-
-```vue fileName="layouts/default.vue"
-<script setup lang="ts">
-import Links from "~/components/Links.vue";
-import LocaleSwitcher from "~/components/LocaleSwitcher.vue";
-</script>
-
-<template>
-  <div>
-    <header>
-      <LocaleSwitcher />
-    </header>
-    <main>
-      <slot />
-    </main>
-
-    <Links href="/">ホーム</Links>
-    <Links href="/about">アバウト</Links>
-  </div>
-</template>
-```
-
-`Links` コンポーネント（以下に示す）は、内部ナビゲーションリンクが自動的にローカライズされることを保証します。
-
 </Step>
 
 <Step number={7} title="アプリケーションにローカライズされたルーティングを追加する">
@@ -616,6 +589,37 @@ export default aboutPageContent;
 }
 ```
 
+</Step>
+
+</Steps>
+
+### （オプション）ステップ6b：ナビゲーション付きレイアウトの作成
+
+Nuxtのレイアウトを使うと、ページの共通構造を定義できます。ロケールスイッチャーとナビゲーションを含むデフォルトレイアウトを作成しましょう：
+
+```vue fileName="layouts/default.vue"
+<script setup lang="ts">
+import Links from "~/components/Links.vue";
+import LocaleSwitcher from "~/components/LocaleSwitcher.vue";
+</script>
+
+<template>
+  <div>
+    <header>
+      <LocaleSwitcher />
+    </header>
+    <main>
+      <slot />
+    </main>
+
+    <Links href="/">ホーム</Links>
+    <Links href="/about">アバウト</Links>
+  </div>
+</template>
+```
+
+`Links` コンポーネント（以下に示す）は、内部ナビゲーションリンクが自動的にローカライズされることを保証します。
+
 ### Gitの設定
 
 Intlayerによって生成されたファイルは無視することを推奨します。これにより、Gitリポジトリへの不要なコミットを防ぐことができます。
@@ -647,7 +651,3 @@ Intlayerでの開発体験を向上させるために、公式の**Intlayer VS C
 ### さらに進む
 
 さらに進めるには、[ビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)を実装するか、[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)を使用してコンテンツを外部化することができます。
-
-</Step>
-
-</Steps>

@@ -906,72 +906,7 @@ bun add @intlayer/swc --dev
 > Not: Bu paket varsayılan olarak yüklü değildir çünkü SWC eklentileri Next.js'te hala deneysel aşamadadır. Gelecekte değişebilir.
 
 > Not: `dictionary` yapılandırmasında seçeneği `importMode: 'dynamic'` veya `importMode: 'fetch'` olarak ayarlarsanız, Suspense'e dayalı olacaktır, bu nedenle `useIntlayer` çağrılarınızı bir `Suspense` sınırı (boundary) içine sarmalamanız gerekecektir. Bu, `useIntlayer`'ı doğrudan Sayfa / Düzen bileşeninizin en üst düzeyinde kullanamayacağınız anlamına gelir.
-
-### Turbopack'te Sözlük Değişikliklerini İzleyin
-
-Next.js 16 uygulamanızı geliştirme sunucusu olarak Turbopack (`next dev` komutuyla) kullanırken, sözlük değişiklikleri varsayılan olarak otomatik olarak algılanmayacaktır.
-
-Bu sınırlama, Turbopack'in içerik dosyalarınızdaki değişiklikleri izlemek için webpack eklentilerini paralel olarak çalıştıramamasından kaynaklanmaktadır. Bunu aşmak için hem geliştirme sunucusunu hem de Intlayer build izleyicisini eşzamanlı olarak çalıştırmak üzere `intlayer watch` komutunu kullanmanız gerekecektir.
-
-```json5 fileName="package.json"
-{
-  // ... Mevcut package.json yapılandırmalarınız
-  "scripts": {
-    // ... Mevcut scripts yapılandırmalarınız
-    "dev": "intlayer watch --with 'next dev'",
-  },
-}
-```
-
-> next-intlayer@<=6.x.x kullanıyorsanız, Next.js 16 uygulamasının Turbopack ile doğru çalışması için `--turbopack` bayrağını korumanız gerekir. Bu sınırlamadan kaçınmak için next-intlayer@>=7.x.x kullanmanızı öneririz.
-
-### TypeScript Yapılandırması
-
-Intlayer, TypeScript'in avantajlarından yararlanmak ve kod tabanınızı daha güçlü hale getirmek için modül genişletme (module augmentation) kullanır.
-
-![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
-
-![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
-
-TypeScript yapılandırmanızın otomatik olarak oluşturulan tipleri içerdiğinden emin olun.
-
-```json5 fileName="tsconfig.json"
-{
-  // ... Mevcut TypeScript yapılandırmalarınız
-  "include": [
-    // ... Mevcut TypeScript yapılandırmalarınız
-    ".intlayer/**/*.ts", // Otomatik oluşturulan tipleri dahil edin
-  ],
-}
-```
-
-### Git Yapılandırması
-
-Intlayer tarafından oluşturulan dosyaların yoksayılması önerilir. Bu, onları Git deponuza göndermenizi engeller.
-
-Bunu yapmak için `.gitignore` dosyanıza aşağıdaki talimatları ekleyebilirsiniz:
-
-```plaintext fileName=".gitignore"
-# Intlayer tarafından oluşturulan dosyaları yoksay
-.intlayer
-```
-
-### VS Code Uzantısı
-
-Intlayer ile geliştirme deneyiminizi iyileştirmek için resmi **Intlayer VS Code Uzantısını** yükleyebilirsiniz.
-
-[VS Code Marketplace'ten yükleyin](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
-
-Bu uzantı şunları sağlar:
-
-- Çeviri anahtarları için **otomatik tamamlama**.
-- Eksik çeviriler için **gerçek zamanlı hata tespiti**.
-- Çevrilmiş içeriğin **satır içi önizlemeleri**.
-- Çevirileri kolayca oluşturmak ve güncellemek için **hızlı eylemler**.
-
-Uzantının nasıl kullanılacağına ilişkin daha fazla ayrıntı için [Intlayer VS Code Uzantısı dokümantasyonuna](https://intlayer.org/doc/vs-code-extension) bakın.
-
-</Step>
+> </Step>
 
 <Step number={14} title="Bileşenlerinizin içeriğini çıkarın" isOptional={true}>
 
@@ -1085,11 +1020,74 @@ bun run build # Or bun run dev
 
  </Tab>
 </Tabs>
+</Step>
+
+</Steps>
+
+### Turbopack'te Sözlük Değişikliklerini İzleyin
+
+Next.js 16 uygulamanızı geliştirme sunucusu olarak Turbopack (`next dev` komutuyla) kullanırken, sözlük değişiklikleri varsayılan olarak otomatik olarak algılanmayacaktır.
+
+Bu sınırlama, Turbopack'in içerik dosyalarınızdaki değişiklikleri izlemek için webpack eklentilerini paralel olarak çalıştıramamasından kaynaklanmaktadır. Bunu aşmak için hem geliştirme sunucusunu hem de Intlayer build izleyicisini eşzamanlı olarak çalıştırmak üzere `intlayer watch` komutunu kullanmanız gerekecektir.
+
+```json5 fileName="package.json"
+{
+  // ... Mevcut package.json yapılandırmalarınız
+  "scripts": {
+    // ... Mevcut scripts yapılandırmalarınız
+    "dev": "intlayer watch --with 'next dev'",
+  },
+}
+```
+
+> next-intlayer@<=6.x.x kullanıyorsanız, Next.js 16 uygulamasının Turbopack ile doğru çalışması için `--turbopack` bayrağını korumanız gerekir. Bu sınırlamadan kaçınmak için next-intlayer@>=7.x.x kullanmanızı öneririz.
+
+### TypeScript Yapılandırması
+
+Intlayer, TypeScript'in avantajlarından yararlanmak ve kod tabanınızı daha güçlü hale getirmek için modül genişletme (module augmentation) kullanır.
+
+![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
+
+![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+
+TypeScript yapılandırmanızın otomatik olarak oluşturulan tipleri içerdiğinden emin olun.
+
+```json5 fileName="tsconfig.json"
+{
+  // ... Mevcut TypeScript yapılandırmalarınız
+  "include": [
+    // ... Mevcut TypeScript yapılandırmalarınız
+    ".intlayer/**/*.ts", // Otomatik oluşturulan tipleri dahil edin
+  ],
+}
+```
+
+### Git Yapılandırması
+
+Intlayer tarafından oluşturulan dosyaların yoksayılması önerilir. Bu, onları Git deponuza göndermenizi engeller.
+
+Bunu yapmak için `.gitignore` dosyanıza aşağıdaki talimatları ekleyebilirsiniz:
+
+```plaintext fileName=".gitignore"
+# Intlayer tarafından oluşturulan dosyaları yoksay
+.intlayer
+```
+
+### VS Code Uzantısı
+
+Intlayer ile geliştirme deneyiminizi iyileştirmek için resmi **Intlayer VS Code Uzantısını** yükleyebilirsiniz.
+
+[VS Code Marketplace'ten yükleyin](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+Bu uzantı şunları sağlar:
+
+- Çeviri anahtarları için **otomatik tamamlama**.
+- Eksik çeviriler için **gerçek zamanlı hata tespiti**.
+- Çevrilmiş içeriğin **satır içi önizlemeleri**.
+- Çevirileri kolayca oluşturmak ve güncellemek için **hızlı eylemler**.
+
+Uzantının nasıl kullanılacağına ilişkin daha fazla ayrıntı için [Intlayer VS Code Uzantısı dokümantasyonuna](https://intlayer.org/doc/vs-code-extension) bakın.
 
 ### Daha İleriye Gidin
 
 Daha ileri gitmek için [görsel editörü](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md) uygulayabilir veya [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md) kullanarak içeriğinizi dışsallaştırabilirsiniz.
-
-</Step>
-
-</Steps>

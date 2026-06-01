@@ -501,54 +501,7 @@ bun add @intlayer/swc --dev
 > Nota: Non installato di default perché i plugin SWC in Next.js sono ancora sperimentali.
 
 > Nota: Se usi `importMode: 'dynamic'` o `'fetch'`, dovrai avvolgere le chiamate `useIntlayer` in un `Suspense`. Non potrai usarlo al livello superiore di Pagina / Layout.
-
-### Configurare TypeScript
-
-Intlayer usa la module augmentation per potenziare TypeScript.
-
-![Autocompletamento](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
-
-![Errore traduzione](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
-
-Assicurati che `tsconfig.json` includa i tipi generati.
-
-```json5 fileName="tsconfig.json"
-{
-  // ... Config TS esistenti
-  "include": [
-    // ... Config TS esistenti
-    ".intlayer/**/*.ts", // Includi i tipi autogenerati
-  ],
-}
-```
-
-### Configurazione Git
-
-Ignora i file generati da Intlayer per evitare di includerli nel repository.
-
-Nel file `.gitignore`:
-
-```plaintext fileName=".gitignore"
-# Ignora i file generati da Intlayer
-.intlayer
-```
-
-### Estensione VS Code
-
-Per una migliore esperienza, installa l'**Estensione ufficiale Intlayer per VS Code**.
-
-[Installa dal Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
-
-Caratteristiche:
-
-- **Autocompletamento** chiavi.
-- **Rilevamento errori** in tempo reale.
-- **Anteprime inline**.
-- **Azioni rapide** per creare/aggiornare traduzioni.
-
-Consulta la [documentazione dell'estensione](https://intlayer.org/doc/vs-code-extension) per i dettagli.
-
-</Step>
+> </Step>
 
 <Step number={1} title="Estrarre il contenuto dei tuoi componenti" isOptional={true}>
 
@@ -662,11 +615,56 @@ bun run build # Or bun run dev
 
  </Tab>
 </Tabs>
+</Step>
+
+</Steps>
+
+### Configurare TypeScript
+
+Intlayer usa la module augmentation per potenziare TypeScript.
+
+![Autocompletamento](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
+
+![Errore traduzione](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+
+Assicurati che `tsconfig.json` includa i tipi generati.
+
+```json5 fileName="tsconfig.json"
+{
+  // ... Config TS esistenti
+  "include": [
+    // ... Config TS esistenti
+    ".intlayer/**/*.ts", // Includi i tipi autogenerati
+  ],
+}
+```
+
+### Configurazione Git
+
+Ignora i file generati da Intlayer per evitare di includerli nel repository.
+
+Nel file `.gitignore`:
+
+```plaintext fileName=".gitignore"
+# Ignora i file generati da Intlayer
+.intlayer
+```
+
+### Estensione VS Code
+
+Per una migliore esperienza, installa l'**Estensione ufficiale Intlayer per VS Code**.
+
+[Installa dal Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+Caratteristiche:
+
+- **Autocompletamento** chiavi.
+- **Rilevamento errori** in tempo reale.
+- **Anteprime inline**.
+- **Azioni rapide** per creare/aggiornare traduzioni.
+
+Consulta la [documentazione dell'estensione](https://intlayer.org/doc/vs-code-extension) per i dettagli.
 
 ### Vai oltre
 
 Puoi implementare l' [editor visuale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_visual_editor.md) o esternalizzare i contenuti col [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_CMS.md).
-
-</Step>
-
-</Steps>

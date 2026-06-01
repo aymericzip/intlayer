@@ -369,6 +369,10 @@ export class AppComponent {
 }
 ```
 
+</Step>
+
+</Steps>
+
 ### Konfiguracja TypeScript
 
 Intlayer używa rozszerzania modułów (module augmentation), aby czerpać korzyści z TypeScript i wzmacniać bazę kodu.
@@ -422,7 +426,3 @@ Więcej szczegółów na temat korzystania z rozszerzenia znajdziesz w [dokument
 Aby pójść dalej, możesz wdrożyć [edytor wizualny](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) lub wyeksportować swoje treści za pomocą [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md).
 
 ---
-
-</Step>
-
-</Steps>

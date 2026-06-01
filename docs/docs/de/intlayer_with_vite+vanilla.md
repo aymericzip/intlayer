@@ -611,6 +611,9 @@ bun run build # Oder bun run dev
 
  </Tab>
 </Tabs>
+</Step>
+
+</Steps>
 
 ### (Optional) Sitemap und robots.txt (Build-Zeit)
 
@@ -730,7 +733,3 @@ Weitere Details zur Verwendung der Erweiterung finden Sie in der [Dokumentation 
 ### Weiter gehen
 
 Um weiter zu gehen, können Sie den [visuellen Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_visual_editor.md) implementieren oder Ihre Inhalte mit dem [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_CMS.md) extern verwalten.
-
-</Step>
-
-</Steps>

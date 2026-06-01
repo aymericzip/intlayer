@@ -436,6 +436,9 @@ const unsubscribe = useDictionaryDynamic(
 ```
 
 > Lưu ý: `useDictionaryDynamic` yêu cầu các từ điển phải có sẵn dưới dạng các tệp ESM riêng biệt. Cách tiếp cận này thường được sử dụng nếu bạn có một máy chủ web phục vụ các từ điển.
+> </Step>
+
+</Steps>
 
 ### Cấu hình TypeScript
 
@@ -470,7 +473,3 @@ Tiện ích mở rộng này cung cấp:
 ### Tìm hiểu sâu hơn
 
 Để tìm hiểu sâu hơn, bạn có thể triển khai [trình chỉnh sửa trực quan](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md) hoặc sử dụng [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md) để quản lý nội dung từ bên ngoài.
-
-</Step>
-
-</Steps>

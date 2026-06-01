@@ -710,55 +710,6 @@ Link.displayName = "Link";
   该组件返回一个带有本地化 URL 的 `<a>` 元素，确保导航与当前语言环境保持一致。
 
 通过在整个应用中集成此 `Link` 组件，您可以维护一致且具语言感知的用户体验，同时提升 SEO 和可用性。
-
-### 配置 TypeScript
-
-Intlayer 使用模块增强（module augmentation）来利用 TypeScript 的优势，使您的代码库更健壮。
-
-![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
-
-![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
-
-确保您的 TypeScript 配置包含自动生成的类型。
-
-```json5 fileName="tsconfig.json"
-{
-  // ... 您现有的 TypeScript 配置
-  "include": [
-    // ... 您现有的 TypeScript 配置
-    ".intlayer/**/*.ts", // 包含自动生成的类型
-  ],
-}
-```
-
-### Git 配置
-
-建议忽略 Intlayer 生成的文件，这样可以避免将它们提交到您的 Git 仓库中。
-
-为此，您可以在 `.gitignore` 文件中添加以下指令：
-
-```plaintext fileName=".gitignore"
-# 忽略 Intlayer 生成的文件
-.intlayer
-```
-
-### VS Code 扩展
-
-为了提升您使用 Intlayer 的开发体验，您可以安装官方的 **Intlayer VS Code 扩展**。
-
-[从 VS Code 市场安装](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
-
-该扩展提供：
-
-- **翻译键的自动补全**。
-- **实时错误检测**，用于缺失的翻译。
-- **内联预览**已翻译的内容。
-- **快速操作**，轻松创建和更新翻译。
-
-有关如何使用该扩展的更多详细信息，请参阅[Intlayer VS Code 扩展文档](https://intlayer.org/doc/vs-code-extension)。
-
----
-
 </Step>
 
 <Step number={1} title="提取组件内容" isOptional={true}>
@@ -856,6 +807,57 @@ bun run build # Or bun run dev
 
  </Tab>
 </Tabs>
+</Step>
+
+</Steps>
+
+### 配置 TypeScript
+
+Intlayer 使用模块增强（module augmentation）来利用 TypeScript 的优势，使您的代码库更健壮。
+
+![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
+
+![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+
+确保您的 TypeScript 配置包含自动生成的类型。
+
+```json5 fileName="tsconfig.json"
+{
+  // ... 您现有的 TypeScript 配置
+  "include": [
+    // ... 您现有的 TypeScript 配置
+    ".intlayer/**/*.ts", // 包含自动生成的类型
+  ],
+}
+```
+
+### Git 配置
+
+建议忽略 Intlayer 生成的文件，这样可以避免将它们提交到您的 Git 仓库中。
+
+为此，您可以在 `.gitignore` 文件中添加以下指令：
+
+```plaintext fileName=".gitignore"
+# 忽略 Intlayer 生成的文件
+.intlayer
+```
+
+### VS Code 扩展
+
+为了提升您使用 Intlayer 的开发体验，您可以安装官方的 **Intlayer VS Code 扩展**。
+
+[从 VS Code 市场安装](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+该扩展提供：
+
+- **翻译键的自动补全**。
+- **实时错误检测**，用于缺失的翻译。
+- **内联预览**已翻译的内容。
+- **快速操作**，轻松创建和更新翻译。
+
+有关如何使用该扩展的更多详细信息，请参阅[Intlayer VS Code 扩展文档](https://intlayer.org/doc/vs-code-extension)。
+
+---
 
 ### （可选）站点地图与 robots.txt（构建时生成）
 
@@ -934,7 +936,3 @@ console.log("SEO files generated successfully.");
 ### 深入了解
 
 要进一步使用，您可以实现[可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)或使用[内容管理系统（CMS）](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)将内容外部化。
-
-</Step>
-
-</Steps>

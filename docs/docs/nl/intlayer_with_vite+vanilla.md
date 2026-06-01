@@ -580,6 +580,9 @@ bun run build # Of bun run dev
 
  </Tab>
 </Tabs>
+</Step>
+
+</Steps>
 
 ### (Optioneel) Sitemap en robots.txt (buildtijdgeneratie)
 
@@ -699,7 +702,3 @@ Raadpleeg de [documentatie van de Intlayer VS Code-extensie](https://intlayer.or
 ### Ga verder
 
 Om verder te gaan, kunt u de [visuele editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/intlayer_visual_editor.md) implementeren of uw inhoud externaliseren met behulp van het [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/intlayer_CMS.md).
-
-</Step>
-
-</Steps>

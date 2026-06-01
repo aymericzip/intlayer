@@ -474,52 +474,6 @@ export const GET: APIRoute = ({ site }) => {
 };
 ```
 
-### Configurazione TypeScript
-
-Intlayer utilizza l'aumento dei moduli (module augmentation) per sfruttare TypeScript, rendendo la tua base di codice più robusta. Assicurati che la tua configurazione TypeScript includa i tipi autogenerati e sia configurata per Preact:
-
-```json5 fileName="tsconfig.json"
-{
-  compilerOptions: {
-    // ...
-    jsx: "react-jsx",
-    jsxImportSource: "preact", // Consigliato per Preact 10+
-  },
-  include: [
-    // ... la tua configurazione TypeScript esistente
-    ".intlayer/**/*.ts", // Includi i tipi autogenerati
-  ],
-}
-```
-
-### Configurazione Git
-
-Si consiglia di ignorare i file generati da Intlayer. Ciò evita di salvarli nel tuo repository Git.
-
-Per farlo, aggiungi le seguenti istruzioni al tuo file `.gitignore`:
-
-```bash
-# Ignora i file generati da Intlayer
-.intlayer
-```
-
-### Estensione VS Code
-
-Per migliorare la tua esperienza di sviluppo con Intlayer, puoi installare l'**estensione ufficiale Intlayer per VS Code**.
-
-[Installa dal VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
-
-Questa estensione fornisce:
-
-- **Autocompletamento** per le chiavi di traduzione.
-- **Rilevamento degli errori in tempo reale** per le traduzioni mancanti.
-- **Anteprima inline** del contenuto tradotto.
-- **Azioni rapide** per creare e aggiornare facilmente le traduzioni.
-
-Per maggiori informazioni sull'utilizzo dell'estensione, consulta la [documentazione dell'estensione VS Code](https://intlayer.org/doc/vs-code-extension).
-
----
-
 </Step>
 
 <Step number={15} title="Estrarre il contenuto dei tuoi componenti" isOptional={true}>
@@ -620,10 +574,56 @@ bun run build # Or bun run dev
 
 ---
 
-### Approfondisci
-
-Se vuoi saperne di più, puoi anche implementare il [Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_visual_editor.md) o utilizzare il [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_CMS.md) per esternalizzare i tuoi contenuti.
-
 </Step>
 
 </Steps>
+
+### Configurazione TypeScript
+
+Intlayer utilizza l'aumento dei moduli (module augmentation) per sfruttare TypeScript, rendendo la tua base di codice più robusta. Assicurati che la tua configurazione TypeScript includa i tipi autogenerati e sia configurata per Preact:
+
+```json5 fileName="tsconfig.json"
+{
+  compilerOptions: {
+    // ...
+    jsx: "react-jsx",
+    jsxImportSource: "preact", // Consigliato per Preact 10+
+  },
+  include: [
+    // ... la tua configurazione TypeScript esistente
+    ".intlayer/**/*.ts", // Includi i tipi autogenerati
+  ],
+}
+```
+
+### Configurazione Git
+
+Si consiglia di ignorare i file generati da Intlayer. Ciò evita di salvarli nel tuo repository Git.
+
+Per farlo, aggiungi le seguenti istruzioni al tuo file `.gitignore`:
+
+```bash
+# Ignora i file generati da Intlayer
+.intlayer
+```
+
+### Estensione VS Code
+
+Per migliorare la tua esperienza di sviluppo con Intlayer, puoi installare l'**estensione ufficiale Intlayer per VS Code**.
+
+[Installa dal VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+Questa estensione fornisce:
+
+- **Autocompletamento** per le chiavi di traduzione.
+- **Rilevamento degli errori in tempo reale** per le traduzioni mancanti.
+- **Anteprima inline** del contenuto tradotto.
+- **Azioni rapide** per creare e aggiornare facilmente le traduzioni.
+
+Per maggiori informazioni sull'utilizzo dell'estensione, consulta la [documentazione dell'estensione VS Code](https://intlayer.org/doc/vs-code-extension).
+
+---
+
+### Approfondisci
+
+Se vuoi saperne di più, puoi anche implementare il [Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_visual_editor.md) o utilizzare il [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_CMS.md) per esternalizzare i tuoi contenuti.

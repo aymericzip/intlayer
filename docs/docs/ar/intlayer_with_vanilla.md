@@ -426,6 +426,9 @@ const unsubscribe = useDictionaryDynamic(
 ```
 
 > ملاحظة: يتطلب `useDictionaryDynamic` توفر القواميس كملفات ESM منفصلة. يتم استخدام هذا النهج عادةً إذا كان لديك خادم ويب يقدم القواميس.
+> </Step>
+
+</Steps>
 
 ### تكوين TypeScript
 
@@ -460,7 +463,3 @@ const unsubscribe = useDictionaryDynamic(
 ### اذهب أبعد من ذلك
 
 للذهاب إلى أبعد من ذلك ، يمكنك تنفيذ [المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) أو استضافة محتواك خارجيًا باستخدام [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md).
-
-</Step>
-
-</Steps>

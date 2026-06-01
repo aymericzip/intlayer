@@ -734,6 +734,10 @@ return (
 );
 ```
 
+</Step>
+
+</Steps>
+
 ### (Optional) Sitemap and robots.txt (build-time)
 
 Intlayer includes formatters such as `generateSitemap` and `getMultilingualUrls` that produce crawler-ready multilingual `sitemap.xml` and `robots.txt` output you can write into your project’s `public/` folder. In practice you run a small Node script **before** Vite (for example `predev` / `prebuild` npm hooks) so those files exist when you build or serve the app.
@@ -869,7 +873,3 @@ For more details on how to use the extension, refer to the [Intlayer VS Code Ext
 To go further, you can implement the [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_visual_editor.md) or externalise your content using the [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_CMS.md).
 
 ---
-
-</Step>
-
-</Steps>

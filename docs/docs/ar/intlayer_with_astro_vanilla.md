@@ -438,54 +438,6 @@ export const GET: APIRoute = ({ site }) => {
 };
 ```
 
-### تكوين TypeScript
-
-تستخدم Intlayer تقنية توسيع الوحدات (module augmentation) للاستفادة من TypeScript، مما يجعل برمجتك أكثر قوة.
-
-![الإكمال التلقائي](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
-
-![خطأ في الترجمة](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
-
-تأكد من أن تكوين TypeScript الخاص بك يتضمن الأنواع المولدة تلقائيًا.
-
-```json5 fileName="tsconfig.json"
-{
-  // ... تكوين TypeScript الحالي الخاص بك
-  "include": [
-    // ... تكوين TypeScript الحالي الخاص بك
-    ".intlayer/**/*.ts", // تضمين الأنواع المولدة تلقائيًا
-  ],
-}
-```
-
-### تكوين Git
-
-يوصى بتجاهل الملفات التي تنشئها Intlayer. هذا يتجنب إضافتها إلى مستودع Git الخاص بك.
-
-للقيام بذلك، أضف التعليمات التالية إلى ملف `.gitignore` الخاص بك:
-
-```bash
-# تجاهل الملفات المولدة بواسطة Intlayer
-.intlayer
-```
-
-### إضافة VS Code
-
-لتحسين تجربة التطوير الخاصة بك مع Intlayer، يمكنك تثبيت **إضافة Intlayer الرسمية لـ VS Code**.
-
-[التثبيت من VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
-
-توفر هذه الإضافة:
-
-- **إكمال تلقائي** لمفاتيح الترجمة.
-- **اكتشاف الأخطاء في الوقت الفعلي** للترجمات المفقودة.
-- **معاينة مضمنة** للمحتوى المترجم.
-- **إجراءات سريعة** لإنشاء وتحديث الترجمات بسهولة.
-
-لمزيد من المعلومات حول استخدام الإضافة، راجع [توثيق إضافة VS Code](https://intlayer.org/doc/vs-code-extension).
-
----
-
 </Step>
 
 <Step number={15} title="Extract the content of your components" isOptional={true}>
@@ -590,10 +542,58 @@ bun run build # Or bun run dev
 
 ---
 
-### تعمق أكثر
-
-إذا كنت تريد معرفة المزيد، يمكنك أيضًا تنفيذ [المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) أو استخدام [نظام إدارة المحتوى (CMS)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md) لإخراج محتواك خارجيًا.
-
 </Step>
 
 </Steps>
+
+### تكوين TypeScript
+
+تستخدم Intlayer تقنية توسيع الوحدات (module augmentation) للاستفادة من TypeScript، مما يجعل برمجتك أكثر قوة.
+
+![الإكمال التلقائي](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
+
+![خطأ في الترجمة](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+
+تأكد من أن تكوين TypeScript الخاص بك يتضمن الأنواع المولدة تلقائيًا.
+
+```json5 fileName="tsconfig.json"
+{
+  // ... تكوين TypeScript الحالي الخاص بك
+  "include": [
+    // ... تكوين TypeScript الحالي الخاص بك
+    ".intlayer/**/*.ts", // تضمين الأنواع المولدة تلقائيًا
+  ],
+}
+```
+
+### تكوين Git
+
+يوصى بتجاهل الملفات التي تنشئها Intlayer. هذا يتجنب إضافتها إلى مستودع Git الخاص بك.
+
+للقيام بذلك، أضف التعليمات التالية إلى ملف `.gitignore` الخاص بك:
+
+```bash
+# تجاهل الملفات المولدة بواسطة Intlayer
+.intlayer
+```
+
+### إضافة VS Code
+
+لتحسين تجربة التطوير الخاصة بك مع Intlayer، يمكنك تثبيت **إضافة Intlayer الرسمية لـ VS Code**.
+
+[التثبيت من VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+توفر هذه الإضافة:
+
+- **إكمال تلقائي** لمفاتيح الترجمة.
+- **اكتشاف الأخطاء في الوقت الفعلي** للترجمات المفقودة.
+- **معاينة مضمنة** للمحتوى المترجم.
+- **إجراءات سريعة** لإنشاء وتحديث الترجمات بسهولة.
+
+لمزيد من المعلومات حول استخدام الإضافة، راجع [توثيق إضافة VS Code](https://intlayer.org/doc/vs-code-extension).
+
+---
+
+### تعمق أكثر
+
+إذا كنت تريد معرفة المزيد، يمكنك أيضًا تنفيذ [المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) أو استخدام [نظام إدارة المحتوى (CMS)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md) لإخراج محتواك خارجيًا.

@@ -628,6 +628,9 @@ bun add @intlayer/swc --dev
 > Uwaga: Ten pakiet nie jest instalowany domyślnie, ponieważ wtyczki SWC są w Next.js wciąż eksperymentalne. Może to ulec zmianie w przyszłości.
 
 > Uwaga: Jeśli ustawisz opcję na `importMode: 'dynamic'` lub `importMode: 'fetch'` (in the `dictionary` configuration), będzie to polegać na Suspense, więc będziesz musiał otoczyć wywołania `useIntlayer` granicą `Suspense`. To oznacza, że nie będziesz mógł używać `useIntlayer` bezpośrednio na najwyższym poziomie komponentu Page lub Layout.
+> </Step>
+
+</Steps>
 
 ### Monitorowanie zmian słowników w Turbopack
 
@@ -696,7 +699,3 @@ Aby uzyskać więcej informacji o korzystaniu z rozszerzenia, zapoznaj się z do
 ### Dalsze kroki
 
 Aby pójść dalej, możesz wdrożyć [edytor wizualny](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_visual_editor.md) lub zewnętrznie przechowywać swoją zawartość za pomocą [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md).
-
-</Step>
-
-</Steps>

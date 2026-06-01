@@ -436,6 +436,9 @@ const unsubscribe = useDictionaryDynamic(
 ```
 
 > Catatan: `useDictionaryDynamic` mengharuskan kamus tersedia sebagai file ESM terpisah. Pendekatan ini biasanya digunakan jika Anda memiliki server web yang melayani kamus.
+> </Step>
+
+</Steps>
 
 ### Konfigurasikan TypeScript
 
@@ -470,7 +473,3 @@ Untuk detail lebih lanjut tentang cara menggunakan ekstensi ini, lihat [dokument
 ### Melangkah Lebih Jauh
 
 Untuk melangkah lebih jauh, Anda dapat mengimplementasikan [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md) atau mengeksternalisasi konten Anda menggunakan [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md).
-
-</Step>
-
-</Steps>

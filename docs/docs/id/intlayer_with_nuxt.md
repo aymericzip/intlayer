@@ -350,33 +350,6 @@ Kemudian, atur `app.vue` Anda untuk menggunakan layout:
 </template>
 ```
 
-### (Opsional) Langkah 6b: Buat Layout dengan Navigasi
-
-Layout Nuxt memungkinkan Anda mendefinisikan struktur umum untuk halaman Anda. Buat layout default yang mencakup locale switcher dan navigasi:
-
-```vue fileName="layouts/default.vue"
-<script setup lang="ts">
-import Links from "~/components/Links.vue";
-import LocaleSwitcher from "~/components/LocaleSwitcher.vue";
-</script>
-
-<template>
-  <div>
-    <header>
-      <LocaleSwitcher />
-    </header>
-    <main>
-      <slot />
-    </main>
-
-    <Links href="/">Beranda</Links>
-    <Links href="/about">Tentang</Links>
-  </div>
-</template>
-```
-
-Komponen `Links` (ditunjukkan di bawah) memastikan bahwa tautan navigasi internal secara otomatis dilokalkan.
-
 </Step>
 
 <Step number={7} title="Tambahkan Routing yang Dilokalkan ke aplikasi Anda" isOptional={true}>
@@ -624,6 +597,37 @@ export default aboutPageContent;
 }
 ```
 
+</Step>
+
+</Steps>
+
+### (Opsional) Langkah 6b: Buat Layout dengan Navigasi
+
+Layout Nuxt memungkinkan Anda mendefinisikan struktur umum untuk halaman Anda. Buat layout default yang mencakup locale switcher dan navigasi:
+
+```vue fileName="layouts/default.vue"
+<script setup lang="ts">
+import Links from "~/components/Links.vue";
+import LocaleSwitcher from "~/components/LocaleSwitcher.vue";
+</script>
+
+<template>
+  <div>
+    <header>
+      <LocaleSwitcher />
+    </header>
+    <main>
+      <slot />
+    </main>
+
+    <Links href="/">Beranda</Links>
+    <Links href="/about">Tentang</Links>
+  </div>
+</template>
+```
+
+Komponen `Links` (ditunjukkan di bawah) memastikan bahwa tautan navigasi internal secara otomatis dilokalkan.
+
 ### Konfigurasi Git
 
 Disarankan untuk mengabaikan file yang dihasilkan oleh Intlayer. Ini memungkinkan Anda menghindari meng-commit file tersebut ke repositori Git Anda.
@@ -655,7 +659,3 @@ Untuk detail lebih lanjut tentang cara menggunakan ekstensi ini, lihat [dokument
 ### Melangkah Lebih Jauh
 
 Untuk melangkah lebih jauh, Anda dapat mengimplementasikan [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md) atau mengeksternalisasi konten Anda menggunakan [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md).
-
-</Step>
-
-</Steps>

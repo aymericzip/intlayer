@@ -251,12 +251,11 @@ bun run build # Or bun run dev
 
  </Tab>
 </Tabs>
+</Step>
+
+</Steps>
 
 ### さらに進む
 
 - **ビジュアルエディター**: UIから直接翻訳を編集するために、[Intlayer Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)を統合します。
 - **CMS**: コンテンツ管理を外部化するために、[Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)を使用します。
-
-</Step>
-
-</Steps>

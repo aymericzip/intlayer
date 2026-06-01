@@ -350,33 +350,6 @@ Luego, configura tu `app.vue` para usar layouts:
 </template>
 ```
 
-### (Opcional) Paso 6b: Crear un Layout con Navegación
-
-Los layouts de Nuxt te permiten definir una estructura común para tus páginas. Crea un layout por defecto que incluya el selector de idioma y la navegación:
-
-```vue fileName="layouts/default.vue"
-<script setup lang="ts">
-import Links from "~/components/Links.vue";
-import LocaleSwitcher from "~/components/LocaleSwitcher.vue";
-</script>
-
-<template>
-  <div>
-    <header>
-      <LocaleSwitcher />
-    </header>
-    <main>
-      <slot />
-    </main>
-
-    <Links href="/">Inicio</Links>
-    <Links href="/about">Acerca de</Links>
-  </div>
-</template>
-```
-
-El componente `Links` (mostrado a continuación) asegura que los enlaces de navegación interna se localicen automáticamente.
-
 </Step>
 
 <Step number={7} title="Añadir enrutamiento por localeizado a tu aplicación" isOptional={true}>
@@ -622,6 +595,37 @@ export default aboutPageContent;
 }
 ```
 
+</Step>
+
+</Steps>
+
+### (Opcional) Paso 6b: Crear un Layout con Navegación
+
+Los layouts de Nuxt te permiten definir una estructura común para tus páginas. Crea un layout por defecto que incluya el selector de idioma y la navegación:
+
+```vue fileName="layouts/default.vue"
+<script setup lang="ts">
+import Links from "~/components/Links.vue";
+import LocaleSwitcher from "~/components/LocaleSwitcher.vue";
+</script>
+
+<template>
+  <div>
+    <header>
+      <LocaleSwitcher />
+    </header>
+    <main>
+      <slot />
+    </main>
+
+    <Links href="/">Inicio</Links>
+    <Links href="/about">Acerca de</Links>
+  </div>
+</template>
+```
+
+El componente `Links` (mostrado a continuación) asegura que los enlaces de navegación interna se localicen automáticamente.
+
 ### Configuración de Git
 
 Se recomienda ignorar los archivos generados por Intlayer. Esto te permite evitar comprometerlos en tu repositorio Git.
@@ -653,7 +657,3 @@ Para más detalles sobre cómo usar la extensión, consulta la [documentación d
 ### Ir más allá
 
 Para ir más allá, puedes implementar el [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_visual_editor.md) o externalizar tu contenido usando el [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_CMS.md).
-
-</Step>
-
-</Steps>
