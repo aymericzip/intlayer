@@ -1,6 +1,5 @@
 /** biome-ignore-all lint/security/noDangerouslySetInnerHtml: No choice */
 import { Website_Domain } from '@intlayer/design-system/routes';
-import Script from 'next/script';
 import type { FC } from 'react';
 
 type BreadcrumbsListItem = {
@@ -15,9 +14,8 @@ type BreadcrumbsHeaderProps = {
 export const BreadcrumbsHeader: FC<BreadcrumbsHeaderProps> = ({
   breadcrumbs,
 }) => (
-  <Script
+  <script
     type="application/ld+json"
-    strategy="afterInteractive"
     dangerouslySetInnerHTML={{
       __html: JSON.stringify({
         '@context': 'https://schema.org',

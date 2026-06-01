@@ -16,7 +16,6 @@ export const BreadcrumbsHeader: FC<BreadcrumbsHeaderProps> = ({
 }) => (
   <Script
     type="application/ld+json"
-    strategy="afterInteractive"
     dangerouslySetInnerHTML={{
       __html: JSON.stringify({
         '@context': 'https://schema.org',

@@ -1,4 +1,4 @@
-import Script from 'next/script';
+import { Website_Home } from '@intlayer/design-system/routes';
 import { useIntlayer } from 'next-intlayer/server';
 
 type DocHeaderProps = {
@@ -12,19 +12,13 @@ type DocHeaderProps = {
   url?: string;
 };
 
+// Schema.org requires ISO 8601 dates (YYYY-MM-DD).
 const formatDate = (date: Date): string => {
-  // Ensure the input is a Date object
   if (!(date instanceof Date)) {
     throw new Error('Input must be a valid Date object');
   }
 
-  // Extract the parts of the date
-  const day = String(date.getDate()).padStart(2, '0'); // Ensure 2 digits
-  const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
-  const year = date.getFullYear();
-
-  // Combine them in the desired format
-  return `${day}-${month}-${year}`;
+  return date.toISOString().split('T')[0];
 };
 
 export const CreativeWorkHeader = ({
@@ -38,14 +32,33 @@ export const CreativeWorkHeader = ({
   url,
 }: DocHeaderProps) => {
   const { audienceType } = useIntlayer('creative-work-structured-data');
+
+  const ogImageUrl = `${process.env.NEXT_PUBLIC_URL}/api/og?title=${encodeURIComponent(
+    creativeWorkName
+  )}&description=${encodeURIComponent(creativeWorkDescription)}`;
+
+  const author = {
+    '@type': 'Person',
+    name: 'Aymeric Pineau',
+    url: Website_Home,
+  };
+
   const creativeWork = {
     '@context': 'https://schema.org',
     '@type': type,
-    creator: {
-      '@type': 'Person',
-      name: 'Aymeric Pineau',
+    author,
+    creator: author,
+    publisher: {
+      '@type': 'Organization',
+      name: 'Intlayer',
+      logo: {
+        '@type': 'ImageObject',
+        url: `${Website_Home}/assets/logo.png`,
+      },
     },
     name: creativeWorkName,
+    headline: creativeWorkName,
+    image: ogImageUrl,
     text: creativeWorkContent,
     about: creativeWorkDescription,
     url,
@@ -61,9 +74,9 @@ export const CreativeWorkHeader = ({
   };
 
   return (
-    <Script
+    <script
       type="application/ld+json"
-      strategy="afterInteractive"
+      // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD must be inlined for crawlers
       dangerouslySetInnerHTML={{
         __html: JSON.stringify(creativeWork),
       }}

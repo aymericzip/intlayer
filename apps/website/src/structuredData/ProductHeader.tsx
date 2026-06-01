@@ -33,7 +33,6 @@ export const ProductHeader = ({
   return (
     <Script
       type="application/ld+json"
-      strategy="afterInteractive"
       dangerouslySetInnerHTML={{
         __html: JSON.stringify(product),
       }}

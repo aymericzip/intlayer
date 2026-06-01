@@ -5,7 +5,6 @@ import {
   Website_Doc_Search,
   Website_Home,
 } from '@intlayer/design-system/routes';
-import Script from 'next/script';
 import { useIntlayer } from 'next-intlayer/server';
 
 export const WebsiteHeader = () => {
@@ -26,9 +25,8 @@ export const WebsiteHeader = () => {
   };
 
   return (
-    <Script
+    <script
       type="application/ld+json"
-      strategy="afterInteractive"
       dangerouslySetInnerHTML={{
         __html: JSON.stringify(website),
       }}

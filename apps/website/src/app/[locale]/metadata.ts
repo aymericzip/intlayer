@@ -28,7 +28,7 @@ export const generateMetadata = async ({
     keywords,
     referrer: 'origin',
     creator: 'Aymeric PINEAU',
-    publisher: '/',
+    publisher: 'Intlayer',
     robots: 'index, follow',
     metadataBase: new URL(process.env.NEXT_PUBLIC_URL!),
     alternates: {

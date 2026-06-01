@@ -53,7 +53,6 @@ export const SoftwareApplicationHeader: FC = () => {
   return (
     <Script
       type="application/ld+json"
-      strategy="afterInteractive"
       dangerouslySetInnerHTML={{
         __html: JSON.stringify(softwareApplication),
       }}

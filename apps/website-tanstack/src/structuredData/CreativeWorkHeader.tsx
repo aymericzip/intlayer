@@ -62,7 +62,6 @@ export const CreativeWorkHeader = ({
   return (
     <Script
       type="application/ld+json"
-      strategy="afterInteractive"
       dangerouslySetInnerHTML={{
         __html: JSON.stringify(creativeWork),
       }}

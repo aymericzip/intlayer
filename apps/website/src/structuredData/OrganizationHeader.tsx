@@ -1,7 +1,6 @@
 /** biome-ignore-all lint/security/noDangerouslySetInnerHtml: No choice */
 
 import { External_Github, Website_Home } from '@intlayer/design-system/routes';
-import Script from 'next/script';
 import { useIntlayer } from 'next-intlayer/server';
 import type { FC } from 'react';
 
@@ -31,9 +30,8 @@ export const OrganizationHeader: FC = () => {
   };
 
   return (
-    <Script
+    <script
       type="application/ld+json"
-      strategy="afterInteractive"
       dangerouslySetInnerHTML={{
         __html: JSON.stringify(organization),
       }}
