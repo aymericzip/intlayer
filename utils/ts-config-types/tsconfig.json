@@ -21,6 +21,9 @@
     "declaration": true,
     "skipLibCheck": true,
     "outDir": "dist/types",
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "noUncheckedIndexedAccess": true,
+    "noFallthroughCasesInSwitch": true,
+    "allowUnreachableCode": false
   }
 }
