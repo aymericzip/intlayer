@@ -11,10 +11,10 @@
   },
   "dependencies": {
     "intlayer": "workspace:*",
-    "nuxt": "4.2.1",
-    "vue": "3.5.30",
+    "nuxt": "4.4.6",
+    "vue": "3.5.35",
     "vue-intlayer": "workspace:*",
-    "vue-router": "4.6.4"
+    "vue-router": "5.1.0"
   },
   "devDependencies": {
     "nuxt-intlayer": "workspace:*"

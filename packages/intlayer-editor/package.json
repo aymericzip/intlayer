@@ -115,7 +115,7 @@
     "autoprefixer": "10.5.0",
     "babel-plugin-react-compiler": "^1.0.0",
     "framer-motion": "12.40.0",
-    "fuse.js": "7.3.0",
+    "fuse.js": "7.4.0",
     "globals": "17.6.0",
     "intlayer": "workspace:*",
     "lucide-react": "1.17.0",
