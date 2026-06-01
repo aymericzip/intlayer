@@ -24,7 +24,7 @@
     },
     "format": {
       "type": "string",
-      "enum": ["intlayer", "icu", "i18next", "vue-i18n"]
+      "enum": ["intlayer", "icu", "i18next", "vue-i18n", "po"]
     },
     "key": {
       "type": "string"
@@ -125,6 +125,7 @@
             "anyOf": [
               { "$ref": "#/definitions/translationContent" },
               { "$ref": "#/definitions/enumerationContent" },
+              { "$ref": "#/definitions/pluralContent" },
               { "$ref": "#/definitions/conditionContent" },
               { "$ref": "#/definitions/insertionContent" },
               { "$ref": "#/definitions/markdownContent" },
@@ -345,6 +346,33 @@
       },
       "required": ["props"],
       "additionalProperties": true
+    },
+
+    "pluralContent": {
+      "type": "object",
+      "description": "Represents a plural node using CLDR pluralization rules.",
+      "properties": {
+        "nodeType": {
+          "type": "string",
+          "const": "plural"
+        },
+        "plural": {
+          "type": "object",
+          "description": "Plural object with CLDR category keys. 'other' is required as the fallback.",
+          "properties": {
+            "zero": { "$ref": "#/definitions/contentValue" },
+            "one": { "$ref": "#/definitions/contentValue" },
+            "two": { "$ref": "#/definitions/contentValue" },
+            "few": { "$ref": "#/definitions/contentValue" },
+            "many": { "$ref": "#/definitions/contentValue" },
+            "other": { "$ref": "#/definitions/contentValue" }
+          },
+          "required": ["other"],
+          "additionalProperties": false
+        }
+      },
+      "required": ["nodeType", "plural"],
+      "additionalProperties": false
     },
 
     "genderContent": {
