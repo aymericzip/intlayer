@@ -29,7 +29,7 @@ export const BlogPageLayout: FC<BlogPageLayoutProps> = ({
             activeSlugs={['blog', ...activeSlugs]}
           />
         </aside>
-        <div className="flex flex-1 flex-row">
+        <div className="flex min-w-0 flex-1 flex-row">
           <article
             className="relative mb-3 h-full max-h-screen w-auto flex-1 grow overflow-auto rounded-xl bg-background px-4 pb-24 max-md:pl-10 md:max-h-[calc(100vh-4.5rem)] md:px-10"
             id="content"

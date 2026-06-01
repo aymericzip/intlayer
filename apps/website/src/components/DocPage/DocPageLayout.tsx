@@ -1,4 +1,5 @@
 import { getIntlayer, type LocalesValues } from 'intlayer';
+import { useIntlayer } from 'next-intlayer/server';
 import type { FC, ReactNode } from 'react';
 import { AsideNavigation } from './AsideNavigation/AsideNavigation';
 import { DocBreadCrumb } from './DocBreadCrumb';
@@ -20,8 +21,8 @@ export const DocPageLayout: FC<DocPageLayoutProps> = ({
   displayAsideNavigation = true,
   displayBreadCrumb = true,
 }) => {
-  const docData: Section = getIntlayer('doc-data', locale);
-  const content = getIntlayer('doc-page-layout', locale);
+  const docData = getIntlayer('doc-data', locale) as Section;
+  const content = useIntlayer('doc-page-layout', locale);
 
   return (
     <>
@@ -32,7 +33,7 @@ export const DocPageLayout: FC<DocPageLayoutProps> = ({
         >
           <DocNavList docData={docData} activeSlugs={['doc', ...activeSlugs]} />
         </aside>
-        <div className="flex flex-1 flex-row">
+        <div className="flex min-w-0 flex-1 flex-row">
           <article
             aria-label={content.documentationContent.value}
             className="relative mb-3 h-full max-h-screen w-auto flex-1 grow overflow-auto rounded-xl bg-background px-4 pb-24 max-md:pl-10 md:max-h-[calc(100vh-4.5rem)] md:px-10"

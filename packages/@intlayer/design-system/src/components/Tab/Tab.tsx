@@ -221,7 +221,7 @@ const TabComponent = ({
                   tabIndex={isActive ? 0 : -1}
                   data-active={isActive}
                   className={cn(
-                    'w-full min-w-0 p-6 opacity-100 transition-opacity duration-300 ease-in-out',
+                    'w-full min-w-0 p-3 opacity-100 transition-opacity duration-300 ease-in-out',
                     fullHeight && 'h-full overflow-y-auto',
                     !isActive && 'pointer-events-none opacity-0', // prevent offscreen interaction
                     itemClassName
