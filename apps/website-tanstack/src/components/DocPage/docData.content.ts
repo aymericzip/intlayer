@@ -1504,6 +1504,10 @@ const docDataContent: Dictionary = {
           }),
           default: getDocMetadata('./docs/en/agent_skills.md'),
         },
+        lsp: {
+          title: 'Language Server Protocol',
+          default: getDocMetadata('./docs/en/lsp.md'),
+        },
       },
     },
     releases: {

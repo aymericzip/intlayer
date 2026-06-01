@@ -1,4 +1,4 @@
-import { getBlogMetadataBySlug } from '@intlayer/docs';
+import { getFrequentQuestionMetadataBySlug } from '@intlayer/docs';
 import { getLocalizedUrl, getMultilingualUrls, Locales } from 'intlayer';
 import type { Metadata } from 'next';
 import type { LocalPromiseParams, NextLayoutIntlayer } from 'next-intlayer';
@@ -11,9 +11,9 @@ export type FrequentQuestionPageProps =
   LocalPromiseParams<FrequentQuestionProps>;
 
 export const generateStaticParams = async () => {
-  const blogMetadata = await getBlogMetadataBySlug([]);
+  const frequentQuestionsMetadata = await getFrequentQuestionMetadataBySlug([]);
 
-  const slugList: string[][] = blogMetadata.map((meta) => meta.slugs);
+  const slugList: string[][] = frequentQuestionsMetadata.map((meta) => meta.slugs);
 
   return slugList;
 };
@@ -23,7 +23,7 @@ export const generateMetadata = async ({
 }: FrequentQuestionPageProps): Promise<Metadata> => {
   const { locale, slugs } = await params;
 
-  const blogsData = await getBlogMetadataBySlug(
+  const blogsData = await getFrequentQuestionMetadataBySlug(
     ['frequent-questions', ...(slugs ?? [])],
     locale,
     true

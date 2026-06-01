@@ -37,6 +37,8 @@ export const Route = createFileRoute('/{-$locale}/_dashboard')({
   head: ({ params }) => {
     const { locale } = params;
     const content = getIntlayer('dashboard-metadata', locale);
+    const siteUrl = import.meta.env.VITE_SITE_URL;
+    const pageUrl = locale ? `${siteUrl}/${locale}` : siteUrl;
 
     return {
       title: content.metadata.title,
@@ -48,6 +50,15 @@ export const Route = createFileRoute('/{-$locale}/_dashboard')({
         {
           name: 'keywords',
           content: content.metadata.keywords.join(', '),
+        },
+        { property: 'og:title', content: content.metadata.title },
+        { property: 'og:description', content: content.metadata.description },
+        { property: 'og:url', content: pageUrl },
+        { property: 'og:image', content: `${siteUrl}/cover.png` },
+        { name: 'twitter:title', content: content.metadata.title },
+        {
+          name: 'twitter:description',
+          content: content.metadata.description,
         },
       ],
     };

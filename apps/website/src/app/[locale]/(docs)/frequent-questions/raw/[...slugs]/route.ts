@@ -1,4 +1,7 @@
-import { getBlog, getBlogMetadataBySlug } from '@intlayer/docs';
+import {
+  getFrequentQuestion,
+  getFrequentQuestionMetadataBySlug,
+} from '@intlayer/docs';
 
 type RouteContext = {
   params: {
@@ -11,12 +14,15 @@ async function findFrequentQuestionMetadata(
   slugs: string | string[],
   locale: string
 ) {
-  const normalizedSlugs = ['blog', ...(Array.isArray(slugs) ? slugs : [slugs])];
-  return await getBlogMetadataBySlug(normalizedSlugs, locale, true);
+  const normalizedSlugs = [
+    'frequent-questions',
+    ...(Array.isArray(slugs) ? slugs : [slugs]),
+  ];
+  return await getFrequentQuestionMetadataBySlug(normalizedSlugs, locale, true);
 }
 
 async function getCachedFrequentQuestion(docKey: string, locale: string) {
-  return await getBlog(docKey as any, locale);
+  return await getFrequentQuestion(docKey as any, locale);
 }
 
 export async function GET(request: Request, context: RouteContext) {

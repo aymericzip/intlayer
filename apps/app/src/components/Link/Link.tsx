@@ -61,7 +61,7 @@ export const Link: FC<LinkProps> = ({
   // Check if external link using normalized href
   const isExternalLink =
     isExternalLinkProp ??
-    checkIsExternalLink({ href: to, isExternalLink: isExternalLinkProp });
+    checkIsExternalLink({ href: to, isExternalLink: isExternalLinkProp }, URL);
 
   const isPageSection =
     isPageSectionProp ?? normalizedHref?.startsWith('#') ?? false;

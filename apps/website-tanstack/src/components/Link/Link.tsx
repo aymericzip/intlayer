@@ -63,10 +63,13 @@ const getLinkInfo = (
   const isExternalLink =
     isExternalLinkProp ??
     (typeof pathnameString === 'string'
-      ? checkIsExternalLink({
-          href: pathnameString,
-          isExternalLink: isExternalLinkProp,
-        })
+      ? checkIsExternalLink(
+          {
+            href: pathnameString,
+            isExternalLink: isExternalLinkProp,
+          },
+          URL
+        )
       : false);
 
   const isAsset =

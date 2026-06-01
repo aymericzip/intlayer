@@ -23,8 +23,7 @@ async function analyze() {
   const fileRegex = /(?:src|href)=["']([^"']+\.(?:js|mjs|ts|tsx|jsx))["']/gi;
   const uniqueChunks = new Set<string>();
 
-  let match;
-  while ((match = fileRegex.exec(html)) !== null) {
+  for (const match of html.matchAll(fileRegex)) {
     uniqueChunks.add(match[1]);
   }
 
