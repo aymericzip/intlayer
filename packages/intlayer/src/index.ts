@@ -1,6 +1,6 @@
 /** biome-ignore-all lint/suspicious/noEmptyInterface: Intlayer module augmentation registries */
 
-import type { IntlayerConfig } from '@intlayer/types/config';
+import type { CustomIntlayerConfig as IntlayerConfig } from '@intlayer/types/config';
 import type { Dictionary as DictionaryCore } from '@intlayer/types/dictionary';
 import type { SchemaKeys } from '@intlayer/types/module_augmentation';
 
