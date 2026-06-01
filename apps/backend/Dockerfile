@@ -66,7 +66,7 @@ COPY \
     --exclude=docs/legal \
     --exclude=examples \
     --exclude=apps/website \ 
-    --exclude=apps/website-react-router \    
+    --exclude=apps/website-tanstack \    
     --exclude=apps/showcase \
     --exclude=apps/app \
     --exclude=apps/doc \

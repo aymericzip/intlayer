@@ -39,7 +39,7 @@ COPY \
     --exclude=packages/hono-intlayer \
     --exclude=packages/adonis-intlayer \
     --exclude=apps/website \ 
-    --exclude=apps/website-react-router \        --exclude=apps/app \
+    --exclude=apps/website-tanstack \        --exclude=apps/app \
     --exclude=apps/doc \
     --exclude=plugins \
     --exclude=docs/assets \

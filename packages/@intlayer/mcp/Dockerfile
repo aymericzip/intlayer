@@ -45,7 +45,7 @@ COPY \
     --exclude=examples \
     --exclude=plugins \
     --exclude=apps/website \ 
-    --exclude=apps/website-react-router \
+    --exclude=apps/website-tanstack \
     --exclude=apps/showcase \
     --exclude=apps/app \
     --exclude=apps/doc \
