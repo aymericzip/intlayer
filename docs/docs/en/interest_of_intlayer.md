@@ -29,6 +29,10 @@ history:
 
 # Why you should consider Intlayer?
 
+## What is Intlayer?
+
+**Intlayer** is an internationalization library designed specifically for JavaScript developers. It allows the declaration of your content everywhere in your code. It converts declarations of multilingual content into structured dictionaries to integrate easily in your code. Using TypeScript, **Intlayer** makes your development stronger and more efficient.
+
 ## Why Intlayer over alternatives?
 
 Compared to main solutions like `next-intl` or `i18next`, Intlayer is a solution that comes with integrated optimizations such as:
@@ -64,12 +68,6 @@ More than just an i18n solution, Intlayer provides an **self-hosted [visual edit
 **Cross framework design**
 
 If you use different frameworks for different part of your application (e.g., React, React-native, Vue, Angular, Svelte, etc.), Intlayer provides a way to **use a common synatax and implementation across all main frontend frameworks**. You will also be able to share your content declaration across your design-system, apps, backend etc.
-
----
-
-## What is Intlayer?
-
-**Intlayer** is an internationalization library designed specifically for JavaScript developers. It allows the declaration of your content everywhere in your code. It converts declarations of multilingual content into structured dictionaries to integrate easily in your code. Using TypeScript, **Intlayer** makes your development stronger and more efficient.
 
 ## Why was Intlayer created?
 

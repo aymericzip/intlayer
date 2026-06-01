@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-14
-updatedAt: 2025-09-27
+updatedAt: 2026-05-31
 title: Výhody Intlayer
 description: Objevte výhody a přednosti používání Intlayer ve vašich projektech. Pochopte, proč Intlayer vyniká mezi ostatními frameworky.
 keywords:
@@ -13,6 +13,9 @@ slugs:
   - doc
   - why
 history:
+  - version: 8.11.2
+    date: 2026-05-31
+    changes: "Přidána sekce Proč Intlayer před alternativami"
   - version: 7.3.1
     date: 2025-11-27
     changes: "Vydání překladače"
@@ -29,6 +32,42 @@ history:
 ## Co je Intlayer?
 
 **Intlayer** je knihovna pro internacionalizaci navržená speciálně pro vývojáře v JavaScriptu. Umožňuje deklarovat obsah kdekoli ve vašem kódu. Převádí deklarace vícejazyčného obsahu do strukturovaných slovníků, které lze snadno integrovat do vašeho kódu. Díky použití TypeScriptu činí **Intlayer** váš vývoj robustnějším a efektivnějším.
+
+## Proč Intlayer před alternativami?
+
+Ve srovnání s hlavními řešeními jako `next-intl` nebo `i18next` je Intlayer řešením, které přichází s integrovanými optimalizacemi, jako jsou:
+
+**Velikost balíčku (Bundle size)**
+
+Místo načítání obrovských souborů JSON do vašich stránek načtěte pouze nezbytný obsah. Intlayer pomáhá **snížit velikost vašeho balíčku a stránek až o 50 %**.
+
+**Udržovatelnost**
+
+Omezení rozsahu obsahu vaší aplikace na úroveň komponent **usnadňuje údržbu** u velkých projektů. Můžete duplikovat nebo smazat jednu složku s funkcí bez mentální zátěže z nutnosti procházet celou kódovou základnu obsahu. Intlayer je navíc **plně typovaný**, což zaručuje přesnost vašeho obsahu.
+
+**AI Agenti**
+
+Umístění obsahu přímo u komponent **snižuje rozsah kontextu** potřebného pro velké jazykové modely (LLM). Intlayer také přichází se sadou nástrojů, jako je **CLI** pro testování chybějících překladů, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/mcp_server.md)** a **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/agent_skills.md)**, které AI agentům usnadňují vývojářské prostředí (DX).
+
+**Funkce**
+
+Intlayer nabízí řadu dodatečných funkcí, které jiná i18n řešení nemají, jako je [podpora Markdownu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/dictionary/markdown.md), [načítání externího obsahu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/dictionary/function_fetching.md), [načítání obsahu ze souborů](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/dictionary/file.md), [živá aktualizace obsahu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/live.md), [vizuální editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/intlayer_visual_editor.md) a další.
+
+**Automatizace**
+
+Využijte automatizaci k překladu ve vaší CI/CD pipeline pomocí LLM podle vaší volby za cenu vašeho poskytovatele AI. Intlayer nabízí také **kompilátor** pro automatickou extrakci obsahu a [webovou platformu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/intlayer_CMS.md) pro podporu **překladu na pozadí**.
+
+**Výkon**
+
+Připojení masivních souborů JSON ke komponentám může způsobit problémy s výkonem a reaktivitou. Intlayer optimalizuje načítání vašeho obsahu již při sestavení (build).
+
+**Spolupráce s netechnickými profily**
+
+Více než jen i18n řešení, Intlayer poskytuje **[vizuální editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/intlayer_visual_editor.md) s možností vlastního hostování** a **[plnohodnotný CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/intlayer_CMS.md)**, které vám pomohou spravovat vícejazyčný obsah v **reálném čase**. Spolupráce s překladateli, textaři a dalšími členy týmu je tak zcela bezproblémová. Obsah lze ukládat lokálně a/nebo vzdáleně.
+
+**Návrh napříč frameworky**
+
+Pokud používáte různé frameworky pro různé části vaší aplikace (např. React, React-native, Vue, Angular, Svelte atd.), Intlayer poskytuje způsob, jak **používat společnou syntaxi a implementaci ve všech hlavních frontendových frameworcích**. Své deklarace obsahu budete moci sdílet napříč vaším design systémem, aplikacemi, backendem atd.
 
 ## Proč byl Intlayer vytvořen?
 
@@ -174,9 +213,9 @@ Tento přístup vám umožňuje:
 
 | Funkce                                                                                                                    | Popis                                                                                                                                                                                                                                                                                                                                                                                                              |
 | ------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| ![Funkce](https://github.com/aymericzip/intlayer/blob/main/docs/assets/frameworks.png?raw=true)                           | **Podpora napříč frameworky**<br><br>Intlayer je kompatibilní se všemi hlavními frameworky a knihovnami, včetně Next.js, React, Vite, Vue.js, Nuxt, Preact, Express a dalších.                                                                                                                                                                                                                                     |
+| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/frameworks.png?raw=true)                          | **Podpora napříč frameworky**<br><br>Intlayer je kompatibilní se všemi hlavními frameworky a knihovnami, včetně Next.js, React, Vite, Vue.js, Nuxt, Preact, Express a dalších.                                                                                                                                                                                                                                     |
 | ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/javascript_content_management.jpg?raw=true)       | **Správa obsahu poháněná JavaScriptem**<br><br>Využijte flexibilitu JavaScriptu k efektivní definici a správě vašeho obsahu. <br><br> - [Deklarace obsahu](https://intlayer.org/doc/concept/content)                                                                                                                                                                                                               |
-| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/compiler.jpg?raw=true" alt="Funkce" width="700">   | **Překladač (Compiler)**<br><br>Překladač Intlayer automaticky extrahuje obsah z komponent a generuje soubory slovníků.<br><br> - [Překladač](https://intlayer.org/doc/compiler)                                                                                                                                                                                                                                   |
+| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/compiler.jpg?raw=true" alt="Feature" width="700">  | **Překladač (Compiler)**<br><br>Překladač Intlayer automaticky extrahuje obsah z komponent a generuje soubory slovníků.<br><br> - [Překladač](https://intlayer.org/doc/compiler)                                                                                                                                                                                                                                   |
 | ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/per_locale_content_declaration_file.png?raw=true) | **Soubor deklarace obsahu pro každé národní prostředí**<br><br>Zrychlete svůj vývoj deklarováním obsahu jednou, před automatickým generováním.<br><br> - [Soubor deklarace obsahu pro každé národní prostředí](https://intlayer.org/doc/concept/per-locale-file)                                                                                                                                                   |
 | ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)                      | **Typově bezpečné prostředí**<br><br>Využijte TypeScript k zajištění bezchybnosti definic obsahu a kódu a zároveň čerpejte výhody z automatického doplňování v IDE.<br><br> - [Konfigurace TypeScriptu](https://intlayer.org/doc/environment/vite-and-react#configure-typescript)                                                                                                                                  |
 | ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/config_file.png?raw=true)                         | **Zjednodušené nastavení**<br><br>Rychle začněte s minimální konfigurací. Snadno upravte nastavení pro internacionalizaci, směrování, AI, sestavování a zpracování obsahu. <br><br> - [Prozkoumejte integraci Next.js](https://intlayer.org/doc/environment/nextjs)                                                                                                                                                |
@@ -216,13 +255,11 @@ Tento přístup vám umožňuje:
 | **Tree-shaking (načítat pouze použitý obsah)** | ✅ Ano, pro každou komponentu v době sestavení přes Babel/SWC pluginy                                                         | ⚠️ Většinou načítá vše (lze zlepšit jmennými prostory / rozdělením kódu)                                                 | ⚠️ Většinou načítá vše                                                                                                                           | ❌ Není výchozí                                                      | ⚠️ Částečně                                                                                                              | ⚠️ Částečně                                                                                                              | ⚠️ Částečně (s rozdělením kódu/ručním nastavením)                     |
 | **Opožděné načítání (Lazy loading)**           | ✅ Ano, pro každé národní prostředí / pro každý slovník                                                                       | ✅ Ano (např. on-demand backendy/jmenné prostory)                                                                        | ✅ Ano (rozdělené balíčky národních prostředí)                                                                                                   | ✅ Ano (dynamické importy katalogů)                                  | ✅ Ano (pro každou trasu / každé národní prostředí), vyžaduje správu jmenných prostorů                                   | ✅ Ano (pro každou trasu / každé národní prostředí), vyžaduje správu jmenných prostorů                                   | ✅ Ano (asynchronní zprávy národních prostředí)                       |
 | **Vyčištění nepoužívaného obsahu**             | ✅ Ano, pro každý slovník v době sestavení                                                                                    | ❌ Ne, pouze ručním segmentováním jmenných prostorů                                                                      | ❌ Ne, všechny deklarované zprávy jsou zabaleny                                                                                                  | ✅ Ano, nepoužívané klíče jsou detekovány a při sestavení odstraněny | ❌ Ne, lze spravovat ručně se správou jmenných prostorů                                                                  | ❌ Ne, lze spravovat ručně se správou jmenných prostorů                                                                  | ❌ Ne, možné pouze přes ruční lazy-loading                            |
-| **Správa velkých projektů**                    | ✅ Podporuje modularitu, vhodné pro designové systémy                                                                         | ⚠️ Vyžaduje dobrou disciplínu v souborech                                                                                | ⚠️ Centrální katalogy se mohou rozrůst                                                                                                           | ⚠️ Může se stát komplexním                                           | ✅ Modulární s nastavením                                                                                                | ✅ Modulární s nastavením                                                                                                | ✅ Modulární s nastavením Vue Router/Nuxt i18n                        |
-
----
+| **Správa velkých projektů**                    | ✅ Podporuje modularitu, vhodné pro designové systémy                                                                         | ⚠️ Vyžaduje dobrou disciplínu ve souborech                                                                               | ⚠️ Centrální katalogy se mohou rozrůst                                                                                                           | ⚠️ Může se stát komplexním                                           | ✅ Modulární s nastavením                                                                                                | ✅ Modulární s nastavením                                                                                                | ✅ Modulární s nastavením Vue Router/Nuxt i18n                        |
 
 ## Hvězdičky na GitHubu
 
-Hvězdičky na GitHubu jsou silným ukazatelem popularity projektu, důvěry komunity a dlouhodobé relevance. Přestože nejsou přímým měřítkem technické kvality, odrážejí, kolik vývojářů považuje projekt za užitečný, sleduje jeho pokrok a pravděpodobně jej přijme. Pro odhad hodnoty projektu pomáhají hvězdičky porovnat zájem o alternativy a poskytují náhled na růst ekosystému.
+Les étoiles GitHub sont un indicateur fort de la popularité d'un projet, de la confiance de la communauté et de sa pertinence à long terme. Bien qu'elles ne soient pas une mesure directe de la qualité technique, elles reflètent le nombre de développeurs qui trouvent le projet utile, suivent ses progrès et sont susceptibles de l'adopter. Pour estimer la valeur d'un projet, les étoiles aident à comparer l'attraction entre les alternatives et fournissent des informations sur la croissance de l'écosystème.
 
 [![Star History Chart](https://api.star-history.com/chart?repos=aymericzip/intlayer%2Cformatjs/formatjs%2Ci18next/react-i18next%2Ci18next/i18next%2Ci18next/next-i18next%2Clingui/js-lingui%2Camannn/next-intl%2Cintlify/vue-i18n%2Ccodingcommons/typesafe-i18n%2Copral/paraglide-js&type=date&legend=top-left)](https://www.star-history.com/#aymericzip/intlayer&formatjs/formatjs&i18next/react-i18next&i18next/i18next&i18next/next-i18next&lingui/js-lingui&amannn/next-intl&intlify/vue-i18n&codingcommons/typesafe-i18n&opral/paraglide-js)
 
