@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-04-24
 updatedAt: 2026-05-31
-title: Astro + Svelte i18n - Kompletny przewodnik po tłumaczeniu Astro + Svelte
-description: Najlepsze rozwiązanie dla rozmiaru bundle, SEO, wydajności & utrzymania. Uczyń swój Astro and Svelte stronę internetową wielojęzycznym w 2026, tłumaczenie LLM, Agent Skills & MCP.
+title: "Astro + Svelte i18n - Kompletny przewodnik po tłumaczeniu aplikacji Astro + Svelte"
+description: "Koniec z i18next. Przewodnik 2026 do budowania wielojęzycznej (i18n) aplikacji Astro + Svelte. Tłumacz z agentami AI i optymalizuj rozmiar bundle, SEO i wydajność."
 keywords:
   - międzynarodowość
   - dokumentacja

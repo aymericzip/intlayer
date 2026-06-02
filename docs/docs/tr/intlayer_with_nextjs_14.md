@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-12-06
 updatedAt: 2026-05-31
-title: "Next.js i18n - Eksiksiz çeviri rehberi: Next.js 14"
-description: Bundle boyutu, SEO, performans ve sürdürülebilirlik için en iyi çözüm. Next.js 14 web sitesini'ınızı 2026'da çok dilli yapın, LLM çevirisi, Agent Skills & MCP.
+title: "Next.js 14 i18n - Next.js 14 uygulamasını çevirmek için eksiksiz kılavuz"
+description: "Artık i18next yok. 2026 yılı için çok dilli (i18n) Next.js 14 uygulaması oluşturma kılavuzu. Yapay zeka ajanlarıyla çevirin ve bundle boyutu, SEO ve performansı optimize edin."
 keywords:
   - nextjs
   - intlayer

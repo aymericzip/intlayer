@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-03-25
 updatedAt: 2026-05-31
-title: "i18n Tanstack Start - अनुवाद का पूर्ण गाइड: TanStack Start"
-description: बंडल साइज़, SEO, परफॉर्मेंस & मेंटेनेबिलिटी के लिए सबसे अच्छा समाधान। 2026 में अपने TanStack Start and Solid ऐप को बहुभाषी बनाएं, LLM ट्रांसलेशन, Agent Skills & MCP.
+title: "TanStack Start + Solid i18n - TanStack Start + Solid ऐप को अनुवाद करने का पूर्ण गाइड"
+description: "अब i18next की जरूरत नहीं। 2026 में TanStack Start + Solid ऐप को बहुभाषी (i18n) बनाने का गाइड। AI एजेंट्स से अनुवाद करें और बंडल साइज़, SEO और परफॉर्मेंस ऑप्टिमाइज़ करें।"
 keywords:
   - अंतर्राष्ट्रीयकरण
   - दस्तावेज़ीकरण

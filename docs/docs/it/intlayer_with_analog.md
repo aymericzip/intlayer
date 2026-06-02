@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2026-05-31
-title: Analog i18n - Guida completa per tradurre Analog
-description: La migliore soluzione per dimensione del bundle, SEO, prestazioni & manutenibilità. Rendi il tuo Analog applicazione multilingue nel 2026, traduzione LLM, Agent Skills & MCP.
+title: "Analog i18n - Guida completa per tradurre un'applicazione Analog"
+description: "Niente più i18next. La guida 2026 per creare un'applicazione Analog multilingue (i18n). Traduci con agenti AI e ottimizza la dimensione del bundle, SEO e prestazioni."
 keywords:
   - Internationalization
   - Documentation

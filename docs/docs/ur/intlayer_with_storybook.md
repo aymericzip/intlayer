@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-03-20
 updatedAt: 2026-05-06
-title: Storybook کے ساتھ Intlayer کو کیسے ترتیب دیں
-description: براہ کرم سیکھیں کہ Storybook کے ساتھ Intlayer کا استعمال کرتے ہوئے اپنے ڈیزائن سسٹم کو کثیر لسانی کیسے بنایا جائے - مواد کے اعلانات کو مرتب کریں، زبان منتخب کرنے والا بٹن شامل کریں، اور کسی بھی زبان میں اپنے اجزاء کا پیش نظارہ کریں۔
+title: "Storybook i18n - Storybook ایپ کو ترجمہ کرنے کا مکمل گائیڈ"
+description: "اب i18next کی ضرورت نہیں۔ 2026 میں Storybook ایپ کو کثیر لسانی (i18n) بنانے کا گائیڈ۔ AI ایجنٹس سے ترجمہ کریں اور بنڈل سائز، SEO اور پرفارمنس بہتر بنائیں۔"
 keywords:
   - Internationalization
   - Documentation

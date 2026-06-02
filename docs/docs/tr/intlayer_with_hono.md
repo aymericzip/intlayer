@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-08-23
 updatedAt: 2026-05-31
-title: "Hono i18n - Eksiksiz çeviri rehberi: Hono"
-description: Bundle boyutu, SEO, performans ve sürdürülebilirlik için en iyi çözüm. Hono backend'i'ınızı 2026'da çok dilli yapın, LLM çevirisi, Agent Skills & MCP.
+title: "Hono i18n - Hono uygulamasını çevirmek için eksiksiz kılavuz"
+description: "Artık i18next yok. 2026 yılı için çok dilli (i18n) Hono uygulaması oluşturma kılavuzu. Yapay zeka ajanlarıyla çevirin ve bundle boyutu, SEO ve performansı optimize edin."
 keywords:
   - Uluslararasılaştırma
   - Dokümantasyon

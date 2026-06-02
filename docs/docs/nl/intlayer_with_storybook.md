@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-03-20
 updatedAt: 2026-05-06
-title: Intlayer instellen met Storybook
-description: Leer hoe u uw designsysteem meertalig kunt maken met Intlayer en Storybook - compileer inhoudsdeclaraties, voeg een taalschakelaar toe en bekijk uw componenten in elke gewenste taal.
+title: "Storybook i18n - Volledige gids voor het vertalen van een Storybook-app"
+description: "Geen i18next meer. De 2026-gids voor het bouwen van een meertalige (i18n) Storybook-app. Vertaal met AI-agenten en optimaliseer bundelgrootte, SEO en prestaties."
 keywords:
   - Internationalisering
   - Documentatie

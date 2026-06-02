@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2026-05-31
-title: Angular i18n - Vollständiger Leitfaden zur Übersetzung Angular 19 app (Webpack)
-description: Beste Lösung für Bundle-Größe, SEO, Performance & Wartbarkeit. Machen Sie Ihre Angular 19 App 2026 mehrsprachig, LLM-Übersetzung, Agent Skills & MCP.
+title: "Angular 19 i18n - Vollständiger Leitfaden zur Übersetzung einer Angular 19-App"
+description: "Kein i18next mehr. Der 2026-Leitfaden zum Erstellen einer mehrsprachigen (i18n) Angular 19-App. Übersetzen Sie mit KI-Agenten und optimieren Sie Bundle-Größe, SEO und Performance."
 keywords:
   - Internationalisierung
   - Dokumentation

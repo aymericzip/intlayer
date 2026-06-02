@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-06-18
 updatedAt: 2026-05-31
-title: Nuxt i18n - Guia completo para traduzir Nuxt
-description: A melhor solução para tamanho de bundle, SEO, desempenho & manutenibilidade. Torne seu Nuxt and Vue site multilíngue em 2026, tradução LLM, Agent Skills & MCP.
+title: "Nuxt i18n - Guia completo para traduzir um aplicativo Nuxt"
+description: "Sem mais i18next. O guia 2026 para criar uma aplicação Nuxt multilíngue (i18n). Traduza com agentes de IA e otimize o tamanho do bundle, SEO e desempenho."
 keywords:
   - Internacionalização
   - Documentação

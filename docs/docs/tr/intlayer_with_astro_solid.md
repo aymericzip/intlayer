@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-04-24
 updatedAt: 2026-05-31
-title: "Astro + Solid i18n - Eksiksiz çeviri rehberi: Astro + Solid"
-description: Bundle boyutu, SEO, performans ve sürdürülebilirlik için en iyi çözüm. Astro and Solid web sitesini'ınızı 2026'da çok dilli yapın, LLM çevirisi, Agent Skills & MCP.
+title: "Astro + Solid i18n - Astro + Solid uygulamasını çevirmek için eksiksiz kılavuz"
+description: "Artık i18next yok. 2026 yılı için çok dilli (i18n) Astro + Solid uygulaması oluşturma kılavuzu. Yapay zeka ajanlarıyla çevirin ve bundle boyutu, SEO ve performansı optimize edin."
 keywords:
   - uluslararasılaştırma
   - dokümantasyon

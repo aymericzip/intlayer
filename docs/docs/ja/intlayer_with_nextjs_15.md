@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-12-06
 updatedAt: 2026-05-31
-title: Next.js i18n - 完全な翻訳ガイド： Next.js 15
-description: バンドルサイズ、SEO、パフォーマンス、保守性のための最良のソリューション。2026年にNext.js 15 ウェブサイトを多言語化しましょう。LLM翻訳、Agent Skills & MCP。
+title: "Next.js 15 i18n - 完全な翻訳ガイド：Next.js 15 アプリ"
+description: "i18nextはもう不要。2026年に多言語（i18n）Next.js 15アプリを構築するためのガイド。AIエージェントで翻訳し、バンドルサイズ、SEO、パフォーマンスを最適化します。"
 keywords:
   - 国際化
   - ドキュメント

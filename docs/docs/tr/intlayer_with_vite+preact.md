@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-09-07
 updatedAt: 2026-05-31
-title: "Vite + Preact i18n - Eksiksiz çeviri rehberi: Preact"
-description: Bundle boyutu, SEO, performans ve sürdürülebilirlik için en iyi çözüm. Vite and Preact uygulamayı'ınızı 2026'da çok dilli yapın, LLM çevirisi, Agent Skills & MCP.
+title: "Vite + Preact i18n - Vite + Preact uygulamasını çevirmek için eksiksiz kılavuz"
+description: "Artık i18next yok. 2026 yılı için çok dilli (i18n) Vite + Preact uygulaması oluşturma kılavuzu. Yapay zeka ajanlarıyla çevirin ve bundle boyutu, SEO ve performansı optimize edin."
 keywords:
   - Uluslararasılaştırma
   - Dokümantasyon

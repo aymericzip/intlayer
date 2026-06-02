@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-03-31
 updatedAt: 2026-05-31
-title: Vanilla JS i18n - Vollständiger Leitfaden zur Übersetzung Vanilla JS
-description: Beste Lösung für Bundle-Größe, SEO, Performance & Wartbarkeit. Machen Sie Ihre Vanilla JS Website 2026 mehrsprachig, LLM-Übersetzung, Agent Skills & MCP.
+title: "Vanilla JS i18n - Vollständiger Leitfaden zur Übersetzung einer Vanilla JS-App"
+description: "Kein i18next mehr. Der 2026-Leitfaden zum Erstellen einer mehrsprachigen (i18n) Vanilla JS-App. Übersetzen Sie mit KI-Agenten und optimieren Sie Bundle-Größe, SEO und Performance."
 keywords:
   - Internationalisierung
   - Dokumentation

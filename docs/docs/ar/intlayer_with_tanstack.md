@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-09-09
 updatedAt: 2026-05-31
-title: Tanstack Start i18n - الدليل الكامل لترجمة TanStack Start
-description: أفضل حل لحجم البندل وتحسين محركات البحث والأداء والصيانة. اجعل TanStack Start تطبيق متعدد اللغات في 2026، ترجمة LLM، Agent Skills & MCP.
+title: "تدويل TanStack Start - الدليل الكامل لترجمة تطبيق TanStack Start"
+description: "لا مزيد من i18next. دليل 2026 لبناء تطبيق TanStack Start متعدد اللغات (i18n). ترجم باستخدام وكلاء الذكاء الاصطناعي وحسّن حجم الحزمة وتحسين محركات البحث والأداء."
 keywords:
   - التدويل
   - التوثيق

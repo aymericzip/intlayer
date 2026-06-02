@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2026-05-31
-title: Vite + Svelte i18n - الدليل الكامل لترجمة Svelte
-description: أفضل حل لحجم البندل وتحسين محركات البحث والأداء والصيانة. اجعل Vite and Svelte تطبيق متعدد اللغات في 2026، ترجمة LLM، Agent Skills & MCP.
+title: "تدويل Vite + Svelte - الدليل الكامل لترجمة تطبيق Vite + Svelte"
+description: "لا مزيد من i18next. دليل 2026 لبناء تطبيق Vite + Svelte متعدد اللغات (i18n). ترجم باستخدام وكلاء الذكاء الاصطناعي وحسّن حجم الحزمة وتحسين محركات البحث والأداء."
 keywords:
   - التدويل
   - التوثيق

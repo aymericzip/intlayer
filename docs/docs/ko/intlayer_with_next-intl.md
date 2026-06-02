@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-10-05
 updatedAt: 2026-05-31
-title: "next-intl - 완전한 번역 가이드: Next.js"
-description: 번들 크기, SEO, 성능 및 유지보수성을 위한 최고의 솔루션. 2026년에 Next.js 15 App Router 웹사이트를 다국어로 만드세요, LLM 번역, Agent Skills & MCP.
+title: "next-intl i18n - 완전한 번역 가이드: next-intl 앱"
+description: "i18next는 이제 그만. 2026년 다국어 (i18n) next-intl 앱 구축 가이드. AI 에이전트로 번역하고 번들 크기, SEO, 성능을 최적화하세요."
 keywords:
   - 국제화
   - 문서

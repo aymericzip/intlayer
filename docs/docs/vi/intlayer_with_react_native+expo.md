@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-06-18
 updatedAt: 2026-05-31
-title: Expo + React Native i18n - Hướng dẫn đầy đủ để dịch React Native
-description: Giải pháp tốt nhất cho kích thước bundle, SEO, hiệu suất & khả năng bảo trì. Làm cho Expo and React Native ứng dụng di động của bạn đa ngôn ngữ vào năm 2026, dịch thuật LLM, Agent Skills & MCP.
+title: "Expo + React Native i18n - Hướng dẫn đầy đủ để dịch ứng dụng Expo + React Native"
+description: "Không còn i18next nữa. Hướng dẫn 2026 để xây dựng ứng dụng Expo + React Native đa ngôn ngữ (i18n). Dịch với các AI agent và tối ưu hóa kích thước bundle, SEO và hiệu suất."
 keywords:
   - Quốc tế hóa
   - Tài liệu

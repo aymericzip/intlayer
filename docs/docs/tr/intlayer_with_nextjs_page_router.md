@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-09-07
 updatedAt: 2026-05-31
-title: "Next.js Page Router i18n - Eksiksiz çeviri rehberi: Next.js"
-description: Bundle boyutu, SEO, performans ve sürdürülebilirlik için en iyi çözüm. Next.js Page Router web sitesini'ınızı 2026'da çok dilli yapın, LLM çevirisi, Agent Skills & MCP.
+title: "Next.js Page Router i18n - Next.js Page Router uygulamasını çevirmek için eksiksiz kılavuz"
+description: "Artık i18next yok. 2026 yılı için çok dilli (i18n) Next.js Page Router uygulaması oluşturma kılavuzu. Yapay zeka ajanlarıyla çevirin ve bundle boyutu, SEO ve performansı optimize edin."
 keywords:
   - Uluslararasılaştırma
   - Dokümantasyon

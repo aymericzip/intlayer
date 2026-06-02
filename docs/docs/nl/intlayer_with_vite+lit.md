@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-03-23
 updatedAt: 2026-05-31
-title: Vite + Lit i18n - Volledige gids voor het vertalen van Lit
-description: Beste oplossing voor bundle-grootte, SEO, prestaties & onderhoudbaarheid. Maak uw Vite and Lit app meertalig in 2026, LLM-vertaling, Agent Skills & MCP.
+title: "Vite + Lit i18n - Volledige gids voor het vertalen van een Vite + Lit-app"
+description: "Geen i18next meer. De 2026-gids voor het bouwen van een meertalige (i18n) Vite + Lit-app. Vertaal met AI-agenten en optimaliseer bundelgrootte, SEO en prestaties."
 keywords:
   - Internationalisering
   - Documentatie

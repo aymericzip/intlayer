@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-08-23
 updatedAt: 2026-05-31
-title: i18n Hono - Panduan lengkap menerjemahkan Hono
-description: Solusi terbaik untuk ukuran bundle, SEO, performa & keterpeliharaan. Jadikan Hono backend Anda multibahasa di 2026, terjemahan LLM, Agent Skills & MCP.
+title: "Hono i18n - Panduan lengkap menerjemahkan aplikasi Hono"
+description: "Tidak ada lagi i18next. Panduan 2026 untuk membangun aplikasi Hono multibahasa (i18n). Terjemahkan dengan agen AI dan optimalkan ukuran bundle, SEO, dan performa."
 keywords:
   - Internasionalisasi
   - Dokumentasi

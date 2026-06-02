@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-03-09
 updatedAt: 2026-05-31
-title: Lynx + React i18n - الدليل الكامل لترجمة Lynx
-description: أفضل حل لحجم البندل وتحسين محركات البحث والأداء والصيانة. اجعل Lynx and React تطبيق الجوال متعدد اللغات في 2026، ترجمة LLM، Agent Skills & MCP.
+title: "تدويل Lynx + React - الدليل الكامل لترجمة تطبيق Lynx + React"
+description: "لا مزيد من i18next. دليل 2026 لبناء تطبيق Lynx + React متعدد اللغات (i18n). ترجم باستخدام وكلاء الذكاء الاصطناعي وحسّن حجم الحزمة وتحسين محركات البحث والأداء."
 keywords:
   - التدويل
   - ت Documentation

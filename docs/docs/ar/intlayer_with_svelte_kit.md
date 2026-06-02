@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-11-20
 updatedAt: 2026-05-31
-title: SvelteKit i18n - الدليل الكامل لترجمة SvelteKit
-description: أفضل حل لحجم البندل وتحسين محركات البحث والأداء والصيانة. اجعل SvelteKit موقع ويب متعدد اللغات في 2026، ترجمة LLM، Agent Skills & MCP.
+title: "تدويل SvelteKit - الدليل الكامل لترجمة تطبيق SvelteKit"
+description: "لا مزيد من i18next. دليل 2026 لبناء تطبيق SvelteKit متعدد اللغات (i18n). ترجم باستخدام وكلاء الذكاء الاصطناعي وحسّن حجم الحزمة وتحسين محركات البحث والأداء."
 keywords:
   - التدويل
   - الوثائق

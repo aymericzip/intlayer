@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-03-07
 updatedAt: 2026-05-31
-title: Vite + React i18n - Complete guide to translate React
-description: Best solution for bundle size, SEO, performances & maintainability. Make your Vite and React app multilingual in 2026, LLM translation, Agent Skills & MCP.
+title: "Vite + React i18n - Complete guide to translate a Vite + React app"
+description: "No more i18next. The 2026 guide to building a multilingual (i18n) Vite + React app. Translate with AI agents and optimise bundle size, SEO and performances."
 keywords:
   - Internationalisation
   - Documentation

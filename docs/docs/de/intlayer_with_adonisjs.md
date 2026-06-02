@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-08-23
 updatedAt: 2026-05-31
-title: AdonisJS i18n - Vollständiger Leitfaden zur Übersetzung AdonisJS
-description: Beste Lösung für Bundle-Größe, SEO, Performance & Wartbarkeit. Machen Sie Ihre AdonisJS Backend 2026 mehrsprachig, LLM-Übersetzung, Agent Skills & MCP.
+title: "AdonisJS i18n - Vollständiger Leitfaden zur Übersetzung einer AdonisJS-App"
+description: "Kein i18next mehr. Der 2026-Leitfaden zum Erstellen einer mehrsprachigen (i18n) AdonisJS-App. Übersetzen Sie mit KI-Agenten und optimieren Sie Bundle-Größe, SEO und Performance."
 keywords:
   - Internationalisierung
   - Dokumentation

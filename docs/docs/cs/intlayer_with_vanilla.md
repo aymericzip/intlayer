@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-03-31
 updatedAt: 2026-05-31
-title: Vanilla JS i18n - Kompletní průvodce překladem Vanilla JS
-description: Nejlepší řešení pro velikost bundlu, SEO, výkon & udržovatelnost. Udělejte svůj Vanilla JS webovou stránku vícejazyčným v 2026, překlad LLM, Agent Skills & MCP.
+title: "Vanilla JS i18n - Kompletní průvodce překladem aplikace Vanilla JS"
+description: "Žádný i18next. Průvodce 2026 pro vytváření vícejazyčné (i18n) aplikace Vanilla JS. Překládejte pomocí agentů AI a optimalizujte velikost bundlu, SEO a výkon."
 keywords:
   - Internacionalizace
   - Dokumentace

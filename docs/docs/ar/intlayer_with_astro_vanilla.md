@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-04-24
 updatedAt: 2026-05-31
-title: ترجمة Astro + Vanilla JS i18n - الدليل الكامل لترجمة Astro + Vanilla JS
-description: أفضل حل لحجم البندل وتحسين محركات البحث والأداء والصيانة. اجعل Astro and Vanilla JS موقع ويب متعدد اللغات في 2026، ترجمة LLM، Agent Skills & MCP.
+title: "تدويل Astro + Vanilla JS - الدليل الكامل لترجمة تطبيق Astro + Vanilla JS"
+description: "لا مزيد من i18next. دليل 2026 لبناء تطبيق Astro + Vanilla JS متعدد اللغات (i18n). ترجم باستخدام وكلاء الذكاء الاصطناعي وحسّن حجم الحزمة وتحسين محركات البحث والأداء."
 keywords:
   - التدويل
   - توثيق

@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-08-23
 updatedAt: 2026-05-31
-title: i18n Hono - Guía completa para traducir Hono
-description: La mejor solución para el tamaño del bundle, SEO, rendimiento & mantenibilidad. Haga multilingüe su Hono backend en 2026, traducción LLM, Agent Skills & MCP.
+title: "Hono i18n - Guía completa para traducir una aplicación Hono"
+description: "Sin más i18next. La guía 2026 para crear una aplicación Hono multilingüe (i18n). Traduce con agentes de IA y optimiza el tamaño del bundle, SEO y rendimiento."
 keywords:
   - Internacionalización
   - Documentación

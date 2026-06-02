@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-08-23
 updatedAt: 2026-05-31
-title: Hono i18n - Complete guide to translate Hono
-description: Best solution for bundle size, SEO, performances & maintainability. Make your Hono backend multilingual in 2026, LLM translation, Agent Skills & MCP.
+title: "Hono i18n - Complete guide to translate a Hono app"
+description: "No more i18next. The 2026 guide to building a multilingual (i18n) Hono app. Translate with AI agents and optimise bundle size, SEO and performances."
 keywords:
   - Internationalization
   - Documentation

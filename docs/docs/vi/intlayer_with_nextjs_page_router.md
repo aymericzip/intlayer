@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-12-07
 updatedAt: 2026-05-31
-title: Next.js Page Router i18n - Hướng dẫn đầy đủ để dịch Next.js
-description: Giải pháp tốt nhất cho kích thước bundle, SEO, hiệu suất & khả năng bảo trì. Làm cho Next.js Page Router trang web của bạn đa ngôn ngữ vào năm 2026, dịch thuật LLM, Agent Skills & MCP.
+title: "Next.js Page Router i18n - Hướng dẫn đầy đủ để dịch ứng dụng Next.js Page Router"
+description: "Không còn i18next nữa. Hướng dẫn 2026 để xây dựng ứng dụng Next.js Page Router đa ngôn ngữ (i18n). Dịch với các AI agent và tối ưu hóa kích thước bundle, SEO và hiệu suất."
 keywords:
   - Quốc tế hóa
   - Tài liệu

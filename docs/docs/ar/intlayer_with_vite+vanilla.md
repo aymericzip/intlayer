@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-03-23
 updatedAt: 2026-05-31
-title: i18n Vite + Vanilla JS - الدليل الكامل لترجمة Vanilla JS
-description: أفضل حل لحجم البندل وتحسين محركات البحث والأداء والصيانة. اجعل Vite and Vanilla JS تطبيق متعدد اللغات في 2026، ترجمة LLM، Agent Skills & MCP.
+title: "تدويل Vite + Vanilla JS - الدليل الكامل لترجمة تطبيق Vite + Vanilla JS"
+description: "لا مزيد من i18next. دليل 2026 لبناء تطبيق Vite + Vanilla JS متعدد اللغات (i18n). ترجم باستخدام وكلاء الذكاء الاصطناعي وحسّن حجم الحزمة وتحسين محركات البحث والأداء."
 keywords:
   - التدويل
   - التوثيق

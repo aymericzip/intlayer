@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-03-25
 updatedAt: 2026-05-31
-title: "Tanstack Start i18n - Eksiksiz çeviri rehberi: TanStack Start"
-description: Bundle boyutu, SEO, performans ve sürdürülebilirlik için en iyi çözüm. TanStack Start and Solid uygulamayı'ınızı 2026'da çok dilli yapın, LLM çevirisi, Agent Skills & MCP.
+title: "TanStack Start + Solid i18n - TanStack Start + Solid uygulamasını çevirmek için eksiksiz kılavuz"
+description: "Artık i18next yok. 2026 yılı için çok dilli (i18n) TanStack Start + Solid uygulaması oluşturma kılavuzu. Yapay zeka ajanlarıyla çevirin ve bundle boyutu, SEO ve performansı optimize edin."
 keywords:
   - Uluslararasılaştırma
   - Dokümantasyon

@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-09-09
 updatedAt: 2026-05-31
-title: NestJS i18n - 完全な翻訳ガイド： NestJS
-description: バンドルサイズ、SEO、パフォーマンス、保守性のための最良のソリューション。2026年にNestJS バックエンドを多言語化しましょう。LLM翻訳、Agent Skills & MCP。
+title: "NestJS i18n - 完全な翻訳ガイド：NestJS アプリ"
+description: "i18nextはもう不要。2026年に多言語（i18n）NestJSアプリを構築するためのガイド。AIエージェントで翻訳し、バンドルサイズ、SEO、パフォーマンスを最適化します。"
 keywords:
   - 国際化
   - ドキュメント

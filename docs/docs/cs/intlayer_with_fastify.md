@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-12-30
 updatedAt: 2026-05-31
-title: Fastify i18n - Kompletní průvodce překladem Fastify
-description: Nejlepší řešení pro velikost bundlu, SEO, výkon & udržovatelnost. Udělejte svůj Fastify backend vícejazyčným v 2026, překlad LLM, Agent Skills & MCP.
+title: "Fastify i18n - Kompletní průvodce překladem aplikace Fastify"
+description: "Žádný i18next. Průvodce 2026 pro vytváření vícejazyčné (i18n) aplikace Fastify. Překládejte pomocí agentů AI a optimalizujte velikost bundlu, SEO a výkon."
 keywords:
   - Internacionalizace
   - Dokumentace

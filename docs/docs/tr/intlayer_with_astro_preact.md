@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-04-24
 updatedAt: 2026-05-31
-title: "Astro + Preact i18n - Eksiksiz çeviri rehberi: Astro + Preact"
-description: Bundle boyutu, SEO, performans ve sürdürülebilirlik için en iyi çözüm. Astro and Preact web sitesini'ınızı 2026'da çok dilli yapın, LLM çevirisi, Agent Skills & MCP.
+title: "Astro + Preact i18n - Astro + Preact uygulamasını çevirmek için eksiksiz kılavuz"
+description: "Artık i18next yok. 2026 yılı için çok dilli (i18n) Astro + Preact uygulaması oluşturma kılavuzu. Yapay zeka ajanlarıyla çevirin ve bundle boyutu, SEO ve performansı optimize edin."
 keywords:
   - uluslararasılaştırma
   - dokümantasyon

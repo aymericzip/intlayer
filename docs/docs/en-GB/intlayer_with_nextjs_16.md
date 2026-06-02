@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-12-06
 updatedAt: 2026-05-31
-title: Next.js i18n - Complete guide to translate Next.js 16
-description: Best solution for bundle size, SEO, performances & maintainability. Make your Next.js 16 website multilingual in 2026, LLM translation, Agent Skills & MCP.
+title: "Next.js 16 i18n - Complete guide to translate a Next.js 16 app"
+description: "No more i18next. The 2026 guide to building a multilingual (i18n) Next.js 16 app. Translate with AI agents and optimise bundle size, SEO and performances."
 keywords:
   - Internationalisation
   - Documentation

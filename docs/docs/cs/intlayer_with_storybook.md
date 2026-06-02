@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-03-20
 updatedAt: 2026-05-06
-title: Jak nastavit Intlayer se Storybookem
-description: Naučte se, jak vytvořit svůj design systém vícejazyčný pomocí Intlayeru se Storybookem - kompilujte deklarace obsahu, přidejte přepínač jazyků a prohlížejte své komponenty v libovolném jazyce.
+title: "Storybook i18n - Kompletní průvodce překladem aplikace Storybook"
+description: "Žádný i18next. Průvodce 2026 pro vytváření vícejazyčné (i18n) aplikace Storybook. Překládejte pomocí agentů AI a optimalizujte velikost bundlu, SEO a výkon."
 keywords:
   - Internacionalizace
   - Dokumentace

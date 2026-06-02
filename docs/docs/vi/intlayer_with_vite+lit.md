@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-03-23
 updatedAt: 2026-05-31
-title: i18n Vite + Lit - Hướng dẫn đầy đủ để dịch Lit
-description: Giải pháp tốt nhất cho kích thước bundle, SEO, hiệu suất & khả năng bảo trì. Làm cho Vite and Lit ứng dụng của bạn đa ngôn ngữ vào năm 2026, dịch thuật LLM, Agent Skills & MCP.
+title: "Vite + Lit i18n - Hướng dẫn đầy đủ để dịch ứng dụng Vite + Lit"
+description: "Không còn i18next nữa. Hướng dẫn 2026 để xây dựng ứng dụng Vite + Lit đa ngôn ngữ (i18n). Dịch với các AI agent và tối ưu hóa kích thước bundle, SEO và hiệu suất."
 keywords:
   - Quốc tế hóa
   - Tài liệu

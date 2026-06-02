@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-12-30
 updatedAt: 2026-05-31
-title: "Fastify i18n - Eksiksiz çeviri rehberi: Fastify"
-description: Bundle boyutu, SEO, performans ve sürdürülebilirlik için en iyi çözüm. Fastify backend'i'ınızı 2026'da çok dilli yapın, LLM çevirisi, Agent Skills & MCP.
+title: "Fastify i18n - Fastify uygulamasını çevirmek için eksiksiz kılavuz"
+description: "Artık i18next yok. 2026 yılı için çok dilli (i18n) Fastify uygulaması oluşturma kılavuzu. Yapay zeka ajanlarıyla çevirin ve bundle boyutu, SEO ve performansı optimize edin."
 keywords:
   - Uluslararasılaştırma
   - Belgeler

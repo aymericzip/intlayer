@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-04-24
 updatedAt: 2026-05-31
-title: "Astro + Solid i18n - अनुवाद का पूर्ण गाइड: Astro + Solid"
-description: बंडल साइज़, SEO, परफॉर्मेंस & मेंटेनेबिलिटी के लिए सबसे अच्छा समाधान। 2026 में अपने Astro and Solid वेबसाइट को बहुभाषी बनाएं, LLM ट्रांसलेशन, Agent Skills & MCP.
+title: "Astro + Solid i18n - Astro + Solid ऐप को अनुवाद करने का पूर्ण गाइड"
+description: "अब i18next की जरूरत नहीं। 2026 में Astro + Solid ऐप को बहुभाषी (i18n) बनाने का गाइड। AI एजेंट्स से अनुवाद करें और बंडल साइज़, SEO और परफॉर्मेंस ऑप्टिमाइज़ करें।"
 keywords:
   - अंतर्राष्ट्रीयकरण
   - दस्तावेज़ीकरण

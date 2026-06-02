@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-03-23
 updatedAt: 2026-05-31
-title: i18n Vite + Lit - Kompletní průvodce překladem Lit
-description: Nejlepší řešení pro velikost bundlu, SEO, výkon & udržovatelnost. Udělejte svůj Vite and Lit aplikaci vícejazyčným v 2026, překlad LLM, Agent Skills & MCP.
+title: "Vite + Lit i18n - Kompletní průvodce překladem aplikace Vite + Lit"
+description: "Žádný i18next. Průvodce 2026 pro vytváření vícejazyčné (i18n) aplikace Vite + Lit. Překládejte pomocí agentů AI a optimalizujte velikost bundlu, SEO a výkon."
 keywords:
   - Internacionalizace
   - Dokumentace

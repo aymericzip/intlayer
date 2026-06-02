@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-09-09
 updatedAt: 2026-05-31
-title: NestJS i18n - Kompletny przewodnik po tłumaczeniu NestJS
-description: Najlepsze rozwiązanie dla rozmiaru bundle, SEO, wydajności & utrzymania. Uczyń swój NestJS backend wielojęzycznym w 2026, tłumaczenie LLM, Agent Skills & MCP.
+title: "NestJS i18n - Kompletny przewodnik po tłumaczeniu aplikacji NestJS"
+description: "Koniec z i18next. Przewodnik 2026 do budowania wielojęzycznej (i18n) aplikacji NestJS. Tłumacz z agentami AI i optymalizuj rozmiar bundle, SEO i wydajność."
 keywords:
   - Internacjonalizacja
   - Dokumentacja

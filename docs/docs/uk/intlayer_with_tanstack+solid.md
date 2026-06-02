@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-03-25
 updatedAt: 2026-05-31
-title: i18n Tanstack Start - Повний посібник з перекладу TanStack Start
-description: Найкраще рішення для розміру бандлу, SEO, продуктивності & підтримуваності. Зробіть TanStack Start and Solid застосунок багатомовним у 2026, переклад LLM, Agent Skills & MCP.
+title: "TanStack Start + Solid i18n - Повний посібник з перекладу застосунку TanStack Start + Solid"
+description: "Більше ніякого i18next. Посібник 2026 зі створення багатомовного (i18n) застосунку TanStack Start + Solid. Перекладайте за допомогою ШІ-агентів та оптимізуйте розмір бандлу, SEO та продуктивність."
 keywords:
   - Інтернаціоналізація
   - Документація

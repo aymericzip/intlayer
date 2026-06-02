@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-10-05
 updatedAt: 2026-05-31
-title: next-i18next - Panduan lengkap menerjemahkan Next.js
-description: Solusi terbaik untuk ukuran bundle, SEO, performa & keterpeliharaan. Jadikan Next.js 15 App Router situs web Anda multibahasa di 2026, terjemahan LLM, Agent Skills & MCP.
+title: "next-i18next i18n - Panduan lengkap menerjemahkan aplikasi next-i18next"
+description: "Tidak ada lagi i18next. Panduan 2026 untuk membangun aplikasi next-i18next multibahasa (i18n). Terjemahkan dengan agen AI dan optimalkan ukuran bundle, SEO, dan performa."
 keywords:
   - Internasionalisasi
   - Dokumentasi

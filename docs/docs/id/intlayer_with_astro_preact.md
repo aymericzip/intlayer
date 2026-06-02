@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-04-24
 updatedAt: 2026-05-31
-title: Astro + Preact i18n - Panduan lengkap menerjemahkan Astro + Preact
-description: Solusi terbaik untuk ukuran bundle, SEO, performa & keterpeliharaan. Jadikan Astro and Preact situs web Anda multibahasa di 2026, terjemahan LLM, Agent Skills & MCP.
+title: "Astro + Preact i18n - Panduan lengkap menerjemahkan aplikasi Astro + Preact"
+description: "Tidak ada lagi i18next. Panduan 2026 untuk membangun aplikasi Astro + Preact multibahasa (i18n). Terjemahkan dengan agen AI dan optimalkan ukuran bundle, SEO, dan performa."
 keywords:
   - internasionalisasi
   - dokumentasi

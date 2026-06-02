@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-03-23
 updatedAt: 2026-05-31
-title: i18n Vite + Vanilla JS - 完全な翻訳ガイド： Vanilla JS
-description: バンドルサイズ、SEO、パフォーマンス、保守性のための最良のソリューション。2026年にVite and Vanilla JS アプリを多言語化しましょう。LLM翻訳、Agent Skills & MCP。
+title: "Vite + Vanilla JS i18n - 完全な翻訳ガイド：Vite + Vanilla JS アプリ"
+description: "i18nextはもう不要。2026年に多言語（i18n）Vite + Vanilla JSアプリを構築するためのガイド。AIエージェントで翻訳し、バンドルサイズ、SEO、パフォーマンスを最適化します。"
 keywords:
   - 国際化
   - ドキュメント

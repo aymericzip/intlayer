@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-03-20
 updatedAt: 2026-05-31
-title: Come configurare Intlayer con Storybook
-description: Scopri come rendere multilingue il tuo design system usando Intlayer con Storybook - compila le dichiarazioni di contenuto, aggiungi un selettore di lingua e visualizza l'anteprima dei tuoi componenti in qualsiasi lingua.
+title: "Storybook i18n - Guida completa per tradurre un'applicazione Storybook"
+description: "Niente più i18next. La guida 2026 per creare un'applicazione Storybook multilingue (i18n). Traduci con agenti AI e ottimizza la dimensione del bundle, SEO e prestazioni."
 keywords:
   - Internazionalizzazione
   - Documentazione

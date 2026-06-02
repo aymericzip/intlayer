@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2026-05-31
-title: Angular i18n - Volledige gids voor het vertalen van Angular 21
-description: Beste oplossing voor bundle-grootte, SEO, prestaties & onderhoudbaarheid. Maak uw Angular 21 app meertalig in 2026, LLM-vertaling, Agent Skills & MCP.
+title: "Angular 21 i18n - Volledige gids voor het vertalen van een Angular 21-app"
+description: "Geen i18next meer. De 2026-gids voor het bouwen van een meertalige (i18n) Angular 21-app. Vertaal met AI-agenten en optimaliseer bundelgrootte, SEO en prestaties."
 keywords:
   - Internationalisatie
   - Documentatie

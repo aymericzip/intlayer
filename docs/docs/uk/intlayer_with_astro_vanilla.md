@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-04-24
 updatedAt: 2026-05-31
-title: Astro + Vanilla JS i18n - Повний посібник з перекладу Astro + Vanilla JS
-description: Найкраще рішення для розміру бандлу, SEO, продуктивності & підтримуваності. Зробіть Astro and Vanilla JS сайт багатомовним у 2026, переклад LLM, Agent Skills & MCP.
+title: "Astro + Vanilla JS i18n - Повний посібник з перекладу застосунку Astro + Vanilla JS"
+description: "Більше ніякого i18next. Посібник 2026 зі створення багатомовного (i18n) застосунку Astro + Vanilla JS. Перекладайте за допомогою ШІ-агентів та оптимізуйте розмір бандлу, SEO та продуктивність."
 keywords:
   - інтернаціоналізація
   - документація

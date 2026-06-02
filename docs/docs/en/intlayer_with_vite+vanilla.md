@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-03-23
 updatedAt: 2026-05-31
-title: Vite + Vanilla JS i18n - Complete guide to translate a Vanilla JS app
-description: Best solution for bundle size, SEO, performances & maintainability. Make your Vite and Vanilla JS app multilingual in 2026, LLM translation, Agent Skills & MCP.
+title: "Vite + Vanilla JS i18n - Complete guide to translate a Vite + Vanilla JS app"
+description: "No more i18next. The 2026 guide to building a multilingual (i18n) Vite + Vanilla JS app. Translate with AI agents and optimize bundle size, SEO and performances."
 keywords:
   - Internationalization
   - Documentation

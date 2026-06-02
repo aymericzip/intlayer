@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-03-07
 updatedAt: 2026-05-31
-title: Terjemahan Astro i18n - Panduan lengkap menerjemahkan Astro
-description: Solusi terbaik untuk ukuran bundle, SEO, performa & keterpeliharaan. Jadikan Astro situs web Anda multibahasa di 2026, terjemahan LLM, Agent Skills & MCP.
+title: "Astro i18n - Panduan lengkap menerjemahkan aplikasi Astro"
+description: "Tidak ada lagi i18next. Panduan 2026 untuk membangun aplikasi Astro multibahasa (i18n). Terjemahkan dengan agen AI dan optimalkan ukuran bundle, SEO, dan performa."
 keywords:
   - internasionalisasi
   - dokumentasi

@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-03-20
 updatedAt: 2026-05-06
-title: How to set up Intlayer with Storybook
-description: Learn how to make your design system multilingual using Intlayer with Storybook - compile content declarations, add a locale switcher, and preview your components in any language.
+title: "Storybook i18n - Complete guide to translate a Storybook app"
+description: "No more i18next. The 2026 guide to building a multilingual (i18n) Storybook app. Translate with AI agents and optimize bundle size, SEO and performances."
 keywords:
   - Internationalization
   - Documentation

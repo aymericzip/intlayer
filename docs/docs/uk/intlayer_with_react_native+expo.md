@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-06-18
 updatedAt: 2026-05-31
-title: Expo + React Native i18n - Повний посібник з перекладу React Native
-description: Найкраще рішення для розміру бандлу, SEO, продуктивності & підтримуваності. Зробіть Expo and React Native мобільний застосунок багатомовним у 2026, переклад LLM, Agent Skills & MCP.
+title: "Expo + React Native i18n - Повний посібник з перекладу застосунку Expo + React Native"
+description: "Більше ніякого i18next. Посібник 2026 зі створення багатомовного (i18n) застосунку Expo + React Native. Перекладайте за допомогою ШІ-агентів та оптимізуйте розмір бандлу, SEO та продуктивність."
 keywords:
   - Інтернаціоналізація
   - Документація

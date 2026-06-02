@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-09-04
 updatedAt: 2026-05-31
-title: React Router v7 i18n - Guida completa per tradurre React Router
-description: La migliore soluzione per dimensione del bundle, SEO, prestazioni & manutenibilità. Rendi il tuo React Router v7 applicazione multilingue nel 2026, traduzione LLM, Agent Skills & MCP.
+title: "React Router v7 i18n - Guida completa per tradurre un'applicazione React Router v7"
+description: "Niente più i18next. La guida 2026 per creare un'applicazione React Router v7 multilingue (i18n). Traduci con agenti AI e ottimizza la dimensione del bundle, SEO e prestazioni."
 keywords:
   - Internazionalizzazione
   - Documentazione

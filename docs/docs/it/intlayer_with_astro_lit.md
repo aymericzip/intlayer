@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-04-24
 updatedAt: 2026-05-31
-title: Astro + Lit i18n - Guida completa per tradurre Astro + Lit
-description: La migliore soluzione per dimensione del bundle, SEO, prestazioni & manutenibilità. Rendi il tuo Astro and Lit sito web multilingue nel 2026, traduzione LLM, Agent Skills & MCP.
+title: "Astro + Lit i18n - Guida completa per tradurre un'applicazione Astro + Lit"
+description: "Niente più i18next. La guida 2026 per creare un'applicazione Astro + Lit multilingue (i18n). Traduci con agenti AI e ottimizza la dimensione del bundle, SEO e prestazioni."
 keywords:
   - internazionalizzazione
   - documentazione

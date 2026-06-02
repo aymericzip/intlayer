@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-09-09
 updatedAt: 2026-05-31
-title: "NestJS i18n - Eksiksiz çeviri rehberi: NestJS"
-description: Bundle boyutu, SEO, performans ve sürdürülebilirlik için en iyi çözüm. NestJS backend'i'ınızı 2026'da çok dilli yapın, LLM çevirisi, Agent Skills & MCP.
+title: "NestJS i18n - NestJS uygulamasını çevirmek için eksiksiz kılavuz"
+description: "Artık i18next yok. 2026 yılı için çok dilli (i18n) NestJS uygulaması oluşturma kılavuzu. Yapay zeka ajanlarıyla çevirin ve bundle boyutu, SEO ve performansı optimize edin."
 keywords:
   - Uluslararasılaştırma
   - Dokümantasyon

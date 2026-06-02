@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-03-07
 updatedAt: 2026-05-31
-title: Tłumaczenie Astro i18n - Kompletny przewodnik po tłumaczeniu Astro
-description: Najlepsze rozwiązanie dla rozmiaru bundle, SEO, wydajności & utrzymania. Uczyń swój Astro stronę internetową wielojęzycznym w 2026, tłumaczenie LLM, Agent Skills & MCP.
+title: "Astro i18n - Kompletny przewodnik po tłumaczeniu aplikacji Astro"
+description: "Koniec z i18next. Przewodnik 2026 do budowania wielojęzycznej (i18n) aplikacji Astro. Tłumacz z agentami AI i optymalizuj rozmiar bundle, SEO i wydajność."
 keywords:
   - międzynarodowość
   - dokumentacja

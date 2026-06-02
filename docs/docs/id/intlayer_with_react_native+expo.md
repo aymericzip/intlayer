@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-06-18
 updatedAt: 2026-05-31
-title: Expo + React Native i18n - Panduan lengkap menerjemahkan React Native
-description: Solusi terbaik untuk ukuran bundle, SEO, performa & keterpeliharaan. Jadikan Expo and React Native aplikasi mobile Anda multibahasa di 2026, terjemahan LLM, Agent Skills & MCP.
+title: "Expo + React Native i18n - Panduan lengkap menerjemahkan aplikasi Expo + React Native"
+description: "Tidak ada lagi i18next. Panduan 2026 untuk membangun aplikasi Expo + React Native multibahasa (i18n). Terjemahkan dengan agen AI dan optimalkan ukuran bundle, SEO, dan performa."
 keywords:
   - Internasionalisasi
   - Dokumentasi

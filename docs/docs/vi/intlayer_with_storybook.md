@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-03-20
 updatedAt: 2026-05-31
-title: Cách thiết lập Intlayer với Storybook
-description: Tìm hiểu cách làm cho hệ thống thiết kế của bạn đa ngôn ngữ bằng cách sử dụng Intlayer với Storybook - biên dịch các khai báo nội dung, thêm trình chuyển đổi ngôn ngữ và xem trước các thành phần của bạn bằng bất kỳ ngôn ngữ nào.
+title: "Storybook i18n - Hướng dẫn đầy đủ để dịch ứng dụng Storybook"
+description: "Không còn i18next nữa. Hướng dẫn 2026 để xây dựng ứng dụng Storybook đa ngôn ngữ (i18n). Dịch với các AI agent và tối ưu hóa kích thước bundle, SEO và hiệu suất."
 keywords:
   - Quốc tế hóa
   - Tài liệu

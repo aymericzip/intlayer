@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-09-09
 updatedAt: 2026-05-31
-title: Tanstack Start i18n - 完整翻译指南： TanStack Start
-description: 最佳的包体积、SEO、性能和可维护性解决方案。让您的 TanStack Start 应用在 2026 年实现多语言化，LLM 翻译，Agent Skills & MCP。
+title: "TanStack Start i18n - 完整翻译指南：TanStack Start 应用"
+description: "告别 i18next。2026 年构建多语言 (i18n) TanStack Start 应用的完整指南。使用 AI 代理翻译并优化包体积、SEO 和性能。"
 keywords:
   - 国际化
   - 文档

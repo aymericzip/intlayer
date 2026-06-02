@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2026-05-31
-title: Vite + Preact i18n - Guía completa para traducir Preact
-description: La mejor solución para el tamaño del bundle, SEO, rendimiento & mantenibilidad. Haga multilingüe su Vite and Preact aplicación en 2026, traducción LLM, Agent Skills & MCP.
+title: "Vite + Preact i18n - Guía completa para traducir una aplicación Vite + Preact"
+description: "Sin más i18next. La guía 2026 para crear una aplicación Vite + Preact multilingüe (i18n). Traduce con agentes de IA y optimiza el tamaño del bundle, SEO y rendimiento."
 keywords:
   - Internacionalización
   - Documentación

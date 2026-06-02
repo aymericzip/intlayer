@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-01-10
 updatedAt: 2026-05-31
-title: "Next.js i18n - Eksiksiz çeviri rehberi: Complete"
-description: Bundle boyutu, SEO, performans ve sürdürülebilirlik için en iyi çözüm. existing Next.js web sitesini'ınızı 2026'da çok dilli yapın, LLM çevirisi, Agent Skills & MCP.
+title: "Next.js i18n - Next.js uygulamasını çevirmek için eksiksiz kılavuz"
+description: "Artık i18next yok. 2026 yılı için çok dilli (i18n) Next.js uygulaması oluşturma kılavuzu. Yapay zeka ajanlarıyla çevirin ve bundle boyutu, SEO ve performansı optimize edin."
 keywords:
   - Uluslararasılaştırma
   - Belgelendirme

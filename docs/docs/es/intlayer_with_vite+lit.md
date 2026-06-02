@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-03-23
 updatedAt: 2026-05-31
-title: i18n Vite + Lit - Guía completa para traducir Lit
-description: La mejor solución para el tamaño del bundle, SEO, rendimiento & mantenibilidad. Haga multilingüe su Vite and Lit aplicación en 2026, traducción LLM, Agent Skills & MCP.
+title: "Vite + Lit i18n - Guía completa para traducir una aplicación Vite + Lit"
+description: "Sin más i18next. La guía 2026 para crear una aplicación Vite + Lit multilingüe (i18n). Traduce con agentes de IA y optimiza el tamaño del bundle, SEO y rendimiento."
 keywords:
   - Internacionalización
   - Documentación

@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-06-18
 updatedAt: 2026-05-31
-title: "Nuxt i18n - Eksiksiz çeviri rehberi: Nuxt"
-description: Bundle boyutu, SEO, performans ve sürdürülebilirlik için en iyi çözüm. Nuxt and Vue web sitesini'ınızı 2026'da çok dilli yapın, LLM çevirisi, Agent Skills & MCP.
+title: "Nuxt i18n - Nuxt uygulamasını çevirmek için eksiksiz kılavuz"
+description: "Artık i18next yok. 2026 yılı için çok dilli (i18n) Nuxt uygulaması oluşturma kılavuzu. Yapay zeka ajanlarıyla çevirin ve bundle boyutu, SEO ve performansı optimize edin."
 keywords:
   - Uluslararasılaştırma
   - Dokümantasyon

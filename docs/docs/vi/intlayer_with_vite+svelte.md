@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2026-05-31
-title: Vite + Svelte i18n - Hướng dẫn đầy đủ để dịch Svelte
-description: Giải pháp tốt nhất cho kích thước bundle, SEO, hiệu suất & khả năng bảo trì. Làm cho Vite and Svelte ứng dụng của bạn đa ngôn ngữ vào năm 2026, dịch thuật LLM, Agent Skills & MCP.
+title: "Vite + Svelte i18n - Hướng dẫn đầy đủ để dịch ứng dụng Vite + Svelte"
+description: "Không còn i18next nữa. Hướng dẫn 2026 để xây dựng ứng dụng Vite + Svelte đa ngôn ngữ (i18n). Dịch với các AI agent và tối ưu hóa kích thước bundle, SEO và hiệu suất."
 keywords:
   - Quốc tế hóa
   - Tài liệu

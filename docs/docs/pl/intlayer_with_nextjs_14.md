@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-12-06
 updatedAt: 2026-05-31
-title: Next.js i18n - Kompletny przewodnik po tłumaczeniu Next.js 14
-description: Najlepsze rozwiązanie dla rozmiaru bundle, SEO, wydajności & utrzymania. Uczyń swój Next.js 14 stronę internetową wielojęzycznym w 2026, tłumaczenie LLM, Agent Skills & MCP.
+title: "Next.js 14 i18n - Kompletny przewodnik po tłumaczeniu aplikacji Next.js 14"
+description: "Koniec z i18next. Przewodnik 2026 do budowania wielojęzycznej (i18n) aplikacji Next.js 14. Tłumacz z agentami AI i optymalizuj rozmiar bundle, SEO i wydajność."
 keywords:
   - Internacjonalizacja
   - Dokumentacja

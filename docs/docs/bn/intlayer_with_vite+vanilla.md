@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-03-23
 updatedAt: 2026-05-31
-title: "i18n Vite + Vanilla JS - অনুবাদের সম্পূর্ণ গাইড: Vanilla JS"
-description: বান্ডেল সাইজ, SEO, পারফরম্যান্স ও মেইনটেইনেবিলিটির জন্য সেরা সমাধান। ২০২৬ সালে আপনার Vite and Vanilla JS অ্যাপ কে বহুভাষিক করুন, LLM অনুবাদ, Agent Skills & MCP।
+title: "Vite + Vanilla JS i18n - Vite + Vanilla JS অ্যাপ অনুবাদের সম্পূর্ণ গাইড"
+description: "আর i18next নয়। 2026 সালে Vite + Vanilla JS অ্যাপ কে বহুভাষিক (i18n) করার গাইড। AI এজেন্ট দিয়ে অনুবাদ করুন এবং বান্ডেল সাইজ, SEO ও পারফরম্যান্স অপ্টিমাইজ করুন।"
 keywords:
   - আন্তর্জাতিকীকরণ
   - ডকুমেন্টেশন

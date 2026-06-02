@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-06-18
 updatedAt: 2026-05-31
-title: Expo + React Native i18n - 完全な翻訳ガイド： React Native
-description: バンドルサイズ、SEO、パフォーマンス、保守性のための最良のソリューション。2026年にExpo and React Native モバイルアプリを多言語化しましょう。LLM翻訳、Agent Skills & MCP。
+title: "Expo + React Native i18n - 完全な翻訳ガイド：Expo + React Native アプリ"
+description: "i18nextはもう不要。2026年に多言語（i18n）Expo + React Nativeアプリを構築するためのガイド。AIエージェントで翻訳し、バンドルサイズ、SEO、パフォーマンスを最適化します。"
 keywords:
   - 国際化
   - ドキュメント

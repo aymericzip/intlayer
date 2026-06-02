@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-09-07
 updatedAt: 2026-05-31
-title: "Lynx + React i18n - Eksiksiz çeviri rehberi: Lynx"
-description: Bundle boyutu, SEO, performans ve sürdürülebilirlik için en iyi çözüm. Lynx and React mobil uygulamayı'ınızı 2026'da çok dilli yapın, LLM çevirisi, Agent Skills & MCP.
+title: "Lynx + React i18n - Lynx + React uygulamasını çevirmek için eksiksiz kılavuz"
+description: "Artık i18next yok. 2026 yılı için çok dilli (i18n) Lynx + React uygulaması oluşturma kılavuzu. Yapay zeka ajanlarıyla çevirin ve bundle boyutu, SEO ve performansı optimize edin."
 keywords:
   - Uluslararasılaştırma
   - Dokümantasyon

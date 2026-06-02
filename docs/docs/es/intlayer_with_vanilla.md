@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-03-31
 updatedAt: 2026-05-31
-title: i18n Vanilla JS - Guía completa para traducir Vanilla JS
-description: La mejor solución para el tamaño del bundle, SEO, rendimiento & mantenibilidad. Haga multilingüe su Vanilla JS sitio web en 2026, traducción LLM, Agent Skills & MCP.
+title: "Vanilla JS i18n - Guía completa para traducir una aplicación Vanilla JS"
+description: "Sin más i18next. La guía 2026 para crear una aplicación Vanilla JS multilingüe (i18n). Traduce con agentes de IA y optimiza el tamaño del bundle, SEO y rendimiento."
 keywords:
   - Internacionalización
   - Documentación

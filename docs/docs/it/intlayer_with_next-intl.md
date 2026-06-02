@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-10-05
 updatedAt: 2026-05-31
-title: next-intl - Guida completa per tradurre Next.js
-description: La migliore soluzione per dimensione del bundle, SEO, prestazioni & manutenibilità. Rendi il tuo Next.js 15 App Router sito web multilingue nel 2026, traduzione LLM, Agent Skills & MCP.
+title: "next-intl i18n - Guida completa per tradurre un'applicazione next-intl"
+description: "Niente più i18next. La guida 2026 per creare un'applicazione next-intl multilingue (i18n). Traduci con agenti AI e ottimizza la dimensione del bundle, SEO e prestazioni."
 keywords:
   - Internazionalizzazione
   - Documentazione

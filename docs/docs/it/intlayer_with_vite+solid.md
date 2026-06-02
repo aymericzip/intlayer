@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2026-05-31
-title: Vite + Solid i18n - Guida completa per tradurre Solid
-description: La migliore soluzione per dimensione del bundle, SEO, prestazioni & manutenibilità. Rendi il tuo Vite and Solid applicazione multilingue nel 2026, traduzione LLM, Agent Skills & MCP.
+title: "Vite + Solid i18n - Guida completa per tradurre un'applicazione Vite + Solid"
+description: "Niente più i18next. La guida 2026 per creare un'applicazione Vite + Solid multilingue (i18n). Traduci con agenti AI e ottimizza la dimensione del bundle, SEO e prestazioni."
 keywords:
   - Internazionalizzazione
   - Documentazione

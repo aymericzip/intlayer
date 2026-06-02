@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-12-07
 updatedAt: 2026-05-31
-title: Next.js Page Router i18n - Полное руководство по переводу Next.js
-description: Лучшее решение для размера бандла, SEO, производительности & поддерживаемости. Сделайте Next.js Page Router сайт многоязычным в 2026, перевод LLM, Agent Skills & MCP.
+title: "Next.js Page Router i18n - Полное руководство по переводу приложения Next.js Page Router"
+description: "Больше никакого i18next. Руководство 2026 по созданию многоязычного (i18n) приложения Next.js Page Router. Переводите с помощью ИИ-агентов и оптимизируйте размер бандла, SEO и производительность."
 keywords:
   - Интернационализация
   - Документация

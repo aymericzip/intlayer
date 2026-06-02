@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-11-20
 updatedAt: 2026-05-31
-title: SvelteKit i18n - Kompletny przewodnik po tłumaczeniu SvelteKit
-description: Najlepsze rozwiązanie dla rozmiaru bundle, SEO, wydajności & utrzymania. Uczyń swój SvelteKit stronę internetową wielojęzycznym w 2026, tłumaczenie LLM, Agent Skills & MCP.
+title: "SvelteKit i18n - Kompletny przewodnik po tłumaczeniu aplikacji SvelteKit"
+description: "Koniec z i18next. Przewodnik 2026 do budowania wielojęzycznej (i18n) aplikacji SvelteKit. Tłumacz z agentami AI i optymalizuj rozmiar bundle, SEO i wydajność."
 keywords:
   - Internacjonalizacja
   - Dokumentacja

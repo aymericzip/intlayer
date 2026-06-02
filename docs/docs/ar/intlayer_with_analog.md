@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2026-05-31
-title: تدويل Analog - الدليل الكامل لترجمة Analog
-description: أفضل حل لحجم البندل وتحسين محركات البحث والأداء والصيانة. اجعل Analog تطبيق متعدد اللغات في 2026، ترجمة LLM، Agent Skills & MCP.
+title: "تدويل Analog - الدليل الكامل لترجمة تطبيق Analog"
+description: "لا مزيد من i18next. دليل 2026 لبناء تطبيق Analog متعدد اللغات (i18n). ترجم باستخدام وكلاء الذكاء الاصطناعي وحسّن حجم الحزمة وتحسين محركات البحث والأداء."
 keywords:
   - Internationalization
   - Documentation

@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2026-05-31
-title: Vite + Vue i18n - Guia completo para traduzir Vue
-description: A melhor solução para tamanho de bundle, SEO, desempenho & manutenibilidade. Torne seu Vite and Vue aplicativo multilíngue em 2026, tradução LLM, Agent Skills & MCP.
+title: "Vite + Vue i18n - Guia completo para traduzir um aplicativo Vite + Vue"
+description: "Sem mais i18next. O guia 2026 para criar uma aplicação Vite + Vue multilíngue (i18n). Traduza com agentes de IA e otimize o tamanho do bundle, SEO e desempenho."
 keywords:
   - Internacionalização
   - Documentação

@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-09-07
 updatedAt: 2026-05-31
-title: "Expo + React Native i18n - Eksiksiz çeviri rehberi: React Native"
-description: Bundle boyutu, SEO, performans ve sürdürülebilirlik için en iyi çözüm. Expo and React Native mobil uygulamayı'ınızı 2026'da çok dilli yapın, LLM çevirisi, Agent Skills & MCP.
+title: "Expo + React Native i18n - Expo + React Native uygulamasını çevirmek için eksiksiz kılavuz"
+description: "Artık i18next yok. 2026 yılı için çok dilli (i18n) Expo + React Native uygulaması oluşturma kılavuzu. Yapay zeka ajanlarıyla çevirin ve bundle boyutu, SEO ve performansı optimize edin."
 keywords:
   - Uluslararasılaştırma
   - Dokümantasyon

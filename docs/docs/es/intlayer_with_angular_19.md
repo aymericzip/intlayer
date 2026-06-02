@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2026-05-31
-title: Angular i18n - Guía completa para traducir Angular 19 app (Webpack)
-description: La mejor solución para el tamaño del bundle, SEO, rendimiento & mantenibilidad. Haga multilingüe su Angular 19 aplicación en 2026, traducción LLM, Agent Skills & MCP.
+title: "Angular 19 i18n - Guía completa para traducir una aplicación Angular 19"
+description: "Sin más i18next. La guía 2026 para crear una aplicación Angular 19 multilingüe (i18n). Traduce con agentes de IA y optimiza el tamaño del bundle, SEO y rendimiento."
 keywords:
   - Internacionalización
   - Documentación

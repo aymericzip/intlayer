@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-10-05
 updatedAt: 2026-05-31
-title: next-intl - Vollständiger Leitfaden zur Übersetzung Next.js
-description: Beste Lösung für Bundle-Größe, SEO, Performance & Wartbarkeit. Machen Sie Ihre Next.js 15 App Router Website 2026 mehrsprachig, LLM-Übersetzung, Agent Skills & MCP.
+title: "next-intl i18n - Vollständiger Leitfaden zur Übersetzung einer next-intl-App"
+description: "Kein i18next mehr. Der 2026-Leitfaden zum Erstellen einer mehrsprachigen (i18n) next-intl-App. Übersetzen Sie mit KI-Agenten und optimieren Sie Bundle-Größe, SEO und Performance."
 keywords:
   - Internationalisierung
   - Dokumentation

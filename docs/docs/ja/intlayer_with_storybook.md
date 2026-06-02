@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-03-20
 updatedAt: 2026-05-31
-title: StorybookでIntlayerをセットアップする方法
-description: IntlayerとStorybookを使用して、デザインシステムを多言語化する方法を学びます - コンテンツ宣言のコンパイル、ロケールスイッチャーの追加、および任意の言語でのコンポーネントのプレビュー。
+title: "Storybook i18n - 完全な翻訳ガイド：Storybook アプリ"
+description: "i18nextはもう不要。2026年に多言語（i18n）Storybookアプリを構築するためのガイド。AIエージェントで翻訳し、バンドルサイズ、SEO、パフォーマンスを最適化します。"
 keywords:
   - 国際化
   - ドキュメント

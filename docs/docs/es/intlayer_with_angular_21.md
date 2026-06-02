@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2026-05-31
-title: Angular i18n - Guía completa para traducir Angular 21
-description: La mejor solución para el tamaño del bundle, SEO, rendimiento & mantenibilidad. Haga multilingüe su Angular 21 aplicación en 2026, traducción LLM, Agent Skills & MCP.
+title: "Angular 21 i18n - Guía completa para traducir una aplicación Angular 21"
+description: "Sin más i18next. La guía 2026 para crear una aplicación Angular 21 multilingüe (i18n). Traduce con agentes de IA y optimiza el tamaño del bundle, SEO y rendimiento."
 keywords:
   - Internacionalización
   - Documentación

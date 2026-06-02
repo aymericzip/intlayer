@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-03-23
 updatedAt: 2026-05-31
-title: i18n Vite + Vanilla JS - Kompletny przewodnik po tłumaczeniu Vanilla JS
-description: Najlepsze rozwiązanie dla rozmiaru bundle, SEO, wydajności & utrzymania. Uczyń swój Vite and Vanilla JS aplikację wielojęzycznym w 2026, tłumaczenie LLM, Agent Skills & MCP.
+title: "Vite + Vanilla JS i18n - Kompletny przewodnik po tłumaczeniu aplikacji Vite + Vanilla JS"
+description: "Koniec z i18next. Przewodnik 2026 do budowania wielojęzycznej (i18n) aplikacji Vite + Vanilla JS. Tłumacz z agentami AI i optymalizuj rozmiar bundle, SEO i wydajność."
 keywords:
   - Internacjonalizacja
   - Dokumentacja

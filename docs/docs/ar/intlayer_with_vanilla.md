@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-03-31
 updatedAt: 2026-05-31
-title: Vanilla JS i18n - الدليل الكامل لترجمة Vanilla JS
-description: أفضل حل لحجم البندل وتحسين محركات البحث والأداء والصيانة. اجعل Vanilla JS موقع ويب متعدد اللغات في 2026، ترجمة LLM، Agent Skills & MCP.
+title: "تدويل Vanilla JS - الدليل الكامل لترجمة تطبيق Vanilla JS"
+description: "لا مزيد من i18next. دليل 2026 لبناء تطبيق Vanilla JS متعدد اللغات (i18n). ترجم باستخدام وكلاء الذكاء الاصطناعي وحسّن حجم الحزمة وتحسين محركات البحث والأداء."
 keywords:
   - تدويل
   - وثائق

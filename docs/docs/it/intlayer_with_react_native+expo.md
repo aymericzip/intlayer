@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-06-18
 updatedAt: 2026-05-31
-title: Expo + React Native i18n - Guida completa per tradurre React Native
-description: La migliore soluzione per dimensione del bundle, SEO, prestazioni & manutenibilità. Rendi il tuo Expo and React Native app mobile multilingue nel 2026, traduzione LLM, Agent Skills & MCP.
+title: "Expo + React Native i18n - Guida completa per tradurre un'applicazione Expo + React Native"
+description: "Niente più i18next. La guida 2026 per creare un'applicazione Expo + React Native multilingue (i18n). Traduci con agenti AI e ottimizza la dimensione del bundle, SEO e prestazioni."
 keywords:
   - Internazionalizzazione
   - Documentazione

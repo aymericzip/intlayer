@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-06-18
 updatedAt: 2026-05-31
-title: Nuxt i18n - 完整翻译指南： Nuxt
-description: 最佳的包体积、SEO、性能和可维护性解决方案。让您的 Nuxt and Vue 网站在 2026 年实现多语言化，LLM 翻译，Agent Skills & MCP。
+title: "Nuxt i18n - 完整翻译指南：Nuxt 应用"
+description: "告别 i18next。2026 年构建多语言 (i18n) Nuxt 应用的完整指南。使用 AI 代理翻译并优化包体积、SEO 和性能。"
 keywords:
   - 国际化
   - 文档

@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-08-23
 updatedAt: 2026-05-31
-title: Express i18n - Kompletny przewodnik po tłumaczeniu Express
-description: Najlepsze rozwiązanie dla rozmiaru bundle, SEO, wydajności & utrzymania. Uczyń swój Express backend wielojęzycznym w 2026, tłumaczenie LLM, Agent Skills & MCP.
+title: "Express i18n - Kompletny przewodnik po tłumaczeniu aplikacji Express"
+description: "Koniec z i18next. Przewodnik 2026 do budowania wielojęzycznej (i18n) aplikacji Express. Tłumacz z agentami AI i optymalizuj rozmiar bundle, SEO i wydajność."
 keywords:
   - Internacjonalizacja
   - Dokumentacja

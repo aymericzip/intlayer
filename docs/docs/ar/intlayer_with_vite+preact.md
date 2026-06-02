@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2026-05-31
-title: Vite + Preact i18n - الدليل الكامل لترجمة Preact
-description: أفضل حل لحجم البندل وتحسين محركات البحث والأداء والصيانة. اجعل Vite and Preact تطبيق متعدد اللغات في 2026، ترجمة LLM، Agent Skills & MCP.
+title: "تدويل Vite + Preact - الدليل الكامل لترجمة تطبيق Vite + Preact"
+description: "لا مزيد من i18next. دليل 2026 لبناء تطبيق Vite + Preact متعدد اللغات (i18n). ترجم باستخدام وكلاء الذكاء الاصطناعي وحسّن حجم الحزمة وتحسين محركات البحث والأداء."
 keywords:
   - التدويل
   - التوثيق

@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2026-05-31
-title: Vite + Svelte i18n - Panduan lengkap menerjemahkan Svelte
-description: Solusi terbaik untuk ukuran bundle, SEO, performa & keterpeliharaan. Jadikan Vite and Svelte aplikasi Anda multibahasa di 2026, terjemahan LLM, Agent Skills & MCP.
+title: "Vite + Svelte i18n - Panduan lengkap menerjemahkan aplikasi Vite + Svelte"
+description: "Tidak ada lagi i18next. Panduan 2026 untuk membangun aplikasi Vite + Svelte multibahasa (i18n). Terjemahkan dengan agen AI dan optimalkan ukuran bundle, SEO, dan performa."
 keywords:
   - Internasionalisasi
   - Dokumentasi

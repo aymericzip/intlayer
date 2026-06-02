@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-03-07
 updatedAt: 2026-05-31
-title: ترجمة Astro + React i18n - الدليل الكامل لترجمة Astro + React
-description: أفضل حل لحجم البندل وتحسين محركات البحث والأداء والصيانة. اجعل Astro and React موقع ويب متعدد اللغات في 2026، ترجمة LLM، Agent Skills & MCP.
+title: "تدويل Astro + React - الدليل الكامل لترجمة تطبيق Astro + React"
+description: "لا مزيد من i18next. دليل 2026 لبناء تطبيق Astro + React متعدد اللغات (i18n). ترجم باستخدام وكلاء الذكاء الاصطناعي وحسّن حجم الحزمة وتحسين محركات البحث والأداء."
 keywords:
   - التدويل
   - توثيق

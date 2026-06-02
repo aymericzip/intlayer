@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2026-05-31
-title: Angular i18n - Kompletní průvodce překladem Angular 21
-description: Nejlepší řešení pro velikost bundlu, SEO, výkon & udržovatelnost. Udělejte svůj Angular 21 aplikaci vícejazyčným v 2026, překlad LLM, Agent Skills & MCP.
+title: "Angular 21 i18n - Kompletní průvodce překladem aplikace Angular 21"
+description: "Žádný i18next. Průvodce 2026 pro vytváření vícejazyčné (i18n) aplikace Angular 21. Překládejte pomocí agentů AI a optimalizujte velikost bundlu, SEO a výkon."
 keywords:
   - Internacionalizace
   - Dokumentace

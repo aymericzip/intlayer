@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-05-31
-title: Create React App i18n - Vollständiger Leitfaden zur Übersetzung React
-description: Beste Lösung für Bundle-Größe, SEO, Performance & Wartbarkeit. Machen Sie Ihre Create React App Website 2026 mehrsprachig, LLM-Übersetzung, Agent Skills & MCP.
+title: "Create React App i18n - Vollständiger Leitfaden zur Übersetzung einer Create React App-App"
+description: "Kein i18next mehr. Der 2026-Leitfaden zum Erstellen einer mehrsprachigen (i18n) Create React App-App. Übersetzen Sie mit KI-Agenten und optimieren Sie Bundle-Größe, SEO und Performance."
 keywords:
   - Internationalisierung
   - Dokumentation

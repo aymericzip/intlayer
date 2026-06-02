@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-12-07
 updatedAt: 2026-05-31
-title: Next.js Page Router i18n - الدليل الكامل لترجمة Next.js
-description: أفضل حل لحجم البندل وتحسين محركات البحث والأداء والصيانة. اجعل Next.js Page Router موقع ويب متعدد اللغات في 2026، ترجمة LLM، Agent Skills & MCP.
+title: "تدويل Next.js Page Router - الدليل الكامل لترجمة تطبيق Next.js Page Router"
+description: "لا مزيد من i18next. دليل 2026 لبناء تطبيق Next.js Page Router متعدد اللغات (i18n). ترجم باستخدام وكلاء الذكاء الاصطناعي وحسّن حجم الحزمة وتحسين محركات البحث والأداء."
 keywords:
   - التدويل
   - التوثيق

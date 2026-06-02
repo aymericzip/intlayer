@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-03-20
 updatedAt: 2026-05-31
-title: 如何在 Storybook 中设置 Intlayer
-description: 学习如何使用 Intlayer 和 Storybook 使您的设计系统多语言化 - 编译内容声明、添加语言切换器，并以任何语言预览您的组件。
+title: "Storybook i18n - 完整翻译指南：Storybook 应用"
+description: "告别 i18next。2026 年构建多语言 (i18n) Storybook 应用的完整指南。使用 AI 代理翻译并优化包体积、SEO 和性能。"
 keywords:
   - 国际化
   - 文档

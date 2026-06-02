@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-04-24
 updatedAt: 2026-05-31
-title: ترجمة Astro + Solid i18n - الدليل الكامل لترجمة Astro + Solid
-description: أفضل حل لحجم البندل وتحسين محركات البحث والأداء والصيانة. اجعل Astro and Solid موقع ويب متعدد اللغات في 2026، ترجمة LLM، Agent Skills & MCP.
+title: "تدويل Astro + Solid - الدليل الكامل لترجمة تطبيق Astro + Solid"
+description: "لا مزيد من i18next. دليل 2026 لبناء تطبيق Astro + Solid متعدد اللغات (i18n). ترجم باستخدام وكلاء الذكاء الاصطناعي وحسّن حجم الحزمة وتحسين محركات البحث والأداء."
 keywords:
   - التدويل
   - توثيق

@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-09-04
 updatedAt: 2026-05-31
-title: React Router v7 i18n - الدليل الكامل لترجمة Complete
-description: أفضل حل لحجم البندل وتحسين محركات البحث والأداء والصيانة. اجعل React Router v7 تطبيق متعدد اللغات في 2026، ترجمة LLM، Agent Skills & MCP.
+title: "تدويل React Router v7 - الدليل الكامل لترجمة تطبيق React Router v7"
+description: "لا مزيد من i18next. دليل 2026 لبناء تطبيق React Router v7 متعدد اللغات (i18n). ترجم باستخدام وكلاء الذكاء الاصطناعي وحسّن حجم الحزمة وتحسين محركات البحث والأداء."
 keywords:
   - التدويل
   - التوثيق

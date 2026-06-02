@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-12-30
 updatedAt: 2026-05-31
-title: Fastify i18n - Volledige gids voor het vertalen van Fastify
-description: Beste oplossing voor bundle-grootte, SEO, prestaties & onderhoudbaarheid. Maak uw Fastify backend meertalig in 2026, LLM-vertaling, Agent Skills & MCP.
+title: "Fastify i18n - Volledige gids voor het vertalen van een Fastify-app"
+description: "Geen i18next meer. De 2026-gids voor het bouwen van een meertalige (i18n) Fastify-app. Vertaal met AI-agenten en optimaliseer bundelgrootte, SEO en prestaties."
 keywords:
   - Internationalisering
   - Documentatie

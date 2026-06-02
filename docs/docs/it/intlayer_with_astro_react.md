@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-03-07
 updatedAt: 2026-05-31
-title: Astro + React i18n - Guida completa per tradurre Astro + React
-description: La migliore soluzione per dimensione del bundle, SEO, prestazioni & manutenibilità. Rendi il tuo Astro and React sito web multilingue nel 2026, traduzione LLM, Agent Skills & MCP.
+title: "Astro + React i18n - Guida completa per tradurre un'applicazione Astro + React"
+description: "Niente più i18next. La guida 2026 per creare un'applicazione Astro + React multilingue (i18n). Traduci con agenti AI e ottimizza la dimensione del bundle, SEO e prestazioni."
 keywords:
   - internazionalizzazione
   - documentazione

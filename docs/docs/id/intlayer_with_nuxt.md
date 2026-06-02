@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-06-18
 updatedAt: 2026-05-31
-title: Nuxt i18n - Panduan lengkap menerjemahkan Nuxt
-description: Solusi terbaik untuk ukuran bundle, SEO, performa & keterpeliharaan. Jadikan Nuxt and Vue situs web Anda multibahasa di 2026, terjemahan LLM, Agent Skills & MCP.
+title: "Nuxt i18n - Panduan lengkap menerjemahkan aplikasi Nuxt"
+description: "Tidak ada lagi i18next. Panduan 2026 untuk membangun aplikasi Nuxt multibahasa (i18n). Terjemahkan dengan agen AI dan optimalkan ukuran bundle, SEO, dan performa."
 keywords:
   - Internasionalisasi
   - Dokumentasi

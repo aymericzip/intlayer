@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-08-23
 updatedAt: 2026-05-31
-title: Hono i18n - 完全な翻訳ガイド： Hono
-description: バンドルサイズ、SEO、パフォーマンス、保守性のための最良のソリューション。2026年にHono バックエンドを多言語化しましょう。LLM翻訳、Agent Skills & MCP。
+title: "Hono i18n - 完全な翻訳ガイド：Hono アプリ"
+description: "i18nextはもう不要。2026年に多言語（i18n）Honoアプリを構築するためのガイド。AIエージェントで翻訳し、バンドルサイズ、SEO、パフォーマンスを最適化します。"
 keywords:
   - 国際化
   - ドキュメント

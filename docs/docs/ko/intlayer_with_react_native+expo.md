@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-06-18
 updatedAt: 2026-05-31
-title: "Expo + React Native i18n - 완전한 번역 가이드: React Native"
-description: 번들 크기, SEO, 성능 및 유지보수성을 위한 최고의 솔루션. 2026년에 Expo and React Native 모바일 앱를 다국어로 만드세요, LLM 번역, Agent Skills & MCP.
+title: "Expo + React Native i18n - 완전한 번역 가이드: Expo + React Native 앱"
+description: "i18next는 이제 그만. 2026년 다국어 (i18n) Expo + React Native 앱 구축 가이드. AI 에이전트로 번역하고 번들 크기, SEO, 성능을 최적화하세요."
 keywords:
   - 국제화
   - 문서

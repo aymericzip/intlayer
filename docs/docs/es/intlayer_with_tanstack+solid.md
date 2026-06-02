@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-03-25
 updatedAt: 2026-05-31
-title: i18n Tanstack Start - Guía completa para traducir TanStack Start
-description: La mejor solución para el tamaño del bundle, SEO, rendimiento & mantenibilidad. Haga multilingüe su TanStack Start and Solid aplicación en 2026, traducción LLM, Agent Skills & MCP.
+title: "TanStack Start + Solid i18n - Guía completa para traducir una aplicación TanStack Start + Solid"
+description: "Sin más i18next. La guía 2026 para crear una aplicación TanStack Start + Solid multilingüe (i18n). Traduce con agentes de IA y optimiza el tamaño del bundle, SEO y rendimiento."
 keywords:
   - Internacionalización
   - Documentación

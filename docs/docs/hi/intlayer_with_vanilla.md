@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-03-31
 updatedAt: 2026-05-31
-title: "Vanilla JS i18n - अनुवाद का पूर्ण गाइड: Vanilla JS"
-description: बंडल साइज़, SEO, परफॉर्मेंस & मेंटेनेबिलिटी के लिए सबसे अच्छा समाधान। 2026 में अपने Vanilla JS वेबसाइट को बहुभाषी बनाएं, LLM ट्रांसलेशन, Agent Skills & MCP.
+title: "Vanilla JS i18n - Vanilla JS ऐप को अनुवाद करने का पूर्ण गाइड"
+description: "अब i18next की जरूरत नहीं। 2026 में Vanilla JS ऐप को बहुभाषी (i18n) बनाने का गाइड। AI एजेंट्स से अनुवाद करें और बंडल साइज़, SEO और परफॉर्मेंस ऑप्टिमाइज़ करें।"
 keywords:
   - अंतर्राष्ट्रीयकरण
   - दस्तावेज़ीकरण

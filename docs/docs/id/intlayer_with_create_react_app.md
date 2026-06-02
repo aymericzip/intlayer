@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-08-23
 updatedAt: 2026-05-31
-title: Create React App i18n - Panduan lengkap menerjemahkan React
-description: Solusi terbaik untuk ukuran bundle, SEO, performa & keterpeliharaan. Jadikan Create React App situs web Anda multibahasa di 2026, terjemahan LLM, Agent Skills & MCP.
+title: "Create React App i18n - Panduan lengkap menerjemahkan aplikasi Create React App"
+description: "Tidak ada lagi i18next. Panduan 2026 untuk membangun aplikasi Create React App multibahasa (i18n). Terjemahkan dengan agen AI dan optimalkan ukuran bundle, SEO, dan performa."
 keywords:
   - Internasionalisasi
   - Dokumentasi

@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-03-09
 updatedAt: 2026-05-31
-title: Lynx + React i18n - Guida completa per tradurre Lynx
-description: La migliore soluzione per dimensione del bundle, SEO, prestazioni & manutenibilità. Rendi il tuo Lynx and React app mobile multilingue nel 2026, traduzione LLM, Agent Skills & MCP.
+title: "Lynx + React i18n - Guida completa per tradurre un'applicazione Lynx + React"
+description: "Niente più i18next. La guida 2026 per creare un'applicazione Lynx + React multilingue (i18n). Traduci con agenti AI e ottimizza la dimensione del bundle, SEO e prestazioni."
 keywords:
   - Internazionalizzazione
   - Documentazione

@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-05-31
-title: Create React App i18n - الدليل الكامل لترجمة React
-description: أفضل حل لحجم البندل وتحسين محركات البحث والأداء والصيانة. اجعل Create React App موقع ويب متعدد اللغات في 2026، ترجمة LLM، Agent Skills & MCP.
+title: "تدويل Create React App - الدليل الكامل لترجمة تطبيق Create React App"
+description: "لا مزيد من i18next. دليل 2026 لبناء تطبيق Create React App متعدد اللغات (i18n). ترجم باستخدام وكلاء الذكاء الاصطناعي وحسّن حجم الحزمة وتحسين محركات البحث والأداء."
 keywords:
   - التدويل
   - توثيق

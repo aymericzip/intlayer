@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-03-07
 updatedAt: 2026-05-31
-title: "Astro i18n Çevirisi - Eksiksiz çeviri rehberi: Astro"
-description: Bundle boyutu, SEO, performans ve sürdürülebilirlik için en iyi çözüm. Astro web sitesini'ınızı 2026'da çok dilli yapın, LLM çevirisi, Agent Skills & MCP.
+title: "Astro i18n - Astro uygulamasını çevirmek için eksiksiz kılavuz"
+description: "Artık i18next yok. 2026 yılı için çok dilli (i18n) Astro uygulaması oluşturma kılavuzu. Yapay zeka ajanlarıyla çevirin ve bundle boyutu, SEO ve performansı optimize edin."
 keywords:
   - uluslararasılaştırma
   - dokümantasyon

@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-01-10
 updatedAt: 2026-05-31
-title: Next.js i18n - Guía completa para traducir Complete
-description: La mejor solución para el tamaño del bundle, SEO, rendimiento & mantenibilidad. Haga multilingüe su existing Next.js sitio web en 2026, traducción LLM, Agent Skills & MCP.
+title: "Next.js i18n - Guía completa para traducir una aplicación Next.js"
+description: "Sin más i18next. La guía 2026 para crear una aplicación Next.js multilingüe (i18n). Traduce con agentes de IA y optimiza el tamaño del bundle, SEO y rendimiento."
 keywords:
   - Internacionalización
   - Documentación

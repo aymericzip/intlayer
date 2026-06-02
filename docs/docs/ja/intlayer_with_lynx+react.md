@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-03-09
 updatedAt: 2026-05-31
-title: Lynx + React i18n - 完全な翻訳ガイド： Lynx
-description: バンドルサイズ、SEO、パフォーマンス、保守性のための最良のソリューション。2026年にLynx and React モバイルアプリを多言語化しましょう。LLM翻訳、Agent Skills & MCP。
+title: "Lynx + React i18n - 完全な翻訳ガイド：Lynx + React アプリ"
+description: "i18nextはもう不要。2026年に多言語（i18n）Lynx + Reactアプリを構築するためのガイド。AIエージェントで翻訳し、バンドルサイズ、SEO、パフォーマンスを最適化します。"
 keywords:
   - 国際化
   - ドキュメンテーション

@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-03-20
 updatedAt: 2026-05-31
-title: Cara Menyiapkan Intlayer dengan Storybook
-description: Pelajari cara membuat sistem desain Anda multibahasa menggunakan Intlayer dengan Storybook - kompilasi deklarasi konten, tambahkan pengalih lokal, dan pratinjau komponen Anda dalam bahasa apa pun.
+title: "Storybook i18n - Panduan lengkap menerjemahkan aplikasi Storybook"
+description: "Tidak ada lagi i18next. Panduan 2026 untuk membangun aplikasi Storybook multibahasa (i18n). Terjemahkan dengan agen AI dan optimalkan ukuran bundle, SEO, dan performa."
 keywords:
   - Internasionalisasi
   - Dokumentasi

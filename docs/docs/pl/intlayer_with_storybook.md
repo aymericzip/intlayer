@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-03-20
 updatedAt: 2026-05-31
-title: Jak skonfigurować Intlayer z Storybook
-description: Dowiedz się, jak uczynić swój system projektowania wielojęzycznym, używając Intlayer z Storybook - kompiluj deklaracje treści, dodaj przełącznik języka i przeglądaj komponenty w dowolnym języku.
+title: "Storybook i18n - Kompletny przewodnik po tłumaczeniu aplikacji Storybook"
+description: "Koniec z i18next. Przewodnik 2026 do budowania wielojęzycznej (i18n) aplikacji Storybook. Tłumacz z agentami AI i optymalizuj rozmiar bundle, SEO i wydajność."
 keywords:
   - Internacjonalizacja
   - Dokumentacja

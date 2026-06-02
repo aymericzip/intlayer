@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-04-24
 updatedAt: 2026-05-31
-title: Astro + Solid i18n - Vollständiger Leitfaden zur Übersetzung Astro + Solid
-description: Beste Lösung für Bundle-Größe, SEO, Performance & Wartbarkeit. Machen Sie Ihre Astro and Solid Website 2026 mehrsprachig, LLM-Übersetzung, Agent Skills & MCP.
+title: "Astro + Solid i18n - Vollständiger Leitfaden zur Übersetzung einer Astro + Solid-App"
+description: "Kein i18next mehr. Der 2026-Leitfaden zum Erstellen einer mehrsprachigen (i18n) Astro + Solid-App. Übersetzen Sie mit KI-Agenten und optimieren Sie Bundle-Größe, SEO und Performance."
 keywords:
   - Internationalisierung
   - Dokumentation

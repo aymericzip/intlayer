@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-06-18
 updatedAt: 2026-05-31
-title: Expo + React Native i18n - الدليل الكامل لترجمة React Native
-description: أفضل حل لحجم البندل وتحسين محركات البحث والأداء والصيانة. اجعل Expo and React Native تطبيق الجوال متعدد اللغات في 2026، ترجمة LLM، Agent Skills & MCP.
+title: "تدويل Expo + React Native - الدليل الكامل لترجمة تطبيق Expo + React Native"
+description: "لا مزيد من i18next. دليل 2026 لبناء تطبيق Expo + React Native متعدد اللغات (i18n). ترجم باستخدام وكلاء الذكاء الاصطناعي وحسّن حجم الحزمة وتحسين محركات البحث والأداء."
 keywords:
   - التدويل
   - التوثيق

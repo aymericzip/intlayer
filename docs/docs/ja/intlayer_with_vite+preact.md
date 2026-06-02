@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2026-05-31
-title: Vite + Preact i18n - 完全な翻訳ガイド： Preact
-description: バンドルサイズ、SEO、パフォーマンス、保守性のための最良のソリューション。2026年にVite and Preact アプリを多言語化しましょう。LLM翻訳、Agent Skills & MCP。
+title: "Vite + Preact i18n - 完全な翻訳ガイド：Vite + Preact アプリ"
+description: "i18nextはもう不要。2026年に多言語（i18n）Vite + Preactアプリを構築するためのガイド。AIエージェントで翻訳し、バンドルサイズ、SEO、パフォーマンスを最適化します。"
 keywords:
   - 国際化
   - ドキュメント

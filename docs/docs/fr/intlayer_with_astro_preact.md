@@ -1,8 +1,8 @@
 ---
 createdAt: 2026-04-24
 updatedAt: 2026-05-31
-title: Astro + Preact i18n - Guide complet pour traduire Astro + Preact
-description: Meilleure solution pour la taille du bundle, le SEO, les performances & la maintenabilité. Rendez votre Astro and Preact site web multilingue en 2026, traduction LLM, Agent Skills & MCP.
+title: "Astro + Preact i18n - Guide complet pour traduire une application Astro + Preact"
+description: "Plus d'i18next. Le guide 2026 pour créer une application Astro + Preact multilingue (i18n). Traduisez avec des agents IA et optimisez la taille du bundle, le SEO et les performances."
 keywords:
   - Internationalisation
   - Documentation

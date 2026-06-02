@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-10-25
 updatedAt: 2026-05-31
-title: Next.js i18n - Vollständiger Leitfaden zur Übersetzung Next.js 16
-description: Beste Lösung für Bundle-Größe, SEO, Performance & Wartbarkeit. Machen Sie Ihre Next.js 16 Website 2026 mehrsprachig, LLM-Übersetzung, Agent Skills & MCP.
+title: "Next.js 16 i18n - Vollständiger Leitfaden zur Übersetzung einer Next.js 16-App"
+description: "Kein i18next mehr. Der 2026-Leitfaden zum Erstellen einer mehrsprachigen (i18n) Next.js 16-App. Übersetzen Sie mit KI-Agenten und optimieren Sie Bundle-Größe, SEO und Performance."
 keywords:
   - Internationalisierung
   - Dokumentation
