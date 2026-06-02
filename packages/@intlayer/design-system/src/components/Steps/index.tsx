@@ -1,7 +1,7 @@
 import { cn } from '@utils/cn';
-import type { FC, HTMLAttributes, ReactNode } from 'react';
+import type { FC, HTMLAttributes, OlHTMLAttributes, ReactNode } from 'react';
 
-type StepProps = HTMLAttributes<HTMLDivElement> & {
+type StepProps = HTMLAttributes<HTMLLIElement> & {
   number: number;
   title?: string;
   isOptional?: boolean;
@@ -16,11 +16,8 @@ export const Step: FC<StepProps> = ({
   className,
   ...props
 }) => (
-  <div
-    className={cn('relative flex w-full flex-1 gap-4', className)}
-    {...props}
-  >
-    <div className="flex flex-col max-md:hidden">
+  <li className={cn('relative flex w-full flex-1 gap-4', className)} {...props}>
+    <div className="flex flex-col max-md:hidden" aria-hidden="true">
       <span className="flex size-8 shrink-0 items-center justify-center rounded-full border-2 border-text/30 border-dotted bg-background font-black text-base text-text/70 max-md:hidden">
         {number}
       </span>
@@ -30,7 +27,10 @@ export const Step: FC<StepProps> = ({
     <div className="mb-8 flex w-full min-w-0 flex-col gap-8">
       {title && (
         <div className="flex items-center gap-2">
-          <h3 className="font-semibold text-lg text-text">{title}</h3>
+          <h3 className="font-semibold text-lg text-text">
+            <span className="sr-only">Step {number}: </span>
+            {title}
+          </h3>
           {isOptional && (
             <span className="ml-4 rounded-full bg-neutral/15 px-3 py-1 text-text/90 text-xs">
               Optional
@@ -40,15 +40,15 @@ export const Step: FC<StepProps> = ({
       )}
       {children}
     </div>
-  </div>
+  </li>
 );
 
-type StepsProps = HTMLAttributes<HTMLDivElement> & {
+type StepsProps = OlHTMLAttributes<HTMLOListElement> & {
   children: ReactNode;
 };
 
 export const Steps: FC<StepsProps> = ({ children, className, ...props }) => (
-  <div className={className} {...props}>
+  <ol className={cn('list-none', className)} {...props}>
     {children}
-  </div>
+  </ol>
 );
