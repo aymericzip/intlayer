@@ -1,8 +1,12 @@
 #!/usr/bin/env node
-import { existsSync, readFileSync } from 'node:fs';
-import { isAbsolute, join } from 'node:path';
+import { existsSync, readdirSync, readFileSync } from 'node:fs';
+import { extname, isAbsolute, join } from 'node:path';
 import { pathToFileURL } from 'node:url';
-import { getConfiguration } from '@intlayer/config';
+import {
+  FILE_EXTENSIONS,
+  TRAVERSE_PATTERN,
+} from '@intlayer/config/defaultValues';
+import { getConfiguration } from '@intlayer/config/node';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 import {
@@ -18,6 +22,7 @@ import {
 } from 'vscode-languageserver/node.js';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { findKeyAtOffset } from './findKeyAtOffset';
+import { findKeyInContentFile } from './findKeyInContentFile';
 
 // Create a connection for the server, using Node's IPC as a transport.
 // Also include all preview / proposed LSP features.
@@ -89,11 +94,12 @@ const getKeyRange = (absolutePath: string, key: string): Range => {
     );
 
     for (let line = 0; line < lines.length; line++) {
-      const column = lines[line].search(keyRegex);
-      if (column !== -1) {
+      const column = lines[line]?.search(keyRegex);
+
+      if (column && column !== -1 && lines[line]) {
         return Range.create(
           Position.create(line, column),
-          Position.create(line, lines[line].length)
+          Position.create(line, lines[line]!.length)
         );
       }
     }
@@ -102,6 +108,110 @@ const getKeyRange = (absolutePath: string, key: string): Range => {
   }
 
   return Range.create(Position.create(0, 0), Position.create(0, 0));
+};
+
+// Source file extensions from the positive TRAVERSE_PATTERN entry
+// e.g. '**/*.{tsx,ts,js,...}' → Set<'.tsx' | '.ts' | ...>
+const SOURCE_EXTENSIONS: Set<string> = new Set(
+  TRAVERSE_PATTERN.filter((pattern) => !pattern.startsWith('!')).flatMap(
+    (pattern) => {
+      const match = pattern.match(/\.\{([^}]+)\}/);
+
+      return match?.[1] ? match[1].split(',').map((e) => `.${e.trim()}`) : [];
+    }
+  )
+);
+
+// Excluded directory names from '!**/name/**' negative patterns
+const EXCLUDED_DIR_NAMES: Set<string> = new Set(
+  TRAVERSE_PATTERN.filter((p) => /^!\*\*\/[^*/]+\/\*\*$/.test(p)).map((p) =>
+    p.replace(/^!\*\*\//, '').replace(/\/\*\*$/, '')
+  )
+);
+
+// File-level exclusion regexes from remaining negative patterns (e.g. '!**/*.test.*')
+const FILE_EXCLUSION_RES: RegExp[] = TRAVERSE_PATTERN.filter(
+  (pattern) => pattern.startsWith('!') && !/^!\*\*\/[^*/]+\/\*\*$/.test(pattern)
+).map((pattern) => {
+  const inner = pattern.replace(/^!(\*\*\/)*/, '');
+
+  return new RegExp(
+    `${inner.replace(/\./g, '\\.').replace(/\*/g, '[^\\/]*')}$`
+  );
+});
+
+const isContentFile = (uri: string): boolean =>
+  FILE_EXTENSIONS.some((ext) => uri.endsWith(ext));
+
+const collectSourceFiles = (dir: string): string[] => {
+  const results: string[] = [];
+  try {
+    for (const entry of readdirSync(dir, { withFileTypes: true })) {
+      if (entry.isDirectory()) {
+        if (!EXCLUDED_DIR_NAMES.has(entry.name)) {
+          results.push(...collectSourceFiles(join(dir, entry.name)));
+        }
+      } else if (
+        SOURCE_EXTENSIONS.has(extname(entry.name)) &&
+        !isContentFile(entry.name) &&
+        !FILE_EXCLUSION_RES.some((re) => re.test(entry.name))
+      ) {
+        results.push(join(dir, entry.name));
+      }
+    }
+  } catch {
+    // skip unreadable directories
+  }
+  return results;
+};
+
+/**
+ * Return every source-file location that calls useIntlayer / getIntlayer with
+ * the given key.
+ */
+const getKeyUsageLocations = (key: string): Location[] => {
+  const config = getWorkspaceConfig();
+  if (!config) return [];
+
+  const escapedKey = key.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const usageRegex = new RegExp(
+    `\\b(?:useIntlayer|getIntlayer)\\b\\s*(?:<[^<>()]*>)?\\s*\\(\\s*(['"\`])${escapedKey}\\1`,
+    'g'
+  );
+
+  const locations: Location[] = [];
+
+  for (const filePath of collectSourceFiles(config.system.baseDir)) {
+    try {
+      const text = readFileSync(filePath, 'utf-8');
+      for (const match of text.matchAll(usageRegex)) {
+        const matchStart = match.index!;
+        const matchEnd = matchStart + match[0].length;
+
+        const beforeStart = text.slice(0, matchStart);
+        const startLine = (beforeStart.match(/\n/g) ?? []).length;
+        const startChar = matchStart - (beforeStart.lastIndexOf('\n') + 1);
+
+        const beforeEnd = text.slice(0, matchEnd);
+        const endLine = (beforeEnd.match(/\n/g) ?? []).length;
+        const endChar = matchEnd - (beforeEnd.lastIndexOf('\n') + 1);
+
+        locations.push(
+          Location.create(
+            pathToFileURL(filePath).href,
+            Range.create(
+              Position.create(startLine, startChar),
+              Position.create(endLine, endChar)
+            )
+          )
+        );
+      }
+    } catch {
+      // skip unreadable files
+    }
+  }
+
+  return locations;
 };
 
 connection.onInitialize((params: InitializeParams): InitializeResult => {
@@ -128,7 +238,17 @@ connection.onDefinition((params) => {
   const text = document.getText();
   const offset = document.offsetAt(params.position);
 
+  if (isContentFile(params.textDocument.uri)) {
+    const key = findKeyInContentFile(text, offset);
+    if (key) {
+      const locations = getKeyUsageLocations(key);
+      return locations.length ? locations : null;
+    }
+    return null;
+  }
+
   const key = findKeyAtOffset(text, offset);
+
   if (key) {
     const locations = getContentDeclarationLocations(key);
     return locations.length ? locations : null;
