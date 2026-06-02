@@ -19,7 +19,7 @@ export const parserFor = (
 
   if (process.env.NODE_ENV !== 'production') {
     ruleList.forEach((type) => {
-      const order = rules[type]._order;
+      const order = rules[type]?._order;
       if (typeof order !== 'number' || !Number.isFinite(order)) {
         console.warn(`intlayer: Invalid order for rule \`${type}\`: ${order}`);
       }
@@ -31,7 +31,7 @@ export const parserFor = (
   // RuleType keys are string numbers — use numeric comparison to preserve
   // intended ordering (e.g. codeFenced '4' must precede headingSetext '10').
   ruleList.sort((a, b) => {
-    return rules[a]._order - rules[b]._order || +a - +b;
+    return rules[a]!._order - rules[b]!._order || +a - +b;
   });
 
   const nestedParse: NestedParser = (
@@ -47,34 +47,38 @@ export const parserFor = (
         let i = 0;
         while (i < ruleList.length) {
           const ruleType = ruleList[i];
-          const rule = rules[ruleType];
+          const rule = rules[ruleType as keyof typeof rules];
 
-          if (rule._qualify && !qualifies(source, state, rule._qualify)) {
+          if (rule?._qualify && !qualifies(source, state, rule._qualify)) {
             i++;
             continue;
           }
 
           const matchStart = performance.now();
-          const capture = rule._match(source, state);
-          const matchDuration = performance.now() - matchStart;
+          const capture = rule?._match(source, state);
 
-          if (matchDuration > 1) {
-            console.log(
-              `${ruleType}._match: ${matchDuration.toFixed(3)}ms, source length: ${source.length}`
-            );
+          if (process.env.NODE_ENV !== 'production') {
+            const matchDuration = performance.now() - matchStart;
+            if (matchDuration > 1) {
+              console.log(
+                `${ruleType}._match: ${matchDuration.toFixed(3)}ms, source length: ${source.length}`
+              );
+            }
           }
 
           if (capture?.[0]) {
             source = source.substring(capture[0].length);
 
             const ruleParseStart = performance.now();
-            const parsedAny: any = rule._parse(capture, nestedParse, state);
-            const ruleParseDuration = performance.now() - ruleParseStart;
+            const parsedAny: any = rule?._parse(capture, nestedParse, state);
 
-            if (ruleParseDuration > 1) {
-              console.log(
-                `${ruleType}._parse: ${ruleParseDuration.toFixed(3)}ms, capture length: ${capture[0].length}`
-              );
+            if (process.env.NODE_ENV !== 'production') {
+              const ruleParseDuration = performance.now() - ruleParseStart;
+              if (ruleParseDuration > 1) {
+                console.log(
+                  `${ruleType}._parse: ${ruleParseDuration.toFixed(3)}ms, capture length: ${capture[0].length}`
+                );
+              }
             }
 
             state.prevCapture = (state.prevCapture || '') + capture[0];
@@ -90,21 +94,28 @@ export const parserFor = (
       }
     }
 
-    const parseDuration = performance.now() - parseStart;
-    if (parseDuration > 1) {
-      console.log(
-        `nestedParse: ${parseDuration.toFixed(3)}ms, source length: ${source.length}, result count: ${result.length}`
-      );
+    // Tree shakeable log for prod
+    if (process.env.NODE_ENV === 'development') {
+      const parseDuration = performance.now() - parseStart;
+      if (parseDuration > 1) {
+        console.log(
+          `nestedParse: ${parseDuration.toFixed(3)}ms, source length: ${source.length}, result count: ${result.length}`
+        );
+      }
     }
 
     return result;
   };
 
-  const duration = performance.now() - start;
-  if (duration > DURATION_DELAY_TRIGGER) {
-    console.log(
-      `parserFor: ${duration.toFixed(3)}ms, rules count: ${ruleList.length}`
-    );
+  // Tree shakeable log for prod
+  if (process.env.NODE_ENV === 'development') {
+    const duration = performance.now() - start;
+
+    if (duration > DURATION_DELAY_TRIGGER) {
+      console.log(
+        `parserFor: ${duration.toFixed(3)}ms, rules count: ${ruleList.length}`
+      );
+    }
   }
 
   return (source: string, state: ParseState) =>
