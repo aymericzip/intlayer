@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Button, ButtonColor, ButtonSize, ButtonVariant } from '../Button';
 import { Container } from '../Container';
 import { H3 } from '../Headers';
-import { Modal, ModalSize } from './Modal';
+import { Modal, type ModalSize } from './Modal';
 
 /**
  * Modal Component Stories
@@ -31,9 +31,9 @@ const meta: Meta<typeof Modal> = {
     },
     size: {
       control: 'select',
-      options: Object.values(ModalSize),
+      options: ['sm', 'md', 'lg', 'xl', 'unset'],
       description: 'Size variant of the modal',
-      defaultValue: ModalSize.MD,
+      defaultValue: 'md',
     },
     title: {
       control: 'text',
@@ -76,7 +76,7 @@ const ModalStory = (args: any) => {
         <Button
           onClick={() => setIsOpen(true)}
           label="Open Modal"
-          color={ButtonColor.PRIMARY}
+          color="primary"
         >
           Open Modal
         </Button>
@@ -108,7 +108,7 @@ const ModalStory = (args: any) => {
 export const Default: Story = {
   render: ModalStory,
   args: {
-    size: ModalSize.MD,
+    size: 'md',
     hasCloseButton: false,
     disableScroll: true,
   },
@@ -123,7 +123,7 @@ export const WithTitleAndClose: Story = {
   args: {
     title: 'Modal Title',
     hasCloseButton: true,
-    size: ModalSize.MD,
+    size: 'md',
     children: (
       <Container className="p-6">
         <p>
@@ -146,7 +146,7 @@ export const WithTitleAndClose: Story = {
 export const SmallSize: Story = {
   render: ModalStory,
   args: {
-    size: ModalSize.SM,
+    size: 'sm',
     title: 'Confirm',
     hasCloseButton: true,
     children: (
@@ -155,14 +155,10 @@ export const SmallSize: Story = {
           Are you sure you want to delete this item?
         </p>
         <div className="mt-4 flex justify-center gap-2">
-          <Button color={ButtonColor.ERROR} size={ButtonSize.SM} label="Delete">
+          <Button color="error" size="sm" label="Delete">
             Delete
           </Button>
-          <Button
-            variant={ButtonVariant.OUTLINE}
-            size={ButtonSize.SM}
-            label="Cancel"
-          >
+          <Button variant="outline" size="sm" label="Cancel">
             Cancel
           </Button>
         </div>
@@ -178,7 +174,7 @@ export const SmallSize: Story = {
 export const LargeSize: Story = {
   render: ModalStory,
   args: {
-    size: ModalSize.LG,
+    size: 'lg',
     title: 'User Profile Settings',
     hasCloseButton: true,
     children: (
@@ -203,10 +199,10 @@ export const LargeSize: Story = {
             <p>Notifications: Enabled</p>
           </div>
           <div className="mt-6 flex justify-end gap-2">
-            <Button variant={ButtonVariant.OUTLINE} label="Cancel">
+            <Button variant="outline" label="Cancel">
               Cancel
             </Button>
-            <Button color={ButtonColor.PRIMARY} label="Save Changes">
+            <Button color="primary" label="Save Changes">
               Save Changes
             </Button>
           </div>
@@ -223,7 +219,7 @@ export const LargeSize: Story = {
 export const ExtraLargeSize: Story = {
   render: ModalStory,
   args: {
-    size: ModalSize.XL,
+    size: 'xl',
     title: 'Data Management Dashboard',
     hasCloseButton: true,
     children: (
@@ -266,11 +262,7 @@ export const ExtraLargeSize: Story = {
                       </span>
                     </td>
                     <td className="border border-neutral-200 p-2">
-                      <Button
-                        size={ButtonSize.SM}
-                        variant={ButtonVariant.OUTLINE}
-                        label="Edit"
-                      >
+                      <Button size="sm" variant="outline" label="Edit">
                         Edit
                       </Button>
                     </td>
@@ -292,7 +284,7 @@ export const ExtraLargeSize: Story = {
 export const ScrollableContent: Story = {
   render: ModalStory,
   args: {
-    size: ModalSize.MD,
+    size: 'md',
     title: 'Terms and Conditions',
     hasCloseButton: true,
     children: (
@@ -308,10 +300,10 @@ export const ScrollableContent: Story = {
             </p>
           ))}
           <div className="mt-6 flex justify-end gap-2">
-            <Button variant={ButtonVariant.OUTLINE} label="Decline">
+            <Button variant="outline" label="Decline">
               Decline
             </Button>
-            <Button color={ButtonColor.PRIMARY} label="Accept">
+            <Button color="primary" label="Accept">
               Accept
             </Button>
           </div>
@@ -337,20 +329,20 @@ export const AllSizes: Story = {
       <Container className="space-y-4 p-4">
         <H3>Modal Size Comparison</H3>
         <div className="grid grid-cols-2 gap-2 md:grid-cols-5">
-          {Object.values(ModalSize).map((size) => (
+          {['sm', 'md', 'lg', 'xl', 'unset'].map((size) => (
             <Button
               key={size}
               onClick={() => toggleModal(size)}
               label={`Open ${size.toUpperCase()}`}
-              size={ButtonSize.SM}
-              variant={ButtonVariant.OUTLINE}
+              size="sm"
+              variant="outline"
             >
               {size.toUpperCase()}
             </Button>
           ))}
         </div>
 
-        {Object.values(ModalSize).map((size) => (
+        {['sm', 'md', 'lg', 'xl', 'unset'].map((size) => (
           <Modal
             key={size}
             isOpen={openModals[size] || false}
@@ -363,13 +355,13 @@ export const AllSizes: Story = {
               <p>This is a {size} sized modal.</p>
               <p className="mt-2 text-neutral-600 text-sm">
                 Max dimensions:{' '}
-                {size === ModalSize.SM
+                {size === 'sm'
                   ? '30vh height, xl width'
-                  : size === ModalSize.MD
+                  : size === 'md'
                     ? '50vh height, xl width'
-                    : size === ModalSize.LG
+                    : size === 'lg'
                       ? '70vh height, 2xl width'
-                      : size === ModalSize.XL
+                      : size === 'xl'
                         ? '95vh height, 6xl width'
                         : '95vh height, responsive width'}
               </p>

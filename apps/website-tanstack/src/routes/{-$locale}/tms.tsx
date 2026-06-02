@@ -15,10 +15,9 @@ import { WebsiteHeader } from '~/structuredData/WebsiteHeader';
 import { getPricing } from '~/utils/stripe';
 
 export const Route = createFileRoute('/{-$locale}/tms')({
-  loader: async ({ params }) => {
-    const locale = params.locale ?? defaultLocale;
+  loader: async () => {
     const pricings = await getPricing();
-    return { locale, pricings };
+    return { pricings };
   },
   head: ({ params }) => {
     const locale = params.locale ?? defaultLocale;
@@ -29,18 +28,18 @@ export const Route = createFileRoute('/{-$locale}/tms')({
     );
 
     return {
-      title: String(title),
+      title,
       meta: [
-        { name: 'description', content: String(description) },
+        { name: 'description', content: description },
         {
           name: 'keywords',
           content: Array.isArray(keywords)
             ? keywords.join(', ')
-            : String(keywords || ''),
+            : keywords || '',
         },
         { property: 'og:url', content: getLocalizedUrl(path, locale) },
-        { property: 'og:title', content: String(title) },
-        { property: 'og:description', content: String(description) },
+        { property: 'og:title', content: title },
+        { property: 'og:description', content: description },
       ],
       links: [
         { rel: 'canonical', href: getLocalizedUrl(path, locale) },
@@ -57,11 +56,11 @@ export const Route = createFileRoute('/{-$locale}/tms')({
 });
 
 function TMSPage() {
-  const { locale, pricings } = Route.useLoaderData();
+  const { pricings } = Route.useLoaderData();
 
   return (
     <PageLayout>
-      <WebsiteHeader key={locale} />
+      <WebsiteHeader />
       <OrganizationHeader />
       <SoftwareApplicationHeader />
       <TMSProductHeader pricings={pricings} />

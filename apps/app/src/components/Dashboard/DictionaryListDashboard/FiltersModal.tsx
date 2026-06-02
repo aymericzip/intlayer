@@ -50,7 +50,7 @@ export const FiltersModal: FC<FiltersModalProps> = ({
       : params.location === 'both'
         ? ['remote', 'local']
         : params.location === 'remote'
-          ? ['remote']
+          ? remote
           : ['local'];
 
   const handleClearAll = () => {

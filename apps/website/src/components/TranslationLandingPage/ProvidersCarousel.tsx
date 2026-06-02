@@ -1,13 +1,13 @@
 import { Container } from '@intlayer/design-system/container';
-import { TechLogo, TechLogoName } from '@intlayer/design-system/tech-logo';
+import { TechLogo, type TechLogoName } from '@intlayer/design-system/tech-logo';
 import type { FC } from 'react';
 
 const providers: Array<{ name: string; logoName: TechLogoName }> = [
-  { name: 'OpenAI', logoName: TechLogoName.OpenAI },
-  { name: 'Claude', logoName: TechLogoName.Claude },
-  { name: 'Ollama', logoName: TechLogoName.Ollama },
-  { name: 'Mistral', logoName: TechLogoName.Mistral },
-  { name: 'DeepSeek', logoName: TechLogoName.DeepSeek },
+  { name: 'OpenAI', logoName: 'openai' },
+  { name: 'Claude', logoName: 'claude' },
+  { name: 'Ollama', logoName: 'ollama' },
+  { name: 'Mistral', logoName: 'mistral' },
+  { name: 'DeepSeek', logoName: 'deepseek' },
 ];
 
 export const ProvidersCarousel: FC = () => {

@@ -6,7 +6,7 @@ import {
   useGetTags,
 } from '@api/index';
 import { useSession } from '@api/useAuth';
-import { ButtonColor, ButtonSize, ButtonVariant } from '@components/Button';
+
 import { Form, useForm } from '@components/Form';
 import { Checkbox } from '@components/Input';
 import { Loader } from '@components/Loader';
@@ -404,11 +404,11 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
       <div className="flex flex-wrap items-center justify-end gap-2 max-md:flex-col">
         <Form.Button
           type="button"
-          size={ButtonSize.ICON_MD}
+          size="icon-md"
           label={auditButton.label.value}
           Icon={WandSparkles}
-          variant={ButtonVariant.OUTLINE}
-          color={ButtonColor.TEXT}
+          variant="outline"
+          color="text"
           className="max-md:w-full"
           onClick={handleOnAuditFile}
           disabled={isSubmitting || isAuditing}

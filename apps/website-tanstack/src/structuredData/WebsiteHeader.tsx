@@ -25,7 +25,7 @@ export const WebsiteHeader = () => {
   };
 
   return (
-    <Script
+    <script
       type="application/ld+json"
       dangerouslySetInnerHTML={{
         __html: JSON.stringify(website),
@@ -33,5 +33,3 @@ export const WebsiteHeader = () => {
     />
   );
 };
-
-const Script = (props: any) => <script {...props} />;

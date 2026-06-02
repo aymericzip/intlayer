@@ -1,11 +1,6 @@
 'use client';
 
-import {
-  Container,
-  ContainerPadding,
-  ContainerRoundedSize,
-  ContainerTransparency,
-} from '@intlayer/design-system/container';
+import { Container } from '@intlayer/design-system/container';
 import { CodeBlock } from '@intlayer/design-system/ide';
 import { motion, type Variants } from 'framer-motion';
 import { Braces, FileText, Languages } from 'lucide-react';
@@ -69,9 +64,9 @@ export const CommandsSection: FC = () => {
           return (
             <motion.div key={cmd.id.value} variants={sectionFade}>
               <Container
-                roundedSize={ContainerRoundedSize['3xl']}
-                transparency={ContainerTransparency.MD}
-                padding={ContainerPadding.LG}
+                roundedSize="3xl"
+                transparency="md"
+                padding="lg"
                 className="h-full"
               >
                 <div className="flex items-start justify-between gap-3">

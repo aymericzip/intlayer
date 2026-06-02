@@ -9,7 +9,7 @@ import {
   useEffect,
   useState,
 } from 'react';
-import { Button, ButtonColor, ButtonSize, ButtonVariant } from '../Button';
+import { Button } from '../Button';
 import { AutoCompleteTextarea, type AutoSizedTextAreaProps } from '../TextArea';
 
 /** Props for the ContentEditorTextArea component */
@@ -135,9 +135,9 @@ export const ContentEditorTextArea: FC<ContentEditorTextAreaProps> = ({
               <Button
                 Icon={Check}
                 label={`Save changes${!isValid ? ' (invalid content)' : ''}`}
-                variant={ButtonVariant.HOVERABLE}
-                color={ButtonColor.TEXT}
-                size={ButtonSize.ICON_SM}
+                variant="hoverable"
+                color="text"
+                size="icon-sm"
                 className="cursor-pointer hover:scale-110"
                 disabled={disabled || !isValid}
                 onClick={handleValid}
@@ -148,9 +148,9 @@ export const ContentEditorTextArea: FC<ContentEditorTextAreaProps> = ({
               <Button
                 Icon={X}
                 label="Cancel changes"
-                variant={ButtonVariant.HOVERABLE}
-                size={ButtonSize.ICON_SM}
-                color={ButtonColor.TEXT}
+                variant="hoverable"
+                size="icon-sm"
+                color="text"
                 className="cursor-pointer hover:scale-110"
                 onClick={handleCancel}
                 disabled={disabled}

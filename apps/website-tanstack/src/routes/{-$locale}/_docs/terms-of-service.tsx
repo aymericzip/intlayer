@@ -1,34 +1,22 @@
 import { Website_TermsOfService } from '@intlayer/design-system/routes';
-import { getLegal, getLegalMetadata } from '@intlayer/docs';
 import { createFileRoute } from '@tanstack/react-router';
 import { defaultLocale, getLocalizedUrl, localeMap } from 'intlayer';
-import { parseMarkdown } from 'react-intlayer/markdown';
 import { DocumentationRender } from '~/components/DocPage/DocumentationRender';
+import { loadLegalContent } from '~/serverFunctions/legal';
 import { CreativeWorkHeader } from '~/structuredData/CreativeWorkHeader';
 
 export const Route = createFileRoute('/{-$locale}/_docs/terms-of-service')({
   loader: async ({ params }) => {
     const locale = params.locale ?? defaultLocale;
-    const file = await getLegal('./legal/en/terms_of_service.md', locale);
-    const { title, description, keywords, updatedAt, createdAt } =
-      await getLegalMetadata('./legal/en/terms_of_service.md', locale);
-    const fileParsed = parseMarkdown(file);
-
-    return {
-      locale,
-      file,
-      fileParsed,
-      title,
-      description,
-      keywords,
-      updatedAt,
-      createdAt,
-    };
+    return loadLegalContent({
+      data: { locale, docKey: './legal/en/terms_of_service.md' },
+    });
   },
   head: ({ loaderData }) => {
     if (!loaderData) return {};
-    const { title, description, keywords, locale } = loaderData;
+    const { title, description, keywords } = loaderData;
     const path = Website_TermsOfService;
+    const locale = defaultLocale;
 
     return {
       title: String(title),

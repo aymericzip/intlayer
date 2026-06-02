@@ -1,21 +1,22 @@
 import { Website_Blog_Path } from '@intlayer/design-system/routes';
-import { type BlogKey, getBlog, getBlogMetadataBySlug } from '@intlayer/docs';
 import { createFileRoute, redirect } from '@tanstack/react-router';
 import { defaultLocale, getLocalizedUrl, localeMap } from 'intlayer';
-import { parseMarkdown } from 'react-intlayer/markdown';
 import { BlogPageLayout } from '~/components/BlogPage/BlogPageLayout';
-import { getPreviousNextBlogData } from '~/components/BlogPage/blogData';
 import { DocHeader } from '~/components/DocPage/DocHeader/DocHeader';
 import {
   DocPageNavigation,
   type DocPageNavigationProps,
 } from '~/components/DocPage/DocPageNavigation/DocPageNavigation';
 import { DocumentationRender } from '~/components/DocPage/DocumentationRender';
+import {
+  loadBlogNavData,
+  loadBlogPage,
+  loadBlogRaw,
+} from '~/serverFunctions/blog';
 import { CreativeWorkHeader } from '~/structuredData/CreativeWorkHeader';
-import { urlRenamer } from '~/utils/markdown';
 
 export const Route = createFileRoute('/{-$locale}/_docs/blog/$')({
-  loader: async ({ params, request: _request }) => {
+  loader: async ({ params }) => {
     const locale = (params.locale as string) ?? defaultLocale;
     const slugsStr = (params as any)['*'] || '';
     let slugs = slugsStr ? slugsStr.split('/') : [];
@@ -26,34 +27,22 @@ export const Route = createFileRoute('/{-$locale}/_docs/blog/$')({
         idx === slugs.length - 1 ? slug.slice(0, -3) : slug
       );
 
-      const blogsData = await getBlogMetadataBySlug(
-        ['blog', ...slugs],
-        locale,
-        true
-      );
-      const exactMatch = blogsData.find(
-        (blog) => blog.slugs.join('/') === ['blog', ...slugs].join('/')
-      );
-
-      if (!exactMatch) {
+      const rawResult = await loadBlogRaw({ data: { locale, slugs } });
+      if (!rawResult) {
         return new Response('Not found', { status: 404 });
       }
-
-      const file = await getBlog(exactMatch.docKey as BlogKey, locale);
-      return new Response(file, {
+      return new Response(rawResult.file, {
         status: 200,
         headers: { 'Content-Type': 'text/markdown; charset=utf-8' },
       });
     }
 
-    const blogsData = await getBlogMetadataBySlug(
-      ['blog', ...slugs],
-      locale,
-      true
-    );
-    const exactMatch = blogsData.find(
-      (blog) => blog.slugs.join('/') === ['blog', ...slugs].join('/')
-    );
+    const [result, navData] = await Promise.all([
+      loadBlogPage({ data: { locale, slugs } }),
+      loadBlogNavData({ data: { locale } }),
+    ]);
+
+    const { exactMatch, blogsData, content } = result;
 
     if (!exactMatch) {
       if (blogsData.length > 0) {
@@ -64,15 +53,7 @@ export const Route = createFileRoute('/{-$locale}/_docs/blog/$')({
       throw redirect({ to: getLocalizedUrl(Website_Blog_Path, locale) as any });
     }
 
-    const blogData = exactMatch;
-    const { prevBlogData, nextBlogData } = getPreviousNextBlogData(
-      blogData.docKey as BlogKey,
-      locale ?? defaultLocale
-    );
-
-    const file = await getBlog(blogData?.docKey as BlogKey, locale);
-    const blogContent = urlRenamer(file, locale);
-    const blogParsed = parseMarkdown(blogContent);
+    const { blogContent, blogParsed, prevBlogData, nextBlogData } = content!;
 
     const nextBlog: DocPageNavigationProps['nextDoc'] = nextBlogData?.blogs
       ? {
@@ -90,11 +71,12 @@ export const Route = createFileRoute('/{-$locale}/_docs/blog/$')({
     return {
       locale,
       slugs,
-      blogData,
+      blogData: exactMatch,
       blogContent,
       blogParsed,
       nextBlog,
       prevBlog,
+      navData,
     };
   },
   head: ({ loaderData }) => {
@@ -155,10 +137,15 @@ function BlogPage() {
     blogParsed,
     nextBlog,
     prevBlog,
+    navData,
   } = loaderData;
 
   return (
-    <BlogPageLayout activeSlugs={slugs} locale={locale ?? defaultLocale}>
+    <BlogPageLayout
+      blogData={navData}
+      activeSlugs={slugs}
+      locale={locale ?? defaultLocale}
+    >
       <CreativeWorkHeader
         type="BlogPosting"
         creativeWorkName={blogData.title}

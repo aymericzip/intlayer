@@ -1,10 +1,9 @@
 import { Container } from '@intlayer/design-system/container';
-import { LinkColor, LinkVariant } from '@intlayer/design-system/link';
 import {
   App_Dashboard_Editor,
   Website_Doc_IntlayerCMS_Path,
 } from '@intlayer/design-system/routes';
-import { Tag, TagBorder, TagColor, TagSize } from '@intlayer/design-system/tag';
+import { Tag } from '@intlayer/design-system/tag';
 import {
   domAnimation,
   LazyMotion,
@@ -80,9 +79,9 @@ export const HeroSection: FC = () => {
               className="mb-8 flex justify-center"
             >
               <Tag
-                size={TagSize.MD}
-                border={TagBorder.WITH}
-                color={TagColor.TEXT}
+                size="md"
+                border="with"
+                color="text"
                 className="rounded-full border px-4 py-1.5 font-semibold text-sm backdrop-blur-sm"
               >
                 {heroTag}
@@ -128,8 +127,8 @@ export const HeroSection: FC = () => {
             >
               <Link
                 to={Website_Doc_IntlayerCMS_Path}
-                variant={LinkVariant.BUTTON_OUTLINED}
-                color={LinkColor.TEXT}
+                variant="button-outlined"
+                color="text"
                 label={secondaryCta.value}
                 size="lg"
                 roundedSize="full"
@@ -139,8 +138,8 @@ export const HeroSection: FC = () => {
 
               <Link
                 to={App_Dashboard_Editor}
-                variant={LinkVariant.BUTTON}
-                color={LinkColor.TEXT}
+                variant="button"
+                color="text"
                 label={primaryCta.value}
                 size="xl"
                 roundedSize="full"

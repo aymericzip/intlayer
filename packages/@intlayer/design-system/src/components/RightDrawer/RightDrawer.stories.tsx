@@ -270,18 +270,10 @@ export const WithBackButton: Story = {
             </div>
 
             <div className="flex gap-3 pt-4">
-              <Button
-                variant={ButtonVariant.HOVERABLE}
-                color={ButtonColor.PRIMARY}
-                label="Edit Product"
-              >
+              <Button variant="hoverable" color="primary" label="Edit Product">
                 Edit Product
               </Button>
-              <Button
-                variant={ButtonVariant.HOVERABLE}
-                color={ButtonColor.TEXT}
-                label="View History"
-              >
+              <Button variant="hoverable" color="text" label="View History">
                 View History
               </Button>
             </div>

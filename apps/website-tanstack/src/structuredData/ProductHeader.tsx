@@ -30,7 +30,7 @@ export const ProductHeader = ({
   };
 
   return (
-    <Script
+    <script
       type="application/ld+json"
       dangerouslySetInnerHTML={{
         __html: JSON.stringify(product),
@@ -38,5 +38,3 @@ export const ProductHeader = ({
     />
   );
 };
-
-const Script = (props: any) => <script {...props} />;

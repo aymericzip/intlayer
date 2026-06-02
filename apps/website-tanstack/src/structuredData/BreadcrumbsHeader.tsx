@@ -32,5 +32,3 @@ export const BreadcrumbsHeader: FC<BreadcrumbsHeaderProps> = ({
     }}
   />
 );
-
-const Script = (props: any) => <script {...props} />;

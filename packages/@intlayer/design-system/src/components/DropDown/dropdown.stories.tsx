@@ -345,7 +345,7 @@ export const AlignmentOptions: Story = {
         <DropDown.Panel
           identifier="start-aligned"
           isOverable
-          align={DropDownAlign.START}
+          align="start"
           className="rounded-lg border border-gray-200 bg-white shadow-lg"
         >
           <div className="min-w-48 p-3">
@@ -373,7 +373,7 @@ export const AlignmentOptions: Story = {
         <DropDown.Panel
           identifier="end-aligned"
           isOverable
-          align={DropDownAlign.END}
+          align="end"
           className="rounded-lg border border-gray-200 bg-white shadow-lg"
         >
           <div className="min-w-48 p-3">
@@ -729,7 +729,7 @@ export const NavigationMenu: Story = {
               identifier="user-nav"
               isOverable
               isFocusable
-              align={DropDownAlign.END}
+              align="end"
               className="min-w-48 rounded-lg border border-gray-200 bg-white shadow-lg"
             >
               <div className="p-2">
@@ -795,7 +795,7 @@ export const ContextMenu: Story = {
               identifier="context-menu"
               isOverable
               isFocusable
-              align={DropDownAlign.END}
+              align="end"
               className="min-w-48 rounded-lg border border-gray-200 bg-white shadow-lg"
             >
               <div className="p-1">

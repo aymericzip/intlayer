@@ -7,53 +7,46 @@ import { type FC, useEffect, useState } from 'react';
 /**
  * Enum for available keyboard keys
  */
-export enum KeyList {
-  '⌘' = '⌘',
-  Ctrl = 'Ctrl',
-  Alt = 'Alt',
-  '⌥' = '⌥',
-  Shift = 'Shift',
-  Meta = 'Meta',
-  F = 'F',
-  K = 'K',
-  L = 'L',
-  P = 'P',
-  S = 'S',
-  A = 'A',
-  B = 'B',
-  C = 'C',
-  D = 'D',
-  E = 'E',
-  G = 'G',
-  H = 'H',
-  I = 'I',
-  J = 'J',
-  M = 'M',
-  N = 'N',
-  O = 'O',
-  Q = 'Q',
-  R = 'R',
-  T = 'T',
-  U = 'U',
-  V = 'V',
-  W = 'W',
-  X = 'X',
-  Y = 'Y',
-  Z = 'Z',
-  Enter = 'Enter',
-  Escape = 'Escape',
-  Backspace = 'Backspace',
-  Tab = 'Tab',
-  Space = 'Space',
-  ArrowUp = 'ArrowUp',
-  ArrowDown = 'ArrowDown',
-  ArrowLeft = 'ArrowLeft',
-  ArrowRight = 'ArrowRight',
-  '↑' = '↑',
-  '↓' = '↓',
-  '←' = '←',
-  '→' = '→',
-}
+export type KeyList = 
+  | 'Ctrl' |
+  'Alt' |
+  'Shift' |
+  'Meta' |
+  'F' |
+  'K' |
+  'L' |
+  'P' |
+  'S' |
+  'A' |
+  'B' |
+  'C' |
+  'D' |
+  'E' |
+  'G' |
+  'H' |
+  'I' |
+  'J' |
+  'M' |
+  'N' |
+  'O' |
+  'Q' |
+  'R' |
+  'T' |
+  'U' |
+  'V' |
+  'W' |
+  'X' |
+  'Y' |
+  'Z' |
+  'Enter' |
+  'Escape' |
+  'Backspace' |
+  'Tab' |
+  'Space' |
+  'ArrowUp' |
+  'ArrowDown' |
+  'ArrowLeft' |
+  'ArrowRight';
 
 /**
  * Type-safe keyboard shortcut combinations

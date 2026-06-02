@@ -100,17 +100,34 @@ When used with Intlayer, the component automatically:
     variant: {
       description: 'Visual style variant of the link',
       control: 'select',
-      options: Object.values(LinkVariant),
+      options: [
+        'default',
+        'invisible-link',
+        'button',
+        'button-outlined',
+        'hoverable',
+      ],
     },
     color: {
       description: 'Color theme for the link',
       control: 'select',
-      options: Object.values(LinkColor),
+      options: [
+        'primary',
+        'secondary',
+        'neutral',
+        'light',
+        'dark',
+        'text',
+        'text-inverse',
+        'error',
+        'success',
+        'custom',
+      ],
     },
     underlined: {
       description: 'Underline visibility option',
       control: 'select',
-      options: Object.values(LinkUnderlined),
+      options: ['default', 'true', 'false'],
     },
     isExternalLink: {
       description:
@@ -154,8 +171,8 @@ export const Default: Story = {
     children: 'Default Link',
     href: '/example',
     label: 'Navigate to example page',
-    variant: LinkVariant.DEFAULT,
-    color: LinkColor.PRIMARY,
+    variant: 'default',
+    color: 'primary',
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -187,8 +204,8 @@ export const External: Story = {
     children: 'Visit Intlayer',
     href: 'https://intlayer.org',
     label: 'Visit Intlayer official website',
-    variant: LinkVariant.DEFAULT,
-    color: LinkColor.PRIMARY,
+    variant: 'default',
+    color: 'primary',
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -218,40 +235,40 @@ export const AllVariants: Story = {
       <div className="flex flex-wrap items-center gap-4">
         <Link
           href="/default"
-          variant={LinkVariant.DEFAULT}
-          color={LinkColor.PRIMARY}
+          variant="default"
+          color="primary"
           label="Default variant link"
         >
           Default
         </Link>
         <Link
           href="/invisible"
-          variant={LinkVariant.INVISIBLE_LINK}
-          color={LinkColor.PRIMARY}
+          variant="invisible-link"
+          color="primary"
           label="Invisible variant link"
         >
           Invisible
         </Link>
         <Link
           href="/button"
-          variant={LinkVariant.BUTTON}
-          color={LinkColor.PRIMARY}
+          variant="button"
+          color="primary"
           label="Button variant link"
         >
           Button
         </Link>
         <Link
           href="/outlined"
-          variant={LinkVariant.BUTTON_OUTLINED}
-          color={LinkColor.PRIMARY}
+          variant="button-outlined"
+          color="primary"
           label="Outlined button variant link"
         >
           Outlined
         </Link>
         <Link
           href="/hoverable"
-          variant={LinkVariant.HOVERABLE}
-          color={LinkColor.PRIMARY}
+          variant="hoverable"
+          color="primary"
           label="Hoverable variant link"
         >
           Hoverable
@@ -283,8 +300,19 @@ export const AllVariants: Story = {
 export const ColorThemes: Story = {
   render: () => (
     <div className="grid max-w-2xl grid-cols-2 gap-4">
-      {Object.values(LinkColor)
-        .filter((color) => color !== LinkColor.CUSTOM)
+      {[
+        'primary',
+        'secondary',
+        'neutral',
+        'light',
+        'dark',
+        'text',
+        'text-inverse',
+        'error',
+        'success',
+        'custom',
+      ]
+        .filter((color) => color !== 'custom')
         .map((color) => (
           <div key={color} className="space-y-2">
             <h4 className="font-medium text-sm capitalize">
@@ -294,7 +322,7 @@ export const ColorThemes: Story = {
               <Link
                 href={`/${color}`}
                 color={color}
-                variant={LinkVariant.DEFAULT}
+                variant="default"
                 label={`${color} default link`}
               >
                 Default
@@ -302,7 +330,7 @@ export const ColorThemes: Story = {
               <Link
                 href={`/${color}-button`}
                 color={color}
-                variant={LinkVariant.BUTTON}
+                variant="button"
                 label={`${color} button link`}
               >
                 Button
@@ -317,9 +345,18 @@ export const ColorThemes: Story = {
     const links = canvas.getAllByRole('link');
 
     // Should have 2 links per color (excluding CUSTOM)
-    const colorCount = Object.values(LinkColor).filter(
-      (c) => c !== LinkColor.CUSTOM
-    ).length;
+    const colorCount = [
+      'primary',
+      'secondary',
+      'neutral',
+      'light',
+      'dark',
+      'text',
+      'text-inverse',
+      'error',
+      'success',
+      'custom',
+    ].filter((c) => c !== 'custom').length;
     const expectedCount = colorCount * 2;
     await expect(links).toHaveLength(expectedCount);
 
@@ -347,8 +384,8 @@ export const ActiveState: Story = {
     href: '/current',
     label: 'Current page link',
     isActive: true,
-    variant: LinkVariant.HOVERABLE,
-    color: LinkColor.PRIMARY,
+    variant: 'hoverable',
+    color: 'primary',
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -372,7 +409,7 @@ export const UnderlineVariations: Story = {
         <h4 className="font-medium">Default Underline Behavior</h4>
         <Link
           href="/default-underline"
-          underlined={LinkUnderlined.DEFAULT}
+          underlined="default"
           label="Default underline behavior"
         >
           Default (varies by variant)
@@ -383,8 +420,8 @@ export const UnderlineVariations: Story = {
         <h4 className="font-medium">Always Underlined</h4>
         <Link
           href="/always-underlined"
-          underlined={LinkUnderlined.TRUE as any}
-          variant={LinkVariant.INVISIBLE_LINK}
+          underlined={'true' as any}
+          variant="invisible-link"
           label="Always underlined link"
         >
           Always underlined
@@ -395,8 +432,8 @@ export const UnderlineVariations: Story = {
         <h4 className="font-medium">Never Underlined</h4>
         <Link
           href="/never-underlined"
-          underlined={LinkUnderlined.FALSE as any}
-          variant={LinkVariant.DEFAULT}
+          underlined={'false' as any}
+          variant="default"
           label="Never underlined link"
         >
           Never underlined
@@ -435,8 +472,8 @@ export const NavigationMenu: Story = {
       <div className="flex space-x-6">
         <Link
           href="/"
-          variant={LinkVariant.HOVERABLE}
-          color={LinkColor.TEXT}
+          variant="hoverable"
+          color="text"
           label="Go to home page"
           isActive={true}
           className="px-3 py-2"
@@ -446,8 +483,8 @@ export const NavigationMenu: Story = {
         </Link>
         <Link
           href="/dashboard"
-          variant={LinkVariant.HOVERABLE}
-          color={LinkColor.TEXT}
+          variant="hoverable"
+          color="text"
           label="Go to dashboard"
           className="px-3 py-2"
         >
@@ -455,8 +492,8 @@ export const NavigationMenu: Story = {
         </Link>
         <Link
           href="/profile"
-          variant={LinkVariant.HOVERABLE}
-          color={LinkColor.TEXT}
+          variant="hoverable"
+          color="text"
           label="Go to user profile"
           className="px-3 py-2"
         >
@@ -465,8 +502,8 @@ export const NavigationMenu: Story = {
         </Link>
         <Link
           href="/settings"
-          variant={LinkVariant.HOVERABLE}
-          color={LinkColor.TEXT}
+          variant="hoverable"
+          color="text"
           label="Go to settings page"
           className="px-3 py-2"
         >
@@ -513,8 +550,8 @@ export const CallToAction: Story = {
         <div className="space-y-3">
           <Link
             href="/signup"
-            variant={LinkVariant.BUTTON}
-            color={LinkColor.PRIMARY}
+            variant="button"
+            color="primary"
             label="Sign up for free account"
             className="w-full"
           >
@@ -523,8 +560,8 @@ export const CallToAction: Story = {
 
           <Link
             href="/demo"
-            variant={LinkVariant.BUTTON_OUTLINED}
-            color={LinkColor.PRIMARY}
+            variant="button-outlined"
+            color="primary"
             label="Watch product demo"
             className="w-full"
           >
@@ -533,8 +570,8 @@ export const CallToAction: Story = {
 
           <Link
             href="/pricing"
-            variant={LinkVariant.INVISIBLE_LINK}
-            color={LinkColor.TEXT}
+            variant="invisible-link"
+            color="text"
             label="View pricing information"
             className="text-sm"
           >
@@ -578,8 +615,8 @@ export const FooterLinks: Story = {
           <div className="space-y-2">
             <Link
               href="/about"
-              variant={LinkVariant.INVISIBLE_LINK}
-              color={LinkColor.LIGHT}
+              variant="invisible-link"
+              color="light"
               label="Learn about our company"
               className="block text-sm"
             >
@@ -587,8 +624,8 @@ export const FooterLinks: Story = {
             </Link>
             <Link
               href="/careers"
-              variant={LinkVariant.INVISIBLE_LINK}
-              color={LinkColor.LIGHT}
+              variant="invisible-link"
+              color="light"
               label="View career opportunities"
               className="block text-sm"
             >
@@ -596,8 +633,8 @@ export const FooterLinks: Story = {
             </Link>
             <Link
               href="/contact"
-              variant={LinkVariant.INVISIBLE_LINK}
-              color={LinkColor.LIGHT}
+              variant="invisible-link"
+              color="light"
               label="Contact our team"
               className="block text-sm"
             >
@@ -611,8 +648,8 @@ export const FooterLinks: Story = {
           <div className="space-y-2">
             <Link
               href="/docs"
-              variant={LinkVariant.INVISIBLE_LINK}
-              color={LinkColor.LIGHT}
+              variant="invisible-link"
+              color="light"
               label="View documentation"
               className="block text-sm"
             >
@@ -620,8 +657,8 @@ export const FooterLinks: Story = {
             </Link>
             <Link
               href="https://github.com/intlayer/intlayer"
-              variant={LinkVariant.INVISIBLE_LINK}
-              color={LinkColor.LIGHT}
+              variant="invisible-link"
+              color="light"
               label="View source code on GitHub"
               className="block text-sm"
             >
@@ -629,8 +666,8 @@ export const FooterLinks: Story = {
             </Link>
             <Link
               href="/api"
-              variant={LinkVariant.INVISIBLE_LINK}
-              color={LinkColor.LIGHT}
+              variant="invisible-link"
+              color="light"
               label="API reference"
               className="block text-sm"
             >
@@ -644,8 +681,8 @@ export const FooterLinks: Story = {
           <div className="space-y-2">
             <Link
               href="/privacy"
-              variant={LinkVariant.INVISIBLE_LINK}
-              color={LinkColor.LIGHT}
+              variant="invisible-link"
+              color="light"
               label="Privacy policy"
               className="block text-sm"
             >
@@ -653,8 +690,8 @@ export const FooterLinks: Story = {
             </Link>
             <Link
               href="/terms"
-              variant={LinkVariant.INVISIBLE_LINK}
-              color={LinkColor.LIGHT}
+              variant="invisible-link"
+              color="light"
               label="Terms of service"
               className="block text-sm"
             >
@@ -703,34 +740,30 @@ export const KeyboardNavigation: Story = {
         Use Tab to navigate between links, Enter to activate them.
       </div>
       <div className="space-y-3">
-        <Link
-          href="/first"
-          label="First link in sequence"
-          color={LinkColor.PRIMARY}
-        >
+        <Link href="/first" label="First link in sequence" color="primary">
           First Link
         </Link>
         <Link
           href="/second"
-          variant={LinkVariant.BUTTON}
-          color={LinkColor.SECONDARY}
+          variant="button"
+          color="secondary"
           label="Second link in sequence"
         >
           Second Link (Button)
         </Link>
         <Link
           href="https://example.com"
-          variant={LinkVariant.BUTTON_OUTLINED}
-          color={LinkColor.PRIMARY}
+          variant="button-outlined"
+          color="primary"
           label="Third link - external"
         >
           External Link
         </Link>
         <Link
           href="/fourth"
-          variant={LinkVariant.HOVERABLE}
+          variant="hoverable"
           isActive={true}
-          color={LinkColor.PRIMARY}
+          color="primary"
           label="Fourth link - current page"
         >
           Current Page
@@ -785,7 +818,7 @@ export const ScreenReaderSupport: Story = {
           <Link
             href="/dashboard"
             label="Navigate to user dashboard to manage account settings"
-            variant={LinkVariant.DEFAULT}
+            variant="default"
           >
             Dashboard
           </Link>
@@ -796,7 +829,7 @@ export const ScreenReaderSupport: Story = {
           <Link
             href="https://developer.mozilla.org"
             label="Visit MDN Web Docs - opens in new window"
-            variant={LinkVariant.DEFAULT}
+            variant="default"
           >
             MDN Web Docs
           </Link>
@@ -808,7 +841,7 @@ export const ScreenReaderSupport: Story = {
             href="/accessibility"
             label="Accessibility guide - you are currently on this page"
             isActive={true}
-            variant={LinkVariant.HOVERABLE}
+            variant="hoverable"
           >
             Accessibility Guide
           </Link>
@@ -820,16 +853,16 @@ export const ScreenReaderSupport: Story = {
             <Link
               href="/download"
               label="Download the application installer file"
-              variant={LinkVariant.BUTTON}
-              color={LinkColor.SUCCESS}
+              variant="button"
+              color="success"
             >
               Download
             </Link>
             <Link
               href="/delete-account"
               label="Permanently delete your account - this action cannot be undone"
-              variant={LinkVariant.BUTTON}
-              color={LinkColor.ERROR}
+              variant="button"
+              color="error"
             >
               Delete Account
             </Link>

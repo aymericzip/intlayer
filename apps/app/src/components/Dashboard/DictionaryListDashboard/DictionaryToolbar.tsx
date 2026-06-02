@@ -33,7 +33,7 @@ export const DictionaryToolbar: FC<DictionaryToolbarProps> = ({
       : params.location === 'both'
         ? ['remote', 'local']
         : params.location === 'remote'
-          ? ['remote']
+          ? remote
           : ['local'];
   const appliedFiltersCount = activeTags.length + activeLocations.length;
 

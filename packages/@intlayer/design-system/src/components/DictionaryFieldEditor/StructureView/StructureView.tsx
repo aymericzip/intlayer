@@ -1,14 +1,8 @@
 'use client';
 
-import {
-  Button,
-  ButtonColor,
-  ButtonSize,
-  ButtonVariant,
-} from '@components/Button';
+import { Button } from '@components/Button';
 import { Container } from '@components/Container';
 import { EditableFieldInput } from '@components/EditableField';
-import { InputVariant } from '@components/Input';
 import { camelCaseToSentence } from '@intlayer/config/client';
 import {
   getDefaultNode,
@@ -199,13 +193,13 @@ export const NodeView: FC<NodeWrapperProps> = ({
                 placeholder={titleInput.placeholder.value}
                 defaultValue={sectionKey}
                 onSave={(value) => handleRenameNodeKey(value)}
-                variant={InputVariant.INVISIBLE}
+                variant="invisible"
               />
               <Button
                 label={deleteButton.label.value}
-                variant={ButtonVariant.HOVERABLE}
-                size={ButtonSize.ICON_SM}
-                color={ButtonColor.TEXT}
+                variant="hoverable"
+                size="icon-sm"
+                color="text"
                 className="translate-x-2"
                 Icon={Trash}
                 onClick={() => {
@@ -273,9 +267,9 @@ export const ObjectView: FC<ObjectViewProps> = ({
       </ul>
       <Button
         label={addNodeButton.label.value}
-        variant={ButtonVariant.HOVERABLE}
-        size={ButtonSize.MD}
-        color={ButtonColor.TEXT}
+        variant="hoverable"
+        size="md"
+        color="text"
         Icon={Plus}
         className="flex-1"
         onClick={() => {
@@ -312,7 +306,7 @@ export const StructureView: FC<StructureViewProps> = ({
   ) {
     return (
       <NodeView
-        sectionKey={'content'}
+        sectionKey="content"
         section={section}
         keyPath={keyPath}
         dictionaryLocalId={dictionaryLocalId}

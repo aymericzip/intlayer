@@ -1,6 +1,6 @@
 import type { UserAPI } from '@intlayer/backend';
 import { Avatar } from '@intlayer/design-system/avatar';
-import { Badge, BadgeColor, BadgeVariant } from '@intlayer/design-system/badge';
+import { Badge } from '@intlayer/design-system/badge';
 import { Container } from '@intlayer/design-system/container';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
@@ -33,9 +33,9 @@ export const UserHeader: FC<UserHeaderProps> = ({ user }) => {
         <p className="text-neutral">{user.email}</p>
 
         <Badge
-          variant={BadgeVariant.OUTLINE}
+          variant="outline"
           className="absolute top-3 right-10"
-          color={user.emailVerified ? BadgeColor.TEXT : BadgeColor.ERROR}
+          color={user.emailVerified ? 'text' : 'error'}
         >
           {user.emailVerified ? statusLabels.verified : statusLabels.pending}
         </Badge>

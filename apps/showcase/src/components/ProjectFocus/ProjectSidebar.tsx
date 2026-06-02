@@ -3,7 +3,7 @@ import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
 import { H2 } from '@intlayer/design-system/headers';
 import { Loader } from '@intlayer/design-system/loader';
-import { Modal, ModalSize } from '@intlayer/design-system/modal';
+import { Modal } from '@intlayer/design-system/modal';
 import { Showcase_Root_Path } from '@intlayer/design-system/routes';
 import {
   Badge,
@@ -157,7 +157,7 @@ export const ProjectSidebar: FC<ProjectSidebarProps> = ({
         <Modal
           isOpen={true}
           onClose={isScanRunning ? cancelScan : resetScan}
-          size={ModalSize.MD}
+          size="md"
           hasCloseButton
         >
           <div className="flex flex-col items-center justify-center gap-5 px-4 py-6">
@@ -373,7 +373,7 @@ export const ProjectSidebar: FC<ProjectSidebarProps> = ({
           <Modal
             isOpen={deleteConfirmOpen}
             onClose={() => setDeleteConfirmOpen(false)}
-            size={ModalSize.SM}
+            size="sm"
             hasCloseButton
             title={content.deleteConfirmTitle}
           >

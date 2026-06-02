@@ -81,8 +81,8 @@ RUN bun install
 # Build workspace package dependencies (packages/* and docs) that this app depends on
 RUN bun x turbo run build:ci --filter=./packages/** --filter=./docs
 
-# Set working directory to the react-router website package and build it
-WORKDIR /workspace/apps/website-react-router
+# Set working directory to the tanstack website package and build it
+WORKDIR /workspace/apps/website-tanstack
 
 ENV NODE_ENV=production
 
@@ -106,23 +106,8 @@ ENV HOSTNAME=0.0.0.0
 # Create non-root user
 RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 
-# Copy workspace dependencies to ensure monorepo resolutions work
-COPY --from=builder --chown=appuser:appgroup /workspace/node_modules ./node_modules
-COPY --from=builder --chown=appuser:appgroup /workspace/packages ./packages
-
-# Copy the built React Router app
-COPY --from=builder --chown=appuser:appgroup /workspace/apps/website-react-router/package.json ./apps/website/package.json
-COPY --from=builder --chown=appuser:appgroup /workspace/apps/website-react-router/node_modules ./apps/website/node_modules
-COPY --from=builder --chown=appuser:appgroup /workspace/apps/website-react-router/build ./apps/website/build
-COPY --from=builder --chown=appuser:appgroup /workspace/apps/website-react-router/public ./apps/website/public
-
-# Copy required docs content
-COPY --from=builder --chown=appuser:appgroup /workspace/docs/dist ./docs/dist
-COPY --from=builder --chown=appuser:appgroup /workspace/docs/package.json ./docs/package.json
-COPY --from=builder --chown=appuser:appgroup /workspace/docs/blog ./docs/blog
-COPY --from=builder --chown=appuser:appgroup /workspace/docs/docs ./docs/docs
-COPY --from=builder --chown=appuser:appgroup /workspace/docs/frequent_questions ./docs/frequent_questions
-COPY --from=builder --chown=appuser:appgroup /workspace/docs/legal ./docs/legal
+# Nitro bundles all dependencies — only the .output dir is needed
+COPY --from=builder --chown=appuser:appgroup /workspace/apps/website-tanstack/.output ./.output
 
 USER appuser
 
@@ -132,6 +117,4 @@ EXPOSE 3000
 HEALTHCHECK --interval=30s --timeout=10s --start-period=15s --retries=3 \
   CMD bun -e "const r = await fetch('http://localhost:3000/api/health'); process.exit(r.ok ? 0 : 1)"
 
-# Execute the React Router server
-WORKDIR /app/apps/website
-CMD ["bun", "run", "start"]
+CMD ["bun", "run", ".output/server/index.mjs"]

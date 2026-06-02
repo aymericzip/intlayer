@@ -3,10 +3,11 @@ import { type FC, type ReactNode, Suspense } from 'react';
 import { AsideNavigation } from '~/components/DocPage/AsideNavigation/AsideNavigation';
 import { BlogBreadCrumb } from './BlogBreadCrumb';
 import { BlogNavList } from './BlogNavList';
-import { getBlogData } from './blogData';
+import type { Section } from './types';
 
 type BlogPageLayoutProps = {
   children?: ReactNode;
+  blogData: Section;
   activeSlugs?: string[];
   locale: LocalesValues;
   displayAsideNavigation?: boolean;
@@ -14,12 +15,11 @@ type BlogPageLayoutProps = {
 
 export const BlogPageLayout: FC<BlogPageLayoutProps> = ({
   children,
+  blogData,
   locale,
   activeSlugs = [],
   displayAsideNavigation = true,
 }) => {
-  const blogData = getBlogData(locale);
-
   return (
     <Suspense fallback={<></>}>
       <div className="flex max-w-screen flex-1 bg-card max-md:flex-col">

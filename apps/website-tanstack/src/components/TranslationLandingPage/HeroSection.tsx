@@ -1,11 +1,5 @@
-import {
-  Container,
-  ContainerPadding,
-  ContainerRoundedSize,
-  ContainerTransparency,
-} from '@intlayer/design-system/container';
+import { Container } from '@intlayer/design-system/container';
 import { CodeBlock } from '@intlayer/design-system/ide';
-import { LinkColor, LinkVariant } from '@intlayer/design-system/link';
 import { Website_Doc_CLI_Fill_Path } from '@intlayer/design-system/routes';
 import { cn } from '@intlayer/design-system/utils';
 import { motion, useReducedMotion, type Variants } from 'framer-motion';
@@ -37,8 +31,8 @@ export const CodeBlockWrapper: FC<CodeBlockWrapperProps> = ({
 }) => {
   return (
     <Container
-      roundedSize={ContainerRoundedSize['2xl']}
-      padding={ContainerPadding.MD}
+      roundedSize="2xl"
+      padding="md"
       className={cn('relative text-text-dark', className)}
     >
       <div className="mb-2 flex items-center justify-between">
@@ -155,8 +149,8 @@ export const HeroSection: FC = () => {
             <div className="mt-20 flex flex-col gap-3 sm:flex-row sm:items-center">
               <Link
                 to="#commands"
-                variant={LinkVariant.BUTTON_OUTLINED}
-                color={LinkColor.TEXT}
+                variant="button-outlined"
+                color="text"
                 className="w-full sm:w-auto"
                 label={seeCLICommands.value}
               >
@@ -165,8 +159,8 @@ export const HeroSection: FC = () => {
 
               <Link
                 to={Website_Doc_CLI_Fill_Path}
-                variant={LinkVariant.BUTTON}
-                color={LinkColor.TEXT}
+                variant="button"
+                color="text"
                 className="w-full sm:w-auto"
                 label={getStartedForFree.value}
               >
@@ -175,9 +169,9 @@ export const HeroSection: FC = () => {
             </div>
           </div>
           <Container
-            roundedSize={ContainerRoundedSize['3xl']}
-            transparency={ContainerTransparency.MD}
-            padding={ContainerPadding.LG}
+            roundedSize="3xl"
+            transparency="md"
+            padding="lg"
             className="relative overflow-hidden md:col-span-5"
           >
             <div className="flex items-center justify-between">

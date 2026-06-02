@@ -15,15 +15,14 @@ import {
   useRef,
 } from 'react';
 
-export enum TabSelectorColor {
-  PRIMARY = 'primary',
-  SECONDARY = 'secondary',
-  ERROR = 'error',
-  NEUTRAL = 'neutral',
-  LIGHT = 'light',
-  DARK = 'dark',
-  TEXT = 'text',
-}
+export type TabSelectorColor = 
+  | 'primary' |
+  'secondary' |
+  'error' |
+  'neutral' |
+  'light' |
+  'dark' |
+  'text';
 
 const tabSelectorVariant = cva(
   'relative z-0 flex size-full flex-row items-center gap-2',
@@ -105,7 +104,7 @@ export const TabSelector = <T extends TabSelectorItemProps>({
   tabs,
   selectedChoice,
   onTabClick,
-  color = TabSelectorColor.PRIMARY,
+  color = 'primary',
   hoverable = false,
   orientation = 'horizontal',
   className,

@@ -1,12 +1,11 @@
+import { editor, internationalization } from '@intlayer/config/built';
 import { Loader } from '@intlayer/design-system/loader';
 import {
   Website_Demo_Path,
   Website_Playground,
 } from '@intlayer/design-system/routes';
-import { ConfigurationProvider } from '@intlayer/editor-react';
 import { createFileRoute } from '@tanstack/react-router';
 import {
-  configuration as baseConfiguration,
   defaultLocale,
   getIntlayer,
   getLocalizedUrl,
@@ -28,10 +27,6 @@ const Editor = lazy(() =>
 );
 
 export const Route = createFileRoute('/{-$locale}/_playground/playground')({
-  loader: ({ params }) => {
-    const locale = params.locale ?? defaultLocale;
-    return { locale };
-  },
   head: ({ params }) => {
     const locale = params.locale ?? defaultLocale;
     const path = Website_Playground;
@@ -69,30 +64,25 @@ export const Route = createFileRoute('/{-$locale}/_playground/playground')({
 });
 
 function PlaygroundPage() {
-  const { locale } = Route.useLoaderData();
   const { title, description } = useIntlayer('playground-page');
 
   const origin =
     typeof window !== 'undefined'
       ? window.location.origin
-      : (import.meta.env.VITE_URL ??
-        import.meta.env?.VITE_PUBLIC_URL ??
-        'http://localhost:5174');
+      : import.meta.env.VITE_PUBLIC_URL;
   const applicationURL = `${origin}${Website_Demo_Path}`;
 
   const configuration = {
-    ...baseConfiguration,
-    ...{
-      editor: {
-        ...(baseConfiguration.editor ?? {}),
-        applicationURL,
-      },
+    editor: {
+      ...(editor ?? {}),
+      applicationURL,
     },
+    internationalization,
   };
 
   return (
     <>
-      <WebsiteHeader key={locale} />
+      <WebsiteHeader />
       <OrganizationHeader />
       <SoftwareApplicationHeader />
       <DashboardContentLayout title={title}>
@@ -101,14 +91,12 @@ function PlaygroundPage() {
           {description}
         </p>
         <div className="relative flex flex-1 flex-col items-center px-10 pb-5">
-          <ConfigurationProvider configuration={configuration}>
-            <Suspense fallback={<Loader />}>
-              <Editor
-                configuration={configuration}
-                DictionariesLoader={DictionaryLoaderPlayground}
-              />
-            </Suspense>
-          </ConfigurationProvider>
+          <Suspense fallback={<Loader />}>
+            <Editor
+              configuration={configuration}
+              DictionariesLoader={DictionaryLoaderPlayground}
+            />
+          </Suspense>
         </div>
       </DashboardContentLayout>
     </>

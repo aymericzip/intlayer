@@ -1,38 +1,37 @@
-export enum TechLogoName {
-  Adonis = 'adonis',
-  Angular = 'angular',
-  Astro = 'astro',
-  Express = 'express',
-  Fastify = 'fastify',
-  Hono = 'hono',
-  Lynx = 'lynx',
-  NestJS = 'nestjs',
-  Nextjs = 'nextjs',
-  Node = 'node',
-  Nuxt = 'nuxt',
-  Preact = 'preact',
-  React = 'react',
-  Solid = 'solid',
-  Svelte = 'svelte',
-  Tanstack = 'tanstack',
-  Vite = 'vite',
-  Vue = 'vue',
-  Lit = 'lit',
-  Vanilla = 'vanilla',
-  Anthropic = 'anthropic',
-  Claude = 'claude',
-  ChatGPT = 'chatgpt',
-  DeepSeek = 'deepseek',
-  Gemini = 'gemini',
-  GoogleAI = 'googleai',
-  Grok = 'grok',
-  Mistral = 'mistral',
-  Ollama = 'ollama',
-  OpenAI = 'openai',
-  Perplexity = 'perplexity',
-  GitHub = 'github',
-  GitLab = 'gitlab',
-  Bitbucket = 'bitbucket',
-  Google = 'google',
-  LinkedIn = 'linkedin',
-}
+export type TechLogoName = 
+  | 'adonis' |
+  'angular' |
+  'astro' |
+  'express' |
+  'fastify' |
+  'hono' |
+  'lynx' |
+  'nestjs' |
+  'nextjs' |
+  'node' |
+  'nuxt' |
+  'preact' |
+  'react' |
+  'solid' |
+  'svelte' |
+  'tanstack' |
+  'vite' |
+  'vue' |
+  'lit' |
+  'vanilla' |
+  'anthropic' |
+  'claude' |
+  'chatgpt' |
+  'deepseek' |
+  'gemini' |
+  'googleai' |
+  'grok' |
+  'mistral' |
+  'ollama' |
+  'openai' |
+  'perplexity' |
+  'github' |
+  'gitlab' |
+  'bitbucket' |
+  'google' |
+  'linkedin';

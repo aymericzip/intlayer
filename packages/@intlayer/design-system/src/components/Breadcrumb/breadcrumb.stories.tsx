@@ -78,8 +78,19 @@ A navigation component that provides hierarchical context and allows users to na
     color: {
       description: 'Color scheme for breadcrumb links',
       control: 'select',
-      options: Object.values(LinkColor),
-      defaultValue: ButtonColor.TEXT,
+      options: [
+        'primary',
+        'secondary',
+        'neutral',
+        'light',
+        'dark',
+        'text',
+        'text-inverse',
+        'error',
+        'success',
+        'custom',
+      ],
+      defaultValue: 'text',
     },
     size: {
       description: 'Size variant affecting text size and spacing',
@@ -275,7 +286,7 @@ export const Mixed: Story = {
       { text: 'Electronics', href: '/electronics' },
       'Smartphones',
     ],
-    color: LinkColor.PRIMARY,
+    color: 'primary',
     ariaLabel: 'E-commerce navigation',
   },
   parameters: {

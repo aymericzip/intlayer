@@ -16,21 +16,15 @@ export const defaultChoices: SwitchSelectorChoices<boolean> = [
   { content: 'On', value: true },
 ];
 
-export enum SwitchSelectorColor {
-  PRIMARY = 'primary',
-  SECONDARY = 'secondary',
-  NEUTRAL = 'neutral',
-  LIGHT = 'light',
-  DARK = 'dark',
-  TEXT = 'text',
-}
+export type SwitchSelectorColor =
+  | 'primary'
+  | 'secondary'
+  | 'neutral'
+  | 'light'
+  | 'dark'
+  | 'text';
 
-export enum SwitchSelectorSize {
-  XS = 'xs',
-  SM = 'sm',
-  MD = 'md',
-  LG = 'lg',
-}
+export type SwitchSelectorSize = 'xs' | 'sm' | 'md' | 'lg';
 
 export type SwitchSelectorBaseProps<T = boolean> = {
   choices?: SwitchSelectorChoices<T>;
@@ -53,12 +47,12 @@ export const switchSelectorVariant = cva(
   {
     variants: {
       color: {
-        [`${SwitchSelectorColor.PRIMARY}`]: 'border-primary text-primary',
-        [`${SwitchSelectorColor.SECONDARY}`]: 'border-secondary text-secondary',
-        [`${SwitchSelectorColor.NEUTRAL}`]: 'border-neutral text-neutral',
-        [`${SwitchSelectorColor.LIGHT}`]: 'border-white text-white',
-        [`${SwitchSelectorColor.DARK}`]: 'border-neutral-800 text-neutral-800',
-        [`${SwitchSelectorColor.TEXT}`]: 'border-text text-text',
+        primary: 'border-primary text-primary',
+        secondary: 'border-secondary text-secondary',
+        neutral: 'border-neutral text-neutral',
+        light: 'border-white text-white',
+        dark: 'border-neutral-800 text-neutral-800',
+        text: 'border-text text-text',
       },
       disabled: {
         true: 'cursor-not-allowed opacity-50',
@@ -66,7 +60,7 @@ export const switchSelectorVariant = cva(
       },
     },
     defaultVariants: {
-      color: `${SwitchSelectorColor.TEXT}`,
+      color: `${'text'}`,
       disabled: false,
     },
   }
@@ -77,14 +71,14 @@ export const choiceVariant = cva(
   {
     variants: {
       size: {
-        [`${SwitchSelectorSize.XS}`]: 'px-2 py-0.5 text-xs',
-        [`${SwitchSelectorSize.SM}`]: 'px-2 py-1 text-xs',
-        [`${SwitchSelectorSize.MD}`]: 'p-2 text-sm',
-        [`${SwitchSelectorSize.LG}`]: 'p-4 text-base',
+        xs: 'px-2 py-0.5 text-xs',
+        sm: 'px-2 py-1 text-xs',
+        md: 'p-2 text-sm',
+        lg: 'p-4 text-base',
       },
     },
     defaultVariants: {
-      size: `${SwitchSelectorSize.MD}`,
+      size: 'md',
     },
   }
 );
@@ -94,20 +88,13 @@ export const indicatorVariant = cva(
   {
     variants: {
       color: {
-        [`${SwitchSelectorColor.PRIMARY}`]:
-          'bg-primary data-[indicator=true]:text-text',
-        [`${SwitchSelectorColor.SECONDARY}`]:
-          'bg-secondary data-[indicator=true]:text-text',
-        [`${SwitchSelectorColor.ERROR}`]:
-          'bg-error data-[indicator=true]:text-text',
-        [`${SwitchSelectorColor.NEUTRAL}`]:
-          'bg-neutral data-[indicator=true]:text-white',
-        [`${SwitchSelectorColor.LIGHT}`]:
-          'bg-white data-[indicator=true]:text-black',
-        [`${SwitchSelectorColor.DARK}`]:
-          'bg-neutral-800 data-[indicator=true]:text-white',
-        [`${SwitchSelectorColor.TEXT}`]:
-          'bg-text data-[indicator=true]:text-text-opposite',
+        primary: 'bg-primary data-[indicator=true]:text-text',
+        secondary: 'bg-secondary data-[indicator=true]:text-text',
+        [`${'error'}`]: 'bg-error data-[indicator=true]:text-text',
+        neutral: 'bg-neutral data-[indicator=true]:text-white',
+        light: 'bg-white data-[indicator=true]:text-black',
+        dark: 'bg-neutral-800 data-[indicator=true]:text-white',
+        text: 'bg-text data-[indicator=true]:text-text-opposite',
       },
     },
   }
@@ -120,8 +107,8 @@ export const indicatorVariant = cva(
 export const SwitchSelector = <T,>(props: SwitchSelectorProps<T>) => {
   const {
     choices = defaultChoices as SwitchSelectorChoices<T>,
-    color = SwitchSelectorColor.PRIMARY,
-    size = SwitchSelectorSize.MD,
+    color = 'primary',
+    size = 'md',
     className,
     itemClassName,
   } = props;

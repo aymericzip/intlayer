@@ -3,7 +3,7 @@ import {
   useGetAdminReviewers,
   useValidateReviewerProfile,
 } from '@intlayer/design-system/api';
-import { Badge, BadgeColor, BadgeVariant } from '@intlayer/design-system/badge';
+import { Badge } from '@intlayer/design-system/badge';
 import { Button } from '@intlayer/design-system/button';
 import { getAppAdminReviewerRoute } from '@intlayer/design-system/routes';
 import { Select } from '@intlayer/design-system/select';
@@ -12,9 +12,9 @@ import { type FC, useState } from 'react';
 import { Link } from '#components/Link/Link';
 
 const STATUS_COLOR: Record<ReviewerProfileAPI['status'], BadgeColor> = {
-  pending: BadgeColor.NEUTRAL,
-  active: BadgeColor.SUCCESS,
-  suspended: BadgeColor.ERROR,
+  pending: 'neutral',
+  active: 'success',
+  suspended: 'error',
 };
 
 export const AdminReviewersPage: FC = () => {
@@ -64,8 +64,11 @@ export const AdminReviewersPage: FC = () => {
             <div className="flex flex-col gap-1">
               <div className="flex items-center gap-2">
                 <Badge
-                  variant={BadgeVariant.OUTLINE}
-                  color={STATUS_COLOR[t.status] ?? BadgeColor.NEUTRAL}
+                  variant="outline"
+                  color={
+                    STATUS_COLOR[t.status as keyof typeof STATUS_COLOR] ??
+                    'neutral'
+                  }
                 >
                   {t.status}
                 </Badge>

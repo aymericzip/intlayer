@@ -44,7 +44,7 @@ describe('ContentEditableTextArea', () => {
   });
 
   test('renders value as line spans', () => {
-    render(<ContentEditableTextArea value={'line1\nline2'} />);
+    render(<ContentEditableTextArea value="line1\nline2" />);
     const el = screen.getByRole('textbox');
     expect(el.querySelectorAll('[data-line]').length).toBe(2);
   });
@@ -89,7 +89,7 @@ describe('ContentEditableTextArea input handling', () => {
   });
 
   test('multiline controlled value renders correct number of lines', () => {
-    render(<ContentEditableTextArea value={'line1\nline2\nline3'} />);
+    render(<ContentEditableTextArea value="line1\nline2\nline3" />);
     const el = screen.getByRole('textbox');
     expect(el.querySelectorAll('[data-line]').length).toBe(3);
   });

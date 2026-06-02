@@ -26,8 +26,16 @@ const meta: Meta<typeof TabSelector> = {
       control: {
         type: 'select',
       },
-      options: Object.values(TabSelectorColor),
-      defaultValue: TabSelectorColor.PRIMARY,
+      options: [
+        'primary',
+        'secondary',
+        'error',
+        'neutral',
+        'light',
+        'dark',
+        'text',
+      ],
+      defaultValue: 'primary',
     },
     hoverable: {
       description: 'Highlights the tab on hover',
@@ -38,13 +46,13 @@ const meta: Meta<typeof TabSelector> = {
 } satisfies Meta<typeof TabSelector>;
 
 const sampleTabs = [
-  <Button key="one" label="One" variant={ButtonVariant.HOVERABLE}>
+  <Button key="one" label="One" variant="hoverable">
     One
   </Button>,
-  <Button key="two" label="Two" variant={ButtonVariant.HOVERABLE}>
+  <Button key="two" label="Two" variant="hoverable">
     Two
   </Button>,
-  <Button key="three" label="Three" variant={ButtonVariant.HOVERABLE}>
+  <Button key="three" label="Three" variant="hoverable">
     Three
   </Button>,
 ];
@@ -72,7 +80,7 @@ const Template: StoryObj<typeof TabSelector> = {
   args: {
     tabs: sampleTabs,
     selectedChoice: 'one',
-    color: TabSelectorColor.PRIMARY,
+    color: 'primary',
     hoverable: false,
   },
 };

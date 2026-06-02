@@ -17,8 +17,7 @@ import { OrganizationHeader } from '~/structuredData/OrganizationHeader';
 import { WebsiteHeader } from '~/structuredData/WebsiteHeader';
 
 export const Route = createFileRoute('/{-$locale}/contributors')({
-  loader: async ({ params }) => {
-    const locale = params.locale ?? defaultLocale;
+  loader: async () => {
     let contributors: Contributor[] = [];
     try {
       const response = await fetch(
@@ -34,7 +33,7 @@ export const Route = createFileRoute('/{-$locale}/contributors')({
     } catch (error) {
       console.error('Error fetching contributors:', error);
     }
-    return { locale, contributors };
+    return { contributors };
   },
   head: ({ params }) => {
     const locale = params.locale ?? defaultLocale;
@@ -95,11 +94,11 @@ function ContributorsPageContent({ children }: { children: React.ReactNode }) {
 }
 
 function ContributorsPageRoute() {
-  const { locale, contributors } = Route.useLoaderData();
+  const { contributors } = Route.useLoaderData();
 
   return (
     <PageLayout>
-      <WebsiteHeader key={locale} />
+      <WebsiteHeader />
       <OrganizationHeader />
       <ContributorsPageContent>
         <ContributorsList contributors={contributors} />

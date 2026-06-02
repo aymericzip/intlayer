@@ -2,13 +2,7 @@
 
 import { cn } from '@utils/cn';
 import { cva, type VariantProps } from 'class-variance-authority';
-import {
-  defaultChoices,
-  type SwitchSelectorBaseProps,
-  type SwitchSelectorChoices,
-  SwitchSelectorColor,
-  SwitchSelectorSize,
-} from './SwitchSelector';
+import { defaultChoices, type SwitchSelectorBaseProps, type SwitchSelectorChoices } from './SwitchSelector';
 import { useSwitchSelector } from './useSwitchSelector';
 
 const verticalSwitchSelectorVariant = cva(
@@ -16,13 +10,13 @@ const verticalSwitchSelectorVariant = cva(
   {
     variants: {
       color: {
-        [`${SwitchSelectorColor.PRIMARY}`]: 'border-primary text-primary',
-        [`${SwitchSelectorColor.SECONDARY}`]: 'border-secondary text-secondary',
-        [`${SwitchSelectorColor.ERROR}`]: 'border-error bg-error text-error',
-        [`${SwitchSelectorColor.NEUTRAL}`]: 'border-neutral text-neutral',
-        [`${SwitchSelectorColor.LIGHT}`]: 'border-white text-white',
-        [`${SwitchSelectorColor.DARK}`]: 'border-neutral-800 text-neutral-800',
-        [`${SwitchSelectorColor.TEXT}`]: 'border-text text-text',
+        primary: 'border-primary text-primary',
+        secondary: 'border-secondary text-secondary',
+        [`${"error"}`]: 'border-error bg-error text-error',
+        neutral: 'border-neutral text-neutral',
+        light: 'border-white text-white',
+        dark: 'border-neutral-800 text-neutral-800',
+        text: 'border-text text-text',
       },
       disabled: {
         true: 'cursor-not-allowed opacity-50',
@@ -30,7 +24,7 @@ const verticalSwitchSelectorVariant = cva(
       },
     },
     defaultVariants: {
-      color: `${SwitchSelectorColor.PRIMARY}`,
+      color: `${'primary'}`,
       disabled: false,
     },
   }
@@ -41,13 +35,13 @@ const verticalChoiceVariant = cva(
   {
     variants: {
       size: {
-        [`${SwitchSelectorSize.SM}`]: 'px-2 py-1 text-xs',
-        [`${SwitchSelectorSize.MD}`]: 'p-2 text-sm',
-        [`${SwitchSelectorSize.LG}`]: 'p-4 text-base',
+        sm: 'px-2 py-1 text-xs',
+        md: 'p-2 text-sm',
+        lg: 'p-4 text-base',
       },
     },
     defaultVariants: {
-      size: `${SwitchSelectorSize.MD}`,
+      size: `${'md'}`,
     },
   }
 );
@@ -57,19 +51,19 @@ const verticalIndicatorVariant = cva(
   {
     variants: {
       color: {
-        [`${SwitchSelectorColor.PRIMARY}`]:
+        primary:
           'bg-primary data-[indicator=true]:text-text',
-        [`${SwitchSelectorColor.SECONDARY}`]:
+        secondary:
           'bg-secondary data-[indicator=true]:text-text',
-        [`${SwitchSelectorColor.ERROR}`]:
+        [`${"error"}`]:
           'bg-error data-[indicator=true]:text-text',
-        [`${SwitchSelectorColor.NEUTRAL}`]:
+        neutral:
           'bg-neutral data-[indicator=true]:text-white',
-        [`${SwitchSelectorColor.LIGHT}`]:
+        light:
           'bg-white data-[indicator=true]:text-black',
-        [`${SwitchSelectorColor.DARK}`]:
+        dark:
           'bg-neutral-800 data-[indicator=true]:text-white',
-        [`${SwitchSelectorColor.TEXT}`]:
+        text:
           'bg-text data-[indicator=true]:text-text-opposite',
       },
     },
@@ -90,8 +84,8 @@ export const VerticalSwitchSelector = <T,>(
 ) => {
   const {
     choices = defaultChoices as SwitchSelectorChoices<T>,
-    color = SwitchSelectorColor.PRIMARY,
-    size = SwitchSelectorSize.MD,
+    color = 'primary',
+    size = 'md',
     className,
     itemClassName,
   } = props;

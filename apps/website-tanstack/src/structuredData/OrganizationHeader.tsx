@@ -30,7 +30,7 @@ export const OrganizationHeader: FC = () => {
   };
 
   return (
-    <Script
+    <script
       type="application/ld+json"
       dangerouslySetInnerHTML={{
         __html: JSON.stringify(organization),
@@ -38,5 +38,3 @@ export const OrganizationHeader: FC = () => {
     />
   );
 };
-
-const Script = (props: any) => <script {...props} />;

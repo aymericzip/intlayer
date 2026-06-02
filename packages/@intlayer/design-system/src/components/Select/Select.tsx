@@ -15,12 +15,9 @@ import type { ComponentProps, FC } from 'react';
  *
  * @enum SelectContentPosition
  */
-export enum SelectContentPosition {
-  /** Position relative to the trigger with automatic placement */
-  POPPER = 'popper',
-  /** Align content with the selected item */
-  ITEM_ALIGNED = 'item-aligned',
-}
+export type SelectContentPosition = 
+  | 'popper' |
+  'item-aligned';
 
 const SelectRoot = SelectPrimitive.Root;
 const SelectGroup = SelectPrimitive.Group;
@@ -163,7 +160,7 @@ const SelectScrollDownButton: FC<
  *
  * @example
  * ```tsx
- * <Select.Content position={SelectContentPosition.POPPER}>
+ * <Select.Content position="popper">
  *   <Select.Item value="option1">Option 1</Select.Item>
  *   <Select.Item value="option2">Option 2</Select.Item>
  * </Select.Content>
@@ -174,7 +171,7 @@ export const SelectContent: FC<
 > = ({
   className,
   children,
-  position = SelectContentPosition.POPPER,
+  position = 'popper',
   ...props
 }) => (
   <SelectPrimitive.Portal>
@@ -425,7 +422,7 @@ type SelectType = typeof SelectRoot & {
  *     <Select.Trigger validationStyleEnabled aria-invalid={hasError}>
  *       <Select.Value placeholder="Select country..." />
  *     </Select.Trigger>
- *     <Select.Content position={SelectContentPosition.ITEM_ALIGNED}>
+ *     <Select.Content position="item-aligned">
  *       <Select.Item value="us">United States</Select.Item>
  *       <Select.Item value="ca">Canada</Select.Item>
  *       <Select.Item value="uk">United Kingdom</Select.Item>

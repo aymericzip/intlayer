@@ -2,10 +2,10 @@
 
 import { CircleDashed, Moon, Sun } from 'lucide-react';
 import { type FC, useState } from 'react';
-import { Button, type ButtonProps, ButtonVariant } from '../Button';
+import { Button, type ButtonProps } from '../Button';
 import { Container } from '../Container';
 import { DropDown } from '../DropDown';
-import { Modes } from './types';
+import type { Modes } from './types';
 
 const ButtonItem: FC<ButtonProps> = ({ Icon, children, ...props }) => (
   <div className="relative w-full p-0.5">
@@ -14,7 +14,7 @@ const ButtonItem: FC<ButtonProps> = ({ Icon, children, ...props }) => (
       Icon={Icon}
       data-mode="system"
       role="option"
-      variant={ButtonVariant.NONE}
+      variant="none"
       {...props}
     >
       {children}
@@ -34,13 +34,13 @@ export const DesktopThemeSwitcher: FC<DesktopThemeSwitcherProps> = ({
   systemTheme,
 }) => {
   const isThemeSystemTheme = systemTheme === theme;
-  const defaultMode = isThemeSystemTheme ? Modes.system : theme;
+  const defaultMode = isThemeSystemTheme ? 'system' : theme;
 
   const [mode, setMode] = useState<Modes>(defaultMode);
 
   const switchMode = (mode: Modes) => {
-    if (mode === Modes.system) {
-      setTheme(systemTheme ?? Modes.light);
+    if (mode === 'system') {
+      setTheme(systemTheme ?? 'light');
     } else {
       setTheme(mode);
     }
@@ -56,33 +56,33 @@ export const DesktopThemeSwitcher: FC<DesktopThemeSwitcherProps> = ({
         identifier={panelIdentifier}
         aria-label="Theme selector"
       >
-        {mode === Modes.system && <CircleDashed data-mode="system" />}
-        {mode === Modes.light && <Sun data-mode="light" />}
-        {mode === Modes.dark && <Moon data-mode="dark" />}
+        {mode === 'system' && <CircleDashed data-mode="system" />}
+        {mode === 'light' && <Sun data-mode="light" />}
+        {mode === 'dark' && <Moon data-mode="dark" />}
       </DropDown.Trigger>
 
       <DropDown.Panel identifier={panelIdentifier} isFocusable isOverable>
         <Container className="min-w-[100px] items-start p-1" separator="y">
           <ButtonItem
             Icon={CircleDashed}
-            onClick={() => switchMode(Modes.system)}
-            isActive={mode === Modes.system}
+            onClick={() => switchMode('system')}
+            isActive={mode === 'system'}
             label="Restore to system mode"
           >
             System
           </ButtonItem>
           <ButtonItem
             Icon={Sun}
-            onClick={() => switchMode(Modes.light)}
-            isActive={mode === Modes.light}
+            onClick={() => switchMode('light')}
+            isActive={mode === 'light'}
             label="Switch to light mode"
           >
             Light
           </ButtonItem>
           <ButtonItem
             Icon={Moon}
-            onClick={() => switchMode(Modes.dark)}
-            isActive={mode === Modes.dark}
+            onClick={() => switchMode('dark')}
+            isActive={mode === 'dark'}
             label="Switch to dark mode"
           >
             Dark

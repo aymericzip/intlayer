@@ -41,8 +41,8 @@ export const FinalCTASection: FC = () => {
           >
             <Link
               to={App_Pricing}
-              variant={LinkVariant.BUTTON_OUTLINED}
-              color={LinkColor.TEXT_INVERSE}
+              variant="button-outlined"
+              color="text-inverse"
               label={finalCtaSecondary.value}
               size="lg"
               roundedSize="full"
@@ -52,8 +52,8 @@ export const FinalCTASection: FC = () => {
 
             <Link
               to={App_Onboarding}
-              variant={LinkVariant.BUTTON}
-              color={LinkColor.TEXT_INVERSE}
+              variant="button"
+              color="text-inverse"
               label={finalCtaPrimary.value}
               size="xl"
               roundedSize="full"

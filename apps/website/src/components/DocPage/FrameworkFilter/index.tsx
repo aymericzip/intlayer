@@ -5,7 +5,7 @@ import { Button } from '@intlayer/design-system/button';
 import { usePersistedStore } from '@intlayer/design-system/hooks';
 import { Modal } from '@intlayer/design-system/modal';
 import { PopoverStatic } from '@intlayer/design-system/popover';
-import { TechLogo, TechLogoName } from '@intlayer/design-system/tech-logo';
+import { TechLogo, type TechLogoName } from '@intlayer/design-system/tech-logo';
 import { cn } from '@intlayer/design-system/utils';
 import { Filter } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
@@ -70,26 +70,26 @@ export const frameworks: FrameworkEntry[] = [
 ];
 
 const logoMap: Record<FrameworkLogoKey, TechLogoName> = {
-  nextjs: TechLogoName.Nextjs,
-  react: TechLogoName.React,
-  vite: TechLogoName.Vite,
-  vue: TechLogoName.Vue,
-  nuxt: TechLogoName.Nuxt,
-  solid: TechLogoName.Solid,
-  tanstack: TechLogoName.Tanstack,
-  svelte: TechLogoName.Svelte,
-  preact: TechLogoName.Preact,
-  angular: TechLogoName.Angular,
-  lynx: TechLogoName.Lynx,
-  astro: TechLogoName.Astro,
-  express: TechLogoName.Express,
-  nest: TechLogoName.NestJS,
-  fastify: TechLogoName.Fastify,
-  hono: TechLogoName.Hono,
-  adonis: TechLogoName.Adonis,
-  lit: TechLogoName.Lit,
-  vanilla: TechLogoName.Vanilla,
-  node: TechLogoName.Node,
+  nextjs: 'nextjs',
+  react: 'react',
+  vite: 'vite',
+  vue: 'vue',
+  nuxt: 'nuxt',
+  solid: 'solid',
+  tanstack: 'tanstack',
+  svelte: 'svelte',
+  preact: 'preact',
+  angular: 'angular',
+  lynx: 'lynx',
+  astro: 'astro',
+  express: 'express',
+  nest: 'nestjs',
+  fastify: 'fastify',
+  hono: 'hono',
+  adonis: 'adonis',
+  lit: 'lit',
+  vanilla: 'vanilla',
+  node: 'node',
 };
 
 export const FrameworkLogo: FC<

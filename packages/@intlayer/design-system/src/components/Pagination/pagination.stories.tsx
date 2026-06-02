@@ -18,11 +18,11 @@ const meta: Meta<typeof Pagination> = {
     },
     size: {
       control: { type: 'select' },
-      options: Object.values(PaginationSize),
+      options: ['sm', 'md', 'lg'],
     },
     variant: {
       control: { type: 'select' },
-      options: Object.values(PaginationVariant),
+      options: ['default', 'bordered', 'ghost'],
     },
     showFirstLast: {
       control: { type: 'boolean' },
@@ -81,7 +81,7 @@ export const Small: Story = {
   args: {
     totalPages: 10,
     currentPage: 5,
-    size: PaginationSize.SM,
+    size: 'sm',
   },
 };
 
@@ -90,7 +90,7 @@ export const Large: Story = {
   args: {
     totalPages: 10,
     currentPage: 5,
-    size: PaginationSize.LG,
+    size: 'lg',
   },
 };
 
@@ -99,7 +99,7 @@ export const Bordered: Story = {
   args: {
     totalPages: 10,
     currentPage: 5,
-    variant: PaginationVariant.BORDERED,
+    variant: 'bordered',
   },
 };
 
@@ -108,7 +108,7 @@ export const Ghost: Story = {
   args: {
     totalPages: 10,
     currentPage: 5,
-    variant: PaginationVariant.GHOST,
+    variant: 'ghost',
   },
 };
 

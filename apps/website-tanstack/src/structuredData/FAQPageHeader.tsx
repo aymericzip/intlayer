@@ -25,7 +25,7 @@ export const FAQPageHeader: FC<FAQPageHeaderProps> = ({ faqs }) => {
   };
 
   return (
-    <Script
+    <script
       type="application/ld+json"
       dangerouslySetInnerHTML={{
         __html: JSON.stringify(faqPage),
@@ -33,5 +33,3 @@ export const FAQPageHeader: FC<FAQPageHeaderProps> = ({ faqs }) => {
     />
   );
 };
-
-const Script = (props: any) => <script {...props} />;

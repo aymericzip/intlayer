@@ -1,4 +1,4 @@
-import { defaultLocale, getIntlayer, type LocalesValues } from 'intlayer';
+import { defaultLocale, type LocalesValues } from 'intlayer';
 import type { FC, ReactNode } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { AsideNavigation } from './AsideNavigation/AsideNavigation';
@@ -8,6 +8,7 @@ import type { Section } from './types';
 
 type DocPageLayoutProps = {
   children?: ReactNode;
+  docData: Section;
   activeSlugs?: string[];
   locale?: LocalesValues;
   displayAsideNavigation?: boolean;
@@ -16,12 +17,12 @@ type DocPageLayoutProps = {
 
 export const DocPageLayout: FC<DocPageLayoutProps> = ({
   children,
+  docData,
   locale = defaultLocale,
   activeSlugs = ['get-started'],
   displayAsideNavigation = true,
   displayBreadCrumb = true,
 }) => {
-  const docData = getIntlayer('doc-data', locale) as Section;
   const content = useIntlayer('doc-page-layout', locale);
 
   return (

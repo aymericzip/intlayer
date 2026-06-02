@@ -97,74 +97,62 @@ export const containerVariants = cva('flex flex-col text-text backdrop-blur', {
 });
 
 /** Available rounded corner sizes for the container */
-export enum ContainerRoundedSize {
-  NONE = 'none',
-  SM = 'sm',
-  MD = 'md',
-  LG = 'lg',
-  XL = 'xl',
-  '2xl' = '2xl',
-  '3xl' = '3xl',
-  '4xl' = '4xl',
-  '5xl' = '5xl',
-  FULL = 'full',
-}
+export type ContainerRoundedSize = 
+  | 'none' |
+  'sm' |
+  'md' |
+  'lg' |
+  'xl' |
+  'full';
 
 /** Background transparency levels for the container */
-export enum ContainerTransparency {
-  NONE = 'none',
-  SM = 'sm',
-  MD = 'md',
-  LG = 'lg',
-  XL = 'xl',
-  FULL = 'full',
-}
+export type ContainerTransparency = 
+  | 'none' |
+  'sm' |
+  'md' |
+  'lg' |
+  'xl' |
+  'full';
 
 /** Padding sizes for container content */
-export enum ContainerPadding {
-  NONE = 'none',
-  SM = 'sm',
-  MD = 'md',
-  LG = 'lg',
-  XL = 'xl',
-}
+export type ContainerPadding = 
+  | 'none' |
+  'sm' |
+  'md' |
+  'lg' |
+  'xl';
 
 /** Separator options for dividing container children */
-export enum ContainerSeparator {
-  WITHOUT = 'without',
-  X = 'x',
-  Y = 'y',
-  BOTH = 'both',
-}
+export type ContainerSeparator = 
+  | 'without' |
+  'x' |
+  'y' |
+  'both';
 
 /** Border color options for the container */
-export enum ContainerBorderColor {
-  PRIMARY = 'primary',
-  SECONDARY = 'secondary',
-  NEUTRAL = 'neutral',
-  CARD = 'card',
-  TEXT = 'text',
-  ERROR = 'error',
-  WARNING = 'warning',
-  SUCCESS = 'success',
-}
+export type ContainerBorderColor = 
+  | 'primary' |
+  'secondary' |
+  'neutral' |
+  'card' |
+  'text' |
+  'error' |
+  'warning' |
+  'success';
 
 /** Background interaction states for the container */
-export enum ContainerBackground {
-  NONE = 'none',
-  HOVERABLE = 'hoverable',
-  WITH = 'with',
-}
+export type ContainerBackground = 
+  | 'none' |
+  'hoverable' |
+  'with';
 
 /** Gap sizes between container children */
-export enum ContainerGap {
-  NONE = 'none',
-  SM = 'sm',
-  MD = 'md',
-  LG = 'lg',
-  XL = 'xl',
-  '2xl' = '2xl',
-}
+export type ContainerGap = 
+  | 'none' |
+  'sm' |
+  'md' |
+  'lg' |
+  'xl';
 
 /** Container component props extending HTML div attributes */
 export type ContainerProps = PropsWithChildren<

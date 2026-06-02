@@ -5,7 +5,7 @@ import {
 } from '@components/DocPage/DocPageNavigation/DocPageNavigation';
 import { DocumentationRender } from '@components/DocPage/DocumentationRender';
 import { getPreviousNextDocMetadata } from '@components/DocPage/docData';
-import { Website_Doc_Path } from '@intlayer/design-system/routes';
+import { Website_Doc_Path, Website_Home } from '@intlayer/design-system/routes';
 import {
   type DocKey,
   getDoc,
@@ -39,6 +39,10 @@ const DocumentationPage = async ({ params }: LocalPromiseParams<DocProps>) => {
 
   const docData = filteredDocsData[0];
 
+  if (!docData) {
+    throw redirect(Website_Doc_Path);
+  }
+
   const { prevDocData, nextDocData } = getPreviousNextDocMetadata(
     docData.docKey as DocKey,
     locale!
@@ -51,19 +55,19 @@ const DocumentationPage = async ({ params }: LocalPromiseParams<DocProps>) => {
 
   const nextDoc: DocPageNavigationProps['nextDoc'] = nextDocData?.docs
     ? {
-        title: nextDocData.title,
+        title: nextDocData.title!,
         url: getLocalizedUrl(nextDocData.docs.relativeUrl, locale),
       }
     : undefined;
   const prevDoc: DocPageNavigationProps['prevDoc'] = prevDocData?.docs
     ? {
-        title: prevDocData.title,
+        title: prevDocData.title!,
         url: getLocalizedUrl(prevDocData.docs.relativeUrl, locale),
       }
     : undefined;
 
   const breadcrumbs = [
-    { name: 'Home', url: '/' },
+    { name: 'Home', url: Website_Home },
     { name: 'Docs', url: Website_Doc_Path },
     { name: docData.title, url: docData.url },
   ];

@@ -57,7 +57,7 @@ export const TranslateSoftwareApplicationHeader: FC = () => {
   };
 
   return (
-    <Script
+    <script
       type="application/ld+json"
       dangerouslySetInnerHTML={{
         __html: JSON.stringify(softwareApplication),
@@ -65,5 +65,3 @@ export const TranslateSoftwareApplicationHeader: FC = () => {
     />
   );
 };
-
-const Script = (props: any) => <script {...props} />;

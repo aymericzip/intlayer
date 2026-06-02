@@ -7,12 +7,14 @@ import { Suspense } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { DocPageLayout } from '~/components/DocPage/DocPageLayout';
 import { SearchView } from '~/components/DocPage/Search/SearchView';
+import { loadNavData } from '~/serverFunctions/docs';
 import { WebsiteHeader } from '~/structuredData/WebsiteHeader';
 
 export const Route = createFileRoute('/{-$locale}/_docs/doc/search')({
-  loader: ({ params }) => {
+  loader: async ({ params }) => {
     const locale = params.locale ?? defaultLocale;
-    return { locale };
+    const navData = await loadNavData({ data: { locale } });
+    return { locale, navData };
   },
   head: () => ({
     title: 'Search Documentation | Intlayer',
@@ -21,11 +23,15 @@ export const Route = createFileRoute('/{-$locale}/_docs/doc/search')({
 });
 
 function DocumentationSearchPage() {
-  const { locale } = Route.useLoaderData();
+  const { locale, navData } = Route.useLoaderData();
   const { title } = useIntlayer('doc-search-page');
 
   return (
-    <DocPageLayout locale={locale} displayAsideNavigation={false}>
+    <DocPageLayout
+      docData={navData}
+      locale={locale}
+      displayAsideNavigation={false}
+    >
       <WebsiteHeader />
       <H1>{title}</H1>
       <div className="flex flex-1 flex-col items-baseline gap-10 p-10 md:mt-[10vh]">

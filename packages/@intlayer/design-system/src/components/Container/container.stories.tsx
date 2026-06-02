@@ -87,23 +87,23 @@ A flexible container component for organizing content with extensive customizati
     roundedSize: {
       description: 'Border radius size for rounded corners',
       control: 'select',
-      options: Object.values(ContainerRoundedSize),
+      options: ['none', 'sm', 'md', 'lg', 'xl', 'full'],
     },
     transparency: {
       description:
         'Background transparency level (none=solid, full=transparent)',
       control: 'select',
-      options: Object.values(ContainerTransparency),
+      options: ['none', 'sm', 'md', 'lg', 'xl', 'full'],
     },
     padding: {
       description: 'Internal padding around content',
       control: 'select',
-      options: Object.values(ContainerPadding),
+      options: ['none', 'sm', 'md', 'lg', 'xl'],
     },
     separator: {
       description: 'Dashed dividers between children elements',
       control: 'select',
-      options: Object.values(ContainerSeparator),
+      options: ['without', 'x', 'y', 'both'],
     },
     border: {
       description: 'Show border around the container',
@@ -112,17 +112,26 @@ A flexible container component for organizing content with extensive customizati
     borderColor: {
       description: 'Color theme for the border',
       control: 'select',
-      options: Object.values(ContainerBorderColor),
+      options: [
+        'primary',
+        'secondary',
+        'neutral',
+        'card',
+        'text',
+        'error',
+        'warning',
+        'success',
+      ],
     },
     background: {
       description: 'Background interaction behavior',
       control: 'select',
-      options: Object.values(ContainerBackground),
+      options: ['none', 'hoverable', 'with'],
     },
     gap: {
       description: 'Space between child elements in flex layout',
       control: 'select',
-      options: Object.values(ContainerGap),
+      options: ['none', 'sm', 'md', 'lg', 'xl'],
     },
     className: {
       description: 'Additional CSS classes',
@@ -167,14 +176,14 @@ type Story = StoryObj<typeof Container>;
 export const Default: Story = {
   args: {
     children: 'Container content',
-    roundedSize: ContainerRoundedSize.MD,
-    transparency: ContainerTransparency.MD,
-    padding: ContainerPadding.MD,
-    separator: ContainerSeparator.WITHOUT,
+    roundedSize: 'md',
+    transparency: 'md',
+    padding: 'md',
+    separator: 'without',
     border: false,
-    borderColor: ContainerBorderColor.TEXT,
-    background: ContainerBackground.NONE,
-    gap: ContainerGap.NONE,
+    borderColor: 'text',
+    background: 'none',
+    gap: 'none',
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -195,14 +204,14 @@ export const Default: Story = {
 export const AllRoundedSizes: Story = {
   render: () => (
     <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
-      {Object.values(ContainerRoundedSize).map((size) => (
+      {(['none', 'sm', 'md', 'lg', 'xl', 'full'] as const).map((size) => (
         <Container
           key={size}
           roundedSize={size}
-          padding={ContainerPadding.MD}
-          transparency={ContainerTransparency.SM}
+          padding="md"
+          transparency="sm"
           border
-          borderColor={ContainerBorderColor.PRIMARY}
+          borderColor="primary"
           className="text-center"
         >
           <div className="font-medium text-sm">{size}</div>
@@ -216,7 +225,7 @@ export const AllRoundedSizes: Story = {
     const containers = canvas.getAllByText(/rounded-/);
 
     await expect(containers).toHaveLength(
-      Object.values(ContainerRoundedSize).length
+      ['none', 'sm', 'md', 'lg', 'xl', 'full'].length
     );
 
     for (const container of containers) {
@@ -236,21 +245,21 @@ export const TransparencyLevels: Story = {
   render: () => (
     <div className="relative rounded-lg bg-linear-to-br from-blue-100 to-purple-100 p-8">
       <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
-        {Object.values(ContainerTransparency).map((transparency) => (
+        {['none', 'sm', 'md', 'lg', 'xl', 'full'].map((transparency) => (
           <Container
             key={transparency}
             transparency={transparency}
-            padding={ContainerPadding.MD}
-            roundedSize={ContainerRoundedSize.LG}
+            padding="md"
+            roundedSize="lg"
             border
-            borderColor={ContainerBorderColor.NEUTRAL}
+            borderColor="neutral"
             className="text-center"
           >
             <div className="font-medium text-sm">{transparency}</div>
             <div className="text-xs opacity-70">
-              {transparency === ContainerTransparency.NONE
+              {transparency === 'none'
                 ? 'Solid'
-                : transparency === ContainerTransparency.FULL
+                : transparency === 'full'
                   ? 'Transparent'
                   : `${transparency.toUpperCase()} opacity`}
             </div>
@@ -264,7 +273,7 @@ export const TransparencyLevels: Story = {
     const containers = canvas.getAllByText(/opacity|Solid|Transparent/);
 
     await expect(containers.length).toBeGreaterThanOrEqual(
-      Object.values(ContainerTransparency).length
+      ['none', 'sm', 'md', 'lg', 'xl', 'full'].length
     );
   },
 };
@@ -278,14 +287,14 @@ export const TransparencyLevels: Story = {
 export const PaddingVariations: Story = {
   render: () => (
     <div className="space-y-4">
-      {Object.values(ContainerPadding).map((padding) => (
+      {['none', 'sm', 'md', 'lg', 'xl'].map((padding) => (
         <Container
           key={padding}
           padding={padding}
-          transparency={ContainerTransparency.SM}
-          roundedSize={ContainerRoundedSize.MD}
+          transparency="sm"
+          roundedSize="md"
           border
-          borderColor={ContainerBorderColor.TEXT}
+          borderColor="text"
           className="w-fit"
         >
           <div className="rounded bg-blue-100 text-sm">
@@ -300,7 +309,7 @@ export const PaddingVariations: Story = {
     const containers = canvas.getAllByText(/Padding:/);
 
     await expect(containers).toHaveLength(
-      Object.values(ContainerPadding).length
+      ['none', 'sm', 'md', 'lg', 'xl'].length
     );
   },
 };
@@ -319,16 +328,16 @@ export const PaddingVariations: Story = {
 export const GapBetweenChildren: Story = {
   render: () => (
     <div className="space-y-6">
-      {Object.values(ContainerGap).map((gap) => (
+      {['none', 'sm', 'md', 'lg', 'xl'].map((gap) => (
         <div key={gap}>
           <h3 className="mb-2 font-medium text-sm">Gap: {gap}</h3>
           <Container
             gap={gap}
-            padding={ContainerPadding.MD}
-            transparency={ContainerTransparency.SM}
-            roundedSize={ContainerRoundedSize.MD}
+            padding="md"
+            transparency="sm"
+            roundedSize="md"
             border
-            borderColor={ContainerBorderColor.NEUTRAL}
+            borderColor="neutral"
           >
             <div className="rounded bg-blue-100 p-2">Item 1</div>
             <div className="rounded bg-green-100 p-2">Item 2</div>
@@ -342,7 +351,9 @@ export const GapBetweenChildren: Story = {
     const canvas = within(canvasElement);
     const gapLabels = canvas.getAllByText(/Gap:/);
 
-    await expect(gapLabels).toHaveLength(Object.values(ContainerGap).length);
+    await expect(gapLabels).toHaveLength(
+      ['none', 'sm', 'md', 'lg', 'xl'].length
+    );
 
     // Test that each container has the expected children
     for (const label of gapLabels) {
@@ -365,17 +376,17 @@ export const GapBetweenChildren: Story = {
 export const SeparatorOptions: Story = {
   render: () => (
     <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-      {Object.values(ContainerSeparator).map((separator) => (
+      {['without', 'x', 'y', 'both'].map((separator) => (
         <div key={separator}>
           <h3 className="mb-2 font-medium text-sm">Separator: {separator}</h3>
           <Container
             separator={separator}
-            padding={ContainerPadding.MD}
-            transparency={ContainerTransparency.SM}
-            roundedSize={ContainerRoundedSize.MD}
+            padding="md"
+            transparency="sm"
+            roundedSize="md"
             border
-            borderColor={ContainerBorderColor.NEUTRAL}
-            className={separator === ContainerSeparator.X ? 'flex-row' : ''}
+            borderColor="neutral"
+            className={separator === 'x' ? 'flex-row' : ''}
           >
             <div className="p-3 text-center">Section 1</div>
             <div className="p-3 text-center">Section 2</div>
@@ -390,7 +401,7 @@ export const SeparatorOptions: Story = {
     const separatorLabels = canvas.getAllByText(/Separator:/);
 
     await expect(separatorLabels).toHaveLength(
-      Object.values(ContainerSeparator).length
+      ['without', 'x', 'y', 'both'].length
     );
   },
 };
@@ -410,14 +421,23 @@ export const SeparatorOptions: Story = {
 export const BorderColors: Story = {
   render: () => (
     <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
-      {Object.values(ContainerBorderColor).map((color) => (
+      {[
+        'primary',
+        'secondary',
+        'neutral',
+        'card',
+        'text',
+        'error',
+        'warning',
+        'success',
+      ].map((color) => (
         <Container
           key={color}
           border
           borderColor={color}
-          padding={ContainerPadding.MD}
-          transparency={ContainerTransparency.SM}
-          roundedSize={ContainerRoundedSize.MD}
+          padding="md"
+          transparency="sm"
+          roundedSize="md"
           className="text-center"
         >
           <div className="font-medium text-sm capitalize">
@@ -433,7 +453,16 @@ export const BorderColors: Story = {
     const containers = canvas.getAllByText(/border-/);
 
     await expect(containers).toHaveLength(
-      Object.values(ContainerBorderColor).length
+      [
+        'primary',
+        'secondary',
+        'neutral',
+        'card',
+        'text',
+        'error',
+        'warning',
+        'success',
+      ].length
     );
 
     // Test border accessibility
@@ -453,21 +482,21 @@ export const BorderColors: Story = {
 export const BackgroundStates: Story = {
   render: () => (
     <div className="space-y-4">
-      {Object.values(ContainerBackground).map((background) => (
+      {['none', 'hoverable', 'with'].map((background) => (
         <Container
           key={background}
           background={background}
-          padding={ContainerPadding.LG}
-          transparency={ContainerTransparency.SM}
-          roundedSize={ContainerRoundedSize.MD}
+          padding="lg"
+          transparency="sm"
+          roundedSize="md"
           border
-          borderColor={ContainerBorderColor.NEUTRAL}
+          borderColor="neutral"
         >
           <div className="font-medium text-sm">Background: {background}</div>
           <div className="mt-1 text-xs opacity-70">
-            {background === ContainerBackground.HOVERABLE
+            {background === 'hoverable'
               ? 'Hover over this container to see the effect'
-              : background === ContainerBackground.WITH
+              : background === 'with'
                 ? 'Container with background styling'
                 : 'No special background styling'}
           </div>
@@ -479,9 +508,7 @@ export const BackgroundStates: Story = {
     const canvas = within(canvasElement);
     const containers = canvas.getAllByText(/Background:/);
 
-    await expect(containers).toHaveLength(
-      Object.values(ContainerBackground).length
-    );
+    await expect(containers).toHaveLength(['none', 'hoverable', 'with'].length);
 
     // Test hoverable interaction
     const hoverableContainer = canvas
@@ -513,11 +540,11 @@ export const ARIAAttributes: Story = {
         <Container
           aria-label="User profile information"
           role="region"
-          padding={ContainerPadding.MD}
-          transparency={ContainerTransparency.SM}
-          roundedSize={ContainerRoundedSize.MD}
+          padding="md"
+          transparency="sm"
+          roundedSize="md"
           border
-          borderColor={ContainerBorderColor.PRIMARY}
+          borderColor="primary"
         >
           <div>This container has an accessible label for screen readers</div>
         </Container>
@@ -529,11 +556,11 @@ export const ARIAAttributes: Story = {
           aria-labelledby="settings-title"
           aria-describedby="settings-help"
           role="group"
-          padding={ContainerPadding.MD}
-          transparency={ContainerTransparency.SM}
-          roundedSize={ContainerRoundedSize.MD}
+          padding="md"
+          transparency="sm"
+          roundedSize="md"
           border
-          borderColor={ContainerBorderColor.NEUTRAL}
+          borderColor="neutral"
         >
           <div id="settings-title" className="font-medium">
             Settings Panel
@@ -549,11 +576,11 @@ export const ARIAAttributes: Story = {
         <Container
           role="main"
           aria-label="Primary content area"
-          padding={ContainerPadding.LG}
-          transparency={ContainerTransparency.NONE}
-          roundedSize={ContainerRoundedSize.LG}
+          padding="lg"
+          transparency="none"
+          roundedSize="lg"
           border
-          borderColor={ContainerBorderColor.SUCCESS}
+          borderColor="success"
         >
           <div>This container serves as the main content landmark</div>
         </Container>
@@ -604,13 +631,13 @@ export const CardComponents: Story = {
   render: () => (
     <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
       <Container
-        padding={ContainerPadding.LG}
-        transparency={ContainerTransparency.NONE}
-        roundedSize={ContainerRoundedSize.LG}
+        padding="lg"
+        transparency="none"
+        roundedSize="lg"
         border
-        borderColor={ContainerBorderColor.NEUTRAL}
-        background={ContainerBackground.HOVERABLE}
-        gap={ContainerGap.MD}
+        borderColor="neutral"
+        background="hoverable"
+        gap="md"
         role="article"
         aria-labelledby="card-1-title"
       >
@@ -624,12 +651,12 @@ export const CardComponents: Story = {
       </Container>
 
       <Container
-        padding={ContainerPadding.LG}
-        transparency={ContainerTransparency.SM}
-        roundedSize={ContainerRoundedSize.XL}
+        padding="lg"
+        transparency="sm"
+        roundedSize="xl"
         border
-        borderColor={ContainerBorderColor.SUCCESS}
-        gap={ContainerGap.SM}
+        borderColor="success"
+        gap="sm"
         role="article"
         aria-labelledby="card-2-title"
       >
@@ -642,12 +669,12 @@ export const CardComponents: Story = {
       </Container>
 
       <Container
-        padding={ContainerPadding.LG}
-        transparency={ContainerTransparency.LG}
-        roundedSize={ContainerRoundedSize.TWO_XL}
+        padding="lg"
+        transparency="lg"
+        roundedSize="two-xl"
         border
-        borderColor={ContainerBorderColor.ERROR}
-        gap={ContainerGap.MD}
+        borderColor="error"
+        gap="md"
         role="article"
         aria-labelledby="card-3-title"
       >
@@ -681,13 +708,13 @@ export const CardComponents: Story = {
 export const FormContainer: Story = {
   render: () => (
     <Container
-      padding={ContainerPadding.LG}
-      transparency={ContainerTransparency.NONE}
-      roundedSize={ContainerRoundedSize.LG}
+      padding="lg"
+      transparency="none"
+      roundedSize="lg"
       border
-      borderColor={ContainerBorderColor.NEUTRAL}
-      gap={ContainerGap.LG}
-      separator={ContainerSeparator.Y}
+      borderColor="neutral"
+      gap="lg"
+      separator="y"
       role="form"
       aria-labelledby="form-title"
     >

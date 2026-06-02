@@ -1,34 +1,22 @@
 import { Website_PrivacyPolicy } from '@intlayer/design-system/routes';
-import { getLegal, getLegalMetadata } from '@intlayer/docs';
 import { createFileRoute } from '@tanstack/react-router';
 import { defaultLocale, getLocalizedUrl, localeMap } from 'intlayer';
-import { parseMarkdown } from 'react-intlayer/markdown';
 import { DocumentationRender } from '~/components/DocPage/DocumentationRender';
+import { loadLegalContent } from '~/serverFunctions/legal';
 import { CreativeWorkHeader } from '~/structuredData/CreativeWorkHeader';
 
 export const Route = createFileRoute('/{-$locale}/_docs/privacy-notice')({
   loader: async ({ params }) => {
     const locale = params.locale ?? defaultLocale;
-    const file = await getLegal('./legal/en/privacy_notice.md', locale);
-    const { title, description, keywords, updatedAt, createdAt } =
-      await getLegalMetadata('./legal/en/privacy_notice.md', locale);
-    const fileParsed = parseMarkdown(file);
-
-    return {
-      locale,
-      file,
-      fileParsed,
-      title,
-      description,
-      keywords,
-      updatedAt,
-      createdAt,
-    };
+    return loadLegalContent({
+      data: { locale, docKey: './legal/en/privacy_notice.md' },
+    });
   },
   head: ({ loaderData }) => {
     if (!loaderData) return {};
-    const { title, description, keywords, locale } = loaderData;
+    const { title, description, keywords } = loaderData;
     const path = Website_PrivacyPolicy;
+    const locale = defaultLocale;
 
     return {
       title: String(title),

@@ -126,7 +126,7 @@ const meta: Meta<typeof AutoCompleteTextarea> = {
     variant: {
       description: 'Visual variant for different contexts',
       control: { type: 'select' },
-      options: Object.values(InputVariant),
+      options: ['default', 'invisible'],
       table: {
         type: { summary: 'InputVariant' },
       },
@@ -424,7 +424,7 @@ export const ContentCreation: Story = {
                 autoSize={true}
                 maxRows={20}
                 className="min-h-[400px] w-full resize-none border-0 font-serif text-base leading-relaxed focus:outline-none focus:ring-0"
-                variant={InputVariant.INVISIBLE}
+                variant="invisible"
               />
             </div>
           </div>
@@ -688,7 +688,7 @@ export const EmailAssistant: Story = {
                 autoSize={true}
                 maxRows={15}
                 className="min-h-[300px] w-full resize-none border-0 text-base leading-relaxed focus:outline-none focus:ring-0"
-                variant={InputVariant.INVISIBLE}
+                variant="invisible"
               />
             </div>
 

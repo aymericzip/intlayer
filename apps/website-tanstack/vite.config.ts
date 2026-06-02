@@ -241,7 +241,7 @@ export default defineConfig(({ mode }) => {
             '.content.(ts|tsx|js|mjs|cjs|jsx|json|jsonc|json5)$',
         },
         prerender: {
-          enabled: true,
+          enabled: false,
           crawlLinks: false,
           concurrency: 10,
         },

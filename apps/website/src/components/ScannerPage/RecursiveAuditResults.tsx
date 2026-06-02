@@ -1,8 +1,4 @@
-import {
-  Button,
-  ButtonColor,
-  ButtonVariant,
-} from '@intlayer/design-system/button';
+import { Button } from '@intlayer/design-system/button';
 import { Tag } from '@intlayer/design-system/tag';
 import { cn } from '@intlayer/design-system/utils';
 import { ChevronDown, ChevronRight, Pause, Play, Square } from 'lucide-react';
@@ -177,8 +173,8 @@ export const RecursiveAuditResults: FC<RecursiveAuditResultsProps> = memo(
                 {isPaused ? (
                   <Button
                     onClick={onResume}
-                    variant={ButtonVariant.OUTLINE}
-                    color={ButtonColor.TEXT}
+                    variant="outline"
+                    color="text"
                     size="icon-sm"
                     label={resumeButton.value}
                     Icon={Play}
@@ -186,8 +182,8 @@ export const RecursiveAuditResults: FC<RecursiveAuditResultsProps> = memo(
                 ) : (
                   <Button
                     onClick={onPause}
-                    variant={ButtonVariant.OUTLINE}
-                    color={ButtonColor.TEXT}
+                    variant="outline"
+                    color="text"
                     size="icon-sm"
                     label={pauseButton.value}
                     Icon={Pause}
@@ -195,8 +191,8 @@ export const RecursiveAuditResults: FC<RecursiveAuditResultsProps> = memo(
                 )}
                 <Button
                   onClick={onCancel}
-                  variant={ButtonVariant.OUTLINE}
-                  color={ButtonColor.ERROR}
+                  variant="outline"
+                  color="error"
                   size="icon-sm"
                   label={stopButton.value}
                   Icon={Square}

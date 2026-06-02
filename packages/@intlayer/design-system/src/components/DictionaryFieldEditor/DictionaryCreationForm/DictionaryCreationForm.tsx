@@ -2,7 +2,6 @@
 
 import { useAddDictionary, useGetProjects } from '@api/index';
 import { useSession } from '@api/useAuth';
-import { ButtonColor } from '@components/Button';
 import { Form, useForm } from '@components/Form';
 import { MultiSelect } from '@components/Select';
 import type { FC } from 'react';
@@ -83,7 +82,7 @@ export const DictionaryCreationForm: FC<DictionaryCreationFormProps> = ({
       <Form.Button
         className="mt-12 ml-auto"
         type="submit"
-        color={ButtonColor.TEXT}
+        color="text"
         isLoading={isSubmitting || isPending}
         label={createDictionaryButton.ariaLabel.value}
         isFullWidth

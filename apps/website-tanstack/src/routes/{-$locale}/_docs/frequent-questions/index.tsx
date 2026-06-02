@@ -1,6 +1,5 @@
 import { Container } from '@intlayer/design-system/container';
 import { Website_FrequentQuestions } from '@intlayer/design-system/routes';
-import { getFrequentQuestionMetadataRecord } from '@intlayer/docs';
 import { createFileRoute } from '@tanstack/react-router';
 import {
   defaultLocale,
@@ -12,12 +11,13 @@ import { ArrowRight } from 'lucide-react';
 import { Suspense } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { Link } from '~/components/Link/Link';
+import { loadFaqIndex } from '~/serverFunctions/faq';
 import { FAQPageHeader } from '~/structuredData/FAQPageHeader';
 
 export const Route = createFileRoute('/{-$locale}/_docs/frequent-questions/')({
   loader: async ({ params }) => {
     const locale = params.locale ?? defaultLocale;
-    const frequentQuestions = await getFrequentQuestionMetadataRecord(locale);
+    const frequentQuestions = await loadFaqIndex({ data: { locale } });
     return { locale, frequentQuestions };
   },
   head: ({ params }) => {

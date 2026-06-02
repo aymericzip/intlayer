@@ -1,9 +1,5 @@
 import { useGetTags } from '@intlayer/design-system/api';
-import {
-  Button,
-  ButtonColor,
-  ButtonVariant,
-} from '@intlayer/design-system/button';
+import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
 import { H2 } from '@intlayer/design-system/headers';
 import { Loader } from '@intlayer/design-system/loader';
@@ -65,9 +61,9 @@ export const TagDetails: FC<TagDetailsProps> = ({ tagKey }) => {
       <div className="flex items-center gap-2">
         <Button
           onClick={() => navigate({ to: App_Dashboard_Tags_Path })}
-          variant={ButtonVariant.HOVERABLE}
+          variant="hoverable"
           className="z-10 mr-auto ml-5"
-          color={ButtonColor.TEXT}
+          color="text"
           Icon={ArrowLeft}
           label={returnToTagList.label.value}
         >

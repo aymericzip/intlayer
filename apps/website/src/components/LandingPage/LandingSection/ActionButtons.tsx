@@ -27,7 +27,7 @@ export const ActionButtons: FC<HTMLAttributes<HTMLDivElement>> = ({
     >
       <Link
         href="https://github.com/aymericzip/intlayer"
-        variant={LinkVariant.BUTTON}
+        variant="button"
         label={supportButton.value}
         className="rounded-full border-2 border-neutral-300 bg-transparent px-4 py-2 hover:scale-105 hover:bg-transparent dark:border-neutral-600"
         isExternalLink
@@ -38,8 +38,8 @@ export const ActionButtons: FC<HTMLAttributes<HTMLDivElement>> = ({
       </Link>
       <Link
         href={Website_Doc_Path}
-        variant={LinkVariant.BUTTON}
-        color={LinkColor.CUSTOM}
+        variant="button"
+        color="custom"
         label={getStartedButton.value}
         className="rounded-full px-4 py-2 hover:scale-105"
       >

@@ -100,22 +100,54 @@ A versatile button component that handles user interactions with full accessibil
     variant: {
       description: 'Visual style variant of the button',
       control: 'select',
-      options: Object.values(ButtonVariant),
+      options: [
+        'default',
+        'none',
+        'outline',
+        'link',
+        'invisible-link',
+        'hoverable',
+        'fade',
+        'input',
+      ],
     },
     size: {
       description: 'Size variant affecting padding and text size',
       control: 'select',
-      options: Object.values(ButtonSize),
+      options: [
+        'xs',
+        'sm',
+        'md',
+        'lg',
+        'xl',
+        'icon-sm',
+        'icon-md',
+        'icon-lg',
+        'icon-xl',
+      ],
     },
     color: {
       description: 'Color theme that determines text and focus ring colors',
       control: 'select',
-      options: Object.values(ButtonColor),
+      options: [
+        'primary',
+        'secondary',
+        'neutral',
+        'light',
+        'dark',
+        'text',
+        'card',
+        'text-inverse',
+        'current',
+        'error',
+        'success',
+        'custom',
+      ],
     },
     textAlign: {
       description: 'Text alignment within the button',
       control: 'select',
-      options: Object.values(ButtonTextAlign),
+      options: ['left', 'center', 'right'],
     },
     isLoading: {
       description: 'Shows loading spinner and disables interaction',
@@ -197,9 +229,9 @@ export const Default: Story = {
   args: {
     children: 'Click me',
     label: 'Click me',
-    variant: ButtonVariant.DEFAULT,
-    size: ButtonSize.MD,
-    color: ButtonColor.PRIMARY,
+    variant: 'default',
+    size: 'md',
+    color: 'primary',
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -228,38 +260,22 @@ export const Default: Story = {
 export const AllVariants: Story = {
   render: () => (
     <div className="flex flex-wrap items-center gap-4">
-      <Button
-        variant={ButtonVariant.DEFAULT}
-        label="Default button"
-        color={ButtonColor.PRIMARY}
-      >
+      <Button variant="default" label="Default button" color="primary">
         Default
       </Button>
-      <Button
-        variant={ButtonVariant.OUTLINE}
-        label="Outline button"
-        color={ButtonColor.PRIMARY}
-      >
+      <Button variant="outline" label="Outline button" color="primary">
         Outline
       </Button>
-      <Button
-        variant={ButtonVariant.LINK}
-        label="Link button"
-        color={ButtonColor.PRIMARY}
-      >
+      <Button variant="link" label="Link button" color="primary">
         Link
       </Button>
-      <Button
-        variant={ButtonVariant.HOVERABLE}
-        label="Hoverable button"
-        color={ButtonColor.PRIMARY}
-      >
+      <Button variant="hoverable" label="Hoverable button" color="primary">
         Hoverable
       </Button>
       <Button
-        variant={ButtonVariant.INVISIBLE_LINK}
+        variant="invisible-link"
         label="Invisible link button"
-        color={ButtonColor.PRIMARY}
+        color="primary"
       >
         Invisible Link
       </Button>
@@ -312,39 +328,19 @@ export const AllVariants: Story = {
 export const SizeVariations: Story = {
   render: () => (
     <div className="flex flex-wrap items-center gap-4">
-      <Button
-        size={ButtonSize.ICON_LG}
-        label="Extra small button"
-        color={ButtonColor.PRIMARY}
-      >
+      <Button size="icon-lg" label="Extra small button" color="primary">
         LG
       </Button>
-      <Button
-        size={ButtonSize.SM}
-        label="Small button"
-        color={ButtonColor.PRIMARY}
-      >
+      <Button size="sm" label="Small button" color="primary">
         Small
       </Button>
-      <Button
-        size={ButtonSize.MD}
-        label="Medium button"
-        color={ButtonColor.PRIMARY}
-      >
+      <Button size="md" label="Medium button" color="primary">
         Medium
       </Button>
-      <Button
-        size={ButtonSize.LG}
-        label="Large button"
-        color={ButtonColor.PRIMARY}
-      >
+      <Button size="lg" label="Large button" color="primary">
         Large
       </Button>
-      <Button
-        size={ButtonSize.XL}
-        label="Extra large button"
-        color={ButtonColor.PRIMARY}
-      >
+      <Button size="xl" label="Extra large button" color="primary">
         XL
       </Button>
     </div>
@@ -373,7 +369,20 @@ export const SizeVariations: Story = {
 export const ColorThemes: Story = {
   render: () => (
     <div className="grid max-w-2xl grid-cols-2 gap-4">
-      {Object.values(ButtonColor).map((color) => (
+      {[
+        'primary',
+        'secondary',
+        'neutral',
+        'light',
+        'dark',
+        'text',
+        'card',
+        'text-inverse',
+        'current',
+        'error',
+        'success',
+        'custom',
+      ].map((color) => (
         <div key={color} className="space-y-2">
           <h4 className="font-medium text-sm capitalize">
             {color.replace('_', ' ')}
@@ -381,17 +390,17 @@ export const ColorThemes: Story = {
           <div className="flex gap-2">
             <Button
               color={color}
-              variant={ButtonVariant.DEFAULT}
+              variant="default"
               label={`${color} default button`}
-              size={ButtonSize.SM}
+              size="sm"
             >
               Default
             </Button>
             <Button
               color={color}
-              variant={ButtonVariant.OUTLINE}
+              variant="outline"
               label={`${color} outline button`}
-              size={ButtonSize.SM}
+              size="sm"
             >
               Outline
             </Button>
@@ -405,7 +414,21 @@ export const ColorThemes: Story = {
     const buttons = canvas.getAllByRole('button');
 
     // Should have 2 buttons per color (default + outline)
-    const expectedCount = Object.values(ButtonColor).length * 2;
+    const expectedCount =
+      [
+        'primary',
+        'secondary',
+        'neutral',
+        'light',
+        'dark',
+        'text',
+        'card',
+        'text-inverse',
+        'current',
+        'error',
+        'success',
+        'custom',
+      ].length * 2;
     await expect(buttons).toHaveLength(expectedCount);
 
     // Test color accessibility
@@ -433,8 +456,8 @@ export const LoadingState: Story = {
     children: 'Save Changes',
     label: 'Save changes',
     isLoading: true,
-    variant: ButtonVariant.DEFAULT,
-    color: ButtonColor.PRIMARY,
+    variant: 'default',
+    color: 'primary',
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -466,8 +489,8 @@ export const DisabledState: Story = {
     children: 'Disabled',
     label: 'Disabled button',
     disabled: true,
-    variant: ButtonVariant.DEFAULT,
-    color: ButtonColor.PRIMARY,
+    variant: 'default',
+    color: 'primary',
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -491,8 +514,8 @@ export const ActiveState: Story = {
     children: 'Active',
     label: 'Active button',
     isActive: true,
-    variant: ButtonVariant.DEFAULT,
-    color: ButtonColor.PRIMARY,
+    variant: 'default',
+    color: 'primary',
     'aria-current': 'true',
     'aria-label': 'Active button',
   },
@@ -524,21 +547,21 @@ export const ActiveState: Story = {
 export const WithLeftIcons: Story = {
   render: () => (
     <div className="flex flex-wrap gap-4">
-      <Button Icon={PlayIcon} label="Play video" color={ButtonColor.PRIMARY}>
+      <Button Icon={PlayIcon} label="Play video" color="primary">
         Play
       </Button>
-      <Button Icon={SaveIcon} label="Save document" color={ButtonColor.SUCCESS}>
+      <Button Icon={SaveIcon} label="Save document" color="success">
         Save
       </Button>
       <Button
         Icon={DownloadIcon}
         label="Download file"
-        variant={ButtonVariant.OUTLINE}
-        color={ButtonColor.PRIMARY}
+        variant="outline"
+        color="primary"
       >
         Download
       </Button>
-      <Button Icon={PlusIcon} label="Add new item" color={ButtonColor.PRIMARY}>
+      <Button Icon={PlusIcon} label="Add new item" color="primary">
         Add New
       </Button>
     </div>
@@ -571,23 +594,23 @@ export const WithRightIcons: Story = {
       <Button
         IconRight={ArrowRightIcon}
         label="Continue to next step"
-        color={ButtonColor.PRIMARY}
+        color="primary"
       >
         Continue
       </Button>
       <Button
         IconRight={DownloadIcon}
         label="Export data"
-        variant={ButtonVariant.OUTLINE}
-        color={ButtonColor.PRIMARY}
+        variant="outline"
+        color="primary"
       >
         Export
       </Button>
       <Button
         IconRight={HeartIcon}
         label="Add to favorites"
-        variant={ButtonVariant.HOVERABLE}
-        color={ButtonColor.ERROR}
+        variant="hoverable"
+        color="error"
       >
         Like
       </Button>
@@ -621,33 +644,33 @@ export const IconOnlyButtons: Story = {
         Icon={SettingsIcon}
         label=""
         aria-label="Open settings"
-        variant={ButtonVariant.OUTLINE}
-        size={ButtonSize.ICON_LG}
-        color={ButtonColor.NEUTRAL}
+        variant="outline"
+        size="icon-lg"
+        color="neutral"
       />
       <Button
         Icon={HeartIcon}
         label=""
         aria-label="Like this item"
-        variant={ButtonVariant.OUTLINE}
-        size={ButtonSize.ICON_MD}
-        color={ButtonColor.ERROR}
+        variant="outline"
+        size="icon-md"
+        color="error"
       />
       <Button
         Icon={DownloadIcon}
         label=""
         aria-label="Download file"
-        variant={ButtonVariant.OUTLINE}
-        size={ButtonSize.ICON_SM}
-        color={ButtonColor.PRIMARY}
+        variant="outline"
+        size="icon-sm"
+        color="primary"
       />
       <Button
         Icon={TrashIcon}
         label=""
         aria-label="Delete item"
-        variant={ButtonVariant.OUTLINE}
-        size={ButtonSize.ICON_XL}
-        color={ButtonColor.ERROR}
+        variant="outline"
+        size="icon-xl"
+        color="error"
       />
     </div>
   ),
@@ -694,9 +717,9 @@ export const FullWidthButton: Story = {
     children: 'Submit Form',
     label: 'Submit form',
     isFullWidth: true,
-    size: ButtonSize.LG,
-    color: ButtonColor.SUCCESS,
-    variant: ButtonVariant.DEFAULT,
+    size: 'lg',
+    color: 'success',
+    variant: 'default',
     type: 'submit',
   },
   decorators: [
@@ -750,25 +773,25 @@ export const TextAlignment: Story = {
     <div className="max-w-md space-y-4">
       <Button
         isFullWidth
-        textAlign={ButtonTextAlign.LEFT}
+        textAlign="left"
         label="Left aligned button"
-        color={ButtonColor.PRIMARY}
+        color="primary"
       >
         Left Aligned
       </Button>
       <Button
         isFullWidth
-        textAlign={ButtonTextAlign.CENTER}
+        textAlign="center"
         label="Center aligned button"
-        color={ButtonColor.PRIMARY}
+        color="primary"
       >
         Center Aligned
       </Button>
       <Button
         isFullWidth
-        textAlign={ButtonTextAlign.RIGHT}
+        textAlign="right"
         label="Right aligned button"
-        color={ButtonColor.PRIMARY}
+        color="primary"
       >
         Right Aligned
       </Button>
@@ -806,24 +829,20 @@ export const KeyboardNavigation: Story = {
         Use Tab to navigate between buttons, Enter or Space to activate them.
       </div>
       <div className="flex flex-wrap gap-4">
-        <Button label="First button in sequence" color={ButtonColor.PRIMARY}>
+        <Button label="First button in sequence" color="primary">
           First
         </Button>
         <Button
           label="Second button in sequence"
-          variant={ButtonVariant.OUTLINE}
-          color={ButtonColor.PRIMARY}
+          variant="outline"
+          color="primary"
         >
           Second
         </Button>
-        <Button
-          label="Fourth button (disabled)"
-          disabled
-          color={ButtonColor.PRIMARY}
-        >
+        <Button label="Fourth button (disabled)" disabled color="primary">
           Disabled
         </Button>
-        <Button label="Last button in sequence" color={ButtonColor.SUCCESS}>
+        <Button label="Last button in sequence" color="success">
           Last
         </Button>
       </div>
@@ -871,7 +890,7 @@ export const ARIAAttributes: Story = {
         <h3 className="mb-2 font-medium text-sm">Dropdown Button</h3>
         <Button
           label="Open menu options"
-          color={ButtonColor.PRIMARY}
+          color="primary"
           aria-haspopup="menu"
           aria-expanded={false}
           IconRight={ArrowRightIcon}
@@ -884,8 +903,8 @@ export const ARIAAttributes: Story = {
         <h3 className="mb-2 font-medium text-sm">Toggle Button</h3>
         <Button
           label="Toggle favorite status"
-          variant={ButtonVariant.OUTLINE}
-          color={ButtonColor.ERROR}
+          variant="outline"
+          color="error"
           aria-pressed={false}
           Icon={HeartIcon}
         >
@@ -898,7 +917,7 @@ export const ARIAAttributes: Story = {
         <div>
           <Button
             label="Delete selected items"
-            color={ButtonColor.ERROR}
+            color="error"
             aria-describedby="delete-help"
             Icon={TrashIcon}
           >
@@ -994,7 +1013,7 @@ export const FormButtons: Story = {
         <Button
           type="submit"
           label="Submit form"
-          color={ButtonColor.SUCCESS}
+          color="success"
           Icon={SaveIcon}
         >
           Submit
@@ -1002,16 +1021,16 @@ export const FormButtons: Story = {
         <Button
           type="reset"
           label="Reset form"
-          variant={ButtonVariant.OUTLINE}
-          color={ButtonColor.NEUTRAL}
+          variant="outline"
+          color="neutral"
         >
           Reset
         </Button>
         <Button
           type="button"
           label="Cancel form"
-          variant={ButtonVariant.OUTLINE}
-          color={ButtonColor.ERROR}
+          variant="outline"
+          color="error"
         >
           Cancel
         </Button>

@@ -3,7 +3,7 @@ import {
   useGetAffiliateInvitations,
   useGetAffiliates,
 } from '@intlayer/design-system/api';
-import { Badge, BadgeColor, BadgeVariant } from '@intlayer/design-system/badge';
+import { Badge } from '@intlayer/design-system/badge';
 import { Button } from '@intlayer/design-system/button';
 import { CopyToClipboard } from '@intlayer/design-system/copy-to-clipboard';
 import { SearchInput } from '@intlayer/design-system/input';
@@ -32,10 +32,10 @@ import { useSearchParamState } from '#hooks/useSearchParamState';
 import { AffiliatesAdminSkeleton } from './AffiliatesAdminSkeleton';
 
 const STATUS_COLOR: Record<AffiliateAPI['status'], BadgeColor> = {
-  pending: BadgeColor.NEUTRAL,
-  suspended: BadgeColor.ERROR,
-  onboarding: BadgeColor.SECONDARY,
-  active: BadgeColor.SUCCESS,
+  pending: 'neutral',
+  suspended: 'error',
+  onboarding: 'secondary',
+  active: 'success',
 };
 
 const INVITATIONS_PARAMS = { page: 1, pageSize: 100 };
@@ -105,9 +105,9 @@ const PendingInvitationsSection: FC = () => {
               </td>
               <td className="whitespace-nowrap px-4 py-3">
                 <Badge
-                  variant={BadgeVariant.OUTLINE}
+                  variant="outline"
                   className="opacity-80"
-                  color={BadgeColor.SECONDARY}
+                  color="secondary"
                 >
                   {content.invitationSent}
                 </Badge>
@@ -206,7 +206,7 @@ export const AffiliatesAdminPage: FC = () => {
       header: () => content.status,
       cell: ({ row }) => (
         <Badge
-          variant={BadgeVariant.OUTLINE}
+          variant="outline"
           className="capitalize opacity-80"
           color={STATUS_COLOR[row.original.status]}
         >

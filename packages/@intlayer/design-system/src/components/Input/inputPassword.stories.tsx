@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { InputSize, InputVariant } from './Input';
 import { InputPassword } from './InputPassword';
 
 const meta: Meta<typeof InputPassword> = {
@@ -15,14 +14,14 @@ const meta: Meta<typeof InputPassword> = {
     size: {
       description: 'Input size',
       control: { type: 'select' },
-      options: Object.values(InputSize),
-      defaultValue: InputSize.MD,
+      options: ['md', 'lg'],
+      defaultValue: 'md',
     },
     variant: {
       description: 'Visual style of the input',
       control: { type: 'select' },
-      options: Object.values(InputVariant),
-      defaultValue: InputVariant.DEFAULT,
+      options: ['default', 'invisible'],
+      defaultValue: 'default',
     },
     disabled: {
       description: 'Disable the input',
@@ -39,8 +38,8 @@ type Story = StoryObj<typeof InputPassword>;
 export const Default: Story = {
   args: {
     placeholder: 'Enter your password',
-    size: InputSize.MD,
-    variant: InputVariant.DEFAULT,
+    size: 'md',
+    variant: 'default',
     disabled: false,
   },
 };

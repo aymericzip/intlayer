@@ -5,7 +5,7 @@ import { EditorProvider } from './EditorProvider';
 import { IframeController } from './IframeController';
 
 type EditorProps = {
-  configuration?: IntlayerConfig;
+  configuration?: Pick<IntlayerConfig, 'editor' | 'internationalization'>;
   DictionariesLoader: FC;
 };
 

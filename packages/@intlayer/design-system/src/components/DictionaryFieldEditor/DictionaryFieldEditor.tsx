@@ -11,9 +11,9 @@ import type { Dictionary } from '@intlayer/types/dictionary';
 import { ArrowLeft } from 'lucide-react';
 import { type FC, useEffect, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { Button, ButtonColor, ButtonVariant } from '../Button';
+import { Button } from '../Button';
 import { LocaleSwitcherContentProvider } from '../LocaleSwitcherContentDropDown';
-import { TabSelector, TabSelectorColor } from '../TabSelector';
+import { TabSelector } from '../TabSelector';
 import { ContentEditor } from './ContentEditor';
 import { DictionaryDetailsForm } from './DictionaryDetails/DictionaryDetailsForm';
 import { JSONEditor } from './JSONEditor';
@@ -62,9 +62,9 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
         {showReturnButton && (
           <Button
             onClick={onClickDictionaryList}
-            variant={ButtonVariant.HOVERABLE}
+            variant="hoverable"
             className="z-10 mr-auto mb-6 ml-5 shrink-0"
-            color={ButtonColor.TEXT}
+            color="text"
             Icon={ArrowLeft}
             label={returnToDictionaryList.label.value}
           >
@@ -120,7 +120,7 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
                 </button>,
               ]}
               hoverable
-              color={TabSelectorColor.TEXT}
+              color="text"
             />
           </div>
           {/* Tab content — only active panel is mounted */}

@@ -3,13 +3,7 @@
 import { CopyCheckIcon, CopyIcon } from 'lucide-react';
 import { type FC, useEffect, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import {
-  Button,
-  ButtonColor,
-  type ButtonProps,
-  ButtonSize,
-  ButtonVariant,
-} from '../Button';
+import { Button, type ButtonProps } from '../Button';
 
 /**
  * Props for the CopyButton component
@@ -72,9 +66,9 @@ type CopyButtonProps = {
  * <CopyButton
  *   content="https://example.com/api/endpoint"
  *   label="Copy API endpoint"
- *   variant={ButtonVariant.OUTLINE}
- *   color={ButtonColor.PRIMARY}
- *   size={ButtonSize.ICON_MD}
+ *   variant="outline"
+ *   color="primary"
+ *   size="icon-md"
  * />
  * ```
  *
@@ -131,9 +125,9 @@ export const CopyButton: FC<CopyButtonProps> = ({ content, ...props }) => {
     <Button
       Icon={copied ? CopyCheckIcon : CopyIcon}
       onClick={handleCopy}
-      variant={ButtonVariant.HOVERABLE}
-      color={ButtonColor.TEXT}
-      size={ButtonSize.ICON_SM}
+      variant="hoverable"
+      color="text"
+      size="icon-sm"
       tabIndex={0}
       title={getAriaLabel()}
       {...props}

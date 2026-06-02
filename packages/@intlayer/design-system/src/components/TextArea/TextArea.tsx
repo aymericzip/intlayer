@@ -18,7 +18,7 @@ import { type InputVariant, inputVariants } from '../Input';
  * <TextArea
  *   value={message}
  *   onChange={handleChange}
- *   variant={InputVariant.ERROR}
+ *   variant="error"
  *   validationStyleEnabled={true}
  *   placeholder="Message is required"
  * />
@@ -27,7 +27,7 @@ import { type InputVariant, inputVariants } from '../Input';
  * <TextArea
  *   rows={6}
  *   cols={50}
- *   variant={InputVariant.DEFAULT}
+ *   variant="default"
  *   className="min-h-[120px]"
  *   placeholder="Write a detailed description..."
  * />
@@ -47,7 +47,7 @@ export type TextAreaProps = DetailedHTMLProps<
     'validationStyleEnabled' | 'variant'
   > & {
     /** Visual variant of the textarea (default, success, error, warning, etc.) */
-    variant?: InputVariant | `${InputVariant}`;
+    variant?: InputVariant;
   };
 
 /**
@@ -85,7 +85,7 @@ export type TextAreaProps = DetailedHTMLProps<
  * <TextArea
  *   value={content}
  *   onChange={(e) => setContent(e.target.value)}
- *   variant={hasError ? InputVariant.ERROR : InputVariant.SUCCESS}
+ *   variant={hasError ? 'error' : 'success'}
  *   validationStyleEnabled={true}
  *   placeholder="Minimum 10 characters required"
  *   className="min-h-[100px]"

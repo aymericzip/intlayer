@@ -1,14 +1,8 @@
 import { Website_Doc_Path } from '@intlayer/design-system/routes';
-import {
-  type FrequentQuestionKey,
-  getFrequentQuestion,
-  getFrequentQuestionMetadataBySlug,
-} from '@intlayer/docs';
 import { createFileRoute, redirect } from '@tanstack/react-router';
 import { defaultLocale, getLocalizedUrl, localeMap } from 'intlayer';
-import { parseMarkdown } from 'react-intlayer/markdown';
 import { DocumentationRender } from '~/components/DocPage/DocumentationRender';
-import { urlRenamer } from '~/utils/markdown';
+import { loadFaqPage } from '~/serverFunctions/faq';
 
 export const Route = createFileRoute('/{-$locale}/_docs/frequent-questions/$')({
   loader: async ({ params }) => {
@@ -16,32 +10,24 @@ export const Route = createFileRoute('/{-$locale}/_docs/frequent-questions/$')({
     const slugsStr = (params as any)['*'] || '';
     const slugs = slugsStr ? slugsStr.split('/') : [];
 
-    const frequentQuestionsData = await getFrequentQuestionMetadataBySlug(
-      slugs,
-      locale
-    );
-    const exactMatch = frequentQuestionsData.find(
-      (faq) => faq.slugs.join('/') === slugs.join('/')
-    );
+    const result = await loadFaqPage({ data: { locale, slugs } });
+    const { exactMatch, faqsData, content } = result;
 
     if (!exactMatch) {
-      if (frequentQuestionsData.length > 0) {
+      if (faqsData.length > 0) {
         throw redirect({
-          to: getLocalizedUrl(frequentQuestionsData[0].url, locale) as any,
+          to: getLocalizedUrl(faqsData[0].url, locale) as any,
         });
       }
       throw redirect({ to: getLocalizedUrl(Website_Doc_Path, locale) as any });
     }
 
-    const frequentQuestionData = exactMatch;
-    const file = await getFrequentQuestion(
-      frequentQuestionData?.docKey as FrequentQuestionKey,
-      locale
-    );
-    const blogContent = urlRenamer(file, locale);
-    const blogParsed = parseMarkdown(blogContent);
-
-    return { blogContent, blogParsed, frequentQuestionData, locale };
+    return {
+      blogContent: content!.blogContent,
+      blogParsed: content!.blogParsed,
+      frequentQuestionData: exactMatch,
+      locale,
+    };
   },
   head: ({ loaderData }) => {
     if (!loaderData?.frequentQuestionData) return {};

@@ -147,22 +147,16 @@ const Trigger: FC<TriggerProps> = ({
 /**
  * Horizontal alignment options for the dropdown panel relative to the trigger
  */
-export enum DropDownAlign {
-  /** Align panel to the start (left in LTR, right in RTL) of the trigger */
-  START = 'start',
-  /** Align panel to the end (right in LTR, left in RTL) of the trigger */
-  END = 'end',
-}
+export type DropDownAlign = 
+  | 'start' |
+  'end';
 
 /**
  * Vertical alignment options for the dropdown panel relative to the trigger
  */
-export enum DropDownYAlign {
-  /** Position panel below the trigger (default) */
-  BELOW = 'below',
-  /** Position panel above the trigger */
-  ABOVE = 'above',
-}
+export type DropDownYAlign = 
+  | 'below' |
+  'above';
 
 /**
  * Props for the DropDown.Panel component
@@ -199,13 +193,13 @@ export interface PanelProps extends HTMLAttributes<HTMLDivElement> {
 
   /**
    * Horizontal alignment of the panel relative to the trigger
-   * @default DropDownAlign.START
+   * @default 'start'
    */
   align?: DropDownAlign | `${DropDownAlign}`;
 
   /**
    * Vertical alignment of the panel relative to the trigger
-   * @default DropDownYAlign.BELOW
+   * @default 'below'
    */
   yAlign?: DropDownYAlign | `${DropDownYAlign}`;
 
@@ -241,12 +235,12 @@ export interface PanelProps extends HTMLAttributes<HTMLDivElement> {
  * </DropDown.Panel>
  *
  * // Right-aligned panel
- * <DropDown.Panel identifier="menu" align={DropDownAlign.END} isOverable>
+ * <DropDown.Panel identifier="menu" align="end" isOverable>
  *   <div>Right-aligned content</div>
  * </DropDown.Panel>
  *
  * // Panel opening above the trigger
- * <DropDown.Panel identifier="menu" yAlign={DropDownYAlign.ABOVE} isOverable>
+ * <DropDown.Panel identifier="menu" yAlign="above" isOverable>
  *   <div>Content appears above</div>
  * </DropDown.Panel>
  * ```
@@ -263,8 +257,8 @@ const Panel: FC<PanelProps> = ({
   isHidden = undefined,
   isOverable = false,
   isFocusable = false,
-  align = DropDownAlign.START,
-  yAlign = DropDownYAlign.BELOW,
+  align = 'start',
+  yAlign = 'below',
   identifier,
   className,
   smootherClassName,
@@ -274,11 +268,11 @@ const Panel: FC<PanelProps> = ({
     className={cn(
       'absolute z-100 min-w-full',
       /* Horizontal positioning */
-      align === DropDownAlign.START && 'left-0',
-      align === DropDownAlign.END && 'right-0',
+      align === 'start' && 'left-0',
+      align === 'end' && 'right-0',
       /* Vertical positioning */
-      yAlign === DropDownYAlign.BELOW && 'top-[calc(100%+0.5rem)]',
-      yAlign === DropDownYAlign.ABOVE && 'bottom-[calc(100%+0.5rem)]',
+      yAlign === 'below' && 'top-[calc(100%+0.5rem)]',
+      yAlign === 'above' && 'bottom-[calc(100%+0.5rem)]',
       className
     )}
     aria-hidden={isHidden}

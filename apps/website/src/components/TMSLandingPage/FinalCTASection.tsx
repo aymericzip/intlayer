@@ -41,8 +41,8 @@ export const FinalCTASection: FC = () => {
           >
             <Link
               href={App_Dashboard_Projects}
-              variant={LinkVariant.BUTTON}
-              color={LinkColor.TEXT_INVERSE}
+              variant="button"
+              color="text-inverse"
               label={finalCtaButton.value}
               size="xl"
               roundedSize="full"

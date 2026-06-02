@@ -1,6 +1,6 @@
 import type { TranslationMissionAPI } from '@intlayer/backend';
 import { useUpdateMissionStatus } from '@intlayer/design-system/api';
-import { Badge, BadgeColor, BadgeVariant } from '@intlayer/design-system/badge';
+import { Badge, type BadgeColor } from '@intlayer/design-system/badge';
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
 import { App_ReviewerMarketplace_Dashboard_Mission_Path } from '@intlayer/design-system/routes';
@@ -24,13 +24,13 @@ const STATUS_LABELS: Record<string, string> = {
 };
 
 const STATUS_BADGE_COLOR: Record<string, BadgeColor> = {
-  pending: BadgeColor.SECONDARY,
-  accepted: BadgeColor.SECONDARY,
-  in_progress: BadgeColor.SECONDARY,
-  reviewer_review: BadgeColor.NEUTRAL,
-  client_review: BadgeColor.NEUTRAL,
-  completed: BadgeColor.SUCCESS,
-  canceled: BadgeColor.NEUTRAL,
+  pending: 'secondary',
+  accepted: 'secondary',
+  in_progress: 'secondary',
+  reviewer_review: 'neutral',
+  client_review: 'neutral',
+  completed: 'success',
+  canceled: 'neutral',
 };
 
 export const ReviewerMissionList: FC<ReviewerMissionListProps> = ({
@@ -59,10 +59,8 @@ export const ReviewerMissionList: FC<ReviewerMissionListProps> = ({
             <div className="flex flex-1 flex-col gap-1">
               <div className="flex items-center gap-2">
                 <Badge
-                  variant={BadgeVariant.OUTLINE}
-                  color={
-                    STATUS_BADGE_COLOR[mission.status] ?? BadgeColor.NEUTRAL
-                  }
+                  variant="outline"
+                  color={STATUS_BADGE_COLOR[mission.status] ?? 'neutral'}
                 >
                   {STATUS_LABELS[mission.status] ?? mission.status}
                 </Badge>

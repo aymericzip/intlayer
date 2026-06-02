@@ -1,7 +1,7 @@
 import { Button } from '@intlayer/design-system/button';
 import { H2 } from '@intlayer/design-system/headers';
 import { Loader } from '@intlayer/design-system/loader';
-import { Modal, ModalSize } from '@intlayer/design-system/modal';
+import { Modal } from '@intlayer/design-system/modal';
 import { Check, CheckCircle2, Circle, X, XCircle } from 'lucide-react';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
@@ -103,7 +103,7 @@ export const ModalStatus: FC<ModalStatusProps> = ({
     <Modal
       isOpen={true}
       onClose={onClose}
-      size={ModalSize.MD}
+      size="md"
       hasCloseButton
       disableScroll={false}
       padding="md"

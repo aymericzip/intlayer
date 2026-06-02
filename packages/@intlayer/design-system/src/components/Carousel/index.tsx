@@ -1,11 +1,6 @@
 'use client';
 
-import {
-  Button,
-  ButtonColor,
-  ButtonSize,
-  ButtonVariant,
-} from '@components/Button';
+import { Button } from '@components/Button';
 import { KeyboardShortcut } from '@components/KeyboardShortcut';
 import { Popover } from '@components/Popover';
 import { cn } from '@utils/cn';
@@ -144,15 +139,15 @@ const CarouselIndicators: FC<CarouselIndicatorsProps> = ({
   return (
     <div
       className={cn(
-        'absolute bottom-0 left-1/2 z-50 flex -translate-x-1/2 flex-row items-center gap-2 pb-4',
+        'absolute bottom-0 left-1/2 z-50 flex -translate-x-1/2 flex-row items-center gap-2',
         className
       )}
       {...props}
     >
       <Popover identifier="carousel-prev">
         <Button
-          variant={ButtonVariant.HOVERABLE}
-          color={ButtonColor.NEUTRAL}
+          variant="hoverable"
+          color="neutral"
           label={previousSlide.value}
           roundedSize="full"
           onClick={(e) => {
@@ -160,7 +155,7 @@ const CarouselIndicators: FC<CarouselIndicatorsProps> = ({
             handlePrev();
           }}
           Icon={ChevronLeft}
-          size={ButtonSize.ICON_MD}
+          size="icon-md"
           disabled={selectedIndex === 0}
         />
 
@@ -200,8 +195,8 @@ const CarouselIndicators: FC<CarouselIndicatorsProps> = ({
 
       <Popover identifier="carousel-next">
         <Button
-          variant={ButtonVariant.HOVERABLE}
-          color={ButtonColor.NEUTRAL}
+          variant="hoverable"
+          color="neutral"
           roundedSize="full"
           label={nextSlide.value}
           onClick={(e) => {
@@ -209,7 +204,7 @@ const CarouselIndicators: FC<CarouselIndicatorsProps> = ({
             handleNext();
           }}
           Icon={ChevronRight}
-          size={ButtonSize.ICON_MD}
+          size="icon-md"
           disabled={selectedIndex === totalItems - 1}
         />
 
@@ -419,7 +414,7 @@ const CarouselRoot: FC<CarouselProps> = ({
       <div
         ref={containerRef}
         className={cn(
-          'relative flex w-full cursor-grab select-none items-center overflow-hidden outline-none transition-[height] duration-300 ease-in-out focus:outline-none focus:outline-none focus:ring-0 active:cursor-grabbing',
+          'relative flex w-full cursor-grab select-none items-center overflow-hidden pb-4 outline-none transition-[height] duration-300 ease-in-out focus:outline-none focus:outline-none focus:ring-0 active:cursor-grabbing',
           'max-w-[1400px]',
           className
         )}

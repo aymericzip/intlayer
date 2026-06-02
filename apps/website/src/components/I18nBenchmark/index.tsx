@@ -15,7 +15,7 @@ import {
   VerticalSwitchSelector,
 } from '@intlayer/design-system/switch-selector';
 import { SmartTable } from '@intlayer/design-system/table';
-import { TechLogo, TechLogoName } from '@intlayer/design-system/tech-logo';
+import { TechLogo } from '@intlayer/design-system/tech-logo';
 import { cn } from '@intlayer/design-system/utils';
 import { useQuery } from '@tanstack/react-query';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -265,7 +265,7 @@ export const I18nBenchmark = ({
                       content: (
                         <span className="flex items-center justify-center gap-1.5 px-1">
                           <TechLogo
-                            name={TechLogoName.Nextjs}
+                            name="nextjs"
                             className="size-3.5"
                           />
                           {nextjsLabel}
@@ -277,7 +277,7 @@ export const I18nBenchmark = ({
                       content: (
                         <span className="flex items-center justify-center gap-1.5 px-1">
                           <TechLogo
-                            name={TechLogoName.Tanstack}
+                            name="tanstack"
                             className="size-3.5"
                           />
                           {tanstackLabel}
@@ -289,7 +289,7 @@ export const I18nBenchmark = ({
                       content: (
                         <span className="flex items-center justify-center gap-1.5 px-1">
                           <TechLogo
-                            name={TechLogoName.Vue}
+                            name="vue"
                             className="size-3.5"
                           />
                           {vueLabel}
@@ -301,7 +301,7 @@ export const I18nBenchmark = ({
                       content: (
                         <span className="flex items-center justify-center gap-1.5 px-1">
                           <TechLogo
-                            name={TechLogoName.Solid}
+                            name="solid"
                             className="size-3.5"
                           />
                           {solidLabel}
@@ -313,7 +313,7 @@ export const I18nBenchmark = ({
                       content: (
                         <span className="flex items-center justify-center gap-1.5 px-1">
                           <TechLogo
-                            name={TechLogoName.Svelte}
+                            name="svelte"
                             className="size-3.5"
                           />
                           {svelteLabel}

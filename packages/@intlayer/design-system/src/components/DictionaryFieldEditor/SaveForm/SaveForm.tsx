@@ -6,9 +6,8 @@ import {
   usePushDictionaries,
   useWriteDictionary,
 } from '@api/index';
-import { ButtonColor, ButtonVariant } from '@components/Button';
 import { Form } from '@components/Form';
-import { Modal, ModalSize } from '@components/Modal';
+import { Modal } from '@components/Modal';
 import type { Dictionary as DistantDictionary } from '@intlayer/backend';
 import {
   useDictionariesRecordActions,
@@ -141,7 +140,7 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
       <Modal
         isOpen={isFormatAlertModalOpen}
         title={confirmation.title.value}
-        size={ModalSize.MD}
+        size="md"
         onClose={() => setIsFormatAlertModalOpen(false)}
         padding="md"
       >
@@ -152,9 +151,9 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
             <Form.Button
               label={confirmation.cancelButton.label.value}
               disabled={!isEdited || isLoading}
-              color={ButtonColor.TEXT}
+              color="text"
               className="max-md:w-full"
-              variant={ButtonVariant.OUTLINE}
+              variant="outline"
               onClick={() => setIsFormatAlertModalOpen(false)}
             >
               {confirmation.cancelButton.text}
@@ -163,7 +162,7 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
               label={confirmation.confirmButton.label.value}
               disabled={!isEdited || isLoading}
               Icon={Save}
-              color={ButtonColor.TEXT}
+              color="text"
               className="max-md:w-full"
               isLoading={isPushing}
               onClick={handleSaveDictionaryConfirmation}
@@ -181,8 +180,8 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
             <Form.Button
               label={deleteButton.label.value}
               Icon={Trash}
-              color={ButtonColor.ERROR}
-              variant={ButtonVariant.OUTLINE}
+              color="error"
+              variant="outline"
               className="max-md:w-full"
               isLoading={isDeleting}
               onClick={handleDeleteDictionary}
@@ -195,8 +194,8 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
             label={resetButton.label.value}
             disabled={!isEdited}
             Icon={RotateCcw}
-            variant={ButtonVariant.OUTLINE}
-            color={ButtonColor.TEXT}
+            variant="outline"
+            color="text"
             className="max-md:w-full"
             onClick={() => restoreEditedContent(dictionary.localId!)}
           >
@@ -208,10 +207,8 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
             label={downloadButton.label.value}
             disabled={!isEdited || isLoading}
             Icon={Download}
-            color={ButtonColor.TEXT}
-            variant={
-              isAuthenticated ? ButtonVariant.OUTLINE : ButtonVariant.DEFAULT
-            }
+            color="text"
+            variant={isAuthenticated ? 'outline' : 'default'}
             className="max-md:w-full"
             isLoading={isWriting}
             onClick={() => setIsFormatAlertModalOpen(true)}
@@ -224,7 +221,7 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
             label={publishButton.label.value}
             disabled={isLoading}
             Icon={ArrowUpFromLine}
-            color={ButtonColor.TEXT}
+            color="text"
             className="max-md:w-full"
             isLoading={isPushing}
             onClick={handlePushDictionary}

@@ -50,6 +50,7 @@ export type {
 };
 
 import {
+  content,
   /**
    * The editor configuration defined in the configuration.
    */
@@ -87,6 +88,7 @@ const configuration: Pick<
   editor,
   internationalization,
   log,
+  content,
   routing,
 };
 

@@ -8,21 +8,11 @@ import Fuse, { type IFuseOptions } from 'fuse.js';
 import { Check, Globe, MoveVertical } from 'lucide-react';
 import { type FC, useMemo, useRef, useState } from 'react';
 import { useIntlayer, useLocale } from 'react-intlayer';
-import {
-  Button,
-  ButtonColor,
-  ButtonSize,
-  ButtonTextAlign,
-  ButtonVariant,
-} from '../Button';
+import { Button } from '../Button';
 import { Container } from '../Container';
 import { DropDown, type PanelProps } from '../DropDown';
 import { Input } from '../Input';
-import {
-  SwitchSelector,
-  SwitchSelectorColor,
-  SwitchSelectorSize,
-} from '../SwitchSelector';
+import { SwitchSelector } from '../SwitchSelector';
 import { useLocaleSwitcherContent } from './LocaleSwitcherContentContext';
 
 export type LocaleSwitcherContentProps = {
@@ -167,8 +157,8 @@ export const LocaleSwitcherContent: FC<LocaleSwitcherContentProps> = ({
                 <SwitchSelector
                   defaultValue={seeAllLocales} // Ensure this uses the persisted state
                   onChange={handleSeeAllLocales}
-                  color={SwitchSelectorColor.TEXT}
-                  size={SwitchSelectorSize.SM}
+                  color="text"
+                  size="sm"
                   className="!w-60"
                   choices={[
                     {
@@ -213,11 +203,11 @@ export const LocaleSwitcherContent: FC<LocaleSwitcherContentProps> = ({
                             )
                           }
                           isActive={selectedLocales.includes(localeItem)}
-                          variant={ButtonVariant.HOVERABLE}
-                          color={ButtonColor.TEXT}
+                          variant="hoverable"
+                          color="text"
                           isFullWidth
-                          textAlign={ButtonTextAlign.LEFT}
-                          size={ButtonSize.SM}
+                          textAlign="left"
+                          size="sm"
                         >
                           <div className="flex flex-row items-center justify-between gap-3 px-2 py-1">
                             {isMultilingual && (

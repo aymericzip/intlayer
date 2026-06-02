@@ -13,7 +13,7 @@ import {
   Website_Doc_Environment_ViteAndSvelte_Path,
   Website_Doc_Environment_ViteAndVue_Path,
 } from '@intlayer/design-system/routes';
-import { TechLogo, TechLogoName } from '@intlayer/design-system/tech-logo';
+import { TechLogo, type TechLogoName } from '@intlayer/design-system/tech-logo';
 import { cn } from '@intlayer/design-system/utils';
 import {
   type MotionValue,
@@ -107,7 +107,7 @@ const LogoItem: FC<LogoItemProps> = ({
 
 const logosRow1 = [
   {
-    name: TechLogoName.Preact,
+    name: 'preact',
     route: Website_Doc_Environment_ViteAndPreact_Path,
     initialPost: {
       scale: 1.2,
@@ -117,7 +117,7 @@ const logosRow1 = [
     label: 'react',
   },
   {
-    name: TechLogoName.React,
+    name: 'react',
     route: Website_Doc_Environment_ViteAndReact_Path,
     initialPost: {
       scale: 1.5,
@@ -127,7 +127,7 @@ const logosRow1 = [
     label: 'preact',
   },
   {
-    name: TechLogoName.Solid,
+    name: 'solid',
     route: Website_Doc_Environment_ViteAndSolid_Path,
     initialPost: {
       scale: 1.2,
@@ -140,7 +140,7 @@ const logosRow1 = [
 
 const logosRow2 = [
   {
-    name: TechLogoName.Nuxt,
+    name: 'nuxt',
     route: Website_Doc_Environment_NuxtAndVue_Path,
     initialPost: {
       scale: 1.5,
@@ -150,7 +150,7 @@ const logosRow2 = [
     label: 'vue',
   },
   {
-    name: TechLogoName.Vue,
+    name: 'vue',
     route: Website_Doc_Environment_ViteAndVue_Path,
     initialPost: {
       scale: 1.3,
@@ -160,7 +160,7 @@ const logosRow2 = [
     label: 'nuxt',
   },
   {
-    name: TechLogoName.Svelte,
+    name: 'svelte',
     route: Website_Doc_Environment_ViteAndSvelte_Path,
     initialPost: {
       scale: 1.3,
@@ -173,7 +173,7 @@ const logosRow2 = [
 
 const logosRow3 = [
   {
-    name: TechLogoName.Nextjs,
+    name: 'nextjs',
     route: Website_Doc_Environment_NextJS_15_Path,
     initialPost: {
       scale: 1.5,
@@ -183,7 +183,7 @@ const logosRow3 = [
     label: 'nextjs',
   },
   {
-    name: TechLogoName.Angular,
+    name: 'angular',
     route: Website_Doc_Environment_Angular_Path,
     initialPost: {
       scale: 1.2,
@@ -193,7 +193,7 @@ const logosRow3 = [
     label: 'angular',
   },
   {
-    name: TechLogoName.Vite,
+    name: 'vite',
     route: Website_Doc_Environment_ViteAndReact_Path,
     initialPost: {
       scale: 1.5,

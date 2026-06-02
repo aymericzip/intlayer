@@ -1,10 +1,6 @@
 import { Button } from '@intlayer/design-system/button';
 import { Logo } from '@intlayer/design-system/logo';
-import {
-  PopoverStatic,
-  PopoverXAlign,
-  PopoverYAlign,
-} from '@intlayer/design-system/popover';
+import { PopoverStatic } from '@intlayer/design-system/popover';
 import { Download } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
@@ -92,8 +88,8 @@ export const AppDownloadButton = () => {
 
       <PopoverStatic.Detail
         identifier="app-download"
-        yAlign={PopoverYAlign.ABOVE}
-        xAlign={PopoverXAlign.START}
+        yAlign="above"
+        xAlign="start"
         isFocusable
         roundedSize="2xl"
         className="w-80 p-3"

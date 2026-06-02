@@ -52,7 +52,7 @@ export const ScannerSoftwareApplicationHeader: FC = () => {
   };
 
   return (
-    <Script
+    <script
       type="application/ld+json"
       dangerouslySetInnerHTML={{
         __html: JSON.stringify(softwareApplication),
@@ -60,5 +60,3 @@ export const ScannerSoftwareApplicationHeader: FC = () => {
     />
   );
 };
-
-const Script = (props: any) => <script {...props} />;

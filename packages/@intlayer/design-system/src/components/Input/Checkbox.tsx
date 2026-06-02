@@ -51,7 +51,7 @@ export const checkboxVariants = cva(
         light:
           'border-white/30 text-white ring-white/20 checked:border-white checked:bg-white',
         text: 'border-text/30 text-text ring-text/20 checked:border-text checked:bg-text',
-        ['text-inverse']:
+        'text-inverse':
           'border-text-inverse/30 text-text-inverse ring-text-inverse/20 checked:border-text-inverse checked:bg-text-inverse',
         dark: 'border-neutral-800/30 text-neutral-800 ring-neutral-800/20 checked:border-neutral-800 checked:bg-neutral-800',
         error:
@@ -75,25 +75,19 @@ export const checkboxVariants = cva(
   }
 );
 
-export enum CheckboxSize {
-  XS = 'xs',
-  SM = 'sm',
-  MD = 'md',
-  LG = 'lg',
-}
+export type CheckboxSize = 'xs' | 'sm' | 'md' | 'lg';
 
-export enum CheckboxColor {
-  PRIMARY = 'primary',
-  SECONDARY = 'secondary',
-  NEUTRAL = 'neutral',
-  LIGHT = 'light',
-  TEXT = 'text',
-  TEXT_INVERSE = 'text-inverse',
-  DARK = 'dark',
-  ERROR = 'error',
-  SUCCESS = 'success',
-  CUSTOM = 'custom',
-}
+export type CheckboxColor =
+  | 'primary'
+  | 'secondary'
+  | 'neutral'
+  | 'light'
+  | 'text'
+  | 'text-inverse'
+  | 'dark'
+  | 'error'
+  | 'success'
+  | 'custom';
 
 export type CheckboxProps = Omit<
   DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>,

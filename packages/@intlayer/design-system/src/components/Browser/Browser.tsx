@@ -409,7 +409,7 @@ export const Browser = ({
             variant="hoverable"
             size="icon-md"
             className="p-1!"
-            label={'content.reloadButtonTitle.value'}
+            label="content.reloadButtonTitle.value"
             Icon={RotateCw}
           />
 

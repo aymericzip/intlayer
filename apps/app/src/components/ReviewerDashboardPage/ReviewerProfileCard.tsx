@@ -2,7 +2,7 @@ import type { ReviewerProfileAPI, ReviewerReviewAPI } from '@intlayer/backend';
 import { useGetReviewerReviews, useSession } from '@intlayer/design-system/api';
 import { Container } from '@intlayer/design-system/container';
 import { MarkdownRenderer } from '@intlayer/design-system/mark-down-render';
-import { Modal, ModalSize } from '@intlayer/design-system/modal';
+import { Modal } from '@intlayer/design-system/modal';
 import { TechLogos } from '@intlayer/design-system/tech-logo';
 import { Clock, ExternalLink, Globe, Star } from 'lucide-react';
 import { type FC, useState } from 'react';
@@ -186,7 +186,7 @@ export const ReviewerProfileCard: FC<ReviewerProfileCardProps> = ({
             <Modal
               isOpen={isImageModalOpen}
               onClose={() => setIsImageModalOpen(false)}
-              size={ModalSize.UNSET}
+              size="unset"
               hasCloseButton
               isScrollable={false}
               padding="sm"

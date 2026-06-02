@@ -16,10 +16,6 @@ import { ScannerSoftwareApplicationHeader } from '~/structuredData/ScannerSoftwa
 import { WebsiteHeader } from '~/structuredData/WebsiteHeader';
 
 export const Route = createFileRoute('/{-$locale}/i18n-seo-scanner')({
-  loader: ({ params }) => {
-    const locale = params.locale ?? defaultLocale;
-    return { locale };
-  },
   head: ({ params }) => {
     const locale = params.locale ?? defaultLocale;
     const path = Website_Scanner;
@@ -29,18 +25,18 @@ export const Route = createFileRoute('/{-$locale}/i18n-seo-scanner')({
     );
 
     return {
-      title: String(title),
+      title,
       meta: [
-        { name: 'description', content: String(description) },
+        { name: 'description', content: description },
         {
           name: 'keywords',
           content: Array.isArray(keywords)
             ? keywords.join(', ')
-            : String(keywords || ''),
+            : keywords || '',
         },
         { property: 'og:url', content: getLocalizedUrl(path, locale) },
-        { property: 'og:title', content: String(title) },
-        { property: 'og:description', content: String(description) },
+        { property: 'og:title', content: title },
+        { property: 'og:description', content: description },
       ],
       links: [
         { rel: 'canonical', href: getLocalizedUrl(path, locale) },
@@ -76,11 +72,9 @@ function AuditContent() {
 }
 
 function AuditPageRoute() {
-  const { locale } = Route.useLoaderData();
-
   return (
     <PageLayout>
-      <WebsiteHeader key={locale} />
+      <WebsiteHeader />
       <OrganizationHeader />
       <ScannerSoftwareApplicationHeader />
       <AuditContent />

@@ -71,7 +71,7 @@ export const TranslateProductHeader: FC = () => {
   };
 
   return (
-    <Script
+    <script
       type="application/ld+json"
       dangerouslySetInnerHTML={{
         __html: JSON.stringify(product),
@@ -79,5 +79,3 @@ export const TranslateProductHeader: FC = () => {
     />
   );
 };
-
-const Script = (props: any) => <script {...props} />;

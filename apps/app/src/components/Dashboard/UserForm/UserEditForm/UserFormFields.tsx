@@ -1,4 +1,4 @@
-import { Badge, BadgeColor, BadgeVariant } from '@intlayer/design-system/badge';
+import { Badge } from '@intlayer/design-system/badge';
 import { Form } from '@intlayer/design-system/form';
 import { MultiSelect } from '@intlayer/design-system/select';
 import type { FC } from 'react';
@@ -60,8 +60,8 @@ export const UserFormFields: FC<UserFormFieldsProps> = ({
                     <span>{org.name}</span>
                     {isLastMember && (
                       <Badge
-                        variant={BadgeVariant.OUTLINE}
-                        color={BadgeColor.ERROR}
+                        variant="outline"
+                        color="error"
                         className="ml-2 text-xs"
                       >
                         {formLabels.lastMember}

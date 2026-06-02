@@ -10,7 +10,7 @@ import {
   useUpdateUser,
 } from '@intlayer/design-system/api';
 import { Avatar } from '@intlayer/design-system/avatar';
-import { Badge, BadgeColor, BadgeVariant } from '@intlayer/design-system/badge';
+import { Badge } from '@intlayer/design-system/badge';
 import { Button } from '@intlayer/design-system/button';
 import { CopyToClipboard } from '@intlayer/design-system/copy-to-clipboard';
 import { useSearch } from '@intlayer/design-system/hooks';
@@ -258,9 +258,9 @@ export const UsersAdminPageContent: FC = () => {
         const user = row.original as UserAPI;
         return (
           <Badge
-            variant={BadgeVariant.OUTLINE}
+            variant="outline"
             className="opacity-70"
-            color={user.emailVerified ? BadgeColor.SUCCESS : BadgeColor.ERROR}
+            color={user.emailVerified ? 'success' : 'error'}
           >
             {user.emailVerified ? statusLabels.verified : statusLabels.pending}
           </Badge>

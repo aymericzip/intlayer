@@ -6,7 +6,7 @@ import {
   useUpdateAffiliateStatus,
   useUpdatePromoCode,
 } from '@intlayer/design-system/api';
-import { Badge, BadgeColor, BadgeVariant } from '@intlayer/design-system/badge';
+import { Badge, type BadgeColor } from '@intlayer/design-system/badge';
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
 import { CopyToClipboard } from '@intlayer/design-system/copy-to-clipboard';
@@ -19,9 +19,10 @@ import { useIntlayer } from 'react-intlayer';
 import { Link } from '#components/Link/Link';
 
 const STATUS_COLOR: Record<AffiliateAPI['status'], BadgeColor> = {
-  pending: BadgeColor.NEUTRAL,
-  onboarding: BadgeColor.SECONDARY,
-  active: BadgeColor.SUCCESS,
+  pending: 'neutral',
+  onboarding: 'secondary',
+  active: 'success',
+  suspended: 'neutral',
 };
 
 const UserField: FC<{ userId: string }> = ({ userId }) => {
@@ -140,7 +141,7 @@ export const AffiliateAdminDetailPage: FC<{ affiliateId: string }> = ({
 
           <Field label={status.value}>
             <Badge
-              variant={BadgeVariant.OUTLINE}
+              variant="outline"
               className="capitalize"
               color={STATUS_COLOR[affiliate.status]}
             >
@@ -280,10 +281,8 @@ export const AffiliateAdminDetailPage: FC<{ affiliateId: string }> = ({
                       </span>
                     </CopyToClipboard>
                     <Badge
-                      variant={BadgeVariant.OUTLINE}
-                      color={
-                        promo.active ? BadgeColor.SUCCESS : BadgeColor.NEUTRAL
-                      }
+                      variant="outline"
+                      color={promo.active ? 'success' : 'neutral'}
                       className="text-xs"
                     >
                       {promo.discountType === 'percentage'

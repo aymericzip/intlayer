@@ -9,15 +9,15 @@ import {
   type HTMLAttributes,
   type InputEvent,
   type KeyboardEvent,
-  type MutableRefObject,
   type Ref,
+  type RefObject,
   useEffect,
   useImperativeHandle,
   useLayoutEffect,
   useRef,
   useState,
 } from 'react';
-import { type InputVariant, inputVariants } from '../Input';
+import { inputVariants } from '../Input';
 
 type CaretPosition = {
   line: number;
@@ -667,7 +667,7 @@ export const ContentEditableTextArea: FC<ContentEditableTextAreaProps> = ({
 
   const setRef = (el: HTMLDivElement | null) => {
     elRef.current = el;
-    (containerRef as MutableRefObject<HTMLDivElement | null>).current = el;
+    (containerRef as RefObject<HTMLDivElement | null>).current = el;
   };
 
   useImperativeHandle(ref, () => ({

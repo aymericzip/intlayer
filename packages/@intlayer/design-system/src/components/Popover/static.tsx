@@ -30,24 +30,12 @@ export type PopoverType = FC<PopoverProps> & {
 /**
  * Horizontal alignment options for popover positioning
  */
-export enum PopoverXAlign {
-  /** Align popover to start (left) of trigger */
-  START = 'start',
-  /** Align popover to center of trigger */
-  CENTER = 'center',
-  /** Align popover to end (right) of trigger */
-  END = 'end',
-}
+export type PopoverXAlign = 'start' | 'center' | 'end';
 
 /**
  * Vertical alignment options for popover positioning
  */
-export enum PopoverYAlign {
-  /** Position popover below the trigger */
-  BELOW = 'bellow',
-  /** Position popover above the trigger */
-  ABOVE = 'above',
-}
+export type PopoverYAlign = 'below' | 'above';
 
 /**
  * Popover Component
@@ -107,8 +95,8 @@ export enum PopoverYAlign {
  *
  *   <Popover.Detail
  *     identifier="positioned"
- *     xAlign={PopoverXAlign.END}
- *     yAlign={PopoverYAlign.ABOVE}
+ *     xAlign="end"
+ *     yAlign="above"
  *     displayArrow={false}
  *   >
  *     <div>Above and right-aligned</div>
@@ -218,7 +206,7 @@ export type DetailProps = ComponentProps<typeof Container> & {
  * <Popover.Detail
  * identifier="context-menu"
  * displayArrow={false}
- * xAlign={PopoverXAlign.END}
+ * xAlign="end"
  * >
  * <ul className="py-2">
  * <li><button className="w-full px-4 py-2">Edit</button></li>
@@ -235,8 +223,8 @@ const Detail: FC<DetailProps> = ({
   isHidden = undefined,
   isOverable = true,
   isFocusable = false,
-  xAlign = PopoverXAlign.START,
-  yAlign = PopoverYAlign.BELOW,
+  xAlign = 'start',
+  yAlign = 'below',
   identifier,
   className,
   displayArrow = true,
@@ -255,7 +243,7 @@ const Detail: FC<DetailProps> = ({
       xAlign === 'start' && 'left-0',
       xAlign === 'center' && 'left-1/2 -translate-x-1/2',
       xAlign === 'end' && 'right-0',
-      yAlign === 'bellow' && 'top-[calc(100%+1rem)]',
+      yAlign === 'below' && 'top-[calc(100%+1rem)]',
       yAlign === 'above' && 'bottom-[calc(100%+1rem)]',
 
       /* Arrow indicator */
@@ -271,7 +259,7 @@ const Detail: FC<DetailProps> = ({
 
       /* Arrow pointing up (when popover is below trigger) */
       displayArrow &&
-        yAlign === 'bellow' &&
+        yAlign === 'below' &&
         'before:-top-[10px] before:border-r-[10px] before:border-r-transparent before:border-b-[10px] before:border-b-neutral before:border-l-[10px] before:border-l-transparent',
 
       /* Arrow pointing down (when popover is above trigger) */

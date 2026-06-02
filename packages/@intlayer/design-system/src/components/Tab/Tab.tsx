@@ -12,7 +12,7 @@ import {
   type ReactNode,
   useState,
 } from 'react';
-import { TabSelector, TabSelectorColor } from '../TabSelector';
+import { TabSelector } from '../TabSelector';
 import { useTabContext } from './TabContext';
 
 // Context for managing tab state
@@ -179,7 +179,7 @@ const TabComponent = ({
               );
             })}
             hoverable
-            color={TabSelectorColor.TEXT}
+            color="text"
           />
         </div>
         {/* Tab Content */}

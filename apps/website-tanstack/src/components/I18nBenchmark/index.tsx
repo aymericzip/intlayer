@@ -12,7 +12,7 @@ import {
   VerticalSwitchSelector,
 } from '@intlayer/design-system/switch-selector';
 import { SmartTable } from '@intlayer/design-system/table';
-import { TechLogo, TechLogoName } from '@intlayer/design-system/tech-logo';
+import { TechLogo } from '@intlayer/design-system/tech-logo';
 import { cn } from '@intlayer/design-system/utils';
 import { useQuery } from '@tanstack/react-query';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -262,10 +262,7 @@ export const I18nBenchmark = ({
                     {
                       content: (
                         <span className="flex items-center justify-center gap-1.5 px-1">
-                          <TechLogo
-                            name={TechLogoName.Nextjs}
-                            className="size-3.5"
-                          />
+                          <TechLogo name="nextjs" className="size-3.5" />
                           {nextjsLabel}
                         </span>
                       ) as any,
@@ -274,10 +271,7 @@ export const I18nBenchmark = ({
                     {
                       content: (
                         <span className="flex items-center justify-center gap-1.5 px-1">
-                          <TechLogo
-                            name={TechLogoName.Tanstack}
-                            className="size-3.5"
-                          />
+                          <TechLogo name="tanstack" className="size-3.5" />
                           {tanstackLabel}
                         </span>
                       ) as any,
@@ -286,10 +280,7 @@ export const I18nBenchmark = ({
                     {
                       content: (
                         <span className="flex items-center justify-center gap-1.5 px-1">
-                          <TechLogo
-                            name={TechLogoName.Vue}
-                            className="size-3.5"
-                          />
+                          <TechLogo name="vue" className="size-3.5" />
                           {vueLabel}
                         </span>
                       ) as any,
@@ -298,10 +289,7 @@ export const I18nBenchmark = ({
                     {
                       content: (
                         <span className="flex items-center justify-center gap-1.5 px-1">
-                          <TechLogo
-                            name={TechLogoName.Solid}
-                            className="size-3.5"
-                          />
+                          <TechLogo name="solid" className="size-3.5" />
                           {solidLabel}
                         </span>
                       ) as any,
@@ -310,10 +298,7 @@ export const I18nBenchmark = ({
                     {
                       content: (
                         <span className="flex items-center justify-center gap-1.5 px-1">
-                          <TechLogo
-                            name={TechLogoName.Svelte}
-                            className="size-3.5"
-                          />
+                          <TechLogo name="svelte" className="size-3.5" />
                           {svelteLabel}
                         </span>
                       ) as any,

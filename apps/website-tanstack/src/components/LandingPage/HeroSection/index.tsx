@@ -1,19 +1,13 @@
-import {
-  Button,
-  ButtonColor,
-  ButtonSize,
-  ButtonVariant,
-} from '@intlayer/design-system/button';
+import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
 import { useCopyToClipboard } from '@intlayer/design-system/copy-to-clipboard';
 import { CodeBlock } from '@intlayer/design-system/ide';
-import { LinkColor, LinkVariant } from '@intlayer/design-system/link';
 import {
   External_Github,
   Website_Doc_Path,
   Website_ReleasesV8,
 } from '@intlayer/design-system/routes';
-import { Tag, TagBorder, TagColor, TagSize } from '@intlayer/design-system/tag';
+import { Tag } from '@intlayer/design-system/tag';
 import { motion } from 'framer-motion';
 import { ArrowRight, Check, Copy } from 'lucide-react';
 import { useTheme } from 'next-themes';
@@ -59,16 +53,16 @@ export const HeroSection: FC = () => {
               className="mb-8 flex items-center justify-center gap-2"
             >
               <Tag
-                size={TagSize.SM}
-                border={TagBorder.WITH}
-                color={TagColor.NEUTRAL}
+                size="sm"
+                border="with"
+                color="neutral"
                 className="rounded-full border font-medium text-sm text-text"
               >
                 {whatsNew}
               </Tag>
               <Link
                 to={Website_ReleasesV8}
-                color={LinkColor.NEUTRAL}
+                color="neutral"
                 label={whatsNewLabel.value}
               >
                 <span className="flex items-center gap-1 font-medium text-neutral-500 text-sm sm:text-sm dark:text-neutral-400">
@@ -118,9 +112,9 @@ export const HeroSection: FC = () => {
               npm install intlayer
             </CodeBlock>
             <Button
-              variant={ButtonVariant.HOVERABLE}
-              color={ButtonColor.NEUTRAL}
-              size={ButtonSize.ICON_XL}
+              variant="hoverable"
+              color="neutral"
+              size="icon-xl"
               onClick={copy}
               Icon={isCopied ? Check : Copy}
               label={copyButton.value}
@@ -135,8 +129,8 @@ export const HeroSection: FC = () => {
           >
             <Link
               to={External_Github}
-              variant={LinkVariant.BUTTON_OUTLINED}
-              color={LinkColor.TEXT}
+              variant="button-outlined"
+              color="text"
               label={supportButton.value}
               isExternalLink={false}
               size="lg"
@@ -147,8 +141,8 @@ export const HeroSection: FC = () => {
 
             <Link
               to={Website_Doc_Path}
-              variant={LinkVariant.BUTTON}
-              color={LinkColor.TEXT}
+              variant="button"
+              color="text"
               label={getStartedButton.value}
               size="xl"
               roundedSize="full"

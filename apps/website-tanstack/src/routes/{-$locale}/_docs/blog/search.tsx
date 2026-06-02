@@ -7,12 +7,14 @@ import { Suspense } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { BlogPageLayout } from '~/components/BlogPage/BlogPageLayout';
 import { SearchView } from '~/components/DocPage/Search/SearchView';
+import { loadBlogNavData } from '~/serverFunctions/blog';
 import { WebsiteHeader } from '~/structuredData/WebsiteHeader';
 
 export const Route = createFileRoute('/{-$locale}/_docs/blog/search')({
-  loader: ({ params }) => {
+  loader: async ({ params }) => {
     const locale = params.locale ?? defaultLocale;
-    return { locale };
+    const navData = await loadBlogNavData({ data: { locale } });
+    return { locale, navData };
   },
   head: () => ({
     title: 'Search Blog | Intlayer',
@@ -21,11 +23,15 @@ export const Route = createFileRoute('/{-$locale}/_docs/blog/search')({
 });
 
 function BlogSearchPage() {
-  const { locale } = Route.useLoaderData();
+  const { locale, navData } = Route.useLoaderData();
   const { title } = useIntlayer('blog-search-page');
 
   return (
-    <BlogPageLayout locale={locale} displayAsideNavigation={false}>
+    <BlogPageLayout
+      blogData={navData}
+      locale={locale}
+      displayAsideNavigation={false}
+    >
       <WebsiteHeader />
       <H1 className="mt-10 font-bold text-4xl">{title}</H1>
       <div className="flex flex-1 flex-col items-baseline gap-10 p-10 md:mt-[10vh]">

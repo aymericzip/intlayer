@@ -1,4 +1,4 @@
-import { Popover, PopoverXAlign } from '@components/Popover';
+import { Popover } from '@components/Popover';
 import { MoveDiagonal } from 'lucide-react';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
@@ -28,7 +28,7 @@ export const ExpandButton: FC<ExpandButtonProps> = ({ setIsModalOpen }) => {
           <Popover.Detail
             identifier="expand"
             className="flex min-w-64 flex-col gap-3 p-3 text-sm"
-            xAlign={PopoverXAlign.END}
+            xAlign="end"
           >
             <strong>{modalContent.title}</strong>
             <p className="text-neutral">{modalContent.description}</p>

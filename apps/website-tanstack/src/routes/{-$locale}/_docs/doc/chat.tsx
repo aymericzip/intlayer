@@ -5,12 +5,14 @@ import { defaultLocale } from 'intlayer';
 import { useIntlayer } from 'react-intlayer';
 import { ChatBot } from '~/components/ChatBot';
 import { DocPageLayout } from '~/components/DocPage/DocPageLayout';
+import { loadNavData } from '~/serverFunctions/docs';
 import { WebsiteHeader } from '~/structuredData/WebsiteHeader';
 
 export const Route = createFileRoute('/{-$locale}/_docs/doc/chat')({
-  loader: ({ params }) => {
+  loader: async ({ params }) => {
     const locale = params.locale ?? defaultLocale;
-    return { locale };
+    const navData = await loadNavData({ data: { locale } });
+    return { locale, navData };
   },
   head: () => ({
     title: 'Chat with Documentation | Intlayer',
@@ -19,11 +21,15 @@ export const Route = createFileRoute('/{-$locale}/_docs/doc/chat')({
 });
 
 function DocumentationChatPage() {
-  const { locale } = Route.useLoaderData();
+  const { locale, navData } = Route.useLoaderData();
   const { title } = useIntlayer('doc-chat-page');
 
   return (
-    <DocPageLayout locale={locale} displayAsideNavigation={false}>
+    <DocPageLayout
+      docData={navData}
+      locale={locale}
+      displayAsideNavigation={false}
+    >
       <WebsiteHeader />
       <div className="flex size-full flex-1 flex-col gap-20 p-10">
         <H1>{title}</H1>

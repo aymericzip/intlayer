@@ -3,7 +3,6 @@
 import { cn } from '@utils/cn';
 import { Check, X } from 'lucide-react';
 import { type ChangeEventHandler, type FC, useState } from 'react';
-import { InputVariant } from '../Input';
 import {
   AutoSizedTextArea,
   type AutoSizedTextAreaProps,
@@ -90,7 +89,7 @@ export const ContentEditor: FC<ContentEditorProps> = ({
         onChange={handleOnContentChange}
         onKeyDown={handleKeyDown}
         key={resetIncrementor}
-        variant={InputVariant.INVISIBLE}
+        variant="invisible"
         defaultValue={children}
         aria-label="Editable content"
         aria-describedby={isEdited ? 'content-editor-actions' : undefined}

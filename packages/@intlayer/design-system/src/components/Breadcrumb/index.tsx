@@ -7,8 +7,8 @@ import { getIntlayer } from 'intlayer';
 import { ChevronRightIcon } from 'lucide-react';
 import { type FC, Fragment, type HTMLAttributes, type ReactNode } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { Button, type ButtonProps, ButtonVariant } from '../Button';
-import { Link, LinkColor } from '../Link';
+import { Button, type ButtonProps } from '../Button';
+import { Link, type LinkColor } from '../Link';
 
 /**
  * Props for LinkLink sub-component that renders breadcrumb items as links
@@ -54,16 +54,16 @@ const getColorClass = (color?: LinkColor | `${LinkColor}`): string => {
   if (!color) return '';
 
   const colorMap: Record<LinkColor, string> = {
-    [LinkColor.PRIMARY]: 'text-primary',
-    [LinkColor.SECONDARY]: 'text-secondary',
-    [LinkColor.NEUTRAL]: 'text-neutral',
-    [LinkColor.LIGHT]: 'text-white',
-    [LinkColor.DARK]: 'text-neutral-800',
-    [LinkColor.TEXT]: 'text-text',
-    [LinkColor.TEXT_INVERSE]: 'text-text-opposite',
-    [LinkColor.ERROR]: 'text-error',
-    [LinkColor.SUCCESS]: 'text-success',
-    [LinkColor.CUSTOM]: '',
+    primary: 'text-primary',
+    secondary: 'text-secondary',
+    neutral: 'text-neutral',
+    light: 'text-white',
+    dark: 'text-neutral-800',
+    text: 'text-text',
+    'text-inverse': 'text-text-opposite',
+    error: 'text-error',
+    success: 'text-success',
+    custom: '',
   };
 
   return colorMap[color as LinkColor] || '';
@@ -162,7 +162,7 @@ const ButtonLink: FC<ButtonButtonProps> = ({
     <>
       <Button
         onClick={onClick}
-        variant={ButtonVariant.LINK}
+        variant="link"
         label={`${linkLabel} ${text}`}
         color={color}
         itemProp="item"
@@ -241,7 +241,7 @@ export type BreadcrumbProps = {
   links: BreadcrumbLink[];
   /**
    * Color scheme for breadcrumb links
-   * @default LinkColor.TEXT
+   * @default "text"
    */
   color?: LinkColor | `${LinkColor}`;
   /**
@@ -304,7 +304,7 @@ export type BreadcrumbProps = {
 export const Breadcrumb: FC<BreadcrumbProps> = ({
   links,
   className,
-  color = LinkColor.TEXT,
+  color = 'text',
   locale,
   elementType = 'page',
   separator = <ChevronRightIcon size={10} />,

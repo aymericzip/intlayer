@@ -2,13 +2,7 @@
 
 import { useAuditContentDeclarationField } from '@api/index';
 import { Accordion } from '@components/Accordion';
-import {
-  Button,
-  ButtonColor,
-  ButtonSize,
-  ButtonTextAlign,
-  ButtonVariant,
-} from '@components/Button';
+import { Button } from '@components/Button';
 import { Container } from '@components/Container';
 import {
   ContentEditorInput as ContentEditorInputBase,
@@ -19,16 +13,13 @@ import {
   type ContentEditorTextAreaProps as ContentEditorTextAreaPropsBase,
 } from '@components/ContentEditor/ContentEditorTextArea';
 import { renameKey } from '@components/DictionaryFieldEditor/ContentEditorView/object';
-import { InputVariant } from '@components/Input';
 import { Label } from '@components/Label';
 import { Loader } from '@components/Loader';
 import { useLocaleSwitcherContent } from '@components/LocaleSwitcherContentDropDown';
 import {
   SwitchSelector,
   type SwitchSelectorChoices,
-  SwitchSelectorColor,
   type SwitchSelectorProps,
-  SwitchSelectorSize,
 } from '@components/SwitchSelector';
 import { camelCaseToSentence } from '@intlayer/config/client';
 import {
@@ -113,7 +104,7 @@ const ContentEditorTextArea: FC<ContentEditorTextAreaProps> = ({
 
   return (
     <ContentEditorTextAreaBase
-      variant={InputVariant.DEFAULT}
+      variant="default"
       onContentChange={(newValue) =>
         addEditedContent(dictionary.localId!, newValue, keyPath)
       }
@@ -121,9 +112,9 @@ const ContentEditorTextArea: FC<ContentEditorTextAreaProps> = ({
         <Button
           Icon={WandSparkles}
           label="Audit"
-          variant={ButtonVariant.HOVERABLE}
-          size={ButtonSize.ICON_SM}
-          color={ButtonColor.TEXT}
+          variant="hoverable"
+          size="icon-sm"
+          color="text"
           className="cursor-pointer hover:scale-110"
           isLoading={isAuditing}
           onClick={() => {
@@ -184,7 +175,7 @@ const ContentEditorInput: FC<ContentEditorInputProps> = ({
 
   return (
     <ContentEditorInputBase
-      variant={InputVariant.DEFAULT}
+      variant="default"
       onContentChange={(newValue) =>
         addEditedContent(dictionary.localId!, newValue, keyPath)
       }
@@ -223,8 +214,8 @@ const ContentEditorToggle: FC<ContentEditorToggleProps> = ({
       onChange={(value) =>
         addEditedContent(dictionary.localId!, value, keyPath)
       }
-      color={SwitchSelectorColor.TEXT}
-      size={SwitchSelectorSize.SM}
+      color="text"
+      size="sm"
       {...props}
     />
   );
@@ -392,9 +383,9 @@ const EnumerationTextEditor: FC<TextEditorProps> = ({
 
       <Button
         label={addNewEnumeration.label.value}
-        variant={ButtonVariant.HOVERABLE}
-        color={ButtonColor.NEUTRAL}
-        textAlign={ButtonTextAlign.LEFT}
+        variant="hoverable"
+        color="neutral"
+        textAlign="left"
         isFullWidth
         onClick={() =>
           addEditedContent(
@@ -624,9 +615,9 @@ const ArrayTextEditor: FC<TextEditorProps> = ({
       </table>
       <Button
         label={addNewElement.label.value}
-        variant={ButtonVariant.HOVERABLE}
-        color={ButtonColor.NEUTRAL}
-        textAlign={ButtonTextAlign.LEFT}
+        variant="hoverable"
+        color="neutral"
+        textAlign="left"
         isFullWidth
         onClick={() => {
           const newKeyPath: KeyPath[] = [
@@ -758,8 +749,8 @@ const HtmlTextEditor: FC<TextEditorProps> = ({
         choices={toggleContent}
         value={mode}
         onChange={setMode}
-        color={SwitchSelectorColor.TEXT}
-        size={SwitchSelectorSize.SM}
+        color="text"
+        size="sm"
         className="ml-auto"
       />
 
@@ -806,8 +797,8 @@ const MarkdownTextEditor: FC<TextEditorProps> = ({
         choices={toggleContent}
         value={mode}
         onChange={setMode}
-        color={SwitchSelectorColor.TEXT}
-        size={SwitchSelectorSize.SM}
+        color="text"
+        size="sm"
         className="ml-auto"
       />
 
@@ -893,7 +884,7 @@ const NestedTextEditor: FC<TextEditorProps> = ({
       <ContentEditorInputBase
         aria-label="Edit field"
         type="text"
-        variant={InputVariant.DEFAULT}
+        variant="default"
         {...props}
         onContentChange={(newValue) => {
           addEditedContent(
@@ -913,7 +904,7 @@ const NestedTextEditor: FC<TextEditorProps> = ({
       <ContentEditorInputBase
         aria-label="Edit field"
         type="text"
-        variant={InputVariant.DEFAULT}
+        variant="default"
         {...props}
         onContentChange={(newValue) => {
           addEditedContent(
@@ -1104,7 +1095,7 @@ export const TextEditor = memo<TextEditorProps>(function TextEditor({
           renderSection(section as string)
         ) : (
           <ContentEditorTextArea
-            variant={InputVariant.DEFAULT}
+            variant="default"
             aria-label="Edit field"
             keyPath={keyPath}
             dictionary={dictionary}

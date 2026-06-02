@@ -1,8 +1,4 @@
-import {
-  Button,
-  ButtonColor,
-  ButtonVariant,
-} from '@intlayer/design-system/button';
+import { Button } from '@intlayer/design-system/button';
 import { Checkbox, SearchInput } from '@intlayer/design-system/input';
 import Fuse from 'fuse.js';
 import { type FC, useMemo, useState } from 'react';
@@ -97,8 +93,8 @@ export const UrlDiscoveryList: FC<UrlDiscoveryListProps> = ({
         </div>
         <Button
           onClick={onCancel}
-          variant={ButtonVariant.OUTLINE}
-          color={ButtonColor.TEXT}
+          variant="outline"
+          color="text"
           label={cancelButton.value}
         >
           {cancelButton}
@@ -164,7 +160,7 @@ export const UrlDiscoveryList: FC<UrlDiscoveryListProps> = ({
         <Button
           onClick={() => onStart([...selected])}
           disabled={isLoading || noneSelected}
-          variant={ButtonVariant.DEFAULT}
+          variant="default"
           color="text"
           label={startButton.value}
         >

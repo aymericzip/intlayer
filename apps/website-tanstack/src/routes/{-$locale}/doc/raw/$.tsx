@@ -1,45 +1,6 @@
-import {
-  type DocMetadata,
-  getDoc,
-  getDocMetadata,
-  getDocMetadataBySlug,
-  getDocsKeys,
-} from '@intlayer/docs';
 import { createFileRoute } from '@tanstack/react-router';
 import { defaultLocale } from 'intlayer';
-
-async function findDocMetadata(
-  slugs: string | string[],
-  locale: string
-): Promise<DocMetadata | undefined> {
-  const slugsArray = Array.isArray(slugs) ? slugs : [slugs];
-  const normalizedSlugs = ['doc', ...slugsArray];
-
-  try {
-    const matches = await getDocMetadataBySlug(normalizedSlugs, locale, true);
-    if (matches && matches.length > 0) return matches[0];
-  } catch (error) {
-    console.error('Error in getDocMetadataBySlug:', error);
-  }
-
-  const pathFromSlugs = slugsArray.join('/');
-  const potentialDocKey = `./docs/en/${pathFromSlugs}.md`;
-  const docsKeys = getDocsKeys();
-
-  if (docsKeys.includes(potentialDocKey as any)) {
-    return await getDocMetadata(potentialDocKey as any, locale);
-  }
-
-  const lowerPotentialKey = potentialDocKey.toLowerCase();
-  const matchedKey = docsKeys.find(
-    (key) => key.toLowerCase() === lowerPotentialKey
-  );
-  if (matchedKey) {
-    return await getDocMetadata(matchedKey as any, locale);
-  }
-
-  return undefined;
-}
+import { loadDocRaw } from '~/serverFunctions/docs';
 
 export const Route = createFileRoute('/{-$locale}/doc/raw/$')({
   server: {
@@ -50,16 +11,16 @@ export const Route = createFileRoute('/{-$locale}/doc/raw/$')({
           const slugsStr = (params as any)['*'] || '';
           const slugs = slugsStr ? slugsStr.split('/') : [];
 
-          const fileMetadata = await findDocMetadata(slugs, locale);
+          const result = await loadDocRaw({ data: { locale, slugs } });
 
-          if (!fileMetadata) {
+          if (!result) {
             return new Response(
               `Not found.\nDebug: slugs=${JSON.stringify(slugs)}`,
               { status: 404 }
             );
           }
 
-          const file = await getDoc(fileMetadata.docKey as any, locale);
+          const { metadata, file } = result;
 
           const url = new URL(request.url);
           const format = (url.searchParams.get('format') || '').toLowerCase();
@@ -88,7 +49,7 @@ export const Route = createFileRoute('/{-$locale}/doc/raw/$')({
 
           if (wantsHtml) {
             const htmlContent = `<!DOCTYPE html><html lang="${locale}"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>${
-              (fileMetadata as any).title || 'Documentation'
+              (metadata as any).title || 'Documentation'
             }</title><meta name="robots" content="all"></head><body><pre style="white-space: pre-wrap; font-family: monospace; line-height: 1.5; padding: 20px;">${file
               .replace(/&/g, '&amp;')
               .replace(/</g, '&lt;')

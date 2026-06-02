@@ -22,12 +22,12 @@ import type { FC, HTMLAttributes, PropsWithChildren } from 'react';
  * <Tag>Default Tag</Tag>
  *
  * // Success tag with border
- * <Tag color={TagColor.SUCCESS} border={TagBorder.WITH}>
+ * <Tag color="success" border="with">
  *   Success Status
  * </Tag>
  *
  * // Large warning tag
- * <Tag color={TagColor.WARNING} size={TagSize.LG}>
+ * <Tag color="warning" size="lg">
  *   Important Warning
  * </Tag>
  * ```
@@ -53,25 +53,24 @@ type TagProps = PropsWithChildren<VariantProps<typeof containerVariants>> &
  * @example
  * ```tsx
  * // Sharp corners
- * <Tag roundedSize={TagRoundedSize.NONE}>Sharp Tag</Tag>
+ * <Tag roundedSize="none">Sharp Tag</Tag>
  *
  * // Pill-shaped tag
- * <Tag roundedSize={TagRoundedSize.FULL}>Pill Tag</Tag>
+ * <Tag roundedSize="full">Pill Tag</Tag>
  *
  * // Medium rounded corners
- * <Tag roundedSize={TagRoundedSize.MD}>Rounded Tag</Tag>
+ * <Tag roundedSize="md">Rounded Tag</Tag>
  * ```
  */
-export enum TagRoundedSize {
-  NONE = 'none',
-  SM = 'sm',
-  MD = 'md',
-  LG = 'lg',
-  XL = 'xl',
-  XXL = '2xl',
-  XXXL = '3xl',
-  FULL = 'full',
-}
+export type TagRoundedSize = 
+  | 'none' |
+  'sm' |
+  'md' |
+  'lg' |
+  'xl' |
+  '2xl' |
+  '3xl' |
+  'full';
 
 /**
  * Enumeration for tag color themes
@@ -89,34 +88,33 @@ export enum TagRoundedSize {
  * @example
  * ```tsx
  * // Status indicators
- * <Tag color={TagColor.SUCCESS}>Completed</Tag>
- * <Tag color={TagColor.ERROR}>Failed</Tag>
- * <Tag color={TagColor.WARNING}>Pending</Tag>
+ * <Tag color="success">Completed</Tag>
+ * <Tag color="error">Failed</Tag>
+ * <Tag color="warning">Pending</Tag>
  *
  * // Category tags
- * <Tag color={TagColor.NEUTRAL}>Category</Tag>
- * <Tag color={TagColor.TEXT}>General</Tag>
+ * <Tag color="neutral">Category</Tag>
+ * <Tag color="text">General</Tag>
  * ```
  */
-export enum TagColor {
-  PRIMARY = 'primary',
-  SUCCESS = 'success',
-  ERROR = 'error',
-  WARNING = 'warning',
-  NEUTRAL = 'neutral',
-  TEXT = 'text',
-  BLUE = 'blue',
-  YELLOW = 'yellow',
-  GREEN = 'green',
-  RED = 'red',
-  ORANGE = 'orange',
-  PURPLE = 'purple',
-  PINK = 'pink',
-  BROWN = 'brown',
-  GRAY = 'gray',
-  BLACK = 'black',
-  WHITE = 'white',
-}
+export type TagColor = 
+  | 'primary' |
+  'success' |
+  'error' |
+  'warning' |
+  'neutral' |
+  'text' |
+  'blue' |
+  'yellow' |
+  'green' |
+  'red' |
+  'orange' |
+  'purple' |
+  'pink' |
+  'brown' |
+  'gray' |
+  'black' |
+  'white';
 
 /**
  * Enumeration for tag size variants
@@ -134,20 +132,19 @@ export enum TagColor {
  * @example
  * ```tsx
  * // Different sizes for hierarchy
- * <Tag size={TagSize.XS}>Small detail</Tag>
- * <Tag size={TagSize.SM}>Minor category</Tag>
- * <Tag size={TagSize.MD}>Standard tag</Tag>
- * <Tag size={TagSize.LG}>Important label</Tag>
- * <Tag size={TagSize.XL}>Hero tag</Tag>
+ * <Tag size="xs">Small detail</Tag>
+ * <Tag size="sm">Minor category</Tag>
+ * <Tag size="md">Standard tag</Tag>
+ * <Tag size="lg">Important label</Tag>
+ * <Tag size="xl">Hero tag</Tag>
  * ```
  */
-export enum TagSize {
-  XS = 'xs',
-  SM = 'sm',
-  MD = 'md',
-  LG = 'lg',
-  XL = 'xl',
-}
+export type TagSize = 
+  | 'xs' |
+  'sm' |
+  'md' |
+  'lg' |
+  'xl';
 
 /**
  * Enumeration for tag border visibility
@@ -160,14 +157,13 @@ export enum TagSize {
  *
  * @example
  * ```tsx
- * <Tag border={TagBorder.NONE}>Borderless</Tag>
- * <Tag border={TagBorder.WITH}>With Border</Tag>
+ * <Tag border="none">Borderless</Tag>
+ * <Tag border="with">With Border</Tag>
  * ```
  */
-export enum TagBorder {
-  NONE = 'none',
-  WITH = 'with',
-}
+export type TagBorder = 
+  | 'none' |
+  'with';
 
 /**
  * Enumeration for tag background visibility
@@ -180,77 +176,76 @@ export enum TagBorder {
  *
  * @example
  * ```tsx
- * <Tag background={TagBackground.NONE}>No Background</Tag>
- * <Tag background={TagBackground.WITH}>With Background</Tag>
+ * <Tag background="none">No Background</Tag>
+ * <Tag background="with">With Background</Tag>
  * ```
  */
-export enum TagBackground {
-  NONE = 'none',
-  WITH = 'with',
-}
+export type TagBackground = 
+  | 'none' |
+  'with';
 
 const containerVariants = cva('w-fit backdrop-blur', {
   variants: {
     roundedSize: {
-      [`${TagRoundedSize.NONE}`]: 'rounded-none',
-      [`${TagRoundedSize.SM}`]: 'rounded-sm',
-      [`${TagRoundedSize.MD}`]: 'rounded-md',
-      [`${TagRoundedSize.LG}`]: 'rounded-lg',
-      [`${TagRoundedSize.XL}`]: 'rounded-xl',
-      [`${TagRoundedSize.XXL}`]: 'rounded-2xl',
-      [`${TagRoundedSize.XXXL}`]: 'rounded-3xl',
-      [`${TagRoundedSize.FULL}`]: 'rounded-full',
+      none: 'rounded-none',
+      sm: 'rounded-sm',
+      md: 'rounded-md',
+      lg: 'rounded-lg',
+      xl: 'rounded-xl',
+      [`${"xxl"}`]: 'rounded-2xl',
+      [`${"xxxl"}`]: 'rounded-3xl',
+      full: 'rounded-full',
     },
     color: {
-      [`${TagColor.PRIMARY}`]: 'border-primary bg-primary/10 text-primary',
-      [`${TagColor.SUCCESS}`]: 'border-success bg-success/10 text-success',
-      [`${TagColor.ERROR}`]: 'border-error bg-error/10 text-error',
-      [`${TagColor.WARNING}`]: 'border-warning bg-warning/10 text-warning',
-      [`${TagColor.NEUTRAL}`]: '/10 border-neutral bg-neutral/10 text-neutral',
-      [`${TagColor.TEXT}`]: 'border-text bg-text/10 text-text',
-      [`${TagColor.BLUE}`]:
+      primary: 'border-primary bg-primary/10 text-primary',
+      success: 'border-success bg-success/10 text-success',
+      error: 'border-error bg-error/10 text-error',
+      warning: 'border-warning bg-warning/10 text-warning',
+      neutral: '/10 border-neutral bg-neutral/10 text-neutral',
+      text: 'border-text bg-text/10 text-text',
+      blue:
         'border-blue-500 bg-blue-500/10 text-blue-500 dark:text-blue-300',
-      [`${TagColor.YELLOW}`]:
+      yellow:
         'border-yellow-500 bg-yellow-500/10 text-yellow-500 dark:text-yellow-300',
-      [`${TagColor.GREEN}`]:
+      green:
         'border-green-500 bg-green-500/10 text-green-500 dark:text-green-300',
-      [`${TagColor.RED}`]:
+      red:
         'border-error bg-error/10 text-error dark:text-red-300',
-      [`${TagColor.ORANGE}`]:
+      orange:
         'border-orange-500 bg-orange-500/10 text-orange-500 dark:text-orange-300',
-      [`${TagColor.PURPLE}`]:
+      purple:
         'border-purple-500 bg-purple-500/10 text-purple-500 dark:text-purple-300',
-      [`${TagColor.PINK}`]:
+      pink:
         'border-pink-500 bg-pink-500/10 text-pink-500 dark:text-pink-300',
-      [`${TagColor.BROWN}`]:
+      brown:
         'border-brown-500 bg-brown-500/10 text-brown-500 dark:text-brown-300',
-      [`${TagColor.GRAY}`]:
+      gray:
         'border-gray-500 bg-gray-500/10 text-gray-500 dark:text-gray-300',
-      [`${TagColor.BLACK}`]: 'border-black bg-black/10 text-black',
-      [`${TagColor.WHITE}`]: 'border-white bg-white/10 text-white',
+      black: 'border-black bg-black/10 text-black',
+      white: 'border-white bg-white/10 text-white',
     },
     size: {
-      [`${TagSize.XS}`]: 'border-[1.2px] px-2 py-0.5 text-xs',
-      [`${TagSize.SM}`]: 'border-[1.3px] px-2 py-0.5 text-sm',
-      [`${TagSize.MD}`]: 'border-2 px-2 py-1 text-base',
-      [`${TagSize.LG}`]: 'border-2 px-3 py-2 text-lg',
-      [`${TagSize.XL}`]: 'border-2 px-3 py-2 text-xl',
+      xs: 'border-[1.2px] px-2 py-0.5 text-xs',
+      sm: 'border-[1.3px] px-2 py-0.5 text-sm',
+      md: 'border-2 px-2 py-1 text-base',
+      lg: 'border-2 px-3 py-2 text-lg',
+      xl: 'border-2 px-3 py-2 text-xl',
     },
     border: {
-      [`${TagBorder.NONE}`]: 'border-none',
-      [`${TagBorder.WITH}`]: 'border-[1.3px] border-text',
+      none: 'border-none',
+      with: 'border-[1.3px] border-text',
     },
     background: {
-      [`${TagBackground.NONE}`]: 'bg-none',
-      [`${TagBackground.WITH}`]: '',
+      none: 'bg-none',
+      with: '',
     },
   },
 
   defaultVariants: {
-    roundedSize: TagRoundedSize.FULL,
-    border: TagBorder.NONE,
-    color: TagColor.TEXT,
-    size: TagSize.MD,
+    roundedSize: 'full',
+    border: 'none',
+    color: 'text',
+    size: 'md',
   },
 });
 
@@ -288,38 +283,38 @@ const containerVariants = cva('w-fit backdrop-blur', {
  * @example
  * ```tsx
  * // Basic status tags
- * <Tag color={TagColor.SUCCESS}>Completed</Tag>
- * <Tag color={TagColor.ERROR}>Failed</Tag>
- * <Tag color={TagColor.WARNING}>In Progress</Tag>
+ * <Tag color="success">Completed</Tag>
+ * <Tag color="error">Failed</Tag>
+ * <Tag color="warning">In Progress</Tag>
  *
  * // Category tags with borders
- * <Tag color={TagColor.NEUTRAL} border={TagBorder.WITH}>
+ * <Tag color="neutral" border="with">
  *   Technology
  * </Tag>
- * <Tag color={TagColor.TEXT} border={TagBorder.WITH}>
+ * <Tag color="text" border="with">
  *   Design
  * </Tag>
  *
  * // Size variations for hierarchy
  * <div className="flex items-center gap-2">
- *   <Tag size={TagSize.XS} color={TagColor.NEUTRAL}>Minor</Tag>
- *   <Tag size={TagSize.SM} color={TagColor.TEXT}>Standard</Tag>
- *   <Tag size={TagSize.LG} color={TagColor.SUCCESS}>Important</Tag>
+ *   <Tag size="xs" color="neutral">Minor</Tag>
+ *   <Tag size="sm" color="text">Standard</Tag>
+ *   <Tag size="lg" color="success">Important</Tag>
  * </div>
  *
  * // Rounded variations
  * <div className="flex gap-2">
- *   <Tag roundedSize={TagRoundedSize.NONE}>Sharp</Tag>
- *   <Tag roundedSize={TagRoundedSize.MD}>Rounded</Tag>
- *   <Tag roundedSize={TagRoundedSize.FULL}>Pill</Tag>
+ *   <Tag roundedSize="none">Sharp</Tag>
+ *   <Tag roundedSize="md">Rounded</Tag>
+ *   <Tag roundedSize="full">Pill</Tag>
  * </div>
  *
  * // Custom styled tag
  * <Tag
- *   color={TagColor.WARNING}
- *   size={TagSize.LG}
- *   border={TagBorder.WITH}
- *   roundedSize={TagRoundedSize.LG}
+ *   color="warning"
+ *   size="lg"
+ *   border="with"
+ *   roundedSize="lg"
  *   className="font-bold uppercase tracking-wide"
  * >
  *   Custom Style
@@ -327,7 +322,7 @@ const containerVariants = cva('w-fit backdrop-blur', {
  *
  * // Interactive tags with click handlers
  * <Tag
- *   color={TagColor.SUCCESS}
+ *   color="success"
  *   onClick={() => console.log('Tag clicked')}
  *   className="cursor-pointer hover:opacity-80 transition-opacity"
  * >

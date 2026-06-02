@@ -17,93 +17,93 @@ import {
   Website_Doc_Environment_ViteAndSvelte,
   Website_Doc_Environment_ViteAndVue,
 } from '@intlayer/design-system/routes';
-import { TechLogo, TechLogoName } from '@intlayer/design-system/tech-logo';
+import { TechLogo, type TechLogoName } from '@intlayer/design-system/tech-logo';
 import { cn } from '@intlayer/design-system/utils';
 import type { FC } from 'react';
 
 // Animated Technology logos
 const logos = [
   {
-    name: TechLogoName.Express,
+    name: 'express',
     key: 'express',
     route: Website_Doc_Environment_Express,
   },
   {
-    name: TechLogoName.NestJS,
+    name: 'nestjs',
     key: 'nestjs',
     route: Website_Doc_Environment_NestJS,
   },
   {
-    name: TechLogoName.Hono,
+    name: 'hono',
     key: 'hono',
     route: Website_Doc_Environment_Hono,
   },
   {
-    name: TechLogoName.Fastify,
+    name: 'fastify',
     key: 'fastify',
     route: Website_Doc_Environment_Fastify,
   },
   {
-    name: TechLogoName.Nextjs,
+    name: 'nextjs',
     key: 'nextjs',
     route: Website_Doc_Environment_NextJS,
   },
   {
-    name: TechLogoName.React,
+    name: 'react',
     key: 'react',
     route: Website_Doc_Environment_CRA,
   },
   {
-    name: TechLogoName.Preact,
+    name: 'preact',
     key: 'preact',
     route: Website_Doc_Environment_ViteAndPreact,
   },
   {
-    name: TechLogoName.Vue,
+    name: 'vue',
     key: 'vue',
     route: Website_Doc_Environment_ViteAndVue,
   },
   {
-    name: TechLogoName.Nuxt,
+    name: 'nuxt',
     key: 'nuxt',
     route: Website_Doc_Environment_NuxtAndVue,
   },
   {
-    name: TechLogoName.Vite,
+    name: 'vite',
     key: 'vite',
     route: Website_Doc_Environment_ViteAndReact,
   },
   {
-    name: TechLogoName.Astro,
+    name: 'astro',
     key: 'astro',
     route: Website_Doc_Environment_Astro,
   },
   {
-    name: TechLogoName.Tanstack,
+    name: 'tanstack',
     key: 'tanstack',
     route: Website_Doc_Environment_Tanstack,
   },
   {
-    name: TechLogoName.Lit,
+    name: 'lit',
     key: 'lit',
     route: Website_Doc_Environment_Lit,
   },
   {
-    name: TechLogoName.Svelte,
+    name: 'svelte',
     key: 'svelte',
     route: Website_Doc_Environment_ViteAndSvelte,
   },
   {
-    name: TechLogoName.Solid,
+    name: 'solid',
     key: 'solid',
     route: Website_Doc_Environment_ViteAndSolid,
   },
   {
-    name: TechLogoName.Angular,
+    name: 'angular',
     key: 'angular',
     route: Website_Doc_Environment_Angular,
   },
-];
+] as const;
 
 const LogoItem: FC<{
   name: TechLogoName;

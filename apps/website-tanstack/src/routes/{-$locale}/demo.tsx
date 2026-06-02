@@ -14,10 +14,6 @@ import { SoftwareApplicationHeader } from '~/structuredData/SoftwareApplication'
 import { WebsiteHeader } from '~/structuredData/WebsiteHeader';
 
 export const Route = createFileRoute('/{-$locale}/demo')({
-  loader: ({ params }) => {
-    const locale = params.locale ?? defaultLocale;
-    return { locale };
-  },
   head: ({ params }) => {
     const locale = params.locale ?? defaultLocale;
     const path = Website_Demo;
@@ -27,18 +23,18 @@ export const Route = createFileRoute('/{-$locale}/demo')({
     );
 
     return {
-      title: String(title),
+      title: title,
       meta: [
-        { name: 'description', content: String(description) },
+        { name: 'description', content: description },
         {
           name: 'keywords',
           content: Array.isArray(keywords)
             ? keywords.join(', ')
-            : String(keywords || ''),
+            : keywords || '',
         },
         { property: 'og:url', content: getLocalizedUrl(path, locale) },
-        { property: 'og:title', content: String(title) },
-        { property: 'og:description', content: String(description) },
+        { property: 'og:title', content: title },
+        { property: 'og:description', content: description },
       ],
       links: [
         { rel: 'canonical', href: getLocalizedUrl(path, locale) },
@@ -55,11 +51,9 @@ export const Route = createFileRoute('/{-$locale}/demo')({
 });
 
 function DemoPageRoute() {
-  const { locale } = Route.useLoaderData();
-
   return (
     <PageLayout>
-      <WebsiteHeader key={locale} />
+      <WebsiteHeader />
       <OrganizationHeader />
       <SoftwareApplicationHeader />
       <BackgroundLayout>

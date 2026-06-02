@@ -10,12 +10,7 @@ import {
   useId,
   useState,
 } from 'react';
-import {
-  Button,
-  ButtonColor,
-  type ButtonProps,
-  ButtonVariant,
-} from '../Button';
+import { Button, type ButtonProps } from '../Button';
 import { MaxHeightSmoother } from '../MaxHeightSmoother';
 
 export interface AccordionProps

@@ -24,7 +24,7 @@ const preview: Preview = {
 
       return (
         <ThemeProvider theme={theme}>
-          <div className={`min-h-screen bg-background p-4 text-text`}>
+          <div className="min-h-screen bg-background p-4 text-text">
             <Story />
           </div>
         </ThemeProvider>

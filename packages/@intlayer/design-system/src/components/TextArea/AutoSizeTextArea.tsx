@@ -105,7 +105,7 @@ const LINE_PADDING = 12; // px
  *   placeholder="Write your notes here..."
  *   autoSize={true}
  *   maxRows={20}
- *   variant={InputVariant.DEFAULT}
+ *   variant="default"
  * />
  * ```
  */

@@ -4,7 +4,7 @@ import {
   useGetPromoCodeById,
   useUpdatePromoCode,
 } from '@intlayer/design-system/api';
-import { Badge, BadgeColor, BadgeVariant } from '@intlayer/design-system/badge';
+import { Badge } from '@intlayer/design-system/badge';
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
 import { CopyToClipboard } from '@intlayer/design-system/copy-to-clipboard';
@@ -69,8 +69,8 @@ export const PromoCodeAdminDetailPage: FC<{ promoCodeId: string }> = ({
         <h1 className="font-mono font-semibold text-2xl">{promoCode.code}</h1>
         <div className="flex items-center gap-3">
           <Badge
-            variant={BadgeVariant.OUTLINE}
-            color={promoCode.active ? BadgeColor.SUCCESS : BadgeColor.NEUTRAL}
+            variant="outline"
+            color={promoCode.active ? 'success' : 'neutral'}
             className="cursor-pointer capitalize"
             onClick={() =>
               updatePromoCode({ id: promoCodeId, active: !promoCode.active })

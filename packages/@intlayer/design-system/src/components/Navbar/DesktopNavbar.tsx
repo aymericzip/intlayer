@@ -1,11 +1,7 @@
 'use client';
 
 import type { ReactElement, ReactNode } from 'react';
-import {
-  TabSelector,
-  TabSelectorColor,
-  type TabSelectorItemProps,
-} from '../TabSelector';
+import { TabSelector, type TabSelectorItemProps } from '../TabSelector';
 
 /**
  * Props for the DesktopNavbar component
@@ -106,7 +102,7 @@ export const DesktopNavbar = <T extends TabSelectorItemProps>({
       className="ml-[2vw] h-auto gap-3 overflow-x-auto text-neutral tracking-wide lg:ml-[5vw] lg:gap-3 xl:ml-[10vw] xl:gap-6"
       tabs={sections}
       hoverable
-      color={TabSelectorColor.TEXT}
+      color="text"
     />
 
     <div className="mr-4 flex items-center justify-end gap-2 md:gap-4">

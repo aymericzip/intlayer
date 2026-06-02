@@ -3,7 +3,7 @@
 import { cn } from '@utils/cn';
 import { type FC, useEffect, useRef, useState } from 'react';
 import { ExpandCollapse } from '../ExpandCollapse';
-import { Modal, ModalSize } from '../Modal';
+import { Modal } from '../Modal';
 import { ExpandButton } from './ExpandButton';
 import type { TableProps } from './Table';
 import { Table } from './Table';
@@ -237,7 +237,7 @@ export const SmartTable: FC<SmartTableProps> = ({
       <Modal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        size={ModalSize.XL}
+        size="xl"
         hasCloseButton
         isScrollable
       >

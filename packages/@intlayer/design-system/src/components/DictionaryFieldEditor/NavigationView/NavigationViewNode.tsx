@@ -1,10 +1,5 @@
 import { Accordion, type AccordionProps } from '@components/Accordion';
-import {
-  Button,
-  ButtonColor,
-  ButtonTextAlign,
-  ButtonVariant,
-} from '@components/Button';
+import { Button } from '@components/Button';
 import { useLocaleSwitcherContent } from '@components/LocaleSwitcherContentDropDown';
 import { camelCaseToSentence } from '@intlayer/config/client';
 import {
@@ -83,13 +78,13 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
     return (
       <Button
         label={goToField.label.value}
-        variant={ButtonVariant.HOVERABLE}
-        color={ButtonColor.TEXT}
+        variant="hoverable"
+        color="text"
         className="w-full"
         onClick={() => setFocusedContentKeyPath(keyPath)}
         IconRight={ChevronRight}
       >
-        {camelCaseToSentence(keyPath[keyPath.length - 1].key as string)}
+        {camelCaseToSentence(keyPath[keyPath.length - 1]?.key as string)}
       </Button>
     );
   }
@@ -165,8 +160,8 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
                 <Button
                   key={JSON.stringify(childKeyPath)}
                   label={`${goToField.label.value} ${index}`}
-                  variant={ButtonVariant.HOVERABLE}
-                  color={ButtonColor.TEXT}
+                  variant="hoverable"
+                  color="text"
                   className="w-full"
                   onClick={() => setFocusedContentKeyPath(childKeyPath)}
                   IconRight={ChevronRight}
@@ -200,9 +195,9 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
 
           <Button
             label={addNewElement.label.value}
-            variant={ButtonVariant.HOVERABLE}
-            color={ButtonColor.NEUTRAL}
-            textAlign={ButtonTextAlign.LEFT}
+            variant="hoverable"
+            color="neutral"
+            textAlign="left"
             onClick={() => {
               const newKeyPath: KeyPath[] = [
                 ...keyPath,
@@ -267,8 +262,8 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
                 label={`${goToField.label.value} ${key}`}
                 key={key}
                 isActive={getIsSelected(childKeyPath)}
-                variant={ButtonVariant.HOVERABLE}
-                color={ButtonColor.TEXT}
+                variant="hoverable"
+                color="text"
                 className="w-full"
                 onClick={() => setFocusedContentKeyPath(childKeyPath)}
                 IconRight={ChevronRight}

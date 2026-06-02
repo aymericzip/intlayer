@@ -14,7 +14,7 @@ import {
 } from 'react';
 import { createPortal } from 'react-dom';
 import { useIntlayer } from 'react-intlayer';
-import { Button, ButtonColor, ButtonSize, ButtonVariant } from '../Button';
+import { Button } from '../Button';
 import { Container } from '../Container';
 import { KeyboardShortcut } from '../KeyboardShortcut';
 import { MaxWidthSmoother } from '../MaxWidthSmoother/index';
@@ -207,8 +207,8 @@ export const RightDrawer: FC<RightDrawerProps> = ({
               <div>
                 {backButton && (
                   <Button
-                    variant={ButtonVariant.HOVERABLE}
-                    color={ButtonColor.TEXT}
+                    variant="hoverable"
+                    color="text"
                     label={backButton.text ?? content.goBack.value}
                     onClick={backButton.onBack}
                     Icon={ChevronLeft}
@@ -220,8 +220,8 @@ export const RightDrawer: FC<RightDrawerProps> = ({
               <div>
                 <Popover identifier="close-drawer">
                   <Button
-                    variant={ButtonVariant.HOVERABLE}
-                    color={ButtonColor.TEXT}
+                    variant="hoverable"
+                    color="text"
                     label="Close"
                     className="ml-auto"
                     onClick={() => {
@@ -229,7 +229,7 @@ export const RightDrawer: FC<RightDrawerProps> = ({
                       onClose?.();
                     }}
                     Icon={X}
-                    size={ButtonSize.ICON_MD}
+                    size="icon-md"
                   />
 
                   <Popover.Detail identifier="close-drawer">

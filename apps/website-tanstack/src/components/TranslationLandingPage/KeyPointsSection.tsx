@@ -1,11 +1,4 @@
-import {
-  Container,
-  ContainerBackground,
-  ContainerBorderColor,
-  ContainerPadding,
-  ContainerRoundedSize,
-  ContainerTransparency,
-} from '@intlayer/design-system/container';
+import { Container } from '@intlayer/design-system/container';
 import { motion, type Variants } from 'framer-motion';
 import {
   CheckCircle2,
@@ -79,9 +72,9 @@ export const KeyPointsSection: FC = () => {
             return (
               <motion.div key={feature.id.value} variants={sectionFade}>
                 <Container
-                  roundedSize={ContainerRoundedSize['3xl']}
-                  transparency={ContainerTransparency.MD}
-                  padding={ContainerPadding.LG}
+                  roundedSize="3xl"
+                  transparency="md"
+                  padding="lg"
                   className="h-full max-w-lg"
                 >
                   <div className="flex items-start gap-3">

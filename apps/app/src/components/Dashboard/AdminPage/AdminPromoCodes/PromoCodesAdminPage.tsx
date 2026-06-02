@@ -4,7 +4,7 @@ import {
   useGetPromoCodes,
   useUpdatePromoCode,
 } from '@intlayer/design-system/api';
-import { Badge, BadgeColor, BadgeVariant } from '@intlayer/design-system/badge';
+import { Badge } from '@intlayer/design-system/badge';
 import { Button } from '@intlayer/design-system/button';
 import { CopyToClipboard } from '@intlayer/design-system/copy-to-clipboard';
 import { SearchInput } from '@intlayer/design-system/input';
@@ -146,9 +146,9 @@ export const PromoCodesAdminPage: FC = () => {
       header: () => content.statusCol.value,
       cell: ({ row }) => (
         <Badge
-          variant={BadgeVariant.OUTLINE}
+          variant="outline"
           className="cursor-pointer capitalize opacity-80"
-          color={row.original.active ? BadgeColor.SUCCESS : BadgeColor.NEUTRAL}
+          color={row.original.active ? 'success' : 'neutral'}
           onClick={(e) => {
             e.stopPropagation();
             handleToggleActive(row.original);

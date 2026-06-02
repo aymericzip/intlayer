@@ -44,7 +44,7 @@ export const getFile = async <
   const file = await files[docKey]?.[locale];
 
   if (!file) {
-    const englishFile = await files[docKey][defaultLocale as LocalesValues];
+    const englishFile = await files[docKey]?.[defaultLocale as LocalesValues];
 
     if (!englishFile) {
       throw new Error(`File ${docKey as string} not found`);

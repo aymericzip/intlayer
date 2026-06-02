@@ -12,7 +12,7 @@ import {
   useRef,
 } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { Button, ButtonColor, ButtonSize, ButtonVariant } from '../Button';
+import { Button } from '../Button';
 
 export const paginationVariants = cva(
   'flex items-center justify-center gap-1',
@@ -42,17 +42,15 @@ export const paginationVariants = cva(
   }
 );
 
-export enum PaginationSize {
-  SM = 'sm',
-  MD = 'md',
-  LG = 'lg',
-}
+export type PaginationSize = 
+  | 'sm' |
+  'md' |
+  'lg';
 
-export enum PaginationVariant {
-  DEFAULT = 'default',
-  BORDERED = 'bordered',
-  GHOST = 'ghost',
-}
+export type PaginationVariant = 
+  | 'default' |
+  'bordered' |
+  'ghost';
 
 export type PaginationProps = HTMLAttributes<HTMLDivElement> &
   VariantProps<typeof paginationVariants> & {
@@ -118,12 +116,12 @@ const selector = (option: HTMLElement) =>
   option?.getAttribute('aria-current') === 'true';
 
 const getButtonSize = (size?: PaginationSize | `${PaginationSize}` | null) => {
-  if (size === PaginationSize.SM) {
-    return ButtonSize.ICON_SM;
-  } else if (size === PaginationSize.LG) {
-    return ButtonSize.ICON_LG;
+  if (size === 'sm') {
+    return 'icon-sm';
+  } else if (size === 'lg') {
+    return 'icon-lg';
   } else {
-    return ButtonSize.ICON_MD;
+    return 'icon-md';
   }
 };
 
@@ -142,9 +140,9 @@ export const Pagination: FC<PaginationProps> = ({
   showPrevNext = true,
   maxVisiblePages = 5,
   disabled = false,
-  size = PaginationSize.MD,
-  variant = PaginationVariant.DEFAULT,
-  color = ButtonColor.TEXT,
+  size = 'md',
+  variant = 'default',
+  color = 'text',
   className,
   ...props
 }) => {
@@ -198,9 +196,9 @@ export const Pagination: FC<PaginationProps> = ({
 
         {showPrevNext && (
           <Button
-            variant={ButtonVariant.OUTLINE}
+            variant="outline"
             size={buttonSize}
-            color={ButtonColor.TEXT}
+            color="text"
             onClick={() => handlePageChange(currentPage - 1)}
             disabled={disabled || isFirstPage}
             label={goToPreviousPage.value}
@@ -240,10 +238,10 @@ export const Pagination: FC<PaginationProps> = ({
               <Button
                 key={page}
                 variant={
-                  isActive ? ButtonVariant.DEFAULT : ButtonVariant.OUTLINE
+                  isActive ? 'default' : 'outline'
                 }
                 size={buttonSize}
-                color={ButtonColor.TEXT}
+                color="text"
                 onClick={() => handlePageChange(page)}
                 disabled={disabled}
                 label={`Go to page ${page}`}
@@ -266,9 +264,9 @@ export const Pagination: FC<PaginationProps> = ({
 
         {showPrevNext && (
           <Button
-            variant={ButtonVariant.OUTLINE}
+            variant="outline"
             size={buttonSize}
-            color={ButtonColor.TEXT}
+            color="text"
             onClick={() => handlePageChange(currentPage + 1)}
             disabled={disabled || isLastPage}
             label={goToNextPage.value}

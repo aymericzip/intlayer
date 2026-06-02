@@ -8,10 +8,7 @@ import {
   App_Admin_Reviewers_Path,
   App_Admin_Users_Path,
 } from '@intlayer/design-system/routes';
-import {
-  TabSelector,
-  TabSelectorColor,
-} from '@intlayer/design-system/tab-selector';
+import { TabSelector } from '@intlayer/design-system/tab-selector';
 import { cn } from '@intlayer/design-system/utils';
 import { useLocation } from '@tanstack/react-router';
 import { getPathWithoutLocale } from 'intlayer';
@@ -124,7 +121,7 @@ export const AdminTabBar: FC<AdminTabBarProps> = ({ className }) => {
           selectedChoice={selectedChoice}
           tabs={tabs}
           hoverable
-          color={TabSelectorColor.TEXT}
+          color="text"
           orientation="horizontal"
           className="gap-1"
         />

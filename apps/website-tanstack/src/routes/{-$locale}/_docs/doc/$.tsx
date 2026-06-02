@@ -1,13 +1,6 @@
-import { Website_Doc_Path } from '@intlayer/design-system/routes';
-import {
-  type DocKey,
-  getDoc,
-  getDocMetadata,
-  getDocMetadataBySlug,
-} from '@intlayer/docs';
+import { Website_Doc_Path, Website_Home } from '@intlayer/design-system/routes';
 import { createFileRoute, redirect } from '@tanstack/react-router';
 import { defaultLocale, getLocalizedUrl, localeMap } from 'intlayer';
-import { parseMarkdown } from 'react-intlayer/markdown';
 import { DocHeader } from '~/components/DocPage/DocHeader/DocHeader';
 import { DocPageLayout } from '~/components/DocPage/DocPageLayout';
 import {
@@ -15,13 +8,12 @@ import {
   type DocPageNavigationProps,
 } from '~/components/DocPage/DocPageNavigation/DocPageNavigation';
 import { DocumentationRender } from '~/components/DocPage/DocumentationRender';
-import { getPreviousNextDocMetadata } from '~/components/DocPage/docData';
+import { loadDocPage, loadNavData } from '~/serverFunctions/docs';
 import { BreadcrumbsHeader } from '~/structuredData/BreadcrumbsHeader';
 import { CreativeWorkHeader } from '~/structuredData/CreativeWorkHeader';
 import { OrganizationHeader } from '~/structuredData/OrganizationHeader';
 import { SoftwareApplicationHeader } from '~/structuredData/SoftwareApplication';
 import { WebsiteHeader } from '~/structuredData/WebsiteHeader';
-import { urlRenamer } from '~/utils/markdown';
 
 export const Route = createFileRoute('/{-$locale}/_docs/doc/$')({
   loader: async ({ params }) => {
@@ -38,15 +30,12 @@ export const Route = createFileRoute('/{-$locale}/_docs/doc/$')({
       });
     }
 
-    const docsData = await getDocMetadataBySlug(
-      ['doc', ...slugs],
-      locale,
-      true
-    );
+    const [result, navData] = await Promise.all([
+      loadDocPage({ data: { locale, slugs } }),
+      loadNavData({ data: { locale } }),
+    ]);
 
-    const exactMatch = docsData.find(
-      (doc) => doc.slugs.join('/') === ['doc', ...slugs].join('/')
-    );
+    const { exactMatch, docsData, content } = result;
 
     if (!exactMatch) {
       if (docsData.length > 0) {
@@ -55,16 +44,8 @@ export const Route = createFileRoute('/{-$locale}/_docs/doc/$')({
       throw redirect({ to: getLocalizedUrl(Website_Doc_Path, locale) as any });
     }
 
-    const docData = exactMatch;
-    const { prevDocData, nextDocData } = getPreviousNextDocMetadata(
-      docData.docKey as DocKey,
-      locale
-    );
-    const defaultDocData = await getDocMetadata(docData.docKey as DocKey);
-
-    const file = await getDoc(docData?.docKey as DocKey, locale);
-    const docContent = urlRenamer(file, locale);
-    const docParsed = parseMarkdown(docContent);
+    const { defaultDocData, docContent, docParsed, prevDocData, nextDocData } =
+      content!;
 
     const nextDoc: DocPageNavigationProps['nextDoc'] = nextDocData?.docs
       ? {
@@ -82,12 +63,13 @@ export const Route = createFileRoute('/{-$locale}/_docs/doc/$')({
     return {
       locale,
       slugs,
-      docData,
+      docData: exactMatch,
       defaultDocData,
       docContent,
       docParsed,
       nextDoc,
       prevDoc,
+      navData,
     };
   },
   head: ({ loaderData }) => {
@@ -143,19 +125,20 @@ function DocumentationPage() {
     docParsed,
     nextDoc,
     prevDoc,
+    navData,
   } = loaderData;
 
   if (!docData || !defaultDocData) return null;
 
   const breadcrumbs = [
-    { name: 'Home', url: '/' },
+    { name: 'Home', url: Website_Home },
     { name: 'Docs', url: Website_Doc_Path },
     { name: docData.title, url: docData.url },
   ];
 
   return (
-    <DocPageLayout activeSlugs={slugs} locale={locale}>
-      <WebsiteHeader key={locale} />
+    <DocPageLayout docData={navData} activeSlugs={slugs} locale={locale}>
+      <WebsiteHeader />
       <OrganizationHeader />
       <SoftwareApplicationHeader />
       <BreadcrumbsHeader breadcrumbs={breadcrumbs} />

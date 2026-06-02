@@ -148,7 +148,7 @@ export const DotPattern: FC<DotPatternProps> = ({
       width="100%"
       height="100%"
       strokeWidth={0}
-      fill={`url(#pattern-circle)`}
+      fill="url(#pattern-circle)"
     />
   </svg>
 );

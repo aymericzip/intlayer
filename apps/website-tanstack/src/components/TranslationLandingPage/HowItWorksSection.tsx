@@ -1,9 +1,4 @@
-import {
-  Container,
-  ContainerPadding,
-  ContainerRoundedSize,
-  ContainerTransparency,
-} from '@intlayer/design-system/container';
+import { Container } from '@intlayer/design-system/container';
 import { motion, type Variants } from 'framer-motion';
 import { CheckCircle2, GitBranch, Layers, Sparkles } from 'lucide-react';
 import type { FC } from 'react';
@@ -68,9 +63,9 @@ export const HowItWorksSection: FC = () => {
             return (
               <motion.div key={s.step.value} variants={sectionFade}>
                 <Container
-                  roundedSize={ContainerRoundedSize['3xl']}
-                  transparency={ContainerTransparency.MD}
-                  padding={ContainerPadding.LG}
+                  roundedSize="3xl"
+                  transparency="md"
+                  padding="lg"
                   className="flex h-full flex-col items-center gap-3 text-center"
                 >
                   <div className="flex w-full items-center justify-between">

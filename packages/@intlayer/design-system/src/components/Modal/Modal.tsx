@@ -7,20 +7,19 @@ import { motion as m } from 'framer-motion';
 import { X } from 'lucide-react';
 import { type FC, type ReactNode, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import { Button, ButtonColor, ButtonSize, ButtonVariant } from '../Button';
+import { Button } from '../Button';
 import { Container, type ContainerProps } from '../Container';
 import { H3 } from '../Headers';
 
 /**
  * Enumeration of available modal sizes
  */
-export enum ModalSize {
-  SM = 'sm',
-  MD = 'md',
-  LG = 'lg',
-  XL = 'xl',
-  UNSET = 'unset',
-}
+export type ModalSize = 
+  | 'sm' |
+  'md' |
+  'lg' |
+  'xl' |
+  'unset';
 
 type ModalProps = {
   children: ReactNode;
@@ -113,7 +112,7 @@ const MotionModal = m.create(Container);
  *   onClose={onClose}
  *   title="Confirm Action"
  *   hasCloseButton
- *   size={ModalSize.LG}
+ *   size="lg"
  * >
  *   <div>
  *     <p>Are you sure you want to continue?</p>
@@ -154,7 +153,7 @@ export const Modal: FC<ModalProps> = ({
   onClose,
   hasCloseButton = false,
   title,
-  size = ModalSize.MD,
+  size = 'md',
   className,
   isScrollable = false, // Enable the scroll of the content
   disableScroll = true, // Disable the scroll of the background
@@ -242,8 +241,8 @@ export const Modal: FC<ModalProps> = ({
           )}
           {hasCloseButton && (
             <Button
-              variant={ButtonVariant.HOVERABLE}
-              color={ButtonColor.TEXT}
+              variant="hoverable"
+              color="text"
               label="Close modal"
               className="ml-auto"
               onClick={(e) => {
@@ -251,7 +250,7 @@ export const Modal: FC<ModalProps> = ({
                 onClose?.();
               }}
               Icon={X}
-              size={ButtonSize.ICON_MD}
+              size="icon-md"
             />
           )}
         </div>

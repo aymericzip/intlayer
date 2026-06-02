@@ -3,7 +3,6 @@ import {
   checkIsExternalLink,
   isTextChildren,
   type LinkProps as LinkUIProps,
-  LinkVariant,
   linkVariants,
 } from '@intlayer/design-system/link';
 import { cn } from '@intlayer/design-system/utils';
@@ -68,7 +67,7 @@ export const Link: FC<LinkProps> = ({
 
   const isChildrenString = isTextChildren(children);
   const isButton =
-    variant === LinkVariant.BUTTON || variant === LinkVariant.BUTTON_OUTLINED;
+    variant === 'button' || variant === 'button-outlined';
 
   const href =
     locale && normalizedHref && !isExternalLink && !isPageSection

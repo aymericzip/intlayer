@@ -1,9 +1,9 @@
 'use client';
 
-import { Button, ButtonSize, ButtonVariant } from '@components/Button';
+import { Button } from '@components/Button';
 import { Container } from '@components/Container';
 import { Link } from '@components/Link';
-import { Modal, ModalSize } from '@components/Modal';
+import { Modal } from '@components/Modal';
 import { cn } from '@utils/cn';
 import { MoveDiagonal } from 'lucide-react';
 import { type ComponentProps, type FC, useState } from 'react';
@@ -62,8 +62,8 @@ export const MarkDownIframe: FC<ComponentProps<'iframe'>> = (props) => {
           <span className="text-neutral text-sm">Embedded frame</span>
         )}
         <Button
-          variant={ButtonVariant.HOVERABLE}
-          size={ButtonSize.ICON_MD}
+          variant="hoverable"
+          size="icon-md"
           onClick={() => setIsModalOpen(true)}
           label="Open embedded page in fullscreen"
           Icon={MoveDiagonal}
@@ -73,7 +73,7 @@ export const MarkDownIframe: FC<ComponentProps<'iframe'>> = (props) => {
       <Modal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        size={ModalSize.UNSET}
+        size="unset"
         hasCloseButton
         isScrollable
         padding="sm"

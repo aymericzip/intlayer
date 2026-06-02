@@ -401,18 +401,18 @@ export const InputWithAdditionalButtons: Story = {
       <>
         <Button
           label="Clear text"
-          variant={ButtonVariant.OUTLINE}
-          color={ButtonColor.ERROR}
-          size={ButtonSize.SM}
+          variant="outline"
+          color="error"
+          size="sm"
           onClick={handleClear}
         >
           Clear
         </Button>
         <Button
           label="Convert to uppercase"
-          variant={ButtonVariant.OUTLINE}
-          color={ButtonColor.PRIMARY}
-          size={ButtonSize.SM}
+          variant="outline"
+          color="primary"
+          size="sm"
           onClick={handleUppercase}
         >
           UPPER

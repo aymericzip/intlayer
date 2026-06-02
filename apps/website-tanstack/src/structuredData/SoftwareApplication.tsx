@@ -51,7 +51,7 @@ export const SoftwareApplicationHeader: FC = () => {
   };
 
   return (
-    <Script
+    <script
       type="application/ld+json"
       dangerouslySetInnerHTML={{
         __html: JSON.stringify(softwareApplication),
@@ -59,5 +59,3 @@ export const SoftwareApplicationHeader: FC = () => {
     />
   );
 };
-
-const Script = (props: any) => <script {...props} />;

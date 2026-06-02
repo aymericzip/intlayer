@@ -1,8 +1,4 @@
-import {
-  Button,
-  ButtonColor,
-  ButtonVariant,
-} from '@intlayer/design-system/button';
+import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
 import { App_Auth_SignIn } from '@intlayer/design-system/routes';
 import type { FC } from 'react';
@@ -108,8 +104,8 @@ export const AnalyzerResultsSection: FC<AnalyzerResultsSectionProps> = ({
             <Button
               onClick={onDiscoverUrls}
               disabled={isSingleScanLoading || !url || isDiscovering}
-              variant={ButtonVariant.OUTLINE}
-              color={ButtonColor.TEXT}
+              variant="outline"
+              color="text"
               label={fullSiteAudit.value}
             >
               {isDiscovering ? discoveringUrlsButton : fullSiteAudit}

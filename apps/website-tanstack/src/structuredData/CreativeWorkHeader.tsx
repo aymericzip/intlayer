@@ -60,7 +60,7 @@ export const CreativeWorkHeader = ({
   };
 
   return (
-    <Script
+    <script
       type="application/ld+json"
       dangerouslySetInnerHTML={{
         __html: JSON.stringify(creativeWork),
@@ -68,5 +68,3 @@ export const CreativeWorkHeader = ({
     />
   );
 };
-
-const Script = (props: any) => <script {...props} />;

@@ -1,9 +1,4 @@
-import {
-  Container,
-  ContainerPadding,
-  ContainerRoundedSize,
-  ContainerTransparency,
-} from '@intlayer/design-system/container';
+import { Container } from '@intlayer/design-system/container';
 import { motion, type Variants } from 'framer-motion';
 import { CheckCircle2, Laptop, Server } from 'lucide-react';
 import type { FC } from 'react';
@@ -51,9 +46,9 @@ export const LocalVsServerSection: FC = () => {
       >
         <motion.div variants={sectionFade}>
           <Container
-            roundedSize={ContainerRoundedSize['3xl']}
-            transparency={ContainerTransparency.MD}
-            padding={ContainerPadding.LG}
+            roundedSize="3xl"
+            transparency="md"
+            padding="lg"
             className="h-full max-w-lg"
           >
             <div className="flex items-start gap-3">
@@ -82,9 +77,9 @@ export const LocalVsServerSection: FC = () => {
 
         <motion.div variants={sectionFade}>
           <Container
-            roundedSize={ContainerRoundedSize['3xl']}
-            transparency={ContainerTransparency.MD}
-            padding={ContainerPadding.LG}
+            roundedSize="3xl"
+            transparency="md"
+            padding="lg"
             className="h-full"
           >
             <div className="flex items-start gap-3">

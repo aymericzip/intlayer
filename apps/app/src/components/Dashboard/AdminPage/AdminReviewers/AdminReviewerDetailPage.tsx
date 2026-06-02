@@ -3,7 +3,7 @@ import {
   useGetReviewerReviews,
   useValidateReviewerProfile,
 } from '@intlayer/design-system/api';
-import { Badge, BadgeColor, BadgeVariant } from '@intlayer/design-system/badge';
+import { Badge } from '@intlayer/design-system/badge';
 import { Button } from '@intlayer/design-system/button';
 import { Loader } from '@intlayer/design-system/loader';
 import { CheckCircle, Clock, Globe, Star } from 'lucide-react';
@@ -53,12 +53,8 @@ export const AdminReviewerDetailPage: FC<AdminReviewerDetailPageProps> = ({
         <div className="flex flex-col gap-2">
           <div className="flex items-center gap-2">
             <Badge
-              variant={BadgeVariant.OUTLINE}
-              color={
-                profile.status === 'active'
-                  ? BadgeColor.SUCCESS
-                  : BadgeColor.NEUTRAL
-              }
+              variant="outline"
+              color={profile.status === 'active' ? 'success' : 'neutral'}
             >
               {profile.status}
             </Badge>

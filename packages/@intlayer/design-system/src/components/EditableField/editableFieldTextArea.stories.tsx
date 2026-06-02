@@ -111,7 +111,7 @@ An inline editable textarea component designed for seamless multiline content ed
     variant: {
       description: 'Visual style variant of the textarea',
       control: 'select',
-      options: Object.values(InputVariant),
+      options: ['default', 'invisible'],
     },
     validationStyleEnabled: {
       description: 'Enable validation styling based on form state',
@@ -162,7 +162,7 @@ export const Default: Story = {
       'This is editable multiline text content.\n\nIt supports line breaks and automatically adjusts its height based on the content length.',
     autoSize: true,
     maxRows: 10,
-    variant: InputVariant.DEFAULT,
+    variant: 'default',
     validationStyleEnabled: false,
     disabled: false,
   },
@@ -217,7 +217,7 @@ export const TextAreaVariants: Story = {
         <h3 className="mb-2 font-medium text-sm">Default Variant</h3>
         <EditableFieldTextArea
           defaultValue="Default styled textarea with multiple lines\nand proper formatting preservation."
-          variant={InputVariant.DEFAULT}
+          variant="default"
           onSave={(value) => console.log('Default saved:', value)}
           onCancel={() => console.log('Default cancelled')}
         />
@@ -227,7 +227,7 @@ export const TextAreaVariants: Story = {
         <h3 className="mb-2 font-medium text-sm">Invisible Variant</h3>
         <EditableFieldTextArea
           defaultValue="Invisible styled textarea perfect for\nclean content management interfaces."
-          variant={InputVariant.INVISIBLE}
+          variant="invisible"
           onSave={(value) => console.log('Invisible saved:', value)}
           onCancel={() => console.log('Invisible cancelled')}
         />
@@ -237,7 +237,7 @@ export const TextAreaVariants: Story = {
         <h3 className="mb-2 font-medium text-sm">Default Variant</h3>
         <EditableFieldTextArea
           defaultValue="Default styled textarea with\nclear visual boundaries for form contexts."
-          variant={InputVariant.DEFAULT}
+          variant="default"
           onSave={(value) => console.log('Default saved:', value)}
           onCancel={() => console.log('Default cancelled')}
         />
@@ -471,7 +471,7 @@ export const CodeSnippetContent: Story = {
 }`,
     autoSize: true,
     maxRows: 12,
-    variant: InputVariant.DEFAULT,
+    variant: 'default',
   },
   render: (args) => (
     <div className="max-w-lg p-4">
@@ -643,7 +643,7 @@ export const BlogPostEditor: Story = {
             defaultValue="Getting Started with React Hooks"
             autoSize={true}
             maxRows={2}
-            variant={InputVariant.DEFAULT}
+            variant="default"
             onSave={(value) => console.log('Title updated:', value)}
           />
         </div>
@@ -656,7 +656,7 @@ export const BlogPostEditor: Story = {
             defaultValue="React Hooks revolutionized how we write React components. In this comprehensive guide, we'll explore the most commonly used hooks and learn how to implement them effectively in your projects."
             autoSize={true}
             maxRows={6}
-            variant={InputVariant.DEFAULT}
+            variant="default"
             onSave={(value) => console.log('Introduction updated:', value)}
           />
         </div>
@@ -688,7 +688,7 @@ React Hooks are functions that let you "hook into" React state and lifecycle fea
 React Hooks provide a powerful way to manage state and side effects in functional components. Start with the basic hooks and gradually explore more advanced patterns as your application grows.`}
             autoSize={true}
             maxRows={20}
-            variant={InputVariant.DEFAULT}
+            variant="default"
             onSave={(value) => console.log('Content updated:', value)}
           />
         </div>
@@ -739,7 +739,7 @@ export const CommentSystem: Story = {
           </div>
           <EditableFieldTextArea
             defaultValue="This is a great article! I particularly enjoyed the section about custom hooks. One suggestion: it would be helpful to include more examples of useEffect cleanup functions."
-            variant={InputVariant.INVISIBLE}
+            variant="invisible"
             autoSize={true}
             maxRows={8}
             onSave={(value) => console.log('Comment updated:', value)}
@@ -760,7 +760,7 @@ export const CommentSystem: Story = {
             defaultValue="Thanks for sharing this! I've been struggling with understanding when to use useReducer vs useState. Your explanations really helped clarify the differences.
 
 Quick question: Do you have any recommendations for testing components that use hooks?"
-            variant={InputVariant.INVISIBLE}
+            variant="invisible"
             autoSize={true}
             maxRows={10}
             onSave={(value) => console.log('Reply updated:', value)}

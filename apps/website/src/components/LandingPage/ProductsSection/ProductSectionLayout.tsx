@@ -1,8 +1,7 @@
 'use client';
 
 import { Link } from '@components/Link/Link';
-import { LinkColor, LinkVariant } from '@intlayer/design-system/link';
-import { Tag, TagBorder, TagColor, TagSize } from '@intlayer/design-system/tag';
+import { Tag, type TagColor } from '@intlayer/design-system/tag';
 import { ArrowRightIcon } from 'lucide-react';
 import type { FC, ReactNode } from 'react';
 
@@ -21,7 +20,7 @@ export interface ProductSectionLayoutProps {
 
 export const ProductSectionLayout: FC<ProductSectionLayoutProps> = ({
   tag,
-  tagColor = TagColor.TEXT,
+  tagColor = 'text',
   title,
   description,
   cta,
@@ -30,8 +29,8 @@ export const ProductSectionLayout: FC<ProductSectionLayoutProps> = ({
     <div className="flex w-full max-w-xl flex-col items-center py-10 text-center">
       {/* Tag */}
       <Tag
-        size={TagSize.SM}
-        border={TagBorder.WITH}
+        size="sm"
+        border="with"
         color={tagColor}
         className="mb-6 rounded-full border font-medium text-sm"
       >
@@ -54,8 +53,8 @@ export const ProductSectionLayout: FC<ProductSectionLayoutProps> = ({
           href={cta.href}
           isExternalLink={cta.isExternal}
           target={cta.isExternal ? '_blank' : undefined}
-          variant={LinkVariant.BUTTON}
-          color={LinkColor.TEXT}
+          variant="button"
+          color="text"
           label={cta.label}
           roundedSize="full"
           size="md"

@@ -81,13 +81,13 @@ const MockLogo = () => (
 const MockRightItems = () => (
   <>
     <Button
-      size={ButtonSize.SM}
-      variant={ButtonVariant.OUTLINE}
+      size="sm"
+      variant="outline"
       label="Sign In"
     >
       Sign In
     </Button>
-    <Button size={ButtonSize.SM} color={ButtonColor.PRIMARY} label="Sign Up">
+    <Button size="sm" color="primary" label="Sign Up">
       Sign Up
     </Button>
   </>
@@ -393,8 +393,8 @@ export const CustomStyling: Story = {
           <div className="h-4 w-4 rounded-full bg-yellow-500"></div>
         </div>
         <Button
-          size={ButtonSize.SM}
-          color={ButtonColor.SECONDARY}
+          size="sm"
+          color="secondary"
           label="Get Started"
         >
           Get Started

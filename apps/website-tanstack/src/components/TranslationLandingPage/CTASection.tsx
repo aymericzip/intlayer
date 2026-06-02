@@ -1,13 +1,5 @@
-import {
-  Container,
-  ContainerBackground,
-  ContainerBorderColor,
-  ContainerPadding,
-  ContainerRoundedSize,
-  ContainerTransparency,
-} from '@intlayer/design-system/container';
+import { Container } from '@intlayer/design-system/container';
 import { CodeBlock } from '@intlayer/design-system/ide';
-import { LinkColor, LinkVariant } from '@intlayer/design-system/link';
 import { Website_Doc_CLI_Fill_Path } from '@intlayer/design-system/routes';
 import { cn } from '@intlayer/design-system/utils';
 import { useTheme } from 'next-themes';
@@ -28,11 +20,11 @@ const CodeBlockWrapper: FC<CodeBlockWrapperProps> = ({
 }) => {
   return (
     <Container
-      roundedSize={ContainerRoundedSize['2xl']}
-      padding={ContainerPadding.MD}
+      roundedSize="2xl"
+      padding="md"
       border
-      borderColor={ContainerBorderColor.CARD}
-      background={ContainerBackground.NONE}
+      borderColor="card"
+      background="none"
       className={cn('relative overflow-hidden text-text-opposite', className)}
     >
       <div className="mb-2 flex items-center justify-between">
@@ -61,11 +53,11 @@ export const CTASection: FC = () => {
       className="mx-auto max-w-5xl px-8 pt-10 pb-14 md:pt-14 md:pb-20"
     >
       <Container
-        roundedSize={ContainerRoundedSize['4xl']}
-        transparency={ContainerTransparency.MD}
-        padding={ContainerPadding.XL}
+        roundedSize="4xl"
+        transparency="md"
+        padding="xl"
         border
-        borderColor={ContainerBorderColor.CARD}
+        borderColor="card"
         className="relative overflow-hidden"
       >
         <div className="grid grid-cols-1 items-center gap-6 md:grid-cols-12">
@@ -79,8 +71,8 @@ export const CTASection: FC = () => {
             <div className="mt-5 flex flex-col gap-3 sm:flex-row">
               <Link
                 to="#commands"
-                variant={LinkVariant.BUTTON_OUTLINED}
-                color={LinkColor.TEXT}
+                variant="button-outlined"
+                color="text"
                 className="w-full sm:w-auto"
                 label={exploreCLICommands.value}
                 onClick={(e) => {
@@ -94,8 +86,8 @@ export const CTASection: FC = () => {
 
               <Link
                 to={Website_Doc_CLI_Fill_Path}
-                variant={LinkVariant.BUTTON}
-                color={LinkColor.TEXT}
+                variant="button"
+                color="text"
                 className="w-full sm:w-auto"
                 label={readDocumentation.value}
               >
