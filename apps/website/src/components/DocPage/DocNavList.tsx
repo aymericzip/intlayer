@@ -451,8 +451,8 @@ export const DocNavList: FC<DocNavListProps> = ({ docData, activeSlugs }) => {
       >
         <Container
           className={cn(
-            isHidden ? 'h-[100px]' : 'h-full',
-            'sticky top-[60px] rounded-br-2xl'
+            isHidden ? 'top-25' : 'h-full',
+            'sticky top-15 rounded-br-2xl'
           )}
           roundedSize="none"
           transparency="xs"

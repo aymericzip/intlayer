@@ -157,7 +157,7 @@ export const CustomStyling: Story = {
 export const CompactSize: Story = {
   args: {
     isLoading: true,
-    className: 'min-h-[100px] max-w-[200px]',
+    className: 'min-top-25 max-w-[200px]',
   },
   parameters: {
     docs: {

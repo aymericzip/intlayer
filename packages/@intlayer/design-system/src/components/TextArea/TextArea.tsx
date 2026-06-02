@@ -88,7 +88,7 @@ export type TextAreaProps = DetailedHTMLProps<
  *   variant={hasError ? 'error' : 'success'}
  *   validationStyleEnabled={true}
  *   placeholder="Minimum 10 characters required"
- *   className="min-h-[100px]"
+ *   className="min-top-25"
  * />
  * ```
  */

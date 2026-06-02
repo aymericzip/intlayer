@@ -38,8 +38,8 @@ export const AsideNavigation: FC = (props) => {
         roundedSize="none"
         transparency="xs"
         className={cn(
-          isHidden ? 'h-[100px]' : 'h-full',
-          'sticky top-[60px] rounded-bl-xl'
+          isHidden ? 'top-25' : 'h-full',
+          'sticky top-15 rounded-bl-xl'
         )}
         {...props}
       >
