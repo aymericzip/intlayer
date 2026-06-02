@@ -38,41 +38,49 @@ history:
 En comparación con las soluciones principales como `next-intl` o `i18next`, Intlayer es una solución que viene con optimizaciones integradas como:
 
 <AccordionGroup>
+
 <Accordion header="Tamaño del bundle">
 
 En lugar de cargar archivos JSON masivos en tus páginas, carga solo el contenido necesario. Intlayer ayuda a **reducir el tamaño de tu bundle y de tus páginas hasta en un 50%**.
 
 </Accordion>
+
 <Accordion header="Mantenibilidad">
 
 Delimitar el contenido de tu aplicación **facilita el mantenimiento** para aplicaciones a gran escala. Puedes duplicar o eliminar una sola carpeta de funciones sin la carga mental de revisar toda tu base de código de contenido. Además, Intlayer está **completamente tipado** para garantizar la precisión de tu contenido.
 
 </Accordion>
+
 <Accordion header="Agente de IA">
 
 Co-localizar el contenido **reduce el contexto necesario** para los modelos de lenguaje grande (LLM). Intlayer también viene con una suite de herramientas, como una **CLI** para probar traducciones faltantes, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/mcp_server.md)** y **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/agent_skills.md)**, para hacer que la experiencia del desarrollador (DX) sea aún más fluida para los agentes de IA.
 
 </Accordion>
+
 <Accordion header="Funcionalidades">
 
 Intlayer ofrece una serie de características adicionales que otras soluciones de i18n no tienen, como [soporte de Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/markdown.md), [obtención de contenido externo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/function_fetching.md), [carga de contenido de archivos](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/file.md), [actualización de contenido en vivo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/cli/live.md), [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_visual_editor.md) y más.
 
 </Accordion>
+
 <Accordion header="Automatización">
 
 Usa la automatización para traducir en tu pipeline de CI/CD utilizando el LLM de tu elección al costo de tu proveedor de IA. Intlayer también ofrece un **compilador** para automatizar la extracción de contenido, así como una [plataforma web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_CMS.md) para ayudar a **traducir en segundo plano**.
 
 </Accordion>
+
 <Accordion header="Rendimiento">
 
 Conectar archivos JSON masivos a componentes puede generar problemas de rendimiento y reactividad. Intlayer optimiza la carga de tu contenido en tiempo de compilación.
 
 </Accordion>
+
 <Accordion header="Escalar con perfiles no técnicos">
 
 Más que una simple solución de i18n, Intlayer proporciona un **[editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_visual_editor.md) auto-hospedado** y un **[CMS completo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_CMS.md)** para ayudarte a administrar tu contenido multilingüe en **tiempo real**, haciendo que la colaboración con traductores, redactores y otros miembros del equipo sea fluida. El contenido se puede almacenar localmente y/o de forma remota.
 
 </Accordion>
+
 <Accordion header="Diseño multi-framework">
 
 Si usas diferentes frameworks para diferentes partes de tu aplicación (por ejemplo, React, React-native, Vue, Angular, Svelte, etc.), Intlayer proporciona una forma de **usar una sintaxis e implementación común en todos los principales frameworks de frontend**. También podrás compartir tu declaración de contenido en tu sistema de diseño, aplicaciones, backend, etc.

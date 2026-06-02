@@ -90,32 +90,39 @@ export const MyComponent: FC = () => {
 ### متبادل کے مقابلے میں Intlayer کیوں؟
 
 `next-intl` یا `i18next` جیسے اہم حلوں کے مقابلے میں، Intlayer ایک ایسا حل ہے جو مربوط آپٹمائزیشن کے ساتھ آتا ہے جیسے:
+
 <AccordionGroup>
+
 <Accordion header="بنڈل کا سائز (Bundle size)">
 
 اپنے صفحات میں بھاری JSON فائلیں لوڈ کرنے کے بجائے، صرف ضروری مواد لوڈ کریں۔ Intlayer آپ کے **بنڈل اور صفحہ کے سائز کو 50% تک کم کرنے** میں مدد کرتا ہے۔
 
 </Accordion>
+
 <Accordion header="قابلِ برقراری (Maintainability)">
 
 اپنی ایپلیکیشن کے مواد کو قریب رکھنا بڑے پیمانے کی ایپلیکیشنز کے لیے **دیکھ بھال کو آسان بناتا ہے**۔ آپ اپنے پورے مواد کے کوڈ بیس کا جائزہ لینے کے ذہنی بوجھ کے بغیر کسی ایک فیچر فولڈر کو نقل یا حذف کر سکتے ہیں۔ مزید برآں، آپ کے مواد کی درستگی کو یقینی بنانے کے لیے Intlayer کو **مکمل طور پر ٹائپڈ (fully typed)** کیا گیا ہے۔
 
 </Accordion>
+
 <Accordion header="AI ایجنٹ (AI Agent)">
 
 مواد کو قریب رکھنا بڑے لینگویج ماڈلز (LLMs) کی طرف سے **درکار سیاق و سباق کو کم کرتا ہے**۔ Intlayer ٹولز کے ایک سوٹ کے ساتھ بھی آتا ہے، جیسے غائب ترجموں کو جانچنے کے لیے **CLI**، **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/lsp.md)**، **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/mcp_server.md)** اور AI ایجنٹس کے لیے ڈیولپر کے تجربے (DX) کو اور بھی ہموار بنانے کے لیے **[ایجنٹ کی مہارتیں (agent skills)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/agent_skills.md)**۔
 
 </Accordion>
+
 <Accordion header="آٹومیشن (Automation)">
 
 اپنے AI فراہم کنندہ کی قیمت پر اپنی پسند کا LLM استعمال کرتے ہوئے اپنے CI/CD پائپ لائن میں ترجمہ کرنے کے لیے آٹومیشن کا استعمال کریں۔ Intlayer مواد نکالنے کو خودکار بنانے کے لیے ایک **کمپائلر (compiler)** کے ساتھ ساتھ [ویب پلیٹ فارم](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_CMS.md) بھی پیش کرتا ہے تاکہ **پس منظر میں ترجمہ** کرنے میں مدد ملے۔
 
 </Accordion>
+
 <Accordion header="کارکردگی (Performance)">
 
 بھاری JSON فائلوں کو اجزاء (components) سے جوڑنے سے کارکردگی اور ردعمل (reactivity) کے مسائل پیدا ہو سکتے ہیں۔ Intlayer تعمیر کے وقت (build time) پر آپ کے مواد کی لوڈنگ کو بہتر بناتا ہے۔
 
 </Accordion>
+
 <Accordion header="غیر ڈیولپرز کے ساتھ اسکیلنگ (Scaling with non-dev)">
 
 صرف ایک i18n حل سے بڑھ کر، Intlayer ایک **خود میزبان (self-hosted) [بصری ایڈیٹر](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_visual_editor.md)** اور ایک **[مکمل CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/intlayer_CMS.md)** فراہم کرتا ہے تاکہ آپ کو اپنے کثیر لسانی مواد کو **ریئل ٹائم** میں منظم کرنے میں مدد ملے، جس سے مترجمین، کاپی رائٹرز اور ٹیم کے دیگر اراکین کے ساتھ باہمی تعاون کو ہموار بنایا جا سکے۔ مواد کو مقامی طور پر اور/یا دور دراز سے محفوظ کیا جا سکتا ہے۔

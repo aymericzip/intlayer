@@ -90,32 +90,39 @@ export const MyComponent: FC = () => {
 ### Tại sao chọn Intlayer thay vì các giải pháp thay thế?
 
 So với các giải pháp chính như `next-intl` hoặc `i18next`, Intlayer là một giải pháp đi kèm với các tối ưu hóa được tích hợp sẵn như:
+
 <AccordionGroup>
+
 <Accordion header="Kích thước Bundle (Bundle size)">
 
 Thay vì tải các tệp JSON khổng lồ vào các trang của bạn, chỉ tải nội dung cần thiết. Intlayer giúp **giảm kích thước bundle và trang của bạn lên tới 50%**.
 
 </Accordion>
+
 <Accordion header="Khả năng bảo trì (Maintainability)">
 
 Việc định phạm vi (scoping) nội dung ứng dụng của bạn **tạo điều kiện cho việc bảo trì** các ứng dụng quy mô lớn. Bạn có thể sao chép hoặc xóa một thư mục tính năng mà không phải chịu gánh nặng khi xem xét toàn bộ cơ sở mã nội dung của bạn. Ngoài ra, Intlayer **được định kiểu hoàn toàn (fully typed)** để đảm bảo độ chính xác cho nội dung của bạn.
 
 </Accordion>
+
 <Accordion header="Đại lý AI (AI Agent)">
 
 Việc đặt nội dung cùng vị trí **làm giảm ngữ cảnh cần thiết** đối với các Mô hình Ngôn ngữ Lớn (LLM). Intlayer cũng đi kèm với một bộ công cụ, chẳng hạn như **CLI** để kiểm tra các bản dịch bị thiếu, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/mcp_server.md)** và **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/agent_skills.md)**, để làm cho trải nghiệm của nhà phát triển (DX) trở nên mượt mà hơn cho các đại lý AI.
 
 </Accordion>
+
 <Accordion header="Tự động hóa (Automation)">
 
 Sử dụng tự động hóa để dịch trong pipeline CI/CD của bạn bằng cách sử dụng LLM mà bạn chọn với chi phí của nhà cung cấp AI của bạn. Intlayer cũng cung cấp một **trình biên dịch (compiler)** để tự động hóa việc trích xuất nội dung, cũng như một [nền tảng web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md) để giúp **dịch ở chế độ nền**.
 
 </Accordion>
+
 <Accordion header="Hiệu suất (Performance)">
 
 Việc kết nối các tệp JSON khổng lồ với các thành phần (components) có thể dẫn đến các vấn đề về hiệu suất và khả năng phản hồi. Intlayer tối ưu hóa việc tải nội dung của bạn tại thời điểm build (build time).
 
 </Accordion>
+
 <Accordion header="Mở rộng với những người không phải nhà phát triển (Scaling with non-dev)">
 
 Không chỉ là một giải pháp i18n, Intlayer cung cấp một **[trình soạn thảo trực quan](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md) có thể tự lưu trữ** và một **[CMS đầy đủ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md)** để giúp bạn quản lý nội dung đa ngôn ngữ của mình theo **thời gian thực**, giúp việc cộng tác với người dịch, copywriter và các thành viên khác trong nhóm trở nên liền mạch. Nội dung có thể được lưu trữ cục bộ và/hoặc từ xa.

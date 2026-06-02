@@ -38,41 +38,49 @@ history:
 Ve srovnání s hlavními řešeními jako `next-intl` nebo `i18next` je Intlayer řešením, které přichází s integrovanými optimalizacemi, jako jsou:
 
 <AccordionGroup>
+
 <Accordion header="Velikost balíčku (Bundle size)">
 
 Místo načítání obrovských souborů JSON do vašich stránek načtěte pouze nezbytný obsah. Intlayer pomáhá **snížit velikost vašeho balíčku a stránek až o 50 %**.
 
 </Accordion>
+
 <Accordion header="Udržovatelnost">
 
 Omezení rozsahu obsahu vaší aplikace na úroveň komponent **usnadňuje údržbu** u velkých projektů. Můžete duplikovat nebo smazat jednu složku s funkcí bez mentální zátěže z nutnosti procházet celou kódovou základnu obsahu. Intlayer je navíc **plně typovaný**, což zaručuje přesnost vašeho obsahu.
 
 </Accordion>
+
 <Accordion header="AI Agenti">
 
 Umístění obsahu přímo u komponent **snižuje rozsah kontextu** potřebného pro velké jazykové modely (LLM). Intlayer také přichází se sadou nástrojů, jako je **CLI** pro testování chybějících překladů, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/mcp_server.md)** a **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/agent_skills.md)**, které AI agentům usnadňují vývojářské prostředí (DX).
 
 </Accordion>
+
 <Accordion header="Funkce">
 
 Intlayer nabízí řadu dodatečných funkcí, které jiná i18n řešení nemají, jako je [podpora Markdownu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/dictionary/markdown.md), [načítání externího obsahu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/dictionary/function_fetching.md), [načítání obsahu ze souborů](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/dictionary/file.md), [živá aktualizace obsahu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/live.md), [vizuální editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/intlayer_visual_editor.md) a další.
 
 </Accordion>
+
 <Accordion header="Automatizace">
 
 Využijte automatizaci k překladu ve vaší CI/CD pipeline pomocí LLM podle vaší volby za cenu vašeho poskytovatele AI. Intlayer nabízí také **kompilátor** pro automatickou extrakci obsahu a [webovou platformu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/intlayer_CMS.md) pro podporu **překladu na pozadí**.
 
 </Accordion>
+
 <Accordion header="Výkon">
 
 Připojení masivních souborů JSON ke komponentám může způsobit problémy s výkonem a reaktivitou. Intlayer optimalizuje načítání vašeho obsahu již při sestavení (build).
 
 </Accordion>
+
 <Accordion header="Spolupráce s netechnickými profily">
 
 Více než jen i18n řešení, Intlayer poskytuje **[vizuální editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/intlayer_visual_editor.md) s možností vlastního hostování** a **[plnohodnotný CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/intlayer_CMS.md)**, které vám pomohou spravovat vícejazyčný obsah v **reálném čase**. Spolupráce s překladateli, textaři a dalšími členy týmu je tak zcela bezproblémová. Obsah lze ukládat lokálně a/nebo vzdáleně.
 
 </Accordion>
+
 <Accordion header="Návrh napříč frameworky">
 
 Pokud používáte různé frameworky pro různé části vaší aplikace (např. React, React-native, Vue, Angular, Svelte atd.), Intlayer poskytuje způsob, jak **používat společnou syntaxi a implementaci ve všech hlavních frontendových frameworcích**. Své deklarace obsahu budete moci sdílet napříč vaším design systémem, aplikacemi, backendem atd.

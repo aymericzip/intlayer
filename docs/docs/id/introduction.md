@@ -90,32 +90,39 @@ export const MyComponent: FC = () => {
 ### Mengapa Intlayer daripada alternatif lain?
 
 Dibandingkan dengan solusi utama seperti `next-intl` atau `i18next`, Intlayer adalah solusi yang hadir dengan optimasi terintegrasi seperti:
+
 <AccordionGroup>
+
 <Accordion header="Ukuran bundel (Bundle size)">
 
 Daripada memuat file JSON besar ke halaman Anda, muat hanya konten yang diperlukan. Intlayer membantu **mengurangi ukuran bundel dan halaman Anda hingga 50%**.
 
 </Accordion>
+
 <Accordion header="Kemudahan Pemeliharaan (Maintainability)">
 
 Menempatkan cakupan (scoping) konten aplikasi Anda di dekat komponen **memudahkan pemeliharaan** untuk aplikasi skala besar. Anda dapat menduplikasi atau menghapus folder fitur tunggal tanpa beban mental untuk meninjau seluruh basis kode konten Anda. Selain itu, Intlayer **sepenuhnya diketik (fully typed)** untuk memastikan keakuratan konten Anda.
 
 </Accordion>
+
 <Accordion header="Agen AI">
 
 Penempatan konten yang berdekatan (co-location) **mengurangi konteks yang dibutuhkan** oleh Model Bahasa Besar (LLM). Intlayer juga dilengkapi dengan serangkaian alat, seperti **CLI** untuk menguji terjemahan yang hilang, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/mcp_server.md)**, dan **[keterampilan agen (agent skills)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/agent_skills.md)**, untuk membuat pengalaman pengembang (DX) menjadi lebih mulus bagi agen AI.
 
 </Accordion>
+
 <Accordion header="Otomatisasi">
 
 Gunakan otomatisasi untuk menerjemahkan di jalur (pipeline) CI/CD Anda menggunakan LLM pilihan Anda dengan biaya dari penyedia AI Anda. Intlayer juga menawarkan **kompiler (compiler)** untuk mengotomatiskan ekstraksi konten, serta [platform web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md) untuk membantu **menerjemahkan di latar belakang**.
 
 </Accordion>
+
 <Accordion header="Kinerja (Performance)">
 
 Menghubungkan file JSON besar ke komponen dapat menyebabkan masalah kinerja dan reaktivitas. Intlayer mengoptimalkan pemuatan konten Anda pada saat kompilasi (build time).
 
 </Accordion>
+
 <Accordion header="Penskalaan tanpa pengembang (Scaling with non-dev)">
 
 Lebih dari sekadar solusi i18n, Intlayer menyediakan **[editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md) yang dapat di-host sendiri** dan **[CMS lengkap](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md)** untuk membantu Anda mengelola konten multibahasa Anda secara **real-time**, membuat kolaborasi dengan penerjemah, copywriter, dan anggota tim lainnya menjadi mulus. Konten dapat disimpan secara lokal dan/atau dari jarak jauh.

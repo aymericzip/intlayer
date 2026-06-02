@@ -90,32 +90,39 @@ export const MyComponent: FC = () => {
 ### विकल्पों के स्थान पर Intlayer क्यों?
 
 `next-intl` या `i18next` जैसे मुख्य समाधानों की तुलना में, Intlayer एक ऐसा समाधान है जो एकीकृत अनुकूलन (optimizations) के साथ आता है जैसे:
+
 <AccordionGroup>
+
 <Accordion header="बंडल आकार (Bundle size)">
 
 अपने पृष्ठों में बड़े JSON फ़ाइलों को लोड करने के बजाय, केवल आवश्यक कंटेंट को लोड करें। Intlayer आपके **बंडल और पृष्ठ के आकार को 50% तक कम करने** में मदद करता है।
 
 </Accordion>
+
 <Accordion header="बनाए रखने की क्षमता (Maintainability)">
 
 अपने एप्लिकेशन के कंटेंट को स्कोप करना बड़े पैमाने के एप्लिकेशनों के लिए **रखरखाव को आसान बनाता है**। आप अपने संपूर्ण कंटेंट कोडबेस की समीक्षा करने के मानसिक बोझ के बिना एक सिंगल फीचर फ़ोल्डर को डुप्लिकेट या हटा सकते हैं। इसके अतिरिक्त, आपके कंटेंट की सटीकता सुनिश्चित करने के लिए Intlayer **पूरी तरह से टाइप (fully typed)** किया गया है।
 
 </Accordion>
+
 <Accordion header="AI एजेंट (AI Agent)">
 
 कंटेंट का सह-स्थान (Co-locating) बड़े भाषा मॉडल (LLMs) द्वारा **आवश्यक संदर्भ को कम करता है**। Intlayer AI एजेंटों के लिए डेवलपर अनुभव (DX) को और भी सुगम बनाने के लिए लापता अनुवादों का परीक्षण करने के लिए **CLI**, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/mcp_server.md)** और **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/agent_skills.md)** जैसे उपकरणों के एक सूट के साथ आता है।
 
 </Accordion>
+
 <Accordion header="स्वचालन (Automation)">
 
 अपने AI प्रदाता की लागत पर अपनी पसंद के LLM का उपयोग करके अपने CI/CD पाइपलाइन में अनुवाद करने के लिए स्वचालन का उपयोग करें। Intlayer कंटेंट निष्कर्षण को स्वचालित करने के लिए एक **कंपाइलर (compiler)** और **पृष्ठभूमि में अनुवाद** करने में मदद करने के लिए एक [वेब प्लेटफ़ॉर्म](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md) भी प्रदान करता है।
 
 </Accordion>
+
 <Accordion header="प्रदर्शन (Performance)">
 
 विशाल JSON फ़ाइलों को घटकों (components) से जोड़ने से प्रदर्शन और प्रतिक्रिया (reactivity) संबंधी समस्याएं हो सकती हैं। Intlayer निर्माण के समय (build time) आपके कंटेंट के लोडिंग को अनुकूलित करता है।
 
 </Accordion>
+
 <Accordion header="गैर-डेवलपर्स के साथ स्केलिंग (Scaling with non-dev)">
 
 केवल एक i18n समाधान से अधिक, Intlayer आपके बहुभाषी कंटेंट को **रीयल-टाइम** में प्रबंधित करने में मदद करने के लिए एक **सेल्फ-होस्टेड [विज़ुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md)** और एक **[पूर्ण CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md)** प्रदान करता है, जिससे अनुवादकों, कॉपीराइटरों और टीम के अन्य सदस्यों के साथ सहज सहयोग संभव हो जाता है। कंटेंट को स्थानीय और/या दूरस्थ रूप से संग्रहीत किया जा सकता है।
