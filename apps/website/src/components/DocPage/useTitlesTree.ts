@@ -69,7 +69,7 @@ export const useTitlesTree = ({
       return;
     }
 
-    const orderedHeadings = Array.from(flatHeadings);
+    const orderedHeadings = Array.from(flatHeadings).filter((el) => el.id);
 
     const childrenMap = new Map<HTMLElement, HTMLElement[]>();
     const roots: HTMLElement[] = [];

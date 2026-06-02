@@ -3,7 +3,6 @@
 import { SearchTrigger } from '@components/DocPage/Search/SearchTrigger';
 import { Link } from '@components/Link/Link';
 import { Accordion } from '@intlayer/design-system/accordion';
-import {} from '@intlayer/design-system/api';
 import { Button } from '@intlayer/design-system/button';
 import { ClickOutsideDiv } from '@intlayer/design-system/click-outside-div';
 import { Container } from '@intlayer/design-system/container';
@@ -225,8 +224,8 @@ export const DocNavListContent: FC<DocNavListContentProps> = ({
     >
       {Object.keys(filteredDocData).map((key1) => {
         const section1Data = filteredDocData[key1];
-        const sectionDefault = section1Data.default;
-        const subSections = section1Data.subSections;
+        const sectionDefault = section1Data?.default;
+        const subSections = section1Data?.subSections;
         const slugs = sectionDefault?.slugs ?? [];
 
         // Check if this section's own slugs match
@@ -267,17 +266,17 @@ export const DocNavListContent: FC<DocNavListContentProps> = ({
               href={sectionDefault?.relativeUrl ?? ''}
               label={key1}
               isActive={isSelfActive && !isSubSectionActive}
-              frameworks={section1Data.frameworks}
+              frameworks={section1Data?.frameworks}
             >
-              {section1Data.title}
+              {section1Data?.title}
             </OptionalLink>
 
             {subSections && Object.keys(subSections).length > 0 && (
               <ul className="mt-4 flex flex-col gap-4 border-neutral border-l-[0.5px] p-1 text-base">
                 {Object.keys(subSections).map((key2) => {
                   const section2Data = subSections[key2];
-                  const sectionDefault = section2Data.default;
-                  const subSections2 = section2Data.subSections;
+                  const sectionDefault = section2Data?.default;
+                  const subSections2 = section2Data?.subSections;
                   const hasSubsections =
                     subSections2 && Object.keys(subSections2).length > 0;
                   const slugs = sectionDefault?.slugs ?? [];
@@ -331,7 +330,7 @@ export const DocNavListContent: FC<DocNavListContentProps> = ({
                                   {Object.keys(subSections2).map((key3) => {
                                     const section3Data = subSections2[key3];
                                     const slugs =
-                                      section3Data.default?.slugs ?? [];
+                                      section3Data?.default?.slugs ?? [];
                                     const isActive =
                                       slugs.length > 0 &&
                                       slugs.every(
@@ -344,14 +343,14 @@ export const DocNavListContent: FC<DocNavListContentProps> = ({
                                         key={key3}
                                         label={key3}
                                         href={
-                                          section3Data.default?.relativeUrl ??
+                                          section3Data?.default?.relativeUrl ??
                                           ''
                                         }
                                         isActive={isActive}
                                         className="block w-full flex-row items-center text-nowrap p-2 text-left text-xs transition-colors hover:text-text"
-                                        frameworks={section3Data.frameworks}
+                                        frameworks={section3Data?.frameworks}
                                       >
-                                        {section3Data.title}
+                                        {section3Data?.title}
                                       </OptionalLink>
                                     );
                                   })}
