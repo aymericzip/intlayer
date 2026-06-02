@@ -119,9 +119,7 @@
   --color-black: rgba(0, 0, 0);
 }
 
-@variant dark 
-(
-:where([data-theme="dark"], [data-theme="dark"] *) &);
+@variant dark (:where([data-theme="dark"], [data-theme="dark"] *) &);
 @variant light (:where([data-theme="light"], [data-theme="light"] *) &);
 
 :root,

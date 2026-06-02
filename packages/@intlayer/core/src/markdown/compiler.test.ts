@@ -69,7 +69,7 @@ describe('Markdown Core Compiler', () => {
   it('should handle code blocks', () => {
     const result = compile('```js\nconst x = 1;\n```', ctx) as any;
     expect(result.toString()).toBe(
-      '<pre key="0"><code className="lang-js" lang="js">const x = 1;\n</code></pre>'
+      '<pre key="0"><code className="lang-js">const x = 1;\n</code></pre>'
     );
   });
 
