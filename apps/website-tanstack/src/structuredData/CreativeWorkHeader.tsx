@@ -1,3 +1,5 @@
+/** biome-ignore-all lint/security/noDangerouslySetInnerHtml: No choice */
+
 import { useIntlayer } from 'react-intlayer';
 
 type DocHeaderProps = {

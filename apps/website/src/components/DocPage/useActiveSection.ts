@@ -55,9 +55,9 @@ export const useActiveSection = ({
 
       // Find the last heading that is above the scroll position
       const newActiveParent = headings.findLast((heading) => {
-        const headingTop = isWindow
-          ? heading.offsetTop
-          : heading.offsetTop - (contentElement?.offsetTop ?? 0);
+        // When using a scrollable container, offsetTop is already relative to
+        // the container (the article is position:relative = its offsetParent)
+        const headingTop = heading.offsetTop;
         return headingTop < scrollY;
       });
 
@@ -69,9 +69,7 @@ export const useActiveSection = ({
         // Find active child within the active parent's children
         const children = headingMap.get(newActiveParent) ?? [];
         const activeChildHeading = children.findLast((child) => {
-          const childTop = isWindow
-            ? child.offsetTop
-            : child.offsetTop - (contentElement?.offsetTop ?? 0);
+          const childTop = child.offsetTop;
           return childTop < scrollY;
         });
 

@@ -14,10 +14,7 @@ import { ExternalLink } from 'lucide-react';
 import type { FC } from 'react';
 import { useLocale } from 'react-intlayer';
 
-export type LinkProps = LinkUIProps &
-  Omit<TanStackLinkProps, 'to'> & {
-    to?: string | { pathname?: string; search?: string };
-  };
+export type LinkProps = TanStackLinkProps & Omit<LinkUIProps, 'href'>;
 
 const URL = import.meta.env.VITE_URL;
 
@@ -117,9 +114,13 @@ export const Link: FC<LinkProps> = (props) => {
     isExternalLinkProp
   );
 
+  const hashFragment =
+    typeof toProp === 'object' && toProp !== null
+      ? (toProp as TanStackLinkProps).hash
+      : undefined;
+
   const isChildrenString = isTextChildren(children);
-  const isButton =
-    variant === 'button' || variant === 'button-outlined';
+  const isButton = variant === 'button' || variant === 'button-outlined';
 
   const rel = isExternalLink ? 'noopener noreferrer' : undefined;
   const target = isExternalLink ? '_blank' : '_self';
@@ -170,6 +171,10 @@ export const Link: FC<LinkProps> = (props) => {
       )}
       {...(otherProps as any)}
       to={href}
+      hash={hashFragment}
+      activeOptions={
+        hashFragment ? { exact: true, includeHash: true } : undefined
+      }
     >
       {isButton && isChildrenString ? <span>{children}</span> : children}
       {isExternalLink && isChildrenString && (

@@ -14,9 +14,7 @@ type NavTitles2Props = {
 
 const NavTitles2: FC<NavTitles2Props> = ({ title2, activeSectionsId }) => {
   const { linkLabel } = useIntlayer('nav-titles');
-  const { availableLocales } = useLocale();
   const { pathname } = useLocation();
-  const pathWithoutLocale = getPathWithoutLocale(pathname, availableLocales);
 
   return (
     <ul className="my-3 flex w-full min-w-52 flex-col gap-2 border-neutral border-l-[0.5px] pl-3 text-text/80">
@@ -27,7 +25,7 @@ const NavTitles2: FC<NavTitles2Props> = ({ title2, activeSectionsId }) => {
         return (
           <li key={id}>
             <Link
-              to={`${pathWithoutLocale}#${id}`}
+              to={{ pathname: pathname as any, hash: id }}
               label={`${linkLabel}: ${h3.innerText}`}
               aria-current={isActive ? 'location' : undefined}
               color="text"
@@ -46,9 +44,7 @@ const NavTitles2: FC<NavTitles2Props> = ({ title2, activeSectionsId }) => {
 
 export const NavTitles: FC = () => {
   const navRef = useRef<HTMLDivElement>(null);
-  const { availableLocales } = useLocale();
   const { pathname } = useLocation();
-  const pathWithoutLocale = getPathWithoutLocale(pathname, availableLocales);
   const { linkLabel } = useIntlayer('nav-titles');
 
   // Use the custom hook to extract and organize headings
@@ -79,7 +75,7 @@ export const NavTitles: FC = () => {
             <li key={id}>
               <Link
                 label={`${linkLabel.value}: ${h2.innerText}`}
-                to={`${pathWithoutLocale}#${id}`}
+                to={{ pathname: pathname as any, hash: id }}
                 color="text"
                 roundedSize="lg"
                 variant="hoverable"

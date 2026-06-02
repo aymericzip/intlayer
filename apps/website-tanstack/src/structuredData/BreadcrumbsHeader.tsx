@@ -14,7 +14,7 @@ type BreadcrumbsHeaderProps = {
 export const BreadcrumbsHeader: FC<BreadcrumbsHeaderProps> = ({
   breadcrumbs,
 }) => (
-  <Script
+  <script
     type="application/ld+json"
     dangerouslySetInnerHTML={{
       __html: JSON.stringify({
