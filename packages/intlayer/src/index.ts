@@ -1,6 +1,9 @@
 /** biome-ignore-all lint/suspicious/noEmptyInterface: Intlayer module augmentation registries */
 
-import type { CustomIntlayerConfig as IntlayerConfig } from '@intlayer/types/config';
+import type {
+  CustomIntlayerConfig,
+  IntlayerConfig,
+} from '@intlayer/types/config';
 import type { Dictionary as DictionaryCore } from '@intlayer/types/dictionary';
 import type { SchemaKeys } from '@intlayer/types/module_augmentation';
 
@@ -40,7 +43,11 @@ export type {
   StrictModeLocaleMap,
 } from '@intlayer/types/module_augmentation';
 
-export type { DeclarationContent, Dictionary, IntlayerConfig };
+export type {
+  CustomIntlayerConfig as IntlayerConfig,
+  DeclarationContent,
+  Dictionary,
+};
 
 import {
   /**
