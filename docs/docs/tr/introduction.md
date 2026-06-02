@@ -87,6 +87,42 @@ export const MyComponent: FC = () => {
 };
 ```
 
+### Neden alternatifler yerine Intlayer?
+
+`next-intl` veya `i18next` gibi ana çözümlerle karşılaştırıldığında, Intlayer aşağıdaki gibi entegre optimizasyonlarla birlikte gelen bir çözümdür:
+<AccordionGroup>
+<Accordion header="Paket boyutu (Bundle size)">
+
+Sayfalarınıza devasa JSON dosyaları yüklemek yerine sadece gerekli içeriği yükleyin. Intlayer, **paket ve sayfa boyutlarınızı %50'ye kadar azaltmanıza** yardımcı olur.
+
+</Accordion>
+<Accordion header="Sürdürülebilirlik (Maintainability)">
+
+Uygulamanızın içeriğini bileşenlerinize yakın konumlandırmak (scoping), büyük ölçekli uygulamalar için **bakımı kolaylaştırır**. Tüm içerik kod tabanınızı gözden geçirme zihinsel yükü olmadan tek bir özellik klasörünü kopyalayabilir veya silebilirsiniz. Ayrıca, içeriğinizin doğruluğunu sağlamak için Intlayer **tamamen tiplidir (fully typed)**.
+
+</Accordion>
+<Accordion header="Yapay Zeka Aracısı (AI Agent)">
+
+İçeriğin koduyla aynı yerde (co-locate) bulunması, Büyük Dil Modellerinin (LLM'ler) **ihtiyaç duyduğu bağlamı azaltır**. Intlayer ayrıca eksik çevirileri test etmek için bir **CLI**, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/mcp_server.md)** ve yapay zeka aracıları için geliştirici deneyimini (DX) daha da pürüzsüz hale getirecek **[aracı yetenekleri (agent skills)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/agent_skills.md)** gibi bir dizi araçla birlikte gelir.
+
+</Accordion>
+<Accordion header="Otomasyon">
+
+Yapay zeka sağlayıcınızın maliyeti üzerinden dilediğiniz LLM'yi kullanarak CI/CD ardışık düzeninizde (pipeline) çeviri yapmak için otomasyonu kullanın. Intlayer ayrıca içerik çıkarma işlemini otomatikleştirmek için bir **derleyici (compiler)** ve **arka planda çeviri** yapmanıza yardımcı olacak bir [web platformu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md) sunar.
+
+</Accordion>
+<Accordion header="Performans">
+
+Büyük JSON dosyalarını bileşenlere bağlamak, performans ve tepkisellik (reactivity) sorunlarına yol açabilir. Intlayer, içeriğinizin yüklenmesini derleme zamanında (build time) optimize eder.
+
+</Accordion>
+<Accordion header="Geliştirici olmayanlarla ölçeklendirme (Scaling with non-dev)">
+
+Intlayer, sadece bir i18n çözümü olmaktan çok daha fazlasıdır; çevirmenler, metin yazarları ve diğer ekip üyeleriyle işbirliğini sorunsuz hale getirerek çok dilli içeriğinizi **gerçek zamanlı** yönetmenize yardımcı olacak, **kendi sunucunuzda barındırılabilen bir [görsel düzenleyici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md)** ve **[tam teşekküllü bir CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md)** sağlar. İçerik yerel olarak ve/veya uzak sunucularda depolanabilir.
+
+</Accordion>
+</AccordionGroup>
+
 ## Ana Özellikler
 
 Intlayer, modern web geliştirme ihtiyaçlarını karşılamak üzere uyarlanmış çeşitli özellikler sunar. Aşağıda, her biri için ayrıntılı dokümantasyon bağlantılarına sahip temel özellikler yer almaktadır:
@@ -160,31 +196,3 @@ Her entegrasyon kılavuzu, hızlı, SEO dostu ve son derece ölçeklenebilir bir
 Açık kaynağın ve topluluk odaklı gelişimin gücüne değer veriyoruz. İyileştirmeler önermek, yeni bir kılavuz eklemek veya dokümanlarımızdaki herhangi bir sorunu düzeltmek isterseniz, [GitHub depomuzda](https://github.com/aymericzip/intlayer/blob/main/docs/docs) bir Çekme İsteği (Pull Request) göndermekten veya bir Sorun (Issue) açmaktan çekinmeyin.
 
 **Uygulamanızı daha hızlı ve daha verimli bir şekilde çevirmeye hazır mısınız?** Bugün Intlayer kullanmaya başlamak için dokümanlarımıza dalın. İçeriğinizi düzenli tutan ve ekibinizi daha üretken kılan güçlü, akıcı bir uluslararasılaştırma yaklaşımını deneyimleyin.
-
-### Neden alternatifler yerine Intlayer?
-
-`next-intl` veya `i18next` gibi ana çözümlerle karşılaştırıldığında, Intlayer aşağıdaki gibi entegre optimizasyonlarla birlikte gelen bir çözümdür:
-
-**Paket boyutu (Bundle size)**
-
-Sayfalarınıza devasa JSON dosyaları yüklemek yerine sadece gerekli içeriği yükleyin. Intlayer, **paket ve sayfa boyutlarınızı %50'ye kadar azaltmanıza** yardımcı olur.
-
-**Sürdürülebilirlik (Maintainability)**
-
-Uygulamanızın içeriğini bileşenlerinize yakın konumlandırmak (scoping), büyük ölçekli uygulamalar için **bakımı kolaylaştırır**. Tüm içerik kod tabanınızı gözden geçirme zihinsel yükü olmadan tek bir özellik klasörünü kopyalayabilir veya silebilirsiniz. Ayrıca, içeriğinizin doğruluğunu sağlamak için Intlayer **tamamen tiplidir (fully typed)**.
-
-**Yapay Zeka Aracısı (AI Agent)**
-
-İçeriğin koduyla aynı yerde (co-locate) bulunması, Büyük Dil Modellerinin (LLM'ler) **ihtiyaç duyduğu bağlamı azaltır**. Intlayer ayrıca eksik çevirileri test etmek için bir **CLI**, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/mcp_server.md)** ve yapay zeka aracıları için geliştirici deneyimini (DX) daha da pürüzsüz hale getirecek **[aracı yetenekleri (agent skills)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/agent_skills.md)** gibi bir dizi araçla birlikte gelir.
-
-**Otomasyon**
-
-Yapay zeka sağlayıcınızın maliyeti üzerinden dilediğiniz LLM'yi kullanarak CI/CD ardışık düzeninizde (pipeline) çeviri yapmak için otomasyonu kullanın. Intlayer ayrıca içerik çıkarma işlemini otomatikleştirmek için bir **derleyici (compiler)** ve **arka planda çeviri** yapmanıza yardımcı olacak bir [web platformu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md) sunar.
-
-**Performans**
-
-Büyük JSON dosyalarını bileşenlere bağlamak, performans ve tepkisellik (reactivity) sorunlarına yol açabilir. Intlayer, içeriğinizin yüklenmesini derleme zamanında (build time) optimize eder.
-
-**Geliştirici olmayanlarla ölçeklendirme (Scaling with non-dev)**
-
-Intlayer, sadece bir i18n çözümü olmaktan çok daha fazlasıdır; çevirmenler, metin yazarları ve diğer ekip üyeleriyle işbirliğini sorunsuz hale getirerek çok dilli içeriğinizi **gerçek zamanlı** yönetmenize yardımcı olacak, **kendi sunucunuzda barındırılabilen bir [görsel düzenleyici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md)** ve **[tam teşekküllü bir CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md)** sağlar. İçerik yerel olarak ve/veya uzak sunucularda depolanabilir.

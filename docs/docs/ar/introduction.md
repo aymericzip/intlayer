@@ -87,6 +87,42 @@ export const MyComponent: FC = () => {
 };
 ```
 
+### لماذا Intlayer على البدائل؟
+
+مقارنةً بالحلول الرئيسية مثل `next-intl` أو `i18next`، يُعد Intlayer حلاً يأتي مع تحسينات مدمجة مثل:
+<AccordionGroup>
+<Accordion header="حجم البندل (Bundle size)">
+
+بدلاً من تحميل ملفات JSON ضخمة في صفحاتك، قم بتحميل المحتوى الضروري فقط. تساعد Intlayer في **تقليل حجم الحزمة وصفحاتك بنسبة تصل إلى 50%**.
+
+</Accordion>
+<Accordion header="قابلية الصيانة (Maintainability)">
+
+تحديد نطاق محتوى تطبيقك بالقرب من المكونات **يسهل الصيانة** للتطبيقات واسعة النطاق. يمكنك تكرار أو حذف مجلد ميزة واحدة دون العبء العقلي المتمثل في مراجعة قاعدة بيانات المحتوى بالكامل. بالإضافة إلى ذلك، تم كتابة Intlayer **بالكامل باستخدام الأنواع (fully typed)** لضمان دقة المحتوى الخاص بك.
+
+</Accordion>
+<Accordion header="وكيل الذكاء الاصطناعي (AI Agent)">
+
+يؤدي تحديد الموقع المشترك للمحتوى إلى **تقليل السياق المطلوب** بواسطة نماذج اللغة الكبيرة (LLMs). تأتي Intlayer أيضًا مع مجموعة من الأدوات، مثل **CLI** لاختبار الترجمات المفقودة، و **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/lsp.md)**، و **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/mcp_server.md)**، و **[مهارات الوكيل (agent skills)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/agent_skills.md)**، لجعل تجربة المطور (DX) أكثر سلاسة لوكلاء الذكاء الاصطناعي.
+
+</Accordion>
+<Accordion header="الأتمتة (Automation)">
+
+استخدم الأتمتة للترجمة في مسار CI/CD الخاص بك باستخدام LLM من اختيارك على حساب مزود الذكاء الاصطناعي الخاص بك. تقدم Intlayer أيضًا **مترجمًا (compiler)** لأتمتة استخراج المحتوى، بالإضافة إلى [منصة ويب](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md) للمساعدة في **الترجمة في الخلفية**.
+
+</Accordion>
+<Accordion header="الأداء (Performance)">
+
+يمكن أن يؤدي ربط ملفات JSON الضخمة بالمكونات إلى مشاكل في الأداء والتفاعلية. تقوم Intlayer بتحسين تحميل المحتوى الخاص بك في وقت البناء (build time).
+
+</Accordion>
+<Accordion header="التوسع مع غير المطورين (Scaling with non-dev)">
+
+أكثر من مجرد حل i18n، توفر Intlayer **[محررًا مرئيًا ذاتي الاستضافة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md)** و **[CMS كاملًا](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)** لمساعدتك في إدارة المحتوى متعدد اللغات في **الوقت الفعلي (real-time)**، مما يجعل التعاون مع المترجمين وكتاب النصوص وأعضاء الفريق الآخرين سلسًا. يمكن تخزين المحتوى محليًا و/أو عن بُعد.
+
+</Accordion>
+</AccordionGroup>
+
 ## الميزات الرئيسية
 
 تقدم Intlayer مجموعة متنوعة من الميزات المصممة لتلبية احتياجات تطوير الويب الحديث. فيما يلي الميزات الرئيسية، مع روابط لتوثيق مفصل لكل منها:
@@ -160,31 +196,3 @@ export const MyComponent: FC = () => {
 نحن نُقدر قوة المصادر المفتوحة والتطوير المدفوع بالمجتمع. إذا كنت ترغب في اقتراح تحسينات، أو إضافة دليل جديد، أو تصحيح أي مشاكل في وثائقنا، فلا تتردد في تقديم طلب سحب (Pull Request) أو فتح مشكلة (Issue) في [مستودع GitHub الخاص بنا](https://github.com/aymericzip/intlayer/blob/main/docs/docs).
 
 **هل أنت مستعد لترجمة تطبيقك بشكل أسرع وأكثر كفاءة؟** الغوص في وثائقنا للبدء في استخدام Intlayer اليوم. جرب نهجًا قويًا ومبسطًا للتدويل يحافظ على تنظيم المحتوى الخاص بك ويزيد من إنتاجية فريقك.
-
-### لماذا Intlayer على البدائل؟
-
-مقارنةً بالحلول الرئيسية مثل `next-intl` أو `i18next`، يُعد Intlayer حلاً يأتي مع تحسينات مدمجة مثل:
-
-**حجم البندل (Bundle size)**
-
-بدلاً من تحميل ملفات JSON ضخمة في صفحاتك، قم بتحميل المحتوى الضروري فقط. تساعد Intlayer في **تقليل حجم الحزمة وصفحاتك بنسبة تصل إلى 50%**.
-
-**قابلية الصيانة (Maintainability)**
-
-تحديد نطاق محتوى تطبيقك بالقرب من المكونات **يسهل الصيانة** للتطبيقات واسعة النطاق. يمكنك تكرار أو حذف مجلد ميزة واحدة دون العبء العقلي المتمثل في مراجعة قاعدة بيانات المحتوى بالكامل. بالإضافة إلى ذلك، تم كتابة Intlayer **بالكامل باستخدام الأنواع (fully typed)** لضمان دقة المحتوى الخاص بك.
-
-**وكيل الذكاء الاصطناعي (AI Agent)**
-
-يؤدي تحديد الموقع المشترك للمحتوى إلى **تقليل السياق المطلوب** بواسطة نماذج اللغة الكبيرة (LLMs). تأتي Intlayer أيضًا مع مجموعة من الأدوات، مثل **CLI** لاختبار الترجمات المفقودة، و **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/lsp.md)**، و **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/mcp_server.md)**، و **[مهارات الوكيل (agent skills)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/agent_skills.md)**، لجعل تجربة المطور (DX) أكثر سلاسة لوكلاء الذكاء الاصطناعي.
-
-**الأتمتة (Automation)**
-
-استخدم الأتمتة للترجمة في مسار CI/CD الخاص بك باستخدام LLM من اختيارك على حساب مزود الذكاء الاصطناعي الخاص بك. تقدم Intlayer أيضًا **مترجمًا (compiler)** لأتمتة استخراج المحتوى، بالإضافة إلى [منصة ويب](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md) للمساعدة في **الترجمة في الخلفية**.
-
-**الأداء (Performance)**
-
-يمكن أن يؤدي ربط ملفات JSON الضخمة بالمكونات إلى مشاكل في الأداء والتفاعلية. تقوم Intlayer بتحسين تحميل المحتوى الخاص بك في وقت البناء (build time).
-
-**التوسع مع غير المطورين (Scaling with non-dev)**
-
-أكثر من مجرد حل i18n، توفر Intlayer **[محررًا مرئيًا ذاتي الاستضافة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md)** و **[CMS كاملًا](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md)** لمساعدتك في إدارة المحتوى متعدد اللغات في **الوقت الفعلي (real-time)**، مما يجعل التعاون مع المترجمين وكتاب النصوص وأعضاء الفريق الآخرين سلسًا. يمكن تخزين المحتوى محليًا و/أو عن بُعد.

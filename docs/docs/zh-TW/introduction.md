@@ -89,6 +89,42 @@ export const MyComponent: FC = () => {
 };
 ```
 
+### 為什麼選擇 Intlayer 而不是其他替代方案？
+
+與 `next-intl` 或 `i18next` 等主流解決方案相比，Intlayer 是一個自帶多項整合最佳化方案的工具，例如：
+<AccordionGroup>
+<Accordion header="打包體積 (Bundle Size)">
+
+您無需在頁面中載入龐大的 JSON 檔案，而是只載入所需的內容。Intlayer 可以幫助 **將您的打包檔和頁面大小減小高達 50%**。
+
+</Accordion>
+<Accordion header="可維護性">
+
+將您的應用程式內容侷限在相應範圍內，**有助於維護**大規模的應用程式。您可以複製或刪除單一功能資料夾，而不會有審查整個內容程式碼庫的心理負擔。此外，Intlayer 是 **完全型別化 (fully typed)** 的，這能夠確保您內容的準確性。
+
+</Accordion>
+<Accordion header="AI Agent 支援">
+
+將內容同位放置 **減少了所需的上下文**，這非常適合大型語言模型 (LLM)。Intlayer 還附帶一套工具，例如用於測試缺失翻譯的 **CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/mcp_server.md)** 以及 **[Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/agent_skills.md)**，旨在讓 AI 代理的開發者體驗 (DX) 變得更加順暢。
+
+</Accordion>
+<Accordion header="自動化">
+
+使用您選擇的 LLM 並在由您的 AI 提供者承擔費用的情況下，透過自動化在您的 CI/CD 管道中進行翻譯。Intlayer 還提供了一個 **編譯器**，可自動提取內容；並配備了一個 [Web 平台](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/intlayer_CMS.md) 以幫助您 **在背景執行翻譯**。
+
+</Accordion>
+<Accordion header="效能表現 (Performance)">
+
+將龐大的 JSON 檔案連接到元件，可能會導致效能與響應式問題。Intlayer 會在建置時最佳化您的內容載入。
+
+</Accordion>
+<Accordion header="無需開發人員的規模化運作 (Scaling with non-dev)">
+
+Intlayer 不僅僅是一個簡單的 i18n 解決方案。它還提供了一個 **支援自託管的[視覺化編輯器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/intlayer_visual_editor.md)** 以及一個 **[完整的 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/intlayer_CMS.md)**。藉此，您可以 **即時** 管理多語言內容，並讓譯者、文案及其他團隊成員之間的協作變得無縫。內容可以儲存在本地和/或遠端伺服器上。
+
+</Accordion>
+</AccordionGroup>
+
 ## 主要功能
 
 Intlayer 提供了多種功能，旨在滿足現代 Web 開發的需求。以下是主要功能，以及每個功能的詳細文件連結：
@@ -162,31 +198,3 @@ Intlayer 提供了多種功能，旨在滿足現代 Web 開發的需求。以下
 我們非常重視開源和社群驅動開發的力量。如果您想提出改進建議、新增指南或糾正我們文件中的任何問題，請隨時提交 Pull Request 或在我們的 [GitHub 儲存庫](https://github.com/aymericzip/intlayer/blob/main/docs/docs) 中提出 Issue。
 
 **準備好更快速、更高效地翻譯您的應用程式了嗎？** 立即深入我們的文件，開始使用 Intlayer。體驗一個強大且精簡的國際化方法，讓您的內容井井有條，並提高您的團隊工作效率。
-
-### 為什麼選擇 Intlayer 而不是其他替代方案？
-
-與 `next-intl` 或 `i18next` 等主流解決方案相比，Intlayer 是一個自帶多項整合最佳化方案的工具，例如：
-
-**打包體積 (Bundle Size)**
-
-您無需在頁面中載入龐大的 JSON 檔案，而是只載入所需的內容。Intlayer 可以幫助 **將您的打包檔和頁面大小減小高達 50%**。
-
-**可維護性**
-
-將您的應用程式內容侷限在相應範圍內，**有助於維護**大規模的應用程式。您可以複製或刪除單一功能資料夾，而不會有審查整個內容程式碼庫的心理負擔。此外，Intlayer 是 **完全型別化 (fully typed)** 的，這能夠確保您內容的準確性。
-
-**AI Agent 支援**
-
-將內容同位放置 **減少了所需的上下文**，這非常適合大型語言模型 (LLM)。Intlayer 還附帶一套工具，例如用於測試缺失翻譯的 **CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/mcp_server.md)** 以及 **[Agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/agent_skills.md)**，旨在讓 AI 代理的開發者體驗 (DX) 變得更加順暢。
-
-**自動化**
-
-使用您選擇的 LLM 並在由您的 AI 提供者承擔費用的情況下，透過自動化在您的 CI/CD 管道中進行翻譯。Intlayer 還提供了一個 **編譯器**，可自動提取內容；並配備了一個 [Web 平台](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/intlayer_CMS.md) 以幫助您 **在背景執行翻譯**。
-
-**效能表現 (Performance)**
-
-將龐大的 JSON 檔案連接到元件，可能會導致效能與響應式問題。Intlayer 會在建置時最佳化您的內容載入。
-
-**無需開發人員的規模化運作 (Scaling with non-dev)**
-
-Intlayer 不僅僅是一個簡單的 i18n 解決方案。它還提供了一個 **支援自託管的[視覺化編輯器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/intlayer_visual_editor.md)** 以及一個 **[完整的 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/intlayer_CMS.md)**。藉此，您可以 **即時** 管理多語言內容，並讓譯者、文案及其他團隊成員之間的協作變得無縫。內容可以儲存在本地和/或遠端伺服器上。

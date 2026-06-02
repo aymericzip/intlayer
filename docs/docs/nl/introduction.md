@@ -87,6 +87,42 @@ export const MyComponent: FC = () => {
 };
 ```
 
+### Waarom Intlayer boven alternatieven?
+
+Vergeleken met grote oplossingen zoals `next-intl` of `i18next`, is Intlayer een oplossing met geïntegreerde optimalisaties zoals:
+<AccordionGroup>
+<Accordion header="Bundelgrootte (Bundle size)">
+
+Laad in plaats van enorme JSON-bestanden naar uw pagina's alleen de benodigde content. Intlayer helpt **uw bundel- en paginagroottes met wel 50% te verkleinen**.
+
+</Accordion>
+<Accordion header="Onderhoudbaarheid (Maintainability)">
+
+Het afbakenen (scoping) van de content van uw applicatie **vergemakkelijkt het onderhoud** voor grootschalige applicaties. U kunt een enkele feature-map dupliceren of verwijderen zonder de mentale last om uw hele content-codebase te moeten doorzoeken. Bovendien is Intlayer **volledig getypeerd (fully typed)** om de nauwkeurigheid van uw content te garanderen.
+
+</Accordion>
+<Accordion header="AI Agent">
+
+Co-locatie van content **vermindert de benodigde context** door grote taalmodellen (LLM's). Intlayer wordt ook geleverd met een reeks tools, zoals een **CLI** om te testen op ontbrekende vertalingen, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/mcp_server.md)** en **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/agent_skills.md)**, om de ontwikkelaarservaring (DX) voor AI-agenten nog soepeler te maken.
+
+</Accordion>
+<Accordion header="Automatisering">
+
+Gebruik automatisering om te vertalen in uw CI/CD-pijplijn met behulp van de LLM van uw keuze, ten koste van uw AI-provider. Intlayer biedt ook een **compiler** om contentextractie te automatiseren, evenals een [webplatform](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/intlayer_CMS.md) om u te helpen **op de achtergrond te vertalen**.
+
+</Accordion>
+<Accordion header="Prestaties (Performance)">
+
+Het verbinden van enorme JSON-bestanden aan componenten kan leiden tot prestatie- en reactiviteitsproblemen. Intlayer optimaliseert het laden van uw content op bouwtijd (build time).
+
+</Accordion>
+<Accordion header="Schalen zonder ontwikkelaars (Scaling with non-dev)">
+
+Intlayer is veel meer dan alleen een i18n-oplossing en biedt een **[zelf-gehoste visuele editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/intlayer_visual_editor.md)** en een **[volledig CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/intlayer_CMS.md)** om u te helpen uw meertalige content in **real-time** te beheren. Dit maakt de samenwerking met vertalers, tekstschrijvers en andere teamleden naadloos. Content kan lokaal en/of op afstand worden opgeslagen.
+
+</Accordion>
+</AccordionGroup>
+
 ## Belangrijkste Kenmerken
 
 Intlayer biedt een verscheidenheid aan functies die zijn afgestemd op de behoeften van moderne webontwikkeling. Hieronder staan de belangrijkste functies, met links naar gedetailleerde documentatie voor elk:
@@ -160,31 +196,3 @@ Elke integratiegids bevat best practices voor het gebruik van de functies van In
 We waarderen de kracht van open-source en community-gedreven ontwikkeling. Als u verbeteringen wilt voorstellen, een nieuwe gids wilt toevoegen of problemen in onze documenten wilt corrigeren, stuur dan gerust een Pull Request in of open een Issue op onze [GitHub repository](https://github.com/aymericzip/intlayer/blob/main/docs/docs).
 
 **Klaar om uw applicatie sneller en efficiënter te vertalen?** Duik in onze documentatie om vandaag nog met Intlayer te beginnen. Ervaar een robuuste, gestroomlijnde benadering van internationalisering die uw content georganiseerd houdt en uw team productiever maakt.
-
-### Waarom Intlayer boven alternatieven?
-
-Vergeleken met grote oplossingen zoals `next-intl` of `i18next`, is Intlayer een oplossing met geïntegreerde optimalisaties zoals:
-
-**Bundelgrootte (Bundle size)**
-
-Laad in plaats van enorme JSON-bestanden naar uw pagina's alleen de benodigde content. Intlayer helpt **uw bundel- en paginagroottes met wel 50% te verkleinen**.
-
-**Onderhoudbaarheid (Maintainability)**
-
-Het afbakenen (scoping) van de content van uw applicatie **vergemakkelijkt het onderhoud** voor grootschalige applicaties. U kunt een enkele feature-map dupliceren of verwijderen zonder de mentale last om uw hele content-codebase te moeten doorzoeken. Bovendien is Intlayer **volledig getypeerd (fully typed)** om de nauwkeurigheid van uw content te garanderen.
-
-**AI Agent**
-
-Co-locatie van content **vermindert de benodigde context** door grote taalmodellen (LLM's). Intlayer wordt ook geleverd met een reeks tools, zoals een **CLI** om te testen op ontbrekende vertalingen, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/mcp_server.md)** en **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/agent_skills.md)**, om de ontwikkelaarservaring (DX) voor AI-agenten nog soepeler te maken.
-
-**Automatisering**
-
-Gebruik automatisering om te vertalen in uw CI/CD-pijplijn met behulp van de LLM van uw keuze, ten koste van uw AI-provider. Intlayer biedt ook een **compiler** om contentextractie te automatiseren, evenals een [webplatform](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/intlayer_CMS.md) om u te helpen **op de achtergrond te vertalen**.
-
-**Prestaties (Performance)**
-
-Het verbinden van enorme JSON-bestanden aan componenten kan leiden tot prestatie- en reactiviteitsproblemen. Intlayer optimaliseert het laden van uw content op bouwtijd (build time).
-
-**Schalen zonder ontwikkelaars (Scaling with non-dev)**
-
-Intlayer is veel meer dan alleen een i18n-oplossing en biedt een **[zelf-gehoste visuele editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/intlayer_visual_editor.md)** en een **[volledig CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/intlayer_CMS.md)** om u te helpen uw meertalige content in **real-time** te beheren. Dit maakt de samenwerking met vertalers, tekstschrijvers en andere teamleden naadloos. Content kan lokaal en/of op afstand worden opgeslagen.

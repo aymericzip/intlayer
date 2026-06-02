@@ -87,6 +87,42 @@ export const MyComponent: FC = () => {
 };
 ```
 
+### Dlaczego Intlayer, a nie alternatywy?
+
+W porównaniu do wiodących rozwiązań takich jak `next-intl` lub `i18next`, Intlayer to rozwiązanie, które ma zintegrowane optymalizacje, takie jak:
+<AccordionGroup>
+<Accordion header="Rozmiar paczki (Bundle size)">
+
+Zamiast pobierać ogromne pliki JSON do Twoich stron, ładuj tylko niezbędną treść. Intlayer pomaga **zmniejszyć rozmiary Twojego kodu wynikowego oraz stron nawet o 50%**.
+
+</Accordion>
+<Accordion header="Łatwość w utrzymaniu (Maintainability)">
+
+Ograniczanie zasięgu (scoping) treści Twojej aplikacji **ułatwia utrzymanie** dużych projektów. Możesz skopiować lub usunąć folder pojedynczej funkcjonalności bez obciążania umysłu koniecznością przeglądania całej bazy kodu treści. Ponadto, Intlayer jest **w pełni zadeklarowany statycznie (fully typed)**, co gwarantuje poprawność Twojej treści.
+
+</Accordion>
+<Accordion header="Agent AI">
+
+Wspólne umiejscowienie (co-locating) kodu i treści **zmniejsza kontekst wymagany** przez duże modele językowe (LLM). Intlayer jest również dostarczany z pakietem narzędzi, takim jak **CLI** służącym do testowania pod kątem brakujących tłumaczeń, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/mcp_server.md)** oraz **[umiejętności agentów (agent skills)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/agent_skills.md)**, dzięki czemu środowisko programistyczne (DX) dla agentów AI staje się znacznie wygodniejsze.
+
+</Accordion>
+<Accordion header="Automatyzacja">
+
+Skorzystaj z automatyzacji, by tłumaczyć w Twoim potoku CI/CD, używając wybranego modelu LLM zgodnie z kosztem Twojego dostawcy AI. Intlayer oferuje również **kompilator**, aby automatyzować wyciąganie treści, a także [platformę webową](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md), by pomóc **tłumaczyć w tle**.
+
+</Accordion>
+<Accordion header="Wydajność (Performance)">
+
+Podłączanie ogromnych plików JSON do komponentów może prowadzić do problemów z wydajnością i reaktywnością. Intlayer optymalizuje proces ładowania Twojej treści w fazie budowania (build time).
+
+</Accordion>
+<Accordion header="Skalowanie bez angażowania programistów (Scaling with non-dev)">
+
+Więcej niż rozwiązanie i18n — Intlayer dostarcza **samodzielnie hostowany [edytor wizualny](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_visual_editor.md)** oraz **[w pełni wyposażony system CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md)**, który pomaga zarządzać Twoimi wielojęzycznymi treściami **w czasie rzeczywistym**, umożliwiając bezproblemową współpracę między tłumaczami, twórcami treści i pozostałymi członkami zespołu. Treść można przechowywać lokalnie i/lub zdalnie.
+
+</Accordion>
+</AccordionGroup>
+
 ## Główne funkcje
 
 Intlayer oferuje szereg funkcji dostosowanych do potrzeb nowoczesnego tworzenia stron internetowych. Poniżej znajdują się kluczowe funkcje wraz z linkami do szczegółowej dokumentacji dla każdej z nich:
@@ -160,31 +196,3 @@ Każdy przewodnik integracyjny zawiera najlepsze praktyki korzystania z funkcji 
 Cenimy siłę open-source i tworzenia oprogramowania opartego o społeczność. Jeśli chciałbyś zaproponować usprawnienia, dodać nowy poradnik lub poprawić błędy w naszych dokumentach, śmiało wyślij Pull Request lub otwórz Issue w naszym [repozytorium GitHub](https://github.com/aymericzip/intlayer/blob/main/docs/docs).
 
 **Gotowy, aby tłumaczyć swoją aplikację szybciej i wydajniej?** Zanurz się w naszej dokumentacji, aby rozpocząć korzystanie z Intlayer już dziś. Doświadcz solidnego, zoptymalizowanego podejścia do internacjonalizacji, które sprawi, że Twoje treści będą uporządkowane, a Twój zespół bardziej produktywny.
-
-### Dlaczego Intlayer, a nie alternatywy?
-
-W porównaniu do wiodących rozwiązań takich jak `next-intl` lub `i18next`, Intlayer to rozwiązanie, które ma zintegrowane optymalizacje, takie jak:
-
-**Rozmiar paczki (Bundle size)**
-
-Zamiast pobierać ogromne pliki JSON do Twoich stron, ładuj tylko niezbędną treść. Intlayer pomaga **zmniejszyć rozmiary Twojego kodu wynikowego oraz stron nawet o 50%**.
-
-**Łatwość w utrzymaniu (Maintainability)**
-
-Ograniczanie zasięgu (scoping) treści Twojej aplikacji **ułatwia utrzymanie** dużych projektów. Możesz skopiować lub usunąć folder pojedynczej funkcjonalności bez obciążania umysłu koniecznością przeglądania całej bazy kodu treści. Ponadto, Intlayer jest **w pełni zadeklarowany statycznie (fully typed)**, co gwarantuje poprawność Twojej treści.
-
-**Agent AI**
-
-Wspólne umiejscowienie (co-locating) kodu i treści **zmniejsza kontekst wymagany** przez duże modele językowe (LLM). Intlayer jest również dostarczany z pakietem narzędzi, takim jak **CLI** służącym do testowania pod kątem brakujących tłumaczeń, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/mcp_server.md)** oraz **[umiejętności agentów (agent skills)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/agent_skills.md)**, dzięki czemu środowisko programistyczne (DX) dla agentów AI staje się znacznie wygodniejsze.
-
-**Automatyzacja**
-
-Skorzystaj z automatyzacji, by tłumaczyć w Twoim potoku CI/CD, używając wybranego modelu LLM zgodnie z kosztem Twojego dostawcy AI. Intlayer oferuje również **kompilator**, aby automatyzować wyciąganie treści, a także [platformę webową](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md), by pomóc **tłumaczyć w tle**.
-
-**Wydajność (Performance)**
-
-Podłączanie ogromnych plików JSON do komponentów może prowadzić do problemów z wydajnością i reaktywnością. Intlayer optymalizuje proces ładowania Twojej treści w fazie budowania (build time).
-
-**Skalowanie bez angażowania programistów (Scaling with non-dev)**
-
-Więcej niż rozwiązanie i18n — Intlayer dostarcza **samodzielnie hostowany [edytor wizualny](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_visual_editor.md)** oraz **[w pełni wyposażony system CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md)**, który pomaga zarządzać Twoimi wielojęzycznymi treściami **w czasie rzeczywistym**, umożliwiając bezproblemową współpracę między tłumaczami, twórcami treści i pozostałymi członkami zespołu. Treść można przechowywać lokalnie i/lub zdalnie.
