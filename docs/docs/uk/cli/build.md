@@ -57,7 +57,7 @@ pnpm intlayer build --watch
 bun x intlayer build --watch
 ```
 
-Ця команда за замовчуванням знайде ваші файли декларації контенту за шляхом `./src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx}` і побудує словники в директорії `.intlayer`.
+Ця команда за замовчуванням знайде ваші файли декларації контенту за шляхом `./src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx|md|mdx|yaml|yml}` і побудує словники в директорії `.intlayer`.
 
 ## Аліаси:
 

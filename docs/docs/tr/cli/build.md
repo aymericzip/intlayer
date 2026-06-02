@@ -57,7 +57,7 @@ pnpm intlayer build --watch
 bun x intlayer build --watch
 ```
 
-Bu komut, varsayılan olarak `./src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx}` dosyalarınızı bulur ve `.intlayer` dizininde sözlükleri oluşturur.
+Bu komut, varsayılan olarak `./src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx|md|mdx|yaml|yml}` dosyalarınızı bulur ve `.intlayer` dizininde sözlükleri oluşturur.
 
 ## Kısaltmalar:
 

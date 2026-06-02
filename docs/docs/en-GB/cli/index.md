@@ -100,7 +100,7 @@ bun add intlayer-cli -g
 
 The `intlayer-cli` package is designed to transpile your [Intlayer declarations](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/content_file.md) into dictionaries.
 
-This package transpiles all Intlayer files, such as `src/**/*.content.{ts|js|mjs|cjs|json}`. [See how to declare your Intlayer declaration files](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md).
+This package transpiles all Intlayer files, such as `src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx|md|mdx|yaml|yml}`. [See how to declare your Intlayer declaration files](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md).
 
 To interpret the Intlayer dictionaries, you can use interpreters, such as [react-intlayer](https://www.npmjs.com/package/react-intlayer) or [next-intlayer](https://www.npmjs.com/package/next-intlayer).
 

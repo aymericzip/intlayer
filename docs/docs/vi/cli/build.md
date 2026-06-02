@@ -57,7 +57,7 @@ pnpm intlayer build --watch
 bun x intlayer build --watch
 ```
 
-Lệnh này sẽ tìm các tệp khai báo nội dung của bạn theo mặc định tại `./src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx}`. Và xây dựng các từ điển trong thư mục `.intlayer`.
+Lệnh này sẽ tìm các tệp khai báo nội dung của bạn theo mặc định tại `./src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx|md|mdx|yaml|yml}`. Và xây dựng các từ điển trong thư mục `.intlayer`.
 
 ## Bí danh:
 

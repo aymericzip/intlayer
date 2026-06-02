@@ -57,7 +57,7 @@ pnpm intlayer build --watch
 bun x intlayer build --watch
 ```
 
-このコマンドはデフォルトで `./src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx}` にある宣言コンテンツファイルを検出し、`.intlayer` ディレクトリに辞書をビルドします。
+このコマンドはデフォルトで `./src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx|md|mdx|yaml|yml}` にある宣言コンテンツファイルを検出し、`.intlayer` ディレクトリに辞書をビルドします。
 
 ## エイリアス:
 

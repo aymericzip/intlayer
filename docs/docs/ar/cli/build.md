@@ -57,7 +57,7 @@ pnpm intlayer build --watch
 bun x intlayer build --watch
 ```
 
-سيقوم هذا الأمر بالعثور على ملفات إعلان المحتوى الخاصة بك بشكل افتراضي في المسار `./src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx}`. وسيبني القواميس في مجلد `.intlayer`.
+سيقوم هذا الأمر بالعثور على ملفات إعلان المحتوى الخاصة بك بشكل افتراضي في المسار `./src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx|md|mdx|yaml|yml}`. وسيبني القواميس في مجلد `.intlayer`.
 
 ## الأسماء المستعارة:
 

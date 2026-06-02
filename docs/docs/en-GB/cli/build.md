@@ -57,7 +57,7 @@ pnpm intlayer build --watch
 bun x intlayer build --watch
 ```
 
-This command will find your declaration content files by default at `./src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx}` and build the dictionaries in the `.intlayer` directory.
+This command will find your declaration content files by default at `./src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx|md|mdx|yaml|yml}` and build the dictionaries in the `.intlayer` directory.
 
 ## Aliases:
 

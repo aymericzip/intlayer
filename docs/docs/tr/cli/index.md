@@ -100,7 +100,7 @@ bun add intlayer-cli -g
 
 `intlayer-cli` paketi, [intlayer bildirimlerinizi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/content_file.md) sözlüklere dönüştürmek (transpile) için tasarlanmıştır.
 
-Bu paket, `src/**/*.content.{ts|js|mjs|cjs|json}` gibi tüm intlayer dosyalarını dönüştürür. [Intlayer bildirim dosyalarınızı nasıl bildireceğinizi görün](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md).
+Bu paket, `src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx|md|mdx|yaml|yml}` gibi tüm intlayer dosyalarını dönüştürür. [Intlayer bildirim dosyalarınızı nasıl bildireceğinizi görün](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md).
 
 Intlayer sözlüklerini yorumlamak için [react-intlayer](https://www.npmjs.com/package/react-intlayer) veya [next-intlayer](https://www.npmjs.com/package/next-intlayer) gibi yorumlayıcılar kullanabilirsiniz.
 

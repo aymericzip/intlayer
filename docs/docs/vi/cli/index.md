@@ -100,7 +100,7 @@ bun add intlayer-cli -g
 
 Gói `intlayer-cli` được thiết kế để chuyển đổi các [khai báo Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/content_file.md) của bạn vào các từ điển.
 
-Gói này chuyển đổi tất cả các tệp Intlayer, chẳng hạn như `src/**/*.content.{ts|js|mjs|cjs|json}`. [Xem cách khai báo các tệp khai báo Intlayer của bạn](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md).
+Gói này chuyển đổi tất cả các tệp Intlayer, chẳng hạn như `src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx|md|mdx|yaml|yml}`. [Xem cách khai báo các tệp khai báo Intlayer của bạn](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md).
 
 Để diễn giải các từ điển Intlayer, bạn có thể sử dụng các trình diễn giải như [react-intlayer](https://www.npmjs.com/package/react-intlayer) hoặc [next-intlayer](https://www.npmjs.com/package/next-intlayer).
 

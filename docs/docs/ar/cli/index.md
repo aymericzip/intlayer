@@ -100,7 +100,7 @@ bun add intlayer-cli -g
 
 تم تصميم حزمة `intlayer-cli` لنقل [تصريحات intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/content_file.md) إلى قواميس.
 
-تقوم هذه الحزمة بتحويل جميع ملفات intlayer ، مثل `src/**/*.content.{ts|js|mjs|cjs|json}`. [انظر كيف تصرح عن ملفات تصريح Intlayer الخاصة بك](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md).
+تقوم هذه الحزمة بتحويل جميع ملفات intlayer ، مثل `src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx|md|mdx|yaml|yml}`. [انظر كيف تصرح عن ملفات تصريح Intlayer الخاصة بك](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md).
 
 لتفسير قواميس intlayer يمكنك استخدام المترجمين الفوريين ، مثل [react-intlayer](https://www.npmjs.com/package/react-intlayer) أو [next-intlayer](https://www.npmjs.com/package/next-intlayer)
 

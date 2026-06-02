@@ -100,7 +100,7 @@ bun add intlayer-cli -g
 
 `intlayer-cli` पैकेज आपकी [Intlayer घोषणाओं](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/content_file.md) को शब्दकोशों में ट्रांसपाइल करने के लिए डिज़ाइन किया गया है।
 
-यह पैकेज सभी Intlayer फ़ाइलों को ट्रांसपाइल करता है, जैसे `src/**/*.content.{ts|js|mjs|cjs|json}`. [अपनी Intlayer घोषणा फ़ाइलों को कैसे घोषित करें, देखें](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md)।
+यह पैकेज सभी Intlayer फ़ाइलों को ट्रांसपाइल करता है, जैसे `src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx|md|mdx|yaml|yml}`. [अपनी Intlayer घोषणा फ़ाइलों को कैसे घोषित करें, देखें](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md)।
 
 Intlayer शब्दकोशों की व्याख्या करने के लिए आप व्याख्याताओं (interpreters) का उपयोग कर सकते हैं, जैसे [react-intlayer](https://www.npmjs.com/package/react-intlayer) या [next-intlayer](https://www.npmjs.com/package/next-intlayer)।
 

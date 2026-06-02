@@ -57,7 +57,7 @@ pnpm intlayer build --watch
 bun x intlayer build --watch
 ```
 
-To polecenie domyślnie znajdzie Twoje pliki deklaracji treści w ścieżce `./src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx}` i zbuduje słowniki w katalogu `.intlayer`.
+To polecenie domyślnie znajdzie Twoje pliki deklaracji treści w ścieżce `./src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx|md|mdx|yaml|yml}` i zbuduje słowniki w katalogu `.intlayer`.
 
 ## Alias-y:
 

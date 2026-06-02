@@ -100,7 +100,7 @@ bun add intlayer-cli -g
 
 Пакет `intlayer-cli` предназначен для транспиляции ваших [объявлений Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/content_file.md) в словари.
 
-Этот пакет транспилирует все файлы Intlayer, такие как `src/**/*.content.{ts|js|mjs|cjs|json}`. [Узнайте, как объявлять файлы контента Intlayer](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md).
+Этот пакет транспилирует все файлы Intlayer, такие как `src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx|md|mdx|yaml|yml}`. [Узнайте, как объявлять файлы контента Intlayer](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md).
 
 Для интерпретации словарей Intlayer вы можете использовать интерпретаторы, такие как [react-intlayer](https://www.npmjs.com/package/react-intlayer) или [next-intlayer](https://www.npmjs.com/package/next-intlayer).
 

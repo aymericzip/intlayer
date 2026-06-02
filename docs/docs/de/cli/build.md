@@ -57,7 +57,7 @@ pnpm intlayer build --watch
 bun x intlayer build --watch
 ```
 
-Dieser Befehl findet standardmäßig Ihre Deklarations-Inhaltsdateien unter `./src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx}` und erstellt die Wörterbücher im Verzeichnis `.intlayer`.
+Dieser Befehl findet standardmäßig Ihre Deklarations-Inhaltsdateien unter `./src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx|md|mdx|yaml|yml}` und erstellt die Wörterbücher im Verzeichnis `.intlayer`.
 
 ## Aliase:
 

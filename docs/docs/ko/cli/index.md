@@ -100,7 +100,7 @@ bun add intlayer-cli -g
 
 `intlayer-cli` 패키지는 [Intlayer 선언](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/content_file.md)을 딕셔너리로 트랜스파일하는 데 사용됩니다.
 
-이 패키지는 `src/**/*.content.{ts|js|mjs|cjs|json}`과 같은 모든 Intlayer 파일을 트랜스파일합니다. [Intlayer 선언 파일 선언 방법 알아보기](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md).
+이 패키지는 `src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx|md|mdx|yaml|yml}`과 같은 모든 Intlayer 파일을 트랜스파일합니다. [Intlayer 선언 파일 선언 방법 알아보기](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md).
 
 Intlayer 딕셔너리를 해석하려면 [react-intlayer](https://www.npmjs.com/package/react-intlayer) 또는 [next-intlayer](https://www.npmjs.com/package/next-intlayer)와 같은 해석기를 사용할 수 있습니다.
 

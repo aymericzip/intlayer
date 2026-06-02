@@ -100,7 +100,7 @@ bun add intlayer-cli -g
 
 Das Paket `intlayer-cli` dient dazu, Ihre [Intlayer-Deklarationen](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/content_file.md) in Wörterbücher zu transpilieren.
 
-Dieses Paket transpiliert alle Intlayer-Dateien, wie z. B. `src/**/*.content.{ts|js|mjs|cjs|json}`. [Erfahren Sie, wie Sie Ihre Intlayer-Deklarationsdateien deklarieren](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md).
+Dieses Paket transpiliert alle Intlayer-Dateien, wie z. B. `src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx|md|mdx|yaml|yml}`. [Erfahren Sie, wie Sie Ihre Intlayer-Deklarationsdateien deklarieren](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md).
 
 Um Intlayer-Wörterbücher zu interpretieren, können Sie Interpreter wie [react-intlayer](https://www.npmjs.com/package/react-intlayer) oder [next-intlayer](https://www.npmjs.com/package/next-intlayer) verwenden.
 

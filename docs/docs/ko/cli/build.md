@@ -57,7 +57,7 @@ pnpm intlayer build --watch
 bun x intlayer build --watch
 ```
 
-이 명령어는 기본적으로 `./src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx}` 경로에서 선언된 콘텐츠 파일을 찾아 `.intlayer` 디렉토리에 사전을 빌드합니다.
+이 명령어는 기본적으로 `./src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx|md|mdx|yaml|yml}` 경로에서 선언된 콘텐츠 파일을 찾아 `.intlayer` 디렉토리에 사전을 빌드합니다.
 
 ## 별칭:
 

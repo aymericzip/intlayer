@@ -100,7 +100,7 @@ bun add intlayer-cli -g
 
 Het `intlayer-cli` pakket is bedoeld om uw [intlayer declaraties](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/dictionary/content_file.md) te transpileren naar woordenboeken.
 
-Dit pakket transpileert alle intlayer bestanden, zoals `src/**/*.content.{ts|js|mjs|cjs|json}`. [Bekijk hoe u uw Intlayer declaratiebestanden declareert](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md).
+Dit pakket transpileert alle intlayer bestanden, zoals `src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx|md|mdx|yaml|yml}`. [Bekijk hoe u uw Intlayer declaratiebestanden declareert](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md).
 
 Om intlayer woordenboeken te interpreteren kunt u interpreters gebruiken, zoals [react-intlayer](https://www.npmjs.com/package/react-intlayer) of [next-intlayer](https://www.npmjs.com/package/next-intlayer)
 

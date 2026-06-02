@@ -57,7 +57,7 @@ pnpm intlayer build --watch
 bun x intlayer build --watch
 ```
 
-Perintah ini akan mencari file deklarasi konten Anda secara default di `./src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx}`. Dan membangun kamus di direktori `.intlayer`.
+Perintah ini akan mencari file deklarasi konten Anda secara default di `./src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx|md|mdx|yaml|yml}`. Dan membangun kamus di direktori `.intlayer`.
 
 ## Alias:
 

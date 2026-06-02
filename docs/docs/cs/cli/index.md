@@ -100,7 +100,7 @@ bun add intlayer-cli -g
 
 Balíček `intlayer-cli` je navržen k transpilaci vašich [deklarací intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/dictionary/content_file.md) do slovníků.
 
-Tento balíček transpiluje všechny soubory intlayer, jako jsou `src/**/*.content.{ts|js|mjs|cjs|json}`. [Podívejte se, jak deklarovat soubory s deklarací Intlayer](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md).
+Tento balíček transpiluje všechny soubory intlayer, jako jsou `src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx|md|mdx|yaml|yml}`. [Podívejte se, jak deklarovat soubory s deklarací Intlayer](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md).
 
 K interpretaci slovníků Intlayer můžete použít interprety, jako je [react-intlayer](https://www.npmjs.com/package/react-intlayer) nebo [next-intlayer](https://www.npmjs.com/package/next-intlayer).
 

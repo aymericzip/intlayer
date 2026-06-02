@@ -100,7 +100,7 @@ bun add intlayer-cli -g
 
 Paket `intlayer-cli` dirancang untuk mentranspilasi [deklarasi intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/content_file.md) Anda ke dalam kamus.
 
-Paket ini mentranspilasi semua file intlayer, seperti `src/**/*.content.{ts|js|mjs|cjs|json}`. [Lihat cara mendeklarasikan file deklarasi Intlayer Anda](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md).
+Paket ini mentranspilasi semua file intlayer, seperti `src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx|md|mdx|yaml|yml}`. [Lihat cara mendeklarasikan file deklarasi Intlayer Anda](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md).
 
 Untuk menginterpretasikan kamus intlayer, Anda dapat menggunakan interpreter, seperti [react-intlayer](https://www.npmjs.com/package/react-intlayer) atau [next-intlayer](https://www.npmjs.com/package/next-intlayer).
 

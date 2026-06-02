@@ -57,7 +57,7 @@ pnpm intlayer build --watch
 bun x intlayer build --watch
 ```
 
-यह कमांड डिफ़ॉल्ट रूप से आपकी घोषणा कंटेंट फ़ाइलों को `./src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx}` के रूप में खोजेगा। और `.intlayer` डायरेक्टरी में शब्दकोश बनाएगा।
+यह कमांड डिफ़ॉल्ट रूप से आपकी घोषणा कंटेंट फ़ाइलों को `./src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx|md|mdx|yaml|yml}` के रूप में खोजेगा। और `.intlayer` डायरेक्टरी में शब्दकोश बनाएगा।
 
 ## उपनाम:
 

@@ -100,7 +100,7 @@ bun add intlayer-cli -g
 
 `intlayer-cli` パッケージは、[Intlayer宣言](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/content_file.md)をディクショナリにトランスパイルするためのものです。
 
-このパッケージは、`src/**/*.content.{ts|js|mjs|cjs|json}` などのすべてのIntlayerファイルをトランスパイルします。[Intlayer宣言ファイルの宣言方法を参照してください](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md)。
+このパッケージは、`src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx|md|mdx|yaml|yml}` などのすべてのIntlayerファイルをトランスパイルします。[Intlayer宣言ファイルの宣言方法を参照してください](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md)。
 
 Intlayerディクショナリを解釈するには、[react-intlayer](https://www.npmjs.com/package/react-intlayer) や [next-intlayer](https://www.npmjs.com/package/next-intlayer) などのインタープリターを使用できます。
 

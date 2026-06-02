@@ -57,7 +57,7 @@ pnpm intlayer build --watch
 bun x intlayer build --watch
 ```
 
-该命令默认会查找您的声明内容文件，路径为 `./src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx}`。并在 `.intlayer` 目录中构建字典。
+该命令默认会查找您的声明内容文件，路径为 `./src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx|md|mdx|yaml|yml}`。并在 `.intlayer` 目录中构建字典。
 
 ## 别名：
 

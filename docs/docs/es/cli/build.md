@@ -57,7 +57,7 @@ pnpm intlayer build --watch
 bun x intlayer build --watch
 ```
 
-Este comando encontrará tus archivos de declaración de contenido por defecto en `./src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx}`. Y construirá los diccionarios en el directorio `.intlayer`.
+Este comando encontrará tus archivos de declaración de contenido por defecto en `./src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx|md|mdx|yaml|yml}`. Y construirá los diccionarios en el directorio `.intlayer`.
 
 ## Alias:
 
