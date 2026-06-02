@@ -2,22 +2,21 @@ import { cn } from '@utils/cn';
 import { cva, type VariantProps } from 'class-variance-authority';
 import type { LucideIcon } from 'lucide-react';
 import type { ButtonHTMLAttributes, DetailedHTMLProps, FC } from 'react';
-import { ContainerRoundedSize as ButtonRoundedSize } from '../Container';
 import { Loader } from '../Loader';
 
 /**
  * Button size variants for different use cases
  */
-export type ButtonSize = 
-  | 'xs' |
-  'sm' |
-  'md' |
-  'lg' |
-  'xl' |
-  'icon-sm' |
-  'icon-md' |
-  'icon-lg' |
-  'icon-xl';
+export type ButtonSize =
+  | 'xs'
+  | 'sm'
+  | 'md'
+  | 'lg'
+  | 'xl'
+  | 'icon-sm'
+  | 'icon-md'
+  | 'icon-lg'
+  | 'icon-xl';
 
 const buttonIconVariants = cva('flex-none shrink-0', {
   variants: {
@@ -41,40 +40,37 @@ const buttonIconVariants = cva('flex-none shrink-0', {
 /**
  * Button visual style variants
  */
-export type ButtonVariant = 
-  | 'default' |
-  'none' |
-  'outline' |
-  'link' |
-  'invisible-link' |
-  'hoverable' |
-  'fade' |
-  'input';
+export type ButtonVariant =
+  | 'default'
+  | 'none'
+  | 'outline'
+  | 'link'
+  | 'invisible-link'
+  | 'hoverable'
+  | 'fade'
+  | 'input';
 
 /**
  * Button color themes that work with the design system
  */
-export type ButtonColor = 
-  | 'primary' |
-  'secondary' |
-  'neutral' |
-  'light' |
-  'dark' |
-  'text' |
-  'card' |
-  'text-inverse' |
-  'current' |
-  'error' |
-  'success' |
-  'custom';
+export type ButtonColor =
+  | 'primary'
+  | 'secondary'
+  | 'neutral'
+  | 'light'
+  | 'dark'
+  | 'text'
+  | 'card'
+  | 'text-inverse'
+  | 'current'
+  | 'error'
+  | 'success'
+  | 'custom';
 
 /**
  * Text alignment options for button content
  */
-export type ButtonTextAlign = 
-  | 'left' |
-  'center' |
-  'right';
+export type ButtonTextAlign = 'left' | 'center' | 'right';
 
 /**
  * Enhanced button variants with improved accessibility and focus states
@@ -99,35 +95,25 @@ export const buttonVariants = cva(
           'hover-primary-500/20 text-primary ring-primary-500/20 *:text-text-light',
         secondary:
           'hover-secondary-500/20 text-secondary ring-secondary-500/20 *:text-text-light',
-        neutral:
-          'text-neutral ring-neutral-500/5 *:text-text-light',
-        card:
-          'hover-card-500/20 text-card ring-card-500/20 *:text-text-light',
-        light:
-          'hover-white-500/20 text-white ring-white/20 *:text-text-light',
-        dark:
-          'text-neutral-800 ring-text-light/50 *:text-text-light',
+        neutral: 'text-neutral ring-neutral-500/5 *:text-text-light',
+        card: 'hover-card-500/20 text-card ring-card-500/20 *:text-text-light',
+        light: 'hover-white-500/20 text-white ring-white/20 *:text-text-light',
+        dark: 'text-neutral-800 ring-text-light/50 *:text-text-light',
         text: 'text-text ring-text/20 *:text-text-opposite',
         current:
           'hover-current-500/10 text-current ring-current/10 *:text-text-light',
-        'text-inverse':
-          'text-text-opposite ring-text-opposite/20 *:text-text',
-        error:
-          'hover-error-500/20 text-error ring-error/20 *:text-text-light',
+        'text-inverse': 'text-text-opposite ring-text-opposite/20 *:text-text',
+        error: 'hover-error-500/20 text-error ring-error/20 *:text-text-light',
         success:
           'hover-success-500/20 text-success ring-success/20 *:text-text-light',
         custom: '',
       },
       roundedSize: {
-        'none': 'rounded-none',
-        'sm':
-          'rounded-lg [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-xl',
-        'md':
-          'rounded-xl [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-2xl',
-        'lg':
-          'rounded-2xl [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-3xl',
-        'xl':
-          'rounded-3xl [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-4xl',
+        none: 'rounded-none',
+        sm: 'rounded-lg [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-xl',
+        md: 'rounded-xl [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-2xl',
+        lg: 'rounded-2xl [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-3xl',
+        xl: 'rounded-3xl [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-4xl',
         '2xl':
           'rounded-4xl [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-[2.5rem]',
         '3xl':
@@ -136,7 +122,7 @@ export const buttonVariants = cva(
           'rounded-[3rem] [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-[4rem]',
         '5xl':
           'rounded-[4rem] [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-[5rem]',
-        'full': 'rounded-full',
+        full: 'rounded-full',
       },
       variant: {
         default: [
@@ -153,11 +139,9 @@ export const buttonVariants = cva(
           'aria-selected:ring-5',
         ],
 
-        none:
-          'border-none bg-current/0 text-inherit hover:bg-current/0',
+        none: 'border-none bg-current/0 text-inherit hover:bg-current/0',
 
-        link:
-          'h-auto justify-start border-inherit bg-transparent px-1 underline-offset-4 *:text-current! hover:bg-transparent hover:underline',
+        link: 'h-auto justify-start border-inherit bg-transparent px-1 underline-offset-4 *:text-current! hover:bg-transparent hover:underline',
 
         'invisible-link':
           'h-auto justify-start border-inherit bg-transparent px-1 underline-offset-4 *:text-current! hover:bg-transparent',
@@ -361,9 +345,7 @@ export const Button: FC<ButtonProps> = ({
   'aria-pressed': ariaPressed,
   ...props
 }) => {
-  const isLink =
-    variant === 'link' ||
-    variant === 'invisible-link';
+  const isLink = variant === 'link' || variant === 'invisible-link';
   const isIconOnly = !children && (Icon || IconRight);
 
   const accessibilityProps = {
@@ -396,9 +378,7 @@ export const Button: FC<ButtonProps> = ({
         color,
         isFullWidth,
         roundedSize,
-        textAlign:
-          textAlign ??
-          (IconRight ? 'left' : 'center'),
+        textAlign: textAlign ?? (IconRight ? 'left' : 'center'),
         className,
       })}
       {...accessibilityProps}

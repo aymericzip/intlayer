@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
-import { Button, ButtonColor, ButtonSize, ButtonVariant } from '../Button';
+import { Button } from '../Button';
 import { Container } from '../Container';
 import { H3 } from '../Headers';
-import { Modal, type ModalSize } from './Modal';
+import { Modal } from './Modal';
 
 /**
  * Modal Component Stories

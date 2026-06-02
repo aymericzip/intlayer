@@ -1,14 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, within } from '@storybook/test';
 import { useState } from 'react';
-import {
-  Tag,
-  TagBackground,
-  TagBorder,
-  TagColor,
-  TagRoundedSize,
-  TagSize,
-} from '.';
+import { Tag } from '.';
 
 /**
  * ## Tag Component

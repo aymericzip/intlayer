@@ -90,7 +90,7 @@ export const indicatorVariant = cva(
       color: {
         primary: 'bg-primary data-[indicator=true]:text-text',
         secondary: 'bg-secondary data-[indicator=true]:text-text',
-        [`${'error'}`]: 'bg-error data-[indicator=true]:text-text',
+        error: 'bg-error data-[indicator=true]:text-text',
         neutral: 'bg-neutral data-[indicator=true]:text-white',
         light: 'bg-white data-[indicator=true]:text-black',
         dark: 'bg-neutral-800 data-[indicator=true]:text-white',

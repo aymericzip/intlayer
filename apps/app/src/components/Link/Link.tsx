@@ -114,6 +114,7 @@ export const Link: FC<LinkProps> = ({
       to={href as TansStackLinkProps['to']}
       aria-label={label}
       aria-current={isActive ? 'page' : undefined}
+      activeOptions={{ exact: true }}
       className={cn(
         linkVariants({
           variant,

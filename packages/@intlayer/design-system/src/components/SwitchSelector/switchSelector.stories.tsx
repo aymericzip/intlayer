@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, within } from '@storybook/test';
 import { useState } from 'react';
-import { SwitchSelector, SwitchSelectorColor, SwitchSelectorSize } from '.';
+import { SwitchSelector } from '.';
 
 /**
  * SwitchSelector Component Stories

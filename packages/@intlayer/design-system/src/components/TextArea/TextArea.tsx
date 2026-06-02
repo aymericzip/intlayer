@@ -1,7 +1,7 @@
 import { cn } from '@utils/cn';
 import type { VariantProps } from 'class-variance-authority';
 import type { DetailedHTMLProps, FC, TextareaHTMLAttributes } from 'react';
-import { type InputVariant, inputVariants } from '../Input';
+import { inputVariants } from '../Input';
 
 /**
  * Props for the TextArea component.

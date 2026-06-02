@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Button, ButtonColor, ButtonSize, ButtonVariant } from '../Button';
+import { Button } from '../Button';
 import { Container } from '../Container';
 import { H3 } from '../Headers';
-import { Popover, PopoverXAlign, PopoverYAlign } from '.';
+import { Popover } from '.';
 
 /**
  * Popover Component Stories

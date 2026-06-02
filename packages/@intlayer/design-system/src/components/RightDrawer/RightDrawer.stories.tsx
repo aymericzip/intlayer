@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, within } from '@storybook/test';
 import { useState } from 'react';
-import { Button, ButtonColor, ButtonVariant } from '../Button';
+import { Button } from '../Button';
 import { RightDrawer } from './RightDrawer';
 import { useRightDrawer } from './useRightDrawer';
 

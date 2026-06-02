@@ -2,7 +2,6 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, within } from '@storybook/test';
 import { useState } from 'react';
 import { Select } from '.';
-import { SelectContentPosition } from './Select';
 
 /**
  * Select Component Stories

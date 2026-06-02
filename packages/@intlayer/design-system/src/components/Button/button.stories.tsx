@@ -10,13 +10,7 @@ import {
   SettingsIcon,
   TrashIcon,
 } from 'lucide-react';
-import {
-  Button,
-  ButtonColor,
-  ButtonSize,
-  ButtonTextAlign,
-  ButtonVariant,
-} from './Button';
+import { Button } from './Button';
 
 /**
  * Button Component Stories

@@ -1,15 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, within } from '@storybook/test';
-import {
-  Container,
-  ContainerBackground,
-  ContainerBorderColor,
-  ContainerGap,
-  ContainerPadding,
-  ContainerRoundedSize,
-  ContainerSeparator,
-  ContainerTransparency,
-} from './';
+import { Container } from './';
 
 /**
  * Container Component Stories
