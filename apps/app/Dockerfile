@@ -19,6 +19,9 @@ COPY \
     --exclude=packages/@intlayer/doc \
     --exclude=packages/@intlayer/vue-compiler \
     --exclude=packages/@intlayer/svelte-compiler \
+    --exclude=packages/@intlayer/swc \
+    --exclude=packages/@intlayer/mcp \
+    --exclude=packages/@intlayer/lsp \
     --exclude=packages/intlayer-cli \
     --exclude=packages/react-scripts-intlayer \
     --exclude=packages/vue-intlayer \
@@ -39,7 +42,6 @@ COPY \
     --exclude=apps/website \ 
     --exclude=apps/website-tanstack \
     --exclude=apps/showcase \
-    --exclude=apps/doc \
     --exclude=plugins \
     --exclude=docs/assets \
     --exclude=examples \

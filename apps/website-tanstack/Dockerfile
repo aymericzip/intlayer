@@ -47,6 +47,9 @@ WORKDIR /workspace
 COPY \
     --exclude=packages/@intlayer/vue-compiler \
     --exclude=packages/@intlayer/svelte-compiler \
+    --exclude=packages/@intlayer/swc \
+    --exclude=packages/@intlayer/mcp \
+    --exclude=packages/@intlayer/lsp \
     --exclude=packages/intlayer-cli \
     --exclude=packages/react-scripts-intlayer \
     --exclude=packages/vue-intlayer \
@@ -66,7 +69,6 @@ COPY \
     --exclude=packages/adonis-intlayer \
     --exclude=apps/app \
     --exclude=apps/showcase \
-    --exclude=apps/doc \
     --exclude=apps/website \
     --exclude=plugins \
     --exclude=docs/assets \

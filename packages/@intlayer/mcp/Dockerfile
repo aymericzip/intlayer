@@ -16,6 +16,8 @@ COPY \
     --exclude=packages/@intlayer/webpack \
     --exclude=packages/@intlayer/editor \
     --exclude=packages/@intlayer/editor-react \
+    --exclude=packages/@intlayer/swc \
+    --exclude=packages/@intlayer/lsp \
     --exclude=packages/intlayer-cli \
     --exclude=packages/next-intlayer \
     --exclude=packages/astro-intlayer \
@@ -48,7 +50,6 @@ COPY \
     --exclude=apps/website-tanstack \
     --exclude=apps/showcase \
     --exclude=apps/app \
-    --exclude=apps/doc \
     --exclude=**/*.stories.* \
     . .
 

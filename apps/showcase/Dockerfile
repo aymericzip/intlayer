@@ -18,7 +18,9 @@ WORKDIR /workspace
 # Copy the rest of the source code
 # Remove directories to keep the image slim
 COPY \
-    --exclude=packages/@intlayer/doc \
+    --exclude=packages/@intlayer/swc \
+    --exclude=packages/@intlayer/mcp \
+    --exclude=packages/@intlayer/lsp \
     --exclude=packages/@intlayer/vue-compiler \
     --exclude=packages/@intlayer/svelte-compiler \
     --exclude=packages/intlayer-cli \
@@ -40,7 +42,6 @@ COPY \
     --exclude=packages/adonis-intlayer \
     --exclude=apps/website \ 
     --exclude=apps/website-tanstack \        --exclude=apps/app \
-    --exclude=apps/doc \
     --exclude=plugins \
     --exclude=docs/assets \
     --exclude=examples \
