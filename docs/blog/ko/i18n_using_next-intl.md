@@ -73,6 +73,7 @@ className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-
 title="Demo CodeSandbox - Intlayer를 사용하여 애플리케이션을 국제화하는 방법"
 sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
 loading="lazy"
+/>
 
 > GitHub에서 [애플리케이션 템플릿](https://github.com/aymericzip/next-intl-template)을 참조하세요.
 
@@ -108,7 +109,9 @@ loading="lazy"
         └── ServerComponent.tsx
 ```
 
-### 1단계: 의존성 설치
+<Steps>
+
+<Step number={1} title="의존성 설치">
 
 npm을 사용하여 필요한 패키지를 설치하세요:
 
@@ -126,7 +129,9 @@ yarn add next-intl
 
 - **next-intl**: Next.js App Router용 핵심 국제화 라이브러리로, 번역 관리를 위한 훅, 서버 함수, 클라이언트 프로바이더를 제공합니다.
 
-### 2단계: 프로젝트 구성
+</Step>
+
+<Step number={2} title="프로젝트 구성">
 
 지원하는 로케일을 정의하고 next-intl의 요청 구성을 설정하는 구성 파일을 만드세요. 이 파일은 i18n 설정의 단일 진실 소스로 작동하며 애플리케이션 전반에 걸쳐 타입 안전성을 보장합니다.
 
@@ -210,7 +215,9 @@ export const { Link, redirect, usePathname, useRouter, getPathname } =
 export const proxy = createMiddleware(routingOptions);
 ```
 
-### 3단계: 동적 로케일 라우트 정의
+</Step>
+
+<Step number={3} title="동적 로케일 라우트 정의">
 
 앱 폴더에 `[locale]` 디렉토리를 생성하여 로케일 기반 동적 라우팅을 설정하세요. 이를 통해 Next.js는 각 로케일이 URL 세그먼트가 되는 로케일 기반 라우팅을 처리할 수 있습니다 (예: `/en/about`, `/fr/about`).
 
@@ -299,7 +306,9 @@ export default async function AboutPage({
 }
 ```
 
-### 4단계: 번역 파일 생성하기
+</Step>
+
+<Step number={4} title="번역 파일 생성하기">
 
 각 로케일과 네임스페이스별로 JSON 파일을 생성하세요. 이 구조는 번역을 논리적으로 구성하고 각 페이지에 필요한 번역만 로드할 수 있게 해줍니다.
 
@@ -341,7 +350,9 @@ export default async function AboutPage({
 }
 ```
 
-### 5단계: 페이지에서 번역 활용하기
+</Step>
+
+<Step number={5} title="페이지에서 번역 활용하기">
 
 서버에서 번역을 로드하고 이를 서버 및 클라이언트 컴포넌트 모두에 전달하는 페이지 컴포넌트를 만드세요. 이렇게 하면 렌더링 전에 번역이 로드되어 콘텐츠 깜박임을 방지할 수 있습니다.
 
@@ -392,7 +403,9 @@ export default async function AboutPage({
 }
 ```
 
-### 6단계: 클라이언트 컴포넌트에서 번역 사용하기
+</Step>
+
+<Step number={6} title="클라이언트 컴포넌트에서 번역 사용하기">
 
 클라이언트 컴포넌트는 `useTranslations` 및 `useFormatter` 훅을 사용하여 번역 및 포맷팅 기능에 접근할 수 있습니다. 이 훅들은 `NextIntlClientProvider` 컨텍스트에서 값을 읽어옵니다.
 
@@ -428,7 +441,9 @@ const ClientComponent = () => {
 };
 ```
 
-### 7단계: 서버 컴포넌트에서 번역 사용하기
+</Step>
+
+<Step number={7} title="서버 컴포넌트에서 번역 사용하기">
 
 서버 컴포넌트는 React 훅을 사용할 수 없으므로, 부모 컴포넌트로부터 props를 통해 번역과 포매터를 전달받습니다. 이 방법은 서버 컴포넌트를 동기적으로 유지하며 클라이언트 컴포넌트 내부에 중첩될 수 있게 합니다.
 
@@ -460,9 +475,9 @@ const ServerComponent = ({
 
 > 페이지나 레이아웃에서 `next-intl/server`의 `getTranslations`와 `getFormatter`를 사용하여 번역과 포맷팅을 미리 계산한 후, 이를 props로 서버 컴포넌트에 전달하세요.
 
----
+</Step>
 
-### (선택 사항) 8단계: 콘텐츠의 언어 변경하기
+<Step number={8} title="콘텐츠의 언어 변경하기" isOptional={true}>
 
 next-intl을 사용하여 콘텐츠의 언어를 변경하려면, 동일한 경로명을 가리키면서 로케일을 전환하는 로케일 인식 링크를 렌더링하세요. 프로바이더가 URL을 자동으로 재작성하므로 현재 경로만 지정하면 됩니다.
 
@@ -534,7 +549,9 @@ export default function LocaleSwitcher() {
 }
 ```
 
-### (선택 사항) 9단계: 현지화된 Link 컴포넌트 사용하기
+</Step>
+
+<Step number={9} title="현지화된 Link 컴포넌트 사용하기" isOptional={true}>
 
 `next-intl`은 활성 로케일을 자동으로 적용하는 현지화된 링크 컴포넌트를 포함하는 서브패키지 `next-intl/navigation`을 제공합니다. 우리는 이미 `@/i18n` 파일에서 이를 추출해 두었으므로 다음과 같이 사용할 수 있습니다:
 
@@ -544,7 +561,9 @@ import { Link } from "@/i18n";
 return <Link href="/about">t("about.title")</Link>;
 ```
 
-### (선택 사항) 10단계: 서버 액션 내에서 활성 로케일 접근하기
+</Step>
+
+<Step number={10} title="서버 액션 내에서 활성 로케일 접근하기" isOptional={true}>
 
 서버 액션은 `next-intl/server`를 사용하여 현재 로케일을 읽을 수 있습니다. 이는 현지화된 이메일을 보내거나 제출된 데이터와 함께 언어 선호도를 저장하는 데 유용합니다.
 
@@ -567,7 +586,9 @@ export async function handleContactForm(formData: FormData) {
 
 > `getLocale`는 `next-intl` 프록시가 설정한 locale을 읽기 때문에 서버 어디서나 작동합니다: Route Handlers, Server Actions, 그리고 edge functions.
 
-### (선택 사항) 11단계: 메타데이터 국제화하기
+</Step>
+
+<Step number={11} title="메타데이터 국제화하기" isOptional={true}>
 
 콘텐츠 번역도 중요하지만, 국제화의 주요 목표는 웹사이트를 전 세계에 더 잘 보이게 만드는 것입니다. I18n은 적절한 SEO를 통해 웹사이트 가시성을 향상시키는 놀라운 수단입니다.
 
@@ -606,7 +627,9 @@ export async function generateMetadata({
 // ... 페이지 나머지 코드
 ```
 
-### (선택 사항) 12단계: 사이트맵 국제화하기
+</Step>
+
+<Step number={12} title="사이트맵 국제화하기" isOptional={true}>
 
 모든 로케일 버전의 페이지를 포함하는 사이트맵을 생성하세요. 이는 검색 엔진이 모든 언어 버전의 콘텐츠를 발견하고 색인화하는 데 도움이 됩니다.
 
@@ -660,7 +683,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
 }
 ```
 
-### (선택 사항) 13단계: robots.txt 국제화하기
+</Step>
+
+<Step number={13} title="robots.txt 국제화하기" isOptional={true}>
 
 보호된 경로의 모든 로케일 버전을 적절히 처리하는 robots.txt 파일을 만드세요. 이를 통해 검색 엔진이 어떤 언어로든 관리자(admin)나 대시보드 페이지를 인덱싱하지 않도록 할 수 있습니다.
 
@@ -693,7 +718,9 @@ export default function robots(): MetadataRoute.Robots {
 }
 ```
 
-### (선택 사항) 14단계: 로케일 라우팅을 위한 프록시 설정
+</Step>
+
+<Step number={14} title="로케일 라우팅을 위한 프록시 설정" isOptional={true}>
 
 사용자의 선호 로케일을 자동으로 감지하고 적절한 로케일 접두사가 붙은 URL로 리디렉션하는 프록시를 만드세요. next-intl은 이를 자동으로 처리하는 편리한 프록시 함수를 제공합니다.
 
@@ -713,7 +740,9 @@ export const config = {
 };
 ```
 
-### (선택 사항) 15단계: 로케일에 대한 TypeScript 타입 설정
+</Step>
+
+<Step number={15} title="로케일에 대한 TypeScript 타입 설정" isOptional={true}>
 
 TypeScript 설정은 키에 대한 자동완성과 타입 안전성을 제공하는 데 도움이 됩니다.
 
@@ -739,7 +768,9 @@ declare module "next-intl" {
 
 이 코드는 모듈 확장(Module Augmentation)을 사용하여 locales와 messages를 next-intl의 AppConfig 타입에 추가합니다.
 
-### (선택 사항) 15단계: Intlayer를 사용하여 번역 자동화하기
+</Step>
+
+<Step number={16} title="Intlayer를 사용하여 번역 자동화하기" isOptional={true}>
 
 Intlayer는 애플리케이션의 현지화 과정을 지원하기 위해 설계된 **무료**이자 **오픈 소스** 라이브러리입니다. next-intl이 번역 로딩과 관리를 담당하는 반면, Intlayer는 번역 워크플로우를 자동화하는 데 도움을 줍니다.
 
@@ -764,3 +795,7 @@ Intlayer는 다음을 가능하게 합니다:
   Intlayer는 비주얼 에디터를 사용하여 콘텐츠를 편집할 수 있는 무료 비주얼 에디터를 제공합니다. [번역 비주얼 편집](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)에서 자세히 알아보세요.
 
 그리고 더 많은 기능들이 있습니다. Intlayer가 제공하는 모든 기능을 확인하려면 [Intlayer의 관심사 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/interest_of_intlayer.md)를 참조하세요.
+
+</Step>
+
+</Steps>

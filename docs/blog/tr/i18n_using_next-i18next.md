@@ -80,6 +80,7 @@ Uygulamaya başlamadan önce, takip etmeniz gereken bazı uygulamalar şunlardı
   title="Demo CodeSandbox - Intlayer kullanarak uygulamanızı nasıl uluslararasılaştırırsınız"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
+/>
 
 > GitHub'da [Uygulama Şablonuna](https://github.com/aymericzip/next-i18next-template) bakın.
 
@@ -116,7 +117,9 @@ Oluşturacağımız proje yapısı şöyle olacak:
         └── ServerComponent.tsx
 ```
 
-### Adım 1: Bağımlılıkları Yükleyin
+<Steps>
+
+<Step number={1} title="Bağımlılıkları Yükleyin">
 
 Gerekli paketleri npm kullanarak yükleyin:
 
@@ -136,7 +139,9 @@ yarn add i18next react-i18next i18next-resources-to-backend
 - **react-i18next**: i18next için React bağlayıcıları; client bileşenler için `useTranslation` gibi hook'lar sağlar.
 - **i18next-resources-to-backend**: Çeviri dosyalarının dinamik yüklenmesini sağlayan bir eklenti; sadece ihtiyacınız olan namespace'leri yüklemenize olanak tanır.
 
-### Adım 2: Projenizi Yapılandırın
+</Step>
+
+<Step number={2} title="Projenizi Yapılandırın">
 
 Desteklenen yerel ayarları, varsayılan yerel ayarı ve URL yerelleştirmesi için yardımcı fonksiyonları tanımlamak üzere bir yapılandırma dosyası oluşturun. Bu dosya, i18n kurulumunuz için tek gerçek kaynak olarak hizmet eder ve uygulamanız genelinde tür güvenliğini sağlar.
 
@@ -189,7 +194,9 @@ export function getCookie(locale: Locale) {
 }
 ```
 
-### Adım 3: Çeviri Ad Alanlarını Merkezileştir
+</Step>
+
+<Step number={3} title="Çeviri Ad Alanlarını Merkezileştir">
 
 Uygulamanızın sunduğu her namespace için tek bir doğruluk kaynağı oluşturun. Bu listeyi yeniden kullanmak, sunucu, istemci ve araç kodlarının senkronize kalmasını sağlar ve çeviri yardımcıları için güçlü tip desteğini açar.
 
@@ -199,7 +206,9 @@ export const namespaces = ["common", "about"] as const;
 export type Namespace = (typeof namespaces)[number];
 ```
 
-### Adım 4: TypeScript ile Çeviri Anahtarlarını Güçlü Tip Yapmak
+</Step>
+
+<Step number={4} title="TypeScript ile Çeviri Anahtarlarını Güçlü Tip Yapmak">
 
 `i18next`'i, kanonik dil dosyalarınızı (genellikle İngilizce) işaret edecek şekilde genişletin. TypeScript böylece her namespace için geçerli anahtarları çıkarır ve `t()` çağrıları baştan sona kontrol edilir.
 
@@ -237,7 +246,9 @@ const { t } = useTranslation("about");
 export type AboutTranslator = TFunction<"about">;
 ```
 
-### Adım 5: Sunucu Tarafı i18n Başlatmasını Kurun
+</Step>
+
+<Step number={5} title="Sunucu Tarafı i18n Başlatmasını Kurun">
 
 Sunucu bileşenleri için çevirileri yükleyen bir sunucu tarafı başlatma fonksiyonu oluşturun. Bu fonksiyon, sunucu tarafı render için ayrı bir i18next örneği oluşturur ve çevirilerin render edilmeden önce yüklendiğinden emin olur.
 
@@ -292,7 +303,9 @@ export async function initI18next(
 }
 ```
 
-### Adım 6: İstemci Tarafı i18n Sağlayıcısı Oluşturun
+</Step>
+
+<Step number={6} title="İstemci Tarafı i18n Sağlayıcısı Oluşturun">
 
 Uygulamanızı i18next bağlamı ile saran bir istemci bileşen sağlayıcısı oluşturun. Bu sağlayıcı, sunucudan önceden yüklenmiş çevirileri alarak çevrilmemiş içeriğin anlık görünmesini (FOUC) önler ve tekrar eden veri çekimini engeller.
 
@@ -375,7 +388,9 @@ export default function I18nProvider({
 }
 ```
 
-### Adım 7: Dinamik Yerel Yönlendirmeleri Tanımla
+</Step>
+
+<Step number={7} title="Dinamik Yerel Yönlendirmeleri Tanımla">
 
 Uygulama klasörünüzde `[locale]` adlı bir dizin oluşturarak yerel bazlı dinamik yönlendirmeleri ayarlayın. Bu, Next.js'in her yerelin URL segmenti olarak işlendiği yerel bazlı yönlendirmeleri yönetmesini sağlar (örneğin, `/en/about`, `/fr/about`).
 
@@ -427,7 +442,9 @@ export default function LocaleLayout({
 }
 ```
 
-### Adım 8: Çeviri Dosyalarınızı Oluşturun
+</Step>
+
+<Step number={8} title="Çeviri Dosyalarınızı Oluşturun">
 
 Her locale ve namespace için JSON dosyaları oluşturun. Bu yapı, çevirileri mantıklı şekilde organize etmenize ve her sayfa için sadece ihtiyacınız olanları yüklemenize olanak sağlar.
 
@@ -493,7 +510,9 @@ Her locale ve namespace için JSON dosyaları oluşturun. Bu yapı, çevirileri 
 }
 ```
 
-### Adım 9: Sayfalarınızda Çevirileri Kullanın
+</Step>
+
+<Step number={9} title="Sayfalarınızda Çevirileri Kullanın">
 
 Sunucuda i18next'i başlatan ve çevirileri hem sunucu hem de istemci bileşenlerine aktaran bir sayfa bileşeni oluşturun. Bu, çevirilerin render edilmeden önce yüklenmesini sağlar ve içerik yanıp sönmesini engeller.
 
@@ -553,7 +572,9 @@ export default async function AboutPage({
 }
 ```
 
-### Adım 10: İstemci Bileşenlerinde Çevirileri Kullanma
+</Step>
+
+<Step number={10} title="İstemci Bileşenlerinde Çevirileri Kullanma">
 
 İstemci bileşenleri, çevirilere erişmek için `useTranslation` kancasını kullanabilir. Bu kanca, çeviri fonksiyonuna ve i18n örneğine erişim sağlar, böylece içeriği çevirebilir ve yerel bilgisine ulaşabilirsiniz.
 
@@ -604,7 +625,9 @@ const ClientComponent = () => {
 export default ClientComponent;
 ```
 
-### Adım 11: Sunucu Bileşenlerinde Çevirileri Kullanma
+</Step>
+
+<Step number={11} title="Sunucu Bileşenlerinde Çevirileri Kullanma">
 
 Sunucu bileşenleri React hook'larını kullanamaz, bu yüzden çevirileri üst bileşenlerinden props olarak alırlar. Bu yaklaşım sunucu bileşenlerinin senkron kalmasını sağlar ve onların istemci bileşenlerinin içinde iç içe geçmesine izin verir.
 
@@ -650,9 +673,9 @@ const ServerComponent = ({ t, locale, count }: ServerComponentProps) => {
 export default ServerComponent;
 ```
 
----
+</Step>
 
-### (İsteğe Bağlı) Adım 12: İçeriğinizin Dilini Değiştirme
+<Step number={12} title="İçeriğinizin Dilini Değiştirme" isOptional={true}>
 
 Next.js'te içeriğinizin dilini değiştirmek için önerilen yöntem, locale önekli URL'ler ve Next.js linklerini kullanmaktır. Aşağıdaki örnek, mevcut locale'yi rotadan okur, pathname'den çıkarır ve mevcut her locale için bir bağlantı render eder.
 
@@ -724,7 +747,9 @@ export default function LocaleSwitcher() {
 }
 ```
 
-### (İsteğe Bağlı) Adım 13: Yerelleştirilmiş bir Link bileşeni oluşturun
+</Step>
+
+<Step number={13} title="Yerelleştirilmiş bir Link bileşeni oluşturun" isOptional={true}>
 
 Uygulamanızda yerelleştirilmiş URL'leri yeniden kullanmak, gezinmenin tutarlı ve SEO dostu kalmasını sağlar. Dahili rotaların önüne aktif locale'yi ekleyen, dış URL'leri ise dokunmadan bırakan küçük bir yardımcı ile `next/link`'i sarmalayın.
 
@@ -775,7 +800,9 @@ export default function LocalizedLink({
 
 > İpucu: `LocalizedLink` bir drop-in replacement (yerine geçme) olduğundan, ithalatları değiştirerek ve bileşenin yerel dil URL'lerini yönetmesine izin vererek kademeli olarak geçiş yapın.
 
-### (İsteğe Bağlı) Adım 14: Server Actions içinde aktif locale erişimi
+</Step>
+
+<Step number={14} title="Server Actions içinde aktif locale erişimi" isOptional={true}>
 
 Server Actions genellikle e-postalar, kayıt tutma veya üçüncü taraf entegrasyonları için geçerli locale ihtiyaç duyar. Proxy'niz tarafından ayarlanan locale çerezi ile `Accept-Language` başlığını yedek olarak birleştirin.
 
@@ -813,7 +840,9 @@ export async function stuffFromServer(formData: FormData) {
 
 > Yardımcı fonksiyon Next.js çerezlerine ve başlıklara dayandığı için, Route Handlers, Server Actions ve diğer yalnızca sunucu bağlamlarında çalışır.
 
-### (İsteğe Bağlı) Adım 15: Meta Verilerinizi Uluslararasılaştırın
+</Step>
+
+<Step number={15} title="Meta Verilerinizi Uluslararasılaştırın" isOptional={true}>
 
 İçeriği çevirmek önemlidir, ancak uluslararasılaştırmanın asıl amacı web sitenizi dünyaya daha görünür hale getirmektir. I18n, doğru SEO ile web sitenizin görünürlüğünü artırmak için inanılmaz bir araçtır.
 
@@ -880,7 +909,9 @@ export default async function AboutPage() {
 }
 ```
 
-### (İsteğe Bağlı) Adım 16: Site Haritanızı Uluslararasılaştırın
+</Step>
+
+<Step number={16} title="Site Haritanızı Uluslararasılaştırın" isOptional={true}>
 
 Sayfalarınızın tüm yerel sürümlerini içeren bir site haritası oluşturun. Bu, arama motorlarının içeriğinizin tüm dil sürümlerini keşfetmesine ve dizine eklemesine yardımcı olur.
 
@@ -934,7 +965,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
 }
 ```
 
-### (İsteğe Bağlı) Adım 17: robots.txt Dosyanızı Uluslararasılaştırın
+</Step>
+
+<Step number={17} title="robots.txt Dosyanızı Uluslararasılaştırın" isOptional={true}>
 
 Korumalı rotalarınızın tüm yerel sürümlerini doğru şekilde yöneten bir robots.txt dosyası oluşturun. Bu, arama motorlarının yönetici veya gösterge paneli sayfalarını hiçbir dilde dizine eklememesini sağlar.
 
@@ -965,7 +998,9 @@ export default function robots(): MetadataRoute.Robots {
 }
 ```
 
-### (İsteğe Bağlı) Adım 18: Yerel Yönlendirme için Middleware Kurulumu
+</Step>
+
+<Step number={18} title="Yerel Yönlendirme için Middleware Kurulumu" isOptional={true}>
 
 Kullanıcının tercih ettiği dili otomatik olarak algılayan ve onları uygun yerel ön ekli URL'ye yönlendiren bir proxy oluşturun. Bu, kullanıcı deneyimini tercih ettikleri dilde içerik göstererek iyileştirir.
 
@@ -1054,7 +1089,9 @@ export const config = {
 };
 ```
 
-### (İsteğe Bağlı) Adım 19: Çevirilerinizi Intlayer ile Otomatikleştirin
+</Step>
+
+<Step number={19} title="Çevirilerinizi Intlayer ile Otomatikleştirin" isOptional={true}>
 
 Intlayer, uygulamanızdaki yerelleştirme sürecine yardımcı olmak için tasarlanmış **ücretsiz** ve **açık kaynaklı** bir kütüphanedir. i18next çeviri yükleme ve yönetimini sağlarken, Intlayer çeviri iş akışını otomatikleştirmenize yardımcı olur.
 
@@ -1084,3 +1121,7 @@ Intlayer size şunları sağlar:
   Intlayer, içeriğinizi görsel bir editör kullanarak düzenlemeniz için ücretsiz bir görsel editör sunar. [Çevirilerinizi görsel olarak düzenleme](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md) hakkında daha fazla bilgi edinin.
 
 Ve daha fazlası. Intlayer tarafından sunulan tüm özellikleri keşfetmek için lütfen [Intlayer'ın Önemi dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/interest_of_intlayer.md) bakınız.
+
+</Step>
+
+</Steps>

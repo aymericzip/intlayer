@@ -80,6 +80,7 @@ Sebelum kita masuk ke implementasi, berikut beberapa praktik yang harus Anda iku
   title="Demo CodeSandbox - Cara Menginternasionalisasi aplikasi Anda menggunakan Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
+/>
 
 > Lihat [Application Template](https://github.com/aymericzip/next-i18next-template) di GitHub.
 
@@ -116,7 +117,9 @@ Berikut adalah struktur proyek yang akan kita buat:
         └── ServerComponent.tsx
 ```
 
-### Langkah 1: Instalasi Dependensi
+<Steps>
+
+<Step number={1} title="Instalasi Dependensi">
 
 Instal paket-paket yang diperlukan menggunakan npm:
 
@@ -136,7 +139,9 @@ yarn add i18next react-i18next i18next-resources-to-backend
 - **react-i18next**: Binding React untuk i18next yang menyediakan hooks seperti `useTranslation` untuk komponen klien.
 - **i18next-resources-to-backend**: Plugin yang memungkinkan pemuatan dinamis file terjemahan, sehingga Anda hanya memuat namespace yang Anda butuhkan.
 
-### Langkah 2: Konfigurasikan Proyek Anda
+</Step>
+
+<Step number={2} title="Konfigurasikan Proyek Anda">
 
 Buat file konfigurasi untuk mendefinisikan locale yang didukung, locale default, dan fungsi pembantu untuk lokalisasi URL. File ini berfungsi sebagai sumber kebenaran tunggal untuk pengaturan i18n Anda dan memastikan keamanan tipe di seluruh aplikasi Anda.
 
@@ -189,7 +194,9 @@ export function getCookie(locale: Locale) {
 }
 ```
 
-### Langkah 3: Sentralisasi Namespace Terjemahan
+</Step>
+
+<Step number={3} title="Sentralisasi Namespace Terjemahan">
 
 Buat satu sumber kebenaran untuk setiap namespace yang diekspos oleh aplikasi Anda. Menggunakan kembali daftar ini menjaga sinkronisasi kode server, klien, dan tooling serta membuka tipe kuat untuk helper terjemahan.
 
@@ -199,7 +206,9 @@ export const namespaces = ["common", "about"] as const;
 export type Namespace = (typeof namespaces)[number];
 ```
 
-### Langkah 4: Ketik Kuat Kunci Terjemahan dengan TypeScript
+</Step>
+
+<Step number={4} title="Ketik Kuat Kunci Terjemahan dengan TypeScript">
 
 Perluas `i18next` untuk menunjuk ke file bahasa kanonik Anda (biasanya bahasa Inggris). TypeScript kemudian menafsirkan kunci yang valid per namespace, sehingga panggilan ke `t()` diperiksa secara menyeluruh.
 
@@ -237,7 +246,9 @@ const { t } = useTranslation("about");
 export type AboutTranslator = TFunction<"about">;
 ```
 
-### Langkah 5: Siapkan Inisialisasi i18n di Sisi Server
+</Step>
+
+<Step number={5} title="Siapkan Inisialisasi i18n di Sisi Server">
 
 Buat fungsi inisialisasi sisi server yang memuat terjemahan untuk komponen server. Fungsi ini membuat instance i18next terpisah untuk rendering sisi server, memastikan bahwa terjemahan dimuat sebelum rendering.
 
@@ -292,7 +303,9 @@ export async function initI18next(
 }
 ```
 
-### Langkah 6: Buat Provider i18n di Sisi Klien
+</Step>
+
+<Step number={6} title="Buat Provider i18n di Sisi Klien">
 
 Buat provider komponen klien yang membungkus aplikasi Anda dengan konteks i18next. Provider ini menerima terjemahan yang sudah dimuat sebelumnya dari server untuk mencegah flash konten yang belum diterjemahkan (FOUC) dan menghindari pengambilan data ganda.
 
@@ -375,7 +388,9 @@ export default function I18nProvider({
 }
 ```
 
-### Langkah 7: Definisikan Rute Locale Dinamis
+</Step>
+
+<Step number={7} title="Definisikan Rute Locale Dinamis">
 
 Atur routing dinamis untuk locale dengan membuat direktori `[locale]` di folder app Anda. Ini memungkinkan Next.js untuk menangani routing berbasis locale di mana setiap locale menjadi segmen URL (misalnya, `/en/about`, `/fr/about`).
 
@@ -427,7 +442,9 @@ export default function LocaleLayout({
 }
 ```
 
-### Langkah 8: Buat File Terjemahan Anda
+</Step>
+
+<Step number={8} title="Buat File Terjemahan Anda">
 
 Buat file JSON untuk setiap locale dan namespace. Struktur ini memungkinkan Anda mengatur terjemahan secara logis dan memuat hanya yang Anda butuhkan untuk setiap halaman.
 
@@ -493,7 +510,9 @@ Mengorganisir terjemahan berdasarkan namespace (misalnya, `common.json`, `about.
 }
 ```
 
-### Langkah 9: Memanfaatkan Terjemahan di Halaman Anda
+</Step>
+
+<Step number={9} title="Memanfaatkan Terjemahan di Halaman Anda">
 
 Buat komponen halaman yang menginisialisasi i18next di server dan meneruskan terjemahan ke komponen server dan klien. Ini memastikan bahwa terjemahan dimuat sebelum rendering dan mencegah tampilan konten yang berkedip.
 
@@ -553,7 +572,9 @@ export default async function AboutPage({
 }
 ```
 
-### Langkah 10: Gunakan Terjemahan di Komponen Klien
+</Step>
+
+<Step number={10} title="Gunakan Terjemahan di Komponen Klien">
 
 Komponen klien dapat menggunakan hook `useTranslation` untuk mengakses terjemahan. Hook ini memberikan akses ke fungsi terjemahan dan instance i18n, memungkinkan Anda menerjemahkan konten dan mengakses informasi locale.
 
@@ -604,7 +625,9 @@ const ClientComponent = () => {
 export default ClientComponent;
 ```
 
-### Langkah 11: Menggunakan Terjemahan di Komponen Server
+</Step>
+
+<Step number={11} title="Menggunakan Terjemahan di Komponen Server">
 
 Komponen server tidak dapat menggunakan React hooks, sehingga mereka menerima terjemahan melalui props dari komponen induk mereka. Pendekatan ini menjaga komponen server tetap sinkron dan memungkinkan mereka untuk disisipkan di dalam komponen klien.
 
@@ -650,9 +673,9 @@ const ServerComponent = ({ t, locale, count }: ServerComponentProps) => {
 export default ServerComponent;
 ```
 
----
+</Step>
 
-### (Opsional) Langkah 12: Ubah bahasa konten Anda
+<Step number={12} title="Ubah bahasa konten Anda" isOptional={true}>
 
 Untuk mengubah bahasa konten Anda di Next.js, cara yang direkomendasikan adalah menggunakan URL dengan prefix locale dan link Next.js. Contoh di bawah ini membaca locale saat ini dari rute, menghapusnya dari pathname, dan menampilkan satu link untuk setiap locale yang tersedia.
 
@@ -724,7 +747,9 @@ export default function LocaleSwitcher() {
 }
 ```
 
-### (Opsional) Langkah 13: Bangun komponen Link yang dilokalkan
+</Step>
+
+<Step number={13} title="Bangun komponen Link yang dilokalkan" isOptional={true}>
 
 Menggunakan kembali URL yang dilokalkan di seluruh aplikasi Anda menjaga navigasi tetap konsisten dan ramah SEO. Bungkus `next/link` dalam helper kecil yang menambahkan prefix locale aktif pada rute internal sambil membiarkan URL eksternal tidak berubah.
 
@@ -775,7 +800,9 @@ export default function LocalizedLink({
 
 > Tip: Karena `LocalizedLink` adalah pengganti langsung, migrasikan secara bertahap dengan menukar impor dan membiarkan komponen menangani URL spesifik locale.
 
-### (Opsional) Langkah 14: Akses locale aktif di dalam Server Actions
+</Step>
+
+<Step number={14} title="Akses locale aktif di dalam Server Actions" isOptional={true}>
 
 Server Actions sering membutuhkan locale saat ini untuk email, pencatatan, atau integrasi pihak ketiga. Gabungkan cookie locale yang diatur oleh proxy Anda dengan header `Accept-Language` sebagai cadangan.
 
@@ -813,7 +840,9 @@ export async function stuffFromServer(formData: FormData) {
 
 > Karena helper ini bergantung pada cookies dan headers Next.js, ia bekerja di Route Handlers, Server Actions, dan konteks server-only lainnya.
 
-### (Opsional) Langkah 15: Internasionalisasi Metadata Anda
+</Step>
+
+<Step number={15} title="Internasionalisasi Metadata Anda" isOptional={true}>
 
 Menerjemahkan konten itu penting, tetapi tujuan utama internasionalisasi adalah membuat situs web Anda lebih terlihat oleh dunia. I18n adalah tuas luar biasa untuk meningkatkan visibilitas situs web Anda melalui SEO yang tepat.
 
@@ -880,7 +909,9 @@ export default async function AboutPage() {
 }
 ```
 
-### (Opsional) Langkah 16: Internasionalisasi Sitemap Anda
+</Step>
+
+<Step number={16} title="Internasionalisasi Sitemap Anda" isOptional={true}>
 
 Buat sitemap yang mencakup semua versi locale dari halaman Anda. Ini membantu mesin pencari menemukan dan mengindeks semua versi bahasa dari konten Anda.
 
@@ -934,7 +965,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
 }
 ```
 
-### (Opsional) Langkah 17: Internasionalisasi robots.txt Anda
+</Step>
+
+<Step number={17} title="Internasionalisasi robots.txt Anda" isOptional={true}>
 
 Buat file robots.txt yang menangani semua versi locale dari rute yang dilindungi dengan benar. Ini memastikan bahwa mesin pencari tidak mengindeks halaman admin atau dashboard dalam bahasa apa pun.
 
@@ -965,7 +998,9 @@ export default function robots(): MetadataRoute.Robots {
 }
 ```
 
-### (Opsional) Langkah 18: Siapkan Middleware untuk Routing Locale
+</Step>
+
+<Step number={18} title="Siapkan Middleware untuk Routing Locale" isOptional={true}>
 
 Buat proxy untuk secara otomatis mendeteksi locale yang dipilih pengguna dan mengarahkan mereka ke URL dengan prefix locale yang sesuai. Ini meningkatkan pengalaman pengguna dengan menampilkan konten dalam bahasa pilihan mereka.
 
@@ -1054,7 +1089,9 @@ export const config = {
 };
 ```
 
-### (Opsional) Langkah 19: Otomatiskan Terjemahan Anda Menggunakan Intlayer
+</Step>
+
+<Step number={19} title="Otomatiskan Terjemahan Anda Menggunakan Intlayer" isOptional={true}>
 
 Intlayer adalah perpustakaan **gratis** dan **open-source** yang dirancang untuk membantu proses lokalisasi dalam aplikasi Anda. Sementara i18next menangani pemuatan dan pengelolaan terjemahan, Intlayer membantu mengotomatisasi alur kerja terjemahan.
 
@@ -1084,3 +1121,7 @@ Intlayer memungkinkan Anda untuk:
   Intlayer menawarkan editor visual gratis untuk mengedit konten Anda menggunakan editor visual. Pelajari lebih lanjut tentang [pengeditan visual terjemahan Anda](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md).
 
 Dan masih banyak lagi. Untuk menemukan semua fitur yang disediakan oleh Intlayer, silakan merujuk ke [Dokumentasi Manfaat Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/interest_of_intlayer.md).
+
+</Step>
+
+</Steps>

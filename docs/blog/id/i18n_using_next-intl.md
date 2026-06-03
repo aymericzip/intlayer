@@ -107,7 +107,9 @@ Berikut adalah struktur proyek yang akan kita buat:
         └── ServerComponent.tsx
 ```
 
-### Langkah 1: Pasang Dependensi
+<Steps>
+
+<Step number={1} title="Pasang Dependensi">
 
 Pasang paket yang diperlukan menggunakan npm:
 
@@ -125,7 +127,9 @@ yarn add next-intl
 
 - **next-intl**: Perpustakaan internasionalisasi inti untuk Next.js App Router yang menyediakan hooks, fungsi server, dan penyedia klien untuk mengelola terjemahan.
 
-### Langkah 2: Konfigurasikan Proyek Anda
+</Step>
+
+<Step number={2} title="Konfigurasikan Proyek Anda">
 
 Buat file konfigurasi yang mendefinisikan locale yang didukung dan mengatur konfigurasi request next-intl. File ini berfungsi sebagai sumber kebenaran tunggal untuk pengaturan i18n Anda dan memastikan keamanan tipe di seluruh aplikasi Anda.
 
@@ -209,7 +213,9 @@ export const { Link, redirect, usePathname, useRouter, getPathname } =
 export const proxy = createMiddleware(routingOptions);
 ```
 
-### Langkah 3: Definisikan Rute Dinamis Locale
+</Step>
+
+<Step number={3} title="Definisikan Rute Dinamis Locale">
 
 Atur routing dinamis untuk locale dengan membuat direktori `[locale]` di folder aplikasi Anda. Ini memungkinkan Next.js untuk menangani routing berbasis locale di mana setiap locale menjadi segmen URL (misalnya, `/en/about`, `/fr/about`).
 
@@ -297,7 +303,9 @@ export default async function AboutPage({
 }
 ```
 
-### Langkah 4: Buat File Terjemahan Anda
+</Step>
+
+<Step number={4} title="Buat File Terjemahan Anda">
 
 Buat file JSON untuk setiap locale dan namespace. Struktur ini memungkinkan Anda mengatur terjemahan secara logis dan memuat hanya yang Anda butuhkan untuk setiap halaman.
 
@@ -339,7 +347,9 @@ Mengorganisir terjemahan berdasarkan namespace (misalnya, `common.json`, `about.
 }
 ```
 
-### Langkah 5: Gunakan Terjemahan di Halaman Anda
+</Step>
+
+<Step number={5} title="Gunakan Terjemahan di Halaman Anda">
 
 Buat komponen halaman yang memuat terjemahan di server dan meneruskannya ke komponen server dan klien. Ini memastikan terjemahan dimuat sebelum rendering dan mencegah konten berkedip.
 
@@ -390,7 +400,9 @@ export default async function AboutPage({
 }
 ```
 
-### Langkah 6: Gunakan Terjemahan di Komponen Klien
+</Step>
+
+<Step number={6} title="Gunakan Terjemahan di Komponen Klien">
 
 Komponen klien dapat menggunakan hook `useTranslations` dan `useFormatter` untuk mengakses terjemahan dan fungsi pemformatan. Hook ini membaca dari konteks `NextIntlClientProvider`.
 
@@ -426,7 +438,9 @@ const ClientComponent = () => {
 };
 ```
 
-### Langkah 7: Menggunakan Terjemahan di Komponen Server
+</Step>
+
+<Step number={7} title="Menggunakan Terjemahan di Komponen Server">
 
 Komponen server tidak dapat menggunakan React hooks, sehingga mereka menerima terjemahan dan formatter melalui props dari komponen induknya. Pendekatan ini menjaga komponen server tetap sinkron dan memungkinkan mereka untuk disisipkan di dalam komponen klien.
 
@@ -458,9 +472,9 @@ const ServerComponent = ({
 
 > Di halaman/layout Anda, gunakan `getTranslations` dan `getFormatter` dari `next-intl/server` untuk menghitung terjemahan dan format terlebih dahulu, lalu teruskan sebagai props ke komponen server.
 
----
+</Step>
 
-### (Opsional) Langkah 8: Ubah bahasa konten Anda
+<Step number={8} title="Ubah bahasa konten Anda" isOptional={true}>
 
 Untuk mengubah bahasa konten Anda dengan next-intl, render tautan yang mengenali locale yang mengarah ke pathname yang sama sambil mengganti locale. Provider akan menulis ulang URL secara otomatis, jadi Anda hanya perlu menargetkan rute saat ini.
 
@@ -532,7 +546,9 @@ export default function LocaleSwitcher() {
 }
 ```
 
-### (Opsional) Langkah 9: Gunakan komponen Link yang sudah dilokalisasi
+</Step>
+
+<Step number={9} title="Gunakan komponen Link yang sudah dilokalisasi" isOptional={true}>
 
 `next-intl` menyediakan subpaket `next-intl/navigation` yang berisi komponen link yang sudah dilokalisasi dan secara otomatis menerapkan locale aktif. Kami sudah mengekstraknya untuk Anda di file `@/i18n`, jadi Anda bisa menggunakannya seperti ini:
 
@@ -542,7 +558,9 @@ import { Link } from "@/i18n";
 return <Link href="/about">t("about.title")</Link>;
 ```
 
-### (Opsional) Langkah 10: Akses locale aktif di dalam Server Actions
+</Step>
+
+<Step number={10} title="Akses locale aktif di dalam Server Actions" isOptional={true}>
 
 Server Actions dapat membaca locale saat ini menggunakan `next-intl/server`. Ini berguna untuk mengirim email yang sudah dilokalisasi atau menyimpan preferensi bahasa bersamaan dengan data yang dikirimkan.
 
@@ -565,7 +583,9 @@ export async function handleContactForm(formData: FormData) {
 
 > `getLocale` membaca locale yang diatur oleh proxy `next-intl`, sehingga berfungsi di mana saja di server: Route Handlers, Server Actions, dan edge functions.
 
-### (Opsional) Langkah 11: Internasionalisasi Metadata Anda
+</Step>
+
+<Step number={11} title="Internasionalisasi Metadata Anda" isOptional={true}>
 
 Menerjemahkan konten itu penting, tetapi tujuan utama internasionalisasi adalah membuat situs web Anda lebih terlihat oleh dunia. I18n adalah tuas luar biasa untuk meningkatkan visibilitas situs web Anda melalui SEO yang tepat.
 
@@ -604,7 +624,9 @@ export async function generateMetadata({
 // ... Sisa kode halaman
 ```
 
-### (Opsional) Langkah 12: Internasionalisasi Sitemap Anda
+</Step>
+
+<Step number={12} title="Internasionalisasi Sitemap Anda" isOptional={true}>
 
 Buat sitemap yang mencakup semua versi lokal dari halaman Anda. Ini membantu mesin pencari menemukan dan mengindeks semua versi bahasa dari konten Anda.
 
@@ -658,7 +680,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
 }
 ```
 
-### (Opsional) Langkah 13: Internasionalisasi robots.txt Anda
+</Step>
+
+<Step number={13} title="Internasionalisasi robots.txt Anda" isOptional={true}>
 
 Buat file robots.txt yang menangani dengan benar semua versi locale dari rute yang dilindungi. Ini memastikan mesin pencari tidak mengindeks halaman admin atau dashboard dalam bahasa apa pun.
 
@@ -691,7 +715,9 @@ export default function robots(): MetadataRoute.Robots {
 }
 ```
 
-### (Opsional) Langkah 14: Mengatur Proxy untuk Routing Locale
+</Step>
+
+<Step number={14} title="Mengatur Proxy untuk Routing Locale" isOptional={true}>
 
 Buat proxy untuk secara otomatis mendeteksi locale yang dipilih pengguna dan mengarahkan mereka ke URL dengan prefix locale yang sesuai. next-intl menyediakan fungsi proxy yang nyaman yang menangani ini secara otomatis.
 
@@ -711,7 +737,9 @@ export const config = {
 };
 ```
 
-### (Opsional) Langkah 15: Atur Tipe TypeScript untuk Locale
+</Step>
+
+<Step number={15} title="Atur Tipe TypeScript untuk Locale" isOptional={true}>
 
 Mengatur TypeScript akan membantu Anda mendapatkan autocompletion dan keamanan tipe untuk kunci Anda.
 
@@ -737,7 +765,9 @@ declare module "next-intl" {
 
 Kode ini akan menggunakan Module Augmentation untuk menambahkan locales dan messages ke tipe AppConfig dari next-intl.
 
-### (Opsional) Langkah 15: Otomatiskan Terjemahan Anda Menggunakan Intlayer
+</Step>
+
+<Step number={16} title="Otomatiskan Terjemahan Anda Menggunakan Intlayer" isOptional={true}>
 
 Intlayer adalah perpustakaan **gratis** dan **open-source** yang dirancang untuk membantu proses lokalisasi dalam aplikasi Anda. Sementara next-intl menangani pemuatan dan pengelolaan terjemahan, Intlayer membantu mengotomatisasi alur kerja terjemahan.
 
@@ -762,3 +792,7 @@ Intlayer memungkinkan Anda untuk:
   Intlayer menawarkan editor visual gratis untuk mengedit konten Anda menggunakan editor visual. Pelajari lebih lanjut tentang [mengedit terjemahan Anda secara visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md).
 
 Dan masih banyak lagi. Untuk menemukan semua fitur yang disediakan oleh Intlayer, silakan merujuk ke [Dokumentasi Manfaat Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/interest_of_intlayer.md).
+
+</Step>
+
+</Steps>

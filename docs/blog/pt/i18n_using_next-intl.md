@@ -109,7 +109,9 @@ Aqui está a estrutura do projeto que iremos criar:
         └── ServerComponent.tsx
 ```
 
-### Passo 1: Instalar Dependências
+<Steps>
+
+<Step number={1} title="Instalar Dependências">
 
 Instale os pacotes necessários usando npm:
 
@@ -127,7 +129,9 @@ yarn add next-intl
 
 - **next-intl**: A biblioteca principal de internacionalização para o Next.js App Router que fornece hooks, funções no servidor e provedores no cliente para gerenciar traduções.
 
-### Passo 2: Configure seu Projeto
+</Step>
+
+<Step number={2} title="Configure seu Projeto">
 
 Crie um arquivo de configuração que defina os seus locales suportados e configure a request do next-intl. Este arquivo serve como a fonte única de verdade para a sua configuração i18n e garante segurança de tipos em toda a sua aplicação.
 
@@ -212,7 +216,9 @@ export const { Link, redirect, usePathname, useRouter, getPathname } =
 export const proxy = createMiddleware(routingOptions);
 ```
 
-### Passo 3: Definir Rotas Dinâmicas por Locale
+</Step>
+
+<Step number={3} title="Definir Rotas Dinâmicas por Locale">
 
 Configure o roteamento dinâmico para locais criando um diretório `[locale]` na sua pasta de app. Isso permite que o Next.js gerencie o roteamento baseado em localidade, onde cada localidade se torna um segmento da URL (por exemplo, `/en/about`, `/fr/about`).
 
@@ -300,7 +306,9 @@ export default async function AboutPage({
 }
 ```
 
-### Passo 4: Crie Seus Arquivos de Tradução
+</Step>
+
+<Step number={4} title="Crie Seus Arquivos de Tradução">
 
 Crie arquivos JSON para cada locale e namespace. Essa estrutura permite organizar as traduções de forma lógica e carregar apenas o que você precisa para cada página.
 
@@ -342,7 +350,9 @@ Organizar as traduções por namespace (por exemplo, `common.json`, `about.json`
 }
 ```
 
-### Passo 5: Utilize as Traduções nas Suas Páginas
+</Step>
+
+<Step number={5} title="Utilize as Traduções nas Suas Páginas">
 
 Crie um componente de página que carregue as traduções no servidor e as passe para componentes tanto do servidor quanto do cliente. Isso garante que as traduções sejam carregadas antes da renderização e evita o flashing de conteúdo.
 
@@ -393,7 +403,9 @@ export default async function AboutPage({
 }
 ```
 
-### Passo 6: Usar Traduções em Componentes Client
+</Step>
+
+<Step number={6} title="Usar Traduções em Componentes Client">
 
 Componentes client podem usar os hooks `useTranslations` e `useFormatter` para acessar traduções e funções de formatação. Esses hooks leem do contexto `NextIntlClientProvider`.
 
@@ -429,7 +441,9 @@ const ClientComponent = () => {
 };
 ```
 
-### Passo 7: Usar Traduções em Componentes de Servidor
+</Step>
+
+<Step number={7} title="Usar Traduções em Componentes de Servidor">
 
 Componentes de servidor não podem usar hooks do React, então eles recebem traduções e formatadores via props de seus componentes pai. Essa abordagem mantém os componentes de servidor síncronos e permite que eles sejam aninhados dentro de componentes cliente.
 
@@ -461,9 +475,9 @@ const ServerComponent = ({
 
 > Na sua página/layout, use `getTranslations` e `getFormatter` de `next-intl/server` para pré-calcular traduções e formatações, e então passe-os como props para os componentes de servidor.
 
----
+</Step>
 
-### (Opcional) Passo 8: Mude o idioma do seu conteúdo
+<Step number={8} title="Mude o idioma do seu conteúdo" isOptional={true}>
 
 Para mudar o idioma do seu conteúdo com next-intl, renderize links sensíveis ao locale que apontam para o mesmo pathname enquanto troca o locale. O provider reescreve as URLs automaticamente, então você só precisa direcionar para a rota atual.
 
@@ -535,7 +549,9 @@ export default function LocaleSwitcher() {
 }
 ```
 
-### (Opcional) Passo 9: Use o componente Link localizado
+</Step>
+
+<Step number={9} title="Use o componente Link localizado" isOptional={true}>
 
 O `next-intl` fornece um subpacote `next-intl/navigation` que contém um componente Link localizado que aplica automaticamente a localidade ativa. Já o extraímos para você no arquivo `@/i18n`, então você pode usá-lo assim:
 
@@ -545,7 +561,9 @@ import { Link } from "@/i18n";
 return <Link href="/about">t("about.title")</Link>;
 ```
 
-### (Opcional) Passo 10: Acesse a localidade ativa dentro das Server Actions
+</Step>
+
+<Step number={10} title="Acesse a localidade ativa dentro das Server Actions" isOptional={true}>
 
 As Server Actions podem ler a localidade atual usando `next-intl/server`. Isso é útil para enviar e-mails localizados ou armazenar preferências de idioma junto com os dados enviados.
 
@@ -568,7 +586,9 @@ export async function handleContactForm(formData: FormData) {
 
 > `getLocale` lê o locale definido pelo proxy do `next-intl`, então funciona em qualquer lugar no servidor: Route Handlers, Server Actions e edge functions.
 
-### (Opcional) Passo 11: Internacionalize seus Metadados
+</Step>
+
+<Step number={11} title="Internacionalize seus Metadados" isOptional={true}>
 
 Traduzir conteúdo é importante, mas o objetivo principal da internacionalização é tornar seu site mais visível para o mundo. I18n é uma alavanca incrível para melhorar a visibilidade do seu site por meio de SEO adequado.
 
@@ -607,7 +627,9 @@ export async function generateMetadata({
 // ... Resto do código da página
 ```
 
-### (Opcional) Passo 12: Internacionalize Seu Sitemap
+</Step>
+
+<Step number={12} title="Internacionalize Seu Sitemap" isOptional={true}>
 
 Gere um sitemap que inclua todas as versões locais das suas páginas. Isso ajuda os motores de busca a descobrir e indexar todas as versões linguísticas do seu conteúdo.
 
@@ -661,7 +683,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
 }
 ```
 
-### (Opcional) Passo 13: Internacionalize seu robots.txt
+</Step>
+
+<Step number={13} title="Internacionalize seu robots.txt" isOptional={true}>
 
 Crie um arquivo robots.txt que gerencie corretamente todas as versões de locale das suas rotas protegidas. Isso garante que os motores de busca não indexem páginas de administração ou dashboard em nenhum idioma.
 
@@ -694,7 +718,9 @@ export default function robots(): MetadataRoute.Robots {
 }
 ```
 
-### (Opcional) Passo 14: Configurar Proxy para Roteamento de Locale
+</Step>
+
+<Step number={14} title="Configurar Proxy para Roteamento de Locale" isOptional={true}>
 
 Crie um proxy para detectar automaticamente o locale preferido do usuário e redirecioná-lo para a URL apropriada com prefixo de locale. O next-intl fornece uma função proxy conveniente que faz isso automaticamente.
 
@@ -714,7 +740,9 @@ export const config = {
 };
 ```
 
-### (Opcional) Passo 15: Configurar Tipos TypeScript para o Locale
+</Step>
+
+<Step number={15} title="Configurar Tipos TypeScript para o Locale" isOptional={true}>
 
 Configurar o TypeScript ajudará você a obter autocompletar e segurança de tipos para suas chaves.
 
@@ -740,7 +768,9 @@ declare module "next-intl" {
 
 Este código usará Module Augmentation para adicionar os locales e mensagens ao tipo AppConfig do next-intl.
 
-### (Opcional) Passo 15: Automatize Suas Traduções Usando Intlayer
+</Step>
+
+<Step number={16} title="Automatize Suas Traduções Usando Intlayer" isOptional={true}>
 
 Intlayer é uma biblioteca **gratuita** e **open-source** projetada para auxiliar o processo de localização na sua aplicação. Enquanto o next-intl gerencia o carregamento e a gestão das traduções, o Intlayer ajuda a automatizar o fluxo de trabalho das traduções.
 
@@ -765,3 +795,7 @@ O Intlayer permite que você:
   Intlayer oferece um editor visual gratuito para editar seu conteúdo usando um editor visual. Saiba mais sobre [edição visual das suas traduções](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_visual_editor.md).
 
 E mais. Para descobrir todos os recursos fornecidos pelo Intlayer, consulte a [documentação sobre o interesse do Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/interest_of_intlayer.md).
+
+</Step>
+
+</Steps>

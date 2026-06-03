@@ -80,6 +80,7 @@ Zanim przejdziemy do implementacji, oto kilka praktyk, których powinieneś prze
   title="Demo CodeSandbox - Jak internacjonalizować swoją aplikację za pomocą Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
+/>
 
 > Zobacz [Szablon Aplikacji](https://github.com/aymericzip/next-i18next-template) na GitHub.
 
@@ -116,7 +117,9 @@ Oto struktura projektu, którą będziemy tworzyć:
         └── ServerComponent.tsx
 ```
 
-### Krok 1: Instalacja zależności
+<Steps>
+
+<Step number={1} title="Instalacja zależności">
 
 Zainstaluj niezbędne pakiety za pomocą npm:
 
@@ -136,7 +139,9 @@ yarn add i18next react-i18next i18next-resources-to-backend
 - **react-i18next**: Powiązania React dla i18next, które dostarczają hooki takie jak `useTranslation` dla komponentów klienckich.
 - **i18next-resources-to-backend**: Wtyczka umożliwiająca dynamiczne ładowanie plików tłumaczeń, pozwalająca ładować tylko potrzebne przestrzenie nazw.
 
-### Krok 2: Skonfiguruj swój projekt
+</Step>
+
+<Step number={2} title="Skonfiguruj swój projekt">
 
 Utwórz plik konfiguracyjny, aby zdefiniować obsługiwane lokalizacje, domyślną lokalizację oraz funkcje pomocnicze do lokalizacji URL. Ten plik służy jako pojedyncze źródło prawdy dla Twojej konfiguracji i18n i zapewnia bezpieczeństwo typów w całej aplikacji.
 
@@ -189,7 +194,9 @@ export function getCookie(locale: Locale) {
 }
 ```
 
-### Krok 3: Centralizacja przestrzeni nazw tłumaczeń
+</Step>
+
+<Step number={3} title="Centralizacja przestrzeni nazw tłumaczeń">
 
 Utwórz jedno źródło prawdy dla każdej przestrzeni nazw, którą udostępnia Twoja aplikacja. Ponowne użycie tej listy utrzymuje synchronizację kodu serwera, klienta i narzędzi oraz umożliwia silne typowanie pomocników tłumaczeń.
 
@@ -199,7 +206,9 @@ export const namespaces = ["common", "about"] as const;
 export type Namespace = (typeof namespaces)[number];
 ```
 
-### Krok 4: Silne typowanie kluczy tłumaczeń za pomocą TypeScript
+</Step>
+
+<Step number={4} title="Silne typowanie kluczy tłumaczeń za pomocą TypeScript">
 
 Rozszerz `i18next`, aby wskazywał na Twoje kanoniczne pliki językowe (zazwyczaj angielskie). TypeScript wtedy wywnioskuje poprawne klucze dla każdej przestrzeni nazw, dzięki czemu wywołania `t()` są sprawdzane kompleksowo.
 
@@ -237,7 +246,9 @@ const { t } = useTranslation("about");
 export type AboutTranslator = TFunction<"about">;
 ```
 
-### Krok 5: Skonfiguruj inicjalizację i18n po stronie serwera
+</Step>
+
+<Step number={5} title="Skonfiguruj inicjalizację i18n po stronie serwera">
 
 Utwórz funkcję inicjalizacji po stronie serwera, która ładuje tłumaczenia dla komponentów serwerowych. Ta funkcja tworzy osobną instancję i18next do renderowania po stronie serwera, zapewniając, że tłumaczenia są załadowane przed renderowaniem.
 
@@ -292,7 +303,9 @@ export async function initI18next(
 }
 ```
 
-### Krok 6: Utwórz klienta i18n Provider
+</Step>
+
+<Step number={6} title="Utwórz klienta i18n Provider">
 
 Utwórz komponent klienta, który opakuje Twoją aplikację kontekstem i18next. Ten provider otrzymuje wstępnie załadowane tłumaczenia z serwera, aby zapobiec błyskowi nieprzetłumaczonej zawartości (FOUC) i uniknąć podwójnego pobierania.
 
@@ -375,7 +388,9 @@ export default function I18nProvider({
 }
 ```
 
-### Krok 7: Zdefiniuj dynamiczne trasy lokalizacji
+</Step>
+
+<Step number={7} title="Zdefiniuj dynamiczne trasy lokalizacji">
 
 Skonfiguruj dynamiczne routowanie dla lokalizacji, tworząc katalog `[locale]` w folderze aplikacji. Pozwala to Next.js obsługiwać routowanie oparte na lokalizacji, gdzie każda lokalizacja staje się segmentem URL (np. `/en/about`, `/fr/about`).
 
@@ -427,7 +442,9 @@ export default function LocaleLayout({
 }
 ```
 
-### Krok 8: Utwórz pliki tłumaczeń
+</Step>
+
+<Step number={8} title="Utwórz pliki tłumaczeń">
 
 Utwórz pliki JSON dla każdego locale i przestrzeni nazw. Ta struktura pozwala na logiczne organizowanie tłumaczeń i ładowanie tylko tego, co jest potrzebne na każdej stronie.
 
@@ -493,7 +510,9 @@ Organizowanie tłumaczeń według przestrzeni nazw (np. `common.json`, `about.js
 }
 ```
 
-### Krok 9: Wykorzystanie tłumaczeń na Twoich stronach
+</Step>
+
+<Step number={9} title="Wykorzystanie tłumaczeń na Twoich stronach">
 
 Utwórz komponent strony, który inicjalizuje i18next po stronie serwera i przekazuje tłumaczenia zarówno do komponentów serwerowych, jak i klienckich. Zapewnia to załadowanie tłumaczeń przed renderowaniem i zapobiega migotaniu treści.
 
@@ -553,7 +572,9 @@ export default async function AboutPage({
 }
 ```
 
-### Krok 10: Używanie tłumaczeń w komponentach klienckich
+</Step>
+
+<Step number={10} title="Używanie tłumaczeń w komponentach klienckich">
 
 Komponenty klienckie mogą korzystać z hooka `useTranslation`, aby uzyskać dostęp do tłumaczeń. Ten hook zapewnia dostęp do funkcji tłumaczącej oraz instancji i18n, co pozwala na tłumaczenie treści i dostęp do informacji o lokalizacji.
 
@@ -604,7 +625,9 @@ const ClientComponent = () => {
 export default ClientComponent;
 ```
 
-### Krok 11: Użycie tłumaczeń w komponentach serwerowych
+</Step>
+
+<Step number={11} title="Użycie tłumaczeń w komponentach serwerowych">
 
 Komponenty serwerowe nie mogą korzystać z hooków React, dlatego otrzymują tłumaczenia za pomocą propsów od komponentów nadrzędnych. Takie podejście utrzymuje komponenty serwerowe synchroniczne i pozwala na ich zagnieżdżanie wewnątrz komponentów klienckich.
 
@@ -650,9 +673,9 @@ const ServerComponent = ({ t, locale, count }: ServerComponentProps) => {
 export default ServerComponent;
 ```
 
----
+</Step>
 
-### (Opcjonalny) Krok 12: Zmień język swojej zawartości
+<Step number={12} title="Zmień język swojej zawartości" isOptional={true}>
 
 Aby zmienić język swojej zawartości w Next.js, zalecanym sposobem jest używanie adresów URL z prefiksem lokalizacji oraz linków Next.js. Poniższy przykład odczytuje aktualną lokalizację z trasy, usuwa ją z nazwy ścieżki i renderuje jeden link na każdą dostępną lokalizację.
 
@@ -724,7 +747,9 @@ export default function LocaleSwitcher() {
 }
 ```
 
-### (Opcjonalny) Krok 13: Zbuduj lokalizowany komponent Link
+</Step>
+
+<Step number={13} title="Zbuduj lokalizowany komponent Link" isOptional={true}>
 
 Ponowne użycie lokalizowanych URL-i w całej aplikacji utrzymuje spójność nawigacji i jest przyjazne dla SEO. Owiń `next/link` w małą pomocniczą funkcję, która dodaje prefiks aktywnego locale do wewnętrznych ścieżek, pozostawiając zewnętrzne URL-e bez zmian.
 
@@ -775,7 +800,9 @@ export default function LocalizedLink({
 
 > Wskazówka: Ponieważ `LocalizedLink` jest zamiennikiem typu drop-in, migruj stopniowo, zamieniając importy i pozwalając komponentowi obsługiwać adresy URL specyficzne dla lokalizacji.
 
-### (Opcjonalny) Krok 14: Uzyskanie aktywnej lokalizacji wewnątrz Server Actions
+</Step>
+
+<Step number={14} title="Uzyskanie aktywnej lokalizacji wewnątrz Server Actions" isOptional={true}>
 
 Server Actions często potrzebują aktualnej lokalizacji do e-maili, logowania lub integracji z zewnętrznymi usługami. Połącz ciasteczko lokalizacji ustawione przez Twój proxy z nagłówkiem `Accept-Language` jako zapasową opcję.
 
@@ -813,7 +840,9 @@ export async function stuffFromServer(formData: FormData) {
 
 > Ponieważ helper opiera się na ciasteczkach i nagłówkach Next.js, działa w Route Handlers, Server Actions oraz innych kontekstach dostępnych tylko po stronie serwera.
 
-### (Opcjonalny) Krok 15: Internacjonalizacja Twoich Metadanych
+</Step>
+
+<Step number={15} title="Internacjonalizacja Twoich Metadanych" isOptional={true}>
 
 Tłumaczenie treści jest ważne, ale głównym celem internacjonalizacji jest uczynienie Twojej strony bardziej widoczną na świecie. I18n to niesamowite narzędzie do poprawy widoczności Twojej strony poprzez odpowiednie SEO.
 
@@ -880,7 +909,9 @@ export default async function AboutPage() {
 }
 ```
 
-### (Opcjonalny) Krok 16: Internacjonalizacja mapy witryny
+</Step>
+
+<Step number={16} title="Internacjonalizacja mapy witryny" isOptional={true}>
 
 Wygeneruj mapę witryny, która zawiera wszystkie wersje językowe Twoich stron. Pomaga to wyszukiwarkom odnaleźć i zaindeksować wszystkie wersje językowe Twoich treści.
 
@@ -934,7 +965,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
 }
 ```
 
-### (Opcjonalny) Krok 17: Internacjonalizacja pliku robots.txt
+</Step>
+
+<Step number={17} title="Internacjonalizacja pliku robots.txt" isOptional={true}>
 
 Utwórz plik robots.txt, który prawidłowo obsługuje wszystkie wersje językowe chronionych tras. Zapewnia to, że wyszukiwarki nie będą indeksować stron admina ani panelu w żadnym języku.
 
@@ -965,7 +998,9 @@ export default function robots(): MetadataRoute.Robots {
 }
 ```
 
-### (Opcjonalny) Krok 18: Skonfiguruj Middleware dla trasowania lokalizacji
+</Step>
+
+<Step number={18} title="Skonfiguruj Middleware dla trasowania lokalizacji" isOptional={true}>
 
 Utwórz proxy, które automatycznie wykryje preferowaną lokalizację użytkownika i przekieruje go do odpowiedniego adresu URL z prefiksem lokalizacji. Poprawia to doświadczenie użytkownika, pokazując treści w jego preferowanym języku.
 
@@ -1054,7 +1089,9 @@ export const config = {
 };
 ```
 
-### (Opcjonalny) Krok 19: Automatyzuj swoje tłumaczenia za pomocą Intlayer
+</Step>
+
+<Step number={19} title="Automatyzuj swoje tłumaczenia za pomocą Intlayer" isOptional={true}>
 
 Intlayer to **bezpłatna** i **otwartoźródłowa** biblioteka zaprojektowana, aby wspierać proces lokalizacji w Twojej aplikacji. Podczas gdy i18next zajmuje się ładowaniem i zarządzaniem tłumaczeniami, Intlayer pomaga zautomatyzować cały proces tłumaczeniowy.
 
@@ -1084,3 +1121,7 @@ Intlayer pozwala Ci na:
   Intlayer oferuje darmowy edytor wizualny do edycji Twoich treści za pomocą edytora wizualnego. Dowiedz się więcej o [wizualnej edycji tłumaczeń](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_visual_editor.md).
 
 I wiele więcej. Aby odkryć wszystkie funkcje oferowane przez Intlayer, zapoznaj się z dokumentacją [Zainteresowanie Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/interest_of_intlayer.md).
+
+</Step>
+
+</Steps>
