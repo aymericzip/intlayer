@@ -134,7 +134,7 @@ Mulai ulang Claude Code — sekarang ia akan menggunakan `goToDefinition`, `find
 
 ## Pengaturan di VS Code (melalui ekstensi — direkomendasikan)
 
-Jika Anda memiliki [ekstensi VS Code Intlayer](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension) yang terinstal, server bahasa akan dimulai secara otomatis. Tidak diperlukan konfigurasi tambahan.
+Jika Anda memiliki [ekstensi VS Code Intlayer](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension) yang terinstal, server bahasa akan dimulai secara otomatis. Tidak diperlukan konfigurasi tambahan. LSP terintegrasi langsung ke dalam ekstensi VSCode sejak v8.12.0.
 
 > Lihat [dokumentasi ekstensi VS Code](https://intlayer.org/doc/vs-code-extension) untuk instalasi dan fitur lainnya.
 

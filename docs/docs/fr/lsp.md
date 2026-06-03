@@ -134,7 +134,7 @@ Redémarrez Claude Code — il utilisera désormais `goToDefinition`, `findRefer
 
 ## Configuration dans VS Code (via l'extension — recommandé)
 
-Si l'**extension VS Code Intlayer** est installée, le serveur de langage démarre automatiquement. Aucune configuration supplémentaire n'est requise.
+Si l'**extension VS Code Intlayer** est installée, le serveur de langage démarre automatiquement. Aucune configuration supplémentaire n'est requise. Le LSP est directement intégré dans l'extension VSCode depuis la v8.12.0.
 
 > Voir la [documentation de l'extension VS Code](https://intlayer.org/doc/vs-code-extension) pour l'installation et d'autres fonctionnalités.
 

@@ -134,7 +134,7 @@ Restart Claude Code — it will now use `goToDefinition`, `findReferences`, and 
 
 ## Setup in VS Code (via extension — recommended)
 
-If you have the [Intlayer VS Code extension](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension) installed, the language server starts automatically. No additional configuration is required.
+If you have the [Intlayer VS Code extension](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension) installed, the language server starts automatically. No additional configuration is required. The LSP is directly integrated in the VSCode extension since v8.12.0.
 
 > See the [VS Code extension documentation](https://intlayer.org/doc/vs-code-extension) for installation and other features.
 

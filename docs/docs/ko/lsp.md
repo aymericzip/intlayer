@@ -134,7 +134,7 @@ Claude Code를 다시 시작하십시오. 이제 Intlayer 코드베이스를 탐
 
 ## VS Code에서 설정 (확장 프로그램 권장)
 
-[Intlayer VS Code 확장 프로그램](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension)이 설치되어 있다면 언어 서버가 자동으로 시작됩니다. 추가 설정은 필요하지 않습니다.
+[Intlayer VS Code 확장 프로그램](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension)이 설치되어 있다면 언어 서버가 자동으로 시작됩니다. 추가 설정은 필요하지 않습니다. LSP는 v8.12.0부터 VSCode 확장 프로그램에 직접 통합되어 있습니다.
 
 > 설치 및 기타 기능에 대해서는 [VS Code 확장 프로그램 설명서](https://intlayer.org/doc/vs-code-extension)를 참조하십시오.
 

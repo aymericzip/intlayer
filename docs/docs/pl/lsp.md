@@ -134,7 +134,7 @@ Uruchom ponownie Claude Code — od teraz będzie on używał `goToDefinition`, 
 
 ## Konfiguracja w VS Code (przez rozszerzenie — zalecane)
 
-Jeśli masz zainstalowane [rozszerzenie Intlayer dla VS Code](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension), serwer językowy uruchomi się automatycznie. Nie jest wymagana żadna dodatkowa konfiguracja.
+Jeśli masz zainstalowane [rozszerzenie Intlayer dla VS Code](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension), serwer językowy uruchomi się automatycznie. Nie jest wymagana żadna dodatkowa konfiguracja. LSP jest bezpośrednio zintegrowany z rozszerzeniem VSCode od wersji 8.12.0.
 
 > Zobacz [dokumentację rozszerzenia VS Code](https://intlayer.org/doc/vs-code-extension) w celu uzyskania szczegółów instalacji i innych funkcji.
 

@@ -134,7 +134,7 @@ Claude Code को पुनरारंभ करें — यह अब Intla
 
 ## VS Code में सेटअप (एक्सटेंशन के माध्यम से — अनुशंसित)
 
-यदि आपके पास [Intlayer VS Code एक्सटेंशन](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension) इंस्टॉल है, तो लैंग्वेज सर्वर स्वचालित रूप से शुरू हो जाता है। किसी अतिरिक्त कॉन्फ़िगरेशन की आवश्यकता नहीं है।
+यदि आपके पास [Intlayer VS Code एक्सटेंशन](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension) इंस्टॉल है, तो लैंग्वेज सर्वर स्वचालित रूप से शुरू हो जाता है। किसी अतिरिक्त कॉन्फ़िगरेशन की आवश्यकता नहीं है। LSP को v8.12.0 के बाद से सीधे VSCode एक्सटेंशन में एकीकृत किया गया है।
 
 > इंस्टॉलेशन और अन्य सुविधाओं के लिए [VS Code एक्सटेंशन दस्तावेज़](https://intlayer.org/doc/vs-code-extension) देखें।
 

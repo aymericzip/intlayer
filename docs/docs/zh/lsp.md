@@ -134,7 +134,7 @@ Claude Code 将把 `"intlayer-lsp@intlayer": true` 添加到您的 `enabledPlugi
 
 ## 在 VS Code 中设置（通过扩展程序 —— 推荐）
 
-如果安装了 [Intlayer VS Code 扩展程序](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension)，语言服务器将自动启动。无需其他配置。
+如果安装了 [Intlayer VS Code 扩展程序](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension)，语言服务器将自动启动。无需其他配置。 自 v8.12.0 版本起，LSP 已直接集成到 VSCode 扩展中。
 
 > 有关安装和其他功能，请参阅 [VS Code 扩展程序文档](https://intlayer.org/doc/vs-code-extension)。
 

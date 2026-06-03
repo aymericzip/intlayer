@@ -134,7 +134,7 @@ Claude Code'u yeniden başlatın — Intlayer kod tabanınızda gezinirken artı
 
 ## VS Code'da Kurulum (Uzantı Aracılığıyla — Önerilen)
 
-Eğer [Intlayer VS Code uzantısı](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension) yüklüyse, dil sunucusu otomatik olarak başlar. Ek yapılandırma gerekmez.
+Eğer [Intlayer VS Code uzantısı](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension) yüklüyse, dil sunucusu otomatik olarak başlar. Ek yapılandırma gerekmez. LSP, v8.12.0 sürümünden itibaren doğrudan VSCode eklentisine entegre edilmiştir.
 
 > Kurulum ve diğer özellikler için [VS Code uzantısı belgelerine](https://intlayer.org/doc/vs-code-extension) bakın.
 

@@ -134,7 +134,7 @@ Starten Sie Claude Code neu – bei der Navigation in Ihrer Intlayer-Codebasis w
 
 ## Einrichtung in VS Code (über Erweiterung — empfohlen)
 
-Wenn Sie die [Intlayer VS Code-Erweiterung](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension) installiert haben, startet der Language Server automatisch. Keine zusätzliche Konfiguration erforderlich.
+Wenn Sie die [Intlayer VS Code-Erweiterung](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension) installiert haben, startet der Language Server automatisch. Keine zusätzliche Konfiguration erforderlich. Der LSP ist seit Version 8.12.0 direkt in die VSCode-Erweiterung integriert.
 
 > Siehe die [VS Code-Erweiterungsdokumentation](https://intlayer.org/doc/vs-code-extension) für Installation und weitere Funktionen.
 

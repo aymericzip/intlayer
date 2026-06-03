@@ -134,7 +134,7 @@ claude plugin enable intlayer-lsp@intlayer
 
 ## الإعداد في VS Code (عبر الملحق — موصى به)
 
-إذا كان لديك [ملحق Intlayer لـ VS Code](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension) مثبتًا، فسيبدأ خادم اللغة تلقائيًا. لا يلزم إعداد إضافي.
+إذا كان لديك [ملحق Intlayer لـ VS Code](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension) مثبتًا، فسيبدأ خادم اللغة تلقائيًا. لا يلزم إعداد إضافي. تم دمج LSP مباشرة في إضافة VSCode منذ الإصدار 8.12.0.
 
 > راجع [وثائق ملحق VS Code](https://intlayer.org/doc/vs-code-extension) لمعرفة كيفية التثبيت والميزات الأخرى.
 

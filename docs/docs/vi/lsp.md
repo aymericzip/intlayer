@@ -134,7 +134,7 @@ Khởi động lại Claude Code — từ giờ nó sẽ sử dụng `goToDefini
 
 ## Thiết lập trong VS Code (thông qua tiện ích mở rộng — khuyến nghị)
 
-Nếu bạn đã cài đặt [tiện ích mở rộng Intlayer VS Code](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension), máy chủ ngôn ngữ sẽ tự động bắt đầu. Không cần cấu hình thêm.
+Nếu bạn đã cài đặt [tiện ích mở rộng Intlayer VS Code](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension), máy chủ ngôn ngữ sẽ tự động bắt đầu. Không cần cấu hình thêm. LSP được tích hợp trực tiếp vào tiện ích mở rộng VSCode từ phiên bản 8.12.0.
 
 > Xem [tài liệu tiện ích mở rộng VS Code](https://intlayer.org/doc/vs-code-extension) để biết cách cài đặt và các tính năng khác.
 
