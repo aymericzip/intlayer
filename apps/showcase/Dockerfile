@@ -19,7 +19,6 @@ WORKDIR /workspace
 # Remove directories to keep the image slim
 COPY \
     --exclude=packages/@intlayer/swc \
-    --exclude=packages/@intlayer/mcp \
     --exclude=packages/@intlayer/lsp \
     --exclude=packages/@intlayer/vue-compiler \
     --exclude=packages/@intlayer/svelte-compiler \

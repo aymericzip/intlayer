@@ -33,7 +33,6 @@ WORKDIR /workspace
 COPY \
     --exclude=packages/@intlayer/vue-compiler \
     --exclude=packages/@intlayer/svelte-compiler \
-    --exclude=packages/@intlayer/mcp \
     --exclude=packages/@intlayer/lsp \
     --exclude=packages/@intlayer/swc \
     --exclude=packages/@intlayer/webpack \
