@@ -91,6 +91,10 @@
       "browser": {
         "require": "./dist/cjs/transpiler/file/fileBrowser.cjs",
         "import": "./dist/esm/transpiler/file/fileBrowser.mjs"
+      },
+      "default": {
+        "require": "./dist/cjs/transpiler/file/file.cjs",
+        "import": "./dist/esm/transpiler/file/file.mjs"
       }
     },
     "./file/browser": {
