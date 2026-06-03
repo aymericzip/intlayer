@@ -10,7 +10,7 @@ const slugify = (text: string) =>
     .toLowerCase();
 
 type StepProps = HTMLAttributes<HTMLLIElement> & {
-  number: number;
+  number: number | string;
   title?: string;
   isOptional?: boolean;
   children: ReactNode;
@@ -28,17 +28,28 @@ export const Step: FC<StepProps> = ({
 
   return (
     <li
-      className={cn('relative flex w-full flex-1 gap-4', className)}
+      className={cn('group relative flex w-full flex-1 gap-4', className)}
       {...props}
     >
       <div className="flex flex-col max-md:hidden" aria-hidden="true">
-        <span className="flex size-8 shrink-0 items-center justify-center rounded-full border-2 border-text/30 border-dotted bg-background font-black text-base text-text/70 max-md:hidden">
+        <div className="ml-4 h-10 border-text/20 border-l border-dashed group-first-of-type:hidden" />
+        <span
+          className={cn(
+            'flex size-8 shrink-0 items-center justify-center rounded-full border-2 border-text/30 border-dotted bg-background font-black text-base text-text/70 max-md:hidden',
+            'group-first-of-type:mt-10'
+          )}
+        >
           {number}
         </span>
-        <div className="ml-4 flex-1 border-text/20 border-l border-dashed" />
+        <div
+          className={cn(
+            'ml-4 flex-1 border-text/20 border-l border-dashed',
+            'group-last-of-type:h-40 group-last-of-type:flex-none group-last-of-type:[-webkit-mask-image:linear-gradient(to_bottom,black,transparent)] group-last-of-type:[mask-image:linear-gradient(to_bottom,black,transparent)]'
+          )}
+        />
       </div>
 
-      <div className="mb-8 flex w-full min-w-0 flex-col gap-8">
+      <div className="mt-10 mb-8 flex w-full min-w-0 flex-col gap-8">
         {title && (
           <div className="flex items-center gap-2">
             <h3
