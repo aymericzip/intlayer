@@ -5,7 +5,6 @@ import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
 import { useCopyToClipboard } from '@intlayer/design-system/copy-to-clipboard';
 import { CodeBlock } from '@intlayer/design-system/ide';
-import { LinkColor, LinkVariant } from '@intlayer/design-system/link';
 import {
   External_Github,
   Website_Doc_Path,

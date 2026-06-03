@@ -1,11 +1,11 @@
 import type { ProjectConfiguration } from '@intlayer/backend';
-import { CopyButton } from '@intlayer/design-system';
 import {
   usePushProjectConfiguration,
   useSession,
 } from '@intlayer/design-system/api';
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
+import { CopyButton } from '@intlayer/design-system/copy-button';
 import { H3, H4, H5 } from '@intlayer/design-system/headers';
 import { CodeBlock } from '@intlayer/design-system/ide';
 import { PopoverStatic } from '@intlayer/design-system/popover';
@@ -15,7 +15,7 @@ import { useToast } from '@intlayer/design-system/toaster';
 import { useMutation } from '@tanstack/react-query';
 import { createDefu } from 'defu';
 import { getLocaleName, type Locale } from 'intlayer';
-import { GitBranch, Pencil, Upload } from 'lucide-react';
+import { GitBranch, Pencil, SlidersHorizontal, Upload } from 'lucide-react';
 import { type FC, useRef, useState } from 'react';
 import { useIntlayer, useLocale } from 'react-intlayer';
 import { Link } from '#components/Link/Link';
@@ -108,7 +108,10 @@ export const ConfigDetails: FC<ConfigDetailsProps> = ({ projectConfig }) => {
   if (!projectConfig) {
     return (
       <div className="flex flex-col gap-4">
-        <H3 className="mb-8">{title}</H3>
+        <div className="mb-8 flex items-center gap-2">
+          <SlidersHorizontal className="size-4" />
+          <H3 className="mb-0">{title}</H3>
+        </div>
 
         <Container
           background="none"
@@ -140,7 +143,10 @@ export const ConfigDetails: FC<ConfigDetailsProps> = ({ projectConfig }) => {
   return (
     <div className="flex flex-col gap-4">
       <div className="flex items-center justify-between">
-        <H3>{title}</H3>
+        <div className="mb-2 flex items-center gap-2">
+          <SlidersHorizontal className="size-4" />
+          <H3 className="mb-0">{title}</H3>
+        </div>
         {isProjectAdmin && projectConfig && (
           <div className="flex items-center gap-1">
             <input

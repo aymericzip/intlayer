@@ -10,7 +10,7 @@ import { Form, useForm } from '@intlayer/design-system/form';
 import { H3 } from '@intlayer/design-system/headers';
 import { Loader } from '@intlayer/design-system/loader';
 import { MultiSelect } from '@intlayer/design-system/select';
-import { Plus, X } from 'lucide-react';
+import { Plus, Users, X } from 'lucide-react';
 import { type FC, useEffect, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { RemoveMemberModal } from './RemoveMemberModal';
@@ -81,7 +81,10 @@ export const MembersForm: FC = () => {
         onClose={() => setMemberIdToRemove(undefined)}
         onRemove={() => setMemberIdToRemove(undefined)}
       />
-      <H3 className="mb-8">{title}</H3>
+      <div className="mb-8 flex items-center gap-2">
+        <Users className="size-4" />
+        <H3 className="mb-0">{title}</H3>
+      </div>
 
       <div className="flex flex-col gap-3">
         {isOrganizationAdmin && (

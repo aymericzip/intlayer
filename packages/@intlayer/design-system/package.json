@@ -35,7 +35,6 @@
   "type": "module",
   "exports": {
     ".": {
-      "types": "./dist/types/components/index.d.ts",
       "import": "./dist/esm/components/index.mjs",
       "default": "./dist/esm/components/index.mjs"
     },

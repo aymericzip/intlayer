@@ -8,7 +8,7 @@ export default function Header() {
   return (
     <header class="site-header px-4">
       <nav class="page-wrap nav-shell relative">
-        <h2 class="m-0 flex-shrink-0 font-semibold text-base tracking-tight">
+        <h2 class="m-0 shrink-0 font-semibold text-base tracking-tight">
           <Link to="/" class="brand-pill">
             {content.tanstack}
             <span>+</span>

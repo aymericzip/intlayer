@@ -12,6 +12,7 @@ import { Form, useForm } from '@intlayer/design-system/form';
 import { H3 } from '@intlayer/design-system/headers';
 import { Loader } from '@intlayer/design-system/loader';
 import { MultiSelect } from '@intlayer/design-system/select';
+import { Users } from 'lucide-react';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import {
@@ -58,7 +59,10 @@ export const MembersForm: FC = () => {
 
   return (
     <>
-      <H3 className="mb-8">{title}</H3>
+      <div className="mb-8 flex items-center gap-2">
+        <Users className="size-4" />
+        <H3 className="mb-0">{title}</H3>
+      </div>
 
       <Form
         className="w-full"

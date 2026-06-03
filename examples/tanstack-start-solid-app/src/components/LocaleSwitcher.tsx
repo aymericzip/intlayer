@@ -16,7 +16,7 @@ export const LocaleSwitcher = () => {
     <div class="flex flex-row gap-2">
       <For each={availableLocales}>
         {(localeEl) => (
-          <h2 class="m-0 flex-shrink-0 font-semibold text-base tracking-tight">
+          <h2 class="m-0 shrink-0 font-semibold text-base tracking-tight">
             <Link
               aria-current={localeEl === locale() ? 'page' : undefined}
               aria-label={

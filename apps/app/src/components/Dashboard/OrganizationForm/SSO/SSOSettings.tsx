@@ -1,4 +1,3 @@
-import { MaxHeightSmoother } from '@intlayer/design-system';
 import {
   useDeleteSSOProvider,
   useListSSOProviders,
@@ -9,7 +8,9 @@ import { Container } from '@intlayer/design-system/container';
 import { Form, useForm } from '@intlayer/design-system/form';
 import { H3 } from '@intlayer/design-system/headers';
 import { Loader } from '@intlayer/design-system/loader';
+import { MaxHeightSmoother } from '@intlayer/design-system/max-height-smoother';
 import { useToast } from '@intlayer/design-system/toaster';
+import { Shield } from 'lucide-react';
 import { type FC, useEffect, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { z } from 'zod/v4';
@@ -234,7 +235,10 @@ export const SSOSettings: FC = () => {
   return (
     <div className="flex flex-col gap-6">
       <div>
-        <H3 className="mb-2">{title}</H3>
+        <div className="mb-2 flex items-center gap-2">
+          <Shield className="size-4" />
+          <H3 className="mb-0">{title}</H3>
+        </div>
         <p className="text-neutral text-sm dark:text-neutral-dark">
           {description}
         </p>

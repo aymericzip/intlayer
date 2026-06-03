@@ -1,5 +1,4 @@
 import type { ReviewerCategory, ReviewerProfileAPI } from '@intlayer/backend';
-import { AutoSizedTextArea } from '@intlayer/design-system';
 import {
   useRegisterAsReviewer,
   useSession,
@@ -13,6 +12,7 @@ import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
 import { Input } from '@intlayer/design-system/input';
 import { MarkdownRenderer } from '@intlayer/design-system/mark-down-render';
+import { AutoSizedTextArea } from '@intlayer/design-system/text-area';
 import { ImageIcon, Plus, Trash2 } from 'lucide-react';
 import { type ChangeEvent, type FC, useRef, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';

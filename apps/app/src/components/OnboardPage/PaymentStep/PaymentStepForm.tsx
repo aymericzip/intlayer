@@ -1,4 +1,3 @@
-import { Link } from '@intlayer/design-system';
 import {
   useGetAffiliatePromoCode,
   useGetSubscription,
@@ -8,6 +7,7 @@ import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
 import { H2, H3 } from '@intlayer/design-system/headers';
 import { Label } from '@intlayer/design-system/label';
+import { Link } from '@intlayer/design-system/link';
 import { Loader } from '@intlayer/design-system/loader';
 import { App_Pricing_Path } from '@intlayer/design-system/routes';
 import {

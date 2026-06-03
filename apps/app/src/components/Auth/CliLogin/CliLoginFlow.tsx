@@ -1,13 +1,13 @@
 import { getIntlayerAPI } from '@intlayer/api';
 import type { OAuth2AccessAPI } from '@intlayer/backend';
 import { editor } from '@intlayer/config/built';
-import { LanguageBackground } from '@intlayer/design-system';
 import { useSelectOrganization, useSession } from '@intlayer/design-system/api';
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
 import { CopyToClipboard } from '@intlayer/design-system/copy-to-clipboard';
 import { H2, H3 } from '@intlayer/design-system/headers';
 import { HideShow } from '@intlayer/design-system/hide-show';
+import { LanguageBackground } from '@intlayer/design-system/language-background';
 import { Loader } from '@intlayer/design-system/loader';
 import { Modal } from '@intlayer/design-system/modal';
 import { Check, Clock, KeyRound, Plus } from 'lucide-react';
@@ -166,11 +166,10 @@ const SessionAuthSelector: FC<{
     setIsLoading(true);
     setError(null);
     try {
-      const resolvedConfig = backendUrl
-        ? {
-            editor: { ...editor, backendURL: backendUrl },
-          }
-        : appConfig;
+      const resolvedConfig = {
+        editor: { ...editor, backendURL: backendUrl ?? editor.backendURL },
+      };
+
       const result = await getIntlayerAPI(
         {},
         resolvedConfig
@@ -325,7 +324,7 @@ export const CliLoginFlow: FC<CliLoginFlowProps> = ({
               </div>
             )}
             {currentStep === 'key' && (
-              <div className="m-auto flex w-full flex-col divide-y-1 divide-dashed divide-neutral/20">
+              <div className="m-auto flex w-full flex-col divide-y divide-dashed divide-neutral/20">
                 <div className="flex w-full flex-row pb-4">
                   <SessionAuthSelector
                     port={port}

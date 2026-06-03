@@ -10,7 +10,7 @@ import { Container } from '@intlayer/design-system/container';
 import { Form, useForm } from '@intlayer/design-system/form';
 import { H3 } from '@intlayer/design-system/headers';
 import { Modal } from '@intlayer/design-system/modal';
-import { LockIcon, PenIcon } from 'lucide-react';
+import { Fingerprint, LockIcon, PenIcon, ShieldCheck } from 'lucide-react';
 import {
   type ChangeEvent,
   type FC,
@@ -151,7 +151,10 @@ const ProfileFormContent: FC = () => {
             borderColor="neutral"
             className="relative w-full"
           >
-            <H3 className="mb-8">{twoFactorTitle}</H3>
+            <div className="mb-8 flex items-center gap-2">
+              <ShieldCheck className="size-4" />
+              <H3 className="mb-0">{twoFactorTitle}</H3>
+            </div>
             <TwoFactorAuth />
           </Container>
           <Container
@@ -161,7 +164,10 @@ const ProfileFormContent: FC = () => {
             borderColor="neutral"
             className="w-full"
           >
-            <H3 className="mb-8">{passkeyTitle}</H3>
+            <div className="mb-8 flex items-center gap-2">
+              <Fingerprint className="size-4" />
+              <H3 className="mb-0">{passkeyTitle}</H3>
+            </div>
             <PasskeyManagement
               passkeys={passkeys}
               onPasskeyAdded={refetchPasskeys}

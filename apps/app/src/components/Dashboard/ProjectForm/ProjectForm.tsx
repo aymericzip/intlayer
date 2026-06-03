@@ -1,6 +1,6 @@
 import type { GetUsersResult } from '@intlayer/backend';
-import { Avatar } from '@intlayer/design-system';
 import { useGetUsers, useSession } from '@intlayer/design-system/api';
+import { Avatar } from '@intlayer/design-system/avatar';
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
 import { GitBranch, Trash, TriangleAlert } from 'lucide-react';
@@ -11,6 +11,7 @@ import { AutoFillSettings } from './AutoFillSettings/AutoFillSettings';
 import { BuildSettings } from './BuildSettings/BuildSettings';
 import { ConfigDetails } from './Config/ConfigDetails';
 import { DeleteProjectModal } from './DeleteProjectModal';
+import { EnvironmentsForm } from './Environments/EnvironmentsForm';
 import { MembersForm } from './Members/MembersKeyForm';
 import { ProjectDetailsSkeleton } from './ProjectDetailsSkeleton';
 import { ProjectEditionForm } from './ProjectEditionForm';
@@ -193,6 +194,15 @@ export const ProjectFormContent: FC = () => {
               className="z-20 flex size-full justify-center"
             >
               <ConfigDetails projectConfig={project.configuration} />
+            </Container>
+            <Container
+              roundedSize="3xl"
+              padding="md"
+              border
+              borderColor="neutral"
+              className="z-20 flex size-full justify-center"
+            >
+              <EnvironmentsForm />
             </Container>
             <Container
               roundedSize="3xl"

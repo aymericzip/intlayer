@@ -1,6 +1,7 @@
 import { useSession, useUpdateOrganization } from '@intlayer/design-system/api';
 import { Form, useForm } from '@intlayer/design-system/form';
 import { H3 } from '@intlayer/design-system/headers';
+import { Building2 } from 'lucide-react';
 import { type FC, useEffect } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import {
@@ -30,7 +31,10 @@ export const OrganizationEditionForm: FC = () => {
 
   return (
     <>
-      <H3 className="mb-8"> {title}</H3>
+      <div className="mb-8 flex items-center gap-2">
+        <Building2 className="size-4" />
+        <H3 className="mb-0">{title}</H3>
+      </div>
       <Form
         schema={OrganizationSchema}
         onSubmitSuccess={onSubmitSuccess}

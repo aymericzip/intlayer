@@ -10,7 +10,7 @@ import { Form, useForm } from '@intlayer/design-system/form';
 import { H3 } from '@intlayer/design-system/headers';
 import { HideShow } from '@intlayer/design-system/hide-show';
 import { Modal } from '@intlayer/design-system/modal';
-import { KeyRound, RefreshCcw, Trash } from 'lucide-react';
+import { Key, KeyRound, RefreshCcw, Trash } from 'lucide-react';
 import { type FC, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { AccessKeyCreationForm } from './AccessKeyCreationForm';
@@ -279,7 +279,10 @@ export const AccessKeyForm: FC = () => {
         onSubmitError={() => Promise.resolve()}
         {...form}
       >
-        <H3>{title}</H3>
+        <div className="mb-2 flex items-center gap-2">
+          <Key className="size-4" />
+          <H3 className="mb-0">{title}</H3>
+        </div>
         <span className="text-neutral text-sm">{description}</span>
         {project?.oAuth2Access.map((accessKey) => (
           <AccessKeyItem key={String(accessKey.id)} value={accessKey} />

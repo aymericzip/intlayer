@@ -724,7 +724,7 @@ export const CodeDocumentation: Story = {
           <h3 className="mb-2 font-semibold text-lg">Basic Usage</h3>
           <div className="relative">
             <pre className="overflow-x-auto rounded-lg bg-gray-900 p-4 text-gray-100">
-              <code>{`import { CopyButton } from '@intlayer/design-system';
+              <code>{`import { CopyButton } from '@intlayer/design-system/copy-button';
 
 function MyComponent() {
   return (
@@ -736,7 +736,7 @@ function MyComponent() {
 }`}</code>
             </pre>
             <CopyButton
-              content={`import { CopyButton } from '@intlayer/design-system';
+              content={`import { CopyButton } from '@intlayer/design-system/copy-button';
 
 function MyComponent() {
   return (

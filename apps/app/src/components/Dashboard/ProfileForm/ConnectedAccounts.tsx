@@ -7,8 +7,7 @@ import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
 import { H3 } from '@intlayer/design-system/headers';
 import { TechLogos } from '@intlayer/design-system/tech-logo';
-import { cn } from '@intlayer/design-system/utils';
-import { CircleCheck } from 'lucide-react';
+import { CircleCheck, Link2 } from 'lucide-react';
 import { type FC, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 
@@ -76,7 +75,10 @@ export const ConnectedAccounts: FC = () => {
 
   return (
     <Container roundedSize="3xl" padding="md" className="w-full">
-      <H3 className="mb-8">{connectedAccountsTitle}</H3>
+      <div className="mb-8 flex items-center gap-2">
+        <Link2 className="size-4" />
+        <H3 className="mb-0">{connectedAccountsTitle}</H3>
+      </div>
       <div className="flex flex-col gap-3">
         {PROVIDERS.map((provider) => {
           const connected = isConnected(provider.id);

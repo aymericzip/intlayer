@@ -9,6 +9,7 @@ export * from './ClickOutsideDiv';
 export * from './CollapsibleTable';
 export * from './Command';
 export * from './Container';
+export * from './ContentEditor';
 export * from './ContentSelector';
 export * from './CopyButton';
 export * from './CopyToClipboard';

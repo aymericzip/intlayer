@@ -1,6 +1,7 @@
 import { useSession, useUpdateProject } from '@intlayer/design-system/api';
 import { Form, useForm } from '@intlayer/design-system/form';
 import { H3 } from '@intlayer/design-system/headers';
+import { FolderOpen } from 'lucide-react';
 import { type FC, useEffect } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { type ProjectFormData, useProjectSchema } from './useProjectFormSchema';
@@ -28,7 +29,10 @@ export const ProjectEditionForm: FC = () => {
 
   return (
     <>
-      <H3 className="mb-8">{title}</H3>
+      <div className="mb-8 flex items-center gap-2">
+        <FolderOpen className="size-4" />
+        <H3 className="mb-0">{title}</H3>
+      </div>
 
       <Form
         schema={ProjectSchema}

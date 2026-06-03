@@ -89,7 +89,10 @@ export const PlanDetails: FC<PlanDetailsProps> = () => {
         </Form.Button>
       </Modal>
       <div className="relative flex flex-col gap-2">
-        <H3 className="mb-5">{title}</H3>
+        <div className="mb-5 flex items-center gap-2">
+          <CreditCard className="size-4" />
+          <H3 className="mb-0">{title}</H3>
+        </div>
 
         <div className="absolute top-0 right-0 flex flex-row gap-2">
           <Tag color={getTypeTagColor(plan)} size="xs" border="none">

@@ -9,7 +9,15 @@ import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
 import { Form, useForm } from '@intlayer/design-system/form';
 import { H3, H4 } from '@intlayer/design-system/headers';
-import { CheckCircle, Pencil, Play, Plus, Trash, XCircle } from 'lucide-react';
+import {
+  CheckCircle,
+  Pencil,
+  Play,
+  Plus,
+  Trash,
+  XCircle,
+  Zap,
+} from 'lucide-react';
 import { type FC, useEffect, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { z } from 'zod';
@@ -199,7 +207,10 @@ export const BuildSettings: FC = () => {
         className="flex w-full flex-col gap-8"
         {...form}
       >
-        <H3>{title}</H3>
+        <div className="mb-2 flex items-center gap-2">
+          <Zap className="size-4" />
+          <H3 className="mb-0">{title}</H3>
+        </div>
 
         {/* Git Provider Integration Section */}
         <Container

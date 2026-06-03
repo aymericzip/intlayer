@@ -12,7 +12,7 @@ const AvailableTechnoSection = lazy(() =>
 );
 
 const LanguageSection = lazy(() =>
-  import('@intlayer/design-system').then((mod) => ({
+  import('@intlayer/design-system/language-background').then((mod) => ({
     default: mod.LanguageSection,
   }))
 );

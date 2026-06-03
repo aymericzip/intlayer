@@ -1,9 +1,10 @@
-import { Burger, MaxHeightSmoother } from '@intlayer/design-system';
 import { useSession } from '@intlayer/design-system/api';
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
 import { useDevice } from '@intlayer/design-system/hooks';
 import { Logo } from '@intlayer/design-system/logo';
+import { MaxHeightSmoother } from '@intlayer/design-system/max-height-smoother';
+import { Burger } from '@intlayer/design-system/navbar';
 import {
   App_Dashboard_Dictionaries_Path,
   App_Dashboard_Translate_Path,
@@ -23,6 +24,7 @@ import {
   iconMap,
   type SidebarNavigationItem,
 } from '../DashboardSidebar/DashboardSidebar';
+import { EnvironmentDropdown } from './EnvironmentDropdown';
 import { OrganizationDropdown } from './OrganizationDropdown';
 import { ProjectDropdown } from './ProjectDropdown';
 
@@ -133,6 +135,7 @@ export const DashboardNavbar: FC<DashboardNavbarProps> = ({ items = [] }) => {
                     >
                       {organization && <OrganizationDropdown />}
                       {project && <ProjectDropdown />}
+                      {project && <EnvironmentDropdown />}
                     </Container>
                   </div>
                 )}
@@ -150,6 +153,12 @@ export const DashboardNavbar: FC<DashboardNavbarProps> = ({ items = [] }) => {
                 <>
                   <span>/</span>
                   <ProjectDropdown />
+                </>
+              )}
+              {project && (project.environments?.length ?? 0) > 1 && (
+                <>
+                  <span className="text-text/70">/</span>
+                  <EnvironmentDropdown />
                 </>
               )}
             </div>

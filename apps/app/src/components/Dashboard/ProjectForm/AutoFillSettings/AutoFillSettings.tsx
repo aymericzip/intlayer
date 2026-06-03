@@ -2,7 +2,7 @@ import { useSession, useUpdateProject } from '@intlayer/design-system/api';
 import { Container } from '@intlayer/design-system/container';
 import { Form, useForm } from '@intlayer/design-system/form';
 import { H3, H4 } from '@intlayer/design-system/headers';
-import { Save } from 'lucide-react';
+import { Save, Sparkles } from 'lucide-react';
 import { type FC, useEffect } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { z } from 'zod';
@@ -42,7 +42,10 @@ export const AutoFillSettings: FC = () => {
       className="flex w-full flex-col gap-8"
       {...form}
     >
-      <H3>{title}</H3>
+      <div className="mb-2 flex items-center gap-2">
+        <Sparkles className="size-4" />
+        <H3 className="mb-0">{title}</H3>
+      </div>
 
       <Container
         roundedSize="2xl"

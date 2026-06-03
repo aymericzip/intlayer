@@ -10,6 +10,7 @@ import {
   Code,
   FileCode,
   FolderSearch,
+  GitBranch,
   Link,
   RotateCcw,
   Search,
@@ -83,7 +84,10 @@ export const RepositoryLink: FC = () => {
 
   return (
     <div className="flex flex-col gap-6">
-      <H3>{content.title}</H3>
+      <div className="mb-2 flex items-center gap-2">
+        <GitBranch className="size-4" />
+        <H3 className="mb-0">{content.title}</H3>
+      </div>
 
       {/* Already Connected to a Repository */}
       {isConnectedToRepo && connectedRepository && (

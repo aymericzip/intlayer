@@ -302,7 +302,7 @@ export const CodeEditorSimulation: Story = {
               <span className="text-purple-300">import</span>{' '}
               {'{ HeightResizer }'}{' '}
               <span className="text-purple-300">from</span>{' '}
-              <span className="text-green-300">'@intlayer/design-system'</span>;
+              <span className="text-green-300">'@intlayer/design-system/height-resizer'</span>;
             </div>
             <div></div>
             <div>
