@@ -1,4 +1,4 @@
-import { Position, Range } from 'vscode-languageserver/node.js';
+import { Position, Range } from 'vscode-languageserver/node';
 import {
   getFirstStringArg,
   isIntlayerCall,
@@ -204,7 +204,7 @@ export const findFieldRangesInFile = (
 
   // First pass: collect useIntlayer / getIntlayer variable assignments and
   // destructures, and emit ranges for direct/nested ObjectPattern matches.
-  walkAst(program, (node) => {
+  walkAst(program, (node): boolean | undefined => {
     if (node['type'] !== 'VariableDeclarator') return;
 
     const initializer = node['init'] as OxcNode | undefined;
@@ -233,7 +233,7 @@ export const findFieldRangesInFile = (
 
   // Second pass: find member-access chains that, combined with the variable's
   // remaining path, equal the target path.
-  walkAst(program, (node) => {
+  walkAst(program, (node): boolean | undefined => {
     if (node['type'] !== 'MemberExpression') return;
     if (isComputedAccess(node)) return;
 

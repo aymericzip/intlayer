@@ -18,7 +18,7 @@ import {
   type ReferenceParams,
   TextDocumentSyncKind,
   TextDocuments,
-} from 'vscode-languageserver/node.js';
+} from 'vscode-languageserver/node';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import {
   escapeRegularExpression,
@@ -488,43 +488,11 @@ connection.onDefinition(async (parameters) => {
   const config = getProjectConfig(absolutePath);
 
   if (config && isContentFile(uri, config)) {
-    log('onDefinition — detected content file');
-
-    // Cursor on `key: "…"` → navigate to useIntlayer(key) call sites
-    const key = findKeyInContentFile(text, offset);
-
-    if (key) {
-      log(`onDefinition — key declaration: "${key}" → searching call sites`);
-      const locations = await getKeyUsageLocations(key, absolutePath);
-
-      log(
-        `onDefinition — found ${locations.length} call site(s) for key "${key}"`
-      );
-      return locations.length ? locations : null;
-    }
-
-    // Cursor on a content field (e.g. `greet` or nested `searchInput.text`)
-    // → navigate to field usage sites in source files
-    const extMatch = uri.match(/\.[^.]+$/);
-    const ext = extMatch ? extMatch[0] : '';
-    const fieldInfo = findContentFieldAtOffset(text, offset, ext);
-
-    if (fieldInfo) {
-      log(
-        `onDefinition — field: "${fieldInfo.dictionaryKey}.${fieldInfo.fieldPath.join('.')}" → searching usages`
-      );
-      const locations = await getFieldUsageLocations(
-        fieldInfo.dictionaryKey,
-        fieldInfo.fieldPath,
-        absolutePath
-      );
-      log(
-        `onDefinition — found ${locations.length} usage(s) for field path "${fieldInfo.fieldPath.join('.')}"`
-      );
-      return locations.length ? locations : null;
-    }
-
-    log('onDefinition — cursor not on a key or field declaration, no result');
+    // Content-file → component navigation is handled exclusively by the VS Code
+    // extension's intlayerContentDefinitionProvider (which returns DefinitionLink[]
+    // with a proper originSelectionRange). Returning null here prevents the LSP
+    // from emitting a duplicate set of Location[] results for the same request.
+    log('onDefinition — content file: delegating to extension provider');
     return null;
   }
 
@@ -652,10 +620,7 @@ connection.onReferences(async (parameters: ReferenceParams) => {
 // The client registers a watcher for *.content.* files; any creation or
 // deletion means the project layout may have changed.
 connection.onDidChangeWatchedFiles(() => {
-  cachedSourceFiles = null;
-  sourceFilesCachedAt = 0;
-  cachedDictionaries = null;
-  dictionariesCachedAt = 0;
+  invalidateConfigCaches();
   log(
     'watched files changed — source file list and dictionary cache invalidated'
   );
