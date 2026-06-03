@@ -20,7 +20,7 @@ export const ProjectCreationForm: FC<ProjectCreationFormProps> = ({
 
   const onSubmitSuccess: (data: ProjectFormData) => Promise<void> = (data) =>
     addProject(data, {
-      onSuccess: (result) => {
+      onSuccess: (result: any) => {
         const projectId = String(result.data?.id);
 
         if (result.data) {

@@ -49,7 +49,7 @@ export const Route = createFileRoute('/{-$locale}/_dashboard/_editor/_content')(
 
 function EditorLayout() {
   const { title, tabItems: tabLabels } = useIntlayer('content-dashboard-page');
-  const { title: editTagTitle } = useIntlayer('tag-dashboard-page');
+  const { title: editTagTitle } = useIntlayer('tag-dashboard-page') as any;
   const navigate = useLocalizedNavigate();
   const { pathname } = useLocation();
   const { locale } = Route.useParams();

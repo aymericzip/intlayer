@@ -170,14 +170,39 @@ export const getDictionaryFiltersAndPagination = (
 
   // Always scope by environment.
   // Production (sessionEnvironmentId = null): match dicts with no environmentId set.
+  // { environmentId: null } in $match covers both explicit null and missing field.
   // Other envs: match dicts with the exact environmentId.
   if (sessionEnvironmentId) {
     filters = { ...filters, environmentId: sessionEnvironmentId };
   } else {
-    filters = {
-      ...filters,
-      $or: [{ environmentId: null }, { environmentId: { $exists: false } }],
-    };
+    filters = { ...filters, environmentId: null };
+  }
+
+  // Enforce allowedEnvironmentIds constraint (from memberAccess or access key scope).
+  // Skip for admin/org_admin/project_admin who bypass granular constraints.
+  const sessionAllowedEnvironmentIds =
+    req.session?.allowedEnvironmentIds ?? null;
+  const isGlobalAdmin =
+    roles?.includes('admin') ||
+    roles?.includes('org_admin') ||
+    roles?.includes('project_admin');
+
+  if (sessionAllowedEnvironmentIds !== null && !isGlobalAdmin) {
+    // Check whether the session's active environment is in the allowed list.
+    const isSessionEnvAllowed = sessionAllowedEnvironmentIds.some(
+      (allowedEnvId) => {
+        if (sessionEnvironmentId === null) {
+          return allowedEnvId === null;
+        }
+        return String(allowedEnvId) === String(sessionEnvironmentId);
+      }
+    );
+
+    if (!isSessionEnvAllowed) {
+      // Block all dictionary access — current env is not in the allowed set.
+      filters = { ...filters, _id: null };
+    }
+    // When allowed, the session env filter applied above is already correct.
   }
 
   return { filters, sortOptions, ...pagination };

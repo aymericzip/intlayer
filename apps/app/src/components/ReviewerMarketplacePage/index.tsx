@@ -96,10 +96,14 @@ export const ReviewerMarketplacePage: FC = () => {
             </p>
           ) : (
             <ul
-              aria-label={String(reviewersFound({ count: reviewers.length }))}
+              aria-label={String(
+                (reviewersFound as any)(reviewers.length, {
+                  count: reviewers.length,
+                })
+              )}
               className="grid list-none grid-cols-1 gap-4 p-0 sm:grid-cols-2 lg:grid-cols-3"
             >
-              {reviewers.map((reviewer) => (
+              {reviewers.map((reviewer: any) => (
                 <li key={reviewer.id}>
                   <Link
                     to={App_ReviewerMarketplace_Reviewer_Path as any}

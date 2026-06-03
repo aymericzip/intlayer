@@ -3,7 +3,7 @@ import {
   useGetAdminReviewers,
   useValidateReviewerProfile,
 } from '@intlayer/design-system/api';
-import { Badge } from '@intlayer/design-system/badge';
+import { Badge, type BadgeColor } from '@intlayer/design-system/badge';
 import { Button } from '@intlayer/design-system/button';
 import { getAppAdminReviewerRoute } from '@intlayer/design-system/routes';
 import { Select } from '@intlayer/design-system/select';
@@ -56,7 +56,7 @@ export const AdminReviewersPage: FC = () => {
       {isFetching && <p className="text-neutral text-sm">Loading…</p>}
 
       <div className="flex flex-col gap-3">
-        {reviewers.map((t) => (
+        {reviewers.map((t: any) => (
           <div
             key={t.id}
             className="flex items-start justify-between gap-4 rounded-2xl border border-neutral/20 p-4"
@@ -81,7 +81,7 @@ export const AdminReviewersPage: FC = () => {
               )}
               {t.languagePairs.length > 0 && (
                 <div className="flex flex-wrap gap-1 pt-1">
-                  {t.languagePairs.map((p) => (
+                  {t.languagePairs.map((p: any) => (
                     <span
                       key={`${p.from}-${p.to}`}
                       className="flex items-center gap-1 rounded-full border border-neutral/20 px-2 py-0.5 text-xs"

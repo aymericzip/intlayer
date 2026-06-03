@@ -298,10 +298,10 @@ export const PaymentStepForm: FC<PaymentStepContentProps> = ({
   useEffect(() => {
     if (affiliatePromo?.data && !promoCode) {
       routerNavigate({
-        search: (prev: any) => ({
+        search: ((prev: any) => ({
           ...prev,
           promoCode: affiliatePromo.data,
-        }),
+        })) as any,
       });
     }
   }, [affiliatePromo, promoCode, routerNavigate]);

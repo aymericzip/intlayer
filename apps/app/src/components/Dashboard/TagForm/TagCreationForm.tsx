@@ -16,7 +16,7 @@ export const TagCreationForm: FC<TagCreationFormProps> = ({ onTagCreated }) => {
 
   const onSubmitSuccess: (data: TagFormData) => Promise<void> = async (data) =>
     addTag(data, {
-      onSuccess: (response) => {
+      onSuccess: (response: any) => {
         if (response.data) {
           onTagCreated?.();
         }

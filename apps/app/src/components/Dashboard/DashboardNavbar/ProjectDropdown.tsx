@@ -44,7 +44,7 @@ export const ProjectDropdown: FC<ProjectDropdownProps> = (props) => {
   };
 
   const otherProjects = (projects?.data ?? [])
-    .filter((projectEl) => String(projectEl.id) !== String(project?.id))
+    .filter((projectEl: any) => String(projectEl.id) !== String(project?.id))
     .slice(0, 10);
 
   return project ? (
@@ -79,7 +79,7 @@ export const ProjectDropdown: FC<ProjectDropdownProps> = (props) => {
             <div className="flex flex-col gap-3">
               <span className="font-bold">{selectProjectInstruction}</span>
               {otherProjects.length ? (
-                otherProjects.map((project) => (
+                otherProjects.map((project: any) => (
                   <Button
                     key={String(project.id)}
                     variant="outline"

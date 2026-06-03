@@ -64,7 +64,7 @@ export const ReviewerChat: FC<ReviewerChatProps> = ({
     sendMessage(
       { missionId, content: text },
       {
-        onSuccess: (res) => {
+        onSuccess: (res: any) => {
           if (res?.data) {
             setLiveMessages((prev) => {
               if (prev.some((m) => m.id === res.data!.id)) return prev;

@@ -122,7 +122,7 @@ export const AdminReviewerDetailPage: FC<AdminReviewerDetailPageProps> = ({
             Language pairs
           </p>
           <div className="flex flex-wrap gap-1.5">
-            {profile.languagePairs.map((pair) => (
+            {profile.languagePairs.map((pair: any) => (
               <span
                 key={`${pair.from}-${pair.to}`}
                 className="flex items-center gap-1 rounded-full border border-neutral/20 px-2 py-0.5 text-xs"
@@ -140,7 +140,7 @@ export const AdminReviewerDetailPage: FC<AdminReviewerDetailPageProps> = ({
           <p className="font-medium text-neutral/60 text-xs uppercase tracking-wide">
             Recent reviews
           </p>
-          {reviews.map((review) => (
+          {reviews.map((review: any) => (
             <div
               key={review.id}
               className="flex flex-col gap-1 border-neutral/10 border-t pt-3"

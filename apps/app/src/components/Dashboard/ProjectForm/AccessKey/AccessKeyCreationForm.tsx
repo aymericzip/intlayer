@@ -1,19 +1,16 @@
 import type { AddNewAccessKeyResponse } from '@intlayer/backend';
 import { useAddNewAccessKey, useSession } from '@intlayer/design-system/api';
 import { Form, useForm } from '@intlayer/design-system/form';
+import { Checkbox, Radio } from '@intlayer/design-system/input';
 import { Select } from '@intlayer/design-system/select';
+import type { Locale } from '@intlayer/types/allLocales';
 import { type FC, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
+import { LocaleCheckboxList } from '#components/LocalePicker/LocaleCheckboxList';
 import {
   type AccessKeyFormCreationData,
   useAccessKeyCreationSchema,
 } from './useAccessKeyCreationFormSchema';
-
-/**
- * Form used to create a new access‑key.
- * Default grants (dictionary:* & project:*) are now checked automatically ‑ even
- * when the session arrives after the first render.
- */
 
 type AccessKeyCreationFormProps = {
   onAccessKeyCreated: (response: AddNewAccessKeyResponse) => void;
@@ -72,10 +69,15 @@ const computeExpiresAt = (preset: ExpirationPreset): string | undefined => {
 export const AccessKeyCreationForm: FC<AccessKeyCreationFormProps> = ({
   onAccessKeyCreated,
 }) => {
-  /** ------------------------------------------------------------------ hooks */
   const { session } = useSession();
   const [expirationPreset, setExpirationPreset] =
     useState<ExpirationPreset>('none');
+
+  const [restrictEnvironments, setRestrictEnvironments] = useState(false);
+  const [selectedEnvIds, setSelectedEnvIds] = useState<(string | null)[]>([]);
+
+  const [restrictLocales, setRestrictLocales] = useState(false);
+  const [selectedLocales, setSelectedLocales] = useState<Locale[]>([]);
 
   const permissions = session?.permissions ?? [];
   const { mutate: addNewAccessKey, isPending } = useAddNewAccessKey();
@@ -85,6 +87,12 @@ export const AccessKeyCreationForm: FC<AccessKeyCreationFormProps> = ({
     rights,
     createAccessKeyButton,
     expirationPresets,
+    environmentScope,
+    allEnvironments,
+    restrictToSpecificEnvironments,
+    localeScope,
+    allLocales,
+    restrictToSpecificLocales,
   } = useIntlayer('access-key-creation-form');
 
   const EXPIRATION_PRESETS = [
@@ -99,25 +107,39 @@ export const AccessKeyCreationForm: FC<AccessKeyCreationFormProps> = ({
   ];
 
   const AccessKeyCreationSchema = useAccessKeyCreationSchema(permissions);
-
-  const defaultValues = {
-    grants: getDefaultGrants(permissions),
-  };
-
   const { form, isSubmitting } = useForm(AccessKeyCreationSchema, {
-    defaultValues,
+    defaultValues: { grants: getDefaultGrants(permissions) },
   });
 
-  // Don't render the form until the session (and its permissions) is loaded
   if (!session) return null;
 
-  /** -------------------------------------------------------- form handlers */
+  const environments = session.project?.environments ?? [];
+  const locales = (session.project?.configuration?.internationalization
+    ?.locales ?? []) as Locale[];
+  const hasMultipleEnvs = environments.length > 1;
+  const hasMultipleLocales = locales.length > 1;
+
   const handlePresetChange = (value: string) => {
     const preset = value as ExpirationPreset;
     setExpirationPreset(preset);
     form.setValue(
       'expiresAt',
       preset !== 'custom' ? computeExpiresAt(preset) : undefined
+    );
+  };
+
+  const toggleEnvId = (envId: string | null) => {
+    setSelectedEnvIds((prev) =>
+      prev.some((id) => (id === null ? envId === null : id === envId))
+        ? prev.filter((id) => (id === null ? envId !== null : id !== envId))
+        : [...prev, envId]
+    );
+  };
+
+  const toggleLocale = (locale: string) => {
+    const loc = locale as Locale;
+    setSelectedLocales((prev) =>
+      prev.includes(loc) ? prev.filter((l) => l !== loc) : [...prev, loc]
     );
   };
 
@@ -131,12 +153,10 @@ export const AccessKeyCreationForm: FC<AccessKeyCreationFormProps> = ({
         name: data.name,
         expiresAt: data.expiresAt ? new Date(data.expiresAt) : undefined,
         grants: selectedGrants,
+        allowedEnvironmentIds: restrictEnvironments ? selectedEnvIds : null,
+        allowedLocales: restrictLocales ? selectedLocales : null,
       },
-      {
-        onSuccess: (response) => {
-          onAccessKeyCreated(response);
-        },
-      }
+      { onSuccess: (response: any) => onAccessKeyCreated(response) }
     );
   };
 
@@ -156,17 +176,15 @@ export const AccessKeyCreationForm: FC<AccessKeyCreationFormProps> = ({
         required
       />
 
-      {/* Expiration preset — not a form field, purely UI */}
+      {/* Expiration preset */}
       <div className="flex w-full flex-col flex-wrap gap-2 px-1 py-2">
         <div className="flex max-w-full flex-col gap-1 p-1 leading-none">
-          <div className="ml-1 flex gap-1 align-middle text-base leading-none">
-            <label
-              htmlFor="access-key-expires-at-preset"
-              className="mb-2 select-none font-bold text-sm leading-none"
-            >
-              {expiresAtInput.label.value}
-            </label>
-          </div>
+          <label
+            htmlFor="access-key-expires-at-preset"
+            className="mb-2 ml-1 select-none font-bold text-sm leading-none"
+          >
+            {expiresAtInput.label.value}
+          </label>
         </div>
         <Select value={expirationPreset} onValueChange={handlePresetChange}>
           <Select.Trigger id="access-key-expires-at-preset">
@@ -192,6 +210,7 @@ export const AccessKeyCreationForm: FC<AccessKeyCreationFormProps> = ({
         />
       )}
 
+      {/* Permissions */}
       <div className="flex flex-col justify-center p-3">
         <Form.Label className="w-full" isRequired>
           {rights.label}
@@ -206,6 +225,86 @@ export const AccessKeyCreationForm: FC<AccessKeyCreationFormProps> = ({
           />
         ))}
       </div>
+
+      {/* Environment scope */}
+      {hasMultipleEnvs && (
+        <div className="flex flex-col gap-3 p-3">
+          <Form.Label className="w-full">{environmentScope}</Form.Label>
+          <Radio
+            id="env-scope-all"
+            name="envRestrict"
+            checked={!restrictEnvironments}
+            onChange={() => setRestrictEnvironments(false)}
+            label={allEnvironments}
+            color="text"
+            size="sm"
+          />
+          <Radio
+            id="env-scope-specific"
+            name="envRestrict"
+            checked={restrictEnvironments}
+            onChange={() => setRestrictEnvironments(true)}
+            label={restrictToSpecificEnvironments}
+            color="text"
+            size="sm"
+          />
+          {restrictEnvironments && (
+            <div className="ml-6 flex flex-col gap-2">
+              {environments.map((env) => {
+                const envId = env.id === 'production' ? null : env.id;
+                const isChecked = selectedEnvIds.some((id) =>
+                  id === null ? envId === null : id === envId
+                );
+                return (
+                  <Checkbox
+                    name={`env-scope-${envId ?? 'null'}`}
+                    key={String(env.id)}
+                    checked={isChecked}
+                    onChange={() => toggleEnvId(envId)}
+                    label={`${env.name}${env.isDefault ? ' ★' : ''}`}
+                    color="text"
+                    size="sm"
+                  />
+                );
+              })}
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Locale scope */}
+      {hasMultipleLocales && (
+        <div className="flex flex-col gap-3 p-3">
+          <Form.Label className="w-full">{localeScope}</Form.Label>
+          <Radio
+            id="locale-scope-all"
+            name="localeRestrict"
+            checked={!restrictLocales}
+            onChange={() => setRestrictLocales(false)}
+            label={allLocales}
+            color="text"
+            size="sm"
+          />
+          <Radio
+            id="locale-scope-specific"
+            name="localeRestrict"
+            checked={restrictLocales}
+            onChange={() => setRestrictLocales(true)}
+            label={restrictToSpecificLocales}
+            color="text"
+            size="sm"
+          />
+          {restrictLocales && (
+            <div className="ml-6">
+              <LocaleCheckboxList
+                locales={locales}
+                selectedLocales={selectedLocales}
+                onChange={toggleLocale}
+              />
+            </div>
+          )}
+        </div>
+      )}
 
       <Form.Button
         type="submit"

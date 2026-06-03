@@ -91,12 +91,12 @@ export const RepositoryItem: FC<RepositoryItemProps> = ({
                 {repo.isPrivate ? (
                   <>
                     <Lock className="size-3" />
-                    {content.private}
+                    {'Private'}
                   </>
                 ) : (
                   <>
                     <Globe className="size-3" />
-                    {content.public}
+                    {'Public'}
                   </>
                 )}
               </Badge>

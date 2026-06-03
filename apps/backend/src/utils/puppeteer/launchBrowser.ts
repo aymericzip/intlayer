@@ -1,7 +1,4 @@
-import puppeteer, {
-  type Browser,
-  type PuppeteerLaunchOptions,
-} from 'puppeteer';
+import puppeteer, { type Browser, type LaunchOptions } from 'puppeteer';
 
 const defaultArgs = [
   '--headless',
@@ -16,9 +13,7 @@ const defaultArgs = [
   '--disable-features=Translate,BackForwardCache',
 ];
 
-export const launchBrowser = (
-  overrides?: PuppeteerLaunchOptions
-): Promise<Browser> =>
+export const launchBrowser = (overrides?: LaunchOptions): Promise<Browser> =>
   puppeteer.launch({
     headless: true,
     executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,

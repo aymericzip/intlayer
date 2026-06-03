@@ -37,7 +37,7 @@ const createToolCollector = () => {
 };
 
 const shapeToJsonSchema = (shape: ZodShape) => {
-  const raw = zodToJsonSchema(z.object(shape), {
+  const raw = zodToJsonSchema(z.object(shape) as any, {
     target: 'jsonSchema7',
   }) as Record<string, any>;
   return jsonSchema({ type: 'object', ...raw });

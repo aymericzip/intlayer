@@ -44,6 +44,7 @@
     "@intlayer/core": "workspace:*",
     "@intlayer/design-system": "workspace:*",
     "@intlayer/dictionaries-entry": "workspace:*",
+    "@intlayer/docs": "^8.11.3",
     "@intlayer/editor-react": "workspace:*",
     "@intlayer/types": "workspace:*",
     "@intlayer/unmerged-dictionaries-entry": "workspace:*",
@@ -84,6 +85,7 @@
     "server-only": "0.0.1",
     "stripe": "22.2.0",
     "tailwindcss": "4.3.0",
+    "vinxi": "^0.5.11",
     "zod": "4.4.3"
   },
   "devDependencies": {

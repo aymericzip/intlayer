@@ -93,7 +93,7 @@ export const getCIStatus = async (
     throw new Error('Project is not connected to a repository.');
   }
 
-  const accessToken = await getProviderToken(userId, repository.provider);
+  const accessToken = await getProviderToken(repository, userId);
 
   if (!accessToken) {
     throw new Error(
@@ -203,7 +203,7 @@ export const installCI = async (
     throw new Error('Project is not connected to a repository.');
   }
 
-  const accessToken = await getProviderToken(userId, repository.provider);
+  const accessToken = await getProviderToken(repository, userId);
 
   if (!accessToken) {
     throw new Error(

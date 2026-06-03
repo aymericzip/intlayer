@@ -47,6 +47,7 @@ export type * from '@controllers/oAuth2.controller';
 export type * from '@controllers/organization.controller';
 export type * from '@controllers/project.controller';
 export type * from '@controllers/projectAccessKey.controller';
+export type * from '@controllers/projectMemberAccess.controller';
 export type * from '@controllers/recursiveAudit.controller';
 export type * from '@controllers/reviewer.controller';
 export type * from '@controllers/searchDoc.controller';

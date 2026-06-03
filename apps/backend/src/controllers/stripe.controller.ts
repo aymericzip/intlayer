@@ -542,7 +542,7 @@ export const grantAffiliateAccess = async (
 
     return reply.send(
       formatResponse<GrantAffiliateAccessResult['data']>({
-        data: affiliate.toJSON() as AffiliateAPI,
+        data: affiliate.toJSON() as unknown as AffiliateAPI,
       })
     );
   } catch (error) {
@@ -584,7 +584,9 @@ export const getAffiliates = async (
 
     return reply.send(
       formatPaginatedResponse<AffiliateAPI>({
-        data: affiliates.map((affiliate) => affiliate.toJSON() as AffiliateAPI),
+        data: affiliates.map(
+          (affiliate) => affiliate.toJSON() as unknown as AffiliateAPI
+        ),
         page,
         pageSize,
         totalPages: getNumberOfPages(totalItems),
@@ -618,7 +620,9 @@ export const getAffiliateById = async (
 
     return reply.send(
       formatResponse<GetAffiliateByIdResult['data']>({
-        data: affiliate ? (affiliate.toJSON() as AffiliateAPI) : null,
+        data: affiliate
+          ? (affiliate.toJSON() as unknown as AffiliateAPI)
+          : null,
       })
     );
   } catch (error) {
@@ -646,7 +650,9 @@ export const getAffiliate = async (
 
     return reply.send(
       formatResponse<GetAffiliateResult['data']>({
-        data: affiliate ? (affiliate.toJSON() as AffiliateAPI) : null,
+        data: affiliate
+          ? (affiliate.toJSON() as unknown as AffiliateAPI)
+          : null,
       })
     );
   } catch (error) {
@@ -802,7 +808,8 @@ export const getAffiliateInvitations = async (
     return reply.send(
       formatPaginatedResponse<AffiliateInvitationAPI>({
         data: invitations.map(
-          (invitation) => invitation.toJSON() as AffiliateInvitationAPI
+          (invitation) =>
+            invitation.toJSON() as unknown as AffiliateInvitationAPI
         ),
         page,
         pageSize,
@@ -889,7 +896,7 @@ export const getAffiliateInvitation = async (
 
     return reply.send(
       formatResponse<GetAffiliateInvitationResult['data']>({
-        data: invitation.toJSON() as AffiliateInvitationAPI,
+        data: invitation.toJSON() as unknown as AffiliateInvitationAPI,
       })
     );
   } catch (error) {
@@ -929,7 +936,7 @@ export const updateAffiliateStatus = async (
 
     return reply.send(
       formatResponse<UpdateAffiliateStatusResult['data']>({
-        data: affiliate.toJSON() as AffiliateAPI,
+        data: affiliate.toJSON() as unknown as AffiliateAPI,
       })
     );
   } catch (error) {
@@ -981,7 +988,7 @@ export const acceptAffiliateInvitation = async (
 
     return reply.send(
       formatResponse<AcceptAffiliateInvitationResult['data']>({
-        data: affiliate.toJSON() as AffiliateAPI,
+        data: affiliate.toJSON() as unknown as AffiliateAPI,
       })
     );
   } catch (error) {
@@ -1021,7 +1028,9 @@ export const getPromoCodes = async (
 
     return reply.send(
       formatPaginatedResponse<PromoCodeAPI>({
-        data: promoCodes.map((promoCode) => promoCode.toJSON() as PromoCodeAPI),
+        data: promoCodes.map(
+          (promoCode) => promoCode.toJSON() as unknown as PromoCodeAPI
+        ),
         page,
         pageSize,
         totalPages: getNumberOfPages(totalItems),
@@ -1054,7 +1063,9 @@ export const getPromoCodeById = async (
     }
 
     return reply.send(
-      formatResponse<PromoCodeAPI>({ data: promoCode.toJSON() as PromoCodeAPI })
+      formatResponse<PromoCodeAPI>({
+        data: promoCode.toJSON() as unknown as PromoCodeAPI,
+      })
     );
   } catch (error) {
     return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
@@ -1105,7 +1116,7 @@ export const createPromoCode = async (
 
     return reply.send(
       formatResponse<PromoCodeAPI>({
-        data: newPromo.toJSON() as PromoCodeAPI,
+        data: newPromo.toJSON() as unknown as PromoCodeAPI,
       })
     );
   } catch (error) {
@@ -1154,7 +1165,7 @@ export const updatePromoCode = async (
 
     return reply.send(
       formatResponse<PromoCodeAPI>({
-        data: updated.toJSON() as PromoCodeAPI,
+        data: updated.toJSON() as unknown as PromoCodeAPI,
       })
     );
   } catch (error) {

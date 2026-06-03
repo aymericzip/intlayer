@@ -45,7 +45,8 @@ export const OrganizationDropdown: FC = () => {
 
   const otherOrganizations = (organizations?.data ?? [])
     .filter(
-      (organizationEl) => String(organizationEl.id) !== String(organization?.id)
+      (organizationEl: any) =>
+        String(organizationEl.id) !== String(organization?.id)
     )
     .slice(0, 10);
 
@@ -85,7 +86,7 @@ export const OrganizationDropdown: FC = () => {
             <div className="flex flex-col gap-3">
               <span className="font-bold">{selectOrganizationInstruction}</span>
               {otherOrganizations.length ? (
-                otherOrganizations.map((organization) => (
+                otherOrganizations.map((organization: any) => (
                   <Button
                     key={String(organization.id)}
                     variant="outline"

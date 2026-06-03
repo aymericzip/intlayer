@@ -80,7 +80,7 @@ export const translateDictionaries = async (
         localesToTranslate = targetLocales;
       } else {
         const missingLocales = getMissingLocalesContentFromDictionary(
-          { key: dictionary.key, content: node.content },
+          { key: dictionary.key, content: node.content, schema: undefined },
           projectLocales
         );
         localesToTranslate = targetLocales.filter((locale) =>

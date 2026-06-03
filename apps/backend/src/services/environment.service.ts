@@ -51,8 +51,14 @@ export const resolveSessionEnvironment = async ({
     ? null
     : String(resolvedEnvironment.id);
 
+  const envPlain =
+    'toObject' in resolvedEnvironment &&
+    typeof (resolvedEnvironment as any).toObject === 'function'
+      ? (resolvedEnvironment as any).toObject()
+      : resolvedEnvironment;
+
   const environmentAPI: EnvironmentAPI = {
-    ...(resolvedEnvironment.toObject?.() ?? resolvedEnvironment),
+    ...envPlain,
     id: String(resolvedEnvironment.id),
   } as unknown as EnvironmentAPI;
 

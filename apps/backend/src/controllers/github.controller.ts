@@ -248,7 +248,7 @@ export const getToken = async (
       return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_FOUND');
     }
 
-    const token = await githubService.getGitHubTokenFromUser(userId);
+    const token = await githubService.getGitHubTokenFromUser(String(userId));
 
     if (!token) {
       return ErrorHandler.handleGenericErrorResponse(

@@ -67,9 +67,10 @@ export const ApplicationNotRunningView: FC<ApplicationNotRunningViewProps> = ({
             background="none"
             className="mb-6 flex flex-col gap-1 pb-3 font-mono text-neutral text-xs"
           >
-            {errors.map((error, index) => {
+            {errors?.map((error, index) => {
               if (error.type === 'connect') {
                 return (
+                  // biome-ignore lint/suspicious/noArrayIndexKey: Error list is static
                   <p key={index}>
                     {connectionError({
                       applicationUrl: applicationUrl ?? '',
@@ -80,6 +81,7 @@ export const ApplicationNotRunningView: FC<ApplicationNotRunningViewProps> = ({
               }
               if (error.type === 'fetch') {
                 return (
+                  // biome-ignore lint/suspicious/noArrayIndexKey: Error list is static
                   <p key={index}>
                     {fetchError({
                       status: String(error.status),
@@ -96,20 +98,21 @@ export const ApplicationNotRunningView: FC<ApplicationNotRunningViewProps> = ({
         <div className="mb-4">
           <h4 className="mb-2 font-semibold">{tipsTitle}</h4>
           <ul className="list-inside list-disc space-y-2 pl-3">
-            {tips.map((tip, index) => (
+            {tips({
+              editorUrl: (
+                <span className="font-bold">
+                  {editorUrl ?? import.meta.env.VITE_SITE_URL}
+                </span>
+              ),
+              applicationUrl: (
+                <span className="font-bold">
+                  {applicationUrl ?? 'http://localhost:3000'}
+                </span>
+              ),
+            }).map((tip, index) => (
+              // biome-ignore lint/suspicious/noArrayIndexKey: static list
               <li key={index} className="text-neutral">
-                {tip({
-                  editorUrl: (
-                    <span className="font-bold">
-                      {editorUrl ?? import.meta.env.VITE_SITE_URL}
-                    </span>
-                  ),
-                  applicationUrl: (
-                    <span className="font-bold">
-                      {applicationUrl ?? 'http://localhost:3000'}
-                    </span>
-                  ),
-                })}
+                {tip}
               </li>
             ))}
           </ul>

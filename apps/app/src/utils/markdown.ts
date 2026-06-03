@@ -38,11 +38,14 @@ export const urlRenamer = (
   if (!content) return '';
 
   const urlMap: URLMap[] = [];
-  const docMetadata = getIntlayer('doc-metadata', pageLocale) as DocMetadata[];
-  const blogMetadata = getIntlayer(
-    'blog-metadata',
+  const docMetadata = getIntlayer(
+    'doc-metadata' as any,
     pageLocale
-  ) as DocMetadata[];
+  ) as any as DocMetadata[];
+  const blogMetadata = getIntlayer(
+    'blog-metadata' as any,
+    pageLocale
+  ) as any as DocMetadata[];
 
   // en|fr|ru|ja|it|hi
   const localePattern = localeMap(({ locale }) => locale).join('|');

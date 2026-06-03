@@ -73,8 +73,6 @@ export const TagList: FC = () => {
     page: params.page,
     pageSize: params.pageSize,
     search: params.search || undefined,
-    sortBy: params.sortBy,
-    sortOrder: params.sortOrder,
   });
 
   const { mutateAsync: deleteTag, isPending: isDeleting } = useDeleteTag();

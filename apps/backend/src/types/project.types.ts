@@ -1,3 +1,4 @@
+import type { Locale } from '@intlayer/types/allLocales';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import type { Token } from '@node-oauth/oauth2-server';
 import type { RenameId } from '@utils/mongoDB/types';
@@ -96,6 +97,8 @@ export type ProjectData = {
   membersIds: User['id'][];
   adminsIds: User['id'][];
   viewersIds?: User['id'][];
+  /** Granular per-member access constraints, additive overlay on the role system. */
+  memberAccess?: ProjectMemberGranularAccess[];
   creatorId: User['id'];
   configuration?: ProjectConfiguration;
   repository?: RepositoryConnection;
@@ -110,6 +113,10 @@ export type AccessKeyData = {
   name: string;
   grants: string[];
   expiresAt?: Date;
+  /** null = unrestricted (all environments). null item in array = production env. */
+  allowedEnvironmentIds?: (string | null)[] | null;
+  /** null = unrestricted (all locales). */
+  allowedLocales?: Locale[] | null;
 };
 
 export type OAuth2AccessData = AccessKeyData & {
@@ -125,7 +132,22 @@ export type OAuth2AccessContext = {
   project?: ProjectAPI;
   organization?: OrganizationAPI;
   grants: Token['grants'];
+  allowedEnvironmentIds?: (string | null)[] | null;
+  allowedLocales?: Locale[] | null;
 };
+
+/**
+ * Granular per-member access constraints, overlaid on top of the member's role.
+ * null = unrestricted; [] = no access; array = restricted to listed items.
+ */
+export type ProjectMemberGranularAccess = {
+  userId: Types.ObjectId;
+  allowedEnvironmentIds: (Types.ObjectId | null)[] | null;
+  allowedLocales: Locale[] | null;
+};
+
+export type ProjectMemberGranularAccessAPI =
+  ObjectIdToString<ProjectMemberGranularAccess>;
 
 export type OAuth2Access = OAuth2AccessData & {
   id: Types.ObjectId;

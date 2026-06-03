@@ -11,6 +11,7 @@ import type {
   RefreshAccessKeyBody,
   SelectProjectParam,
   UpdateEnvironmentBody,
+  UpdateMemberAccessBody,
   UpdateProjectBody,
   UpdateProjectMembersBody,
 } from '@intlayer/backend';
@@ -383,6 +384,22 @@ export const useRefreshAccessKey = () => {
       projectAPI.refreshAccessKey(args),
     meta: {
       invalidateQueries: [['session']],
+    },
+  });
+};
+
+export const useUpdateMemberAccess = () => {
+  const projectAPI = useProjectAPI();
+
+  return useMutation({
+    mutationKey: ['projects', 'member-access'],
+    mutationFn: ({
+      userId,
+      ...body
+    }: UpdateMemberAccessBody & { userId: string }) =>
+      projectAPI.updateMemberAccess(userId, body),
+    meta: {
+      invalidateQueries: [['projects'], ['session']],
     },
   });
 };

@@ -410,6 +410,11 @@ type PermissionResult<
     : never
   : never;
 
+export const getSessionAccessConstraints = (session: SessionContext) => ({
+  allowedEnvironmentIds: session.allowedEnvironmentIds ?? null,
+  allowedLocales: session.allowedLocales ?? null,
+});
+
 export const hasPermission = <P extends Permission>(
   roles: Roles[],
   permission: P

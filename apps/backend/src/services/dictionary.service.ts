@@ -288,7 +288,7 @@ export const updateDictionaryByKey = async (
   const dictionaryObject = ensureMongoDocumentToObject(dictionary);
   const dictionaryToUpdate = removeObjectKeys(dictionaryObject, [
     'id',
-  ]) as Partial<Dictionary>;
+  ]) as unknown as Partial<Dictionary>;
 
   // Optional: run your validateDictionary on dictionaryToUpdate here
 

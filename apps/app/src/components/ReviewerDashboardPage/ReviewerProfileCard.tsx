@@ -357,7 +357,7 @@ export const ReviewerProfileCard: FC<ReviewerProfileCardProps> = ({
             >
               {content.recentReviews}
             </p>
-            {reviews.map((review) => (
+            {reviews.map((review: any) => (
               <ReviewItem key={review.id} review={review} />
             ))}
           </div>

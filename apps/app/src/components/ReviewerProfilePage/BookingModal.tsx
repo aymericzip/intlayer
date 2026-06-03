@@ -61,7 +61,7 @@ export const BookingModal: FC<BookingModalProps> = ({
         notes,
       },
       {
-        onSuccess: (data) => {
+        onSuccess: (data: any) => {
           const missionId = data?.data?.id;
           if (missionId) {
             navigate({
@@ -179,14 +179,14 @@ export const BookingModal: FC<BookingModalProps> = ({
                     setSelectedDictIds(
                       selectedDictIds.length === dictionaries.length
                         ? []
-                        : dictionaries.map((dictionary) => dictionary.id)
+                        : dictionaries.map((dictionary: any) => dictionary.id)
                     )
                   }
                   label={content.selectAll.value}
                   labelClassName="font-normal px-2 py-1"
                 />
               )}
-              {dictionaries.map((dictionary) => (
+              {dictionaries.map((dictionary: any) => (
                 <Checkbox
                   key={dictionary.id}
                   id={`dict-${dictionary.id}`}

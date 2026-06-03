@@ -110,105 +110,104 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
   return (
     <UINavBar
       logo={
-        <Link to={logo.url.value} label={logo.label.value} color="neutral">
-          {isMobile ? (
-            <LogoWithText className="max-h-6 w-auto flex-auto" />
-          ) : (
-            <DropDown identifier="navbar-logo">
-              <DropDown.Trigger
-                identifier="navbar-logo"
-                variant="none"
-                color="neutral"
-                className="px-0! group-focus-within/dropdown:bg-current/0 group-focus-within/dropdown:ring-0"
+        <DropDown identifier="navbar-logo" className="flex items-center">
+          <Link
+            to={logo.url.value}
+            label={logo.label.value}
+            color="neutral"
+            id="dropdown-trigger-navbar-logo"
+            aria-haspopup="true"
+            aria-controls="dropdown-panel-navbar-logo"
+          >
+            <LogoWithText className="max-h-6 w-auto flex-auto text-text" />
+          </Link>
+
+          {!isMobile && (
+            <DropDown.Panel
+              align="start"
+              identifier="navbar-logo"
+              isOverable
+              isFocusable={false}
+              smootherClassName="delay-0 group-hover/dropdown:delay-600"
+            >
+              <Container
+                background="with"
+                transparency="md"
+                roundedSize="2xl"
+                padding="sm"
+                className="gap-3 border border-text/5"
               >
-                <LogoWithText className="max-h-6 w-auto flex-auto text-text" />
-              </DropDown.Trigger>
-              <DropDown.Panel
-                align="start"
-                identifier="navbar-logo"
-                isOverable
-                isFocusable={false}
-                smootherClassName="delay-0 group-hover/dropdown:delay-600"
-              >
-                <Container
-                  background="with"
-                  transparency="md"
-                  roundedSize="2xl"
-                  padding="sm"
-                  className="gap-3 border border-text/5"
+                <Button
+                  variant="hoverable"
+                  color="neutral"
+                  size="md"
+                  label={logo.downloadSvg.label.value}
+                  Icon={VectorSquare}
+                  onClick={(e: MouseEvent) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    downloadFile('/logo.svg', 'intlayer-logo.svg');
+                  }}
                 >
-                  <Button
-                    variant="hoverable"
-                    color="neutral"
-                    size="md"
-                    label={logo.downloadSvg.label.value}
-                    Icon={VectorSquare}
-                    onClick={(e: MouseEvent) => {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      downloadFile('/logo.svg', 'intlayer-logo.svg');
-                    }}
-                  >
-                    <span className="ml-2 flex w-full text-text">
-                      {logo.downloadSvg.label}
-                    </span>
-                  </Button>
-                  <Button
-                    variant="hoverable"
-                    color="neutral"
-                    size="md"
-                    label={logo.downloadPng.label.value}
-                    Icon={Image}
-                    onClick={(e: MouseEvent) => {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      downloadFile(
-                        '/android-chrome-512x512.png',
-                        'intlayer-logo.png'
-                      );
-                    }}
-                  >
-                    <span className="ml-2 flex w-full text-text">
-                      {logo.downloadPng.label}
-                    </span>
-                  </Button>
-                  <Button
-                    variant="hoverable"
-                    size="md"
-                    color="neutral"
-                    label={logo.copyAsSvg.label.value}
-                    Icon={VectorSquare}
-                    onClick={(e: MouseEvent) => {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      copySvg();
-                    }}
-                  >
-                    <span className="ml-2 flex w-full text-text">
-                      {logo.copyAsSvg.label}
-                    </span>
-                  </Button>
-                  <Button
-                    variant="hoverable"
-                    size="md"
-                    color="neutral"
-                    label={logo.copyAsImage.label.value}
-                    Icon={Image}
-                    onClick={(e: MouseEvent) => {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      copyImage();
-                    }}
-                  >
-                    <span className="ml-2 flex w-full text-text">
-                      {logo.copyAsImage.label}
-                    </span>
-                  </Button>
-                </Container>
-              </DropDown.Panel>
-            </DropDown>
+                  <span className="ml-2 flex w-full text-text">
+                    {logo.downloadSvg.label}
+                  </span>
+                </Button>
+                <Button
+                  variant="hoverable"
+                  color="neutral"
+                  size="md"
+                  label={logo.downloadPng.label.value}
+                  Icon={Image}
+                  onClick={(e: MouseEvent) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    downloadFile(
+                      '/android-chrome-512x512.png',
+                      'intlayer-logo.png'
+                    );
+                  }}
+                >
+                  <span className="ml-2 flex w-full text-text">
+                    {logo.downloadPng.label}
+                  </span>
+                </Button>
+                <Button
+                  variant="hoverable"
+                  size="md"
+                  color="neutral"
+                  label={logo.copyAsSvg.label.value}
+                  Icon={VectorSquare}
+                  onClick={(e: MouseEvent) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    copySvg();
+                  }}
+                >
+                  <span className="ml-2 flex w-full text-text">
+                    {logo.copyAsSvg.label}
+                  </span>
+                </Button>
+                <Button
+                  variant="hoverable"
+                  size="md"
+                  color="neutral"
+                  label={logo.copyAsImage.label.value}
+                  Icon={Image}
+                  onClick={(e: MouseEvent) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    copyImage();
+                  }}
+                >
+                  <span className="ml-2 flex w-full text-text">
+                    {logo.copyAsImage.label}
+                  </span>
+                </Button>
+              </Container>
+            </DropDown.Panel>
           )}
-        </Link>
+        </DropDown>
       }
       selectedChoice={selectedChoice}
       mobileRollable={mobileRollable}

@@ -167,13 +167,21 @@ export const processTranslationJob = async (job: Job<TranslationJobData>) => {
 
         if (mode === 'review') {
           const sourceForAll = getPerLocaleDictionary(
-            { key: dictionary.key, content: sourceContent as any },
+            {
+              key: dictionary.key,
+              content: sourceContent as any,
+              schema: undefined,
+            },
             sourceLocale as Locale
           );
           contentToTranslate = sourceForAll.content as Record<string, unknown>;
         } else {
           const missingForLocale = getFilterMissingTranslationsDictionary(
-            { key: dictionary.key, content: sourceContent as any },
+            {
+              key: dictionary.key,
+              content: sourceContent as any,
+              schema: undefined,
+            },
             targetLocale
           );
           const sourceForMissing = getPerLocaleDictionary(

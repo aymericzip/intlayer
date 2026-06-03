@@ -67,7 +67,7 @@ export const MembersForm: FC = () => {
 
   const getUserName = (memberId: UserAPI['id'] | string) => {
     const user = usersResponse?.data?.find(
-      (user) => String(user.id) === String(memberId)
+      (user: any) => String(user.id) === String(memberId)
     );
     return user?.name ?? user?.email ?? String(memberId);
   };

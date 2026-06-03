@@ -8,7 +8,7 @@
     "types": ["electron", "node"],
     "skipLibCheck": true,
     "strict": true,
-    "noEmit": true,
+    "composite": true,
     "verbatimModuleSyntax": true
   }
 }

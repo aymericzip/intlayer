@@ -25,10 +25,21 @@ const oAuth2AccessSchema = new Schema<RenameId<OAuth2Access>>(
     expiresAt: { type: Date },
     accessToken: { type: [String], required: true, default: [] },
     grants: { type: [String], required: true, default: [] },
+    allowedEnvironmentIds: { type: Schema.Types.Mixed, default: null },
+    allowedLocales: { type: [String], default: null },
   },
   {
     timestamps: true,
   }
+);
+
+const memberAccessSchema = new Schema(
+  {
+    userId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+    allowedEnvironmentIds: { type: Schema.Types.Mixed, default: null },
+    allowedLocales: { type: [String], default: null },
+  },
+  { _id: false }
 );
 
 // Schema for generic webhooks (Vercel, Netlify, Custom, etc.)
@@ -183,6 +194,10 @@ export const projectSchema = new Schema<ProjectSchema>(
     viewersIds: {
       type: [Schema.Types.ObjectId],
       ref: 'User',
+      default: [],
+    },
+    memberAccess: {
+      type: [memberAccessSchema],
       default: [],
     },
     creatorId: {

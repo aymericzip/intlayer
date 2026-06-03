@@ -36,7 +36,7 @@ import { type FetcherOptions, fetcher } from '../fetcher';
 
 export const getStripeAPI = (
   authAPIOptions: FetcherOptions = {},
-  intlayerConfig: IntlayerConfig
+  intlayerConfig?: IntlayerConfig
 ) => {
   const backendURL = intlayerConfig?.editor?.backendURL ?? editor.backendURL;
 

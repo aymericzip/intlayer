@@ -303,7 +303,7 @@ export const getPricing = async (
         );
         return null;
       })
-      .filter((price): price is Stripe.Price => price !== null);
+      .filter((price): price is NonNullable<typeof price> => price !== null);
 
     // Calculate the total amount before discount (to help with proportional distribution if needed)
     const totalAmount = prices.reduce(

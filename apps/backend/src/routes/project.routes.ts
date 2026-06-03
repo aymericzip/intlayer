@@ -18,6 +18,7 @@ import {
   deleteAccessKey,
   refreshAccessKey,
 } from '@controllers/projectAccessKey.controller';
+import { updateMemberAccess } from '@controllers/projectMemberAccess.controller';
 import type { FastifyInstance } from 'fastify';
 import type { Routes } from '@/types/Routes';
 import { projectIdParamsSchema } from './paramsSchemas';
@@ -110,6 +111,12 @@ export const getProjectRoutes = () =>
         `${baseURL()}/${projectId}/admin`,
       method: 'DELETE',
     },
+    updateMemberAccess: {
+      urlModel: '/member/:userId/access',
+      url: ({ userId }: { userId: string }) =>
+        `${baseURL()}/member/${userId}/access`,
+      method: 'PUT',
+    },
   }) satisfies Routes;
 
 export const projectRouter = async (fastify: FastifyInstance) => {
@@ -148,5 +155,9 @@ export const projectRouter = async (fastify: FastifyInstance) => {
     getProjectRoutes().deleteProjectByIdAdmin.urlModel,
     { schema: { params: projectIdParamsSchema } },
     deleteProjectByIdAdmin
+  );
+  fastify.put(
+    getProjectRoutes().updateMemberAccess.urlModel,
+    updateMemberAccess
   );
 };

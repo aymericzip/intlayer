@@ -140,7 +140,7 @@ export const ConfigEditionForm: FC<ConfigEditionFormProps> = ({
             description={i18nSection.localesInput.description.value}
             isRequired
             disabled={!isProjectAdmin}
-            onValueChange={(values) => {
+            onValueChange={(values: any) => {
               const valueArray = [values].flat();
               form.setValue('locales', valueArray as Locale[]);
 

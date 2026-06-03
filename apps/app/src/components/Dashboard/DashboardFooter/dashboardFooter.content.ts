@@ -1,20 +1,6 @@
 import { External_Github } from '@intlayer/design-system/routes';
 import { type Dictionary, t } from 'intlayer';
 
-type DashboardFooterContent = {
-  logo: {
-    url: string;
-    title: string;
-    label: string;
-  };
-  github: {
-    url: string;
-    title: string;
-    label: string;
-    alt: string;
-  };
-};
-
 const dashboardFooterContent = {
   key: 'dashboard-footer',
   content: {
@@ -67,6 +53,6 @@ const dashboardFooterContent = {
   description:
     'Content declaration for the dashboard footer, including links to the Intlayer homepage and GitHub repository with relevant labels and accessibility metadata.',
   tags: ['dashboard', 'footer'],
-} satisfies Dictionary<DashboardFooterContent>;
+} satisfies Dictionary;
 
 export default dashboardFooterContent;

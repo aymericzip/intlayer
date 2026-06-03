@@ -68,11 +68,11 @@ export const CreatePromoCodeForm: FC<CreatePromoCodeFormProps> = ({
 
   const PRESETS: { value: ExpirationPreset; label: string }[] = [
     { value: 'none', label: content.expirationPresets.none.value },
-    { value: '1m', label: content.expirationPresets['1m'].value },
-    { value: '2m', label: content.expirationPresets['2m'].value },
-    { value: '3m', label: content.expirationPresets['3m'].value },
-    { value: '6m', label: content.expirationPresets['6m'].value },
-    { value: '1y', label: content.expirationPresets['1y'].value },
+    { value: '1m', label: content.expirationPresets.oneMonth.value },
+    { value: '2m', label: content.expirationPresets.twoMonths.value },
+    { value: '3m', label: content.expirationPresets.threeMonths.value },
+    { value: '6m', label: content.expirationPresets.sixMonths.value },
+    { value: '1y', label: content.expirationPresets.oneYear.value },
     { value: 'custom', label: content.expirationPresets.custom.value },
   ];
 

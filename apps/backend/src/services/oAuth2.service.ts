@@ -1,5 +1,5 @@
 import { randomBytes } from 'node:crypto';
-import type { Callback, Client } from '@node-oauth/oauth2-server';
+import type { Client } from '@node-oauth/oauth2-server';
 import { OAuth2AccessTokenModel } from '@schemas/oAuth2.schema';
 import { ProjectModel } from '@schemas/project.schema';
 import { ensureMongoDocumentToObject } from '@utils/ensureMongoDocumentToObject';
@@ -287,7 +287,7 @@ export const getAccessToken = async (
   const formattedAccessToken = formatOAuth2Token(
     token,
     client,
-    user,
+    mapUserToAPI(user),
     project,
     organization,
     grants
@@ -331,8 +331,7 @@ export const getUserFromClient = async (
  */
 export const verifyScope = async (
   _token: OAuth2Token,
-  _scope: string,
-  _callback?: Callback<boolean> | undefined
+  _scope: string[]
 ): Promise<boolean> => {
   // Implement the verification of scopes if necessary
   return true;
@@ -380,7 +379,7 @@ export const getOAuth2AccessTokenContext = async (
     throw new GenericError('INVALID_ACCESS_TOKEN');
   }
 
-  const { project, grants } = result;
+  const { project, grants, oAuth2Access } = result;
 
   const organization = await getOrganizationById(project.organizationId);
 
@@ -390,5 +389,8 @@ export const getOAuth2AccessTokenContext = async (
     project: project ? mapProjectToAPI(project) : undefined,
     organization: organization ? mapOrganizationToAPI(organization) : undefined,
     grants,
+    allowedEnvironmentIds:
+      (oAuth2Access as OAuth2Access).allowedEnvironmentIds ?? null,
+    allowedLocales: (oAuth2Access as OAuth2Access).allowedLocales ?? null,
   };
 };

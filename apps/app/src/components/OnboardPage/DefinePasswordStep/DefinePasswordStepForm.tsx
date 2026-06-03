@@ -38,7 +38,7 @@ export const DefinePasswordStepForm: FC = () => {
         callbackURL: `${window.location.origin}${nextUrl}`,
       },
       {
-        onSuccess: (response) => {
+        onSuccess: (response: any) => {
           if (response?.data?.user) {
             setState({
               user: response.data.user,

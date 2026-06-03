@@ -109,9 +109,10 @@ type JobCardContent = {
   retryJob: { value: string };
   restoreJob: { value: string };
   jobCancelled: { value: string };
-  translationJobProgress: {
-    insert: (args: { jobId: string; percentage: number }) => string;
-  };
+  translationJobProgress: (args: {
+    jobId: string;
+    percentage: number;
+  }) => string;
 };
 
 const DictionaryRow: FC<{
@@ -408,10 +409,12 @@ const JobCard: FC<JobCardProps> = memo(
               aria-valuenow={Math.round(percentage)}
               aria-valuemin={0}
               aria-valuemax={100}
-              aria-label={content.translationJobProgress.insert({
-                jobId: job.jobId,
-                percentage: Math.round(percentage),
-              })}
+              aria-label={
+                content.translationJobProgress({
+                  jobId: job.jobId,
+                  percentage: Math.round(percentage),
+                }) as any
+              }
               className="h-1.5 w-full overflow-hidden rounded-full bg-neutral/10"
             >
               <div
@@ -893,12 +896,12 @@ export const TranslationStatusAside: FC = () => {
                       ) : (
                         <>
                           {allDictionaries
-                            .filter((dictionaries) =>
+                            .filter((dictionaries: any) =>
                               dictionaries.key
                                 .toLowerCase()
                                 .includes(dictionarySearch.toLowerCase())
                             )
-                            .map((dictionaries) => (
+                            .map((dictionaries: any) => (
                               <Checkbox
                                 key={dictionaries.id}
                                 id={`dict-${dictionaries.id}`}
@@ -923,7 +926,7 @@ export const TranslationStatusAside: FC = () => {
                                 labelClassName="font-mono font-normal px-2 py-0.5 text-xs"
                               />
                             ))}
-                          {allDictionaries.filter((dictionaries) =>
+                          {allDictionaries.filter((dictionaries: any) =>
                             dictionaries.key
                               .toLowerCase()
                               .includes(dictionarySearch.toLowerCase())

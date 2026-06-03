@@ -60,7 +60,7 @@ export const EnableTwoFactor: FC = () => {
       enableTwoFactor(
         { password: data.password },
         {
-          onSuccess: (result) => {
+          onSuccess: (result: any) => {
             if (result.data) {
               setTwoFactorData({
                 totpURI: result.data.totpURI,

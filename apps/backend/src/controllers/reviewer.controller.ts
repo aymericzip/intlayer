@@ -21,6 +21,7 @@ import { t } from 'fastify-intlayer';
 import type {
   MissionEstimate,
   MissionStatus,
+  ReviewerCategory,
   ReviewerMessageAPI,
   ReviewerProfileAPI,
   ReviewerReviewAPI,
@@ -227,7 +228,7 @@ export const getReviewerById = async (
 export type RegisterReviewerBody = {
   bio?: string;
   languagePairs: { from: string; to: string }[];
-  categories?: string[];
+  categories?: ReviewerCategory[];
   pricePerHour: number;
   socialLinks?: { github?: string; linkedin?: string; portfolio?: string };
 };
@@ -428,7 +429,7 @@ export const getAdminReviewers = async (
   reply: FastifyReply
 ): Promise<void> => {
   const sessionUser = request.session?.user;
-  if (!sessionUser || sessionUser.role !== 'admin') {
+  if (sessionUser?.role !== 'admin') {
     return ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
   }
 
@@ -460,7 +461,7 @@ export const validateReviewerProfile = async (
   reply: FastifyReply
 ): Promise<void> => {
   const sessionUser = request.session?.user;
-  if (!sessionUser || sessionUser.role !== 'admin') {
+  if (sessionUser?.role !== 'admin') {
     return ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
   }
 

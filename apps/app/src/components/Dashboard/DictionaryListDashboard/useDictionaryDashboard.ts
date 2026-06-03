@@ -108,7 +108,9 @@ export const useDictionaryDashboard = () => {
     let hasChanged = false;
 
     for (const key of selectedKeys) {
-      const exists = visibleDicts.some((d) => d.id === key || d.key === key);
+      const exists = visibleDicts.some(
+        (d: any) => d.id === key || d.key === key
+      );
       if (!exists) {
         delete newRowSelection[key];
         hasChanged = true;

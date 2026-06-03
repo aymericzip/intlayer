@@ -15,7 +15,6 @@ import { mapOrganizationToAPI } from '@utils/mapper/organization';
 import { mapProjectToAPI } from '@utils/mapper/project';
 import { mapSessionToAPI } from '@utils/mapper/session';
 import { mapUserToAPI } from '@utils/mapper/user';
-import type { OmitId } from '@utils/mongoDB/types';
 import {
   computeEffectivePermission,
   getSessionRoles,
@@ -27,6 +26,7 @@ import { createAuthMiddleware } from 'better-auth/api';
 import { customSession, lastLoginMethod, twoFactor } from 'better-auth/plugins';
 import { magicLink } from 'better-auth/plugins/magic-link';
 import type { MongoClient } from 'mongodb';
+import { Types } from 'mongoose';
 
 import type { OrganizationAPI } from '@/types/organization.types';
 import type { ProjectAPI } from '@/types/project.types';
@@ -56,7 +56,7 @@ export const getAuthSingleton = (): Auth => {
   return _authSingleton;
 };
 
-export const formatSession = (session: SessionContext): OmitId<Session> => {
+export const formatSession = (session: SessionContext): Session => {
   const roles = getSessionRoles(session);
   let permissions = computeEffectivePermission(roles);
 
@@ -65,16 +65,21 @@ export const formatSession = (session: SessionContext): OmitId<Session> => {
     permissions = intersectPermissions(permissions, session.permissions);
   }
 
-  const resultSession = {
-    session: session.session,
-    user: session.user,
-    organization: session.organization,
-    project: session.project,
-    environment: session.environment,
+  const resultSession: Session = {
+    session: session.session as Session['session'],
+    user: session.user as Session['user'],
+    organization: session.organization ?? null,
+    project: session.project ?? null,
+    environment: session.environment ?? null,
     authType: 'session',
     permissions,
     roles,
-  } as OmitId<Session>;
+    allowedEnvironmentIds: session.allowedEnvironmentIds ?? null,
+    allowedLocales: session.allowedLocales ?? null,
+    ...(session.session?.id && {
+      id: new Types.ObjectId(session.session.id),
+    }),
+  };
 
   return resultSession;
 };
@@ -299,6 +304,22 @@ export const getAuth = (dbClient: MongoClient): Auth => {
           }
         }
 
+        // Resolve granular access constraints for this user in this project
+        const memberAccessEntry =
+          projectData?.memberAccess?.find(
+            (access) => String(access.userId) === String(userData?.id)
+          ) ?? null;
+
+        const allowedEnvironmentIds =
+          memberAccessEntry?.allowedEnvironmentIds != null
+            ? (
+                memberAccessEntry.allowedEnvironmentIds as ({
+                  toString(): string;
+                } | null)[]
+              ).map((id) => (id === null ? null : String(id)))
+            : null;
+        const allowedLocales = memberAccessEntry?.allowedLocales ?? null;
+
         return mapSessionToAPI(
           formatSession({
             session: typedSession,
@@ -307,6 +328,8 @@ export const getAuth = (dbClient: MongoClient): Auth => {
             project: projectAPI,
             environment: environmentAPI,
             authType: 'session',
+            allowedEnvironmentIds,
+            allowedLocales,
           })
         );
       }),

@@ -13,7 +13,7 @@ type ProductHeaderProps = {
 export const ProductHeader: FC<ProductHeaderProps> = ({ pricings }) => {
   const { description } = useIntlayer('product-header-structured-data');
 
-  const offers = formatStructuredDataOffers(pricings);
+  const offers = formatStructuredDataOffers(pricings ?? null);
 
   const product = {
     '@context': 'https://schema.org',

@@ -30,6 +30,10 @@ export type SessionContext = {
   environment?: EnvironmentAPI | null;
   authType?: 'session' | 'oauth2' | null;
   permissions?: Permission[]; // Will check the intersection of the permissions
+  /** null = unrestricted; [] = no env access; array = restricted to listed envs (null item = production). */
+  allowedEnvironmentIds?: (string | null)[] | null;
+  /** null = unrestricted; [] = no locale access; array = restricted to listed locales. */
+  allowedLocales?: Locale[] | null;
 };
 
 export type Session = {
@@ -38,11 +42,13 @@ export type Session = {
   organization?: Organization | null;
   project?: Project | null;
   environment?: EnvironmentAPI | null;
-  id: Types.ObjectId;
+  id?: Types.ObjectId;
   permissions: Permission[];
   roles: Roles[];
   authType: 'session' | 'oauth2' | null;
   locale?: Locale;
+  allowedEnvironmentIds?: (string | null)[] | null;
+  allowedLocales?: Locale[] | null;
 };
 
 export type SessionAPI = ObjectIdToString<Session>;

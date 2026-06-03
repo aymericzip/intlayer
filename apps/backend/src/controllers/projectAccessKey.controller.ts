@@ -1,7 +1,11 @@
 import { sendEmail } from '@services/email.service';
 import * as projectAccessKeyService from '@services/projectAccessKey.service';
 import { type AppError, ErrorHandler } from '@utils/errors';
-import { hasPermission, intersectPermissions } from '@utils/permissions';
+import {
+  hasPermission,
+  intersectPermissions,
+  type Permission,
+} from '@utils/permissions';
 import { formatResponse, type ResponseData } from '@utils/responseData';
 import type { FastifyReply, FastifyRequest } from 'fastify';
 import { t } from 'fastify-intlayer';
@@ -18,7 +22,8 @@ export const addNewAccessKey = async (
   reply: FastifyReply
 ): Promise<void> => {
   const { user, project, roles, permissions } = request.session || {};
-  const { grants, name, expiresAt } = request.body;
+  const { grants, name, expiresAt, allowedEnvironmentIds, allowedLocales } =
+    request.body;
 
   if (!project) {
     return ErrorHandler.handleGenericErrorResponse(
@@ -43,7 +48,10 @@ export const addNewAccessKey = async (
     return ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
   }
 
-  const filteredPermisions = intersectPermissions(permissions || [], grants);
+  const filteredPermisions = intersectPermissions(
+    permissions || [],
+    (grants as Permission[]) || []
+  );
 
   try {
     const newAccessKey = await projectAccessKeyService.addNewAccessKey(
@@ -51,6 +59,8 @@ export const addNewAccessKey = async (
         name,
         expiresAt,
         grants: filteredPermisions,
+        allowedEnvironmentIds: allowedEnvironmentIds ?? null,
+        allowedLocales: allowedLocales ?? null,
       },
       project.id,
       user

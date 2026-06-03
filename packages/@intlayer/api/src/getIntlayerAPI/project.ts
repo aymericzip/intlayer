@@ -28,6 +28,8 @@ import type {
   UnselectProjectResult,
   UpdateEnvironmentBody,
   UpdateEnvironmentResult,
+  UpdateMemberAccessBody,
+  UpdateMemberAccessResult,
   UpdateProjectBody,
   UpdateProjectMembersBody,
   UpdateProjectMembersResult,
@@ -387,6 +389,23 @@ export const getProjectAPI = (
       { method: 'POST', body }
     );
 
+  /**
+   * Updates granular access constraints for a project member.
+   * @param userId - The user ID to update access for.
+   * @param body - The new access constraints.
+   */
+  const updateMemberAccess = async (
+    userId: string,
+    body: UpdateMemberAccessBody,
+    otherOptions: FetcherOptions = {}
+  ) =>
+    await fetcher<UpdateMemberAccessResult>(
+      `${PROJECT_API_ROUTE}/member/${userId}/access`,
+      authAPIOptions,
+      otherOptions,
+      { method: 'PUT', body }
+    );
+
   return {
     getProjects,
     addProject,
@@ -410,5 +429,6 @@ export const getProjectAPI = (
     selectEnvironment,
     resetToProductionEnvironment,
     migrateEnvironment,
+    updateMemberAccess,
   };
 };

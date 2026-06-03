@@ -95,7 +95,7 @@ export const ConfigDetails: FC<ConfigDetailsProps> = ({ projectConfig }) => {
         setFilePreview(null);
         toast({ title: 'Configuration updated', variant: 'success' });
       },
-      onError: (error) => {
+      onError: (error: any) => {
         toast({
           title: 'Failed to push configuration',
           description: (error as Error).message,

@@ -50,7 +50,7 @@ export const FiltersModal: FC<FiltersModalProps> = ({
       : params.location === 'both'
         ? ['remote', 'local']
         : params.location === 'remote'
-          ? remote
+          ? ['remote']
           : ['local'];
 
   const handleClearAll = () => {
@@ -161,7 +161,7 @@ export const FiltersModal: FC<FiltersModalProps> = ({
               padding="md"
               className="flex max-h-40 flex-col gap-4 overflow-y-auto"
             >
-              {[...Array(5)].map((_, i) => (
+              {[1, 2, 3, 4, 5].map((i) => (
                 <div key={i} className="flex items-center gap-2">
                   <Skeleton className="h-4 w-4 rounded" />
                   <Skeleton className="h-4 w-24" />

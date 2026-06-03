@@ -50,6 +50,8 @@ export const addNewAccessKey = async (
     userId: user.id,
     accessToken: [],
     grants: accessKeyData.grants,
+    allowedEnvironmentIds: accessKeyData.allowedEnvironmentIds ?? null,
+    allowedLocales: accessKeyData.allowedLocales ?? null,
   };
 
   const result = await ProjectModel.updateOne(

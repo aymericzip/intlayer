@@ -3,6 +3,7 @@ import { getQueryClient } from '@intlayer/design-system/providers';
 import { createRouter, RouterProvider } from '@tanstack/react-router';
 import { StrictMode } from 'react';
 import ReactDOM from 'react-dom/client';
+// @ts-ignore
 import { routeTree } from '#/routeTree.electron.gen';
 import { NotFoundComponent } from '#components/NotFoundComponent';
 
@@ -18,11 +19,11 @@ const router = createRouter({
   defaultPendingComponent: Loader,
 });
 
-declare module '@tanstack/react-router' {
-  interface Register {
-    router: typeof router;
-  }
-}
+// declare module '@tanstack/react-router' {
+//   interface Register {
+//     router: typeof router;
+//   }
+// }
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <StrictMode>

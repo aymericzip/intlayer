@@ -97,8 +97,6 @@ export const aiRouter = async (fastify: FastifyInstance) => {
    */
   await fastify.register(fastifyRateLimit, {
     ...unauthenticatedChatBotLimiter,
-    // Apply only to the /ask route
-    routeId: 'ai-ask-rate-limit',
   });
   fastify.post(getAiRoutes().ask.urlModel, askDocQuestion);
   fastify.post(getAiRoutes().chat.urlModel, chat);

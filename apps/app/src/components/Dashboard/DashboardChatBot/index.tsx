@@ -110,6 +110,7 @@ export const DashboardChatBot: FC = () => {
 
           setDiscussion((prevDiscussion) => ({
             ...prevDiscussion,
+            discussionId: prevDiscussion?.discussionId ?? newDiscussionId,
             storedPrompt: [
               ...(prevDiscussion?.storedPrompt ?? []),
               {

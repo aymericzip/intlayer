@@ -29,7 +29,7 @@ export const OrganizationCreationForm: FC<OrganizationCreationFormProps> = ({
 
   const onSubmitSuccess = (data: OrganizationFormData) =>
     addOrganization(data, {
-      onSuccess: (result) => {
+      onSuccess: (result: any) => {
         if (!result.data) return;
 
         const organizationId = String(result.data?.id);

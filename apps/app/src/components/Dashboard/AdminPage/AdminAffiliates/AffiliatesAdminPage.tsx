@@ -3,7 +3,7 @@ import {
   useGetAffiliateInvitations,
   useGetAffiliates,
 } from '@intlayer/design-system/api';
-import { Badge } from '@intlayer/design-system/badge';
+import { Badge, type BadgeColor } from '@intlayer/design-system/badge';
 import { Button } from '@intlayer/design-system/button';
 import { CopyToClipboard } from '@intlayer/design-system/copy-to-clipboard';
 import { SearchInput } from '@intlayer/design-system/input';

@@ -77,10 +77,10 @@ export const PricingCarousel: FC<PricingCarouselProps> = ({
   useEffect(() => {
     if (affiliatePromo?.data && !promoCode) {
       navigate({
-        search: (prev: any) => ({
+        search: ((prev: any) => ({
           ...prev,
           promoCode: affiliatePromo.data,
-        }),
+        })) as any,
       });
     }
   }, [affiliatePromo, promoCode, navigate]);

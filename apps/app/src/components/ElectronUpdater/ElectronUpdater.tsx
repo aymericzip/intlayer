@@ -63,7 +63,7 @@ export const ElectronUpdater = () => {
       {update.status === 'available' && (
         <>
           <p className="font-medium text-sm">
-            {updateAvailableVersion.insert({
+            {updateAvailableVersion({
               version: update.version,
             })}
           </p>
@@ -93,7 +93,7 @@ export const ElectronUpdater = () => {
       {update.status === 'downloading' && (
         <>
           <p className="font-medium text-sm">
-            {downloadingPercent.insert({
+            {downloadingPercent({
               percent: update.percent,
             })}
           </p>
@@ -134,7 +134,7 @@ export const ElectronUpdater = () => {
 
       {update.status === 'error' && (
         <p className="text-error text-sm">
-          {updateErrorMessage.insert({
+          {updateErrorMessage({
             message: update.message,
           })}
         </p>

@@ -13,7 +13,6 @@ import {
   Pagination,
   ShowingResultsNumberItems,
 } from '@intlayer/design-system/pagination';
-import { getAppAdminPromoCodeRoute } from '@intlayer/design-system/routes';
 import { Table } from '@intlayer/design-system/table';
 import { cn } from '@intlayer/design-system/utils';
 import {
@@ -292,7 +291,8 @@ export const PromoCodesAdminPage: FC = () => {
                     className="cursor-pointer whitespace-nowrap rounded-xl border-card border-b transition-colors hover:bg-card/30 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-card"
                     onClick={() =>
                       navigate({
-                        to: getAppAdminPromoCodeRoute(row.original.id),
+                        to: '/admin/promo-code/$id',
+                        params: { id: row.original.id },
                       })
                     }
                   >

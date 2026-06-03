@@ -74,7 +74,8 @@ export const DictionaryModals: FC<DictionaryModalsProps> = ({ dashboard }) => {
                 )
                   .map((idOrKey) => {
                     const dict = dashboard.data.dictionaries.find(
-                      (d) => d.id === idOrKey || d.key === idOrKey
+                      (d: { id?: string; key: string }) =>
+                        d.id === idOrKey || d.key === idOrKey
                     );
                     return dict ? dict.key : idOrKey;
                   })
