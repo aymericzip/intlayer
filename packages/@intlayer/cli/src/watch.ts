@@ -56,8 +56,10 @@ export const watchContentDeclaration = async (options?: WatchOptions) => {
         parallelProcess.kill();
       }
 
-      // Close the file watcher to stop "esbuild service not running" errors
-      await watcher.close();
+      // Close all file watchers to stop "esbuild service not running" errors
+      await Promise.all(
+        watcher?.map((watcherEl) => watcherEl.unsubscribe()) ?? []
+      );
     } catch (error) {
       console.error('Error during shutdown:', error);
     } finally {

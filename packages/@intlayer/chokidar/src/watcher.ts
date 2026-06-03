@@ -130,7 +130,6 @@ export const watch = async (options?: WatchOptions) => {
   const normalizedIntlayerDir = normalizePath(dirname(mainDir));
 
   const subscriptions: { unsubscribe: () => Promise<void> }[] = [];
-  const fsWatchers: import('node:fs').FSWatcher[] = [];
 
   const scheduleStable = createStabilityDebounce();
 
@@ -211,7 +210,11 @@ export const watch = async (options?: WatchOptions) => {
       }
     }
   );
-  fsWatchers.push(fsDirWatcher);
+  subscriptions.push({
+    unsubscribe: async () => {
+      fsDirWatcher.close();
+    },
+  });
 
   // ── main content watcher ───────────────────────────────────────────────────
   // Ignore patterns for @parcel/watcher (micromatch globs)
@@ -372,17 +375,7 @@ export const watch = async (options?: WatchOptions) => {
     subscriptions.push(sub);
   }
 
-  return {
-    unsubscribe: async () => {
-      await Promise.all(
-        subscriptions.map((subscription) => subscription.unsubscribe())
-      );
-
-      fsWatchers.forEach((watcher) => {
-        watcher.close();
-      });
-    },
-  };
+  return subscriptions;
 };
 
 export const buildAndWatchIntlayer = async (options?: WatchOptions) => {
