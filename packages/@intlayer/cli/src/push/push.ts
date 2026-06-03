@@ -20,6 +20,7 @@ import type { Dictionary } from '@intlayer/types/dictionary';
 import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 import { PushLogger, type PushStatus } from '../pushLog';
 import { checkCMSAuth, getAuthenticatedAPI } from '../utils/checkAccess';
+import { selectCmsEnvironment } from '../utils/selectCmsEnvironment';
 
 type PushOptions = {
   deleteLocaleDictionary?: boolean;
@@ -81,6 +82,12 @@ export const push = async (options?: PushOptions): Promise<void> => {
     if (!hasCMSAuth) return;
 
     const intlayerAPI = await getAuthenticatedAPI(config);
+
+    await selectCmsEnvironment(
+      options?.configOptions?.env,
+      intlayerAPI,
+      config
+    );
 
     const unmergedDictionariesRecord = getUnmergedDictionaries(config);
     const allDictionaries = Object.values(unmergedDictionariesRecord).flat();

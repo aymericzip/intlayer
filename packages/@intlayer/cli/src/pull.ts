@@ -17,6 +17,7 @@ import type { Dictionary } from '@intlayer/types/dictionary';
 import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 import { PullLogger, type PullStatus } from './push/pullLog';
 import { checkCMSAuth, getAuthenticatedAPI } from './utils/checkAccess';
+import { selectCmsEnvironment } from './utils/selectCmsEnvironment';
 
 type PullOptions = {
   dictionaries?: string[];
@@ -47,6 +48,12 @@ export const pull = async (options?: PullOptions): Promise<void> => {
     if (!hasCMSAuth) return;
 
     const intlayerAPI = await getAuthenticatedAPI(config);
+
+    await selectCmsEnvironment(
+      options?.configOptions?.env,
+      intlayerAPI,
+      config
+    );
 
     const unmergedDictionariesRecord = getUnmergedDictionaries(config);
 

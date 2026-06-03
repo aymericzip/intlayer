@@ -30,7 +30,7 @@ export const ReviewerMarketplaceBanner: FC = () => {
       roundedSize="2xl"
       border
       borderColor="neutral"
-      className="relative mb-10 flex flex-col gap-6"
+      className="relative mb-8 flex flex-col gap-6"
     >
       <div className="absolute top-2 right-2">
         <Button

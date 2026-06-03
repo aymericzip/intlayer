@@ -26,6 +26,10 @@ import { bitbucketRoute, bitbucketRouter } from '@routes/bitbucket.routes';
 import { demoRoute, demoRouter } from '@routes/demo.routes';
 import { dictionaryRoute, dictionaryRouter } from '@routes/dictionary.routes';
 import {
+  environmentRoute,
+  environmentRouter,
+} from '@routes/environment.routes';
+import {
   eventListenerRoute,
   eventListenerRouter,
 } from '@routes/eventListener.routes';
@@ -266,10 +270,10 @@ const startServer = async () => {
         session: {
           userId: request.session?.user?.id,
           userEmail: request.session?.user?.email,
-          organizationId: request.session?.user?.organizationId,
-          organizationName: request.session?.user?.organization?.name,
-          projectId: request.session?.user?.projectId,
-          projectName: request.session?.user?.project?.name,
+          organizationId: request.session?.organization?.id,
+          organizationName: request.session?.organization?.name,
+          projectId: request.session?.project?.id,
+          projectName: request.session?.project?.name,
         },
       };
 
@@ -283,6 +287,7 @@ const startServer = async () => {
   await app.register(userRouter, { prefix: userRoute });
   await app.register(organizationRouter, { prefix: organizationRoute });
   await app.register(projectRouter, { prefix: projectRoute });
+  await app.register(environmentRouter, { prefix: environmentRoute });
   await app.register(tagRouter, { prefix: tagRoute });
   await app.register(dictionaryRouter, { prefix: dictionaryRoute });
   await app.register(stripeRouter, { prefix: stripeRoute });

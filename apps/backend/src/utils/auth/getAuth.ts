@@ -3,8 +3,13 @@ import { sso } from '@better-auth/sso';
 import { sendVerificationUpdate } from '@controllers/user.controller';
 import { logger } from '@logger';
 import { sendEmail } from '@services/email.service';
+import { resolveSessionEnvironment } from '@services/environment.service';
 import { getOrganizationById } from '@services/organization.service';
 import { getProjectById } from '@services/project.service';
+import {
+  clearZombieSessionContext,
+  restoreSessionContext,
+} from '@services/session.service';
 import { getUserById } from '@services/user.service';
 import { mapOrganizationToAPI } from '@utils/mapper/organization';
 import { mapProjectToAPI } from '@utils/mapper/project';
@@ -22,7 +27,7 @@ import { createAuthMiddleware } from 'better-auth/api';
 import { customSession, lastLoginMethod, twoFactor } from 'better-auth/plugins';
 import { magicLink } from 'better-auth/plugins/magic-link';
 import type { MongoClient } from 'mongodb';
-import { Types } from 'mongoose';
+
 import type { OrganizationAPI } from '@/types/organization.types';
 import type { ProjectAPI } from '@/types/project.types';
 import type {
@@ -65,6 +70,7 @@ export const formatSession = (session: SessionContext): OmitId<Session> => {
     user: session.user,
     organization: session.organization,
     project: session.project,
+    environment: session.environment,
     authType: 'session',
     permissions,
     roles,
@@ -192,6 +198,7 @@ export const getAuth = (dbClient: MongoClient): Auth => {
       additionalFields: {
         activeOrganizationId: { type: 'string', nullable: true, input: false },
         activeProjectId: { type: 'string', nullable: true, input: false },
+        activeEnvironmentId: { type: 'string', nullable: true, input: false },
       },
     },
 
@@ -199,129 +206,109 @@ export const getAuth = (dbClient: MongoClient): Auth => {
       customSession(async ({ session }) => {
         const typedSession = session as unknown as SessionDataApi;
 
-        const normalizeId = (id: any): string | null =>
-          typeof id === 'string'
-            ? id
-            : id?.buffer instanceof Uint8Array
-              ? Buffer.from(id.buffer).toString('hex')
-              : null;
+        const normalizeId = (rawId: unknown): string | null => {
+          if (typeof rawId === 'string') return rawId;
+          if (
+            rawId &&
+            typeof rawId === 'object' &&
+            'buffer' in rawId &&
+            (rawId as any).buffer instanceof Uint8Array
+          ) {
+            return Buffer.from((rawId as any).buffer).toString('hex');
+          }
+          return null;
+        };
 
-        let orgIdStr = typedSession.activeOrganizationId
+        const storedOrganizationId = typedSession.activeOrganizationId
           ? normalizeId(typedSession.activeOrganizationId)
           : null;
-        let projectIdStr = typedSession.activeProjectId
+        const storedProjectId = typedSession.activeProjectId
           ? normalizeId(typedSession.activeProjectId)
+          : null;
+        // null = production (default env); ObjectId string = non-default env
+        const storedEnvironmentId = typedSession.activeEnvironmentId
+          ? normalizeId(typedSession.activeEnvironmentId)
           : null;
 
         const userData = typedSession.userId
           ? await getUserById(typedSession.userId)
           : null;
 
-        // If the session does not have an active organization or project context, try to restore from the user's last active context
-        let isSessionUpdated = false;
-        if (userData) {
-          if (!orgIdStr && userData.lastActiveOrganizationId) {
-            orgIdStr = userData.lastActiveOrganizationId;
-            isSessionUpdated = true;
-          }
-          if (!projectIdStr && userData.lastActiveProjectId) {
-            projectIdStr = userData.lastActiveProjectId;
-            isSessionUpdated = true;
-          }
+        // Restore org/project context from user document when the session lacks it
+        const { organizationId, projectId } = await restoreSessionContext({
+          sessionId: typedSession.id,
+          currentOrganizationId: storedOrganizationId,
+          currentProjectId: storedProjectId,
+          lastActiveOrganizationId: userData?.lastActiveOrganizationId,
+          lastActiveProjectId: userData?.lastActiveProjectId,
+        });
 
-          if (isSessionUpdated) {
-            await dbClient
-              .db()
-              .collection('sessions')
-              .updateOne(
-                { id: typedSession.id },
-                {
-                  $set: {
-                    activeOrganizationId: orgIdStr,
-                    activeProjectId: projectIdStr,
-                  },
-                }
-              );
-            typedSession.activeOrganizationId = orgIdStr ?? undefined;
-            typedSession.activeProjectId = projectIdStr ?? undefined;
-          }
-        }
+        typedSession.activeOrganizationId = organizationId ?? undefined;
+        typedSession.activeProjectId = projectId ?? undefined;
 
-        const [orgData, projectData] = await Promise.all([
-          orgIdStr ? getOrganizationById(orgIdStr) : null,
-          projectIdStr ? getProjectById(projectIdStr) : null,
+        const [organizationData, projectData] = await Promise.all([
+          organizationId ? getOrganizationById(organizationId) : null,
+          projectId ? getProjectById(projectId) : null,
         ]);
 
         const userAPI: UserAPI | null = userData
           ? mapUserToAPI(userData)
           : null;
-        let organizationAPI: OrganizationAPI | null = orgData
-          ? mapOrganizationToAPI(orgData)
+        let organizationAPI: OrganizationAPI | null = organizationData
+          ? mapOrganizationToAPI(organizationData)
           : null;
         let projectAPI: ProjectAPI | null = projectData
           ? mapProjectToAPI(projectData)
           : null;
 
-        // Cleanup if normalization failed or data not found (Zombie session)
-        const shouldClearOrg = typedSession.activeOrganizationId && !orgData;
-        const shouldClearProject = typedSession.activeProjectId && !projectData;
+        // Resolve the active environment; null resolvedEnvironmentId = production
+        const {
+          environmentAPI: resolvedEnvironmentAPI,
+          resolvedEnvironmentId,
+        } = await resolveSessionEnvironment({
+          projectData,
+          sessionId: typedSession.id,
+          sessionEnvironmentId: storedEnvironmentId,
+        });
+        let environmentAPI = resolvedEnvironmentAPI;
 
-        if (shouldClearOrg || shouldClearProject) {
-          const updateDoc: any = {};
-          const userUpdateDoc: any = {};
-
-          if (shouldClearOrg) {
-            updateDoc.activeOrganizationId = null;
-            updateDoc.activeProjectId = null;
-            userUpdateDoc.lastActiveOrganizationId = null;
-            userUpdateDoc.lastActiveProjectId = null;
-
-            typedSession.activeOrganizationId = undefined;
-            typedSession.activeProjectId = undefined;
-            organizationAPI = null;
-            projectAPI = null;
-          } else if (shouldClearProject) {
-            updateDoc.activeProjectId = null;
-            userUpdateDoc.lastActiveProjectId = null;
-
-            typedSession.activeProjectId = undefined;
-            projectAPI = null;
-          }
-
-          const promises: Promise<any>[] = [
-            dbClient
-              .db()
-              .collection('sessions')
-              .updateOne({ id: typedSession.id }, { $set: updateDoc }),
-          ];
-
-          if (userData) {
-            const userIdObj =
-              typeof userData.id === 'string'
-                ? new Types.ObjectId(userData.id)
-                : userData.id;
-            promises.push(
-              dbClient
-                .db()
-                .collection('users')
-                .updateOne({ _id: userIdObj }, { $set: userUpdateDoc })
-            );
-          }
-
-          await Promise.all(promises);
+        if (resolvedEnvironmentId !== storedEnvironmentId) {
+          typedSession.activeEnvironmentId = resolvedEnvironmentId as any;
         }
 
-        const sessionWithNoPermission: SessionContext = {
-          session: typedSession,
-          user: userAPI!,
-          organization: organizationAPI ?? null,
-          project: projectAPI ?? null,
-          authType: 'session',
-        };
+        // Clear stale session references whose documents no longer exist
+        const zombieCleanup = await clearZombieSessionContext({
+          sessionId: typedSession.id,
+          userId: userData?.id ?? null,
+          storedOrganizationId: organizationId,
+          organizationExists: Boolean(organizationData),
+          storedProjectId: projectId,
+          projectExists: Boolean(projectData),
+        });
 
-        const formattedSession = formatSession(sessionWithNoPermission);
+        if (zombieCleanup) {
+          if (zombieCleanup.organizationCleared) {
+            typedSession.activeOrganizationId = undefined;
+            organizationAPI = null;
+          }
+          if (zombieCleanup.projectCleared) {
+            typedSession.activeProjectId = undefined;
+            typedSession.activeEnvironmentId = undefined;
+            projectAPI = null;
+            environmentAPI = null;
+          }
+        }
 
-        return mapSessionToAPI(formattedSession);
+        return mapSessionToAPI(
+          formatSession({
+            session: typedSession,
+            user: userAPI!,
+            organization: organizationAPI,
+            project: projectAPI,
+            environment: environmentAPI,
+            authType: 'session',
+          })
+        );
       }),
       lastLoginMethod({
         storeInDatabase: true, // adds user.lastLoginMethod in DB and session
@@ -351,7 +338,7 @@ export const getAuth = (dbClient: MongoClient): Auth => {
           await sendEmail({
             type: 'magicLink',
             to: email,
-            username: email.split('@')[0],
+            username: email.split('@')[0]!,
             magicLink: url,
           });
         },
@@ -464,5 +451,5 @@ export const getAuth = (dbClient: MongoClient): Auth => {
     },
   });
 
-  return auth;
+  return auth as any;
 };

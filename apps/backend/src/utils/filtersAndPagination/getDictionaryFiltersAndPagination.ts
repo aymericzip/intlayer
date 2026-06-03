@@ -73,6 +73,11 @@ export const getDictionaryFiltersAndPagination = (
     fetchAll,
   } = filtersRequest ?? {};
 
+  // null = production (default env); an ObjectId string = a specific non-default env.
+  // The session always carries this convention (set by the selectEnvironment endpoint).
+  const sessionEnvironmentId =
+    (req.session?.session as any)?.activeEnvironmentId ?? null;
+
   if (ids) {
     filters = { ...filters, _id: { $in: ensureArrayQueryFilter(ids) } };
   }
@@ -161,6 +166,18 @@ export const getDictionaryFiltersAndPagination = (
 
   if (sortBy && sortOrder && (sortOrder === 'asc' || sortOrder === 'desc')) {
     sortOptions = { [sortBy]: sortOrder === 'asc' ? 1 : -1 };
+  }
+
+  // Always scope by environment.
+  // Production (sessionEnvironmentId = null): match dicts with no environmentId set.
+  // Other envs: match dicts with the exact environmentId.
+  if (sessionEnvironmentId) {
+    filters = { ...filters, environmentId: sessionEnvironmentId };
+  } else {
+    filters = {
+      ...filters,
+      $or: [{ environmentId: null }, { environmentId: { $exists: false } }],
+    };
   }
 
   return { filters, sortOptions, ...pagination };

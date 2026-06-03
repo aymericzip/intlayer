@@ -1141,9 +1141,19 @@ export const selectProject = async (
       );
     }
 
+    // When selecting a project, reset to its default environment
+    const defaultEnvId =
+      project.environments?.find((e: any) => e.isDefault)?.id ??
+      project.environments?.[0]?.id;
+
     await SessionModel.updateOne(
       { _id: session.id },
-      { $set: { activeProjectId: String(projectId) } }
+      {
+        $set: {
+          activeProjectId: String(projectId),
+          activeEnvironmentId: defaultEnvId ? String(defaultEnvId) : null,
+        },
+      }
     );
 
     if (user) {
@@ -1223,7 +1233,7 @@ export const unselectProject = async (
   try {
     await SessionModel.updateOne(
       { _id: session.id },
-      { $set: { activeProjectId: null } }
+      { $set: { activeProjectId: null, activeEnvironmentId: null } }
     );
 
     if (user) {

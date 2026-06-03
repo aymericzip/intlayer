@@ -58,6 +58,11 @@ export const dictionarySchema = new Schema<DictionarySchema>(
       ref: 'User',
       required: true,
     },
+    environmentId: {
+      type: Schema.Types.ObjectId,
+      ref: 'Project',
+      default: null,
+    },
   },
   {
     timestamps: true,

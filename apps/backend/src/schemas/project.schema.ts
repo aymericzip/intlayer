@@ -8,6 +8,7 @@ import {
 } from '@utils/validation/validateProject';
 import { model, Schema } from 'mongoose';
 import type {
+  Environment,
   OAuth2Access,
   Project,
   ProjectModelType,
@@ -123,6 +124,22 @@ const repositorySchema = new Schema<Project['repository']>(
   }
 );
 
+const environmentSchema = new Schema<Environment>(
+  {
+    name: {
+      type: String,
+      required: true,
+      validate: {
+        validator: (value: string) => !/\s/.test(value),
+        message: 'Environment name must not contain spaces.',
+      },
+    },
+    isDefault: { type: Boolean, default: false },
+    configuration: projectConfigSchema,
+  },
+  { timestamps: true }
+);
+
 export const projectSchema = new Schema<ProjectSchema>(
   {
     organizationId: {
@@ -146,6 +163,10 @@ export const projectSchema = new Schema<ProjectSchema>(
     },
     imageUrl: {
       type: String,
+    },
+    environments: {
+      type: [environmentSchema],
+      default: [],
     },
     membersIds: {
       type: [Schema.Types.ObjectId],

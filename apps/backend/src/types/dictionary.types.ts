@@ -16,6 +16,7 @@ export type DictionaryCreationData = {
   priority?: number;
   importMode?: 'static' | 'dynamic' | 'fetch';
   tags?: string[];
+  environmentId?: string;
 };
 
 export type VersionedContentEl = {
@@ -37,6 +38,8 @@ export type DictionaryData = {
   priority?: number;
   importMode?: 'static' | 'dynamic' | 'fetch';
   tags?: string[];
+  /** If set, this dictionary belongs to a specific project environment. Null means shared (visible in all envs). */
+  environmentId?: Types.ObjectId | string | null;
 };
 
 export type Dictionary = DictionaryData & {

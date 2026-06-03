@@ -51,6 +51,12 @@ export const dictionaryKeyParamsSchema = {
   },
 } as const;
 
+export const environmentIdParamsSchema = {
+  type: 'object',
+  required: ['environmentId'],
+  properties: { environmentId: objectIdProperty },
+} as const;
+
 export const tagIdParamsSchema = {
   type: 'object',
   required: ['tagId'],

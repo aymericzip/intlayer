@@ -89,7 +89,16 @@ export const createProject = async (
     throw new GenericError('PROJECT_INVALID_FIELDS', { errors });
   }
 
-  return await ProjectModel.create(project);
+  // Ensure a default production environment always exists
+  const projectWithDefaultEnvironment: ProjectData = {
+    ...project,
+    environments:
+      project.environments && project.environments.length > 0
+        ? project.environments
+        : [{ name: 'production', isDefault: true } as any],
+  };
+
+  return await ProjectModel.create(projectWithDefaultEnvironment);
 };
 
 /**

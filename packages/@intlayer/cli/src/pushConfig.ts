@@ -10,6 +10,7 @@ import {
   getConfiguration,
 } from '@intlayer/config/node';
 import { checkCMSAuth, getAuthenticatedAPI } from './utils/checkAccess';
+import { selectCmsEnvironment } from './utils/selectCmsEnvironment';
 
 type PushOptions = {
   configOptions?: GetConfigurationOptions;
@@ -26,6 +27,8 @@ export const pushConfig = async (options?: PushOptions) => {
   if (!hasCMSAuth) return;
 
   const intlayerAPI = await getAuthenticatedAPI(config);
+
+  await selectCmsEnvironment(options?.configOptions?.env, intlayerAPI, config);
 
   // Push the project configuration
   const getDictionariesKeysResult =

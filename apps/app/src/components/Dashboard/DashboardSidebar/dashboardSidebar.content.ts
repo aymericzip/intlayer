@@ -1,4 +1,4 @@
-import { type Dictionary, t } from 'intlayer';
+import { type Dictionary, insert, t } from 'intlayer';
 
 const dashboardSidebarContent = {
   key: 'dashboard-sidebar',
@@ -724,6 +724,33 @@ const dashboardSidebarContent = {
       vi: 'Điều hướng thanh bên',
       uk: 'Навігація бічної панелі',
     }),
+
+    environment: t({
+      en: 'Environment',
+      fr: 'Environnement',
+      es: 'Entorno',
+      ru: 'Окружение',
+      ja: '環境',
+      ko: '환경',
+      zh: '环境',
+      de: 'Umgebung',
+      ar: 'البيئة',
+      it: 'Ambiente',
+      'en-GB': 'Environment',
+      pt: 'Ambiente',
+      hi: 'परिवेश',
+      tr: 'Ortam',
+      pl: 'Środowisko',
+      id: 'Lingkungan',
+      vi: 'Môi trường',
+      uk: 'Середовище',
+    }),
+
+    switchToName: insert(
+      t({
+        en: 'Switch to {{name}}',
+      })
+    ),
   },
   title: 'Dashboard sidebar navigation',
   description:

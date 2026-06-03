@@ -11,4 +11,5 @@ export const mapSessionToAPI = (
   user: mapUserToAPI(session.user),
   organization: mapOrganizationToAPI(session.organization),
   project: mapProjectToAPI(session.project),
+  environment: session.environment ?? null,
 });

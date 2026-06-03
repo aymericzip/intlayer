@@ -99,9 +99,19 @@ const buildSystemFields = (
 
     try {
       const requireFunction = getProjectRequire(projectBaseDir);
-      absolutePath = requireFunction.resolve(pathInput, {
-        paths: [projectBaseDir],
-      });
+      try {
+        absolutePath = requireFunction.resolve(pathInput, {
+          paths: [projectBaseDir],
+        });
+      } catch (err) {
+        if (!pathInput.startsWith('.') && !isAbsolute(pathInput)) {
+          absolutePath = requireFunction.resolve(`${pathInput}/package.json`, {
+            paths: [projectBaseDir],
+          });
+        } else {
+          throw err;
+        }
+      }
     } catch {
       absolutePath = isAbsolute(pathInput)
         ? pathInput
@@ -175,14 +185,34 @@ const buildContentFields = (
 
     try {
       const requireFunction = getProjectRequire(systemConfig.baseDir);
-      absolutePath = requireFunction.resolve(pathInput, {
-        paths: [systemConfig.baseDir],
-      });
-    } catch {
       try {
-        absolutePath = require.resolve(pathInput, {
+        absolutePath = requireFunction.resolve(pathInput, {
           paths: [systemConfig.baseDir],
         });
+      } catch (err) {
+        if (!pathInput.startsWith('.') && !isAbsolute(pathInput)) {
+          absolutePath = requireFunction.resolve(`${pathInput}/package.json`, {
+            paths: [systemConfig.baseDir],
+          });
+        } else {
+          throw err;
+        }
+      }
+    } catch {
+      try {
+        try {
+          absolutePath = require.resolve(pathInput, {
+            paths: [systemConfig.baseDir],
+          });
+        } catch (err) {
+          if (!pathInput.startsWith('.') && !isAbsolute(pathInput)) {
+            absolutePath = require.resolve(`${pathInput}/package.json`, {
+              paths: [systemConfig.baseDir],
+            });
+          } else {
+            throw err;
+          }
+        }
       } catch {
         absolutePath = isAbsolute(pathInput)
           ? pathInput

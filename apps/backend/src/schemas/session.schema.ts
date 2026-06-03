@@ -13,6 +13,10 @@ export const sessionSchema = new Schema<SessionSchema>(
       ref: 'Project',
       required: false,
     },
+    activeEnvironmentId: {
+      type: Schema.Types.ObjectId,
+      required: false,
+    },
   },
   {
     timestamps: true,

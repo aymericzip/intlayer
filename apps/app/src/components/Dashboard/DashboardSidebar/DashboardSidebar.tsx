@@ -1,6 +1,7 @@
-import { useSession } from '@intlayer/design-system/api';
+import { useSelectEnvironment, useSession } from '@intlayer/design-system/api';
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
+import { DropDown } from '@intlayer/design-system/drop-down';
 import { useDevice } from '@intlayer/design-system/hooks';
 import { KeyboardShortcut } from '@intlayer/design-system/keyboard-shortcut';
 import { PopoverStatic } from '@intlayer/design-system/popover';
@@ -25,10 +26,13 @@ import {
   ArrowLeftToLine,
   Book,
   Building2,
+  Check,
+  ChevronsUpDown,
   FileText,
   FolderKanban,
   Globe,
   HandCoins,
+  Layers,
   type LucideIcon,
   MessageSquare,
   PenTool,
@@ -186,15 +190,32 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
   className,
   items,
 }) => {
-  const { collapseButton, dashboardNavigation, sidebarNavigation } =
-    useIntlayer('dashboard-sidebar');
+  const {
+    collapseButton,
+    dashboardNavigation,
+    sidebarNavigation,
+    environment,
+    switchToName,
+  } = useIntlayer('dashboard-sidebar');
   const [isCollapsed, setIsCollapsed] = useState(false);
   const { isMobile } = useDevice();
   const { pathname } = useLocation();
   const { session } = useSession();
   const shouldReduceMotion = useReducedMotion();
 
-  const { organization, project, roles } = session ?? {};
+  const {
+    organization,
+    project,
+    environment: activeEnv,
+    roles,
+  } = session ?? {};
+  const { mutate: selectEnvironment, isPending: isSelectingEnv } =
+    useSelectEnvironment();
+  const environments = project?.environments ?? [];
+  const currentEnv =
+    environments.find((env) => String(env.id) === String(activeEnv?.id)) ||
+    environments.find((env) => env.isDefault) ||
+    environments[0];
   const isSuperAdmin =
     roles?.some((role: string) => role.toLowerCase() === 'admin') ?? false;
 
@@ -324,6 +345,158 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
         {!isCollapsed && process.env.NODE_ENV === 'development' && (
           <ReviewerMarketplaceBanner />
         )}
+
+        {/* Environment switcher — shown when project has >1 environments */}
+        {environments.length > 1 &&
+          (isCollapsed ? (
+            <div className="my-4 flex w-full justify-center border-text/10 border-b border-dashed pb-4">
+              <DropDown identifier="environment-sidebar-collapsed">
+                <DropDown.Trigger
+                  identifier="environment-sidebar-collapsed"
+                  size="icon-sm"
+                  variant="outline"
+                  color="text"
+                  roundedSize="full"
+                  className="border-none p-0!"
+                  label={environment}
+                >
+                  <div className="flex items-center justify-center p-1">
+                    <Layers className="size-4 text-neutral" />
+                  </div>
+                </DropDown.Trigger>
+                <DropDown.Panel
+                  identifier="environment-sidebar-collapsed"
+                  isFocusable
+                  isOverable
+                  align="start"
+                  yAlign="above"
+                >
+                  <Container
+                    className="min-w-[150px] gap-1 border border-neutral/10"
+                    transparency="xs"
+                    padding="sm"
+                    roundedSize="2xl"
+                  >
+                    {environments.map((env) => {
+                      const isActive =
+                        String(env.id) === String(activeEnv?.id) ||
+                        (!activeEnv && env.isDefault);
+
+                      return (
+                        <Button
+                          key={String(env.id)}
+                          type="button"
+                          onClick={() =>
+                            !isActive &&
+                            !isSelectingEnv &&
+                            selectEnvironment(String(env.id))
+                          }
+                          label={switchToName({ name: env.name })}
+                          disabled={isActive || isSelectingEnv}
+                          isActive={isActive}
+                          variant="hoverable"
+                          color="text"
+                          size="sm"
+                          className="w-full justify-start"
+                          Icon={
+                            isActive
+                              ? Check
+                              : () => <span className="size-4"></span>
+                          }
+                        >
+                          {env.name}
+                          {env.isDefault && (
+                            <span className="ml-auto rounded bg-text/10 px-1 text-[10px]">
+                              default
+                            </span>
+                          )}
+                        </Button>
+                      );
+                    })}
+                  </Container>
+                </DropDown.Panel>
+              </DropDown>
+            </div>
+          ) : (
+            <div className="my-4 flex w-full flex-col border-text/10 border-b border-dashed px-2 pb-4">
+              <DropDown
+                identifier="environment-sidebar-expanded"
+                className="w-full min-w-0"
+              >
+                <DropDown.Trigger
+                  identifier="environment-sidebar-expanded"
+                  variant="hoverable"
+                  color="neutral"
+                  className="w-full min-w-0 p-1"
+                  label={environment}
+                >
+                  <div className="flex w-full items-center gap-3 px-2 py-1">
+                    <Layers className="size-4 shrink-0 text-neutral" />
+                    <span className="flex-1 truncate text-left font-medium text-sm text-text">
+                      {currentEnv?.name}
+                    </span>
+                    {currentEnv?.isDefault && (
+                      <span className="rounded bg-text/10 px-1 text-[10px]">
+                        default
+                      </span>
+                    )}
+                    <ChevronsUpDown className="size-4 shrink-0 text-neutral" />
+                  </div>
+                </DropDown.Trigger>
+                <DropDown.Panel
+                  identifier="environment-sidebar-expanded"
+                  isFocusable
+                  isOverable
+                  align="end"
+                  yAlign="above"
+                >
+                  <Container
+                    className="min-w-40 gap-1 border border-neutral/10"
+                    transparency="xs"
+                    padding="sm"
+                    roundedSize="2xl"
+                  >
+                    {environments.map((env) => {
+                      const isActive =
+                        String(env.id) === String(activeEnv?.id) ||
+                        (!activeEnv && env.isDefault);
+
+                      return (
+                        <Button
+                          key={String(env.id)}
+                          type="button"
+                          onClick={() =>
+                            !isActive &&
+                            !isSelectingEnv &&
+                            selectEnvironment(String(env.id))
+                          }
+                          label={switchToName({ name: env.name })}
+                          disabled={isActive || isSelectingEnv}
+                          isActive={isActive}
+                          variant="hoverable"
+                          color="text"
+                          size="sm"
+                          className="w-full justify-start"
+                          Icon={
+                            isActive
+                              ? Check
+                              : () => <span className="size-4"></span>
+                          }
+                        >
+                          {env.name}
+                          {env.isDefault && (
+                            <span className="ml-auto rounded bg-text/10 px-1 text-[10px]">
+                              default
+                            </span>
+                          )}
+                        </Button>
+                      );
+                    })}
+                  </Container>
+                </DropDown.Panel>
+              </DropDown>
+            </div>
+          ))}
         <div className="flex w-full justify-start">
           <PopoverStatic identifier="dashboard-nav-collapse" className="w-full">
             <Button

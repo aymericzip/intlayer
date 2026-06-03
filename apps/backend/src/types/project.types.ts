@@ -9,6 +9,20 @@ export type ProjectCreationData = {
   name: Project['name'];
 };
 
+export type EnvironmentData = {
+  name: string;
+  isDefault: boolean;
+  configuration?: ProjectConfiguration;
+};
+
+export type Environment = EnvironmentData & {
+  id: Types.ObjectId;
+  createdAt: number;
+  updatedAt: number;
+};
+
+export type EnvironmentAPI = ObjectIdToString<Environment>;
+
 type ProjectConfigInternationalization = Partial<
   Pick<IntlayerConfig['internationalization'], 'locales' | 'defaultLocale'>
 >;
@@ -89,6 +103,7 @@ export type ProjectData = {
   autoFill?: boolean;
   /** Screenshot of the application URL, generated automatically when applicationURL is set */
   imageUrl?: string;
+  environments?: Environment[];
 };
 
 export type AccessKeyData = {

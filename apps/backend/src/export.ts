@@ -15,6 +15,7 @@ export type {
 } from '@controllers/bitbucket.controller';
 export type * from '@controllers/cliSessionToken.controller';
 export type * from '@controllers/dictionary.controller';
+export type * from '@controllers/environment.controller';
 export type * from '@controllers/eventListener.controller';
 export type {
   GitHubAuthCallbackBody,
@@ -59,6 +60,7 @@ export { getAiRoutes } from '@routes/ai.routes';
 export { getAuditRoutes } from '@routes/audit.routes';
 export { getBitbucketRoutes } from '@routes/bitbucket.routes';
 export { getDictionaryRoutes } from '@routes/dictionary.routes';
+export { getEnvironmentRoutes } from '@routes/environment.routes';
 export { getGithubRoutes } from '@routes/github.routes';
 export { getGitlabRoutes } from '@routes/gitlab.routes';
 export { getNewsletterRoutes } from '@routes/newsletter.routes';
