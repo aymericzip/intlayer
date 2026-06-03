@@ -25,5 +25,5 @@ export const detectPackageName = (searchDir: string): PackageName => {
     }
   }
 
-  return packageList[packageList.length - 1];
+  return packageList[packageList.length - 1] ?? 'intlayer';
 };

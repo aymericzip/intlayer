@@ -46,7 +46,7 @@ const extractAstroFrontmatter = (code: string): ScriptBlock[] => {
 
   const openingFence = match[0].slice(0, match[0].indexOf('\n') + 1); // "---\n" or "---\r\n"
   const contentStartOffset = openingFence.length;
-  const content = match[1];
+  const content = match[1] ?? '';
 
   return [
     {
@@ -76,9 +76,10 @@ const extractSFCScriptBlocks = (code: string): ScriptBlock[] => {
     // match[0]: full `<script ATTRS>CONTENT</script>`
     // match[1]: the attribute string (may be empty)
     // match[2]: the script content
-    const openingTagLength = '<script'.length + match[1].length + '>'.length;
+    const attrs = match[1] ?? '';
+    const openingTagLength = '<script'.length + attrs.length + '>'.length;
     const contentStart = match.index + openingTagLength;
-    const content = match[2];
+    const content = match[2] ?? '';
     blocks.push({
       content,
       contentStartOffset: contentStart,

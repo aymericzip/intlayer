@@ -26,7 +26,9 @@ const getInsertionFields = (template: string): string[] => {
     result = regex.exec(template)
   ) {
     match = result;
-    const field = match[1].trim();
+    const fieldMatch = match[1];
+    if (!fieldMatch) continue;
+    const field = fieldMatch.trim();
     if (!fields.includes(field)) fields.push(field);
   }
   return fields;
@@ -80,7 +82,10 @@ export const mergeWithExistingMultilingualDictionary = (
   // Pruning: remove keys not in extractedContent
   const finalContent: DictionaryContentMap = {};
   for (const key in extractedContent) {
-    finalContent[key] = mergedContent[key];
+    const contentNode = mergedContent[key];
+    if (contentNode) {
+      finalContent[key] = contentNode;
+    }
   }
 
   // Promote any key whose source text contains {{vars}} to an insertion node
@@ -129,7 +134,10 @@ export const mergeWithExistingPerLocaleDictionary = (
   // Pruning: remove keys not in extractedContent
   const finalContent: Record<string, string> = {};
   for (const key in extractedContent) {
-    finalContent[key] = mergedContent[key];
+    const contentStr = mergedContent[key];
+    if (contentStr) {
+      finalContent[key] = contentStr;
+    }
   }
 
   // Promote any key whose source text contains {{vars}} to an insertion node

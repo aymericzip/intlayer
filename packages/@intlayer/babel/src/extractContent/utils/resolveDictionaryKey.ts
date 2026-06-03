@@ -23,7 +23,7 @@ export const resolveDictionaryKey = (
   const { fileExtensions } = configuration.content;
 
   const dirName = dirname(filePath);
-  const firstExtension = fileExtensions[0];
+  const firstExtension = fileExtensions[0] ?? '.ts';
   const extension = firstExtension.startsWith('.')
     ? firstExtension
     : `.${firstExtension}`;

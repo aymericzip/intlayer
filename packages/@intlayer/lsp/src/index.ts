@@ -496,7 +496,7 @@ connection.onDefinition(async (parameters) => {
     return null;
   }
 
-  // Cursor on the key string / function name → navigate to content declaration
+  // Cursor on the key string / function name → navigate to content declaration.
   const key = findKeyAtOffset(text, offset);
   if (key) {
     log(

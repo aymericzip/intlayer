@@ -240,8 +240,17 @@ export const processTsxFile = (
       childrenToReplace.length > 0
     ) {
       const accessStr = `{${contentAccessCode}}`;
-      const start = childrenToReplace[0].start!;
-      const end = childrenToReplace[childrenToReplace.length - 1].end!;
+      const firstChild = childrenToReplace[0];
+      const lastChild = childrenToReplace[childrenToReplace.length - 1];
+      if (
+        !firstChild ||
+        !lastChild ||
+        firstChild.start == null ||
+        lastChild.end == null
+      )
+        continue;
+      const start = firstChild.start;
+      const end = lastChild.end;
       textEdits.push({ start, end, replacement: accessStr });
     } else if (
       type === 'jsx-insertion' &&
@@ -258,9 +267,18 @@ export const processTsxFile = (
         })
         .join(', ');
 
+      const firstChild = childrenToReplace[0];
+      const lastChild = childrenToReplace[childrenToReplace.length - 1];
+      if (
+        !firstChild ||
+        !lastChild ||
+        firstChild.start == null ||
+        lastChild.end == null
+      )
+        continue;
       const accessStr = `{${contentAccessCode}({ ${objProps} })}`;
-      const start = childrenToReplace[0].start!;
-      const end = childrenToReplace[childrenToReplace.length - 1].end!;
+      const start = firstChild.start;
+      const end = lastChild.end;
       textEdits.push({ start, end, replacement: accessStr });
     } else if (type === 'template-literal' && path.isTemplateLiteral()) {
       let replacement = `${contentAccessCode}`;
@@ -328,11 +346,13 @@ export const processTsxFile = (
             objectPatternNode.properties[
               objectPatternNode.properties.length - 1
             ];
-          textEdits.push({
-            start: lastProp.end!,
-            end: lastProp.end!,
-            replacement: `, ${missingKeys.join(', ')}`,
-          });
+          if (lastProp?.end != null) {
+            textEdits.push({
+              start: lastProp.end,
+              end: lastProp.end,
+              replacement: `, ${missingKeys.join(', ')}`,
+            });
+          }
         }
       }
     } else {
@@ -349,10 +369,13 @@ export const processTsxFile = (
         // Find the last import or directive to inject the getIntlayer call
         let insertPos = 0;
         if (componentPath.node.directives.length > 0) {
-          insertPos =
+          const lastDirective =
             componentPath.node.directives[
               componentPath.node.directives.length - 1
-            ].end!;
+            ];
+          if (lastDirective?.end != null) {
+            insertPos = lastDirective.end;
+          }
         }
         for (const stmt of componentPath.node.body) {
           if (t.isImportDeclaration(stmt)) {
@@ -361,7 +384,10 @@ export const processTsxFile = (
         }
 
         if (insertPos === 0 && componentPath.node.body.length > 0) {
-          insertPos = componentPath.node.body[0].start!;
+          const firstBodyStmt = componentPath.node.body[0];
+          if (firstBodyStmt?.start != null) {
+            insertPos = firstBodyStmt.start;
+          }
         }
 
         textEdits.push({
@@ -458,10 +484,16 @@ export const processTsxFile = (
       let insertPos = 0;
 
       if (ast.program.body.length > 0) {
-        insertPos = ast.program.body[0].start!;
+        const firstBodyStmt = ast.program.body[0];
+        if (firstBodyStmt?.start != null) {
+          insertPos = firstBodyStmt.start;
+        }
       } else if (ast.program.directives && ast.program.directives.length > 0) {
-        insertPos =
-          ast.program.directives[ast.program.directives.length - 1].end!;
+        const lastDirective =
+          ast.program.directives[ast.program.directives.length - 1];
+        if (lastDirective?.end != null) {
+          insertPos = lastDirective.end;
+        }
 
         if (fileCode[insertPos] === ';') insertPos++;
 
@@ -473,10 +505,12 @@ export const processTsxFile = (
         return;
       }
 
+      const firstBodyStmt = ast.program.body[0];
       if (
         insertPos === 0 ||
         (ast.program.body.length > 0 &&
-          insertPos === ast.program.body[0].start!)
+          firstBodyStmt?.start != null &&
+          insertPos === firstBodyStmt.start)
       ) {
         textEdits.push({
           start: insertPos,

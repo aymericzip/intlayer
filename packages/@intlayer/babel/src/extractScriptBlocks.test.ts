@@ -15,7 +15,7 @@ describe('extractScriptBlocks', () => {
       const blocks = extractScriptBlocks('/src/pages/index.astro', code);
 
       expect(blocks).toHaveLength(1);
-      expect(blocks[0].content).toBe(
+      expect(blocks[0]?.content).toBe(
         'import { getIntlayer } from "intlayer";\nconst { title } = getIntlayer("home", locale);'
       );
     });
@@ -26,7 +26,10 @@ describe('extractScriptBlocks', () => {
       const blocks = extractScriptBlocks('/src/pages/index.astro', code);
 
       expect(blocks).toHaveLength(1);
-      const { contentStartOffset, contentEndOffset, content } = blocks[0];
+      const firstBlock = blocks[0];
+      expect(firstBlock).toBeDefined();
+      if (!firstBlock) return;
+      const { contentStartOffset, contentEndOffset, content } = firstBlock;
       expect(code.slice(contentStartOffset, contentEndOffset)).toBe(content);
     });
 
@@ -36,7 +39,7 @@ describe('extractScriptBlocks', () => {
       const blocks = extractScriptBlocks('/src/pages/index.astro', code);
 
       expect(blocks).toHaveLength(1);
-      expect(blocks[0].content).toBe('const x = 1;');
+      expect(blocks[0]?.content).toBe('const x = 1;');
     });
 
     it('returns empty array when no frontmatter fence is present (static page)', () => {
@@ -67,7 +70,7 @@ describe('extractScriptBlocks', () => {
 
       const blocks = extractScriptBlocks('/page.astro', code);
 
-      expect(blocks[0].content).not.toContain('---');
+      expect(blocks[0]?.content).not.toContain('---');
     });
   });
 
@@ -79,7 +82,7 @@ describe('extractScriptBlocks', () => {
       const blocks = extractScriptBlocks('/src/App.vue', code);
 
       expect(blocks).toHaveLength(1);
-      expect(blocks[0].content).toBe('\nconst x = 1;\n');
+      expect(blocks[0]?.content).toBe('\nconst x = 1;\n');
     });
 
     it('returns empty array for a template-only Vue SFC', () => {
@@ -99,9 +102,9 @@ describe('extractScriptBlocks', () => {
       const blocks = extractScriptBlocks('/src/Page.tsx', code);
 
       expect(blocks).toHaveLength(1);
-      expect(blocks[0].content).toBe(code);
-      expect(blocks[0].contentStartOffset).toBe(0);
-      expect(blocks[0].contentEndOffset).toBe(code.length);
+      expect(blocks[0]?.content).toBe(code);
+      expect(blocks[0]?.contentStartOffset).toBe(0);
+      expect(blocks[0]?.contentEndOffset).toBe(code.length);
     });
   });
 
@@ -110,8 +113,12 @@ describe('extractScriptBlocks', () => {
       const original = '---\nconst x = 1;\n---\n<h1>hi</h1>';
       const blocks = extractScriptBlocks('/page.astro', original);
 
+      const firstBlock = blocks[0];
+      expect(firstBlock).toBeDefined();
+      if (!firstBlock) return;
+
       const result = injectScriptBlocks(original, [
-        { block: blocks[0], modifiedContent: 'const x = 42;' },
+        { block: firstBlock, modifiedContent: 'const x = 42;' },
       ]);
 
       expect(result).toBe('---\nconst x = 42;\n---\n<h1>hi</h1>');

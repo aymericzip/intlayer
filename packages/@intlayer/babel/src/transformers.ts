@@ -143,7 +143,7 @@ export const renameFieldsInSourceFile = async (
 
   const isSFC =
     scriptBlocks.length > 0 &&
-    (scriptBlocks[0].contentStartOffset > 0 || scriptBlocks.length > 1);
+    ((scriptBlocks[0]?.contentStartOffset ?? 0) > 0 || scriptBlocks.length > 1);
 
   if (isSFC) {
     // Raw SFC: rename each script block individually and inject back.

@@ -368,7 +368,7 @@ export const intlayerOptimizeBabelPlugin = (babel: {
                 arg.expressions.length === 0 &&
                 arg.quasis.length === 1
               ) {
-                key = arg.quasis[0].value.cooked ?? arg.quasis[0].value.raw;
+                key = arg.quasis[0]?.value.cooked ?? arg.quasis[0]?.value.raw;
               }
               if (!key) return;
               const dictionaryOverrideMode =
@@ -472,7 +472,7 @@ export const intlayerOptimizeBabelPlugin = (babel: {
                 arg.expressions.length === 0 &&
                 arg.quasis.length === 1
               ) {
-                key = arg.quasis[0].value.cooked ?? arg.quasis[0].value.raw;
+                key = arg.quasis[0]?.value.cooked ?? arg.quasis[0]?.value.raw;
               }
               if (!key) return;
 

@@ -24,7 +24,8 @@ export const generateShortFieldName = (index: number): string => {
   const ALPHABET = 'abcdefghijklmnopqrstuvwxyz';
   const remainder = index % ALPHABET.length;
   const quotient = Math.floor(index / ALPHABET.length);
-  return quotient === 0
+
+  return quotient === 0 && ALPHABET[remainder]
     ? ALPHABET[remainder]
     : generateShortFieldName(quotient - 1) + ALPHABET[remainder];
 };
@@ -124,7 +125,11 @@ export const buildNestedRenameMapFromContent = (
 
   for (let i = 0; i < sortedKeys.length; i++) {
     const key = sortedKeys[i];
+
+    if (!key) continue;
+
     const children = buildNestedRenameMapFromContent(record[key]);
+
     renameMap.set(key, { shortName: generateShortFieldName(i), children });
   }
 
@@ -386,7 +391,8 @@ export const makeFieldRenameBabelPlugin =
               } else if (
                 babelTypes.isTemplateLiteral(firstArgument) &&
                 firstArgument.expressions.length === 0 &&
-                firstArgument.quasis.length === 1
+                firstArgument.quasis.length === 1 &&
+                firstArgument.quasis[0]
               ) {
                 dictionaryKey =
                   firstArgument.quasis[0].value.cooked ??

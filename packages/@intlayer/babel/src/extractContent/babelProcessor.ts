@@ -87,7 +87,10 @@ export const handleJsxInsertionBabel = (
           hasVariables = true;
         } else if (t.isTemplateLiteral(expr)) {
           for (let i = 0; i < expr.quasis.length; i++) {
-            parts.push({ type: 'text', value: expr.quasis[i].value.raw });
+            parts.push({
+              type: 'text',
+              value: expr.quasis[i]?.value.raw ?? '',
+            });
             if (i < expr.expressions.length) {
               const subExpr = expr.expressions[i];
               if (t.isIdentifier(subExpr)) {
@@ -487,7 +490,7 @@ export const extractBabelContentForComponents = (
       let hasSignificantText = false;
 
       for (let i = 0; i < quasis.length; i++) {
-        const text = quasis[i].value.raw;
+        const text = quasis[i]?.value.raw ?? '';
         combinedString += text;
         if (text.trim().length > 0) hasSignificantText = true;
 

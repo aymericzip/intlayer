@@ -136,7 +136,7 @@ export const resolveContentFilePaths = async (
     componentExtension: extension,
     format: componentFormat!,
     locale: targetLocale,
-    extension: configuration.content.fileExtensions[0],
+    extension: configuration.content.fileExtensions[0] ?? '.ts',
   };
 
   // Object output: each locale has its own pattern → always per-locale

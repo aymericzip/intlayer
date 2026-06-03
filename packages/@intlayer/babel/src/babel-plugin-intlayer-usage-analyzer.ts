@@ -606,8 +606,8 @@ export const makeUsageAnalyzerBabelPlugin =
                 firstArgument.quasis.length === 1
               ) {
                 dictionaryKey =
-                  firstArgument.quasis[0].value.cooked ??
-                  firstArgument.quasis[0].value.raw;
+                  firstArgument.quasis[0]?.value.cooked ??
+                  firstArgument.quasis[0]?.value.raw;
               }
 
               if (!dictionaryKey) return; // dynamic key – cannot resolve which dictionary
