@@ -14,18 +14,11 @@ type DocHeaderProps = {
 };
 
 const formatDate = (date: Date): string => {
-  // Ensure the input is a Date object
   if (!(date instanceof Date)) {
     throw new Error('Input must be a valid Date object');
   }
 
-  // Extract the parts of the date
-  const day = String(date.getDate()).padStart(2, '0'); // Ensure 2 digits
-  const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
-  const year = date.getFullYear();
-
-  // Combine them in the desired format
-  return `${day}-${month}-${year}`;
+  return date.toISOString().split('T')[0];
 };
 
 export const CreativeWorkHeader = ({
@@ -48,7 +41,7 @@ export const CreativeWorkHeader = ({
     },
     name: creativeWorkName,
     text: creativeWorkContent,
-    about: creativeWorkDescription,
+    description: creativeWorkDescription,
     url,
     datePublished: datePublished ? formatDate(datePublished) : undefined,
     dateModified: dateModified ? formatDate(dateModified) : undefined,
@@ -65,7 +58,7 @@ export const CreativeWorkHeader = ({
     <script
       type="application/ld+json"
       dangerouslySetInnerHTML={{
-        __html: JSON.stringify(creativeWork),
+        __html: JSON.stringify(creativeWork).replace(/</g, '\\u003c'),
       }}
     />
   );

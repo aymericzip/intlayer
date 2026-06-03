@@ -1,3 +1,5 @@
+/** biome-ignore-all lint/security/noDangerouslySetInnerHtml: No choice */
+
 import { Website_Home } from '@intlayer/design-system/routes';
 import { useIntlayer } from 'next-intlayer/server';
 
@@ -60,7 +62,7 @@ export const CreativeWorkHeader = ({
     headline: creativeWorkName,
     image: ogImageUrl,
     text: creativeWorkContent,
-    about: creativeWorkDescription,
+    description: creativeWorkDescription,
     url,
     datePublished: datePublished ? formatDate(datePublished) : undefined,
     dateModified: dateModified ? formatDate(dateModified) : undefined,
@@ -78,7 +80,7 @@ export const CreativeWorkHeader = ({
       type="application/ld+json"
       // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD must be inlined for crawlers
       dangerouslySetInnerHTML={{
-        __html: JSON.stringify(creativeWork),
+        __html: JSON.stringify(creativeWork).replace(/</g, '\\u003c'),
       }}
     />
   );

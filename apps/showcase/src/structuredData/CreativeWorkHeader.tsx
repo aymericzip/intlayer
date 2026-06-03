@@ -1,3 +1,5 @@
+/** biome-ignore-all lint/security/noDangerouslySetInnerHtml: No choice */
+
 import { useIntlayer } from 'react-intlayer';
 
 type DocHeaderProps = {
@@ -16,11 +18,7 @@ const formatDate = (date: Date): string => {
     throw new Error('Input must be a valid Date object');
   }
 
-  const day = String(date.getDate()).padStart(2, '0');
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const year = date.getFullYear();
-
-  return `${day}-${month}-${year}`;
+  return date.toISOString().split('T')[0];
 };
 
 export const CreativeWorkHeader = ({
@@ -43,7 +41,7 @@ export const CreativeWorkHeader = ({
     },
     name: creativeWorkName,
     text: creativeWorkContent,
-    about: creativeWorkDescription,
+    description: creativeWorkDescription,
     url,
     datePublished: datePublished ? formatDate(datePublished) : undefined,
     dateModified: dateModified ? formatDate(dateModified) : undefined,
@@ -60,7 +58,7 @@ export const CreativeWorkHeader = ({
     <script
       type="application/ld+json"
       dangerouslySetInnerHTML={{
-        __html: JSON.stringify(creativeWork),
+        __html: JSON.stringify(creativeWork).replace(/</g, '\\u003c'),
       }}
     />
   );
