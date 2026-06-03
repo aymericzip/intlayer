@@ -36,8 +36,11 @@
   "exports": {
     ".": {
       "types": "./dist/types/index.d.ts",
-      "require": "./dist/esm/index.mjs",
       "import": "./dist/esm/index.mjs"
+    },
+    "./utils": {
+      "types": "./dist/types/utils.d.ts",
+      "import": "./dist/esm/utils.mjs"
     },
     "./package.json": "./package.json"
   },
@@ -48,6 +51,9 @@
     "*": {
       ".": [
         "./dist/types/index.d.ts"
+      ],
+      "utils": [
+        "./dist/types/utils.d.ts"
       ],
       "package.json": [
         "./package.json"
@@ -70,29 +76,19 @@
     "format:fix": "bun --bun biome format --write .",
     "lint": "bun --bun biome lint .",
     "lint:fix": "bun --bun biome lint --write .",
-    "manange:permissions": "bun -e \"require('fs').chmodSync('dist/esm/index.mjs', 0o755)\"",
-    "process-files": "ts-node src/transpiler/processFilesCLI.ts --dir $npm_config_dir --extension $npm_config_extension --no-node-snapshot",
     "prepublish": "cp -f ../../../README.md ./README.md",
-    "publish": "bun publish || true",
-    "publish:canary": "bun publish --access public --tag canary || true",
-    "publish:latest": "bun publish --access public --tag latest || true",
-    "start": "bun start:stdio",
-    "start:client": "bun dist/esm/client/sse.mjs",
-    "start:docker": "docker run --rm -p 3000:3000 --name intlayer-mcp-app intlayer-mcp",
-    "start:inspector": "npx @modelcontextprotocol/inspector bun dist/esm/server/stdio.mjs",
-    "start:inspector:sse": "npx @modelcontextprotocol/inspector bun dist/esm/server/sse.mjs",
-    "start:sse": "bun dist/esm/server/sse.mjs",
-    "start:stdio": "bun dist/esm/server/stdio.mjs",
     "test": "bun --bun vitest run",
     "test:watch": "bun --bun vitest",
     "typecheck": "tsc --noEmit --project tsconfig.types.json"
   },
   "dependencies": {
+    "@intlayer/chokidar": "^8.11.3",
     "@intlayer/config": "workspace:*",
     "@intlayer/types": "workspace:*",
     "@intlayer/unmerged-dictionaries-entry": "workspace:*",
-    "vscode-languageserver": "^9.0.1",
-    "vscode-languageserver-textdocument": "^1.0.12"
+    "oxc-parser": "0.134.0",
+    "vscode-languageserver": "9.0.1",
+    "vscode-languageserver-textdocument": "1.0.12"
   },
   "devDependencies": {
     "@types/node": "25.9.1",
@@ -106,8 +102,5 @@
   },
   "engines": {
     "node": ">=14.18"
-  },
-  "bug": {
-    "url": "https://github.com/aymericzip/intlayer/issues"
   }
 }

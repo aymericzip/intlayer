@@ -1,34 +1,43 @@
-const INTLAYER_GETTERS = ['useIntlayer', 'getIntlayer'] as const;
-
-// \s* deliberately uses \s (which includes \n) so multi-line calls match:
-//   useIntlayer(
-//     "my-key"
-//   )
-// Capture group 3 is the dictionary key.
-const buildGetterRegularExpression = () =>
-  new RegExp(
-    `\\b(${INTLAYER_GETTERS.join('|')})\\b\\s*(?:<[^<>()]*>)?\\s*\\(\\s*(['"\`])([^'"\`]+)\\2`,
-    'g'
-  );
+import {
+  getFirstStringArg,
+  isIntlayerCall,
+  parseText,
+  walkAst,
+} from './oxcUtils';
 
 /**
- * Scan `text` for an Intlayer getter call whose match span contains `offset`.
- * Returns the dictionary key string, or `null` if the cursor is not inside any
- * recognised call.
+ * Scan `text` for a useIntlayer / getIntlayer call whose AST span contains
+ * `offset`.  Returns the dictionary key string, or `null` when the cursor is
+ * not inside any recognised call.
+ *
+ * Handles:
+ *   useIntlayer("my-key")
+ *   getIntlayer<Type>("my-key", locale)
+ *   useIntlayer(
+ *     "my-key"          ← multi-line
+ *   )
+ *   useIntlayer(`my-key`)
  */
 export const findKeyAtOffset = (
   text: string,
   offset: number
 ): string | null => {
-  const regularExpression = buildGetterRegularExpression();
+  const program = parseText(text);
+  if (!program) return null;
 
-  for (const match of text.matchAll(regularExpression)) {
-    const start = match.index;
-    const end = start + match[0].length;
+  let result: string | null = null;
 
-    if (offset >= start && offset <= end) {
-      return match[3] ?? null;
-    }
-  }
-  return null;
+  walkAst(program, (node) => {
+    if (result) return true; // already found — prune remaining
+    if (!isIntlayerCall(node)) return;
+
+    const start = node['start'] as number;
+    const end = node['end'] as number;
+    if (offset < start || offset > end) return true; // outside span — prune
+
+    result = getFirstStringArg(node);
+    return true;
+  });
+
+  return result;
 };

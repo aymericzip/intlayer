@@ -1,4 +1,5 @@
-import { isAbsolute, normalize, relative, resolve } from 'node:path';
+import { isAbsolute, normalize, relative, resolve, sep } from 'node:path';
+import { TRAVERSE_PATTERN } from '@intlayer/config/defaultValues';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import fg from 'fast-glob';
 
@@ -30,68 +31,122 @@ const getDistinctRootDirs = (dirs: string[]): string[] => {
 };
 
 /**
+ * Returns true when the resolved path passes through a `node_modules` segment.
+ * Works on both POSIX and Windows paths.
+ */
+const isInsideNodeModules = (dir: string): boolean =>
+  resolve(dir).split(sep).includes('node_modules');
+
+/**
+ * Default exclude patterns derived from TRAVERSE_PATTERN.
+ * Extracted once so the function body can reference them without re-computing.
+ */
+const DEFAULT_EXCLUDE_PATTERNS: string[] = TRAVERSE_PATTERN.filter(
+  (p): p is string => typeof p === 'string' && p.startsWith('!')
+).map((p) => p.slice(1));
+
+/**
  * Builds a deduplicated list of absolute file paths matching the given patterns.
  *
  * Handles multiple root directories (deduplicates overlapping roots), exclude
- * patterns, negation patterns embedded in `transformPattern`, and optional
+ * patterns, negation patterns embedded in `traversePattern`, and optional
  * dot-file inclusion.
+ *
+ * Special case: `codeDir` entries that live inside `node_modules` (e.g. a
+ * design-system package installed as a workspace dependency) are scanned as
+ * their own explicit roots. They are NOT collapsed into the project root so
+ * the `*\/node_modules\/**` exclusion does not silently drop them.
  *
  * @example
  * // Single root with excludes
- * const files = buildComponentFilesList({
- *   transformPattern: 'src/**\/*.{ts,tsx}',
- *   excludePattern: ['**\/node_modules\/**'],
- *   baseDir: '/path/to/project',
- * });
+ * const files = buildComponentFilesList(config);
  *
  * @example
- * // Multiple roots (e.g. baseDir + codeDir), dot files included
- * const files = buildComponentFilesList(config, ['**\/node_modules\/**']);
+ * // Design-system package inside node_modules is still scanned
+ * // intlayer.config.ts: { content: { codeDir: ['node_modules/my-ds/src'] } }
+ * const files = buildComponentFilesList(config);
  */
 export const buildComponentFilesList = (
   config: IntlayerConfig,
   excludePattern?: string[]
 ): string[] => {
-  const transformPattern = config.build.traversePattern;
+  const traversePattern = config.build.traversePattern;
   const compilerTransformPattern = config.compiler.transformPattern;
   const contentDeclarationPattern = config.content.fileExtensions.map(
     (ext) => `/**/*${ext}`
   );
 
   const patterns = [
-    ...transformPattern,
+    ...traversePattern,
     ...normalizeToArray(compilerTransformPattern),
   ]
     .filter((pattern) => typeof pattern === 'string')
     .filter((pattern) => !pattern.startsWith('!'))
-    .map((pattern) => normalize(pattern)); // Ensure it works with Windows
+    .map((pattern) => normalize(pattern));
 
-  const excludePatterns = [
-    ...(excludePattern ?? []),
-    ...contentDeclarationPattern,
-    // Treat negation entries in transformPattern as additional excludes
-    ...transformPattern
-      .filter(
-        (pattern) => typeof pattern === 'string' && pattern.startsWith('!')
-      )
-      .map((pattern) => pattern.slice(1)),
-  ]
-    .filter((pattern) => typeof pattern === 'string')
-    .map((pattern) => normalize(pattern)); // Ensure it works with Windows
+  // User-supplied negations from traversePattern
+  const userExcludes = traversePattern
+    .filter(
+      (pattern): pattern is string =>
+        typeof pattern === 'string' && pattern.startsWith('!')
+    )
+    .map((pattern) => pattern.slice(1));
 
-  const roots = getDistinctRootDirs([
+  // Full exclude list: defaults (from TRAVERSE_PATTERN) + user overrides + caller extras + content files.
+  // DEFAULT_EXCLUDE_PATTERNS acts as a safety floor — if the user provides a
+  // partial traversePattern that omits some defaults, they are still applied.
+  const baseExcludePatterns = Array.from(
+    new Set([
+      ...DEFAULT_EXCLUDE_PATTERNS,
+      ...userExcludes,
+      ...(excludePattern ?? []),
+      ...contentDeclarationPattern,
+    ])
+  )
+    .filter((pattern): pattern is string => typeof pattern === 'string')
+    .map((pattern) => normalize(pattern));
+
+  // Separate codeDir entries that live inside node_modules.
+  // getDistinctRootDirs would collapse them into the project root, after which
+  // the **/node_modules/** ignore would silently exclude them.
+  const resolvedCodeDirs = (config.content.codeDir ?? []).map((dir) =>
+    resolve(dir)
+  );
+  const inNodeModulesCodeDirs = resolvedCodeDirs.filter(isInsideNodeModules);
+  const normalCodeDirs = resolvedCodeDirs.filter(
+    (dir) => !isInsideNodeModules(dir)
+  );
+
+  // Normal roots: project base + regular codeDir entries, deduplicated.
+  const normalRoots = getDistinctRootDirs([
     config.system.baseDir,
-    ...config.content.codeDir,
+    ...normalCodeDirs,
   ]);
 
-  const fileList = roots.flatMap((root) =>
+  const normalFiles = normalRoots.flatMap((root) =>
     fg.sync(patterns, {
       cwd: root,
-      ignore: excludePatterns,
+      ignore: baseExcludePatterns,
       absolute: true,
-      dot: true, // include dot files like .next / .intlayer
+      dot: true, // needed for .intlayer and similar
     })
   );
 
-  return Array.from(new Set(fileList));
+  // node_modules codeDir roots: scanned directly from the package root.
+  // **/node_modules/** is removed from the ignore list so it doesn't block
+  // the scan (it is still applied inside the package for nested node_modules).
+  const nodeModulesExcludePatterns = baseExcludePatterns.filter(
+    (pattern) => !pattern.includes('node_modules')
+  );
+
+  const nodeModulesFiles = inNodeModulesCodeDirs.flatMap((dir) =>
+    fg.sync(patterns, {
+      cwd: dir,
+      ignore: nodeModulesExcludePatterns,
+      absolute: true,
+      dot: false,
+    })
+  );
+
+  return Array.from(new Set([...normalFiles, ...nodeModulesFiles]));
 };

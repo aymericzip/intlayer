@@ -25,6 +25,8 @@ export const EXCLUDED_PATHS = [
   '**/.vercel/**',
   '**/.turbo/**',
   '**/.tanstack/**',
+  '**/.output/**',
+  '**/.svelte-kit/**',
 ];
 
 export const CONTENT_DIR = ['.'];

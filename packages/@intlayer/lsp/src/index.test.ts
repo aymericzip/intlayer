@@ -7,9 +7,9 @@ import { findKeyAtOffset } from './findKeyAtOffset';
 
 /** Returns the byte offset of the first occurrence of `needle` in `haystack`. */
 const offsetOf = (haystack: string, needle: string): number => {
-  const idx = haystack.indexOf(needle);
-  if (idx === -1) throw new Error(`"${needle}" not found in text`);
-  return idx;
+  const index = haystack.indexOf(needle);
+  if (index === -1) throw new Error(`"${needle}" not found in text`);
+  return index;
 };
 
 // ---------------------------------------------------------------------------

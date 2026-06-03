@@ -1,8 +1,9 @@
 #!/usr/bin/env node
-import { type Dirent, existsSync } from 'node:fs';
-import { readdir, readFile } from 'node:fs/promises';
-import { extname, isAbsolute, join } from 'node:path';
+import { existsSync } from 'node:fs';
+import { readFile } from 'node:fs/promises';
+import { dirname, isAbsolute, join } from 'node:path';
 import { pathToFileURL } from 'node:url';
+import { buildComponentFilesList } from '@intlayer/chokidar/utils';
 import { getConfiguration } from '@intlayer/config/node';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
@@ -14,12 +15,13 @@ import {
   Position,
   ProposedFeatures,
   Range,
+  type ReferenceParams,
   TextDocumentSyncKind,
   TextDocuments,
 } from 'vscode-languageserver/node.js';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import {
-  escapeRegex,
+  escapeRegularExpression,
   findFieldRangesInFile,
   offsetToRange,
 } from './findFieldInFile';
@@ -28,6 +30,7 @@ import {
   findContentFieldAtOffset,
   findKeyInContentFile,
 } from './findKeyInContentFile';
+import { findUsageFieldAtOffset } from './findUsageFieldAtOffset';
 
 // Create a connection for the server, using Node's IPC as a transport.
 // Also include all preview / proposed LSP features.
@@ -46,139 +49,82 @@ const log = (message: string): void =>
 
 let workspaceRoot: string | null | undefined;
 
-type WorkspaceConfig = Pick<IntlayerConfig, 'system' | 'build' | 'content'>;
+type WorkspaceConfig = Pick<
+  IntlayerConfig,
+  'system' | 'build' | 'content' | 'compiler'
+>;
 
 /**
  * Resolve (and cache) the Intlayer configuration for the current workspace.
  * The LSP process cwd is not the project root, so we must resolve the config
  * from `workspaceRoot` to get the right `system`/`build`/`content` paths.
  */
-let cachedConfig: WorkspaceConfig | null = null;
+const projectConfigs = new Map<string, WorkspaceConfig>();
 
-/**
- * Cached unmerged dictionaries with a short TTL so that running
- * `intlayer build` during a session picks up without a full re-init.
- */
-let cachedDictionaries: ReturnType<typeof getUnmergedDictionaries> | null =
-  null;
-let dictionariesCachedAt = 0;
+type DictionariesCache = {
+  dictionaries: ReturnType<typeof getUnmergedDictionaries>;
+  cachedAt: number;
+};
+const projectDictionaries = new Map<string, DictionariesCache>();
 const DICTIONARY_CACHE_TTL_MS = 5_000;
 
-// Pattern-derived lookup structures — computed lazily from the live workspace
-// config so they respect any user customisation of traversePattern /
-// fileExtensions.
-let cachedSourceExtensions: Set<string> | null = null;
-let cachedExcludedDirs: Set<string> | null = null;
-let cachedFileExclusionRegexes: RegExp[] | null = null;
-
-/**
- * Cached list of source file paths.
- * Walking the directory tree is the dominant cost on every Go-to-Definition
- * from a content file. We cache the result for 30 s and re-scan only when
- * the client reports a watched-file change or the config is invalidated.
- */
-let cachedSourceFiles: string[] | null = null;
-let sourceFilesCachedAt = 0;
+type SourceFilesCache = {
+  files: string[];
+  cachedAt: number;
+};
+const projectSourceFiles = new Map<string, SourceFilesCache>();
 const SOURCE_FILES_CACHE_TTL_MS = 30_000;
 
 const invalidateConfigCaches = () => {
-  cachedConfig = null;
-  cachedDictionaries = null;
-  dictionariesCachedAt = 0;
-  cachedSourceExtensions = null;
-  cachedExcludedDirs = null;
-  cachedFileExclusionRegexes = null;
-  cachedSourceFiles = null;
-  sourceFilesCachedAt = 0;
+  projectConfigs.clear();
+  projectDictionaries.clear();
+
+  projectSourceFiles.clear();
 };
 
-const getWorkspaceConfig = (): WorkspaceConfig | null => {
-  if (cachedConfig) return cachedConfig;
-  if (!workspaceRoot) {
-    log('getWorkspaceConfig — no workspace root, skipping');
-    return null;
-  }
+const getProjectConfig = (absolutePath: string): WorkspaceConfig | null => {
   try {
-    log(`getWorkspaceConfig — loading config from: ${workspaceRoot}`);
-    const { system, build, content } = getConfiguration({
-      baseDir: workspaceRoot,
-    });
-    cachedConfig = { system, build, content };
-    log(
-      `getWorkspaceConfig — OK  baseDir=${system.baseDir}  unmergedDictionariesDir=${system.unmergedDictionariesDir}`
-    );
-    return cachedConfig;
-  } catch (err) {
-    log(`getWorkspaceConfig — FAILED: ${err}`);
+    const baseDir = dirname(absolutePath);
+    // Find the closest intlayer config relative to the file.
+    const { system, build, content, compiler } = getConfiguration({ baseDir });
+    const cacheKey = system.baseDir;
+
+    if (!projectConfigs.has(cacheKey)) {
+      projectConfigs.set(cacheKey, { system, build, content, compiler });
+      log(
+        `getProjectConfig — OK baseDir=${system.baseDir} unmergedDictionariesDir=${system.unmergedDictionariesDir}`
+      );
+    }
+    return projectConfigs.get(cacheKey)!;
+  } catch (error) {
+    log(`getProjectConfig — FAILED: ${error}`);
     return null;
   }
 };
 
-const getUnmergedDictionariesCached = () => {
+const getUnmergedDictionariesCached = (
+  config: WorkspaceConfig
+): ReturnType<typeof getUnmergedDictionaries> => {
+  const cacheKey = config.system.baseDir;
+  const cached = projectDictionaries.get(cacheKey);
   const now = Date.now();
-  if (
-    cachedDictionaries &&
-    now - dictionariesCachedAt < DICTIONARY_CACHE_TTL_MS
-  ) {
-    return cachedDictionaries;
+
+  if (cached && now - cached.cachedAt < DICTIONARY_CACHE_TTL_MS) {
+    return cached.dictionaries;
   }
-  const config = getWorkspaceConfig();
-  if (!config) return {};
-  cachedDictionaries = getUnmergedDictionaries(config);
-  dictionariesCachedAt = now;
-  return cachedDictionaries;
+
+  const dictionaries = getUnmergedDictionaries(config);
+  projectDictionaries.set(cacheKey, { dictionaries, cachedAt: now });
+  return dictionaries;
 };
 
 // ---------------------------------------------------------------------------
 // Pattern helpers — derived lazily from the live config.
 // ---------------------------------------------------------------------------
 
-// Source file extensions from positive traversePattern entries
-// e.g. '**/*.{tsx,ts,js,...}' → Set<'.tsx' | '.ts' | ...>
-const getSourceExtensions = (): Set<string> => {
-  if (cachedSourceExtensions) return cachedSourceExtensions;
-  const traversePattern = getWorkspaceConfig()?.build.traversePattern ?? [];
-  cachedSourceExtensions = new Set(
-    traversePattern
-      .filter((p) => !p.startsWith('!'))
-      .flatMap((pattern) => {
-        const m = pattern.match(/\.\{([^}]+)\}/);
-        return m?.[1] ? m[1].split(',').map((e) => `.${e.trim()}`) : [];
-      })
-  );
-  return cachedSourceExtensions;
-};
-
-// Excluded directory names from '!**/name/**' negative patterns
-const getExcludedDirs = (): Set<string> => {
-  if (cachedExcludedDirs) return cachedExcludedDirs;
-  const traversePattern = getWorkspaceConfig()?.build.traversePattern ?? [];
-  cachedExcludedDirs = new Set(
-    traversePattern
-      .filter((p) => /^!\*\*\/[^*/]+\/\*\*$/.test(p))
-      .map((p) => p.replace(/^!\*\*\//, '').replace(/\/\*\*$/, ''))
-  );
-  return cachedExcludedDirs;
-};
-
-// File-level exclusion regexes from remaining negative patterns (e.g. '!**/*.test.*')
-const getFileExclusionRegexes = (): RegExp[] => {
-  if (cachedFileExclusionRegexes) return cachedFileExclusionRegexes;
-  const traversePattern = getWorkspaceConfig()?.build.traversePattern ?? [];
-  cachedFileExclusionRegexes = traversePattern
-    .filter((p) => p.startsWith('!') && !/^!\*\*\/[^*/]+\/\*\*$/.test(p))
-    .map((p) => {
-      const inner = p.replace(/^!(\*\*\/)*/, '');
-      return new RegExp(
-        `${inner.replace(/\./g, '\\.').replace(/\*/g, '[^\\/]*')}$`
-      );
-    });
-  return cachedFileExclusionRegexes;
-};
-
-const isContentFile = (uri: string): boolean => {
-  const fileExtensions = getWorkspaceConfig()?.content.fileExtensions ?? [];
-  return fileExtensions.some((ext) => uri.endsWith(ext));
+const isContentFile = (uri: string, config: WorkspaceConfig): boolean => {
+  const fileExtensions = config.content.fileExtensions ?? [];
+  return fileExtensions.some((extension) => uri.endsWith(extension));
 };
 
 // ---------------------------------------------------------------------------
@@ -195,66 +141,24 @@ const tryReadFile = async (filePath: string): Promise<string | null> => {
 };
 
 /**
- * Run `fn` over every item with at most `limit` tasks in-flight at once.
- * JS is single-threaded so `results.push` inside fn is race-free.
+ * Run `callback` over every item with at most `limit` tasks in-flight at once.
+ * JS is single-threaded so `results.push` inside callback is race-free.
  */
 const runConcurrent = async <T>(
   items: T[],
-  fn: (item: T) => Promise<void>,
+  callback: (item: T) => Promise<void>,
   limit = 50
 ): Promise<void> => {
   if (items.length === 0) return;
   let index = 0;
   const worker = async () => {
     while (index < items.length) {
-      await fn(items[index++]!);
+      await callback(items[index++]!);
     }
   };
   await Promise.all(
     Array.from({ length: Math.min(limit, items.length) }, worker)
   );
-};
-
-/**
- * Recursively collect all source-file paths under `directory`.
- * Uses async readdir so it does not block the Node.js event loop.
- */
-const collectSourceFiles = async (directory: string): Promise<string[]> => {
-  const results: string[] = [];
-  const sourceExtensions = getSourceExtensions();
-  const excludedDirs = getExcludedDirs();
-  const fileExclusionRegexes = getFileExclusionRegexes();
-  const contentExts = getWorkspaceConfig()?.content.fileExtensions ?? [];
-
-  const visit = async (dir: string): Promise<void> => {
-    let entries: Dirent[];
-
-    try {
-      entries = await readdir(dir, { withFileTypes: true });
-    } catch {
-      return;
-    }
-
-    // Process entries concurrently within a single directory level.
-    await Promise.all(
-      entries.map(async (entry) => {
-        if (entry.isDirectory()) {
-          if (!excludedDirs.has(entry.name)) {
-            await visit(join(dir, entry.name));
-          }
-        } else if (
-          sourceExtensions.has(extname(entry.name)) &&
-          !contentExts.some((ext) => entry.name.endsWith(ext)) &&
-          !fileExclusionRegexes.some((re) => re.test(entry.name))
-        ) {
-          results.push(join(dir, entry.name));
-        }
-      })
-    );
-  };
-
-  await visit(directory);
-  return results;
 };
 
 /** Find the `key: "<key>"` line inside a content file so the cursor lands on it. */
@@ -269,12 +173,13 @@ const getKeyRange = async (
       `key\\s*:\\s*['"\`]${key.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}['"\`]`
     );
 
-    for (let line = 0; line < lines.length; line++) {
-      const column = lines[line]?.search(keyRegularExpression);
+    for (let lineIndex = 0; lineIndex < lines.length; lineIndex++) {
+      const column = lines[lineIndex]?.search(keyRegularExpression);
+
       if (column !== undefined && column !== -1) {
         return Range.create(
-          Position.create(line, column),
-          Position.create(line, lines[line]!.length)
+          Position.create(lineIndex, column),
+          Position.create(lineIndex, lines[lineIndex]!.length)
         );
       }
     }
@@ -291,12 +196,13 @@ const getKeyRange = async (
  * return one `Location` per source file, pointing at the `key:` declaration.
  */
 const getContentDeclarationLocations = async (
-  key: string
+  key: string,
+  absolutePath: string
 ): Promise<Location[]> => {
-  const config = getWorkspaceConfig();
+  const config = getProjectConfig(absolutePath);
   if (!config) return [];
 
-  const unmergedDictionaries = getUnmergedDictionariesCached();
+  const unmergedDictionaries = getUnmergedDictionariesCached(config);
   const dictionaries = Object.values(unmergedDictionaries)
     .flat()
     .filter((dictionary) => dictionary?.key === key && dictionary.filePath);
@@ -326,43 +232,61 @@ const getContentDeclarationLocations = async (
  * Return the cached source-file list, re-scanning only when the cache has
  * expired or been explicitly invalidated (config change, watched-file event).
  */
-const getSourceFiles = async (directory: string): Promise<string[]> => {
+const getSourceFiles = async (
+  directory: string,
+  config: WorkspaceConfig
+): Promise<string[]> => {
   const now = Date.now();
-  if (
-    cachedSourceFiles &&
-    now - sourceFilesCachedAt < SOURCE_FILES_CACHE_TTL_MS
-  ) {
-    return cachedSourceFiles;
+  const cached = projectSourceFiles.get(directory);
+  if (cached && now - cached.cachedAt < SOURCE_FILES_CACHE_TTL_MS) {
+    return cached.files;
   }
-  const t0 = Date.now();
-  cachedSourceFiles = await collectSourceFiles(directory);
-  sourceFilesCachedAt = Date.now();
+  const startTime = Date.now();
+  const files = buildComponentFilesList(config as unknown as IntlayerConfig, [
+    '**/.output/**',
+    '**/.svelte-kit/**',
+    '**/src-tauri/**',
+    '**/.next/**',
+    '**/.nuxt/**',
+    '**/.expo/**',
+    '**/.vercel/**',
+    '**/.turbo/**',
+    '**/.tanstack/**',
+    '**/dist/**',
+    '**/build/**',
+    '**/node_modules/**',
+  ]);
+  projectSourceFiles.set(directory, { files, cachedAt: Date.now() });
   log(
-    `source files scanned: ${cachedSourceFiles.length} file(s) in ${Date.now() - t0}ms`
+    `source files scanned: ${files.length} file(s) in ${Date.now() - startTime}ms`
   );
-  return cachedSourceFiles;
+  return files;
 };
 
 /**
  * Return every source-file location that calls useIntlayer / getIntlayer with
  * the given key.
  */
-const getKeyUsageLocations = async (key: string): Promise<Location[]> => {
-  const config = getWorkspaceConfig();
+const getKeyUsageLocations = async (
+  key: string,
+  absolutePath: string
+): Promise<Location[]> => {
+  const config = getProjectConfig(absolutePath);
   if (!config) return [];
 
   const usageRegularExpression = new RegExp(
-    `\\b(?:useIntlayer|getIntlayer)\\b\\s*(?:<[^<>()]*>)?\\s*\\(\\s*(['"\`])${escapeRegex(key)}\\1`,
+    `\\b(?:useIntlayer|getIntlayer)\\b\\s*(?:<[^<>()]*>)?\\s*\\(\\s*(['"\`])${escapeRegularExpression(key)}\\1`,
     'g'
   );
 
-  const filePaths = await getSourceFiles(config.system.baseDir);
+  const filePaths = await getSourceFiles(config.system.baseDir, config);
   const locations: Location[] = [];
-  const t0 = Date.now();
+  const startTime = Date.now();
 
   await runConcurrent(filePaths, async (filePath) => {
     const text = await tryReadFile(filePath);
     // Quick string check before running the regex — skips the vast majority of files
+
     if (!text?.includes(key)) return;
 
     for (const match of text.matchAll(usageRegularExpression)) {
@@ -378,52 +302,141 @@ const getKeyUsageLocations = async (key: string): Promise<Location[]> => {
   });
 
   log(
-    `getKeyUsageLocations("${key}") — ${filePaths.length} file(s) searched in ${Date.now() - t0}ms → ${locations.length} hit(s)`
+    `getKeyUsageLocations("${key}") — ${filePaths.length} file(s) searched in ${Date.now() - startTime}ms → ${locations.length} hit(s)`
   );
   return locations;
 };
 
 /**
- * Return every source-file location that accesses `fieldName` on the result
- * of `useIntlayer(dictionaryKey)` / `getIntlayer(dictionaryKey)`.
+ * Return every source-file location that accesses the field at `fieldPath` on
+ * the result of `useIntlayer(dictionaryKey)` / `getIntlayer(dictionaryKey)`.
+ *
+ * `fieldPath` is an array of property names from the content root to the
+ * target field (e.g. `['searchInput', 'text']` for a nested field).
+ * Single-element paths (e.g. `['greet']`) behave like the previous
+ * single-`fieldName` API.
  */
 const getFieldUsageLocations = async (
   dictionaryKey: string,
-  fieldName: string
+  fieldPath: string[],
+  absolutePath: string
 ): Promise<Location[]> => {
-  const config = getWorkspaceConfig();
-  if (!config) return [];
+  const config = getProjectConfig(absolutePath);
+  if (!config || fieldPath.length === 0) return [];
 
-  const escapedKey = escapeRegex(dictionaryKey);
-  const escapedField = escapeRegex(fieldName);
+  const leafFieldName = fieldPath[fieldPath.length - 1]!;
+  const escapedKey = escapeRegularExpression(dictionaryKey);
+  const escapedLeaf = escapeRegularExpression(leafFieldName);
   const useCallRegularExpression = new RegExp(
     `\\b(?:useIntlayer|getIntlayer)\\b(?:<[^<>()]*>)?\\s*\\(\\s*['"\`]${escapedKey}['"\`]`
   );
 
-  const filePaths = await getSourceFiles(config.system.baseDir);
+  const filePaths = await getSourceFiles(config.system.baseDir, config);
   const locations: Location[] = [];
-  const t0 = Date.now();
+  const startTime = Date.now();
 
   await runConcurrent(filePaths, async (filePath) => {
     const text = await tryReadFile(filePath);
+
     if (!text) return;
-    // Two-stage pre-filter: string check then regex — skips most files cheaply
-    if (!text.includes(dictionaryKey) || !text.includes(fieldName)) return;
+    // Pre-filter: dictionaryKey and every segment of the path must appear in the file
+
+    if (!text.includes(dictionaryKey)) return;
+
+    if (fieldPath.some((segment) => !text.includes(segment))) return;
+
     if (!useCallRegularExpression.test(text)) return;
 
     for (const range of findFieldRangesInFile(
       text,
       escapedKey,
-      fieldName,
-      escapedField
+      leafFieldName,
+      escapedLeaf,
+      fieldPath
     )) {
       locations.push(Location.create(pathToFileURL(filePath).href, range));
     }
   });
 
   log(
-    `getFieldUsageLocations("${dictionaryKey}.${fieldName}") — ${filePaths.length} file(s) searched in ${Date.now() - t0}ms → ${locations.length} hit(s)`
+    `getFieldUsageLocations("${dictionaryKey}.${fieldPath.join('.')}") — ${filePaths.length} file(s) searched in ${Date.now() - startTime}ms → ${locations.length} hit(s)`
   );
+  return locations;
+};
+
+/**
+ * Find the line/column of `fieldName` as a property key inside a content file.
+ * Looks for `fieldName:` (the field definition), not just any occurrence.
+ * Falls back to the top of the file if the field cannot be located.
+ */
+const getFieldRangeInContentFile = async (
+  absolutePath: string,
+  fieldName: string
+): Promise<Range> => {
+  const content = await tryReadFile(absolutePath);
+  if (!content)
+    return Range.create(Position.create(0, 0), Position.create(0, 0));
+
+  const lines = content.split(/\r?\n/);
+  // Match `fieldName:` at an object property key position (not a value)
+  const fieldRegularExpression = new RegExp(
+    `(?<![.\\w])${escapeRegularExpression(fieldName)}(?![\\w])\\s*:`
+  );
+
+  for (let lineIndex = 0; lineIndex < lines.length; lineIndex++) {
+    const line = lines[lineIndex]!;
+    const matchPosition = line.search(fieldRegularExpression);
+
+    if (matchPosition === -1) continue;
+    const column = line.indexOf(fieldName, matchPosition);
+
+    if (column === -1) continue;
+    return Range.create(
+      Position.create(lineIndex, column),
+      Position.create(lineIndex, column + fieldName.length)
+    );
+  }
+
+  return Range.create(Position.create(0, 0), Position.create(0, 0));
+};
+
+/**
+ * Return every content-file location where `fieldName` is defined as a
+ * property of the dictionary with the given `dictionaryKey`.
+ */
+const getContentFieldLocations = async (
+  dictionaryKey: string,
+  fieldName: string,
+  absolutePath: string
+): Promise<Location[]> => {
+  const config = getProjectConfig(absolutePath);
+  if (!config) return [];
+
+  const unmergedDictionaries = getUnmergedDictionariesCached(config);
+  const dictionaries = Object.values(unmergedDictionaries)
+    .flat()
+    .filter(
+      (dictionary) => dictionary?.key === dictionaryKey && dictionary.filePath
+    );
+
+  const locations: Location[] = [];
+
+  await runConcurrent(dictionaries, async (dictionary) => {
+    const filePath = dictionary.filePath!;
+    const absolutePath = isAbsolute(filePath)
+      ? filePath
+      : join(config.system.baseDir, filePath);
+
+    if (!existsSync(absolutePath)) return;
+
+    locations.push(
+      Location.create(
+        pathToFileURL(absolutePath).href,
+        await getFieldRangeInContentFile(absolutePath, fieldName)
+      )
+    );
+  });
+
   return locations;
 };
 
@@ -439,7 +452,7 @@ connection.onInitialize((parameters: InitializeParams): InitializeResult => {
 
   if (parameters.workspaceFolders?.length) {
     log(
-      `workspaceFolders: ${parameters.workspaceFolders.map((f) => f.name).join(', ')}`
+      `workspaceFolders: ${parameters.workspaceFolders.map((folder) => folder.name).join(', ')}`
     );
   }
 
@@ -447,13 +460,15 @@ connection.onInitialize((parameters: InitializeParams): InitializeResult => {
     capabilities: {
       textDocumentSync: TextDocumentSyncKind.Incremental,
       definitionProvider: true,
+      referencesProvider: true,
     },
   };
 });
 
 connection.onDefinition(async (parameters) => {
   const uri = parameters.textDocument.uri;
-  const pos = parameters.position;
+  const absolutePath = decodeURIComponent(new URL(uri).pathname);
+  const position = parameters.position;
   const document = documents.get(uri);
 
   if (!document) {
@@ -462,23 +477,25 @@ connection.onDefinition(async (parameters) => {
   }
 
   const text = document.getText();
-  const offset = document.offsetAt(pos);
-  const shortUri = uri
+  const offset = document.offsetAt(position);
+  const shortenedUri = uri
     .replace(/^file:\/\//, '')
     .split('/')
     .slice(-2)
     .join('/');
 
-  log(`onDefinition — ${shortUri} ${pos.line}:${pos.character}`);
+  log(`onDefinition — ${shortenedUri} ${position.line}:${position.character}`);
+  const config = getProjectConfig(absolutePath);
 
-  if (isContentFile(uri)) {
+  if (config && isContentFile(uri, config)) {
     log('onDefinition — detected content file');
 
     // Cursor on `key: "…"` → navigate to useIntlayer(key) call sites
     const key = findKeyInContentFile(text, offset);
+
     if (key) {
       log(`onDefinition — key declaration: "${key}" → searching call sites`);
-      const locations = await getKeyUsageLocations(key);
+      const locations = await getKeyUsageLocations(key, absolutePath);
 
       log(
         `onDefinition — found ${locations.length} call site(s) for key "${key}"`
@@ -486,18 +503,23 @@ connection.onDefinition(async (parameters) => {
       return locations.length ? locations : null;
     }
 
-    // Cursor on a content field (e.g. `greet`) → navigate to field usages
-    const fieldInfo = findContentFieldAtOffset(text, offset);
+    // Cursor on a content field (e.g. `greet` or nested `searchInput.text`)
+    // → navigate to field usage sites in source files
+    const extMatch = uri.match(/\.[^.]+$/);
+    const ext = extMatch ? extMatch[0] : '';
+    const fieldInfo = findContentFieldAtOffset(text, offset, ext);
+
     if (fieldInfo) {
       log(
-        `onDefinition — field: "${fieldInfo.dictionaryKey}.${fieldInfo.fieldName}" → searching usages`
+        `onDefinition — field: "${fieldInfo.dictionaryKey}.${fieldInfo.fieldPath.join('.')}" → searching usages`
       );
       const locations = await getFieldUsageLocations(
         fieldInfo.dictionaryKey,
-        fieldInfo.fieldName
+        fieldInfo.fieldPath,
+        absolutePath
       );
       log(
-        `onDefinition — found ${locations.length} usage(s) for field "${fieldInfo.fieldName}"`
+        `onDefinition — found ${locations.length} usage(s) for field path "${fieldInfo.fieldPath.join('.')}"`
       );
       return locations.length ? locations : null;
     }
@@ -506,20 +528,123 @@ connection.onDefinition(async (parameters) => {
     return null;
   }
 
+  // Cursor on the key string / function name → navigate to content declaration
   const key = findKeyAtOffset(text, offset);
-
   if (key) {
     log(
       `onDefinition — useIntlayer key: "${key}" → searching content declarations`
     );
-    const locations = await getContentDeclarationLocations(key);
+    const locations = await getContentDeclarationLocations(key, absolutePath);
     log(
       `onDefinition — found ${locations.length} content declaration(s) for key "${key}"`
     );
     return locations.length ? locations : null;
   }
 
+  // Cursor on a destructured property or member access property from useIntlayer
+  // e.g. const { localeSwitcherLabel } = useIntlayer("locale-switcher")
+  //                ^^^^^^^^^^^^^^^^^^  ← cursor here
+  // e.g. t.localeSwitcherLabel  where  const t = useIntlayer("locale-switcher")
+  const usageField = findUsageFieldAtOffset(text, offset);
+  if (usageField) {
+    log(
+      `onDefinition — usage field: "${usageField.dictionaryKey}.${usageField.fieldName}" → searching content field`
+    );
+    const locations = await getContentFieldLocations(
+      usageField.dictionaryKey,
+      usageField.fieldName,
+      absolutePath
+    );
+    log(
+      `onDefinition — found ${locations.length} content file(s) with field "${usageField.fieldName}"`
+    );
+    return locations.length ? locations : null;
+  }
+
   log('onDefinition — no Intlayer key at cursor, no result');
+  return null;
+});
+
+/**
+ * "Find All References" handler (Shift+F12).
+ *
+ * From a content file, returns every source-file location that uses the key or
+ * field at the cursor — the reverse direction of Go-to-Definition.
+ *
+ * From a source file, returns all content-file declarations for the key or
+ * field at the cursor — complementing what Go-to-Definition already handles.
+ */
+connection.onReferences(async (parameters: ReferenceParams) => {
+  const uri = parameters.textDocument.uri;
+  const absolutePath = decodeURIComponent(new URL(uri).pathname);
+  const position = parameters.position;
+  const document = documents.get(uri);
+
+  if (!document) return null;
+
+  const text = document.getText();
+  const offset = document.offsetAt(position);
+  const shortenedUri = uri
+    .replace(/^file:\/\//, '')
+    .split('/')
+    .slice(-2)
+    .join('/');
+
+  log(`onReferences — ${shortenedUri} ${position.line}:${position.character}`);
+  const config = getProjectConfig(absolutePath);
+
+  if (config && isContentFile(uri, config)) {
+    // Cursor on `key: "…"` → all useIntlayer(key) call sites
+    const key = findKeyInContentFile(text, offset);
+
+    if (key) {
+      const locations = await getKeyUsageLocations(key, absolutePath);
+      log(`onReferences — key "${key}" → ${locations.length} call site(s)`);
+      return locations.length ? locations : null;
+    }
+
+    // Cursor on a content field → all field usage sites
+    const extMatch = uri.match(/\.[^.]+$/);
+    const ext = extMatch ? extMatch[0] : '';
+    const fieldInfo = findContentFieldAtOffset(text, offset, ext);
+
+    if (fieldInfo) {
+      const locations = await getFieldUsageLocations(
+        fieldInfo.dictionaryKey,
+        fieldInfo.fieldPath,
+        absolutePath
+      );
+      log(
+        `onReferences — field "${fieldInfo.fieldPath.join('.')}" → ${locations.length} usage(s)`
+      );
+      return locations.length ? locations : null;
+    }
+
+    return null;
+  }
+
+  // Source file: key string → content-file declarations
+  const key = findKeyAtOffset(text, offset);
+  if (key) {
+    const locations = await getContentDeclarationLocations(key, absolutePath);
+    log(`onReferences — key "${key}" → ${locations.length} declaration(s)`);
+    return locations.length ? locations : null;
+  }
+
+  // Source file: field property → content-file field definitions
+  const usageField = findUsageFieldAtOffset(text, offset);
+  if (usageField) {
+    const locations = await getContentFieldLocations(
+      usageField.dictionaryKey,
+      usageField.fieldName,
+      absolutePath
+    );
+    log(
+      `onReferences — field "${usageField.fieldName}" → ${locations.length} content definition(s)`
+    );
+    return locations.length ? locations : null;
+  }
+
   return null;
 });
 

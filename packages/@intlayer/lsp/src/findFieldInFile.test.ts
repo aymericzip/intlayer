@@ -1,21 +1,22 @@
 import { describe, expect, it } from 'vitest';
-import { escapeRegex, findFieldRangesInFile } from './findFieldInFile';
+import {
+  escapeRegularExpression,
+  findFieldRangesInFile,
+} from './findFieldInFile';
 
 // ---------------------------------------------------------------------------
 // Helpers
 // ---------------------------------------------------------------------------
 
-const r = (
+const createRange = (
   startLine: number,
-  startChar: number,
+  startCharacter: number,
   endLine: number,
-  endChar: number
+  endCharacter: number
 ) => ({
-  start: { line: startLine, character: startChar },
-  end: { line: endLine, character: endChar },
+  start: { line: startLine, character: startCharacter },
+  end: { line: endLine, character: endCharacter },
 });
-
-const esc = escapeRegex;
 
 // ---------------------------------------------------------------------------
 // Pattern 1 — destructuring
@@ -26,22 +27,22 @@ describe('findFieldRangesInFile — destructuring', () => {
     const text = `const { greet } = useIntlayer("app");`;
     const ranges = findFieldRangesInFile(
       text,
-      esc('app'),
+      escapeRegularExpression('app'),
       'greet',
-      esc('greet')
+      escapeRegularExpression('greet')
     );
     expect(ranges).toHaveLength(1);
     // "greet" starts at index 8 in the text → char 8 on line 0
-    expect(ranges[0]).toEqual(r(0, 8, 0, 13));
+    expect(ranges[0]).toEqual(createRange(0, 8, 0, 13));
   });
 
   it('finds fieldName when it is not the only destructured key', () => {
     const text = `const { title, greet, count } = useIntlayer("app");`;
     const ranges = findFieldRangesInFile(
       text,
-      esc('app'),
+      escapeRegularExpression('app'),
       'greet',
-      esc('greet')
+      escapeRegularExpression('greet')
     );
     expect(ranges).toHaveLength(1);
     expect(ranges[0]!.start.character).toBe(text.indexOf('greet'));
@@ -52,9 +53,9 @@ describe('findFieldRangesInFile — destructuring', () => {
     const text = `const { greet: hello } = useIntlayer("app");`;
     const ranges = findFieldRangesInFile(
       text,
-      esc('app'),
+      escapeRegularExpression('app'),
       'greet',
-      esc('greet')
+      escapeRegularExpression('greet')
     );
     expect(ranges).toHaveLength(1);
     expect(ranges[0]!.start.character).toBe(text.indexOf('greet'));
@@ -69,9 +70,9 @@ describe('findFieldRangesInFile — destructuring', () => {
     ].join('\n');
     const ranges = findFieldRangesInFile(
       text,
-      esc('app'),
+      escapeRegularExpression('app'),
       'greet',
-      esc('greet')
+      escapeRegularExpression('greet')
     );
     expect(ranges).toHaveLength(1);
     expect(ranges[0]!.start.line).toBe(2); // line index 2
@@ -91,9 +92,9 @@ describe('findFieldRangesInFile — destructuring', () => {
     ].join('\n');
     const ranges = findFieldRangesInFile(
       text,
-      esc('app'),
+      escapeRegularExpression('app'),
       'greet',
-      esc('greet')
+      escapeRegularExpression('greet')
     );
     // one hit per call site destructure (not per usage of the variable)
     expect(ranges).toHaveLength(2);
@@ -108,15 +109,15 @@ describe('findFieldRangesInFile — destructuring', () => {
     ].join('\n');
     const rangesApp = findFieldRangesInFile(
       text,
-      esc('app'),
+      escapeRegularExpression('app'),
       'greet',
-      esc('greet')
+      escapeRegularExpression('greet')
     );
     const rangesOther = findFieldRangesInFile(
       text,
-      esc('other'),
+      escapeRegularExpression('other'),
       'greet',
-      esc('greet')
+      escapeRegularExpression('greet')
     );
     expect(rangesApp).toHaveLength(1);
     expect(rangesOther).toHaveLength(1);
@@ -137,9 +138,9 @@ describe('findFieldRangesInFile — member access', () => {
     ].join('\n');
     const ranges = findFieldRangesInFile(
       text,
-      esc('app'),
+      escapeRegularExpression('app'),
       'greet',
-      esc('greet')
+      escapeRegularExpression('greet')
     );
     expect(ranges).toHaveLength(1);
     expect(ranges[0]!.start.line).toBe(1);
@@ -153,9 +154,9 @@ describe('findFieldRangesInFile — member access', () => {
     ].join('\n');
     const ranges = findFieldRangesInFile(
       text,
-      esc('app'),
+      escapeRegularExpression('app'),
       'greet',
-      esc('greet')
+      escapeRegularExpression('greet')
     );
     expect(ranges).toHaveLength(2);
     expect(ranges[0]!.start.line).toBe(1);
@@ -175,9 +176,9 @@ describe('findFieldRangesInFile — member access', () => {
     ].join('\n');
     const ranges = findFieldRangesInFile(
       text,
-      esc('app'),
+      escapeRegularExpression('app'),
       'greet',
-      esc('greet')
+      escapeRegularExpression('greet')
     );
     expect(ranges).toHaveLength(2);
     expect(ranges[0]!.start.line).toBe(2); // a.greet
@@ -198,9 +199,9 @@ describe('findFieldRangesInFile — mixed patterns', () => {
     ].join('\n');
     const ranges = findFieldRangesInFile(
       text,
-      esc('app'),
+      escapeRegularExpression('app'),
       'greet',
-      esc('greet')
+      escapeRegularExpression('greet')
     );
     expect(ranges).toHaveLength(2);
     const lines = ranges.map((rng) => rng.start.line).sort((a, b) => a - b);
@@ -219,9 +220,9 @@ describe('findFieldRangesInFile — mixed patterns', () => {
     ].join('\n');
     const ranges = findFieldRangesInFile(
       text,
-      esc('app'),
+      escapeRegularExpression('app'),
       'greet',
-      esc('greet')
+      escapeRegularExpression('greet')
     );
     // destructure #1, member access #1, destructure #2, member access #2
     expect(ranges).toHaveLength(4);
@@ -237,9 +238,9 @@ describe('findFieldRangesInFile — TypeScript generics', () => {
     const text = `const { greet } = useIntlayer<AppContent>("app");`;
     const ranges = findFieldRangesInFile(
       text,
-      esc('app'),
+      escapeRegularExpression('app'),
       'greet',
-      esc('greet')
+      escapeRegularExpression('greet')
     );
     expect(ranges).toHaveLength(1);
   });
@@ -248,9 +249,9 @@ describe('findFieldRangesInFile — TypeScript generics', () => {
     const text = `const { greet } = useIntlayer<{ greet: string }>("app");`;
     const ranges = findFieldRangesInFile(
       text,
-      esc('app'),
+      escapeRegularExpression('app'),
       'greet',
-      esc('greet')
+      escapeRegularExpression('greet')
     );
     // The 'greet' inside the type annotation must NOT be returned —
     // only the destructure key.
@@ -263,10 +264,88 @@ describe('findFieldRangesInFile — TypeScript generics', () => {
     const text = `const c = getIntlayer<AppContent>("app"); return c.greet;`;
     const ranges = findFieldRangesInFile(
       text,
-      esc('app'),
+      escapeRegularExpression('app'),
       'greet',
-      esc('greet')
+      escapeRegularExpression('greet')
     );
     expect(ranges).toHaveLength(1);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// Nested field paths
+// ---------------------------------------------------------------------------
+
+describe('findFieldRangesInFile — nested field path', () => {
+  it('finds a nested destructure: const { parent: { child } } = useIntlayer("key")', () => {
+    const text = `const { searchInput: { text } } = useIntlayer("locale-switcher");`;
+    const ranges = findFieldRangesInFile(
+      text,
+      escapeRegularExpression('locale-switcher'),
+      'text',
+      escapeRegularExpression('text'),
+      ['searchInput', 'text']
+    );
+    expect(ranges).toHaveLength(1);
+    expect(ranges[0]!.start.character).toBe(text.indexOf('text'));
+  });
+
+  it('finds a chained member access: const c = useIntlayer("key"); c.parent.child', () => {
+    const text = [
+      'const c = useIntlayer("locale-switcher");',
+      'return c.searchInput.text;',
+    ].join('\n');
+    const ranges = findFieldRangesInFile(
+      text,
+      escapeRegularExpression('locale-switcher'),
+      'text',
+      escapeRegularExpression('text'),
+      ['searchInput', 'text']
+    );
+    expect(ranges).toHaveLength(1);
+    expect(ranges[0]!.start.line).toBe(1);
+  });
+
+  it('finds an indirect variable: const { parent } = useIntlayer("key"); parent.child', () => {
+    const text = [
+      'const { searchInput } = useIntlayer("locale-switcher");',
+      'return searchInput.text;',
+    ].join('\n');
+    const ranges = findFieldRangesInFile(
+      text,
+      escapeRegularExpression('locale-switcher'),
+      'text',
+      escapeRegularExpression('text'),
+      ['searchInput', 'text']
+    );
+    expect(ranges).toHaveLength(1);
+    expect(ranges[0]!.start.line).toBe(1);
+  });
+
+  it('does NOT match a shorter path when a longer one is requested', () => {
+    const text = `const { searchInput } = useIntlayer("locale-switcher");`;
+    // Looking for ['searchInput', 'text'] but only ['searchInput'] is here
+    const ranges = findFieldRangesInFile(
+      text,
+      escapeRegularExpression('locale-switcher'),
+      'text',
+      escapeRegularExpression('text'),
+      ['searchInput', 'text']
+    );
+    // searchInput is destructured but 'text' is never accessed → no match
+    expect(ranges).toHaveLength(0);
+  });
+
+  it('backward-compatible: omitting fieldPath uses the leaf field name (single-element path)', () => {
+    const text = `const { greet } = useIntlayer("app");`;
+    const ranges = findFieldRangesInFile(
+      text,
+      escapeRegularExpression('app'),
+      'greet',
+      escapeRegularExpression('greet')
+      // No fieldPath — falls back to ['greet']
+    );
+    expect(ranges).toHaveLength(1);
+    expect(ranges[0]!.start.character).toBe(text.indexOf('greet'));
   });
 });

@@ -3,8 +3,10 @@ export const BUILD_MODE = 'auto';
 export const OPTIMIZE = undefined;
 
 export const TRAVERSE_PATTERN = [
+  // Included files to parse
   '**/*.{tsx,ts,js,mjs,cjs,jsx,vue,svelte,astro}',
 
+  // Excluded paths
   '!**/node_modules/**',
   '!**/dist/**',
   '!**/build/**',
@@ -15,7 +17,8 @@ export const TRAVERSE_PATTERN = [
   '!**/.vercel/**',
   '!**/.turbo/**',
   '!**/.tanstack/**',
-
+  '!**/.output/**',
+  '!**/.svelte-kit/**',
   '!**/*.config.*',
   '!**/*.test.*',
   '!**/*.spec.*',

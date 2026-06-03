@@ -129,12 +129,16 @@ describe('findContentFieldAtOffset', () => {
     '};',
   ].join('\n');
 
-  it('returns dictionaryKey and fieldName when cursor is on a content field', () => {
+  it('returns dictionaryKey, fieldName and fieldPath when cursor is on a content field', () => {
     const result = findContentFieldAtOffset(
       contentFile,
       offsetOf(contentFile, 'greet')
     );
-    expect(result).toEqual({ dictionaryKey: 'app', fieldName: 'greet' });
+    expect(result).toEqual({
+      dictionaryKey: 'app',
+      fieldName: 'greet',
+      fieldPath: ['greet'],
+    });
   });
 
   it('works for a second field in the same content block', () => {
@@ -142,12 +146,14 @@ describe('findContentFieldAtOffset', () => {
       contentFile,
       offsetOf(contentFile, 'title')
     );
-    expect(result).toEqual({ dictionaryKey: 'app', fieldName: 'title' });
+    expect(result).toEqual({
+      dictionaryKey: 'app',
+      fieldName: 'title',
+      fieldPath: ['title'],
+    });
   });
 
   it('returns null when cursor is on the key: declaration value', () => {
-    // findKeyInContentFile handles this — findContentFieldAtOffset should yield null
-    // because 'app' in key: 'app' is NOT followed by ':'
     const result = findContentFieldAtOffset(
       contentFile,
       offsetOf(contentFile, "'app'") + 1
@@ -155,30 +161,12 @@ describe('findContentFieldAtOffset', () => {
     expect(result).toBeNull();
   });
 
-  it('returns null when cursor is on the key property name', () => {
-    // 'key' is followed by ':' but findKeyInContentFile is checked first;
-    // here we just verify findContentFieldAtOffset itself still returns something
-    // because 'key' IS followed by ':' — the caller (onDefinition) picks
-    // findKeyInContentFile's result first, so the combination is correct.
-    // (We do NOT require findContentFieldAtOffset to exclude "key" itself.)
-    const result = findContentFieldAtOffset(
-      contentFile,
-      offsetOf(contentFile, 'key')
-    );
-    // 'key' IS a property key — result is non-null (the caller defers to
-    // findKeyInContentFile before ever calling this function, so this is fine).
-    expect(result).not.toBeNull();
-  });
-
-  it('returns a result for a nested locale key (e.g. en: inside t({}))', () => {
-    // 'en' inside t({ en: '...' }) IS a property key followed by ':',
-    // so findContentFieldAtOffset will match it. That is acceptable: the caller
-    // (onDefinition) will call getFieldUsageLocations("app", "en") which simply
-    // returns no usages, yielding null — harmless.
-    // Use a precise search that skips the 'en' substring inside 'appContent'.
+  it('returns null for a locale key inside t({}) — correctly skipped by AST', () => {
+    // With the AST-based implementation, `en` inside `t({ en: '...' })` is
+    // correctly excluded (t() args are locale maps, not navigable content fields).
     const localeColonOffset = contentFile.indexOf("      en: 'Hello");
-    const result = findContentFieldAtOffset(contentFile, localeColonOffset + 6); // cursor on 'en'
-    expect(result).toEqual({ dictionaryKey: 'app', fieldName: 'en' });
+    const result = findContentFieldAtOffset(contentFile, localeColonOffset + 6);
+    expect(result).toBeNull();
   });
 
   it('returns null when there is no key: declaration in the file', () => {
@@ -198,6 +186,380 @@ describe('findContentFieldAtOffset', () => {
     const text =
       'const contentObject = { key: "my-dict", content: { greet: t() } };';
     const result = findContentFieldAtOffset(text, offsetOf(text, 'greet'));
-    expect(result).toEqual({ dictionaryKey: 'my-dict', fieldName: 'greet' });
+    expect(result).toEqual({
+      dictionaryKey: 'my-dict',
+      fieldName: 'greet',
+      fieldPath: ['greet'],
+    });
+  });
+});
+
+// ---------------------------------------------------------------------------
+// Nested fields
+// ---------------------------------------------------------------------------
+
+describe('findContentFieldAtOffset — nested fields', () => {
+  const nestedContentFile = [
+    "import { type Dictionary, t } from 'intlayer';",
+    '',
+    'const content = {',
+    "  key: 'locale-switcher',",
+    '  content: {',
+    '    localeSwitcherLabel: t({',
+    "      en: 'Language switcher',",
+    "      fr: 'Changer de langue',",
+    '    }),',
+    '    searchInput: {',
+    '      text: t({',
+    "        en: 'Search Locale',",
+    '      }),',
+    '      placeholder: t({',
+    "        en: 'Search a locale',",
+    '      }),',
+    '    },',
+    '  },',
+    '};',
+  ].join('\n');
+
+  it('returns single-element fieldPath for a top-level content field', () => {
+    const result = findContentFieldAtOffset(
+      nestedContentFile,
+      offsetOf(nestedContentFile, 'localeSwitcherLabel')
+    );
+    expect(result).toEqual({
+      dictionaryKey: 'locale-switcher',
+      fieldName: 'localeSwitcherLabel',
+      fieldPath: ['localeSwitcherLabel'],
+    });
+  });
+
+  it('returns single-element fieldPath for a nested object field', () => {
+    const result = findContentFieldAtOffset(
+      nestedContentFile,
+      offsetOf(nestedContentFile, 'searchInput')
+    );
+    expect(result).toEqual({
+      dictionaryKey: 'locale-switcher',
+      fieldName: 'searchInput',
+      fieldPath: ['searchInput'],
+    });
+  });
+
+  it('returns full fieldPath for a field nested inside a sub-object', () => {
+    // 'text' inside searchInput: { text: t({...}) }
+    // offsetOf returns first occurrence — the one inside searchInput
+    const textOffset = nestedContentFile.indexOf('      text: t({');
+    const result = findContentFieldAtOffset(
+      nestedContentFile,
+      textOffset + 6 // middle of 'text'
+    );
+    expect(result).toEqual({
+      dictionaryKey: 'locale-switcher',
+      fieldName: 'text',
+      fieldPath: ['searchInput', 'text'],
+    });
+  });
+
+  it('returns full fieldPath for placeholder inside searchInput', () => {
+    const placeholderOffset = nestedContentFile.indexOf(
+      '      placeholder: t('
+    );
+    const result = findContentFieldAtOffset(
+      nestedContentFile,
+      placeholderOffset + 6
+    );
+    expect(result).toEqual({
+      dictionaryKey: 'locale-switcher',
+      fieldName: 'placeholder',
+      fieldPath: ['searchInput', 'placeholder'],
+    });
+  });
+
+  it('returns null for locale keys inside t() even inside a nested object', () => {
+    const enOffset = nestedContentFile.indexOf("        en: 'Search Locale'");
+    const result = findContentFieldAtOffset(nestedContentFile, enOffset + 8);
+    expect(result).toBeNull();
+  });
+});
+
+// ---------------------------------------------------------------------------
+// JSON / JSON5 / JSONC
+// ---------------------------------------------------------------------------
+
+describe('findContentFieldAtOffset — JSON', () => {
+  const jsonContent = `{
+  "$schema": "https://intlayer.org/schema.json",
+  "key": "page",
+  "content": {
+    "plainField": "Hello World",
+    "multilingualContent": {
+      "nodeType": "translation",
+      "translation": { "en": "English", "fr": "French" }
+    },
+    "nestedObj": {
+      "childA": "value A",
+      "childB": "value B"
+    }
+  }
+}`;
+
+  it('finds quoted key', () => {
+    expect(
+      findKeyInContentFile(jsonContent, offsetOf(jsonContent, '"key"'))
+    ).toBe('page');
+  });
+
+  it('finds plain field', () => {
+    expect(
+      findContentFieldAtOffset(
+        jsonContent,
+        offsetOf(jsonContent, 'plainField') + 1,
+        '.json'
+      )
+    ).toEqual({
+      dictionaryKey: 'page',
+      fieldName: 'plainField',
+      fieldPath: ['plainField'],
+    });
+  });
+
+  it('finds typed node content field', () => {
+    expect(
+      findContentFieldAtOffset(
+        jsonContent,
+        offsetOf(jsonContent, 'multilingualContent') + 1,
+        '.json'
+      )
+    ).toEqual({
+      dictionaryKey: 'page',
+      fieldName: 'multilingualContent',
+      fieldPath: ['multilingualContent'],
+    });
+  });
+
+  it('ignores nodeType', () => {
+    expect(
+      findContentFieldAtOffset(
+        jsonContent,
+        offsetOf(jsonContent, '"nodeType"') + 1,
+        '.json'
+      )
+    ).toBeNull();
+  });
+
+  it('ignores locale key inside translation', () => {
+    expect(
+      findContentFieldAtOffset(
+        jsonContent,
+        offsetOf(jsonContent, '"en"') + 1,
+        '.json'
+      )
+    ).toBeNull();
+  });
+
+  it('finds nested child field', () => {
+    expect(
+      findContentFieldAtOffset(
+        jsonContent,
+        offsetOf(jsonContent, '"childA"') + 1,
+        '.json'
+      )
+    ).toEqual({
+      dictionaryKey: 'page',
+      fieldName: 'childA',
+      fieldPath: ['nestedObj', 'childA'],
+    });
+  });
+});
+
+// ---------------------------------------------------------------------------
+// YAML
+// ---------------------------------------------------------------------------
+
+describe('findContentFieldAtOffset — YAML', () => {
+  const yamlContent = [
+    'key: my-dict',
+    'title: My Dictionary',
+    'content:',
+    '  hero:',
+    '    title: Welcome',
+    '    subtitle: Build apps',
+    '  footer:',
+    '    footerText: Copyright 2024',
+    '',
+  ].join('\n');
+
+  it('finds key', () => {
+    expect(
+      findKeyInContentFile(yamlContent, offsetOf(yamlContent, 'key'))
+    ).toBe('my-dict');
+  });
+
+  it('finds hero', () => {
+    expect(
+      findContentFieldAtOffset(
+        yamlContent,
+        offsetOf(yamlContent, '  hero:\n') + 2,
+        '.yaml'
+      )
+    ).toEqual({
+      dictionaryKey: 'my-dict',
+      fieldName: 'hero',
+      fieldPath: ['hero'],
+    });
+  });
+
+  it('finds footerText', () => {
+    expect(
+      findContentFieldAtOffset(
+        yamlContent,
+        offsetOf(yamlContent, 'footerText') + 2,
+        '.yaml'
+      )
+    ).toEqual({
+      dictionaryKey: 'my-dict',
+      fieldName: 'footerText',
+      fieldPath: ['footerText'],
+    });
+  });
+
+  it('returns null for top-level keys', () => {
+    expect(findContentFieldAtOffset(yamlContent, 0, '.yaml')).toBeNull();
+  });
+});
+
+// ---------------------------------------------------------------------------
+// Markdown
+// ---------------------------------------------------------------------------
+
+describe('findContentFieldAtOffset — Markdown', () => {
+  const markdownContent = [
+    '---',
+    'key: welcome-page',
+    'locale: en',
+    'title: Welcome Page Content',
+    '---',
+    '',
+    '# Welcome to Our Platform',
+    '',
+    '## Build amazing applications with ease',
+    '',
+  ].join('\n');
+
+  it('finds key', () => {
+    expect(
+      findKeyInContentFile(markdownContent, offsetOf(markdownContent, 'key:'))
+    ).toBe('welcome-page');
+  });
+
+  it('always returns null for content fields (no content: block)', () => {
+    expect(
+      findContentFieldAtOffset(
+        markdownContent,
+        offsetOf(markdownContent, 'Welcome'),
+        '.md'
+      )
+    ).toBeNull();
+  });
+});
+
+// ---------------------------------------------------------------------------
+// Intlayer Leaf Helpers in TS
+// ---------------------------------------------------------------------------
+
+describe('findContentFieldAtOffset — TS leaf helpers', () => {
+  const tsWithAllHelpers = [
+    "import { t, enu, cond, plural, gender, insert, nest, md, file, html } from 'intlayer';",
+    'export default {',
+    "  key: 'page',",
+    '  content: {',
+    "    myTranslation: t({ en: 'Hello', fr: 'Bonjour' }),",
+    "    myEnum: enu({ pending: 'Pending', approved: 'Approved' }),",
+    "    myCond: cond({ true: 'Yes', false: 'No' }),",
+    "    myPlural: plural({ one: 'One item', other: '{{count}} items' }),",
+    "    myGender: gender({ male: 'He', female: 'She', other: 'They' }),",
+    "    myInsert: insert('Hello {{name}}!'),",
+    "    myNest: nest('other-dict'),",
+    "    myMd: md('# Hello'),",
+    "    myFile: file('./readme.md'),",
+    "    myHtml: html('<p>Hello</p>'),",
+    '    nestedPlain: {',
+    "      deepField: t({ en: 'Deep' }),",
+    '    },',
+    '  },',
+    '}',
+  ].join('\n');
+
+  it('finds all top-level helper fields', () => {
+    const helpers = [
+      'myTranslation',
+      'myEnum',
+      'myCond',
+      'myPlural',
+      'myGender',
+      'myInsert',
+      'myNest',
+      'myMd',
+      'myFile',
+      'myHtml',
+    ];
+    for (const helper of helpers) {
+      expect(
+        findContentFieldAtOffset(
+          tsWithAllHelpers,
+          offsetOf(tsWithAllHelpers, helper),
+          '.ts'
+        )
+      ).toEqual({
+        dictionaryKey: 'page',
+        fieldName: helper,
+        fieldPath: [helper],
+      });
+    }
+  });
+
+  it('ignores arguments of leaf helpers', () => {
+    expect(
+      findContentFieldAtOffset(
+        tsWithAllHelpers,
+        offsetOf(tsWithAllHelpers, 'pending'),
+        '.ts'
+      )
+    ).toBeNull();
+    expect(
+      findContentFieldAtOffset(
+        tsWithAllHelpers,
+        offsetOf(tsWithAllHelpers, "en: 'Hello'"),
+        '.ts'
+      )
+    ).toBeNull();
+    expect(
+      findContentFieldAtOffset(
+        tsWithAllHelpers,
+        offsetOf(tsWithAllHelpers, "male: 'He'"),
+        '.ts'
+      )
+    ).toBeNull();
+    expect(
+      findContentFieldAtOffset(
+        tsWithAllHelpers,
+        offsetOf(tsWithAllHelpers, "one: 'One item'"),
+        '.ts'
+      )
+    ).toBeNull();
+  });
+
+  it('finds nested fields with full path', () => {
+    expect(
+      findContentFieldAtOffset(
+        tsWithAllHelpers,
+        offsetOf(tsWithAllHelpers, 'deepField'),
+        '.ts'
+      )
+    ).toEqual({
+      dictionaryKey: 'page',
+      fieldName: 'deepField',
+      fieldPath: ['nestedPlain', 'deepField'],
+    });
   });
 });
