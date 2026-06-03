@@ -13,8 +13,8 @@
   },
   "dependencies": {
     "intlayer": "workspace:*",
-    "react": "19.2.6",
-    "react-dom": "19.2.6",
+    "react": "19.2.7",
+    "react-dom": "19.2.7",
     "react-intlayer": "workspace:*",
     "react-router-dom": "7.15.0",
     "zod": "4.4.3"
@@ -24,14 +24,14 @@
     "@intlayer/sync-json-plugin": "workspace:*",
     "@intlayer/sync-po-plugin": "workspace:*",
     "@tailwindcss/vite": "4.3.0",
-    "@types/react": "19.2.15",
+    "@types/react": "19.2.16",
     "@types/react-dom": "19.2.3",
     "@vitejs/plugin-react": "6.0.2",
     "autoprefixer": "10.5.0",
     "intlayer-editor": "workspace:*",
     "tailwindcss": "4.3.0",
     "typescript": "6.0.3",
-    "vite": "8.0.14",
+    "vite": "8.0.16",
     "vite-intlayer": "workspace:*"
   }
 }

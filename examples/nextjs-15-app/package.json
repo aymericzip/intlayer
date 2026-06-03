@@ -14,18 +14,18 @@
     "test": ""
   },
   "dependencies": {
-    "fuse.js": "7.4.0",
+    "fuse.js": "7.4.1",
     "intlayer": "workspace:*",
     "next": "15.5.18",
     "next-intlayer": "workspace:*",
-    "react": "19.2.6",
-    "react-dom": "19.2.6"
+    "react": "19.2.7",
+    "react-dom": "19.2.7"
   },
   "devDependencies": {
     "@next/bundle-analyzer": "15.5.18",
     "@tailwindcss/postcss": "4.3.0",
     "@types/node": "25.9.1",
-    "@types/react": "19.2.15",
+    "@types/react": "19.2.16",
     "@types/react-dom": "19.2.3",
     "intlayer-editor": "workspace:*",
     "postcss": "8.5.15",

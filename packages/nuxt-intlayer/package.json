@@ -92,7 +92,7 @@
     "rimraf": "6.1.3",
     "tsdown": "0.22.1",
     "typescript": "6.0.3",
-    "vitest": "4.1.7"
+    "vitest": "4.1.8"
   },
   "peerDependencies": {
     "@nuxt/kit": ">=3.0.0",

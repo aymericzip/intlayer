@@ -14,18 +14,18 @@
     "start:editor": "intlayer-editor start --with 'next dev'"
   },
   "dependencies": {
-    "fuse.js": "7.4.0",
+    "fuse.js": "7.4.1",
     "intlayer": "workspace:*",
     "next": "16.2.7",
     "next-intlayer": "workspace:*",
-    "react": "19.2.6",
-    "react-dom": "19.2.6"
+    "react": "19.2.7",
+    "react-dom": "19.2.7"
   },
   "devDependencies": {
     "@intlayer/swc": "workspace:*",
     "@tailwindcss/postcss": "4.3.0",
     "@types/node": "25.9.1",
-    "@types/react": "19.2.15",
+    "@types/react": "19.2.16",
     "@types/react-dom": "19.2.3",
     "eslint-config-next": "16.2.0",
     "intlayer-editor": "workspace:*",
