@@ -5,7 +5,7 @@ const INTLAYER_GETTERS = ['useIntlayer', 'getIntlayer'] as const;
 //     "my-key"
 //   )
 // Capture group 3 is the dictionary key.
-const buildGetterRegex = () =>
+const buildGetterRegularExpression = () =>
   new RegExp(
     `\\b(${INTLAYER_GETTERS.join('|')})\\b\\s*(?:<[^<>()]*>)?\\s*\\(\\s*(['"\`])([^'"\`]+)\\2`,
     'g'
@@ -20,12 +20,14 @@ export const findKeyAtOffset = (
   text: string,
   offset: number
 ): string | null => {
-  const regex = buildGetterRegex();
-  for (const match of text.matchAll(regex)) {
+  const regularExpression = buildGetterRegularExpression();
+
+  for (const match of text.matchAll(regularExpression)) {
     const start = match.index;
     const end = start + match[0].length;
+
     if (offset >= start && offset <= end) {
-      return match[3];
+      return match[3] ?? null;
     }
   }
   return null;
