@@ -1,6 +1,6 @@
 {
   "name": "website-react-router",
-  "version": "8.11.3",
+  "version": "8.12.0-canary.0",
   "private": true,
   "description": "Intlayer Website include the landing page and the documentation of the intlayer project.",
   "keywords": [
