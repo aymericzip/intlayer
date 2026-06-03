@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-12-06
 updatedAt: 2026-05-31
-title: "Next.js 14 i18n - Complete guide to translate a Next.js 14 app"
+title: "Next.js 14 i18n - Complete guide to translate your app"
 description: "No more i18next. The 2026 guide to building a multilingual (i18n) Next.js 14 app. Translate with AI agents and optimize bundle size, SEO and performances."
 keywords:
   - Internationalization

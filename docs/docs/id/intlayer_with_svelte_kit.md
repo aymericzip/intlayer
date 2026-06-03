@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-11-20
 updatedAt: 2026-05-31
-title: "SvelteKit i18n - Panduan lengkap menerjemahkan aplikasi SvelteKit"
+title: "SvelteKit i18n - Panduan lengkap menerjemahkan aplikasi Anda"
 description: "Tidak ada lagi i18next. Panduan 2026 untuk membangun aplikasi SvelteKit multibahasa (i18n). Terjemahkan dengan agen AI dan optimalkan ukuran bundle, SEO, dan performa."
 keywords:
   - Internasionalisasi

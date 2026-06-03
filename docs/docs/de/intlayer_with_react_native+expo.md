@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-06-18
 updatedAt: 2026-05-31
-title: "Expo + React Native i18n - Vollständiger Leitfaden zur Übersetzung einer Expo + React Native-App"
+title: "Expo + React Native i18n - Vollständiger Leitfaden zur Übersetzung Ihrer App"
 description: "Kein i18next mehr. Der 2026-Leitfaden zum Erstellen einer mehrsprachigen (i18n) Expo + React Native-App. Übersetzen Sie mit KI-Agenten und optimieren Sie Bundle-Größe, SEO und Performance."
 keywords:
   - Internationalisierung

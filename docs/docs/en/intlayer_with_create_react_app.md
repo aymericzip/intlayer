@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-08-23
 updatedAt: 2026-05-31
-title: "Create React App i18n - Complete guide to translate a Create React App app"
+title: "Create React App i18n - Complete guide to translate your app"
 description: "No more i18next. The 2026 guide to building a multilingual (i18n) Create React App app. Translate with AI agents and optimize bundle size, SEO and performances."
 keywords:
   - Internationalization

@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-05-31
-title: "Create React App i18n - 完全な翻訳ガイド：Create React App アプリ"
+title: "Create React App i18n - あなたのアプリを翻訳する完全ガイド"
 description: "i18nextはもう不要。2026年に多言語（i18n）Create React Appアプリを構築するためのガイド。AIエージェントで翻訳し、バンドルサイズ、SEO、パフォーマンスを最適化します。"
 keywords:
   - 国際化

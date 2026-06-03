@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-06-18
 updatedAt: 2026-05-31
-title: "Nuxt i18n - Complete guide to translate a Nuxt app"
+title: "Nuxt i18n - Complete guide to translate your app"
 description: "No more i18next. The 2026 guide to building a multilingual (i18n) Nuxt app. Translate with AI agents and optimize bundle size, SEO and performances."
 keywords:
   - Internationalization

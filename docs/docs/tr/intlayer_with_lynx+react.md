@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-09-07
 updatedAt: 2026-05-31
-title: "Lynx + React i18n - Lynx + React uygulamasını çevirmek için eksiksiz kılavuz"
+title: "Lynx + React i18n - Uygulamanızı çevirmek için eksiksiz kılavuz"
 description: "Artık i18next yok. 2026 yılı için çok dilli (i18n) Lynx + React uygulaması oluşturma kılavuzu. Yapay zeka ajanlarıyla çevirin ve bundle boyutu, SEO ve performansı optimize edin."
 keywords:
   - Uluslararasılaştırma

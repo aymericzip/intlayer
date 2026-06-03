@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-03-31
 updatedAt: 2026-05-31
-title: "Vanilla JS i18n - Vanilla JS uygulamasını çevirmek için eksiksiz kılavuz"
+title: "Vanilla JS i18n - Uygulamanızı çevirmek için eksiksiz kılavuz"
 description: "Artık i18next yok. 2026 yılı için çok dilli (i18n) Vanilla JS uygulaması oluşturma kılavuzu. Yapay zeka ajanlarıyla çevirin ve bundle boyutu, SEO ve performansı optimize edin."
 keywords:
   - Uluslararasılaştırma

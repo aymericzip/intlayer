@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-03-23
 updatedAt: 2026-05-31
-title: "Vite + Vanilla JS i18n - Volledige gids voor het vertalen van een Vite + Vanilla JS-app"
+title: "Vite + Vanilla JS i18n - Volledige gids voor het vertalen van uw app"
 description: "Geen i18next meer. De 2026-gids voor het bouwen van een meertalige (i18n) Vite + Vanilla JS-app. Vertaal met AI-agenten en optimaliseer bundelgrootte, SEO en prestaties."
 keywords:
   - Internationalisering

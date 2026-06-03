@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-10-05
 updatedAt: 2026-05-31
-title: "next-intl i18n - Vollständiger Leitfaden zur Übersetzung einer next-intl-App"
+title: "next-intl i18n - Vollständiger Leitfaden zur Übersetzung Ihrer App"
 description: "Kein i18next mehr. Der 2026-Leitfaden zum Erstellen einer mehrsprachigen (i18n) next-intl-App. Übersetzen Sie mit KI-Agenten und optimieren Sie Bundle-Größe, SEO und Performance."
 keywords:
   - Internationalisierung

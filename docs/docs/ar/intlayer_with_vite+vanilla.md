@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-03-23
 updatedAt: 2026-05-31
-title: "تدويل Vite + Vanilla JS - الدليل الكامل لترجمة تطبيق Vite + Vanilla JS"
+title: "تدويل Vite + Vanilla JS - الدليل الكامل لترجمة تطبيقك"
 description: "لا مزيد من i18next. دليل 2026 لبناء تطبيق Vite + Vanilla JS متعدد اللغات (i18n). ترجم باستخدام وكلاء الذكاء الاصطناعي وحسّن حجم الحزمة وتحسين محركات البحث والأداء."
 keywords:
   - التدويل

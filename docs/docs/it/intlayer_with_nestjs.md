@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-09-09
 updatedAt: 2026-05-31
-title: "NestJS i18n - Guida completa per tradurre un'applicazione NestJS"
+title: "NestJS i18n - Guida completa per tradurre la tua applicazione"
 description: "Niente più i18next. La guida 2026 per creare un'applicazione NestJS multilingue (i18n). Traduci con agenti AI e ottimizza la dimensione del bundle, SEO e prestazioni."
 keywords:
   - Internazionalizzazione

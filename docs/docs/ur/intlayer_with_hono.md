@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-08-23
 updatedAt: 2026-05-31
-title: "Hono i18n - Hono ایپ کو ترجمہ کرنے کا مکمل گائیڈ"
+title: "Hono i18n - اپنی ایپ کو ترجمہ کرنے کا مکمل گائیڈ"
 description: "اب i18next کی ضرورت نہیں۔ 2026 میں Hono ایپ کو کثیر لسانی (i18n) بنانے کا گائیڈ۔ AI ایجنٹس سے ترجمہ کریں اور بنڈل سائز، SEO اور پرفارمنس بہتر بنائیں۔"
 keywords:
   - Internationalization

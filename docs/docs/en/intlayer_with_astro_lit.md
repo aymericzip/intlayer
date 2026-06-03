@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-04-24
 updatedAt: 2026-05-31
-title: "Astro + Lit i18n - Complete guide to translate an Astro + Lit app"
+title: "Astro + Lit i18n - Complete guide to translate your app"
 description: "No more i18next. The 2026 guide to building a multilingual (i18n) Astro + Lit app. Translate with AI agents and optimize bundle size, SEO and performances."
 keywords:
   - Internationalization

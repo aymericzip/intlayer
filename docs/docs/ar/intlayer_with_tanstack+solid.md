@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-03-25
 updatedAt: 2026-05-31
-title: "تدويل TanStack Start + Solid - الدليل الكامل لترجمة تطبيق TanStack Start + Solid"
+title: "تدويل TanStack Start + Solid - الدليل الكامل لترجمة تطبيقك"
 description: "لا مزيد من i18next. دليل 2026 لبناء تطبيق TanStack Start + Solid متعدد اللغات (i18n). ترجم باستخدام وكلاء الذكاء الاصطناعي وحسّن حجم الحزمة وتحسين محركات البحث والأداء."
 keywords:
   - التدويل

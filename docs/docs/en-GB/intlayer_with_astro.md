@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-03-07
 updatedAt: 2026-05-31
-title: "Astro i18n - Complete guide to translate an Astro app"
+title: "Astro i18n - Complete guide to translate your app"
 description: "No more i18next. The 2026 guide to building a multilingual (i18n) Astro app. Translate with AI agents and optimise bundle size, SEO and performances."
 keywords:
   - internationalisation

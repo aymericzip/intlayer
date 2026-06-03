@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-09-09
 updatedAt: 2026-05-31
-title: "NestJS i18n - 完全な翻訳ガイド：NestJS アプリ"
+title: "NestJS i18n - あなたのアプリを翻訳する完全ガイド"
 description: "i18nextはもう不要。2026年に多言語（i18n）NestJSアプリを構築するためのガイド。AIエージェントで翻訳し、バンドルサイズ、SEO、パフォーマンスを最適化します。"
 keywords:
   - 国際化

@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-05-31
-title: "تدويل Create React App - الدليل الكامل لترجمة تطبيق Create React App"
+title: "تدويل Create React App - الدليل الكامل لترجمة تطبيقك"
 description: "لا مزيد من i18next. دليل 2026 لبناء تطبيق Create React App متعدد اللغات (i18n). ترجم باستخدام وكلاء الذكاء الاصطناعي وحسّن حجم الحزمة وتحسين محركات البحث والأداء."
 keywords:
   - التدويل

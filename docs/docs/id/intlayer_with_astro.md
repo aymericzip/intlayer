@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-03-07
 updatedAt: 2026-05-31
-title: "Astro i18n - Panduan lengkap menerjemahkan aplikasi Astro"
+title: "Astro i18n - Panduan lengkap menerjemahkan aplikasi Anda"
 description: "Tidak ada lagi i18next. Panduan 2026 untuk membangun aplikasi Astro multibahasa (i18n). Terjemahkan dengan agen AI dan optimalkan ukuran bundle, SEO, dan performa."
 keywords:
   - internasionalisasi

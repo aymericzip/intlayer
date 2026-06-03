@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-04-24
 updatedAt: 2026-05-31
-title: "Astro + Vanilla JS i18n - Guía completa para traducir una aplicación Astro + Vanilla JS"
+title: "Astro + Vanilla JS i18n - Guía completa para traducir tu aplicación"
 description: "Sin más i18next. La guía 2026 para crear una aplicación Astro + Vanilla JS multilingüe (i18n). Traduce con agentes de IA y optimiza el tamaño del bundle, SEO y rendimiento."
 keywords:
   - internacionalización

@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-03-20
 updatedAt: 2026-05-06
-title: "Storybook i18n - Storybook অ্যাপ অনুবাদের সম্পূর্ণ গাইড"
+title: "Storybook i18n - আপনার অ্যাপ অনুবাদের সম্পূর্ণ গাইড"
 description: "আর i18next নয়। 2026 সালে Storybook অ্যাপ কে বহুভাষিক (i18n) করার গাইড। AI এজেন্ট দিয়ে অনুবাদ করুন এবং বান্ডেল সাইজ, SEO ও পারফরম্যান্স অপ্টিমাইজ করুন।"
 keywords:
   - Internationalization

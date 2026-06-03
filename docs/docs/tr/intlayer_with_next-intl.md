@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-10-05
 updatedAt: 2026-05-31
-title: "next-intl i18n - next-intl uygulamasını çevirmek için eksiksiz kılavuz"
+title: "next-intl i18n - Uygulamanızı çevirmek için eksiksiz kılavuz"
 description: "Artık i18next yok. 2026 yılı için çok dilli (i18n) next-intl uygulaması oluşturma kılavuzu. Yapay zeka ajanlarıyla çevirin ve bundle boyutu, SEO ve performansı optimize edin."
 keywords:
   - Uluslararasılaştırma

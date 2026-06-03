@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-10-25
 updatedAt: 2026-05-31
-title: "Next.js 15 i18n - Hướng dẫn đầy đủ để dịch ứng dụng Next.js 15"
+title: "Next.js 15 i18n - Hướng dẫn đầy đủ để dịch ứng dụng của bạn"
 description: "Không còn i18next nữa. Hướng dẫn 2026 để xây dựng ứng dụng Next.js 15 đa ngôn ngữ (i18n). Dịch với các AI agent và tối ưu hóa kích thước bundle, SEO và hiệu suất."
 keywords:
   - Quốc tế hóa

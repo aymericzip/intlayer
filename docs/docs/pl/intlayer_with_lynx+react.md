@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-03-09
 updatedAt: 2026-05-31
-title: "Lynx + React i18n - Kompletny przewodnik po tłumaczeniu aplikacji Lynx + React"
+title: "Lynx + React i18n - Kompletny przewodnik po tłumaczeniu swojej aplikacji"
 description: "Koniec z i18next. Przewodnik 2026 do budowania wielojęzycznej (i18n) aplikacji Lynx + React. Tłumacz z agentami AI i optymalizuj rozmiar bundle, SEO i wydajność."
 keywords:
   - Internacjonalizacja

@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2026-05-31
-title: "Angular 21 i18n - 完整翻譯指南：Angular 21 應用程式"
+title: "Angular 21 i18n - 翻譯您的應用程式的完整指南"
 description: "告別 i18next。2026 年建構多語言 (i18n) Angular 21 應用程式的完整指南。使用 AI 代理翻譯並優化套件大小、SEO 和效能。"
 keywords:
   - 國際化

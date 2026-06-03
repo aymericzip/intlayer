@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-08-11
 updatedAt: 2026-05-31
-title: "Express i18n - Guia completo para traduzir um aplicativo Express"
+title: "Express i18n - Guia completo para traduzir seu aplicativo"
 description: "Sem mais i18next. O guia 2026 para criar uma aplicação Express multilíngue (i18n). Traduza com agentes de IA e otimize o tamanho do bundle, SEO e desempenho."
 keywords:
   - Internacionalização

@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-12-07
 updatedAt: 2026-05-31
-title: "Next.js Page Router i18n - Hướng dẫn đầy đủ để dịch ứng dụng Next.js Page Router"
+title: "Next.js Page Router i18n - Hướng dẫn đầy đủ để dịch ứng dụng của bạn"
 description: "Không còn i18next nữa. Hướng dẫn 2026 để xây dựng ứng dụng Next.js Page Router đa ngôn ngữ (i18n). Dịch với các AI agent và tối ưu hóa kích thước bundle, SEO và hiệu suất."
 keywords:
   - Quốc tế hóa

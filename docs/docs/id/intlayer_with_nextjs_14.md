@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-12-06
 updatedAt: 2026-05-31
-title: "Next.js 14 i18n - Panduan lengkap menerjemahkan aplikasi Next.js 14"
+title: "Next.js 14 i18n - Panduan lengkap menerjemahkan aplikasi Anda"
 description: "Tidak ada lagi i18next. Panduan 2026 untuk membangun aplikasi Next.js 14 multibahasa (i18n). Terjemahkan dengan agen AI dan optimalkan ukuran bundle, SEO, dan performa."
 keywords:
   - Internasionalisasi

@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-06-18
 updatedAt: 2026-05-31
-title: "Nuxt i18n - Nuxt uygulamasını çevirmek için eksiksiz kılavuz"
+title: "Nuxt i18n - Uygulamanızı çevirmek için eksiksiz kılavuz"
 description: "Artık i18next yok. 2026 yılı için çok dilli (i18n) Nuxt uygulaması oluşturma kılavuzu. Yapay zeka ajanlarıyla çevirin ve bundle boyutu, SEO ve performansı optimize edin."
 keywords:
   - Uluslararasılaştırma

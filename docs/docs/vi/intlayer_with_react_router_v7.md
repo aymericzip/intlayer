@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-09-04
 updatedAt: 2026-05-31
-title: "React Router v7 i18n - Hướng dẫn đầy đủ để dịch ứng dụng React Router v7"
+title: "React Router v7 i18n - Hướng dẫn đầy đủ để dịch ứng dụng của bạn"
 description: "Không còn i18next nữa. Hướng dẫn 2026 để xây dựng ứng dụng React Router v7 đa ngôn ngữ (i18n). Dịch với các AI agent và tối ưu hóa kích thước bundle, SEO và hiệu suất."
 keywords:
   - Quốc tế hóa

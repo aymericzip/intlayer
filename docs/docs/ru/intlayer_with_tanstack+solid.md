@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-03-25
 updatedAt: 2026-05-31
-title: "TanStack Start + Solid i18n - Полное руководство по переводу приложения TanStack Start + Solid"
+title: "TanStack Start + Solid i18n - Полное руководство по переводу вашего приложения"
 description: "Больше никакого i18next. Руководство 2026 по созданию многоязычного (i18n) приложения TanStack Start + Solid. Переводите с помощью ИИ-агентов и оптимизируйте размер бандла, SEO и производительность."
 keywords:
   - Интернационализация

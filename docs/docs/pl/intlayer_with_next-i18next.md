@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-10-05
 updatedAt: 2026-05-31
-title: "next-i18next i18n - Kompletny przewodnik po tłumaczeniu aplikacji next-i18next"
+title: "next-i18next i18n - Kompletny przewodnik po tłumaczeniu swojej aplikacji"
 description: "Koniec z i18next. Przewodnik 2026 do budowania wielojęzycznej (i18n) aplikacji next-i18next. Tłumacz z agentami AI i optymalizuj rozmiar bundle, SEO i wydajność."
 keywords:
   - Internacjonalizacja

@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-03-25
 updatedAt: 2026-05-31
-title: "TanStack Start + Solid i18n - Panduan lengkap menerjemahkan aplikasi TanStack Start + Solid"
+title: "TanStack Start + Solid i18n - Panduan lengkap menerjemahkan aplikasi Anda"
 description: "Tidak ada lagi i18next. Panduan 2026 untuk membangun aplikasi TanStack Start + Solid multibahasa (i18n). Terjemahkan dengan agen AI dan optimalkan ukuran bundle, SEO, dan performa."
 keywords:
   - Internasionalisasi

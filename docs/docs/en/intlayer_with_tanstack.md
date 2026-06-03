@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-09-09
 updatedAt: 2026-05-31
-title: "TanStack Start i18n - Complete guide to translate a TanStack Start app"
+title: "TanStack Start i18n - Complete guide to translate your app"
 description: "No more i18next. The 2026 guide to building a multilingual (i18n) TanStack Start app. Translate with AI agents and optimize bundle size, SEO and performances."
 keywords:
   - Internationalization

@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-09-04
 updatedAt: 2026-05-31
-title: "React Router v7 i18n - Panduan lengkap menerjemahkan aplikasi React Router v7"
+title: "React Router v7 i18n - Panduan lengkap menerjemahkan aplikasi Anda"
 description: "Tidak ada lagi i18next. Panduan 2026 untuk membangun aplikasi React Router v7 multibahasa (i18n). Terjemahkan dengan agen AI dan optimalkan ukuran bundle, SEO, dan performa."
 keywords:
   - Internasionalisasi

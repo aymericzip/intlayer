@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2026-05-31
-title: "Vite + Solid i18n - Guía completa para traducir una aplicación Vite + Solid"
+title: "Vite + Solid i18n - Guía completa para traducir tu aplicación"
 description: "Sin más i18next. La guía 2026 para crear una aplicación Vite + Solid multilingüe (i18n). Traduce con agentes de IA y optimiza el tamaño del bundle, SEO y rendimiento."
 keywords:
   - Internacionalización

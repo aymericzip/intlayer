@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2026-05-31
-title: "Vite + Svelte i18n - Vite + Svelte ऐप को अनुवाद करने का पूर्ण गाइड"
+title: "Vite + Svelte i18n - अपने ऐप को अनुवाद करने का पूर्ण गाइड"
 description: "अब i18next की जरूरत नहीं। 2026 में Vite + Svelte ऐप को बहुभाषी (i18n) बनाने का गाइड। AI एजेंट्स से अनुवाद करें और बंडल साइज़, SEO और परफॉर्मेंस ऑप्टिमाइज़ करें।"
 keywords:
   - अंतरराष्ट्रीयकरण

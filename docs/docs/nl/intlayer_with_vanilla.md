@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-03-31
 updatedAt: 2026-05-31
-title: "Vanilla JS i18n - Volledige gids voor het vertalen van een Vanilla JS-app"
+title: "Vanilla JS i18n - Volledige gids voor het vertalen van uw app"
 description: "Geen i18next meer. De 2026-gids voor het bouwen van een meertalige (i18n) Vanilla JS-app. Vertaal met AI-agenten en optimaliseer bundelgrootte, SEO en prestaties."
 keywords:
   - Internationalisering

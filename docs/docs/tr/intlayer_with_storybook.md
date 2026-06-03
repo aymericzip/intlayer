@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-03-20
 updatedAt: 2026-05-31
-title: "Storybook i18n - Storybook uygulamasını çevirmek için eksiksiz kılavuz"
+title: "Storybook i18n - Uygulamanızı çevirmek için eksiksiz kılavuz"
 description: "Artık i18next yok. 2026 yılı için çok dilli (i18n) Storybook uygulaması oluşturma kılavuzu. Yapay zeka ajanlarıyla çevirin ve bundle boyutu, SEO ve performansı optimize edin."
 keywords:
   - Uluslararasılaştırma

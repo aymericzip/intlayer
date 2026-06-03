@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-03-07
 updatedAt: 2026-05-31
-title: "Vite + React i18n - Panduan lengkap menerjemahkan aplikasi Vite + React"
+title: "Vite + React i18n - Panduan lengkap menerjemahkan aplikasi Anda"
 description: "Tidak ada lagi i18next. Panduan 2026 untuk membangun aplikasi Vite + React multibahasa (i18n). Terjemahkan dengan agen AI dan optimalkan ukuran bundle, SEO, dan performa."
 keywords:
   - Internasionalisasi

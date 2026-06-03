@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-03-31
 updatedAt: 2026-05-31
-title: "Vanilla JS i18n - Panduan lengkap menerjemahkan aplikasi Vanilla JS"
+title: "Vanilla JS i18n - Panduan lengkap menerjemahkan aplikasi Anda"
 description: "Tidak ada lagi i18next. Panduan 2026 untuk membangun aplikasi Vanilla JS multibahasa (i18n). Terjemahkan dengan agen AI dan optimalkan ukuran bundle, SEO, dan performa."
 keywords:
   - Internasionalisasi

@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-10-05
 updatedAt: 2026-05-31
-title: "next-i18next i18n - Hướng dẫn đầy đủ để dịch ứng dụng next-i18next"
+title: "next-i18next i18n - Hướng dẫn đầy đủ để dịch ứng dụng của bạn"
 description: "Không còn i18next nữa. Hướng dẫn 2026 để xây dựng ứng dụng next-i18next đa ngôn ngữ (i18n). Dịch với các AI agent và tối ưu hóa kích thước bundle, SEO và hiệu suất."
 keywords:
   - Quốc tế hóa

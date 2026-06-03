@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-11-20
 updatedAt: 2026-05-31
-title: "SvelteKit i18n - 완전한 번역 가이드: SvelteKit 앱"
+title: "SvelteKit i18n - 앱을 번역하는 완전 가이드"
 description: "i18next는 이제 그만. 2026년 다국어 (i18n) SvelteKit 앱 구축 가이드. AI 에이전트로 번역하고 번들 크기, SEO, 성능을 최적화하세요."
 keywords:
   - 국제화

@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-12-30
 updatedAt: 2026-05-31
-title: "Fastify i18n - Kompletní průvodce překladem aplikace Fastify"
+title: "Fastify i18n - Kompletní průvodce překladem vaší aplikace"
 description: "Žádný i18next. Průvodce 2026 pro vytváření vícejazyčné (i18n) aplikace Fastify. Překládejte pomocí agentů AI a optimalizujte velikost bundlu, SEO a výkon."
 keywords:
   - Internacionalizace

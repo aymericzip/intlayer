@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2026-05-31
-title: "Vite + Vue i18n - Complete guide to translate a Vite + Vue app"
+title: "Vite + Vue i18n - Complete guide to translate your app"
 description: "No more i18next. The 2026 guide to building a multilingual (i18n) Vite + Vue app. Translate with AI agents and optimise bundle size, SEO and performances."
 keywords:
   - Internationalisation

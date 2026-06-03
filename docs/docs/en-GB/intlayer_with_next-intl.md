@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-10-05
 updatedAt: 2026-05-31
-title: "next-intl i18n - Complete guide to translate a next-intl app"
+title: "next-intl i18n - Complete guide to translate your app"
 description: "No more i18next. The 2026 guide to building a multilingual (i18n) next-intl app. Translate with AI agents and optimise bundle size, SEO and performances."
 keywords:
   - Internationalisation

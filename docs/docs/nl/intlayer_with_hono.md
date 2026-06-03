@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-08-23
 updatedAt: 2026-05-31
-title: "Hono i18n - Volledige gids voor het vertalen van een Hono-app"
+title: "Hono i18n - Volledige gids voor het vertalen van uw app"
 description: "Geen i18next meer. De 2026-gids voor het bouwen van een meertalige (i18n) Hono-app. Vertaal met AI-agenten en optimaliseer bundelgrootte, SEO en prestaties."
 keywords:
   - Internationalisering

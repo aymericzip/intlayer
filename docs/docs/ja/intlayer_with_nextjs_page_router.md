@@ -1,7 +1,7 @@
 ---
 createdAt: 2024-12-07
 updatedAt: 2026-05-31
-title: "Next.js Page Router i18n - 完全な翻訳ガイド：Next.js Page Router アプリ"
+title: "Next.js Page Router i18n - あなたのアプリを翻訳する完全ガイド"
 description: "i18nextはもう不要。2026年に多言語（i18n）Next.js Page Routerアプリを構築するためのガイド。AIエージェントで翻訳し、バンドルサイズ、SEO、パフォーマンスを最適化します。"
 keywords:
   - 国際化

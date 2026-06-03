@@ -1,7 +1,7 @@
 ---
 createdAt: 2026-03-20
 updatedAt: 2026-05-31
-title: "Storybook i18n - Vollständiger Leitfaden zur Übersetzung einer Storybook-App"
+title: "Storybook i18n - Vollständiger Leitfaden zur Übersetzung Ihrer App"
 description: "Kein i18next mehr. Der 2026-Leitfaden zum Erstellen einer mehrsprachigen (i18n) Storybook-App. Übersetzen Sie mit KI-Agenten und optimieren Sie Bundle-Größe, SEO und Performance."
 keywords:
   - Internationalisierung
