@@ -97,19 +97,22 @@ export const ApplicationNotRunningView: FC<ApplicationNotRunningViewProps> = ({
           <h4 className="mb-2 font-semibold">{tipsTitle}</h4>
           <ul className="list-inside list-disc space-y-2 pl-3">
             {tips.map((tip, index) => (
+              // biome-ignore lint/suspicious/noArrayIndexKey: static list
               <li key={index} className="text-neutral">
-                {tip({
-                  editorUrl: (
-                    <span className="font-bold">
-                      {editorUrl ?? process.env.NEXT_PUBLIC_URL}
-                    </span>
-                  ),
-                  applicationUrl: (
-                    <span className="font-bold">
-                      {applicationUrl ?? 'http://localhost:3000'}
-                    </span>
-                  ),
-                })}
+                {typeof tip === 'function'
+                  ? tip({
+                      editorUrl: (
+                        <span className="font-bold">
+                          {editorUrl ?? process.env.NEXT_PUBLIC_EDITOR_URL}
+                        </span>
+                      ),
+                      applicationUrl: (
+                        <span className="font-bold">
+                          {applicationUrl ?? 'http://localhost:3000'}
+                        </span>
+                      ),
+                    })
+                  : tip}
               </li>
             ))}
           </ul>
@@ -117,7 +120,8 @@ export const ApplicationNotRunningView: FC<ApplicationNotRunningViewProps> = ({
 
         <Link
           label={documentationLink.label.value}
-          href={`${Website_Doc_IntlayerCMS_Path}#configuration`}
+          href={Website_Doc_IntlayerCMS_Path as any}
+          hash="configuration"
           color="text"
           className="ml-auto underline"
         >

@@ -27,9 +27,8 @@ import { customSession, lastLoginMethod, twoFactor } from 'better-auth/plugins';
 import { magicLink } from 'better-auth/plugins/magic-link';
 import type { MongoClient } from 'mongodb';
 import { Types } from 'mongoose';
-
-import type { OrganizationAPI } from '@/types/organization.types';
-import type { ProjectAPI } from '@/types/project.types';
+import type { Organization, OrganizationAPI } from '@/types/organization.types';
+import type { Project, ProjectAPI } from '@/types/project.types';
 import type {
   Session,
   SessionContext,
@@ -68,8 +67,8 @@ export const formatSession = (session: SessionContext): Session => {
   const resultSession: Session = {
     session: session.session as Session['session'],
     user: session.user as Session['user'],
-    organization: session.organization ?? null,
-    project: session.project ?? null,
+    organization: (session.organization as Organization | null) ?? null,
+    project: (session.project as Project | null) ?? null,
     environment: session.environment ?? null,
     authType: 'session',
     permissions,
@@ -474,5 +473,5 @@ export const getAuth = (dbClient: MongoClient): Auth => {
     },
   });
 
-  return auth as any;
+  return auth;
 };

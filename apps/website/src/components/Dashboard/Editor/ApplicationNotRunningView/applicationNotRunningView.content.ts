@@ -150,100 +150,75 @@ const applicationNotRunningViewContent = {
       vi: 'Gợi ý:',
       uk: 'Поради:',
     }),
-    tips: insert(
+    tips: [
+      insert(
+        t({
+          en: 'Ensure the `editor.cmsUrl` configuration field is set to `{{editorUrl}}`.',
+          'en-GB':
+            'Ensure the `editor.cmsUrl` configuration field is set to `{{editorUrl}}`.',
+          fr: 'Assurez-vous que le champ de configuration `editor.cmsUrl` est défini sur `{{editorUrl}}`.',
+          es: 'Asegúrese de que el campo de configuración `editor.cmsUrl` esté establecido en `{{editorUrl}}`.',
+          de: 'Stellen Sie sicher, dass das Konfigurationsfeld `editor.cmsUrl` auf `{{editorUrl}}` gesetzt ist.',
+          it: 'Assicurati che il campo di configurazione `editor.cmsUrl` sia impostato su `{{editorUrl}}`.',
+          ja: '`editor.cmsUrl`設定フィールドが`{{editorUrl}}`に設定されていることを確認してください。',
+          ko: '`editor.cmsUrl` 설정 필드가 `{{editorUrl}}`로 설정되어 있는지 확인하세요.',
+          zh: '确保 `editor.cmsUrl` 配置字段设置为 `{{editorUrl}}`。',
+          pt: 'Certifique-se de que o campo de configuração `editor.cmsUrl` esteja definido como `{{editorUrl}}`.',
+          ru: 'Убедитесь, что поле конфигурации `editor.cmsUrl` установлено на `{{editorUrl}}`.',
+          ar: 'تأكد من تعيين حقل التكوين `editor.cmsUrl` إلى `{{editorUrl}}`.',
+          hi: 'सुनिश्चित करें कि `editor.cmsUrl` कॉन्फ़िगरेशन फ़ील्ड `{{editorUrl}}` पर सेट है।',
+          tr: '`editor.cmsUrl` yapılandırma alanının `{{editorUrl}}` olarak ayarlandığından emin olun.',
+          pl: 'Upewnij się, że pole konfiguracji `editor.cmsUrl` jest ustawione na `{{editorUrl}}`.',
+          id: 'Pastikan bidang konfigurasi `editor.cmsUrl` diatur ke `{{editorUrl}}`.',
+          vi: 'Đảm bảo trường cấu hình `editor.cmsUrl` được đặt thành `{{editorUrl}}`.',
+          uk: 'Переконайтеся, що поле конфігурації `editor.cmsUrl` встановлено на `{{editorUrl}}`.',
+        })
+      ),
+      insert(
+        t({
+          en: 'Ensure the `editor.applicationUrl` configuration field is set to `{{applicationUrl}}`.',
+          'en-GB':
+            'Ensure the `editor.applicationUrl` configuration field is set to `{{applicationUrl}}`.',
+          fr: 'Assurez-vous que le champ de configuration `editor.applicationUrl` est défini sur `{{applicationUrl}}`.',
+          es: 'Asegúrese de que el campo de configuración `editor.applicationUrl` esté establecido en `{{applicationUrl}}`.',
+          de: 'Stellen Sie sicher, dass das Konfigurationsfeld `editor.applicationUrl` auf `{{applicationUrl}}` gesetzt ist.',
+          it: 'Assicurati che il campo di configurazione `editor.applicationUrl` sia impostato su `{{applicationUrl}}`.',
+          ja: '`editor.applicationUrl`設定フィールドが`{{applicationUrl}}`に設定されていることを確認してください。',
+          ko: '`editor.applicationUrl` 설정 필드가 `{{applicationUrl}}`로 설정되어 있는지 확인하세요.',
+          zh: '确保 `editor.applicationUrl` 配置字段设置为 `{{applicationUrl}}`。',
+          pt: 'Certifique-se de que o campo de configuração `editor.applicationUrl` esteja definido como `{{applicationUrl}}`.',
+          ru: 'Убедитесь, что поле конфигурации `editor.applicationUrl` установлено на `{{applicationUrl}}`.',
+          ar: 'تأكد من تعيين حقل التكوين `editor.applicationUrl` إلى `{{applicationUrl}}`.',
+          hi: 'सुनिश्चित करें कि `editor.applicationUrl` कॉन्फ़िगरेशन फ़ील्ड `{{applicationUrl}}` पर सेट है।',
+          tr: '`editor.applicationUrl` yapılandırma alanının `{{applicationUrl}}` olarak ayarlandığından emin olun.',
+          pl: 'Upewnij się, że pole konfiguracji `editor.applicationUrl` jest ustawione na `{{applicationUrl}}`.',
+          id: 'Pastikan bidang konfigurasi `editor.applicationUrl` diatur ke `{{applicationUrl}}`.',
+          vi: 'Đảm bảo trường cấu hình `editor.applicationUrl` được đặt thành `{{applicationUrl}}`.',
+          uk: 'Переконайтеся, що поле конфігурації `editor.applicationUrl` встановлено на `{{applicationUrl}}`.',
+        })
+      ),
       t({
-        en: [
-          'Ensure the `editor.cmsUrl` configuration field is set to `{{editorUrl}}`.',
-          'Ensure the `editor.applicationUrl` configuration field is set to `{{applicationUrl}}`.',
+        en: "Ensure the CSP ('Content-Security-Policy') header does not block the editor's iframe (Required: `frame-ancestors` and `connect-src`). Check the console (F12) for more details.",
+        'en-GB':
           "Ensure the CSP ('Content-Security-Policy') header does not block the editor's iframe (Required: `frame-ancestors` and `connect-src`). Check the console (F12) for more details.",
-        ],
-        'en-GB': [
-          'Ensure the `editor.cmsUrl` configuration field is set to `{{editorUrl}}`.',
-          'Ensure the `editor.applicationUrl` configuration field is set to `{{applicationUrl}}`.',
-          "Ensure the CSP ('Content-Security-Policy') header does not block the editor's iframe (Required: `frame-ancestors` and `connect-src`). Check the console (F12) for more details.",
-        ],
-        fr: [
-          'Assurez-vous que le champ de configuration `editor.cmsUrl` est défini sur `{{editorUrl}}`.',
-          'Assurez-vous que le champ de configuration `editor.applicationUrl` est défini sur `{{applicationUrl}}`.',
-          "Assurez-vous que l'en-tête CSP ('Content-Security-Policy') ne bloque pas l'iframe de l'éditeur (Requis : `frame-ancestors` et `connect-src`). Vérifiez la console (F12) pour plus de détails.",
-        ],
-        es: [
-          'Asegúrese de que el campo de configuración `editor.cmsUrl` esté establecido en `{{editorUrl}}`.',
-          'Asegúrese de que el campo de configuración `editor.applicationUrl` esté establecido en `{{applicationUrl}}`.',
-          "Asegúrese de que el encabezado CSP ('Content-Security-Policy') no bloquee el iframe del editor (Requerido: `frame-ancestors` y `connect-src`). Verifique la consola (F12) para más detalles.",
-        ],
-        de: [
-          'Stellen Sie sicher, dass das Konfigurationsfeld `editor.cmsUrl` auf `{{editorUrl}}` gesetzt ist.',
-          'Stellen Sie sicher, dass das Konfigurationsfeld `editor.applicationUrl` auf `{{applicationUrl}}` gesetzt ist.',
-          "Stellen Sie sicher, dass der CSP-Header ('Content-Security-Policy') das Iframe des Editors nicht blockiert (Erforderlich: `frame-ancestors` und `connect-src`). Überprüfen Sie die Konsole (F12) für weitere Details.",
-        ],
-        it: [
-          'Assicurati che il campo di configurazione `editor.cmsUrl` sia impostato su `{{editorUrl}}`.',
-          'Assicurati che il campo di configurazione `editor.applicationUrl` sia impostato su `{{applicationUrl}}`.',
-          "Assicurati che l'intestazione CSP ('Content-Security-Policy') non blocchi l'iframe dell'editor (Richiesto: `frame-ancestors` e `connect-src`). Controlla la console (F12) per maggiori dettagli.",
-        ],
-        ja: [
-          '`editor.cmsUrl`設定フィールドが`{{editorUrl}}`に設定されていることを確認してください。',
-          '`editor.applicationUrl`設定フィールドが`{{applicationUrl}}`に設定されていることを確認してください。',
-          "CSP（'Content-Security-Policy'）ヘッダーがエディターのiframeをブロックしていないことを確認してください（必須：`frame-ancestors`および`connect-src`）。詳細はコンソール（F12）を確認してください。",
-        ],
-        ko: [
-          '`editor.cmsUrl` 설정 필드가 `{{editorUrl}}`로 설정되어 있는지 확인하세요.',
-          '`editor.applicationUrl` 설정 필드가 `{{applicationUrl}}`로 설정되어 있는지 확인하세요.',
-          "CSP('Content-Security-Policy') 헤더가 에디터의 iframe을 차단하지 않는지 확인하세요(필수: `frame-ancestors` 및 `connect-src`). 자세한 내용은 콘솔(F12)을 확인하세요.",
-        ],
-        zh: [
-          '确保 `editor.cmsUrl` 配置字段设置为 `{{editorUrl}}`。',
-          '确保 `editor.applicationUrl` 配置字段设置为 `{{applicationUrl}}`。',
-          "确保 CSP（'Content-Security-Policy'）标头不会阻止编辑器的 iframe（必需：`frame-ancestors` 和 `connect-src`）。查看控制台（F12）以获取更多详细信息。",
-        ],
-        pt: [
-          'Certifique-se de que o campo de configuração `editor.cmsUrl` esteja definido como `{{editorUrl}}`.',
-          'Certifique-se de que o campo de configuração `editor.applicationUrl` esteja definido como `{{applicationUrl}}`.',
-          "Certifique-se de que o cabeçalho CSP ('Content-Security-Policy') não bloqueie o iframe do editor (Obrigatório: `frame-ancestors` e `connect-src`). Verifique a console (F12) para mais detalhes.",
-        ],
-        ru: [
-          'Убедитесь, что поле конфигурации `editor.cmsUrl` установлено на `{{editorUrl}}`.',
-          'Убедитесь, что поле конфигурации `editor.applicationUrl` установлено на `{{applicationUrl}}`.',
-          "Убедитесь, что заголовок CSP ('Content-Security-Policy') не блокирует iframe редактора (Требуется: `frame-ancestors` и `connect-src`). Проверьте консоль (F12) для получения дополнительных сведений.",
-        ],
-        ar: [
-          'تأكد من تعيين حقل التكوين `editor.cmsUrl` إلى `{{editorUrl}}`.',
-          'تأكد من تعيين حقل التكوين `editor.applicationUrl` إلى `{{applicationUrl}}`.',
-          "تأكد من أن ترويسة CSP ('Content-Security-Policy') لا تحظر إطار iframe الخاص بالمحرر (مطلوب: `frame-ancestors` و `connect-src`). تحقق من وحدة التحكم (F12) لمزيد من التفاصيل.",
-        ],
-        hi: [
-          'सुनिश्चित करें कि `editor.cmsUrl` कॉन्फ़िगरेशन फ़ील्ड `{{editorUrl}}` पर सेट है।',
-          'सुनिश्चित करें कि `editor.applicationUrl` कॉन्फ़िगरेशन फ़ील्ड `{{applicationUrl}}` पर सेट है।',
-          "सुनिश्चित करें कि CSP ('Content-Security-Policy') हेडर संपादक के iframe को ब्लॉक नहीं करता है (आवश्यक: `frame-ancestors` और `connect-src`)। अधिक जानकारी के लिए कंसोल (F12) की जांच करें।",
-        ],
-        tr: [
-          '`editor.cmsUrl` yapılandırma alanının `{{editorUrl}}` olarak ayarlandığından emin olun.',
-          '`editor.applicationUrl` yapılandırma alanının `{{applicationUrl}}` olarak ayarlandığından emin olun.',
-          "CSP ('Content-Security-Policy') başlığının düzenleyicinin iframe'ini engellemediğinden emin olun (Gerekli: `frame-ancestors` ve `connect-src`). Daha fazla detay için konsolu (F12) kontrol edin.",
-        ],
-        pl: [
-          'Upewnij się, że pole konfiguracji `editor.cmsUrl` jest ustawione na `{{editorUrl}}`.',
-          'Upewnij się, że pole konfiguracji `editor.applicationUrl` jest ustawione na `{{applicationUrl}}`.',
-          "Upewnij się, że nagłówek CSP ('Content-Security-Policy') nie blokuje ramki iframe edytora (Wymagane: `frame-ancestors` i `connect-src`). Sprawdź konsolę (F12), aby uzyskać więcej szczegółów.",
-        ],
-        id: [
-          'Pastikan bidang konfigurasi `editor.cmsUrl` diatur ke `{{editorUrl}}`.',
-          'Pastikan bidang konfigurasi `editor.applicationUrl` diatur ke `{{applicationUrl}}`.',
-          "Pastikan header CSP ('Content-Security-Policy') tidak memblokir iframe editor (Diperlukan: `frame-ancestors` dan `connect-src`). Periksa konsol (F12) untuk detail lebih lanjut.",
-        ],
-        vi: [
-          'Đảm bảo trường cấu hình `editor.cmsUrl` được đặt thành `{{editorUrl}}`.',
-          'Đảm bảo trường cấu hình `editor.applicationUrl` được đặt thành `{{applicationUrl}}`.',
-          "Đảm bảo tiêu đề CSP ('Content-Security-Policy') không chặn iframe của trình chỉnh sửa (Bắt buộc: `frame-ancestors` và `connect-src`). Kiểm tra bảng điều khiển (F12) để biết thêm chi tiết.",
-        ],
-        uk: [
-          'Переконайтеся, що поле конфігурації `editor.cmsUrl` встановлено на `{{editorUrl}}`.',
-          'Переконайтеся, що поле конфігурації `editor.applicationUrl` встановлено на `{{applicationUrl}}`.',
-          "Переконайтеся, що заголовок CSP ('Content-Security-Policy') не блокує iframe редактора (Потрібно: `frame-ancestors` та `connect-src`). Перевірте консоль (F12) для отримання додаткової інформації.",
-        ],
-      })
-    ),
+        fr: "Assurez-vous que l'en-tête CSP ('Content-Security-Policy') ne bloque pas l'iframe de l'éditeur (Requis : `frame-ancestors` et `connect-src`). Vérifiez la console (F12) pour plus de détails.",
+        es: "Asegúrese de que el encabezado CSP ('Content-Security-Policy') no bloquee el iframe del editor (Requerido: `frame-ancestors` y `connect-src`). Verifique la consola (F12) para más detalles.",
+        de: "Stellen Sie sicher, dass der CSP-Header ('Content-Security-Policy') das Iframe des Editors nicht blockiert (Erforderlich: `frame-ancestors` und `connect-src`). Überprüfen Sie die Konsole (F12) für weitere Details.",
+        it: "Assicurati che l'intestazione CSP ('Content-Security-Policy') non blocchi l'iframe dell'editor (Richiesto: `frame-ancestors` e `connect-src`). Controlla la console (F12) per maggiori dettagli.",
+        ja: "CSP（'Content-Security-Policy'）ヘッダーがエディターのiframeをブロックしていないことを確認してください（必須：`frame-ancestors`および`connect-src`）。詳細はコンソール（F12）を確認してください。",
+        ko: "CSP('Content-Security-Policy') 헤더가 에디터의 iframe을 차단하지 않는지 확인하세요(필수: `frame-ancestors` 및 `connect-src`). 자세한 내용은 콘솔(F12)을 확인하세요.",
+        zh: "确保 CSP（'Content-Security-Policy'）标头不会阻止编辑器的 iframe（必需：`frame-ancestors` 和 `connect-src`）。查看控制台（F12）以获取更多详细信息。",
+        pt: "Certifique-se de que o cabeçalho CSP ('Content-Security-Policy') não bloqueie o iframe do editor (Obrigatório: `frame-ancestors` e `connect-src`). Verifique a console (F12) para mais detalhes.",
+        ru: "Убедитесь, что заголовок CSP ('Content-Security-Policy') не блокирует iframe редактора (Требуется: `frame-ancestors` и `connect-src`). Проверьте консоль (F12) для получения дополнительных сведений.",
+        ar: "تأكد من أن ترويسة CSP ('Content-Security-Policy') لا تحظر إطار iframe الخاص بالمحرر (مطلوب: `frame-ancestors` و `connect-src`). تحقق من وحدة التحكم (F12) لمزيد من التفاصيل.",
+        hi: "सुनिश्चित करें कि CSP ('Content-Security-Policy') हेडर संपादक के iframe को ब्लॉक नहीं करता है (आवश्यक: `frame-ancestors` और `connect-src`)। अधिक जानकारी के लिए कंसोल (F12) की जांच करें।",
+        tr: "CSP ('Content-Security-Policy') başlığının düzenleyicinin iframe'ini engellemediğinden emin olun (Gerekli: `frame-ancestors` ve `connect-src`). Daha fazla detay için konsolu (F12) kontrol edin.",
+        pl: "Upewnij się, że nagłówek CSP ('Content-Security-Policy') nie blokuje ramki iframe edytora (Wymagane: `frame-ancestors` i `connect-src`). Sprawdź konsolę (F12), aby uzyskać więcej szczegółów.",
+        id: "Pastikan header CSP ('Content-Security-Policy') tidak memblokir iframe editor (Diperlukan: `frame-ancestors` dan `connect-src`). Periksa konsol (F12) untuk detail lebih lanjut.",
+        vi: "Đảm bảo tiêu đề CSP ('Content-Security-Policy') không chặn iframe của trình chỉnh sửa (Bắt buộc: `frame-ancestors` và `connect-src`). Kiểm tra bảng điều khiển (F12) để biết thêm chi tiết.",
+        uk: "Переконайтеся, що заголовок CSP ('Content-Security-Policy') не блокує iframe редактора (Потрібно: `frame-ancestors` та `connect-src`). Перевірте консоль (F12) для отримання додаткової інформації.",
+      }),
+    ],
     documentationLink: {
       label: t({
         en: 'Click to go to the CMS documentation',

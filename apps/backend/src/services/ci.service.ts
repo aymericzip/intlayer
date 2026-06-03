@@ -102,9 +102,10 @@ export const getCIStatus = async (
   }
 
   const branch = repository.branch || 'main';
+  const { provider } = repository;
 
   try {
-    switch (repository.provider) {
+    switch (provider) {
       case 'github': {
         const { owner, repository: repoName } = repository;
         const filename = GITHUB_WORKFLOW_FILENAME;
@@ -180,9 +181,7 @@ export const getCIStatus = async (
       }
 
       default:
-        throw new Error(
-          `Unsupported repository provider: ${repository.provider}`
-        );
+        throw new Error(`Unsupported repository provider: ${provider}`);
     }
   } catch (error) {
     logger.error('Error getting CI status:', error);
@@ -212,9 +211,10 @@ export const installCI = async (
   }
 
   const branch = repository.branch || 'main';
+  const { provider: installProvider } = repository;
 
   try {
-    switch (repository.provider) {
+    switch (installProvider) {
       case 'github': {
         const { owner, repository: repoName } = repository;
         await githubService.createWorkflowFile(
@@ -256,9 +256,7 @@ export const installCI = async (
       }
 
       default:
-        throw new Error(
-          `Unsupported repository provider: ${repository.provider}`
-        );
+        throw new Error(`Unsupported repository provider: ${installProvider}`);
     }
 
     logger.info(

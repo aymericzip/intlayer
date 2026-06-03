@@ -1,9 +1,9 @@
-import { Link } from '~/components/Link/Link';
 import { Container } from '@intlayer/design-system/container';
 import { H3 } from '@intlayer/design-system/headers';
 import { Website_Doc_IntlayerCMS_Path } from '@intlayer/design-system/routes';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
+import { Link } from '~/components/Link/Link';
 
 export type ApplicationNotRunningError =
   | { type: 'fetch'; status: number; statusText: string }
@@ -97,19 +97,22 @@ export const ApplicationNotRunningView: FC<ApplicationNotRunningViewProps> = ({
           <h4 className="mb-2 font-semibold">{tipsTitle}</h4>
           <ul className="list-inside list-disc space-y-2 pl-3">
             {tips.map((tip, index) => (
+              // biome-ignore lint/suspicious/noArrayIndexKey: static list
               <li key={index} className="text-neutral">
-                {tip({
-                  editorUrl: (
-                    <span className="font-bold">
-                      {editorUrl ?? import.meta.env.VITE_URL}
-                    </span>
-                  ),
-                  applicationUrl: (
-                    <span className="font-bold">
-                      {applicationUrl ?? 'http://localhost:3000'}
-                    </span>
-                  ),
-                })}
+                {typeof tip === 'function'
+                  ? tip({
+                      editorUrl: (
+                        <span className="font-bold">
+                          {editorUrl ?? import.meta.env.VITE_EDITOR_URL}
+                        </span>
+                      ),
+                      applicationUrl: (
+                        <span className="font-bold">
+                          {applicationUrl ?? 'http://localhost:3000'}
+                        </span>
+                      ),
+                    })
+                  : tip}
               </li>
             ))}
           </ul>
@@ -117,7 +120,8 @@ export const ApplicationNotRunningView: FC<ApplicationNotRunningViewProps> = ({
 
         <Link
           label={documentationLink.label.value}
-          to={`${Website_Doc_IntlayerCMS_Path}#configuration`}
+          to={Website_Doc_IntlayerCMS_Path as any}
+          hash="configuration"
           color="text"
           className="ml-auto underline"
         >

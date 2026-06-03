@@ -103,10 +103,10 @@ export const deleteAccessKey = async (
 
   const result = await ProjectModel.updateOne(
     {
-      'oAuth2Access.clientId': clientId,
+      'oAuth2Access.clientId': String(clientId),
       'oAuth2Access.userId': String(userId),
     },
-    { $pull: { oAuth2Access: { clientId } } }
+    { $pull: { oAuth2Access: { clientId: String(clientId) } } }
   );
 
   if (result.modifiedCount === 0) {
