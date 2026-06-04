@@ -8,10 +8,18 @@ import { getConfiguration } from '@intlayer/config/node';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 import {
+  type CompletionItem,
+  CompletionItemKind,
+  type CompletionParams,
   createConnection,
+  type Diagnostic,
+  DiagnosticSeverity,
+  type Hover,
+  type HoverParams,
   type InitializeParams,
   type InitializeResult,
   Location,
+  MarkupKind,
   Position,
   ProposedFeatures,
   Range,
@@ -20,6 +28,13 @@ import {
   TextDocuments,
 } from 'vscode-languageserver/node';
 import { TextDocument } from 'vscode-languageserver-textdocument';
+import {
+  formatDictionaryHover,
+  formatFieldHover,
+  formatFieldValue,
+  getFieldByPath,
+  getFieldsAtPath,
+} from './dictionaryUtils';
 import {
   escapeRegularExpression,
   findFieldRangesInFile,
@@ -31,6 +46,13 @@ import {
   findKeyInContentFile,
 } from './findKeyInContentFile';
 import { findUsageFieldAtOffset } from './findUsageFieldAtOffset';
+import {
+  getFirstStringArg,
+  isIntlayerCall,
+  type OxcNode,
+  parseText,
+  walkAst,
+} from './oxcUtils';
 
 // Create a connection for the server, using Node's IPC as a transport.
 // Also include all preview / proposed LSP features.
@@ -200,6 +222,7 @@ const getContentDeclarationLocations = async (
   absolutePath: string
 ): Promise<Location[]> => {
   const config = getProjectConfig(absolutePath);
+
   if (!config) return [];
 
   const unmergedDictionaries = getUnmergedDictionariesCached(config);
@@ -238,6 +261,7 @@ const getSourceFiles = async (
 ): Promise<string[]> => {
   const now = Date.now();
   const cached = projectSourceFiles.get(directory);
+
   if (cached && now - cached.cachedAt < SOURCE_FILES_CACHE_TTL_MS) {
     return cached.files;
   }
@@ -272,6 +296,7 @@ const getKeyUsageLocations = async (
   absolutePath: string
 ): Promise<Location[]> => {
   const config = getProjectConfig(absolutePath);
+
   if (!config) return [];
 
   const usageRegularExpression = new RegExp(
@@ -322,6 +347,7 @@ const getFieldUsageLocations = async (
   absolutePath: string
 ): Promise<Location[]> => {
   const config = getProjectConfig(absolutePath);
+
   if (!config || fieldPath.length === 0) return [];
 
   const leafFieldName = fieldPath[fieldPath.length - 1]!;
@@ -367,13 +393,15 @@ const getFieldUsageLocations = async (
 /**
  * Find the line/column of `fieldName` as a property key inside a content file.
  * Looks for `fieldName:` (the field definition), not just any occurrence.
- * Falls back to the top of the file if the field cannot be located.
+ * Falls back to the top of the file
+ *  if the field cannot be located.
  */
 const getFieldRangeInContentFile = async (
   absolutePath: string,
   fieldName: string
 ): Promise<Range> => {
   const content = await tryReadFile(absolutePath);
+
   if (!content)
     return Range.create(Position.create(0, 0), Position.create(0, 0));
 
@@ -410,6 +438,7 @@ const getContentFieldLocations = async (
   absolutePath: string
 ): Promise<Location[]> => {
   const config = getProjectConfig(absolutePath);
+
   if (!config) return [];
 
   const unmergedDictionaries = getUnmergedDictionariesCached(config);
@@ -440,6 +469,181 @@ const getContentFieldLocations = async (
   return locations;
 };
 
+// ---------------------------------------------------------------------------
+// Diagnostics — push-based (no capability needed)
+// ---------------------------------------------------------------------------
+
+const DIAGNOSTIC_DEBOUNCE_MS = 300;
+const diagnosticTimers = new Map<string, ReturnType<typeof setTimeout>>();
+
+const computeDiagnostics = (
+  text: string,
+  config: WorkspaceConfig
+): Diagnostic[] => {
+  const program = parseText(text);
+
+  if (!program) return [];
+
+  const unmergedDictionaries = getUnmergedDictionariesCached(config);
+  const diagnostics: Diagnostic[] = [];
+
+  walkAst(program, (node) => {
+    if (!isIntlayerCall(node)) return;
+    const key = getFirstStringArg(node);
+
+    if (!key) return;
+
+    const known = Object.values(unmergedDictionaries)
+      .flat()
+      .some((dictionary) => dictionary?.key === key);
+
+    if (!known) {
+      const args = node['arguments'] as OxcNode[] | undefined;
+      const firstArg = args?.[0];
+
+      if (firstArg) {
+        diagnostics.push({
+          range: offsetToRange(
+            text,
+            firstArg['start'] as number,
+            firstArg['end'] as number
+          ),
+          severity: DiagnosticSeverity.Warning,
+          source: 'intlayer',
+          message: `Dictionary key "${key}" is not declared in any content file`,
+        });
+      }
+    }
+    return true; // prune: arguments can't be useIntlayer calls
+  });
+
+  return diagnostics;
+};
+
+const sendDiagnosticsForDocument = (
+  uri: string,
+  text: string,
+  version: number | null
+): void => {
+  const absolutePath = decodeURIComponent(new URL(uri).pathname);
+  const config = getProjectConfig(absolutePath);
+
+  const diagnostics =
+    config && !isContentFile(uri, config)
+      ? computeDiagnostics(text, config)
+      : [];
+
+  connection.sendDiagnostics({
+    uri,
+    version: version ?? undefined,
+    diagnostics,
+  });
+};
+
+const scheduleDiagnostics = (
+  uri: string,
+  text: string,
+  version: number | null
+): void => {
+  const existing = diagnosticTimers.get(uri);
+
+  if (existing !== undefined) clearTimeout(existing);
+
+  diagnosticTimers.set(
+    uri,
+    setTimeout(() => {
+      diagnosticTimers.delete(uri);
+      sendDiagnosticsForDocument(uri, text, version);
+    }, DIAGNOSTIC_DEBOUNCE_MS)
+  );
+};
+
+// ---------------------------------------------------------------------------
+// Completion context detection
+// ---------------------------------------------------------------------------
+
+type CompletionCtx =
+  | { kind: 'key' }
+  | { kind: 'field'; dictionaryKey: string; fieldPath: string[] }
+  | null;
+
+/** Find the dictionary key for a simple variable assigned from useIntlayer/getIntlayer. */
+const resolveVariableToDictionaryKey = (
+  program: OxcNode,
+  varName: string
+): string | null => {
+  let result: string | null = null;
+
+  walkAst(program, (node) => {
+    if (result) return true;
+
+    if (node['type'] !== 'VariableDeclarator') return;
+    const id = node['id'] as OxcNode | undefined;
+
+    if (id?.['type'] !== 'Identifier' || (id['name'] as string) !== varName)
+      return;
+    const init = node['init'] as OxcNode | undefined;
+
+    if (!init || !isIntlayerCall(init)) return;
+    result = getFirstStringArg(init);
+    return true;
+  });
+  return result;
+};
+
+/**
+ * Detect what kind of completion is appropriate at the given offset.
+ *
+ * Handles:
+ *   - key completion: cursor inside first string arg of useIntlayer/getIntlayer
+ *   - field (member): cursor after `variable.` where variable came from useIntlayer
+ *   - field (destructure): cursor inside `const { | } = useIntlayer("key")`
+ */
+const getCompletionContext = (
+  textBefore: string,
+  textAfter: string,
+  program: OxcNode | null
+): CompletionCtx => {
+  // Key completion
+
+  if (
+    /\b(?:useIntlayer|getIntlayer)\b(?:<[^<>]*>)?\s*\(\s*['"`][^'"`\n]*$/.test(
+      textBefore
+    )
+  ) {
+    return { kind: 'key' };
+  }
+
+  // Field completion via member access: rootVar.path.to.
+  const memberMatch = /\b(\w+)((?:\.\w+)*)\.$/.exec(textBefore);
+
+  if (memberMatch && program) {
+    const rootVar = memberMatch[1]!;
+    const chainStr = memberMatch[2]!;
+    const dictKey = resolveVariableToDictionaryKey(program, rootVar);
+
+    if (dictKey) {
+      const fieldPath = chainStr ? chainStr.slice(1).split('.') : [];
+      return { kind: 'field', dictionaryKey: dictKey, fieldPath };
+    }
+  }
+
+  // Field completion inside destructuring: const { | } = useIntlayer("key")
+
+  if (/(?:const|let|var)\s*\{[^}]*$/.test(textBefore)) {
+    const destructMatch =
+      /^[^}]*\}\s*=\s*(?:useIntlayer|getIntlayer)(?:<[^<>]*>)?\s*\(\s*['"`]([^'"`\n]+)['"`]/.exec(
+        textAfter
+      );
+
+    if (destructMatch) {
+      return { kind: 'field', dictionaryKey: destructMatch[1]!, fieldPath: [] };
+    }
+  }
+
+  return null;
+};
+
 connection.onInitialize((parameters: InitializeParams): InitializeResult => {
   workspaceRoot =
     parameters.rootPath ||
@@ -461,6 +665,11 @@ connection.onInitialize((parameters: InitializeParams): InitializeResult => {
       textDocumentSync: TextDocumentSyncKind.Incremental,
       definitionProvider: true,
       referencesProvider: true,
+      hoverProvider: true,
+      completionProvider: {
+        triggerCharacters: ['"', "'", '`', '.'],
+        resolveProvider: false,
+      },
     },
   };
 });
@@ -498,6 +707,7 @@ connection.onDefinition(async (parameters) => {
 
   // Cursor on the key string / function name → navigate to content declaration.
   const key = findKeyAtOffset(text, offset);
+
   if (key) {
     log(
       `onDefinition — useIntlayer key: "${key}" → searching content declarations`
@@ -514,6 +724,7 @@ connection.onDefinition(async (parameters) => {
   //                ^^^^^^^^^^^^^^^^^^  ← cursor here
   // e.g. t.localeSwitcherLabel  where  const t = useIntlayer("locale-switcher")
   const usageField = findUsageFieldAtOffset(text, offset);
+
   if (usageField) {
     log(
       `onDefinition — usage field: "${usageField.dictionaryKey}.${usageField.fieldName}" → searching content field`
@@ -593,6 +804,7 @@ connection.onReferences(async (parameters: ReferenceParams) => {
 
   // Source file: key string → content-file declarations
   const key = findKeyAtOffset(text, offset);
+
   if (key) {
     const locations = await getContentDeclarationLocations(key, absolutePath);
     log(`onReferences — key "${key}" → ${locations.length} declaration(s)`);
@@ -601,6 +813,7 @@ connection.onReferences(async (parameters: ReferenceParams) => {
 
   // Source file: field property → content-file field definitions
   const usageField = findUsageFieldAtOffset(text, offset);
+
   if (usageField) {
     const locations = await getContentFieldLocations(
       usageField.dictionaryKey,
@@ -614,6 +827,220 @@ connection.onReferences(async (parameters: ReferenceParams) => {
   }
 
   return null;
+});
+
+// ---------------------------------------------------------------------------
+// Hover
+// ---------------------------------------------------------------------------
+
+connection.onHover(async (parameters: HoverParams): Promise<Hover | null> => {
+  const uri = parameters.textDocument.uri;
+  const absolutePath = decodeURIComponent(new URL(uri).pathname);
+  const document = documents.get(uri);
+
+  if (!document) return null;
+
+  const text = document.getText();
+  const offset = document.offsetAt(parameters.position);
+  const config = getProjectConfig(absolutePath);
+
+  if (!config) return null;
+
+  const unmergedDictionaries = getUnmergedDictionariesCached(config);
+  const getDicts = (key: string) =>
+    Object.values(unmergedDictionaries)
+      .flat()
+      .filter((d) => d?.key === key);
+
+  if (isContentFile(uri, config)) {
+    // Cursor on `key: "..."` declaration
+    const key = findKeyInContentFile(text, offset);
+
+    if (key) {
+      const dicts = getDicts(key);
+
+      if (dicts.length > 0) {
+        return {
+          contents: {
+            kind: MarkupKind.Markdown,
+            value: formatDictionaryHover(dicts, key),
+          },
+        };
+      }
+    }
+
+    // Cursor on a content field
+    const ext = uri.match(/\.[^.]+$/)?.[0] ?? '';
+    const fieldInfo = findContentFieldAtOffset(text, offset, ext);
+
+    if (fieldInfo) {
+      const dicts = getDicts(fieldInfo.dictionaryKey);
+
+      if (dicts.length > 0) {
+        const hoverText = formatFieldHover(
+          dicts,
+          fieldInfo.dictionaryKey,
+          fieldInfo.fieldPath
+        );
+
+        if (hoverText) {
+          return {
+            contents: { kind: MarkupKind.Markdown, value: hoverText },
+          };
+        }
+      }
+    }
+
+    return null;
+  }
+
+  // Source file: cursor on key string inside useIntlayer("key")
+  const key = findKeyAtOffset(text, offset);
+
+  if (key) {
+    const dicts = getDicts(key);
+
+    if (dicts.length > 0) {
+      return {
+        contents: {
+          kind: MarkupKind.Markdown,
+          value: formatDictionaryHover(dicts, key),
+        },
+      };
+    }
+    return null;
+  }
+
+  // Source file: cursor on a field property from useIntlayer result
+  const usageField = findUsageFieldAtOffset(text, offset);
+
+  if (usageField) {
+    const dicts = getDicts(usageField.dictionaryKey);
+
+    if (dicts.length > 0) {
+      const hoverText = formatFieldHover(dicts, usageField.dictionaryKey, [
+        usageField.fieldName,
+      ]);
+
+      if (hoverText) {
+        return {
+          contents: { kind: MarkupKind.Markdown, value: hoverText },
+        };
+      }
+    }
+  }
+
+  return null;
+});
+
+// ---------------------------------------------------------------------------
+// Completion
+// ---------------------------------------------------------------------------
+
+connection.onCompletion(
+  async (parameters: CompletionParams): Promise<CompletionItem[] | null> => {
+    const uri = parameters.textDocument.uri;
+    const absolutePath = decodeURIComponent(new URL(uri).pathname);
+    const document = documents.get(uri);
+
+    if (!document) return null;
+
+    const text = document.getText();
+    const offset = document.offsetAt(parameters.position);
+    const config = getProjectConfig(absolutePath);
+
+    if (!config) return null;
+
+    const program = parseText(text);
+    const context = getCompletionContext(
+      text.slice(0, offset),
+      text.slice(offset),
+      program
+    );
+
+    if (!context) return null;
+
+    const unmergedDictionaries = getUnmergedDictionariesCached(config);
+
+    if (context.kind === 'key') {
+      const seen = new Set<string>();
+      const items: CompletionItem[] = [];
+      for (const dictionary of Object.values(unmergedDictionaries).flat()) {
+        if (!dictionary?.key || seen.has(dictionary.key)) continue;
+
+        seen.add(dictionary.key);
+        items.push({
+          label: dictionary.key,
+          kind: CompletionItemKind.Value,
+          detail: dictionary.title ?? undefined,
+          documentation: dictionary.description
+            ? { kind: MarkupKind.Markdown, value: dictionary.description }
+            : undefined,
+        });
+      }
+      log(`onCompletion — key: ${items.length} dictionary keys`);
+      return items.length > 0 ? items : null;
+    }
+
+    if (context.kind === 'field') {
+      const dictionaries = Object.values(unmergedDictionaries)
+        .flat()
+        .filter((dictionary) => dictionary?.key === context.dictionaryKey);
+
+      if (dictionaries.length === 0) return null;
+
+      const primary = dictionaries[0]!;
+      const fields = getFieldsAtPath(primary.content, context.fieldPath);
+      const items: CompletionItem[] = fields.map((fieldName) => {
+        const value = getFieldByPath(primary.content, [
+          ...context.fieldPath,
+          fieldName,
+        ]);
+        return {
+          label: fieldName,
+          kind: CompletionItemKind.Field,
+          detail: formatFieldValue(value),
+        };
+      });
+      log(
+        `onCompletion — field "${context.dictionaryKey}.${context.fieldPath.join('.')}": ${items.length} field(s)`
+      );
+      return items.length > 0 ? items : null;
+    }
+
+    return null;
+  }
+);
+
+// ---------------------------------------------------------------------------
+// Push diagnostics
+// ---------------------------------------------------------------------------
+
+documents.onDidOpen((event) => {
+  sendDiagnosticsForDocument(
+    event.document.uri,
+    event.document.getText(),
+    event.document.version
+  );
+});
+
+documents.onDidChangeContent((event) => {
+  scheduleDiagnostics(
+    event.document.uri,
+    event.document.getText(),
+    event.document.version
+  );
+});
+
+documents.onDidClose((event) => {
+  const uri = event.document.uri;
+  const timer = diagnosticTimers.get(uri);
+
+  if (timer !== undefined) {
+    clearTimeout(timer);
+    diagnosticTimers.delete(uri);
+  }
+  connection.sendDiagnostics({ uri, diagnostics: [] });
 });
 
 // Invalidate the source-file list whenever the client reports a file change.
