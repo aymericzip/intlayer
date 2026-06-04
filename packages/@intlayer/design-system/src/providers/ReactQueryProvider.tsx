@@ -217,7 +217,7 @@ export const ReactQueryProvider: FC<
     };
   }
 
-  if (client) {
+  if (client || typeof window === 'undefined') {
     return (
       <QueryClientProvider client={clientRef.current}>
         {children}
