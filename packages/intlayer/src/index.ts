@@ -201,3 +201,4 @@ export interface __RequiredLocalesRegistry {} // 'en': 1, ...
 export interface __SchemaRegistry {} // id -> interface of schema
 export interface __StrictModeRegistry {} // one of: { strict: true } | { inclusive: true } | { loose: true }
 export interface __EditorRegistry {} // one of: { enabled: true } | { enabled: false }
+export interface __RoutingRegistry {} // { mode: 'prefix-no-default'; defaultLocale: 'en' }

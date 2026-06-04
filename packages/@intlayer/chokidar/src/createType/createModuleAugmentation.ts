@@ -93,10 +93,11 @@ const generateTypeIndexContent = (
   configuration: IntlayerConfig,
   zodToTsFns: ZodToTsFns | null
 ): string => {
-  const { internationalization, system, editor } = configuration;
+  const { internationalization, system, editor, routing } = configuration;
   const { moduleAugmentationDir } = system;
   const { enabled } = editor;
-  const { locales, requiredLocales, strictMode } = internationalization;
+  const { locales, requiredLocales, strictMode, defaultLocale } =
+    internationalization;
 
   let fileContent = 'import "intlayer";\n';
 
@@ -182,7 +183,10 @@ const generateTypeIndexContent = (
   // Resolved strict mode (narrow the literal at build time)
   fileContent += `  interface __StrictModeRegistry { mode: '${strictKey}' }\n\n`;
   // Editor registry
-  fileContent += `  interface __EditorRegistry { enabled : ${enabled} } \n`;
+  fileContent += `  interface __EditorRegistry { enabled : ${enabled} }\n\n`;
+  // Routing registry (mode + defaultLocale narrowed to literals)
+  const routingMode = routing?.mode ?? 'prefix-no-default';
+  fileContent += `  interface __RoutingRegistry { mode: '${routingMode}'; defaultLocale: '${defaultLocale}' }\n`;
   fileContent += `}\n`;
 
   return fileContent;

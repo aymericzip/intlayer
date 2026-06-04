@@ -3,6 +3,7 @@ import type {
   __DictionaryRegistry,
   __EditorRegistry,
   __RequiredLocalesRegistry,
+  __RoutingRegistry,
   __SchemaRegistry,
   __StrictModeRegistry,
 } from 'intlayer';
@@ -94,3 +95,128 @@ export type ResolvedEditor<Node, Editor> = __EditorRegistry extends {
 }
   ? Editor
   : Node;
+
+// ── Routing registry ──────────────────────────────────────────────────────────
+
+type RoutingMode =
+  | 'prefix-no-default'
+  | 'prefix-all'
+  | 'no-prefix'
+  | 'search-params';
+
+/** The routing mode resolved from the generated registry (falls back to 'prefix-no-default'). */
+export type ResolvedRoutingMode = __RoutingRegistry extends {
+  mode: infer M extends RoutingMode;
+}
+  ? M
+  : 'prefix-no-default';
+
+/** The default locale resolved from the generated registry (falls back to the full LocalesValues union). */
+export type ResolvedDefaultLocale = __RoutingRegistry extends {
+  defaultLocale: infer D extends LocalesValues;
+}
+  ? D
+  : LocalesValues;
+
+// ── Template-literal URL types ────────────────────────────────────────────────
+
+/** Computes the locale path segment (e.g. `'fr/'`) for a given locale and routing mode. */
+type LocalePrefixSegment<
+  L extends string,
+  Mode extends string,
+  Default extends string,
+> = Mode extends 'prefix-all'
+  ? `${L}/`
+  : Mode extends 'prefix-no-default'
+    ? L extends Default
+      ? ''
+      : `${L}/`
+    : ''; // no-prefix / search-params → no path prefix
+
+/** Prepends a locale path prefix to a URL path (e.g. `'/about'` + `'fr/'` → `'/fr/about'`). */
+type WithLocalePrefix<
+  Path extends string,
+  Prefix extends string,
+> = Prefix extends ''
+  ? Path
+  : Path extends `/${infer Rest}`
+    ? `/${Prefix}${Rest}`
+    : Path;
+
+/**
+ * Computes the localized URL string type for a given path, locale, routing mode and default locale.
+ * Mirrors the runtime behaviour: the existing locale segment is stripped from `Path` first, then
+ * the new locale prefix is prepended (identical to what `getLocalizedUrl` does internally).
+ *
+ * @example
+ * // prefix-no-default, defaultLocale='en'
+ * type A = LocalizedUrl<'/about', 'fr'>;      // '/fr/about'
+ * type B = LocalizedUrl<'/about', 'en'>;      // '/about'
+ * type C = LocalizedUrl<'/fr/about', 'en'>;   // '/about'  (existing prefix stripped)
+ * type D = LocalizedUrl<'/fr/about', 'fr'>;   // '/fr/about'
+ *
+ * // prefix-all
+ * type E = LocalizedUrl<'/about', 'en', 'prefix-all', 'en'>;  // '/en/about'
+ */
+export type LocalizedUrl<
+  Path extends string,
+  L extends LocalesValues,
+  Mode extends string = ResolvedRoutingMode,
+  Default extends LocalesValues = ResolvedDefaultLocale,
+  Locales extends string = DeclaredLocales & string,
+> = [string] extends [Mode]
+  ? string // mode is wide → can't narrow
+  : Mode extends 'no-prefix'
+    ? PathWithoutLocale<Path, Locales>
+    : Mode extends 'search-params'
+      ? string // search params too dynamic to type precisely
+      : WithLocalePrefix<
+          PathWithoutLocale<Path, Locales>,
+          LocalePrefixSegment<L, Mode, Default>
+        >;
+
+/**
+ * Extracts the language subtag from a locale string.
+ *
+ * @example
+ * type A = GetLocaleLang<'en-GB'>; // 'en'
+ * type B = GetLocaleLang<'fr'>;    // 'fr'
+ */
+export type GetLocaleLang<L extends string> =
+  L extends `${infer Lang}-${string}` ? Lang : L;
+
+/**
+ * Removes the locale path segment from a URL (relative or absolute).
+ *
+ * @example
+ * // relative
+ * type A = PathWithoutLocale<'/fr/about', 'fr' | 'en'>; // '/about'
+ * type B = PathWithoutLocale<'/about', 'fr' | 'en'>;    // '/about'
+ * type C = PathWithoutLocale<'/fr', 'fr' | 'en'>;       // '/'
+ * // absolute
+ * type D = PathWithoutLocale<'https://example.com/fr/about', 'fr' | 'en'>;     // 'https://example.com/about'
+ * type E = PathWithoutLocale<'https://sub.example.com/fr/about', 'fr' | 'en'>; // 'https://sub.example.com/about'
+ * type F = PathWithoutLocale<'https://example.com/fr', 'fr' | 'en'>;           // 'https://example.com/'
+ */
+export type PathWithoutLocale<Path extends string, Locales extends string> =
+  // Absolute URL: protocol://domain/locale/rest
+  Path extends `${infer Protocol}://${infer Domain}/${infer Seg}/${infer Rest}`
+    ? Seg extends Locales
+      ? `${Protocol}://${Domain}/${Rest}`
+      : Path
+    : // Absolute URL: protocol://domain/locale  (no sub-path)
+      Path extends `${infer Protocol}://${infer Domain}/${infer Seg}`
+      ? Seg extends Locales
+        ? `${Protocol}://${Domain}/`
+        : Path
+      : // Relative: /locale/rest
+        Path extends `/${infer Seg}/${infer Rest}`
+        ? Seg extends Locales
+          ? `/${Rest}`
+          : Path
+        : // Relative: /locale  (bare)
+          Path extends `/${infer Seg}`
+          ? Seg extends Locales
+            ? '/'
+            : Path
+          : Path;

@@ -11,7 +11,12 @@ import {
 
 import type { Locale } from '@intlayer/types/allLocales';
 import type { RoutingConfig } from '@intlayer/types/config';
-import type { LocalesValues } from '@intlayer/types/module_augmentation';
+import type {
+  DeclaredLocales,
+  LocalesValues,
+  ResolvedDefaultLocale,
+  ResolvedRoutingMode,
+} from '@intlayer/types/module_augmentation';
 
 /**
  * Shared routing options used across all URL localization functions.
@@ -56,22 +61,42 @@ export type GetPrefixOptions = {
 
 export type GetPrefixResult = {
   /**
-   * The complete base URL path with leading and trailing slashes.
-   *
-   * @example
-   * // https://example.com/fr/about -> '/fr'
-   * // https://example.com/about -> ''
+   * The locale path segment appended to `/`, with a trailing slash (e.g. `'fr/'`).
+   * Empty string when no prefix is needed.
    */
   prefix: string;
   /**
-   * The locale identifier without slashes.
-   *
-   * @example
-   * // https://example.com/fr/about -> 'fr'
-   * // https://example.com/about -> undefined
+   * The bare locale identifier (e.g. `'fr'`), or `undefined` when no prefix is applied.
    */
   localePrefix: Locale | undefined;
 };
+
+/**
+ * Narrowed return type for {@link getPrefix} that carries the locale literal through.
+ *
+ * Distributes over union locales — calling `getPrefix('fr')` in `prefix-no-default`
+ * mode with `defaultLocale = 'en'` resolves to `{ prefix: 'fr/'; localePrefix: 'fr' }`.
+ *
+ * Note: domain-based routing and "locale not in locales" edge cases may return an
+ * empty result at runtime regardless of what this type reports.
+ */
+export type GetPrefixResultNarrowed<
+  L extends LocalesValues | undefined,
+  Mode extends string = ResolvedRoutingMode,
+  Default extends LocalesValues = ResolvedDefaultLocale,
+> = L extends string
+  ? [string] extends [L] // L is wide (string / LocalesValues) → distribute over declared locales
+    ? GetPrefixResultNarrowed<DeclaredLocales, Mode, Default>
+    : [string] extends [Mode]
+      ? GetPrefixResult // mode is wide → fall back to generic result
+      : Mode extends 'prefix-all'
+        ? { prefix: `${L}/`; localePrefix: L }
+        : Mode extends 'prefix-no-default'
+          ? L extends Default
+            ? { prefix: ''; localePrefix: undefined }
+            : { prefix: `${L}/`; localePrefix: L }
+          : { prefix: ''; localePrefix: undefined } // no-prefix / search-params
+  : { prefix: ''; localePrefix: undefined }; // locale is undefined
 
 /**
  * Determines the URL prefix for a given locale based on the routing mode configuration.
@@ -106,10 +131,10 @@ export type GetPrefixResult = {
  * @param options.mode - URL routing mode for locale handling. Defaults to configured mode.
  * @returns An object containing pathPrefix, prefix, and localePrefix for the given locale.
  */
-export const getPrefix = (
-  locale: LocalesValues | undefined,
+export const getPrefix = <const L extends LocalesValues | undefined>(
+  locale: L,
   options: RoutingOptions = {}
-): GetPrefixResult => {
+): GetPrefixResultNarrowed<L> => {
   const { defaultLocale, mode, locales, domains } =
     resolveRoutingConfig(options);
 
@@ -123,7 +148,7 @@ export const getPrefix = (
     return {
       prefix: '',
       localePrefix: undefined,
-    };
+    } as GetPrefixResultNarrowed<L>;
   }
 
   // If this locale is the only one assigned to its domain, no URL prefix is needed
@@ -140,7 +165,7 @@ export const getPrefix = (
         return {
           prefix: '',
           localePrefix: undefined,
-        };
+        } as GetPrefixResultNarrowed<L>;
       }
     }
   }
@@ -154,11 +179,11 @@ export const getPrefix = (
     return {
       prefix: `${locale}/`,
       localePrefix: locale as Locale,
-    };
+    } as GetPrefixResultNarrowed<L>;
   }
 
   return {
     prefix: '',
     localePrefix: undefined,
-  };
+  } as GetPrefixResultNarrowed<L>;
 };

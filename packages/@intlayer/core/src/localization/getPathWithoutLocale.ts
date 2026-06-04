@@ -20,7 +20,11 @@ const TREE_SHAKE_SEARCH_PARAMS =
   process.env['INTLAYER_ROUTING_MODE'] &&
   process.env['INTLAYER_ROUTING_MODE'] !== 'search-params';
 
-import type { LocalesValues } from '@intlayer/types/module_augmentation';
+import type {
+  DeclaredLocales,
+  LocalesValues,
+  PathWithoutLocale,
+} from '@intlayer/types/module_augmentation';
 import { checkIsURLAbsolute } from '../utils/checkIsURLAbsolute';
 
 /**
@@ -47,10 +51,18 @@ import { checkIsURLAbsolute } from '../utils/checkIsURLAbsolute';
  * @param locales - Optional array of supported locales. Defaults to `localesDefault`.
  * @returns The URL string or pathname without the locale segment or locale search parameter.
  */
-export const getPathWithoutLocale = (
-  inputUrl: string,
-  locales: LocalesValues[] = internationalization?.locales
-): string => {
+/**
+ * The return type is narrowed to a template-literal type when both `inputUrl`
+ * and `locales` are string literals known at compile time. Absolute URLs fall
+ * back to `string`.
+ */
+export const getPathWithoutLocale = <
+  const T extends string,
+  const L extends LocalesValues = DeclaredLocales,
+>(
+  inputUrl: T,
+  locales: L[] = internationalization?.locales as L[]
+): PathWithoutLocale<T, L> => {
   // Determine if the original URL is absolute (includes protocol)
   const isAbsoluteUrl = checkIsURLAbsolute(inputUrl);
 
@@ -81,7 +93,7 @@ export const getPathWithoutLocale = (
     const firstSegment = pathSegments[1]; // The segment after the first '/'
 
     // Check if the first segment is a supported locale
-    if (locales?.includes(firstSegment as LocalesValues)) {
+    if (locales?.includes(firstSegment as L)) {
       // Remove the locale segment from the pathname
       pathSegments.splice(1, 1); // Remove the first segment
 
@@ -101,10 +113,11 @@ export const getPathWithoutLocale = (
   }
 
   if (isAbsoluteUrl) {
-    // Return the modified URL as a string
-    return url.toString();
+    return url.toString() as PathWithoutLocale<T, L>;
   }
 
-  // Return the modified URL as a string
-  return url.toString().replace('http://example.com', '');
+  return url.toString().replace('http://example.com', '') as PathWithoutLocale<
+    T,
+    L
+  >;
 };

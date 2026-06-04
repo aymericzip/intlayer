@@ -257,13 +257,12 @@ export const getAuthAPI = (
   };
 
   const listSSOProviders = async () => {
-    // Not implemented yet
-    return [];
+    const response = await (client.sso as any).providers();
+    return { data: response?.data?.providers ?? [] };
   };
 
-  const deleteSSOProvider = async (_args: { providerId: string }) => {
-    // Not implemented yet
-    return { success: true };
+  const deleteSSOProvider = async (args: { providerId: string }) => {
+    return (client.sso as any).deleteProvider({ providerId: args.providerId });
   };
 
   return {

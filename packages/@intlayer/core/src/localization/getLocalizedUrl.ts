@@ -5,7 +5,11 @@ import { internationalization } from '@intlayer/config/built';
 // branches guarded by these constants.
 
 import type { Locale } from '@intlayer/types/allLocales';
-import type { LocalesValues } from '@intlayer/types/module_augmentation';
+import type {
+  LocalesValues,
+  LocalizedUrl,
+  ResolvedDefaultLocale,
+} from '@intlayer/types/module_augmentation';
 import { checkIsURLAbsolute } from '../utils/checkIsURLAbsolute';
 import { getPathWithoutLocale } from './getPathWithoutLocale';
 import {
@@ -69,11 +73,19 @@ const extractHostname = (domain: string): string => {
  *   Auto-detected from the input URL or `window.location` when omitted.
  * @returns The localized URL for the current locale.
  */
-export const getLocalizedUrl = (
-  url: string,
-  currentLocale: LocalesValues = internationalization?.defaultLocale,
+/**
+ * The return type is narrowed to a template-literal type when both `url` and
+ * `currentLocale` are string literals and the routing mode / defaultLocale are
+ * not overridden via `options`.
+ */
+export const getLocalizedUrl = <
+  const T extends string,
+  const L extends LocalesValues = ResolvedDefaultLocale,
+>(
+  url: T,
+  currentLocale: L = internationalization?.defaultLocale as L,
   options: RoutingOptions = {}
-): string => {
+): LocalizedUrl<T, L> => {
   const { defaultLocale, mode, locales, rewrite, domains, currentDomain } =
     resolveRoutingConfig(options);
 
@@ -91,7 +103,7 @@ export const getLocalizedUrl = (
       getCanonicalPath(urlWithoutLocale, undefined, rewriteRules),
       currentLocale as Locale,
       rewriteRules
-    ).path;
+    ).path as LocalizedUrl<T, L>;
   }
 
   const isAbsoluteUrl = checkIsURLAbsolute(urlWithoutLocale);
@@ -172,7 +184,7 @@ export const getLocalizedUrl = (
       ? `${translatedPathname}?${queryParams}`
       : translatedPathname;
 
-    return `${baseUrl}${path}${parsedUrl.hash}`;
+    return `${baseUrl}${path}${parsedUrl.hash}` as LocalizedUrl<T, L>;
   }
 
   const { prefix } = getPrefix(currentLocale, {
@@ -188,5 +200,8 @@ export const getLocalizedUrl = (
     localizedPath = localizedPath.slice(0, -1);
   }
 
-  return `${baseUrl}${localizedPath}${parsedUrl.search}${parsedUrl.hash}`;
+  return `${baseUrl}${localizedPath}${parsedUrl.search}${parsedUrl.hash}` as LocalizedUrl<
+    T,
+    L
+  >;
 };
