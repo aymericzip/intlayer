@@ -204,7 +204,7 @@ export const UserEditForm: FC<{ userId: string }> = ({ userId }) => {
 
                 <Form.Button
                   type="submit"
-                  className="mt-12 w-full"
+                  className="mt-4 w-full"
                   label={formLabels.updateButton.value}
                   isLoading={
                     isSubmitting ||

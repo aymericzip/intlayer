@@ -48,7 +48,7 @@ export const DefinePasswordForm: FC<DefinePasswordFormProps> = ({
       </div>
 
       <Form.Button
-        className="mt-12 w-full"
+        className="mt-4 w-full"
         type="submit"
         color="text"
         isLoading={isSubmitting}

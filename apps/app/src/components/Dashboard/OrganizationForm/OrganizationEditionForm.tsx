@@ -52,7 +52,7 @@ export const OrganizationEditionForm: FC = () => {
         />
 
         <Form.Button
-          className="mt-12 w-full"
+          className="mt-4 w-full"
           type="submit"
           color="text"
           disabled={
