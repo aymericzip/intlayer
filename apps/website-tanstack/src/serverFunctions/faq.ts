@@ -8,9 +8,11 @@ export const loadFaqPage = createServerFn()
     const { getFrequentQuestion, getFrequentQuestionMetadataBySlug } =
       await import('@intlayer/docs');
 
-    const faqsData = await getFrequentQuestionMetadataBySlug(slugs, locale);
+    const fullSlugs = ['frequent-questions', ...slugs];
+    const faqsData = await getFrequentQuestionMetadataBySlug(fullSlugs, locale);
     const exactMatch =
-      faqsData.find((faq) => faq.slugs.join('/') === slugs.join('/')) ?? null;
+      faqsData.find((faq) => faq.slugs.join('/') === fullSlugs.join('/')) ??
+      null;
 
     if (!exactMatch) return { exactMatch: null, faqsData, content: null };
 

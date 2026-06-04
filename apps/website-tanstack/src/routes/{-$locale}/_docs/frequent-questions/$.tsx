@@ -16,7 +16,7 @@ export const Route = createFileRoute('/{-$locale}/_docs/frequent-questions/$')({
     if (!exactMatch) {
       if (faqsData.length > 0) {
         throw redirect({
-          to: getLocalizedUrl(faqsData[0].url, locale) as any,
+          to: faqsData[0].relativeUrl as any,
         });
       }
       throw redirect({ to: getLocalizedUrl(Website_Doc_Path, locale) as any });
