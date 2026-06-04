@@ -61,10 +61,7 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
           onClick={handleFocusInput}
         >
           <div className="flex w-full items-center justify-between">
-            <div
-              className="text-nowrap px-2 text-base text-xs"
-              suppressHydrationWarning
-            >
+            <div className="text-nowrap px-2 text-xs" suppressHydrationWarning>
               {localeName}
             </div>
             <MoveVertical className="self-center" size={10} />
