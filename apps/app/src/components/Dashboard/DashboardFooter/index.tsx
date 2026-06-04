@@ -22,18 +22,18 @@ export type DashboardFooterProps = {
 
 export const DashboardFooter: FC<DashboardFooterProps> = ({ links }) => {
   const { github } = useIntlayer('dashboard-footer');
-  const { isMobile } = useDevice('sm');
+  const { isMobile } = useDevice('md');
 
   return (
     <footer className="z-90 flex flex-none flex-row flex-wrap items-center gap-4 px-6 pt-1 pb-2 max-md:pb-2">
-      <div className="flex flex-row items-center justify-center gap-x-4 gap-y-2 max-md:w-full">
+      <div className="items-left flex flex-row justify-center gap-x-4 gap-y-2 max-md:flex-1">
         <Link to={github.url.value} label={github.label.value} color="text">
           <TechLogos.GITHUB width={20} />
         </Link>
         <AppDownloadButton />
 
         {isMobile && (
-          <div className="ml-auto flex flex-row items-center justify-center gap-x-2">
+          <div className="ml-auto flex flex-row items-center justify-start gap-x-2">
             <LocaleSwitcher />
             <SwitchThemeSwitcher />
           </div>
@@ -56,7 +56,7 @@ export const DashboardFooter: FC<DashboardFooterProps> = ({ links }) => {
         ))}
       </div>
       {!isMobile && (
-        <div className="flex items-center gap-4">
+        <div className="ml-auto flex flex-row items-center justify-start gap-x-2">
           <LocaleSwitcher />
           <SwitchThemeSwitcher />
         </div>
