@@ -10,6 +10,7 @@ import {
   useUpdateMemberAccess,
   useUpdateProjectMembers,
 } from '@intlayer/design-system/api';
+import { Avatar } from '@intlayer/design-system/avatar';
 import { Badge } from '@intlayer/design-system/badge';
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
@@ -377,6 +378,8 @@ export const MembersForm: FC = () => {
     ids: project?.membersIds ?? [],
   });
   const users = (usersData as GetUsersResult)?.data ?? [];
+  const displayedUsers = users.slice(0, 5);
+  const remainingCount = users.length - displayedUsers.length;
   const isProjectAdmin = session?.roles.includes('project_admin');
   const [isAdvancedOpen, setIsAdvancedOpen] = useState(false);
 
@@ -412,9 +415,32 @@ export const MembersForm: FC = () => {
         />
       )}
 
-      <div className="mb-8 flex items-center gap-2">
-        <Users className="size-4" />
-        <H3 className="mb-0">{title}</H3>
+      <div className="mb-8 flex w-full items-center justify-between gap-4">
+        <div className="flex items-center gap-2">
+          <Users className="size-4" />
+          <H3 className="mb-0">{title}</H3>
+        </div>
+
+        {project && project.membersIds.length > 0 && (
+          <div className="flex flex-row items-center gap-1">
+            <div className="flex flex-row -space-x-2">
+              {displayedUsers.map((user) => (
+                <Avatar
+                  key={String(user.id)}
+                  src={user.image ?? undefined}
+                  fullname={user.name}
+                  size="sm"
+                  isLoading={isLoadingUsers}
+                />
+              ))}
+            </div>
+            {remainingCount > 0 && (
+              <span className="ml-1 text-neutral text-xs">
+                +{remainingCount}
+              </span>
+            )}
+          </div>
+        )}
       </div>
 
       <Form

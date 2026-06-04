@@ -18,6 +18,7 @@ import {
   App_Dashboard_Translate_Path,
 } from '@intlayer/design-system/routes';
 import { TabSelector } from '@intlayer/design-system/tab-selector';
+import { Tag } from '@intlayer/design-system/tag';
 import { cn } from '@intlayer/design-system/utils';
 import { useLocation } from '@tanstack/react-router';
 import { AnimatePresence, m, useReducedMotion } from 'framer-motion';
@@ -195,6 +196,7 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
     dashboardNavigation,
     sidebarNavigation,
     environment,
+    defaultEnv,
     switchToName,
   } = useIntlayer('dashboard-sidebar');
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -406,9 +408,9 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
                         >
                           {env.name}
                           {env.isDefault && (
-                            <span className="ml-auto rounded bg-text/10 px-1 text-[10px]">
-                              default
-                            </span>
+                            <Tag size="sm" color="text">
+                              {defaultEnv}
+                            </Tag>
                           )}
                         </Button>
                       );
@@ -436,9 +438,9 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
                       {currentEnv?.name}
                     </span>
                     {currentEnv?.isDefault && (
-                      <span className="rounded bg-text/10 px-1 text-[10px]">
-                        default
-                      </span>
+                      <Tag size="sm" color="text">
+                        {defaultEnv}
+                      </Tag>
                     )}
                     <ChevronsUpDown className="size-4 shrink-0 text-neutral" />
                   </div>
@@ -486,7 +488,7 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
                           {env.name}
                           {env.isDefault && (
                             <span className="ml-auto rounded bg-text/10 px-1 text-[10px]">
-                              default
+                              {defaultEnv}
                             </span>
                           )}
                         </Button>
