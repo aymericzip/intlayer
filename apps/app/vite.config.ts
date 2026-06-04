@@ -222,7 +222,7 @@ export default defineConfig(({ mode }) => {
           host: 'https://app.intlayer.org',
         },
         prerender: {
-          enabled: false,
+          enabled: true,
           crawlLinks: false,
           concurrency: 10,
         },
