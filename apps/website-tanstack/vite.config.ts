@@ -9,35 +9,13 @@ import { nitro } from 'nitro/vite';
 import { defineConfig, loadEnv } from 'vite';
 import { intlayer, intlayerProxy } from 'vite-intlayer';
 import wasm from 'vite-plugin-wasm';
-
-const staticRoutes = [
-  '/',
-  '/translate',
-  '/tms',
-  '/cms',
-  '/demo',
-  '/contributors',
-  '/i18n-seo-scanner',
-  '/playground',
-  '/doc/chat',
-  '/doc/search',
-  '/blog/search',
-  '/frequent-questions',
-  '/privacy-notice',
-  '/terms-of-service',
-] as const;
+import {
+  buildDynamicPrerenderPaths,
+  staticPrerenderPaths,
+} from './src/siteRoutes';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-
-const localizedPages = localeFlatMap(({ urlPrefix }) =>
-  staticRoutes.map((path) => ({
-    path: `${urlPrefix}${path}`,
-    prerender: {
-      enabled: true,
-    },
-  }))
-);
 
 const rawMarkdownPlugin = {
   name: 'raw-markdown-plugin',
@@ -48,8 +26,17 @@ const rawMarkdownPlugin = {
   },
 };
 
-export default defineConfig(({ mode }) => {
+export default defineConfig(async ({ mode }) => {
   const env = loadEnv(mode, process.cwd(), 'VITE_');
+
+  const dynamicPaths = await buildDynamicPrerenderPaths();
+  const allPrerenderPaths = [...staticPrerenderPaths, ...dynamicPaths];
+  const localizedPages = localeFlatMap(({ urlPrefix }) =>
+    allPrerenderPaths.map((path) => ({
+      path: `${urlPrefix}${path}`,
+      prerender: { enabled: true },
+    }))
+  );
 
   const domain = env.VITE_PUBLIC_DOMAIN;
   const backendUrl = env.VITE_BACKEND_URL;
@@ -241,7 +228,7 @@ export default defineConfig(({ mode }) => {
             '.content.(ts|tsx|js|mjs|cjs|jsx|json|jsonc|json5)$',
         },
         prerender: {
-          enabled: false,
+          enabled: true,
           crawlLinks: false,
           concurrency: 10,
         },
