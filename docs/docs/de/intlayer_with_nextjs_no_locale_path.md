@@ -406,7 +406,7 @@ export default pageContent;
 }
 ```
 
-> Ihre Content-Deklarationen können überall in Ihrer Anwendung definiert werden, sobald sie in das Verzeichnis `contentDir` (standardmäßig `./src`) aufgenommen sind. Sie müssen zudem der Dateiendung für Content-Deklarationsdateien entsprechen (standardmäßig `.content.{json,ts,tsx,js,jsx,mjs,cjs}`).
+> Ihre Content-Deklarationen können überall in Ihrer Anwendung definiert werden, sobald sie in das Verzeichnis `contentDir` (standardmäßig `./src`) aufgenommen sind. Sie müssen zudem der Dateiendung für Content-Deklarationsdateien entsprechen (standardmäßig `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`).
 
 > Weitere Informationen finden Sie in der [Dokumentation zur Content-Deklaration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/content_file.md).
 

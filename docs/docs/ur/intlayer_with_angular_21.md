@@ -256,7 +256,7 @@ const appContent = {
 export default appContent;
 ```
 
-> آپ کے مواد کے اعلانات کو آپ کی ایپلیکیشن میں کہیں بھی متعین کیا جا سکتا ہے جب تک کہ وہ `contentDir` ڈائرکٹری (بطور ڈیفالٹ، `./src`) میں شامل ہوں۔ اور مواد کے اعلان کی فائل ایکسٹینشن سے مماثل ہوں (بطور ڈیفالٹ، `.content.{json,ts,tsx,js,jsx,mjs,cjs}`)۔
+> آپ کے مواد کے اعلانات کو آپ کی ایپلیکیشن میں کہیں بھی متعین کیا جا سکتا ہے جب تک کہ وہ `contentDir` ڈائرکٹری (بطور ڈیفالٹ، `./src`) میں شامل ہوں۔ اور مواد کے اعلان کی فائل ایکسٹینشن سے مماثل ہوں (بطور ڈیفالٹ، `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`)۔
 
 > مزید تفصیلات کے لیے، [مواد کے اعلان کے دستاویزات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/dictionary/content_file.md) سے رجوع کریں۔
 

@@ -145,7 +145,7 @@ export default indexContent;
 }
 ```
 
-> 只要包含在 `contentDir` 目录（默认为 `./src`）中，您的内容声明就可以在应用程序的任何位置定义。并且匹配内容声明文件扩展名（默认为 `.content.{json,ts,tsx,js,jsx,mjs,cjs}`）。
+> 只要包含在 `contentDir` 目录（默认为 `./src`）中，您的内容声明就可以在应用程序的任何位置定义。并且匹配内容声明文件扩展名（默认为 `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`）。
 
 > 有关更多详情，请参阅 [内容声明文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)。
 

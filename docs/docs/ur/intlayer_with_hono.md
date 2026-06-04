@@ -162,7 +162,7 @@ module.exports = indexContent;
 }
 ```
 
-> آپ کے مواد کے اعلانات آپ کی ایپلی کیشن میں کہیں بھی بیان کیے جا سکتے ہیں جب تک کہ وہ `contentDir` ڈائریکٹری (بطور ڈیفالٹ، `./src`) میں شامل ہوں اور مواد کے اعلان کی فائل کی توسیع (بطور ڈیفالٹ، `.content.{json,ts,tsx,js,jsx,mjs,cjs}`) سے میل کھاتے ہوں۔
+> آپ کے مواد کے اعلانات آپ کی ایپلی کیشن میں کہیں بھی بیان کیے جا سکتے ہیں جب تک کہ وہ `contentDir` ڈائریکٹری (بطور ڈیفالٹ، `./src`) میں شامل ہوں اور مواد کے اعلان کی فائل کی توسیع (بطور ڈیفالٹ، `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`) سے میل کھاتے ہوں۔
 
 > مزید تفصیلات کے لیے، [مواد کے اعلان کی دستاویزات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ur/dictionary/content_file.md) دیکھیں۔
 

@@ -345,7 +345,7 @@ const appContent = {
 export default appContent;
 ```
 
-> Deklarasi konten Anda dapat didefinisikan di mana saja dalam aplikasi Anda, selama disertakan dalam direktori `contentDir` (secara default, `./app`). Dan harus memiliki ekstensi file deklarasi konten (secara default, `.content.{json,ts,tsx,js,jsx,mjs,cjs}`).
+> Deklarasi konten Anda dapat didefinisikan di mana saja dalam aplikasi Anda, selama disertakan dalam direktori `contentDir` (secara default, `./app`). Dan harus memiliki ekstensi file deklarasi konten (secara default, `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`).
 
 > Untuk detail lebih lanjut, lihat [dokumentasi deklarasi konten](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/content_file.md).
 

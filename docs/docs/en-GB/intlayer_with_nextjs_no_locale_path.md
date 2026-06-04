@@ -407,7 +407,7 @@ export default pageContent;
 }
 ```
 
-> Your content declarations can be defined anywhere in your application, provided they are placed in the `contentDir` directory (by default, `./src`) and use the content declaration file extensions (by default, `.content.{json,ts,tsx,js,jsx,mjs,cjs}`).
+> Your content declarations can be defined anywhere in your application, provided they are placed in the `contentDir` directory (by default, `./src`) and use the content declaration file extensions (by default, `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`).
 
 > For more details, refer to the [content declaration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/content_file.md).
 

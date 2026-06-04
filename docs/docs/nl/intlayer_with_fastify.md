@@ -145,7 +145,7 @@ export default indexContent;
 }
 ```
 
-> Uw inhoudsdeclaraties kunnen overal in uw applicatie worden gedefinieerd, zolang ze zijn opgenomen in de `contentDir`-map (standaard `./src`). En ze moeten overeenkomen met de bestandsextensie van de inhoudsdeclaratie (standaard `.content.{json,ts,tsx,js,jsx,mjs,cjs}`).
+> Uw inhoudsdeclaraties kunnen overal in uw applicatie worden gedefinieerd, zolang ze zijn opgenomen in de `contentDir`-map (standaard `./src`). En ze moeten overeenkomen met de bestandsextensie van de inhoudsdeclaratie (standaard `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`).
 
 > Voor meer details, zie de [documentatie over inhoudsdeclaratie](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/dictionary/content_file.md).
 

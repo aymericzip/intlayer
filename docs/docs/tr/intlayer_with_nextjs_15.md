@@ -336,7 +336,7 @@ export default pageContent;
 }
 ```
 
-> İçerik bildirimleriniz, varsayılan olarak `./src` olan `contentDir` dizinine dahil olduğu sürece uygulamanızın herhangi bir yerinde tanımlanabilir. Ve içerik bildirim dosyası uzantısı (varsayılan olarak `.content.{json,ts,tsx,js,jsx,mjs,cjs}`) ile eşleşmelidir.
+> İçerik bildirimleriniz, varsayılan olarak `./src` olan `contentDir` dizinine dahil olduğu sürece uygulamanızın herhangi bir yerinde tanımlanabilir. Ve içerik bildirim dosyası uzantısı (varsayılan olarak `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`) ile eşleşmelidir.
 
 > Daha fazla detay için [içerik bildirim dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md) bakın.
 

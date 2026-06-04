@@ -389,7 +389,7 @@ export default pageContent;
 }
 ```
 
-> Twoje deklaracje zawartości mogą być zdefiniowane w dowolnym miejscu aplikacji, pod warunkiem że zostaną umieszczone w katalogu `contentDir` (domyślnie `./src`) i mają odpowiednie rozszerzenie pliku deklaracji zawartości (domyślnie `.content.{json,ts,tsx,js,jsx,mjs,cjs}`).
+> Twoje deklaracje zawartości mogą być zdefiniowane w dowolnym miejscu aplikacji, pod warunkiem że zostaną umieszczone w katalogu `contentDir` (domyślnie `./src`) i mają odpowiednie rozszerzenie pliku deklaracji zawartości (domyślnie `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`).
 
 > Po więcej informacji odwołaj się do [dokumentacji pliku deklaracji zawartości](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/content_file.md).
 

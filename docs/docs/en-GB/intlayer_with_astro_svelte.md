@@ -232,7 +232,7 @@ const appContent = {
 export default appContent;
 ```
 
-> Content declarations can be defined anywhere in your application, as long as they are included in the `contentDir` (by default `./src`) and match the content declaration file extension (by default `.content.{json,ts,tsx,js,jsx,mjs,cjs}`).
+> Content declarations can be defined anywhere in your application, as long as they are included in the `contentDir` (by default `./src`) and match the content declaration file extension (by default `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`).
 
 > For more information, refer to the [content declaration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/content_file.md).
 

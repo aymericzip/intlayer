@@ -256,7 +256,7 @@ const appContent = {
 export default appContent;
 ```
 
-> Vaše deklarace obsahu mohou být definovány kdekoli ve vaší aplikaci, pokud jsou zahrnuty do adresáře `contentDir` (ve výchozím nastavení, `./src`). A musí se shodovat s příponou souboru deklarace obsahu (ve výchozím nastavení, `.content.{json,ts,tsx,js,jsx,mjs,cjs}`).
+> Vaše deklarace obsahu mohou být definovány kdekoli ve vaší aplikaci, pokud jsou zahrnuty do adresáře `contentDir` (ve výchozím nastavení, `./src`). A musí se shodovat s příponou souboru deklarace obsahu (ve výchozím nastavení, `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`).
 
 > Další podrobnosti najdete v [dokumentaci k deklaraci obsahu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/dictionary/content_file.md).
 

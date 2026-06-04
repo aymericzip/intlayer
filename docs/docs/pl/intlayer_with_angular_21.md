@@ -277,7 +277,7 @@ const appContent = {
 export default appContent;
 ```
 
-> Twoje deklaracje treści mogą być zdefiniowane w dowolnym miejscu aplikacji, jeśli są dołączone do katalogu `contentDir` (domyślnie `./src`). Zwróć też uwagę na to, by były zgodne z rozszerzeniami plików z deklaracją treści (domyślnie `.content.{json,ts,tsx,js,jsx,mjs,cjs}`).
+> Twoje deklaracje treści mogą być zdefiniowane w dowolnym miejscu aplikacji, jeśli są dołączone do katalogu `contentDir` (domyślnie `./src`). Zwróć też uwagę na to, by były zgodne z rozszerzeniami plików z deklaracją treści (domyślnie `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`).
 
 > Po więcej szczegółów zapoznaj się z [dokumentacją deklaracji treści](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/content_file.md).
 

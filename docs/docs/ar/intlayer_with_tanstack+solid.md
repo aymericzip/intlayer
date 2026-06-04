@@ -328,7 +328,7 @@ const appContent = {
 export default appContent;
 ```
 
-> يمكن تعريف إعلانات المحتوى الخاصة بك في أي مكان في تطبيقك، طالما أنها مضمنة في مجلد `contentDir` (افتراضيًا `./app`). وتطابق امتداد ملفات إعلان المحتوى (افتراضيًا `.content.{json,ts,tsx,js,jsx,mjs,cjs}`).
+> يمكن تعريف إعلانات المحتوى الخاصة بك في أي مكان في تطبيقك، طالما أنها مضمنة في مجلد `contentDir` (افتراضيًا `./app`). وتطابق امتداد ملفات إعلان المحتوى (افتراضيًا `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`).
 
 > لمزيد من التفاصيل، راجع [توثيق إعلان المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/content_file.md).
 

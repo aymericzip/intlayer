@@ -125,7 +125,7 @@ const indexContent = {
 export default indexContent;
 ```
 
-> コンテンツ宣言は、`contentDir` ディレクトリ (デフォルトは `./src`) に含まれている限り、アプリケーションのどこでも定義できます。また、コンテンツ宣言ファイルの拡張子 (デフォルトは `.content.{json,ts,tsx,js,jsx,mjs,cjs}`) に一致させる必要があります。
+> コンテンツ宣言は、`contentDir` ディレクトリ (デフォルトは `./src`) に含まれている限り、アプリケーションのどこでも定義できます。また、コンテンツ宣言ファイルの拡張子 (デフォルトは `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`) に一致させる必要があります。
 
 > 詳細については、[コンテンツ宣言のドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/content_file.md)を参照してください。
 

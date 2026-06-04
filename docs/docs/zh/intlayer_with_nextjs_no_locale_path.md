@@ -297,7 +297,7 @@ export default pageContent;
 }
 ```
 
-> 你的内容声明可以在应用的任何位置定义，只要它们被包含到 `contentDir` 目录（默认 `./src`）中。并且与内容声明文件扩展名匹配（默认 `.content.{json,ts,tsx,js,jsx,mjs,cjs}`）。
+> 你的内容声明可以在应用的任何位置定义，只要它们被包含到 `contentDir` 目录（默认 `./src`）中。并且与内容声明文件扩展名匹配（默认 `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`）。
 
 > 有关详细信息，请参阅 [内容声明文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)。
 

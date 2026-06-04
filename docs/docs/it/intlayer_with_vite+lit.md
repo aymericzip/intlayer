@@ -305,7 +305,7 @@ export default appContent;
 }
 ```
 
-> Le dichiarazioni di contenuto possono essere definite ovunque nell'applicazione, purché siano incluse nella cartella `contentDir` (per impostazione predefinita, `./src`) e corrispondano all'estensione del file di dichiarazione del contenuto (per impostazione predefinita, `.content.{json,ts,tsx,js,jsx,mjs,cjs}`).
+> Le dichiarazioni di contenuto possono essere definite ovunque nell'applicazione, purché siano incluse nella cartella `contentDir` (per impostazione predefinita, `./src`) e corrispondano all'estensione del file di dichiarazione del contenuto (per impostazione predefinita, `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`).
 >
 > Per ulteriori dettagli, consulta la [documentazione sulla dichiarazione dei contenuti](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/content_file.md).
 

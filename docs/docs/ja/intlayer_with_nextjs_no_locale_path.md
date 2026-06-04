@@ -383,7 +383,7 @@ export default pageContent;
 }
 ```
 
-> コンテンツの宣言は、アプリケーション内の任意の場所に定義できます。ただし、それらが `contentDir` ディレクトリ（デフォルトは `./src`）に含まれており、コンテンツ宣言ファイルの拡張子が一致している必要があります（デフォルト: `.content.{json,ts,tsx,js,jsx,mjs,cjs}`）。
+> コンテンツの宣言は、アプリケーション内の任意の場所に定義できます。ただし、それらが `contentDir` ディレクトリ（デフォルトは `./src`）に含まれており、コンテンツ宣言ファイルの拡張子が一致している必要があります（デフォルト: `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`）。
 
 > 詳細は、[コンテンツ宣言のドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/content_file.md) を参照してください。
 

@@ -256,7 +256,7 @@ const appContent = {
 export default appContent;
 ```
 
-> Uw inhoudsdeclaraties kunnen overal in uw applicatie worden gedefinieerd, zolang ze maar worden opgenomen in de directory `contentDir` (standaard `./src`). En zolang ze overeenkomen met de bestandsextensie voor inhoudsdeclaraties (standaard `.content.{json,ts,tsx,js,jsx,mjs,cjs}`).
+> Uw inhoudsdeclaraties kunnen overal in uw applicatie worden gedefinieerd, zolang ze maar worden opgenomen in de directory `contentDir` (standaard `./src`). En zolang ze overeenkomen met de bestandsextensie voor inhoudsdeclaraties (standaard `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`).
 
 > Zie voor meer informatie de [documentatie over inhoudsdeclaratie](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/dictionary/content_file.md).
 

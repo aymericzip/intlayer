@@ -156,7 +156,7 @@ export default indexContent;
 }
 ```
 
-> Ihre Inhaltsdeklarationen können an beliebiger Stelle in Ihrer Anwendung definiert werden, sofern sie im Verzeichnis `contentDir` enthalten sind (standardmäßig `./src` oder `./app`) und mit der Dateierweiterung für Inhaltsdeklarationen übereinstimmen (standardmäßig `.content.{json,ts,tsx,js,jsx,mjs,cjs}`).
+> Ihre Inhaltsdeklarationen können an beliebiger Stelle in Ihrer Anwendung definiert werden, sofern sie im Verzeichnis `contentDir` enthalten sind (standardmäßig `./src` oder `./app`) und mit der Dateierweiterung für Inhaltsdeklarationen übereinstimmen (standardmäßig `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`).
 
 > Weitere Details finden Sie in der [Dokumentation zur Inhaltsdeklaration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/content_file.md).
 

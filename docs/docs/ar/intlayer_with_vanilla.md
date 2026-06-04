@@ -305,7 +305,7 @@ export default appContent;
 }
 ```
 
-> يمكن تعريف تصريحات المحتوى الخاصة بك في أي مكان في تطبيقك طالما تم تضمينها في دليل `contentDir` (افتراضيًا ، `./src`). وتطابق امتداد ملف تصريح المحتوى (افتراضيًا ، `.content.{json,ts,tsx,js,jsx,mjs,cjs}`).
+> يمكن تعريف تصريحات المحتوى الخاصة بك في أي مكان في تطبيقك طالما تم تضمينها في دليل `contentDir` (افتراضيًا ، `./src`). وتطابق امتداد ملف تصريح المحتوى (افتراضيًا ، `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`).
 >
 > لمزيد من التفاصيل ، راجع [وثائق تصريح المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/content_file.md).
 

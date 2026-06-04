@@ -145,7 +145,7 @@ export default indexContent;
 }
 ```
 
-> يمكن تعريف إعلانات المحتوى في أي مكان داخل تطبيقك طالما أنها مضمنة في دليل `contentDir` (افتراضيًا `./src`). ويجب أن تتطابق مع امتداد ملف إعلان المحتوى (افتراضيًا `.content.{json,ts,tsx,js,jsx,mjs,cjs}`).
+> يمكن تعريف إعلانات المحتوى في أي مكان داخل تطبيقك طالما أنها مضمنة في دليل `contentDir` (افتراضيًا `./src`). ويجب أن تتطابق مع امتداد ملف إعلان المحتوى (افتراضيًا `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`).
 
 > لمزيد من التفاصيل، راجع [توثيق إعلان المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/content_file.md).
 

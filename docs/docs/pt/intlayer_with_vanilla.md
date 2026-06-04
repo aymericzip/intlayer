@@ -322,7 +322,7 @@ export default appContent;
 }
 ```
 
-> As suas declarações de conteúdo podem ser definidas em qualquer lugar na sua aplicação desde que estejam incluídas no diretório `contentDir` (por defeito, `./src`). E correspondam à extensão do ficheiro de declaração de conteúdo (por defeito, `.content.{json,ts,tsx,js,jsx,mjs,cjs}`).
+> As suas declarações de conteúdo podem ser definidas em qualquer lugar na sua aplicação desde que estejam incluídas no diretório `contentDir` (por defeito, `./src`). E correspondam à extensão do ficheiro de declaração de conteúdo (por defeito, `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`).
 >
 > Para mais detalhes, consulte a [documentação de declaração de conteúdo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/content_file.md).
 

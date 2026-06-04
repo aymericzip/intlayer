@@ -315,7 +315,7 @@ const appContent = {
 export default appContent;
 ```
 
-> 只要您的内容声明位于 `contentDir` 目录 (默认为 `./app`) 中，就可以在应用程序的任何位置定义。并且它们应匹配内容声明文件扩展名 (默认为 `.content.{json,ts,tsx,js,jsx,mjs,cjs}`)。
+> 只要您的内容声明位于 `contentDir` 目录 (默认为 `./app`) 中，就可以在应用程序的任何位置定义。并且它们应匹配内容声明文件扩展名 (默认为 `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`)。
 
 > 有关更多详细信息，请参阅[内容声明文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)。
 

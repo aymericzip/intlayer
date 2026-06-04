@@ -389,7 +389,7 @@ export default pageContent;
 }
 ```
 
-> आपकी content घोषणाएँ आपकी एप्लिकेशन में कहीं भी परिभाषित की जा सकती हैं, बशर्ते वे `contentDir` निर्देशिका (डिफ़ॉल्ट: `./src`) में शामिल हों। और content declaration फ़ाइल एक्सटेंशन से मेल खानी चाहिए (डिफ़ॉल्ट: `.content.{json,ts,tsx,js,jsx,mjs,cjs}`)।
+> आपकी content घोषणाएँ आपकी एप्लिकेशन में कहीं भी परिभाषित की जा सकती हैं, बशर्ते वे `contentDir` निर्देशिका (डिफ़ॉल्ट: `./src`) में शामिल हों। और content declaration फ़ाइल एक्सटेंशन से मेल खानी चाहिए (डिफ़ॉल्ट: `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`)।
 >
 > अधिक जानकारी के लिए, [content declaration दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/content_file.md) देखें।
 

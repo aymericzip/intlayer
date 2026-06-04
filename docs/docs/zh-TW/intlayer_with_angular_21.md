@@ -256,7 +256,7 @@ const appContent = {
 export default appContent;
 ```
 
-> 您的內容宣告可以定義在應用程式的任何位置，只需將其包含在 `contentDir` 目錄（預設為 `./src`）中，並且符合內容宣告的文件副檔名（預設為 `.content.{json,ts,tsx,js,jsx,mjs,cjs}`）。
+> 您的內容宣告可以定義在應用程式的任何位置，只需將其包含在 `contentDir` 目錄（預設為 `./src`）中，並且符合內容宣告的文件副檔名（預設為 `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`）。
 
 > 詳細資訊請參考 [內容宣告文件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh-TW/dictionary/content_file.md)。
 
