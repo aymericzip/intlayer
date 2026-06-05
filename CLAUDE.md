@@ -53,13 +53,9 @@ plugins/
 Package manager: **Bun**.
 
 ```sh
-bun install:packages      # install (excludes examples + website)
 bun run build             # build all publishable packages + backend
 bun run turbo build --filter=./apps/app
 bun run turbo build --filter=./packages/react-intlayer
-bun run dev               # watch-build all packages
-bun run build:pick        # interactive pick
-bun run test:pick
 bun run lint              # biome check
 bun run lint:fix
 bun run check             # lint + format check
@@ -87,4 +83,16 @@ Format: `<type>(<scope>): <subject>` — enforced by commitlint + husky.
 - **tsdown** — build tool per package (`tsdown.config.ts`).
 - **Turborepo** — build graph; `^build` = build deps first.
 - New packages → add to `scripts/package-build-order.mjs`.
-- Assume dev server running; if not, build manually.
+
+## Coding Rules (for final code)
+
+That codebase apply a strict high code quality standard.
+For code that is destined to be kept in the codebase, you should validate that points before finishing the task.
+
+- Use full and clear var name, no abbreviations
+- Use clean and strong typing, no any. Use Generic when possible
+- Add JSDoc
+- Use arrow functions
+- Implement and test unit test when applicable and run bun test
+- Assume dev server running; if not, wait 5sec, then 10sec, then 15sec, check output last save timestamp. If not updated, build manually.
+- Always check if there functions that already exists in the project before creating a new one.
