@@ -72,6 +72,7 @@ describe('getStorageAttributes', () => {
       domain: '.example.com',
       secure: true,
       sameSite: 'strict',
+      maxAge: 60 * 60 * 24 * 365,
     });
 
     expect(result.cookies).toHaveLength(1);
@@ -80,6 +81,7 @@ describe('getStorageAttributes', () => {
     expect(result.cookies[0].attributes.domain).toBe('.example.com');
     expect(result.cookies[0].attributes.secure).toBe(true);
     expect(result.cookies[0].attributes.sameSite).toBe('strict');
+    expect(result.cookies[0].attributes.maxAge).toBe(60 * 60 * 24 * 365);
   });
 
   it('should handle localStorage object with custom name', () => {
