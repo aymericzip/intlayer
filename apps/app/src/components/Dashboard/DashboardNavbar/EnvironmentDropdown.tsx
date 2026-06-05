@@ -2,6 +2,7 @@ import { useSelectEnvironment, useSession } from '@intlayer/design-system/api';
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
 import { DropDown } from '@intlayer/design-system/drop-down';
+import { Tag } from '@intlayer/design-system/tag';
 import { ChevronsUpDown } from 'lucide-react';
 import type { ComponentProps, FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
@@ -42,9 +43,9 @@ export const EnvironmentDropdown: FC<EnvironmentDropdownProps> = (props) => {
           {environment?.name ?? productionEnv.value}
 
           {environment?.isDefault && (
-            <span className="rounded bg-text/10 px-1 py-0.5 text-[10px]">
+            <Tag size="sm" color="neutral">
               {defaultEnv}
-            </span>
+            </Tag>
           )}
         </span>
       </DropDown.Trigger>

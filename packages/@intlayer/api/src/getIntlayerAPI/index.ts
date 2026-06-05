@@ -7,6 +7,7 @@ import { getAuditAPI } from './audit';
 import { getBitbucketAPI } from './bitbucket';
 import { getDictionaryAPI } from './dictionary';
 import { getEditorAPI } from './editor';
+import { getEnvironmentAPI } from './environment';
 import { getGithubAPI } from './github';
 import { getGitlabAPI } from './gitlab';
 import { getNewsletterAPI } from './newsletter';
@@ -24,6 +25,7 @@ import { getUserAPI } from './user';
 interface IntlayerAPIReturn {
   organization: ReturnType<typeof getOrganizationAPI>;
   project: ReturnType<typeof getProjectAPI>;
+  environment: ReturnType<typeof getEnvironmentAPI>;
   user: ReturnType<typeof getUserAPI>;
   oAuth: ReturnType<typeof getOAuthAPI>;
   dictionary: ReturnType<typeof getDictionaryAPI>;
@@ -53,6 +55,7 @@ export const getIntlayerAPI = (
   return {
     organization: getOrganizationAPI(authAPIOptions, resolvedConfig),
     project: getProjectAPI(authAPIOptions, resolvedConfig),
+    environment: getEnvironmentAPI(authAPIOptions, resolvedConfig),
     user: getUserAPI(authAPIOptions, resolvedConfig),
     oAuth: getOAuthAPI(authAPIOptions, resolvedConfig),
     dictionary: getDictionaryAPI(authAPIOptions, resolvedConfig),

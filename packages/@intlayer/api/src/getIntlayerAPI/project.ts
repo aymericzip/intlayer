@@ -1,33 +1,24 @@
 import type {
-  AddEnvironmentBody,
-  AddEnvironmentResult,
   AddNewAccessKeyBody,
   AddNewAccessKeyResponse,
   AddProjectBody,
   AddProjectResult,
   DeleteAccessKeyBody,
   DeleteAccessKeyResponse,
-  DeleteEnvironmentResult,
   DeleteProjectResult,
   GetProjectsParams,
   GetProjectsResult,
-  MigrateEnvironmentBody,
-  MigrateEnvironmentResult,
   PushProjectConfigurationBody,
   PushProjectConfigurationResult,
   RefreshAccessKeyBody,
   RefreshAccessKeyResponse,
-  ResetToProductionEnvironmentResult,
   ResponseData,
-  SelectEnvironmentResult,
   SelectProjectParam,
   SelectProjectResult,
   TriggerBuildResult,
   TriggerWebhookBody,
   TriggerWebhookResult,
   UnselectProjectResult,
-  UpdateEnvironmentBody,
-  UpdateEnvironmentResult,
   UpdateMemberAccessBody,
   UpdateMemberAccessResult,
   UpdateProjectBody,
@@ -46,7 +37,6 @@ export const getProjectAPI = (
   const backendURL = intlayerConfig?.editor?.backendURL ?? editor.backendURL;
 
   const PROJECT_API_ROUTE = `${backendURL}/api/project`;
-  const ENVIRONMENT_API_ROUTE = `${backendURL}/api/project/environment`;
 
   /**
    * Retrieves a list of projects based on filters and pagination.
@@ -323,72 +313,6 @@ export const getProjectAPI = (
       }
     );
 
-  const addEnvironment = async (
-    body: AddEnvironmentBody,
-    otherOptions: FetcherOptions = {}
-  ) =>
-    await fetcher<AddEnvironmentResult>(
-      ENVIRONMENT_API_ROUTE,
-      authAPIOptions,
-      otherOptions,
-      { method: 'POST', body }
-    );
-
-  const updateEnvironment = async (
-    environmentId: string,
-    body: UpdateEnvironmentBody,
-    otherOptions: FetcherOptions = {}
-  ) =>
-    await fetcher<UpdateEnvironmentResult>(
-      `${ENVIRONMENT_API_ROUTE}/${environmentId}`,
-      authAPIOptions,
-      otherOptions,
-      { method: 'PUT', body }
-    );
-
-  const deleteEnvironment = async (
-    environmentId: string,
-    otherOptions: FetcherOptions = {}
-  ) =>
-    await fetcher<DeleteEnvironmentResult>(
-      `${ENVIRONMENT_API_ROUTE}/${environmentId}`,
-      authAPIOptions,
-      otherOptions,
-      { method: 'DELETE' }
-    );
-
-  const selectEnvironment = async (
-    environmentId: string,
-    otherOptions: FetcherOptions = {}
-  ) =>
-    await fetcher<SelectEnvironmentResult>(
-      `${ENVIRONMENT_API_ROUTE}/${environmentId}/select`,
-      authAPIOptions,
-      otherOptions,
-      { method: 'PUT' }
-    );
-
-  const resetToProductionEnvironment = async (
-    otherOptions: FetcherOptions = {}
-  ) =>
-    await fetcher<ResetToProductionEnvironmentResult>(
-      `${ENVIRONMENT_API_ROUTE}/production/select`,
-      authAPIOptions,
-      otherOptions,
-      { method: 'PUT' }
-    );
-
-  const migrateEnvironment = async (
-    body: MigrateEnvironmentBody,
-    otherOptions: FetcherOptions = {}
-  ) =>
-    await fetcher<MigrateEnvironmentResult>(
-      `${ENVIRONMENT_API_ROUTE}/migrate`,
-      authAPIOptions,
-      otherOptions,
-      { method: 'POST', body }
-    );
-
   /**
    * Updates granular access constraints for a project member.
    * @param userId - The user ID to update access for.
@@ -423,12 +347,6 @@ export const getProjectAPI = (
     triggerWebhook,
     getCIConfig,
     pushCIConfig,
-    addEnvironment,
-    updateEnvironment,
-    deleteEnvironment,
-    selectEnvironment,
-    resetToProductionEnvironment,
-    migrateEnvironment,
     updateMemberAccess,
   };
 };

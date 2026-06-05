@@ -6,6 +6,7 @@ export * from './getIntlayerAPI/audit';
 export * from './getIntlayerAPI/bitbucket';
 export * from './getIntlayerAPI/dictionary';
 export * from './getIntlayerAPI/editor';
+export * from './getIntlayerAPI/environment';
 export * from './getIntlayerAPI/github';
 export * from './getIntlayerAPI/gitlab';
 export * from './getIntlayerAPI/newsletter';
