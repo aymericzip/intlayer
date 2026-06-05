@@ -68,14 +68,10 @@ export const linkVariants = cva(
       },
       roundedSize: {
         none: 'rounded-none',
-        sm:
-          'rounded-lg [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-xl',
-        md:
-          'rounded-xl [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-2xl',
-        lg:
-          'rounded-2xl [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-3xl',
-        xl:
-          'rounded-3xl [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-4xl',
+        sm: 'rounded-lg [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-xl',
+        md: 'rounded-xl [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-2xl',
+        lg: 'rounded-2xl [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-3xl',
+        xl: 'rounded-3xl [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-4xl',
         '2xl':
           'rounded-4xl [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-[2.5rem]',
         '3xl':
@@ -304,8 +300,6 @@ export const Link: FC<LinkProps> = (props) => {
   const isPageSection = isPageSectionProp ?? hrefProp?.startsWith('#') ?? false;
 
   const isChildrenString = isTextChildren(children);
-  const isButton =
-    variant === 'button' || variant === 'button-outlined';
 
   const rel = isExternalLink ? 'noopener noreferrer nofollow' : undefined;
 
