@@ -235,26 +235,8 @@ export default defineConfig(({ mode }) => {
     build: {
       minify: false,
       rolldownOptions: {
-        external: ['wasi_snapshot_preview1', 'esbuild', 'env'],
+        external: ['wasi_snapshot_preview1', 'env'],
       },
-    },
-    resolve: {
-      dedupe: [
-        'react',
-        'react-dom',
-        '@tanstack/react-query',
-        '@tanstack/react-router',
-        '@tanstack/react-start',
-      ],
-    },
-    optimizeDeps: {
-      exclude: ['@tanstack/react-start'],
-      include: [
-        'react',
-        'react-dom',
-        '@tanstack/react-query',
-        '@tanstack/react-router',
-      ],
     },
   };
 });
