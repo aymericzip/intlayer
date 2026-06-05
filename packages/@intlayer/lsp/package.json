@@ -82,7 +82,7 @@
     "typecheck": "tsc --noEmit --project tsconfig.types.json"
   },
   "dependencies": {
-    "@intlayer/chokidar": "8.11.3",
+    "@intlayer/chokidar": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/types": "workspace:*",
     "@intlayer/unmerged-dictionaries-entry": "workspace:*",
@@ -96,7 +96,7 @@
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
     "rimraf": "6.1.3",
-    "tsdown": "0.22.1",
+    "tsdown": "0.22.2",
     "typescript": "6.0.3",
     "vitest": "4.1.8"
   },

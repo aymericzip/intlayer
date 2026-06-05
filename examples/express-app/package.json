@@ -40,7 +40,7 @@
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
-    "tsdown": "0.22.1",
+    "tsdown": "0.22.2",
     "typescript": "6.0.3"
   }
 }
