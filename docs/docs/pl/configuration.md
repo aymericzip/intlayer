@@ -679,15 +679,16 @@ routing: {
 
 Przy użyciu przechowywania w plikach cookie można skonfigurować dodatkowe atrybuty:
 
-| Pole       | Opis                                                    | Typ                                                   |
-| ---------- | ------------------------------------------------------- | ----------------------------------------------------- |
-| `name`     | Nazwa pliku cookie. Domyślnie: `'INTLAYER_LOCALE'`      | `string`                                              |
-| `domain`   | Domena pliku cookie. Domyślnie: `undefined`             | `string`                                              |
-| `path`     | Ścieżka pliku cookie. Domyślnie: `undefined`            | `string`                                              |
-| `secure`   | Wymagane HTTPS. Domyślnie: `undefined`                  | `boolean`                                             |
-| `httpOnly` | Flaga HTTP-only. Domyślnie: `undefined`                 | `boolean`                                             |
-| `sameSite` | Polityka SameSite.                                      | `'strict'` &#124; <br/> `'lax'` &#124; <br/> `'none'` |
-| `expires`  | Data wygaśnięcia lub liczba dni. Domyślnie: `undefined` | `Date` &#124; <br/> `number`                          |
+| Pole       | Opis                                                                                                   | Typ                                                   |
+| ---------- | ------------------------------------------------------------------------------------------------------ | ----------------------------------------------------- |
+| `name`     | Nazwa pliku cookie. Domyślnie: `'INTLAYER_LOCALE'`                                                     | `string`                                              |
+| `domain`   | Domena pliku cookie. Domyślnie: `undefined`                                                            | `string`                                              |
+| `path`     | Ścieżka pliku cookie. Domyślnie: `undefined`                                                           | `string`                                              |
+| `secure`   | Wymagane HTTPS. Domyślnie: `undefined`                                                                 | `boolean`                                             |
+| `httpOnly` | Flaga HTTP-only. Domyślnie: `undefined`                                                                | `boolean`                                             |
+| `sameSite` | Polityka SameSite.                                                                                     | `'strict'` &#124; <br/> `'lax'` &#124; <br/> `'none'` |
+| `expires`  | Data wygaśnięcia lub liczba dni. Domyślnie: `undefined`                                                | `Date` &#124; <br/> `number`                          |
+| `maxAge`   | Czas życia w sekundach od momentu utworzenia. Ma pierwszeństwo przed `expires`. Domyślnie: `undefined` | `number`                                              |
 
 #### Atrybuty przechowywania (Storage Attributes)
 

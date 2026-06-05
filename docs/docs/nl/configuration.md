@@ -679,15 +679,16 @@ routing: {
 
 Bij gebruik van opslag in cookies kunnen extra attributen worden ingesteld:
 
-| Veld       | Beschrijving                                        | Type                                                  |
-| ---------- | --------------------------------------------------- | ----------------------------------------------------- |
-| `name`     | Naam van de cookie. Standaard: `'INTLAYER_LOCALE'`  | `string`                                              |
-| `domain`   | Domein van de cookie. Standaard: `undefined`        | `string`                                              |
-| `path`     | Pad van de cookie. Standaard: `undefined`           | `string`                                              |
-| `secure`   | HTTPS vereisen. Standaard: `undefined`              | `boolean`                                             |
-| `httpOnly` | Vlag HTTP-only. Standaard: `undefined`              | `boolean`                                             |
-| `sameSite` | Beleid voor SameSite.                               | `'strict'` &#124; <br/> `'lax'` &#124; <br/> `'none'` |
-| `expires`  | Vervaldatum of aantal dagen. Standaard: `undefined` | `Date` &#124; <br/> `number`                          |
+| Veld       | Beschrijving                                                                              | Type                                                  |
+| ---------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------- |
+| `name`     | Naam van de cookie. Standaard: `'INTLAYER_LOCALE'`                                        | `string`                                              |
+| `domain`   | Domein van de cookie. Standaard: `undefined`                                              | `string`                                              |
+| `path`     | Pad van de cookie. Standaard: `undefined`                                                 | `string`                                              |
+| `secure`   | HTTPS vereisen. Standaard: `undefined`                                                    | `boolean`                                             |
+| `httpOnly` | Vlag HTTP-only. Standaard: `undefined`                                                    | `boolean`                                             |
+| `sameSite` | Beleid voor SameSite.                                                                     | `'strict'` &#124; <br/> `'lax'` &#124; <br/> `'none'` |
+| `expires`  | Vervaldatum of aantal dagen. Standaard: `undefined`                                       | `Date` &#124; <br/> `number`                          |
+| `maxAge`   | Levensduur in seconden vanaf aanmaak. Heeft voorrang op `expires`. Standaard: `undefined` | `number`                                              |
 
 #### Opslagattributen (Storage Attributes)
 

@@ -672,15 +672,16 @@ routing: {
 
 عند استخدام التخزين في الكوكيز، يمكن تعيين سمات إضافية:
 
-| الحقل      | الوصف                                                | النوع                                                 |
-| ---------- | ---------------------------------------------------- | ----------------------------------------------------- |
-| `name`     | اسم الكوكيز. الافتراضي: `'INTLAYER_LOCALE'`          | `string`                                              |
-| `domain`   | نطاق الكوكيز. الافتراضي: `undefined`                 | `string`                                              |
-| `path`     | مسار الكوكيز. الافتراضي: `undefined`                 | `string`                                              |
-| `secure`   | يتطلب HTTPS. الافتراضي: `undefined`                  | `boolean`                                             |
-| `httpOnly` | علامة HTTP-only. الافتراضي: `undefined`              | `boolean`                                             |
-| `sameSite` | سياسة SameSite.                                      | `'strict'` &#124; <br/> `'lax'` &#124; <br/> `'none'` |
-| `expires`  | تاريخ الانتهاء أو عدد الأيام. الافتراضي: `undefined` | `Date` &#124; <br/> `number`                          |
+| الحقل      | الوصف                                                                         | النوع                                                 |
+| ---------- | ----------------------------------------------------------------------------- | ----------------------------------------------------- |
+| `name`     | اسم الكوكيز. الافتراضي: `'INTLAYER_LOCALE'`                                   | `string`                                              |
+| `domain`   | نطاق الكوكيز. الافتراضي: `undefined`                                          | `string`                                              |
+| `path`     | مسار الكوكيز. الافتراضي: `undefined`                                          | `string`                                              |
+| `secure`   | يتطلب HTTPS. الافتراضي: `undefined`                                           | `boolean`                                             |
+| `httpOnly` | علامة HTTP-only. الافتراضي: `undefined`                                       | `boolean`                                             |
+| `sameSite` | سياسة SameSite.                                                               | `'strict'` &#124; <br/> `'lax'` &#124; <br/> `'none'` |
+| `expires`  | تاريخ الانتهاء أو عدد الأيام. الافتراضي: `undefined`                          | `Date` &#124; <br/> `number`                          |
+| `maxAge`   | العمر بالثواني منذ الإنشاء. له الأسبقية على `expires`. الافتراضي: `undefined` | `number`                                              |
 
 #### سمات التخزين (Storage Attributes)
 

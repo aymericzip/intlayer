@@ -679,15 +679,16 @@ routing: {
 
 Při použití ukládání v cookies lze nastavit další atributy:
 
-| Pole       | Popis                                               | Typ                                                   |
-| ---------- | --------------------------------------------------- | ----------------------------------------------------- |
-| `name`     | Název cookie. Výchozí: `'INTLAYER_LOCALE'`          | `string`                                              |
-| `domain`   | Doména cookie. Výchozí: `undefined`                 | `string`                                              |
-| `path`     | Cesta cookie. Výchozí: `undefined`                  | `string`                                              |
-| `secure`   | Vyžadovat HTTPS. Výchozí: `undefined`               | `boolean`                                             |
-| `httpOnly` | Vlajka HTTP-only. Výchozí: `undefined`              | `boolean`                                             |
-| `sameSite` | Politika SameSite.                                  | `'strict'` &#124; <br/> `'lax'` &#124; <br/> `'none'` |
-| `expires`  | Datum vypršení nebo počet dní. Výchozí: `undefined` | `Date` &#124; <br/> `number`                          |
+| Pole       | Popis                                                                                | Typ                                                   |
+| ---------- | ------------------------------------------------------------------------------------ | ----------------------------------------------------- |
+| `name`     | Název cookie. Výchozí: `'INTLAYER_LOCALE'`                                           | `string`                                              |
+| `domain`   | Doména cookie. Výchozí: `undefined`                                                  | `string`                                              |
+| `path`     | Cesta cookie. Výchozí: `undefined`                                                   | `string`                                              |
+| `secure`   | Vyžadovat HTTPS. Výchozí: `undefined`                                                | `boolean`                                             |
+| `httpOnly` | Vlajka HTTP-only. Výchozí: `undefined`                                               | `boolean`                                             |
+| `sameSite` | Politika SameSite.                                                                   | `'strict'` &#124; <br/> `'lax'` &#124; <br/> `'none'` |
+| `expires`  | Datum vypršení nebo počet dní. Výchozí: `undefined`                                  | `Date` &#124; <br/> `number`                          |
+| `maxAge`   | Životnost v sekundách od vytvoření. Má přednost před `expires`. Výchozí: `undefined` | `number`                                              |
 
 #### Atributy úložiště (Storage Attributes)
 

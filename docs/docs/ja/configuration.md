@@ -679,15 +679,16 @@ routing: {
 
 Cookie 保存を使用する場合、追加のアトリビュートを設定できます。
 
-| フィールド | 説明                                           | 型                                                    |
-| ---------- | ---------------------------------------------- | ----------------------------------------------------- |
-| `name`     | Cookie の名前。デフォルト: `'INTLAYER_LOCALE'` | `string`                                              |
-| `domain`   | Cookie のドメイン。デフォルト: `undefined`     | `string`                                              |
-| `path`     | Cookie のパス。デフォルト: `undefined`         | `string`                                              |
-| `secure`   | HTTPS を必須にします。デフォルト: `undefined`  | `boolean`                                             |
-| `httpOnly` | HTTP-only フラグ。デフォルト: `undefined`      | `boolean`                                             |
-| `sameSite` | SameSite ポリシー。                            | `'strict'` &#124; <br/> `'lax'` &#124; <br/> `'none'` |
-| `expires`  | 有効期限または日数。デフォルト: `undefined`    | `Date` &#124; <br/> `number`                          |
+| フィールド | 説明                                                                           | 型                                                    |
+| ---------- | ------------------------------------------------------------------------------ | ----------------------------------------------------- |
+| `name`     | Cookie の名前。デフォルト: `'INTLAYER_LOCALE'`                                 | `string`                                              |
+| `domain`   | Cookie のドメイン。デフォルト: `undefined`                                     | `string`                                              |
+| `path`     | Cookie のパス。デフォルト: `undefined`                                         | `string`                                              |
+| `secure`   | HTTPS を必須にします。デフォルト: `undefined`                                  | `boolean`                                             |
+| `httpOnly` | HTTP-only フラグ。デフォルト: `undefined`                                      | `boolean`                                             |
+| `sameSite` | SameSite ポリシー。                                                            | `'strict'` &#124; <br/> `'lax'` &#124; <br/> `'none'` |
+| `expires`  | 有効期限または日数。デフォルト: `undefined`                                    | `Date` &#124; <br/> `number`                          |
+| `maxAge`   | 作成からの秒単位の有効期間。`expires`より優先されます。デフォルト: `undefined` | `number`                                              |
 
 #### 保存属性 (Storage Attributes)
 

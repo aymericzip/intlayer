@@ -681,15 +681,16 @@ routing: {
 
 کوکی اسٹوریج استعمال کرتے وقت، آپ اضافی کوکی ایٹریبیوٹس ترتیب دے سکتے ہیں:
 
-| فیلڈ       | وضاحت                                              | قسم                                                   |
-| ---------- | -------------------------------------------------- | ----------------------------------------------------- |
-| `name`     | کوکی کا نام۔ ڈیفالٹ: `'INTLAYER_LOCALE'`           | `string`                                              |
-| `domain`   | کوکی ڈومین۔ ڈیفالٹ: `undefined`                    | `string`                                              |
-| `path`     | کوکی راستہ۔ ڈیفالٹ: `undefined`                    | `string`                                              |
-| `secure`   | HTTPS کی ضرورت۔ ڈیفالٹ: `undefined`                | `boolean`                                             |
-| `httpOnly` | HTTP-only فلیگ۔ ڈیفالٹ: `undefined`                | `boolean`                                             |
-| `sameSite` | SameSite پالیسی۔                                   | `'strict'` &#124; <br/> `'lax'` &#124; <br/> `'none'` |
-| `expires`  | میعاد ختم ہونے کی تاریخ یا دن۔ ڈیفالٹ: `undefined` | `Date` &#124; <br/> `number`                          |
+| فیلڈ       | وضاحت                                                                             | قسم                                                   |
+| ---------- | --------------------------------------------------------------------------------- | ----------------------------------------------------- |
+| `name`     | کوکی کا نام۔ ڈیفالٹ: `'INTLAYER_LOCALE'`                                          | `string`                                              |
+| `domain`   | کوکی ڈومین۔ ڈیفالٹ: `undefined`                                                   | `string`                                              |
+| `path`     | کوکی راستہ۔ ڈیفالٹ: `undefined`                                                   | `string`                                              |
+| `secure`   | HTTPS کی ضرورت۔ ڈیفالٹ: `undefined`                                               | `boolean`                                             |
+| `httpOnly` | HTTP-only فلیگ۔ ڈیفالٹ: `undefined`                                               | `boolean`                                             |
+| `sameSite` | SameSite پالیسی۔                                                                  | `'strict'` &#124; <br/> `'lax'` &#124; <br/> `'none'` |
+| `expires`  | میعاد ختم ہونے کی تاریخ یا دن۔ ڈیفالٹ: `undefined`                                | `Date` &#124; <br/> `number`                          |
+| `maxAge`   | تخلیق سے سیکنڈ میں لائف ٹائم۔ это `expires` پر ترجیح لیتا ہے۔ ڈیفالٹ: `undefined` | `number`                                              |
 
 #### لوکل اسٹوریج ایٹریبیوٹس (Locale Storage Attributes)
 

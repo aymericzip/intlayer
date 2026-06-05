@@ -682,15 +682,16 @@ routing: {
 
 Quando si utilizza lo storage in un cookie, è possibile impostare attributi aggiuntivi:
 
-| Campo      | Descrizione                                                   | Tipo                                                  |
-| ---------- | ------------------------------------------------------------- | ----------------------------------------------------- |
-| `name`     | Nome del cookie. Predefinito: `'INTLAYER_LOCALE'`             | `string`                                              |
-| `domain`   | Dominio del cookie. Predefinito: `undefined`                  | `string`                                              |
-| `path`     | Percorso del cookie. Predefinito: `undefined`                 | `string`                                              |
-| `secure`   | Richiede HTTPS. Predefinito: `undefined`                      | `boolean`                                             |
-| `httpOnly` | Flag HTTP-only. Predefinito: `undefined`                      | `boolean`                                             |
-| `sameSite` | Politica SameSite.                                            | `'strict'` &#124; <br/> `'lax'` &#124; <br/> `'none'` |
-| `expires`  | Data di scadenza o numero di giorni. Predefinito: `undefined` | `Date` &#124; <br/> `number`                          |
+| Campo      | Descrizione                                                                                | Tipo                                                  |
+| ---------- | ------------------------------------------------------------------------------------------ | ----------------------------------------------------- |
+| `name`     | Nome del cookie. Predefinito: `'INTLAYER_LOCALE'`                                          | `string`                                              |
+| `domain`   | Dominio del cookie. Predefinito: `undefined`                                               | `string`                                              |
+| `path`     | Percorso del cookie. Predefinito: `undefined`                                              | `string`                                              |
+| `secure`   | Richiede HTTPS. Predefinito: `undefined`                                                   | `boolean`                                             |
+| `httpOnly` | Flag HTTP-only. Predefinito: `undefined`                                                   | `boolean`                                             |
+| `sameSite` | Politica SameSite.                                                                         | `'strict'` &#124; <br/> `'lax'` &#124; <br/> `'none'` |
+| `expires`  | Data di scadenza o numero di giorni. Predefinito: `undefined`                              | `Date` &#124; <br/> `number`                          |
+| `maxAge`   | Durata in secondi dalla creazione. Ha la precedenza su `expires`. Predefinito: `undefined` | `number`                                              |
 
 #### Attributi dello Storage (Storage Attributes)
 
