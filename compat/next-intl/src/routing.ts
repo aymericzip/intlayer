@@ -1,5 +1,6 @@
 import { internationalization, routing } from '@intlayer/config/built';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
+import type { defineRouting as _defineRouting } from 'next-intl/routing';
 
 export type Routing = {
   locales: LocalesValues[];
@@ -22,7 +23,7 @@ export type Routing = {
  * });
  * ```
  */
-export const defineRouting = (config?: Partial<Routing>): Routing => ({
+const _defineRoutingImpl = (config?: Partial<Routing>): Routing => ({
   locales:
     config?.locales ??
     ((internationalization?.locales ?? []) as LocalesValues[]),
@@ -33,3 +34,6 @@ export const defineRouting = (config?: Partial<Routing>): Routing => ({
     config?.localePrefix ?? (routing?.prefixDefault ? 'always' : 'as-needed'),
   ...config,
 });
+
+export const defineRouting =
+  _defineRoutingImpl as unknown as typeof _defineRouting;

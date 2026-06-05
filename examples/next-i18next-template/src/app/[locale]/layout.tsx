@@ -29,7 +29,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
 
-  const i18n = await initI18next(locale, ['common'] as const);
+  const i18n = await initI18next(locale);
   const resolvedLocale = i18n.language ?? defaultLocale;
   const tCommon = i18n.getFixedT(resolvedLocale, 'common');
 

@@ -1,53 +1,68 @@
 import { getIntlayer } from '@intlayer/core/interpreter';
+import type { ValidDotPathsFor } from '@intlayer/core/transpiler';
+import type {
+  DictionaryKeys,
+  LocalesValues,
+} from '@intlayer/types/module_augmentation';
 import { getLocale } from './getLocale';
 
-const navigatePath = (objectValue: any, path: string): any => {
+const navigatePath = (objectValue: unknown, path: string): unknown => {
   if (!path) return objectValue;
   const parts = path.split('.');
-  let current = objectValue;
+  let current: unknown = objectValue;
   for (const part of parts) {
-    if (current == null) return undefined;
-    current = current[part];
+    if (
+      current === null ||
+      current === undefined ||
+      typeof current !== 'object'
+    ) {
+      return undefined;
+    }
+    current = (current as Record<string, unknown>)[part];
   }
   return current;
 };
 
 /**
- * Drop-in replacement for next-intl's `getTranslations()` server function.
+ * Drop-in for next-intl's server `getTranslations()`.
  *
- * Returns a translation function `t(key)` scoped to the given namespace
- * that can be used inside Server Components, Server Actions, or Metadata.
- *
- * @param namespace - Dictionary key to scope translations to.
+ * The returned `t()` is typed against the intlayer dictionary for namespace N:
+ * keys are autocompleted and dot-paths are validated at compile time.
  *
  * @example
  * ```ts
- * const t = await getTranslations('HomePage');
- * return <h1>{t('title')}</h1>;
+ * const t = await getTranslations('about');
+ * return <h1>{t('counter.label')}</h1>; // ✓ typed
  * ```
  */
-export const getTranslations = async (
-  namespace?: string
-): Promise<(key: string, values?: Record<string, any>) => string> => {
+export const getTranslations = async <N extends DictionaryKeys>(
+  namespace?: N
+): Promise<
+  <P extends ValidDotPathsFor<N>>(
+    key: P,
+    values?: Record<string, unknown>
+  ) => string
+> => {
   const locale = await getLocale();
 
   if (!namespace) {
-    return (key) => key;
+    return <P extends ValidDotPathsFor<N>>(key: P) => String(key);
   }
 
-  const dictionary = getIntlayer(namespace as any, locale as any);
+  const dictionary = getIntlayer(namespace, locale as LocalesValues);
 
-  return (key: string, values?: Record<string, any>): string => {
-    const raw = navigatePath(dictionary, key);
-    if (raw == null) return key;
+  return <P extends ValidDotPathsFor<N>>(
+    key: P,
+    values?: Record<string, unknown>
+  ): string => {
+    const raw = navigatePath(dictionary, String(key));
+    if (raw == null) return String(key);
 
-    const stringValue = String(raw);
-    if (!values) return stringValue;
+    const str = String(raw);
+    if (!values) return str;
 
-    return stringValue.replace(/\{(\w+)\}/g, (_, interpolationKey) =>
-      values[interpolationKey] != null
-        ? String(values[interpolationKey])
-        : `{${interpolationKey}}`
+    return str.replace(/\{(\w+)\}/g, (_, k) =>
+      values[k] != null ? String(values[k]) : `{${k}}`
     );
   };
 };

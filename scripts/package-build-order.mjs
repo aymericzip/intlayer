@@ -48,8 +48,9 @@ export const packageBuildOrder = [
   'apps/backend',
   'plugins/sync-json-plugin',
   'plugins/sync-po-plugin',
-  'compat/@intlayer/i18next',
-  'compat/@intlayer/react-i18next',
-  'compat/@intlayer/next-intl',
-  'compat/@intlayer/next-i18next',
+  'compat/i18next',
+  'compat/react-i18next',
+  'compat/next-intl',
+  'compat/next-i18next',
+  'compat/vue-i18n',
 ];

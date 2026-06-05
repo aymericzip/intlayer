@@ -1,7 +1,7 @@
 'use client';
 
+import { useTranslation } from '@intlayer/react-i18next';
 import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
 
 /**
  * Client component example using React hooks for translations

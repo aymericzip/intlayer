@@ -1,7 +1,8 @@
 import type { NextConfig } from 'next';
+import { createNextIntlayerPlugin } from 'next-intlayer/plugin';
 
-const nextConfig: NextConfig = {
-  /* config options here */
-};
+const withIntlayer = createNextIntlayerPlugin();
 
-export default nextConfig;
+const nextConfig: NextConfig = {};
+
+export default withIntlayer(nextConfig);

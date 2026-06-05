@@ -3,6 +3,7 @@
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import type { NextIntlClientProvider as _NextIntlClientProvider } from 'next-intl';
 import { IntlayerClientProvider } from 'next-intlayer';
+import type * as React from 'react';
 import type { FC } from 'react';
 
 const _NextIntlClientProviderImpl: FC<any> = ({
@@ -25,3 +26,7 @@ const _NextIntlClientProviderImpl: FC<any> = ({
  */
 export const NextIntlClientProvider =
   _NextIntlClientProviderImpl as unknown as typeof _NextIntlClientProvider;
+
+export type NextIntlClientProviderProps = React.ComponentProps<
+  typeof _NextIntlClientProvider
+>;

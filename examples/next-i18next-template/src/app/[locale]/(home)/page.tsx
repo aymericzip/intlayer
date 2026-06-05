@@ -1,49 +1,21 @@
-import type { ResourceLanguage } from 'i18next';
 import Image from 'next/image';
 import { initI18next } from '@/app/i18n/server';
 import I18nProvider from '@/components/I18nProvider';
 import LocaleSwitcher from '@/components/LocaleSwitcher';
 import LocalizedLink from '@/components/LocalizedLink';
 import type { Locale } from '@/i18n.config';
-import type { Namespace } from '@/i18n.namespaces';
 
-/**
- * Home page - server component that handles i18n initialization
- * Pre-loads translations on the server and passes them to client components
- */
 export default async function HomePage({
   params,
 }: {
   params: Promise<{ locale: Locale }>;
 }) {
   const { locale } = await params;
-
-  // Define which translation namespaces this page needs
-  const namespaces = ['common', 'home'] as const satisfies readonly Namespace[];
-
-  // Initialize i18next on the server with required namespaces
-  const i18n = await initI18next(locale, namespaces);
-
-  // Resolve the actual language from the initialized instance (handles undefined params)
-  const resolvedLocale = i18n.language as Locale;
-
-  // Get a fixed translation function for the "common" namespace
-  const tHome = i18n.getFixedT(resolvedLocale, 'home');
-
-  // Extract translation bundles from the i18n instance
-  const resources = Object.fromEntries(
-    namespaces.map((ns) => [
-      ns,
-      i18n.getResourceBundle(resolvedLocale, ns) as ResourceLanguage,
-    ])
-  ) as Record<Namespace, ResourceLanguage>;
+  const i18n = await initI18next(locale);
+  const tHome = i18n.getFixedT(locale, 'home');
 
   return (
-    <I18nProvider
-      locale={resolvedLocale}
-      namespaces={namespaces}
-      resources={resources}
-    >
+    <I18nProvider locale={locale}>
       <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
         <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between bg-white px-16 py-32 sm:items-start dark:bg-black">
           <div className="flex w-full items-start justify-between">
@@ -73,8 +45,8 @@ export default async function HomePage({
               {tHome('aboutPage')}
             </LocalizedLink>
             <a
-              className="flex h-12 w-full items-center justify-center rounded-full border border-black/[.08] border-solid px-5 transition-colors hover:border-transparent hover:bg-black/[.04] md:w-[158px] dark:border-white/[.145] dark:hover:bg-[#1a1a1a]"
-              href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
+              className="flex h-12 w-full items-center justify-center rounded-full border border-black/8 border-solid px-5 transition-colors hover:border-transparent hover:bg-black/[.04] md:w-[158px] dark:border-white/[.145] dark:hover:bg-[#1a1a1a]"
+              href="https://nextjs.org/docs"
               target="_blank"
               rel="noopener noreferrer"
             >

@@ -1,44 +1,14 @@
-import { createInstance } from 'i18next';
-import resourcesToBackend from 'i18next-resources-to-backend';
-import { initReactI18next } from 'react-i18next/initReactI18next';
-import { defaultLocale } from '@/i18n.config';
-import type { Namespace } from '@/i18n.namespaces';
-import { namespaces } from '@/i18n.namespaces';
-
-// Configure dynamic resource loading for i18next
-// This function dynamically imports translation JSON files based on locale and namespace
-// Example: locale="fr", namespace="about" -> imports "@/locales/fr/about.json"
-const backend = resourcesToBackend(
-  (locale: string, namespace: string) =>
-    import(`@/locales/${locale}/${namespace}.json`)
-);
+import { createInstance } from '@intlayer/i18next';
 
 /**
- * Initialize i18next instance for server-side rendering
+ * Create an i18next-compatible instance for server-side use.
  *
- * @returns Initialized i18next instance ready for server-side use
+ * Unlike the original next-i18next pattern this does NOT load external JSON
+ * files. Translations are compiled into the bundle by Intlayer at build time
+ * and resolved on demand via `@intlayer/core`.
  */
-export async function initI18next(
-  locale: string,
-  ns: readonly Namespace[] = [namespaces[0]] as const
-) {
-  // Create a new i18next instance (separate from client-side instance)
-  const i18n = createInstance();
-
-  // Initialize with React integration and backend loader
-  await i18n
-    .use(initReactI18next) // Enable React hooks support
-    .use(backend) // Enable dynamic resource loading
-    .init({
-      lng: locale,
-      fallbackLng: defaultLocale,
-      ns, // Load only specified namespaces for better performance
-      defaultNS: 'common', // Default namespace when none is specified
-      interpolation: { escapeValue: false }, // Don't escape HTML (React handles XSS protection)
-      react: { useSuspense: false }, // Disable Suspense for SSR compatibility
-      returnNull: false, // Return empty string instead of null for missing keys
-      initImmediate: false, // Defer initialization until resources are loaded (faster SSR)
-    });
-
+export async function initI18next(locale: string, _ns?: readonly string[]) {
+  const i18n = createInstance({ lng: locale });
+  await i18n.init({ lng: locale });
   return i18n;
 }

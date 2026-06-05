@@ -1,3 +1,5 @@
+import type { serverSideTranslations as _serverSideTranslations } from 'next-i18next';
+
 /**
  * Drop-in replacement for next-i18next's `serverSideTranslations`.
  *
@@ -21,11 +23,11 @@
  * });
  * ```
  */
-export const serverSideTranslations = async (
+const _serverSideTranslationsImpl = async (
   locale: string,
   namespacesRequired?: string[],
-  configOverride?: Record<string, any>
-): Promise<{ _nextI18Next: Record<string, any> }> => ({
+  configOverride?: Record<string, unknown>
+): Promise<{ _nextI18Next: Record<string, unknown> }> => ({
   _nextI18Next: {
     initialLocale: locale,
     initialI18nStore: {},
@@ -33,3 +35,6 @@ export const serverSideTranslations = async (
     userConfig: configOverride ?? null,
   },
 });
+
+export const serverSideTranslations =
+  _serverSideTranslationsImpl as unknown as typeof _serverSideTranslations;

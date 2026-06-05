@@ -1,10 +1,13 @@
 'use client';
 
 import type { FC } from 'react';
-import type { I18nextProvider as _I18nextProvider } from 'react-i18next';
+import type {
+  I18nextProvider as _I18nextProvider,
+  I18nextProviderProps,
+} from 'react-i18next';
 import { IntlayerProvider } from 'react-intlayer';
 
-const _I18nextProviderImpl: FC<any> = ({ i18n: _i18n, children }) => (
+const _I18nextProviderImpl: FC<I18nextProviderProps> = ({ children }) => (
   <IntlayerProvider>{children}</IntlayerProvider>
 );
 
