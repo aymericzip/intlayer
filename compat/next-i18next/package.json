@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/next-i18next",
-  "version": "8.12.1",
+  "version": "8.12.2",
   "private": false,
   "description": "next-i18next API adapter for intlayer — serverSideTranslations, appWithTranslation, useTranslation backed by next-intlayer",
   "keywords": [

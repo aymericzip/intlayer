@@ -113,7 +113,7 @@
     },
     "apps/backend": {
       "name": "@intlayer/backend",
-      "version": "8.12.1",
+      "version": "8.12.2",
       "dependencies": {
         "@aws-sdk/client-s3": "3.1063.0",
         "@better-auth/core": "1.6.14",
@@ -230,7 +230,7 @@
     },
     "apps/website": {
       "name": "website",
-      "version": "8.12.1",
+      "version": "8.12.2",
       "dependencies": {
         "@intlayer/api": "workspace:*",
         "@intlayer/config": "workspace:*",
@@ -363,7 +363,7 @@
     },
     "compat/i18next": {
       "name": "@intlayer/i18next",
-      "version": "8.12.1",
+      "version": "8.12.2",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -395,7 +395,7 @@
     },
     "compat/next-i18next": {
       "name": "@intlayer/next-i18next",
-      "version": "8.12.1",
+      "version": "8.12.2",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -430,7 +430,7 @@
     },
     "compat/next-intl": {
       "name": "@intlayer/next-intl",
-      "version": "8.12.1",
+      "version": "8.12.2",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -460,7 +460,7 @@
     },
     "compat/react-i18next": {
       "name": "@intlayer/react-i18next",
-      "version": "8.12.1",
+      "version": "8.12.2",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -495,7 +495,7 @@
     },
     "compat/vue-i18n": {
       "name": "@intlayer/vue-i18n",
-      "version": "8.12.1",
+      "version": "8.12.2",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -528,7 +528,7 @@
     },
     "docs": {
       "name": "@intlayer/docs",
-      "version": "8.12.1",
+      "version": "8.12.2",
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -729,7 +729,7 @@
     },
     "examples/hono-app": {
       "name": "hono-app",
-      "version": "8.12.1",
+      "version": "8.12.2",
       "dependencies": {
         "@hono/node-server": "1.19.13",
         "hono": "4.12.21",
@@ -2535,7 +2535,7 @@
     },
     "plugins/sync-json-plugin": {
       "name": "@intlayer/sync-json-plugin",
-      "version": "8.12.1",
+      "version": "8.12.2",
       "dependencies": {
         "@intlayer/chokidar": "workspace:*",
         "@intlayer/config": "workspace:*",
@@ -2556,7 +2556,7 @@
     },
     "plugins/sync-po-plugin": {
       "name": "@intlayer/sync-po-plugin",
-      "version": "8.12.1",
+      "version": "8.12.2",
       "dependencies": {
         "@intlayer/chokidar": "workspace:*",
         "@intlayer/config": "workspace:*",
