@@ -1,17 +1,13 @@
+import { getLocale, getTranslations } from '@intlayer/next-intl/server';
 import Link from 'next/link';
-import { getFormatter, getTranslations } from 'next-intl/server';
 import ClientComponent from '@/components/ClientComponent';
 import LocaleSwitcher from '@/components/LocaleSwitcher';
 import ServerComponent from '@/components/ServerComponent';
 
 export default async function AboutPage() {
-  // Strictly server-side translations/formatting
-  // These run on the server and can be passed as props to components
   const tAbout = await getTranslations('about');
-  const tCounter = await getTranslations('about.counter');
-  const format = await getFormatter();
-
-  const initialFormattedCount = format.number(0);
+  const locale = await getLocale();
+  const initialFormattedCount = new Intl.NumberFormat(locale).format(0);
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
@@ -46,8 +42,8 @@ export default async function AboutPage() {
             </h2>
             <ServerComponent
               formattedCount={initialFormattedCount}
-              label={tCounter('label')}
-              increment={tCounter('increment')}
+              label={tAbout('counter.label')}
+              increment={tAbout('counter.increment')}
             />
           </div>
         </div>

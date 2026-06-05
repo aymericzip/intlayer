@@ -1,32 +1,34 @@
 {
-  "name": "next-intl",
+  "name": "next-i18next-template",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "build": "next build",
-    "dev": "next dev",
+    "dev": "intlayer watch --with 'next dev'",
     "lint": "eslint",
     "start": "next start"
   },
   "dependencies": {
     "@intlayer/i18next": "workspace:*",
-    "@intlayer/next-i18next": "workspace:*",
-    "i18next": "^25.6.0",
-    "i18next-resources-to-backend": "^1.2.1",
+    "@intlayer/react-i18next": "workspace:*",
+    "@intlayer/types": "workspace:*",
     "intlayer": "workspace:*",
-    "next": "16.0.1",
-    "react": "19.2.0",
-    "react-dom": "19.2.0",
-    "react-i18next": "^16.2.3"
+    "next": "16.2.7",
+    "next-intlayer": "workspace:*",
+    "react": "19.2.7",
+    "react-dom": "19.2.7",
+    "react-intlayer": "workspace:*"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4",
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "eslint": "^9",
-    "eslint-config-next": "16.0.1",
-    "tailwindcss": "^4",
-    "typescript": "^5"
+    "@tailwindcss/postcss": "4",
+    "@types/node": "25.9.1",
+    "@types/react": "19",
+    "@types/react-dom": "19",
+    "eslint": "10.4.1",
+    "eslint-config-next": "16.2.7",
+    "i18next": "26.3.1",
+    "react-i18next": "17.0.8",
+    "tailwindcss": "4",
+    "typescript": "6.0.3"
   }
 }

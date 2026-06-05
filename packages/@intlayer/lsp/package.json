@@ -82,7 +82,7 @@
     "typecheck": "tsc --noEmit --project tsconfig.types.json"
   },
   "dependencies": {
-    "@intlayer/chokidar": "^8.11.3",
+    "@intlayer/chokidar": "8.11.3",
     "@intlayer/config": "workspace:*",
     "@intlayer/types": "workspace:*",
     "@intlayer/unmerged-dictionaries-entry": "workspace:*",

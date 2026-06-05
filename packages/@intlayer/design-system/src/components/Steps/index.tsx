@@ -1,6 +1,7 @@
 import { cn } from '@utils/cn';
 import type { FC, HTMLAttributes, OlHTMLAttributes, ReactNode } from 'react';
 import { useIntlayer } from 'react-intlayer';
+import { H3 } from '../headings';
 
 const slugify = (text: string) =>
   String(text)
@@ -52,13 +53,14 @@ export const Step: FC<StepProps> = ({
       <div className="mt-10 mb-8 flex w-full min-w-0 flex-col gap-8">
         {title && (
           <div className="flex items-center gap-2">
-            <h3
+            <H3
+              isClickable
               id={`step-${number}-${slugify(title)}`}
               aria-label={`${stepLabel} ${number}: ${title}`}
               className="font-semibold text-lg text-text"
             >
               {title}
-            </h3>
+            </H3>
             {isOptional && (
               <span className="ml-4 rounded-full bg-neutral/15 px-3 py-1 text-text/90 text-xs">
                 {optionalLabel}

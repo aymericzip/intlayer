@@ -1,5 +1,5 @@
+import { getTranslations } from '@intlayer/next-intl/server';
 import Image from 'next/image';
-import { getTranslations } from 'next-intl/server';
 import LocaleSwitcher from '@/components/LocaleSwitcher';
 import { Link } from '@/i18n';
 
@@ -37,7 +37,7 @@ export default async function HomePage() {
           </Link>
           <a
             className="flex h-12 w-full items-center justify-center rounded-full border border-black/[.08] border-solid px-5 transition-colors hover:border-transparent hover:bg-black/[.04] md:w-[158px] dark:border-white/[.145] dark:hover:bg-[#1a1a1a]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
+            href="https://nextjs.org/docs"
             target="_blank"
             rel="noopener noreferrer"
           >

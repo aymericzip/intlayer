@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "build": "next build",
-    "dev": "next dev",
+    "dev": "intlayer watch --with 'next dev'",
     "start": "next start",
     "test": "echo 'No tests yet'"
   },

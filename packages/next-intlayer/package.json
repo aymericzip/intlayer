@@ -76,6 +76,11 @@
       "require": "./dist/cjs/server/format/index.cjs",
       "import": "./dist/esm/server/format/index.mjs"
     },
+    "./plugin": {
+      "types": "./dist/types/plugin/index.d.ts",
+      "require": "./dist/cjs/plugin/index.cjs",
+      "import": "./dist/esm/plugin/index.mjs"
+    },
     "./package.json": "./package.json"
   },
   "main": "dist/cjs/index.cjs",
@@ -154,7 +159,7 @@
     "next": ">=14.0.0",
     "react": ">=16.0.0",
     "react-dom": ">=16.0.0",
-    "webpack": "^5.0.0"
+    "webpack": "5.0.0"
   },
   "peerDependenciesMeta": {
     "webpack": {

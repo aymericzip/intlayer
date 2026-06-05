@@ -1,8 +1,8 @@
 'use client';
 
+import { useLocale } from '@intlayer/next-intl';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useLocale } from 'next-intl';
 import { defaultLocale, getCookie, type Locale, locales } from '@/i18n';
 
 const getLocaleLabel = (locale: Locale): string => {

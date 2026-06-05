@@ -1,6 +1,6 @@
 'use client';
 
-import { useFormatter, useTranslations } from 'next-intl';
+import { useFormatter, useTranslations } from '@intlayer/next-intl';
 import { useState } from 'react';
 
 const ClientComponent = () => {

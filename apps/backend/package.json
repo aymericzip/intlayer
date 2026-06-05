@@ -72,7 +72,7 @@
     "typecheck": "tsc --noEmit --project tsconfig.types.json"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.1061.0",
+    "@aws-sdk/client-s3": "3.1061.0",
     "@better-auth/core": "1.6.14",
     "@better-auth/passkey": "1.6.14",
     "@better-auth/sso": "1.6.14",
@@ -86,12 +86,12 @@
     "@intlayer/chokidar": "workspace:*",
     "@intlayer/core": "workspace:*",
     "@intlayer/mcp": "workspace:*",
-    "@node-oauth/oauth2-server": "^5.3.0",
+    "@node-oauth/oauth2-server": "5.3.0",
     "@octokit/rest": "22.0.1",
     "@react-email/components": "1.0.12",
     "better-auth": "1.6.14",
-    "bullmq": "^5.78.0",
-    "cheerio": "^1.2.0",
+    "bullmq": "5.78.0",
+    "cheerio": "1.2.0",
     "cross-env": "10.1.0",
     "defu": "6.1.7",
     "dotenv": "17.4.2",
@@ -105,12 +105,12 @@
     "react": "19.2.7",
     "react-email": "6.5.0",
     "resend": "6.12.4",
-    "sharp": "^0.34.5",
+    "sharp": "0.34.5",
     "stripe": "22.2.0",
     "validator": "13.15.35",
     "winston": "3.19.0",
     "zod": "4.4.3",
-    "zod-to-json-schema": "^3.25.2"
+    "zod-to-json-schema": "3.25.2"
   },
   "devDependencies": {
     "@intlayer/config": "workspace:*",

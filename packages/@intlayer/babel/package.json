@@ -92,7 +92,7 @@
     "@types/babel__traverse": "7.28.0"
   },
   "devDependencies": {
-    "@babel/plugin-syntax-jsx": "^7.29.7",
+    "@babel/plugin-syntax-jsx": "7.29.7",
     "@types/node": "25.9.1",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
