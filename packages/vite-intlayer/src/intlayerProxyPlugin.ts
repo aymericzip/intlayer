@@ -1,11 +1,7 @@
 import type { IncomingMessage, ServerResponse } from 'node:http';
-import { parse } from 'node:url';
+import { fileURLToPath, parse } from 'node:url';
 import { ROUTING_MODE } from '@intlayer/config/defaultValues';
-
-// ── Tree-shake constants ──────────────────────────────────────────────────────
-// When these env vars are injected at build time, bundlers eliminate the
-// branches guarded by these constants.
-
+import { getAppLogger } from '@intlayer/config/logger';
 import {
   type GetConfigurationOptions,
   getConfiguration,
@@ -43,28 +39,44 @@ type IntlayerProxyPluginOptions = {
 };
 
 /**
- * Vite plugin that provides a development middleware for locale-based routing.
+ * A Node.js-compatible Connect middleware function.
+ * Compatible with Vite dev/preview server, Node.js http, Express, and h3's
+ * `fromNodeMiddleware` wrapper for Nitro/TanStack Start production use.
+ */
+type NodeMiddleware = (
+  req: IncomingMessage,
+  res: ServerResponse<IncomingMessage>,
+  next: () => void
+) => void;
+
+/**
+ * Creates a standalone, framework-agnostic locale-routing middleware.
  *
- * This plugin mimics the behavior of the Intlayer middleware in Next.js,
- * handling locale detection, redirects, and rewrites during development.
+ * This function contains all the locale detection, redirect, and rewrite logic.
+ * It is intentionally separated from the Vite plugin so the same handler can be
+ * used in every environment:
  *
- * @param configOptions - Optional configuration for Intlayer.
- * @param options - Plugin-specific options, like ignoring certain paths.
- * @returns A Vite plugin.
+ * - **Dev**: wired up automatically by `intlayerProxy` via `configureServer`
+ * - **Preview**: wired up automatically by `intlayerProxy` via `configurePreviewServer`
+ * - **Production (Nitro / TanStack Start)**: create `server/middleware/intlayerProxy.ts`:
  *
  * @example
  * ```ts
- * import { intlayerProxy } from 'vite-intlayer';
+ * // server/middleware/intlayerProxy.ts
+ * import { fromNodeMiddleware } from 'h3';
+ * import { createIntlayerProxyHandler } from 'vite-intlayer';
  *
- * export default defineConfig({
- *   plugins: [intlayerProxy()],
- * });
+ * export default fromNodeMiddleware(createIntlayerProxyHandler());
  * ```
+ *
+ * @param configOptions - Optional Intlayer configuration overrides.
+ * @param options - Plugin-specific options, such as path ignoring.
+ * @returns A Connect-compatible `(req, res, next) => void` middleware.
  */
-export const intlayerProxy = (
+export const createIntlayerProxyHandler = (
   configOptions?: GetConfigurationOptions,
   options?: IntlayerProxyPluginOptions
-): Plugin => {
+): NodeMiddleware => {
   const intlayerConfig = getConfiguration(configOptions);
 
   const { internationalization, routing } = intlayerConfig;
@@ -121,7 +133,7 @@ export const intlayerProxy = (
     const matching = Object.entries(domains).filter(
       ([, domain]) => normalizeDomainHostname(domain!) === hostname
     );
-    return matching.length === 1 ? (matching[0][0] as Locale) : undefined;
+    return matching.length === 1 ? (matching[0]![0] as Locale) : undefined;
   };
 
   /* --------------------------------------------------------------------
@@ -162,10 +174,9 @@ export const intlayerProxy = (
 
   /**
    * Extracts the locale from the URL pathname if present as the first segment.
+   * e.g. if pathname is /en/some/page or /en, checks if "en" is in supportedLocales.
    */
   const getPathLocale = (pathname: string): Locale | undefined => {
-    // e.g. if pathname is /en/some/page or /en
-    // we check if "en" is in your supportedLocales
     const segments = pathname.split('/').filter(Boolean);
     const firstSegment = segments[0];
     if (firstSegment && supportedLocales.includes(firstSegment as Locale)) {
@@ -223,8 +234,9 @@ export const intlayerProxy = (
   };
 
   /**
-   * "Rewrite" the request internally by adjusting req.url;
-   * we also set the locale in the response header if needed.
+   * "Rewrite" the request internally by adjusting req.url.
+   * Also sets the locale in the response/request headers via storage to mimic
+   * Next.js's behaviour of propagating the detected locale downstream.
    */
   const rewriteUrl = (
     req: Connect.IncomingMessage,
@@ -235,7 +247,6 @@ export const intlayerProxy = (
     if (req.url !== newUrl) {
       req.url = newUrl;
     }
-    // If you want to mimic Next.js's behavior of setting a header for the locale:
     if (locale) {
       setLocaleInStorageServer(locale, {
         setHeader: (name: string, value: string) => {
@@ -248,22 +259,22 @@ export const intlayerProxy = (
 
   /**
    * Constructs a new path string, optionally including a locale prefix, basePath, and search parameters.
-   * - basePath:   (e.g., '/myapp')
-   * - locale:     (e.g., 'en')
-   * - currentPath:(e.g., '/products/shoes')
-   * - search:     (e.g., '?foo=bar')
+   * - basePath:    (e.g. '/myapp')
+   * - locale:      (e.g. 'en')
+   * - currentPath: (e.g. '/products/shoes')
+   * - search:      (e.g. '?foo=bar')
    */
   const constructPath = (
     locale: Locale,
     currentPath: string,
     search?: string
   ) => {
-    // Strip any incoming locale prefix if present
+    // Strip any incoming locale prefix to avoid double-prefixing
     const pathWithoutPrefix = currentPath.startsWith(`/${locale}`)
       ? currentPath.slice(`/${locale}`.length)
       : currentPath;
 
-    // Ensure basePath always starts with '/', and remove trailing slash if needed
+    // Ensure basePath always starts with '/' and has no trailing slash
     const cleanBasePath = basePath.startsWith('/') ? basePath : `/${basePath}`;
     const normalizedBasePath = cleanBasePath.endsWith('/')
       ? cleanBasePath.slice(0, -1)
@@ -336,10 +347,11 @@ export const intlayerProxy = (
     originalUrl?: string;
   }) => {
     const pathLocale = getPathLocale(originalPath);
-    // Determine the best locale
+
+    // Determine the best locale: prefer cookie/storage, fall back to Accept-Language detection
     let locale = storageLocale ?? defaultLocale;
 
-    // Use fallback to localeDetector if no storage locale
+    // Use localeDetector if no storage locale is available
     if (!storageLocale) {
       const detectedLocale = localeDetector(
         req.headers as Record<string, string>,
@@ -382,46 +394,42 @@ export const intlayerProxy = (
       const existingSearchParams = new URLSearchParams(searchParams ?? '');
       const existingLocale = existingSearchParams.get('locale');
 
-      // If the existing locale matches the detected locale, no redirect needed
       if (existingLocale === locale) {
-        // For internal routing, we need to add the locale prefix so the framework can match [locale] param
+        // Rewrite internally — URL stays the same in the browser, but the framework
+        // sees /[locale]/path so the [locale] route param is populated correctly
         const internalPath = `/${locale}${canonicalPath}`;
         const rewritePath = `${internalPath}${searchParams ?? ''}`;
 
-        // Rewrite internally (URL stays the same in browser, but internally routes to /[locale]/path)
         rewriteUrl(req, res, rewritePath, locale);
         return next();
       }
 
-      // Locale param missing or doesn't match - redirect to add/update it
+      // Locale param missing or doesn't match — redirect to add/update it (URL changes in browser)
       const search = appendLocaleSearchIfNeeded(searchParams, locale);
       const redirectPath = search
         ? `${originalPath}${search}`
         : `${originalPath}${searchParams ?? ''}`;
 
-      // Redirect to add/update the locale search param (URL changes in browser)
       return redirectUrl(res, redirectPath, undefined, originalUrl);
     }
 
     // For no-prefix mode (not search-params), add locale prefix internally for routing
+    // so the framework can match the [locale] route param without exposing it in the URL
     const internalPath = `/${locale}${canonicalPath}`;
 
-    // Add search params if needed
     const search = appendLocaleSearchIfNeeded(searchParams, locale);
     const rewritePath = search
       ? `${internalPath}${search}`
       : `${internalPath}${searchParams ?? ''}`;
 
-    // Rewrite internally (URL stays the same in browser, but internally routes to /[locale]/path)
+    // Rewrite internally — URL stays the same in the browser
     rewriteUrl(req, res, rewritePath, locale);
 
     return next();
   };
 
   /**
-   * The main prefix logic:
-   * - If there's no pathLocale in the URL, we might want to detect & redirect or rewrite
-   * - If there is a pathLocale, handle storage mismatch or default locale special cases
+   * The main prefix logic.
    */
   const handlePrefix = ({
     req,
@@ -442,7 +450,6 @@ export const intlayerProxy = (
     storageLocale?: Locale;
     originalUrl?: string;
   }) => {
-    // If pathLocale is missing, handle
     if (!pathLocale) {
       handleMissingPathLocale({
         req,
@@ -456,7 +463,6 @@ export const intlayerProxy = (
       return;
     }
 
-    // If pathLocale exists, handle it
     handleExistingPathLocale({
       req,
       res,
@@ -470,7 +476,7 @@ export const intlayerProxy = (
 
   /**
    * Handles requests where the locale is missing from the URL pathname.
-   * We detect a locale from storage / headers / default, then either redirect or rewrite.
+   * Detects a locale from storage / headers / default, then either redirects or rewrites.
    */
   const handleMissingPathLocale = ({
     req,
@@ -489,7 +495,7 @@ export const intlayerProxy = (
     storageLocale?: Locale;
     originalUrl?: string;
   }) => {
-    // Choose the best locale
+    // Choose the best locale: cookie/storage → Accept-Language detection → defaultLocale
     let locale = (storageLocale ??
       localeDetector(
         req.headers as Record<string, string>,
@@ -497,17 +503,17 @@ export const intlayerProxy = (
         defaultLocale
       )) as Locale;
 
-    // If still invalid, fallback
+    // If still invalid, fall back to defaultLocale
     if (!supportedLocales.includes(locale)) {
       locale = defaultLocale;
     }
 
     // Resolve to canonical path.
-    // If user visits /a-propos (implied 'fr'), we resolve to /about
+    // If user visits /a-propos (implied 'fr'), this resolves to /about
     const canonicalPath = getCanonicalPath(originalPath, locale, rewriteRules);
 
-    // Determine target localized path for redirection
-    // /about + 'fr' -> /a-propos
+    // Determine target localized path for redirection.
+    // /about + 'fr' → /a-propos
     const targetLocalizedPathResult = getLocalizedPath(
       canonicalPath,
       locale,
@@ -518,12 +524,12 @@ export const intlayerProxy = (
         ? targetLocalizedPathResult
         : targetLocalizedPathResult.path;
 
-    // Construct new path - preserving original search params
+    // Construct new path, preserving original search params
     const search = appendLocaleSearchIfNeeded(searchParams, locale);
     const newPath = constructPath(locale, targetLocalizedPath, search);
 
-    // If we always prefix default or if this is not the default locale, do a 301 redirect
-    // so that the user sees the locale in the URL.
+    // If we always prefix default or if this is not the default locale,
+    // do a 301 redirect so the user sees the locale in the URL
     if (prefixDefault || locale !== defaultLocale) {
       return redirectUrl(res, newPath, undefined, originalUrl);
     }
@@ -563,8 +569,8 @@ export const intlayerProxy = (
   }) => {
     const rawPath = originalPath.slice(`/${pathLocale}`.length);
 
-    // Identify the Canonical Path (Internal path)
-    // Ex: /a-propos (from URL) -> /about (Canonical)
+    // Identify the canonical path (internal path).
+    // Ex: /a-propos (from URL) → /about (canonical)
     const canonicalPath = getCanonicalPath(rawPath, pathLocale, rewriteRules);
 
     // When rewrite rules are configured and the URL is already a valid localized pretty URL
@@ -577,7 +583,7 @@ export const intlayerProxy = (
     //  2. Break subsequent client-side navigation because <A> links produced by getLocalizedUrl
     //     point back to the localized URL (/fr/essais) which then has no matching route.
     //
-    // We set the locale header and call next() so Vite serves index.html at the pretty URL.
+    // We set the locale header and call next() so the server serves the page at the pretty URL.
     if (canonicalPath !== rawPath) {
       const newPath = searchParams
         ? `${originalPath}${searchParams}`
@@ -586,8 +592,6 @@ export const intlayerProxy = (
       return next();
     }
 
-    // In prefix modes, respect the URL path locale
-    // The path locale takes precedence, and we'll update storage to match
     handleDefaultLocaleRedirect({
       req,
       res,
@@ -619,7 +623,7 @@ export const intlayerProxy = (
     canonicalPath: string;
     originalUrl?: string;
   }) => {
-    // If we don't prefix default AND the path locale is the default locale -> remove it
+    // If we don't prefix the default locale AND the path locale IS the default → strip the prefix
     if (!prefixDefault && pathLocale === defaultLocale) {
       const targetLocalizedPathResult = getLocalizedPath(
         canonicalPath,
@@ -655,7 +659,8 @@ export const intlayerProxy = (
       );
     }
 
-    // If we do prefix default or pathLocale != default, keep as is, but rewrite to canonical internally
+    // If we do prefix the default or pathLocale !== default, keep as-is
+    // but rewrite to canonical internally
     const internalUrl = `/${pathLocale}${canonicalPath}`;
     const newPath = searchParams
       ? `${internalUrl}${searchParams}`
@@ -665,141 +670,238 @@ export const intlayerProxy = (
     return next();
   };
 
-  return {
-    name: 'vite-intlayer-middleware-plugin',
-    configureServer: (server) => {
-      server.middlewares.use((req, res, next) => {
-        // Bypass assets and special Vite endpoints
-        if (
-          // Custom ignore function
-          (options?.ignore?.(req) ?? false) ||
-          req.url?.startsWith('/node_modules') ||
-          /**
-           * /^@vite/            # HMR client and helpers
-           * /^@fs/              # file-system import serving
-           * /^@id/              # virtual module ids
-           * /^@tanstack/start-router-manifest # Tanstack Start Router manifest
-           */
-          req.url?.startsWith('/@') ||
-          /**
-           * /^__vite_ping$      # health ping
-           * /^__open-in-editor$
-           * /^__manifest$       # Remix/RR7 lazyRouteDiscovery
-           */
-          req.url?.startsWith('/_') ||
-          /**
-           * ./myFile.js
-           */
-          req.url?.split('?')[0].match(/\.[a-z]+$/i) // checks for file extensions
-        ) {
-          return next();
-        }
+  return (req, res, next) => {
+    // Bypass assets and special Vite/server endpoints
+    if (
+      // Custom ignore function
+      (options?.ignore?.(req) ?? false) ||
+      req.url?.startsWith('/node_modules') ||
+      /**
+       * /^@vite/            # HMR client and helpers
+       * /^@fs/              # file-system import serving
+       * /^@id/              # virtual module ids
+       * /^@tanstack/start-router-manifest # Tanstack Start Router manifest
+       */
+      req.url?.startsWith('/@') ||
+      /**
+       * /^__vite_ping$      # health ping
+       * /^__open-in-editor$
+       * /^__manifest$       # Remix/RR7 lazyRouteDiscovery
+       */
+      req.url?.startsWith('/_') ||
+      /**
+       * ./myFile.js
+       */
+      req.url?.split('?')[0]?.match(/\.[a-z]+$/i) // checks for file extensions
+    ) {
+      return next();
+    }
 
-        // Parse original URL for path and query
-        const parsedUrl = parse(req.url ?? '/', true);
-        const originalPath = parsedUrl.pathname ?? '/';
-        const searchParams = parsedUrl.search ?? '';
+    // Parse original URL for path and query
+    const parsedUrl = parse(req.url ?? '/', true);
+    const originalPath = parsedUrl.pathname ?? '/';
+    const searchParams = parsedUrl.search ?? '';
 
-        // Check if there's a locale prefix in the path FIRST
-        const pathLocale = getPathLocale(originalPath);
+    // Check if there's a locale prefix in the path FIRST
+    const pathLocale = getPathLocale(originalPath);
 
-        // Attempt to read the locale from storage (cookies, localStorage, etc.)
-        const storageLocale = getStorageLocale(req);
+    // Attempt to read the locale from storage (cookies, localStorage, etc.)
+    const storageLocale = getStorageLocale(req);
 
-        // CRITICAL FIX: If there's a valid pathLocale, it takes precedence over storage
-        // This prevents race conditions when cookies are stale during locale switches
-        const effectiveStorageLocale =
-          pathLocale && supportedLocales.includes(pathLocale)
-            ? pathLocale
-            : storageLocale;
+    // CRITICAL FIX: If there's a valid pathLocale, it takes precedence over storage
+    // This prevents race conditions when cookies are stale during locale switches
+    const effectiveStorageLocale =
+      pathLocale && supportedLocales.includes(pathLocale)
+        ? pathLocale
+        : storageLocale;
 
-        // Store original URL for redirect tracking
-        const originalUrl = req.url;
+    // Store original URL for redirect tracking
+    const originalUrl = req.url;
 
-        // Domain routing: if the path locale is mapped to a different domain, redirect there.
-        // e.g. intlayer.org/zh/about → https://intlayer.zh/about
-        if (
-          process.env['INTLAYER_ROUTING_DOMAINS'] !== 'false' &&
-          !noPrefix &&
-          pathLocale &&
-          domains
-        ) {
-          const localeDomain = domains[pathLocale as keyof typeof domains];
-          if (localeDomain) {
-            const reqHost = (req.headers['host'] ?? '').split(':')[0];
-            const domainHost = normalizeDomainHostname(localeDomain);
-            if (domainHost !== reqHost) {
-              const rawPath =
-                originalPath.slice(`/${pathLocale}`.length) || '/';
-              const targetOrigin = /^https?:\/\//.test(localeDomain)
-                ? localeDomain
-                : `https://${localeDomain}`;
-              redirectUrl(
-                res,
-                `${targetOrigin}${rawPath}${searchParams}`,
-                'domain-routing',
-                originalUrl
-              );
-              return;
-            }
-          }
-        }
-
-        // Domain routing: if the current hostname is exclusively mapped to one locale,
-        // treat it as that locale without a URL prefix.
-        // e.g. intlayer.zh/about → internally rewrite to /zh/about
-        if (
-          process.env['INTLAYER_ROUTING_DOMAINS'] !== 'false' &&
-          !noPrefix &&
-          !pathLocale
-        ) {
-          const reqHost = (req.headers['host'] ?? '').split(':')[0];
-          const domainLocale = getLocaleFromDomain(reqHost);
-          if (domainLocale) {
-            const canonicalPath = getCanonicalPath(
-              originalPath,
-              domainLocale,
-              rewriteRules
-            );
-            const internalPath = `/${domainLocale}${canonicalPath}`;
-            rewriteUrl(
-              req,
-              res,
-              searchParams ? `${internalPath}${searchParams}` : internalPath,
-              domainLocale
-            );
-            return next();
-          }
-        }
-
-        // If noPrefix is true, we skip prefix logic altogether
-        if (noPrefix) {
-          handleNoPrefix({
-            req,
+    // Domain routing: if the path locale is mapped to a different domain, redirect there.
+    // e.g. intlayer.org/zh/about → https://intlayer.zh/about
+    if (
+      process.env['INTLAYER_ROUTING_DOMAINS'] !== 'false' &&
+      !noPrefix &&
+      pathLocale &&
+      domains
+    ) {
+      const localeDomain = domains[pathLocale as keyof typeof domains];
+      if (localeDomain) {
+        const reqHost = (req.headers['host'] ?? '').split(':')[0] ?? '';
+        const domainHost = normalizeDomainHostname(localeDomain);
+        if (domainHost !== reqHost) {
+          const rawPath = originalPath.slice(`/${pathLocale}`.length) || '/';
+          const targetOrigin = /^https?:\/\//.test(localeDomain)
+            ? localeDomain
+            : `https://${localeDomain}`;
+          redirectUrl(
             res,
-            next,
-            originalPath,
-            searchParams,
-            storageLocale: effectiveStorageLocale,
-            originalUrl,
-          });
+            `${targetOrigin}${rawPath}${searchParams}`,
+            'domain-routing',
+            originalUrl
+          );
           return;
         }
+      }
+    }
 
-        // Otherwise, handle prefix logic
-        handlePrefix({
-          req,
-          res,
-          next,
+    // Domain routing: if the current hostname is exclusively mapped to one locale,
+    // treat it as that locale without a URL prefix.
+    // e.g. intlayer.zh/about → internally rewrite to /zh/about
+    if (
+      process.env['INTLAYER_ROUTING_DOMAINS'] !== 'false' &&
+      !noPrefix &&
+      !pathLocale
+    ) {
+      const reqHost = (req.headers['host'] ?? '').split(':')[0] ?? '';
+      const domainLocale = getLocaleFromDomain(reqHost);
+      if (domainLocale) {
+        const canonicalPath = getCanonicalPath(
           originalPath,
-          searchParams,
-          pathLocale,
-          storageLocale: effectiveStorageLocale,
-          originalUrl,
-        });
+          domainLocale,
+          rewriteRules
+        );
+        const internalPath = `/${domainLocale}${canonicalPath}`;
+        rewriteUrl(
+          req as Connect.IncomingMessage,
+          res,
+          searchParams ? `${internalPath}${searchParams}` : internalPath,
+          domainLocale
+        );
+        return next();
+      }
+    }
+
+    if (noPrefix) {
+      handleNoPrefix({
+        req: req as Connect.IncomingMessage,
+        res,
+        next,
+        originalPath,
+        searchParams,
+        storageLocale: effectiveStorageLocale,
+        originalUrl,
+      });
+      return;
+    }
+
+    handlePrefix({
+      req: req as Connect.IncomingMessage,
+      res,
+      next,
+      originalPath,
+      searchParams,
+      pathLocale,
+      storageLocale: effectiveStorageLocale,
+      originalUrl,
+    });
+  };
+};
+
+/**
+ * Vite plugin that provides locale-based routing middleware for **all environments**:
+ * development, preview, and production SSR (Nitro / TanStack Start).
+ *
+ * - **Dev** (`vite dev`): registered via `configureServer`.
+ * - **Preview** (`vite preview`): registered via `configurePreviewServer`.
+ * - **Production Nitro** (`vite build`): automatically injected via the `.nitro` module
+ *   property that `nitro/vite` reads and pushes into `nitroConfig.modules`. The module
+ *   registers `intlayerNitroHandler` as a Nitro server middleware — no extra user config
+ *   needed.
+ *
+ * If you need custom config options or an `ignore` predicate in production, bypass
+ * auto-injection and create a server middleware file manually:
+ *
+ * ```ts
+ * // server/middleware/intlayerProxy.ts
+ * import { fromNodeMiddleware } from 'h3';
+ * import { createIntlayerProxyHandler } from 'vite-intlayer';
+ *
+ * export default fromNodeMiddleware(
+ *   createIntlayerProxyHandler(myConfig, { ignore: (req) => req.url?.startsWith('/api') })
+ * );
+ * ```
+ *
+ * @param configOptions - Optional configuration for Intlayer.
+ * @param options - Plugin-specific options, like ignoring certain paths.
+ * @returns A Vite plugin.
+ *
+ * @example
+ * ```ts
+ * import { intlayerProxy } from 'vite-intlayer';
+ *
+ * export default defineConfig({
+ *   plugins: [intlayerProxy()],
+ * });
+ * ```
+ */
+export const intlayerProxy = (
+  configOptions?: GetConfigurationOptions,
+  options?: IntlayerProxyPluginOptions
+): Plugin => {
+  const handler = createIntlayerProxyHandler(configOptions, options);
+  const intlayerConfig = getConfiguration(configOptions);
+  const logger = getAppLogger(intlayerConfig);
+
+  /**
+   * Nitro module injected automatically by `nitro/vite`.
+   *
+   * When a Vite plugin carries a `.nitro` property, `nitro/vite` pushes it into
+   * `nitroConfig.modules` during the build phase. The module's `setup` hook adds
+   * our locale-routing handler to Nitro's server pipeline, making locale detection
+   * work in production SSR builds (TanStack Start, Nuxt, etc.) without any extra
+   * user configuration.
+   *
+   * @see https://github.com/nitrojs/nitro (nitro/vite source, line ~402)
+   */
+  const nitroModule = {
+    name: 'intlayer-proxy',
+    setup(nitro: {
+      options: {
+        dev: boolean;
+        handlers: {
+          route: string;
+          handler: string;
+          middleware: boolean;
+        }[];
+      };
+    }) {
+      // In dev mode, locale routing is already handled by configureServer (Vite dev server).
+      // The Nitro dev server uses h3 v2's Web Fetch API event model which is incompatible
+      // with fromNodeMiddleware (h3 v1) and would cause double-execution anyway.
+      // Only inject for production builds where Nitro is the actual HTTP server.
+      if (nitro.options.dev) return;
+
+      const handlerPath = fileURLToPath(
+        new URL('./intlayerNitroHandler.mjs', import.meta.url)
+      );
+
+      nitro.options.handlers.push({
+        route: '/**',
+        handler: handlerPath,
+        middleware: true,
       });
     },
   };
+
+  return {
+    name: 'vite-intlayer-middleware-plugin',
+    // Injected into nitroConfig.modules by the `nitro/vite` plugin so the
+    // locale-routing middleware is registered in the production Nitro server.
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    nitro: nitroModule as any,
+    // Vite dev server
+    configureServer: (server) => {
+      logger('Intlayer proxy enabled', { level: 'info' });
+      server.middlewares.use(handler);
+    },
+    // Vite preview server
+    configurePreviewServer: (server) => {
+      logger('Intlayer proxy enabled', { level: 'info' });
+      server.middlewares.use(handler);
+    },
+  } as Plugin;
 };
 
 /**
@@ -818,9 +920,9 @@ export const intlayerMiddleware = intlayerProxy;
 
 /**
  * @deprecated Rename to intlayerProxy instead
- * 
+ *
  * A Vite plugin that integrates a logic similar to the Next.js intlayer middleware.
-
+ *
  * ```ts
  * // Example usage of the plugin in a Vite configuration
  * export default defineConfig({
