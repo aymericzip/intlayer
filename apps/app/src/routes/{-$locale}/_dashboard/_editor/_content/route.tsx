@@ -49,7 +49,7 @@ export const Route = createFileRoute('/{-$locale}/_dashboard/_editor/_content')(
 
 function EditorLayout() {
   const { title, tabItems: tabLabels } = useIntlayer('content-dashboard-page');
-  const { title: editTagTitle } = useIntlayer('tag-dashboard-page') as any;
+  const { metadata: tagMetadata } = useIntlayer('tag-dashboard-page');
   const navigate = useLocalizedNavigate();
   const { pathname } = useLocation();
   const { locale } = Route.useParams();
@@ -104,7 +104,7 @@ function EditorLayout() {
   );
 
   const dynamicTitle = isTagDetailPage
-    ? editTagTitle
+    ? tagMetadata.title
     : activeTab?.value === App_Dashboard_Editor_Path
       ? title
       : (activeTab?.label ?? title);
