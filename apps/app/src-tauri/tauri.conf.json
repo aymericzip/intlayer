@@ -2,12 +2,12 @@
   "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
   "productName": "intlayer",
   "version": "0.1.0",
-  "identifier": "org.intlayer.app",
+  "identifier": "org.intlayer.desktop",
   "build": {
     "frontendDist": "http://localhost:3000",
     "devUrl": "http://localhost:3000",
-    "beforeDevCommand": "bun --bun vite dev --config tory.vite.config.ts --port 3000",
-    "beforeBuildCommand": "bun --bun vite build --config tory.vite.config.ts"
+    "beforeDevCommand": "bun --bun vite dev --config tauri.vite.config.ts --port 3000",
+    "beforeBuildCommand": "bun --bun vite build --config tauri.vite.config.ts"
   },
   "app": {
     "windows": [
