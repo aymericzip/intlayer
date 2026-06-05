@@ -122,7 +122,7 @@
     "react": "19.2.7",
     "react-dom": "19.2.7",
     "react-intlayer": "workspace:*",
-    "react-router-dom": "7.15.0",
+    "react-router-dom": "7.15.1",
     "tailwindcss": "4.3.0",
     "tsdown": "0.22.2",
     "typescript": "6.0.3",
