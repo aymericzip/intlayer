@@ -157,6 +157,7 @@ export const SwitchSelector = <T,>(props: SwitchSelectorProps<T>) => {
           return (
             <button
               {...buttonProps}
+              type="button"
               className={cn(
                 choiceVariant({
                   size,

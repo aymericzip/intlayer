@@ -43,7 +43,14 @@ const SwitchSelectorFieldContent = ({
       showErrorMessage={showErrorMessage}
       aria-invalid={!!error}
     >
-      <SwitchSelector {...field} {...props}>
+      <SwitchSelector
+        {...field}
+        {...props}
+        onChange={(value: any) => {
+          field.onChange(value);
+          props.onChange?.(value);
+        }}
+      >
         {children}
       </SwitchSelector>
     </FormItemLayout>
