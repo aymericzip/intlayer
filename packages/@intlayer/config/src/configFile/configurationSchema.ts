@@ -17,6 +17,7 @@ export const cookiesAttributesSchema = z.object({
   httpOnly: z.boolean().optional(),
   sameSite: z.enum(['strict', 'lax', 'none']).optional(),
   expires: z.union([z.date(), z.number()]).optional(),
+  maxAge: z.number().optional(),
 });
 
 export const storageAttributesSchema = z.object({

@@ -155,6 +155,16 @@ export type CookiesAttributes = {
    * Date instance. If omitted, the cookie becomes a session cookie.
    */
   expires?: Date | number | undefined;
+  /**
+   * Cookie max-age to store the locale information
+   *
+   * Default: undefined
+   *
+   * Define the cookie lifetime in seconds from the time of creation
+   * (e.g. `60 * 60 * 24 * 365` for one year). Takes precedence over
+   * `expires` when both are set.
+   */
+  maxAge?: number;
 };
 
 export type StorageAttributes = {

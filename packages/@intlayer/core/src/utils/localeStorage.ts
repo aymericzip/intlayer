@@ -44,6 +44,8 @@ export type CookieBuildAttributes = {
   sameSite?: 'strict' | 'lax' | 'none';
   /** Expiry as milliseconds since epoch (Date.getTime()) or number of days */
   expires?: number | undefined;
+  /** Lifetime in seconds from creation. Takes precedence over `expires` */
+  maxAge?: number;
 };
 
 // ============================================================================
@@ -60,11 +62,29 @@ const buildCookieString = (
 
   if (attributes.path) parts.push(`Path=${attributes.path}`);
   if (attributes.domain) parts.push(`Domain=${attributes.domain}`);
-  if (attributes.expires instanceof Date)
+  if (typeof attributes.maxAge === 'number')
+    parts.push(`Max-Age=${Math.floor(attributes.maxAge)}`);
+  else if (attributes.expires instanceof Date)
     parts.push(`Expires=${attributes.expires.toUTCString()}`);
   if (attributes.secure) parts.push('Secure');
   if (attributes.sameSite) parts.push(`SameSite=${attributes.sameSite}`);
   return parts.join('; ');
+};
+
+/**
+ * Resolves the cookie expiry for the Cookie Store API (epoch milliseconds).
+ * `maxAge` takes precedence and is converted to an absolute timestamp, as the
+ * native `maxAge` option of `cookieStore.set()` is not yet supported in all
+ * browsers that support `cookieStore` itself.
+ */
+const getCookieStoreExpires = (
+  attributes: Omit<CookiesAttributes, 'name' | 'type'>
+): number | undefined => {
+  if (typeof attributes.maxAge === 'number')
+    return Date.now() + attributes.maxAge * 1000;
+  return attributes.expires instanceof Date
+    ? attributes.expires.getTime()
+    : attributes.expires;
 };
 
 // ============================================================================
@@ -182,10 +202,7 @@ export const setLocaleInStorageClient = (
         if (options?.setCookieStore) {
           options.setCookieStore(name, locale, {
             ...attributes,
-            expires:
-              attributes.expires instanceof Date
-                ? attributes.expires.getTime()
-                : attributes.expires,
+            expires: getCookieStoreExpires(attributes),
           });
         }
       } catch {
@@ -323,10 +340,7 @@ export const setLocaleInStorageServer = (
         if (options?.setCookieStore) {
           options.setCookieStore(name, locale, {
             ...attributes,
-            expires:
-              attributes.expires instanceof Date
-                ? attributes.expires.getTime()
-                : attributes.expires,
+            expires: getCookieStoreExpires(attributes),
           });
         }
       } catch {
@@ -481,10 +495,7 @@ export const setLocaleInStorage = (
         if (options?.setCookieStore) {
           options.setCookieStore(name, locale, {
             ...attributes,
-            expires:
-              attributes.expires instanceof Date
-                ? attributes.expires.getTime()
-                : attributes.expires,
+            expires: getCookieStoreExpires(attributes),
           });
         }
       } catch {
