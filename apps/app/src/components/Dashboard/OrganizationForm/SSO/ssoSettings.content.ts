@@ -23,6 +23,7 @@ const ssoSettingsContent = {
       vi: 'Cấu hình SSO',
       uk: 'Налаштування SSO',
     }),
+
     description: t({
       en: 'Configure Single Sign-On for your organization to allow members to sign in with their corporate identity provider.',
       'en-GB':
@@ -44,6 +45,7 @@ const ssoSettingsContent = {
       vi: 'Cấu hình Single Sign-On cho tổ chức của bạn để cho phép thành viên đăng nhập bằng nhà cung cấp danh tính doanh nghiệp của họ.',
       uk: 'Налаштуйте єдиний вхід (SSO) для вашої організації, щоб учасники могли входити за допомогою корпоративного провайдера автентифікації.',
     }),
+
     enabledLabel: t({
       en: 'Enable SSO',
       'en-GB': 'Enable SSO',
@@ -64,6 +66,7 @@ const ssoSettingsContent = {
       vi: 'Bật SSO',
       uk: 'Увімкнути SSO',
     }),
+
     providerTypeLabel: t({
       en: 'Provider Type',
       'en-GB': 'Provider Type',
@@ -84,10 +87,12 @@ const ssoSettingsContent = {
       vi: 'Loại nhà cung cấp',
       uk: 'Тип провайдера',
     }),
+
     providerTypeOptions: {
       saml: 'SAML 2.0',
       oidc: 'OpenID Connect (OIDC)',
     },
+
     domainsLabel: t({
       en: 'Email Domains',
       'en-GB': 'Email Domains',
@@ -108,6 +113,7 @@ const ssoSettingsContent = {
       vi: 'Miền email',
       uk: 'Домени електронної пошти',
     }),
+
     domainsPlaceholder: t({
       en: 'e.g., company.com (comma separated)',
       'en-GB': 'e.g., company.com (comma separated)',
@@ -128,6 +134,7 @@ const ssoSettingsContent = {
       vi: 'ví dụ: company.com (phân cách bằng dấu phẩy)',
       uk: 'наприклад company.com (через кому)',
     }),
+
     domainsDescription: t({
       en: 'Users with email addresses from these domains will be required to use SSO.',
       'en-GB':
@@ -149,6 +156,7 @@ const ssoSettingsContent = {
       vi: 'Người dùng có địa chỉ email từ các miền này sẽ được yêu cầu sử dụng SSO.',
       uk: 'Домени електронної пошти в цих доменах повинні будуть використовувати SSO.',
     }),
+
     samlConfig: {
       title: t({
         en: 'SAML Configuration',
@@ -253,6 +261,7 @@ const ssoSettingsContent = {
         uk: 'Вставте сертифікат IdP тут...',
       }),
     },
+
     oidcConfig: {
       title: t({
         en: 'OIDC Configuration',
@@ -376,6 +385,7 @@ const ssoSettingsContent = {
         uk: 'Ваш секрет клієнта OAuth2',
       }),
     },
+
     saveButton: {
       text: t({
         en: 'Save SSO Configuration',
@@ -418,6 +428,7 @@ const ssoSettingsContent = {
         uk: 'Натисніть, щоб зберегти налаштування SSO',
       }),
     },
+
     removeSSOProvider: {
       label: t({
         en: 'Remove SSO provider',
@@ -460,6 +471,153 @@ const ssoSettingsContent = {
         uk: 'Видалити',
       }),
     },
+
+    domainIsRequired: t({
+      en: 'Domain is required',
+      'en-GB': 'Domain is required',
+      fr: 'Le domaine est requis',
+      es: 'El dominio es obligatorio',
+      de: 'Domäne ist erforderlich',
+      ja: 'ドメインは必須です',
+      ko: '도메인은 필수입니다',
+      zh: '域是必需的',
+      it: 'Il dominio è obbligatorio',
+      pt: 'O domínio é obrigatório',
+      tr: 'Alan adı gereklidir',
+      ru: 'Домен обязателен',
+      ar: 'النطاق مطلوب',
+      hi: 'डोमेन आवश्यक है',
+      pl: 'Domena jest wymagana',
+      id: 'Domain wajib diisi',
+      vi: 'Tên miền là bắt buộc',
+      uk: 'Домен обов’язковий',
+    }),
+
+    issuerIsRequired: t({
+      en: 'Issuer is required',
+      'en-GB': 'Issuer is required',
+      fr: "L'émetteur est requis",
+      es: 'El emisor es obligatorio',
+      de: 'Aussteller ist erforderlich',
+      ja: '発行者は必須です',
+      ko: '발급자는 필수입니다',
+      zh: '发行者是必需的',
+      it: "L'emittente è obbligatorio",
+      pt: 'O emissor é obrigatório',
+      tr: 'Sertifika veren gereklidir',
+      ru: 'Издатель обязателен',
+      ar: 'المُصدر مطلوب',
+      hi: 'जारीकर्ता आवश्यक है',
+      pl: 'Wystawca jest wymagany',
+      id: 'Penerbit wajib diisi',
+      vi: 'Nhà phát hành là bắt buộc',
+      uk: 'Видавець обов’язковий',
+    }),
+
+    invalidUrl: t({
+      en: 'Invalid URL',
+      'en-GB': 'Invalid URL',
+      fr: 'URL invalide',
+      es: 'URL no válida',
+      de: 'Ungültige URL',
+      ja: '無効なURL',
+      ko: '잘못된 URL',
+      zh: '无效的 URL',
+      it: 'URL non valido',
+      pt: 'URL inválido',
+      tr: 'Geçersiz URL',
+      ru: 'Неверный URL',
+      ar: 'رابط غير صالح',
+      hi: 'अमान्य URL',
+      pl: 'Nieprawidłowy adres URL',
+      id: 'URL tidak valid',
+      vi: 'URL không hợp lệ',
+      uk: 'Недійсний URL',
+    }),
+
+    clientIdIsRequired: t({
+      en: 'Client ID is required',
+      'en-GB': 'Client ID is required',
+      fr: "L'ID client est requis",
+      es: 'El ID de cliente es obligatorio',
+      de: 'Client-ID ist erforderlich',
+      ja: 'クライアントIDは必須です',
+      ko: '클라이언트 ID는 필수입니다',
+      zh: '客户端 ID 是必需的',
+      it: "L'ID client è obbligatorio",
+      pt: 'O ID do cliente é obrigatório',
+      tr: 'İstemci Kimliği (Client ID) gereklidir',
+      ru: 'ID клиента обязателен',
+      ar: 'معرف العميل مطلوب',
+      hi: 'क्लाइंट आईडी आवश्यक है',
+      pl: 'Identyfikator klienta jest wymagany',
+      id: 'ID Klien wajib diisi',
+      vi: 'ID Khách hàng là bắt buộc',
+      uk: 'ID клієнта обов’язковий',
+    }),
+
+    clientSecretIsRequired: t({
+      en: 'Client Secret is required',
+      'en-GB': 'Client Secret is required',
+      fr: 'Le secret client est requis',
+      es: 'El secreto de cliente es obligatorio',
+      de: 'Client-Secret ist erforderlich',
+      ja: 'クライアントシークレットは必須です',
+      ko: '클라이언트 시크릿은 필수입니다',
+      zh: '客户端密钥是必需的',
+      it: 'Il Client Secret è obbligatorio',
+      pt: 'O Client Secret é obrigatório',
+      tr: 'İstemci Sırrı (Client Secret) gereklidir',
+      ru: 'Секрет клиента обязателен',
+      ar: 'سر العميل مطلوب',
+      hi: 'क्लाइंट सीक्रेट आवश्यक है',
+      pl: 'Sekret klienta jest wymagany',
+      id: 'Rahasia Klien wajib diisi',
+      vi: 'Bảo mật máy khách là bắt buộc',
+      uk: 'Секрет клієнта обов’язковий',
+    }),
+
+    entryPointIsRequired: t({
+      en: 'Entry Point is required',
+      'en-GB': 'Entry Point is required',
+      fr: "Le point d'entrée est requis",
+      es: 'El punto de entrada es obligatorio',
+      de: 'Einstiegspunkt ist erforderlich',
+      ja: 'エントリポイントは必須です',
+      ko: '진입점은 필수입니다',
+      zh: '入口点是必需的',
+      it: 'Il punto di ingresso è obbligatorio',
+      pt: 'O ponto de entrada é obrigatório',
+      tr: 'Giriş Noktası gereklidir',
+      ru: 'Точка входа обязательна',
+      ar: 'نقطة الدخول مطلوبة',
+      hi: 'प्रवेश बिंदु आवश्यक है',
+      pl: 'Punkt wejścia jest wymagany',
+      id: 'Titik Masuk wajib diisi',
+      vi: 'Điểm đầu vào là bắt buộc',
+      uk: 'Точка входу обов’язкова',
+    }),
+
+    certificateIsRequired: t({
+      en: 'Certificate is required',
+      'en-GB': 'Certificate is required',
+      fr: 'Le certificat est requis',
+      es: 'El certificado es obligatorio',
+      de: 'Zertifikat ist erforderlich',
+      ja: '証明書は必須です',
+      ko: '인증서는 필수입니다',
+      zh: '证书是必需的',
+      it: 'Il certificato è obbligatorio',
+      pt: 'O certificado é obrigatório',
+      tr: 'Sertifika gereklidir',
+      ru: 'Сертификат обязателен',
+      ar: 'الشهادة مطلوبة',
+      hi: 'प्रमाणपत्र आवश्यक है',
+      pl: 'Certyfikat jest wymagany',
+      id: 'Sertifikat wajib diisi',
+      vi: 'Chứng chỉ là bắt buộc',
+      uk: 'Сертифікат обов’язковий',
+    }),
   },
   title: 'SSO Settings',
   description:

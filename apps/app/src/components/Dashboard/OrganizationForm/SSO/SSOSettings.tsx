@@ -1,3 +1,5 @@
+import { editor } from '@intlayer/config/built';
+import { BACKEND_URL } from '@intlayer/config/defaultValues';
 import {
   useDeleteSSOProvider,
   useListSSOProviders,
@@ -9,7 +11,6 @@ import { Form, useForm } from '@intlayer/design-system/form';
 import { H3 } from '@intlayer/design-system/headers';
 import { Loader } from '@intlayer/design-system/loader';
 import { MaxHeightSmoother } from '@intlayer/design-system/max-height-smoother';
-import { useToast } from '@intlayer/design-system/toaster';
 import { Shield } from 'lucide-react';
 import { type FC, useEffect, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
@@ -32,37 +33,106 @@ type SSOProvider = {
 
 // Define SSO config schema for registration
 const useSSOConfigSchema = () => {
-  // Use a union to handle different states
-  return z.discriminatedUnion('enabled', [
-    // State: SSO is Enabled (Fields are required)
-    z.object({
-      enabled: z.literal(true),
-      providerType: z.enum(['saml', 'oidc']),
-      domain: z.string().min(1, 'Domain is required'),
-      samlConfig: z
-        .object({
-          issuer: z.string().min(1),
-          entryPoint: z.url(),
-          cert: z.string().min(1),
-        })
-        .optional(),
-      oidcConfig: z
-        .object({
-          issuer: z.url(),
-          clientId: z.string().min(1),
-          clientSecret: z.string().min(1),
-        })
-        .optional(),
-    }),
-    // State: SSO is Disabled (Fields are not required)
-    z.object({
-      enabled: z.literal(false),
-      providerType: z.enum(['saml', 'oidc']).optional(),
-      domain: z.string().optional(),
-      samlConfig: z.any().optional(),
-      oidcConfig: z.any().optional(),
-    }),
-  ]);
+  const content = useIntlayer('sso-settings');
+
+  return z
+    .discriminatedUnion('enabled', [
+      // State: SSO is Enabled (Fields are required)
+      z.object({
+        enabled: z.literal(true),
+        providerType: z.enum(['saml', 'oidc']),
+        domain: z.string().min(1, content.domainIsRequired.value),
+        samlConfig: z
+          .object({
+            issuer: z.string().optional(),
+            entryPoint: z.string().optional(),
+            cert: z.string().optional(),
+          })
+          .optional(),
+        oidcConfig: z
+          .object({
+            issuer: z.string().optional(),
+            clientId: z.string().optional(),
+            clientSecret: z.string().optional(),
+          })
+          .optional(),
+      }),
+      // State: SSO is Disabled (Fields are not required)
+      z.object({
+        enabled: z.literal(false),
+        providerType: z.enum(['saml', 'oidc']).optional(),
+        domain: z.string().optional(),
+        samlConfig: z.any().optional(),
+        oidcConfig: z.any().optional(),
+      }),
+    ])
+    .superRefine((data, ctx) => {
+      if (data.enabled) {
+        if (data.providerType === 'oidc') {
+          if (!data.oidcConfig?.issuer) {
+            ctx.addIssue({
+              code: 'custom',
+              message: content.issuerIsRequired.value,
+              path: ['oidcConfig', 'issuer'],
+            });
+          } else if (!/^https?:\/\//.test(data.oidcConfig.issuer)) {
+            ctx.addIssue({
+              code: 'custom',
+              message: content.invalidUrl.value,
+              path: ['oidcConfig', 'issuer'],
+            });
+          }
+
+          if (!data.oidcConfig?.clientId) {
+            ctx.addIssue({
+              code: 'custom',
+              message: content.clientIdIsRequired.value,
+              path: ['oidcConfig', 'clientId'],
+            });
+          }
+
+          if (!data.oidcConfig?.clientSecret) {
+            ctx.addIssue({
+              code: 'custom',
+              message: content.clientSecretIsRequired.value,
+              path: ['oidcConfig', 'clientSecret'],
+            });
+          }
+        }
+
+        if (data.providerType === 'saml') {
+          if (!data.samlConfig?.issuer) {
+            ctx.addIssue({
+              code: 'custom',
+              message: content.issuerIsRequired.value,
+              path: ['samlConfig', 'issuer'],
+            });
+          }
+
+          if (!data.samlConfig?.entryPoint) {
+            ctx.addIssue({
+              code: 'custom',
+              message: content.entryPointIsRequired.value,
+              path: ['samlConfig', 'entryPoint'],
+            });
+          } else if (!/^https?:\/\//.test(data.samlConfig.entryPoint)) {
+            ctx.addIssue({
+              code: 'custom',
+              message: content.invalidUrl.value,
+              path: ['samlConfig', 'entryPoint'],
+            });
+          }
+
+          if (!data.samlConfig?.cert) {
+            ctx.addIssue({
+              code: 'custom',
+              message: content.certificateIsRequired.value,
+              path: ['samlConfig', 'cert'],
+            });
+          }
+        }
+      }
+    });
 };
 
 type SSOFormData = z.infer<ReturnType<typeof useSSOConfigSchema>>;
@@ -80,7 +150,6 @@ export const SSOSettings: FC = () => {
   const { session } = useSession();
   const { organization, roles } = session ?? {};
   const isOrganizationAdmin = !!roles?.includes('org_admin');
-  const { toast } = useToast();
 
   const SSOConfigSchema = useSSOConfigSchema();
   const { mutate: registerSSO, isPending: isPendingRegisterSSO } =
@@ -115,33 +184,41 @@ export const SSOSettings: FC = () => {
   const formValues = form.watch();
   const [isSsoEnabled, setIsSsoEnabled] = useState(Boolean(formValues.enabled));
 
-  const providerType = (formValues.providerType as 'saml' | 'oidc') || 'oidc';
-  const [existingProviderType, setExistingProviderType] = useState(
-    providerType === 'saml' ? 'saml' : 'oidc'
-  );
+  const providerType = (formValues.providerType as 'saml' | 'oidc') ?? 'oidc';
 
   // Set enabled to true if there's an existing provider (only once on mount)
   useEffect(() => {
     if (existingProvider && !formValues.enabled) {
       form.reset({ ...formValues, enabled: true });
+      setIsSsoEnabled(true);
     }
   }, [existingProvider?.id]); // Only depend on the provider ID, not the whole object
 
   // Handle form submission - register SSO provider with better-auth
   const onSubmitSuccess = async (data: SSOFormData) => {
-    if (!organization?.id) {
-      toast({
-        title: 'Error',
-        description: 'Organization not found',
-        variant: 'error',
-      });
+    if (!organization?.id) return;
+
+    if (!data.enabled) {
+      if (existingProvider) {
+        await new Promise<void>((resolve, reject) => {
+          deleteSSOProvider(
+            { providerId: existingProvider.providerId },
+            {
+              onSuccess: () => {
+                form.reset(defaultSSOValues);
+                setIsSsoEnabled(false);
+                resolve();
+              },
+              onError: (e: Error) => reject(e),
+            }
+          );
+        });
+      }
       return;
     }
 
-    // Generate a unique provider ID for this organization
     const providerId = `${organization.id}-${data.providerType}`;
 
-    // Prepare registration data
     const registrationData: any = {
       providerId,
       domain: data.domain?.toLowerCase().trim(),
@@ -155,53 +232,31 @@ export const SSOSettings: FC = () => {
         clientSecret: data.oidcConfig.clientSecret,
       };
     } else if (data.providerType === 'saml' && data.samlConfig) {
+      const backendURL = editor?.backendURL ?? BACKEND_URL;
       registrationData.issuer = data.samlConfig.issuer;
       registrationData.samlConfig = {
         entryPoint: data.samlConfig.entryPoint,
         cert: data.samlConfig.cert,
+        callbackUrl: `${backendURL}/api/auth/sso/saml2/sp/acs/${providerId}`,
+        spMetadata: {},
       };
     }
 
+    if (!registrationData.issuer) return;
+
     try {
-      // If there's an existing provider, delete it first
       if (existingProvider) {
         await new Promise<void>((resolve, reject) => {
           deleteSSOProvider(
             { providerId: existingProvider.providerId },
-            {
-              onSuccess: () => resolve(),
-              onError: (error: Error) => reject(error),
-            }
+            { onSuccess: () => resolve(), onError: (e: Error) => reject(e) }
           );
         });
       }
 
-      // Register the new SSO provider
-      registerSSO(registrationData, {
-        onSuccess: () => {
-          toast({
-            title: 'SSO Configured',
-            description: 'SSO provider has been registered successfully',
-            variant: 'success',
-          });
-        },
-        onError: (error: Error) => {
-          toast({
-            title: 'Error',
-            description: error.message || 'Failed to register SSO provider',
-            variant: 'error',
-          });
-        },
-      });
-    } catch (err) {
-      toast({
-        title: 'Error',
-        description:
-          err instanceof Error
-            ? err.message
-            : 'Failed to configure SSO provider',
-        variant: 'error',
-      });
+      registerSSO(registrationData);
+    } catch {
+      // Error toast already shown globally by ReactQueryProvider
     }
   };
 
@@ -213,20 +268,8 @@ export const SSOSettings: FC = () => {
       { providerId: existingProvider.providerId },
       {
         onSuccess: () => {
-          toast({
-            title: 'SSO Removed',
-            description: 'SSO provider has been removed successfully',
-            variant: 'success',
-          });
-          // Reset form
           form.reset(defaultSSOValues);
-        },
-        onError: (error: Error) => {
-          toast({
-            title: 'Error',
-            description: error.message || 'Failed to remove SSO provider',
-            variant: 'error',
-          });
+          setIsSsoEnabled(false);
         },
       }
     );
@@ -273,7 +316,7 @@ export const SSOSettings: FC = () => {
             {existingProvider && (
               <CurrentProviderInfo
                 existingProvider={existingProvider}
-                existingProviderType={existingProviderType}
+                existingProviderType={providerType}
                 isOrganizationAdmin={isOrganizationAdmin}
                 handleDeleteProvider={handleDeleteProvider}
                 isPendingDelete={isPendingDelete}
@@ -298,9 +341,6 @@ export const SSOSettings: FC = () => {
                       { value: 'oidc', content: providerTypeOptions.oidc },
                       { value: 'saml', content: providerTypeOptions.saml },
                     ]}
-                    onChange={(value: 'oidc' | 'saml') => {
-                      setExistingProviderType(value);
-                    }}
                   />
                 </div>
 
@@ -318,12 +358,12 @@ export const SSOSettings: FC = () => {
                 </div>
 
                 {/* SAML Configuration */}
-                {existingProviderType === 'saml' && (
+                {providerType === 'saml' && (
                   <SAMLConfigForm isOrganizationAdmin={isOrganizationAdmin} />
                 )}
 
                 {/* OIDC Configuration */}
-                {existingProviderType === 'oidc' && (
+                {providerType === 'oidc' && (
                   <OIDCConfigForm isOrganizationAdmin={isOrganizationAdmin} />
                 )}
               </>
