@@ -133,22 +133,22 @@ export const linkVariants = cva(
       {
         variant: ['button', 'button-outlined'],
         size: 'sm',
-        class: 'min-h-7 px-3 max-md:py-1',
+        class: 'min-h-7 px-3 text-xs max-md:py-1',
       },
       {
         variant: ['button', 'button-outlined'],
         size: 'md',
-        class: 'min-h-8 px-6 max-md:py-2',
+        class: 'min-h-8 px-6 text-sm max-md:py-2',
       },
       {
         variant: ['button', 'button-outlined'],
         size: 'lg',
-        class: 'min-h-10 px-8 max-md:py-3',
+        class: 'min-h-10 px-8 text-lg max-md:py-3',
       },
       {
         variant: ['button', 'button-outlined'],
         size: 'xl',
-        class: 'min-h-11 px-10 max-md:py-4',
+        class: 'min-h-11 px-10 text-xl max-md:py-4',
       },
       // Ring color variants
       {
@@ -290,12 +290,15 @@ export const Link: FC<LinkProps> = (props) => {
     isActive,
     underlined,
     locale,
-    size,
+    size: sizeProp,
     isExternalLink: isExternalLinkProp,
     isPageSection: isPageSectionProp,
     href: hrefProp,
     ...otherProps
   } = props;
+
+  const isButton = variant === 'button' || variant === 'button-outlined';
+  const size = sizeProp ?? (isButton ? 'md' : 'custom');
 
   const isExternalLink = isExternalLinkProp ?? checkIsExternalLink(props);
   const isPageSection = isPageSectionProp ?? hrefProp?.startsWith('#') ?? false;
