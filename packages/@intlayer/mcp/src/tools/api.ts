@@ -528,4 +528,171 @@ export const loadAPITools: LoadAPITools = (server) => {
       }
     }
   );
+
+  // ── Environments ──────────────────────────────────────────────────────────
+
+  server.registerTool(
+    'intlayer-cms-environment-select',
+    {
+      title: 'Select CMS Environment',
+      description:
+        'Select a CMS environment as the current active environment. Required before accessing environment-specific dictionaries.',
+      inputSchema: {
+        ...authSchema,
+        environmentId: z.string().describe('Environment ID to select'),
+      },
+      annotations: { destructiveHint: false },
+    },
+    async ({ clientId, clientSecret, environmentId }) => {
+      try {
+        const api = await getAPI(clientId, clientSecret);
+        const result = await api.environment.selectEnvironment(environmentId);
+        return ok(result);
+      } catch (error) {
+        return fail('Select CMS environment', error);
+      }
+    }
+  );
+
+  server.registerTool(
+    'intlayer-cms-environment-reset',
+    {
+      title: 'Reset CMS Environment to Production',
+      description:
+        'Reset the current active environment to the default production environment.',
+      inputSchema: {
+        ...authSchema,
+      },
+      annotations: { destructiveHint: false },
+    },
+    async ({ clientId, clientSecret }) => {
+      try {
+        const api = await getAPI(clientId, clientSecret);
+        const result = await api.environment.resetToProductionEnvironment();
+        return ok(result);
+      } catch (error) {
+        return fail('Reset CMS environment', error);
+      }
+    }
+  );
+
+  server.registerTool(
+    'intlayer-cms-environment-create',
+    {
+      title: 'Create CMS Environment',
+      description: 'Create a new CMS environment in the selected project.',
+      inputSchema: {
+        ...authSchema,
+        name: z.string().describe('Environment name'),
+      },
+      annotations: { destructiveHint: false },
+    },
+    async ({ clientId, clientSecret, name }) => {
+      try {
+        const api = await getAPI(clientId, clientSecret);
+        const result = await api.environment.addEnvironment({ name });
+        return ok(result);
+      } catch (error) {
+        return fail('Create CMS environment', error);
+      }
+    }
+  );
+
+  server.registerTool(
+    'intlayer-cms-environment-update',
+    {
+      title: 'Update CMS Environment',
+      description: 'Update the selected CMS environment settings.',
+      inputSchema: {
+        ...authSchema,
+        environmentId: z.string().describe('Environment ID to update'),
+        name: z.string().optional().describe('New environment name'),
+      },
+      annotations: { destructiveHint: true },
+    },
+    async ({ clientId, clientSecret, environmentId, name }) => {
+      try {
+        const api = await getAPI(clientId, clientSecret);
+        const result = await api.environment.updateEnvironment(environmentId, {
+          name,
+        });
+        return ok(result);
+      } catch (error) {
+        return fail('Update CMS environment', error);
+      }
+    }
+  );
+
+  server.registerTool(
+    'intlayer-cms-environment-delete',
+    {
+      title: 'Delete CMS Environment',
+      description: 'Delete a CMS environment by its ID.',
+      inputSchema: {
+        ...authSchema,
+        environmentId: z.string().describe('Environment ID to delete'),
+      },
+      annotations: { destructiveHint: true },
+    },
+    async ({ clientId, clientSecret, environmentId }) => {
+      try {
+        const api = await getAPI(clientId, clientSecret);
+        const result = await api.environment.deleteEnvironment(environmentId);
+        return ok(result);
+      } catch (error) {
+        return fail('Delete CMS environment', error);
+      }
+    }
+  );
+
+  server.registerTool(
+    'intlayer-cms-environment-migrate',
+    {
+      title: 'Migrate CMS Environment',
+      description:
+        'Migrate dictionaries and configuration from one environment to another.',
+      inputSchema: {
+        ...authSchema,
+        sourceEnvironmentId: z.string().describe('Source environment ID'),
+        targetEnvironmentId: z.string().describe('Target environment ID'),
+        strategy: z
+          .enum(['overwrite', 'fill-missing'])
+          .describe(
+            'Migration strategy: overwrite existing or only fill missing'
+          ),
+        migrateContent: z
+          .boolean()
+          .optional()
+          .describe('Whether to migrate content (dictionaries)'),
+        migrateConfiguration: z
+          .boolean()
+          .optional()
+          .describe('Whether to migrate environment configuration'),
+      },
+      annotations: { destructiveHint: true },
+    },
+    async ({
+      clientId,
+      clientSecret,
+      sourceEnvironmentId,
+      targetEnvironmentId,
+      strategy,
+      migrateContent,
+      migrateConfiguration,
+    }) => {
+      try {
+        const api = await getAPI(clientId, clientSecret);
+        const result = await api.environment.migrateEnvironment({
+          sourceEnvironmentId,
+          targetEnvironmentId,
+          strategy,
+          migrateContent,
+          migrateConfiguration,
+        });
+        return ok(result);
+      } catch (error) {
+        return fail('Migrate CMS environment', error);
+      }
+    }
+  );
 };
