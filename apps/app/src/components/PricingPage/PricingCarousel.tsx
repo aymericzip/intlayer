@@ -340,7 +340,7 @@ export const PricingCarousel: FC<PricingCarouselProps> = ({
   return (
     <section
       // Removed the transition-[height] class to ensure strict, immediate sizing
-      className="relative w-full cursor-grab select-none overflow-hidden active:cursor-grabbing"
+      className="relative w-full max-w-5xl cursor-grab select-none overflow-hidden active:cursor-grabbing"
       onMouseDown={handleMouseDown}
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
