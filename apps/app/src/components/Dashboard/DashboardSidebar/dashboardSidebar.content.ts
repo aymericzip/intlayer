@@ -3,48 +3,6 @@ import { type Dictionary, insert, t } from 'intlayer';
 const dashboardSidebarContent = {
   key: 'dashboard-sidebar',
   content: {
-    asideAriaLabel: t({
-      en: 'Dashboard navigation',
-      'en-GB': 'Dashboard navigation',
-      fr: 'Navigation du tableau de bord',
-      es: 'Navegación del panel',
-      de: 'Dashboard-Navigation',
-      ja: 'ダッシュボードナビゲーション',
-      ko: '대시보드 탐색',
-      zh: '仪表板导航',
-      it: 'Navigazione del dashboard',
-      pt: 'Navegação do painel',
-      hi: 'डैशबोर्ड नेविगेशन',
-      ar: 'تنقل لوحة القيادة',
-      ru: 'Навигация панели',
-      tr: 'Panel navigasyonu',
-      pl: 'Nawigacja panelu',
-      id: 'Navigasi dasbor',
-      vi: 'Điều hướng bảng điều khiển',
-      uk: 'Навігація панелі',
-    }),
-
-    navAriaLabel: t({
-      en: 'Sidebar navigation',
-      'en-GB': 'Sidebar navigation',
-      fr: 'Navigation de la barre latérale',
-      es: 'Navegación de la barra lateral',
-      de: 'Seitenleisten-Navigation',
-      ja: 'サイドバーナビゲーション',
-      ko: '사이드바 탐색',
-      zh: '侧边栏导航',
-      it: 'Navigazione della barra laterale',
-      pt: 'Navegação da barra lateral',
-      hi: 'साइडबार नेविगेशन',
-      ar: 'تنقل الشريط الجانبي',
-      ru: 'Навигация боковой панели',
-      tr: 'Kenar çubuğu navigasyonu',
-      pl: 'Nawigacja paska bocznego',
-      id: 'Navigasi bilah sisi',
-      vi: 'Điều hướng thanh bên',
-      uk: 'Навігація бічної панелі',
-    }),
-
     collapseButton: {
       text: t({
         en: 'Collapse',
