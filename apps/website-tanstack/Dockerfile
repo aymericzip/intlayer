@@ -69,10 +69,10 @@ COPY \
     --exclude=apps/app \
     --exclude=apps/showcase \
     --exclude=apps/website \
-    --exclude=plugins \
     --exclude=docs/assets \
     --exclude=examples \
     --exclude=plugins \
+    --exclude=compat \
     --exclude=**/*.stories.* \
     . .
 

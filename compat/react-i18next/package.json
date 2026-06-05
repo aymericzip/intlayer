@@ -1,0 +1,92 @@
+{
+  "name": "@intlayer/react-i18next",
+  "version": "8.12.1",
+  "private": false,
+  "description": "react-i18next API adapter for intlayer — useTranslation, Trans, withTranslation, I18nextProvider backed by react-intlayer",
+  "keywords": [
+    "intlayer",
+    "react-i18next",
+    "i18next",
+    "react",
+    "i18n",
+    "adapter",
+    "compatibility"
+  ],
+  "homepage": "https://intlayer.org",
+  "bugs": {
+    "url": "https://github.com/aymericzip/intlayer/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aymericzip/intlayer.git"
+  },
+  "license": "Apache-2.0",
+  "author": {
+    "name": "Aymeric PINEAU",
+    "url": "https://github.com/aymericzip"
+  },
+  "contributors": [
+    {
+      "name": "Aymeric Pineau",
+      "email": "ay.pineau@gmail.com",
+      "url": "https://github.com/aymericzip"
+    }
+  ],
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "require": "./dist/cjs/index.cjs",
+      "import": "./dist/esm/index.mjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "dist/cjs/index.cjs",
+  "module": "dist/esm/index.mjs",
+  "types": "dist/types/index.d.ts",
+  "files": [
+    "./dist",
+    "./package.json"
+  ],
+  "scripts": {
+    "build": "bun --bun tsdown --config tsdown.config.ts",
+    "build:ci": "bun --bun tsdown --config tsdown.config.ts",
+    "clean": "bun --bun rimraf ./dist .turbo",
+    "dev": "bun --bun tsdown --config tsdown.config.ts --watch",
+    "format": "bun --bun biome format . --check",
+    "format:fix": "bun --bun biome format --write .",
+    "lint": "bun --bun biome lint .",
+    "lint:fix": "bun --bun biome lint --write .",
+    "prepublish": "cp -f ../../../README.md ./README.md",
+    "publish": "bun publish || true",
+    "publish:canary": "bun publish --access public --tag canary || true",
+    "publish:latest": "bun publish --access public --tag latest || true",
+    "test": "bun --bun vitest run",
+    "test:watch": "bun --bun vitest",
+    "typecheck": "tsc --noEmit --project tsconfig.types.json"
+  },
+  "dependencies": {
+    "@intlayer/config": "workspace:*",
+    "@intlayer/core": "workspace:*",
+    "@intlayer/types": "workspace:*",
+    "react-intlayer": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "25.9.1",
+    "@types/react": "^19.0.0",
+    "@utils/ts-config": "workspace:*",
+    "@utils/ts-config-types": "workspace:*",
+    "@utils/tsdown-config": "workspace:*",
+    "rimraf": "6.1.3",
+    "tsdown": "0.22.1",
+    "typescript": "6.0.3",
+    "vitest": "4.1.8"
+  },
+  "peerDependencies": {
+    "react": ">=16.0.0",
+    "react-dom": ">=16.0.0"
+  },
+  "engines": {
+    "node": ">=14.18"
+  }
+}

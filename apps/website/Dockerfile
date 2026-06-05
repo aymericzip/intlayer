@@ -69,6 +69,7 @@ COPY \
     --exclude=apps/showcase \
     --exclude=apps/website-tanstack \
     --exclude=plugins \
+    --exclude=compat \
     --exclude=docs/assets \
     --exclude=examples \
     --exclude=plugins \

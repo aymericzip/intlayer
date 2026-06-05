@@ -46,6 +46,7 @@ COPY \
     --exclude=docs/legal \
     --exclude=examples \
     --exclude=plugins \
+    --exclude=compat \
     --exclude=apps/website \ 
     --exclude=apps/website-tanstack \
     --exclude=apps/showcase \

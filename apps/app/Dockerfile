@@ -41,10 +41,10 @@ COPY \
     --exclude=apps/website \ 
     --exclude=apps/website-tanstack \
     --exclude=apps/showcase \
-    --exclude=plugins \
     --exclude=docs/assets \
     --exclude=examples \
     --exclude=plugins \
+    --exclude=compat \
     --exclude=**/*.stories.* \
     . .
 

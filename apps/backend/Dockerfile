@@ -61,6 +61,7 @@ COPY \
     --exclude=packages/hono-intlayer \
     --exclude=packages/adonis-intlayer \
     --exclude=plugins \
+    --exclude=compat \
     --exclude=docs/assets \
     --exclude=docs/blog \
     --exclude=docs/frequent_questions \

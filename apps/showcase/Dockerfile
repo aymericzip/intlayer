@@ -41,10 +41,10 @@ COPY \
     --exclude=packages/adonis-intlayer \
     --exclude=apps/website \ 
     --exclude=apps/website-tanstack \        --exclude=apps/app \
-    --exclude=plugins \
     --exclude=docs/assets \
     --exclude=examples \
     --exclude=plugins \
+    --exclude=compat \
     --exclude=**/*.stories.* \
     . .
 
