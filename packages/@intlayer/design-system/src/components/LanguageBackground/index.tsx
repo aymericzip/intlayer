@@ -14,8 +14,6 @@ const LazyLanguageSection = lazy(() =>
   import('./LanguageSection').then((m) => ({ default: m.LanguageSection }))
 );
 
-export { LanguageSection } from './LanguageSection';
-
 export const LanguageBackground: FC<PropsWithChildren> = ({ children }) => {
   const [mounted, setMounted] = useState(false);
 
