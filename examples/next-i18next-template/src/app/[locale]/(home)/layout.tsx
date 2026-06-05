@@ -3,7 +3,6 @@ import type { ReactNode } from 'react';
 import {
   absoluteUrl,
   defaultLocale,
-  type Locale,
   locales,
   localizedPath,
 } from '@/i18n.config';
@@ -15,7 +14,7 @@ import {
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ locale: Locale }>;
+  params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
   const resolvedLocale = locale ?? defaultLocale;

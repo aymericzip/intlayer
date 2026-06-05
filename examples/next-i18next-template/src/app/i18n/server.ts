@@ -1,4 +1,4 @@
-import { createInstance } from '@intlayer/i18next';
+import { createInstance } from 'i18next';
 
 /**
  * Create an i18next-compatible instance for server-side use.

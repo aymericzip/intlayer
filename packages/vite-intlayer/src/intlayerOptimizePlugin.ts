@@ -3,6 +3,7 @@ import { join } from 'node:path';
 import {
   analyzeFieldUsageInFile,
   buildNestedRenameMapFromContent,
+  INTLAYER_OR_COMPAT_USAGE_REGEX,
   INTLAYER_USAGE_REGEX,
   optimizeSourceFile,
   type PruneContext,
@@ -142,7 +143,7 @@ export const intlayerOptimize = async (
                 return; // unreadable file – skip silently
               }
 
-              if (!INTLAYER_USAGE_REGEX.test(sourceCode)) return;
+              if (!INTLAYER_OR_COMPAT_USAGE_REGEX.test(sourceCode)) return;
 
               // For Vue/Svelte SFCs, the usage analyzer expects the raw script
               // content. `analyzeFieldUsageInFile` handles block extraction

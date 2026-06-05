@@ -35,7 +35,7 @@ export default async function HomeLayout({
   params,
 }: {
   children: ReactNode;
-  params: Promise<{ locale: Locale }>;
+  params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
 
@@ -48,7 +48,7 @@ export default async function HomeLayout({
   // Only pass the namespaces your client components actually use
   return (
     <NextIntlClientProvider
-      locale={locale ?? defaultLocale}
+      locale={(locale as Locale) ?? defaultLocale}
       messages={clientMessages}
     >
       {children}

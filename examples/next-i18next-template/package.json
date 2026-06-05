@@ -20,6 +20,7 @@
     "react-intlayer": "workspace:*"
   },
   "devDependencies": {
+    "@intlayer/sync-json-plugin": "workspace:*",
     "@tailwindcss/postcss": "4",
     "@types/node": "25.9.1",
     "@types/react": "19",

@@ -3,12 +3,11 @@ import { initI18next } from '@/app/i18n/server';
 import I18nProvider from '@/components/I18nProvider';
 import LocaleSwitcher from '@/components/LocaleSwitcher';
 import LocalizedLink from '@/components/LocalizedLink';
-import type { Locale } from '@/i18n.config';
 
 export default async function HomePage({
   params,
 }: {
-  params: Promise<{ locale: Locale }>;
+  params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
   const i18n = await initI18next(locale);

@@ -241,7 +241,7 @@ export default defineConfig(async ({ mode }) => {
     build: {
       minify: false,
       rolldownOptions: {
-        external: ['wasi_snapshot_preview1', 'esbuild', 'env'],
+        external: ['wasi_snapshot_preview1', 'env'],
       },
     },
   };

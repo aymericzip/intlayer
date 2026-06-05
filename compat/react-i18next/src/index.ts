@@ -4,11 +4,9 @@ import type {
   getI18n as _getI18n,
   getInitialProps as _getInitialProps,
   I18nContext as _I18nContext,
-  IcuTrans as _IcuTrans,
-  IcuTransWithoutContext as _IcuTransWithoutContext,
-  nodesToString as _nodesToString,
   setDefaults as _setDefaults,
   setI18n as _setI18n,
+  Trans as _Trans,
   Translation as _Translation,
   TransWithoutContext as _TransWithoutContext,
   useSSR as _useSSR,
@@ -46,8 +44,10 @@ export { useTranslation } from './useTranslation';
 export { withTranslation } from './withTranslation';
 export { Trans };
 
-// Wrap and export all implementation functions
-export const nodesToString = nodesToStringImpl as typeof _nodesToString;
+// Wrap and export all implementation functions.
+// `nodesToString` is not part of react-i18next's public type surface in all
+// supported versions, so the local implementation's inferred type is exposed.
+export const nodesToString = nodesToStringImpl;
 export const setDefaults = setDefaultsImpl as typeof _setDefaults;
 export const getDefaults = getDefaultsImpl as typeof _getDefaults;
 export const setI18n = setI18nImpl as typeof _setI18n;
@@ -61,5 +61,10 @@ export const Translation = TranslationImpl as typeof _Translation;
 export const I18nContext = I18nContextImpl as typeof _I18nContext;
 
 export const TransWithoutContext = Trans as typeof _TransWithoutContext;
-export const IcuTrans = Trans as typeof _IcuTrans;
-export const IcuTransWithoutContext = Trans as typeof _IcuTransWithoutContext;
+// `IcuTrans` / `IcuTransWithoutContext` are aliases for the standard `Trans`
+// component (they only differ by interpolation engine, which the compat shim
+// does not distinguish). They are typed against `Trans` for broad version
+// compatibility, since the dedicated ICU exports are not present in every
+// supported react-i18next release.
+export const IcuTrans = Trans as typeof _Trans;
+export const IcuTransWithoutContext = Trans as typeof _Trans;

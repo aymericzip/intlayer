@@ -29,7 +29,7 @@ export default async function LocaleLayout({
   params,
 }: {
   children: ReactNode;
-  params: Promise<{ locale: Locale }>;
+  params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
   // getLocale() reads from the INTLAYER_LOCALE cookie / Accept-Language header.
@@ -41,7 +41,7 @@ export default async function LocaleLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <NextIntlClientProvider locale={resolvedLocale}>
+        <NextIntlClientProvider locale={resolvedLocale as Locale}>
           {children}
         </NextIntlClientProvider>
       </body>

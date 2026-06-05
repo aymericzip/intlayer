@@ -24,39 +24,65 @@ const navigatePath = (objectValue: unknown, path: string): unknown => {
 };
 
 /**
+ * The translation function returned by {@link getTranslations}.
+ */
+type TranslateFunction<N extends DictionaryKeys> = <
+  P extends ValidDotPathsFor<N>,
+>(
+  key: P,
+  values?: Record<string, unknown>
+) => string;
+
+/**
+ * Overload set for {@link getTranslations}:
+ *
+ * 1. A bare dictionary key → fully-typed `t()` (autocompleted dot-paths).
+ * 2. A nested namespace `'dictionary.sub.scope'` → `t()` accepts the relative
+ *    `string` path, matching next-intl's scoped-namespace behaviour.
+ */
+type GetTranslations = {
+  <N extends DictionaryKeys>(namespace?: N): Promise<TranslateFunction<N>>;
+  (
+    namespace: `${string}.${string}`
+  ): Promise<(key: string, values?: Record<string, unknown>) => string>;
+};
+
+/**
  * Drop-in for next-intl's server `getTranslations()`.
  *
- * The returned `t()` is typed against the intlayer dictionary for namespace N:
- * keys are autocompleted and dot-paths are validated at compile time.
+ * Supports next-intl's nested namespace scoping: the namespace is split at the
+ * first `.` into the intlayer dictionary key and a key prefix that is prepended
+ * to every `t()` lookup.
  *
  * @example
  * ```ts
  * const t = await getTranslations('about');
  * return <h1>{t('counter.label')}</h1>; // ✓ typed
+ *
+ * // Scoped to a nested object (next-intl idiom)
+ * const t = await getTranslations('about.counter');
+ * return <h1>{t('label')}</h1>; // resolves about → counter.label
  * ```
  */
-export const getTranslations = async <N extends DictionaryKeys>(
-  namespace?: N
-): Promise<
-  <P extends ValidDotPathsFor<N>>(
-    key: P,
-    values?: Record<string, unknown>
-  ) => string
-> => {
+export const getTranslations: GetTranslations = (async (namespace?: string) => {
   const locale = await getLocale();
 
   if (!namespace) {
-    return <P extends ValidDotPathsFor<N>>(key: P) => String(key);
+    return (key: string) => key;
   }
 
-  const dictionary = getIntlayer(namespace, locale as LocalesValues);
+  const [dictionaryKey, ...prefixSegments] = namespace.split('.');
+  const keyPrefix = prefixSegments.join('.');
 
-  return <P extends ValidDotPathsFor<N>>(
-    key: P,
-    values?: Record<string, unknown>
-  ): string => {
-    const raw = navigatePath(dictionary, String(key));
-    if (raw == null) return String(key);
+  const dictionary = getIntlayer(
+    dictionaryKey as DictionaryKeys,
+    locale as LocalesValues
+  );
+
+  return (key: string, values?: Record<string, unknown>): string => {
+    const fullKey = keyPrefix ? `${keyPrefix}.${key}` : key;
+    const raw = navigatePath(dictionary, fullKey);
+    if (raw == null) return key;
 
     const str = String(raw);
     if (!values) return str;
@@ -65,4 +91,4 @@ export const getTranslations = async <N extends DictionaryKeys>(
       values[k] != null ? String(values[k]) : `{${k}}`
     );
   };
-};
+}) as GetTranslations;

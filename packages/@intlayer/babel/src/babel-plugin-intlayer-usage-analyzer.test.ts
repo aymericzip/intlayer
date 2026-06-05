@@ -414,4 +414,292 @@ describe('makeUsageAnalyzerBabelPlugin', () => {
       expect(usage as Set<string>).toContain('subtitle');
     });
   });
+
+  describe('compat namespace callers', () => {
+    describe('react-i18next / next-i18next — useTranslation', () => {
+      it('records the first path segment of each t() call as a top-level field', () => {
+        const ctx = analyze(`
+          import { useTranslation } from 'react-i18next';
+          const { t } = useTranslation('about');
+          const a = t('counter.label');
+          const b = t('title');
+        `);
+
+        const usage = ctx.dictionaryKeyToFieldUsageMap.get('about');
+        expect(usage).toBeInstanceOf(Set);
+        expect(usage as Set<string>).toContain('counter');
+        expect(usage as Set<string>).toContain('title');
+        expect((usage as Set<string>).size).toBe(2);
+      });
+
+      it('marks the dictionary as skipping field rename', () => {
+        const ctx = analyze(`
+          import { useTranslation } from 'react-i18next';
+          const { t } = useTranslation('about');
+          t('counter.label');
+        `);
+
+        expect(ctx.dictionariesSkippingFieldRename.has('about')).toBe(true);
+      });
+
+      it('also matches the @intlayer/react-i18next adapter import', () => {
+        const ctx = analyze(`
+          import { useTranslation } from '@intlayer/react-i18next';
+          const { t } = useTranslation('about');
+          t('counter.label');
+        `);
+
+        const usage = ctx.dictionaryKeyToFieldUsageMap.get('about');
+        expect(usage as Set<string>).toContain('counter');
+      });
+
+      it('matches the next-i18next import source', () => {
+        const ctx = analyze(`
+          import { useTranslation } from 'next-i18next';
+          const { t } = useTranslation('about');
+          t('hero.title');
+        `);
+
+        const usage = ctx.dictionaryKeyToFieldUsageMap.get('about');
+        expect(usage as Set<string>).toContain('hero');
+      });
+
+      it('honours a static keyPrefix and uses its first segment as the field', () => {
+        const ctx = analyze(`
+          import { useTranslation } from 'react-i18next';
+          const { t } = useTranslation('about', { keyPrefix: 'counter' });
+          t('label');
+          t('value');
+        `);
+
+        const usage = ctx.dictionaryKeyToFieldUsageMap.get('about');
+        expect(usage).toBeInstanceOf(Set);
+        expect(usage as Set<string>).toContain('counter');
+        expect((usage as Set<string>).size).toBe(1);
+      });
+
+      it('falls back to the "translation" namespace when none is given', () => {
+        const ctx = analyze(`
+          import { useTranslation } from 'react-i18next';
+          const { t } = useTranslation();
+          t('greeting');
+        `);
+
+        const usage = ctx.dictionaryKeyToFieldUsageMap.get('translation');
+        expect(usage as Set<string>).toContain('greeting');
+      });
+
+      it('marks "all" when t is passed opaquely to another function', () => {
+        const ctx = analyze(`
+          import { useTranslation } from 'react-i18next';
+          const { t } = useTranslation('about');
+          renderWith(t);
+        `);
+
+        expect(ctx.dictionaryKeyToFieldUsageMap.get('about')).toBe('all');
+      });
+
+      it('marks "all" when a t() key is computed dynamically', () => {
+        const ctx = analyze(`
+          import { useTranslation } from 'react-i18next';
+          const { t } = useTranslation('about');
+          t(dynamicKey);
+        `);
+
+        expect(ctx.dictionaryKeyToFieldUsageMap.get('about')).toBe('all');
+      });
+
+      it('does not match useTranslation imported from an unrelated module', () => {
+        const ctx = analyze(`
+          import { useTranslation } from './my-custom-hook';
+          const { t } = useTranslation('about');
+          t('counter.label');
+        `);
+
+        expect(ctx.dictionaryKeyToFieldUsageMap.has('about')).toBe(false);
+      });
+
+      it('resolves a static template-literal first segment', () => {
+        const ctx = analyze(`
+          import { useTranslation } from 'react-i18next';
+          const { t } = useTranslation('about');
+          t(\`items.\${index}\`);
+        `);
+
+        const usage = ctx.dictionaryKeyToFieldUsageMap.get('about');
+        expect(usage as Set<string>).toContain('items');
+      });
+
+      it('marks "all" when the template-literal first segment is dynamic', () => {
+        const ctx = analyze(`
+          import { useTranslation } from 'react-i18next';
+          const { t } = useTranslation('about');
+          t(\`\${section}.label\`);
+        `);
+
+        expect(ctx.dictionaryKeyToFieldUsageMap.get('about')).toBe('all');
+      });
+    });
+
+    describe('next-intl — useTranslations / getTranslations', () => {
+      it('records fields from a directly-returned t (client)', () => {
+        const ctx = analyze(`
+          import { useTranslations } from 'next-intl';
+          const t = useTranslations('about');
+          t('counter.label');
+          t('title');
+        `);
+
+        const usage = ctx.dictionaryKeyToFieldUsageMap.get('about');
+        expect(usage as Set<string>).toContain('counter');
+        expect(usage as Set<string>).toContain('title');
+      });
+
+      it('records fields from an awaited getTranslations (server)', () => {
+        const ctx = analyze(`
+          import { getTranslations } from 'next-intl/server';
+          const t = await getTranslations('about');
+          t('hero.title');
+        `);
+
+        const usage = ctx.dictionaryKeyToFieldUsageMap.get('about');
+        expect(usage as Set<string>).toContain('hero');
+      });
+
+      it('reads the namespace from the object form of getTranslations', () => {
+        const ctx = analyze(`
+          import { getTranslations } from 'next-intl/server';
+          const t = await getTranslations({ locale: 'en', namespace: 'about' });
+          t('hero.title');
+        `);
+
+        const usage = ctx.dictionaryKeyToFieldUsageMap.get('about');
+        expect(usage as Set<string>).toContain('hero');
+      });
+
+      it('splits a nested namespace into dictionary key and prefix field', () => {
+        const ctx = analyze(`
+          import { useTranslations } from 'next-intl';
+          const t = useTranslations('about.counter');
+          t('label');
+          t('increment');
+        `);
+
+        // dictionary 'about', consumed top-level field 'counter'
+        const usage = ctx.dictionaryKeyToFieldUsageMap.get('about');
+        expect(usage).toBeInstanceOf(Set);
+        expect(usage as Set<string>).toContain('counter');
+        expect((usage as Set<string>).size).toBe(1);
+        expect(ctx.dictionaryKeyToFieldUsageMap.has('about.counter')).toBe(
+          false
+        );
+        expect(ctx.dictionariesSkippingFieldRename.has('about')).toBe(true);
+      });
+
+      it('uses only the first prefix segment of a deeply nested namespace', () => {
+        const ctx = analyze(`
+          import { useTranslations } from 'next-intl';
+          const t = useTranslations('about.counter.controls');
+          t('label');
+        `);
+
+        const usage = ctx.dictionaryKeyToFieldUsageMap.get('about');
+        expect(usage as Set<string>).toContain('counter');
+        expect((usage as Set<string>).size).toBe(1);
+      });
+    });
+
+    describe('i18next — getFixedT', () => {
+      it('reads the namespace from the second argument (method call)', () => {
+        const ctx = analyze(`
+          import i18next from 'i18next';
+          const t = i18next.getFixedT(null, 'about');
+          t('counter.label');
+        `);
+
+        const usage = ctx.dictionaryKeyToFieldUsageMap.get('about');
+        expect(usage as Set<string>).toContain('counter');
+      });
+
+      it('honours the keyPrefix third argument', () => {
+        const ctx = analyze(`
+          import i18next from 'i18next';
+          const t = i18next.getFixedT(null, 'about', 'counter');
+          t('label');
+        `);
+
+        const usage = ctx.dictionaryKeyToFieldUsageMap.get('about');
+        expect(usage).toBeInstanceOf(Set);
+        expect(usage as Set<string>).toContain('counter');
+        expect((usage as Set<string>).size).toBe(1);
+      });
+    });
+
+    describe('vue-i18n — useI18n (SFC safety)', () => {
+      it('marks "all" for SFC files because t may be used in the template', () => {
+        const ctx = analyze(
+          `
+          import { useI18n } from 'vue-i18n';
+          const { t } = useI18n({ namespace: 'about' });
+          const label = t('counter.label');
+        `,
+          '/app/src/Component.vue'
+        );
+
+        expect(ctx.dictionaryKeyToFieldUsageMap.get('about')).toBe('all');
+        expect(ctx.dictionariesSkippingFieldRename.has('about')).toBe(true);
+      });
+
+      it('reads the namespace from the options object in a plain TS file', () => {
+        const ctx = analyze(`
+          import { useI18n } from 'vue-i18n';
+          const { t } = useI18n({ namespace: 'about' });
+          t('counter.label');
+        `);
+
+        const usage = ctx.dictionaryKeyToFieldUsageMap.get('about');
+        expect(usage as Set<string>).toContain('counter');
+      });
+    });
+
+    describe('interaction with native intlayer usage', () => {
+      it('merges compat and native field usage for the same dictionary', () => {
+        const ctx = analyze(`
+          import { useIntlayer } from 'react-intlayer';
+          import { useTranslation } from 'react-i18next';
+          const { title } = useIntlayer('about');
+          const { t } = useTranslation('about');
+          t('counter.label');
+        `);
+
+        const usage = ctx.dictionaryKeyToFieldUsageMap.get('about');
+        expect(usage).toBeInstanceOf(Set);
+        expect(usage as Set<string>).toContain('title');
+        expect(usage as Set<string>).toContain('counter');
+      });
+    });
+
+    describe('disabling compat analysis', () => {
+      it('ignores compat callers when compatCallers is an empty array', () => {
+        const ctx = createPruneContext();
+        transformSync(
+          `
+          import { useTranslation } from 'react-i18next';
+          const { t } = useTranslation('about');
+          t('counter.label');
+        `,
+          {
+            filename: '/app/src/Component.tsx',
+            plugins: [makeUsageAnalyzerBabelPlugin(ctx, { compatCallers: [] })],
+            parserOpts: BABEL_PARSER_OPTIONS,
+            babelrc: false,
+            configFile: false,
+            code: false,
+          }
+        );
+
+        expect(ctx.dictionaryKeyToFieldUsageMap.has('about')).toBe(false);
+      });
+    });
+  });
 });

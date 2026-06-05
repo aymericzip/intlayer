@@ -1,5 +1,3 @@
-import type { serverSideTranslations as _serverSideTranslations } from 'next-i18next';
-
 /**
  * Drop-in replacement for next-i18next's `serverSideTranslations`.
  *
@@ -36,5 +34,4 @@ const _serverSideTranslationsImpl = async (
   },
 });
 
-export const serverSideTranslations =
-  _serverSideTranslationsImpl as unknown as typeof _serverSideTranslations;
+export const serverSideTranslations = _serverSideTranslationsImpl;

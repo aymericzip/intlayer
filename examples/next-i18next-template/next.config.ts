@@ -1,7 +1,7 @@
+import { createNextI18nPlugin } from '@intlayer/next-i18next/plugin';
 import type { NextConfig } from 'next';
-import { createNextIntlayerPlugin } from 'next-intlayer/plugin';
 
-const withIntlayer = createNextIntlayerPlugin();
+const withIntlayer = createNextI18nPlugin();
 
 const nextConfig: NextConfig = {};
 

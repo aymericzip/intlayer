@@ -4,7 +4,6 @@ import type {
   exists as _exists,
   hasLoadedNamespace as _hasLoadedNamespace,
   init as _init,
-  keyFromSelector as _keyFromSelector,
   loadLanguages as _loadLanguages,
   loadNamespaces as _loadNamespaces,
   loadResources as _loadResources,
@@ -64,8 +63,12 @@ export const loadLanguages = i18next.loadLanguages.bind(
   i18next
 ) as unknown as typeof _loadLanguages;
 
-export const keyFromSelector = ((selector: any) =>
-  selector) as unknown as typeof _keyFromSelector;
+/**
+ * No-op shim for i18next's `keyFromSelector`. This helper is not exposed by
+ * every supported i18next version, so a permissive identity function is
+ * provided to keep `.keyFromSelector(...)` call-sites working.
+ */
+export const keyFromSelector = (selector: unknown): unknown => selector;
 
 export type { InitOptions, i18n, TFunction, TOptions } from 'i18next';
 export { initReactI18next } from 'react-i18next';

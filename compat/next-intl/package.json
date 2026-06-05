@@ -49,6 +49,11 @@
       "require": "./dist/cjs/routing.cjs",
       "import": "./dist/esm/routing.mjs"
     },
+    "./plugin": {
+      "types": "./dist/types/plugin/index.d.ts",
+      "require": "./dist/cjs/plugin/index.cjs",
+      "import": "./dist/esm/plugin/index.mjs"
+    },
     "./package.json": "./package.json"
   },
   "main": "dist/cjs/index.cjs",
@@ -61,6 +66,9 @@
       ],
       "routing": [
         "./dist/types/routing.d.ts"
+      ],
+      "plugin": [
+        "./dist/types/plugin/index.d.ts"
       ]
     }
   },
@@ -95,11 +103,11 @@
   },
   "devDependencies": {
     "@types/node": "25.9.1",
-    "@types/react": "19.0.0",
+    "@types/react": "19.2.16",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
-    "next-intl": "3.0.0",
+    "next-intl": "4.13.0",
     "rimraf": "6.1.3",
     "tsdown": "0.22.1",
     "typescript": "6.0.3",

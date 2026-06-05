@@ -120,7 +120,7 @@ export const createI18n = ((options: Record<string, unknown> = {}) => {
       app.config.globalProperties.$t = (key: string, ...args: unknown[]) => {
         const currentLoc =
           (
-            app.config.globalProperties.$i18n as
+            app.config.globalProperties.$i18n as unknown as
               | Record<string, unknown>
               | undefined
           )?.locale ?? 'en';
@@ -139,7 +139,7 @@ export const createI18n = ((options: Record<string, unknown> = {}) => {
           params
         );
       };
-      app.config.globalProperties.$i18n = global;
+      (app.config.globalProperties as Record<string, unknown>).$i18n = global;
     },
   };
 

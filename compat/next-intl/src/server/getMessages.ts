@@ -1,9 +1,7 @@
 import { getDictionary } from '@intlayer/core/interpreter';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
-import type {
-  DictionaryKeys,
-  LocalesValues,
-} from '@intlayer/types/module_augmentation';
+import type { Dictionary } from '@intlayer/types';
+import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import type { getMessages as _getMessages } from 'next-intl/server';
 import { getLocale } from './getLocale';
 
@@ -27,7 +25,7 @@ const _getMessagesImpl = async (): Promise<Record<string, unknown>> => {
   for (const [key, dictionary] of Object.entries(dictionaries)) {
     try {
       result[key] = getDictionary(
-        dictionary as unknown as DictionaryKeys,
+        dictionary as unknown as Dictionary,
         locale as LocalesValues
       );
     } catch {

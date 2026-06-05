@@ -1,6 +1,6 @@
 'use client';
 
-import type { TransProps } from 'react-i18next';
+import type { Trans as _Trans, TransProps } from 'react-i18next';
 import { useTranslation } from './useTranslation';
 
 const _TransImpl = ({

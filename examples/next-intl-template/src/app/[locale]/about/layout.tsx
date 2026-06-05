@@ -10,7 +10,7 @@ import { defaultLocale, type Locale, locales, localizedPath } from '@/i18n';
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ locale: Locale }>;
+  params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations('about');
@@ -35,7 +35,7 @@ export default async function AboutLayout({
   params,
 }: {
   children: ReactNode;
-  params: Promise<{ locale: Locale }>;
+  params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
 
@@ -48,7 +48,7 @@ export default async function AboutLayout({
   // Only pass the namespaces your client components actually use
   return (
     <NextIntlClientProvider
-      locale={locale ?? defaultLocale}
+      locale={(locale as Locale) ?? defaultLocale}
       messages={clientMessages}
     >
       {children}

@@ -5,6 +5,7 @@ import {
   type OptimizePluginOptions,
 } from './babel-plugin-intlayer-optimize';
 import {
+  type CompatCallerConfig,
   makeUsageAnalyzerBabelPlugin,
   type PruneContext,
 } from './babel-plugin-intlayer-usage-analyzer';
@@ -37,10 +38,26 @@ export const BABEL_PARSER_OPTIONS: NonNullable<TransformOptions['parserOpts']> =
   };
 
 /**
- * Fast pre-check: matches files that could contain intlayer calls.
- * Avoids running Babel on files with no relevant identifiers.
+ * Fast pre-check: matches files that could contain native intlayer calls
+ * (`useIntlayer` / `getIntlayer`). Used by the optimize/transform pass, which
+ * only rewrites native calls.
  */
 export const INTLAYER_USAGE_REGEX = /\b(use|get)Intlayer\b/;
+
+/**
+ * Fast pre-check: matches files that could contain compat-adapter namespace
+ * callers (`useTranslation`, `useTranslations`, `getTranslations`, `getFixedT`,
+ * `useI18n`). These are analysed for field usage (pruning) but never rewritten.
+ */
+export const COMPAT_USAGE_REGEX =
+  /\b(useTranslation|useTranslations|getTranslations|getFixedT|useI18n)\b/;
+
+/**
+ * Fast pre-check for the usage-analysis phase: matches files containing either
+ * native intlayer calls or compat-adapter namespace callers.
+ */
+export const INTLAYER_OR_COMPAT_USAGE_REGEX =
+  /\b(useIntlayer|getIntlayer|useTranslation|useTranslations|getTranslations|getFixedT|useI18n)\b/;
 
 /**
  * Matches source files that are valid targets for usage analysis and Babel
@@ -60,11 +77,12 @@ export const SOURCE_FILE_REGEX = /\.(tsx?|[mc]?jsx?|vue|svelte|astro)$/;
 const analyzeScriptContent = async (
   scriptContent: string,
   sourceFilePath: string,
-  pruneContext: PruneContext
+  pruneContext: PruneContext,
+  compatCallers?: CompatCallerConfig[]
 ): Promise<void> => {
   await transformAsync(scriptContent, {
     filename: sourceFilePath,
-    plugins: [makeUsageAnalyzerBabelPlugin(pruneContext)],
+    plugins: [makeUsageAnalyzerBabelPlugin(pruneContext, { compatCallers })],
     parserOpts: BABEL_PARSER_OPTIONS,
     ast: false,
     code: false, // analysis only – no output needed
@@ -86,7 +104,8 @@ const analyzeScriptContent = async (
 export const analyzeFieldUsageInFile = async (
   sourceFilePath: string,
   code: string,
-  pruneContext: PruneContext
+  pruneContext: PruneContext,
+  compatCallers?: CompatCallerConfig[]
 ): Promise<void> => {
   const scriptBlocks = extractScriptBlocks(sourceFilePath, code);
 
@@ -95,8 +114,13 @@ export const analyzeFieldUsageInFile = async (
   // For plain JS/TS: extractScriptBlocks returns the whole file as a single
   // block with offset 0, so we fall through to the same path.
   for (const block of scriptBlocks) {
-    if (!INTLAYER_USAGE_REGEX.test(block.content)) continue;
-    await analyzeScriptContent(block.content, sourceFilePath, pruneContext);
+    if (!INTLAYER_OR_COMPAT_USAGE_REGEX.test(block.content)) continue;
+    await analyzeScriptContent(
+      block.content,
+      sourceFilePath,
+      pruneContext,
+      compatCallers
+    );
   }
 };
 
