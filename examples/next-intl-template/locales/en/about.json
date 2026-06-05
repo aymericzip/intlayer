@@ -1,0 +1,8 @@
+{
+  "title": "About",
+  "description": "About page description",
+  "counter": {
+    "label": "Counter",
+    "increment": "Increment"
+  }
+}
