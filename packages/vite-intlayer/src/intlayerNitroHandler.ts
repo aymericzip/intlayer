@@ -1,5 +1,6 @@
 import type { IncomingMessage, ServerResponse } from 'node:http';
-import { getAppLogger } from '@intlayer/config/logger';
+import * as ANSIColors from '@intlayer/config/colors';
+import { colorize, getAppLogger } from '@intlayer/config/logger';
 import { getConfiguration } from '@intlayer/config/node';
 import { createIntlayerProxyHandler } from './intlayerProxyPlugin';
 
@@ -39,7 +40,9 @@ type H3EventLike = {
 
 const intlayerConfig = getConfiguration();
 const logger = getAppLogger(intlayerConfig);
-logger('Intlayer proxy enabled', { level: 'info' });
+logger(`Intlayer proxy ${colorize('enabled', ANSIColors.GREEN)}`, {
+  level: 'info',
+});
 
 const nodeMiddleware = createIntlayerProxyHandler();
 

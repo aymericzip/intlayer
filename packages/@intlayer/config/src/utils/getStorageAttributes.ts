@@ -42,8 +42,16 @@ type StorageEntry =
 const createCookieEntry = (
   options?: Partial<CookiesAttributes>
 ): CookieEntry => {
-  const { name, path, expires, maxAge, domain, secure, sameSite, httpOnly } =
-    options ?? {};
+  const {
+    name,
+    path = '/',
+    expires,
+    maxAge,
+    domain,
+    secure,
+    sameSite,
+    httpOnly,
+  } = options ?? {};
   return {
     name: name ?? COOKIE_NAME,
     attributes: { path, expires, maxAge, domain, secure, sameSite, httpOnly },

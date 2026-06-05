@@ -3,7 +3,8 @@ import { createServer } from 'node:http';
 import type { DictionaryAPI } from '@intlayer/backend';
 import { buildDictionary } from '@intlayer/chokidar/build';
 import { type ParallelHandle, runParallel } from '@intlayer/chokidar/utils';
-import { getAppLogger } from '@intlayer/config/logger';
+import * as ANSIColors from '@intlayer/config/colors';
+import { colorize, getAppLogger } from '@intlayer/config/logger';
 import {
   type GetConfigurationOptions,
   getConfiguration,
@@ -117,7 +118,7 @@ export const liveSync = async (options?: LiveSyncOptions) => {
     }
   } else if (!configuration.editor.liveSync) {
     appLogger(
-      'Hot reload is disabled. Please enable it in the configuration (editor.liveSync).'
+      `Hot reload is ${colorize('disabled', ANSIColors.RED)}. Please enable it in the configuration (editor.liveSync).`
     );
   } else if (
     !configuration.editor.clientId ||
@@ -157,7 +158,19 @@ export const liveSync = async (options?: LiveSyncOptions) => {
           .slice(prefix.length)
           .split('/');
 
+        if (!key) {
+          res.writeHead(404);
+          res.end('Not Found');
+          return;
+        }
+
         const dictionary = dictionaries[key] ?? null;
+
+        if (!dictionary) {
+          res.writeHead(404);
+          res.end('Not Found');
+          return;
+        }
 
         if (locale) {
           // @ts-ignore Type instantiation is excessively deep and possibly infinite

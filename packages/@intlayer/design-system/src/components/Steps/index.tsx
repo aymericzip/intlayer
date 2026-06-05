@@ -1,7 +1,7 @@
 import { cn } from '@utils/cn';
 import type { FC, HTMLAttributes, OlHTMLAttributes, ReactNode } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { H3 } from '../headings';
+import { H3 } from '../Headers';
 
 const slugify = (text: string) =>
   String(text)

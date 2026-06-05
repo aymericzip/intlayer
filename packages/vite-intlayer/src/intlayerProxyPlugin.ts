@@ -1,7 +1,8 @@
 import type { IncomingMessage, ServerResponse } from 'node:http';
 import { fileURLToPath, parse } from 'node:url';
+import * as ANSIColors from '@intlayer/config/colors';
 import { ROUTING_MODE } from '@intlayer/config/defaultValues';
-import { getAppLogger } from '@intlayer/config/logger';
+import { colorize, getAppLogger } from '@intlayer/config/logger';
 import {
   type GetConfigurationOptions,
   getConfiguration,
@@ -893,12 +894,16 @@ export const intlayerProxy = (
     nitro: nitroModule as any,
     // Vite dev server
     configureServer: (server) => {
-      logger('Intlayer proxy enabled', { level: 'info' });
+      logger(`Intlayer proxy ${colorize('enabled', ANSIColors.GREEN)}`, {
+        level: 'info',
+      });
       server.middlewares.use(handler);
     },
     // Vite preview server
     configurePreviewServer: (server) => {
-      logger('Intlayer proxy enabled', { level: 'info' });
+      logger(`Intlayer proxy ${colorize('enabled', ANSIColors.GREEN)}`, {
+        level: 'info',
+      });
       server.middlewares.use(handler);
     },
   } as Plugin;
