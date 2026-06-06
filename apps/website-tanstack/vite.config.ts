@@ -226,7 +226,7 @@ export default defineConfig(async ({ mode }) => {
     plugins: [
       rawMarkdownPlugin,
       mdRawRewritePlugin,
-      intlayerProxy(),
+      // intlayerProxy(),
       nitro({
         preset: 'bun',
         routeRules: {
