@@ -17,13 +17,23 @@ const PERSIST_MAX_AGE = 1000 * 60 * 60 * 24; // 24h
 // Bump to invalidate every persisted cache after a breaking change in query shapes
 const PERSIST_BUSTER = 'v1';
 
+const isServer = typeof window === 'undefined';
+
 const defaultQueryOptions: DefaultOptions = {
   queries: {
     retry: 1,
     // Keep data fresh for 30 seconds to avoid unnecessary refetches during navigation
     staleTime: 30 * 1000,
-    // gcTime must be >= persist maxAge, otherwise restored entries are dropped on rehydrate
-    gcTime: PERSIST_MAX_AGE,
+    // On the client, gcTime must be >= persist maxAge, otherwise restored
+    // entries are dropped on rehydrate.
+    //
+    // On the server (SSR/prerender), keep gcTime at Infinity — react-query's
+    // safe server default. Any finite gcTime makes react-query schedule a
+    // `setTimeout(gcTime)` when a query is built in the cache during render
+    // (even for `enabled: false` queries). That timer keeps the Node event
+    // loop alive, so the prerender server never closes and the build hangs
+    // after all pages are rendered. Infinity skips the timer entirely.
+    gcTime: isServer ? Infinity : PERSIST_MAX_AGE,
     // Only refetch on mount if data is stale (not every single mount)
     refetchOnMount: true,
     refetchOnWindowFocus: false,
