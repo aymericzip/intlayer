@@ -1,4 +1,3 @@
-export { RuleType } from '@intlayer/core/markdown';
 export {
   compileMarkdown,
   createIntlayerMarkdownProvider,

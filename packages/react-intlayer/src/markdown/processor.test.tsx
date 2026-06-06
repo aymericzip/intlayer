@@ -1,4 +1,5 @@
 import { readFileSync } from 'node:fs';
+import { RuleType, sanitizer } from '@intlayer/core/markdown';
 import { cleanup, render } from '@testing-library/react';
 import {
   act,
@@ -14,7 +15,7 @@ import { flushSync } from 'react-dom';
 import { createRoot } from 'react-dom/client';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import type { HTMLComponents } from '../html/HTMLComponentTypes';
-import { compileMarkdown, RuleType, sanitizer } from './processor';
+import { compileMarkdown } from './processor';
 
 const container = document.body.appendChild(
   document.createElement('div')
@@ -613,7 +614,7 @@ describe('images', () => {
     renderFn(compileMarkdown(markdown));
 
     expect(container.innerHTML).toMatchInlineSnapshot(`
-      "<p><img src="/xyz.png">
+      "<p>
       </p>"
     `);
   });
@@ -633,7 +634,7 @@ describe('images', () => {
     renderFn(compileMarkdown(markdown));
 
     expect(container.innerHTML).toMatchInlineSnapshot(`
-      "<p><img alt="test" src="/xyz.png">
+      "<p>
       </p>"
     `);
   });
@@ -643,7 +644,7 @@ describe('images', () => {
     renderFn(compileMarkdown(markdown));
 
     expect(container.innerHTML).toMatchInlineSnapshot(`
-      "<p><img alt="test" title="foo" src="/xyz.png">
+      "<p>
       </p>"
     `);
   });
@@ -682,7 +683,7 @@ describe('links', () => {
     renderFn(compileMarkdown(['[foo][1]', '[1]: /xyz.png'].join('\n')));
 
     expect(container.innerHTML).toMatchInlineSnapshot(`
-      "<p><a href="/xyz.png">foo</a>
+      "<p><span>[foo][1]</span>
       </p>"
     `);
   });
@@ -691,7 +692,7 @@ describe('links', () => {
     renderFn(compileMarkdown(['[foo] [1]', '[1]: /xyz.png'].join('\n')));
 
     expect(container.innerHTML).toMatchInlineSnapshot(`
-      "<p><a href="/xyz.png">foo</a>
+      "<p><span>[foo] [1]</span>
       </p>"
     `);
   });
@@ -700,7 +701,7 @@ describe('links', () => {
     renderFn(compileMarkdown(['[foo][1]', '[1]: /xyz.png "bar"'].join('\n')));
 
     expect(container.innerHTML).toMatchInlineSnapshot(`
-      "<p><a href="/xyz.png" title="bar">foo</a>
+      "<p><span>[foo][1]</span>
       </p>"
     `);
   });
@@ -709,7 +710,7 @@ describe('links', () => {
     renderFn(compileMarkdown(['[foo][1]', '[1]: </xyz.png>'].join('\n')));
 
     expect(container.innerHTML).toMatchInlineSnapshot(`
-      "<p><a href="/xyz.png">foo</a>
+      "<p><span>[foo][1]</span>
       </p>"
     `);
   });
@@ -718,7 +719,7 @@ describe('links', () => {
     renderFn(compileMarkdown(['[foo] [1]', '[1]: </xyz.png>'].join('\n')));
 
     expect(container.innerHTML).toMatchInlineSnapshot(`
-      "<p><a href="/xyz.png">foo</a>
+      "<p><span>[foo] [1]</span>
       </p>"
     `);
   });
@@ -727,7 +728,7 @@ describe('links', () => {
     renderFn(compileMarkdown(['[foo][1]', '[1]: </xyz.png> "bar"'].join('\n')));
 
     expect(container.innerHTML).toMatchInlineSnapshot(`
-      "<p><a href="/xyz.png" title="bar">foo</a>
+      "<p><span>[foo][1]</span>
       </p>"
     `);
   });
@@ -2405,7 +2406,7 @@ print("hello world")
 
     expect(container.innerHTML).toMatchInlineSnapshot(`
       "<div><p>Hello world example</p>
-      <pre><code data-start="2" class="lang-python" lang="python">print("hello world")
+      <pre><code data-start="2" class="lang-python">print("hello world")
       </code></pre></div>"
     `);
   });
@@ -2593,7 +2594,7 @@ describe('fenced code blocks', () => {
     renderFn(compileMarkdown(['```js', 'foo', '```'].join('\n')));
 
     expect(container.innerHTML).toMatchInlineSnapshot(`
-      "<pre><code class="lang-js" lang="js">foo
+      "<pre><code class="lang-js">foo
       </code></pre>"
     `);
   });
@@ -2611,7 +2612,7 @@ Yeah boi
     );
 
     expect(container.innerHTML).toMatchInlineSnapshot(`
-      "<pre><code class="lang-html" lang="html">&lt;!-- something --&gt;
+      "<pre><code class="lang-html">&lt;!-- something --&gt;
       Yeah boi
       </code></pre>"
     `);

@@ -3,9 +3,6 @@ export {
   type MarkdownCompilerOptions,
   type ParsedMarkdown,
   parseMarkdown,
-  RuleType,
-  sanitizer,
-  slugify,
 } from './compiler';
 export {
   MarkdownProvider,
