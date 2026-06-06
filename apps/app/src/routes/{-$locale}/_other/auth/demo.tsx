@@ -3,6 +3,9 @@ import { Container } from '@intlayer/design-system/container';
 import { Loader } from '@intlayer/design-system/loader';
 import {
   App_Auth_SignIn_Path,
+  App_Dashboard_Dictionaries_Path,
+  App_Dashboard_Organization_Path,
+  App_Dashboard_Projects_Path,
   App_Home_Path,
 } from '@intlayer/design-system/routes';
 import { useQueryClient } from '@tanstack/react-query';
@@ -38,15 +41,28 @@ function DemoPage() {
         throw new Error(content.failedToCreateDemoSession.value);
       }
 
-      await queryClient.invalidateQueries({
-        queryKey: sessionQueryOptions.queryKey,
+      // Force a fresh session fetch so the cookie set by the demo endpoint
+      // is picked up before we navigate — bypasses the 5-min staleTime.
+      const freshSession = await queryClient.fetchQuery({
+        ...sessionQueryOptions,
+        staleTime: 0,
       });
 
-      navigate({ to: App_Home_Path });
-    } catch (e) {
+      if (!freshSession?.user) {
+        throw new Error(content.failedToCreateDemoSession.value);
+      }
+
+      if (freshSession.organization && freshSession.project) {
+        navigate({ to: App_Dashboard_Dictionaries_Path });
+      } else if (freshSession.organization) {
+        navigate({ to: App_Dashboard_Projects_Path });
+      } else {
+        navigate({ to: App_Dashboard_Organization_Path });
+      }
+    } catch {
       navigate({ to: App_Auth_SignIn_Path });
     }
-  }, [navigate, queryClient]);
+  }, [navigate, queryClient, content]);
 
   useEffect(() => {
     const session = queryClient.getQueryData<{ user?: unknown }>(

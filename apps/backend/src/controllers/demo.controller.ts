@@ -161,16 +161,12 @@ export const getDemoSessionHandler = async (
 
     if (typeof signInResponse.headers.getSetCookie === 'function') {
       const setCookies = signInResponse.headers.getSetCookie();
+      // reply.raw.setHeader correctly forwards an array as multiple Set-Cookie
+      // entries; reply.header() with an array joins with commas which breaks cookies.
       if (setCookies.length > 0) {
-        reply.header('set-cookie', setCookies);
+        reply.raw.setHeader('set-cookie', setCookies);
       }
     }
-
-    signInResponse.headers.forEach((value: string, key: string) => {
-      if (key.toLowerCase() !== 'set-cookie') {
-        reply.header(key, value);
-      }
-    });
 
     reply.status(200).send({ ok: true });
   } catch (error) {
