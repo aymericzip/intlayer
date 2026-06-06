@@ -14,6 +14,22 @@ import {
 
 /**
  * Props for rendering markdown content.
+ *
+ * @example
+ * ```tsx
+ * const props: RenderMarkdownProps = {
+ *   components: {
+ *     h1: ({ children }) => <h1 className="text-3xl">{children}</h1>,
+ *     p: ({ children }) => <p className="text-gray-700">{children}</p>,
+ *   },
+ *   wrapper: ({ children }) => <article>{children}</article>,
+ *   options: {
+ *     forceBlock: true,
+ *     preserveFrontmatter: false,
+ *     tagfilter: true,
+ *   },
+ * };
+ * ```
  */
 export type RenderMarkdownProps = MarkdownPluginOptions & {
   /** Component overrides for HTML tags. */
@@ -27,6 +43,25 @@ export type RenderMarkdownProps = MarkdownPluginOptions & {
  *
  * This function does not use context from MarkdownProvider. Use `useMarkdownRenderer`
  * hook if you want to leverage provider context.
+ *
+ * @param content - The markdown string to render
+ * @param props - Configuration options for rendering
+ * @param props.components - Component overrides for HTML tags
+ * @param props.wrapper - Wrapper component for multiple children
+ * @returns Vue VNodes representing the rendered markdown
+ *
+ * @example
+ * ```ts
+ * import { renderMarkdown } from 'vue-intlayer/markdown';
+ *
+ * const markdown = '# Hello World\n\nThis is **bold** text.';
+ * const vnodes = await renderMarkdown(markdown, {
+ *   components: {
+ *     h1: ({ children }) => h('h1', { class: 'title' }, children),
+ *   },
+ *   forceBlock: true,
+ * });
+ * ```
  */
 export const renderMarkdown = async (
   content: string | ParsedMarkdown,
@@ -59,6 +94,28 @@ export const renderMarkdown = async (
  *
  * This hook considers the configuration from the `MarkdownProvider` context if available,
  * falling back to the provided props or default behavior.
+ *
+ * @param props - Optional configuration that will override context values
+ * @param props.components - Component overrides for HTML tags (overrides context)
+ * @param props.wrapper - Wrapper component (overrides context)
+ * @returns A function that takes markdown content and returns VNodes
+ *
+ * @example
+ * ```vue
+ * <script setup>
+ * import { useMarkdownRenderer } from 'vue-intlayer/markdown';
+ *
+ * const renderMarkdown = useMarkdownRenderer({
+ *   components: {
+ *     h1: (props) => h('h1', { class: 'custom' }, props.children),
+ *   },
+ * });
+ * </script>
+ *
+ * <template>
+ *   <component :is="renderMarkdown('# Hello\n\nThis is **markdown**')" />
+ * </template>
+ * ```
  */
 export const useMarkdownRenderer = ({
   components,
@@ -103,11 +160,56 @@ export const useMarkdownRenderer = ({
   }
 };
 
+/**
+ * Props for the MarkdownRenderer component.
+ *
+ * @example
+ * ```vue
+ * <script setup>
+ * const props = {
+ *   content: '# Hello World\n\nThis is **bold** text.',
+ *   components: {
+ *     h1: (props) => h('h1', { class: 'title' }, props.children),
+ *   },
+ *   forceBlock: true,
+ * };
+ * </script>
+ * ```
+ */
 export type MarkdownRendererProps = RenderMarkdownProps & {
+  /**
+   * The markdown content to render as a string.
+   */
   content?: string | ParsedMarkdown;
+  /**
+   * Custom render function for markdown.
+   * If provided, it will overwrite context and default rendering.
+   */
   renderMarkdown?: RenderMarkdownFunction;
 };
 
+/**
+ * Vue component that renders markdown content to VNodes.
+ *
+ * This component uses the `renderMarkdown` function from the `intlayerMarkdown` plugin
+ * if available. Otherwise, it falls back to the default compiler with provided components
+ * and options. You can also provide a custom `renderMarkdown` function prop to override
+ * all rendering behavior.
+ *
+ * @example
+ * ```vue
+ * <script setup>
+ * import { MarkdownRenderer } from 'vue-intlayer/markdown';
+ * </script>
+ *
+ * <template>
+ *   <MarkdownRenderer
+ *     content="# Hello World"
+ *     :forceBlock="true"
+ *   />
+ * </template>
+ * ```
+ */
 export const MarkdownRenderer = defineComponent({
   name: 'Markdown',
   props: {

@@ -3,6 +3,7 @@ export {
   type MarkdownProviderOptions,
   useMarkdownContext,
 } from './MarkdownProvider';
+
 export {
   MarkdownRenderer,
   type MarkdownRendererProps,
@@ -10,4 +11,13 @@ export {
   renderMarkdown,
   useMarkdownRenderer,
 } from './MarkdownRenderer';
-export * from './processor';
+
+export {
+  compileMarkdown,
+  type MarkdownRendererOptions,
+  type ParsedMarkdown,
+  parseMarkdown,
+  RuleType,
+  sanitizer,
+  slugify,
+} from './processor';

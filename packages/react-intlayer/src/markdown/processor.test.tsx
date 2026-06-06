@@ -14,7 +14,7 @@ import { flushSync } from 'react-dom';
 import { createRoot } from 'react-dom/client';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import type { HTMLComponents } from '../html/HTMLComponentTypes';
-import { compiler, RuleType, sanitizer } from './processor';
+import { compileMarkdown, RuleType, sanitizer } from './processor';
 
 const container = document.body.appendChild(
   document.createElement('div')
@@ -42,31 +42,31 @@ afterEach(() => {
 });
 
 it('should throw if not passed a string (first arg)', () => {
-  expect(() => compiler('')).not.toThrow();
+  expect(() => compileMarkdown('')).not.toThrow();
   // @ts-ignore
-  expect(() => compiler()).not.toThrow();
+  expect(() => compileMarkdown()).not.toThrow();
   // @ts-ignore
-  expect(() => compiler(1)).toThrow();
+  expect(() => compileMarkdown(1)).toThrow();
   // @ts-ignore
-  expect(() => compiler(() => {})).toThrow();
+  expect(() => compileMarkdown(() => {})).toThrow();
   // @ts-ignore
-  expect(() => compiler({})).toThrow();
+  expect(() => compileMarkdown({})).toThrow();
   // @ts-ignore
-  expect(() => compiler([])).toThrow();
+  expect(() => compileMarkdown([])).toThrow();
   // @ts-ignore
-  expect(() => compiler(null)).toThrow();
+  expect(() => compileMarkdown(null)).toThrow();
   // @ts-ignore
-  expect(() => compiler(true)).toThrow();
+  expect(() => compileMarkdown(true)).toThrow();
 });
 
 it('should handle a basic string', () => {
-  renderFn(compiler('Hello.'));
+  renderFn(compileMarkdown('Hello.'));
 
   expect(container.textContent).toBe('Hello.');
 });
 
 it('wraps multiple block element returns in a div to avoid invalid nesting errors', () => {
-  renderFn(compiler('# Boop\n\n## Blep'));
+  renderFn(compileMarkdown('# Boop\n\n## Blep'));
 
   expect(container.innerHTML).toMatchInlineSnapshot(
     `"<div><h1 id="boop">Boop</h1><h2 id="blep">Blep</h2></div>"`
@@ -74,7 +74,7 @@ it('wraps multiple block element returns in a div to avoid invalid nesting error
 });
 
 it('wraps solely inline elements in a span, rather than a div', () => {
-  renderFn(compiler("Hello. _Beautiful_ day isn't it?"));
+  renderFn(compileMarkdown("Hello. _Beautiful_ day isn't it?"));
 
   expect(container.innerHTML).toMatchInlineSnapshot(
     `"<span>Hello. <em>Beautiful</em> day isn't it?</span>"`
@@ -83,7 +83,7 @@ it('wraps solely inline elements in a span, rather than a div', () => {
 
 it('wraps solely inline elements in a span, rather than a div', () => {
   const input1 = "Hello. **Beautiful** day isn't it?";
-  const { container: c1 } = render(compiler(input1));
+  const { container: c1 } = render(compileMarkdown(input1));
 
   const html1 = c1.innerHTML;
 
@@ -91,7 +91,7 @@ it('wraps solely inline elements in a span, rather than a div', () => {
   cleanup();
 
   const input2 = `Hello. **Beautiful** day isn't it?`;
-  const { container: c2 } = render(compiler(input2));
+  const { container: c2 } = render(compileMarkdown(input2));
 
   const html2 = c2.innerHTML;
 
@@ -103,7 +103,7 @@ it('wraps solely inline elements in a span, rather than a div', () => {
 
 it('#190 perf regression', () => {
   renderFn(
-    compiler(
+    compileMarkdown(
       'Lorum *ipsum*: <a href="" style="float: right"><small>foo</small></a><span style="float: right"><small>&nbsp;</small></span><a href="" style="float: right"><small>bar</small></a>'
     )
   );
@@ -115,7 +115,7 @@ it('#190 perf regression', () => {
 
 it('#234 perf regression', () => {
   renderFn(
-    compiler(`
+    compileMarkdown(`
       <br /><b>1</b><b>2</b><b>3</b><b>4</b><b>5</b><b>6</b><b>7</b><b>8</b><b>9</b><b>10</b>
       <b>1</b><b>2</b><b>3</b><b>4</b><b>5</b><b>6</b><b>7</b><b>8</b><b>9</b><b>20</b>
       <b>1</b><b>2</b><b>3</b><b>4</b><b>5</b><b>6</b><b>7</b><b>8</b><b>9</b><b>30</b>
@@ -131,7 +131,7 @@ it('#234 perf regression', () => {
 
 it('#700 perf regression with unclosed inline syntax', () => {
   renderFn(
-    compiler(
+    compileMarkdown(
       '«Cleanliness is the finest of uniforms and a great defender against disease»*. Silver fabric was flowing. A wasp, buzzing, touches the bronze lips of the dragon with delicate <Tooltip><TooltipTrigger>hymenous wings</TooltipTrigger><TooltipContent>wings thin like a membrane (hymenous = thin, like a hymen, meaning very thin skin).</TooltipContent></Tooltip>. On the <Tooltip><TooltipTrigger>carved</TooltipTrigger><TooltipContent>engraved.</TooltipContent></Tooltip> tree trunk like a <Tooltip><TooltipTrigger>cradle</TooltipTrigger><TooltipContent>a swing.</TooltipContent></Tooltip> trough, where the animals quench their thirst, the beehive rests after gathering from the flowers.'
     )
   );
@@ -143,13 +143,13 @@ it('#700 perf regression with unclosed inline syntax', () => {
 
 describe('inline textual elements', () => {
   it('should handle emphasized text', () => {
-    renderFn(compiler('*Hello.*'));
+    renderFn(compileMarkdown('*Hello.*'));
 
     expect(container.innerHTML).toMatchInlineSnapshot(`"<em>Hello.</em>"`);
   });
 
   it('should handle emphasized text spanning multiple lines', () => {
-    renderFn(compiler('*Hello\nWorld.*\n'));
+    renderFn(compileMarkdown('*Hello\nWorld.*\n'));
 
     expect(container.innerHTML).toMatchInlineSnapshot(`
       "<p><em>Hello
@@ -158,7 +158,7 @@ describe('inline textual elements', () => {
   });
 
   it('should handle double-emphasized text', () => {
-    renderFn(compiler('**Hello.**'));
+    renderFn(compileMarkdown('**Hello.**'));
 
     expect(container.innerHTML).toMatchInlineSnapshot(
       `"<strong>Hello.</strong>"`
@@ -166,7 +166,7 @@ describe('inline textual elements', () => {
   });
 
   it('should handle double-emphasized text with spaces', () => {
-    renderFn(compiler('\n**Hello World.**'));
+    renderFn(compileMarkdown('\n**Hello World.**'));
 
     expect(container.innerHTML).toMatchInlineSnapshot(
       `"<span>\n<strong>Hello World.</strong></span>"`
@@ -174,7 +174,7 @@ describe('inline textual elements', () => {
   });
 
   it('should handle double-emphasized text spanning multiple lines', () => {
-    renderFn(compiler('**Hello\nWorld.**\n'));
+    renderFn(compileMarkdown('**Hello\nWorld.**\n'));
 
     expect(container.innerHTML).toMatchInlineSnapshot(`
       "<p><strong>Hello
@@ -183,7 +183,7 @@ describe('inline textual elements', () => {
   });
 
   it('should handle triple-emphasized text', () => {
-    renderFn(compiler('***Hello.***'));
+    renderFn(compileMarkdown('***Hello.***'));
 
     expect(container.innerHTML).toMatchInlineSnapshot(
       `"<strong><em>Hello.</em></strong>"`
@@ -191,7 +191,7 @@ describe('inline textual elements', () => {
   });
 
   it('should handle triple-emphasized text spanning multiple lines', () => {
-    renderFn(compiler('***Hello\nWorld.***\n'));
+    renderFn(compileMarkdown('***Hello\nWorld.***\n'));
 
     expect(container.innerHTML).toMatchInlineSnapshot(`
       "<p><strong><em>Hello
@@ -200,7 +200,7 @@ describe('inline textual elements', () => {
   });
 
   it('should handle triple-emphasized text with mixed syntax 1/2', () => {
-    renderFn(compiler('**_Hello._**'));
+    renderFn(compileMarkdown('**_Hello._**'));
 
     expect(container.innerHTML).toMatchInlineSnapshot(
       `"<strong><em>Hello.</em></strong>"`
@@ -208,7 +208,7 @@ describe('inline textual elements', () => {
   });
 
   it('should handle triple-emphasized text with mixed syntax 2/2', () => {
-    renderFn(compiler('_**Hello.**_'));
+    renderFn(compileMarkdown('_**Hello.**_'));
 
     expect(container.innerHTML).toMatchInlineSnapshot(
       `"<em><strong>Hello.</strong></em>"`
@@ -216,7 +216,7 @@ describe('inline textual elements', () => {
   });
 
   it('should handle the alternate form of bold/italic', () => {
-    renderFn(compiler('___Hello.___'));
+    renderFn(compileMarkdown('___Hello.___'));
 
     expect(container.innerHTML).toMatchInlineSnapshot(
       `"<strong><em>Hello.</em></strong>"`
@@ -224,13 +224,13 @@ describe('inline textual elements', () => {
   });
 
   it('should handle deleted text', () => {
-    renderFn(compiler('~~Hello.~~'));
+    renderFn(compileMarkdown('~~Hello.~~'));
 
     expect(container.innerHTML).toMatchInlineSnapshot(`"<del>Hello.</del>"`);
   });
 
   it('should handle deleted text containing other syntax with a tilde', () => {
-    renderFn(compiler('~~Foo `~~bar` baz.~~'));
+    renderFn(compileMarkdown('~~Foo `~~bar` baz.~~'));
 
     expect(container.innerHTML).toMatchInlineSnapshot(
       `"<del>Foo <code>~~bar</code> baz.</del>"`
@@ -238,7 +238,7 @@ describe('inline textual elements', () => {
   });
 
   it('should handle deleted text spanning multiple lines', () => {
-    renderFn(compiler('~~Hello\nWorld.~~\n'));
+    renderFn(compileMarkdown('~~Hello\nWorld.~~\n'));
 
     expect(container.innerHTML).toMatchInlineSnapshot(`
       "<p><del>Hello
@@ -247,7 +247,7 @@ describe('inline textual elements', () => {
   });
 
   it('should handle consecutive marked text', () => {
-    renderFn(compiler('==Hello== ==World=='));
+    renderFn(compileMarkdown('==Hello== ==World=='));
 
     expect(container.innerHTML).toMatchInlineSnapshot(
       `"<span><mark>Hello</mark> <mark>World</mark></span>"`
@@ -255,7 +255,7 @@ describe('inline textual elements', () => {
   });
 
   it('should handle marked text containing other syntax with an equal sign', () => {
-    renderFn(compiler('==Foo `==bar` baz.=='));
+    renderFn(compileMarkdown('==Foo `==bar` baz.=='));
 
     expect(container.innerHTML).toMatchInlineSnapshot(
       `"<mark>Foo <code>==bar</code> baz.</mark>"`
@@ -263,7 +263,7 @@ describe('inline textual elements', () => {
   });
 
   it('should handle marked text spanning multiple lines', () => {
-    renderFn(compiler('==Hello\nWorld.==\n'));
+    renderFn(compileMarkdown('==Hello\nWorld.==\n'));
 
     expect(container.innerHTML).toMatchInlineSnapshot(`
       "<p><mark>Hello
@@ -272,7 +272,7 @@ describe('inline textual elements', () => {
   });
 
   it('should handle block deleted text containing other syntax with a tilde', () => {
-    renderFn(compiler('~~Foo `~~bar` baz.~~\n\nFoo ~~bar~~.'));
+    renderFn(compileMarkdown('~~Foo `~~bar` baz.~~\n\nFoo ~~bar~~.'));
 
     expect(container.innerHTML).toMatchInlineSnapshot(`
       "<div><p><del>Foo <code>~~bar</code> baz.</del></p>
@@ -281,7 +281,7 @@ describe('inline textual elements', () => {
   });
 
   it('should handle escaped text', () => {
-    renderFn(compiler('Hello.\\_\\_foo\\_\\_'));
+    renderFn(compileMarkdown('Hello.\\_\\_foo\\_\\_'));
 
     expect(container.innerHTML).toMatchInlineSnapshot(
       `"<span>Hello.__foo__</span>"`
@@ -289,7 +289,9 @@ describe('inline textual elements', () => {
   });
 
   it('regression test for #188, mismatched syntaxes triggered the wrong result', () => {
-    renderFn(compiler('*This should render as normal text, not emphasized._'));
+    renderFn(
+      compileMarkdown('*This should render as normal text, not emphasized._')
+    );
 
     expect(container.innerHTML).toMatchInlineSnapshot(
       `"<span>*This should render as normal text, not emphasized._</span>"`
@@ -298,7 +300,7 @@ describe('inline textual elements', () => {
 
   it('ignore similar syntax inside inline syntax', () => {
     renderFn(
-      compiler(
+      compileMarkdown(
         '*This should not misinterpret the asterisk <span>*</span> in the HTML.*'
       )
     );
@@ -308,7 +310,7 @@ describe('inline textual elements', () => {
     );
 
     renderFn(
-      compiler(
+      compileMarkdown(
         '*This should not misinterpret the asterisk [*](x) in the anchor text.*'
       )
     );
@@ -318,7 +320,7 @@ describe('inline textual elements', () => {
     );
 
     renderFn(
-      compiler(
+      compileMarkdown(
         '*This should not misinterpret the asterisk [foo](x*) in the link href.*'
       )
     );
@@ -328,7 +330,7 @@ describe('inline textual elements', () => {
     );
 
     renderFn(
-      compiler(
+      compileMarkdown(
         String.raw`*This should not misinterpret the asterisk ~~\*~~ in the strikethrough.*`
       )
     );
@@ -338,7 +340,7 @@ describe('inline textual elements', () => {
     );
 
     renderFn(
-      compiler(
+      compileMarkdown(
         '*This should not misinterpret the asterisk `*` in the backticks.*'
       )
     );
@@ -348,7 +350,7 @@ describe('inline textual elements', () => {
     );
 
     renderFn(
-      compiler(
+      compileMarkdown(
         `_This should not misinterpret the under\\_score that forms part of a word._`
       )
     );
@@ -359,7 +361,7 @@ describe('inline textual elements', () => {
   });
 
   it('replaces common HTML character codes with unicode equivalents so React will render correctly', () => {
-    renderFn(compiler('Foo &nbsp; bar&amp;baz.'));
+    renderFn(compileMarkdown('Foo &nbsp; bar&amp;baz.'));
 
     expect(container.innerHTML).toMatchInlineSnapshot(
       `"<span>Foo &nbsp; bar&amp;baz.</span>"`
@@ -368,7 +370,7 @@ describe('inline textual elements', () => {
 
   it('replaces custom named character codes with unicode equivalents so React will render correctly', () => {
     renderFn(
-      compiler('Apostrophe&#39;s and &le; equal', {
+      compileMarkdown('Apostrophe&#39;s and &le; equal', {
         namedCodesToUnicode: {
           le: '\u2264',
           '#39': '\u0027',
@@ -384,7 +386,7 @@ describe('inline textual elements', () => {
 
 describe('misc block level elements', () => {
   it('should handle blockquotes', () => {
-    renderFn(compiler('> Something important, perhaps?'));
+    renderFn(compileMarkdown('> Something important, perhaps?'));
 
     expect(container.innerHTML).toMatchInlineSnapshot(
       `"<blockquote>Something important, perhaps?</blockquote>"`
@@ -392,7 +394,7 @@ describe('misc block level elements', () => {
   });
 
   it('should handle lazy continuation lines of blockquotes', () => {
-    renderFn(compiler('> Line 1\nLine 2\n>Line 3'));
+    renderFn(compileMarkdown('> Line 1\nLine 2\n>Line 3'));
 
     expect(container.innerHTML).toMatchInlineSnapshot(`
       "<blockquote><p>Line 1\nLine 2\nLine 3</p>\n</blockquote>"
@@ -400,7 +402,9 @@ describe('misc block level elements', () => {
   });
 
   it('should handle consecutive blockquotes', () => {
-    renderFn(compiler('> Something important, perhaps?\n\n> Something else'));
+    renderFn(
+      compileMarkdown('> Something important, perhaps?\n\n> Something else')
+    );
 
     expect(container.innerHTML).toMatchInlineSnapshot(`
       "<div><blockquote>Something important, perhaps?</blockquote>
@@ -409,7 +413,7 @@ describe('misc block level elements', () => {
   });
 
   it('should handle alert blockquotes', () => {
-    renderFn(compiler('> [!NOTE]\n> Something important, perhaps?'));
+    renderFn(compileMarkdown('> [!NOTE]\n> Something important, perhaps?'));
 
     expect(container.innerHTML).toMatchInlineSnapshot(
       `"<blockquote class="markdown-alert-note"><header>NOTE</header>Something important, perhaps?</blockquote>"`
@@ -417,7 +421,9 @@ describe('misc block level elements', () => {
   });
 
   it('should handle a link in a blockquotes', () => {
-    renderFn(compiler('> Here is a link: [More info](https://example.com)'));
+    renderFn(
+      compileMarkdown('> Here is a link: [More info](https://example.com)')
+    );
 
     expect(container.innerHTML).toMatchInlineSnapshot(
       `"<blockquote>Here is a link: <a href="https://example.com">More info</a></blockquote>"`
@@ -425,7 +431,7 @@ describe('misc block level elements', () => {
   });
 
   it('should handle an image in a blockquotes', () => {
-    renderFn(compiler('> ![Alt text](https://example.com/image.png)'));
+    renderFn(compileMarkdown('> ![Alt text](https://example.com/image.png)'));
 
     expect(container.innerHTML).toMatchInlineSnapshot(
       `"<blockquote><img alt="Alt text" src="https://example.com/image.png"></blockquote>"`
@@ -433,7 +439,7 @@ describe('misc block level elements', () => {
   });
 
   it('should handle a code block in a blockquotes in multiple lines', () => {
-    renderFn(compiler('> `foo`\n> `bar`'));
+    renderFn(compileMarkdown('> `foo`\n> `bar`'));
 
     expect(container.innerHTML).toMatchInlineSnapshot(
       `"<blockquote><p><code>foo</code>\n<code>bar</code></p>\n</blockquote>"`
@@ -443,7 +449,7 @@ describe('misc block level elements', () => {
 
 describe('headings', () => {
   it('should handle level 1 properly', () => {
-    renderFn(compiler('# Hello World'));
+    renderFn(compileMarkdown('# Hello World'));
 
     expect(container.innerHTML).toMatchInlineSnapshot(
       `"<h1 id="hello-world">Hello World</h1>"`
@@ -451,13 +457,13 @@ describe('headings', () => {
   });
 
   it('should enforce atx when option is passed', () => {
-    renderFn(compiler('#Hello World', { enforceAtxHeadings: true }));
+    renderFn(compileMarkdown('#Hello World', { enforceAtxHeadings: true }));
 
     expect(container.innerHTML).toMatchInlineSnapshot(`"<p>#Hello World</p>"`);
   });
 
   it('should handle level 2 properly', () => {
-    renderFn(compiler('## Hello World'));
+    renderFn(compileMarkdown('## Hello World'));
 
     expect(container.innerHTML).toMatchInlineSnapshot(
       `"<h2 id="hello-world">Hello World</h2>"`
@@ -465,7 +471,7 @@ describe('headings', () => {
   });
 
   it('should handle level 3 properly', () => {
-    renderFn(compiler('### Hello World'));
+    renderFn(compileMarkdown('### Hello World'));
 
     expect(container.innerHTML).toMatchInlineSnapshot(
       `"<h3 id="hello-world">Hello World</h3>"`
@@ -473,7 +479,7 @@ describe('headings', () => {
   });
 
   it('should handle level 4 properly', () => {
-    renderFn(compiler('#### Hello World'));
+    renderFn(compileMarkdown('#### Hello World'));
 
     expect(container.innerHTML).toMatchInlineSnapshot(
       `"<h4 id="hello-world">Hello World</h4>"`
@@ -481,7 +487,7 @@ describe('headings', () => {
   });
 
   it('should handle level 5 properly', () => {
-    renderFn(compiler('##### Hello World'));
+    renderFn(compileMarkdown('##### Hello World'));
 
     expect(container.innerHTML).toMatchInlineSnapshot(
       `"<h5 id="hello-world">Hello World</h5>"`
@@ -489,7 +495,7 @@ describe('headings', () => {
   });
 
   it('should handle level 6 properly', () => {
-    renderFn(compiler('###### Hello World'));
+    renderFn(compileMarkdown('###### Hello World'));
 
     expect(container.innerHTML).toMatchInlineSnapshot(
       `"<h6 id="hello-world">Hello World</h6>"`
@@ -497,7 +503,7 @@ describe('headings', () => {
   });
 
   it('should handle setext level 1 style', () => {
-    renderFn(compiler('Hello World\n===========\n\nsomething'));
+    renderFn(compileMarkdown('Hello World\n===========\n\nsomething'));
 
     expect(container.innerHTML).toMatchInlineSnapshot(`
       "<div><h1>Hello World</h1>
@@ -506,7 +512,7 @@ describe('headings', () => {
   });
 
   it('should handle setext level 2 style', () => {
-    renderFn(compiler('Hello World\n-----------\n\nsomething'));
+    renderFn(compileMarkdown('Hello World\n-----------\n\nsomething'));
 
     expect(container.innerHTML).toMatchInlineSnapshot(`
       "<div><h2>Hello World</h2>
@@ -515,7 +521,7 @@ describe('headings', () => {
   });
 
   it('should handle consecutive headings without a padding newline', () => {
-    renderFn(compiler('# Hello World\n## And again'));
+    renderFn(compileMarkdown('# Hello World\n## And again'));
 
     expect(container.innerHTML).toMatchInlineSnapshot(
       `"<div><h1 id="hello-world">Hello World</h1><h2 id="and-again">And again</h2></div>"`
@@ -523,7 +529,7 @@ describe('headings', () => {
   });
 
   it('trims closing hashes in headers', () => {
-    renderFn(compiler('# Hello World #########\nHere is the body'));
+    renderFn(compileMarkdown('# Hello World #########\nHere is the body'));
 
     expect(container.innerHTML).toMatchInlineSnapshot(
       `"<div><h1 id="hello-world">Hello World</h1><p>Here is the body</p></div>"`
@@ -531,7 +537,9 @@ describe('headings', () => {
   });
 
   it('keeps hashes before closing hashes in headers and hashes without whitespace preceding', () => {
-    renderFn(compiler('# Hello World # #\n## Subheader#\nHere is the body'));
+    renderFn(
+      compileMarkdown('# Hello World # #\n## Subheader#\nHere is the body')
+    );
 
     expect(container.innerHTML).toMatchInlineSnapshot(
       `"<div><h1 id="hello-world-">Hello World #</h1><h2 id="subheader">Subheader#</h2><p>Here is the body</p></div>"`
@@ -539,7 +547,7 @@ describe('headings', () => {
   });
 
   it('adds an "id" attribute to headings for deeplinking purposes', () => {
-    renderFn(compiler("# This is~ a very' complicated> header!"));
+    renderFn(compileMarkdown("# This is~ a very' complicated> header!"));
 
     expect(container.innerHTML).toMatchInlineSnapshot(
       `"<h1 id="this-is-a-very-complicated-header">This is~ a very' complicated&gt; header!</h1>"`
@@ -547,7 +555,7 @@ describe('headings', () => {
   });
 
   it('#595 regression - handle pipe character inside header', () => {
-    renderFn(compiler('# Heading | text'));
+    renderFn(compileMarkdown('# Heading | text'));
 
     expect(container.innerHTML).toMatchInlineSnapshot(
       `"<h1 id="heading--text">Heading | text</h1>"`
@@ -557,7 +565,7 @@ describe('headings', () => {
 
 describe('images', () => {
   it('should handle a basic image', () => {
-    renderFn(compiler('![](/xyz.png)'));
+    renderFn(compileMarkdown('![](/xyz.png)'));
 
     expect(container.innerHTML).toMatchInlineSnapshot(
       `"<img alt="" src="/xyz.png">"`
@@ -566,7 +574,7 @@ describe('images', () => {
 
   it('should handle a base64-encoded image', () => {
     renderFn(
-      compiler(
+      compileMarkdown(
         '![Red Dot](data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==)'
       )
     );
@@ -577,7 +585,7 @@ describe('images', () => {
   });
 
   it('should handle an image with alt text', () => {
-    renderFn(compiler('![test](/xyz.png)'));
+    renderFn(compileMarkdown('![test](/xyz.png)'));
 
     expect(container.innerHTML).toMatchInlineSnapshot(
       `"<img alt="test" src="/xyz.png">"`
@@ -585,7 +593,7 @@ describe('images', () => {
   });
 
   it('should handle an image with escaped alt text', () => {
-    renderFn(compiler('![\\-\\<stuff](https://somewhere)'));
+    renderFn(compileMarkdown('![\\-\\<stuff](https://somewhere)'));
 
     expect(container.innerHTML).toMatchInlineSnapshot(
       `"<img alt="-<stuff" src="https://somewhere">"`
@@ -593,7 +601,7 @@ describe('images', () => {
   });
 
   it('should handle an image with title', () => {
-    renderFn(compiler('![test](/xyz.png "foo")'));
+    renderFn(compileMarkdown('![test](/xyz.png "foo")'));
 
     expect(container.innerHTML).toMatchInlineSnapshot(
       `"<img alt="test" title="foo" src="/xyz.png">"`
@@ -602,7 +610,7 @@ describe('images', () => {
 
   it('should handle an image reference', () => {
     const markdown = ['![][1]', '[1]: /xyz.png'].join('\n');
-    renderFn(compiler(markdown));
+    renderFn(compileMarkdown(markdown));
 
     expect(container.innerHTML).toMatchInlineSnapshot(`
       "<p><img src="/xyz.png">
@@ -612,7 +620,7 @@ describe('images', () => {
 
   it('should gracefully handle an empty image reference', () => {
     const markdown = ['![][1]', '[2]: /xyz.png'].join('\n');
-    renderFn(compiler(markdown));
+    renderFn(compileMarkdown(markdown));
 
     expect(container.innerHTML).toMatchInlineSnapshot(`
       "<p>
@@ -622,7 +630,7 @@ describe('images', () => {
 
   it('should handle an image reference with alt text', () => {
     const markdown = ['![test][1]', '[1]: /xyz.png'].join('\n');
-    renderFn(compiler(markdown));
+    renderFn(compileMarkdown(markdown));
 
     expect(container.innerHTML).toMatchInlineSnapshot(`
       "<p><img alt="test" src="/xyz.png">
@@ -632,7 +640,7 @@ describe('images', () => {
 
   it('should handle an image reference with title', () => {
     const markdown = ['![test][1]', '[1]: /xyz.png "foo"'].join('\n');
-    renderFn(compiler(markdown));
+    renderFn(compileMarkdown(markdown));
 
     expect(container.innerHTML).toMatchInlineSnapshot(`
       "<p><img alt="test" title="foo" src="/xyz.png">
@@ -642,7 +650,7 @@ describe('images', () => {
 
   it('should handle an image inside a link', () => {
     renderFn(
-      compiler(
+      compileMarkdown(
         `[![youtubeImg](https://www.gstatic.com/youtube/img/promos/growth/ytp_lp2_logo_phone_landscape_300x44.png)](https://www.youtube.com/)`
       )
     );
@@ -655,7 +663,7 @@ describe('images', () => {
 
 describe('links', () => {
   it('should handle a basic link', () => {
-    renderFn(compiler('[foo](/xyz.png)'));
+    renderFn(compileMarkdown('[foo](/xyz.png)'));
 
     expect(container.innerHTML).toMatchInlineSnapshot(
       `"<a href="/xyz.png">foo</a>"`
@@ -663,7 +671,7 @@ describe('links', () => {
   });
 
   it('should handle a link with title', () => {
-    renderFn(compiler('[foo](/xyz.png "bar")'));
+    renderFn(compileMarkdown('[foo](/xyz.png "bar")'));
 
     expect(container.innerHTML).toMatchInlineSnapshot(
       `"<a href="/xyz.png" title="bar">foo</a>"`
@@ -671,7 +679,7 @@ describe('links', () => {
   });
 
   it('should handle a link reference', () => {
-    renderFn(compiler(['[foo][1]', '[1]: /xyz.png'].join('\n')));
+    renderFn(compileMarkdown(['[foo][1]', '[1]: /xyz.png'].join('\n')));
 
     expect(container.innerHTML).toMatchInlineSnapshot(`
       "<p><a href="/xyz.png">foo</a>
@@ -680,7 +688,7 @@ describe('links', () => {
   });
 
   it('should handle a link reference with a space', () => {
-    renderFn(compiler(['[foo] [1]', '[1]: /xyz.png'].join('\n')));
+    renderFn(compileMarkdown(['[foo] [1]', '[1]: /xyz.png'].join('\n')));
 
     expect(container.innerHTML).toMatchInlineSnapshot(`
       "<p><a href="/xyz.png">foo</a>
@@ -689,7 +697,7 @@ describe('links', () => {
   });
 
   it('should handle a link reference with title', () => {
-    renderFn(compiler(['[foo][1]', '[1]: /xyz.png "bar"'].join('\n')));
+    renderFn(compileMarkdown(['[foo][1]', '[1]: /xyz.png "bar"'].join('\n')));
 
     expect(container.innerHTML).toMatchInlineSnapshot(`
       "<p><a href="/xyz.png" title="bar">foo</a>
@@ -698,7 +706,7 @@ describe('links', () => {
   });
 
   it('should handle a link reference with angle brackets', () => {
-    renderFn(compiler(['[foo][1]', '[1]: </xyz.png>'].join('\n')));
+    renderFn(compileMarkdown(['[foo][1]', '[1]: </xyz.png>'].join('\n')));
 
     expect(container.innerHTML).toMatchInlineSnapshot(`
       "<p><a href="/xyz.png">foo</a>
@@ -707,7 +715,7 @@ describe('links', () => {
   });
 
   it('should handle a link reference with angle brackets and a space', () => {
-    renderFn(compiler(['[foo] [1]', '[1]: </xyz.png>'].join('\n')));
+    renderFn(compileMarkdown(['[foo] [1]', '[1]: </xyz.png>'].join('\n')));
 
     expect(container.innerHTML).toMatchInlineSnapshot(`
       "<p><a href="/xyz.png">foo</a>
@@ -716,7 +724,7 @@ describe('links', () => {
   });
 
   it('should handle a link reference with angle brackets and a title', () => {
-    renderFn(compiler(['[foo][1]', '[1]: </xyz.png> "bar"'].join('\n')));
+    renderFn(compileMarkdown(['[foo][1]', '[1]: </xyz.png> "bar"'].join('\n')));
 
     expect(container.innerHTML).toMatchInlineSnapshot(`
       "<p><a href="/xyz.png" title="bar">foo</a>
@@ -726,7 +734,7 @@ describe('links', () => {
 
   it('should gracefully handle an empty link reference', () => {
     const markdown = ['[][1]', '[2]: foo'].join('\n');
-    renderFn(compiler(markdown));
+    renderFn(compileMarkdown(markdown));
 
     expect(container.innerHTML).toMatchInlineSnapshot(`
       "<p><span>[][1]</span>
@@ -735,7 +743,7 @@ describe('links', () => {
   });
 
   it('list item should break paragraph', () => {
-    renderFn(compiler('foo\n- item'));
+    renderFn(compileMarkdown('foo\n- item'));
 
     expect(container.innerHTML).toMatchInlineSnapshot(
       `"<div><p>foo</p><ul><li>item</li></ul></div>"`
@@ -744,7 +752,7 @@ describe('links', () => {
 
   it('#474 link regression test', () => {
     renderFn(
-      compiler(
+      compileMarkdown(
         '[Markdown](https://cdn.vox-cdn.com/thumbor/ZGzvLsLuAaPPVW8yZMGqL77xyY8=/0x0:1917x789/1720x0/filters:focal(0x0:1917x789):format(webp):no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/24148777/cavill6.png)'
       )
     );
@@ -755,7 +763,7 @@ describe('links', () => {
   });
 
   it('header should break paragraph', () => {
-    renderFn(compiler('foo\n# header'));
+    renderFn(compileMarkdown('foo\n# header'));
 
     expect(container.innerHTML).toMatchInlineSnapshot(
       `"<div><p>foo</p><h1 id="header">header</h1></div>"`
@@ -763,7 +771,7 @@ describe('links', () => {
   });
 
   it('should handle autolink style', () => {
-    renderFn(compiler('<https://google.com>'));
+    renderFn(compileMarkdown('<https://google.com>'));
 
     expect(container.innerHTML).toMatchInlineSnapshot(
       `"<a href="https://google.com">https://google.com</a>"`
@@ -774,7 +782,7 @@ describe('links', () => {
     const markdown = ['**autolink** style', '', '<https://google.com>'].join(
       '\n'
     );
-    renderFn(compiler(markdown));
+    renderFn(compileMarkdown(markdown));
 
     expect(container.innerHTML).toMatchInlineSnapshot(`
       "<div><p><strong>autolink</strong> style</p>
@@ -788,7 +796,7 @@ describe('links', () => {
       '',
       '<mailto:probablyup@gmail.com>',
     ].join('\n');
-    renderFn(compiler(markdown));
+    renderFn(compileMarkdown(markdown));
 
     expect(container.innerHTML).toMatchInlineSnapshot(`
       "<div><p><strong>autolink</strong> style</p>
@@ -797,7 +805,7 @@ describe('links', () => {
   });
 
   it('should handle a mailto autolink', () => {
-    renderFn(compiler('<mailto:probablyup@gmail.com>'));
+    renderFn(compileMarkdown('<mailto:probablyup@gmail.com>'));
 
     expect(container.innerHTML).toMatchInlineSnapshot(
       `"<a href="mailto:probablyup@gmail.com">probablyup@gmail.com</a>"`
@@ -805,7 +813,7 @@ describe('links', () => {
   });
 
   it('should an email autolink and add a mailto: prefix', () => {
-    renderFn(compiler('<probablyup@gmail.com>'));
+    renderFn(compileMarkdown('<probablyup@gmail.com>'));
 
     expect(container.innerHTML).toMatchInlineSnapshot(
       `"<a href="mailto:probablyup@gmail.com">probablyup@gmail.com</a>"`
@@ -813,7 +821,7 @@ describe('links', () => {
   });
 
   it('should automatically link found URLs', () => {
-    renderFn(compiler('https://google.com'));
+    renderFn(compileMarkdown('https://google.com'));
 
     expect(container.innerHTML).toMatchInlineSnapshot(
       `"<a href="https://google.com">https://google.com</a>"`
@@ -821,7 +829,9 @@ describe('links', () => {
   });
 
   it('should not link bare URL if it is already inside an anchor tag', () => {
-    renderFn(compiler('<a href="https://google.com">https://google.com</a>'));
+    renderFn(
+      compileMarkdown('<a href="https://google.com">https://google.com</a>')
+    );
 
     expect(container.innerHTML).toMatchInlineSnapshot(
       `"<a href="https://google.com">https://google.com</a>"`
@@ -830,7 +840,7 @@ describe('links', () => {
 
   it('should not link URL if it is nested inside an anchor tag', () => {
     renderFn(
-      compiler(
+      compileMarkdown(
         '<a href="https://google.com">some text <span>with a link https://google.com</span></a>'
       )
     );
@@ -840,7 +850,7 @@ describe('links', () => {
     );
 
     renderFn(
-      compiler(
+      compileMarkdown(
         '<a href="https://google.com">some text <span>with a nested link <span>https://google.com</span></span></a>'
       )
     );
@@ -851,7 +861,7 @@ describe('links', () => {
   });
 
   it('should not link bare URL if disabled via options', () => {
-    renderFn(compiler('https://google.com', { disableAutoLink: true }));
+    renderFn(compileMarkdown('https://google.com', { disableAutoLink: true }));
 
     expect(container.innerHTML).toMatchInlineSnapshot(
       `"<span>https://google.com</span>"`
@@ -863,7 +873,9 @@ describe('links', () => {
     vi.spyOn(console, 'error').mockImplementation(() => {});
 
     renderFn(
-      compiler('[foo](javascript:doSomethingBad)', { sanitizer: (x) => x })
+      compileMarkdown('[foo](javascript:doSomethingBad)', {
+        sanitizer: (x) => x,
+      })
     );
 
     expect(container.innerHTML).toMatchInlineSnapshot(
@@ -878,7 +890,7 @@ describe('links', () => {
     vi.spyOn(console, 'error').mockImplementation(() => {});
 
     renderFn(
-      compiler(
+      compileMarkdown(
         '[foo](javascript:doSomethingBad)\n![foo](javascript:doSomethingBad)',
         {
           sanitizer: (value, tag) => (tag === 'a' ? value : sanitizer(value)),
@@ -898,7 +910,7 @@ describe('links', () => {
     vi.spyOn(console, 'warn').mockImplementation(() => {});
     vi.spyOn(console, 'error').mockImplementation(() => {});
 
-    renderFn(compiler('[foo](javascript:doSomethingBad)'));
+    renderFn(compileMarkdown('[foo](javascript:doSomethingBad)'));
 
     expect(container.innerHTML).toMatchInlineSnapshot(`"<a>foo</a>"`);
 
@@ -909,7 +921,7 @@ describe('links', () => {
     vi.spyOn(console, 'warn').mockImplementation(() => {});
     vi.spyOn(console, 'error').mockImplementation(() => {});
 
-    renderFn(compiler('![foo](javascript:doSomethingBad)'));
+    renderFn(compileMarkdown('![foo](javascript:doSomethingBad)'));
 
     expect(container.innerHTML).toMatchInlineSnapshot(`"<img alt="foo">"`);
 
@@ -920,7 +932,7 @@ describe('links', () => {
     vi.spyOn(console, 'warn').mockImplementation(() => {});
     vi.spyOn(console, 'error').mockImplementation(() => {});
 
-    renderFn(compiler('[foo](data:doSomethingBad)'));
+    renderFn(compileMarkdown('[foo](data:doSomethingBad)'));
     expect(container.innerHTML).toMatchInlineSnapshot(`"<a>foo</a>"`);
     expect(console.warn).toHaveBeenCalled();
   });
@@ -929,7 +941,7 @@ describe('links', () => {
     vi.spyOn(console, 'warn').mockImplementation(() => {});
     vi.spyOn(console, 'error').mockImplementation(() => {});
 
-    renderFn(compiler('[foo](vbScript:doSomethingBad)'));
+    renderFn(compileMarkdown('[foo](vbScript:doSomethingBad)'));
     expect(container.innerHTML).toMatchInlineSnapshot(`"<a>foo</a>"`);
     expect(console.warn).toHaveBeenCalled();
   });
@@ -938,7 +950,7 @@ describe('links', () => {
     vi.spyOn(console, 'warn').mockImplementation(() => {});
     vi.spyOn(console, 'error').mockImplementation(() => {});
 
-    renderFn(compiler('[foo](javascript%3AdoSomethingBad)'));
+    renderFn(compileMarkdown('[foo](javascript%3AdoSomethingBad)'));
 
     expect(container.innerHTML).toMatchInlineSnapshot(`"<a>foo</a>"`);
 
@@ -949,7 +961,7 @@ describe('links', () => {
     vi.spyOn(console, 'warn').mockImplementation(() => {});
     vi.spyOn(console, 'error').mockImplementation(() => {});
 
-    renderFn(compiler('[foo](  javascript%3AdoSomethingBad)'));
+    renderFn(compileMarkdown('[foo](  javascript%3AdoSomethingBad)'));
 
     expect(container.innerHTML).toMatchInlineSnapshot(`"<a>foo</a>"`);
 
@@ -960,7 +972,7 @@ describe('links', () => {
     vi.spyOn(console, 'warn').mockImplementation(() => {});
     vi.spyOn(console, 'error').mockImplementation(() => {});
 
-    renderFn(compiler('[foo](  VBScript%3AdoSomethingBad)'));
+    renderFn(compileMarkdown('[foo](  VBScript%3AdoSomethingBad)'));
 
     expect(container.innerHTML).toMatchInlineSnapshot(`"<a>foo</a>"`);
     expect(console.warn).toHaveBeenCalled();
@@ -970,7 +982,7 @@ describe('links', () => {
     vi.spyOn(console, 'warn').mockImplementation(() => {});
     vi.spyOn(console, 'error').mockImplementation(() => {});
 
-    renderFn(compiler('![foo](  VBScript%3AdoSomethingBad)'));
+    renderFn(compileMarkdown('![foo](  VBScript%3AdoSomethingBad)'));
     expect(container.innerHTML).toMatchInlineSnapshot(`"<img alt="foo">"`);
     expect(console.warn).toHaveBeenCalled();
   });
@@ -979,7 +991,7 @@ describe('links', () => {
     vi.spyOn(console, 'warn').mockImplementation(() => {});
     vi.spyOn(console, 'error').mockImplementation(() => {});
 
-    renderFn(compiler('[foo](`<data:doSomethingBad)'));
+    renderFn(compileMarkdown('[foo](`<data:doSomethingBad)'));
     expect(container.innerHTML).toMatchInlineSnapshot(`"<a>foo</a>"`);
     expect(console.warn).toHaveBeenCalled();
   });
@@ -988,7 +1000,7 @@ describe('links', () => {
     vi.spyOn(console, 'warn').mockImplementation(() => {});
     vi.spyOn(console, 'error').mockImplementation(() => {});
 
-    renderFn(compiler('![foo](`<data:doSomethingBad)'));
+    renderFn(compileMarkdown('![foo](`<data:doSomethingBad)'));
     expect(container.innerHTML).toMatchInlineSnapshot(`"<img alt="foo">"`);
     expect(console.warn).toHaveBeenCalled();
   });
@@ -997,7 +1009,7 @@ describe('links', () => {
     vi.spyOn(console, 'warn').mockImplementation(() => {});
     vi.spyOn(console, 'error').mockImplementation(() => {});
 
-    renderFn(compiler('[foo](https://google.com/%AF)'));
+    renderFn(compileMarkdown('[foo](https://google.com/%AF)'));
 
     expect(container.innerHTML).toMatchInlineSnapshot(`"<a>foo</a>"`);
     expect(console.warn).toHaveBeenCalled();
@@ -1007,7 +1019,7 @@ describe('links', () => {
     vi.spyOn(console, 'warn').mockImplementation(() => {});
     vi.spyOn(console, 'error').mockImplementation(() => {});
 
-    renderFn(compiler('<a href="javascript:doSomethingBad">foo</a>'));
+    renderFn(compileMarkdown('<a href="javascript:doSomethingBad">foo</a>'));
 
     expect(container.innerHTML).toMatchInlineSnapshot(`"<a>foo</a>"`);
 
@@ -1018,7 +1030,7 @@ describe('links', () => {
     vi.spyOn(console, 'warn').mockImplementation(() => {});
     vi.spyOn(console, 'error').mockImplementation(() => {});
 
-    renderFn(compiler('<a href="<`data:doSomethingBad">foo</a>'));
+    renderFn(compileMarkdown('<a href="<`data:doSomethingBad">foo</a>'));
     expect(container.innerHTML).toMatchInlineSnapshot(`"<a>foo</a>"`);
     expect(console.warn).toHaveBeenCalled();
   });
@@ -1027,7 +1039,9 @@ describe('links', () => {
     vi.spyOn(console, 'warn').mockImplementation(() => {});
     vi.spyOn(console, 'error').mockImplementation(() => {});
 
-    renderFn(compiler('<img src="`<javascript:alert>`(\'alertstr\')" />'));
+    renderFn(
+      compileMarkdown('<img src="`<javascript:alert>`(\'alertstr\')" />')
+    );
     expect(container.innerHTML).toMatchInlineSnapshot(`"<img>"`);
     expect(console.warn).toHaveBeenCalled();
   });
@@ -1036,7 +1050,7 @@ describe('links', () => {
     vi.spyOn(console, 'warn').mockImplementation(() => {});
     vi.spyOn(console, 'error').mockImplementation(() => {});
 
-    renderFn(compiler('<img src="<src=\\"javascript:alert(`xss`)">'));
+    renderFn(compileMarkdown('<img src="<src=\\"javascript:alert(`xss`)">'));
     expect(container.innerHTML).toMatchInlineSnapshot(`"<img>"`);
     expect(console.warn).toHaveBeenCalled();
   });
@@ -1046,7 +1060,7 @@ describe('links', () => {
     vi.spyOn(console, 'error').mockImplementation(() => {});
 
     renderFn(
-      compiler(
+      compileMarkdown(
         '<div style="background-image: url(javascript:alert(`xss`)); color: red;">'
       )
     );
@@ -1061,7 +1075,7 @@ describe('links', () => {
     vi.spyOn(console, 'error').mockImplementation(() => {});
 
     renderFn(
-      compiler(
+      compileMarkdown(
         '<div style="background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==); color: red;">'
       )
     );
@@ -1073,7 +1087,9 @@ describe('links', () => {
 
   it('should handle a link with a URL in the text', () => {
     renderFn(
-      compiler('[https://www.google.com *heck yeah*](http://www.google.com)')
+      compileMarkdown(
+        '[https://www.google.com *heck yeah*](http://www.google.com)'
+      )
     );
 
     expect(container.innerHTML).toMatchInlineSnapshot(
@@ -1083,7 +1099,7 @@ describe('links', () => {
 
   it('regression test for #188, link inside underscore emphasis with underscore', () => {
     renderFn(
-      compiler(
+      compileMarkdown(
         '_This is emphasized text with [a link](https://example.com/asdf_asdf.pdf), and another [link](https://example.com)._'
       )
     );
@@ -1095,7 +1111,7 @@ describe('links', () => {
 
   it('regression test for #188, link inside underscore bolding with underscore', () => {
     renderFn(
-      compiler(
+      compileMarkdown(
         '__This is emphasized text with [a link](https://example.com/asdf__asdf.pdf), and another [link](https://example.com).__'
       )
     );
@@ -1106,7 +1122,9 @@ describe('links', () => {
   });
 
   it('renders plain links preceded by text', () => {
-    renderFn(compiler('Some text http://www.test.com/some-resource/123'));
+    renderFn(
+      compileMarkdown('Some text http://www.test.com/some-resource/123')
+    );
 
     expect(container.innerHTML).toMatchInlineSnapshot(
       `"<span>Some text <a href="http://www.test.com/some-resource/123">http://www.test.com/some-resource/123</a></span>"`
@@ -1116,7 +1134,7 @@ describe('links', () => {
 
 describe('lists', () => {
   it('should handle a tight list', () => {
-    renderFn(compiler(['- xyz', '- abc', '- foo'].join('\n')));
+    renderFn(compileMarkdown(['- xyz', '- abc', '- foo'].join('\n')));
 
     expect(container.innerHTML).toMatchInlineSnapshot(
       `"<ul><li>xyz</li><li>abc</li><li>foo</li></ul>"`
@@ -1124,7 +1142,7 @@ describe('lists', () => {
   });
 
   it('should handle a loose list', () => {
-    renderFn(compiler(['- xyz', '', '- abc', '', '- foo'].join('\n')));
+    renderFn(compileMarkdown(['- xyz', '', '- abc', '', '- foo'].join('\n')));
 
     expect(container.innerHTML).toMatchInlineSnapshot(`
       "<ul><li><p>xyz</p>
@@ -1135,7 +1153,7 @@ describe('lists', () => {
   });
 
   it('should handle an ordered list', () => {
-    renderFn(compiler(['1. xyz', '1. abc', '1. foo'].join('\n')));
+    renderFn(compileMarkdown(['1. xyz', '1. abc', '1. foo'].join('\n')));
 
     expect(container.innerHTML).toMatchInlineSnapshot(
       `"<ol start="1"><li>xyz</li><li>abc</li><li>foo</li></ol>"`
@@ -1143,7 +1161,7 @@ describe('lists', () => {
   });
 
   it('should handle an ordered list with a specific start index', () => {
-    renderFn(compiler(['2. xyz', '3. abc', '4. foo'].join('\n')));
+    renderFn(compileMarkdown(['2. xyz', '3. abc', '4. foo'].join('\n')));
 
     expect(container.innerHTML).toMatchInlineSnapshot(
       `"<ol start="2"><li>xyz</li><li>abc</li><li>foo</li></ol>"`
@@ -1151,7 +1169,7 @@ describe('lists', () => {
   });
 
   it('should handle a nested list', () => {
-    renderFn(compiler(['- xyz', '  - abc', '- foo'].join('\n')));
+    renderFn(compileMarkdown(['- xyz', '  - abc', '- foo'].join('\n')));
 
     expect(container.innerHTML).toMatchInlineSnapshot(`
       "<ul><li>xyz
@@ -1160,7 +1178,9 @@ describe('lists', () => {
   });
 
   it('should handle a mixed nested list', () => {
-    renderFn(compiler(['- xyz', '  1. abc', '    - def', '- foo'].join('\n')));
+    renderFn(
+      compileMarkdown(['- xyz', '  1. abc', '    - def', '- foo'].join('\n'))
+    );
 
     expect(container.innerHTML).toMatchInlineSnapshot(`
       "<ul><li>xyz
@@ -1173,7 +1193,7 @@ describe('lists', () => {
     const markdown = ['', '- xyz', '  1. abc', '    - def', '- foo', ''].join(
       '\n'
     );
-    renderFn(compiler(markdown));
+    renderFn(compileMarkdown(markdown));
 
     expect(container.innerHTML).toMatchInlineSnapshot(`
       "<ul><li>xyz
@@ -1184,7 +1204,7 @@ describe('lists', () => {
 
   it('should handle link trees', () => {
     renderFn(
-      compiler(`
+      compileMarkdown(`
 - [buttermilk](#buttermilk)
 - [installation](#installation)
 - [usage](#usage)
@@ -1210,7 +1230,7 @@ describe('lists', () => {
 
   it('handles horizontal rules after lists', () => {
     renderFn(
-      compiler(`
+      compileMarkdown(`
 -   one
 -   two
 
@@ -1225,7 +1245,7 @@ describe('lists', () => {
 
   it('regression #613 - list false detection inside inline syntax', () => {
     renderFn(
-      compiler(`
+      compileMarkdown(`
 - foo
 - bar **+ baz** qux **quux**
       `)
@@ -1239,7 +1259,7 @@ describe('lists', () => {
 
 describe('GFM task lists', () => {
   it('should handle unchecked items', () => {
-    renderFn(compiler('- [ ] foo'));
+    renderFn(compileMarkdown('- [ ] foo'));
 
     const checkbox = container.querySelector('ul li input') as HTMLInputElement;
 
@@ -1250,7 +1270,7 @@ describe('GFM task lists', () => {
   });
 
   it('should handle checked items', () => {
-    renderFn(compiler('- [x] foo'));
+    renderFn(compileMarkdown('- [x] foo'));
 
     const checkbox = container.querySelector('ul li input') as HTMLInputElement;
 
@@ -1261,7 +1281,7 @@ describe('GFM task lists', () => {
   });
 
   it('should mark the checkboxes as readonly', () => {
-    renderFn(compiler('- [x] foo'));
+    renderFn(compileMarkdown('- [x] foo'));
 
     const checkbox = container.querySelector('ul li input') as HTMLInputElement;
 
@@ -1273,7 +1293,7 @@ describe('GFM task lists', () => {
 describe('GFM tables', () => {
   it('should handle a basic table', () => {
     renderFn(
-      compiler(`
+      compileMarkdown(`
         |foo|bar|
         ---|---
         1  |2
@@ -1289,7 +1309,7 @@ describe('GFM tables', () => {
 
   it('should handle a table with aligned columns', () => {
     renderFn(
-      compiler(`
+      compileMarkdown(`
         |foo|bar|baz|
         --:|:---:|:--
         1|2|3
@@ -1305,7 +1325,7 @@ describe('GFM tables', () => {
 
   it('should handle the other syntax for tables', () => {
     renderFn(
-      compiler(`
+      compileMarkdown(`
         | Foo | Bar |
         | --- | --- |
         | 1   | 2   |
@@ -1323,7 +1343,7 @@ describe('GFM tables', () => {
 
   it('should handle the other syntax for tables with alignment', () => {
     renderFn(
-      compiler(`
+      compileMarkdown(`
         | Foo | Bar | Baz |
         | --: | :-: | :-- |
         | 1   | 2   | 3   |
@@ -1341,7 +1361,7 @@ describe('GFM tables', () => {
 
   it('#241 should not ignore the first cell when its contents is empty', () => {
     renderFn(
-      compiler(`
+      compileMarkdown(`
         | Foo | Bar | Baz |
         | --- | --- | --- |
         |   | 2   | 3   |
@@ -1359,7 +1379,7 @@ describe('GFM tables', () => {
 
   it('should handle other content after a table', () => {
     renderFn(
-      compiler(`
+      compileMarkdown(`
         | Foo | Bar | Baz |
         | --: | :-: | :-- |
         | 1   | 2   | 3   |
@@ -1381,7 +1401,7 @@ describe('GFM tables', () => {
 
   it('should handle escaped pipes inside a table', () => {
     renderFn(
-      compiler(`
+      compileMarkdown(`
         | \\|Attribute\\| | \\|Type\\|         |
         | --------------- | ------------------ |
         | pos\\|position  | "left" \\| "right" |
@@ -1397,7 +1417,7 @@ describe('GFM tables', () => {
 
   it('should handle pipes in code inside a table', () => {
     renderFn(
-      compiler(`
+      compileMarkdown(`
         | Attribute    | Type                  |
         | ------------ | --------------------- |
         | \`position\`   | \`"left" | "right"\`    |
@@ -1413,7 +1433,7 @@ describe('GFM tables', () => {
 
   it('processeses HTML inside of a table row', () => {
     renderFn(
-      compiler(`
+      compileMarkdown(`
         | Header                     |
         | -------------------------- |
         | <div>I'm in a "div"!</div> |
@@ -1429,7 +1449,7 @@ describe('GFM tables', () => {
 
   it('regression #625 - processes self-closing HTML inside of a table row', () => {
     renderFn(
-      compiler(`
+      compileMarkdown(`
         | col1 | col2 | col3 |
         |------|-----------------|------------------|
         | col1 | <custom-element>col2</custom-element><br> col2 | <custom-element>col3</custom-element><br>col3 |
@@ -1445,7 +1465,7 @@ describe('GFM tables', () => {
 
   it('processes markdown inside of a table row when a preceeding column contains HTML', () => {
     renderFn(
-      compiler(`
+      compileMarkdown(`
         | Column A                   | Column B                 |
         | -------------------------- | ------------------------ |
         | <div>I'm in column A</div> | **Hello from column B!** |
@@ -1461,7 +1481,7 @@ describe('GFM tables', () => {
 
   it('processes HTML inside of a table row when a preceeding column contains markdown', () => {
     renderFn(
-      compiler(`
+      compileMarkdown(`
         | Markdown         | HTML                          |
         | ---------------- | ----------------------------- |
         | **I'm Markdown** | <strong>And I'm HTML</strong> |
@@ -1477,7 +1497,7 @@ describe('GFM tables', () => {
 
   it('processes markdown inside of a table row when a preceeding column contains HTML with nested elements', () => {
     renderFn(
-      compiler(`
+      compileMarkdown(`
         | Nested HTML                        | MD                   |
         | ---------------------------------- | -------------------- |
         | <div><strong>Nested</strong></div> | **I should be bold** |
@@ -1493,7 +1513,7 @@ describe('GFM tables', () => {
 
   it('processes a markdown link inside of a table row when a preceeding column contains HTML with nested elements', () => {
     renderFn(
-      compiler(`
+      compileMarkdown(`
         | Nested HTML                        | Link                         |
         | ---------------------------------- | ---------------------------- |
         | <div><strong>Nested</strong></div> | [I'm a link](www.google.com) |
@@ -1509,7 +1529,7 @@ describe('GFM tables', () => {
 
   it('#568 handle inline syntax around table separators', () => {
     const markdown = ['|_foo|bar_|', '|-|-|', '|1|2|'].join('\n');
-    renderFn(compiler(markdown));
+    renderFn(compileMarkdown(markdown));
 
     expect(container.innerHTML).toMatchInlineSnapshot(
       `"<table><thead><tr><th>_foo</th><th>bar_</th></tr></thead><tbody><tr><td>1</td><td>2</td></tr></tbody></table>"`
@@ -1518,7 +1538,7 @@ describe('GFM tables', () => {
 
   it('#568 handle inline code syntax around table separators', () => {
     const markdown = ['|`foo|bar`|baz|', '|-|-|', '|1|2|'].join('\n');
-    renderFn(compiler(markdown));
+    renderFn(compileMarkdown(markdown));
 
     expect(container.innerHTML).toMatchInlineSnapshot(
       `"<table><thead><tr><th><code>foo|bar</code></th><th>baz</th></tr></thead><tbody><tr><td>1</td><td>2</td></tr></tbody></table>"`
@@ -1527,7 +1547,7 @@ describe('GFM tables', () => {
 
   it('#644 handles nested inlines within table cells', () => {
     renderFn(
-      compiler(`
+      compileMarkdown(`
       | Nested HTML                        | Link                         |
       | ---------------------------------- | ---------------------------- |
       | <div><strong>Nested</strong></div> | [I'm a \`link\`](www.google.com) |
@@ -1543,7 +1563,7 @@ describe('GFM tables', () => {
 
   it('#641 handles only a single newline prior to the start of the table', () => {
     renderFn(
-      compiler(`
+      compileMarkdown(`
       Test
       | Nested HTML                        | Link                         |
       | ---------------------------------- | ---------------------------- |
@@ -1562,7 +1582,7 @@ describe('GFM tables', () => {
 
 describe('arbitrary HTML', () => {
   it('preserves the HTML given', () => {
-    const ast = compiler('<dd class="foo">Hello</dd>');
+    const ast = compileMarkdown('<dd class="foo">Hello</dd>');
     expect(ast).toMatchInlineSnapshot(`
       <dd
         className="foo"
@@ -1578,7 +1598,7 @@ describe('arbitrary HTML', () => {
   });
 
   it('processes markdown within inline HTML', () => {
-    renderFn(compiler('<time>**Hello**</time>'));
+    renderFn(compileMarkdown('<time>**Hello**</time>'));
 
     expect(container.innerHTML).toMatchInlineSnapshot(
       `"<time><strong>Hello</strong></time>"`
@@ -1586,7 +1606,7 @@ describe('arbitrary HTML', () => {
   });
 
   it('processes markdown within nested inline HTML', () => {
-    renderFn(compiler('<time><span>**Hello**</span></time>'));
+    renderFn(compileMarkdown('<time><span>**Hello**</span></time>'));
 
     expect(container.innerHTML).toMatchInlineSnapshot(
       `"<time><span><strong>Hello</strong></span></time>"`
@@ -1595,7 +1615,9 @@ describe('arbitrary HTML', () => {
 
   it('processes markdown within nested inline HTML where childen appear more than once', () => {
     renderFn(
-      compiler('<dl><dt>foo</dt><dd>bar</dd><dt>baz</dt><dd>qux</dd></dl>')
+      compileMarkdown(
+        '<dl><dt>foo</dt><dd>bar</dd><dt>baz</dt><dd>qux</dd></dl>'
+      )
     );
 
     expect(container.innerHTML).toMatchInlineSnapshot(
@@ -1604,7 +1626,7 @@ describe('arbitrary HTML', () => {
   });
 
   it('processes attributes within inline HTML', () => {
-    renderFn(compiler('<time data-foo="bar">Hello</time>'));
+    renderFn(compileMarkdown('<time data-foo="bar">Hello</time>'));
 
     expect(container.innerHTML).toMatchInlineSnapshot(
       `"<time data-foo="bar">Hello</time>"`
@@ -1612,7 +1634,7 @@ describe('arbitrary HTML', () => {
   });
 
   it('processes attributes that need JSX massaging within inline HTML', () => {
-    renderFn(compiler('<span tabindex="0">Hello</span>'));
+    renderFn(compileMarkdown('<span tabindex="0">Hello</span>'));
 
     expect(container.innerHTML).toMatchInlineSnapshot(
       `"<span tabindex="0">Hello</span>"`
@@ -1621,7 +1643,9 @@ describe('arbitrary HTML', () => {
 
   it('processes inline HTML with inline styles', () => {
     renderFn(
-      compiler('<span style="color: red; margin-right: 10px">Hello</span>')
+      compileMarkdown(
+        '<span style="color: red; margin-right: 10px">Hello</span>'
+      )
     );
 
     expect(container.innerHTML).toMatchInlineSnapshot(
@@ -1630,7 +1654,7 @@ describe('arbitrary HTML', () => {
   });
 
   it('processes markdown within block-level arbitrary HTML', () => {
-    renderFn(compiler('<p>**Hello**</p>'));
+    renderFn(compileMarkdown('<p>**Hello**</p>'));
 
     expect(container.innerHTML).toMatchInlineSnapshot(
       `"<p><strong>Hello</strong></p>"`
@@ -1638,7 +1662,7 @@ describe('arbitrary HTML', () => {
   });
 
   it('processes markdown within block-level arbitrary HTML (regression)', () => {
-    renderFn(compiler('<div style="float: right">\n# Hello\n</div>'));
+    renderFn(compileMarkdown('<div style="float: right">\n# Hello\n</div>'));
 
     expect(container.innerHTML).toMatchInlineSnapshot(
       `"<div style="float: right;"><h1 id="hello">Hello</h1></div>"`
@@ -1646,7 +1670,7 @@ describe('arbitrary HTML', () => {
   });
 
   it('renders inline <code> tags', () => {
-    renderFn(compiler('Text and <code>**code**</code>'));
+    renderFn(compileMarkdown('Text and <code>**code**</code>'));
 
     expect(container.innerHTML).toMatchInlineSnapshot(
       `"<span>Text and <code><strong>code</strong></code></span>"`
@@ -1655,7 +1679,7 @@ describe('arbitrary HTML', () => {
 
   it('handles self-closing html inside parsable html (regression)', () => {
     renderFn(
-      compiler(
+      compileMarkdown(
         '<a href="https://opencollective.com/react-dropzone/sponsor/0/website" target="_blank"><img src="https://opencollective.com/react-dropzone/sponsor/0/avatar.svg"></a>'
       )
     );
@@ -1666,7 +1690,7 @@ describe('arbitrary HTML', () => {
   });
 
   it('throws out HTML comments', () => {
-    renderFn(compiler('Foo\n<!-- blah -->'));
+    renderFn(compileMarkdown('Foo\n<!-- blah -->'));
 
     expect(container.innerHTML).toMatchInlineSnapshot(`
       "<p>Foo
@@ -1676,7 +1700,7 @@ describe('arbitrary HTML', () => {
 
   it('throws out multiline HTML comments', () => {
     renderFn(
-      compiler(`Foo\n<!-- this is
+      compileMarkdown(`Foo\n<!-- this is
 a
 multiline
 comment -->`)
@@ -1690,7 +1714,7 @@ comment -->`)
 
   it('block HTML regression test', () => {
     renderFn(
-      compiler(`
+      compileMarkdown(`
         <ul id="ProjectSubmenu">
           <li><a href="/projects/markdown/" title="Markdown Project Page">Main</a></li>
           <li><a href="/projects/markdown/basics" title="Markdown Basics">Basics</a></li>
@@ -1714,7 +1738,7 @@ comment -->`)
 
   it('handles svg', () => {
     renderFn(
-      compiler(`
+      compileMarkdown(`
       <svg xmlns="http://www.w3.org/2000/svg">
         <path >
         </path>
@@ -1732,7 +1756,7 @@ comment -->`)
 
   it('handles nested HTML blocks of the same type (regression)', () => {
     renderFn(
-      compiler(`
+      compileMarkdown(`
         <table>
         <tbody>
             <tr>
@@ -1788,7 +1812,7 @@ comment -->`)
 
   it('regression test for #136', () => {
     renderFn(
-      compiler(`
+      compileMarkdown(`
         $25
         <br>
         <br>
@@ -1824,7 +1848,7 @@ comment -->`)
 
   it('regression test for #170', () => {
     renderFn(
-      compiler(`
+      compileMarkdown(`
         <table>
           <tbody>
             <tr>
@@ -1896,7 +1920,7 @@ comment -->`)
     }
 
     renderFn(
-      compiler(
+      compileMarkdown(
         `
           <DatePicker
             biasTowardDateTime="2017-12-05T07:39:36.091Z"
@@ -1932,7 +1956,7 @@ comment -->`)
     };
 
     renderFn(
-      compiler(
+      compileMarkdown(
         `
           <DatePicker
             startTime={1514579720511}
@@ -1986,7 +2010,7 @@ comment -->`)
     }
 
     renderFn(
-      compiler(
+      compileMarkdown(
         `
           <InterpolationTest
             component={<Inner children="bah" />}
@@ -2011,7 +2035,7 @@ comment -->`)
 
   it('handles malformed HTML', () => {
     renderFn(
-      compiler(
+      compileMarkdown(
         `
           <g>
           <g>
@@ -2033,7 +2057,7 @@ comment -->`)
 
   it('allows whitespace between attribute and value', () => {
     renderFn(
-      compiler(
+      compileMarkdown(
         `
           <div class = "foo" style= "background:red;" id ="baz">
           Bar
@@ -2050,7 +2074,7 @@ comment -->`)
   });
 
   it('handles a raw hashtag inside HTML', () => {
-    renderFn(compiler(['"<span>#</span>"'].join('\n')));
+    renderFn(compileMarkdown(['"<span>#</span>"'].join('\n')));
 
     expect(container.innerHTML).toMatchInlineSnapshot(
       `"<span>"<span>#</span>"</span>"`
@@ -2058,7 +2082,7 @@ comment -->`)
   });
 
   it('handles a heading inside HTML', () => {
-    renderFn(compiler('"<span># foo</span>"'));
+    renderFn(compileMarkdown('"<span># foo</span>"'));
 
     expect(container.innerHTML).toMatchInlineSnapshot(
       `"<span>"<span><h1 id="foo">foo</h1></span>"</span>"`
@@ -2067,7 +2091,7 @@ comment -->`)
 
   it('does not parse the inside of <style> blocks', () => {
     renderFn(
-      compiler(
+      compileMarkdown(
         `
           <style>
             .bar {
@@ -2089,7 +2113,7 @@ comment -->`)
 
   it('does not parse the inside of <script> blocks', () => {
     renderFn(
-      compiler(`
+      compileMarkdown(`
         <script>
           new Date();
         </script>
@@ -2104,7 +2128,9 @@ comment -->`)
   });
 
   it('does not parse the inside of <script> blocks with weird capitalization', () => {
-    renderFn(compiler(['<SCRIPT>', '  new Date();', '</SCRIPT>'].join('\n')));
+    renderFn(
+      compileMarkdown(['<SCRIPT>', '  new Date();', '</SCRIPT>'].join('\n'))
+    );
 
     expect(container.innerHTML).toMatchInlineSnapshot(`
       "<script>new Date();
@@ -2114,7 +2140,7 @@ comment -->`)
 
   it('handles nested tags of the same type with attributes', () => {
     renderFn(
-      compiler(`
+      compileMarkdown(`
         <div id="foo">
           <div id="bar">Baz</div>
         </div>
@@ -2129,7 +2155,7 @@ comment -->`)
   });
 
   it('#180 handles invalid character error with angle brackets', () => {
-    renderFn(compiler('1<2 or 2>1'));
+    renderFn(compileMarkdown('1<2 or 2>1'));
 
     expect(container.innerHTML).toMatchInlineSnapshot(
       `"<span>1&lt;2 or 2&gt;1</span>"`
@@ -2138,7 +2164,7 @@ comment -->`)
 
   it('#181 handling of figure blocks', () => {
     renderFn(
-      compiler(
+      compileMarkdown(
         `
           <figure>
           ![](//placehold.it/300x200)
@@ -2158,7 +2184,7 @@ comment -->`)
 
   it('#185 handles block syntax MD + HTML inside HTML', () => {
     renderFn(
-      compiler(`
+      compileMarkdown(`
         <details>
         <summary>Solution</summary>
 
@@ -2182,7 +2208,7 @@ comment -->`)
 
   it('#207 handles tables inside HTML', () => {
     renderFn(
-      compiler(`
+      compileMarkdown(`
         <details>
         <summary>Click here</summary>
 
@@ -2208,7 +2234,7 @@ comment -->`)
 
   it('#185 misc regression test', () => {
     renderFn(
-      compiler(`
+      compileMarkdown(`
         <details>
         <summary>View collapsed content</summary>
 
@@ -2248,7 +2274,7 @@ comment -->`)
 
   it('multiline left-trims by the same amount as the first line', () => {
     renderFn(
-      compiler(`
+      compileMarkdown(`
         <div>
         \`\`\`kotlin
         fun main() {
@@ -2272,7 +2298,7 @@ comment -->`)
 
   it('nested lists work inside html', () => {
     renderFn(
-      compiler(`
+      compileMarkdown(`
         <div>
         * hi
         * hello
@@ -2292,7 +2318,7 @@ comment -->`)
 
   it('#214 nested paragraphs work inside html', () => {
     renderFn(
-      compiler(`
+      compileMarkdown(`
         <div>
           Hello
 
@@ -2313,7 +2339,9 @@ comment -->`)
   it('does not consume trailing whitespace if there is no newline', () => {
     const Foo = () => <span>Hello </span>;
     renderFn(
-      compiler('<Foo/> World!', { components: { Foo } as HTMLComponents })
+      compileMarkdown('<Foo/> World!', {
+        components: { Foo } as HTMLComponents,
+      })
     );
 
     expect(container.innerHTML).toMatchInlineSnapshot(
@@ -2323,7 +2351,7 @@ comment -->`)
 
   it('should not fail with lots of \\n in the middle of the text', () => {
     renderFn(
-      compiler(
+      compileMarkdown(
         'Text\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\ntext',
         {
           forceBlock: true,
@@ -2338,7 +2366,7 @@ comment -->`)
 
   it('should not render html if disableParsingRawHTML is true', () => {
     renderFn(
-      compiler('Text with <span>html</span> inside', {
+      compileMarkdown('Text with <span>html</span> inside', {
         disableParsingRawHTML: true,
       })
     );
@@ -2349,7 +2377,7 @@ comment -->`)
 
   it('should render html if disableParsingRawHTML is false', () => {
     renderFn(
-      compiler('Text with <span>html</span> inside', {
+      compileMarkdown('Text with <span>html</span> inside', {
         disableParsingRawHTML: false,
       })
     );
@@ -2359,7 +2387,7 @@ comment -->`)
   });
 
   it('#465 misc regression test', () => {
-    renderFn(compiler('hello [h]:m **world**'));
+    renderFn(compileMarkdown('hello [h]:m **world**'));
 
     expect(container.innerHTML).toMatchInlineSnapshot(
       `"<span>hello [h]:m <strong>world</strong></span>"`
@@ -2368,7 +2396,7 @@ comment -->`)
 
   it('#455 fenced code block regression test', () => {
     renderFn(
-      compiler(`Hello world example
+      compileMarkdown(`Hello world example
 
 \`\`\`python data-start="2"
 print("hello world")
@@ -2384,7 +2412,7 @@ print("hello world")
 
   it('#444 switching list formats regression test', () => {
     renderFn(
-      compiler(
+      compileMarkdown(
         `
 1.  One
 2.  Two
@@ -2404,7 +2432,7 @@ print("hello world")
 
   it('#466 list-like syntax inside link regression test', () => {
     renderFn(
-      compiler(
+      compileMarkdown(
         'Hello, I think that [6. Markdown](http://daringfireball.net/projects/markdown/) lets you write content in a really natural way.'
       )
     );
@@ -2416,7 +2444,7 @@ print("hello world")
 
   it('#540 multiline attributes are supported', () => {
     renderFn(
-      compiler(
+      compileMarkdown(
         `<p>
 Item detail
 <span
@@ -2444,7 +2472,7 @@ Item detail
 
   it('#546 perf regression test, self-closing block + block HTML causes exponential degradation', () => {
     renderFn(
-      compiler(
+      compileMarkdown(
         `<span class="oh" data-self-closing="yes" />
 
 You can have anything here. But it's best if the self-closing tag also appears in the document as a pair tag multiple times. We have found it when compiling a table with spans that had a self-closing span at the top.
@@ -2492,7 +2520,7 @@ Each span you copy above increases the time it takes by 2. Also, writing text he
 
   it.skip('#686 should not add unnecessary paragraphs', () => {
     const markdown = ['<tag1><tag2>text1</tag2>text2</tag1>'].join('\n');
-    renderFn(compiler(markdown));
+    renderFn(compileMarkdown(markdown));
 
     expect(container.innerHTML).toMatchInlineSnapshot(
       `"<tag1><tag2>text1</tag2>text2</tag1>"`
@@ -2509,7 +2537,7 @@ Each span you copy above increases the time it takes by 2. Also, writing text he
       '</pre>',
       '</td></tr></table>',
     ].join('\n');
-    renderFn(compiler(markdown));
+    renderFn(compileMarkdown(markdown));
 
     expect(container.innerHTML).toMatchInlineSnapshot(`
       "<table><tr><td><pre>**Hello**,
@@ -2523,7 +2551,7 @@ Each span you copy above increases the time it takes by 2. Also, writing text he
 describe('horizontal rules', () => {
   it('should handle the various syntaxes', () => {
     renderFn(
-      compiler(`
+      compileMarkdown(`
         * * *
 
         ***
@@ -2552,7 +2580,7 @@ describe('horizontal rules', () => {
 
 describe('line breaks', () => {
   it('should be added for 2-space sequences', () => {
-    renderFn(compiler(['hello  ', 'there'].join('\n')));
+    renderFn(compileMarkdown(['hello  ', 'there'].join('\n')));
 
     const lineBreak = container.querySelector('br');
 
@@ -2562,7 +2590,7 @@ describe('line breaks', () => {
 
 describe('fenced code blocks', () => {
   it('should be handled', () => {
-    renderFn(compiler(['```js', 'foo', '```'].join('\n')));
+    renderFn(compileMarkdown(['```js', 'foo', '```'].join('\n')));
 
     expect(container.innerHTML).toMatchInlineSnapshot(`
       "<pre><code class="lang-js" lang="js">foo
@@ -2572,7 +2600,7 @@ describe('fenced code blocks', () => {
 
   it('should not strip HTML comments inside fenced blocks', () => {
     renderFn(
-      compiler(
+      compileMarkdown(
         `
 \`\`\`html
 <!-- something -->
@@ -2590,7 +2618,7 @@ Yeah boi
   });
 
   it('regression 602 - should treat anything following ``` as code until the closing pair', () => {
-    renderFn(compiler('```\nfoo'));
+    renderFn(compileMarkdown('```\nfoo'));
 
     expect(container.innerHTML).toMatchInlineSnapshot(`
       "<pre><code class="lang-plaintext">foo
@@ -2600,7 +2628,7 @@ Yeah boi
   });
 
   it('regression 670 - fenced code block intentional escape', () => {
-    renderFn(compiler('```\n\\%\n```'));
+    renderFn(compileMarkdown('```\n\\%\n```'));
 
     expect(container.innerHTML).toMatchInlineSnapshot(`
       "<pre><code class="lang-plaintext">\\%
@@ -2611,7 +2639,7 @@ Yeah boi
 
 describe('indented code blocks', () => {
   it('should be handled', () => {
-    renderFn(compiler('    foo\n\n'));
+    renderFn(compileMarkdown('    foo\n\n'));
 
     expect(container.innerHTML).toMatchInlineSnapshot(
       `"<pre><code class="lang-plaintext">foo</code></pre>"`
@@ -2621,13 +2649,13 @@ describe('indented code blocks', () => {
 
 describe('inline code blocks', () => {
   it('should be handled', () => {
-    renderFn(compiler('`foo`'));
+    renderFn(compileMarkdown('`foo`'));
 
     expect(container.innerHTML).toMatchInlineSnapshot(`"<code>foo</code>"`);
   });
 
   it('naked backticks can be used unescaped if there are two or more outer backticks', () => {
-    renderFn(compiler('``hi `foo` there``'));
+    renderFn(compileMarkdown('``hi `foo` there``'));
 
     expect(container.innerHTML).toMatchInlineSnapshot(
       `"<code>hi \`foo\` there</code>"`
@@ -2638,7 +2666,7 @@ describe('inline code blocks', () => {
 describe('footnotes', () => {
   it('should handle conversion of references into links', () => {
     renderFn(
-      compiler(`
+      compileMarkdown(`
         foo[^abc] bar
 
         [^abc]: Baz baz
@@ -2654,7 +2682,7 @@ describe('footnotes', () => {
 
   it('should handle complex references', () => {
     renderFn(
-      compiler(`
+      compileMarkdown(`
         foo[^referencé heré 123] bar
 
         [^referencé heré 123]: Baz baz
@@ -2670,7 +2698,7 @@ describe('footnotes', () => {
 
   it('should handle conversion of multiple references into links', () => {
     renderFn(
-      compiler(`
+      compileMarkdown(`
         foo[^abc] bar. baz[^def]
 
         [^abc]: Baz baz
@@ -2688,7 +2716,7 @@ describe('footnotes', () => {
 
   it('should inject the definitions in a footer at the end of the root', () => {
     renderFn(
-      compiler(`
+      compileMarkdown(`
         foo[^abc] bar
 
         [^abc]: Baz baz
@@ -2704,7 +2732,7 @@ describe('footnotes', () => {
 
   it('should handle single word footnote definitions', () => {
     renderFn(
-      compiler(`
+      compileMarkdown(`
         foo[^abc] bar
 
         [^abc]: Baz
@@ -2719,7 +2747,7 @@ describe('footnotes', () => {
   });
 
   it('should not blow up if footnote syntax is seen but no matching footnote was found', () => {
-    expect(() => renderFn(compiler('[one] [two]'))).not.toThrow();
+    expect(() => renderFn(compileMarkdown('[one] [two]'))).not.toThrow();
     expect(container.innerHTML).toMatchInlineSnapshot(
       `"<span>[one] [two]</span>"`
     );
@@ -2727,7 +2755,7 @@ describe('footnotes', () => {
 
   it('should handle multiline footnotes', () => {
     renderFn(
-      compiler(`
+      compileMarkdown(`
         foo[^abc] bar
 
         [^abc]: Baz
@@ -2751,7 +2779,7 @@ describe('footnotes', () => {
 
   it('should handle mixed multiline and singleline footnotes', () => {
     renderFn(
-      compiler(`
+      compileMarkdown(`
         a[^a] b[^b] c[^c]
 
         [^a]: single
@@ -2775,7 +2803,7 @@ describe('footnotes', () => {
 
   it('should handle indented multiline footnote', () => {
     renderFn(
-      compiler(`
+      compileMarkdown(`
         Here's a simple footnote,[^1] and here's a longer one.[^bignote]
 
         [^1]: This is the first footnote.
@@ -2880,7 +2908,7 @@ describe('options.namedCodesToUnicode', () => {
   };
 
   it('should replace special HTML characters', () => {
-    renderFn(compiler(content, { namedCodesToUnicode }));
+    renderFn(compileMarkdown(content, { namedCodesToUnicode }));
     expect(container.innerHTML).toMatchInlineSnapshot(
       `"<span>Æ,Á,Â,À,Å,Ã,Ä,Ç,É,Ê,È,Ë,Í,Î,Ì,Ï,Ñ,Ó,Ô,Ò,Ø,Õ,Ö,Ú,Û,Ù,Ü,Ý,á,â,æ,à,å,ã,ä,ç,©,é,ê,è,ë,≥,í,î,ì,ï,«,≤, ,ñ,ó,ô,ò,ø,õ,ö,§,",»,ß,ú,û,ù,ü,ý</span>"`
     );
@@ -2890,7 +2918,7 @@ describe('options.namedCodesToUnicode', () => {
 describe('options.forceBlock', () => {
   it('treats given markdown as block-context', () => {
     renderFn(
-      compiler("Hello. _Beautiful_ day isn't it?", {
+      compileMarkdown("Hello. _Beautiful_ day isn't it?", {
         forceBlock: true,
       })
     );
@@ -2903,7 +2931,7 @@ describe('options.forceBlock', () => {
 
 describe('options.forceInline', () => {
   it('treats given markdown as inline-context, passing through any block-level markdown syntax', () => {
-    renderFn(compiler('# You got it babe!', { forceInline: true }));
+    renderFn(compileMarkdown('# You got it babe!', { forceInline: true }));
 
     expect(container.innerHTML).toMatchInlineSnapshot(
       `"<span># You got it babe!</span>"`
@@ -2913,7 +2941,7 @@ describe('options.forceInline', () => {
 
 describe('options.wrapper', () => {
   it('is ignored when there is a single child', () => {
-    renderFn(compiler('Hello, world!', { wrapper: 'article' }));
+    renderFn(compileMarkdown('Hello, world!', { wrapper: 'article' }));
 
     expect(container.innerHTML).toMatchInlineSnapshot(
       `"<span>Hello, world!</span>"`
@@ -2921,7 +2949,7 @@ describe('options.wrapper', () => {
   });
 
   it('components the wrapper element when there are multiple children', () => {
-    renderFn(compiler('Hello\n\nworld!', { wrapper: 'article' }));
+    renderFn(compileMarkdown('Hello\n\nworld!', { wrapper: 'article' }));
 
     expect(container.innerHTML).toMatchInlineSnapshot(`
       "<article><p>Hello</p>
@@ -2931,7 +2959,7 @@ describe('options.wrapper', () => {
 
   it('renders an array when `null`', () => {
     expect(
-      compiler('Hello\n\nworld!', { wrapper: null })
+      compileMarkdown('Hello\n\nworld!', { wrapper: null })
     ).toMatchInlineSnapshot(`
       [
         <p>
@@ -2947,7 +2975,7 @@ describe('options.wrapper', () => {
   });
 
   it('works with `Fragment`', () => {
-    renderFn(compiler('Hello\n\nworld!', { wrapper: Fragment }));
+    renderFn(compileMarkdown('Hello\n\nworld!', { wrapper: Fragment }));
 
     expect(container.innerHTML).toMatchInlineSnapshot(`
       "<p>Hello</p>
@@ -2958,7 +2986,9 @@ describe('options.wrapper', () => {
 
 describe('options.forceWrapper', () => {
   it('ensures wrapper element is present even with a single child', () => {
-    renderFn(compiler('Hi Evan', { wrapper: 'aside', forceWrapper: true }));
+    renderFn(
+      compileMarkdown('Hi Evan', { wrapper: 'aside', forceWrapper: true })
+    );
 
     expect(container.innerHTML).toMatchInlineSnapshot(
       `"<aside>Hi Evan</aside>"`
@@ -2969,7 +2999,7 @@ describe('options.forceWrapper', () => {
 describe('options.createElement', () => {
   it('should render a <custom> element if render function components the element type', () => {
     renderFn(
-      compiler('Hello', {
+      compileMarkdown('Hello', {
         createElement(tag, props, children) {
           return createElement('custom', props, children);
         },
@@ -2983,7 +3013,7 @@ describe('options.createElement', () => {
 
   it('should render an empty <div> element', () => {
     renderFn(
-      compiler('Hello', {
+      compileMarkdown('Hello', {
         createElement(tag, props, ...children) {
           return createElement(tag, props, ...children);
         },
@@ -2998,7 +3028,7 @@ describe('options.createElement', () => {
 describe('options.renderRule', () => {
   it('should allow arbitrary modification of content', () => {
     renderFn(
-      compiler('Hello.\n\n```latex\n$$f(X,n) = X_n + X_{n-1}$$\n```\n', {
+      compileMarkdown('Hello.\n\n```latex\n$$f(X,n) = X_n + X_{n-1}$$\n```\n', {
         renderRule(next, node, _renderChildren, state) {
           if (
             node.type === RuleType.codeBlock &&
@@ -3042,7 +3072,7 @@ describe('options.renderRule', () => {
     };
 
     renderFn(
-      compiler('Hey there! :big-smile:', {
+      compileMarkdown('Hey there! :big-smile:', {
         renderRule(next, node) {
           if (
             node.type === RuleType.text &&
@@ -3064,7 +3094,7 @@ describe('options.renderRule', () => {
 
 describe('options.slugify', () => {
   it('should use a custom slugify function rather than the default if set and valid', () => {
-    renderFn(compiler('# 中文', { slugify: (str) => str }));
+    renderFn(compileMarkdown('# 中文', { slugify: (str) => str }));
 
     expect(container.innerHTML).toMatchInlineSnapshot(
       `"<h1 id="中文">中文</h1>"`
@@ -3072,7 +3102,7 @@ describe('options.slugify', () => {
   });
 
   it('should use the default function if unset', () => {
-    renderFn(compiler('# 中文'));
+    renderFn(compileMarkdown('# 中文'));
 
     expect(container.innerHTML).toMatchInlineSnapshot(`"<h1 id="">中文</h1>"`);
   });
@@ -3080,7 +3110,7 @@ describe('options.slugify', () => {
   it('should throw error if invalid', () => {
     expect(() => {
       // @ts-ignore
-      renderFn(compiler('# 中文', { slugify: 'invalid' }));
+      renderFn(compileMarkdown('# 中文', { slugify: 'invalid' }));
     }).toThrow();
   });
 });
@@ -3094,7 +3124,7 @@ describe('components', () => {
     }
 
     renderFn(
-      compiler('Hello.\n\n', {
+      compileMarkdown('Hello.\n\n', {
         components: { p: FakeParagraph } as any,
       })
     );
@@ -3110,7 +3140,7 @@ describe('components', () => {
     );
 
     renderFn(
-      compiler('<CustomButton>Click me!</CustomButton>', {
+      compileMarkdown('<CustomButton>Click me!</CustomButton>', {
         components: { CustomButton } as any,
       })
     );
@@ -3121,7 +3151,7 @@ describe('components', () => {
   });
 
   it('should substitute custom components when not found', () => {
-    renderFn(compiler('<CustomButton>Click me!</CustomButton>'));
+    renderFn(compileMarkdown('<CustomButton>Click me!</CustomButton>'));
 
     expect(container.innerHTML).toMatchInlineSnapshot(
       `"<custombutton>Click me!</custombutton>"`
@@ -3130,7 +3160,7 @@ describe('components', () => {
 
   it('should allow for particular html tags to be voided by configuration', () => {
     renderFn(
-      compiler(
+      compileMarkdown(
         '<iframe src="https://my-malicious-web-page.ngrok-free.app/"></iframe>',
         {
           components: {
@@ -3151,7 +3181,7 @@ describe('components', () => {
     }
 
     renderFn(
-      compiler('Hello.\n\n', { components: { p: FakeParagraph } as any })
+      compileMarkdown('Hello.\n\n', { components: { p: FakeParagraph } as any })
     );
 
     expect(container.innerHTML).toMatchInlineSnapshot(`
@@ -3172,7 +3202,7 @@ describe('components', () => {
     }
 
     renderFn(
-      compiler('[link](https://example.org)', {
+      compileMarkdown('[link](https://example.org)', {
         components: {
           a: FakeLink,
         } as any,
@@ -3208,7 +3238,7 @@ describe('components', () => {
     }
 
     renderFn(
-      compiler(['```', 'foo', '```'].join('\n'), {
+      compileMarkdown(['```', 'foo', '```'].join('\n'), {
         components: {
           code: OverridenCode,
           pre: OverridenPre,
@@ -3228,7 +3258,7 @@ describe('components', () => {
     );
 
     renderFn(
-      compiler('Hello.\n\n<FakeSpan>I am a fake span</FakeSpan>', {
+      compileMarkdown('Hello.\n\n<FakeSpan>I am a fake span</FakeSpan>', {
         disableParsingRawHTML: true,
         components: { FakeSpan } as HTMLComponents,
       })
@@ -3242,19 +3272,22 @@ describe('components', () => {
 
   it('#530 nested components', () => {
     renderFn(
-      compiler('<Accordion><AccordionItem>test</AccordionItem></Accordion>', {
-        components: {
-          Accordion: ({ children }: PropsWithChildren) => children,
-          AccordionItem: ({ children }: PropsWithChildren) => children,
-        } as HTMLComponents,
-      })
+      compileMarkdown(
+        '<Accordion><AccordionItem>test</AccordionItem></Accordion>',
+        {
+          components: {
+            Accordion: ({ children }: PropsWithChildren) => children,
+            AccordionItem: ({ children }: PropsWithChildren) => children,
+          } as HTMLComponents,
+        }
+      )
     );
 
     expect(container.innerHTML).toMatchInlineSnapshot(`"test"`);
   });
 
   it('#520 handle deep nesting', () => {
-    renderFn(compiler('<div><div><div></div></div></div>'));
+    renderFn(compileMarkdown('<div><div><div></div></div></div>'));
 
     expect(container.innerHTML).toMatchInlineSnapshot(
       `"<div><div><div></div></div></div>"`
@@ -3264,7 +3297,7 @@ describe('components', () => {
 
 it('should remove YAML front matter', () => {
   renderFn(
-    compiler(`
+    compileMarkdown(`
       ---
       key: value
       other_key: different value
@@ -3284,13 +3317,13 @@ it('should remove YAML front matter', () => {
 
 it('handles a holistic example', () => {
   const md = readFileSync(`${__dirname}/_fixture.md`, 'utf8');
-  renderFn(compiler(md));
+  renderFn(compileMarkdown(md));
 
   expect(container.innerHTML).toMatchSnapshot();
 });
 
 it('handles <code> brackets in link text', () => {
-  renderFn(compiler('[`[text]`](https://example.com)'));
+  renderFn(compileMarkdown('[`[text]`](https://example.com)'));
 
   expect(container.innerHTML).toMatchInlineSnapshot(
     `"<a href="https://example.com"><code>[text]</code></a>"`
@@ -3298,7 +3331,7 @@ it('handles <code> brackets in link text', () => {
 });
 
 it('handles naked brackets in link text', () => {
-  renderFn(compiler('[[text]](https://example.com)'));
+  renderFn(compileMarkdown('[[text]](https://example.com)'));
 
   expect(container.innerHTML).toMatchInlineSnapshot(
     `"<a href="https://example.com">[text]</a>"`
@@ -3306,7 +3339,9 @@ it('handles naked brackets in link text', () => {
 });
 
 it('handles multiple nested brackets in link text', () => {
-  renderFn(compiler('[title[bracket1][bracket2][3]](https://example.com)'));
+  renderFn(
+    compileMarkdown('[title[bracket1][bracket2][3]](https://example.com)')
+  );
 
   expect(container.innerHTML).toMatchInlineSnapshot(
     `"<a href="https://example.com">title[bracket1][bracket2][3]</a>"`
@@ -3314,7 +3349,7 @@ it('handles multiple nested brackets in link text', () => {
 });
 
 it('#597 handles script tag with empty content', () => {
-  renderFn(compiler('<script src="dummy.js"></script>'));
+  renderFn(compileMarkdown('<script src="dummy.js"></script>'));
 
   expect(container.innerHTML).toMatchInlineSnapshot(
     `"<script src="dummy.js"></script>"`
@@ -3322,7 +3357,7 @@ it('#597 handles script tag with empty content', () => {
 });
 
 it('should handle bold text within mixed content', () => {
-  renderFn(compiler('here a test **my strong content** and the rest'));
+  renderFn(compileMarkdown('here a test **my strong content** and the rest'));
 
   expect(container.innerHTML).toMatchInlineSnapshot(
     `"<span>here a test <strong>my strong content</strong> and the rest</span>"`

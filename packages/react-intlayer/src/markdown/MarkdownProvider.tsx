@@ -9,7 +9,11 @@ import {
   useContext,
 } from 'react';
 import type { HTMLComponents } from '../html/HTMLComponentTypes';
-import { compiler, type MarkdownRendererOptions } from './processor';
+import {
+  compileMarkdown,
+  type MarkdownRendererOptions,
+  type ParsedMarkdown,
+} from './processor';
 
 export type MarkdownProviderOptions = {
   /** Forces the compiler to always output content with a block-level wrapper. */
@@ -25,7 +29,7 @@ export type MarkdownProviderOptions = {
 type MarkdownContextValue = {
   components?: HTMLComponents<'permissive', {}>;
   renderMarkdown: (
-    markdown: string,
+    markdown: string | ParsedMarkdown,
     options?: MarkdownProviderOptions,
     components?: HTMLComponents<'permissive', {}>,
     wrapper?: FC<HTMLAttributes<HTMLElement>>
@@ -37,7 +41,7 @@ type MarkdownProviderProps = PropsWithChildren<
     components?: HTMLComponents<'permissive', {}>;
     wrapper?: FC<HTMLAttributes<HTMLElement>>;
     renderMarkdown?: (
-      markdown: string,
+      markdown: string | ParsedMarkdown,
       options?: MarkdownProviderOptions,
       components?: HTMLComponents<'permissive', {}>,
       wrapper?: FC<HTMLAttributes<HTMLElement>>
@@ -49,6 +53,13 @@ const MarkdownContext = createContext<MarkdownContextValue | undefined>(
   undefined
 );
 
+/**
+ * Returns the raw `MarkdownProvider` context value — the active
+ * `renderMarkdown` function plus any provider-level component overrides.
+ * Returns `undefined` when called outside a `<MarkdownProvider>`.
+ * Prefer `useMarkdownRenderer` for most use cases; use this hook only when
+ * you need direct access to the context object itself.
+ */
 export const useMarkdownContext = () => useContext(MarkdownContext);
 
 const mergeOptions = (
@@ -118,7 +129,7 @@ export const MarkdownProvider: FC<MarkdownProviderProps> = ({
 
   // Standard internal renderer
   const defaultRenderMarkdown = (
-    markdown: string,
+    markdown: string | ParsedMarkdown,
     options?: MarkdownProviderOptions,
     components?: HTMLComponents<'permissive', {}>,
     wrapper?: FC<HTMLAttributes<HTMLElement>>
@@ -130,19 +141,19 @@ export const MarkdownProvider: FC<MarkdownProviderProps> = ({
       wrapper
     );
 
-    return compiler(markdown, mergedOptions);
+    return compileMarkdown(markdown, mergedOptions);
   };
 
   // Wrapper for user-provided custom renderer
   // Note: We wrap in a clean Provider to prevent infinite recursion
   const customRenderMarkdownWrapper = (
-    markdown: string,
+    markdown: string | ParsedMarkdown,
     options?: MarkdownProviderOptions,
     components?: HTMLComponents<'permissive', {}>,
     wrapper?: FC<HTMLAttributes<HTMLElement>>
   ) => (
     <MarkdownContext.Provider value={undefined}>
-      {customRenderFn?.(markdown, options, components, wrapper)}
+      {customRenderFn?.(markdown, options, components, wrapper) as ReactNode}
     </MarkdownContext.Provider>
   );
 

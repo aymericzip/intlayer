@@ -10,11 +10,39 @@ import type {
   ParsedMarkdown,
 } from '@intlayer/core/markdown';
 import {
+  type CompileOptions,
   compile,
   parseMarkdown as coreParseMarkdown,
   renderMarkdownAst as coreRenderMarkdownAst,
+  sanitizer as defaultSanitizer,
+  slugify as defaultSlugify,
+  RuleType,
 } from '@intlayer/core/markdown';
 
+/**
+ * Utility re-exports from `@intlayer/core/markdown` for advanced customisation:
+ * - `sanitizer` — default URL sanitizer applied to `href`/`src` attributes;
+ *   guards against XSS by rejecting unsafe schemes (e.g. `javascript:`).
+ *   Override via the `sanitizer` option of `compileMarkdown`.
+ * - `slugify` — default heading anchor slug generator
+ *   (e.g. `"My Heading"` → `"my-heading"`).
+ *   Override via the `slugify` option of `compileMarkdown`.
+ * - `RuleType` — enum of all parser rule types; use with the `renderRule`
+ *   option to selectively override individual markdown constructs.
+ */
+export { defaultSanitizer as sanitizer, defaultSlugify as slugify, RuleType };
+
+/**
+ * Options accepted by `compileMarkdown` and `parseMarkdown` to customise
+ * rendering behaviour (custom components, sanitizer, slugify, rule hooks, …).
+ */
+export type MarkdownRendererOptions = CompileOptions;
+
+/**
+ * Angular `InjectionToken` used to provide a custom markdown renderer via the
+ * DI system. Use `createIntlayerMarkdownProvider` to create the provider value
+ * and register it in a module or component's `providers` array.
+ */
 export const INTLAYER_MARKDOWN_TOKEN =
   new InjectionToken<IntlayerMarkdownProvider>('intlayerMarkdown');
 
@@ -83,8 +111,31 @@ export const htmlRuntime: MarkdownRuntime = {
   Fragment: Symbol('Fragment'),
 };
 
+/**
+ * Intermediate AST produced by `parseMarkdown`.
+ * Pass this to `compileMarkdown` to skip re-parsing when the same content is
+ * rendered multiple times.
+ */
 export type { ParsedMarkdown };
 
+/**
+ * **Step 1 of 2 — parse only.**
+ * Converts a raw markdown string into a `ParsedMarkdown` AST without rendering
+ * any HTML. Use this when you need to:
+ * - Cache the parsed result and render it several times with different options.
+ * - Inspect or transform the AST before rendering.
+ * - Defer the render step to a later point.
+ *
+ * @param markdown - The markdown source string.
+ * @param options - Options that affect parsing.
+ * @returns A `ParsedMarkdown` AST ready to be passed to `compileMarkdown`.
+ *
+ * @example
+ * ```ts
+ * const ast = parseMarkdown('# Hello **world**');
+ * const html = compileMarkdown(ast);
+ * ```
+ */
 export const parseMarkdown = (
   markdown: string = '',
   options: any = {}
@@ -108,6 +159,21 @@ export const parseMarkdown = (
   return coreParseMarkdown(markdown, ctx, compilerOptions);
 };
 
+/**
+ * **Steps 1 + 2 — parse and render in one shot.**
+ * Accepts a raw markdown string or a pre-parsed `ParsedMarkdown` AST and
+ * returns an HTML string. Use with Angular's `[innerHTML]` binding or
+ * `IntlayerMarkdownService.renderMarkdown`.
+ *
+ * @param input - Markdown string or pre-parsed AST.
+ * @param options - Rendering options (components, sanitizer, slugify, …).
+ * @returns An HTML string representing the rendered markdown.
+ *
+ * @example
+ * ```ts
+ * const html = compileMarkdown('# Hello **world**');
+ * ```
+ */
 export const compileMarkdown = (
   input: string | ParsedMarkdown = '',
   options: any = {}
@@ -143,7 +209,21 @@ const defaultMarkdownRenderer: RenderMarkdownFunction = (
 ) => compileMarkdown(markdown) as string;
 
 /**
- * Create IntlayerMarkdown provider configuration
+ * Returns an Angular `Provider` object that registers a custom markdown render
+ * function under `INTLAYER_MARKDOWN_TOKEN`. Pass the returned provider to a
+ * module or component's `providers` array.
+ *
+ * @param renderMarkdown - Custom render function. Defaults to the built-in
+ *   HTML string renderer when omitted.
+ *
+ * @example
+ * ```ts
+ * // app.module.ts
+ * @NgModule({
+ *   providers: [createIntlayerMarkdownProvider(myCustomRenderer)],
+ * })
+ * export class AppModule {}
+ * ```
  */
 export const createIntlayerMarkdownProvider = (
   renderMarkdown: RenderMarkdownFunction = defaultMarkdownRenderer
@@ -155,7 +235,22 @@ export const createIntlayerMarkdownProvider = (
 });
 
 /**
- * Injectable service for markdown rendering
+ * Angular injectable service that wraps the active markdown renderer. Inject
+ * this service anywhere in your app to call `renderMarkdown` without touching
+ * the DI token directly. Falls back to returning the raw markdown string when
+ * no provider is registered.
+ *
+ * @example
+ * ```ts
+ * @Component({ ... })
+ * export class MyComponent {
+ *   private markdownService = inject(IntlayerMarkdownService);
+ *
+ *   get html() {
+ *     return this.markdownService.renderMarkdown('# Hello');
+ *   }
+ * }
+ * ```
  */
 @Injectable({
   providedIn: 'root',
@@ -177,7 +272,23 @@ export class IntlayerMarkdownService {
 }
 
 /**
- * Function to inject markdown provider
+ * Reads the active markdown provider from the current Angular injector context.
+ * Returns a fallback object that uses the built-in HTML string renderer when
+ * `createIntlayerMarkdownProvider` has not been registered.
+ *
+ * @returns An `IntlayerMarkdownProvider` with a `renderMarkdown` method.
+ *
+ * @example
+ * ```ts
+ * @Component({ ... })
+ * export class MyComponent {
+ *   private markdown = useMarkdown();
+ *
+ *   get html() {
+ *     return this.markdown.renderMarkdown('# Hello');
+ *   }
+ * }
+ * ```
  */
 export const useMarkdown = (): IntlayerMarkdownProvider => {
   const markdownProvider = inject(INTLAYER_MARKDOWN_TOKEN, { optional: true });

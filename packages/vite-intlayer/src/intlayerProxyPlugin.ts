@@ -689,12 +689,31 @@ export const createIntlayerProxyHandler = (
        * /^__open-in-editor$
        * /^__manifest$       # Remix/RR7 lazyRouteDiscovery
        */
-      req.url?.startsWith('/_') ||
-      /**
-       * ./myFile.js
-       */
-      req.url?.split('?')[0]?.match(/\.[a-z]+$/i) // checks for file extensions
+      req.url?.startsWith('/_')
     ) {
+      return next();
+    }
+
+    // Static file requests (e.g. /assets/video.mp4): bypass locale routing.
+    // However, if the URL carries a locale prefix (e.g. /fr/assets/video.mp4),
+    // redirect to the unprefixed path (/assets/video.mp4) so the file can be
+    // served correctly from the public directory.
+    if (req.url?.split('?')[0]?.match(/\.[a-z]+$/i)) {
+      const rawPath = req.url?.split('?')[0] ?? '/';
+      const search = req.url?.includes('?') ? `?${req.url.split('?')[1]}` : '';
+      const localePrefixMatch = rawPath.match(/^\/([^/]+)(\/.*)/);
+      if (
+        localePrefixMatch &&
+        supportedLocales.includes(localePrefixMatch[1] as Locale)
+      ) {
+        const pathWithoutLocale = localePrefixMatch[2] ?? '/';
+        return redirectUrl(
+          res,
+          `${pathWithoutLocale}${search}`,
+          'locale-prefixed-static-asset',
+          req.url
+        );
+      }
       return next();
     }
 

@@ -1,4 +1,12 @@
-export * from './compiler';
+export {
+  compileMarkdown,
+  type MarkdownCompilerOptions,
+  type ParsedMarkdown,
+  parseMarkdown,
+  RuleType,
+  sanitizer,
+  slugify,
+} from './compiler';
 export {
   type IntlayerMarkdownPluginOptions,
   type IntlayerMarkdownProvider,

@@ -20,16 +20,23 @@ import {
 import {
   cloneElement,
   createElement,
-  type FC,
   Fragment,
-  type HTMLAttributes,
   type JSX,
   type ReactNode,
 } from 'react';
 import type { HTMLComponents } from '../html/HTMLComponentTypes';
 
-// Re-export RuleType for compatibility
-// Re-export utilities for compatibility
+/**
+ * Utility re-exports from `@intlayer/core/markdown` for advanced customisation:
+ * - `sanitizer` — default URL sanitizer applied to `href`/`src` attributes;
+ *   guards against XSS by rejecting unsafe schemes (e.g. `javascript:`).
+ *   Override via the `sanitizer` option of `compileMarkdown`.
+ * - `slugify` — default heading anchor slug generator
+ *   (e.g. `"My Heading"` → `"my-heading"`).
+ *   Override via the `slugify` option of `compileMarkdown`.
+ * - `RuleType` — enum of all parser rule types; use with the `renderRule`
+ *   option to selectively override individual markdown constructs.
+ */
 export { defaultSanitizer as sanitizer, defaultSlugify as slugify, RuleType };
 
 type HTMLTags = keyof JSX.IntrinsicElements;
@@ -133,11 +140,30 @@ const DEFAULT_RUNTIME: MarkdownRuntime = {
 };
 
 /**
- * Compile markdown to React elements.
- * This is the primary export - use this for new code.
+ * Intermediate AST produced by `parseMarkdown`.
+ * Pass this to `compileMarkdown` or `<MarkdownRenderer>` to skip re-parsing
+ * when the same content is rendered multiple times.
  */
 export type { ParsedMarkdown };
 
+/**
+ * **Step 1 of 2 — parse only.**
+ * Converts a raw markdown string into a `ParsedMarkdown` AST without rendering
+ * any React elements. Use this when you need to:
+ * - Cache the parsed result and render it several times with different options.
+ * - Inspect or transform the AST before rendering.
+ * - Defer the render step to a later point in the pipeline.
+ *
+ * @param markdown - The markdown source string.
+ * @param options - Options that affect parsing (sanitizer, slugify, …).
+ * @returns A `ParsedMarkdown` AST ready to be passed to `compileMarkdown`.
+ *
+ * @example
+ * ```tsx
+ * const ast = parseMarkdown('# Hello **world**');
+ * const element = compileMarkdown(ast, { forceBlock: true });
+ * ```
+ */
 export const parseMarkdown = (
   markdown: string = '',
   options: MarkdownRendererOptions = {}
@@ -181,6 +207,21 @@ export const parseMarkdown = (
   return coreParseMarkdown(markdown, ctx, compilerOptions);
 };
 
+/**
+ * **Steps 1 + 2 — parse and render in one shot.**
+ * Accepts a raw markdown string or a pre-parsed `ParsedMarkdown` AST and
+ * returns a React element. Use `parseMarkdown` first when you need to reuse
+ * the same AST with different options.
+ *
+ * @param input - Markdown string or pre-parsed AST.
+ * @param options - Rendering options (custom components, sanitizer, slugify, …).
+ * @returns A React JSX element representing the rendered markdown.
+ *
+ * @example
+ * ```tsx
+ * const element = compileMarkdown('# Hello **world**', { forceBlock: true });
+ * ```
+ */
 export const compileMarkdown = (
   input: string | ParsedMarkdown = '',
   options: MarkdownRendererOptions = {}
@@ -233,33 +274,4 @@ export const compileMarkdown = (
   }
 
   return coreRenderMarkdownAst(input, ctx, compilerOptions) as JSX.Element;
-};
-
-// Backward compatibility aliases
-export const compiler = compileMarkdown;
-export const compile = compileMarkdown;
-
-/**
- * React component that renders markdown to JSX (legacy).
- */
-export const LegacyMarkdownRenderer: FC<
-  Omit<HTMLAttributes<Element>, 'children'> & {
-    children: string;
-    options?: MarkdownRendererOptions;
-  }
-> = ({ children = '', options, ...props }) => {
-  if (
-    process.env['NODE_ENV'] !== 'production' &&
-    typeof children !== 'string'
-  ) {
-    console.error(
-      'intlayer: <Markdown> component only accepts a single string as a child, received:',
-      children
-    );
-  }
-
-  return cloneElement(
-    compiler(children, options),
-    props as JSX.IntrinsicAttributes
-  );
 };

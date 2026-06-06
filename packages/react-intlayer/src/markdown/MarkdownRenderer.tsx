@@ -7,7 +7,7 @@ import {
   useMarkdownContext,
 } from './MarkdownProvider';
 import {
-  compiler,
+  compileMarkdown,
   type MarkdownRendererOptions,
   type ParsedMarkdown,
 } from './processor';
@@ -105,7 +105,7 @@ export const renderMarkdown = (
     tagfilter,
   };
 
-  return compiler(content, internalOptions);
+  return compileMarkdown(content, internalOptions);
 };
 
 /**
@@ -366,5 +366,5 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
     tagfilter,
   };
 
-  return <>{compiler(children, internalOptions)}</>;
+  return <>{compileMarkdown(children, internalOptions)}</>;
 };
