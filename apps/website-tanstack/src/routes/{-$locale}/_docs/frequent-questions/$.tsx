@@ -1,8 +1,9 @@
 import { Website_Doc_Path } from '@intlayer/design-system/routes';
 import { createFileRoute, redirect } from '@tanstack/react-router';
-import { defaultLocale, getLocalizedUrl, localeMap } from 'intlayer';
+import { defaultLocale, getLocalizedUrl } from 'intlayer';
 import { DocumentationRender } from '~/components/DocPage/DocumentationRender';
 import { loadFaqPage } from '~/serverFunctions/faq';
+import { getAbsoluteUrl, getHreflangLinks } from '~/utils/seo';
 
 export const Route = createFileRoute('/{-$locale}/_docs/frequent-questions/$')({
   loader: async ({ params }) => {
@@ -44,18 +45,13 @@ export const Route = createFileRoute('/{-$locale}/_docs/frequent-questions/$')({
             ? keywords.join(', ')
             : keywords || '',
         },
-        { property: 'og:url', content: getLocalizedUrl(url, locale) },
+        { property: 'og:url', content: getAbsoluteUrl(url, locale) },
         { property: 'og:title', content: `${title} | Intlayer` },
         { property: 'og:description', content: description },
       ],
       links: [
-        { rel: 'canonical', href: getLocalizedUrl(url, locale) },
-        { rel: 'alternate', hrefLang: 'x-default', href: url },
-        ...localeMap(({ locale: mapLocale }) => ({
-          rel: 'alternate',
-          hrefLang: mapLocale,
-          href: getLocalizedUrl(url, mapLocale),
-        })),
+        { rel: 'canonical', href: getAbsoluteUrl(url, locale) },
+        ...getHreflangLinks(url),
       ],
     };
   },

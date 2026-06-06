@@ -1,17 +1,13 @@
 import { Website_TMS } from '@intlayer/design-system/routes';
 import { createFileRoute } from '@tanstack/react-router';
-import {
-  defaultLocale,
-  getIntlayer,
-  getLocalizedUrl,
-  localeMap,
-} from 'intlayer';
+import { defaultLocale, getIntlayer } from 'intlayer';
 import { TMSLandingPage } from '~/components/TMSLandingPage';
 import { PageLayout } from '~/layouts/PageLayout';
 import { OrganizationHeader } from '~/structuredData/OrganizationHeader';
 import { SoftwareApplicationHeader } from '~/structuredData/SoftwareApplication';
 import { TMSProductHeader } from '~/structuredData/TMSProductHeader';
 import { WebsiteHeader } from '~/structuredData/WebsiteHeader';
+import { getAbsoluteUrl, getHreflangLinks } from '~/utils/seo';
 import { getPricing } from '~/utils/stripe';
 
 export const Route = createFileRoute('/{-$locale}/tms')({
@@ -37,18 +33,13 @@ export const Route = createFileRoute('/{-$locale}/tms')({
             ? keywords.join(', ')
             : keywords || '',
         },
-        { property: 'og:url', content: getLocalizedUrl(path, locale) },
+        { property: 'og:url', content: getAbsoluteUrl(path, locale) },
         { property: 'og:title', content: title },
         { property: 'og:description', content: description },
       ],
       links: [
-        { rel: 'canonical', href: getLocalizedUrl(path, locale) },
-        { rel: 'alternate', hrefLang: 'x-default', href: path },
-        ...localeMap(({ locale: mapLocale }) => ({
-          rel: 'alternate',
-          hrefLang: mapLocale,
-          href: getLocalizedUrl(path, mapLocale),
-        })),
+        { rel: 'canonical', href: getAbsoluteUrl(path, locale) },
+        ...getHreflangLinks(path),
       ],
     };
   },

@@ -1,9 +1,10 @@
 import { Website_PrivacyPolicy } from '@intlayer/design-system/routes';
 import { createFileRoute } from '@tanstack/react-router';
-import { defaultLocale, getLocalizedUrl, localeMap } from 'intlayer';
+import { defaultLocale } from 'intlayer';
 import { DocumentationRender } from '~/components/DocPage/DocumentationRender';
 import { loadLegalContent } from '~/serverFunctions/legal';
 import { CreativeWorkHeader } from '~/structuredData/CreativeWorkHeader';
+import { getAbsoluteUrl, getHreflangLinks } from '~/utils/seo';
 
 export const Route = createFileRoute('/{-$locale}/_docs/privacy-notice')({
   loader: async ({ params }) => {
@@ -28,18 +29,13 @@ export const Route = createFileRoute('/{-$locale}/_docs/privacy-notice')({
             ? keywords.join(', ')
             : String(keywords || ''),
         },
-        { property: 'og:url', content: getLocalizedUrl(path, locale) },
+        { property: 'og:url', content: getAbsoluteUrl(path, locale) },
         { property: 'og:title', content: String(title) },
         { property: 'og:description', content: String(description) },
       ],
       links: [
-        { rel: 'canonical', href: getLocalizedUrl(path, locale) },
-        { rel: 'alternate', hrefLang: 'x-default', href: path },
-        ...localeMap(({ locale: mapLocale }) => ({
-          rel: 'alternate',
-          hrefLang: mapLocale,
-          href: getLocalizedUrl(path, mapLocale),
-        })),
+        { rel: 'canonical', href: getAbsoluteUrl(path, locale) },
+        ...getHreflangLinks(path),
       ],
     };
   },

@@ -5,12 +5,7 @@ import {
   Website_Playground,
 } from '@intlayer/design-system/routes';
 import { createFileRoute } from '@tanstack/react-router';
-import {
-  defaultLocale,
-  getIntlayer,
-  getLocalizedUrl,
-  localeMap,
-} from 'intlayer';
+import { defaultLocale, getIntlayer } from 'intlayer';
 import { lazy, Suspense } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { BackgroundLayout } from '~/components/BackgroundLayout';
@@ -19,6 +14,7 @@ import { DictionaryLoaderPlayground } from '~/components/Dashboard/Editor/Dictio
 import { OrganizationHeader } from '~/structuredData/OrganizationHeader';
 import { SoftwareApplicationHeader } from '~/structuredData/SoftwareApplication';
 import { WebsiteHeader } from '~/structuredData/WebsiteHeader';
+import { getAbsoluteUrl, getHreflangLinks } from '~/utils/seo';
 
 const Editor = lazy(() =>
   import('~/components/Dashboard/Editor').then((mod) => ({
@@ -45,18 +41,13 @@ export const Route = createFileRoute('/{-$locale}/_playground/playground')({
             ? keywords.join(', ')
             : String(keywords || ''),
         },
-        { property: 'og:url', content: getLocalizedUrl(path, locale) },
+        { property: 'og:url', content: getAbsoluteUrl(path, locale) },
         { property: 'og:title', content: String(title) },
         { property: 'og:description', content: String(description) },
       ],
       links: [
-        { rel: 'canonical', href: getLocalizedUrl(path, locale) },
-        { rel: 'alternate', hrefLang: 'x-default', href: path },
-        ...localeMap(({ locale: mapLocale }) => ({
-          rel: 'alternate',
-          hrefLang: mapLocale,
-          href: getLocalizedUrl(path, mapLocale),
-        })),
+        { rel: 'canonical', href: getAbsoluteUrl(path, locale) },
+        ...getHreflangLinks(path),
       ],
     };
   },

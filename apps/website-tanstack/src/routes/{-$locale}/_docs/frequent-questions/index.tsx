@@ -1,18 +1,14 @@
 import { Container } from '@intlayer/design-system/container';
 import { Website_FrequentQuestions } from '@intlayer/design-system/routes';
 import { createFileRoute } from '@tanstack/react-router';
-import {
-  defaultLocale,
-  getIntlayer,
-  getLocalizedUrl,
-  localeMap,
-} from 'intlayer';
+import { defaultLocale, getIntlayer } from 'intlayer';
 import { ArrowRight } from 'lucide-react';
 import { Suspense } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { Link } from '~/components/Link/Link';
 import { loadFaqIndex } from '~/serverFunctions/faq';
 import { FAQPageHeader } from '~/structuredData/FAQPageHeader';
+import { getAbsoluteUrl, getHreflangLinks } from '~/utils/seo';
 
 export const Route = createFileRoute('/{-$locale}/_docs/frequent-questions/')({
   loader: async ({ params }) => {
@@ -38,18 +34,13 @@ export const Route = createFileRoute('/{-$locale}/_docs/frequent-questions/')({
             ? keywords.join(', ')
             : String(keywords || ''),
         },
-        { property: 'og:url', content: getLocalizedUrl(path, locale) },
+        { property: 'og:url', content: getAbsoluteUrl(path, locale) },
         { property: 'og:title', content: String(title) },
         { property: 'og:description', content: String(description) },
       ],
       links: [
-        { rel: 'canonical', href: getLocalizedUrl(path, locale) },
-        { rel: 'alternate', hrefLang: 'x-default', href: path },
-        ...localeMap(({ locale: mapLocale }) => ({
-          rel: 'alternate',
-          hrefLang: mapLocale,
-          href: getLocalizedUrl(path, mapLocale),
-        })),
+        { rel: 'canonical', href: getAbsoluteUrl(path, locale) },
+        ...getHreflangLinks(path),
       ],
     };
   },

@@ -1,17 +1,13 @@
 import { Website_Demo } from '@intlayer/design-system/routes';
 import { createFileRoute } from '@tanstack/react-router';
-import {
-  defaultLocale,
-  getIntlayer,
-  getLocalizedUrl,
-  localeMap,
-} from 'intlayer';
+import { defaultLocale, getIntlayer } from 'intlayer';
 import { BackgroundLayout } from '~/components/BackgroundLayout';
 import { DemoPage } from '~/components/DemoPage';
 import { PageLayout } from '~/layouts/PageLayout';
 import { OrganizationHeader } from '~/structuredData/OrganizationHeader';
 import { SoftwareApplicationHeader } from '~/structuredData/SoftwareApplication';
 import { WebsiteHeader } from '~/structuredData/WebsiteHeader';
+import { getAbsoluteUrl, getHreflangLinks } from '~/utils/seo';
 
 export const Route = createFileRoute('/{-$locale}/demo')({
   head: ({ params }) => {
@@ -32,18 +28,13 @@ export const Route = createFileRoute('/{-$locale}/demo')({
             ? keywords.join(', ')
             : keywords || '',
         },
-        { property: 'og:url', content: getLocalizedUrl(path, locale) },
+        { property: 'og:url', content: getAbsoluteUrl(path, locale) },
         { property: 'og:title', content: title },
         { property: 'og:description', content: description },
       ],
       links: [
-        { rel: 'canonical', href: getLocalizedUrl(path, locale) },
-        { rel: 'alternate', hrefLang: 'x-default', href: path },
-        ...localeMap(({ locale: mapLocale }) => ({
-          rel: 'alternate',
-          hrefLang: mapLocale,
-          href: getLocalizedUrl(path, mapLocale),
-        })),
+        { rel: 'canonical', href: getAbsoluteUrl(path, locale) },
+        ...getHreflangLinks(path),
       ],
     };
   },

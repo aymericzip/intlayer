@@ -20,11 +20,15 @@ export const LibLogo: FC<{ id: string; className?: string }> = ({
   if (logo) {
     return (
       <img
-        src={(logo as StaticImport).src}
+        src={typeof logo === 'string' ? logo : (logo as StaticImport).src}
         alt={id}
         className={className}
-        width={(logo as StaticImport).width}
-        height={(logo as StaticImport).height}
+        width={
+          typeof logo === 'string' ? 120 : ((logo as StaticImport).width ?? 120)
+        }
+        height={
+          typeof logo === 'string' ? 20 : ((logo as StaticImport).height ?? 20)
+        }
       />
     );
   }

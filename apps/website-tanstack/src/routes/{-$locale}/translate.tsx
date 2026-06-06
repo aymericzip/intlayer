@@ -1,16 +1,12 @@
 import { Website_Translate } from '@intlayer/design-system/routes';
 import { createFileRoute } from '@tanstack/react-router';
-import {
-  defaultLocale,
-  getIntlayer,
-  getLocalizedUrl,
-  localeMap,
-} from 'intlayer';
+import { defaultLocale, getIntlayer } from 'intlayer';
 import { AiTranslationLandingCore } from '~/components/TranslationLandingPage';
 import { PageLayout } from '~/layouts/PageLayout';
 import { OrganizationHeader } from '~/structuredData/OrganizationHeader';
 import { TranslateSoftwareApplicationHeader } from '~/structuredData/TranslateSoftwareApplicationHeader';
 import { WebsiteHeader } from '~/structuredData/WebsiteHeader';
+import { getAbsoluteUrl, getHreflangLinks } from '~/utils/seo';
 
 export const Route = createFileRoute('/{-$locale}/translate')({
   head: ({ params }) => {
@@ -31,18 +27,13 @@ export const Route = createFileRoute('/{-$locale}/translate')({
             ? keywords.join(', ')
             : keywords || '',
         },
-        { property: 'og:url', content: getLocalizedUrl(path, locale) },
+        { property: 'og:url', content: getAbsoluteUrl(path, locale) },
         { property: 'og:title', content: title },
         { property: 'og:description', content: description },
       ],
       links: [
-        { rel: 'canonical', href: getLocalizedUrl(path, locale) },
-        { rel: 'alternate', hrefLang: 'x-default', href: path },
-        ...localeMap(({ locale: mapLocale }) => ({
-          rel: 'alternate',
-          hrefLang: mapLocale,
-          href: getLocalizedUrl(path, mapLocale),
-        })),
+        { rel: 'canonical', href: getAbsoluteUrl(path, locale) },
+        ...getHreflangLinks(path),
       ],
     };
   },

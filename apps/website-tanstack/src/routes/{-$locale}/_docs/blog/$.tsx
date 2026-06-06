@@ -1,6 +1,6 @@
 import { Website_Blog_Path } from '@intlayer/design-system/routes';
 import { createFileRoute, redirect } from '@tanstack/react-router';
-import { defaultLocale, getLocalizedUrl, localeMap } from 'intlayer';
+import { defaultLocale, getLocalizedUrl } from 'intlayer';
 import { BlogPageLayout } from '~/components/BlogPage/BlogPageLayout';
 import { DocHeader } from '~/components/DocPage/DocHeader/DocHeader';
 import {
@@ -10,6 +10,7 @@ import {
 import { DocumentationRender } from '~/components/DocPage/DocumentationRender';
 import { loadBlogNavData, loadBlogPage } from '~/serverFunctions/blog';
 import { CreativeWorkHeader } from '~/structuredData/CreativeWorkHeader';
+import { getAbsoluteUrl, getHreflangLinks } from '~/utils/seo';
 
 export const Route = createFileRoute('/{-$locale}/_docs/blog/$')({
   loader: async ({ params }) => {
@@ -80,18 +81,13 @@ export const Route = createFileRoute('/{-$locale}/_docs/blog/$')({
             ? keywords.join(', ')
             : keywords || '',
         },
-        { property: 'og:url', content: getLocalizedUrl(absoluteUrl, locale) },
+        { property: 'og:url', content: getAbsoluteUrl(absoluteUrl, locale) },
         { property: 'og:title', content: `${blogData.title} | Intlayer` },
         { property: 'og:description', content: blogData.description },
       ],
       links: [
-        { rel: 'canonical', href: getLocalizedUrl(absoluteUrl, locale) },
-        { rel: 'alternate', hrefLang: 'x-default', href: absoluteUrl },
-        ...localeMap(({ locale: mapLocale }) => ({
-          rel: 'alternate',
-          hrefLang: mapLocale,
-          href: getLocalizedUrl(absoluteUrl, mapLocale),
-        })),
+        { rel: 'canonical', href: getAbsoluteUrl(absoluteUrl, locale) },
+        ...getHreflangLinks(absoluteUrl),
       ],
     };
   },

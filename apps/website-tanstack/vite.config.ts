@@ -231,6 +231,12 @@ export default defineConfig(async ({ mode }) => {
         preset: 'bun',
         routeRules: {
           '/**': { headers },
+          '/assets/**': {
+            headers: {
+              ...headers,
+              'Cache-Control': 'public, max-age=31536000, immutable',
+            },
+          },
           '/i18n-seo-scanner': {
             headers: {
               ...headers,
@@ -267,7 +273,6 @@ export default defineConfig(async ({ mode }) => {
       wasm(),
     ],
     build: {
-      minify: false,
       rolldownOptions: {
         external: ['wasi_snapshot_preview1', 'env'],
       },
