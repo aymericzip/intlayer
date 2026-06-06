@@ -256,6 +256,7 @@ export const environmentsFormContent = {
         id: 'Sumber',
         vi: 'Nguồn',
         uk: 'Джерело',
+        'en-GB': 'Source',
       }),
       targetLabel: t({
         en: 'Target',
@@ -275,6 +276,7 @@ export const environmentsFormContent = {
         id: 'Target',
         vi: 'Đích',
         uk: 'Ціль',
+        'en-GB': 'Target',
       }),
       selectSourcePlaceholder: t({
         en: 'Select source environment',
@@ -294,6 +296,7 @@ export const environmentsFormContent = {
         id: 'Pilih lingkungan sumber',
         vi: 'Chọn môi trường nguồn',
         uk: 'Виберіть вихідне середовище',
+        'en-GB': 'Select source environment',
       }),
       selectTargetPlaceholder: t({
         en: 'Select target environment',

@@ -4,6 +4,7 @@ import { useParams } from '@tanstack/react-router';
 import { defaultLocale } from 'intlayer';
 import { ArrowLeft, Code } from 'lucide-react';
 import { useIntlayer } from 'react-intlayer';
+import { useDate } from 'react-intlayer/format';
 import type { ShowcaseProject } from '#/utils/projectActions/types';
 import { Link as DSLink, Link } from '#components/Link/Link';
 import { MoreProjects } from './MoreProjects';
@@ -18,12 +19,12 @@ interface ProjectFocusProps {
 export const ProjectFocus = ({ project }: ProjectFocusProps) => {
   const content = useIntlayer('project-focus');
   const contentSidebar = useIntlayer('project-sidebar');
-  const { locale } = useParams({ from: '/{-$locale}' });
+  const formatUserDate = useDate();
 
   const formatDate = (dateStr?: string) => {
     if (!dateStr) return content.na.value;
     try {
-      return new Date(dateStr).toLocaleDateString(locale || defaultLocale, {
+      return formatUserDate(dateStr, {
         month: 'long',
         day: 'numeric',
         year: 'numeric',
