@@ -111,7 +111,6 @@ export default defineConfig(({ mode }) => {
       '*.intlayer.org',
       'static.cloudflareinsights.com',
       '*.google-analytics.com',
-      '*.googletagmanager.com',
       '*.posthog.com',
       '*.stripe.com',
       'cdn.jsdelivr.net',
@@ -161,7 +160,7 @@ export default defineConfig(({ mode }) => {
       'localhost:*',
     ],
     'manifest-src': ["'self'"],
-    'child-src': ["'self'", '*.googletagmanager.com'],
+    'child-src': ["'self'"],
     'connect-src': ['*', 'data:', 'blob:'],
     'frame-src': ['*', 'data:', 'blob:'],
   };
