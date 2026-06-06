@@ -3,7 +3,6 @@
 import { OptionalLink } from '@components/DocPage/DocNavList';
 import { SearchTrigger } from '@components/DocPage/Search/SearchTrigger';
 import { Accordion } from '@intlayer/design-system/accordion';
-import {} from '@intlayer/design-system/api';
 import { Button } from '@intlayer/design-system/button';
 import { ClickOutsideDiv } from '@intlayer/design-system/click-outside-div';
 import { Container } from '@intlayer/design-system/container';
@@ -40,8 +39,8 @@ export const BlogNavListContent: FC<BlogNavListProps> = ({
     >
       {Object.keys(blogData).map((key1) => {
         const section1Data = blogData[key1];
-        const sectionDefault = section1Data.default;
-        const subSections = section1Data.subSections;
+        const sectionDefault = section1Data?.default;
+        const subSections = section1Data?.subSections;
         const slugs = sectionDefault?.slugs ?? [];
 
         // Check if this section's own slugs match

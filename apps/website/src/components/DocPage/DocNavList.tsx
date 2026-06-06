@@ -417,7 +417,7 @@ export const DocNavList: FC<DocNavListProps> = ({ docData, activeSlugs }) => {
     <>
       <div
         className={cn(
-          'fixed top-[4.5rem] left-2 z-50 flex flex-col gap-1 md:hidden',
+          'fixed top-18 left-2 z-50 flex flex-col gap-1 md:hidden',
           !isHidden && 'hidden'
         )}
       >

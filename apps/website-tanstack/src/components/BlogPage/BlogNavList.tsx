@@ -1,5 +1,4 @@
 import { Accordion } from '@intlayer/design-system/accordion';
-import {} from '@intlayer/design-system/api';
 import { Button } from '@intlayer/design-system/button';
 import { ClickOutsideDiv } from '@intlayer/design-system/click-outside-div';
 import { Container } from '@intlayer/design-system/container';
@@ -77,7 +76,7 @@ export const BlogNavListContent: FC<BlogNavListProps> = ({
         return (
           <div key={key1}>
             <OptionalLink
-              href={sectionDefault?.relativeUrl ?? ''}
+              to={sectionDefault?.relativeUrl ?? ''}
               label={key1}
               isActive={isSelfActive && !isSubSectionActive}
             >
@@ -123,7 +122,7 @@ export const BlogNavListContent: FC<BlogNavListProps> = ({
                           header={
                             <OptionalLink
                               label={key2}
-                              href={sectionDefault?.relativeUrl ?? ''}
+                              to={sectionDefault?.relativeUrl ?? ''}
                               isActive={isSelfActive && !isSubSectionActive}
                               className="block w-full flex-row items-center text-nowrap p-2 text-left text-sm transition-colors hover:text-text"
                             >
@@ -154,7 +153,7 @@ export const BlogNavListContent: FC<BlogNavListProps> = ({
                                       <OptionalLink
                                         key={key3}
                                         label={key3}
-                                        href={
+                                        to={
                                           section3Data.default?.relativeUrl ??
                                           ''
                                         }
@@ -171,7 +170,7 @@ export const BlogNavListContent: FC<BlogNavListProps> = ({
                         </Accordion>
                       ) : (
                         <OptionalLink
-                          href={sectionDefault?.relativeUrl ?? ''}
+                          to={sectionDefault?.relativeUrl ?? ''}
                           className="block w-full flex-row items-center text-nowrap p-2 text-left text-sm transition-colors hover:text-text"
                           label={key2}
                           isActive={isActive}
@@ -188,7 +187,7 @@ export const BlogNavListContent: FC<BlogNavListProps> = ({
         );
       })}
       <div>
-        <OptionalLink href={Website_Doc_Path} label={docButton.label.value}>
+        <OptionalLink to={Website_Doc_Path} label={docButton.label.value}>
           {docButton?.text}
         </OptionalLink>
       </div>

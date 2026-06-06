@@ -402,6 +402,12 @@ export const DocNavList: FC<DocNavListProps> = ({ docData, activeSlugs }) => {
   const [selectedFramework, setSelectedFramework] = useFrameworkFilter();
 
   useEffect(() => {
+    if (isMobile !== undefined) {
+      setIsHidden(isMobile);
+    }
+  }, [isMobile]);
+
+  useEffect(() => {
     if (typeof window !== 'undefined') {
       const isFocus =
         new URLSearchParams(window.location.search).get('focus') === 'true';
@@ -415,7 +421,7 @@ export const DocNavList: FC<DocNavListProps> = ({ docData, activeSlugs }) => {
     <>
       <div
         className={cn(
-          'fixed top-[4.5rem] left-2 z-50 flex flex-col gap-1 md:hidden',
+          'fixed top-18 left-2 z-50 flex flex-col gap-1 md:hidden',
           !isHidden && 'hidden'
         )}
       >

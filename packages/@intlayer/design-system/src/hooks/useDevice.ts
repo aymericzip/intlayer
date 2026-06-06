@@ -108,11 +108,17 @@ export const calculateIsMobile = (breakpoint: SizeType | number = 'md') => {
 };
 
 export const useDevice = (breakpoint: SizeType | number = 'md') => {
-  const [result, setResult] = useState<UseDeviceState>(
-    calculateIsMobile(breakpoint)
-  );
+  const [result, setResult] = useState<UseDeviceState>({
+    isMobileScreen: undefined,
+    isMobileUserAgent: undefined,
+    isMobile: undefined,
+    isIOS: undefined,
+    isMac: undefined,
+  });
 
   useEffect(() => {
+    setResult(calculateIsMobile(breakpoint));
+
     const handleResize = () => {
       setResult(calculateIsMobile(breakpoint));
     };
@@ -121,7 +127,7 @@ export const useDevice = (breakpoint: SizeType | number = 'md') => {
 
     // Cleanup listener on unmount
     return () => window.removeEventListener('resize', handleResize);
-  }, [breakpoint]); // Empty dependency array ensures this effect runs only once on mount
+  }, [breakpoint]);
 
   return result;
 };
