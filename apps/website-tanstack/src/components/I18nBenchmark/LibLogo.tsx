@@ -1,4 +1,5 @@
 import { Logo } from '@intlayer/design-system/logo';
+import { cn } from '@intlayer/design-system/utils';
 import { useTheme } from 'next-themes';
 import type { FC } from 'react';
 import { getLibColors, LIB_LOGOS, type StaticImport } from './constants';
@@ -13,25 +14,24 @@ export const LibLogo: FC<{ id: string; className?: string }> = ({
   if (id === 'intlayer' || id === 'react-intlayer') {
     return <Logo className={className} />;
   }
+
   const logo = LIB_LOGOS[id];
+
   if (logo) {
     return (
-      <Image
+      <img
         src={(logo as StaticImport).src}
         alt={id}
         className={className}
         width={(logo as StaticImport).width}
         height={(logo as StaticImport).height}
-        unoptimized
       />
     );
   }
   return (
     <div
-      className={`size-4 shrink-0 rounded-full ${className || ''}`}
+      className={cn('size-4 shrink-0 rounded-full', className)}
       style={{ backgroundColor: getLibColors(isDarkMode)[id] || '#94a3b8' }}
     />
   );
 };
-
-const Image = (props: any) => <img {...props} />;
