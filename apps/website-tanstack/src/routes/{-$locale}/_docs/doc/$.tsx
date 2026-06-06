@@ -21,15 +21,6 @@ export const Route = createFileRoute('/{-$locale}/_docs/doc/$')({
     const slugsStr = (params as any)['*'] || '';
     const slugs = slugsStr ? slugsStr.split('/') : [];
 
-    const isMd = slugsStr.endsWith('.md');
-    if (isMd) {
-      const cleanSlug = slugsStr.slice(0, -3);
-      throw redirect({
-        to: getLocalizedUrl(`/doc/raw/${cleanSlug}`, locale) as any,
-        statusCode: 301,
-      });
-    }
-
     const [result, navData] = await Promise.all([
       loadDocPage({ data: { locale, slugs } }),
       loadNavData({ data: { locale } }),

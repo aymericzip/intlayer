@@ -14,9 +14,9 @@ import enquirer from 'enquirer';
 import { findProjectRoot } from './init';
 
 const PLATFORM_CHECKS: Array<{ check: () => boolean; platform: Platform }> =
-  PLATFORMS.filter((platform) => PLATFORMS_METADATA[platform].check).map(
+  PLATFORMS.filter((platform) => PLATFORMS_METADATA[platform]?.check).map(
     (platform) => ({
-      check: PLATFORMS_METADATA[platform].check ?? (() => false),
+      check: PLATFORMS_METADATA[platform]?.check ?? (() => false),
       platform,
     })
   );
@@ -27,8 +27,8 @@ export const PLATFORM_OPTIONS: Array<{
   hint: string;
 }> = PLATFORMS.map((platform) => ({
   value: platform,
-  label: PLATFORMS_METADATA[platform].label,
-  hint: `(${PLATFORMS_METADATA[platform].dir})`,
+  label: PLATFORMS_METADATA[platform]?.label ?? '',
+  hint: `(${PLATFORMS_METADATA[platform]?.dir})`,
 }));
 
 export const getDetectedPlatform = (): Platform | undefined =>

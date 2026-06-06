@@ -27,6 +27,24 @@ export const loadFaqPage = createServerFn()
     };
   });
 
+export const loadFaqRaw = createServerFn()
+  .inputValidator((data: { locale: string; slugs: string[] }) => data)
+  .handler(async ({ data: { locale, slugs } }) => {
+    const { getFrequentQuestion, getFrequentQuestionMetadataBySlug } =
+      await import('@intlayer/docs');
+
+    const fullSlugs = ['frequent-questions', ...slugs];
+    const faqsData = await getFrequentQuestionMetadataBySlug(fullSlugs, locale);
+    const exactMatch =
+      faqsData.find((faq) => faq.slugs.join('/') === fullSlugs.join('/')) ??
+      null;
+
+    if (!exactMatch) return null;
+
+    const file = await getFrequentQuestion(exactMatch.docKey as any, locale);
+    return { file };
+  });
+
 export const loadFaqIndex = createServerFn()
   .inputValidator((data: { locale: string }) => data)
   .handler(async ({ data: { locale } }) => {

@@ -1,0 +1,98 @@
+import { createFileRoute } from '@tanstack/react-router';
+import { defaultLocale } from 'intlayer';
+import { loadBlogRaw } from '~/serverFunctions/blog';
+
+export const Route = createFileRoute('/{-$locale}/blog/raw/$')({
+  server: {
+    handlers: {
+      GET: async ({ request, params }) => {
+        try {
+          const locale = (params.locale as string) ?? defaultLocale;
+          const slugsStr = (params as any)['*'] || '';
+          const slugs = slugsStr ? slugsStr.split('/') : [];
+
+          const result = await loadBlogRaw({ data: { locale, slugs } });
+
+          if (!result) {
+            return new Response(
+              `Not found.\nDebug: slugs=${JSON.stringify(slugs)}`,
+              { status: 404 }
+            );
+          }
+
+          const { file } = result;
+
+          const url = new URL(request.url);
+          const format = (url.searchParams.get('format') || '').toLowerCase();
+          const accept = request.headers.get('accept') || '';
+          const baseHeaders: Record<string, string> = {
+            'Cache-Control':
+              'public, max-age=300, s-maxage=300, stale-while-revalidate=300',
+            'Access-Control-Allow-Origin': '*',
+            'X-Robots-Tag': 'all',
+            'X-Content-Type-Options': 'nosniff',
+            'Content-Security-Policy': 'frame-ancestors *',
+            Vary: 'Accept',
+            'Content-Disposition': `inline; filename="${slugs[slugs.length - 1] || 'blog'}.md"`,
+          };
+
+          const isHead = request.method.toUpperCase() === 'HEAD';
+          const wantsHtml =
+            format === 'html' ||
+            (format === '' && accept.includes('text/html'));
+          const wantsText =
+            format === 'txt' ||
+            (format === '' &&
+              (accept.includes('text/plain') || accept.includes('*/*')));
+
+          if (wantsHtml) {
+            const htmlContent = `<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="robots" content="all"></head><body><pre style="white-space: pre-wrap; font-family: monospace; line-height: 1.5; padding: 20px;">${file
+              .replace(/&/g, '&amp;')
+              .replace(/</g, '&lt;')
+              .replace(/>/g, '&gt;')}</pre></body></html>`;
+            return new Response(isHead ? null : htmlContent, {
+              status: 200,
+              headers: {
+                ...baseHeaders,
+                'Content-Type': 'text/html; charset=utf-8',
+              },
+            });
+          }
+
+          if (wantsText) {
+            return new Response(isHead ? null : file, {
+              status: 200,
+              headers: {
+                ...baseHeaders,
+                'Content-Type': 'text/plain; charset=utf-8',
+              },
+            });
+          }
+
+          return new Response(isHead ? null : file, {
+            status: 200,
+            headers: {
+              ...baseHeaders,
+              'Content-Type': 'text/markdown; charset=utf-8',
+            },
+          });
+        } catch (error) {
+          return new Response(`Internal Server Error: ${String(error)}`, {
+            status: 500,
+          });
+        }
+      },
+      POST: async () =>
+        new Response(null, {
+          status: 204,
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'GET, HEAD, OPTIONS',
+            'Access-Control-Allow-Headers': '*',
+            'Cache-Control':
+              'public, max-age=300, s-maxage=300, stale-while-revalidate=300',
+          },
+        }),
+    },
+  },
+});

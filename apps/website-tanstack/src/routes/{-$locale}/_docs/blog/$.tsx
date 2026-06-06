@@ -8,34 +8,14 @@ import {
   type DocPageNavigationProps,
 } from '~/components/DocPage/DocPageNavigation/DocPageNavigation';
 import { DocumentationRender } from '~/components/DocPage/DocumentationRender';
-import {
-  loadBlogNavData,
-  loadBlogPage,
-  loadBlogRaw,
-} from '~/serverFunctions/blog';
+import { loadBlogNavData, loadBlogPage } from '~/serverFunctions/blog';
 import { CreativeWorkHeader } from '~/structuredData/CreativeWorkHeader';
 
 export const Route = createFileRoute('/{-$locale}/_docs/blog/$')({
   loader: async ({ params }) => {
     const locale = (params.locale as string) ?? defaultLocale;
     const slugsStr = (params as any)['*'] || '';
-    let slugs = slugsStr ? slugsStr.split('/') : [];
-
-    const isMd = slugsStr.endsWith('.md');
-    if (isMd) {
-      slugs = slugs.map((slug: string, idx: number) =>
-        idx === slugs.length - 1 ? slug.slice(0, -3) : slug
-      );
-
-      const rawResult = await loadBlogRaw({ data: { locale, slugs } });
-      if (!rawResult) {
-        return new Response('Not found', { status: 404 });
-      }
-      return new Response(rawResult.file, {
-        status: 200,
-        headers: { 'Content-Type': 'text/markdown; charset=utf-8' },
-      });
-    }
+    const slugs = slugsStr ? slugsStr.split('/') : [];
 
     const [result, navData] = await Promise.all([
       loadBlogPage({ data: { locale, slugs } }),

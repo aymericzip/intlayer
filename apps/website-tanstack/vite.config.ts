@@ -26,6 +26,38 @@ const rawMarkdownPlugin = {
   },
 };
 
+/**
+ * Rewrites /[locale]/doc|blog|frequent-questions/slug.md → /[locale]/section/raw/slug
+ * BEFORE the intlayerProxy middleware runs, so the locale is preserved and the
+ * existing server.handlers on /raw/ routes serve the raw content with no redirect.
+ */
+const MD_REWRITE_PATTERN =
+  /^(\/[a-z]{2}(?:-[A-Z]{2})?)?\/(doc|blog|frequent-questions)\/(.+?)\.md(\?.*)?$/;
+
+const mdRawRewritePlugin = {
+  name: 'md-raw-rewrite',
+  configureServer(server: {
+    middlewares: {
+      use: (
+        fn: (req: { url?: string }, _: unknown, next: () => void) => void
+      ) => void;
+    };
+  }) {
+    server.middlewares.use((req, _, next) => {
+      const url = req.url ?? '';
+      const match = url.match(MD_REWRITE_PATTERN);
+      if (match) {
+        const locale = match[1] ?? '';
+        const section = match[2];
+        const slug = match[3];
+        const query = match[4] ?? '';
+        req.url = `${locale}/${section}/raw/${slug}${query}`;
+      }
+      next();
+    });
+  },
+};
+
 export default defineConfig(async ({ mode }) => {
   const env = loadEnv(mode, process.cwd(), 'VITE_');
 
@@ -193,6 +225,7 @@ export default defineConfig(async ({ mode }) => {
     },
     plugins: [
       rawMarkdownPlugin,
+      mdRawRewritePlugin,
       intlayerProxy(),
       nitro({
         preset: 'bun',
