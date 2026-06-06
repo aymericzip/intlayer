@@ -77,21 +77,31 @@ export const useRegister = () => {
   });
 };
 
+const LOGOUT_QUERY_KEYS: string[][] = [
+  ['session'],
+  ['users'],
+  ['organizations'],
+  ['projects'],
+  ['dictionaries'],
+  ['tags'],
+];
+
 export const useLogout = () => {
   const intlayerAuth = useIntlayerAuth();
+  const queryClient = useQueryClient();
 
   return useMutation({
     mutationKey: ['logout'],
     mutationFn: () => intlayerAuth.signOut(),
-    meta: {
-      resetQueries: [
-        ['session'],
-        ['users'],
-        ['organizations'],
-        ['projects'],
-        ['dictionaries'],
-        ['tags'],
-      ],
+    // removeQueries instead of resetQueries: evicts cached data without
+    // triggering a re-fetch. A re-fetch (resetQueries) can race with the
+    // signOut response and resurrect a session from better-auth's
+    // short-lived cookie cache, causing an infinite redirect loop between
+    // the dashboard and the login page.
+    onSettled: () => {
+      LOGOUT_QUERY_KEYS.forEach((queryKey) => {
+        queryClient.removeQueries({ queryKey });
+      });
     },
   });
 };

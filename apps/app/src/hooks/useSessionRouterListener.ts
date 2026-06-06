@@ -1,4 +1,4 @@
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { useRouter } from '@tanstack/react-router';
 import { useEffect, useRef } from 'react';
 import { sessionQueryOptions } from '#utils/auth.tsx';
@@ -8,7 +8,6 @@ import { sessionQueryOptions } from '#utils/auth.tsx';
  */
 export const useSessionRouterListener = () => {
   const router = useRouter();
-  const queryClient = useQueryClient();
 
   // Subscribe to the session query
   const { data: session } = useQuery(sessionQueryOptions);
@@ -33,11 +32,25 @@ export const useSessionRouterListener = () => {
     // /login → / → /organization → /login loop.
     const isSignIn = !prev?.user && !!curr?.user;
 
-    if (!isSignIn && (isUserChanged || isOrgChanged || isProjectChanged)) {
+    // Skip invalidation when the user just signed OUT (prev had a user, curr has none).
+    // AuthenticationBarrierClient already calls navigate({ replace: true }) to /login
+    // when it sees sessionClient === null. Firing router.invalidate() concurrently
+    // races with that navigate() call: the invalidation re-runs all loaders for the
+    // current dashboard URL, potentially resurrecting a stale session via
+    // refetchFreshSession (better-auth cookie cache), and then the dashboard
+    // re-renders while the navigate() is in-flight — producing an infinite
+    // /dashboard → /login → /dashboard redirect loop that freezes the page.
+    const isSignOut = !!prev?.user && !curr?.user;
+
+    if (
+      !isSignIn &&
+      !isSignOut &&
+      (isUserChanged || isOrgChanged || isProjectChanged)
+    ) {
       router.invalidate();
     }
 
     // Update the ref for the next render cycle
     prevSession.current = curr;
-  }, [session, router, queryClient]);
+  }, [session, router]);
 };
