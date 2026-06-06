@@ -7,6 +7,7 @@ import {
   QueryClient,
   QueryClientProvider,
   type QueryKey,
+  timeoutManager,
   type UseMutationOptions,
 } from '@tanstack/react-query';
 import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client';
@@ -19,21 +20,52 @@ const PERSIST_BUSTER = 'v1';
 
 const isServer = typeof window === 'undefined';
 
+// During SSR/prerender, react-query schedules `setTimeout`/`setInterval`
+// timers for query garbage collection (`gcTime`) and background refetching
+// (`refetchInterval`). A query built in the cache during render — even an
+// `enabled: false` one — schedules its gcTime timer immediately. In Node,
+// those pending timers keep the event loop alive, so the prerender server
+// never closes and the build hangs after every page has been rendered.
+//
+// Setting `gcTime: Infinity` in the defaults below avoids the *default*
+// timer, but per-query overrides (e.g. `useSession` sets its own `gcTime`)
+// would reintroduce it. To make this robust regardless of per-query options,
+// override react-query's timeout provider on the server so every timer is
+// `unref`-ed — Node can then exit while they are still pending.
+if (isServer) {
+  const unref = (timer: unknown): void => {
+    if (
+      typeof timer === 'object' &&
+      timer !== null &&
+      'unref' in timer &&
+      typeof (timer as { unref: unknown }).unref === 'function'
+    ) {
+      (timer as { unref: () => void }).unref();
+    }
+  };
+
+  timeoutManager.setTimeoutProvider({
+    setTimeout: (callback, delay) => {
+      const timer = setTimeout(callback, delay);
+      unref(timer);
+      return timer;
+    },
+    clearTimeout: (timer) => clearTimeout(timer),
+    setInterval: (callback, delay) => {
+      const timer = setInterval(callback, delay);
+      unref(timer);
+      return timer;
+    },
+    clearInterval: (timer) => clearInterval(timer),
+  });
+}
+
 const defaultQueryOptions: DefaultOptions = {
   queries: {
     retry: 1,
     // Keep data fresh for 30 seconds to avoid unnecessary refetches during navigation
     staleTime: 30 * 1000,
-    // On the client, gcTime must be >= persist maxAge, otherwise restored
-    // entries are dropped on rehydrate.
-    //
-    // On the server (SSR/prerender), keep gcTime at Infinity — react-query's
-    // safe server default. Any finite gcTime makes react-query schedule a
-    // `setTimeout(gcTime)` when a query is built in the cache during render
-    // (even for `enabled: false` queries). That timer keeps the Node event
-    // loop alive, so the prerender server never closes and the build hangs
-    // after all pages are rendered. Infinity skips the timer entirely.
-    gcTime: isServer ? Infinity : PERSIST_MAX_AGE,
+    gcTime: PERSIST_MAX_AGE,
     // Only refetch on mount if data is stale (not every single mount)
     refetchOnMount: true,
     refetchOnWindowFocus: false,
