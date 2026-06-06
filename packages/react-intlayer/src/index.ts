@@ -11,11 +11,11 @@ declare module '@intlayer/core/interpreter' {
  */
 export { useIntl } from './client/format/useIntl';
 // Import directly from individual files to avoid circular dependency issues
+export type { IntlayerProviderProps } from './client/IntlayerProvider';
 export {
   IntlayerClientContext,
   IntlayerProvider,
   IntlayerProviderContent,
-  type IntlayerProviderProps,
   useIntlayerContext,
 } from './client/IntlayerProvider';
 export { t } from './client/t';
@@ -25,11 +25,8 @@ export { useDictionaryDynamic } from './client/useDictionaryDynamic';
 export { useI18n } from './client/useI18n';
 export { useIntlayer } from './client/useIntlayer';
 export { useLoadDynamic } from './client/useLoadDynamic';
-export {
-  type UseLocaleProps,
-  type UseLocaleResult,
-  useLocale,
-} from './client/useLocale';
+export type { UseLocaleProps, UseLocaleResult } from './client/useLocale';
+export { useLocale } from './client/useLocale';
 export { useLocaleBase } from './client/useLocaleBase';
 export {
   localeCookie,

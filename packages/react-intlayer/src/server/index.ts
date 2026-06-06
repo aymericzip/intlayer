@@ -1,8 +1,8 @@
 export { useIntl } from './format/useIntl';
+export type { IntlayerServerProviderProps } from './IntlayerServerProvider';
 export {
   IntlayerServerContext as IntlayerServer,
   IntlayerServerProvider,
-  type IntlayerServerProviderProps,
   locale,
 } from './IntlayerServerProvider';
 export { t } from './t';
