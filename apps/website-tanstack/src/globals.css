@@ -1,5 +1,5 @@
-@import "@intlayer/design-system/css";
-@import "tailwindcss";
+@import '@intlayer/design-system/css';
+@import 'tailwindcss';
 
 @layer base {
   /* 1. Standard Scale (Landing Page) */

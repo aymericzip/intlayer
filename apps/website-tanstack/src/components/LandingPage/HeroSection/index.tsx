@@ -1,7 +1,6 @@
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
 import { useCopyToClipboard } from '@intlayer/design-system/copy-to-clipboard';
-import { CodeBlock } from '@intlayer/design-system/ide';
 import {
   External_Github,
   Website_Doc_Path,
@@ -11,11 +10,17 @@ import { Tag } from '@intlayer/design-system/tag';
 import { motion } from 'framer-motion';
 import { ArrowRight, Check, Copy } from 'lucide-react';
 import { useTheme } from 'next-themes';
-import type { FC } from 'react';
+import { type FC, lazy, Suspense } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { Link } from '~/components/Link/Link';
 import packageJSON from '../../../../package_mock.json' with { type: 'json' };
 import { TechLogos } from './TechLogos';
+
+const CodeBlock = lazy(() =>
+  import('@intlayer/design-system/ide').then((mod) => ({
+    default: mod.CodeBlock,
+  }))
+);
 
 const SHOW_WHATS_NEW = true;
 
@@ -108,9 +113,11 @@ export const HeroSection: FC = () => {
             roundedSize="2xl"
             className="m-auto mt-24 max-w-2xl flex-row items-center p-1 pl-6"
           >
-            <CodeBlock lang="bash" isDarkMode={isDarkMode}>
-              npm install intlayer
-            </CodeBlock>
+            <Suspense fallback={null}>
+              <CodeBlock lang="bash" isDarkMode={isDarkMode}>
+                npm install intlayer
+              </CodeBlock>
+            </Suspense>
             <Button
               variant="hoverable"
               color="neutral"

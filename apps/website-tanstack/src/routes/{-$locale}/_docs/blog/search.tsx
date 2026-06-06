@@ -17,7 +17,7 @@ export const Route = createFileRoute('/{-$locale}/_docs/blog/search')({
     return { locale, navData };
   },
   head: () => ({
-    title: 'Search Blog | Intlayer',
+    meta: [{ title: 'Search Blog | Intlayer' }],
   }),
   component: BlogSearchPage,
 });

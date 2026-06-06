@@ -32,8 +32,8 @@ export const Route = createFileRoute('/{-$locale}/_playground/playground')({
     );
 
     return {
-      title: String(title),
       meta: [
+        { title: String(title) },
         { name: 'description', content: String(description) },
         {
           name: 'keywords',

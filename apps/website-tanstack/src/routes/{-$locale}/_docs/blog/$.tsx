@@ -70,8 +70,8 @@ export const Route = createFileRoute('/{-$locale}/_docs/blog/$')({
     const keywords = blogData.keywords;
 
     return {
-      title: `${blogData.title} | Intlayer`,
       meta: [
+        { title: `${blogData.title} | Intlayer` },
         { name: 'description', content: blogData.description },
         {
           name: 'keywords',
@@ -79,12 +79,12 @@ export const Route = createFileRoute('/{-$locale}/_docs/blog/$')({
             ? keywords.join(', ')
             : keywords || '',
         },
-        { property: 'og:url', content: getAbsoluteUrl(absoluteUrl, locale) },
+        { property: 'og:url', content: getAbsoluteUrl(absoluteUrl) },
         { property: 'og:title', content: `${blogData.title} | Intlayer` },
         { property: 'og:description', content: blogData.description },
       ],
       links: [
-        { rel: 'canonical', href: getAbsoluteUrl(absoluteUrl, locale) },
+        { rel: 'canonical', href: getAbsoluteUrl(absoluteUrl) },
         ...getHreflangLinks(absoluteUrl),
       ],
     };

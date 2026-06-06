@@ -36,8 +36,8 @@ export const Route = createFileRoute('/{-$locale}/_docs/frequent-questions/$')({
     const { title, description, keywords, url } = frequentQuestionData;
 
     return {
-      title: `${title} | Intlayer`,
       meta: [
+        { title: `${title} | Intlayer` },
         { name: 'description', content: description },
         {
           name: 'keywords',

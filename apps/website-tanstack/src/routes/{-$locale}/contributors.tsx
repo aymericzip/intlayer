@@ -40,8 +40,8 @@ export const Route = createFileRoute('/{-$locale}/contributors')({
     );
 
     return {
-      title: String(title),
       meta: [
+        { title: String(title) },
         { name: 'description', content: String(description) },
         {
           name: 'keywords',

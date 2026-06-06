@@ -20,8 +20,8 @@ export const Route = createFileRoute('/{-$locale}/_docs/terms-of-service')({
     const locale = defaultLocale;
 
     return {
-      title: String(title),
       meta: [
+        { title: String(title) },
         { name: 'description', content: String(description) },
         {
           name: 'keywords',

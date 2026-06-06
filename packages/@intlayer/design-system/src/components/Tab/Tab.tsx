@@ -157,6 +157,7 @@ const TabComponent = ({
             tabs={tabItems.map((child) => {
               const { label, value, disabled } = child.props;
               const isActive = currentTabValue === value;
+              const safeId = String(value).replace(/\s+/g, '-');
 
               return (
                 <button
@@ -170,8 +171,8 @@ const TabComponent = ({
                   onClick={() => !disabled && handleSetActiveTab(value)}
                   role="tab"
                   aria-selected={isActive}
-                  aria-controls={`tabpanel-${value}`}
-                  id={`tab-${value}`}
+                  aria-controls={`tabpanel-${safeId}`}
+                  id={`tab-${safeId}`}
                   type="button"
                 >
                   {label ?? value}
@@ -193,8 +194,6 @@ const TabComponent = ({
         >
           {/* Track */}
           <div
-            role="tablist"
-            aria-orientation="horizontal"
             className={cn(
               'grid w-full min-w-0',
               fullHeight && 'h-full',
@@ -210,13 +209,14 @@ const TabComponent = ({
             {tabItems.map(({ props }, index) => {
               const { value, children, className: itemClassName } = props;
               const isActive = index === activeTabIndex;
+              const safeId = String(value).replace(/\s+/g, '-');
 
               return (
                 <div
                   key={value}
                   role="tabpanel"
-                  aria-labelledby={`tab-${value}`}
-                  id={`tabpanel-${value}`}
+                  aria-labelledby={`tab-${safeId}`}
+                  id={`tabpanel-${safeId}`}
                   aria-hidden={!isActive}
                   tabIndex={isActive ? 0 : -1}
                   data-active={isActive}

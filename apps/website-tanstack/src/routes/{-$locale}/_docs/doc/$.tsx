@@ -74,8 +74,8 @@ export const Route = createFileRoute('/{-$locale}/_docs/doc/$')({
     const absoluteUrl = docData.url;
 
     return {
-      title: `${docData.title} | Intlayer`,
       meta: [
+        { title: `${docData.title} | Intlayer` },
         { name: 'description', content: docData.description },
         {
           name: 'keywords',
@@ -83,12 +83,12 @@ export const Route = createFileRoute('/{-$locale}/_docs/doc/$')({
             ? docData.keywords.join(', ')
             : docData.keywords || '',
         },
-        { property: 'og:url', content: getAbsoluteUrl(absoluteUrl, locale) },
+        { property: 'og:url', content: getAbsoluteUrl(absoluteUrl) },
         { property: 'og:title', content: `${docData.title} | Intlayer` },
         { property: 'og:description', content: docData.description },
       ],
       links: [
-        { rel: 'canonical', href: getAbsoluteUrl(absoluteUrl, locale) },
+        { rel: 'canonical', href: getAbsoluteUrl(absoluteUrl) },
         ...getHreflangLinks(absoluteUrl),
       ],
     };

@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router';
+import { Await, createFileRoute, defer } from '@tanstack/react-router';
 import { defaultLocale, getIntlayer } from 'intlayer';
 import { LandingPage as LandingPageContent } from '~/components/LandingPage';
 import { PageLayout } from '~/layouts/PageLayout';
@@ -13,8 +13,7 @@ import { getPricing } from '~/utils/stripe';
 export const Route = createFileRoute('/{-$locale}/')({
   loader: async ({ params }) => {
     const locale = params.locale ?? defaultLocale;
-    const pricings = await getPricing();
-    return { pricings, locale };
+    return { pricings: defer(getPricing()), locale };
   },
   head: ({ params }) => {
     const locale = params.locale ?? defaultLocale;
@@ -25,8 +24,8 @@ export const Route = createFileRoute('/{-$locale}/')({
     );
 
     return {
-      title: String(title),
       meta: [
+        { title: String(title) },
         { name: 'description', content: String(description) },
         {
           name: 'keywords',
@@ -56,7 +55,9 @@ function LandingPage() {
       <WebsiteHeader />
       <OrganizationHeader />
       <SoftwareApplicationHeader />
-      <ProductHeader pricings={pricings} />
+      <Await promise={pricings} fallback={null}>
+        {(resolvedPricings) => <ProductHeader pricings={resolvedPricings} />}
+      </Await>
       <LandingPageContent />
     </PageLayout>
   );

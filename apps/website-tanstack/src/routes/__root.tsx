@@ -7,14 +7,13 @@ import {
   Scripts,
 } from '@tanstack/react-router';
 import { defaultLocale, getHTMLTextDir } from 'intlayer';
-import { Suspense, useEffect } from 'react';
+import { Suspense } from 'react';
 import { IntlayerProvider } from 'react-intlayer';
 import { ChunkErrorListener } from '~/components/ChunkErrorListener';
 import { ServiceWorkerSubscriber } from '~/components/ServiceWorker/ServiceWorkerSubscriber';
 import appCss from '~/globals.css?url';
 import { AnimatePresenceProvider } from '~/providers/AnimatePresenceProvider';
 import { FirstConsultationProvider } from '~/providers/FirstConsultationProvider';
-import shikiCss from '~/shiki.css?url';
 import { Route as LocaleRoute } from './{-$locale}/route';
 
 interface MyRouterContext {
@@ -23,8 +22,10 @@ interface MyRouterContext {
 
 export const Route = createRootRouteWithContext<MyRouterContext>()({
   head: () => ({
-    title: 'i18n Solution & CMS for React, Next.js, Vue, Svelte | Intlayer',
     meta: [
+      {
+        title: 'i18n Solution & CMS for React, Next.js, Vue, Svelte | Intlayer',
+      },
       { charSet: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       {
@@ -62,13 +63,17 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
       { property: 'og:image:alt', content: 'Intlayer' },
     ],
     links: [
+      { rel: 'preload', as: 'style', href: appCss },
       { rel: 'stylesheet', href: appCss },
-      { rel: 'stylesheet', href: shikiCss },
       { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
       {
         rel: 'preconnect',
         href: 'https://fonts.gstatic.com',
         crossOrigin: 'anonymous',
+      },
+      {
+        rel: 'stylesheet',
+        href: 'https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap',
       },
       { rel: 'preconnect', href: 'https://api.github.com' },
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
@@ -101,19 +106,8 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
   shellComponent: RootDocument,
 });
 
-const GOOGLE_FONTS_URL =
-  'https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap';
-
 function RootDocument({ children }: { children: React.ReactNode }) {
   const { locale = defaultLocale } = LocaleRoute.useParams();
-
-  useEffect(() => {
-    if (document.querySelector(`link[href="${GOOGLE_FONTS_URL}"]`)) return;
-    const link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = GOOGLE_FONTS_URL;
-    document.head.appendChild(link);
-  }, []);
 
   return (
     <html dir={getHTMLTextDir(locale)} lang={locale} suppressHydrationWarning>

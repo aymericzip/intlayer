@@ -15,7 +15,7 @@ export const Route = createFileRoute('/{-$locale}/_docs/doc/chat')({
     return { locale, navData };
   },
   head: () => ({
-    title: 'Chat with Documentation | Intlayer',
+    meta: [{ title: 'Chat with Documentation | Intlayer' }],
   }),
   component: DocumentationChatPage,
 });

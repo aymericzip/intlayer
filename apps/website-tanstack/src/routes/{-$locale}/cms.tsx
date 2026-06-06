@@ -25,8 +25,8 @@ export const Route = createFileRoute('/{-$locale}/cms')({
     );
 
     return {
-      title: title,
       meta: [
+        { title: title },
         { name: 'description', content: description },
         {
           name: 'keywords',
