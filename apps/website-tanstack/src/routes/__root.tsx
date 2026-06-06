@@ -5,7 +5,6 @@ import {
   createRootRouteWithContext,
   HeadContent,
   Scripts,
-  useParams,
 } from '@tanstack/react-router';
 import { defaultLocale, getHTMLTextDir } from 'intlayer';
 import { Suspense } from 'react';
@@ -16,6 +15,7 @@ import appCss from '~/globals.css?url';
 import { AnimatePresenceProvider } from '~/providers/AnimatePresenceProvider';
 import { FirstConsultationProvider } from '~/providers/FirstConsultationProvider';
 import shikiCss from '~/shiki.css?url';
+import { Route as LocaleRoute } from './{-$locale}/route';
 
 interface MyRouterContext {
   queryClient: QueryClient;
@@ -105,7 +105,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 });
 
 function RootDocument({ children }: { children: React.ReactNode }) {
-  const { locale = defaultLocale } = useParams({ strict: false }) as any;
+  const { locale = defaultLocale } = LocaleRoute.useParams();
 
   return (
     <html dir={getHTMLTextDir(locale)} lang={locale} suppressHydrationWarning>

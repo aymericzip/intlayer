@@ -87,8 +87,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 
 function RootDocument({ children }: { children: React.ReactNode }) {
   // Try to find locale in params of any active match
-  const params = LocaleRoute.useParams();
-  const locale = params.locale ?? defaultLocale;
+  const { locale = defaultLocale } = LocaleRoute.useParams();
 
   return (
     <html dir={getHTMLTextDir(locale)} lang={locale} suppressHydrationWarning>

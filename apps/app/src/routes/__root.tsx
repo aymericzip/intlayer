@@ -21,6 +21,7 @@ import appCss from '#/styles.css?url';
 import { ErrorComponent } from '#components/ErrorComponent';
 import { ServiceWorkerSubscriber } from '#components/ServiceWorker/ServiceWorkerSubscriber';
 import { sessionQueryOptions } from '#utils/auth.tsx';
+import { Route as LocaleRoute } from './{-$locale}/route';
 
 interface MyRouterContext {
   queryClient: QueryClient;
@@ -84,7 +85,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 });
 
 function RootDocument({ children }: { children: React.ReactNode }) {
-  const { locale = defaultLocale } = useParams({ strict: false }) as any;
+  const { locale = defaultLocale } = LocaleRoute.useParams();
   const { queryClient } = Route.useRouteContext();
 
   return (
