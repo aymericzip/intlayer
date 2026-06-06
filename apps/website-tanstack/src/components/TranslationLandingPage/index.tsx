@@ -42,7 +42,7 @@ const ContributorSection = lazy(() =>
   }))
 );
 const LanguageSection = lazy(() =>
-  import('@intlayer/design-system/language-background').then((mod) => ({
+  import('@intlayer/design-system/language-background').then((module) => ({
     default: module.LanguageSection,
   }))
 );
