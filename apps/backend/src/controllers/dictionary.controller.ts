@@ -272,6 +272,13 @@ export const getDictionaryByKey = async (
       project.id
     );
 
+    if (!dictionary) {
+      return ErrorHandler.handleGenericErrorResponse(
+        reply,
+        'DICTIONARY_NOT_FOUND'
+      );
+    }
+
     if (
       !hasPermission(
         roles || [],

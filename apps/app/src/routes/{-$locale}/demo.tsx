@@ -15,7 +15,7 @@ import { useIntlayer } from 'react-intlayer';
 import { useLocalizedNavigate } from '#hooks/useLocalizedNavigate.ts';
 import { sessionQueryOptions } from '#utils/auth';
 
-export const Route = createFileRoute('/demo')({
+export const Route = createFileRoute('/{-$locale}/demo')({
   component: DemoPage,
 });
 

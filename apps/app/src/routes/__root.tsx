@@ -6,7 +6,6 @@ import {
   createRootRouteWithContext,
   HeadContent,
   Scripts,
-  useParams,
 } from '@tanstack/react-router';
 import { defaultLocale, getHTMLTextDir } from 'intlayer';
 import { Suspense } from 'react';

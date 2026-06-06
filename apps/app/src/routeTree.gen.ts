@@ -8,402 +8,403 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { Route as rootRouteImport } from './routes/__root'
-import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
-import { Route as HealthzRouteImport } from './routes/healthz'
-import { Route as DemoRouteImport } from './routes/demo'
-import { Route as Char123LocaleChar125RouteRouteImport } from './routes/{-$locale}/route'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as Char123LocaleChar125PageRouteImport } from './routes/{-$locale}/page'
-import { Route as Char123LocaleChar125404RouteImport } from './routes/{-$locale}/404'
-import { Route as Char123LocaleChar125SplatRouteImport } from './routes/{-$locale}/$'
-import { Route as Char123LocaleChar125OtherRouteRouteImport } from './routes/{-$locale}/_other/route'
-import { Route as Char123LocaleChar125DashboardRouteRouteImport } from './routes/{-$locale}/_dashboard/route'
-import { Route as Char123LocaleChar125DashboardIndexRouteImport } from './routes/{-$locale}/_dashboard/index'
-import { Route as Char123LocaleChar125OtherPricingRouteImport } from './routes/{-$locale}/_other/pricing'
-import { Route as Char123LocaleChar125DashboardScannerRouteImport } from './routes/{-$locale}/_dashboard/scanner'
-import { Route as Char123LocaleChar125DashboardProjectsRouteImport } from './routes/{-$locale}/_dashboard/projects'
-import { Route as Char123LocaleChar125DashboardProfileRouteImport } from './routes/{-$locale}/_dashboard/profile'
-import { Route as Char123LocaleChar125DashboardOrganizationRouteImport } from './routes/{-$locale}/_dashboard/organization'
-import { Route as Char123LocaleChar125DashboardIdeRouteImport } from './routes/{-$locale}/_dashboard/ide'
-import { Route as Char123LocaleChar125DashboardAdminRouteRouteImport } from './routes/{-$locale}/_dashboard/_admin/route'
-import { Route as Char123LocaleChar125OtherFindReviewerIndexRouteImport } from './routes/{-$locale}/_other/find-reviewer/index'
-import { Route as Char123LocaleChar125OtherAffiliationIndexRouteImport } from './routes/{-$locale}/_other/affiliation/index'
-import { Route as Char123LocaleChar125OtherOnboardingStepRouteImport } from './routes/{-$locale}/_other/onboarding.$step'
-import { Route as Char123LocaleChar125OtherFindReviewerReviewerIdRouteImport } from './routes/{-$locale}/_other/find-reviewer/$reviewerId'
-import { Route as Char123LocaleChar125OtherAuthDemoRouteImport } from './routes/{-$locale}/_other/auth/demo'
-import { Route as Char123LocaleChar125OtherAuthCliLoginRouteImport } from './routes/{-$locale}/_other/auth/cli-login'
-import { Route as Char123LocaleChar125OtherAffiliationInvitationIdRouteImport } from './routes/{-$locale}/_other/affiliation/$invitationId'
-import { Route as Char123LocaleChar125OtherAuthNotAuthenticatedRouteRouteImport } from './routes/{-$locale}/_other/auth/_not-authenticated/route'
-import { Route as Char123LocaleChar125OtherAuthAuthenticatedRouteRouteImport } from './routes/{-$locale}/_other/auth/_authenticated/route'
-import { Route as Char123LocaleChar125DashboardEditorContentRouteRouteImport } from './routes/{-$locale}/_dashboard/_editor/_content/route'
-import { Route as Char123LocaleChar125OtherFindReviewerDashboardIndexRouteImport } from './routes/{-$locale}/_other/find-reviewer/dashboard/index'
-import { Route as Char123LocaleChar125OtherAuthPasswordResetRouteImport } from './routes/{-$locale}/_other/auth/password/reset'
-import { Route as Char123LocaleChar125OtherAuthPasswordAskResetRouteImport } from './routes/{-$locale}/_other/auth/password/ask-reset'
-import { Route as Char123LocaleChar125OtherAuthPasswordLayoutRouteImport } from './routes/{-$locale}/_other/auth/password/_layout'
-import { Route as Char123LocaleChar125OtherAuthNotAuthenticatedRegisterRouteImport } from './routes/{-$locale}/_other/auth/_not-authenticated/register'
-import { Route as Char123LocaleChar125OtherAuthNotAuthenticatedLoginRouteImport } from './routes/{-$locale}/_other/auth/_not-authenticated/login'
-import { Route as Char123LocaleChar125OtherAuthNotAuthenticated2faRouteImport } from './routes/{-$locale}/_other/auth/_not-authenticated/2fa'
-import { Route as Char123LocaleChar125DashboardEditorContentTranslateRouteImport } from './routes/{-$locale}/_dashboard/_editor/_content/translate'
-import { Route as Char123LocaleChar125DashboardEditorContentEditorRouteImport } from './routes/{-$locale}/_dashboard/_editor/_content/editor'
-import { Route as Char123LocaleChar125DashboardAdminAdminDiscussionsRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/discussions'
-import { Route as Char123LocaleChar125DashboardAdminAdminUsersRouteRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/users/route'
-import { Route as Char123LocaleChar125DashboardAdminAdminReviewersRouteRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/reviewers/route'
-import { Route as Char123LocaleChar125DashboardAdminAdminPromoCodeRouteRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/promo-code/route'
-import { Route as Char123LocaleChar125DashboardAdminAdminProjectsRouteRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/projects/route'
-import { Route as Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/organizations/route'
-import { Route as Char123LocaleChar125DashboardAdminAdminAffiliateRouteRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/affiliate/route'
-import { Route as Char123LocaleChar125DashboardEditorContentTagsIndexRouteImport } from './routes/{-$locale}/_dashboard/_editor/_content/tags.index'
-import { Route as Char123LocaleChar125DashboardEditorContentDictionaryIndexRouteImport } from './routes/{-$locale}/_dashboard/_editor/_content/dictionary.index'
-import { Route as Char123LocaleChar125DashboardAdminAdminUsersIndexRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/users/index'
-import { Route as Char123LocaleChar125DashboardAdminAdminReviewersIndexRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/reviewers/index'
-import { Route as Char123LocaleChar125DashboardAdminAdminPromoCodeIndexRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/promo-code/index'
-import { Route as Char123LocaleChar125DashboardAdminAdminProjectsIndexRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/projects/index'
-import { Route as Char123LocaleChar125DashboardAdminAdminOrganizationsIndexRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/organizations/index'
-import { Route as Char123LocaleChar125DashboardAdminAdminAffiliateIndexRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/affiliate/index'
-import { Route as Char123LocaleChar125OtherFindReviewerDashboardMissionMissionIdRouteImport } from './routes/{-$locale}/_other/find-reviewer/dashboard/mission.$missionId'
-import { Route as Char123LocaleChar125OtherAuthAuthenticatedPasswordChangeRouteImport } from './routes/{-$locale}/_other/auth/_authenticated/password.change'
-import { Route as Char123LocaleChar125DashboardEditorContentTagsTagKeyRouteImport } from './routes/{-$locale}/_dashboard/_editor/_content/tags.$tagKey'
-import { Route as Char123LocaleChar125DashboardEditorContentDictionaryDictionaryKeyRouteImport } from './routes/{-$locale}/_dashboard/_editor/_content/dictionary.$dictionaryKey'
-import { Route as Char123LocaleChar125DashboardAdminAdminUsersIdRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/users/$id'
-import { Route as Char123LocaleChar125DashboardAdminAdminReviewersReviewerIdRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/reviewers/$reviewerId'
-import { Route as Char123LocaleChar125DashboardAdminAdminPromoCodeIdRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/promo-code/$id'
-import { Route as Char123LocaleChar125DashboardAdminAdminProjectsIdRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/projects/$id'
-import { Route as Char123LocaleChar125DashboardAdminAdminOrganizationsIdRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/organizations/$id'
-import { Route as Char123LocaleChar125DashboardAdminAdminAffiliateIdRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/affiliate/$id'
+import { Route as rootRouteImport } from './routes/__root';
+import { Route as Char123LocaleChar125DashboardAdminAdminAffiliateIdRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/affiliate/$id';
+import { Route as Char123LocaleChar125DashboardAdminAdminAffiliateIndexRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/affiliate/index';
+import { Route as Char123LocaleChar125DashboardAdminAdminAffiliateRouteRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/affiliate/route';
+import { Route as Char123LocaleChar125DashboardAdminAdminDiscussionsRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/discussions';
+import { Route as Char123LocaleChar125DashboardAdminAdminOrganizationsIdRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/organizations/$id';
+import { Route as Char123LocaleChar125DashboardAdminAdminOrganizationsIndexRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/organizations/index';
+import { Route as Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/organizations/route';
+import { Route as Char123LocaleChar125DashboardAdminAdminProjectsIdRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/projects/$id';
+import { Route as Char123LocaleChar125DashboardAdminAdminProjectsIndexRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/projects/index';
+import { Route as Char123LocaleChar125DashboardAdminAdminProjectsRouteRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/projects/route';
+import { Route as Char123LocaleChar125DashboardAdminAdminPromoCodeIdRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/promo-code/$id';
+import { Route as Char123LocaleChar125DashboardAdminAdminPromoCodeIndexRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/promo-code/index';
+import { Route as Char123LocaleChar125DashboardAdminAdminPromoCodeRouteRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/promo-code/route';
+import { Route as Char123LocaleChar125DashboardAdminAdminReviewersReviewerIdRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/reviewers/$reviewerId';
+import { Route as Char123LocaleChar125DashboardAdminAdminReviewersIndexRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/reviewers/index';
+import { Route as Char123LocaleChar125DashboardAdminAdminReviewersRouteRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/reviewers/route';
+import { Route as Char123LocaleChar125DashboardAdminAdminUsersIdRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/users/$id';
+import { Route as Char123LocaleChar125DashboardAdminAdminUsersIndexRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/users/index';
+import { Route as Char123LocaleChar125DashboardAdminAdminUsersRouteRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/users/route';
+import { Route as Char123LocaleChar125DashboardAdminRouteRouteImport } from './routes/{-$locale}/_dashboard/_admin/route';
+import { Route as Char123LocaleChar125DashboardEditorContentDictionaryDictionaryKeyRouteImport } from './routes/{-$locale}/_dashboard/_editor/_content/dictionary.$dictionaryKey';
+import { Route as Char123LocaleChar125DashboardEditorContentDictionaryIndexRouteImport } from './routes/{-$locale}/_dashboard/_editor/_content/dictionary.index';
+import { Route as Char123LocaleChar125DashboardEditorContentEditorRouteImport } from './routes/{-$locale}/_dashboard/_editor/_content/editor';
+import { Route as Char123LocaleChar125DashboardEditorContentRouteRouteImport } from './routes/{-$locale}/_dashboard/_editor/_content/route';
+import { Route as Char123LocaleChar125DashboardEditorContentTagsTagKeyRouteImport } from './routes/{-$locale}/_dashboard/_editor/_content/tags.$tagKey';
+import { Route as Char123LocaleChar125DashboardEditorContentTagsIndexRouteImport } from './routes/{-$locale}/_dashboard/_editor/_content/tags.index';
+import { Route as Char123LocaleChar125DashboardEditorContentTranslateRouteImport } from './routes/{-$locale}/_dashboard/_editor/_content/translate';
+import { Route as Char123LocaleChar125DashboardIdeRouteImport } from './routes/{-$locale}/_dashboard/ide';
+import { Route as Char123LocaleChar125DashboardIndexRouteImport } from './routes/{-$locale}/_dashboard/index';
+import { Route as Char123LocaleChar125DashboardOrganizationRouteImport } from './routes/{-$locale}/_dashboard/organization';
+import { Route as Char123LocaleChar125DashboardProfileRouteImport } from './routes/{-$locale}/_dashboard/profile';
+import { Route as Char123LocaleChar125DashboardProjectsRouteImport } from './routes/{-$locale}/_dashboard/projects';
+import { Route as Char123LocaleChar125DashboardRouteRouteImport } from './routes/{-$locale}/_dashboard/route';
+import { Route as Char123LocaleChar125DashboardScannerRouteImport } from './routes/{-$locale}/_dashboard/scanner';
+import { Route as Char123LocaleChar125OtherAffiliationInvitationIdRouteImport } from './routes/{-$locale}/_other/affiliation/$invitationId';
+import { Route as Char123LocaleChar125OtherAffiliationIndexRouteImport } from './routes/{-$locale}/_other/affiliation/index';
+import { Route as Char123LocaleChar125OtherAuthAuthenticatedPasswordChangeRouteImport } from './routes/{-$locale}/_other/auth/_authenticated/password.change';
+import { Route as Char123LocaleChar125OtherAuthAuthenticatedRouteRouteImport } from './routes/{-$locale}/_other/auth/_authenticated/route';
+import { Route as Char123LocaleChar125OtherAuthNotAuthenticated2faRouteImport } from './routes/{-$locale}/_other/auth/_not-authenticated/2fa';
+import { Route as Char123LocaleChar125OtherAuthNotAuthenticatedLoginRouteImport } from './routes/{-$locale}/_other/auth/_not-authenticated/login';
+import { Route as Char123LocaleChar125OtherAuthNotAuthenticatedRegisterRouteImport } from './routes/{-$locale}/_other/auth/_not-authenticated/register';
+import { Route as Char123LocaleChar125OtherAuthNotAuthenticatedRouteRouteImport } from './routes/{-$locale}/_other/auth/_not-authenticated/route';
+import { Route as Char123LocaleChar125OtherAuthCliLoginRouteImport } from './routes/{-$locale}/_other/auth/cli-login';
+import { Route as Char123LocaleChar125OtherAuthDemoRouteImport } from './routes/{-$locale}/_other/auth/demo';
+import { Route as Char123LocaleChar125OtherAuthPasswordLayoutRouteImport } from './routes/{-$locale}/_other/auth/password/_layout';
+import { Route as Char123LocaleChar125OtherAuthPasswordAskResetRouteImport } from './routes/{-$locale}/_other/auth/password/ask-reset';
+import { Route as Char123LocaleChar125OtherAuthPasswordResetRouteImport } from './routes/{-$locale}/_other/auth/password/reset';
+import { Route as Char123LocaleChar125OtherFindReviewerReviewerIdRouteImport } from './routes/{-$locale}/_other/find-reviewer/$reviewerId';
+import { Route as Char123LocaleChar125OtherFindReviewerDashboardIndexRouteImport } from './routes/{-$locale}/_other/find-reviewer/dashboard/index';
+import { Route as Char123LocaleChar125OtherFindReviewerDashboardMissionMissionIdRouteImport } from './routes/{-$locale}/_other/find-reviewer/dashboard/mission.$missionId';
+import { Route as Char123LocaleChar125OtherFindReviewerIndexRouteImport } from './routes/{-$locale}/_other/find-reviewer/index';
+import { Route as Char123LocaleChar125OtherOnboardingStepRouteImport } from './routes/{-$locale}/_other/onboarding.$step';
+import { Route as Char123LocaleChar125OtherPricingRouteImport } from './routes/{-$locale}/_other/pricing';
+import { Route as Char123LocaleChar125OtherRouteRouteImport } from './routes/{-$locale}/_other/route';
+import { Route as Char123LocaleChar125SplatRouteImport } from './routes/{-$locale}/$';
+import { Route as Char123LocaleChar125404RouteImport } from './routes/{-$locale}/404';
+import { Route as Char123LocaleChar125DemoRouteImport } from './routes/{-$locale}/demo';
+import { Route as Char123LocaleChar125PageRouteImport } from './routes/{-$locale}/page';
+import { Route as Char123LocaleChar125RouteRouteImport } from './routes/{-$locale}/route';
+import { Route as HealthzRouteImport } from './routes/healthz';
+import { Route as IndexRouteImport } from './routes/index';
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml';
 
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const HealthzRoute = HealthzRouteImport.update({
   id: '/healthz',
   path: '/healthz',
   getParentRoute: () => rootRouteImport,
-} as any)
-const DemoRoute = DemoRouteImport.update({
-  id: '/demo',
-  path: '/demo',
-  getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const Char123LocaleChar125RouteRoute =
   Char123LocaleChar125RouteRouteImport.update({
     id: '/{-$locale}',
     path: '/{-$locale}',
     getParentRoute: () => rootRouteImport,
-  } as any)
+  } as any);
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const Char123LocaleChar125PageRoute =
   Char123LocaleChar125PageRouteImport.update({
     id: '/page',
     path: '/page',
     getParentRoute: () => Char123LocaleChar125RouteRoute,
-  } as any)
+  } as any);
+const Char123LocaleChar125DemoRoute =
+  Char123LocaleChar125DemoRouteImport.update({
+    id: '/demo',
+    path: '/demo',
+    getParentRoute: () => Char123LocaleChar125RouteRoute,
+  } as any);
 const Char123LocaleChar125404Route = Char123LocaleChar125404RouteImport.update({
   id: '/404',
   path: '/404',
   getParentRoute: () => Char123LocaleChar125RouteRoute,
-} as any)
+} as any);
 const Char123LocaleChar125SplatRoute =
   Char123LocaleChar125SplatRouteImport.update({
     id: '/$',
     path: '/$',
     getParentRoute: () => Char123LocaleChar125RouteRoute,
-  } as any)
+  } as any);
 const Char123LocaleChar125OtherRouteRoute =
   Char123LocaleChar125OtherRouteRouteImport.update({
     id: '/_other',
     getParentRoute: () => Char123LocaleChar125RouteRoute,
-  } as any)
+  } as any);
 const Char123LocaleChar125DashboardRouteRoute =
   Char123LocaleChar125DashboardRouteRouteImport.update({
     id: '/_dashboard',
     getParentRoute: () => Char123LocaleChar125RouteRoute,
-  } as any)
+  } as any);
 const Char123LocaleChar125DashboardIndexRoute =
   Char123LocaleChar125DashboardIndexRouteImport.update({
     id: '/',
     path: '/',
     getParentRoute: () => Char123LocaleChar125DashboardRouteRoute,
-  } as any)
+  } as any);
 const Char123LocaleChar125OtherPricingRoute =
   Char123LocaleChar125OtherPricingRouteImport.update({
     id: '/pricing',
     path: '/pricing',
     getParentRoute: () => Char123LocaleChar125OtherRouteRoute,
-  } as any)
+  } as any);
 const Char123LocaleChar125DashboardScannerRoute =
   Char123LocaleChar125DashboardScannerRouteImport.update({
     id: '/scanner',
     path: '/scanner',
     getParentRoute: () => Char123LocaleChar125DashboardRouteRoute,
-  } as any)
+  } as any);
 const Char123LocaleChar125DashboardProjectsRoute =
   Char123LocaleChar125DashboardProjectsRouteImport.update({
     id: '/projects',
     path: '/projects',
     getParentRoute: () => Char123LocaleChar125DashboardRouteRoute,
-  } as any)
+  } as any);
 const Char123LocaleChar125DashboardProfileRoute =
   Char123LocaleChar125DashboardProfileRouteImport.update({
     id: '/profile',
     path: '/profile',
     getParentRoute: () => Char123LocaleChar125DashboardRouteRoute,
-  } as any)
+  } as any);
 const Char123LocaleChar125DashboardOrganizationRoute =
   Char123LocaleChar125DashboardOrganizationRouteImport.update({
     id: '/organization',
     path: '/organization',
     getParentRoute: () => Char123LocaleChar125DashboardRouteRoute,
-  } as any)
+  } as any);
 const Char123LocaleChar125DashboardIdeRoute =
   Char123LocaleChar125DashboardIdeRouteImport.update({
     id: '/ide',
     path: '/ide',
     getParentRoute: () => Char123LocaleChar125DashboardRouteRoute,
-  } as any)
+  } as any);
 const Char123LocaleChar125DashboardAdminRouteRoute =
   Char123LocaleChar125DashboardAdminRouteRouteImport.update({
     id: '/_admin',
     getParentRoute: () => Char123LocaleChar125DashboardRouteRoute,
-  } as any)
+  } as any);
 const Char123LocaleChar125OtherFindReviewerIndexRoute =
   Char123LocaleChar125OtherFindReviewerIndexRouteImport.update({
     id: '/find-reviewer/',
     path: '/find-reviewer/',
     getParentRoute: () => Char123LocaleChar125OtherRouteRoute,
-  } as any)
+  } as any);
 const Char123LocaleChar125OtherAffiliationIndexRoute =
   Char123LocaleChar125OtherAffiliationIndexRouteImport.update({
     id: '/affiliation/',
     path: '/affiliation/',
     getParentRoute: () => Char123LocaleChar125OtherRouteRoute,
-  } as any)
+  } as any);
 const Char123LocaleChar125OtherOnboardingStepRoute =
   Char123LocaleChar125OtherOnboardingStepRouteImport.update({
     id: '/onboarding/$step',
     path: '/onboarding/$step',
     getParentRoute: () => Char123LocaleChar125OtherRouteRoute,
-  } as any)
+  } as any);
 const Char123LocaleChar125OtherFindReviewerReviewerIdRoute =
   Char123LocaleChar125OtherFindReviewerReviewerIdRouteImport.update({
     id: '/find-reviewer/$reviewerId',
     path: '/find-reviewer/$reviewerId',
     getParentRoute: () => Char123LocaleChar125OtherRouteRoute,
-  } as any)
+  } as any);
 const Char123LocaleChar125OtherAuthDemoRoute =
   Char123LocaleChar125OtherAuthDemoRouteImport.update({
     id: '/auth/demo',
     path: '/auth/demo',
     getParentRoute: () => Char123LocaleChar125OtherRouteRoute,
-  } as any)
+  } as any);
 const Char123LocaleChar125OtherAuthCliLoginRoute =
   Char123LocaleChar125OtherAuthCliLoginRouteImport.update({
     id: '/auth/cli-login',
     path: '/auth/cli-login',
     getParentRoute: () => Char123LocaleChar125OtherRouteRoute,
-  } as any)
+  } as any);
 const Char123LocaleChar125OtherAffiliationInvitationIdRoute =
   Char123LocaleChar125OtherAffiliationInvitationIdRouteImport.update({
     id: '/affiliation/$invitationId',
     path: '/affiliation/$invitationId',
     getParentRoute: () => Char123LocaleChar125OtherRouteRoute,
-  } as any)
+  } as any);
 const Char123LocaleChar125OtherAuthNotAuthenticatedRouteRoute =
   Char123LocaleChar125OtherAuthNotAuthenticatedRouteRouteImport.update({
     id: '/auth/_not-authenticated',
     path: '/auth',
     getParentRoute: () => Char123LocaleChar125OtherRouteRoute,
-  } as any)
+  } as any);
 const Char123LocaleChar125OtherAuthAuthenticatedRouteRoute =
   Char123LocaleChar125OtherAuthAuthenticatedRouteRouteImport.update({
     id: '/auth/_authenticated',
     path: '/auth',
     getParentRoute: () => Char123LocaleChar125OtherRouteRoute,
-  } as any)
+  } as any);
 const Char123LocaleChar125DashboardEditorContentRouteRoute =
   Char123LocaleChar125DashboardEditorContentRouteRouteImport.update({
     id: '/_editor/_content',
     getParentRoute: () => Char123LocaleChar125DashboardRouteRoute,
-  } as any)
+  } as any);
 const Char123LocaleChar125OtherFindReviewerDashboardIndexRoute =
   Char123LocaleChar125OtherFindReviewerDashboardIndexRouteImport.update({
     id: '/find-reviewer/dashboard/',
     path: '/find-reviewer/dashboard/',
     getParentRoute: () => Char123LocaleChar125OtherRouteRoute,
-  } as any)
+  } as any);
 const Char123LocaleChar125OtherAuthPasswordResetRoute =
   Char123LocaleChar125OtherAuthPasswordResetRouteImport.update({
     id: '/auth/password/reset',
     path: '/auth/password/reset',
     getParentRoute: () => Char123LocaleChar125OtherRouteRoute,
-  } as any)
+  } as any);
 const Char123LocaleChar125OtherAuthPasswordAskResetRoute =
   Char123LocaleChar125OtherAuthPasswordAskResetRouteImport.update({
     id: '/auth/password/ask-reset',
     path: '/auth/password/ask-reset',
     getParentRoute: () => Char123LocaleChar125OtherRouteRoute,
-  } as any)
+  } as any);
 const Char123LocaleChar125OtherAuthPasswordLayoutRoute =
   Char123LocaleChar125OtherAuthPasswordLayoutRouteImport.update({
     id: '/auth/password/_layout',
     path: '/auth/password',
     getParentRoute: () => Char123LocaleChar125OtherRouteRoute,
-  } as any)
+  } as any);
 const Char123LocaleChar125OtherAuthNotAuthenticatedRegisterRoute =
   Char123LocaleChar125OtherAuthNotAuthenticatedRegisterRouteImport.update({
     id: '/register',
     path: '/register',
     getParentRoute: () =>
       Char123LocaleChar125OtherAuthNotAuthenticatedRouteRoute,
-  } as any)
+  } as any);
 const Char123LocaleChar125OtherAuthNotAuthenticatedLoginRoute =
   Char123LocaleChar125OtherAuthNotAuthenticatedLoginRouteImport.update({
     id: '/login',
     path: '/login',
     getParentRoute: () =>
       Char123LocaleChar125OtherAuthNotAuthenticatedRouteRoute,
-  } as any)
+  } as any);
 const Char123LocaleChar125OtherAuthNotAuthenticated2faRoute =
   Char123LocaleChar125OtherAuthNotAuthenticated2faRouteImport.update({
     id: '/2fa',
     path: '/2fa',
     getParentRoute: () =>
       Char123LocaleChar125OtherAuthNotAuthenticatedRouteRoute,
-  } as any)
+  } as any);
 const Char123LocaleChar125DashboardEditorContentTranslateRoute =
   Char123LocaleChar125DashboardEditorContentTranslateRouteImport.update({
     id: '/translate',
     path: '/translate',
     getParentRoute: () => Char123LocaleChar125DashboardEditorContentRouteRoute,
-  } as any)
+  } as any);
 const Char123LocaleChar125DashboardEditorContentEditorRoute =
   Char123LocaleChar125DashboardEditorContentEditorRouteImport.update({
     id: '/editor',
     path: '/editor',
     getParentRoute: () => Char123LocaleChar125DashboardEditorContentRouteRoute,
-  } as any)
+  } as any);
 const Char123LocaleChar125DashboardAdminAdminDiscussionsRoute =
   Char123LocaleChar125DashboardAdminAdminDiscussionsRouteImport.update({
     id: '/admin/discussions',
     path: '/admin/discussions',
     getParentRoute: () => Char123LocaleChar125DashboardAdminRouteRoute,
-  } as any)
+  } as any);
 const Char123LocaleChar125DashboardAdminAdminUsersRouteRoute =
   Char123LocaleChar125DashboardAdminAdminUsersRouteRouteImport.update({
     id: '/admin/users',
     path: '/admin/users',
     getParentRoute: () => Char123LocaleChar125DashboardAdminRouteRoute,
-  } as any)
+  } as any);
 const Char123LocaleChar125DashboardAdminAdminReviewersRouteRoute =
   Char123LocaleChar125DashboardAdminAdminReviewersRouteRouteImport.update({
     id: '/admin/reviewers',
     path: '/admin/reviewers',
     getParentRoute: () => Char123LocaleChar125DashboardAdminRouteRoute,
-  } as any)
+  } as any);
 const Char123LocaleChar125DashboardAdminAdminPromoCodeRouteRoute =
   Char123LocaleChar125DashboardAdminAdminPromoCodeRouteRouteImport.update({
     id: '/admin/promo-code',
     path: '/admin/promo-code',
     getParentRoute: () => Char123LocaleChar125DashboardAdminRouteRoute,
-  } as any)
+  } as any);
 const Char123LocaleChar125DashboardAdminAdminProjectsRouteRoute =
   Char123LocaleChar125DashboardAdminAdminProjectsRouteRouteImport.update({
     id: '/admin/projects',
     path: '/admin/projects',
     getParentRoute: () => Char123LocaleChar125DashboardAdminRouteRoute,
-  } as any)
+  } as any);
 const Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRoute =
   Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRouteImport.update({
     id: '/admin/organizations',
     path: '/admin/organizations',
     getParentRoute: () => Char123LocaleChar125DashboardAdminRouteRoute,
-  } as any)
+  } as any);
 const Char123LocaleChar125DashboardAdminAdminAffiliateRouteRoute =
   Char123LocaleChar125DashboardAdminAdminAffiliateRouteRouteImport.update({
     id: '/admin/affiliate',
     path: '/admin/affiliate',
     getParentRoute: () => Char123LocaleChar125DashboardAdminRouteRoute,
-  } as any)
+  } as any);
 const Char123LocaleChar125DashboardEditorContentTagsIndexRoute =
   Char123LocaleChar125DashboardEditorContentTagsIndexRouteImport.update({
     id: '/tags/',
     path: '/tags/',
     getParentRoute: () => Char123LocaleChar125DashboardEditorContentRouteRoute,
-  } as any)
+  } as any);
 const Char123LocaleChar125DashboardEditorContentDictionaryIndexRoute =
   Char123LocaleChar125DashboardEditorContentDictionaryIndexRouteImport.update({
     id: '/dictionary/',
     path: '/dictionary/',
     getParentRoute: () => Char123LocaleChar125DashboardEditorContentRouteRoute,
-  } as any)
+  } as any);
 const Char123LocaleChar125DashboardAdminAdminUsersIndexRoute =
   Char123LocaleChar125DashboardAdminAdminUsersIndexRouteImport.update({
     id: '/',
     path: '/',
     getParentRoute: () =>
       Char123LocaleChar125DashboardAdminAdminUsersRouteRoute,
-  } as any)
+  } as any);
 const Char123LocaleChar125DashboardAdminAdminReviewersIndexRoute =
   Char123LocaleChar125DashboardAdminAdminReviewersIndexRouteImport.update({
     id: '/',
     path: '/',
     getParentRoute: () =>
       Char123LocaleChar125DashboardAdminAdminReviewersRouteRoute,
-  } as any)
+  } as any);
 const Char123LocaleChar125DashboardAdminAdminPromoCodeIndexRoute =
   Char123LocaleChar125DashboardAdminAdminPromoCodeIndexRouteImport.update({
     id: '/',
     path: '/',
     getParentRoute: () =>
       Char123LocaleChar125DashboardAdminAdminPromoCodeRouteRoute,
-  } as any)
+  } as any);
 const Char123LocaleChar125DashboardAdminAdminProjectsIndexRoute =
   Char123LocaleChar125DashboardAdminAdminProjectsIndexRouteImport.update({
     id: '/',
     path: '/',
     getParentRoute: () =>
       Char123LocaleChar125DashboardAdminAdminProjectsRouteRoute,
-  } as any)
+  } as any);
 const Char123LocaleChar125DashboardAdminAdminOrganizationsIndexRoute =
   Char123LocaleChar125DashboardAdminAdminOrganizationsIndexRouteImport.update({
     id: '/',
     path: '/',
     getParentRoute: () =>
       Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRoute,
-  } as any)
+  } as any);
 const Char123LocaleChar125DashboardAdminAdminAffiliateIndexRoute =
   Char123LocaleChar125DashboardAdminAdminAffiliateIndexRouteImport.update({
     id: '/',
     path: '/',
     getParentRoute: () =>
       Char123LocaleChar125DashboardAdminAdminAffiliateRouteRoute,
-  } as any)
+  } as any);
 const Char123LocaleChar125OtherFindReviewerDashboardMissionMissionIdRoute =
   Char123LocaleChar125OtherFindReviewerDashboardMissionMissionIdRouteImport.update(
     {
       id: '/find-reviewer/dashboard/mission/$missionId',
       path: '/find-reviewer/dashboard/mission/$missionId',
       getParentRoute: () => Char123LocaleChar125OtherRouteRoute,
-    } as any,
-  )
+    } as any
+  );
 const Char123LocaleChar125OtherAuthAuthenticatedPasswordChangeRoute =
   Char123LocaleChar125OtherAuthAuthenticatedPasswordChangeRouteImport.update({
     id: '/password/change',
     path: '/password/change',
     getParentRoute: () => Char123LocaleChar125OtherAuthAuthenticatedRouteRoute,
-  } as any)
+  } as any);
 const Char123LocaleChar125DashboardEditorContentTagsTagKeyRoute =
   Char123LocaleChar125DashboardEditorContentTagsTagKeyRouteImport.update({
     id: '/tags/$tagKey',
     path: '/tags/$tagKey',
     getParentRoute: () => Char123LocaleChar125DashboardEditorContentRouteRoute,
-  } as any)
+  } as any);
 const Char123LocaleChar125DashboardEditorContentDictionaryDictionaryKeyRoute =
   Char123LocaleChar125DashboardEditorContentDictionaryDictionaryKeyRouteImport.update(
     {
@@ -411,237 +412,237 @@ const Char123LocaleChar125DashboardEditorContentDictionaryDictionaryKeyRoute =
       path: '/dictionary/$dictionaryKey',
       getParentRoute: () =>
         Char123LocaleChar125DashboardEditorContentRouteRoute,
-    } as any,
-  )
+    } as any
+  );
 const Char123LocaleChar125DashboardAdminAdminUsersIdRoute =
   Char123LocaleChar125DashboardAdminAdminUsersIdRouteImport.update({
     id: '/$id',
     path: '/$id',
     getParentRoute: () =>
       Char123LocaleChar125DashboardAdminAdminUsersRouteRoute,
-  } as any)
+  } as any);
 const Char123LocaleChar125DashboardAdminAdminReviewersReviewerIdRoute =
   Char123LocaleChar125DashboardAdminAdminReviewersReviewerIdRouteImport.update({
     id: '/$reviewerId',
     path: '/$reviewerId',
     getParentRoute: () =>
       Char123LocaleChar125DashboardAdminAdminReviewersRouteRoute,
-  } as any)
+  } as any);
 const Char123LocaleChar125DashboardAdminAdminPromoCodeIdRoute =
   Char123LocaleChar125DashboardAdminAdminPromoCodeIdRouteImport.update({
     id: '/$id',
     path: '/$id',
     getParentRoute: () =>
       Char123LocaleChar125DashboardAdminAdminPromoCodeRouteRoute,
-  } as any)
+  } as any);
 const Char123LocaleChar125DashboardAdminAdminProjectsIdRoute =
   Char123LocaleChar125DashboardAdminAdminProjectsIdRouteImport.update({
     id: '/$id',
     path: '/$id',
     getParentRoute: () =>
       Char123LocaleChar125DashboardAdminAdminProjectsRouteRoute,
-  } as any)
+  } as any);
 const Char123LocaleChar125DashboardAdminAdminOrganizationsIdRoute =
   Char123LocaleChar125DashboardAdminAdminOrganizationsIdRouteImport.update({
     id: '/$id',
     path: '/$id',
     getParentRoute: () =>
       Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRoute,
-  } as any)
+  } as any);
 const Char123LocaleChar125DashboardAdminAdminAffiliateIdRoute =
   Char123LocaleChar125DashboardAdminAdminAffiliateIdRouteImport.update({
     id: '/$id',
     path: '/$id',
     getParentRoute: () =>
       Char123LocaleChar125DashboardAdminAdminAffiliateRouteRoute,
-  } as any)
+  } as any);
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/{-$locale}': typeof Char123LocaleChar125RouteRouteWithChildren
-  '/demo': typeof DemoRoute
-  '/healthz': typeof HealthzRoute
-  '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/{-$locale}/$': typeof Char123LocaleChar125SplatRoute
-  '/{-$locale}/404': typeof Char123LocaleChar125404Route
-  '/{-$locale}/page': typeof Char123LocaleChar125PageRoute
-  '/{-$locale}/ide': typeof Char123LocaleChar125DashboardIdeRoute
-  '/{-$locale}/organization': typeof Char123LocaleChar125DashboardOrganizationRoute
-  '/{-$locale}/profile': typeof Char123LocaleChar125DashboardProfileRoute
-  '/{-$locale}/projects': typeof Char123LocaleChar125DashboardProjectsRoute
-  '/{-$locale}/scanner': typeof Char123LocaleChar125DashboardScannerRoute
-  '/{-$locale}/pricing': typeof Char123LocaleChar125OtherPricingRoute
-  '/{-$locale}/': typeof Char123LocaleChar125DashboardIndexRoute
-  '/{-$locale}/auth': typeof Char123LocaleChar125OtherAuthNotAuthenticatedRouteRouteWithChildren
-  '/{-$locale}/affiliation/$invitationId': typeof Char123LocaleChar125OtherAffiliationInvitationIdRoute
-  '/{-$locale}/auth/cli-login': typeof Char123LocaleChar125OtherAuthCliLoginRoute
-  '/{-$locale}/auth/demo': typeof Char123LocaleChar125OtherAuthDemoRoute
-  '/{-$locale}/find-reviewer/$reviewerId': typeof Char123LocaleChar125OtherFindReviewerReviewerIdRoute
-  '/{-$locale}/onboarding/$step': typeof Char123LocaleChar125OtherOnboardingStepRoute
-  '/{-$locale}/affiliation/': typeof Char123LocaleChar125OtherAffiliationIndexRoute
-  '/{-$locale}/find-reviewer/': typeof Char123LocaleChar125OtherFindReviewerIndexRoute
-  '/{-$locale}/admin/affiliate': typeof Char123LocaleChar125DashboardAdminAdminAffiliateRouteRouteWithChildren
-  '/{-$locale}/admin/organizations': typeof Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRouteWithChildren
-  '/{-$locale}/admin/projects': typeof Char123LocaleChar125DashboardAdminAdminProjectsRouteRouteWithChildren
-  '/{-$locale}/admin/promo-code': typeof Char123LocaleChar125DashboardAdminAdminPromoCodeRouteRouteWithChildren
-  '/{-$locale}/admin/reviewers': typeof Char123LocaleChar125DashboardAdminAdminReviewersRouteRouteWithChildren
-  '/{-$locale}/admin/users': typeof Char123LocaleChar125DashboardAdminAdminUsersRouteRouteWithChildren
-  '/{-$locale}/admin/discussions': typeof Char123LocaleChar125DashboardAdminAdminDiscussionsRoute
-  '/{-$locale}/editor': typeof Char123LocaleChar125DashboardEditorContentEditorRoute
-  '/{-$locale}/translate': typeof Char123LocaleChar125DashboardEditorContentTranslateRoute
-  '/{-$locale}/auth/2fa': typeof Char123LocaleChar125OtherAuthNotAuthenticated2faRoute
-  '/{-$locale}/auth/login': typeof Char123LocaleChar125OtherAuthNotAuthenticatedLoginRoute
-  '/{-$locale}/auth/register': typeof Char123LocaleChar125OtherAuthNotAuthenticatedRegisterRoute
-  '/{-$locale}/auth/password': typeof Char123LocaleChar125OtherAuthPasswordLayoutRoute
-  '/{-$locale}/auth/password/ask-reset': typeof Char123LocaleChar125OtherAuthPasswordAskResetRoute
-  '/{-$locale}/auth/password/reset': typeof Char123LocaleChar125OtherAuthPasswordResetRoute
-  '/{-$locale}/find-reviewer/dashboard/': typeof Char123LocaleChar125OtherFindReviewerDashboardIndexRoute
-  '/{-$locale}/admin/affiliate/$id': typeof Char123LocaleChar125DashboardAdminAdminAffiliateIdRoute
-  '/{-$locale}/admin/organizations/$id': typeof Char123LocaleChar125DashboardAdminAdminOrganizationsIdRoute
-  '/{-$locale}/admin/projects/$id': typeof Char123LocaleChar125DashboardAdminAdminProjectsIdRoute
-  '/{-$locale}/admin/promo-code/$id': typeof Char123LocaleChar125DashboardAdminAdminPromoCodeIdRoute
-  '/{-$locale}/admin/reviewers/$reviewerId': typeof Char123LocaleChar125DashboardAdminAdminReviewersReviewerIdRoute
-  '/{-$locale}/admin/users/$id': typeof Char123LocaleChar125DashboardAdminAdminUsersIdRoute
-  '/{-$locale}/dictionary/$dictionaryKey': typeof Char123LocaleChar125DashboardEditorContentDictionaryDictionaryKeyRoute
-  '/{-$locale}/tags/$tagKey': typeof Char123LocaleChar125DashboardEditorContentTagsTagKeyRoute
-  '/{-$locale}/auth/password/change': typeof Char123LocaleChar125OtherAuthAuthenticatedPasswordChangeRoute
-  '/{-$locale}/find-reviewer/dashboard/mission/$missionId': typeof Char123LocaleChar125OtherFindReviewerDashboardMissionMissionIdRoute
-  '/{-$locale}/admin/affiliate/': typeof Char123LocaleChar125DashboardAdminAdminAffiliateIndexRoute
-  '/{-$locale}/admin/organizations/': typeof Char123LocaleChar125DashboardAdminAdminOrganizationsIndexRoute
-  '/{-$locale}/admin/projects/': typeof Char123LocaleChar125DashboardAdminAdminProjectsIndexRoute
-  '/{-$locale}/admin/promo-code/': typeof Char123LocaleChar125DashboardAdminAdminPromoCodeIndexRoute
-  '/{-$locale}/admin/reviewers/': typeof Char123LocaleChar125DashboardAdminAdminReviewersIndexRoute
-  '/{-$locale}/admin/users/': typeof Char123LocaleChar125DashboardAdminAdminUsersIndexRoute
-  '/{-$locale}/dictionary/': typeof Char123LocaleChar125DashboardEditorContentDictionaryIndexRoute
-  '/{-$locale}/tags/': typeof Char123LocaleChar125DashboardEditorContentTagsIndexRoute
+  '/': typeof IndexRoute;
+  '/{-$locale}': typeof Char123LocaleChar125RouteRouteWithChildren;
+  '/healthz': typeof HealthzRoute;
+  '/sitemap.xml': typeof SitemapDotxmlRoute;
+  '/{-$locale}/$': typeof Char123LocaleChar125SplatRoute;
+  '/{-$locale}/404': typeof Char123LocaleChar125404Route;
+  '/{-$locale}/demo': typeof Char123LocaleChar125DemoRoute;
+  '/{-$locale}/page': typeof Char123LocaleChar125PageRoute;
+  '/{-$locale}/ide': typeof Char123LocaleChar125DashboardIdeRoute;
+  '/{-$locale}/organization': typeof Char123LocaleChar125DashboardOrganizationRoute;
+  '/{-$locale}/profile': typeof Char123LocaleChar125DashboardProfileRoute;
+  '/{-$locale}/projects': typeof Char123LocaleChar125DashboardProjectsRoute;
+  '/{-$locale}/scanner': typeof Char123LocaleChar125DashboardScannerRoute;
+  '/{-$locale}/pricing': typeof Char123LocaleChar125OtherPricingRoute;
+  '/{-$locale}/': typeof Char123LocaleChar125DashboardIndexRoute;
+  '/{-$locale}/auth': typeof Char123LocaleChar125OtherAuthNotAuthenticatedRouteRouteWithChildren;
+  '/{-$locale}/affiliation/$invitationId': typeof Char123LocaleChar125OtherAffiliationInvitationIdRoute;
+  '/{-$locale}/auth/cli-login': typeof Char123LocaleChar125OtherAuthCliLoginRoute;
+  '/{-$locale}/auth/demo': typeof Char123LocaleChar125OtherAuthDemoRoute;
+  '/{-$locale}/find-reviewer/$reviewerId': typeof Char123LocaleChar125OtherFindReviewerReviewerIdRoute;
+  '/{-$locale}/onboarding/$step': typeof Char123LocaleChar125OtherOnboardingStepRoute;
+  '/{-$locale}/affiliation/': typeof Char123LocaleChar125OtherAffiliationIndexRoute;
+  '/{-$locale}/find-reviewer/': typeof Char123LocaleChar125OtherFindReviewerIndexRoute;
+  '/{-$locale}/admin/affiliate': typeof Char123LocaleChar125DashboardAdminAdminAffiliateRouteRouteWithChildren;
+  '/{-$locale}/admin/organizations': typeof Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRouteWithChildren;
+  '/{-$locale}/admin/projects': typeof Char123LocaleChar125DashboardAdminAdminProjectsRouteRouteWithChildren;
+  '/{-$locale}/admin/promo-code': typeof Char123LocaleChar125DashboardAdminAdminPromoCodeRouteRouteWithChildren;
+  '/{-$locale}/admin/reviewers': typeof Char123LocaleChar125DashboardAdminAdminReviewersRouteRouteWithChildren;
+  '/{-$locale}/admin/users': typeof Char123LocaleChar125DashboardAdminAdminUsersRouteRouteWithChildren;
+  '/{-$locale}/admin/discussions': typeof Char123LocaleChar125DashboardAdminAdminDiscussionsRoute;
+  '/{-$locale}/editor': typeof Char123LocaleChar125DashboardEditorContentEditorRoute;
+  '/{-$locale}/translate': typeof Char123LocaleChar125DashboardEditorContentTranslateRoute;
+  '/{-$locale}/auth/2fa': typeof Char123LocaleChar125OtherAuthNotAuthenticated2faRoute;
+  '/{-$locale}/auth/login': typeof Char123LocaleChar125OtherAuthNotAuthenticatedLoginRoute;
+  '/{-$locale}/auth/register': typeof Char123LocaleChar125OtherAuthNotAuthenticatedRegisterRoute;
+  '/{-$locale}/auth/password': typeof Char123LocaleChar125OtherAuthPasswordLayoutRoute;
+  '/{-$locale}/auth/password/ask-reset': typeof Char123LocaleChar125OtherAuthPasswordAskResetRoute;
+  '/{-$locale}/auth/password/reset': typeof Char123LocaleChar125OtherAuthPasswordResetRoute;
+  '/{-$locale}/find-reviewer/dashboard/': typeof Char123LocaleChar125OtherFindReviewerDashboardIndexRoute;
+  '/{-$locale}/admin/affiliate/$id': typeof Char123LocaleChar125DashboardAdminAdminAffiliateIdRoute;
+  '/{-$locale}/admin/organizations/$id': typeof Char123LocaleChar125DashboardAdminAdminOrganizationsIdRoute;
+  '/{-$locale}/admin/projects/$id': typeof Char123LocaleChar125DashboardAdminAdminProjectsIdRoute;
+  '/{-$locale}/admin/promo-code/$id': typeof Char123LocaleChar125DashboardAdminAdminPromoCodeIdRoute;
+  '/{-$locale}/admin/reviewers/$reviewerId': typeof Char123LocaleChar125DashboardAdminAdminReviewersReviewerIdRoute;
+  '/{-$locale}/admin/users/$id': typeof Char123LocaleChar125DashboardAdminAdminUsersIdRoute;
+  '/{-$locale}/dictionary/$dictionaryKey': typeof Char123LocaleChar125DashboardEditorContentDictionaryDictionaryKeyRoute;
+  '/{-$locale}/tags/$tagKey': typeof Char123LocaleChar125DashboardEditorContentTagsTagKeyRoute;
+  '/{-$locale}/auth/password/change': typeof Char123LocaleChar125OtherAuthAuthenticatedPasswordChangeRoute;
+  '/{-$locale}/find-reviewer/dashboard/mission/$missionId': typeof Char123LocaleChar125OtherFindReviewerDashboardMissionMissionIdRoute;
+  '/{-$locale}/admin/affiliate/': typeof Char123LocaleChar125DashboardAdminAdminAffiliateIndexRoute;
+  '/{-$locale}/admin/organizations/': typeof Char123LocaleChar125DashboardAdminAdminOrganizationsIndexRoute;
+  '/{-$locale}/admin/projects/': typeof Char123LocaleChar125DashboardAdminAdminProjectsIndexRoute;
+  '/{-$locale}/admin/promo-code/': typeof Char123LocaleChar125DashboardAdminAdminPromoCodeIndexRoute;
+  '/{-$locale}/admin/reviewers/': typeof Char123LocaleChar125DashboardAdminAdminReviewersIndexRoute;
+  '/{-$locale}/admin/users/': typeof Char123LocaleChar125DashboardAdminAdminUsersIndexRoute;
+  '/{-$locale}/dictionary/': typeof Char123LocaleChar125DashboardEditorContentDictionaryIndexRoute;
+  '/{-$locale}/tags/': typeof Char123LocaleChar125DashboardEditorContentTagsIndexRoute;
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/{-$locale}': typeof Char123LocaleChar125DashboardIndexRoute
-  '/demo': typeof DemoRoute
-  '/healthz': typeof HealthzRoute
-  '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/{-$locale}/$': typeof Char123LocaleChar125SplatRoute
-  '/{-$locale}/404': typeof Char123LocaleChar125404Route
-  '/{-$locale}/page': typeof Char123LocaleChar125PageRoute
-  '/{-$locale}/ide': typeof Char123LocaleChar125DashboardIdeRoute
-  '/{-$locale}/organization': typeof Char123LocaleChar125DashboardOrganizationRoute
-  '/{-$locale}/profile': typeof Char123LocaleChar125DashboardProfileRoute
-  '/{-$locale}/projects': typeof Char123LocaleChar125DashboardProjectsRoute
-  '/{-$locale}/scanner': typeof Char123LocaleChar125DashboardScannerRoute
-  '/{-$locale}/pricing': typeof Char123LocaleChar125OtherPricingRoute
-  '/{-$locale}/auth': typeof Char123LocaleChar125OtherAuthNotAuthenticatedRouteRouteWithChildren
-  '/{-$locale}/affiliation/$invitationId': typeof Char123LocaleChar125OtherAffiliationInvitationIdRoute
-  '/{-$locale}/auth/cli-login': typeof Char123LocaleChar125OtherAuthCliLoginRoute
-  '/{-$locale}/auth/demo': typeof Char123LocaleChar125OtherAuthDemoRoute
-  '/{-$locale}/find-reviewer/$reviewerId': typeof Char123LocaleChar125OtherFindReviewerReviewerIdRoute
-  '/{-$locale}/onboarding/$step': typeof Char123LocaleChar125OtherOnboardingStepRoute
-  '/{-$locale}/affiliation': typeof Char123LocaleChar125OtherAffiliationIndexRoute
-  '/{-$locale}/find-reviewer': typeof Char123LocaleChar125OtherFindReviewerIndexRoute
-  '/{-$locale}/admin/discussions': typeof Char123LocaleChar125DashboardAdminAdminDiscussionsRoute
-  '/{-$locale}/editor': typeof Char123LocaleChar125DashboardEditorContentEditorRoute
-  '/{-$locale}/translate': typeof Char123LocaleChar125DashboardEditorContentTranslateRoute
-  '/{-$locale}/auth/2fa': typeof Char123LocaleChar125OtherAuthNotAuthenticated2faRoute
-  '/{-$locale}/auth/login': typeof Char123LocaleChar125OtherAuthNotAuthenticatedLoginRoute
-  '/{-$locale}/auth/register': typeof Char123LocaleChar125OtherAuthNotAuthenticatedRegisterRoute
-  '/{-$locale}/auth/password': typeof Char123LocaleChar125OtherAuthPasswordLayoutRoute
-  '/{-$locale}/auth/password/ask-reset': typeof Char123LocaleChar125OtherAuthPasswordAskResetRoute
-  '/{-$locale}/auth/password/reset': typeof Char123LocaleChar125OtherAuthPasswordResetRoute
-  '/{-$locale}/find-reviewer/dashboard': typeof Char123LocaleChar125OtherFindReviewerDashboardIndexRoute
-  '/{-$locale}/admin/affiliate/$id': typeof Char123LocaleChar125DashboardAdminAdminAffiliateIdRoute
-  '/{-$locale}/admin/organizations/$id': typeof Char123LocaleChar125DashboardAdminAdminOrganizationsIdRoute
-  '/{-$locale}/admin/projects/$id': typeof Char123LocaleChar125DashboardAdminAdminProjectsIdRoute
-  '/{-$locale}/admin/promo-code/$id': typeof Char123LocaleChar125DashboardAdminAdminPromoCodeIdRoute
-  '/{-$locale}/admin/reviewers/$reviewerId': typeof Char123LocaleChar125DashboardAdminAdminReviewersReviewerIdRoute
-  '/{-$locale}/admin/users/$id': typeof Char123LocaleChar125DashboardAdminAdminUsersIdRoute
-  '/{-$locale}/dictionary/$dictionaryKey': typeof Char123LocaleChar125DashboardEditorContentDictionaryDictionaryKeyRoute
-  '/{-$locale}/tags/$tagKey': typeof Char123LocaleChar125DashboardEditorContentTagsTagKeyRoute
-  '/{-$locale}/auth/password/change': typeof Char123LocaleChar125OtherAuthAuthenticatedPasswordChangeRoute
-  '/{-$locale}/find-reviewer/dashboard/mission/$missionId': typeof Char123LocaleChar125OtherFindReviewerDashboardMissionMissionIdRoute
-  '/{-$locale}/admin/affiliate': typeof Char123LocaleChar125DashboardAdminAdminAffiliateIndexRoute
-  '/{-$locale}/admin/organizations': typeof Char123LocaleChar125DashboardAdminAdminOrganizationsIndexRoute
-  '/{-$locale}/admin/projects': typeof Char123LocaleChar125DashboardAdminAdminProjectsIndexRoute
-  '/{-$locale}/admin/promo-code': typeof Char123LocaleChar125DashboardAdminAdminPromoCodeIndexRoute
-  '/{-$locale}/admin/reviewers': typeof Char123LocaleChar125DashboardAdminAdminReviewersIndexRoute
-  '/{-$locale}/admin/users': typeof Char123LocaleChar125DashboardAdminAdminUsersIndexRoute
-  '/{-$locale}/dictionary': typeof Char123LocaleChar125DashboardEditorContentDictionaryIndexRoute
-  '/{-$locale}/tags': typeof Char123LocaleChar125DashboardEditorContentTagsIndexRoute
+  '/': typeof IndexRoute;
+  '/{-$locale}': typeof Char123LocaleChar125DashboardIndexRoute;
+  '/healthz': typeof HealthzRoute;
+  '/sitemap.xml': typeof SitemapDotxmlRoute;
+  '/{-$locale}/$': typeof Char123LocaleChar125SplatRoute;
+  '/{-$locale}/404': typeof Char123LocaleChar125404Route;
+  '/{-$locale}/demo': typeof Char123LocaleChar125DemoRoute;
+  '/{-$locale}/page': typeof Char123LocaleChar125PageRoute;
+  '/{-$locale}/ide': typeof Char123LocaleChar125DashboardIdeRoute;
+  '/{-$locale}/organization': typeof Char123LocaleChar125DashboardOrganizationRoute;
+  '/{-$locale}/profile': typeof Char123LocaleChar125DashboardProfileRoute;
+  '/{-$locale}/projects': typeof Char123LocaleChar125DashboardProjectsRoute;
+  '/{-$locale}/scanner': typeof Char123LocaleChar125DashboardScannerRoute;
+  '/{-$locale}/pricing': typeof Char123LocaleChar125OtherPricingRoute;
+  '/{-$locale}/auth': typeof Char123LocaleChar125OtherAuthNotAuthenticatedRouteRouteWithChildren;
+  '/{-$locale}/affiliation/$invitationId': typeof Char123LocaleChar125OtherAffiliationInvitationIdRoute;
+  '/{-$locale}/auth/cli-login': typeof Char123LocaleChar125OtherAuthCliLoginRoute;
+  '/{-$locale}/auth/demo': typeof Char123LocaleChar125OtherAuthDemoRoute;
+  '/{-$locale}/find-reviewer/$reviewerId': typeof Char123LocaleChar125OtherFindReviewerReviewerIdRoute;
+  '/{-$locale}/onboarding/$step': typeof Char123LocaleChar125OtherOnboardingStepRoute;
+  '/{-$locale}/affiliation': typeof Char123LocaleChar125OtherAffiliationIndexRoute;
+  '/{-$locale}/find-reviewer': typeof Char123LocaleChar125OtherFindReviewerIndexRoute;
+  '/{-$locale}/admin/discussions': typeof Char123LocaleChar125DashboardAdminAdminDiscussionsRoute;
+  '/{-$locale}/editor': typeof Char123LocaleChar125DashboardEditorContentEditorRoute;
+  '/{-$locale}/translate': typeof Char123LocaleChar125DashboardEditorContentTranslateRoute;
+  '/{-$locale}/auth/2fa': typeof Char123LocaleChar125OtherAuthNotAuthenticated2faRoute;
+  '/{-$locale}/auth/login': typeof Char123LocaleChar125OtherAuthNotAuthenticatedLoginRoute;
+  '/{-$locale}/auth/register': typeof Char123LocaleChar125OtherAuthNotAuthenticatedRegisterRoute;
+  '/{-$locale}/auth/password': typeof Char123LocaleChar125OtherAuthPasswordLayoutRoute;
+  '/{-$locale}/auth/password/ask-reset': typeof Char123LocaleChar125OtherAuthPasswordAskResetRoute;
+  '/{-$locale}/auth/password/reset': typeof Char123LocaleChar125OtherAuthPasswordResetRoute;
+  '/{-$locale}/find-reviewer/dashboard': typeof Char123LocaleChar125OtherFindReviewerDashboardIndexRoute;
+  '/{-$locale}/admin/affiliate/$id': typeof Char123LocaleChar125DashboardAdminAdminAffiliateIdRoute;
+  '/{-$locale}/admin/organizations/$id': typeof Char123LocaleChar125DashboardAdminAdminOrganizationsIdRoute;
+  '/{-$locale}/admin/projects/$id': typeof Char123LocaleChar125DashboardAdminAdminProjectsIdRoute;
+  '/{-$locale}/admin/promo-code/$id': typeof Char123LocaleChar125DashboardAdminAdminPromoCodeIdRoute;
+  '/{-$locale}/admin/reviewers/$reviewerId': typeof Char123LocaleChar125DashboardAdminAdminReviewersReviewerIdRoute;
+  '/{-$locale}/admin/users/$id': typeof Char123LocaleChar125DashboardAdminAdminUsersIdRoute;
+  '/{-$locale}/dictionary/$dictionaryKey': typeof Char123LocaleChar125DashboardEditorContentDictionaryDictionaryKeyRoute;
+  '/{-$locale}/tags/$tagKey': typeof Char123LocaleChar125DashboardEditorContentTagsTagKeyRoute;
+  '/{-$locale}/auth/password/change': typeof Char123LocaleChar125OtherAuthAuthenticatedPasswordChangeRoute;
+  '/{-$locale}/find-reviewer/dashboard/mission/$missionId': typeof Char123LocaleChar125OtherFindReviewerDashboardMissionMissionIdRoute;
+  '/{-$locale}/admin/affiliate': typeof Char123LocaleChar125DashboardAdminAdminAffiliateIndexRoute;
+  '/{-$locale}/admin/organizations': typeof Char123LocaleChar125DashboardAdminAdminOrganizationsIndexRoute;
+  '/{-$locale}/admin/projects': typeof Char123LocaleChar125DashboardAdminAdminProjectsIndexRoute;
+  '/{-$locale}/admin/promo-code': typeof Char123LocaleChar125DashboardAdminAdminPromoCodeIndexRoute;
+  '/{-$locale}/admin/reviewers': typeof Char123LocaleChar125DashboardAdminAdminReviewersIndexRoute;
+  '/{-$locale}/admin/users': typeof Char123LocaleChar125DashboardAdminAdminUsersIndexRoute;
+  '/{-$locale}/dictionary': typeof Char123LocaleChar125DashboardEditorContentDictionaryIndexRoute;
+  '/{-$locale}/tags': typeof Char123LocaleChar125DashboardEditorContentTagsIndexRoute;
 }
 export interface FileRoutesById {
-  __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
-  '/{-$locale}': typeof Char123LocaleChar125RouteRouteWithChildren
-  '/demo': typeof DemoRoute
-  '/healthz': typeof HealthzRoute
-  '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/{-$locale}/_dashboard': typeof Char123LocaleChar125DashboardRouteRouteWithChildren
-  '/{-$locale}/_other': typeof Char123LocaleChar125OtherRouteRouteWithChildren
-  '/{-$locale}/$': typeof Char123LocaleChar125SplatRoute
-  '/{-$locale}/404': typeof Char123LocaleChar125404Route
-  '/{-$locale}/page': typeof Char123LocaleChar125PageRoute
-  '/{-$locale}/_dashboard/_admin': typeof Char123LocaleChar125DashboardAdminRouteRouteWithChildren
-  '/{-$locale}/_dashboard/ide': typeof Char123LocaleChar125DashboardIdeRoute
-  '/{-$locale}/_dashboard/organization': typeof Char123LocaleChar125DashboardOrganizationRoute
-  '/{-$locale}/_dashboard/profile': typeof Char123LocaleChar125DashboardProfileRoute
-  '/{-$locale}/_dashboard/projects': typeof Char123LocaleChar125DashboardProjectsRoute
-  '/{-$locale}/_dashboard/scanner': typeof Char123LocaleChar125DashboardScannerRoute
-  '/{-$locale}/_other/pricing': typeof Char123LocaleChar125OtherPricingRoute
-  '/{-$locale}/_dashboard/': typeof Char123LocaleChar125DashboardIndexRoute
-  '/{-$locale}/_dashboard/_editor/_content': typeof Char123LocaleChar125DashboardEditorContentRouteRouteWithChildren
-  '/{-$locale}/_other/auth/_authenticated': typeof Char123LocaleChar125OtherAuthAuthenticatedRouteRouteWithChildren
-  '/{-$locale}/_other/auth/_not-authenticated': typeof Char123LocaleChar125OtherAuthNotAuthenticatedRouteRouteWithChildren
-  '/{-$locale}/_other/affiliation/$invitationId': typeof Char123LocaleChar125OtherAffiliationInvitationIdRoute
-  '/{-$locale}/_other/auth/cli-login': typeof Char123LocaleChar125OtherAuthCliLoginRoute
-  '/{-$locale}/_other/auth/demo': typeof Char123LocaleChar125OtherAuthDemoRoute
-  '/{-$locale}/_other/find-reviewer/$reviewerId': typeof Char123LocaleChar125OtherFindReviewerReviewerIdRoute
-  '/{-$locale}/_other/onboarding/$step': typeof Char123LocaleChar125OtherOnboardingStepRoute
-  '/{-$locale}/_other/affiliation/': typeof Char123LocaleChar125OtherAffiliationIndexRoute
-  '/{-$locale}/_other/find-reviewer/': typeof Char123LocaleChar125OtherFindReviewerIndexRoute
-  '/{-$locale}/_dashboard/_admin/admin/affiliate': typeof Char123LocaleChar125DashboardAdminAdminAffiliateRouteRouteWithChildren
-  '/{-$locale}/_dashboard/_admin/admin/organizations': typeof Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRouteWithChildren
-  '/{-$locale}/_dashboard/_admin/admin/projects': typeof Char123LocaleChar125DashboardAdminAdminProjectsRouteRouteWithChildren
-  '/{-$locale}/_dashboard/_admin/admin/promo-code': typeof Char123LocaleChar125DashboardAdminAdminPromoCodeRouteRouteWithChildren
-  '/{-$locale}/_dashboard/_admin/admin/reviewers': typeof Char123LocaleChar125DashboardAdminAdminReviewersRouteRouteWithChildren
-  '/{-$locale}/_dashboard/_admin/admin/users': typeof Char123LocaleChar125DashboardAdminAdminUsersRouteRouteWithChildren
-  '/{-$locale}/_dashboard/_admin/admin/discussions': typeof Char123LocaleChar125DashboardAdminAdminDiscussionsRoute
-  '/{-$locale}/_dashboard/_editor/_content/editor': typeof Char123LocaleChar125DashboardEditorContentEditorRoute
-  '/{-$locale}/_dashboard/_editor/_content/translate': typeof Char123LocaleChar125DashboardEditorContentTranslateRoute
-  '/{-$locale}/_other/auth/_not-authenticated/2fa': typeof Char123LocaleChar125OtherAuthNotAuthenticated2faRoute
-  '/{-$locale}/_other/auth/_not-authenticated/login': typeof Char123LocaleChar125OtherAuthNotAuthenticatedLoginRoute
-  '/{-$locale}/_other/auth/_not-authenticated/register': typeof Char123LocaleChar125OtherAuthNotAuthenticatedRegisterRoute
-  '/{-$locale}/_other/auth/password/_layout': typeof Char123LocaleChar125OtherAuthPasswordLayoutRoute
-  '/{-$locale}/_other/auth/password/ask-reset': typeof Char123LocaleChar125OtherAuthPasswordAskResetRoute
-  '/{-$locale}/_other/auth/password/reset': typeof Char123LocaleChar125OtherAuthPasswordResetRoute
-  '/{-$locale}/_other/find-reviewer/dashboard/': typeof Char123LocaleChar125OtherFindReviewerDashboardIndexRoute
-  '/{-$locale}/_dashboard/_admin/admin/affiliate/$id': typeof Char123LocaleChar125DashboardAdminAdminAffiliateIdRoute
-  '/{-$locale}/_dashboard/_admin/admin/organizations/$id': typeof Char123LocaleChar125DashboardAdminAdminOrganizationsIdRoute
-  '/{-$locale}/_dashboard/_admin/admin/projects/$id': typeof Char123LocaleChar125DashboardAdminAdminProjectsIdRoute
-  '/{-$locale}/_dashboard/_admin/admin/promo-code/$id': typeof Char123LocaleChar125DashboardAdminAdminPromoCodeIdRoute
-  '/{-$locale}/_dashboard/_admin/admin/reviewers/$reviewerId': typeof Char123LocaleChar125DashboardAdminAdminReviewersReviewerIdRoute
-  '/{-$locale}/_dashboard/_admin/admin/users/$id': typeof Char123LocaleChar125DashboardAdminAdminUsersIdRoute
-  '/{-$locale}/_dashboard/_editor/_content/dictionary/$dictionaryKey': typeof Char123LocaleChar125DashboardEditorContentDictionaryDictionaryKeyRoute
-  '/{-$locale}/_dashboard/_editor/_content/tags/$tagKey': typeof Char123LocaleChar125DashboardEditorContentTagsTagKeyRoute
-  '/{-$locale}/_other/auth/_authenticated/password/change': typeof Char123LocaleChar125OtherAuthAuthenticatedPasswordChangeRoute
-  '/{-$locale}/_other/find-reviewer/dashboard/mission/$missionId': typeof Char123LocaleChar125OtherFindReviewerDashboardMissionMissionIdRoute
-  '/{-$locale}/_dashboard/_admin/admin/affiliate/': typeof Char123LocaleChar125DashboardAdminAdminAffiliateIndexRoute
-  '/{-$locale}/_dashboard/_admin/admin/organizations/': typeof Char123LocaleChar125DashboardAdminAdminOrganizationsIndexRoute
-  '/{-$locale}/_dashboard/_admin/admin/projects/': typeof Char123LocaleChar125DashboardAdminAdminProjectsIndexRoute
-  '/{-$locale}/_dashboard/_admin/admin/promo-code/': typeof Char123LocaleChar125DashboardAdminAdminPromoCodeIndexRoute
-  '/{-$locale}/_dashboard/_admin/admin/reviewers/': typeof Char123LocaleChar125DashboardAdminAdminReviewersIndexRoute
-  '/{-$locale}/_dashboard/_admin/admin/users/': typeof Char123LocaleChar125DashboardAdminAdminUsersIndexRoute
-  '/{-$locale}/_dashboard/_editor/_content/dictionary/': typeof Char123LocaleChar125DashboardEditorContentDictionaryIndexRoute
-  '/{-$locale}/_dashboard/_editor/_content/tags/': typeof Char123LocaleChar125DashboardEditorContentTagsIndexRoute
+  __root__: typeof rootRouteImport;
+  '/': typeof IndexRoute;
+  '/{-$locale}': typeof Char123LocaleChar125RouteRouteWithChildren;
+  '/healthz': typeof HealthzRoute;
+  '/sitemap.xml': typeof SitemapDotxmlRoute;
+  '/{-$locale}/_dashboard': typeof Char123LocaleChar125DashboardRouteRouteWithChildren;
+  '/{-$locale}/_other': typeof Char123LocaleChar125OtherRouteRouteWithChildren;
+  '/{-$locale}/$': typeof Char123LocaleChar125SplatRoute;
+  '/{-$locale}/404': typeof Char123LocaleChar125404Route;
+  '/{-$locale}/demo': typeof Char123LocaleChar125DemoRoute;
+  '/{-$locale}/page': typeof Char123LocaleChar125PageRoute;
+  '/{-$locale}/_dashboard/_admin': typeof Char123LocaleChar125DashboardAdminRouteRouteWithChildren;
+  '/{-$locale}/_dashboard/ide': typeof Char123LocaleChar125DashboardIdeRoute;
+  '/{-$locale}/_dashboard/organization': typeof Char123LocaleChar125DashboardOrganizationRoute;
+  '/{-$locale}/_dashboard/profile': typeof Char123LocaleChar125DashboardProfileRoute;
+  '/{-$locale}/_dashboard/projects': typeof Char123LocaleChar125DashboardProjectsRoute;
+  '/{-$locale}/_dashboard/scanner': typeof Char123LocaleChar125DashboardScannerRoute;
+  '/{-$locale}/_other/pricing': typeof Char123LocaleChar125OtherPricingRoute;
+  '/{-$locale}/_dashboard/': typeof Char123LocaleChar125DashboardIndexRoute;
+  '/{-$locale}/_dashboard/_editor/_content': typeof Char123LocaleChar125DashboardEditorContentRouteRouteWithChildren;
+  '/{-$locale}/_other/auth/_authenticated': typeof Char123LocaleChar125OtherAuthAuthenticatedRouteRouteWithChildren;
+  '/{-$locale}/_other/auth/_not-authenticated': typeof Char123LocaleChar125OtherAuthNotAuthenticatedRouteRouteWithChildren;
+  '/{-$locale}/_other/affiliation/$invitationId': typeof Char123LocaleChar125OtherAffiliationInvitationIdRoute;
+  '/{-$locale}/_other/auth/cli-login': typeof Char123LocaleChar125OtherAuthCliLoginRoute;
+  '/{-$locale}/_other/auth/demo': typeof Char123LocaleChar125OtherAuthDemoRoute;
+  '/{-$locale}/_other/find-reviewer/$reviewerId': typeof Char123LocaleChar125OtherFindReviewerReviewerIdRoute;
+  '/{-$locale}/_other/onboarding/$step': typeof Char123LocaleChar125OtherOnboardingStepRoute;
+  '/{-$locale}/_other/affiliation/': typeof Char123LocaleChar125OtherAffiliationIndexRoute;
+  '/{-$locale}/_other/find-reviewer/': typeof Char123LocaleChar125OtherFindReviewerIndexRoute;
+  '/{-$locale}/_dashboard/_admin/admin/affiliate': typeof Char123LocaleChar125DashboardAdminAdminAffiliateRouteRouteWithChildren;
+  '/{-$locale}/_dashboard/_admin/admin/organizations': typeof Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRouteWithChildren;
+  '/{-$locale}/_dashboard/_admin/admin/projects': typeof Char123LocaleChar125DashboardAdminAdminProjectsRouteRouteWithChildren;
+  '/{-$locale}/_dashboard/_admin/admin/promo-code': typeof Char123LocaleChar125DashboardAdminAdminPromoCodeRouteRouteWithChildren;
+  '/{-$locale}/_dashboard/_admin/admin/reviewers': typeof Char123LocaleChar125DashboardAdminAdminReviewersRouteRouteWithChildren;
+  '/{-$locale}/_dashboard/_admin/admin/users': typeof Char123LocaleChar125DashboardAdminAdminUsersRouteRouteWithChildren;
+  '/{-$locale}/_dashboard/_admin/admin/discussions': typeof Char123LocaleChar125DashboardAdminAdminDiscussionsRoute;
+  '/{-$locale}/_dashboard/_editor/_content/editor': typeof Char123LocaleChar125DashboardEditorContentEditorRoute;
+  '/{-$locale}/_dashboard/_editor/_content/translate': typeof Char123LocaleChar125DashboardEditorContentTranslateRoute;
+  '/{-$locale}/_other/auth/_not-authenticated/2fa': typeof Char123LocaleChar125OtherAuthNotAuthenticated2faRoute;
+  '/{-$locale}/_other/auth/_not-authenticated/login': typeof Char123LocaleChar125OtherAuthNotAuthenticatedLoginRoute;
+  '/{-$locale}/_other/auth/_not-authenticated/register': typeof Char123LocaleChar125OtherAuthNotAuthenticatedRegisterRoute;
+  '/{-$locale}/_other/auth/password/_layout': typeof Char123LocaleChar125OtherAuthPasswordLayoutRoute;
+  '/{-$locale}/_other/auth/password/ask-reset': typeof Char123LocaleChar125OtherAuthPasswordAskResetRoute;
+  '/{-$locale}/_other/auth/password/reset': typeof Char123LocaleChar125OtherAuthPasswordResetRoute;
+  '/{-$locale}/_other/find-reviewer/dashboard/': typeof Char123LocaleChar125OtherFindReviewerDashboardIndexRoute;
+  '/{-$locale}/_dashboard/_admin/admin/affiliate/$id': typeof Char123LocaleChar125DashboardAdminAdminAffiliateIdRoute;
+  '/{-$locale}/_dashboard/_admin/admin/organizations/$id': typeof Char123LocaleChar125DashboardAdminAdminOrganizationsIdRoute;
+  '/{-$locale}/_dashboard/_admin/admin/projects/$id': typeof Char123LocaleChar125DashboardAdminAdminProjectsIdRoute;
+  '/{-$locale}/_dashboard/_admin/admin/promo-code/$id': typeof Char123LocaleChar125DashboardAdminAdminPromoCodeIdRoute;
+  '/{-$locale}/_dashboard/_admin/admin/reviewers/$reviewerId': typeof Char123LocaleChar125DashboardAdminAdminReviewersReviewerIdRoute;
+  '/{-$locale}/_dashboard/_admin/admin/users/$id': typeof Char123LocaleChar125DashboardAdminAdminUsersIdRoute;
+  '/{-$locale}/_dashboard/_editor/_content/dictionary/$dictionaryKey': typeof Char123LocaleChar125DashboardEditorContentDictionaryDictionaryKeyRoute;
+  '/{-$locale}/_dashboard/_editor/_content/tags/$tagKey': typeof Char123LocaleChar125DashboardEditorContentTagsTagKeyRoute;
+  '/{-$locale}/_other/auth/_authenticated/password/change': typeof Char123LocaleChar125OtherAuthAuthenticatedPasswordChangeRoute;
+  '/{-$locale}/_other/find-reviewer/dashboard/mission/$missionId': typeof Char123LocaleChar125OtherFindReviewerDashboardMissionMissionIdRoute;
+  '/{-$locale}/_dashboard/_admin/admin/affiliate/': typeof Char123LocaleChar125DashboardAdminAdminAffiliateIndexRoute;
+  '/{-$locale}/_dashboard/_admin/admin/organizations/': typeof Char123LocaleChar125DashboardAdminAdminOrganizationsIndexRoute;
+  '/{-$locale}/_dashboard/_admin/admin/projects/': typeof Char123LocaleChar125DashboardAdminAdminProjectsIndexRoute;
+  '/{-$locale}/_dashboard/_admin/admin/promo-code/': typeof Char123LocaleChar125DashboardAdminAdminPromoCodeIndexRoute;
+  '/{-$locale}/_dashboard/_admin/admin/reviewers/': typeof Char123LocaleChar125DashboardAdminAdminReviewersIndexRoute;
+  '/{-$locale}/_dashboard/_admin/admin/users/': typeof Char123LocaleChar125DashboardAdminAdminUsersIndexRoute;
+  '/{-$locale}/_dashboard/_editor/_content/dictionary/': typeof Char123LocaleChar125DashboardEditorContentDictionaryIndexRoute;
+  '/{-$locale}/_dashboard/_editor/_content/tags/': typeof Char123LocaleChar125DashboardEditorContentTagsIndexRoute;
 }
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath
+  fileRoutesByFullPath: FileRoutesByFullPath;
   fullPaths:
     | '/'
     | '/{-$locale}'
-    | '/demo'
     | '/healthz'
     | '/sitemap.xml'
     | '/{-$locale}/$'
     | '/{-$locale}/404'
+    | '/{-$locale}/demo'
     | '/{-$locale}/page'
     | '/{-$locale}/ide'
     | '/{-$locale}/organization'
@@ -691,16 +692,16 @@ export interface FileRouteTypes {
     | '/{-$locale}/admin/reviewers/'
     | '/{-$locale}/admin/users/'
     | '/{-$locale}/dictionary/'
-    | '/{-$locale}/tags/'
-  fileRoutesByTo: FileRoutesByTo
+    | '/{-$locale}/tags/';
+  fileRoutesByTo: FileRoutesByTo;
   to:
     | '/'
     | '/{-$locale}'
-    | '/demo'
     | '/healthz'
     | '/sitemap.xml'
     | '/{-$locale}/$'
     | '/{-$locale}/404'
+    | '/{-$locale}/demo'
     | '/{-$locale}/page'
     | '/{-$locale}/ide'
     | '/{-$locale}/organization'
@@ -743,18 +744,18 @@ export interface FileRouteTypes {
     | '/{-$locale}/admin/reviewers'
     | '/{-$locale}/admin/users'
     | '/{-$locale}/dictionary'
-    | '/{-$locale}/tags'
+    | '/{-$locale}/tags';
   id:
     | '__root__'
     | '/'
     | '/{-$locale}'
-    | '/demo'
     | '/healthz'
     | '/sitemap.xml'
     | '/{-$locale}/_dashboard'
     | '/{-$locale}/_other'
     | '/{-$locale}/$'
     | '/{-$locale}/404'
+    | '/{-$locale}/demo'
     | '/{-$locale}/page'
     | '/{-$locale}/_dashboard/_admin'
     | '/{-$locale}/_dashboard/ide'
@@ -807,459 +808,458 @@ export interface FileRouteTypes {
     | '/{-$locale}/_dashboard/_admin/admin/reviewers/'
     | '/{-$locale}/_dashboard/_admin/admin/users/'
     | '/{-$locale}/_dashboard/_editor/_content/dictionary/'
-    | '/{-$locale}/_dashboard/_editor/_content/tags/'
-  fileRoutesById: FileRoutesById
+    | '/{-$locale}/_dashboard/_editor/_content/tags/';
+  fileRoutesById: FileRoutesById;
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  Char123LocaleChar125RouteRoute: typeof Char123LocaleChar125RouteRouteWithChildren
-  DemoRoute: typeof DemoRoute
-  HealthzRoute: typeof HealthzRoute
-  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  IndexRoute: typeof IndexRoute;
+  Char123LocaleChar125RouteRoute: typeof Char123LocaleChar125RouteRouteWithChildren;
+  HealthzRoute: typeof HealthzRoute;
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute;
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
     '/sitemap.xml': {
-      id: '/sitemap.xml'
-      path: '/sitemap.xml'
-      fullPath: '/sitemap.xml'
-      preLoaderRoute: typeof SitemapDotxmlRouteImport
-      parentRoute: typeof rootRouteImport
-    }
+      id: '/sitemap.xml';
+      path: '/sitemap.xml';
+      fullPath: '/sitemap.xml';
+      preLoaderRoute: typeof SitemapDotxmlRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
     '/healthz': {
-      id: '/healthz'
-      path: '/healthz'
-      fullPath: '/healthz'
-      preLoaderRoute: typeof HealthzRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/demo': {
-      id: '/demo'
-      path: '/demo'
-      fullPath: '/demo'
-      preLoaderRoute: typeof DemoRouteImport
-      parentRoute: typeof rootRouteImport
-    }
+      id: '/healthz';
+      path: '/healthz';
+      fullPath: '/healthz';
+      preLoaderRoute: typeof HealthzRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
     '/{-$locale}': {
-      id: '/{-$locale}'
-      path: '/{-$locale}'
-      fullPath: '/{-$locale}'
-      preLoaderRoute: typeof Char123LocaleChar125RouteRouteImport
-      parentRoute: typeof rootRouteImport
-    }
+      id: '/{-$locale}';
+      path: '/{-$locale}';
+      fullPath: '/{-$locale}';
+      preLoaderRoute: typeof Char123LocaleChar125RouteRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
     '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
+      id: '/';
+      path: '/';
+      fullPath: '/';
+      preLoaderRoute: typeof IndexRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
     '/{-$locale}/page': {
-      id: '/{-$locale}/page'
-      path: '/page'
-      fullPath: '/{-$locale}/page'
-      preLoaderRoute: typeof Char123LocaleChar125PageRouteImport
-      parentRoute: typeof Char123LocaleChar125RouteRoute
-    }
+      id: '/{-$locale}/page';
+      path: '/page';
+      fullPath: '/{-$locale}/page';
+      preLoaderRoute: typeof Char123LocaleChar125PageRouteImport;
+      parentRoute: typeof Char123LocaleChar125RouteRoute;
+    };
+    '/{-$locale}/demo': {
+      id: '/{-$locale}/demo';
+      path: '/demo';
+      fullPath: '/{-$locale}/demo';
+      preLoaderRoute: typeof Char123LocaleChar125DemoRouteImport;
+      parentRoute: typeof Char123LocaleChar125RouteRoute;
+    };
     '/{-$locale}/404': {
-      id: '/{-$locale}/404'
-      path: '/404'
-      fullPath: '/{-$locale}/404'
-      preLoaderRoute: typeof Char123LocaleChar125404RouteImport
-      parentRoute: typeof Char123LocaleChar125RouteRoute
-    }
+      id: '/{-$locale}/404';
+      path: '/404';
+      fullPath: '/{-$locale}/404';
+      preLoaderRoute: typeof Char123LocaleChar125404RouteImport;
+      parentRoute: typeof Char123LocaleChar125RouteRoute;
+    };
     '/{-$locale}/$': {
-      id: '/{-$locale}/$'
-      path: '/$'
-      fullPath: '/{-$locale}/$'
-      preLoaderRoute: typeof Char123LocaleChar125SplatRouteImport
-      parentRoute: typeof Char123LocaleChar125RouteRoute
-    }
+      id: '/{-$locale}/$';
+      path: '/$';
+      fullPath: '/{-$locale}/$';
+      preLoaderRoute: typeof Char123LocaleChar125SplatRouteImport;
+      parentRoute: typeof Char123LocaleChar125RouteRoute;
+    };
     '/{-$locale}/_other': {
-      id: '/{-$locale}/_other'
-      path: ''
-      fullPath: '/{-$locale}'
-      preLoaderRoute: typeof Char123LocaleChar125OtherRouteRouteImport
-      parentRoute: typeof Char123LocaleChar125RouteRoute
-    }
+      id: '/{-$locale}/_other';
+      path: '';
+      fullPath: '/{-$locale}';
+      preLoaderRoute: typeof Char123LocaleChar125OtherRouteRouteImport;
+      parentRoute: typeof Char123LocaleChar125RouteRoute;
+    };
     '/{-$locale}/_dashboard': {
-      id: '/{-$locale}/_dashboard'
-      path: ''
-      fullPath: '/{-$locale}'
-      preLoaderRoute: typeof Char123LocaleChar125DashboardRouteRouteImport
-      parentRoute: typeof Char123LocaleChar125RouteRoute
-    }
+      id: '/{-$locale}/_dashboard';
+      path: '';
+      fullPath: '/{-$locale}';
+      preLoaderRoute: typeof Char123LocaleChar125DashboardRouteRouteImport;
+      parentRoute: typeof Char123LocaleChar125RouteRoute;
+    };
     '/{-$locale}/_dashboard/': {
-      id: '/{-$locale}/_dashboard/'
-      path: '/'
-      fullPath: '/{-$locale}/'
-      preLoaderRoute: typeof Char123LocaleChar125DashboardIndexRouteImport
-      parentRoute: typeof Char123LocaleChar125DashboardRouteRoute
-    }
+      id: '/{-$locale}/_dashboard/';
+      path: '/';
+      fullPath: '/{-$locale}/';
+      preLoaderRoute: typeof Char123LocaleChar125DashboardIndexRouteImport;
+      parentRoute: typeof Char123LocaleChar125DashboardRouteRoute;
+    };
     '/{-$locale}/_other/pricing': {
-      id: '/{-$locale}/_other/pricing'
-      path: '/pricing'
-      fullPath: '/{-$locale}/pricing'
-      preLoaderRoute: typeof Char123LocaleChar125OtherPricingRouteImport
-      parentRoute: typeof Char123LocaleChar125OtherRouteRoute
-    }
+      id: '/{-$locale}/_other/pricing';
+      path: '/pricing';
+      fullPath: '/{-$locale}/pricing';
+      preLoaderRoute: typeof Char123LocaleChar125OtherPricingRouteImport;
+      parentRoute: typeof Char123LocaleChar125OtherRouteRoute;
+    };
     '/{-$locale}/_dashboard/scanner': {
-      id: '/{-$locale}/_dashboard/scanner'
-      path: '/scanner'
-      fullPath: '/{-$locale}/scanner'
-      preLoaderRoute: typeof Char123LocaleChar125DashboardScannerRouteImport
-      parentRoute: typeof Char123LocaleChar125DashboardRouteRoute
-    }
+      id: '/{-$locale}/_dashboard/scanner';
+      path: '/scanner';
+      fullPath: '/{-$locale}/scanner';
+      preLoaderRoute: typeof Char123LocaleChar125DashboardScannerRouteImport;
+      parentRoute: typeof Char123LocaleChar125DashboardRouteRoute;
+    };
     '/{-$locale}/_dashboard/projects': {
-      id: '/{-$locale}/_dashboard/projects'
-      path: '/projects'
-      fullPath: '/{-$locale}/projects'
-      preLoaderRoute: typeof Char123LocaleChar125DashboardProjectsRouteImport
-      parentRoute: typeof Char123LocaleChar125DashboardRouteRoute
-    }
+      id: '/{-$locale}/_dashboard/projects';
+      path: '/projects';
+      fullPath: '/{-$locale}/projects';
+      preLoaderRoute: typeof Char123LocaleChar125DashboardProjectsRouteImport;
+      parentRoute: typeof Char123LocaleChar125DashboardRouteRoute;
+    };
     '/{-$locale}/_dashboard/profile': {
-      id: '/{-$locale}/_dashboard/profile'
-      path: '/profile'
-      fullPath: '/{-$locale}/profile'
-      preLoaderRoute: typeof Char123LocaleChar125DashboardProfileRouteImport
-      parentRoute: typeof Char123LocaleChar125DashboardRouteRoute
-    }
+      id: '/{-$locale}/_dashboard/profile';
+      path: '/profile';
+      fullPath: '/{-$locale}/profile';
+      preLoaderRoute: typeof Char123LocaleChar125DashboardProfileRouteImport;
+      parentRoute: typeof Char123LocaleChar125DashboardRouteRoute;
+    };
     '/{-$locale}/_dashboard/organization': {
-      id: '/{-$locale}/_dashboard/organization'
-      path: '/organization'
-      fullPath: '/{-$locale}/organization'
-      preLoaderRoute: typeof Char123LocaleChar125DashboardOrganizationRouteImport
-      parentRoute: typeof Char123LocaleChar125DashboardRouteRoute
-    }
+      id: '/{-$locale}/_dashboard/organization';
+      path: '/organization';
+      fullPath: '/{-$locale}/organization';
+      preLoaderRoute: typeof Char123LocaleChar125DashboardOrganizationRouteImport;
+      parentRoute: typeof Char123LocaleChar125DashboardRouteRoute;
+    };
     '/{-$locale}/_dashboard/ide': {
-      id: '/{-$locale}/_dashboard/ide'
-      path: '/ide'
-      fullPath: '/{-$locale}/ide'
-      preLoaderRoute: typeof Char123LocaleChar125DashboardIdeRouteImport
-      parentRoute: typeof Char123LocaleChar125DashboardRouteRoute
-    }
+      id: '/{-$locale}/_dashboard/ide';
+      path: '/ide';
+      fullPath: '/{-$locale}/ide';
+      preLoaderRoute: typeof Char123LocaleChar125DashboardIdeRouteImport;
+      parentRoute: typeof Char123LocaleChar125DashboardRouteRoute;
+    };
     '/{-$locale}/_dashboard/_admin': {
-      id: '/{-$locale}/_dashboard/_admin'
-      path: ''
-      fullPath: '/{-$locale}'
-      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminRouteRouteImport
-      parentRoute: typeof Char123LocaleChar125DashboardRouteRoute
-    }
+      id: '/{-$locale}/_dashboard/_admin';
+      path: '';
+      fullPath: '/{-$locale}';
+      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminRouteRouteImport;
+      parentRoute: typeof Char123LocaleChar125DashboardRouteRoute;
+    };
     '/{-$locale}/_other/find-reviewer/': {
-      id: '/{-$locale}/_other/find-reviewer/'
-      path: '/find-reviewer'
-      fullPath: '/{-$locale}/find-reviewer/'
-      preLoaderRoute: typeof Char123LocaleChar125OtherFindReviewerIndexRouteImport
-      parentRoute: typeof Char123LocaleChar125OtherRouteRoute
-    }
+      id: '/{-$locale}/_other/find-reviewer/';
+      path: '/find-reviewer';
+      fullPath: '/{-$locale}/find-reviewer/';
+      preLoaderRoute: typeof Char123LocaleChar125OtherFindReviewerIndexRouteImport;
+      parentRoute: typeof Char123LocaleChar125OtherRouteRoute;
+    };
     '/{-$locale}/_other/affiliation/': {
-      id: '/{-$locale}/_other/affiliation/'
-      path: '/affiliation'
-      fullPath: '/{-$locale}/affiliation/'
-      preLoaderRoute: typeof Char123LocaleChar125OtherAffiliationIndexRouteImport
-      parentRoute: typeof Char123LocaleChar125OtherRouteRoute
-    }
+      id: '/{-$locale}/_other/affiliation/';
+      path: '/affiliation';
+      fullPath: '/{-$locale}/affiliation/';
+      preLoaderRoute: typeof Char123LocaleChar125OtherAffiliationIndexRouteImport;
+      parentRoute: typeof Char123LocaleChar125OtherRouteRoute;
+    };
     '/{-$locale}/_other/onboarding/$step': {
-      id: '/{-$locale}/_other/onboarding/$step'
-      path: '/onboarding/$step'
-      fullPath: '/{-$locale}/onboarding/$step'
-      preLoaderRoute: typeof Char123LocaleChar125OtherOnboardingStepRouteImport
-      parentRoute: typeof Char123LocaleChar125OtherRouteRoute
-    }
+      id: '/{-$locale}/_other/onboarding/$step';
+      path: '/onboarding/$step';
+      fullPath: '/{-$locale}/onboarding/$step';
+      preLoaderRoute: typeof Char123LocaleChar125OtherOnboardingStepRouteImport;
+      parentRoute: typeof Char123LocaleChar125OtherRouteRoute;
+    };
     '/{-$locale}/_other/find-reviewer/$reviewerId': {
-      id: '/{-$locale}/_other/find-reviewer/$reviewerId'
-      path: '/find-reviewer/$reviewerId'
-      fullPath: '/{-$locale}/find-reviewer/$reviewerId'
-      preLoaderRoute: typeof Char123LocaleChar125OtherFindReviewerReviewerIdRouteImport
-      parentRoute: typeof Char123LocaleChar125OtherRouteRoute
-    }
+      id: '/{-$locale}/_other/find-reviewer/$reviewerId';
+      path: '/find-reviewer/$reviewerId';
+      fullPath: '/{-$locale}/find-reviewer/$reviewerId';
+      preLoaderRoute: typeof Char123LocaleChar125OtherFindReviewerReviewerIdRouteImport;
+      parentRoute: typeof Char123LocaleChar125OtherRouteRoute;
+    };
     '/{-$locale}/_other/auth/demo': {
-      id: '/{-$locale}/_other/auth/demo'
-      path: '/auth/demo'
-      fullPath: '/{-$locale}/auth/demo'
-      preLoaderRoute: typeof Char123LocaleChar125OtherAuthDemoRouteImport
-      parentRoute: typeof Char123LocaleChar125OtherRouteRoute
-    }
+      id: '/{-$locale}/_other/auth/demo';
+      path: '/auth/demo';
+      fullPath: '/{-$locale}/auth/demo';
+      preLoaderRoute: typeof Char123LocaleChar125OtherAuthDemoRouteImport;
+      parentRoute: typeof Char123LocaleChar125OtherRouteRoute;
+    };
     '/{-$locale}/_other/auth/cli-login': {
-      id: '/{-$locale}/_other/auth/cli-login'
-      path: '/auth/cli-login'
-      fullPath: '/{-$locale}/auth/cli-login'
-      preLoaderRoute: typeof Char123LocaleChar125OtherAuthCliLoginRouteImport
-      parentRoute: typeof Char123LocaleChar125OtherRouteRoute
-    }
+      id: '/{-$locale}/_other/auth/cli-login';
+      path: '/auth/cli-login';
+      fullPath: '/{-$locale}/auth/cli-login';
+      preLoaderRoute: typeof Char123LocaleChar125OtherAuthCliLoginRouteImport;
+      parentRoute: typeof Char123LocaleChar125OtherRouteRoute;
+    };
     '/{-$locale}/_other/affiliation/$invitationId': {
-      id: '/{-$locale}/_other/affiliation/$invitationId'
-      path: '/affiliation/$invitationId'
-      fullPath: '/{-$locale}/affiliation/$invitationId'
-      preLoaderRoute: typeof Char123LocaleChar125OtherAffiliationInvitationIdRouteImport
-      parentRoute: typeof Char123LocaleChar125OtherRouteRoute
-    }
+      id: '/{-$locale}/_other/affiliation/$invitationId';
+      path: '/affiliation/$invitationId';
+      fullPath: '/{-$locale}/affiliation/$invitationId';
+      preLoaderRoute: typeof Char123LocaleChar125OtherAffiliationInvitationIdRouteImport;
+      parentRoute: typeof Char123LocaleChar125OtherRouteRoute;
+    };
     '/{-$locale}/_other/auth/_not-authenticated': {
-      id: '/{-$locale}/_other/auth/_not-authenticated'
-      path: '/auth'
-      fullPath: '/{-$locale}/auth'
-      preLoaderRoute: typeof Char123LocaleChar125OtherAuthNotAuthenticatedRouteRouteImport
-      parentRoute: typeof Char123LocaleChar125OtherRouteRoute
-    }
+      id: '/{-$locale}/_other/auth/_not-authenticated';
+      path: '/auth';
+      fullPath: '/{-$locale}/auth';
+      preLoaderRoute: typeof Char123LocaleChar125OtherAuthNotAuthenticatedRouteRouteImport;
+      parentRoute: typeof Char123LocaleChar125OtherRouteRoute;
+    };
     '/{-$locale}/_other/auth/_authenticated': {
-      id: '/{-$locale}/_other/auth/_authenticated'
-      path: '/auth'
-      fullPath: '/{-$locale}/auth'
-      preLoaderRoute: typeof Char123LocaleChar125OtherAuthAuthenticatedRouteRouteImport
-      parentRoute: typeof Char123LocaleChar125OtherRouteRoute
-    }
+      id: '/{-$locale}/_other/auth/_authenticated';
+      path: '/auth';
+      fullPath: '/{-$locale}/auth';
+      preLoaderRoute: typeof Char123LocaleChar125OtherAuthAuthenticatedRouteRouteImport;
+      parentRoute: typeof Char123LocaleChar125OtherRouteRoute;
+    };
     '/{-$locale}/_dashboard/_editor/_content': {
-      id: '/{-$locale}/_dashboard/_editor/_content'
-      path: ''
-      fullPath: '/{-$locale}'
-      preLoaderRoute: typeof Char123LocaleChar125DashboardEditorContentRouteRouteImport
-      parentRoute: typeof Char123LocaleChar125DashboardRouteRoute
-    }
+      id: '/{-$locale}/_dashboard/_editor/_content';
+      path: '';
+      fullPath: '/{-$locale}';
+      preLoaderRoute: typeof Char123LocaleChar125DashboardEditorContentRouteRouteImport;
+      parentRoute: typeof Char123LocaleChar125DashboardRouteRoute;
+    };
     '/{-$locale}/_other/find-reviewer/dashboard/': {
-      id: '/{-$locale}/_other/find-reviewer/dashboard/'
-      path: '/find-reviewer/dashboard'
-      fullPath: '/{-$locale}/find-reviewer/dashboard/'
-      preLoaderRoute: typeof Char123LocaleChar125OtherFindReviewerDashboardIndexRouteImport
-      parentRoute: typeof Char123LocaleChar125OtherRouteRoute
-    }
+      id: '/{-$locale}/_other/find-reviewer/dashboard/';
+      path: '/find-reviewer/dashboard';
+      fullPath: '/{-$locale}/find-reviewer/dashboard/';
+      preLoaderRoute: typeof Char123LocaleChar125OtherFindReviewerDashboardIndexRouteImport;
+      parentRoute: typeof Char123LocaleChar125OtherRouteRoute;
+    };
     '/{-$locale}/_other/auth/password/reset': {
-      id: '/{-$locale}/_other/auth/password/reset'
-      path: '/auth/password/reset'
-      fullPath: '/{-$locale}/auth/password/reset'
-      preLoaderRoute: typeof Char123LocaleChar125OtherAuthPasswordResetRouteImport
-      parentRoute: typeof Char123LocaleChar125OtherRouteRoute
-    }
+      id: '/{-$locale}/_other/auth/password/reset';
+      path: '/auth/password/reset';
+      fullPath: '/{-$locale}/auth/password/reset';
+      preLoaderRoute: typeof Char123LocaleChar125OtherAuthPasswordResetRouteImport;
+      parentRoute: typeof Char123LocaleChar125OtherRouteRoute;
+    };
     '/{-$locale}/_other/auth/password/ask-reset': {
-      id: '/{-$locale}/_other/auth/password/ask-reset'
-      path: '/auth/password/ask-reset'
-      fullPath: '/{-$locale}/auth/password/ask-reset'
-      preLoaderRoute: typeof Char123LocaleChar125OtherAuthPasswordAskResetRouteImport
-      parentRoute: typeof Char123LocaleChar125OtherRouteRoute
-    }
+      id: '/{-$locale}/_other/auth/password/ask-reset';
+      path: '/auth/password/ask-reset';
+      fullPath: '/{-$locale}/auth/password/ask-reset';
+      preLoaderRoute: typeof Char123LocaleChar125OtherAuthPasswordAskResetRouteImport;
+      parentRoute: typeof Char123LocaleChar125OtherRouteRoute;
+    };
     '/{-$locale}/_other/auth/password/_layout': {
-      id: '/{-$locale}/_other/auth/password/_layout'
-      path: '/auth/password'
-      fullPath: '/{-$locale}/auth/password'
-      preLoaderRoute: typeof Char123LocaleChar125OtherAuthPasswordLayoutRouteImport
-      parentRoute: typeof Char123LocaleChar125OtherRouteRoute
-    }
+      id: '/{-$locale}/_other/auth/password/_layout';
+      path: '/auth/password';
+      fullPath: '/{-$locale}/auth/password';
+      preLoaderRoute: typeof Char123LocaleChar125OtherAuthPasswordLayoutRouteImport;
+      parentRoute: typeof Char123LocaleChar125OtherRouteRoute;
+    };
     '/{-$locale}/_other/auth/_not-authenticated/register': {
-      id: '/{-$locale}/_other/auth/_not-authenticated/register'
-      path: '/register'
-      fullPath: '/{-$locale}/auth/register'
-      preLoaderRoute: typeof Char123LocaleChar125OtherAuthNotAuthenticatedRegisterRouteImport
-      parentRoute: typeof Char123LocaleChar125OtherAuthNotAuthenticatedRouteRoute
-    }
+      id: '/{-$locale}/_other/auth/_not-authenticated/register';
+      path: '/register';
+      fullPath: '/{-$locale}/auth/register';
+      preLoaderRoute: typeof Char123LocaleChar125OtherAuthNotAuthenticatedRegisterRouteImport;
+      parentRoute: typeof Char123LocaleChar125OtherAuthNotAuthenticatedRouteRoute;
+    };
     '/{-$locale}/_other/auth/_not-authenticated/login': {
-      id: '/{-$locale}/_other/auth/_not-authenticated/login'
-      path: '/login'
-      fullPath: '/{-$locale}/auth/login'
-      preLoaderRoute: typeof Char123LocaleChar125OtherAuthNotAuthenticatedLoginRouteImport
-      parentRoute: typeof Char123LocaleChar125OtherAuthNotAuthenticatedRouteRoute
-    }
+      id: '/{-$locale}/_other/auth/_not-authenticated/login';
+      path: '/login';
+      fullPath: '/{-$locale}/auth/login';
+      preLoaderRoute: typeof Char123LocaleChar125OtherAuthNotAuthenticatedLoginRouteImport;
+      parentRoute: typeof Char123LocaleChar125OtherAuthNotAuthenticatedRouteRoute;
+    };
     '/{-$locale}/_other/auth/_not-authenticated/2fa': {
-      id: '/{-$locale}/_other/auth/_not-authenticated/2fa'
-      path: '/2fa'
-      fullPath: '/{-$locale}/auth/2fa'
-      preLoaderRoute: typeof Char123LocaleChar125OtherAuthNotAuthenticated2faRouteImport
-      parentRoute: typeof Char123LocaleChar125OtherAuthNotAuthenticatedRouteRoute
-    }
+      id: '/{-$locale}/_other/auth/_not-authenticated/2fa';
+      path: '/2fa';
+      fullPath: '/{-$locale}/auth/2fa';
+      preLoaderRoute: typeof Char123LocaleChar125OtherAuthNotAuthenticated2faRouteImport;
+      parentRoute: typeof Char123LocaleChar125OtherAuthNotAuthenticatedRouteRoute;
+    };
     '/{-$locale}/_dashboard/_editor/_content/translate': {
-      id: '/{-$locale}/_dashboard/_editor/_content/translate'
-      path: '/translate'
-      fullPath: '/{-$locale}/translate'
-      preLoaderRoute: typeof Char123LocaleChar125DashboardEditorContentTranslateRouteImport
-      parentRoute: typeof Char123LocaleChar125DashboardEditorContentRouteRoute
-    }
+      id: '/{-$locale}/_dashboard/_editor/_content/translate';
+      path: '/translate';
+      fullPath: '/{-$locale}/translate';
+      preLoaderRoute: typeof Char123LocaleChar125DashboardEditorContentTranslateRouteImport;
+      parentRoute: typeof Char123LocaleChar125DashboardEditorContentRouteRoute;
+    };
     '/{-$locale}/_dashboard/_editor/_content/editor': {
-      id: '/{-$locale}/_dashboard/_editor/_content/editor'
-      path: '/editor'
-      fullPath: '/{-$locale}/editor'
-      preLoaderRoute: typeof Char123LocaleChar125DashboardEditorContentEditorRouteImport
-      parentRoute: typeof Char123LocaleChar125DashboardEditorContentRouteRoute
-    }
+      id: '/{-$locale}/_dashboard/_editor/_content/editor';
+      path: '/editor';
+      fullPath: '/{-$locale}/editor';
+      preLoaderRoute: typeof Char123LocaleChar125DashboardEditorContentEditorRouteImport;
+      parentRoute: typeof Char123LocaleChar125DashboardEditorContentRouteRoute;
+    };
     '/{-$locale}/_dashboard/_admin/admin/discussions': {
-      id: '/{-$locale}/_dashboard/_admin/admin/discussions'
-      path: '/admin/discussions'
-      fullPath: '/{-$locale}/admin/discussions'
-      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminDiscussionsRouteImport
-      parentRoute: typeof Char123LocaleChar125DashboardAdminRouteRoute
-    }
+      id: '/{-$locale}/_dashboard/_admin/admin/discussions';
+      path: '/admin/discussions';
+      fullPath: '/{-$locale}/admin/discussions';
+      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminDiscussionsRouteImport;
+      parentRoute: typeof Char123LocaleChar125DashboardAdminRouteRoute;
+    };
     '/{-$locale}/_dashboard/_admin/admin/users': {
-      id: '/{-$locale}/_dashboard/_admin/admin/users'
-      path: '/admin/users'
-      fullPath: '/{-$locale}/admin/users'
-      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminUsersRouteRouteImport
-      parentRoute: typeof Char123LocaleChar125DashboardAdminRouteRoute
-    }
+      id: '/{-$locale}/_dashboard/_admin/admin/users';
+      path: '/admin/users';
+      fullPath: '/{-$locale}/admin/users';
+      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminUsersRouteRouteImport;
+      parentRoute: typeof Char123LocaleChar125DashboardAdminRouteRoute;
+    };
     '/{-$locale}/_dashboard/_admin/admin/reviewers': {
-      id: '/{-$locale}/_dashboard/_admin/admin/reviewers'
-      path: '/admin/reviewers'
-      fullPath: '/{-$locale}/admin/reviewers'
-      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminReviewersRouteRouteImport
-      parentRoute: typeof Char123LocaleChar125DashboardAdminRouteRoute
-    }
+      id: '/{-$locale}/_dashboard/_admin/admin/reviewers';
+      path: '/admin/reviewers';
+      fullPath: '/{-$locale}/admin/reviewers';
+      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminReviewersRouteRouteImport;
+      parentRoute: typeof Char123LocaleChar125DashboardAdminRouteRoute;
+    };
     '/{-$locale}/_dashboard/_admin/admin/promo-code': {
-      id: '/{-$locale}/_dashboard/_admin/admin/promo-code'
-      path: '/admin/promo-code'
-      fullPath: '/{-$locale}/admin/promo-code'
-      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminPromoCodeRouteRouteImport
-      parentRoute: typeof Char123LocaleChar125DashboardAdminRouteRoute
-    }
+      id: '/{-$locale}/_dashboard/_admin/admin/promo-code';
+      path: '/admin/promo-code';
+      fullPath: '/{-$locale}/admin/promo-code';
+      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminPromoCodeRouteRouteImport;
+      parentRoute: typeof Char123LocaleChar125DashboardAdminRouteRoute;
+    };
     '/{-$locale}/_dashboard/_admin/admin/projects': {
-      id: '/{-$locale}/_dashboard/_admin/admin/projects'
-      path: '/admin/projects'
-      fullPath: '/{-$locale}/admin/projects'
-      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminProjectsRouteRouteImport
-      parentRoute: typeof Char123LocaleChar125DashboardAdminRouteRoute
-    }
+      id: '/{-$locale}/_dashboard/_admin/admin/projects';
+      path: '/admin/projects';
+      fullPath: '/{-$locale}/admin/projects';
+      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminProjectsRouteRouteImport;
+      parentRoute: typeof Char123LocaleChar125DashboardAdminRouteRoute;
+    };
     '/{-$locale}/_dashboard/_admin/admin/organizations': {
-      id: '/{-$locale}/_dashboard/_admin/admin/organizations'
-      path: '/admin/organizations'
-      fullPath: '/{-$locale}/admin/organizations'
-      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRouteImport
-      parentRoute: typeof Char123LocaleChar125DashboardAdminRouteRoute
-    }
+      id: '/{-$locale}/_dashboard/_admin/admin/organizations';
+      path: '/admin/organizations';
+      fullPath: '/{-$locale}/admin/organizations';
+      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRouteImport;
+      parentRoute: typeof Char123LocaleChar125DashboardAdminRouteRoute;
+    };
     '/{-$locale}/_dashboard/_admin/admin/affiliate': {
-      id: '/{-$locale}/_dashboard/_admin/admin/affiliate'
-      path: '/admin/affiliate'
-      fullPath: '/{-$locale}/admin/affiliate'
-      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminAffiliateRouteRouteImport
-      parentRoute: typeof Char123LocaleChar125DashboardAdminRouteRoute
-    }
+      id: '/{-$locale}/_dashboard/_admin/admin/affiliate';
+      path: '/admin/affiliate';
+      fullPath: '/{-$locale}/admin/affiliate';
+      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminAffiliateRouteRouteImport;
+      parentRoute: typeof Char123LocaleChar125DashboardAdminRouteRoute;
+    };
     '/{-$locale}/_dashboard/_editor/_content/tags/': {
-      id: '/{-$locale}/_dashboard/_editor/_content/tags/'
-      path: '/tags'
-      fullPath: '/{-$locale}/tags/'
-      preLoaderRoute: typeof Char123LocaleChar125DashboardEditorContentTagsIndexRouteImport
-      parentRoute: typeof Char123LocaleChar125DashboardEditorContentRouteRoute
-    }
+      id: '/{-$locale}/_dashboard/_editor/_content/tags/';
+      path: '/tags';
+      fullPath: '/{-$locale}/tags/';
+      preLoaderRoute: typeof Char123LocaleChar125DashboardEditorContentTagsIndexRouteImport;
+      parentRoute: typeof Char123LocaleChar125DashboardEditorContentRouteRoute;
+    };
     '/{-$locale}/_dashboard/_editor/_content/dictionary/': {
-      id: '/{-$locale}/_dashboard/_editor/_content/dictionary/'
-      path: '/dictionary'
-      fullPath: '/{-$locale}/dictionary/'
-      preLoaderRoute: typeof Char123LocaleChar125DashboardEditorContentDictionaryIndexRouteImport
-      parentRoute: typeof Char123LocaleChar125DashboardEditorContentRouteRoute
-    }
+      id: '/{-$locale}/_dashboard/_editor/_content/dictionary/';
+      path: '/dictionary';
+      fullPath: '/{-$locale}/dictionary/';
+      preLoaderRoute: typeof Char123LocaleChar125DashboardEditorContentDictionaryIndexRouteImport;
+      parentRoute: typeof Char123LocaleChar125DashboardEditorContentRouteRoute;
+    };
     '/{-$locale}/_dashboard/_admin/admin/users/': {
-      id: '/{-$locale}/_dashboard/_admin/admin/users/'
-      path: '/'
-      fullPath: '/{-$locale}/admin/users/'
-      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminUsersIndexRouteImport
-      parentRoute: typeof Char123LocaleChar125DashboardAdminAdminUsersRouteRoute
-    }
+      id: '/{-$locale}/_dashboard/_admin/admin/users/';
+      path: '/';
+      fullPath: '/{-$locale}/admin/users/';
+      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminUsersIndexRouteImport;
+      parentRoute: typeof Char123LocaleChar125DashboardAdminAdminUsersRouteRoute;
+    };
     '/{-$locale}/_dashboard/_admin/admin/reviewers/': {
-      id: '/{-$locale}/_dashboard/_admin/admin/reviewers/'
-      path: '/'
-      fullPath: '/{-$locale}/admin/reviewers/'
-      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminReviewersIndexRouteImport
-      parentRoute: typeof Char123LocaleChar125DashboardAdminAdminReviewersRouteRoute
-    }
+      id: '/{-$locale}/_dashboard/_admin/admin/reviewers/';
+      path: '/';
+      fullPath: '/{-$locale}/admin/reviewers/';
+      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminReviewersIndexRouteImport;
+      parentRoute: typeof Char123LocaleChar125DashboardAdminAdminReviewersRouteRoute;
+    };
     '/{-$locale}/_dashboard/_admin/admin/promo-code/': {
-      id: '/{-$locale}/_dashboard/_admin/admin/promo-code/'
-      path: '/'
-      fullPath: '/{-$locale}/admin/promo-code/'
-      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminPromoCodeIndexRouteImport
-      parentRoute: typeof Char123LocaleChar125DashboardAdminAdminPromoCodeRouteRoute
-    }
+      id: '/{-$locale}/_dashboard/_admin/admin/promo-code/';
+      path: '/';
+      fullPath: '/{-$locale}/admin/promo-code/';
+      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminPromoCodeIndexRouteImport;
+      parentRoute: typeof Char123LocaleChar125DashboardAdminAdminPromoCodeRouteRoute;
+    };
     '/{-$locale}/_dashboard/_admin/admin/projects/': {
-      id: '/{-$locale}/_dashboard/_admin/admin/projects/'
-      path: '/'
-      fullPath: '/{-$locale}/admin/projects/'
-      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminProjectsIndexRouteImport
-      parentRoute: typeof Char123LocaleChar125DashboardAdminAdminProjectsRouteRoute
-    }
+      id: '/{-$locale}/_dashboard/_admin/admin/projects/';
+      path: '/';
+      fullPath: '/{-$locale}/admin/projects/';
+      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminProjectsIndexRouteImport;
+      parentRoute: typeof Char123LocaleChar125DashboardAdminAdminProjectsRouteRoute;
+    };
     '/{-$locale}/_dashboard/_admin/admin/organizations/': {
-      id: '/{-$locale}/_dashboard/_admin/admin/organizations/'
-      path: '/'
-      fullPath: '/{-$locale}/admin/organizations/'
-      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminOrganizationsIndexRouteImport
-      parentRoute: typeof Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRoute
-    }
+      id: '/{-$locale}/_dashboard/_admin/admin/organizations/';
+      path: '/';
+      fullPath: '/{-$locale}/admin/organizations/';
+      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminOrganizationsIndexRouteImport;
+      parentRoute: typeof Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRoute;
+    };
     '/{-$locale}/_dashboard/_admin/admin/affiliate/': {
-      id: '/{-$locale}/_dashboard/_admin/admin/affiliate/'
-      path: '/'
-      fullPath: '/{-$locale}/admin/affiliate/'
-      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminAffiliateIndexRouteImport
-      parentRoute: typeof Char123LocaleChar125DashboardAdminAdminAffiliateRouteRoute
-    }
+      id: '/{-$locale}/_dashboard/_admin/admin/affiliate/';
+      path: '/';
+      fullPath: '/{-$locale}/admin/affiliate/';
+      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminAffiliateIndexRouteImport;
+      parentRoute: typeof Char123LocaleChar125DashboardAdminAdminAffiliateRouteRoute;
+    };
     '/{-$locale}/_other/find-reviewer/dashboard/mission/$missionId': {
-      id: '/{-$locale}/_other/find-reviewer/dashboard/mission/$missionId'
-      path: '/find-reviewer/dashboard/mission/$missionId'
-      fullPath: '/{-$locale}/find-reviewer/dashboard/mission/$missionId'
-      preLoaderRoute: typeof Char123LocaleChar125OtherFindReviewerDashboardMissionMissionIdRouteImport
-      parentRoute: typeof Char123LocaleChar125OtherRouteRoute
-    }
+      id: '/{-$locale}/_other/find-reviewer/dashboard/mission/$missionId';
+      path: '/find-reviewer/dashboard/mission/$missionId';
+      fullPath: '/{-$locale}/find-reviewer/dashboard/mission/$missionId';
+      preLoaderRoute: typeof Char123LocaleChar125OtherFindReviewerDashboardMissionMissionIdRouteImport;
+      parentRoute: typeof Char123LocaleChar125OtherRouteRoute;
+    };
     '/{-$locale}/_other/auth/_authenticated/password/change': {
-      id: '/{-$locale}/_other/auth/_authenticated/password/change'
-      path: '/password/change'
-      fullPath: '/{-$locale}/auth/password/change'
-      preLoaderRoute: typeof Char123LocaleChar125OtherAuthAuthenticatedPasswordChangeRouteImport
-      parentRoute: typeof Char123LocaleChar125OtherAuthAuthenticatedRouteRoute
-    }
+      id: '/{-$locale}/_other/auth/_authenticated/password/change';
+      path: '/password/change';
+      fullPath: '/{-$locale}/auth/password/change';
+      preLoaderRoute: typeof Char123LocaleChar125OtherAuthAuthenticatedPasswordChangeRouteImport;
+      parentRoute: typeof Char123LocaleChar125OtherAuthAuthenticatedRouteRoute;
+    };
     '/{-$locale}/_dashboard/_editor/_content/tags/$tagKey': {
-      id: '/{-$locale}/_dashboard/_editor/_content/tags/$tagKey'
-      path: '/tags/$tagKey'
-      fullPath: '/{-$locale}/tags/$tagKey'
-      preLoaderRoute: typeof Char123LocaleChar125DashboardEditorContentTagsTagKeyRouteImport
-      parentRoute: typeof Char123LocaleChar125DashboardEditorContentRouteRoute
-    }
+      id: '/{-$locale}/_dashboard/_editor/_content/tags/$tagKey';
+      path: '/tags/$tagKey';
+      fullPath: '/{-$locale}/tags/$tagKey';
+      preLoaderRoute: typeof Char123LocaleChar125DashboardEditorContentTagsTagKeyRouteImport;
+      parentRoute: typeof Char123LocaleChar125DashboardEditorContentRouteRoute;
+    };
     '/{-$locale}/_dashboard/_editor/_content/dictionary/$dictionaryKey': {
-      id: '/{-$locale}/_dashboard/_editor/_content/dictionary/$dictionaryKey'
-      path: '/dictionary/$dictionaryKey'
-      fullPath: '/{-$locale}/dictionary/$dictionaryKey'
-      preLoaderRoute: typeof Char123LocaleChar125DashboardEditorContentDictionaryDictionaryKeyRouteImport
-      parentRoute: typeof Char123LocaleChar125DashboardEditorContentRouteRoute
-    }
+      id: '/{-$locale}/_dashboard/_editor/_content/dictionary/$dictionaryKey';
+      path: '/dictionary/$dictionaryKey';
+      fullPath: '/{-$locale}/dictionary/$dictionaryKey';
+      preLoaderRoute: typeof Char123LocaleChar125DashboardEditorContentDictionaryDictionaryKeyRouteImport;
+      parentRoute: typeof Char123LocaleChar125DashboardEditorContentRouteRoute;
+    };
     '/{-$locale}/_dashboard/_admin/admin/users/$id': {
-      id: '/{-$locale}/_dashboard/_admin/admin/users/$id'
-      path: '/$id'
-      fullPath: '/{-$locale}/admin/users/$id'
-      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminUsersIdRouteImport
-      parentRoute: typeof Char123LocaleChar125DashboardAdminAdminUsersRouteRoute
-    }
+      id: '/{-$locale}/_dashboard/_admin/admin/users/$id';
+      path: '/$id';
+      fullPath: '/{-$locale}/admin/users/$id';
+      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminUsersIdRouteImport;
+      parentRoute: typeof Char123LocaleChar125DashboardAdminAdminUsersRouteRoute;
+    };
     '/{-$locale}/_dashboard/_admin/admin/reviewers/$reviewerId': {
-      id: '/{-$locale}/_dashboard/_admin/admin/reviewers/$reviewerId'
-      path: '/$reviewerId'
-      fullPath: '/{-$locale}/admin/reviewers/$reviewerId'
-      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminReviewersReviewerIdRouteImport
-      parentRoute: typeof Char123LocaleChar125DashboardAdminAdminReviewersRouteRoute
-    }
+      id: '/{-$locale}/_dashboard/_admin/admin/reviewers/$reviewerId';
+      path: '/$reviewerId';
+      fullPath: '/{-$locale}/admin/reviewers/$reviewerId';
+      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminReviewersReviewerIdRouteImport;
+      parentRoute: typeof Char123LocaleChar125DashboardAdminAdminReviewersRouteRoute;
+    };
     '/{-$locale}/_dashboard/_admin/admin/promo-code/$id': {
-      id: '/{-$locale}/_dashboard/_admin/admin/promo-code/$id'
-      path: '/$id'
-      fullPath: '/{-$locale}/admin/promo-code/$id'
-      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminPromoCodeIdRouteImport
-      parentRoute: typeof Char123LocaleChar125DashboardAdminAdminPromoCodeRouteRoute
-    }
+      id: '/{-$locale}/_dashboard/_admin/admin/promo-code/$id';
+      path: '/$id';
+      fullPath: '/{-$locale}/admin/promo-code/$id';
+      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminPromoCodeIdRouteImport;
+      parentRoute: typeof Char123LocaleChar125DashboardAdminAdminPromoCodeRouteRoute;
+    };
     '/{-$locale}/_dashboard/_admin/admin/projects/$id': {
-      id: '/{-$locale}/_dashboard/_admin/admin/projects/$id'
-      path: '/$id'
-      fullPath: '/{-$locale}/admin/projects/$id'
-      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminProjectsIdRouteImport
-      parentRoute: typeof Char123LocaleChar125DashboardAdminAdminProjectsRouteRoute
-    }
+      id: '/{-$locale}/_dashboard/_admin/admin/projects/$id';
+      path: '/$id';
+      fullPath: '/{-$locale}/admin/projects/$id';
+      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminProjectsIdRouteImport;
+      parentRoute: typeof Char123LocaleChar125DashboardAdminAdminProjectsRouteRoute;
+    };
     '/{-$locale}/_dashboard/_admin/admin/organizations/$id': {
-      id: '/{-$locale}/_dashboard/_admin/admin/organizations/$id'
-      path: '/$id'
-      fullPath: '/{-$locale}/admin/organizations/$id'
-      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminOrganizationsIdRouteImport
-      parentRoute: typeof Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRoute
-    }
+      id: '/{-$locale}/_dashboard/_admin/admin/organizations/$id';
+      path: '/$id';
+      fullPath: '/{-$locale}/admin/organizations/$id';
+      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminOrganizationsIdRouteImport;
+      parentRoute: typeof Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRoute;
+    };
     '/{-$locale}/_dashboard/_admin/admin/affiliate/$id': {
-      id: '/{-$locale}/_dashboard/_admin/admin/affiliate/$id'
-      path: '/$id'
-      fullPath: '/{-$locale}/admin/affiliate/$id'
-      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminAffiliateIdRouteImport
-      parentRoute: typeof Char123LocaleChar125DashboardAdminAdminAffiliateRouteRoute
-    }
+      id: '/{-$locale}/_dashboard/_admin/admin/affiliate/$id';
+      path: '/$id';
+      fullPath: '/{-$locale}/admin/affiliate/$id';
+      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminAffiliateIdRouteImport;
+      parentRoute: typeof Char123LocaleChar125DashboardAdminAdminAffiliateRouteRoute;
+    };
   }
 }
 
 interface Char123LocaleChar125DashboardAdminAdminAffiliateRouteRouteChildren {
-  Char123LocaleChar125DashboardAdminAdminAffiliateIdRoute: typeof Char123LocaleChar125DashboardAdminAdminAffiliateIdRoute
-  Char123LocaleChar125DashboardAdminAdminAffiliateIndexRoute: typeof Char123LocaleChar125DashboardAdminAdminAffiliateIndexRoute
+  Char123LocaleChar125DashboardAdminAdminAffiliateIdRoute: typeof Char123LocaleChar125DashboardAdminAdminAffiliateIdRoute;
+  Char123LocaleChar125DashboardAdminAdminAffiliateIndexRoute: typeof Char123LocaleChar125DashboardAdminAdminAffiliateIndexRoute;
 }
 
 const Char123LocaleChar125DashboardAdminAdminAffiliateRouteRouteChildren: Char123LocaleChar125DashboardAdminAdminAffiliateRouteRouteChildren =
@@ -1268,16 +1268,16 @@ const Char123LocaleChar125DashboardAdminAdminAffiliateRouteRouteChildren: Char12
       Char123LocaleChar125DashboardAdminAdminAffiliateIdRoute,
     Char123LocaleChar125DashboardAdminAdminAffiliateIndexRoute:
       Char123LocaleChar125DashboardAdminAdminAffiliateIndexRoute,
-  }
+  };
 
 const Char123LocaleChar125DashboardAdminAdminAffiliateRouteRouteWithChildren =
   Char123LocaleChar125DashboardAdminAdminAffiliateRouteRoute._addFileChildren(
-    Char123LocaleChar125DashboardAdminAdminAffiliateRouteRouteChildren,
-  )
+    Char123LocaleChar125DashboardAdminAdminAffiliateRouteRouteChildren
+  );
 
 interface Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRouteChildren {
-  Char123LocaleChar125DashboardAdminAdminOrganizationsIdRoute: typeof Char123LocaleChar125DashboardAdminAdminOrganizationsIdRoute
-  Char123LocaleChar125DashboardAdminAdminOrganizationsIndexRoute: typeof Char123LocaleChar125DashboardAdminAdminOrganizationsIndexRoute
+  Char123LocaleChar125DashboardAdminAdminOrganizationsIdRoute: typeof Char123LocaleChar125DashboardAdminAdminOrganizationsIdRoute;
+  Char123LocaleChar125DashboardAdminAdminOrganizationsIndexRoute: typeof Char123LocaleChar125DashboardAdminAdminOrganizationsIndexRoute;
 }
 
 const Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRouteChildren: Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRouteChildren =
@@ -1286,16 +1286,16 @@ const Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRouteChildren: Ch
       Char123LocaleChar125DashboardAdminAdminOrganizationsIdRoute,
     Char123LocaleChar125DashboardAdminAdminOrganizationsIndexRoute:
       Char123LocaleChar125DashboardAdminAdminOrganizationsIndexRoute,
-  }
+  };
 
 const Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRouteWithChildren =
   Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRoute._addFileChildren(
-    Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRouteChildren,
-  )
+    Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRouteChildren
+  );
 
 interface Char123LocaleChar125DashboardAdminAdminProjectsRouteRouteChildren {
-  Char123LocaleChar125DashboardAdminAdminProjectsIdRoute: typeof Char123LocaleChar125DashboardAdminAdminProjectsIdRoute
-  Char123LocaleChar125DashboardAdminAdminProjectsIndexRoute: typeof Char123LocaleChar125DashboardAdminAdminProjectsIndexRoute
+  Char123LocaleChar125DashboardAdminAdminProjectsIdRoute: typeof Char123LocaleChar125DashboardAdminAdminProjectsIdRoute;
+  Char123LocaleChar125DashboardAdminAdminProjectsIndexRoute: typeof Char123LocaleChar125DashboardAdminAdminProjectsIndexRoute;
 }
 
 const Char123LocaleChar125DashboardAdminAdminProjectsRouteRouteChildren: Char123LocaleChar125DashboardAdminAdminProjectsRouteRouteChildren =
@@ -1304,16 +1304,16 @@ const Char123LocaleChar125DashboardAdminAdminProjectsRouteRouteChildren: Char123
       Char123LocaleChar125DashboardAdminAdminProjectsIdRoute,
     Char123LocaleChar125DashboardAdminAdminProjectsIndexRoute:
       Char123LocaleChar125DashboardAdminAdminProjectsIndexRoute,
-  }
+  };
 
 const Char123LocaleChar125DashboardAdminAdminProjectsRouteRouteWithChildren =
   Char123LocaleChar125DashboardAdminAdminProjectsRouteRoute._addFileChildren(
-    Char123LocaleChar125DashboardAdminAdminProjectsRouteRouteChildren,
-  )
+    Char123LocaleChar125DashboardAdminAdminProjectsRouteRouteChildren
+  );
 
 interface Char123LocaleChar125DashboardAdminAdminPromoCodeRouteRouteChildren {
-  Char123LocaleChar125DashboardAdminAdminPromoCodeIdRoute: typeof Char123LocaleChar125DashboardAdminAdminPromoCodeIdRoute
-  Char123LocaleChar125DashboardAdminAdminPromoCodeIndexRoute: typeof Char123LocaleChar125DashboardAdminAdminPromoCodeIndexRoute
+  Char123LocaleChar125DashboardAdminAdminPromoCodeIdRoute: typeof Char123LocaleChar125DashboardAdminAdminPromoCodeIdRoute;
+  Char123LocaleChar125DashboardAdminAdminPromoCodeIndexRoute: typeof Char123LocaleChar125DashboardAdminAdminPromoCodeIndexRoute;
 }
 
 const Char123LocaleChar125DashboardAdminAdminPromoCodeRouteRouteChildren: Char123LocaleChar125DashboardAdminAdminPromoCodeRouteRouteChildren =
@@ -1322,16 +1322,16 @@ const Char123LocaleChar125DashboardAdminAdminPromoCodeRouteRouteChildren: Char12
       Char123LocaleChar125DashboardAdminAdminPromoCodeIdRoute,
     Char123LocaleChar125DashboardAdminAdminPromoCodeIndexRoute:
       Char123LocaleChar125DashboardAdminAdminPromoCodeIndexRoute,
-  }
+  };
 
 const Char123LocaleChar125DashboardAdminAdminPromoCodeRouteRouteWithChildren =
   Char123LocaleChar125DashboardAdminAdminPromoCodeRouteRoute._addFileChildren(
-    Char123LocaleChar125DashboardAdminAdminPromoCodeRouteRouteChildren,
-  )
+    Char123LocaleChar125DashboardAdminAdminPromoCodeRouteRouteChildren
+  );
 
 interface Char123LocaleChar125DashboardAdminAdminReviewersRouteRouteChildren {
-  Char123LocaleChar125DashboardAdminAdminReviewersReviewerIdRoute: typeof Char123LocaleChar125DashboardAdminAdminReviewersReviewerIdRoute
-  Char123LocaleChar125DashboardAdminAdminReviewersIndexRoute: typeof Char123LocaleChar125DashboardAdminAdminReviewersIndexRoute
+  Char123LocaleChar125DashboardAdminAdminReviewersReviewerIdRoute: typeof Char123LocaleChar125DashboardAdminAdminReviewersReviewerIdRoute;
+  Char123LocaleChar125DashboardAdminAdminReviewersIndexRoute: typeof Char123LocaleChar125DashboardAdminAdminReviewersIndexRoute;
 }
 
 const Char123LocaleChar125DashboardAdminAdminReviewersRouteRouteChildren: Char123LocaleChar125DashboardAdminAdminReviewersRouteRouteChildren =
@@ -1340,16 +1340,16 @@ const Char123LocaleChar125DashboardAdminAdminReviewersRouteRouteChildren: Char12
       Char123LocaleChar125DashboardAdminAdminReviewersReviewerIdRoute,
     Char123LocaleChar125DashboardAdminAdminReviewersIndexRoute:
       Char123LocaleChar125DashboardAdminAdminReviewersIndexRoute,
-  }
+  };
 
 const Char123LocaleChar125DashboardAdminAdminReviewersRouteRouteWithChildren =
   Char123LocaleChar125DashboardAdminAdminReviewersRouteRoute._addFileChildren(
-    Char123LocaleChar125DashboardAdminAdminReviewersRouteRouteChildren,
-  )
+    Char123LocaleChar125DashboardAdminAdminReviewersRouteRouteChildren
+  );
 
 interface Char123LocaleChar125DashboardAdminAdminUsersRouteRouteChildren {
-  Char123LocaleChar125DashboardAdminAdminUsersIdRoute: typeof Char123LocaleChar125DashboardAdminAdminUsersIdRoute
-  Char123LocaleChar125DashboardAdminAdminUsersIndexRoute: typeof Char123LocaleChar125DashboardAdminAdminUsersIndexRoute
+  Char123LocaleChar125DashboardAdminAdminUsersIdRoute: typeof Char123LocaleChar125DashboardAdminAdminUsersIdRoute;
+  Char123LocaleChar125DashboardAdminAdminUsersIndexRoute: typeof Char123LocaleChar125DashboardAdminAdminUsersIndexRoute;
 }
 
 const Char123LocaleChar125DashboardAdminAdminUsersRouteRouteChildren: Char123LocaleChar125DashboardAdminAdminUsersRouteRouteChildren =
@@ -1358,21 +1358,21 @@ const Char123LocaleChar125DashboardAdminAdminUsersRouteRouteChildren: Char123Loc
       Char123LocaleChar125DashboardAdminAdminUsersIdRoute,
     Char123LocaleChar125DashboardAdminAdminUsersIndexRoute:
       Char123LocaleChar125DashboardAdminAdminUsersIndexRoute,
-  }
+  };
 
 const Char123LocaleChar125DashboardAdminAdminUsersRouteRouteWithChildren =
   Char123LocaleChar125DashboardAdminAdminUsersRouteRoute._addFileChildren(
-    Char123LocaleChar125DashboardAdminAdminUsersRouteRouteChildren,
-  )
+    Char123LocaleChar125DashboardAdminAdminUsersRouteRouteChildren
+  );
 
 interface Char123LocaleChar125DashboardAdminRouteRouteChildren {
-  Char123LocaleChar125DashboardAdminAdminAffiliateRouteRoute: typeof Char123LocaleChar125DashboardAdminAdminAffiliateRouteRouteWithChildren
-  Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRoute: typeof Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRouteWithChildren
-  Char123LocaleChar125DashboardAdminAdminProjectsRouteRoute: typeof Char123LocaleChar125DashboardAdminAdminProjectsRouteRouteWithChildren
-  Char123LocaleChar125DashboardAdminAdminPromoCodeRouteRoute: typeof Char123LocaleChar125DashboardAdminAdminPromoCodeRouteRouteWithChildren
-  Char123LocaleChar125DashboardAdminAdminReviewersRouteRoute: typeof Char123LocaleChar125DashboardAdminAdminReviewersRouteRouteWithChildren
-  Char123LocaleChar125DashboardAdminAdminUsersRouteRoute: typeof Char123LocaleChar125DashboardAdminAdminUsersRouteRouteWithChildren
-  Char123LocaleChar125DashboardAdminAdminDiscussionsRoute: typeof Char123LocaleChar125DashboardAdminAdminDiscussionsRoute
+  Char123LocaleChar125DashboardAdminAdminAffiliateRouteRoute: typeof Char123LocaleChar125DashboardAdminAdminAffiliateRouteRouteWithChildren;
+  Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRoute: typeof Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRouteWithChildren;
+  Char123LocaleChar125DashboardAdminAdminProjectsRouteRoute: typeof Char123LocaleChar125DashboardAdminAdminProjectsRouteRouteWithChildren;
+  Char123LocaleChar125DashboardAdminAdminPromoCodeRouteRoute: typeof Char123LocaleChar125DashboardAdminAdminPromoCodeRouteRouteWithChildren;
+  Char123LocaleChar125DashboardAdminAdminReviewersRouteRoute: typeof Char123LocaleChar125DashboardAdminAdminReviewersRouteRouteWithChildren;
+  Char123LocaleChar125DashboardAdminAdminUsersRouteRoute: typeof Char123LocaleChar125DashboardAdminAdminUsersRouteRouteWithChildren;
+  Char123LocaleChar125DashboardAdminAdminDiscussionsRoute: typeof Char123LocaleChar125DashboardAdminAdminDiscussionsRoute;
 }
 
 const Char123LocaleChar125DashboardAdminRouteRouteChildren: Char123LocaleChar125DashboardAdminRouteRouteChildren =
@@ -1391,20 +1391,20 @@ const Char123LocaleChar125DashboardAdminRouteRouteChildren: Char123LocaleChar125
       Char123LocaleChar125DashboardAdminAdminUsersRouteRouteWithChildren,
     Char123LocaleChar125DashboardAdminAdminDiscussionsRoute:
       Char123LocaleChar125DashboardAdminAdminDiscussionsRoute,
-  }
+  };
 
 const Char123LocaleChar125DashboardAdminRouteRouteWithChildren =
   Char123LocaleChar125DashboardAdminRouteRoute._addFileChildren(
-    Char123LocaleChar125DashboardAdminRouteRouteChildren,
-  )
+    Char123LocaleChar125DashboardAdminRouteRouteChildren
+  );
 
 interface Char123LocaleChar125DashboardEditorContentRouteRouteChildren {
-  Char123LocaleChar125DashboardEditorContentEditorRoute: typeof Char123LocaleChar125DashboardEditorContentEditorRoute
-  Char123LocaleChar125DashboardEditorContentTranslateRoute: typeof Char123LocaleChar125DashboardEditorContentTranslateRoute
-  Char123LocaleChar125DashboardEditorContentDictionaryDictionaryKeyRoute: typeof Char123LocaleChar125DashboardEditorContentDictionaryDictionaryKeyRoute
-  Char123LocaleChar125DashboardEditorContentTagsTagKeyRoute: typeof Char123LocaleChar125DashboardEditorContentTagsTagKeyRoute
-  Char123LocaleChar125DashboardEditorContentDictionaryIndexRoute: typeof Char123LocaleChar125DashboardEditorContentDictionaryIndexRoute
-  Char123LocaleChar125DashboardEditorContentTagsIndexRoute: typeof Char123LocaleChar125DashboardEditorContentTagsIndexRoute
+  Char123LocaleChar125DashboardEditorContentEditorRoute: typeof Char123LocaleChar125DashboardEditorContentEditorRoute;
+  Char123LocaleChar125DashboardEditorContentTranslateRoute: typeof Char123LocaleChar125DashboardEditorContentTranslateRoute;
+  Char123LocaleChar125DashboardEditorContentDictionaryDictionaryKeyRoute: typeof Char123LocaleChar125DashboardEditorContentDictionaryDictionaryKeyRoute;
+  Char123LocaleChar125DashboardEditorContentTagsTagKeyRoute: typeof Char123LocaleChar125DashboardEditorContentTagsTagKeyRoute;
+  Char123LocaleChar125DashboardEditorContentDictionaryIndexRoute: typeof Char123LocaleChar125DashboardEditorContentDictionaryIndexRoute;
+  Char123LocaleChar125DashboardEditorContentTagsIndexRoute: typeof Char123LocaleChar125DashboardEditorContentTagsIndexRoute;
 }
 
 const Char123LocaleChar125DashboardEditorContentRouteRouteChildren: Char123LocaleChar125DashboardEditorContentRouteRouteChildren =
@@ -1421,22 +1421,22 @@ const Char123LocaleChar125DashboardEditorContentRouteRouteChildren: Char123Local
       Char123LocaleChar125DashboardEditorContentDictionaryIndexRoute,
     Char123LocaleChar125DashboardEditorContentTagsIndexRoute:
       Char123LocaleChar125DashboardEditorContentTagsIndexRoute,
-  }
+  };
 
 const Char123LocaleChar125DashboardEditorContentRouteRouteWithChildren =
   Char123LocaleChar125DashboardEditorContentRouteRoute._addFileChildren(
-    Char123LocaleChar125DashboardEditorContentRouteRouteChildren,
-  )
+    Char123LocaleChar125DashboardEditorContentRouteRouteChildren
+  );
 
 interface Char123LocaleChar125DashboardRouteRouteChildren {
-  Char123LocaleChar125DashboardAdminRouteRoute: typeof Char123LocaleChar125DashboardAdminRouteRouteWithChildren
-  Char123LocaleChar125DashboardIdeRoute: typeof Char123LocaleChar125DashboardIdeRoute
-  Char123LocaleChar125DashboardOrganizationRoute: typeof Char123LocaleChar125DashboardOrganizationRoute
-  Char123LocaleChar125DashboardProfileRoute: typeof Char123LocaleChar125DashboardProfileRoute
-  Char123LocaleChar125DashboardProjectsRoute: typeof Char123LocaleChar125DashboardProjectsRoute
-  Char123LocaleChar125DashboardScannerRoute: typeof Char123LocaleChar125DashboardScannerRoute
-  Char123LocaleChar125DashboardIndexRoute: typeof Char123LocaleChar125DashboardIndexRoute
-  Char123LocaleChar125DashboardEditorContentRouteRoute: typeof Char123LocaleChar125DashboardEditorContentRouteRouteWithChildren
+  Char123LocaleChar125DashboardAdminRouteRoute: typeof Char123LocaleChar125DashboardAdminRouteRouteWithChildren;
+  Char123LocaleChar125DashboardIdeRoute: typeof Char123LocaleChar125DashboardIdeRoute;
+  Char123LocaleChar125DashboardOrganizationRoute: typeof Char123LocaleChar125DashboardOrganizationRoute;
+  Char123LocaleChar125DashboardProfileRoute: typeof Char123LocaleChar125DashboardProfileRoute;
+  Char123LocaleChar125DashboardProjectsRoute: typeof Char123LocaleChar125DashboardProjectsRoute;
+  Char123LocaleChar125DashboardScannerRoute: typeof Char123LocaleChar125DashboardScannerRoute;
+  Char123LocaleChar125DashboardIndexRoute: typeof Char123LocaleChar125DashboardIndexRoute;
+  Char123LocaleChar125DashboardEditorContentRouteRoute: typeof Char123LocaleChar125DashboardEditorContentRouteRouteWithChildren;
 }
 
 const Char123LocaleChar125DashboardRouteRouteChildren: Char123LocaleChar125DashboardRouteRouteChildren =
@@ -1457,32 +1457,32 @@ const Char123LocaleChar125DashboardRouteRouteChildren: Char123LocaleChar125Dashb
       Char123LocaleChar125DashboardIndexRoute,
     Char123LocaleChar125DashboardEditorContentRouteRoute:
       Char123LocaleChar125DashboardEditorContentRouteRouteWithChildren,
-  }
+  };
 
 const Char123LocaleChar125DashboardRouteRouteWithChildren =
   Char123LocaleChar125DashboardRouteRoute._addFileChildren(
-    Char123LocaleChar125DashboardRouteRouteChildren,
-  )
+    Char123LocaleChar125DashboardRouteRouteChildren
+  );
 
 interface Char123LocaleChar125OtherAuthAuthenticatedRouteRouteChildren {
-  Char123LocaleChar125OtherAuthAuthenticatedPasswordChangeRoute: typeof Char123LocaleChar125OtherAuthAuthenticatedPasswordChangeRoute
+  Char123LocaleChar125OtherAuthAuthenticatedPasswordChangeRoute: typeof Char123LocaleChar125OtherAuthAuthenticatedPasswordChangeRoute;
 }
 
 const Char123LocaleChar125OtherAuthAuthenticatedRouteRouteChildren: Char123LocaleChar125OtherAuthAuthenticatedRouteRouteChildren =
   {
     Char123LocaleChar125OtherAuthAuthenticatedPasswordChangeRoute:
       Char123LocaleChar125OtherAuthAuthenticatedPasswordChangeRoute,
-  }
+  };
 
 const Char123LocaleChar125OtherAuthAuthenticatedRouteRouteWithChildren =
   Char123LocaleChar125OtherAuthAuthenticatedRouteRoute._addFileChildren(
-    Char123LocaleChar125OtherAuthAuthenticatedRouteRouteChildren,
-  )
+    Char123LocaleChar125OtherAuthAuthenticatedRouteRouteChildren
+  );
 
 interface Char123LocaleChar125OtherAuthNotAuthenticatedRouteRouteChildren {
-  Char123LocaleChar125OtherAuthNotAuthenticated2faRoute: typeof Char123LocaleChar125OtherAuthNotAuthenticated2faRoute
-  Char123LocaleChar125OtherAuthNotAuthenticatedLoginRoute: typeof Char123LocaleChar125OtherAuthNotAuthenticatedLoginRoute
-  Char123LocaleChar125OtherAuthNotAuthenticatedRegisterRoute: typeof Char123LocaleChar125OtherAuthNotAuthenticatedRegisterRoute
+  Char123LocaleChar125OtherAuthNotAuthenticated2faRoute: typeof Char123LocaleChar125OtherAuthNotAuthenticated2faRoute;
+  Char123LocaleChar125OtherAuthNotAuthenticatedLoginRoute: typeof Char123LocaleChar125OtherAuthNotAuthenticatedLoginRoute;
+  Char123LocaleChar125OtherAuthNotAuthenticatedRegisterRoute: typeof Char123LocaleChar125OtherAuthNotAuthenticatedRegisterRoute;
 }
 
 const Char123LocaleChar125OtherAuthNotAuthenticatedRouteRouteChildren: Char123LocaleChar125OtherAuthNotAuthenticatedRouteRouteChildren =
@@ -1493,29 +1493,29 @@ const Char123LocaleChar125OtherAuthNotAuthenticatedRouteRouteChildren: Char123Lo
       Char123LocaleChar125OtherAuthNotAuthenticatedLoginRoute,
     Char123LocaleChar125OtherAuthNotAuthenticatedRegisterRoute:
       Char123LocaleChar125OtherAuthNotAuthenticatedRegisterRoute,
-  }
+  };
 
 const Char123LocaleChar125OtherAuthNotAuthenticatedRouteRouteWithChildren =
   Char123LocaleChar125OtherAuthNotAuthenticatedRouteRoute._addFileChildren(
-    Char123LocaleChar125OtherAuthNotAuthenticatedRouteRouteChildren,
-  )
+    Char123LocaleChar125OtherAuthNotAuthenticatedRouteRouteChildren
+  );
 
 interface Char123LocaleChar125OtherRouteRouteChildren {
-  Char123LocaleChar125OtherPricingRoute: typeof Char123LocaleChar125OtherPricingRoute
-  Char123LocaleChar125OtherAuthAuthenticatedRouteRoute: typeof Char123LocaleChar125OtherAuthAuthenticatedRouteRouteWithChildren
-  Char123LocaleChar125OtherAuthNotAuthenticatedRouteRoute: typeof Char123LocaleChar125OtherAuthNotAuthenticatedRouteRouteWithChildren
-  Char123LocaleChar125OtherAffiliationInvitationIdRoute: typeof Char123LocaleChar125OtherAffiliationInvitationIdRoute
-  Char123LocaleChar125OtherAuthCliLoginRoute: typeof Char123LocaleChar125OtherAuthCliLoginRoute
-  Char123LocaleChar125OtherAuthDemoRoute: typeof Char123LocaleChar125OtherAuthDemoRoute
-  Char123LocaleChar125OtherFindReviewerReviewerIdRoute: typeof Char123LocaleChar125OtherFindReviewerReviewerIdRoute
-  Char123LocaleChar125OtherOnboardingStepRoute: typeof Char123LocaleChar125OtherOnboardingStepRoute
-  Char123LocaleChar125OtherAffiliationIndexRoute: typeof Char123LocaleChar125OtherAffiliationIndexRoute
-  Char123LocaleChar125OtherFindReviewerIndexRoute: typeof Char123LocaleChar125OtherFindReviewerIndexRoute
-  Char123LocaleChar125OtherAuthPasswordLayoutRoute: typeof Char123LocaleChar125OtherAuthPasswordLayoutRoute
-  Char123LocaleChar125OtherAuthPasswordAskResetRoute: typeof Char123LocaleChar125OtherAuthPasswordAskResetRoute
-  Char123LocaleChar125OtherAuthPasswordResetRoute: typeof Char123LocaleChar125OtherAuthPasswordResetRoute
-  Char123LocaleChar125OtherFindReviewerDashboardIndexRoute: typeof Char123LocaleChar125OtherFindReviewerDashboardIndexRoute
-  Char123LocaleChar125OtherFindReviewerDashboardMissionMissionIdRoute: typeof Char123LocaleChar125OtherFindReviewerDashboardMissionMissionIdRoute
+  Char123LocaleChar125OtherPricingRoute: typeof Char123LocaleChar125OtherPricingRoute;
+  Char123LocaleChar125OtherAuthAuthenticatedRouteRoute: typeof Char123LocaleChar125OtherAuthAuthenticatedRouteRouteWithChildren;
+  Char123LocaleChar125OtherAuthNotAuthenticatedRouteRoute: typeof Char123LocaleChar125OtherAuthNotAuthenticatedRouteRouteWithChildren;
+  Char123LocaleChar125OtherAffiliationInvitationIdRoute: typeof Char123LocaleChar125OtherAffiliationInvitationIdRoute;
+  Char123LocaleChar125OtherAuthCliLoginRoute: typeof Char123LocaleChar125OtherAuthCliLoginRoute;
+  Char123LocaleChar125OtherAuthDemoRoute: typeof Char123LocaleChar125OtherAuthDemoRoute;
+  Char123LocaleChar125OtherFindReviewerReviewerIdRoute: typeof Char123LocaleChar125OtherFindReviewerReviewerIdRoute;
+  Char123LocaleChar125OtherOnboardingStepRoute: typeof Char123LocaleChar125OtherOnboardingStepRoute;
+  Char123LocaleChar125OtherAffiliationIndexRoute: typeof Char123LocaleChar125OtherAffiliationIndexRoute;
+  Char123LocaleChar125OtherFindReviewerIndexRoute: typeof Char123LocaleChar125OtherFindReviewerIndexRoute;
+  Char123LocaleChar125OtherAuthPasswordLayoutRoute: typeof Char123LocaleChar125OtherAuthPasswordLayoutRoute;
+  Char123LocaleChar125OtherAuthPasswordAskResetRoute: typeof Char123LocaleChar125OtherAuthPasswordAskResetRoute;
+  Char123LocaleChar125OtherAuthPasswordResetRoute: typeof Char123LocaleChar125OtherAuthPasswordResetRoute;
+  Char123LocaleChar125OtherFindReviewerDashboardIndexRoute: typeof Char123LocaleChar125OtherFindReviewerDashboardIndexRoute;
+  Char123LocaleChar125OtherFindReviewerDashboardMissionMissionIdRoute: typeof Char123LocaleChar125OtherFindReviewerDashboardMissionMissionIdRoute;
 }
 
 const Char123LocaleChar125OtherRouteRouteChildren: Char123LocaleChar125OtherRouteRouteChildren =
@@ -1550,19 +1550,20 @@ const Char123LocaleChar125OtherRouteRouteChildren: Char123LocaleChar125OtherRout
       Char123LocaleChar125OtherFindReviewerDashboardIndexRoute,
     Char123LocaleChar125OtherFindReviewerDashboardMissionMissionIdRoute:
       Char123LocaleChar125OtherFindReviewerDashboardMissionMissionIdRoute,
-  }
+  };
 
 const Char123LocaleChar125OtherRouteRouteWithChildren =
   Char123LocaleChar125OtherRouteRoute._addFileChildren(
-    Char123LocaleChar125OtherRouteRouteChildren,
-  )
+    Char123LocaleChar125OtherRouteRouteChildren
+  );
 
 interface Char123LocaleChar125RouteRouteChildren {
-  Char123LocaleChar125DashboardRouteRoute: typeof Char123LocaleChar125DashboardRouteRouteWithChildren
-  Char123LocaleChar125OtherRouteRoute: typeof Char123LocaleChar125OtherRouteRouteWithChildren
-  Char123LocaleChar125SplatRoute: typeof Char123LocaleChar125SplatRoute
-  Char123LocaleChar125404Route: typeof Char123LocaleChar125404Route
-  Char123LocaleChar125PageRoute: typeof Char123LocaleChar125PageRoute
+  Char123LocaleChar125DashboardRouteRoute: typeof Char123LocaleChar125DashboardRouteRouteWithChildren;
+  Char123LocaleChar125OtherRouteRoute: typeof Char123LocaleChar125OtherRouteRouteWithChildren;
+  Char123LocaleChar125SplatRoute: typeof Char123LocaleChar125SplatRoute;
+  Char123LocaleChar125404Route: typeof Char123LocaleChar125404Route;
+  Char123LocaleChar125DemoRoute: typeof Char123LocaleChar125DemoRoute;
+  Char123LocaleChar125PageRoute: typeof Char123LocaleChar125PageRoute;
 }
 
 const Char123LocaleChar125RouteRouteChildren: Char123LocaleChar125RouteRouteChildren =
@@ -1573,30 +1574,31 @@ const Char123LocaleChar125RouteRouteChildren: Char123LocaleChar125RouteRouteChil
       Char123LocaleChar125OtherRouteRouteWithChildren,
     Char123LocaleChar125SplatRoute: Char123LocaleChar125SplatRoute,
     Char123LocaleChar125404Route: Char123LocaleChar125404Route,
+    Char123LocaleChar125DemoRoute: Char123LocaleChar125DemoRoute,
     Char123LocaleChar125PageRoute: Char123LocaleChar125PageRoute,
-  }
+  };
 
 const Char123LocaleChar125RouteRouteWithChildren =
   Char123LocaleChar125RouteRoute._addFileChildren(
-    Char123LocaleChar125RouteRouteChildren,
-  )
+    Char123LocaleChar125RouteRouteChildren
+  );
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   Char123LocaleChar125RouteRoute: Char123LocaleChar125RouteRouteWithChildren,
-  DemoRoute: DemoRoute,
   HealthzRoute: HealthzRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
-}
+};
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>()
+  ._addFileTypes<FileRouteTypes>();
 
-import type { getRouter } from './router.tsx'
-import type { createStart } from '@tanstack/react-start'
+import type { createStart } from '@tanstack/react-start';
+import type { getRouter } from './router.tsx';
+
 declare module '@tanstack/react-start' {
   interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
+    ssr: true;
+    router: Awaited<ReturnType<typeof getRouter>>;
   }
 }

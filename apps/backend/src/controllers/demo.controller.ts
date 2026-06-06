@@ -10,10 +10,6 @@ import { hashPassword } from 'better-auth/crypto';
 import type { FastifyReply, FastifyRequest } from 'fastify';
 import { Types } from 'mongoose';
 
-const DEMO_ADMIN_EMAIL = process.env.DEMO_ADMIN_EMAIL;
-const DEMO_EMAIL = process.env.DEMO_USER_EMAIL;
-const DEMO_PASSWORD = process.env.DEMO_USER_PASSWORD;
-
 let _initialized = false;
 let _demoOrgId: string | null = null;
 let _demoProjectId: string | null = null;
@@ -25,6 +21,10 @@ const ensureDemoResources = async (): Promise<{
   if (_initialized && _demoOrgId && _demoProjectId) {
     return { demoOrgId: _demoOrgId, demoProjectId: _demoProjectId };
   }
+
+  const DEMO_ADMIN_EMAIL = process.env.DEMO_ADMIN_EMAIL;
+  const DEMO_EMAIL = process.env.DEMO_USER_EMAIL;
+  const DEMO_PASSWORD = process.env.DEMO_USER_PASSWORD;
 
   if (!DEMO_ADMIN_EMAIL || !DEMO_EMAIL || !DEMO_PASSWORD) {
     throw new Error(
@@ -52,15 +52,19 @@ const ensureDemoResources = async (): Promise<{
       emailVerified: true,
       name: 'Demo',
     });
+  }
 
-    const hashedPassword = await hashPassword(DEMO_PASSWORD);
-    await AccountModel.create({
+  const hashedPassword = await hashPassword(DEMO_PASSWORD);
+  await AccountModel.findOneAndUpdate(
+    { userId: String(demoUser._id), providerId: 'credential' },
+    {
       userId: String(demoUser._id),
       accountId: String(demoUser._id),
       providerId: 'credential',
       password: hashedPassword,
-    });
-  }
+    },
+    { upsert: true }
+  );
 
   if (!demoAdmin || !demoUser) {
     throw new Error('[demo] failed to create demo users');
@@ -105,6 +109,9 @@ const ensureDemoResources = async (): Promise<{
           locales: ['en', 'fr', 'es', 'de', 'ja'],
           defaultLocale: 'en',
         },
+        editor: {
+          applicationURL: 'https://intlayer.org',
+        },
       },
     });
 
@@ -113,7 +120,7 @@ const ensureDemoResources = async (): Promise<{
       String(demoAdminId)
     );
   } else if (
-    !(demoProject as any).viewersIds?.map(String).includes(String(demoUserId))
+    !demoProject.viewersIds?.map(String).includes(String(demoUserId))
   ) {
     await ProjectModel.updateOne(
       { _id: demoProject._id },
@@ -149,7 +156,16 @@ export const getDemoSessionHandler = async (
 
     const auth = getAuthSingleton();
 
-    const signInResponse = await (auth as any).api.signInEmail({
+    const DEMO_EMAIL = process.env.DEMO_USER_EMAIL;
+    const DEMO_PASSWORD = process.env.DEMO_USER_PASSWORD;
+
+    if (!DEMO_EMAIL || !DEMO_PASSWORD) {
+      throw new Error(
+        '[demo] missing required env vars: DEMO_USER_EMAIL, DEMO_USER_PASSWORD'
+      );
+    }
+
+    const signInResponse = await auth.api.signInEmail({
       body: { email: DEMO_EMAIL, password: DEMO_PASSWORD },
       headers: new Headers({
         'user-agent':
