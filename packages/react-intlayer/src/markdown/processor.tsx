@@ -8,14 +8,11 @@ import {
   compile as coreCompile,
   parseMarkdown as coreParseMarkdown,
   renderMarkdownAst as coreRenderMarkdownAst,
-  sanitizer as defaultSanitizer,
-  slugify as defaultSlugify,
   type MarkdownContext,
   type MarkdownOptions,
   type MarkdownRuntime,
   type ParsedMarkdown,
   type RenderRuleHook,
-  RuleType,
 } from '@intlayer/core/markdown';
 import {
   cloneElement,
@@ -25,19 +22,6 @@ import {
   type ReactNode,
 } from 'react';
 import type { HTMLComponents } from '../html/HTMLComponentTypes';
-
-/**
- * Utility re-exports from `@intlayer/core/markdown` for advanced customisation:
- * - `sanitizer` — default URL sanitizer applied to `href`/`src` attributes;
- *   guards against XSS by rejecting unsafe schemes (e.g. `javascript:`).
- *   Override via the `sanitizer` option of `compileMarkdown`.
- * - `slugify` — default heading anchor slug generator
- *   (e.g. `"My Heading"` → `"my-heading"`).
- *   Override via the `slugify` option of `compileMarkdown`.
- * - `RuleType` — enum of all parser rule types; use with the `renderRule`
- *   option to selectively override individual markdown constructs.
- */
-export { defaultSanitizer as sanitizer, defaultSlugify as slugify, RuleType };
 
 type HTMLTags = keyof JSX.IntrinsicElements;
 

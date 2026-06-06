@@ -1,12 +1,10 @@
+export { RuleType } from '@intlayer/core/markdown';
 export {
   compileMarkdown,
   type MarkdownCompilerOptions,
   type MarkdownRendererOptions,
   type ParsedMarkdown,
   parseMarkdown,
-  RuleType,
-  sanitizer,
-  slugify,
 } from './compiler';
 export {
   type IntlayerMarkdownPluginOptions,

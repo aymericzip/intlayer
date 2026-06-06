@@ -1,3 +1,4 @@
+export { RuleType } from '@intlayer/core/markdown';
 export {
   compileMarkdown,
   createIntlayerMarkdownProvider,
@@ -7,8 +8,5 @@ export {
   type MarkdownRendererOptions,
   type ParsedMarkdown,
   parseMarkdown,
-  RuleType,
-  sanitizer,
-  slugify,
   useMarkdown,
 } from './installIntlayerMarkdown';
