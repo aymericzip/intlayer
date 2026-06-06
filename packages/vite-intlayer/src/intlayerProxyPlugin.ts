@@ -672,51 +672,6 @@ export const createIntlayerProxyHandler = (
   };
 
   return (req, res, next) => {
-    // Bypass assets and special Vite/server endpoints
-    if (
-      // Custom ignore function
-      (options?.ignore?.(req) ?? false) ||
-      req.url?.startsWith('/node_modules') ||
-      /**
-       * /^@vite/            # HMR client and helpers
-       * /^@fs/              # file-system import serving
-       * /^@id/              # virtual module ids
-       * /^@tanstack/start-router-manifest # Tanstack Start Router manifest
-       */
-      req.url?.startsWith('/@') ||
-      /**
-       * /^__vite_ping$      # health ping
-       * /^__open-in-editor$
-       * /^__manifest$       # Remix/RR7 lazyRouteDiscovery
-       */
-      req.url?.startsWith('/_')
-    ) {
-      return next();
-    }
-
-    // Static file requests (e.g. /assets/video.mp4): bypass locale routing.
-    // However, if the URL carries a locale prefix (e.g. /fr/assets/video.mp4),
-    // redirect to the unprefixed path (/assets/video.mp4) so the file can be
-    // served correctly from the public directory.
-    if (req.url?.split('?')[0]?.match(/\.[a-z]+$/i)) {
-      const rawPath = req.url?.split('?')[0] ?? '/';
-      const search = req.url?.includes('?') ? `?${req.url.split('?')[1]}` : '';
-      const localePrefixMatch = rawPath.match(/^\/([^/]+)(\/.*)/);
-      if (
-        localePrefixMatch &&
-        supportedLocales.includes(localePrefixMatch[1] as Locale)
-      ) {
-        const pathWithoutLocale = localePrefixMatch[2] ?? '/';
-        return redirectUrl(
-          res,
-          `${pathWithoutLocale}${search}`,
-          'locale-prefixed-static-asset',
-          req.url
-        );
-      }
-      return next();
-    }
-
     // Parse original URL for path and query
     const parsedUrl = parse(req.url ?? '/', true);
     const originalPath = parsedUrl.pathname ?? '/';
@@ -724,6 +679,41 @@ export const createIntlayerProxyHandler = (
 
     // Check if there's a locale prefix in the path FIRST
     const pathLocale = getPathLocale(originalPath);
+
+    // Bypass special Vite/server endpoints and node_modules
+    if (
+      // Custom ignore function
+      (options?.ignore?.(req) ?? false) ||
+      originalPath.startsWith('/node_modules') ||
+      /**
+       * /^@vite/            # HMR client and helpers
+       * /^@fs/              # file-system import serving
+       * /^@id/              # virtual module ids
+       * /^@tanstack/start-router-manifest # Tanstack Start Router manifest
+       */
+      originalPath.startsWith('/@') ||
+      /**
+       * /^__vite_ping$      # health ping
+       * /^__open-in-editor$
+       * /^__manifest$       # Remix/RR7 lazyRouteDiscovery
+       */
+      originalPath.startsWith('/_')
+    ) {
+      return next();
+    }
+
+    // Static file requests (e.g. /assets/video.mp4): bypass locale routing.
+    // If the URL carries a locale prefix (e.g. /fr/assets/video.mp4),
+    // rewrite the request internally to the unprefixed path (/assets/video.mp4)
+    // so the file can be served correctly from the public directory.
+    if (originalPath.match(/\.[a-zA-Z0-9]+$/)) {
+      if (pathLocale) {
+        const pathWithoutLocale =
+          originalPath.slice(`/${pathLocale}`.length) || '/';
+        req.url = `${pathWithoutLocale}${searchParams}`;
+      }
+      return next();
+    }
 
     // Attempt to read the locale from storage (cookies, localStorage, etc.)
     const storageLocale = getStorageLocale(req);

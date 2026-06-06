@@ -197,7 +197,12 @@ export default defineConfig(({ mode }) => {
       headers,
     },
     plugins: [
-      intlayerProxy(),
+      intlayerProxy(
+        {},
+        {
+          ignore: (req) => req.url?.startsWith('/api'),
+        }
+      ),
       nitro({
         preset: 'bun',
         routeRules: {
