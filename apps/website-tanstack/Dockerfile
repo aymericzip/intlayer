@@ -99,8 +99,12 @@ ENV HOSTNAME=0.0.0.0
 # Create non-root user
 RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 
-# Nitro bundles all dependencies — only the .output dir is needed
+# Nitro bundles all JS dependencies — only the .output dir is needed.
+# @intlayer/docs is an exception: docs.entry.mjs reads markdown files from the
+# filesystem at runtime via existsSync/readFile, so the package must be present
+# alongside the server bundle for those paths to resolve correctly.
 COPY --from=builder --chown=appuser:appgroup /workspace/apps/website-tanstack/.output ./.output
+COPY --from=builder --chown=appuser:appgroup /workspace/docs ./.output/server/node_modules/@intlayer/docs
 
 USER appuser
 

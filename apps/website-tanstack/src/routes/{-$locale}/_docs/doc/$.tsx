@@ -1,4 +1,8 @@
-import { Website_Doc_Path, Website_Home } from '@intlayer/design-system/routes';
+import {
+  Website_Doc_Path,
+  Website_Home,
+  Website_Home_Path,
+} from '@intlayer/design-system/routes';
 import { createFileRoute, redirect } from '@tanstack/react-router';
 import { defaultLocale, getLocalizedUrl } from 'intlayer';
 import { DocHeader } from '~/components/DocPage/DocHeader/DocHeader';
@@ -31,9 +35,9 @@ export const Route = createFileRoute('/{-$locale}/_docs/doc/$')({
 
     if (!exactMatch) {
       if (docsData.length > 0) {
-        throw redirect({ to: getLocalizedUrl(docsData[0].url, locale) as any });
+        throw redirect({ to: docsData[0].relativeUrl as any });
       }
-      throw redirect({ to: getLocalizedUrl(Website_Doc_Path, locale) as any });
+      throw redirect({ to: Website_Home_Path as any });
     }
 
     const { defaultDocData, docContent, docParsed, prevDocData, nextDocData } =

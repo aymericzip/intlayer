@@ -1,5 +1,6 @@
 import type { Locale } from '@intlayer/types/allLocales';
 import * as Locales from '@intlayer/types/locales';
+import { getLocaleName } from 'intlayer';
 import {
   type FC,
   type ImgHTMLAttributes,
@@ -353,10 +354,16 @@ const flagRecord: Partial<Record<Locale, ReturnType<typeof dynamicFlag>>> = {
 
 export const Flag: FC<FlagProps> = ({ locale, alt, ...props }): JSX.Element => {
   const LazyFlag = flagRecord[locale] ?? dynamicFlag(() => import('./xx.svg'));
+  const accessibleLabel = alt ?? `${getLocaleName(locale)} flag`;
 
   return (
     <Suspense>
-      <LazyFlag alt={alt ?? `${locale} flag`} {...(props as any)} role="img" />
+      <LazyFlag
+        alt={accessibleLabel}
+        aria-label={accessibleLabel}
+        {...(props as any)}
+        role="img"
+      />
     </Suspense>
   );
 };

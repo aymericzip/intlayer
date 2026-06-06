@@ -1,7 +1,5 @@
 @import "@intlayer/design-system/css";
 @import "tailwindcss";
-@import "./shiki.css";
-@import "./monaco.css";
 
 @layer base {
   /* 1. Standard Scale (Landing Page) */

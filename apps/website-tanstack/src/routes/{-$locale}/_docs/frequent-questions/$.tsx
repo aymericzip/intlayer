@@ -1,6 +1,6 @@
-import { Website_Doc_Path } from '@intlayer/design-system/routes';
+import { App_Home_Path } from '@intlayer/design-system/routes';
 import { createFileRoute, redirect } from '@tanstack/react-router';
-import { defaultLocale, getLocalizedUrl } from 'intlayer';
+import { defaultLocale } from 'intlayer';
 import { DocumentationRender } from '~/components/DocPage/DocumentationRender';
 import { loadFaqPage } from '~/serverFunctions/faq';
 import { getAbsoluteUrl, getHreflangLinks } from '~/utils/seo';
@@ -20,7 +20,7 @@ export const Route = createFileRoute('/{-$locale}/_docs/frequent-questions/$')({
           to: faqsData[0].relativeUrl as any,
         });
       }
-      throw redirect({ to: getLocalizedUrl(Website_Doc_Path, locale) as any });
+      throw redirect({ to: App_Home_Path as any });
     }
 
     return {

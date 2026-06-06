@@ -1,4 +1,4 @@
-import { Website_Blog_Path } from '@intlayer/design-system/routes';
+import { Website_Home_Path } from '@intlayer/design-system/routes';
 import { createFileRoute, redirect } from '@tanstack/react-router';
 import { defaultLocale, getLocalizedUrl } from 'intlayer';
 import { BlogPageLayout } from '~/components/BlogPage/BlogPageLayout';
@@ -27,11 +27,9 @@ export const Route = createFileRoute('/{-$locale}/_docs/blog/$')({
 
     if (!exactMatch) {
       if (blogsData.length > 0) {
-        throw redirect({
-          to: getLocalizedUrl(blogsData[0].url, locale) as any,
-        });
+        throw redirect({ to: blogsData[0].relativeUrl as any });
       }
-      throw redirect({ to: getLocalizedUrl(Website_Blog_Path, locale) as any });
+      throw redirect({ to: Website_Home_Path as any });
     }
 
     const { blogContent, blogParsed, prevBlogData, nextBlogData } = content!;
