@@ -65,8 +65,6 @@ RUN bun run build && bun scripts/generate-sw.ts && bun run preserve
 # Runner — use oven/bun base image to avoid npm install overhead
 FROM oven/bun:1.3.14-alpine AS runner
 
-RUN apk add --no-cache wget
-
 WORKDIR /app
 
 ENV NODE_ENV=production
@@ -80,7 +78,7 @@ USER app
 # Expose the API port (defaults to 3100 via .env, can be overridden)
 EXPOSE 3000
 
-HEALTHCHECK --interval=30s --timeout=5s --start-period=15s --retries=3 \
-  CMD wget -q --spider http://localhost:3000/healthz || exit 1
+HEALTHCHECK --interval=30s --timeout=10s --start-period=15s --retries=3 \
+  CMD bun -e "const r = await fetch('http://localhost:3000/health'); process.exit(r.ok ? 0 : 1)"
 
 CMD ["bun", "run", ".output/server/index.mjs"]

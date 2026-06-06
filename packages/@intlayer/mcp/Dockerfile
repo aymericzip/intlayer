@@ -72,8 +72,6 @@ RUN find . -path "*/src/*" -type f \( -name "*.ts" -o -name "*.tsx" -o -name "*.
 # Runner — use oven/bun base image to avoid npm install overhead
 FROM oven/bun:1.3.14-alpine AS runner
 
-RUN apk add --no-cache wget
-
 ENV NODE_ENV=production
 
 RUN addgroup -S app && adduser -S app -G app
@@ -91,7 +89,7 @@ USER app
 EXPOSE 3000
 
 HEALTHCHECK --interval=30s --timeout=5s --start-period=15s --retries=3 \
-  CMD wget -qO- http://localhost:3000/health > /dev/null || exit 1
+  CMD bun -e "const r = await fetch('http://localhost:3000/health'); process.exit(r.ok ? 0 : 1)"
 
 CMD ["bun", "run", "start:sse"]
 # Option 2: Use stdio transport (alternative)

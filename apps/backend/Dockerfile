@@ -5,9 +5,8 @@ FROM node:26-alpine AS base
 
 RUN npm install -g bun@1.3.14
 
-# System deps for wget (healthcheck) + headless Chromium (Puppeteer)
+# System deps for headless Chromium (Puppeteer)
 RUN apk add --no-cache \
-  wget \
   chromium \
   nss \
   freetype \
@@ -106,6 +105,6 @@ USER app
 EXPOSE 3100
 
 HEALTHCHECK --interval=10s --timeout=5s --start-period=15s --retries=5 \
-  CMD wget --no-verbose --tries=1 --spider http://localhost:3100/health || exit 1
+  CMD bun -e "const r = await fetch('http://localhost:3100/health'); process.exit(r.ok ? 0 : 1)"
 
 CMD ["bun", "dist/esm/index.mjs"]

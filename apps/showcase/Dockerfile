@@ -7,8 +7,6 @@
 # https://github.com/oven-sh/bun/issues/4795
 FROM node:26-alpine AS builder
 
-# RUN apk add --no-cache wget
-
 RUN npm install -g bun@1.3.14
 
 
@@ -66,8 +64,6 @@ RUN bun run build && bun run preserve
 # Runner
 FROM oven/bun:1.3.14-alpine AS runner
 
-RUN apk add --no-cache wget
-
 WORKDIR /app
 
 ENV NODE_ENV=production
@@ -82,11 +78,9 @@ USER appuser
 
 EXPOSE 3000
 
-HEALTHCHECK --interval=30s --timeout=5s --start-period=15s --retries=3 \
-  CMD \
-    wget -qO- http://localhost:3000/ > /dev/null || exit 1 && \
-    wget -qO- http://localhost:3000/doc/environment/nextjs > /dev/null || exit 1
-
+HEALTHCHECK --interval=30s --timeout=10s --start-period=15s --retries=3 \
+  CMD bun -e "const r = await fetch('http://localhost:3000/'); process.exit(r.ok ? 0 : 1)" && \
+      bun -e "const r = await fetch('http://localhost:3000/doc/environment/nextjs'); process.exit(r.ok ? 0 : 1)"
 
 # Start the showcase server
 CMD ["bun", "run", ".output/server/index.mjs"]

@@ -69,7 +69,7 @@ FROM node:26-alpine AS runner
 
 RUN npm install -g bun@1.3.14
 
-RUN npm install -g serve && apk add --no-cache wget
+RUN npm install -g serve
 
 WORKDIR /www
 
@@ -83,7 +83,7 @@ USER node
 EXPOSE 6006
 
 HEALTHCHECK --interval=30s --timeout=5s --start-period=15s --retries=3 \
-  CMD wget -qO- http://localhost:6006/ > /dev/null || exit 1
+  CMD bun -e "const r = await fetch('http://localhost:6006/'); process.exit(r.ok ? 0 : 1)"
 
 # -f foreground, -p port, -h doc root
 CMD ["bun", "x", "serve", ".", "-l", "6006"]
