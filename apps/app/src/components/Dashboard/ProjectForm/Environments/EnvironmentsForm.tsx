@@ -70,6 +70,7 @@ export const EnvironmentsForm: FC = () => {
 
   const { session } = useSession();
   const { project, environment: activeEnvironment } = session ?? {};
+  const isProjectAdmin = session?.roles?.includes('project_admin');
   const projectEnvironments: EnvironmentAPI[] = (project?.environments ??
     []) as any[];
   const environmentEntries = buildEnvironmentEntries(projectEnvironments);
@@ -223,6 +224,7 @@ export const EnvironmentsForm: FC = () => {
                   label={content.deleteName({ name: entry.name })}
                   onClick={() => deleteEnvironment(entry.id)}
                   isLoading={isDeleting}
+                  disabled={!isProjectAdmin || isDeleting}
                 />
               )}
             </Container>
@@ -288,6 +290,7 @@ export const EnvironmentsForm: FC = () => {
               })
             }
             className="grow"
+            disabled={!isProjectAdmin}
           >
             {content.migrateModal.title}
           </Button>
@@ -309,6 +312,7 @@ export const EnvironmentsForm: FC = () => {
             })
           }
           className="grow"
+          disabled={!isProjectAdmin}
         >
           {content.addButton.label}
         </Button>

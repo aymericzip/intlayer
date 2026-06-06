@@ -233,43 +233,45 @@ export const ProjectFormContent: FC = () => {
             </Container>
           </div>
         </div>
-        <Container
-          roundedSize="3xl"
-          padding="lg"
-          border
-          borderColor="error"
-          className="w-full"
-          transparency="lg"
-        >
-          <DeleteProjectModal
-            isOpen={isDeletionModalOpen}
-            onClose={() => setIsDeletionModalOpen(false)}
-            onDelete={() => setIsDeletionModalOpen(false)}
-          />
-          <div className="flex items-start gap-6 px-4">
-            <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-error/10">
-              <TriangleAlert className="h-5 w-5 text-error" />
+        {isProjectAdmin && (
+          <Container
+            roundedSize="3xl"
+            padding="lg"
+            border
+            borderColor="error"
+            className="w-full"
+            transparency="lg"
+          >
+            <DeleteProjectModal
+              isOpen={isDeletionModalOpen}
+              onClose={() => setIsDeletionModalOpen(false)}
+              onDelete={() => setIsDeletionModalOpen(false)}
+            />
+            <div className="flex items-start gap-6 px-4">
+              <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-error/10">
+                <TriangleAlert className="h-5 w-5 text-error" />
+              </div>
+              <div className="flex-1">
+                <h3 className="font-medium text-base text-error">
+                  {dangerZoneTitle}
+                </h3>
+                <p className="mt-1 text-neutral text-sm">
+                  {dangerZoneDescription}
+                </p>
+                <Button
+                  color="error"
+                  label={deleteProjectButton.ariaLabel.value}
+                  variant="outline"
+                  onClick={() => setIsDeletionModalOpen(true)}
+                  Icon={Trash}
+                  className="mt-4"
+                >
+                  {deleteProjectButton.text}
+                </Button>
+              </div>
             </div>
-            <div className="flex-1">
-              <h3 className="font-medium text-base text-error">
-                {dangerZoneTitle}
-              </h3>
-              <p className="mt-1 text-neutral text-sm">
-                {dangerZoneDescription}
-              </p>
-              <Button
-                color="error"
-                label={deleteProjectButton.ariaLabel.value}
-                variant="outline"
-                onClick={() => setIsDeletionModalOpen(true)}
-                Icon={Trash}
-                className="mt-4"
-              >
-                {deleteProjectButton.text}
-              </Button>
-            </div>
-          </div>
-        </Container>
+          </Container>
+        )}
       </div>
     );
   }

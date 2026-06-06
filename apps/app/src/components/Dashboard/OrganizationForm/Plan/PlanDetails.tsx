@@ -41,6 +41,7 @@ const getTypeTagColor = (plan?: PlanAPI) => {
 
 export const PlanDetails: FC<PlanDetailsProps> = () => {
   const { session } = useSession();
+  const isOrganizationAdmin = session?.roles?.includes('org_admin');
   const {
     title,
     upgradeButton,
@@ -116,6 +117,7 @@ export const PlanDetails: FC<PlanDetailsProps> = () => {
             color="text"
             Icon={ChevronsUp}
             onClick={() => navigate({ to: App_Pricing_Path })}
+            disabled={!isOrganizationAdmin}
           >
             {upgradeButton.text}
           </Button>
@@ -126,6 +128,7 @@ export const PlanDetails: FC<PlanDetailsProps> = () => {
             color="text"
             Icon={RotateCcw}
             onClick={() => navigate({ to: App_Pricing_Path })}
+            disabled={!isOrganizationAdmin}
           >
             {renewButton.text}
           </Button>
@@ -137,6 +140,7 @@ export const PlanDetails: FC<PlanDetailsProps> = () => {
             variant="outline"
             Icon={CreditCard}
             onClick={() => setIsBillingModalOpen(true)}
+            disabled={!isOrganizationAdmin}
           >
             {billingButton.text}
           </Button>
@@ -148,6 +152,7 @@ export const PlanDetails: FC<PlanDetailsProps> = () => {
             variant="outline"
             Icon={CircleX}
             onClick={() => setIsCancellationModalOpen(true)}
+            disabled={!isOrganizationAdmin}
           >
             {cancelButton.text}
           </Button>
