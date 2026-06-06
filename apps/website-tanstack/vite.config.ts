@@ -40,7 +40,6 @@ export default defineConfig(async ({ mode }) => {
 
   const domain = env.VITE_PUBLIC_DOMAIN;
   const backendUrl = env.VITE_BACKEND_URL;
-  const scannerApiUrl = env.VITE_SCANNER_API_URL;
   const publicUrl = env.VITE_URL;
 
   const cspDirectives = {
@@ -87,7 +86,6 @@ export default defineConfig(async ({ mode }) => {
       'data:',
       domain ? `*.${domain}` : '',
       backendUrl,
-      scannerApiUrl,
       'fonts.googleapis.com',
       'static.cloudflareinsights.com',
       '*.google-analytics.com',

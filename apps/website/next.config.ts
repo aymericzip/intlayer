@@ -62,7 +62,6 @@ const secureHeaders = {
         'data:',
         `*.${process.env.NEXT_PUBLIC_DOMAIN}`,
         `${process.env.NEXT_PUBLIC_BACKEND_URL}`,
-        `${process.env.NEXT_PUBLIC_SCANNER_API_URL}`,
         'fonts.googleapis.com',
         'static.cloudflareinsights.com',
         '*.google-analytics.com',
