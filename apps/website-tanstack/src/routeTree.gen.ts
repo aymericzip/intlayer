@@ -28,7 +28,7 @@ import { Route as Char123LocaleChar125BlogRawSplatRouteImport } from './routes/{
 import { Route as Char123LocaleChar125CmsRouteImport } from './routes/{-$locale}/cms';
 import { Route as Char123LocaleChar125ContributorsRouteImport } from './routes/{-$locale}/contributors';
 import { Route as Char123LocaleChar125DemoRouteImport } from './routes/{-$locale}/demo';
-import { Route as Char123LocaleChar125DocSplatDotmdRouteImport } from './routes/{-$locale}/doc/$[.]md';
+import { Route as Char123LocaleChar125DocDotmdRouteImport } from './routes/{-$locale}/doc/$[.]md';
 import { Route as Char123LocaleChar125DocRawSplatRouteImport } from './routes/{-$locale}/doc/raw/$';
 import { Route as Char123LocaleChar125FrequentQuestionsRawSplatRouteImport } from './routes/{-$locale}/frequent-questions/raw/$';
 import { Route as Char123LocaleChar125I18nSeoScannerRouteImport } from './routes/{-$locale}/i18n-seo-scanner';
@@ -147,6 +147,12 @@ const Char123LocaleChar125DocsRouteRoute =
     id: '/_docs',
     getParentRoute: () => Char123LocaleChar125RouteRoute,
   } as any);
+const Char123LocaleChar125DocDotmdRoute =
+  Char123LocaleChar125DocDotmdRouteImport.update({
+    id: '/doc/$.md',
+    path: '/doc/$.md',
+    getParentRoute: () => Char123LocaleChar125RouteRoute,
+  } as any);
 const Char123LocaleChar125PlaygroundPlaygroundRoute =
   Char123LocaleChar125PlaygroundPlaygroundRouteImport.update({
     id: '/playground',
@@ -193,12 +199,6 @@ const Char123LocaleChar125DocRawSplatRoute =
   Char123LocaleChar125DocRawSplatRouteImport.update({
     id: '/doc/raw/$',
     path: '/doc/raw/$',
-    getParentRoute: () => Char123LocaleChar125RouteRoute,
-  } as any);
-const Char123LocaleChar125DocSplatDotmdRoute =
-  Char123LocaleChar125DocSplatDotmdRouteImport.update({
-    id: '/doc/$.md',
-    path: '/doc/$.md',
     getParentRoute: () => Char123LocaleChar125RouteRoute,
   } as any);
 const Char123LocaleChar125BlogRawSplatRoute =
@@ -267,6 +267,7 @@ export interface FileRoutesByFullPath {
   '/{-$locale}/terms-of-service': typeof Char123LocaleChar125DocsTermsOfServiceRoute;
   '/{-$locale}/terms-of-service.md': typeof Char123LocaleChar125DocsTermsOfServiceDotmdRoute;
   '/{-$locale}/playground': typeof Char123LocaleChar125PlaygroundPlaygroundRoute;
+  '/{-$locale}/doc/$.md': typeof Char123LocaleChar125DocDotmdRoute;
   '/{-$locale}/blog/$': typeof Char123LocaleChar125DocsBlogSplatRoute;
   '/{-$locale}/blog/search': typeof Char123LocaleChar125DocsBlogSearchRoute;
   '/{-$locale}/doc/$': typeof Char123LocaleChar125DocsDocSplatRoute;
@@ -275,7 +276,6 @@ export interface FileRoutesByFullPath {
   '/{-$locale}/frequent-questions/$': typeof Char123LocaleChar125DocsFrequentQuestionsSplatRoute;
   '/{-$locale}/blog/raw/$': typeof Char123LocaleChar125BlogRawSplatRoute;
   '/{-$locale}/doc/raw/$': typeof Char123LocaleChar125DocRawSplatRoute;
-  '/{-$locale}/doc/$.md': typeof Char123LocaleChar125DocSplatDotmdRoute;
   '/{-$locale}/frequent-questions/raw/$': typeof Char123LocaleChar125FrequentQuestionsRawSplatRoute;
   '/{-$locale}/frequent-questions/': typeof Char123LocaleChar125DocsFrequentQuestionsIndexRoute;
 }
@@ -301,6 +301,7 @@ export interface FileRoutesByTo {
   '/{-$locale}/terms-of-service': typeof Char123LocaleChar125DocsTermsOfServiceRoute;
   '/{-$locale}/terms-of-service.md': typeof Char123LocaleChar125DocsTermsOfServiceDotmdRoute;
   '/{-$locale}/playground': typeof Char123LocaleChar125PlaygroundPlaygroundRoute;
+  '/{-$locale}/doc/$.md': typeof Char123LocaleChar125DocDotmdRoute;
   '/{-$locale}/blog/$': typeof Char123LocaleChar125DocsBlogSplatRoute;
   '/{-$locale}/blog/search': typeof Char123LocaleChar125DocsBlogSearchRoute;
   '/{-$locale}/doc/$': typeof Char123LocaleChar125DocsDocSplatRoute;
@@ -309,7 +310,6 @@ export interface FileRoutesByTo {
   '/{-$locale}/frequent-questions/$': typeof Char123LocaleChar125DocsFrequentQuestionsSplatRoute;
   '/{-$locale}/blog/raw/$': typeof Char123LocaleChar125BlogRawSplatRoute;
   '/{-$locale}/doc/raw/$': typeof Char123LocaleChar125DocRawSplatRoute;
-  '/{-$locale}/doc/$.md': typeof Char123LocaleChar125DocSplatDotmdRoute;
   '/{-$locale}/frequent-questions/raw/$': typeof Char123LocaleChar125FrequentQuestionsRawSplatRoute;
   '/{-$locale}/frequent-questions': typeof Char123LocaleChar125DocsFrequentQuestionsIndexRoute;
 }
@@ -339,6 +339,7 @@ export interface FileRoutesById {
   '/{-$locale}/_docs/terms-of-service': typeof Char123LocaleChar125DocsTermsOfServiceRoute;
   '/{-$locale}/_docs/terms-of-service.md': typeof Char123LocaleChar125DocsTermsOfServiceDotmdRoute;
   '/{-$locale}/_playground/playground': typeof Char123LocaleChar125PlaygroundPlaygroundRoute;
+  '/{-$locale}/doc/$.md': typeof Char123LocaleChar125DocDotmdRoute;
   '/{-$locale}/_docs/blog/$': typeof Char123LocaleChar125DocsBlogSplatRoute;
   '/{-$locale}/_docs/blog/search': typeof Char123LocaleChar125DocsBlogSearchRoute;
   '/{-$locale}/_docs/doc/$': typeof Char123LocaleChar125DocsDocSplatRoute;
@@ -347,7 +348,6 @@ export interface FileRoutesById {
   '/{-$locale}/_docs/frequent-questions/$': typeof Char123LocaleChar125DocsFrequentQuestionsSplatRoute;
   '/{-$locale}/blog/raw/$': typeof Char123LocaleChar125BlogRawSplatRoute;
   '/{-$locale}/doc/raw/$': typeof Char123LocaleChar125DocRawSplatRoute;
-  '/{-$locale}/doc/$.md': typeof Char123LocaleChar125DocSplatDotmdRoute;
   '/{-$locale}/frequent-questions/raw/$': typeof Char123LocaleChar125FrequentQuestionsRawSplatRoute;
   '/{-$locale}/_docs/frequent-questions/': typeof Char123LocaleChar125DocsFrequentQuestionsIndexRoute;
 }
@@ -376,6 +376,7 @@ export interface FileRouteTypes {
     | '/{-$locale}/terms-of-service'
     | '/{-$locale}/terms-of-service.md'
     | '/{-$locale}/playground'
+    | '/{-$locale}/doc/$.md'
     | '/{-$locale}/blog/$'
     | '/{-$locale}/blog/search'
     | '/{-$locale}/doc/$'
@@ -384,7 +385,6 @@ export interface FileRouteTypes {
     | '/{-$locale}/frequent-questions/$'
     | '/{-$locale}/blog/raw/$'
     | '/{-$locale}/doc/raw/$'
-    | '/{-$locale}/doc/$.md'
     | '/{-$locale}/frequent-questions/raw/$'
     | '/{-$locale}/frequent-questions/';
   fileRoutesByTo: FileRoutesByTo;
@@ -410,6 +410,7 @@ export interface FileRouteTypes {
     | '/{-$locale}/terms-of-service'
     | '/{-$locale}/terms-of-service.md'
     | '/{-$locale}/playground'
+    | '/{-$locale}/doc/$.md'
     | '/{-$locale}/blog/$'
     | '/{-$locale}/blog/search'
     | '/{-$locale}/doc/$'
@@ -446,6 +447,7 @@ export interface FileRouteTypes {
     | '/{-$locale}/_docs/terms-of-service'
     | '/{-$locale}/_docs/terms-of-service.md'
     | '/{-$locale}/_playground/playground'
+    | '/{-$locale}/doc/$.md'
     | '/{-$locale}/_docs/blog/$'
     | '/{-$locale}/_docs/blog/search'
     | '/{-$locale}/_docs/doc/$'
@@ -603,6 +605,13 @@ declare module '@tanstack/react-router' {
       path: '';
       fullPath: '/{-$locale}';
       preLoaderRoute: typeof Char123LocaleChar125DocsRouteRouteImport;
+      parentRoute: typeof Char123LocaleChar125RouteRoute;
+    };
+    '/{-$locale}/doc/$.md': {
+      id: '/{-$locale}/doc/$.md';
+      path: '/doc/$.md';
+      fullPath: '/{-$locale}/doc/$.md';
+      preLoaderRoute: typeof Char123LocaleChar125DocDotmdRouteImport;
       parentRoute: typeof Char123LocaleChar125RouteRoute;
     };
     '/{-$locale}/_playground/playground': {
@@ -783,6 +792,7 @@ interface Char123LocaleChar125RouteRouteChildren {
   Char123LocaleChar125TmsRoute: typeof Char123LocaleChar125TmsRoute;
   Char123LocaleChar125TranslateRoute: typeof Char123LocaleChar125TranslateRoute;
   Char123LocaleChar125IndexRoute: typeof Char123LocaleChar125IndexRoute;
+  Char123LocaleChar125DocDotmdRoute: typeof Char123LocaleChar125DocDotmdRoute;
   Char123LocaleChar125BlogRawSplatRoute: typeof Char123LocaleChar125BlogRawSplatRoute;
   Char123LocaleChar125DocRawSplatRoute: typeof Char123LocaleChar125DocRawSplatRoute;
   Char123LocaleChar125FrequentQuestionsRawSplatRoute: typeof Char123LocaleChar125FrequentQuestionsRawSplatRoute;
@@ -804,6 +814,7 @@ const Char123LocaleChar125RouteRouteChildren: Char123LocaleChar125RouteRouteChil
     Char123LocaleChar125TmsRoute: Char123LocaleChar125TmsRoute,
     Char123LocaleChar125TranslateRoute: Char123LocaleChar125TranslateRoute,
     Char123LocaleChar125IndexRoute: Char123LocaleChar125IndexRoute,
+    Char123LocaleChar125DocDotmdRoute: Char123LocaleChar125DocDotmdRoute,
     Char123LocaleChar125BlogRawSplatRoute:
       Char123LocaleChar125BlogRawSplatRoute,
     Char123LocaleChar125DocRawSplatRoute: Char123LocaleChar125DocRawSplatRoute,
