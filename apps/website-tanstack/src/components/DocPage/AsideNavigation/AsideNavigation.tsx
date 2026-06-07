@@ -8,10 +8,15 @@ import { PopoverStatic } from '@intlayer/design-system/popover';
 import { SocialNetworks } from '@intlayer/design-system/social-networks';
 import { cn } from '@intlayer/design-system/utils';
 import { ArrowRightToLine, MoveDiagonal } from 'lucide-react';
-import { type FC, useEffect, useState } from 'react';
+import { type FC, lazy, Suspense, useEffect, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { ChatBot } from '~/components/ChatBot';
 import { NavTitles } from '../NavTitles/NavTitles';
+
+// Lazy-loaded to prevent @radix-ui/react-select (via FormSection → Form → SelectElement)
+// from being pulled into the SSR bundle, which causes a tslib CJS interop crash on the server.
+const ChatBot = lazy(() =>
+  import('~/components/ChatBot').then((mod) => ({ default: mod.ChatBot }))
+);
 
 export const AsideNavigation: FC = (props) => {
   const { title, collapseButton } = useIntlayer('aside-navigation');
@@ -109,20 +114,22 @@ export const AsideNavigation: FC = (props) => {
                   className="justify-bottom size-full text-sm"
                   transparency="xs"
                 >
-                  <ChatBot
-                    additionalButtons={
-                      <Button
-                        Icon={MoveDiagonal}
-                        color="text"
-                        size="icon-md"
-                        variant="outline"
-                        label={button.label.value}
-                        onClick={() => setIsModalOpen(true)}
-                      />
-                    }
-                    isLarge={false}
-                    stateReloaderTrigger={isModalOpen}
-                  />
+                  <Suspense>
+                    <ChatBot
+                      additionalButtons={
+                        <Button
+                          Icon={MoveDiagonal}
+                          color="text"
+                          size="icon-md"
+                          variant="outline"
+                          label={button.label.value}
+                          onClick={() => setIsModalOpen(true)}
+                        />
+                      }
+                      isLarge={false}
+                      stateReloaderTrigger={isModalOpen}
+                    />
+                  </Suspense>
                 </Container>
               </HeightResizer>
             </MaxWidthSmoother>
@@ -138,7 +145,9 @@ export const AsideNavigation: FC = (props) => {
         disableScroll
         hasCloseButton
       >
-        <ChatBot stateReloaderTrigger={isModalOpen} isActive={isModalOpen} />
+        <Suspense>
+          <ChatBot stateReloaderTrigger={isModalOpen} isActive={isModalOpen} />
+        </Suspense>
       </Modal>
     </>
   );
