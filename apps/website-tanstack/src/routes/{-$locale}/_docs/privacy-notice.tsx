@@ -1,10 +1,17 @@
-import { Website_PrivacyPolicy } from '@intlayer/design-system/routes';
+import {
+  External_Github,
+  Website_Doc_Search,
+  Website_Home,
+  Website_PrivacyPolicy,
+} from '@intlayer/design-system/routes';
 import { createFileRoute } from '@tanstack/react-router';
-import { defaultLocale } from 'intlayer';
+import { defaultLocale, getIntlayer, locales } from 'intlayer';
 import { DocumentationRender } from '~/components/DocPage/DocumentationRender';
 import { loadLegalContent } from '~/serverFunctions/legal';
-import { CreativeWorkHeader } from '~/structuredData/CreativeWorkHeader';
 import { getAbsoluteUrl, getHreflangLinks } from '~/utils/seo';
+
+const formatDate = (dateStr: string): string =>
+  new Date(dateStr).toISOString().split('T')[0];
 
 export const Route = createFileRoute('/{-$locale}/_docs/privacy-notice')({
   loader: async ({ params }) => {
@@ -13,11 +20,18 @@ export const Route = createFileRoute('/{-$locale}/_docs/privacy-notice')({
       data: { locale, docKey: './legal/en/privacy_notice.md' },
     });
   },
-  head: ({ loaderData }) => {
+  head: ({ loaderData, params }) => {
     if (!loaderData) return {};
-    const { title, description, keywords } = loaderData;
+    const { title, description, keywords, createdAt, updatedAt } = loaderData;
+    const locale = params.locale ?? defaultLocale;
     const path = Website_PrivacyPolicy;
-    const locale = defaultLocale;
+
+    const websiteContent = getIntlayer('website-structured-data', locale);
+    const orgContent = getIntlayer('organization-structured-data', locale);
+    const creativeWorkContent = getIntlayer(
+      'creative-work-structured-data',
+      locale
+    );
 
     return {
       title: String(title),
@@ -37,38 +51,81 @@ export const Route = createFileRoute('/{-$locale}/_docs/privacy-notice')({
         { rel: 'canonical', href: getAbsoluteUrl(path, locale) },
         ...getHreflangLinks(path),
       ],
+      scripts: [
+        {
+          type: 'application/ld+json',
+          children: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'WebSite',
+            url: Website_Home,
+            name: 'Intlayer',
+            potentialAction: {
+              '@type': 'SearchAction',
+              target: `${Website_Doc_Search}?search={search_term_string}`,
+              'query-input': 'required name=search_term_string',
+            },
+            inLanguage: locales,
+            keywords: websiteContent.keywords,
+          }),
+        },
+        {
+          type: 'application/ld+json',
+          children: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'Organization',
+            name: 'Intlayer',
+            url: Website_Home,
+            logo: {
+              '@type': 'ImageObject',
+              url: `${Website_Home}/assets/logo.png`,
+            },
+            foundingDate: '2024',
+            slogan: orgContent.slogan,
+            knowsAbout: orgContent.knowsAbout,
+            sameAs: [External_Github, 'https://twitter.com/intlayer'],
+            contactPoint: {
+              '@type': 'ContactPoint',
+              email: 'contact@intlayer.org',
+              contactType: 'customer support',
+              url: Website_Home,
+              availableLanguage: locales,
+            },
+          }),
+        },
+        {
+          type: 'application/ld+json',
+          children: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'WebPage',
+            creator: { '@type': 'Person', name: 'Aymeric Pineau' },
+            name: String(title),
+            description: String(description),
+            url: path,
+            datePublished: createdAt ? formatDate(createdAt) : undefined,
+            dateModified: updatedAt ? formatDate(updatedAt) : undefined,
+            keywords: Array.isArray(keywords)
+              ? keywords.join(', ')
+              : String(keywords || ''),
+            license:
+              'https://raw.githubusercontent.com/aymericzip/intlayer/refs/heads/main/LICENSE',
+            audience: {
+              '@type': 'Audience',
+              audienceType: creativeWorkContent.audienceType,
+            },
+          }),
+        },
+      ],
     };
   },
   component: PrivacyNoticePage,
 });
 
 function PrivacyNoticePage() {
-  const {
-    file,
-    fileParsed,
-    title,
-    description,
-    keywords,
-    updatedAt,
-    createdAt,
-  } = Route.useLoaderData();
+  const { fileParsed } = Route.useLoaderData();
 
   return (
-    <>
-      <CreativeWorkHeader
-        type="WebPage"
-        creativeWorkName={String(title)}
-        creativeWorkDescription={String(description)}
-        creativeWorkContent={file}
-        keywords={
-          Array.isArray(keywords) ? keywords.join(', ') : String(keywords || '')
-        }
-        dateModified={new Date(updatedAt)}
-        datePublished={new Date(createdAt)}
-      />
-      <div className="m-auto max-w-2xl">
-        <DocumentationRender>{fileParsed}</DocumentationRender>
-      </div>
-    </>
+    <div className="m-auto max-w-2xl">
+      <DocumentationRender>{fileParsed}</DocumentationRender>
+    </div>
   );
 }

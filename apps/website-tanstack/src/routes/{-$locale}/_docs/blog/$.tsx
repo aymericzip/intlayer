@@ -1,6 +1,12 @@
-import { Website_Home_Path } from '@intlayer/design-system/routes';
+import {
+  External_Github,
+  Website_Blog_Root,
+  Website_Doc_Search,
+  Website_Home,
+  Website_Home_Path,
+} from '@intlayer/design-system/routes';
 import { createFileRoute, redirect } from '@tanstack/react-router';
-import { defaultLocale, getLocalizedUrl } from 'intlayer';
+import { defaultLocale, getIntlayer, getLocalizedUrl, locales } from 'intlayer';
 import { BlogPageLayout } from '~/components/BlogPage/BlogPageLayout';
 import { DocHeader } from '~/components/DocPage/DocHeader/DocHeader';
 import {
@@ -9,8 +15,10 @@ import {
 } from '~/components/DocPage/DocPageNavigation/DocPageNavigation';
 import { DocumentationRender } from '~/components/DocPage/DocumentationRender';
 import { loadBlogNavData, loadBlogPage } from '~/serverFunctions/blog';
-import { CreativeWorkHeader } from '~/structuredData/CreativeWorkHeader';
 import { getAbsoluteUrl, getHreflangLinks } from '~/utils/seo';
+
+const formatDate = (dateStr: string): string =>
+  new Date(dateStr).toISOString().split('T')[0];
 
 export const Route = createFileRoute('/{-$locale}/_docs/blog/$')({
   loader: async ({ params }) => {
@@ -68,6 +76,14 @@ export const Route = createFileRoute('/{-$locale}/_docs/blog/$')({
     const { blogData, locale } = loaderData as any;
     const absoluteUrl = blogData.url;
     const keywords = blogData.keywords;
+    const localeStr = (locale as string) ?? defaultLocale;
+
+    const websiteContent = getIntlayer('website-structured-data', localeStr);
+    const orgContent = getIntlayer('organization-structured-data', localeStr);
+    const creativeWorkContent = getIntlayer(
+      'creative-work-structured-data',
+      localeStr
+    );
 
     return {
       title: `${blogData.title} | Intlayer`,
@@ -86,6 +102,101 @@ export const Route = createFileRoute('/{-$locale}/_docs/blog/$')({
       links: [
         { rel: 'canonical', href: getAbsoluteUrl(absoluteUrl, locale) },
         ...getHreflangLinks(absoluteUrl),
+      ],
+      scripts: [
+        {
+          type: 'application/ld+json',
+          children: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'WebSite',
+            url: Website_Home,
+            name: 'Intlayer',
+            potentialAction: {
+              '@type': 'SearchAction',
+              target: `${Website_Doc_Search}?search={search_term_string}`,
+              'query-input': 'required name=search_term_string',
+            },
+            inLanguage: locales,
+            keywords: websiteContent.keywords,
+          }),
+        },
+        {
+          type: 'application/ld+json',
+          children: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'Organization',
+            name: 'Intlayer',
+            url: Website_Home,
+            logo: {
+              '@type': 'ImageObject',
+              url: `${Website_Home}/assets/logo.png`,
+            },
+            foundingDate: '2024',
+            slogan: orgContent.slogan,
+            knowsAbout: orgContent.knowsAbout,
+            sameAs: [External_Github, 'https://twitter.com/intlayer'],
+            contactPoint: {
+              '@type': 'ContactPoint',
+              email: 'contact@intlayer.org',
+              contactType: 'customer support',
+              url: Website_Home,
+              availableLanguage: locales,
+            },
+          }),
+        },
+        {
+          type: 'application/ld+json',
+          children: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+              {
+                '@type': 'ListItem',
+                position: 1,
+                name: 'Home',
+                item: Website_Home,
+              },
+              {
+                '@type': 'ListItem',
+                position: 2,
+                name: 'Blog',
+                item: Website_Blog_Root,
+              },
+              {
+                '@type': 'ListItem',
+                position: 3,
+                name: blogData.title,
+                item: blogData.url,
+              },
+            ],
+          }),
+        },
+        {
+          type: 'application/ld+json',
+          children: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'BlogPosting',
+            creator: { '@type': 'Person', name: 'Aymeric Pineau' },
+            name: blogData.title,
+            description: blogData.description,
+            url: blogData.url,
+            datePublished: blogData.createdAt
+              ? formatDate(blogData.createdAt)
+              : undefined,
+            dateModified: blogData.updatedAt
+              ? formatDate(blogData.updatedAt)
+              : undefined,
+            keywords: Array.isArray(keywords)
+              ? keywords.join(', ')
+              : keywords || '',
+            license:
+              'https://raw.githubusercontent.com/aymericzip/intlayer/refs/heads/main/LICENSE',
+            audience: {
+              '@type': 'Audience',
+              audienceType: creativeWorkContent.audienceType,
+            },
+          }),
+        },
       ],
     };
   },
@@ -120,20 +231,6 @@ function BlogPage() {
       activeSlugs={slugs}
       locale={locale ?? defaultLocale}
     >
-      <CreativeWorkHeader
-        type="BlogPosting"
-        creativeWorkName={blogData.title}
-        creativeWorkDescription={blogData.description}
-        creativeWorkContent={blogContent}
-        keywords={
-          Array.isArray(blogData.keywords)
-            ? blogData.keywords.join(', ')
-            : blogData.keywords || ''
-        }
-        dateModified={new Date(blogData.updatedAt)}
-        datePublished={new Date(blogData.createdAt)}
-        url={blogData.url}
-      />
       <DocHeader {...blogData} markdownContent={blogContent} />
       <DocumentationRender>{blogParsed}</DocumentationRender>
       <DocPageNavigation nextDoc={nextBlog} prevDoc={prevBlog} />

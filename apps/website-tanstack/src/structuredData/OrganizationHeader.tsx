@@ -1,6 +1,7 @@
 /** biome-ignore-all lint/security/noDangerouslySetInnerHtml: No choice */
 
 import { External_Github, Website_Home } from '@intlayer/design-system/routes';
+import { locales } from 'intlayer';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
 
@@ -25,7 +26,7 @@ export const OrganizationHeader: FC = () => {
       email: 'contact@intlayer.org',
       contactType: 'customer support',
       url: Website_Home,
-      availableLanguage: ['en', 'fr', 'es', 'de', 'ja', 'ko', 'zh', 'it', 'pt'],
+      availableLanguage: locales,
     },
   };
 
