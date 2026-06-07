@@ -41,7 +41,7 @@ export const AsideNavigation: FC = (props) => {
         className={cn(
           isHidden ? 'top-25' : 'h-full',
           'sticky top-15 rounded-bl-xl',
-          'max-md:fixed max-md:top-0 max-md:left-0 max-md:z-50 max-md:h-[100dvh] max-md:w-80 max-md:transition-transform max-md:duration-300',
+          'max-md:fixed max-md:top-0 max-md:left-0 max-md:z-50 max-md:h-dvh max-md:w-80 max-md:transition-transform max-md:duration-300',
           isHidden && 'max-md:-translate-x-full'
         )}
         {...props}
