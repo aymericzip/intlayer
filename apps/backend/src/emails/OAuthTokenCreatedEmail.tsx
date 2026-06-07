@@ -39,7 +39,7 @@ export const OAuthTokenCreatedEmailEN = ({
       <Preview>{previewText}</Preview>
       <Tailwind>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+          <Container className="mx-auto my-[40px] max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
             <Section className="mt-[32px]">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -121,7 +121,7 @@ export const OAuthTokenCreatedEmailFR = ({
       <Preview>{previewText}</Preview>
       <Tailwind>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+          <Container className="mx-auto my-[40px] max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
             <Section className="mt-[32px]">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -200,7 +200,7 @@ export const OAuthTokenCreatedEmailES = ({
       <Preview>{previewText}</Preview>
       <Tailwind>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+          <Container className="mx-auto my-[40px] max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
             <Section className="mt-[32px]">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -278,7 +278,7 @@ export const OAuthTokenCreatedEmailRU = ({
       <Preview>{previewText}</Preview>
       <Tailwind>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+          <Container className="mx-auto my-[40px] max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
             <Section className="mt-[32px]">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -362,7 +362,7 @@ export const OAuthTokenCreatedEmailJA = ({
       <Preview>{previewText}</Preview>
       <Tailwind>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+          <Container className="mx-auto my-[40px] max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
             <Section className="mt-[32px]">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -441,7 +441,7 @@ export const OAuthTokenCreatedEmailKO = ({
       <Preview>{previewText}</Preview>
       <Tailwind>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+          <Container className="mx-auto my-[40px] max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
             <Section className="mt-[32px]">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -522,7 +522,7 @@ export const OAuthTokenCreatedEmailZH = ({
       <Preview>{previewText}</Preview>
       <Tailwind>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+          <Container className="mx-auto my-[40px] max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
             <Section className="mt-[32px]">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -600,7 +600,7 @@ export const OAuthTokenCreatedEmailDE = ({
       <Preview>{previewText}</Preview>
       <Tailwind>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+          <Container className="mx-auto my-[40px] max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
             <Section className="mt-[32px]">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -687,7 +687,7 @@ export const OAuthTokenCreatedEmailAR = ({
       <Preview>{previewText}</Preview>
       <Tailwind>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+          <Container className="mx-auto my-[40px] max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
             <Section className="mt-[32px]">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -768,7 +768,7 @@ export const OAuthTokenCreatedEmailIT = ({
       <Preview>{previewText}</Preview>
       <Tailwind>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+          <Container className="mx-auto my-[40px] max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
             <Section className="mt-[32px]">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -852,7 +852,7 @@ export const OAuthTokenCreatedEmailEN_GB = ({
       <Preview>{previewText}</Preview>
       <Tailwind>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+          <Container className="mx-auto my-[40px] max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
             <Section className="mt-[32px]">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -934,7 +934,7 @@ export const OAuthTokenCreatedEmailPT = ({
       <Preview>{previewText}</Preview>
       <Tailwind>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+          <Container className="mx-auto my-[40px] max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
             <Section className="mt-[32px]">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -1016,7 +1016,7 @@ export const OAuthTokenCreatedEmailHI = ({
       <Preview>{previewText}</Preview>
       <Tailwind>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+          <Container className="mx-auto my-[40px] max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
             <Section className="mt-[32px]">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -1097,7 +1097,7 @@ export const OAuthTokenCreatedEmailTR = ({
       <Preview>{previewText}</Preview>
       <Tailwind>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+          <Container className="mx-auto my-[40px] max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
             <Section className="mt-[32px]">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -1179,7 +1179,7 @@ export const OAuthTokenCreatedEmailPL = ({
       <Preview>{previewText}</Preview>
       <Tailwind>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+          <Container className="mx-auto my-[40px] max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
             <Section className="mt-[32px]">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -1263,7 +1263,7 @@ export const OAuthTokenCreatedEmailID = ({
       <Preview>{previewText}</Preview>
       <Tailwind>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+          <Container className="mx-auto my-[40px] max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
             <Section className="mt-[32px]">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -1347,7 +1347,7 @@ export const OAuthTokenCreatedEmailVI = ({
       <Preview>{previewText}</Preview>
       <Tailwind>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+          <Container className="mx-auto my-[40px] max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
             <Section className="mt-[32px]">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -1431,7 +1431,7 @@ export const OAuthTokenCreatedEmailUK = ({
       <Preview>{previewText}</Preview>
       <Tailwind>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+          <Container className="mx-auto my-[40px] max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
             <Section className="mt-[32px]">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"

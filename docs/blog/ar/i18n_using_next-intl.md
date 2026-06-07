@@ -70,7 +70,7 @@ history:
 
 <iframe  
   src="https://ide.intlayer.org/aymericzip/next-intl-template?file=src/i18n.ts"  
-  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-175 md:aspect-16/9 md:w-full"
   title="عرض توضيحي CodeSandbox - كيفية تعريب تطبيقك باستخدام Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"

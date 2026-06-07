@@ -39,7 +39,7 @@ export const SubscriptionPaymentCancellationEN = ({
       <Preview>{previewText}</Preview>
       <Tailwind>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+          <Container className="mx-auto my-[40px] max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
             <Section className="mt-[32px]">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -103,7 +103,7 @@ export const SubscriptionPaymentCancellationFR = ({
       <Preview>{previewText}</Preview>
       <Tailwind>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+          <Container className="mx-auto my-[40px] max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
             <Section className="mt-[32px]">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -167,7 +167,7 @@ export const SubscriptionPaymentCancellationES = ({
       <Preview>{previewText}</Preview>
       <Tailwind>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+          <Container className="mx-auto my-[40px] max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
             <Section className="mt-[32px]">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -231,7 +231,7 @@ export const SubscriptionPaymentCancellationRU = ({
       <Preview>{previewText}</Preview>
       <Tailwind>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+          <Container className="mx-auto my-[40px] max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
             <Section className="mt-[32px]">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -295,7 +295,7 @@ export const SubscriptionPaymentCancellationJA = ({
       <Preview>{previewText}</Preview>
       <Tailwind>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+          <Container className="mx-auto my-[40px] max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
             <Section className="mt-[32px]">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -360,7 +360,7 @@ export const SubscriptionPaymentCancellationKO = ({
       <Preview>{previewText}</Preview>
       <Tailwind>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+          <Container className="mx-auto my-[40px] max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
             <Section className="mt-[32px]">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -424,7 +424,7 @@ export const SubscriptionPaymentCancellationZH = ({
       <Preview>{previewText}</Preview>
       <Tailwind>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+          <Container className="mx-auto my-[40px] max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
             <Section className="mt-[32px]">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -488,7 +488,7 @@ export const SubscriptionPaymentCancellationDE = ({
       <Preview>{previewText}</Preview>
       <Tailwind>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+          <Container className="mx-auto my-[40px] max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
             <Section className="mt-[32px]">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -552,7 +552,7 @@ export const SubscriptionPaymentCancellationAR = ({
       <Preview>{previewText}</Preview>
       <Tailwind>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+          <Container className="mx-auto my-[40px] max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
             <Section className="mt-[32px]">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -616,7 +616,7 @@ export const SubscriptionPaymentCancellationIT = ({
       <Preview>{previewText}</Preview>
       <Tailwind>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+          <Container className="mx-auto my-[40px] max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
             <Section className="mt-[32px]">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -680,7 +680,7 @@ export const SubscriptionPaymentCancellationEN_GB = ({
       <Preview>{previewText}</Preview>
       <Tailwind>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+          <Container className="mx-auto my-[40px] max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
             <Section className="mt-[32px]">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -744,7 +744,7 @@ export const SubscriptionPaymentCancellationPT = ({
       <Preview>{previewText}</Preview>
       <Tailwind>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+          <Container className="mx-auto my-[40px] max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
             <Section className="mt-[32px]">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -808,7 +808,7 @@ export const SubscriptionPaymentCancellationHI = ({
       <Preview>{previewText}</Preview>
       <Tailwind>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+          <Container className="mx-auto my-[40px] max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
             <Section className="mt-[32px]">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -872,7 +872,7 @@ export const SubscriptionPaymentCancellationTR = ({
       <Preview>{previewText}</Preview>
       <Tailwind>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+          <Container className="mx-auto my-[40px] max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
             <Section className="mt-[32px]">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -937,7 +937,7 @@ export const SubscriptionPaymentCancellationPL = ({
       <Preview>{previewText}</Preview>
       <Tailwind>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+          <Container className="mx-auto my-[40px] max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
             <Section className="mt-[32px]">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -1001,7 +1001,7 @@ export const SubscriptionPaymentCancellationID = ({
       <Preview>{previewText}</Preview>
       <Tailwind>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+          <Container className="mx-auto my-[40px] max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
             <Section className="mt-[32px]">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -1065,7 +1065,7 @@ export const SubscriptionPaymentCancellationVI = ({
       <Preview>{previewText}</Preview>
       <Tailwind>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+          <Container className="mx-auto my-[40px] max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
             <Section className="mt-[32px]">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -1129,7 +1129,7 @@ export const SubscriptionPaymentCancellationUK = ({
       <Preview>{previewText}</Preview>
       <Tailwind>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+          <Container className="mx-auto my-[40px] max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
             <Section className="mt-[32px]">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"

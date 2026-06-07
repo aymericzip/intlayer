@@ -28,7 +28,7 @@ const sizeConfig = {
     bioTextSize: 'text-xs',
     avatarSize: 'size-10',
     avatarFontSize: 'text-sm',
-    coverMinHeight: 'min-h-[80px]',
+    coverMinHeight: 'min-h-20',
     coverMarginBottom: 'mb-0',
     avatarBottom: 'bottom-[-30%]',
     showMainPicture: true,

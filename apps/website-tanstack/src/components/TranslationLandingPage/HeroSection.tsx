@@ -81,7 +81,7 @@ export const HeroSection: FC = () => {
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <motion.div
           aria-hidden
-          className="absolute -top-24 left-1/2 h-[480px] w-[720px] -translate-x-1/2 rounded-full bg-primary/15 blur-3xl"
+          className="absolute -top-24 left-1/2 h-120 w-180 -translate-x-1/2 rounded-full bg-primary/15 blur-3xl"
           animate={reduced ? undefined : { y: [0, 18, 0], scale: [1, 1.03, 1] }}
           transition={
             reduced
@@ -91,7 +91,7 @@ export const HeroSection: FC = () => {
         />
         <motion.div
           aria-hidden
-          className="absolute -top-12 right-[-120px] h-[360px] w-[360px] rounded-full bg-success/10 blur-3xl"
+          className="absolute -top-12 right-[-120px] h-90 w-90 rounded-full bg-success/10 blur-3xl"
           animate={reduced ? undefined : { x: [0, -22, 0], y: [0, 10, 0] }}
           transition={
             reduced
@@ -101,7 +101,7 @@ export const HeroSection: FC = () => {
         />
         <motion.div
           aria-hidden
-          className="absolute top-[520px] left-[-140px] h-[420px] w-[420px] rounded-full bg-secondary/12 blur-3xl"
+          className="absolute top-[520px] left-[-140px] h-105 w-105 rounded-full bg-secondary/12 blur-3xl"
           animate={reduced ? undefined : { x: [0, 20, 0], y: [0, -16, 0] }}
           transition={
             reduced

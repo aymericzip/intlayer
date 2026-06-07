@@ -113,7 +113,7 @@ export const DashboardSidebarProfile: FC<DashboardSidebarProfileProps> = ({
             yAlign="above"
           >
             <Container
-              className="min-w-[100px] gap-2 border border-neutral/10"
+              className="min-w-25 gap-2 border border-neutral/10"
               transparency="xs"
               padding="sm"
               roundedSize="2xl"

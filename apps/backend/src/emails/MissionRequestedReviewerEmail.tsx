@@ -35,7 +35,7 @@ export const MissionRequestedReviewerEmailEN = ({
     <Preview>{clientName} sent you a translation request</Preview>
     <Tailwind>
       <Body className="m-auto px-2 font-sans">
-        <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+        <Container className="mx-auto my-[40px] max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
           <Section className="mt-[32px]">
             <Img
               src="https://intlayer.org/apple-touch-icon.png"
@@ -104,7 +104,7 @@ export const MissionRequestedReviewerEmailFR = ({
     <Preview>{clientName} vous a envoyé une demande de traduction</Preview>
     <Tailwind>
       <Body className="m-auto px-2 font-sans">
-        <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+        <Container className="mx-auto my-[40px] max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
           <Section className="mt-[32px]">
             <Img
               src="https://intlayer.org/apple-touch-icon.png"
@@ -173,7 +173,7 @@ export const MissionRequestedReviewerEmailES = ({
     <Preview>{clientName} te envió una solicitud de traducción</Preview>
     <Tailwind>
       <Body className="m-auto px-2 font-sans">
-        <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+        <Container className="mx-auto my-[40px] max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
           <Section className="mt-[32px]">
             <Img
               src="https://intlayer.org/apple-touch-icon.png"

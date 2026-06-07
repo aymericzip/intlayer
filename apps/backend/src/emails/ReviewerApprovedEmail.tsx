@@ -31,7 +31,7 @@ export const ReviewerApprovedEmailEN = ({
       <Preview>{previewText}</Preview>
       <Tailwind>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+          <Container className="mx-auto my-[40px] max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
             <Section className="mt-[32px]">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -93,7 +93,7 @@ export const ReviewerApprovedEmailFR = ({
       <Preview>{previewText}</Preview>
       <Tailwind>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+          <Container className="mx-auto my-[40px] max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
             <Section className="mt-[32px]">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -156,7 +156,7 @@ export const ReviewerApprovedEmailES = ({
       <Preview>{previewText}</Preview>
       <Tailwind>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+          <Container className="mx-auto my-[40px] max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
             <Section className="mt-[32px]">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -219,7 +219,7 @@ export const ReviewerApprovedEmailRU = ({
       <Preview>{previewText}</Preview>
       <Tailwind>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+          <Container className="mx-auto my-[40px] max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
             <Section className="mt-[32px]">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -282,7 +282,7 @@ export const ReviewerApprovedEmailJA = ({
       <Preview>{previewText}</Preview>
       <Tailwind>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+          <Container className="mx-auto my-[40px] max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
             <Section className="mt-[32px]">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -342,7 +342,7 @@ export const ReviewerApprovedEmailKO = ({
       <Preview>{previewText}</Preview>
       <Tailwind>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+          <Container className="mx-auto my-[40px] max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
             <Section className="mt-[32px]">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -404,7 +404,7 @@ export const ReviewerApprovedEmailZH = ({
       <Preview>{previewText}</Preview>
       <Tailwind>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+          <Container className="mx-auto my-[40px] max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
             <Section className="mt-[32px]">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -464,7 +464,7 @@ export const ReviewerApprovedEmailDE = ({
       <Preview>{previewText}</Preview>
       <Tailwind>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+          <Container className="mx-auto my-[40px] max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
             <Section className="mt-[32px]">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -527,7 +527,7 @@ export const ReviewerApprovedEmailAR = ({
       <Preview>{previewText}</Preview>
       <Tailwind>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+          <Container className="mx-auto my-[40px] max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
             <Section className="mt-[32px]">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -589,7 +589,7 @@ export const ReviewerApprovedEmailIT = ({
       <Preview>{previewText}</Preview>
       <Tailwind>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+          <Container className="mx-auto my-[40px] max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
             <Section className="mt-[32px]">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -652,7 +652,7 @@ export const ReviewerApprovedEmailEN_GB = ({
       <Preview>{previewText}</Preview>
       <Tailwind>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+          <Container className="mx-auto my-[40px] max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
             <Section className="mt-[32px]">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -714,7 +714,7 @@ export const ReviewerApprovedEmailPT = ({
       <Preview>{previewText}</Preview>
       <Tailwind>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+          <Container className="mx-auto my-[40px] max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
             <Section className="mt-[32px]">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -777,7 +777,7 @@ export const ReviewerApprovedEmailHI = ({
       <Preview>{previewText}</Preview>
       <Tailwind>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+          <Container className="mx-auto my-[40px] max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
             <Section className="mt-[32px]">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -839,7 +839,7 @@ export const ReviewerApprovedEmailTR = ({
       <Preview>{previewText}</Preview>
       <Tailwind>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+          <Container className="mx-auto my-[40px] max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
             <Section className="mt-[32px]">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -901,7 +901,7 @@ export const ReviewerApprovedEmailPL = ({
       <Preview>{previewText}</Preview>
       <Tailwind>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+          <Container className="mx-auto my-[40px] max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
             <Section className="mt-[32px]">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -964,7 +964,7 @@ export const ReviewerApprovedEmailID = ({
       <Preview>{previewText}</Preview>
       <Tailwind>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+          <Container className="mx-auto my-[40px] max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
             <Section className="mt-[32px]">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -1026,7 +1026,7 @@ export const ReviewerApprovedEmailVI = ({
       <Preview>{previewText}</Preview>
       <Tailwind>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+          <Container className="mx-auto my-[40px] max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
             <Section className="mt-[32px]">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -1089,7 +1089,7 @@ export const ReviewerApprovedEmailUK = ({
       <Preview>{previewText}</Preview>
       <Tailwind>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+          <Container className="mx-auto my-[40px] max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
             <Section className="mt-[32px]">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"

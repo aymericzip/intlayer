@@ -38,7 +38,7 @@ history:
 
 <iframe
   src="https://ide.intlayer.org/aymericzip/intlayer-vite-svelte-template?file=intlayer.config.ts"
-  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-175 md:aspect-16/9 md:w-full"
   title="Demo CodeSandbox - Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
@@ -49,7 +49,7 @@ history:
 
 <iframe
   src="https://intlayer-vite-svelte-template.vercel.app"
-  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-175 md:aspect-16/9 md:w-full"
   title="演示 - intlayer-vite-svelte-template"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
@@ -100,7 +100,7 @@ Intlayer 不仅仅是一个 i18n 解决方案，还提供了一个**自托管的
 
 <iframe
   src="https://ide.intlayer.org/aymericzip/intlayer-vite-react-template?file=intlayer.config.ts"
-  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-175 md:aspect-16/9 md:w-full"
   title="演示 CodeSandbox - 如何使用 Intlayer 实现应用国际化"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"

@@ -28,7 +28,7 @@ export const WelcomeEmailEN = ({ username, loginLink }: WelcomeEmailProps) => {
       <Preview>{previewText}</Preview>
       <Tailwind>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+          <Container className="mx-auto my-[40px] max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
             <Section className="mt-[32px]">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -87,7 +87,7 @@ export const WelcomeEmailFR = ({ username, loginLink }: WelcomeEmailProps) => {
       <Preview>{previewText}</Preview>
       <Tailwind>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+          <Container className="mx-auto my-[40px] max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
             <Section className="mt-[32px]">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -146,7 +146,7 @@ export const WelcomeEmailES = ({ username, loginLink }: WelcomeEmailProps) => {
       <Preview>{previewText}</Preview>
       <Tailwind>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+          <Container className="mx-auto my-[40px] max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
             <Section className="mt-[32px]">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -204,7 +204,7 @@ export const WelcomeEmailRU = ({ username, loginLink }: WelcomeEmailProps) => {
       <Preview>{previewText}</Preview>
       <Tailwind>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+          <Container className="mx-auto my-[40px] max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
             <Section className="mt-[32px]">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -262,7 +262,7 @@ export const WelcomeEmailJA = ({ username, loginLink }: WelcomeEmailProps) => {
       <Preview>{previewText}</Preview>
       <Tailwind>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+          <Container className="mx-auto my-[40px] max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
             <Section className="mt-[32px]">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -319,7 +319,7 @@ export const WelcomeEmailKO = ({ username, loginLink }: WelcomeEmailProps) => {
       <Preview>{previewText}</Preview>
       <Tailwind>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+          <Container className="mx-auto my-[40px] max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
             <Section className="mt-[32px]">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -377,7 +377,7 @@ export const WelcomeEmailZH = ({ username, loginLink }: WelcomeEmailProps) => {
       <Preview>{previewText}</Preview>
       <Tailwind>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+          <Container className="mx-auto my-[40px] max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
             <Section className="mt-[32px]">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -434,7 +434,7 @@ export const WelcomeEmailDE = ({ username, loginLink }: WelcomeEmailProps) => {
       <Preview>{previewText}</Preview>
       <Tailwind>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+          <Container className="mx-auto my-[40px] max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
             <Section className="mt-[32px]">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -492,7 +492,7 @@ export const WelcomeEmailAR = ({ username, loginLink }: WelcomeEmailProps) => {
       <Preview>{previewText}</Preview>
       <Tailwind>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+          <Container className="mx-auto my-[40px] max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
             <Section className="mt-[32px]">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -550,7 +550,7 @@ export const WelcomeEmailIT = ({ username, loginLink }: WelcomeEmailProps) => {
       <Preview>{previewText}</Preview>
       <Tailwind>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+          <Container className="mx-auto my-[40px] max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
             <Section className="mt-[32px]">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -611,7 +611,7 @@ export const WelcomeEmailEN_GB = ({
       <Preview>{previewText}</Preview>
       <Tailwind>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+          <Container className="mx-auto my-[40px] max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
             <Section className="mt-[32px]">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -669,7 +669,7 @@ export const WelcomeEmailPT = ({ username, loginLink }: WelcomeEmailProps) => {
       <Preview>{previewText}</Preview>
       <Tailwind>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+          <Container className="mx-auto my-[40px] max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
             <Section className="mt-[32px]">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -728,7 +728,7 @@ export const WelcomeEmailHI = ({ username, loginLink }: WelcomeEmailProps) => {
       <Preview>{previewText}</Preview>
       <Tailwind>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+          <Container className="mx-auto my-[40px] max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
             <Section className="mt-[32px]">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -786,7 +786,7 @@ export const WelcomeEmailTR = ({ username, loginLink }: WelcomeEmailProps) => {
       <Preview>{previewText}</Preview>
       <Tailwind>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+          <Container className="mx-auto my-[40px] max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
             <Section className="mt-[32px]">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -845,7 +845,7 @@ export const WelcomeEmailPL = ({ username, loginLink }: WelcomeEmailProps) => {
       <Preview>{previewText}</Preview>
       <Tailwind>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+          <Container className="mx-auto my-[40px] max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
             <Section className="mt-[32px]">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -903,7 +903,7 @@ export const WelcomeEmailID = ({ username, loginLink }: WelcomeEmailProps) => {
       <Preview>{previewText}</Preview>
       <Tailwind>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+          <Container className="mx-auto my-[40px] max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
             <Section className="mt-[32px]">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -961,7 +961,7 @@ export const WelcomeEmailVI = ({ username, loginLink }: WelcomeEmailProps) => {
       <Preview>{previewText}</Preview>
       <Tailwind>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+          <Container className="mx-auto my-[40px] max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
             <Section className="mt-[32px]">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
@@ -1019,7 +1019,7 @@ export const WelcomeEmailUK = ({ username, loginLink }: WelcomeEmailProps) => {
       <Preview>{previewText}</Preview>
       <Tailwind>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+          <Container className="mx-auto my-[40px] max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
             <Section className="mt-[32px]">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"

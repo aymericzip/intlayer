@@ -15,7 +15,7 @@ export const NoTagView: FC<NoTagViewProps> = ({ onClickCreateTag }) => {
     useIntlayer('tag-form');
 
   return (
-    <div className="flex size-full max-w-[400px] flex-1 flex-col items-center justify-center gap-3">
+    <div className="flex size-full max-w-100 flex-1 flex-col items-center justify-center gap-3">
       <span className="font-bold">{createTagTitle}</span>
       <span className="mb-3 text-neutral text-sm">{createTagDescription}</span>
       <Button

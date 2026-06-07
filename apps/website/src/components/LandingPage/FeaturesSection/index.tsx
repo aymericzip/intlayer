@@ -210,7 +210,7 @@ export const FeaturesCarousel: FC<FeaturesCarouselProps> = ({
       {/* Sticky container */}
       <div className="sticky top-0 left-0 mb-[70vh] h-[30vh] w-full">
         {/* Progress Bar */}
-        <div className="absolute top-20 left-10 flex h-3/5 w-[2px] md:top-[20vh]">
+        <div className="absolute top-20 left-10 flex h-3/5 w-0.5 md:top-[20vh]">
           <div className="size-full rounded-full bg-neutral/20">
             <div
               className="w-full bg-text"

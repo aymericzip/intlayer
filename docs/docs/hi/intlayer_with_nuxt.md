@@ -81,7 +81,7 @@ Intlayer को **बहुभाषी रूटिंग**, **लोकेल 
 
 <iframe
   src="https://ide.intlayer.org/aymericzip/intlayer-nuxt-4-template?file=intlayer.config.ts"
-  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-175 md:aspect-16/9 md:w-full"
   title="डेमो कोडसैंडबॉक्स - Intlayer का उपयोग करके अपने एप्लिकेशन का अंतरराष्ट्रीयकरण कैसे करें"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
@@ -92,7 +92,7 @@ Intlayer को **बहुभाषी रूटिंग**, **लोकेल 
 
 <iframe
   src="https://intlayer-nuxt-4-template.vercel.app"
-  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-175 md:aspect-16/9 md:w-full"
   title="डेमो - intlayer-nuxt-4-template"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"

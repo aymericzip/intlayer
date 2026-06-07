@@ -323,7 +323,7 @@ export const Ghost: Story = {
         <Tab.Item label="✏️ Editor" value="editor">
           <div className="space-y-4">
             <h4 className="font-semibold text-lg">Content Editor</h4>
-            <div className="min-h-[120px] rounded-lg border border-gray-200 bg-white p-4">
+            <div className="min-h-30 rounded-lg border border-gray-200 bg-white p-4">
               <div className="mb-2 text-gray-400 text-sm">
                 Start typing your content...
               </div>
@@ -342,7 +342,7 @@ export const Ghost: Story = {
         <Tab.Item label="👁️ Preview" value="preview">
           <div className="space-y-4">
             <h4 className="font-semibold text-lg">Content Preview</h4>
-            <div className="min-h-[120px] rounded-lg border border-gray-200 bg-gray-50 p-4">
+            <div className="min-h-30 rounded-lg border border-gray-200 bg-gray-50 p-4">
               <div className="prose prose-sm">
                 <p>
                   This is how your content will appear to users. The ghost
@@ -359,8 +359,8 @@ export const Ghost: Story = {
         <Tab.Item label="📱 Mobile" value="mobile">
           <div className="space-y-4">
             <h4 className="font-semibold text-lg">Mobile Preview</h4>
-            <div className="mx-auto max-w-[200px] rounded-lg border-2 border-gray-300 bg-gray-100 p-2">
-              <div className="min-h-[150px] rounded bg-white p-3">
+            <div className="mx-auto max-w-50 rounded-lg border-2 border-gray-300 bg-gray-100 p-2">
+              <div className="min-h-37.5 rounded bg-white p-3">
                 <div className="mb-2 font-medium text-xs">Mobile View</div>
                 <div className="text-gray-600 text-xs leading-relaxed">
                   Your content optimized for mobile devices. The ghost variant
@@ -404,7 +404,7 @@ export const SettingsPanel: Story = {
     const [theme, setTheme] = useState('light');
 
     return (
-      <div className="w-[500px]">
+      <div className="w-125">
         <Tab defaultTab="general" variant="default">
           <Tab.Item label="General" value="general">
             <div className="space-y-6">
@@ -610,7 +610,7 @@ export const ContentManagementSystem: Story = {
     const [lastSaved, setLastSaved] = useState('2 minutes ago');
 
     return (
-      <div className="w-[600px]">
+      <div className="w-150">
         <Tab defaultTab="content" variant="ghost">
           <Tab.Item label="📝 Content" value="content">
             <div className="space-y-4">
@@ -645,7 +645,7 @@ In this guide, we'll explore how to create effective React components that are b
 4. **Performance Optimization**: Techniques for optimizing component performance
 
 Let's dive deeper into each of these concepts...`}
-                  className="min-h-[300px] w-full resize-none rounded-lg border border-gray-200 p-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="min-h-75 w-full resize-none rounded-lg border border-gray-200 p-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   onChange={(e) => {
                     const words = e.target.value.trim().split(/\s+/).length;
                     setWordCount(words);

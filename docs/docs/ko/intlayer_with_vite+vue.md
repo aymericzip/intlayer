@@ -96,7 +96,7 @@ Intlayer는 단순한 i18n 솔루션 그 이상으로 관리에 도움이 되는
 
 <iframe
   src="https://ide.intlayer.org/aymericzip/intlayer-vite-vue-template?file=intlayer.config.ts"
-  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-175 md:aspect-16/9 md:w-full"
   title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
@@ -107,7 +107,7 @@ Intlayer는 단순한 i18n 솔루션 그 이상으로 관리에 도움이 되는
 
 <iframe
   src="https://intlayer-vite-vue-template.vercel.app"
-  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-175 md:aspect-16/9 md:w-full"
   title="데모 - intlayer-vite-vue-template"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"

@@ -1,5 +1,5 @@
 import type { ComponentProps } from 'react';
-import type { BundledLanguage } from 'shiki/bundle/web';
+import { bundledLanguages, type BundledLanguage } from 'shiki/bundle/web';
 
 /**
  * Normalises language aliases used in markdown fences to Shiki bundle IDs.

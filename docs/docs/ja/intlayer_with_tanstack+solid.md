@@ -84,7 +84,7 @@ Intlayer は単なる i18n ソリューションではなく、**自己ホスト
 
 <iframe
   src="https://ide.intlayer.org/aymericzip/intlayer-tanstack-start-solid-template?file=intlayer.config.ts"
-  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-175 md:aspect-16/9 md:w-full"
   title="デモ CodeSandbox - Intlayerを使用してアプリケーションを国際化する方法"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
@@ -95,7 +95,7 @@ Intlayer は単なる i18n ソリューションではなく、**自己ホスト
 
 <iframe
   src="https://intlayer-tanstack-start-solid.vercel.app"
-  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-175 md:aspect-16/9 md:w-full"
   title="デモ - intlayer-tanstack-start-solid-template"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"

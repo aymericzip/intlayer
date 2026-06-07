@@ -30,7 +30,7 @@ import { TextArea, type TextAreaProps } from './TextArea';
  *   onChange={handleChange}
  *   autoSize={true}
  *   maxRows={5}
- *   className="max-h-[120px]"
+ *   className="max-h-30"
  * />
  *
  * // Disable auto-sizing for fixed height
@@ -88,7 +88,7 @@ const LINE_PADDING = 12; // px
  *   placeholder="Type your message..."
  *   autoSize={true}
  *   maxRows={8}
- *   className="min-h-[40px]"
+ *   className="min-h-10"
  *   onKeyDown={(e) => {
  *     if (e.key === 'Enter' && !e.shiftKey) {
  *       e.preventDefault();

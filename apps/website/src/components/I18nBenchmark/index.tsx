@@ -480,7 +480,7 @@ export const I18nBenchmark = ({
                               <td className="flex items-center gap-2 px-4 py-2">
                                 <LibLogo
                                   id={data.libId}
-                                  className="h-4 w-auto max-w-[60px]"
+                                  className="h-4 w-auto max-w-15"
                                 />
                                 <span className="font-medium text-neutral-800 dark:text-neutral-200">
                                   {data.label}

@@ -1,4 +1,4 @@
-import { Button } from '@intlayer/design-system/button';
+import { buttonVariants } from '@intlayer/design-system/button';
 import { Checkbox } from '@intlayer/design-system/input';
 import { useTheme } from 'next-themes';
 import type { FC } from 'react';
@@ -16,28 +16,29 @@ export const LibCard: FC<{
   const colors = getLibColors(isDarkMode);
 
   return (
-    <Button
-      label={lib.name}
-      type="button"
-      color="text"
-      size="sm"
-      variant="hoverable"
-      onClick={onToggle}
-      isActive={isActive}
-      className="relative h-12 min-w-32 shrink-0 overflow-hidden text-left"
+    <label
+      htmlFor={lib.id}
+      aria-label={lib.name}
+      aria-current={isActive ? 'page' : undefined}
+      className={buttonVariants({
+        color: 'text',
+        size: 'sm',
+        variant: 'hoverable',
+        className: 'relative h-12 min-w-32 shrink-0 cursor-pointer overflow-hidden text-left',
+      })}
     >
       <div className="flex flex-row items-center gap-4 px-3 py-1.5">
         <Checkbox
+          id={lib.id}
           name={lib.id}
           checked={isActive}
           onChange={onToggle}
-          onClick={(e) => e.stopPropagation()}
           size="sm"
           color="neutral"
         />
         {colors[lib.id] && (
-          <div
-            className="absolute top-0 left-0 h-full w-[3px] rounded-r-full"
+          <divw-0.75
+            className="absolute top-0 left-0 h-full w-0.75 rounded-r-full"
             style={{ backgroundColor: colors[lib.id] }}
           />
         )}
@@ -46,7 +47,7 @@ export const LibCard: FC<{
         <div className="items-left flex h-5 w-20 min-w-20 shrink-0 justify-center">
           <LibLogo
             id={lib.id}
-            className="h-5 w-auto max-w-[120px] rounded-sm object-contain"
+            className="h-5 w-auto max-w-30 rounded-sm object-contain"
           />
         </div>
 
@@ -62,6 +63,6 @@ export const LibCard: FC<{
           )}
         </div>
       </div>
-    </Button>
+    </label>
   );
 };

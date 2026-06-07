@@ -22,7 +22,7 @@ export const NoOrganizationView: FC<NoOrganizationViewProps> = ({
   } = useIntlayer('organization-form');
 
   return (
-    <div className="flex size-full max-w-[400px] flex-1 flex-col items-center justify-center gap-3">
+    <div className="flex size-full max-w-100 flex-1 flex-col items-center justify-center gap-3">
       <H3>{createOrganizationTitle}</H3>
       <span className="mb-3 text-neutral text-sm">
         {createOrganizationDescription}

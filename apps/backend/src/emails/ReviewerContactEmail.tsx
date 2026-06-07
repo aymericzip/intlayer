@@ -27,7 +27,7 @@ export const ReviewerContactEmailEN = ({
     <Preview>{clientName} sent you a message on Intlayer</Preview>
     <Tailwind>
       <Body className="m-auto px-2 font-sans">
-        <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+        <Container className="mx-auto my-[40px] max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
           <Section className="mt-[32px]">
             <Img
               src="https://intlayer.org/apple-touch-icon.png"

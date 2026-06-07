@@ -140,7 +140,7 @@ export const PricingComparisonTable: FC = () => {
   const planKeys = ['free', 'premium', 'enterprise', 'lifetime'] as const;
 
   return (
-    <section className="m-auto max-w-[1000px] px-4 pt-10 pb-20 text-xl">
+    <section className="m-auto max-w-250 px-4 pt-10 pb-20 text-xl">
       <H2 className="mb-10 text-center text-3xl">{title}</H2>
       <Container
         roundedSize="4xl"

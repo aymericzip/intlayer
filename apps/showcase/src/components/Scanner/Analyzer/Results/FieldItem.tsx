@@ -40,7 +40,7 @@ export const InformationTag: FC<PropsWithChildren<{ id: string }>> = ({
     <Info className="size-3 text-neutral/50" />
     <Popover.Detail
       identifier={`information-tag-${id}`}
-      className="flex min-w-[400px] flex-col gap-4 bg-background/50 p-4 text-left text-sm"
+      className="flex min-w-100 flex-col gap-4 bg-background/50 p-4 text-left text-sm"
       isFocusable
       isOverable
     >

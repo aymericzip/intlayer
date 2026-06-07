@@ -208,7 +208,7 @@ export const MobileNavbar = <T extends TabSelectorItemProps>({
               {bottomSections}
             </div>
 
-            <div className="m-auto flex w-full max-w-[400px] items-center justify-center gap-1 px-5 py-3">
+            <div className="m-auto flex w-full max-w-100 items-center justify-center gap-1 px-5 py-3">
               {bottomChildren}
             </div>
           </m.div>

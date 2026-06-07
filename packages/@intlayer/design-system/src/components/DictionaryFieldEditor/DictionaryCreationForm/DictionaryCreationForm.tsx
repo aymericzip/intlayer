@@ -46,7 +46,7 @@ export const DictionaryCreationForm: FC<DictionaryCreationFormProps> = ({
     <Form
       schema={DictionarySchema}
       onSubmitSuccess={onSubmitSuccess}
-      className="m-auto w-full max-w-[400px]"
+      className="m-auto w-full max-w-100"
       {...form}
     >
       <Form.Input

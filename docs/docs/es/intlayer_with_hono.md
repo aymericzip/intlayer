@@ -49,7 +49,7 @@ Al internacionalizar el backend, su aplicación no solo respeta las diferencias 
 
 <iframe
   src="https://ide.intlayer.org/aymericzip/intlayer-hono-template?file=intlayer.config.ts"
-  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-175 md:aspect-16/9 md:w-full"
   title="Demo CodeSandbox - Cómo internacionalizar tu aplicación usando Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"

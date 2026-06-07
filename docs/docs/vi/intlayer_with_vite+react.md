@@ -99,7 +99,7 @@ Không chỉ là giải pháp i18n, Intlayer còn cung cấp **[trình chỉnh s
 
 <iframe
   src="https://ide.intlayer.org/aymericzip/intlayer-vite-react-template?file=intlayer.config.ts"
-  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-175 md:aspect-16/9 md:w-full"
   title="Demo CodeSandbox - Cách quốc tế hóa ứng dụng của bạn bằng Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
@@ -110,7 +110,7 @@ Không chỉ là giải pháp i18n, Intlayer còn cung cấp **[trình chỉnh s
 
 <iframe
   src="https://intlayer-vite-react-template.vercel.app"
-  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-175 md:aspect-16/9 md:w-full"
   title="Bản demo - intlayer-vite-react-template"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"

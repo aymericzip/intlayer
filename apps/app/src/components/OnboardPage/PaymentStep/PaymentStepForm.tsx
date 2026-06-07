@@ -74,7 +74,7 @@ const PaymentDetails: FC<PaymentDetailsProps> = ({
 
           {hasDiscount && (
             <span className="absolute top-1/5 left-full m-auto scale-80 text-center font-bold text-2xl text-neutral">
-              <span className="absolute top-1/2 left-0 h-[2px] w-full bg-neutral" />
+              <span className="absolute top-1/2 left-0 h-0.5 w-full bg-neutral" />
 
               <span itemProp="price" className="hidden">
                 {subtotal.toFixed(2)}

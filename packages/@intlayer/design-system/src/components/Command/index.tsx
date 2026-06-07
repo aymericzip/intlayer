@@ -54,7 +54,7 @@ const CommandList: FC<ComponentProps<typeof CommandPrimitive.List>> = ({
   ...props
 }) => (
   <CommandPrimitive.List
-    className={cn('max-h-[300px] overflow-y-auto overflow-x-hidden', className)}
+    className={cn('max-h-75 overflow-y-auto overflow-x-hidden', className)}
     {...props}
   />
 );

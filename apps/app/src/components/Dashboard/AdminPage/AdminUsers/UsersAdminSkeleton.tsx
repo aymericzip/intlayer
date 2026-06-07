@@ -17,7 +17,7 @@ export const UsersAdminSkeleton: FC<UsersAdminSkeletonProps> = ({
           <div className="space-y-4">
             <div className="flex flex-col gap-4 sm:flex-row">
               <Skeleton className="h-10 w-full max-w-md rounded-xl" />
-              <Skeleton className="h-10 w-[200px] rounded-xl" />
+              <Skeleton className="h-10 w-50 rounded-xl" />
             </div>
           </div>
         </>

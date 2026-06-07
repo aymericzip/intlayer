@@ -68,7 +68,7 @@ export const AnalyzerSiteResults: FC<AnalyzerSiteResultsProps> = ({
 
       <div className="flex items-center gap-8">
         <Skeleton
-          className="h-[180px] w-[300px] max-w-[30vw] rounded-xl border-4"
+          className="h-45 w-75 max-w-[30vw] rounded-xl border-4"
           isLoading={isLoading && !domainData?.image}
           renderChildren={false}
         >

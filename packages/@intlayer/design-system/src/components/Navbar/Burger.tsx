@@ -14,7 +14,7 @@ interface BurgerProps extends HTMLAttributes<HTMLDivElement> {
  * Creates the classic hamburger menu appearance with smooth transitions
  */
 const lineStyle =
-  'bg-text  absolute top-1/2 block h-[2px] w-8 transition duration-300';
+  'bg-text  absolute top-1/2 block h-0.5 w-8 transition duration-300';
 
 /**
  * Burger Menu Component

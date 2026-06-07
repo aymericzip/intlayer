@@ -353,7 +353,7 @@ export const CustomStyling: Story = {
 
 export const MinimalHeight: Story = {
   args: {
-    className: 'min-h-[400px] max-w-md mx-auto bg-gray-50',
+    className: 'min-h-100 max-w-md mx-auto bg-gray-50',
     children: (
       <div className="h-full p-6">
         <h3 className="mb-4 font-semibold text-lg">Compact Form</h3>

@@ -76,7 +76,7 @@ Before we dive into the implementation, here are some practices you should follo
 
 <iframe
   src="https://ide.intlayer.org/aymericzip/next-i18next-template?file=src/app/i18n.ts"
-  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-175 md:aspect-16/9 md:w-full"
   title="Demo CodeSandbox - How to Internationalise your application using Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
@@ -612,7 +612,7 @@ const ClientComponent = () => {
       </p>
       <button
         type="button"
-        className="flex h-12 w-full items-centre justify-centre gap-2 rounded-full bg-foreground px-5 text-background transition-colours hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
+        className="flex h-12 w-full items-centre justify-centre gap-2 rounded-full bg-foreground px-5 text-background transition-colours hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-39.5"
         aria-label={t("counter.label")}
         onClick={() => setCount((c) => c + 1)}
       >
