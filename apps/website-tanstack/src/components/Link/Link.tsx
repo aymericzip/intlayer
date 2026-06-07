@@ -14,7 +14,8 @@ import { ExternalLink } from 'lucide-react';
 import type { FC } from 'react';
 import { useLocale } from 'react-intlayer';
 
-export type LinkProps = TanStackLinkProps & Omit<LinkUIProps, 'href'>;
+export type LinkProps = Omit<TanStackLinkProps, 'to'> &
+  Omit<LinkUIProps, 'href'> & { to: TanStackLinkProps['to'] | (string & {}) };
 
 const URL = import.meta.env.VITE_URL;
 
