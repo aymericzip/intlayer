@@ -242,10 +242,14 @@ export default preview;
 
 > يجب أن تتطابق قيم `locale` مع اللغات المعلنة في ملف `intlayer.config.ts` الخاص بك.
 
+</Step>
+
+</Steps>
+
 </Tab>
 <Tab value="Webpack Setup">
 
-</Step>
+<Steps>
 
 <Step number={1} title="تثبيت التبعيات">
 
@@ -367,14 +371,14 @@ const preview: Preview = {
 export default preview;
 ```
 
+</Step>
+
+</Steps>
+
 </Tab>
 </Tabs>
 
 ---
-
-</Step>
-
-</Steps>
 
 ## إعلان المحتوى
 

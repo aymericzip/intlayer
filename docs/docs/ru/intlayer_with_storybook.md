@@ -259,10 +259,14 @@ export default preview;
 
 > Значения `locale` должны соответствовать языкам, объявленным в вашем `intlayer.config.ts`.
 
+</Step>
+
+</Steps>
+
 </Tab>
 <Tab value="Webpack Setup">
 
-</Step>
+<Steps>
 
 <Step number={1} title="Установка зависимостей">
 
@@ -384,14 +388,14 @@ const preview: Preview = {
 export default preview;
 ```
 
+</Step>
+
+</Steps>
+
 </Tab>
 </Tabs>
 
 ---
-
-</Step>
-
-</Steps>
 
 ## Объявление контента
 

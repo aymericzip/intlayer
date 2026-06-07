@@ -259,10 +259,14 @@ export default preview;
 
 > Nilai `locale` harus sesuai dengan lokal yang dideklarasikan dalam `intlayer.config.ts` Anda.
 
+</Step>
+
+</Steps>
+
 </Tab>
 <Tab value="Webpack Setup">
 
-</Step>
+<Steps>
 
 <Step number={1} title="Instal Dependensi">
 
@@ -384,14 +388,14 @@ const preview: Preview = {
 export default preview;
 ```
 
+</Step>
+
+</Steps>
+
 </Tab>
 </Tabs>
 
 ---
-
-</Step>
-
-</Steps>
 
 ## Mendeklarasikan Konten
 

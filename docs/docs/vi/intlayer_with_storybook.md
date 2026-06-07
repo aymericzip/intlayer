@@ -259,10 +259,14 @@ export default preview;
 
 > Các giá trị `locale` phải khớp với các ngôn ngữ được khai báo trong `intlayer.config.ts` của bạn.
 
+</Step>
+
+</Steps>
+
 </Tab>
 <Tab value="Webpack Setup">
 
-</Step>
+<Steps>
 
 <Step number={1} title="Cài đặt các phụ thuộc">
 
@@ -384,14 +388,14 @@ const preview: Preview = {
 export default preview;
 ```
 
+</Step>
+
+</Steps>
+
 </Tab>
 </Tabs>
 
 ---
-
-</Step>
-
-</Steps>
 
 ## Khai báo nội dung
 

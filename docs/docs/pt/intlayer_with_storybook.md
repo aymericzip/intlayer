@@ -259,10 +259,14 @@ export default preview;
 
 > Os valores de `locale` devem coincidir com os locais declarados no seu `intlayer.config.ts`.
 
+</Step>
+
+</Steps>
+
 </Tab>
 <Tab value="Webpack Setup">
 
-</Step>
+<Steps>
 
 <Step number={1} title="Instalar Dependências">
 
@@ -384,14 +388,14 @@ const preview: Preview = {
 export default preview;
 ```
 
+</Step>
+
+</Steps>
+
 </Tab>
 </Tabs>
 
 ---
-
-</Step>
-
-</Steps>
 
 ## Declarar Conteúdo
 

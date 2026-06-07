@@ -221,10 +221,14 @@ export default preview;
 
 > Hodnoty `locale` musí odpovídat jazykům deklarovaným ve vašem `intlayer.config.ts`.
 
+</Step>
+
+</Steps>
+
 </Tab>
 <Tab value="Webpack Setup">
 
-</Step>
+<Steps>
 
 <Step number={1} title="Instalace závislostí">
 
@@ -346,14 +350,14 @@ const preview: Preview = {
 export default preview;
 ```
 
+</Step>
+
+</Steps>
+
 </Tab>
 </Tabs>
 
 ---
-
-</Step>
-
-</Steps>
 
 ## Deklarování obsahu
 

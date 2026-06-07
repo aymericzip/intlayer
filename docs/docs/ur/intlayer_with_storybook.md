@@ -221,10 +221,14 @@ export default preview;
 
 > `locale` کی قدریں آپ کے `intlayer.config.ts` میں اعلان کردہ زبانوں سے مماثل ہونی چاہئیں۔
 
+</Step>
+
+</Steps>
+
 </Tab>
 <Tab value="Webpack Setup">
 
-</Step>
+<Steps>
 
 <Step number={1} title="انحصارات انسٹال کریں">
 
@@ -346,14 +350,14 @@ const preview: Preview = {
 export default preview;
 ```
 
+</Step>
+
+</Steps>
+
 </Tab>
 </Tabs>
 
 ---
-
-</Step>
-
-</Steps>
 
 ## مواد کا اعلان کرنا (Declaring Content)
 
