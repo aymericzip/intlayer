@@ -1,4 +1,7 @@
 {
+  "rules": {
+    "unused-dependencies": "off"
+  },
   "ignoreExports": [
     {
       "file": "apps/showcase/src/components/SubmitProjectForm/useProjectSubmit.ts",
