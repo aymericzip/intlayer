@@ -982,6 +982,7 @@
         "intlayer": "workspace:*",
         "react": "19.2.7",
         "react-dom": "19.2.7",
+        "react-intlayer": "workspace:*",
         "react-router": "7.16.0",
         "react-router-dom": "7.16.0",
       },
@@ -1300,6 +1301,7 @@
         "@babel/parser": "7.29.7",
         "@babel/traverse": "7.29.7",
         "@babel/types": "7.29.7",
+        "@intlayer/chokidar": "workspace:*",
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
         "@intlayer/dictionaries-entry": "workspace:*",
@@ -2100,6 +2102,7 @@
       "dependencies": {
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
+        "@intlayer/editor": "workspace:*",
         "@intlayer/types": "workspace:*",
         "dompurify": "^3.4.8",
         "marked": "^18.0.5",

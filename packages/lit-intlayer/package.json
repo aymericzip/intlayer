@@ -105,6 +105,7 @@
   "dependencies": {
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
+    "@intlayer/editor": "workspace:*",
     "@intlayer/types": "workspace:*",
     "dompurify": "^3.4.8",
     "marked": "^18.0.5"
