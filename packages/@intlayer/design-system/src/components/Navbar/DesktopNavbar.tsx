@@ -94,7 +94,7 @@ export const DesktopNavbar = <T extends TabSelectorItemProps>({
   rightItems,
   selectedChoice,
 }: DesktopNavbarProps<T>) => (
-  <nav className="sticky top-0 z-50 flex w-full items-center bg-card/80 px-4 py-3 shadow-[0_0_10px_-15px_rgba(0,0,0,0.3)] backdrop-blur">
+  <nav className="sticky top-0 z-50 flex w-full items-center bg-card/95 px-4 py-3 shadow-[0_0_10px_-15px_rgba(0,0,0,0.3)] backdrop-blur">
     {logo}
 
     <TabSelector
