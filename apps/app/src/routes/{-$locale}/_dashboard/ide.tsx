@@ -15,7 +15,7 @@ import {
 import { useEffect, useRef } from 'react';
 import { useIntlayer, useLocale } from 'react-intlayer';
 import { useTheme } from '#/providers/ThemeProvider';
-import { BreadcrumbsHeader } from '#/structuredData/BreadcrumbsHeader';
+import { Website_Domain } from '@intlayer/design-system/routes';
 import { AuthenticationBarrier } from '#components/Auth/AuthenticationBarrier/AuthenticationBarrier';
 import { DashboardContentLayout } from '#components/Dashboard/DashboardContentLayout';
 
@@ -55,6 +55,29 @@ export const Route = createFileRoute('/{-$locale}/_dashboard/ide')({
         {
           name: 'keywords',
           content: content.metadata.keywords.join(', '),
+        },
+      ],
+      scripts: [
+        {
+          type: 'application/ld+json',
+          children: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+              {
+                '@type': 'ListItem',
+                position: 1,
+                name: 'Dashboard',
+                item: `https://${Website_Domain}${getLocalizedUrl(App_Dashboard, locale)}`,
+              },
+              {
+                '@type': 'ListItem',
+                position: 2,
+                name: 'IDE',
+                item: `https://${Website_Domain}${getLocalizedUrl(App_Dashboard_IDE_Path, locale)}`,
+              },
+            ],
+          }),
         },
       ],
     };
@@ -102,21 +125,7 @@ function IDEPage() {
 
   return (
     <AuthenticationBarrier accessRule="authenticated" locale={locale}>
-      <DashboardContentLayout title={title}>
-        <BreadcrumbsHeader
-          breadcrumbs={[
-            {
-              name: 'Dashboard',
-              url: getLocalizedUrl(App_Dashboard, locale),
-            },
-            {
-              name: 'IDE',
-              url: getLocalizedUrl(App_Dashboard_IDE_Path, locale),
-            },
-          ]}
-        />
-
-        <div className="flex w-full flex-1 flex-col items-center p-2">
+      <DashboardContentLayout title={title}>        <div className="flex w-full flex-1 flex-col items-center p-2">
           {!project ? (
             <div className="flex size-full items-center justify-center">
               <p className="text-lg text-neutral">{noProject}</p>

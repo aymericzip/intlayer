@@ -10,9 +10,8 @@ export const Route = createFileRoute('/robots.txt')({
     handlers: {
       GET: () => {
         const disallow = getAllUrls([Website_NotFound_Path]);
-        const siteUrl =
-          import.meta.env.VITE_URL ?? import.meta.env.VITE_SITE_URL ?? '';
-        const cmsUrl = import.meta.env.VITE_CMS_URL ?? '';
+        const siteUrl = import.meta.env.VITE_URL as string;
+        const cmsUrl = import.meta.env.VITE_CMS_URL as string;
 
         let text = 'User-agent: *\n';
         text += 'Allow: /\n';

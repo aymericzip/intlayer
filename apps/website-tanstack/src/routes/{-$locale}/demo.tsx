@@ -1,13 +1,11 @@
-import { Website_Demo } from '@intlayer/design-system/routes';
+import { Website_Demo, Website_Home, External_Github } from '@intlayer/design-system/routes';
 import { createFileRoute } from '@tanstack/react-router';
 import { defaultLocale, getIntlayer } from 'intlayer';
 import { BackgroundLayout } from '~/components/BackgroundLayout';
 import { DemoPage } from '~/components/DemoPage';
 import { PageLayout } from '~/layouts/PageLayout';
-import { OrganizationHeader } from '~/structuredData/OrganizationHeader';
-import { SoftwareApplicationHeader } from '~/structuredData/SoftwareApplication';
-import { WebsiteHeader } from '~/structuredData/WebsiteHeader';
 import { getAbsoluteUrl, getHreflangLinks } from '~/utils/seo';
+import { getSoftwareApplicationHeader } from '@intlayer/design-system/structured-data';
 
 export const Route = createFileRoute('/{-$locale}/demo')({
   head: ({ params }) => {
@@ -17,6 +15,8 @@ export const Route = createFileRoute('/{-$locale}/demo')({
       'demo-metadata',
       locale
     );
+
+
 
     return {
       meta: [
@@ -36,6 +36,12 @@ export const Route = createFileRoute('/{-$locale}/demo')({
         { rel: 'canonical', href: getAbsoluteUrl(path, locale) },
         ...getHreflangLinks(path),
       ],
+      scripts: [
+        {
+          type: 'application/ld+json',
+          children: JSON.stringify(getSoftwareApplicationHeader({ locale })),
+        },
+      ],
     };
   },
   component: DemoPageRoute,
@@ -44,9 +50,6 @@ export const Route = createFileRoute('/{-$locale}/demo')({
 function DemoPageRoute() {
   return (
     <PageLayout>
-      <WebsiteHeader />
-      <OrganizationHeader />
-      <SoftwareApplicationHeader />
       <BackgroundLayout>
         <DemoPage />
       </BackgroundLayout>

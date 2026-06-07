@@ -1,8 +1,8 @@
 import { BackgroundLayout } from '@components/BackgroundLayout';
 import { LocalizationAnalyzer } from '@components/ScannerPage';
-import { OrganizationHeader } from '@structuredData/OrganizationHeader';
-import { ScannerSoftwareApplicationHeader } from '@structuredData/ScannerSoftwareApplicationHeader';
-import { WebsiteHeader } from '@structuredData/WebsiteHeader';
+import { getOrganizationHeader } from '@intlayer/design-system/structured-data';
+import { getScannerSoftwareApplicationHeader } from '@intlayer/design-system/structured-data';
+import { getWebsiteHeader } from '@intlayer/design-system/structured-data';
 import type { NextPageIntlayer } from 'next-intlayer';
 import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
 import { type FC, Suspense } from 'react';
@@ -33,9 +33,27 @@ const AuditPage: NextPageIntlayer = async ({ params }) => {
 
   return (
     <IntlayerServerProvider locale={locale}>
-      <WebsiteHeader key={locale} />
-      <OrganizationHeader />
-      <ScannerSoftwareApplicationHeader />
+      <script
+        type="application/ld+json"
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: This is safe because the data is generated securely and stringified
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(getWebsiteHeader({ locale })),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: This is safe because the data is generated securely and stringified
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(getOrganizationHeader({ locale })),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: This is safe because the data is generated securely and stringified
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(getScannerSoftwareApplicationHeader({ locale })),
+        }}
+      />
       <AuditContent />
     </IntlayerServerProvider>
   );

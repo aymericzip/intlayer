@@ -10,7 +10,7 @@ import {
   localeMap,
 } from 'intlayer';
 import { useIntlayer } from 'react-intlayer';
-import { BreadcrumbsHeader } from '#/structuredData/BreadcrumbsHeader';
+import { Website_Domain } from '@intlayer/design-system/routes';
 import { DashboardContentLayout } from '#components/Dashboard/DashboardContentLayout';
 import { OrganizationForm } from '#components/Dashboard/OrganizationForm';
 
@@ -52,28 +52,39 @@ export const Route = createFileRoute('/{-$locale}/_dashboard/organization')({
           content: content.metadata.keywords.join(', '),
         },
       ],
+      scripts: [
+        {
+          type: 'application/ld+json',
+          children: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+              {
+                '@type': 'ListItem',
+                position: 1,
+                name: 'Dashboard',
+                item: `https://${Website_Domain}${getLocalizedUrl(App_Dashboard, locale)}`,
+              },
+              {
+                '@type': 'ListItem',
+                position: 2,
+                name: 'Organization',
+                item: `https://${Website_Domain}${getLocalizedUrl(App_Dashboard_Organization, locale)}`,
+              },
+            ],
+          }),
+        },
+      ],
     };
   },
 });
 
 function OrganizationPage() {
   const { title } = useIntlayer('organization-dashboard-page');
-  const { locale } = Route.useParams();
+
 
   return (
     <DashboardContentLayout title={title}>
-      <BreadcrumbsHeader
-        breadcrumbs={[
-          {
-            name: 'Dashboard',
-            url: getLocalizedUrl(App_Dashboard, locale),
-          },
-          {
-            name: 'Organization',
-            url: getLocalizedUrl(App_Dashboard_Organization, locale),
-          },
-        ]}
-      />
       <div className="flex w-full flex-1 flex-col items-center justify-center p-10">
         <OrganizationForm />
       </div>

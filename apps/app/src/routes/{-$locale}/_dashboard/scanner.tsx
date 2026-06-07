@@ -12,7 +12,7 @@ import {
 } from 'intlayer';
 import { Suspense } from 'react';
 import { useIntlayer, useLocale } from 'react-intlayer';
-import { BreadcrumbsHeader } from '#/structuredData/BreadcrumbsHeader';
+import { Website_Domain } from '@intlayer/design-system/routes';
 import { AuthenticationBarrier } from '#components/Auth/AuthenticationBarrier/AuthenticationBarrier';
 import { DashboardContentLayout } from '#components/Dashboard/DashboardContentLayout';
 import { DashboardLocalizationScanner } from '#components/ScannerPage';
@@ -49,6 +49,29 @@ export const Route = createFileRoute('/{-$locale}/_dashboard/scanner')({
           content: content.metadata.keywords.join(', '),
         },
       ],
+      scripts: [
+        {
+          type: 'application/ld+json',
+          children: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+              {
+                '@type': 'ListItem',
+                position: 1,
+                name: 'Dashboard',
+                item: `https://${Website_Domain}${getLocalizedUrl(App_Dashboard, locale)}`,
+              },
+              {
+                '@type': 'ListItem',
+                position: 2,
+                name: 'Scanner',
+                item: `https://${Website_Domain}${getLocalizedUrl(App_Dashboard_Scanner_Path, locale)}`,
+              },
+            ],
+          }),
+        },
+      ],
     };
   },
 });
@@ -60,18 +83,6 @@ function ScannerPage() {
   return (
     <AuthenticationBarrier accessRule="authenticated" locale={locale}>
       <DashboardContentLayout title={title}>
-        <BreadcrumbsHeader
-          breadcrumbs={[
-            {
-              name: 'Dashboard',
-              url: getLocalizedUrl(App_Dashboard, locale),
-            },
-            {
-              name: 'Scanner',
-              url: getLocalizedUrl(App_Dashboard_Scanner_Path, locale),
-            },
-          ]}
-        />
         <Suspense>
           <DashboardLocalizationScanner />
         </Suspense>

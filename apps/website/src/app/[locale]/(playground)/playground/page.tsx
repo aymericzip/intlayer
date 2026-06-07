@@ -9,9 +9,9 @@ import {
 } from '@intlayer/config/built';
 import { Loader } from '@intlayer/design-system/loader';
 import { Website_Demo_Path } from '@intlayer/design-system/routes';
-import { OrganizationHeader } from '@structuredData/OrganizationHeader';
-import { SoftwareApplicationHeader } from '@structuredData/SoftwareApplication';
-import { WebsiteHeader } from '@structuredData/WebsiteHeader';
+import { getOrganizationHeader } from '@intlayer/design-system/structured-data';
+import { getSoftwareApplicationHeader } from '@intlayer/design-system/structured-data';
+import { getWebsiteHeader } from '@intlayer/design-system/structured-data';
 import dynamic from 'next/dynamic';
 import type { NextPageIntlayer } from 'next-intlayer';
 import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
@@ -64,9 +64,21 @@ const Playground: NextPageIntlayer = async ({ params }) => {
 
   return (
     <IntlayerServerProvider locale={locale}>
-      <WebsiteHeader key={locale} />
-      <OrganizationHeader />
-      <SoftwareApplicationHeader />
+      <script
+        type="application/ld+json"
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: This is safe because the data is generated securely and stringified
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(getWebsiteHeader({ locale })) }}
+      />
+      <script
+        type="application/ld+json"
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: This is safe because the data is generated securely and stringified
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(getOrganizationHeader({ locale })) }}
+      />
+      <script
+        type="application/ld+json"
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: This is safe because the data is generated securely and stringified
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(getSoftwareApplicationHeader({ locale })) }}
+      />
       <PlaygroundContent />
     </IntlayerServerProvider>
   );

@@ -8,7 +8,7 @@ import { useIntlayer } from 'react-intlayer';
 import { DocPageLayout } from '~/components/DocPage/DocPageLayout';
 import { SearchView } from '~/components/DocPage/Search/SearchView';
 import { loadNavData } from '~/serverFunctions/docs';
-import { WebsiteHeader } from '~/structuredData/WebsiteHeader';
+import { getWebsiteHeader } from '@intlayer/design-system/structured-data';
 
 export const Route = createFileRoute('/{-$locale}/_docs/doc/search')({
   loader: async ({ params }) => {
@@ -16,8 +16,14 @@ export const Route = createFileRoute('/{-$locale}/_docs/doc/search')({
     const navData = await loadNavData({ data: { locale } });
     return { locale, navData };
   },
-  head: () => ({
+  head: ({ loaderData }) => ({
     meta: [{ title: 'Search Documentation | Intlayer' }],
+    scripts: [
+      {
+        type: 'application/ld+json',
+        children: JSON.stringify(getWebsiteHeader({ locale: loaderData.locale })),
+      },
+    ],
   }),
   component: DocumentationSearchPage,
 });
@@ -32,7 +38,7 @@ function DocumentationSearchPage() {
       locale={locale}
       displayAsideNavigation={false}
     >
-      <WebsiteHeader />
+
       <H1>{title}</H1>
       <div className="flex flex-1 flex-col items-baseline gap-10 p-10 md:mt-[10vh]">
         <Container className="mx-auto w-full max-w-4xl p-10" roundedSize="2xl">

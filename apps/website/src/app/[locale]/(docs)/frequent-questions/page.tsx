@@ -1,6 +1,6 @@
 import { Container } from '@intlayer/design-system/container';
 import { getFrequentQuestionMetadataRecord } from '@intlayer/docs';
-import { FAQPageHeader } from '@structuredData/FAQPageHeader';
+import { getFAQPageHeader } from '@intlayer/design-system/structured-data';
 import { ArrowRight } from 'lucide-react';
 import type { LocalPromiseParams } from 'next-intlayer';
 import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
@@ -21,14 +21,15 @@ const FrequentQuestionsPage = async ({ params }: LocalPromiseParams) => {
 
   const frequentQuestionsList = Object.values(frequentQuestions);
 
-  const faqs = frequentQuestionsList.map((q) => ({
-    question: q.title,
-    answer: q.description,
-  }));
-
   return (
     <IntlayerServerProvider locale={locale}>
-      <FAQPageHeader faqs={faqs} />
+      <script
+        type="application/ld+json"
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: This is safe because the data is generated securely and stringified
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(getFAQPageHeader({ locale })),
+        }}
+      />
       <div className="m-auto flex max-w-2xl flex-col gap-10 p-10 text-center">
         <Suspense>
           <FrequentQuestionsPageTitle />

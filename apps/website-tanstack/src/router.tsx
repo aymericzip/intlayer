@@ -1,4 +1,3 @@
-import { Loader } from '@intlayer/design-system/loader';
 import { getQueryClient } from '@intlayer/design-system/providers';
 import { createRouter as createTanStackRouter } from '@tanstack/react-router';
 import { NotFoundComponent } from '~/components/NotFoundComponent';
@@ -16,7 +15,6 @@ export function getRouter() {
     defaultPreload: 'intent',
     defaultPreloadStaleTime: 0,
     defaultNotFoundComponent: NotFoundComponent,
-    defaultPendingComponent: Loader,
   });
 
   return router;

@@ -11,10 +11,9 @@ import { useIntlayer } from 'react-intlayer';
 import { BackgroundLayout } from '~/components/BackgroundLayout';
 import { DashboardContentLayout } from '~/components/Dashboard/DashboardContentLayout';
 import { DictionaryLoaderPlayground } from '~/components/Dashboard/Editor/DictionaryLoaderPlayground';
-import { OrganizationHeader } from '~/structuredData/OrganizationHeader';
-import { SoftwareApplicationHeader } from '~/structuredData/SoftwareApplication';
-import { WebsiteHeader } from '~/structuredData/WebsiteHeader';
 import { getAbsoluteUrl, getHreflangLinks } from '~/utils/seo';
+import { External_Github, Website_Home } from '@intlayer/design-system/routes';
+import packageJson from '../../../../package_mock.json' with { type: 'json' };
 
 const Editor = lazy(() =>
   import('~/components/Dashboard/Editor').then((mod) => ({
@@ -30,6 +29,47 @@ export const Route = createFileRoute('/{-$locale}/_playground/playground')({
       'playground-metadata',
       locale
     );
+
+    const softwareData = getIntlayer('software-application-structured-data', locale);
+
+    const softwareApplication = {
+      '@context': 'https://schema.org',
+      '@type': 'SoftwareApplication',
+      name: 'Intlayer',
+      url: Website_Home,
+      description: softwareData.description,
+      softwareVersion: packageJson.version,
+      license: 'https://raw.githubusercontent.com/aymericzip/intlayer/refs/heads/main/LICENSE',
+      author: {
+        '@type': 'Organization',
+        name: 'Intlayer',
+        url: Website_Home,
+        logo: `${Website_Home}/assets/logo.png`,
+        sameAs: [External_Github],
+      },
+      publisher: {
+        '@type': 'Organization',
+        name: 'Intlayer',
+        url: Website_Home,
+        logo: `${Website_Home}/assets/logo.png`,
+      },
+      keywords: softwareData.keywords,
+      creator: {
+        '@type': 'Person',
+        name: 'Aymeric PINEAU',
+        url: 'https://github.com/aymericzip',
+      },
+      applicationCategory: 'DeveloperApplication',
+      applicationSubCategory: 'Developer Tools',
+      image: `${Website_Home}/cover.png`,
+      operatingSystem: 'Web, iOS, Android',
+      datePublished: '2024-08-26',
+      audience: {
+        '@type': 'Audience',
+        audienceType: softwareData.audienceType,
+      },
+      mainEntityOfPage: Website_Home,
+    };
 
     return {
       meta: [
@@ -48,6 +88,12 @@ export const Route = createFileRoute('/{-$locale}/_playground/playground')({
       links: [
         { rel: 'canonical', href: getAbsoluteUrl(path, locale) },
         ...getHreflangLinks(path),
+      ],
+      scripts: [
+        {
+          type: 'application/ld+json',
+          children: JSON.stringify(softwareApplication),
+        },
       ],
     };
   },
@@ -73,9 +119,6 @@ function PlaygroundPage() {
 
   return (
     <>
-      <WebsiteHeader />
-      <OrganizationHeader />
-      <SoftwareApplicationHeader />
       <DashboardContentLayout title={title}>
         <BackgroundLayout />
         <p className="m-auto my-3 max-w-3xl px-10 text-neutral text-sm">

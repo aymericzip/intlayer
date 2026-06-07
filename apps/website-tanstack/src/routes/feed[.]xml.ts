@@ -22,12 +22,14 @@ export const Route = createFileRoute('/feed.xml')({
         });
 
         const siteUrl =
-          import.meta.env.VITE_URL ?? import.meta.env.VITE_SITE_URL ?? '';
+          (import.meta.env.VITE_URL as string) ||
+          (import.meta.env.VITE_SITE_URL as string) ||
+          'https://intlayer.org';
 
         const feed = new RSS({
           title: 'Intlayer',
           description:
-            'Intlayer is a suite of tools designed to help you manage your internationalization.',
+            'Intlayer is a suite of tools designed to help you manage your internationalization. It is a layer of abstraction between the business logic and the data access layer.',
           site_url: siteUrl,
           feed_url: new URL('/feed.xml', siteUrl).toString(),
           copyright: `${new Date().getFullYear()} Intlayer`,

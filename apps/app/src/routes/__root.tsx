@@ -14,8 +14,6 @@ import { AnimatePresenceProvider } from '#/providers/AnimatePresenceProvider';
 import { IntlayerMarkdownProvider } from '#/providers/IntlayerMarkdownProvider';
 import { PostHogProvider } from '#/providers/PostHogProvider';
 import { ThemeProvider } from '#/providers/ThemeProvider';
-import { SoftwareApplicationHeader } from '#/structuredData/SoftwareApplication';
-import { WebsiteHeader } from '#/structuredData/WebsiteHeader';
 import appCss from '#/styles.css?url';
 import { ErrorComponent } from '#components/ErrorComponent';
 import { ServiceWorkerSubscriber } from '#components/ServiceWorker/ServiceWorkerSubscriber';
@@ -100,8 +98,6 @@ function RootDocument({ children }: { children: React.ReactNode }) {
                 <IntlayerMarkdownProvider>
                   <ReactQueryProvider client={queryClient}>
                     <Toaster />
-                    <WebsiteHeader />
-                    <SoftwareApplicationHeader />
                     <ServiceWorkerSubscriber />
                     <Suspense fallback={<Loader />}>{children}</Suspense>
                   </ReactQueryProvider>

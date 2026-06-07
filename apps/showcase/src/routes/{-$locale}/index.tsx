@@ -71,8 +71,8 @@ export const Route = createFileRoute('/{-$locale}/')({
     selectedUseCases,
     isOpenSource,
   }),
-  loader: async ({ context, deps }) => {
-    await context.queryClient.ensureQueryData({
+  loader: ({ context, deps }) => {
+    context.queryClient.prefetchQuery({
       queryKey: [
         'projects',
         {

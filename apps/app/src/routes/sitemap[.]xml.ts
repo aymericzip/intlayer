@@ -27,9 +27,7 @@ import {
 import { createFileRoute } from '@tanstack/react-router';
 import { generateSitemap, type SitemapUrlEntry } from 'intlayer';
 
-const siteUrl = (
-  import.meta.env.VITE_SITE_URL ?? 'https://app.intlayer.org'
-).replace(/\/$/, '');
+const siteUrl = import.meta.env.VITE_SITE_URL!.replace(/\/$/, '');
 
 const sitemapConfig: SitemapUrlEntry[] = [
   { path: App_Home_Path, changefreq: 'monthly', priority: 1.0 },

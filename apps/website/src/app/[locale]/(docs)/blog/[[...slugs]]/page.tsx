@@ -1,5 +1,4 @@
 import { getPreviousNextBlogData } from '@components/BlogPage/blogData';
-import { DocHeader } from '@components/DocPage/DocHeader/DocHeader';
 import {
   DocPageNavigation,
   type DocPageNavigationProps,
@@ -8,7 +7,7 @@ import { DocumentationRender } from '@components/DocPage/DocumentationRender';
 import { getLocalizedUrl } from '@intlayer/core/localization';
 import { Website_Blog_Path } from '@intlayer/design-system/routes';
 import { type BlogKey, getBlog, getBlogMetadataBySlug } from '@intlayer/docs';
-import { CreativeWorkHeader } from '@structuredData/CreativeWorkHeader';
+import { getCreativeWorkHeader } from '@intlayer/design-system/structured-data';
 import { urlRenamer } from '@utils/markdown';
 import { redirect } from 'next/navigation';
 import type { LocalPromiseParams } from 'next-intlayer';
@@ -53,17 +52,20 @@ const BlogPage = async ({ params }: LocalPromiseParams<BlogProps>) => {
 
   return (
     <IntlayerServerProvider locale={locale}>
-      <CreativeWorkHeader
-        type="BlogPosting"
-        creativeWorkName={blogData.title}
-        creativeWorkDescription={blogData.description}
-        creativeWorkContent={blogContent}
-        keywords={blogData.keywords.join(', ')}
-        dateModified={new Date(blogData.updatedAt)}
-        datePublished={new Date(blogData.createdAt)}
-        url={blogData.url}
+      <script
+        type="application/ld+json"
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: This is safe because the data is generated securely and stringified
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(getCreativeWorkHeader({ locale })),
+        }}
       />
-      <DocHeader {...blogData} markdownContent={blogContent} />
+      <script
+        type="application/ld+json"
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: This is safe because the data is generated securely and stringified
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(getDocHeader({ locale })),
+        }}
+      />
 
       <DocumentationRender>{blogContent}</DocumentationRender>
 

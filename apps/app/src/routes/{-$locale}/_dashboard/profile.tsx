@@ -1,6 +1,7 @@
 import {
   App_Dashboard,
   App_Dashboard_Profile,
+  Website_Domain,
 } from '@intlayer/design-system/routes';
 import { createFileRoute } from '@tanstack/react-router';
 import {
@@ -10,7 +11,6 @@ import {
   localeMap,
 } from 'intlayer';
 import { useIntlayer } from 'react-intlayer';
-import { BreadcrumbsHeader } from '#/structuredData/BreadcrumbsHeader';
 import { DashboardContentLayout } from '#components/Dashboard/DashboardContentLayout';
 import { ProfileForm } from '#components/Dashboard/ProfileForm';
 
@@ -54,28 +54,39 @@ export const Route = createFileRoute('/{-$locale}/_dashboard/profile')({
           content: content.metadata.keywords.join(', '),
         },
       ],
+      scripts: [
+        {
+          type: 'application/ld+json',
+          children: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+              {
+                '@type': 'ListItem',
+                position: 1,
+                name: 'Dashboard',
+                item: `https://${Website_Domain}${getLocalizedUrl(App_Dashboard, locale)}`,
+              },
+              {
+                '@type': 'ListItem',
+                position: 2,
+                name: 'Profile',
+                item: `https://${Website_Domain}${getLocalizedUrl(App_Dashboard_Profile, locale)}`,
+              },
+            ],
+          }),
+        },
+      ],
     };
   },
 });
 
 function ProfilePage() {
   const { title } = useIntlayer('profile-dashboard-page');
-  const { locale } = Route.useParams();
+
 
   return (
     <DashboardContentLayout title={title}>
-      <BreadcrumbsHeader
-        breadcrumbs={[
-          {
-            name: 'Dashboard',
-            url: getLocalizedUrl(App_Dashboard, locale),
-          },
-          {
-            name: 'Profile',
-            url: getLocalizedUrl(App_Dashboard_Profile, locale),
-          },
-        ]}
-      />
       <div className="flex w-full flex-1 flex-col items-center p-10">
         <ProfileForm />
       </div>

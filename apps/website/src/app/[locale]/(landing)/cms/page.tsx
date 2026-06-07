@@ -1,8 +1,10 @@
 import { CMSLandingPage } from '@components/CMSLandingPage';
-import { OrganizationHeader } from '@structuredData/OrganizationHeader';
-import { ProductHeader } from '@structuredData/ProductHeader';
-import { SoftwareApplicationHeader } from '@structuredData/SoftwareApplication';
-import { WebsiteHeader } from '@structuredData/WebsiteHeader';
+import {
+  getOrganizationHeader,
+  getProductHeader,
+  getSoftwareApplicationHeader,
+  getWebsiteHeader,
+} from '@intlayer/design-system/structured-data';
 import { getPricing } from '@utils/stripe';
 import type { NextPageIntlayer } from 'next-intlayer';
 import { IntlayerServerProvider } from 'next-intlayer/server';
@@ -17,10 +19,34 @@ const Page: NextPageIntlayer = async ({ params }) => {
 
   return (
     <IntlayerServerProvider locale={locale}>
-      <WebsiteHeader key={locale} />
-      <OrganizationHeader />
-      <SoftwareApplicationHeader />
-      <ProductHeader pricings={pricings} />
+      <script
+        type="application/ld+json"
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: This is safe because the data is generated securely and stringified
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(getWebsiteHeader({ locale })),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: This is safe because the data is generated securely and stringified
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(getOrganizationHeader({ locale })),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: This is safe because the data is generated securely and stringified
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(getSoftwareApplicationHeader({ locale })),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: This is safe because the data is generated securely and stringified
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(getProductHeader({ locale, pricings })),
+        }}
+      />
       <CMSLandingPage />
     </IntlayerServerProvider>
   );

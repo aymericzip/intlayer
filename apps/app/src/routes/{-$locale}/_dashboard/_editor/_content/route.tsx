@@ -15,7 +15,7 @@ import { getLocalizedUrl, getPathWithoutLocale } from 'intlayer';
 import { Book, Globe, PenTool, Tag } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { BreadcrumbsHeader } from '#/structuredData/BreadcrumbsHeader';
+import { Website_Domain } from '@intlayer/design-system/routes';
 import { AuthenticationBarrier } from '#components/Auth/AuthenticationBarrier/AuthenticationBarrier';
 import { EditorConfigurationProvider } from '#components/Dashboard/ContentDashboard/ConfigurationProvider.tsx';
 import { DashboardContentLayout } from '#components/Dashboard/DashboardContentLayout';
@@ -44,6 +44,34 @@ export const Route = createFileRoute('/{-$locale}/_dashboard/_editor/_content')(
       });
     },
     component: EditorLayout,
+    head: ({ params }) => {
+      const { locale } = params;
+      return {
+        scripts: [
+          {
+            type: 'application/ld+json',
+            children: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'BreadcrumbList',
+              itemListElement: [
+                {
+                  '@type': 'ListItem',
+                  position: 1,
+                  name: 'Dashboard',
+                  item: `https://${Website_Domain}${getLocalizedUrl(App_Dashboard, locale)}`,
+                },
+                {
+                  '@type': 'ListItem',
+                  position: 2,
+                  name: 'Editor',
+                  item: `https://${Website_Domain}${getLocalizedUrl(App_Dashboard_Editor, locale)}`,
+                },
+              ],
+            }),
+          },
+        ],
+      };
+    },
   }
 );
 
@@ -151,18 +179,7 @@ function EditorLayout() {
                 isEditorActive ? 'flex' : 'hidden'
               )}
             >
-              <BreadcrumbsHeader
-                breadcrumbs={[
-                  {
-                    name: 'Dashboard',
-                    url: getLocalizedUrl(App_Dashboard, locale),
-                  },
-                  {
-                    name: 'Editor',
-                    url: getLocalizedUrl(App_Dashboard_Editor, locale),
-                  },
-                ]}
-              />
+              <div className="sr-only">Editor Context</div>
               <Editor
                 DictionariesLoader={DictionaryLoaderDashboard}
                 suppressEditionDrawer={!isEditorActive}

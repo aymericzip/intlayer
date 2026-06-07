@@ -1,11 +1,27 @@
 import { App_Home_Path } from '@intlayer/design-system/routes';
+import { CompositeComponent } from '@tanstack/react-start/rsc';
 import { createFileRoute, redirect } from '@tanstack/react-router';
 import { defaultLocale } from 'intlayer';
-import { DocumentationRender } from '~/components/DocPage/DocumentationRender';
+import { Suspense, lazy, type FC } from 'react';
 import { loadFaqPage } from '~/serverFunctions/faq';
 import { getAbsoluteUrl, getHreflangLinks } from '~/utils/seo';
 
+const I18nBenchmarkLazy = lazy(() =>
+  import('~/components/I18nBenchmark').then((mod) => ({
+    default: mod.I18nBenchmark,
+  }))
+);
+
+type FrameworkKey = Parameters<typeof I18nBenchmarkLazy>[0]['initialFramework'];
+
+const I18nBenchmarkSlot: FC<{ framework?: FrameworkKey }> = ({ framework }) => (
+  <Suspense>
+    <I18nBenchmarkLazy initialFramework={framework} />
+  </Suspense>
+);
+
 export const Route = createFileRoute('/{-$locale}/_docs/frequent-questions/$')({
+  ssr: false,
   loader: async ({ params }) => {
     const locale = (params.locale as string) ?? defaultLocale;
     const slugsStr = (params as any)['*'] || '';
@@ -24,8 +40,8 @@ export const Route = createFileRoute('/{-$locale}/_docs/frequent-questions/$')({
     }
 
     return {
-      blogContent: content!.blogContent,
-      blogParsed: content!.blogParsed,
+      faqContent: content!.faqContent,
+      faqContentSrc: content!.faqContentSrc,
       frequentQuestionData: exactMatch,
       locale,
     };
@@ -59,11 +75,12 @@ export const Route = createFileRoute('/{-$locale}/_docs/frequent-questions/$')({
 });
 
 function FrequentQuestionPage() {
-  const { blogParsed } = Route.useLoaderData();
+  const { faqContentSrc } = Route.useLoaderData();
 
   return (
-    <div className="mx-auto max-w-2xl">
-      <DocumentationRender>{blogParsed}</DocumentationRender>
-    </div>
+    <CompositeComponent
+      src={faqContentSrc}
+      I18nBenchmarkComponent={I18nBenchmarkSlot}
+    />
   );
 }

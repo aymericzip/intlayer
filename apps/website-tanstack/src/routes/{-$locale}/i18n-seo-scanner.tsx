@@ -1,4 +1,8 @@
-import { Website_Scanner } from '@intlayer/design-system/routes';
+import {
+  External_Github,
+  Website_Home,
+  Website_Scanner,
+} from '@intlayer/design-system/routes';
 import { createFileRoute } from '@tanstack/react-router';
 import { defaultLocale, getIntlayer } from 'intlayer';
 import { Suspense } from 'react';
@@ -6,10 +10,8 @@ import { useIntlayer } from 'react-intlayer';
 import { BackgroundLayout } from '~/components/BackgroundLayout';
 import { LocalizationAnalyzer } from '~/components/ScannerPage';
 import { PageLayout } from '~/layouts/PageLayout';
-import { OrganizationHeader } from '~/structuredData/OrganizationHeader';
-import { ScannerSoftwareApplicationHeader } from '~/structuredData/ScannerSoftwareApplicationHeader';
-import { WebsiteHeader } from '~/structuredData/WebsiteHeader';
 import { getAbsoluteUrl, getHreflangLinks } from '~/utils/seo';
+import { getScannerSoftwareApplicationHeader } from '@intlayer/design-system/structured-data';
 
 export const Route = createFileRoute('/{-$locale}/i18n-seo-scanner')({
   head: ({ params }) => {
@@ -19,6 +21,8 @@ export const Route = createFileRoute('/{-$locale}/i18n-seo-scanner')({
       'i18n-SEO-scanner',
       locale
     );
+
+
 
     return {
       title,
@@ -37,6 +41,12 @@ export const Route = createFileRoute('/{-$locale}/i18n-seo-scanner')({
       links: [
         { rel: 'canonical', href: getAbsoluteUrl(path, locale) },
         ...getHreflangLinks(path),
+      ],
+      scripts: [
+        {
+          type: 'application/ld+json',
+          children: JSON.stringify(getScannerSoftwareApplicationHeader({ locale })),
+        },
       ],
     };
   },
@@ -65,9 +75,6 @@ function AuditContent() {
 function AuditPageRoute() {
   return (
     <PageLayout>
-      <WebsiteHeader />
-      <OrganizationHeader />
-      <ScannerSoftwareApplicationHeader />
       <AuditContent />
     </PageLayout>
   );

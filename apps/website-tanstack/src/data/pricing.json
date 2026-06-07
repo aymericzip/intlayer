@@ -1,0 +1,47 @@
+{
+  "price_1QQFCzFwFnLQbYRK04i7X67X": {
+    "originalTotal": 17888,
+    "discountApplied": 0,
+    "discountType": null,
+    "finalTotal": 17888,
+    "currency": "usd",
+    "planType": "premium",
+    "period": "yearly"
+  },
+  "price_1QQFETFwFnLQbYRKXjadK4i6": {
+    "originalTotal": 1899,
+    "discountApplied": 0,
+    "discountType": null,
+    "finalTotal": 1899,
+    "currency": "usd",
+    "planType": "premium",
+    "period": "monthly"
+  },
+  "price_1QQFC6FwFnLQbYRKbHKIPFIF": {
+    "originalTotal": 35988,
+    "discountApplied": 0,
+    "discountType": null,
+    "finalTotal": 35988,
+    "currency": "usd",
+    "planType": "enterprise",
+    "period": "yearly"
+  },
+  "price_1QQFEoFwFnLQbYRKRUzMe8H0": {
+    "originalTotal": 3499,
+    "discountApplied": 0,
+    "discountType": null,
+    "finalTotal": 3499,
+    "currency": "usd",
+    "planType": "enterprise",
+    "period": "monthly"
+  },
+  "price_1TT7TfFwFnLQbYRKcT83sz9n": {
+    "originalTotal": 55000,
+    "discountApplied": 0,
+    "discountType": null,
+    "finalTotal": 55000,
+    "currency": "usd",
+    "planType": "one_time",
+    "period": "one_time"
+  }
+}

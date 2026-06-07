@@ -2,11 +2,7 @@ import { createFileRoute } from '@tanstack/react-router';
 import { generateSitemap } from 'intlayer';
 import { buildSitemapEntries } from '~/siteRoutes';
 
-const siteUrl = (
-  import.meta.env.VITE_SITE_URL ??
-  import.meta.env.VITE_URL ??
-  'https://intlayer.org'
-).replace(/\/$/, '');
+const siteUrl = (import.meta.env.VITE_URL as string).replace(/\/$/, '');
 
 export const Route = createFileRoute('/sitemap.xml')({
   server: {

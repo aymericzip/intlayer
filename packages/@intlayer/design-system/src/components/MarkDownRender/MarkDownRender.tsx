@@ -1,7 +1,7 @@
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import { cn } from '@utils/cn';
 import type { ComponentProps, ComponentPropsWithoutRef, FC } from 'react';
-import { memo } from 'react';
+import { lazy, memo, Suspense } from 'react';
 import {
   type MarkdownRenderer as MarkdownRendererIntlayer,
   type ParsedMarkdown,
@@ -12,13 +12,30 @@ export type { ParsedMarkdown };
 
 import type { BundledLanguage } from 'shiki/bundle/web';
 import { H1, H2, H3, H4, H5, H6 } from '../Headers';
-import { Code } from '../IDE/Code';
 import { CodeProvider } from '../IDE/CodeContext';
 import { Link } from '../Link';
 import { Tab } from '../Tab';
 import { TabProvider } from '../Tab/TabContext';
-import { Hr, SmartTable, Td, Th, Tr } from '../Table';
+import { Table } from '../Table/Table';
+import { Hr, Td, Th, Tr } from '../Table/TableElements';
 import { MarkDownIframe } from './MarkDownIframe';
+
+/**
+ * Lazy-loaded Code component — avoids pulling @radix-ui/react-select
+ * (and its tslib CJS bundle) into the SSR/prerender server bundle.
+ * Only loaded when a code block actually renders (always client-side).
+ */
+const CodeLazy = lazy(() =>
+  import('../IDE/Code').then((m) => ({ default: m.Code }))
+);
+
+/**
+ * Lazy-loaded SmartTable component — avoids pulling the Modal (Radix UI
+ * Dialog) into the SSR/prerender server bundle.
+ */
+const SmartTableLazy = lazy(() =>
+  import('../Table/SmartTable').then((m) => ({ default: m.SmartTable }))
+);
 
 // Extracted, stable component renderers
 const H1Renderer = (props: ComponentProps<'h1'>) => (
@@ -70,9 +87,16 @@ const MemoizedCodeBlock = memo(
       'plaintext') as BundledLanguage;
 
     return (
-      <Code {...rest} language={language} showHeader isDarkMode={isDarkMode}>
-        {content}
-      </Code>
+      <Suspense fallback={<pre>{content}</pre>}>
+        <CodeLazy
+          {...rest}
+          language={language}
+          showHeader
+          isDarkMode={isDarkMode}
+        >
+          {content}
+        </CodeLazy>
+      </Suspense>
     );
   },
   (prevProps, nextProps) =>
@@ -155,8 +179,10 @@ const createLinkRenderer = (locale?: LocalesValues) => {
 };
 
 const PreRenderer = (props: ComponentProps<'pre'>) => <>{props.children}</>;
-const TableRenderer = (props: ComponentProps<typeof SmartTable>) => (
-  <SmartTable isRollable displayModal {...props} />
+const TableRenderer = (props: ComponentProps<typeof Table>) => (
+  <Suspense fallback={<Table {...props} />}>
+    <SmartTableLazy isRollable displayModal {...(props as any)} />
+  </Suspense>
 );
 
 const TabsRenderer = (props: ComponentProps<typeof Tab>) => (

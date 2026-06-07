@@ -9,8 +9,7 @@ import {
   getLocalizedUrl,
   localeMap,
 } from 'intlayer';
-import { BreadcrumbsHeader } from '#/structuredData/BreadcrumbsHeader';
-import { CreativeWorkHeader } from '#/structuredData/CreativeWorkHeader';
+import { Website_Domain } from '@intlayer/design-system/routes';
 import { BackgroundLayout } from '#components/BackgroundLayout';
 import { ContentDashboard } from '#components/Dashboard/ContentDashboard';
 
@@ -56,44 +55,56 @@ export const Route = createFileRoute(
           content: content.metadata.keywords.join(', '),
         },
       ],
+      scripts: [
+        {
+          type: 'application/ld+json',
+          children: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+              {
+                '@type': 'ListItem',
+                position: 1,
+                name: 'Dashboard',
+                item: `https://${Website_Domain}${getLocalizedUrl(App_Dashboard, locale)}`,
+              },
+              {
+                '@type': 'ListItem',
+                position: 2,
+                name: 'Dictionaries',
+                item: `https://${Website_Domain}${getLocalizedUrl(App_Dashboard_Dictionaries, locale)}`,
+              },
+              {
+                '@type': 'ListItem',
+                position: 3,
+                name: dictionaryKey,
+                item: `https://${Website_Domain}${getLocalizedUrl(`${App_Dashboard_Dictionaries}/${dictionaryKey}`, locale)}`,
+              },
+            ],
+          }),
+        },
+        {
+          type: 'application/ld+json',
+          children: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'CreativeWork',
+            name: dictionaryKey,
+            description: `Dictionary ${dictionaryKey} for Intlayer CMS`,
+            url: `https://${Website_Domain}${getLocalizedUrl(`${App_Dashboard_Dictionaries}/${dictionaryKey}`, locale)}`,
+            keywords: `intlayer, cms, ${dictionaryKey}`,
+            text: `Manage translations for ${dictionaryKey}`,
+          }),
+        },
+      ],
     };
   },
 });
 
 function DictionaryDetailPage() {
-  const { dictionaryKey, locale } = Route.useParams();
+  const { dictionaryKey } = Route.useParams();
 
   return (
     <>
-      <BreadcrumbsHeader
-        breadcrumbs={[
-          {
-            name: 'Dashboard',
-            url: getLocalizedUrl(App_Dashboard, locale),
-          },
-          {
-            name: 'Dictionaries',
-            url: getLocalizedUrl(App_Dashboard_Dictionaries, locale),
-          },
-          {
-            name: dictionaryKey,
-            url: getLocalizedUrl(
-              `${App_Dashboard_Dictionaries}/${dictionaryKey}`,
-              locale
-            ),
-          },
-        ]}
-      />
-      <CreativeWorkHeader
-        creativeWorkName={dictionaryKey}
-        creativeWorkDescription={`Dictionary ${dictionaryKey} for Intlayer CMS`}
-        creativeWorkContent={`Manage translations for ${dictionaryKey}`}
-        keywords={`intlayer, cms, ${dictionaryKey}`}
-        url={getLocalizedUrl(
-          `${App_Dashboard_Dictionaries}/${dictionaryKey}`,
-          locale
-        )}
-      />
       <div className="flex min-h-0 w-full flex-1 flex-col items-stretch">
         <ContentDashboard dictionaryKey={dictionaryKey} />
       </div>

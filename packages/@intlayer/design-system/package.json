@@ -73,6 +73,11 @@
       "import": "./dist/esm/tailwind.config.mjs",
       "default": "./dist/esm/tailwind.config.mjs"
     },
+    "./structured-data": {
+      "types": "./dist/types/structured-data/index.d.ts",
+      "import": "./dist/esm/structured-data/index.mjs",
+      "default": "./dist/esm/structured-data/index.mjs"
+    },
     "./css": "./tailwind.css",
     "./css-output": "./dist/tailwind.css",
     "./package.json": "./package.json",

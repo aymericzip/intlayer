@@ -7,7 +7,7 @@ import { Suspense } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { Link } from '~/components/Link/Link';
 import { loadFaqIndex } from '~/serverFunctions/faq';
-import { FAQPageHeader } from '~/structuredData/FAQPageHeader';
+import { getFAQPageHeader } from '@intlayer/design-system/structured-data';
 import { getAbsoluteUrl, getHreflangLinks } from '~/utils/seo';
 
 export const Route = createFileRoute('/{-$locale}/_docs/frequent-questions/')({
@@ -16,7 +16,7 @@ export const Route = createFileRoute('/{-$locale}/_docs/frequent-questions/')({
     const frequentQuestions = await loadFaqIndex({ data: { locale } });
     return { locale, frequentQuestions };
   },
-  head: ({ params }) => {
+  head: ({ params, loaderData }) => {
     const locale = params.locale ?? defaultLocale;
     const path = Website_FrequentQuestions;
     const { title, description, keywords } = getIntlayer(
@@ -42,6 +42,20 @@ export const Route = createFileRoute('/{-$locale}/_docs/frequent-questions/')({
         { rel: 'canonical', href: getAbsoluteUrl(path, locale) },
         ...getHreflangLinks(path),
       ],
+      scripts:
+        loaderData?.frequentQuestions ? [
+          {
+            type: 'application/ld+json',
+            children: JSON.stringify(
+              getFAQPageHeader({
+                faqs: Object.values(loaderData.frequentQuestions).map((q: any) => ({
+                  question: q.title,
+                  answer: q.description,
+                })),
+              })
+            ),
+          },
+        ] : [],
     };
   },
   component: FrequentQuestionsPage,
@@ -56,14 +70,9 @@ function FrequentQuestionsPage() {
   const { frequentQuestions } = Route.useLoaderData();
   const frequentQuestionsList = Object.values(frequentQuestions);
 
-  const faqs = frequentQuestionsList.map((q) => ({
-    question: q.title,
-    answer: q.description,
-  }));
 
   return (
     <>
-      <FAQPageHeader faqs={faqs} />
       <div className="m-auto flex max-w-2xl flex-col gap-10 p-10 text-center">
         <Suspense>
           <FrequentQuestionsPageTitle />

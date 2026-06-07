@@ -3,8 +3,10 @@ import {
   type Contributor,
   ContributorsList,
 } from '@components/Contributors/ContributorsList';
-import { OrganizationHeader } from '@structuredData/OrganizationHeader';
-import { WebsiteHeader } from '@structuredData/WebsiteHeader';
+import {
+  getOrganizationHeader,
+  getWebsiteHeader,
+} from '@intlayer/design-system/structured-data';
 import type { LocalesValues } from 'intlayer';
 import type { NextPageIntlayer } from 'next-intlayer';
 import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
@@ -15,7 +17,7 @@ import { generateMetadata } from './metadata';
 export { generateMetadata };
 
 const ContributorsPageContent: FC<
-  PropsWithChildren<{ locale: LocalesValues }>
+  PropsWithChildren<{ locale?: LocalesValues }>
 > = ({ locale, children }) => {
   const { title, subtitle } = useIntlayer('contributors-page', locale);
 
@@ -45,8 +47,20 @@ const ContributorsPage: NextPageIntlayer = async ({ params }) => {
 
   return (
     <IntlayerServerProvider locale={locale}>
-      <WebsiteHeader key={locale} />
-      <OrganizationHeader />
+      <script
+        type="application/ld+json"
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: This is safe because the data is generated securely and stringified
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(getWebsiteHeader({ locale })),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: This is safe because the data is generated securely and stringified
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(getOrganizationHeader({ locale })),
+        }}
+      />
       <ContributorsPageContent locale={locale}>
         <ContributorsList contributors={contributors} />
       </ContributorsPageContent>

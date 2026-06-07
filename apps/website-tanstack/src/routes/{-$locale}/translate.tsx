@@ -1,21 +1,26 @@
-import { Website_Translate } from '@intlayer/design-system/routes';
+import { Website_Translate, External_Github, Website_Home } from '@intlayer/design-system/routes';
 import { createFileRoute } from '@tanstack/react-router';
 import { defaultLocale, getIntlayer } from 'intlayer';
 import { AiTranslationLandingCore } from '~/components/TranslationLandingPage';
 import { PageLayout } from '~/layouts/PageLayout';
-import { OrganizationHeader } from '~/structuredData/OrganizationHeader';
-import { TranslateSoftwareApplicationHeader } from '~/structuredData/TranslateSoftwareApplicationHeader';
-import { WebsiteHeader } from '~/structuredData/WebsiteHeader';
 import { getAbsoluteUrl, getHreflangLinks } from '~/utils/seo';
+import { getTranslateSoftwareApplicationHeader } from '@intlayer/design-system/structured-data';
+import { getTranslateProductHeader } from '@intlayer/design-system/structured-data';
+import { getPricing } from '~/utils/stripe';
 
 export const Route = createFileRoute('/{-$locale}/translate')({
-  head: ({ params }) => {
+  head: async ({ params }) => {
     const locale = params.locale ?? defaultLocale;
     const path = Website_Translate;
     const { title, description, keywords } = getIntlayer(
       'translate-metadata',
+      'translate-metadata',
       locale
     );
+
+    const pricings = await getPricing();
+
+
 
     return {
       title,
@@ -35,6 +40,16 @@ export const Route = createFileRoute('/{-$locale}/translate')({
         { rel: 'canonical', href: getAbsoluteUrl(path, locale) },
         ...getHreflangLinks(path),
       ],
+      scripts: [
+        {
+          type: 'application/ld+json',
+          children: JSON.stringify(getTranslateSoftwareApplicationHeader({ locale })),
+        },
+        {
+          type: 'application/ld+json',
+          children: JSON.stringify(getTranslateProductHeader({ pricings, locale })),
+        },
+      ],
     };
   },
   component: TranslatePage,
@@ -43,9 +58,6 @@ export const Route = createFileRoute('/{-$locale}/translate')({
 function TranslatePage() {
   return (
     <PageLayout>
-      <WebsiteHeader />
-      <OrganizationHeader />
-      <TranslateSoftwareApplicationHeader />
       <AiTranslationLandingCore />
     </PageLayout>
   );

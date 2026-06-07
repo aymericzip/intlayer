@@ -1,18 +1,35 @@
 import { Website_Home_Path } from '@intlayer/design-system/routes';
+import { CompositeComponent } from '@tanstack/react-start/rsc';
 import { createFileRoute, redirect } from '@tanstack/react-router';
 import { defaultLocale, getLocalizedUrl } from 'intlayer';
+import { Suspense, lazy, type FC } from 'react';
 import { BlogPageLayout } from '~/components/BlogPage/BlogPageLayout';
 import { DocHeader } from '~/components/DocPage/DocHeader/DocHeader';
 import {
   DocPageNavigation,
   type DocPageNavigationProps,
 } from '~/components/DocPage/DocPageNavigation/DocPageNavigation';
-import { DocumentationRender } from '~/components/DocPage/DocumentationRender';
+import { SectionScroller } from '~/components/DocPage/SectionScroller';
 import { loadBlogNavData, loadBlogPage } from '~/serverFunctions/blog';
-import { CreativeWorkHeader } from '~/structuredData/CreativeWorkHeader';
+
+const I18nBenchmarkLazy = lazy(() =>
+  import('~/components/I18nBenchmark').then((mod) => ({
+    default: mod.I18nBenchmark,
+  }))
+);
+
+type FrameworkKey = Parameters<typeof I18nBenchmarkLazy>[0]['initialFramework'];
+
+const I18nBenchmarkSlot: FC<{ framework?: FrameworkKey }> = ({ framework }) => (
+  <Suspense>
+    <I18nBenchmarkLazy initialFramework={framework} />
+  </Suspense>
+);
+import { getCreativeWorkHeader } from '@intlayer/design-system/structured-data';
 import { getAbsoluteUrl, getHreflangLinks } from '~/utils/seo';
 
 export const Route = createFileRoute('/{-$locale}/_docs/blog/$')({
+  ssr: false,
   loader: async ({ params }) => {
     const locale = (params.locale as string) ?? defaultLocale;
     const slugsStr = (params as any)['*'] || '';
@@ -32,7 +49,7 @@ export const Route = createFileRoute('/{-$locale}/_docs/blog/$')({
       throw redirect({ to: Website_Home_Path as any });
     }
 
-    const { blogContent, blogParsed, prevBlogData, nextBlogData } = content!;
+    const { blogContent, blogContentSrc, prevBlogData, nextBlogData } = content!;
 
     const nextBlog: DocPageNavigationProps['nextDoc'] = nextBlogData?.blogs
       ? {
@@ -52,7 +69,7 @@ export const Route = createFileRoute('/{-$locale}/_docs/blog/$')({
       slugs,
       blogData: exactMatch,
       blogContent,
-      blogParsed,
+      blogContentSrc,
       nextBlog,
       prevBlog,
       navData,
@@ -87,6 +104,26 @@ export const Route = createFileRoute('/{-$locale}/_docs/blog/$')({
         { rel: 'canonical', href: getAbsoluteUrl(absoluteUrl) },
         ...getHreflangLinks(absoluteUrl),
       ],
+      scripts: [
+        {
+          type: 'application/ld+json',
+          children: JSON.stringify(
+            getCreativeWorkHeader({
+              locale,
+              type: 'BlogPosting',
+              creativeWorkName: blogData.title,
+              creativeWorkDescription: blogData.description,
+              creativeWorkContent: loaderData.blogContent,
+              keywords: Array.isArray(blogData.keywords)
+                ? blogData.keywords.join(', ')
+                : blogData.keywords || '',
+              dateModified: new Date(blogData.updatedAt),
+              datePublished: new Date(blogData.createdAt),
+              url: blogData.url,
+            })
+          ),
+        },
+      ],
     };
   },
   component: BlogPage,
@@ -108,7 +145,7 @@ function BlogPage() {
     slugs,
     blogData,
     blogContent,
-    blogParsed,
+    blogContentSrc,
     nextBlog,
     prevBlog,
     navData,
@@ -120,22 +157,15 @@ function BlogPage() {
       activeSlugs={slugs}
       locale={locale ?? defaultLocale}
     >
-      <CreativeWorkHeader
-        type="BlogPosting"
-        creativeWorkName={blogData.title}
-        creativeWorkDescription={blogData.description}
-        creativeWorkContent={blogContent}
-        keywords={
-          Array.isArray(blogData.keywords)
-            ? blogData.keywords.join(', ')
-            : blogData.keywords || ''
-        }
-        dateModified={new Date(blogData.updatedAt)}
-        datePublished={new Date(blogData.createdAt)}
-        url={blogData.url}
-      />
+
       <DocHeader {...blogData} markdownContent={blogContent} />
-      <DocumentationRender>{blogParsed}</DocumentationRender>
+      <Suspense>
+        <SectionScroller />
+      </Suspense>
+      <CompositeComponent
+        src={blogContentSrc}
+        I18nBenchmarkComponent={I18nBenchmarkSlot}
+      />
       <DocPageNavigation nextDoc={nextBlog} prevDoc={prevBlog} />
     </BlogPageLayout>
   );

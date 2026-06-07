@@ -4,6 +4,7 @@ import babel from '@rolldown/plugin-babel';
 import tailwindcss from '@tailwindcss/vite';
 import { tanstackStart } from '@tanstack/react-start/plugin/vite';
 import react, { reactCompilerPreset } from '@vitejs/plugin-react';
+import rsc from '@vitejs/plugin-rsc';
 import { localeFlatMap } from 'intlayer';
 import { nitro } from 'nitro/vite';
 import { defineConfig, loadEnv } from 'vite';
@@ -63,6 +64,7 @@ export default defineConfig(async ({ mode }) => {
 
   const dynamicPaths = await buildDynamicPrerenderPaths();
   const allPrerenderPaths = [...staticPrerenderPaths, ...dynamicPaths];
+
   const localizedPages = localeFlatMap(({ urlPrefix }) =>
     allPrerenderPaths.map((path) => ({
       path: `${urlPrefix}${path}`,
@@ -257,6 +259,7 @@ export default defineConfig(async ({ mode }) => {
       intlayer(),
       tailwindcss(),
       tanstackStart({
+        rsc: { enabled: true },
         router: {
           routeFileIgnorePattern:
             '.content.(ts|tsx|js|mjs|cjs|jsx|json|jsonc|json5)$',
@@ -268,6 +271,7 @@ export default defineConfig(async ({ mode }) => {
         },
         pages: localizedPages,
       }),
+      rsc(),
       react(),
       babel({ presets: [reactCompilerPreset()] }),
       wasm(),

@@ -1,22 +1,20 @@
-import { DocHeader } from '@components/DocPage/DocHeader/DocHeader';
 import {
   DocPageNavigation,
   type DocPageNavigationProps,
 } from '@components/DocPage/DocPageNavigation/DocPageNavigation';
 import { DocumentationRender } from '@components/DocPage/DocumentationRender';
 import { getPreviousNextDocMetadata } from '@components/DocPage/docData';
-import { Website_Doc_Path, Website_Home } from '@intlayer/design-system/routes';
+import { Website_Doc_Path } from '@intlayer/design-system/routes';
 import {
   type DocKey,
   getDoc,
-  getDocMetadata,
   getDocMetadataBySlug,
 } from '@intlayer/docs';
-import { BreadcrumbsHeader } from '@structuredData/BreadcrumbsHeader';
-import { CreativeWorkHeader } from '@structuredData/CreativeWorkHeader';
-import { OrganizationHeader } from '@structuredData/OrganizationHeader';
-import { SoftwareApplicationHeader } from '@structuredData/SoftwareApplication';
-import { WebsiteHeader } from '@structuredData/WebsiteHeader';
+import { getBreadcrumbsHeader } from '@intlayer/design-system/structured-data';
+import { getCreativeWorkHeader } from '@intlayer/design-system/structured-data';
+import { getOrganizationHeader } from '@intlayer/design-system/structured-data';
+import { getSoftwareApplicationHeader } from '@intlayer/design-system/structured-data';
+import { getWebsiteHeader } from '@intlayer/design-system/structured-data';
 import { urlRenamer } from '@utils/markdown';
 import { getLocalizedUrl } from 'intlayer';
 import { redirect } from 'next/navigation';
@@ -47,7 +45,6 @@ const DocumentationPage = async ({ params }: LocalPromiseParams<DocProps>) => {
     docData.docKey as DocKey,
     locale!
   );
-  const defaultDocData = await getDocMetadata(docData.docKey as DocKey);
 
   const file = await getDoc(docData?.docKey as DocKey, locale);
 
@@ -66,33 +63,49 @@ const DocumentationPage = async ({ params }: LocalPromiseParams<DocProps>) => {
       }
     : undefined;
 
-  const breadcrumbs = [
-    { name: 'Home', url: Website_Home },
-    { name: 'Docs', url: Website_Doc_Path },
-    { name: docData.title, url: docData.url },
-  ];
-
   return (
     <IntlayerServerProvider locale={locale}>
-      <WebsiteHeader key={locale} />
-      <OrganizationHeader />
-      <SoftwareApplicationHeader />
-      <BreadcrumbsHeader breadcrumbs={breadcrumbs} />
-      <CreativeWorkHeader
-        type="TechArticle"
-        creativeWorkName={docData.title}
-        creativeWorkDescription={docData.description}
-        creativeWorkContent={docContent}
-        keywords={docData.keywords.join(', ')}
-        dateModified={new Date(docData.updatedAt)}
-        datePublished={new Date(docData.createdAt)}
-        url={docData.url}
+      <script
+        type="application/ld+json"
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: This is safe because the data is generated securely and stringified
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(getWebsiteHeader({ locale })),
+        }}
       />
-      <DocHeader
-        {...docData}
-        markdownContent={docContent}
-        baseUpdatedAt={defaultDocData.updatedAt}
-        history={docData.history ?? []}
+      <script
+        type="application/ld+json"
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: This is safe because the data is generated securely and stringified
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(getOrganizationHeader({ locale })),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: This is safe because the data is generated securely and stringified
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(getSoftwareApplicationHeader({ locale })),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: This is safe because the data is generated securely and stringified
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(getBreadcrumbsHeader({ locale })),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: This is safe because the data is generated securely and stringified
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(getCreativeWorkHeader({ locale })),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: This is safe because the data is generated securely and stringified
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(getDocHeader({ locale })),
+        }}
       />
 
       <DocumentationRender>{docContent}</DocumentationRender>

@@ -1,5 +1,6 @@
 import { Website_Contributors } from '@intlayer/design-system/routes';
 import { createFileRoute } from '@tanstack/react-router';
+import { useQuery } from '@tanstack/react-query';
 import { defaultLocale, getIntlayer } from 'intlayer';
 import { useIntlayer } from 'react-intlayer';
 import { BackgroundLayout } from '~/components/BackgroundLayout';
@@ -7,29 +8,31 @@ import {
   type Contributor,
   ContributorsList,
 } from '~/components/Contributors/ContributorsList';
+import staticContributors from '~/data/contributors.json';
 import { PageLayout } from '~/layouts/PageLayout';
-import { OrganizationHeader } from '~/structuredData/OrganizationHeader';
-import { WebsiteHeader } from '~/structuredData/WebsiteHeader';
 import { getAbsoluteUrl, getHreflangLinks } from '~/utils/seo';
 
-export const Route = createFileRoute('/{-$locale}/contributors')({
-  loader: async () => {
-    let contributors: Contributor[] = [];
-    try {
-      const response = await fetch(
-        'https://api.github.com/repos/aymericzip/intlayer/contributors'
+const fetchContributors = async (): Promise<Contributor[]> => {
+  try {
+    const response = await fetch(
+      'https://api.github.com/repos/aymericzip/intlayer/contributors?per_page=100'
+    );
+    if (response.ok) {
+      const data = await response.json();
+      return data.filter(
+        (contributor: Contributor) =>
+          contributor.type !== 'Bot' && !contributor.login.includes('[bot]')
       );
-      if (response.ok) {
-        const data = await response.json();
-        contributors = data.filter(
-          (contributor: Contributor) =>
-            contributor.type !== 'Bot' && !contributor.login.includes('[bot]')
-        );
-      }
-    } catch (error) {
-      console.error('Error fetching contributors:', error);
     }
-    return { contributors };
+  } catch (error) {
+    console.error('Error fetching contributors:', error);
+  }
+  return [];
+};
+
+export const Route = createFileRoute('/{-$locale}/contributors')({
+  loader: () => {
+    return { contributors: staticContributors as Contributor[] };
   },
   head: ({ params }) => {
     const locale = params.locale ?? defaultLocale;
@@ -85,12 +88,17 @@ function ContributorsPageContent({ children }: { children: React.ReactNode }) {
 }
 
 function ContributorsPageRoute() {
-  const { contributors } = Route.useLoaderData();
+  const { contributors: initialContributors } = Route.useLoaderData();
+
+  const { data: contributors = initialContributors } = useQuery({
+    queryKey: ['contributors'],
+    queryFn: fetchContributors,
+    initialData: initialContributors,
+    staleTime: 0,
+  });
 
   return (
     <PageLayout>
-      <WebsiteHeader />
-      <OrganizationHeader />
       <ContributorsPageContent>
         <ContributorsList contributors={contributors} />
       </ContributorsPageContent>

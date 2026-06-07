@@ -1,3 +1,5 @@
+"use client";
+
 import { cn } from '@utils/cn';
 import type { FC, HTMLAttributes, JSX, MouseEvent } from 'react';
 

@@ -6,7 +6,7 @@ import { useIntlayer } from 'react-intlayer';
 import { ChatBot } from '~/components/ChatBot';
 import { DocPageLayout } from '~/components/DocPage/DocPageLayout';
 import { loadNavData } from '~/serverFunctions/docs';
-import { WebsiteHeader } from '~/structuredData/WebsiteHeader';
+import { getWebsiteHeader } from '@intlayer/design-system/structured-data';
 
 export const Route = createFileRoute('/{-$locale}/_docs/doc/chat')({
   loader: async ({ params }) => {
@@ -14,8 +14,14 @@ export const Route = createFileRoute('/{-$locale}/_docs/doc/chat')({
     const navData = await loadNavData({ data: { locale } });
     return { locale, navData };
   },
-  head: () => ({
+  head: ({ loaderData }) => ({
     meta: [{ title: 'Chat with Documentation | Intlayer' }],
+    scripts: [
+      {
+        type: 'application/ld+json',
+        children: JSON.stringify(getWebsiteHeader({ locale: loaderData.locale })),
+      },
+    ],
   }),
   component: DocumentationChatPage,
 });
@@ -30,7 +36,7 @@ function DocumentationChatPage() {
       locale={locale}
       displayAsideNavigation={false}
     >
-      <WebsiteHeader />
+
       <div className="flex size-full flex-1 flex-col gap-20 p-10">
         <H1>{title}</H1>
         <Container

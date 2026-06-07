@@ -1,15 +1,16 @@
 import { Website_TermsOfService } from '@intlayer/design-system/routes';
+import { getCreativeWorkHeader } from '@intlayer/design-system/structured-data';
+import { CompositeComponent } from '@tanstack/react-start/rsc';
 import { createFileRoute } from '@tanstack/react-router';
 import { defaultLocale } from 'intlayer';
-import { DocumentationRender } from '~/components/DocPage/DocumentationRender';
-import { loadLegalContent } from '~/serverFunctions/legal';
-import { CreativeWorkHeader } from '~/structuredData/CreativeWorkHeader';
+import { loadLegalPage } from '~/serverFunctions/legal';
 import { getAbsoluteUrl, getHreflangLinks } from '~/utils/seo';
 
 export const Route = createFileRoute('/{-$locale}/_docs/terms-of-service')({
+  ssr: false,
   loader: async ({ params }) => {
     const locale = params.locale ?? defaultLocale;
-    return loadLegalContent({
+    return loadLegalPage({
       data: { locale, docKey: './legal/en/terms_of_service.md' },
     });
   },
@@ -37,38 +38,36 @@ export const Route = createFileRoute('/{-$locale}/_docs/terms-of-service')({
         { rel: 'canonical', href: getAbsoluteUrl(path, locale) },
         ...getHreflangLinks(path),
       ],
+      scripts: [
+        {
+          type: 'application/ld+json',
+          children: JSON.stringify(
+            getCreativeWorkHeader({
+              locale,
+              type: 'WebPage',
+              creativeWorkName: String(title),
+              creativeWorkDescription: String(description),
+              creativeWorkContent: loaderData.file,
+              keywords: Array.isArray(keywords)
+                ? keywords.join(', ')
+                : String(keywords || ''),
+              dateModified: new Date(loaderData.updatedAt),
+              datePublished: new Date(loaderData.createdAt),
+            })
+          ),
+        },
+      ],
     };
   },
   component: TermsOfServicePage,
 });
 
 function TermsOfServicePage() {
-  const {
-    file,
-    fileParsed,
-    title,
-    description,
-    keywords,
-    updatedAt,
-    createdAt,
-  } = Route.useLoaderData();
+  const { contentSrc } = Route.useLoaderData();
 
   return (
-    <>
-      <CreativeWorkHeader
-        type="WebPage"
-        creativeWorkName={String(title)}
-        creativeWorkDescription={String(description)}
-        creativeWorkContent={file}
-        keywords={
-          Array.isArray(keywords) ? keywords.join(', ') : String(keywords || '')
-        }
-        dateModified={new Date(updatedAt)}
-        datePublished={new Date(createdAt)}
-      />
-      <div className="m-auto max-w-2xl">
-        <DocumentationRender>{fileParsed}</DocumentationRender>
-      </div>
-    </>
+    <div className="m-auto max-w-2xl">
+      <CompositeComponent src={contentSrc} />
+    </div>
   );
 }
