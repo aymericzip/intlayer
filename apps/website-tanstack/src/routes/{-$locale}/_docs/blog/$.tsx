@@ -1,8 +1,8 @@
 import { Website_Home_Path } from '@intlayer/design-system/routes';
-import { CompositeComponent } from '@tanstack/react-start/rsc';
 import { createFileRoute, redirect } from '@tanstack/react-router';
+import { CompositeComponent } from '@tanstack/react-start/rsc';
 import { defaultLocale, getLocalizedUrl } from 'intlayer';
-import { Suspense, lazy, type FC } from 'react';
+import { type FC, lazy, Suspense } from 'react';
 import { BlogPageLayout } from '~/components/BlogPage/BlogPageLayout';
 import { DocHeader } from '~/components/DocPage/DocHeader/DocHeader';
 import {
@@ -25,11 +25,12 @@ const I18nBenchmarkSlot: FC<{ framework?: FrameworkKey }> = ({ framework }) => (
     <I18nBenchmarkLazy initialFramework={framework} />
   </Suspense>
 );
+
 import { getCreativeWorkHeader } from '@intlayer/design-system/structured-data';
 import { getAbsoluteUrl, getHreflangLinks } from '~/utils/seo';
 
 export const Route = createFileRoute('/{-$locale}/_docs/blog/$')({
-  ssr: false,
+  ssr: true,
   loader: async ({ params }) => {
     const locale = (params.locale as string) ?? defaultLocale;
     const slugsStr = (params as any)['*'] || '';
@@ -49,7 +50,8 @@ export const Route = createFileRoute('/{-$locale}/_docs/blog/$')({
       throw redirect({ to: Website_Home_Path as any });
     }
 
-    const { blogContent, blogContentSrc, prevBlogData, nextBlogData } = content!;
+    const { blogContent, blogContentSrc, prevBlogData, nextBlogData } =
+      content!;
 
     const nextBlog: DocPageNavigationProps['nextDoc'] = nextBlogData?.blogs
       ? {
@@ -157,7 +159,6 @@ function BlogPage() {
       activeSlugs={slugs}
       locale={locale ?? defaultLocale}
     >
-
       <DocHeader {...blogData} markdownContent={blogContent} />
       <Suspense>
         <SectionScroller />

@@ -1,14 +1,14 @@
 import {
+  External_Github,
   Website_Doc_Path,
+  Website_Domain,
   Website_Home,
   Website_Home_Path,
-  Website_Domain,
-  External_Github,
 } from '@intlayer/design-system/routes';
-import { CompositeComponent } from '@tanstack/react-start/rsc';
 import { createFileRoute, redirect } from '@tanstack/react-router';
-import { defaultLocale, getLocalizedUrl, getIntlayer } from 'intlayer';
-import { Suspense, lazy, type FC } from 'react';
+import { CompositeComponent } from '@tanstack/react-start/rsc';
+import { defaultLocale, getIntlayer, getLocalizedUrl } from 'intlayer';
+import { type FC, lazy, Suspense } from 'react';
 import { DocHeader } from '~/components/DocPage/DocHeader/DocHeader';
 import { DocPageLayout } from '~/components/DocPage/DocPageLayout';
 import {
@@ -31,11 +31,14 @@ const I18nBenchmarkSlot: FC<{ framework?: FrameworkKey }> = ({ framework }) => (
     <I18nBenchmarkLazy initialFramework={framework} />
   </Suspense>
 );
+
 import { getAbsoluteUrl, getHreflangLinks } from '~/utils/seo';
-import packageJson from '../../../../../package_mock.json' with { type: 'json' };
+import packageJson from '../../../../../package_mock.json' with {
+  type: 'json',
+};
 
 export const Route = createFileRoute('/{-$locale}/_docs/doc/$')({
-  ssr: false,
+  ssr: true,
   loader: async ({ params }) => {
     const locale = (params.locale as string) ?? defaultLocale;
     const slugsStr = (params as any)['*'] || '';
@@ -55,8 +58,13 @@ export const Route = createFileRoute('/{-$locale}/_docs/doc/$')({
       throw redirect({ to: Website_Home_Path as any });
     }
 
-    const { defaultDocData, docContent, docContentSrc, prevDocData, nextDocData } =
-      content!;
+    const {
+      defaultDocData,
+      docContent,
+      docContentSrc,
+      prevDocData,
+      nextDocData,
+    } = content!;
 
     const nextDoc: DocPageNavigationProps['nextDoc'] = nextDocData?.docs
       ? {
@@ -107,8 +115,14 @@ export const Route = createFileRoute('/{-$locale}/_docs/doc/$')({
       })),
     };
 
-    const creativeWorkData = getIntlayer('creative-work-structured-data', locale);
-    const softwareData = getIntlayer('software-application-structured-data', locale);
+    const creativeWorkData = getIntlayer(
+      'creative-work-structured-data',
+      locale
+    );
+    const softwareData = getIntlayer(
+      'software-application-structured-data',
+      locale
+    );
 
     const softwareApplication = {
       '@context': 'https://schema.org',
@@ -117,7 +131,8 @@ export const Route = createFileRoute('/{-$locale}/_docs/doc/$')({
       url: Website_Home,
       description: softwareData.description,
       softwareVersion: packageJson.version,
-      license: 'https://raw.githubusercontent.com/aymericzip/intlayer/refs/heads/main/LICENSE',
+      license:
+        'https://raw.githubusercontent.com/aymericzip/intlayer/refs/heads/main/LICENSE',
       author: {
         '@type': 'Organization',
         name: 'Intlayer',
@@ -170,7 +185,8 @@ export const Route = createFileRoute('/{-$locale}/_docs/doc/$')({
       keywords: Array.isArray(docData.keywords)
         ? docData.keywords.join(', ')
         : docData.keywords || '',
-      license: 'https://raw.githubusercontent.com/aymericzip/intlayer/refs/heads/main/LICENSE',
+      license:
+        'https://raw.githubusercontent.com/aymericzip/intlayer/refs/heads/main/LICENSE',
       audience: {
         '@type': 'Audience',
         audienceType: creativeWorkData.audienceType,

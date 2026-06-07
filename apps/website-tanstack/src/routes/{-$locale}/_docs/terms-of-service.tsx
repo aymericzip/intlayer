@@ -1,13 +1,13 @@
 import { Website_TermsOfService } from '@intlayer/design-system/routes';
 import { getCreativeWorkHeader } from '@intlayer/design-system/structured-data';
-import { CompositeComponent } from '@tanstack/react-start/rsc';
 import { createFileRoute } from '@tanstack/react-router';
+import { CompositeComponent } from '@tanstack/react-start/rsc';
 import { defaultLocale } from 'intlayer';
 import { loadLegalPage } from '~/serverFunctions/legal';
 import { getAbsoluteUrl, getHreflangLinks } from '~/utils/seo';
 
 export const Route = createFileRoute('/{-$locale}/_docs/terms-of-service')({
-  ssr: false,
+  ssr: true,
   loader: async ({ params }) => {
     const locale = params.locale ?? defaultLocale;
     return loadLegalPage({

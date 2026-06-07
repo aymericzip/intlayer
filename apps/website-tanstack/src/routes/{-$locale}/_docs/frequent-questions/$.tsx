@@ -1,8 +1,8 @@
 import { App_Home_Path } from '@intlayer/design-system/routes';
-import { CompositeComponent } from '@tanstack/react-start/rsc';
 import { createFileRoute, redirect } from '@tanstack/react-router';
+import { CompositeComponent } from '@tanstack/react-start/rsc';
 import { defaultLocale } from 'intlayer';
-import { Suspense, lazy, type FC } from 'react';
+import { type FC, lazy, Suspense } from 'react';
 import { loadFaqPage } from '~/serverFunctions/faq';
 import { getAbsoluteUrl, getHreflangLinks } from '~/utils/seo';
 
@@ -21,7 +21,7 @@ const I18nBenchmarkSlot: FC<{ framework?: FrameworkKey }> = ({ framework }) => (
 );
 
 export const Route = createFileRoute('/{-$locale}/_docs/frequent-questions/$')({
-  ssr: false,
+  ssr: true,
   loader: async ({ params }) => {
     const locale = (params.locale as string) ?? defaultLocale;
     const slugsStr = (params as any)['*'] || '';
