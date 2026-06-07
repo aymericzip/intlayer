@@ -1942,6 +1942,7 @@
       "name": "express-intlayer",
       "version": "8.12.2",
       "dependencies": {
+        "@intlayer/chokidar": "workspace:*",
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
         "@intlayer/types": "workspace:*",
@@ -1965,6 +1966,7 @@
       "name": "fastify-intlayer",
       "version": "8.12.2",
       "dependencies": {
+        "@intlayer/chokidar": "workspace:*",
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
         "@intlayer/types": "workspace:*",
@@ -1988,6 +1990,7 @@
       "name": "hono-intlayer",
       "version": "8.12.2",
       "dependencies": {
+        "@intlayer/chokidar": "workspace:*",
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
         "@intlayer/types": "workspace:*",
