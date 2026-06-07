@@ -182,7 +182,7 @@ export const CodeBlockShiki: FC<CodeBlockShikiProps> = ({
   }, [children, lang, isDarkMode]);
 
   return (
-    <div className="min-w-0 max-w-full overflow-auto bg-transparent [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden [&_pre::-webkit-scrollbar]:hidden [&_pre]:[-ms-overflow-style:none] [&_pre]:[scrollbar-width:none]">
+    <div className="[&_pre.shiki]:!bg-transparent min-w-0 max-w-full overflow-auto bg-transparent [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden [&_pre.shiki]:max-w-full [&_pre.shiki]:overflow-x-auto [&_pre::-webkit-scrollbar]:hidden [&_pre]:[-ms-overflow-style:none] [&_pre]:[scrollbar-width:none]">
       {html ? (
         // biome-ignore lint/security/noDangerouslySetInnerHtml: Shiki generates safe HTML for code highlighting
         <div dangerouslySetInnerHTML={{ __html: html }} />
