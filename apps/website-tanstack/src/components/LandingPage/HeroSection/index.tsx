@@ -74,14 +74,9 @@ export const HeroSection: FC = () => {
           )}
 
           {/* Title */}
-          <motion.h1
-            initial={{ filter: 'blur(10px)', opacity: 0, y: 30 }}
-            animate={{ filter: 'blur(0px)', opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0, ease: 'easeOut' }}
-            className="mb-4 text-center font-bold text-4xl leading-tight sm:text-4xl md:text-5xl lg:mb-6 lg:text-6xl"
-          >
+          <h1 className="mb-4 text-center font-bold text-4xl leading-tight sm:text-4xl md:text-5xl lg:mb-6 lg:text-6xl">
             {title}
-          </motion.h1>
+          </h1>
           {/* Subtitle */}
           <motion.h2
             initial={{ filter: 'blur(10px)', opacity: 0, y: 30 }}
