@@ -283,7 +283,7 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
                   label={item.label}
                   color="text"
                   variant="invisible-link"
-                  preload="intent"
+                  preload="viewport"
                   className={cn(
                     'relative flex w-full items-center justify-center rounded-lg px-2 py-2 text-text/80 aria-[current]:bg-current/0',
                     !isCollapsed && 'justify-start gap-3 px-4',
@@ -374,7 +374,7 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
                   yAlign="above"
                 >
                   <Container
-                    className="min-w-[150px] gap-1 border border-neutral/10"
+                    className="min-w-37.5 gap-1 border border-neutral/10"
                     transparency="xs"
                     padding="sm"
                     roundedSize="2xl"

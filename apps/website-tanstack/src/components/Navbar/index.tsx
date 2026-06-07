@@ -221,7 +221,7 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
             isExternalLink={false}
             isActive={selectedChoice === getCleanChoice(url.value)}
             color="text"
-            preload="intent"
+            preload="viewport"
             variant="invisible-link"
             className="flex text-nowrap px-4 py-0.5 text-sm aria-[current]:bg-current/0"
             onClick={id?.value === 'dashboard' ? handleAppLinkClick : undefined}
@@ -240,7 +240,7 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
             isActive={selectedChoice === getCleanChoice(url.value)}
             label={label.value}
             color="text"
-            preload="intent"
+            preload="viewport"
             variant="invisible-link"
             className="w-full text-nowrap p-3 text-center leading-10 transition hover:font-bold aria-selected:font-bold"
             onClick={id?.value === 'dashboard' ? handleAppLinkClick : undefined}
@@ -255,7 +255,7 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
             label={github.label.value}
             to={github.url.value}
             variant="button-outlined"
-            preload="intent"
+            preload="viewport"
             color="text"
             className="group/github rounded-2xl! leading-6"
           >
@@ -317,7 +317,7 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
             target="_blank"
             color="text"
             variant="button-outlined"
-            preload="intent"
+            preload="viewport"
             roundedSize="full"
             rel="noopener noreferrer nofollow"
             className="flex cursor-pointer items-center gap-2 rounded-full border-[1.3px] p-1.5"
