@@ -6,7 +6,7 @@ import type { NextPageIntlayer } from 'next-intlayer';
 import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
 import type { FC } from 'react';
 
-const DocumentationSearchPageContent: FC = () => {
+const DocumentationSearchPageContent: FC<{ locale: string }> = ({ locale }) => {
   const { title } = useIntlayer('doc-chat-page');
 
   return (
@@ -15,7 +15,7 @@ const DocumentationSearchPageContent: FC = () => {
         type="application/ld+json"
         // biome-ignore lint/security/noDangerouslySetInnerHtml: This is safe because the data is generated securely and stringified
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(getWebsiteHeader({ locale })),
+          __html: JSON.stringify(getWebsiteHeader({ locale: locale as any })),
         }}
       />
       <div className="flex size-full flex-1 flex-col gap-20 p-10">
@@ -38,7 +38,7 @@ const DocumentationSearchPage: NextPageIntlayer = async ({ params }) => {
 
   return (
     <IntlayerServerProvider locale={locale}>
-      <DocumentationSearchPageContent />
+      <DocumentationSearchPageContent locale={locale} />
     </IntlayerServerProvider>
   );
 };

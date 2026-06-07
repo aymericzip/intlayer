@@ -37,7 +37,12 @@ export const ServerCodeBlock = async ({
 }: ServerCodeBlockProps & { [key: string]: any }) => {
   // Strip dev-mode source-map props injected by React's JSX transform
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { fileName: _f, lineNumber: _l, columnNumber: _c, ...domRest } = rest as any;
+  const {
+    fileName: _f,
+    lineNumber: _l,
+    columnNumber: _c,
+    ...domRest
+  } = rest as any;
   const content = String(children ?? '').replace(/\n$/, '');
   const isBlock = !!className;
 
@@ -54,19 +59,31 @@ export const ServerCodeBlock = async ({
   }
 
   const rawLanguage = className?.replace(/lang(?:uage)?-/, '') ?? 'plaintext';
-  const language =
-    (LANGUAGE_ALIASES[rawLanguage] ?? rawLanguage) as BundledLanguage;
+  const language = (LANGUAGE_ALIASES[rawLanguage] ??
+    rawLanguage) as BundledLanguage;
 
   const { codeToHtml } = await import('shiki/bundle/web');
 
-  const html = await codeToHtml(content, {
-    lang: language,
-    themes: {
-      light: 'github-light',
-      dark: 'github-dark',
-    },
-    defaultColor: false,
-  });
+  let html: string;
+  try {
+    html = await codeToHtml(content, {
+      lang: language,
+      themes: {
+        light: 'github-light',
+        dark: 'github-dark',
+      },
+      defaultColor: false,
+    });
+  } catch {
+    html = await codeToHtml(content, {
+      lang: 'plaintext',
+      themes: {
+        light: 'github-light',
+        dark: 'github-dark',
+      },
+      defaultColor: false,
+    });
+  }
 
   return (
     <div
