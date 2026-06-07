@@ -219,7 +219,7 @@
     "publish": "bun publish || true",
     "publish:canary": "bun publish --access public --tag canary || true",
     "publish:latest": "bun publish --access public --tag latest || true",
-    "test": "bun --bun vitest run",
+    "test": "bun --bun vitest run --passWithNoTests",
     "test:watch": "bun --bun vitest",
     "typecheck": "tsc --noEmit --project tsconfig.types.json"
   },

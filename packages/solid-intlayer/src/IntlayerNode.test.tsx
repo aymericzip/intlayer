@@ -5,6 +5,7 @@ vi.hoisted(() => {
   process.env['INTLAYER_NODE_TYPE_HTML'] = 'false';
 });
 
+import { createRoot } from 'solid-js';
 import { renderIntlayerNode } from './IntlayerNode';
 
 // ---------------------------------------------------------------------------
@@ -122,12 +123,18 @@ describe('getDictionary – editor enabled', () => {
   });
 
   it('field.value still returns the raw string', () => {
-    const result = getDictionary(dict, 'en');
-    expect(result.greeting.value).toBe('Hello World');
+    createRoot((dispose) => {
+      const result = getDictionary(dict, 'en');
+      expect(result.greeting.value).toBe('Hello World');
+      dispose();
+    });
   });
 
   it('field.toString() still returns the raw string', () => {
-    const result = getDictionary(dict, 'en');
-    expect(result.greeting.toString()).toBe('Hello World');
+    createRoot((dispose) => {
+      const result = getDictionary(dict, 'en');
+      expect(result.greeting.toString()).toBe('Hello World');
+      dispose();
+    });
   });
 });
