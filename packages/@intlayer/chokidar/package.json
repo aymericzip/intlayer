@@ -109,6 +109,7 @@
     "typecheck": "tsc --noEmit --project tsconfig.types.json"
   },
   "dependencies": {
+    "@intlayer/api": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
     "@intlayer/dictionaries-entry": "workspace:*",

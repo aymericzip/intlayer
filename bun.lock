@@ -1335,6 +1335,7 @@
       "name": "@intlayer/chokidar",
       "version": "8.12.2",
       "dependencies": {
+        "@intlayer/api": "workspace:*",
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
         "@intlayer/dictionaries-entry": "workspace:*",
