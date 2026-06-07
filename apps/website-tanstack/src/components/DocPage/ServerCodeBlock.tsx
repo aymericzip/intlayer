@@ -1,5 +1,5 @@
 import type { ComponentProps } from 'react';
-import { bundledLanguages, type BundledLanguage } from 'shiki/bundle/web';
+import { type BundledLanguage, bundledLanguages } from 'shiki/bundle/web';
 
 /**
  * Normalises language aliases used in markdown fences to Shiki bundle IDs.
@@ -58,10 +58,25 @@ export const ServerCodeBlock = async ({
     );
   }
 
-  const rawLanguage = className?.replace(/lang(?:uage)?-/, '') ?? 'plaintext';
-  const language = (LANGUAGE_ALIASES[rawLanguage] ??
-    rawLanguage) as BundledLanguage;
+  const rawLanguage = className?.replace(/lang(?:uage)?-/, '') ?? '';
+  const resolvedLanguage = LANGUAGE_ALIASES[rawLanguage] ?? rawLanguage;
 
+  // Guard: codeToHtml hangs (never rejects) for languages absent from the web
+  // bundle, which makes the RSC render time out. Render unformatted code instead.
+  if (!(resolvedLanguage in bundledLanguages)) {
+    return (
+      <div
+        className="min-w-0 max-w-full overflow-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        {...domRest}
+      >
+        <pre className="shiki">
+          <code>{content}</code>
+        </pre>
+      </div>
+    );
+  }
+
+  const language = resolvedLanguage as BundledLanguage;
   const { codeToHtml } = await import('shiki/bundle/web');
 
   let html: string;
@@ -75,14 +90,16 @@ export const ServerCodeBlock = async ({
       defaultColor: false,
     });
   } catch {
-    html = await codeToHtml(content, {
-      lang: 'plaintext',
-      themes: {
-        light: 'github-light',
-        dark: 'github-dark',
-      },
-      defaultColor: false,
-    });
+    return (
+      <div
+        className="min-w-0 max-w-full overflow-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        {...domRest}
+      >
+        <pre className="shiki">
+          <code>{content}</code>
+        </pre>
+      </div>
+    );
   }
 
   return (
