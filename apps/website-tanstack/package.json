@@ -84,6 +84,7 @@
     "zod": "4.4.3"
   },
   "devDependencies": {
+    "@intlayer/editor-react": "workspace:*",
     "@rolldown/plugin-babel": "0.2.3",
     "@tailwindcss/postcss": "4.3.0",
     "@tailwindcss/vite": "4.3.0",
