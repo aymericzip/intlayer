@@ -24,7 +24,8 @@ export const LibCard: FC<{
         color: 'text',
         size: 'sm',
         variant: 'hoverable',
-        className: 'relative h-12 min-w-32 shrink-0 cursor-pointer overflow-hidden text-left',
+        className:
+          'relative h-12 min-w-32 shrink-0 cursor-pointer overflow-hidden text-left',
       })}
     >
       <div className="flex flex-row items-center gap-4 px-3 py-1.5">
@@ -37,7 +38,7 @@ export const LibCard: FC<{
           color="neutral"
         />
         {colors[lib.id] && (
-          <divw-0.75
+          <div
             className="absolute top-0 left-0 h-full w-0.75 rounded-r-full"
             style={{ backgroundColor: colors[lib.id] }}
           />
