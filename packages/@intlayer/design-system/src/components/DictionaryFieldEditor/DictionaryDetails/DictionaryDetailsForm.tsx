@@ -7,7 +7,21 @@ import {
 } from '@api/index';
 import { useSession } from '@api/useAuth';
 
-import { Form, useForm } from '@components/Form';
+import {
+  Form,
+  FormButton,
+  FormDescription,
+  FormEditableFieldInput,
+  FormEditableFieldTextArea,
+  FormField,
+  FormInput,
+  FormItem,
+  FormLabel,
+  FormMessage,
+  FormMultiSelect,
+  FormSelect,
+  useForm,
+} from '@components/Form';
 import { Checkbox } from '@components/Input';
 import { Loader } from '@components/Loader';
 import { MultiSelect, Select } from '@components/Select';
@@ -125,7 +139,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
       schema={DictionaryDetailsSchema}
     >
       <div className="grid grid-cols-2 gap-8 max-md:grid-cols-1">
-        <Form.EditableFieldInput
+        <FormEditableFieldInput
           name="key"
           label={keyInput.label}
           placeholder={keyInput.label.value}
@@ -141,7 +155,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
             });
           }}
         />
-        <Form.EditableFieldInput
+        <FormEditableFieldInput
           name="title"
           label={titleInput.label}
           placeholder={titleInput.placeholder.value}
@@ -157,7 +171,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
           }}
         />
       </div>
-      <Form.EditableFieldTextArea
+      <FormEditableFieldTextArea
         name="description"
         label={descriptionInput.label}
         placeholder={descriptionInput.placeholder.value}
@@ -173,7 +187,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
         }}
       />
       <div className="grid grid-cols-2 gap-8 px-1 max-md:grid-cols-1">
-        <Form.Field
+        <FormField
           control={form.control}
           name="location"
           render={({ field }) => {
@@ -227,8 +241,8 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
             };
 
             return (
-              <Form.Item className="flex flex-col gap-2 px-1">
-                <Form.Label className="ml-1">{locationSelect.label}</Form.Label>
+              <FormItem className="flex flex-col gap-2 px-1">
+                <FormLabel className="ml-1">{locationSelect.label}</FormLabel>
                 <div className="ml-2 flex items-center gap-4 py-2">
                   <Checkbox
                     id="location-local"
@@ -255,11 +269,11 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
                     onChange={(e) => handleRemoteToggle(e.target.checked)}
                   />
                 </div>
-                <Form.Description>
+                <FormDescription>
                   {locationSelect.testDescription}
-                </Form.Description>
-                <Form.Message />
-              </Form.Item>
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
             );
           }}
         />
@@ -274,7 +288,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
               transition={{ duration: 0.3 }}
               className="overflow-hidden"
             >
-              <Form.Input
+              <FormInput
                 name="filePath"
                 label={filePathInput.label.value}
                 placeholder={filePathInput.placeholder.value}
@@ -294,7 +308,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
         </AnimatePresence>
       </div>
       <div className="grid grid-cols-2 gap-8 max-md:grid-cols-1">
-        <Form.Select
+        <FormSelect
           name="importMode"
           label={importModeSelect.label.value}
           description={importModeSelect.description.value}
@@ -321,10 +335,10 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
               {importModeSelect.live.value}
             </Select.Item>
           </Select.Content>
-        </Form.Select>
+        </FormSelect>
       </div>
       <div className="grid grid-cols-2 gap-8 max-md:grid-cols-1">
-        <Form.MultiSelect
+        <FormMultiSelect
           name="projectIds"
           label={projectInput.label.value}
           description={projectInput.description}
@@ -360,9 +374,9 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
               </MultiSelect.List>
             </Loader>
           </MultiSelect.Content>
-        </Form.MultiSelect>
+        </FormMultiSelect>
 
-        <Form.MultiSelect
+        <FormMultiSelect
           name="tags"
           label={tagsSelect.label.value}
           description={tagsSelect.description}
@@ -398,11 +412,11 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
               </MultiSelect.List>
             </Loader>
           </MultiSelect.Content>
-        </Form.MultiSelect>
+        </FormMultiSelect>
       </div>
 
       <div className="flex flex-wrap items-center justify-end gap-2 max-md:flex-col">
-        <Form.Button
+        <FormButton
           type="button"
           size="icon-md"
           label={auditButton.label.value}

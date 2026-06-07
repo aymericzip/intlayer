@@ -1,4 +1,11 @@
-import { Form, useForm } from '@intlayer/design-system/form';
+import {
+  Form,
+  FormButton,
+  FormCheckbox,
+  FormInput,
+  FormInputPassword,
+  useForm,
+} from '@intlayer/design-system/form';
 import { usePersistedStore } from '@intlayer/design-system/hooks';
 import type { FC, RefObject } from 'react';
 import { useEffect, useState } from 'react';
@@ -80,7 +87,7 @@ export const SignInForm: FC<SignInFormProps> = ({
         {...form}
       >
         <div className="flex flex-col gap-y-6">
-          <Form.Input
+          <FormInput
             name="email"
             type="email"
             autoComplete="email"
@@ -90,7 +97,7 @@ export const SignInForm: FC<SignInFormProps> = ({
             ref={emailInputRef}
           />
 
-          <Form.InputPassword
+          <FormInputPassword
             name="password"
             autoComplete="current-password"
             label={passwordInput.label.value}
@@ -99,7 +106,7 @@ export const SignInForm: FC<SignInFormProps> = ({
           />
         </div>
 
-        <Form.Button
+        <FormButton
           className="mt-2 ml-auto block"
           variant="link"
           label={forgotPasswordLink.ariaLabel.value}
@@ -108,16 +115,16 @@ export const SignInForm: FC<SignInFormProps> = ({
           onClick={onClickForgotPassword}
         >
           {forgotPasswordLink.text}
-        </Form.Button>
+        </FormButton>
 
-        <Form.Checkbox
+        <FormCheckbox
           name="rememberMe"
           size="sm"
           color="text"
           inputLabel={rememberMeCheckbox.description}
         />
 
-        <Form.Button
+        <FormButton
           className="mt-4 w-full"
           type="submit"
           color="text"
@@ -125,11 +132,11 @@ export const SignInForm: FC<SignInFormProps> = ({
           label={loginButton.ariaLabel.value}
         >
           {loginButton.text}
-        </Form.Button>
+        </FormButton>
 
         <span className="m-auto mt-3 flex w-full items-center justify-center text-neutral text-xs">
           {signUpLink.message}
-          <Form.Button
+          <FormButton
             variant="link"
             label={signUpLink.ariaLabel.value}
             color="text"
@@ -137,7 +144,7 @@ export const SignInForm: FC<SignInFormProps> = ({
             onClick={onClickSignUp}
           >
             {signUpLink.text}
-          </Form.Button>
+          </FormButton>
         </span>
       </Form>
       <Separator />

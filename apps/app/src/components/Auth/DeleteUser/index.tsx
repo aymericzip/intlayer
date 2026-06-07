@@ -1,6 +1,11 @@
 import { useDeleteUser, useUser } from '@intlayer/design-system/api';
 import { Button } from '@intlayer/design-system/button';
-import { Form, useForm } from '@intlayer/design-system/form';
+import {
+  Form,
+  FormButton,
+  FormInput,
+  useForm,
+} from '@intlayer/design-system/form';
 import { Modal } from '@intlayer/design-system/modal';
 import { Trash2, TriangleAlert } from 'lucide-react';
 import type { FC } from 'react';
@@ -94,7 +99,7 @@ export const DeleteUser: FC = () => {
               className="flex flex-col gap-4 pt-4"
               {...form}
             >
-              <Form.Input
+              <FormInput
                 name="email"
                 id="delete-user-email-confirmation"
                 type="email"
@@ -115,7 +120,7 @@ export const DeleteUser: FC = () => {
                 >
                   {modal.cancelButton}
                 </Button>
-                <Form.Button
+                <FormButton
                   type="submit"
                   color="error"
                   variant="outline"
@@ -125,7 +130,7 @@ export const DeleteUser: FC = () => {
                   className="flex-1"
                 >
                   {modal.confirmButton}
-                </Form.Button>
+                </FormButton>
               </div>
             </Form>
           </div>

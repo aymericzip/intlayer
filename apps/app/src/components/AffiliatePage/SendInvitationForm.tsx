@@ -1,5 +1,10 @@
 import { useSendAffiliateInvitation } from '@intlayer/design-system/api';
-import { Form, useForm } from '@intlayer/design-system/form';
+import {
+  Form,
+  FormButton,
+  FormInput,
+  useForm,
+} from '@intlayer/design-system/form';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import {
@@ -39,7 +44,7 @@ export const SendInvitationForm: FC<SendInvitationFormProps> = ({
       className="flex flex-col gap-6"
       {...form}
     >
-      <Form.Input
+      <FormInput
         name="email"
         type="email"
         label={content.emailAddress.value}
@@ -47,14 +52,14 @@ export const SendInvitationForm: FC<SendInvitationFormProps> = ({
         isRequired
       />
 
-      <Form.Input
+      <FormInput
         name="commissionRate"
         type="number"
         label={content.commissionRate.value}
         isRequired
       />
 
-      <Form.Button
+      <FormButton
         type="submit"
         color="text"
         isLoading={isSubmitting || isPending}
@@ -63,7 +68,7 @@ export const SendInvitationForm: FC<SendInvitationFormProps> = ({
         className="mt-2 w-full"
       >
         {isPending ? content.sending : content.sendInvitation}
-      </Form.Button>
+      </FormButton>
     </Form>
   );
 };

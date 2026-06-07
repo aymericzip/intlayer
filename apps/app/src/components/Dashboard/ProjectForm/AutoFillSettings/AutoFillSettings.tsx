@@ -1,6 +1,11 @@
 import { useSession, useUpdateProject } from '@intlayer/design-system/api';
 import { Container } from '@intlayer/design-system/container';
-import { Form, useForm } from '@intlayer/design-system/form';
+import {
+  Form,
+  FormButton,
+  FormSwitchSelector,
+  useForm,
+} from '@intlayer/design-system/form';
 import { H3, H4 } from '@intlayer/design-system/headers';
 import { Save, Sparkles } from 'lucide-react';
 import { type FC, useEffect } from 'react';
@@ -61,7 +66,7 @@ export const AutoFillSettings: FC = () => {
             </p>
           </div>
           <div className="flex-0">
-            <Form.SwitchSelector
+            <FormSwitchSelector
               name="autoFill"
               disabled={!isProjectAdmin}
               color="text"
@@ -73,7 +78,7 @@ export const AutoFillSettings: FC = () => {
 
       {isProjectAdmin && (
         <div className="flex justify-end border-neutral/30 border-t border-dotted pt-3">
-          <Form.Button
+          <FormButton
             type="submit"
             label={saveButton.ariaLabel.value}
             color="text"
@@ -83,7 +88,7 @@ export const AutoFillSettings: FC = () => {
             Icon={Save}
           >
             {saveButton.text}
-          </Form.Button>
+          </FormButton>
         </div>
       )}
     </Form>

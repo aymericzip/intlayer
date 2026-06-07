@@ -2,7 +2,19 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { z } from 'zod/v4';
 import { Select } from '../Select';
 import { MultiSelect } from '../Select/Multiselect';
-import { Form, useForm } from '.';
+import {
+  Form,
+  FormButton,
+  FormCheckbox,
+  FormInput,
+  FormInputPassword,
+  FormMultiSelect,
+  FormOTP,
+  FormSearchInput,
+  FormSelect,
+  FormTextArea,
+  useForm,
+} from '.';
 
 type FormStoryArgs = {
   autoComplete: boolean;
@@ -66,14 +78,14 @@ export const Default: Story = {
           onSubmitError={onSubmitError}
           autoComplete={autoComplete}
         >
-          <Form.Input
+          <FormInput
             name="name"
             label="Name"
             placeholder="John Doe"
             isRequired
           />
 
-          <Form.Input
+          <FormInput
             name="email"
             type="email"
             label="Email"
@@ -81,22 +93,22 @@ export const Default: Story = {
             isRequired
           />
 
-          <Form.InputPassword
+          <FormInputPassword
             name="password"
             label="Password"
             isRequired
             autoComplete="new-password"
           />
 
-          <Form.OTP name="otp" label="OTP" maxLength={6} />
+          <FormOTP name="otp" label="OTP" maxLength={6} />
 
-          <Form.TextArea
+          <FormTextArea
             name="bio"
             label="Bio"
             description="Tell us a bit about yourself"
           />
 
-          <Form.Select name="theme" label="Theme">
+          <FormSelect name="theme" label="Theme">
             <Select.Trigger>
               <Select.Value placeholder="Select theme" />
             </Select.Trigger>
@@ -105,9 +117,9 @@ export const Default: Story = {
               <Select.Item value="dark">Dark</Select.Item>
               <Select.Item value="system">System</Select.Item>
             </Select.Content>
-          </Form.Select>
+          </FormSelect>
 
-          <Form.MultiSelect name="languages" label="Languages">
+          <FormMultiSelect name="languages" label="Languages">
             <MultiSelect.Trigger>
               <MultiSelect.Input placeholder="Select languages" />
             </MultiSelect.Trigger>
@@ -116,23 +128,23 @@ export const Default: Story = {
                 <MultiSelect.Item value="english">English</MultiSelect.Item>
               </MultiSelect.List>
             </MultiSelect.Content>
-          </Form.MultiSelect>
+          </FormMultiSelect>
 
-          <Form.SearchInput
+          <FormSearchInput
             name="search"
             label="Search"
             placeholder="Search..."
           />
 
-          <Form.Checkbox
+          <FormCheckbox
             name="acceptTerms"
             label="Terms"
             inputLabel="I accept the terms and conditions"
           />
 
-          <Form.Button type="submit" label="Button Label" color="text">
+          <FormButton type="submit" label="Button Label" color="text">
             Submit
-          </Form.Button>
+          </FormButton>
         </Form>
       </div>
     );

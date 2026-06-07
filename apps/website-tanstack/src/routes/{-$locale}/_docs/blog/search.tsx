@@ -1,14 +1,15 @@
 import { Container } from '@intlayer/design-system/container';
 import { H1 } from '@intlayer/design-system/headers';
 import { Loader } from '@intlayer/design-system/loader';
-import { getWebsiteHeader } from '@intlayer/design-system/structured-data';
+import { Website_Blog_Search_Path } from '@intlayer/design-system/routes';
 import { createFileRoute } from '@tanstack/react-router';
-import { defaultLocale } from 'intlayer';
+import { defaultLocale, getIntlayer } from 'intlayer';
 import { Suspense } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { BlogPageLayout } from '~/components/BlogPage/BlogPageLayout';
 import { SearchView } from '~/components/DocPage/Search/SearchView';
 import { loadBlogNavData } from '~/serverFunctions/blog';
+import { getAbsoluteUrl, getHreflangLinks } from '~/utils/seo';
 
 export const Route = createFileRoute('/{-$locale}/_docs/blog/search')({
   loader: async ({ params }) => {
@@ -16,17 +17,26 @@ export const Route = createFileRoute('/{-$locale}/_docs/blog/search')({
     const navData = await loadBlogNavData({ data: { locale } });
     return { locale, navData };
   },
-  head: ({ loaderData }) => ({
-    meta: [{ title: 'Search Blog | Intlayer' }],
-    scripts: [
-      {
-        type: 'application/ld+json',
-        children: JSON.stringify(
-          getWebsiteHeader({ locale: loaderData?.locale })
-        ),
-      },
-    ],
-  }),
+  head: ({ loaderData, params }) => {
+    const locale = params.locale ?? defaultLocale;
+    const path = Website_Blog_Search_Path;
+    const { title } = getIntlayer('blog-search-page', locale);
+    const pageTitle = `${title} | Intlayer`;
+
+    return {
+      meta: [
+        { title: pageTitle },
+        { name: 'description', content: String(title) },
+        { property: 'og:url', content: getAbsoluteUrl(path, locale) },
+        { property: 'og:title', content: pageTitle },
+        { property: 'og:description', content: String(title) },
+      ],
+      links: [
+        { rel: 'canonical', href: getAbsoluteUrl(path, locale) },
+        ...getHreflangLinks(path),
+      ],
+    };
+  },
   component: BlogSearchPage,
 });
 

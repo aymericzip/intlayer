@@ -4,7 +4,13 @@ import {
   useVerifyTotp,
 } from '@intlayer/design-system/api';
 import { Button } from '@intlayer/design-system/button';
-import { Form, useForm } from '@intlayer/design-system/form';
+import {
+  Form,
+  FormButton,
+  FormInputPassword,
+  FormOTP,
+  useForm,
+} from '@intlayer/design-system/form';
 import { Modal } from '@intlayer/design-system/modal';
 import type { FC } from 'react';
 import { useState } from 'react';
@@ -129,7 +135,7 @@ export const EnableTwoFactor: FC = () => {
             className="mt-4 flex flex-col gap-4"
             {...form}
           >
-            <Form.InputPassword
+            <FormInputPassword
               name="password"
               id="enable-two-factor-password"
               autoComplete="current-password"
@@ -149,7 +155,7 @@ export const EnableTwoFactor: FC = () => {
               >
                 {modal.cancelButton}
               </Button>
-              <Form.Button
+              <FormButton
                 type="submit"
                 color="text"
                 isLoading={isEnablingTwoFactor || isSubmitting}
@@ -158,7 +164,7 @@ export const EnableTwoFactor: FC = () => {
                 className="flex-1"
               >
                 {modal.confirmButton}
-              </Form.Button>
+              </FormButton>
             </div>
           </Form>
         </div>
@@ -234,7 +240,7 @@ const QRCodeVerification: FC<{
           <label htmlFor="verification-code" className="font-medium text-sm">
             {qrCode.codeLabel}
           </label>
-          <Form.OTP
+          <FormOTP
             id="verification-code"
             name="code"
             type="text"

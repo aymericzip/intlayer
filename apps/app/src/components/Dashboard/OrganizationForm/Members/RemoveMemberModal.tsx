@@ -7,7 +7,7 @@ import {
   useGetUsers,
   useUpdateOrganizationMembers,
 } from '@intlayer/design-system/api';
-import { Form } from '@intlayer/design-system/form';
+import { Form, FormButton } from '@intlayer/design-system/form';
 import { Loader } from '@intlayer/design-system/loader';
 import { Modal } from '@intlayer/design-system/modal';
 import { type FC, useEffect } from 'react';
@@ -85,7 +85,7 @@ export const RemoveMemberModal: FC<RemoveMemberModalProps> = ({
         <form className="size-full p-3">
           <p className="text-neutral text-sm">{description}</p>
           <div className="mt-12 flex justify-end gap-2 max-md:flex-col">
-            <Form.Button
+            <FormButton
               variant="outline"
               label={cancelButton.label.value}
               color="text"
@@ -95,8 +95,8 @@ export const RemoveMemberModal: FC<RemoveMemberModalProps> = ({
               onClick={onClose}
             >
               {cancelButton.text}
-            </Form.Button>
-            <Form.Button
+            </FormButton>
+            <FormButton
               variant="outline"
               label={confirmButton.label.value}
               isFullWidth={true}
@@ -107,7 +107,7 @@ export const RemoveMemberModal: FC<RemoveMemberModalProps> = ({
               onClick={handleRemoveMember}
             >
               {confirmButton.text}
-            </Form.Button>
+            </FormButton>
           </div>
         </form>
       </Loader>

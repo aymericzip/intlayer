@@ -1,6 +1,6 @@
 import type { TagAPI } from '@intlayer/backend';
 import { useDeleteTag } from '@intlayer/design-system/api';
-import { Form } from '@intlayer/design-system/form';
+import { Form, FormButton } from '@intlayer/design-system/form';
 import { Modal } from '@intlayer/design-system/modal';
 import { App_Dashboard_Tags } from '@intlayer/design-system/routes';
 import type { FC } from 'react';
@@ -42,7 +42,7 @@ export const DeleteTagModal: FC<DeleteTagModalProps> = ({
       <form className="size-full px-3">
         <p className="text-neutral text-sm">{description.single}</p>
         <div className="mt-12 flex justify-end gap-2 max-md:flex-col">
-          <Form.Button
+          <FormButton
             variant="outline"
             label={cancelButton.label.value}
             color="text"
@@ -52,8 +52,8 @@ export const DeleteTagModal: FC<DeleteTagModalProps> = ({
             onClick={onClose}
           >
             {cancelButton.text}
-          </Form.Button>
-          <Form.Button
+          </FormButton>
+          <FormButton
             variant="outline"
             label={confirmButton.label.value}
             isFullWidth={true}
@@ -64,7 +64,7 @@ export const DeleteTagModal: FC<DeleteTagModalProps> = ({
             onClick={handleDelete}
           >
             {confirmButton.text}
-          </Form.Button>
+          </FormButton>
         </div>
       </form>
     </Modal>

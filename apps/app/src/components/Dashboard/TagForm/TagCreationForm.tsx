@@ -1,5 +1,10 @@
 import { useAddTag } from '@intlayer/design-system/api';
-import { Form, useForm } from '@intlayer/design-system/form';
+import {
+  Form,
+  FormButton,
+  FormInput,
+  useForm,
+} from '@intlayer/design-system/form';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { type TagFormData, useTagSchema } from './useTagFormSchema';
@@ -30,7 +35,7 @@ export const TagCreationForm: FC<TagCreationFormProps> = ({ onTagCreated }) => {
       className="w-full max-w-xl"
       {...form}
     >
-      <Form.Input
+      <FormInput
         name="key"
         id="tag-key-input"
         label={nameInput.label.value}
@@ -39,7 +44,7 @@ export const TagCreationForm: FC<TagCreationFormProps> = ({ onTagCreated }) => {
         isRequired
       />
 
-      <Form.Button
+      <FormButton
         className="mt-4 w-full"
         type="submit"
         color="text"
@@ -47,7 +52,7 @@ export const TagCreationForm: FC<TagCreationFormProps> = ({ onTagCreated }) => {
         label={createTagButton.ariaLabel.value}
       >
         {createTagButton.text}
-      </Form.Button>
+      </FormButton>
     </Form>
   );
 };

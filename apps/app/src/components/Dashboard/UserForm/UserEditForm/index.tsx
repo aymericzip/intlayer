@@ -6,7 +6,7 @@ import {
   useUpdateUser,
 } from '@intlayer/design-system/api';
 import { Container } from '@intlayer/design-system/container';
-import { Form, useForm } from '@intlayer/design-system/form';
+import { Form, FormButton, useForm } from '@intlayer/design-system/form';
 import { H3 } from '@intlayer/design-system/headers';
 import { Loader } from '@intlayer/design-system/loader';
 import { toast } from '@intlayer/design-system/toaster';
@@ -202,7 +202,7 @@ export const UserEditForm: FC<{ userId: string }> = ({ userId }) => {
                   getOrganizationName={getOrganizationName}
                 />
 
-                <Form.Button
+                <FormButton
                   type="submit"
                   className="mt-4 w-full"
                   label={formLabels.updateButton.value}
@@ -214,7 +214,7 @@ export const UserEditForm: FC<{ userId: string }> = ({ userId }) => {
                   color="text"
                 >
                   {formLabels.updateButton}
-                </Form.Button>
+                </FormButton>
               </Form>
             </Container>
           </div>

@@ -1,5 +1,6 @@
 import { Container } from '@intlayer/design-system/container';
-import { Website_FrequentQuestions } from '@intlayer/design-system/routes';
+import { Website_FrequentQuestions_Path } from '@intlayer/design-system/routes';
+import { getFAQPageHeader } from '@intlayer/design-system/structured-data';
 import { createFileRoute } from '@tanstack/react-router';
 import { defaultLocale, getIntlayer } from 'intlayer';
 import { ArrowRight } from 'lucide-react';
@@ -7,7 +8,6 @@ import { Suspense } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { Link } from '~/components/Link/Link';
 import { loadFaqIndex } from '~/serverFunctions/faq';
-import { getFAQPageHeader } from '@intlayer/design-system/structured-data';
 import { getAbsoluteUrl, getHreflangLinks } from '~/utils/seo';
 
 export const Route = createFileRoute('/{-$locale}/_docs/frequent-questions/')({
@@ -18,7 +18,7 @@ export const Route = createFileRoute('/{-$locale}/_docs/frequent-questions/')({
   },
   head: ({ params, loaderData }) => {
     const locale = params.locale ?? defaultLocale;
-    const path = Website_FrequentQuestions;
+    const path = Website_FrequentQuestions_Path;
     const { title, description, keywords } = getIntlayer(
       'frequent-questions-page',
       locale
@@ -42,20 +42,23 @@ export const Route = createFileRoute('/{-$locale}/_docs/frequent-questions/')({
         { rel: 'canonical', href: getAbsoluteUrl(path, locale) },
         ...getHreflangLinks(path),
       ],
-      scripts:
-        loaderData?.frequentQuestions ? [
-          {
-            type: 'application/ld+json',
-            children: JSON.stringify(
-              getFAQPageHeader({
-                faqs: Object.values(loaderData.frequentQuestions).map((q: any) => ({
-                  question: q.title,
-                  answer: q.description,
-                })),
-              })
-            ),
-          },
-        ] : [],
+      scripts: loaderData?.frequentQuestions
+        ? [
+            {
+              type: 'application/ld+json',
+              children: JSON.stringify(
+                getFAQPageHeader({
+                  faqs: Object.values(loaderData.frequentQuestions).map(
+                    (q: any) => ({
+                      question: q.title,
+                      answer: q.description,
+                    })
+                  ),
+                })
+              ),
+            },
+          ]
+        : [],
     };
   },
   component: FrequentQuestionsPage,
@@ -69,7 +72,6 @@ function FrequentQuestionsPageTitle() {
 function FrequentQuestionsPage() {
   const { frequentQuestions } = Route.useLoaderData();
   const frequentQuestionsList = Object.values(frequentQuestions);
-
 
   return (
     <>

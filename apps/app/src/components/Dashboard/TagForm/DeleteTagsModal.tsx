@@ -1,4 +1,4 @@
-import { Form } from '@intlayer/design-system/form';
+import { Form, FormButton } from '@intlayer/design-system/form';
 import { Modal } from '@intlayer/design-system/modal';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
@@ -35,7 +35,7 @@ export const DeleteTagsModal: FC<DeleteTagsModalProps> = ({
           {count > 1 ? description.bulk : description.single}
         </p>
         <div className="mt-12 flex justify-end gap-2 max-md:flex-col">
-          <Form.Button
+          <FormButton
             variant="outline"
             label={cancelButton.label.value}
             color="text"
@@ -45,8 +45,8 @@ export const DeleteTagsModal: FC<DeleteTagsModalProps> = ({
             onClick={onClose}
           >
             {cancelButton.text}
-          </Form.Button>
-          <Form.Button
+          </FormButton>
+          <FormButton
             variant="outline"
             label={confirmButton.label.value}
             isFullWidth={true}
@@ -60,7 +60,7 @@ export const DeleteTagsModal: FC<DeleteTagsModalProps> = ({
             }}
           >
             {confirmButton.text}
-          </Form.Button>
+          </FormButton>
         </div>
       </form>
     </Modal>

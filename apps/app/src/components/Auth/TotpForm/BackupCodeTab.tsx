@@ -1,5 +1,10 @@
 import { useVerifyBackupCode } from '@intlayer/design-system/api';
-import { Form, useForm } from '@intlayer/design-system/form';
+import {
+  Form,
+  FormButton,
+  FormInput,
+  useForm,
+} from '@intlayer/design-system/form';
 import { useSearch } from '@tanstack/react-router';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
@@ -43,20 +48,20 @@ export const BackupCodeTab: FC = () => {
       onSubmitSuccess={handleBackupCodeVerification}
       className="space-y-4"
     >
-      <Form.Input
+      <FormInput
         name="code"
         label={codeLabel.value}
         placeholder={codePlaceholder.value}
       />
 
-      <Form.Button
+      <FormButton
         type="submit"
         label={verifyButton.value}
         isLoading={isSubmitting}
         className="w-full"
       >
         {verifyButton}
-      </Form.Button>
+      </FormButton>
     </Form>
   );
 };

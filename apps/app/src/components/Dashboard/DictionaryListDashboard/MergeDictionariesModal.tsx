@@ -1,7 +1,7 @@
 import { mergeDictionaries } from '@intlayer/core/dictionaryManipulator';
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
-import { Form } from '@intlayer/design-system/form';
+import { Form, FormButton } from '@intlayer/design-system/form';
 import { Checkbox } from '@intlayer/design-system/input';
 import { Modal } from '@intlayer/design-system/modal';
 import { cn } from '@intlayer/design-system/utils';
@@ -206,7 +206,7 @@ export const MergeDictionariesModal: FC<MergeDictionariesModalProps> = ({
           </div>
 
           <div className="flex justify-end gap-2 max-md:flex-col">
-            <Form.Button
+            <FormButton
               variant="outline"
               color="text"
               label={mergeDictionariesModal.cancelButton.label.value}
@@ -216,8 +216,8 @@ export const MergeDictionariesModal: FC<MergeDictionariesModalProps> = ({
               onClick={onClose}
             >
               {mergeDictionariesModal.cancelButton.text}
-            </Form.Button>
-            <Form.Button
+            </FormButton>
+            <FormButton
               variant="outline"
               color="error"
               label={mergeDictionariesModal.confirmButton.label.value}
@@ -231,7 +231,7 @@ export const MergeDictionariesModal: FC<MergeDictionariesModalProps> = ({
               }}
             >
               {mergeDictionariesModal.confirmButton.text}
-            </Form.Button>
+            </FormButton>
           </div>
         </div>
       </Modal>

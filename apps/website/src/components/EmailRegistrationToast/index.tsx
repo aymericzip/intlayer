@@ -3,7 +3,12 @@
 import type { EmailsList } from '@intlayer/backend';
 import { useSubscribeToNewsletter, useUser } from '@intlayer/design-system/api';
 import { Container } from '@intlayer/design-system/container';
-import { Form, useForm } from '@intlayer/design-system/form';
+import {
+  Form,
+  FormButton,
+  FormInput,
+  useForm,
+} from '@intlayer/design-system/form';
 import { useIsMounted, usePersistedStore } from '@intlayer/design-system/hooks';
 import { cn } from '@intlayer/design-system/utils';
 import { Mail, X } from 'lucide-react';
@@ -193,7 +198,7 @@ export const EmailRegistrationToast: FC = () => {
         >
           <span className="font-medium text-sm">{content.value}</span>
           {!isAuthenticated && (
-            <Form.Input
+            <FormInput
               name="email"
               type="email"
               autoComplete="email"
@@ -202,7 +207,7 @@ export const EmailRegistrationToast: FC = () => {
               isRequired
             />
           )}
-          <Form.Button
+          <FormButton
             label={registerLabel.value}
             type="submit"
             color="text"
@@ -212,9 +217,9 @@ export const EmailRegistrationToast: FC = () => {
             isLoading={isLoading}
           >
             {registerLabel.value}
-          </Form.Button>
+          </FormButton>
         </Form>
-        <Form.Button
+        <FormButton
           Icon={X}
           label={closeLabel.value}
           onClick={handleClose}

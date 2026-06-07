@@ -1,7 +1,7 @@
 import type { PlanAPI } from '@intlayer/backend';
 import { useCancelSubscription, useSession } from '@intlayer/design-system/api';
 import { Button } from '@intlayer/design-system/button';
-import { Form } from '@intlayer/design-system/form';
+import { Form, FormButton } from '@intlayer/design-system/form';
 import { H3 } from '@intlayer/design-system/headers';
 import { Modal } from '@intlayer/design-system/modal';
 import { App_Pricing_Path } from '@intlayer/design-system/routes';
@@ -77,7 +77,7 @@ export const PlanDetails: FC<PlanDetailsProps> = () => {
         hasCloseButton
       >
         <p className="text-neutral text-sm">{cancelModal.message}</p>
-        <Form.Button
+        <FormButton
           variant="outline"
           label={cancelModal.buttonLabel.value}
           color="error"
@@ -87,7 +87,7 @@ export const PlanDetails: FC<PlanDetailsProps> = () => {
           onClick={() => handleCancelSubscription()}
         >
           {cancelModal.confirmText}
-        </Form.Button>
+        </FormButton>
       </Modal>
       <div className="relative flex flex-col gap-2">
         <div className="mb-5 flex items-center gap-2">

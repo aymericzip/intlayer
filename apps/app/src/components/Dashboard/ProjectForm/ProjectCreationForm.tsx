@@ -1,6 +1,11 @@
 import type { ProjectAPI } from '@intlayer/backend';
 import { useAddProject, useSelectProject } from '@intlayer/design-system/api';
-import { Form, useForm } from '@intlayer/design-system/form';
+import {
+  Form,
+  FormButton,
+  FormInput,
+  useForm,
+} from '@intlayer/design-system/form';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { type ProjectFormData, useProjectSchema } from './useProjectFormSchema';
@@ -33,7 +38,7 @@ export const ProjectCreationForm: FC<ProjectCreationFormProps> = ({
 
   return (
     <Form schema={ProjectSchema} onSubmitSuccess={onSubmitSuccess} {...form}>
-      <Form.Input
+      <FormInput
         name="name"
         id="project-name-input"
         label={nameInput.label.value}
@@ -41,7 +46,7 @@ export const ProjectCreationForm: FC<ProjectCreationFormProps> = ({
         isRequired
       />
 
-      <Form.Button
+      <FormButton
         className="mt-4 w-full"
         type="submit"
         color="text"
@@ -49,7 +54,7 @@ export const ProjectCreationForm: FC<ProjectCreationFormProps> = ({
         label={createProjectButton.ariaLabel.value}
       >
         {createProjectButton.text}
-      </Form.Button>
+      </FormButton>
     </Form>
   );
 };

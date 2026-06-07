@@ -1,5 +1,11 @@
 import { useCreatePromoCode } from '@intlayer/design-system/api';
-import { Form, useForm } from '@intlayer/design-system/form';
+import {
+  Form,
+  FormButton,
+  FormInput,
+  FormSelect,
+  useForm,
+} from '@intlayer/design-system/form';
 import { Select } from '@intlayer/design-system/select';
 import { type FC, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
@@ -96,14 +102,14 @@ export const CreatePromoCodeForm: FC<CreatePromoCodeFormProps> = ({
       className="flex flex-col gap-6"
       {...form}
     >
-      <Form.Input
+      <FormInput
         name="code"
         label={content.codeLabel.value}
         placeholder={content.codePlaceholder.value}
         isRequired
       />
 
-      <Form.Select
+      <FormSelect
         name="discountType"
         label={content.discountTypeLabel.value}
         isRequired
@@ -117,9 +123,9 @@ export const CreatePromoCodeForm: FC<CreatePromoCodeFormProps> = ({
           </Select.Item>
           <Select.Item value="amount">{content.amount.value}</Select.Item>
         </Select.Content>
-      </Form.Select>
+      </FormSelect>
 
-      <Form.Input
+      <FormInput
         name="discountValue"
         type="number"
         label={content.discountValueLabel.value}
@@ -145,14 +151,14 @@ export const CreatePromoCodeForm: FC<CreatePromoCodeFormProps> = ({
       </div>
 
       {expirationPreset === 'custom' && (
-        <Form.Input
+        <FormInput
           name="expiresAt"
           type="date"
           min={new Date().toISOString().slice(0, 10)}
         />
       )}
 
-      <Form.Button
+      <FormButton
         type="submit"
         color="text"
         isLoading={isSubmitting || isPending}
@@ -161,7 +167,7 @@ export const CreatePromoCodeForm: FC<CreatePromoCodeFormProps> = ({
         className="mt-2 w-full"
       >
         {isPending ? content.creating.value : content.submitButton.value}
-      </Form.Button>
+      </FormButton>
     </Form>
   );
 };

@@ -1,4 +1,9 @@
-import { Form, useForm } from '@intlayer/design-system/form';
+import {
+  Form,
+  FormButton,
+  FormInputPassword,
+  useForm,
+} from '@intlayer/design-system/form';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import {
@@ -31,14 +36,14 @@ export const DefinePasswordForm: FC<DefinePasswordFormProps> = ({
       {...form}
     >
       <div className="flex flex-col gap-y-6">
-        <Form.InputPassword
+        <FormInputPassword
           name="newPassword"
           label={newPasswordInput.label.value}
           placeholder={newPasswordInput.placeholder.value}
           autoComplete="new-password"
           isRequired
         />
-        <Form.InputPassword
+        <FormInputPassword
           name="newPasswordConfirmation"
           label={confirmPasswordInput.label.value}
           placeholder={confirmPasswordInput.placeholder.value}
@@ -47,7 +52,7 @@ export const DefinePasswordForm: FC<DefinePasswordFormProps> = ({
         />
       </div>
 
-      <Form.Button
+      <FormButton
         className="mt-4 w-full"
         type="submit"
         color="text"
@@ -56,7 +61,7 @@ export const DefinePasswordForm: FC<DefinePasswordFormProps> = ({
         label={definePasswordButton.ariaLabel.value}
       >
         {definePasswordButton.text.value}
-      </Form.Button>
+      </FormButton>
     </Form>
   );
 };

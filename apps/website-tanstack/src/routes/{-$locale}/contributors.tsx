@@ -1,6 +1,6 @@
-import { Website_Contributors } from '@intlayer/design-system/routes';
-import { createFileRoute } from '@tanstack/react-router';
+import { Website_Contributors_Path } from '@intlayer/design-system/routes';
 import { useQuery } from '@tanstack/react-query';
+import { createFileRoute } from '@tanstack/react-router';
 import { defaultLocale, getIntlayer } from 'intlayer';
 import { useIntlayer } from 'react-intlayer';
 import { BackgroundLayout } from '~/components/BackgroundLayout';
@@ -36,7 +36,7 @@ export const Route = createFileRoute('/{-$locale}/contributors')({
   },
   head: ({ params }) => {
     const locale = params.locale ?? defaultLocale;
-    const path = Website_Contributors;
+    const path = Website_Contributors_Path;
     const { title, description, keywords } = getIntlayer(
       'contributors-metadata',
       locale

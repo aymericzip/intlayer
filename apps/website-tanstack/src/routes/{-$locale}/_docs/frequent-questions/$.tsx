@@ -49,7 +49,7 @@ export const Route = createFileRoute('/{-$locale}/_docs/frequent-questions/$')({
   head: ({ loaderData }) => {
     if (!loaderData?.frequentQuestionData) return {};
     const { frequentQuestionData, locale } = loaderData;
-    const { title, description, keywords, url } = frequentQuestionData;
+    const { title, description, keywords, relativeUrl } = frequentQuestionData;
 
     return {
       meta: [
@@ -61,13 +61,13 @@ export const Route = createFileRoute('/{-$locale}/_docs/frequent-questions/$')({
             ? keywords.join(', ')
             : keywords || '',
         },
-        { property: 'og:url', content: getAbsoluteUrl(url, locale) },
+        { property: 'og:url', content: getAbsoluteUrl(relativeUrl, locale) },
         { property: 'og:title', content: `${title} | Intlayer` },
         { property: 'og:description', content: description },
       ],
       links: [
-        { rel: 'canonical', href: getAbsoluteUrl(url, locale) },
-        ...getHreflangLinks(url),
+        { rel: 'canonical', href: getAbsoluteUrl(relativeUrl, locale) },
+        ...getHreflangLinks(relativeUrl),
       ],
     };
   },

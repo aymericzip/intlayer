@@ -1,5 +1,10 @@
 import { useSession, useVerifyTotp } from '@intlayer/design-system/api';
-import { Form, useForm } from '@intlayer/design-system/form';
+import {
+  Form,
+  FormButton,
+  FormOTP,
+  useForm,
+} from '@intlayer/design-system/form';
 import { useSearch } from '@tanstack/react-router';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
@@ -45,7 +50,7 @@ export const TotpForm: FC = () => {
       onSubmitSuccess={handleTotpVerification}
       className="space-y-4"
     >
-      <Form.OTP
+      <FormOTP
         name="code"
         maxLength={6}
         label={codeLabel.value}
@@ -53,7 +58,7 @@ export const TotpForm: FC = () => {
         autoFocus
       />
 
-      <Form.Button
+      <FormButton
         type="submit"
         color="text"
         label={verifyButton.value}
@@ -61,7 +66,7 @@ export const TotpForm: FC = () => {
         className="w-full"
       >
         {verifyButton}
-      </Form.Button>
+      </FormButton>
     </Form>
   );
 };

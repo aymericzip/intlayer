@@ -1,28 +1,27 @@
 import {
   App_Dashboard,
   External_Github,
-  Website_CMS,
+  Website_CMS_Path,
   Website_Home,
 } from '@intlayer/design-system/routes';
+import {
+  getProductHeader,
+  getSoftwareApplicationHeader,
+} from '@intlayer/design-system/structured-data';
 import { createFileRoute } from '@tanstack/react-router';
 import { defaultLocale, getIntlayer } from 'intlayer';
 import { CMSLandingPage } from '~/components/CMSLandingPage';
 import { PageLayout } from '~/layouts/PageLayout';
 import { getAbsoluteUrl, getHreflangLinks } from '~/utils/seo';
 
-import { getSoftwareApplicationHeader } from '@intlayer/design-system/structured-data';
-import { getProductHeader } from '@intlayer/design-system/structured-data';
-
 export const Route = createFileRoute('/{-$locale}/cms')({
   head: ({ params }) => {
     const locale = params.locale ?? defaultLocale;
-    const path = Website_CMS;
+    const path = Website_CMS_Path;
     const { title, description, keywords } = getIntlayer(
       'cms-metadata',
       locale
     );
-
-
 
     return {
       meta: [
@@ -49,7 +48,9 @@ export const Route = createFileRoute('/{-$locale}/cms')({
         },
         {
           type: 'application/ld+json',
-          children: JSON.stringify(getProductHeader({ pricings: null as any, locale })),
+          children: JSON.stringify(
+            getProductHeader({ pricings: null as any, locale })
+          ),
         },
       ],
     };

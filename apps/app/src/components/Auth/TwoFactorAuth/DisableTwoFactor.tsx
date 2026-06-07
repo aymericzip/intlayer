@@ -1,6 +1,11 @@
 import { useDisableTwoFactor, useSession } from '@intlayer/design-system/api';
 import { Button } from '@intlayer/design-system/button';
-import { Form, useForm } from '@intlayer/design-system/form';
+import {
+  Form,
+  FormButton,
+  FormInputPassword,
+  useForm,
+} from '@intlayer/design-system/form';
 import { Modal } from '@intlayer/design-system/modal';
 import type { FC } from 'react';
 import { useState } from 'react';
@@ -76,7 +81,7 @@ export const DisableTwoFactor: FC = () => {
               autoComplete
               {...form}
             >
-              <Form.InputPassword
+              <FormInputPassword
                 name="password"
                 id="disable-two-factor-password"
                 autoComplete="current-password"
@@ -96,7 +101,7 @@ export const DisableTwoFactor: FC = () => {
                 >
                   {modal.cancelButton}
                 </Button>
-                <Form.Button
+                <FormButton
                   type="submit"
                   color="text"
                   isLoading={isDisablingTwoFactor || isSubmitting}
@@ -105,7 +110,7 @@ export const DisableTwoFactor: FC = () => {
                   className="flex-1"
                 >
                   {modal.confirmButton}
-                </Form.Button>
+                </FormButton>
               </div>
             </Form>
           </div>

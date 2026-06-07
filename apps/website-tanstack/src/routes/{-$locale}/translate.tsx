@@ -1,17 +1,23 @@
-import { Website_Translate, External_Github, Website_Home } from '@intlayer/design-system/routes';
+import {
+  External_Github,
+  Website_Home,
+  Website_Translate_Path,
+} from '@intlayer/design-system/routes';
+import {
+  getTranslateProductHeader,
+  getTranslateSoftwareApplicationHeader,
+} from '@intlayer/design-system/structured-data';
 import { createFileRoute } from '@tanstack/react-router';
 import { defaultLocale, getIntlayer } from 'intlayer';
 import { AiTranslationLandingCore } from '~/components/TranslationLandingPage';
 import { PageLayout } from '~/layouts/PageLayout';
 import { getAbsoluteUrl, getHreflangLinks } from '~/utils/seo';
-import { getTranslateSoftwareApplicationHeader } from '@intlayer/design-system/structured-data';
-import { getTranslateProductHeader } from '@intlayer/design-system/structured-data';
 import { getPricing } from '~/utils/stripe';
 
 export const Route = createFileRoute('/{-$locale}/translate')({
   head: async ({ params }) => {
     const locale = params.locale ?? defaultLocale;
-    const path = Website_Translate;
+    const path = Website_Translate_Path;
     const { title, description, keywords } = getIntlayer(
       'translate-metadata',
       'translate-metadata',
@@ -19,8 +25,6 @@ export const Route = createFileRoute('/{-$locale}/translate')({
     );
 
     const pricings = await getPricing();
-
-
 
     return {
       title,
@@ -43,11 +47,15 @@ export const Route = createFileRoute('/{-$locale}/translate')({
       scripts: [
         {
           type: 'application/ld+json',
-          children: JSON.stringify(getTranslateSoftwareApplicationHeader({ locale })),
+          children: JSON.stringify(
+            getTranslateSoftwareApplicationHeader({ locale })
+          ),
         },
         {
           type: 'application/ld+json',
-          children: JSON.stringify(getTranslateProductHeader({ pricings, locale })),
+          children: JSON.stringify(
+            getTranslateProductHeader({ pricings, locale })
+          ),
         },
       ],
     };

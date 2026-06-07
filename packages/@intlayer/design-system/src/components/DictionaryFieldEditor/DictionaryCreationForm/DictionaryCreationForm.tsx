@@ -2,7 +2,13 @@
 
 import { useAddDictionary, useGetProjects } from '@api/index';
 import { useSession } from '@api/useAuth';
-import { Form, useForm } from '@components/Form';
+import {
+  Form,
+  FormButton,
+  FormInput,
+  FormMultiSelect,
+  useForm,
+} from '@components/Form';
 import { MultiSelect } from '@components/Select';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
@@ -49,14 +55,14 @@ export const DictionaryCreationForm: FC<DictionaryCreationFormProps> = ({
       className="m-auto w-full max-w-100"
       {...form}
     >
-      <Form.Input
+      <FormInput
         name="key"
         label={keyInput.label.value}
         placeholder={keyInput.placeholder.value}
         isRequired
       />
 
-      <Form.MultiSelect name="projectIds" label={projectInput.label.value}>
+      <FormMultiSelect name="projectIds" label={projectInput.label.value}>
         <MultiSelect.Trigger
           getBadgeValue={(value) =>
             projectsData?.data?.find((project) => String(project.id) === value)
@@ -77,9 +83,9 @@ export const DictionaryCreationForm: FC<DictionaryCreationFormProps> = ({
             ))}
           </MultiSelect.List>
         </MultiSelect.Content>
-      </Form.MultiSelect>
+      </FormMultiSelect>
 
-      <Form.Button
+      <FormButton
         className="mt-12 ml-auto"
         type="submit"
         color="text"
@@ -88,7 +94,7 @@ export const DictionaryCreationForm: FC<DictionaryCreationFormProps> = ({
         isFullWidth
       >
         {createDictionaryButton.text}
-      </Form.Button>
+      </FormButton>
     </Form>
   );
 };

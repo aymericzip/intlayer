@@ -1,8 +1,9 @@
 import {
   External_Github,
   Website_Home,
-  Website_Scanner,
+  Website_Scanner_Path,
 } from '@intlayer/design-system/routes';
+import { getScannerSoftwareApplicationHeader } from '@intlayer/design-system/structured-data';
 import { createFileRoute } from '@tanstack/react-router';
 import { defaultLocale, getIntlayer } from 'intlayer';
 import { Suspense } from 'react';
@@ -11,18 +12,15 @@ import { BackgroundLayout } from '~/components/BackgroundLayout';
 import { LocalizationAnalyzer } from '~/components/ScannerPage';
 import { PageLayout } from '~/layouts/PageLayout';
 import { getAbsoluteUrl, getHreflangLinks } from '~/utils/seo';
-import { getScannerSoftwareApplicationHeader } from '@intlayer/design-system/structured-data';
 
 export const Route = createFileRoute('/{-$locale}/i18n-seo-scanner')({
   head: ({ params }) => {
     const locale = params.locale ?? defaultLocale;
-    const path = Website_Scanner;
+    const path = Website_Scanner_Path;
     const { title, description, keywords } = getIntlayer(
       'i18n-SEO-scanner',
       locale
     );
-
-
 
     return {
       title,
@@ -45,7 +43,9 @@ export const Route = createFileRoute('/{-$locale}/i18n-seo-scanner')({
       scripts: [
         {
           type: 'application/ld+json',
-          children: JSON.stringify(getScannerSoftwareApplicationHeader({ locale })),
+          children: JSON.stringify(
+            getScannerSoftwareApplicationHeader({ locale })
+          ),
         },
       ],
     };

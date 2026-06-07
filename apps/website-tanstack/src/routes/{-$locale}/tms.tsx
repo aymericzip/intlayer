@@ -2,31 +2,30 @@ import {
   App_Dashboard,
   External_Github,
   Website_Home,
-  Website_TMS,
+  Website_TMS_Path,
 } from '@intlayer/design-system/routes';
+import {
+  getSoftwareApplicationHeader,
+  getTMSProductHeader,
+} from '@intlayer/design-system/structured-data';
 import { createFileRoute } from '@tanstack/react-router';
 import { defaultLocale, getIntlayer } from 'intlayer';
 import { TMSLandingPage } from '~/components/TMSLandingPage';
 import { PageLayout } from '~/layouts/PageLayout';
 import { getAbsoluteUrl, getHreflangLinks } from '~/utils/seo';
 
-import { getSoftwareApplicationHeader } from '@intlayer/design-system/structured-data';
-import { getTMSProductHeader } from '@intlayer/design-system/structured-data';
-
 export const Route = createFileRoute('/{-$locale}/tms')({
   head: ({ params }) => {
     const locale = params.locale ?? defaultLocale;
-    const path = Website_TMS;
+    const path = Website_TMS_Path;
     const { title, description, keywords } = getIntlayer(
       'tms-metadata',
       locale
     );
 
-
-
     return {
-      title,
       meta: [
+        { title },
         { name: 'description', content: description },
         {
           name: 'keywords',
@@ -49,7 +48,9 @@ export const Route = createFileRoute('/{-$locale}/tms')({
         },
         {
           type: 'application/ld+json',
-          children: JSON.stringify(getTMSProductHeader({ pricings: null as any, locale })),
+          children: JSON.stringify(
+            getTMSProductHeader({ pricings: null as any, locale })
+          ),
         },
       ],
     };

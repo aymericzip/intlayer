@@ -85,7 +85,7 @@ export const Route = createFileRoute('/{-$locale}/_docs/blog/$')({
     )
       return {};
     const { blogData, locale } = loaderData as any;
-    const absoluteUrl = blogData.url;
+    const absoluteUrl = blogData.relativeUrl;
     const keywords = blogData.keywords;
 
     return {

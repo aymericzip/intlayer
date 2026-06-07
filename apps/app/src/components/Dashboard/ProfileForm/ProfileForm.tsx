@@ -7,7 +7,12 @@ import {
 import { Avatar } from '@intlayer/design-system/avatar';
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
-import { Form, useForm } from '@intlayer/design-system/form';
+import {
+  Form,
+  FormButton,
+  FormInput,
+  useForm,
+} from '@intlayer/design-system/form';
 import { H3 } from '@intlayer/design-system/headers';
 import { Modal } from '@intlayer/design-system/modal';
 import { Fingerprint, LockIcon, PenIcon, ShieldCheck } from 'lucide-react';
@@ -203,14 +208,14 @@ const ProfileFormContent: FC = () => {
             className="mt-4 w-full"
             {...form}
           >
-            <Form.Input
+            <FormInput
               name="name"
               id="profile-name-input"
               label={nameInput.label}
               placeholder={nameInput.placeholder.value}
               isRequired
             />
-            <Form.Button
+            <FormButton
               className="mt-6 w-full"
               type="submit"
               color="text"
@@ -218,7 +223,7 @@ const ProfileFormContent: FC = () => {
               label={editButton.ariaLabel.value}
             >
               {editButton.text}
-            </Form.Button>
+            </FormButton>
           </Form>
         )}
       </Modal>

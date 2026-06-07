@@ -1,4 +1,4 @@
-import { Website_TermsOfService } from '@intlayer/design-system/routes';
+import { Website_TermsOfService_Path } from '@intlayer/design-system/routes';
 import { getCreativeWorkHeader } from '@intlayer/design-system/structured-data';
 import { createFileRoute } from '@tanstack/react-router';
 import { CompositeComponent } from '@tanstack/react-start/rsc';
@@ -17,7 +17,7 @@ export const Route = createFileRoute('/{-$locale}/_docs/terms-of-service')({
   head: ({ loaderData }) => {
     if (!loaderData) return {};
     const { title, description, keywords } = loaderData;
-    const path = Website_TermsOfService;
+    const path = Website_TermsOfService_Path;
     const locale = defaultLocale;
 
     return {

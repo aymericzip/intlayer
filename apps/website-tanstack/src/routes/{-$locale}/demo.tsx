@@ -1,22 +1,24 @@
-import { Website_Demo, Website_Home, External_Github } from '@intlayer/design-system/routes';
+import {
+  External_Github,
+  Website_Demo_Path,
+  Website_Home,
+} from '@intlayer/design-system/routes';
+import { getSoftwareApplicationHeader } from '@intlayer/design-system/structured-data';
 import { createFileRoute } from '@tanstack/react-router';
 import { defaultLocale, getIntlayer } from 'intlayer';
 import { BackgroundLayout } from '~/components/BackgroundLayout';
 import { DemoPage } from '~/components/DemoPage';
 import { PageLayout } from '~/layouts/PageLayout';
 import { getAbsoluteUrl, getHreflangLinks } from '~/utils/seo';
-import { getSoftwareApplicationHeader } from '@intlayer/design-system/structured-data';
 
 export const Route = createFileRoute('/{-$locale}/demo')({
   head: ({ params }) => {
     const locale = params.locale ?? defaultLocale;
-    const path = Website_Demo;
+    const path = Website_Demo_Path;
     const { title, description, keywords } = getIntlayer(
       'demo-metadata',
       locale
     );
-
-
 
     return {
       meta: [

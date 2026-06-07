@@ -3,7 +3,12 @@ import {
   useAddOrganization,
   useSelectOrganization,
 } from '@intlayer/design-system/api';
-import { Form, useForm } from '@intlayer/design-system/form';
+import {
+  Form,
+  FormButton,
+  FormInput,
+  useForm,
+} from '@intlayer/design-system/form';
 import { Plus } from 'lucide-react';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
@@ -45,7 +50,7 @@ export const OrganizationCreationForm: FC<OrganizationCreationFormProps> = ({
       onSubmitSuccess={onSubmitSuccess}
       {...form}
     >
-      <Form.Input
+      <FormInput
         name="name"
         id="organization-name-input"
         label={nameInput.label.value}
@@ -53,7 +58,7 @@ export const OrganizationCreationForm: FC<OrganizationCreationFormProps> = ({
         isRequired
       />
 
-      <Form.Button
+      <FormButton
         className="mt-4 w-full"
         type="submit"
         color="text"
@@ -62,7 +67,7 @@ export const OrganizationCreationForm: FC<OrganizationCreationFormProps> = ({
         Icon={Plus}
       >
         {createOrganizationButton.text}
-      </Form.Button>
+      </FormButton>
     </Form>
   );
 };

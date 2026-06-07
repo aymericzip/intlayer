@@ -94,7 +94,7 @@ export const Route = createFileRoute('/{-$locale}/_docs/doc/$')({
   head: ({ loaderData }) => {
     if (!loaderData?.docData) return {};
     const { docData, docContent, locale } = loaderData;
-    const absoluteUrl = docData.url;
+    const absoluteUrl = docData.relativeUrl;
 
     const breadcrumbs = [
       { name: 'Home', url: Website_Home },

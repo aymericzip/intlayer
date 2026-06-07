@@ -1,4 +1,9 @@
-import { Form, useForm } from '@intlayer/design-system/form';
+import {
+  Form,
+  FormButton,
+  FormInput,
+  useForm,
+} from '@intlayer/design-system/form';
 import { Modal } from '@intlayer/design-system/modal';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
@@ -57,7 +62,7 @@ export const AddPasskeyModal: FC<AddPasskeyModalProps> = ({
           className="space-y-4"
           {...form}
         >
-          <Form.Input
+          <FormInput
             name="name"
             id="add-passkey-name-input"
             label={nameInput.label.value}
@@ -66,22 +71,22 @@ export const AddPasskeyModal: FC<AddPasskeyModalProps> = ({
           />
 
           <div className="flex justify-end gap-2">
-            <Form.Button
+            <FormButton
               variant="outline"
               onClick={handleClose}
               label={cancelButton.ariaLabel.value}
               disabled={isSubmitting}
             >
               {cancelButton.text}
-            </Form.Button>
-            <Form.Button
+            </FormButton>
+            <FormButton
               type="submit"
               color="text"
               isLoading={isSubmitting}
               label={submitButton.ariaLabel.value}
             >
               {submitButton.text}
-            </Form.Button>
+            </FormButton>
           </div>
         </Form>
       </div>

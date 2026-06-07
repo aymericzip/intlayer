@@ -1,5 +1,10 @@
 import { useUser } from '@intlayer/design-system/api';
-import { Form, useForm } from '@intlayer/design-system/form';
+import {
+  Form,
+  FormButton,
+  FormInput,
+  useForm,
+} from '@intlayer/design-system/form';
 import { H2 } from '@intlayer/design-system/headers';
 import { App_Auth_SignIn_Path } from '@intlayer/design-system/routes';
 import type { FC } from 'react';
@@ -55,7 +60,7 @@ export const RegisterStepForm: FC = () => {
       >
         <H2>{title}</H2>
         <div className="flex flex-col gap-y-6">
-          <Form.Input
+          <FormInput
             name="email"
             label={emailInput.label}
             placeholder={emailInput.placeholder.value}
@@ -68,14 +73,14 @@ export const RegisterStepForm: FC = () => {
 
         <span className="m-auto mt-3 flex w-full items-center justify-center text-center align-middle text-neutral text-xs">
           {loginLink.message}
-          <Form.Button
+          <FormButton
             variant="link"
             label={loginLink.ariaLabel.value}
             color="text"
             onClick={onClickToSignIn}
           >
             {loginLink.text}
-          </Form.Button>
+          </FormButton>
         </span>
 
         <ExternalsLoginButtons onLogin={goToNextStep2} />

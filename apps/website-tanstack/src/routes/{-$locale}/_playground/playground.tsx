@@ -1,8 +1,10 @@
 import { editor, internationalization } from '@intlayer/config/built';
 import { Loader } from '@intlayer/design-system/loader';
 import {
+  External_Github,
   Website_Demo_Path,
-  Website_Playground,
+  Website_Home,
+  Website_Playground_Path,
 } from '@intlayer/design-system/routes';
 import { createFileRoute } from '@tanstack/react-router';
 import { defaultLocale, getIntlayer } from 'intlayer';
@@ -12,7 +14,6 @@ import { BackgroundLayout } from '~/components/BackgroundLayout';
 import { DashboardContentLayout } from '~/components/Dashboard/DashboardContentLayout';
 import { DictionaryLoaderPlayground } from '~/components/Dashboard/Editor/DictionaryLoaderPlayground';
 import { getAbsoluteUrl, getHreflangLinks } from '~/utils/seo';
-import { External_Github, Website_Home } from '@intlayer/design-system/routes';
 import packageJson from '../../../../package_mock.json' with { type: 'json' };
 
 const Editor = lazy(() =>
@@ -24,13 +25,16 @@ const Editor = lazy(() =>
 export const Route = createFileRoute('/{-$locale}/_playground/playground')({
   head: ({ params }) => {
     const locale = params.locale ?? defaultLocale;
-    const path = Website_Playground;
+    const path = Website_Playground_Path;
     const { title, description, keywords } = getIntlayer(
       'playground-metadata',
       locale
     );
 
-    const softwareData = getIntlayer('software-application-structured-data', locale);
+    const softwareData = getIntlayer(
+      'software-application-structured-data',
+      locale
+    );
 
     const softwareApplication = {
       '@context': 'https://schema.org',
@@ -39,7 +43,8 @@ export const Route = createFileRoute('/{-$locale}/_playground/playground')({
       url: Website_Home,
       description: softwareData.description,
       softwareVersion: packageJson.version,
-      license: 'https://raw.githubusercontent.com/aymericzip/intlayer/refs/heads/main/LICENSE',
+      license:
+        'https://raw.githubusercontent.com/aymericzip/intlayer/refs/heads/main/LICENSE',
       author: {
         '@type': 'Organization',
         name: 'Intlayer',

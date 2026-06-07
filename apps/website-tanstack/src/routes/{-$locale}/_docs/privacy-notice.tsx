@@ -1,4 +1,4 @@
-import { Website_PrivacyPolicy } from '@intlayer/design-system/routes';
+import { Website_PrivacyPolicy_Path } from '@intlayer/design-system/routes';
 import { getCreativeWorkHeader } from '@intlayer/design-system/structured-data';
 import { createFileRoute } from '@tanstack/react-router';
 import { CompositeComponent } from '@tanstack/react-start/rsc';
@@ -17,7 +17,7 @@ export const Route = createFileRoute('/{-$locale}/_docs/privacy-notice')({
   head: ({ loaderData }) => {
     if (!loaderData) return {};
     const { title, description, keywords } = loaderData;
-    const path = Website_PrivacyPolicy;
+    const path = Website_PrivacyPolicy_Path;
     const locale = defaultLocale;
 
     return {

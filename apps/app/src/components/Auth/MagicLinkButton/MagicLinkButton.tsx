@@ -1,6 +1,11 @@
 import { useSignInMagicLink } from '@intlayer/design-system/api';
 import { Button } from '@intlayer/design-system/button';
-import { Form, useForm } from '@intlayer/design-system/form';
+import {
+  Form,
+  FormButton,
+  FormInput,
+  useForm,
+} from '@intlayer/design-system/form';
 import { Modal } from '@intlayer/design-system/modal';
 import { cn } from '@intlayer/design-system/utils';
 import { Mail } from 'lucide-react';
@@ -93,7 +98,7 @@ export const MagicLinkButton: FC<MagicLinkButtonProps> = ({
             className="flex flex-col gap-4 py-4"
             {...form}
           >
-            <Form.Input
+            <FormInput
               name="email"
               id="magic-link-email"
               type="email"
@@ -120,7 +125,7 @@ export const MagicLinkButton: FC<MagicLinkButtonProps> = ({
               >
                 {modal.cancelButton}
               </Button>
-              <Form.Button
+              <FormButton
                 type="submit"
                 color="text"
                 variant="default"
@@ -130,7 +135,7 @@ export const MagicLinkButton: FC<MagicLinkButtonProps> = ({
                 className="flex-1"
               >
                 {modal.sendButton}
-              </Form.Button>
+              </FormButton>
             </div>
           </Form>
         </div>

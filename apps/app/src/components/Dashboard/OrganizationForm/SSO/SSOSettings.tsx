@@ -7,7 +7,14 @@ import {
   useSession,
 } from '@intlayer/design-system/api';
 import { Container } from '@intlayer/design-system/container';
-import { Form, useForm } from '@intlayer/design-system/form';
+import {
+  Form,
+  FormButton,
+  FormCheckbox,
+  FormInput,
+  FormSwitchSelector,
+  useForm,
+} from '@intlayer/design-system/form';
 import { H3 } from '@intlayer/design-system/headers';
 import { Loader } from '@intlayer/design-system/loader';
 import { MaxHeightSmoother } from '@intlayer/design-system/max-height-smoother';
@@ -301,7 +308,7 @@ export const SSOSettings: FC = () => {
             className="p-4"
             roundedSize="2xl"
           >
-            <Form.Checkbox
+            <FormCheckbox
               name="enabled"
               color="text"
               inputLabel={enabledLabel}
@@ -331,7 +338,7 @@ export const SSOSettings: FC = () => {
                   <span className="font-medium text-sm">
                     {providerTypeLabel}
                   </span>
-                  <Form.SwitchSelector
+                  <FormSwitchSelector
                     name="providerType"
                     className="mt-2"
                     size="sm"
@@ -346,7 +353,7 @@ export const SSOSettings: FC = () => {
 
                 {/* Domain */}
                 <div className="mt-4">
-                  <Form.Input
+                  <FormInput
                     name="domain"
                     label={domainsLabel}
                     placeholder={domainsPlaceholder.value}
@@ -371,7 +378,7 @@ export const SSOSettings: FC = () => {
           </MaxHeightSmoother>
         </Loader>
 
-        <Form.Button
+        <FormButton
           className="mt-6 w-full"
           type="submit"
           color="text"
@@ -380,7 +387,7 @@ export const SSOSettings: FC = () => {
           label={saveButton.ariaLabel.value}
         >
           {saveButton.text}
-        </Form.Button>
+        </FormButton>
       </Form>
     </div>
   );

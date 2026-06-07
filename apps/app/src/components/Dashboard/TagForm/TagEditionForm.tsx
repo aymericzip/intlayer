@@ -1,6 +1,12 @@
 import type { TagAPI } from '@intlayer/backend';
 import { useAuditTag, useUpdateTag } from '@intlayer/design-system/api';
-import { Form, useForm } from '@intlayer/design-system/form';
+import {
+  Form,
+  FormButton,
+  FormEditableFieldInput,
+  FormEditableFieldTextArea,
+  useForm,
+} from '@intlayer/design-system/form';
 import { Save, WandSparkles, XCircle } from 'lucide-react';
 import { type FC, useState } from 'react';
 import { useWatch } from 'react-hook-form';
@@ -80,7 +86,7 @@ export const TagEditionForm: FC<TagEditionFormProps> = ({ tag }) => {
         {...form}
       >
         <div className="flex size-full flex-1 gap-8 max-md:flex-col">
-          <Form.EditableFieldInput
+          <FormEditableFieldInput
             name="key"
             id="tag-key-input"
             label={keyInput.label.value}
@@ -89,7 +95,7 @@ export const TagEditionForm: FC<TagEditionFormProps> = ({ tag }) => {
             isRequired
           />
 
-          <Form.EditableFieldInput
+          <FormEditableFieldInput
             name="name"
             id="tag-name-input"
             label={nameInput.label}
@@ -98,14 +104,14 @@ export const TagEditionForm: FC<TagEditionFormProps> = ({ tag }) => {
           />
         </div>
 
-        <Form.EditableFieldTextArea
+        <FormEditableFieldTextArea
           name="description"
           label={descriptionInput.label}
           placeholder={descriptionInput.placeholder.value}
           description={descriptionInput.description}
         />
 
-        <Form.EditableFieldTextArea
+        <FormEditableFieldTextArea
           name="instructions"
           label={instructionsInput.label}
           placeholder={instructionsInput.placeholder.value}
@@ -113,7 +119,7 @@ export const TagEditionForm: FC<TagEditionFormProps> = ({ tag }) => {
         />
 
         <div className="mt-4 flex justify-end gap-2 max-md:flex-col">
-          <Form.Button
+          <FormButton
             type="button"
             label={auditButton.label.value}
             Icon={WandSparkles}
@@ -126,7 +132,7 @@ export const TagEditionForm: FC<TagEditionFormProps> = ({ tag }) => {
             isLoading={isAuditing}
           />
 
-          <Form.Button
+          <FormButton
             type="button"
             variant="outline"
             color="error"
@@ -137,9 +143,9 @@ export const TagEditionForm: FC<TagEditionFormProps> = ({ tag }) => {
             onClick={() => setIsDeleteModalOpen(true)}
           >
             {deleteButton.text}
-          </Form.Button>
+          </FormButton>
           {isEdited && (
-            <Form.Button
+            <FormButton
               type="submit"
               color="text"
               label={editButton.ariaLabel.value}
@@ -148,7 +154,7 @@ export const TagEditionForm: FC<TagEditionFormProps> = ({ tag }) => {
               Icon={Save}
             >
               {editButton.text}
-            </Form.Button>
+            </FormButton>
           )}
         </div>
       </Form>

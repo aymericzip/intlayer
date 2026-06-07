@@ -1,5 +1,10 @@
 import { useSession, useUpdateOrganization } from '@intlayer/design-system/api';
-import { Form, useForm } from '@intlayer/design-system/form';
+import {
+  Form,
+  FormButton,
+  FormInput,
+  useForm,
+} from '@intlayer/design-system/form';
 import { H3 } from '@intlayer/design-system/headers';
 import { Building2 } from 'lucide-react';
 import { type FC, useEffect } from 'react';
@@ -41,7 +46,7 @@ export const OrganizationEditionForm: FC = () => {
         className="size-full"
         {...form}
       >
-        <Form.Input
+        <FormInput
           name="name"
           id="organization-edit-name"
           label={nameInput.label.value}
@@ -51,7 +56,7 @@ export const OrganizationEditionForm: FC = () => {
           disabled={!isOrganizationAdmin}
         />
 
-        <Form.Button
+        <FormButton
           className="mt-4 w-full"
           type="submit"
           color="text"
@@ -62,7 +67,7 @@ export const OrganizationEditionForm: FC = () => {
           label={editButton.ariaLabel.value}
         >
           {editButton.text}
-        </Form.Button>
+        </FormButton>
       </Form>
     </>
   );
