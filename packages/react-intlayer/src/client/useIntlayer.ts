@@ -7,7 +7,7 @@ import type {
 } from '@intlayer/types/module_augmentation';
 import { useContext, useMemo } from 'react';
 import { getIntlayer } from '../getIntlayer';
-import { IntlayerClientContext } from './IntlayerProvider';
+import { IntlayerClientContext } from './IntlayerContext';
 
 /**
  * Client-side hook that picks one dictionary by its key and returns its content.

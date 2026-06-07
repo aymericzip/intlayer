@@ -4,7 +4,7 @@ import type {
   LocalesValues,
 } from '@intlayer/types/module_augmentation';
 import { type ComputedRef, computed, inject } from 'vue';
-import { INTLAYER_SYMBOL, type IntlayerProvider } from './installIntlayer';
+import { INTLAYER_SYMBOL, type IntlayerProvider } from './IntlayerClient';
 import { setLocaleInStorage } from './useLocaleStorage';
 
 export type UseLocaleProps = {

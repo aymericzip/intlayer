@@ -1,6 +1,6 @@
 import { bindIntl, type WrappedIntl } from '@intlayer/core/utils';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
-import { getIntlayerClient } from '../client/installIntlayer';
+import { getIntlayerClient } from '../client/IntlayerClient';
 
 /**
  * Get a locale-bound `Intl` object and subscribe to locale changes.

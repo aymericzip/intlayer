@@ -6,7 +6,7 @@ import type {
 import { createMemo, useContext } from 'solid-js';
 import { getDictionary } from '../getDictionary';
 import type { DeepTransformContent } from '../plugins';
-import { IntlayerClientContext } from './IntlayerProvider';
+import { IntlayerClientContext } from './IntlayerContext';
 
 /**
  * On the client side, Hook that transform a dictionary and return the content

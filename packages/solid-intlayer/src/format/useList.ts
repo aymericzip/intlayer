@@ -1,5 +1,5 @@
 import { list } from '@intlayer/core/formatters';
-import { useIntlayerContext } from '../client/IntlayerProvider';
+import { useIntlayerContext } from '../client/IntlayerContext';
 
 /**
  * Solid client hook that provides a localized list formatter.

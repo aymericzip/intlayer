@@ -8,7 +8,6 @@
     "test": "echo 'No tests yet'"
   },
   "dependencies": {
-    "date-fns": "4.1.0",
     "intlayer": "workspace:*",
     "next": "15.5.15",
     "next-intl": "4.9.0",

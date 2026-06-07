@@ -2,7 +2,7 @@ import type { EditorStateManager } from '@intlayer/editor';
 import { isEnabled } from '@intlayer/editor/isEnabled';
 import type { Locale } from '@intlayer/types/allLocales';
 import { createEffect, createSignal, onCleanup, onMount } from 'solid-js';
-import { useIntlayerContext } from '../client';
+import { useIntlayerContext } from '../client/IntlayerContext';
 
 /**
  * Initialises the Intlayer editor client singleton when the editor is enabled.

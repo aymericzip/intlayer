@@ -1,9 +1,9 @@
 import type { HTMLContent } from '@intlayer/core/transpiler';
 import type { ContentNode } from '@intlayer/types/dictionary';
 import type { KeyPath } from '@intlayer/types/keyPath';
-
 import * as NodeTypes from '@intlayer/types/nodeType';
 import type { FC } from 'react';
+// fallow-ignore-next-line circular-dependency
 import { NodeWrapper, type NodeWrapperProps } from './index';
 
 type HtmlWrapperProps = Omit<NodeWrapperProps, 'section'> & {

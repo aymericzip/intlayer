@@ -11,7 +11,7 @@ import type {
 } from '@intlayer/types/module_augmentation';
 import { useContext, useMemo } from 'react';
 import type { DeepTransformContent } from '../plugins';
-import { IntlayerClientContext } from './IntlayerProvider';
+import { IntlayerClientContext } from './IntlayerContext';
 
 /**
  * Hook that provides a translation function `t()` for accessing nested content by key.

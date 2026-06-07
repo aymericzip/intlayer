@@ -4,7 +4,7 @@ import { computed, inject } from 'vue';
 import {
   INTLAYER_SYMBOL,
   type IntlayerProvider,
-} from '../client/installIntlayer';
+} from '../client/IntlayerClient';
 
 /**
  * Vue composable that provides a locale-bound `Intl` object.

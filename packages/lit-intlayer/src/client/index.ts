@@ -1,5 +1,10 @@
 export * from './IntlayerBinding';
-export * from './installIntlayer';
+export {
+  createIntlayerClient,
+  getIntlayerClient,
+  IntlayerClient,
+} from './IntlayerClient';
+export { installIntlayer } from './installIntlayer';
 export * from './useDictionary';
 export * from './useDictionaryDynamic';
 export * from './useIntlayer';

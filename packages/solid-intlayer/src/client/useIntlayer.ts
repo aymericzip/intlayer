@@ -7,7 +7,7 @@ import type {
 import { createMemo, useContext } from 'solid-js';
 import { getIntlayer } from '../getIntlayer';
 import type { DeepTransformContent } from '../plugins';
-import { IntlayerClientContext } from './IntlayerProvider';
+import { IntlayerClientContext } from './IntlayerContext';
 
 /**
  * Solid hook that picks one dictionary by its key and returns its reactive content.

@@ -1,5 +1,5 @@
 import { number } from '@intlayer/core/formatters';
-import { getIntlayerClient } from '../client/installIntlayer';
+import { getIntlayerClient } from '../client/IntlayerClient';
 
 /**
  * Vanilla JS hook that provides a localized number formatter.

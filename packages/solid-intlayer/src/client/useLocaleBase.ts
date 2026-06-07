@@ -4,7 +4,7 @@ import type {
   LocalesValues,
 } from '@intlayer/types/module_augmentation';
 import { useContext } from 'solid-js';
-import { IntlayerClientContext } from './IntlayerProvider';
+import { IntlayerClientContext } from './IntlayerContext';
 
 const { defaultLocale, locales: availableLocales } = internationalization;
 

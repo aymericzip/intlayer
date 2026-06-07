@@ -6,7 +6,7 @@ import type {
   StrictModeLocaleMap,
 } from '@intlayer/types/module_augmentation';
 import { useContext } from 'react';
-import { IntlayerClientContext } from './IntlayerProvider';
+import { IntlayerClientContext } from './IntlayerContext';
 
 /**
  * Client-side translation function that returns the translation of the provided multilang content.

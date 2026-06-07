@@ -1,6 +1,6 @@
 import { relativeTime } from '@intlayer/core/formatters';
 import { useContext } from 'solid-js';
-import { IntlayerClientContext } from '../client/IntlayerProvider';
+import { IntlayerClientContext } from '../client/IntlayerContext';
 
 /**
  * Solid client hook that provides a localized relative time formatter.

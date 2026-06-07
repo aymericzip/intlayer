@@ -1,7 +1,7 @@
 import { bindIntl, type WrappedIntl } from '@intlayer/core/utils';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import type { ReactiveController, ReactiveControllerHost } from 'lit';
-import { getIntlayerClient } from '../client/installIntlayer';
+import { getIntlayerClient } from '../client/IntlayerClient';
 
 /**
  * ReactiveController that provides a locale-bound `Intl` object.

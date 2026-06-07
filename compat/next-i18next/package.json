@@ -84,8 +84,7 @@
     "@intlayer/i18next": "workspace:*",
     "@intlayer/react-i18next": "workspace:*",
     "@intlayer/types": "workspace:*",
-    "next-intlayer": "workspace:*",
-    "react-intlayer": "workspace:*"
+    "next-intlayer": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "25.9.2",

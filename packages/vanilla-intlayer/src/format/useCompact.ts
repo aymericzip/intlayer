@@ -1,5 +1,5 @@
 import { compact } from '@intlayer/core/formatters';
-import { getIntlayerClient } from '../client/installIntlayer';
+import { getIntlayerClient } from '../client/IntlayerClient';
 
 export const useCompact = () => {
   const client = getIntlayerClient();

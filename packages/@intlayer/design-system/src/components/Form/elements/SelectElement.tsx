@@ -3,8 +3,7 @@
 import { Select } from '@components/Select/Select';
 import type { ComponentProps, ReactNode } from 'react';
 import { useFormContext } from 'react-hook-form';
-import { Form } from '../Form';
-import { useFormField } from '../FormField';
+import { FormField, useFormField } from '../FormField';
 import { FormItemLayout } from '../layout/FormItemLayout';
 import type { FormElementProps } from './FormElement';
 
@@ -64,7 +63,7 @@ export const SelectElement = ({
   const { control } = useFormContext();
 
   return (
-    <Form.Field
+    <FormField
       control={control}
       name={name}
       render={({ field }) => (

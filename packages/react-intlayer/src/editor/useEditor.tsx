@@ -3,8 +3,8 @@
 import type { EditorStateManager } from '@intlayer/editor';
 import { isEnabled } from '@intlayer/editor/isEnabled';
 import type { Locale } from '@intlayer/types/allLocales';
-import { useContext, useEffect, useRef } from 'react';
-import { IntlayerClientContext } from '../client/IntlayerProvider';
+import { useEffect, useRef } from 'react';
+import { useIntlayerContext } from '../client/IntlayerContext';
 
 /**
  * Initializes the Intlayer editor client singleton when the editor is enabled.
@@ -12,7 +12,7 @@ import { IntlayerClientContext } from '../client/IntlayerProvider';
  * the editor always knows which locale the app is displaying.
  */
 export const useEditor = () => {
-  const { locale } = useContext(IntlayerClientContext) ?? {};
+  const { locale } = useIntlayerContext() ?? {};
   const managerRef = useRef<EditorStateManager | null>(null);
 
   useEffect(() => {

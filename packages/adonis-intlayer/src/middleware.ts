@@ -1,11 +1,12 @@
 import type { HttpContext } from '@adonisjs/core/http';
 import type { NextFn } from '@adonisjs/core/types/http';
 import { getConfiguration } from '@intlayer/config/node';
+import { localeDetector } from '@intlayer/core';
 import {
   getDictionary as getDictionaryFunction,
   getIntlayer as getIntlayerFunction,
 } from '@intlayer/core/interpreter';
-import { appNamespace, getStorageLocale, translateFunction } from './index';
+import { appNamespace, getStorageLocale, translateFunction } from './core';
 
 const configuration = getConfiguration();
 const { internationalization } = configuration;

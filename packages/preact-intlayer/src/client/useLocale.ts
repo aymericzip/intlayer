@@ -7,12 +7,12 @@ import { useContext } from 'preact/hooks';
 import { IntlayerClientContext } from './IntlayerProvider';
 import { setLocaleInStorage } from './useLocaleStorage';
 
-type UseLocaleProps = {
+export type UseLocaleProps = {
   isCookieEnabled?: boolean;
   onLocaleChange?: (locale: DeclaredLocales) => void;
 };
 
-type UseLocaleResult = {
+export type UseLocaleResult = {
   locale: DeclaredLocales;
   defaultLocale: DeclaredLocales;
   availableLocales: DeclaredLocales[];

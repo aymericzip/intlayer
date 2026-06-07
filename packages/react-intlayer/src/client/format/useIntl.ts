@@ -3,7 +3,7 @@
 import { bindIntl, type WrappedIntl } from '@intlayer/core/formatters';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import { useContext, useMemo } from 'react';
-import { IntlayerClientContext } from '../IntlayerProvider';
+import { IntlayerClientContext } from '../IntlayerContext';
 
 /**
  * React client hook that provides a locale-bound `Intl` object.

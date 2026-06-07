@@ -7,7 +7,7 @@ import type {
 } from '@intlayer/types/module_augmentation';
 import { useContext, useMemo } from 'react';
 import { getDictionary } from '../getDictionary';
-import { IntlayerClientContext } from './IntlayerProvider';
+import { IntlayerClientContext } from './IntlayerContext';
 
 /**
  * On the server side, Hook that transform a dictionary and return the content

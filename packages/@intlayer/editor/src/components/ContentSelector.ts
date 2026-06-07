@@ -1,7 +1,3 @@
-import { defineIntlayerContentSelectorWrapper } from './ContentSelectorWrapper';
-import { defineIntlayerEditedContent } from './EditedContent';
-import { defineIntlayerEditorElement } from './IntlayerEditor';
-
 const DEFAULT_PRESS_DURATION = 250;
 
 const STYLES = `
@@ -193,21 +189,3 @@ export class IntlayerContentSelectorElement extends _HTMLElement {
     this._updateActiveState();
   }
 }
-
-/**
- * Register all Intlayer custom elements.
- * Call this once at application startup (inside IntlayerEditorProvider or similar).
- * Safe to call multiple times — only registers elements that are not yet defined.
- */
-export const defineIntlayerElements = (): void => {
-  if (typeof customElements === 'undefined') return;
-  if (!customElements.get('intlayer-content-selector')) {
-    customElements.define(
-      'intlayer-content-selector',
-      IntlayerContentSelectorElement
-    );
-  }
-  defineIntlayerContentSelectorWrapper();
-  defineIntlayerEditedContent();
-  defineIntlayerEditorElement();
-};

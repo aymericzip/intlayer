@@ -1,7 +1,7 @@
 import { bindIntl, type WrappedIntl } from '@intlayer/core/formatters';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import { createMemo, useContext } from 'solid-js';
-import { IntlayerClientContext } from '../client/IntlayerProvider';
+import { IntlayerClientContext } from '../client/IntlayerContext';
 
 /**
  * Solid client hook that provides a locale-bound `Intl` object.

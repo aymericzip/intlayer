@@ -4,7 +4,7 @@ import type {
   LocalesValues,
 } from '@intlayer/types/module_augmentation';
 import type { ReactiveController, ReactiveControllerHost } from 'lit';
-import { getIntlayerClient } from './installIntlayer';
+import { getIntlayerClient } from './IntlayerClient';
 import { setLocaleInStorage } from './useLocaleStorage';
 
 export type UseLocaleProps = {

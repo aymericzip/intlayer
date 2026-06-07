@@ -5,12 +5,14 @@
  * The main package index.ts imports directly from individual files to avoid circular dependencies.
  */
 
-export type { IntlayerProviderProps } from './IntlayerProvider';
 export {
   IntlayerClientContext,
+  useIntlayerContext,
+} from './IntlayerContext';
+export type { IntlayerProviderProps } from './IntlayerProvider';
+export {
   IntlayerProvider,
   IntlayerProviderContent,
-  useIntlayerContext,
 } from './IntlayerProvider';
 export { t } from './t';
 export { useDictionary } from './useDictionary';

@@ -1,5 +1,5 @@
 import { randomBytes } from 'node:crypto';
-import type { Client } from '@node-oauth/oauth2-server';
+import type { Client, ClientCredentialsModel } from '@node-oauth/oauth2-server';
 import { OAuth2AccessTokenModel } from '@schemas/oAuth2.schema';
 import { ProjectModel } from '@schemas/project.schema';
 import { ensureMongoDocumentToObject } from '@utils/ensureMongoDocumentToObject';
@@ -394,3 +394,11 @@ export const getOAuth2AccessTokenContext = async (
     allowedLocales: (oAuth2Access as OAuth2Access).allowedLocales ?? null,
   };
 };
+
+export const getAuthModel = (): ClientCredentialsModel => ({
+  getClient,
+  saveToken,
+  getUserFromClient,
+  verifyScope,
+  getAccessToken,
+});

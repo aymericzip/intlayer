@@ -2,7 +2,7 @@
 
 import { currency } from '@intlayer/core/formatters';
 import { useCallback, useContext } from 'react';
-import { IntlayerClientContext } from '../IntlayerProvider';
+import { IntlayerClientContext } from '../IntlayerContext';
 
 /**
  * React client hook that provides a currency formatter

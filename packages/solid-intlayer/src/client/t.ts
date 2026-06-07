@@ -4,7 +4,7 @@ import type {
   StrictModeLocaleMap,
 } from '@intlayer/types/module_augmentation';
 import { useContext } from 'solid-js';
-import { IntlayerClientContext } from './IntlayerProvider';
+import { IntlayerClientContext } from './IntlayerContext';
 
 /**
  * On the client side, this function returns the translation of the provided multilang content.

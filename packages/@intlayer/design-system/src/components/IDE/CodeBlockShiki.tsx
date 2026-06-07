@@ -6,7 +6,7 @@ import type {
   BundledTheme,
   HighlighterGeneric,
 } from 'shiki/bundle/web';
-import { CodeDefault } from './CodeBlockClient';
+import { CodeDefault } from './CodeDefault';
 
 // Map of loaded modules to avoid re-importing
 const languageCache = new Map<BundledLanguage, any>();

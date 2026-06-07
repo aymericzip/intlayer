@@ -11,7 +11,7 @@ import {
 import {
   INTLAYER_SYMBOL,
   type IntlayerProvider,
-} from '../client/installIntlayer';
+} from '../client/IntlayerClient';
 
 /**
  * Starts the editor client and syncs the given locale ref into it.

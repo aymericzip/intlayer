@@ -1,21 +1,23 @@
-import type { HttpContext } from '@adonisjs/core/http';
 import { prepareIntlayer } from '@intlayer/chokidar/build';
-import { getConfiguration } from '@intlayer/config/node';
 import {
   getDictionary as getDictionaryFunction,
   getIntlayer as getIntlayerFunction,
   getTranslation,
 } from '@intlayer/core/interpreter';
-import { getLocaleFromStorageServer } from '@intlayer/core/utils';
 import type { Locale } from '@intlayer/types/allLocales';
 import type { StrictModeLocaleMap } from '@intlayer/types/module_augmentation';
-import { createNamespace } from 'cls-hooked';
+import {
+  appNamespace,
+  configuration,
+  getStorageLocale,
+  internationalization,
+  translateFunction,
+} from './core';
 
 // Zero-cost fallback, will be updated with AdonisJS logger or console in dev mode
 let debug: (message: string) => void = () => {};
 
-const configuration = getConfiguration();
-const { internationalization } = configuration;
+prepareIntlayer(configuration);
 
 if (process.env['NODE_ENV'] === 'development') {
   try {
@@ -26,61 +28,7 @@ if (process.env['NODE_ENV'] === 'development') {
   }
 }
 
-export const appNamespace = createNamespace('app');
-
-prepareIntlayer(configuration);
-
-/**
- * Retrieves the locale from storage (cookies, headers).
- */
-export const getStorageLocale = (ctx: HttpContext): Locale | undefined =>
-  getLocaleFromStorageServer({
-    getCookie: (name: string) => ctx.request.cookie(name),
-    getHeader: (name: string) => ctx.request.header(name),
-  });
-
-/**
- * Translation function for context
- */
-export const translateFunction =
-  (ctx: HttpContext) =>
-  <T extends string>(
-    content: StrictModeLocaleMap<T> | string,
-    locale?: Locale
-  ): T => {
-    const { locale: currentLocale, defaultLocale } = ctx as unknown as {
-      locale: Locale;
-      defaultLocale: Locale;
-    };
-
-    const targetLocale = locale ?? currentLocale;
-
-    if (typeof content === 'undefined') {
-      return '' as unknown as T;
-    }
-
-    if (typeof content === 'string') {
-      return content as unknown as T;
-    }
-
-    if (
-      typeof content?.[
-        targetLocale as unknown as keyof StrictModeLocaleMap<T>
-      ] === 'undefined'
-    ) {
-      if (
-        typeof content?.[
-          defaultLocale as unknown as keyof StrictModeLocaleMap<T>
-        ] === 'undefined'
-      ) {
-        return content as unknown as T;
-      } else {
-        return getTranslation(content, defaultLocale);
-      }
-    }
-
-    return getTranslation(content, targetLocale);
-  };
+export { appNamespace, getStorageLocale, translateFunction };
 
 /**
  * Translation function to retrieve content for the current locale.

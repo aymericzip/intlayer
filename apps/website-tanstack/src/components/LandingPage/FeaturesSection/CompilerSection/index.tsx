@@ -1,7 +1,7 @@
 import { IDE } from '@intlayer/design-system/ide';
 import { WithResizer } from '@intlayer/design-system/with-resizer';
 import { useTheme } from 'next-themes';
-import type { FC } from 'react';
+import { type FC, lazy, Suspense } from 'react';
 import { type Framework, useFramework } from '../FrameworkContext';
 import { FrameworkSelector } from '../FrameworkSelector';
 import componentAngular from './content/component-angular.md';
@@ -14,7 +14,10 @@ import componentVanilla from './content/component-vanilla.md';
 import componentVue from './content/component-vue.md';
 import configFile from './content/config-file.md';
 import viteConfigFile from './content/vite-config.md';
-import { VisualEditorSection } from './Visual';
+
+const VisualEditorSection = lazy(() =>
+  import('./Visual').then((mod) => ({ default: mod.VisualEditorSection }))
+);
 
 const frameworkTabs: Record<
   Framework,
@@ -126,7 +129,9 @@ export const CompilerSection: FC<CompilerSectionProps> = ({
           key={framework}
         />
         <WithResizer initialWidth={300} handlePosition="left">
-          <VisualEditorSection scrollProgress={scrollProgress} />
+          <Suspense fallback={null}>
+            <VisualEditorSection scrollProgress={scrollProgress} />
+          </Suspense>
         </WithResizer>
       </div>
     </div>

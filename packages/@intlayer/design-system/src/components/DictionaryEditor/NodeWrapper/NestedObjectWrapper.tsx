@@ -2,10 +2,10 @@ import { camelCaseToSentence } from '@intlayer/config/client';
 import { isSameKeyPath } from '@intlayer/core/utils';
 import type { ContentNode } from '@intlayer/types/dictionary';
 import type { KeyPath } from '@intlayer/types/keyPath';
-
 import * as NodeTypes from '@intlayer/types/nodeType';
 import { type FC, memo, useMemo } from 'react';
 import { ItemLayout } from '../ItemLayout';
+// fallow-ignore-next-line circular-dependency
 import { NodeWrapper, type NodeWrapperProps, traceKeys } from './index';
 
 type NestedObjectWrapperProps = Omit<NodeWrapperProps, 'section'> & {

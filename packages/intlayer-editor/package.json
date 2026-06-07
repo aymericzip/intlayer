@@ -93,7 +93,6 @@
     "@fastify/formbody": "8.0.2",
     "@fastify/helmet": "13.0.2",
     "@fastify/static": "9.1.3",
-    "@intlayer/chokidar": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/unmerged-dictionaries-entry": "workspace:*",
     "fastify": "5.8.5",

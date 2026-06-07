@@ -1,5 +1,5 @@
 import type { ReactiveController, ReactiveControllerHost } from 'lit';
-import { getIntlayerClient } from './installIntlayer';
+import { getIntlayerClient } from './IntlayerClient';
 
 /**
  * Proxy type returned by every `use*` hook in `lit-intlayer`.

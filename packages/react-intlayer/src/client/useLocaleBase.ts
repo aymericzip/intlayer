@@ -2,7 +2,7 @@
 
 import { internationalization } from '@intlayer/config/built';
 import { useContext } from 'react';
-import { IntlayerClientContext } from './IntlayerProvider';
+import { IntlayerClientContext } from './IntlayerContext';
 
 const { defaultLocale, locales: availableLocales } = internationalization;
 

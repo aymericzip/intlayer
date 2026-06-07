@@ -17,7 +17,7 @@ import {
 } from 'vue';
 import { getIntlayer } from '../getIntlayer';
 import type { DeepTransformContent } from '../plugins';
-import { INTLAYER_SYMBOL, type IntlayerProvider } from './installIntlayer';
+import { INTLAYER_SYMBOL, type IntlayerProvider } from './IntlayerClient';
 import {
   atPath,
   createIntlayerLeafProxy,

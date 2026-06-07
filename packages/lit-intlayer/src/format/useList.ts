@@ -1,6 +1,6 @@
 import { list } from '@intlayer/core/formatters';
 import type { ReactiveController, ReactiveControllerHost } from 'lit';
-import { getIntlayerClient } from '../client/installIntlayer';
+import { getIntlayerClient } from '../client/IntlayerClient';
 
 class ListController implements ReactiveController {
   private readonly host: ReactiveControllerHost;

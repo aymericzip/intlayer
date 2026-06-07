@@ -7,7 +7,7 @@ import type {
 import { getIntlayer } from '../getIntlayer';
 import type { DeepTransformContent } from '../plugins';
 import { IntlayerBinding, type IntlayerLitProxy } from './IntlayerBinding';
-import { getIntlayerClient } from './installIntlayer';
+import { getIntlayerClient } from './IntlayerClient';
 
 /**
  * Returns the translated content for the given dictionary key, wrapped in an

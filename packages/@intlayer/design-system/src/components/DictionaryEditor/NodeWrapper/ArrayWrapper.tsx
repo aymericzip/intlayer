@@ -4,6 +4,7 @@ import type { KeyPath } from '@intlayer/types/keyPath';
 import * as NodeTypes from '@intlayer/types/nodeType';
 import type { FC } from 'react';
 import { ItemLayout } from '../ItemLayout';
+// fallow-ignore-next-line circular-dependency
 import { NodeWrapper, type NodeWrapperProps } from './index';
 
 type ArrayWrapperProps = Omit<NodeWrapperProps, 'section'> & {

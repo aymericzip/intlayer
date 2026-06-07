@@ -1,5 +1,5 @@
 import { percentage } from '@intlayer/core/formatters';
-import { getIntlayerClient } from '../client/installIntlayer';
+import { getIntlayerClient } from '../client/IntlayerClient';
 
 export const usePercentage = () => {
   const client = getIntlayerClient();

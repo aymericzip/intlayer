@@ -10,7 +10,6 @@
     "preview": "astro preview"
   },
   "dependencies": {
-    "@astrojs/mdx": "5.0.6",
     "@astrojs/react": "5.0.5",
     "@astrojs/vue": "6.0.1",
     "@tailwindcss/vite": "4.3.0",
@@ -21,8 +20,8 @@
     "intlayer": "workspace:*",
     "react": "19.2.7",
     "react-dom": "19.2.7",
-    "react-intlayer": "workspace:*",
     "tailwindcss": "4.3.0",
-    "vue": "3.5.34"
+    "vue": "3.5.34",
+    "zod": "^4.4.3"
   }
 }

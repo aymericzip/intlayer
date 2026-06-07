@@ -8,16 +8,13 @@ import {
   isCliSessionToken,
 } from '@services/cliSessionToken.service';
 import {
+  getAuthModel,
   getOAuth2AccessTokenContext,
   validateOAuth2AccessToken,
 } from '@services/oAuth2.service';
 import { formatSession } from '@utils/auth/getAuth';
 import { type AppError, ErrorHandler } from '@utils/errors';
-import {
-  ACCESS_TOKEN_EXPIRES_IN,
-  authenticateOptions,
-  getAuthModel,
-} from '@utils/oAuth2';
+import { ACCESS_TOKEN_EXPIRES_IN, authenticateOptions } from '@utils/oAuth2';
 import type { FastifyReply, FastifyRequest } from 'fastify';
 
 // Configuration of the OAuth server

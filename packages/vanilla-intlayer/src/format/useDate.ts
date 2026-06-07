@@ -1,5 +1,5 @@
 import { date, presets } from '@intlayer/core/formatters';
-import { getIntlayerClient } from '../client/installIntlayer';
+import { getIntlayerClient } from '../client/IntlayerClient';
 
 /**
  * Vanilla JS hook that provides a localized date/time formatter.

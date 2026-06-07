@@ -116,16 +116,10 @@
     "typecheck": "tsc --noEmit --project tsconfig.types.json"
   },
   "dependencies": {
-    "@babel/plugin-syntax-import-attributes": "7.28.6",
-    "@babel/preset-env": "7.29.2",
-    "@intlayer/chokidar": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
     "@intlayer/dictionaries-entry": "workspace:*",
-    "@intlayer/editor": "workspace:*",
     "@intlayer/types": "workspace:*",
-    "@intlayer/webpack": "workspace:*",
-    "babel-loader": "10.1.1",
     "defu": "6.1.7"
   },
   "devDependencies": {

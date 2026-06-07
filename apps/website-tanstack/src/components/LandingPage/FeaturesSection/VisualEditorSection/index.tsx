@@ -1,15 +1,13 @@
-import { Link } from '@intlayer/design-system/link';
 import { Website_Playground_Path } from '@intlayer/design-system/routes';
-import { getLocalizedUrl } from 'intlayer';
 import { CircleArrowRight } from 'lucide-react';
 import { type FC, useEffect, useRef, useState } from 'react';
-import { useIntlayer, useLocale } from 'react-intlayer';
+import { useIntlayer } from 'react-intlayer';
+import { Link } from '~/components/Link/Link';
 
 export const VisualEditorSection: FC = () => {
   const { description, gotToPlaygroundButton } = useIntlayer(
     'visual-editor-section'
   );
-  const { locale } = useLocale();
   const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isVisible, setIsVisible] = useState(false);
@@ -73,7 +71,7 @@ export const VisualEditorSection: FC = () => {
       <div className="flex w-full flex-col gap-4">
         <span className="text-neutral text-sm">{description}</span>
         <Link
-          href={getLocalizedUrl(Website_Playground_Path, locale)}
+          to={Website_Playground_Path}
           target="_blank"
           variant="button"
           color="text"

@@ -2,7 +2,7 @@
 
 import { date, presets } from '@intlayer/core/formatters';
 import { useContext } from 'react';
-import { IntlayerClientContext } from '../IntlayerProvider';
+import { IntlayerClientContext } from '../IntlayerContext';
 
 /**
  * React client hook that provides a localized date/time formatter

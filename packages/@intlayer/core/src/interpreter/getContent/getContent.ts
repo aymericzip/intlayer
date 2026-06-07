@@ -5,36 +5,12 @@ import type {
   LocalesValues,
 } from '@intlayer/types/module_augmentation';
 import { deepTransformNode } from './deepTransform';
-import {
-  conditionPlugin,
-  type DeepTransformContent,
-  enumerationPlugin,
-  filePlugin,
-  genderPlugin,
-  type IInterpreterPluginState,
-  insertionPlugin,
-  type NodeProps,
-  nestedPlugin,
-  type Plugins,
-  translationPlugin,
+import type {
+  DeepTransformContent,
+  IInterpreterPluginState,
+  NodeProps,
+  Plugins,
 } from './plugins';
-
-export const getBasePlugins = (
-  locale?: LocalesValues,
-  fallback: boolean = true
-): Plugins[] =>
-  [
-    translationPlugin(
-      locale ?? internationalization.defaultLocale,
-      fallback ? internationalization.defaultLocale : undefined
-    ),
-    enumerationPlugin,
-    conditionPlugin,
-    insertionPlugin,
-    nestedPlugin(locale ?? internationalization.defaultLocale),
-    filePlugin,
-    genderPlugin,
-  ] as Plugins[];
 
 /**
  * Transforms a node in a single pass, applying each plugin as needed.

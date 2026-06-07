@@ -22,12 +22,8 @@ vi.mock('@intlayer/config/built', () => ({
   internationalization: mockConfig.internationalization,
 }));
 
-vi.mock('./editor', () => ({
+vi.mock('./editor/ContentSelector', () => ({
   ContentSelector: () => null,
-}));
-
-vi.mock('./editor/useEditedContentRenderer', () => ({
-  EditedContentRenderer: () => null,
 }));
 
 import { getDictionary } from './getDictionary';

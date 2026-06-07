@@ -4,7 +4,7 @@ import type {
   LocalesValues,
 } from '@intlayer/types/module_augmentation';
 import { type Accessor, createEffect, on, useContext } from 'solid-js';
-import { IntlayerClientContext } from './IntlayerProvider';
+import { IntlayerClientContext } from './IntlayerContext';
 import { setLocaleInStorage } from './useLocaleStorage';
 
 export type UseLocaleProps = {

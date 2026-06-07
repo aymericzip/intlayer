@@ -21,7 +21,7 @@ import {
 } from 'vue';
 import { getDictionary } from '../getDictionary';
 import type { DeepTransformContent } from '../plugins';
-import { INTLAYER_SYMBOL, type IntlayerProvider } from './installIntlayer';
+import { INTLAYER_SYMBOL, type IntlayerProvider } from './IntlayerClient';
 
 export const atPath = (obj: any, path: (string | number)[]) =>
   path.reduce((acc, k) => (acc == null ? undefined : acc[k as any]), obj);

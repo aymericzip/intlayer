@@ -59,7 +59,7 @@
     "format:fix": "bun --bun biome format --write .",
     "format:package": "prettier --write '**/package.json'",
     "install:packages": "bun install --filter '!./examples/**' --filter '!./apps/website/**'",
-    "lint": "bun --bun biome lint .",
+    "lint": "bun --bun biome lint . && bun --bun fallow",
     "lint:fix": "bun --bun biome lint --write .",
     "lint-staged": "lint-staged --allow-empty",
     "prepare": "husky",

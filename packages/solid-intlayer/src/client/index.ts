@@ -1,10 +1,12 @@
 export { getBrowserLocale } from './getBrowserLocale';
 export {
   IntlayerClientContext,
+  useIntlayerContext,
+} from './IntlayerContext';
+export {
   IntlayerProvider,
   IntlayerProviderContent,
   type IntlayerProviderProps,
-  useIntlayerContext,
 } from './IntlayerProvider';
 export { t } from './t';
 export { useDictionary } from './useDictionary';

@@ -8,7 +8,7 @@ import type { ReactiveControllerHost } from 'lit';
 import { getDictionary } from '../getDictionary';
 import type { DeepTransformContent } from '../plugins';
 import { IntlayerBinding, type IntlayerLitProxy } from './IntlayerBinding';
-import { getIntlayerClient } from './installIntlayer';
+import { getIntlayerClient } from './IntlayerClient';
 
 /**
  * Returns the translated content for a raw dictionary object, wrapped in an

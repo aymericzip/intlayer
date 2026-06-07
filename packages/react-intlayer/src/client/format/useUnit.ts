@@ -2,7 +2,7 @@
 
 import { units } from '@intlayer/core/formatters';
 import { useCallback, useContext } from 'react';
-import { IntlayerClientContext } from '../IntlayerProvider';
+import { IntlayerClientContext } from '../IntlayerContext';
 
 /**
  * React hook that provides a unit formatting function

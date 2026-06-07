@@ -1,6 +1,6 @@
 import { number } from '@intlayer/core/formatters';
 import type { ReactiveController, ReactiveControllerHost } from 'lit';
-import { getIntlayerClient } from '../client/installIntlayer';
+import { getIntlayerClient } from '../client/IntlayerClient';
 
 /**
  * ReactiveController that provides a locale-bound number formatter.

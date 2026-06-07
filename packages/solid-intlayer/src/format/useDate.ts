@@ -1,6 +1,6 @@
 import { date, presets } from '@intlayer/core/formatters';
 import { useContext } from 'solid-js';
-import { IntlayerClientContext } from '../client/IntlayerProvider';
+import { IntlayerClientContext } from '../client/IntlayerContext';
 
 /**
  * Solid client hook that provides a localized date/time formatter.

@@ -7,11 +7,16 @@ declare module '@intlayer/core/interpreter' {
 }
 
 export {
-  getBrowserLocale,
   IntlayerClientContext,
+  useIntlayerContext,
+} from './client/IntlayerContext';
+export {
   IntlayerProvider,
   IntlayerProviderContent,
   type IntlayerProviderProps,
+} from './client/IntlayerProvider';
+export {
+  getBrowserLocale,
   localeCookie,
   localeInStorage,
   setLocaleCookie,
@@ -21,7 +26,6 @@ export {
   useDictionaryAsync,
   useDictionaryDynamic,
   useIntlayer,
-  useIntlayerContext,
   useLoadDynamic,
   useLocale,
   useLocaleBase,

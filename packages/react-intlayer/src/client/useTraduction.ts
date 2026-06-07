@@ -1,7 +1,7 @@
 import { getTranslation } from '@intlayer/core/interpreter';
 import type { StrictModeLocaleMap } from '@intlayer/types/module_augmentation';
 import { useContext, useMemo } from 'react';
-import { IntlayerClientContext } from './IntlayerProvider';
+import { IntlayerClientContext } from './IntlayerContext';
 
 /**
  * On the client side, Hook that picking one dictionary by its id and return the content.

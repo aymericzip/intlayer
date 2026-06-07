@@ -1,3 +1,4 @@
+export * from './IntlayerClient';
 export * from './installIntlayer';
 export * from './useDictionary';
 export * from './useDictionaryAsync';

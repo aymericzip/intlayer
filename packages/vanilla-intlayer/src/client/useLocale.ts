@@ -3,7 +3,7 @@ import type {
   DeclaredLocales,
   LocalesValues,
 } from '@intlayer/types/module_augmentation';
-import { getIntlayerClient } from './installIntlayer';
+import { getIntlayerClient } from './IntlayerClient';
 import { setLocaleInStorage } from './useLocaleStorage';
 
 export type UseLocaleProps = {

@@ -34,7 +34,7 @@ import * as NodeTypes from '@intlayer/types/nodeType';
 import type { TemplateResult } from 'lit';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
-import { getIntlayerClient } from './client/installIntlayer';
+import { getIntlayerClient } from './client/IntlayerClient';
 import type { HTMLComponents, LitHTMLComponent } from './html/types';
 import { litRuntime } from './markdown/runtime';
 import {

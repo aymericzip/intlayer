@@ -2,7 +2,7 @@ import type { EditorStateManager } from '@intlayer/editor';
 import { isEnabled } from '@intlayer/editor/isEnabled';
 import type { Locale } from '@intlayer/types/allLocales';
 import type { ReactiveController, ReactiveControllerHost } from 'lit';
-import { getIntlayerClient } from '../client/installIntlayer';
+import { getIntlayerClient } from '../client/IntlayerClient';
 
 /**
  * ReactiveController that initialises the Intlayer visual editor when enabled.

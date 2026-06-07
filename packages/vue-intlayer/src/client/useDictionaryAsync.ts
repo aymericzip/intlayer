@@ -5,7 +5,7 @@ import type {
   StrictModeLocaleMap,
 } from '@intlayer/types/module_augmentation';
 import { computed, inject, type MaybeRefOrGetter, ref, watch } from 'vue';
-import { INTLAYER_SYMBOL, type IntlayerProvider } from './installIntlayer';
+import { INTLAYER_SYMBOL, type IntlayerProvider } from './IntlayerClient';
 import { useDictionary } from './useDictionary';
 
 /**

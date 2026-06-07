@@ -1,5 +1,5 @@
 import { units } from '@intlayer/core/formatters';
-import { getIntlayerClient } from '../client/installIntlayer';
+import { getIntlayerClient } from '../client/IntlayerClient';
 
 export const useUnit = () => {
   const client = getIntlayerClient();

@@ -1,5 +1,5 @@
 import { currency } from '@intlayer/core/formatters';
-import { getIntlayerClient } from '../client/installIntlayer';
+import { getIntlayerClient } from '../client/IntlayerClient';
 
 export const useCurrency = () => {
   const client = getIntlayerClient();

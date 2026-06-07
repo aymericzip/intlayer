@@ -98,8 +98,7 @@
     "@intlayer/core": "workspace:*",
     "@intlayer/dictionaries-entry": "workspace:*",
     "@intlayer/types": "workspace:*",
-    "next-intlayer": "workspace:*",
-    "react-intlayer": "workspace:*"
+    "next-intlayer": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "25.9.2",

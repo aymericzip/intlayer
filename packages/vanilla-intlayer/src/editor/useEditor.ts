@@ -1,7 +1,7 @@
 import type { EditorStateManager } from '@intlayer/editor';
 import { isEnabled } from '@intlayer/editor/isEnabled';
 import type { Locale } from '@intlayer/types/allLocales';
-import { getIntlayerClient } from '../client/installIntlayer';
+import { getIntlayerClient } from '../client/IntlayerClient';
 
 /**
  * Initialises the Intlayer visual editor client.

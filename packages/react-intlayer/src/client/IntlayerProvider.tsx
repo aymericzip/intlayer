@@ -4,39 +4,10 @@ import { internationalization } from '@intlayer/config/built';
 import { setIntlayerIdentifier } from '@intlayer/config/client';
 import { localeResolver } from '@intlayer/core/localization';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
-import {
-  createContext,
-  type FC,
-  type PropsWithChildren,
-  useContext,
-  useEffect,
-  useState,
-} from 'react';
+import { type FC, type PropsWithChildren, useEffect, useState } from 'react';
 import { EditorProvider } from '../editor/EditorProvider';
+import { IntlayerClientContext } from './IntlayerContext';
 import { localeInStorage, setLocaleInStorage } from './useLocaleStorage';
-
-type IntlayerValue = {
-  locale: LocalesValues;
-  setLocale: (newLocale: LocalesValues) => void;
-  disableEditor?: boolean;
-  isCookieEnabled?: boolean;
-};
-
-/**
- * Context that stores the current locale on the client side.
- */
-export const IntlayerClientContext = createContext<IntlayerValue>({
-  locale: localeInStorage ?? internationalization?.defaultLocale,
-  setLocale: () => null,
-  isCookieEnabled: true,
-});
-
-/**
- * Hook that provides the current Intlayer client context.
- *
- * @returns The current Intlayer context values.
- */
-export const useIntlayerContext = () => useContext(IntlayerClientContext) ?? {};
 
 /**
  * Props for the IntlayerProvider component.

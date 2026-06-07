@@ -6,7 +6,7 @@ import type {
   StrictModeLocaleMap,
 } from '@intlayer/types/module_augmentation';
 import { useContext } from 'solid-js';
-import { IntlayerClientContext } from './IntlayerProvider';
+import { IntlayerClientContext } from './IntlayerContext';
 import { useDictionary } from './useDictionary';
 
 /**

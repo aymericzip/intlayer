@@ -1,12 +1,4 @@
-import type OAuth2Server from '@node-oauth/oauth2-server';
 import type { AuthenticateOptions } from '@node-oauth/oauth2-server';
-import {
-  getAccessToken,
-  getClient,
-  getUserFromClient,
-  saveToken,
-  verifyScope,
-} from '@services/oAuth2.service';
 
 export const ACCESS_TOKEN_EXPIRES_IN = 60 * 60 * 24 * 7; // 7 days
 
@@ -30,11 +22,3 @@ export const authenticateOptions: AuthenticateOptions = {
   addAuthorizedScopesHeader: undefined,
   allowBearerTokensInQueryString: undefined,
 };
-
-export const getAuthModel = (): OAuth2Server.ClientCredentialsModel => ({
-  getClient,
-  saveToken,
-  getUserFromClient,
-  verifyScope,
-  getAccessToken,
-});

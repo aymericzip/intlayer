@@ -2,7 +2,7 @@ import { routing } from '@intlayer/config/built';
 import { getRewritePath } from '@intlayer/core/localization';
 import type { Locale } from '@intlayer/types/allLocales';
 import type { ReactiveController, ReactiveControllerHost } from 'lit';
-import { getIntlayerClient } from './installIntlayer';
+import { getIntlayerClient } from './IntlayerClient';
 
 /**
  * ReactiveController that keeps the browser URL in sync with the current locale.

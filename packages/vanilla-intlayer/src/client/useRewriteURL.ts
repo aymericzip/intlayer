@@ -1,7 +1,7 @@
 import { routing } from '@intlayer/config/built';
 import { getRewritePath } from '@intlayer/core/localization';
 import type { Locale } from '@intlayer/types/allLocales';
-import { getIntlayerClient } from './installIntlayer';
+import { getIntlayerClient } from './IntlayerClient';
 
 const rewrite = (locale: string): void => {
   if (typeof window === 'undefined' || !routing?.rewrite) return;

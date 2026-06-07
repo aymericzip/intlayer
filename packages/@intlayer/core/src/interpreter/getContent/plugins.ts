@@ -23,6 +23,7 @@ import { getCondition } from '../getCondition';
 import { getEnumeration } from '../getEnumeration';
 import { getGender } from '../getGender';
 import { getInsertion } from '../getInsertion';
+// fallow-ignore-next-line circular-dependency
 import { type GetNestingResult, getNesting } from '../getNesting';
 import { getPlural } from '../getPlural';
 import { getTranslation } from '../getTranslation';

@@ -10,13 +10,15 @@ declare module '@intlayer/core/interpreter' {
  * @deprecated import from react-intlayer/format instead
  */
 export { useIntl } from './client/format/useIntl';
+export {
+  IntlayerClientContext,
+  useIntlayerContext,
+} from './client/IntlayerContext';
 // Import directly from individual files to avoid circular dependency issues
 export type { IntlayerProviderProps } from './client/IntlayerProvider';
 export {
-  IntlayerClientContext,
   IntlayerProvider,
   IntlayerProviderContent,
-  useIntlayerContext,
 } from './client/IntlayerProvider';
 export { t } from './client/t';
 export { useDictionary } from './client/useDictionary';

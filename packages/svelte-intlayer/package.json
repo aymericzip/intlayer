@@ -82,7 +82,6 @@
     "typecheck": "tsc --noEmit --project tsconfig.types.json"
   },
   "dependencies": {
-    "@intlayer/api": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
     "@intlayer/editor": "workspace:*",
@@ -90,6 +89,7 @@
   },
   "devDependencies": {
     "@sveltejs/adapter-auto": "7.0.1",
+    "@sveltejs/kit": "^2.63.0",
     "@sveltejs/package": "2.5.7",
     "@sveltejs/vite-plugin-svelte": "7.1.2",
     "@types/node": "25.9.2",

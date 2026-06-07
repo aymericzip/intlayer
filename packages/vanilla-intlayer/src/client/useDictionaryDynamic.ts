@@ -7,7 +7,7 @@ import type {
 } from '@intlayer/types/module_augmentation';
 import { getDictionary } from '../getDictionary';
 import type { DeepTransformContent } from '../plugins';
-import { getIntlayerClient } from './installIntlayer';
+import { getIntlayerClient } from './IntlayerClient';
 import type { WithOnChange } from './useDictionary';
 
 /** Simple in-memory cache shared across all calls in the same page. */

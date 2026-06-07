@@ -5,7 +5,7 @@ import type {
 } from '@intlayer/types/module_augmentation';
 import { getIntlayer } from '../getIntlayer';
 import type { DeepTransformContent } from '../plugins';
-import { getIntlayerClient } from './installIntlayer';
+import { getIntlayerClient } from './IntlayerClient';
 import type { WithOnChange } from './useDictionary';
 
 /**

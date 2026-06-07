@@ -104,10 +104,3 @@ export class IntlayerEditorElement extends _HTMLElement {
     }
   }
 }
-
-export const defineIntlayerEditorElement = (): void => {
-  if (typeof customElements === 'undefined') return;
-  if (!customElements.get('intlayer-editor')) {
-    customElements.define('intlayer-editor', IntlayerEditorElement);
-  }
-};

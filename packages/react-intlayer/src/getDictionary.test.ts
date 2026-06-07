@@ -21,12 +21,8 @@ vi.mock('@intlayer/config/built', () => ({
   default: mockConfig,
 }));
 
-vi.mock('./editor', () => ({
+vi.mock('./editor/ContentSelector', () => ({
   ContentSelector: ({ children }: any) => children,
-}));
-
-vi.mock('./editor/useEditedContentRenderer', () => ({
-  EditedContentRenderer: ({ children }: any) => children,
 }));
 
 // Imported after mocks so that plugin modules pick up the mocked config.

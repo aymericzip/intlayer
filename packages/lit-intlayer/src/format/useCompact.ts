@@ -1,6 +1,6 @@
 import { compact } from '@intlayer/core/formatters';
 import type { ReactiveController, ReactiveControllerHost } from 'lit';
-import { getIntlayerClient } from '../client/installIntlayer';
+import { getIntlayerClient } from '../client/IntlayerClient';
 
 class CompactController implements ReactiveController {
   private readonly host: ReactiveControllerHost;

@@ -6,7 +6,7 @@ import type {
   LocalesValues,
 } from '@intlayer/types/module_augmentation';
 import { useCallback, useContext } from 'react';
-import { IntlayerClientContext } from './IntlayerProvider';
+import { IntlayerClientContext } from './IntlayerContext';
 import { setLocaleInStorage } from './useLocaleStorage';
 
 export type UseLocaleProps = {

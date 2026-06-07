@@ -1,6 +1,6 @@
 import { relativeTime } from '@intlayer/core/formatters';
 import type { ReactiveController, ReactiveControllerHost } from 'lit';
-import { getIntlayerClient } from '../client/installIntlayer';
+import { getIntlayerClient } from '../client/IntlayerClient';
 
 class RelativeTimeController implements ReactiveController {
   private readonly host: ReactiveControllerHost;

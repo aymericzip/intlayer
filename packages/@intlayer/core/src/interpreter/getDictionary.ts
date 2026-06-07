@@ -9,7 +9,8 @@ import type {
   NodeProps,
   Plugins,
 } from './getContent';
-import { getBasePlugins, getContent } from './getContent/getContent';
+import { getBasePlugins } from './getContent/getBasePlugins';
+import { getContent } from './getContent/getContent';
 
 /**
  * Transforms a dictionary in a single pass, applying each plugin as needed.

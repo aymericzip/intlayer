@@ -1,0 +1,268 @@
+{
+  "ignoreExports": [
+    {
+      "file": "apps/showcase/src/components/SubmitProjectForm/useProjectSubmit.ts",
+      "exports": ["*"]
+    },
+    {
+      "file": "apps/showcase/src/utils/projectActions/types.ts",
+      "exports": ["*"]
+    },
+    {
+      "file": "apps/backend/src/controllers/ai.controller.ts",
+      "exports": ["*"]
+    },
+    {
+      "file": "apps/backend/src/utils/AI/askDocQuestion/askDocQuestion.ts",
+      "exports": ["*"]
+    },
+    {
+      "file": "apps/backend/src/utils/AI/auditDictionary/index.ts",
+      "exports": ["*"]
+    },
+    {
+      "file": "apps/backend/src/utils/AI/auditDictionaryMetadata/index.ts",
+      "exports": ["*"]
+    },
+    {
+      "file": "apps/backend/src/utils/AI/auditTag/index.ts",
+      "exports": ["*"]
+    },
+    {
+      "file": "apps/backend/src/services/bitbucket.service.ts",
+      "exports": ["*"]
+    },
+    {
+      "file": "apps/backend/src/types/project.types.ts",
+      "exports": ["*"]
+    },
+    {
+      "file": "packages/@intlayer/editor-react/src/DictionariesRecordContext.tsx",
+      "exports": ["*"]
+    },
+    {
+      "file": "packages/@intlayer/editor-react/src/EditedContentContext.tsx",
+      "exports": ["*"]
+    },
+    {
+      "file": "packages/@intlayer/design-system/src/components/Form/Form.tsx",
+      "exports": ["*"]
+    },
+    {
+      "file": "packages/@intlayer/design-system/src/components/Form/FormBase.tsx",
+      "exports": ["*"]
+    },
+    {
+      "file": "apps/backend/src/services/github.service.ts",
+      "exports": ["*"]
+    },
+    {
+      "file": "packages/angular-intlayer/src/plugins.ts",
+      "exports": ["*"]
+    },
+    {
+      "file": "packages/angular-intlayer/src/renderIntlayerNode.ts",
+      "exports": ["*"]
+    },
+    {
+      "file": "packages/vue-intlayer/src/plugins.ts",
+      "exports": ["*"]
+    },
+    {
+      "file": "packages/vue-intlayer/src/renderIntlayerNode.ts",
+      "exports": ["*"]
+    },
+    {
+      "file": "packages/lit-intlayer/src/plugins.ts",
+      "exports": ["*"]
+    },
+    {
+      "file": "packages/lit-intlayer/src/renderIntlayerNode.ts",
+      "exports": ["*"]
+    },
+    {
+      "file": "packages/vanilla-intlayer/src/plugins.ts",
+      "exports": ["*"]
+    },
+    {
+      "file": "packages/vanilla-intlayer/src/renderIntlayerNode.ts",
+      "exports": ["*"]
+    },
+    {
+      "file": "packages/@intlayer/design-system/src/components/Logo/Logo.tsx",
+      "exports": ["*"]
+    },
+    {
+      "file": "packages/@intlayer/design-system/src/components/Logo/LogoWithTextBelow.tsx",
+      "exports": ["*"]
+    },
+    {
+      "file": "apps/app/src/components/Auth/SignUp/SignUpForm/SignUpForm.tsx",
+      "exports": ["*"]
+    },
+    {
+      "file": "apps/app/src/components/Auth/SignUp/index.tsx",
+      "exports": ["*"]
+    },
+    {
+      "file": "apps/backend/src/utils/AI/translateJSON/index.ts",
+      "exports": ["*"]
+    },
+    {
+      "file": "apps/backend/src/controllers/stripe.controller.ts",
+      "exports": ["*"]
+    },
+    {
+      "file": "apps/backend/src/services/affiliate.service.ts",
+      "exports": ["*"]
+    },
+    {
+      "file": "apps/backend/src/controllers/projectAccessKey.controller.ts",
+      "exports": ["*"]
+    },
+    {
+      "file": "apps/backend/src/services/projectAccessKey.service.ts",
+      "exports": ["*"]
+    },
+    {
+      "file": "packages/@intlayer/ai/src/auditDictionaryMetadata/index.ts",
+      "exports": ["*"]
+    },
+    {
+      "file": "packages/@intlayer/ai/src/customQuery.ts",
+      "exports": ["*"]
+    },
+    {
+      "file": "packages/@intlayer/ai/src/translateJSON/index.ts",
+      "exports": ["*"]
+    },
+    {
+      "file": "apps/backend/src/utils/AI/auditDictionaryField/index.ts",
+      "exports": ["*"]
+    },
+    {
+      "file": "apps/backend/src/utils/AI/autocomplete/index.ts",
+      "exports": ["*"]
+    },
+    {
+      "file": "apps/backend/src/utils/AI/chat/index.ts",
+      "exports": ["*"]
+    },
+    {
+      "file": "apps/backend/src/utils/AI/customQuery/index.ts",
+      "exports": ["*"]
+    },
+    {
+      "file": "apps/backend/src/controllers/bitbucket.controller.ts",
+      "exports": ["*"]
+    },
+    {
+      "file": "apps/backend/src/controllers/github.controller.ts",
+      "exports": ["*"]
+    },
+    {
+      "file": "apps/backend/src/controllers/gitlab.controller.ts",
+      "exports": ["*"]
+    },
+    {
+      "file": "packages/@intlayer/cli/src/build.ts",
+      "exports": ["*"]
+    },
+    {
+      "file": "packages/@intlayer/config/src/built.browser.ts",
+      "exports": ["*"]
+    },
+    {
+      "file": "apps/backend/src/services/subscription.service.ts",
+      "exports": ["*"]
+    },
+    {
+      "file": "apps/backend/src/services/gitlab.service.ts",
+      "exports": ["*"]
+    },
+    {
+      "file": "packages/svelte-intlayer/src/html/HTMLProvider.svelte",
+      "exports": ["*"]
+    },
+    {
+      "file": "packages/svelte-intlayer/src/html/HTMLRenderer.svelte",
+      "exports": ["*"]
+    },
+    {
+      "file": "packages/svelte-intlayer/src/html/HTMLWithSelector.svelte",
+      "exports": ["*"]
+    },
+    {
+      "file": "packages/svelte-intlayer/src/markdown/MarkdownProvider.svelte",
+      "exports": ["*"]
+    },
+    {
+      "file": "packages/svelte-intlayer/src/markdown/MarkdownRenderer.svelte",
+      "exports": ["*"]
+    },
+    {
+      "file": "apps/backend/src/controllers/reviewer.controller.ts",
+      "exports": ["*"]
+    },
+    {
+      "file": "apps/backend/src/services/reviewerMission.service.ts",
+      "exports": ["*"]
+    },
+    {
+      "file": "apps/backend/src/services/promoCode.service.ts",
+      "exports": ["*"]
+    },
+    {
+      "file": "apps/backend/src/controllers/user.controller.ts",
+      "exports": ["*"]
+    },
+    {
+      "file": "apps/backend/src/services/user.service.ts",
+      "exports": ["*"]
+    },
+    {
+      "file": "packages/svelte-intlayer/src/editor/ContentSelector.svelte",
+      "exports": ["*"]
+    },
+    {
+      "file": "packages/svelte-intlayer/src/markdown/MarkdownMetadataWithSelector.svelte",
+      "exports": ["*"]
+    },
+    {
+      "file": "packages/svelte-intlayer/src/markdown/MarkdownWithSelector.svelte",
+      "exports": ["*"]
+    },
+    {
+      "file": "apps/backend/src/controllers/dictionary.controller.ts",
+      "exports": ["*"]
+    },
+    {
+      "file": "apps/backend/src/services/dictionary.service.ts",
+      "exports": ["*"]
+    },
+    {
+      "file": "packages/svelte-intlayer/src/markdown/MarkdownMetadataRenderer.svelte",
+      "exports": ["*"]
+    },
+    {
+      "file": "apps/backend/src/controllers/showcaseProject.controller.ts",
+      "exports": ["*"]
+    },
+    {
+      "file": "apps/backend/src/services/showcase/showcaseScan.service.ts",
+      "exports": ["*"]
+    },
+    {
+      "file": "apps/backend/src/services/showcase/showcaseProject.service.ts",
+      "exports": ["*"]
+    },
+    {
+      "file": "apps/backend/src/services/reviewer.service.ts",
+      "exports": ["*"]
+    },
+    {
+      "file": "packages/svelte-intlayer/src/IntlayerNodeWrapper.svelte",
+      "exports": ["*"]
+    }
+  ]
+}

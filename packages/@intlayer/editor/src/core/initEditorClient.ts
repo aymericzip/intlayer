@@ -1,5 +1,6 @@
-import { editor, internationalization } from '@intlayer/config/built';
-import { defineIntlayerElements } from '../components';
+import { editor } from '@intlayer/config/built';
+// fallow-ignore-next-line circular-dependency
+import { defineIntlayerElements } from '../components/defineIntlayerElements';
 import type { MessengerConfig } from './CrossFrameMessenger';
 import { EditorStateManager } from './EditorStateManager';
 import {

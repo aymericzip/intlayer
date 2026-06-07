@@ -1,5 +1,5 @@
 import { list } from '@intlayer/core/formatters';
-import { getIntlayerClient } from '../client/installIntlayer';
+import { getIntlayerClient } from '../client/IntlayerClient';
 
 export const useList = () => {
   const client = getIntlayerClient();
