@@ -92,6 +92,7 @@
     "@vitejs/plugin-react": "6.0.2",
     "bun": "1.3.14",
     "enquirer": "2.4.1",
+    "fallow": "^2.89.0",
     "fast-glob": "3.3.3",
     "husky": "9.1.7",
     "intlayer": "workspace:*",
