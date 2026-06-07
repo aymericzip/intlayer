@@ -117,6 +117,7 @@ export const AsideNavigation: FC = (props) => {
               </div>
               <HeightResizer
                 initialHeight={250}
+                isDisabled={isMobile}
                 className="absolute bottom-0 left-0 size-full"
               >
                 <Container

@@ -2,7 +2,7 @@
 // Domains
 // ============================================================
 export const App_Domain = 'app.intlayer.org' as const;
-export const Website_Domain = 'new.intlayer.org' as const;
+export const Website_Domain = 'intlayer.org' as const;
 export const Showcase_Domain = 'showcase.intlayer.org' as const;
 
 // ============================================================

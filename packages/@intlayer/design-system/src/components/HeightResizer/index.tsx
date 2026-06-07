@@ -42,6 +42,11 @@ type HeightResizerProps = {
    * @example 50
    */
   minHeight?: number;
+  /**
+   * Disable the resizer. When true, it behaves as a normal static container without drag handle or resizing capability.
+   * @default false
+   */
+  isDisabled?: boolean;
 } & DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
 
 /**
@@ -116,6 +121,7 @@ export const HeightResizer: FC<PropsWithChildren<HeightResizerProps>> = ({
   initialHeight,
   maxHeight,
   minHeight = 0,
+  isDisabled = false,
   children,
   className,
   ...props
@@ -137,10 +143,11 @@ export const HeightResizer: FC<PropsWithChildren<HeightResizerProps>> = ({
         | React.MouseEvent<HTMLDivElement>
         | React.TouchEvent<HTMLDivElement>
     ) => {
+      if (isDisabled) return;
       setIsResizing(true);
       mouseDownEvent.preventDefault();
     },
-    []
+    [isDisabled]
   );
 
   /**
@@ -191,6 +198,8 @@ export const HeightResizer: FC<PropsWithChildren<HeightResizerProps>> = ({
    * Handles both mouse and touch events with proper cleanup
    */
   useEffect(() => {
+    if (isDisabled) return;
+
     window.addEventListener('mousemove', resize, { passive: true });
     window.addEventListener('mouseup', stopResizing);
     window.addEventListener('touchmove', resize, { passive: true });
@@ -202,7 +211,7 @@ export const HeightResizer: FC<PropsWithChildren<HeightResizerProps>> = ({
       window.removeEventListener('touchmove', resize);
       window.removeEventListener('touchend', stopResizing);
     };
-  }, [resize, stopResizing]);
+  }, [resize, stopResizing, isDisabled]);
 
   useEffect(() => {
     if (height > minHeight) {
@@ -221,6 +230,8 @@ export const HeightResizer: FC<PropsWithChildren<HeightResizerProps>> = ({
       event.preventDefault();
       event.stopPropagation();
 
+      if (isDisabled) return;
+
       if (height > minHeight) {
         setHeight(minHeight);
         return;
@@ -232,32 +243,44 @@ export const HeightResizer: FC<PropsWithChildren<HeightResizerProps>> = ({
           : lastExpandedHeightRef.current;
       setHeight(Math.max(capped, minHeight));
     },
-    [height, maxHeight, minHeight]
+    [height, maxHeight, minHeight, isDisabled]
   );
 
   return (
     <div
       className={cn(
-        'relative h-full max-h-[80%] w-full cursor-ns-resize border-neutral-200 border-t-[2px] transition dark:border-neutral-950',
-        'before:absolute before:top-0 before:left-1/2 before:z-10 before:block before:h-2 before:w-10 before:-translate-x-1/2 before:-translate-y-1/2 before:transform before:cursor-ns-resize before:rounded-full before:bg-neutral-200 before:transition before:content-[""] dark:before:bg-neutral-950',
-        'active:border-neutral-400 active:before:bg-neutral-400 dark:active:border-neutral-600 active:dark:before:bg-neutral-600',
+        'relative h-full w-full transition',
+        !isDisabled &&
+          'max-h-[80%] cursor-ns-resize border-neutral-200 border-t-[2px] dark:border-neutral-950',
+        !isDisabled &&
+          'before:absolute before:top-0 before:left-1/2 before:z-10 before:block before:h-2 before:w-10 before:-translate-x-1/2 before:-translate-y-1/2 before:transform before:cursor-ns-resize before:rounded-full before:bg-neutral-200 before:transition before:content-[""] dark:before:bg-neutral-950',
+        !isDisabled &&
+          'active:border-neutral-400 active:before:bg-neutral-400 dark:active:border-neutral-600 active:dark:before:bg-neutral-600',
         className
       )}
       style={{
-        height: `${height}px`,
-        maxHeight: maxHeight ? `${maxHeight}px` : undefined,
-        minHeight: `${minHeight}px`,
+        height: isDisabled ? '100%' : `${height}px`,
+        maxHeight: isDisabled
+          ? '100%'
+          : maxHeight
+            ? `${maxHeight}px`
+            : undefined,
+        minHeight: isDisabled ? undefined : `${minHeight}px`,
       }}
       ref={containerRef}
-      onMouseDown={startResizing}
-      onTouchStart={startResizing}
-      onDoubleClick={handleDoubleClick}
-      aria-valuemin={minHeight}
-      aria-valuemax={maxHeight}
-      aria-valuenow={height}
-      aria-label="Resizable component - drag the handle to adjust height"
-      role="slider"
-      tabIndex={0}
+      onMouseDown={isDisabled ? undefined : startResizing}
+      onTouchStart={isDisabled ? undefined : startResizing}
+      onDoubleClick={isDisabled ? undefined : handleDoubleClick}
+      aria-valuemin={isDisabled ? undefined : minHeight}
+      aria-valuemax={isDisabled ? undefined : maxHeight}
+      aria-valuenow={isDisabled ? undefined : height}
+      aria-label={
+        isDisabled
+          ? undefined
+          : 'Resizable component - drag the handle to adjust height'
+      }
+      role={isDisabled ? 'none' : 'slider'}
+      tabIndex={isDisabled ? undefined : 0}
       {...props}
     >
       {/* biome-ignore lint/a11y/noStaticElementInteractions: Stops content clicks from triggering resize on the parent slider */}

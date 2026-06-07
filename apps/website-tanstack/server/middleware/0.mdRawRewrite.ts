@@ -12,7 +12,8 @@
 
 type H3EventLike = {
   readonly path: string;
-  url: URL;
+  /** H3 internal path override — takes precedence over node.req.url in routing. */
+  _path?: string;
 };
 
 const MD_REWRITE_PATTERN =
@@ -26,11 +27,8 @@ export default (event: H3EventLike): void => {
   const section = match[2];
   const slug = match[3];
   const query = match[4] ?? '';
-  const newPath = `${locale}/${section}/raw/${slug}${query}`;
 
-  try {
-    event.url = new URL(newPath, event.url.origin);
-  } catch {
-    console.error('[mdRawRewrite] URL rewrite failed — invalid path:', newPath);
-  }
+  // Setting event._path overrides the path H3 uses for route matching.
+  // event.url reassignment is ignored by the router (it reads _path first).
+  event._path = `${locale}/${section}/raw/${slug}${query}`;
 };
