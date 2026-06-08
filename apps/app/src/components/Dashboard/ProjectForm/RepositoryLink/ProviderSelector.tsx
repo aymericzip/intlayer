@@ -11,12 +11,14 @@ type ProviderSelectorProps = {
   selectedProvider: RepositoryProvider | null;
   onSelectProvider: (provider: RepositoryProvider) => void;
   isCheckingProvider: boolean;
+  disabled?: boolean;
 };
 
 export const ProviderSelector: FC<ProviderSelectorProps> = ({
   selectedProvider,
   onSelectProvider,
   isCheckingProvider,
+  disabled,
 }) => {
   const content = useIntlayer('repository-link');
   const providers: RepositoryProvider[] = ['github', 'gitlab', 'bitbucket'];
@@ -58,7 +60,7 @@ export const ProviderSelector: FC<ProviderSelectorProps> = ({
               variant={isSelected ? 'default' : 'outline'}
               color="text"
               onClick={() => onSelectProvider(provider)}
-              disabled={isCheckingProvider}
+              disabled={isCheckingProvider || disabled}
               className="flex size-24 h-auto flex-col items-center gap-2 px-0 py-0"
               roundedSize="lg"
               label={config.name}

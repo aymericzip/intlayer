@@ -1,3 +1,4 @@
+import { useSession } from '@intlayer/design-system/api';
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
 import { H3 } from '@intlayer/design-system/headers';
@@ -51,6 +52,9 @@ const PROVIDER_NAMES: Record<RepositoryProvider, string> = {
 export const RepositoryLink: FC = () => {
   const content = useIntlayer('repository-link');
   const navigate = useLocalizedNavigate();
+  const { session } = useSession();
+  const hasProjectWritePermission =
+    session?.permissions?.includes('project:write') ?? false;
 
   const [isRepoListOpen, setIsRepoListOpen] = useState(false);
   const [isConfigSelectionOpen, setIsConfigSelectionOpen] = useState(false);
@@ -136,6 +140,7 @@ export const RepositoryLink: FC = () => {
               Icon={Trash2}
               label={content.actions?.disconnect}
               onClick={handleDisconnect}
+              disabled={!hasProjectWritePermission}
             >
               {content.actions?.disconnect}
             </Button>
@@ -178,6 +183,7 @@ export const RepositoryLink: FC = () => {
             selectedProvider={selectedProvider}
             onSelectProvider={handleProviderSelect}
             isCheckingProvider={isCheckingProvider}
+            disabled={!hasProjectWritePermission}
           />
 
           {/* Custom GitLab Instance URL */}
@@ -198,6 +204,7 @@ export const RepositoryLink: FC = () => {
                 placeholder="https://gitlab.company.com"
                 value={gitlabInstanceUrl}
                 onChange={(e) => setGitlabInstanceUrl(e.target.value)}
+                disabled={!hasProjectWritePermission}
               />
             </div>
           )}
@@ -231,6 +238,7 @@ export const RepositoryLink: FC = () => {
                   provider: PROVIDER_NAMES[selectedProvider],
                 })}
                 isLoading={isLinking}
+                disabled={isLinking || !hasProjectWritePermission}
                 Icon={Link}
                 color="text"
                 className="mx-auto"
@@ -265,7 +273,7 @@ export const RepositoryLink: FC = () => {
                 <Button
                   onClick={handleConnectClick}
                   isLoading={isLinking}
-                  disabled={isLinking}
+                  disabled={isLinking || !hasProjectWritePermission}
                   label={content.actions?.renewAuth}
                   variant="outline"
                   color="text"
@@ -275,7 +283,7 @@ export const RepositoryLink: FC = () => {
                 </Button>
                 <Button
                   onClick={() => setIsRepoListOpen(true)}
-                  disabled={isLinking}
+                  disabled={isLinking || !hasProjectWritePermission}
                   label={content.actions?.browseRepos}
                   color="text"
                   Icon={Search}

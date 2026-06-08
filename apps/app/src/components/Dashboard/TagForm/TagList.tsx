@@ -1,5 +1,9 @@
 import type { TagAPI } from '@intlayer/backend';
-import { useDeleteTag, useGetTags } from '@intlayer/design-system/api';
+import {
+  useDeleteTag,
+  useGetTags,
+  useSession,
+} from '@intlayer/design-system/api';
 import { Button } from '@intlayer/design-system/button';
 import { Checkbox, SearchInput } from '@intlayer/design-system/input';
 import { Modal } from '@intlayer/design-system/modal';
@@ -44,6 +48,10 @@ export const TagList: FC = () => {
   const [isCreationModalOpen, setIsCreationModalOpen] = useState(false);
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
   const [tagsToDelete, setTagsToDelete] = useState<string[] | null>(null);
+
+  const { session } = useSession();
+  const hasProjectWritePermission =
+    session?.permissions?.includes('project:write') ?? false;
 
   const {
     noTagView,
@@ -247,6 +255,7 @@ export const TagList: FC = () => {
               variant="outline"
               Icon={Trash2}
               label={deleteSelectedButton.label.value}
+              disabled={!hasProjectWritePermission}
               onClick={() => {
                 const ids = table
                   .getSelectedRowModel()
@@ -261,6 +270,7 @@ export const TagList: FC = () => {
             Icon={Plus}
             color="text"
             label={createTagButton.ariaLabel.value}
+            disabled={!hasProjectWritePermission}
             onClick={() => setIsCreationModalOpen(true)}
           >
             {createTagButton.text}
@@ -287,6 +297,8 @@ export const TagList: FC = () => {
         isOpen={isCreationModalOpen}
         onClose={() => setIsCreationModalOpen(false)}
         padding="md"
+        title={createTagButton.text.value}
+        hasCloseButton
       >
         <TagCreationForm onTagCreated={() => setIsCreationModalOpen(false)} />
       </Modal>

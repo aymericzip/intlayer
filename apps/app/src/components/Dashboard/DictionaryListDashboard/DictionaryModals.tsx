@@ -1,5 +1,6 @@
 import { Modal } from '@intlayer/design-system/modal';
 import { type FC, lazy, Suspense } from 'react';
+import { useIntlayer } from 'react-intlayer';
 import type { useDictionaryDashboard } from './useDictionaryDashboard';
 
 const DictionaryCreationForm = lazy(() =>
@@ -35,6 +36,7 @@ type DictionaryModalsProps = {
 };
 
 export const DictionaryModals: FC<DictionaryModalsProps> = ({ dashboard }) => {
+  const content = useIntlayer('dictionary-list');
   const { state, actions, params, setParam, setParams } = dashboard;
 
   return (
@@ -44,6 +46,7 @@ export const DictionaryModals: FC<DictionaryModalsProps> = ({ dashboard }) => {
         onClose={() => state.setIsCreationModalOpen(false)}
         padding="md"
         hasCloseButton
+        title={content.createDictionaryButton.label.value}
       >
         <Suspense>
           <DictionaryCreationForm

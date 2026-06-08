@@ -5,7 +5,7 @@ import { CodeBlock } from '@intlayer/design-system/ide';
 import {
   External_Github,
   Website_Doc_Path,
-  Website_ReleasesV8,
+  Website_ReleasesV8_Path,
 } from '@intlayer/design-system/routes';
 import { Tag } from '@intlayer/design-system/tag';
 import { motion } from 'framer-motion';
@@ -61,7 +61,7 @@ export const HeroSection: FC = () => {
                 {whatsNew}
               </Tag>
               <Link
-                to={Website_ReleasesV8}
+                to={Website_ReleasesV8_Path}
                 color="neutral"
                 label={whatsNewLabel.value}
               >

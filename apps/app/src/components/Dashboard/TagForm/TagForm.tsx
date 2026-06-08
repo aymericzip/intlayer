@@ -1,5 +1,5 @@
 import type { GetTagsResult, TagAPI } from '@intlayer/backend';
-import { useGetTags } from '@intlayer/design-system/api';
+import { useGetTags, useSession } from '@intlayer/design-system/api';
 import { Container } from '@intlayer/design-system/container';
 import { Loader } from '@intlayer/design-system/loader';
 import type { FC } from 'react';
@@ -16,7 +16,8 @@ export const TagForm: FC<TagFormContentProps> = ({ tagKey }) => {
     keys: tagKey,
   });
 
-  const isTagAdmin = true;
+  const { session } = useSession();
+  const isTagAdmin = session?.permissions?.includes('project:write') ?? false;
 
   const tag = (tagResponse as GetTagsResult).data?.[0];
 

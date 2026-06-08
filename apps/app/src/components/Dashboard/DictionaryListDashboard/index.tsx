@@ -1,3 +1,4 @@
+import { useSession } from '@intlayer/design-system/api';
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
 import { CopyToClipboard } from '@intlayer/design-system/copy-to-clipboard';
@@ -40,6 +41,12 @@ export const DictionaryListDashboardContent: FC = () => {
   const formatDate = useDate();
   const content = useIntlayer('dictionary-list');
   const navigate = useLocalizedNavigate();
+  const { session } = useSession();
+
+  const hasDictionaryWritePermission =
+    (session?.permissions?.includes('dictionary:admin') ||
+      session?.permissions?.includes('dictionary:write')) ??
+    false;
 
   const handleSort = (columnId: string) => {
     const isAsc =
@@ -269,6 +276,7 @@ export const DictionaryListDashboardContent: FC = () => {
                 }}
                 Icon={Trash2}
                 label={content.deleteButton.label.value}
+                disabled={!hasDictionaryWritePermission}
               />
               <PopoverStatic.Detail
                 xAlign="end"
@@ -294,6 +302,7 @@ export const DictionaryListDashboardContent: FC = () => {
                 }}
                 Icon={Pencil}
                 label={content.editButton.label.value}
+                disabled={!hasDictionaryWritePermission}
               />
               <PopoverStatic.Detail
                 xAlign="end"

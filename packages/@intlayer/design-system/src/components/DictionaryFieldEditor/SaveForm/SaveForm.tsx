@@ -4,6 +4,7 @@ import {
   useAuth,
   useDeleteDictionary,
   usePushDictionaries,
+  useSession,
   useWriteDictionary,
 } from '@api/index';
 import { Form } from '@components/Form';
@@ -65,6 +66,14 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
     confirmation,
   } = useIntlayer('save-dictionary-details');
   const { isAuthenticated } = useAuth();
+  const { session } = useSession();
+
+  const hasDictionaryWritePermission =
+    (session?.permissions?.includes('dictionary:admin') ||
+      session?.permissions?.includes('dictionary:write')) ??
+    false;
+
+  const hasDictionaryDeletePermission = hasDictionaryWritePermission;
 
   const editedDictionary = editedContent?.[dictionary.localId!];
 
@@ -160,7 +169,7 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
             </Form.Button>
             <Form.Button
               label={confirmation.confirmButton.label.value}
-              disabled={!isEdited || isLoading}
+              disabled={!isEdited || isLoading || !hasDictionaryWritePermission}
               Icon={Save}
               color="text"
               className="max-md:w-full"
@@ -185,6 +194,7 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
               className="max-md:w-full"
               isLoading={isDeleting}
               onClick={handleDeleteDictionary}
+              disabled={!hasDictionaryDeletePermission}
             >
               {deleteButton.text}
             </Form.Button>
@@ -219,7 +229,7 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
         {mode.includes('remote') && isAuthenticated && !isDistantDictionary && (
           <Form.Button
             label={publishButton.label.value}
-            disabled={isLoading}
+            disabled={isLoading || !hasDictionaryWritePermission}
             Icon={ArrowUpFromLine}
             color="text"
             className="max-md:w-full"
@@ -235,7 +245,7 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
           isEdited && (
             <Form.Button
               label={saveButton.label.value}
-              disabled={!isEdited || isLoading}
+              disabled={!isEdited || isLoading || !hasDictionaryWritePermission}
               Icon={Save}
               color="text"
               className="max-md:w-full"

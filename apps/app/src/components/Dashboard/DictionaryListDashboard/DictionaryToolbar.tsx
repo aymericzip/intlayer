@@ -1,3 +1,4 @@
+import { useSession } from '@intlayer/design-system/api';
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
 import { Checkbox, SearchInput } from '@intlayer/design-system/input';
@@ -21,6 +22,12 @@ export const DictionaryToolbar: FC<DictionaryToolbarProps> = ({
 }) => {
   const content = useIntlayer('dictionary-list');
   const { params, setParam, state } = dashboard;
+  const { session } = useSession();
+  const hasDictionaryWritePermission =
+    (session?.permissions?.includes('dictionary:admin') ||
+      session?.permissions?.includes('dictionary:write')) ??
+    false;
+
   const { register } = useForm({ defaultValues: { search: params.search } });
 
   const selectedCount = Object.keys(state.rowSelection).length;
@@ -117,6 +124,7 @@ export const DictionaryToolbar: FC<DictionaryToolbarProps> = ({
             variant="outline"
             Icon={Trash2}
             label={content.deleteSelectedButton.label.value}
+            disabled={!hasDictionaryWritePermission}
             onClick={() => {
               const ids = table
                 .getSelectedRowModel()
@@ -135,6 +143,7 @@ export const DictionaryToolbar: FC<DictionaryToolbarProps> = ({
               color="text"
               variant="outline"
               label={content.mergeDuplicatesButton.label.value}
+              disabled={!hasDictionaryWritePermission}
               onClick={() => state.setIsMergeModalOpen(true)}
             >
               {content.mergeDuplicatesButton.text} (
@@ -156,6 +165,7 @@ export const DictionaryToolbar: FC<DictionaryToolbarProps> = ({
             Icon={Plus}
             color="text"
             label={content.createDictionaryButton.label.value}
+            disabled={!hasDictionaryWritePermission}
             onClick={() => state.setIsCreationModalOpen(true)}
           >
             {content.createDictionaryButton.text}

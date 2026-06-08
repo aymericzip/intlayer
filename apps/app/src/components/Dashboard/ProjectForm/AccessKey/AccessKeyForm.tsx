@@ -16,9 +16,10 @@ import { useIntlayer } from 'react-intlayer';
 import { AccessKeyCreationForm } from './AccessKeyCreationForm';
 import { getAccessKeySchema } from './AccessKeyFormSchema';
 
-const AccessKeyItem: FC<{ value: OAuth2AccessAPI }> = ({
-  value: accessKey,
-}) => {
+const AccessKeyItem: FC<{
+  value: OAuth2AccessAPI;
+  hasProjectWritePermission: boolean;
+}> = ({ value: accessKey, hasProjectWritePermission }) => {
   const [isDeletionModalOpen, setIsDeletionModalOpen] = useState(false);
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
   const { mutate: deleteAccessKey, isPending: isDeleting } =
@@ -61,7 +62,7 @@ const AccessKeyItem: FC<{ value: OAuth2AccessAPI }> = ({
           isFullWidth={true}
           className="mt-10 w-auto"
           isLoading={isDeleting}
-          disabled={isLoading}
+          disabled={isLoading || !hasProjectWritePermission}
           onClick={handleDelete}
         >
           {modal.deleteConfirmText}
@@ -84,7 +85,7 @@ const AccessKeyItem: FC<{ value: OAuth2AccessAPI }> = ({
           isFullWidth={true}
           className="mt-10 w-auto"
           isLoading={isRefreshing}
-          disabled={isLoading}
+          disabled={isLoading || !hasProjectWritePermission}
           onClick={handleUpdate}
         >
           {modal.updateConfirmText}
@@ -213,7 +214,7 @@ const AccessKeyItem: FC<{ value: OAuth2AccessAPI }> = ({
             onClick={() => setIsUpdateModalOpen(true)}
             Icon={RefreshCcw}
             isLoading={isRefreshing}
-            disabled={isLoading}
+            disabled={isLoading || !hasProjectWritePermission}
           >
             {labels.refreshButtonText}
           </Form.Button>
@@ -226,7 +227,7 @@ const AccessKeyItem: FC<{ value: OAuth2AccessAPI }> = ({
             onClick={() => setIsDeletionModalOpen(true)}
             Icon={Trash}
             isLoading={isDeleting}
-            disabled={isLoading}
+            disabled={isLoading || !hasProjectWritePermission}
           >
             {labels.deleteButtonText}
           </Form.Button>
@@ -239,6 +240,8 @@ const AccessKeyItem: FC<{ value: OAuth2AccessAPI }> = ({
 export const AccessKeyForm: FC = () => {
   const { session } = useSession();
   const { project } = session ?? {};
+  const hasProjectWritePermission =
+    session?.permissions?.includes('project:write') ?? false;
   const [isCreationModalOpen, setIsCreationModalOpen] = useState(false);
   const AccessKeyFormSchema = getAccessKeySchema();
   const { form, isSubmitting } = useForm(AccessKeyFormSchema);
@@ -261,6 +264,7 @@ export const AccessKeyForm: FC = () => {
         hasCloseButton
         isScrollable="y"
         padding="md"
+        title={createAccessKey.text as string}
       >
         <AccessKeyCreationForm
           onAccessKeyCreated={(response) => {
@@ -285,7 +289,11 @@ export const AccessKeyForm: FC = () => {
         </div>
         <span className="text-neutral text-sm">{description}</span>
         {project?.oAuth2Access.map((accessKey) => (
-          <AccessKeyItem key={String(accessKey.id)} value={accessKey} />
+          <AccessKeyItem
+            key={String(accessKey.id)}
+            value={accessKey}
+            hasProjectWritePermission={hasProjectWritePermission}
+          />
         ))}
         {nbAccessKeys === 0 ? (
           <span className="mb-6 text-center text-neutral text-sm">
@@ -315,6 +323,7 @@ export const AccessKeyForm: FC = () => {
           isLoading={isSubmitting}
           label={createAccessKey.label.value}
           onClick={() => setIsCreationModalOpen(true)}
+          disabled={!hasProjectWritePermission}
         >
           {createAccessKey.text}
         </Form.Button>
