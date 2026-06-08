@@ -4,7 +4,7 @@ import {
   App_Dashboard_Projects_Path,
 } from '@intlayer/design-system/routes';
 import { createFileRoute, redirect } from '@tanstack/react-router';
-import { defaultLocale, getLocalizedUrl } from 'intlayer';
+import { defaultLocale } from 'intlayer';
 import { sessionQueryOptions } from '#utils/auth.tsx';
 
 export const Route = createFileRoute('/')({
@@ -14,20 +14,32 @@ export const Route = createFileRoute('/')({
     if (session) {
       if (session.organization && session.project) {
         throw redirect({
-          to: getLocalizedUrl(App_Dashboard_Dictionaries_Path, defaultLocale),
+          to: `/{-$locale}${App_Dashboard_Dictionaries_Path}`,
+          params: {
+            locale: defaultLocale,
+          },
         });
       } else if (session.organization) {
         throw redirect({
-          to: getLocalizedUrl(App_Dashboard_Projects_Path, defaultLocale),
+          to: `/{-$locale}${App_Dashboard_Projects_Path}`,
+          params: {
+            locale: defaultLocale,
+          },
         });
       } else {
         throw redirect({
-          to: getLocalizedUrl(App_Dashboard_Organization_Path, defaultLocale),
+          to: `/{-$locale}${App_Dashboard_Organization_Path}`,
+          params: {
+            locale: defaultLocale,
+          },
         });
       }
     }
     throw redirect({
-      to: getLocalizedUrl(App_Dashboard_Organization_Path, defaultLocale),
+      to: `/{-$locale}${App_Dashboard_Organization_Path}`,
+      params: {
+        locale: defaultLocale,
+      },
     });
   },
 });
