@@ -679,16 +679,16 @@ routing: {
 
 Tanımlama bilgisi saklama alanını kullanırken, ek nitelikler yapılandırabilirsiniz:
 
-| Alan       | Açıklama                                                                                                       | Tür                                                   |
-| ---------- | -------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- |
-| `name`     | Tanımlama bilgisi adı. Varsayılan: `'INTLAYER_LOCALE'`                                                         | `string`                                              |
-| `domain`   | Tanımlama bilgisi alanı. Varsayılan: `undefined`                                                               | `string`                                              |
-| `path`     | Tanımlama bilgisi yolu. Varsayılan: `undefined`                                                                | `string`                                              |
-| `secure`   | HTTPS gerektirir. Varsayılan: `undefined`                                                                      | `boolean`                                             |
-| `httpOnly` | HTTP-only bayrağı. Varsayılan: `undefined`                                                                     | `boolean`                                             |
-| `sameSite` | SameSite politikası.                                                                                           | `'strict'` &#124; <br/> `'lax'` &#124; <br/> `'none'` |
-| `expires`  | Sona erme tarihi veya gün sayısı. Varsayılan: `undefined`                                                      | `Date` &#124; <br/> `number`                          |
-| `maxAge`   | Oluşturulmasından itibaren saniye cinsinden ömrü. `expires` seçeneğinden önceliklidir. Varsayılan: `undefined` | `number`                                              |
+| Alan       | Açıklama                                                                                                                                       | Tür                                                   |
+| ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- |
+| `name`     | Tanımlama bilgisi adı. Varsayılan: `'INTLAYER_LOCALE'`                                                                                         | `string`                                              |
+| `domain`   | Tanımlama bilgisi alanı. Varsayılan: `undefined`                                                                                               | `string`                                              |
+| `path`     | Tanımlama bilgisi yolu. Varsayılan: `undefined`                                                                                                | `string`                                              |
+| `secure`   | HTTPS gerektirir. Varsayılan: `undefined`                                                                                                      | `boolean`                                             |
+| `httpOnly` | HTTP-only bayrağı. Varsayılan: `undefined`                                                                                                     | `boolean`                                             |
+| `sameSite` | SameSite politikası.                                                                                                                           | `'strict'` &#124; <br/> `'lax'` &#124; <br/> `'none'` |
+| `expires`  | Sayı, oluşturulmasından itibaren günleri temsil eder; tarih (veya ISO tarih dizesi) mutlak bir son kullanma tarihidir. Varsayılan: `undefined` | `Date` &#124; <br/> `number` &#124; <br/> `string`    |
+| `maxAge`   | Oluşturulmasından itibaren saniye cinsinden ömrü. `expires` seçeneğinden önceliklidir. Varsayılan: `undefined`                                 | `number`                                              |
 
 #### Saklama Nitelikleri
 

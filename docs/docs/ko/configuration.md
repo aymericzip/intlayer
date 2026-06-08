@@ -679,16 +679,16 @@ routing: {
 
 쿠키 저장소를 사용하는 경우 추가 쿠키 속성을 구성할 수 있습니다:
 
-| 필드       | 설명                                                                  | 타입                                                  |
-| ---------- | --------------------------------------------------------------------- | ----------------------------------------------------- |
-| `name`     | 쿠키 이름. 기본값: `'INTLAYER_LOCALE'`                                | `string`                                              |
-| `domain`   | 쿠키 도메인. 기본값: `undefined`                                      | `string`                                              |
-| `path`     | 쿠키 경로. 기본값: `undefined`                                        | `string`                                              |
-| `secure`   | HTTPS 필요 여부. 기본값: `undefined`                                  | `boolean`                                             |
-| `httpOnly` | HTTP-only 플래그. 기본값: `undefined`                                 | `boolean`                                             |
-| `sameSite` | SameSite 정책.                                                        | `'strict'` &#124; <br/> `'lax'` &#124; <br/> `'none'` |
-| `expires`  | 만료 날짜 또는 일수. 기본값: `undefined`                              | `Date` &#124; <br/> `number`                          |
-| `maxAge`   | 생성 후 초 단위의 수명. `expires`보다 우선합니다. 기본값: `undefined` | `number`                                              |
+| 필드       | 설명                                                                                                   | 타입                                                  |
+| ---------- | ------------------------------------------------------------------------------------------------------ | ----------------------------------------------------- |
+| `name`     | 쿠키 이름. 기본값: `'INTLAYER_LOCALE'`                                                                 | `string`                                              |
+| `domain`   | 쿠키 도메인. 기본값: `undefined`                                                                       | `string`                                              |
+| `path`     | 쿠키 경로. 기본값: `undefined`                                                                         | `string`                                              |
+| `secure`   | HTTPS 필요 여부. 기본값: `undefined`                                                                   | `boolean`                                             |
+| `httpOnly` | HTTP-only 플래그. 기본값: `undefined`                                                                  | `boolean`                                             |
+| `sameSite` | SameSite 정책.                                                                                         | `'strict'` &#124; <br/> `'lax'` &#124; <br/> `'none'` |
+| `expires`  | 숫자는 생성 후 일수를 나타내고, 날짜(또는 ISO 날짜 문자열)는 절대 만료 날짜입니다. 기본값: `undefined` | `Date` &#124; <br/> `number` &#124; <br/> `string`    |
+| `maxAge`   | 생성 후 초 단위의 수명. `expires`보다 우선합니다. 기본값: `undefined`                                  | `number`                                              |
 
 #### 저장소 속성 (Storage Attributes)
 

@@ -679,16 +679,16 @@ routing: {
 
 Saat menggunakan penyimpanan cookie, Anda dapat mengonfigurasi atribut cookie tambahan:
 
-| Bidang     | Deskripsi                                                                                   | Tipe                                                  |
-| ---------- | ------------------------------------------------------------------------------------------- | ----------------------------------------------------- |
-| `name`     | Nama cookie. Default: `'INTLAYER_LOCALE'`                                                   | `string`                                              |
-| `domain`   | Domain cookie. Default: `undefined`                                                         | `string`                                              |
-| `path`     | Path cookie. Default: `undefined`                                                           | `string`                                              |
-| `secure`   | Memerlukan HTTPS. Default: `undefined`                                                      | `boolean`                                             |
-| `httpOnly` | Flag HTTP-only. Default: `undefined`                                                        | `boolean`                                             |
-| `sameSite` | Kebijakan SameSite.                                                                         | `'strict'` &#124; <br/> `'lax'` &#124; <br/> `'none'` |
-| `expires`  | Tanggal kadaluarsa atau jumlah hari. Default: `undefined`                                   | `Date` &#124; <br/> `number`                          |
-| `maxAge`   | Masa pakai dalam detik sejak pembuatan. Diutamakan daripada `expires`. Default: `undefined` | `number`                                              |
+| Bidang     | Deskripsi                                                                                                                      | Tipe                                                  |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------- |
+| `name`     | Nama cookie. Default: `'INTLAYER_LOCALE'`                                                                                      | `string`                                              |
+| `domain`   | Domain cookie. Default: `undefined`                                                                                            | `string`                                              |
+| `path`     | Path cookie. Default: `undefined`                                                                                              | `string`                                              |
+| `secure`   | Memerlukan HTTPS. Default: `undefined`                                                                                         | `boolean`                                             |
+| `httpOnly` | Flag HTTP-only. Default: `undefined`                                                                                           | `boolean`                                             |
+| `sameSite` | Kebijakan SameSite.                                                                                                            | `'strict'` &#124; <br/> `'lax'` &#124; <br/> `'none'` |
+| `expires`  | Angka mewakili hari sejak pembuatan; tanggal (atau string tanggal ISO) adalah tanggal kadaluarsa absolut. Default: `undefined` | `Date` &#124; <br/> `number` &#124; <br/> `string`    |
+| `maxAge`   | Masa pakai dalam detik sejak pembuatan. Diutamakan daripada `expires`. Default: `undefined`                                    | `number`                                              |
 
 #### Atribut Penyimpanan (Storage Attributes)
 

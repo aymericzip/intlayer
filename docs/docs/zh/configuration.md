@@ -682,16 +682,16 @@ routing: {
 
 在 cookie 中使用存储时，可以设置额外属性：
 
-| 字段       | 说明                                                            | 类型                                                  |
-| ---------- | --------------------------------------------------------------- | ----------------------------------------------------- |
-| `name`     | Cookie 名称。默认值：`'INTLAYER_LOCALE'`                        | `string`                                              |
-| `domain`   | Cookie 域。默认值：`undefined`                                  | `string`                                              |
-| `path`     | Cookie 路径。默认值：`undefined`                                | `string`                                              |
-| `secure`   | 需要 HTTPS。默认值：`undefined`                                 | `boolean`                                             |
-| `httpOnly` | HTTP-only 标志。默认值：`undefined`                             | `boolean`                                             |
-| `sameSite` | SameSite 策略。                                                 | `'strict'` &#124; <br/> `'lax'` &#124; <br/> `'none'` |
-| `expires`  | 过期日期或天数。默认值：`undefined`                             | `Date` &#124; <br/> `number`                          |
-| `maxAge`   | 创建后的秒级生存时间。优先级高于 `expires`。默认值：`undefined` | `number`                                              |
+| 字段       | 说明                                                                                   | 类型                                                  |
+| ---------- | -------------------------------------------------------------------------------------- | ----------------------------------------------------- |
+| `name`     | Cookie 名称。默认值：`'INTLAYER_LOCALE'`                                               | `string`                                              |
+| `domain`   | Cookie 域。默认值：`undefined`                                                         | `string`                                              |
+| `path`     | Cookie 路径。默认值：`undefined`                                                       | `string`                                              |
+| `secure`   | 需要 HTTPS。默认值：`undefined`                                                        | `boolean`                                             |
+| `httpOnly` | HTTP-only 标志。默认值：`undefined`                                                    | `boolean`                                             |
+| `sameSite` | SameSite 策略。                                                                        | `'strict'` &#124; <br/> `'lax'` &#124; <br/> `'none'` |
+| `expires`  | 数字表示自创建以来的天数；日期（或ISO日期字符串）是绝对的过期日期。默认值：`undefined` | `Date` &#124; <br/> `number` &#124; <br/> `string`    |
+| `maxAge`   | 创建后的秒级生存时间。优先级高于 `expires`。默认值：`undefined`                        | `number`                                              |
 
 #### 存储属性 (Storage Attributes)
 

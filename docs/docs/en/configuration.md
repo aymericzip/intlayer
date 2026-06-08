@@ -681,16 +681,16 @@ routing: {
 
 When using cookie storage, you can configure additional cookie attributes:
 
-| Field      | Description                                   | Type                                                  |
-| ---------- | --------------------------------------------- | ----------------------------------------------------- |
-| `name`     | Cookie name. Default: `'INTLAYER_LOCALE'`     | `string`                                              |
-| `domain`   | Cookie domain. Default: `undefined`           | `string`                                              |
-| `path`     | Cookie path. Default: `undefined`             | `string`                                              |
-| `secure`   | Require HTTPS. Default: `undefined`           | `boolean`                                             |
-| `httpOnly` | HTTP-only flag. Default: `undefined`          | `boolean`                                             |
-| `sameSite` | SameSite policy.                              | `'strict'` &#124; <br/> `'lax'` &#124; <br/> `'none'` |
-| `expires`  | Expiration date or days. Default: `undefined` | `Date` &#124; <br/> `number`                          |
-| `maxAge`   | Lifetime in seconds from creation. Takes precedence over `expires`. Default: `undefined` | `number`                                              |
+| Field      | Description                                                                                                 | Type                                                  |
+| ---------- | ----------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- |
+| `name`     | Cookie name. Default: `'INTLAYER_LOCALE'`                                                                   | `string`                                              |
+| `domain`   | Cookie domain. Default: `undefined`                                                                         | `string`                                              |
+| `path`     | Cookie path. Default: `undefined`                                                                           | `string`                                              |
+| `secure`   | Require HTTPS. Default: `undefined`                                                                         | `boolean`                                             |
+| `httpOnly` | HTTP-only flag. Default: `undefined`                                                                        | `boolean`                                             |
+| `sameSite` | SameSite policy.                                                                                            | `'strict'` &#124; <br/> `'lax'` &#124; <br/> `'none'` |
+| `expires`  | A `number` is days from creation; a `Date` (or ISO date string) is an absolute expiry. Default: `undefined` | `Date` &#124; <br/> `number` &#124; <br/> `string`    |
+| `maxAge`   | Lifetime in seconds from creation. Takes precedence over `expires`. Default: `undefined`                    | `number`                                              |
 
 #### Locale Storage Attributes
 

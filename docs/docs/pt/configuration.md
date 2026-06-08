@@ -682,16 +682,16 @@ routing: {
 
 Ao usar armazenamento por cookies, pode configurar atributos adicionais:
 
-| Campo      | Descrição                                                                                           | Tipo                                                  |
-| ---------- | --------------------------------------------------------------------------------------------------- | ----------------------------------------------------- |
-| `name`     | Nome do cookie. Padrão: `'INTLAYER_LOCALE'`                                                         | `string`                                              |
-| `domain`   | Domínio do cookie. Padrão: `undefined`                                                              | `string`                                              |
-| `path`     | Caminho do cookie. Padrão: `undefined`                                                              | `string`                                              |
-| `secure`   | Requer HTTPS. Padrão: `undefined`                                                                   | `boolean`                                             |
-| `httpOnly` | Flag HTTP-only. Padrão: `undefined`                                                                 | `boolean`                                             |
-| `sameSite` | Política SameSite.                                                                                  | `'strict'` &#124; <br/> `'lax'` &#124; <br/> `'none'` |
-| `expires`  | Data de expiração ou dias. Padrão: `undefined`                                                      | `Date` &#124; <br/> `number`                          |
-| `maxAge`   | Tempo de vida em segundos a partir da criação. Tem precedência sobre `expires`. Padrão: `undefined` | `number`                                              |
+| Campo      | Descrição                                                                                                                         | Tipo                                                  |
+| ---------- | --------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- |
+| `name`     | Nome do cookie. Padrão: `'INTLAYER_LOCALE'`                                                                                       | `string`                                              |
+| `domain`   | Domínio do cookie. Padrão: `undefined`                                                                                            | `string`                                              |
+| `path`     | Caminho do cookie. Padrão: `undefined`                                                                                            | `string`                                              |
+| `secure`   | Requer HTTPS. Padrão: `undefined`                                                                                                 | `boolean`                                             |
+| `httpOnly` | Flag HTTP-only. Padrão: `undefined`                                                                                               | `boolean`                                             |
+| `sameSite` | Política SameSite.                                                                                                                | `'strict'` &#124; <br/> `'lax'` &#124; <br/> `'none'` |
+| `expires`  | Um número representa dias desde a criação; uma data (ou string de data ISO) é uma data de expiração absoluta. Padrão: `undefined` | `Date` &#124; <br/> `number` &#124; <br/> `string`    |
+| `maxAge`   | Tempo de vida em segundos a partir da criação. Tem precedência sobre `expires`. Padrão: `undefined`                               | `number`                                              |
 
 #### Atributos de Armazenamento Local
 

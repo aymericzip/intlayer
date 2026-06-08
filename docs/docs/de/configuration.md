@@ -682,16 +682,16 @@ routing: {
 
 Wenn Sie Cookie-Speicherung verwenden, können Sie zusätzliche Cookie-Attribute konfigurieren:
 
-| Feld       | Beschreibung                                                                            | Typ                                                   |
-| ---------- | --------------------------------------------------------------------------------------- | ----------------------------------------------------- |
-| `name`     | Cookie-Name. Standard: `'INTLAYER_LOCALE'`                                              | `string`                                              |
-| `domain`   | Cookie-Domain. Standard: `undefined`                                                    | `string`                                              |
-| `path`     | Cookie-Pfad. Standard: `undefined`                                                      | `string`                                              |
-| `secure`   | HTTPS erforderlich. Standard: `undefined`                                               | `boolean`                                             |
-| `httpOnly` | HTTP-only Flag. Standard: `undefined`                                                   | `boolean`                                             |
-| `sameSite` | SameSite-Richtlinie.                                                                    | `'strict'` &#124; <br/> `'lax'` &#124; <br/> `'none'` |
-| `expires`  | Ablaufdatum oder Tage. Standard: `undefined`                                            | `Date` &#124; <br/> `number`                          |
-| `maxAge`   | Lebensdauer in Sekunden ab Erstellung. Hat Vorrang vor `expires`. Standard: `undefined` | `number`                                              |
+| Feld       | Beschreibung                                                                                                                         | Typ                                                   |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------- |
+| `name`     | Cookie-Name. Standard: `'INTLAYER_LOCALE'`                                                                                           | `string`                                              |
+| `domain`   | Cookie-Domain. Standard: `undefined`                                                                                                 | `string`                                              |
+| `path`     | Cookie-Pfad. Standard: `undefined`                                                                                                   | `string`                                              |
+| `secure`   | HTTPS erforderlich. Standard: `undefined`                                                                                            | `boolean`                                             |
+| `httpOnly` | HTTP-only Flag. Standard: `undefined`                                                                                                | `boolean`                                             |
+| `sameSite` | SameSite-Richtlinie.                                                                                                                 | `'strict'` &#124; <br/> `'lax'` &#124; <br/> `'none'` |
+| `expires`  | Eine Zahl steht für Tage seit der Erstellung; ein Datum (oder ISO-Datumsstring) ist ein absolutes Ablaufdatum. Standard: `undefined` | `Date` &#124; <br/> `number` &#124; <br/> `string`    |
+| `maxAge`   | Lebensdauer in Sekunden ab Erstellung. Hat Vorrang vor `expires`. Standard: `undefined`                                              | `number`                                              |
 
 #### Sprachspeicher-Attribute
 

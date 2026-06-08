@@ -1,5 +1,6 @@
 import type {
   CookiesAttributes,
+  ProcessedCookieAttributes,
   ProcessedStorageAttributes,
   RoutingStorageInput,
   StorageAttributes,
@@ -16,8 +17,11 @@ import {
 
 type CookieEntry = {
   name: string;
-  attributes: Omit<CookiesAttributes, 'type' | 'name'>;
+  attributes: ProcessedCookieAttributes;
 };
+
+/** Number of seconds in a day, used to convert a `number` of days. */
+const SECONDS_PER_DAY = 60 * 60 * 24;
 
 type WebStorageEntry = {
   name: string;
@@ -39,6 +43,37 @@ type StorageEntry =
 // Helper Functions
 // ============================================================================
 
+/**
+ * Merges the user-facing `expires` and `maxAge` into a single, normalized and
+ * serialization-safe expiry consumed by the client runtime.
+ *
+ * Precedence and normalization:
+ * - `maxAge` (seconds) wins when set and is the internal unit (relative);
+ * - `expires` as a `number` is interpreted as **days** and converted to
+ *   seconds (relative);
+ * - `expires` as a `Date` (possibly a cross-realm instance, since config files
+ *   run in a `node:vm` sandbox) or an ISO string becomes an ISO **string**
+ *   (absolute). Strings survive `JSON.stringify`, unlike a `Date`.
+ *
+ * The result is therefore: a `number` = seconds from creation, a `string` =
+ * absolute ISO date, or `undefined` for a session cookie.
+ */
+const normalizeCookieExpiry = (
+  expires: CookiesAttributes['expires'],
+  maxAge: CookiesAttributes['maxAge']
+): number | string | undefined => {
+  if (typeof maxAge === 'number') return maxAge;
+  if (expires === undefined) return undefined;
+  if (
+    expires instanceof Date ||
+    Object.prototype.toString.call(expires) === '[object Date]'
+  ) {
+    return (expires as Date).toISOString();
+  }
+  if (typeof expires === 'string') return expires;
+  return expires * SECONDS_PER_DAY;
+};
+
 const createCookieEntry = (
   options?: Partial<CookiesAttributes>
 ): CookieEntry => {
@@ -54,7 +89,14 @@ const createCookieEntry = (
   } = options ?? {};
   return {
     name: name ?? COOKIE_NAME,
-    attributes: { path, expires, maxAge, domain, secure, sameSite, httpOnly },
+    attributes: {
+      path,
+      expires: normalizeCookieExpiry(expires, maxAge),
+      domain,
+      secure,
+      sameSite,
+      httpOnly,
+    },
   };
 };
 

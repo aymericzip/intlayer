@@ -8,6 +8,30 @@ export const internationalizationSchema = z.object({
   defaultLocale: z.string().optional(),
 });
 
+/**
+ * Cross-realm-safe `Date` check.
+ *
+ * Configuration files are executed inside a `node:vm` sandbox, so a `Date`
+ * created there is an instance of the sandbox realm's `Date`, not the host
+ * realm's. `instanceof Date` (used by `z.date()`) therefore returns `false`
+ * for those values, which would reject a perfectly valid `Date`.
+ */
+const isDateLike = (value: unknown): value is Date =>
+  value instanceof Date ||
+  Object.prototype.toString.call(value) === '[object Date]';
+
+/**
+ * Cookie expiry: a number of days, an absolute `Date`, or an ISO date string
+ * (the form a `Date` takes once the configuration is serialized).
+ */
+const cookieExpiresSchema = z.union([
+  z.custom<Date>(isDateLike, { message: 'Expected a Date' }),
+  z.number(),
+  z.string().refine((value) => !Number.isNaN(Date.parse(value)), {
+    message: 'Expected a valid date string',
+  }),
+]);
+
 export const cookiesAttributesSchema = z.object({
   type: z.literal('cookie'),
   name: z.string().optional(),
@@ -16,7 +40,7 @@ export const cookiesAttributesSchema = z.object({
   secure: z.boolean().optional(),
   httpOnly: z.boolean().optional(),
   sameSite: z.enum(['strict', 'lax', 'none']).optional(),
-  expires: z.union([z.date(), z.number()]).optional(),
+  expires: cookieExpiresSchema.optional(),
   maxAge: z.number().optional(),
 });
 

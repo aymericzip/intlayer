@@ -679,16 +679,16 @@ routing: {
 
 Khi sử dụng bộ nhớ lưu trữ trong cookie, bạn có thể thiết lập các thuộc tính bổ sung:
 
-| Trường     | Mô tả                                                                                             | Kiểu dữ liệu                                          |
-| ---------- | ------------------------------------------------------------------------------------------------- | ----------------------------------------------------- |
-| `name`     | Tên của cookie. Mặc định: `'INTLAYER_LOCALE'`                                                     | `string`                                              |
-| `domain`   | Tên miền của cookie. Mặc định: `undefined`                                                        | `string`                                              |
-| `path`     | Đường dẫn của cookie. Mặc định: `undefined`                                                       | `string`                                              |
-| `secure`   | Yêu cầu HTTPS. Mặc định: `undefined`                                                              | `boolean`                                             |
-| `httpOnly` | Gờ (flag) HTTP-only. Mặc định: `undefined`                                                        | `boolean`                                             |
-| `sameSite` | Chính sách SameSite.                                                                              | `'strict'` &#124; <br/> `'lax'` &#124; <br/> `'none'` |
-| `expires`  | Ngày hết hạn hoặc số ngày. Mặc định: `undefined`                                                  | `Date` &#124; <br/> `number`                          |
-| `maxAge`   | Thời gian tồn tại tính bằng giây kể từ khi tạo. Được ưu tiên hơn `expires`. Mặc định: `undefined` | `number`                                              |
+| Trường     | Mô tả                                                                                                              | Kiểu dữ liệu                                          |
+| ---------- | ------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------- |
+| `name`     | Tên của cookie. Mặc định: `'INTLAYER_LOCALE'`                                                                      | `string`                                              |
+| `domain`   | Tên miền của cookie. Mặc định: `undefined`                                                                         | `string`                                              |
+| `path`     | Đường dẫn của cookie. Mặc định: `undefined`                                                                        | `string`                                              |
+| `secure`   | Yêu cầu HTTPS. Mặc định: `undefined`                                                                               | `boolean`                                             |
+| `httpOnly` | Gờ (flag) HTTP-only. Mặc định: `undefined`                                                                         | `boolean`                                             |
+| `sameSite` | Chính sách SameSite.                                                                                               | `'strict'` &#124; <br/> `'lax'` &#124; <br/> `'none'` |
+| `expires`  | Số đại diện cho số ngày kể từ khi tạo; ngày (hoặc chuỗi ngày ISO) là ngày hết hạn tuyệt đối. Mặc định: `undefined` | `Date` &#124; <br/> `number` &#124; <br/> `string`    |
+| `maxAge`   | Thời gian tồn tại tính bằng giây kể từ khi tạo. Được ưu tiên hơn `expires`. Mặc định: `undefined`                  | `number`                                              |
 
 #### Thuộc tính Lưu trữ (Storage Attributes)
 

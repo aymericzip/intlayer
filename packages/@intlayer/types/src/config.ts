@@ -150,11 +150,15 @@ export type CookiesAttributes = {
    *
    * Default: undefined
    *
-   * Define when the cookie will be removed. Value can be a Number
-   * which will be interpreted as days from time of creation or a
-   * Date instance. If omitted, the cookie becomes a session cookie.
+   * Define when the cookie will be removed:
+   * - a `number` is interpreted as **days from the time of creation**;
+   * - a `Date` instance (or an ISO date string, e.g. produced when the
+   *   configuration is serialized) is interpreted as an **absolute moment**.
+   *
+   * If omitted, the cookie becomes a session cookie. When `maxAge` is set it
+   * takes precedence over `expires`.
    */
-  expires?: Date | number | undefined;
+  expires?: Date | number | string | undefined;
   /**
    * Cookie max-age to store the locale information
    *
@@ -187,13 +191,31 @@ export type StorageAttributes = {
 };
 
 /**
+ * Cookie attributes after the config-build normalization step.
+ *
+ * The user-facing `expires` (days / `Date` / ISO string) and `maxAge` (seconds)
+ * are merged into a single, serialization-safe `expires` field so the client
+ * runtime stays minimal:
+ * - `number` → seconds from cookie creation (relative);
+ * - `string` → an absolute expiry as an ISO date string.
+ */
+export type ProcessedCookieAttributes = {
+  domain?: string;
+  path?: string;
+  secure?: boolean;
+  httpOnly?: boolean;
+  sameSite?: 'strict' | 'lax' | 'none';
+  expires?: number | string;
+};
+
+/**
  * Pre-computed storage attributes derived from `RoutingConfig.storage`.
  * Computed at config-build time to avoid repeated processing at runtime.
  */
 export type ProcessedStorageAttributes = {
   cookies?: {
     name: string;
-    attributes: Omit<CookiesAttributes, 'type' | 'name'>;
+    attributes: ProcessedCookieAttributes;
   }[];
   localStorage?: {
     name: string;

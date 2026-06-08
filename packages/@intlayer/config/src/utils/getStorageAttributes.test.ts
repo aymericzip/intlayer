@@ -76,12 +76,56 @@ describe('getStorageAttributes', () => {
     });
 
     expect(result.cookies).toHaveLength(1);
-    expect(result.cookies[0].name).toBe('MY_CUSTOM_LOCALE');
-    expect(result.cookies[0].attributes.path).toBe('/app');
-    expect(result.cookies[0].attributes.domain).toBe('.example.com');
-    expect(result.cookies[0].attributes.secure).toBe(true);
-    expect(result.cookies[0].attributes.sameSite).toBe('strict');
-    expect(result.cookies[0].attributes.maxAge).toBe(60 * 60 * 24 * 365);
+    expect(result.cookies[0]?.name).toBe('MY_CUSTOM_LOCALE');
+    expect(result.cookies[0]?.attributes.path).toBe('/app');
+    expect(result.cookies[0]?.attributes.domain).toBe('.example.com');
+    expect(result.cookies[0]?.attributes.secure).toBe(true);
+    expect(result.cookies[0]?.attributes.sameSite).toBe('strict');
+  });
+
+  it('should merge maxAge (seconds) into the normalized expires', () => {
+    const result = getStorageAttributes({
+      type: 'cookie',
+      maxAge: 60 * 60 * 24 * 365,
+    });
+
+    expect(result.cookies![0].attributes.expires).toBe(60 * 60 * 24 * 365);
+    expect('maxAge' in result.cookies![0].attributes).toBe(false);
+  });
+
+  it('should convert a numeric expires (days) into seconds', () => {
+    const result = getStorageAttributes({
+      type: 'cookie',
+      expires: 365,
+    });
+
+    expect(result.cookies).toHaveLength(1);
+    expect(result.cookies![0].attributes.expires).toBe(365 * 60 * 60 * 24);
+  });
+
+  it('should let maxAge take precedence over expires', () => {
+    const result = getStorageAttributes({
+      type: 'cookie',
+      expires: 30,
+      maxAge: 60 * 60 * 24 * 365,
+    });
+
+    expect(result.cookies![0].attributes.expires).toBe(60 * 60 * 24 * 365);
+  });
+
+  it('should normalize a Date expires to an ISO string (serialization-safe)', () => {
+    const date = new Date('2027-06-08T00:00:00.000Z');
+    const result = getStorageAttributes({
+      type: 'cookie',
+      expires: date,
+    });
+
+    expect(result.cookies).toHaveLength(1);
+    expect(result.cookies![0].attributes.expires).toBe(date.toISOString());
+    // Survives JSON serialization unchanged (built config is JSON-stringified).
+    expect(
+      JSON.parse(JSON.stringify(result)).cookies[0]?.attributes.expires
+    ).toBe(date.toISOString());
   });
 
   it('should handle localStorage object with custom name', () => {
@@ -119,7 +163,7 @@ describe('getStorageAttributes', () => {
     ]);
 
     expect(result.cookies).toHaveLength(2);
-    expect(result.cookies[0].name).toBe('INTLAYER_LOCALE');
+    expect(result.cookies[0]?.name).toBe('INTLAYER_LOCALE');
     expect(result.cookies[1].name).toBe('SECOND_COOKIE');
     expect(result.cookies[1].attributes.path).toBe('/custom');
     expect(result.localStorage).toHaveLength(1);
@@ -135,7 +179,7 @@ describe('getStorageAttributes', () => {
     ]);
 
     expect(result.cookies).toHaveLength(2);
-    expect(result.cookies[0].name).toBe('COOKIE_1');
+    expect(result.cookies[0]?.name).toBe('COOKIE_1');
     expect(result.cookies[1].name).toBe('COOKIE_2');
     expect(result.localStorage).toHaveLength(2);
     expect(result.localStorage[0].name).toBe('STORAGE_1');

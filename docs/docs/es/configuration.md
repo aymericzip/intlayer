@@ -681,16 +681,16 @@ routing: {
 
 Cuando se utiliza el almacenamiento mediante galletas (cookies), se pueden configurar atributos adicionales:
 
-| Campo      | Tipo                                                  | Descripción                                                                                                  |
-| ---------- | ----------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
-| `name`     | `string`                                              | Nombre de la galleta (cookie). Predeterminado: `'INTLAYER_LOCALE'`                                           |
-| `domain`   | `string`                                              | Dominio de la galleta. Predeterminado: `undefined`                                                           |
-| `path`     | `string`                                              | Ruta de la galleta. Predeterminado: `undefined`                                                              |
-| `secure`   | `boolean`                                             | Requiere HTTPS. Predeterminado: `undefined`                                                                  |
-| `httpOnly` | `boolean`                                             | Bandera HTTP-only. Predeterminado: `undefined`                                                               |
-| `sameSite` | `'strict'` &#124; <br/> `'lax'` &#124; <br/> `'none'` | Política de SameSite.                                                                                        |
-| `expires`  | `Date` &#124; <br/> `number`                          | Fecha de expiración o número de días. Predeterminado: `undefined`                                            |
-| `maxAge`   | `number`                                              | Tiempo de vida en segundos desde la creación. Tiene precedencia sobre `expires`. Predeterminado: `undefined` |
+| Campo      | Tipo                                                  | Descripción                                                                                                                                    |
+| ---------- | ----------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| `name`     | `string`                                              | Nombre de la galleta (cookie). Predeterminado: `'INTLAYER_LOCALE'`                                                                             |
+| `domain`   | `string`                                              | Dominio de la galleta. Predeterminado: `undefined`                                                                                             |
+| `path`     | `string`                                              | Ruta de la galleta. Predeterminado: `undefined`                                                                                                |
+| `secure`   | `boolean`                                             | Requiere HTTPS. Predeterminado: `undefined`                                                                                                    |
+| `httpOnly` | `boolean`                                             | Bandera HTTP-only. Predeterminado: `undefined`                                                                                                 |
+| `sameSite` | `'strict'` &#124; <br/> `'lax'` &#124; <br/> `'none'` | Política de SameSite.                                                                                                                          |
+| `expires`  | `Date` &#124; <br/> `number` &#124; <br/> `string`    | Un `number` indica días desde la creación; una `Date` (o cadena de fecha ISO) es una fecha de expiración absoluta. Predeterminado: `undefined` |
+| `maxAge`   | `number`                                              | Tiempo de vida en segundos desde la creación. Tiene precedencia sobre `expires`. Predeterminado: `undefined`                                   |
 
 #### Atributos de Almacenamiento de Localidad (Locale Storage Attributes)
 

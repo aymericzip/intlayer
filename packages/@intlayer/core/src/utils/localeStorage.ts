@@ -1,7 +1,7 @@
 import { internationalization, routing } from '@intlayer/config/built';
 import type { Locale } from '@intlayer/types/allLocales';
-import type { CookiesAttributes } from '@intlayer/types/config';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
+import { buildCookieString, resolveExpiresToTimestamp } from './cookieExpiry';
 import { getCookie } from './getCookie';
 
 // ── Tree-shake constants ──────────────────────────────────────────────────────
@@ -42,49 +42,12 @@ export type CookieBuildAttributes = {
   secure?: boolean;
   httpOnly?: boolean;
   sameSite?: 'strict' | 'lax' | 'none';
-  /** Expiry as milliseconds since epoch (Date.getTime()) or number of days */
+  /**
+   * Absolute expiry as milliseconds since epoch, ready for `cookieStore.set()`.
+   * Already resolved from the normalized `expires` by
+   * `resolveExpiresToTimestamp`.
+   */
   expires?: number | undefined;
-  /** Lifetime in seconds from creation. Takes precedence over `expires` */
-  maxAge?: number;
-};
-
-// ============================================================================
-// Shared helpers
-// ============================================================================
-
-const buildCookieString = (
-  name: string,
-  value: string,
-  attributes: Omit<CookiesAttributes, 'name' | 'type'>
-): string => {
-  const encodedValue = encodeURIComponent(value);
-  const parts: string[] = [`${name}=${encodedValue}`];
-
-  if (attributes.path) parts.push(`Path=${attributes.path}`);
-  if (attributes.domain) parts.push(`Domain=${attributes.domain}`);
-  if (typeof attributes.maxAge === 'number')
-    parts.push(`Max-Age=${Math.floor(attributes.maxAge)}`);
-  else if (attributes.expires instanceof Date)
-    parts.push(`Expires=${attributes.expires.toUTCString()}`);
-  if (attributes.secure) parts.push('Secure');
-  if (attributes.sameSite) parts.push(`SameSite=${attributes.sameSite}`);
-  return parts.join('; ');
-};
-
-/**
- * Resolves the cookie expiry for the Cookie Store API (epoch milliseconds).
- * `maxAge` takes precedence and is converted to an absolute timestamp, as the
- * native `maxAge` option of `cookieStore.set()` is not yet supported in all
- * browsers that support `cookieStore` itself.
- */
-const getCookieStoreExpires = (
-  attributes: Omit<CookiesAttributes, 'name' | 'type'>
-): number | undefined => {
-  if (typeof attributes.maxAge === 'number')
-    return Date.now() + attributes.maxAge * 1000;
-  return attributes.expires instanceof Date
-    ? attributes.expires.getTime()
-    : attributes.expires;
 };
 
 // ============================================================================
@@ -202,7 +165,7 @@ export const setLocaleInStorageClient = (
         if (options?.setCookieStore) {
           options.setCookieStore(name, locale, {
             ...attributes,
-            expires: getCookieStoreExpires(attributes),
+            expires: resolveExpiresToTimestamp(attributes.expires),
           });
         }
       } catch {
@@ -340,7 +303,7 @@ export const setLocaleInStorageServer = (
         if (options?.setCookieStore) {
           options.setCookieStore(name, locale, {
             ...attributes,
-            expires: getCookieStoreExpires(attributes),
+            expires: resolveExpiresToTimestamp(attributes.expires),
           });
         }
       } catch {
@@ -495,7 +458,7 @@ export const setLocaleInStorage = (
         if (options?.setCookieStore) {
           options.setCookieStore(name, locale, {
             ...attributes,
-            expires: getCookieStoreExpires(attributes),
+            expires: resolveExpiresToTimestamp(attributes.expires),
           });
         }
       } catch {

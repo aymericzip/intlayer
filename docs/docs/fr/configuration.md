@@ -682,16 +682,16 @@ routing: {
 
 Lors du stockage par cookie, vous pouvez configurer des attributs supplémentaires :
 
-| Champ      | Type                                  | Description                                                                                            |
-| ---------- | ------------------------------------- | ------------------------------------------------------------------------------------------------------ |
-| `name`     | `string`                              | Nom du cookie. Par défaut : `'INTLAYER_LOCALE'`                                                        |
-| `domain`   | `string`                              | Domaine du cookie. Par défaut : `undefined`                                                            |
-| `path`     | `string`                              | Chemin du cookie. Par défaut : `undefined`                                                             |
-| `secure`   | `boolean`                             | Nécessite HTTPS. Par défaut : `undefined`                                                              |
-| `httpOnly` | `boolean`                             | Drapeau HTTP-only. Par défaut : `undefined`                                                            |
-| `sameSite` | `'strict' &#124; 'lax' &#124; 'none'` | Politique SameSite.                                                                                    |
-| `expires`  | `Date &#124; number`                  | Date d'expiration ou nombre de jours. Par défaut : `undefined`                                         |
-| `maxAge`   | `number`                              | Durée de vie en secondes à partir de la création. Prend le pas sur `expires`. Par défaut : `undefined` |
+| Champ      | Type                                               | Description                                                                                                                                          |
+| ---------- | -------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `name`     | `string`                                           | Nom du cookie. Par défaut : `'INTLAYER_LOCALE'`                                                                                                      |
+| `domain`   | `string`                                           | Domaine du cookie. Par défaut : `undefined`                                                                                                          |
+| `path`     | `string`                                           | Chemin du cookie. Par défaut : `undefined`                                                                                                           |
+| `secure`   | `boolean`                                          | Nécessite HTTPS. Par défaut : `undefined`                                                                                                            |
+| `httpOnly` | `boolean`                                          | Drapeau HTTP-only. Par défaut : `undefined`                                                                                                          |
+| `sameSite` | `'strict' &#124; 'lax' &#124; 'none'`              | Politique SameSite.                                                                                                                                  |
+| `expires`  | `Date` &#124; <br/> `number` &#124; <br/> `string` | Un `number` représente les jours depuis la création ; une `Date` (ou chaîne de date ISO) est une date d'expiration absolue. Par défaut : `undefined` |
+| `maxAge`   | `number`                                           | Durée de vie en secondes à partir de la création. Prend le pas sur `expires`. Par défaut : `undefined`                                               |
 
 #### Attributs de Stockage de Locale (Locale Storage Attributes)
 

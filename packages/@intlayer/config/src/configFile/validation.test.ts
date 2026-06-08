@@ -1,3 +1,4 @@
+import { runInNewContext } from 'node:vm';
 import * as Locales from '@intlayer/types/locales';
 import { describe, expect, it, vi } from 'vitest';
 import { buildConfigurationFields } from './buildConfigurationFields';
@@ -69,5 +70,60 @@ describe('Configuration Validation', () => {
 
     expect(consoleSpy).not.toHaveBeenCalled();
     consoleSpy.mockRestore();
+  });
+
+  it('should accept a numeric, Date and ISO-string cookie expires', () => {
+    const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+
+    buildConfigurationFields({
+      routing: {
+        storage: [
+          { type: 'cookie', expires: 365 },
+          { type: 'cookie', expires: new Date('2027-06-08T00:00:00.000Z') },
+          { type: 'cookie', expires: '2027-06-08T00:00:00.000Z' },
+        ],
+      },
+    });
+
+    expect(consoleSpy).not.toHaveBeenCalled();
+    consoleSpy.mockRestore();
+  });
+
+  it('should accept a cross-realm Date for cookie expires', () => {
+    const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+
+    // A config file runs in a `node:vm` sandbox, so its `Date` is from another
+    // realm and fails `instanceof Date`. The schema must still accept it.
+    const crossRealmDate = runInNewContext(
+      'new Date("2027-06-08T00:00:00.000Z")'
+    ) as Date;
+    expect(crossRealmDate instanceof Date).toBe(false);
+
+    buildConfigurationFields({
+      routing: {
+        storage: [{ type: 'cookie', expires: crossRealmDate }],
+      },
+    });
+
+    expect(consoleSpy).not.toHaveBeenCalled();
+    consoleSpy.mockRestore();
+  });
+
+  it('should reject an invalid cookie expires string', () => {
+    const errorSpy = vi.fn();
+
+    buildConfigurationFields(
+      {
+        routing: {
+          storage: [{ type: 'cookie', expires: 'not-a-date' }],
+        },
+      },
+      undefined,
+      { error: errorSpy } as any
+    );
+
+    expect(errorSpy).toHaveBeenCalledWith(
+      expect.stringContaining('routing.storage')
+    );
   });
 });
