@@ -1,6 +1,7 @@
 import type { NodeProps } from '@intlayer/core/interpreter';
 import type { ResolvedEditor } from '@intlayer/types/module_augmentation';
 import type { JSX, ParentProps } from 'solid-js';
+import { isArrayIndexProperty, PROXY_RESERVED_KEYS } from './proxyKeys';
 
 export type IntlayerNode<
   T = NodeProps['children'],
@@ -13,21 +14,22 @@ export type IntlayerNode<
 type RenderIntlayerNodeProps<T> = ParentProps<{
   value: T;
   children: JSX.Element;
-  additionalProps?: { [key: string]: any };
+  additionalProps?: Record<string, unknown>;
 }>;
 
-export const renderIntlayerNode = <
-  T, // Broadened to support arrays, numbers, objects, etc.
->({
+type IntlayerNodeTarget<T> = JSX.Element[] & {
+  value: T;
+  [key: string]: unknown;
+};
+
+export const renderIntlayerNode = <T,>({
   children,
   value,
   additionalProps,
 }: RenderIntlayerNodeProps<T>): IntlayerNode<T> => {
-  // In Solid.js, we must return something that Solid can render.
-  // Arrays are renderable. We can attach metadata to the array object itself.
-  const target = [children] as any;
+  // Solid renders arrays, so wrap children in one and hang metadata off it.
+  const target = [children] as IntlayerNodeTarget<T>;
 
-  // Attach metadata
   target.value = value;
 
   if (additionalProps) {
@@ -36,12 +38,11 @@ export const renderIntlayerNode = <
     }
   }
 
-  // We still use a Proxy to ensure that accessing properties like 'toString'
-  // or others behaves nicely, and to maintain compatibility with the type.
-  // But we target the array directly.
+  // Proxy so `.value`, coercion hooks, etc. resolve to the content while the
+  // target stays a renderable array.
   return new Proxy(target, {
     get(target, prop, receiver) {
-      if (prop === 'value') {
+      if (prop === PROXY_RESERVED_KEYS.value) {
         return value;
       }
 
@@ -50,28 +51,32 @@ export const renderIntlayerNode = <
           if (hint === 'number') return Number(value);
           return value ?? '';
         };
-      if (prop === 'toString') return () => String(value ?? '');
-      if (prop === 'valueOf') return () => value;
+      if (prop === PROXY_RESERVED_KEYS.toString)
+        return () => String(value ?? '');
+      if (prop === PROXY_RESERVED_KEYS.valueOf) return () => value;
 
-      // Delegate native methods/properties to the underlying value.
-      // Guard numeric indices and 'length' so Solid's array renderer keeps
-      // access to the wrapper [children] array intact.
+      // Solid's server renderer calls Array#slice on renderable arrays. Keep
+      // that operation bound to the wrapper [children] array.
+      if (prop === PROXY_RESERVED_KEYS.slice) {
+        return Reflect.get(target, prop, receiver);
+      }
+
       if (
         value !== null &&
         value !== undefined &&
         typeof prop === 'string' &&
-        prop !== 'constructor' &&
-        prop !== 'length' &&
-        !/^\d+$/.test(prop)
+        prop !== PROXY_RESERVED_KEYS.constructor &&
+        prop !== PROXY_RESERVED_KEYS.length &&
+        !isArrayIndexProperty(prop)
       ) {
-        const valObj = Object(value); // Safely boxes primitives (e.g., 50 -> Number object)
+        const valObj = Object(value);
         if (prop in valObj) {
-          const valProp = valObj[prop];
+          const valProp = Reflect.get(valObj, prop);
           return typeof valProp === 'function' ? valProp.bind(value) : valProp;
         }
       }
 
       return Reflect.get(target, prop, receiver);
     },
-  }) as IntlayerNode<T>;
+  }) as unknown as IntlayerNode<T>;
 };

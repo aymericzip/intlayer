@@ -50,12 +50,12 @@ describe('renderIntlayerNode', () => {
     const node = renderIntlayerNode({
       children: 'Hello',
       value: 'Hello',
-    }) as any;
+    });
     expect(node.value).toBe('Hello');
   });
 
   it('exposes .value with a raw number', () => {
-    const node = renderIntlayerNode({ children: 42, value: 42 }) as any;
+    const node = renderIntlayerNode({ children: 42, value: 42 });
     expect(node.value).toBe(42);
   });
 
@@ -63,7 +63,7 @@ describe('renderIntlayerNode', () => {
     const node = renderIntlayerNode({
       children: 'Hello',
       value: 'Hello',
-    }) as any;
+    });
     expect(node.toString()).toBe('Hello');
   });
 
@@ -82,6 +82,15 @@ describe('renderIntlayerNode', () => {
     });
     // Solid targets an array; the raw children should be the first item.
     expect(node[0]).toBe('Hello');
+  });
+
+  it('keeps array slice behavior for Solid SSR escaping', () => {
+    const node = renderIntlayerNode({
+      children: 'Hello',
+      value: 'Hello',
+    });
+
+    expect(node.slice()).toEqual(['Hello']);
   });
 });
 

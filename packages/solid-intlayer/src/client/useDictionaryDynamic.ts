@@ -10,8 +10,13 @@ import { IntlayerClientContext } from './IntlayerProvider';
 import { useDictionary } from './useDictionary';
 import { useLoadDynamic } from './useLoadDynamic';
 
+type DynamicDictionarySource = {
+  cacheKey: string;
+  locale: LocalesValues;
+};
+
 /**
- * On the server side, Hook that transform a dictionary and return the content
+ * On the client side, Hook that transform a dictionary and return the content
  *
  * If the locale is not provided, it will use the locale from the client context
  */
@@ -25,14 +30,41 @@ export const useDictionaryDynamic = <
 ) => {
   const { locale: currentLocale } = useContext(IntlayerClientContext) ?? {};
   const defaultLocale = internationalization.defaultLocale;
-  const localeTarget = locale ?? currentLocale?.() ?? defaultLocale;
+  const dictionaryLoaders = dictionaryPromise as Partial<
+    Record<LocalesValues, () => Promise<T>>
+  >;
+  const dictionaryKey = String(key);
+  const localeAccessor = () => locale ?? currentLocale?.() ?? defaultLocale;
+  const dictionarySourceAccessor = (): DynamicDictionarySource => {
+    const localeTarget = localeAccessor();
 
-  const dictionary = useLoadDynamic<T>(
-    `${String(key)}.${localeTarget}`,
-    (dictionaryPromise as any)[
-      localeTarget as keyof typeof dictionaryPromise
-    ]?.()
-  ) as T;
+    return {
+      cacheKey: `${dictionaryKey}.${localeTarget}`,
+      locale: localeTarget,
+    };
+  };
+  const loadDictionary = ({
+    locale: localeTarget,
+  }: DynamicDictionarySource) => {
+    const dictionaryLoader = dictionaryLoaders[localeTarget];
 
-  return useDictionary(dictionary, localeTarget);
+    if (!dictionaryLoader) {
+      return Promise.reject(
+        new Error(
+          `No dynamic dictionary loader found for key "${String(key)}" and locale "${localeTarget}".`
+        )
+      );
+    }
+
+    return dictionaryLoader();
+  };
+
+  const dictionary = useLoadDynamic<T, DynamicDictionarySource>(
+    dictionarySourceAccessor,
+    loadDictionary
+  );
+
+  // Keep locale resolution inside useDictionary so the interpreted content
+  // follows the same reactive context as static Solid dictionaries.
+  return useDictionary(dictionary, locale);
 };
