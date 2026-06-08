@@ -34,10 +34,11 @@ export const LibCard: FC<{
           onClick={(e) => e.stopPropagation()}
           size="sm"
           color="neutral"
+          aria-label={lib.name}
         />
         {colors[lib.id] && (
           <div
-            className="absolute top-0 left-0 h-full w-[3px] rounded-r-full"
+            className="absolute top-0 left-0 h-full w-0.75 rounded-r-full"
             style={{ backgroundColor: colors[lib.id] }}
           />
         )}
@@ -46,7 +47,7 @@ export const LibCard: FC<{
         <div className="items-left flex h-5 w-20 min-w-20 shrink-0 justify-center">
           <LibLogo
             id={lib.id}
-            className="h-5 w-auto max-w-[120px] rounded-sm object-contain"
+            className="h-5 w-auto max-w-30 rounded-sm object-contain"
           />
         </div>
 

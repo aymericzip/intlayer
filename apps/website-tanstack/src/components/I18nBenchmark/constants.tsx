@@ -55,7 +55,6 @@ export type LibInfo = {
 export const getLibColors = (isDarkMode: boolean): Record<string, string> => ({
   intlayer: isDarkMode ? '#c4c4c4ff' : '#1e1e1eff',
   'react-intlayer': isDarkMode ? '#c4c4c4ff' : '#1e1e1eff',
-  'react-intlayer': isDarkMode ? '#c4c4c4ff' : '#1e1e1eff',
   'vue-intlayer': isDarkMode ? '#c4c4c4ff' : '#1e1e1eff',
   'svelte-intlayer': isDarkMode ? '#c4c4c4ff' : '#1e1e1eff',
   'solid-intlayer': isDarkMode ? '#c4c4c4ff' : '#1e1e1eff',

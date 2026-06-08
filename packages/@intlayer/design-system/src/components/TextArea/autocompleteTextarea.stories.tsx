@@ -163,7 +163,7 @@ export const Default: Story = {
             {...args}
             value={value}
             onChange={(e) => setValue(e.target.value)}
-            className="min-h-[120px] w-full"
+            className="min-h-30 w-full"
           />
 
           <div className="rounded-lg border border-blue-200 bg-blue-50 p-4">

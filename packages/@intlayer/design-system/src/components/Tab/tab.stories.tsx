@@ -323,7 +323,7 @@ export const Ghost: Story = {
         <Tab.Item label="✏️ Editor" value="editor">
           <div className="space-y-4">
             <h4 className="font-semibold text-lg">Content Editor</h4>
-            <div className="min-h-[120px] rounded-lg border border-gray-200 bg-white p-4">
+            <div className="min-h-30 rounded-lg border border-gray-200 bg-white p-4">
               <div className="mb-2 text-gray-400 text-sm">
                 Start typing your content...
               </div>
@@ -342,7 +342,7 @@ export const Ghost: Story = {
         <Tab.Item label="👁️ Preview" value="preview">
           <div className="space-y-4">
             <h4 className="font-semibold text-lg">Content Preview</h4>
-            <div className="min-h-[120px] rounded-lg border border-gray-200 bg-gray-50 p-4">
+            <div className="min-h-30 rounded-lg border border-gray-200 bg-gray-50 p-4">
               <div className="prose prose-sm">
                 <p>
                   This is how your content will appear to users. The ghost

@@ -31,6 +31,7 @@ import { Route as Char123LocaleChar125DocsTermsOfServiceDotmdRouteImport } from 
 import { Route as Char123LocaleChar125DocsTermsOfServiceRouteImport } from './routes/{-$locale}/_docs/terms-of-service'
 import { Route as Char123LocaleChar125DocsPrivacyNoticeDotmdRouteImport } from './routes/{-$locale}/_docs/privacy-notice[.]md'
 import { Route as Char123LocaleChar125DocsPrivacyNoticeRouteImport } from './routes/{-$locale}/_docs/privacy-notice'
+import { Route as ApiProxyAhrefsAnalyticsRouteImport } from './routes/api/proxy/ahrefs-analytics'
 import { Route as Char123LocaleChar125DocsFrequentQuestionsIndexRouteImport } from './routes/{-$locale}/_docs/frequent-questions/index'
 import { Route as Char123LocaleChar125FrequentQuestionsRawSplatRouteImport } from './routes/{-$locale}/frequent-questions/raw/$'
 import { Route as Char123LocaleChar125DocRawSplatRouteImport } from './routes/{-$locale}/doc/raw/$'
@@ -164,6 +165,11 @@ const Char123LocaleChar125DocsPrivacyNoticeRoute =
     path: '/privacy-notice',
     getParentRoute: () => Char123LocaleChar125DocsRouteRoute,
   } as any)
+const ApiProxyAhrefsAnalyticsRoute = ApiProxyAhrefsAnalyticsRouteImport.update({
+  id: '/api/proxy/ahrefs-analytics',
+  path: '/api/proxy/ahrefs-analytics',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const Char123LocaleChar125DocsFrequentQuestionsIndexRoute =
   Char123LocaleChar125DocsFrequentQuestionsIndexRouteImport.update({
     id: '/frequent-questions/',
@@ -241,6 +247,7 @@ export interface FileRoutesByFullPath {
   '/{-$locale}/tms': typeof Char123LocaleChar125TmsRoute
   '/{-$locale}/translate': typeof Char123LocaleChar125TranslateRoute
   '/{-$locale}/': typeof Char123LocaleChar125IndexRoute
+  '/api/proxy/ahrefs-analytics': typeof ApiProxyAhrefsAnalyticsRoute
   '/{-$locale}/privacy-notice': typeof Char123LocaleChar125DocsPrivacyNoticeRoute
   '/{-$locale}/privacy-notice.md': typeof Char123LocaleChar125DocsPrivacyNoticeDotmdRoute
   '/{-$locale}/terms-of-service': typeof Char123LocaleChar125DocsTermsOfServiceRoute
@@ -272,6 +279,7 @@ export interface FileRoutesByTo {
   '/{-$locale}/i18n-seo-scanner': typeof Char123LocaleChar125I18nSeoScannerRoute
   '/{-$locale}/tms': typeof Char123LocaleChar125TmsRoute
   '/{-$locale}/translate': typeof Char123LocaleChar125TranslateRoute
+  '/api/proxy/ahrefs-analytics': typeof ApiProxyAhrefsAnalyticsRoute
   '/{-$locale}/privacy-notice': typeof Char123LocaleChar125DocsPrivacyNoticeRoute
   '/{-$locale}/privacy-notice.md': typeof Char123LocaleChar125DocsPrivacyNoticeDotmdRoute
   '/{-$locale}/terms-of-service': typeof Char123LocaleChar125DocsTermsOfServiceRoute
@@ -307,6 +315,7 @@ export interface FileRoutesById {
   '/{-$locale}/tms': typeof Char123LocaleChar125TmsRoute
   '/{-$locale}/translate': typeof Char123LocaleChar125TranslateRoute
   '/{-$locale}/': typeof Char123LocaleChar125IndexRoute
+  '/api/proxy/ahrefs-analytics': typeof ApiProxyAhrefsAnalyticsRoute
   '/{-$locale}/_docs/privacy-notice': typeof Char123LocaleChar125DocsPrivacyNoticeRoute
   '/{-$locale}/_docs/privacy-notice.md': typeof Char123LocaleChar125DocsPrivacyNoticeDotmdRoute
   '/{-$locale}/_docs/terms-of-service': typeof Char123LocaleChar125DocsTermsOfServiceRoute
@@ -341,6 +350,7 @@ export interface FileRouteTypes {
     | '/{-$locale}/tms'
     | '/{-$locale}/translate'
     | '/{-$locale}/'
+    | '/api/proxy/ahrefs-analytics'
     | '/{-$locale}/privacy-notice'
     | '/{-$locale}/privacy-notice.md'
     | '/{-$locale}/terms-of-service'
@@ -372,6 +382,7 @@ export interface FileRouteTypes {
     | '/{-$locale}/i18n-seo-scanner'
     | '/{-$locale}/tms'
     | '/{-$locale}/translate'
+    | '/api/proxy/ahrefs-analytics'
     | '/{-$locale}/privacy-notice'
     | '/{-$locale}/privacy-notice.md'
     | '/{-$locale}/terms-of-service'
@@ -406,6 +417,7 @@ export interface FileRouteTypes {
     | '/{-$locale}/tms'
     | '/{-$locale}/translate'
     | '/{-$locale}/'
+    | '/api/proxy/ahrefs-analytics'
     | '/{-$locale}/_docs/privacy-notice'
     | '/{-$locale}/_docs/privacy-notice.md'
     | '/{-$locale}/_docs/terms-of-service'
@@ -431,6 +443,7 @@ export interface RootRouteChildren {
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   ApiBaiduPushRoute: typeof ApiBaiduPushRoute
   ApiHealthRoute: typeof ApiHealthRoute
+  ApiProxyAhrefsAnalyticsRoute: typeof ApiProxyAhrefsAnalyticsRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -588,6 +601,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/{-$locale}/privacy-notice'
       preLoaderRoute: typeof Char123LocaleChar125DocsPrivacyNoticeRouteImport
       parentRoute: typeof Char123LocaleChar125DocsRouteRoute
+    }
+    '/api/proxy/ahrefs-analytics': {
+      id: '/api/proxy/ahrefs-analytics'
+      path: '/api/proxy/ahrefs-analytics'
+      fullPath: '/api/proxy/ahrefs-analytics'
+      preLoaderRoute: typeof ApiProxyAhrefsAnalyticsRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/{-$locale}/_docs/frequent-questions/': {
       id: '/{-$locale}/_docs/frequent-questions/'
@@ -773,6 +793,7 @@ const rootRouteChildren: RootRouteChildren = {
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   ApiBaiduPushRoute: ApiBaiduPushRoute,
   ApiHealthRoute: ApiHealthRoute,
+  ApiProxyAhrefsAnalyticsRoute: ApiProxyAhrefsAnalyticsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

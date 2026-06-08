@@ -1,3 +1,5 @@
+@import "@fontsource-variable/inter";
+@import "@fontsource-variable/inter/index-italic.css";
 @import "@intlayer/design-system/css";
 @import "tailwindcss";
 

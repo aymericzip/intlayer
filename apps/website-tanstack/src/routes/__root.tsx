@@ -7,7 +7,7 @@ import {
   Scripts,
 } from '@tanstack/react-router';
 import { defaultLocale, getHTMLTextDir } from 'intlayer';
-import { Suspense, useEffect } from 'react';
+import { Suspense } from 'react';
 import { IntlayerProvider } from 'react-intlayer';
 import { ChunkErrorListener } from '~/components/ChunkErrorListener';
 import { ServiceWorkerSubscriber } from '~/components/ServiceWorker/ServiceWorkerSubscriber';
@@ -64,12 +64,6 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
     links: [
       { rel: 'stylesheet', href: appCss },
       { rel: 'stylesheet', href: shikiCss },
-      { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
-      {
-        rel: 'preconnect',
-        href: 'https://fonts.gstatic.com',
-        crossOrigin: 'anonymous',
-      },
       { rel: 'preconnect', href: 'https://api.github.com' },
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       {
@@ -101,19 +95,8 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
   shellComponent: RootDocument,
 });
 
-const GOOGLE_FONTS_URL =
-  'https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap';
-
 function RootDocument({ children }: { children: React.ReactNode }) {
   const { locale = defaultLocale } = LocaleRoute.useParams();
-
-  useEffect(() => {
-    if (document.querySelector(`link[href="${GOOGLE_FONTS_URL}"]`)) return;
-    const link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = GOOGLE_FONTS_URL;
-    document.head.appendChild(link);
-  }, []);
 
   return (
     <html dir={getHTMLTextDir(locale)} lang={locale} suppressHydrationWarning>
@@ -130,7 +113,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
               {import.meta.env.VITE_AHREFS_KEY && (
                 <script
                   async
-                  src="https://analytics.ahrefs.com/analytics.js"
+                  src="/api/proxy/ahrefs-analytics"
                   data-key={import.meta.env.VITE_AHREFS_KEY}
                 />
               )}

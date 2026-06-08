@@ -114,5 +114,8 @@
   },
   "bug": {
     "url": "https://github.com/aymericzip/intlayer/issues"
+  },
+  "dependencies": {
+    "@fontsource-variable/inter": "^5.2.8"
   }
 }

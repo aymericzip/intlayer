@@ -4,6 +4,9 @@
   "workspaces": {
     "": {
       "name": "intlayer-monorepo",
+      "dependencies": {
+        "@fontsource-variable/inter": "^5.2.8",
+      },
       "devDependencies": {
         "@biomejs/biome": "2.4.16",
         "@commitlint/cli": "21.0.2",
@@ -930,8 +933,6 @@
       "name": "intlayer-next-16",
       "version": "0.1.0",
       "dependencies": {
-        "@intlayer/babel": "workspace:*",
-        "@intlayer/swc": "workspace:*",
         "fuse.js": "7.4.2",
         "intlayer": "workspace:*",
         "next": "16.2.7",
@@ -3509,6 +3510,8 @@
     "@floating-ui/react-dom": ["@floating-ui/react-dom@2.1.8", "", { "dependencies": { "@floating-ui/dom": "^1.7.6" }, "peerDependencies": { "react": ">=16.8.0", "react-dom": ">=16.8.0" } }, "sha512-cC52bHwM/n/CxS87FH0yWdngEZrjdtLW/qVruo68qg+prK7ZQ4YGdut2GyDVpoGeAYe/h899rVeOVm6Oi40k2A=="],
 
     "@floating-ui/utils": ["@floating-ui/utils@0.2.11", "", {}, "sha512-RiB/yIh78pcIxl6lLMG0CgBXAZ2Y0eVHqMPYugu+9U0AeT6YBeiJpf7lbdJNIugFP5SIjwNRgo4DhR1Qxi26Gg=="],
+
+    "@fontsource-variable/inter": ["@fontsource-variable/inter@5.2.8", "", {}, "sha512-kOfP2D+ykbcX/P3IFnokOhVRNoTozo5/JxhAIVYLpea/UBmCQ/YWPBfWIDuBImXX/15KH+eKh4xpEUyS2sQQGQ=="],
 
     "@formatjs/fast-memoize": ["@formatjs/fast-memoize@3.1.5", "", {}, "sha512-KLi3fan6WnCHmigd9pmEEN8Hid0v4wiFBW576M/d07KMWYecf1CvyMI3n34vCmHT4AoVqG2n702kiHbXjzZX2A=="],
 

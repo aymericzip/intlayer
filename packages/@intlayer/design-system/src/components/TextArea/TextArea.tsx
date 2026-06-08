@@ -28,7 +28,7 @@ import { inputVariants } from '../Input';
  *   rows={6}
  *   cols={50}
  *   variant="default"
- *   className="min-h-[120px]"
+ *   className="min-h-30"
  *   placeholder="Write a detailed description..."
  * />
  * ```

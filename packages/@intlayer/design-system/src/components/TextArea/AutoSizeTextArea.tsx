@@ -30,7 +30,7 @@ import { TextArea, type TextAreaProps } from './TextArea';
  *   onChange={handleChange}
  *   autoSize={true}
  *   maxRows={5}
- *   className="max-h-[120px]"
+ *   className="max-h-30"
  * />
  *
  * // Disable auto-sizing for fixed height

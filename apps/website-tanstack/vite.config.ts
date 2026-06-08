@@ -82,14 +82,12 @@ export default defineConfig(async ({ mode }) => {
       "'report-sample'",
       domain ? `*.${domain}` : '',
       'static.cloudflareinsights.com',
-      'fonts.googleapis.com',
     ].filter(Boolean),
     'style-src-elem': [
       "'self'",
       "'report-sample'",
       domain ? `*.${domain}` : '',
       'static.cloudflareinsights.com',
-      'fonts.googleapis.com',
       'cdn.jsdelivr.net',
       "'unsafe-inline'",
     ].filter(Boolean),
@@ -109,7 +107,6 @@ export default defineConfig(async ({ mode }) => {
       '*.google-analytics.com',
       '*.posthog.com',
       'cdn.jsdelivr.net',
-      '*.ahrefs.com',
       '*.youtube.com',
     ].filter(Boolean),
     'connect-src': [
@@ -117,7 +114,6 @@ export default defineConfig(async ({ mode }) => {
       'data:',
       domain ? `*.${domain}` : '',
       backendUrl,
-      'fonts.googleapis.com',
       'static.cloudflareinsights.com',
       '*.google-analytics.com',
       '*.posthog.com',
@@ -147,7 +143,6 @@ export default defineConfig(async ({ mode }) => {
     'font-src': [
       "'self'",
       'data:',
-      'fonts.gstatic.com',
       'static.cloudflareinsights.com',
       'cdn.jsdelivr.net',
     ],
