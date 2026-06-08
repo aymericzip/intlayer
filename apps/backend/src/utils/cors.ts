@@ -31,7 +31,11 @@ export const corsOptions: FastifyCorsOptions = {
   ): void => {
     const origin = req.headers.origin as string | undefined;
     const whitelist = credentialWhitelist();
-    const isWhitelisted = Boolean(origin && whitelist.includes(origin));
+    const isWhitelisted = Boolean(
+      origin &&
+        (whitelist.includes(origin) ||
+          /^https?:\/\/(?:.*\.)?intlayer\.org$/.test(origin))
+    );
 
     if (origin && !isWhitelisted) {
       logger.info(
