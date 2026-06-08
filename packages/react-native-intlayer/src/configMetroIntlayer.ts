@@ -5,6 +5,32 @@ import { getAlias } from '@intlayer/config/utils';
 import type { getDefaultConfig } from 'expo/metro-config';
 import { exclusionList } from './exclusionList';
 
+/**
+ * Returns the `resolve` function from metro-resolver, preferring the copy
+ * bundled inside Metro itself.  Loading from Metro's own package directory
+ * ensures we use the same resolver instance that Metro uses internally,
+ * which prevents the cross-version recursion described in
+ * https://github.com/aymericzip/intlayer/issues/457.
+ */
+type AnyResolver = (context: any, moduleName: string, ...args: any[]) => any;
+
+const getMetroResolve = (): AnyResolver => {
+  try {
+    const metroPackageDir = pathResolve(
+      require.resolve('metro/package.json'),
+      '..'
+    );
+    return (
+      require(
+        pathResolve(metroPackageDir, 'node_modules', 'metro-resolver')
+      ) as typeof import('metro-resolver')
+    ).resolve as AnyResolver;
+  } catch {
+    return (require('metro-resolver') as typeof import('metro-resolver'))
+      .resolve as AnyResolver;
+  }
+};
+
 type MetroConfig = ReturnType<typeof getDefaultConfig>;
 
 /**
@@ -68,11 +94,18 @@ export const configMetroIntlayerSync = (
           };
         }
 
-        if (typeof context.resolveRequest === 'function') {
-          return context.resolveRequest(context, moduleName, ...args);
+        // Delegate to the user-provided resolver if present
+        if (existingResolveRequest) {
+          return existingResolveRequest(context, moduleName, ...args);
         }
 
-        throw new Error('Metro resolver context is missing resolveRequest');
+        // Fall back to Metro's default resolver.  We must strip
+        // `resolveRequest` from the context before delegating: leaving it in
+        // would cause metro-resolver to call our custom resolver again,
+        // creating an infinite recursion — especially when multiple
+        // metro-resolver copies are installed (see issue #457).
+        const { resolveRequest: _customResolver, ...fallbackContext } = context;
+        return getMetroResolve()(fallbackContext, moduleName, ...args);
       },
       blockList: exclusionList([
         ...existingPatterns,
