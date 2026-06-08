@@ -108,7 +108,6 @@
   },
   "peerDependencies": {
     "expo": ">=52",
-    "metro-resolver": ">=0.80",
     "react": ">=18.0.0",
     "react-intlayer": "workspace:*"
   },

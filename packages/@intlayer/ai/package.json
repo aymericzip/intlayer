@@ -80,7 +80,7 @@
     "@intlayer/core": "workspace:*",
     "@intlayer/types": "workspace:*",
     "@toon-format/toon": "2.3.0",
-    "ai": "6.0.197",
+    "ai": "6.0.198",
     "zod": "4.4.3"
   },
   "devDependencies": {
