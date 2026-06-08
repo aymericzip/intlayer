@@ -452,7 +452,7 @@ export const UsersAdminPageContent: FC = () => {
                 value={(params.organizationId as string) ?? 'all'}
                 onValueChange={handleOrganizationFilter}
               >
-                <Select.Trigger className="w-[200px]">
+                <Select.Trigger className="w-50">
                   <Select.Value placeholder={filterPlaceholder} />
                 </Select.Trigger>
                 <Select.Content>

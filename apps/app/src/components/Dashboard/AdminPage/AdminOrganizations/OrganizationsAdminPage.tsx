@@ -7,7 +7,6 @@ import {
   useGetOrganizations,
 } from '@intlayer/design-system/api';
 import { Button } from '@intlayer/design-system/button';
-import { Container } from '@intlayer/design-system/container';
 import { CopyToClipboard } from '@intlayer/design-system/copy-to-clipboard';
 import { useSearch } from '@intlayer/design-system/hooks';
 import { Checkbox, SearchInput } from '@intlayer/design-system/input';
@@ -288,7 +287,7 @@ export const OrganizationsAdminPageContent: FC = () => {
 
   return (
     <div className="flex flex-1 flex-col items-center p-4">
-      <div className="flex w-full flex-col gap-4 overflow-scroll">
+      <div className="flex size-full flex-1 flex-col gap-4 overflow-scroll">
         <div className="space-y-4">
           <SearchInput
             placeholder={searchPlaceholder.value}
@@ -326,7 +325,7 @@ export const OrganizationsAdminPageContent: FC = () => {
             </p>
           </div>
         ) : (
-          <div className="space-y-4">
+          <div className="flex flex-1 items-start justify-start space-y-4">
             <Table className="w-full border-separate border-spacing-0">
               <thead>
                 {table.getHeaderGroups().map((headerGroup) => (

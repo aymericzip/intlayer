@@ -10,21 +10,21 @@ export const UsersAdminSkeleton: FC<UsersAdminSkeletonProps> = ({
   showToolBar = false,
 }) => (
   <div className="flex flex-1 flex-col items-center p-4">
-    <div className="flex w-full flex-col gap-4 overflow-scroll">
+    <div className="flex size-full flex-1 flex-col gap-4 overflow-scroll">
       {showToolBar && (
         <>
           {/* Search & Filter Skeleton */}
           <div className="space-y-4">
             <div className="flex flex-col gap-4 sm:flex-row">
               <Skeleton className="h-10 w-full max-w-md rounded-xl" />
-              <Skeleton className="h-10 w-[200px] rounded-xl" />
+              <Skeleton className="h-10 w-50 rounded-xl" />
             </div>
           </div>
         </>
       )}
 
       {/* Table Skeleton */}
-      <div className="space-y-4">
+      <div className="flex flex-1 items-start justify-start space-y-4">
         <Table className="w-full border-separate border-spacing-0">
           <thead>
             <tr>

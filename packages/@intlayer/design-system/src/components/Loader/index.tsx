@@ -45,7 +45,7 @@ export type LoaderProps = HTMLAttributes<HTMLDivElement> & {
  * ```tsx
  * <Loader
  *   isLoading={true}
- *   className="min-h-[200px] bg-gray-50"
+ *   className="min-h-50 bg-gray-50"
  *   aria-label="Loading user data"
  * />
  * ```

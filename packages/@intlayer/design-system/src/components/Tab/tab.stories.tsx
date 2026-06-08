@@ -359,7 +359,7 @@ export const Ghost: Story = {
         <Tab.Item label="📱 Mobile" value="mobile">
           <div className="space-y-4">
             <h4 className="font-semibold text-lg">Mobile Preview</h4>
-            <div className="mx-auto max-w-[200px] rounded-lg border-2 border-gray-300 bg-gray-100 p-2">
+            <div className="mx-auto max-w-50 rounded-lg border-2 border-gray-300 bg-gray-100 p-2">
               <div className="min-h-[150px] rounded bg-white p-3">
                 <div className="mb-2 font-medium text-xs">Mobile View</div>
                 <div className="text-gray-600 text-xs leading-relaxed">

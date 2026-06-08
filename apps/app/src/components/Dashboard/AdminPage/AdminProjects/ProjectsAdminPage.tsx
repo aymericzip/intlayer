@@ -4,7 +4,6 @@ import {
   useGetProjects,
 } from '@intlayer/design-system/api';
 import { Button } from '@intlayer/design-system/button';
-import { Container } from '@intlayer/design-system/container';
 import { CopyToClipboard } from '@intlayer/design-system/copy-to-clipboard';
 import { useSearch } from '@intlayer/design-system/hooks';
 import { Checkbox, SearchInput } from '@intlayer/design-system/input';
@@ -78,7 +77,7 @@ export const ProjectsAdminPageContent: FC = () => {
 
   const selectedProjectIds = Object.keys(rowSelection)
     .filter((k) => rowSelection[k])
-    .map((idx) => projects[parseInt(idx)]?.id)
+    .map((idx) => projects[parseInt(idx, 10)]?.id)
     .filter(Boolean) as string[];
 
   const columns: ColumnDef<ProjectAPI>[] = [
@@ -284,7 +283,7 @@ export const ProjectsAdminPageContent: FC = () => {
 
   return (
     <div className="flex flex-1 flex-col items-center p-4">
-      <div className="flex w-full flex-col gap-4 overflow-scroll">
+      <div className="flex size-full flex-1 flex-col gap-4 overflow-scroll">
         <div className="space-y-4">
           <SearchInput
             type="search"
@@ -321,7 +320,7 @@ export const ProjectsAdminPageContent: FC = () => {
             <p className="text-neutral-500 dark:text-neutral-400">{noData}</p>
           </div>
         ) : (
-          <div className="space-y-4">
+          <div className="flex flex-1 items-start justify-start space-y-4">
             <Table className="w-full border-separate border-spacing-0">
               <thead>
                 {table.getHeaderGroups().map((headerGroup) => (

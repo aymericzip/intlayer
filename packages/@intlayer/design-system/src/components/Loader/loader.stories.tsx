@@ -157,7 +157,7 @@ export const CustomStyling: Story = {
 export const CompactSize: Story = {
   args: {
     isLoading: true,
-    className: 'min-top-25 max-w-[200px]',
+    className: 'min-top-25 max-w-50',
   },
   parameters: {
     docs: {
@@ -186,7 +186,7 @@ export const FullHeight: Story = {
 export const ColoredLoader: Story = {
   args: {
     isLoading: true,
-    className: 'text-blue-600 min-h-[200px]',
+    className: 'text-blue-600 min-h-50',
   },
   parameters: {
     docs: {
@@ -412,7 +412,7 @@ export const FormSubmission: Story = {
   render: (args) => (
     <div className="mx-auto max-w-md rounded-lg border bg-white p-6">
       <h3 className="mb-4 font-semibold text-lg">Contact Form</h3>
-      <Loader {...args} className="min-h-[200px]">
+      <Loader {...args} className="min-h-50">
         <div className="p-6 text-center">
           <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
             <span className="text-2xl text-green-600">✓</span>
