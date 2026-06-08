@@ -42,7 +42,7 @@ const config: IntlayerConfig = {
      * - "dynamic": Dynamically imported using Suspense.
      * - "fetch": Fetched dynamically via the live sync API.
      */
-    importMode: 'static',
+    importMode: 'dynamic',
   },
   ai: {
     /**
