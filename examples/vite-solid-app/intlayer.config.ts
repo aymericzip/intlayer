@@ -15,7 +15,7 @@ const config: IntlayerConfig = {
     }),
   },
   dictionary: {
-    importMode: 'static',
+    importMode: 'dynamic',
   },
   build: {
     optimize: true,
