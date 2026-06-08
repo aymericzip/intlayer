@@ -71,50 +71,50 @@ export const AnalyzerPageResults: FC<AnalyzerPageResultsProps> = memo(
       {
         key: `url_htmlLang\\${url}`,
         icon: <Globe size={16} />,
-        label: fields.langTag,
-        description: fieldsDescription.langTag.use(compOverwrite),
+        label: fields?.langTag,
+        description: fieldsDescription?.langTag?.use(compOverwrite),
       },
       {
         key: `url_htmlDir\\${url}`,
         icon: <Globe size={16} />,
-        label: fields.htmlDir,
-        description: fieldsDescription.htmlDir.use(compOverwrite),
+        label: fields?.htmlDir,
+        description: fieldsDescription?.htmlDir?.use(compOverwrite),
       },
       {
         key: `url_hreflang\\${url}`,
         icon: <FileText size={16} />,
-        label: fields.hreflangs,
-        description: fieldsDescription.hreflangs.use(compOverwrite),
+        label: fields?.hreflangs,
+        description: fieldsDescription?.hreflangs?.use(compOverwrite),
       },
       {
         key: `url_hasXDefault\\${url}`,
         icon: <FileText size={16} />,
-        label: fields.hasXDefault,
-        description: fieldsDescription.hasXDefault.use(compOverwrite),
+        label: fields?.hasXDefault,
+        description: fieldsDescription?.hasXDefault?.use(compOverwrite),
       },
       {
         key: `url_hasCanonical\\${url}`,
         icon: <LinkIcon size={16} />,
-        label: fields.canonical,
-        description: fieldsDescription.canonical.use(compOverwrite),
+        label: fields?.canonical,
+        description: fieldsDescription?.canonical?.use(compOverwrite),
       },
       {
         key: `url_hasLocalizedLinks\\${url}`,
         icon: <LinkIcon size={16} />,
-        label: fields.localizedLinks,
-        description: fieldsDescription.localizedLinks.use(compOverwrite),
+        label: fields?.localizedLinks,
+        description: fieldsDescription?.localizedLinks?.use(compOverwrite),
       },
       {
         key: `url_allAnchorsLocalized\\${url}`,
         icon: <LinkIcon size={16} />,
-        label: fields.allAnchorsLocalized,
-        description: fieldsDescription.allAnchorsLocalized.use(compOverwrite),
+        label: fields?.allAnchorsLocalized,
+        description: fieldsDescription?.allAnchorsLocalized?.use(compOverwrite),
       },
     ];
 
     return (
       <div className="flex flex-col gap-2 pt-2 text-left text-sm">
-        <Link to={url} label={urlText.label.value} color="text">
+        <Link to={url} label={urlText?.label?.value} color="text">
           {url}
         </Link>
         <div className="mt-3 grid grid-cols-1 xs:grid-cols-2 gap-x-4 gap-y-2 border-neutral border-t border-dotted pt-2 sm:grid-cols-3">

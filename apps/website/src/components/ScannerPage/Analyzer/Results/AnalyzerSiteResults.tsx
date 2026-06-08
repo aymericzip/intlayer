@@ -77,7 +77,7 @@ export const AnalyzerSiteResults: FC<AnalyzerSiteResultsProps> = ({
     <div className="flex flex-col pb-6">
       <div className="mb-4 flex items-center justify-between">
         <span className="font-semibold text-2xl text-text/70">
-          <span className="mr-2 text-neutral">{scoreTitle.title}:</span>
+          <span className="mr-2 text-neutral">{scoreTitle?.title}:</span>
 
           <Skeleton isLoading={isLoading && !score}>
             <span className="mr-1 text-text">{score ?? 0}</span>
@@ -86,8 +86,8 @@ export const AnalyzerSiteResults: FC<AnalyzerSiteResultsProps> = ({
         </span>
 
         <Skeleton isLoading={isLoading && !score}>
-          <Tag color={status(score ?? 0).color.value} size="md">
-            {status(score ?? 0).label}
+          <Tag color={status?.(score ?? 0)?.color?.value} size="md">
+            {status?.(score ?? 0)?.label}
           </Tag>
         </Skeleton>
       </div>
@@ -106,7 +106,7 @@ export const AnalyzerSiteResults: FC<AnalyzerSiteResultsProps> = ({
             >
               <Image
                 src={domainData?.image}
-                alt={messages.websitePreview.value}
+                alt={messages?.websitePreview?.value}
                 width={300}
                 height={180}
                 unoptimized
@@ -121,7 +121,7 @@ export const AnalyzerSiteResults: FC<AnalyzerSiteResultsProps> = ({
             isLoading={isLoading && !domainData?.title}
           >
             <h3 className="mb-2 font-semibold text-neutral-900 text-xl dark:text-neutral-100">
-              {domainData?.title ?? messages.noTitle}
+              {domainData?.title ?? messages?.noTitle}
             </h3>
           </Skeleton>
           <Skeleton
@@ -129,7 +129,7 @@ export const AnalyzerSiteResults: FC<AnalyzerSiteResultsProps> = ({
             isLoading={isLoading && !domainData?.description}
           >
             <p className="text-neutral text-sm">
-              {domainData?.description ?? messages.noDescription}
+              {domainData?.description ?? messages?.noDescription}
             </p>
           </Skeleton>
         </div>

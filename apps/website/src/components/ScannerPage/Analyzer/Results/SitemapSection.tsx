@@ -23,23 +23,25 @@ export const SitemapSection: FC<SitemapSectionProps> = memo(
     return (
       <>
         <h3 className="mt-6 mb-3 font-semibold text-lg text-text/80">
-          {sections.sitemap}
+          {sections?.sitemap}
         </h3>
         <div className="mt-2 grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-x-8 gap-y-2 px-2 text-sm">
           <FieldItem
             id="urlsDiscovered"
             icon={<MapIcon size={16} />}
-            label={sitemapLabels.urlsDiscovered}
+            label={sitemapLabels?.urlsDiscovered}
             event={data['sitemap_sitemapPresent']}
-            details={sitemapLabels.urlsDiscoveredDescription.use(compOverwrite)}
+            details={sitemapLabels?.urlsDiscoveredDescription?.use(
+              compOverwrite
+            )}
             isLoading={isLoading}
           />
           <FieldItem
             id="alternatesPresent"
             icon={<LinkIcon size={16} />}
-            label={sitemapLabels.alternatesPresent}
+            label={sitemapLabels?.alternatesPresent}
             event={data['sitemap_noLocalizedUrlsForgotten']}
-            details={sitemapLabels.alternatesPresentDescription.use(
+            details={sitemapLabels?.alternatesPresentDescription?.use(
               compOverwrite
             )}
             isLoading={isLoading}
@@ -47,9 +49,9 @@ export const SitemapSection: FC<SitemapSectionProps> = memo(
           <FieldItem
             id="xDefaultPresent"
             icon={<Globe size={16} />}
-            label={sitemapLabels.xDefaultPresent}
+            label={sitemapLabels?.xDefaultPresent}
             event={data['sitemap_hasXDefault']}
-            details={sitemapLabels.xDefaultPresentDescription.use(
+            details={sitemapLabels?.xDefaultPresentDescription?.use(
               compOverwrite
             )}
             isLoading={isLoading}

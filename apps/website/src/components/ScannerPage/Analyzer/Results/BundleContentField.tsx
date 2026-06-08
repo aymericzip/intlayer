@@ -93,9 +93,10 @@ type BundleSummaryLabelProps = { summary: BundleSummary | null };
 
 const BundleSummaryLabel: FC<BundleSummaryLabelProps> = ({ summary }) => {
   const { bundleContentLabels } = useIntlayer('analyzer-results');
-  const { chunkTable, totalsTable } = bundleContentLabels.summary;
+  const chunkTable = bundleContentLabels?.summary?.chunkTable;
+  const totalsTable = bundleContentLabels?.summary?.totalsTable;
 
-  if (!summary) return null;
+  if (!summary || !chunkTable || !totalsTable) return null;
 
   const allChunks: (ChunkSummary & { isMain: boolean })[] = [
     ...summary.mainBundleChunks.map((c) => ({ ...c, isMain: true })),
@@ -242,10 +243,10 @@ export const BundleContentField: FC<BundleContentFieldProps> = memo(
         <FieldItem
           id={`bundle-content-${id}`}
           icon={<Package size={16} />}
-          label={fields.unusedBundleContent}
+          label={fields?.unusedBundleContent}
           event={event}
           isLoading={isLoading}
-          details={fieldsDescription.unusedBundleContent.use(compOverwrite)}
+          details={fieldsDescription?.unusedBundleContent?.use(compOverwrite)}
         />
         <BundleSummaryLabel summary={summary} />
       </>
