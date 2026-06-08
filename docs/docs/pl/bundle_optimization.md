@@ -1,12 +1,12 @@
 ---
 createdAt: 2025-11-25
-updatedAt: 2026-04-08
-title: Optymalizacja rozmiaru i wydajności bundle'a i18n
-description: Zmniejsz rozmiar bundle'a aplikacji poprzez optymalizację treści internacjonalizacji (i18n). Dowiedz się, jak wykorzystać tree shaking i lazy loading dla słowników dzięki Intlayer.
+updatedAt: 2026-06-07
+title: Optymalizacja Rozmiaru Paczki i Wydajności i18n
+description: Zmniejsz rozmiar paczki swojej aplikacji, optymalizując treści umiędzynarodowienia (i18n). Dowiedz się, jak wykorzystać tree shaking i leniwe ładowanie (lazy loading) dla słowników dzięki Intlayer.
 keywords:
-  - Optymalizacja bundle'a
-  - Automatyzacja treści
-  - Treść dynamiczna
+  - Optymalizacja Paczki
+  - Automatyzacja Treści
+  - Dynamiczne Treści
   - Intlayer
   - Next.js
   - JavaScript
@@ -16,33 +16,36 @@ slugs:
   - concept
   - bundle-optimization
 history:
+  - version: 8.12.0
+    date: 2026-06-07
+    changes: "Dodano `intlayerPurgeBabelPlugin` i `intlayerMinifyBabelPlugin` dla Babel/Webpack; wyjaśnienie działania przepływu wtyczek (pipeline)"
   - version: 8.7.0
     date: 2026-04-08
-    changes: "Dodano opcje `minify` i `purge` do konfiguracji builda"
+    changes: "Dodano opcje `minify` i `purge` do konfiguracji budowania"
 ---
 
-# Optymalizacja rozmiaru i wydajności bundle'a i18n
+# Optymalizacja Rozmiaru Paczki i Wydajności i18n
 
-Jednym z najczęstszych wyzwań w tradycyjnych rozwiązaniach i18n opartych na plikach JSON jest zarządzanie rozmiarem treści. Jeśli programiści nie rozdzielą ręcznie treści na przestrzenie nazw (namespaces), użytkownicy często pobierają tłumaczenia dla każdej strony, a potencjalnie dla każdego języka, tylko po to, by wyświetlić jedną stronę.
+Jednym z najczęstszych wyzwań w tradycyjnych rozwiązaniach i18n opartych na plikach JSON jest zarządzanie rozmiarem treści. Jeśli programiści nie rozdzielą treści na przestrzenie nazw (namespaces) ręcznie, użytkownicy często pobierają tłumaczenia dla każdej strony i potencjalnie każdego języka, tylko po to, aby wyświetlić pojedynczą stronę.
 
-Na przykład aplikacja z 10 stronami przetłumaczonymi na 10 języków może spowodować, że użytkownik pobierze treść 100 stron, mimo że potrzebuje tylko **jednej** (aktualnej strony w aktualnym języku). Prowadzi to do marnowania przepustowości i wolniejszego czasu ładowania.
+Na przykład, aplikacja z 10 stronami przetłumaczonymi na 10 języków może spowodować, że użytkownik pobierze zawartość 100 stron, chociaż potrzebuje tylko **jednej** (bieżącej strony w bieżącym języku). Prowadzi to do marnowania przepustowości i wolniejszego ładowania.
 
-**Intlayer rozwiązuje ten problem poprzez optymalizację na etapie budowania.** Analizuje on kod, aby wykryć, które słowniki są faktycznie używane w poszczególnych komponentach, i wstrzykuje do bundle'a tylko niezbędną treść.
+**Intlayer rozwiązuje ten problem poprzez optymalizację w czasie budowania.** Analizuje on Twój kod, aby wykryć, które słowniki są faktycznie używane w poszczególnych komponentach, i wprowadza do paczki (bundle) tylko niezbędne treści.
 
-## Spis treści
+## Spis Treści
 
 <TOC />
 
-## Skanowanie bundle'a
+## Przeanalizuj swoją paczkę
 
-Analiza bundle'a to pierwszy krok do zidentyfikowania "ciężkich" plików JSON i możliwości podziału kodu (code-splitting). Narzędzia te generują wizualną mapę drzewa (treemap) skompilowanego kodu aplikacji, co pozwala dokładnie zobaczyć, które biblioteki zajmują najwięcej miejsca.
+Analiza paczki jest pierwszym krokiem do zidentyfikowania "ciężkich" plików JSON i możliwości dzielenia kodu (code-splitting). Narzędzia te generują wizualną mapę drzewa (treemap) skompilowanego kodu aplikacji, co pozwala precyzyjnie zobaczyć, które biblioteki zajmują najwięcej miejsca.
 
 <Tabs>
  <Tab value="vite">
 
 ### Vite / Rollup
 
-Vite wykorzystuje pod maską Rollup. Wtyczka `rollup-plugin-visualizer` generuje interaktywny plik HTML pokazujący rozmiar każdego modułu w grafie.
+Vite pod maską korzysta z Rollup. Wtyczka `rollup-plugin-visualizer` generuje interaktywny plik HTML, który pokazuje rozmiar każdego modułu w grafie.
 
 ```bash
 npm install -D rollup-plugin-visualizer
@@ -69,7 +72,7 @@ export default defineConfig({
 
 ### Next.js (Turbopack)
 
-Dla projektów korzystających z App Router i Turbopack, Next.js udostępnia wbudowany eksperymentalny analizator, który nie wymaga dodatkowych zależności.
+Dla projektów korzystających z App Routera i Turbopack, Next.js oferuje wbudowany, eksperymentalny analizator, który nie wymaga dodatkowych zależności.
 
 ```bash packageManager='npm'
 npx next experimental-analyze
@@ -92,7 +95,7 @@ bun next experimental-analyze
 
 ### Next.js (Webpack)
 
-Jeśli używasz domyślnego bundlera Webpack w Next.js, skorzystaj z oficjalnego analizatora bundle'a. Uruchom go, ustawiając zmienną środowiskową podczas budowania (build time).
+Jeśli w Next.js korzystasz z domyślnego bundlera Webpack, użyj oficjalnego bundle analyzera. Aktywuje się go, ustawiając odpowiednią zmienną środowiskową w trakcie budowania.
 
 ```bash packageManager='npm'
 npm install -D @next/bundle-analyzer
@@ -131,7 +134,7 @@ ANALYZE=true npm run build
 
 ### Standardowy Webpack
 
-W przypadku Create React App (ejected), Angulara lub niestandardowych konfiguracji Webpack, użyj standardowego narzędzia `webpack-bundle-analyzer`.
+Dla Create React App (po wykonaniu eject), Angular lub niestandardowych konfiguracji Webpack użyj branżowego standardu `webpack-bundle-analyzer`.
 
 ```bash packageManager='npm'
 npm install -D webpack-bundle-analyzer
@@ -166,29 +169,66 @@ export default {
  </Tab>
 </Tabs>
 
-## Jak to działa
+## Jak to Działa
 
-Intlayer stosuje **podejście oparte na komponentach**. W przeciwieństwie do globalnych plików JSON, treść jest definiowana obok komponentów lub w ichewnątrz. Podczas procesu budowania Intlayer:
+Intlayer wykorzystuje **podejście per-komponent**. W przeciwieństwie do globalnych plików JSON, Twoje treści są definiowane obok komponentów lub wewnątrz nich. Podczas procesu budowania Intlayer wykonuje następujące czynności:
 
-1.  **Analizuje** kod w celu znalezienia wywołań `useIntlayer`.
-2.  **Buduje** odpowiadającą im treść słownika.
-3.  **Zastępuje** wywołanie `useIntlayer` zoptymalizowanym kodem na podstawie Twojej konfiguracji.
+1. **Analizuje** Twój kod w celu znalezienia wywołań funkcji `useIntlayer`.
+2. **Buduje** treść odpowiednich słowników.
+3. **Zamienia** wywołanie `useIntlayer` na zoptymalizowany kod, zgodnie z Twoją konfiguracją.
 
-Zapewnia to, że:
+Gwarantuje to, że:
 
-- Jeśli komponent nie zostanie zaimportowany, jego treść nie zostanie dołączona do bundle'a (Dead Code Elimination).
-- Jeśli komponent jest ładowany leniwie (lazy-loaded), jego treść również jest ładowana leniwie.
+- Jeśli komponent nie zostanie zaimportowany, jego treść nie zostanie dołączona do paczki (Dead Code Elimination).
+- Jeśli komponent ładuje się leniwie (lazy-loaded), jego zawartość również ładuje się w ten sam sposób.
 
-## Konfiguracja według platformy
+## Informacje o Wtyczkach
+
+Optymalizacja w trakcie budowania przez Intlayer podzielona jest na kilka niezależnych wtyczek, z których każda odpowiada za jedno zadanie. Zrozumienie roli poszczególnych wtyczek zapobiegnie nieporozumieniom podczas ich konfiguracji.
+
+### Wtyczki Babel (`@intlayer/babel`)
+
+Wtyczki te są wykorzystywane bezpośrednio w `babel.config.js` dla środowisk opartych na Webpacku (Next.js z Babel, CRA, własne konfiguracje Webpack itp.).
+
+| Wtyczka                       | Działanie                                                                                                               |
+| :---------------------------- | :---------------------------------------------------------------------------------------------------------------------- |
+| `intlayerExtractBabelPlugin`  | Skanuje pliki `.content.ts` i zapisuje skompilowane słowniki w katalogu `.intlayer/`                                    |
+| `intlayerOptimizeBabelPlugin` | Przepisuje kod `useIntlayer('key')` → `useDictionary(hash)` i wstrzykuje import pasującego słownika                     |
+| `intlayerPurgeBabelPlugin`    | Skanuje wszystkie pliki źródłowe, usuwając **nieużywane pola treści** ze skompilowanych słowników `.intlayer/**/*.json` |
+| `intlayerMinifyBabelPlugin`   | **Zmienia nazwy kluczy pól treści** na krótkie, literowe aliasy (np. `title` → `a`) w plikach JSON i kodzie źródłowym   |
+
+> **Kolejność wtyczek ma znaczenie.** W Twoim `babel.config.js` wtyczki purge i minify muszą pojawić się **przed** wtyczką optimize. Krok optymalizacji zastępuje bowiem `useIntlayer('key')` nieprzejrzystym wywołaniem `useDictionary(hash)`, usuwając informację o kluczu słownika. Właśnie tej informacji potrzebują etapy purge i minify, aby móc określić, które pola są wykorzystywane.
+
+Każda z wtyczek dla Babel ma swój dedykowany helper dla opcji, który odczytuje `intlayer.config.ts` tylko raz (podczas wczytywania konfiguracji) i zwraca wstępnie rozwiązane wartości:
+
+| Helper opcji                 | Zastosowanie z wtyczką        |
+| :--------------------------- | :---------------------------- |
+| `getExtractPluginOptions()`  | `intlayerExtractBabelPlugin`  |
+| `getOptimizePluginOptions()` | `intlayerOptimizeBabelPlugin` |
+| `getPurgePluginOptions()`    | `intlayerPurgeBabelPlugin`    |
+| `getMinifyPluginOptions()`   | `intlayerMinifyBabelPlugin`   |
+
+### Wtyczki Vite (`vite-intlayer`)
+
+Użytkownicy Vite **nigdy nie konfigurują ich bezpośrednio**. Są one podłączane automatycznie po wywołaniu `withIntlayer()` w pliku `vite.config.ts`. Flagi `build.purge` i `build.minify` umieszczone w `intlayer.config.ts` przełączają ich zachowanie bez potrzeby dodatkowego rejestrowania wtyczek.
+
+| Wewnętrzna wtyczka Vite | Odpowiednik zachowania                                                                           |
+| :---------------------- | :----------------------------------------------------------------------------------------------- |
+| Usage analyzer          | Działa jak etap skanowania wtyczki `intlayerPurgeBabelPlugin`                                    |
+| Dictionary prune        | Działa jak etap zapisu JSON we wtyczce `intlayerPurgeBabelPlugin`                                |
+| Dictionary minify       | Działa jak etap zapisu JSON we wtyczce `intlayerMinifyBabelPlugin`                               |
+| Babel transform         | Działa jak etap zmiany nazewnictwa z `intlayerMinifyBabelPlugin` + `intlayerOptimizeBabelPlugin` |
+
+## Konfiguracja wg Platformy
 
 <Tabs>
  <Tab value="nextjs">
 
 ### Next.js
 
-Next.js wymaga wtyczki `@intlayer/swc` do obsługi transformacji, ponieważ Next.js używa SWC do budowania.
+Next.js wymaga instalacji wtyczki `@intlayer/swc` na etapie optymalizacji (przepisywania importów), ponieważ Next.js wykorzystuje do budowania SWC.
 
-> Ta wtyczka nie jest instalowana domyślnie, ponieważ wtyczki SWC są nadal eksperymentalne w Next.js. Może to ulec zmianie w przyszłości.
+> Ta wtyczka nie jest instalowana domyślnie, ponieważ wtyczki SWC dla Next.js mają wciąż charakter eksperymentalny. Może się to zmienić w przyszłości.
 
 ```bash packageManager="npm"
 npm install -D @intlayer/swc
@@ -206,21 +246,63 @@ pnpm add -D @intlayer/swc
 bun add -d @intlayer/swc
 ```
 
-Po zainstalowaniu Intlayer automatycznie wykryje i użyje wtyczki.
+Po jej zainstalowaniu Intlayer automatycznie wykryje i wykorzysta tę wtyczkę.
+
+Do przejścia etapów **purge i minify** (usuwania i skracania pól), należy zainstalować równolegle `@intlayer/babel` i dodać wtyczki Babel. Choć Next.js do transformacji korzysta z SWC, wciąż interpretuje `babel.config.js` w zakresie konfiguracji wtyczek, co sprawia, że wtyczki dla Babel uruchamiane są jeszcze przed etapem SWC.
+
+```bash packageManager="npm"
+npm install -D @intlayer/babel
+```
+
+```javascript fileName="babel.config.js"
+const {
+  intlayerPurgeBabelPlugin,
+  intlayerMinifyBabelPlugin,
+  getPurgePluginOptions,
+  getMinifyPluginOptions,
+} = require("@intlayer/babel");
+
+module.exports = {
+  presets: ["next/babel"],
+  plugins: [
+    // Purge: usuwa nieużywane pola ze słowników z .intlayer/**/*.json
+    [intlayerPurgeBabelPlugin, getPurgePluginOptions()],
+    // Minify: skraca nazwy kluczy w polach w plikach JSON i kodzie źródłowym
+    [intlayerMinifyBabelPlugin, getMinifyPluginOptions()],
+    // Uwaga: intlayerOptimizeBabelPlugin NIE JEST TUTAJ POTRZEBNY, ponieważ
+    // to @intlayer/swc obsługuje zastępowanie useIntlayer → useDictionary.
+  ],
+};
+```
 
  </Tab>
  <Tab value="vite">
 
 ### Vite
 
-Vite używa wtyczki `@intlayer/babel`, która jest dołączona jako zależność `vite-intlayer`. Optymalizacja jest domyślnie włączona. Nie trzeba nic więcej robić.
+Vite wykorzystuje wtyczkę `@intlayer/babel`, która jest dostarczana jako zależność pakietu `vite-intlayer`. Pełen przepływ (pipeline) optymalizacji — przepisywanie importów, purge oraz minify — zostaje domyślnie uaktywniony i nie potrzebuje odrębnej instalacji wtyczek.
+
+Aby uaktywnić flagi purge oraz minify, wskaż to za pomocą opcji w swoim `intlayer.config.ts`:
+
+```typescript fileName="intlayer.config.ts"
+import type { IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  build: {
+    purge: true, // usuwa ze zgrubnych plików JSON te nieużywane pola treści
+    minify: true, // zmienia aliasy kluczy dla tychże pól treści w aliasy skróceniowe
+  },
+};
+
+export default config;
+```
 
  </Tab>
  <Tab value="webpack">
 
-### Webpack
+### Webpack (i Next.js z użyciem Babel)
 
-Aby włączyć optymalizację bundle'a za pomocą Intlayer w Webpacku, musisz zainstalować i skonfigurować odpowiednią wtyczkę Babel (`@intlayer/babel`) lub SWC (`@intlayer/swc`).
+Zainstaluj `@intlayer/babel`:
 
 ```bash packageManager="npm"
 npm install -D @intlayer/babel
@@ -238,14 +320,37 @@ pnpm add -D @intlayer/babel
 bun add -d @intlayer/babel
 ```
 
-```typescript fileName="babel.config.js"
+Dopisz całą czwórkę wtyczek dla plików środowiska Webpack do `babel.config.js` w określonym, dobrym porządku:
+
+```javascript fileName="babel.config.js"
 const {
-  getOptimizePluginOptions,
+  intlayerExtractBabelPlugin,
+  intlayerPurgeBabelPlugin,
+  intlayerMinifyBabelPlugin,
   intlayerOptimizeBabelPlugin,
+  getExtractPluginOptions,
+  getPurgePluginOptions,
+  getMinifyPluginOptions,
+  getOptimizePluginOptions,
 } = require("@intlayer/babel");
 
 module.exports = {
-  plugins: [[intlayerOptimizeBabelPlugin, getOptimizePluginOptions()]],
+  plugins: [
+    // Extract: dokonuje kompilacji plików ze zbioru .content.ts → .intlayer/**/*.json
+    [intlayerExtractBabelPlugin, getExtractPluginOptions()],
+
+    // Purge: ucina niewykorzystane i zagubione przestrzenie w .intlayer/**/*.json
+    //    (wykorzystuje flagi odczytane uprzednio z intlayer.config.ts)
+    [intlayerPurgeBabelPlugin, getPurgePluginOptions()],
+
+    // Minify: zastępuje dotychczasowe klucze literowymi ich krótkimi skrótami
+    //    (wykorzystuje flagę pobraną pierwotnie z intlayer.config.ts)
+    [intlayerMinifyBabelPlugin, getMinifyPluginOptions()],
+
+    // Optimize: nadpisuje strukturę składni formy useIntlayer('key') → useDictionary(hash)
+    //    Wymagane jest usytuowanie na samym końcu, bowiem kasuje powiązany oryginalny znak wywoławczy ze słownika.
+    [intlayerOptimizeBabelPlugin, getOptimizePluginOptions()],
+  ],
 };
 ```
 
@@ -254,57 +359,62 @@ module.exports = {
 
 ## Konfiguracja
 
-Możesz kontrolować sposób optymalizacji bundle'a przez Intlayer za pomocą właściwości `build` w pliku `intlayer.config.ts`.
+Możesz kontrolować, w jaki sposób Intlayer optymalizuje Twoją paczkę poprzez propercję `build` w pliku `intlayer.config.ts`.
 
 ```typescript fileName="intlayer.config.ts"
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
   internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH],
+    locales: [Locales.ENGLISH, Locales.POLISH],
     defaultLocale: Locales.ENGLISH,
   },
   dictionary: {
     importMode: "dynamic",
   },
   build: {
-    /**
-     * Minifikuj słowniki, aby zmniejszyć rozmiar bundle'a.
-     */
-     minify: true;
+    // Zamienia wywołania useIntlayer() na bezpośrednie importy ze słowników podczas budowania.
+    // undefined = auto (włączone w produkcji), true = zawsze, false = nigdy.
+    optimize: undefined,
 
-    /**
-     * Usuwaj nieużywane klucze w słownikach (purge)
-     */
-     purge: true;
+    // Zmienia długie nazwy kluczy dla pól we wkompilowanych słownikach na ich krótkie,
+    // jednoznakowe wersje alfabetyczne (np. title → a). Zmniejsza rozmiar pliku JSON; wymaga optymalizacji.
+    minify: true,
 
-    /**
-     * Wskazuje, czy proces budowania powinien sprawdzać typy TypeScript
-     */
-    checkTypes: false;
+    // Usuwa pola treści, do których kod źródłowy nie uzyskał w ogóle bezpośredniego dostępu.
+    // Wymaga zdefiniowania optimize w pliku konfiguracyjnym.
+    purge: true,
   },
 };
 
 export default config;
 ```
 
-> W większości przypadków zaleca się pozostawienie domyślnej opcji dla `optimize`.
+> Zaleca się na ogół pozostawienie wartości domyślnej (`undefined`) dla opcji `optimize`.
 
-> Zobacz dokumentację konfiguracji, aby uzyskać więcej szczegółów: [Konfiguracja](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/configuration.md)
+> Zobacz referencje dotyczące samej konfiguracji po resztę opcji: [Konfiguracja](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/configuration.md)
 
-### Opcje budowania
+### Opcje Budowania
 
-Dostępne są następujące opcje w obiekcie konfiguracji `build`:
+| Właściwość     | Typ                    | Domyślnie   | Opis                                                                                                                                                                                                      |
+| :------------- | :--------------------- | :---------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **`optimize`** | `boolean \| undefined` | `undefined` | Włącza przepisanie zajawek importowych. `undefined` = aktywne tylko w trybie produkcyjnym. Tryb `false` obali równomiernie opcje z flagi purge i minify.                                                  |
+| **`minify`**   | `boolean`              | `false`     | Ucina klucze pól w zawartych strukturach opartych o plik w formatach JSON ze zwinnym przepisywaniem kodu o te same elementy alfabetyczne. Zyskuje na znaczeniu, kiedy opcja `optimize` gra swoją rolę.    |
+| **`purge`**    | `boolean`              | `false`     | Eliminuje statyczne, niespotykane powiązania we wnętrzu w pełni poddanych analizie kodów źródłowych (eliminując fragmentację plików JSON). Zostaje odrzucone w wypadku, w którym `optimize` jest `false`. |
 
-| Właściwość     | Typ       | Domyślnie   | Opis                                                                                                                                                                                                                 |
-| :------------- | :-------- | :---------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **`optimize`** | `boolean` | `undefined` | Kontroluje, czy optymalizacja budowania jest włączona. Jeśli `true`, Intlayer zastępuje wywołania słowników zoptymalizowanymi wstrzyknięciami. Jeśli `false`, optymalizacja jest wyłączona. Idealnie `true` na prod. |
-| **`minify`**   | `boolean` | `false`     | Czy minifikować słowniki w celu zmniejszenia rozmiaru bundle'a.                                                                                                                                                      |
-| **`purge`**    | `boolean` | `false`     | Czy usuwać nieużywane klucze w słownikach.                                                                                                                                                                           |
+### Minifikacja (Zmienianie Nazw Kluczy)
 
-### Minifikacja
+Opcja `build.minify` **nie zminifikuje** ogólnej zawartości Twojego JavaScript — tym zajmie się odpowiedni silnik bundlera. Jej wiodącym atutem jest to, iż potrafi znacznie skurczyć same przekształcone tablice opatrzone zwięzłym JSON o krótkie litery wygenerowanego alfabetu:
 
-Minifikacja słowników usuwa niepotrzebne białe znaki, komentarze i zmniejsza rozmiar treści JSON. Jest to szczególnie przydatne w przypadku dużych słowników.
+```
+// Przed użyciem Minifikacji
+{ "title": "Witaj", "subtitle": "Świecie" }
+
+// Po zastosowaniu Minifikacji
+{ "a": "Witaj", "b": "Świecie" }
+```
+
+Podobnie powiela to swój udział na polu kodu źródłowego, aby w toku procesów budowlanych komenda pokroju `content.title` zamieniła się nieoczekiwanie w formę typu `content.a` zachowując idealny ekosystem bezbłędnej relacyjności.
 
 ```typescript fileName="intlayer.config.ts"
 import type { IntlayerConfig } from "intlayer";
@@ -318,11 +428,13 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-> Uwaga: Minifikacja jest ignorowana, jeśli `optimize` jest wyłączone lub jeśli włączony jest Edytor Wizualny (ponieważ edytor potrzebuje pełnej treści, aby umożliwić edycję).
+> Krok dla minifikacji musi zostać oddalony w odstawkę, gdy Twoja opcja to `optimize` lub jeżeli udostępniasz systemowo `editor.enabled` i ustawiasz na domyślne `true` (wymuszone jest, aby pola trzymały na ten czas swe niezmącone relacje, dla potrzeb odpowiedniego renderowania Wizualnego Edytora).
 
-### Purging (Czyszczenie)
+> Ten sam manewr odłożenia ma miejsce w słownikach przywoływanych jako typ opcji z użyciem `importMode: 'fetch'`, gdzie zawarte odpowiedzi napływają niezwłocznie dzięki połączonemu formatowi JSON. Gdyby zastosowano sztuczne przeinaczenie ze stron zewnętrznych, serwer stałby się bezużyteczny z perspektywy klienta i połącznie zostałoby połamane.
 
-Purging zapewnia, że tylko klucze faktycznie używane w kodzie zostaną uwzględnione w końcowym bundle'u słowników. Może to znacznie zmniejszyć rozmiar bundle'a, jeśli masz duże słowniki z wieloma kluczami, które nie są używane w każdej części aplikacji.
+### Purging (Usuwanie Nieużytych Przestrzeni)
+
+Moduł oznaczający się słowem `build.purge` dba za to nad śledzeniem rzeczywistego obłożenia zawartych zmiennych i parametrów w paczkach JSON, ucinając puste lub zbyteczne zapytania.
 
 ```typescript fileName="intlayer.config.ts"
 import type { IntlayerConfig } from "intlayer";
@@ -336,34 +448,50 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-> Uwaga: Purging jest ignorowany, jeśli `optimize` jest wyłączone.
+**Przykład:** Jeden pospolity słownik wyposażony chociażby o cztery kluczowe pola niepotrzebnego balastu.
 
-### Tryb importu (Import Mode)
+```
+// Przed aktywacją "purge"
+{ "title": "…", "subtitle": "…", "cta": "…", "footer": "…", "badge": "…" }
 
-W przypadku dużych aplikacji, obejmujących wiele stron i języków, pliki JSON mogą stanowić znaczną część rozmiaru bundle'a. Intlayer pozwala kontrolować sposób ładowania słowników.
+// Po jej zapoczątkowaniu, ostaną się wyłącznie title oraz np. subtitle, połączone więzami skryptu.
+{ "title": "…", "subtitle": "…" }
+```
 
-Tryb importu można zdefiniować domyślnie globalnie w pliku `intlayer.config.ts`.
+> Mechanizm obalenia Purge opiera się głównie o pominięcia w wypadku kiedy brakuje `optimize` opcjonalnej flagi tudzież podczas zadeklarowania trybu pod system Visual Editor (ustawiając `editor.enabled` na rzecz trybu `true`).
+
+> Co rzadsze zjawiska również tyczą się tego obejścia - dla niemożności sprawdzenia wycinka czy pospolitych struktur dla `useIntlayer` - silnik bezbłędnie zablokuje akcję. Przykładowo dla wywołań w niejednoznacznych tablicach powiązanych metod bez destrukturyzacji by zachować słownikową formę naturalną.
+
+### Tryby Importowania Słownika
+
+Dla zaawansowanych ekosystemów skategoryzowanych opcją mnogości języków i pokaźną objętościowo rzeszą podstron Twoje tablice JSON mogą mocno oddziaływać na bazowy wyciąg i jego rozmiar końcowy. Aplikując `importMode` możemy opanować zapytania pobraniowe by temu zapobiegać.
+
+### Globalne Zarządzanie Opcją
+
+Możesz w zupełności operować trybem importowania globalnym parametrem skrytym pod przykrywką w Twoim nowym `intlayer.config.ts`.
 
 ```typescript fileName="intlayer.config.ts"
 import type { IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
-  build: {
-    minify: true,
+  dictionary: {
+    importMode: "dynamic", // Wybranym trybem domyślnym staje się "static"
   },
 };
 
 export default config;
 ```
 
-Jak również dla każdego słownika w plikach `.content.{{ts|tsx|js|jsx|mjs|cjs|json|jsonc|json5}}`.
+### Tryby w Indywidualnych Odłamach Słownikowych
+
+Możesz ustrzec się opcji dla ogólnego użycia poprzez dopisywanie warunkowych ułożeń we wkompilowanych od siebie osobnych elementach `.content.{{ts|tsx|js|jsx|mjs|cjs|json|jsonc|json5|md|mdx|yaml|yml}}`.
 
 ```ts
 import { type Dictionary, t } from "intlayer";
 
 const appContent: Dictionary = {
   key: "app",
-  importMode: "dynamic", // Nadpisz domyślny tryb importu
+  importMode: "dynamic", // Tutaj nadpiszemy dominujący import oparty domyślną strukturą.
   content: {
     // ...
   },
@@ -372,83 +500,102 @@ const appContent: Dictionary = {
 export default appContent;
 ```
 
-| Właściwość       | Typ                                | Domyślnie  | Opis                                                                                                                  |
-| :--------------- | :--------------------------------- | :--------- | :-------------------------------------------------------------------------------------------------------------------- |
-| **`importMode`** | `'static'`, `'dynamic'`, `'fetch'` | `'static'` | **Przestarzałe**: Zamiast tego używaj `dictionary.importMode`. Określa, jak ładowane są słowniki (szczegóły poniżej). |
+| Opcja            | Pula Formatów                      | Podstawowo | Informacja Ogólna                                                                                       |
+| :--------------- | :--------------------------------- | :--------- | :------------------------------------------------------------------------------------------------------ |
+| **`importMode`** | `'static'`, `'dynamic'`, `'fetch'` | `'static'` | **Przestarzałe**: Przełącz swój ekosystem by móc opierać zapytania stricte pod `dictionary.importMode`. |
 
-Ustawienie `importMode` dyktuje, w jaki sposób treść słownika jest wstrzykiwana do komponentu.
-Możesz je zdefiniować globalnie w pliku `intlayer.config.ts` w obiekcie `dictionary` lub nadpisać dla konkretnego słownika w jego pliku `.content.ts`.
+Opcja bazująca z formy poleceń pod szyldem `importMode` dyktuje polecenia operujące mechanikami w Twoim powiązanym komponencie. Może to wpłynąć na tryb globalny i wpisy ze zbiorów poszczególnych dla `dictionary`.
 
-### 1. Tryb statyczny (`default`)
+### 1. Tryb Zastosowań Statycznych (`default`)
 
-W trybie statycznym Intlayer zastępuje `useIntlayer` przez `useDictionary` i wstrzykuje słownik bezpośrednio do bundle'a JavaScript.
+W ramach trybu użytego dla form static Intlayer podmieni i przekształci naturalne skrótowce `useIntlayer` wykończonymi formułami słownymi od `useDictionary`, tym samym ładując bezpośrednio skompilowany ciąg zdarzeniowy.
 
-- **Zalety:** Natychmiastowe renderowanie (synchroniczne), zero dodatkowych żądań sieciowych podczas hydratacji.
-- **Wady:** Bundle zawiera tłumaczenia dla **wszystkich** dostępnych języków dla tego konkretnego komponentu.
-- **Najlepszy dla:** Single Page Applications (SPA).
+- **Korzyści:** Ekspresowe podpięcie od zera. Bezpośrednia relacja nie odpytująca ponownych pobrań w asyście przy trybie nawadniania środowiskowego.
+- **Mankamenty:** Podłączona pod aplikację końcową baza staje się mocno skondensowana. Pobierasz **wszystkie dostępne klucze pakietów**, ignorując aktualnie wymagane przez dany obszar wytyczne.
+- **Kiedy Najlepiej Zastosować:** Systemy powiązane pod wariant tak zwanej Jednej Strony Aplikacji (SpA).
 
-**Przykład przetransformowanego kodu:**
+**Przykład Transformacji Skryptowej:**
 
 ```tsx
-// Twój kod
+// Skrypt Przykładowy Twórcy
 const content = useIntlayer("my-key");
 
-// Zoptymalizowany kod (Statyczny)
+// Tak prezentuje się optymalna struktura oparta pod Tryb (Statyczny)
+// Skrypt poglądowy odzwierciedla w pełni model bazowy i może wybiegać ze swoich skrajności
 const content = useDictionary({
   key: "my-key",
   content: {
     nodeType: "translation",
     translation: {
       en: "My title",
-      fr: "Mon titre",
+      pl: "Mój tytuł",
     },
   },
 });
 ```
 
-### 2. Tryb dynamiczny
+### 2. Tryb Obiektowo Dynamiczny
 
-W trybie dynamicznym Intlayer zastępuje `useIntlayer` przez `useDictionaryAsync`. Wykorzystuje to `import()` (mechanizm typu Suspense) do leniwego ładowania pliku JSON konkretnie dla aktualnego języka.
+Podejmując wyzwania trybu Dynamic, Intlayer operuje na zapleczu poleceń `useDictionaryAsync`, ignorując swego poprzednika by przenieść ciężar zapytania przez typ lazy z mechanizmem przypominającym środowisko `import()` uodparniając specyficznie wymogi dla pliku językowego pod pożądane żądanie lokalne z odpowiednim JSON.
 
-- **Zalety:** **Tree shaking na poziomie języka.** Użytkownik przeglądający wersję angielską pobierze _tylko_ słownik angielski. Słownik francuski nigdy nie zostanie załadowany.
-- **Wady:** Wyzwala żądanie sieciowe (pobranie zasobu) dla każdego komponentu podczas hydratacji.
-- **Najlepszy dla:** Dużych bloków tekstu, artykułów lub aplikacji obsługujących wiele języków, gdzie rozmiar bundle'a jest krytyczny.
+- **Korzyści:** **Skupienie na lokalizacji względem wagi i jej usunięciu (Tree-Shaking).** Typowy entuzjasta spolszczonego wariantu otrzyma spójną i pożądaną wyłącznie tablicę z wgranym językiem. Inne wersje nie zostaną użyte dla odciążeń.
+- **Mankamenty:** Aktywuje ułamek żądań na serwer, prosząc sieć o asystę podczas uwadniania strony.
+- **Kiedy Najlepiej Zastosować:** Potężne objętości tekstu, opasłe publikacje tudzież platformy łączące setki państw z prężnym budżetem optymalizacyjnym pakietów.
 
-**Przykład przetransformowanego kodu:**
+**Przykład Skompresowanego Zastosowania W Wyniku Zdarzeń:**
 
 ```tsx
-// Twój kod
+// Przed rozpoczęciem działania
 const content = useIntlayer("my-key");
 
-// Zoptymalizowany kod (Dynamiczny)
+// Wizualizacja form po obrabianiu ze skryptem docelowym (Pamięciowy tryb dynamiczny)
 const content = useDictionaryAsync({
   en: () =>
     import(".intlayer/dynamic_dictionary/my-key/en.json").then(
       (mod) => mod.default
     ),
-  fr: () =>
-    import(".intlayer/dynamic_dictionary/my-key/fr.json").then(
+  pl: () =>
+    import(".intlayer/dynamic_dictionary/my-key/pl.json").then(
       (mod) => mod.default
     ),
 });
 ```
 
-> Korzystając z `importMode: 'dynamic'`, jeśli masz 100 komponentów używających `useIntlayer` na jednej stronie, przeglądarka podejmie 100 oddzielnych prób pobrania. Aby uniknąć tego "wodospadu" żądań, grupuj treści w mniejszej liczbie plików `.content` (np. jeden słownik na sekcję strony) zamiast jednego na każdy drobny komponent.
+> Mając na karku włączone systemowe rozwiązanie ukierunkowane opcją pod `importMode: 'dynamic'`, pamiętaj, że na jednej powiązanej karcie strony mającej np. ok 100 powiązanych żądań typu odniesieniowego i wzywających formułę `useIntlayer` strona posiłkująca się wybranym standardem wyleje żale w liczbie dokładnie tych samych 100 wywołań. Reaguj zawczasu. Postaraj się sprytnie redukować poszczególne tablice plikami np. ograniczając je w jedną, spójniejszą formułę typu podzbioru dla np. mniejszych wycinków danej strony. Istnieje opcja dodania atutów w postać nadpisywanych wycinków operujących nad tym samym imieniem, które w późniejszym etapie łączą wywołania w postać i strukturę połączonego spoiwa.
 
-### 3. Tryb Fetch
+### 3. Zastosowania W Formule Fetch
 
-Zachowuje się podobnie do trybu dynamicznego, ale najpierw próbuje pobrać słowniki z Intlayer Live Sync API. Jeśli wywołanie API nie powiedzie się lub treść nie jest oznaczona do aktualizacji na żywo, powraca do importu dynamicznego.
+Kolejny z bliźniaczych w budowie form importowania. Jego nieprzeniknione różnice to typowy pościg powiązany oparty od Live Sync API serwowanym wektorami we wrotach Intlayera, i gdyby napotkał się w trudzie awaryjnym (Błąd Odpowiedzi itd.) by przerzucić resztkę pod standard powiązań od swojego zapasowego formatu dynamicznych form podążających.
 
-> Zobacz dokumentację CMS, aby uzyskać więcej szczegółów: [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md)
+**Twór Opracowany W Końcowej Generacji Na Poczet Zapytania Z Sieci:**
 
-> W trybie fetch nie można używać czyszczenia (purge) ani minifikacji.
+```tsx
+// Początek skryptowania przed zoptymalizowaniem
+const content = useIntlayer("my-key");
 
-## Podsumowanie: Statyczny vs Dynamiczny
+// Powołany wynikowy tryb od zoptymalizowania Fetch'em
+const content = useDictionaryAsync({
+  en: () =>
+    fetch("https://intlayer.my-domain.com/dictionary/my-key/en").then((res) =>
+      res.json()
+    ),
+  pl: () =>
+    fetch("https://intlayer.my-domain.com/dictionary/my-key/pl").then((res) =>
+      res.json()
+    ),
+});
+```
 
-| Funkcja                  | Tryb statyczny                                    | Tryb dynamiczny                             |
-| :----------------------- | :------------------------------------------------ | :------------------------------------------ |
-| **Rozmiar bundle'a JS**  | Większy (zawiera wszystkie języki dla komponentu) | Najmniejszy (tylko kod, brak treści)        |
-| **Ładowanie początkowe** | Natychmiastowe (treść jest w bundle'u)            | Lekkie opóźnienie (pobiera JSON)            |
-| **Żądania sieciowe**     | 0 dodatkowych żądań                               | 1 żądanie na każdy słownik                  |
-| **Tree Shaking**         | Poziom komponentu                                 | Poziom komponentu + Poziom języka           |
-| **Najlepszy przypadek**  | Komponenty UI, małe aplikacje                     | Strony z dużą ilością tekstu, wiele języków |
+> Zaglądnij do źródeł, jeżeli brakuje Tobie stosownej wiedzy operującej opcjami dla CMS: [Rozwiązania Typu CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md)
+
+> W środowisku opartym modelem o formy z API o parametrze fetch całkowicie ominięte obłożone procesy z grupy eliminowania (purge) i ukrywania z modyfikacjami optycznymi (minify) kluczy tablicy ulegają trwałemu przeistoczeniu, z powodem opartym m.in. użyciu zapytania przez wektor o relacje klucza zachowującego swoje parametry oryginału.
+
+## Tabelaryczne Oświadczenie - Statyczny oraz Formuła Dynamiki
+
+| Rodzaj Użytkowej Opcji     | Tryb Zapytania (Statyczny)                      | Typ Zapytania Sieciowego (Dynamiczny)                       |
+| :------------------------- | :---------------------------------------------- | :---------------------------------------------------------- |
+| **Rozmiary Ekosystemu**    | Rozdmuchane dla opcji wariantów lokalnych.      | Skondensowany format pakietowy na tip-top.                  |
+| **Wstępne Skalowanie**     | Momentalny czas reakcyjny z zasobów bundla.     | Posiadający zwłoki ułamka od JSON-ów.                       |
+| **Asysty Pobrań z Sieci**  | Wolny od błagania o pobrania w locie z sieci.   | Standard to zawsze stosunek 1 klucza.                       |
+| **Warianty Oddzielania**   | Stricte ukierunkowany formą Komponentowych rel. | Łączący wektory z wariantów lokalizacji.                    |
+| **Zalety Po Zastosowaniu** | Drobne platformy z lekkim wymogiem na front.    | Giganty publikujące wpisy z tytanicznym formatem językowym. |

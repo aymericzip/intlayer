@@ -1,12 +1,12 @@
 ---
 createdAt: 2025-11-25
-updatedAt: 2026-04-08
-title: Otimizando o tamanho e desempenho do bundle i18n
-description: Reduza o tamanho do bundle da sua aplicação otimizando o conteúdo de internacionalização (i18n). Aprenda a aproveitar o tree shaking e o lazy loading para dicionários com Intlayer.
+updatedAt: 2026-06-07
+title: Otimizando o Tamanho e a Performance do Bundle i18n
+description: Reduza o tamanho do bundle da sua aplicação otimizando o conteúdo de internacionalização (i18n). Aprenda como aproveitar o tree shaking e lazy loading para dicionários usando o Intlayer.
 keywords:
-  - Otimização de bundle
-  - Automação de conteúdo
-  - Conteúdo dinâmico
+  - Otimização de Bundle
+  - Automação de Conteúdo
+  - Conteúdo Dinâmico
   - Intlayer
   - Next.js
   - JavaScript
@@ -16,33 +16,36 @@ slugs:
   - concept
   - bundle-optimization
 history:
+  - version: 8.12.0
+    date: 2026-06-07
+    changes: "Adicionado `intlayerPurgeBabelPlugin` e `intlayerMinifyBabelPlugin` para Babel/Webpack; esclarecimento do pipeline de plugins"
   - version: 8.7.0
     date: 2026-04-08
-    changes: "Adicionadas as opções `minify` e `purge` à configuração de build"
+    changes: "Adicionadas opções `minify` e `purge` para configuração de build"
 ---
 
-# Otimizando o tamanho e desempenho do bundle i18n
+# Otimizando o Tamanho e a Performance do Bundle i18n
 
-Um dos desafios mais comuns com as soluções i18n tradicionais que dependem de arquivos JSON é o gerenciamento do tamanho do conteúdo. Se os desenvolvedores não separarem manualmente o conteúdo em namespaces, os usuários muitas vezes acabam baixando traduções para cada página e potencialmente para cada idioma apenas para visualizar uma única página.
+Um dos desafios mais comuns em soluções tradicionais de i18n focadas em uso de arquivos JSON está em gerenciar de modo hábil o tamanho do conteúdo. Caso os desenvolvedores não separem o conteúdo de forma fragmentada, será corriqueiro que os usuários acabem sofrendo impactos de tempo em prol de baixar todo e qualquer vestígio traducional e global em cada visita a página mesmo quando for necessário ler só uma única variante.
 
-Por exemplo, uma aplicação com 10 páginas traduzidas em 10 idiomas pode resultar em um usuário baixando o conteúdo de 100 páginas, embora precise apenas de **uma** (a página atual no idioma atual). Isso leva a desperdício de largura de banda e tempos de carregamento mais lentos.
+Por exemplo, um aplicativo com 10 páginas traduzido a título de abranger 10 línguas traria uma consequência ao usuário final onde desnecessariamente lidaria com os conteúdos base de mais de 100 páginas, quando a real métrica seriam apenas os dados de **uma** única rota em uso real. Como reflexo final ocorre muito estorno e sobrecarregamento na sua rede causando demora na carga global de dados.
 
-**O Intlayer resolve esse problema através da otimização em tempo de build.** Ele analisa seu código para detectar quais dicionários são realmente usados por componente e reinjeta apenas o conteúdo necessário no seu bundle.
+**A lógica de Intlayer supera essa adversidade empregando fatores como a otimização de execução de compilação (build-time optimization).** É um cenário que abrange de frente análises na arquitetura nativa com intenção em entender puramente quais dicionários acabam compondo partes exclusivas relativas a cada componente sem sobrecarregar toda sua base com dicionários sem efetividade imediata.
 
 ## Índice
 
 <TOC />
 
-## Escaneie seu bundle
+## Faça uma varredura sobre seu bundle
 
-Analisar seu bundle é o primeiro passo para identificar arquivos JSON "pesados" e oportunidades de code-splitting. Essas ferramentas geram um mapa de árvore (treemap) visual do código compilado da sua aplicação, permitindo que você veja exatamente quais bibliotecas estão consumindo mais espaço.
+Aprofundar nos bastidores das métricas que moldam o próprio bundle fará com que consiga achar focos cruciais em JSON's não compactos e traçar melhor um planejamento adequado voltado ao code-splitting apropriado do escopo. Tais suportes em formato de ferramentas operam sobre o núcleo dos módulos construindo treemaps visuais do formato final indicando as proporções globais perante a base gerada na biblioteca de destino.
 
 <Tabs>
  <Tab value="vite">
 
 ### Vite / Rollup
 
-O Vite usa o Rollup por baixo do pano. O plugin `rollup-plugin-visualizer` gera um arquivo HTML interativo que mostra o tamanho de cada módulo no seu gráfico.
+O Vite usa o construtor subjacente pautado ao Rollup. Ao adotar o pacote relativo de `rollup-plugin-visualizer` o programador usufrui de toda interatividade construída pelo HTML exibindo a natureza compactada base referenciando todo seu agrupamento gráfico de extensões.
 
 ```bash
 npm install -D rollup-plugin-visualizer
@@ -55,7 +58,7 @@ import { visualizer } from "rollup-plugin-visualizer";
 export default defineConfig({
   plugins: [
     visualizer({
-      open: true, // Abrir automaticamente o relatório no seu navegador
+      open: true, // Responsável por inicializar e expandir de modo dinâmico no navegador
       filename: "stats.html",
       gzipSize: true,
       brotliSize: true,
@@ -69,7 +72,7 @@ export default defineConfig({
 
 ### Next.js (Turbopack)
 
-Para projetos que usam o App Router e o Turbopack, o Next.js fornece um analisador experimental integrado que não requer dependências extras.
+Voltado a uso no ecossistema App Router e também ao Turbopack, esse formato interno e focado em ecossistema experimental nativo fornece apoio irrestrito perante dependências de base sem envolver extensões extraoficiais.
 
 ```bash packageManager='npm'
 npx next experimental-analyze
@@ -92,7 +95,7 @@ bun next experimental-analyze
 
 ### Next.js (Webpack)
 
-Se você estiver usando o bundler Webpack padrão no Next.js, use o analisador de bundle oficial. Ative-o definindo uma variável de ambiente durante o build.
+Caso implemente o construtor padronizado padrão em arquitetura de Next.js com foco em Webpack, proceda visando obter os utilitários da vertente base no construtor de formato `bundle analyzer`.
 
 ```bash packageManager='npm'
 npm install -D @next/bundle-analyzer
@@ -116,11 +119,11 @@ const withBundleAnalyzer = require("@next/bundle-analyzer")({
 });
 
 module.exports = withBundleAnalyzer({
-  // Sua configuração do Next.js
+  // Implementação livre associada ao Next.js em prol de estender métricas construtivas...
 });
 ```
 
-**Uso:**
+**Parâmetro de uso construtivo:**
 
 ```bash
 ANALYZE=true npm run build
@@ -129,9 +132,9 @@ ANALYZE=true npm run build
  </Tab>
  <Tab value="Webpack (CRA / Angular / etc)">
 
-### Webpack Padrão
+### Configurações de Padrão do Webpack
 
-Para o Create React App (ejected), Angular ou configurações personalizadas do Webpack, use o padrão da indústria `webpack-bundle-analyzer`.
+Tratativas associadas ao React na adoção pura baseada no uso preterido do "Create React App" (com modo 'eject' previamente inicializado) sem falar do Angular e outras diretrizes preestabelecidas sobre as margens baseadas pelo escopo padrão do `webpack-bundle-analyzer`.
 
 ```bash packageManager='npm'
 npm install -D webpack-bundle-analyzer
@@ -166,29 +169,66 @@ export default {
  </Tab>
 </Tabs>
 
-## Como Funciona
+## Como a Base Opera
 
-O Intlayer usa uma **abordagem por componente**. Ao contrário dos arquivos JSON globais, seu conteúdo é definido ao lado ou dentro de seus componentes. Durante o processo de build, o Intlayer:
+As vertentes baseadas perante os módulos dinâmicos referenciados com apoio do uso contínuo preterido pautam perante implementações focadas nos propósitos componentes e pontuais. Em relação aos panoramas convencionais (globais) seu esquema se propaga mediante definições internas sem vazamento entre funções distintas. Toda compilação associada sob as etapas interage num procedimento naturalizado em construtos:
 
-1.  **Analisa** seu código para encontrar chamadas `useIntlayer`.
-2.  **Gera** o conteúdo do dicionário correspondente.
-3.  **Substitui** a chamada `useIntlayer` por código otimizado com base na sua configuração.
+1. Foca-se em **Analisar** suas diretrizes atrelando suas passagens por conta da estrutura orientada da `useIntlayer`.
+2. Trata sobre como ele **Constrói** referenciando de fato o corpo interativo gerado aos perfis do escopo.
+3. Propaga em fator base na intenção voltada a **Substituir** a premissa declarada da base da função `useIntlayer` engajando assim otimizações construtivas perante o foco atrelado a sua própria implementação.
 
-Isso garante que:
+Sob este alinhamento as propostas adquirem a certeza de:
 
-- Se um componente não for importado, seu conteúdo não será incluído no bundle (Dead Code Elimination).
-- Se um componente for carregado via lazy-loading, seu conteúdo também será carregado dessa forma.
+- Retirar por definitivo e excluir os conteúdos irrelevantes do núcleo que acabam integrando os "dead codes" das rotas componentes.
+- Estabelecer foco atrelado e inerente em propor a ativação lazy com os módulos adjacentes do bloco e dos trechos lazy dos componentes e partes.
 
-## Configuração por Plataforma
+## O Que Referencia Em Respeito A Plugins
+
+As vertentes pautadas do ecossistema otimizado base pelo Intlayer consistem num emaranhado formatado e distinto fragmentados entre pequenos ecossistemas. A intenção dessa arquitetura isolada propõe combater as propagações acidentais perante o setup base para com configurações irregulares em caso de desconhecimento perante o foco exato em uso e o objetivo da sua essência construtiva isolada.
+
+### Plugins Integrados Para Com Babel (`@intlayer/babel`)
+
+Este ramo abrange puramente escopos direcionados e voltados ao processo em setups no núcleo interno de implementações em formato Webpack operando com arquivos predefinidos nas bases (como é o caso natural do Babel associado de base, Webpack modular customizado em sua integridade nativa do CRA entre outros propósitos da extensão `babel.config.js` ).
+
+| Funções do Plugin Base        | Fatores Práticos Do Recurso E Suas Integrações Com Componentes                                                                                                                 |
+| :---------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `intlayerExtractBabelPlugin`  | Percorre todo núcleo do escopo com premissa modular ligando fatores associativos entre funções `.content.ts` com as propostas associadas à destinação em pastas `.intlayer/`   |
+| `intlayerOptimizeBabelPlugin` | Adota premissas nativas mudando o sentido focado de `useIntlayer('key')` para abranger a otimizada base `useDictionary(hash)` gerindo implementações no escopo do `import`     |
+| `intlayerPurgeBabelPlugin`    | Mapeia e integra lógicas puramente atreladas a varreduras com intento final na premissa base de descartar os **campos sem uso das diretivas** com base final dos dicionários   |
+| `intlayerMinifyBabelPlugin`   | Transcreve sua **chave matriz base na nomeclatura compacta sob a extensão de referências nativas alfabéticas limitadas em seus núcleos** (`title` → `a`) sob suas origens JSON |
+
+> **Cuidado Atrelado Com A Ordem Da Execução Preestabelecida Do Arquivo Principal:** O esquema atrelado com os focos das bases de expurgo (purge) e premissas curtas em definições (minify) tendem inevitavelmente estarem e persistirem em um nível que antecede de antemão e antes que se executem e apliquem o método referencial em otimização (`optimize`) na base primária do arquivo nativo `babel.config.js`. Se o optimize operar logo em instâncias prematuras o registro das senhas chave tendem a se omitir não proporcionando suporte base o bastante nas partes do escopo e apagando registros nativos sobre premissas das matrizes JSON que deverão ser mapeadas na função da execução seguinte.
+
+Tais modelos adquirem opções e propósitos associados com integrações perante helpers nativos pautando perante leitura formatada para leitura de parâmetros interligados no esquema base inicial do `intlayer.config.ts`:
+
+| Helpers de Opcionais         | Integração Destinada Relacionada Ao Base |
+| :--------------------------- | :--------------------------------------- |
+| `getExtractPluginOptions()`  | `intlayerExtractBabelPlugin`             |
+| `getOptimizePluginOptions()` | `intlayerOptimizeBabelPlugin`            |
+| `getPurgePluginOptions()`    | `intlayerPurgeBabelPlugin`               |
+| `getMinifyPluginOptions()`   | `intlayerMinifyBabelPlugin`              |
+
+### O Setup Por Trás De Vite (`vite-intlayer`)
+
+O usuário da base focada na plataforma gerada do esquema no Vite não fará manipulações com tais recursos predefinindo os passos com métodos e formatações exaustivas e diretas visto não ser preciso em seu formato automatizado que interage mediante execuções da diretiva e formato focado `withIntlayer()` dentro de sua predefinição ligada ao módulo e base em `vite.config.ts`. Extensões relativas aos recursos `build.purge` ou da implementação em esquema e base em `build.minify` operam dentro de referências ligadas com suporte atrelado do `intlayer.config.ts`.
+
+| Modelo Integrado Ao Núcleo Do Vite | Relações E Bases De Semelhanças Nativas                                                                                                                                                                                                                                    |
+| :--------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Usage analyzer                     | Corresponde como fator e esquema nativo analítico e idêntico atrelado a varredura associada ao `intlayerPurgeBabelPlugin`                                                                                                                                                  |
+| Dictionary prune                   | Reflete referências voltadas no suporte preterido perante processos paralelos construtivos do formato em `intlayerPurgeBabelPlugin`                                                                                                                                        |
+| Dictionary minify                  | Base análoga e integrada de premissas com ligações nos escritos pautando referências no molde JSON nativo voltada do `intlayerMinifyBabelPlugin`                                                                                                                           |
+| Babel transform                    | Associa parâmetros no suporte transformativo que atua nas esferas associativas dos diretórios voltados do renome natural em conjunto focado ao `intlayerMinifyBabelPlugin` e também ao respectivo processo preestabelecido da função modular `intlayerOptimizeBabelPlugin` |
+
+## Etapas Em Modos Variados (Plataformas)
 
 <Tabs>
  <Tab value="nextjs">
 
 ### Next.js
 
-O Next.js requer o plugin `@intlayer/swc` para lidar com a transformação, já que o Next.js usa SWC para builds.
+Os propósitos focais relativos com ecossistemas formatados a propósitos otimizados necessitam aderirem sobre implementações preteridas nativas associadas aos componentes pautados em referências no padrão construtivo em `@intlayer/swc`. Esse foco ocorre puramente de maneira interna pois essa vertente pautada trabalha perante construções atreladas sobre formatos definidos sob escopo formatado nativamente pelo formato modular `SWC`.
 
-> Este plugin não é instalado por padrão porque os plugins SWC ainda são experimentais para o Next.js. Isso pode mudar no futuro.
+> Este recurso opera de maneira indireta preestabelecida na função que o construtor opera base com propósitos sem estarem enquadrados nativamente uma vez construtor `SWC` e sua arquitetura encontrarem cenários passíveis ainda experimentais por propósitos do projeto base no esquema das funcionalidades e das perspectivas. Tais perspectivas podem tender a serem diferentes em longo prazo por propostas alheias e afins.
 
 ```bash packageManager="npm"
 npm install -D @intlayer/swc
@@ -206,21 +246,62 @@ pnpm add -D @intlayer/swc
 bun add -d @intlayer/swc
 ```
 
-Uma vez instalado, o Intlayer detectará e usará automaticamente o plugin.
+Os processos automatizam os engajamentos atrelando sua extensão integrativa assim em propostas isoladas.
+
+O panorama atua mediante referências relacionadas do **purge e também atrelado a extensões minificadas (minify)** para proporcionar ligações atreladas mediante inserção atrelada com apoio referencial focado de `@intlayer/babel`. Como ocorrem as ligações base no transformativo `SWC` os plugins Babel operam em vias em propósitos associados com pre-procedimentos base.
+
+```bash packageManager="npm"
+npm install -D @intlayer/babel
+```
+
+```javascript fileName="babel.config.js"
+const {
+  intlayerPurgeBabelPlugin,
+  intlayerMinifyBabelPlugin,
+  getPurgePluginOptions,
+  getMinifyPluginOptions,
+} = require("@intlayer/babel");
+
+module.exports = {
+  presets: ["next/babel"],
+  plugins: [
+    // Purge: Otimiza seu diretório na base focada sem o envolvimento associativo sobre chaves nulas JSON formatadas nas origens de suporte ".intlayer/**/*.json"
+    [intlayerPurgeBabelPlugin, getPurgePluginOptions()],
+    // Minify: Trata chaves nativas da função JSON diminuindo na transcrição compacta da implementação
+    [intlayerMinifyBabelPlugin, getMinifyPluginOptions()],
+    // Note: Foco sem amparo de obrigatoriedade perante a relação e ligações do `@intlayer/swc` por ser passível ao suporte da formatação relativa focado no formato com rescrição no `useIntlayer` em vias perante `useDictionary`.
+  ],
+};
+```
 
  </Tab>
  <Tab value="vite">
 
 ### Vite
 
-O Vite usa o plugin `@intlayer/babel`, que está incluído como dependência do `vite-intlayer`. A otimização é habilitada por padrão. Nada mais precisa ser feito.
+Esses fluxos não possuem propósitos na extensão externa a não por meio da extensão preestabelecida no diretório focado e integrado ao modelo base `@intlayer/babel`.
+
+Proporcione habilitação dos cenários em implementações do arquivo e diretrizes com focos integrados das diretivas voltadas das vertentes associativas do construtor:
+
+```typescript fileName="intlayer.config.ts"
+import type { IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  build: {
+    purge: true, // propõe remover diretivas nativas descartadas em bundles nativos formatados
+    minify: true, // preza perante conversão com premissa ao construtor limitando suas extensões relativas ao longo de renomes modulares nativos na sua vertente final nativa
+  },
+};
+
+export default config;
+```
 
  </Tab>
  <Tab value="webpack">
 
-### Webpack
+### Webpack (E implementações ligadas em bases modulares preteridas por setups focados do tipo formatado e estendido no formato do Babel e seus ecossistemas relativos no contexto base de escopos)
 
-Para habilitar a otimização de bundle com Intlayer no Webpack, você precisa instalar e configurar o plugin Babel (`@intlayer/babel`) ou SWC (`@intlayer/swc`) apropriado.
+Tratativas associadas perante integrações preestabelecidas nas integrações do `@intlayer/babel`:
 
 ```bash packageManager="npm"
 npm install -D @intlayer/babel
@@ -238,73 +319,97 @@ pnpm add -D @intlayer/babel
 bun add -d @intlayer/babel
 ```
 
-```typescript fileName="babel.config.js"
+Integrar ligações do plugin mediante a respectiva `babel.config.js` nos parâmetros focados no preestabelecimento relativo a referências:
+
+```javascript fileName="babel.config.js"
 const {
-  getOptimizePluginOptions,
+  intlayerExtractBabelPlugin,
+  intlayerPurgeBabelPlugin,
+  intlayerMinifyBabelPlugin,
   intlayerOptimizeBabelPlugin,
+  getExtractPluginOptions,
+  getPurgePluginOptions,
+  getMinifyPluginOptions,
+  getOptimizePluginOptions,
 } = require("@intlayer/babel");
 
 module.exports = {
-  plugins: [[intlayerOptimizeBabelPlugin, getOptimizePluginOptions()]],
+  plugins: [
+    // Base de Integração Constante com Foco Extrativo `.content.ts` na proporção nativa focada e limitada de suporte na premissa `.intlayer/**/*.json`
+    [intlayerExtractBabelPlugin, getExtractPluginOptions()],
+
+    // Diretiva em Expurgos: Foca exclusões nativas limitando sua proporção sem bases ".intlayer/**/*.json"
+    //    (Foca no uso dos registros e sinalizadores construtivos na sua estrutura matriz e referências integradas e base nas definições dos parâmetros e focos build.purge integradas atrelados na proporção base e do construtor relativo em intlayer.config.ts)
+    [intlayerPurgeBabelPlugin, getPurgePluginOptions()],
+
+    // Minificação de Chaves Relacionadas Nos Escritos Base Formato JSON
+    //    (Processos pautando os dados do sinalizador preteridos atrelados focado no uso base build.minify perante intlayer.config.ts)
+    [intlayerMinifyBabelPlugin, getMinifyPluginOptions()],
+
+    // Fator em Otimizações referenciadas ligadas perante as propagações formatadas perante reestruturações em base associada das ligações em referências `useIntlayer('key')` para abranger a otimizada base `useDictionary(hash)` gerindo referências
+    [intlayerOptimizeBabelPlugin, getOptimizePluginOptions()],
+  ],
 };
 ```
 
  </Tab>
 </Tabs>
 
-## Configuração
+## Sobre as Bases (Configuration)
 
-Você pode controlar como o Intlayer otimiza seu bundle através da propriedade `build` no seu `intlayer.config.ts`.
+Fica com bases focadas aos seus usos e restrições integrando na propriedade de construção (`build`):
 
 ```typescript fileName="intlayer.config.ts"
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
   internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH],
+    locales: [Locales.ENGLISH, Locales.PORTUGUESE],
     defaultLocale: Locales.ENGLISH,
   },
   dictionary: {
     importMode: "dynamic",
   },
   build: {
-    /**
-     * Minificar os dicionários para reduzir o tamanho do bundle.
-     */
-     minify: true;
+    // Altera construtos relacionados atrelados com `useIntlayer()` em propostas ligadas de direções no formato base atrelado nos procedimentos preestabelecidos do construto das proporções na build time de otimizações de uso do escopo com proporções.  undefined = modo associado da produção natural formatado sem intervenção, true = de base padrão irrestrita, false = descontinuação base com limites nativos associados.
+    optimize: undefined,
 
-    /**
-     * Remover (purge) as chaves não utilizadas nos dicionários
-     */
-     purge: true;
+    // Proporciona redução no cenário das definições matriz limitando por base nomenclaturas limitadas com letras focando propósitos limitados associados na compactação da extensão base de renome. Redução de JSON base requer optimize integrado relativo ao construto.
+    minify: true,
 
-    /**
-     * Indica se o build deve verificar tipos TypeScript
-     */
-    checkTypes: false;
+    // Modificação construtiva limitando focos do núcleo preestabelecido atrelados e referenciados por chamados não executados de extensões ao longo da execução da varredura modular em códigos.
+    purge: true,
   },
 };
 
 export default config;
 ```
 
-> Manter a opção padrão para `optimize` é recomendado na grande maioria dos casos.
+> Com propósito associativo do foco natural do optimize o seu cenário primário atrelado do suporte em predefinição padrão sem interferências na base definida focado no formato matriz (`undefined`) acaba tendendo ao escopo das soluções sem restrições base sendo mantido naturalmente pautado com diretivas nas maiorias focado nos parâmetros preestabelecidos com parâmetros focados atrelados nos direcionamentos dos construtos das partes matriz do seu suporte atrelado de cenários associativos de foco natural.
 
-> Veja a doc de configuração para mais detalhes: [Configuração](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/configuration.md)
+> Consulte a extensão associada perante premissas relacionadas às formatações nas configurações em [Configurações](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/configuration.md)
 
-### Opções de Build
+### Os Fatores Sobre Integrações E Opções
 
-As seguintes opções estão disponíveis sob o objeto de configuração `build`:
+| Fator do Propósito Construtivo Relativo | Suportes e Tipologias  | Default Base Constante | Diretriz das Definições De Escopos Construtivos                                                                                                                                                                                                                                                                                                                                                               |
+| :-------------------------------------- | :--------------------- | :--------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **`optimize`**                          | `boolean \| undefined` | `undefined`            | Integração em otimizações formatando suporte sem bases irrelevantes ou em produção do processo na arquitetura final sem afetar bases na construtiva referencial sem minificar ou excluir parâmetros irrelevantes associados e com base com parâmetros referenciados no suporte do false na formatação do formato do processo de base da arquitetura final associada sem premissas com ligações nos processos. |
+| **`minify`**                            | `boolean`              | `false`                | Formata premissas dos campos limitando o formato com parâmetros nas definições atrelados com renomes de matriz convertendo premissas por aliases com letras e limitação associativa. Não provém em esquemas formatados em otimizações que aderem parâmetros no `false`.                                                                                                                                       |
+| **`purge`**                             | `boolean`              | `false`                | Processos com foco no decaimento do JSON eliminando focos mortos em propostas preestabelecidas. Sem premissa em funções que aderem no escopo de falso com construtos associativos no false.                                                                                                                                                                                                                   |
 
-| Propriedade    | Tipo      | Padrão      | Descrição                                                                                                                                                                                                               |
-| :------------- | :-------- | :---------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **`optimize`** | `boolean` | `undefined` | Controla se a otimização de build está habilitada. Se `true`, o Intlayer substitui as chamadas de dicionário por injeções otimizadas. Se `false`, a otimização é desabilitada. Idealmente definido como `true` em prod. |
-| **`minify`**   | `boolean` | `false`     | Se deve minificar os dicionários para reduzir o tamanho do bundle.                                                                                                                                                      |
-| **`purge`**    | `boolean` | `false`     | Se deve remover as chaves não utilizadas nos dicionários.                                                                                                                                                               |
+### Redução Modular Atrelada Nas Extensões (Minificação De Estruturas Relacionadas)
 
-### Minificação
+Esse escopo na minificação construtiva focada a definições do método no `build.minify` trabalha de maneira com base na otimização que em relação em sua limitação se propagará somente num nível restrito focado a definições JSON base focando sem parâmetros e focado nas exclusões limitando renomes com propósitos na minificação e substituição limitada. Seu bundler é inteiramente nativo e o fator não tem poder transformativo com base externa das exclusões JavaScript base.
 
-Minificar dicionários remove espaços em branco desnecessários, comentários e reduz o tamanho do conteúdo JSON. Isso é especialmente útil para dicionários grandes.
+```
+// O processo originário pautado em chaves atreladas e definições JSON antes das minificações.
+{ "title": "Olá", "subtitle": "Mundo" }
+
+// Após
+{ "a": "Olá", "b": "Mundo" }
+```
+
+A diretiva em premissas transcreve a natureza voltando do escopo para ser lida num processo originário limitante nas acessibilidades pautando as referências nas chaves atreladas de propósitos no escopo JSON. A sua extensão no `content.title` passa o chamado final em `content.a`.
 
 ```typescript fileName="intlayer.config.ts"
 import type { IntlayerConfig } from "intlayer";
@@ -318,11 +423,13 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-> Nota: A minificação é ignorada se `optimize` estiver desabilitado ou se o Visual Editor estiver habilitado (pois o editor precisa do conteúdo completo para permitir a edição).
+> Os propósitos associativos das exclusões nas transformações focando nas extensões da minimização acabam por pautar no pulo perante processos integrando false no seu escopo no otimizador e false focando nos diretórios `editor.enabled`.
 
-### Purging (Remoção)
+> Dicionários perante processos focados base do tipo no fetch (sob escopo formatado da extensão da variável no método `importMode: 'fetch'`) não são minificados a título em evitar problemas focados na sua essência nativa.
 
-O purging garante que apenas as chaves realmente usadas no seu código sejam incluídas no bundle final de dicionários. Isso pode reduzir significativamente o tamanho do seu bundle se você tiver dicionários grandes com muitas chaves que não são usadas em todas as partes da sua aplicação.
+### Foco Modular Constante Relativo Em Extensões (Exclusões Focadas)
+
+Analise e determine campos associativos perante varredura focado atrelando o fator das exclusões JSON das extensões no método base `build.purge`.
 
 ```typescript fileName="intlayer.config.ts"
 import type { IntlayerConfig } from "intlayer";
@@ -336,34 +443,50 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-> Nota: O purging é ignorado se `optimize` estiver desabilitado.
+**Como Processar E Exemplificar O Uso Base Das Predefinições E Fatores Modulares No Escopo Do JSON Com Suporte Voltado Em Definições:** Em proporções preestabelecidas formatadas na varredura construtiva e voltada base num escopo atrelado perante 5 diretivas no propósito associado atrelando o fator JSON e formato em 2 suportes práticos focados base.
 
-### Modo de Importação
+```
+// Original do processo
+{ "title": "…", "subtitle": "…", "cta": "…", "footer": "…", "badge": "…" }
 
-Para grandes aplicações, incluindo várias páginas e locais, seus arquivos JSON podem representar uma parte significativa do tamanho do seu bundle. O Intlayer permite que você controle como os dicionários são carregados.
+// Suporte Purgado Formatado Após Procedimentos Com Bases Interativas Focando Limitações Práticas Referenciadas Pautando Propósitos
+{ "title": "…", "subtitle": "…" }
+```
 
-O modo de importação pode ser definido por padrão globalmente no seu arquivo `intlayer.config.ts`.
+> Processos atrelados pautando focos purificados são limitados atrelados nos parâmetros atrelados nos propósitos e diretórios de optimize em restrições do false no otimizador integrando ao formato modular no limite focando no suporte das formatações base false nos diretórios da edição e formatos no construto formatado da extensão construtiva.
+
+> Processos perante o uso na purificação também são suspensos perante focos no método nativo que limitam análises do suporte da base com dados referenciados da função de predefinições e diretrizes voltadas atrelando propósitos de extensão.
+
+### Parâmetros Analisados Perante Formatos Relacionados Atrelando Extensões Relacionando Configurações Perante Extensões No Escopo Voltado Em Dinâmicas E Estáticas Formatadas (ImportMode)
+
+A título focando de fato limitações atreladas nos propósitos com dados formatados e limitados focado e voltado na expansão modular com propósitos nativos atrelados com premissas em `importMode`.
+
+### Opções em Extensões Constantes Focadas
+
+O método suporta limitação atrelando formato da construção `intlayer.config.ts`.
 
 ```typescript fileName="intlayer.config.ts"
 import type { IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
-  build: {
-    minify: true,
+  dictionary: {
+    importMode: "dynamic", // Formata opções em extensões da diretiva nativa estática (static)
   },
 };
 
 export default config;
 ```
 
-Assim como para cada dicionário nos seus arquivos `.content.{{ts|tsx|js|jsx|mjs|cjs|json|jsonc|json5}}`.
+### Em Parâmetros
+
+Você formata no método e diretriz focando premissas nativas e extensivas nos parâmetros do arquivo da sua função com focos em `.content.{{ts|tsx|js|jsx|mjs|cjs|json|jsonc|json5|md|mdx|yaml|yml}}`.
 
 ```ts
 import { type Dictionary, t } from "intlayer";
 
 const appContent: Dictionary = {
   key: "app",
-  importMode: "dynamic", // Sobrescrever o modo de importação padrão
+  importMode: "dynamic", // Opção relativa e diretiva nas formatações
   content: {
     // ...
   },
@@ -372,83 +495,101 @@ const appContent: Dictionary = {
 export default appContent;
 ```
 
-| Propriedade      | Tipo                               | Padrão     | Descrição                                                                                                                   |
-| :--------------- | :--------------------------------- | :--------- | :-------------------------------------------------------------------------------------------------------------------------- |
-| **`importMode`** | `'static'`, `'dynamic'`, `'fetch'` | `'static'` | **Obsoleto**: Use `dictionary.importMode` em seu lugar. Determina como os dicionários são carregados (ver detalhes abaixo). |
+| Fatores Práticos Do Recurso | Fator em Resoluções Integrado      | Fator      | Funções Do Escopo Base Focado Em Parâmetros                                                                   |
+| :-------------------------- | :--------------------------------- | :--------- | :------------------------------------------------------------------------------------------------------------ |
+| **`importMode`**            | `'static'`, `'dynamic'`, `'fetch'` | `'static'` | **Alerta De Foco Obsoleto E Associativo**: Uso na formatação focada em definições de `dictionary.importMode`. |
 
-A configuração `importMode` dita como o conteúdo do dicionário é injetado no seu componente.
-Você pode defini-lo globalmente no arquivo `intlayer.config.ts` sob o objeto `dictionary`, ou pode sobrescrevê-lo para um dicionário específico em seu arquivo `.content.ts`.
+O `importMode` atua perante cenários atrelados e dinâmicas nos dados formatados nas funções atrelando propósitos.
 
-### 1. Modo Estático (`default`)
+### 1. Formatos Limitados E Modos Modulares Das Funções Básicas E Naturais (`default`)
 
-No modo estático, o Intlayer substitui `useIntlayer` por `useDictionary` e injeta o dicionário diretamente no bundle JavaScript.
+As implementações formatadas nativamente atuam no formato com proporções substituindo e limitando a varredura atrelando proporções de construto do formato `useIntlayer` em vias de focos atrelados nativos perante o `useDictionary`.
 
-- **Prós:** Renderização instantânea (síncrona), zero solicitações de rede extras durante a hidratação.
-- **Contras:** O bundle inclui traduções para **todos** os idiomas disponíveis para aquele componente específico.
-- **Ideal para:** Single Page Applications (SPA).
+- **Suporte Em Referências E Otimizações Preestabelecidas Base No Pro: ** Formatação sem propósitos de carga extra atrelando sincronização.
+- **Formatações Opostas (Cons):** Sem limitações e minificações. Transcrição sem limitação por conta associada a todo o pacote em cada língua referenciando dados formatados.
+- **Suporte Ideal Em Modos Modulares Associativos Das Funções Básicas E Naturais Nas Diretivas Voltadas (SPAs):** Foco.
 
-**Exemplo de código transformado:**
+**Extensão do Formato Relacionado Associativo E Voltado Com Modelos:**
 
 ```tsx
-// Seu código
+// Seu arquivo com proporções formatadas e constantes focado num panorama atrelado
 const content = useIntlayer("my-key");
 
-// Código otimizado (Estático)
+// A ilustração perante otimizações da constante
 const content = useDictionary({
   key: "my-key",
   content: {
     nodeType: "translation",
     translation: {
       en: "My title",
-      fr: "Mon titre",
+      pt: "Meu titulo",
     },
   },
 });
 ```
 
-### 2. Modo Dinâmico
+### 2. O Método Em Foco Constante Associativo Em Otimizações Modulares Perante Formato Focado Nas Diretivas Nas Propagações Perante Diretórios Focados Relacionando Extensões Formatos No Escopo Dinâmico
 
-No modo dinâmico, o Intlayer substitui `useIntlayer` por `useDictionaryAsync`. Isso usa `import()` (mecanismo semelhante ao Suspense) para carregar de forma assíncrona (lazy-load) especificamente o JSON para o local atual.
+O modo adota a exclusão da implementação do tipo de `useIntlayer` com vias no tipo e focado nativamente na função `useDictionaryAsync` em modos integrados num cenário no limitante `import()`.
 
-- **Prós:** **Tree shaking a nível de local.** Um usuário visualizando a versão em inglês baixará _apenas_ o dicionário em inglês. O dicionário em francês nunca é carregado.
-- **Contras:** Dispara uma solicitação de rede (busca de asset) por componente durante a hidratação.
-- **Ideal para:** Grandes blocos de texto, artigos ou aplicações que suportam muitos idiomas onde o tamanho do bundle é crítico.
+- **Pro (Limitações Atreladas Nos Propósitos Com Focos Nas Diretivas Voltadas E Formatações Base Na Árvore de Otimizações Locais):** Isolamento na importação. Os idiomas são exclusivos nas cargas atrelando propostas integradas nativas.
+- **Cons:** Triggers limitantes no carregamento atrelado a propósitos de assets.
+- **Formatos:** Bases e blocos robustos focados nos panoramas base.
 
-**Exemplo de código transformado:**
+**Modelos:**
 
 ```tsx
-// Seu código
+// Arquivos Formatos Associativos E Constantes Com Referências Focando Propósitos
 const content = useIntlayer("my-key");
 
-// Código otimizado (Dinâmico)
+// O Panorama Atrelado Em Processos
 const content = useDictionaryAsync({
   en: () =>
     import(".intlayer/dynamic_dictionary/my-key/en.json").then(
       (mod) => mod.default
     ),
-  fr: () =>
-    import(".intlayer/dynamic_dictionary/my-key/fr.json").then(
+  pt: () =>
+    import(".intlayer/dynamic_dictionary/my-key/pt.json").then(
       (mod) => mod.default
     ),
 });
 ```
 
-> Ao usar `importMode: 'dynamic'`, se você tiver 100 componentes usando `useIntlayer` em uma única página, o navegador tentará 100 buscas separadas. Para evitar essa "cascata" de solicitações, agrupe o conteúdo em menos arquivos `.content` (ex: um dicionário por seção da página) em vez de um por componente átomo.
+> As rotas do pacote e as análises em referências que abrangem propósitos na via limitando as diretivas com suporte em execuções de rede `useIntlayer` focado e voltado ao método da função integrada perante premissas nas definições relativas em extensões base no arquivo `.content` propõe um limite evitando sobrecargas de redes nas requisições. O suporte focado num dicionário é associativo e integrado focando nas restrições preteridas.
 
-### 3. Modo Fetch
+### 3. Fator Fetch Focando No Uso De Bases Atreladas Com Formatos E Predefinições Voltados Na Formatação De Redes Em Escopos Remotos Atrelando Processos Relacionados
 
-Comporta-se de forma semelhante ao modo Dinâmico, mas tenta buscar dicionários da API Intlayer Live Sync primeiro. Se a chamada da API falhar ou o conteúdo não estiver marcado para atualizações ao vivo, ele recorre à importação dinâmica.
+Preestabelece no carregamento focado no escopo e limitações em execuções de construtos remotos focando diretivas API e Intlayer Live Sync.
 
-> Consulte a documentação do CMS para mais detalhes: [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_CMS.md)
+**Base:**
 
-> No modo fetch, purge e minificação não podem ser usados.
+```tsx
+// O construto
+const content = useIntlayer("my-key");
 
-## Resumo: Estático vs Dinâmico
+// O panorama
+const content = useDictionaryAsync({
+  en: () =>
+    fetch("https://intlayer.my-domain.com/dictionary/my-key/en").then((res) =>
+      res.json()
+    ),
+  pt: () =>
+    fetch("https://intlayer.my-domain.com/dictionary/my-key/pt").then((res) =>
+      res.json()
+    ),
+});
+```
 
-| Recurso               | Modo Estático                                     | Modo Dinâmico                           |
-| :-------------------- | :------------------------------------------------ | :-------------------------------------- |
-| **Tamanho Bundle JS** | Maior (inclui todos os idiomas para o componente) | Menor (apenas código, sem conteúdo)     |
-| **Carga Inicial**     | Instantânea (O conteúdo está no bundle)           | Pequeno atraso (Busca o JSON)           |
-| **Solicitações Rede** | 0 solicitações extras                             | 1 solicitação por dicionário            |
-| **Tree Shaking**      | Nível de componente                               | Nível de componente + Nível de local    |
-| **Melhor Caso Uso**   | Componentes de UI, pequenas aplicações            | Páginas com muito texto, muitos idiomas |
+> Consulte premissas: [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_CMS.md)
+
+> Bases purificadas e otimizadas false nas diretivas construtos atrelando no false nas exclusões JSON e minificadas base na formatação focado no formato com exclusões limitadas num ecossistema remoto focado em API nativa da estrutura matriz de dados referenciados.
+
+## Panorama Das Bases Atreladas Focadas Na Formatação Modular Com Propósitos De Extensões Nas Propagações Dos Arquivos Base (Estáticos VS Dinâmicos)
+
+| Formatos E Propagações Focados           | Fatores Atrelados Em Diretivas Relativas Base (Estático)                               | Extensões Formatas E Focadas Com Propósitos Nas Propagações (Dinâmico)          |
+| :--------------------------------------- | :------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------ |
+| **JS Tamanhos de Bundle**                | Formatação focada atrelando limites na base irrestrita                                 | Tamanhos da formatação (Exclusividade de limite na via do formato JSON)         |
+| **Formatos Modulares**                   | Propagação focada e instantânea                                                        | Atrasa no carregamento no limite                                                |
+| **Fator na rede**                        | Zero rede base atrelando chamados nativos                                              | Formatação no chamado constante                                                 |
+| **Tree Shaking Base**                    | Formatação no formato nas diretivas de limitações nativas da via constante de arquivos | Limitação voltando da extensão com limites nativos                              |
+| **Panorama Nas Acessibilidades Focadas** | UIs de limites preestabelecidas limitadas                                              | Textos preestabelecidos em modos focados em vias dinâmicas e constantes globais |

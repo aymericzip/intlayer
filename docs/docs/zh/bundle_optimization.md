@@ -1,10 +1,10 @@
 ---
 createdAt: 2025-11-25
-updatedAt: 2026-04-08
-title: 优化 i18n 构建Bundle 大小与性能
-description: 通过优化国际化 (i18n) 内容来减小应用程序构建包的大小。学习如何利用 Intlayer 对字典进行 Tree Shaking 和延迟加载。
+updatedAt: 2026-06-07
+title: 优化 i18n 打包体积与性能
+description: 通过优化国际化（i18n）内容来减小应用程序包的大小。了解如何利用 Intlayer 实现字典的 tree shaking 和延迟加载（lazy loading）。
 keywords:
-  - 构建包优化
+  - 打包优化
   - 内容自动化
   - 动态内容
   - Intlayer
@@ -16,33 +16,36 @@ slugs:
   - concept
   - bundle-optimization
 history:
+  - version: 8.12.0
+    date: 2026-06-07
+    changes: "为 Babel/Webpack 引入了 `intlayerPurgeBabelPlugin` 和 `intlayerMinifyBabelPlugin`，明确了插件管线"
   - version: 8.7.0
     date: 2026-04-08
-    changes: "在构建配置中增加了 `minify` 和 `purge` 选项"
+    changes: "向构建配置中添加了 `minify` 和 `purge` 选项"
 ---
 
-# 优化 i18n 构建Bundle 大小与性能
+# 优化 i18n 打包体积与性能
 
-依赖 JSON 文件的传统 i18n 解决方案面临的最常见挑战之一是管理内容大小。如果开发人员不手动将内容分离到命名空间中，用户往往为了查看单个页面而下载每个页面甚至每种语言的翻译。
+依赖 JSON 文件的传统 i18n 解决方案中最常见的挑战之一是管理内容体积。如果开发者没有手动将内容拆分到各个命名空间（namespaces），用户通常会为了查看一个页面而下载所有页面、甚至是所有语言的翻译。
 
-例如，一个包含 10 个页面并翻译成 10 种语言的应用程序，可能会导致用户下载 100 个页面的内容，即使他们只需要**一页**（当前语言的当前页面）。这会导致带宽浪费和加载速度变慢。
+例如，一个应用有 10 个页面并被翻译成了 10 种语言，可能导致用户为了这 10 个页面下载所有的内容，尽管他们只想要**一个页面**的内容（当前语言版本的当前页面）。这不仅会造成带宽浪费，也会导致更慢的加载时间。
 
-**Intlayer 通过构建时优化解决了这个问题。** 它分析您的代码以检测每个组件实际使用的字典，并仅将必要的内容重新注入到您的构建包中。
+**Intlayer 通过在构建时（build-time）进行优化来解决这一问题。** 它可以分析你的代码以检测每个组件实际使用了哪些字典，并只将必要的内容注入到你的打包结果（bundle）中。
 
 ## 目录
 
 <TOC />
 
-## 扫描您的构建包
+## 分析你的包大小
 
-分析构建包是识别“重型”JSON 文件和代码分割机会的第一步。这些工具可以生成应用程序编译后代码的可视化树图 (treemap)，让您确切地看到哪些库占用了最多的空间。
+分析你的打包结果是找出“臃肿”的 JSON 文件和考虑进行代码分割（code-splitting）的首要步骤。这些工具可以生成你应用程序编译代码的树状可视视图（treemap），让你能够清楚地看到究竟是哪些库占据了最多的空间。
 
 <Tabs>
  <Tab value="vite">
 
 ### Vite / Rollup
 
-Vite 底层使用 Rollup。`rollup-plugin-visualizer` 插件生成一个交互式 HTML 文件，显示图中每个模块的大小。
+Vite 在底层使用了 Rollup。插件 `rollup-plugin-visualizer` 能够生成一个交互式 HTML 文件，展示依赖图（graph）中每个模块的体积。
 
 ```bash
 npm install -D rollup-plugin-visualizer
@@ -55,7 +58,7 @@ import { visualizer } from "rollup-plugin-visualizer";
 export default defineConfig({
   plugins: [
     visualizer({
-      open: true, // 在浏览器中自动打开报告
+      open: true, // 自动在浏览器中打开报告
       filename: "stats.html",
       gzipSize: true,
       brotliSize: true,
@@ -69,7 +72,7 @@ export default defineConfig({
 
 ### Next.js (Turbopack)
 
-对于使用 App Router 和 Turbopack 的项目，Next.js 提供了一个内置的实验性分析器，不需要额外的依赖。
+对于使用了 App Router 和 Turbopack 的项目，Next.js 提供了一个内置的实验性分析器，它不需要额外的依赖。
 
 ```bash packageManager='npm'
 npx next experimental-analyze
@@ -92,7 +95,7 @@ bun next experimental-analyze
 
 ### Next.js (Webpack)
 
-如果您在 Next.js 中使用默认的 Webpack 打包器，请使用官方的构建包分析器。通过在构建期间设置环境变量来触发它。
+如果你在 Next.js 中使用的是默认的 Webpack 打包器，请使用官方的 bundle analyzer。你可以通过在构建期间设置一个环境变量来触发它。
 
 ```bash packageManager='npm'
 npm install -D @next/bundle-analyzer
@@ -116,11 +119,11 @@ const withBundleAnalyzer = require("@next/bundle-analyzer")({
 });
 
 module.exports = withBundleAnalyzer({
-  // 您的 Next.js 配置
+  // 你的 Next.js 配置
 });
 ```
 
-**用法：**
+**用法:**
 
 ```bash
 ANALYZE=true npm run build
@@ -129,9 +132,9 @@ ANALYZE=true npm run build
  </Tab>
  <Tab value="Webpack (CRA / Angular / etc)">
 
-### 标准 Webpack
+### 纯 Webpack
 
-对于 Create React App (ejected)、Angular 或自定义 Webpack 设置，请使用行业标准的 `webpack-bundle-analyzer`。
+针对 Create React App (ejected)、Angular 或是自定义 Webpack 的设置，使用业界标准的 `webpack-bundle-analyzer`。
 
 ```bash packageManager='npm'
 npm install -D webpack-bundle-analyzer
@@ -166,29 +169,66 @@ export default {
  </Tab>
 </Tabs>
 
-## 工作原理
+## 它是如何运作的
 
-Intlayer 使用**按组件优化**的方法。与全局 JSON 文件不同，您的内容定义在组件旁边或内部。在构建过程中，Intlayer 会：
+Intlayer 使用一种**基于组件的方法（per-component approach）**。与全局 JSON 文件不同，你的内容会在组件旁边或是组件内部进行定义。在构建流程中，Intlayer 将会：
 
-1.  **分析**您的代码以查找 `useIntlayer` 调用。
-2.  **构建**相应的字典内容。
-3.  根据您的配置用优化后的代码**替换** `useIntlayer` 调用。
+1. **分析**你的代码以寻找 `useIntlayer` 的调用。
+2. **构建**对应的字典内容。
+3. **替换** `useIntlayer` 调用为依据你的配置进行优化后的代码。
 
-这确保了：
+这样能够确保：
 
-- 如果一个组件没有被引入，它的内容就不会包含在构建包中（Dead Code Elimination）。
-- 如果一个组件是延迟加载的，它的内容也会被延迟加载。
+- 如果一个组件未被导入，它的内容将不会包含在打包产物中（Dead Code Elimination / 死代码消除）。
+- 如果一个组件被延迟加载，其内容同样会被延迟加载。
 
-## 按平台设置
+## 插件参考
+
+Intlayer 的构建优化被划分为若干个职责单一的插件。了解它们各自的用途可以防止在配置它们时产生困惑。
+
+### Babel 插件 (`@intlayer/babel`)
+
+这些被直接运用在基于 Webpack 设置的 `babel.config.js` 当中（比如使用了 Babel 的 Next.js、CRA，或是自定义的 Webpack 等）。
+
+| 插件                          | 功能说明                                                                                             |
+| :---------------------------- | :--------------------------------------------------------------------------------------------------- |
+| `intlayerExtractBabelPlugin`  | 扫描 `.content.ts` 文件并把编译好的字典写入 `.intlayer/`                                             |
+| `intlayerOptimizeBabelPlugin` | 将 `useIntlayer('key')` 重写为 `useDictionary(hash)` 并注入匹配对应字典的 `import` 语句              |
+| `intlayerPurgeBabelPlugin`    | 扫描所有源代码文件，从已编译的 `.intlayer/**/*.json` 字典文件中删除**未被使用的内容字段**            |
+| `intlayerMinifyBabelPlugin`   | **重命名内容字段的键（keys）** 为简短的字母别名（例如 `title` 变成 `a`），作用范围包括 JSON 与源代码 |
+
+> **插件的执行顺序很重要。** 在你的 `babel.config.js` 里，purge 和 minify 的插件必须放置在 optimize 插件**之前**。优化步骤（optimize）会把 `useIntlayer('key')` 替换为模糊的 `useDictionary(hash)`，此举抹除了能够让 purge 和 minify 识别哪些字段被使用过的字典 key 信息。
+
+每一个 Babel 插件都有对应的选项助手（options helper），该助手会在配置加载时读取一遍 `intlayer.config.ts`，并返回预解析的值：
+
+| 选项助手                     | 配套插件                      |
+| :--------------------------- | :---------------------------- |
+| `getExtractPluginOptions()`  | `intlayerExtractBabelPlugin`  |
+| `getOptimizePluginOptions()` | `intlayerOptimizeBabelPlugin` |
+| `getPurgePluginOptions()`    | `intlayerPurgeBabelPlugin`    |
+| `getMinifyPluginOptions()`   | `intlayerMinifyBabelPlugin`   |
+
+### Vite 插件 (`vite-intlayer`)
+
+Vite 用户**不需要直接对它们进行配置**。当你在 `vite.config.ts` 里调用 `withIntlayer()` 时，它们会自动生效。只需要在 `intlayer.config.ts` 中设定 `build.purge` 和 `build.minify`，即可开启相应的功能，且不需要额外的插件注册过程。
+
+| 内部 Vite 插件    | 等效行为                                                                            |
+| :---------------- | :---------------------------------------------------------------------------------- |
+| Usage analyzer    | 等同于 `intlayerPurgeBabelPlugin` 的分析步骤                                        |
+| Dictionary prune  | 等同于 `intlayerPurgeBabelPlugin` 的 JSON 写入步骤                                  |
+| Dictionary minify | 等同于 `intlayerMinifyBabelPlugin` 的 JSON 写入步骤                                 |
+| Babel transform   | 等同于 `intlayerMinifyBabelPlugin` 的代码重命名步骤 + `intlayerOptimizeBabelPlugin` |
+
+## 各平台配置指南
 
 <Tabs>
  <Tab value="nextjs">
 
 ### Next.js
 
-Next.js 需要 `@intlayer/swc` 插件来处理转换，因为 Next.js 使用 SWC 进行构建。
+Next.js 需要依靠 `@intlayer/swc` 插件来进行优化步骤（导入重写），因为 Next.js 采用 SWC 作为编译器。
 
-> 该插件默认不安装，因为 SWC 插件对 Next.js 仍处于实验阶段。未来可能会发生变化。
+> 该插件并未默认安装，因为 SWC 插件在 Next.js 当中目前仍处于实验阶段。未来这部分有可能会发生改变。
 
 ```bash packageManager="npm"
 npm install -D @intlayer/swc
@@ -206,21 +246,63 @@ pnpm add -D @intlayer/swc
 bun add -d @intlayer/swc
 ```
 
-安装后，Intlayer 将自动检测并使用该插件。
+安装完毕后，Intlayer 将会自动侦测并使用该插件。
+
+至于**清除（purge）和最小化（minify）**步骤（即字段移除和字段重命名），请连同 `@intlayer/babel` 一并安装并加入 Babel 插件。由于 Next.js 依靠 SWC 处理代码转化，但仍会评估 `babel.config.js` 以决定插件配置，因此上述 Babel 插件能够在进入 SWC 前作为预处理步骤得以执行。
+
+```bash packageManager="npm"
+npm install -D @intlayer/babel
+```
+
+```javascript fileName="babel.config.js"
+const {
+  intlayerPurgeBabelPlugin,
+  intlayerMinifyBabelPlugin,
+  getPurgePluginOptions,
+  getMinifyPluginOptions,
+} = require("@intlayer/babel");
+
+module.exports = {
+  presets: ["next/babel"],
+  plugins: [
+    // Purge: 移除 .intlayer/**/*.json 里未被使用的内容字段
+    [intlayerPurgeBabelPlugin, getPurgePluginOptions()],
+    // Minify: 对 JSON 以及源代码里的内容字段的键（keys）进行重命名
+    [intlayerMinifyBabelPlugin, getMinifyPluginOptions()],
+    // 注意: 在这里不需要使用 intlayerOptimizeBabelPlugin，因为
+    // @intlayer/swc 已经处理了 useIntlayer → useDictionary 的重写过程。
+  ],
+};
+```
 
  </Tab>
  <Tab value="vite">
 
 ### Vite
 
-Vite 使用 `@intlayer/babel` 插件，该插件作为 `vite-intlayer` 的依赖项包含在内。优化默认启用。无需额外操作。
+Vite 使用了包含在 `vite-intlayer` 依赖当中的 `@intlayer/babel` 插件。整个优化管线 —— 包括导入重写、清除和压缩 —— 是默认开启的，且无需任何额外的插件注册。
+
+在 `intlayer.config.ts` 里设定相对应的标志来开启 purge 以及 minify：
+
+```typescript fileName="intlayer.config.ts"
+import type { IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  build: {
+    purge: true, // 将未被使用的字段从打好的 JSON 包中移除
+    minify: true, // 将字段名重命名为简短的别名
+  },
+};
+
+export default config;
+```
 
  </Tab>
  <Tab value="webpack">
 
-### Webpack
+### Webpack (以及配置了 Babel 的 Next.js)
 
-要在 Webpack 上启用 Intlayer 构建包优化，您需要安装并配置相应的 Babel (`@intlayer/babel`) 或 SWC (`@intlayer/swc`) 插件。
+安装 `@intlayer/babel`:
 
 ```bash packageManager="npm"
 npm install -D @intlayer/babel
@@ -238,73 +320,101 @@ pnpm add -D @intlayer/babel
 bun add -d @intlayer/babel
 ```
 
-```typescript fileName="babel.config.js"
+在 `babel.config.js` 里按照正确的顺序添加所有四个插件：
+
+```javascript fileName="babel.config.js"
 const {
-  getOptimizePluginOptions,
+  intlayerExtractBabelPlugin,
+  intlayerPurgeBabelPlugin,
+  intlayerMinifyBabelPlugin,
   intlayerOptimizeBabelPlugin,
+  getExtractPluginOptions,
+  getPurgePluginOptions,
+  getMinifyPluginOptions,
+  getOptimizePluginOptions,
 } = require("@intlayer/babel");
 
 module.exports = {
-  plugins: [[intlayerOptimizeBabelPlugin, getOptimizePluginOptions()]],
+  plugins: [
+    // Extract: 编译 .content.ts 文件 → .intlayer/**/*.json
+    [intlayerExtractBabelPlugin, getExtractPluginOptions()],
+
+    // Purge: 从 .intlayer/**/*.json 移除不必要的字段
+    //    (读取 intlayer.config.ts 内的 build.purge 配置)
+    [intlayerPurgeBabelPlugin, getPurgePluginOptions()],
+
+    // Minify: 压缩并重命名 JSON + 源代码里的字段名
+    //    (读取 intlayer.config.ts 内的 build.minify 配置)
+    [intlayerMinifyBabelPlugin, getMinifyPluginOptions()],
+
+    // Optimize: 重写 useIntlayer('key') → useDictionary(hash)
+    //    它必须位于末尾，因为该操作会抹去原本的 dictionary 键名。
+    [intlayerOptimizeBabelPlugin, getOptimizePluginOptions()],
+  ],
 };
 ```
 
  </Tab>
 </Tabs>
 
-## 配置
+## 配置选项
 
-您可以通过 `intlayer.config.ts` 中的 `build` 属性来控制 Intlayer 如何优化您的构建包。
+你可通过在你的 `intlayer.config.ts` 里的 `build` 属性来控制 Intlayer 怎样去优化你的代码包。
 
 ```typescript fileName="intlayer.config.ts"
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
   internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH],
+    locales: [Locales.ENGLISH, Locales.CHINESE],
     defaultLocale: Locales.ENGLISH,
   },
   dictionary: {
     importMode: "dynamic",
   },
   build: {
-    /**
-     * 压缩字典以减小构建Bundle 大小。
-     */
-     minify: true;
+    // 决定在构建时是否直接用直引字典覆盖 useIntlayer() 的调用。
+    // undefined = 自动（在生产环境中开启），true = 始终开启，false = 始终关闭。
+    optimize: undefined,
 
-    /**
-     * 清除字典中未使用的键
-     */
-     purge: true;
+    // 将已编译字典里的字段键名改写为简短的字母名称（例如：title → a）。
+    // 这将缩小 JSON 的体积；前提条件是启用了 optimize。
+    minify: true,
 
-    /**
-     * 指示构建是否应检查 TypeScript 类型
-     */
-    checkTypes: false;
+    // 将未曾在代码里真正访问过的内容字段移除。
+    // 前提条件是启用了 optimize。
+    purge: true,
   },
 };
 
 export default config;
 ```
 
-> 在绝大多数情况下，建议保持 `optimize` 的默认选项。
+> 在大多数情况之下，推荐为 `optimize` 保留它的默认值（`undefined`）。
 
-> 有关更多详情，请参见配置文档：[配置](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)
+> 请参阅配置参考资料以了解所有的选项：[配置说明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)
 
 ### 构建选项
 
-`build` 配置对象下提供以下选项：
+| 属性           | 类型                   | 默认值      | 详细说明                                                                                                                                     |
+| :------------- | :--------------------- | :---------- | :------------------------------------------------------------------------------------------------------------------------------------------- |
+| **`optimize`** | `boolean \| undefined` | `undefined` | 用于开启 import 语句的重写。`undefined` = 仅在打包成生产环境模式时生效。当设定为 `false` 的时候，同样会导致 purge 以及 minify 均一并被关闭。 |
+| **`minify`**   | `boolean`              | `false`     | 用于对已编译好的 JSON 档案里的内容键名改写成短的单字母名称。同理也会一并将源代码里相关访问属性同样改名。仅当 `optimize` 为 `false` 时无效。  |
+| **`purge`**    | `boolean`              | `false`     | 用于移除无论如何也不会被调用的且静态的源文件的内容字段，从 JSON 输出中去除掉。仅当 `optimize` 为 `false` 时无效。                            |
 
-| 属性           | 类型      | 默认值      | 描述                                                                                                                                    |
-| :------------- | :-------- | :---------- | :-------------------------------------------------------------------------------------------------------------------------------------- |
-| **`optimize`** | `boolean` | `undefined` | 控制是否启用构建优化。如果为 `true`，Intlayer 使用优化后的注入替换字典调用。如果为 `false`，则禁用优化。建议在生产环境中设置为 `true`。 |
-| **`minify`**   | `boolean` | `false`     | 是否压缩字典以减小构建Bundle 大小。                                                                                                     |
-| **`purge`**    | `boolean` | `false`     | 是否清除字典中未使用的键。                                                                                                              |
+### 压缩 / Minification (重命名字段键值)
 
-### 压缩 (Minification)
+`build.minify` **并非**压缩你的 JavaScript —— 那是你的打包器应该处理的工作。它的工作，是把编译后的字典对应的 JSON 文件的每一个自定义内容的字段，全用短位的字母标识来替代，借此将其体积进行压缩：
 
-压缩字典可以删除不必要的空格、注释，并减小 JSON 内容的大小。这对于大型字典尤其有用。
+```
+// Minify 之前
+{ "title": "Hello", "subtitle": "World" }
+
+// Minify 之后
+{ "a": "Hello", "b": "World" }
+```
+
+该重新命名的方法同样也会应用到那些处于代码里的属性名访问阶段，所以在最终编译好的结果里，`content.title` 便会演变为 `content.a`。它们在运行时的实际表现完全一致。
 
 ```typescript fileName="intlayer.config.ts"
 import type { IntlayerConfig } from "intlayer";
@@ -318,11 +428,13 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-> 注意：如果禁用 `optimize` 或启用了可视化编辑器（因为编辑器需要完整内容以便编辑），则会忽略压缩。
+> 如果在 `optimize` 被设为 `false`、又或是启用了可视化编辑器也就是当 `editor.enabled` 设定为了 `true` 时（由于编辑器需要保留字段名称以便做后续处理），重命名这个操作都将会被跳过。
 
-### 清除 (Purging)
+> 同理，如果是利用了 `importMode: 'fetch'` 来载入字段时此过程同样不适用。因为它们的内容会以原始命名由后端 API 所提供，对客户端内容随意重命名会破坏客户端与服务端的匹配契约。
 
-清除确保只有代码中实际使用的键才会包含在最终的字典构建包中。如果您的大型字典包含许多并非在应用程序每个部分都使用的键，这可以显著减小构建包的大小。
+### 字段清除 / Purging (去掉未被引用的字段内容)
+
+`build.purge` 能自动分析究竟哪些字段真真切切地被你的源代码所引用，进而只把实际引用过的数据予以保留，把其他的垃圾数据从编译生成的 JSON 里排除掉。
 
 ```typescript fileName="intlayer.config.ts"
 import type { IntlayerConfig } from "intlayer";
@@ -336,34 +448,50 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-> 注意：如果禁用 `optimize`，则会忽略清除。
+**示例说明:** 我们有一个包含五个不同字段数据的字典，但是代码实际就用到了里边的俩：
 
-### 导入模式 (Import Mode)
+```
+// Purge 执行前
+{ "title": "…", "subtitle": "…", "cta": "…", "footer": "…", "badge": "…" }
 
-对于包含多个页面和语言的大型应用程序，您的 JSON 文件可能占用构建Bundle 大小的很大一部分。Intlayer 允许您控制字典的加载方式。
+// Purge 之后（这里仅仅只用到了 title 与 subtitle）
+{ "title": "…", "subtitle": "…" }
+```
 
-导入模式可以在 `intlayer.config.ts` 文件中全局定义默认值。
+> 与前边提到的类似，当 `optimize` 是 `false` 或是开启了可视化编辑器(`editor.enabled` 取值 `true`) 时，它会选择跳过对数据的清除操作。
+
+> 当检测到某份代码因为异常无法顺利解析、又或者当把由 `useIntlayer` 输出的值以静态解析器难以预测分析的模式在不同组件中来回丢（比如被打包成对象传入等而未被进行解构）的时候，它同样会跳过，以此保守地保留整部字典的全部信息，避免意外发生。
+
+### 导入模式（Import Mode）
+
+对于包含多个页面和地区规模比较大的应用程序来说，你的 JSON 可能会占去绝大一部分包（Bundle）的内容。所以，你可以凭借着 `importMode` 这个参数让 Intlayer 来调整对字典内容本身的实际拉取行为。
+
+### 全局定义
+
+该参数可以经由你本身的 `intlayer.config.ts` 这个文件在全局进行指定。
 
 ```typescript fileName="intlayer.config.ts"
 import type { IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
-  build: {
-    minify: true,
+  dictionary: {
+    importMode: "dynamic", // 默认为 'static'
   },
 };
 
 export default config;
 ```
 
-也可以在您的 `.content.{{ts|tsx|js|jsx|mjs|cjs|json|jsonc|json5}}` 文件中为每个字典定义。
+### 为字典独立配置
+
+我们也可以在这其中部分独立词典原本配置内的 `.content.{{ts|tsx|js|jsx|mjs|cjs|json|jsonc|json5|md|mdx|yaml|yml}}` 把该参数改写成另外想要的规则。
 
 ```ts
 import { type Dictionary, t } from "intlayer";
 
 const appContent: Dictionary = {
   key: "app",
-  importMode: "dynamic", // 覆盖默认导入模式
+  importMode: "dynamic", // 将原本的模式改写
   content: {
     // ...
   },
@@ -372,83 +500,103 @@ const appContent: Dictionary = {
 export default appContent;
 ```
 
-| 属性             | 类型                               | 默认值     | 描述                                                                         |
-| :--------------- | :--------------------------------- | :--------- | :--------------------------------------------------------------------------- |
-| **`importMode`** | `'static'`, `'dynamic'`, `'fetch'` | `'static'` | **已弃用**：请改用 `dictionary.importMode`。确定字典的加载方式（详见下文）。 |
+| 属性             | 取值类型                           | 默认设置   | 描述说明                                                                                           |
+| :--------------- | :--------------------------------- | :--------- | :------------------------------------------------------------------------------------------------- |
+| **`importMode`** | `'static'`, `'dynamic'`, `'fetch'` | `'static'` | **已被弃用**: 建议调整为 `dictionary.importMode`。这决定了应当怎样加载各项字典。（细节参考下文）。 |
 
-`importMode` 设置规定了字典内容如何注入到您的组件中。
-您可以在 `intlayer.config.ts` 文件的 `dictionary` 对象下全局定义它，或者在字典的 `.content.ts` 文件中覆盖它。
+这处 `importMode` 设置用于指挥组件拉取各项内容的真实手段。要么被指定在了全局 `intlayer.config.ts` 中的 `dictionary` 里，要不便以 `content.ts` 形式来分别定制。
 
-### 1. 静态模式 (`default`)
+### 1. 静态模式（Static Mode - `default`）
 
-在静态模式下，Intlayer 将 `useIntlayer` 替换为 `useDictionary`，并将字典直接注入 JavaScript 构建包中。
+在这个默认设定下，Intlayer 自动把全部 `useIntlayer` 变成了 `useDictionary` 以做到将所需的翻译数据无缝拼接入 JavaScript 包内。
 
-- **优点：** 即时渲染（同步），水合过程中零额外网络请求。
-- **缺点：** 构建包包含该特定组件**所有**可用语言的翻译。
-- **最适合：** 单页应用程序 (SPA)。
+- **优势（Pros）:** 即时就能被加载（属于同步型），由于没有水合（hydration）从而意味着额外的零请求。
+- **缺点（Cons）:** 但这个包同样也就塞满了给该组件用的**各种不同可用语言的对应版本**，这非常占空间。
+- **最佳应用场合:** 单页应用（SPA）。
 
-**转换后的代码示例：**
+**代码在转换之后的图示（举例）:**
 
 ```tsx
-// 您的代码
+// 这是你的原本代码
 const content = useIntlayer("my-key");
 
-// 优化后的代码（静态）
+// (静态) 优化图解。
+// 仅为了解释说明而列，出于优化实际上的最终输出略有差别
 const content = useDictionary({
   key: "my-key",
   content: {
     nodeType: "translation",
     translation: {
       en: "My title",
-      fr: "Mon titre",
+      zh: "我的标题",
     },
   },
 });
 ```
 
-### 2. 动态模式
+### 2. 动态模式（Dynamic Mode）
 
-在动态模式下，Intlayer 将 `useIntlayer` 替换为 `useDictionaryAsync`。这使用 `import()`（类似于 Suspense 的机制）来延迟加载当前语言特定的 JSON。
+在这一设定之下，Intlayer 自动把全部 `useIntlayer` 全给变成了 `useDictionaryAsync`。这个操作能将拉取行文变成动态 `import()`（这和 Suspense 的表现接近），并有针对性地对当地所在的特殊语言去单独异步请求其实际数据。
 
-- **优点：** **语言级别的 Tree Shaking。** 查看英文版本的用户将*仅*下载英文字典，永远不会加载法文字典。
-- **缺点：** 在水合过程中每个组件都会触发一次网络请求（资源获取）。
-- **最适合：** 大型文本块、文章或支持多种语言且构建Bundle 大小至关重要的应用程序。
+- **优势（Pros）:** **支持基于地区语言所实施的代码树抖动分离（Tree shaking）。** 说白了就是，正在浏览英语界面的使用者**仅仅**会只被发送那部分英文对应的词典内容，法文或是其他国家的数据都不会加载。
+- **缺点（Cons）:** 这个阶段下，将会让组件因数据要求而针对各项水合需求（hydration）各自产生不同种的调用申请（拉取各部件内容）。
+- **最佳应用场合:** 内容巨大且充斥了长文博客的复杂平台、亦或是本身涵盖了大量的翻译种类因而在包（bundle）体积极为严格的情况下使用。
 
-**转换后的代码示例：**
+**代码在转换之后的图示（举例）:**
 
 ```tsx
-// 您的代码
+// 这是你的原本代码
 const content = useIntlayer("my-key");
 
-// 优化后的代码（动态）
+// (动态) 优化图解。
+// 仅为了解释说明而列，出于优化实际上的最终输出略有差别
 const content = useDictionaryAsync({
   en: () =>
     import(".intlayer/dynamic_dictionary/my-key/en.json").then(
       (mod) => mod.default
     ),
-  fr: () =>
-    import(".intlayer/dynamic_dictionary/my-key/fr.json").then(
+  zh: () =>
+    import(".intlayer/dynamic_dictionary/my-key/zh.json").then(
       (mod) => mod.default
     ),
 });
 ```
 
-> 使用 `importMode: 'dynamic'` 时，如果您在单个页面上有 100 个组件使用 `useIntlayer`，浏览器将尝试 100 次单独的获取。为了避免这种请求“瀑布”，请将内容分组到更少的 `.content` 文件中（例如，每个页面部分一个字典），而不是每个原子组件一个。
+> 使用了 `importMode: 'dynamic'` 这个方案之时，如果某一页刚好凑齐了 100 个包含了 `useIntlayer` 内容的部件时，浏览器就有极大的概率朝着服务器丢过去多达 100 种不重样的 fetch 请求。如果意在免于这样的连环「瀑布效应」，尝试尽可能去少写单个的独立 `.content` （尝试着每几块凑一起合并起来比如每一个大的分块区共享其内容字典，而非是切得那么碎，比如连每一个单小按钮都设单独请求。）如果把多个带有单独名字 `.content` 内容给附加上相同的 Key 名称，程序依然能够很轻易将这些零散碎落的数据融合成单独庞大且统一的一本完整的字典对象里去。
 
-### 3. 获取模式 (Fetch Mode)
+### 3. Fetch 模式（Fetch Mode）
 
-行为类似于动态模式，但首先尝试从 Intlayer Live Sync API 获取字典。如果 API 调用失败或内容未标记为实时更新，则会回退到动态导入。
+行为跟 Dynamic 有所重叠，不过最优先则是朝 Intlayer Live Sync API 请求其词典内容。假如获取数据时遭到拦截或者内容不属于实时的数据内容体系的话，接下来便将其作为兜底顺延递回之前的动切请求。
 
-> 有关更多详情，请参见 CMS 文档：[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)
+**代码在转换之后的图示（举例）:**
 
-> 在获取模式下，不能使用清除和压缩。
+```tsx
+// 这是你的原本代码
+const content = useIntlayer("my-key");
 
-## 总结：静态 vs 动态
+// 能够将它（Fetch）看成这类实现
+const content = useDictionaryAsync({
+  en: () =>
+    fetch("https://intlayer.my-domain.com/dictionary/my-key/en").then((res) =>
+      res.json()
+    ),
+  zh: () =>
+    fetch("https://intlayer.my-domain.com/dictionary/my-key/zh").then((res) =>
+      res.json()
+    ),
+});
+```
 
-| 特性                   | 静态模式                   | 动态模式                 |
-| :--------------------- | :------------------------- | :----------------------- |
-| **JS 构建Bundle 大小** | 较大（包含组件的所有语言） | 最小（仅代码，无内容）   |
-| **初始加载**           | 即时（内容在构建包中）     | 轻微延迟（获取 JSON）    |
-| **网络请求**           | 0 次额外请求               | 每个字典 1 次请求        |
-| **Tree Shaking**       | 组件级                     | 组件级 + 语言级          |
-| **最佳用例**           | UI 组件、小型应用          | 文本较多的页面、多种语言 |
+> 如果还需要获得对于 CMS 获取方面的认知的话：可以去查看 [CMS 说明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)
+
+> 此模式同样会一如既往地因为 JSON 内容会直接借由后端直接输送而不遭受 purge 跟 minify 等等这几类数据剔除方案的干扰。
+
+## 概要: 静态 和 动态
+
+| 模式特征                   | 静态模式（Static Mode）                                      | 动态模式（Dynamic Mode）                  |
+| :------------------------- | :----------------------------------------------------------- | :---------------------------------------- |
+| **JS 产生的 Bundle 体积**  | 庞大（包含了供各个不同组件使用时调用的其他全部外语语系信息） | 小巧（内容直接为空、只有代码框架）        |
+| **最初加载所需时间**       | 极速（毕竟那些所需信息一开始都已经存在于包（Bundle）里面了） | 略需等待（拉取 JSON 所需消耗时间）        |
+| **附带发生的网络请求**     | 无，无需任何等待直接 0 次                                    | 取决字典请求次数（一次 Key 取出就是一回） |
+| **树抖动（Tree Shaking）** | 按单一组件的级别而做分割                                     | 依组件级别外加依据地区与语种去实施拆分    |
+| **最佳应用与方案环境**     | 普通交互式元件内容或单一界面的轻型程序等                     | 极其充满内容的纯文区块或极其繁多的语系    |

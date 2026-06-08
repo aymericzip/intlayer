@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-11-25
-updatedAt: 2026-04-08
+updatedAt: 2026-06-07
 title: Optimizing i18n Bundle Size & Performance
 description: Reduce application bundle size by optimizing internationalization (i18n) content. Learn how to leverage tree shaking and lazy loading for dictionaries with Intlayer.
 keywords:
@@ -16,6 +16,9 @@ slugs:
   - concept
   - bundle-optimization
 history:
+  - version: 8.12.0
+    date: 2026-06-07
+    changes: "Add `intlayerPurgeBabelPlugin` and `intlayerMinifyBabelPlugin` for Babel/Webpack; clarify plugin pipeline"
   - version: 8.7.0
     date: 2026-04-08
     changes: "Add `minify` and `purge` options to the build configuration"
@@ -170,14 +173,51 @@ export default {
 
 Intlayer uses a **per-component approach**. Unlike global JSON files, your content is defined alongside or within your components. During the build process, Intlayer:
 
-1.  **Analyzes** your code to find `useIntlayer` calls.
-2.  **Builds** the corresponding dictionary content.
-3.  **Replaces** the `useIntlayer` call with optimized code based on your configuration.
+1. **Analyzes** your code to find `useIntlayer` calls.
+2. **Builds** the corresponding dictionary content.
+3. **Replaces** the `useIntlayer` call with optimized code based on your configuration.
 
 This ensures that:
 
 - If a component is not imported, its content is not included in the bundle (Dead Code Elimination).
 - If a component is lazy-loaded, its content is also lazy-loaded.
+
+## Plugin Reference
+
+Intlayer's build optimization is split across several discrete plugins, each with a single responsibility. Understanding what each one does prevents confusion when wiring them up.
+
+### Babel plugins (`@intlayer/babel`)
+
+These are used directly in `babel.config.js` for Webpack-based setups (Next.js with Babel, CRA, custom Webpack, etc.).
+
+| Plugin                        | What it does                                                                                                   |
+| :---------------------------- | :------------------------------------------------------------------------------------------------------------- |
+| `intlayerExtractBabelPlugin`  | Scans `.content.ts` files and writes compiled dictionaries to `.intlayer/`                                     |
+| `intlayerOptimizeBabelPlugin` | Rewrites `useIntlayer('key')` → `useDictionary(hash)` and injects the matching dictionary `import`             |
+| `intlayerPurgeBabelPlugin`    | Scans all source files, removes **unused content fields** from compiled `.intlayer/**/*.json` dictionary files |
+| `intlayerMinifyBabelPlugin`   | **Renames content field keys** to short alphabetic aliases (`title` → `a`) in both JSON files and source code  |
+
+> **Plugin order matters.** In your `babel.config.js` the purge and minify plugins must appear **before** the optimize plugin. The optimize pass replaces `useIntlayer('key')` with an opaque `useDictionary(hash)` call, erasing the dictionary-key information that the purge and minify passes need to identify which fields are used.
+
+Each Babel plugin has a matching options helper that reads your `intlayer.config.ts` once at config-load time and returns pre-resolved values:
+
+| Options helper               | Used with                     |
+| :--------------------------- | :---------------------------- |
+| `getExtractPluginOptions()`  | `intlayerExtractBabelPlugin`  |
+| `getOptimizePluginOptions()` | `intlayerOptimizeBabelPlugin` |
+| `getPurgePluginOptions()`    | `intlayerPurgeBabelPlugin`    |
+| `getMinifyPluginOptions()`   | `intlayerMinifyBabelPlugin`   |
+
+### Vite plugins (`vite-intlayer`)
+
+Vite users **never configure these directly**. They are wired up automatically when you call `withIntlayer()` in `vite.config.ts`. The `build.purge` and `build.minify` flags in `intlayer.config.ts` toggle the corresponding behaviour without any extra plugin registration.
+
+| Internal Vite plugin | Equivalent behaviour                                                                   |
+| :------------------- | :------------------------------------------------------------------------------------- |
+| Usage analyzer       | Same as `intlayerPurgeBabelPlugin` analysis pass                                       |
+| Dictionary prune     | Same as `intlayerPurgeBabelPlugin` JSON-write pass                                     |
+| Dictionary minify    | Same as `intlayerMinifyBabelPlugin` JSON-write pass                                    |
+| Babel transform      | Same as `intlayerMinifyBabelPlugin` source-code rename + `intlayerOptimizeBabelPlugin` |
 
 ## Setup by Platform
 
@@ -186,7 +226,7 @@ This ensures that:
 
 ### Next.js
 
-Next.js requires the `@intlayer/swc` plugin to handle the transformation, as Next.js uses SWC for builds.
+Next.js requires the `@intlayer/swc` plugin for the optimize (import rewriting) pass, because Next.js uses SWC for builds.
 
 > This plugin is not installed by default because SWC plugins are still experimental for Next.js. It may change in the future.
 
@@ -206,21 +246,63 @@ pnpm add -D @intlayer/swc
 bun add -d @intlayer/swc
 ```
 
-Once Installed. Intlayer will automatically detect and use the plugin.
+Once installed, Intlayer will automatically detect and use the plugin.
+
+For the **purge and minify** passes (field removal and field renaming), install `@intlayer/babel` alongside and add the Babel plugins. Because Next.js uses SWC for transform but still evaluates `babel.config.js` for plugin configuration, the Babel plugins run as a pre-pass before SWC.
+
+```bash packageManager="npm"
+npm install -D @intlayer/babel
+```
+
+```javascript fileName="babel.config.js"
+const {
+  intlayerPurgeBabelPlugin,
+  intlayerMinifyBabelPlugin,
+  getPurgePluginOptions,
+  getMinifyPluginOptions,
+} = require("@intlayer/babel");
+
+module.exports = {
+  presets: ["next/babel"],
+  plugins: [
+    // Purge: remove unused content fields from .intlayer/**/*.json
+    [intlayerPurgeBabelPlugin, getPurgePluginOptions()],
+    // Minify: rename content field keys in JSON + source code
+    [intlayerMinifyBabelPlugin, getMinifyPluginOptions()],
+    // Note: intlayerOptimizeBabelPlugin is NOT needed here because
+    // @intlayer/swc handles the useIntlayer → useDictionary rewrite.
+  ],
+};
+```
 
  </Tab>
  <Tab value="vite">
 
 ### Vite
 
-Vite uses `@intlayer/babel` plugin which is included as dependency of `vite-intlayer`. The optimization is enabled by default. Nothing else to do.
+Vite uses the `@intlayer/babel` plugin, which is included as a dependency of `vite-intlayer`. The full optimization pipeline — import rewriting, purge, and minify — is enabled by default and requires no extra plugin registration.
+
+Enable purge and minify by setting the corresponding flags in `intlayer.config.ts`:
+
+```typescript fileName="intlayer.config.ts"
+import type { IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  build: {
+    purge: true, // remove unused content fields from bundled JSON
+    minify: true, // rename content field keys to short aliases
+  },
+};
+
+export default config;
+```
 
  </Tab>
  <Tab value="webpack">
 
-### Webpack
+### Webpack (and Next.js with Babel)
 
-To enable bundle optimization with Intlayer on Webpack, you need to install and configure the appropriate Babel (`@intlayer/babel`) or SWC (`@intlayer/swc`) plugin.
+Install `@intlayer/babel`:
 
 ```bash packageManager="npm"
 npm install -D @intlayer/babel
@@ -238,14 +320,37 @@ pnpm add -D @intlayer/babel
 bun add -d @intlayer/babel
 ```
 
-```typescript fileName="babel.config.js"
+Add all four plugins to `babel.config.js` in the correct order:
+
+```javascript fileName="babel.config.js"
 const {
-  getOptimizePluginOptions,
+  intlayerExtractBabelPlugin,
+  intlayerPurgeBabelPlugin,
+  intlayerMinifyBabelPlugin,
   intlayerOptimizeBabelPlugin,
+  getExtractPluginOptions,
+  getPurgePluginOptions,
+  getMinifyPluginOptions,
+  getOptimizePluginOptions,
 } = require("@intlayer/babel");
 
 module.exports = {
-  plugins: [[intlayerOptimizeBabelPlugin, getOptimizePluginOptions()]],
+  plugins: [
+    // Extract: compile .content.ts files → .intlayer/**/*.json
+    [intlayerExtractBabelPlugin, getExtractPluginOptions()],
+
+    // Purge: remove unused fields from .intlayer/**/*.json
+    //    (reads intlayer.config.ts build.purge flag)
+    [intlayerPurgeBabelPlugin, getPurgePluginOptions()],
+
+    // Minify: rename field keys in JSON + source code
+    //    (reads intlayer.config.ts build.minify flag)
+    [intlayerMinifyBabelPlugin, getMinifyPluginOptions()],
+
+    // Optimize: rewrite useIntlayer('key') → useDictionary(hash)
+    //    Must come last because it erases the dictionary key.
+    [intlayerOptimizeBabelPlugin, getOptimizePluginOptions()],
+  ],
 };
 ```
 
@@ -268,43 +373,48 @@ const config: IntlayerConfig = {
     importMode: "dynamic",
   },
   build: {
-    /**
-     * Minify the dictionaries to reduce the bundle size.
-     */
-     minify: true;
+    // Replace useIntlayer() calls with direct dictionary imports at build time.
+    // undefined = auto (enabled in production), true = always, false = never.
+    optimize: undefined,
 
-    /**
-     * Purge the unused keys in a dictionaries
-     */
-     purge: true;
+    // Rename content field keys in compiled dictionaries to short alphabetic
+    // aliases (e.g. title → a). Reduces JSON size; requires optimize.
+    minify: true,
 
-    /**
-     * Indicates if the build should check TypeScript types
-     */
-    checkTypes: false;
+    // Remove content fields that are never accessed in source code.
+    // Requires optimize.
+    purge: true,
   },
 };
 
 export default config;
 ```
 
-> Keeping the default option for `optimize` is recommended in the most majority of cases.
+> Keeping the default value (`undefined`) for `optimize` is recommended in most cases.
 
-> See doc configuration for more details: [Configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md)
+> See the configuration reference for all options: [Configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md)
 
 ### Build Options
 
-The following options are available under the `build` configuration object:
+| Property       | Type                   | Default     | Description                                                                                                                                                                       |
+| :------------- | :--------------------- | :---------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **`optimize`** | `boolean \| undefined` | `undefined` | Enables the import-rewriting pass. `undefined` = active only in production builds. `false` disables purge and minify as well.                                                     |
+| **`minify`**   | `boolean`              | `false`     | Renames content field keys in compiled JSON files to short alphabetic aliases. Also rewrites matching property accesses in source code. Has no effect when `optimize` is `false`. |
+| **`purge`**    | `boolean`              | `false`     | Removes content fields that are never statically accessed from compiled JSON files. Has no effect when `optimize` is `false`.                                                     |
 
-| Property       | Type      | Default     | Description                                                                                                                                                                                      |
-| :------------- | :-------- | :---------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **`optimize`** | `boolean` | `undefined` | Controls whether build optimization is enabled. If `true`, Intlayer replaces dictionary calls with optimized injects. If `false`, optimization is disabled. Ideally set to `true` in production. |
-| **`minify`**   | `boolean` | `false`     | Whether to minify the dictionaries to reduce the bundle size.                                                                                                                                    |
-| **`purge`**    | `boolean` | `false`     | Whether to purge the unused keys in dictionaries.                                                                                                                                                |
+### Minification (field key renaming)
 
-### Minification
+`build.minify` does **not** minify your JavaScript bundle — your bundler handles that. Instead, it shrinks the compiled dictionary JSON files by replacing every user-defined content field key with a short alphabetic alias:
 
-Minifying dictionaries removes unnecessary whitespace, comments, and reduces the size of the JSON content. This is especially useful for large dictionaries.
+```
+// Before minification
+{ "title": "Hello", "subtitle": "World" }
+
+// After minification
+{ "a": "Hello", "b": "World" }
+```
+
+The same rename is applied to all property accesses in your source code, so `content.title` becomes `content.a` in the compiled output. The runtime behaviour is identical.
 
 ```typescript fileName="intlayer.config.ts"
 import type { IntlayerConfig } from "intlayer";
@@ -318,11 +428,13 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-> Note: Minification is ignored if `optimize` is disabled or if the Visual Editor is enabled (as the editor needs the full content to allow editing).
+> Minification is skipped when `optimize` is `false` or when `editor.enabled` is `true` (the visual editor requires the original field names to allow editing).
 
-### Purging
+> Minification is also skipped for dictionaries loaded via `importMode: 'fetch'` because their JSON is served from a remote API using the original field names — renaming the client-side keys would break the server/client contract.
 
-Purging ensures that only the keys actually used in your code are included in the final dictionary bundle. This can significantly reduce the size of your bundle if you have large dictionaries with many keys that are not used in every part of your application.
+### Purging (unused field removal)
+
+`build.purge` analyzes which content fields are actually accessed in your source code and removes all others from the compiled JSON files.
 
 ```typescript fileName="intlayer.config.ts"
 import type { IntlayerConfig } from "intlayer";
@@ -336,7 +448,19 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-> Note: Purging is ignored if `optimize` is disabled.
+**Example:** a dictionary with five fields where only two are used:
+
+```
+// Before purge
+{ "title": "…", "subtitle": "…", "cta": "…", "footer": "…", "badge": "…" }
+
+// After purge (only title + subtitle accessed in source)
+{ "title": "…", "subtitle": "…" }
+```
+
+> Purge is skipped when `optimize` is `false` or when `editor.enabled` is `true`.
+
+> Purge is also skipped conservatively when a source file cannot be parsed, or when the result of `useIntlayer` is assigned to a variable and passed around in ways the static analyser cannot follow (e.g. spread into an object, passed as a prop without destructuring). In those cases the full dictionary is kept.
 
 ### Import Mode
 
@@ -344,7 +468,7 @@ For large applications, including several pages and locales, your JSON can repre
 
 ### Global definition
 
-The import mode can be defined by default globally in your `intlayer.config.ts` file.
+The import mode can be defined globally in your `intlayer.config.ts` file.
 
 ```typescript fileName="intlayer.config.ts"
 import type { IntlayerConfig } from "intlayer";
@@ -358,9 +482,9 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-### Per dictionary fine-grained definition
+### Per-dictionary definition
 
-As well as for each dictionaries in your `.content.{{ts|tsx|js|jsx|mjs|cjs|json|jsonc|json5}}` files.
+You can override the import mode for individual dictionaries in their `.content.{{ts|tsx|js|jsx|mjs|cjs|json|jsonc|json5|md|mdx|yaml|yml}}` files.
 
 ```ts
 import { type Dictionary, t } from "intlayer";
@@ -376,12 +500,11 @@ const appContent: Dictionary = {
 export default appContent;
 ```
 
-| Property         | Type                               | Default    | Description                                                                                                      |
-| :--------------- | :--------------------------------- | :--------- | :--------------------------------------------------------------------------------------------------------------- |
-| **`importMode`** | `'static'`, `'dynamic'`, `'fetch'` | `'static'` | **Deprecated**: Use `dictionary.importMode` instead. Determines how dictionaries are loaded (see details below). |
+| Property         | Type                               | Default    | Description                                                                                              |
+| :--------------- | :--------------------------------- | :--------- | :------------------------------------------------------------------------------------------------------- |
+| **`importMode`** | `'static'`, `'dynamic'`, `'fetch'` | `'static'` | **Deprecated**: Use `dictionary.importMode` instead. Determines how dictionaries are loaded (see below). |
 
-The `importMode` setting dictates how the dictionary content is injected into your component.
-You can define it globally in the `intlayer.config.ts` file under the `dictionary` object, or you can overwrite it for a specific dictionary in its `.content.ts` file.
+The `importMode` setting dictates how the dictionary content is injected into your component. You can define it globally in `intlayer.config.ts` under the `dictionary` object, or override it per dictionary in its `.content.ts` file.
 
 ### 1. Static Mode (`default`)
 
@@ -466,7 +589,7 @@ const content = useDictionaryAsync({
 
 > See CMS documentation for more details: [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)
 
-> In fetch mode, purge and minification can't be used.
+> In fetch mode, purge and minification are not applied because the JSON is served from a remote API using the original field names.
 
 ## Summary: Static vs Dynamic
 

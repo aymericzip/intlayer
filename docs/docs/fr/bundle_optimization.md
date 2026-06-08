@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-11-25
-updatedAt: 2026-04-08
+updatedAt: 2026-06-07
 title: Optimisation de la taille et des performances du bundle i18n
 description: Réduisez la taille du bundle de votre application en optimisant le contenu d'internationalisation (i18n). Apprenez à exploiter le tree shaking et le lazy loading pour les dictionnaires avec Intlayer.
 keywords:
@@ -16,6 +16,9 @@ slugs:
   - concept
   - bundle-optimization
 history:
+  - version: 8.12.0
+    date: 2026-06-07
+    changes: "Ajout de `intlayerPurgeBabelPlugin` et `intlayerMinifyBabelPlugin` pour Babel/Webpack; clarification du pipeline de plugins"
   - version: 8.7.0
     date: 2026-04-08
     changes: "Ajout des options `minify` et `purge` à la configuration de build"
@@ -170,14 +173,51 @@ export default {
 
 Intlayer utilise une **approche par composant**. Contrairement aux fichiers JSON globaux, votre contenu est défini à côté ou à l'intérieur de vos composants. Lors du processus de build, Intlayer :
 
-1.  **Analyse** votre code pour trouver les appels à `useIntlayer`.
-2.  **Construit** le contenu du dictionnaire correspondant.
-3.  **Remplace** l'appel à `useIntlayer` par un code optimisé basé sur votre configuration.
+1. **Analyse** votre code pour trouver les appels à `useIntlayer`.
+2. **Construit** le contenu du dictionnaire correspondant.
+3. **Remplace** l'appel à `useIntlayer` par un code optimisé basé sur votre configuration.
 
 Cela garantit que :
 
-- Si un composant n'est pas importé, son contenu n'est pas inclus dans le bundle (élimination de code mort).
-- Si un composant est chargé de manière paresseuse (lazy-loaded), son contenu l'est aussi.
+- Si un composant n'est pas importé, son contenu n'est pas inclus dans le bundle (Élimination de code mort).
+- Si un composant est chargé de manière paresseuse, son contenu l'est aussi.
+
+## Référence des plugins
+
+L'optimisation de build d'Intlayer est divisée en plusieurs plugins distincts, chacun ayant une responsabilité unique. Comprendre ce que fait chacun d'eux évite la confusion lors de leur configuration.
+
+### Plugins Babel (`@intlayer/babel`)
+
+Ceux-ci sont utilisés directement dans `babel.config.js` pour les configurations basées sur Webpack (Next.js avec Babel, CRA, Webpack personnalisé, etc.).
+
+| Plugin                        | Ce qu'il fait                                                                                                                                |
+| :---------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------- |
+| `intlayerExtractBabelPlugin`  | Analyse les fichiers `.content.ts` et écrit les dictionnaires compilés dans `.intlayer/`                                                     |
+| `intlayerOptimizeBabelPlugin` | Réécrit `useIntlayer('key')` → `useDictionary(hash)` et injecte l'`import` du dictionnaire correspondant                                     |
+| `intlayerPurgeBabelPlugin`    | Analyse tous les fichiers sources, supprime les **champs de contenu inutilisés** des fichiers de dictionnaire compilés `.intlayer/**/*.json` |
+| `intlayerMinifyBabelPlugin`   | **Renomme les clés des champs de contenu** par de courts alias alphabétiques (`title` → `a`) dans les fichiers JSON et le code source        |
+
+> **L'ordre des plugins a de l'importance.** Dans votre `babel.config.js`, les plugins de purge et de minification doivent apparaître **avant** le plugin d'optimisation. La passe d'optimisation remplace `useIntlayer('key')` par un appel opaque `useDictionary(hash)`, effaçant l'information de la clé du dictionnaire dont les passes de purge et de minification ont besoin pour identifier les champs utilisés.
+
+Chaque plugin Babel dispose d'un helper d'options correspondant qui lit votre `intlayer.config.ts` une fois lors du chargement de la configuration et renvoie les valeurs pré-résolues :
+
+| Helper d'options             | Utilisé avec                  |
+| :--------------------------- | :---------------------------- |
+| `getExtractPluginOptions()`  | `intlayerExtractBabelPlugin`  |
+| `getOptimizePluginOptions()` | `intlayerOptimizeBabelPlugin` |
+| `getPurgePluginOptions()`    | `intlayerPurgeBabelPlugin`    |
+| `getMinifyPluginOptions()`   | `intlayerMinifyBabelPlugin`   |
+
+### Plugins Vite (`vite-intlayer`)
+
+Les utilisateurs de Vite **ne configurent jamais ceux-ci directement**. Ils sont automatiquement mis en place lorsque vous appelez `withIntlayer()` dans `vite.config.ts`. Les drapeaux `build.purge` et `build.minify` dans `intlayer.config.ts` basculent le comportement correspondant sans aucune inscription supplémentaire de plugin.
+
+| Plugin Vite interne     | Comportement équivalent                                                                              |
+| :---------------------- | :--------------------------------------------------------------------------------------------------- |
+| Analyseur d'usage       | Identique à la passe d'analyse de `intlayerPurgeBabelPlugin`                                         |
+| Élagage de dictionnaire | Identique à la passe d'écriture JSON de `intlayerPurgeBabelPlugin`                                   |
+| Minification de dict.   | Identique à la passe d'écriture JSON de `intlayerMinifyBabelPlugin`                                  |
+| Transformation Babel    | Identique au renommage de code source de `intlayerMinifyBabelPlugin` + `intlayerOptimizeBabelPlugin` |
 
 ## Configuration par plateforme
 
@@ -186,9 +226,9 @@ Cela garantit que :
 
 ### Next.js
 
-Next.js nécessite le plugin `@intlayer/swc` pour gérer la transformation, car Next.js utilise SWC pour les builds.
+Next.js nécessite le plugin `@intlayer/swc` pour la passe d'optimisation (réécriture d'import), car Next.js utilise SWC pour les builds.
 
-> Ce plugin n'est pas installé par défaut car les plugins SWC sont encore expérimentaux pour Next.js. Cela peut changer à l'avenir.
+> Ce plugin n'est pas installé par défaut car les plugins SWC sont encore expérimentaux pour Next.js. Cela pourrait changer à l'avenir.
 
 ```bash packageManager="npm"
 npm install -D @intlayer/swc
@@ -208,19 +248,61 @@ bun add -d @intlayer/swc
 
 Une fois installé, Intlayer détectera et utilisera automatiquement le plugin.
 
+Pour les passes de **purge et de minification** (suppression de champs et renommage de champs), installez `@intlayer/babel` en parallèle et ajoutez les plugins Babel. Parce que Next.js utilise SWC pour la transformation mais évalue toujours `babel.config.js` pour la configuration des plugins, les plugins Babel s'exécutent en tant que pré-passe avant SWC.
+
+```bash packageManager="npm"
+npm install -D @intlayer/babel
+```
+
+```javascript fileName="babel.config.js"
+const {
+  intlayerPurgeBabelPlugin,
+  intlayerMinifyBabelPlugin,
+  getPurgePluginOptions,
+  getMinifyPluginOptions,
+} = require("@intlayer/babel");
+
+module.exports = {
+  presets: ["next/babel"],
+  plugins: [
+    // Purge : supprime les champs de contenu inutilisés de .intlayer/**/*.json
+    [intlayerPurgeBabelPlugin, getPurgePluginOptions()],
+    // Minify : renomme les clés de champ de contenu dans le JSON + code source
+    [intlayerMinifyBabelPlugin, getMinifyPluginOptions()],
+    // Note : intlayerOptimizeBabelPlugin n'est PAS nécessaire ici car
+    // @intlayer/swc gère la réécriture useIntlayer → useDictionary.
+  ],
+};
+```
+
  </Tab>
  <Tab value="vite">
 
 ### Vite
 
-Vite utilise le plugin `@intlayer/babel` qui est inclus comme dépendance de `vite-intlayer`. L'optimisation est activée par défaut. Rien d'autre à faire.
+Vite utilise le plugin `@intlayer/babel`, qui est inclus en tant que dépendance de `vite-intlayer`. L'ensemble du pipeline d'optimisation — réécriture des imports, purge et minification — est activé par défaut et ne nécessite aucune inscription de plugin supplémentaire.
+
+Activez la purge et la minification en définissant les drapeaux correspondants dans `intlayer.config.ts` :
+
+```typescript fileName="intlayer.config.ts"
+import type { IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  build: {
+    purge: true, // supprime les champs inutilisés des JSON groupés
+    minify: true, // renomme les clés de champs avec de courts alias
+  },
+};
+
+export default config;
+```
 
  </Tab>
  <Tab value="webpack">
 
-### Webpack
+### Webpack (et Next.js avec Babel)
 
-Pour activer l'optimisation du bundle avec Intlayer sur Webpack, vous devez installer et configurer le plugin Babel (`@intlayer/babel`) ou SWC (`@intlayer/swc`) approprié.
+Installez `@intlayer/babel` :
 
 ```bash packageManager="npm"
 npm install -D @intlayer/babel
@@ -238,14 +320,37 @@ pnpm add -D @intlayer/babel
 bun add -d @intlayer/babel
 ```
 
-```typescript fileName="babel.config.js"
+Ajoutez les quatre plugins à `babel.config.js` dans le bon ordre :
+
+```javascript fileName="babel.config.js"
 const {
-  getOptimizePluginOptions,
+  intlayerExtractBabelPlugin,
+  intlayerPurgeBabelPlugin,
+  intlayerMinifyBabelPlugin,
   intlayerOptimizeBabelPlugin,
+  getExtractPluginOptions,
+  getPurgePluginOptions,
+  getMinifyPluginOptions,
+  getOptimizePluginOptions,
 } = require("@intlayer/babel");
 
 module.exports = {
-  plugins: [[intlayerOptimizeBabelPlugin, getOptimizePluginOptions()]],
+  plugins: [
+    // Extract : compile les fichiers .content.ts → .intlayer/**/*.json
+    [intlayerExtractBabelPlugin, getExtractPluginOptions()],
+
+    // Purge : supprime les champs inutilisés de .intlayer/**/*.json
+    //    (lit le drapeau build.purge de intlayer.config.ts)
+    [intlayerPurgeBabelPlugin, getPurgePluginOptions()],
+
+    // Minify : renomme les clés de champs dans le JSON + code source
+    //    (lit le drapeau build.minify de intlayer.config.ts)
+    [intlayerMinifyBabelPlugin, getMinifyPluginOptions()],
+
+    // Optimize : réécrit useIntlayer('key') → useDictionary(hash)
+    //    Doit venir en dernier car il efface la clé du dictionnaire.
+    [intlayerOptimizeBabelPlugin, getOptimizePluginOptions()],
+  ],
 };
 ```
 
@@ -254,7 +359,7 @@ module.exports = {
 
 ## Configuration
 
-Vous pouvez contrôler la manière dont Intlayer optimise votre bundle via la propriété `build` dans votre fichier `intlayer.config.ts`.
+Vous pouvez contrôler la façon dont Intlayer optimise votre bundle via la propriété `build` de votre `intlayer.config.ts`.
 
 ```typescript fileName="intlayer.config.ts"
 import { Locales, type IntlayerConfig } from "intlayer";
@@ -268,43 +373,48 @@ const config: IntlayerConfig = {
     importMode: "dynamic",
   },
   build: {
-    /**
-     * Minifier les dictionnaires pour réduire la taille du bundle.
-     */
-     minify: true;
+    // Remplace les appels useIntlayer() par des imports directs de dictionnaires au moment du build.
+    // undefined = auto (activé en production), true = toujours, false = jamais.
+    optimize: undefined,
 
-    /**
-     * Purger les clés inutilisées dans les dictionnaires
-     */
-     purge: true;
+    // Renomme les clés des champs de contenu dans les dictionnaires compilés en de courts
+    // alias alphabétiques (par ex. title → a). Réduit la taille du JSON ; requiert optimize.
+    minify: true,
 
-    /**
-     * Indique si le build doit vérifier les types TypeScript
-     */
-    checkTypes: false;
+    // Supprime les champs de contenu qui ne sont jamais accédés dans le code source.
+    // Requiert optimize.
+    purge: true,
   },
 };
 
 export default config;
 ```
 
-> Conserver l'option par défaut pour `optimize` est recommandé dans la grande majorité des cas.
+> Conserver la valeur par défaut (`undefined`) pour `optimize` est recommandé dans la plupart des cas.
 
-> Voir la documentation de configuration pour plus de détails : [Configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/configuration.md)
+> Consultez la référence de configuration pour toutes les options : [Configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/configuration.md)
 
-### Options de build
+### Options de Build
 
-Les options suivantes sont disponibles sous l'objet de configuration `build` :
+| Propriété      | Type                   | Par défaut  | Description                                                                                                                                                                                                                   |
+| :------------- | :--------------------- | :---------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **`optimize`** | `boolean \| undefined` | `undefined` | Active la passe de réécriture des imports. `undefined` = actif uniquement dans les builds de production. `false` désactive également la purge et la minification.                                                             |
+| **`minify`**   | `boolean`              | `false`     | Renomme les clés des champs de contenu dans les fichiers JSON compilés en de courts alias alphabétiques. Réécrit également les accès aux propriétés correspondants dans le code source. Sans effet si `optimize` est `false`. |
+| **`purge`**    | `boolean`              | `false`     | Supprime les champs de contenu qui ne sont jamais accédés statiquement depuis les fichiers JSON compilés. Sans effet si `optimize` est `false`.                                                                               |
 
-| Propriété      | Type      | Par défaut  | Description                                                                                                                                                                                                       |
-| :------------- | :-------- | :---------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **`optimize`** | `boolean` | `undefined` | Contrôle si l'optimisation du build est activée. Si `true`, Intlayer remplace les appels aux dictionnaires par des injections optimisées. Si `false`, l'optimisation est désactivée. Idéalement à `true` en prod. |
-| **`minify`**   | `boolean` | `false`     | Indique s'il faut minifier les dictionnaires pour réduire la taille du bundle.                                                                                                                                    |
-| **`purge`**    | `boolean` | `false`     | Indique s'il faut purger les clés inutilisées dans les dictionnaires.                                                                                                                                             |
+### Minification (renommage des clés de champs)
 
-### Minification
+`build.minify` ne minifie **pas** votre bundle JavaScript — votre bundler s'en charge. À la place, cela réduit la taille des fichiers JSON de dictionnaires compilés en remplaçant chaque clé de champ de contenu définie par l'utilisateur par un court alias alphabétique :
 
-La minification des dictionnaires supprime les espaces inutiles, les commentaires et réduit la taille du contenu JSON. C'est particulièrement utile pour les dictionnaires volumineux.
+```
+// Avant la minification
+{ "title": "Bonjour", "subtitle": "Monde" }
+
+// Après la minification
+{ "a": "Bonjour", "b": "Monde" }
+```
+
+Le même renommage est appliqué à tous les accès aux propriétés dans votre code source, donc `content.title` devient `content.a` dans la sortie compilée. Le comportement à l'exécution est identique.
 
 ```typescript fileName="intlayer.config.ts"
 import type { IntlayerConfig } from "intlayer";
@@ -318,11 +428,13 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-> Note : La minification est ignorée si `optimize` est désactivé ou si l'Éditeur Visuel est activé (car l'éditeur a besoin du contenu complet pour permettre l'édition).
+> La minification est ignorée lorsque `optimize` est `false` ou lorsque `editor.enabled` est `true` (l'éditeur visuel requiert les noms de champs originaux pour permettre l'édition).
 
-### Purge
+> La minification est également ignorée pour les dictionnaires chargés via `importMode: 'fetch'` car leur JSON est servi depuis une API distante en utilisant les noms de champs originaux — renommer les clés côté client briserait le contrat serveur/client.
 
-La purge garantit que seules les clés réellement utilisées dans votre code sont incluses dans le bundle final de dictionnaires. Cela peut réduire considérablement la taille de votre bundle si vous avez de grands dictionnaires avec de nombreuses clés qui ne sont pas utilisées dans chaque partie de votre application.
+### Purge (suppression des champs inutilisés)
+
+`build.purge` analyse quels champs de contenu sont réellement accédés dans votre code source et supprime tous les autres des fichiers JSON compilés.
 
 ```typescript fileName="intlayer.config.ts"
 import type { IntlayerConfig } from "intlayer";
@@ -336,34 +448,50 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-> Note : La purge est ignorée si `optimize` est désactivé.
+**Exemple :** un dictionnaire avec cinq champs où seuls deux sont utilisés :
 
-### Mode d'importation
+```
+// Avant la purge
+{ "title": "…", "subtitle": "…", "cta": "…", "footer": "…", "badge": "…" }
 
-Pour les grandes applications comprenant plusieurs pages et locales, vos fichiers JSON peuvent représenter une partie importante de la taille de votre bundle. Intlayer vous permet de contrôler la manière dont les dictionnaires sont chargés.
+// Après la purge (seuls title + subtitle accédés dans la source)
+{ "title": "…", "subtitle": "…" }
+```
 
-Le mode d'importation peut être défini par défaut globalement dans votre fichier `intlayer.config.ts`.
+> La purge est ignorée lorsque `optimize` est `false` ou lorsque `editor.enabled` est `true`.
+
+> La purge est également ignorée de manière conservative lorsqu'un fichier source ne peut pas être analysé, ou lorsque le résultat de `useIntlayer` est assigné à une variable et transmis de manières que l'analyseur statique ne peut pas suivre (par ex. propagation dans un objet, passé en tant que prop sans déstructuration). Dans ces cas, le dictionnaire complet est conservé.
+
+### Mode d'Importation
+
+Pour les grandes applications comprenant plusieurs pages et langues, votre JSON peut représenter une partie significative de la taille de votre bundle. Intlayer vous permet de contrôler comment les dictionnaires sont chargés à l'aide de l'option `importMode`.
+
+### Définition globale
+
+Le mode d'importation peut être défini globalement dans votre fichier `intlayer.config.ts`.
 
 ```typescript fileName="intlayer.config.ts"
 import type { IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
-  build: {
-    minify: true,
+  dictionary: {
+    importMode: "dynamic", // La valeur par défaut est 'static'
   },
 };
 
 export default config;
 ```
 
-Ainsi que pour chaque dictionnaire dans vos fichiers `.content.{{ts|tsx|js|jsx|mjs|cjs|json|jsonc|json5}}`.
+### Définition par dictionnaire
+
+Vous pouvez remplacer le mode d'importation pour des dictionnaires individuels dans leurs fichiers `.content.{{ts|tsx|js|jsx|mjs|cjs|json|jsonc|json5|md|mdx|yaml|yml}}`.
 
 ```ts
 import { type Dictionary, t } from "intlayer";
 
 const appContent: Dictionary = {
   key: "app",
-  importMode: "dynamic", // Surcharge le mode d'importation par défaut
+  importMode: "dynamic", // Remplace le mode d'importation par défaut
   content: {
     // ...
   },
@@ -372,20 +500,19 @@ const appContent: Dictionary = {
 export default appContent;
 ```
 
-| Propriété        | Type                               | Par défaut | Description                                                                                                                  |
-| :--------------- | :--------------------------------- | :--------- | :--------------------------------------------------------------------------------------------------------------------------- |
-| **`importMode`** | `'static'`, `'dynamic'`, `'fetch'` | `'static'` | **Obsolète** : Utilisez `dictionary.importMode` à la place. Détermine comment les dictionnaires sont chargés (voir détails). |
+| Propriété        | Type                               | Par défaut | Description                                                                                                                         |
+| :--------------- | :--------------------------------- | :--------- | :---------------------------------------------------------------------------------------------------------------------------------- |
+| **`importMode`** | `'static'`, `'dynamic'`, `'fetch'` | `'static'` | **Obsolète** : Utilisez plutôt `dictionary.importMode`. Détermine la manière dont les dictionnaires sont chargés (voir ci-dessous). |
 
-Le paramètre `importMode` dicte comment le contenu du dictionnaire est injecté dans votre composant.
-Vous pouvez le définir globalement dans le fichier `intlayer.config.ts` sous l'objet `dictionary`, ou vous pouvez le surcharger pour un dictionnaire spécifique dans son fichier `.content.ts`.
+Le paramètre `importMode` dicte comment le contenu du dictionnaire est injecté dans votre composant. Vous pouvez le définir globalement dans `intlayer.config.ts` sous l'objet `dictionary`, ou le remplacer par dictionnaire dans son fichier `.content.ts`.
 
 ### 1. Mode Statique (`default`)
 
 En mode statique, Intlayer remplace `useIntlayer` par `useDictionary` et injecte le dictionnaire directement dans le bundle JavaScript.
 
-- **Avantages :** Rendu instantané (synchrone), zéro requête réseau supplémentaire lors de l'hydratation.
+- **Avantages :** Rendu instantané (synchrone), zéro requête réseau supplémentaire durant l'hydratation.
 - **Inconvénients :** Le bundle inclut les traductions pour **toutes** les langues disponibles pour ce composant spécifique.
-- **Idéal pour :** Single Page Applications (SPA).
+- **Idéal pour :** Applications à Page Unique (SPA).
 
 **Exemple de code transformé :**
 
@@ -393,13 +520,14 @@ En mode statique, Intlayer remplace `useIntlayer` par `useDictionary` et injecte
 // Votre code
 const content = useIntlayer("my-key");
 
-// Code optimisé (Statique)
+// Illustration du code optimisé après transformation (Statique)
+// C'est uniquement à des fins d'illustration, le vrai code sera différent pour des raisons d'optimisation
 const content = useDictionary({
   key: "my-key",
   content: {
     nodeType: "translation",
     translation: {
-      en: "My title",
+      en: "Mon titre",
       fr: "Mon titre",
     },
   },
@@ -408,11 +536,11 @@ const content = useDictionary({
 
 ### 2. Mode Dynamique
 
-En mode dynamique, Intlayer remplace `useIntlayer` par `useDictionaryAsync`. Cela utilise `import()` (mécanisme de type Suspense) pour charger paresseusement spécifiquement le JSON pour la locale actuelle.
+En mode dynamique, Intlayer remplace `useIntlayer` par `useDictionaryAsync`. Cela utilise `import()` (mécanisme semblable à Suspense) pour charger paresseusement de façon spécifique le JSON pour la langue actuelle.
 
-- **Avantages :** **Tree shaking au niveau de la locale.** Un utilisateur consultant la version anglaise ne téléchargera _que_ le dictionnaire anglais. Le dictionnaire français n'est jamais chargé.
+- **Avantages :** **Tree shaking au niveau de la langue.** Un utilisateur visionnant la version anglaise téléchargera _uniquement_ le dictionnaire anglais. Le dictionnaire français ne sera jamais chargé.
 - **Inconvénients :** Déclenche une requête réseau (récupération d'asset) par composant lors de l'hydratation.
-- **Idéal pour :** Gros blocs de texte, articles ou applications supportant de nombreuses langues où la taille du bundle est critique.
+- **Idéal pour :** Grands blocs de texte, articles ou applications supportant de nombreuses langues où la taille du bundle est critique.
 
 **Exemple de code transformé :**
 
@@ -420,7 +548,8 @@ En mode dynamique, Intlayer remplace `useIntlayer` par `useDictionaryAsync`. Cel
 // Votre code
 const content = useIntlayer("my-key");
 
-// Code optimisé (Dynamique)
+// Illustration du code optimisé après transformation (Dynamique)
+// C'est uniquement à des fins d'illustration, le vrai code sera différent pour des raisons d'optimisation
 const content = useDictionaryAsync({
   en: () =>
     import(".intlayer/dynamic_dictionary/my-key/en.json").then(
@@ -433,22 +562,41 @@ const content = useDictionaryAsync({
 });
 ```
 
-> Lors de l'utilisation de `importMode: 'dynamic'`, si vous avez 100 composants utilisant `useIntlayer` sur une seule page, le navigateur tentera 100 récupérations séparées. Pour éviter cette "cascade" de requêtes, regroupez le contenu dans moins de fichiers `.content` (par exemple, un dictionnaire par section de page) plutôt qu'un par composant atomique.
+> Lors de l'utilisation de `importMode: 'dynamic'`, si vous avez 100 composants utilisant `useIntlayer` sur une même page, le navigateur tentera 100 récupérations séparées. Pour éviter cette "cascade" de requêtes, regroupez le contenu dans moins de fichiers `.content` (par ex. un dictionnaire par section de page) plutôt qu'un seul par composant atome. Vous pouvez également utiliser plusieurs fichiers `.content` utilisant la même clé. Intlayer les fusionnera en un seul dictionnaire.
 
 ### 3. Mode Fetch
 
-Se comporte de manière similaire au mode Dynamique mais tente d'abord de récupérer les dictionnaires à partir de l'API Intlayer Live Sync. Si l'appel API échoue ou si le contenu n'est pas marqué pour les mises à jour en direct, il se replie sur l'importation dynamique.
+Se comporte de manière similaire au mode Dynamique mais tente d'abord de récupérer les dictionnaires depuis l'API Intlayer Live Sync. Si l'appel API échoue ou si le contenu n'est pas marqué pour des mises à jour en direct, il se rabat sur l'importation dynamique.
 
-> Voir la documentation CMS pour plus de détails : [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_CMS.md)
+**Exemple de code transformé :**
 
-> En mode fetch, la purge et la minification ne peuvent pas être utilisées.
+```tsx
+// Votre code
+const content = useIntlayer("my-key");
+
+// Illustration du code optimisé (Fetch)
+const content = useDictionaryAsync({
+  en: () =>
+    fetch("https://intlayer.my-domain.com/dictionary/my-key/en").then((res) =>
+      res.json()
+    ),
+  fr: () =>
+    fetch("https://intlayer.my-domain.com/dictionary/my-key/fr").then((res) =>
+      res.json()
+    ),
+});
+```
+
+> Voir la documentation du CMS pour plus de détails : [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_CMS.md)
+
+> En mode fetch, la purge et la minification ne sont pas appliquées car le JSON est servi par une API distante utilisant les noms originaux de champs.
 
 ## Résumé : Statique vs Dynamique
 
-| Fonctionnalité                 | Mode Statique                                         | Mode Dynamique                                   |
-| :----------------------------- | :---------------------------------------------------- | :----------------------------------------------- |
-| **Taille du bundle JS**        | Plus grande (inclut toutes les langues pour le comp.) | Plus petite (seulement le code, pas de contenu)  |
-| **Chargement initial**         | Instantané (le contenu est dans le bundle)            | Léger délai (récupère le JSON)                   |
-| **Requêtes réseau**            | 0 requête supplémentaire                              | 1 requête par dictionnaire                       |
-| **Tree Shaking**               | Au niveau du composant                                | Au niveau du composant + Au niveau de la locale  |
-| **Meilleur cas d'utilisation** | Composants UI, petites applications                   | Pages avec beaucoup de texte, nombreuses langues |
+| Caractéristique                | Mode Statique                                   | Mode Dynamique                                   |
+| :----------------------------- | :---------------------------------------------- | :----------------------------------------------- |
+| **Taille du bundle JS**        | Plus grande (inclut toutes les langues du comp) | Plus petite (uniquement du code, aucun contenu)  |
+| **Chargement initial**         | Instantané (Le contenu est dans le bundle)      | Léger délai (Récupère le JSON)                   |
+| **Requêtes réseau**            | 0 requête supplémentaire                        | 1 requête par clé de dictionnaire                |
+| **Tree Shaking**               | Niveau composant                                | Niveau composant + Niveau langue                 |
+| **Meilleur cas d'utilisation** | Composants UI, petites applications             | Pages avec beaucoup de texte, nombreuses langues |

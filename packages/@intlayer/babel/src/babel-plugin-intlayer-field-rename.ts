@@ -151,7 +151,10 @@ const walkRenameChain = (
   babelTypes: typeof BabelTypes,
   startPath: NodePath<BabelTypes.Node>,
   currentRenameMap: NestedRenameMap
-): void => {
+): {
+  finalPath: NodePath<BabelTypes.Node>;
+  finalRenameMap: NestedRenameMap;
+} => {
   let refPath: NodePath<BabelTypes.Node> = startPath;
   let renameMap = currentRenameMap;
 
@@ -215,6 +218,8 @@ const walkRenameChain = (
     refPath = parentPath;
     renameMap = renameEntry.children;
   }
+
+  return { finalPath: refPath, finalRenameMap: renameMap };
 };
 
 /**
@@ -281,12 +286,12 @@ const walkObjectDestructuring = (
       const localVarBinding = refPath.scope.getBinding(localVarName);
       if (localVarBinding) {
         for (const nestedRefPath of localVarBinding.referencePaths) {
-          walkRenameChain(babelTypes, nestedRefPath, renameEntry.children);
-          walkObjectDestructuring(
+          const { finalPath, finalRenameMap } = walkRenameChain(
             babelTypes,
             nestedRefPath,
             renameEntry.children
           );
+          walkObjectDestructuring(babelTypes, finalPath, finalRenameMap);
         }
       }
     }
@@ -445,15 +450,15 @@ export const makeFieldRenameBabelPlugin =
                     );
                     if (localVarBinding) {
                       for (const refPath of localVarBinding.referencePaths) {
-                        walkRenameChain(
+                        const { finalPath, finalRenameMap } = walkRenameChain(
                           babelTypes,
                           refPath,
                           renameEntry.children
                         );
                         walkObjectDestructuring(
                           babelTypes,
-                          refPath,
-                          renameEntry.children
+                          finalPath,
+                          finalRenameMap
                         );
                       }
                     }
@@ -469,7 +474,12 @@ export const makeFieldRenameBabelPlugin =
                 (parentNode as BabelTypes.MemberExpression).object ===
                   callExpressionPath.node
               ) {
-                walkRenameChain(babelTypes, callExpressionPath, fieldRenameMap);
+                const { finalPath, finalRenameMap } = walkRenameChain(
+                  babelTypes,
+                  callExpressionPath,
+                  fieldRenameMap
+                );
+                walkObjectDestructuring(babelTypes, finalPath, finalRenameMap);
                 return;
               }
 
@@ -485,15 +495,15 @@ export const makeFieldRenameBabelPlugin =
 
                 for (const variableReferencePath of variableBinding.referencePaths) {
                   // Direct access: result.fieldA or const { fieldA } = result
-                  walkRenameChain(
+                  const { finalPath, finalRenameMap } = walkRenameChain(
                     babelTypes,
                     variableReferencePath,
                     fieldRenameMap
                   );
                   walkObjectDestructuring(
                     babelTypes,
-                    variableReferencePath,
-                    fieldRenameMap
+                    finalPath,
+                    finalRenameMap
                   );
 
                   // Signal accessor: result().fieldA or const { fieldA } = result()
@@ -508,11 +518,14 @@ export const makeFieldRenameBabelPlugin =
                   ) {
                     const callPath = variableReferencePath.parentPath;
                     if (callPath) {
-                      walkRenameChain(babelTypes, callPath, fieldRenameMap);
+                      const {
+                        finalPath: signalFinalPath,
+                        finalRenameMap: signalFinalRenameMap,
+                      } = walkRenameChain(babelTypes, callPath, fieldRenameMap);
                       walkObjectDestructuring(
                         babelTypes,
-                        callPath,
-                        fieldRenameMap
+                        signalFinalPath,
+                        signalFinalRenameMap
                       );
                     }
                   }
