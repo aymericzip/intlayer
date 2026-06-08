@@ -63,7 +63,7 @@ const FileItem: FC<FileItemProps> = ({
         className={cn(
           'flex w-full items-start justify-start whitespace-pre text-nowrap px-2 py-1 text-xs transition',
           isActive
-            ? 'bg-neutral-200 dark:bg-neutral-700'
+            ? 'bg-neutral-200 dark:bg-neutral-800'
             : 'cursor-pointer hover:bg-neutral-300 dark:hover:bg-neutral-900'
         )}
         key={path}
